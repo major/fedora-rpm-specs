@@ -31,6 +31,11 @@ Requires:       python3-jaraco
 %prep
 %autosetup -n %{projname}-%{version}
 
+%if 0%{?rhel}
+# relax setuptools requirement in EPEL
+sed -i 's/setuptools>=56/setuptools/' pyproject.toml
+%endif
+
 %generate_buildrequires
 %pyproject_buildrequires
 

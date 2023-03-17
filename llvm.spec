@@ -17,12 +17,13 @@
 %bcond_with compat_build
 %bcond_without check
 
-#global rc_ver 3
-%global maj_ver 15
+%global rc_ver 4
+%global maj_ver 16
 %global min_ver 0
-%global patch_ver 7
+%global patch_ver 0
 %global llvm_srcdir llvm-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:rc%{rc_ver}}.src
 %global cmake_srcdir cmake-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:rc%{rc_ver}}.src
+%global third_party_srcdir third-party-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:rc%{rc_ver}}.src
 %global _lto_cflags -flto=thin
 
 %if %{with compat_build}
@@ -74,7 +75,7 @@
 
 Name:		%{pkg_name}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}
-Release:	3%{?dist}
+Release:	1%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -83,18 +84,22 @@ Source0:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ve
 Source1:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{llvm_srcdir}.tar.xz.sig
 Source2:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{cmake_srcdir}.tar.xz
 Source3:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{cmake_srcdir}.tar.xz.sig
-Source4:	release-keys.asc
+Source4:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{third_party_srcdir}.tar.xz
+Source5:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{third_party_srcdir}.tar.xz.sig
+Source6:	release-keys.asc
 
 %if %{without compat_build}
-Source5:	run-lit-tests
-Source6:	lit.fedora.cfg.py
+Source7:	run-lit-tests
+Source8:	lit.fedora.cfg.py
 %endif
 
-Patch2:		0003-XFAIL-missing-abstract-variable.ll-test-on-ppc64le.patch
+# Backport from LLVM 17.
+Patch0:		D145763.diff
 
-# Needed to export clang-tblgen during the clang build, needed by the flang docs build.
-# TODO: Can be dropped for LLVM 16, see https://reviews.llvm.org/D131282.
-Patch3:		0001-Install-clang-tblgen.patch
+# See https://reviews.llvm.org/D137890 for the next two patches
+Patch2:		0001-llvm-Add-install-targets-for-gtest.patch
+# Patching third-party dir with a 200 offset in patch number
+Patch201:	0201-third-party-Add-install-targets-for-gtest.patch
 
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
@@ -207,14 +212,21 @@ LLVM's modified googletest sources.
 %endif
 
 %prep
-%{gpgverify} --keyring='%{SOURCE4}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%{gpgverify} --keyring='%{SOURCE4}' --signature='%{SOURCE3}' --data='%{SOURCE2}'
+%{gpgverify} --keyring='%{SOURCE6}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{gpgverify} --keyring='%{SOURCE6}' --signature='%{SOURCE3}' --data='%{SOURCE2}'
+%{gpgverify} --keyring='%{SOURCE6}' --signature='%{SOURCE5}' --data='%{SOURCE4}'
 %setup -T -q -b 2 -n %{cmake_srcdir}
 # TODO: It would be more elegant to set -DLLVM_COMMON_CMAKE_UTILS=%{_builddir}/%{cmake_srcdir},
 # but this is not a CACHED variable, so we can't actually set it externally :(
 cd ..
 mv %{cmake_srcdir} cmake
-%autosetup -n %{llvm_srcdir} -p2
+%setup -T -q -b 4 -n %{third_party_srcdir}
+%autopatch -m200 -p2
+cd ..
+mv %{third_party_srcdir} third-party
+
+%setup -T -q -b 0 -n %{llvm_srcdir}
+%autopatch -M200 -p2
 
 %py3_shebang_fix \
 	test/BugPoint/compile-custom.ll.py \
@@ -267,6 +279,7 @@ export ASMFLAGS=$CFLAGS
 	\
 	-DLLVM_INCLUDE_TESTS:BOOL=ON \
 	-DLLVM_BUILD_TESTS:BOOL=ON \
+	-DLLVM_INSTALL_GTEST:BOOL=ON \
 	-DLLVM_LIT_ARGS=-v \
 	\
 	-DLLVM_INCLUDE_EXAMPLES:BOOL=ON \
@@ -337,13 +350,14 @@ rm -rf test/tools/UpdateTestChecks
 %endif
 
 install %{build_libdir}/libLLVMTestingSupport.a %{buildroot}%{_libdir}
+install %{build_libdir}/libLLVMTestingAnnotations.a %{buildroot}%{_libdir}
 
 %global install_srcdir %{buildroot}%{_datadir}/llvm/src
 
 # Install gtest sources so clang can use them for gtest
 install -d %{install_srcdir}
 install -d %{install_srcdir}/utils/
-cp -R utils/unittest %{install_srcdir}/utils/
+cp -R ../third-party/unittest %{install_srcdir}/utils/
 
 # Clang needs these for running lit tests.
 cp utils/update_cc_test_checks.py %{install_srcdir}/utils/
@@ -530,6 +544,7 @@ fi
 %if %{without compat_build}
 %{_libdir}/*.a
 %exclude %{_libdir}/libLLVMTestingSupport.a
+%exclude %{_libdir}/libLLVMTestingAnnotations.a
 %else
 %{_libdir}/%{name}/lib/*.a
 %endif
@@ -549,10 +564,25 @@ fi
 %license LICENSE.TXT
 %{_datadir}/llvm/src/utils
 %{_libdir}/libLLVMTestingSupport.a
+%{_libdir}/libLLVMTestingAnnotations.a
+%{_includedir}/llvm-gtest
+%{_includedir}/llvm-gmock
 
 %endif
 
 %changelog
+* Tue Mar 14 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc4-1
+- Update to LLVM 16.0.0 RC4
+
+* Fri Mar 10 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc3-2
+- Fix llvm-exegesis failures on s390x
+
+* Wed Feb 22 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc3-1
+- Update to LLVM 16.0.0 RC3
+
+* Wed Feb 01 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc1-1
+- Update to LLVM 16.0.0 RC1
+
 * Thu Jan 19 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 15.0.7-3
 - Update license to SPDX identifiers.
 - Include the Apache license adopted in 2019.

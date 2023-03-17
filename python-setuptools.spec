@@ -56,8 +56,8 @@ BuildRequires:  pyproject-rpm-macros >= 0-44
 BuildRequires:  python%{python3_pkgversion}-setuptools
 # python3 bootstrap: this is built before the final build of python3, which
 # adds the dependency on python3-rpm-generators, so we require it manually
-# The minimal version is for bundled provides verification script
-BuildRequires:  python3-rpm-generators >= 11-8
+# The minimal version is for bundled provides verification script to accept multiple files as input
+BuildRequires:  python3-rpm-generators >= 12-8
 %endif
 
 %description
@@ -69,11 +69,8 @@ This package also contains the runtime components of setuptools, necessary to
 execute the software that requires pkg_resources.
 
 # Virtual provides for the packages bundled by setuptools.
-# Bundled packages are defined in two files:
-# - pkg_resources/_vendor/vendored.txt, and
-# - setuptools/_vendor/vendored.txt
-# Merge them to one and then generate the list with:
-# %%{_rpmconfigdir}/pythonbundles.py --namespace 'python%%{python3_pkgversion}dist' allvendor.txt
+# Bundled packages are defined in multiple files. Generate the list with:
+# %%{_rpmconfigdir}/pythonbundles.py --namespace 'python%%{python3_pkgversion}dist' */_vendor/vendored.txt
 %global bundled %{expand:
 Provides: bundled(python%{python3_pkgversion}dist(appdirs)) = 1.4.3
 Provides: bundled(python%{python3_pkgversion}dist(importlib-metadata)) = 4.11.1
@@ -171,11 +168,10 @@ install -p %{_pyproject_wheeldir}/%{python_wheel_name} -t %{buildroot}%{python_w
 
 
 %check
-# Verify bundled provides are up to date, pythonbundles.py uses pkg_resources from $PWD 
-cat pkg_resources/_vendor/vendored.txt setuptools/_vendor/vendored.txt > allvendor.txt
-PYTHONPATH=. %{_rpmconfigdir}/pythonbundles.py allvendor.txt --namespace 'python%{python3_pkgversion}dist' --compare-with '%{bundled}'
-
 %if %{without bootstrap}
+# Verify bundled provides are up to date
+%{_rpmconfigdir}/pythonbundles.py */_vendor/vendored.txt --namespace 'python%{python3_pkgversion}dist' --compare-with '%{bundled}'
+
 # Regression test, the wheel should not be larger than 900 kB
 # https://bugzilla.redhat.com/show_bug.cgi?id=1914481#c3
 test $(stat --format %%s %{_pyproject_wheeldir}/%{python_wheel_name}) -lt 900000

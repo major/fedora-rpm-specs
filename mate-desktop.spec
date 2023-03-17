@@ -15,9 +15,9 @@
 Summary:       Shared code for mate-panel, mate-session, caja, etc
 Name:          mate-desktop
 License:       GPLv2+ and LGPLv2+ and MIT
-Version:       %{branch}.0
+Version:       %{branch}.1
 %if 0%{?rel_build}
-Release:       7%{?dist}
+Release:       1%{?dist}
 %else
 Release:       0.16%{?git_rel}%{?dist}
 %endif
@@ -34,6 +34,9 @@ Source1:        mate-fedora-f34.gschema.override
 Source2:        mate-rhel.gschema.override
 Source3:        mate-mimeapps.list
 Source4:        80-mate-compiz.preset
+
+# https://github.com/mate-desktop/mate-desktop/commit/e9eb2ad
+Patch1:        mate-desktop_0001-Add-setting-for-adjustment-of-audio-volume-above-100.patch
 
 BuildRequires: dconf-devel
 BuildRequires: desktop-file-utils
@@ -57,14 +60,14 @@ Requires: mate-control-center-filesystem
 Requires: mate-panel
 Requires: mate-notification-daemon
 Requires: mate-user-guide
-%if 0%{?fedora} && 0%{?fedora} >= 36
+%if 0%{?fedora} && 0%{?fedora} >= 38
+Requires: f38-backgrounds-mate
+%endif
+%if 0%{?fedora} && 0%{?fedora} == 37
+Requires: f37-backgrounds-mate
+%endif
+%if 0%{?fedora} && 0%{?fedora} == 36
 Requires: f36-backgrounds-mate
-%endif
-%if 0%{?fedora} && 0%{?fedora} == 35
-Requires: f35-backgrounds-mate
-%endif
-%if 0%{?fedora} && 0%{?fedora} == 34
-Requires: f34-backgrounds-mate
 %endif
 
 # Need this to pull in the right imsettings in groupinstalls
@@ -206,6 +209,11 @@ install -m 644 %SOURCE4 %{buildroot}/%{_prefix}/lib/systemd/system-preset/80-mat
 
 
 %changelog
+* Wed Mar 15 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-1
+- update to 1.26.1
+- Fixes several issues with libmate-desktop
+- Allow adjustment of audio-volume above 100 percent
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

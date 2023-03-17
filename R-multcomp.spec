@@ -1,14 +1,14 @@
 %define packname multcomp
 %global packver  1.4
-%define packrel  20
+%define packrel  23
 
 %global __suggests_exclude ^R\\((ISwR|SimComp|coin|coxme|lme4|robustbase|tram)\\)
 
 Summary:        Simultaneous inference for general linear hypotheses R Package
 Name:           R-%{packname}
 Version:        %{packver}.%{packrel}
-Release:        2%{?dist}
-License:        GPLv2
+Release:        1%{?dist}
+License:        GPL-2.0-only
 Source0:        http://cran.r-project.org/src/contrib/%{packname}_%{packver}-%{packrel}.tar.gz
 URL:            http://cran.r-project.org/web/packages/multcomp/index.html
 BuildArch:      noarch
@@ -69,6 +69,9 @@ rm -rf %{buildroot}%{_datadir}/R/library/R.css
 
 
 %changelog
+* Wed Mar 15 2023 Tom Callaway <spot@fedoraproject.org> - 1.4.23-1
+- update to 1.4-23
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.20-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

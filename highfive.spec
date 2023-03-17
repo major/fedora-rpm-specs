@@ -108,6 +108,12 @@ Documentation for %{name}
 
 
 %build
+# With g++13, warnings are generated from xtl side, e.g.
+# /usr/include/xtl/xsequence.hpp:132:24: error: 'ret' may be used uninitialized
+# [-Werror=maybe-uninitialized]
+# Disabling -Werror
+sed -i CMake/config/CompilerFlagsHelpers.cmake -e 's|-Werror ||'
+
 %if %{with tests}
 %set_build_flags
 # The unit tests intentionally test deprecated APIs; silence these warnings so

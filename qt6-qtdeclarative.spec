@@ -16,7 +16,7 @@
 Summary: Qt6 - QtDeclarative component
 Name:    qt6-%{qt_module}
 Version: 6.4.2
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -34,6 +34,9 @@ Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submod
 Source5: qv4global_p-multilib.h
 
 ## upstream patches
+### From: https://codereview.qt-project.org/c/qt/qtdeclarative/+/466808
+### Cf. https://bugzilla.redhat.com/show_bug.cgi?id=2177696
+Patch0: qt-QTBUG-111935-fix-V4-jit.patch
 
 ## upstreamable patches
 
@@ -319,6 +322,9 @@ make check -k -C tests ||:
 %endif
 
 %changelog
+* Wed Mar 15 2023 Neal Gompa <ngompa@fedoraproject.org> - 6.4.2-5
+- Backport fix for crashes in V4 JIT (#2177696)
+
 * Fri Mar 03 2023 Jan Grulich <jgrulich@redhat.com> - 6.4.2-4
 - Fix directory ownership
 

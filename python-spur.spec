@@ -4,15 +4,13 @@
 %global desc Run commands and manipulate files locally or over SSH using the same interface.
 
 Name:           python-%{srcname}
-Version:        0.3.22
-Release:        4%{?dist}
+Version:        0.3.23
+Release:        1%{?dist}
 Summary:        %{sum}
 
 License:        BSD-2-Clause
 URL:            https://github.com/mwilliamson/spur.py
 Source0:        %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
-Patch0:         python-spur-encode.patch
-Patch1:         python-spur-paramiko.patch
 BuildArch:      noarch
 
 %description
@@ -48,10 +46,8 @@ sed -i -e "s/’/'/g" README.rst
 # skip tests on EL9 due to deprecated python-nose
 %if 0%{?rhel} && 0%{?rhel} < 9
 %check
-# Tests which require SSH server
-# Some tests are failing with python 3.8
-# https://github.com/mwilliamson/spur.py/issues/85
-nosetests-%{python3_version} -v -e testing -e ssh_tests -e local_tests
+# Exclude tests which require SSH server
+nosetests-%{python3_version} -v -e testing -e ssh_tests
 %endif
 
 
@@ -62,6 +58,9 @@ nosetests-%{python3_version} -v -e testing -e ssh_tests -e local_tests
 
 
 %changelog
+* Wed Mar 15 2023 Orion Poplawski <orion@nwra.com> - 0.3.23-1
+- Update to 0.3.23
+
 * Sun Jan 22 2023 Orion Poplawski <orion@nwra.com> - 0.3.22-4
 - Relax paramiko version requirement
 - Use SPDX License tag

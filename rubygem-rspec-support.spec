@@ -15,6 +15,7 @@ Version:	%{mainver}
 Release:	%{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}%{?dist}.1
 
 Summary:	Common functionality to Rspec series
+# SPDX confirmed
 License:	MIT
 URL:		https://github.com/rspec/rspec-support
 Source0:	https://rubygems.org/gems/%{gem_name}-%{mainver}%{?prever}.gem

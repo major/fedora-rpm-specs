@@ -10,7 +10,7 @@
 
 Name:           tilix
 Version:        1.9.5
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Tiling terminal emulator
 
 # The tilix source code is MPL-2.0,
@@ -24,10 +24,16 @@ Summary:        Tiling terminal emulator
 License:        MPL-2.0 AND GPL-2.0-or-later AND LGPL-3.0-or-later AND LGPL-3.0-only AND GPL-3.0-or-later AND (LGPL-3.0-or-later OR CC-BY-SA-3.0)
 URL:            https://github.com/gnunn1/tilix
 Source0:        https://github.com/gnunn1/tilix/archive/%{version}/%{name}-%{version}.tar.gz
+%global bundled_undeaD_version 1.1.8
+Source1:        https://github.com/dlang/undeaD/archive/refs/tags/v%{bundled_undeaD_version}/undeaD-%{bundled_undeaD_version}.tar.gz
 
 # Fix compatibility with Nautilus 43
 # https://github.com/gnunn1/tilix/pull/2115
 Patch:          2115.patch
+# Fix the build with ldc 1.31+ that removed xml from std
+# https://github.com/gnunn1/tilix/issues/2151
+# Patch from https://github.com/archlinux/svntogit-community/tree/master/tilix/trunk
+Patch:          undeaD-xml.patch
 
 ExclusiveArch:  %{ldc_arches}
 
@@ -55,6 +61,8 @@ Requires:       gtkd%{?_isa} >= %{gtkd_version}
 # Upgrade path from terminix copr
 Obsoletes:      terminix < 1.5.4
 Provides:       terminix = %{version}-%{release}
+
+Provides:       bundled(undeaD) = %{bundled_undeaD_version}
 
 %description
 Tilix is a tiling terminal emulator with the following features:
@@ -92,6 +100,7 @@ option to the right-click context menu in Nautilus.
 
 %prep
 %autosetup -p1
+%autosetup -p1 -D -a 1
 
 %if 0%{?flatpak}
 sed -i -e "/^Exec=/ s|/usr/bin|%{_bindir}|" data/dbus/com.gexperts.Tilix.service
@@ -150,6 +159,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/com.gexperts.Tilix
 
 
 %changelog
+* Wed Mar 15 2023 Kalev Lember <klember@redhat.com> - 1.9.5-9
+- Switch to undeaD xml library
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

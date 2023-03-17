@@ -1,10 +1,10 @@
 %global packname gss
-%global packver  2.2-3
+%global packver  2.2-4
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
-Version:          2.2.3
-Release:          2%{?dist}
+Version:          2.2.4
+Release:          1%{?dist}
 Summary:          General Smoothing Splines
 
 License:          GPLv2+
@@ -61,6 +61,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Mar 15 2023 Tom Callaway <spot@fedoraproject.org> - 2.2.4-1
+- update to 2.2-4
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

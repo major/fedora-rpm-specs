@@ -1,16 +1,20 @@
 Name:           perl-MooseX-StrictConstructor 
 Version:        0.21
-Release:        19%{?dist}
+Release:        20%{?dist}
 # see lib/MooseX/StrictConstructor.pm
-License:        Artistic 2.0
+License:        Artistic-2.0
 Summary:        Make your object constructors blow up on unknown attributes 
 Source:         https://cpan.metacpan.org/authors/id/D/DR/DROLSKY/MooseX-StrictConstructor-%{version}.tar.gz 
 Url:            https://metacpan.org/release/MooseX-StrictConstructor
 BuildArch:      noarch
-BuildRequires: make
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(B)
+BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Moo)
 BuildRequires:  perl(Moose) >= 0.94
 BuildRequires:  perl(Moose::Exporter)
@@ -21,6 +25,8 @@ BuildRequires:  perl(Test::Moose)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Test::Needs)
 BuildRequires:  perl(namespace::autoclean)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
 
 %{?perl_default_filter}
 
@@ -32,17 +38,15 @@ small typos.
 
 %prep
 %setup -q -n MooseX-StrictConstructor-%{version}
-
 # avoid rpmlint wrong-script-interpreter warning
-sed -i '1s~#!.*perl~#!%{__perl}~' t/*.t
+perl -MConfig -i -pe '$. == 1 && s~#!.*perl~$Config{startperl}~' t/*.t
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-
+%{make_install}
 %{_fixperms} %{buildroot}/*
 
 %check
@@ -55,6 +59,9 @@ make test
 %{_mandir}/man3/MooseX*.3*
 
 %changelog
+* Wed Mar 15 2023 Petr Pisar <ppisar@redhat.com> - 0.21-20
+- Convert a license tag to an SPDX syntax
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

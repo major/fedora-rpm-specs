@@ -41,21 +41,21 @@ Don't worry, HTTPretty is here for you.
 
 %package -n python3-httpretty
 Summary:        HTTP request mock tool for Python 3
-Requires:       python%{python3_pkgversion}-six
+Requires:       python3-six
 
-BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
+BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 %if %{run_tests}
-BuildRequires:  python%{python3_pkgversion}-httplib2
-BuildRequires:  python%{python3_pkgversion}-mock
-BuildRequires:  python%{python3_pkgversion}-nose
-BuildRequires:  python%{python3_pkgversion}-requests
-BuildRequires:  python%{python3_pkgversion}-sure
-BuildRequires:  python%{python3_pkgversion}-urllib3
-BuildRequires:  python%{python3_pkgversion}-tornado
-BuildRequires:  python%{python3_pkgversion}-eventlet
-BuildRequires:  python%{python3_pkgversion}-freezegun
-BuildRequires:  python%{python3_pkgversion}-redis
+BuildRequires:  python3-httplib2
+BuildRequires:  python3-mock
+BuildRequires:  python3-nose
+BuildRequires:  python3-requests
+BuildRequires:  python3-sure
+BuildRequires:  python3-urllib3
+BuildRequires:  python3-tornado
+BuildRequires:  python3-eventlet
+BuildRequires:  python3-freezegun
+BuildRequires:  python3-redis
 %endif
 
 %description -n python3-httpretty

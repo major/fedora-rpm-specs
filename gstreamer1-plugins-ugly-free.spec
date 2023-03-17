@@ -6,7 +6,7 @@
 
 Name:           gstreamer1-plugins-ugly-free
 Version:        1.22.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GStreamer streaming media framework "ugly" plugins
 
 License:        LGPLv2+ and LGPLv2
@@ -152,6 +152,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %endif
 
 %changelog
+* Wed Mar 15 2023 Wim Taymans <wtaymans@redhat.com> - 1.22.1-2
+- Rebuild for new AMR plugins.
+
 * Mon Mar 13 2023 Wim Taymans <wtaymans@redhat.com> - 1.22.1-1
 - Update to 1.22.1
 

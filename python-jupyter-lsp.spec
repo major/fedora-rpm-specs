@@ -1,6 +1,6 @@
 Name:           python-jupyter-lsp
-Version:        1.5.1
-Release:        2%{?dist}
+Version:        2.0.0
+Release:        1%{?dist}
 Summary:        Multi-Language Server WebSocket proxy for Jupyter Notebook/Lab server
 License:        BSD-3-Clause
 URL:            https://pypi.org/project/jupyter-lsp/
@@ -32,9 +32,6 @@ sed -i "/--cov /d" setup.cfg
 sed -i "/--cov-report/d" setup.cfg
 sed -i "/--flake8/d" setup.cfg
 
-# Remove empty file
-# https://github.com/jupyter-lsp/jupyterlab-lsp/pull/884
-rm jupyter_lsp/specs/base.py
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -66,6 +63,9 @@ mv -v %{buildroot}{%{_prefix},}%{_sysconfdir}/jupyter/jupyter_server_config.d/ju
 
 
 %changelog
+* Wed Mar 15 2023 Lumír Balhar <lbalhar@redhat.com> - 2.0.0-1
+- Update to 2.0.0 (rhbz#2178558)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

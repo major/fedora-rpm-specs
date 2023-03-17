@@ -1,7 +1,7 @@
 Summary: Application for extraction and decompilation of JVM byte code
 Name: java-runtime-decompiler
-Version: 6.1
-Release: 6%{?dist}
+Version: 7.1
+Release: 1%{?dist}
 License: GPLv3
 URL: https://github.com/pmikova/java-runtime-decompiler
 Source0: https://github.com/pmikova/%{name}/archive/%{name}-%{version}.tar.gz
@@ -24,6 +24,7 @@ BuildRequires: junit5
 BuildRequires: ant-junit5
 BuildRequires: junit
 BuildRequires: ant-junit
+BuildRequires: java-diff-utils
 BuildRequires: maven-surefire-provider-junit
 BuildRequires: maven-surefire-provider-junit5
 BuildRequires: maven-surefire
@@ -36,14 +37,17 @@ BuildRequires: classpathless-compiler
 Requires: java-headless
 Recommends: java
 Requires: classpathless-compiler
+Requires: java-diff-utils
 Recommends: fernflower
-Recommends: procyon-decompiler
+Recommends: procyon-decompiler >= 0.6
 Recommends: CFR
-Recommends: openjdk-asmtools
+Recommends: openjdk-asmtools >= 8.0
+Recommends: openjdk-asmtools7
 
 %description
 This application can access JVM memory at runtime,
 extract byte code from the JVM and decompile it. 
+In addition, it can modify the obtained code and comple it back
 
 %package javadoc
 Summary: Javadoc for %{name}
@@ -75,9 +79,13 @@ for x in $a ; do
   #grep -e ".*SuppressFBWarnings.*" $x && echo "^ $x ^"
   sed "s/.*SuppressFBWarnings.*//g" $x -i
 done
-
+xmvn --version
+echo $JAVA_HOME
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk #why?
+xmvn --version
 %mvn_build -f --xmvn-javadoc -- -Plegacy
-java -cp /usr/share/java/classpathless-compiler/classpathless-compiler.jar:runtime-decompiler/target/runtime-decompiler-%{version}.jar org.jrd.backend.data.Help > %{name}.1
+CPLC=/usr/share/java/classpathless-compiler
+java -cp $CPLC/classpathless-compiler.jar:$CPLC/classpathless-compiler-api.jar:$CPLC/classpathless-compiler-util.jar:runtime-decompiler/target/runtime-decompiler-%{version}.jar org.jrd.backend.data.cli.Help > %{name}.1
 
 %install
 %mvn_install
@@ -118,8 +126,10 @@ desktop-file-install --vendor="fedora"                     \
 %license LICENSE
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+* Thu Mar 15 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.1-1
+- moved to jrd 7.1
+- todo:asm7/g/procyonassembler wrappers, new launchers, new classpath (diff, cplc api...)
+-      verify current wrappers
 
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild

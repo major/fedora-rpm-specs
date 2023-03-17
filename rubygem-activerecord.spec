@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Epoch: 1
-Version: 7.0.4.2
+Version: 7.0.4.3
 Release: 1%{?dist}
 Summary: Object-relational mapper framework (part of Rails)
 License: MIT
@@ -12,12 +12,12 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # The gem doesn't ship with the test suite.
 # You may check it out like so
 # git clone http://github.com/rails/rails.git
-# cd rails/activerecord && git archive -v -o activerecord-7.0.4.2-tests.txz v7.0.4.2 test/
+# cd rails/activerecord && git archive -v -o activerecord-7.0.4.3-tests.txz v7.0.4.3 test/
 Source1: activerecord-%{version}%{?prerelease}-tests.txz
 # The tools are needed for the test suite, are however unpackaged in gem file.
 # You may check it out like so
 # git clone http://github.com/rails/rails.git --no-checkout
-# cd rails && git archive -v -o rails-7.0.4.2-tools.txz v7.0.4.2 tools/
+# cd rails && git archive -v -o rails-7.0.4.3-tools.txz v7.0.4.3 tools/
 Source2: rails-%{version}%{?prerelease}-tools.txz
 # Fixes for Minitest 5.16+
 # https://github.com/rails/rails/pull/43807
@@ -134,6 +134,9 @@ popd
 %{gem_instdir}/examples
 
 %changelog
+* Tue Mar 14 2023 Pavel Valena <pvalena@redhat.com> - 1:7.0.4.3-1
+- Update to activerecord 7.0.4.3.
+
 * Wed Jan 25 2023 Pavel Valena <pvalena@redhat.com> - 1:7.0.4.2-1
 - Update to activerecord 7.0.4.2.
 

@@ -12,7 +12,7 @@
 Summary: Qt5 - QtDeclarative component
 Name:    qt5-%{qt_module}
 Version: 5.15.8
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -55,6 +55,9 @@ Patch21: 0021-Make-QaccessibleQuickWidget-private-API.patch
 Patch100: %{name}-gcc11.patch
 # https://pagure.io/fedora-kde/SIG/issue/82
 Patch101: qtdeclarative-5.15.0-FixMaxXMaxYExtent.patch
+# From: https://codereview.qt-project.org/c/qt/qtdeclarative/+/466808
+# Cf. https://bugzilla.redhat.com/show_bug.cgi?id=2177696
+Patch102: qt-QTBUG-111935-fix-V4-jit.patch
 
 # filter qml provides
 %global __provides_exclude_from ^%{_qt5_archdatadir}/qml/.*\\.so$
@@ -232,6 +235,9 @@ make check -k -C tests ||:
 
 
 %changelog
+* Wed Mar 15 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.15.8-4
+- Backport fix for crashes in V4 JIT (#2177696)
+
 * Tue Jan 31 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.8-3
 - migrated to SPDX license
 

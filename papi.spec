@@ -11,7 +11,7 @@
 Summary: Performance Application Programming Interface
 Name: papi
 Version: 7.0.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD
 Requires: papi-libs = %{version}-%{release}
 URL: http://icl.cs.utk.edu/papi/
@@ -181,6 +181,9 @@ find %{buildroot} -type f -executable ! -iname "*.py" ! -iname "*.sh" | xargs ch
 %endif
 
 %changelog
+* Wed Mar 15 2023 William Cohen <wcohen@redhat.com> - 7.0.1-2
+- Bump NVR and rebuild.
+
 * Tue Mar 14 2023 William Cohen <wcohen@redhat.com> - 7.0.1-1
 - Rebase to official papi-7.0.1. (rhbz#2177906)
 

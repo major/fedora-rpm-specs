@@ -9,8 +9,8 @@
 %endif
 
 Name:           xtb
-Version:        6.5.1
-Release:        2%{?dist}
+Version:        6.6.0
+Release:        1%{?dist}
 Summary:        Semiempirical Extended Tight-Binding Program Package
 License:        LGPLv3+
 URL:            https://github.com/grimme-lab/xtb/
@@ -20,6 +20,8 @@ Source0:        https://github.com/grimme-lab/xtb/archive/v%{version}/xtb-%{vers
 Patch0:         xtb-6.5.1-fedora.patch
 # Add sanity checks to environment variables, https://github.com/grimme-lab/xtb/pull/317
 Patch4:         xtb-6.3.2-environment.patch
+# Restore support for custom lapack backend, https://github.com/grimme-lab/xtb/pull/785
+Patch5:         xtb-6.6.0-meson.patch
 
 BuildRequires:  gcc-gfortran
 BuildRequires:  meson
@@ -70,12 +72,12 @@ This package contains development headers for xtb.
 %setup -q
 %patch0 -p1 -b .fedoraver
 %patch4 -p1 -b .env
+%patch5 -p1 -b .lapack
 
 %build
-export FFLAGS="%{optflags} -I%{_fmoddir} -fPIE"
-export FCLAGS="%{optflags} -I%{_fmoddir} -fPIE"
-#meson -Dla_backend=custom -Dcustom_libraries=%{blaslib}%{blasvar} -Dfortran_args=-fexternal-blas
-%meson -Dla_backend=custom -Dcustom_libraries=%{blaslib}%{blasvar}
+export FFLAGS="%{optflags} -I%{_fmoddir} -fPIC"
+export FCLAGS="%{optflags} -I%{_fmoddir} -fPIC"
+%meson -Dlapack=custom -Dcustom_libraries=%{blaslib}%{blasvar} -Dtblite=disabled
 date=$(date)
 # Create customized Fedora versioning
 cat > %{_vpath_builddir}/xtb_version.fh <<EOF
@@ -133,6 +135,9 @@ export OMP_NUM_THREADS=1
 %{_libdir}/pkgconfig/xtb.pc
 
 %changelog
+* Wed Mar 15 2023 Susi Lehtola <jussilehtola@fedoraproject.org> - 6.6.0-1
+- Update to 6.6.0.
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

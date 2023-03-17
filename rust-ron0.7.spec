@@ -2,26 +2,25 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate read-process-memory
+%global crate ron
 
-Name:           rust-read-process-memory
-Version:        0.1.6
+Name:           rust-ron0.7
+Version:        0.7.1
 Release:        %autorelease
-Summary:        Read memory from another process
+Summary:        Rusty Object Notation
 
-License:        MIT
-URL:            https://crates.io/crates/read-process-memory
+# Upstream license specification: MIT/Apache-2.0
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/ron
 Source:         %{crates_source}
-# Automatically generated patch to strip foreign dependencies
-Patch:          read-process-memory-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * drop build of a test binary
-Patch:          read-process-memory-fix-metadata.diff
+# * drop missing option_set dev-dependency
+Patch:          ron-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Read memory from another process.}
+Rusty Object Notation.}
 
 %description %{_description}
 
@@ -35,7 +34,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/License.md
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -51,8 +52,22 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+indexmap-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+indexmap-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "indexmap" feature of the "%{crate}" crate.
+
+%files       -n %{name}+indexmap-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
+# drop the only test that requires option_set
+rm tests/152_bitflags.rs
 %cargo_prep
 
 %generate_buildrequires
@@ -66,9 +81,7 @@ use the "default" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * skip tests that rely on executing the dropped test binary
-# * skip doctest that fails with an "Uncategorized" IO Error on armv7hl
-%cargo_test -- -- --skip test::test_read_large --skip test::test_read_small --skip readme
+%cargo_test
 %endif
 
 %changelog

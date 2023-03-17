@@ -6,7 +6,7 @@ Summary: Application Whitelisting Daemon
 Name: fapolicyd
 Version: 1.2
 Release: 4%{?dist}
-License: GPLv3+
+License: GPL-3.0-or-later
 URL: http://people.redhat.com/sgrubb/fapolicyd
 Source0: https://people.redhat.com/sgrubb/fapolicyd/%{name}-%{version}.tar.gz
 Source1: https://github.com/linux-application-whitelisting/%{name}-selinux/releases/download/v%{semodule_version}/%{name}-selinux-%{semodule_version}.tar.gz

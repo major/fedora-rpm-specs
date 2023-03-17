@@ -236,6 +236,17 @@ EOF
 # Stop system from using hard coded flags
 sed -i '/CompilerFlagsHelpers/ d' cmake/ReleaseDebugAutoFlags.cmake
 
+# Setting SETUPTOOLS_USE_DISTUTILS=stdlib does not work on Python 3.12
+# https://github.com/neuronsimulator/nrn/issues/2263
+#
+# We change each occurrence to SETUPTOOLS_USE_DISTUTILS=local (the default).
+# The find-then-modify pattern keeps us from discarding mtimes on any sources
+# that do not need modification.
+find . -type f -name 'CMakeLists.txt' -exec gawk \
+    '/export SETUPTOOLS_USE_DISTUTILS=stdlib/ { print FILENAME; nextfile }' \
+    '{}' '+' |
+  xargs -r -t sed -r -i 's/(export SETUPTOOLS_USE_DISTUTILS=)stdlib/\1local/'
+
 %build
 # Not yet to be used
 # export SUNDIALS_SYSTEM_INSTALL="yes"

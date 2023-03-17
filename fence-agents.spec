@@ -13,8 +13,8 @@
 Name: fence-agents
 Summary: Set of unified programs capable of host isolation ("fencing")
 Version: 4.12.1
-Release: 1%{?alphatag:.%{alphatag}}%{?dist}
-License: GPLv2+ and LGPLv2+
+Release: 2%{?alphatag:.%{alphatag}}%{?dist}
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: https://github.com/ClusterLabs/fence-agents
 Source0: https://fedorahosted.org/releases/f/e/fence-agents/%{name}-%{version}.tar.gz
 
@@ -250,7 +250,7 @@ network, storage, or similar. They operate through a unified interface
 (calling conventions) devised for the original Red Hat clustering solution.
 
 %package common
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Common base for Fence Agents
 %if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7 || 0%{?suse_version}
 Requires: python3-pexpect python3-pycurl
@@ -287,7 +287,7 @@ This package contains support files including the Python fencing library.
 %endif
 
 %package all
-License: GPLv2+ and LGPLv2+ and ASL 2.0
+License: GPL-2.0-or-later AND LGPL-2.0-or-later AND Apache-2.0
 Summary: Set of unified programs capable of host isolation ("fencing")
 Requires: %{allfenceagents}
 Provides: fence-agents = %{version}-%{release}
@@ -302,7 +302,7 @@ This package serves as a catch-all for all supported fence agents.
 
 %ifarch x86_64
 %package aliyun
-License: GPLv2+ and LGPLv2+ and ASL 2.0 and BSD and MIT
+License: GPL-2.0-or-later AND LGPL-2.0-or-later AND Apache-2.0 AND BSD-3-Clause AND MIT
 Group: System Environment/Base
 Summary: Fence agent for Alibaba Cloud (Aliyun)
 Requires: fence-agents-common >= %{version}-%{release}
@@ -317,7 +317,7 @@ The fence-agents-aliyun package contains a fence agent for Alibaba Cloud (Aliyun
 %endif
 
 %package alom
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for SUN ALOM
 Requires: openssh-clients
 %if 0%{?fedora} < 33 || (0%{?rhel} && 0%{?rhel} < 9) || (0%{?centos} && 0%{?centos} < 9) || 0%{?suse_version}
@@ -336,7 +336,7 @@ Fence agent for SUN ALOM.
 %{_mandir}/man8/fence_alom.8*
 
 %package amt
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for Intel AMT devices
 Requires: amtterm
 Requires: fence-agents-common = %{version}-%{release}
@@ -349,7 +349,7 @@ Fence agent for AMT compatibile devices that are accessed via
 %{_mandir}/man8/fence_amt.8*
 
 %package amt-ws
-License: ASL 2.0
+License: Apache-2.0
 Summary: Fence agent for Intel AMT (WS-Man) devices
 Requires: fence-agents-common = %{version}-%{release}
 %if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7 || 0%{?suse_version}
@@ -370,7 +370,7 @@ Fence agent for AMT (WS-Man) devices.
 %{_mandir}/man8/fence_amt_ws.8*
 
 %package apc
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for APC devices
 Requires: openssh-clients
 %if 0%{?fedora} < 33 || (0%{?rhel} && 0%{?rhel} < 9) || (0%{?centos} && 0%{?centos} < 9) || 0%{?suse_version}
@@ -389,7 +389,7 @@ Fence agent for APC devices that are accessed via telnet or SSH.
 %{_mandir}/man8/fence_apc.8*
 
 %package apc-snmp
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agents for APC devices (SNMP)
 Requires: net-snmp-utils
 Requires: fence-agents-common = %{version}-%{release}
@@ -404,7 +404,7 @@ Fence agents for APC devices that are accessed via the SNMP protocol.
 
 %if ! %{defined rhel7_s390x}
 %package aws
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for Amazon AWS
 Requires: fence-agents-common = %{version}-%{release}
 %if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7 || 0%{?suse_version}
@@ -422,7 +422,7 @@ Fence agent for Amazon AWS instances.
 %endif
 
 %package azure-arm
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for Azure Resource Manager
 Requires: fence-agents-common = %{version}-%{release}
 %if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7 || 0%{?suse_version}
@@ -451,7 +451,7 @@ Fence agent for Azure Resource Manager instances.
 %{_mandir}/man8/fence_azure_arm.8*
 
 %package bladecenter
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for IBM BladeCenter
 Requires: openssh-clients
 %if 0%{?fedora} < 33 || (0%{?rhel} && 0%{?rhel} < 9) || (0%{?centos} && 0%{?centos} < 9) || 0%{?suse_version}
@@ -471,7 +471,7 @@ via telnet or SSH.
 %{_mandir}/man8/fence_bladecenter.8*
 
 %package brocade
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for Brocade switches
 Requires: openssh-clients
 %if 0%{?fedora} < 33 || (0%{?rhel} && 0%{?rhel} < 9) || (0%{?centos} && 0%{?centos} < 9) || 0%{?suse_version}
@@ -490,7 +490,7 @@ Fence agent for Brocade devices that are accessed via telnet or SSH.
 %{_mandir}/man8/fence_brocade.8*
 
 %package cdu
-License: GPLv3-only
+License: GPL-3.0-only
 Summary: Fence agent for a Sentry Switch CDU
 Requires: fence-agents-common = %{version}-%{release}
 BuildArch: noarch
@@ -501,7 +501,7 @@ Fence agent for Sentry Switch CDU power switch.
 %{_mandir}/man8/fence_cdu.8*
 
 %package cisco-mds
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for Cisco MDS 9000 series
 Requires: net-snmp-utils
 Requires: fence-agents-common = %{version}-%{release}
@@ -514,7 +514,7 @@ via the SNMP protocol.
 %{_mandir}/man8/fence_cisco_mds.8*
 
 %package cisco-ucs
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for Cisco UCS series
 %if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7 || 0%{?suse_version}
 Requires: python3-pycurl
@@ -532,7 +532,7 @@ via the SNMP protocol.
 
 %ifarch x86_64 ppc64le
 %package compute
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for Nova compute nodes
 %if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7 || 0%{?suse_version}
 Requires: python3-requests
@@ -553,7 +553,7 @@ Fence agent for Nova compute nodes.
 %endif
 
 %package cyberpower-ssh
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for CyberPower network PDUs
 Requires: openssh-clients
 Requires: fence-agents-common = %{version}-%{release}
@@ -564,7 +564,7 @@ BuildArch: noarch
 %{_mandir}/man8/fence_cyberpower_ssh.8*
 
 %package docker
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for Docker
 %if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7 || 0%{?suse_version}
 Requires: python3-pycurl
@@ -580,7 +580,7 @@ Fence agent for Docker images that are accessed over HTTP.
 %{_mandir}/man8/fence_docker.8*
 
 %package drac
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for Dell DRAC
 Requires: telnet
 Requires: fence-agents-common = %{version}-%{release}
@@ -593,7 +593,7 @@ via telnet.
 %{_mandir}/man8/fence_drac.8*
 
 %package drac5
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for Dell DRAC 5
 Requires: openssh-clients
 %if 0%{?fedora} < 33 || (0%{?rhel} && 0%{?rhel} < 9) || (0%{?centos} && 0%{?centos} < 9) || 0%{?suse_version}
@@ -613,7 +613,7 @@ via telnet or SSH.
 %{_mandir}/man8/fence_drac5.8*
 
 %package eaton-snmp
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for Eaton network power switches
 Requires: net-snmp-utils
 Requires: fence-agents-common = %{version}-%{release}
@@ -626,7 +626,7 @@ via the SNMP protocol.
 %{_mandir}/man8/fence_eaton_snmp.8*
 
 %package ecloud
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for eCloud and eCloud VPC
 Requires: python3-requests
 %if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7 || 0%{?suse_version}
@@ -643,7 +643,7 @@ Fence agent for eCloud and eCloud VPC from ANS Group Limited
 %{_mandir}/man8/fence_ecloud.8*
 
 %package emerson
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for Emerson devices (SNMP)
 Requires: fence-agents-common = %{version}-%{release}
 BuildArch: noarch
@@ -655,7 +655,7 @@ the SNMP protocol.
 %{_mandir}/man8/fence_emerson.8*
 
 %package eps
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for ePowerSwitch 8M+ power switches
 Requires: fence-agents-common = %{version}-%{release}
 BuildArch: noarch
@@ -668,7 +668,7 @@ via the HTTP(s) protocol.
 
 %if ! %{defined rhel7_s390x}
 %package gce
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for GCE (Google Cloud Engine)
 Requires: fence-agents-common = %{version}-%{release}
 %if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7 || 0%{?suse_version}
@@ -691,7 +691,7 @@ Fence agent for GCE (Google Cloud Engine) instances.
 %endif
 
 %package hds-cb
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for Hitachi Compute Blade systems
 Requires: telnet
 Requires: fence-agents-common = %{version}-%{release}
@@ -703,7 +703,7 @@ Fence agent for Hitachi Compute Blades that are accessed via telnet.
 %{_mandir}/man8/fence_hds_cb.8*
 
 %package heuristics-ping
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Pseudo fence agent to affect other agents based on ping-heuristics
 Requires: fence-agents-common = %{version}-%{release}
 BuildArch: noarch
@@ -716,7 +716,7 @@ ping-heuristics.
 %{_mandir}/man8/fence_heuristics_ping.8*
 
 %package hpblade
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for HP BladeSystem devices
 Requires: openssh-clients
 %if 0%{?fedora} < 33 || (0%{?rhel} && 0%{?rhel} < 9) || (0%{?centos} && 0%{?centos} < 9) || 0%{?suse_version}
@@ -736,7 +736,7 @@ or SSH.
 %{_mandir}/man8/fence_hpblade.8*
 
 %package ibmblade
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for IBM BladeCenter
 Requires: net-snmp-utils
 Requires: fence-agents-common = %{version}-%{release}
@@ -749,7 +749,7 @@ via the SNMP protocol.
 %{_mandir}/man8/fence_ibmblade.8*
 
 %package ibmz
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for IBM z LPARs
 %if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7 || 0%{?suse_version}
 Requires: python3-requests
@@ -766,7 +766,7 @@ Web Services REST API.
 %{_mandir}/man8/fence_ibmz.8*
 
 %package ibm-powervs
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for IBM PowerVS
 Requires: fence-agents-common = %{version}-%{release}
 BuildArch: noarch
@@ -777,7 +777,7 @@ Fence agent for IBM PowerVS that are accessed via REST API.
 %{_mandir}/man8/fence_ibm_powervs.8*
 
 %package ibm-vpc
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for IBM Cloud VPC
 Requires: fence-agents-common = %{version}-%{release}
 BuildArch: noarch
@@ -788,7 +788,7 @@ Fence agent for IBM Cloud VPC that are accessed via REST API.
 %{_mandir}/man8/fence_ibm_vpc.8*
 
 %package ifmib
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for devices with IF-MIB interfaces
 Requires: net-snmp-utils
 Requires: fence-agents-common = %{version}-%{release}
@@ -801,7 +801,7 @@ the SNMP protocol.
 %{_mandir}/man8/fence_ifmib.8*
 
 %package ilo2
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agents for HP iLO2 devices
 Requires: gnutls-utils
 Requires: fence-agents-common = %{version}-%{release}
@@ -816,7 +816,7 @@ the HTTP(s) protocol.
 %{_mandir}/man8/fence_ilo2.8*
 
 %package ilo-moonshot
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for HP iLO Moonshot devices
 Requires: openssh-clients
 %if 0%{?fedora} < 33 || (0%{?rhel} && 0%{?rhel} < 9) || (0%{?centos} && 0%{?centos} < 9) || 0%{?suse_version}
@@ -836,7 +836,7 @@ via telnet or SSH.
 %{_mandir}/man8/fence_ilo_moonshot.8*
 
 %package ilo-mp
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for HP iLO MP devices
 Requires: openssh-clients
 %if 0%{?fedora} < 33 || (0%{?rhel} && 0%{?rhel} < 9) || (0%{?centos} && 0%{?centos} < 9) || 0%{?suse_version}
@@ -855,7 +855,7 @@ Fence agent for HP iLO MP devices that are accessed via telnet or SSH.
 %{_mandir}/man8/fence_ilo_mp.8*
 
 %package ilo-ssh
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agents for HP iLO devices over SSH
 Requires: openssh-clients
 Requires: fence-agents-common = %{version}-%{release}
@@ -873,7 +873,7 @@ Fence agents for HP iLO devices that are accessed via telnet or SSH.
 %{_mandir}/man8/fence_ilo5_ssh.8*
 
 %package intelmodular
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for devices with Intel Modular interfaces
 Requires: net-snmp-utils
 Requires: fence-agents-common = %{version}-%{release}
@@ -886,7 +886,7 @@ via the SNMP protocol.
 %{_mandir}/man8/fence_intelmodular.8*
 
 %package ipdu
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for IBM iPDU network power switches
 Requires: net-snmp-utils
 Requires: fence-agents-common = %{version}-%{release}
@@ -899,7 +899,7 @@ via the SNMP protocol.
 %{_mandir}/man8/fence_ipdu.8*
 
 %package ipmilan
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agents for devices with IPMI interface
 Requires: /usr/bin/ipmitool
 Requires: fence-agents-common = %{version}-%{release}
@@ -924,7 +924,7 @@ Fence agents for devices with IPMI interface.
 
 %ifarch x86_64 ppc64le
 %package ironic
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for OpenStack's Ironic (Bare Metal as a service)
 Requires: fence-agents-common = %{version}-%{release}
 BuildArch: noarch
@@ -936,7 +936,7 @@ Fence agent for OpenStack's Ironic (Bare Metal as a service) service.
 %endif
 
 %package kdump
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for use with kdump crash recovery service
 Requires: fence-agents-common = %{version}-%{release}
 # this cannot be noarch since it's compiled
@@ -949,7 +949,7 @@ Fence agent for use with kdump crash recovery service.
 %{_mandir}/man8/fence_kdump_send.8*
 
 %package kubevirt
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for KubeVirt platform
 Requires: python3-openshift >= 0.12.1
 Requires: fence-agents-common = %{version}-%{release}
@@ -961,7 +961,7 @@ Fence agent for KubeVirt platform.
 %{_mandir}/man8/fence_kubevirt.8*
 
 %package ldom
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for Sun LDom virtual machines
 Requires: openssh-clients
 %if 0%{?fedora} < 33 || (0%{?rhel} && 0%{?rhel} < 9) || (0%{?centos} && 0%{?centos} < 9) || 0%{?suse_version}
@@ -980,7 +980,7 @@ Fence agent for APC devices that are accessed via telnet or SSH.
 %{_mandir}/man8/fence_ldom.8*
 
 %package lpar
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for IBM LPAR
 Requires: openssh-clients
 %if 0%{?fedora} < 33 || (0%{?rhel} && 0%{?rhel} < 9) || (0%{?centos} && 0%{?centos} < 9) || 0%{?suse_version}
@@ -999,7 +999,7 @@ Fence agent for IBM LPAR devices that are accessed via telnet or SSH.
 %{_mandir}/man8/fence_lpar.8*
 
 %package mpath
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for reservations over Device Mapper Multipath
 Requires: device-mapper-multipath
 Requires: fence-agents-common = %{version}-%{release}
@@ -1013,7 +1013,7 @@ Device Mapper Multipath.
 %{_mandir}/man8/fence_mpath.8*
 
 %package netio
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for Koukaam NETIO devices
 Requires: openssh-clients
 %if 0%{?fedora} < 33 || (0%{?rhel} && 0%{?rhel} < 9) || (0%{?centos} && 0%{?centos} < 9) || 0%{?suse_version}
@@ -1034,7 +1034,7 @@ via telnet or SSH.
 
 %ifarch x86_64 ppc64le
 %package openstack
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for OpenStack's Nova service
 %if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7 || 0%{?suse_version}
 Requires: python3-requests
@@ -1051,7 +1051,7 @@ Fence agent for OpenStack's Nova service.
 %endif
 
 %package ovh
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for OVH provider
 %if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7 || 0%{?suse_version}
 %if 0%{?suse_version} > 1500
@@ -1072,7 +1072,7 @@ Fence agent for OVH hosting provider.
 
 # skipped from allfenceagents
 %package pve
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for PVE
 %if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7 || 0%{?suse_version}
 Requires: python3-pycurl
@@ -1089,7 +1089,7 @@ Fence agent for PVE.
 
 # skipped from allfenceagents
 %package raritan
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for Raritan Dominion PX
 Requires: fence-agents-common = %{version}-%{release}
 BuildArch: noarch
@@ -1101,7 +1101,7 @@ Fence agent for Raritan Dominion PX.
 
 # skipped from allfenceagents
 %package rcd-serial
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for RCD serial
 Requires: fence-agents-common = %{version}-%{release}
 BuildArch: noarch
@@ -1112,7 +1112,7 @@ Fence agent for RCD serial.
 %{_mandir}/man8/fence_rcd_serial.8*
 
 %package redfish
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Group: System Environment/Base
 Summary: Fence agent for Redfish
 Requires: fence-agents-common >= %{version}-%{release}
@@ -1130,7 +1130,7 @@ The fence-agents-redfish package contains a fence agent for Redfish
 %{_mandir}/man8/fence_redfish.8*
 
 %package rhevm
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for RHEV-M
 Requires: fence-agents-common = %{version}-%{release}
 BuildArch: noarch
@@ -1141,7 +1141,7 @@ Fence agent for RHEV-M via REST API.
 %{_mandir}/man8/fence_rhevm.8*
 
 %package rsa
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for IBM RSA II
 Requires: openssh-clients
 %if 0%{?fedora} < 33 || (0%{?rhel} && 0%{?rhel} < 9) || (0%{?centos} && 0%{?centos} < 9) || 0%{?suse_version}
@@ -1161,7 +1161,7 @@ via telnet or SSH.
 %{_mandir}/man8/fence_rsa.8*
 
 %package rsb
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for Fujitsu RSB
 Requires: openssh-clients
 %if 0%{?fedora} < 33 || (0%{?rhel} && 0%{?rhel} < 9) || (0%{?centos} && 0%{?centos} < 9) || 0%{?suse_version}
@@ -1181,7 +1181,7 @@ via telnet or SSH.
 %{_mandir}/man8/fence_rsb.8*
 
 %package sanbox2
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for QLogic SANBox2 FC switches
 Requires: telnet
 Requires: fence-agents-common = %{version}-%{release}
@@ -1193,7 +1193,7 @@ Fence agent for QLogic SANBox2 switches that are accessed via telnet.
 %{_mandir}/man8/fence_sanbox2.8*
 
 %package sbd
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for SBD (storage-based death)
 Requires: sbd
 Requires: fence-agents-common = %{version}-%{release}
@@ -1205,7 +1205,7 @@ Fence agent for SBD (storage-based death).
 %{_mandir}/man8/fence_sbd.8*
 
 %package scsi
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for SCSI persistent reservations
 Requires: sg3_utils
 Requires: fence-agents-common = %{version}-%{release}
@@ -1219,7 +1219,7 @@ Fence agent for SCSI persistent reservations.
 %{_mandir}/man8/fence_scsi.8*
 
 %package vbox
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for VirtualBox
 Requires: openssh-clients
 Requires: fence-agents-common = %{version}-%{release}
@@ -1232,7 +1232,7 @@ Fence agent for VirtualBox dom0 accessed via SSH.
 
 # skipped from allfenceagents
 %package virsh
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for virtual machines based on libvirt
 Requires: openssh-clients /usr/bin/virsh
 Requires: fence-agents-common = %{version}-%{release}
@@ -1244,7 +1244,7 @@ Fence agent for virtual machines that are accessed via SSH.
 %{_mandir}/man8/fence_virsh.8*
 
 %package vmware
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for VMWare with VI Perl Toolkit or vmrun
 %if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7 || 0%{?suse_version}
 Requires: python3-pexpect
@@ -1260,7 +1260,7 @@ Fence agent for VMWare accessed with VI Perl Toolkit or vmrun.
 %{_mandir}/man8/fence_vmware.8*
 
 %package vmware-rest
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for VMWare with REST API
 Requires: fence-agents-common = %{version}-%{release}
 BuildArch: noarch
@@ -1272,7 +1272,7 @@ Fence agent for VMWare with REST API.
 %{_mandir}/man8/fence_vmware_rest.8*
 
 %package vmware-soap
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for VMWare with SOAP API v4.1+
 %if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7 || 0%{?suse_version}
 %if 0%{?suse_version} > 1500
@@ -1292,7 +1292,7 @@ Fence agent for VMWare with SOAP API v4.1+.
 %{_mandir}/man8/fence_vmware_soap.8*
 
 %package vmware-vcloud
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for VMWare vCloud Director
 Requires: fence-agents-common = %{version}-%{release}
 BuildArch: noarch
@@ -1304,7 +1304,7 @@ Fence agent for VMWare vCloud Director.
 %{_mandir}/man8/fence_vmware_vcloud.8*
 
 %package wti
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for WTI Network power switches
 Requires: openssh-clients
 %if 0%{?fedora} < 33 || (0%{?rhel} && 0%{?rhel} < 9) || (0%{?centos} && 0%{?centos} < 9) || 0%{?suse_version}
@@ -1324,7 +1324,7 @@ via telnet or SSH.
 %{_mandir}/man8/fence_wti.8*
 
 %package xenapi
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for Citrix XenServer over XenAPI
 %if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7 || 0%{?suse_version}
 Requires: python3-pexpect
@@ -1344,7 +1344,7 @@ Fence agent for Citrix XenServer accessed over XenAPI.
 %{_mandir}/man8/fence_xenapi.8*
 
 %package zvm
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.0-or-later
 Summary: Fence agent for IBM z/VM over IP
 Requires: fence-agents-common = %{version}-%{release}
 BuildArch: noarch
@@ -1435,6 +1435,9 @@ are located on corosync cluster nodes.
 %{_libdir}/fence-virt/cpg.so
 
 %changelog
+* Wed Mar 15 2023 Antonio Torres <antorres@redhat.com> - 4.12.1-2
+- Migrate to SPDX license
+
 * Fri Jan 27 2023 Oyvind Albrigtsen <oalbrigt@redhat.com> - 4.12.1-1
 - new upstream release
 

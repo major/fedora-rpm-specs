@@ -7,7 +7,13 @@ Summary: Utility for the creation of squashfs filesystems
 %forgemeta
 URL:	 %{forgeurl}
 Source:  %{forgesource}
-Release: 0.6%{dist}
+# https://github.com/plougher/squashfs-tools/pull/231
+# https://github.com/plougher/squashfs-tools/issues/230
+# https://bugzilla.redhat.com/show_bug.cgi?id=2178510
+# Fix a crash caused by an out-of-bounds access that was inadvertently
+# re-introduced in a memory leak fix
+Patch0: 0001-xattrs-fix-out-of-bounds-access-again.patch
+Release: 0.7%{dist}
 License: GPLv2+
 
 BuildRequires: make
@@ -26,6 +32,7 @@ contains the utilities for manipulating squashfs filesystems.
 
 %prep
 %forgesetup
+%autopatch -p1
 
 %build
 %set_build_flags
@@ -50,6 +57,9 @@ make INSTALL_PREFIX=%{buildroot}/usr INSTALL_DIR=%{buildroot}%{_sbindir} INSTALL
 %{_sbindir}/sqfscat
 
 %changelog
+* Wed Mar 15 2023 Adam Williamson <awilliam@redhat.com> - 4.6-0.7.20230314git36abab0
+- Backport PR #231 to fix a crash (#2178510)
+
 * Tue Mar 14 2023 Bruno Wolff III <bruno@wolff.to> - 4.6-0.6^20230314git36abab0
 - A few minor memory leaks were fixed
 

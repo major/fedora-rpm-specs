@@ -4,10 +4,10 @@
 %bcond_with tests
 
 Name:           uglify-js
-Version:        3.17.1
-Release:        2%{?dist}
+Version:        3.17.4
+Release:        1%{?dist}
 Summary:        JavaScript parser, mangler/compressor and beautifier toolkit
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://github.com/mishoo/UglifyJS
 Source0:        https://registry.npmjs.org/%{name}/-/%{name}-%{version}.tgz
 
@@ -82,7 +82,7 @@ sed -i -e 's|^#! */usr/bin/env node|#!/usr/bin/node|' \
 chmod 755 %{buildroot}%{nodejs_sitelib}/uglify-js@3/bin/uglifyjs
 
 mkdir -p %{buildroot}%{_bindir}
-ln -sf ../lib/node_modules/uglify-js@3/bin/uglifyjs %{buildroot}%{_bindir}/uglifyjs-3
+ln -sf ../lib/$(basename %{nodejs_sitelib})/uglify-js@3/bin/uglifyjs %{buildroot}%{_bindir}/uglifyjs-3
 ln -sf uglifyjs-3 %{buildroot}%{_bindir}/uglifyjs
 
 %nodejs_symlink_deps
@@ -132,6 +132,10 @@ end
 
 
 %changelog
+* Wed Mar 15 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.17.4-1
+- Update to 3.17.4
+- Rebuilt for updated rpm macros (Fedora 37+)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.17.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

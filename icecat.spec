@@ -585,7 +585,6 @@ echo "ac_add_options --enable-linker=gold" >> .mozconfig
 %endif
 %ifarch %{arm} %{ix86} %{power64} s390x
 export RUSTFLAGS="-Cdebuginfo=0"
-export MOZ_RUST_DEFAULT_FLAGS="-Cdebuginfo=0 -Copt-level=0"
 %endif
 export CFLAGS=$MOZ_OPT_FLAGS
 export CXXFLAGS="$MOZ_OPT_FLAGS -fpermissive"
@@ -644,7 +643,7 @@ cp -p %{SOURCE19} .
 . ./run-wayland-compositor	
 %endif
 
-export MACH_USE_SYSTEM_PYTHON=1
+#export MACH_USE_SYSTEM_PYTHON=1
 %if 0%{?build_with_pgo}
 %if 0%{?pgo_wayland}
 env | grep "WAYLAND"

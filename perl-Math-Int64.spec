@@ -2,14 +2,15 @@ Name:           perl-Math-Int64
 Version:        0.54
 Release:        23%{?dist}
 Summary:        Manipulate 64 bits integers in Perl
-License:        (GPL+ or Artistic) and Public Domain and BSD
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND LicenseRef-Fedora-Public-Domain AND BSD-3-Clause
 URL:            https://metacpan.org/release/Math-Int64
 Source0:        https://cpan.metacpan.org/modules/by-module/Math/Math-Int64-%{version}.tar.gz
+BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(base)
 BuildRequires:  perl(blib)
 BuildRequires:  perl(Carp)
@@ -55,11 +56,7 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license COPYING
-%else
-%doc COPYING
-%endif
 %doc Changes README.md examples
 %{perl_vendorarch}/auto/*
 %{perl_vendorarch}/Math*

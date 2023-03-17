@@ -9,16 +9,17 @@ URL:      https://www.opus-codec.org/
 
 Source0:  http://downloads.xiph.org/releases/%{name}/%{name}-%{version}%{?candidate:-%{candidate}}.tar.gz
 # This is the final IETF Working Group RFC
-Source1:  http://tools.ietf.org/rfc/rfc6716.txt 
+Source1:  http://tools.ietf.org/rfc/rfc6716.txt
 Source2:  http://tools.ietf.org/rfc/rfc8251.txt
 
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: doxygen
+BuildRequires: libtool
 
 %description
-The Opus codec is designed for interactive speech and audio transmission over 
-the Internet. It is designed by the IETF Codec Working Group and incorporates 
+The Opus codec is designed for interactive speech and audio transmission over
+the Internet. It is designed by the IETF Codec Working Group and incorporates
 technology from Skype's SILK codec and Xiph.Org's CELT codec.
 
 %package  devel
@@ -35,8 +36,13 @@ cp %{SOURCE1} .
 cp %{SOURCE2} .
 
 %build
+autoreconf -ivf
 %configure --enable-custom-modes --disable-static \
-           --enable-hardening --enable-ambisonics
+           --enable-hardening \
+%ifarch %{arm} %{arm64} %{power64}
+        --enable-fixed-point
+%endif
+
 
 %make_build
 
@@ -67,6 +73,9 @@ make check %{?_smp_mflags} V=1
 %changelog
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+- Fix build in all arches, copied from Debian
+- Run autoreconf to make sure that autotools are updated
+- Clean up some trailing white spaces
 
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild

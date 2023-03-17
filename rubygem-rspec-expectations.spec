@@ -16,6 +16,7 @@ Name:		rubygem-%{gem_name}
 Version:	%{majorver}
 Release:	%{?preminorver:0.}%{baserelease}%{?preminorver:%{rpmminorver}}%{?dist}
 
+# SPDX confirmed
 License:	MIT
 URL:		http://github.com/rspec/rspec-expectations
 Source0:	https://rubygems.org/gems/%{gem_name}-%{fullver}.gem

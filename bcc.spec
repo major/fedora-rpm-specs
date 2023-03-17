@@ -24,14 +24,14 @@
 
 
 Name:           bcc
-Version:        0.25.0
-Release:        2%{?dist}
+Version:        0.26.0
+Release:        1%{?dist}
 Summary:        BPF Compiler Collection (BCC)
 License:        ASL 2.0
 URL:            https://github.com/iovisor/bcc
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0:         Fix-bpf_pseudo_fd-type-conversion-error.patch
-Patch1:         Fix-clang-15-int-to-pointer-conversion-errors.patch
+Patch0:         tools-slabratetop-Fix-error-incomplete-definition-of.patch
+Patch1:         tools-readahead-Fix-Failed-to-attach-BPF-program-ent.patch
 
 # Arches will be included as upstream support is added and dependencies are
 # satisfied in the respective arches
@@ -239,6 +239,9 @@ cp -a libbpf-tools/tmp-install/bin/* %{buildroot}/%{_sbindir}/
 %endif
 
 %changelog
+* Fri Mar 10 2023 Jerome Marchand <jmarchan@redhat.com> - 0.26.0-1
+- Rebase to the latest release version
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.25.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 # https://github.com/Masterminds/semver
 %global goipath         github.com/Masterminds/semver
-Version:                3.1.1
+Version:                3.2.0
 
 %gometa
 

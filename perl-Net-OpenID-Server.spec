@@ -2,9 +2,9 @@ Name:           perl-Net-OpenID-Server
 Version:        1.09
 Release:        25%{?dist}
 Summary:        Library for building your own OpenID server/provider
-# Public Domain: examples/server.cgi
-# GPL+ or Artistic: the rest of the distribution
-License:        (GPL+ or Artistic) and Public Domain
+# LicenseRef-Fedora-Public-Domain: examples/server.cgi
+# GPL-1.0-or-later OR Artistic-1.0-Perl: the rest of the distribution
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND LicenseRef-Fedora-Public-Domain
 URL:            https://metacpan.org/release/Net-OpenID-Server
 Source0:        https://cpan.metacpan.org/authors/id/R/RO/ROBN/Net-OpenID-Server-%{version}.tar.gz
 BuildArch:      noarch

@@ -4,7 +4,7 @@
 
 Name:    cairo
 Version: 1.17.8
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A 2D graphics library
 
 License: LGPL-2.1-only OR MPL-1.1
@@ -14,6 +14,8 @@ Source0: https://cairographics.org/snapshots/%{name}-%{version}.tar.xz
 Patch0: cairo-multilib.patch
 # https://gitlab.freedesktop.org/cairo/cairo/-/issues/634
 Patch1: cairo-1.17.8-fix-tee-compilation.patch
+# https://gitlab.freedesktop.org/cairo/cairo/-/merge_requests/467
+Patch2: cairo-1.17.8-ft-font-missing-glyph.patch
 
 BuildRequires: gcc
 BuildRequires: gcc-c++
@@ -158,6 +160,9 @@ This package contains tools for working with the cairo graphics library.
 %{_libdir}/cairo/
 
 %changelog
+* Wed Mar 15 2023 David King <amigadave@amigadave.com> - 1.17.8-3
+- Fix missing glyphs in ft-font
+
 * Sat Feb 25 2023 Marek Kasik <mkasik@redhat.com> - 1.17.8-2
 - Rebuild for new freetype-2.13.0
 

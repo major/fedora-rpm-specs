@@ -21,6 +21,9 @@
 # To disable DPDK support, specify '--without dpdk' when building
 %bcond_without dpdk
 
+# To disable AF_XDP support, specify '--without afxdp' when building
+%bcond_without afxdp
+
 # test-suite is broken for big endians
 # https://bugzilla.redhat.com/show_bug.cgi?id=1105458#c10
 # "ofproto-dpif - select group with dp_hash selection method" test is broken on armv7lh
@@ -75,6 +78,10 @@ BuildRequires: python3-sphinx
 BuildRequires: desktop-file-utils
 BuildRequires: groff-base graphviz
 BuildRequires: unbound-devel
+BuildRequires: systemtap-sdt-devel
+%if %{with afxdp}
+BuildRequires: libxdp-devel libbpf-devel numactl-devel
+%endif
 # make check dependencies
 BuildRequires: procps-ng
 %if 0%{?rhel} > 7 || 0%{?fedora}
@@ -159,7 +166,7 @@ License: ASL 2.0
 This provides shared library, libopenswitch.so and the openvswitch header
 files needed to build an external application.
 
-%if 0%{?rhel} > 7 || 0%{?fedora} > 28
+%if 0%{?rhel} == 8 || 0%{?fedora} > 28
 %package -n network-scripts-%{name}
 Summary: Open vSwitch legacy network service support
 License: ASL 2.0
@@ -221,7 +228,13 @@ ln -s ../configure
         --disable-static \
         --enable-shared \
         --enable-ssl \
-        --with-pkidir=%{_sharedstatedir}/openvswitch/pki
+        --with-pkidir=%{_sharedstatedir}/openvswitch/pki \
+        --enable-usdt-probes \
+%if %{with afxdp}
+        --enable-afxdp
+%else
+        --disable-afxdp
+%endif
 make %{?_smp_mflags}
 popd
 %if %{with dpdk}
@@ -237,10 +250,16 @@ ln -s ../configure
         --disable-static \
         --enable-shared \
         --enable-ssl \
+        --enable-usdt-probes \
         --with-dpdk=shared \
         --with-pkidir=%{_sharedstatedir}/openvswitch/pki \
         --libdir=%{_libdir}/openvswitch-dpdk \
-        --program-suffix=.dpdk
+        --program-suffix=.dpdk \
+%if %{with afxdp}
+        --enable-afxdp
+%else
+        --disable-afxdp
+%endif
 make %{?_smp_mflags}
 popd
 %endif
@@ -301,11 +320,13 @@ install -p -D -m 0644 rhel/etc_logrotate.d_openvswitch \
 install -m 0644 vswitchd/vswitch.ovsschema \
         $RPM_BUILD_ROOT/%{_datadir}/openvswitch/vswitch.ovsschema
 
+%if 0%{?rhel} < 9
 install -d -m 0755 $RPM_BUILD_ROOT/%{_sysconfdir}/sysconfig/network-scripts/
 install -p -m 0755 rhel/etc_sysconfig_network-scripts_ifdown-ovs \
         $RPM_BUILD_ROOT/%{_sysconfdir}/sysconfig/network-scripts/ifdown-ovs
 install -p -m 0755 rhel/etc_sysconfig_network-scripts_ifup-ovs \
         $RPM_BUILD_ROOT/%{_sysconfdir}/sysconfig/network-scripts/ifup-ovs
+%endif
 
 install -d -m 0755 $RPM_BUILD_ROOT%{python3_sitelib}
 cp -a $RPM_BUILD_ROOT/%{_datadir}/openvswitch/python/ovstest \
@@ -333,6 +354,8 @@ install -p -D -m 0755 \
         $RPM_BUILD_ROOT%{_datadir}/openvswitch/scripts/ovs-systemd-reload
 
 touch $RPM_BUILD_ROOT%{_sysconfdir}/openvswitch/conf.db
+# The db needs special permission as IPsec Pre-shared keys are stored in it.
+chmod 0640 $RPM_BUILD_ROOT%{_sysconfdir}/openvswitch/conf.db
 touch $RPM_BUILD_ROOT%{_sysconfdir}/openvswitch/system-id.conf
 
 # remove unpackaged files
@@ -464,6 +487,7 @@ fi
 %{_bindir}/ovs-pcap
 %{_bindir}/ovs-tcpdump
 %{_bindir}/ovs-tcpundump
+%{_datadir}/openvswitch/scripts/usdt/*
 %{_mandir}/man1/ovs-pcap.1*
 %{_mandir}/man8/ovs-tcpdump.8*
 %{_mandir}/man1/ovs-tcpundump.1*

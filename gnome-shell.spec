@@ -2,7 +2,7 @@
 
 Name:           gnome-shell
 Version:        44~rc
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Window management and application launching for GNOME
 
 License:        GPLv2+
@@ -72,7 +72,7 @@ BuildRequires:  gnome-bluetooth-libs-devel >= %{gnome_bluetooth_version}
 # Bootstrap requirements
 BuildRequires: gtk-doc
 %ifnarch s390 s390x
-Requires:       gnome-bluetooth%{?_isa} >= %{gnome_bluetooth_version}
+Recommends:     gnome-bluetooth%{?_isa} >= %{gnome_bluetooth_version}
 %endif
 Requires:       gnome-desktop3%{?_isa} >= %{gnome_desktop_version}
 %if 0%{?rhel} != 7
@@ -226,6 +226,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Shell.Porta
 %{_mandir}/man1/gnome-shell.1*
 
 %changelog
+* Tue Mar 14 2023 Dominik Mierzejewski <dominik@greysector.net> - 44~rc-2
+- Recommend gnome-bluetooth instead of requiring it
+  Resolves rhbz#2172653
+
 * Mon Mar 06 2023 Florian Müllner <fmuellner@redhat.com> - 44~rc-1
 - Update to 44.rc
 

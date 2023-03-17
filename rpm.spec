@@ -30,9 +30,9 @@
 
 %define rpmhome /usr/lib/rpm
 
-%global rpmver 4.18.0
+%global rpmver 4.18.1
 #global snapver rc1
-%global baserelease 11
+%global baserelease 1
 %global sover 9
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -129,21 +129,20 @@ Requires(pre): sed
 # Set rpmdb path to /usr/lib/sysimage/rpm
 rpm-4.17.x-rpm_dbpath.patch
 # Disable autoconf config.site processing (#962837)
-rpm-4.17.x-siteconfig.patch
+rpm-4.18.x-siteconfig.patch
 # In current Fedora, man-pages pkg owns all the localized man directories
 rpm-4.9.90-no-man-dirs.patch
 
 # Patches already upstream:
 # ...
-0001-Fix-potential-uninitialized-variable-use-in-rpmtsImp.patch
-0001-Generate-Python-egg-info-from-automake-builds.patch
-0001-Exclude-kernel-modules-from-ELF-dependency-generatio.patch
-0002-Disable-debuginfod-server-lookups-in-build-and-depen.patch
 
 # These are not yet upstream
 rpm-4.7.1-geode-i686.patch
 # Probably to be upstreamed in slightly different form
-rpm-4.15.x-ldflags.patch
+rpm-4.18.x-ldflags.patch
+# We either need pandoc in buildroot or this patch in order for man pages to
+# actually be installed, choose the latter
+rpm-4.18.x-revert-pandoc-cond.patch
 
 %description
 The RPM Package Manager (RPM) is a powerful command line driven
@@ -619,6 +618,9 @@ fi
 %doc docs/librpm/html/*
 
 %changelog
+* Wed Mar 15 2023 Michal Domonkos <mdomonko@redhat.com> - 4.18.1-1
+- Rebase to rpm 4.18.1 (https://rpm.org/wiki/Releases/4.18.1)
+
 * Thu Feb 16 2023 Panu Matilainen <pmatilai@redhat.com> - 4.18.0-11
 - Disable debuginfod lookups in rpmbuild scripts
 - Exclude kernel modules from ELF dependency generation

@@ -7,10 +7,10 @@
 %bcond_with compat_build
 %bcond_without check
 
-%global maj_ver 15
+%global maj_ver 16
 %global min_ver 0
-%global patch_ver 7
-#global rc_ver 3
+%global patch_ver 0
+%global rc_ver 4
 %global clang_version %{maj_ver}.%{min_ver}.%{patch_ver}
 
 %if %{with compat_build}
@@ -37,11 +37,12 @@
 %endif
 
 %global clang_srcdir clang-%{clang_version}%{?rc_ver:rc%{rc_ver}}.src
+%global cmake_srcdir cmake-%{clang_version}%{?rc_ver:rc%{rc_ver}}.src
 %global clang_tools_srcdir clang-tools-extra-%{clang_version}%{?rc_ver:rc%{rc_ver}}.src
 
 Name:		%pkg_name
 Version:	%{clang_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	3%{?dist}
+Release:	1%{?dist}
 Summary:	A C language family front-end for LLVM
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -52,28 +53,30 @@ Source3:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{clang_
 Source1:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{clang_version}%{?rc_ver:-rc%{rc_ver}}/%{clang_tools_srcdir}.tar.xz
 Source2:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{clang_version}%{?rc_ver:-rc%{rc_ver}}/%{clang_tools_srcdir}.tar.xz.sig
 %endif
-Source4:	release-keys.asc
+Source4:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{clang_version}%{?rc_ver:-rc%{rc_ver}}/%{cmake_srcdir}.tar.xz
+Source5:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{clang_version}%{?rc_ver:-rc%{rc_ver}}/%{cmake_srcdir}.tar.xz.sig
+Source6:	release-keys.asc
 %if %{without compat_build}
-Source5:	macros.%{name}
+Source7:	macros.%{name}
 %endif
 
 # Patches for clang
-Patch0:     0001-PATCH-clang-Reorganize-gtest-integration.patch
 Patch1:     0003-PATCH-Make-funwind-tables-the-default-on-all-archs.patch
 Patch2:     0003-PATCH-clang-Don-t-install-static-libraries.patch
 Patch3:     0001-Driver-Add-a-gcc-equivalent-triple-to-the-list-of-tr.patch
+Patch4:     0001-cmake-Allow-shared-libraries-to-customize-the-soname.patch
+# Drop the following patch after debugedit adds support to DWARF-5:
+# https://sourceware.org/bugzilla/show_bug.cgi?id=28728
 Patch5:     0010-PATCH-clang-Produce-DWARF4-by-default.patch
-Patch6:     0001-Take-into-account-Fedora-Specific-install-dir-for-li.patch
 
-# TODO: Can be dropped in LLVM 16: https://reviews.llvm.org/D133316
-Patch7:     0001-Mark-fopenmp-implicit-rpath-as-NoArgumentUnused.patch
+# Make clangBasic and clangDriver depend on LLVMTargetParser
+# See https://reviews.llvm.org/D141581
+Patch7:     D141581.diff
+# clang/cmake: Use installed gtest libraries for stand-alone builds
+# See https://reviews.llvm.org/D138472
+Patch8:     D138472.diff
 
-# TODO: Can be dropped in LLVM 16: https://reviews.llvm.org/D134362
-Patch8:     0001-clang-Fix-interaction-between-asm-labels-and-inline-.patch
-
-# TODO: Can be dropped in LLVM 16.
-Patch9:     0001-clang-MinGW-Improve-extend-the-gcc-sysroot-detection.patch
-Patch10:    0002-clang-MinGW-Improve-detection-of-libstdc-headers-on-.patch
+Patch10:    fix-ieee128-cross.diff
 
 %if %{without compat_build}
 # Patches for clang-tools-extra
@@ -257,13 +260,19 @@ Requires:      python3
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE4}' --signature='%{SOURCE3}' --data='%{SOURCE0}'
+%{gpgverify} --keyring='%{SOURCE6}' --signature='%{SOURCE3}' --data='%{SOURCE0}'
+%{gpgverify} --keyring='%{SOURCE6}' --signature='%{SOURCE5}' --data='%{SOURCE4}'
 
+%setup -T -q -b 4 -n %{cmake_srcdir}
+# TODO: It would be more elegant to set -DLLVM_COMMON_CMAKE_UTILS=%{_builddir}/%{cmake_srcdir},
+# but this is not a CACHED variable, so we can't actually set it externally :(
+cd ..
+mv %{cmake_srcdir} cmake
 %if %{with compat_build}
 %autosetup -n %{clang_srcdir} -p2
 %else
 
-%{gpgverify} --keyring='%{SOURCE4}' --signature='%{SOURCE2}' --data='%{SOURCE1}'
+%{gpgverify} --keyring='%{SOURCE6}' --signature='%{SOURCE2}' --data='%{SOURCE1}'
 %setup -T -q -b 1 -n %{clang_tools_srcdir}
 %autopatch -m200 -p2
 
@@ -345,6 +354,7 @@ sed -i 's/\@FEDORA_LLVM_LIB_SUFFIX\@//g' test/lit.cfg.py
 	-DLLVM_EXTERNAL_LIT=%{_bindir}/lit \
 	-DLLVM_LIT_ARGS="-vv" \
 	-DLLVM_MAIN_SRC_DIR=%{_datadir}/llvm/src \
+	-DLLVM_CMAKE_DIR=/usr/%{_lib}/cmake/llvm \
 %if 0%{?__isa_bits} == 64
 	-DLLVM_LIBDIR_SUFFIX=64 \
 %else
@@ -409,7 +419,7 @@ install -p -m644 bindings/python/clang/* %{buildroot}%{python3_sitelib}/clang/
 %py_byte_compile %{__python3} %{buildroot}%{python3_sitelib}/clang
 
 # install scanbuild-py to python sitelib.
-mv %{buildroot}%{_prefix}/lib/{libear,libscanbuild} %{buildroot}%{python3_sitelib}
+mv %{buildroot}%{_prefix}/%{_lib}/{libear,libscanbuild} %{buildroot}%{python3_sitelib}
 %py_byte_compile %{__python3} %{buildroot}%{python3_sitelib}/{libear,libscanbuild}
 
 # Fix permissions of scan-view scripts
@@ -448,20 +458,11 @@ ln -s clang++ %{buildroot}%{_bindir}/clang++-%{maj_ver}
 # Fix permission
 chmod u-x %{buildroot}%{_mandir}/man1/scan-build.1*
 
-# create a link to clang's resource directory that is "constant" across minor
-# version bumps
-# this is required for packages like ccls that hardcode the link to clang's
-# resource directory to not require rebuilds on minor version bumps
-# Fix for bugs like rhbz#1807574
-pushd %{buildroot}%{_libdir}/clang/
-ln -s %{version} %{maj_ver}
-popd
-
 %endif
 
 # Create sub-directories in the clang resource directory that will be
 # populated by other packages
-mkdir -p %{buildroot}%{pkg_libdir}/clang/%{version}/{include,lib,share}/
+mkdir -p %{buildroot}%{pkg_libdir}/clang/%{maj_ver}/{include,lib,share}/
 
 
 %if %{without compat_build}
@@ -505,11 +506,11 @@ false
 
 %files libs
 %if %{without compat_build}
-%{_libdir}/clang/%{version}/include/*
+%{_libdir}/clang/%{maj_ver}/include/*
 %{_libdir}/*.so.*
 %else
 %{pkg_libdir}/*.so.*
-%{pkg_libdir}/clang/%{version}/include/*
+%{pkg_libdir}/clang/%{maj_ver}/include/*
 %endif
 
 %files devel
@@ -530,13 +531,10 @@ false
 
 %files resource-filesystem
 %dir %{pkg_libdir}/clang/
-%dir %{pkg_libdir}/clang/%{version}/
-%dir %{pkg_libdir}/clang/%{version}/include/
-%dir %{pkg_libdir}/clang/%{version}/lib/
-%dir %{pkg_libdir}/clang/%{version}/share/
-%if %{without compat_build}
-%{pkg_libdir}/clang/%{maj_ver}
-%endif
+%dir %{pkg_libdir}/clang/%{maj_ver}/
+%dir %{pkg_libdir}/clang/%{maj_ver}/include/
+%dir %{pkg_libdir}/clang/%{maj_ver}/lib/
+%dir %{pkg_libdir}/clang/%{maj_ver}/share/
 
 %if %{without compat_build}
 %files analyzer
@@ -559,19 +557,19 @@ false
 
 
 %files tools-extra
+%{_bindir}/amdgpu-arch
 %{_bindir}/clang-apply-replacements
 %{_bindir}/clang-change-namespace
 %{_bindir}/clang-check
 %{_bindir}/clang-doc
 %{_bindir}/clang-extdef-mapping
 %{_bindir}/clang-format
+%{_bindir}/clang-include-cleaner
 %{_bindir}/clang-include-fixer
 %{_bindir}/clang-move
 %{_bindir}/clang-offload-bundler
 %{_bindir}/clang-offload-packager
-%{_bindir}/clang-offload-wrapper
 %{_bindir}/clang-linker-wrapper
-%{_bindir}/clang-nvlink-wrapper
 %{_bindir}/clang-pseudo
 %{_bindir}/clang-query
 %{_bindir}/clang-refactor
@@ -583,6 +581,7 @@ false
 %{_bindir}/clangd
 %{_bindir}/diagtool
 %{_bindir}/hmaptool
+%{_bindir}/nvptx-arch
 %{_bindir}/pp-trace
 %{_bindir}/c-index-test
 %{_bindir}/find-all-symbols
@@ -612,6 +611,15 @@ false
 
 %endif
 %changelog
+* Tue Mar 14 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc4-1
+- Update to LLVM 16.0.0 RC4
+
+* Tue Mar 14 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc3-2
+- Fix RPM macro clang_resource_dir
+
+* Thu Feb 23 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc3-1
+- Update to LLVM 16.0.0 RC3
+
 * Thu Jan 19 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 15.0.7-3
 - Update license to SPDX identifiers.
 - Include the Apache license adopted in 2019.

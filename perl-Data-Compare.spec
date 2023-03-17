@@ -1,8 +1,12 @@
 Name:           perl-Data-Compare
-Version:        1.27
-Release:        11%{?dist}
+Version:        1.28
+Release:        1%{?dist}
 Summary:        Compare perl data structures
-License:        GPL+ or Artistic
+# Some of the metadata files suggest GPL2 rather than GPL (any version)
+# but the module is actually licensed "same as perl"
+# See "COPYRIGHT and LICENCE" in lib/Data/Compare.pm
+# See also: https://github.com/DrHyde/perl-modules-Data-Compare/issues/15
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-Compare
 Source0:        https://cpan.metacpan.org/modules/by-module/Data/Data-Compare-%{version}.tar.gz
 BuildArch:      noarch
@@ -33,6 +37,7 @@ BuildRequires:  perl(JSON)
 BuildRequires:  perl(Scalar::Properties)
 BuildRequires:  perl(Test::Pod) >= 1.00
 # Dependencies
+# (none)
 
 %description
 This module compares arbitrary data structures to see if they are copies
@@ -54,12 +59,8 @@ find %{buildroot} -type f -name .packlist -delete
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license ARTISTIC.txt GPL2.txt
-%else
-%doc ARTISTIC.txt GPL2.txt
-%endif
-%doc CHANGELOG MAINTAINERS-NOTE NOTES README
+%doc CHANGELOG MAINTAINERS-NOTE
 %dir %{perl_vendorlib}/Data/
 %dir %{perl_vendorlib}/Data/Compare/
 %dir %{perl_vendorlib}/Data/Compare/Plugins/
@@ -71,6 +72,14 @@ make test
 %{_mandir}/man3/Data::Compare::Plugins::Scalar::Properties.3*
 
 %changelog
+* Wed Mar 15 2023 Paul Howarth <paul@city-fan.org> - 1.28-1
+- Update to 1.28
+  - Bug fix: undef values in hashes were treated incorrectly: need to check
+    for existence, not definedness before comparing (GH#21)
+- Use SPDX-format license tag
+- Use %%license unconditionally
+- Drop NOTES and README files as they provide nothing useful to users
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.27-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

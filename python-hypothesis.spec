@@ -1,6 +1,7 @@
-%if 0%{?el9}
+%if 0%{?rhel} >= 9
 # Needs pytest-xdist and typing-extensions which pull in a bunch of BRs, see
 # missing-epel9-test-brs.json
+# Later RHEL versions are also expected to be missing some or all of these
 %bcond_with tests
 %bcond_with doc
 %else

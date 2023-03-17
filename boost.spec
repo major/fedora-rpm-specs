@@ -42,7 +42,7 @@ Name: boost
 %global real_name boost
 Summary: The free peer-reviewed portable C++ source libraries
 Version: 1.81.0
-Release: 0%{?dist}
+Release: 2%{?dist}
 License: Boost and MIT and Python
 
 # Replace each . with _ in %%{version}
@@ -128,24 +128,29 @@ BuildRequires: bison
 BuildRequires: libzstd-devel
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1541035
-Patch111: boost-1.81.0-build-optflags.patch
+Patch0: boost-1.81.0-build-optflags.patch
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1318383
-Patch106: boost-1.78.0-no-rpath.patch
+Patch1: boost-1.78.0-no-rpath.patch
 
 # https://lists.boost.org/Archives/boost/2020/04/248812.php
-Patch88: boost-1.73.0-cmakedir.patch
+Patch2: boost-1.73.0-cmakedir.patch
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1541035
-Patch107: boost-1.78.0-b2-build-flags.patch
+Patch3: boost-1.78.0-b2-build-flags.patch
 
 # https://github.com/boostorg/random/issues/82
-Patch102: boost-1.76.0-random-test.patch
+Patch4: boost-1.76.0-random-test.patch
 
 # PR https://github.com/boostorg/interval/pull/30
 # Fixes narrowing conversions for ppc -
 #   https://github.com/boostorg/interval/issues/29
-Patch104: boost-1.76.0-fix-narrowing-conversions-for-ppc.patch
+Patch5: boost-1.76.0-fix-narrowing-conversions-for-ppc.patch
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=2178210
+# https://github.com/boostorg/phoenix/issues/111
+# https://github.com/boostorg/phoenix/issues/115
+Patch6: boost-1.81-phoenix-multiple-defn.patch
 
 %bcond_with tests
 %bcond_with docs_generated
@@ -654,15 +659,8 @@ Historically, B2 was based on on FTJam and on Perforce Jam but has grown
 a number of significant features and is now developed independently.
 
 %prep
-%setup -q -n %{toplev_dirname}
+%autosetup -n %{toplev_dirname} -p1
 find ./boost -name '*.hpp' -perm /111 | xargs --no-run-if-empty chmod a-x
-
-%patch111 -p1
-%patch106 -p1
-%patch107 -p1
-%patch88 -p1
-%patch102 -p1
-%patch104 -p2
 
 %build
 %set_build_flags
@@ -1277,6 +1275,12 @@ fi
 %{_mandir}/man1/b2.1*
 
 %changelog
+* Wed Mar 15 2023 Jonathan Wakely <jwakely@fedoraproject.org> - 1.81.0-2
+- Change spec file to use autospec for applying patches
+
+* Wed Mar 15 2023 Jonathan Wakely <jwakely@fedoraproject.org> - 1.81.0-1
+- Add patch for Boost.Phoenix bugs (#2178210)
+
 * Mon Feb 20 2023 Thomas Rodgers <trodgers@redhat.com> - 1.81.0-0
 - Rebase to 1.81.0
   See https://fedoraproject.org/wiki/Changes/F38Boost181
@@ -1290,7 +1294,7 @@ fi
   deleted: boost-1.78.0-fix-b2-staging.patch
   deleted: boost-1.76.0-enum_type_object-type-python-3.11.patch
 - New Boost.URL runtime component
-- boost_build directory is now b2 in upstream, renamte to boost_build on install
+- boost_build directory is now b2 in upstream, rename to boost_build on install
 
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.78.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild

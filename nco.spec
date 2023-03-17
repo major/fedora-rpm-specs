@@ -1,7 +1,7 @@
 %global builddocs 1
 
 Name:           nco
-Version:        5.1.4
+Version:        5.1.5
 Release:        1%{?dist}
 Summary:        Suite of programs for manipulating NetCDF/HDF4 files
 License:        BSD-3-Clause
@@ -139,6 +139,9 @@ chrpath -d -k $RPM_BUILD_ROOT%{_bindir}/* || :
 
 
 %changelog
+* Thu Mar 16 2023 Orion Poplawski <orion@nwra.com> - 5.1.5-1
+- Update to 5.1.5
+
 * Fri Jan 20 2023 Orion Poplawski <orion@nwra.com> - 5.1.4-1
 - Update to 5.1.4
 - Change license to BSD-3-Clause

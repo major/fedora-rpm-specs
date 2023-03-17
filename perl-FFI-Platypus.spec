@@ -6,11 +6,11 @@
 %bcond_without perl_FFI_Platypus_enables_optional_test
 
 Name:           perl-FFI-Platypus
-Version:        2.05
-Release:        3%{?dist}
+Version:        2.07
+Release:        1%{?dist}
 Summary:        Write Perl bindings to non-Perl libraries with FFI
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
-URL:            https://metacpan.org/release/FFI-Platypus
+URL:            https://pl.atypus.org/
 Source0:        https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/FFI-Platypus-%{version}.tar.gz
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -194,14 +194,35 @@ make test
 %files
 %license LICENSE
 %doc Changes* CONTRIBUTING examples README SUPPORT
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/FFI*
-%{_mandir}/man3/FFI::*
+%dir %{perl_vendorarch}/auto/FFI
+%{perl_vendorarch}/auto/FFI/Platypus
+%dir %{perl_vendorarch}/auto/share
+%dir %{perl_vendorarch}/auto/share/dist
+%{perl_vendorarch}/auto/share/dist/FFI-Platypus
+%dir %{perl_vendorarch}/FFI
+%{perl_vendorarch}/FFI/Build
+%{perl_vendorarch}/FFI/Build.pm
+%{perl_vendorarch}/FFI/Platypus
+%{perl_vendorarch}/FFI/Platypus.pm
+%{perl_vendorarch}/FFI/Probe
+%{perl_vendorarch}/FFI/Probe.pm
+%{perl_vendorarch}/FFI/Temp.pm
+%{perl_vendorarch}/FFI/typemap
+%{_mandir}/man3/FFI::Build.*
+%{_mandir}/man3/FFI::Build::*
+%{_mandir}/man3/FFI::Platypus.*
+%{_mandir}/man3/FFI::Platypus::*
+%{_mandir}/man3/FFI::Probe.*
+%{_mandir}/man3/FFI::Probe::*
+%{_mandir}/man3/FFI::Temp.*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Mar 15 2023 Petr Pisar <ppisar@redhat.com> - 2.07-1
+- 2.07 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.05-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

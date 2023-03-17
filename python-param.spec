@@ -14,8 +14,8 @@ Name:           python-param
 # Update this on every new upstream release.  Consult the file param/.version
 # in the PyPI release tarball, or check the commit hash corresponding to the
 # release tag on GitHub.
-%global shortcommit 1046229
-Version:        1.12.3
+%global shortcommit 782a03c
+Version:        1.13.0
 Release:        %autorelease
 Summary:        Make your Python code clearer and more reliable by declaring Parameters
 
@@ -82,7 +82,7 @@ cat > param/.version <<EOF
 EOF
 
 # Do not generate test dependencies for linting or coverage:
-sed -r -i '/\b(flake8|pytest-cov)\b/d' setup.py
+sed -r -i '/\b(flake8|coverage)\b/d' setup.py
 
 
 %generate_buildrequires

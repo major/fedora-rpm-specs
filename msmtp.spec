@@ -7,6 +7,7 @@ URL:		https://marlam.de/msmtp/
 Source0:	https://marlam.de/msmtp/releases/%{name}-%{version}.tar.xz
 Source1:	https://marlam.de/msmtp/releases/%{name}-%{version}.tar.xz.sig
 Source2:	https://marlam.de/key.txt
+Source3:	%{name}.rpmlintrc
 
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -20,8 +21,8 @@ BuildRequires:	make
 # for %%gpgverify
 BuildRequires:	gnupg2
 
-Requires(post):		%{_sbindir}/alternatives
-Requires(postun):	%{_sbindir}/alternatives
+Requires(post):		%{_sbindir}/alternatives /sbin/install-info
+Requires(postun):	%{_sbindir}/alternatives /sbin/install-info
 
 %description
 It forwards messages to an SMTP server which does the delivery.
@@ -52,9 +53,20 @@ rm -f %{buildroot}%{_infodir}/dir
 
 # setup dummy files for alternatives
 touch %{buildroot}%{_bindir}/msmtp
+rm -f %{buildroot}%{_libdir}/sendmail
+mkdir -p %{buildroot}%{_prefix}/lib
+touch %{buildroot}%{_prefix}/lib/sendmail
+rm -f %{buildroot}%{_sbindir}/sendmail
+mkdir -p %{buildroot}%{_sbindir}/sendmail
+touch %{buildroot}%{_sbindir}/sendmail
+rm -f %{buildroot}%{_mandir}/man1/sendmail.1*
+mkdir -p %{buildroot}%{_mandir}/man8/
+touch %{buildroot}%{_mandir}/man8/sendmail.8.gz
+
+rm -f %{buildroot}%{_bindir}/newaliases %{buildroot}%{_mandir}/man1/newaliases.1* %{buildroot}%{_bindir}/mailq
 
 %post
-%{_sbindir}/update-alternatives --install %{_sbindir}/sendmail mta %{_bindir}/msmtp 40 \
+%{_sbindir}/alternatives --install %{_sbindir}/sendmail mta %{_bindir}/msmtp 40 \
   --slave %{_prefix}/lib/sendmail mta-sendmail %{_bindir}/msmtp \
   --slave %{_mandir}/man8/sendmail.8.gz mta-sendmailman %{_mandir}/man1/msmtp.1.gz \
   --slave %{_bindir}/mailq mta-mailq %{_bindir}/msmtp \
@@ -62,7 +74,7 @@ touch %{buildroot}%{_bindir}/msmtp
 
 %postun
 if [ $1 -eq 0 ] ; then
-	%{_sbindir}/update-alternatives --remove mta %{_bindir}/msmtp
+	%{_sbindir}/alternatives --remove mta %{_bindir}/msmtp
 fi
 
 %files -f %{name}.lang
@@ -72,6 +84,9 @@ fi
 %{_bindir}/%{name}*
 %{_infodir}/%{name}.info*
 %{_mandir}/man1/%{name}*.1*
+%ghost %{_sbindir}/sendmail
+%ghost %{_prefix}/lib/sendmail
+%ghost %{_mandir}/man8/sendmail.8.gz
 
 %changelog
 %autochangelog

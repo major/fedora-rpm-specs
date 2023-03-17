@@ -1,5 +1,5 @@
 %global packname magick
-%global packver  2.7.3
+%global packver  2.7.4
 %global rlibdir  %{_libdir}/R/library
 
 %bcond_with bootstrap
@@ -47,7 +47,7 @@ BuildRequires:    pkgconfig(Magick++)
 
 # Uses rust, so unlikely to package it soon.
 # BuildRequires:    R-gifski
-# Uses ffmpeg, so won't ever be in Fedora.
+# Not in Fedora yet.
 # BuildRequires:    R-av >= 0.3
 
 %description

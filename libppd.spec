@@ -8,7 +8,7 @@
 Name:           libppd
 Epoch:          1
 Version:        2.0~b4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library for retro-fitting legacy printer drivers
 
 # the CUPS exception text is the same as LLVM exception, so using that name with
@@ -20,6 +20,8 @@ Source0:        %{URL}/releases/download/%{upstream_version}/%{name}-%{upstream_
 
 
 # Patches
+# https://github.com/OpenPrinting/libppd/pull/15
+Patch0001: 0001-ppd-filter.c-Generate-media-col-if-media-col-default.patch
 
 
 # for autogen.sh
@@ -189,6 +191,9 @@ rm -rf %{buildroot}%{_datadir}/ppdc
 %endif
 
 %changelog
+* Wed Mar 15 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0~b4-2
+- fix printing images to Postscript printers
+
 * Wed Mar 01 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0~b4-1
 - 2.0b4
 - introduce Epoch because I didn't read FPG carefully...

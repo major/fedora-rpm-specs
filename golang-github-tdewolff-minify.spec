@@ -33,6 +33,7 @@ Summary:        Go minifiers for web formats
 License:        MIT
 URL:            %{gourl}
 Source0:        %{gosource}
+Patch:          https://github.com/tdewolff/minify/commit/32748bb601445906c9c2f74c513fd8d6a2c52631.patch
 
 BuildRequires:  (golang(github.com/djherbis/atime) >= 1.1.0 with golang(github.com/djherbis/atime) < 2)
 BuildRequires:  (golang(github.com/dustin/go-humanize) >= 1.0.0 with golang(github.com/dustin/go-humanize) < 2)
@@ -60,6 +61,7 @@ BuildRequires:  (golang(github.com/tdewolff/test) >= 1.0.7 with golang(github.co
 
 %prep
 %goprep
+%autopatch -p1
 mv cmd/minify/README.md README-minify.md
 sed -i \
     -e 's|\<minify\>|gominify|' \

@@ -1,7 +1,7 @@
 Epoch:          2
 Name:           gnatcoll
 Version:        21.0.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        The GNAT Components Collection
 Summary(sv):    GNAT Components Collection
 
@@ -17,6 +17,10 @@ Patch:          gnatcoll-installpath.patch
 # Resolve collisions between Ada.Characters.Handling.To_Lower and
 # GNAT.Case_Util.To_Lower (already fixed upstream):
 Patch:          gnatcoll-core-21.0.0-case_util_conflicts.patch
+# Backported adaptations to LibGPR 23:
+# https://github.com/AdaCore/gnatcoll-core/commit/86ac86443c25f4064a21f643b584df19dc04ad31
+# https://github.com/AdaCore/gnatcoll-core/commit/0d14bbd48542ef065b8ff93c1682eae669facdd5
+Patch:          gnatcoll-core-21-libgpr-23.patch
 
 BuildRequires:  gcc-gnat gprbuild make sed 
 BuildRequires:  fedora-gnat-project-common >= 3.15
@@ -221,13 +225,16 @@ chrpath --delete %{buildroot}/%{_libdir}/libgnatcoll.so.%{version}
 
 
 %changelog
+* Fri Mar 10 2023 Björn Persson <Bjorn@Rombobjörn.se> - 2:21.0.0-11
+- Adapted to LibGPR 23.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:21.0.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
 * Tue Jan 17 2023 Björn Persson <Bjorn@Rombobjörn.se> - 2:21.0.0-9
 - Rebuilt with GCC 13.
 
-* Tue Aug 24 2022 Pavel Zhukov <landgraf@fedoraproject.org> - 2:21.0.0-8
+* Wed Aug 24 2022 Pavel Zhukov <landgraf@fedoraproject.org> - 2:21.0.0-8
 - Specify hardware_platform for gprinstall 
 
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2:21.0.0-7

@@ -1,6 +1,6 @@
 Name:           perl-VM-EC2
 Version:        1.28
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Perl interface to Amazon EC2
 # lib/VM/EC2.pm:    GPL+ or Artistic 2.0
 # LICENSE:          GPL+ or Artistic 2.0
@@ -12,8 +12,10 @@ Source0:        https://cpan.metacpan.org/authors/id/L/LD/LDS/VM-EC2-%{version}.
 # Fix a typo leading to unresolved dependencies, CPAN RT#104961
 Patch0:         VM-EC2-1.28-Fix-a-typo-in-used-module-name.patch
 BuildArch:      noarch
+BuildRequires:  coreutils
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(Config)
 BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
@@ -65,6 +67,9 @@ Requires:       perl(XML::Simple) >= 2.18
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\((AnyEvent|AnyEvent::HTTP|Digest::SHA|File::Path|LWP::UserAgent|String::Approx|XML::Simple)\\)$
 # Filter under-specified provides
 %global __provides_exclude %{?__provides_exclude:%__provides_exclude|}^perl\\(VM::EC2\\)$
+# Filter private modules
+%global __requires_exclude %{__requires_exclude}|^perl\\(EC2TestSupport\\)
+%global __provides_exclude %{__provides_exclude}|^perl\\(EC2TestSupport\\)
 
 %description
 This is an interface to the 2014-05-01 version of the Amazon AWS API
@@ -74,30 +79,63 @@ well as to provide developers with an extension mechanism for the API. This
 library will also support the Open Stack open source cloud
 (https://www.openstack.org/).
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
-%setup -q -n VM-EC2-%{version}
-%patch0 -p1
+%autosetup -p1 -n VM-EC2-%{version}
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Build.PL installdirs=vendor
 ./Build
 
 %install
-./Build install destdir=$RPM_BUILD_ROOT create_packlist=0
-%{_fixperms} $RPM_BUILD_ROOT/*
+./Build install destdir=%{buildroot} create_packlist=0
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)" </dev/null
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
+%{_fixperms} %{buildroot}/*
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 ./Build test </dev/null
 
 %files
 %license DISCLAIMER.txt LICENSE
 %doc Changes README
-%{_bindir}/*
-%{perl_vendorlib}/*
-%{_mandir}/man1/*
-%{_mandir}/man3/*
+%{_bindir}/migrate-ebs-image.pl
+%{_bindir}/sync_to_snapshot.pl
+%dir %{perl_vendorlib}/VM
+%{perl_vendorlib}/VM/EC2
+%{perl_vendorlib}/VM/EC2.pm
+%{_mandir}/man1/migrate-ebs-image.pl.*
+%{_mandir}/man3/VM::EC2.*
+%{_mandir}/man3/VM::EC2::*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Wed Mar 15 2023 Petr Pisar <ppisar@redhat.com> - 1.28-24
+- Package the tests
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.28-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 %bcond_with bootstrap
 
 Name: rubygem-%{gem_name}
-Version: 7.0.4.2
+Version: 7.0.4.3
 Release: 1%{?dist}
 Summary: Rendering framework putting the V in MVC (part of Rails)
 License: MIT
@@ -13,12 +13,12 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # The gem doesn't ship with the test suite.
 # You may check it out like so
 # git clone http://github.com/rails/rails.git
-# cd rails/actionview && git archive -v -o actionview-7.0.4.2-tests.txz v7.0.4.2 test/
+# cd rails/actionview && git archive -v -o actionview-7.0.4.3-tests.txz v7.0.4.3 test/
 Source1: %{gem_name}-%{version}%{?prerelease}-tests.txz
 # The tools are needed for the test suite, are however unpackaged in gem file.
 # You may get them like so
 # git clone http://github.com/rails/rails.git --no-checkout
-# cd rails && git archive -v -o rails-7.0.4.2-tools.txz v7.0.4.2 tools/
+# cd rails && git archive -v -o rails-7.0.4.3-tools.txz v7.0.4.3 tools/
 Source2: rails-%{version}%{?prerelease}-tools.txz
 # Fixes for Minitest 5.16+
 # https://github.com/rails/rails/pull/45380
@@ -101,6 +101,9 @@ popd
 %doc %{gem_instdir}/CHANGELOG.md
 
 %changelog
+* Tue Mar 14 2023 Pavel Valena <pvalena@redhat.com> - 7.0.4.3-1
+- Update to actionview 7.0.4.3.
+
 * Wed Jan 25 2023 Pavel Valena <pvalena@redhat.com> - 7.0.4.2-1
 - Update to actionview 7.0.4.2.
 

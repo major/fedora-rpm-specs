@@ -3,13 +3,13 @@
 
 
 Name:             R-%{packname}
-Version:          0.3.41
-Release:          17%{?dist}
+Version:          0.3.43
+Release:          1%{?dist}
 Summary:          3D Scatter Plot
 
 License:          GPLv2
 URL:              https://CRAN.R-project.org/package=%{packname}
-Source0:          https://cran.r-project.org/src/contrib/%{packname}_0.3-41.tar.gz
+Source0:          https://cran.r-project.org/src/contrib/%{packname}_0.3-43.tar.gz
 
 # Here's the R view of the dependencies world:
 # Depends:
@@ -68,6 +68,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Mar 15 2023 Tom Callaway <spot@fedoraproject.org> - 0.3.43-1
+- update to 0.3-43
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.41-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

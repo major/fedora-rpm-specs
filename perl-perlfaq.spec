@@ -3,7 +3,7 @@ Version:        5.20210520
 Release:        490%{?dist}
 Summary:        Frequently asked questions about Perl
 # Code examples are Public Domain
-License:        (GPL+ or Artistic) and Public Domain
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND LicenseRef-Fedora-Public-Domain
 URL:            https://metacpan.org/release/perlfaq
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/perlfaq-%{version}.tar.gz
 BuildArch:      noarch

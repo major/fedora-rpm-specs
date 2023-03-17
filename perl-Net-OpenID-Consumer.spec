@@ -2,9 +2,9 @@ Name:           perl-Net-OpenID-Consumer
 Version:        1.18
 Release:        22%{?dist}
 Summary:        Library for consumers of OpenID identities
-# Public Domain: examples/consumer.cgi
-# GPL+ or Artistic: the rest of the distribution
-License:        (GPL+ or Artistic) and Public Domain
+# LicenseRef-Fedora-Public-Domain: examples/consumer.cgi
+# GPL-1.0-or-later OR Artistic-1.0-Perl: the rest of the distribution
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND LicenseRef-Fedora-Public-Domain
 URL:            https://metacpan.org/release/Net-OpenID-Consumer
 Source0:        https://cpan.metacpan.org/authors/id/W/WR/WROG/Net-OpenID-Consumer-%{version}.tar.gz
 BuildArch:      noarch

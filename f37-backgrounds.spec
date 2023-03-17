@@ -6,8 +6,8 @@
 %global with_extras 1
 
 Name:           %{bgname}-backgrounds
-Version:        %{relnum}.0.4
-Release:        3%{?dist}
+Version:        %{relnum}.0.5
+Release:        1%{?dist}
 Summary:        Fedora %{relnum} default desktop background
 
 License:        CC-BY-SA-4.0
@@ -174,6 +174,9 @@ This package contains  supplemental wallpapers for XFCE
 %endif
 
 %changelog
+* Wed Mar 15 2023 Luya Tshimbalanga <luya@fedoraproject.org> - 37.0.5-1
+- New release with added light blue wallpaper for extras
+
 * Thu Jan 19 2023 Miroslav Suchy <msuchy@redhat.com> - 37.0.4-3
 - Migrate license to SPDX
 

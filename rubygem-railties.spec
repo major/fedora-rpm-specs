@@ -2,23 +2,23 @@
 %global gem_name railties
 
 # Circular dependency with rubygem-{rails,jquery-rails,uglifier}.
-%bcond_with bootstrap
+%bcond_without bootstrap
 
 Name: rubygem-%{gem_name}
-Version: 7.0.4.2
-Release: 2%{?dist}
+Version: 7.0.4.3
+Release: 1%{?dist}
 Summary: Tools for creating, working with, and running Rails applications
 License: MIT
 URL: http://rubyonrails.org
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # Get the test suite:
 # git clone http://github.com/rails/rails.git
-# cd rails/railties && git archive -v -o railties-7.0.4.2-tests.txz v7.0.4.2 test/
+# cd rails/railties && git archive -v -o railties-7.0.4.3-tests.txz v7.0.4.3 test/
 Source1: %{gem_name}-%{version}%{?prerelease}-tests.txz
 # The tools are needed for the test suite, are however unpackaged in gem file.
 # You may check it out like so
 # git clone http://github.com/rails/rails.git --no-checkout
-# cd rails && git archive -v -o rails-7.0.4.2-tools.txz v7.0.4.2 tools/
+# cd rails && git archive -v -o rails-7.0.4.3-tools.txz v7.0.4.3 tools/
 Source2: rails-%{version}%{?prerelease}-tools.txz
 # Fixes for Minitest 5.16+
 # https://github.com/rails/rails/pull/45380
@@ -246,6 +246,9 @@ popd
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Tue Mar 14 2023 Pavel Valena <pvalena@redhat.com> - 7.0.4.3-1
+- Update to railties 7.0.4.3.
+
 * Wed Feb 01 2023 Vít Ondruch <vondruch@redhat.com> - 7.0.4.2-2
 - Test revamp + build dependencies update.
 

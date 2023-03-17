@@ -2,7 +2,7 @@
 %global gem_name git
 
 Name: rubygem-%{gem_name}
-Version: 1.15.0
+Version: 1.17.2
 Release: 1%{?dist}
 Summary: Ruby/Git is a Ruby library that can be used to create, read and manipulate Git repositories by wrapping system calls to the git binary
 License: MIT
@@ -90,6 +90,9 @@ cp -a .%{gem_dir}/* \
 %doc %{gem_instdir}/CONTRIBUTING.md
 
 %changelog
+* Wed Mar 15 2023 Steve Traylen <steve.traylen@cern.ch> - 1.17.2-1
+- Up to 1.17.2.
+
 * Thu Mar 2 2023 Steve Traylen <steve.traylen@cern.ch> - 1.15.0-1
 - Up to 1.15.0.
 

@@ -1,12 +1,15 @@
 Name:           accountsservice
-Version:        22.08.8
-Release:        3%{?dist}
+Version:        23.11.69
+Release:        1%{?dist}
 Summary:        D-Bus interfaces for querying and manipulating user account information
 License:        GPLv3+
 URL:            https://www.freedesktop.org/wiki/Software/AccountsService/
 
-#VCS: git:git://git.freedesktop.org/accountsservice
-Source0:        http://www.freedesktop.org/software/accountsservice/accountsservice-%{version}.tar.xz
+#VCS: git:git://gitlab.freedesktop.org/accountsservice/accountsservice
+Source0:        https://www.freedesktop.org/software/accountsservice/accountsservice-%{version}.tar.xz
+Source1:        https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/mocklibc/mocklibc-1.0.tar.gz
+# https://wrapdb.mesonbuild.com/v1/projects/mocklibc/1.0/2/get_zip
+Source2:        mocklibc-1.0-2-wrap.zip
 
 BuildRequires:  gettext-devel
 BuildRequires:  pkgconfig(dbus-1)
@@ -49,6 +52,11 @@ files needed to build applications that use accountsservice-libs.
 
 %prep
 %autosetup -S git
+
+mkdir -p subprojects/packagecache
+cd subprojects/packagecache
+cp %{SOURCE1} .
+cp %{SOURCE2} .
 
 %build
 %meson \
@@ -109,6 +117,9 @@ mkdir -p $RPM_BUILD_ROOT%{_datadir}/accountsservice/interfaces/
 %{_datadir}/vala/vapi/accountsservice.*
 
 %changelog
+* Wed Mar 15 2023 Ray Strode <rstrode@redhat.com> - 23.11.69-1
+- Update to 23.11.69
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.08.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

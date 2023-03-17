@@ -2,7 +2,7 @@ Name:          perl-Verilog-Perl
 Version:       3.480
 Release:       2%{?dist}
 Summary:       Verilog parsing routines
-License:       LGPLv3 or Artistic 2.0
+License:       LGPL-3.0-only OR Artistic-2.0
 URL:           http://www.veripool.org/wiki/verilog-perl
 Source0:       https://cpan.metacpan.org/authors/id/W/WS/WSNYDER/Verilog-Perl-%{version}.tar.gz
 

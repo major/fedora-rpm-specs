@@ -7,12 +7,17 @@
 
 Name:           gnome-maps
 Version:        44~rc
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Map application for GNOME
 
 License:        GPLv2+
 URL:            https://wiki.gnome.org/Apps/Maps
 Source0:        https://download.gnome.org/sources/%{name}/43/%{name}-%{tarball_version}.tar.xz
+# https://bugzilla.redhat.com/show_bug.cgi?id=2177995
+# https://gitlab.gnome.org/GNOME/gnome-maps/-/issues/546
+# Disable 'go to' animation to avoid getting banned from the tile
+# server for excessive requests
+Patch0:         0001-mapWalker-Disable-the-go-to-animation.patch
 
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -87,6 +92,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Maps.deskto
 
 
 %changelog
+* Wed Mar 15 2023 Adam Williamson <awilliam@redhat.com> - 44~rc-2
+- Backport workaround for animation making tile server ban us (#2177995)
+
 * Sat Mar 04 2023 David King <amigadave@amigadave.com> - 44~rc-1
 - Update to 44.rc
 

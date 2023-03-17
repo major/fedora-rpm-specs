@@ -65,7 +65,7 @@
 %bcond_without   lmdb
 
 %global upver        8.2.4
-%global rcver        RC1
+#global rcver        RC1
 
 Summary: PHP scripting language for creating dynamic web sites
 Name: php
@@ -111,7 +111,7 @@ Patch8: php-8.1.0-libdb.patch
 # Use system nikic/php-parser
 Patch41: php-8.2.0-parser.patch
 # use system tzdata
-Patch42: php-8.1.0-systzdata-v22.patch
+Patch42: php-8.1.0-systzdata-v23.patch
 # See http://bugs.php.net/53436
 Patch43: php-7.4.0-phpize.patch
 # Use -lldap_r for OpenLDAP
@@ -1543,6 +1543,9 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Wed Mar 15 2023 Remi Collet <remi@remirepo.net> - 8.2.4-1
+- Update to 8.2.4 - http://www.php.net/releases/8_2_4.php
+
 * Wed Mar  1 2023 Remi Collet <remi@remirepo.net> - 8.2.4~RC1-1
 - update to 8.2.4RC1
 

@@ -1,0 +1,69 @@
+
+%global _hardened_build 1
+
+#%%global dev rc1
+
+Name:           civetweb
+Summary:        Embedded C/C++ web server
+Version:        1.15
+Release:        1%{?dev:%{dev}}%{?dist}
+License:        MIT
+Url:            https://github.com/civetweb/civetweb
+Source:         https://github.com/%{name}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+BuildRequires:  cmake make gcc-c++
+
+%description
+Civetweb is an easy to use, powerful, C (C/C++) embeddable web server
+with optional CGI, SSL and Lua support.
+
+CivetWeb can be used by developers as a library, to add web server
+functionality to an existing application. It can also be used by end
+users as a stand-alone web server running on a Windows or Linux PC.
+It is available as single executable, no installation is required.
+
+%package devel
+Summary:        Civetweb Client Library C and C++ header files
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description devel
+Civetweb shared libs and associated header files
+
+%prep
+%setup -q -n %{name}-%{version}
+
+%build
+%{cmake} . \
+    -G "Unix Makefiles" \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    -DBUILD_CONFIG=rpmbuild \
+    -DCMAKE_INSTALL_PREFIX=%{_prefix} \
+    -DCMAKE_INSTALL_LIBDIR:PATH=%{_libdir} \
+    -DCIVETWEB_ENABLE_CXX:BOOL=ON \
+    -DBUILD_SHARED_LIBS:BOOL=ON \
+    -DCIVETWEB_BUILD_TESTING:BOOL=OFF
+
+export GCC_COLORS=
+export VERBOSE=1
+%cmake_build %{?_smp_mflags}
+
+%install
+%cmake_install
+mkdir -p %{buildroot}%{_docdir}/civetweb
+
+%files
+%{_bindir}/civetweb
+%{_libdir}/libcivetweb.so.*
+%{_libdir}/libcivetweb-cpp.so.*
+%license LICENSE.md
+%doc README.md RELEASE_NOTES.md SECURITY.md
+
+%files devel
+%{_includedir}/*.h
+%{_libdir}/libcivetweb.so
+%{_libdir}/libcivetweb-cpp.so
+%{_libdir}/cmake/civetweb/*
+
+%changelog
+* Tue Mar 7 2023 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 1.15-1
+- civetweb 1.15 GA, initial build
+

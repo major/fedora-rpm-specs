@@ -2,10 +2,9 @@
 %global rlibdir  %{_datadir}/R/library
 
 Name:             R-%{packname}
-Version:          0.3.0
-Release:          13%{?dist}
+Version:          1.0.0
+Release:          1%{?dist}
 Summary:          Data from Gapminder
-
 License:          CC0
 URL:              https://CRAN.R-project.org/package=%{packname}
 Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{version}.tar.gz
@@ -13,7 +12,7 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{version}.
 # Here's the R view of the dependencies world:
 # Depends:
 # Imports:   R-tibble
-# Suggests:  R-dplyr, R-ggplot2, R-testthat
+# Suggests:  R-dplyr, R-ggplot2, R-knitr, R-rmarkdown, R-testthat >= 3.0.0
 # LinkingTo:
 # Enhances:
 
@@ -23,7 +22,9 @@ BuildRequires:    tex(latex)
 BuildRequires:    R-tibble
 BuildRequires:    R-dplyr
 BuildRequires:    R-ggplot2
-BuildRequires:    R-testthat
+BuildRequires:    R-knitr
+BuildRequires:    R-rmarkdown
+BuildRequires:    R-testthat >= 3.0.0
 
 %description
 An excerpt of the data available at Gapminder.org. For each of 142 countries,
@@ -46,7 +47,7 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %check
-%{_bindir}/R CMD check %{packname}
+%{_bindir}/R CMD check %{packname} --no-vignettes
 
 
 %files
@@ -60,10 +61,14 @@ rm -f %{buildroot}%{rlibdir}/R.css
 %{rlibdir}/%{packname}/R
 %{rlibdir}/%{packname}/help
 %{rlibdir}/%{packname}/data
+%doc %{rlibdir}/%{packname}/doc
 %{rlibdir}/%{packname}/extdata
 
 
 %changelog
+* Wed Mar 15 2023 Tom Callaway <spot@fedoraproject.org> - 1.0.0-1
+- update to 1.0.0
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

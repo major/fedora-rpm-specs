@@ -1,7 +1,7 @@
 %bcond_with check
 
 %global packname pbapply
-%global ver 1.5
+%global ver 1.7
 %global packrel 0
 
 %global _description %{expand:
@@ -13,7 +13,7 @@ options. Supports several parallel processing backends.}
 
 Name:             R-%{packname}
 Version:          %{ver}.%{packrel}
-Release:          2%{?dist}
+Release:          1%{?dist}
 Source0:          ftp://cran.r-project.org/pub/R/contrib/main/%{packname}_%{ver}-%{packrel}.tar.gz
 License:          GPLv2
 URL:              https://cran.rstudio.com/web/packages/pbapply/index.html
@@ -49,6 +49,8 @@ export LANG=C.UTF-8
 %files
 %dir %{_datadir}/R/library/%{packname}
 %doc %{_datadir}/R/library/%{packname}/html
+%doc %{_datadir}/R/library/%{packname}/NEWS.md
+%doc %{_datadir}/R/library/%{packname}/WORDLIST
 %{_datadir}/R/library/%{packname}/DESCRIPTION
 %{_datadir}/R/library/%{packname}/INDEX
 %{_datadir}/R/library/%{packname}/NAMESPACE
@@ -57,6 +59,9 @@ export LANG=C.UTF-8
 %{_datadir}/R/library/%{packname}/help
 
 %changelog
+* Wed Mar 15 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 1.7.0-1
+- Update to 1.7-0
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

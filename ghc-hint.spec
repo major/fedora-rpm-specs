@@ -4,10 +4,8 @@
 %global pkg_name hint
 %global pkgver %{pkg_name}-%{version}
 
-# failing on ARM
-%ifarch %{ix86} x86_64
-%bcond_without tests
-%endif
+# uses cabal
+%bcond_with tests
 
 Name:           ghc-%{pkg_name}
 Version:        0.9.0.6

@@ -5,13 +5,16 @@
 %global crate glib
 
 Name:           rust-glib
-Version:        0.17.2
+Version:        0.17.5
 Release:        %autorelease
 Summary:        Rust bindings for the GLib library
 
 License:        MIT
 URL:            https://crates.io/crates/glib
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * drop unused, benchmark-only criterion dev-dependency to speed up builds
+Patch:          glib-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 

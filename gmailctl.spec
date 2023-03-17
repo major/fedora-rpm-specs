@@ -17,7 +17,7 @@ Declarative configuration for Gmail filters.}
 
 Name:           %{goname}
 Release:        %autorelease
-Summary:        Declarative configuration for Gmail filters
+Summary:        Declarative configuration for Gmail filters, stored locally
 
 # Upstream license specification: BSD-3-Clause and MIT
 License:        BSD and MIT

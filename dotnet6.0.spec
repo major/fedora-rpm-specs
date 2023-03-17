@@ -20,10 +20,10 @@
 # until that's done, disable LTO.  This has to happen before setting the flags below.
 %define _lto_cflags %{nil}
 
-%global host_version 6.0.14
-%global runtime_version 6.0.14
+%global host_version 6.0.15
+%global runtime_version 6.0.15
 %global aspnetcore_runtime_version %{runtime_version}
-%global sdk_version 6.0.114
+%global sdk_version 6.0.115
 %global sdk_feature_band_version %(echo %{sdk_version} | sed -e 's|[[:digit:]][[:digit:]]$|00|')
 %global templates_version %{runtime_version}
 #%%global templates_version %%(echo %%{runtime_version} | awk 'BEGIN { FS="."; OFS="." } {print $1, $2, $3+1 }')
@@ -639,6 +639,9 @@ export COMPlus_LTTng=0
 
 
 %changelog
+* Wed Mar 15 2023 Omair Majid <omajid@redhat.com> - 6.0.115-1
+- Update to .NET SDK 6.0.115 and Runtime 6.0.15
+
 * Wed Feb 15 2023 Omair Majid <omajid@redhat.com> - 6.0.114-1
 - Update to .NET SDK 6.0.114 and Runtime 6.0.14
 

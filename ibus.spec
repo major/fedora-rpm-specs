@@ -50,7 +50,7 @@
 
 Name:           ibus
 Version:        1.5.28
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.0-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -58,6 +58,7 @@ Source0:        https://github.com/ibus/%name/releases/download/%{version}/%{nam
 Source1:        %{name}-xinput
 Source2:        %{name}.conf.5
 # Patch0:         %%{name}-HEAD.patch
+Patch0:         %{name}-HEAD.patch
 # Under testing #1349148 #1385349 #1350291 #1406699 #1432252 #1601577
 Patch1:         %{name}-1385349-segv-bus-proxy.patch
 %if 0%{?fedora:0}%{?rhel:1}
@@ -282,7 +283,8 @@ desktop testing runner internally.
 
 %package  tests
 Summary:        Tests for the %{name} package
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}%{?_isa}        = %{version}-%{release}
+Requires:       %{name}-libs%{?_isa}   = %{version}-%{release}
 
 %description tests
 The %{name}-tests package contains tests that can be used to verify
@@ -555,6 +557,10 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Wed Mar 15 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.28-2
+- Fix Key typing order in ibus-x11
+- Disable while loop before call ForwardEventMessageProc() in ibus-x11
+
 * Tue Feb 21 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.28-1
 - Bump to 1.5.28
 

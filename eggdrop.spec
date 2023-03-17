@@ -3,8 +3,8 @@
 
 Summary:        World's most popular Open Source IRC bot
 Name:           eggdrop
-Version:        1.9.4
-Release:        2%{?dist}
+Version:        1.9.5
+Release:        1%{?dist}
 # Eggdrop itself is GPL-2.0-or-later but uses other source codes, breakdown:
 # BSD-3-Clause: src/compat/inet_aton.c
 # ISC: src/compat/{base64,explicit_bzero,inet_aton,strlcpy}.c
@@ -17,7 +17,7 @@ Patch0:         eggdrop-1.6.17-langdir.patch
 BuildRequires:  gnupg2
 BuildRequires:  gcc
 BuildRequires:  make
-BuildRequires:  tcl-devel >= 8.3
+BuildRequires:  tcl-devel >= 8.5
 BuildRequires:  zlib-devel
 %if 0%{?fedora} || 0%{?rhel} >= 8
 BuildRequires:  openssl-devel >= 0.9.8
@@ -87,6 +87,9 @@ done
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Wed Mar 15 2023 Robert Scheck <robert@fedoraproject.org> 1.9.5-1
+- Upgrade to 1.9.5 (#2169600)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
