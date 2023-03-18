@@ -6,7 +6,7 @@
 %global crate awc
 
 Name:           rust-awc
-Version:        3.1.0
+Version:        3.1.1
 Release:        %autorelease
 Summary:        Async HTTP and WebSocket client library
 

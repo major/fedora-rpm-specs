@@ -5,7 +5,7 @@
 %global crate sysinfo
 
 Name:           rust-sysinfo
-Version:        0.28.0
+Version:        0.28.2
 Release:        %autorelease
 Summary:        Library to get system information such as processes, CPUs, disks, components and networks
 
@@ -129,23 +129,8 @@ use the "serde" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# skip tests that fail when run on vms, on tmpfs, or in systemd-nspawn
-%if 0%{?fedora} >= 38
-SKIP_TESTS=""
-%else
-SKIP_TESTS=" --skip test::check_all_process_uids_resolvable --skip test_disks"
-%endif
-
-%ifarch s390x
-# these tests panic with assertion failures on s390x
-SKIP_TESTS+=" --skip test::check_cpus_number --skip test::check_processes_cpu_usage"
-%endif
-
-if [ -e ${SKIP_TESTS} ]; then
-%cargo_test
-else
-%cargo_test -- -- ${SKIP_TESTS}
-fi
+# * skip tests that fail in VMs or in systemd-nspawn containers on different architectures
+%cargo_test -- -- --skip test::check_all_process_uids_resolvable --skip test::check_cpu_usage --skip test::check_cpus_number --skip test::check_processes_cpu_usage --skip test_disks
 %endif
 
 %changelog

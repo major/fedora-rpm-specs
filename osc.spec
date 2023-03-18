@@ -2,8 +2,7 @@
 # when rebasing check what they are using on
 # https://download.opensuse.org/repositories/openSUSE:/Tools/Fedora_37/src/
 # update the obsrel to match the upstream release number
-# FIXME: stop doing this once osc 1.0 is properly released
-%dnl %global obsrel 332.4
+%global obsrel 353.1
 
 # osc plugin support
 %global osc_plugin_dir %{_prefix}/lib/osc-plugins
@@ -15,17 +14,14 @@
 # Real release number
 %global baserelease 1
 
-# github fails to create a version including a ~
-%global gh_ver  1.0.0b5
-
 Name:           osc
 Summary:        Open Build Service Commander
-Version:        1.0.0~b5
+Version:        1.0.0
 # Bump the release as necessary to ensure we're one level up from upstream
-Release:        1%{?dist}
+Release:        %{obsrel}.%{baserelease}%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://github.com/openSUSE/%{name}
-Source:         %{URL}/archive/%{gh_ver}/%{name}-%{version}.tar.gz
+Source:         %{URL}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -67,7 +63,7 @@ introduction.
 
 
 %prep
-%autosetup -p1 -n %{name}-%{gh_ver}
+%autosetup -p1
 
 %build
 %py3_build
@@ -131,6 +127,9 @@ python3 setup.py test
 %dir %{osc_plugin_dir}
 
 %changelog
+* Thu Mar 16 2023 Dan Čermák <dan.cermak@cgc-instruments.com> - 1.0.0-353.1.1
+- New upstream release 1.0.0
+
 * Thu Feb 09 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.0.0~b5-1
 - 1.0.0b5
 

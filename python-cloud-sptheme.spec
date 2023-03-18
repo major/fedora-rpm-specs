@@ -4,7 +4,7 @@
 
 Name:             python-%{srcname}
 Version:          1.10.1
-Release:          7%{?dist}
+Release:          8%{?dist}
 Summary:          %{sum}
 
 License:          BSD
@@ -16,7 +16,7 @@ BuildArch:        noarch
 BuildRequires:    python3-sphinx
 
 BuildRequires:    python3-devel
-BuildRequires:    python3-sphinx
+BuildRequires:    python3-setuptools
 
 
 %description
@@ -61,6 +61,9 @@ rm -rf %{modname}.egg-info
 
 
 %changelog
+* Wed Mar 01 2023 Miro Hrončok <mhroncok@redhat.com> - 1.10.1-8
+- BuildRequire setuptools explicitly, not just transitively
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

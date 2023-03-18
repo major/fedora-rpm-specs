@@ -1,6 +1,6 @@
 Name:           perl-KinoSearch1
 Version:        1.01
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Search engine library
 # ApacheLicense2.0.txt included is included just becuase the upstream
 # author decided to include it and is only for informative purposes.
@@ -11,6 +11,7 @@ URL:            https://metacpan.org/release/KinoSearch1
 Source0:        https://cpan.metacpan.org/authors/id/C/CR/CREAMYG/KinoSearch1-%{version}.tar.gz
 # Make regular expressions compatible with Perl 5.24.0, CPAN RT#105144
 Patch0:         KinoSearch1-1.01-Do-not-use-C-in-regexps.patch
+Patch1: perl-KinoSearch1-c99.patch
 Source1:        LICENSING.mbox
 # Build
 BuildRequires:  coreutils
@@ -74,6 +75,7 @@ search, but it can be put to many different uses.
 %prep
 %setup -q -n KinoSearch1-%{version}
 %patch0 -p1
+%patch1 -p1
 cp %{SOURCE1} LICENSING.mbox
 
 %build
@@ -96,6 +98,9 @@ find %{buildroot} -type f -name '*.bs' -size 0 -exec rm -f {} +
 %{_mandir}/man3/*
 
 %changelog
+* Thu Mar 16 2023 Florian Weimer <fweimer@redhat.com> - 1.01-41
+- Port to C99
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

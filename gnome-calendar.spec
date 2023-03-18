@@ -7,13 +7,19 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-calendar
-Version:        44~rc
+Version:        44.0
 Release:        %autorelease
 Summary:        Simple and beautiful calendar application designed to fit GNOME 3
 
 License:        GPL-3.0-or-later
 URL:            https://wiki.gnome.org/Apps/Calendar
 Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
+# https://gitlab.gnome.org/GNOME/gnome-calendar/-/merge_requests/302
+# https://gitlab.gnome.org/GNOME/gnome-calendar/-/issues/987
+# https://bugzilla.redhat.com/show_bug.cgi?id=2177992
+# fix multiple searches pegging system CPU use at 100%
+Patch0:         0001-search-Rework-threading.patch
+Patch1:         0002-core-calendar-monitor-Keep-event-alive-while-removin.patch
 
 BuildRequires:  gcc
 BuildRequires:  gettext

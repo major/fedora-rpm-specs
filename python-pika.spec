@@ -6,8 +6,8 @@ tries to stay fairly independent of the underlying network support \
 library.
 
 Name:           python-%{srcname}
-Version:        1.2.1
-Release:        4%{?dist}
+Version:        1.3.1
+Release:        1%{?dist}
 Summary:        AMQP 0-9-1 client library for Python
 
 License:        BSD
@@ -16,18 +16,16 @@ Source0:        %{srcurl}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
 BuildArch:      noarch
 
-# Documentation requirements
-BuildRequires:  python3-sphinx
-
 # Python 3 requirements
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-devel
-BuildRequires:  python3-mock
-BuildRequires:  python3-nose2
-BuildRequires:  python3-coverage
 BuildRequires:  python3-twisted
 BuildRequires:  python3-tornado
 
+# Documentation requirements
+BuildRequires:  python3-sphinx
+
+# Test requirements
+BuildRequires:  python3-nose2
 
 %description
 %{desc}
@@ -59,26 +57,32 @@ Obsoletes: python3-%{srcname}-doc <= 0.12.0-5
 %autosetup -p1 -n %{srcname}-%{version}
 # These require a broker and should be run as part of the new CI/CD stuff
 rm -rf tests/acceptance
-sed -i -e s#tests=tests/unit,tests/acceptance#tests=tests/unit#g setup.cfg
+sed -i -e s#tests=tests/unit,tests/acceptance#tests=tests/unit#g nose2.cfg
+# don't run code coverage
+sed -i 's/with-coverage = 1/with-coverage = 0/g' nose2.cfg
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%py3_build
-sphinx-build-3 -b html -d doctrees docs html
+%pyproject_wheel
+sphinx-build -b html -d doctrees docs html
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files pika
 
 
 %check
 PYTHONPATH=%{buildroot}%{python3_sitelib} nose2
 
 
-%files -n python3-%{srcname}
-%{python3_sitelib}/%{srcname}*/
+%files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
-%doc README.rst CHANGELOG.rst
+%doc README.rst CHANGELOG.md
+
 
 %files -n python-%{srcname}-doc
 %license LICENSE
@@ -87,6 +91,10 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} nose2
 
 
 %changelog
+* Thu Mar 16 2023 Jonathan Wright <jonathan@almalinux.org> - 1.3.1-1
+- update to 1.3.1 rhbz#2102470
+- modernize spec
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

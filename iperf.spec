@@ -1,13 +1,12 @@
 #%%global alphatag rc
 
 Name: iperf
-Version: 2.1.8
-Release: 2%{?alphatag:.%{alphatag}}%{?dist}
+Version: 2.1.9
+Release: 1%{?alphatag:.%{alphatag}}%{?dist}
 Summary: Measurement tool for TCP/UDP bandwidth performance
 License: BSD
 URL: http://sourceforge.net/projects/iperf2
 Source: http://sourceforge.net/projects/iperf2/files/%{name}-%{version}%{?alphatag:-%{alphatag}}.tar.gz
-Patch0: iperf-2.1.5-debuginfo.patch
 BuildRequires: gcc-c++
 BuildRequires: make
 
@@ -33,6 +32,9 @@ jitter, datagram loss.
 %{_mandir}/man*/*
 
 %changelog
+* Thu Mar 16 2023 Gabriel Somlo <gsomlo@gmail.com> 2.1.9-1
+- update to 2.1.9 (#2178491)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

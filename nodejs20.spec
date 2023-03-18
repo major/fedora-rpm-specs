@@ -27,7 +27,7 @@
 %global nodejs_epoch 1
 %global nodejs_major 19
 %global nodejs_minor 8
-%global nodejs_patch 0
+%global nodejs_patch 1
 # nodejs_soversion - from NODE_MODULE_VERSION in src/node_version.h
 %global nodejs_soversion 111
 %global nodejs_abi %{nodejs_soversion}
@@ -43,7 +43,8 @@
 %global nodejs_default %{nodejs_major}
 %endif
 
-%global nodejs_private_sitelib %{nodejs_sitelib}_%{nodejs_major}
+%global nodejs_default_sitelib %{_prefix}/lib/node_modules
+%global nodejs_private_sitelib %{nodejs_default_sitelib}_%{nodejs_major}
 
 
 # == Bundled Dependency Versions ==
@@ -537,12 +538,12 @@ mv out/Release/lib/libnode.so.%{nodejs_soversion} out/Release/
 
 
 # own the sitelib directory
-mv %{buildroot}%{nodejs_sitelib} \
+mv %{buildroot}%{nodejs_default_sitelib} \
    %{buildroot}%{nodejs_private_sitelib}
 
 %if 0%{?nodejs_default}
 ln -srf %{buildroot}%{nodejs_private_sitelib} \
-        %{buildroot}%{nodejs_sitelib}
+        %{buildroot}%{nodejs_default_sitelib}
 %else
 rm -f %{buildroot}%{_datadir}/systemtap/tapset/node.stp
 %endif
@@ -589,10 +590,18 @@ for header in %{buildroot}%{_includedir}/node/libplatform %{buildroot}%{_include
     ln -sf ./node/${header} %{buildroot}%{_includedir}/${header}
 done
 ln -s ./node/cppgc %{buildroot}%{_includedir}/cppgc
+
+for soname in libv8 libv8_libbase libv8_libplatform; do
+    ln -s libnode.so.%{nodejs_soversion} %{buildroot}%{_libdir}/%{pkgname}-${soname}.so
+    ln -s libnode.so.%{nodejs_soversion} %{buildroot}%{_libdir}/%{pkgname}-${soname}.so.%{v8_major}
+done
+
+%if 0%{?nodejs_default}
 for soname in libv8 libv8_libbase libv8_libplatform; do
     ln -s libnode.so.%{nodejs_soversion} %{buildroot}%{_libdir}/${soname}.so
     ln -s libnode.so.%{nodejs_soversion} %{buildroot}%{_libdir}/${soname}.so.%{v8_major}
 done
+%endif
 
 # install documentation
 mkdir -p %{buildroot}%{_pkgdocdir}/html
@@ -613,7 +622,7 @@ mv %{buildroot}/%{_datadir}/doc/node/gdbinit %{buildroot}/%{_pkgdocdir}/gdbinit
 mkdir -p %{buildroot}%{_mandir}/nodejs-%{nodejs_major}/man1 \
          %{buildroot}%{_mandir}/nodejs-%{nodejs_major}/man5 \
          %{buildroot}%{_mandir}/nodejs-%{nodejs_major}/man7 \
-         %{buildroot}%{nodejs_sitelib}/npm/man \
+         %{buildroot}%{nodejs_default_sitelib}/npm/man \
          %{buildroot}%{nodejs_private_sitelib}/npm/man \
          %{buildroot}%{_pkgdocdir}/npm
 
@@ -738,12 +747,12 @@ end
 
 
 %files -n %{pkgname}
-%doc AUTHORS CHANGELOG.md onboarding.md GOVERNANCE.md README.md
+%doc CHANGELOG.md onboarding.md GOVERNANCE.md README.md
 
 %if 0%{?nodejs_default}
 %{_bindir}/node
 %doc %{_mandir}/man1/node.1*
-%{nodejs_sitelib}
+%{nodejs_default_sitelib}
 
 
 %endif
@@ -769,19 +778,28 @@ end
 %files -n %{pkgname}-libs
 %license LICENSE
 %{_libdir}/libnode.so.%{nodejs_soversion}
+%{_libdir}/%{pkgname}-libv8.so.%{v8_major}
+%{_libdir}/%{pkgname}-libv8_libbase.so.%{v8_major}
+%{_libdir}/%{pkgname}-libv8_libplatform.so.%{v8_major}
+%dir %{nodejs_datadir}/
+%if 0%{?nodejs_default}
 %{_libdir}/libv8.so.%{v8_major}
 %{_libdir}/libv8_libbase.so.%{v8_major}
 %{_libdir}/libv8_libplatform.so.%{v8_major}
-%dir %{nodejs_datadir}/
-
+%endif
 
 %files -n v8-%{v8_major}.%{v8_minor}-devel
 %{_includedir}/libplatform
 %{_includedir}/v8*.h
 %{_includedir}/cppgc
+%{_libdir}/%{pkgname}-libv8.so
+%{_libdir}/%{pkgname}-libv8_libbase.so
+%{_libdir}/%{pkgname}-libv8_libplatform.so
+%if 0%{?nodejs_default}
 %{_libdir}/libv8.so
 %{_libdir}/libv8_libbase.so
 %{_libdir}/libv8_libplatform.so
+%endif
 
 
 %files -n %{pkgname}-npm

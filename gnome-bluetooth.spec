@@ -3,10 +3,10 @@
 Name:		gnome-bluetooth
 Epoch:		1
 Version:	42.5
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Bluetooth graphical utilities
 
-License:	GPLv2+
+License:	GPL-2.0-or-later
 URL:		https://wiki.gnome.org/Projects/GnomeBluetooth
 Source0:	https://download.gnome.org/sources/gnome-bluetooth/42/gnome-bluetooth-%{tarball_version}.tar.xz
 
@@ -16,14 +16,14 @@ ExcludeArch:	s390 s390x
 
 BuildRequires:	gettext
 BuildRequires:	gobject-introspection-devel
-BuildRequires:	gtk3-devel
 BuildRequires:	gtk-doc
 BuildRequires:	meson
 BuildRequires:	pkgconfig(gsound)
+BuildRequires:	pkgconfig(gtk4)
+BuildRequires:	pkgconfig(libadwaita-1)
 BuildRequires:	pkgconfig(libnotify)
+BuildRequires:	pkgconfig(libudev)
 BuildRequires:	pkgconfig(upower-glib)
-BuildRequires:	systemd-devel
-BuildRequires:	libadwaita-devel
 BuildRequires:	python3-dbusmock >= 0.25.0-1
 
 Provides:	dbus-bluez-pin-helper
@@ -42,7 +42,7 @@ monitor and use Bluetooth devices.
 
 %package libs
 Summary:	GTK+ Bluetooth device selection widgets
-License:	LGPLv2+
+License:	LGPL-2.1-or-later
 
 %description libs
 This package contains libraries needed for applications that
@@ -50,7 +50,7 @@ want to display a Bluetooth device selection widget.
 
 %package libs-devel
 Summary:	Development files for %{name}-libs
-License:	LGPLv2+
+License:	LGPL-2.1-or-later
 Requires:	%{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:	%{name}%{?_isa} = %{epoch}:%{version}-%{release}
 
@@ -96,6 +96,9 @@ for writing applications that require a Bluetooth device selection widget.
 %{_datadir}/gtk-doc
 
 %changelog
+* Thu Mar 16 2023 David King <amigadave@amigadave.com> - 1:42.5-3
+- Use pkgconfig for BuildRequires
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:42.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

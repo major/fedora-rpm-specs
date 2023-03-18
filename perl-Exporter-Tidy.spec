@@ -3,7 +3,7 @@ Version:        0.08
 Release:        27%{?dist}
 Summary:        Another way of exporting symbols
 # Generated with licenses.pl
-License:        AAL or AFL or AGPLv3 or APSL 2.0 or ASL 2.0 or Artistic 2.0 or BSD or Boost or CATOSL or CDDL-1.0 or CNRI or CPAL or CeCILL or ECL 2.0 or EFL 2.0 or EPL-1.0 or EU Datagrid or EUPL 1.1 or Entessa or Fair or GPLv2 or GPLv3 or IBM or IPA or ISC or LGPLv2 or LGPLv3 or LPL or LPPL or MIT or MPLv1.1 or MPLv2.0 or MS-PL or MS-RL or MirOS or Motosoto or NCSA or NGPL or Naumen or Nokia or OFL or OSL 3.0 or PHP or PostgreSQL or Python or QPL or RPSL or SPL or Sleepycat or VSL or W3C or ZPLv2.0 or zlib
+License:        0BSD or AAL or AFL-3.0 or AGPL-3.0-only or APSL-2.0 or Apache-1.1 or Apache-2.0 or Artistic-2.0 or BSD-1-Clause or BSD-2-Clause or BSD-3-Clause or BSD-3-Clause-LBNL or BSL-1.0 or CATOSL-1.1 or CDDL-1.0 or CNRI-Python or CPAL-1.0 or CPL-1.0 or CUA-OPL-1.0 or ECL-1.0 or ECL-2.0 or EFL-2.0 or EPL-1.0 or EPL-2.0 or EUDatagrid or EUPL-1.1 or EUPL-1.2 or Entessa or Fair or GPL-1.0-only or GPL-2.0-only or GPL-3.0-only or HPND or IPL-1.0 or ISC or Jam or LGPL-2.0-only or LGPL-2.1-only or LGPL-3.0-only or LPL-1.02 or MIT or MIT-0 or MPL-1.0 or MPL-1.1 or MPL-2.0 or MS-PL or MS-RL or MirOS or Motosoto or NCSA or NGPL or NTP or Naumen or Nokia or OLDAP-2.8 or OSL-1.0 or OSL-2.1 or OSL-3.0 or PHP-3.01 or PostgreSQL or QPL-1.0 or RPSL-1.0 or SISSL or SPL-1.0 or Sleepycat or UPL-1.0 or Unicode-DFS-2016 or Unlicense or VSL-1.0 or W3C or ZPL-2.0 or ZPL-2.1 or Zlib
 URL:            https://metacpan.org/release/Exporter-Tidy
 Source0:        https://cpan.metacpan.org/authors/id/J/JU/JUERD/Exporter-Tidy-%{version}.tar.gz
 BuildArch:      noarch

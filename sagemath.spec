@@ -74,7 +74,7 @@
 Name:		sagemath
 Summary:	A free open-source mathematics software system
 Version:	9.8
-Release:	1%{?dist}
+Release:	2%{?dist}
 # The file ${SAGE_ROOT}/COPYING.txt is the upstream license breakdown file.
 # Note that many of the components listed in that file are not built in, but
 # are used as external libraries, and therefore do not affect the License tag.
@@ -2073,6 +2073,9 @@ end
 
 ########################################################################
 %changelog
+* Thu Mar 16 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 9.8-2
+- Rebuild for libbraiding 1.2
+
 * Mon Mar 13 2023 Jerry James <loganjerry@gmail.com> - 9.8-1
 - Version 9.8
 - Drop upstreamed patches: -fes-build, -python3.11

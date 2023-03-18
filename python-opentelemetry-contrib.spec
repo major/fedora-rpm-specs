@@ -6,6 +6,9 @@
 # There are a few subpackages that have their *own* versioning scheme!
 %global aws_propagator_version 1.0.1
 %global aws_sdk_version 2.0.1
+# Adjust this to ensure the release is monotonic, unless the base package
+# version and the above versions all change at the same time.
+%global baserel 6
 
 # Older versions of subpackages that are disabled in these conditionals are
 # Obsoleted in python3-opentelemetry-contrib-instrumentations; if changing or
@@ -62,7 +65,7 @@
 
 Name:           python-opentelemetry-contrib
 Version:        %{stable_version}
-Release:        %autorelease
+Release:        %autorelease -b %{baserel}
 Summary:        OpenTelemetry instrumentation for Python modules
 
 # Until we get clarification from upstream,

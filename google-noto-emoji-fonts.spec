@@ -12,7 +12,7 @@
 
 Name:           %{fontname}-fonts
 Version:        20220916
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Google “Noto Emoji” Black-and-White emoji font
 
 # In noto-emoji-fonts source
@@ -97,22 +97,25 @@ install -m 0644 -p fonts/NotoColorEmoji.ttf %{buildroot}%{_fontdir}
 # Pre-built, and included with the source:
 install -m 0644 -p static/NotoEmoji-Regular.ttf %{buildroot}%{_fontdir}
 
-mkdir -p %{buildroot}%{_datadir}/appdata
-install -m 0644 -p %{SOURCE2} %{buildroot}%{_datadir}/appdata
-install -m 0644 -p %{SOURCE3} %{buildroot}%{_datadir}/appdata
+mkdir -p %{buildroot}%{_metainfodir}
+install -m 0644 -p %{SOURCE2} %{buildroot}%{_metainfodir}
+install -m 0644 -p %{SOURCE3} %{buildroot}%{_metainfodir}
 
 %_font_pkg NotoEmoji-Regular.ttf
 %license LICENSE OFL.txt
 %doc AUTHORS CONTRIBUTING.md CONTRIBUTORS README.md README.txt
-%{_datadir}/appdata/google-noto-emoji.metainfo.xml
+%{_metainfodir}/google-noto-emoji.metainfo.xml
 
 %_font_pkg -n color NotoColorEmoji.ttf
 %license LICENSE OFL.txt
 %doc AUTHORS CONTRIBUTING.md CONTRIBUTORS README.md README.txt
-%{_datadir}/appdata/google-noto-emoji-color.metainfo.xml
+%{_metainfodir}/google-noto-emoji-color.metainfo.xml
 
 
 %changelog
+* Thu Mar 16 2023 Peng Wu <pwu@redhat.com> - 20220916-4
+- Use metainfodir macro for metainfo files
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20220916-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 %global gem_name activestorage
 
 # Circular dependency with rubygem-railties.
-%bcond_without bootstrap
+%bcond_with bootstrap
 
 # FFmpeg can be used in tests, but is not available in Fedora
 %bcond_with ffmpeg

@@ -5,7 +5,7 @@
 %global crate csv
 
 Name:           rust-csv
-Version:        1.2.0
+Version:        1.2.1
 Release:        %autorelease
 Summary:        Fast CSV parsing with support for serde
 

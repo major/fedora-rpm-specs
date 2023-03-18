@@ -17,7 +17,7 @@ URL:        http://www.flarerpg.org
 Source0:    %{forgesource}
 
 Requires:   liberation-sans-fonts
-Requires:   unifont-fonts
+Requires:   unifont-ttf-fonts
 
 BuildRequires: gcc
 BuildRequires: gcc-c++
@@ -28,7 +28,7 @@ BuildRequires: SDL2_mixer-devel
 BuildRequires: SDL2_ttf-devel
 BuildRequires: desktop-file-utils
 BuildRequires: liberation-sans-fonts
-BuildRequires: unifont-fonts
+BuildRequires: unifont-ttf-fonts
 
 %description
 Flare (Free Libre Action Roleplaying Engine) is a simple game engine built to

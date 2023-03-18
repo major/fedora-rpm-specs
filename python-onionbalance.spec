@@ -6,7 +6,7 @@
 
 Name:           python-%{pkgname}
 Version:        0.2.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        %{sum}
 
 License:        GPLv3
@@ -46,7 +46,7 @@ Summary:   %{sum}
 Requires:  python3-setuptools
 Requires:  python3-stem >= 1.8
 Requires:  python3-PyYAML >= 4.2b1
-Requires:  python3-crypto
+Requires:  python3-cryptography >= 2.5
 Requires:  python3-pycryptodomex
 Requires:  python3-future >= 0.14.3
 Requires:  python3-setproctitle >= 1.1.9
@@ -126,6 +126,9 @@ exit 0
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{pkgname}.conf
 
 %changelog
+* Thu Mar 16 2023 Marcel Haerry <mh+fedora@scrit.ch> - 0.2.1-6
+- Fix dependency for binary package bz#2061839
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

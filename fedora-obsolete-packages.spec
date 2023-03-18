@@ -459,11 +459,18 @@ Source0:    README
 %obsolete_ticket https://bugzilla.redhat.com/show_bug.cgi?id=2160274
 %obsolete ocaml-stdint 0.7.2-2
 
+# Remove in F40
 # Retired and blocks upgrades.
 %obsolete_ticket https://src.fedoraproject.org/rpms/msv/c/d64a3747a979f709029501929c8ffe97be3e4238?branch=rawhide
 %obsolete msv 2013.6.1-20
+
+# Remove in F40
 %obsolete_ticket https://bugzilla.redhat.com/show_bug.cgi?id=2172468
 %obsolete python3-clikit 0.6.2-8
+
+# Remove in F40
+%obsolete_ticket https://src.fedoraproject.org/rpms/recordmydesktop/c/47b8daab4a403d351f24e068f9c7b5f9fde7fb7d?branch=rawhide
+%obsolete recordmydesktop 0.3.8.1-20
 
 # This package won't be installed, but will obsolete other packages
 Provides: libsolv-self-destruct-pkg()

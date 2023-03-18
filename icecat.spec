@@ -18,7 +18,7 @@ ExcludeArch: %{arm}
 # Build is failing because of
 # include/mozilla/FloatingPoint.h:212:31: error: inlining failed in call to ‘always_inline’ ‘bool mozilla::IsNegativeZero(T) [with T = double]’: indirect function call with a yet undetermined callee
 %if 0%{?fedora} > 37
-#ExcludeArch: s390x
+ExcludeArch: s390x
 %endif
 
 ####################
@@ -583,8 +583,11 @@ MOZ_LINK_FLAGS="-Wl,--no-keep-memory"
 echo "ac_add_options --enable-linker=gold" >> .mozconfig
 %endif
 %endif
-%ifarch %{arm} %{ix86} %{power64} s390x
+%ifarch %{arm} %{ix86} s390x
 export RUSTFLAGS="-Cdebuginfo=0"
+%else
+# Otherwise since https://src.fedoraproject.org/rpms/redhat-rpm-config/pull-request/243 breaks build.
+unset RUSTFLAGS
 %endif
 export CFLAGS=$MOZ_OPT_FLAGS
 export CXXFLAGS="$MOZ_OPT_FLAGS -fpermissive"

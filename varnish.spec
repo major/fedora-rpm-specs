@@ -12,18 +12,28 @@
 
 %global __provides_exclude_from ^%{_libdir}/varnish/vmods
 
-%global abi 399fa7ed46d68f4c4f42a8fd2748339750d99a8b
-%global vrt 16.0
+%global abi 84d79120b6d17b11819a663a93160743f293e63f
+%global vrt 17.0
 
 # Package scripts are now external
 # https://github.com/varnishcache/pkg-varnish-cache
-%global commit1 ffc59a345217b599fd49f7f0442b5f653fbe6fc2
+%global commit1 712667312304cbb1798f131caa0a98b7697a2cd9
 %global shortcommit1 %(c=%{commit1}; echo ${c:0:7})
+
+# Default: Use jemalloc, as adviced by upstream project
+# Change to 1 to use system allocator (ie. glibc)
+%bcond system_allocator 0
+
+%if 0%{with system_allocator}
+# use _lto_cflags if present
+%else
+%global _lto_cflags %{nil}
+%endif
 
 Summary: High-performance HTTP accelerator
 Name: varnish
-Version: 7.2.1
-Release: 2%{?dist}
+Version: 7.3.0
+Release: 1%{?dist}
 License: BSD
 URL: https://www.varnish-cache.org/
 Source0: http://varnish-cache.org/_downloads/%{name}-%{version}.tgz
@@ -52,25 +62,25 @@ BuildRequires: python34 python34-sphinx python34-docutils
 BuildRequires: python3, python3-sphinx, python3-docutils
 %endif
 BuildRequires: gcc
-BuildRequires: jemalloc-devel
 BuildRequires: libedit-devel
 BuildRequires: make
 BuildRequires: ncurses-devel
 BuildRequires: pcre2-devel
 BuildRequires: pkgconfig
+BuildRequires: systemd-units
+%if 0%{with system_allocator}
+# use glibc
+%else
+BuildRequires: jemalloc-devel
+%endif
 
 # Extra requirements for the build suite
 BuildRequires: nghttp2
-
-# haproxy is broken in rawhide now
-%if 0%{?rhel} >= 8
 BuildRequires: haproxy
-%endif
 
 Requires: logrotate
 Requires: ncurses
 Requires: pcre2
-Requires: jemalloc
 Requires: redhat-rpm-config
 Requires(pre): shadow-utils
 Requires(post): /usr/bin/uuidgen
@@ -81,7 +91,11 @@ Requires(post): systemd-units
 Requires(post): systemd-sysv
 Requires(preun): systemd-units
 Requires(postun): systemd-units
-BuildRequires: systemd-units
+%if 0%{with system_allocator}
+# use glibc
+%else
+Requires: jemalloc
+%endif
 
 %description
 This is Varnish Cache, a high-performance HTTP accelerator.
@@ -122,16 +136,25 @@ cp redhat/find-provides .
 sed -i 's,rst2man-3.6,rst2man-3.4,g; s,rst2html-3.6,rst2html-3.4,g; s,phinx-build-3.6,phinx-build-3.4,g' configure
 
 %build
+%if 0%{with system_allocator}
+export CFLAGS="%{optflags}"
+%else
+# nilled _lto_cflags above because they remove the deps on jemalloc.
+# On the fedoras, _lto_cflags is -flto=auto and -ffat-lto-objects. The latter is OK.
+export CFLAGS="%{optflags} -ffat-lto-objects"
+%endif
+
 # https://gcc.gnu.org/wiki/FAQ#PR323
 %ifarch %ix86
 %if 0%{?fedora} > 21
-export CFLAGS="%{optflags} -ffloat-store -fexcess-precision=standard"
+export CFLAGS="$CFLAGS -ffloat-store -fexcess-precision=standard"
 %endif
 %endif
 
 %ifarch s390x
-export CFLAGS="%{optflags} -Wno-error=free-nonheap-object"
+export CFLAGS="$CFLAGS -Wno-error=free-nonheap-object"
 %endif
+
 
 # What gcc version is this?
 gcc --version
@@ -149,7 +172,12 @@ export PYTHON=%{__python}
   --localstatedir=/var/lib  \
   --with-contrib \
   --docdir=%{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}} \
-#  --disable-pcre-jit \
+%ifarch %ix86
+  --enable-pcre2-jit=no \
+%endif
+%if 0%{with system_allocator}
+  --with-jemalloc=no \
+%endif
 
 %make_build
 
@@ -266,6 +294,12 @@ test -f /etc/varnish/secret || (uuidgen > /etc/varnish/secret && chmod 0600 /etc
 
 
 %changelog
+* Thu Mar 16 2023 Ingvar Hagelund <ingvar@redpill-linpro.com> - 7.3.0-1
+- New upstream release
+- Added a bcond system_allocator for skipping jemalloc, bz#1917697
+- nil _lto_cflags macro to link to jemalloc again
+- disable pcre2-jit on 32bit x86 for now
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

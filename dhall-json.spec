@@ -13,6 +13,8 @@ Summary:        Convert between Dhall and JSON or YAML
 
 License:        BSD-3-Clause
 Url:            https://hackage.haskell.org/package/%{name}
+# https://github.com/well-typed/cborg/issues/309
+ExcludeArch:    %{ix86}
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{pkgver}/%{pkgver}.tar.gz
 Source1:        https://hackage.haskell.org/package/%{pkgver}/%{name}.cabal#/%{pkgver}.cabal

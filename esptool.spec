@@ -1,6 +1,6 @@
 Name:           esptool
-Version:        4.4
-Release:        2%{?dist}
+Version:        4.5.1
+Release:        1%{?dist}
 Summary:        A utility to communicate with the ROM bootloader in Espressif ESP8266 & ESP32
 
 License:        GPL-2.0-or-later
@@ -23,10 +23,6 @@ Developed by the community, not by Espressif Systems.
 %prep
 %autosetup -p1
 
-# Remove shebangs from site-packages
-grep -r '^#!' esp{efuse,secure,tool}/
-sed -i 1d $(grep -rl '^#!' esp{efuse,secure,tool}/)
-
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -39,13 +35,15 @@ sed -i 1d $(grep -rl '^#!' esp{efuse,secure,tool}/)
 %install
 %pyproject_install
 %pyproject_save_files esptool espefuse espsecure
-for NAME in %{name} espefuse espsecure ; do
+for NAME in %{name} espefuse espsecure esp_rfc2217_server ; do
   ln -s ./$NAME.py %{buildroot}%{_bindir}/$NAME
 done
 
 
 %check
-%pyproject_check_import
+# There is esptool[hsm] which pulls additional requirement on python-pkcs11
+# It is not yet packaged in Fedora though
+%pyproject_check_import -e 'espsecure.esp_hsm_sign*'
 
 
 %files -f %{pyproject_files}
@@ -56,9 +54,15 @@ done
 %{_bindir}/espefuse.py
 %{_bindir}/espsecure
 %{_bindir}/espsecure.py
+%{_bindir}/esp_rfc2217_server
+%{_bindir}/esp_rfc2217_server.py
 
 
 %changelog
+* Wed Mar 08 2023 Karolina Surma <ksurma@redhat.com> - 4.5.1-1
+- Update to 4.5.1
+Resolves: rhbz#2159572
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

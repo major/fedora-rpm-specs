@@ -1,7 +1,7 @@
 Name:       ilbc
 Summary:    Internet Low Bitrate Codec
 Version:    3.0.4
-Release:    4%{?dist}
+Release:    5%{?dist}
 License:    BSD
 URL:        https://github.com/TimothyGu/libilbc
 
@@ -30,6 +30,10 @@ Additional header files for development with %{name}.
 
 %prep
 %autosetup -p1 -n libilbc-%{version}
+# C++17 or later is required for absl::string_view based on std::string_view in
+# abseil-cpp-20230125.0 and later. Setting -DCMAKE_CXX_STANDARD does not
+# override CMakeLists.txt, so we patch it.
+sed -r -i 's/(set\(CMAKE_CXX_STANDARD[[:blank:]]+)14\b/\117/' CMakeLists.txt
 
 %build
 %cmake -DBUILD_SHARED_LIBS=ON
@@ -55,6 +59,9 @@ rm -fr %{buildroot}%{_docdir}/libilbc
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Sun Mar 05 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 3.0.4-5
+- Build as C++17 for abseil-cpp-20230125 compatibility
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

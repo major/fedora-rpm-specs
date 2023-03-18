@@ -17,9 +17,9 @@ BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
 
 %global _description %{expand:
-OpenAPI Spec Validator is a Python library that validates OpenAPI Specs
-against the OpenAPI 2.0 (aka Swagger), OpenAPI 3.0 and OpenAPI 3.1 specification.
-The validator aims to check for full compliance with the Specification.}
+OpenAPI Spec Validator is a Python library that validates OpenAPI Specs against
+the OpenAPI 2.0 (aka Swagger), OpenAPI 3.0 and OpenAPI 3.1 specification. The
+validator aims to check for full compliance with the Specification.}
 
 %description %_description
 
@@ -30,6 +30,9 @@ Summary:        %{summary}
 %description -n python3-%{srcname} %_description
 
 
+%pyproject_extras_subpkg -n python3-%{srcname} requests
+
+
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
@@ -37,7 +40,7 @@ sed -r -i '/^--cov[-=]/d' pyproject.toml
 
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -x requests
 
 
 %build

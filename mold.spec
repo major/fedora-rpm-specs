@@ -1,5 +1,10 @@
+%if 0%{?el8}
+# Disable annobin plugin on el8 (unusable with gcc-toolset-12)
+%undefine _annotated_build
+%endif
+
 Name:		mold
-Version:	1.10.0
+Version:	1.11.0
 Release:	1%{?dist}
 Summary:	A Modern Linker
 
@@ -16,9 +21,6 @@ Patch0:		tbb-strip-werror.patch
 
 # Allow building against the system-provided `xxhash.h`
 Patch1:		0001-Use-system-compatible-include-path-for-xxhash.h.patch
-
-# Fix out-of-bounds memory access (https://github.com/rui314/mold/issues/969)
-Patch2:		0002-Fix-out-of-bound-memory-access.patch
 
 # mold currently cannot produce native binaries for MIPS
 ExcludeArch:	%{mips}
@@ -57,7 +59,7 @@ Requires(preun): %{_sbindir}/alternatives
 
 # API-incompatible with older tbb 2020.3 currently shipped by Fedora:
 # https://bugzilla.redhat.com/show_bug.cgi?id=2036372
-Provides:	bundled(tbb) = 2021.5
+Provides:	bundled(tbb) = 2021.7
 
 %description
 mold is a faster drop-in replacement for existing Unix linkers.
@@ -106,6 +108,10 @@ fi
 %{_mandir}/man1/mold.1*
 
 %changelog
+* Thu Mar 16 2023 Christoph Erhardt <fedora@sicherha.de> - 1.11.0-1
+- Bump version to 1.11.0
+- Update version number of bundled tbb package to 2021.7
+
 * Sat Jan 21 2023 Christoph Erhardt <fedora@sicherha.de> - 1.10.0-1
 - Bump version to 1.10.0
 - Refresh patch

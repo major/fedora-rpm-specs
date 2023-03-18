@@ -11,14 +11,14 @@
 %global intver 12:0:2
 
 Name:           cube
-Version:        4.8
-Release:        2%{?dist}
+Version:        4.8.1
+Release:        1%{?dist}
 Summary:        CUBE Uniform Behavioral Encoding generic presentation component
 License:        BSD-3-Clause
 URL:            http://www.scalasca.org/software/cube-4.x/download.html
-Source0:        http://apps.fz-juelich.de/scalasca/releases/cube/%version/dist/cubegui-%{version}.tar.gz
-Source1:        http://apps.fz-juelich.de/scalasca/releases/cube/%cubew_vers/dist/cubew-%{cubew_vers}.tar.gz
-Source2:        http://apps.fz-juelich.de/scalasca/releases/cube/%version/dist/cubelib-%{version}.tar.gz
+Source0:        http://apps.fz-juelich.de/scalasca/releases/cube/%shortwv/dist/cubegui-%{version}.tar.gz
+Source1:        http://apps.fz-juelich.de/scalasca/releases/cube/%shortwv/dist/cubew-%{cubew_vers}.tar.gz
+Source2:        http://apps.fz-juelich.de/scalasca/releases/cube/%shortwv/dist/cubelib-%{version}.tar.gz
 %if 0
 Source0:        https://perftools.pages.jsc.fz-juelich.de/cicd/cubegui/tags/cubegui-4.8-rc1/cubegui-4.8-rc1.tar.gz
 Source1:        https://perftools.pages.jsc.fz-juelich.de/cicd/cubew/tags/cubew-4.8-rc1/cubew-4.8-rc1.tar.gz
@@ -39,7 +39,7 @@ BuildRequires:  qt5-qtwebengine-devel
 %endif
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
-%global ver 4.8
+%global ver %version
 
 %description
 CUBE (CUBE Uniform Behavioral Encoding) is a generic presentation component
@@ -363,6 +363,9 @@ fi
 
 
 %changelog
+* Wed Mar 15 2023  <vagrant@rhel8.localdomain> - 4.8,1-1
+- New version
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

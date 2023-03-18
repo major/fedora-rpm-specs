@@ -33,8 +33,8 @@ generates a counterexample.
 
 %package libs
 # GPL-2.0-or-later: the project as a whole
-# LicenseRef-Fedora-Public-Domain: Mem/dlmalloc.{c,h}
-License:        GPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain
+# CC-PDDC: Mem/dlmalloc.{c,h}
+License:        GPL-2.0-or-later AND CC-PDDC
 Summary:        Supporting libraries for Mona
 
 %description libs
@@ -138,6 +138,9 @@ mv $RPM_BUILD_ROOT%{_datadir}/mona-mode.el .
 %{_emacs_sitelispdir}/mona/mona-mode.el*
 
 %changelog
+* Thu Mar 16 2023 Jerry James <loganjerry@gmail.com> - 1.4r18-8
+- Correct License tag: CC-PDDC instead of public domain
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4r18-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

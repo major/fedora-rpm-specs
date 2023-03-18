@@ -45,7 +45,7 @@
 Name:             ghostscript
 Summary:          Interpreter for PostScript language & PDF
 Version:          10.0.0
-Release:          3%{?dist}
+Release:          4%{?dist}
 
 License:          AGPL-3.0-or-later
 
@@ -108,6 +108,7 @@ Patch001: ghostscript-10.0.0-Fix-color-info-juggling-with-x11-devices.patch
 Patch002: ghostscript-10.0.0-Deal-with-different-VM-modes-during-CIDFont-loading.patch
 # https://github.com/OpenPrinting/cups-filters/issues/484
 Patch003: ghostscript-10.0.0-CUPS-PWG-Apple-Raster-output-device-Do-not-match-cus.patch
+Patch004: ghostscript-10.0.0-pdfwrite-Substituted-TTF-CIDFont-CID-hand.patch
 
 # Downstream patches -- these should be always included when doing rebase:
 # ------------------
@@ -438,6 +439,9 @@ done
 # =============================================================================
 
 %changelog
+* Thu Mar 16 2023 Richard Lescak <rlescak@redhat.com> - 10.0.0-4
+- fix embedding of CIDFonts
+
 * Tue Feb 14 2023 Richard Lescak <rlescak@redhat.com> - 10.0.0-3
 - fix gdevcups to not match custom size against PPD
 

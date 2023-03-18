@@ -2,10 +2,10 @@
 
 Name:           gnote
 Version:        43.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Note-taking application
 
-License:        GPLv3+
+License:        GPL-3.0-or-later AND GFDL-1.1
 URL:            https://wiki.gnome.org/Apps/Gnote
 Source0:        https://download.gnome.org/sources/gnote/43/%{name}-%{tarball_version}.tar.xz
 
@@ -23,7 +23,7 @@ BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(libxslt)
 BuildRequires:  pkgconfig(uuid)
 
-%global __provides_exclude_from ^%{_libdir}/%{name}/addins
+%global __provides_exclude_from ^%{_libdir}/%{name}/plugins/*/.*\\.so$
 
 %description
 Gnote is a desktop note-taking application which is simple and easy to use.
@@ -48,7 +48,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Gnote.deskt
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Gnote.appdata.xml
 
 %files -f %{name}.lang
-%license COPYING
+%license COPYING COPYING-DOCS
 %doc AUTHORS NEWS README.md
 %{_bindir}/gnote
 %{_libdir}/gnote/
@@ -67,6 +67,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Gnot
 %{_metainfodir}/org.gnome.Gnote.appdata.xml
 
 %changelog
+* Thu Mar 16 2023 David King <amigadave@amigadave.com> - 43.1-2
+- Use SPDX for License field
+- Fix excluding private libraries from Provides
+
 * Tue Feb 07 2023 David King <amigadave@amigadave.com> - 43.1-1
 - Update to 43.1
 

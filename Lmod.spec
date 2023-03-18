@@ -3,7 +3,7 @@
 %global debug_package %{nil}
 
 Name:           Lmod
-Version:        8.7.19
+Version:        8.7.20
 Release:        1%{?dist}
 Summary:        Environmental Modules System in Lua
 
@@ -144,6 +144,9 @@ fi
 
 
 %changelog
+* Fri Mar 17 2023 Orion Poplawski <orion@nwra.com> - 8.7.20-1
+- Update to 8.7.20 (Fixes bz#2178498)
+
 * Fri Jan 20 2023 Orion Poplawski <orion@nwra.com> - 8.7.19-1
 - Update to 8.7.19
 - Use SPDX License tag

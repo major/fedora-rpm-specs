@@ -11,6 +11,7 @@ BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:  systemd-devel
 BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 BuildRequires:  python3-sphinx
 BuildRequires:  web-assets-devel
 BuildRequires:  python3-pytest

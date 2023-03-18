@@ -1,78 +1,68 @@
-# TODO, sometime: nvtvsimple
+#global         snapshot    1
+#global         date        20190824
+#global         commit      894d90
 
-# hg version
-# %global hgdate 20091217
-
-Summary:        A skinned xlib-based gui for xine-lib
 Name:           xine-ui
-Version:        0.99.7
-Release:        8%{?dist}
-License:        GPLv2+
-Group:          Applications/Multimedia
+Version:        0.99.14
+Release:        3%{?snapshot:.%{date}hg%{commit}}%{?dist}
+Summary:        A skinned xlib-based gui for xine-lib
+License:        GPL-2.0-or-later
 URL:            http://www.xine-project.org/
-
+%if ! 0%{?snapshot}
 Source0:        http://sourceforge.net/projects/xine/files/xine-ui/%{version}/xine-ui-%{version}.tar.xz
+%else
+Source0:        xine-ui-%{version}hg.tar.xz
+%endif
 
-#Use source from hg for now to fix a few bugs
-#This tarball has been created with
-# hg clone http://hg.debian.org/hg/xine-lib/xine-ui/ xine-ui-0.99.6
-# find xine-ui-0.99.6 -name .hg* -exec rm -rf {} \;
-# find xine-ui-0.99.6 -name .cvs* -exec rm -rf {} \;
-# tar jcf xine-ui-0.99.6-20091217.tar.bz2 xine-ui-0.99.6/
-# Source0:	xine-ui-%{version}-%{hgdate}.tar.bz2
-BuildRequires:	autoconf
-BuildRequires:	automake
+# Sources for -skins.
+Source1:        https://xine.sourceforge.net/skins/Antares.tar.gz
+Source2:        https://xine.sourceforge.net/skins/Bambino-Black.tar.gz
+Source3:        https://xine.sourceforge.net/skins/Bambino-Blue.tar.gz
+Source4:        https://xine.sourceforge.net/skins/Bambino-Green.tar.gz
+Source5:        https://xine.sourceforge.net/skins/Bambino-Orange.tar.gz
+Source6:        https://xine.sourceforge.net/skins/Bambino-Pink.tar.gz
+Source7:        https://xine.sourceforge.net/skins/Bambino-Purple.tar.gz
+Source8:        https://xine.sourceforge.net/skins/Bambino-White.tar.gz
+Source9:        https://xine.sourceforge.net/skins/blackslim2.tar.gz
+Source10:       https://xine.sourceforge.net/skins/Bluton.tar.gz
+Source11:       https://xine.sourceforge.net/skins/caramel.tar.gz
+Source12:       https://xine.sourceforge.net/skins/CelomaChrome.tar.gz
+Source13:       https://xine.sourceforge.net/skins/CelomaGold.tar.gz
+Source14:       https://xine.sourceforge.net/skins/CelomaMdk.tar.gz
+Source15:       https://xine.sourceforge.net/skins/Centori.tar.gz
+Source16:       https://xine.sourceforge.net/skins/cloudy.tar.gz
+Source17:       https://xine.sourceforge.net/skins/concept.tar.gz
+Source18:       https://xine.sourceforge.net/skins/Crystal.tar.gz
+Source19:       https://xine.sourceforge.net/skins/Galaxy.tar.gz
+Source20:       https://xine.sourceforge.net/skins/gudgreen.tar.gz
+Source21:       https://xine.sourceforge.net/skins/KeramicRH8.tar.gz
+Source22:       https://xine.sourceforge.net/skins/Keramic.tar.gz
+Source23:       https://xine.sourceforge.net/skins/lcd.tar.gz
+Source24:       https://xine.sourceforge.net/skins/mp2k.tar.gz
+Source25:       https://xine.sourceforge.net/skins/mplayer.tar.gz
+Source26:       https://xine.sourceforge.net/skins/OMS_legacy.tar.gz
+Source27:       https://xine.sourceforge.net/skins/pitt.tar.gz
+Source28:       https://xine.sourceforge.net/skins/Polaris.tar.gz
+Source29:       https://xine.sourceforge.net/skins/Sunset.tar.gz
+Source30:       https://xine.sourceforge.net/skins/xinium.tar.gz
+Source31:       default.ogv
+
+# Script to make a xine-ui snapshot
+Source100:      make_xineui_snapshot.sh
 
 # Patch to use UTF-8 documentation, BZ #512598
-Patch1:         xine-ui-0.99.5-utf8doc.patch
-
-
-#o Sources for -skins. Ugh.
-Source1:	http://xine-project.org/skins/Antares.tar.gz
-Source2:        http://xine-project.org/skins/Bambino-Black.tar.gz
-Source3:        http://xine-project.org/skins/Bambino-Blue.tar.gz
-Source4:        http://xine-project.org/skins/Bambino-Green.tar.gz
-Source5:        http://xine-project.org/skins/Bambino-Orange.tar.gz
-Source6:        http://xine-project.org/skins/Bambino-Pink.tar.gz
-Source7:        http://xine-project.org/skins/Bambino-Purple.tar.gz
-Source8:        http://xine-project.org/skins/Bambino-White.tar.gz
-Source9:        http://xine-project.org/skins/blackslim2.tar.gz
-Source10:       http://xine-project.org/skins/Bluton.tar.gz
-Source11:       http://xine-project.org/skins/caramel.tar.gz
-Source12:       http://xine-project.org/skins/CelomaChrome.tar.gz
-Source13:       http://xine-project.org/skins/CelomaGold.tar.gz
-Source14:       http://xine-project.org/skins/CelomaMdk.tar.gz
-Source15:       http://xine-project.org/skins/Centori.tar.gz
-Source16:       http://xine-project.org/skins/cloudy.tar.gz
-Source17:       http://xine-project.org/skins/concept.tar.gz
-Source18:       http://xine-project.org/skins/Crystal.tar.gz
-Source19:       http://xine-project.org/skins/Galaxy.tar.gz
-Source20:       http://xine-project.org/skins/gudgreen.tar.gz
-Source21:       http://xine-project.org/skins/KeramicRH8.tar.gz
-Source22:       http://xine-project.org/skins/Keramic.tar.gz
-Source23:       http://xine-project.org/skins/lcd.tar.gz
-Source24:       http://xine-project.org/skins/mp2k.tar.gz
-Source25:       http://xine-project.org/skins/mplayer.tar.gz
-Source26:       http://xine-project.org/skins/OMS_legacy.tar.gz
-Source27:       http://xine-project.org/skins/pitt.tar.gz
-Source28:       http://xine-project.org/skins/Polaris.tar.gz
-Source29:       http://xine-project.org/skins/Sunset.tar.gz
-Source30:       http://xine-project.org/skins/xinium.tar.gz
-
-Source31:	default.ogv
-
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-# Package was named xine in rpmfusion
-Provides:       xine = %{version}-%{release}
-Obsoletes:      xine < %{version}-%{release}
+Patch1:         xine-ui-0.99.13-utf8doc.patch
 
 BuildRequires:  aalib-devel >= 1.2.0
+BuildRequires:  autoconf
+BuildRequires:  automake
 BuildRequires:  curl-devel >= 7.10.2
 BuildRequires:  desktop-file-utils
+BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  libcaca-devel
+BuildRequires:  libjpeg-turbo-devel
 BuildRequires:  libpng-devel >= 1.5
-BuildRequires:  libtermcap-devel
 BuildRequires:  libXft-devel
 BuildRequires:  libXi-devel
 BuildRequires:  libXinerama-devel
@@ -80,56 +70,48 @@ BuildRequires:  libXt-devel
 BuildRequires:  libXtst-devel
 BuildRequires:  libXv-devel
 BuildRequires:  libXxf86vm-devel
+BuildRequires:  lirc-devel
+BuildRequires:  ncurses-devel
 BuildRequires:  readline-devel
 BuildRequires:  xine-lib-devel >= 1.1.0
 BuildRequires:  xorg-x11-proto-devel
-BuildRequires:	libjpeg-turbo-devel
-
-# Lirc-devel is not available on EPEL-5
-%if 0%{?rhel} == 0
-BuildRequires:  lirc-devel
-%endif
 
 # For dir ownership
 Requires:       hicolor-icon-theme
-Requires:       xine-lib
+#
 Requires:       xine-lib-extras
+
 
 %description
 xine-ui is the traditional, skinned GUI for xine-lib. 
 
 
-# Skins
-
 %package skins
 Summary:        Extra skins for xine-ui
-Group:          Applications/Multimedia
 Requires:       %{name} = %{version}-%{release}
-# Package in RPMFusion was named skine-skins
-Obsoletes:      xine-skins
-%if 0%{?fedora}>10 || 0%{?rhel}>5
 BuildArch:      noarch
-%endif
 
 %description skins
 This package contains extra skins for xine-ui.
 
+
 %package aaxine
-Summary:	ASCII art player for terminals
-Group:		Applications/Multimedia
-Requires:	%{name} = %{version}-%{release}
-Requires:	xine-lib-extras
+Summary:        ASCII art player for terminals
+Requires:       %{name} = %{version}-%{release}
+Requires:       xine-lib-extras
 
 %description aaxine
-This package contains the ASCII art player for terminals like the vt100
+This package contains the ASCII art player for terminals like the vt100.
+It also contains the color ascii art and framebuffer versions.
+
 
 %prep
 # Setup xine
-%setup0 -q
+%setup -q -n %{name}-%{version}%{?snapshot:hg}
 # Setup skins
-%setup1 -T -q -c -n %{name}-%{version}/fedoraskins -a1 -a2 -a3 -a4 -a5 -a6 -a7 -a8 -a9 -a10 -a11 -a12 -a13 -a14 -a15 -a16 -a17 -a18 -a19 -a20 -a21 -a22 -a23 -a24 -a25 -a26 -a27 -a28 -a29 -a30
+%setup1 -T -q -c -n %{name}-%{version}%{?snapshot:hg}/fedoraskins -a1 -a2 -a3 -a4 -a5 -a6 -a7 -a8 -a9 -a10 -a11 -a12 -a13 -a14 -a15 -a16 -a17 -a18 -a19 -a20 -a21 -a22 -a23 -a24 -a25 -a26 -a27 -a28 -a29 -a30
 # Restore directory
-%setup -T -D
+%setup -T -D -n %{name}-%{version}%{?snapshot:hg}
 
 %patch1 -p1
 
@@ -140,17 +122,13 @@ if [ -n "$libx11so" -a -f "$libx11so" ] ; then
     sed -i -e "s/\"libX11\\.so\"/\"$(basename $libx11so)\"/" src/aaui/main.c
 fi
 
-for f in doc/man/{de,es,fr}/*.1* doc/README?{cs,de,es,fi,fr,it} ; do
+# Fix file encoding
+for f in doc/man/{de,es,fr}/*.1* ; do
     iconv -f iso-8859-1 -t utf-8 $f > $f.utf8 && \
     touch -r $f $f.utf8 && \
     mv $f.utf8 $f
 done
-for f in doc/man/pl/*.1* doc/README?{cs,pl}* ; do
-    iconv -f iso-8859-2 -t utf-8 $f > $f.utf8 && \
-    touch -r $f $f.utf8 && \
-     mv $f.utf8 $f
-done
-for f in src/xitk/xine-toolkit/README ; do
+for f in doc/man/pl/*.1* src/xitk/xine-toolkit/README ; do
     iconv -f iso-8859-2 -t utf-8 $f > $f.utf8 && \
     touch -r $f $f.utf8 && \
      mv $f.utf8 $f
@@ -162,49 +140,42 @@ cp -a src/xitk/xine-toolkit/README doc/README.xitk
 find fedoraskins/ -type d -name "CVS" -exec rm -rf {} \; || :
 find fedoraskins/ -type d -name ".xvpics" -exec rm -rf {} \; || :
 
-sed -i 's,default.avi,default.ogv,' src/xitk/actions.c
-sed -i 's,default.avi,default.ogv,' misc/visuals/Makefile.in
 
 %build
 ./autogen.sh noconfig
 export LIRC_CFLAGS="-llirc_client"
 export LIRC_LIBS="-llirc_client"
-#%configure --disable-dependency-tracking --enable-vdr-keys --with-aalib XINE_DOCPATH=%{_docdir}/%{name}-%{version}
-# Set documentation directory
-make %{?_smp_mflags}
+export XINE_DOCPATH=%{_docdir}/%{name}-%{version}
+%configure --disable-dependency-tracking \
+           --enable-vdr-keys \
+           --with-aalib
+%make_build
+
 
 %install
-rm -rf %{buildroot}
-make install DESTDIR=%{buildroot} INSTALL="install -p"
+%make_install
 %find_lang 'xi\(ne-ui\|tk\)'
 
 desktop-file-install --remove-category="Application" --vendor="" \
     --add-category="Audio" --add-category="Video" \
     --dir %{buildroot}%{_datadir}/applications misc/desktops/xine.desktop
 
-# Remove the desktop file installed in the wrong place 
-rm -rf %{buildroot}%{_datadir}/xine/desktop
-
-# Remove the default avi. Gets replaced with default.ogv
-rm -rf %{buildroot}%{_datadir}/xine/visuals/default.avi
-
-# Remove automatically installed documentation (listed in %doc)
+# Remove automatically installed documentation (listed in %%doc)
 rm -rf %{buildroot}%{_docdir}/
 
 # Remove misdesigned xine-check
 rm -f %{buildroot}%{_bindir}/xine-bugreport
-rm -f %{buildroot}%{_mandir}/xine-bugreport.*
+rm -f %{buildroot}%{_mandir}/*/man1/xine-bugreport.*
+rm -f %{buildroot}%{_mandir}/man1/xine-bugreport.*
 rm -f %{buildroot}%{_bindir}/xine-check
-rm -f %{buildroot}%{_mandir}/xine-check.*
+rm -f %{buildroot}%{_mandir}/*/man1/xine-check.*
+rm -f %{buildroot}%{_mandir}/man1/xine-check.*
 
 # Install extra skins
 cp -a fedoraskins/* %{buildroot}%{_datadir}/xine/skins/
 
 
-%clean
-rm -rf %{buildroot}
-
-
+%if 0%{?el7}
 %post
 # Mime type
 update-desktop-database &> /dev/null || :
@@ -224,48 +195,176 @@ fi
 
 %posttrans
 gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+%endif
 
 
 %files -f 'xi\(ne-ui\|tk\)'.lang
-%defattr(-,root,root,-)
-%doc doc/README*
-%{_bindir}/cacaxine
-%{_bindir}/fbxine
+%license COPYING
+%doc ChangeLog doc/README*
 %{_bindir}/xine
 %{_bindir}/xine-remote
-
+%dir %{_datadir}/xine/
 %dir %{_datadir}/xine/skins/
 %{_datadir}/xine/skins/xinetic/
-%{_datadir}/xine/skins/xine-ui_logo.png
+%{_datadir}/xine/skins/missing.png
+%{_datadir}/xine/skins/xine_64.png
 %{_datadir}/xine/skins/xine_splash.png
+%{_datadir}/xine/skins/xine-ui_logo.mpg
+%{_datadir}/xine/skins/xine-ui_logo.png
 %{_datadir}/xine/oxine/
 %{_datadir}/xine/visuals/
-
 %{_datadir}/mime/packages/xine-ui.xml
 %{_datadir}/applications/*xine.desktop
 %{_datadir}/icons/hicolor/*x*/apps/xine.png
+%{_datadir}/icons/hicolor/scalable/apps/xine.svgz
 %{_datadir}/pixmaps/xine.xpm
-%{_mandir}/man1/*.1.gz
-%lang(de) %{_mandir}/de/man1/*.1.gz
-%lang(es) %{_mandir}/es/man1/*.1.gz
-%lang(fr) %{_mandir}/fr/man1/*.1.gz
-%lang(pl) %{_mandir}/pl/man1/*.1.gz
+%{_datadir}/pixmaps/xine_32.xpm
+%{_mandir}/man1/xine*
+%lang(de) %{_mandir}/de/man1/xine*
+%lang(es) %{_mandir}/es/man1/xine*
+%lang(fr) %{_mandir}/fr/man1/xine*
+%lang(nl) %{_mandir}/nl/man1/xine*
+%lang(pl) %{_mandir}/pl/man1/xine*
 
 %files skins
-%defattr(-,root,root,-)
 %{_datadir}/xine/skins/*
 %exclude %{_datadir}/xine/skins/xinetic/
-%exclude %{_datadir}/xine/skins/xine-ui_logo.png
+%exclude %{_datadir}/xine/skins/missing.png
+%exclude %{_datadir}/xine/skins/xine_64.png
 %exclude %{_datadir}/xine/skins/xine_splash.png
+%exclude %{_datadir}/xine/skins/xine-ui_logo.mpg
+%exclude %{_datadir}/xine/skins/xine-ui_logo.png
 
 %files aaxine
-%defattr(-,root,root,-)
 %{_bindir}/aaxine
+%{_bindir}/cacaxine
+%{_bindir}/fbxine
+%{_mandir}/man1/aaxine*
+%lang(de) %{_mandir}/de/man1/aaxine*
+%lang(es) %{_mandir}/es/man1/aaxine*
+%lang(nl) %{_mandir}/nl/man1/aaxine*
+%lang(pl) %{_mandir}/pl/man1/aaxine*
+
 
 %changelog
+* Wed Mar 08 2023 Xavier Bachelot <xavier@bachelot.org> - 0.99.14-3
+- Fix skins URLs
+
+* Wed Mar 08 2023 Xavier Bachelot <xavier@bachelot.org> - 0.99.14-2
+- Use SPDX License: tag
+- Drop useless conditionals
+- Drop useless comments
+- Add EL7 cond for %%post/%%postun
+- Escape unescaped %% in %%changelog
+- Drop very old Obsoletes:/Provides: for xine/xine-skins
+
+* Sat Jan 07 2023 Xavier Bachelot <xavier@bachelot.org> - 0.99.14-1
+- Update to 0.99.14
+- Enable lirc and libcaca for EL9
+
+* Mon Aug 08 2022 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 0.99.13-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild and ffmpeg
+  5.1
+
+* Tue Mar 08 2022 Xavier Bachelot <xavier@bachelot.org> - 0.99.13-4
+- Add support for EL9
+
+* Wed Feb 09 2022 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 0.99.13-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Fri Dec 17 2021 Xavier Bachelot <xavier@bachelot.org> - 0.99.13-2
+- Fix build on armv7hl, ppc64le and aarch64
+- Fix build with libcaca >= 0.99.beta20
+
+* Mon Dec 13 2021 Xavier Bachelot <xavier@bachelot.org> - 0.99.13-1
+- Update to 0.99.13
+
+* Tue Aug 03 2021 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 0.99.12-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Thu Feb 04 2021 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 0.99.12-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Wed Aug 19 2020 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 0.99.12-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
+* Wed Feb 05 2020 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 0.99.12-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+
+* Tue Dec 10 2019 Xavier Bachelot <xavier@bachelot.org> - 0.99.12-1
+- Update to 0.99.12.
+- Drop now unneeded logo tweaks.
+- Re-enable lirc support for EL8.
+- Conditionalize snippets needed only for older than EL8 releases.
+- Clean up file encoding fix.
+- Fix obsolete BR: libtermcap-devel, BR: ncurses-devel instead.
+
+* Sat Aug 24 2019 Xavier Bachelot <xavier@bachelot.org> - 0.99.11-1.20190824hg894d90
+- Update to 0.99.11.
+- Move cacaxine and fbxine to aaxine subpackage.
+- Allow to build from snapshot.
+- Use %%make_build and %%make_install.
+- Re-order specfile preamble.
+- Disable lirc support for EL8.
+
+* Fri Aug 09 2019 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 0.99.10-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
+* Tue Mar 05 2019 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 0.99.10-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
+* Sun Aug 19 2018 Leigh Scott <leigh123linux@googlemail.com> - 0.99.10-5
+- Rebuilt for Fedora 29 Mass Rebuild binutils issue
+
+* Fri Jul 27 2018 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 0.99.10-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
+* Fri Jul 20 2018 Xavier Bachelot <xavier@bachelot.org> - 0.99.10-3
+- Add BR: gcc.
+
+* Thu Mar 01 2018 RPM Fusion Release Engineering <leigh123linux@googlemail.com> - 0.99.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
+
+* Sun Dec 31 2017 Xavier Bachelot <xavier@bachelot.org> - 0.99.10-1
+- Update to 0.99.10.
+- Drop obsolete conditionals.
+- Drop Group: tags.
+- Add %%license and Changelog to %%doc.
+
+* Thu Aug 31 2017 RPM Fusion Release Engineering <kwizart@rpmfusion.org> - 0.99.9-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
+
+* Tue Mar 21 2017 RPM Fusion Release Engineering <kwizart@rpmfusion.org> - 0.99.9-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+
+* Sat Jan 07 2017 Xavier Bachelot <xavier@bachelot.org> - 0.99.9-3
+- Fix conditional BR on lirc-devel for EL7.
+
+* Thu Oct 20 2016 Leigh Scott <leigh123linux@googlemail.com> - 0.99.9-2
+- Fix man files (rfbz#4297)
+
+* Fri Aug 22 2014 Xavier Bachelot <xavier@bachelot.org> - 0.99.9-1
+- Update to 0.99.9.
+- Modernize specfile.
+
+* Thu Mar 13 2014 Xavier Bachelot <xavier@bachelot.org> - 0.99.8-2
+- Fix xine-skins Obsoletes:/Provides:.
+- Remove explicit Requires: xine-lib.
+- Own %%{_datadir}/xine.
+- Fix conditionnal around BR: lirc-devel.
+- Spec cosmetic cleanup.
+- Add patch to update french translation.
+- Add patch to fix crash on exit.
+
+* Wed Mar 12 2014 Xavier Bachelot <xavier@bachelot.org> - 0.99.8-1
+- Update to 0.99.8.
+- Remove spurious tabs in specfile.
+
+* Wed Oct 23 2013 Xavier Bachelot <xavier@bachelot.org> - 0.99.7-9
+- Rebuild for xine-lib 1.2.
+
 * Sun Aug 04 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.99.7-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
-
 
 * Mon Mar 11 2013 Michael J Gruber <mjg@fedoraproject.org> 0.99.7-7
 - remove xine-check because it requires bits from the devel package

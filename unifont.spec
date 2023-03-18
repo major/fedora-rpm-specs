@@ -17,9 +17,9 @@ BuildRequires:   fontpackages-devel
 BuildRequires:   texinfo
 
 %description
-A font with a glyph for every visible Unicode Basic Multilingual Plane
-code point and more, with supporting utilities to modify the
-font. This package contains tools and glyph descriptions.
+A font with a glyph for every visible Unicode Basic Multilingual Plane code
+point and more, with supporting utilities to modify the font. This package
+contains tools and glyph descriptions.
 
 %package fonts
 BuildArch: noarch
@@ -28,19 +28,29 @@ Summary: Unicode font with a glyph for every visible BMP code point
 Requires:        fontpackages-filesystem
 
 %description fonts
-A fixed-width Unicode font with a glyph for every visible Unicode 7.0
-Basic Multilingual Plane code point (over 55,000 glyphs) and some
-glyphs beyond BMP.
+A fixed-width Unicode font with a glyph for every visible Unicode 7.0 Basic
+Multilingual Plane code point (over 55,000 glyphs) and some glyphs beyond BMP.
 
-This font strives for very wide coverage rather than beauty, so use it
-only as fallback or for special purposes.
+This font strives for very wide coverage rather than beauty, so use it only as
+fallback or for special purposes.
+
+This package contains unicode fonts in OTF format.
+
+%package ttf-fonts
+BuildArch: noarch
+Summary: Unicode font with a glyph for every visible BMP code point
+Requires: (unifont-fonts = %{version}-%{release} if unifont-fonts)
+
+%description ttf-fonts
+This package contains unicode fonts in TTF format.
+It is provided for compatibility, and unifont-fonts should be used instead.
 
 %package viewer
 BuildArch: noarch
 Summary: Graphical viewer for unifont
 
 %description viewer
-A graphical viewer for unifont.
+A graphical viewer for unifont source character definitions.
 
 %prep
 %setup -q -n unifont-%{version}
@@ -58,9 +68,6 @@ make -C doc unifont.info
   TTFDEST='$(DESTDIR)/usr/share/fonts/unifont' \
   OTFDEST='$(DESTDIR)/usr/share/fonts/unifont'
 find %{buildroot}/usr/share/unifont/ -type f \! -name %{name}.hex -delete
-# We package the .otf variants instead
-rm %{buildroot}/usr/share/fonts/unifont/unifont.ttf
-rm %{buildroot}/usr/share/fonts/unifont/unifont_upper.ttf
 rm -rv %{buildroot}/usr/share/fonts/X11
 rm -v %{buildroot}%{_fontdir}/*sample*
 rm -v %{buildroot}%{_fontdir}/unifont_*csur*.ttf
@@ -80,6 +87,10 @@ rm %{buildroot}/usr/share/consolefonts/Unifont-APL8x16.psf.gz
 %exclude %{_bindir}/unifont-viewer
 
 %_font_pkg *.otf
+%{_datadir}/appdata/
+%license COPYING
+
+%_font_pkg -n ttf *.ttf
 %{_datadir}/appdata/
 %license COPYING
 

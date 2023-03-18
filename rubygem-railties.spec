@@ -2,7 +2,7 @@
 %global gem_name railties
 
 # Circular dependency with rubygem-{rails,jquery-rails,uglifier}.
-%bcond_without bootstrap
+%bcond_with bootstrap
 
 Name: rubygem-%{gem_name}
 Version: 7.0.4.3

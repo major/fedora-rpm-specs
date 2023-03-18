@@ -30,22 +30,18 @@
 # https://github.com/docker/distribution
 %global provider_prefix %{provider}.%{provider_tld}/%{project}/%{repo}
 %global import_path     %{provider_prefix}
-%global commit          48294d928ced5dd9b378f7fd7c6f5da3ff3f2c89
+%global commit          b5ca020cfbe998e5af3457fda087444cf5116496
 %global shortcommit     %(c=%{commit}; echo ${c:0:7})
 
 Name:           %{project}-%{repo}
-Version:        2.6.2
-Release:        20.git%{shortcommit}%{?dist}
+Version:        2.8.1
+Release:        1.git%{shortcommit}%{?dist}
 Summary:        Docker toolset to pack, ship, store, and deliver content
 License:        ASL 2.0
 URL:            https://%{provider_prefix}
 Source0:        https://%{provider_prefix}/archive/%{commit}.tar.gz
 Source1:        %{name}.service
 Source2:        config.yml
-# https://github.com/docker/distribution/pull/2076
-Patch0:         adds-support-for-oci-manifests-and-manifestlists.patch
-# https://github.com/docker/distribution/pull/2076#issuecomment-328655346
-Patch1:         register-v1-MediaTypeImageIndex.patch
 BuildRequires: systemd
 Requires(post): systemd
 Requires(preun): systemd
@@ -300,7 +296,7 @@ make test
 %else
 %doc LICENSE
 %endif
-%doc AUTHORS CONTRIBUTING.md MAINTAINERS README.md
+%doc CONTRIBUTING.md MAINTAINERS README.md
 %{_bindir}/registry
 %{_unitdir}/%{name}.service
 %dir %{_sharedstatedir}/registry
@@ -315,17 +311,20 @@ make test
 %else
 %doc LICENSE
 %endif
-%doc CONTRIBUTING.md README.md ROADMAP.md AUTHORS
+%doc CONTRIBUTING.md README.md ROADMAP.md
 %dir %{gopath}/src/%{provider}.%{provider_tld}/%{project}
 %endif
 
 %if 0%{?with_unit_test} && 0%{?with_devel}
 %files unit-test -f unit-test.file-list
 %license LICENSE
-%doc CONTRIBUTING.md README.md ROADMAP.md AUTHORS
+%doc CONTRIBUTING.md README.md ROADMAP.md
 %endif
 
 %changelog
+* Thu Mar 16 2023 Kevin Fenzi <kevin@scrye.com> - 2.8.1-1
+- Update to 2.8.1. Fixes rhbz#2043860
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.2-20.git48294d9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

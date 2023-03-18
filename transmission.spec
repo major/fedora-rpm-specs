@@ -1,8 +1,8 @@
 %global _hardened_build 1
 
 Name:           transmission
-Version:        4.0.1
-Release:        2%{?dist}
+Version:        4.0.2
+Release:        1%{?dist}
 Summary:        A lightweight GTK+ BitTorrent client
 # See COPYING. This licensing situation is... special.
 License:        MIT MIT GPL-2.0-only
@@ -180,6 +180,9 @@ desktop-file-install \
 %doc %{_mandir}/man1/transmission-qt.*
 
 %changelog
+* Thu Mar 16 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.0.2-1
+- 4.0.2
+
 * Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.0.1-2
 - migrated to SPDX license
 

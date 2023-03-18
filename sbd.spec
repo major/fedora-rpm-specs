@@ -15,11 +15,11 @@
 
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
-%global longcommit 6bb085f5704dd4c3841c79504f2aed2228e6d76a
+%global longcommit cf5c2208bad2db2dff9b09624b89b05415c3bc11
 %global shortcommit %(echo %{longcommit}|cut -c1-8)
 %global modified %(echo %{longcommit}-|cut -f2 -d-)
 %global github_owner Clusterlabs
-%global buildnum 2
+%global buildnum 1
 
 %ifarch s390x s390
 # minimum timeout on LPAR diag288 watchdog is 15s
@@ -47,12 +47,14 @@
 
 Name:           sbd
 Summary:        Storage-based death
-License:        GPLv2+
-Version:        1.5.1
-Release:        %{buildnum}%{?dist}.2
+License:        GPL-2.0-or-later
+Version:        1.5.2
+Release:        %{buildnum}%{?dist}
 Url:            https://github.com/%{github_owner}/%{name}
 Source0:        https://github.com/%{github_owner}/%{name}/archive/%{longcommit}/%{name}-%{longcommit}.tar.gz
-Patch0:         0001-Refactor-sbd-md-alloc-de-alloc-reverse-order-in-slot.patch
+Patch0:         0001-Fix-query-watchdog-avoid-issues-on-heap-allocation-f.patch
+Patch1:         0002-Refactor-sbd-md-alloc-de-alloc-reverse-order.patch
+Patch2:         0003-spec-convert-license-naming-to-SPDX.patch
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  libuuid-devel
@@ -86,7 +88,7 @@ Available rpmbuild rebuild options:
 
 %package tests
 Summary:        Storage-based death environment for regression tests
-License:        GPLv2+
+License:        GPL-2.0-or-later
 
 %description tests
 This package provides an environment + testscripts for
@@ -177,6 +179,12 @@ fi
 %{_libdir}/libsbdtestbed*
 
 %changelog
+* Fri Feb 3 2023 Klaus Wenninger <kwenning@redhat.com> - 1.5.2-1
+- rebase to upstream v1.5.2
+- convert license naming to SPDX
+- make static analysis happy with a few checks & rearanges with
+  dynamic-memory-management
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-2.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

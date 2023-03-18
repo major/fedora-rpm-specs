@@ -45,7 +45,7 @@
 Summary: A subset of LAPACK routines redesigned for heterogeneous computing
 Name: scalapack
 Version: 2.2.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 # This is freely distributable without any restrictions.
 License: Public Domain
 URL: http://www.netlib.org/scalapack/
@@ -339,6 +339,7 @@ for i in %{?with_mpich:mpich} %{?with_openmpi:openmpi} %{?with_openmpi3:openmpi3
 done
 
 %build
+CC="$CC -std=gnu89"
 %global build_fflags %(echo %build_fflags -fallow-argument-mismatch| sed 's|-Werror=format-security||g')
 %global dobuild() \
 cd %{name}-%{version}-$MPI_COMPILER_NAME ; \
@@ -446,6 +447,9 @@ sed -i 's|mpi|ompi|g' %{buildroot}%{_libdir}/openmpi/lib/pkgconfig/scalapack.pc
 %endif
 
 %changelog
+* Wed Mar 15 2023 Arjun Shankar <arjun@redhat.com> - 2.2.0-4
+- Build in C89 mode (#2178710)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

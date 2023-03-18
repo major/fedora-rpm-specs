@@ -5,7 +5,7 @@
 %global crate string_cache
 
 Name:           rust-string_cache
-Version:        0.8.5
+Version:        0.8.7
 Release:        %autorelease
 Summary:        String interning library for Rust, developed as part of the Servo project
 

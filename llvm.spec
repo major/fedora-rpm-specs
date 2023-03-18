@@ -65,7 +65,7 @@
 # we need to hard-code the correct triple here.
 %global llvm_triple armv7l-redhat-linux-gnueabihf
 %else
-%global llvm_triple %{_host}
+%global llvm_triple %{_target_platform}
 %endif
 
 # https://fedoraproject.org/wiki/Changes/PythonSafePath#Opting_out
@@ -75,7 +75,7 @@
 
 Name:		%{pkg_name}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -571,6 +571,9 @@ fi
 %endif
 
 %changelog
+* Thu Mar 16 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc4-2
+- Fix the ppc64le triple
+
 * Tue Mar 14 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc4-1
 - Update to LLVM 16.0.0 RC4
 

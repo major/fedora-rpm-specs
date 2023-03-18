@@ -1,8 +1,8 @@
 Summary: The standard UNIX FTP (File Transfer Protocol) client
 Name: ftp
 Version: 0.17
-Release: 91%{?dist}
-License: BSD with advertising
+Release: 92%{?dist}
+License: BSD-4-Clause-UC
 Source0: ftp://ftp.linux.org.uk/pub/linux/Networking/netkit/netkit-ftp-%{version}.tar.gz
 URL: ftp://ftp.linux.org.uk/pub/linux/Networking/netkit
 Patch1: netkit-ftp-0.17-pre20000412.pasv-security.patch
@@ -121,6 +121,9 @@ make INSTALLROOT=${RPM_BUILD_ROOT} install
 %{_mandir}/man5/netrc.*
 
 %changelog
+* Thu Mar 16 2023 Michal Ruprich <mruprich@redhat.com> - 0.17-92
+- SPDX migration
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-91
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

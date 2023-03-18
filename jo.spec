@@ -8,12 +8,9 @@ Source0:        %{url}/archive/%{version}/jo-%{version}.tar.gz
 # The entire source is GPL-2.0-or-later, except:
 #
 #   - json.c and json.h are MIT
-#   - base64.c and base64.h are LicenseRef-Fedora-Public-Domain: from base64.c,
-#     “This code is public domain software.”
-#
-# See:
-# https://docs.fedoraproject.org/en-US/legal/license-field/#_public_domain
-# https://docs.fedoraproject.org/en-US/legal/update-existing-packages/#_public_domain
+#   - base64.c and base64.h are LicenseRef-Fedora-Public-Domain; text
+#     added to public-domain-text.txt in fedora-license-data:
+#     https://gitlab.com/fedora/legal/fedora-license-data/-/merge_requests/206
 License:        GPL-2.0-or-later AND MIT AND LicenseRef-Fedora-Public-Domain
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval

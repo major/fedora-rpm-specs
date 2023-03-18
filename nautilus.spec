@@ -7,12 +7,17 @@
 
 Name:           nautilus
 Version:        44~rc
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        File manager for GNOME
 
 License:        GPL-3.0-or-later
 URL:            https://wiki.gnome.org/Apps/Nautilus
 Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
+# https://bugzilla.redhat.com/show_bug.cgi?id=2176766
+# https://gitlab.gnome.org/GNOME/nautilus/-/issues/2844
+# https://gitlab.gnome.org/GNOME/nautilus/-/merge_requests/1151
+# Restore the 'rubberband hack' that makes drag-and-drop reliable
+Patch0:         0001-Revert-list-base-Remove-rubberband-hack.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -139,6 +144,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %doc %{_datadir}/doc/nautilus/
 
 %changelog
+* Thu Mar 16 2023 Adam Williamson <awilliam@redhat.com> - 44~rc-2
+- Backport MR #1151 to fix drag-and-drop (#2176766)
+
 * Sun Mar 05 2023 David King <amigadave@amigadave.com> - 44~rc-1
 - Update to 44.rc
 

@@ -24,7 +24,6 @@ BuildRequires:	gettext
 BuildRequires:	libappstream-glib
 
 Requires:	tetex-latex
-Requires:	tetex-dvipost
 
 # setup the .pro file to unbundle qtsingleapplication and hunspell
 # also fixes a single header file to use system singleapp

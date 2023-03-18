@@ -1,44 +1,24 @@
 %global jsname jsroot
 
-%if %{?fedora}%{!?fedora:0} >= 34 || %{?rhel}%{!?rhel:0} >= 9
-%global uglifyjs uglifyjs
-%else
-%global uglifyjs uglifyjs-3
-%endif
-
 Name:		js-%{jsname}
-Version:	6.3.4
-Release:	5%{?dist}
+Version:	7.3.0
+Release:	1%{?dist}
 Summary:	JavaScript ROOT - Interactive numerical data analysis graphics
 
-#		Most files are MIT, d3.js is BSD
-License:	MIT and BSD
+#		Most files are MIT, d3.mjs is BSD, dat.gui.mjs is Apache-2.0
+License:	MIT AND BSD-3-Clause AND Apache-2.0
 URL:		https://jsroot.gsi.de/
 Source0:	https://github.com/root-project/%{jsname}/archive/%{version}/%{jsname}-%{version}.tar.gz
 #		Use locally installed mathjax instead of remote installation.
 Patch0:		%{name}-mathjax.patch
 #		Backport some fixes from upstream git
-#		Matches bundled version in root 6.26.04
+#		Matches bundled version in root 6.28.00
 Patch1:		%{name}-backport.patch
 
 BuildArch:	noarch
 BuildRequires:	web-assets-devel
-%if %{?fedora}%{!?fedora:0}
-BuildRequires:	python3-rcssmin
-%else
-BuildRequires:	yuicompressor
-%endif
-%if %{?fedora}%{!?fedora:0} >= 34 || %{?rhel}%{!?rhel:0} >= 9
-BuildRequires:	uglify-js
-%else
-BuildRequires:	uglify-js3
-%endif
 Requires:	web-assets-filesystem
-Requires:	js-jquery
-Requires:	js-jquery-mousewheel
-Requires:	js-jquery-ui
-Requires:	js-jquery-ui-touch-punch
-Requires:	mathjax
+Requires:	mathjax3
 
 %description
 JavaScript ROOT provides interactive ROOT-like graphics in web browsers.
@@ -49,77 +29,33 @@ Data can be read and displayed from binary and JSON ROOT files.
 %patch0 -p1
 %patch1 -p1
 
-# Remove pre-minified scripts
-rm scripts/*.min.js
-
-# Remove bundled dependencies packaged in Fedora
-rm libs/jquery.js
-rm libs/jquery-ui.js
-rm style/jquery-ui.css
-rm -rf style/images
-
 %build
-for s in scripts/JSRoot.*.js ; do
-    %{uglifyjs} ${s} -c -m -o ${s%.js}.min.js
-done
-
-for s in rawinflate three.extra ; do
-    %{uglifyjs} libs/${s}.js -c -m -o scripts/${s}.min.js
-done
-
-for s in style/JSRoot.*.css ; do
-%if %{?fedora}%{!?fedora:0}
-    python3 -m rcssmin < ${s} > ${s%.css}.min.css
-%else
-    yuicompressor ${s} -o ${s%.css}.min.css
-%endif
-done
-
-%{uglifyjs} libs/d3.js -c -m --comments /Copyright/ -o scripts/d3.min.js
-
-%{uglifyjs} libs/dat.gui.js -c -m -o scripts/dat.gui.min.js
-
-%{uglifyjs} libs/three.js -c -m --comments -o scripts/three.min.js
+# nothing to do
 
 %install
-mkdir -p %{buildroot}%{_jsdir}/%{jsname}/scripts
+mkdir -p %{buildroot}%{_jsdir}/%{jsname}
+
+# In upstream's released version modules/d3.mjs and modules/three.mjs
+# ar minified, but in root's bundled version they ar not.
+# Leave them unminified in Fedora.
+for d in modules modules/base modules/draw modules/geom modules/gpad \
+    modules/gui modules/hist modules/hist2d ; do \
+mkdir %{buildroot}%{_jsdir}/%{jsname}/${d} ; \
+install -m 644 -p ${d}/*.mjs %{buildroot}%{_jsdir}/%{jsname}/${d} ; \
+done
+
+ln -rs %{buildroot}%{_jsdir}/mathjax@3 %{buildroot}%{_jsdir}/%{jsname}/modules
+
+mkdir %{buildroot}%{_jsdir}/%{jsname}/build
+install -m 644 -p build/jsroot.js %{buildroot}%{_jsdir}/%{jsname}/build
+
+mkdir %{buildroot}%{_jsdir}/%{jsname}/scripts
 install -m 644 -p scripts/*.js %{buildroot}%{_jsdir}/%{jsname}/scripts
 
-ln -s %{_jsdir}/jquery/latest/jquery.min.js \
-   %{buildroot}%{_jsdir}/%{jsname}/scripts
-ln -s %{_jsdir}/jquery.mousewheel.min.js \
-   %{buildroot}%{_jsdir}/%{jsname}/scripts
-ln -s %{_jsdir}/jquery-ui/jquery-ui.min.js \
-   %{buildroot}%{_jsdir}/%{jsname}/scripts
-ln -s %{_jsdir}/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js \
-   %{buildroot}%{_jsdir}/%{jsname}/scripts
-ln -s %{_jsdir}/mathjax \
-   %{buildroot}%{_jsdir}/%{jsname}/scripts
-
-mkdir -p %{buildroot}%{_jsdir}/%{jsname}/libs
-install -m 644 -p libs/*.js %{buildroot}%{_jsdir}/%{jsname}/libs
-rm %{buildroot}%{_jsdir}/%{jsname}/libs/three.extra_head.js
-rm %{buildroot}%{_jsdir}/%{jsname}/libs/three.svg_renderer_header.js
-rm %{buildroot}%{_jsdir}/%{jsname}/libs/three.svg_renderer_footer.js
-
-ln -s %{_jsdir}/jquery/latest/jquery.js \
-   %{buildroot}%{_jsdir}/%{jsname}/libs
-ln -s %{_jsdir}/jquery.mousewheel.js \
-   %{buildroot}%{_jsdir}/%{jsname}/libs
-ln -s %{_jsdir}/jquery-ui/jquery-ui.js \
-   %{buildroot}%{_jsdir}/%{jsname}/libs
-ln -s %{_jsdir}/jquery-ui-touch-punch/jquery.ui.touch-punch.js \
-   %{buildroot}%{_jsdir}/%{jsname}/libs
-
-mkdir -p %{buildroot}%{_jsdir}/%{jsname}/style
-install -m 644 -p style/*.css %{buildroot}%{_jsdir}/%{jsname}/style
-
-ln -s %{_jsdir}/jquery-ui/jquery-ui.css \
-   %{buildroot}%{_jsdir}/%{jsname}/style
-ln -s %{_jsdir}/jquery-ui/jquery-ui.min.css \
-   %{buildroot}%{_jsdir}/%{jsname}/style
-ln -s %{_jsdir}/jquery-ui/images \
-   %{buildroot}%{_jsdir}/%{jsname}/style
+# Upstream's released version adds a copy with the ending .min.js
+# Despite its name it is not minified. Do the same for Fedora.
+ln %{buildroot}%{_jsdir}/%{jsname}/scripts/JSRoot.core.js \
+   %{buildroot}%{_jsdir}/%{jsname}/scripts/JSRoot.core.min.js
 
 mkdir -p %{buildroot}%{_jsdir}/%{jsname}/files
 install -m 644 -p files/* %{buildroot}%{_jsdir}/%{jsname}/files
@@ -128,18 +64,36 @@ mkdir -p %{buildroot}%{_jsdir}/%{jsname}/img
 install -m 644 -p img/* %{buildroot}%{_jsdir}/%{jsname}/img
 
 mkdir -p %{buildroot}%{_pkgdocdir}
-ln -s %{_jsdir}/%{jsname}/scripts %{buildroot}%{_pkgdocdir}
-ln -s %{_jsdir}/%{jsname}/style %{buildroot}%{_pkgdocdir}
-ln -s %{_jsdir}/%{jsname}/files %{buildroot}%{_pkgdocdir}
-ln -s %{_jsdir}/%{jsname}/img %{buildroot}%{_pkgdocdir}
+ln -rs %{buildroot}%{_jsdir}/%{jsname}/build %{buildroot}%{_pkgdocdir}
+ln -rs %{buildroot}%{_jsdir}/%{jsname}/img %{buildroot}%{_pkgdocdir}
+ln -rs %{buildroot}%{_jsdir}/%{jsname}/modules %{buildroot}%{_pkgdocdir}
+ln -rs %{buildroot}%{_jsdir}/%{jsname}/scripts %{buildroot}%{_pkgdocdir}
+
+%pretrans -p <lua>
+-- Remove links created by broken scriptlet in root-net-http
+linkstoremove = {
+  "%{_jsdir}/%{jsname}/img/img",
+  "%{_jsdir}/%{jsname}/libs/libs",
+  "%{_jsdir}/%{jsname}/scripts/scripts",
+  "%{_jsdir}/%{jsname}/style/style"
+}
+for _, path in ipairs(linkstoremove) do
+  st = posix.stat(path)
+  if st and st.type == "link" then
+    os.remove(path)
+  end
+end
 
 %files
 %{_jsdir}/%{jsname}
-%license LICENSE scripts/*.LICENSE
+%license LICENSE libs/*.LICENSE
 %doc %{_pkgdocdir}
 %doc changes.md demo docs/* index.htm readme.md
 
 %changelog
+* Wed Mar 15 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 7.3.0-1
+- Update to version 7.3.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -13,7 +13,7 @@
 
 Name:          mutter
 Version:       44~rc
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       Window and compositing manager based on Clutter
 
 License:       GPLv2+
@@ -35,6 +35,18 @@ Patch3:        0001-place-Always-center-initial-setup-fedora-welcome.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2176700
 # https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/2906
 Patch4:        2906.patch
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=2175809
+# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/2901
+# Fix a crash when reverting Display settings
+Patch5:        2901.patch
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=2177982
+# https://gitlab.gnome.org/GNOME/mutter/-/issues/2694
+# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/2912
+# Fix a crash when using win+P to change display configuration
+# Rebased on 2901.patch
+Patch6:        2912-rebased.patch
 
 BuildRequires: pkgconfig(gobject-introspection-1.0) >= 1.41.0
 BuildRequires: pkgconfig(sm)
@@ -179,6 +191,10 @@ the functionality of the installed %{name} package.
 %{_datadir}/mutter-%{mutter_api_version}/tests
 
 %changelog
+* Thu Mar 16 2023 Adam Williamson <awilliam@redhat.com> - 44~rc-5
+- Backport MR #2901 to fix crash when reverting Display settings
+- Backport MR #2912 to fix crash when using win+P shortcut
+
 * Fri Mar 10 2023 Florian Müllner <fmuellner@redhat.com> - 44~rc-4
 - Fix typo in centering patch
 - Also check for possible future fedora-welcome ID

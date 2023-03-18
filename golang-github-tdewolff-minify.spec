@@ -3,7 +3,7 @@
 
 # https://github.com/tdewolff/minify
 %global goipath         github.com/tdewolff/minify
-Version:                2.12.4
+Version:                2.12.5
 
 %gometa
 
@@ -33,21 +33,20 @@ Summary:        Go minifiers for web formats
 License:        MIT
 URL:            %{gourl}
 Source0:        %{gosource}
-Patch:          https://github.com/tdewolff/minify/commit/32748bb601445906c9c2f74c513fd8d6a2c52631.patch
 
 BuildRequires:  (golang(github.com/djherbis/atime) >= 1.1.0 with golang(github.com/djherbis/atime) < 2)
-BuildRequires:  (golang(github.com/dustin/go-humanize) >= 1.0.0 with golang(github.com/dustin/go-humanize) < 2)
-BuildRequires:  (golang(github.com/fsnotify/fsnotify) >= 1.5.4 with golang(github.com/fsnotify/fsnotify) < 2)
+BuildRequires:  (golang(github.com/dustin/go-humanize) >= 1.0.1 with golang(github.com/dustin/go-humanize) < 2)
+BuildRequires:  (golang(github.com/fsnotify/fsnotify) >= 1.6.0 with golang(github.com/fsnotify/fsnotify) < 2)
 BuildRequires:  golang(github.com/matryer/try)
 BuildRequires:  (golang(github.com/spf13/pflag) >= 1.0.5 with golang(github.com/spf13/pflag) < 2)
-BuildRequires:  (golang(github.com/tdewolff/parse/v2)         >= 2.6.4 with golang(github.com/tdewolff/parse/v2)         < 3)
-BuildRequires:  (golang(github.com/tdewolff/parse/v2/buffer)  >= 2.6.4 with golang(github.com/tdewolff/parse/v2/buffer)  < 3)
-BuildRequires:  (golang(github.com/tdewolff/parse/v2/css)     >= 2.6.4 with golang(github.com/tdewolff/parse/v2/css)     < 3)
-BuildRequires:  (golang(github.com/tdewolff/parse/v2/html)    >= 2.6.4 with golang(github.com/tdewolff/parse/v2/html)    < 3)
-BuildRequires:  (golang(github.com/tdewolff/parse/v2/js)      >= 2.6.4 with golang(github.com/tdewolff/parse/v2/js)      < 3)
-BuildRequires:  (golang(github.com/tdewolff/parse/v2/json)    >= 2.6.4 with golang(github.com/tdewolff/parse/v2/json)    < 3)
-BuildRequires:  (golang(github.com/tdewolff/parse/v2/strconv) >= 2.6.4 with golang(github.com/tdewolff/parse/v2/strconv) < 3)
-BuildRequires:  (golang(github.com/tdewolff/parse/v2/xml)     >= 2.6.4 with golang(github.com/tdewolff/parse/v2/xml)     < 3)
+BuildRequires:  (golang(github.com/tdewolff/parse/v2)         >= 2.6.5 with golang(github.com/tdewolff/parse/v2)         < 3)
+BuildRequires:  (golang(github.com/tdewolff/parse/v2/buffer)  >= 2.6.5 with golang(github.com/tdewolff/parse/v2/buffer)  < 3)
+BuildRequires:  (golang(github.com/tdewolff/parse/v2/css)     >= 2.6.5 with golang(github.com/tdewolff/parse/v2/css)     < 3)
+BuildRequires:  (golang(github.com/tdewolff/parse/v2/html)    >= 2.6.5 with golang(github.com/tdewolff/parse/v2/html)    < 3)
+BuildRequires:  (golang(github.com/tdewolff/parse/v2/js)      >= 2.6.5 with golang(github.com/tdewolff/parse/v2/js)      < 3)
+BuildRequires:  (golang(github.com/tdewolff/parse/v2/json)    >= 2.6.5 with golang(github.com/tdewolff/parse/v2/json)    < 3)
+BuildRequires:  (golang(github.com/tdewolff/parse/v2/strconv) >= 2.6.5 with golang(github.com/tdewolff/parse/v2/strconv) < 3)
+BuildRequires:  (golang(github.com/tdewolff/parse/v2/xml)     >= 2.6.5 with golang(github.com/tdewolff/parse/v2/xml)     < 3)
 
 %if %{with check}
 # Tests

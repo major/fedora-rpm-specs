@@ -1,13 +1,13 @@
 # remirepo/Fedora spec file for php-laminas-mvc
 #
-# Copyright (c) 2015-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2015-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    c54eaebe3810feaca834cc38ef0a962c89ff2431
+%global gh_commit    f12e801c31c04a4b35017354ff84070f5573879f
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-mvc
@@ -22,11 +22,11 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        3.6.0
-Release:        2%{?dist}
+Version:        3.6.1
+Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        %{gh_commit}/%{name}-%{version}-%{gh_short}.tgz
 Source1:        makesrc.sh
@@ -48,20 +48,16 @@ BuildRequires: (php-autoloader(%{gh_owner}/laminas-stdlib)               >= 3.6 
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-view)                 >= 2.14    with php-autoloader(%{gh_owner}/laminas-view)                 < 3)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0     with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
 # from composer.json,  "require-dev": {
-#        "http-interop/http-middleware": "^0.4.1",
 #        "laminas/laminas-coding-standard": "^2.4.0",
 #        "laminas/laminas-json": "^3.3",
-#        "laminas/laminas-psr7bridge": "^1.8",
-#        "laminas/laminas-stratigility": ">=2.0.1 <2.2",
-#        "phpspec/prophecy" : "^1.15.0",
+#        "phpspec/prophecy": "^1.15.0",
 #        "phpspec/prophecy-phpunit": "^2.0.1",
-#        "phpunit/phpunit": "^9.5.25"
-BuildRequires: (php-composer(http-interop/http-middleware)               >= 0.4.1   with php-composer(http-interop/http-middleware)               < 1)
+#        "phpunit/phpunit": "^9.5.25",
+#        "webmozart/assert": "^1.11"
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-json)                 >= 3.3     with php-autoloader(%{gh_owner}/laminas-json)                 < 4)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-psr7bridge)           >= 1.8     with php-autoloader(%{gh_owner}/laminas-psr7bridge)           < 2)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-stratigility)         >= 2.0.1   with php-autoloader(%{gh_owner}/laminas-stratigility)         < 3)
 BuildRequires: (php-composer(phpspec/prophecy)                           >= 1.15    with php-composer(phpspec/prophecy)                           < 2)
 BuildRequires: (php-composer(phpspec/prophecy-phpunit)                   >= 2.0.1   with php-composer(phpspec/prophecy-phpunit)                   < 3)
+BuildRequires: (php-composer(webmozart/assert)                           >= 1.11    with php-composer(webmozart/assert)                           < 2)
 %global phpunit %{_bindir}/phpunit9
 BuildRequires:  phpunit9 >= 9.5.25
 %endif
@@ -74,16 +70,16 @@ BuildRequires:  php-fedora-autoloader-devel
 #        "laminas/laminas-eventmanager": "^3.4",
 #        "laminas/laminas-http": "^2.15",
 #        "laminas/laminas-modulemanager": "^2.8",
-#        "laminas/laminas-router": "^3.4",
-#        "laminas/laminas-servicemanager": "^3.7",
+#        "laminas/laminas-router": "^3.11.1",
+#        "laminas/laminas-servicemanager": "^3.20",
 #        "laminas/laminas-stdlib": "^3.6",
 #        "laminas/laminas-view": "^2.14"
 Requires:       php(language) >= 8.0
 Requires:      (php-autoloader(%{gh_owner}/laminas-eventmanager)         >= 3.4     with php-autoloader(%{gh_owner}/laminas-eventmanager)         < 4)
 Requires:      (php-autoloader(%{gh_owner}/laminas-http)                 >= 2.15    with php-autoloader(%{gh_owner}/laminas-http)                 < 3)
 Requires:      (php-autoloader(%{gh_owner}/laminas-modulemanager)        >= 2.8     with php-autoloader(%{gh_owner}/laminas-modulemanager)        < 3)
-Requires:      (php-autoloader(%{gh_owner}/laminas-router)               >= 3.5     with php-autoloader(%{gh_owner}/laminas-router)               < 4)
-Requires:      (php-autoloader(%{gh_owner}/laminas-servicemanager)       >= 3.12    with php-autoloader(%{gh_owner}/laminas-servicemanager)       < 4)
+Requires:      (php-autoloader(%{gh_owner}/laminas-router)               >= 3.11.1  with php-autoloader(%{gh_owner}/laminas-router)               < 4)
+Requires:      (php-autoloader(%{gh_owner}/laminas-servicemanager)       >= 3.20    with php-autoloader(%{gh_owner}/laminas-servicemanager)       < 4)
 Requires:      (php-autoloader(%{gh_owner}/laminas-stdlib)               >= 3.6     with php-autoloader(%{gh_owner}/laminas-stdlib)               < 4)
 Requires:      (php-autoloader(%{gh_owner}/laminas-view)                 >= 2.14    with php-autoloader(%{gh_owner}/laminas-view)                 < 3)
 Requires:      (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0     with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
@@ -175,10 +171,7 @@ cat << 'EOF' | tee -a src/autoload.php
     '%{php_home}/%{namespace}/Mvc/Plugin/Identity/autoload.php',
     '%{php_home}/%{namespace}/Mvc/Plugin/Prg/autoload.php',
     '%{php_home}/%{namespace}/Paginator/autoload.php',
-    '%{php_home}/%{namespace}/Psr7Bridge/autoload.php',
     '%{php_home}/%{namespace}/ServiceManager/Di/autoload.php',
-    '%{php_home}/%{namespace}/Stratigility/autoload.php',
-    '%{php_home}/Interop/Http/Middleware/autoload.php',
 ]);
 EOF
 
@@ -212,6 +205,7 @@ require_once '%{buildroot}%{php_home}/%{namespace}/%{library}/autoload.php';
 \Fedora\Autoloader\Dependencies::required([
     '%{php_home}/Prophecy/autoload.php',
     '%{php_home}/Prophecy/PhpUnit/autoload.php',
+    '%{php_home}/Webmozart/Assert/autoload.php',
 ]);
 require_once 'test/_autoload.php';
 EOF
@@ -221,9 +215,6 @@ php -r '
 require "%{buildroot}%{php_home}/Zend/%{library}/autoload.php";
 exit (class_exists("\\Zend\\%{library}\\Application") ? 0 : 1);
 '
-
-: Skip test which raise deprecation warning - stratigility
-rm test/MiddlewareListenerTest.php
 
 : upstream test suite
 ret=0
@@ -248,6 +239,11 @@ exit $ret
 
 
 %changelog
+* Thu Mar 16 2023 Remi Collet <remi@remirepo.net> - 3.6.1-1
+- update to 3.6.1 (no change)
+- raise dependency on laminas-router 3.11.1
+- raise dependency on laminas-servicemanager 3.20
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

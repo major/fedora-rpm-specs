@@ -1,7 +1,7 @@
 %bcond_without tests
 
 Name:           conda
-Version:        23.1.0
+Version:        23.3.0
 Release:        %autorelease
 Summary:        Cross-platform, Python-agnostic binary package manager
 
@@ -86,6 +86,8 @@ BuildRequires:  python%{python3_pkgversion}-cytoolz >= 0.8.2
 # For tests
 BuildRequires:  python-unversioned-command
 BuildRequires:  python%{python3_pkgversion}-boto3
+BuildRequires:  python%{python3_pkgversion}-flask
+BuildRequires:  python%{python3_pkgversion}-jsonpatch
 BuildRequires:  python%{python3_pkgversion}-pytest-mock
 BuildRequires:  python%{python3_pkgversion}-pytest-rerunfailures
 BuildRequires:  python%{python3_pkgversion}-pytest-timeout
@@ -107,8 +109,9 @@ Provides:       bundled(python%{python3_pkgversion}-boltons) = 18.0.0
 
 %prep
 %autosetup -p1
+# Create version file
+echo %{version} > conda/.version
 
-sed -r -i 's/^(__version__ = ).*/\1"%{version}"/' conda/__init__.py
 # xdoctest not packaged
 sed -i -e '/xdoctest/d' setup.cfg
 

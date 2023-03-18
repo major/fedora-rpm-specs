@@ -1,7 +1,7 @@
 Name:           radare2
 Summary:        The reverse engineering framework
-Version:        5.8.2
-%global         rel             2
+Version:        5.8.4
+%global         rel             1
 URL:            https://radare.org/
 VCS:            https://github.com/radareorg/radare2
 #               https://github.com/radareorg/radare2/releases
@@ -21,8 +21,8 @@ VCS:            https://github.com/radareorg/radare2
 %global         gituser         radareorg
 %global         gitname         radare2
 
-%global         gitdate         20230123
-%global         commit          0b6793f37d9dae5b43fa96beae93008e197dc87a
+%global         gitdate         20230314
+%global         commit          ab809417aa6b676922f95cf77861924eb90e7ef2
 %global         shortcommit     %(c=%{commit}; echo ${c:0:7})
 
 
@@ -366,6 +366,9 @@ mkdir -p %{buildroot}%{_libdir}/%{name}/%{version}
 
 
 %changelog
+* Thu Mar 16 2023 Michal Ambroz <rebus at, seznam.cz> 5.8.4-1
+- bump to 5.8.4
+
 * Sun Feb 26 2023 Michal Ambroz <rebus at, seznam.cz> 5.8.2-2
 - cherrypick upstream patch for fixing the sdb generation from mesosn
 

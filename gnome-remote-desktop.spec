@@ -3,7 +3,9 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 # In RHEL/ELN FreeRDP is built without server support
-%if 0%{?rhel} >= 9
+%if 0%{?rhel} >= 10
+%global enable_rdp 1
+%elif 0%{?rhel} >= 9
 %global enable_rdp 0
 %else
 %global enable_rdp 1
@@ -11,7 +13,7 @@
 
 Name:           gnome-remote-desktop
 Version:        44~rc
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GNOME Remote Desktop screen share service
 
 License:        GPL-2.0-or-later
@@ -111,6 +113,9 @@ GNOME desktop environment.
 
 
 %changelog
+* Thu Mar 16 2023 Jonas Ådahl <jadahl@redhat.com> - 44~rc-2
+- Enable RDP in ELN
+
 * Sun Mar 05 2023 David King <amigadave@amigadave.com> - 44~rc-1
 - Update to 44.rc
 

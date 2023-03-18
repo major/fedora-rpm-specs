@@ -27,6 +27,7 @@ BuildArch:      noarch
 %package -n %{srcname}
 Summary:        %{summary}
 BuildRequires:  python3-devel
+Requires:       python-bugzilla-cli
 Requires:       rpmdistro-repoquery >= 0^20230201
 
 %description -n %{srcname} %{_description}

@@ -50,14 +50,15 @@ BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  gcc
 %endif
 
-%if %{without bootstrap}
-BuildRequires:  pyproject-rpm-macros >= 0-44
-# Not to use the pre-generated egg-info, we use setuptools from previous build to generate it
-BuildRequires:  python%{python3_pkgversion}-setuptools
 # python3 bootstrap: this is built before the final build of python3, which
 # adds the dependency on python3-rpm-generators, so we require it manually
 # The minimal version is for bundled provides verification script to accept multiple files as input
 BuildRequires:  python3-rpm-generators >= 12-8
+
+%if %{without bootstrap}
+BuildRequires:  pyproject-rpm-macros >= 0-44
+# Not to use the pre-generated egg-info, we use setuptools from previous build to generate it
+BuildRequires:  python%{python3_pkgversion}-setuptools
 %endif
 
 %description
@@ -88,11 +89,6 @@ Provides: bundled(python%{python3_pkgversion}dist(tomli)) = 2.0.1
 %package -n python%{python3_pkgversion}-setuptools
 Summary:        Easily build and distribute Python 3 packages
 %{bundled}
-
-%if %{with bootstrap}
-Provides:       python%{python3_pkgversion}dist(setuptools) = %{version}
-Provides:       python%{python3_version}dist(setuptools) = %{version}
-%endif
 
 # For users who might see ModuleNotFoundError: No module named 'pkg_resoureces'
 # NB: Those are two different provides: one contains underscore, the other hyphen
@@ -150,7 +146,12 @@ rm -r docs/conf.py
 
 %install
 %if %{with bootstrap}
-%py3_install
+# The setup.py install command tries to import distutils
+# but the distutils-precedence.pth file is not yet respected
+# and Python 3.12+ no longer has distutils in the standard library.
+ln -s setuptools/_distutils distutils
+PYTHONPATH=$PWD %py3_install
+unlink distutils
 %else
 %pyproject_install
 %pyproject_save_files setuptools pkg_resources _distutils_hack
@@ -168,20 +169,18 @@ install -p %{_pyproject_wheeldir}/%{python_wheel_name} -t %{buildroot}%{python_w
 
 
 %check
-%if %{without bootstrap}
 # Verify bundled provides are up to date
 %{_rpmconfigdir}/pythonbundles.py */_vendor/vendored.txt --namespace 'python%{python3_pkgversion}dist' --compare-with '%{bundled}'
-
-# Regression test, the wheel should not be larger than 900 kB
-# https://bugzilla.redhat.com/show_bug.cgi?id=1914481#c3
-test $(stat --format %%s %{_pyproject_wheeldir}/%{python_wheel_name}) -lt 900000
-%endif
 
 # Regression test, the tests are not supposed to be installed
 test ! -d %{buildroot}%{python3_sitelib}/pkg_resources/tests
 test ! -d %{buildroot}%{python3_sitelib}/setuptools/tests
 
 %if %{without bootstrap}
+# Regression test, the wheel should not be larger than 900 kB
+# https://bugzilla.redhat.com/show_bug.cgi?id=1914481#c3
+test $(stat --format %%s %{_pyproject_wheeldir}/%{python_wheel_name}) -lt 900000
+
 %pyproject_check_import
 %endif
 

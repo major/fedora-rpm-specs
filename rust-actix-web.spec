@@ -6,7 +6,7 @@
 %global crate actix-web
 
 Name:           rust-actix-web
-Version:        4.3.0
+Version:        4.3.1
 Release:        %autorelease
 Summary:        Powerful, pragmatic, and extremely fast web framework for Rust
 
@@ -161,6 +161,18 @@ This package contains library source intended for building other packages which
 use the "cookies" feature of the "%{crate}" crate.
 
 %files       -n %{name}+cookies-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+experimental-io-uring-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+experimental-io-uring-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "experimental-io-uring" feature of the "%{crate}" crate.
+
+%files       -n %{name}+experimental-io-uring-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+macros-devel

@@ -4,7 +4,7 @@
 Summary: Terminal emulator for the X Window System
 Name: xterm
 Version: 379
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://invisible-island.net/xterm
 License: MIT
 BuildRequires: make
@@ -60,7 +60,8 @@ done
 	--with-tty-group=tty \
 	--disable-full-tgetent \
 	--with-pcre2 \
-	--enable-readline-mouse
+	--enable-readline-mouse \
+	--enable-logging
 
 %make_build
 
@@ -100,6 +101,9 @@ install -m644 -p xterm.appdata.xml $RPM_BUILD_ROOT%{_datadir}/appdata
 %{_mandir}/man1/resize.1*
 
 %changelog
+* Thu Mar 16 2023 Tomas Korbar <tkorbar@redhat.com> - 379-2
+- Enable logging feature
+
 * Sun Feb 19 2023 Tomas Korbar <tkorbar@redhat.com> - 379-1
 - Rebase to version 379
 - Resolves: rhbz#2170296

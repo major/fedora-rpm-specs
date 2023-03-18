@@ -7,11 +7,15 @@
 
 Name:           perl-Crypt-DES
 Version:        2.07
-Release:        30%{?dist}
+Release:        32%{?dist}
 Summary:        Perl DES encryption module
+# License is like BSD-4-Clause but without the 4th clause
 License:        BSD
 URL:            https://metacpan.org/release/Crypt-DES
-Source0:        https://cpan.metacpan.org/authors/id/D/DP/DPARIS/Crypt-DES-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/modules/by-module/Crypt/Crypt-DES-%{version}.tar.gz
+Patch0:         perl-Crypt-DES-init-braces.patch
+Patch99:        perl-Crypt-DES-fedora-c99.patch
+# Build
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -37,19 +41,25 @@ BuildRequires:  perl(Crypt::CBC) > 1.22
 %{?perl_default_filter}
 
 %description
-DES encryption module.
+DES encryption module. The module implements the Crypt::CBC interface.
 
 %prep
 %setup -q -n Crypt-DES-%{version}
 
+# Fix "warning: missing braces around initializer [-Wmissing-braces]"
+%patch -P 0
+
+# Fix C99 compatibility (CPAN RT#133363)
+%patch -P 99 -p1
+
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="$RPM_OPT_FLAGS"
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="%{optflags}"
 %{make_build}
 
 %install
 %{make_install}
-find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
-%{_fixperms} $RPM_BUILD_ROOT
+find %{buildroot} -type f -name '*.bs' -empty -delete
+%{_fixperms} -c %{buildroot}
 
 %check
 make test
@@ -59,9 +69,20 @@ make test
 %doc README
 %{perl_vendorarch}/auto/Crypt/
 %{perl_vendorarch}/Crypt/
-%{_mandir}/man3/Crypt::DES.3pm*
+%{_mandir}/man3/Crypt::DES.3*
 
 %changelog
+* Thu Mar 16 2023 Paul Howarth <paul@city-fan.org> - 2.07-32
+- Package tidy-up
+  - Use author-independent source URL
+  - Fix "warning: missing braces around initializer [-Wmissing-braces]"
+  - Avoid deprecated patch syntax
+  - Simplify find command using -empty
+  - Fix permissions verbosely
+
+* Wed Mar 15 2023 DJ Delorie <dj@redhat.com> - 2.07-31
+- Fix C99 compatibility issue
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.07-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
