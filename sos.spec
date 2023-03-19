@@ -1,9 +1,9 @@
 Summary: A set of tools to gather troubleshooting information from a system
 Name: sos
 Version: 4.5.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source0: https://github.com/sosreport/sos/archive/%{version}.tar.gz
-License: GPLv2+
+License: GPL-2.0-or-later
 BuildArch: noarch
 Url: https://github.com/sosreport/sos
 BuildRequires: python3-devel
@@ -62,6 +62,9 @@ rm -rf %{buildroot}/usr/config/
 %config(noreplace) %{_sysconfdir}/sos/sos.conf
 
 %changelog
+* Fri Mar 17 2023 Sandro Bonazzola <sbonazzo@redhat.com> - 4.5.1-2
+- migrated to SPDX license
+
 * Wed Mar 01 2023 Sandro Bonazzola <sbonazzo@redhat.com> - 4.5.1-1
 - Update to 4.5.1
 - Resolves: rhbz#2174576

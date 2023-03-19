@@ -6,10 +6,6 @@ License:        LGPLv2+
 URL:            https://gstreamer.freedesktop.org/
 Source0:        %{url}/src/gst-libav/gst-libav-%{version}.tar.xz
 
-# Backports from upstream
-## Fix build with ffmpeg 6.0+
-#Patch0:         https://gitlab.freedesktop.org/gstreamer/gstreamer/-/commit/cde31d23c071ee93fae96331805f696856084254.patch
-
 BuildRequires:  gcc-c++
 BuildRequires:  meson
 BuildRequires:  gstreamer1-devel >= %{version}

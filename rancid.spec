@@ -1,6 +1,6 @@
 Name: rancid
 Version: 3.13
-Release: 5%{?dist}
+Release: 7%{?dist}
 Summary: Really Awesome New Cisco confIg Differ
 
 License: BSD with advertising
@@ -9,6 +9,7 @@ Source0: https://shrubbery.net/pub/%{name}/%{name}-%{version}.tar.gz
 Source1: %{name}.cron
 Patch0: %{name}-Makefile.patch
 Patch1: %{name}-configure-no-ping-test.patch
+Patch2: %{name}-3.13-dnos10-psu-filter.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -40,12 +41,14 @@ including software and hardware (cards, serial numbers, etc) and uses CVS
 %setup -q -n %{name}-%{version}
 %patch0 -p1 -b .no-cflags
 %patch1 -p1 -b .no-ping-check
+%patch2 -p1 -b .dnos10-psu-filter
 
 %build
 %configure \
     --sysconfdir=%{_sysconfdir}/%{name} \
     --bindir=%{_libexecdir}/%{name} \
     --libdir=%{perl_vendorlib} \
+    --localstatedir=%{_localstatedir}/%{name} \
     --enable-conf-install
 %make_build
 
@@ -70,6 +73,9 @@ install -D -p -m 0644 %{SOURCE1} %{buildroot}/%{_sysconfdir}/cron.d/%{name}
 
 #Patch cron file to point to correct installation directory
 sed -i 's|RANCIDBINDIR|%{_libexecdir}/%{name}|g' %{buildroot}/%{_sysconfdir}/cron.d/%{name}
+
+#Patch to point to correct log directory
+grep -rlF '$BASEDIR/logs' %{buildroot} | xargs sed -i 's|\$BASEDIR/logs|%{_localstatedir}/log/%{name}|'
 
 
 %pre
@@ -110,6 +116,13 @@ exit 0
 
 
 %changelog
+* Fri Mar 17 2023 Charles R. Anderson <cra@alum.wpi.edu> - 3.13-7
+- add patch to filter PSU output on Dell OS10 10.5.3.2
+  https://shrubbery.net/pipermail/rancid-discuss/2022-April/011186.html
+
+* Fri Mar 10 2023 Chris Adams <linux@cmadams.net> - 3.13-6
+- fix BASEDIR and LOGDIR (#2092029)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.13-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

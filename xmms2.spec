@@ -4,7 +4,7 @@
 Name:			xmms2
 Summary: 		A modular audio framework and plugin architecture
 Version:		0.8
-Release:		85%{?dist}
+Release:		86%{?dist}
 License:		LGPLv2+ and GPLv2+ and BSD
 # We can't use the upstream source tarball as-is, because it includes an mp4 decoder.
 # Also, the ogg sample included is not under a FOSS license.
@@ -247,6 +247,9 @@ rm -rf %{buildroot}%{python3_sitelib}/xmmsclient/
 %{_bindir}/nyxmms2
 
 %changelog
+* Fri Mar 17 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.8-86
+- Rebuilt for libmpcdec 1.3.0
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-85
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

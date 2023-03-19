@@ -7,9 +7,10 @@
 Summary: Monikers for the GNOME virtual file-system
 Name: gnome-vfs2-monikers
 Version: 2.15.3
-Release: 33%{?dist}
+Release: 34%{?dist}
 License: LGPL-2.0-or-later
 Source0: http://ftp.gnome.org/pub/gnome/sources/gnome-vfs-monikers/2.15/gnome-vfs-monikers-%{version}.tar.bz2
+Patch0: gnome-vfs2-monikers-configure-c99.patch
 URL: http://www.gnome.org/
 Requires:      gnome-vfs2 >= %{gnome_vfs_version}
 BuildRequires:  gcc
@@ -27,7 +28,7 @@ Programs using bonobo can use the monikers provided
 in this package to access gnome-vfs.
 
 %prep
-%setup -q -n gnome-vfs-monikers-%{version}
+%autosetup -p1 -n gnome-vfs-monikers-%{version}
 
 %build
 %configure 
@@ -52,6 +53,9 @@ done
 %{_libdir}/bonobo
 
 %changelog
+* Fri Mar 17 2023 Florian Weimer <fweimer@redhat.com> - 2.15.3-34
+- Port configure script to C99
+
 * Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.15.3-33
 - migrated to SPDX license
 

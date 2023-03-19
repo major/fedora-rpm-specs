@@ -1,17 +1,22 @@
+%global svn_release 475
+# code does not compile with -fno-common
+%global _legacy_common_support 1
 
 Summary: Musepack audio decoding library
 Name:	 libmpcdec
-Version: 1.2.6
-Release: 31%{?dist}
+Version: 1.3.0
+Release: 0.1.20110810svn%{svn_release}%{?dist}
 
 License: BSD 
-URL: 	 http://www.musepack.net/
-Source0: http://files.musepack.net/source/libmpcdec-%{version}.tar.bz2
+URL: 	 https://www.musepack.net/
+Source0: https://files.musepack.net/source/musepack_src_r%{svn_release}.tar.gz
+Patch0:  r475-cmake.patch
 
-BuildRequires:  gcc-c++
 BuildRequires: gcc
 BuildRequires: sed
-BuildRequires: make
+BuildRequires: cmake
+BuildRequires: libcuefile-devel
+BuildRequires: libreplaygain-devel
 
 %description
 Musepack is an audio compression format with a strong emphasis on high quality.
@@ -28,40 +33,49 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %description devel
 %{summary}.
 
+%package -n musepack-tools
+Summary: Musepack audio decoding and encoding tools
+Requires: %{name}%{?_isa} = %{version}-%{release}
+%description -n musepack-tools
+%{summary}.
+
 
 %prep
-%setup -q
+%autosetup -p1 -n musepack_src_r%{svn_release}
 
-#hack out hard-coded undesirable compiler flags
-sed -i.cflags -e 's|-O3 -fomit-frame-pointer||g' configure
+# Correct permissions and end of line
+find -type f -exec chmod 0644 '{}' +
+sed -ibackup 's/\r$//' libwavformat/*
 
 
 %build
-%configure --disable-static
-
-%make_build
+%cmake -Wno-dev .
+%cmake_build
 
 
 %install
-%make_install
+%cmake_install
 
-#Unpackaged files
-rm -fv $RPM_BUILD_ROOT%{_libdir}/lib*.la
-
-
-%ldconfig_scriptlets
 
 %files
-%doc AUTHORS ChangeLog README
-%license COPYING
-%{_libdir}/libmpcdec.so.5*
+%doc libmpcdec/AUTHORS libmpcdec/ChangeLog libmpcdec/README
+%license libmpcdec/COPYING
+%{_libdir}/libmpcdec.so.6{,.*}
 
 %files devel
-%{_includedir}/mpcdec/
+%{_includedir}/mpc/
 %{_libdir}/libmpcdec.so
+
+%files -n musepack-tools
+%license libmpcdec/COPYING
+%{_bindir}/mpc*
+%{_bindir}/wavcmp
 
 
 %changelog
+* Tue Feb 07 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.3.0-0.1.20110810svn475
+- Update to latest SV8 version (#1014468)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.6-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

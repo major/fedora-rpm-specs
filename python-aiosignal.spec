@@ -68,7 +68,8 @@ sed -r -i 's/--cov[^[:blank:]]*//g' setup.cfg
 %pyproject_wheel
 
 %if %{with doc_pdf}
-%make_build -C docs latex SPHINXBUILD='sphinx-build' SPHINXOPTS='%{?_smp_mflags}'
+%make_build -C docs latex \
+    SPHINXBUILD='sphinx-build' SPHINXOPTS='-j%{?_smp_build_ncpus}'
 %make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
 %endif
 

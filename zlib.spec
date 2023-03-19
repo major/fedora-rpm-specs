@@ -5,7 +5,7 @@ Version: 1.2.13
 Release: 3%{?dist}
 Summary: Compression and decompression library
 # /contrib/dotzlib/ have Boost license
-License: zlib and Boost
+License: Zlib AND BSL-1.0
 URL: https://www.zlib.net/
 
 Source: https://www.zlib.net/zlib-%{version}.tar.xz

@@ -26,7 +26,7 @@
 Summary:        A multimedia engine
 Name:           xine-lib
 Version:        1.2.13
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://www.xine-project.org/
 %if ! 0%{?snapshot}
@@ -323,6 +323,9 @@ mkdir -p %{buildroot}%{codecdir}
 
 
 %changelog
+* Fri Mar 17 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.2.13-2
+- Rebuilt for libmpcdec 1.3.0
+
 * Sun Mar 12 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.2.13-1
 - Update to 1.2.13
 - Enable DTS/DCA and VCD support plugins

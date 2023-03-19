@@ -12,7 +12,7 @@ Name:           perl-Data-Section
 Version:        0.200008
 Release:        2%{?dist}
 Summary:        Read multiple hunks of data out of your DATA section
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-Section
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/Data-Section-%{version}.tar.gz
 BuildArch:      noarch
@@ -20,8 +20,8 @@ BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker)
 # Runtime
 BuildRequires:  perl(Encode)

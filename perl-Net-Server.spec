@@ -1,8 +1,8 @@
 Name:           perl-Net-Server
-Version:        2.010
-Release:        5%{?dist}
+Version:        2.014
+Release:        2%{?dist}
 Summary:        Extensible, general Perl server engine
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-Server
 Source0:        https://cpan.metacpan.org/modules/by-module/Net/Net-Server-%{version}.tar.gz
 BuildArch:      noarch
@@ -30,7 +30,7 @@ BuildRequires:  perl(IO::Multiplex) >= 1.05
 BuildRequires:  perl(IO::Select)
 BuildRequires:  perl(IO::Socket)
 # BuildRequires:  perl(IO::Socket::INET)
-BuildRequires:  perl(IO::Socket::INET6)
+BuildRequires:  perl(IO::Socket::IP)
 BuildRequires:  perl(IO::Socket::SSL) >= 1.31
 BuildRequires:  perl(IO::Socket::UNIX)
 # BuildRequires:  perl(IPC::Open3)
@@ -61,11 +61,24 @@ BuildRequires:  perl(Test::More)
 # IO::Multiplex support is optional, but not including it causes build problems in some packages...
 Requires:       perl(IO::Multiplex) >= 1.05
 #  RHBZ#1395714: Optional dependency, including it so that the build matches runtime
-Requires:       perl(IO::Socket::INET6)
+Requires:       perl(IO::Socket::IP)
+
+# Remove private test modules
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(NetServerTest\\)$
+%global __provides_exclude %{?__provides_exclude:%__provides_exclude|}^perl\\(NetServerTest\\)$
 
 %description
 An extensible, class oriented module written in perl and intended to
 be the back end layer of internet protocol servers.
+
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Net-Server-%{version}
@@ -73,13 +86,27 @@ be the back end layer of internet protocol servers.
 # Do not want to pull in any packaging deps here.
 chmod -c 644 examples/*
 
+# Help generators to recognize Perl scripts
+for F in $(find t/ -name '*.t'); do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
+
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)" -r
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
+%{_fixperms} %{buildroot}/*
 
 %check
 make test
@@ -92,7 +119,17 @@ make test
 %{_bindir}/net-server
 %{_mandir}/man1/net-server.1*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Fri Mar 17 2023 Michal Josef Špaček <mspacek@redhat.com> - 2.014-2
+- Package tests
+- Update license to SPDX format
+
+* Fri Mar 17 2023 Michal Josef Špaček <mspacek@redhat.com> - 2.014-1
+- 2.014 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.010-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

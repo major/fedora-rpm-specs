@@ -20,7 +20,7 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/plugins-%{gs_plugin_version}/.*\\.so.*$
 
 Name:      gnome-software
-Version:   44~rc
+Version:   44.0
 Release:   1%{?dist}
 Summary:   A software center for GNOME
 
@@ -29,6 +29,7 @@ URL:       https://wiki.gnome.org/Apps/Software
 Source0:   https://download.gnome.org/sources/gnome-software/44/%{name}-%{tarball_version}.tar.xz
 
 Patch01:   0001-crash-with-broken-theme.patch
+Patch02:   0002-update-czech-translation.patch
 
 BuildRequires: docbook-style-xsl
 BuildRequires: desktop-file-utils
@@ -228,6 +229,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/gnome-software/
 
 %changelog
+* Fri Mar 17 2023 Milan Crha <mcrha@redhat.com> - 44.0-1
+- Update to 44.0
+
 * Fri Mar 03 2023 Milan Crha <mcrha@redhat.com> - 44~rc-1
 - Update to 44.rc
 

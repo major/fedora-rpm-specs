@@ -1297,7 +1297,7 @@ do
 done
 
 PYTHONPATH="${OVERLAYDIR}" \
-    %make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
+    %make_build -C docs latex SPHINXOPTS='-j%{?_smp_build_ncpus}'
 %make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
 %endif
 

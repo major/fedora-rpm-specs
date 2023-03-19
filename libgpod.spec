@@ -13,7 +13,7 @@
 Summary: Library to access the contents of an iPod
 Name: libgpod
 Version: 0.8.3
-Release: 44%{?dist}
+Release: 45%{?dist}
 License: LGPL-2.1-or-later
 URL: http://www.gtkpod.org/libgpod.html
 Source0: http://downloads.sourceforge.net/gtkpod/%{name}-%{version}.tar.bz2
@@ -25,6 +25,7 @@ Patch2:  libgpod-0.8.3-mono4.patch
 Patch3:  libgpod-playcounts.patch
 Patch4:  libgpod-udev.patch
 Patch5:  0001-configure.ac-Add-support-for-libplist-2.2.patch
+Patch99: libgpod-0.8.3-implicit-int.patch
 
 BuildRequires: automake libtool
 BuildRequires: docbook-style-xsl
@@ -115,6 +116,7 @@ libgpod-sharp.
 %patch3 -p1 -b .playcounts
 %patch4 -p0 -b .udev
 %patch5 -p1 -b .libplist-2.2
+%patch99 -p1 -b .c99
 
 %if %{with_gtk3}
 sed -i "s#sharp-2.0#sharp-3.0#g" bindings/mono/libgpod-sharp/libgpod-sharp.pc.in
@@ -190,6 +192,9 @@ find %{buildroot} -type f -name "*.a" -delete
 %endif
 
 %changelog
+* Fri Mar 17 2023 DJ Delorie <dj@redhat.com> - 0.8.3-45
+- Apply upstream patch to fix C99 compatibility issue
+
 * Sat Mar 04 2023 Gwyn Ciesla <gwync@protonmail.com>
 - migrated to SPDX license
 

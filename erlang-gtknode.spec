@@ -4,7 +4,7 @@
 
 Name:		erlang-%{realname}
 Version:	1.0.4
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	Erlang GTK2 binding
 License:	MIT
 URL:		https://github.com/%{upstream}/%{realname}
@@ -16,6 +16,7 @@ Source0:	https://github.com/%{upstream}/%{realname}/archive/%{version}/%{realnam
 Patch1:		erlang-gtknode-0001-Respect-CFLAGS-and-LDFLAGS.patch
 # Fedora-specific
 Patch2:		erlang-gtknode-0002-Clarify-port-executable-placement.patch
+Patch3: erlang-gtknode-c99.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	erlang-rebar
@@ -32,6 +33,7 @@ Erlang GTK2 binding.
 %setup -q -n %{realname}-%{version}
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 
 %build
@@ -56,6 +58,9 @@ install -D -p -m 0755 priv/generator/build/gtknode  %{buildroot}%{erlang_appdir}
 
 
 %changelog
+* Fri Mar 17 2023 Florian Weimer <fweimer@redhat.com> - 1.0.4-16
+- Port to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

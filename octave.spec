@@ -3,13 +3,7 @@
 
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
-%if 0%{?fedora} >= 38
-# Infinite loop with texinfo 7
-# https://savannah.gnu.org/bugs/index.php?63810
-%global builddocs 0
-%else
 %global builddocs 1
-%endif
 
 %if 0%{?fedora}
 %bcond_without flexiblas
@@ -43,7 +37,7 @@
 Name:           octave
 Epoch:          6
 Version:        7.3.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A high-level language for numerical computations
 License:        GPLv3+
 URL:            http://www.octave.org
@@ -56,6 +50,9 @@ Source2:        xorg.conf
 %if !%{builddocs}
 Source3:        octave-%{version}-docs.tar.xz
 %endif
+# Infinite loop with texinfo 7
+# https://savannah.gnu.org/bugs/index.php?63810
+Patch0:         https://hg.savannah.gnu.org/hgweb/octave/raw-rev/ab6d276f6fcb
 # Add needed time.h header
 Patch2:         octave-time.patch
 
@@ -464,10 +461,13 @@ make check
 %{_pkgdocdir}/refcard*.pdf
 
 %changelog
+* Fri Mar 17 2023 Orion Poplawski <orion@nwra.com> - 6:7.3.0-4
+- Add upstream patch to fix doc builds
+
 * Sun Feb 26 2023 Orion Poplawski <orion@nwra.com> - 6:7.3.0-3
 - Disable building docs due to texinfo 7 incompatibility
 
-* Wed Jan 11 2023 FeRD (Frank Dana> <ferdnyc@gmail.com> - 6:7.3.0-3
+* Fri Feb 10 2023 FeRD (Frank Dana> <ferdnyc@gmail.com> - 6:7.3.0-3
 - Build with rapidjson to enable built-in json{decode,encode}
 
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6:7.3.0-2

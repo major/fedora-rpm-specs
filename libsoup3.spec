@@ -1,13 +1,13 @@
 %global glib2_version 2.69.1
 
 Name:    libsoup3
-Version: 3.3.1
+Version: 3.4.0
 Release: %autorelease
 Summary: Soup, an HTTP library implementation
 
-License: LGPL-2.1-only
+License: LGPL-2.0-or-later
 URL:     https://wiki.gnome.org/Projects/libsoup
-Source0: https://download.gnome.org/sources/libsoup/3.3/libsoup-%{version}.tar.xz
+Source0: https://download.gnome.org/sources/libsoup/3.4/libsoup-%{version}.tar.xz
 
 BuildRequires: gcc
 BuildRequires: gettext

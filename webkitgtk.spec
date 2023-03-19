@@ -1,6 +1,3 @@
-# https://bugs.webkit.org/show_bug.cgi?id=249368
-%global _lto_cflags %{nil}
-
 ## NOTE: Lots of files in various subdirectories have the same name (such as
 ## "LICENSE") so this short macro allows us to distinguish them by using their
 ## directory names (from the source tree) as prefixes for the files.
@@ -19,7 +16,7 @@
 %bcond_without docs
 
 Name:           webkitgtk
-Version:        2.39.91
+Version:        2.40.0
 Release:        %autorelease
 Summary:        GTK web content engine library
 
@@ -32,9 +29,8 @@ Source1:        https://webkitgtk.org/releases/webkitgtk-%{version}.tar.xz.asc
 # $ gpg --export --export-options export-minimal D7FCF61CF9A2DEAB31D81BD3F3D322D0EC4582C3 5AA3BC334FD7E3369E7C77B291C559DBE4C9123B > webkitgtk-keys.gpg
 Source2:        webkitgtk-keys.gpg
 
-# https://github.com/WebKit/WebKit/pull/11221
-# https://github.com/WebKit/WebKit/pull/11222
-Patch0:         fix-installed-headers.patch
+# https://github.com/WebKit/WebKit/pull/11664
+Patch0:         unbreak-script-message-received.patch
 
 BuildRequires:  bison
 BuildRequires:  bubblewrap

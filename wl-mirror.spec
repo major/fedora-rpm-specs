@@ -1,5 +1,5 @@
 Name:           wl-mirror
-Version:        0.13.0
+Version:        0.13.1
 Release:        %autorelease
 Summary:        Simple Wayland output mirror client
 
@@ -13,14 +13,16 @@ Source2:        gpgkey-BC1D9BD570235175.asc
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gnupg2
-BuildRequires:  libglvnd-devel
+BuildRequires:  pkgconfig(egl)
+BuildRequires:  pkgconfig(glesv2)
+BuildRequires:  pkgconfig(wayland-client)
+BuildRequires:  pkgconfig(wayland-egl)
 BuildRequires:  scdoc
-BuildRequires:  wayland-devel
 BuildRequires:  wayland-protocols-devel
 
 # wlr-protocols may have different licenses, but it does not affect
 # the generated code or the binary file license
-Provides:       bundled(wlr-protocols) = 0^20211229g0c7437e
+Provides:       bundled(wlr-protocols) = 0^20220627g8cdeaac
 
 %description
 Simple output mirror client for Wlroots-based compositors.

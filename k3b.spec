@@ -10,7 +10,7 @@ Name:    k3b
 Summary: CD/DVD/Blu-ray burning application
 Epoch:   1
 Version: 22.12.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPL-2.0-or-later
 URL:     http://www.k3b.org/
@@ -174,6 +174,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.k3b.deskt
 
 
 %changelog
+* Fri Mar 17 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1:22.12.3-3
+- Rebuilt for libmpcdec 1.3.0
+
 * Sun Mar 12 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1:22.12.3-2
 - Enable ffmpeg decoder support
 

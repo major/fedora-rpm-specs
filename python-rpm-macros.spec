@@ -53,7 +53,7 @@ elseif posix.stat('macros.python-srpm') then
 end
 }
 Version:        %{__default_python3_version}
-Release:        9%{?dist}
+Release:        10%{?dist}
 
 BuildArch:      noarch
 
@@ -163,6 +163,10 @@ grep -E '^#[^%%]*%%[^%%]' %{buildroot}%{rpmmacrodir}/macros.* && exit 1 || true
 
 
 %changelog
+* Thu Mar 16 2023 Miro Hrončok <mhroncok@redhat.com> - 3.11-10
+- Don't assume %%_smp_mflags only ever contains -jX, use -j%%_smp_build_ncpus directly
+- Fixes: rhbz#2179149
+
 * Fri Jan 20 2023 Miro Hrončok <mhroncok@redhat.com> - 3.11-9
 - Memoize values of macros that execute python to get their value
 - Fixes: rhbz#2155505

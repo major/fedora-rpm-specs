@@ -2,7 +2,7 @@
 
 Name:            pseudo
 Version:         1.9.0
-Release:         17.20210205gitf332f56%{?dist}
+Release:         18.20210205gitf332f56%{?dist}
 Summary:         Advanced tool for simulating superuser privileges
 
 License:         GPLv3+ and LGPLv2+
@@ -18,6 +18,9 @@ Patch1:          pseudo-060058b-f332f56.patch
 Patch10:         pseudo-1.9.0-attr.patch
 # Fix some GCC warnings
 Patch11:         pseudo-1.9.0-warnings.patch
+
+Patch12:         pseudo-configure-c99.patch
+
 
 BuildRequires:   acl
 BuildRequires:   attr
@@ -100,6 +103,9 @@ fi
 %{_mandir}/man1/pseudolog.1*
 
 %changelog
+* Fri Mar 17 2023 Florian Weimer <fweimer@redhat.com> - 1.9.0-18.20210205gitf332f56
+- Port non-autoconf feature probing to C99
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-17.20210205gitf332f56
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

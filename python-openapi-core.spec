@@ -2,14 +2,13 @@
 %global modname openapi_core
 
 Name:           python-%{srcname}
-Version:        0.16.6
+Version:        0.17.1
 Release:        %autorelease
 Summary:        OpenAPI client-side and server-side support
 
 License:        BSD-3-Clause
 URL:            https://github.com/python-openapi/%{srcname}
-# The GitHub archive has the tests; the PyPI sdist does not.
-Source:         %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
+Source:         %{pypi_source %{modname}}
 
 BuildArch:      noarch
 
@@ -42,7 +41,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{srcname}-%{version} -p1
+%autosetup -n %{modname}-%{version} -p1
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 sed -r -i '/^--cov[-=]/d' pyproject.toml
 

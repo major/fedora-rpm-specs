@@ -6,7 +6,7 @@
 
 Name:       bitcoin-core
 Version:    24.0.1
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Peer to Peer Cryptographic Currency
 License:    MIT
 URL:        https://bitcoincore.org/
@@ -15,6 +15,8 @@ URL:        https://bitcoincore.org/
 Source0:    https://bitcoincore.org/bin/bitcoin-core-%{version}/%{project_name}-%{version}.tar.gz
 Source1:    https://bitcoincore.org/bin/bitcoin-core-%{version}/SHA256SUMS.asc
 Source2:    https://bitcoincore.org/bin/bitcoin-core-%{version}/SHA256SUMS
+
+Patch0: bitcoin-24.0.1-gcc13.patch
 
 # Key verificaton process - why a script that generates a list of GPG keys in public ring format?
 # - Keys listed to sign the release are listed inside the tarball.
@@ -44,9 +46,10 @@ Source14:   README.server.redhat
 # Berkeley DB non-strong cryptography variant (NC):
 Source15:   https://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz
 Source16:   db-4.8.30.NC-format-security.patch
+Source17:   db-4.8.30.NC-configure-c99.patch
 
 # AppStream metadata
-Source17:   %{project_name}-qt.metainfo.xml
+Source18:   %{project_name}-qt.metainfo.xml
 
 # All valid GPG keys that have signed the release in pubring format:
 %include %{SOURCE4}
@@ -172,6 +175,10 @@ mkdir db4
 tar --strip-components=1 -xzf %{SOURCE15} -C db4
 patch -d db4 -p1 -i ../depends/patches/bdb/clang_cxx_11.patch
 patch -d db4 -p1 -i %{SOURCE16}
+patch -d db4 -p1 -i %{SOURCE17}
+# Avoid any modification timestamp based regeneration of the configure
+# script due to patching above:
+touch -r db4/dist/configure db4/dist/configure.ac db4/dist/aclocal/*.m4
 
 # Documentation (sources can not be directly reference with doc)
 cp -p %{SOURCE11} %{SOURCE12} %{SOURCE13} %{SOURCE14} .
@@ -250,7 +257,7 @@ install -D -m644 -p contrib/%{project_name}d.bash-completion %{buildroot}%{_comp
 mkdir -p %{buildroot}%{_localstatedir}/log/%{project_name}/
 
 # AppStream metadata
-install -p -m 644 -D %{SOURCE17} %{buildroot}%{_metainfodir}/%{project_name}-qt.metainfo.xml
+install -p -m 644 -D %{SOURCE18} %{buildroot}%{_metainfodir}/%{project_name}-qt.metainfo.xml
 
 # Remove test files so that they aren't shipped. Tests have already been run.
 rm -f %{buildroot}%{_bindir}/test_*
@@ -336,6 +343,12 @@ exit 0
 %{_userunitdir}/%{project_name}.service
 
 %changelog
+* Fri Mar 17 2023 Arjun Shankar <arjun@redhat.com> - 24.0.1-3
+- Port bundled Berkeley DB 4.8 configure script to C99 (#2179373)
+
+* Fri Mar 17 2023 Arjun Shankar <arjun@redhat.com>
+- Fix build failure due to GCC 13 compile error (#2171449)
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

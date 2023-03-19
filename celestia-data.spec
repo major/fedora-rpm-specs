@@ -28,7 +28,7 @@ BuildArch:      noarch
 BuildRequires:  cmake
 BuildRequires:  gettext-devel
 
-Requires:       celestia > 1.6.2
+Requires:       celestia-common > 1.6.2
 
 
 %description

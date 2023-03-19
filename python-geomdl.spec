@@ -116,7 +116,8 @@ sed -r -i 's/==/>=/' 'requirements.txt'
 %pyproject_wheel
 
 %if %{with doc_pdf}
-PYTHONPATH="${PWD}" %make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
+PYTHONPATH="${PWD}" %make_build -C docs latex \
+    SPHINXOPTS='-j%{?_smp_build_ncpus}'
 %make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
 %endif
 

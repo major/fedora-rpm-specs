@@ -5,7 +5,7 @@
 
 Name:		tcl-%{realname}
 Version:	0.4
-Release:	0.33.%{betaver}%{?dist}
+Release:	0.34.%{betaver}%{?dist}
 Summary:	QT widget support for Tile Toolkit
 License:	MIT
 URL:		http://www.ellogon.org/petasis/index.php?option=com_content&task=view&id=24&Itemid=40
@@ -14,6 +14,7 @@ URL:		http://www.ellogon.org/petasis/index.php?option=com_content&task=view&id=2
 Source0:	%{realname}%{version}%{betaver}.tar.gz
 Patch0:		tcl-tileqt-0.4b1-use-system-tile-headers.patch
 Patch1:		tcl-tileqt-0.4b1-tk86.patch
+Patch2:		tcl-tileqt-configure-c99.patch
 Provides:	%{realname} = %{version}-%{release}
 Provides:	tk-%{realname} = %{version}-%{release}
 BuildRequires: make
@@ -29,6 +30,7 @@ as KDE applications under GNU/Linux.
 %setup -q -n %{realname}%{version}%{betaver}
 %patch0 -p1 -b .use-system-tile-headers
 %patch1 -p1 -b .tk86
+%patch2 -p1
 mv configure configure-qt3
 cp -a configure-qt4 configure
 sed -i 's|/usr/lib/|%{_libdir}/|g' configure
@@ -49,6 +51,9 @@ chmod -x %{buildroot}%{tcl_sitearch}/%{realname}%{version}/pkgIndex.tcl
 %{tcl_sitearch}/%{realname}%{version}/
 
 %changelog
+* Fri Mar 17 2023 Florian Weimer <fweimer@redhat.com> - 0.4-0.34.b1
+- Port configure script to C99
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-0.33.b1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

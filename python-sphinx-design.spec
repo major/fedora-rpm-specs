@@ -1,6 +1,6 @@
 Name:           python-sphinx-design
 Version:        0.3.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Sphinx extension for responsive web components
 
 # This project is MIT, but bundles JSON glyphs
@@ -9,6 +9,8 @@ Summary:        Sphinx extension for responsive web components
 License:        MIT AND Apache-2.0
 URL:            https://github.com/executablebooks/sphinx-design
 Source0:        %{url}/archive/v%{version}/sphinx-design-%{version}.tar.gz
+# Support Sphinx 6.x
+Patch0:         %{url}/pull/106.patch
 
 BuildArch:      noarch
 
@@ -60,7 +62,7 @@ License:        MIT AND BSD-2-Clause AND BSD-3-Clause
 Documentation for %{name}.
 
 %prep
-%autosetup -n sphinx-design-%{version}
+%autosetup -n sphinx-design-%{version} -p1
 
 %generate_buildrequires
 %pyproject_buildrequires -t -x testing
@@ -90,6 +92,9 @@ rm -rf html/{.buildinfo,.doctrees}
 %license LICENSE
 
 %changelog
+* Fri Mar 17 2023 Jerry James <loganjerry@gmail.com> - 0.3.0-3
+- Allow building with Sphinx 6.x (rhbz#2179085)
+
 * Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 0.3.0-2
 - Dynamically generate BuildRequires
 

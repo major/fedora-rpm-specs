@@ -7,10 +7,11 @@
 # Copyright (c) 2022 Red Hat GmbH
 # Author: Stefano Brivio <sbrivio@redhat.com>
 
-%global git_hash 70c0765b49e19b76639908a7686d8f795ba3ed24
+%global git_hash dd2349661933c4e9756e524ae9465f38b53b7557
+%global selinuxtype targeted
 
 Name:		passt
-Version:	0^20230310.g70c0765
+Version:	0^20230317.gdd23496
 Release:	1%{?dist}
 Summary:	User-mode networking daemons for virtual machines and namespaces
 License:	AGPLv3+ and BSD
@@ -19,6 +20,7 @@ URL:		https://passt.top/
 Source:		https://passt.top/passt/snapshot/passt-%{git_hash}.tar.xz
 
 BuildRequires:	gcc, make, checkpolicy, selinux-policy-devel
+Requires:	(%{name}-selinux = %{version}-%{release} if selinux-policy-%{selinuxtype})
 
 %description
 passt implements a translation layer between a Layer-2 network interface and
@@ -66,13 +68,21 @@ install -p -m 644 -D pasta.pp %{buildroot}%{_datadir}/selinux/packages/%{name}/p
 install -p -m 644 -D pasta.if %{buildroot}%{_datadir}/selinux/devel/include/contrib/pasta.if
 popd
 
-%post selinux
-semodule -i %{_datadir}/selinux/packages/%{name}/passt.pp 2>/dev/null || :
-semodule -i %{_datadir}/selinux/packages/%{name}/pasta.pp 2>/dev/null || :
+%pre selinux
+%selinux_relabel_pre -s %{selinuxtype}
 
-%preun selinux
-semodule -r passt 2>/dev/null || :
-semodule -r pasta 2>/dev/null || :
+%post selinux
+%selinux_modules_install -s %{selinuxtype} %{_datadir}/selinux/packages/%{name}/passt.pp
+%selinux_modules_install -s %{selinuxtype} %{_datadir}/selinux/packages/%{name}/pasta.pp
+
+%postun selinux
+if [ $1 -eq 0 ]; then
+	%selinux_modules_uninstall -s %{selinuxtype} passt
+	%selinux_modules_uninstall -s %{selinuxtype} pasta
+fi
+
+%posttrans selinux
+%selinux_relabel_post -s %{selinuxtype}
 
 %files
 %license LICENSES/{AGPL-3.0-or-later.txt,BSD-3-Clause.txt}
@@ -100,6 +110,10 @@ semodule -r pasta 2>/dev/null || :
 %{_datadir}/selinux/devel/include/contrib/pasta.if
 
 %changelog
+* Fri Mar 17 2023 Stefano Brivio <sbrivio@redhat.com> - 0^20230317.gdd23496-1
+- Refresh SELinux labels in scriptlets, require -selinux package
+- Upstream changes: https://passt.top/passt/log/?qt=range&q=2023_03_10.70c0765..2023_03_17.dd23496
+
 * Fri Mar 10 2023 Stefano Brivio <sbrivio@redhat.com> - 0^20230310.g70c0765-1
 - Install SELinux interface files to shared include directory
 - Upstream changes: https://passt.top/passt/log/?qt=range&q=2023_03_09.7c7625d..2023_03_10.70c0765

@@ -6,7 +6,7 @@
 
 Name: guile22
 Version: 2.2.7
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: A GNU implementation of Scheme for application extensibility
 Source: ftp://ftp.gnu.org/pub/gnu/guile/guile-%{version}.tar.xz
 URL: http://www.gnu.org/software/guile/
@@ -23,6 +23,8 @@ Patch1: guile-multilib.patch
 Patch3: guile-threadstest.patch
 Patch4: disable-out-of-memory-test.patch
 Patch5: guile-configure.patch
+Patch6: guile22-configure-tz-c99.patch
+Patch7: guile22-configure-c99.patch
 
 %description
 GUILE (GNU's Ubiquitous Intelligent Language for Extension) is a library
@@ -161,6 +163,9 @@ fi
 
 
 %changelog
+* Fri Mar 17 2023 Florian Weimer <fweimer@redhat.com> - 2.2.7-8
+- Port configure script to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.7-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

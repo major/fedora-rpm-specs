@@ -6,7 +6,7 @@
 Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
-Version:        6.20
+Version:        6.21
 Release:        1%{?dist}
 Summary:        Administration tool for PostgreSQL
 
@@ -57,6 +57,7 @@ Patch101:       glob-parent-CVE-2021-35065.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-sphinx
+BuildRequires:  python3-setuptools
 BuildRequires:  yarnpkg
 
 # For node dependencies
@@ -268,6 +269,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Wed Mar 15 2023 Sandro Mani <manisandro@gmail.com> - 6.21-1
+- Update to 6.21
+
 * Tue Feb 14 2023 Sandro Mani <manisandro@gmail.com> - 6.20-1
 - Update to 6.20
 

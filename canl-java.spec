@@ -1,6 +1,6 @@
 Name:		canl-java
-Version:	2.8.2
-Release:	3%{?dist}
+Version:	2.8.3
+Release:	1%{?dist}
 Summary:	EMI Common Authentication library - bindings for Java
 
 #		The main parts of the code are BSD
@@ -8,7 +8,7 @@ Summary:	EMI Common Authentication library - bindings for Java
 #		Parts derived from bouncycastle are MIT
 #		Parts derived from Apache Commons IO are Apache 2.0
 #		See LICENSE.txt for details
-License:	BSD and ASL 2.0 and MIT
+License:	BSD-3-Clause AND Apache-2.0 AND MIT
 URL:		https://github.com/eu-emi/%{name}/
 Source0:	https://github.com/eu-emi/%{name}/archive/canl-%{version}/%{name}-%{version}.tar.gz
 #		Disable tests that require network connections
@@ -65,7 +65,6 @@ Javadoc documentation for EMI caNl.
 %mvn_install
 
 %files -f .mfiles
-%dir %{_javadir}/%{name}
 %doc API-Changes.txt README.md
 %license LICENSE.txt
 
@@ -73,6 +72,9 @@ Javadoc documentation for EMI caNl.
 %license LICENSE.txt
 
 %changelog
+* Fri Mar 17 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.8.3-1
+- Update to 2.8.3
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -50,7 +50,7 @@
 
 Name:           ibus
 Version:        1.5.28
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.0-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -65,6 +65,8 @@ Patch1:         %{name}-1385349-segv-bus-proxy.patch
 # Use mutter window manager in RHEL CI
 Patch2:         %{name}-xx-desktop-testing-mutter.patch
 %endif
+# Half fix of #2178178
+Patch3:         %{name}-2178178-launch-emojier.patch
 
 # autoreconf requires autopoint but not po.m4
 BuildRequires:  gettext-devel
@@ -557,6 +559,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Fri Mar 17 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.28-3
+- Resolves: #2178178 Fix emoji lookup table only but emojier GUI left
+
 * Wed Mar 15 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.28-2
 - Fix Key typing order in ibus-x11
 - Disable while loop before call ForwardEventMessageProc() in ibus-x11

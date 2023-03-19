@@ -1,6 +1,6 @@
 
 Name:		console-setup
-Version:	1.217
+Version:	1.218
 Release:	1%{?dist}
 Summary:	Tools for configuring the console using X Window System key maps
 
@@ -46,7 +46,7 @@ not wasted but used for another symbol.
 
 
 %prep
-%setup -q -n %{name}
+%setup -q -n %{name}-%{version}
 %patch0 -p1 -b .paths
 %patch1 -p1 -b .fsf-address
 %patch2 -p1 -b .ctrll-lock
@@ -96,6 +96,10 @@ cp -a Fonts/fontsets Fonts/*.equivalents Fonts/*.set \
 
 
 %changelog
+* Fri Mar 17 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.218-1
+- Update to latest upstream version
+  Resolves: #2178377
+
 * Thu Feb 16 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.217-1
 - Update to latest upstream version
   Resolves: #2170210

@@ -1,51 +1,32 @@
 Name:           ski
-Version:        1.3.2
-Release:        38%{?dist}
+Version:        1.4.0
+Release:        1%{?dist}
 Summary:        IA-64 user and system mode simulator
 
-License:        GPLv2+
-URL:            http://ski.sourceforge.net
-# Newer fork is at: <https://github.com/trofi/ski>
-Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
-Patch1:         ski-1.3.2-asm-page.patch
-Patch2:         ski-1.3.2-header.patch
-Patch3:         ski-1.3.2-nohayes.patch
-Patch4:         ski-1.3.2-uselib.patch
-Patch5:         ski-1.3.2-ustat.patch
-# https://gitweb.gentoo.org/repo/gentoo.git/tree/app-emulation/ski/files/ski-1.3.2-gcc-10.patch
-Patch6:         ski-1.3.2-gcc-10.patch
-Patch7: ski-c99-1.patch
-Patch8: ski-c99-2.patch
-Patch9: ski-makefile-dependency.patch
+License:        GPL-2.0-only and GPL-2.0-or-later
+URL:            https://github.com/trofi/ski
+Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+# https://github.com/trofi/ski/pull/3
+Patch1:         ski-1.3.2-header.patch
+# https://github.com/trofi/ski/commit/027b69d20b1e1c737bd41f0b936aae0055a1e8a1
+Patch2:         ski-c99-2.patch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+# some syscalls are missing
 ExcludeArch:    aarch64
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  libglade2-devel ncurses-devel elfutils-libelf-devel libgnomeui-devel motif-devel
 BuildRequires:  automake autoconf libtool gperf bison flex
 BuildRequires:  libtool-ltdl-devel
 BuildRequires:  gcc
-Requires: %{name}-libs = %{version}-%{release}
+Obsoletes: %{name}-libs < 1.4.0
+Obsoletes: %{name}-devel < 1.4.0
 
 
 %description
 The Ski IA-64 user and system simulator originally developed by HP.
-
-
-%package libs
-Summary: Shared library for the ski simulator
-
-%description libs
-Shared library for the ski simulator
-
-
-%package devel
-Summary: Development files for the ski simulator
-Requires: %{name}-libs = %{version}-%{release}
-
-%description devel
-The ski-devel package includes the static libraries and header files
-for the support library for the Ski simulator.
 
 
 %prep
@@ -56,21 +37,11 @@ for the support library for the Ski simulator.
 ./autogen.sh
 
 %configure --with-x11 --with-gtk --enable-shared --disable-static
-
-# Don't use rpath!
-sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
-sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
-
-# fix linking
-sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
-
-make %{?_smp_mflags}
+%make_build
 
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
-
-rm $RPM_BUILD_ROOT%{_libdir}/*.la
+%make_install
 
 
 %files
@@ -86,17 +57,11 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_mandir}/man1/*
 %{_datadir}/%{name}
 
-%files libs
-%license COPYING
-%{_libdir}/libski-*.so.*
-
-%files devel
-%{_bindir}/ski-config
-%{_includedir}/ski-1.3
-%{_libdir}/libski.so
-
 
 %changelog
+* Fri Mar 17 2023 Dan Horák <dan[at]danny.cz> - 1.4.0-1
+- updated to 1.4.0
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

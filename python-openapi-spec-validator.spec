@@ -2,14 +2,13 @@
 %global modname openapi_spec_validator
 
 Name:           python-%{srcname}
-Version:        0.5.5
+Version:        0.5.6
 Release:        %autorelease
 Summary:        Python library for OpenAPI specs validation
 
 License:        Apache-2.0
 URL:            https://github.com/python-openapi/%{srcname}
-# The GitHub archive has the tests; the PyPI sdist does not.
-Source:         %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
+Source:         %{pypi_source %{modname}}
 
 BuildArch:      noarch
 
@@ -34,7 +33,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -p1 -n %{srcname}-%{version}
+%autosetup -p1 -n %{modname}-%{version}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 sed -r -i '/^--cov[-=]/d' pyproject.toml
 

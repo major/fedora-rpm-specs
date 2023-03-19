@@ -5,8 +5,8 @@
 %endif
 
 Name:           xmvn
-Version:        4.0.0
-Release:        12%{?dist}
+Version:        4.1.0
+Release:        1%{?dist}
 Summary:        Local Extensions for Apache Maven
 License:        ASL 2.0
 URL:            https://fedora-java.github.io/xmvn/
@@ -15,15 +15,12 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source0:        https://github.com/fedora-java/xmvn/releases/download/%{version}/xmvn-%{version}.tar.xz
 
-Patch0:         0001-Port-to-Modello-2.0.0.patch
-Patch1:         0002-Mimic-maven-javadoc-plugin-for--source-and---release.patch
-Patch2:         0003-Simple-implementation-of-toolchains.patch
-
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
 BuildRequires:  mvn(com.beust:jcommander)
+BuildRequires:  mvn(javax.inject:javax.inject)
 BuildRequires:  mvn(org.apache.commons:commons-compress)
 BuildRequires:  mvn(org.apache.maven.plugin-tools:maven-plugin-annotations)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-assembly-plugin)
@@ -35,14 +32,13 @@ BuildRequires:  mvn(org.apache.maven:maven-core)
 BuildRequires:  mvn(org.apache.maven:maven-model)
 BuildRequires:  mvn(org.apache.maven:maven-model-builder)
 BuildRequires:  mvn(org.apache.maven:maven-plugin-api)
-BuildRequires:  mvn(org.codehaus.modello:modello-maven-plugin) >= 2.0.0
-BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
+BuildRequires:  mvn(org.codehaus.modello:modello-maven-plugin)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-classworlds)
-BuildRequires:  mvn(org.codehaus.plexus:plexus-component-annotations)
-BuildRequires:  mvn(org.codehaus.plexus:plexus-component-metadata)
-BuildRequires:  mvn(org.codehaus.plexus:plexus-container-default)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
 BuildRequires:  mvn(org.easymock:easymock)
+BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.inject)
+BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.plexus)
+BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
 BuildRequires:  mvn(org.ow2.asm:asm)
 BuildRequires:  mvn(org.slf4j:slf4j-api)
@@ -132,9 +128,6 @@ This package provides %{summary}.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
 
 %mvn_package ::tar.gz: __noinstall
 %mvn_package ":{xmvn,xmvn-connector}" xmvn
@@ -164,7 +157,7 @@ cp -a "${maven_home}" target/dependency/apache-maven-$mver
 %build
 %mvn_build -j -- -P\\!quality
 
-version=4.0.0
+version=4.1.0
 tar --delay-directory-restore -xvf target/xmvn-*-bin.tar.gz
 chmod -R +rwX %{name}-${version}*
 # These are installed as doc
@@ -178,7 +171,7 @@ rm -f %{name}-${version}*/bin/*
 %install
 %mvn_install
 
-version=4.0.0
+version=4.1.0
 maven_home=$(realpath $(dirname $(realpath $(%{?jpb_env} which mvn)))/..)
 
 install -d -m 755 %{buildroot}%{_datadir}/%{name}
@@ -271,6 +264,9 @@ end
 %license LICENSE NOTICE
 
 %changelog
+* Fri Mar 17 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 4.1.0-1
+- Update to upstream version 4.1.0
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

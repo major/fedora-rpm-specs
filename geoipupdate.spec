@@ -2,12 +2,12 @@
 
 # https://github.com/maxmind/geoipupdate
 %global goipath	github.com/maxmind/geoipupdate
-Version:	4.10.0
+Version:	4.11.1
 
 %gometa
 
 Name:		geoipupdate
-Release:	2%{?dist}
+Release:	1%{?dist}
 Summary:	Update GeoIP2 binary databases from MaxMind
 
 License:	Apache-2.0 OR MIT
@@ -18,8 +18,6 @@ Source1:	geoipupdate.cron
 BuildRequires:	coreutils
 BuildRequires:	crontabs
 BuildRequires:	golang(github.com/gofrs/flock)
-# Wants golang(github.com/pkg/errors) ≥ 0.9.1 but seems to work OK with earlier versions
-BuildRequires:	golang(github.com/pkg/errors)
 BuildRequires:	golang(github.com/spf13/pflag)
 BuildRequires:	make
 BuildRequires:	pandoc
@@ -106,6 +104,16 @@ install -p -m 0644 _build/GeoIP.conf.5 %{buildroot}%{_mandir}/man5/GeoIP.conf.5
 %config(noreplace) %{_sysconfdir}/cron.weekly/geoipupdate
 
 %changelog
+* Fri Mar 17 2023 Paul Howarth <paul@city-fan.org> - 4.11.1-1
+- Update to 4.11.1
+  - 'github.com/pkg/errors' is no longer used to wrap errors
+  - Docker secrets are now supported for the MaxMind account ID and license
+    key (GH#197)
+  - The Dockerfile now has a Healthcheck that makes sure the modification date
+    of the database directory is within the update period
+  - The Docker images are now published to the GitHub Container Registry,
+    'ghcr.io'; we will likely stop publishing to Docker Hub in the near future
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

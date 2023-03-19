@@ -1,7 +1,7 @@
 Summary: Hercules S/370, ESA/390, and z/Architecture emulator
 Name: hercules
 Version: 3.13
-Release: 12%{?dist}
+Release: 13%{?dist}
 License: QPL
 URL: http://www.hercules-390.eu/
 Source0: http://downloads.hercules-390.eu/%{name}-%{version}.tar.gz
@@ -11,6 +11,7 @@ Source2: hercules-run
 Source3: README-rpm
 Source4: generic.prm
 Patch0: %{name}-3.10-fedora.patch
+Patch1: hercules-configure-c99.patch
 BuildRequires: zlib-devel
 BuildRequires: bzip2-devel
 BuildRequires: libcap-devel
@@ -33,6 +34,7 @@ printer-keyboard, 3270 terminal, and 3287 printer devices.
 %setup -q
 
 %patch0 -p1 -b .fedora
+%patch1 -p1
 
 rm autoconf/libtool.m4
 autoreconf -f -i
@@ -97,6 +99,9 @@ rm %{buildroot}%{_libdir}/*.la
 
 
 %changelog
+* Fri Mar 17 2023 Florian Weimer <fweimer@redhat.com> - 3.13-13
+- Port configure script to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.13-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

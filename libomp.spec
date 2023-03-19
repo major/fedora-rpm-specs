@@ -4,10 +4,11 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2158587
 %undefine _include_frame_pointers
 
-%global maj_ver 15
-%global libomp_version %{maj_ver}.0.7
-#global rc_ver 3
+%global maj_ver 16
+%global libomp_version %{maj_ver}.0.0
+%global rc_ver 4
 %global libomp_srcdir openmp-%{libomp_version}%{?rc_ver:rc%{rc_ver}}.src
+%global cmake_srcdir cmake-%{libomp_version}%{?rc_ver:rc%{rc_ver}}.src
 
 
 %ifarch ppc64le
@@ -18,7 +19,7 @@
 
 Name: libomp
 Version: %{libomp_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 5%{?dist}
+Release: 1%{?dist}
 Summary: OpenMP runtime for clang
 
 License: Apache-2.0 WITH LLVM-exception OR NCSA
@@ -28,9 +29,8 @@ Source1: https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libomp
 Source2: release-keys.asc
 Source3: run-lit-tests
 Source4: lit.fedora.cfg.py
-
-# TODO: Not needed with LLVM 16.
-Patch1: 0001-libomp-Explicitly-include-string-header-NFC.patch
+Source5:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libomp_version}%{?rc_ver:-rc%{rc_ver}}/%{cmake_srcdir}.tar.xz
+Source6:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libomp_version}%{?rc_ver:-rc%{rc_ver}}/%{cmake_srcdir}.tar.xz.sig
 
 BuildRequires: clang
 # For clang-offload-packager
@@ -78,10 +78,16 @@ OpenMP regression tests
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE6}' --data='%{SOURCE5}'
+%setup -T -q -b 5 -n %{cmake_srcdir}
+# TODO: It would be more elegant to set -DLLVM_COMMON_CMAKE_UTILS=%{_builddir}/%{cmake_srcdir},
+# but this is not a CACHED variable, so we can't actually set it externally :(
+cd ..
+mv %{cmake_srcdir} cmake
 %autosetup -n %{libomp_srcdir} -p2
 
 %build
-
+# TODO: LIBOMP_HAVE_VERSION_SCRIPT_FLAG should be set automatically.
 %cmake	-GNinja \
 	-DLIBOMP_INSTALL_ALIASES=OFF \
 	-DCMAKE_MODULE_PATH=%{_libdir}/cmake/llvm \
@@ -92,7 +98,8 @@ OpenMP regression tests
 %else
 	-DOPENMP_LIBDIR_SUFFIX= \
 %endif
-	-DCMAKE_SKIP_RPATH:BOOL=ON
+	-DCMAKE_SKIP_RPATH:BOOL=ON \
+	-DLIBOMP_HAVE_VERSION_SCRIPT_FLAG:BOOL=ON
 
 %cmake_build
 
@@ -138,11 +145,15 @@ rm -rf %{buildroot}%{_libdir}/libarcher_static.a
 %{_libdir}/libarcher.so
 %endif
 %ifnarch %{ix86} %{arm}
+# libomptarget is not supported on 32-bit systems.
 %{_libdir}/libomptarget.rtl.amdgpu.so.%{maj_ver}
+%{_libdir}/libomptarget.rtl.amdgpu.nextgen.so.%{maj_ver}
 %{_libdir}/libomptarget.rtl.cuda.so.%{maj_ver}
+%{_libdir}/libomptarget.rtl.cuda.nextgen.so.%{maj_ver}
 %{_libdir}/libomptarget.rtl.%{libomp_arch}.so.%{maj_ver}
-%endif
+%{_libdir}/libomptarget.rtl.%{libomp_arch}.nextgen.so.%{maj_ver}
 %{_libdir}/libomptarget.so.%{maj_ver}
+%endif
 
 %files devel
 %{_libdir}/clang/%{libomp_version}/include/omp.h
@@ -153,20 +164,33 @@ rm -rf %{buildroot}%{_libdir}/libarcher_static.a
 %{_libdir}/clang/%{libomp_version}/include/ompt-multiplex.h
 %endif
 %ifnarch %{ix86} %{arm}
+# libomptarget is not supported on 32-bit systems.
 %{_libdir}/libomptarget.rtl.amdgpu.so
+%{_libdir}/libomptarget.rtl.amdgpu.nextgen.so
 %{_libdir}/libomptarget.rtl.cuda.so
+%{_libdir}/libomptarget.rtl.cuda.nextgen.so
 %{_libdir}/libomptarget.rtl.%{libomp_arch}.so
+%{_libdir}/libomptarget.rtl.%{libomp_arch}.nextgen.so
 %{_libdir}/libomptarget.devicertl.a
 %{_libdir}/libomptarget-amdgpu-*.bc
 %{_libdir}/libomptarget-nvptx-*.bc
-%endif
 %{_libdir}/libomptarget.so
+%endif
 
 %files test
 %{_datadir}/libomp
 %{_libexecdir}/tests/libomp/
 
 %changelog
+* Wed Mar 15 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc4-1
+- Update to LLVM 16.0.0 RC4
+
+* Thu Feb 23 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc3-1
+- Update to LLVM 16.0.0 RC3
+
+* Tue Feb 14 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc1-1
+- Update to LLVM 16.0.0 RC1
+
 * Tue Jan 31 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 15.0.7-5
 - Include the Apache license adopted in 2019.
 

@@ -2,7 +2,7 @@
 
 Name:           log4j
 Version:        2.17.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Java logging package
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -258,7 +258,7 @@ rm -r log4j-1.2-api/src/main/java/org/apache/log4j/or/jms
 
 %build
 # missing test deps (mockejb)
-%mvn_build -f -j
+%mvn_build -f
 
 %install
 %mvn_install
@@ -281,11 +281,14 @@ rm -r log4j-1.2-api/src/main/java/org/apache/log4j/or/jms
 %{_bindir}/%{name}-jmx
 %endif
 
-#%%files javadoc -f .mfiles-javadoc
-#%%doc LICENSE.txt NOTICE.txt
+%files javadoc -f .mfiles-javadoc
+%doc LICENSE.txt NOTICE.txt
 
 
 %changelog
+* Fri Mar 17 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.17.2-9
+- Re-enable javadoc package
+
 * Fri Feb 24 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.17.2-8
 - Remove dependency on jackson in jp_minimal mode
 

@@ -1,5 +1,5 @@
 Name:           budgie-desktop-defaults
-Version:        0.3
+Version:        0.4
 Release:        1%{?dist}
 Summary:        Budgie Desktop Defaults for Fedora
 
@@ -41,5 +41,8 @@ Budgie Desktop Defaults for Fedora .
 %{_datadir}/glib-2.0/schemas/90_budgie_*.gschema.override
 
 %changelog
+* Fri Mar 17 2023 Joshua Strobl <me@joshuastrobl.com> - 0.4-1
+- Update to 0.4 for gedit color scheme change
+
 * Sun Feb 5 2023 Joshua Strobl <me@joshuastrobl.com> - 0.3-1
 - Initial inclusion of Budgie Desktop Defaults for Fedora 

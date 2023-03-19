@@ -6,6 +6,7 @@ Summary: A server that provides DAAP and DPAP shares
 License: GPLv2+
 URL: http://www.flyn.org/projects/dmapd/
 Source0: http://www.flyn.org/projects/%name/%{name}-%{version}.tar.gz
+Patch0: dmapd-c99.patch
 
 %{?systemd_requires}
 BuildRequires: libdmapsharing4-devel >= 3.9.3
@@ -45,7 +46,7 @@ to serve music, video and photograph libraries containing thousands of
 files.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %configure                                      \

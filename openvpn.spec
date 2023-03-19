@@ -27,7 +27,7 @@
 
 Name:              openvpn
 Version:           2.6.1
-Release:           1%{?dist}
+Release:           2%{?dist}
 Summary:           A full-featured TLS VPN solution (beta release)
 URL:               https://community.openvpn.net/
 Source0:           https://build.openvpn.net/downloads/releases/%{name}-%{version}.tar.gz
@@ -38,6 +38,7 @@ Source3:           roadwarrior-client.conf
 Source10:          gpgkey-F554A3687412CFFEBDEFE0A312F5F7B42F2B01E7.gpg
 Patch1:            0001-Change-the-default-cipher-to-AES-256-GCM-for-server-.patch
 Patch2:            fedora-crypto-policy-compliance.patch
+Patch10:           bz2177834-Convert-ECDSA-signature-form-pkcs11-helper-to-DER-encoded-form.patch
 Patch50:           openvpn-2.4-change-tmpfiles-permissions.patch
 License:           GPLv2
 BuildRequires:     gnupg2
@@ -104,6 +105,7 @@ to similar features as the various script-hooks.
 gpgv2 --quiet --keyring %{SOURCE10} %{SOURCE1} %{SOURCE0}
 %setup -q -n %{name}-%{version}
 %patch1 -p1
+%patch10 -p1
 %if 0%{?rhel} > 7 || 0%{?fedora} > 34
 # The crypto-policy patch is only valid on RHEL-8 and newer plus Fedora
 %patch2 -p1
@@ -244,6 +246,9 @@ getent passwd openvpn &>/dev/null || \
 
 
 %changelog
+* Tue Mar 14 2023 David Sommerseth <davids@openvpn.net> -2.6.1-2
+- Added patch to fix xkey related issues (rhbz#2177834)
+
 * Mon Mar 13 2023 David Sommerseth <davids@openvpn.net> -2.6.1-1
 - Update to upstream OpenVPN 2.6.1
 

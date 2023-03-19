@@ -6,24 +6,25 @@
 %global         __requires_exclude_from \\.jar$
 %global         __provides_exclude_from \\.jar$
 
+%global         debug_package %{nil}
+
 %global javaHomePath %{_jvmdir}/java-17-openjdk
 %global mavenHomePath %{_datadir}/%{name}
 %global metadataPath %{mavenHomePath}/maven-metadata
-%global artifactsPath %{_javadir}
+%global artifactsPath %{_jnidir}
 %global launchersPath %{_libexecdir}/%{name}
 
 #global git_hash ...
 #global git_short_hash %(echo %{git_hash} | cut -b -7)
 
 Name:           javapackages-bootstrap
-Version:        1.7.2
-Release:        2%{?dist}
+Version:        1.8.0
+Release:        1%{?dist}
 Summary:        A means of bootstrapping Java Packages Tools
 # For detailed info see the file javapackages-bootstrap-PACKAGE-LICENSING
 License:        ASL 2.0 and ASL 1.1 and (ASL 2.0 or EPL-2.0) and (EPL-2.0 or GPLv2 with exceptions) and MIT and BSD with advertising and BSD and EPL-1.0 and EPL-2.0 and CDDL-1.0 and xpp and CC0 and Public Domain
 URL:            https://github.com/fedora-java/javapackages-bootstrap
-BuildArch:      noarch
-ExclusiveArch:  %{java_arches} noarch
+ExclusiveArch:  %{java_arches}
 
 Source0:        https://github.com/fedora-java/javapackages-bootstrap/releases/download/%{version}/javapackages-bootstrap-%{version}.tar.xz
 #Source0:        https://github.com/fedora-java/javapackages-bootstrap/archive/%{git_short_hash}.tar.gz
@@ -113,49 +114,48 @@ Source1070:     maven-wagon.tar.xz
 Source1071:     maven.tar.xz
 Source1072:     mockito.tar.xz
 Source1073:     modello.tar.xz
-Source1074:     mojo-parent-pom.tar.xz
-Source1075:     munge-maven-plugin.tar.xz
-Source1076:     objenesis.tar.xz
-Source1077:     opentest4j.tar.xz
-Source1078:     osgi-annotation.tar.xz
-Source1079:     osgi-cmpn.tar.xz
-Source1080:     osgi-core.tar.xz
-Source1081:     oss-parent-pom.tar.xz
-Source1082:     plexus-archiver.tar.xz
-Source1083:     plexus-build-api.tar.xz
-Source1084:     plexus-cipher.tar.xz
-Source1085:     plexus-classworlds.tar.xz
-Source1086:     plexus-compiler.tar.xz
-Source1087:     plexus-components-pom.tar.xz
-Source1088:     plexus-containers.tar.xz
-Source1089:     plexus-interpolation.tar.xz
-Source1090:     plexus-io.tar.xz
-Source1091:     plexus-languages.tar.xz
-Source1092:     plexus-pom.tar.xz
-Source1093:     plexus-resources.tar.xz
-Source1094:     plexus-sec-dispatcher.tar.xz
-Source1095:     plexus-utils.tar.xz
-Source1096:     qdox.tar.xz
-Source1097:     servlet-api.tar.xz
-Source1098:     sisu-inject.tar.xz
-Source1099:     sisu-mojos.tar.xz
-Source1100:     sisu-plexus.tar.xz
-Source1101:     slf4j.tar.xz
-Source1102:     testng.tar.xz
-Source1103:     univocity-parsers.tar.xz
-Source1104:     velocity-engine.tar.xz
-Source1105:     xbean.tar.xz
-Source1106:     xmlunit.tar.xz
-Source1107:     xmvn.tar.xz
-Source1108:     xz-java.tar.xz
-
-Patch0:         0001-Bind-to-OpenJDK-17-for-runtime.patch
-Patch1:         0002-Rebase-xmvn-to-current-trunk.patch
+Source1074:     modulemaker-maven-plugin.tar.xz
+Source1075:     mojo-parent-pom.tar.xz
+Source1076:     munge-maven-plugin.tar.xz
+Source1077:     objenesis.tar.xz
+Source1078:     opentest4j.tar.xz
+Source1079:     osgi-annotation.tar.xz
+Source1080:     osgi-cmpn.tar.xz
+Source1081:     osgi-core.tar.xz
+Source1082:     oss-parent-pom.tar.xz
+Source1083:     plexus-archiver.tar.xz
+Source1084:     plexus-build-api.tar.xz
+Source1085:     plexus-cipher.tar.xz
+Source1086:     plexus-classworlds.tar.xz
+Source1087:     plexus-compiler.tar.xz
+Source1088:     plexus-components-pom.tar.xz
+Source1089:     plexus-containers.tar.xz
+Source1090:     plexus-interpolation.tar.xz
+Source1091:     plexus-io.tar.xz
+Source1092:     plexus-languages.tar.xz
+Source1093:     plexus-pom.tar.xz
+Source1094:     plexus-resources.tar.xz
+Source1095:     plexus-sec-dispatcher.tar.xz
+Source1096:     plexus-utils.tar.xz
+Source1097:     qdox.tar.xz
+Source1098:     servlet-api.tar.xz
+Source1099:     sisu-inject.tar.xz
+Source1100:     sisu-mojos.tar.xz
+Source1101:     sisu-plexus.tar.xz
+Source1102:     slf4j.tar.xz
+Source1103:     testng.tar.xz
+Source1104:     univocity-parsers.tar.xz
+Source1105:     velocity-engine.tar.xz
+Source1106:     xbean.tar.xz
+Source1107:     xmlunit.tar.xz
+Source1108:     xmvn-generator.tar.xz
+Source1109:     xmvn.tar.xz
+Source1110:     xz-java.tar.xz
 
 Provides:       bundled(ant) = 1.10.12
 Provides:       bundled(apache-parent) = 26
 Provides:       bundled(apiguardian) = 1.1.2
-Provides:       bundled(objectweb-asm) = 9.3
+Provides:       bundled(objectweb-asm) = 9.4
 Provides:       bundled(assertj-core) = 3.19.0
 Provides:       bundled(aqute-bnd) = 5.2.0
 Provides:       bundled(maven-plugin-build-helper) = 3.2.0
@@ -225,6 +225,7 @@ Provides:       bundled(maven-wagon) = 3.5.1
 Provides:       bundled(maven) = 3.8.5
 Provides:       bundled(mockito) = 3.7.13
 Provides:       bundled(modello) = 2.0.0
+Provides:       bundled(modulemaker-maven-plugin) = 1.9
 Provides:       bundled(mojo-parent) = 67
 Provides:       bundled(munge-maven-plugin) = 1.0
 Provides:       bundled(objenesis) = 3.1
@@ -258,16 +259,21 @@ Provides:       bundled(univocity-parsers) = 2.9.1
 Provides:       bundled(velocity) = 1.7
 Provides:       bundled(xbean) = 4.18
 Provides:       bundled(xmlunit) = 2.8.2
-Provides:       bundled(xmvn) = 4.0.0
+Provides:       bundled(xmvn-generator) = 1.2.1
+Provides:       bundled(xmvn) = 4.1.0
 Provides:       bundled(xz-java) = 1.9
 
 BuildRequires:  byaccj
+BuildRequires:  gcc
 BuildRequires:  java-17-openjdk-devel
+BuildRequires:  jurand
+BuildRequires:  rpm-devel
 
 Requires:       bash
 Requires:       coreutils
 Requires:       java-17-openjdk-devel
 Requires:       procps-ng
+Requires:       lujavrite%{?_isa}
 
 Requires:       javapackages-common
 
@@ -307,9 +313,6 @@ for source in ${other_sources}; do
   tar -xf "${source}"
 done
 
-%patch0 -p1
-%patch1 -p1
-
 for patch_path in patches/*/*; do
   package_name="$(echo ${patch_path} | cut -f2 -d/)"
   patch_name="$(echo ${patch_path} | cut -f3 -d/)"
@@ -339,8 +342,24 @@ JAVA_HOME=%{javaHomePath} ./mbi.sh dist \
 # Use custom toolchains.xml
 cp -p %{SOURCE101} %{buildroot}%{mavenHomePath}/conf/toolchains.xml
 
-install -d -m 755 %{buildroot}%{_rpmmacrodir}
-echo '%%jpb_env PATH=/usr/libexec/javapackages-bootstrap:$PATH' >%{buildroot}%{_rpmmacrodir}/macros.%{name}
+install -D -p -m 644 downstream/xmvn-generator/src/main/lua/xmvn-generator.lua %{buildroot}%{_rpmluadir}/%{name}-generator.lua
+install -D -p -m 644 downstream/xmvn-generator/src/main/rpm/macros.xmvngen %{buildroot}%{_rpmmacrodir}/macros.jpbgen
+install -D -p -m 644 downstream/xmvn-generator/src/main/rpm/macros.xmvngenhook %{buildroot}%{_sysconfdir}/rpm/macros.jpbgenhook
+install -D -p -m 644 downstream/xmvn-generator/src/main/rpm/xmvngen.attr %{buildroot}%{_fileattrsdir}/jpbgen.attr
+
+echo '
+%%__xmvngen_debug 1
+%%__xmvngen_libjvm %{javaHomePath}/lib/server/libjvm.so
+%%__xmvngen_classpath %{artifactsPath}/%{name}/xmvn-generator.jar:%{artifactsPath}/%{name}/asm.jar:%{artifactsPath}/%{name}/commons-compress.jar
+%%__xmvngen_provides_generators org.fedoraproject.xmvn.generator.jpms.JPMSGeneratorFactory
+%%__xmvngen_requires_generators %%{nil}
+%%__xmvngen_post_install_hooks org.fedoraproject.xmvn.generator.transformer.TransformerHookFactory
+%%jpb_env PATH=/usr/libexec/javapackages-bootstrap:$PATH
+' >%{buildroot}%{_rpmmacrodir}/macros.jpbgen
+
+sed -i s/xmvn-generator/%{name}-generator/ %{buildroot}%{_sysconfdir}/rpm/macros.jpbgenhook
+sed -i s/xmvn-generator/%{name}-generator/ %{buildroot}%{_fileattrsdir}/jpbgen.attr
+sed -i s/_xmvngen_/_jpbgen_/ %{buildroot}%{_fileattrsdir}/jpbgen.attr
 
 %check
 %{buildroot}%{launchersPath}/xmvn --version
@@ -351,7 +370,10 @@ echo '%%jpb_env PATH=/usr/libexec/javapackages-bootstrap:$PATH' >%{buildroot}%{_
 %{metadataPath}/*
 %{artifactsPath}/*
 %{launchersPath}/*
-%{_rpmmacrodir}
+%{_rpmluadir}/*
+%{_rpmmacrodir}/*
+%{_fileattrsdir}/*
+%{_sysconfdir}/rpm/*
 
 %files openjdk8
 %{mavenHomePath}/conf/toolchains.xml
@@ -361,6 +383,9 @@ echo '%%jpb_env PATH=/usr/libexec/javapackages-bootstrap:$PATH' >%{buildroot}%{_
 %doc AUTHORS
 
 %changelog
+* Fri Mar 17 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.8.0-1
+- Update to upstream version 1.8.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

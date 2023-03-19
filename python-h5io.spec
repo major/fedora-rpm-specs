@@ -2,12 +2,25 @@
 
 Name:           python-%{modname}
 Version:        0.1.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Read and write simple Python objects using HDF5
 
 License:        BSD
 URL:            https://github.com/h5io/h5io
 Source0:        %{url}/archive/v%{version}/%{modname}-%{version}.tar.gz
+# Part of https://github.com/h5io/h5io/pull/57
+# Part of https://github.com/h5io/h5io/pull/57/commits/a926916a95a1bcd219da953922e8f729843f69ee
+# Modified the above commit to apply cleanly
+# numpy 1.24 removes np.bool, use system bool type
+Patch:          python-h5io-a926916a-numpy-1_24-compat.patch
+# Creating an ndarray from ragged nested sequences
+# (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes)
+# is deprecated.  since numpy 1.19 and raises error with numpy 1.24
+# 1. Part of https://github.com/h5io/h5io/pull/53
+#    Part of https://github.com/h5io/h5io/pull/53/commits/67cb2ec7a2c75c37aa6c50c92f500de016fd2ca6
+Patch:          python-h5io-67cb2ec-support-inhomogeneous-shape.patch
+# 2. https://github.com/h5io/h5io/pull/52
+Patch:          python-h5io-pr52-fix-multiarra_load.patch
 
 BuildArch:      noarch
 
@@ -38,7 +51,7 @@ It is a higher-level package than h5py.
 Python 3 version.
 
 %prep
-%autosetup -n %{modname}-%{modname}-%{version}
+%autosetup -n %{modname}-%{modname}-%{version} -p1
 
 %build
 %py3_build
@@ -55,6 +68,9 @@ pytest-%{python3_version} -v
 %{python3_sitelib}/%{modname}*
 
 %changelog
+* Fri Mar 17 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.1.2-12
+- Backport upstream change for build with numpy 1.24
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

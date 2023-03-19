@@ -2,14 +2,16 @@
 %bcond_without  libmagic
 %bcond_with     x11
 
+%global tarball_version %%(echo %{version} | tr '~' '-')
+
 Name:           vifm
-Version:        0.12.1
+Version:        0.13~beta
 Release:        %autorelease
 Summary:        Vifm is a file manager with curses interface
 
 License:        GPLv2+
 URL:            http://vifm.info/
-Source0:        https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.bz2
+Source0:        https://github.com/%{name}/%{name}/releases/download/v%{tarball_version}/%{name}-%{tarball_version}.tar.bz2
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -29,6 +31,8 @@ BuildRequires:  file-devel
 BuildRequires:  libX11-devel
 %endif
 
+Requires:       hicolor-icon-theme
+
 %description
 Vifm is a curses based Vim-like file manager extended with some useful ideas
 from mutt. If you use Vim, Vifm gives you complete keyboard control over your
@@ -43,7 +47,7 @@ should be enough for most of use cases.
 
 
 %prep
-%autosetup
+%autosetup -n %{name}-%{tarball_version}
 
 
 %build
@@ -69,6 +73,7 @@ should be enough for most of use cases.
 %install
 %make_install
 
+# Handle license file via regular RPM macros
 rm %{buildroot}%{_pkgdocdir}/COPYING
 
 
@@ -86,6 +91,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/applications/*.desktop
 %{_datadir}/bash-completion/completions/%{name}
 %{_datadir}/fish/vendor_completions.d/%{name}.fish
+%{_datadir}/icons/hicolor/*/*/*.png
+%{_datadir}/icons/hicolor/scalable/*/*.svg
 %{_datadir}/pixmaps/%{name}.png
 %{_datadir}/zsh/site-functions/_%{name}
 %{_mandir}/man1/*

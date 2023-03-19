@@ -2,7 +2,7 @@
 # bcond_with for production builds: disable quick build
 %bcond_with quickbuild
 
-# make sure ghc libraries' ABI hashes unchanged (ghcX.Y not supported yet)
+# make sure ghc libraries' ABI hashes unchanged
 %bcond_with abicheck
 
 # bcond_without for production builds: use Hadrian buildsystem
@@ -11,26 +11,22 @@
 # bcond_without for production builds: build hadrian
 %bcond_without build_hadrian
 
-# bcond_without for production builds: enable debuginfo
-%bcond_without ghc_debuginfo
-
-%if %{without ghc_debuginfo}
-%undefine _enable_debug_packages
-%endif
-
 %global ghc_major 9.4
 %global ghc_name ghc%{ghc_major}
-
-# bootstrap from this package
-%global ghcboot ghc9.0
-%global ghcbootminor 9.0.2
 
 # to handle RCs
 %global ghc_release %{version}
 
 %global base_ver 4.17.0.0
+%global ghc_bignum_ver 1.3
 %global ghc_compact_ver 0.1.0.0
 %global hpc_ver 0.6.1.0
+%global rts_ver 1.0.2
+%global xhtml_ver 3000.2.2.1
+
+# bootstrap needs 9.0+
+%global ghcboot_major 9.2
+%global ghcboot ghc%{ghcboot_major}
 
 # build profiling libraries
 # build haddock
@@ -75,10 +71,14 @@
 %bcond_with testsuite
 
 # 9.4 needs llvm 10-13
-# rhel9 toolchain too old for llvm13:
+# rhel9 binutils too old for llvm13:
 # https://bugzilla.redhat.com/show_bug.cgi?id=2141054
 # https://gitlab.haskell.org/ghc/ghc/-/issues/22427
+%if 0%{?rhel} >= 10 || 0%{?fedora} >= 38
+%global llvm_major 13
+%else
 %global llvm_major 12
+%endif
 %if %{with hadrian}
 %global ghc_llvm_archs armv7hl s390x
 %global ghc_unregisterized_arches s390 %{mips} riscv64
@@ -133,18 +133,19 @@ Patch16: ghc-hadrian-s390x-rts--qg.patch
 # Debian patches:
 Patch24: buildpath-abi-stability.patch
 Patch26: no-missing-haddock-file-warning.patch
+Patch27: haddock-remove-googleapis-fonts.patch
 
 # fedora ghc has been bootstrapped on
 # %%{ix86} x86_64 ppc ppc64 armv7hl s390 s390x ppc64le aarch64
 # see also deprecated ghc_arches defined in ghc-srpm-macros
 # /usr/lib/rpm/macros.d/macros.ghc-srpm
 
-BuildRequires: %{ghcboot}-compiler > 9.0
+BuildRequires: %{ghcboot}-compiler
 # for ABI hash checking
 %if %{with abicheck}
 BuildRequires: %{name}
 %endif
-BuildRequires: ghc-rpm-macros-extra >= 2.3.16
+BuildRequires: ghc-rpm-macros-extra >= 2.5.0
 BuildRequires: %{ghcboot}-binary-devel
 BuildRequires: %{ghcboot}-bytestring-devel
 BuildRequires: %{ghcboot}-containers-devel
@@ -174,8 +175,9 @@ BuildRequires: python3-sphinx
 %ifarch %{ghc_llvm_archs}
 BuildRequires: llvm%{llvm_major}
 %endif
-BuildRequires: autoconf, automake
 %if %{with hadrian}
+# needed for binary-dist-dir
+BuildRequires:  autoconf automake
 %if %{with build_hadrian}
 BuildRequires:  ghc-Cabal-static
 BuildRequires:  ghc-QuickCheck-static
@@ -193,6 +195,11 @@ BuildRequires:  ghc-transformers-static
 BuildRequires:  ghc-unordered-containers-static
 %else
 BuildRequires: %{name}-hadrian
+%endif
+%else
+%ifarch armv7hl
+# patch12
+BuildRequires: autoconf automake
 %endif
 %endif
 Requires: %{name}-compiler = %{version}-%{release}
@@ -249,6 +256,13 @@ Requires: %{name}-filesystem = %{version}-%{release}
 %else
 Obsoletes: %{name}-doc-index < %{version}-%{release}
 Obsoletes: %{name}-filesystem < %{version}-%{release}
+Obsoletes: %{name}-xhtml < %{xhtml_ver}-%{release}
+Obsoletes: %{name}-xhtml-devel < %{xhtml_ver}-%{release}
+Obsoletes: %{name}-xhtml-doc < %{xhtml_ver}-%{release}
+Obsoletes: %{name}-xhtml-prof < %{xhtml_ver}-%{release}
+%endif
+%if %{without manual}
+Obsoletes: %{name}-manual < %{version}-%{release}
 %endif
 %ifarch %{ghc_llvm_archs}
 Requires: llvm%{llvm_major}
@@ -343,7 +357,7 @@ This provides the hadrian tool which can be used to build ghc.
 %ghc_lib_subpackage -d -l BSD filepath-1.4.2.2
 # in ghc not ghc-libraries:
 %ghc_lib_subpackage -d -x ghc-%{ghc_version_override}
-# see below for ghc-bignum
+%ghc_lib_subpackage -d -x -l BSD ghc-bignum-%{ghc_bignum_ver}
 %ghc_lib_subpackage -d -x -l BSD ghc-boot-%{ghc_version_override}
 %ghc_lib_subpackage -d -l BSD ghc-boot-th-%{ghc_version_override}
 %ghc_lib_subpackage -d -x -l BSD ghc-compact-%{ghc_compact_ver}
@@ -367,7 +381,7 @@ This provides the hadrian tool which can be used to build ghc.
 %ghc_lib_subpackage -d -l BSD transformers-0.5.6.2
 %ghc_lib_subpackage -d -l BSD unix-2.7.3
 %if %{with haddock} || %{with hadrian}
-%ghc_lib_subpackage -d -l BSD xhtml-3000.2.2.1
+%ghc_lib_subpackage -d -l BSD xhtml-%{xhtml_ver}
 %endif
 %endif
 
@@ -430,6 +444,7 @@ rm libffi-tarballs/libffi-*.tar.gz
 #debian
 #%%patch24 -p1 -b .orig
 %patch26 -p1 -b .orig
+%patch27 -p1 -b .orig
 
 %if %{with haddock} && %{without hadrian}
 %global gen_contents_index gen_contents_index.orig
@@ -486,7 +501,7 @@ export CC=%{_bindir}/gcc
 # https://gitlab.haskell.org/ghc/ghc/-/issues/22195
 export LD=%{_bindir}/ld.gold
 
-export GHC=/usr/bin/ghc-%{ghcbootminor}
+export GHC=%{_bindir}/ghc-%{ghcboot_major}
 
 # * %%configure induces cross-build due to different target/host/build platform names
 ./configure --prefix=%{_prefix} --exec-prefix=%{_exec_prefix} \
@@ -509,17 +524,19 @@ export LANG=C.utf8
 %endif
 
 %if %{with build_hadrian}
-%if %{with ghc_debuginfo}
 # do not disable debuginfo with ghc_bin_build
 %global ghc_debuginfo 1
-%endif
 (
 cd hadrian
+%if 0%{?fedora} >= 38
+%ghc_bin_build -W
+%else
 %ghc_bin_build
+%endif
 )
 %global hadrian hadrian/dist/build/hadrian/hadrian
 %else
-%global hadrian %(echo %{_bindir}/hadrian-%{ghc_major}.*)
+%global hadrian %{_bindir}/hadrian-%{ghc_major}
 %endif
 
 %ifarch %{ghc_llvm_archs}
@@ -553,8 +570,6 @@ cd _build/bindist/ghc-%{version}-*
 ./configure --prefix=%{buildroot}%{ghclibdir} --bindir=%{buildroot}%{_bindir} --libdir=%{buildroot}%{_libdir} --mandir=%{buildroot}%{_mandir} --docdir=%{buildroot}%{_docdir}/%{name}
 make install
 )
-mkdir -p %{buildroot}%{_sysconfdir}/ld.so.conf.d
-echo "%{ghclibplatform}" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}.conf
 %else
 make DESTDIR=%{buildroot} install
 %if %{defined _ghcdynlibdir}
@@ -565,10 +580,15 @@ done
 sed -i -e 's!^library-dirs: %{ghclibdir}/rts!&\ndynamic-library-dirs: %{_ghcdynlibdir}!' %{buildroot}%{ghclibdir}/package.conf.d/rts.conf
 %endif
 %endif
-# avoid 'E: binary-or-shlib-defines-rpath'
+
+%if "%{?_ghcdynlibdir}" != "%_libdir"
+mkdir -p %{buildroot}%{_sysconfdir}/ld.so.conf.d
+echo "%{ghclibplatform}" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}.conf
+%else
 for i in $(find %{buildroot} -type f -executable -exec sh -c "file {} | grep -q 'dynamically linked'" \; -print); do
   chrpath -d $i
 done
+%endif
 
 # containers src moved to a subdir
 cp -p libraries/containers/containers/LICENSE libraries/containers/LICENSE
@@ -589,6 +609,7 @@ done
 echo "%%dir %{ghclibdir}" >> %{name}-base%{?_ghcdynlibdir:-devel}.files
 
 %ghc_gen_filelists ghc %{ghc_version_override}
+%ghc_gen_filelists ghc-bignum %{ghc_bignum_ver}
 %ghc_gen_filelists ghc-boot %{ghc_version_override}
 %ghc_gen_filelists ghc-compact %{ghc_compact_ver}
 %ghc_gen_filelists ghc-heap %{ghc_version_override}
@@ -596,18 +617,19 @@ echo "%%dir %{ghclibdir}" >> %{name}-base%{?_ghcdynlibdir:-devel}.files
 %ghc_gen_filelists hpc %{hpc_ver}
 %ghc_gen_filelists libiserv %{ghc_version_override}
 
-%ghc_gen_filelists ghc-bignum 1.3
 %ghc_gen_filelists ghc-prim 0.9.0
 %ghc_gen_filelists integer-gmp 1.1
 %if %{with hadrian}
-%ghc_gen_filelists rts 1.0.2
+%ghc_gen_filelists rts %{rts_ver}
 %endif
 
 %define merge_filelist()\
 cat %{name}-%1.files >> %{name}-%2.files\
 cat %{name}-%1-devel.files >> %{name}-%2-devel.files\
-%if %{defined ghc_devel_prof}\
+%if %{with haddock}\
 cat %{name}-%1-doc.files >> %{name}-%2-doc.files\
+%endif\
+%if %{with ghc_prof}\
 cat %{name}-%1-prof.files >> %{name}-%2-prof.files\
 %endif\
 if [ "%1" != "rts" ]; then\
@@ -616,19 +638,23 @@ echo "%%license libraries/LICENSE.%1" >> %{name}-%2.files\
 fi\
 %{nil}
 
-%merge_filelist ghc-bignum base
 %merge_filelist ghc-prim base
 %merge_filelist integer-gmp base
 %if %{with hadrian}
 %merge_filelist rts base
 %endif
 
+%if "%{?_ghcdynlibdir}" != "%_libdir"
+echo "%{_sysconfdir}/ld.so.conf.d/%{name}.conf" >> %{name}-base.files
+%endif
+
 # add rts libs
 %if %{with hadrian}
 for i in %{buildroot}%{ghclibplatform}/libHSrts*ghc%{ghc_version}.so; do
+if [ "$(basename $i)" != "libHSrts-%{rts_ver}-ghc%{ghc_version}.so" ]; then
 echo $i >> %{name}-base.files
+fi
 done
-echo "%{_sysconfdir}/ld.so.conf.d/%{name}.conf" >> %{name}-base.files
 %else
 %if %{defined _ghcdynlibdir}
 echo "%{ghclibdir}/rts" >> %{name}-base-devel.files
@@ -650,7 +676,7 @@ fi
 %if %{with ghc_prof}
 ls %{buildroot}%{ghclibdir}/bin/ghc-iserv-prof* >> %{name}-base-prof.files
 %if %{with hadrian}
-ls %{buildroot}%{ghclibdir}/lib/bin/ghc-iserv-prof >> %{name}-base-prof.files
+ls %{buildroot}%{ghcliblib}/bin/ghc-iserv-prof >> %{name}-base-prof.files
 %endif
 %endif
 
@@ -692,7 +718,7 @@ export RPM_BUILD_NCPUS=1
 
 %if %{with hadrian}
 %if %{with build_hadrian}
-mv %{buildroot}%{_bindir}/hadrian{,-%{version}}
+mv %{buildroot}%{_bindir}/hadrian{,-%{ghc_major}}
 %endif
 %else
 for i in hp2ps hpc hsc2hs runhaskell; do
@@ -702,10 +728,10 @@ done
 %endif
 
 %if %{with hadrian}
-rm %{buildroot}%{ghclibdir}/lib/package.conf.d/.stamp
-rm %{buildroot}%{ghclibdir}/lib/package.conf.d/*.conf.copy
+rm %{buildroot}%{ghcliblib}/package.conf.d/.stamp
+rm %{buildroot}%{ghcliblib}/package.conf.d/*.conf.copy
 
-(cd %{buildroot}%{ghclibdir}/lib/bin
+(cd %{buildroot}%{ghcliblib}/bin
 for i in *; do
 if [ -f %{buildroot}%{ghclibdir}/bin/$i ]; then
 ln -sf ../../bin/$i
@@ -757,10 +783,10 @@ $GHC --info
 
 # check the ABI hashes
 %if %{with abicheck}
-if [ "%{version}" = "$(ghc --numeric-version)" ]; then
+if [ "%{version}" = "$(ghc-%{ghc_major} --numeric-version)" ]; then
   echo "Checking package ABI hashes:"
   for i in %{ghc_packages_list}; do
-    old=$(ghc-pkg field $i id --simple-output || :)
+    old=$(ghc-pkg-%{ghc_major} field $i id --simple-output || :)
     if [ -n "$old" ]; then
       new=$(/usr/lib/rpm/ghc-pkg-wrapper %{buildroot}%{ghclibdir} field $i id --simple-output)
       if [ "$old" != "$new" ]; then
@@ -779,7 +805,7 @@ if [ "%{version}" = "$(ghc --numeric-version)" ]; then
      exit 1
   fi
 else
-  echo "ABI hash checks skipped: GHC changed from $(ghc --numeric-version) to %{version}"
+  echo "ABI hash checks skipped: GHC changed from $(ghc-%{ghc_major} --numeric-version) to %{version}"
 fi
 %endif
 
@@ -789,8 +815,10 @@ make test
 
 
 %if %{defined ghclibdir}
+%if "%{?_ghcdynlibdir}" != "%_libdir"
 %post base -p /sbin/ldconfig
 %postun base -p /sbin/ldconfig
+%endif
 
 
 %transfiletriggerin compiler -- %{ghcliblib}/package.conf.d
@@ -861,9 +889,12 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 %{ghclibdir}/bin/runhaskell
 %{ghclibdir}/bin/runhaskell-%{version}
 %{ghclibdir}/bin/unlit-ghc-%{version}
-%{ghclibdir}/lib/bin/ghc-iserv
-%{ghclibdir}/lib/bin/ghc-iserv-dyn
-%{ghclibdir}/lib/bin/unlit
+%dir %{ghcliblib}
+%dir %{ghcliblib}/bin
+%{ghcliblib}/bin/ghc-iserv
+%{ghcliblib}/bin/ghc-iserv-dyn
+%{ghcliblib}/bin/unlit
+%dir %ghclibplatform
 %endif
 %{ghcliblib}/ghc-usage.txt
 %{ghcliblib}/ghci-usage.txt
@@ -934,7 +965,7 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 %if %{with hadrian} && %{with build_hadrian}
 %files hadrian
 %license LICENSE.hadrian
-%{_bindir}/hadrian-%{version}
+%{_bindir}/hadrian-%{ghc_major}
 %endif
 
 %if %{with manual}

@@ -2,7 +2,7 @@ Name:		perl-Data-Section-Simple
 Version:	0.07
 Release:	27%{?dist}
 Summary:	Read data from __DATA__
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Data-Section-Simple
 Source0:	https://cpan.metacpan.org/modules/by-module/Data/Data-Section-Simple-%{version}.tar.gz
 BuildArch:	noarch
@@ -24,7 +24,8 @@ BuildRequires:	perl(Test::More) >= 0.88
 %if 0%{?fedora} || 0%{?rhel} > 6
 BuildRequires:	perl(Test::Pod) >= 1.41
 %endif
-# Runtime
+# Dependencies
+# (none)
 
 %description
 Data::Section::Simple is a simple module to extract data from the __DATA__
@@ -50,11 +51,7 @@ make test
 %endif
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
 %doc Changes README
 %{perl_vendorlib}/Data/
 %{_mandir}/man3/Data::Section::Simple.3*

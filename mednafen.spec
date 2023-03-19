@@ -3,10 +3,10 @@
 # performance reasons
 %undefine _hardened_build
 
-%global unstable 0
+%global unstable 1
 
 Name:           mednafen
-Version:        1.29.0
+Version:        1.31.0
 %if %{unstable} == 1
 Release:        %autorelease -p -e UNSTABLE
 %else
@@ -25,15 +25,14 @@ Source0:        https://mednafen.github.io/releases/files/%{name}-%{version}.tar
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
 #1.3.0 is required
-#BuildRequires:  libmpcdec-devel
+%if 0%{?fedora} >= 38
+BuildRequires:  libmpcdec-devel
+%endif
 BuildRequires:  make
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(flac) => 1.3.0
 BuildRequires:  pkgconfig(jack) => 1.0.2
-#2.09 is required
-%if 0%{?fedora} >= 32
 BuildRequires:  pkgconfig(lzo2)
-%endif
 BuildRequires:  pkgconfig(sdl2) => 2.0.5
 BuildRequires:  pkgconfig(zlib)
 
@@ -96,12 +95,12 @@ export CFLAGS
 export CXXFLAGS
 
 %configure --disable-rpath \
-%if 0%{?fedora} >= 32
-    --with-external-lzo
+    --with-external-lzo \
+%if 0%{?fedora} >= 38
+    --with-external-mpcdec
 %endif
 
 #to be added once dependencies become available
-#    --with-external-mpcdec
 #    --with-external-tremor
 #    --with-external-trio
 %make_build

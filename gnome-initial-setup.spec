@@ -7,7 +7,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-initial-setup
-Version:        44~rc
+Version:        44.0
 Release:        %autorelease
 Summary:        Bootstrapping your OS
 

@@ -71,9 +71,9 @@ mv ../editorconfig-core-test-%{tests_commit}/ tests/
 %build
 %pyproject_wheel
 
-%make_build -C docs text SPHINXOPTS='%{?_smp_mflags}'
+%make_build -C docs text SPHINXOPTS='-j%{?_smp_build_ncpus}'
 %if %{with doc_pdf}
-%make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
+%make_build -C docs latex SPHINXOPTS='-j%{?_smp_build_ncpus}'
 %make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
 %endif
 

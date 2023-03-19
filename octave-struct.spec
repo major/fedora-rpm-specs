@@ -1,8 +1,8 @@
 %global octpkg struct
 
 Name:           octave-%{octpkg}
-Version:        1.0.16
-Release:        13%{?dist}
+Version:        1.0.18
+Release:        1%{?dist}
 Summary:        Structure handling for Octave
 License:        GPLv3+
 URL:            https://octave.sourceforge.io/struct/
@@ -43,12 +43,15 @@ included in the octave core.
 %doc %{octpkgdir}/doc-cache
 %{octpkgdir}/*.m
 %{octpkgdir}/packinfo
-%doc %{octpkgdir}/packinfo/COPYING
+%license %{octpkgdir}/packinfo/COPYING
 %{octpkglibdir}
 %{_metainfodir}/octave-struct.metainfo.xml
 
 
 %changelog
+* Fri Mar 17 2023 Orion Poplawski <orion@nwra.com> - 1.0.18-1
+- Update to 1.0.18
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.16-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

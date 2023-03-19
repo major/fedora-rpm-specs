@@ -75,7 +75,7 @@ dos2unix docs/dev/analysis/features/table/cell-merge.rst
 %pyproject_wheel
 
 %if %{with doc_pdf}
-%make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
+%make_build -C docs latex SPHINXOPTS='-j%{?_smp_build_ncpus}'
 %make_build -C docs/.build/latex LATEXMKOPTS='-quiet'
 %endif
 

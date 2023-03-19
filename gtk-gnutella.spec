@@ -1,11 +1,12 @@
 Name: gtk-gnutella
 Summary: GUI based Gnutella Client
 Version: 1.2.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv2+
 URL: http://gtk-gnutella.sourceforge.net
 Source0: http://sourceforge.net/projects/gtk-gnutella/files/gtk-gnutella-%{version}.tar.xz
 Source1: gtk-gnutella-recalculate-sha1.sh
+Patch0: gtk-gnutella-configure-c99.patch
 
 BuildRequires: gcc
 
@@ -31,7 +32,7 @@ features.
 
 
 %prep
-%setup -q
+%autosetup -p1
 
 
 %build
@@ -85,6 +86,9 @@ desktop-file-install --delete-original	\
 
 
 %changelog
+* Fri Mar 17 2023 Florian Weimer <fweimer@redhat.com> - 1.2.2-4
+- Port non-autoconf Configure script to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

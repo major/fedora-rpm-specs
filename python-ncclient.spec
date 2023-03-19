@@ -124,7 +124,7 @@ git tag 'v%{version}'
 %pyproject_wheel
 
 %if %{with doc_pdf}
-%make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
+%make_build -C docs latex SPHINXOPTS='-j%{?_smp_build_ncpus}'
 # There is an escaping problem we haven’t traced to its root cause. In the list
 # of authors, “\and” is emitted, and then “\a” is interpreted as the backslash
 # escape for the ASCII BEL (bell) character. This then breaks the LaTeX build.

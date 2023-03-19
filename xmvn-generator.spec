@@ -3,7 +3,7 @@
 
 Name:           xmvn-generator
 Version:        1.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        RPM dependency generator for Java
 License:        Apache-2.0
 URL:            https://github.com/fedora-java/xmvn-generator
@@ -33,12 +33,14 @@ XMvn Generator is a dependency generator for RPM Package Manager
 written in Java and Lua, that uses LuJavRite library to call Java code
 from Lua.
 
+%{?javadoc_package}
+
 %prep
 %setup -q
 %mvn_file : %{name}
 
 %build
-%mvn_build -j
+%mvn_build
 
 %install
 %mvn_install
@@ -56,6 +58,9 @@ install -D -p -m 644 src/main/rpm/xmvngen.attr %{buildroot}%{_fileattrsdir}/xmvn
 %doc README.md
 
 %changelog
+* Fri Mar 17 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.2.1-2
+- Enable javadoc package
+
 * Mon Mar 13 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.2.1-1
 - Update to upstream version 1.2.1
 

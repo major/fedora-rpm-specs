@@ -1,14 +1,13 @@
 # Build with aom
 %bcond_without aom
 # Build SVT-AV1
-%ifarch x86_64
 %bcond_without svt
-%endif
 %if 0%{?rhel} && 0%{?rhel} < 9
 %bcond_with rav1e
 %else
 %bcond_without rav1e
 %endif
+%bcond_without check
 
 Name:           libavif
 Version:        0.11.1
@@ -21,6 +20,7 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
+%{?with_check:BuildRequires:  gtest-devel}
 BuildRequires:  nasm
 %if %{with aom}
 BuildRequires:  pkgconfig(aom)
@@ -59,7 +59,7 @@ This package holds the commandline tools to encode and decode AVIF files.
 %package     -n avif-pixbuf-loader
 Summary:        AVIF image loader for GTK+ applications
 BuildRequires:  pkgconfig(gdk-pixbuf-2.0)
-Requires:       gdk-pixbuf2
+Requires:       gdk-pixbuf2%{?_isa}
 
 %description -n avif-pixbuf-loader
 Avif-pixbuf-loader contains a plugin to load AVIF images in GTK+ applications.
@@ -75,11 +75,17 @@ Avif-pixbuf-loader contains a plugin to load AVIF images in GTK+ applications.
     %{?with_rav1e:-DAVIF_CODEC_RAV1E=1} \
     %{?with_svt:-DAVIF_CODEC_SVT=1} \
     -DAVIF_BUILD_APPS=1 \
-    -DAVIF_BUILD_GDK_PIXBUF=1
+    -DAVIF_BUILD_GDK_PIXBUF=1 \
+    %{?with_check:-DAVIF_BUILD_TESTS=1 -DAVIF_ENABLE_GTEST=1}
 %cmake_build
 
 %install
 %cmake_install
+
+%if %{with check}
+%check
+%ctest
+%endif
 
 %files
 %license LICENSE

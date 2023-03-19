@@ -4,8 +4,8 @@
 %global dracutdir %(pkg-config --variable=dracutdir dracut)
 
 Name:           stratisd
-Version:        3.5.1
-Release:        3%{?dist}
+Version:        3.5.2
+Release:        2%{?dist}
 Summary:        Daemon that manages block devices to create filesystems
 
 # ASL 2.0
@@ -41,6 +41,7 @@ BuildRequires:  libblkid-devel
 BuildRequires:  cryptsetup-devel
 BuildRequires:  clang
 BuildRequires:  glibc-static
+BuildRequires:  device-mapper-devel
 BuildRequires:  %{_bindir}/a2x
 
 # Required to calculate install directories
@@ -75,6 +76,16 @@ Requires:     plymouth
 %description dracut
 %{summary}.
 
+%package tools
+Summary: Tools that support Stratis operation
+
+ExclusiveArch:  %{rust_arches}
+
+Requires:     stratisd
+
+%description tools
+%{summary}.
+
 %prep
 %setup -q
 tar --strip-components=1 --extract --verbose --file %{SOURCE2}
@@ -85,7 +96,7 @@ tar --strip-components=1 --extract --verbose --file %{SOURCE2}
 %else
 %cargo_prep
 %generate_buildrequires
-%cargo_generate_buildrequires -f engine,dbus_enabled,min,systemd_compat
+%cargo_generate_buildrequires -f engine,dbus_enabled,min,systemd_compat,extras
 %endif
 
 %build
@@ -94,13 +105,16 @@ tar --strip-components=1 --extract --verbose --file %{SOURCE2}
 %{__cargo} build %{?_smp_mflags} --release --bin=stratis-min --bin=stratisd-min --bin=stratis-utils --no-default-features --features engine,min,systemd_compat
 %{__cargo} rustc %{?_smp_mflags} --release --bin=stratis-str-cmp --no-default-features --features udev_scripts -- -Ctarget-feature=+crt-static
 %{__cargo} rustc %{?_smp_mflags} --release --bin=stratis-base32-decode --no-default-features --features udev_scripts -- -Ctarget-feature=+crt-static
+%{__cargo} build %{?_smp_mflags} --release --bin=stratis-dumpmetadata --no-default-features --features engine,extras,min
 %else
 %{__cargo} build %{?__cargo_common_opts} --release --bin=stratisd
 %{__cargo} build %{?__cargo_common_opts} --release --bin=stratis-min --bin=stratisd-min --bin=stratis-utils --no-default-features --features engine,min,systemd_compat
 %{__cargo} rustc %{?__cargo_common_opts} --release --bin=stratis-str-cmp --no-default-features --features udev_scripts -- -Ctarget-feature=+crt-static
 %{__cargo} rustc %{?__cargo_common_opts} --release --bin=stratis-base32-decode --no-default-features --features udev_scripts -- -Ctarget-feature=+crt-static
+%{__cargo} build %{?__cargo_common_opts} --release --bin=stratis-dumpmetadata --no-default-features --features engine,extras,min
 %endif
 a2x -f manpage docs/stratisd.txt
+a2x -f manpage docs/stratis-dumpmetadata.txt
 
 %install
 %make_install DRACUTDIR=%{dracutdir} PROFILEDIR=release
@@ -154,7 +168,18 @@ a2x -f manpage docs/stratisd.txt
 %{_systemd_util_dir}/system-generators/stratis-clevis-setup-generator
 %{_systemd_util_dir}/system-generators/stratis-setup-generator
 
+%files tools
+%license LICENSE
+%{_bindir}/stratis-dumpmetadata
+%{_mandir}/man8/stratis-dumpmetadata.8*
+
 %changelog
+* Fri Mar 17 2023 Bryan Gurney <bgurney@redhat.com> - 3.5.2-2
+- Add BuildRequires for device-mapper-devel
+
+* Fri Mar 17 2023 Bryan Gurney <bgurney@redhat.com> - 3.5.2-1
+- Update to 3.5.2
+
 * Tue Feb 28 2023 Bryan Gurney <bgurney@redhat.com> - 3.5.1-3
 - Allow annocheck on rpminspect.yaml for non-static binaries
 

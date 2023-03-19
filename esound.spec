@@ -3,7 +3,7 @@ Summary: Allows several audio streams to play on a single audio device
 Name:    esound
 Epoch:   1
 Version: 0.2.41
-Release: 29%{?dist}
+Release: 30%{?dist}
 License: LGPLv2+
 URL:     https://ftp.gnome.org/pub/GNOME/sources/esound
 
@@ -14,6 +14,7 @@ Patch7:  remove-confusing-spew.patch
 # default to nospawn, so we can kill the esd.conf file
 Patch8:  esound-nospawn.patch
 Patch9:  esound-0.2.41-libm.patch
+Patch10: esound-c99.patch
 
 # temporarily disable doc build due to xml catalog issues
 #BuildRequires: docbook-utils
@@ -85,6 +86,7 @@ The daemon cannot run on PA-enabled systems.
 %patch7 -p1 -b .spew
 %patch8 -p1 -b .nospawn
 %patch9 -p1 -b .jx
+%patch10 -p1
 
 %build
 autoreconf -v -i -f
@@ -142,6 +144,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_mandir}/man1/esd.1.gz
 
 %changelog
+* Fri Mar 17 2023 Florian Weimer <fweimer@redhat.com> - 1:0.2.41-30
+- Port to C99 (#2179290)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.2.41-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

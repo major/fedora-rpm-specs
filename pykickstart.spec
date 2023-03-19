@@ -4,7 +4,7 @@
 %bcond_with signed
 
 Name:      pykickstart
-Version:   3.46
+Version:   3.47
 Release:   1%{?dist}
 License:   GPL-2.0-only AND MIT
 Summary:   Python utilities for manipulating kickstart files.
@@ -79,6 +79,11 @@ LC_ALL=C make PYTHON=%{__python3} test
 %{python3_sitelib}/pykickstart*.egg-info
 
 %changelog
+* Fri Mar 17 2023 Brian C. Lane <bcl@redhat.com> - 3.47-1
+- network: Move new options to Fedora 39 (bcl)
+  Related: rhbz#1656662
+- displaymode: Update description to describe behavior (bcl)
+
 * Tue Mar 14 2023 Brian C. Lane <bcl@redhat.com> - 3.46-1
 - Add conflict test between ostree sources (#2125655) (jkonecny)
   Related: rhbz#2125655

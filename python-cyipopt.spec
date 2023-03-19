@@ -118,7 +118,8 @@ echo 'latex_elements["preamble"] = r"\usepackage{enumitem}\setlistdepth{99}"' \
 
 %if %{with doc_pdf}
 BLIB="${PWD}/build/lib.%{python3_platform}-cpython-%{python3_version_nodots}"
-PYTHONPATH="${BLIB}" %make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
+PYTHONPATH="${BLIB}" %make_build -C docs latex \
+    SPHINXOPTS='-j%{?_smp_build_ncpus}'
 %make_build -C docs/build/latex LATEXMKOPTS='-quiet'
 %endif
 

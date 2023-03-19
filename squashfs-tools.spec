@@ -2,9 +2,13 @@ Name: squashfs-tools
 Version: 4.6
 Summary: Utility for the creation of squashfs filesystems
 %global forgeurl https://github.com/plougher/%{name}
-%global date 20230314
-%global commit 36abab0ad661247498834c2e7f5e1ec476f2081d
+%global tag %{name}-%{version}
 %forgemeta
+# Upstream used a different naming scheme for the release to help
+# someone else out. That required us to set a tag to correctly get
+# the release file correct. However it also caused the tag to be
+# used in the version, which we don't want when based on a release.
+%undefine distprefix
 URL:	 %{forgeurl}
 Source:  %{forgesource}
 # https://github.com/plougher/squashfs-tools/pull/231
@@ -12,8 +16,7 @@ Source:  %{forgesource}
 # https://bugzilla.redhat.com/show_bug.cgi?id=2178510
 # Fix a crash caused by an out-of-bounds access that was inadvertently
 # re-introduced in a memory leak fix
-Patch0: 0001-xattrs-fix-out-of-bounds-access-again.patch
-Release: 0.7%{dist}
+Release: 2%{dist}
 License: GPLv2+
 
 BuildRequires: make
@@ -32,7 +35,6 @@ contains the utilities for manipulating squashfs filesystems.
 
 %prep
 %forgesetup
-%autopatch -p1
 
 %build
 %set_build_flags
@@ -57,6 +59,14 @@ make INSTALL_PREFIX=%{buildroot}/usr INSTALL_DIR=%{buildroot}%{_sbindir} INSTALL
 %{_sbindir}/sqfscat
 
 %changelog
+* Fri Mar 17 2023 Bruno Wolff III <bruno@wolff.to> - 4.6-2
+- Remove the dist prefix from the release
+
+* Fri Mar 17 2023 Bruno Wolff III <bruno@wolff.to> - 4.6-1
+- 4.6 release
+- PR #231 was merged
+- See https://github.com/plougher/squashfs-tools/blob/master/CHANGES
+
 * Wed Mar 15 2023 Adam Williamson <awilliam@redhat.com> - 4.6-0.7.20230314git36abab0
 - Backport PR #231 to fix a crash (#2178510)
 

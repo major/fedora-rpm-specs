@@ -25,7 +25,7 @@
 Summary:    Scientific Tools for Python
 Name:       scipy
 Version:    1.10.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 
 # BSD -- whole package except:
 # Boost -- scipy/special/cephes/scipy_iv.c
@@ -122,12 +122,7 @@ for PY in %{python3_version}; do
   %else
       FFLAGS="$RPM_OPT_FLAGS -fPIC" \
   %endif
-  %ifarch x86_64
-      # workaround for https://bugzilla.redhat.com/show_bug.cgi?id=2068530
-      LDFLAGS="%{__global_ldflags} -Wl,--no-as-needed -lmvec -Wl,--as-needed" \
-  %else
-      LDFLAGS="%{__global_ldflags}" \
-  %endif
+    LDFLAGS="%{__global_ldflags}" \
     %{_bindir}/python$PY setup.py config_fc \
     --fcompiler=gnu95 --noarch \
     build
@@ -231,7 +226,11 @@ popd
 %endif
 
 %changelog
-* Wed Feb 21 2023 Pavel Šimovec <psimovec@redhat.com> - 1.10.1-1
+* Wed Mar 15 2023 Pavel Šimovec <psimovec@redhat.com> - 1.10.1-2
+- Remove workaround for linking issue on x86_64
+- resolves: #2068530
+
+* Wed Feb 22 2023 Pavel Šimovec <psimovec@redhat.com> - 1.10.1-1
 - New upstream release 1.10.1
   resolves: #2101172
 - Use the optional python3-pooch dependency

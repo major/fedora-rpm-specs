@@ -9,10 +9,17 @@ Source1: java-runtime-decompiler
 Source3: jrd.desktop
 Patch1: systemFernflower.patch
 Patch2: systemProcyon.patch
+Patch21: systemProcyonAssembler.patch
 Patch3: rsyntaxVersion.patch
 Patch4: systemCfr.patch
 Patch5: systemJasm.patch
+Patch51: systemJasm7.patch
+Patch52: systemJasmG.patch
+Patch53: systemJasmG7.patch
 Patch6: systemJcoder.patch
+Patch61: systemJcoder7.patch
+Patch62: systemJcoderG.patch
+Patch63: systemJcoderG7.patch
 Patch7: removeMultilineSpotbugs.patch
 
 BuildArch: noarch
@@ -60,10 +67,17 @@ This package contains the API documentation for %{name}.
 %setup -q -n %{name}-%{name}-%{version}
 %patch1 -p0
 %patch2 -p0
+%patch21 -p0
 %patch3 -p0
 %patch4 -p0
 %patch5 -p0
+%patch51 -p0
+%patch52 -p0
+%patch53 -p0
 %patch6 -p0
+%patch61 -p0
+%patch62 -p0
+%patch63 -p0
 %patch7 -p1
 
 %build
@@ -101,6 +115,11 @@ install -d -m 755 $RPM_BUILD_ROOT%{_datadir}/applications
 desktop-file-install --vendor="fedora"                     \
 --dir=${RPM_BUILD_ROOT}%{_datadir}/applications %{SOURCE3}
 
+#jd is not yet packed and sucks anyway
+rm $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/plugins/JdDecompilerWrapper.java
+rm $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/plugins/JdDecompilerWrapper.json
+
+
 %files -f .mfiles
 %attr(755, root, -) %{_bindir}/java-runtime-decompiler
 %{_mandir}/man1/java-runtime-decompiler.1*
@@ -111,12 +130,26 @@ desktop-file-install --vendor="fedora"                     \
 %config(noreplace) %{_sysconfdir}/%{name}/plugins/FernflowerDecompilerWrapper.json
 %config %{_sysconfdir}/%{name}/plugins/ProcyonDecompilerWrapper.java
 %config(noreplace) %{_sysconfdir}/%{name}/plugins/ProcyonDecompilerWrapper.json
+%config %{_sysconfdir}/%{name}/plugins/ProcyonAssemblerDecompilerWrapper.java
+%config(noreplace) %{_sysconfdir}/%{name}/plugins/ProcyonAssemblerDecompilerWrapper.json
 %config %{_sysconfdir}/%{name}/plugins/CfrDecompilerWrapper.java
 %config(noreplace) %{_sysconfdir}/%{name}/plugins/CfrDecompilerWrapper.json
 %config %{_sysconfdir}/%{name}/plugins/JasmDecompilerWrapper.java
 %config(noreplace) %{_sysconfdir}/%{name}/plugins/JasmDecompilerWrapper.json
+%config %{_sysconfdir}/%{name}/plugins/JasmGDecompilerWrapper.java
+%config(noreplace) %{_sysconfdir}/%{name}/plugins/JasmGDecompilerWrapper.json
+%config %{_sysconfdir}/%{name}/plugins/Jasm7DecompilerWrapper.java
+%config(noreplace) %{_sysconfdir}/%{name}/plugins/Jasm7DecompilerWrapper.json
+%config %{_sysconfdir}/%{name}/plugins/JasmG7DecompilerWrapper.java
+%config(noreplace) %{_sysconfdir}/%{name}/plugins/JasmG7DecompilerWrapper.json
 %config %{_sysconfdir}/%{name}/plugins/JcoderDecompilerWrapper.java
 %config(noreplace) %{_sysconfdir}/%{name}/plugins/JcoderDecompilerWrapper.json
+%config %{_sysconfdir}/%{name}/plugins/JcoderGDecompilerWrapper.java
+%config(noreplace) %{_sysconfdir}/%{name}/plugins/JcoderGDecompilerWrapper.json
+%config %{_sysconfdir}/%{name}/plugins/Jcoder7DecompilerWrapper.java
+%config(noreplace) %{_sysconfdir}/%{name}/plugins/Jcoder7DecompilerWrapper.json
+%config %{_sysconfdir}/%{name}/plugins/JcoderG7DecompilerWrapper.java
+%config(noreplace) %{_sysconfdir}/%{name}/plugins/JcoderG7DecompilerWrapper.json
 %license LICENSE
 
 %dir %{_datadir}/applications
@@ -126,10 +159,12 @@ desktop-file-install --vendor="fedora"                     \
 %license LICENSE
 
 %changelog
-* Thu Mar 15 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.1-1
+* Wed Mar 15 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.1-1
 - moved to jrd 7.1
-- todo:asm7/g/procyonassembler wrappers, new launchers, new classpath (diff, cplc api...)
--      verify current wrappers
+- todo: new launchers, new classpath (diff, cplc api...)
+-       verify current wrappers
+- fixed procyon wrapper
+- removed jd wrapper (was new in 7.1)
 
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild

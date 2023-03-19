@@ -1,13 +1,13 @@
 # remirepo/fedora spec file for php-icewind-streams
 #
-# Copyright (c) 2015-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2015-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 # Github information
-%global gh_commit    6e347e48d44cf9759cb6c98faab4e8ffd2f5a288
+%global gh_commit    64200fd7cfcc7f550c3c695c48d8fd8bba97fecb
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     icewind1991
 %global gh_project   Streams
@@ -19,8 +19,8 @@
 %global ns_name      Streams
 
 Name:           php-%{pk_vendor}-%{pk_name}
-Version:        0.7.6
-Release:        3%{?dist}
+Version:        0.7.7
+Release:        1%{?dist}
 Summary:        A set of generic stream wrappers
 
 License:        MIT
@@ -81,7 +81,7 @@ echo "require '%{buildroot}%{_datadir}/php/%{ns_vendor}/%{ns_name}/autoload.php'
 
 : Run the test suite
 ret=0
-for cmd in php php74 php80 php81; do
+for cmd in php php80 php81 php82; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit9 || ret=1
   fi
@@ -99,6 +99,9 @@ exit $ret
 
 
 %changelog
+* Fri Mar 17 2023 Remi Collet <remi@remirepo.net> - 0.7.7-1
+- update to 0.7.7
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

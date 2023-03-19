@@ -1,6 +1,6 @@
 Name:           jaxb-fi
 Version:        2.1.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Implementation of the Fast Infoset Standard for Binary XML
 # jaxb-fi is licensed ASL 2.0 and EDL-1.0 (BSD)
 # bundled org.apache.xerces.util.XMLChar.java is licensed ASL 1.1
@@ -34,6 +34,8 @@ Summary:        FastInfoset Roundtrip Tests
 %description tests
 %{summary}.
 
+%{?javadoc_package}
+
 %prep
 %setup -q
 
@@ -49,8 +51,7 @@ Summary:        FastInfoset Roundtrip Tests
 %mvn_package :FastInfosetRoundTripTests tests
 
 %build
-# Javadoc fails: error: too many module declarations found
-%mvn_build -j
+%mvn_build
 
 %install
 %mvn_install
@@ -63,6 +64,9 @@ Summary:        FastInfoset Roundtrip Tests
 %license LICENSE NOTICE.md
 
 %changelog
+* Fri Mar 17 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.1.0-4
+- Re-enable javadoc package
+
 * Wed Feb 08 2023 Marian Koncek <mkoncek@redhat.com> - 2.1.0-3
 - Change licence, reorganize subpackages
 

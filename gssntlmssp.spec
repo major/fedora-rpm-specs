@@ -7,6 +7,8 @@ License:	LGPLv3+
 URL:		https://github.com/gssapi/gss-ntlmssp
 Source0:        https://github.com/gssapi/gss-ntlmssp/releases/download/v%{version}/%{name}-%{version}.tar.gz
 
+Patch01: 0001-Fix-potential-crash-when-no-target-name-is-present.patch
+
 Requires: krb5-libs%{?_isa} >= 1.19
 
 BuildRequires: autoconf
@@ -39,6 +41,7 @@ Adds a header file with definition for custom GSSAPI extensions for NTLMSSP
 
 %prep
 %setup -q
+%patch01 -p1 -b .crash
 
 %build
 autoreconf -fiv
@@ -68,4 +71,5 @@ make test_gssntlmssp
 %files devel
 %{_includedir}/gssapi/gssapi_ntlmssp.h
 
+%changelog
 %autochangelog

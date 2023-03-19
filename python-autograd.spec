@@ -14,6 +14,10 @@ Source0:        https://github.com/HIPS/autograd/archive/%{commit}/%{name}-%{sho
 # Replace inspect.getargspec on Python 3
 # https://github.com/HIPS/autograd/pull/578
 Patch:          %{url}/pull/578.patch
+# numpy 1.20.0 deprecates np.int, with 1.24 it seems removed
+# https://github.com/HIPS/autograd/issues/565
+# https://github.com/HIPS/autograd/commit/01eacff7a4f12e6f7aebde7c4cb4c1c2633f217d
+Patch:          %{name}-01eacff7-rm-deprecated-np_int.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-pytest

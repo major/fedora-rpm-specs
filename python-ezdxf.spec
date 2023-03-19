@@ -76,9 +76,14 @@ BuildRequires:  font(liberationmono)
 BuildRequires:  font(liberationsans)
 BuildRequires:  font(liberationsansnarrow)
 BuildRequires:  font(liberationserif)
+%if 0%{?fedora} > 38
+# No longer available: font(notosanssc)
+# https://bugzilla.redhat.com/show_bug.cgi?id=2179387
+%else
 # This is used in tests/test_08_addons/test_814_text2path.py. (The test is
 # simply skipped if the font is not present.)
 BuildRequires:  font(notosanssc)
+%endif
 
 %if %{with doc_pdf}
 BuildRequires:  make
@@ -194,7 +199,7 @@ find docs/source -type f -exec \
 
 BLIB="${PWD}/build/lib.%{python3_platform}-cpython-%{python3_version_nodots}"
 PYTHONPATH="${BLIB}" %make_build -C docs -f Makefile.linux latex \
-    SPHINXOPTS='%{?_smp_mflags}'
+    SPHINXOPTS='-j%{?_smp_build_ncpus}'
 %make_build -C docs/build/latex LATEXMKOPTS='-quiet'
 %endif
 
