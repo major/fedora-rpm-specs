@@ -2,8 +2,10 @@
 Highway is a C++ library for SIMD (Single Instruction, Multiple Data), i.e.
 applying the same operation to 'lanes'.}
 
+%global toolchain clang
+
 Name:           highway
-Version:        1.0.2
+Version:        1.0.4
 Release:        %autorelease
 Summary:        Efficient and performance-portable SIMD
 
@@ -12,7 +14,7 @@ URL:            https://github.com/google/highway
 Source0:        %url/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake
-BuildRequires:  gcc-c++
+BuildRequires:  clang
 BuildRequires:  gtest-devel
 BuildRequires:  libatomic
 
@@ -48,7 +50,7 @@ Documentation for Highway.
 %cmake_install
 
 %check
-%ctest --exclude-regex "SortTestGroup/SortTest.TestAllSort/Scalar"
+%ctest --exclude-regex "wyBlockwiseTestGroup/HwyBlockwiseTest.TestAllBroadcast"
 
 %files
 %license LICENSE
@@ -62,6 +64,7 @@ Documentation for Highway.
 %files devel
 %license LICENSE
 %{_includedir}/hwy/
+%{_libdir}/cmake/hwy/
 %{_libdir}/libhwy.so
 %{_libdir}/libhwy_contrib.so
 %{_libdir}/libhwy_test.so

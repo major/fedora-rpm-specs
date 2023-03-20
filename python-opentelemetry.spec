@@ -626,7 +626,7 @@ done
 # Build documentation
 %if %{with doc_pdf}
 PYTHONPATH="${PWD}/build/lib" %make_build -C docs latex \
-    SPHINXOPTS='%{?_smp_mflags}'
+    SPHINXOPTS='-j%{?_smp_build_ncpus}'
 %make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
 %endif
 

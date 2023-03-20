@@ -1,11 +1,11 @@
-%global commit0 def8be9d35fda35492b72f54a94515f7df8d1e9f
-%global date 20220510
+%global commit0 4c82e9cfaaad18c340f48af3cf5d09ff33e8c1b7
+%global date 20230201
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global cl_hpp_ver 2022.05.18
+%global cl_hpp_ver 2023.02.06
 
 Name:           opencl-headers
 Version:        3.0
-Release:        13%{?shortcommit0:.%{date}git%{shortcommit0}}%{?dist}
+Release:        14%{?shortcommit0:.%{date}git%{shortcommit0}}%{?dist}
 Summary:        OpenCL (Open Computing Language) header files
 
 License:        MIT
@@ -13,8 +13,6 @@ URL:            https://www.khronos.org/registry/cl/
 
 Source0:        https://github.com/KhronosGroup/OpenCL-Headers/archive/%{commit0}/OpenCL-Headers-%{shortcommit0}.tar.gz
 Source1:        https://github.com/KhronosGroup/OpenCL-CLHPP/archive/v%{cl_hpp_ver}/OpenCL-CLHPP-v%{cl_hpp_ver}.tar.gz
-# OCL 1.2 compatibility
-Source2:        https://www.khronos.org/registry/cl/api/2.1/cl.hpp
 
 BuildArch:      noarch
 
@@ -25,7 +23,7 @@ BuildArch:      noarch
 %autosetup -n OpenCL-Headers-%{commit0}
 
 tar -xf %{SOURCE1}
-cp -p OpenCL-CLHPP-%{cl_hpp_ver}/include/CL/{cl2,opencl}.hpp %{SOURCE2} .
+cp -p OpenCL-CLHPP-%{cl_hpp_ver}/include/CL/{cl2,opencl}.hpp .
 
 %build
 # Nothing to build
@@ -46,7 +44,6 @@ rm -vf %{buildroot}%{_includedir}/CL/cl_{dx9,d3d}*
 %{_includedir}/CL/cl_gl.h
 %{_includedir}/CL/cl.h
 %{_includedir}/CL/cl_half.h
-%{_includedir}/CL/cl.hpp
 %{_includedir}/CL/cl_icd.h
 %{_includedir}/CL/cl_layer.h
 %{_includedir}/CL/cl_platform.h
@@ -56,6 +53,10 @@ rm -vf %{buildroot}%{_includedir}/CL/cl_{dx9,d3d}*
 %{_includedir}/CL/opencl.hpp
 
 %changelog
+* Sat Mar 18 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 3.0-14.20230201git4c82e9c
+- Resync to 20230201
+- Drop cl.hpp (CL 1.4 is provided by opencl.h according to upstream)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-13.20220510gitdef8be9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

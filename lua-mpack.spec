@@ -14,8 +14,8 @@ BuildRequires:  lua >= %{lua_version}
 BuildRequires:  lua-devel >= %{lua_version}
 
 Name:           lua-mpack
-Version:        1.0.9
-Release:        4%{?dist}
+Version:        1.0.10
+Release:        1%{?dist}
 
 License:        MIT
 Summary:        Implementation of MessagePack for Lua
@@ -109,6 +109,9 @@ lua %{SOURCE2}
 %{lua_compat_libdir}/mpack.so
 
 %changelog
+* Sat Mar 18 2023 Andreas Schneider <asn@redhat.com> - 1.0.10-1
+- resolves: rhbz#2179479 - Update to version 1.0.10
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

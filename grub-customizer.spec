@@ -1,6 +1,6 @@
 Name:           grub-customizer
-Version:        5.2.2
-Release:        3%{?dist}
+Version:        5.2.3
+Release:        1%{?dist}
 Summary:        Graphical GRUB2 settings manager
 
 License:        GPL-3.0-or-later
@@ -71,6 +71,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sat Mar 18 2023 josef radinger <cheese@nosuchhost.net> - 5.2.3-1
+- bump version
+
 * Fri Mar 03 2023 Vasiliy N. Glazov <vascom2@gmail.com> 5.2.2-3
 - Fix #2174582
 

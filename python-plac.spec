@@ -75,8 +75,8 @@ Summary:        Documentation for plac
 %pyproject_wheel
 
 %if %{with doc_pdf}
-PYTHONPATH="${PWD}" \
-    sphinx-build -b latex %{?_smp_mflags} doc %{_vpath_builddir}/_latex
+PYTHONPATH="${PWD}" sphinx-build -b latex -j%{?_smp_build_ncpus} \
+    doc %{_vpath_builddir}/_latex
 %make_build -C %{_vpath_builddir}/_latex LATEXMKOPTS='-quiet'
 %endif
 

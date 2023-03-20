@@ -1,21 +1,15 @@
 %global __requires_exclude python.*dist\\((ipython\\[test\\]|pytest-cov|testpath)\\)
 
 Name:		python-ipyparallel
-Version:	8.4.1
-Release:	4%{?dist}
+Version:	8.5.0
+Release:	1%{?dist}
 Summary:	Interactive Parallel Computing with IPython
 
-License:	BSD
+License:	BSD-3-Clause
 URL:		https://github.com/ipython/ipyparallel
 Source0:	https://github.com/ipython/ipyparallel/archive/%{version}/%{name}-%{version}.tar.gz
 #		Jupyter labextension
 Source1:	%{name}-labextension.tar.gz
-#		https://github.com/ipython/ipyparallel/pull/729
-Patch0:		0001-More-backward-compatibility.patch
-#		https://github.com/ipython/ipyparallel/pull/730
-Patch1:		0001-Fix-warning-test.patch
-#		https://github.com/ipython/ipyparallel/pull/753
-Patch2:		0001-Handle-deprecation-in-Jupyter-Core-753.patch
 
 BuildArch:	noarch
 BuildRequires:	make
@@ -53,7 +47,7 @@ the Jupyter protocol.
 
 %package -n python3-ipyparallel
 Summary:	Interactive Parallel Computing with IPython
-%{?python_provide:%python_provide python3-ipyparallel}
+%py_provides	python3-ipyparallel
 Requires:	python-jupyter-filesystem >= 4.7.0-5
 
 %description -n python3-ipyparallel
@@ -63,8 +57,8 @@ the Jupyter protocol.
 
 %package -n python3-ipyparallel+test
 Summary:	Tests for python3-ipyparallel
-%{?python_provide:%python_provide python3-ipyparallel+test}
-Provides:	python3-ipyparallel-tests = %{version}-%{release}
+%py_provides	python3-ipyparallel+test
+%py_provides	python3-ipyparallel-tests
 Obsoletes:	python3-ipyparallel-tests < 8.4.1-3
 Requires:	python3-ipyparallel = %{version}-%{release}
 Requires:	python3-zmq-tests
@@ -80,9 +74,8 @@ This package contains the documentation of python-ipyparallel.
 
 %prep
 %setup -q -n ipyparallel-%{version} -a 1
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
+
+rm ipyparallel/labextension/schemas/ipyparallel-labextension/package.json.orig
 
 %build
 %pyproject_wheel
@@ -104,11 +97,7 @@ done
 mv %{buildroot}%{_prefix}%{_sysconfdir} %{buildroot}%{_sysconfdir}
 
 %check
-%if %{fedora} >= 36
 %pytest -v --color=no
-%else
-%pytest -v --color=no -k 'not test_px_pylab and not test_px_blocking and not test_px_nonblocking and not test_cellpx_error_stream and not test_cellpx_keyboard_interrupt_'
-%endif
 
 %files -n python3-ipyparallel
 %license COPYING.md
@@ -143,6 +132,10 @@ mv %{buildroot}%{_prefix}%{_sysconfdir} %{buildroot}%{_sysconfdir}
 %doc docs/build/html
 
 %changelog
+* Sat Mar 18 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 8.5.0-1
+- Update to 8.5.0
+- Drop patches (accepted upstream)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.4.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

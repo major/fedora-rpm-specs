@@ -1,6 +1,6 @@
 Name:		lgogdownloader
-Version:	3.9
-Release:	4%{?dist}
+Version:	3.10
+Release:	1%{?dist}
 Summary:	GOG.com download client
 
 License:	WTFPL
@@ -47,6 +47,9 @@ same API as the official GOG Galaxy.
 %{_mandir}/man1/lgogdownloader.1.*
 
 %changelog
+* Sat Mar 18 2023 Benjamin Lowry <ben@ben.gmh> - 3.10-1
+- lgogdownloader 3.10
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 3.9-4
 - Rebuilt for Boost 1.81
 

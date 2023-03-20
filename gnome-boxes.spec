@@ -35,18 +35,13 @@ ExclusiveArch: x86_64
 %global major_version %%(echo %%{tarball_version} | cut -d. -f1)
 
 Name:		gnome-boxes
-Version:	44~rc
-Release:	2%{?dist}
+Version:	44.0
+Release:	1%{?dist}
 Summary:	A simple GNOME 3 application to access remote or virtual systems
 
 License:	LGPL-2.0-or-later
 URL:		https://wiki.gnome.org/Apps/Boxes
 Source0:	https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
-# https://bugzilla.redhat.com/show_bug.cgi?id=2178004
-# https://gitlab.gnome.org/GNOME/gnome-boxes/-/issues/937
-# https://gitlab.gnome.org/GNOME/gnome-boxes/-/merge_requests/587
-# Ensure spice agent channel is created so copy/paste and autoresize work
-Patch0:		0001-vm-configurator-Always-create-the-spice-agent-channe.patch
 
 BuildRequires:	gettext >= 0.19.8
 BuildRequires:	meson
@@ -157,6 +152,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Boxes.deskt
 %{_metainfodir}/org.gnome.Boxes.appdata.xml
 
 %changelog
+* Sat Mar 18 2023 David King <amigadave@amigadave.com> - 44.0-1
+- Update to 44.0
+
 * Thu Mar 16 2023 Adam Williamson <awilliam@redhat.com> - 44~rc-2
 - Backport MR #587 to fix spice agent (#2178004)
 

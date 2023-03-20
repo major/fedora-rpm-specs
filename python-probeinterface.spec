@@ -106,7 +106,8 @@ install -t "${PROBE_CACHE}/cambridgeneurotech" -p -m 0644 -D '%{SOURCE2}'
 %pyproject_wheel
 
 %if %{with doc_pdf}
-PYTHONPATH="${PWD}" %make_build -C doc latex SPHINXOPTS='%{?_smp_mflags}'
+PYTHONPATH="${PWD}" %make_build -C doc latex \
+    SPHINXOPTS='-j%{?_smp_build_ncpus}'
 %make_build -C doc/_build/latex LATEXMKOPTS='-quiet'
 %endif
 

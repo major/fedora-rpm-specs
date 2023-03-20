@@ -6,6 +6,7 @@ Version: 2.4.0
 Release: 6%{?dist}
 Summary: Fast, pure-Ruby Markdown-superset converter
 
+# SPDX confirmed
 License:	MIT
 URL:		http://kramdown.gettalong.org
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem

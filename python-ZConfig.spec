@@ -107,7 +107,7 @@ install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D \
 # generated until the wheel is installed, so this is the “least-worst”
 # workaround.
 PYTHONPATH='%{buildroot}%{python3_sitelib}' PATH="${PATH}:%{buildroot}%{_bindir}" \
-    %make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
+    %make_build -C docs latex SPHINXOPTS='-j%{?_smp_build_ncpus}'
 %make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
 %endif
 

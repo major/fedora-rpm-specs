@@ -41,7 +41,7 @@ sed -i '1s/env //' ddgr
 %make_install PREFIX=%{_prefix}
 install -Dpm0644 -t %{buildroot}%{_datadir}/bash-completion/completions \
   auto-completion/bash/ddgr-completion.bash
-install -Dpm0644 -t %{buildroot}%{_datadir}/fish/vendor_functions.d \
+install -Dpm0644 -t %{buildroot}%{_datadir}/fish/vendor_completions.d \
   auto-completion/fish/ddgr.fish
 install -Dpm0644 -t %{buildroot}%{_datadir}/zsh/site-functions \
   auto-completion/zsh/_ddgr
@@ -57,8 +57,8 @@ make test
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1.*
 %{_datadir}/bash-completion/completions/ddgr-completion.bash
-%dir %{_datadir}/fish/vendor_functions.d
-%{_datadir}/fish/vendor_functions.d/ddgr.fish
+%dir %{_datadir}/fish/vendor_completions.d
+%{_datadir}/fish/vendor_completions.d/ddgr.fish
 %dir %{_datadir}/zsh/site-functions
 %{_datadir}/zsh/site-functions/_ddgr
 

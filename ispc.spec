@@ -55,8 +55,16 @@ Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description	devel
 The %{name}-devel package contains libraries and header files for
- applications that use %{name}.
- 
+applications that use %{name}.
+
+
+%package	static
+Summary:	Static libraries for %{name} development
+
+%description	static
+The %{name}-static package includes static libraries needed
+to develop programs that use %{name}.
+
 %prep
 %if %{with_snapshot}
 %autosetup -n %{name}-%{commit} -p1
@@ -92,9 +100,6 @@ sed -i 's| -Werror ||g' CMakeLists.txt
 %install
 %cmake_install
 
-#Remove static file
-rm %{buildroot}%{_libdir}/lib%{name}rt_static.a
-
 %files
 %license LICENSE.txt
 %{_bindir}/%{name}
@@ -107,6 +112,9 @@ rm %{buildroot}%{_libdir}/lib%{name}rt_static.a
 %{_libdir}/cmake/%{name}rt-%{version}/
 %{_libdir}/lib%{name}rt.so
 
+%files static
+%license LICENSE.txt
+%{_libdir}/lib%{name}rt_static.a
+
 %changelog
 %autochangelog
-

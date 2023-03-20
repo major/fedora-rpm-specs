@@ -6,9 +6,9 @@
 
 Name:		perl-Net-SSLeay
 Version:	1.92
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Perl extension for using OpenSSL
-License:	Artistic 2.0
+License:	Artistic-2.0
 URL:		https://metacpan.org/release/Net-SSLeay
 Source0:	https://cpan.metacpan.org/modules/by-module/Net/Net-SSLeay-%{version}.tar.gz
 Patch10:	Net-SSLeay-1.90-pkgconfig.patch
@@ -123,6 +123,9 @@ make test
 %{_mandir}/man3/Net::SSLeay::Handle.3*
 
 %changelog
+* Fri Mar 17 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.92-6
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.92-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

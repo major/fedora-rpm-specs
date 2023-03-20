@@ -5,7 +5,7 @@
 %global crate ena
 
 Name:           rust-ena
-Version:        0.14.1
+Version:        0.14.2
 Release:        %autorelease
 Summary:        Union-find, congruence closure, and other unification code
 
@@ -13,7 +13,7 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/ena
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * remove unused features with outdated optional dependencies
+# * remove unused features with missing dependencies
 Patch:          ena-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21

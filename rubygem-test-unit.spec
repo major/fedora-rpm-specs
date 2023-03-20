@@ -8,10 +8,11 @@ Name:		rubygem-%{gem_name}
 # 3.3.8 and above is for ruby 3.0+ only
 Version:	3.5.7
 Release:	201%{?dist}
-# lib/test/unit/diff.rb is under BSD or Ruby or Python
-# lib/test-unit.rb changed to BSD or Ruby (from 3.3.7)
-# Other file: BSD or Ruby
-License:	(BSD or Ruby or Python) and (BSD or Ruby)
+# SPDX confirmed
+# lib/test/unit/diff.rb is under (BSD-2-Clause OR Ruby) AND Python-2.0.1
+# lib/test-unit.rb changed to BSD-2-Clause or Ruby (from 3.3.7)
+# Other file: BSD-2-Clause or Ruby
+License:	((BSD-2-Clause OR Ruby) AND Python-2.0.1) AND (BSD-2-Clause OR Ruby)
 URL:		http://test-unit.github.io/
 
 Source0:	http://rubygems.org/gems/%{gem_name}-%{version}.gem

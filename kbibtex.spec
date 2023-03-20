@@ -1,13 +1,13 @@
 %undefine __cmake_in_source_build
 
 Name:       kbibtex
-Version:    0.9.3.2
+Version:    0.10.0
 Release:    1%{?dist}
 Summary:    A BibTeX editor for KDE
 
 License:    GPLv2+
 URL:        https://userbase.kde.org/KBibTeX
-Source0:    http://download.kde.org/stable/KBibTeX/0.9.3/%{name}-%{version}.tar.xz
+Source0:    http://download.kde.org/stable/KBibTeX/%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  cmake qt5-qtbase-devel desktop-file-utils gettext-devel
 %ifarch %qt5_qtwebengine_arches
@@ -15,6 +15,7 @@ BuildRequires:  qt5-qtwebengine-devel
 %else
 BuildRequires:  qt5-qtwebkit-devel
 %endif
+BuildRequires:  cmake(Qt5NetworkAuth)
 BuildRequires:  cmake(Qt5XmlPatterns)
 BuildRequires:  cmake(KF5TextEditor)
 BuildRequires:  cmake(KF5I18n)
@@ -79,8 +80,7 @@ desktop-file-validate  $RPM_BUILD_ROOT%{_kf5_datadir}/applications/*.desktop
 
 
 %files -f %{name}.lang
-%doc README ChangeLog
-%{_qt5_settingsdir}/%{name}rc
+%doc README.md ChangeLog
 %{_kf5_bindir}/%{name}
 %{_qt5_plugindir}/%{name}part.so*
 %{_kf5_datadir}/applications/*%{name}.desktop
@@ -102,6 +102,9 @@ desktop-file-validate  $RPM_BUILD_ROOT%{_kf5_datadir}/applications/*.desktop
 
 
 %changelog
+* Sat Mar 18 2023 Orion Poplawski <orion@nwra.com> - 0.10.0-1
+- Update to 0.10.0
+
 * Sun Mar 05 2023 Orion Poplawski <orion@nwra.com> - 0.9.3.2-1
 - Update to 0.9.3.2
 

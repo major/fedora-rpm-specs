@@ -74,7 +74,7 @@ sed -r -i 's/[-]rrequirements-dev\.txt//' tox.ini
 %pyproject_wheel
 
 %if %{with doc_pdf}
-%make_build -C docs SPHINXOPTS='%{?_smp_mflags}' latex
+%make_build -C docs SPHINXOPTS='-j%{?_smp_build_ncpus}' latex
 %make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
 %endif
 

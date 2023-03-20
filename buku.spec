@@ -1,5 +1,5 @@
 Name:       buku
-Version:    4.7
+Version:    4.8
 Release:    %autorelease
 Summary:    Powerful command-line bookmark manager
 

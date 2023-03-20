@@ -1,5 +1,5 @@
-%global DATE 20230310
-%global gitrev e521a1b4c34b3e387c764c429f0f8c11361c3279
+%global DATE 20230318
+%global gitrev 24c7659a6ceb150243ffcbb95401b05e70d3fff8
 %global gcc_version 13.0.1
 %global gcc_major 13
 # Note, gcc_release must be integer, if you want to add suffixes to
@@ -136,7 +136,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.7%{?dist}
+Release: %{gcc_release}.8%{?dist}
 # libgcc, libgfortran, libgomp, libstdc++ and crtstuff have
 # GCC Runtime Exception.
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions and LGPLv2+ and BSD
@@ -3458,6 +3458,29 @@ end
 %endif
 
 %changelog
+* Sat Mar 18 2023 Jakub Jelinek <jakub@redhat.com> 13.0.1-0.8
+- update from trunk
+  - PRs analyzer/105906, analyzer/108045, analyzer/109097, c++/58538,
+	c++/69410, c++/95036, c++/96830, c++/98056, c++/100288, c++/101869,
+	c++/103871, c++/104107, c++/105406, c++/105809, c++/107128,
+	c++/107280, c++/107310, c++/108179, c++/108242, c++/108468,
+	c++/108975, c++/109096, c++/109172, c/109151, d/109108, d/109144,
+	fortran/37336, fortran/58331, fortran/64290, fortran/67444,
+	fortran/67471, fortran/69298, fortran/70863, fortran/71798,
+	fortran/80524, fortran/82996, fortran/84472, fortran/88735,
+	fortran/91316, fortran/93691, fortran/96122, fortran/103854,
+	fortran/106576, fortran/106945, ipa/107925, libstdc++/62196,
+	libstdc++/109111, libstdc++/109165, middle-end/106133,
+	middle-end/108685, middle-end/109031, modula2/109032, modula2/109089,
+	modula2/109102, modula2/109103, modula2/109125, other/109086,
+	preprocessor/67046, rtl-optimization/107762, rtl-optimization/109179,
+	target/105554, target/108583, target/109092, target/109109,
+	target/109117, testsuite/109118, testsuite/109129, testsuite/109145,
+	tree-optimization/106896, tree-optimization/109005,
+	tree-optimization/109046, tree-optimization/109115,
+	tree-optimization/109123, tree-optimization/109139,
+	tree-optimization/109141, web/88860
+
 * Fri Mar 10 2023 Jakub Jelinek <jakub@redhat.com> 13.0.1-0.7
 - update from trunk
   - PRs ada/108858, ada/108983, analyzer/102671, analyzer/105755,

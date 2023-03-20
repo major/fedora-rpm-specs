@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
 Version: 39.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+ and MIT
 URL:     http://fedoraproject.org/wiki/Anaconda
 
@@ -11,6 +11,9 @@ URL:     http://fedoraproject.org/wiki/Anaconda
 # ./autogen.sh
 # make dist
 Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{version}-1/%{name}-%{version}.tar.bz2
+# https://github.com/rhinstaller/anaconda/pull/4624
+# Fix anaconda with pykickstart 3.47
+Patch0: 0001-Adjust-to-pykickstart-moving-new-network-commands-to.patch
 
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
@@ -463,6 +466,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Mar 17 2023 Adam Williamson <awilliam@redhat.com> - 39.5-2
+- Backport PR #4624 to fix anaconda with pykickstart 3.47
+
 * Tue Mar 14 2023 Packit <hello@packit.dev> - 39.5-1
 - Revert "Enable TFTP support (#2071350)" (vslavik)
 - CONTRIBUTING: Add note about systemd-boot (jeremy.linton)

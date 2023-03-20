@@ -5,7 +5,7 @@ better introspection) right in pdb.
 
 
 Name:           python-ipdb
-Version:        0.13.11
+Version:        0.13.13
 Release:        1%{?dist}
 BuildArch:      noarch
 
@@ -61,6 +61,9 @@ find -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
 
 
 %changelog
+* Sat Mar 18 2023 Troy Curtis, Jr <troy@troycurtisjr.com> - 0.13.13-1
+- Update to 0.13.13
+
 * Thu Jan 26 2023 Troy Curtis, Jr <troy@troycurtisjr.com> - 0.13.11-1
 - Update to 0.13.11
 - Change license to SPDX format

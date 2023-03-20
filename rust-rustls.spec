@@ -5,12 +5,11 @@
 %global crate rustls
 
 Name:           rust-rustls
-Version:        0.19.1
+Version:        0.20.8
 Release:        %autorelease
 Summary:        Modern TLS library written in Rust
 
 # Upstream license specification: Apache-2.0/ISC/MIT
-# https://github.com/ctz/rustls/pull/686
 License:        Apache-2.0 OR ISC OR MIT
 URL:            https://crates.io/crates/rustls
 Source:         %{crates_source}
@@ -38,6 +37,10 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-ISC
+%license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -100,6 +103,54 @@ use the "quic" feature of the "%{crate}" crate.
 %files       -n %{name}+quic-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+read_buf-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+read_buf-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "read_buf" feature of the "%{crate}" crate.
+
+%files       -n %{name}+read_buf-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rustversion-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rustversion-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rustversion" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rustversion-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+secret_extraction-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+secret_extraction-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "secret_extraction" feature of the "%{crate}" crate.
+
+%files       -n %{name}+secret_extraction-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+tls12-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+tls12-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "tls12" feature of the "%{crate}" crate.
+
+%files       -n %{name}+tls12-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
 %cargo_prep
@@ -115,9 +166,9 @@ use the "quic" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# files needed for integration tests are not shipped with the crate
-# FIXME: skip two failing tests
-%cargo_test -- --lib -- --skip msgs::message_test::test_read_fuzz_corpus --skip verifybench::test_google_cert
+# * files needed for integration tests are not included in published crates
+%cargo_test -- --lib -- --skip msgs::message_test::test_read_fuzz_corpus
+%cargo_test -- --doc
 %endif
 
 %changelog

@@ -68,6 +68,7 @@ This package contains developer documentation for %{name}.
 
 %install
 %meson_install
+install -m 644 -D tests/libsoup.supp %{buildroot}%{_datadir}/libsoup-3.0/libsoup.supp
 
 %find_lang libsoup-3.0
 
@@ -82,6 +83,8 @@ This package contains developer documentation for %{name}.
 %{_includedir}/libsoup-3.0
 %{_libdir}/libsoup-3.0.so
 %{_libdir}/pkgconfig/libsoup-3.0.pc
+%dir %{_datadir}/libsoup-3.0
+%{_datadir}/libsoup-3.0/libsoup.supp
 %dir %{_datadir}/gir-1.0
 %{_datadir}/gir-1.0/Soup-3.0.gir
 %dir %{_datadir}/vala

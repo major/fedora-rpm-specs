@@ -83,7 +83,8 @@ sed -r -i 's/[[:blank:]]--cov=[^[:blank:]]+//' setup.cfg
 %build
 %pyproject_wheel
 %if %{with doc_pdf}
-PYTHONPATH="${PWD}" %make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
+PYTHONPATH="${PWD}" %make_build -C docs latex \
+    SPHINXOPTS='-j%{?_smp_build_ncpus}'
 %make_build -C docs/build/latex LATEXMKOPTS='-quiet'
 %endif
 

@@ -4,7 +4,9 @@ Name:           rubygem-%{gem_name}
 Version:        4.1.0
 Release:        1%{?dist}
 Summary:        Pure-ruby colorizer based on pygments
-License:        MIT and BSD
+# From LICENSE file
+# SPDX confirmed
+License:        MIT AND BSD-2-Clause
 
 URL:            http://rouge.jneen.net/
 Source0:        https://rubygems.org/gems/%{gem_name}-%{version}.gem

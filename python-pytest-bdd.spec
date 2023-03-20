@@ -72,6 +72,9 @@ Summary:        Documentation for pytest-bdd
 %prep
 %autosetup -n pytest-bdd-%{version}
 
+# Do not require package metadata from the installed wheel to build the
+# documentation:
+sed -r -i 's/metadata\.version\("pytest-bdd"\)/"%{version}"/' docs/conf.py
 # Since pdflatex cannot handle Unicode inputs in general:
 echo "latex_engine = 'xelatex'" >> docs/conf.py
 
@@ -83,7 +86,8 @@ echo "latex_engine = 'xelatex'" >> docs/conf.py
 %build
 %pyproject_wheel
 %if %{with doc_pdf}
-PYTHONPATH="${PWD}/src" %make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
+PYTHONPATH="${PWD}/src" %make_build -C docs latex \
+    SPHINXOPTS='-j%{?_smp_build_ncpus}'
 %make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
 %endif
 

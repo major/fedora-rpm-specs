@@ -13,12 +13,13 @@ Name:		rubygem-%{gem_name}
 Version:	%{mainver}
 Release:	%{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}%{?dist}
 
+# SPDX confirmed
 # MIT: see LICENSE.md
 # Apache-2.0
 #  1.12.0 bundles forked and modified gumbo -
 #  see gumbo-parser/src/attribute.c and ext/nokogiri/gumbo.c
 #  also lib/nokogiri/html5 is licensed under ASL 2.0
-License:	MIT and Apache-2.0
+License:	MIT AND Apache-2.0
 Provides:	bundled(gumbo-parser) = 0.10.1
 
 URL:		https://nokogiri.org

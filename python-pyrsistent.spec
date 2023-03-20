@@ -93,7 +93,8 @@ sed -r \
 # are some warnings. We want to build the documentation as best we can anyway.
 # Additionally, we parallelize sphinx-build.
 %if %{with doc_pdf}
-PYTHONPATH="${PWD}" %make_build -C docs latex SPHINXOPTS='-n %{?_smp_mflags}'
+PYTHONPATH="${PWD}" %make_build -C docs latex \
+    SPHINXOPTS='-n -j%{?_smp_build_ncpus}'
 %make_build -C docs/build/latex LATEXMKOPTS='-quiet'
 %endif
 

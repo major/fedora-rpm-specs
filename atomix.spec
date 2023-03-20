@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           atomix
-Version:        44~rc
+Version:        44.0
 Release:        1%{?dist}
 Summary:        Puzzle game: Build molecules out of isolated atoms
 
@@ -54,6 +54,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/atomix.desktop
 
 
 %changelog
+* Sat Mar 18 2023 David King <amigadave@amigadave.com> - 44.0-1
+- Update to 44.0
+
 * Sun Mar 12 2023 David King <amigadave@amigadave.com> - 44~rc-1
 - Update to 44.rc
 

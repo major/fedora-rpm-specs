@@ -298,8 +298,7 @@ install -t %{buildroot}%{_mandir}/man1 -p -m 0644 \
 %endif
 
 # Tests are not parallel-safe
-%global _smp_mflags -j1
-%ctest %{?ctest_excludes}
+%ctest %{?ctest_excludes} -- -j1
 
 
 %files

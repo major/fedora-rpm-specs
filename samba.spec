@@ -135,7 +135,7 @@
 %define samba_requires_eq()  %(LC_ALL="C" echo '%*' | xargs -r rpm -q --qf 'Requires: %%{name} = %%{epoch}:%%{version}\\n' | sed -e 's/ (none):/ /' -e 's/ 0:/ /' | grep -v "is not")
 
 %global samba_version 4.18.0
-%global baserelease 9
+%global baserelease 10
 # This should be rc1 or %%nil
 %global pre_release %nil
 
@@ -1955,6 +1955,7 @@ fi
 %{_libdir}/samba/libsmbd-base-samba4.so
 %{_libdir}/samba/libsmbd-shim-samba4.so
 %{_libdir}/samba/libsmbldaphelper-samba4.so
+%{_libdir}/samba/libstable-sort-samba4.so
 %{_libdir}/samba/libsys-rw-samba4.so
 %{_libdir}/samba/libsocket-blocking-samba4.so
 %{_libdir}/samba/libtalloc-report-printf-samba4.so
@@ -2380,7 +2381,6 @@ fi
 %{_libdir}/samba/libdnsserver-common-samba4.so
 %{_libdir}/samba/libshares-samba4.so
 %{_libdir}/samba/libsmbpasswdparser-samba4.so
-%{_libdir}/samba/libstable-sort-samba4.so
 %{_libdir}/samba/libxattr-tdb-samba4.so
 %{_libdir}/samba/libREG-FULL-samba4.so
 %{_libdir}/samba/libRPC-SERVER-LOOP-samba4.so
@@ -4337,6 +4337,9 @@ fi
 %endif
 
 %changelog
+* Fri Mar 17 2023 Kalev Lember <klember@redhat.com> - 4.18.0-10
+- Move libstable-sort-samba4.so to samba-client-libs subpackage
+
 * Wed Mar 08 2023 Guenther Deschner <gdeschner@redhat.com> - 4.18.0-9
 - resolves: #2176469 - Update to version 4.18.0
 

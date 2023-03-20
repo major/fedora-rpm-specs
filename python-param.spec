@@ -94,7 +94,7 @@ sed -r -i '/\b(flake8|coverage)\b/d' setup.py
 %pyproject_wheel
 
 %if %{with doc_pdf}
-sphinx-build -b latex %{?_smp_mflags} docs %{_vpath_builddir}/_latex
+sphinx-build -b latex -j%{?_smp_build_ncpus} docs %{_vpath_builddir}/_latex
 %make_build -C %{_vpath_builddir}/_latex LATEXMKOPTS='-quiet'
 %endif
 

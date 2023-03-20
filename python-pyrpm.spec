@@ -8,13 +8,13 @@ RPM is built. This module allows you to parse spec files and gives you simple
 access to various bits of information that is contained in the spec file.}
 
 Name:           python-%{srcname}
-Version:        0.13
+Version:        0.14.1
 Release:        %autorelease
 Summary:        Python module for parsing RPM spec files
 
 License:        MIT
 URL:            https://github.com/bkircher/python-rpm-spec
-Source0:        %url/archive/%{version}/%{srcname}-%{version}.tar.gz
+Source0:        %url/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
