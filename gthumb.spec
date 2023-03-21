@@ -1,10 +1,10 @@
-%global __provides_exclude_from ^%{_libdir}/%{name}/.*\\.so$
-%global __requires_exclude_from ^%{_libdir}/%{name}/.*\\.so$
+%global __provides_exclude_from ^%{_libdir}/gthumb/.*\\.so$
+%global __requires_exclude ^(%%(find %{buildroot}%{_libdir}/gthumb/ -name '*.so' | xargs -n1 basename | sort -u | paste -s -d '|' -))
 
 Name:    gthumb
 Epoch:   1
 Version: 3.12.2
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Image viewer, editor, organizer
 
 License: GPLv2+
@@ -27,6 +27,7 @@ BuildRequires: pkgconfig(gsettings-desktop-schemas)
 BuildRequires: pkgconfig(gstreamer-plugins-base-1.0)
 BuildRequires: pkgconfig(gstreamer-video-1.0)
 BuildRequires: pkgconfig(gtk+-3.0)
+BuildRequires: pkgconfig(libheif)
 BuildRequires: pkgconfig(json-glib-1.0)
 BuildRequires: pkgconfig(lcms2)
 BuildRequires: pkgconfig(libbrasero-burn3)
@@ -97,6 +98,10 @@ package.
 %{_datadir}/aclocal/gthumb.m4
 
 %changelog
+* Sat Mar 18 2023 Kalev Lember <klember@redhat.com> - 3.12.2-7
+- Enable avif support through libheif (#2165606)
+- Fix plugin requires filtering to not filter out library dependencies
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.12.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

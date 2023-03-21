@@ -6,7 +6,7 @@
 %global major_version %%(cut -d "." -f 1 <<<%{tarball_version})
 
 Name:           gnome-shell-extensions
-Version:        44~rc
+Version:        44.0
 Release:        1%{?dist}
 Summary:        Modify and extend GNOME Shell functionality and behavior
 
@@ -17,6 +17,7 @@ Source0: http://ftp.gnome.org/pub/GNOME/sources/%{name}/%{major_version}/%{name}
 BuildRequires:  meson
 BuildRequires:  git
 BuildRequires:  gettext >= 0.19.6
+BuildRequires:  glib2%{?_isa}
 Requires:       gnome-shell >= %{min_gs_version}
 BuildArch:      noarch
 
@@ -256,6 +257,9 @@ workspaces.
 
 
 %changelog
+* Sun Mar 19 2023 Florian Müllner <fmuellner@redhat.com> - 44.0-1
+- Update to 44.0
+
 * Mon Mar 06 2023 Florian Müllner <fmuellner@redhat.com> - 44~rc-1
 - Update to 44.rc
 

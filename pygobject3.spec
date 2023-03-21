@@ -4,13 +4,13 @@
 %define python3_version                3.7
 
 Name:           pygobject3
-Version:        3.43.1
+Version:        3.44.0
 Release:        1%{?dist}
 Summary:        Python bindings for GObject Introspection
 
-License:        LGPLv2+ and MIT
+License:        LGPL-2.1-or-later
 URL:            https://wiki.gnome.org/Projects/PyGObject
-Source0:        https://download.gnome.org/sources/pygobject/3.43/pygobject-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/pygobject/3.44/pygobject-%{version}.tar.xz
 
 BuildRequires:  pkgconfig(cairo-gobject)
 BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_version}
@@ -102,6 +102,9 @@ This package contains files required to embed PyGObject
 %{_libdir}/pkgconfig/pygobject-3.0.pc
 
 %changelog
+* Sun Mar 19 2023 David King <amigadave@amigadave.com> - 3.44.0-1
+- Update to 3.44.0
+
 * Mon Feb 06 2023 David King <amigadave@amigadave.com> - 3.43.1-1
 - Update to 3.43.1
 

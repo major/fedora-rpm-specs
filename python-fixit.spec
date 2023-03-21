@@ -1,4 +1,8 @@
-# Created by pyp2rpm-3.3.5
+# Tests don't currently run:
+# using hatch requires setting up a local dev environment
+# using pytest breaks as sources are split between src/fixit and legacy
+%bcond_with tests
+
 %global pypi_name fixit
 
 %global common_description %{expand:
@@ -8,33 +12,29 @@ build through pattern matching, a test toolkit, and utility helpers (e.g.
 scope analysis) for non-trivial boilerplate. It is optimized for efficiency,
 easy to customize and comes with many builtin lint rules.}
 
+%global date 20230223
+%global commit d2b59da3f822555e433eb6776e1f40f4b92c18d5
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+
 Name:           python-%{pypi_name}
-Version:        0.1.4
+Version:        0.1.5~%{date}g%{shortcommit}
 Release:        %autorelease
 Summary:        A lint framework that writes better Python code for you
 
 License:        MIT
 URL:            https://github.com/Instagram/Fixit
 # PyPI tarball doesn't include docs
-Source0:        %{url}/archive/v%{version}/Fixit-%{version}.tar.gz
-Patch0:         %{url}/pull/206.patch#/%{name}-0.1.4-importlib_resources_builtin.patch
+# Source:         %%{url}/archive/v%%{version}/Fixit-%%{version}.tar.gz
+Source:         %{url}/archive/%{commit}/%{pypi_name}-%{shortcommit}.tar.gz
+Patch:          %{name}-pregenerate_version.diff
+Patch:          %{name}-rm-unused-inventories.diff
 BuildArch:      noarch
 
 BuildRequires:  sed
 BuildRequires:  python3-devel
 BuildRequires:  python3-docs
-BuildRequires:  python3-ipykernel
-BuildRequires:  python3dist(codecov) >= 2.0.15
-BuildRequires:  python3dist(coverage) >= 4.5.4
-BuildRequires:  python3dist(diff-cover) >= 3.0.1
-BuildRequires:  python3dist(flake8) >= 3.8.1
-BuildRequires:  python3dist(libcst) >= 0.3.10
-BuildRequires:  python3dist(nbsphinx) >= 0.7.1
-BuildRequires:  python3dist(prompt-toolkit) >= 2.0.9
-BuildRequires:  python3dist(pyyaml) >= 5.2
-BuildRequires:  python3dist(setuptools)
-BuildRequires:  python3dist(sphinx-rtd-theme) >= 0.5
-BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(sphinx)
+BuildRequires:  python3dist(sphinx-mdinclude)
 
 %description
 %{common_description}
@@ -53,37 +53,49 @@ Requires:       python3-docs
 Documentation for %{name}
 
 %prep
-%autosetup -n Fixit-%{version} -p1
+%autosetup -n Fixit-%{commit} -p1
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
 # Use local intersphinx inventory
 sed -r \
     -e 's|https://docs.python.org/3|%{_docdir}/python3-docs/html|' \
-    -i docs/source/conf.py
+    -i docs/conf.py
+
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %build
-%py3_build
+%pyproject_wheel
+
 # generate html docs
-PYTHONPATH=${PWD} sphinx-build-3 docs/source html
+PYTHONPATH=${PWD}/src sphinx-build-3 docs html
 # remove the sphinx-build leftovers
 rm -rf html/.{doctrees,buildinfo}
 
+
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{pypi_name}
+
 
 %check
-%pytest
+%pyproject_check_import
+%if %{with tests}
+hatch run test
+%endif
 
-%files -n python3-%{pypi_name}
+
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
 %doc README.rst CHANGELOG.md
 %{_bindir}/fixit
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
+
 
 %files doc
 %doc html
 %license LICENSE
+
 
 %changelog
 %autochangelog

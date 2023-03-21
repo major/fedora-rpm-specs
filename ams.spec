@@ -1,9 +1,9 @@
 Summary:  Alsa Modular Synth, a realtime modular synthesizer
 Name:     ams
-Version:  2.1.2
-Release:  12%{?dist}
+Version:  2.2.1
+Release:  1%{?dist}
 URL:      http://alsamodular.sourceforge.net
-Source0:  http://downloads.sourceforge.net/project/alsamodular/alsamodular/%{version}/%{name}-%{version}.tar.bz2
+Source0:  http://downloads.sourceforge.net/project/alsamodular/alsamodular/%{version}/%{name}-%{version}.tar.xz
 Source1:  ams.desktop
 License:  GPLv2+
 
@@ -17,7 +17,8 @@ BuildRequires: gcc-c++
 BuildRequires: desktop-file-utils alsa-lib-devel zita-alsa-pcmi-devel
 BuildRequires: jack-audio-connection-kit-devel ladspa-devel
 BuildRequires: fftw3-devel
-BuildRequires: qt-devel
+BuildRequires: qt5-qtbase-devel
+BuildRequires: qt5-linguist
 BuildRequires: make
 
 %description
@@ -31,16 +32,8 @@ NOTE: Example files are in /usr/share/ams
 
 %prep
 %setup -q
-for i in `ls demos/*.ams` ; do 
-  iconv -f iso8859-1 -t utf-8 $i > $i.conv && mv -f $i.conv $i;
-done;
-for i in AUTHORS THANKS; do 
-  iconv -f iso8859-1 -t utf-8 $i > $i.conv && mv -f $i.conv $i;
-done;
 
 %build
-# https://bugzilla.redhat.com/show_bug.cgi?id=1307316
-CXXFLAGS="%{optflags} -std=gnu++98"
 %configure --with-ladspa-path=%{_libdir}/ladspa
 %make_build
 
@@ -59,7 +52,7 @@ desktop-file-install \
   %{SOURCE1}
 
 %files
-%doc AUTHORS NEWS README THANKS ChangeLog demos instruments tutorial
+%doc AUTHORS NEWS README THANKS ChangeLog
 %license COPYING
 %{_bindir}/%{name}
 %{_datadir}/%{name}
@@ -68,6 +61,9 @@ desktop-file-install \
 %{_datadir}/pixmaps/%{name}*
 
 %changelog
+* Sun Mar 19 2023 Guido Aulisi <guido.aulisi@gmail.com> - 2.2.1-1
+- Update to 2.2.1
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

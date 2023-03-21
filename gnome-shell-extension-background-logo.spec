@@ -2,7 +2,7 @@
 %global shell_version 44~beta
 
 Name:           gnome-shell-extension-background-logo
-Version:        44~beta
+Version:        44.0
 Release:        1%{?dist}
 Summary:        Background logo extension for GNOME Shell
 
@@ -37,6 +37,9 @@ Show your pride! Display the Fedora logo (or any other graphic) in the corner of
 %{_datadir}/gnome-shell/extensions/background-logo@fedorahosted.org/
 
 %changelog
+* Mon Mar 20 2023 Florian Müllner <fmuellner@redhat.com> - 44.0-1
+- Update to 44.0
+
 * Tue Feb 14 2023 Florian Müllner <fmuellner@redhat.com> - 44~beta-1
 - Update to 44.beta
 

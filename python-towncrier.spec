@@ -7,7 +7,7 @@ or having one single file which developers all write to, towncrier reads "news
 fragments" which contain information useful to end users.}
 
 Name:           python-%{srcname}
-Version:        21.9.0
+Version:        22.12.0
 Release:        %autorelease
 Summary:        Building newsfiles for your project
 
@@ -21,6 +21,7 @@ Patch1:         towncrier-remove-version-test.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildRequires:  python3-twisted
 BuildRequires:  git-core
 
 %description %{common_description}
@@ -45,7 +46,8 @@ Provides:       %{srcname} = %{version}-%{release}
 %pyproject_save_files %{srcname}
 
 %check
-PYTHONPATH=%{pyproject_build_lib} %{_bindir}/trial towncrier
+rm -rfv $PWD/build/lib/towncrier/test/test_check.py $PWD/build/lib/towncrier/test/test_project.py
+PYTHONPATH=$PWD/build/lib %{_bindir}/trial towncrier
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst

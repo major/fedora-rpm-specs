@@ -1,8 +1,8 @@
 %global upstreamname debian-archive-keyring
 
 Name:           debian-keyring
-Version:        2021.1.1
-Release:        5%{?dist}
+Version:        2023.2
+Release:        1%{?dist}
 Summary:        GnuPG archive keys of the Debian archive
 
 License:        LicenseRef-Fedora-Public-Domain
@@ -23,7 +23,7 @@ The Debian project digitally signs its Release files. This package contains the
 archive keys used for that.
 
 %prep
-%autosetup -p1 -n %{upstreamname}-%{version}
+%autosetup -p1 -n %{upstreamname}
 
 
 %build
@@ -41,6 +41,9 @@ make
 
 
 %changelog
+* Sun Mar 19 2023 Sandro Mani <manisandro@gmail.com> - 2023.2-1
+- Update to 2023.2
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2021.1.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

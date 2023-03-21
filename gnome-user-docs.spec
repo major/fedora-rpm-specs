@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-user-docs
-Version:        44~rc
+Version:        44.0
 Release:        1%{?dist}
 Summary:        GNOME User Documentation
 
@@ -38,6 +38,9 @@ environment.
 %doc NEWS README.md
 
 %changelog
+* Sun Mar 19 2023 David King <amigadave@amigadave.com> - 44.0-1
+- Update to 44.0
+
 * Sun Mar 05 2023 David King <amigadave@amigadave.com> - 44~rc-1
 - Update to 44.rc
 

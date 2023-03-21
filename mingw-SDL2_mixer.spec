@@ -1,8 +1,8 @@
 %{?mingw_package_header}
 
 Name:           mingw-SDL2_mixer
-Version:        2.6.2
-Release:        2%{?dist}
+Version:        2.6.3
+Release:        1%{?dist}
 Summary:        MinGW Windows port of Simple DirectMedia Layer's Sample Mixer Library
 
 License:        Zlib
@@ -88,6 +88,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Sun Mar 19 2023 Sandro Mani <manisandro@gmail.com> - 2.6.3-1
+- Update to 2.6.3
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

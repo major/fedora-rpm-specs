@@ -1,6 +1,6 @@
 Name:           perl-Future
-Version:        0.49
-Release:        2%{?dist}
+Version:        0.50
+Release:        1%{?dist}
 Summary:        Perl object system to represent an operation awaiting completion
 License:        GPL+ or Artistic
 
@@ -8,28 +8,28 @@ URL:            https://metacpan.org/release/Future
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PEVANS/Future-%{version}.tar.gz
 
 BuildArch:      noarch
+# build requirements
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
-BuildRequires:  perl(B)
-BuildRequires:  perl(base)
-BuildRequires:  perl(Carp) >= 1.25
-BuildRequires:  perl(constant)
-BuildRequires:  perl(Exporter)
 BuildRequires:  perl(Module::Build)
-BuildRequires:  perl(overload)
+# runtime requirements
+BuildRequires:  perl(B)
+BuildRequires:  perl(Carp) >= 1.25
+BuildRequires:  perl(Exporter)
 BuildRequires:  perl(Scalar::Util)
+BuildRequires:  perl(Time::HiRes)
+BuildRequires:  perl(base)
+BuildRequires:  perl(constant)
+BuildRequires:  perl(overload)
 BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+# test requirements
 BuildRequires:  perl(Test::Builder::Module)
 BuildRequires:  perl(Test::Builder::Tester)
-BuildRequires:  perl(Test::Fatal)
-BuildRequires:  perl(Test::Identity)
-BuildRequires:  perl(Test::More) >= 0.88
-BuildRequires:  perl(Test::Pod)
-BuildRequires:  perl(Test::Refcount)
-BuildRequires:  perl(Time::HiRes)
-BuildRequires:  perl(warnings)
+BuildRequires:  perl(Test::Pod) >= 1.00
+BuildRequires:  perl(Test2::V0) >= 0.000148
 Requires:       perl(Carp) >= 1.25
 
 %{?perl_default_filter}
@@ -62,6 +62,9 @@ flow of control, and data, through an asynchronous program.
 %{_mandir}/man3/*
 
 %changelog
+* Sun Mar 19 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.50-1
+- Update to 0.50
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.49-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

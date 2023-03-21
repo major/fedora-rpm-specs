@@ -1,19 +1,19 @@
 Name:           openpgl
-Version:        0.4.1
-Release:        %autorelease -p -e beta
+Version:        0.5.0
+Release:        %autorelease
 Summary:        Open Path Guiding Library 
 
 License:        Apache-2.0
 URL:            https://github.com/OpenPathGuidingLibrary/%{name}
-Source0:        %{url}/archive/refs/tags/v%{version}-beta.tar.gz#/%{name}-%{version}-beta.tar.gz
+Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  embree-devel
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(tbb) 
 
-# Upstream only supports x86_64 architecture
-ExclusiveArch:	x86_64
+# Upstream only supports x86_64 and ARM64 architectures
+ExclusiveArch:	aarch64 x86_64
 
 %description
 The Intel Open Path Guiding Library (Intel Open PGL) implements
@@ -30,20 +30,21 @@ developing applications that use %{name}.
 
 
 %prep
-%autosetup -n %{name}-%{version}-beta
+%autosetup
 
+# do not install LICENSE.txt
+sed -i '/LICENSE.txt/d' openpgl/CMakeLists.txt
 
 %build
-%cmake
+# https://github.com/embree/embree/issues/410
+%cmake \
+	-DCMAKE_CXX_FLAGS="%{optflags} -flax-vector-conversions"
 %cmake_build
 
 
 %install
 %cmake_install
-find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
-# Remove duplicated license file
-rm %{buildroot}%{_datadir}/doc/%{name}/LICENSE.txt
 
 %files
 %license LICENSE.txt

@@ -1,14 +1,14 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           simple-scan
-Version:        42.5
-Release:        2%{?dist}
+Version:        44.0
+Release:        1%{?dist}
 Summary:        Simple scanning utility
 
 # Sources are under GPLv3+, icon and help are under CC-BY-SA.
-License:        GPLv3+ and CC-BY-SA
+License:        GPL-3.0-or-later AND CC-BY-SA
 URL:            https://gitlab.gnome.org/GNOME/simple-scan
-Source0:        https://download.gnome.org/sources/%{name}/42/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  meson
 BuildRequires:  sane-backends-devel
@@ -55,11 +55,14 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_bindir}/%{name}
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.SimpleScan.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.SimpleScan-symbolic.svg
-%{_datadir}/metainfo/%{name}.appdata.xml
+%{_metainfodir}/%{name}.appdata.xml
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/glib-2.0/schemas/org.gnome.SimpleScan.gschema.xml
 
 %changelog
+* Sun Mar 19 2023 David King <amigadave@amigadave.com> - 44.0-1
+- Update to 44.0 (#2179677)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 42.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

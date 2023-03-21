@@ -7,15 +7,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:    eog
-Version: 44~beta
+Version: 44.0
 Release: 1%{?dist}
 Summary: Eye of GNOME image viewer
 
-# The GFDL has an "or later version" clause embedded inside the license.
-# There is no need to add the + here.
-License: GPLv2+ and GFDL
+License: GPL-2.0-or-later AND CC-BY-SA-3.0
 URL:     https://wiki.gnome.org/Apps/EyeOfGnome
-Source0: https://download.gnome.org/sources/%{name}/43/%{name}-%{tarball_version}.tar.xz
+Source0: https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires: pkgconfig(exempi-2.0)
 BuildRequires: pkgconfig(gdk-pixbuf-2.0)
@@ -139,6 +137,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.eog.deskto
 %endif
 
 %changelog
+* Sun Mar 19 2023 David King <amigadave@amigadave.com> - 44.0-1
+- Update to 44.0
+
 * Wed Feb 15 2023 David King <amigadave@amigadave.com> - 44~beta-1
 - Update to 44.beta
 

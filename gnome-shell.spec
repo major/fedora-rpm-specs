@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-shell
-Version:        44~rc
+Version:        44.0
 Release:        2%{?dist}
 Summary:        Window management and application launching for GNOME
 
@@ -16,6 +16,8 @@ Patch10001: gnome-shell-favourite-apps-firefox.patch
 # downstream patch to stop trying on configuration errors.
 Patch40001: 0001-gdm-Work-around-failing-fingerprint-auth.patch
 
+Patch40002: fix-timed-logout.patch
+
 %define eds_version 3.45.1
 %define gnome_desktop_version 40
 %define glib2_version 2.56.0
@@ -24,7 +26,7 @@ Patch40001: 0001-gdm-Work-around-failing-fingerprint-auth.patch
 %define gtk3_version 3.15.0
 %define gtk4_version 4.0.0
 %define adwaita_version 1.0.0
-%define mutter_version 44~rc
+%define mutter_version 44.0
 %define polkit_version 0.100
 %define gsettings_desktop_schemas_version 42~beta
 %define ibus_version 1.5.2
@@ -85,7 +87,7 @@ Requires:       gjs%{?_isa} >= %{gjs_version}
 Requires:       gtk3%{?_isa} >= %{gtk3_version}
 Requires:       gtk4%{?_isa} >= %{gtk4_version}
 Requires:       libadwaita%{_isa} >= %{adwaita_version}
-Requires:       libnma%{?_isa}
+Requires:       libnma-gtk4%{?_isa}
 # needed for loading SVG's via gdk-pixbuf
 Requires:       librsvg2%{?_isa}
 Requires:       mutter%{?_isa} >= %{mutter_version}
@@ -226,6 +228,13 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Shell.Porta
 %{_mandir}/man1/gnome-shell.1*
 
 %changelog
+* Sun Mar 19 2023 Florian Müllner <fmuellner@redhat.com> - 44.0-2
+- Fix timed logout
+  Resolves: #2177853
+
+* Sun Mar 19 2023 Florian Müllner <fmuellner@redhat.com> - 44.0-1
+- Update to 44.0
+
 * Tue Mar 14 2023 Dominik Mierzejewski <dominik@greysector.net> - 44~rc-2
 - Recommend gnome-bluetooth instead of requiring it
   Resolves rhbz#2172653

@@ -7,8 +7,8 @@
 %endif
 
 Name: libyang
-Version: 2.1.30
-Release: 2%{?dist}
+Version: 2.1.55
+Release: 1%{?dist}
 Summary: YANG data modeling language library
 Url: https://github.com/CESNET/libyang
 Source: %{url}/archive/v%{version}.tar.gz
@@ -106,6 +106,10 @@ cp -a doc/html %{buildroot}/%{_docdir}/libyang/html
 %{_docdir}/libyang
 
 %changelog
+* Sun Mar 19 2023 Tomas Korbar <tkorbar@redhat.com> - 2.1.55-1
+- Rebase to version 2.1.55
+- Resolves: rhbz#2179481
+
 * Fri Mar 10 2023 Tomas Korbar <tkorbar@redhat.com> - 2.1.30-2
 - Change the License tag to the SPDX format
 

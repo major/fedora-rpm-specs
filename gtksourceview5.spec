@@ -4,7 +4,7 @@
 %global api_ver 5
 
 Name:           gtksourceview5
-Version:        5.7.2
+Version:        5.8.0
 Release:        1%{?dist}
 Summary:        Source code editing widget
 
@@ -95,6 +95,9 @@ the functionality of the installed %{name} package.
 %{_datadir}/installed-tests
 
 %changelog
+* Sat Mar 18 2023 David King <amigadave@amigadave.com> - 5.8.0-1
+- Update to 5.8.0
+
 * Sat Mar 04 2023 David King <amigadave@amigadave.com> - 5.7.2-1
 - Update to 5.7.2
 

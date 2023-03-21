@@ -1,13 +1,13 @@
 %global glib2_version 2.73.0
 
 Name:           sysprof
-Version:        3.46.0
-Release:        2%{?dist}
+Version:        3.48.0
+Release:        1%{?dist}
 Summary:        A system-wide Linux profiler
 
-License:        GPLv3+
+License:        GPL-2.0-or-later AND GPL-3.0-or-later AND CC-BY-SA-4.0 AND BSD-2-Clause-Patent
 URL:            http://www.sysprof.com
-Source0:        https://download.gnome.org/sources/sysprof/3.46/sysprof-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/3.48/%{name}-%{version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -138,13 +138,13 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_unitdir}/sysprof3.service
 
 %files -n libsysprof
-%license COPYING
+%license COPYING COPYING.gpl-2
 %{_libdir}/libsysprof-4.so
 %{_libdir}/libsysprof-memory-4.so
 %{_libdir}/libsysprof-speedtrack-4.so
 
 %files -n libsysprof-ui
-%license COPYING
+%license COPYING COPYING.gpl-2
 %{_libdir}/libsysprof-ui-5.so
 
 %files capture-devel
@@ -178,6 +178,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Sat Mar 18 2023 David King <amigadave@amigadave.com> - 3.48.0-1
+- Update to 3.48.0
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.46.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

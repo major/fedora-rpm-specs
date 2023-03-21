@@ -17,7 +17,7 @@ BuildRequires:  cmake
 BuildRequires:  gnupg2
 BuildRequires:  g++
 BuildRequires:  gettext
-BuildRequires:  meson >= 0.47
+BuildRequires:  meson >= 0.49
 BuildRequires:  libmpdclient-devel >= 2.16
 BuildRequires:  ncurses-devel
 BuildRequires:  pcre2-devel

@@ -90,6 +90,7 @@ desktop-file-validate  $RPM_BUILD_ROOT%{_kf5_datadir}/applications/*.desktop
 %{_datadir}/metainfo/*
 %{_datadir}/mime/packages/bibliography.xml
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
+%{_datadir}/qlogging-categories5/kbibtex.categories
 %{_kf5_docdir}/HTML/*/%{name}
 %{_mandir}/*
 
@@ -98,6 +99,8 @@ desktop-file-validate  $RPM_BUILD_ROOT%{_kf5_datadir}/applications/*.desktop
 %{_libdir}/lib%{name}*.so.*
 
 %files devel
+%{_includedir}/KBibTeX/
+%{_libdir}/cmake/KBibTeX/
 %{_libdir}/lib%{name}*.so
 
 

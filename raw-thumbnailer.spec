@@ -1,12 +1,13 @@
 Name:           raw-thumbnailer
 Version:        3.0.0
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Nautilus file manager thumbnailer for RAW images
 
 License:        GPLv2+
-URL:            http://libopenraw.freedesktop.org/wiki/RawThumbnailer
-Source0:        http://libopenraw.freedesktop.org/download/%{name}-%{version}.tar.bz2
+URL:            https://libopenraw.freedesktop.org/raw-thumbnailer/
+Source0:        https://libopenraw.freedesktop.org/download/%{name}-%{version}.tar.bz2
 Patch0:         %{name}-%{version}-libopenraw.patch
+Patch1:         %{name}-%{version}-larger-thumbnails.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -19,7 +20,7 @@ BuildRequires:  perl(XML::Parser)
 RawThumbnailer is a thumbnailer for RAW files that works with Nautilus.
 
 %prep
-%autosetup
+%autosetup -p 1
 
 
 %build
@@ -38,6 +39,10 @@ RawThumbnailer is a thumbnailer for RAW files that works with Nautilus.
 
 
 %changelog
+* Sun Mar 19 2023 Julian Sikorski <belegdol+github@gmail.com> - 3.0.0-25
+- Fix maximum thumbnail size limin (RH #2165576)
+- Switch to https URLs for URL and Source0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

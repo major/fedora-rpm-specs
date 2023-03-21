@@ -8,7 +8,7 @@
 %global aws_sdk_version 2.0.1
 # Adjust this to ensure the release is monotonic, unless the base package
 # version and the above versions all change at the same time.
-%global baserel 6
+%global baserel 8
 
 # Older versions of subpackages that are disabled in these conditionals are
 # Obsoleted in python3-opentelemetry-contrib-instrumentations; if changing or
@@ -39,14 +39,14 @@
 # A subpackage needs scikit-learn ~= 0.24.0; F38 has 1.1.2
 %bcond_with sklearn
 
-# A subpackage needs starlette ~= 0.13.0; F38 has 0.22.0
+# A subpackage needs starlette ~= 0.13.0; F38 has 0.26.1
 %bcond_with starlette
 
 # A subpackage needs tortoise-orm >= 0.17.0; python-tortoise-orm is not
 # packaged
 %bcond_with tortoise_orm
 
-# Some tests need werkzeug == 0.16.1, or at least < 2.2.0; F38 has 2.2.2
+# Some tests need werkzeug == 0.16.1, or at least < 2.2.0; F38 has 2.2.3
 #
 # We unpinned the werkzeug version in the pyramid instrumentation test
 # dependencies (it was pinned to == 0.16.1), but it’s not immediately obvious
@@ -65,7 +65,8 @@
 
 Name:           python-opentelemetry-contrib
 Version:        %{stable_version}
-Release:        %autorelease -b %{baserel}
+Epoch:          1
+Release:        %autorelease %{?baserel:-b %{baserel}}
 Summary:        OpenTelemetry instrumentation for Python modules
 
 # Until we get clarification from upstream,
@@ -194,6 +195,8 @@ License:        Apache-2.0
 
 # From python-opentelemetry:
 BuildRequires:  python3dist(opentelemetry-test-utils)
+# Ensure we have fully-versioned dependencies (to release) across subpackages
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_requiring_base_package
 Recommends:     python3-opentelemetry-distro = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
 
 %description -n python3-opentelemetry-instrumentation
@@ -212,7 +215,22 @@ Requires:       python3-opentelemetry-instrumentation = %{?epoch:%{epoch}:}%{pre
 %description -n python3-opentelemetry-distro
 This package provides entrypoints to configure OpenTelemetry.
 
-%pyproject_extras_subpkg -n python3-opentelemetry-distro -i %{python3_sitelib}/opentelemetry_distro-%{prerel_distinfo} otlp
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-distro -i %%{python3_sitelib}/opentelemetry_distro-%%{prerel_distinfo} otlp
+%package -n python3-opentelemetry-distro+otlp
+Summary:        Metapackage for OpenTelemetry otlp extras
+Version:        %{prerel_version}
+
+# Ensure we have fully-versioned dependencies (to release) across subpackages
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_requiring_base_package
+Requires:       python3-opentelemetry-distro = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-distro+otlp
+This is a metapackage bringing in “otlp” extras requires for
+python3-opentelemetry-distro. It makes sure the dependencies are installed.
+
+%files -n python3-opentelemetry-distro+otlp
+%ghost %{python3_sitelib}/opentelemetry_distro-%{prerel_distinfo}
 
 
 %package -n python3-opentelemetry-propagator-aws-xray
@@ -271,7 +289,22 @@ Requires:       python3-opentelemetry-util-http = %{?epoch:%{epoch}:}%{prerel_ve
 %description -n python3-opentelemetry-instrumentation-aiohttp-client
 This library allows tracing HTTP requests made by the aiohttp client library.
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-aiohttp-client -i %{python3_sitelib}/opentelemetry_instrumentation_aiohttp_client-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-aiohttp-client -i %%{python3_sitelib}/opentelemetry_instrumentation_aiohttp_client-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-aiohttp-client+instruments
+Summary:        Metapackage for OpenTelemetry aiohttp client instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-aiohttp-client = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-aiohttp-client+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-aiohttp-client. It makes sure the
+dependencies (the packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-aiohttp-client+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_aiohttp_client-%{prerel_distinfo}
 
 
 %package -n python3-opentelemetry-instrumentation-aiopg
@@ -287,7 +320,22 @@ Requires:       python3-opentelemetry-instrumentation-dbapi = %{?epoch:%{epoch}:
 %description -n python3-opentelemetry-instrumentation-aiopg
 OpenTelemetry aiopg instrumentation.
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-aiopg -i %{python3_sitelib}/opentelemetry_instrumentation_aiopg-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-aiopg -i %%{python3_sitelib}/opentelemetry_instrumentation_aiopg-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-aiopg+instruments
+Summary:        Metapackage for OpenTelemetry aiopg instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-aiopg = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-aiopg+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-aiopg. It makes sure the dependencies
+(the packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-aiopg+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_aiopg-%{prerel_distinfo}
 
 
 %if %{with aio_pika}
@@ -299,7 +347,22 @@ License:        Apache-2.0
 %description -n python3-opentelemetry-instrumentation-aio-pika
 This library allows tracing requests made by the Aio-pika library.
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-aio-pika -i %{python3_sitelib}/opentelemetry_instrumentation_aio_pika-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-aio-pika -i %%{python3_sitelib}/opentelemetry_instrumentation_aio_pika-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-aio-pika+instruments
+Summary:        Metapackage for OpenTelemetry Aio-pika instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-aio-pika = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-aio-pika+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-aio-pika. It makes sure the dependencies
+(the packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-aio-pika+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_aio_pika-%{prerel_distinfo}
 %endif
 
 
@@ -318,7 +381,22 @@ This library provides a ASGI middleware that can be used on any ASGI framework
 (such as Django, Starlette, FastAPI or Quart) to track requests timing through
 OpenTelemetry.
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-asgi -i %{python3_sitelib}/opentelemetry_instrumentation_asgi-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-asgi -i %%{python3_sitelib}/opentelemetry_instrumentation_asgi-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-asgi+instruments
+Summary:        Metapackage for OpenTelemetry ASGI instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-asgi = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-asgi+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-asgi. It makes sure the dependencies (the
+packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-asgi+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_asgi-%{prerel_distinfo}
 
 
 %package -n python3-opentelemetry-instrumentation-asyncpg
@@ -333,7 +411,22 @@ Requires:       python3-opentelemetry-instrumentation = %{?epoch:%{epoch}:}%{pre
 %description -n python3-opentelemetry-instrumentation-asyncpg
 This library allows tracing PostgreSQL queries made by the asyncpg library.
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-asyncpg -i %{python3_sitelib}/opentelemetry_instrumentation_asyncpg-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-asyncpg -i %%{python3_sitelib}/opentelemetry_instrumentation_asyncpg-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-asyncpg+instruments
+Summary:        Metapackage for OpenTelemetry AsyncPG instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-asyncpg = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-asyncpg+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-asyncpg. It makes sure the dependencies
+(the packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-asyncpg+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_asyncpg-%{prerel_distinfo}
 
 
 %package -n python3-opentelemetry-instrumentation-aws-lambda
@@ -354,7 +447,22 @@ It also provides scripts used by AWS Lambda Layers to automatically initialize
 the OpenTelemetry SDK. Learn more on the AWS Distro for OpenTelemetry (ADOT)
 documentation for the Python Lambda Layer.
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-aws-lambda -i %{python3_sitelib}/opentelemetry_instrumentation_aws_lambda-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-aws-lambda -i %%{python3_sitelib}/opentelemetry_instrumentation_aws_lambda-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-aws-lambda+instruments
+Summary:        Metapackage for OpenTelemetry AWS Lambda instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-aws-lambda = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-aws-lambda+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-aws-lambda. It makes sure the
+dependencies (the packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-aws-lambda+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_aws_lambda-%{prerel_distinfo}
 
 
 %package -n python3-opentelemetry-instrumentation-boto
@@ -369,7 +477,22 @@ Requires:       python3-opentelemetry-instrumentation = %{?epoch:%{epoch}:}%{pre
 %description -n python3-opentelemetry-instrumentation-boto
 This library allows tracing requests made by the Boto library.
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-boto -i %{python3_sitelib}/opentelemetry_instrumentation_boto-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-boto -i %%{python3_sitelib}/opentelemetry_instrumentation_boto-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-boto+instruments
+Summary:        Metapackage for OpenTelemetry Boto instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-boto = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-boto+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-boto. It makes sure the dependencies (the
+packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-boto+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_boto-%{prerel_distinfo}
 
 
 %package -n python3-opentelemetry-instrumentation-boto3sqs
@@ -385,7 +508,22 @@ Requires:       python3-opentelemetry-instrumentation = %{?epoch:%{epoch}:}%{pre
 This library allows tracing requests made by the Boto3 library to the SQS
 service.
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-boto3sqs -i %{python3_sitelib}/opentelemetry_instrumentation_boto3sqs-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-boto3sqs -i %%{python3_sitelib}/opentelemetry_instrumentation_boto3sqs-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-boto3sqs+instruments
+Summary:        Metapackage for OpenTelemetry Boto3 SQS instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-boto3sqs = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-boto3sqs+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-boto3sqs. It makes sure the dependencies
+(the packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-boto3sqs+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_boto3sqs-%{prerel_distinfo}
 
 
 %package -n python3-opentelemetry-instrumentation-botocore
@@ -400,7 +538,22 @@ Requires:       python3-opentelemetry-instrumentation = %{?epoch:%{epoch}:}%{pre
 %description -n python3-opentelemetry-instrumentation-botocore
 This library allows tracing requests made by the Botocore library.
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-botocore -i %{python3_sitelib}/opentelemetry_instrumentation_botocore-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-botocore -i %%{python3_sitelib}/opentelemetry_instrumentation_botocore-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-botocore+instruments
+Summary:        Metapackage for OpenTelemetry Botocore instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-botocore = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-botocore+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-botocore. It makes sure the dependencies
+(the packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-botocore+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_botocore-%{prerel_distinfo}
 
 
 %package -n python3-opentelemetry-instrumentation-celery
@@ -415,7 +568,22 @@ Requires:       python3-opentelemetry-instrumentation = %{?epoch:%{epoch}:}%{pre
 %description -n python3-opentelemetry-instrumentation-celery
 Instrumentation for Celery.
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-celery -i %{python3_sitelib}/opentelemetry_instrumentation_celery-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-celery -i %%{python3_sitelib}/opentelemetry_instrumentation_celery-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-celery+instruments
+Summary:        Metapackage for OpenTelemetry Celery instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-celery = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-celery+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-celery. It makes sure the dependencies
+(the packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-celery+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_celery-%{prerel_distinfo}
 
 
 %if %{with confluent_kafka}
@@ -431,7 +599,22 @@ Requires:       python3-opentelemetry-instrumentation = %{?epoch:%{epoch}:}%{pre
 %description -n python3-opentelemetry-instrumentation-confluent-kafka
 This library allows tracing requests made by the confluent-kafka library.
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-confluent-kafka -i %{python3_sitelib}/opentelemetry_instrumentation_confluent_kafka-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-confluent-kafka -i %%{python3_sitelib}/opentelemetry_instrumentation_confluent_kafka-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-confluent-kafka+instruments
+Summary:        Metapackage for OpenTelemetry Confluent Kafka instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-confluent-kafka = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-confluent-kafka+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-confluent-kafka. It makes sure the
+dependencies (the packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-confluent-kafka+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_confluent_kafka-%{prerel_distinfo}
 %endif
 
 
@@ -447,7 +630,22 @@ Requires:       python3-opentelemetry-instrumentation = %{?epoch:%{epoch}:}%{pre
 %description -n python3-opentelemetry-instrumentation-dbapi
 OpenTelemetry Database API instrumentation.
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-dbapi -i %{python3_sitelib}/opentelemetry_instrumentation_dbapi-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-dbapi -i %%{python3_sitelib}/opentelemetry_instrumentation_dbapi-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-dbapi+instruments
+Summary:        Metapackage for OpenTelemetry Database API instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-dbapi = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-dbapi+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-dbapi. It makes sure the dependencies
+(the packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-dbapi+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_dbapi-%{prerel_distinfo}
 
 
 %package -n python3-opentelemetry-instrumentation-django
@@ -464,7 +662,37 @@ Requires:       python3-opentelemetry-util-http = %{?epoch:%{epoch}:}%{prerel_ve
 %description -n python3-opentelemetry-instrumentation-django
 This library allows tracing requests for Django applications.
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-django -i %{python3_sitelib}/opentelemetry_instrumentation_django-%{prerel_distinfo} instruments asgi
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-django -i %%{python3_sitelib}/opentelemetry_instrumentation_django-%%{prerel_distinfo} instruments asgi
+%package -n python3-opentelemetry-instrumentation-django+instruments
+Summary:        Metapackage for OpenTelemetry Django instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-django = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-django+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-django. It makes sure the dependencies
+(the packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-django+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_django-%{prerel_distinfo}
+
+%package -n python3-opentelemetry-instrumentation-django+asgi
+Summary:        Metapackage for OpenTelemetry Django ASGI extras
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-django = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-django+asgi
+This is a metapackage bringing in “asgi” extras requires for
+python3-opentelemetry-instrumentation-django. It makes sure the dependencies
+are installed.
+
+%files -n python3-opentelemetry-instrumentation-django+asgi
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_django-%{prerel_distinfo}
 
 
 %package -n python3-opentelemetry-instrumentation-elasticsearch
@@ -479,7 +707,22 @@ Requires:       python3-opentelemetry-instrumentation = %{?epoch:%{epoch}:}%{pre
 %description -n python3-opentelemetry-instrumentation-elasticsearch
 This library allows tracing elasticsearch made by the elasticsearch library.
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-elasticsearch -i %{python3_sitelib}/opentelemetry_instrumentation_elasticsearch-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-elasticsearch -i %%{python3_sitelib}/opentelemetry_instrumentation_elasticsearch-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-elasticsearch+instruments
+Summary:        Metapackage for OpenTelemetry elasticsearch instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-elasticsearch = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-elasticsearch+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-elasticsearch. It makes sure the
+dependencies (the packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-elasticsearch+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_elasticsearch-%{prerel_distinfo}
 
 
 %if %{with falcon}
@@ -498,7 +741,22 @@ Requires:       python3-opentelemetry-util-http = %{?epoch:%{epoch}:}%{prerel_ve
 This library builds on the OpenTelemetry WSGI middleware to track web requests
 in Falcon applications.
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-falcon -i %{python3_sitelib}/opentelemetry_instrumentation_falcon-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-falcon -i %%{python3_sitelib}/opentelemetry_instrumentation_falcon-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-falcon+instruments
+Summary:        Metapackage for OpenTelemetry Falcon instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-falcon = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-falcon+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-falcon. It makes sure the dependencies
+(the packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-falcon+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_falcon-%{prerel_distinfo}
 %endif
 
 
@@ -521,7 +779,22 @@ framework.
 auto-instrumentation using the opentelemetry-instrumentation package is also
 supported.
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-fastapi -i %{python3_sitelib}/opentelemetry_instrumentation_fastapi-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-fastapi -i %%{python3_sitelib}/opentelemetry_instrumentation_fastapi-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-fastapi+instruments
+Summary:        Metapackage for OpenTelemetry FastAPI instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-fastapi = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-fastapi+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-fastapi. It makes sure the dependencies
+(the packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-fastapi+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_fastapi-%{prerel_distinfo}
 
 
 %package -n python3-opentelemetry-instrumentation-flask
@@ -539,7 +812,22 @@ Requires:       python3-opentelemetry-util-http = %{?epoch:%{epoch}:}%{prerel_ve
 This library builds on the OpenTelemetry WSGI middleware to track web requests
 in Flask applications.
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-flask -i %{python3_sitelib}/opentelemetry_instrumentation_flask-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-flask -i %%{python3_sitelib}/opentelemetry_instrumentation_flask-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-flask+instruments
+Summary:        Metapackage for OpenTelemetry Flask instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-flask = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-flask+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-flask. It makes sure the dependencies
+(the packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-flask+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_flask-%{prerel_distinfo}
 
 
 %package -n python3-opentelemetry-instrumentation-grpc
@@ -554,7 +842,22 @@ Requires:       python3-opentelemetry-instrumentation = %{?epoch:%{epoch}:}%{pre
 %description -n python3-opentelemetry-instrumentation-grpc
 Client and server interceptors for gRPC Python.
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-grpc -i %{python3_sitelib}/opentelemetry_instrumentation_grpc-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-grpc -i %%{python3_sitelib}/opentelemetry_instrumentation_grpc-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-grpc+instruments
+Summary:        Metapackage for OpenTelemetry gRPC instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-grpc = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-grpc+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-grpc. It makes sure the dependencies (the
+packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-grpc+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_grpc-%{prerel_distinfo}
 
 
 %package -n python3-opentelemetry-instrumentation-httpx
@@ -573,7 +876,22 @@ Requires:       python3-opentelemetry-instrumentation = %{?epoch:%{epoch}:}%{pre
 %description -n python3-opentelemetry-instrumentation-httpx
 This library allows tracing HTTP requests made by the httpx library.
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-httpx -i %{python3_sitelib}/opentelemetry_instrumentation_httpx-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-httpx -i %%{python3_sitelib}/opentelemetry_instrumentation_httpx-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-httpx+instruments
+Summary:        Metapackage for OpenTelemetry HTTPX instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-httpx = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-httpx+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-httpx. It makes sure the dependencies
+(the packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-httpx+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_httpx-%{prerel_distinfo}
 
 
 %package -n python3-opentelemetry-instrumentation-jinja2
@@ -588,7 +906,22 @@ Requires:       python3-opentelemetry-instrumentation = %{?epoch:%{epoch}:}%{pre
 %description -n python3-opentelemetry-instrumentation-jinja2
 OpenTelemetry jinja2 integration.
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-jinja2 -i %{python3_sitelib}/opentelemetry_instrumentation_jinja2-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-jinja2 -i %%{python3_sitelib}/opentelemetry_instrumentation_jinja2-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-jinja2+instruments
+Summary:        Metapackage for OpenTelemetry jinja2 instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-jinja2 = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-jinja2+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-jinja2. It makes sure the dependencies
+(the packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-jinja2+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_jinja2-%{prerel_distinfo}
 
 
 %package -n python3-opentelemetry-instrumentation-kafka-python
@@ -603,7 +936,22 @@ Requires:       python3-opentelemetry-instrumentation = %{?epoch:%{epoch}:}%{pre
 %description -n python3-opentelemetry-instrumentation-kafka-python
 OpenTelemetry kafka-python integration
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-kafka-python -i %{python3_sitelib}/opentelemetry_instrumentation_kafka_python-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-kafka-python -i %%{python3_sitelib}/opentelemetry_instrumentation_kafka_python-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-kafka-python+instruments
+Summary:        Metapackage for OpenTelemetry Kafka-Python instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-kafka-python = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-kafka-python+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-kafka-python. It makes sure the
+dependencies (the packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-kafka-python+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_kafka_python-%{prerel_distinfo}
 
 
 %package -n python3-opentelemetry-instrumentation-logging
@@ -618,7 +966,22 @@ Requires:       python3-opentelemetry-instrumentation = %{?epoch:%{epoch}:}%{pre
 %description -n python3-opentelemetry-instrumentation-logging
 OpenTelemetry logging integration.
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-logging -i %{python3_sitelib}/opentelemetry_instrumentation_logging-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-logging -i %%{python3_sitelib}/opentelemetry_instrumentation_logging-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-logging+instruments
+Summary:        Metapackage for OpenTelemetry Logging instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-logging = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-logging+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-logging. It makes sure the dependencies
+(the packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-logging+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_logging-%{prerel_distinfo}
 
 
 %package -n python3-opentelemetry-instrumentation-mysql
@@ -635,7 +998,22 @@ Requires:       python3-opentelemetry-instrumentation-dbapi = %{?epoch:%{epoch}:
 Instrumentation with MySQL that supports the mysql-connector library and is
 specified to trace_integration using ‘MySQL’.
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-mysql -i %{python3_sitelib}/opentelemetry_instrumentation_mysql-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-mysql -i %%{python3_sitelib}/opentelemetry_instrumentation_mysql-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-mysql+instruments
+Summary:        Metapackage for OpenTelemetry MySQL instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-mysql = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-mysql+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-mysql. It makes sure the dependencies
+(the packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-mysql+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_mysql-%{prerel_distinfo}
 
 
 %package -n python3-opentelemetry-instrumentation-pika
@@ -646,7 +1024,22 @@ License:        Apache-2.0
 %description -n python3-opentelemetry-instrumentation-pika
 This library allows tracing requests made by the pika library.
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-pika -i %{python3_sitelib}/opentelemetry_instrumentation_pika-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-pika -i %%{python3_sitelib}/opentelemetry_instrumentation_pika-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-pika+instruments
+Summary:        Metapackage for OpenTelemetry pika instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-pika = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-pika+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-pika. It makes sure the dependencies (the
+packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-pika+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_pika-%{prerel_distinfo}
 
 
 %package -n python3-opentelemetry-instrumentation-psycopg2
@@ -662,7 +1055,22 @@ Requires:       python3-opentelemetry-instrumentation-dbapi = %{?epoch:%{epoch}:
 %description -n python3-opentelemetry-instrumentation-psycopg2
 OpenTelemetry Psycopg Instrumentation.
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-psycopg2 -i %{python3_sitelib}/opentelemetry_instrumentation_psycopg2-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-psycopg2 -i %%{python3_sitelib}/opentelemetry_instrumentation_psycopg2-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-psycopg2+instruments
+Summary:        Metapackage for OpenTelemetry psycopg2 instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-psycopg2 = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-psycopg2+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-psycopg2. It makes sure the dependencies
+(the packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-psycopg2+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_psycopg2-%{prerel_distinfo}
 
 
 %package -n python3-opentelemetry-instrumentation-pymemcache
@@ -677,7 +1085,22 @@ Requires:       python3-opentelemetry-instrumentation = %{?epoch:%{epoch}:}%{pre
 %description -n python3-opentelemetry-instrumentation-pymemcache
 OpenTelemetry pymemcache Instrumentation
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-pymemcache -i %{python3_sitelib}/opentelemetry_instrumentation_pymemcache-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-pymemcache -i %%{python3_sitelib}/opentelemetry_instrumentation_pymemcache-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-pymemcache+instruments
+Summary:        Metapackage for OpenTelemetry pymemcache instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-pymemcache = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-pymemcache+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-pymemcache. It makes sure the
+dependencies (the packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-pymemcache+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_pymemcache-%{prerel_distinfo}
 
 
 %package -n python3-opentelemetry-instrumentation-pymongo
@@ -692,7 +1115,22 @@ Requires:       python3-opentelemetry-instrumentation = %{?epoch:%{epoch}:}%{pre
 %description -n python3-opentelemetry-instrumentation-pymongo
 OpenTelemetry pymongo Instrumentation
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-pymongo -i %{python3_sitelib}/opentelemetry_instrumentation_pymongo-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-pymongo -i %%{python3_sitelib}/opentelemetry_instrumentation_pymongo-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-pymongo+instruments
+Summary:        Metapackage for OpenTelemetry pymongo instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-pymongo = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-pymongo+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-pymongo. It makes sure the dependencies
+(the packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-pymongo+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_pymongo-%{prerel_distinfo}
 
 
 %package -n python3-opentelemetry-instrumentation-pymysql
@@ -708,7 +1146,22 @@ Requires:       python3-opentelemetry-instrumentation-dbapi = %{?epoch:%{epoch}:
 %description -n python3-opentelemetry-instrumentation-pymysql
 OpenTelemetry PyMySQL Instrumentation
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-pymysql -i %{python3_sitelib}/opentelemetry_instrumentation_pymysql-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-pymysql -i %%{python3_sitelib}/opentelemetry_instrumentation_pymysql-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-pymysql+instruments
+Summary:        Metapackage for OpenTelemetry PyMySQL instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-pymysql = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-pymysql+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-pymysql. It makes sure the dependencies
+(the packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-pymysql+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_pymysql-%{prerel_distinfo}
 
 
 %package -n python3-opentelemetry-instrumentation-pyramid
@@ -725,7 +1178,22 @@ Requires:       python3-opentelemetry-util-http = %{?epoch:%{epoch}:}%{prerel_ve
 %description -n python3-opentelemetry-instrumentation-pyramid
 OpenTelemetry Pyramid Instrumentation
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-pyramid -i %{python3_sitelib}/opentelemetry_instrumentation_pyramid-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-pyramid -i %%{python3_sitelib}/opentelemetry_instrumentation_pyramid-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-pyramid+instruments
+Summary:        Metapackage for OpenTelemetry Pyramid instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-pyramid = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-pyramid+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-pyramid. It makes sure the dependencies
+(the packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-pyramid+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_pyramid-%{prerel_distinfo}
 
 
 %package -n python3-opentelemetry-instrumentation-redis
@@ -740,7 +1208,22 @@ Requires:       python3-opentelemetry-instrumentation = %{?epoch:%{epoch}:}%{pre
 %description -n python3-opentelemetry-instrumentation-redis
 This library allows tracing requests made by the Redis library.
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-redis -i %{python3_sitelib}/opentelemetry_instrumentation_redis-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-redis -i %%{python3_sitelib}/opentelemetry_instrumentation_redis-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-redis+instruments
+Summary:        Metapackage for OpenTelemetry Redis instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-redis = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-redis+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-redis. It makes sure the dependencies
+(the packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-redis+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_redis-%{prerel_distinfo}
 
 
 %if %{with remoulade}
@@ -756,7 +1239,22 @@ Requires:       python3-opentelemetry-instrumentation = %{?epoch:%{epoch}:}%{pre
 %description -n python3-opentelemetry-instrumentation-remoulade
 This library allows tracing requests made by the Remoulade library.
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-remoulade -i %{python3_sitelib}/opentelemetry_instrumentation_remoulade-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-remoulade -i %%{python3_sitelib}/opentelemetry_instrumentation_remoulade-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-remoulade+instruments
+Summary:        Metapackage for OpenTelemetry Remoulade instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-remoulade = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-remoulade+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-remoulade. It makes sure the dependencies
+(the packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-remoulade+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_remoulade-%{prerel_distinfo}
 %endif
 
 
@@ -773,7 +1271,22 @@ Requires:       python3-opentelemetry-util-http = %{?epoch:%{epoch}:}%{prerel_ve
 %description -n python3-opentelemetry-instrumentation-requests
 This library allows tracing HTTP requests made by the requests library.
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-requests -i %{python3_sitelib}/opentelemetry_instrumentation_requests-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-requests -i %%{python3_sitelib}/opentelemetry_instrumentation_requests-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-requests+instruments
+Summary:        Metapackage for OpenTelemetry requests instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-requests = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-requests+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-requests. It makes sure the dependencies
+(the packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-requests+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_requests-%{prerel_distinfo}
 
 
 %if %{with sklearn}
@@ -789,7 +1302,22 @@ Requires:       python3-opentelemetry-instrumentation = %{?epoch:%{epoch}:}%{pre
 %description -n python3-opentelemetry-instrumentation-sklearn
 This library allows tracing HTTP requests made by the scikit-learn library.
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-sklearn -i %{python3_sitelib}/opentelemetry_instrumentation_sklearn-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-sklearn -i %%{python3_sitelib}/opentelemetry_instrumentation_sklearn-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-sklearn+instruments
+Summary:        Metapackage for OpenTelemetry sklearn instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-sklearn = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-sklearn+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-sklearn. It makes sure the dependencies
+(the packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-sklearn+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_sklearn-%{prerel_distinfo}
 %endif
 
 
@@ -809,7 +1337,22 @@ Requires:       python3-opentelemetry-instrumentation = %{?epoch:%{epoch}:}%{pre
 %description -n python3-opentelemetry-instrumentation-sqlalchemy
 This library allows tracing requests made by the SQLAlchemy library.
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-sqlalchemy -i %{python3_sitelib}/opentelemetry_instrumentation_sqlalchemy-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-sqlalchemy -i %%{python3_sitelib}/opentelemetry_instrumentation_sqlalchemy-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-sqlalchemy+instruments
+Summary:        Metapackage for OpenTelemetry SQLAlchemy instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-sqlalchemy = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-sqlalchemy+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-sqlalchemy. It makes sure the
+dependencies (the packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-sqlalchemy+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_sqlalchemy-%{prerel_distinfo}
 
 
 %package -n python3-opentelemetry-instrumentation-sqlite3
@@ -825,7 +1368,22 @@ Requires:       python3-opentelemetry-instrumentation-dbapi = %{?epoch:%{epoch}:
 %description -n python3-opentelemetry-instrumentation-sqlite3
 OpenTelemetry SQLite3 Instrumentation.
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-sqlite3 -i %{python3_sitelib}/opentelemetry_instrumentation_sqlite3-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-sqlite3 -i %%{python3_sitelib}/opentelemetry_instrumentation_sqlite3-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-sqlite3+instruments
+Summary:        Metapackage for OpenTelemetry SQLite3 instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-sqlite3 = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-sqlite3+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-sqlite3. It makes sure the dependencies
+(the packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-sqlite3+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_sqlite3-%{prerel_distinfo}
 
 
 %if %{with starlette}
@@ -848,7 +1406,22 @@ framework.
 Auto-instrumentation using the opentelemetry-instrumentation package is also
 supported.
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-starlette -i %{python3_sitelib}/opentelemetry_instrumentation_starlette-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-starlette -i %%{python3_sitelib}/opentelemetry_instrumentation_starlette-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-starlette+instruments
+Summary:        Metapackage for OpenTelemetry Starlette instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-starlette = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-starlette+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-starlette. It makes sure the dependencies
+(the packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-starlette+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_starlette-%{prerel_distinfo}
 %endif
 
 
@@ -860,7 +1433,22 @@ License:        Apache-2.0
 %description -n python3-opentelemetry-instrumentation-system-metrics
 Instrumentation to collect system performance metrics.
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-system-metrics -i %{python3_sitelib}/opentelemetry_instrumentation_system_metrics-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-system-metrics -i %%{python3_sitelib}/opentelemetry_instrumentation_system_metrics-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-system-metrics+instruments
+Summary:        Metapackage for OpenTelemetry System Metrics instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-system-metrics = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-system-metrics+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-system-metrics. It makes sure the
+dependencies (the packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-system-metrics+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_system_metrics-%{prerel_distinfo}
 
 
 %package -n python3-opentelemetry-instrumentation-tornado
@@ -877,7 +1465,22 @@ Requires:       python3-opentelemetry-util-http = %{?epoch:%{epoch}:}%{prerel_ve
 This library builds on the OpenTelemetry WSGI middleware to track web requests
 in Tornado applications.
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-tornado -i %{python3_sitelib}/opentelemetry_instrumentation_tornado-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-tornado -i %%{python3_sitelib}/opentelemetry_instrumentation_tornado-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-tornado+instruments
+Summary:        Metapackage for OpenTelemetry Tornado instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-tornado = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-tornado+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-tornado. It makes sure the dependencies
+(the packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-tornado+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_tornado-%{prerel_distinfo}
 
 
 %if %{with tortoise_orm}
@@ -894,7 +1497,22 @@ Requires:       python3-opentelemetry-instrumentation = %{?epoch:%{epoch}:}%{pre
 This library allows tracing queries made by tortoise ORM backends, mysql,
 postgres and sqlite.
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-tortoiseorm -i %{python3_sitelib}/opentelemetry_instrumentation_tortoiseorm-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-tortoiseorm -i %%{python3_sitelib}/opentelemetry_instrumentation_tortoiseorm-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-tortoiseorm+instruments
+Summary:        Metapackage for OpenTelemetry Tortoise ORM instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-tortoiseorm = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-tortoiseorm+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-tortoiseorm. It makes sure the
+dependencies (the packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-tortoiseorm+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_tortoiseorm-%{prerel_distinfo}
 %endif
 
 
@@ -911,7 +1529,22 @@ Requires:       python3-opentelemetry-util-http = %{?epoch:%{epoch}:}%{prerel_ve
 %description -n python3-opentelemetry-instrumentation-urllib
 This library allows tracing HTTP requests made by the urllib library.
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-urllib -i %{python3_sitelib}/opentelemetry_instrumentation_urllib-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-urllib -i %%{python3_sitelib}/opentelemetry_instrumentation_urllib-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-urllib+instruments
+Summary:        Metapackage for OpenTelemetry urllib instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-urllib = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-urllib+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-urllib. It makes sure the dependencies
+(the packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-urllib+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_urllib-%{prerel_distinfo}
 
 
 %package -n python3-opentelemetry-instrumentation-urllib3
@@ -927,7 +1560,22 @@ Requires:       python3-opentelemetry-util-http = %{?epoch:%{epoch}:}%{prerel_ve
 %description -n python3-opentelemetry-instrumentation-urllib3
 This library allows tracing HTTP requests made by the urllib3 library.
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-urllib3 -i %{python3_sitelib}/opentelemetry_instrumentation_urllib3-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-urllib3 -i %%{python3_sitelib}/opentelemetry_instrumentation_urllib3-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-urllib3+instruments
+Summary:        Metapackage for OpenTelemetry urllib3 instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-urllib3 = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-urllib3+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-urllib3. It makes sure the dependencies
+(the packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-urllib3+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_urllib3-%{prerel_distinfo}
 
 
 %package -n python3-opentelemetry-instrumentation-wsgi
@@ -944,7 +1592,22 @@ Requires:       python3-opentelemetry-util-http = %{?epoch:%{epoch}:}%{prerel_ve
 This library provides a WSGI middleware that can be used on any WSGI framework
 (such as Django / Flask) to track requests timing through OpenTelemetry.
 
-%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-wsgi -i %{python3_sitelib}/opentelemetry_instrumentation_wsgi-%{prerel_distinfo} instruments
+# This is based on:
+#   %%pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-wsgi -i %%{python3_sitelib}/opentelemetry_instrumentation_wsgi-%%{prerel_distinfo} instruments
+%package -n python3-opentelemetry-instrumentation-wsgi+instruments
+Summary:        Metapackage for OpenTelemetry WSGI instrumented packages
+Version:        %{prerel_version}
+License:        Apache-2.0
+
+Requires:       python3-opentelemetry-instrumentation-wsgi = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n python3-opentelemetry-instrumentation-wsgi+instruments
+This is a metapackage bringing in “instruments” extras requires for
+python3-opentelemetry-instrumentation-wsgi. It makes sure the dependencies (the
+packages that are instrumented) are installed.
+
+%files -n python3-opentelemetry-instrumentation-wsgi+instruments
+%ghost %{python3_sitelib}/opentelemetry_instrumentation_wsgi-%{prerel_distinfo}
 
 
 %package -n python3-opentelemetry-contrib-instrumentations

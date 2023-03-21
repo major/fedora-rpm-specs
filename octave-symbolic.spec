@@ -4,7 +4,7 @@
 %global _python_bytecompile_extra 0
 
 Name:           octave-%{octpkg}
-Version:        3.0.1
+Version:        3.1.1
 Release:        %autorelease
 Summary:        Symbolic computations for Octave
 License:        GPLv3+

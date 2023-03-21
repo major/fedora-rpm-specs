@@ -8,8 +8,8 @@
 
 Summary:        OpenBSD RPKI validator to support BGP Origin Validation
 Name:           rpki-client
-Version:        8.2
-Release:        4%{?with_snapshot:.git%{gitdate}}%{?dist}
+Version:        8.3
+Release:        1%{?with_snapshot:.git%{gitdate}}%{?dist}
 # rpki-client itself is ISC but uses other source codes, breakdown:
 # BSD-2-Clause: include/sys/tree.h and src/{http,output}.c
 # BSD-3-Clause: compat/{setproctitle,vis}.c and include/{sha2_openbsd,vis,sys/queue}.h and src/mkdir.c
@@ -22,7 +22,6 @@ URL:            https://www.rpki-client.org/
 Source0:        https://ftp.openbsd.org/pub/OpenBSD/rpki-client/%{name}-%{version}.tar.gz
 Source1:        https://ftp.openbsd.org/pub/OpenBSD/rpki-client/%{name}-%{version}.tar.gz.asc
 Source2:        gpgkey-B5B6416FEA6DDA05EA562A9FCB987F2783972FF9.gpg
-Patch0:         rpki-client-8.2-inet_net_pton.patch
 %else
 Source0:        https://github.com/rpki-client/rpki-client-portable/archive/%{portable_commit}/%{name}-portable-%{version}-%{portable_shortcommit}.tar.gz
 Source1:        https://github.com/rpki-client/rpki-client-openbsd/archive/%{openbsd_commit}/%{name}-openbsd-%{version}-%{openbsd_shortcommit}.tar.gz
@@ -63,7 +62,6 @@ also as CSV or JSON objects for consumption by other routing stacks.
 %if !0%{?with_snapshot}
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q
-%patch0 -p1 -b .inet_net_pton
 %else
 %setup -q -n %{name}-portable-%{portable_commit}
 tar xfz %{SOURCE1}
@@ -101,6 +99,9 @@ install -D -p -m 0644 %{SOURCE4} $RPM_BUILD_ROOT%{_sysusersdir}/%{name}.conf
 %dir %attr(0755,%{name},%{name}) %{_localstatedir}/lib/%{name}/
 
 %changelog
+* Sun Mar 19 2023 Robert Scheck <robert@fedoraproject.org> 8.3-1
+- Upgrade to 8.3 (#2179641)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %bcond_without doc_pdf
 
 Name:           python-engineio
-Version:        4.3.4
+Version:        4.4.0
 Release:        %autorelease
 Summary:        Python Engine.IO server and client
 
@@ -14,16 +14,11 @@ License:        MIT
 URL:            https://github.com/miguelgrinberg/python-engineio/
 Source0:        %{url}/archive/v%{version}/python-engineio-%{version}.tar.gz
 
-BuildArch:      noarch
+# Downstream-only: patch out test coverage analysis
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+Patch:          0001-Downstream-only-patch-out-test-coverage-analysis.patch
 
-# Address Python 3.11 mocking issue (Fixes #279)
-# https://github.com/miguelgrinberg/python-engineio/commit/ac3911356fbe933afa7c11d56141f0e228c01528
-#
-# Fixes:
-#
-# Test failures with Python 3.11 pre-release (3.11b3)
-# https://github.com/miguelgrinberg/python-engineio/issues/279
-Patch:          %{url}/commit/ac3911356fbe933afa7c11d56141f0e228c01528.patch
+BuildArch:      noarch
  
 BuildRequires:  python3-devel
 
@@ -85,7 +80,8 @@ find examples -type f \( -name 'engine.io.js' -o -name 'package-lock.json' \) \
 %build
 %pyproject_wheel
 %if %{with doc_pdf}
-PYTHONPATH="${PWD}/src" %make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
+PYTHONPATH="${PWD}/src" %make_build -C docs latex \
+    SPHINXOPTS='-j%{?_smp_build_ncpus}'
 %make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
 %endif
 

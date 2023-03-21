@@ -3,7 +3,7 @@
 %global __requires_exclude (%{_privatelibs})
 
 Name:             pgmodeler
-Version:          1.0.1
+Version:          1.0.2
 Release:          1%{?dist}
 Summary:          PostgreSQL Database Modeler
 
@@ -24,8 +24,8 @@ BuildRequires:    libpq-devel
 BuildRequires:    libXext-devel
 BuildRequires:    libxml2-devel
 BuildRequires:    make
-BuildRequires:    qt5-qtbase-devel
-BuildRequires:    qt5-qtsvg-devel
+BuildRequires:    qt6-qtbase-devel
+BuildRequires:    qt6-qtsvg-devel
 # for convert 300x300 logo file to 256x256
 BuildRequires:    ImageMagick
 BuildRequires:    moreutils
@@ -51,7 +51,7 @@ by the user to SQL code and apply them onto database clusters (Version
 # CONFDIR=%%{_sysconfdir}/%%{name} \
 # LANGDIR=%%{_datadir}/locale \
 # SCHEMASDIR=%%{_sysconfdir}/%%{name} \
-%qmake_qt5 \
+%qmake_qt6 \
  PREFIX=%{_prefix} \
  BINDIR=%{_bindir} \
  PRIVATEBINDIR=%{_libexecdir} \
@@ -101,6 +101,9 @@ rm -f %{buildroot}/%{_docdir}/%{name}/LICENSE
 
 
 %changelog
+* Sun Mar 19 2023 Sandro Mani <manisandro@gmail.com> - 1.0.2-1
+- Update to 1.0.2
+
 * Sat Feb 18 2023 Sandro Mani <manisandro@gmail.com> - 1.0.1-1
 - Update to 1.0.1
 

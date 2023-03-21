@@ -2,13 +2,13 @@
 
 Name:           gnome-sudoku
 Epoch:          1
-Version:        44~beta
+Version:        44.0
 Release:        1%{?dist}
 Summary:        GNOME Sudoku game
 
 License:        GPL-3.0-or-later AND CC-BY-SA-3.0
 URL:            https://wiki.gnome.org/Apps/Sudoku
-Source0:        https://download.gnome.org/sources/gnome-sudoku/43/gnome-sudoku-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gio-2.0)
@@ -29,7 +29,7 @@ GNOME version of the popular Sudoku Japanese logic game.
 
 
 %prep
-%autosetup -p1 -n gnome-sudoku-%{tarball_version}
+%autosetup -p1 -n %{name}-%{tarball_version}
 
 %build
 %meson
@@ -54,11 +54,14 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Sudoku.d
 %{_datadir}/dbus-1/services/org.gnome.Sudoku.service
 %{_datadir}/glib-2.0/schemas/org.gnome.Sudoku.gschema.xml
 %{_datadir}/icons/hicolor/*/apps/org.gnome.Sudoku*
-%{_datadir}/metainfo/org.gnome.Sudoku.appdata.xml
+%{_metainfodir}/org.gnome.Sudoku.appdata.xml
 %{_mandir}/man6/gnome-sudoku.6*
 
 
 %changelog
+* Sat Mar 18 2023 David King <amigadave@amigadave.com> - 1:44.0-1
+- Update to 44.0
+
 * Fri Feb 17 2023 David King <amigadave@amigadave.com> - 44~beta-1
 - Update to 44.beta
 

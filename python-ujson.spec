@@ -1,6 +1,6 @@
 Name:           python-ujson
 Version:        5.7.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Ultra fast JSON encoder and decoder written in pure C
 
 # The entire source is BSD-3-Clause, except:
@@ -9,24 +9,16 @@ Summary:        Ultra fast JSON encoder and decoder written in pure C
 #
 #   Portions of code from MODP_ASCII - Ascii transformations (upper/lower, etc)
 #   https://github.com/client9/stringencoders
-#   Copyright (c) 2007  Nick Galbreath -- nickg [at] modp [dot] com. All rights reserved.
 #
-# While the linked GitHub repository is currently under the MIT license,
-# analysis of the history of both https://github.com/ultrajson/ultrajson and
-# https://github.com/client9/stringencoders shows that it was under a
-# BSD-3-Clause license at the time the code was included in UltraJSON. The code
-# in question may be present in python/objToJSON.c, python/ujson.c, and/or
-# python/JSONtoObj.c.
+# BSD-3-Clause but with its own copyright statement
 #
 # ----
 #
 #   Numeric decoder derived from from TCL library
 #   https://opensource.apple.com/source/tcl/tcl-14/tcl/license.terms
-#    * Copyright (c) 1988-1993 The Regents of the University of California.
-#    * Copyright (c) 1994 Sun Microsystems, Inc.
 #
-# Based on the linked license text, this code is under the TCL license. It may
-# be present in python/objToJSON.c, python/ujson.c, and/or python/JSONtoObj.c.
+# TCL: possibly present in python/objToJSON.c, python/ujson.c, and/or
+# python/JSONtoObj.c.
 #
 # ----
 #
@@ -36,8 +28,13 @@ Summary:        Ultra fast JSON encoder and decoder written in pure C
 License:        BSD-3-Clause AND TCL
 URL:            https://github.com/ultrajson/ultrajson
 Source0:        %{pypi_source ujson}
-Source1:        https://github.com/client9/stringencoders/raw/cfd5c1507325ae497ea9bacdacba12c0ffd79d30/COPYING#/LICENSE-MODP_ASCII
-Source2:        https://opensource.apple.com/source/tcl/tcl-14/tcl/license.terms#/LICENSE-TCL
+
+# Include BSD-3-Clause and TCL license text
+# https://github.com/ultrajson/ultrajson/pull/584
+#   Fixes:
+# Please consider including other licenses mentioned in LICENSE.txt
+# https://github.com/ultrajson/ultrajson/issues/565
+Patch:          %{url}/pull/584.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -61,7 +58,6 @@ Summary:        %{summary}
 %autosetup -n ujson-%{version} -p1
 # Remove bundled double-conversion
 rm -vrf deps
-cp -p '%{SOURCE1}' '%{SOURCE2}' .
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -81,12 +77,12 @@ export UJSON_BUILD_DC_LIBS='-ldouble-conversion'
 
 %files -n python3-ujson -f %{pyproject_files}
 # pyproject_files handles LICENSE.txt; verify with “rpm -qL -p …”
-# Text for additional licenses mentioned in LICENSE.txt; see
-# https://github.com/ultrajson/ultrajson/issues/565
-%license LICENSE-MODP_ASCII LICENSE-TCL
 %doc README.md
 
 %changelog
+* Fri Mar 10 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 5.7.0-3
+- Apply upstream PR#565 to add license texts to LICENSE.txt
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

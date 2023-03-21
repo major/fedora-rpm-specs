@@ -6,7 +6,7 @@
 %global url_ver %%(echo %{version} | cut -d. -f1)
 
 Name:       gnome-connections
-Version:    44~rc
+Version:    44.0
 Release:    1%{?dist}
 Summary:    A remote desktop client for the GNOME desktop environment
 
@@ -78,10 +78,13 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Connections
 %{_datadir}/glib-2.0/schemas/org.gnome.Connections.gschema.xml
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.Connections.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.Connections-symbolic.svg
-%{_datadir}/metainfo/org.gnome.Connections.appdata.xml
+%{_metainfodir}/org.gnome.Connections.appdata.xml
 %{_datadir}/mime/packages/org.gnome.Connections.xml
 
 %changelog
+* Sun Mar 19 2023 David King <amigadave@amigadave.com> - 44.0-1
+- Update to 44.0
+
 * Sat Mar 04 2023 David King <amigadave@amigadave.com> - 44~rc-1
 - Update to 44.rc
 

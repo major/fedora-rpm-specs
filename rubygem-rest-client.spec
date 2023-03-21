@@ -8,7 +8,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.1.0
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: Simple HTTP and REST client for Ruby
 License: MIT
 URL: https://github.com/rest-client/rest-client
@@ -20,7 +20,7 @@ Patch0: rubygem-rest-client-2.1.0-Fix-broken-tests-with-Ruby-3.x.patch
 # networking.
 # https://github.com/jbox-web/rest-client/commit/15b20206404f0e59417f1fc202726e5a694d7d76
 Patch1: rubygem-rest-client-2.1.0-Fix-integration-tests-update-www.mozilla.org-CA-Cert.patch
-# https://github.com/jbox-web/rest-client/pull/1
+# https://github.com/jbox-web/rest-client/pull/2
 # ruby3.2 changes URI.parse behavior so that hostname returns
 # empty string instead of nil
 Patch2: rubygem-rest-client-2.1.0-ruby32-URL_parse-change-hostname.patch
@@ -115,6 +115,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Sun Mar 19 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.1.0-11
+- Replace Patch1 with the one upstream formally adopted
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

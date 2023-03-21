@@ -5,11 +5,11 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:		gnome-weather
-Version:	44~rc
+Version:	44.0
 Release:	1%{?dist}
 Summary:	A weather application for GNOME
 
-License:	GPLv2+ and LGPLv2+ and MIT and CC-BY and CC-BY-SA
+License:	GPL-2.0-or-later AND BSD-3-Clause and CC-BY-3.0 and CC-BY-SA-3.0
 URL:		https://wiki.gnome.org/Apps/Weather
 Source0:	https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
 

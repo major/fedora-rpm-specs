@@ -1,11 +1,11 @@
 Name:           jsonrpc-glib
-Version:        3.43.0
+Version:        3.44.0
 Release:        1%{?dist}
 Summary:        A JSON-RPC library for GLib
 
 License:        LGPL-2.1-or-later
 URL:            https://gitlab.gnome.org/GNOME/jsonrpc-glib
-Source0:        https://download.gnome.org/sources/%{name}/3.43/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/3.44/%{name}-%{version}.tar.xz
 
 # https://github.com/chergert/jsonrpc-glib/issues/3
 # https://gitlab.gnome.org/GNOME/jsonrpc-glib/-/issues/2
@@ -72,6 +72,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sat Mar 18 2023 David King <amigadave@amigadave.com> - 3.44.0-1
+- Update to 3.44.0
+
 * Sat Mar 04 2023 David King <amigadave@amigadave.com> - 3.43.0-1
 - Update to 3.43.0
 

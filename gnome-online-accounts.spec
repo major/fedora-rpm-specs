@@ -5,19 +5,18 @@
 %global webkit2gtk_version 2.33.1
 
 Name:		gnome-online-accounts
-Version:	3.47.1
-Release:	4%{?dist}
+Version:	3.48.0
+Release:	1%{?dist}
 Summary:	Single sign-on framework for GNOME
 
 License:	LGPL-2.0-or-later
 URL:		https://wiki.gnome.org/Projects/GnomeOnlineAccounts
-Source0:	https://download.gnome.org/sources/gnome-online-accounts/3.47/%{name}-%{version}.tar.xz
+Source0:	https://download.gnome.org/sources/gnome-online-accounts/3.48/%{name}-%{version}.tar.xz
 
 # RHEL >=9 specific
 # https://gitlab.gnome.org/GNOME/gnome-online-accounts/-/issues/63
 # https://bugzilla.redhat.com/show_bug.cgi?id=1913641
 Patch0:		0001-google-Remove-Photos-support.patch
-#Patch1:         kerberos-fixes.patch
 
 
 BuildRequires:	pkgconfig(gcr-3)
@@ -67,8 +66,6 @@ developing applications that use %{name}.
 %patch0 -p1
 %endif
 
-#%%patch1 -p1
-
 %build
 %meson \
   -Dexchange=true \
@@ -93,7 +90,7 @@ developing applications that use %{name}.
 
 %files -f %{name}.lang
 %license COPYING
-%doc COPYING
+%doc NEWS README
 %dir %{_libdir}/girepository-1.0
 %{_libdir}/girepository-1.0/Goa-1.0.typelib
 %{_libdir}/libgoa-1.0.so.0
@@ -108,8 +105,8 @@ developing applications that use %{name}.
 %{_datadir}/dbus-1/services/org.gnome.OnlineAccounts.service
 %{_datadir}/dbus-1/services/org.gnome.Identity.service
 %{_datadir}/icons/hicolor/*/apps/goa-*.svg
-%{_datadir}/man/man8/goa-daemon.8*
 %{_datadir}/glib-2.0/schemas/org.gnome.online-accounts.gschema.xml
+%{_mandir}/man8/goa-daemon.8*
 
 %files devel
 %{_includedir}/goa-1.0/
@@ -126,6 +123,9 @@ developing applications that use %{name}.
 %{_datadir}/vala/
 
 %changelog
+* Sat Mar 18 2023 David King <amigadave@amigadave.com> - 3.48.0-1
+- Update to 3.48.0
+
 * Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.47.1-4
 - ...but not for flatpaks.
 

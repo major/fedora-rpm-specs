@@ -2,14 +2,13 @@
 %bcond_with perl_HTML_Strip_enables_optional_test
 
 Name:           perl-HTML-Strip
-Version:        2.10
-Release:        25%{?dist}
+Version:        2.11
+Release:        1%{?dist}
 Summary:        Perl extension for stripping HTML markup from text
 License:        GPL+ or Artistic
 
 URL:            https://metacpan.org/release/HTML-Strip
 Source0:        https://cpan.metacpan.org/authors/id/K/KI/KILINRAX/HTML-Strip-%{version}.tar.gz
-Patch0: perl-HTML-Strip-c99.patch
 
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -49,24 +48,19 @@ as well; but removing HTML markup is a much more common problem, hence this
 module lives in the HTML:: namespace.
 
 %prep
-%autosetup -p1 -n HTML-Strip-%{version}
+%autosetup -n HTML-Strip-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS"
-make %{?_smp_mflags}
+/usr/bin/perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
-
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
-find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -exec rm -f {} \;
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
-
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+%{_fixperms} %{buildroot}/*
 
 %check
 unset RELEASE_TESTING
-make test
+%{make_build} test
 
 %files
 %doc Changes README
@@ -75,6 +69,14 @@ make test
 %{_mandir}/man3/HTML*
 
 %changelog
+* Sun Mar 19 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 2.11-1
+- Update to 2.11
+- Drop upstreamed patch
+- Use /usr/bin/perl instead of %%{__perl}
+- Use %%{make_install} instead of "make pure_install"
+- Use %%{make_build} instead of make
+- Pass NO_PACKLIST NO_PERLLOCAL to Makefile.PL
+
 * Sat Feb 25 2023 Florian Weimer <fweimer@redhat.com> - 2.10-25
 - Port to C99
 

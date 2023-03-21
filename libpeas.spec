@@ -1,13 +1,13 @@
 %global apiver 1.0
 
 Name:           libpeas
-Version:        1.34.0
-Release:        3%{?dist}
+Version:        1.36.0
+Release:        1%{?dist}
 Summary:        Plug-ins implementation convenience library
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://wiki.gnome.org/Projects/Libpeas
-Source0:        https://download.gnome.org/sources/%{name}/1.34/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/1.36/%{name}-%{version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -107,6 +107,9 @@ that are needed to write applications that use libpeas.
 %{_datadir}/glade/catalogs/libpeas-gtk.xml
 
 %changelog
+* Sat Mar 18 2023 David King <amigadave@amigadave.com> - 1.36.0-1
+- Update to 1.36.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.34.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-system-monitor
-Version:        44~rc
+Version:        44.0
 Release:        1%{?dist}
 Summary:        Process and resource monitor
 
@@ -69,6 +69,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/gnome-system-monit
 %{_libexecdir}/gnome-system-monitor/
 
 %changelog
+* Sat Mar 18 2023 David King <amigadave@amigadave.com> - 44.0-1
+- Update to 44.0
+
 * Sat Mar 04 2023 David King <amigadave@amigadave.com> - 44~rc-1
 - Update to 44.rc
 
