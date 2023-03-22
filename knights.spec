@@ -1,8 +1,8 @@
 %undefine __cmake_in_source_build
 
 Name:		knights
-Version:	22.12.3
-Release:	2%{?dist}
+Version:	23.03.80
+Release:	1%{?dist}
 Summary:	A chess board for KDE
 
 # KDE e.V. may determine that future GPL versions are accepted
@@ -67,6 +67,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.knights.d
 %{_datadir}/knsrcfiles/knights.knsrc
 
 %changelog
+* Mon Mar 20 2023 Gwyn Ciesla <gwync@protonmail.com> - 23.03.80-1
+- 23.03.80
+
 * Sat Mar 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 22.12.3-2
 - migrated to SPDX license
 

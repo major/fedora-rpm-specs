@@ -3,9 +3,9 @@
 Summary: The client program for the Telnet remote login protocol
 Name: telnet
 Version: 0.17
-Release: 88%{?dist}
+Release: 89%{?dist}
 Epoch: 1
-License: BSD
+License: BSD-3-Clause AND BSD-4-Clause AND BSD-4-Clause-UC
 Source0: ftp://ftp.uk.linux.org/pub/linux/Networking/netkit/netkit-telnet-%{version}.tar.gz
 Url: http://web.archive.org/web/20070819111735/www.hcs.harvard.edu/~dholland/computers/old-netkit.html
 # telnet-client tarball is snapshot of the OpenBSD client telnet
@@ -162,6 +162,9 @@ install -D -p -m644 %SOURCE6 ${RPM_BUILD_ROOT}%{_unitdir}/telnet.socket
 %{_mandir}/man8/telnetd.8*
 
 %changelog
+* Mon Mar 20 2023 Michal Ruprich <mruprich@redhat.com> - 1:0.17-89
+- SPDX migration
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.17-88
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

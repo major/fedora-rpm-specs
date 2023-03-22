@@ -6,7 +6,7 @@
 
 
 Name: rabbitmq-server
-Version: 3.11.10
+Version: 3.11.11
 Release: 1%{?dist}
 License: MPLv1.1
 Source0: https://github.com/rabbitmq/rabbitmq-server/releases/download/v%{version}/%{name}_%{version}.orig.tar.xz
@@ -183,6 +183,9 @@ done
 
 
 %changelog
+* Mon Mar 20 2023 Peter Lemenkov <lemenkov@gmail.com> - 3.11.11-1
+- Ver. 3.11.11
+
 * Fri Mar  3 2023 Peter Lemenkov <lemenkov@gmail.com> - 3.11.10-1
 - Ver. 3.11.10
 

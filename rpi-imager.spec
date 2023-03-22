@@ -1,11 +1,19 @@
 Name:           rpi-imager
-Version:        1.7.3
-Release:        2%{?dist}
+Version:        1.7.4
+Release:        1%{?dist}
 Summary:        Graphical user-interface to write disk images and format SD cards
 
 License:        ASL 2.0
 URL:            https://github.com/raspberrypi/%{name}
 Source0:        %{URL}/archive/v%{version}/%{name}.tar.gz#/%{name}-%{version}.tar.gz
+
+# PR request https://github.com/raspberrypi/rpi-imager/pull/567
+# TODO remove patch in version (PR merged)
+Patch0:         0001-fix-header-import-cstdint.patch
+
+#https://github.com/raspberrypi/rpi-imager/blob/qml/src/CMakeLists.txt#L95
+ExcludeArch:    s390x
+
 
 # Needed to validate the desktop and metainfo files
 BuildRequires:  libappstream-glib
@@ -42,11 +50,12 @@ Graphical user-interface to download and write Raspberry Pi disk images, or
 write custom disk images and format SD cards.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 pushd src
-%cmake
+%cmake -DENABLE_CHECK_VERSION=OFF \
+       -DENABLE_TELEMETRY=OFF
 %cmake_build
 
 %install
@@ -68,6 +77,14 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 %doc README.md
 
 %changelog
+* Sun Mar 19 2023 Onuralp SEZER <thunderbirdtr@fedoraproject.org> - 1.7.4-1
+- rpi-imager version 1.7.4
+- Telemery disabled
+- Auto-update checker disabled
+- autosetup patch param added in case of patches added
+- 0001-fix-header-import-cstdint.patch added
+- ExcludeArch s390x because upstream not supported
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

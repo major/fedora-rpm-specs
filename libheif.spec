@@ -53,7 +53,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       gdk-pixbuf2%{?_isa}
 
 %description -n heif-pixbuf-loader
-This package provides a plugin to load HEIC files in GTK+ applications.
+This package provides a plugin to load HEIF files in GTK+ applications.
 
 %files -n heif-pixbuf-loader
 %{_libdir}/gdk-pixbuf-2.0/*/loaders/libpixbufloader-heif.so
@@ -61,13 +61,13 @@ This package provides a plugin to load HEIC files in GTK+ applications.
 # ----------------------------------------------------------------------
 
 %package        tools
-Summary:        Tools for manipulating HEIC files
+Summary:        Tools for manipulating HEIF files
 License:        MIT
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       shared-mime-info
 
 %description    tools
-This package provides tools for manipulating HEIC files.
+This package provides tools for manipulating HEIF files.
 
 %files tools
 %{_bindir}/heif-*

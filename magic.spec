@@ -1,10 +1,12 @@
 %undefine   __brp_mangle_shebangs
 
 Name:		magic
-Version:	8.3.373
+Version:	8.3.382
 Release:	1%{?dist}
 Summary:	A very capable VLSI layout tool
 
+# Apparently "MIT" in old identifier, but not sure for new identifier
+# Need investigating
 License:	MIT
 URL:		http://opencircuitdesign.com/%{name}/index.html
 
@@ -173,6 +175,9 @@ rm -f %{buildroot}%{_mandir}/man1/extcheck.1*
 %doc	scmos/
 
 %changelog
+* Mon Mar 20 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.382-1
+- 8.3.382
+
 * Mon Mar  6 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.373-1
 - 8.3.373
 

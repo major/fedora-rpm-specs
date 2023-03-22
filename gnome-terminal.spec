@@ -7,11 +7,11 @@
 %define desktop_file_utils_version 0.2.90
 
 Name:    gnome-terminal
-Version: 3.47.92
+Version: 3.48.0
 Release: 1%{?dist}
 Summary: Terminal emulator for GNOME
 
-License: GPLv3+ and GFDL and LGPLv2+
+License: GPL-3.0-or-later AND GFDL-1.3
 URL:     https://wiki.gnome.org/Apps/Terminal
 Source0: https://gitlab.gnome.org/GNOME/%{name}/-/archive/%{version}/%{name}-%{version}.tar.bz2
 Source1: org.gnome.Terminal.gschema.override
@@ -112,6 +112,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Terminal.de
 %{_metainfodir}/org.gnome.Terminal.Nautilus.metainfo.xml
 
 %changelog
+* Mon Mar 20 2023 David King <amigadave@amigadave.com> - 3.48.0-1
+- Update to 3.48.0
+
 * Mon Feb 27 2023 David King <amigadave@amigadave.com> - 3.47.92-1
 - Update to 3.47.92
 

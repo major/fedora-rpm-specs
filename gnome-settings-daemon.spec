@@ -17,7 +17,7 @@
 %global major_version %%(echo %{version} | cut -f 1 -d '~' | cut -f 1 -d '.')
 
 Name:           gnome-settings-daemon
-Version:        44~rc
+Version:        44.0
 Release:        %autorelease
 Summary:        The daemon sharing settings from GNOME to GTK+/KDE applications
 
@@ -104,7 +104,7 @@ developing applications that use %{name}.
 %systemd_user_preun %{systemd_units}
 
 %files -f %{name}.lang
-%license COPYING
+%license COPYING COPYING.LIB
 %doc AUTHORS NEWS README
 
 # list daemons explicitly, so we notice if one goes missing

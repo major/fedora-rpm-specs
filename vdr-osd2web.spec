@@ -10,7 +10,7 @@
 %endif
 
 Name:           vdr-%{pname}
-Version:        0.2.56
+Version:        0.2.58
 Release:        1%{?dist}
 Summary:        VDR skin interface for the browser
 License:        GPLv2+
@@ -78,6 +78,9 @@ install -Dpm 755 scripts/startBrowser.sh %{buildroot}%{vdr_plugindir}/bin/startB
 %{vdr_plugindir}/bin/startBrowser.sh
 
 %changelog
+* Mon Mar 20 2023 Martin Gansser <martinkg@fedoraproject.org> - 0.2.58-1
+- Update to 0.2.58
+
 * Sun Mar 12 2023 Martin Gansser <martinkg@fedoraproject.org> - 0.2.56-1
 - Update to 0.2.56
 

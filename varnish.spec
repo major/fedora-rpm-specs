@@ -22,9 +22,9 @@
 
 # Default: Use jemalloc, as adviced by upstream project
 # Change to 1 to use system allocator (ie. glibc)
-%bcond system_allocator 0
+%bcond_with system_allocator
 
-%if 0%{with system_allocator}
+%if %{with system_allocator}
 # use _lto_cflags if present
 %else
 %global _lto_cflags %{nil}
@@ -33,7 +33,7 @@
 Summary: High-performance HTTP accelerator
 Name: varnish
 Version: 7.3.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD
 URL: https://www.varnish-cache.org/
 Source0: http://varnish-cache.org/_downloads/%{name}-%{version}.tgz
@@ -68,15 +68,18 @@ BuildRequires: ncurses-devel
 BuildRequires: pcre2-devel
 BuildRequires: pkgconfig
 BuildRequires: systemd-units
-%if 0%{with system_allocator}
+%if %{with system_allocator}
 # use glibc
 %else
 BuildRequires: jemalloc-devel
 %endif
 
 # Extra requirements for the build suite
-BuildRequires: nghttp2
+#   needs haproxy2
+%if 0%{?fedora} > 30 || 0%{?rhel} > 8
 BuildRequires: haproxy
+%endif
+BuildRequires: nghttp2
 
 Requires: logrotate
 Requires: ncurses
@@ -91,7 +94,7 @@ Requires(post): systemd-units
 Requires(post): systemd-sysv
 Requires(preun): systemd-units
 Requires(postun): systemd-units
-%if 0%{with system_allocator}
+%if %{with system_allocator}
 # use glibc
 %else
 Requires: jemalloc
@@ -136,7 +139,7 @@ cp redhat/find-provides .
 sed -i 's,rst2man-3.6,rst2man-3.4,g; s,rst2html-3.6,rst2html-3.4,g; s,phinx-build-3.6,phinx-build-3.4,g' configure
 
 %build
-%if 0%{with system_allocator}
+%if %{with system_allocator}
 export CFLAGS="%{optflags}"
 %else
 # nilled _lto_cflags above because they remove the deps on jemalloc.
@@ -173,9 +176,11 @@ export PYTHON=%{__python}
   --with-contrib \
   --docdir=%{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}} \
 %ifarch %ix86
+%if 0%{?fedora} <= 37
   --enable-pcre2-jit=no \
 %endif
-%if 0%{with system_allocator}
+%endif
+%if %{with system_allocator}
   --with-jemalloc=no \
 %endif
 
@@ -294,6 +299,11 @@ test -f /etc/varnish/secret || (uuidgen > /etc/varnish/secret && chmod 0600 /etc
 
 
 %changelog
+* Mon Mar 20 2023 Ingvar Hagelund <ingvar@redpill-linpro.com> - 7.3.0-2
+- Switched from bcond to bcond_with for compatibility with el8 and el9
+- haproxy builddep on systems with haproxy2
+- Disable pcre2-jit only for fedora <= 37 on 32bit x86
+
 * Thu Mar 16 2023 Ingvar Hagelund <ingvar@redpill-linpro.com> - 7.3.0-1
 - New upstream release
 - Added a bcond system_allocator for skipping jemalloc, bz#1917697

@@ -1,27 +1,28 @@
-#we're using a git commit because the pypi tar does not contain any tests but the github source does, the git commit that corresponds to the pypi release is being used
-%global commit e12041cc230188342688fd7426e885fd7e7e9f48
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
+# We’re using a git commit because the PyPI tar does not contain any tests but
+# the github source does; unfortunately, upstream does not tag releases on
+# GitHub, but we are confident we are using the git commit that corresponds to
+# the PyPI release.
+%global commit c6d81ce7eede6db801d4e9a92b27ec5d409d0eab
 
 Name:           python-autograd
-Version:        1.3
+# Because we are using the commit that corresponds to the PyPI release (even
+# though it is not tagged), we do not use the snapinfo version field even
+# though our source URL is based on the git commit hash.
+Version:        1.5
 Release:        %autorelease
 Summary:        Efficiently computes derivatives of numpy code
 
+# SPDX
 License:        MIT
 URL:            https://github.com/HIPS/autograd
-Source0:        https://github.com/HIPS/autograd/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
-
-# Replace inspect.getargspec on Python 3
-# https://github.com/HIPS/autograd/pull/578
-Patch:          %{url}/pull/578.patch
-# numpy 1.20.0 deprecates np.int, with 1.24 it seems removed
-# https://github.com/HIPS/autograd/issues/565
-# https://github.com/HIPS/autograd/commit/01eacff7a4f12e6f7aebde7c4cb4c1c2633f217d
-Patch:          %{name}-01eacff7-rm-deprecated-np_int.patch
+Source0:        %{url}/archive/%{commit}/autograd-%{commit}.tar.gz
 
 BuildArch:      noarch
-BuildRequires:  python3-pytest
+
 BuildRequires:  python3-devel
+
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(scipy)
 
 %global _description %{expand:
 Autograd can automatically differentiate native Python and Numpy code. It can
@@ -38,6 +39,8 @@ gradient-based optimization.}
 %package -n python3-autograd
 Summary:        %{summary}
 
+Recommends:     python3dist(scipy)
+
 %description -n python3-autograd %_description
 
 %package doc
@@ -48,11 +51,11 @@ Documentation for %{name}.
 
 
 %prep
-%autosetup -n autograd-%{commit} -p1
+%autosetup -n autograd-%{commit}
+
 
 %generate_buildrequires
-%pyproject_buildrequires -r
-
+%pyproject_buildrequires
 
 
 %build
@@ -65,15 +68,24 @@ Documentation for %{name}.
 
 
 %check
-%pytest
-%py3_check_import autograd
+%pyproject_check_import
+
+# Four scipy tests are failing
+# https://github.com/HIPS/autograd/issues/588
+k="${k-}${k+ and }not test_mvn_entropy"
+k="${k-}${k+ and }not test_mvn_pdf_sing_cov"
+k="${k-}${k+ and }not test_mvn_logpdf_sing_cov"
+k="${k-}${k+ and }not test_odeint"
+
+%pytest -k "${k-}"
 
 
 %files -n python3-autograd -f %{pyproject_files}
 %doc README.md
 
+
 %files doc
-%doc examples
+%doc examples/
 %license license.txt
 
 

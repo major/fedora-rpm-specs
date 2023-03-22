@@ -6,7 +6,7 @@
 
 Name:           vinagre
 Version:        3.22.0
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        VNC client for GNOME
 
 License:        GPLv2+
@@ -23,6 +23,7 @@ Patch1:         %{name}-rdp-let-cancel-auth-dialog.patch
 
 # https://gitlab.gnome.org/GNOME/vinagre/merge_requests/7
 Patch2:         fix-appstream-data.patch
+Patch3: vinagre-c99.patch
 
 %if 0%{?with_spice}
 BuildRequires:  pkgconfig(spice-client-gtk-3.0)
@@ -113,6 +114,9 @@ make check
 
 
 %changelog
+* Mon Mar 20 2023 Florian Weimer <fweimer@redhat.com> - 3.22.0-28
+- Port to C99 (#2179869)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.22.0-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,13 +2,13 @@
 %global srcname fontname
 
 Name:           python-fontname
-Version:        0.2.0
-Release:        28%{?dist}
+Version:        1.0.0
+Release:        1%{?dist}
 Summary:        A lib for guessing font name
 
 License:        MIT
 URL:            https://github.com/Asvel/fontname
-Source0:        https://pypi.python.org/packages/source/f/%{srcname}/%{srcname}-%{version}.zip
+Source0:        https://files.pythonhosted.org/packages/00/3b/0d282acce368434b16a2e956ebfa18f59317854a5949fadb00edbeff0a8b/%{srcname}-%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -24,7 +24,6 @@ It current supports SFNT format fonts, and is adept at dealing with CJK fonts.
 Summary:        A lib for guessing font name
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
-BuildRequires:  python3-freetype
 %{?python_provide:%python_provide python3-%{srcname}}
 
 %description -n python3-%{srcname}
@@ -36,23 +35,28 @@ It current supports SFNT format fonts, and is adept at dealing with CJK fonts.
 %prep
 %autosetup -n %{srcname}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires -r
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files fontname
 
 %check
-%{__python3} setup.py test
+# add below to make sure initial build will catch runtime import errors
+%pyproject_check_import
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc PKG-INFO README.rst
 %license LICENSE.txt
-%{python3_sitelib}/%{srcname}.py*
-%{python3_sitelib}/__pycache__/%{srcname}*
-%{python3_sitelib}/%{srcname}-%{version}-py3.*.egg-info
 
 %changelog
+* Mon Mar 20 2023 Parag Nemade <pnemade AT redhat DOT com> - 1.0.0-1
+- Update to 1.0.0 version (#2127313)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

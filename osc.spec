@@ -16,9 +16,9 @@
 
 Name:           osc
 Summary:        Open Build Service Commander
-Version:        1.0.0
+Version:        1.0.1
 # Bump the release as necessary to ensure we're one level up from upstream
-Release:        %{obsrel}.%{baserelease}%{?dist}
+Release:        1%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://github.com/openSUSE/%{name}
 Source:         %{URL}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -127,6 +127,9 @@ python3 setup.py test
 %dir %{osc_plugin_dir}
 
 %changelog
+* Mon Mar 20 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.0.1-1
+- 1.0.1
+
 * Thu Mar 16 2023 Dan Čermák <dan.cermak@cgc-instruments.com> - 1.0.0-353.1.1
 - New upstream release 1.0.0
 

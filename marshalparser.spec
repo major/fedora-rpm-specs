@@ -12,6 +12,9 @@ BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
 
 # For tests on various pyc files
+# We intentionally skip those on RHEL to avoid pulling other Pythons into next RHEL.
+# When a new Python is added into RHEL, the new version should be explicitly added.
+%if %{undefined rhel}
 BuildRequires:  python3.6
 BuildRequires:  python3.7
 BuildRequires:  python3.8
@@ -19,9 +22,10 @@ BuildRequires:  python3.9
 BuildRequires:  python3.10
 BuildRequires:  python3.11
 BuildRequires:  python3.12
+%endif
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires -x test
 
 %description
 Parser for Python internal Marshal format which can fix pyc files
@@ -38,7 +42,7 @@ reproducibility.
 %pyproject_save_files %{name}
 
 %check
-%tox
+%pytest
 
 %files -f %{pyproject_files}
 %license LICENSE

@@ -1,12 +1,12 @@
 Summary: Maintains identical copies of files on multiple machines
 Name: rdist
 Version: 6.1.5
-Release: 79%{?dist}
+Release: 80%{?dist}
 Epoch: 1
 # On Feb 17, 2011, Michael A. Cooper gave permission via email for all of his
 # copyrighted work in rdist to be relicensed to the same BSD as the rest of
 # rdist. This is done in Patch15. Documentation of this is in Source3.
-License: BSD
+License: BSD-3-Clause AND BSD-4-Clause-UC
 Source0: http://www.MagniComp.com/download/rdist/rdist-%{version}.tar.gz
 Source1: http://people.redhat.com/pknirsch/src/rdist-v1.1.tar.bz2
 # http://www.magnicomp.com/rdist/rdist-eu-license.shtml
@@ -96,6 +96,9 @@ install -m644 doc/rdistd.man ${RPM_BUILD_ROOT}%{_mandir}/man8/rdistd.8
 %{_mandir}/man8/rdistd.8*
 
 %changelog
+* Mon Mar 20 2023 Michal Ruprich <mruprich@redhat.com> - 1:6.1.5-80
+- SPDX migration
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.1.5-79
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

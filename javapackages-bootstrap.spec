@@ -18,7 +18,7 @@
 #global git_short_hash %(echo %{git_hash} | cut -b -7)
 
 Name:           javapackages-bootstrap
-Version:        1.8.0
+Version:        1.8.1
 Release:        1%{?dist}
 Summary:        A means of bootstrapping Java Packages Tools
 # For detailed info see the file javapackages-bootstrap-PACKAGE-LICENSING
@@ -260,7 +260,7 @@ Provides:       bundled(velocity) = 1.7
 Provides:       bundled(xbean) = 4.18
 Provides:       bundled(xmlunit) = 2.8.2
 Provides:       bundled(xmvn-generator) = 1.2.1
-Provides:       bundled(xmvn) = 4.1.0
+Provides:       bundled(xmvn) = 4.2.0
 Provides:       bundled(xz-java) = 1.9
 
 BuildRequires:  byaccj
@@ -383,6 +383,9 @@ sed -i s/_xmvngen_/_jpbgen_/ %{buildroot}%{_fileattrsdir}/jpbgen.attr
 %doc AUTHORS
 
 %changelog
+* Mon Mar 20 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.8.1-1
+- Update to upstream version 1.8.1
+
 * Fri Mar 17 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.8.0-1
 - Update to upstream version 1.8.0
 

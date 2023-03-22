@@ -17,7 +17,7 @@
 %bcond_with compat_build
 %bcond_without check
 
-%global rc_ver 4
+#global rc_ver 4
 %global maj_ver 16
 %global min_ver 0
 %global patch_ver 0
@@ -75,7 +75,7 @@
 
 Name:		%{pkg_name}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}
-Release:	2%{?dist}
+Release:	1%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -571,6 +571,9 @@ fi
 %endif
 
 %changelog
+* Mon Mar 20 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0-1
+- Update to LLVM 16.0.0
+
 * Thu Mar 16 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc4-2
 - Fix the ppc64le triple
 

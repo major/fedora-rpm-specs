@@ -100,8 +100,11 @@ make test
 %files
 %license LICENSE
 %doc Changes CONTRIBUTORS README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*.3*
+%dir %{perl_vendorlib}/DateTimeX
+%{perl_vendorlib}/DateTimeX/Easy
+%{perl_vendorlib}/DateTimeX/Easy.pm
+%{_mandir}/man3/DateTimeX::Easy.*
+%{_mandir}/man3/DateTimeX::Easy::*.*
 
 %files tests
 %{_libexecdir}/%{name}

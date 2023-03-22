@@ -1,15 +1,17 @@
 %{?mingw_package_header}
 
+# Disable debugsource packages
+%undefine _debugsource_packages
+
 %global pypi_name numpy
 
 Name:          mingw-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
 Version:       1.24.2
-Release:       1%{?dist}
-BuildArch:     noarch
+Release:       3%{?dist}
 
 # Everything is BSD except for class SafeEval in numpy/lib/utils.py which is Python
-License:       BSD and Python
+License:       BSD-3-Clause AND Apache-2.0
 URL:           http://www.numpy.org/
 Source0:       %{pypi_source}
 
@@ -18,6 +20,7 @@ Patch0:        numpy_mingw.patch
 # Drop werror, fails with py3.11
 Patch1:        numpy_werror.patch
 
+BuildRequires: gcc-c++
 
 BuildRequires: mingw32-filesystem >= 102
 BuildRequires: mingw32-gcc-c++
@@ -57,13 +60,15 @@ MinGW Windows Python3 %{pypi_name} library.
 
 
 %build
-# Add -fno-asynchronous-unwind-tables to workaround "Error: invalid register for .seh_savexmm"
-# See https://stackoverflow.com/questions/43152633/invalid-register-for-seh-savexmm-in-cygwin
-MINGW32_CFLAGS="%{mingw32_cflags} -fno-asynchronous-unwind-tables" %mingw32_py3_build
-MINGW64_CFLAGS="%{mingw64_cflags} -fno-asynchronous-unwind-tables" %mingw64_py3_build
+%mingw32_py3_build_host
+%mingw64_py3_build_host
+%mingw32_py3_build
+%mingw64_py3_build
 
 
 %install
+%mingw32_py3_install_host
+%mingw64_py3_install_host
 %mingw32_py3_install
 %mingw64_py3_install
 
@@ -78,6 +83,10 @@ mkdir -p %{buildroot}%{mingw32_includedir}
 mkdir -p %{buildroot}%{mingw64_includedir}
 ln -s %{mingw32_python3_sitearch}/numpy/core/include/numpy/ %{buildroot}%{mingw32_includedir}/numpy
 ln -s %{mingw64_python3_sitearch}/numpy/core/include/numpy/ %{buildroot}%{mingw64_includedir}/numpy
+mkdir -p %{buildroot}%{_prefix}/%{mingw32_target}/include
+mkdir -p %{buildroot}%{_prefix}/%{mingw64_target}/include
+ln -s %{mingw32_python3_sitearch}/numpy/core/include/numpy/ %{buildroot}%{_prefix}/%{mingw32_target}/include/numpy
+ln -s %{mingw64_python3_sitearch}/numpy/core/include/numpy/ %{buildroot}%{_prefix}/%{mingw64_target}/include/numpy
 
 
 %files -n mingw32-python3-%{pypi_name}
@@ -88,6 +97,13 @@ ln -s %{mingw64_python3_sitearch}/numpy/core/include/numpy/ %{buildroot}%{mingw6
 %{mingw32_includedir}/%{pypi_name}
 %{mingw32_python3_sitearch}/%{pypi_name}/
 %{mingw32_python3_sitearch}/%{pypi_name}-%{version}-py%{mingw32_python3_version}.egg-info/
+%{_prefix}/%{mingw32_target}/bin/f2py
+%{_prefix}/%{mingw32_target}/bin/f2py3
+%{_prefix}/%{mingw32_target}/bin/f2py%{mingw32_python3_version}
+%dir %{_prefix}/%{mingw32_target}/include/
+%{_prefix}/%{mingw32_target}/include/%{pypi_name}
+%{mingw32_python3_hostsitearch}/%{pypi_name}/
+%{mingw32_python3_hostsitearch}/%{pypi_name}-%{version}-py%{mingw32_python3_version}.egg-info/
 
 %files -n mingw64-python3-%{pypi_name}
 %license LICENSE.txt
@@ -97,9 +113,22 @@ ln -s %{mingw64_python3_sitearch}/numpy/core/include/numpy/ %{buildroot}%{mingw6
 %{mingw64_includedir}/%{pypi_name}
 %{mingw64_python3_sitearch}/%{pypi_name}/
 %{mingw64_python3_sitearch}/%{pypi_name}-%{version}-py%{mingw64_python3_version}.egg-info/
+%{_prefix}/%{mingw64_target}/bin/f2py
+%{_prefix}/%{mingw64_target}/bin/f2py3
+%{_prefix}/%{mingw64_target}/bin/f2py%{mingw32_python3_version}
+%dir %{_prefix}/%{mingw64_target}/include/
+%{_prefix}/%{mingw64_target}/include/%{pypi_name}
+%{mingw64_python3_hostsitearch}/%{pypi_name}/
+%{mingw64_python3_hostsitearch}/%{pypi_name}-%{version}-py%{mingw64_python3_version}.egg-info/
 
 
 %changelog
+* Mon Mar 20 2023 Sandro Mani <manisandro@gmail.com> - 1.24.2-3
+- Package headers
+
+* Mon Mar 20 2023 Sandro Mani <manisandro@gmail.com> - 1.24.2-2
+- Add host build
+
 * Sun Mar 19 2023 Sandro Mani <manisandro@gmail.com> - 1.24.2-1
 - Update to 1.24.2
 

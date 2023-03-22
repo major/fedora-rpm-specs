@@ -2,8 +2,8 @@
 %global sover 30
 
 Name:           openexr
-Version:        3.1.5
-Release:        4%{?dist}
+Version:        3.1.6
+Release:        1%{?dist}
 Summary:        Provides the specification and reference implementation of the EXR file format
 
 License:        BSD
@@ -144,6 +144,9 @@ Summary:        Development files for %{name}
 
 
 %changelog
+* Mon Mar 20 2023 Richard Shaw <hobbes1069@gmail.com> - 3.1.6-1
+- Update to 3.1.6.
+
 * Thu Feb 23 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 3.1.5-4
 - Do not use broad globs in shared directories
 

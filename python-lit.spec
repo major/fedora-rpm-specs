@@ -1,5 +1,5 @@
 %global lit_version 16.0.0
-%global rc_ver 4
+#global rc_ver 4
 #global post_ver 0
 
 %bcond_without check
@@ -57,6 +57,9 @@ sed -i -e '1{\@^#!/usr/bin/env python@d}' %{buildroot}%{python3_sitelib}/lit/*.p
 %{_bindir}/lit
 
 %changelog
+* Mon Mar 20 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0-1
+- Update to LLVM 16.0.0
+
 * Tue Mar 14 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc4-1
 - Update to LLVM 16.0.0 RC4
 

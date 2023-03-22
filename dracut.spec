@@ -7,7 +7,7 @@
 %global __requires_exclude pkg-config
 
 # rpmdev-bumpspec and releng automation compatible variable
-%global baserelease 4
+%global baserelease 5
 
 Name: dracut
 Version: 059
@@ -52,6 +52,11 @@ Patch5: 2237-kmoddir-fix-trailing-forwardslash-handling.patch
 # revert(network-manager): avoid restarting NetworkManager
 # https://github.com/dracutdevs/dracut/pull/2134
 Patch6: 2134-revert-avoid-restarting-NetworkManager.patch
+
+# Support MACAddressPolicy=none for bond/bridge/team devices
+# https://fedoraproject.org/wiki/Changes/MAC_Address_Policy_none
+# https://github.com/dracutdevs/dracut/pull/2224
+Patch7: 2224-network-include-default-mac-none-link.patch
 
 BuildRequires: bash
 BuildRequires: git-core
@@ -459,6 +464,9 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{_prefix}/lib/kernel/install.d/51-dracut-rescue.install
 
 %changelog
+* Tue Mar 14 2023 Dusty Mabe <dusty@dustymabe.com> - 059-5
+- feat(network): include 98-default-mac-none.link if it exists
+
 * Thu Mar 09 2023 Pavel Valena <pvalena@redhat.com> - 059-4
 - fix(dmsquash-live): restore compatibility with earlier releases
 - Re-add overlayfs module (drop patch 1934)

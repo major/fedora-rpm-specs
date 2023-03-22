@@ -4,7 +4,7 @@
 
 Name:           fcitx5-mozc
 %global forgeurl https://github.com/fcitx/mozc
-%global commit 0cd24273e73ab360c8dbb6e2a94acb135743ee13
+%global commit 242b4f703cba27d4ff4dc123c713a478f964e001
 %global archivename %{name}-%{commit}
 %forgemeta 
 
@@ -52,7 +52,7 @@ Source2:        http://www.post.japanpost.jp/zipcode/dl/jigyosyo/zip/jigyosyo.zi
 
 # add -v to ninja command, to make verbose output during building
 Patch0:         mozc-build-verbosely.patch
-Patch1:         mozc-gcc13.patch
+Patch1:         0001-use-system-absl.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  gettext 
@@ -86,8 +86,8 @@ A wrapper of mozc for fcitx5.
 
 %prep
 %setup -q -n mozc -a 1 -a 2
-%patch0 -p1
-%patch1 -p1
+%patch 0 -p1
+%patch 1 -p1
 (cd src/data/dictionary_oss;
 PYTHONPATH="${PYTHONPATH}:../../" python3 ../../dictionary/gen_zip_code_seed.py --zip_code=../../../KEN_ALL.CSV --jigyosyo=../../../JIGYOSYO.CSV >> dictionary09.txt;
 )
@@ -106,7 +106,7 @@ pushd src
 # specify an another path for those mozc server files
 # to enable this to co-exist with ibus-mozc
 QTDIR=%{_prefix} \
-GYP_DEFINES="document_dir=%{_datadir}/licenses/%{name} use_libzinnia=1 use_libprotobuf=1 zinnia_model_file=%{_datadir}/zinnia/model/tomoe/handwriting-ja.model" \
+GYP_DEFINES="document_dir=%{_datadir}/licenses/%{name} use_libzinnia=1 use_system_abseil_cpp=1 use_libprotobuf=1 zinnia_model_file=%{_datadir}/zinnia/model/tomoe/handwriting-ja.model" \
 python3 build_mozc.py gyp --gypdir=%{_bindir} --server_dir=%{server_dir} --target_platform=Linux
 python3 build_mozc.py build -c Release server/server.gyp:mozc_server gui/gui.gyp:mozc_tool unix/fcitx5/fcitx5.gyp:fcitx5-mozc
 popd

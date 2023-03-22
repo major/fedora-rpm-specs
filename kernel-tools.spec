@@ -34,7 +34,7 @@
 %global upstream_major 6
 
 # The rc snapshot level
-%global rcrev 2
+%global rcrev 3
 # Set rpm version accordingly
 %global rpmversion %{upstream_major}.%{upstream_sublevel}.0
 %endif
@@ -570,6 +570,9 @@ popd
 %{_mandir}/man1/rtla.1.gz
 
 %changelog
+* Mon Mar 20 2023 Justin M. Forbes <jforbes@fedoraproject.org> - 6.3.0-0.rc3.git0.1
+- Linux v6.3-rc3
+
 * Mon Mar 13 2023 Justin M. Forbes <jforbes@fedoraproject.org> - 6.3.0-0.rc2.git0.1
 - Linux v6.3-rc2
 

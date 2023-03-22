@@ -1,6 +1,6 @@
 Name:           fedora-repo-zdicts
-Version:        2208.1
-Release:        2%{?dist}
+Version:        2303.1
+Release:        1%{?dist}
 Summary:        Zstd dictionaries for Fedora repository metadata
 License:        BSD
 URL:            https://pagure.io/fedora-repo-zdicts
@@ -39,11 +39,14 @@ metadata to improve their compression.
 
 
 %changelog
+* Mon Mar 20 2023 Jonathan Dieter <jdieter@gmail.com> - 2303.1-1
+- Update with F38 dictionaries and drop F34 and F35 dictionaries
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2208.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
 * Tue Aug 23 2022 Jonathan Dieter <jdieter@gmail.com> - 2208.1-1
-- Update with F36 dictionaries and drop F32 and F33 dictionaries
+- Update with F37 dictionaries and drop F32 and F33 dictionaries
 
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2203.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild

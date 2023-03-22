@@ -1,6 +1,6 @@
 Name:           perl-ExtUtils-H2PM
-Version:        0.10
-Release:        20%{?dist}
+Version:        0.11
+Release:        1%{?dist}
 Summary:        Automatically generate perl modules to wrap C header files
 License:        GPL+ or Artistic
 
@@ -8,11 +8,19 @@ URL:            https://metacpan.org/release/ExtUtils-H2PM
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PEVANS/ExtUtils-H2PM-%{version}.tar.gz
 
 BuildArch:      noarch
-
+# build requirements
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::CBuilder)
 BuildRequires:  perl(Module::Build)
+# runtime requirements
+BuildRequires:  perl(Carp)
+BuildRequires:  perl(Exporter)
+BuildRequires:  perl(ExtUtils::CBuilder)
+BuildRequires:  perl(List::Util) >= 1.39
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+# test requirements
 BuildRequires:  perl(Test::More)
+BuildRequires:  perl(constant)
 
 Requires:       perl(ExtUtils::CBuilder)
 
@@ -34,7 +42,7 @@ The module then requires no XS module to be loaded at run time.
 
 
 %build
-%{__perl} Build.PL installdirs=vendor
+/usr/bin/perl Build.PL installdirs=vendor
 ./Build
 
 
@@ -55,6 +63,11 @@ The module then requires no XS module to be loaded at run time.
 
 
 %changelog
+* Mon Mar 20 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.11-1
+- Update to 0.11
+- Update dependencies
+- Use /usr/bin/perl instead of %%{__perl}
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

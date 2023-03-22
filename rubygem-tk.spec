@@ -2,10 +2,17 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.4.0
-Release:	8%{?dist}
+Release:	9%{?dist}
 
 Summary:	Tk interface module using tcltklib
-License:	BSD or Ruby
+# Some license texts under sample/ such as
+## sample/demos-jp/doc.org/license.terms
+# or so are all TCL
+# TODO
+# sample/tkextlib/iwidgets/catalog_demo/Orig_LICENSE.txt
+# sample/tkextlib/tile/Orig_LICENSE.txt
+# apparently "MIT" in old format, but new format license tag unknown
+License:	BSD-2-Clause OR Ruby
 URL:		https://github.com/ruby/tk
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
 
@@ -22,6 +29,7 @@ Tk interface module using tcltklib.
 
 %package	doc
 Summary:	Documentation for %{name}
+License:	(BSD-2-Clause OR Ruby) AND TCL AND MIT
 Requires:	%{name} = %{version}-%{release}
 BuildArch:	noarch
 
@@ -101,7 +109,8 @@ popd
 %files doc
 %doc	%{gem_docdir}
 %doc	%{gem_instdir}/README.fork
-%{gem_instdir}/sample
+# Some files under the following are under TCL
+%{gem_instdir}/sample/
 
 %doc	%{gem_instdir}/README.ActiveTcl
 %doc	%{gem_instdir}/MANUAL_tcltklib.eng

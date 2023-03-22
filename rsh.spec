@@ -3,8 +3,8 @@
 Summary: Clients for remote access commands (rsh, rlogin, rcp)
 Name: rsh
 Version: 0.17
-Release: 104%{?dist}
-License: BSD
+Release: 105%{?dist}
+License: BSD-4-Clause-UC
 
 BuildRequires: make
 BuildRequires: perl-interpreter, ncurses-devel, pam-devel, audit-libs-devel, systemd, gcc
@@ -259,6 +259,9 @@ install -m644 %SOURCE10 %{buildroot}%{_unitdir}/rexec.socket
 %{_mandir}/man8/*.8*
 
 %changelog
+* Mon Mar 20 2023 Michal Ruprich <mruprich@redhat.com> - 0.17-105
+- SPDX migration
+
 * Tue Jan 31 2023 Nikita Popov <npopov@redhat.com> - 0.17-104
 - Port to C99 (fix rhbz#2165891)
 

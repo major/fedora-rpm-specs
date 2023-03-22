@@ -1,8 +1,8 @@
 %global _hardened_build 1
 
 Name:           wesnoth
-Version:        1.17.13
-Release:        3%{?dist}
+Version:        1.17.14
+Release:        1%{?dist}
 Summary:        Turn-based strategy game with a fantasy theme
 
 License:        GPL-2.0-or-later
@@ -32,6 +32,7 @@ BuildRequires:  readline-devel
 BuildRequires:  python3-scons
 BuildRequires:  openssl-devel
 BuildRequires:  libvorbis-devel
+BuildRequires:  libcurl-devel
 BuildRequires:  systemd
 
 %description
@@ -175,6 +176,9 @@ done
 %{_mandir}/*/man6/wesnoth*.6*
 
 %changelog
+* Mon Mar 20 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.17.14-1
+- 1.17.14
+
 * Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.17.13-3
 - migrated to SPDX license
 

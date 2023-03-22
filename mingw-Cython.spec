@@ -1,20 +1,20 @@
 %{?mingw_package_header}
 
-# Causes build failures
-%undefine _auto_set_build_flags
+# Disable debugsource packages
+%undefine _debugsource_packages
 
 %global pypi_name Cython
 
 Name:          mingw-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
 Version:       0.29.33
-Release:       1%{?dist}
-BuildArch:     noarch
+Release:       2%{?dist}
 
 License:       Apache-2.0
 URL:           http://www.cython.org
 Source:        %{pypi_source}
 
+BuildRequires: gcc
 
 BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-dlfcn
@@ -55,11 +55,15 @@ MinGW Windows Python3 %{pypi_name} library.
 
 
 %build
+%mingw32_py3_build_host_wheel
+%mingw64_py3_build_host_wheel
 %mingw32_py3_build_wheel
 %mingw64_py3_build_wheel
 
 
 %install
+%mingw32_py3_install_host_wheel
+%mingw64_py3_install_host_wheel
 %mingw32_py3_install_wheel
 %mingw64_py3_install_wheel
 
@@ -74,6 +78,14 @@ MinGW Windows Python3 %{pypi_name} library.
 %{mingw32_python3_sitearch}/pyximport/
 %{mingw32_python3_sitearch}/%{pypi_name}/
 %{mingw32_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
+%{_prefix}/%{mingw32_target}/bin/cygdb
+%{_prefix}/%{mingw32_target}/bin/cython
+%{_prefix}/%{mingw32_target}/bin/cythonize
+%{mingw32_python3_hostsitearch}/cython.py
+%{mingw32_python3_hostsitearch}/__pycache__/cython*.pyc
+%{mingw32_python3_hostsitearch}/pyximport/
+%{mingw32_python3_hostsitearch}/%{pypi_name}/
+%{mingw32_python3_hostsitearch}/%{pypi_name}-%{version}.dist-info/
 
 %files -n mingw64-python3-%{pypi_name}
 %license LICENSE.txt
@@ -85,9 +97,20 @@ MinGW Windows Python3 %{pypi_name} library.
 %{mingw64_python3_sitearch}/pyximport/
 %{mingw64_python3_sitearch}/%{pypi_name}/
 %{mingw64_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
+%{_prefix}/%{mingw64_target}/bin/cygdb
+%{_prefix}/%{mingw64_target}/bin/cython
+%{_prefix}/%{mingw64_target}/bin/cythonize
+%{mingw64_python3_hostsitearch}/cython.py
+%{mingw64_python3_hostsitearch}/__pycache__/cython*.pyc
+%{mingw64_python3_hostsitearch}/pyximport/
+%{mingw64_python3_hostsitearch}/%{pypi_name}/
+%{mingw64_python3_hostsitearch}/%{pypi_name}-%{version}.dist-info/
 
 
 %changelog
+* Mon Mar 20 2023 Sandro Mani <manisandro@gmail.com> - 0.29.33-2
+- Add host build
+
 * Sat Feb 18 2023 Sandro Mani <manisandro@gmail.com> - 0.29.33-1
 - Update to 0.29.33
 

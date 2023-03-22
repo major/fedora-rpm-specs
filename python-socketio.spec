@@ -14,6 +14,10 @@ License:        MIT
 URL:            https://github.com/miguelgrinberg/python-socketio
 Source0:        %{url}/archive/v%{version}/python-socketio-%{version}.tar.gz
 
+# Downstream-only: patch out test coverage analysis
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+Patch:          0001-Downstream-only-patch-out-test-coverage-analysis.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -55,7 +59,7 @@ Summary:        Documentation for python-socketio
 
 
 %prep
-%autosetup
+%autosetup -p1
 # Fix “/usr/bin/env python” shebangs in the examples
 %py3_shebang_fix examples
 # Don’t ship package-lock.json files with the examples. Overzealous bug-filing

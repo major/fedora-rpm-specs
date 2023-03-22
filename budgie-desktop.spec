@@ -8,7 +8,7 @@
 
 Name:           budgie-desktop
 Version:        10.7.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A feature-rich, modern desktop designed to keep out the way of the user
 
 License:        GPLv2 and LGPLv2
@@ -16,6 +16,7 @@ URL:            https://github.com/BuddiesOfBudgie/budgie-desktop
 Source0:        %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz
 Source1:        %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz.asc
 Source2:        https://joshuastrobl.com/pubkey.gpg
+Patch0:         budgie-desktop-c99.patch
 
 BuildRequires:  pkgconfig(accountsservice) >= 0.6.55
 BuildRequires:  pkgconfig(alsa) >= 1.2.6
@@ -102,7 +103,7 @@ Documentation for budgie-desktop
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup
+%autosetup -p1
 
 %build
 %meson -Dwith-hibernate=false
@@ -183,6 +184,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/%{name}/*
 
 %changelog
+* Thu Mar 16 2023 Florian Weimer <fweimer@redhat.com> - 10.7.1-2
+- Apply upstream patch to fix C99 compatibility issue (#2179136)
+
 * Sun Feb 19 2023 Joshua Strobl <me@joshuastrobl.com> - 10.7.1-1
 - Update to Budgie 10.7.1 release
 

@@ -93,7 +93,7 @@ Version: 9.4.4
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 16%{?dist}
+Release: 17%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD and HaskellReport
@@ -989,6 +989,18 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Mon Mar 20 2023 Jens Petersen <petersen@redhat.com> - 9.4.4-17
+- suffix hadrian with ghc_major
+- only add ld.so.conf.d and remove RPATH if _ghcdynlibdir
+- do not duplicate libHSrts-*.so in filelist
+- add debian haddock-remove-googleapis-fonts.patch
+- update buildpath-abi-stability.patch
+- mv ld.so.conf.d out of rts block
+- use ghcliblib everywhere and add its subdirs
+- update abicheck with ghc_major
+- sync packaging changes: subpackage ghc-bignum, llvm13, -W, _ghcdynlibdir
+- build with ghc9.2
+
 * Fri Jan  6 2023 Jens Petersen <petersen@redhat.com> - 9.4.4-16
 - epel9 s390x: re-enable hadrian using llvm12 (#2141054)
 

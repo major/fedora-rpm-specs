@@ -9,7 +9,7 @@
 
 Summary:        Lua binding for OpenSSL library
 Name:           lua-sec
-Version:        1.3.0
+Version:        1.3.1
 Release:        1%{?dist}
 License:        MIT
 URL:            https://github.com/brunoos/luasec
@@ -120,6 +120,9 @@ lua-%{lua_compat_version} -e \
 %endif
 
 %changelog
+* Mon Mar 20 2023 Robert Scheck <robert@fedoraproject.org> 1.3.1-1
+- Upgrade to 1.3.1 (#2179984)
+
 * Wed Mar 15 2023 Robert Scheck <robert@fedoraproject.org> 1.3.0-1
 - Upgrade to 1.3.0 (#2178605)
 

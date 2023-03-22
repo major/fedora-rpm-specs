@@ -7,7 +7,7 @@
 
 Name: vagrant
 Version: 2.2.19
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Build and distribute virtualized development environments
 License: MIT
 URL: http://vagrantup.com
@@ -40,6 +40,10 @@ Patch4: vagrant-pr12913-ruby32-File_exists-removal.patch
 # and also one more fix for File.exists-removal
 # https://github.com/hashicorp/vagrant/commit/2fe4056a7dcf96dd894875b02032a988777e05d4
 Patch5: vagrant-2.2.3-ruby32-File_exists-removal-zsh-test.patch
+# Prevent trailing space character on user agent
+# https://bugzilla.redhat.com/show_bug.cgi?id=2177215
+# https://github.com/hashicorp/vagrant/pull/12925/
+Patch6: vagrant-2.3.1-Fix-downloader-user-agent.patch
 
 # The load directive is supported since RPM 4.12, i.e. F21+. The build process
 # fails on older Fedoras.
@@ -139,6 +143,7 @@ Documentation for %{name}.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 # TODO: package vagrant_cloud, as it is not in Fedora yet
 %gemspec_remove_dep -s %{name}.gemspec -g vagrant_cloud
@@ -517,6 +522,9 @@ end
 %{vagrant_plugin_instdir}/vagrant-spec.config.example.rb
 
 %changelog
+* Thu Mar 16 2023 Pavel Valena <pvalena@redhat.com> - 2.2.19-10
+- Handle URL properly
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

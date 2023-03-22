@@ -1,5 +1,5 @@
 Name: dmapd
-Version: 0.0.93
+Version: 0.0.94
 Release: %autorelease
 Summary: A server that provides DAAP and DPAP shares
 

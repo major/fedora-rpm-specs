@@ -3795,6 +3795,9 @@ fi
 - New patches: 17
 - Updated patches: 4
 
+* Mon Jan 30 2023 Miro Hrončok <mhroncok@redhat.com> - 6.26.10-2
+- Rebuilt to change Python shebangs to /usr/bin/python3.6 on EPEL 8
+
 * Mon Jan 30 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.26.10-5
 - Adapt to numpy 1.24
 

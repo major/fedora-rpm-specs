@@ -25,12 +25,6 @@
 %bcond_without alsa
 %bcond_without vulkan
 
-%if (0%{?fedora} && 0%{?fedora} < 35)
-%bcond_without media_session
-%else
-%bcond_with media_session
-%endif
-
 # Features disabled for RHEL 8
 %if 0%{?rhel} && 0%{?rhel} < 9
 %bcond_with pulse
@@ -68,18 +62,11 @@ Source0:        https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/%{git
 Source0:        https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/%{version}/pipewire-%{version}.tar.gz
 %endif
 
-%if %{with media-session}
-Source1:        https://gitlab.freedesktop.org/pipewire/media-session/-/archive/%{ms_version}/media-session-%{ms_version}.tar.gz
-%endif
-
 ## upstream patches
 
 ## upstreamable patches
 
 ## fedora patches
-%if %{with media-session}
-Patch1001:      0001-Build-media-session-from-local-tarbal.patch
-%endif
 
 
 BuildRequires:  gettext
@@ -188,24 +175,6 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description utils
 This package contains command line utilities for the PipeWire media server.
-
-%if %{with media_session}
-%package media-session
-Summary:        PipeWire Media Session Manager
-License:        MIT
-Recommends:     %{name}%{?_isa} = %{version}-%{release}
-Obsoletes:      %{name}-libpulse < %{version}-%{release}
-# before 0.3.30-5 the session manager was in the main pipewire package
-Conflicts:      %{name}%{?_isa} < 0.3.30-5
-
-# Virtual Provides to support swapping between PipeWire session manager implementations
-Provides:       pipewire-session-manager
-Conflicts:      pipewire-session-manager
-
-%description media-session
-This package contains the reference Media Session Manager for the
-PipeWire media server.
-%endif
 
 %if %{with alsa}
 %package alsa
@@ -370,7 +339,7 @@ cp %{SOURCE1} subprojects/packagefiles/
 %ifarch s390x
     -D bluez5-codec-ldac=disabled						\
 %endif
-    %{!?with_media_session:-D session-managers=[]} 				\
+    -D session-managers=[] 							\
     %{!?with_jack:-D pipewire-jack=disabled} 					\
     %{!?with_jackserver_plugin:-D jack=disabled} 				\
     %{!?with_libcamera_plugin:-D libcamera=disabled} 				\
@@ -389,10 +358,6 @@ echo %{_libdir}/pipewire-%{apiversion}/jack/ > %{buildroot}%{_sysconfdir}/ld.so.
 %else
 rm %{buildroot}%{_datadir}/pipewire/jack.conf
 
-%if %{with media_session}
-rm %{buildroot}%{_datadir}/pipewire/media-session.d/with-jack
-%endif
-
 %endif
 
 %if %{with alsa}
@@ -402,10 +367,6 @@ cp %{buildroot}%{_datadir}/alsa/alsa.conf.d/50-pipewire.conf \
 cp %{buildroot}%{_datadir}/alsa/alsa.conf.d/99-pipewire-default.conf \
         %{buildroot}%{_sysconfdir}/alsa/conf.d/99-pipewire-default.conf
 
-%if %{with media_session}
-touch %{buildroot}%{_datadir}/pipewire/media-session.d/with-alsa
-%endif
-
 %endif
 
 %if ! %{with pulse}
@@ -414,16 +375,9 @@ rm %{buildroot}%{_bindir}/pipewire-pulse
 rm %{buildroot}%{_userunitdir}/pipewire-pulse.*
 rm %{buildroot}%{_datadir}/pipewire/pipewire-pulse.conf
 
-%if %{with media_session}
-rm %{buildroot}%{_datadir}/pipewire/media-session.d/with-pulseaudio
-%endif
-
 %endif
 
 %find_lang %{name}
-%if %{with media_session}
-%find_lang media-session
-%endif
 
 # upstream should use udev.pc
 mkdir -p %{buildroot}%{_prefix}/lib/udev/rules.d
@@ -459,11 +413,6 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %systemd_user_post pipewire-pulse.socket
 %endif
 
-%if %{with media_session}
-%post media-session
-%systemd_user_post pipewire-media-session.service
-%endif
-
 %files
 %license LICENSE COPYING
 %doc README.md NEWS
@@ -482,28 +431,6 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_datadir}/pipewire/pipewire-aes67.conf
 %{_mandir}/man5/pipewire.conf.5*
 %config(noreplace) %{_sysconfdir}/security/limits.d/*.conf
-
-%if %{with media_session}
-%files media-session -f media-session.lang
-%{_bindir}/pipewire-media-session
-%{_userunitdir}/pipewire-media-session.service
-%dir %{_datadir}/pipewire/media-session.d/
-%{_datadir}/pipewire/media-session.d/alsa-monitor.conf
-%{_datadir}/pipewire/media-session.d/bluez-monitor.conf
-%{_datadir}/pipewire/media-session.d/media-session.conf
-%{_datadir}/pipewire/media-session.d/v4l2-monitor.conf
-
-%if %{with alsa}
-%{_datadir}/pipewire/media-session.d/with-alsa
-%endif
-%if %{with jack}
-%{_datadir}/pipewire/media-session.d/with-jack
-%endif
-%if %{with pulse}
-%{_datadir}/pipewire/media-session.d/with-pulseaudio
-%endif
-
-%endif
 
 %files libs -f %{name}.lang
 %license LICENSE COPYING

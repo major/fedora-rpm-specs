@@ -403,8 +403,8 @@ make -C gcc-plugin clean
 BUILD_FLAGS="-fplugin=%{_tmppath}/tmp_annobin.so"
 
 # Disable the standard annobin plugin so that we do get conflicts.
-# Note - Fedora's rpm uses a different way of evaluating macros. 
-%if 0%{?fedora} == 0
+# Note - rpm-4.10 uses a different way of evaluating macros.
+%if 0%{?rhel} && 0%{?rhel} < 7
 OPTS="$(rpm --eval '%undefine _annotated_build %build_cflags %build_ldflags')"
 %else
 OPTS="$(rpm --undefine=_annotated_build --eval '%build_cflags %build_ldflags')"

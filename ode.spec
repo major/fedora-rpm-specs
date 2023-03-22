@@ -1,17 +1,18 @@
 %global somajor 8
 
 Name:           ode
-Version:        0.16.2
-Release:        3%{?dist}
+Version:        0.16.3
+Release:        1%{?dist}
 Summary:        High performance library for simulating rigid body dynamics
 License:        BSD or LGPLv2+
 URL:            https://bitbucket.org/odedevs/ode
 Source0:        https://bitbucket.org/odedevs/ode/downloads/ode-%{version}.tar.gz
 Patch1:         ode-0.11.1-multilib.patch
-# Modify ode-double.pc and ode-double.config to set dDOUBLE, link right lib
+# Modify ode-double.pc and ode-double-config to set dDOUBLE, link right lib
 Patch2:         ode-0.13.1-double-config.patch
-BuildRequires: make
-BuildRequires:  gcc-c++
+# Modify ode.pc and ode-config to set dSINGLE
+Patch3:         ode-0.16.3-single-config.patch
+BuildRequires:  make gcc-c++
 BuildRequires:  libGL-devel libGLU-devel libtool
 
 %description
@@ -77,6 +78,8 @@ CFLAGS="%{optflags} -ffast-math"
 CXXFLAGS="%{optflags} -ffast-math"
 %configure $ODE_CONFIGURE_FLAGS
 make %{?_smp_mflags} X_LIBS=-lX11
+# Modify ode-config and ode.pc to set dSINGLE
+patch -p1 < %{PATCH3}
 
 
 %install
@@ -116,6 +119,9 @@ install -m 644 ode-double.pc $RPM_BUILD_ROOT%{_libdir}/pkgconfig
 
 
 %changelog
+* Mon Mar 20 2023 Hans de Goede <hdegoede@redhat.com> - 0.16.3-1
+- Update to 0.16.3 (rhbz#2155091)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 %endif
 
 Name:           python-beautifulsoup4
-Version:        4.11.2
+Version:        4.12.0
 Release:        1%{?dist}
 Summary:        HTML/XML parser for quick-turnaround applications like screen-scraping
 License:        MIT
@@ -122,6 +122,9 @@ pushd %{py3dir}
 %{python3_sitelib}/bs4
 
 %changelog
+* Mon Mar 20 2023 Terje Rosten <terje.rosten@ntnu.no> - 4.12.0-1
+- 4.12.0
+
 * Thu Feb 02 2023 Terje Rosten <terje.rosten@ntnu.no> - 4.11.2-1
 - 4.11.2
 

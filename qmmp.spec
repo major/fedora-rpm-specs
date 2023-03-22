@@ -1,6 +1,6 @@
 Name:		qmmp
 Version:	2.1.2
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Qt-based multimedia player
 
 License:	GPLv2+ and CC-BY-SAv4+
@@ -21,7 +21,7 @@ BuildRequires:	libcddb-devel
 BuildRequires:	libcdio-paranoia-devel
 BuildRequires:	libcurl-devel
 BuildRequires:	libmad-devel
-#BuildRequires:	libmpcdec-devel
+BuildRequires:	libmpcdec-devel
 BuildRequires:	libogg-devel
 BuildRequires:	libprojectM-devel
 BuildRequires:	librcd-devel
@@ -149,6 +149,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-enqueue.desk
 %{_libdir}/libqmmp*.so
 
 %changelog
+* Fri Mar 17 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2.1.2-5
+- Enable musepack input plugin
+
 * Sun Mar 12 2023 Neal Gompa <ngompa@fedoraproject.org> - 2.1.2-4
 - Rebuild for ffmpeg 6.0
 

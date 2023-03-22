@@ -5,7 +5,7 @@
 %endif
 
 Name:           xmvn
-Version:        4.1.0
+Version:        4.2.0
 Release:        1%{?dist}
 Summary:        Local Extensions for Apache Maven
 License:        ASL 2.0
@@ -33,13 +33,11 @@ BuildRequires:  mvn(org.apache.maven:maven-model)
 BuildRequires:  mvn(org.apache.maven:maven-model-builder)
 BuildRequires:  mvn(org.apache.maven:maven-plugin-api)
 BuildRequires:  mvn(org.codehaus.modello:modello-maven-plugin)
-BuildRequires:  mvn(org.codehaus.plexus:plexus-classworlds)
-BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
 BuildRequires:  mvn(org.easymock:easymock)
 BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.inject)
 BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.plexus)
 BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
-BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
+BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-api)
 BuildRequires:  mvn(org.ow2.asm:asm)
 BuildRequires:  mvn(org.slf4j:slf4j-api)
 BuildRequires:  mvn(org.slf4j:slf4j-simple)
@@ -157,25 +155,25 @@ cp -a "${maven_home}" target/dependency/apache-maven-$mver
 %build
 %mvn_build -j -- -P\\!quality
 
-version=4.1.0
+version=4.*
 tar --delay-directory-restore -xvf target/xmvn-*-bin.tar.gz
-chmod -R +rwX %{name}-${version}*
+chmod -R +rwX %{name}-${version}
 # These are installed as doc
-rm -f %{name}-${version}*/{AUTHORS-XMVN,README-XMVN.md,LICENSE,NOTICE,NOTICE-XMVN}
+rm -f %{name}-${version}/{AUTHORS-XMVN,README-XMVN.md,LICENSE,NOTICE,NOTICE-XMVN}
 # Not needed - we use JPackage launcher scripts
-rm -Rf %{name}-${version}*/lib/{installer,resolver,subst}/
+rm -Rf %{name}-${version}/lib/{installer,resolver,subst}/
 # Irrelevant Maven launcher scripts
-rm -f %{name}-${version}*/bin/*
+rm -f %{name}-${version}/bin/*
 
 
 %install
 %mvn_install
 
-version=4.1.0
+version=4.*
 maven_home=$(realpath $(dirname $(realpath $(%{?jpb_env} which mvn)))/..)
 
 install -d -m 755 %{buildroot}%{_datadir}/%{name}
-cp -r%{?mbi:L} %{name}-${version}*/* %{buildroot}%{_datadir}/%{name}/
+cp -r%{?mbi:L} %{name}-${version}/* %{buildroot}%{_datadir}/%{name}/
 
 for cmd in mvn mvnDebug; do
     cat <<EOF >%{buildroot}%{_datadir}/%{name}/bin/$cmd
@@ -264,6 +262,9 @@ end
 %license LICENSE NOTICE
 
 %changelog
+* Mon Mar 20 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 4.2.0-1
+- Update to upstream version 4.2.0
+
 * Fri Mar 17 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 4.1.0-1
 - Update to upstream version 4.1.0
 

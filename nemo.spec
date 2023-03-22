@@ -1,13 +1,14 @@
 Name:           nemo
 Summary:        File manager for Cinnamon
-Version:        5.6.2
-Release:        3%{?dist}
+Version:        5.6.4
+Release:        1%{?dist}
 License:        GPLv2+ and LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
 Source0:        %url/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:        nemo-fedora.gschema.override
 Patch0:         remove_desktop_search.patch
 Patch1:         Don-t-scale-text-size-when-zooming.patch
+Patch2:         %url/commit/2351260d487e73405c1844bbe58a20eafc9e2930.patch
 
 ExcludeArch:   %{ix86}
 
@@ -149,6 +150,9 @@ rm %{buildroot}%{_datadir}/nemo/search-helpers/pdf2txt.nemo_search_helper
 %{_datadir}/gir-1.0/*.gir
 
 %changelog
+* Mon Mar 20 2023 Leigh Scott <leigh123linux@gmail.com> - 5.6.4-1
+- Update to 5.6.4 release
+
 * Sat Feb 04 2023 Leigh Scott <leigh123linux@gmail.com> - 5.6.2-3
 - Add Budgie to OnlyShowIn
 

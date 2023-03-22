@@ -1,7 +1,7 @@
 Summary:    A GNU tool for automatically configuring source code
 Name:       autoconf213
 Version:    2.13
-Release:    50%{?dist}
+Release:    51%{?dist}
 License:    GPLv2+
 URL:        http://www.gnu.org/software/autoconf/
 Source:     ftp://prep.ai.mit.edu/pub/gnu/autoconf/autoconf-%{version}.tar.gz
@@ -71,6 +71,18 @@ rm ${RPM_BUILD_ROOT}/%{_bindir}/autoscan-%{version}
 rm -f ${RPM_BUILD_ROOT}%{_infodir}/standards*
 
 %check
+# autoconf expects a compiler that supports C89-only features.  The
+# test suite necessarily ignores the CC variable, so put wrapper
+# scripts in front of PATH.  Rewrite the c89 wrapper script so that it
+# invokes /usr/bin/gcc, to avoid an infinite loop.
+mkdir compiler-overrides
+PATH="`pwd`/compiler-overrides:$PATH"
+sed 's,^exec gcc,exec %{_bindir}/gcc,' < %{_bindir}/c89 \
+  > compiler-overrides/c89
+chmod 755 compiler-overrides/c89
+ln -s c89 compiler-overrides/cc
+ln -s c89 compiler-overrides/gcc
+ls -l compiler-overrides/
 make check
 
 %files
@@ -80,6 +92,9 @@ make check
 %doc AUTHORS COPYING NEWS README TODO
 
 %changelog
+* Mon Mar 20 2023 Florian Weimer <fweimer@redhat.com> - 2.13-51
+- Run testsuite in C89 mode (#2179940)
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.13-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

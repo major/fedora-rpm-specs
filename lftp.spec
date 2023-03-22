@@ -1,8 +1,8 @@
 Summary:	A sophisticated file transfer program
 Name:		lftp
 Version:	4.9.2
-Release:	9%{?dist}
-License:	GPLv3+
+Release:	10%{?dist}
+License:	GPL-3.0-or-later
 Source0:	http://lftp.yar.ru/ftp/%{name}-%{version}.tar.xz
 URL:		http://lftp.yar.ru/
 BuildRequires:	ncurses-devel, gnutls-devel, perl-generators, pkgconfig, readline-devel, gettext
@@ -105,6 +105,9 @@ desktop-file-install	\
 
 
 %changelog
+* Thu Mar 16 2023 Michal Ruprich <mruprich@redhat.com> - 4.9.2-10
+- SPDX migration
+
 * Wed Feb  8 2023 DJ Delorie <dj@redhat.com> - 4.9.2-9
 - Fix C99 compatibility issue
 

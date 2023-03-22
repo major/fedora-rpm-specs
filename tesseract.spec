@@ -8,7 +8,7 @@
 
 Name:          tesseract
 Version:       5.3.0
-Release:       5%{?dist}
+Release:       6%{?dist}
 Summary:       Raw OCR Engine
 
 License:       Apache-2.0
@@ -24,6 +24,9 @@ Patch0:        tesseract_cmake.patch
 # Already merged upstream, can be dropped at next release
 # https://github.com/tesseract-ocr/tesseract/commit/5e116fa5cad249b8a08d22af652cf52f44fbb8cd
 Patch1:	       tesseract_libdir.patch
+# Fixed FTBFS under GCC 13:
+# https://github.com/tesseract-ocr/tesseract/commit/2025b53de6b3d97285d7c5f80497493007c586c3
+Patch2:        tesseract_gcc13.patch
 
 
 BuildRequires: cmake
@@ -246,6 +249,9 @@ cp -a doc/*.5 %{buildroot}%{_mandir}/man5/
 
 
 %changelog
+* Mon Mar 20 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 5.3.0-6
+- Backported GCC 13 build fix. Fixed FTBFS on Fedora 38+.
+
 * Fri Feb 03 2023 FeRD (Frank Dana) <ferdnyc@gmail.com> - 5.3.0-5
 - Add patch from upstream to fix pkg-config libdir value
 

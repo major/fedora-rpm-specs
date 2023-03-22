@@ -6,19 +6,34 @@ License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Data-Stream-Bulk
 Source0:        https://cpan.metacpan.org/authors/id/D/DO/DOY/Data-Stream-Bulk-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires: make
+# build requirements
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
+BuildRequires:  perl(ExtUtils::MakeMaker)
+# runtime requirements
+BuildRequires:  perl(Carp)
+BuildRequires:  perl(IO::Handle)
+BuildRequires:  perl(Moose)
+BuildRequires:  perl(Moose::Role)
+BuildRequires:  perl(Path::Class)
+BuildRequires:  perl(Scalar::Util)
+BuildRequires:  perl(Sub::Exporter)
+BuildRequires:  perl(namespace::clean) >= 0.08
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+# test requirements
 BuildRequires:  perl(DBD::Mock)
 BuildRequires:  perl(DBD::SQLite)
+BuildRequires:  perl(DBI)
 BuildRequires:  perl(DBIx::Class)
-BuildRequires:  perl(ExtUtils::MakeMaker)
-BuildRequires:  perl(Moose)
-BuildRequires:  perl(namespace::clean) >= 0.08
-BuildRequires:  perl(Path::Class)
-BuildRequires:  perl(Sub::Exporter)
+BuildRequires:  perl(DBIx::Class::Schema)
+BuildRequires:  perl(File::Find)
+BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Requires)
 BuildRequires:  perl(Test::TempDir)
+BuildRequires:  perl(base)
 
 %{?perl_default_filter}
 
@@ -30,26 +45,30 @@ once processing of data sets.
 %setup -q -n Data-Stream-Bulk-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+/usr/bin/perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
-
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+%{_fixperms} %{buildroot}/*
 
 %check
-make test
+%{make_build} test
 
 %files
-%doc Changes LICENSE README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%doc Changes README
+%license LICENSE
+%{perl_vendorlib}/Data*
+%{_mandir}/man3/Data*
 
 %changelog
+* Mon Mar 20 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.11-31
+- Update dependencies
+- Pass NO_PACKLIST and NO_PERLLOCAL to Makefile.PL
+- Replace %%{__perl} with /usr/bin/perl
+- Use %%{make_build} and %%{make_install} where appropriate
+- Use %%license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

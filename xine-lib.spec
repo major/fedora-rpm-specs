@@ -2,16 +2,27 @@
 %global         plugin_abi  2.11
 %global         codecdir    %{_libdir}/codecs
 
+%if 0%{?el7}
+    %global     _without_dav1d       1
+    %global     _without_gcrypt      1
+    %global     _without_png         1
+    %global     _with_xvmc           1
+%endif
+
+%if 0%{?el8}
+    %global     _without_gcrypt      1
+%endif
+
 %if 0%{?el9}
-    # RHBZ 2031269 / 2031744
-    %global     _without_dvdnav      1
     # RHBZ 2031270
     %global     _without_nfs         1
 %endif
 
+%if 0%{?fedora} || 0%{?rhel} >= 9
 # Not permitted in Fedora, ffmpeg covers this anyway
 %global _without_faad2 1
 %global _without_fame 1
+%endif
 
 %ifarch %{ix86}
     %global     have_vidix  1
@@ -26,7 +37,7 @@
 Summary:        A multimedia engine
 Name:           xine-lib
 Version:        1.2.13
-Release:        2%{?dist}
+Release:        3%{?snapshot:.%{date}hg%{revision}}%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://www.xine-project.org/
 %if ! 0%{?snapshot}
@@ -51,7 +62,11 @@ BuildRequires:  a52dec-devel
 BuildRequires:  aalib-devel
 BuildRequires:  alsa-lib-devel
 %{!?_without_faad2:BuildRequires:  faad2-devel}
+%if 0%{?fedora} || 0%{?rhel} >= 9
 BuildRequires:  ffmpeg-free-devel
+%else
+BuildRequires:  ffmpeg-devel
+%endif
 BuildRequires:  flac-devel
 BuildRequires:  fontconfig-devel
 BuildRequires:  gcc
@@ -59,24 +74,28 @@ BuildRequires:  gettext-devel
 BuildRequires:  gnutls-devel
 BuildRequires:  gtk2-devel
 %{!?_without_imagemagick:BuildRequires:  ImageMagick-devel}
+%if 0%{?fedora} || 0%{?rhel} >= 9
 BuildRequires:  pipewire-jack-audio-connection-kit-devel
+%else
+BuildRequires:  jack-audio-connection-kit-devel
+%endif
 BuildRequires:  libaom-devel >= 1.0.0
 BuildRequires:  libbluray-devel >= 0.2.1
 BuildRequires:  libcaca-devel
 BuildRequires:  libcdio-devel
-BuildRequires:  libdav1d-devel >= 0.3.1
+%{!?_without_dav1d:BuildRequires:  libdav1d-devel >= 0.3.1}
 BuildRequires:  libdca-devel
 %{!?_without_dvdnav:BuildRequires:  libdvdnav-devel}
 BuildRequires:  libdvdread-devel
 %{!?_without_fame:BuildRequires:  libfame-devel}
-BuildRequires:  libgcrypt-devel
+%{!?_without_gcrypt:BuildRequires:  libgcrypt-devel}
 BuildRequires:  libGLU-devel
 BuildRequires:  libmad-devel
 BuildRequires:  libmng-devel
 BuildRequires:  libmodplug-devel
 BuildRequires:  libmpcdec-devel
 %{!?_without_nfs:BuildRequires:  libnfs-devel}
-BuildRequires:  libpng-devel >= 1.6.0
+%{!?_without_png:BuildRequires:  libpng-devel >= 1.6.0}
 BuildRequires:  libsmbclient-devel
 BuildRequires:  libssh2-devel
 BuildRequires:  libtheora-devel
@@ -92,6 +111,7 @@ BuildRequires:  libXext-devel
 BuildRequires:  libXinerama-devel
 BuildRequires:  libXt-devel
 BuildRequires:  libXv-devel
+%{?_with_xvmc:BuildRequires:  libXvMC-devel}
 BuildRequires:  mesa-libEGL-devel
 BuildRequires:  openssl-devel >= 1.0.2
 BuildRequires:  pkgconfig(libpulse)
@@ -141,6 +161,7 @@ autoreconf -fiv
     --enable-ipv6 \
     --enable-v4l2 \
     --enable-libv4l \
+%{?_with_xvmc:    --enable-xvmc} \
     --disable-gnomevfs \
     %{?_without_faad2:--disable-faad} \
     --enable-antialiasing \
@@ -173,6 +194,9 @@ rm -Rf %{buildroot}%{_libdir}/libxine*.la __docs/README \
 
 # Directory for binary codecs
 mkdir -p %{buildroot}%{codecdir}
+
+
+%ldconfig_scriptlets
 
 
 %files -f libxine2.lang
@@ -217,7 +241,7 @@ mkdir -p %{buildroot}%{codecdir}
 %{_libdir}/xine/plugins/%{plugin_abi}/xineplug_ao_out_oss.so
 %{_libdir}/xine/plugins/%{plugin_abi}/xineplug_ao_out_pulseaudio.so
 %{_libdir}/xine/plugins/%{plugin_abi}/xineplug_decode_a52.so
-%{_libdir}/xine/plugins/%{plugin_abi}/xineplug_decode_dav1d.so
+%{!?_without_dav1d:%{_libdir}/xine/plugins/%{plugin_abi}/xineplug_decode_dav1d.so}
 %{_libdir}/xine/plugins/%{plugin_abi}/xineplug_decode_dts.so
 %{_libdir}/xine/plugins/%{plugin_abi}/xineplug_decode_dvaudio.so
 %{!?_without_faad2:%{_libdir}/xine/plugins/%{plugin_abi}/xineplug_decode_faad.so}
@@ -225,7 +249,7 @@ mkdir -p %{buildroot}%{codecdir}
 %{_libdir}/xine/plugins/%{plugin_abi}/xineplug_decode_gsm610.so
 %{_libdir}/xine/plugins/%{plugin_abi}/xineplug_decode_libaom.so
 %{_libdir}/xine/plugins/%{plugin_abi}/xineplug_decode_libjpeg.so
-%{_libdir}/xine/plugins/%{plugin_abi}/xineplug_decode_libpng.so
+%{!?_without_png:%{_libdir}/xine/plugins/%{plugin_abi}/xineplug_decode_libpng.so}
 %{_libdir}/xine/plugins/%{plugin_abi}/xineplug_decode_libvpx.so
 %{_libdir}/xine/plugins/%{plugin_abi}/xineplug_decode_lpcm.so
 %{_libdir}/xine/plugins/%{plugin_abi}/xineplug_decode_mad.so
@@ -260,7 +284,7 @@ mkdir -p %{buildroot}%{codecdir}
 %{_libdir}/xine/plugins/%{plugin_abi}/xineplug_hw_frame_vaapi.so
 %{_libdir}/xine/plugins/%{plugin_abi}/xineplug_inp_bluray.so
 %{_libdir}/xine/plugins/%{plugin_abi}/xineplug_inp_cdda.so
-%{_libdir}/xine/plugins/%{plugin_abi}/xineplug_inp_crypto.so
+%{!?_without_gcrypt:%{_libdir}/xine/plugins/%{plugin_abi}/xineplug_inp_crypto.so}
 %{_libdir}/xine/plugins/%{plugin_abi}/xineplug_inp_dvb.so
 %{_libdir}/xine/plugins/%{plugin_abi}/xineplug_inp_dvd.so
 %{_libdir}/xine/plugins/%{plugin_abi}/xineplug_inp_mms.so
@@ -297,6 +321,8 @@ mkdir -p %{buildroot}%{codecdir}
 %{_libdir}/xine/plugins/%{plugin_abi}/xineplug_vo_out_xcbxv.so
 %{_libdir}/xine/plugins/%{plugin_abi}/xineplug_vo_out_xshm.so
 %{_libdir}/xine/plugins/%{plugin_abi}/xineplug_vo_out_xv.so
+%{?_with_xvmc:%{_libdir}/xine/plugins/%{plugin_abi}/xineplug_vo_out_xvmc.so}
+%{?_with_xvmc:%{_libdir}/xine/plugins/%{plugin_abi}/xineplug_vo_out_xxmc.so}
 %{_libdir}/xine/plugins/%{plugin_abi}/xineplug_wavpack.so
 %{_libdir}/xine/plugins/%{plugin_abi}/xineplug_xiph.so
 
@@ -323,6 +349,11 @@ mkdir -p %{buildroot}%{codecdir}
 
 
 %changelog
+* Sat Mar 18 2023 Xavier Bachelot <xavier@bachelot.org> - 1.2.13-3
+- Enable external libdvdnav for EL9
+- Restore specfile compatibility with RPM Fusion for EL7/8
+- Restore building from snapshot
+
 * Fri Mar 17 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.2.13-2
 - Rebuilt for libmpcdec 1.3.0
 

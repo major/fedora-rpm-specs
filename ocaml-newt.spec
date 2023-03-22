@@ -3,12 +3,13 @@
 
 Name:           ocaml-newt
 Version:        0.9
-Release:        71%{?dist}
+Release:        72%{?dist}
 Summary:        OCaml library for using newt text mode window system
 License:        LGPLv2+ with exceptions
 
 URL:            http://et.redhat.com/~rjones/ocaml-newt/
 Source0:        http://et.redhat.com/~rjones/ocaml-newt/%{name}-%{version}.tar.gz
+Patch0: ocaml-newt-c99.patch
 
 BuildRequires: make
 BuildRequires:  ocaml >= 3.10.0
@@ -43,7 +44,7 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q
+%autosetup -p1
 
 
 %build
@@ -95,6 +96,9 @@ chrpath --delete $OCAMLFIND_DESTDIR/stublibs/dll*.so
 
 
 %changelog
+* Mon Mar 20 2023 Florian Weimer <fweimer@redhat.com> - 0.9-72
+- Port to C99 (#2180106)
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.9-71
 - Rebuild OCaml packages for F38
 

@@ -1,6 +1,6 @@
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
-Version: 7.88.1
+Version: 8.0.1
 Release: 1%{?dist}
 License: MIT
 Source0: https://curl.se/download/%{name}-%{version}.tar.xz
@@ -438,6 +438,18 @@ rm -f ${RPM_BUILD_ROOT}%{_libdir}/libcurl.la
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Mon Mar 20 2023 Kamil Dudka <kdudka@redhat.com> - 8.0.1-1
+- new upstream release
+
+* Mon Mar 20 2023 Kamil Dudka <kdudka@redhat.com> - 8.0.0-1
+- new upstream release, which fixes the following vulnerabilities
+    CVE-2023-27538 - SSH connection too eager reuse still
+    CVE-2023-27537 - HSTS double-free
+    CVE-2023-27536 - GSS delegation too eager connection re-use
+    CVE-2023-27535 - FTP too eager connection reuse
+    CVE-2023-27534 - SFTP path ~ resolving discrepancy
+    CVE-2023-27533 - TELNET option IAC injection
+
 * Mon Feb 20 2023 Kamil Dudka <kdudka@redhat.com> - 7.88.1-1
 - new upstream release
 

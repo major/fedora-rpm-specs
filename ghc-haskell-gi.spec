@@ -7,8 +7,8 @@
 %bcond_with tests
 
 Name:           ghc-%{pkg_name}
-Version:        0.26.2
-Release:        %autorelease
+Version:        0.26.4
+Release:        0%{?dist}
 Summary:        Generate Haskell bindings for GObject Introspection capable libraries
 
 License:        LGPL-2.1-or-later

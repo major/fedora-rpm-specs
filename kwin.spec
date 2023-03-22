@@ -17,7 +17,7 @@
 
 Name:    kwin
 Version: 5.27.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Window manager
 
 # all sources are effectively GPLv2+, except for:
@@ -37,6 +37,8 @@ URL:     https://userbase.kde.org/KWin
 Source0: http://download.kde.org/%{stable}/plasma/%{version}/%{name}-%{version}.tar.xz
 
 ## upstream patches
+# https://invent.kde.org/plasma/kwin/-/merge_requests/3844/diffs
+Patch1:         inputmethod-properly-report-that-its-not-visible.patch
 
 ## proposed patches
 
@@ -361,6 +363,10 @@ make test ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||:
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.3-2
+- Add patch from upstream
+- Fixes BZ#2180100
+
 * Tue Mar 14 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.3-1
 - 5.27.3
 

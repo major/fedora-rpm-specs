@@ -7,8 +7,8 @@
 %undefine _auto_set_build_flags
 
 Name:          dtc
-Version:       1.6.1
-Release:       8%{?dist}
+Version:       1.7.0
+Release:       1%{?dist}
 Summary:       Device Tree Compiler
 License:       GPL-2.0-or-later
 URL:           https://devicetree.org/
@@ -148,6 +148,9 @@ rm -f $RPM_BUILD_ROOT/%{_bindir}/ftdump
 %endif
 
 %changelog
+* Mon Mar 20 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 1.7.0-1
+- Update to 1.7.0
+
 * Mon Feb 13 2023 Josh Boyer <jwboyer@fedoraproject.org> - 1.6.1-8
 - migrated to SPDX license
 

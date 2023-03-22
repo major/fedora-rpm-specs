@@ -1,13 +1,9 @@
 %bcond_without check
-%global __cargo_skip_build 0
-%global __cargo_is_lib() false
-
-%global custom_cargo_build /usr/bin/env PROTOC=%{_bindir}/protoc PROTOC_INCLUDe=%{_includedir} CARGO_HOME=.cargo RUSTC_BOOTSTRAP=1 %{_bindir}/cargo build %{_smp_mflags} -Z avoid-dev-deps --release
-%global custom_cargo_test /usr/bin/env PROTOC=%{_bindir}/protoc PROTOC_INCLUDe=%{_includedir} CARGO_HOME=.cargo RUSTC_BOOTSTRAP=1 %{_bindir}/cargo test %{_smp_mflags} -Z avoid-dev-deps --release --no-fail-fast
+%global __cargo_is_lib() 0
 
 Name:          parsec-tool
 Version:       0.4.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       A PARSEC cli
 
 # ASL 2.0
@@ -20,37 +16,29 @@ URL:           https://github.com/parallaxsecond/parsec-tool
 Source0:       %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:        parsec-tool-fixmetadata.diff
 
-ExclusiveArch: %{rust_arches}
-# rhbz 1869980
-ExcludeArch:   s390x %{power64}
+# ring is not available on ppc64le and s390x: RHBZ#1869980
+ExcludeArch:   ppc64le s390x
 
-BuildRequires: protobuf-compiler
-BuildRequires: rust-packaging
+BuildRequires: rust-packaging >= 21
 
 %description
 A tool to communicate with the Parsec service on the command-line.
 
 %prep
 %autosetup -p1
-export PROTOC=%{_bindir}/protoc
-export PROTOC_INCLUDE=%{_includedir}
 %cargo_prep
 
 %generate_buildrequires
 %cargo_generate_buildrequires
 
 %build
-%custom_cargo_build
+%cargo_build
 
 %install
-export PROTOC=%{_bindir}/protoc
-export PROTOC_INCLUDE=%{_includedir}
 %cargo_install
 
 %if %{with check}
 %check
-export PROTOC=%{_bindir}/protoc
-export PROTOC_INCLUDE=%{_includedir}
 %cargo_test
 %endif
 
@@ -59,6 +47,9 @@ export PROTOC_INCLUDE=%{_includedir}
 %{_bindir}/parsec-tool
 
 %changelog
+* Mon Mar 20 2023 Fabio Valentini <decathorpe@gmail.com> - 0.4.0-2
+- Simplify spec and update for latest Rust packaging.
+
 * Wed Feb 08 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.4.0-1
 - Update to 0.4.0
 

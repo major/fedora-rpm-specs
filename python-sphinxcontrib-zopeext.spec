@@ -2,7 +2,7 @@
 
 Name:           python-sphinxcontrib-zopeext
 Version:        0.3.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Sphinx extension for documenting Zope interfaces
 
 License:        BSD-2-Clause
@@ -32,6 +32,9 @@ interfaces.
 # Allow use of importlib_metadata > 4
 sed -i '/importlib-metadata/s/\^4\.8\.1/>=4.8.1,<7/' pyproject.toml
 
+# Allow use of Sphinx 6; see rhbz#2179101
+sed -i 's/6\.0\.0/7.0.0/' pyproject.toml
+
 %generate_buildrequires
 %pyproject_buildrequires
 
@@ -47,6 +50,9 @@ sed -i '/importlib-metadata/s/\^4\.8\.1/>=4.8.1,<7/' pyproject.toml
 %license LICENSE
 
 %changelog
+* Mon Mar 20 2023 Jerry James <loganjerry@gmail.com> - 0.3.3-6
+- Allow use of Sphinx 6.x; see rhbz#2179101
+
 * Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 0.3.3-5
 - Dynamically generate BuildRequires
 

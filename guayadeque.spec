@@ -1,9 +1,9 @@
 %global __cmake_in_source_build 1
-%global usesnapshot 0
-%global commit0 4d70d0b6a3583f01ea096bd327f7eae4ee3f59a5
+%global usesnapshot 1
+%global commit0 1ae725ae887e36c4c9c6aa8fbc166e82e0a204e0
 %if 0%{?usesnapshot}
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global gitdate 20220801
+%global gitdate 20230319
 %endif
 
 # wx-config
@@ -15,8 +15,8 @@
 
 Name:           guayadeque
 %if 0%{?usesnapshot}
-Version:        0.4.7
-Release:        0.41.%{gitdate}git%{shortcommit0}%{?dist}
+Version:        0.4.8
+Release:        0.1.%{gitdate}git%{shortcommit0}%{?dist}
 %else
 Version:        0.4.7
 Release:        1%{?dist}
@@ -35,8 +35,6 @@ Source0:        https://github.com/anonbeat/guayadeque/archive/refs/tags/v%{vers
 Source1:        PACKAGE-LICENSING
 # https://github.com/anonbeat/guayadeque/issues/144
 Patch0:         guayadeque-wxwidgets-3.2.patch
-# https://github.com/anonbeat/guayadeque/issues/155
-Patch1:         guayadeque-ambiguous-overload.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -113,7 +111,6 @@ Supplements:    (%{name} = %{version}-%{release} and langpacks-%{1})\
 cp -p %{SOURCE1} PACKAGE-LICENSING
 %if 0%{?fedora} >= 37
 %patch0 -p1
-%patch1 -p1
 %endif
 
 %build
@@ -150,6 +147,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 %{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
+* Mon Mar 20 2023 Martin Gansser <martinkg@fedoraproject.org> - 0.4.8-0.1.20230319git1ae725a
+- Update to 0.4.8-0.1.20230319git1ae725a
+
 * Fri Feb 24 2023 Martin Gansser <martinkg@fedoraproject.org> - 0.4.7-1
 - Update to 0.4.7
 - Add guayadeque-ambiguous-overload.patch

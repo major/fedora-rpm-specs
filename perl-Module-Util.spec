@@ -7,8 +7,8 @@ Summary:    Module name tools and transformations
 Source:     https://cpan.metacpan.org/authors/id/M/MA/MATTLAW/Module-Util-%{version}.tar.gz
 Url:        https://metacpan.org/release/Module-Util
 BuildArch:  noarch
-BuildRequires: perl-interpreter
 BuildRequires: perl-generators
+BuildRequires: perl-interpreter
 BuildRequires: perl(Module::Build)
 BuildRequires: perl(strict)
 BuildRequires: perl(warnings)
@@ -47,9 +47,11 @@ perl Build.PL installdirs=vendor
 
 %files
 %doc Changes README t/
-%{perl_vendorlib}/*
-%{_bindir}/*
-%{_mandir}/man[13]/*.[13]*
+%dir %{perl_vendorlib}/Module
+%{perl_vendorlib}/Module/Util.pm
+%{_bindir}/pm_which
+%{_mandir}/man1/pm_which.1*
+%{_mandir}/man3/Module::Util.3*
 
 %changelog
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.09-31

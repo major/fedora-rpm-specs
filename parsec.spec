@@ -1,17 +1,13 @@
 #global candidate rc2
+# * missing dev-dependencies: rust-cryptoauthlib, spiffe
 %bcond_with check
-%global __cargo_skip_build 0
-%global __cargo_is_lib() false
+%global __cargo_is_lib() 0
 
-# mbed-crypto-provider, pkcs11-provider, tpm-provider, all-providers, all-authenticators
-%global __cargo_parse_opts --features=tpm-provider,pkcs11-provider,mbed-crypto-provider,direct-authenticator,unix-peer-credentials-authenticator
-
-%global custom_cargo_build /usr/bin/env PROTOC=%{_bindir}/protoc PROTOC_INCLUDe=%{_includedir} CARGO_HOME=.cargo RUSTC_BOOTSTRAP=1 %{_bindir}/cargo build %{_smp_mflags} -Z avoid-dev-deps --release
-%global custom_cargo_test /usr/bin/env PROTOC=%{_bindir}/protoc PROTOC_INCLUDe=%{_includedir} CARGO_HOME=.cargo RUSTC_BOOTSTRAP=1 %{_bindir}/cargo test %{_smp_mflags} -Z avoid-dev-deps --release --no-fail-fast
+%global enabled_cargo_features default,tpm-provider,pkcs11-provider,mbed-crypto-provider,direct-authenticator,unix-peer-credentials-authenticator
 
 Name:          parsec
 Version:       1.1.0
-Release:       3%{?candidate:.%{candidate}}%{?dist}
+Release:       4%{?candidate:.%{candidate}}%{?dist}
 Summary:       The PARSEC daemon
 
 License:       ASL 2.0
@@ -22,10 +18,9 @@ Source2:       config.toml
 Source3:       parsec.tmpfile.conf
 Patch1:        parsec-metadata.diff
 
-ExclusiveArch: %{rust_arches}
+# the cryptoki-sys crate does not support s390x
 ExcludeArch:   s390x
 
-BuildRequires: protobuf-compiler
 BuildRequires: rust-packaging
 BuildRequires: systemd
 Requires: tpm2-tss >= 3.1.0
@@ -42,21 +37,16 @@ center and at the edge.
 
 %prep
 %autosetup -p1 -n %{name}-%{version}%{?candidate:-%{candidate}}
-
-export PROTOC=%{_bindir}/protoc
-export PROTOC_INCLUDE=%{_includedir}
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires -a
+%cargo_generate_buildrequires -f %{enabled_cargo_features}
 
 %build
-%custom_cargo_build --features=tpm-provider,pkcs11-provider,mbed-crypto-provider,direct-authenticator,unix-peer-credentials-authenticator
+%cargo_build -f %{enabled_cargo_features}
 
 %install
-export PROTOC=%{_bindir}/protoc
-export PROTOC_INCLUDE=%{_includedir}
-%cargo_install -a
+%cargo_install -f %{enabled_cargo_features}
 
 install -D -p -m0644 %{SOURCE1} %{buildroot}%{_unitdir}/parsec.service
 install -D -p -m0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/parsec/config.toml
@@ -67,9 +57,7 @@ mv %{buildroot}%{_bindir}/parsec %{buildroot}%{_libexecdir}/
 
 %if %{with check}
 %check
-export PROTOC=%{_bindir}/protoc
-export PROTOC_INCLUDE=%{_includedir}
-%custom_cargo_test -- -- --skip real_ --skip loop_ --skip travis_
+%cargo_test -f %{enabled_cargo_features} -- -- --skip real_ --skip loop_ --skip travis_
 %endif
 
 %pre
@@ -101,6 +89,9 @@ exit 0
 %{_unitdir}/parsec.service
 
 %changelog
+* Thu Feb 09 2023 Fabio Valentini <decathorpe@gmail.com> - 1.1.0-4
+- Ensure build honors default Rust compiler flags and simplify Rust packaging.
+
 * Tue Feb 07 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 1.1.0-3
 - Rebuild for tss-esapi 7.2.0
 

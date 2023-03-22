@@ -1,6 +1,6 @@
 Summary:        Generic library for real-time communications
 Name:           libre
-Version:        2.12.0
+Version:        3.0.0
 Release:        1%{?dist}
 License:        BSD-3-Clause
 URL:            https://github.com/baresip/re
@@ -25,6 +25,10 @@ Provides:       libre0%{?_isa} = %{version}-%{release}
 Obsoletes:      re < 0.6.1-2
 Provides:       re = %{version}-%{release}
 Provides:       re%{?_isa} = %{version}-%{release}
+# librem was merged into libre 3.0.0
+Obsoletes:      librem < 3.0.0-1
+Provides:       librem = %{version}-%{release}
+Provides:       librem%{?_isa} = %{version}-%{release}
 
 %description
 Libre is a generic library for real-time communications with async I/O
@@ -51,6 +55,10 @@ Provides:       libre0-devel%{?_isa} = %{version}-%{release}
 Obsoletes:      re-devel < 0.6.1-2
 Provides:       re-devel = %{version}-%{release}
 Provides:       re-devel%{?_isa} = %{version}-%{release}
+# librem was merged into libre 3.0.0
+Obsoletes:      librem-devel < 3.0.0-1
+Provides:       librem-devel = %{version}-%{release}
+Provides:       librem-devel%{?_isa} = %{version}-%{release}
 
 %description devel
 The libre-devel package includes header files and libraries necessary for
@@ -86,7 +94,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}.a
 %files
 %license LICENSE
 %doc CHANGELOG.md README.md
-%{_libdir}/%{name}.so.14*
+%{_libdir}/%{name}.so.15*
 
 %files devel
 %{_libdir}/%{name}.so
@@ -95,6 +103,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}.a
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Mar 20 2023 Robert Scheck <robert@fedoraproject.org> 3.0.0-1
+- Upgrade to 3.0.0 (#2179923)
+
 * Fri Feb 17 2023 Robert Scheck <robert@fedoraproject.org> 2.12.0-1
 - Upgrade to 2.12.0 (#2170480)
 

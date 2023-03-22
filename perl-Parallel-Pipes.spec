@@ -1,6 +1,6 @@
 Name:           perl-Parallel-Pipes
-Version:        0.102
-Release:        5%{?dist}
+Version:        0.200
+Release:        1%{?dist}
 Summary:        Parallel processing using pipes for communication and synchronization
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Parallel-Pipes
@@ -76,6 +76,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Mar 20 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.200-1
+- 0.200 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.102-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

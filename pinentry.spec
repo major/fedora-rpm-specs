@@ -1,3 +1,7 @@
+%if 0%{?fedora} || 0%{?rhel} < 10
+%bcond_without gtk2
+%endif
+
 Name:    pinentry
 Version: 1.2.1
 Release: 2%{?dist}
@@ -17,7 +21,9 @@ BuildRequires: make
 BuildRequires: gcc
 # compat package for gnome 3
 BuildRequires: gcr3-devel
+%if %{with gtk2}
 BuildRequires: gtk2-devel
+%endif
 BuildRequires: libcap-devel
 BuildRequires: ncurses-devel
 BuildRequires: libgpg-error-devel
@@ -45,6 +51,7 @@ utilize the Assuan protocol as described by the aegypten project; see
 http://www.gnupg.org/aegypten/ for details.
 This package contains the GNOME 3 version of the PIN entry dialog.
 
+%if %{with gtk2}
 %package gtk
 Summary: Passphrase/PIN entry dialog based on GTK+
 Requires: %{name} = %{version}-%{release}
@@ -55,6 +62,7 @@ Pinentry is a collection of simple PIN or passphrase entry dialogs which
 utilize the Assuan protocol as described by the aegypten project; see
 http://www.gnupg.org/aegypten/ for details.
 This package contains the GTK GUI based version of the PIN entry dialog.
+%endif
 
 %package qt
 Summary: Passphrase/PIN entry dialog based on Qt5
@@ -98,7 +106,11 @@ This package contains the tty version of the PIN entry dialog.
   --without-libcap \
   --disable-pinentry-fltk \
   --enable-pinentry-gnome3 \
+%if %{with gtk2}
   --enable-pinentry-gtk2 \
+%else
+  --disable-pinentry-gtk2 \
+%endif
   --enable-pinentry-qt5 \
   --enable-pinentry-emacs \
   --enable-pinentry-tty \
@@ -111,7 +123,9 @@ This package contains the tty version of the PIN entry dialog.
 %make_install
 
 # Symlink for Backward compatibility
+%if %{with gtk2}
 ln -s pinentry-gtk-2 $RPM_BUILD_ROOT%{_bindir}/pinentry-gtk
+%endif
 ln -s pinentry-qt $RPM_BUILD_ROOT%{_bindir}/pinentry-qt4
 
 install -p -m755 -D %{SOURCE10} $RPM_BUILD_ROOT%{_bindir}/pinentry
@@ -129,10 +143,12 @@ rm -fv $RPM_BUILD_ROOT%{_infodir}/dir
 %files gnome3
 %{_bindir}/pinentry-gnome3
 
+%if %{with gtk2}
 %files gtk
 %{_bindir}/pinentry-gtk-2
 # symlink for backward compatibility
 %{_bindir}/pinentry-gtk
+%endif
 
 %files qt
 %{_bindir}/pinentry-qt

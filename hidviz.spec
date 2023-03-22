@@ -1,24 +1,17 @@
 Name:		hidviz
-Version:	0.1.5
-Release:	20%{?dist}
+Version:	0.2
+Release:	2%{?dist}
 Summary:	A tool for in-depth analysis of USB HID devices communication
-License:	GPLv3+
-URL:		https://github.com/ondrejbudai/hidviz
-Source0:	https://hidviz.org/releases/%{name}-%{version}.tar.gz
-Source1:	hidviz.desktop
+License:	GPL-3.0-or-later
+URL:		https://hidviz.org/
+Source0:	https://github.com/%{name}/%{name}/archive/refs/tags/v%{version}/%{name}-%{version}.tar.gz
 Requires:	hicolor-icon-theme
 BuildRequires:	gcc-c++
 BuildRequires:	cmake
-BuildRequires:	qt5-qtbase-devel
+BuildRequires:	qt6-qtbase-devel
 BuildRequires:	protobuf-devel
 BuildRequires:	libusbx-devel
 BuildRequires:	asio-devel
-BuildRequires:	desktop-file-utils
-BuildRequires:	ImageMagick
-# https://github.com/ondrejbudai/hidviz/issues/27
-# https://github.com/ondrejbudai/libhidx/pull/18
-Patch0:		hidviz-0.1.5-build-fix.patch
-Patch1:		hidviz-gcc11.patch
 
 %description
 Hidviz is a GUI application for in-depth analysis of USB HID class devices.
@@ -33,16 +26,6 @@ Hidviz is a GUI application for in-depth analysis of USB HID class devices.
 %install
 %cmake_install
 
-# icon not yet available, temporal hack to make and install one :)
-convert hidviz/images/usb.png -resize 128x128 -background transparent \
-  -compose copy -gravity center -extent 128x128 hidviz.png
-install -Dpm 0644 hidviz.png %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/hidviz.png
-
-# desktop file
-mkdir -p  %{buildroot}%{_datadir}/applications
-desktop-file-install --add-category="Utility" \
-  --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
-
 %files
 %license LICENSE
 %doc README.md
@@ -54,6 +37,13 @@ desktop-file-install --add-category="Utility" \
 %{_datadir}/applications/hidviz.desktop
 
 %changelog
+* Mon Mar 20 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 0.2-2
+- Minor cleanups
+
+* Thu Mar 16 2023 Ondřej Budai <ondrej@budai.cz> - 0.2-1
+- Update to the latest upstream release
+- Remove no longer needed downstream patches for an application entry and an icon
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.5-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

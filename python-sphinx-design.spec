@@ -1,6 +1,6 @@
 Name:           python-sphinx-design
 Version:        0.3.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Sphinx extension for responsive web components
 
 # This project is MIT, but bundles JSON glyphs
@@ -15,7 +15,6 @@ Patch0:         %{url}/pull/106.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist myst-parser}
 
 # The Fedora package does not contain JSON glyphs
 Provides:       bundled(material-icons-fonts) = 4.0.0.c9e5528
@@ -64,6 +63,9 @@ Documentation for %{name}.
 %prep
 %autosetup -n sphinx-design-%{version} -p1
 
+# Bump the pinned myst-parser version to enable build in F39+
+sed -i "s/myst-parser~=0.18.0/myst-parser~=1.0.0/g" pyproject.toml
+
 %generate_buildrequires
 %pyproject_buildrequires -t -x testing
 
@@ -92,6 +94,9 @@ rm -rf html/{.buildinfo,.doctrees}
 %license LICENSE
 
 %changelog
+* Mon Mar 20 2023 Karolina Surma <ksurma@redhat.com> - 0.3.0-4
+- Allow building with python-myst-parser 1.0.0
+
 * Fri Mar 17 2023 Jerry James <loganjerry@gmail.com> - 0.3.0-3
 - Allow building with Sphinx 6.x (rhbz#2179085)
 

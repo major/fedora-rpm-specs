@@ -3,7 +3,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           tracker
-Version:        3.5.0~rc
+Version:        3.5.0
 Release:        1%{?dist}
 Summary:        Desktop-neutral metadata database and search tool
 
@@ -108,7 +108,7 @@ The %{name}-devel package contains the documentation for %{name}.
   -Dsystemd_user_services_dir=%{_userunitdir} \
   %{nil}
 
-%meson_build -j1
+%meson_build
 
 
 %install
@@ -167,6 +167,9 @@ The %{name}-devel package contains the documentation for %{name}.
 
 
 %changelog
+* Mon Mar 20 2023 David King <amigadave@amigadave.com> - 3.5.0-1
+- Update to 3.5.0 (#2179710)
+
 * Sun Mar 05 2023 David King <amigadave@amigadave.com> - 3.5.0~rc-1
 - Update to 3.5.0.rc (#2160249)
 

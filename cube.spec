@@ -12,7 +12,7 @@
 
 Name:           cube
 Version:        4.8.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        CUBE Uniform Behavioral Encoding generic presentation component
 License:        BSD-3-Clause
 URL:            http://www.scalasca.org/software/cube-4.x/download.html
@@ -26,6 +26,7 @@ Source2:        https://perftools.pages.jsc.fz-juelich.de/cicd/cubelib/tags/cube
 %endif
 # disable check for new versions
 Patch0:         cube-nocheck.patch
+Patch1:         cube-configure-c99.patch
 BuildRequires:  dbus-devel
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  chrpath
@@ -102,6 +103,7 @@ The %{name}-doc package contains documentation for %{name}.
 tar fx %SOURCE0
 tar fx %SOURCE1
 tar fx %SOURCE2
+%patch1 -p1
 # Fiddle for cubelib not being installed when building cubegui
 cat <<+ >cubelib-config
 #!/bin/sh
@@ -363,6 +365,9 @@ fi
 
 
 %changelog
+* Mon Mar 20 2023 Florian Weimer <fweimer@redhat.com> - 4.8.1-2
+- Port configure script to C99 (#2179882)
+
 * Wed Mar 15 2023  <vagrant@rhel8.localdomain> - 4.8,1-1
 - New version
 

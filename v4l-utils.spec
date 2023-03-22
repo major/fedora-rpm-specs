@@ -1,17 +1,13 @@
 Name:           v4l-utils
-Version:        1.22.1
-Release:        5%{?dist}
+
+Version:        1.25.0
+Release:        2%{?dist}
 Summary:        Utilities for video4linux and DVB devices
 # libdvbv5, dvbv5 utils, ir-keytable and v4l2-sysfs-path are GPLv2 only
 License:        GPLv2+ and GPLv2
 URL:            http://www.linuxtv.org/downloads/v4l-utils/
 
-Source0:        http://linuxtv.org/downloads/v4l-utils/v4l-utils-%{version}.tar.bz2
-Patch0:         0001-utils-v4l2-TPG-Update-use-of-typeof.patch
-Patch1:         0002-libv4lconvert-Fix-v4lconvert_yuv420_to_rgb-bgr24-not.patch
-Patch2:         0003-libv4lconvert-Fix-v4lconvert_rgb565_to_rgb-bgr24-not.patch
-Patch3:         0004-libv4lconvert-Fix-v4lconvert_nv12_-not-taking-stride.patch
-Patch4:         0005-libv4lconvert-Fix-v4lconvert_nv16_to_yuyv-not-taking.patch
+Source0:        http://linuxtv.org/downloads/v4l-utils/v4l-utils-%{version}.tar.xz
 
 BuildRequires:  alsa-lib-devel
 BuildRequires:  desktop-file-utils
@@ -19,17 +15,18 @@ BuildRequires:  doxygen
 BuildRequires:  gettext
 BuildRequires:  kernel-headers
 BuildRequires:  libjpeg-devel
-BuildRequires:  make
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  systemd-devel
 # For /usr/share/pkgconfig/udev.pc
 BuildRequires:  systemd
+BuildRequires:  meson >= 0.56
+BuildRequires:  json-c-devel
 
 # BPF decoder dependencies
 %define with_bpf 1
 
 %if %{with_bpf}
-BuildRequires:  elfutils-libelf-devel clang
+BuildRequires:  elfutils-libelf-devel clang libbpf-devel
 %endif
 
 # For /lib/udev/rules.d ownership
@@ -94,6 +91,14 @@ License:        GPLv2
 Libraries to control, scan and zap on Digital TV channels
 
 
+%package -n libdvbv5-gconv
+Summary:        Gconv files with the charsets For Digital TV.
+License:        GPLv2
+
+%description -n libdvbv5-gconv
+Some digital TV standards define their own charsets. Add library
+support for them: EN 300 468 and ARIB STD-B24
+
 %package -n     libv4l-devel
 Summary:        Development files for libv4l
 License:        LGPLv2+
@@ -118,23 +123,22 @@ files for developing applications that use libdvbv5.
 %prep
 %autosetup -p1
 
-%build
-export CXXFLAGS="-std=c++14 $RPM_OPT_FLAGS"
-%configure --disable-static --enable-libdvbv5 --enable-doxygen-man
-# Don't use rpath!
-sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
-sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
-%make_build
-make doxygen-run
+%meson -Dbpf=auto -Ddoxygen-man=true -Ddoxygen-html=false
 
+#%if %{with_bpf}
+#%meson -Ddoxygen-man=true -Ddoxygen-html=false
+#%else
+#%meson -Dbpf=disabled -Ddoxygen-man=true -Ddoxygen-html=false
+#%endif
+
+%build
+#export CXXFLAGS="-std=c++14 $RPM_OPT_FLAGS"
+%meson_build
 
 %install
-%make_install
+%meson_install
 find $RPM_BUILD_ROOT -name '*.la' -delete
 rm -f $RPM_BUILD_ROOT%{_libdir}/{v4l1compat.so,v4l2convert.so}
-mkdir -p $RPM_BUILD_ROOT%{_mandir}/man3/
-cp -arv %{_builddir}/%{name}-%{version}/doxygen-doc/man/man3 $RPM_BUILD_ROOT%{_mandir}/
-rm $RPM_BUILD_ROOT%{_mandir}/man3/_*3
 desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/qv4l2.desktop
 %find_lang %{name}
 %find_lang libdvbv5
@@ -145,7 +149,7 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/qv4l2.desktop
 %ldconfig_scriptlets -n libdvbv5
 
 %files -f %{name}.lang
-%doc README
+%doc README.md
 %dir %{_sysconfdir}/rc_keymaps
 %config(noreplace) %{_sysconfdir}/rc_maps.cfg
 %{_udevrulesdir}/70-infrared.rules
@@ -166,16 +170,17 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/qv4l2.desktop
 %exclude %{_mandir}/man1/v4l2-compliance.1*
 
 %files devel-tools
-%doc README
+%doc README.md
 %{_bindir}/decode_tm6000
 %{_bindir}/v4l2-compliance
 %{_mandir}/man1/v4l2-compliance.1*
 %{_sbindir}/v4l2-dbg
 
 %files -n qv4l2
-%doc README
+%doc README.md
 %{_bindir}/qv4l2
 %{_bindir}/qvidcap
+%{_bindir}/v4l2-tracer
 %{_datadir}/applications/qv4l2.desktop
 %{_datadir}/applications/qvidcap.desktop
 %{_datadir}/icons/hicolor/*/apps/qv4l2.*
@@ -185,7 +190,7 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/qv4l2.desktop
 
 %files -n libv4l
 %doc ChangeLog README.libv4l TODO
-%license COPYING.libv4l COPYING
+%license COPYING.libv4l COPYING.libdvbv5 COPYING
 %{_libdir}/libv4l
 %{_libdir}/libv4l*.so.*
 
@@ -200,6 +205,10 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/qv4l2.desktop
 %license COPYING
 %{_libdir}/libdvbv5*.so.*
 
+%files -n libdvbv5-gconv
+%{_libdir}/gconv/*.so
+%{_libdir}/gconv/gconv-modules
+
 %files -n libdvbv5-devel
 %{_includedir}/libdvbv5/*.h
 %{_libdir}/libdvbv5*.so
@@ -208,6 +217,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/qv4l2.desktop
 
 
 %changelog
+* Mon Mar 20 2023 Mauro Carvalho Chehab <mchehab+samsung@kernel.org> 1.25.0-1
+- Updated to latest development branch
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -11,7 +11,7 @@
 # Use HarfBuzz library for rendering a text
 %{bcond_without perl_Prima_enables_harfbuzz}
 # Use libheif for rendering HEIF images
-%{bcond_with perl_Prima_enables_heif}
+%{bcond_without perl_Prima_enables_heif}
 # Use LibThai library for wrapping a Thai text
 %{bcond_without perl_Prima_enables_libthai}
 # Support colorful cursor via Xcursor
@@ -36,7 +36,7 @@ Name:           perl-Prima
 # I believe upstream will continue with 1.69.
 %global upstream_version 1.68002
 Version:        1.68.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl graphic toolkit
 # Copying:              BSD-2-Clause text
 # examples/tiger.eps:   AGPL-3.0-or-later (bundled from GhostScript? CPAN RT#122271)
@@ -331,6 +331,9 @@ unset DISPLAY XDG_SESSION_TYPE
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Mar 20 2023 Petr Pisar <ppisar@redhat.com> - 1.68.2-2
+- Enable support for HEIF images (bug #2178600)
+
 * Fri Mar 03 2023 Petr Pisar <ppisar@redhat.com> - 1.68.2-1
 - 1.68002 bump
 

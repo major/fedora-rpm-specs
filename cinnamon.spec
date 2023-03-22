@@ -15,7 +15,7 @@
 %global __python %{__python3}
 
 Name:           cinnamon
-Version:        5.6.7
+Version:        5.6.8
 Release:        1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 Summary:        Window management and application launching for GNOME
 License:        GPLv2+ and LGPLv2+
@@ -329,6 +329,9 @@ EOF
 %endif
 
 %changelog
+* Mon Mar 20 2023 Leigh Scott <leigh123linux@gmail.com> - 5.6.8-1
+- Update to 5.6.8 release
+
 * Thu Feb 16 2023 Leigh Scott <leigh123linux@gmail.com> - 5.6.7-1
 - Update to 5.6.7 release
 

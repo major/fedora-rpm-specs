@@ -3,8 +3,8 @@
 %global pkgname openexr
 
 Name:          mingw-%{pkgname}
-Version:       3.1.5
-Release:       3%{?dist}
+Version:       3.1.6
+Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 License:       BSD
@@ -161,6 +161,9 @@ rm -rf %{buildroot}%{mingw64_docdir}/OpenEXR
 
 
 %changelog
+* Mon Mar 20 2023 Sandro Mani <manisandro@gmail.com> - 3.1.6-1
+- Update to 3.1.6
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

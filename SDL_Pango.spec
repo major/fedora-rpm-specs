@@ -1,7 +1,7 @@
 Summary: Rendering of internationalized text for SDL (Simple DirectMedia Layer)
 Name: SDL_Pango
 Version: 0.1.2
-Release: 39%{?dist}
+Release: 40%{?dist}
 License: LGPL-2.0-or-later
 URL: http://sdlpango.sourceforge.net/
 
@@ -10,6 +10,7 @@ Source1: doxygen.png
 Patch0: SDL_Pango-0.1.2-suppress-warning.patch
 Patch1: SDL_Pango-0.1.2-API-adds.patch
 Patch2: SDL_Pango-0.1.2-matrix_declarations.patch
+Patch99: SDL_Pango-0.1.2-fedora-c99.patch
 
 BuildRequires: make
 BuildRequires: pango-devel, SDL-devel, dos2unix
@@ -34,6 +35,7 @@ Development files for SDL_pango.
 %patch0 -p1 -b .suppress-warning
 %patch1 -p1 -b .API-adds
 %patch2 -p1 -b .matrix_declarations
+%patch99 -p1 -b .c99
 # Clean up, we include the entire "docs/html" content for the devel package
 rm -rf docs/html/CVS/
 # Replace the corrupt doxygen.png file with a proper one
@@ -69,6 +71,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Sat Mar 18 2023 DJ Delorie <dj@redhat.com> - 0.1.2-40
+- Fix C99 compatibility issue
+
 * Thu Mar 02 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.1.2-39
 - migrated to SPDX license
 

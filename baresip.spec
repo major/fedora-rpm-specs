@@ -1,6 +1,6 @@
 Summary:        Modular SIP user-agent with audio and video support
 Name:           baresip
-Version:        2.12.0
+Version:        3.0.0
 Release:        1%{?dist}
 License:        BSD-3-Clause
 URL:            https://github.com/baresip/baresip
@@ -11,14 +11,14 @@ Source11:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/1e1d6921
 Source12:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/COPYING#/COPYING.adwaita-icon-theme
 Source13:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/COPYING_CCBYSA3#/COPYING_CCBYSA3.adwaita-icon-theme
 Source14:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/COPYING_LGPL#/COPYING_LGPL.adwaita-icon-theme
+Patch0:         https://patch-diff.githubusercontent.com/raw/baresip/baresip/pull/2439.patch#/baresip-3.0.0-pipewire.patch
 BuildRequires:  cmake
 %if 0%{?rhel} && 0%{?rhel} < 8
 BuildRequires:  cmake3
 %endif
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  libre-devel >= 2.12.0
-BuildRequires:  librem-devel >= 2.12.0
+BuildRequires:  libre-devel >= 3.0.0
 %if 0%{?fedora} || 0%{?rhel} >= 8
 BuildRequires:  openssl-devel >= 1.1.0
 %else
@@ -26,10 +26,14 @@ BuildRequires:  openssl11-devel
 # Atomic support in libre >= 2.1.0
 BuildRequires:  devtoolset-8-toolchain
 %endif
-%if 0%{?fedora} || 0%{?rhel} > 7
+%if 0%{?fedora} || 0%{?rhel} > 8
+Recommends:     %{name}-pipewire%{?_isa} = %{version}-%{release}
+%else
+%if 0%{?rhel} == 8
 Recommends:     %{name}-pulse%{?_isa} = %{version}-%{release}
 %else
 Requires:       %{name}-pulse%{?_isa} = %{version}-%{release}
+%endif
 %endif
 Obsoletes:      %{name}-cairo < 1.1.0-1
 Obsoletes:      %{name}-rst < 2.0.0-1
@@ -233,6 +237,18 @@ Baresip is a modular SIP user-agent with audio and video support.
 
 This module provides the Opus speech and audio codec module.
 
+%if 0%{?fedora} || 0%{?rhel} > 8
+%package pipewire
+Summary:        PipeWire audio driver for baresip
+BuildRequires:  pkgconfig(libpipewire-0.3)
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description pipewire
+Baresip is a modular SIP user-agent with audio and video support.
+
+This module provides the PipeWire audio driver.
+%endif
+
 %package plc
 Summary:        Packet Loss Concealment module for baresip
 BuildRequires:  spandsp-devel
@@ -351,6 +367,7 @@ This module provides the X11 video output driver.
 
 %prep
 %setup -q
+%patch0 -p1 -b .pipewire
 
 %build
 %if 0%{?rhel} && 0%{?rhel} < 8
@@ -363,7 +380,11 @@ This module provides the X11 video output driver.
 
 %cmake \
   -DDEFAULT_CAFILE:PATH="%{_sysconfdir}/pki/tls/certs/ca-bundle.crt" \
+%if 0%{?fedora} || 0%{?rhel} > 8
+  -DDEFAULT_AUDIO_DEVICE:STRING="pipewire" \
+%else
   -DDEFAULT_AUDIO_DEVICE:STRING="pulse" \
+%endif
 %if 0%{?rhel} && 0%{?rhel} < 8
   -DOPENSSL_ROOT_DIR:PATH="%{_includedir}/openssl11;%{_libdir}/openssl11"
 %endif
@@ -425,7 +446,7 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %license LICENSE
 %doc CHANGELOG.md docs/THANKS docs/examples
 %{_bindir}/%{name}
-%{_libdir}/lib%{name}.so.4*
+%{_libdir}/lib%{name}.so.5*
 %dir %{_libdir}/%{name}/
 %dir %{_libdir}/%{name}/modules/
 %{_libdir}/%{name}/modules/account.so
@@ -526,6 +547,11 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %{_libdir}/%{name}/modules/opus.so
 %{_libdir}/%{name}/modules/opus_multistream.so
 
+%if 0%{?fedora} || 0%{?rhel} > 8
+%files pipewire
+%{_libdir}/%{name}/modules/pipewire.so
+%endif
+
 %files plc
 %{_libdir}/%{name}/modules/plc.so
 
@@ -560,6 +586,10 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %{_libdir}/%{name}/modules/x11.so
 
 %changelog
+* Mon Mar 20 2023 Robert Scheck <robert@fedoraproject.org> 3.0.0-1
+- Upgrade to 3.0.0 (#2180064)
+- Added (hopefully future upstream) patch for PipeWire support
+
 * Sat Feb 18 2023 Robert Scheck <robert@fedoraproject.org> 2.12.0-1
 - Upgrade to 2.12.0 (#2170292)
 

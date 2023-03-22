@@ -1,28 +1,22 @@
 %bcond_without check
-%global __cargo_skip_build 0
-
-%global custom_cargo_build /usr/bin/env PROTOC=%{_bindir}/protoc PROTOC_INCLUDe=%{_includedir} CARGO_HOME=.cargo RUSTC_BOOTSTRAP=1 %{_bindir}/cargo build %{_smp_mflags} -Z avoid-dev-deps --release
-%global custom_cargo_test /usr/bin/env PROTOC=%{_bindir}/protoc PROTOC_INCLUDe=%{_includedir} CARGO_HOME=.cargo RUSTC_BOOTSTRAP=1 %{_bindir}/cargo test %{_smp_mflags} -Z avoid-dev-deps --release --no-fail-fast
 
 # dbus-parsec is supposed to be daemon used through dbus
-%global __cargo_is_lib() false
+%global __cargo_is_lib() 0
 
 Name:          dbus-parsec
 Version:       0.4.0
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       DBus PARSEC interface
 
 License:       EUPL 1.2
 URL:           https://github.com/fedora-iot/dbus-parsec
 Source:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-ExclusiveArch: %{rust_arches}
-# rhbz 1869980
-ExcludeArch:   s390x %{power64}
+# ring is not available on ppc64le and s390x: RHBZ#1869980
+ExcludeArch:   ppc64le s390x
 
 BuildRequires: NetworkManager-libnm-devel
-BuildRequires: protobuf-compiler
-BuildRequires: rust-packaging
+BuildRequires: rust-packaging >= 21
 BuildRequires: systemd dbus-common
 Requires: parsec
 %{?systemd_requires}
@@ -33,19 +27,15 @@ Requires: parsec
 %prep
 %autosetup -p1
 sed -i 's/parsec-client = "0.11.0"/parsec-client = "0.12.0"/' Cargo.toml
-export PROTOC=%{_bindir}/protoc
-export PROTOC_INCLUDE=%{_includedir}
 %cargo_prep
 
 %generate_buildrequires
 %cargo_generate_buildrequires
 
 %build
-%custom_cargo_build
+%cargo_build
 
 %install
-export PROTOC=%{_bindir}/protoc
-export PROTOC_INCLUDE=%{_includedir}
 %cargo_install
 
 install -D -p -m0644 dbus-parsec.service %{buildroot}%{_unitdir}/dbus-parsec.service
@@ -56,7 +46,7 @@ mv %{buildroot}%{_bindir}/dbus-parsec %{buildroot}%{_libexecdir}/
 
 %if %{with check}
 %check
-%custom_cargo_test -- -- --skip real_ --skip loop_ --skip travis_
+%cargo_test -- -- --skip real_ --skip loop_ --skip travis_
 %endif
 
 %files
@@ -69,6 +59,9 @@ mv %{buildroot}%{_bindir}/dbus-parsec %{buildroot}%{_libexecdir}/
 %{_unitdir}/dbus-parsec.service
 
 %changelog
+* Mon Mar 20 2023 Fabio Valentini <decathorpe@gmail.com> - 0.4.0-4
+- Simplify spec and update for latest Rust packaging.
+
 * Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 0.4.0-3
 - Rebuild for fixed frame pointer compiler flags in Rust RPM macros.
 

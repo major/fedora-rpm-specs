@@ -3,8 +3,8 @@
 
 Name:       perl-DateTime-Format-Flexible
 Version:    0.34
-Release:    6%{?dist}
-License:    GPL+ or Artistic
+Release:    7%{?dist}
+License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Flexibly parse strings and turn them into DateTime objects
 Source:     https://cpan.metacpan.org/authors/id/T/TH/THINC/DateTime-Format-Flexible-%{version}.tar.gz
 Url:        https://metacpan.org/release/DateTime-Format-Flexible
@@ -93,13 +93,20 @@ make test
 %files
 %license LICENSE
 %doc Changes example/ README TODO
-%{perl_vendorlib}/*
-%{_mandir}/man3/*.3*
+%dir %{perl_vendorlib}/DateTime
+%dir %{perl_vendorlib}/DateTime/Format
+%{perl_vendorlib}/DateTime/Format/Flexible
+%{perl_vendorlib}/DateTime/Format/Flexible.pm
+%{_mandir}/man3/DateTime::Format::Flexible.*
+%{_mandir}/man3/DateTime::Format::Flexible::*.*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Mar 20 2023 Petr Pisar <ppisar@redhat.com> - 0.34-7
+- Convert a license tag to an SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

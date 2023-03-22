@@ -80,10 +80,15 @@ The %{name}-examples package contains sample binaries using %{name}.
 	-DEMBREE_IGNORE_CMAKE_CXX_FLAGS=OFF \
 %if %{with ispc}
         -DEMBREE_ISPC_SUPPORT=ON \
-%else
-        -DEMBREE_ISPC_SUPPORT=OFF \
 %endif
-        -DEMBREE_MAX_ISA=DEFAULT \
+%ifarch x86_64
+	-DEMBREE_ISA_SSE2=ON \
+	-DEMBREE_ISA_SSE4=ON \
+	-DEMBREE_ISA_AVX=ON \
+	-DEMBREE_ISA_AVX2=ON \
+%else
+	-DEMBREE_ISA_NEON=ON \
+%endif
 	-DEMBREE_TUTORIALS=OFF 
 %cmake_build
 

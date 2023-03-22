@@ -48,7 +48,7 @@
 
 Summary:	JDBC driver for PostgreSQL
 Name:		postgresql-jdbc
-Version:	42.5.2
+Version:	42.6.0
 Release:	1%{?dist}
 License:	BSD-2-Clause
 URL:		http://jdbc.postgresql.org/
@@ -174,6 +174,9 @@ opts="-f"
 
 
 %changelog
+* Mon Mar 20 2023 Zuzana Miklankova <zmiklank@redhat.com> - 42.6.0-1
+- rebase to version 42.6.0 (bz#2167110)
+
 * Thu Feb 02 2023 Zuzana Miklankova <zmiklank@redhat.com> - 42.5.2-1
 - rebase to version 42.5.2 (bz#2160979)
 

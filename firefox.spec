@@ -125,7 +125,7 @@ ExcludeArch: i686
 %if %{?system_nss}
 %global nspr_version 4.32
 %global nspr_build_version %{nspr_version}
-%global nss_version 3.86
+%global nss_version 3.88
 %global nss_build_version %{nss_version}
 %endif
 
@@ -172,13 +172,13 @@ ExcludeArch: i686
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        110.0
-Release:        3%{?pre_tag}%{?dist}
+Version:        111.0
+Release:        1%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20230214.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20230320.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source10:       firefox-mozconfig
@@ -226,8 +226,6 @@ Patch61:        firefox-glibc-dynstack.patch
 Patch71:        0001-GLIBCXX-fix-for-GCC-12.patch
 Patch78:        firefox-i686-build.patch
 Patch79:        firefox-gcc-13-build.patch
-Patch80:        D167194.diff
-Patch81:        D169197.diff
 
 # Test patches
 # Generate without context by
@@ -240,7 +238,7 @@ Patch102:       firefox-tests-xpcshell-freeze.patch
 # Fedora specific patches
 Patch215:        firefox-enable-addons.patch
 Patch219:        rhbz-1173156.patch
-Patch224:        mozilla-1170092.patch
+Patch224:        D168799.diff
 #ARM run-time patch
 Patch226:        rhbz-1354671.patch
 Patch228:        disable-openh264-download.patch
@@ -252,7 +250,6 @@ Patch402:        mozilla-1196777.patch
 Patch407:        mozilla-1667096.patch
 Patch408:        mozilla-1663844.patch
 Patch415:        mozilla-1670333.patch
-Patch418:        mozilla-1813500.patch
 
 # PGO/LTO patches
 Patch600:        pgo.patch
@@ -260,9 +257,6 @@ Patch602:        mozilla-1516803.patch
 
 # a patch for compiling with gcc on arm (from debian)
 Patch990:        work-around-GCC-ICE-on-arm.patch
-
-# Backported WebRTC changes for PipeWire/Wayland screen sharing support
-Patch1000:       libwebrtc-screen-cast-sync.patch
 
 # Work around broken moz.build file on ppc64le (mozb#1779545, mozb#1775202)
 Patch1100:       mozilla-1775202.patch
@@ -506,8 +500,6 @@ This package contains results of tests executed during build.
 %patch71 -p1 -b .0001-GLIBCXX-fix-for-GCC-12
 %patch78 -p1 -b .firefox-i686
 %patch79 -p1 -b .firefox-gcc-13-build
-%patch80 -p1 -b .D167194
-%patch81 -p1 -b .D169197
 
 # Test patches
 #%patch100 -p1 -b .firefox-tests-xpcshell
@@ -517,7 +509,7 @@ This package contains results of tests executed during build.
 # Fedora patches
 %patch215 -p1 -b .addons
 %patch219 -p1 -b .rhbz-1173156
-%patch224 -p1 -b .1170092
+%patch224 -p1 -b .D168799.diff
 #ARM run-time patch
 %ifarch aarch64
 %patch226 -p1 -b .1354671
@@ -530,7 +522,6 @@ This package contains results of tests executed during build.
 %patch407 -p1 -b .1667096
 %patch408 -p1 -b .1663844
 %patch415 -p1 -b .1670333
-%patch418 -p1 -b .1813500
 
 # PGO patches
 %if %{build_with_pgo}
@@ -541,11 +532,6 @@ This package contains results of tests executed during build.
 %endif
 
 %patch990 -p1 -b .work-around-GCC-ICE-on-arm
-
-%ifnarch ppc64le %{arm} aarch64
-%patch1000 -p1 -b .libwebrtc-screen-cast-sync
-%endif
-
 %patch1100 -p1 -b .ppc-mobzuild
 
 rm -f .mozconfig
@@ -1084,6 +1070,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Mon Mar 20 2023 Martin Stransky <stransky@redhat.com>- 111.0-1
+- Updated to 111.0
+
 * Tue Feb 14 2023 Martin Stransky <stransky@redhat.com>- 110.0-3
 - Updated to 110.0 build 3
 

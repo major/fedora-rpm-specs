@@ -1,7 +1,7 @@
 %global libadwaita_version 1.3~alpha
 
 Name:           gnome-console
-Version:        44~beta
+Version:        44.0
 Release:        %autorelease
 Summary:        Simple user-friendly terminal emulator for the GNOME desktop
 
@@ -30,9 +30,6 @@ Obsoletes: gnome-console-nautilus < 43~beta
 
 %prep
 %autosetup -p 1 -n %{name}-%{version_no_tilde .}
-# All these are handled by the RPM filetriggers
-# … and -Werror is just terrible
-sed -i -r -e '/(werror=|glib_compile_schemas|gtk_update_icon_cache|update_desktop_database)/s/true/false/' meson.build
 
 %build
 %meson
@@ -47,6 +44,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Console.des
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Console.metainfo.xml
 
 %files -f kgx.lang
+%license COPYING
+%doc NEWS README.md
 %{_bindir}/kgx
 %{_datadir}/applications/org.gnome.Console.desktop
 %{_metainfodir}/org.gnome.Console.metainfo.xml

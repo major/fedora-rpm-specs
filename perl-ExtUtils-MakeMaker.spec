@@ -5,8 +5,8 @@
 
 Name:           perl-%{cpan_name}
 Epoch:          2
-Version:        7.66
-Release:        2%{?dist}
+Version:        7.68
+Release:        1%{?dist}
 Summary:        Create a module Makefile
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/%{cpan_name}
@@ -77,13 +77,11 @@ BuildRequires:  perl(utf8)
 %if %{with perl_ExtUtils_MakeMaker_enables_optional_test}
 # Optional tests
 BuildRequires:  perl-devel
-BuildRequires:  perl(B)
 BuildRequires:  perl(ExtUtils::CBuilder)
 BuildRequires:  perl(PerlIO)
 # Keep YAML optional
 # Keep YAML::Tiny optional
 %endif
-Requires:       perl(B)
 Recommends:     perl(CPAN::Meta) >= 2.143240
 Suggests:       perl(CPAN::Meta::Converter) >= 2.141170
 # CPAN::Meta::Requirements to support version ranges
@@ -178,7 +176,6 @@ Requires:       perl(version)
 %if %{with perl_ExtUtils_MakeMaker_enables_optional_test}
 # Optional tests
 Requires:       perl-devel
-Requires:       perl(B)
 Requires:       perl(ExtUtils::CBuilder)
 Requires:       perl(PerlIO)
 %endif
@@ -214,11 +211,7 @@ perl -i -ne 'print $_ unless m{^t/unicode\.t}' MANIFEST
 
 # Help file to recognise the Perl scripts and normalize shebangs
 for F in `find t -name *.t`; do
-    if head -1 "$F" | grep -q -e '^#!.*perl' ; then
-        perl -MConfig -pi -e 's|^#!.*perl\b|$Config{startperl}|' "$F"
-    else
-        perl -i -MConfig -ple 'print $Config{startperl} if $. == 1' "$F"
-    fi
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
     chmod +x "$F"
 done
 
@@ -279,6 +272,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Mar 20 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2:7.68-1
+- 7.68 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:7.66-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

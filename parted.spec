@@ -1,7 +1,7 @@
 Summary: The GNU disk partition manipulation program
 Name:    parted
 Version: 3.5
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: GPL-3.0-or-later
 URL:     http://www.gnu.org/software/parted
 
@@ -28,6 +28,12 @@ Patch0014: 0014-gpt-Add-no_automount-partition-flag.patch
 Patch0015: 0015-tests-XFS-requires-a-minimum-size-of-300M.patch
 Patch0016: 0016-libparted-Fix-problem-with-creating-1s-partitions.patch
 Patch0017: 0017-tests-Fixing-libparted-test-framework-usage.patch    
+Patch0018: 0018-filesys-Check-for-null-from-close_fn.patch
+Patch0019: 0019-libparted-Fix-potential-NULL-dereference-in-ped_disk.patch
+Patch0020: 0020-strlist-Handle-realloc-error-in-wchar_to_str.patch
+Patch0021: 0021-ui-Add-checks-for-prompt-being-NULL.patch
+Patch0022: 0022-tests-Fix-formatting-and-snprintf-warnings-in-tests.patch
+Patch0023: 0023-parted-Fix-ending-sector-location-when-using-kibi-IE.patch
 
 BuildRequires: gcc
 BuildRequires: e2fsprogs-devel
@@ -132,7 +138,15 @@ make check
 
 
 %changelog
-* Tue Feb 07 2023 Brian C. Lane <bcl@redhat.com> - 3.5-9.bcl.1
+* Fri Mar 17 2023 Brian C. Lane <bcl@redhat.com> - 3.5-11
+- parted: Fix ending sector location when using kibi IEC suffix (bcl)
+- tests: Fix formatting and snprintf warnings in tests. (bcl)
+- ui: Add checks for prompt being NULL (bcl)
+- strlist: Handle realloc error in wchar_to_str (bcl)
+- libparted: Fix potential NULL dereference in ped_disk_next_partition (bcl)
+- filesys: Check for null from close_fn (bcl)
+
+* Tue Feb 07 2023 Brian C. Lane <bcl@redhat.com> - 3.5-10
 - libparted: Fix problem with creating 1s partitions
 - tests: Fixing libparted test framework usage
 

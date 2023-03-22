@@ -4,7 +4,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           adwaita-icon-theme
-Version:        44~beta
+Version:        44.0
 Release:        1%{?dist}
 Summary:        Adwaita icon theme
 
@@ -79,6 +79,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %{_datadir}/pkgconfig/adwaita-icon-theme.pc
 
 %changelog
+* Mon Mar 20 2023 David King <amigadave@amigadave.com> - 44.0-1
+- Update to 44.0
+
 * Fri Feb 17 2023 David King <amigadave@amigadave.com> - 44~beta-1
 - Update to 44.beta
 

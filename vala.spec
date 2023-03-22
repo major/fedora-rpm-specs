@@ -3,13 +3,14 @@
 
 Name:           vala
 Version:        0.56.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A modern programming language for GNOME
 
 # Most files are LGPLv2.1+, curses.vapi is 2-clause BSD
 License:        LGPL-2.1-or-later AND BSD-2-Clause
 URL:            https://wiki.gnome.org/Projects/Vala
 Source0:        https://download.gnome.org/sources/%{name}/0.56/%{name}-%{version}.tar.xz
+Patch0: vala-register_plugin_type-c99.patch
 
 BuildRequires:  bison
 BuildRequires:  flex
@@ -19,7 +20,7 @@ BuildRequires:  libxslt
 BuildRequires:  make
 BuildRequires:  pkgconfig(gobject-2.0)
 # only if Vala source files are patched
-#BuildRequires:  vala
+BuildRequires:  vala
 
 # for tests
 BuildRequires:  dbus-x11
@@ -194,6 +195,9 @@ export -n VALAFLAGS
 
 
 %changelog
+* Mon Mar 20 2023 Florian Weimer <fweimer@redhat.com> - 0.56.4-2
+- Apply upstream patch to fix C99 issue in generated code (#2179136)
+
 * Thu Mar 09 2023 David King <amigadave@amigadave.com> - 0.56.4-1
 - Update to 0.56.4
 

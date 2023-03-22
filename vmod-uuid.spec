@@ -9,7 +9,7 @@
 Name: vmod-uuid
 Summary: UUID module for Varnish Cache
 Version: 1.10
-Release: 12%{?dist}
+Release: 13%{?dist}
 License: BSD
 URL: https://github.com/otto-de/libvmod-uuid
 Source0: https://github.com/otto-de/lib%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -75,6 +75,9 @@ find %{buildroot}/%{_libdir}/ -name  '*.a' -delete
 
 
 %changelog
+* Mon Mar 20 2023 Ingvar Hagelund <ingvar@redpill-linpro.com> - 1.10-13
+- Rebuilt for varnish-7.3.0
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
