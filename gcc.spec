@@ -1,11 +1,11 @@
-%global DATE 20230318
-%global gitrev 24c7659a6ceb150243ffcbb95401b05e70d3fff8
+%global DATE 20230321
+%global gitrev 631cc7b96752740a3fdfd960b503d64faf02c1b6
 %global gcc_version 13.0.1
 %global gcc_major 13
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
 %global gcc_release 0
-%global nvptx_tools_gitrev 472b6e78b3ba918d727698f79911360b7c808247
+%global nvptx_tools_gitrev 93e00909ceb9cbbc104f0fcba56c0361ffb3ca4b
 %global newlib_cygwin_gitrev 9e09d6ed83cce4777a5950412647ccc603040409
 %global _unpackaged_files_terminate_build 0
 %global _performance_build 1
@@ -136,7 +136,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.8%{?dist}
+Release: %{gcc_release}.9%{?dist}
 # libgcc, libgfortran, libgomp, libstdc++ and crtstuff have
 # GCC Runtime Exception.
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions and LGPLv2+ and BSD
@@ -286,6 +286,7 @@ Patch8: gcc13-no-add-needed.patch
 Patch9: gcc13-Wno-format-security.patch
 Patch10: gcc13-rh1574936.patch
 Patch11: gcc13-d-shared-libphobos.patch
+Patch12: gcc13-pr109230.patch
 
 Patch50: isl-rh2155127.patch
 
@@ -862,6 +863,7 @@ so that there cannot be any synchronization problems.
 %patch10 -p0 -b .rh1574936~
 %endif
 %patch11 -p0 -b .d-shared-libphobos~
+%patch12 -p0 -b .pr109230~
 
 %patch50 -p0 -b .rh2155127~
 touch -r isl-0.24/m4/ax_prog_cxx_for_build.m4 isl-0.24/m4/ax_prog_cc_for_build.m4
@@ -3458,6 +3460,15 @@ end
 %endif
 
 %changelog
+* Tue Mar 21 2023 Jakub Jelinek <jakub@redhat.com> 13.0.1-0.9
+- update from trunk
+  - PRs analyzer/109094, c++/106890, c++/109159, c++/109164, fortran/85877,
+	fortran/87127, fortran/99036, fortran/109186, fortran/109206,
+	fortran/109209, fortran/109216, libstdc++/109182, target/109067,
+	target/109178, testsuite/108898, tree-optimization/109170,
+	tree-optimization/109192, tree-optimization/109215,
+	tree-optimization/109219
+
 * Sat Mar 18 2023 Jakub Jelinek <jakub@redhat.com> 13.0.1-0.8
 - update from trunk
   - PRs analyzer/105906, analyzer/108045, analyzer/109097, c++/58538,

@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    97b3278e65863e53066f31adb85d92334c0ea07b
+%global gh_commit    dc4cf8896bf47647080dc5709a2c67ee9d437c21
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     php-mock
 %global gh_project   php-mock-phpunit
@@ -14,7 +14,7 @@
 %global major        2
 
 Name:           php-mock-phpunit%{major}
-Version:        2.7.0
+Version:        2.7.1
 Release:        1%{?dist}
 Summary:        Mock built-in PHP functions with PHPUnit.
 
@@ -38,7 +38,7 @@ BuildRequires: php-composer(fedora/autoloader)
 
 # from composer.json, "require": {
 #        "php": ">=7",
-#        "phpunit/phpunit": "^6 || ^7 || ^8 || ^9 || ^10",
+#        "phpunit/phpunit": "^6 || ^7 || ^8 || ^9 || ^10.0.17",
 #        "php-mock/php-mock-integration": "^2.2.1"
 #    "conflict": {
 #        "phpunit/phpunit-mock-objects": "3.2.0"
@@ -149,6 +149,9 @@ exit $ret
 
 
 %changelog
+* Tue Mar 21 2023 Remi Collet <remi@remirepo.net> - 2.7.1-1
+- update to 2.7.1
+
 * Tue Mar  7 2023 Remi Collet <remi@remirepo.net> - 2.7.0-1
 - update to 2.7.0
 - raise dependency on php-mock-integration2 2.2.1

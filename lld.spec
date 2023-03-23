@@ -7,7 +7,7 @@
 %bcond_without check
 %bcond_with compat_build
 
-%global rc_ver 4
+#global rc_ver 4
 %global lld_srcdir lld-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:rc%{rc_ver}}.src
 %global cmake_srcdir cmake-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:rc%{rc_ver}}.src
 %global maj_ver 16
@@ -191,6 +191,9 @@ fi
 %{install_libdir}/liblld*.so.*
 
 %changelog
+* Tue Mar 21 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0-1
+- Update to LLVM 16.0.0
+
 * Wed Mar 15 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc4-1
 - Update to LLVM 16.0.0 RC4
 

@@ -12,7 +12,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-control-center
-Version:        44~rc
+Version:        44.0
 Release:        %autorelease
 Summary:        Utilities to configure the GNOME desktop
 
@@ -186,7 +186,7 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/gnome/cursor-fonts
 %{_datadir}/gnome-shell/search-providers/org.gnome.Settings.search-provider.ini
 %{_datadir}/icons/gnome-logo-text*.svg
 %{_datadir}/icons/hicolor/*/*/*
-%{_datadir}/man/man1/gnome-control-center.1*
+%{_mandir}/man1/gnome-control-center.1*
 %{_metainfodir}/org.gnome.Settings.appdata.xml
 %{_datadir}/pixmaps/faces
 %{_datadir}/pkgconfig/gnome-keybindings.pc

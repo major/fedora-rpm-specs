@@ -9,18 +9,15 @@
 %endif
 
 Name:           gnome-tour
-Version:        43.0
-Release:        5%{?dist}
+Version:        44.0
+Release:        1%{?dist}
 Summary:        GNOME Tour and Greeter
 
 # * gnome-tour source code is GPLv3+
 # * welcome-fedora.svg is CC-BY-SA
-# * bundled rust crates all include either MIT or GPLv3+ as one of the possible
-#   licenses, which when compiled into gnome-tour binary together with GPLv3+
-#   gnome-tour source code results in effective GPLv3+ for the resulting binary
 License:        GPLv3+ and CC-BY-SA
 URL:            https://gitlab.gnome.org/GNOME/gnome-tour
-Source0:        https://download.gnome.org/sources/gnome-tour/43/gnome-tour-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
 # https://pagure.io/fedora-workstation/issue/175
 Source1:        welcome-fedora.svg
 
@@ -131,19 +128,6 @@ Provides: bundled(crate(version-compare/default)) = 0.1.0
 Provides: bundled(crate(version_check/default)) = 0.9.4
 %endif
 
-# Removed in F34
-Obsoletes: gnome-getting-started-docs < 3.38.1-2
-Obsoletes: gnome-getting-started-docs-cs < 3.38.1-2
-Obsoletes: gnome-getting-started-docs-de < 3.38.1-2
-Obsoletes: gnome-getting-started-docs-es < 3.38.1-2
-Obsoletes: gnome-getting-started-docs-fr < 3.38.1-2
-Obsoletes: gnome-getting-started-docs-gl < 3.38.1-2
-Obsoletes: gnome-getting-started-docs-hu < 3.38.1-2
-Obsoletes: gnome-getting-started-docs-it < 3.38.1-2
-Obsoletes: gnome-getting-started-docs-pl < 3.38.1-2
-Obsoletes: gnome-getting-started-docs-pt_BR < 3.38.1-2
-Obsoletes: gnome-getting-started-docs-ru < 3.38.1-2
-
 %description
 A guided tour and greeter for GNOME.
 
@@ -152,7 +136,7 @@ A guided tour and greeter for GNOME.
 %autosetup -p1 -n %{name}-%{tarball_version}
 
 # Install Fedora branding
-cp -a %{SOURCE1} data/resources/assets/welcome.svg
+install -p %{SOURCE1} data/resources/assets/welcome.svg
 
 %if ! 0%{?bundled_rust_deps}
 sed -i -e '/\(build_by_default\|install\)/s/true/false/' src/meson.build
@@ -202,6 +186,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Tour.des
 
 
 %changelog
+* Tue Mar 21 2023 David King <amigadave@amigadave.com> - 44.0-1
+- Update to 44.0
+
 * Mon Mar 06 2023 Kalev Lember <klember@redhat.com> - 43.0-5
 - Rebuilt for rust-gtk4 0.4.9
 

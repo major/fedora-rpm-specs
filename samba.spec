@@ -135,7 +135,7 @@
 %define samba_requires_eq()  %(LC_ALL="C" echo '%*' | xargs -r rpm -q --qf 'Requires: %%{name} = %%{epoch}:%%{version}\\n' | sed -e 's/ (none):/ /' -e 's/ 0:/ /' | grep -v "is not")
 
 %global samba_version 4.18.0
-%global baserelease 10
+%global baserelease 11
 # This should be rc1 or %%nil
 %global pre_release %nil
 
@@ -3656,7 +3656,6 @@ fi
 %{_datadir}/ctdb/tests/INTEGRATION/simple/basics.005.process_exists.sh
 %{_datadir}/ctdb/tests/INTEGRATION/simple/basics.010.statistics.sh
 %{_datadir}/ctdb/tests/INTEGRATION/simple/basics.011.statistics_reset.sh
-%{_datadir}/ctdb/tests/INTEGRATION/simple/cluster.002.recmaster_yield.sh
 %{_datadir}/ctdb/tests/INTEGRATION/simple/cluster.010.getrelock.sh
 %{_datadir}/ctdb/tests/INTEGRATION/simple/cluster.012.reclock_command.sh
 %{_datadir}/ctdb/tests/INTEGRATION/simple/cluster.015.reclock_remove_lock.sh
@@ -3793,10 +3792,6 @@ fi
 %{_datadir}/ctdb/tests/UNIT/eventscripts/00.ctdb.init.007.sh
 %{_datadir}/ctdb/tests/UNIT/eventscripts/00.ctdb.init.008.sh
 %{_datadir}/ctdb/tests/UNIT/eventscripts/00.ctdb.init.009.sh
-%{_datadir}/ctdb/tests/UNIT/eventscripts/00.ctdb.setup.001.sh
-%{_datadir}/ctdb/tests/UNIT/eventscripts/00.ctdb.setup.002.sh
-%{_datadir}/ctdb/tests/UNIT/eventscripts/00.ctdb.setup.003.sh
-%{_datadir}/ctdb/tests/UNIT/eventscripts/00.ctdb.setup.004.sh
 %{_datadir}/ctdb/tests/UNIT/eventscripts/01.reclock.init.001.sh
 %{_datadir}/ctdb/tests/UNIT/eventscripts/01.reclock.init.002.sh
 %{_datadir}/ctdb/tests/UNIT/eventscripts/01.reclock.init.003.sh
@@ -4071,7 +4066,6 @@ fi
 %{_datadir}/ctdb/tests/UNIT/onnode/stubs/ssh
 %dir %{_datadir}/ctdb/tests/UNIT/shellcheck
 %{_datadir}/ctdb/tests/UNIT/shellcheck/base_scripts.sh
-%{_datadir}/ctdb/tests/UNIT/shellcheck/ctdbd_wrapper.sh
 %{_datadir}/ctdb/tests/UNIT/shellcheck/ctdb_helpers.sh
 %{_datadir}/ctdb/tests/UNIT/shellcheck/event_scripts.sh
 %{_datadir}/ctdb/tests/UNIT/shellcheck/functions.sh
@@ -4242,8 +4236,6 @@ fi
 %{_datadir}/ctdb/tests/UNIT/tool/ctdb.pstore.001.sh
 %{_datadir}/ctdb/tests/UNIT/tool/ctdb.ptrans.001.sh
 %{_datadir}/ctdb/tests/UNIT/tool/ctdb.readkey.001.sh
-%{_datadir}/ctdb/tests/UNIT/tool/ctdb.recmaster.001.sh
-%{_datadir}/ctdb/tests/UNIT/tool/ctdb.recmaster.002.sh
 %{_datadir}/ctdb/tests/UNIT/tool/ctdb.recover.001.sh
 %{_datadir}/ctdb/tests/UNIT/tool/ctdb.reloadnodes.001.sh
 %{_datadir}/ctdb/tests/UNIT/tool/ctdb.reloadnodes.002.sh
@@ -4337,6 +4329,9 @@ fi
 %endif
 
 %changelog
+* Tue Mar 21 2023 Andreas Schneider <asn@redhat.com> - 4.18.0-11
+- Fix file list
+
 * Fri Mar 17 2023 Kalev Lember <klember@redhat.com> - 4.18.0-10
 - Move libstable-sort-samba4.so to samba-client-libs subpackage
 

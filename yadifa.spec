@@ -2,11 +2,11 @@
 %global _hardened_build	1
 
 # version revision
-%global revision	10816
+%global revision	10892
 
 Name:		yadifa
-Version:	2.6.2
-Release:	3%{?dist}
+Version:	2.6.4
+Release:	1%{?dist}
 Summary:	Lightweight authoritative Name Server with DNSSEC capabilities
 
 License:	BSD
@@ -14,7 +14,6 @@ URL:		http://www.yadifa.eu
 Source0:	http://cdn.yadifa.eu/sites/default/files/releases/%{name}-%{version}-%{revision}.tar.gz
 Source1:	yadifad.service
 Source3:	yadifa.logrotate
-Patch0: yadifa-configure-c99.patch
 
 BuildRequires:	gcc
 BuildRequires:	coreutils
@@ -59,9 +58,7 @@ required for development with YADIFA DNS server
 
 
 %prep
-%autosetup -p1 -n %{name}-%{version}-%{revision}
-# Avoid re-running autotools.
-touch -r aclocal.m4 configure* m4/*.m4
+%setup -q -n %{name}-%{version}-%{revision}
 
 %build
 export CPPFLAGS="%{optflags} -DNDEBUG -g"
@@ -185,6 +182,9 @@ exit 0
 
 
 %changelog
+* Tue Mar 21 2023 Denis Fateyev <denis@fateyev.com> - 2.6.4-1
+- Update to 2.6.4 release
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

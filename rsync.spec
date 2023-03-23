@@ -9,7 +9,7 @@
 Summary: A program for synchronizing files over a network
 Name: rsync
 Version: 3.2.7
-Release: 2%{?prerelease}%{?dist}
+Release: 3%{?prerelease}%{?dist}
 URL: https://rsync.samba.org/
 
 Source0: https://download.samba.org/pub/rsync/src/rsync-%{version}%{?prerelease}.tar.gz
@@ -34,7 +34,11 @@ BuildRequires: libzstd-devel
 BuildRequires: xxhash-devel
 #Added virtual provide for zlib due to https://fedoraproject.org/wiki/Bundled_Libraries?rd=Packaging:Bundled_Libraries
 Provides: bundled(zlib) = 1.2.8
-License: GPLv3+
+#rsync code is distributed under GPLv3+ license. There are files under popt/ directory
+#which are provided under X11 license but they are not compiled. Except rsync links to
+#popt provided by popt-devel from the system. Should this change, X11 license should be 
+#mentioned here as well.
+License: GPL-3.0-or-later
 
 Patch1: rsync-3.2.2-runtests.patch
 
@@ -119,6 +123,9 @@ install -D -m644 %{SOURCE6} $RPM_BUILD_ROOT/%{_unitdir}/rsyncd@.service
 %systemd_postun_with_restart rsyncd.service
 
 %changelog
+* Mon Mar 20 2023 Michal Ruprich <mruprich@redhat.com> - 3.2.7-3
+- SPDX migration
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,18 +1,15 @@
 # Created by pyp2rpm-3.3.7
 %global pypi_name unicodedata2
-%global pypi_version 14.0.0
+%global pypi_version 15.0.0
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
-Release:        7%{?dist}
+Release:        1%{?dist}
 Summary:        Unicodedata backport updated to the latest Unicode version
 
 License:        Apache-2.0
 URL:            http://github.com/fonttools/unicodedata2
 Source0:        %{pypi_source}
-
-# https://github.com/fonttools/unicodedata2/pull/54
-Patch0:         python-3.11-compatibility.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
@@ -61,8 +58,8 @@ is data from Unicode 13.0.0.
 %{python3_sitearch}/%{pypi_name}-%{pypi_version}-py%{python3_version}.egg-info
 
 %changelog
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 14.0.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+* Tue Mar 21 2023 Parag Nemade <pnemade AT redhat DOT com> - 15.0.0-1
+- Update to 15.0.0 release
 
 * Mon Dec 05 2022 Parag Nemade <pnemade AT redhat DOT com> - 14.0.0-6
 - Update license tag to SPDX format

@@ -1,9 +1,9 @@
 Name:           python-fastjsonschema
-Version:        2.16.1
-Release:        2%{?dist}
+Version:        2.16.3
+Release:        1%{?dist}
 Summary:        Fastest Python implementation of JSON schema
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/horejsek/%{name}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
@@ -44,6 +44,10 @@ Summary:        %{summary}
 %doc README.rst
 
 %changelog
+* Mon Mar 20 2023 Jerry James <loganjerry@gmail.com> - 2.16.3-1
+- Version 2.16.3
+- Convert License tag to SPDX
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.16.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

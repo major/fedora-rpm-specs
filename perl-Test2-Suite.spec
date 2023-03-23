@@ -2,7 +2,7 @@
 %bcond_without perl_Test2_Suite_enables_unicode
 
 Name:           perl-Test2-Suite
-Version:        0.000148
+Version:        0.000149
 Release:        1%{?dist}
 Summary:        Set of tools built upon the Test2 framework
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -97,6 +97,7 @@ Provides:       perl-Test2-Workflow = %{version}-%{release}
 Obsoletes:      perl-Test2-Workflow < 0.000018-5
 
 # Remove under-specified dependencies
+%global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\(Devel::MAT::Dumper\\)$
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Importer|Module::Pluggable|Sub::Info|Term::Table|Test2::API)\\)$
 # Remove private modules
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(MyTest::Target\\)$
@@ -119,7 +120,7 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Test2-Suite-%{version}
-%patch0 -p1
+%patch 0 -p1
 # Help generators to recognize Perl scripts
 for F in `find . -type f -name '*.t'`; do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
@@ -156,6 +157,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Mar 21 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.000149-1
+- 0.000149 bump
+- Fix usage of patch macro
+
 * Mon Mar 06 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.000148-1
 - 0.000148 bump
 

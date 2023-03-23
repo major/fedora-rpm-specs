@@ -24,8 +24,6 @@ Source0:        https://perftools.pages.jsc.fz-juelich.de/cicd/cubegui/tags/cube
 Source1:        https://perftools.pages.jsc.fz-juelich.de/cicd/cubew/tags/cubew-4.8-rc1/cubew-4.8-rc1.tar.gz
 Source2:        https://perftools.pages.jsc.fz-juelich.de/cicd/cubelib/tags/cubelib-4.8-rc1/cubelib-4.8-rc1.tar.gz
 %endif
-# disable check for new versions
-Patch0:         cube-nocheck.patch
 Patch1:         cube-configure-c99.patch
 BuildRequires:  dbus-devel
 BuildRequires:  qt5-qtbase-devel
@@ -115,9 +113,6 @@ case \$1 in
 esac
 +
 chmod +x cubelib-config
-cd cubegui-%ver
-#%patch0 -p1
-cd ..
 # In v4.7 these files define compiler flags overriding the supplied
 # ones in configure, which actually breaks the test for working CC due
 # to -fPIE inconsistency.

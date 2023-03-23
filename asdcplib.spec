@@ -1,8 +1,8 @@
-%global gittag rel_2_12_2
+%global gittag rel_2_12_3
 
 Name:           asdcplib
-Version:        2.12.2
-Release:        2%{?dist}
+Version:        2.12.3
+Release:        1%{?dist}
 Summary:        AS-DCP file access libraries
 License:        BSD
 URL:            http://www.cinecert.com/asdcplib/
@@ -112,6 +112,9 @@ rm -fr  %{buildroot}%{_prefix}/targets
 %{_bindir}/wavesplit
 
 %changelog
+* Tue Mar 21 2023 Simone Caronni <negativo17@gmail.com> - 2.12.3-1
+- Update to 2.12.3.
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

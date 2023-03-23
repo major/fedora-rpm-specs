@@ -1,8 +1,8 @@
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
 Version: 8.0.1
-Release: 1%{?dist}
-License: MIT
+Release: 2%{?dist}
+License: curl
 Source0: https://curl.se/download/%{name}-%{version}.tar.xz
 Source1: https://curl.se/download/%{name}-%{version}.tar.xz.asc
 # The curl download page ( https://curl.se/download.html ) links
@@ -438,6 +438,9 @@ rm -f ${RPM_BUILD_ROOT}%{_libdir}/libcurl.la
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Tue Mar 21 2023 Lukáš Zaoral <lzaoral@redhat.com> - 8.0.1-2
+- migrated to SPDX license
+
 * Mon Mar 20 2023 Kamil Dudka <kdudka@redhat.com> - 8.0.1-1
 - new upstream release
 

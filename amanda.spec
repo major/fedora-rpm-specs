@@ -15,8 +15,8 @@
 
 Summary:       A network-capable tape backup solution
 Name:          amanda
-Version:       3.5.2
-Release:       2%{?dist}
+Version:       3.5.3
+Release:       1%{?dist}
 Source:        https://github.com/zmanda/amanda/archive/tag-community-%{version}/amanda-%{version}.tar.gz
 Source1:       amanda.crontab
 Source4:       disklist
@@ -41,14 +41,6 @@ Patch5:        patch-tirpc
 # https://bugzilla.redhat.com/show_bug.cgi?id=1671117
 Patch6:        patch-xfsrestore-housekeeping
 
-# Add missing extern keyword to global vars in header files
-Patch7:        amanda-missing-extern.patch
-
-
-# Patch from upstream pull request https://github.com/zmanda/amanda/pull/176
-# to fix a bug which appears as a failing test case
-Patch8:        https://patch-diff.githubusercontent.com/raw/zmanda/amanda/pull/176.patch
-
 License:       BSD and GPLv3+ and GPLv2+ and GPLv2
 URL:           http://www.amanda.org
 BuildRequires: automake autoconf libtool
@@ -58,7 +50,8 @@ BuildRequires: gnuplot
 %endif
 BuildRequires: cups samba-client tar grep
 BuildRequires: gcc-c++ readline-devel libtirpc-devel
-BuildRequires: krb5-devel rsh openssh-clients ncompress mtx mt-st
+BuildRequires: krb5-devel rsh openssh-clients
+BuildRequires: mtx mt-st
 BuildRequires: perl-devel perl-generators perl(ExtUtils::Embed) perl(Test::Simple)
 BuildRequires: glib2-devel openssl-devel swig bison flex
 BuildRequires: libcurl-devel procps-ng systemd
@@ -225,8 +218,8 @@ make check
 %ldconfig_scriptlets server
 
 %files
-%license COPYRIGHT
-%doc NEWS README
+%license COPYRIGHT COPYRIGHT.BSD
+%doc ChangeLog NEWS README.md ReleaseNotes
 %{_unitdir}/amanda@.service
 %{_unitdir}/amanda.socket
 %{_unitdir}/amanda-udp.service
@@ -458,6 +451,10 @@ make check
 
 
 %changelog
+* Thu Mar 16 2023 Orion Poplawski <orion@nwra.com> - 3.5.3-1
+- Update to 3.5.3
+- Fixes CVE-2022-37703 (bz#2126849) CVE-2022-37704 (bz#2168789) CVE-2022-37705 (bz#2168797)
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

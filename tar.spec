@@ -10,7 +10,7 @@ Summary: GNU file archiving program
 Name: tar
 Epoch: 2
 Version: 1.34
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: GPLv3+
 URL: https://www.gnu.org/software/tar/
 
@@ -25,6 +25,7 @@ Patch4:  tar-1.28-atime-rofs.patch
 Patch9:  tar-1.28-document-exclude-mistakes.patch
 Patch10: tar-1.33-fix-capabilities-test.patch
 Patch11: tar-configure-c99.patch
+Patch12: tar-1.30-CVE-2022-48303.patch
 
 BuildRequires: autoconf
 BuildRequires: automake
@@ -123,6 +124,9 @@ make check || (
 
 
 %changelog
+* Wed Mar 01 2023 Lukas Javorsky <ljavorsk@redhat.com> - 2:1.34-8
+- Resolve CVE-2022-48303
+
 * Thu Feb 02 2023 Arjun Shankar <arjun@redhat.com> - 2:1.34-7
 - Port configure script to C99
 

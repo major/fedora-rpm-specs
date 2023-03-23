@@ -3,12 +3,12 @@
 
 Name:		HepMC3
 Version:	3.2.5
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	C++ Event Record for Monte Carlo Generators
 
 #		HepMC3 itself is GPLv3+
 #		The included bxzstr header-only library is MPLv2.0
-License:	GPLv3+ and MPLv2.0
+License:	GPL-3.0-or-later AND MPL-2.0
 URL:		https://hepmc.web.cern.ch/hepmc/
 Source0:	https://hepmc.web.cern.ch/hepmc/releases/%{name}-%{version}.tar.gz
 #		Use the correct CMake variable name for PYTHIA8_VERSION
@@ -23,13 +23,19 @@ Patch2:		%{name}-dox.patch
 #		Updates for Python 3.11
 #		Backported from upstream
 Patch3:		%{name}-python-3.11.patch
+#		Fix compiler warning about compare with different signedness
+#		https://gitlab.cern.ch/hepmc/HepMC3/-/merge_requests/199
+Patch4:		%{name}-compiler-warning.patch
+#		Remove @endcode without matching @code
+#		https://gitlab.cern.ch/hepmc/HepMC3/-/merge_requests/200
+Patch5:		%{name}-remove-endcode-without-matching-code.patch
+#		Updates for Python 3.12
+#		Backported from pybind11 upstream
+#		https://gitlab.cern.ch/hepmc/HepMC3/-/merge_requests/237
+Patch6:		%{name}-python-3.12.patch
 
 #		The ROOT cmake file used by this project requires cmake 3.9
-%if %{?rhel}%{!?rhel:0} == 7
 BuildRequires:	cmake3 >= 3.9
-%else
-BuildRequires:	cmake >= 3.9
-%endif
 BuildRequires:	make
 BuildRequires:	gcc-c++
 BuildRequires:	root-core
@@ -57,7 +63,7 @@ A. Buckley et al., "The HepMC3 Event Record Library for Monte Carlo
 Event Generators" Comput.Phys.Commun. 260 (2021) 107310, arxiv:1912.08005.
 It is a continuation of the HepMC2 by M. Dobbs and J.B. Hansen described
 in "The HepMC C++ Monte Carlo event record for High Energy Physics"
-(Comput. Phys. Commun. 134 (2001) 41). In the version 3  the package
+(Comput. Phys. Commun. 134 (2001) 41). In version 3 the package
 has undergone several modifications and in particular, the latest
 HepMC3 series is a completely new re-write using currently available
 C++11 techniques, and have out-of-the-box interfaces for the widely
@@ -112,7 +118,8 @@ This package provides HepMC3 interfaces to some common Monte Carlo generators.
 %if %{?rhel}%{!?rhel:0} == 7
 %package -n python2-%{name}
 Summary:	HeppMC3 Python 2 bindings
-%{?python_provide:%python_provide python2-%{name}}
+License:	GPL-3.0-or-later AND CNRI-Python AND BSD-3-Clause
+%py_provides	python2-%{name}
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description -n python2-%{name}
@@ -120,7 +127,8 @@ This package provides the Python 2 bindings for HepMC3.
 
 %package -n python2-%{name}-search
 Summary:	HepMC3 search module Python 2 bindings
-%{?python_provide:%python_provide python2-%{name}-search}
+License:	GPL-3.0-or-later AND CNRI-Python AND BSD-3-Clause
+%py_provides	python2-%{name}-search
 Requires:	%{name}-search%{?_isa} = %{version}-%{release}
 Requires:	python2-%{name}%{?_isa} = %{version}-%{release}
 
@@ -129,43 +137,48 @@ This package provides the Python 2 bindings for HepMC3 search module.
 
 %package -n python2-%{name}-rootIO
 Summary:	HepMC3 ROOT I/O module Python 2 bindings
-%{?python_provide:%python_provide python2-%{name}-rootIO}
+License:	GPL-3.0-or-later AND CNRI-Python AND BSD-3-Clause
+%py_provides	python2-%{name}-rootIO
 Requires:	%{name}-rootIO%{?_isa} = %{version}-%{release}
 Requires:	python2-%{name}%{?_isa} = %{version}-%{release}
 
 %description -n python2-%{name}-rootIO
 This package provides the Python 2 bindings for HepMC3 ROOT I/O module.
 
-%package -n python%{python3_other_pkgversion}-%{name}
+%package -n python%{?python3_other_pkgversion}-%{name}
 Summary:	HepMC3 Python 3 bindings
-%{?python_provide:%python_provide python%{?python3_other_pkgversion}-%{name}}
+License:	GPL-3.0-or-later AND CNRI-Python AND BSD-3-Clause
+%py_provides	python%{python3_other_pkgversion}-%{name}
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
-%description -n python%{python3_other_pkgversion}-%{name}
+%description -n python%{?python3_other_pkgversion}-%{name}
 This package provides the Python 3 bindings for HepMC3.
 
-%package -n python%{python3_other_pkgversion}-%{name}-search
+%package -n python%{?python3_other_pkgversion}-%{name}-search
 Summary:	HepMC3 search module Python 3 bindings
-%{?python_provide:%python_provide python%{?python3_other_pkgversion}-%{name}-search}
+License:	GPL-3.0-or-later AND CNRI-Python AND BSD-3-Clause
+%py_provides	python%{python3_other_pkgversion}-%{name}-search
 Requires:	%{name}-search%{?_isa} = %{version}-%{release}
 Requires:	python%{python3_other_pkgversion}-%{name}%{?_isa} = %{version}-%{release}
 
-%description -n python%{python3_other_pkgversion}-%{name}-search
+%description -n python%{?python3_other_pkgversion}-%{name}-search
 This package provides the Python 3 bindings for HepMC3 search module.
 
-%package -n python%{python3_other_pkgversion}-%{name}-rootIO
+%package -n python%{?python3_other_pkgversion}-%{name}-rootIO
 Summary:	HepMC3 ROOT I/O module Python 3 bindings
-%{?python_provide:%python_provide python%{?python3_other_pkgversion}-%{name}-rootIO}
+License:	GPL-3.0-or-later AND CNRI-Python AND BSD-3-Clause
+%py_provides	python%{python3_other_pkgversion}-%{name}-rootIO
 Requires:	%{name}-rootIO%{?_isa} = %{version}-%{release}
 Requires:	python%{python3_other_pkgversion}-%{name}%{?_isa} = %{version}-%{release}
 
-%description -n python%{python3_other_pkgversion}-%{name}-rootIO
+%description -n python%{?python3_other_pkgversion}-%{name}-rootIO
 This package provides the Python 3 bindings for HepMC3 ROOT I/O module.
 %endif
 
 %package -n python%{python3_pkgversion}-%{name}
 Summary:	HepMC3 Python 3 bindings
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{name}}
+License:	GPL-3.0-or-later AND CNRI-Python AND BSD-3-Clause
+%py_provides	python%{python3_pkgversion}-%{name}
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description -n python%{python3_pkgversion}-%{name}
@@ -173,7 +186,8 @@ This package provides the Python 3 bindings for HepMC3.
 
 %package -n python%{python3_pkgversion}-%{name}-search
 Summary:	HepMC3 search module Python 3 bindings
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{name}-search}
+License:	GPL-3.0-or-later AND CNRI-Python AND BSD-3-Clause
+%py_provides	python%{python3_pkgversion}-%{name}-search
 Requires:	%{name}-search%{?_isa} = %{version}-%{release}
 Requires:	python%{python3_pkgversion}-%{name}%{?_isa} = %{version}-%{release}
 
@@ -182,7 +196,8 @@ This package provides the Python 3 bindings for HepMC3 search module.
 
 %package -n python%{python3_pkgversion}-%{name}-rootIO
 Summary:	HepMC3 ROOT I/O module Python 3 bindings
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{name}-rootIO}
+License:	GPL-3.0-or-later AND CNRI-Python AND BSD-3-Clause
+%py_provides	python%{python3_pkgversion}-%{name}-rootIO
 Requires:	%{name}-rootIO%{?_isa} = %{version}-%{release}
 Requires:	python%{python3_pkgversion}-%{name}%{?_isa} = %{version}-%{release}
 
@@ -202,6 +217,9 @@ This package provides HepMC manuals and examples.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
+%patch5 -p1
+%patch6 -p1
 
 %build
 %cmake3 \
@@ -341,6 +359,7 @@ rm %{buildroot}%{_includedir}/%{name}/bxzstr/LICENSE
 %{python2_sitearch}/pyHepMC3/__init__.py*
 %{python2_sitearch}/pyHepMC3/pyHepMC3.so
 %{python2_sitearch}/pyHepMC3-*.egg-info
+%license python/include/LICENSE
 
 %files -n python2-%{name}-search
 %dir %{python2_sitearch}/pyHepMC3/search
@@ -354,21 +373,22 @@ rm %{buildroot}%{_includedir}/%{name}/bxzstr/LICENSE
 %{python2_sitearch}/pyHepMC3/rootIO/pyHepMC3rootIO.so
 %{python2_sitearch}/pyHepMC3.rootIO-*.egg-info
 
-%files -n python%{python3_other_pkgversion}-%{name}
+%files -n python%{?python3_other_pkgversion}-%{name}
 %dir %{python3_other_sitearch}/pyHepMC3
 %{python3_other_sitearch}/pyHepMC3/__init__.py
 %{python3_other_sitearch}/pyHepMC3/__pycache__
 %{python3_other_sitearch}/pyHepMC3/pyHepMC3.so
 %{python3_other_sitearch}/pyHepMC3-*.egg-info
+%license python/include/LICENSE
 
-%files -n python%{python3_other_pkgversion}-%{name}-search
+%files -n python%{?python3_other_pkgversion}-%{name}-search
 %dir %{python3_other_sitearch}/pyHepMC3/search
 %{python3_other_sitearch}/pyHepMC3/search/__init__.py
 %{python3_other_sitearch}/pyHepMC3/search/__pycache__
 %{python3_other_sitearch}/pyHepMC3/search/pyHepMC3search.so
 %{python3_other_sitearch}/pyHepMC3.search-*.egg-info
 
-%files -n python%{python3_other_pkgversion}-%{name}-rootIO
+%files -n python%{?python3_other_pkgversion}-%{name}-rootIO
 %dir %{python3_other_sitearch}/pyHepMC3/rootIO
 %{python3_other_sitearch}/pyHepMC3/rootIO/__init__.py
 %{python3_other_sitearch}/pyHepMC3/rootIO/__pycache__
@@ -382,6 +402,7 @@ rm %{buildroot}%{_includedir}/%{name}/bxzstr/LICENSE
 %{python3_sitearch}/pyHepMC3/__pycache__
 %{python3_sitearch}/pyHepMC3/pyHepMC3.so
 %{python3_sitearch}/pyHepMC3-*.egg-info
+%license python/include/LICENSE
 
 %files -n python%{python3_pkgversion}-%{name}-search
 %dir %{python3_sitearch}/pyHepMC3/search
@@ -404,6 +425,10 @@ rm %{buildroot}%{_includedir}/%{name}/bxzstr/LICENSE
 %license COPYING
 
 %changelog
+* Tue Mar 21 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.2.5-7
+- Rebuild for root 6.28
+- Fix Python 3.12 build
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

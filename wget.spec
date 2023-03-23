@@ -1,8 +1,12 @@
 Summary: A utility for retrieving files using the HTTP or FTP protocols
 Name: wget
 Version: 1.21.3
-Release: 5%{?dist}
-License: GPLv3+
+Release: 6%{?dist}
+# Generally wget is distributed under GPLv3 or later but there are files in lib/ directory
+# which are under LGPLv2.1 or later and are actually built into the resulting rpm.
+# This version of wget is built with gnutls so I believe that the 'with openssl'
+# part in some files is not applicable here.
+License: GPL-3.0-or-later AND LGPL-2.1-or-later
 Url: http://www.gnu.org/software/wget/
 Source: ftp://ftp.gnu.org/gnu/wget/wget-%{version}.tar.gz
 
@@ -83,6 +87,9 @@ make check
 %{_infodir}/*
 
 %changelog
+* Tue Mar 21 2023 Michal Ruprich <mruprich@redhat.com> - 1.21.3-6
+- SPDX migration
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.21.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

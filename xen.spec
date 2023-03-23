@@ -55,7 +55,7 @@
 Summary: Xen is a virtual machine monitor
 Name:    xen
 Version: 4.17.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: GPLv2+ and LGPLv2+ and BSD
 URL:     http://xen.org/
 Source0: https://downloads.xenproject.org/release/xen/%{version}/xen-%{version}.tar.gz
@@ -112,6 +112,10 @@ Patch46: xen.efi.build.patch
 Patch47: xen.gcc13.fixes.patch
 Patch48: xsa425.patch
 Patch49: xsa426.patch
+Patch50: xsa427.patch
+Patch51: xsa428-4.17-1.patch
+Patch52: xsa428-4.17-2.patch
+Patch53: xsa429.patch
 
 
 %if %build_qemutrad
@@ -326,6 +330,10 @@ manage Xen virtual machines.
 %patch47 -p1
 %patch48 -p1
 %patch49 -p1
+%patch50 -p1
+%patch51 -p1
+%patch52 -p1
+%patch53 -p1
 
 # qemu-xen-traditional patches
 pushd tools/qemu-xen-traditional
@@ -933,6 +941,14 @@ fi
 %endif
 
 %changelog
+* Tue Mar 21 2023 Michael Young <m.a.young@durham.ac.uk> - 4.17.0-8
+- 3 security issues (#2180425)
+  x86 shadow plus log-dirty mode use-after-free [XSA-427, CVE-2022-42332]
+  x86/HVM pinned cache attributes mis-handling [XSA-428, CVE-2022-42333,
+	CVE-2022-42334]
+  x86: speculative vulnerability in 32bit SYSCALL path [XSA-429,
+	CVE-2022-42331]
+
 * Sat Feb 18 2023 Michael Young <m.a.young@durham.ac.uk> - 4.17.0-7
 - use OVMF.fd from new edk2-ovmf-xen package as ovmf.bin file
 	built from edk2-ovmf package no longer supports xen (#2170930)

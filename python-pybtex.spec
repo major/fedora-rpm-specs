@@ -1,6 +1,6 @@
 Name:           python-pybtex
 Version:        0.24.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        BibTeX-compatible bibliography processor written in Python
 
 License:        MIT
@@ -8,6 +8,9 @@ URL:            https://pybtex.org/
 Source0:        %pypi_source pybtex
 # Fix a minor sphinx problem, leads to bad man page output
 Patch0:         %{name}-parsing.patch
+# Fix an extlinks configuration error
+# https://bitbucket.org/pybtex-devs/pybtex/pull-requests/45
+Patch1:         %{name}-extlinks.patch
 
 BuildArch:      noarch
 
@@ -133,6 +136,9 @@ popd
 %doc CHANGES docs/build/html
 
 %changelog
+* Tue Mar 21 2023 Jerry James <loganjerry@gmail.com> - 0.24.0-11
+- Fix an extlinks configuration error (rhbz#2180478)
+
 * Tue Feb 28 2023 Jerry James <loganjerry@gmail.com> - 0.24.0-10
 - Depend on setuptools at runtime
 

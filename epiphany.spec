@@ -6,19 +6,16 @@
 
 Name:    epiphany
 Epoch:   1
-Version: 44~rc
+Version: 44.0
 Release: %autorelease
 Summary: Web browser for GNOME
 
-License: GPLv3+ and CC-BY-SA
+License: GPL-3.0-or-later AND CC-BY-SA-3.0
 URL:     https://wiki.gnome.org/Apps/Web
 Source0: https://download.gnome.org/sources/epiphany/44/%{name}-%{tarball_version}.tar.xz
 
 # Fedora bookmarks
 Patch0: epiphany-default-bookmarks.patch
-
-# https://gitlab.gnome.org/GNOME/epiphany/-/merge_requests/1295
-Patch1: webkitgtk-2.39.91.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: gcc

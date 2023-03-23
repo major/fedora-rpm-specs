@@ -1,13 +1,13 @@
 ### Header
 Summary: Collection of basic system utilities
 Name: util-linux
-Version: 2.38.1
-Release: 4%{?dist}
+Version: 2.39
+Release: 0.1%{?dist}
 License: GPLv2 and GPLv2+ and LGPLv2+ and BSD with advertising and Public Domain
 URL: https://en.wikipedia.org/wiki/Util-linux
 
 ### Macros
-%global upstream_version %{version}
+%global upstream_version %{version}-rc1
 %global upstream_major %(eval echo %{version} | sed -e 's/\([[:digit:]]*\)\.\([[:digit:]]*\)\.[[:digit:]]*$/\1.\2/')
 
 %global compldir %{_datadir}/bash-completion/completions/
@@ -93,7 +93,10 @@ Patch0: login-lastlog-create.patch
 # Add `/run/motd.d` to the hardcoded MOTD_FILE
 # https://github.com/coreos/console-login-helper-messages/issues/60
 Patch1: login-default-motd-file.patch
-Patch2: util-linux-kill-c99.patch
+# upstream, already in >= v2.39-rc2
+Patch2: libmount-dont-ignore-autofs-mounts-by-default.patch
+Patch3: mount-ignore-autofs-entries-in-mount-listing.patch
+
 
 %description
 The util-linux package contains a large variety of low-level system
@@ -289,7 +292,7 @@ chfn and chsh utilities with dependence on libuser.
 unset LINGUAS || :
 
 # enable only when make a change to the build-system
-./autogen.sh
+#./autogen.sh
 
 
 export CFLAGS="-D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 $RPM_OPT_FLAGS"
@@ -491,6 +494,7 @@ fi
 %{_bindir}/eject
 %{_bindir}/fallocate
 %{_bindir}/fincore
+%{_bindir}/fadvise
 %{_bindir}/getopt
 %{_bindir}/hexdump
 %{_bindir}/irqtop
@@ -510,6 +514,7 @@ fi
 %{_bindir}/mcookie
 %{_bindir}/mesg
 %{_bindir}/namei
+%{_bindir}/pipesz
 %{_bindir}/prlimit
 %{_bindir}/rename
 %{_bindir}/rev
@@ -524,6 +529,7 @@ fi
 %{_bindir}/utmpdump
 %{_bindir}/uuidgen
 %{_bindir}/uuidparse
+%{_bindir}/waitpid
 %{_bindir}/wall
 %{_bindir}/wdctl
 %{_bindir}/whereis
@@ -534,6 +540,7 @@ fi
 %{_mandir}/man1/colrm.1*
 %{_mandir}/man1/column.1*
 %{_mandir}/man1/eject.1*
+%{_mandir}/man1/fadvise.1.*
 %{_mandir}/man1/fallocate.1*
 %{_mandir}/man1/fincore.1*
 %{_mandir}/man1/getopt.1*
@@ -552,6 +559,7 @@ fi
 %{_mandir}/man1/mcookie.1*
 %{_mandir}/man1/mesg.1*
 %{_mandir}/man1/namei.1*
+%{_mandir}/man1/pipesz.1.*
 %{_mandir}/man1/prlimit.1*
 %{_mandir}/man1/rename.1*
 %{_mandir}/man1/rev.1*
@@ -567,6 +575,7 @@ fi
 %{_mandir}/man1/utmpdump.1.gz
 %{_mandir}/man1/uuidgen.1*
 %{_mandir}/man1/uuidparse.1*
+%{_mandir}/man1/waitpid.1.*
 %{_mandir}/man1/wall.1*
 %{_mandir}/man1/whereis.1*
 %{_mandir}/man1/write.1*
@@ -574,6 +583,7 @@ fi
 %{_mandir}/man5/terminal-colors.d.5*
 %{_mandir}/man8/addpart.8*
 %{_mandir}/man8/blkdiscard.8*
+%{_mandir}/man8/blkpr.8.*
 %{_mandir}/man8/blkzone.8*
 %{_mandir}/man8/chcpu.8*
 %{_mandir}/man8/chmem.8*
@@ -607,6 +617,7 @@ fi
 %{_mandir}/man8/zramctl.8*
 %{_sbindir}/addpart
 %{_sbindir}/blkdiscard
+%{_sbindir}/blkpr
 %{_sbindir}/blkzone
 %{_sbindir}/chcpu
 %{_sbindir}/ctrlaltdel
@@ -676,6 +687,7 @@ fi
 %{compldir}/mkfs.cramfs
 %{compldir}/mkfs.minix
 %{compldir}/namei
+%{compldir}/pipesz
 %{compldir}/pivot_root
 %{compldir}/prlimit
 %{compldir}/readprofile
@@ -910,6 +922,10 @@ fi
 %{_libdir}/python*/site-packages/libmount/
 
 %changelog
+* Mon Mar 20 2023 Karel Zak <kzak@redhat.com> - 2.39-0.1
+- upgrade to v2.39-rc1
+  https://kernel.org/pub/linux/utils/util-linux/v2.39/v2.39-ReleaseNotes
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.38.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

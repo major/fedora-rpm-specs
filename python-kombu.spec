@@ -1,13 +1,13 @@
 %bcond_without tests
 %global srcname kombu
 # Packaging unstable?
-%global prerel b2
+%global prerel b3
 %global general_version 5.3.0
 %global upstream_version %{general_version}%{?prerel}
 
 Name:           python-%{srcname}
 Version:        %{general_version}%{?prerel:~%{prerel}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Epoch:          1
 Summary:        An AMQP Messaging Framework for Python
 
@@ -49,6 +49,7 @@ BuildRequires:  python3-azure-mgmt-storage
 BuildRequires:  python3-brotli
 BuildRequires:  python3-hypothesis
 BuildRequires:  python3-pytest-freezegun
+BuildRequires:  python3-azure-identity
 %endif
 
 %description -n python3-%{srcname}
@@ -82,6 +83,9 @@ also provide proven and tested solutions to common messaging problems.
 %{python3_sitelib}/%{srcname}*.egg-info
 
 %changelog
+* Tue Mar 21 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 1:5.3.0~b3-1
+- kombu 5.3.0b3 (closes RHBZ#2179934)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.3.0~b2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

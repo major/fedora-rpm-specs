@@ -8,7 +8,7 @@
 Name:          mingw-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
 Version:       1.24.2
-Release:       3%{?dist}
+Release:       4%{?dist}
 
 # Everything is BSD except for class SafeEval in numpy/lib/utils.py which is Python
 License:       BSD-3-Clause AND Apache-2.0
@@ -73,10 +73,10 @@ MinGW Windows Python3 %{pypi_name} library.
 %mingw64_py3_install
 
 # FIXME: These files are not installed for some reason
-cp -a build_mingw32/src.mingw32-%{mingw32_python3_version}/numpy/core/include/numpy/*.h %{buildroot}%{mingw32_python3_sitearch}/numpy/core/include/numpy/
-cp -a build_mingw32/src.mingw32-%{mingw32_python3_version}/numpy/core/include/numpy/*.txt %{buildroot}%{mingw32_python3_sitearch}/numpy/core/include/numpy/
-cp -a build_mingw64/src.mingw64-%{mingw64_python3_version}/numpy/core/include/numpy/*.h %{buildroot}%{mingw64_python3_sitearch}/numpy/core/include/numpy/
-cp -a build_mingw64/src.mingw64-%{mingw64_python3_version}/numpy/core/include/numpy/*.txt %{buildroot}%{mingw64_python3_sitearch}/numpy/core/include/numpy/
+cp -a build_mingw32/src.mingw32-%{mingw32_python3_version}/numpy/core/include/numpy/{*.h,*.txt} %{buildroot}%{mingw32_python3_sitearch}/numpy/core/include/numpy/
+cp -a build_mingw64/src.mingw64-%{mingw64_python3_version}/numpy/core/include/numpy/{*.h,*.txt} %{buildroot}%{mingw64_python3_sitearch}/numpy/core/include/numpy/
+cp -a build_mingw32/src.mingw32-%{mingw32_python3_version}/numpy/core/include/numpy/{*.h,*.txt} %{buildroot}%{mingw32_python3_hostsitearch}/numpy/core/include/numpy/
+cp -a build_mingw64/src.mingw64-%{mingw64_python3_version}/numpy/core/include/numpy/{*.h,*.txt} %{buildroot}%{mingw64_python3_hostsitearch}/numpy/core/include/numpy/
 
 # Symlink includedir
 mkdir -p %{buildroot}%{mingw32_includedir}
@@ -123,6 +123,9 @@ ln -s %{mingw64_python3_sitearch}/numpy/core/include/numpy/ %{buildroot}%{_prefi
 
 
 %changelog
+* Tue Mar 21 2023 Sandro Mani <manisandro@gmail.com> - 1.24.2-4
+- Install missing headers from target build also for host build
+
 * Mon Mar 20 2023 Sandro Mani <manisandro@gmail.com> - 1.24.2-3
 - Package headers
 

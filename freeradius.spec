@@ -1,7 +1,7 @@
 Summary: High-performance and highly configurable free RADIUS server
 Name: freeradius
-Version: 3.2.1
-Release: 4%{?dist}
+Version: 3.2.2
+Release: 1%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: http://www.freeradius.org/
 
@@ -682,6 +682,7 @@ EOF
 %doc %{_mandir}/man5/rlm_passwd.5.gz
 %doc %{_mandir}/man5/rlm_realm.5.gz
 %doc %{_mandir}/man5/rlm_sql.5.gz
+%doc %{_mandir}/man5/rlm_unbound.5.gz
 %doc %{_mandir}/man5/rlm_unix.5.gz
 %doc %{_mandir}/man5/unlang.5.gz
 %doc %{_mandir}/man5/users.5.gz
@@ -891,6 +892,9 @@ EOF
 %attr(640,root,radiusd) %config(noreplace) /etc/raddb/mods-available/rest
 
 %changelog
+* Tue Mar 21 2023 Antonio Torres <antorres@redhat.com> - 3.2.2-1
+- Update to upstream release 3.2.2
+
 * Wed Mar 15 2023 Antonio Torres <antorres@redhat.com> - 3.2.1-4
 - Migrate to SPDX license
 

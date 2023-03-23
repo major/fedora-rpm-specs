@@ -5,6 +5,8 @@ Name: rubygem-%{gem_name}
 Version: 5.18.0
 Release: 200%{?dist}
 Summary: minitest provides a complete suite of testing facilities
+# README.rdoc
+# SPDX confirmed
 License: MIT
 URL: https://github.com/seattlerb/minitest
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem

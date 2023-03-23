@@ -31,6 +31,9 @@ URL:            https://dune.build
 Source0:        https://github.com/ocaml/dune/archive/%{version}/dune-%{version}.tar.gz
 # When building without lwt, remove libraries that need it
 Patch0:         %{name}-no-lwt.patch
+# Temporary workaround for broken debuginfo (rhbz#2168932)
+# See https://github.com/ocaml/dune/issues/6929
+Patch1:         %{name}-debuginfo.patch
 
 BuildRequires:  emacs-nox
 BuildRequires:  make
@@ -426,9 +429,10 @@ developing applications that use ocaml-xdg.
 %prep
 %autosetup -N -n dune-%{version}
 %if %{without lwt}
-%patch0 -p1
+%patch 0 -p1
 rm -fr otherlibs/dune-rpc-lwt dune-rpc-lwt.opam
 %endif
+%autopatch -m1 -p1
 
 %build
 ./configure \
@@ -541,9 +545,10 @@ cd -
 %files -n ocaml-xdg-devel -f .ofiles-xdg-devel
 
 %changelog
-* Sat Feb 18 2023 Jerry James <loganjerry@gmail.com> - 3.7.0-1
+* Tue Mar 21 2023 Jerry James <loganjerry@gmail.com> - 3.7.0-1
 - Version 3.7.0
 - The fiber subpackage has been removed
+- Add debuginfo patch to produce good debuginfo again
 
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 3.6.1-3
 - Rebuild OCaml packages for F38

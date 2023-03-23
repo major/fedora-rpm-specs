@@ -1,7 +1,6 @@
 %global __cmake_in_source_build 1
 
 %global		with_snapshot	0
-%global		with_examples	0
 #%%global		prerelease	beta
 #%%global		commit		40b9aca2668f443cae6bfbfa7cc5a354f1087011
 #%%global		shortcommit	%%(c=%%{commit}; echo ${c:0:7})
@@ -20,6 +19,9 @@ Source:		https://github.com/%{name}/%{name}/archive/%{commit}/%{name}-%{commit}.
 Source:		https://github.com/%{name}/%{name}/archive/v%{version}%{?prerelease:%{-prerelease}.0}.tar.gz#/%{name}-%{version}%{?prerelease:-%{prerelease}.0}.tar.gz
 %endif
 
+# https://github.com/embree/embree/pull/438
+Patch0:		imgui_disable_sse-arm64.patch
+
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
 BuildRequires:	giflib-devel
@@ -29,14 +31,9 @@ BuildRequires:	ispc
 BuildRequires:	pkgconfig(glut)
 BuildRequires:	pkgconfig(glfw3)
 BuildRequires:	pkgconfig(xmu)
-# Optional dependencies needed for examples
-%if %{with_examples}
 BuildRequires:	pkgconfig(libjpeg)
-BuildRequires:	pkgconfig(libopenjp2)
 BuildRequires:	pkgconfig(libpng)
-BuildRequires:	pkgconfig(libtiff-4)
 BuildRequires:	pkgconfig(OpenImageIO)
-%endif
 BuildRequires:	pkgconfig(tbb)
 
 # Embree only supports these architectures with SSE2 and up enabled
@@ -52,16 +49,7 @@ Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description	devel
 The %{name}-devel package contains libraries and header files for
- applications that use %{name}.
-
-%if %{with_examples}
-%package	examples
-Summary:	Example of application using %{name}
-Requires:	%{name}%{?_isa} = %{version}-%{release}
-
-%description	examples
-The %{name}-examples package contains sample binaries using %{name}.
-%endif
+applications that use %{name}.
 
 %prep
 %if %{with_snapshot}
@@ -81,16 +69,23 @@ The %{name}-examples package contains sample binaries using %{name}.
 %if %{with ispc}
         -DEMBREE_ISPC_SUPPORT=ON \
 %endif
+	-DEMBREE_MAX_ISA=NONE \
 %ifarch x86_64
 	-DEMBREE_ISA_SSE2=ON \
 	-DEMBREE_ISA_SSE4=ON \
 	-DEMBREE_ISA_AVX=ON \
 	-DEMBREE_ISA_AVX2=ON \
 %else
+	-DEMBREE_ARM=ON \
 	-DEMBREE_ISA_NEON=ON \
 %endif
-	-DEMBREE_TUTORIALS=OFF 
+	-DEMBREE_TUTORIALS=ON \
+	-DEMBREE_TESTING=ON \
+	-DEMBREE_STATIC_LIB=OFF
 %cmake_build
+
+%check
+%ctest
 
 %install
 %cmake_install
@@ -102,6 +97,11 @@ rm %{buildroot}%{_prefix}/%{name}-vars.{csh,sh}
 mv %{buildroot}%{_docdir}/%{name}4 %{buildroot}%{_docdir}/%{name}
 rm %{buildroot}%{_docdir}/%{name}/LICENSE.txt
 
+# Remove the testing products
+rm -r %{buildroot}%{_prefix}/src
+rm -r %{buildroot}%{_bindir}/models
+rm %{buildroot}%{_bindir}/embree_*
+
 %files
 %license LICENSE.txt
 %doc README.md CHANGELOG.md readme.pdf third-party-programs{,-TBB,-DPCPP,-OIDN,-oneAPI-DPCPP}.txt
@@ -112,11 +112,6 @@ rm %{buildroot}%{_docdir}/%{name}/LICENSE.txt
 %{_libdir}/lib%{name}4.so
 %{_includedir}/%{name}4/
 %{_libdir}/cmake/%{name}-%{version}/
-
-%if %{with_examples}
-%files examples
-%{_bindir}/%{name}4/*
-%endif
 
 %changelog
 %autochangelog

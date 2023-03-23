@@ -1,6 +1,6 @@
 Name:           intel-gmmlib
-Version:        22.3.3
-Release:        2%{?dist}
+Version:        22.3.5
+Release:        1%{?dist}
 Summary:        Intel Graphics Memory Management Library
 
 License:        MIT and BSD
@@ -63,6 +63,9 @@ find Source -name "*.h" -exec chmod -x {} ';'
 
 
 %changelog
+* Tue Mar 21 2023 Nicolas Chauvet <kwizart@gmail.com> - 22.3.5-1
+- Update to 22.3.5
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.3.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

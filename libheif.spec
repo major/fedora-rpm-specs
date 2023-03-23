@@ -81,7 +81,7 @@ This package provides tools for manipulating HEIF files.
 Summary:        HEVC codec support for HEIC files
 BuildRequires:  pkgconfig(libde265)
 BuildRequires:  pkgconfig(x265)
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}
 Supplements:    %{name}
 
 %description    hevc

@@ -4,6 +4,7 @@ Release:        36%{?dist}
 Summary:        A backend for managing encrypted data files on the disk
 Summary(pl):    Zaplecze do zarządzania zaszyfrowanymi plikami danych na dysku
 
+# SPDX confirmed
 License:        GPL-2.0-or-later
 URL:            http://gringotts.shlomifish.org/
 Source0:        http://download.berlios.de/gringotts/%{name}-%{version}.tar.bz2

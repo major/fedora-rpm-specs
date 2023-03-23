@@ -1,4 +1,4 @@
-%global device_mapper_version 1.02.191
+%global device_mapper_version 1.02.193
 
 %global enable_cache 1
 %global enable_lvmdbusd 1
@@ -44,13 +44,16 @@ Name: lvm2
 %if 0%{?rhel}
 Epoch: %{rhel}
 %endif
-Version: 2.03.19
+Version: 2.03.20
 Release: 2%{?dist}
 License: GPLv2
 URL: https://sourceware.org/lvm2/
 Source0: https://sourceware.org/pub/lvm2/releases/LVM2.%{version}.tgz
-Patch1: 0001-lvresize-fix-check-for-mounted-and-renamed-LV-to-han.patch
-Patch2: 0002-toollib-fix-segfault-if-using-S-select-with-log-repo.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2180557
+# https://github.com/lvmteam/lvm2/pull/114
+# Fix an invalid import which breaks lvm2-lvmdbusd.service and thus anaconda
+Patch0: 0001-Fix-import-of-utils-from-lvmdbusd.cfg.patch
+#Patch1: 0001-*
 
 BuildRequires: make
 BuildRequires: gcc
@@ -103,9 +106,8 @@ or more physical volumes and creating one or more logical volumes
 (kind of logical partitions) in volume groups.
 
 %prep
-%setup -q -n LVM2.%{version}
-%patch1 -p1 -b .backup1
-%patch2 -p1 -b .backup2
+%autosetup -p1 -n LVM2.%{version}
+#%%patch1 -p1 -b .backup1
 
 %build
 %global _default_pid_dir /run
@@ -658,6 +660,12 @@ An extensive functional testsuite for LVM2.
 %endif
 
 %changelog
+* Tue Mar 21 2023 Adam Williamson <awilliam@redhat.com> - 2.03.20-2
+- Backport PR #114 to fix #2180557
+
+* Tue Mar 21 2023 Marian Csontos <mcsontos@redhat.com> - 2.03.20-1
+- Update to upstream version 2.03.20.
+
 * Wed Mar 08 2023 Marian Csontos <mcsontos@redhat.com> - 2.03.19-2
 - Fix lvresize's check for mounted and renamed LVs to handle spaces.
 - Fix segfault when using -S|--select with log/report_command_log=1.

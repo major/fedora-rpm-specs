@@ -1,32 +1,31 @@
 %{?mingw_package_header}
 
 %global mod_name shapely
-%global pypi_name Shapely
+%global pypi_name shapely
 
 Name:          mingw-python-%{mod_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       1.8.5
-Release:       2%{?dist}
+Version:       2.0.1
+Release:       1%{?dist}
 BuildArch:     noarch
 
 License:       BSD
 URL:           https://github.com/Toblerity/Shapely
 Source0:       %{pypi_source}
 
-# Fix loading geos library
-Patch0:        shapely_geos.patch
-# Relax requires
-Patch1:        shapely_requires.patch
-
 BuildRequires: mingw32-filesystem >= 95
+BuildRequires: mingw32-dlfcn
 BuildRequires: mingw32-gcc
+BuildRequires: mingw32-geos
 BuildRequires: mingw32-python3
 BuildRequires: mingw32-python3-build
 BuildRequires: mingw32-python3-Cython
 BuildRequires: mingw32-python3-numpy
 
 BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-dlfcn
 BuildRequires: mingw64-gcc
+BuildRequires: mingw64-geos
 BuildRequires: mingw64-python3
 BuildRequires: mingw64-python3-build
 BuildRequires: mingw64-python3-Cython
@@ -54,14 +53,26 @@ Requires:      mingw64(libgeos_c-1.dll)
 %description -n mingw64-python3-%{mod_name}
 MinGW Windows Python3 %{pypi_name} library.
 
+%{?mingw_debug_package}
+
 
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}
 
+# We don’t need the “oldest supported numpy” in the RPM build, and the
+# metapackage in question (https://pypi.org/project/oldest-supported-numpy/) is
+# not packaged. Just depend on numpy.
+sed -r -i \
+    -e 's/oldest-supported-(numpy)/\1/' \
+    pyproject.toml
+
 
 %build
-export NO_GEOS_CONFIG=1
+export GEOS_INCLUDE_PATH=%{mingw32_includedir}/geos
+export GEOS_LIBRARY_PATH=%{mingw32_libdir}
 %mingw32_py3_build_wheel
+export GEOS_INCLUDE_PATH=%{mingw64_includedir}/geos
+export GEOS_LIBRARY_PATH=%{mingw64_libdir}
 %mingw64_py3_build_wheel
 
 
@@ -83,6 +94,9 @@ export NO_GEOS_CONFIG=1
 
 
 %changelog
+* Sun Mar 19 2023 Sandro Mani <manisandro@gmail.com> - 2.0.1-1
+- Update to 2.0.1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

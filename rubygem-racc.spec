@@ -5,7 +5,8 @@ Version:	1.6.2
 Release:	202%{?dist}
 
 Summary:	LALR(1) parser generator
-License:	BSD
+# SPDX confirmed
+License:	BSD-2-Clause
 URL:		https://github.com/tenderlove/racc
 
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem

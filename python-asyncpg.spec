@@ -1,8 +1,10 @@
 # Sphinx-generated HTML documentation is not suitable for packaging; see
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
-# We can generate PDF documentation as a substitute.
-%bcond_without doc_pdf
+# We could generate PDF documentation as a substitute, except that
+# python-sphinxcontrib-asyncio is incompatible with Sphinx 6.1.3 and later
+# (https://bugzilla.redhat.com/show_bug.cgi?id=2180497).
+%bcond_with doc_pdf
 
 Name:           python-asyncpg
 Summary:        A fast PostgreSQL Database Client Library for Python/asyncio
@@ -52,6 +54,10 @@ http://magic.io/blog/asyncpg-1m-rows-from-postgres-to-python/.}
 
 %package -n     python3-asyncpg
 Summary:        %{summary}
+
+%if %{without doc_pdf}
+Obsoletes:      %{name}-doc < 0.27.0-5
+%endif
 
 %description -n python3-asyncpg %{common_description}
 
@@ -130,10 +136,10 @@ k="${k-}${k+ and }not TestFlake8"
 %files -n python3-asyncpg -f %{pyproject_files}
 
 
+%if %{with doc_pdf}
 %files doc
 %license LICENSE
 %doc README.rst
-%if %{with doc_pdf}
 %doc docs/_build/latex/asyncpg.pdf
 %endif
 

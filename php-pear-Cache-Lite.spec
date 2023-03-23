@@ -6,28 +6,42 @@
 #
 # Please, preserve the changelog entries
 #
-%{!?__pear:       %global __pear       %{_bindir}/pear}
-%global pear_name Cache_Lite
+
+%bcond_without       tests
+
+%global pear_name    Cache_Lite
+%global gh_commit    fc7c6703cfbddc55c80c5ae3926dcc80c1d993f9
+%global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
+%global gh_owner     pear
+%global gh_project   Cache_Lite
 
 Summary:        Fast and Safe little cache system for PHP
-Summary(fr):    Méthode de cache rapide et sécurisée pour PHP
 Name:           php-pear-Cache-Lite
-Version:        1.8.3
-Release:        9%{?dist}
-License:        PHP-3.01
-URL:            http://pear.php.net/package/Cache_Lite
-Source:         http://pear.php.net/get/%{pear_name}-%{version}.tgz
-
-Patch0:         %{pear_name}-php82.patch
+Version:        2.0.0
+Release:        1%{?dist}
+License:        LGPL-2.1-or-later
+URL:            https://github.com/%{gh_owner}/%{gh_project}
+# git snapshot to retrieve test suite
+Source0:        %{gh_commit}/%{name}-%{version}-%{gh_short}.tgz
+Source1:        makesrc.sh
 
 BuildArch:      noarch
-BuildRequires:  php-pear(PEAR) >= 1.10.1
+BuildRequires:  php(language)  >= 7.4
+BuildRequires:  php-date
+BuildRequires:  php-autoloader(pear/pear-core-minimal) >= 1.10
+BuildRequires:  php-fedora-autoloader-devel
+%if %{with tests}
+# from composer.json  "require-dev": {
+#        "phpunit/phpunit": "^9"
+BuildRequires:  phpunit9
+%endif
 
-Requires:       php(language)  >= 5.4
+# from composer.json "require": {
+#        "php": ">=7.4.0",
+#        "pear/pear-core-minimal": "^1.10"
+Requires:       php(language)  >= 7.4
+Requires:       php-autoloader(pear/pear-core-minimal) >= 1.10
 Requires:       php-date
-Requires:       php-pear(PEAR) >= 1.10.1
-Requires(post): %{__pear}
-Requires(postun): %{__pear}
 
 Provides:       php-pear(%{pear_name}) = %{version}
 Provides:       php-composer(pear/cache_lite) = %{version}
@@ -38,63 +52,61 @@ This package is a little cache system optimized for file containers. It is
 fast and safe (because it uses file locking and/or anti-corruption tests).
 
 
-%description -l fr
-Cette extension fournit une méthode de petit cache optimisé pour les fichiers.
-Elle est rapide et sécurisée (parce qu'elle utilise les verrous de fichiers 
-et/ou des tests anti-corruption).
-
-
 %prep
-%setup -c -q
-cd %{pear_name}-%{version}
-
-%patch0 -p0
-sed -e '/role="test"/s/md5sum="[^"]*"//' ../package.xml >%{name}.xml
+%setup -q -n %{gh_project}-%{gh_commit}
 
 
 %build
-# Empty build section
+: Generate classmap autoloader
+phpab --template fedora --output Cache/Lite/autoload.php Cache
+cat << 'EOF' | tee -a Cache/Lite/autoload.php
+
+\Fedora\Autoloader\Dependencies::required([
+    '%{pear_phpdir}/PEAR/autoload.php',
+]);
+EOF
 
 
 %install
-cd %{pear_name}-%{version}
-%{__pear} install --nodeps --packagingroot %{buildroot} %{name}.xml
-
-# Clean up unnecessary files
-rm -rf %{buildroot}%{pear_metadir}/.??*
-
-# Install XML package description
-install -Dpm 644 %{name}.xml %{buildroot}%{pear_xmldir}/%{name}.xml
+mkdir -p     %{buildroot}%{pear_phpdir}/
+cp -pr Cache %{buildroot}%{pear_phpdir}/Cache
 
 
+%if %{with tests}
 %check
-cd %{pear_name}-%{version}
+mkdir vendor
+ln -s %{buildroot}%{pear_phpdir}/Cache/Lite/autoload.php vendor/autoload.php
 
-%{__pear} \
-   run-tests \
-   -i "-d include_path=%{buildroot}%{pear_phpdir}:%{pear_phpdir}" \
-   tests | tee ../tests.log
-grep "FAILED TESTS" ../tests.log && exit 1 || exit 0
+: Upstream test suite
+ret=0
+for cmd in php php80 php81 php82; do
+  if which $cmd; then
+    $cmd %{_bindir}/phpunit9 --verbose || ret=1
+  fi
+done
+%endif
 
 
 %post
-%{__pear} install --nodeps --soft --force --register-only %{pear_xmldir}/%{name}.xml >/dev/null || :
-
-
-%postun
-if [ "$1" -eq "0" ]; then
-    %{__pear} uninstall --nodeps --ignore-errors --register-only %{pear_name} >/dev/null || :
+# no more from pear channel
+if [ -x %{_bindir}/pear ]; then
+  %{_bindir}/pear uninstall --nodeps --ignore-errors --register-only %{pear_name} >/dev/null || :
 fi
 
 
 %files
-%doc %{pear_docdir}/%{pear_name}
-%doc %{pear_testdir}/%{pear_name}
+%license LICENSE
+%doc composer.json
+%doc docs
+%doc *.md
 %{pear_phpdir}/Cache
-%{pear_xmldir}/%{name}.xml
 
 
 %changelog
+* Tue Mar 21 2023 Remi Collet <remi@remirepo.net> - 2.0.0-1
+- update to 2.0.0
+- sources from github instead or pear channel
+
 * Mon Feb 20 2023 Remi Collet <remi@remirepo.net> - 1.8.3-9
 - fix PHP 8.2 deprecations in test suite
 - use SPDX license ID

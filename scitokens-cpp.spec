@@ -2,8 +2,8 @@
 %undefine __cmake3_in_source_build
 
 Name: scitokens-cpp
-Version: 0.7.3
-Release: 2%{?dist}
+Version: 1.0.0
+Release: 1%{?dist}
 Summary: C++ Implementation of the SciTokens Library
 License: ASL 2.0
 URL: https://github.com/scitokens/scitokens-cpp
@@ -74,6 +74,12 @@ Requires: %{name}%{?_isa} = %{version}
 %dir %{_includedir}/scitokens
 
 %changelog
+* Tue Mar 21 2023 Derek Weitzel <dweitzel@unl.edu> - 1.0.0-1
+- Add async API for parsing and verifying tokens
+- Add configuration API
+- Make nbf claim optional for non-scitokens tokens
+- Update to OpenSSL 3.0
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

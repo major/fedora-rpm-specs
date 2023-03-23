@@ -14,13 +14,13 @@
 %global httpd_pkg_cache_dir /var/cache/httpd/mod_auth_openidc
 
 Name:		mod_auth_openidc
-Version:	2.4.12.3
-Release:	2%{?dist}
+Version:	2.4.13.1
+Release:	1%{?dist}
 Summary:	OpenID Connect auth module for Apache HTTP Server
 
 License:	Apache-2.0
-URL:		https://github.com/zmartzone/mod_auth_openidc
-Source0:	https://github.com/zmartzone/mod_auth_openidc/archive/v%{version}.tar.gz
+URL:		https://github.com/OpenIDC/mod_auth_openidc
+Source0:	https://github.com/OpenIDC/mod_auth_openidc/archive/v%{version}.tar.gz
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -96,6 +96,10 @@ install -m 700 -d $RPM_BUILD_ROOT%{httpd_pkg_cache_dir}/cache
 %dir %attr(0700, apache, apache) %{httpd_pkg_cache_dir}/cache
 
 %changelog
+* Tue Mar 21 2023 Tomas Halman <thalman@redhat.com> - 2.4.13.1-1
+  Rebase to 2.4.13.1 version
+- Resolves: rhbz#2177413 - mod_auth_openidc-2.4.12.3 is available
+
 * Tue Mar 7 2023 Tomas Halman <thalman@redhat.com> - 2.4.12.3-2
   migrated to SPDX license
 

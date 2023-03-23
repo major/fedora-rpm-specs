@@ -9,8 +9,8 @@
 %global srcname alcotest
 
 Name:           ocaml-%{srcname}
-Version:        1.6.0
-Release:        3%{?dist}
+Version:        1.7.0
+Release:        1%{?dist}
 Summary:        Lightweight and colorful test framework for OCaml
 
 License:        ISC
@@ -25,13 +25,13 @@ Patch0:         0001-Drop-the-stdlib-shims-subpackage.patch
 BuildRequires:  ocaml >= 4.05.0
 BuildRequires:  ocaml-astring-devel
 BuildRequires:  ocaml-cmdliner-devel >= 1.1.0
-BuildRequires:  ocaml-dune >= 2.8
+BuildRequires:  ocaml-dune >= 3.0
 BuildRequires:  ocaml-fmt-devel >= 0.8.7
 BuildRequires:  ocaml-re-devel >= 1.7.2
 BuildRequires:  ocaml-uutf-devel >= 1.0.1
 
 %if %{with async}
-BuildRequires:  js-of-ocaml-compiler-devel
+BuildRequires:  js-of-ocaml-compiler-devel >= 3.11.0
 BuildRequires:  ocaml-async-devel >= 0.15.0
 BuildRequires:  ocaml-async-kernel-devel
 BuildRequires:  ocaml-async-unix-devel >= 0.15.0
@@ -110,6 +110,9 @@ cd -
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Mar 21 2023 Jerry James <loganjerry@gmail.com> - 1.7.0-1
+- Version 1.7.0
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.6.0-3
 - Rebuild OCaml packages for F38
 

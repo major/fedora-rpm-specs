@@ -6,7 +6,7 @@
 
 %global maj_ver 16
 %global libomp_version %{maj_ver}.0.0
-%global rc_ver 4
+#global rc_ver 4
 %global libomp_srcdir openmp-%{libomp_version}%{?rc_ver:rc%{rc_ver}}.src
 %global cmake_srcdir cmake-%{libomp_version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -92,7 +92,7 @@ mv %{cmake_srcdir} cmake
 	-DLIBOMP_INSTALL_ALIASES=OFF \
 	-DCMAKE_MODULE_PATH=%{_libdir}/cmake/llvm \
 	-DLLVM_DIR=%{_libdir}/cmake/llvm \
-	-DCMAKE_INSTALL_INCLUDEDIR=%{_libdir}/clang/%{libomp_version}/include \
+	-DCMAKE_INSTALL_INCLUDEDIR=%{_libdir}/clang/%{maj_ver}/include \
 %if 0%{?__isa_bits} == 64
 	-DOPENMP_LIBDIR_SUFFIX=64 \
 %else
@@ -156,12 +156,12 @@ rm -rf %{buildroot}%{_libdir}/libarcher_static.a
 %endif
 
 %files devel
-%{_libdir}/clang/%{libomp_version}/include/omp.h
+%{_libdir}/clang/%{maj_ver}/include/omp.h
 %{_libdir}/cmake/openmp/FindOpenMPTarget.cmake
 %ifnarch %{arm}
-%{_libdir}/clang/%{libomp_version}/include/omp-tools.h
-%{_libdir}/clang/%{libomp_version}/include/ompt.h
-%{_libdir}/clang/%{libomp_version}/include/ompt-multiplex.h
+%{_libdir}/clang/%{maj_ver}/include/omp-tools.h
+%{_libdir}/clang/%{maj_ver}/include/ompt.h
+%{_libdir}/clang/%{maj_ver}/include/ompt-multiplex.h
 %endif
 %ifnarch %{ix86} %{arm}
 # libomptarget is not supported on 32-bit systems.
@@ -182,6 +182,9 @@ rm -rf %{buildroot}%{_libdir}/libarcher_static.a
 %{_libexecdir}/tests/libomp/
 
 %changelog
+* Tue Mar 21 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0-1
+- Update to LLVM 16.0.0
+
 * Wed Mar 15 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc4-1
 - Update to LLVM 16.0.0 RC4
 

@@ -3,8 +3,8 @@
 %global py3_prefix python%{python3_pkgversion}
 
 Name:               python-cairosvg
-Version:            2.5.2
-Release:            7%{?dist}
+Version:            2.7.0
+Release:            1%{?dist}
 Summary:            A Simple SVG Converter for Cairo
 
 License:            LGPLv3+
@@ -48,7 +48,7 @@ CairoSVG is a SVG converter based on Cairo. It can export SVG files to PDF,
 PostScript and PNG files.
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{srcname}-%{version} -p1
 # Remove bundled egg-info in case it exists
 rm -rf %{srcname}.egg-info
 # emulate the git submodule used by upstream - this is required to pass the
@@ -76,6 +76,11 @@ rm -f %{buildroot}%{python3_sitelib}/%{modname}/test_api.py
 %{_bindir}/cairosvg
 
 %changelog
+* Tue Mar 21 2023 Onuralp SEZER <thunderbirdtr@fedoraproject.org> - 2.7.0-1
+- Update python-cairosvg version 2.7.0
+- Disable isort flake8 patch updated
+- Fix CVE-2023-27586 - BZ#2180272 BZ#2180271
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

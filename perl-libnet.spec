@@ -1,4 +1,4 @@
-%global base_version 3.13
+%global base_version 3.15
 
 # Run optional test
 %if ! (0%{?rhel})
@@ -12,8 +12,8 @@
 %bcond_without perl_libnet_enables_ssl
 
 Name:           perl-libnet
-Version:        3.14
-Release:        491%{?dist}
+Version:        3.15
+Release:        1%{?dist}
 Summary:        Perl clients for various network protocols
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/libnet
@@ -22,8 +22,6 @@ Source0:        https://cpan.metacpan.org/authors/id/S/SH/SHAY/libnet-%{base_ver
 Patch0:         libnet-3.09-Normalize-Changes-encoding.patch
 # Do not create Net/libnet.cfg, bug #1238689
 Patch1:         libnet-3.08-Do-not-create-Net-libnet.cfg.patch
-# Unbundled from perl 5.35.11
-Patch2:         libnet-3.13-Upgrade-to-3.14.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -105,7 +103,6 @@ protocols used in the internet community.
 %setup -q -n libnet-%{base_version}
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 </dev/null
@@ -125,6 +122,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Mar 21 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.15-1
+- 3.15 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.14-491
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

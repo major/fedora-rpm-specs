@@ -4,13 +4,11 @@
 Summary:    CLI Steps for Cucumber, hand-crafted for you in Aruba
 Name:       rubygem-%{gem_name}
 Version:    2.1.0
-Release:    3%{?dist}
+Release:    4%{?dist}
 
-# aruba itself is MIT
-# icons in templates/images are CC-BY
-# jquery.js itself is MIT or GPLv2
-# jquery.js includes sizzle.js, which is MIT or BSD or GPLv2
-License:        MIT and CC-BY and (MIT or GPLv2) and (MIT or BSD or GPLv2)
+# SPDX confirmed
+# templates/, jquery.js existed on 0.14.14, no longer included in 2.0 and above
+License:        MIT
 URL:            http://github.com/cucumber/aruba
 Source0:        http://rubygems.org/gems/%{gem_name}-%{version}.gem
 Source1:        %{name}-%{version}-testsuite.tar.gz
@@ -169,6 +167,9 @@ popd # from .%%{gem_instdir}
 %doc    %{gem_instdir}/CHANGELOG.md
 
 %changelog
+* Tue Mar 21 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.1.0-4
+- Correct license tag
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

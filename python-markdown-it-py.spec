@@ -1,8 +1,8 @@
 %global pypi_name markdown-it-py
 
 Name:           python-%{pypi_name}
-Version:        2.1.0
-Release:        4%{?dist}
+Version:        2.2.0
+Release:        1%{?dist}
 Summary:        Python port of markdown-it
 
 License:        MIT
@@ -29,6 +29,8 @@ Summary:        %{summary}
 
 %description -n python3-%{pypi_name} %_description
 
+%pyproject_extras_subpkg -n python3-%{pypi_name} linkify plugins
+
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}
 
@@ -41,7 +43,7 @@ sed -i '/"coverage",/d' pyproject.toml
 sed -i '/"pytest-cov",/d' pyproject.toml
 
 %generate_buildrequires
-%pyproject_buildrequires -x testing
+%pyproject_buildrequires -x testing,linkify,plugins
 
 %build
 %pyproject_wheel
@@ -51,8 +53,7 @@ sed -i '/"pytest-cov",/d' pyproject.toml
 %pyproject_save_files markdown_it
 
 %check
-# Skipped test uses linkify-it-py extra which we don't have
-%pytest tests/ -k "not test_linkify"
+%pytest tests/
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE LICENSE.markdown-it
@@ -61,6 +62,11 @@ sed -i '/"pytest-cov",/d' pyproject.toml
 
 
 %changelog
+* Wed Mar 15 2023 Karolina Surma <ksurma@redhat.com> - 2.2.0-1
+- Update to 2.2.0, includes the fix for CVE-2023-26302
+Resolves: rhbz#2172373 rhbz#2177154
+- Provide extra subpackages: linkify and plugins
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -6,12 +6,15 @@
 
 Name:           ocaml-psmt2-frontend
 Version:        0.4.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Parser and typechecker for an extension of SMT-LIB 2
 
 License:        Apache-2.0
 URL:            https://github.com/ACoquereau/psmt2-frontend
 Source0:        %{url}/archive/%{version}/psmt2-frontend-%{version}.tar.gz
+# Update conf.py for Sphinx 6.x
+# https://github.com/ACoquereau/psmt2-frontend/pull/24
+Patch0:         %{name}-sphinx6.patch
 
 BuildRequires:  make
 BuildRequires:  ocaml >= 4.04.2
@@ -43,7 +46,7 @@ Summary:        Documentation for %{name}
 Documentation for %{name}.
 
 %prep
-%autosetup -n psmt2-frontend-%{version}
+%autosetup -n psmt2-frontend-%{version} -p1
 
 # Do not use git to find the version; we don't have a git checkout
 sed -i '/^git =/d;/^branch=/d;s/^\(version = \).*/\1"%{version}"/' sphinx/conf.py
@@ -68,6 +71,9 @@ make sphinx
 %doc docs/sphinx
 
 %changelog
+* Tue Mar 21 2023 Jerry James <loganjerry@gmail.com> - 0.4.0-8
+- Add patch for Sphinx 6.x compatibility (rhbz#2180496)
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.4.0-7
 - Rebuild OCaml packages for F38
 

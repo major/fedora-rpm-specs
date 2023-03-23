@@ -40,8 +40,8 @@
 %endif
 
 Name:           wine
-Version:        8.2
-Release:        3%{?dist}
+Version:        8.4
+Release:        1%{?dist}
 Summary:        A compatibility layer for windows applications
 
 License:        LGPL-2.1-or-later
@@ -704,8 +704,8 @@ This package adds the opencl driver for wine.
 
 %prep
 %setup -qn wine-%{version}
-%patch100 -p1 -b.autoconf
-%patch511 -p1 -b.cjk
+%patch -P 100 -p1 -b.autoconf
+%patch -P 511 -p1 -b.cjk
 
 %if 0%{?wine_staging}
 # setup and apply wine-staging patches
@@ -1242,8 +1242,6 @@ fi
 %{_libdir}/wine/%{winepedir}/wscript.exe
 %{_libdir}/wine/%{winepedir}/uninstaller.exe
 
-%{_libdir}/wine/%{winesodir}/libwine.so.1*
-
 %{_libdir}/wine/%{winepedir}/acledit.dll
 %{_libdir}/wine/%{winepedir}/aclui.dll
 %{_libdir}/wine/%{winepedir}/activeds.dll
@@ -1744,6 +1742,7 @@ fi
 %{_libdir}/wine/%{winepedir}/windows.media.devices.dll
 %{_libdir}/wine/%{winepedir}/windows.networking.connectivity
 %{_libdir}/wine/%{winepedir}/windows.networking.dll
+%{_libdir}/wine/%{winepedir}/windows.perception.stub.dll
 %{_libdir}/wine/%{winepedir}/windows.system.profile.systemmanufacturers.dll
 %{_libdir}/wine/%{winepedir}/windows.ui.dll
 %{_libdir}/wine/%{winepedir}/windowscodecs.dll
@@ -1757,6 +1756,8 @@ fi
 %{_libdir}/wine/%{winesodir}/wineusb.so
 %{_libdir}/wine/%{winesodir}/winevulkan.so
 %{_libdir}/wine/%{winepedir}/winevulkan.dll
+%{_libdir}/wine/%{winepedir}/winewayland.drv
+%{_libdir}/wine/%{winesodir}/winewayland.so
 %{_libdir}/wine/%{winepedir}/winex11.drv
 %{_libdir}/wine/%{winesodir}/winex11.so
 %{_libdir}/wine/%{winepedir}/wing32.dll
@@ -1779,7 +1780,6 @@ fi
 %{_libdir}/wine/%{winesodir}/win32u.so
 %{_libdir}/wine/%{winesodir}/winebus.so
 %{_libdir}/wine/%{winepedir}/winexinput.sys
-%{_libdir}/wine/%{winepedir}/winscard.dll
 %{_libdir}/wine/%{winepedir}/wintab32.dll
 %{_libdir}/wine/%{winepedir}/wintrust.dll
 %{_libdir}/wine/%{winepedir}/winusb.dll
@@ -2504,6 +2504,7 @@ fi
 %{_libdir}/wine/%{winesodir}/windows.media.devices.dll.so
 %{_libdir}/wine/%{winesodir}/windows.networking.connectivity.so
 %{_libdir}/wine/%{winesodir}/windows.networking.dll.so
+%{_libdir}/wine/%{winesodir}/windows.perception.stub.dll.so
 %{_libdir}/wine/%{winesodir}/windows.system.profile.systemmanufacturers.dll.so
 %{_libdir}/wine/%{winesodir}/windows.ui.so
 %{_libdir}/wine/%{winesodir}/windowscodecs.dll.so
@@ -2530,7 +2531,6 @@ fi
 %{_libdir}/wine/%{winesodir}/wmp.dll.so
 %{_libdir}/wine/%{winesodir}/wmvcore.dll.so
 %{_libdir}/wine/%{winesodir}/spoolss.dll.so
-%{_libdir}/wine/%{winesodir}/winscard.dll.so
 %{_libdir}/wine/%{winesodir}/wintab32.dll.so
 %{_libdir}/wine/%{winesodir}/wintrust.dll.so
 %{_libdir}/wine/%{winesodir}/wintypes.dll.so
@@ -2839,6 +2839,9 @@ fi
 %endif
 
 %changelog
+* Tue Mar 21 2023 Michael Cronenworth <mike@cchtml.com> - 8.4-1
+- version update
+
 * Wed Feb 22 2023 Michael Cronenworth <mike@cchtml.com> - 8.2-3
 - fix missing requires for win-iconv
 

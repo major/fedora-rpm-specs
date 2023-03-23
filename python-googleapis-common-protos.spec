@@ -19,7 +19,7 @@
 
 %global         srcname     googleapis-common-protos
 %global         forgeurl    https://github.com/googleapis/python-api-common-protos/
-Version:        1.58.0
+Version:        1.59.0
 %global         tag         v%{version}
 %forgemeta
 

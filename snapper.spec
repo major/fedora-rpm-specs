@@ -2,11 +2,11 @@
 %global snapper_svcs snapper-boot.service snapper-boot.timer snapper-cleanup.service snapper-cleanup.timer snapper-timeline.service snapper-timeline.timer snapperd.service
 
 Name:           snapper
-Version:        0.10.1
-Release:        4%{?dist}
+Version:        0.10.4
+Release:        1%{?dist}
 Summary:        Tool for filesystem snapshot management
 
-License:        GPLv2
+License:        GPL-2.0-only
 URL:            http://snapper.io
 Source0:        https://github.com/openSUSE/snapper/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:         %{name}-remove-ext4-info-xml.patch
@@ -176,6 +176,9 @@ done
 %{_mandir}/man8/pam_snapper.8*
 
 %changelog
+* Mon Mar 20 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.10.4-1
+- Update to 0.10.4
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

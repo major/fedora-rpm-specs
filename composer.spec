@@ -10,7 +10,7 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    6b67eeea4d72051c369ccdbfb2423a56e2ab51a9
+%global gh_commit    c7cffaad16a60636a776017eac5bd8cd0095c32f
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_branch    2.0-dev
 %global gh_owner     composer
@@ -18,7 +18,7 @@
 %global api_version  2.3.0
 %global run_version  2.2.2
 
-%global upstream_version 2.5.4
+%global upstream_version 2.5.5
 #global upstream_prever  RC1
 #global upstream_lower   rc1
 
@@ -94,10 +94,10 @@ Provides:       bundled(php-react-promise) = v2.9.0
 Provides:       bundled(php-seld-jsonlint) = 1.9.0
 Provides:       bundled(php-seld-phar-utils) = 1.2.1
 Provides:       bundled(php-seld-signal-handler) = 2.0.1
-Provides:       bundled(php-symfony-console) = v5.4.19
+Provides:       bundled(php-symfony-console) = v5.4.21
 Provides:       bundled(php-symfony-deprecation-contracts) = v2.5.2
-Provides:       bundled(php-symfony-filesystem) = v5.4.19
-Provides:       bundled(php-symfony-finder) = v5.4.19
+Provides:       bundled(php-symfony-filesystem) = v5.4.21
+Provides:       bundled(php-symfony-finder) = v5.4.21
 Provides:       bundled(php-symfony-polyfill-ctype) = v1.27.0
 Provides:       bundled(php-symfony-polyfill-intl-grapheme) = v1.27.0
 Provides:       bundled(php-symfony-polyfill-intl-normalizer) = v1.27.0
@@ -105,9 +105,9 @@ Provides:       bundled(php-symfony-polyfill-mbstring) = v1.27.0
 Provides:       bundled(php-symfony-polyfill-php73) = v1.27.0
 Provides:       bundled(php-symfony-polyfill-php80) = v1.27.0
 Provides:       bundled(php-symfony-polyfill-php81) = v1.27.0
-Provides:       bundled(php-symfony-process) = v5.4.19
+Provides:       bundled(php-symfony-process) = v5.4.21
 Provides:       bundled(php-symfony-service-contracts) = v2.5.2
-Provides:       bundled(php-symfony-string) = v5.4.19
+Provides:       bundled(php-symfony-string) = v5.4.21
 
 # From composer.json, suggest
 #        "ext-openssl": "Enabling the openssl extension allows you to access https URLs for repositories and packages",
@@ -249,6 +249,9 @@ install -Dpm 755 bin/%{name} %{buildroot}%{_bindir}/%{name}
 
 
 %changelog
+* Tue Mar 21 2023 Remi Collet <remi@remirepo.net> - 2.5.5-1
+- update to 2.5.5
+
 * Wed Feb 15 2023 Remi Collet <remi@remirepo.net> - 2.5.4-1
 - update to 2.5.4
 

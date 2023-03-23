@@ -2,7 +2,7 @@
 %global srcname frozendict
 
 Name:           python-%{srcname}
-Version:        2.3.5
+Version:        2.3.6
 Release:        1%{?dist}
 Summary:        An immutable dictionary
 
@@ -45,6 +45,9 @@ BuildRequires:  python3-wheel
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Wed Mar 22 2023 Orion Poplawski <orion@nwra.com> - 2.3.6-1
+- Update to 2.3.6
+
 * Sat Feb 18 2023 Orion Poplawski <orion@nwra.com> - 2.3.5-1
 - Update to 2.3.5
 

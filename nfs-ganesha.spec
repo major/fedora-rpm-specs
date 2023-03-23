@@ -103,6 +103,9 @@ Requires: openSUSE-release
 %bcond_without mspac_support
 %global use_mspac_support %{on_off_switch mspac_support}
 
+%bcond_without monitoring_support
+%global use_monitoring_support %{on_off_switch monitoring_support}
+
 %bcond_with sanitize_address
 %global use_sanitize_address %{on_off_switch sanitize_address}
 
@@ -115,7 +118,7 @@ Requires: openSUSE-release
 
 Name:		nfs-ganesha
 Version:	4.4
-Release:	1%{?dev:%{dev}}%{?dist}
+Release:	2%{?dev:%{dev}}%{?dist}
 Summary:	NFS-Ganesha is a NFS Server running in user space
 License:	LGPL-3.0-or-later
 Url:		https://github.com/nfs-ganesha/nfs-ganesha/wiki
@@ -157,6 +160,12 @@ BuildRequires:	libblkid-devel
 BuildRequires:	libuuid-devel
 %if ( 0%{?with_mspac_support} )
 BuildRequires: libwbclient-devel
+%endif
+%if ( 0%{?with_monitoring_support} )
+BuildRequires: libcurl-devel
+BuildRequires: zlib-devel
+BuildRequires: civetweb-devel
+BuildRequires: libprometheus-cpp-devel
 %endif
 BuildRequires:	gcc-c++
 %if ( %{with_system_ntirpc} )
@@ -547,7 +556,9 @@ cd src && %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo	\
 	-DUSE_MAN_PAGE=%{use_man_page}			\
 	-DRPCBIND=%{use_rpcbind}			\
 	-D_MSPAC_SUPPORT=%{use_mspac_support}		\
+        -DUSE_MONITORING=%{use_monitoring_support}      \
 	-DSANITIZE_ADDRESS=%{use_sanitize_address}	\
+	-DUSE_MONITORING=ON				\
 %ifarch x86_64 aarch64
        -DCMAKE_LINKER=%{_bindir}/ld.mold                \
 %endif
@@ -889,9 +900,12 @@ exit 0
 %endif
 
 %changelog
+* Tue Feb 28 2023 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 4.4-2
+- enable Prometheus monitoring
+
 * Thu Feb 23 2023 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 4.4-1
 - NFS-Ganesha 4.4 GA
-- including evert python3-setuptools in 4.0-5, rhbz#2165546
+- including revert python3-setuptools in 4.0-5, rhbz#2165546
 
 * Mon Feb 20 2023 Kaleb S. KEITHLEY <kkeithle at redhat.com>
 - glusterfs-api-devel -> libgfapi-devel

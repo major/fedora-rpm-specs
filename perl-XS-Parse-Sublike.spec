@@ -2,10 +2,10 @@
 %bcond_without perl_XS_Parse_Sublike_enables_optional_tests
 
 Name:           perl-XS-Parse-Sublike
-Version:        0.16
-Release:        5%{?dist}
+Version:        0.17
+Release:        1%{?dist}
 Summary:        XS functions to assist in parsing sub-like syntax
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/XS-Parse-Sublike
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PEVANS/XS-Parse-Sublike-%{version}.tar.gz
 Source1:        macros.perl-XS-Parse-Sublike
@@ -77,8 +77,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n XS-Parse-Sublike-%{version}
-%patch0 -p1
+%autosetup -p1 -n XS-Parse-Sublike-%{version}
 %if !%{with perl_XS_Parse_Sublike_enables_optional_tests}
 rm t/99pod.t
 perl -i -ne 'print $_ unless m{^t/99pod\.t}' MANIFEST
@@ -117,7 +116,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorarch}/auto/*
+%dir %{perl_vendorarch}/auto/XS
+%dir %{perl_vendorarch}/auto/XS/Parse
+%{perl_vendorarch}/auto/XS/Parse/Sublike
 %dir %{perl_vendorarch}/XS
 %dir %{perl_vendorarch}/XS/Parse
 %{perl_vendorarch}/XS/Parse/Sublike.pm
@@ -132,6 +133,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Mar 21 2023 Petr Pisar <ppisar@redhat.com> - 0.17-1
+- 0.17 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

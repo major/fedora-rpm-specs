@@ -5,8 +5,8 @@
 %bcond_with test
 
 Name:           ocaml-ctypes
-Version:        0.20.1
-Release:        5%{?dist}
+Version:        0.20.2
+Release:        1%{?dist}
 Summary:        Combinators for binding to C libraries without writing any C
 
 License:        MIT
@@ -76,9 +76,6 @@ sed -i 's|-add ctypes|& -ldconf %{buildroot}%{ocamldir}/ld.conf|' Makefile
 # Fix the name of ounit
 sed -i 's/oUnit/ounit2/g' Makefile.tests
 
-# Fix the name of ounit
-sed -i 's/oUnit/ounit2/g' Makefile.tests
-
 %build
 # FIXME: Infrequent build failures with parallel build
 # It looks like the configuration step isn't done before its results are needed
@@ -119,6 +116,9 @@ make test
 %doc *.html *.css
 
 %changelog
+* Tue Mar 21 2023 Jerry James <loganjerry@gmail.com> - 0.20.2-1
+- Version 0.20.2
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.20.1-5
 - Rebuild OCaml packages for F38
 

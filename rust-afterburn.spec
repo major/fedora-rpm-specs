@@ -8,7 +8,7 @@
 
 Name:           rust-%{crate}
 Version:        5.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple cloud provider agent
 
 # Upstream license specification: Apache-2.0
@@ -17,6 +17,16 @@ URL:            https://crates.io/crates/afterburn
 Source0:        %{crates_source}
 # not used on Fedora
 Source1:        https://github.com/coreos/%{crate}/releases/download/v%{version}/%{crate}-%{version}-vendor.tar.gz
+
+# Use rust-mockito 1.0 API
+# Based on https://github.com/coreos/afterburn/pull/894, fixing merge conflicts
+Patch0:         0001-providers-packet-use-stored-client-for-boot-checkin.patch
+Patch1:         0002-providers-microsoft-use-stored-client-for-all-fetche.patch
+Patch2:         0003-providers-microsoft-import-crate-retry.patch
+Patch3:         0004-retry-client-move-URL-parsing-into-helper-function.patch
+Patch4:         0005-providers-move-endpoint-mocking-into-retry-Client.patch
+Patch5:         0006-Update-mockito-to-1.0.patch
+Patch6:         0007-Bump-mockito-version.patch
 
 ExclusiveArch:  %{rust_arches}
 %if 0%{?rhel} && !0%{?eln}
@@ -143,6 +153,9 @@ cp -a dracut/* %{buildroot}%{dracutmodulesdir}
 %endif
 
 %changelog
+* Mon Mar 20 2023 Benjamin Gilbert <bgilbert@redhat.com> - 5.4.0-2
+- Update for Mockito 1.0 API
+
 * Fri Feb 03 2023 Benjamin Gilbert <bgilbert@redhat.com> - 5.4.0-1
 - Update to 5.4.0
 

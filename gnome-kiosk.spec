@@ -11,13 +11,13 @@
 %global gnome_settings_daemon_version           40~rc
 
 Name:           gnome-kiosk
-Version:        44~rc
+Version:        44.0
 Release:        1%{?dist}
 Summary:        Window management and application launching for GNOME
 
 License:        GPL-2.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/gnome-kiosk
-Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
 
 Provides:       firstboot(windowmanager) = %{name}
 
@@ -46,7 +46,6 @@ single application deployments like wall displays and point-of-sale systems.
 
 %package search-appliance
 Summary:        Example search application application that uses GNOME Kiosk
-License:        GPLv2+
 Requires:       %{name} = %{version}-%{release}
 Requires:       firefox
 Requires:       gnome-session
@@ -57,7 +56,6 @@ This package provides a full screen firefox window pointed to google.
 
 %package script-session
 Summary:        Basic session used for running kiosk application from shell script
-License:        GPLv2+
 Requires:       %{name} = %{version}-%{release}
 Recommends:     gedit
 Requires:       gnome-session
@@ -82,7 +80,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Kiosk.Searc
 
 %files
 %license COPYING
-%doc README.md
+%doc NEWS README.md
 %{_bindir}/gnome-kiosk
 %{_datadir}/applications/org.gnome.Kiosk.desktop
 %{_datadir}/dconf/profile/gnomekiosk
@@ -107,6 +105,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Kiosk.Searc
 %{_datadir}/xsessions/gnome-kiosk-script-xorg.desktop
 
 %changelog
+* Tue Mar 21 2023 David King <amigadave@amigadave.com> - 44.0-1
+- Update to 44.0
+
 * Mon Mar 06 2023 David King <amigadave@amigadave.com> - 44~rc-1
 - Update to 44.rc
 

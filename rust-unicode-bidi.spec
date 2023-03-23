@@ -5,7 +5,7 @@
 %global crate unicode-bidi
 
 Name:           rust-unicode-bidi
-Version:        0.3.11
+Version:        0.3.13
 Release:        %autorelease
 Summary:        Implementation of the Unicode Bidirectional Algorithm
 

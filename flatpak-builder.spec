@@ -4,7 +4,7 @@
 %global flatpak_version 0.99.1
 
 Name:           flatpak-builder
-Version:        1.3.1
+Version:        1.3.3
 Release:        1%{?dist}
 Summary:        Tool to build flatpaks from source
 
@@ -20,7 +20,7 @@ BuildRequires:  docbook-dtds
 BuildRequires:  docbook-style-xsl
 BuildRequires:  flatpak >= %{flatpak_version}
 BuildRequires:  libcap-devel
-BuildRequires:  make
+BuildRequires:  meson
 BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_version}
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(json-glib-1.0)
@@ -65,16 +65,17 @@ See https://flatpak.org/ for more information.
 
 
 %build
-%configure \
-    --enable-docbook-docs \
-    --with-fuse=3 \
-    --with-system-debugedit
-
-%make_build V=1
+%meson -Ddocs=enabled -Dfuse=3 -Dyaml=enabled
+%meson_build
 
 
 %install
-%make_install
+%meson_install
+install -pm 644 NEWS README.md %{buildroot}/%{_pkgdocdir}
+
+
+%check
+%meson_test
 
 
 %files
@@ -86,6 +87,9 @@ See https://flatpak.org/ for more information.
 
 
 %changelog
+* Tue Mar 21 2023 David King <amigadave@amigadave.com> - 1.3.3-1
+- Update to 1.3.3 (#2179415)
+
 * Thu Feb 09 2023 David King <amigadave@amigadave.com> - 1.3.1-1
 - Update to 1.3.1 (#2159101)
 

@@ -2,23 +2,22 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate os_info
+%global crate xattr
 
-Name:           rust-os_info
-Version:        3.7.0
+Name:           rust-xattr0.2
+Version:        0.2.3
 Release:        %autorelease
-Summary:        Detect the operating system type and version
+Summary:        Unix extended filesystem attributes
 
-License:        MIT
-URL:            https://crates.io/crates/os_info
+# Upstream license specification: MIT/Apache-2.0
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/xattr
 Source:         %{crates_source}
-# Automatically generated patch to strip foreign dependencies
-Patch:          os_info-fix-metadata-auto.diff
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Detect the operating system type and version.}
+Unix extended filesystem attributes.}
 
 %description %{_description}
 
@@ -32,7 +31,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -48,16 +48,16 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+serde-devel
+%package     -n %{name}+unsupported-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+serde-devel %{_description}
+%description -n %{name}+unsupported-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "serde" feature of the "%{crate}" crate.
+use the "unsupported" feature of the "%{crate}" crate.
 
-%files       -n %{name}+serde-devel
+%files       -n %{name}+unsupported-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

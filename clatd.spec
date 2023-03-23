@@ -1,44 +1,30 @@
-%global commit0 1abcec1285585ede73b937b4082828755ee9c61c
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-
-%if 0%{?rhel} == 6
-%global perl_interpreter perl
-%else
-%global perl_interpreter perl-interpreter
-%endif
-
 Name:		clatd
-Version:	1.5
-Release:	11%{?dist}
+Version:	1.6
+Release:	1%{?dist}
 Summary:	CLAT / SIIT-DC Edge Relay implementation for Linux
 
 License:	MIT
 URL:		https://github.com/toreanderson/clatd
 Source0:	https://github.com/toreanderson/%{name}/archive/v%{version}.tar.gz
 
-# IO::Socket::INET6 isn't in Net::DNS now, rewrite to new IO::Socket::IP
-Patch0:         clatd-1.5-rewrite_obsolete_perl_dependency.patch
-
 BuildArch:	noarch
-BuildRequires:	%perl_interpreter
+BuildRequires:	perl-interpreter
 BuildRequires:	coreutils
 BuildRequires:	%{_bindir}/pod2man
 
 Requires:	iproute
 Requires:	iptables
 Requires:	tayga
-Requires:	%perl_interpreter
+Requires:	perl-interpreter
 Requires:	perl(Net::DNS)
 Requires:	perl(IO::Socket::IP)
 Requires:	perl(File::Temp)
 Requires:	perl(Net::IP)
 
-%if 0%{?fedora} >= 18 || 0%{?rhel} >=7
 Requires(post):		systemd
 Requires(preun):	systemd
 Requires(postun):	systemd
 BuildRequires:		systemd
-%endif
 
 
 %description
@@ -51,7 +37,6 @@ translated back to IPv4 before being routed to the IPv4 internet.
 
 %prep
 %setup -q v%{release}.tar.gz
-%patch0 -p1
 
 %build
 pod2man	--name %{name} \
@@ -70,40 +55,33 @@ sed -i "s,%{_sbindir}/clatd,%{_sbindir}/clatd -c %{_sysconfdir}/%{name}.conf," \
 install -p -D -m0755 %{name} %{buildroot}%{_sbindir}/%{name}
 install -p -D -m0644 %{name}.8.gz %{buildroot}%{_mandir}/man8/%{name}.8.gz
 install -p -D -m0644 %{name}.conf %{buildroot}%{_sysconfdir}/%{name}.conf
-install -p -D -m0755 scripts/%{name}.networkmanager %{buildroot}%{_prefix}/lib/NetworkManager/dispatcher.d/50-%{name}
-%if 0%{?fedora} >= 18 || 0%{?rhel} >= 7
-install -p -D -m 0644 scripts/%{name}.systemd %{buildroot}%{_unitdir}/%{name}.service
-%else
-install -p -D -m0644 scripts/%{name}.upstart %{buildroot}%{_sysconfdir}/init/%{name}.conf;
-%endif
+install -d -m 0755 %{buildroot}%{_prefix}/lib/NetworkManager/dispatcher.d/
+install -m 0755 scripts/%{name}.networkmanager %{buildroot}%{_prefix}/lib/NetworkManager/dispatcher.d/50-%{name}
+install -p -D -m0644 scripts/%{name}.systemd %{buildroot}%{_unitdir}/%{name}.service
+
 
 %post
-%if 0%{?fedora} >= 18 || 0%{?rhel} >= 7
 %systemd_post %{name}.service
-%else
-# upstart services do not need any chkconfig to be enabled
-%endif
 
 
 %files
 %{_sbindir}/%{name}
 %config(noreplace) %{_sysconfdir}/%{name}.conf
 %{_prefix}/lib/NetworkManager
+#dir #{_prefix}/lib/NetworkManager
+#dir #{_prefix}/lib/NetworkManager/dispatcher.d
+#{_prefix}/lib/NetworkManager/dispatcher.d/50-clatd
 %doc README.pod
 %{_mandir}/man8/*.8*
-%if 0%{?fedora} >= 22 || 0%{?rhel} >= 7
 %license LICENCE
-%else
-%doc LICENCE
-%endif
-%if 0%{?fedora} >= 18 || 0%{?rhel} >= 7
 %{_unitdir}/%{name}.service
-%else
-%{_sysconfdir}/init/%{name}.conf
-%endif
 
 
 %changelog
+* Mon Mar 06 2023 Ingvar Hagelund <ingvar@redpill-linpro.com> - 1.6-1
+- New upstream release
+- Pulled support for el6
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

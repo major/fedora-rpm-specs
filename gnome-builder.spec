@@ -5,10 +5,11 @@
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
-%global glib2_version 2.73.3
-%global gtk4_version 4.7.1
+%global glib2_version 2.75.0
+%global gtk4_version 4.8
 %global json_glib_version 1.2.0
 %global jsonrpc_glib_version 3.42.0
+%global libadwaita_version 1.3.0
 %global libdex_version 0.1.1
 %global libpeas_version 1.34.0
 %global libgit2_glib_version 1.1.0
@@ -16,7 +17,7 @@
 %global template_glib_version 3.36.1
 
 Name:           gnome-builder
-Version:        44~rc
+Version:        44.1
 Release:        %autorelease
 Summary:        IDE for writing GNOME-based software
 
@@ -38,7 +39,7 @@ Summary:        IDE for writing GNOME-based software
 #     - data/html-preview.png
 License:        GPLv3+ and GPLv2+ and LGPLv3+ and LGPLv2+ and MIT and CC-BY-SA and CC0
 URL:            https://wiki.gnome.org/Apps/Builder
-Source0:        https://download.gnome.org/sources/%{name}/43/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  clang-devel
 BuildRequires:  desktop-file-utils
@@ -58,7 +59,7 @@ BuildRequires:  pkgconfig(gtk4) >= %{gtk4_version}
 BuildRequires:  pkgconfig(gtksourceview-5)
 BuildRequires:  pkgconfig(json-glib-1.0) >= %{json_glib_version}
 BuildRequires:  pkgconfig(jsonrpc-glib-1.0) >= %{jsonrpc_glib_version}
-BuildRequires:  pkgconfig(libadwaita-1)
+BuildRequires:  pkgconfig(libadwaita-1) >= %{libadwaita_version}
 BuildRequires:  pkgconfig(libcmark)
 BuildRequires:  pkgconfig(libdex-1) >= %{libdex_version}
 BuildRequires:  pkgconfig(libgit2-glib-1.0) >= %{libgit2_glib_version}
@@ -85,6 +86,7 @@ Requires:       glib2%{?_isa} >= %{glib2_version}
 Requires:       gtk4%{?_isa} >= %{gtk4_version}
 Requires:       json-glib%{?_isa} >= %{json_glib_version}
 Requires:       jsonrpc-glib%{?_isa} >= %{jsonrpc_glib_version}
+Requires:       libadwaita%{?_isa} >= %{libadwaita_version}
 Requires:       libdex%{?_isa} >= %{libdex_version}
 Requires:       libgit2-glib%{?_isa} >= %{libgit2_glib_version}
 Requires:       libpeas%{?_isa} >= %{libpeas_version}

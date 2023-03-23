@@ -29,7 +29,7 @@ ExclusiveArch: %{ix86} x86_64
 Name: pioneer
 Summary: A game of lonely space adventure
 Version: 20230203
-Release: 2%{date}%{shortcommit}%{?dist}
+Release: 3%{date}%{shortcommit}%{?dist}
 
 ## Main license: GPLv3
 ## Dejavu font license: Bitstream Vera and Public Domain
@@ -84,6 +84,7 @@ Provides: bundled(fmt) = 6.2.1
 Patch0: %{name}-use_manual_installation.patch
 
 Patch1: %{name}-bug5527.patch
+Patch2: %{name}-bug5574.patch
 
 %description
 A space adventure game set in the Milky Way galaxy at the turn of
@@ -150,6 +151,7 @@ Requires:  fontpackages-filesystem
 
 %patch0 -p1 -b .backup
 %patch1 -p1 -b .backup
+%patch2 -p1 -b .backup
 
 ## Pioneer does not work with Lua 5.4.*
 ## We cannot unbundle internal Lua yet
@@ -308,6 +310,9 @@ ln -sf $(fc-match -f "%{file}" "dejavusans") %{buildroot}%{_datadir}/%{name}/fon
 %_font_pkg -n %{name}-pionilliumtext22l-medium PionilliumText22L-Medium.ttf
 
 %changelog
+* Tue Mar 21 2023 Antonio Trande <sagitter@fedoraproject.org> - 20230203-3.20230301gitcd91559
+- Bugfix build release (rhbz#2174394)
+
 * Wed Mar 01 2023 Antonio Trande <sagitter@fedoraproject.org> - 20230203-2.20230301gitcd91559
 - Bugfix release (rhbz#2174394)
 

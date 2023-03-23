@@ -28,7 +28,8 @@ Version:	%{mainver}%{?postver:.%postver}
 Release:	%{?prerelease:0.}%{baserelease}%{?betaver:.%betaver}%{?gitversion:.%{?gitversion}}%{?dist}.1
 Summary:	Regular expressions library
 
-License:	BSD
+# SPDX confirmed
+License:	BSD-2-Clause
 URL:		https://github.com/kkos/oniguruma/
 Source0:	https://github.com/kkos/oniguruma/releases/download/v%{mainver}%{?betaver:_%betaver}/onig-%{mainver}%{?postver:.%postver}%{?betaver:-%betaver}%{?gitversion:-%{?gitversion}}.tar.gz
 Source1:	create-tarball-from-git.sh

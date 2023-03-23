@@ -16,8 +16,8 @@
 
 Name:           zabbix
 Epoch:          1
-Version:        6.0.13
-Release:        2%{?dist}
+Version:        6.0.14
+Release:        1%{?dist}
 Summary:        Open-source monitoring solution for your IT infrastructure
 
 License:        GPL-2.0-or-later
@@ -798,6 +798,9 @@ fi
 %files web-pgsql
 
 %changelog
+* Tue Mar 21 2023 Morten Stevens <mstevens@fedoraproject.org> - 1:6.0.14-1
+- Update to 6.0.14
+
 * Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 1:6.0.13-2
 - migrated to SPDX license
 

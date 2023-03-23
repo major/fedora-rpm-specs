@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 39.5
-Release: 2%{?dist}
+Version: 39.6
+Release: 1%{?dist}
 License: GPLv2+ and MIT
 URL:     http://fedoraproject.org/wiki/Anaconda
 
@@ -11,9 +11,6 @@ URL:     http://fedoraproject.org/wiki/Anaconda
 # ./autogen.sh
 # make dist
 Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{version}-1/%{name}-%{version}.tar.bz2
-# https://github.com/rhinstaller/anaconda/pull/4624
-# Fix anaconda with pykickstart 3.47
-Patch0: 0001-Adjust-to-pykickstart-moving-new-network-commands-to.patch
 
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
@@ -42,7 +39,7 @@ Patch0: 0001-Adjust-to-pykickstart-moving-new-network-commands-to.patch
 %define libxklavierver 5.4
 %define mehver 0.23-1
 %define nmver 1.0
-%define pykickstartver 3.45-1
+%define pykickstartver 3.47-1
 %define pypartedver 2.5-2
 %define pythonblivetver 1:3.6.0-1
 %define rpmver 4.15.0
@@ -355,7 +352,7 @@ rm -rf \
   %{buildroot}/%{_sbindir}/liveinst \
   %{buildroot}/%{_datadir}/anaconda/gnome \
   %{buildroot}/%{_datadir}/anaconda/gnome/fedora-welcome \
-  %{buildroot}/%{_datadir}/anaconda/gnome/fedora-welcome.desktop \
+  %{buildroot}/%{_datadir}/anaconda/gnome/org.fedoraproject.welcome-screen.desktop \
   %{buildroot}/%{_datadir}/applications/liveinst.desktop
 %endif
 
@@ -466,6 +463,51 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 21 2023 Packit <hello@packit.dev> - 39.6-1
+- Adjust to pykickstart moving new network commands to F39 (awilliam)
+- Generate the ostreesetup kickstart command (vponcova)
+- Simplify the URL source (vponcova)
+- Add support for sources that provide access to a repository (vponcova)
+- Protect the RPM source provided by Dracut (vponcova)
+- Show the RPM source provided by Dracut in GUI (jkonecny)
+- Rename widgets for auto-detected installation media (vponcova)
+- Drop the stage2 support from the CDROM source (vponcova)
+- Simplify the default source selection of the RPM sources (jkonecny)
+- Add support for an RPM source defined by a local path to a repository
+  (jkonecny)
+- webui: add hint for running tests locally with selinux failures (rvykydal)
+- For user unit tests, provide valid login.defs (vslavik)
+- Don't copy binaries in user unit tests (vslavik)
+- Don't create empty login.defs (vslavik)
+- Revert "infra: Disable failing tests that call useradd and groupadd"
+  (vslavik)
+- Set correctly NM props for DNS kickstart options (vslavik)
+- fedora-welcome: Default to light style (fmuellner)
+- fedora-welcome: Swap buttons (fmuellner)
+- fedora-welcome: Drop icons from buttons (fmuellner)
+- fedora-welcome: Use libadwaita (fmuellner)
+- fedora-welcome: Use actions instead of clicked callbacks (fmuellner)
+- fedora-welcome: Port to GTK4 (fmuellner)
+- fedora-welcome: Tweak button labels (fmuellner)
+- fedora-welcome: Adjust wording of description (fmuellner)
+- fedora-welcome: Rename .desktop file (fmuellner)
+- fedora-welcome: Add back app icon (fmuellner)
+- fedora-welcome: Replace grids with boxes (fmuellner)
+- fedora-welcome: Remove secondary screen (fmuellner)
+- fedora-welcome: Launch .desktop file instead of spawning command (fmuellner)
+- fedora-welcome: Fix passing command line flags (fmuellner)
+- fedora-welcome: Use standard Javascript modules (fmuellner)
+- fedora-welcome: Split out application subclass (fmuellner)
+- fedora-window: Use show_all() only internally (fmuellner)
+- fedora-welcome: Stop using deprecated Lang module (fmuellner)
+- fedora-welcome: Reindent WelcomeWindow class (fmuellner)
+- fedora-welcome: Use consistent quotes (fmuellner)
+- fedora-welcome: Use template strings (fmuellner)
+- fedora-welcome: Use consistent braces (fmuellner)
+- fedora-welcome: Remove unused imports (fmuellner)
+- Fix saving DNS search domains to kickstart (vslavik)
+- Update translations from Weblate
+
 * Fri Mar 17 2023 Adam Williamson <awilliam@redhat.com> - 39.5-2
 - Backport PR #4624 to fix anaconda with pykickstart 3.47
 

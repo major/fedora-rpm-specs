@@ -2,7 +2,8 @@ Name:           yaz
 Version:        5.34.0
 Release:        2%{?dist}
 Summary:        Z39.50/SRW/SRU toolkit
-License:        BSD
+# SPDX confirmed
+License:        BSD-3-Clause
 URL:            http://www.indexdata.com/yaz/
 Source0:        http://ftp.indexdata.com/pub/yaz/yaz-%{version}.tar.gz
 

@@ -1,13 +1,13 @@
 %{?mingw_package_header}
 
 Name:           mingw-adwaita-icon-theme
-Version:        43
-Release:        2%{?dist}
+Version:        44.0
+Release:        1%{?dist}
 Summary:        Adwaita icon theme for MingGW
 
 License:        LGPLv3+ or CC-BY-SA
 URL:            http://www.gnome.org
-Source0:        http://download.gnome.org/sources/adwaita-icon-theme/43/adwaita-icon-theme-%{version}.tar.xz
+Source0:        http://download.gnome.org/sources/adwaita-icon-theme/%(v=%{version}; echo ${v/.*/})/adwaita-icon-theme-%{version}.tar.xz
 
 BuildArch:      noarch
 BuildRequires: make
@@ -56,43 +56,32 @@ the Adwaita icon theme.
 %license COPYING*
 %{mingw32_datadir}/pkgconfig/adwaita-icon-theme.pc
 %dir %{mingw32_datadir}/icons/Adwaita
-%{mingw32_datadir}/icons/Adwaita/8x8
 %{mingw32_datadir}/icons/Adwaita/16x16
-%{mingw32_datadir}/icons/Adwaita/22x22
-%{mingw32_datadir}/icons/Adwaita/24x24
 %{mingw32_datadir}/icons/Adwaita/32x32
-%{mingw32_datadir}/icons/Adwaita/48x48
-%{mingw32_datadir}/icons/Adwaita/64x64
-%{mingw32_datadir}/icons/Adwaita/96x96
-%{mingw32_datadir}/icons/Adwaita/256x256
-%{mingw32_datadir}/icons/Adwaita/512x512
 %{mingw32_datadir}/icons/Adwaita/scalable
-%{mingw32_datadir}/icons/Adwaita/scalable-up-to-32
 %{mingw32_datadir}/icons/Adwaita/index.theme
 %{mingw32_datadir}/icons/Adwaita/cursors
+%{mingw32_datadir}/icons/Adwaita/symbolic
+%{mingw32_datadir}/icons/Adwaita/symbolic-up-to-32/
 %ghost %{mingw32_datadir}/icons/Adwaita/icon-theme.cache
 
 %files -n mingw64-adwaita-icon-theme
 %license COPYING*
 %{mingw64_datadir}/pkgconfig/adwaita-icon-theme.pc
 %dir %{mingw64_datadir}/icons/Adwaita
-%{mingw64_datadir}/icons/Adwaita/8x8
 %{mingw64_datadir}/icons/Adwaita/16x16
-%{mingw64_datadir}/icons/Adwaita/22x22
-%{mingw64_datadir}/icons/Adwaita/24x24
 %{mingw64_datadir}/icons/Adwaita/32x32
-%{mingw64_datadir}/icons/Adwaita/48x48
-%{mingw64_datadir}/icons/Adwaita/64x64
-%{mingw64_datadir}/icons/Adwaita/96x96
-%{mingw64_datadir}/icons/Adwaita/256x256
-%{mingw64_datadir}/icons/Adwaita/512x512
 %{mingw64_datadir}/icons/Adwaita/scalable
-%{mingw64_datadir}/icons/Adwaita/scalable-up-to-32
 %{mingw64_datadir}/icons/Adwaita/index.theme
 %{mingw64_datadir}/icons/Adwaita/cursors
+%{mingw64_datadir}/icons/Adwaita/symbolic
+%{mingw64_datadir}/icons/Adwaita/symbolic-up-to-32/
 %ghost %{mingw64_datadir}/icons/Adwaita/icon-theme.cache
 
 %changelog
+* Tue Mar 21 2023 Sandro Mani <manisandro@gmail.com> - 44.0-1
+- Update to 44.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

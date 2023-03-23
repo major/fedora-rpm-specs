@@ -15,9 +15,8 @@ Source0:        %{forgeurl}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 Source1:        %{srcname}-%{version}-nm-prod.tgz
 Source2:        %{srcname}-%{version}-nm-dev.tgz
 Source3:        %{srcname}-%{version}-bundled-licenses.txt
-Source4:        macros.%{name}
-Source5:        %{name}.service
-Source6:        %{name}.sysusers
+Source4:        %{name}.service
+Source5:        %{name}.sysusers
 
 BuildArch:      noarch
 ExclusiveArch:  %{nodejs_arches} noarch
@@ -26,6 +25,9 @@ Requires:       nodejs
 BuildRequires:  nodejs-devel
 BuildRequires:  systemd-rpm-macros
 
+Provides:       magicmirror-rpm-macros = %{version}-%{release}
+Obsoletes:      magicmirror-rpm-macros < 2.22.0-2
+
 %description
 MagicMirror² is an open source modular smart mirror platform. With a growing
 list of installable modules, the MagicMirror² allows you to convert your
@@ -33,13 +35,6 @@ hallway or bathroom mirror into your personal assistant.
 
 This package contains the server version of MagicMirror², which is meant to be
 accessed via a browser.
-
-%package        rpm-macros
-Summary:        RPM macros for %{name}
-Requires:       rpm
-
-%description    rpm-macros
-This package contains RPM packaging macros for %{name}.
 
 %prep
 %setup -q -n %{srcname}-%{version}
@@ -77,11 +72,8 @@ install -Dpm0644 -t %{buildroot}%{nodejs_sitelib}/%{name}/css css/main.css
 ln -s %{_sysconfdir}/%{name}/custom.css %{buildroot}%{nodejs_sitelib}/%{name}/css
 
 # Install systemd unit
-install -Dpm0644 -t %{buildroot}%{_unitdir} %{SOURCE5}
-install -Dpm0644 %{SOURCE6} %{buildroot}%{_sysusersdir}/%{name}.conf
-
-# Install RPM macros
-install -Dpm0644 -t %{buildroot}%{rpmmacrodir} %{SOURCE4}
+install -Dpm0644 -t %{buildroot}%{_unitdir} %{SOURCE4}
+install -Dpm0644 %{SOURCE5} %{buildroot}%{_sysusersdir}/%{name}.conf
 
 %check
 %nodejs_symlink_deps --check
@@ -107,7 +99,7 @@ ln -s custom.css.sample css/custom.css
   --forceExit
 
 %pre
-%sysusers_create_compat %{SOURCE4}
+%sysusers_create_compat %{SOURCE5}
 
 %post
 %systemd_post %{name}.service
@@ -127,10 +119,6 @@ ln -s custom.css.sample css/custom.css
 %config(noreplace) %{_sysconfdir}/%{name}/custom.css
 %{_sysusersdir}/%{name}.conf
 %{_unitdir}/%{name}.service
-
-%files rpm-macros
-%license LICENSE.md
-%{rpmmacrodir}/macros.magicmirror
 
 %changelog
 %autochangelog
