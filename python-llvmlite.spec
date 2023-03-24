@@ -18,6 +18,9 @@ Summary:        Lightweight LLVM Python binding for writing JIT compilers
 #   - The bundled versioneer.py, and the _version.py it generates (which is
 #     packaged) is LicenseRef-Fedora-Public-Domain. In later versions of
 #     versioneer, this becomes CC0-1.0 and then Unlicense.
+#     Public-domain text added to fedora-license-data in commit
+#     830d88d4d89ee5596839de5b2c1f48426488841f:
+#     https://gitlab.com/fedora/legal/fedora-license-data/-/merge_requests/210
 # Additionally, the following does not affect the license of the binary RPMs:
 #   - conda-recipes/appveyor/run_with_env.cmd is CC0-1.0; for distribution in
 #     the source RPM, it is covered by “Existing uses of CC0-1.0 on code files

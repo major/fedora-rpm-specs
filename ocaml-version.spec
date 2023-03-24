@@ -1,11 +1,12 @@
 %undefine _package_note_flags
 
-# Debuginfo generation fails for unclear reasons (FIXME).
+%ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
+%endif
 
 Name:           ocaml-version
-Version:        3.6.0
-Release:        2%{?dist}
+Version:        3.6.1
+Release:        1%{?dist}
 Summary:        Manipulate, parse and generate OCaml compiler version strings
 
 License:        ISC
@@ -58,6 +59,10 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Mar 21 2023 Jerry James <loganjerry@gmail.com> - 3.6.1-1
+- Version 3.6.1
+- Re-enable debuginfo generation now that dune is fixed
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 3.6.0-2
 - Rebuild OCaml packages for F38
 

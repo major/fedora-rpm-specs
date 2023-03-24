@@ -241,8 +241,8 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 111.0.5563.64
-Release: 2%{?dist}
+Version: 111.0.5563.110
+Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -1652,6 +1652,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Wed Mar 22 2023 Than Ngo <than@redhat.com> - 111.0.5563.110-1
+- update to 111.0.5563.110
+
 * Sun Mar 12 2023 Neal Gompa <ngompa@fedoraproject.org> - 111.0.5563.64-2
 - Rebuild for ffmpeg 6.0
 

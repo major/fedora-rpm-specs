@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 
 Name:           wpebackend-fdo
-Version:        1.14.1
+Version:        1.14.2
 Release:        %autorelease
 Summary:        A WPE backend designed for Linux desktop systems
 

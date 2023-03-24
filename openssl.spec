@@ -29,13 +29,9 @@ print(string.sub(hash, 0, 16))
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
 Version: 3.0.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 1
-# We have to remove certain patented algorithms from the openssl source
-# tarball with the hobble-openssl script which is included below.
-# The original openssl upstream tarball cannot be shipped in the .src.rpm.
-Source: openssl-%{version}-hobbled.tar.gz
-Source1: hobble-openssl
+Source: openssl-%{version}.tar.gz
 Source2: Makefile.certificate
 Source3: genpatches
 Source4: openssl.rpmlintrc
@@ -43,8 +39,6 @@ Source6: make-dummy-cert
 Source7: renew-dummy-cert
 Source9: configuration-switch.h
 Source10: configuration-prefix.h
-Source12: ec_curve.c
-Source13: ectest.c
 Source14: 0025-for-tests.patch
 
 # Patches exported from source git
@@ -66,11 +60,16 @@ Patch7: 0007-Add-support-for-PROFILE-SYSTEM-system-default-cipher.patch
 Patch8: 0008-Add-FIPS_mode-compatibility-macro.patch
 # Add check to see if fips flag is enabled in kernel
 Patch9: 0009-Add-Kernel-FIPS-mode-flag-support.patch
+# Instead of replacing ectest.c and ec_curve.c, add the changes as a patch so
+# that new modifications made to these files by upstream are not lost. 
+Patch10: 0010-Add-changes-to-ectest-and-eccurve.patch
 # remove unsupported EC curves
 Patch11: 0011-Remove-EC-curves.patch
 # Disable explicit EC curves
 # https://bugzilla.redhat.com/show_bug.cgi?id=2066412
 Patch12: 0012-Disable-explicit-ec.patch
+#Skipped tests from former 0011-Remove-EC-curves.patch
+Patch13: 0013-skipped-tests-EC-curves.patch
 # Instructions to load legacy provider in openssl.cnf
 Patch24: 0024-load-legacy-prov.patch
 # Tmp: test name change
@@ -210,13 +209,6 @@ from other formats to the formats used by the OpenSSL toolkit.
 
 %prep
 %autosetup -S git -n %{name}-%{version}
-
-# The hobble_openssl is called here redundantly, just to be sure.
-# The tarball has already the sources removed.
-%{SOURCE1} > /dev/null
-
-cp %{SOURCE12} crypto/ec/
-cp %{SOURCE13} test/
 
 %build
 # Figure out which flags we want to use.
@@ -491,6 +483,20 @@ install -m644 %{SOURCE9} \
 %ldconfig_scriptlets libs
 
 %changelog
+* Tue Mar 21 2023 Sahana Prasad <sahana@redhat.com> - 1:3.0.8-2
+- Upload new upstream sources without manually hobbling them.
+- Remove the hobbling script as it is redundant. It is now allowed to ship
+  the sources of patented EC curves, however it is still made unavailable to use
+  by compiling with the 'no-ec2m' Configure option. The additional forbidden
+  curves such as P-160, P-192, wap-tls curves are manually removed by updating
+  0011-Remove-EC-curves.patch.
+- Enable Brainpool curves.
+- Apply the changes to ec_curve.c and  ectest.c as a new patch
+  0010-Add-changes-to-ectest-and-eccurve.patch instead of replacing them.
+- Modify 0011-Remove-EC-curves.patch to allow Brainpool curves.
+- Modify 0011-Remove-EC-curves.patch to allow code under macro OPENSSL_NO_EC2M.
+  Resolves: rhbz#2130618, rhbz#2141672
+
 * Thu Feb 09 2023 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:3.0.8-1
 - Rebase to upstream version 3.0.8
   Resolves: CVE-2022-4203

@@ -8,7 +8,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           evince
-Version:        44.0
+Version:        44.1
 Release:        1%{?dist}
 Summary:        Document viewer
 
@@ -176,12 +176,12 @@ It provides the printing preview for the GTK printing dialog.
 
 %find_lang evince --with-gnome
 
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
-rm -f $RPM_BUILD_ROOT%{_datadir}/metainfo/evince-pdfdocument.metainfo.xml
-rm -f $RPM_BUILD_ROOT%{_datadir}/metainfo/evince-psdocument.metainfo.xml
-rm -f $RPM_BUILD_ROOT%{_datadir}/metainfo/evince-tiffdocument.metainfo.xml
-rm -f $RPM_BUILD_ROOT%{_datadir}/metainfo/evince-comicsdocument.metainfo.xml
-rm -f $RPM_BUILD_ROOT%{_datadir}/metainfo/evince-xpsdocument.metainfo.xml
+mkdir -p %{buildroot}%{_datadir}/applications
+rm -f %{buildroot}%{_metainfodir}/evince-pdfdocument.metainfo.xml
+rm -f %{buildroot}%{_metainfodir}/evince-psdocument.metainfo.xml
+rm -f %{buildroot}%{_metainfodir}/evince-tiffdocument.metainfo.xml
+rm -f %{buildroot}%{_metainfodir}/evince-comicsdocument.metainfo.xml
+rm -f %{buildroot}%{_metainfodir}/evince-xpsdocument.metainfo.xml
 
 %check
 appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/org.gnome.Evince.appdata.xml
@@ -202,7 +202,7 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Evince-p
 %{_datadir}/dbus-1/services/org.gnome.evince.Daemon.service
 %{_datadir}/glib-2.0/schemas/org.gnome.Evince.gschema.xml
 %{_datadir}/GConf/gsettings/evince.convert
-%{_datadir}/metainfo/org.gnome.Evince.appdata.xml
+%{_metainfodir}/org.gnome.Evince.appdata.xml
 %if ! 0%{?flatpak}
 %{_userunitdir}/org.gnome.Evince.service
 %endif
@@ -279,6 +279,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Evince-p
 %{_mandir}/man1/evince-previewer.1*
 
 %changelog
+* Wed Mar 22 2023 David King <amigadave@amigadave.com> - 44.1-1
+- Update to 44.1
+
 * Sat Mar 18 2023 David King <amigadave@amigadave.com> - 44.0-1
 - Update to 44.0
 

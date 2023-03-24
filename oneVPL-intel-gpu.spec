@@ -14,7 +14,7 @@
 
 Name:           oneVPL-intel-gpu
 Version:        23.1.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Intel oneVPL GPU Runtime
 License:        MIT
 URL:            https://www.intel.com/content/www/us/en/developer/tools/oneapi/onevpl.html
@@ -79,6 +79,9 @@ rm -fr %{buildroot}%{_docdir}
 %{_libdir}/pkgconfig/libmfx-gen.pc
 
 %changelog
+* Wed Mar 22 2023 Nicolas Chauvet <kwizart@gmail.com> - 23.1.3-2
+- Rebuilt for libva
+
 * Mon Mar 13 2023 Adam Williamson <awilliam@redhat.com> - 23.1.3-1
 - Update to 23.1.3.
 

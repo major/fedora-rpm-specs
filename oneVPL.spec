@@ -1,6 +1,6 @@
 Name:           oneVPL
 Version:        2023.1.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        oneAPI Video Processing Library
 License:        MIT
 URL:            https://www.intel.com/content/www/us/en/developer/tools/oneapi/onevpl.html
@@ -106,6 +106,9 @@ rm -fr %{buildroot}%{_datadir}/vpl/licensing
 %{_datadir}/vpl/examples
 
 %changelog
+* Wed Mar 22 2023 Nicolas Chauvet <kwizart@gmail.com> - 2023.1.3-2
+- Rebuilt for libva
+
 * Mon Mar 13 2023 Adam Williamson <awilliam@redhat.com> - 2023.1.3-1
 - Update to 2023.1.3
 - Drop Python bindings (removed upstream)

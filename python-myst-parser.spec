@@ -1,8 +1,8 @@
 %global pypi_name myst-parser
 
 Name:           python-%{pypi_name}
-Version:        0.18.1
-Release:        4%{?dist}
+Version:        1.0.0
+Release:        1%{?dist}
 Summary:        A commonmark compliant parser, with bridges to docutils & sphinx
 
 License:        MIT
@@ -20,6 +20,7 @@ BuildRequires:  python3-docutils
 BuildRequires:  python3-pytest-regressions
 BuildRequires:  python3-pytest-param-files
 BuildRequires:  python3-sphinx-pytest
+BuildRequires:  python3-linkify-it-py
 
 
 %global _description %{expand:
@@ -54,28 +55,28 @@ Summary:        %{summary}
 %pyproject_save_files myst_parser
 
 %check
-# test_extended_syntaxes and test_myst_config.py::test_cmdline require linkify
-# which we don't have in Fedora yet
-# test_sphinx_directives and test_fieldlist_extension compare rendered
-# Sphinx output which has changed in version 5.2+
-# reported upstream: https://github.com/executablebooks/MyST-Parser/issues/626
-%pytest -k  "not test_extended_syntaxes \
-  and not test_sphinx_directives \
-  and not test_fieldlist_extension" \
-  --deselect 'tests/test_renderers/test_myst_config.py::test_cmdline'
-
+%pytest
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
 %doc README.md
 %{_bindir}/myst-anchors
+%{_bindir}/myst-docutils-demo
 %{_bindir}/myst-docutils-html
 %{_bindir}/myst-docutils-html5
 %{_bindir}/myst-docutils-latex
 %{_bindir}/myst-docutils-xml
 %{_bindir}/myst-docutils-pseudoxml
+%{_bindir}/myst-inv
 
 %changelog
+* Tue Mar 21 2023 Karolina Surma <ksurma@redhat.com> - 1.0.0-1
+- Update to 1.0.0
+Resolves: rhbz#2174349
+
+* Mon Mar 20 2023 Karolina Surma <ksurma@redhat.com> - 0.18.1-5
+- Backport fixes for tests failing with Sphinx 5.3
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

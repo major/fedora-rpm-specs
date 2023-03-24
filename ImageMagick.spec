@@ -1,5 +1,7 @@
 %bcond_without tests
 
+%bcond_without libheif
+
 # Disable automatic .la file removal
 %global __brp_remove_la_files %nil
 
@@ -11,8 +13,8 @@ Epoch:          1
 %else
 Epoch:          0
 %endif
-Version:        7.1.0.62
-Release:        2%{?dist}
+Version:        7.1.1.4
+Release:        1%{?dist}
 Summary:        An X application for displaying and manipulating images
 
 %global VER %(foo=%{version}; echo ${foo:0:5})
@@ -78,6 +80,8 @@ BuildRequires:  urw-base35-fonts-devel
 BuildRequires:  autoconf automake gcc gcc-c++
 BuildRequires:  make
 BuildRequires:  gnupg2
+# for doc
+BuildRequires:  doxygen
 
 Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 # allow smooth upgrade for 3rd party repository
@@ -125,6 +129,8 @@ Obsoletes: %{name}7-libs < %{epoch}:%{version}-%{release}
 Provides:  %{name}7-libs = %{epoch}:%{version}-%{release}
 # These may be used for some functions
 Recommends: urw-base35-fonts
+# default font is OpenSans-Regular
+Recommends: open-sans-fonts
 
 %description libs
 This packages contains a shared libraries to use within other applications.
@@ -139,6 +145,22 @@ Provides:  %{name}7-djvu       = %{epoch}:%{version}-%{release}
 %description djvu
 This packages contains a plugin for ImageMagick which makes it possible to
 save and load DjvU files from ImageMagick and libMagickCore using applications.
+
+
+%if %{with libheif}
+%package heic
+Summary: HEIC plugin for ImageMagick
+BuildRequires:  pkgconfig(libheif) >= 1.4.0
+%if 0%{?rhel} == 7
+# ensure we use our on EL-7
+Requires:       libheif%{?_isa} >= 1.4.0
+%endif
+Requires: %{name}-libs%{?_isa} = %{version}-%{release}
+
+%description heic
+This packages contains a plugin for ImageMagick which makes it possible to
+save and load HEIC files from ImageMagick and libMagickCore using applications.
+%endif
 
 
 %package doc
@@ -240,10 +262,15 @@ export CFLAGS="%{optflags} -DIMPNG_SETJMP_IS_THREAD_SAFE"
         --with-lqr \
 %endif
         --with-gvc \
-        --with-raqm
+        --with-raqm \
+%if %{with libheif}
+           --with-heic \
+%endif
 
 # Do *NOT* use %%{?_smp_mflags}, this causes PerlMagick to be silently misbuild
 make
+# Generate API docs
+make html-local
 
 
 %install
@@ -356,6 +383,11 @@ rm PerlMagick/demo/Generic.ttf
 %files djvu
 %{_libdir}/%{name}-%{VER}/modules-Q16HDRI/coders/djvu.*
 
+%if %{with libheif}
+%files heic
+%{_libdir}/%{name}-%{VER}/modules-Q16HDRI/coders/heic.*
+%endif
+
 %files doc
 %doc %{_datadir}/doc/%{name}-7
 %doc %{_datadir}/doc/%{name}-%{VER}
@@ -381,6 +413,10 @@ rm PerlMagick/demo/Generic.ttf
 %doc PerlMagick/demo/ PerlMagick/Changelog PerlMagick/README.txt
 
 %changelog
+* Wed Mar 22 2023 Sérgio Basto <sergio@serjux.com> - 1:7.1.1.4-1
+- Update ImageMagick to 7.1.1.4 (#2176749)
+- Add support to libheif and add html docs
+
 * Mon Mar 13 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:7.1.0-62-2
 - Backport upstream fix for GetPageGeometry misbehavior (bug 2177631)
 

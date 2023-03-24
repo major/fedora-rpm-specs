@@ -1,11 +1,12 @@
 %undefine _package_note_flags
 
-# debuginfo generation fails for unclear reasons.
+%ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
+%endif
 
 Name:           ocaml-odoc
 Version:        2.2.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Documentation compiler for OCaml and Reason
 
 # ISC: The project as a whole
@@ -94,6 +95,9 @@ _build/install/default/bin/odoc --help groff > %{buildroot}%{_mandir}/man1/odoc.
 %license LICENSE.md
 
 %changelog
+* Tue Mar 21 2023 Jerry James <loganjerry@gmail.com> - 2.2.0-4
+- Re-enable debuginfo now that dune is fixed
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 2.2.0-3
 - Rebuild OCaml packages for F38
 

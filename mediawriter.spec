@@ -1,5 +1,5 @@
 Name:           mediawriter
-Version:        5.0.5
+Version:        5.0.6
 Release:        1%{?dist}
 Summary:        Fedora Media Writer
 
@@ -77,6 +77,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.fedo
 %{_qt6_qmldir}/org/fedoraproject/AdwaitaTheme/qmldir
 
 %changelog
+* Wed Mar 22 2023 Jan Grulich <jgrulich@redhat.com> - 5.0.6-1
+- 5.0.6
+
 * Mon Mar 20 2023 Jan Grulich <jgrulich@redhat.com> - 5.0.5-1
 - 5.0.5
 

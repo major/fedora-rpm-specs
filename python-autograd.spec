@@ -17,6 +17,13 @@ License:        MIT
 URL:            https://github.com/HIPS/autograd
 Source0:        %{url}/archive/%{commit}/autograd-%{commit}.tar.gz
 
+# Fix mvn tests (fixes #588)
+# https://github.com/HIPS/autograd/commit/7a66f14b9d3b8c371c803b9519de0c6db36d1eef
+#   Fixes:
+# Four scipy tests are failing
+# https://github.com/HIPS/autograd/issues/588
+Patch:          %{url}/commit/7a66f14b9d3b8c371c803b9519de0c6db36d1eef.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -51,7 +58,7 @@ Documentation for %{name}.
 
 
 %prep
-%autosetup -n autograd-%{commit}
+%autosetup -n autograd-%{commit} -p1
 
 
 %generate_buildrequires
@@ -70,11 +77,7 @@ Documentation for %{name}.
 %check
 %pyproject_check_import
 
-# Four scipy tests are failing
-# https://github.com/HIPS/autograd/issues/588
-k="${k-}${k+ and }not test_mvn_entropy"
-k="${k-}${k+ and }not test_mvn_pdf_sing_cov"
-k="${k-}${k+ and }not test_mvn_logpdf_sing_cov"
+# https://github.com/HIPS/autograd/issues/588#issuecomment-1479446916
 k="${k-}${k+ and }not test_odeint"
 
 %pytest -k "${k-}"

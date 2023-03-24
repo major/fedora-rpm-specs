@@ -1,7 +1,7 @@
 %bcond_without tests
 
 Name:           python-lazy-loader
-Version:        0.1
+Version:        0.2
 Release:        %autorelease
 Summary:        Populate library namespace without incurring immediate import costs
 

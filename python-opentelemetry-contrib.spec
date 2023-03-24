@@ -1,14 +1,14 @@
 # See eachdist.ini. Note that this package must have the same version as the
 # ”prerel_version” (pre-release version) and “stable_version” in the
 # python-opentelemetry package, and the two packages must be updated together.
-%global stable_version 1.16.0
-%global prerel_version 0.37~b0
+%global stable_version 1.17.0
+%global prerel_version 0.38~b0
 # There are a few subpackages that have their *own* versioning scheme!
 %global aws_propagator_version 1.0.1
 %global aws_sdk_version 2.0.1
 # Adjust this to ensure the release is monotonic, unless the base package
 # version and the above versions all change at the same time.
-%global baserel 8
+%global baserel 9
 
 # Older versions of subpackages that are disabled in these conditionals are
 # Obsoleted in python3-opentelemetry-contrib-instrumentations; if changing or
@@ -77,7 +77,8 @@ Summary:        OpenTelemetry instrumentation for Python modules
 # LICENSE files.
 License:        Apache-2.0 AND BSD-3-Clause
 URL:            https://github.com/open-telemetry/opentelemetry-python-contrib
-Source0:        %{url}/archive/v%{stable_version}/opentelemetry-python-contrib-%{stable_version}.tar.gz
+%global srcversion %(echo '%{prerel_version}' | tr -d '~')
+Source0:        %{url}/archive/v%{srcversion}/opentelemetry-python-contrib-%{srcversion}.tar.gz
 
 # Man pages hand-written for Fedora in groff_man(7) format based on --help
 Source10:       opentelemetry-bootstrap.1
@@ -1707,13 +1708,7 @@ that could not be satisfied.
 
 
 %prep
-%autosetup -n opentelemetry-python-contrib-%{stable_version}
-
-# Un-pin importlib-metadata test dependency; see:
-#   Pin importlib-metadata version for celery test
-#   https://github.com/open-telemetry/opentelemetry-python-contrib/pull/1374
-sed -r -i 's/("importlib-metadata)[[:blank:]]*==[^"]+/\1/' \
-    instrumentation/opentelemetry-instrumentation-celery/pyproject.toml
+%autosetup -n opentelemetry-python-contrib-%{srcversion}
 
 # Un-pin test dependencies that were pinned to exact versions but perhaps
 # habitually rather than for some concrete reason.

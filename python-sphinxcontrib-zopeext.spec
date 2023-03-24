@@ -1,14 +1,14 @@
 # We cannot build docs for this package due to lack of sphinx-book-theme
 
 Name:           python-sphinxcontrib-zopeext
-Version:        0.3.3
-Release:        6%{?dist}
+Version:        0.4.2
+Release:        1%{?dist}
 Summary:        Sphinx extension for documenting Zope interfaces
 
 License:        BSD-2-Clause
 URL:            https://pypi.org/project/sphinxcontrib-zopeext/
 BuildArch:      noarch
-Source0:        %pypi_source sphinxcontrib-zopeext
+Source0:        %pypi_source sphinxcontrib_zopeext
 
 BuildRequires:  python3-devel
 
@@ -27,13 +27,7 @@ This sphinx extension provides an autointerface directive for Zope
 interfaces.
 
 %prep
-%autosetup -n sphinxcontrib-zopeext-%{version}
-
-# Allow use of importlib_metadata > 4
-sed -i '/importlib-metadata/s/\^4\.8\.1/>=4.8.1,<7/' pyproject.toml
-
-# Allow use of Sphinx 6; see rhbz#2179101
-sed -i 's/6\.0\.0/7.0.0/' pyproject.toml
+%autosetup -n sphinxcontrib_zopeext-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -46,10 +40,14 @@ sed -i 's/6\.0\.0/7.0.0/' pyproject.toml
 %pyproject_save_files 'sphinxcontrib*'
 
 %files -n python3-sphinxcontrib-zopeext -f %{pyproject_files}
-%doc README.rst
+%doc README.md
 %license LICENSE
 
 %changelog
+* Mon Mar 20 2023 Lumír Balhar <lbalhar@redhat.com> - 0.4.2-1
+- Update to 0.4.2 (rhbz#2179530)
+- Drop unneeded pyproject.toml manipulations
+
 * Mon Mar 20 2023 Jerry James <loganjerry@gmail.com> - 0.3.3-6
 - Allow use of Sphinx 6.x; see rhbz#2179101
 

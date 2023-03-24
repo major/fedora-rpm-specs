@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/PyCQA/pylint
-Version:        2.17.0
+Version:        2.17.1
 %forgemeta
 
 Name:           pylint

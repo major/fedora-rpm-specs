@@ -172,8 +172,8 @@ ExcludeArch: i686
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        111.0
-Release:        2%{?pre_tag}%{?dist}
+Version:        111.0.1
+Release:        1%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
@@ -227,6 +227,7 @@ Patch71:        0001-GLIBCXX-fix-for-GCC-12.patch
 Patch78:        firefox-i686-build.patch
 Patch79:        firefox-gcc-13-build.patch
 Patch80:        D172126.diff
+Patch81:        D172864.diff
 
 # Test patches
 # Generate without context by
@@ -251,6 +252,8 @@ Patch402:        mozilla-1196777.patch
 Patch407:        mozilla-1667096.patch
 Patch408:        mozilla-1663844.patch
 Patch415:        mozilla-1670333.patch
+# https://phabricator.services.mozilla.com/D173021
+Patch416:        libwebrtc-pipewire-capturer-import-dmabuf-directly-into-desktop-frame.patch
 
 # PGO/LTO patches
 Patch600:        pgo.patch
@@ -503,6 +506,7 @@ This package contains results of tests executed during build.
 %patch78 -p1 -b .firefox-i686
 %patch79 -p1 -b .firefox-gcc-13-build
 %patch80 -p1 -b .D172126
+%patch81 -p1 -b .D172864
 
 # Test patches
 #%patch100 -p1 -b .firefox-tests-xpcshell
@@ -525,6 +529,7 @@ This package contains results of tests executed during build.
 %patch407 -p1 -b .1667096
 %patch408 -p1 -b .1663844
 %patch415 -p1 -b .1670333
+%patch416 -p1 -b .libwebrtc-pipewire-capturer-import-dmabuf-directly-into-desktop-frame
 
 # PGO patches
 %if %{build_with_pgo}
@@ -1073,6 +1078,12 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Wed Mar 22 2023 Martin Stransky <stransky@redhat.com>- 111.0.1-1
+- Updated to 111.0.1
+
+* Tue Mar 21 2023 Jan Grulich <jgrulich@redhat.com> - 111.0-3
+- libwebrtc: backport upstream fix/improvement for DmaBuf screen sharing
+
 * Tue Mar 21 2023 Martin Stransky <stransky@redhat.com>- 111.0-2
 - Added libproxy support (rhbz#2177806)
 - Added build fixes on arm

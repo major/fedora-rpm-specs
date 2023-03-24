@@ -15,7 +15,7 @@
 
 Name:       %srcname
 Summary:    Resource allocator scripts for OpenStack
-Version:    9.5
+Version:    9.6
 Release:    1%{?dist}
 License:    GPLv2+
 URL:        https://github.com/praiskup/resalloc-openstack
@@ -78,6 +78,9 @@ general might be used separately.
 
 
 %changelog
+* Wed Mar 22 2023 Pavel Raiskup <praiskup@redhat.com> - 9.6-1
+- new upstream release, allow logging in with app credential
+
 * Tue Mar 07 2023 Pavel Raiskup <praiskup@redhat.com> - 9.5-1
 - new upstream release, the -new script has --security-group option
 

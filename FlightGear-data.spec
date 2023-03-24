@@ -1,7 +1,7 @@
 Name:           FlightGear-data
 Summary:        FlightGear base scenery and data files
-Version:        2020.3.17
-Release:        2%{?dist}
+Version:        2020.3.18
+Release:        1%{?dist}
 
 License:        GPLv2+
 Source0:        https://sourceforge.net/projects/flightgear/files/release-2020.3/FlightGear-%{version}-data.txz
@@ -61,6 +61,9 @@ done
 %{_datadir}/flightgear
 
 %changelog
+* Tue Mar 21 2023 Fabrice Bellet <fabrice@bellet.info> - 2020.3.18-1
+- new upstream release
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2020.3.17-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate async-recursion
 
 Name:           rust-async-recursion
-Version:        1.0.2
+Version:        1.0.4
 Release:        %autorelease
 Summary:        Recursion for async functions
 
@@ -52,7 +52,7 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
-# * remove broken trybuild tests
+# * remove brittle trybuild tests
 rm -r tests/{compiletest.rs,ui/}
 %cargo_prep
 

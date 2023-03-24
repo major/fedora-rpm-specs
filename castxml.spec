@@ -1,11 +1,11 @@
 %undefine __cmake_in_source_build
 
 Name:		castxml
-Version:	0.5.1
-Release:	2%{?dist}
+Version:	0.6.1
+Release:	1%{?dist}
 Summary:	C-family abstract syntax tree XML output tool
 
-License:	ASL 2.0
+License:	Apache-2.0
 URL:		https://github.com/CastXML/CastXML
 Source0:	https://github.com/CastXML/CastXML/archive/v%{version}/%{name}-%{version}.tar.gz
 
@@ -61,6 +61,12 @@ rm %{buildroot}%{_pkgdocdir}/NOTICE
 %license LICENSE NOTICE
 
 %changelog
+* Thu Mar 23 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.6.1-1
+- Update to version 0.6.1
+
+* Wed Mar 22 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.6.0-1
+- Update to version 0.6.0
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 License:       LGPL-2.1-only AND Unlicense
 
 Name:          calc
-Version:       2.14.1.4
+Version:       2.14.1.5
 Release:       %autorelease
 Summary:       Arbitrary precision arithmetic system and calculator
 

@@ -1,7 +1,7 @@
 Name:           testcloud
 # Update also version in testcloud/__init__.py and docs/source/conf.py when changing this!
-Version:        0.8.2
-Release:        2%{?dist}
+Version:        0.9.2
+Release:        1%{?dist}
 Summary:        Tool for running cloud images locally
 
 License:        GPLv2+
@@ -40,6 +40,7 @@ BuildRequires:  python3-requests
 BuildRequires:  python3-setuptools
 
 Requires:       genisoimage
+Requires:       libvirt-daemon-config-network
 Requires:       libvirt-daemon-driver-qemu
 Requires:       libvirt-daemon-driver-storage-core
 Requires:       python3-requests
@@ -124,6 +125,35 @@ rm -rf %{buildroot}%{_sysconfdir}/testcloud/__pycache__
 %{python3_sitelib}/*.egg-info
 
 %changelog
+* Wed Mar 22 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 0.9.2-1
+- Unbreak python <3.9
+
+* Wed Mar 22 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 0.9.1-1
+- setup.py: Include distro_utils too
+- inherit from Exception instead of BaseException
+- get_image_url: return str of supported images instead of dict_keys in errors
+
+* Sat Mar 18 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 0.9.0-1
+- image downloader: Try to detect failed downloads more aggressively
+- CLI: Support download image
+- CLI: Drop non-x86 warning
+- CLI: Drop instance subcommand
+- Rework images url handling
+- CentOS 7: Bump image
+- Vagrant: Support Fedora Boxes
+- cli: Tune down default logging
+- add disk_number param
+- pc model: use q35
+- memballoon: drop address spec
+- Use unversioned machine models
+- CentOS Stream: try to auto-detect the latest image
+- support TPM2 device
+- Prevent unbound url variable on failed Fedora rawhide/branched guess
+- add mac_address param
+- add qemu_cmds param for coreos testcases
+- support to pass ignition file on platforms that doesn't support FW CFG
+- Require libvirt-daemon-config-network as well
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -131,6 +161,9 @@ rm -rf %{buildroot}%{_sysconfdir}/testcloud/__pycache__
 - CentOS Stream {8,9}: bump image version
 - Leave boot drive address guessing to libvirt
 - Workaround libvirt/qemu PCI auto-assign issue
+
+* Fri Sep 09 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 0.8.1-3
+- Require libvirt-daemon-config-network as well
 
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild

@@ -1,8 +1,8 @@
 %global pypi_name widgetsnbextension
 
 Name:           python-%{pypi_name}
-Version:        4.0.5
-Release:        2%{?dist}
+Version:        4.0.6
+Release:        1%{?dist}
 Summary:        Interactive HTML widgets for Jupyter notebooks
 
 License:        BSD
@@ -52,6 +52,9 @@ mv {%{buildroot}%{_prefix}/etc,%{buildroot}%{_sysconfdir}}/jupyter/nbconfig/note
 %config(noreplace) %{_sysconfdir}/jupyter/nbconfig/notebook.d/widgetsnbextension.json
 
 %changelog
+* Wed Mar 22 2023 Lumír Balhar <lbalhar@redhat.com> - 4.0.6-1
+- Update to 4.0.6 (rhbz#2180505)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

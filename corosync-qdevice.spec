@@ -10,8 +10,8 @@
 
 Name: corosync-qdevice
 Summary: The Corosync Cluster Engine Qdevice
-Version: 3.0.2
-Release: 2%{?gitver}%{?dist}
+Version: 3.0.3
+Release: 1%{?gitver}%{?dist}
 License: BSD
 URL: https://github.com/corosync/corosync-qdevice
 Source0: https://github.com/corosync/corosync-qdevice/releases/download/v%{version}%{?gittarver}/%{name}-%{version}%{?gittarver}.tar.gz
@@ -207,6 +207,9 @@ fi
 %{_mandir}/man8/corosync-qnetd.8*
 
 %changelog
+* Wed Mar 22 2023 Jan Friesse <jfriesse@redhat.com> - 3.0.3-1
+- New upstream release
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

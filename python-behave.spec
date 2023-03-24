@@ -7,6 +7,9 @@ non-technical or business participants in a software project.
 behave uses tests written in a natural language style, backed up by 
 Python code.}
 
+# RHBZ 2179979
+%undefine _py3_shebang_s
+
 Name:           python-%{srcname}
 Version:        1.2.6
 Release:        %autorelease

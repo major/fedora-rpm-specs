@@ -44,7 +44,7 @@
 %global __provides_exclude_from ^%{python3_sitearch}/lib.*\\.so$
 
 Name:		root
-Version:	6.28.00
+Version:	6.28.02
 %global libversion %(cut -d. -f 1-2 <<< %{version})
 Release:	1%{?dist}
 Summary:	Numerical data analysis framework
@@ -71,70 +71,41 @@ Source7:	JupyROOT-on-EPEL
 Source8:	%{name}-get-src.sh
 #		Use system fonts
 Patch0:		%{name}-fontconfig.patch
-#		Reduce memory usage of build
-#		Do not link rootcling_stage1 and libCling in parallel
-Patch1:		%{name}-memory-usage.patch
 #		Reduce memory usage during linking on ARM and x86 by generating
 #		smaller debuginfo for the llvm libraries
 #		Fedora builders run out of memory with the default setting
-Patch2:		%{name}-memory-arm-x86.patch
+Patch1:		%{name}-memory-arm-x86.patch
 #		Don't install minicern static library
-Patch3:		%{name}-dont-install-minicern.patch
+Patch2:		%{name}-dont-install-minicern.patch
 #		Do not export Python modules in CMake config
-Patch4:		%{name}-no-export-python-modules.patch
+Patch3:		%{name}-no-export-python-modules.patch
 #		Run some test on 32 bit that upstream has disabled
-Patch5:		%{name}-32bit-tests.patch
+Patch4:		%{name}-32bit-tests.patch
 #		Use local static script and style files for JsMVA
-Patch6:		%{name}-jsmva-static.patch
+Patch5:		%{name}-jsmva-static.patch
 #		Fix test failure on ppc64le and aarch64 with gcc 12
 #		https://github.com/root-project/root/pull/9601
-Patch7:		%{name}-fix-test-failure-on-ppc64le-and-aarch64-with-gcc-12.patch
+Patch6:		%{name}-fix-test-failure-on-ppc64le-and-aarch64-with-gcc-12.patch
 #		Byte swap values read from the protobuf raw data stream on
 #		big endian architectures
 #		https://github.com/root-project/root/pull/10308
-Patch8:		%{name}-big-endian-byte-swap.patch
-#		Add missing #include <cstdint>
-#		https://github.com/root-project/root/pull/12065
-Patch9:		%{name}-add-missing-include-cstdint.patch
-#		https://github.com/root-project/root/pull/12218
-Patch10:	%{name}-Simplify-creation-of-TargetMachine.patch
-#		Fix build with -Dbuiltin_gtest:BOOL=OFF on EPEL 8
-#		https://github.com/root-project/root/pull/12250
-Patch11:	%{name}-gtest-compat.patch
-#		Limit the number of threads in TMVA CNN/DNN test to save memory
-#		https://github.com/root-project/root/pull/12310
-Patch12:	%{name}-tmva-Speed-up-TMVA-CNN-and-RNN-tutorials.patch
-#		https://github.com/root-project/root/issues/12293
-#		https://github.com/root-project/root/pull/12335
-Patch13:	%{name}-Set-DataLayout-from-our-TargetMachine.patch
-#		https://github.com/root-project/root/issues/12294
-#		https://github.com/root-project/root/pull/12353
-Patch14:	%{name}-cling-Disable-outline-atomics-on-AArch64.patch
-#		https://github.com/root-project/root/pull/12385
-Patch15:	%{name}-PyROOT-only-build-RooFit-and-TMVA-pythonizations-if-enabled.patch
+Patch7:		%{name}-big-endian-byte-swap.patch
+#		https://github.com/root-project/root/pull/12375
+Patch8:		%{name}-use-consistent-wording-in-tmva-test-comments.patch
 #		https://github.com/root-project/root/pull/12389
-Patch16:	%{name}-testRooAbsL-test-compares-two-doubles-and-fails.patch
+Patch9:		%{name}-testRooAbsL-test-compares-two-doubles-and-fails.patch
 #		https://github.com/root-project/root/pull/12390
-Patch17:	%{name}-stressvector-test-fails-on-ix86.patch
-#		https://github.com/root-project/root/pull/12402
-Patch18:	%{name}-dont-install-roofit-files-when-roofit-is-disabled.patch
-#		https://github.com/root-project/root/pull/12403
-Patch19:	%{name}-veto-tests-using-clad-when-clad-is-disabled.patch
-#		https://github.com/root-project/root/pull/12407
-Patch20:	%{name}-use-consistent-minimum-python-version-for-DistRDF.patch
-Patch21:	%{name}-make-DistRDF-optional.patch
+Patch10:	%{name}-stressvector-test-fails-on-ix86.patch
 #		https://github.com/root-project/root/pull/12423
-Patch22:	%{name}-dont-install-roofit-files-fix.patch
+Patch11:	%{name}-dont-install-roofit-files-fix.patch
 #		https://github.com/root-project/root/issues/12430
 #		https://github.com/root-project/root/pull/12447
-Patch23:	%{name}-RF-Rewrite-RooProdPdf.TestGetPartIntList-unit-test.patch
+Patch12:	%{name}-RF-Rewrite-RooProdPdf.TestGetPartIntList-unit-test.patch
 #		https://github.com/root-project/root/issues/12427
 #		https://github.com/root-project/root/pull/12468
-Patch24:	%{name}-fixes-for-32bit-builds.patch
+Patch13:	%{name}-fixes-for-32bit-builds.patch
 #		https://github.com/root-project/root/pull/12476
-Patch25:	%{name}-do-not-remove-Wp-before-D-and-U.patch
-#		Backport (fixes a failing test on ix86)
-Patch26:	%{name}-ntuple-RPageSinkBuf-add-missing-call-to-ReleasePage.patch
+Patch14:	%{name}-do-not-remove-Wp-before-D-and-U.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	gcc-gfortran
@@ -2001,18 +1972,6 @@ This package contains extra tools for RooFit projects.
 %patch12 -p1
 %patch13 -p1
 %patch14 -p1
-%patch15 -p1
-%patch16 -p1
-%patch17 -p1
-%patch18 -p1
-%patch19 -p1
-%patch20 -p1
-%patch21 -p1
-%patch22 -p1
-%patch23 -p1
-%patch24 -p1
-%patch25 -p1
-%patch26 -p1
 
 # Remove bundled sources in order to be sure they are not used
 #  * afterimage
@@ -2237,6 +2196,9 @@ LDFLAGS="-Wl,--as-needed %{?__global_ldflags}"
 %install
 %cmake_install
 
+# Let rpm redo the python byte compilation
+find %{buildroot}%{python3_sitearch} -depth -type d -name __pycache__ -exec rm -r {} ';'
+
 # Do emacs byte compilation
 emacs -batch -no-site-file -f batch-byte-compile \
     %{buildroot}%{_emacs_sitelispdir}/%{name}/*.el
@@ -2267,13 +2229,6 @@ sed -e '/^\#!/d' -i %{buildroot}%{_datadir}/%{name}/cli/cmdLineUtils.py
 mkdir -p %{buildroot}%{_datadir}/gdb/auto-load%{_libdir}/%{name}
 mv %{buildroot}%{_libdir}/%{name}/*-gdb.py \
    %{buildroot}%{_datadir}/gdb/auto-load%{_libdir}/%{name}
-
-# Let rpm redo the python byte compilation
-find %{buildroot}%{python3_sitearch} -depth -type d -name __pycache__ -exec rm -r {} ';'
-
-# Do python byte compilation (for non-standard paths)
-%py_byte_compile %{__python3} %{buildroot}%{_datadir}/%{name}/cli
-%py_byte_compile %{__python3} %{buildroot}%{_datadir}/gdb/auto-load%{_libdir}/%{name}
 
 # Fix python extension suffix
 mv %{buildroot}%{python3_sitearch}/libROOTPythonizations%{python3_version_uscore}.so.%{version} \
@@ -2458,6 +2413,10 @@ done
 cat includelist-core-{[^mw],m[^au]}* > includelist-core
 cat includelist-graf2d-x11ttf >> includelist-graf2d-x11
 cat includelist-graf3d-rglew >> includelist-graf3d-gl
+
+# Do python byte compilation (for non-standard paths)
+%py_byte_compile %{__python3} %{buildroot}%{_datadir}/%{name}/cli
+%py_byte_compile %{__python3} %{buildroot}%{_datadir}/gdb/auto-load%{_libdir}/%{name}
 
 %check
 pushd %{_vpath_builddir}
@@ -2678,6 +2637,7 @@ tutorial-unuran-unuranFoamTest"
 # - tutorial-fit-fit2dHist
 # - tutorial-fit-fitCircle
 # - tutorial-fit-line3Dfit
+# - tutorial-math-exampleFunction-py
 # - tutorial-multicore-mt103_fillNtupleFromMultipleThreads
 # - tutorial-multicore-mt201_parallelHistoFill
 # - tutorial-multicore-mt304_fillHistos
@@ -2691,6 +2651,7 @@ tutorial-fit-exampleFit3D|\
 tutorial-fit-fit2dHist|\
 tutorial-fit-fitCircle|\
 tutorial-fit-line3Dfit|\
+tutorial-math-exampleFunction-py|\
 tutorial-multicore-mt103_fillNtupleFromMultipleThreads|\
 tutorial-multicore-mt201_parallelHistoFill|\
 tutorial-multicore-mt304_fillHistos|\
@@ -3780,6 +3741,11 @@ fi
 %endif
 
 %changelog
+* Wed Mar 22 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.28.02-1
+- Update to 6.28.02
+- Dropped patches: 13
+- New patches: 1
+
 * Sat Mar 18 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.28.00-1
 - Update to 6.28.00
 - ROOT now uses llvm/clang version 13 (updated from version 9)

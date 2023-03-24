@@ -1,11 +1,8 @@
-# Provides/Requires filtering is different from rpm 4.9 onwards
-%global rpm49 %(rpm --version | perl -p -e 's/^.* (\\d+)\\.(\\d+).*/sprintf("%d.%03d",$1,$2) ge 4.009 ? 1 : 0/e' 2>/dev/null || echo 0)
-
 Name:		perl-Declare-Constraints-Simple
 Version:	0.03
-Release:	49%{?dist}
+Release:	51%{?dist}
 Summary:	Declarative Validation of Data Structures
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Declare-Constraints-Simple
 Source0:	https://cpan.metacpan.org/authors/id/P/PH/PHAYLON/Declare-Constraints-Simple-%{version}.tar.gz
 Patch0:		Declare-Constraints-Simple-0.03-Fix-building-on-Perl-without-dot-in-INC.patch
@@ -44,8 +41,9 @@ BuildRequires:	perl(Test::More)
 BuildRequires:	perl(Test::Pod) >= 1.00
 BuildRequires:	perl(Test::Pod::Coverage) >= 1.00
 # Dependencies
+# (none)
 
-# Filter unwanted Requires (rpm 4.9 onwards)
+# Filter unwanted Requires
 %global __requires_exclude ^perl\\(Declare::Constraints::Simple-Library\\)
 
 %description
@@ -55,13 +53,9 @@ declarative keywords in the importing namespace.
 
 %prep
 %setup -q -n Declare-Constraints-Simple-%{version}
-%patch0 -p1
 
-# Filter unwanted Requires (prior to rpm 4.9)
-%if ! %{rpm49}
-%global reqfilt /bin/sh -c "%{__perl_requires} | grep -Fvx 'perl(Declare::Constraints::Simple-Library)'"
-%global __perl_requires %{reqfilt}
-%endif
+# Fix install when no '.' in @INC (CPAN RT#121709)
+%patch -P 0 -p1
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor
@@ -93,6 +87,13 @@ make test
 %{_mandir}/man3/Declare::Constraints::Simple::Result.3*
 
 %changelog
+* Wed Mar 22 2023 Paul Howarth <paul@city-fan.org> - 0.03-51
+- Drop support for building with rpm < 4.9
+- Avoid deprecated patch syntax
+
+* Wed Mar 22 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.03-50
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-49
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

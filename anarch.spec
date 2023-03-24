@@ -4,12 +4,12 @@ License: CC0
 %global summ_text Suckless, anarcho-pacifist Doom clone that runs everywhere
 Summary: %{summ_text}
 
-%global git_date 20210616
-%global git_commit f6a6a68a890716cd394c6fb2d00bd8123b51b18f
+%global git_date 20230123
+%global git_commit eeb04a079784ccd9c4b37909795ae781902712eb
 %global git_commit_short %(c='%{git_commit}'; echo "${c:0:8}")
 
-Version: 1.02d
-Release: 7.%{git_date}git%{git_commit_short}%{?dist}
+Version: 1.1
+Release: 1.%{git_date}git%{git_commit_short}%{?dist}
 
 URL: https://drummyfish.gitlab.io/anarch/
 Source0: https://gitlab.com/drummyfish/%{name}/-/archive/%{git_commit}/%{name}-%{git_commit}.tar.gz
@@ -139,6 +139,9 @@ done
 
 
 %changelog
+* Wed Mar 22 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.1-1.20230123giteeb04a07
+- Update to v1.1
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.02d-7.20210616gitf6a6a68a
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

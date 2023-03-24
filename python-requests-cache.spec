@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.5.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Persistent cache for requests library
 
 License:        BSD
@@ -50,7 +50,6 @@ sphinx-build-3 docs html
 rm -rf html/.{doctrees,buildinfo}
 
 
-
 %build
 %py3_build
 
@@ -66,8 +65,12 @@ for lib in `find %{buildroot}%{python3_sitelib}/requests_cache -name '*.py' -pri
 done
 sed -i '1{\@^#!/usr/bin/python@d}' %{buildroot}%{python3_sitelib}/requests_cache/backends/storage/dbdict.py
 
+%if 0%{?fedora} < 39
 sed -i 's/\r$//' html/_static/jquery.js
+%endif
+
 sed -i 's/\r$//' LICENSE
+
 
 %files -n python3-%{pypi_name}
 %doc html README.rst
@@ -77,6 +80,9 @@ sed -i 's/\r$//' LICENSE
 
 
 %changelog
+* Wed Mar 22 2023 Andrew Bauer <zonexpertconsulting@outlook.com> - 0.5.1-14
+- Latest sphinx no longer bundles jquery. Fixes BZ 2180485
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 # Fedora spec file for php-pecl-xdebug3
 #
-# Copyright (c) 2010-2022 Remi Collet
+# Copyright (c) 2010-2023 Remi Collet
 # Copyright (c) 2006-2009 Christopher Stone
 #
 # License: MIT
@@ -16,11 +16,11 @@
 
 %global pecl_name  xdebug
 %global with_zts   0%{!?_without_zts:%{?__ztsphp:1}}
-%global gh_commit  77aaa48269a6b0be19cf1557dd8d2e9f1fa211e9
+%global gh_commit  2c5f0ffddc63e8491018979e21adc704399ee0b3
 %global gh_short   %(c=%{gh_commit}; echo ${c:0:7})
 
 # version/release
-%global upstream_version 3.2.0
+%global upstream_version 3.2.1
 #global upstream_prever  RC2
 #global upstream_lower   %%(echo %%{upstream_prever} | tr '[:upper:]' '[:lower:]')
 
@@ -216,6 +216,9 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Tue Mar 21 2023 Remi Collet <remi@remirepo.net> - 3.2.1-1
+- update to 3.2.1
+
 * Fri Dec  9 2022 Remi Collet <remi@remirepo.net> - 3.2.0-1
 - update to 3.2.0
 - use PHP-3.01 as SPDX License identifier

@@ -28,7 +28,7 @@
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
 Version: 5.27.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/plasma/%{name}
@@ -63,6 +63,10 @@ Source40:       ssh-agent.conf
 Source41:       spice-vdagent.conf
 
 ## upstream Patches (master branch)
+# https://invent.kde.org/plasma/plasma-workspace/-/merge_requests/2767
+# https://bugzilla.redhat.com/show_bug.cgi?id=2179998
+# Fix delay on startup caused by populating keyboard layout list
+Patch0:         2767.patch
 
 ## upstreamable Patches
 
@@ -792,6 +796,9 @@ fi
 
 
 %changelog
+* Wed Mar 22 2023 Adam Williamson <awilliam@redhat.com> - 5.27.3-2
+- Backport MR #2767 to fix slow startup issue (#2179998)
+
 * Tue Mar 14 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.3-1
 - 5.27.3
 

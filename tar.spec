@@ -11,7 +11,7 @@ Name: tar
 Epoch: 2
 Version: 1.34
 Release: 8%{?dist}
-License: GPLv3+
+License: GPL-3.0-or-later
 URL: https://www.gnu.org/software/tar/
 
 Source0: https://ftp.gnu.org/gnu/tar/tar-%{version}.tar.xz

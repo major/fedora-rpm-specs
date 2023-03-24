@@ -1,9 +1,9 @@
 Name:           perl-CSS-Tiny
 Version:        1.20
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Read/Write .css files with as little code as possible
 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CSS-Tiny
 Source0:        https://cpan.metacpan.org/authors/id/C/CH/CHORNY/CSS-Tiny-%{version}.tar.gz
 
@@ -48,6 +48,9 @@ make test
 
 
 %changelog
+* Wed Mar 22 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.20-22
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

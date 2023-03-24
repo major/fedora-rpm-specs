@@ -1,6 +1,6 @@
 Name:           perl-DateTime-Format-Natural
 Version:        1.16
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Create machine readable date/time with natural parsing logic
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DateTime-Format-Natural
@@ -91,16 +91,21 @@ EOF
 chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 ./Build test
 
 %files
 %doc Changes README
+%dir %{perl_vendorlib}/DateTime
+%dir %{perl_vendorlib}/DateTime/Format
+%{perl_vendorlib}/DateTime/Format/Natural
 %exclude %{perl_vendorlib}/DateTime/Format/Natural/Test.pm
-%exclude %{_mandir}/man3/DateTime::Format::Natural::Test.*
-%{perl_vendorlib}/*
+%{perl_vendorlib}/DateTime/Format/Natural.pm
 %{_bindir}/dateparse
-%{_mandir}/man1/*
-%{_mandir}/man3/*
+%{_mandir}/man1/dateparse.*
+%{_mandir}/man3/DateTime::Format::Natural.*
+%{_mandir}/man3/DateTime::Format::Natural::*
+%exclude %{_mandir}/man3/DateTime::Format::Natural::Test.*
 
 %files Test
 %{perl_vendorlib}/DateTime/Format/Natural/Test.pm
@@ -110,6 +115,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Mar 22 2023 Petr Pisar <ppisar@redhat.com> - 1.16-2
+- Run tests in parallel
+
 * Sun Feb 05 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.16-1
 - 1.16 bump
 

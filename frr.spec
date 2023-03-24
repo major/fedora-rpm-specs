@@ -7,9 +7,9 @@
 
 Name:           frr
 Version:        8.4.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Routing daemon
-License:        GPLv2+
+License:        GPL-2.0-or-later AND ISC AND LGPL-2.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND (GPL-2.0-or-later  OR ISC) AND MIT
 URL:            http://www.frrouting.org
 Source0:        https://github.com/FRRouting/frr/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
 Source1:        %{name}-tmpfiles.conf
@@ -269,6 +269,9 @@ rm tests/lib/*grpc*
 %endif
 
 %changelog
+* Wed Mar 22 2023 Michal Ruprich <mruprich@redhat.com> - 8.4.2-4
+- SPDX migration
+
 * Wed Mar 08 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 8.4.2-3
 - Build as C++17, required by abseil-cpp 20230125
 

@@ -13,7 +13,7 @@
 Name:    plasma-discover
 Summary: KDE and Plasma resources management GUI
 Version: 5.27.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 License: GPLv2 or GPLv3
@@ -32,6 +32,8 @@ Source0: http://download.kde.org/%{stable}/plasma/%{verdir}/%{base_name}-%{versi
 Source10: discoverrc
 
 ## upstream patches
+# https://invent.kde.org/plasma/discover/-/merge_requests/511
+Patch100: do-not-refresh-database-if-offline-update-pending.patch
 
 ## downstream patches
 # workaround PK metadata refresh issues (always force refresh)

@@ -12,7 +12,7 @@
 
 Name:           bind-dyndb-ldap
 Version:        11.10
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        LDAP back-end plug-in for BIND
 
 License:        GPLv2+
@@ -28,6 +28,7 @@ Patch2:         bind-dyndb-ldap-bind-9.18.10-logs.patch
 # https://pagure.io/bind-dyndb-ldap/c/5dd2fefa0bc7cd7689004cec64304c3a02be9eab
 Patch3:         bind-dyndb-ldap-bind-9.18.10-staleok.patch
 Patch4: bind-dyndb-ldap-11.10-bind-9.18.11.patch
+Patch5: bind-dyndb-ldap-11.10-bind-9.18.13.patch
 
 BuildRequires:  bind-devel >= %{bind_version}, bind-lite-devel >= %{bind_version}
 BuildRequires:  krb5-devel
@@ -126,6 +127,9 @@ sed -i.bak -e "$SEDSCRIPT" /etc/named.conf
 
 
 %changelog
+* Wed Mar 22 2023 Petr Menšík <pemensik@redhat.com> - 11.10-14
+- Rebuilt for BIND 9.18.13 (#2178717)
+
 * Mon Feb 20 2023 Petr Menšík <pemensik@redhat.com> - 11.10-13
 - Rebuilt for BIND 9.18.12 (#2170096)
 

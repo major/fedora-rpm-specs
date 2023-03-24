@@ -1,9 +1,9 @@
 Name:     libpcap
 Epoch:    14
 Version:  1.10.3
-Release:  2%{?dist}
+Release:  3%{?dist}
 Summary:  A system-independent interface for user-level packet capture
-License:  BSD with advertising
+License:  ISC AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause-UC
 URL:      https://www.tcpdump.org/
 
 BuildRequires: make
@@ -92,6 +92,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libpcap.a
 %{_mandir}/man5/pcap*.5*
 
 %changelog
+* Tue Mar 21 2023 Michal Ruprich <mruprich@redhat.com> - 14:1.10.3-3
+- SPDX migration
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 14:1.10.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

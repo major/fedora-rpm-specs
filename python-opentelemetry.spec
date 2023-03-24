@@ -1,6 +1,6 @@
 # See eachdist.ini:
-%global stable_version 1.16.0
-%global prerel_version 0.37~b0
+%global stable_version 1.17.0
+%global prerel_version 0.38~b0
 # WARNING: Because python-opentelemetry-contrib has some exact-version
 # dependencies on subpackages of this package, it must be updated
 # simultaneously with this package, preferably using a side tag, such that its
@@ -25,6 +25,10 @@
 #
 # We can generate PDF documentation as a substitute.
 %bcond_without doc_pdf
+
+# The python-opencensus package was retired, so we cannot supply the
+# python3-opentelemetry-opencensus-shim subpackage.
+%bcond_with opencensus
 
 Name:           python-opentelemetry
 Version:        %{stable_version}
@@ -72,6 +76,7 @@ BuildRequires:  latexmk
 %global prerel_pkgdirs %{shrink:
       tests/opentelemetry-test-utils
       exporter/opentelemetry-exporter-opencensus
+      %{?with_opencensus:shim/opentelemetry-opencensus-shim}
       shim/opentelemetry-opentracing-shim
       opentelemetry-semantic-conventions}
 
@@ -295,8 +300,9 @@ Summary:        OpenTelemetry Python API
 Version:        %{stable_version}
 
 # Note that the huge number of instrumentation packages are released in
-# https://github.com/open-telemetry/opentelemetry-python-contrib and are not
-# currently packaged.
+# https://github.com/open-telemetry/opentelemetry-python-contrib and are
+# packaged (where possible based on available dependencies) in
+# https://src.fedoraproject.org/rpms/python-opentelemetry-contrib.
 #
 # The base opentelemetry-instrumentation package was also moved to “contrib” in
 # release 1.6.1/0.25~b1. We therefore obsolete it…
@@ -417,6 +423,20 @@ This library provides a propagator for the Jaeger format.
 
 
 %if %{with prerelease}
+%if %{with opencensus}
+%package -n python3-opentelemetry-opencensus-shim
+Summary:        OpenCensus Shim for OpenTelemetry
+Version:        %{prerel_version}
+
+# Dependencies across subpackages should be fully-versioned. See comments
+# following BuildRequires for a tabulation of such interdependencies.
+Requires:       python3-opentelemetry-api = %{stable_version}-%{release}
+
+%description -n python3-opentelemetry-opencensus-shim
+%{summary}.
+%endif
+
+
 %package -n python3-opentelemetry-opentracing-shim
 Summary:        OpenTracing Shim for OpenTelemetry
 Version:        %{prerel_version}
@@ -479,6 +499,13 @@ sed -r -i 's/("googleapis-common-protos.*), <[^"]*/\1/' \
 # requirement in the long term, so we loosen it preemptively.
 sed -r -i 's/(responses )== /\1>= /' \
     exporter/opentelemetry-exporter-otlp-proto-http/pyproject.toml
+# In “Use importlib-metadata regardless of Python version (#3217)”,
+# https://github.com/open-telemetry/opentelemetry-python/pull/3217, upstream
+# pinned importlib-metadata ~= 6.0.0, which is very strict. We loosen it to
+# allow at least the expected major version.  See:
+# https://github.com/open-telemetry/opentelemetry-python/commit/6379c1cbe6432afaaac81f524a331a7819eaecc5#r105601318
+sed -r -i 's/(importlib-metadata ~= 6\.0)\.0/\1/' \
+    opentelemetry-api/pyproject.toml
 
 %py3_shebang_fix .
 
@@ -955,6 +982,22 @@ done
 
 
 %if %{with prerelease}
+%if %{with opencensus}
+%files -n python3-opentelemetry-opencensus-shim
+# Note that the contents are identical to the top-level LICENSE file.
+%license shim/opentelemetry-opencensus-shim/LICENSE
+%doc shim/opentelemetry-opencensus-shim/README.rst
+
+# Shared namespace directories
+%dir %{python3_sitelib}/opentelemetry/
+%{python3_sitelib}/opentelemetry/py.typed
+%dir %{python3_sitelib}/opentelemetry/shim/
+
+%{python3_sitelib}/opentelemetry/shim/opencensus_shim/
+%{python3_sitelib}/opentelemetry_opencensus_shim-%{prerel_distinfo}/
+%endif
+
+
 %files -n python3-opentelemetry-opentracing-shim
 # Note that the contents are identical to the top-level LICENSE file.
 %license shim/opentelemetry-opentracing-shim/LICENSE

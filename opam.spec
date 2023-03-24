@@ -1,17 +1,12 @@
 %undefine _package_note_flags
 Name:           opam
-Version:        2.1.3
+Version:        2.1.4
 Release:        %autorelease
 Summary:        Source-based package manager for OCaml
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
 URL:            https://github.com/ocaml/opam
 Source0:        https://github.com/ocaml/opam/archive/%{version}/%{name}-%{version}.tar.gz
-# Debian patch to port to dose3 version 6 and later
-# https://sources.debian.org/patches/opam/2.0.8-1/0005-Port-to-Dose3-6.0.1.patch/
-Patch0:         %{name}-port-to-dose3-6.0.1.patch
-# Adapt to the removal of Base64 from extlib
-Patch1:         %{name}-base64.patch
 
 BuildRequires:  make
 BuildRequires:  ocaml >= 4.02.3
@@ -26,7 +21,6 @@ BuildRequires:  ocaml-cudf-devel
 BuildRequires:  ocaml-opam-file-format-devel
 BuildRequires:  ocaml-base64-devel
 BuildRequires:  ocaml-dose3-devel
-BuildRequires:  ocaml-extlib-devel
 BuildRequires:  ocaml-mccs-devel
 BuildRequires:  ocaml-z3-devel
 

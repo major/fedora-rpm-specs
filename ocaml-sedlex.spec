@@ -1,8 +1,8 @@
 %undefine _package_note_flags
 
 Name:           ocaml-sedlex
-Version:        3.0
-Release:        6%{?dist}
+Version:        3.1
+Release:        1%{?dist}
 Summary:        Unicode-friendly lexer generator
 
 License:        MIT
@@ -12,13 +12,11 @@ Source0:        https://github.com/ocaml-community/sedlex/archive/v%{version}/%{
 # Use local Unicode files instead of attempting to download them
 Patch0:         %{name}-no-curl.patch
 
-# Do not depend on the uchar compatibility package; our OCaml is new enough
-Patch1:         %{name}-uchar.patch
-
 BuildRequires:  ocaml
 BuildRequires:  ocaml-dune
 BuildRequires:  ocaml-odoc
 BuildRequires:  ocaml-ppxlib-devel
+BuildRequires:  ocaml-ppx-expect-devel
 BuildRequires:  ocaml-gen-devel
 BuildRequires:  unicode-ucd
 
@@ -43,12 +41,12 @@ files for developing applications that use %{name}.
 %prep
 %autosetup -p1 -n sedlex-%{version}
 
-# Upstream's regression test is written for Unicode 13.0.0 through 14.0.0.  Our
+# Upstream's regression test is written for Unicode 14.0.0 through 15.0.0.  Our
 # Unicode files may be from a more recent version of the standard.  The test has
 # a good chance of succeeding anyway, so we cross our fingers and give it a try.
 # If the regression test fails, we'll have to try another approach.
 univer=$(sed -n 's/.*PropList-\([.[:digit:]]*\)\.txt/\1/p' %{_datadir}/unicode/ucd/PropList.txt)
-sed -i "s/14\\.0\\.0/$univer/" examples/regressions.ml \
+sed -i "s/15\\.0\\.0/$univer/" examples/regressions.ml \
   src/generator/data/base_url src/syntax/unicode.ml
 
 %build
@@ -65,16 +63,21 @@ sed -i "s/14\\.0\\.0/$univer/" examples/regressions.ml \
 
 
 %files -f .ofiles
-%doc README.md CHANGES
+%doc README.md CHANGES.md
 %license LICENSE
 
 
 %files devel -f .ofiles-devel
-%doc README.md CHANGES
+%doc README.md CHANGES.md
 %license LICENSE
 
 
 %changelog
+* Wed Mar 22 2023 Jerry James <loganjerry@gmail.com> - 3.1-1
+- Version 3.1
+- Drop upstreamed uchar patch
+- BR ocaml-ppx-expect-devel for new tests
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 3.0-6
 - Bump release and rebuild
 

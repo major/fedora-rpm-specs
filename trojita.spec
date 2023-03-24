@@ -14,7 +14,7 @@
 
 Name:           trojita
 Version:        0.7.0.1
-Release:        0.17.%{gitdate}git%(c=%{commit0}; echo ${c:0:7} )%{?dist}
+Release:        0.18.%{gitdate}git%(c=%{commit0}; echo ${c:0:7} )%{?dist}
 Source0:        %{srcurl}/archive/%{commit0}.tar.gz#/%{name}-%{commit0}.tar.gz
 
 # run the script that calls svn to get latest po files:
@@ -206,6 +206,9 @@ xvfb-run -a %ctest
 
 
 %changelog
+* Wed Mar 22 2023 Jan Grulich <jgrulich@redhat.com> - 0.7.0.1-0.18.20220904git5295175
+- Rebuild (grantlee-qt5)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0.1-0.17.20220904git5295175
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

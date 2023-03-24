@@ -38,6 +38,10 @@ Summary:        Better multiprocessing and multithreading in python
 # LicenseRef-Fedora-Public-Domain:
 #
 #   :Copyright: This stylesheet has been placed in the public domain.
+#
+# This was added to public-domain-text.txt in fedora-license-data in commit
+# 2cd8f00f97288c0d18edac6b68e3862cf6a71fdb:
+# https://gitlab.com/fedora/legal/fedora-license-data/-/merge_requests/211
 License:        BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
 URL:            https://github.com/uqfoundation/multiprocess
 %{?!commit:%global srcurl %{pypi_source multiprocess}}

@@ -1,7 +1,7 @@
 Name:    rocs 
 Summary: Graph Theory IDE 
 Version: 22.12.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/education/rocs
@@ -118,6 +118,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Wed Mar 22 2023 Jan Grulich <jgrulich@redhat.com> - 22.12.3-2
+- Rebuild (grantlee-qt5)
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

@@ -3,7 +3,7 @@
 
 Name:           btrfs-progs
 Version:        6.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Userspace programs for btrfs
 
 License:        GPL-2.0-only
@@ -11,6 +11,13 @@ URL:            https://btrfs.wiki.kernel.org/index.php/Main_Page
 Source0:        https://www.kernel.org/pub/linux/kernel/people/kdave/%{name}/%{name}-v%{version_no_tilde}.tar.xz
 Source1:        https://www.kernel.org/pub/linux/kernel/people/kdave/%{name}/%{name}-v%{version_no_tilde}.tar.sign
 Source2:        gpgkey-F2B41200C54EFB30380C1756C565D5F9D76D583B.gpg
+
+# Upstreamable changes
+## From: https://lore.kernel.org/linux-btrfs/20230322221714.2702819-1-neal@gompa.dev/T/#t
+Patch0101:      0001-btrfs-progs-mkfs-Enforce-4k-sectorsize-by-default.patch
+## Fedora specific doc change stacked on top
+Patch0102:      0002-btrfs-progs-mkfs-doc-Drop-version-change-for-4k-sect.patch
+
 
 BuildRequires:  gnupg2
 BuildRequires:  gcc, autoconf, automake, make
@@ -147,6 +154,9 @@ popd
 %{python3_sitearch}/btrfsutil-*.egg-info/
 
 %changelog
+* Wed Mar 22 2023 Neal Gompa <ngompa@fedoraproject.org> - 6.2.1-2
+- Add patch to force default sectorsize to 4k
+
 * Mon Mar 06 2023 Neal Gompa <ngompa@fedoraproject.org> - 6.2.1-1
 - Update to 6.2.1
 

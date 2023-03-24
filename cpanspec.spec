@@ -1,8 +1,8 @@
 Name:           cpanspec
 Version:        1.78
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        RPM spec file generation utility
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            http://cpanspec.sourceforge.net/
 Source0:        http://sourceforge.net/downloads/%{name}/%{name}/%{version}/%{name}-%{version}.tar.gz
 Patch0:         %{name}-1.78-Change-optimize-to-optflags.patch
@@ -52,6 +52,9 @@ find %{buildroot} -type f -name .packlist -delete
 %{_mandir}/man1/*
 
 %changelog
+* Wed Mar 22 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.78-46
+- Update license to SPDX format
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.78-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

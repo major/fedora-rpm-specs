@@ -3,7 +3,7 @@
 %{?mingw_package_header}
 
 Name:           mingw-mediawriter
-Version:        5.0.5
+Version:        5.0.6
 Release:        1%{?dist}
 Summary:        Fedora Media Writer
 
@@ -93,6 +93,9 @@ like flash drives or memory cards.
 %{mingw64_libexecdir}/%{shortname}/helper.exe
 
 %changelog
+* Wed Mar 22 2023 Jan Grulich <jgrulich@redhat.com> - 5.0.6-1
+- 5.0.6
+
 * Mon Mar 20 2023 Jan Grulich <jgrulich@redhat.com> - 5.0.5-1
 - 5.0.5
 

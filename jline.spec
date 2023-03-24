@@ -1,17 +1,37 @@
+# Native CPU names
+%ifarch %{ix86}
+%global nativearch x86
+%else
+%ifarch %{arm64}
+%global nativearch arm64
+%else
+%global nativearch %{_arch}
+%endif
+%endif
+
+# The only ELF object is hidden inside the native JAR, so turn off debuginfo
+%global debug_package %{nil}
+
+# There is a circular dependency with picocli, but this package needs
+# picocli-codegen only to run tests.  Disable the tests in a bootstrap scenario.
+%bcond_with bootstrap
+
 Name:           jline
-Version:        3.22.0
-Release:        2%{?dist}
+Version:        3.23.0
+Release:        1%{?dist}
 Summary:        Java library for handling console input
 License:        BSD-3-Clause
 URL:            https://github.com/jline/jline3
-BuildArch:      noarch
-ExclusiveArch:  %{java_arches} noarch
+ExclusiveArch:  %{java_arches}
 
 Source0:        %{url}/archive/jline-parent-%{version}.tar.gz
 
+# Add support for ppc64le and s390x
+Patch0:         %{name}-native-arches.patch
+
+BuildRequires:  gcc
 BuildRequires:  maven-local
 BuildRequires:  mvn(com.googlecode.juniversalchardet:juniversalchardet)
-BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(net.java.dev.jna:jna)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-dependency-plugin)
@@ -24,6 +44,16 @@ BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
 BuildRequires:  mvn(org.easymock:easymock)
 BuildRequires:  mvn(org.fusesource.jansi:jansi)
 
+%if %{without bootstrap}
+# Test dependencies
+BuildRequires:  mvn(info.picocli:picocli-codegen)
+BuildRequires:  mvn(junit:junit)
+BuildRequires:  mvn(org.apiguardian:apiguardian-api)
+BuildRequires:  mvn(org.codehaus.mojo:exec-maven-plugin)
+BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
+BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-params)
+%endif
+
 %global _desc %{expand:
 JLine is a Java library for handling console input.  It is similar in
 functionality to BSD editline and GNU readline but with additional
@@ -34,17 +64,31 @@ familiar.}
 
 %description %_desc
 
+%javadoc_package
+
+%package        parent
+Summary:        Parent POM for Java library for handling console input
+BuildArch:      noarch
+
+# This can be removed when F42 reaches EOL
+Obsoletes:      jline < 3.23.0-1
+Provides:       jline = %{version}-%{release}
+
+%description    parent %_desc
+
 This package contains the parent POM for the jline project
 
-%package javadoc
-Summary:        Javadocs for %{name}
+%package        native
+Summary:        JLine native library
 
-%description javadoc %_desc
+%description    native %_desc
 
-This package contains the API documentation for %{name}.
+This package contains a native library for JLine.
 
 %package        terminal
 Summary:        JLine terminal
+BuildArch:      noarch
+Requires:       %{name}-native = %{version}-%{release}
 
 %description    terminal %_desc
 
@@ -52,6 +96,7 @@ This package contains the basic terminal support for JLine.
 
 %package        terminal-jansi
 Summary:        JLine terminal with JANSI
+BuildArch:      noarch
 Requires:       %{name}-terminal = %{version}-%{release}
 
 %description    terminal-jansi %_desc
@@ -60,6 +105,7 @@ This package contains a functioning terminal based on JANSI.
 
 %package        terminal-jna
 Summary:        JLine terminal with JNA
+BuildArch:      noarch
 Requires:       %{name}-terminal = %{version}-%{release}
 
 %description    terminal-jna %_desc
@@ -68,6 +114,7 @@ This package contains a functioning terminal based on JNA.
 
 %package        reader
 Summary:        JLine reader
+BuildArch:      noarch
 Requires:       %{name}-terminal = %{version}-%{release}
 
 %description    reader %_desc
@@ -76,7 +123,8 @@ This package supports reading lines from a console with customizable key
 bindings and input editing.
 
 %package        style
-Summary:        JLine style
+Summary:        JLine style processor
+BuildArch:      noarch
 Requires:       %{name}-terminal = %{version}-%{release}
 
 %description    style %_desc
@@ -86,6 +134,7 @@ colors to strings, for example.
 
 %package        builtins
 Summary:        JLine builtins
+BuildArch:      noarch
 Requires:       %{name}-reader = %{version}-%{release}
 Requires:       %{name}-style = %{version}-%{release}
 Recommends:     mvn(com.googlecode.juniversalchardet:juniversalchardet)
@@ -97,7 +146,9 @@ and less.
 
 %package        console
 Summary:        JLine console
+BuildArch:      noarch
 Requires:       %{name}-builtins = %{version}-%{release}
+Requires:       %{name}-style = %{version}-%{release}
 
 %description    console %_desc
 
@@ -106,6 +157,7 @@ support, and tab completion.
 
 %package        remote-ssh
 Summary:        JLine remote SSH
+BuildArch:      noarch
 Requires:       %{name}-builtins = %{version}-%{release}
 Recommends:     mvn(org.apache.sshd:sshd-core) >= 2.6.0
 Recommends:     mvn(org.apache.sshd:sshd-scp) >= 2.6.0
@@ -117,6 +169,7 @@ This package contains an ssh client.
 
 %package        remote-telnet
 Summary:        JLine remote telnet
+BuildArch:      noarch
 Requires:       %{name}-builtins = %{version}-%{release}
 Recommends:     mvn(org.apache.sshd:sshd-core) >= 2.6.0
 
@@ -125,7 +178,7 @@ Recommends:     mvn(org.apache.sshd:sshd-core) >= 2.6.0
 This package contains a telnet client.
 
 %prep
-%autosetup -n jline3-jline-parent-%{version} -p0
+%autosetup -n jline3-jline-parent-%{version} -p1
 
 # remove unnecessary dependency on parent POM
 %pom_remove_parent
@@ -144,24 +197,52 @@ This package contains a telnet client.
 %pom_remove_plugin :maven-javadoc-plugin
 %pom_remove_plugin :maven-release-plugin
 %pom_remove_plugin :native-image-maven-plugin
+%pom_remove_plugin :spotless-maven-plugin
+
+%if %{with bootstrap}
+# In a bootstrap situation, do not try to run picocli-codegen
+%pom_remove_plugin :exec-maven-plugin native
+%endif
+
+# junit-jupiter needs apiguardian-api but doesn't depend on it
+%pom_add_dep org.apiguardian:apiguardian-api:1.1.2:test native
+
+# Bump the JNI version up to the minimum supported by Fedora
+sed -i 's/\(JNI_VERSION_1_\)2/\18/' native/src/main/native/jlinenative.c
+
+# Remove prebuilt native objects
+rm -fr native/src/main/resources/org/jline/nativ/{FreeBSD,Mac,Windows}
+rm -fr native/src/main/resources/org/jline/nativ/Linux/*
 
 %build
+# Build a native object
+mkdir native/src/main/resources/org/jline/nativ/Linux/%{nativearch}
+cd native/src/main/native
+gcc %{build_cflags} -fPIC -fvisibility=hidden -shared -I. \
+  -I %{_jvmdir}/java/include -I %{_jvmdir}/java/include/linux %{build_ldflags} \
+  -o ../resources/org/jline/nativ/Linux/%{nativearch}/libjlinenative.so \
+  jlinenative.c
+cd -
+
+# Build the Java artifacts
+%if %{with bootstrap}
+%mvn_build -f -s
+%else
 %mvn_build -s
+%endif
 
 %install
 %mvn_install
 
-%files -f .mfiles-jline-parent
+%files parent -f .mfiles-jline-parent
 %doc changelog.md README.md
 %license LICENSE.txt
 
-%files javadoc -f .mfiles-javadoc
+%files native -f .mfiles-jline-native
 %doc changelog.md README.md
 %license LICENSE.txt
 
 %files terminal -f .mfiles-jline-terminal
-%doc changelog.md README.md
-%license LICENSE.txt
 
 %files terminal-jansi -f .mfiles-jline-terminal-jansi
 
@@ -180,6 +261,11 @@ This package contains a telnet client.
 %files remote-telnet -f .mfiles-jline-remote-telnet
 
 %changelog
+* Wed Mar 22 2023 Jerry James <loganjerry@gmail.com> - 3.23.0-1
+- Version 3.23.0
+- Add native subpackage
+- Move parent POM to a parent subpackage
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.22.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

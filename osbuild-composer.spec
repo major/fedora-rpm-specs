@@ -9,7 +9,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        77
+Version:        78
 
 %gometa
 
@@ -572,6 +572,27 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Mar 22 2023 Packit <hello@packit.dev> - 78-1
+Changes with 78
+----------------
+  * Change civ repo name (#3340)
+  * File resolver job (#3254)
+  * Introduce jobtype variable in worker dashboard (#3262)
+  * Test/ostree: add sysroot permission test (#3325)
+  * build(deps): bump actions/setup-go from 3 to 4 (#3337)
+  * distro/fedora: add support for Fedora 39 (#3324)
+  * distro: remove duplicate version checks for fonts (#3280)
+  * image-installer: switch payload to minimal-rpm (#3249)
+  * iot-raw-image: partitioning changes (#3246)
+  * simplified-installer: enable isolinux (#3327)
+  * test/vmware: boot VMs with EFI and use SCSI as a disk controller (#3330)
+  * tests/ostree: Change centos-8 BOOT_LOCATION to a working boot.iso (#3338)
+
+Contributions from: Antonio Murdaca, Gianluca Zuccarelli, Jakub Rusz, Juan Abia, Sanne Raymaekers, Simon de Vlieger, dependabot[bot], yih
+
+— Somewhere on the Internet, 2023-03-22
+
+
 * Wed Mar 08 2023 Packit <hello@packit.dev> - 77-1
 Changes with 77
 ----------------

@@ -1,8 +1,8 @@
 %undefine _package_note_flags
 
 Name:           ocaml-gen
-Version:        1.0
-Release:        6%{?dist}
+Version:        1.1
+Release:        1%{?dist}
 Summary:        Simple, efficient iterators for OCaml
 
 License:        BSD-2-Clause
@@ -13,7 +13,6 @@ Patch0:         %{name}-seq.patch
 
 BuildRequires:  ocaml >= 4.03.0
 BuildRequires:  ocaml-dune >= 1.1
-BuildRequires:  ocaml-dune-configurator-devel
 BuildRequires:  ocaml-ounit-devel
 BuildRequires:  ocaml-qcheck-devel
 BuildRequires:  ocaml-qtest-devel
@@ -60,6 +59,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Wed Mar 22 2023 Jerry James <loganjerry@gmail.com> - 1.1-1
+- Version 1.1
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.0-6
 - Bump release and rebuild
 

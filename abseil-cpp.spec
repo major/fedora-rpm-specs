@@ -1,9 +1,9 @@
 # Installed library version
-%global lib_version 2206.0.0
+%global lib_version 2301.0.0
 
 Name:           abseil-cpp
-Version:        20220623.1
-Release:        4%{?dist}
+Version:        20230125.1
+Release:        1%{?dist}
 Summary:        C++ Common Libraries
 
 # The entire source is Apache-2.0, except:
@@ -16,25 +16,13 @@ Summary:        C++ Common Libraries
 #         # 2009-05-17 by Arthur David Olson.
 #       absl/time/internal/cctz/testdata/zoneinfo/zone1970.tab
 #         # This file is in the public domain.
+#     Public-domain license text for these files was added to the
+#     public-domain-text.txt file in fedora-license-data in commit
+#     538bc87d5e3c1cb08e81d690ce4122e1273dc9cd
+#     (https://gitlab.com/fedora/legal/fedora-license-data/-/merge_requests/205).
 License:        Apache-2.0 AND LicenseRef-Fedora-Public-Domain
 URL:            https://abseil.io
 Source0:        https://github.com/abseil/abseil-cpp/archive/%{version}/%{name}-%{version}.tar.gz
-
-# Backport upstream commit 09e96049995584c3489e4bd1467313e3e85af99c, which
-# corresponds to:
-#
-# Do not leak -maes -msse4.1 into pkgconfig
-# https://github.com/abseil/abseil-cpp/pull/1216
-#
-# Fixes RHBZ#2108658.
-Patch:          https://github.com/abseil/abseil-cpp/commit/09e96049995584c3489e4bd1467313e3e85af99c.patch
-
-# Backport upstream commit 4eef16170014f75f4291ae335a271900f89eaedf by
-# cherry-picking and rebasing onto 20220623.1; fixes:
-#
-# Static assertion failures compiling AllocatorTraits.Rebind test (GCC 13)
-# https://github.com/abseil/abseil-cpp/issues/1366
-Patch:          0001-Update-absl-allocator_traits-and-absl-pointer_traits.patch
 
 BuildRequires:  cmake
 # The default make backend would work just as well; ninja is observably faster
@@ -43,6 +31,18 @@ BuildRequires:  gcc-c++
 
 BuildRequires:  gmock-devel
 BuildRequires:  gtest-devel
+
+# The contents of absl/time/internal/cctz are derived from
+# https://github.com/google/cctz (https://src.fedoraproject.org/rpms/cctz), but
+# have been forked with Abseil-specific changes. It is not obvious from which
+# particular version of CCTZ these sources are derived. Upstream was asked
+# about a path to supporting a system copy as required by bundling guidelines:
+#   Please comment on CCTZ bundling
+#   https://github.com/abseil/abseil-cpp/discussions/1415
+# They refused, for the time being, as follows:
+#   “[…] we have no plans to change this decision, but we reserve the right to
+#   change our minds.”
+Provides:       bundled(cctz)
 
 %ifarch s390x
 # Symbolize.SymbolizeWithMultipleMaps fails in absl_symbolize_test on s390x
@@ -69,6 +69,10 @@ and we now want to provide those resources to the C++ community as a whole.
 %package devel
 Summary: Development files for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
+
+# Some of the headers from CCTZ are part of the -devel subpackage. See the
+# corresponding virtual Provides in the base package for full details.
+Provides:       bundled(cctz)
 
 %description devel
 Development headers for %{name}
@@ -106,6 +110,9 @@ Development headers for %{name}
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Thu Feb 23 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 20230125.1-1
+- Update to 20230125.1 (close RHBZ#2162638)
+
 * Sat Jan 21 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 20220623.1-4
 - Backport upstream commit 4eef161 for GCC 13
 

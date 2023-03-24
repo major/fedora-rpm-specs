@@ -1,6 +1,6 @@
 Name:           mpv
 Version:        0.35.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 Summary:        Movie player playing most video formats and DVDs
@@ -9,6 +9,9 @@ Source0:        https://github.com/%{name}-player/%{name}/archive/v%{version}/%{
 
 # https://github.com/mpv-player/mpv/pull/11398
 Patch100:       %{name}-0.35.1-yt-dlp-hook-fix.patch
+# Upstream patch for libplacebo v6.265
+Patch101:       https://github.com/mpv-player/mpv/commit/3a2f8d42ab203c961e50ce198ca4eb232de3819a.patch
+
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -178,6 +181,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Mar 22 2023 Nicolas Chauvet <kwizart@gmail.com> - 0.35.1-4
+- rebuilt
+
 * Sun Mar 12 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.35.1-3
 - Rebuild for ffmpeg 6.0
 

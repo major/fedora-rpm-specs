@@ -11,7 +11,7 @@ Source0:        https://github.com/libgit2/pygit2/archive/v%{version}.tar.gz#/%{
 
 BuildRequires:  make
 BuildRequires:  gcc
-BuildRequires:  (libgit2-devel >= 1.5.0 with libgit2-devel < 1.6.0)
+BuildRequires:  (libgit2-devel >= 1.6.0 with libgit2-devel < 1.7.0)
 
 %description
 pygit2 is a set of Python bindings to the libgit2 library, which implements
@@ -45,6 +45,8 @@ Documentation for %{name}.
 
 %prep
 %autosetup -n %{pkgname}-%{version} -p1
+
+sed -i -e '/LIBGIT2_VER_MINOR/s/5/6/g' src/types.h
 
 
 %build

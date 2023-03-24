@@ -1,8 +1,8 @@
 Summary: Rotates, compresses, removes and mails system log files
 Name: logrotate
 Version: 3.21.0
-Release: 2%{?dist}
-License: GPLv2+
+Release: 3%{?dist}
+License: GPL-2.0-or-later
 URL: https://github.com/logrotate/logrotate
 Source0: https://github.com/logrotate/logrotate/releases/download/%{version}/logrotate-%{version}.tar.xz
 Source1: https://github.com/logrotate/logrotate/releases/download/%{version}/logrotate-%{version}.tar.xz.asc
@@ -115,6 +115,9 @@ fi
 %config(noreplace) %{_sysconfdir}/rwtab.d/logrotate
 
 %changelog
+* Wed Mar 22 2023 Lukáš Zaoral <lzaoral@redhat.com> - 3.21.0-3
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.21.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

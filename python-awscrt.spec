@@ -4,7 +4,7 @@ Python bindings for the AWS Common Runtime}
 
 Name:           python-awscrt
 Version:        0.16.13
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        Python bindings for the AWS Common Runtime
 # All files are licensed under Apache-2.0, except:
@@ -31,7 +31,7 @@ BuildRequires:  openssl-devel
 
 BuildRequires:  python%{python3_pkgversion}-websockets
 
-# some parts of the code are not big endian friendly
+# https://bugzilla.redhat.com/show_bug.cgi?id=2180988
 ExcludeArch: s390x
 
 
@@ -56,6 +56,11 @@ Summary:        %{summary}
 
 
 %build
+%ifarch %{ix86}
+# disable SSE2 instructions to prevent a crash in aws-c-common thread handling
+# probably caused by a compiler bug
+export CFLAGS="%{optflags} -mno-sse2"
+%endif
 export AWS_CRT_BUILD_USE_SYSTEM_LIBCRYPTO=1
 %pyproject_wheel
 
@@ -74,5 +79,8 @@ PYTHONPATH="%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib}" %{py
 
 
 %changelog
+* Wed Mar 22 2023 Nikola Forró <nforro@redhat.com> - 0.16.13-2
+- Workaround a crash on %%ix86
+
 * Thu Mar 16 2023 Nikola Forró <nforro@redhat.com> - 0.16.13-1
 - Initial package

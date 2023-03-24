@@ -1,11 +1,12 @@
 %undefine _package_note_flags
 
-# debuginfo generation fails for unclear reasons.
+%ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
+%endif
 
 Name:           ocaml-mdx
 Version:        2.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Executable code blocks inside markdown files
 
 License:        ISC
@@ -78,6 +79,10 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Mar 21 2023 Jerry James <loganjerry@gmail.com> - 2.2.1-2
+- Rebuild for ocaml-version 3.6.1
+- Re-enable debuginfo now that dune is fixed
+
 * Wed Jan 25 2023 Jerry James <loganjerry@gmail.com> - 2.2.1-1
 - Version 2.2.1
 
