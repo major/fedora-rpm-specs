@@ -53,8 +53,9 @@ Conflicts: %1 \
 
 Summary:  The Berkeley Internet Name Domain (BIND) DNS (Domain Name System) server
 Name:     bind9-next
-License:  MPLv2.0
-Version:  9.19.10
+License:  MPL-2.0 AND ISC AND BSD-3-clause AND Expat AND BSD-2-clause
+#
+Version:  9.19.11
 Release:  1%{?dist}
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
@@ -89,8 +90,6 @@ Source49: named-chroot.files
 # Common patches
 # Red Hat specific documentation is not relevant to upstream
 Patch1: bind-9.16-redhat_doc.patch
-# https://gitlab.isc.org/isc-projects/bind9/-/merge_requests/7417
-Patch2: bind-9.11-fips-tests.patch
 
 %{?systemd_ordering}
 Requires:       coreutils
@@ -427,10 +426,10 @@ fmtutil-user --listcfg || :
 fmtutil-user --missing || :
 %endif
 
-%make_build
+%make_build SPHINX_W=''
 
 %if %{with DOC}
-  %make_build doc
+  %make_build doc SPHINX_W=''
 %endif
 
 %if %{with DLZ}
@@ -827,11 +826,9 @@ fi;
 %dir /run/named
 
 %files libs
-%{_libdir}/libbind9-%{version}*.so
 %{_libdir}/libisccc-%{version}*.so
 %{_libdir}/libns-%{version}*.so
 %{_libdir}/libdns-%{version}*.so
-%{_libdir}/libirs-%{version}*.so
 %{_libdir}/libisc-%{version}*.so
 %{_libdir}/libisccfg-%{version}*.so
 
@@ -879,15 +876,12 @@ fi;
 %{_mandir}/man1/dnssec*.1*
 
 %files devel
-%{_libdir}/libbind9.so
 %{_libdir}/libisccc.so
 %{_libdir}/libns.so
 %{_libdir}/libdns.so
-%{_libdir}/libirs.so
 %{_libdir}/libisc.so
 %{_libdir}/libisccfg.so
 %dir %{_includedir}/bind9
-%{_includedir}/bind9/bind9
 %{_includedir}/bind9/isccc
 %{_includedir}/bind9/ns
 %{_includedir}/bind9/dns
@@ -965,8 +959,12 @@ fi;
 %endif
 
 %changelog
+* Thu Mar 23 2023 Petr Menšík <pemensik@redhat.com> - 32:9.19.11-1
+- Update to 9.19.11 (#2178718)
+
 * Mon Mar 06 2023 Petr Menšík <pemensik@redhat.com> - 32:9.19.10-1
 - Update to 9.19.10 (#2170097)
+- Update license tag to SPDX tag
 
 * Mon Jan 30 2023 Petr Menšík <pemensik@redhat.com> - 32:9.19.9-3
 - Stop obsoleting bind packages (#2165264)

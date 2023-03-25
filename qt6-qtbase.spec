@@ -38,8 +38,8 @@ BuildRequires: pkgconfig(libsystemd)
 
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
-Version: 6.4.2
-Release: 5%{?dist}
+Version: 6.4.3
+Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt-project.org/
@@ -99,7 +99,6 @@ Patch58: qtbase-libglvnd.patch
 Patch90: qtbase-gcc11.patch
 
 ## upstream patches
-Patch100: CVE-2023-24607-qtbase-6.4.patch
 
 # Do not check any files in %%{_qt6_plugindir}/platformthemes/ for requires.
 # Those themes are there for platform integration. If the required libraries are
@@ -432,7 +431,7 @@ translationdir=%{_qt6_translationdir}
 
 Name: Qt6
 Description: Qt6 Configuration
-Version: 6.4.2
+Version: 6.4.3
 EOF
 
 # rpm macros
@@ -844,6 +843,9 @@ make check -k ||:
 
 
 %changelog
+* Thu Mar 23 2023 Jan Grulich <jgrulich@redhat.com> - 6.4.3-1
+- 6.4.3
+
 * Sun Mar 05 2023 Jan grulich <jgrulich@redhat.com> - 6.4.2-5
 - Use QGnomePlatform as default platform theme on GNOME
   Resolves: bz#2174905

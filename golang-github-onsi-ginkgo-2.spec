@@ -4,7 +4,7 @@
 # https://github.com/onsi/ginkgo
 %global goipath         github.com/onsi/ginkgo/v2
 %global forgeurl        https://github.com/onsi/ginkgo
-Version:                2.7.0
+Version:                2.9.2
 
 %gometa
 
@@ -16,7 +16,7 @@ A Modern Testing Framework for Go.}
                         RELEASING.md
 
 Name:           %{goname}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        A Modern Testing Framework for Go
 
 License:        MIT
@@ -55,6 +55,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Thu Mar 23 2023 Maxwell G <maxwell@gtmx.me> - 2.9.2-1
+- Update to 2.9.2. Fixes rhbz#2165277.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

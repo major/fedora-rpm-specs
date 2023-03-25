@@ -1,16 +1,11 @@
 Name:           mdbtools
-Version:        0.9.3
-Release:        5%{?dist}
+Version:        1.0.0
+Release:        1%{?dist}
 Summary:        Access data stored in Microsoft Access databases
 License:        GPLv2+
 URL:            https://github.com/mdbtools/mdbtools/
 Source0:        https://github.com/mdbtools/mdbtools/releases/download/v%{version}/mdbtools-%{version}.tar.gz
-# Merged upstream as commit d1a2f179cc46259b50a111f8cf501921e0e69e6e
-Patch1:         0001-Fix-Werror-array-bounds-compile-error-in-src-odbc-od.patch
-# From Debian, see: https://github.com/mdbtools/mdbtools/issues/315
-Patch2:         01_use_lib_odbc_dir.patch
-# See: https://github.com/mdbtools/mdbtools/issues/316
-Patch3:         mdbtools-0.9.3-no-ifdef-HAVE_FOO-in-public-headers.patch
+Patch1:         mdbtools-0.9.3-mdb-sql-compile-fix.patch
 BuildRequires:  make gcc
 BuildRequires:  libxml2-devel glib2-devel unixODBC-devel readline-devel gettext-devel
 BuildRequires:  bison flex txt2man rarian-compat bash-completion
@@ -93,6 +88,10 @@ find %{buildroot} -type f -name "*.la" -delete
 
 
 %changelog
+* Thu Mar 23 2023 Hans de Goede <hdegoede@redhat.com> - 1.0.0-1
+- New upstream release 1.0.0
+- Fix FTBFS (rhbz#2171606)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

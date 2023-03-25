@@ -15,8 +15,8 @@
 
 Summary: Qt6 - QtDeclarative component
 Name:    qt6-%{qt_module}
-Version: 6.4.2
-Release: 5%{?dist}
+Version: 6.4.3
+Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -322,6 +322,9 @@ make check -k -C tests ||:
 %endif
 
 %changelog
+* Thu Mar 23 2023 Jan Grulich <jgrulich@redhat.com> - 6.4.3-1
+- 6.4.3
+
 * Wed Mar 15 2023 Neal Gompa <ngompa@fedoraproject.org> - 6.4.2-5
 - Backport fix for crashes in V4 JIT (#2177696)
 

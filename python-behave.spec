@@ -7,7 +7,7 @@ non-technical or business participants in a software project.
 behave uses tests written in a natural language style, backed up by 
 Python code.}
 
-# RHBZ 2179979
+# RHBZ #2179979
 %undefine _py3_shebang_s
 
 Name:           python-%{srcname}
@@ -27,6 +27,8 @@ Patch0:         0001-Backport-for-py38-fixes.patch
 Patch1:         0002-Tweak-tests-required-by-pytest-5.0.patch
 # Invalid escape sequence warnings fixes
 Patch2:		0003-invalid-escape-seq.patch
+# RHBZ #2180467
+Patch3:		0004-sphinx-extlinks.patch
 
 
 BuildArch:      noarch

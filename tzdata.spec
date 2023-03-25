@@ -1,9 +1,9 @@
 Summary: Timezone data
 Name: tzdata
-Version: 2022g
-%define tzdata_version 2022g
-%define tzcode_version 2022g
-Release: 2%{?dist}
+Version: 2023a
+%define tzdata_version 2023a
+%define tzcode_version 2023a
+Release: 1%{?dist}
 License: Public Domain
 URL: https://www.iana.org/time-zones
 Source0: ftp://ftp.iana.org/tz/releases/tzdata%{tzdata_version}.tar.gz
@@ -151,6 +151,12 @@ install -p -m 644 tzdb.dat $RPM_BUILD_ROOT%{_datadir}/javazi-1.8/
 %{_datadir}/javazi-1.8
 
 %changelog
+* Thu Mar 23 2023 Patsy Griffin <patsy@redhat.com> - 2023a-1
+- Rebase to tzdata-2023a
+ - Egypt reintroduced DST, from April through October.
+ - Morocco springs forward April 23, not April 30.
+ - Palestine delayed the start of DST this year.
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022g-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

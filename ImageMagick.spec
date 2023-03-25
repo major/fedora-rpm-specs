@@ -14,7 +14,7 @@ Epoch:          1
 Epoch:          0
 %endif
 Version:        7.1.1.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An X application for displaying and manipulating images
 
 %global VER %(foo=%{version}; echo ${foo:0:5})
@@ -155,7 +155,7 @@ BuildRequires:  pkgconfig(libheif) >= 1.4.0
 # ensure we use our on EL-7
 Requires:       libheif%{?_isa} >= 1.4.0
 %endif
-Requires: %{name}-libs%{?_isa} = %{version}-%{release}
+Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description heic
 This packages contains a plugin for ImageMagick which makes it possible to
@@ -413,6 +413,9 @@ rm PerlMagick/demo/Generic.ttf
 %doc PerlMagick/demo/ PerlMagick/Changelog PerlMagick/README.txt
 
 %changelog
+* Thu Mar 23 2023 Kalev Lember <klember@redhat.com> - 1:7.1.1.4-2
+- Fix missing epoch in ImageMagick-heic requires (#2181176)
+
 * Wed Mar 22 2023 Sérgio Basto <sergio@serjux.com> - 1:7.1.1.4-1
 - Update ImageMagick to 7.1.1.4 (#2176749)
 - Add support to libheif and add html docs

@@ -41,7 +41,7 @@
 
 Name:           R
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A language for data analysis and graphics
 
 License:        GPL-2.0-or-later
@@ -49,6 +49,7 @@ URL:            https://www.r-project.org
 Source0:        https://cran.r-project.org/src/base/R-4/R-%{version}.tar.gz
 # see https://bugzilla.redhat.com/show_bug.cgi?id=1324145
 Patch0:         R-3.3.0-fix-java_path-in-javareconf.patch
+Patch1:         R-4.2.3-curl-v8.patch
 
 BuildRequires:  gcc-gfortran
 BuildRequires:  gcc-c++
@@ -324,6 +325,7 @@ from the R project.  This package provides the static libRmath library.
 %prep
 %setup -q
 %patch0 -p1 -b .fixpath
+%patch1 -p1 -b .fixpath
 
 # Filter false positive provides.
 cat <<EOF > %{name}-prov
@@ -828,6 +830,9 @@ fi
 %{_libdir}/libRmath.a
 
 %changelog
+* Thu Mar 23 2023 Iñaki Úcar <iucar@fedoraproject.org> - 4.2.3-2
+- Enable libcurl > 7
+
 * Wed Mar 15 2023 Iñaki Úcar <iucar@fedoraproject.org> - 4.2.3-1
 - Update to 4.2.3
 - Adapt license tag to SPDX

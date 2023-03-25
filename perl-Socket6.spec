@@ -1,8 +1,8 @@
 Name:           perl-Socket6
 Version:        0.29
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        IPv6 related part of the C socket.h defines and structure manipulators
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://metacpan.org/release/Socket6
 Source0:        https://cpan.metacpan.org/modules/by-module/Socket6/Socket6-%{version}.tar.gz
 Patch0:         Socket6-0.29-remove_support_of_gethostname2.patch
@@ -59,6 +59,9 @@ make test
 %{_mandir}/man3/Socket6.3*
 
 %changelog
+* Thu Mar 23 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.29-17
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.29-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

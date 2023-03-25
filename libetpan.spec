@@ -3,7 +3,10 @@ Version:        1.9.4
 Release:        11%{?dist}
 Summary:        Portable, efficient middle-ware for different kinds of mail access
 
-License:        BSD
+# src/bsd/getopt.c BSD-4-Clause (not used)
+# src/data-types/timeutils.c BSD-3-Clause-Attribution AND BSD-4-Clause
+# SPDX confirmed
+License:        BSD-3-Clause AND BSD-3-Clause-Attribution AND BSD-4-Clause
 URL:            http://www.etpan.org/
 Source0:        https://github.com/dinhviethoa/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 # system crypto policy (see rhbz#1179310)
@@ -19,9 +22,9 @@ Patch101:       libetpan-1.9.4-0001-Detect-extra-data-after-STARTTLS-response-an
 # https://github.com/dinhvh/libetpan/pull/388
 Patch102:       libetpan-1.9.4-0002-Detect-extra-data-after-STARTTLS-responses-in-SMTP-a.patch
 # https://github.com/dinhvh/libetpan/issues/420
-# Workaround, "formal" fix is under discussion
 Patch103:       libetpan-1.9.4-mailbox_data_status-info_list-invalid-free.patch
-Patch104: libetpan-configure-c99.patch
+# https://github.com/dinhvh/libetpan/pull/423
+Patch104:       libetpan-configure-c99.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  liblockfile-devel

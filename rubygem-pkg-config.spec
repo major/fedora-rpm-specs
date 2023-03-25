@@ -7,7 +7,8 @@ Summary:	A pkg-config implementation by Ruby
 Name:		rubygem-%{gem_name}
 Version:	1.5.1
 Release:	2%{?dist}
-License:	LGPLv2+
+# SPDX confirmed
+License:	LGPL-2.0-or-later
 URL:		http://github.com/rcairo/pkg-config
 
 Source0:	http://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -47,7 +48,7 @@ This package contains documentation for %{name}.
 %setup -q -n %{gem_name}-%{version}
 mv ../%{gem_name}-%{version}.gemspec .
 
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 gem build ./%{gem_name}-%{version}.gemspec
@@ -77,7 +78,7 @@ popd
 %files
 %dir	%{gem_instdir}
 %doc	%{gem_instdir}/NEWS
-%doc	%{gem_instdir}/README.rdoc
+%license	%{gem_instdir}/README.rdoc
 %license	%{gem_instdir}/LGPL-2.1
 %{gem_libdir}/
 

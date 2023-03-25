@@ -1,6 +1,6 @@
 Summary: Pattern matching utilities
 Name: grep
-Version: 3.9
+Version: 3.10
 Release: 1%{?dist}
 License: GPLv3+
 URL: https://www.gnu.org/software/grep/
@@ -88,6 +88,10 @@ make check
 %{_libexecdir}/grepconf.sh
 
 %changelog
+* Thu Mar 23 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 3.10-1
+- New version
+  Resolves: rhbz#2181063
+
 * Tue Mar  7 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 3.9-1
 - New version
   Resolves: rhbz#2175526

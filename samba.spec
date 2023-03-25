@@ -135,7 +135,7 @@
 %define samba_requires_eq()  %(LC_ALL="C" echo '%*' | xargs -r rpm -q --qf 'Requires: %%{name} = %%{epoch}:%%{version}\\n' | sed -e 's/ (none):/ /' -e 's/ 0:/ /' | grep -v "is not")
 
 %global samba_version 4.18.0
-%global baserelease 11
+%global baserelease 12
 # This should be rc1 or %%nil
 %global pre_release %nil
 
@@ -3352,6 +3352,7 @@ fi
 %{_mandir}/man1/smbtorture.1*
 
 %if %{with testsuite}
+%{_mandir}/man1/vfstest.1*
 # files to ignore in testsuite mode
 %{_libdir}/samba/libnss-wrapper.so
 %{_libdir}/samba/libsocket-wrapper.so
@@ -3569,7 +3570,10 @@ fi
 %{_libexecdir}/ctdb/tests/sock_io_test
 %{_libexecdir}/ctdb/tests/srvid_test
 %{_libexecdir}/ctdb/tests/system_socket_test
+%{_libexecdir}/ctdb/tests/tmon_ping_test
+%{_libexecdir}/ctdb/tests/tmon_test
 %{_libexecdir}/ctdb/tests/transaction_loop
+%{_libexecdir}/ctdb/tests/tunable_test
 %{_libexecdir}/ctdb/tests/tunnel_cmd
 %{_libexecdir}/ctdb/tests/tunnel_test
 %{_libexecdir}/ctdb/tests/update_record
@@ -3656,12 +3660,19 @@ fi
 %{_datadir}/ctdb/tests/INTEGRATION/simple/basics.005.process_exists.sh
 %{_datadir}/ctdb/tests/INTEGRATION/simple/basics.010.statistics.sh
 %{_datadir}/ctdb/tests/INTEGRATION/simple/basics.011.statistics_reset.sh
+%{_datadir}/ctdb/tests/INTEGRATION/simple/cluster.001.stop_leader_yield.sh
+%{_datadir}/ctdb/tests/INTEGRATION/simple/cluster.002.ban_leader_yield.sh
+%{_datadir}/ctdb/tests/INTEGRATION/simple/cluster.003.capability_leader_yield.sh
+%{_datadir}/ctdb/tests/INTEGRATION/simple/cluster.006.stop_leader_yield_no_lock.sh
+%{_datadir}/ctdb/tests/INTEGRATION/simple/cluster.007.ban_leader_yield_no_lock.sh
+%{_datadir}/ctdb/tests/INTEGRATION/simple/cluster.008.capability_leader_yield_no_lock.sh
 %{_datadir}/ctdb/tests/INTEGRATION/simple/cluster.010.getrelock.sh
 %{_datadir}/ctdb/tests/INTEGRATION/simple/cluster.012.reclock_command.sh
 %{_datadir}/ctdb/tests/INTEGRATION/simple/cluster.015.reclock_remove_lock.sh
 %{_datadir}/ctdb/tests/INTEGRATION/simple/cluster.016.reclock_move_lock_dir.sh
 %{_datadir}/ctdb/tests/INTEGRATION/simple/cluster.020.message_ring.sh
 %{_datadir}/ctdb/tests/INTEGRATION/simple/cluster.021.tunnel_ring.sh
+%{_datadir}/ctdb/tests/INTEGRATION/simple/cluster.030.node_stall_leader_timeout.sh
 %{_datadir}/ctdb/tests/INTEGRATION/simple/cluster.090.unreachable.sh
 %{_datadir}/ctdb/tests/INTEGRATION/simple/cluster.091.version_check.sh
 %{_datadir}/ctdb/tests/INTEGRATION/simple/debug.001.getdebug.sh
@@ -3687,6 +3698,7 @@ fi
 %{_datadir}/ctdb/tests/UNIT/cunit/cmdline_test_001.sh
 %{_datadir}/ctdb/tests/UNIT/cunit/comm_test_001.sh
 %{_datadir}/ctdb/tests/UNIT/cunit/comm_test_002.sh
+%{_datadir}/ctdb/tests/UNIT/cunit/conf_test_001.sh
 %{_datadir}/ctdb/tests/UNIT/cunit/config_test_001.sh
 %{_datadir}/ctdb/tests/UNIT/cunit/config_test_002.sh
 %{_datadir}/ctdb/tests/UNIT/cunit/config_test_003.sh
@@ -3694,7 +3706,6 @@ fi
 %{_datadir}/ctdb/tests/UNIT/cunit/config_test_005.sh
 %{_datadir}/ctdb/tests/UNIT/cunit/config_test_006.sh
 %{_datadir}/ctdb/tests/UNIT/cunit/config_test_007.sh
-%{_datadir}/ctdb/tests/UNIT/cunit/conf_test_001.sh
 %{_datadir}/ctdb/tests/UNIT/cunit/ctdb_io_test_001.sh
 %{_datadir}/ctdb/tests/UNIT/cunit/db_hash_test_001.sh
 %{_datadir}/ctdb/tests/UNIT/cunit/event_protocol_test_001.sh
@@ -3722,6 +3733,9 @@ fi
 %{_datadir}/ctdb/tests/UNIT/cunit/system_socket_test_001.sh
 %{_datadir}/ctdb/tests/UNIT/cunit/system_socket_test_002.sh
 %{_datadir}/ctdb/tests/UNIT/cunit/system_socket_test_003.sh
+%{_datadir}/ctdb/tests/UNIT/cunit/tmon_test_001.sh
+%{_datadir}/ctdb/tests/UNIT/cunit/tmon_test_002.sh
+%{_datadir}/ctdb/tests/UNIT/cunit/tunable_test_001.sh
 %dir %{_datadir}/ctdb/tests/UNIT/eventd
 %dir %{_datadir}/ctdb/tests/UNIT/eventd/etc-ctdb
 %{_datadir}/ctdb/tests/UNIT/eventd/etc-ctdb/ctdb.conf
@@ -3968,6 +3982,22 @@ fi
 %{_datadir}/ctdb/tests/UNIT/eventscripts/91.lvs.shutdown.002.sh
 %{_datadir}/ctdb/tests/UNIT/eventscripts/91.lvs.startup.001.sh
 %{_datadir}/ctdb/tests/UNIT/eventscripts/91.lvs.startup.002.sh
+%{_datadir}/ctdb/tests/UNIT/eventscripts/debug_locks.sh.001.sh
+%{_datadir}/ctdb/tests/UNIT/eventscripts/debug_locks.sh.002.sh
+%{_datadir}/ctdb/tests/UNIT/eventscripts/debug_locks.sh.003.sh
+%{_datadir}/ctdb/tests/UNIT/eventscripts/debug_locks.sh.004.sh
+%{_datadir}/ctdb/tests/UNIT/eventscripts/debug_locks.sh.005.sh
+%{_datadir}/ctdb/tests/UNIT/eventscripts/debug_locks.sh.006.sh
+%{_datadir}/ctdb/tests/UNIT/eventscripts/debug_locks.sh.007.sh
+%{_datadir}/ctdb/tests/UNIT/eventscripts/debug_locks.sh.008.sh
+%{_datadir}/ctdb/tests/UNIT/eventscripts/debug_locks.sh.021.sh
+%{_datadir}/ctdb/tests/UNIT/eventscripts/debug_locks.sh.022.sh
+%{_datadir}/ctdb/tests/UNIT/eventscripts/debug_locks.sh.023.sh
+%{_datadir}/ctdb/tests/UNIT/eventscripts/debug_locks.sh.024.sh
+%{_datadir}/ctdb/tests/UNIT/eventscripts/debug_locks.sh.025.sh
+%{_datadir}/ctdb/tests/UNIT/eventscripts/debug_locks.sh.026.sh
+%{_datadir}/ctdb/tests/UNIT/eventscripts/debug_locks.sh.027.sh
+%{_datadir}/ctdb/tests/UNIT/eventscripts/debug_locks.sh.028.sh
 %dir %{_datadir}/ctdb/tests/UNIT/eventscripts/etc
 %dir %{_datadir}/ctdb/tests/UNIT/eventscripts/etc-ctdb
 %{_datadir}/ctdb/tests/UNIT/eventscripts/etc-ctdb/public_addresses
@@ -3997,6 +4027,7 @@ fi
 %{_datadir}/ctdb/tests/UNIT/eventscripts/scripts/50.samba.sh
 %{_datadir}/ctdb/tests/UNIT/eventscripts/scripts/60.nfs.sh
 %{_datadir}/ctdb/tests/UNIT/eventscripts/scripts/91.lvs.sh
+%{_datadir}/ctdb/tests/UNIT/eventscripts/scripts/debug_locks.sh
 %{_datadir}/ctdb/tests/UNIT/eventscripts/scripts/local.sh
 %{_datadir}/ctdb/tests/UNIT/eventscripts/scripts/statd-callout.sh
 %{_datadir}/ctdb/tests/UNIT/eventscripts/statd-callout.001.sh
@@ -4016,6 +4047,7 @@ fi
 %{_datadir}/ctdb/tests/UNIT/eventscripts/stubs/df
 %{_datadir}/ctdb/tests/UNIT/eventscripts/stubs/ethtool
 %{_datadir}/ctdb/tests/UNIT/eventscripts/stubs/exportfs
+%{_datadir}/ctdb/tests/UNIT/eventscripts/stubs/gstack
 %{_datadir}/ctdb/tests/UNIT/eventscripts/stubs/id
 %{_datadir}/ctdb/tests/UNIT/eventscripts/stubs/ip
 %{_datadir}/ctdb/tests/UNIT/eventscripts/stubs/ip6tables
@@ -4024,21 +4056,24 @@ fi
 %{_datadir}/ctdb/tests/UNIT/eventscripts/stubs/kill
 %{_datadir}/ctdb/tests/UNIT/eventscripts/stubs/killall
 %{_datadir}/ctdb/tests/UNIT/eventscripts/stubs/multipath
-%{_datadir}/ctdb/tests/UNIT/eventscripts/stubs/nfsconf
 %{_datadir}/ctdb/tests/UNIT/eventscripts/stubs/net
+%{_datadir}/ctdb/tests/UNIT/eventscripts/stubs/nfs-fake-callout
+%{_datadir}/ctdb/tests/UNIT/eventscripts/stubs/nfsconf
 %{_datadir}/ctdb/tests/UNIT/eventscripts/stubs/pidof
 %{_datadir}/ctdb/tests/UNIT/eventscripts/stubs/pkill
 %{_datadir}/ctdb/tests/UNIT/eventscripts/stubs/ps
 %{_datadir}/ctdb/tests/UNIT/eventscripts/stubs/rm
-%{_datadir}/ctdb/tests/UNIT/eventscripts/stubs/rpcinfo
 %{_datadir}/ctdb/tests/UNIT/eventscripts/stubs/rpc.lockd
 %{_datadir}/ctdb/tests/UNIT/eventscripts/stubs/rpc.mountd
 %{_datadir}/ctdb/tests/UNIT/eventscripts/stubs/rpc.rquotad
 %{_datadir}/ctdb/tests/UNIT/eventscripts/stubs/rpc.statd
+%{_datadir}/ctdb/tests/UNIT/eventscripts/stubs/rpcinfo
 %{_datadir}/ctdb/tests/UNIT/eventscripts/stubs/service
 %{_datadir}/ctdb/tests/UNIT/eventscripts/stubs/sleep
 %{_datadir}/ctdb/tests/UNIT/eventscripts/stubs/smnotify
 %{_datadir}/ctdb/tests/UNIT/eventscripts/stubs/ss
+%{_datadir}/ctdb/tests/UNIT/eventscripts/stubs/stat
+%{_datadir}/ctdb/tests/UNIT/eventscripts/stubs/tdb_mutex_check
 %{_datadir}/ctdb/tests/UNIT/eventscripts/stubs/tdbdump
 %{_datadir}/ctdb/tests/UNIT/eventscripts/stubs/tdbtool
 %{_datadir}/ctdb/tests/UNIT/eventscripts/stubs/testparm
@@ -4200,6 +4235,8 @@ fi
 %{_datadir}/ctdb/tests/UNIT/tool/ctdb.ipinfo.001.sh
 %{_datadir}/ctdb/tests/UNIT/tool/ctdb.ipinfo.002.sh
 %{_datadir}/ctdb/tests/UNIT/tool/ctdb.ipinfo.003.sh
+%{_datadir}/ctdb/tests/UNIT/tool/ctdb.leader.001.sh
+%{_datadir}/ctdb/tests/UNIT/tool/ctdb.leader.002.sh
 %{_datadir}/ctdb/tests/UNIT/tool/ctdb.listnodes.001.sh
 %{_datadir}/ctdb/tests/UNIT/tool/ctdb.listnodes.002.sh
 %{_datadir}/ctdb/tests/UNIT/tool/ctdb.listvars.001.sh
@@ -4227,6 +4264,7 @@ fi
 %{_datadir}/ctdb/tests/UNIT/tool/ctdb.nodestatus.004.sh
 %{_datadir}/ctdb/tests/UNIT/tool/ctdb.nodestatus.005.sh
 %{_datadir}/ctdb/tests/UNIT/tool/ctdb.nodestatus.006.sh
+%{_datadir}/ctdb/tests/UNIT/tool/ctdb.nodestatus.007.sh
 %{_datadir}/ctdb/tests/UNIT/tool/ctdb.pdelete.001.sh
 %{_datadir}/ctdb/tests/UNIT/tool/ctdb.ping.001.sh
 %{_datadir}/ctdb/tests/UNIT/tool/ctdb.pnn.001.sh
@@ -4277,6 +4315,7 @@ fi
 %{_datadir}/ctdb/tests/UNIT/tool/ctdb.setvar.002.sh
 %{_datadir}/ctdb/tests/UNIT/tool/ctdb.status.001.sh
 %{_datadir}/ctdb/tests/UNIT/tool/ctdb.status.002.sh
+%{_datadir}/ctdb/tests/UNIT/tool/ctdb.status.003.sh
 %{_datadir}/ctdb/tests/UNIT/tool/ctdb.stop.001.sh
 %{_datadir}/ctdb/tests/UNIT/tool/ctdb.stop.002.sh
 %{_datadir}/ctdb/tests/UNIT/tool/ctdb.stop.003.sh
@@ -4329,8 +4368,8 @@ fi
 %endif
 
 %changelog
-* Tue Mar 21 2023 Andreas Schneider <asn@redhat.com> - 4.18.0-11
-- Fix file list
+* Tue Mar 21 2023 Andreas Schneider <asn@redhat.com> - 4.18.0-12
+- Fix ctdb file lists when built with test suite enabled
 
 * Fri Mar 17 2023 Kalev Lember <klember@redhat.com> - 4.18.0-10
 - Move libstable-sort-samba4.so to samba-client-libs subpackage

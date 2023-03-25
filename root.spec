@@ -46,7 +46,7 @@
 Name:		root
 Version:	6.28.02
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -175,9 +175,9 @@ BuildRequires:	cmake-data >= 3.18.3-1
 BuildRequires:	openblas-devel
 %endif
 BuildRequires:	json-devel
-%if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} >= 9
-#		Disable uring in EPEL 8 (liburing is available, but uring not
-#		supported by the kernel)
+%if %{?fedora}%{!?fedora:0}
+#		Disable uring in EPEL 8 and 9 (liburing is available,
+#		but uring not supported by the kernel)
 BuildRequires:	liburing-devel
 %endif
 %if %{tmvasofieparser}
@@ -2168,7 +2168,7 @@ LDFLAGS="-Wl,--as-needed %{?__global_ldflags}"
        -Dtmva-sofie:BOOL=OFF \
 %endif
        -Dunuran:BOOL=ON \
-%if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} >= 9
+%if %{?fedora}%{!?fedora:0}
        -During:BOOL=ON \
 %else
        -During:BOOL=OFF \
@@ -3741,6 +3741,10 @@ fi
 %endif
 
 %changelog
+* Thu Mar 23 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.28.02-2
+- Disable uring in EPEL 9 (liburing is available, but uring not
+  supported by kernel)
+
 * Wed Mar 22 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.28.02-1
 - Update to 6.28.02
 - Dropped patches: 13

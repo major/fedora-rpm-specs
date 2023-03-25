@@ -9,23 +9,24 @@
 %global	gitdate_num 20171230
 %endif
 
-%global	mainrel 3
+%global	baserelease 4
 
 %if 0%{?userelease} >= 1
-%global	baserelease   %{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}
+%global	fedorarel   %{?prever:0.}%{baserelease}%{?prever:.%{prerpmver}}
 %endif
 %if 0%{?usegit} >= 1
-%global	baserelease   %{mainrel}.D%{gitdate_num}git%{shorthash}
+%global	fedorarel   %{basereleaase}.D%{gitdate_num}git%{shorthash}
 %endif
 
 %undefine __brp_mangle_shebangs
 
 Name:		rubygem-%{gem_name}
 Version:	11.1.3
-Release:	%{baserelease}%{?dist}.6
+Release:	%{fedorarel}%{?dist}
 
 Summary:	Ruby 2.0 fast debugger - base + CLI
-License:	BSD
+# SPDX confirmed
+License:	BSD-2-Clause
 
 URL:		http://github.com/deivid-rodriguez/byebug
 %if 0%{?userelease} >= 1
@@ -48,7 +49,6 @@ BuildRequires:	rubygem(rake)
 # %%check
 BuildRequires:	rubygem(minitest) >= 5
 BuildRequires:	rubygem(irb)
-#BuildRequires:	rubygem(columnize)
 BuildRequires:	rubygem(pry)
 
 %description
@@ -78,9 +78,6 @@ gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
 %setup -q -c -T -a 0
 mv %{gem_name}-%{githash}/* %{gem_name}-%{githash}/.[^.]* .
 %endif
-
-# Relax columnize dependency
-sed -i %{gem_name}.gemspec -e '\@columnize@s|= [0-9\.][0-9\.]*|>= 0.8.9|'
 
 %build
 gem build %{gem_name}.gemspec
@@ -169,6 +166,10 @@ mv {.,}Gemfile.lock
 %doc	%{gem_docdir}
 
 %changelog
+* Thu Mar 23 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 11.1.3-4
+- A bit of spec file cleanup
+- SPDX migration
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.1.3-3.6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

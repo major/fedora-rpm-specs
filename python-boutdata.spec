@@ -2,7 +2,7 @@
 %global pypi_name boutdata
 
 Name:           python-%{pypi_name}
-Version:        0.1.9
+Version:        0.1.10
 Release:        %autorelease
 Summary:        Python package for collecting BOUT++ data
 
@@ -61,4 +61,4 @@ export HDF5_USE_FILE_LOCKING=FALSE
 
 
 %changelog
-%autochangelog
+%{autochangelog}

@@ -5,13 +5,14 @@ Version:	0.4.0
 Release:	9%{?dist}
 
 Summary:	Tk interface module using tcltklib
+# SPDX confirmred
+#
 # Some license texts under sample/ such as
 ## sample/demos-jp/doc.org/license.terms
 # or so are all TCL
-# TODO
-# sample/tkextlib/iwidgets/catalog_demo/Orig_LICENSE.txt
-# sample/tkextlib/tile/Orig_LICENSE.txt
-# apparently "MIT" in old format, but new format license tag unknown
+#
+# MIT-CMU: sample/tkextlib/iwidgets/catalog_demo/Orig_LICENSE.txt
+# MIT-CMU: sample/tkextlib/tile/Orig_LICENSE.txt
 License:	BSD-2-Clause OR Ruby
 URL:		https://github.com/ruby/tk
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -29,7 +30,7 @@ Tk interface module using tcltklib.
 
 %package	doc
 Summary:	Documentation for %{name}
-License:	(BSD-2-Clause OR Ruby) AND TCL AND MIT
+License:	(BSD-2-Clause OR Ruby) AND TCL AND MIT-CMU
 Requires:	%{name} = %{version}-%{release}
 BuildArch:	noarch
 

@@ -1,5 +1,5 @@
 Name:               girara
-Version:            0.3.9
+Version:            0.4.0
 Release:            1%{?dist}
 Summary:            Simple user interface library
 License:            Zlib
@@ -65,6 +65,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Wed Mar 22 2023 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 0.4.0-1
+- Update to 0.4.0
+
 * Mon Jan 30 2023 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 0.3.9-1
 - Update to 0.3.9
 - https://pwmt.org/projects/girara/changelog/0.3.9/index.html

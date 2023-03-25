@@ -1,6 +1,6 @@
 Name:           mirrormagic
 Version:        3.0.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Puzzle game where you steer a beam of light using mirrors
 License:        GPL+
 URL:            http://www.artsoft.org/mirrormagic/
@@ -33,8 +33,11 @@ mv CREDITS.tmp CREDITS
 
 
 %build
-make %{?_smp_mflags} PROGBASE=%{name} RO_GAME_DIR=%{_datadir}/%{name} \
-  OPTIONS="$RPM_OPT_FLAGS -DUSE_USERDATADIR_FOR_COMMONDATA" sdl2
+# parallel build has been disabled because for some unknown reason
+# it leads to unknown symbols during the linking of the mirrormagic binary
+make PROGBASE=%{name} RO_GAME_DIR=%{_datadir}/%{name} \
+  OPTIONS="$RPM_OPT_FLAGS -DUSE_USERDATADIR_FOR_COMMONDATA" \
+  EXTRA_LDFLAGS="$RPM_OPT_FLAGS $RPM_LD_FLAGS" sdl2
 
 
 %install
@@ -65,6 +68,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Thu Mar 23 2023 Hans de Goede <hdegoede@redhat.com> - 3.0.0-13
+- Fix FTBFS (rhbz#2171614)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

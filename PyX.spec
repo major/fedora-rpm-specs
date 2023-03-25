@@ -1,6 +1,6 @@
 Name:           PyX
-Version:        0.15
-Release:        11%{?dist}
+Version:        0.16
+Release:        1%{?dist}
 Summary:        Python graphics package
 
 License:        GPLv2+
@@ -11,10 +11,8 @@ Source0:        https://files.pythonhosted.org/packages/source/P/PyX/PyX-%{versi
 Patch0:         manual-pythonpath.patch
 Patch1:         sphinx-local-mathjax.patch
 Patch2:         sphinx-no-eager-only.patch
-# fix extension module
-Patch3:         0001-fix-t1-extension-with-Python-3.10.patch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  python3-devel
 BuildRequires:  ghostscript
@@ -31,6 +29,7 @@ BuildRequires:  tex(framed.sty)
 BuildRequires:  tex(needspace.sty)
 BuildRequires:  tex(upquote.sty)
 BuildRequires:  tex(tabulary.sty)
+BuildRequires:  tex(tgtermes.sty)
 BuildRequires:  tex(wrapfig.sty)
 
 Requires:       tex(latex)
@@ -54,8 +53,8 @@ BuildArch: noarch
 
 %build
 # Set the extensions to be built
-%{__sed} -i 's|^build_t1code=.*|build_t1code=1|' setup.cfg
-%{__sed} -i 's|^build_pykpathsea=.*|build_pykpathsea=1|' setup.cfg
+%{__sed} -i 's|^build_t1code =.*|build_t1code = 1|' setup.cfg
+%{__sed} -i 's|^build_pykpathsea =.*|build_pykpathsea = 1|' setup.cfg
 
 %{py3_build}
 
@@ -106,6 +105,10 @@ done
 %doc examples/
 
 %changelog
+* Thu Mar 23 2023 José Matos <jamatos@fedoraproject.org> - 0.16-1
+- Update to 0.16
+- Remove patch already included in this version
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

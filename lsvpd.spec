@@ -1,6 +1,6 @@
 Name:		lsvpd
 Version:	1.7.14
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	VPD/hardware inventory utilities for Linux
 
 License:	GPL-2.0-or-later
@@ -9,9 +9,10 @@ Source: https://github.com/power-ras/%{name}/archive/v%{version}/%{name}-%{versi
 
 Patch0: lsvpd-git1ca39c.patch
 Patch1: lsvpd-git6ff86f.patch
+Patch2: lsvpd-git50e2fa.patch
 
 BuildRequires: gcc-c++
-BuildRequires: libvpd-devel >= 2.2.5
+BuildRequires: libvpd-devel >= 2.2.9
 BuildRequires: sg3_utils-devel
 BuildRequires: zlib-devel
 BuildRequires: automake
@@ -72,6 +73,10 @@ exit 0
 %dir %{_sysconfdir}/lsvpd
 
 %changelog
+* Thu Mar 23 2023 Than Ngo <than@redhat.com> - 1.7.14-6
+- lsvpd is not reporting the correct I/O microcode
+  for HBA, PCIe, SAS adapters, HDD, etc
+
 * Thu Feb 16 2023 Than Ngo <than@redhat.com> - 1.7.14-5
 - migrated to SPDX license
 

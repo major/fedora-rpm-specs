@@ -49,7 +49,7 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        287
+Version:        288
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
@@ -205,9 +205,6 @@ echo '%{_libexecdir}/cockpit-ssh' >> base.list
 echo '%dir %{_datadir}/cockpit/pcp' > pcp.list
 find %{buildroot}%{_datadir}/cockpit/pcp -type f >> pcp.list
 
-echo '%dir %{_datadir}/cockpit/tuned' > system.list
-find %{buildroot}%{_datadir}/cockpit/tuned -type f >> system.list
-
 echo '%dir %{_datadir}/cockpit/shell' >> system.list
 find %{buildroot}%{_datadir}/cockpit/shell -type f >> system.list
 
@@ -250,7 +247,7 @@ find %{buildroot}%{_datadir}/cockpit/static -type f >> static.list
 
 # when not building basic packages, remove their files
 %if 0%{?build_basic} == 0
-for pkg in base1 branding motd kdump networkmanager selinux shell sosreport ssh static systemd tuned users metrics; do
+for pkg in base1 branding motd kdump networkmanager selinux shell sosreport ssh static systemd users metrics; do
     rm -r %{buildroot}/%{_datadir}/cockpit/$pkg
     rm -f %{buildroot}/%{_datadir}/metainfo/org.cockpit-project.cockpit-${pkg}.metainfo.xml
 done
@@ -677,6 +674,16 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Mar 23 2023 Packit <hello@packit.dev> - 288-1
+- Accounts: Show shell and home directory on detail page
+- Accounts: Custom user ID during account creation
+- Overview: Support additional timeservers with chronyd
+- Metrics: Show longer time span by default
+- Storage: Mounting filesystems at boot time
+- Services: Units need to be re-pinned
+- API removal: Remove cockpit.dbus.publish() and .meta()
+- Development: Cockpit now supports the esbuild bundler
+
 * Thu Mar 09 2023 Packit <hello@packit.dev> - 287-1
 - Metrics: Column visiblity
 - Services: Pinned units need to be re-done

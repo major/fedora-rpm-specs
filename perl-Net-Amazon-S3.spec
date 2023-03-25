@@ -1,6 +1,6 @@
 Name:       perl-Net-Amazon-S3
 Version:    0.991
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    Use the Amazon Simple Storage Service (S3)
 # README.md reports the code is derived from an ADSL-licensed code.
 License:    (GPL-1.0-or-later OR Artistic-1.0-Perl) AND ADSL
@@ -8,6 +8,9 @@ URL:        https://metacpan.org/release/Net-Amazon-S3
 Source0:    https://cpan.metacpan.org/authors/id/B/BA/BARNEY/Net-Amazon-S3-%{version}.tar.gz
 # Fix shebang
 Patch0:     Net-Amazon-S3-0.86-Normalize-shellbang.patch
+# Fix a content type check in multi-part upload, in upstream after 0.991,
+# <https://github.com/rustyconover/net-amazon-s3/issues/124>
+Patch1:     Net-Amazon-S3-0.991-Fix-initiate_multipart_upload-content-type-check.patch
 BuildArch:  noarch
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -131,8 +134,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n Net-Amazon-S3-%{version}
-%patch0 -p1
+%autosetup -p1 -n Net-Amazon-S3-%{version}
 # Get rid of unnecessary executable bits
 find lib -name '*.pm' -exec chmod -c -x {} +
 # Remove author tests
@@ -193,6 +195,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Mar 22 2023 Igor Raits <igot@gooddata.com> - 0.991-4
+- Fix a content type check in multi-part upload (upstream bug #124)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.991-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

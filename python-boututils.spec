@@ -2,7 +2,7 @@
 %global pypi_name boututils
 
 Name:           python-%{pypi_name}
-Version:        0.1.9
+Version:        0.1.10
 Release:        %autorelease
 Summary:        Python package containing BOUT++ utils
 
@@ -10,6 +10,9 @@ License:        LGPLv3+
 URL:            http://boutproject.github.io
 Source0:        %pypi_source
 BuildArch:      noarch
+
+Patch:          https://github.com/boutproject/boututils/pull/47.patch
+Patch:          https://github.com/boutproject/boututils/pull/48.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros

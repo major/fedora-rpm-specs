@@ -1,7 +1,7 @@
 %global pypi_name xbout
 
 Name:           python-%{pypi_name}
-Version:        0.3.4
+Version:        0.3.5
 Release:        %autorelease
 Summary:        Collects BOUT++ data from parallelized simulations into xarray
 
@@ -9,6 +9,9 @@ License:        ASL 2.0
 URL:            https://github.com/boutproject/xBOUT
 Source0:        %{pypi_source}
 BuildArch:      noarch
+
+Patch:          https://github.com/boutproject/xBOUT/pull/278.patch
+Patch:          https://github.com/boutproject/xBOUT/pull/283.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}

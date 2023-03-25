@@ -6,10 +6,10 @@
 %endif
 
 Name:           perl-YAML-Tiny
-Version:        1.73
-Release:        17%{?dist}
+Version:        1.74
+Release:        1%{?dist}
 Summary:        Read/Write YAML files with as little code as possible
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/YAML-Tiny
 Source0:        https://cpan.metacpan.org/modules/by-module/YAML/YAML-Tiny-%{version}.tar.gz
 BuildArch:      noarch
@@ -23,6 +23,7 @@ BuildRequires:  perl(ExtUtils::MakeMaker)
 # Module Runtime
 BuildRequires:  perl(B)
 BuildRequires:  perl(Carp)
+BuildRequires:  perl(Config)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(Fcntl)
 BuildRequires:  perl(Scalar::Util)
@@ -30,7 +31,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Test Suite
 BuildRequires:  perl(base)
-BuildRequires:  perl(blib)
 BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(File::Find)
 BuildRequires:  perl(File::Spec) >= 0.80
@@ -41,6 +41,7 @@ BuildRequires:  perl(IO::Dir)
 BuildRequires:  perl(JSON::PP)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(List::Util)
+BuildRequires:  perl(open)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(vars)
@@ -51,9 +52,8 @@ BuildRequires:  perl(JSON::MaybeXS) >= 1.001000
 %endif
 # Runtime
 Requires:       perl(Carp)
-Requires:       perl(Exporter)
+Requires:       perl(Config)
 Requires:       perl(Fcntl)
-Requires:       perl(Scalar::Util)
 
 %description
 YAML::Tiny is a Perl class for reading and writing YAML-style files,
@@ -82,6 +82,11 @@ make test
 %{_mandir}/man3/YAML::Tiny.3*
 
 %changelog
+* Thu Mar 23 2023 Paul Howarth <paul@city-fan.org> - 1.74-1
+- Update to 1.74 (rhbz#2181091)
+  - A few documentation tweaks
+- Use SPDX-format license tag
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.73-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

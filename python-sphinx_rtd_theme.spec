@@ -4,8 +4,8 @@
 %bcond_with bootstrap
 
 Name:           python-%{srcname}
-Version:        1.1.1
-Release:        2%{?dist}
+Version:        1.2.0
+Release:        1%{?dist}
 Summary:        Sphinx theme for readthedocs.org
 
 License:        MIT
@@ -65,10 +65,12 @@ readthedocs.org.
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
 
-# Make theme work with docutils 0.18+ in Fedora 37+
+# Make theme work with docutils 0.19+ in Fedora 39+
 # This is not officially supported yet, tracked upstram in:
-# https://github.com/readthedocs/sphinx_rtd_theme/issues/1302
-sed -i "s|docutils <0.18|docutils <0.20|" setup.cfg
+# https://github.com/readthedocs/sphinx_rtd_theme/issues/1323
+sed -i "s|docutils <0.19|docutils <0.20|" setup.cfg
+# Don't pin the upper bound of the sphinxcontrib-jquery
+sed -i "s|sphinxcontrib-jquery >=2.0.0,!=3.0.0|sphinxcontrib-jquery >=2.0.0|" setup.cfg
 
 # Use local objects.inv for intersphinx
 sed -e "s|\('https://docs\.readthedocs\.io/en/stable/', \)None|\1'%{SOURCE1}'|" \
@@ -164,6 +166,7 @@ grep 'format("woff2\?")' \
 %{python3_sitelib}/%{srcname}/theme.conf
 %dir %{python3_sitelib}/%{srcname}/locale/
 %{python3_sitelib}/%{srcname}/locale/sphinx.pot
+%lang(da) %{python3_sitelib}/%{srcname}/locale/da/
 %lang(de) %{python3_sitelib}/%{srcname}/locale/de/
 %lang(en) %{python3_sitelib}/%{srcname}/locale/en/
 %lang(es) %{python3_sitelib}/%{srcname}/locale/es/
@@ -182,6 +185,7 @@ grep 'format("woff2\?")' \
 %lang(sv) %{python3_sitelib}/%{srcname}/locale/sv/
 %lang(tr) %{python3_sitelib}/%{srcname}/locale/tr/
 %lang(zh_CN) %{python3_sitelib}/%{srcname}/locale/zh_CN/
+%lang(zh_TW) %{python3_sitelib}/%{srcname}/locale/zh_TW/
 
 %if %{without bootstrap}
 %files doc
@@ -190,6 +194,10 @@ grep 'format("woff2\?")' \
 %endif
 
 %changelog
+* Tue Feb 21 2023 Karolina Surma <ksurma@redhat.com> - 1.2.0-1
+- Update to 1.2.0
+Fixes rhbz#2154374
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -55,7 +55,7 @@ Summary:        Free Software Productivity Suite
 Name:           libreoffice
 Epoch:          1
 Version:        %{libo_version}.2
-Release:        3%{?libo_prerelease}%{?dist}
+Release:        4%{?libo_prerelease}%{?dist}
 # default new files are: MPLv2
 # older files are typically: MPLv2 incorporating work under ASLv2
 # nlpsolver is: LGPLv3
@@ -268,9 +268,11 @@ Patch3: 0001-Revert-tdf-101630-gdrive-support-w-oAuth-and-Drive-A.patch
 Patch4: 0001-don-t-crash-with-disable-pdfium.patch
 Patch5: 0001-tdf-152073-tdf-153895-basicide-Set-bg-color-for-bord.patch
 Patch6: 0001-Use-sifr-and-sifr_dark-for-gnome.patch
+Patch7: 0001-rhbz-2171265-Report-fatal-InitApplicationServiceMana.patch
+Patch8: 0001-rhbz-2171265-Filter-out-all-non-.rdb-files.patch
 # TODO investigate these
-Patch7: 0001-aarch64-failing-here.patch
-Patch8: 0001-include-filename-if-the-test-fails.patch
+Patch9: 0001-aarch64-failing-here.patch
+Patch10: 0001-include-filename-if-the-test-fails.patch
 # not upstreamed
 Patch500: 0001-disable-libe-book-support.patch
 
@@ -2249,6 +2251,9 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor &>/dev/null || :
 %{_includedir}/LibreOfficeKit
 
 %changelog
+* Wed Mar 22 2023 Stephan Bergmann <sbergman@redhat.com> - 1:7.5.1.2-4
+- Resolves: rhbz#2171265 Failure to start with junk in program/services/
+
 * Fri Mar 10 2023 Caolán McNamara <caolanm@redhat.com> - 1:7.5.1.2-3
 - Use sifr/sifr_dark for gnome,
   https://pagure.io/fedora-workstation/issue/361

@@ -7,13 +7,14 @@
 
 %global	gem_name	rake
 
-%global	fedorarel	200
+%global	baserelease	201
 
 Summary:	Rake is a Make-like program implemented in Ruby
 Name:		rubygem-%{gem_name}
 
 Version:	%{majorver}
-Release:	%{?preminorver:0.}%{fedorarel}%{?preminorver:%{rpmminorver}}%{?dist}.3
+Release:	%{?preminorver:0.}%{baserelease}%{?preminorver:%{rpmminorver}}%{?dist}
+# SPDX confirmed
 License:	MIT
 URL:		https://github.com/ruby/rake
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -119,6 +120,9 @@ popd
 %doc %{gem_instdir}/*.rdoc
 
 %changelog
+* Thu Mar 23 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 13.0.6-201
+- Clean up release number
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 13.0.6-200.3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,10 +1,13 @@
 Summary:       File Access Policy Analyzer
 Name:          fapolicy-analyzer
-Version:       0.6.8
-Release:       2%{?dist}
+Version:       1.0.0
+Release:       1%{?dist}
 License:       GPLv3+
 URL:           https://github.com/ctc-oss/fapolicy-analyzer
 Source0:       %{url}/releases/download/v%{version}/%{name}.tar.gz
+
+# this tarball contains documentation used to generate help docs
+Source1:       %{url}/releases/download/v%{version}/vendor-docs.tar.gz
 
 BuildRequires: python3-devel
 BuildRequires: python3dist(setuptools)
@@ -63,6 +66,7 @@ BuildRequires: (crate(pyo3/default) >= 0.15.0 with crate(pyo3/default) < 0.16.0)
 BuildRequires: (crate(pyo3-macros/default) >= 0.15.0 with crate(pyo3-macros/default) < 0.16.0)
 BuildRequires: (crate(pyo3-build-config/default) >= 0.15.0 with crate(pyo3-build-config/default) < 0.16.0)
 BuildRequires: (crate(pyo3-macros-backend/default) >= 0.15.0 with crate(pyo3-macros-backend/default) < 0.16.0)
+BuildRequires: rust-pyo3-log-devel
 BuildRequires: rust-quote-devel
 BuildRequires: rust-rayon-devel
 BuildRequires: rust-rayon-core-devel
@@ -93,16 +97,24 @@ Requires:      python3-configargparse
 Requires:      python3-more-itertools
 Requires:      python3-rx
 Requires:      python3-importlib-metadata
+Requires:      python3-toml 
 
 Requires:      gtk3
 Requires:      gtksourceview3
 Requires:      gnome-icon-theme
 
+# runtime required for rendering user guide
+Requires:      webkit2gtk3
+Requires:      mesa-dri-drivers
+
 # rust-ring-devel does not support s390x and ppc64le:
 # https://bugzilla.redhat.com/show_bug.cgi?id=1869980
 ExcludeArch:   s390x %{power64}
 
-%global module fapolicy_analyzer
+%global module          fapolicy_analyzer
+# pep440 versions handle dev and rc differently, so we call them out explicitly here
+%global module_version  %{lua: v = string.gsub(rpm.expand("%{?version}"), "~dev", ".dev"); \
+                               v = string.gsub(v, "~rc",  "rc"); print(v) }
 
 %description
 Tools to assist with the configuration and management of fapolicyd.
@@ -114,23 +126,29 @@ Tools to assist with the configuration and management of fapolicyd.
 # disable dev-tools crate
 sed -i '/tools/d' Cargo.toml
 
+# extract our doc sourcs
+tar xvzf %{SOURCE1}
+
 # our setup.py looks up the version from git describe
-# this overrides that check to the RPM version
-echo %{version} > VERSION
+# this overrides that check to use the RPM version
+echo %{module_version} > VERSION
 
 %build
 # ensure standard Rust compiler flags are set
-export RUSTFLAGS="%build_rustflags"
+export RUSTFLAGS="%{build_rustflags}"
+
 %{python3} setup.py compile_catalog -f
+%{python3} help build
 %{python3} setup.py bdist_wheel
 
 %install
-%{py3_install_wheel %{module}-%{version}*%{_target_cpu}.whl}
+%{py3_install_wheel %{module}-%{module_version}*%{_target_cpu}.whl}
+%{python3} help install --dest %{buildroot}/%{_datadir}/help
 install -D bin/%{name} %{buildroot}/%{_sbindir}/%{name}
 install -D data/%{name}.8 -t %{buildroot}/%{_mandir}/man8/
 desktop-file-install data/%{name}.desktop
 find locale -name %{name}.mo -exec cp --parents -rv {} %{buildroot}/%{_datadir} \;
-%find_lang %{name}
+%find_lang %{name} --with-gnome
 
 %check
 desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
@@ -139,12 +157,15 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %doc scripts/srpm/README
 %license LICENSE
 %{python3_sitearch}/%{module}
-%{python3_sitearch}/%{module}-%{version}*
+%{python3_sitearch}/%{module}-%{module_version}*
 %attr(755,root,root) %{_sbindir}/%{name}
 %attr(644,root,root) %{_mandir}/man8/%{name}.8*
 %attr(755,root,root) %{_datadir}/applications/%{name}.desktop
 
 %changelog
+* Wed Mar 15 2023 John Wass <jwass3@gmail.com> 1.0.0-1
+- Release v1.0
+
 * Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 0.6.8-2
 - Ensure standard Rust compiler flags are set.
 

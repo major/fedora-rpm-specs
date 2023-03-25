@@ -13,9 +13,9 @@
 %{bcond_without perl_PDL_enables_optional_test}
 
 Name:           perl-PDL
-%global cpan_version 2.081
-Version:        2.81.0
-Release:        2%{?dist}
+%global cpan_version 2.082
+Version:        2.82.0
+Release:        1%{?dist}
 Summary:        The Perl Data Language
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:            http://pdl.perl.org/
@@ -268,6 +268,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Mar 23 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.82.0-1
+- 2.082 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.81.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

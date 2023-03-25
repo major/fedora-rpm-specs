@@ -2,7 +2,7 @@
 %bcond_without perl_Test2_Suite_enables_unicode
 
 Name:           perl-Test2-Suite
-Version:        0.000149
+Version:        0.000150
 Release:        1%{?dist}
 Summary:        Set of tools built upon the Test2 framework
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -97,7 +97,6 @@ Provides:       perl-Test2-Workflow = %{version}-%{release}
 Obsoletes:      perl-Test2-Workflow < 0.000018-5
 
 # Remove under-specified dependencies
-%global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\(Devel::MAT::Dumper\\)$
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Importer|Module::Pluggable|Sub::Info|Term::Table|Test2::API)\\)$
 # Remove private modules
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(MyTest::Target\\)$
@@ -157,6 +156,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Mar 23 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.000150-1
+- 0.000150 bump
+
 * Tue Mar 21 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.000149-1
 - 0.000149 bump
 - Fix usage of patch macro

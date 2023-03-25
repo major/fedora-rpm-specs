@@ -1,6 +1,6 @@
 Name:           cloud-init
-Version:        22.2
-Release:        5%{?dist}
+Version:        23.1.1
+Release:        1%{?dist}
 Summary:        Cloud instance init scripts
 License:        ASL 2.0 or GPLv3
 URL:            http://launchpad.net/cloud-init
@@ -8,10 +8,11 @@ URL:            http://launchpad.net/cloud-init
 Source0:        https://launchpad.net/cloud-init/trunk/%{version}/+download/%{name}-%{version}.tar.gz
 Source1:        cloud-init-tmpfiles.conf
 
-# Default to NetworkManager for configuration renderer
-# https://bugzilla.redhat.com/show_bug.cgi?id=2014701
-# From: https://github.com/canonical/cloud-init/commit/7703aa98b89c8daba207c28a0422268ead10019a
-Patch1:         cloud-init-22.3-nm-default.patch
+# https://github.com/canonical/cloud-init/pull/2073
+Patch1:         2073.patch
+# Cherry pick of https://github.com/canonical/cloud-init/pull/2086
+# and part of https://github.com/canonical/cloud-init/pull/2036
+Patch2:         Fedora-Enable-CA-handling.patch
 
 BuildArch:      noarch
 
@@ -148,6 +149,7 @@ python3 -m pytest tests/unittests
 %license LICENSE LICENSE-Apache2.0 LICENSE-GPLv3
 %doc ChangeLog
 %doc doc/*
+%doc %{_sysconfdir}/cloud/clean.d/README
 %{_mandir}/man1/*
 %config(noreplace) %{_sysconfdir}/cloud/cloud.cfg
 %dir               %{_sysconfdir}/cloud/cloud.cfg.d
@@ -159,7 +161,7 @@ python3 -m pytest tests/unittests
 %config(noreplace) %{_sysconfdir}/rsyslog.d/21-cloudinit.conf
 %{_sysconfdir}/NetworkManager/dispatcher.d/hook-network-manager
 %{_sysconfdir}/dhcp/dhclient-exit-hooks.d/hook-dhclient
-/lib/udev/rules.d/66-azure-ephemeral.rules
+%{_udevrulesdir}/66-azure-ephemeral.rules
 %{_unitdir}/cloud-config.service
 %{_unitdir}/cloud-final.service
 %{_unitdir}/cloud-init.service
@@ -181,6 +183,9 @@ python3 -m pytest tests/unittests
 
 
 %changelog
+* Wed Mar 22 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 23.1.1-1
+- Rebase to 23.1.1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

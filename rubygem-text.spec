@@ -1,16 +1,11 @@
 %global	gem_name	text
 
-%if 0%{?fedora} >= 21
-%global	gem_minitest	rubygem(minitest4)
-%else
-%global	gem_minitest	rubygem(minitest)
-%endif
-
 Name:		rubygem-%{gem_name}
 Version:	1.3.1
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	Collection of text algorithms
 
+# SPDX confirmed
 License:	MIT
 URL:		http://github.com/threedaymonk/text
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -18,10 +13,8 @@ Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
 BuildRequires:	ruby(release)
 BuildRequires:	rubygems-devel
 # Check
-BuildRequires:	%gem_minitest
-%if 0%{?fedora} >= 22
+BuildRequires:	rubygem(minitest)
 BuildRequires:	rubygem(test-unit)
-%endif
 Requires:	ruby(release)
 Requires:	ruby(rubygems)
 
@@ -42,23 +35,11 @@ BuildArch:	noarch
 Documentation for %{name}
 
 %prep
-%setup -q -c -T
-
-TOPDIR=$(pwd)
-mkdir tmpunpackdir
-pushd tmpunpackdir
-
-gem unpack -V %{SOURCE0}
-cd %{gem_name}-%{version}
-
-gem specification -l --ruby %{SOURCE0} > %{gem_name}.gemspec
-gem build %{gem_name}.gemspec
-mv %{gem_name}-%{version}.gem $TOPDIR
-
-popd
-rm -rf tmpunpackdir
+%setup -q -n %{gem_name}-%{version}
+mv ../%{gem_name}-%{version}.gemspec .
 
 %build
+gem build %{gem_name}-%{version}.gemspec
 %gem_install
 
 %install
@@ -66,9 +47,17 @@ mkdir -p %{buildroot}%{gem_dir}
 cp -pa .%{gem_dir}/* \
 	%{buildroot}%{gem_dir}/
 
+rm -f %{buildroot}%{gem_cache}
+pushd %{buildroot}%{gem_instdir}
+rm -rf \
+	Rakefile \
+	test/ \
+	%{nil}
+popd
+
 %check
 pushd .%{gem_instdir}
-ruby -Ilib:test:. -e 'gem "minitest", "<5" ; Dir.glob("test/*_test.rb").each{|f| require f}'
+ruby -Ilib:test:. -e 'gem "minitest" ; Dir.glob("test/*_test.rb").each{|f| require f}'
 popd
 
 %files
@@ -77,15 +66,16 @@ popd
 %license	%{gem_instdir}/COPYING.txt
 
 %{gem_libdir}/
-%exclude	%{gem_cache}
 %{gem_spec}
 
 %files doc
 %doc	%{gem_docdir}
-%exclude	%{gem_instdir}/Rakefile
-%exclude	%{gem_instdir}/test/
 
 %changelog
+* Thu Mar 23 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.3.1-16
+- Use minitest5 for test
+- Cleanup spec file
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

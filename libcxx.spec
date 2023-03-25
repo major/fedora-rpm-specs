@@ -4,14 +4,14 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2158587
 %undefine _include_frame_pointers
 
-%global libcxx_version 15.0.7
-#global rc_ver 3
+%global libcxx_version 16.0.0
+#global rc_ver 4
 %global libcxx_srcdir libcxx-%{libcxx_version}%{?rc_ver:rc%{rc_ver}}.src
 %global libcxxabi_srcdir libcxxabi-%{libcxx_version}%{?rc_ver:rc%{rc_ver}}.src
 
 Name:		libcxx
 Version:	%{libcxx_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	4%{?dist}
+Release:	1%{?dist}
 Summary:	C++ standard library targeting C++11
 License:	Apache-2.0 WITH LLVM-exception OR MIT OR NCSA
 URL:		http://libcxx.llvm.org/
@@ -21,9 +21,6 @@ Source2:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libcxx
 Source3:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libcxx_version}%{?rc_ver:-rc%{rc_ver}}/%{libcxxabi_srcdir}.tar.xz.sig
 Source4:	release-keys.asc
 Source5:	CMakeLists.txt
-
-# TODO: Remove in LLVM 16.
-Patch0: 0001-libcxx-Support-LIBCXX_STATICALLY_LINK_ABI_IN_STATIC_.patch
 
 BuildRequires:	clang llvm-devel cmake ninja-build
 # We need python3-devel for %%py3_shebang_fix
@@ -143,6 +140,18 @@ mv ../%{libcxxabi_srcdir} libcxxabi
 %{_libdir}/libc++abi.a
 
 %changelog
+* Mon Mar 20 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0-1
+- Update to LLVM 16.0.0
+
+* Wed Mar 15 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc4-1
+- Update to LLVM 16.0.0 RC4
+
+* Thu Feb 23 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc3-1
+- Update to LLVM 16.0.0 RC3
+
+* Fri Feb 10 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc1-1
+- Update to LLVM 16.0.0 RC1
+
 * Wed Feb 01 2023 Tom Stellard <tstellar@redhat.com> - 15.0.7-4
 - Omit frame pointers when building
 

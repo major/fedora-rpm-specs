@@ -1,11 +1,11 @@
-%ifarch aarch64 armv7hl
+%ifarch aarch64 armv7hl ppc64le
 %bcond_with tests
 %else
 %bcond_without tests
 %endif
 
 Name:           dub
-Version:        1.23.0
+Version:        1.31.1
 Release:        %autorelease
 Summary:        Package and build management system for D
 
@@ -37,13 +37,13 @@ install -Dpm0644 -t %{buildroot}%{_datadir}/zsh/site-functions scripts/zsh-compl
 
 %if %{with tests}
 %check
-./bin/dub test
 # Compiler to use for the test suite
 export DC=ldmd2
 # Path to dub binary
 export DUB="%{buildroot}%{_bindir}/dub"
 # Some tests require dub in the system path
 export PATH="%{buildroot}%{_bindir}:$PATH"
+dub test
 pushd test
 # Neuter the test suite for now, as it depends on a lot of unpackaged modules
 ./run-unittest.sh || true

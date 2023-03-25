@@ -1,6 +1,6 @@
 Name: libphonenumber
 Version: 8.12.57
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Library to handle international phone numbers
 # The project itself is ASL 2.0 but contains files from Chromium which are BSD and MIT.
 License: ASL 2.0 and BSD and MIT
@@ -77,6 +77,9 @@ popd
 
 
 %changelog
+* Thu Mar 23 2023 Sérgio Basto <sergio@serjux.com> - 8.12.57-8
+- Rebuilt for abseil-cpp
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 8.12.57-7
 - Rebuilt for Boost 1.81
 

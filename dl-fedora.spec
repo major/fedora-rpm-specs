@@ -5,8 +5,8 @@
 %bcond_with tests
 
 Name:           dl-fedora
-Version:        0.9.3
-Release:        4%{?dist}
+Version:        0.9.4
+Release:        1%{?dist}
 Summary:        Fedora image download tool
 
 License:        GPL-3.0-or-later
@@ -77,6 +77,12 @@ mkdir -p %{buildroot}%{_datadir}/bash-completion/completions/
 
 
 %changelog
+* Thu Mar 23 2023 Jens Petersen <petersen@redhat.com> - 0.9.4-1
+- add new F38 spins: Budgie and Sway
+- change koji target to --koji mirror option
+- if mirror redirect fails then fallback to primary
+- run with qemu -cpu host option
+
 * Thu Feb 16 2023 Jens Petersen <petersen@redhat.com> - 0.9.3-4
 - refresh to cabal-rpm-2.1.0 with SPDX migration
 

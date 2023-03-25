@@ -16,6 +16,9 @@ URL:            https://wiki.gnome.org/Design/OS/InitialSetup
 Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
 Source1:        vendor.conf
 
+# https://gitlab.gnome.org/GNOME/gnome-initial-setup/-/merge_requests/197
+Patch0:         fedora-third-party-disable.patch
+
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  meson

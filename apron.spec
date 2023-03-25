@@ -2,7 +2,7 @@
 
 Name:           apron
 Version:        0.9.13
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Numerical abstract domain library
 
 # The entire package is LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -154,7 +154,7 @@ export JAVA_TOOL_OPTIONS='-Dfile.encoding=UTF8'
 %endif
 
 # Put back a flag that the configure script strips out
-sed -i 's/-Wp,-D_FORTIFY_SOURCE=2/-Werror=format-security &/' Makefile.config
+sed -i 's/-Wall/& -Werror=format-security/' Makefile.config
 
 # Generate dependency lists
 touch apron/depend
@@ -261,6 +261,9 @@ test/ctest1
 %endif
 
 %changelog
+* Thu Mar 23 2023 Jerry James <loganjerry@gmail.com> - 0.9.13-17
+- Fix reinsertion of -Werror=format-security (bz 2181282)
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.9.13-16
 - Rebuild OCaml packages for F38
 

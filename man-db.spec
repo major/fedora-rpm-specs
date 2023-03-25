@@ -6,7 +6,7 @@ Version: 2.11.2
 Release: 2%{?dist}
 # GPLv2+ .. man-db
 # GPLv3+ .. gnulib
-License: GPLv2+ and GPLv3+
+License: GPL-2.0-or-later AND GPL-3.0-or-later
 URL: http://www.nongnu.org/man-db/
 
 Source0: http://download.savannah.gnu.org/releases/%{name}/%{name}-%{version}.tar.xz

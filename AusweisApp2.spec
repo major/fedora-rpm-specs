@@ -36,8 +36,8 @@ fi                                               \
 
 
 Name:             AusweisApp2
-Version:          1.26.2
-Release:          2%{?dist}
+Version:          1.26.3
+Release:          1%{?dist}
 Summary:          %{pkg_sum}
 
 License:          EUPL 1.2
@@ -59,7 +59,6 @@ Source1000:       gen_openssl_cnf.py
 
 # Downstream.
 Patch01000:       %{name}-1.24.1-use_Qt_TranslationsPath.patch
-Patch01001:       %{name}-1.24.4-no_brainpool_curves.patch
 
 BuildRequires:    cmake
 BuildRequires:    crypto-policies
@@ -100,22 +99,25 @@ BuildRequires:    %{_bindir}/fipshmac
 
 # Make sure this package automatically replaces the security hazard
 # built in some COPR.
-Obsoletes:        %{name}            < 1.20.1
-Obsoletes:        %{lc_name}         < 1.20.1
+Obsoletes:        %{name}                < 1.20.1
+Obsoletes:        %{lc_name}             < 1.20.1
 
 # Provide the lowercase name for convenience as well.
-Provides:         %{lc_name}         = %{version}-%{release}
-Provides:         %{lc_name}%{?_isa} = %{version}-%{release}
+Provides:         %{lc_name}             = %{version}-%{release}
+Provides:         %{lc_name}%{?_isa}     = %{version}-%{release}
 
 # Do not raise conflicts about shared license files.
-Requires:         %{name}-data       = %{version}-%{release}
-Requires:         (%{name}-doc       = %{version}-%{release} if %{name}-doc)
+Requires:         %{name}-data           = %{version}-%{release}
+Requires:         (%{name}-doc           = %{version}-%{release} if %{name}-doc)
 
 %if !0%{?qt6_build}
 # RHBZ#1885310
 # Needed for the GUI to show up on startup.
 Requires:         qt5-qtquickcontrols2%{?_isa}
 %endif
+
+# Brainpool ECC
+Requires:         openssl-libs%{?_isa}  >= 3.0.8-2
 
 # Needed for running fipscheck on application startup.
 # Requires:         fipscheck
@@ -134,7 +136,7 @@ online ID.
 Summary:          Architecture-independent files used by %{name}
 BuildArch:        noarch
 
-Requires:         %{name}            = %{version}-%{release}
+Requires:         %{name}                = %{version}-%{release}
 Requires:         hicolor-icon-theme
 
 %description data
@@ -155,12 +157,12 @@ BuildRequires:    python3-sphinx
 BuildRequires:    python3-sphinx_rtd_theme
 
 # Do not raise conflicts about shared license files.
-Requires:         (%{name}           = %{version}-%{release} if %{name})
+Requires:         (%{name}               = %{version}-%{release} if %{name})
 
 # The doc-api package is faded, since we can ship the
 # Doxygen documentation noarch'ed as well now.
-Obsoletes:        %{name}-doc-api    < 1.20.1-2
-Provides:         %{name}-doc-api    = %{version}-%{release}
+Obsoletes:        %{name}-doc-api        < 1.20.1-2
+Provides:         %{name}-doc-api        = %{version}-%{release}
 
 %description doc
 This package contains the user and API documentation for %{name}.
@@ -286,6 +288,7 @@ sed -e 's!^%{buildroot}!!g' > %{lc_name}.icons
 
 
 %check
+%ctest
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
@@ -319,6 +322,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Thu Mar 23 2023 Björn Esser <besser82@fedoraproject.org> - 1.26.3-1
+- New upstream release
+- Enable use of Brainpool ECC
+
 * Sat Jan 28 2023 Björn Esser <besser82@fedoraproject.org> - 1.26.2-2
 - Drop Qt6 version lock, as this is already ensured by symbol versioning
 

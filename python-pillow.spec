@@ -5,7 +5,7 @@
 # Dependencies are missing to build the documentation
 %bcond_with doc
 
-%if 0%{?el9}
+%if 0%{?rhel}
 %bcond_with mingw
 %else
 %bcond_without mingw

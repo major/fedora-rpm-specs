@@ -1,11 +1,10 @@
 Name:           perl-Business-ISBN-Data
-Version:        20230316.001
+Version:        20230322.001
 Release:        1%{?dist}
 Summary:        The data pack for Business::ISBN
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Business-ISBN-Data
 Source0:        https://cpan.metacpan.org/modules/by-module/Business/Business-ISBN-Data-%{version}.tar.gz
-Patch0:         Business-ISBN-Data-20120719-shellbang.patch
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
@@ -36,10 +35,6 @@ Most of the interesting stuff is in Business::ISBN.
 %prep
 %setup -q -n Business-ISBN-Data-%{version}
 
-# Fix shellbang and script permissions for make_data.pl
-%patch -P 0
-chmod -c +x make_data.pl
-
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
@@ -58,6 +53,9 @@ make test
 %{_mandir}/man3/Business::ISBN::Data.3*
 
 %changelog
+* Thu Mar 23 2023 Jitka Plesnikova <jplesnik@redhat.com> - 20230322.001-1
+- 20230322.001 bump
+
 * Fri Mar 17 2023 Paul Howarth <paul@city-fan.org> - 20230316.001-1
 - 20230316.001 bump (rhbz#2179198)
 

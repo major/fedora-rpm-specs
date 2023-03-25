@@ -1,6 +1,6 @@
 Name:		recutils
 Version:	1.9
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	A set of tools to access GNU recfile databases
 
 License:	GPLv3+
@@ -102,6 +102,9 @@ chrpath --delete %{buildroot}%{_bindir}/*
 
 
 %changelog
+* Thu Mar 23 2023 Hans de Goede <hdegoede@redhat.com> - 1.9-5
+- Rebuild for new mdbtools
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

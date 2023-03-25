@@ -1,17 +1,21 @@
 Name:           libtpms
 Version:        0.9.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library providing Trusted Platform Module (TPM) functionality
 License:        BSD
 
-URL:            http://github.com/stefanberger/libtpms
+URL:            https://github.com/stefanberger/libtpms
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source1:        %{url}/releases/download/v%{version}/v%{version}.tar.gz.asc#/%{name}-%{version}.tar.gz.asc
+# https://github.com/stefanberger.gpg
+Source2:        gpgkey-B818B9CADF9089C2D5CEC66B75AD65802A0B4211.asc
 
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  coreutils
 BuildRequires:  gawk
 BuildRequires:  gcc-c++
+BuildRequires:  gnupg2
 BuildRequires:  libtool
 BuildRequires:  make
 BuildRequires:  openssl-devel
@@ -30,6 +34,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Libtpms header files and documentation.
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 
 %build
@@ -58,6 +63,9 @@ make check
 %{_mandir}/man3/TPM*
 
 %changelog
+* Sat Mar 18 2023 Todd Zullinger <tmz@pobox.com> - 0.9.6-2
+- verify upstream source signature
+
 * Tue Feb 28 2023 Stefan Berger <stefanb@linux.ibm.com> - 0.9.6-1
 - Build of libtpms 0.9.6 with fixes for CVE-2023-1017 & CVE-2023-1018
 

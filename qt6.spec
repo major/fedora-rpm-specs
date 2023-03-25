@@ -1,7 +1,7 @@
 
 Name: qt6
 Version: 6.4.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Qt6 meta package
 License: GPL-3.0-only
 URL: https://getfedora.org/
@@ -142,6 +142,9 @@ echo "- Qt6 devel meta package" > %{buildroot}%{_docdir}/qt6-devel/README
 
 
 %changelog
+* Thu Mar 23 2023 Jan Grulich <jgrulich@redhat.com> - 6.4.2-4
+- 6.4.3
+
 * Tue Jan 31 2023 Jan Grulich <jgrulich@redhat.com> - 6.4.2-3
 - migrated to SPDX license
 

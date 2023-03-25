@@ -472,6 +472,16 @@ Source0:    README
 %obsolete_ticket https://src.fedoraproject.org/rpms/recordmydesktop/c/47b8daab4a403d351f24e068f9c7b5f9fde7fb7d?branch=rawhide
 %obsolete recordmydesktop 0.3.8.1-20
 
+# Remove in F41
+# TeXLive sometimes just kills off components without notice, so there is no ticket.
+# These items were removed with TeXLive 2023 (first in Fedora 39) and have no replacement.
+%obsolete texlive-elegantbook svn64122-67
+%obsolete texlive-elegantnote svn62989-67
+%obsolete texlive-elegantpaper svn62989-67
+%obsolete texlive-tablestyles svn34495.0-67
+%obsolete texlive-tablestyles-doc svn34495.0-67
+%obsolete texlive-pgf-cmykshadings svn52635-67
+
 # This package won't be installed, but will obsolete other packages
 Provides: libsolv-self-destruct-pkg()
 

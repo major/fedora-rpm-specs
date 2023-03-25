@@ -13,12 +13,12 @@ BuildRequires: fontpackages-devel
 %global _changelog_trimtime %(date +%s -d "1 year ago")
 
 Name:    lyx
-Version: 2.3.6.1
-Release: 8%{?dist}
+Version: 2.3.7
+Release: 1%{?dist}
 Summary: WYSIWYM (What You See Is What You Mean) document processor
 License: GPLv2+
 Url:     https://www.lyx.org/
-Source0: http://ftp.lyx.org/pub/lyx/stable/2.3.x/lyx-%{version}.tar.xz
+Source0: http://ftp.lyx.org/pub/lyx/stable/2.3.x/lyx-%{version}-1.tar.xz
 
 Source1: lyxrc.dist
 
@@ -29,9 +29,6 @@ Source20: %{fontname}.metainfo.xml
 # already part of 2.4.x source and fixes
 # https://bugzilla.redhat.com/show_bug.cgi?id=1965118
 Patch1:  lyx-2.3.6-layout2layout.patch
-
-# fix compilation with gcc-12
-Patch2:  lyx-2.3.6-fix-gcc12.patch
 
 # workaround/fix cases of: #!/usr/bin/env python
 # https://bugzilla.redhat.com/show_bug.cgi?id=1649919
@@ -265,6 +262,10 @@ texhash >& /dev/null
 
 
 %changelog
+* Thu Mar 23 2023 José Matos <jamatos@fedoraproject.org> - 2.3.7-1
+- Update to 2.3.7
+- Remove patch that has been applied upstream
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.6.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

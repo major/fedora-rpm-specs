@@ -15,26 +15,30 @@
 
 # Commit IDs for the (unversioned) redis-doc repository
 # https://fedoraproject.org/wiki/Packaging:SourceURL "Commit Revision"
-%global doc_commit 1a2f1b653f4b0b421eb1b00085b6ebec810f2e48
+%global doc_commit 80258ecc251e8f7209d480cad77128ba5a43f968
 %global short_doc_commit %(c=%{doc_commit}; echo ${c:0:7})
 
 # %%{rpmmacrodir} not usable on EL-6
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
+%global upstream_ver 7.2
+%global upstream_pre rc1
+
 Name:              redis
-Version:           7.0.10
+Version:           %{upstream_ver}%{?upstream_pre:~%{upstream_pre}}
 Release:           1%{?dist}
 Summary:           A persistent key-value database
 # redis, hiredis: BSD-3-Clause
 # hdrhistogram, jemalloc, lzf, linenoise: BSD-2-Clause
 # lua: MIT
-License:           BSD-3-Clause AND BSD-2-Clause AND MIT
+# fpconv: BSL-1.0
+License:           BSD-3-Clause AND BSD-2-Clause AND MIT AND BSL-1.0
 URL:               https://redis.io
-Source0:           https://download.redis.io/releases/%{name}-%{version}.tar.gz
+Source0:           https://download.redis.io/releases/%{name}-%{upstream_ver}%{?upstream_pre:-%{upstream_pre}}.tar.gz
 Source1:           %{name}.logrotate
 Source2:           %{name}-sentinel.service
-Source3:           %{name}.service
 Source6:           %{name}-shutdown
+Source3:           %{name}.service
 Source7:           %{name}-limit-systemd
 Source9:           macros.%{name}
 Source10:          https://github.com/%{name}/%{name}-doc/archive/%{doc_commit}/%{name}-doc-%{short_doc_commit}.tar.gz
@@ -47,7 +51,6 @@ Source10:          https://github.com/%{name}/%{name}-doc/archive/%{doc_commit}/
 # Update configuration for Fedora
 # https://github.com/redis/redis/pull/3491 - man pages
 Patch0001:         0001-1st-man-pageis-for-redis-cli-redis-benchmark-redis-c.patch
-Patch0002:         0002-deps-jemalloc-Do-not-force-building-in-gnu99-mode.patch
 
 BuildRequires: make
 BuildRequires:     gcc
@@ -69,7 +72,7 @@ Requires(post):    systemd
 Requires(preun):   systemd
 Requires(postun):  systemd
 # from deps/hiredis/hiredis.h
-Provides:          bundled(hiredis) = 0.14.0
+Provides:          bundled(hiredis) = 1.0.3
 # from deps/jemalloc/VERSION
 Provides:          bundled(jemalloc) = 5.2.1
 # from deps/lua/src/lua.h
@@ -79,6 +82,8 @@ Provides:          bundled(linenoise) = 1.0
 Provides:          bundled(lzf)
 # from deps/hdr_histogram/README.md
 Provides:          bundled(hdr_histogram) = 0.11.0
+# no version
+Provides:          bundled(fpconv)
 
 %global redis_modules_abi 1
 %global redis_modules_dir %{_libdir}/%{name}/modules
@@ -132,17 +137,16 @@ administration and development.
 
 
 %prep
-%setup -q -b 10
-%setup -q
+%setup -q -n %{name}-%{upstream_ver}%{?upstream_pre:-%{upstream_pre}} -b 10
 mv ../%{name}-doc-%{doc_commit} doc
 %patch0001 -p1
-%patch0002 -p1
 
-mv deps/lua/COPYRIGHT    COPYRIGHT-lua
-mv deps/jemalloc/COPYING COPYING-jemalloc
-mv deps/hiredis/COPYING  COPYING-hiredis
+mv deps/lua/COPYRIGHT             COPYRIGHT-lua
+mv deps/jemalloc/COPYING          COPYING-jemalloc
+mv deps/hiredis/COPYING           COPYING-hiredis
 mv deps/hdr_histogram/LICENSE.txt LICENSE-hdrhistogram
 mv deps/hdr_histogram/COPYING.txt COPYING-hdrhistogram
+mv deps/fpconv/LICENSE.txt        LICENSE-fpconv
 
 # Configuration file changes
 sed -i -e 's|^logfile .*$|logfile /var/log/redis/redis.log|g' redis.conf
@@ -272,6 +276,7 @@ fi
 %license COPYING-hiredis
 %license LICENSE-hdrhistogram
 %license COPYING-hdrhistogram
+%license LICENSE-fpconv
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
 %attr(0750, redis, root) %dir %{_sysconfdir}/%{name}
 %attr(0640, redis, root) %config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf
@@ -309,6 +314,9 @@ fi
 
 
 %changelog
+* Thu Mar 23 2023 Remi Collet <remi@remirepo.net> - 7.2~rc1-1
+- Upstream 7.2-rc1 release candidate.
+
 * Tue Mar 21 2023 Remi Collet <remi@remirepo.net> - 7.0.10-1
 - Upstream 7.0.10 release.
 

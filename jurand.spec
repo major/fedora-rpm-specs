@@ -1,5 +1,5 @@
 Name:           jurand
-Version:        1.3.0
+Version:        1.3.1
 Release:        1%{?dist}
 Summary:        A tool for manipulating Java symbols
 License:        Apache-2.0
@@ -11,6 +11,7 @@ BuildRequires:  gcc-c++
 
 BuildRequires:  asciidoc
 BuildRequires:  diffutils
+BuildRequires:  make
 BuildRequires:  xmlto
 
 %description
@@ -22,8 +23,7 @@ rather than applying simple regular expressions on the source code.
 %setup -q
 
 %build
-./build.sh
-./build_manpages.sh
+%{make_build} test-compile manpages
 
 %install
 export buildroot=%{buildroot}
@@ -34,7 +34,7 @@ export mandir=%{_mandir}/man7
 ./install.sh
 
 %check
-./test.sh
+make test
 
 %files -f target/installed_files
 %dir %{_rpmconfigdir}
@@ -43,6 +43,9 @@ export mandir=%{_mandir}/man7
 %doc README.md
 
 %changelog
+* Thu Mar 23 2023 Marian Koncek <mkoncek@redhat.com> - 1.3.1-1
+- Update to upstream version 1.3.1
+
 * Wed Mar 15 2023 Marian Koncek <mkoncek@redhat.com> - 1.3.0-1
 - Update to upstream version 1.3.0
 
