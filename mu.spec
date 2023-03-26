@@ -1,8 +1,8 @@
 Name:           mu
-Version:        1.1.1
-Release:        7%{?dist}
+Version:        1.2.0
+Release:        1%{?dist}
 Summary:        A simple Python editor not only for micro:bit
-License:        GPLv3
+License:        GPL-3.0-only
 URL:            https://github.com/mu-editor/mu
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
@@ -19,8 +19,10 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # but it is the only reasonable way to have Mu packaged.
 Patch:          system-site-packages.patch
 
-# Update pyflakes regex to match pre and post v2.5.0 release
-Patch:          https://github.com/mu-editor/mu/pull/2323.patch
+# Avoid a race condition when creating LOG_DIR
+# Fixes https://bugzilla.redhat.com/2106165
+# Merged upstream
+Patch:          https://github.com/mu-editor/mu/pull/2281.patch
 
 BuildArch:      noarch
 
@@ -41,9 +43,11 @@ BuildRequires:  /usr/bin/msgfmt
 # unbundled
 BuildRequires:  python3dist(microfs) >= 1.3
 BuildRequires:  python3dist(uflash) >= 2
+BuildRequires:  python3dist(esptool) >= 3
 
 Requires:       python%{python3_version}dist(microfs) >= 1.3
 Requires:       python%{python3_version}dist(uflash) >= 2
+Requires:       python%{python3_version}dist(esptool) >= 3
 Requires:       python3-qt5 >= 5.11
 Requires:       python3-qscintilla-qt5 >= 2.10.7
 Requires:       hicolor-icon-theme
@@ -69,6 +73,7 @@ sed -i -e 's/PyQt5==5.13.2"/PyQt5>=5.13.2",/' \
        -e 's/ipykernel>=4.1,<6/ipykernel>=4.1/' \
        -e 's/qtconsole==4.7.7/qtconsole >= 4.7.7, < 6/' \
        -e 's/pyserial~=3.5/pyserial>=3.4/' \
+       -e 's/click<=8.0.4/click/' \
        -e 's/black>=19.10b0,<22.1.0/black>=19.10b0/' \
        -e 's/python_requires=">=3.5,<3.9"/python_requires=">=3.5"/' \
        setup.py
@@ -76,16 +81,14 @@ sed -i -e 's/PyQt5==5.13.2"/PyQt5>=5.13.2",/' \
 # unbundle things
 sed -i 's/from mu.contrib import /import /' mu/modes/microbit.py tests/modes/test_microbit.py \
                                             mu/modes/base.py
+sed -i 's/mu.contrib.esptool/esptool/'      mu/interface/dialogs.py
 rm -rf mu/contrib
 sed -i '/"mu.contrib",/d' setup.py
 sed -i 's/mu.contrib.//' tests/modes/test_microbit.py
 
-# Fix locale typo
-# https://github.com/mu-editor/mu/pull/2168
-sed -i 's/Black"\\/Black\\"/' mu/locale/ru_RU/LC_MESSAGES/mu.po
-
 # Remove the pytest-random-order requirement as it's not packaged in Fedora
 sed -i '/random-order/d' pytest.ini
+
 
 %generate_buildrequires
 %pyproject_buildrequires -r
@@ -119,9 +122,8 @@ cp -p conf/mu.appdata.xml %{buildroot}%{_metainfodir}/
 
 
 %check
-# test_ButtonBar_add_action mocks `super` which conflicts with pkg_resources
-# Issue: https://github.com/mu-editor/mu/issues/2091
-xvfb-run %{python3} -m pytest -vv tests -k "not test_ButtonBar_add_action"
+%global __pytest xvfb-run %__pytest
+%pytest -vv
 
 
 %files -f %{pyproject_files}
@@ -134,6 +136,13 @@ xvfb-run %{python3} -m pytest -vv tests -k "not test_ButtonBar_add_action"
 
 
 %changelog
+* Thu Mar 23 2023 Miro Hrončok <mhroncok@redhat.com> - 1.2.0-1
+- Update to 1.2.0
+- Update the License identifier to SPDX
+- Avoid a race condition when creating LOG_DIR
+- Fixes rhbz#2143537
+- Fixes rhbz#2106165
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

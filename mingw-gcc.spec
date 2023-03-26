@@ -21,7 +21,7 @@
 
 Name:           mingw-gcc
 Version:        %{gcc_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MinGW Windows cross-compiler (GCC) for C
 
 License:        GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions
@@ -106,6 +106,13 @@ Summary:        MinGW Windows GCC runtime libraries for C for the win32 target
 MinGW Windows GCC runtime libraries for C for the win32 target.
 
 
+%package -n mingw32-libstdc++
+Summary:        MinGW Windows GCC runtime libraries for C++ for the win32 target
+
+%description -n mingw32-libstdc++
+MinGW Windows GCC runtime libraries for C++ for the win32 target.
+
+
 %package -n mingw32-libgomp
 Summary:        GCC OpenMP v3.0 shared support library for the win32 target
 Requires:       mingw32-gcc = %{version}-%{release}
@@ -182,6 +189,13 @@ Summary:        MinGW Windows GCC runtime libraries for C for the win64 target
 
 %description -n mingw64-libgcc
 MinGW Windows GCC runtime libraries for C for the win64 target.
+
+
+%package -n mingw64-libstdc++
+Summary:        MinGW Windows GCC runtime libraries for C++ for the win64 target
+
+%description -n mingw64-libstdc++
+MinGW Windows GCC runtime libraries for C++ for the win64 target.
 
 
 %package -n mingw64-libgomp
@@ -261,6 +275,13 @@ Summary:        MinGW Windows GCC runtime libraries for C for the win64 target
 
 %description -n ucrt64-libgcc
 MinGW Windows GCC runtime libraries for C for the win64 target.
+
+
+%package -n ucrt64-libstdc++
+Summary:        MinGW Windows GCC runtime libraries for C++ for the win64 target
+
+%description -n ucrt64-libstdc++
+MinGW Windows GCC runtime libraries for C++ for the win64 target.
 
 
 %package -n ucrt64-libgomp
@@ -708,6 +729,18 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 %{ucrt64_bindir}/libgcc_s_seh-1.dll
 %{ucrt64_bindir}/libssp-0.dll
 
+%files -n mingw32-libstdc++
+%license gcc/COPYING* COPYING.RUNTIME
+%{mingw32_bindir}/libstdc++-6.dll
+
+%files -n mingw64-libstdc++
+%license gcc/COPYING* COPYING.RUNTIME
+%{mingw64_bindir}/libstdc++-6.dll
+
+%files -n ucrt64-libstdc++
+%license gcc/COPYING* COPYING.RUNTIME
+%{ucrt64_bindir}/libstdc++-6.dll
+
 %files -n mingw32-libgomp
 %{mingw32_bindir}/libgomp-1.dll
 %{mingw32_libdir}/libgomp.a
@@ -763,7 +796,6 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 # Non-bootstrap files
 %if 0%{bootstrap} == 0
 %{mingw32_includedir}/c++/
-%{mingw32_bindir}/libstdc++-6.dll
 %{mingw32_libdir}/libstdc++.a
 %{mingw32_libdir}/libstdc++.dll.a
 %{mingw32_libdir}/libstdc++.dll.a-gdb.py
@@ -779,7 +811,6 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 # Non-bootstrap files
 %if 0%{bootstrap} == 0
 %{mingw64_includedir}/c++/
-%{mingw64_bindir}/libstdc++-6.dll
 %{mingw64_libdir}/libstdc++.a
 %{mingw64_libdir}/libstdc++.dll.a
 %{mingw64_libdir}/libstdc++.dll.a-gdb.py
@@ -795,7 +826,6 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 # Non-bootstrap files
 %if 0%{bootstrap} == 0
 %{ucrt64_includedir}/c++/
-%{ucrt64_bindir}/libstdc++-6.dll
 %{ucrt64_libdir}/libstdc++.a
 %{ucrt64_libdir}/libstdc++.dll.a
 %{ucrt64_libdir}/libstdc++.dll.a-gdb.py
@@ -888,6 +918,9 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 
 
 %changelog
+* Fri Mar 24 2023 Sandro Mani <manisandro@gmail.com> - 13.0.1-2
+- Split out libstdc++ (#2181524)
+
 * Thu Mar 09 2023 Sandro Mani <manisandro@gmail.com> - 13.0.1-1
 - Update to 13.0.1
 

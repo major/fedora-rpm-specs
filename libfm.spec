@@ -16,7 +16,7 @@
 %undefine       prever
 %global         prerpmver    %(echo "%{?prever}" | sed -e 's|-||g')
 
-%global         mainrel     2
+%global         baserelease     2
 
 %if 0%{?usegitbare} >= 1
 %global         gitcommit   54cd5fc0af2407a70717ed3e8577d3ae9ae1a849
@@ -28,10 +28,10 @@
 %endif
 
 %if 0%{?userelease} >= 1
-%global         baserelease   %{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}
+%global         fedorarel   %{?prever:0.}%{baserelease}%{?prever:.%{prerpmver}}
 %endif
 %if 0%{?usegitbare} >= 1
-%global         baserelease   %{?prever:0.}%{mainrel}.D%{gitdate}git%{shortcommit}
+%global         fedorarel   %{?prever:0.}%{baserelease}.D%{gitdate}git%{shortcommit}
 %endif
 
 %global         build_doc   1
@@ -40,7 +40,7 @@
 
 Name:           libfm
 Version:        %{mainver}
-Release:        %{baserelease}%{?dist}.3
+Release:        %{fedorarel}%{?dist}
 Summary:        GIO-based library for file manager-like programs
 
 License:        GPLv2+

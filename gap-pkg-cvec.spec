@@ -1,8 +1,8 @@
 %global pkgname  cvec
 
 Name:           gap-pkg-%{pkgname}
-Version:        2.7.6
-Release:        4%{?dist}
+Version:        2.8.0
+Release:        1%{?dist}
 Summary:        Compact vectors over finite fields
 
 License:        GPL-2.0-or-later
@@ -92,6 +92,9 @@ gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
 %{gap_archdir}/pkg/%{pkgname}/example/
 
 %changelog
+* Fri Mar 24 2023 Jerry James <loganjerry@gmail.com> - 2.8.0-1
+- Version 2.8.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

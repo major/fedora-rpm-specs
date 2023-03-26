@@ -12,6 +12,7 @@ BuildArch:      noarch
 
 Patch:          https://github.com/boutproject/xBOUT/pull/278.patch
 Patch:          https://github.com/boutproject/xBOUT/pull/283.patch
+Patch:          xarray-version.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}

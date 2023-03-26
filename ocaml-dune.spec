@@ -11,7 +11,7 @@
 
 Name:           ocaml-dune
 Version:        3.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Composable build system for OCaml and Reason
 
 # Dune itself is MIT.  Some bundled libraries have a different license:
@@ -545,6 +545,9 @@ cd -
 %files -n ocaml-xdg-devel -f .ofiles-xdg-devel
 
 %changelog
+* Fri Mar 24 2023 Jerry James <loganjerry@gmail.com> - 3.7.0-2
+- Rebuild for ocaml-csexp 1.5.2
+
 * Tue Mar 21 2023 Jerry James <loganjerry@gmail.com> - 3.7.0-1
 - Version 3.7.0
 - The fiber subpackage has been removed

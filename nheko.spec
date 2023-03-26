@@ -1,6 +1,6 @@
 Name: nheko
 Version: 0.11.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Main source - GPL-3.0-or-later.
 # cpp-httplib - bundled - MIT.
@@ -9,6 +9,9 @@ License: GPL-3.0-or-later AND MIT
 Summary: Desktop client for the Matrix protocol
 URL: https://github.com/Nheko-Reborn/%{name}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+# https://github.com/Nheko-Reborn/nheko/commit/d7c10ae90417fcbb7f81edd4e40d89e91436244b
+Patch100: %{name}-0.11.3-gcc13-fix.patch
 
 BuildRequires: cmake(MatrixClient) >= 0.9.2
 BuildRequires: cmake(Olm) >= 3.2.12
@@ -123,6 +126,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Mar 24 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.11.3-2
+- Backported upstream patch with GCC 13 build fix.
+
 * Thu Feb 23 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.11.3-1
 - Updated to version 0.11.3.
 

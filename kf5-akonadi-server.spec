@@ -94,8 +94,8 @@ BuildRequires: dbus-x11
 BuildRequires: xorg-x11-server-Xvfb
 %endif
 
-Requires(post): %{_sbindir}/update-alternatives
-Requires(postun): %{_sbindir}/update-alternatives
+Requires(post): /usr/sbin/update-alternatives
+Requires(postun): /usr/sbin/update-alternatives
 
 Recommends:     %{name}-mysql = %{version}-%{release}
 
@@ -143,8 +143,8 @@ Requires:       %{mysql}-server
 Recommends:     mariadb-server
 %endif
 Requires:       qt5-qtbase-mysql%{?_isa}
-Requires(post): %{_sbindir}/update-alternatives
-Requires(postun): %{_sbindir}/update-alternatives
+Requires(post): /usr/sbin/update-alternatives
+Requires(postun): /usr/sbin/update-alternatives
 %description mysql
 Configures akonadi to use mysql backend by default.
 
@@ -209,7 +209,7 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_target_platform} ||:
 
 %post
 %{?ldconfig}
-%{_sbindir}/update-alternatives \
+/usr/sbin/update-alternatives \
   --install %{_sysconfdir}/xdg/akonadi/akonadiserverrc \
   akonadiserverrc \
   %{_sysconfdir}/xdg/akonadi/akonadiserverrc.sqlite \
@@ -218,7 +218,7 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_target_platform} ||:
 %postun
 %{?ldconfig}
 if [ $1 -eq 0 ] ; then
-%{_sbindir}/update-alternatives \
+/usr/sbin/update-alternatives \
   --remove akonadiserverrc \
   %{_sysconfdir}/xdg/akonadi/akonadiserverrc.sqlite
 fi
@@ -284,7 +284,7 @@ fi
 %{_kf5_datadir}/kdevappwizard/templates/akonadiserializer.tar.bz2
 
 %post mysql
-%{_sbindir}/update-alternatives \
+/usr/sbin/update-alternatives \
   --install %{_sysconfdir}/xdg/akonadi/akonadiserverrc \
   akonadiserverrc \
   %{_sysconfdir}/xdg/akonadi/akonadiserverrc.mysql \
@@ -292,7 +292,7 @@ fi
 
 %postun mysql
 if [ $1 -eq 0 ]; then
-%{_sbindir}/update-alternatives \
+/usr/sbin/update-alternatives \
   --remove akonadiserverrc \
   %{_sysconfdir}/xdg/akonadi/akonadiserverrc.mysql
 fi

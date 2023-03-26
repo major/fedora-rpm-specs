@@ -21,7 +21,7 @@
 
 Name:      gnome-software
 Version:   44.0
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   A software center for GNOME
 
 License:   GPL-2.0-or-later
@@ -152,6 +152,7 @@ official-repos = [ 'rhel-%{?rhel}' ]
 %else
 official-repos = [ 'anaconda', 'fedora', 'fedora-debuginfo', 'fedora-source', 'koji-override-0', 'koji-override-1', 'rawhide', 'rawhide-debuginfo', 'rawhide-source', 'updates', 'updates-debuginfo', 'updates-source', 'updates-testing', 'updates-testing-debuginfo', 'updates-testing-source', 'fedora-modular', 'fedora-modular-debuginfo', 'fedora-modular-source', 'rawhide-modular', 'rawhide-modular-debuginfo', 'rawhide-modular-source', 'fedora-cisco-openh264', 'fedora-cisco-openh264-debuginfo' ]
 required-repos = [ 'fedora', 'updates' ]
+packaging-format-preference = [ 'flatpak:fedora', 'rpm' ]
 %endif
 FOE
 
@@ -229,6 +230,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/gnome-software/
 
 %changelog
+* Fri Mar 24 2023 Milan Crha <mcrha@redhat.com> - 44.0-2
+- Resolves: #2181367 (Prefer Fedora Flatpaks before RPM before other sources for apps)
+
 * Fri Mar 17 2023 Milan Crha <mcrha@redhat.com> - 44.0-1
 - Update to 44.0
 

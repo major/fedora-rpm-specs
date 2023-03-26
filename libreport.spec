@@ -14,7 +14,7 @@
 
 Summary: Generic library for reporting various problems
 Name: libreport
-Version: 2.17.8
+Version: 2.17.9
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL: https://abrt.readthedocs.org/
@@ -667,6 +667,16 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %endif
 
 %changelog
+* Fri Mar 24 2023 Packit <hello@packit.dev> - 2.17.9-1
+- Release version 2.17.9 (Michal Srb)
+- reporter-bugzilla: Fix string interpolation (Matěj Grabovský)
+- reporter-bugzilla: Replace flags with just keyword arg (Michal Srb)
+- reporter-bugzilla: Make sure that the creator of a bug is always in CC (Michal Srb)
+- reporter-bugzilla: Don't fail if reported_to file doesn't exist (Michal Srb)
+- reporter-bugzilla: Fix reporting when the bug already exists (Michal Srb)
+- use $XDG_CONFIG_HOME to access user's configuration files (Yann Droneaud)
+- Update translations (mgrabovsky)
+
 * Fri Mar 03 2023 Packit <hello@packit.dev> - 2.17.8-1
 - Release version 2.17.8 (Michal Srb)
 - Update changelog (Michal Srb)

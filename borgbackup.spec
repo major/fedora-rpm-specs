@@ -1,8 +1,8 @@
 %global srcname borgbackup
 
 Name:           %{srcname}
-Version:        1.2.3
-Release:        2%{?dist}
+Version:        1.2.4
+Release:        1%{?dist}
 Summary:        A deduplicating backup program with compression and authenticated encryption
 License:        BSD and zlib
 
@@ -141,6 +141,9 @@ py.test-3 -x -vk "$TEST_SELECTOR" borg/testsuite/*.py
 
 
 %changelog
+* Fri Mar 24 2023 Felix Schwarz <fschwarz@fedoraproject.org> - 1.2.4-1
+- update to 1.2.4
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

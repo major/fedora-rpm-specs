@@ -15,7 +15,7 @@ Summary: CUPS printing system
 Name: cups
 Epoch: 1
 Version: 2.4.2
-Release: 10%{?dist}
+Release: 11%{?dist}
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
 # https://lists.fedoraproject.org/archives/list/legal@lists.fedoraproject.org/message/A7GFSD6M3GYGSI32L2FC5KB22DUAEQI3/
@@ -76,6 +76,7 @@ Patch1003: cups-ippeveprinter-typo.patch
 Patch1004: 0001-Don-t-override-color-settings-from-print-dialog.patch
 Patch1005: 0001-scheduler-ipp.c-Convert-incoming-ColorModel-attribut.patch
 Patch1006: 0001-scheduler-printers.c-Check-for-CMYK-as-well-fixes-42.patch
+Patch1007: 0001-configure-Raise-FORTIFY_SOURCE-level-to-3.patch
 
 ##### Patches removed because IMHO they aren't no longer needed
 ##### but still I'll leave them in git in case their removal
@@ -298,6 +299,8 @@ to CUPS daemon. This solution will substitute printer drivers and raw queues in 
 %patch1005 -p1 -b .save-color-settings
 # https://github.com/OpenPrinting/cups/pull/500
 %patch1006 -p1 -b .check-for-cmyk
+# https://github.com/OpenPrinting/cups/pull/642
+%patch1007 -p1 -b .raise-fortify
 
 
 %if %{lspp}
@@ -326,7 +329,6 @@ export CXX=%{__cxx}
 export DSOFLAGS="$DSOFLAGS $RPM_LD_FLAGS"
 export CFLAGS="$CFLAGS $RPM_OPT_FLAGS -DLDAP_DEPRECATED=1"
 export CXXFLAGS="$CXXFLAGS $RPM_OPT_FLAGS -DLDAP_DEPRECATED=1"
-export LDFLAGS="$LDFLAGS $RPM_LD_FLAGS -Wall -fstack-clash-protection -D_FORTIFY_SOURCE=2"
 # --enable-debug to avoid stripping binaries
 %configure --with-docdir=%{_datadir}/%{name}/www \
   --enable-debug \
@@ -704,6 +706,9 @@ rm -f %{cups_serverbin}/backend/smb
 %{_mandir}/man7/ippeveps.7.gz
 
 %changelog
+* Thu Mar 23 2023 Siddhesh Poyarekar <siddhesh@redhat.com> - 1:2.4.2-11
+- Drop unnecessary LDFLAGS addition.
+
 * Thu Mar 02 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.2-10
 - fix loading ippeveps in ippeveprinter if only the command name is provided
 - don't override color settings from print dialog

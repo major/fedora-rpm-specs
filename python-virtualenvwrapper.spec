@@ -8,13 +8,16 @@ one project at a time without introducing conflicts in their dependencies.
 
 Name:             python-%{modname}
 Version:          4.8.4
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          %{sum}
 
 License:          MIT
 URL:              https://pypi.python.org/pypi/%{modname}
 Source0:          https://pypi.python.org/packages/source/v/%{modname}/%{modname}-%{version}.tar.gz
 Patch0:           python-virtualenvwrapper-4.8.4-default-binaries.patch
+# Don’t call deprecated egrep wrapper. Fix from upstream:
+# https://github.com/python-virtualenvwrapper/virtualenvwrapper/commit/168db18a65bf14c39434670683e86efc210b1f7b
+Patch1:           python-virtualenvwrapper-4.8.4-fix-deprecated-egrep.patch
 
 BuildArch:        noarch
 
@@ -48,6 +51,8 @@ Requires:           which
 rm -rf %{modname}.egg-info
 # Fix default binaries
 %patch0 -p1 -b .default-binaries
+# Fix egrep -> grep -E
+%patch1 -p1 -b .fix-deprecated-egrep
 
 %build
 %py3_build
@@ -81,6 +86,9 @@ ln -s %{_bindir}/virtualenvwrapper.sh %{buildroot}/%{_bindir}/virtualenvwrapper-
 %config(noreplace) %{_sysconfdir}/profile.d/virtualenvwrapper.sh
 
 %changelog
+* Fri Mar 24 2023 Nils Philippsen <nils@redhat.com> - 4.8.4-4
+- Use `grep -E` instead of deprecated `egrep`
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

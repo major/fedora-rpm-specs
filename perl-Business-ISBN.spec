@@ -6,9 +6,9 @@
 %endif
 
 Name:           perl-Business-ISBN
-%global cpan_version 3.007
+%global cpan_version 3.008
 Version:        %(echo '%{cpan_version}' | tr '_' '.'})
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        Perl module to work with International Standard Book Numbers
 
 License:        Artistic-2.0
@@ -29,7 +29,7 @@ BuildRequires:  perl(warnings)
 # Test::Manifest 1.21 is optional
 # Run-time:
 BuildRequires:  perl(base)
-BuildRequires:  perl(Business::ISBN::Data) >= 20191107
+BuildRequires:  perl(Business::ISBN::Data) >= 20230322.001
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Exporter)
@@ -106,6 +106,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Mar 24 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.008-1
+- 3.008 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.007-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

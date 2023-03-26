@@ -1,5 +1,5 @@
 Name:           python-pathspec
-Version:        0.11.0
+Version:        0.11.1
 Release:        1%{?dist}
 Summary:        Utility library for gitignore style pattern matching of file paths
 
@@ -46,6 +46,9 @@ is derived from Rsync's wildmatch. Git uses wildmatch for its gitignore files.
 %{python3_sitelib}/pathspec-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Mar 24 2023 Dan Radez <dradez@redhat.com> - 0.11.1-1
+- update to 0.11.1 rhbz#2178386
+
 * Thu Feb 09 2023 Dan Radez <dradez@redhat.com> - 0.11.0-1
 - update to 0.11.0 rhbz#2164287
 

@@ -9,7 +9,7 @@
 %global	shorthash	%(c=%{githash} ; echo ${c:0:7})
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
-%global	mainrel	18
+%global	baserelease	18
 
 
 %undefine _ld_strict_symbol_defs
@@ -26,7 +26,7 @@
 
 Name:			cairo-dock
 Version:		3.4.1
-Release:		%{mainrel}%{?use_git:.D%{gitdate}git%{shorthash}}%{?dist}%{flagrel}.3
+Release:		%{baserelease}%{?use_git:.D%{gitdate}git%{shorthash}}%{?dist}%{flagrel}
 Summary:		Light eye-candy fully themable animated dock
 
 License:		GPLv3+

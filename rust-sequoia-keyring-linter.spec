@@ -45,7 +45,9 @@ License:        GPL-2.0 AND Apache-2.0 AND BSL-1.0 AND MIT AND Unicode-DFS-2016
 
 %files       -n %{crate}
 %license LICENSE.txt
+%if 0%{?rhel} > 9
 %license LICENSE.dependencies
+%endif
 %doc README.md
 %{_bindir}/sq-keyring-linter
 %{_mandir}/man1/sq-keyring-linter*
@@ -59,7 +61,9 @@ License:        GPL-2.0 AND Apache-2.0 AND BSL-1.0 AND MIT AND Unicode-DFS-2016
 
 %build
 %cargo_build
+%if 0%{?rhel} > 9
 %{cargo_license} > LICENSE.dependencies
+%endif
 
 %install
 %cargo_install

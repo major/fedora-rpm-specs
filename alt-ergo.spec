@@ -16,7 +16,7 @@
 
 Name:		alt-ergo
 Version:	%{minorver}.%{patchrel}
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Automated theorem prover including linear arithmetic
 
 # The project as a whole is Apache-2.0.
@@ -248,16 +248,22 @@ cd sources
 %files -n ocaml-%{name}-lib-devel
 %{ocamldir}/%{name}-lib/dune-package
 %{ocamldir}/%{name}-lib/opam
+%{ocamldir}/%{name}-lib/frontend/
+%{ocamldir}/%{name}-lib/reasoners/
+%{ocamldir}/%{name}-lib/structures/
+%{ocamldir}/%{name}-lib/util/
 %ifarch %{ocaml_native_compiler}
 %{ocamldir}/%{name}-lib/*.a
 %{ocamldir}/%{name}-lib/*.cmx
 %{ocamldir}/%{name}-lib/*.cmxa
 %endif
-%{ocamldir}/%{name}-lib/*.mli
 %{ocamldir}/%{name}-lib/*.cmt
 %{ocamldir}/%{name}-lib/*.cmti
 
 %changelog
+* Fri Mar 24 2023 Jerry James <loganjerry@gmail.com> - 2.3.3-6
+- Dune 3.7.0 changed the install location of mli files
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 2.3.3-5
 - Rebuild OCaml packages for F38
 

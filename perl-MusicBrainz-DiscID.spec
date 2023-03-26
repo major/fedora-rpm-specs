@@ -2,7 +2,7 @@
 
 Name:           perl-MusicBrainz-DiscID
 Version:        0.06
-Release:        11%{?dist}
+Release:        %autorelease
 Summary:        Perl interface for the MusicBrainz libdiscid library
 License:        MIT
 URL:            https://metacpan.org/release/MusicBrainz-DiscID
@@ -48,41 +48,4 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/*.3pm*
 
 %changelog
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue May 31 2022 Jitka Plesnikova <jplesnik@redhat.com> - 0.06-9
-- Perl 5.36 rebuild
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri May 21 2021 Jitka Plesnikova <jplesnik@redhat.com> - 0.06-6
-- Perl 5.34 rebuild
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jun 23 2020 Jitka Plesnikova <jplesnik@redhat.com> - 0.06-3
-- Perl 5.32 rebuild
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Tue Oct 08 2019 Gerald Cox <gbcox@fedoraproject.org> - 0.06-1
-- Change License to MIT per upstream request rhbz#1758925
-
-* Mon Oct 07 2019 Gerald Cox <gbcox@fedoraproject.org> - 0.04-2
-- License GPLv2+, tests require internet rhbz#1758925
-
-* Sun Oct 06 2019 Gerald Cox <gbcox@fedoraproject.org> - 0.04-1
-- Initial build rhbz#1758925
+%autochangelog

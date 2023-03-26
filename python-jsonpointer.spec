@@ -1,59 +1,53 @@
 %global pypi_name jsonpointer
-%global github_name python-json-pointer
 
 Name:           python-%{pypi_name}
-Version:        2.0
-Release:        8%{?dist}
+Version:        2.3
+Release:        1%{?dist}
 Summary:        Resolve JSON Pointers in Python
 
 License:        BSD
-URL:            https://github.com/stefankoegl/%{github_name}
-Source0:        https://pypi.io/packages/source/j/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
+URL:            https://github.com/stefankoegl/python-json-pointer
+Source0:        %{pypi_source}
 
 BuildArch:      noarch
 
+%global _description %{expand:
+Library to resolve JSON Pointers according to RFC 6901.}
 
-%description
-Library to resolve JSON Pointers according to RFC 6901.
+%description %{_description}
 
 
 %package -n python3-%{pypi_name}
 Summary:        %{summary}
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
-%description -n python3-%{pypi_name}
-Library to resolve JSON Pointers according to RFC 6901.
+%description -n python3-%{pypi_name} %{_description}
 
 %prep
-%setup -q -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version} -p1
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-
-%py3_install
-mv %{buildroot}%{_bindir}/jsonpointer %{buildroot}%{_bindir}/jsonpointer-%{python3_version}
-ln -s ./jsonpointer-%{python3_version} %{buildroot}%{_bindir}/jsonpointer-3
-ln -s ./jsonpointer-%{python3_version} %{buildroot}%{_bindir}/jsonpointer
-
+%pyproject_install
+%pyproject_save_files %{pypi_name}
 
 %check
-%{__python3} tests.py
+%python3 tests.py
 
-
-%files -n python3-%{pypi_name}
-%doc README.md AUTHORS
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE.txt
+%doc README.md AUTHORS
 %{_bindir}/jsonpointer
-%{_bindir}/jsonpointer-3*
-%{python3_sitelib}/__pycache__/*
-%{python3_sitelib}/%{pypi_name}.py*
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Sat Mar 11 2023 Igor Raits <igor@gooddata.com> - 2.3-1
+- Update to 2.3
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

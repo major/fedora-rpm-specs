@@ -4,8 +4,8 @@
 %global qrtr_version %(pkg-config --modversion qrtr-glib 2>/dev/null || echo bad)
 
 Name: ModemManager
-Version: 1.20.2
-Release: 4%{?dist}
+Version: 1.20.6
+Release: 1%{?dist}
 Summary: Mobile broadband modem management service
 License: GPLv2+
 URL: http://www.freedesktop.org/wiki/Software/ModemManager/
@@ -185,6 +185,9 @@ cp -a cli/mmcli-completion %{buildroot}%{_datadir}/bash-completion/completions/m
 
 
 %changelog
+* Fri Mar 24 2023 Lubomir Rintel <lkundrak@v3.sk> - 1.20.6-1
+- Update to 1.20.6
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,5 +1,5 @@
-%global DATE 20230321
-%global gitrev 631cc7b96752740a3fdfd960b503d64faf02c1b6
+%global DATE 20230324
+%global gitrev 053e16ff35e0921f66d5b48f2b2e4a51eca89e43
 %global gcc_version 13.0.1
 %global gcc_major 13
 # Note, gcc_release must be integer, if you want to add suffixes to
@@ -136,7 +136,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.9%{?dist}
+Release: %{gcc_release}.10%{?dist}
 # libgcc, libgfortran, libgomp, libstdc++ and crtstuff have
 # GCC Runtime Exception.
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions and LGPLv2+ and BSD
@@ -3460,6 +3460,15 @@ end
 %endif
 
 %changelog
+* Fri Mar 24 2023 Jakub Jelinek <jakub@redhat.com> 13.0.1-0.10
+- update from trunk
+  - PRs analyzer/109239, c++/105996, c++/108390, c++/108795, c++/109177,
+	c++/109241, c/84900, fortran/104572, middle-end/109258,
+	modula2/107630, modula2/109248, modula2/109264, target/103628,
+	target/109137, target/109228, target/109244, testsuite/105959,
+	tree-optimization/99739, tree-optimization/107569,
+	tree-optimization/109176, tree-optimization/109262
+
 * Tue Mar 21 2023 Jakub Jelinek <jakub@redhat.com> 13.0.1-0.9
 - update from trunk
   - PRs analyzer/109094, c++/106890, c++/109159, c++/109164, fortran/85877,

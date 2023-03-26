@@ -6,7 +6,7 @@
 
 Name:		mozc
 Version:	2.28.4950.102
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	A Japanese Input Method Editor (IME) designed for multi-platform
 
 License:	BSD and ASL 2.0 and UCD and Public Domain and mecab-ipadic
@@ -250,6 +250,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Fri Mar 24 2023 Akira TAGOH <tagoh@redhat.com> - 2.28.4950.102-4
+- Rebuilt for abseil-cpp 20230125.1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.28.4950.102-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

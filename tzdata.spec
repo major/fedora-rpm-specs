@@ -1,8 +1,8 @@
 Summary: Timezone data
 Name: tzdata
-Version: 2023a
-%define tzdata_version 2023a
-%define tzcode_version 2023a
+Version: 2023b
+%define tzdata_version 2023b
+%define tzcode_version 2023b
 Release: 1%{?dist}
 License: Public Domain
 URL: https://www.iana.org/time-zones
@@ -151,6 +151,10 @@ install -p -m 644 tzdb.dat $RPM_BUILD_ROOT%{_datadir}/javazi-1.8/
 %{_datadir}/javazi-1.8
 
 %changelog
+* Fri Mar 24 2023 Patsy Griffin <patsy@redhat.com> - 2023b-1
+- Rebase to tzdata-2023b
+  - Lebanon will transition to DST on April 20/21, not March 25/26.
+
 * Thu Mar 23 2023 Patsy Griffin <patsy@redhat.com> - 2023a-1
 - Rebase to tzdata-2023a
  - Egypt reintroduced DST, from April through October.

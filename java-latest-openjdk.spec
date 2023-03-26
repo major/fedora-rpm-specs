@@ -322,7 +322,7 @@
 %global top_level_dir_name   %{origin}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        7
-%global rpmrelease      4
+%global rpmrelease      5
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -1923,6 +1923,15 @@ for suffix in %{build_loop} ; do
 
 # Install the jdk
 mkdir -p $RPM_BUILD_ROOT%{_jvmdir}
+
+# Install icons
+for s in 16 24 32 48 ; do
+  install -D -p -m 644 \
+    ${jdk_image}/ext_stubs/java.desktop/unix/classes/sun/awt/X11/java-icon${s}.png \
+     $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/${s}x${s}/apps/java-%{javaver}-%{origin}.png
+done
+rm -rvf ${jdk_image}/ext_stubs/ #currently jsut the icons
+
 cp -a ${jdk_image} $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}
 
 pushd ${jdk_image}
@@ -1983,16 +1992,6 @@ fi
 commondocdir=${RPM_BUILD_ROOT}%{_defaultdocdir}/%{uniquejavadocdir -- $suffix}
 install -d -m 755 ${commondocdir}
 cp -a ${top_dir_abs_main_build_path}/NEWS ${commondocdir}
-
-# Install icons and menu entries
-for s in 16 24 32 48 ; do
-  # TODO!! publish in portables!
-  mkdir -p ${buildoutputdir}/src/java.desktop/unix/classes/sun/awt/X11/ #remove this line to once published
-  echo "PALCEHOLDER TODO REMOVE.ME" > ${buildoutputdir}/src/java.desktop/unix/classes/sun/awt/X11/java-icon${s}.png
-  install -D -p -m 644 \
-    ${buildoutputdir}/src/java.desktop/unix/classes/sun/awt/X11/java-icon${s}.png \
-     $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/${s}x${s}/apps/java-%{javaver}-%{origin}.png
-done
 
 # Install desktop files
 install -d -m 755 $RPM_BUILD_ROOT%{_datadir}/{applications,pixmaps}
@@ -2355,6 +2354,9 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
+* Mon Jan 30 2023 Jiri Vanek <jvanek@redhat.com> - 1:19.0.2.0.7-5.rolling
+- Using icons whcih are now part of the portble tarball
+
 * Mon Jan 30 2023 Jiri Vanek <jvanek@redhat.com> - 1:19.0.2.0.7-4.rolling
 - repacked bits are now requested in exact version
 

@@ -16,12 +16,12 @@
 %define configure_opts %{?python3_opts} %{?tools_opts}
 
 Name:        libbytesize
-Version:     2.7
-Release:     5%{?dist}
+Version:     2.8
+Release:     21%{?dist}
 Summary:     A library for working with sizes in bytes
 License:     LGPL-2.1-or-later
 URL:         https://github.com/storaged-project/libbytesize
-Source0:     https://github.com/storaged-project/libbytesize/releases/download/%{version}-%{release}/%{name}-%{version}.tar.gz
+Source0:     https://github.com/storaged-project/libbytesize/releases/download/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires: make
 BuildRequires: gcc
@@ -115,6 +115,39 @@ find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 %endif
 
 %changelog
+* Fri Mar 24 2023 Vojtech Trefny <vtrefny@redhat.com> - 2.8-21
+- New version - 2.8 (Vojtech Trefny)
+- ci: Do not use release descriptions for Packit builds (Vojtech Trefny)
+- Do not hardcode pylint executable name in Makefile (Vojtech Trefny)
+- Remove unused test dependencies variables from Makefile (Vojtech Trefny)
+- docs: Remove information about Python 2 support (Vojtech Trefny)
+- Various docstring fixes (Vojtech Trefny)
+- Replace C++ style comments with C style (Vojtech Trefny)
+- Make use of error optional (Vojtech Trefny)
+- spec: Fix source archive URL (Vojtech Trefny)
+- ci: Add Packit automation for downstream builds (Vojtech Trefny)
+- spec: Bump release to 21 for Packit daily builds (Vojtech Trefny)
+- ci: Use Packit for daily builds in Copr (Vojtech Trefny)
+- ci: Remove GitHub action for RPM builds (Vojtech Trefny)
+- ci: Add Packit configuration for RPM builds on pull requests (Vojtech Trefny)
+- configure.ac: Remove invalid email address for bug reports (Vojtech Trefny)
+- ci: Update chroots for RPM builds (Vojtech Trefny)
+- Translated using Weblate (Kazakh) (Baurzhan Muftakhidinov)
+- Added translation using Weblate (Kazakh) (Baurzhan Muftakhidinov)
+- misc: Remove "warn: false" from Ansible "command" (Vojtech Trefny)
+- Translated using Weblate (Georgian) (Temuri Doghonadze)
+- spec: Change license string to the SPDX format required by Fedora (Vojtech Trefny)
+- Added translation using Weblate (Georgian) (Temuri Doghonadze)
+- Update translation files (Weblate)
+- Translated using Weblate (Korean) (김인수)
+- ci: Update Fedora versions for RPM build tests (Vojtech Trefny)
+- ci: Rename csmock.Dockerfile to ci.Dockerfile (Vojtech Trefny)
+- ci: Update the csmock GitHub actions configuration (Vojtech Trefny)
+- ci: Run rpmbuild tests in GitHub actions (Vojtech Trefny)
+- Add a GitHub action for running csmock static analysis (Vojtech Trefny)
+- README: Remove the Travis CI badge (Vojtech Trefny)
+- Sync spec with downstream (Vojtech Trefny)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

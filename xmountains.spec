@@ -1,5 +1,5 @@
 %global         usegit      1
-%global         mainrel     4
+%global         baserelease     4
 
 %global         githash     3ba444a4f7a6835e4a717c46f95802faea03eaf5
 %global         shorthash   %(TMP=%githash ; echo ${TMP:0:10})
@@ -7,14 +7,14 @@
 %global         gitdate_num 20170103
 
 %if 0%{?usegit} >= 1
-%global         baserelease   %{mainrel}.D%{gitdate_num}git%{shorthash}
+%global         fedorarel   %{baserelease}.D%{gitdate_num}git%{shorthash}
 %else
-%global         baserelease   %{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}
+%global         fedorarel   %{?prever:0.}%{baserelease}%{?prever:.%{prerpmver}}
 %endif
 
 Name:           xmountains
 Version:        2.9
-Release:        %{baserelease}%{?dist}.6
+Release:        %{fedorarel}%{?dist}
 Summary:        A fractal terrain generator
 
 License:        MIT

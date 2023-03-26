@@ -21,7 +21,12 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 
 # test requirements
+%if %{defined rhel}
+%bcond_with tests
+%else
 %bcond_without tests
+%endif
+
 %if %{with tests}
 # For “trial-3”
 BuildRequires:  python3dist(twisted)

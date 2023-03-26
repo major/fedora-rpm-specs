@@ -17,7 +17,7 @@
 # Upstream git:
 # git://pcmanfm.git.sourceforge.net/gitroot/pcmanfm/pcmanfm
 
-%global         mainrel     1
+%global         baserelease     1
 
 %if 0%{?use_gitbare} >= 1
 %global         gitbaredate	20210203
@@ -29,10 +29,10 @@
 %endif
 
 %if 0%{?use_gitbare} >= 1
-%global         baserelease   %{mainrel}.%{git_version}
+%global         fedorarel   %{baserelease}.%{git_version}
 %endif
 %if 0%{?use_release} >= 1
-%global         baserelease   %{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}
+%global         fedorarel   %{?prever:0.}%{baserelease}%{?prever:.%{prerpmver}}
 %endif
 
 %global	libfm_minver	1.2.0
@@ -41,7 +41,7 @@
 
 Name:		pcmanfm
 Version:	%{mainver}
-Release:	%{baserelease}%{?dist}.4
+Release:	%{fedorarel}%{?dist}
 Summary:	Extremly fast and lightweight file manager
 
 License:	GPLv2+

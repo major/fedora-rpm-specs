@@ -3,7 +3,7 @@
 %global	mainver	3.12.0
 %undefine	prever
 
-%global	mainrel	3
+%global	baserelease	3
 %global	prerpmver	%(echo "%{?prever}" | sed -e 's|\\.||g')
 
 %bcond_with bootstrap
@@ -12,7 +12,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	%{mainver}
-Release:	%{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}%{?dist}.1
+Release:	%{?prever:0.}%{baserelease}%{?prever:.%{prerpmver}}%{?dist}
 
 Summary:	Common functionality to Rspec series
 # SPDX confirmed

@@ -1,8 +1,8 @@
 Name:           perl-Test-Needs
 Version:        0.002010
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Skip tests when modules not available
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/Test-Needs
 Source0:        https://cpan.metacpan.org/authors/id/H/HA/HAARG/Test-Needs-%{version}.tar.gz
@@ -51,6 +51,9 @@ to compile will exit with an error rather than skip.
 %{_mandir}/man3/Test*
 
 %changelog
+* Fri Mar 24 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.002010-2
+- Update license to SPDX format
+
 * Sun Feb 05 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.002010-1
 - Update to 0.002010
 

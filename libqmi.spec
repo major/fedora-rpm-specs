@@ -1,6 +1,6 @@
 Name: libqmi
-Version: 1.32.2
-Release: 3%{?dist}
+Version: 1.32.4
+Release: 1%{?dist}
 Summary: Support library to use the Qualcomm MSM Interface (QMI) protocol
 License: LGPLv2+
 URL: http://freedesktop.org/software/libqmi
@@ -95,10 +95,13 @@ cp -a src/qmicli/qmicli %{buildroot}%{_datadir}/bash-completion/completions/
 
 
 %changelog
+* Fri Mar 24 2023 Lubomir Rintel <lkundrak@v3.sk> - 1.32.4-1
+- Update to 1.32.4
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.32.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
-* Sun Jan 02 2023 Lubomir Rintel <lkundrak@v3.sk> - 1.32.2-2
+* Mon Jan 02 2023 Lubomir Rintel <lkundrak@v3.sk> - 1.32.2-2
 - Fix bash completion files path
 
 * Tue Nov 22 2022 Lubomir Rintel <lkundrak@v3.sk> - 1.32.2-1

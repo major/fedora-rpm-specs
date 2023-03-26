@@ -13,8 +13,8 @@
 %bcond_with dune
 
 Name:           ocaml-csexp
-Version:        1.5.1
-Release:        10%{?dist}
+Version:        1.5.2
+Release:        1%{?dist}
 Summary:        Parsing and printing of S-expressions in canonical form
 
 License:        MIT
@@ -88,7 +88,7 @@ plugin(native) = "csexp.cmxs"
 EOF
 
 cat >> %{buildroot}%{ocamldir}/csexp/dune-package << EOF
-(lang dune 3.3)
+(lang dune 3.7)
 (name csexp)
 (version %{version})
 (sections (lib .) (libexec .) (doc ../../doc/csexp))
@@ -126,7 +126,10 @@ cat >> %{buildroot}%{ocamldir}/csexp/dune-package << EOF
  (modes byte)
 %endif
  (modules
-  (singleton (name Csexp) (obj_name csexp) (visibility public) (impl) (intf))))
+  (singleton
+   (obj_name csexp)
+   (visibility public)
+   (source (path Csexp) (intf (path csexp.mli)) (impl (path csexp.ml))))))
 EOF
 
 %ocaml_files
@@ -139,6 +142,9 @@ EOF
 %files devel -f .ofiles-devel
 
 %changelog
+* Fri Mar 24 2023 Jerry James <loganjerry@gmail.com> - 1.5.2-1
+- Version 1.5.2
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.5.1-10
 - Rebuild OCaml packages for F38
 

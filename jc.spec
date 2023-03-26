@@ -2,7 +2,7 @@ Name: jc
 Summary: Serialize the output of CLI tools and file-types to structured JSON
 License: MIT
 
-Version: 1.23.0
+Version: 1.23.1
 Release: 1%{?dist}
 
 URL: https://github.com/kellyjonbrazil/%{name}
@@ -71,6 +71,9 @@ install -m 644 -p completions/jc_bash_completion.sh "${COMPDIR}/%{name}"
 
 
 %changelog
+* Fri Mar 24 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.23.1-1
+- Update to v1.23.1
+
 * Tue Feb 28 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.23.0-1
 - Update to v1.23.0
 

@@ -1,6 +1,6 @@
 Name:           pengupop
 Version:        2.2.2
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Networked Game in the vein of Move/Puzzle Bobble
 
 License:        GPL-2.0-or-later
@@ -25,8 +25,9 @@ remove all orbs. You lose if any orb attaches below the white line.
 
 
 %build
+%undefine _fortify_level
 %configure
-make %{?_smp_mflags} CFLAGS="$CFLAGS -D_FORTIFY_SOURCE=0" LIBS="-lm"
+make %{?_smp_mflags} LIBS="-lm"
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -49,6 +50,9 @@ desktop-file-install \
 
 
 %changelog
+* Fri Mar 24 2023 Siddhesh Poyarekar <siddhesh@redhat.com> - 2.2.2-33
+- Use _fortify_level to disable fortification.
+
 * Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.2.2-32
 - migrated to SPDX license
 

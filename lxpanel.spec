@@ -27,21 +27,21 @@
 %global	git_version	D%{gitbaredate}git%{git_short}
 %endif
 
-%global	mainrel 4
+%global	baserelease 4
 
 %if 0%{?use_release} >= 1
-%global         baserelease   %{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}
+%global         fedorarel   %{?prever:0.}%{baserelease}%{?prever:.%{prerpmver}}
 %endif
 %if 0%{?use_git} >= 1
-%global         baserelease   %{mainrel}.%{git_version}
+%global         fedorarel   %{baserelease}.%{git_version}
 %endif
 %if 0%{?use_gitbare} >= 1
-%global         baserelease   %{mainrel}.%{git_version}
+%global         fedorarel   %{baserelease}.%{git_version}
 %endif
 
 Name:           lxpanel
 Version:        0.10.1
-Release:        %{baserelease}%{?dist}
+Release:        %{fedorarel}%{?dist}
 Summary:        A lightweight X11 desktop panel
 
 License:        GPLv2+

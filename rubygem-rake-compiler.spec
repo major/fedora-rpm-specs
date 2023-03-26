@@ -6,6 +6,7 @@ Summary:	Rake-based Ruby C Extension task generator
 Name:		rubygem-%{gem_name}
 Version:	1.2.1
 Release:	2%{?dist}
+# SPDX confirmed
 License:	MIT
 URL:		http://rake-compiler.rubyforge.org/
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem

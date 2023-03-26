@@ -1,8 +1,8 @@
 Name:           pytest
-%global base_version 7.2.1
+%global base_version 7.2.2
 #global prerelease ...
 Version:        %{base_version}%{?prerelease:~%{prerelease}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Simple powerful testing with Python
 License:        MIT
 URL:            https://pytest.org
@@ -179,6 +179,11 @@ find %{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Fri Mar 24 2023 Miro Hrončok <mhroncok@redhat.com> - 7.2.2-1
+- Update to 7.2.2
+- Changelog: https://docs.pytest.org/en/7.2.x/changelog.html#pytest-7-2-2-2023-03-03
+- Fixes: rhbz#2175310
+
 * Fri Feb 10 2023 Stephen Gallagher <sgallagh@redhat.com> - 7.2.1-2
 - Don't build tests and docs on RHEL to reduce dependencies
 

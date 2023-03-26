@@ -1,11 +1,11 @@
 %define aspellversion 6
 %define lang sk
-%define langrelease 0
+%define langrelease 1
 %define aspellname aspell%{aspellversion}-%{lang}
 
 Name:           aspell-%{lang}
-Version:        2.02
-Release:        10%{?dist}
+Version:        2.4.7
+Release:        1%{?dist}
 Summary:        Slovak dictionaries for Aspell
 
 License:        GPLv2 or LGPLv2 or MPLv1.1
@@ -43,6 +43,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Mar 16 2023 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 2.4.7-1
+- Update to upstream.
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.02-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

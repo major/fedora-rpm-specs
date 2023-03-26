@@ -9,8 +9,8 @@
 %endif
 
 Name:       python-%{library}
-Version:    2.16.0
-Release:    2%{?dist}
+Version:    2.16.3
+Release:    1%{?dist}
 Epoch:      1
 Summary:    Google Auth Python Library
 License:    ASL 2.0
@@ -60,6 +60,9 @@ Python client for the kubernetes API.
 %{python3_sitelib}/google_auth-%{version}*.pth
 
 %changelog
+* Fri Mar 24 2023 Jason Montleon <jmontleo@redhat.com> - 1:2.16.3-1
+- Update to 2.16.3
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.16.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

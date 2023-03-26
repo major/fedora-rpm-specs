@@ -17,7 +17,7 @@ URL: https://www.python.org/
 %global prerel a6
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python-2.0.1
 
 # Getting this build in Koji on 32bit ARM is frustrating due to technical problems
@@ -1064,13 +1064,13 @@ CheckPython() {
   LD_LIBRARY_PATH=$ConfDir $ConfDir/python -m test.pythoninfo
 
   # Run the upstream test suite
-  # --timeout=1800: kill test running for longer than 30 minutes
+  # --timeout=2700: kill test running for longer than 45 minutes
   # test_freeze_simple_script is skipped, because it fails without bundled libs.
   #  the freeze tool is only usable from the source checkout anyway,
   #  we don't ship it in the RPM package.
 
   LD_LIBRARY_PATH=$ConfDir $ConfDir/python -m test.regrtest \
-    -wW --slowest %{_smp_mflags} --timeout=1800 \
+    -wW --slowest %{_smp_mflags} --timeout=2700 \
     -i test_freeze_simple_script \
     %ifarch %{mips64}
     -x test_ctypes \
@@ -1583,6 +1583,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Thu Mar 23 2023 Miro Hrončok <mhroncok@redhat.com> - 3.12.0~a6-2
+- Increase the test timeout during package build
+
 * Wed Mar 08 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.12.0~a6-1
 - Update to 3.12.0a6
 

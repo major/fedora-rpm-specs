@@ -57,7 +57,7 @@ Version: 13.1
 
 # The release always contains a leading reserved number, start it at 1.
 # `upstream' is not a part of `name' to stay fully rpm dependencies compatible for the testing.
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ and GPLv2+ with exceptions and GPL+ and LGPLv2+ and LGPLv3+ and BSD and Public Domain and GFDL
 # Do not provide URL for snapshots as the file lasts there only for 2 days.
@@ -1192,6 +1192,12 @@ fi
 %endif
 
 %changelog
+* Fri Mar 24 2023 Kevin Buettner <kevinb@redhat.com> - 13.1-2
+- Backport fix for RHBZ 2177655.  (Luis Machado)
+
+* Mon Mar 20 2023 Bruno Larsen <blarsen@redhat.com>
+- Remove gdb-rhbz1350436-type-printers-error.patch since it is upstreamed.
+
 * Wed Mar 8 2023 Kevin Buettner <kevinb@redhat.com> - 13.1-1
 - Rebase to FSF GDB 13.1.
 - Update gdb-6.3-rh-testversion-20041202.patch.

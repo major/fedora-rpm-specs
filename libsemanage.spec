@@ -4,12 +4,13 @@
 Summary: SELinux binary policy manipulation library
 Name: libsemanage
 Version: 3.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPL-2.1-or-later
 Source0: https://github.com/SELinuxProject/selinux/releases/download/3.5/libsemanage-3.5.tar.gz
 # git format-patch -N 3.5 -- libsemanage
 # i=1; for j in 00*patch; do printf "Patch%04d: %s\n" $i $j; i=$((i+1));done
 # Patch list start
+Patch0001: 0001-libsemanage-include-more-parameters-in-the-module-ch.patch
 # Patch list end
 URL: https://github.com/SELinuxProject/selinux/wiki
 Source1: semanage.conf
@@ -154,6 +155,9 @@ cp %{SOURCE1} ${RPM_BUILD_ROOT}%{_sysconfdir}/selinux/semanage.conf
 %{_libexecdir}/selinux/semanage_migrate_store
 
 %changelog
+* Fri Mar 24 2023 Petr Lautrbach <lautrbach@redhat.com> - 3.5-2
+- Include more parameters in the module checksum (#2173959)
+
 * Fri Feb 24 2023 Petr Lautrbach <lautrbach@redhat.com> - 3.5-1
 - SELinux userspace 3.5 release
 

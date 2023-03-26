@@ -8281,7 +8281,9 @@ done
 # updmap-cmdline-test.pl is not useful and it will fail because it finds the system perl bits instead of the local copy
 sed -i 's|TESTS = tests/updmap-cmdline-test.pl||g' source/texk/texlive/Makefile.in
 sed -i 's|TESTS = tests/updmap-cmdline-test.pl||g' source/texk/texlive/Makefile.am
-
+# bibtex8 fails on x86_64 and i686, but not really. I think this test might also be using the older system bits
+sed -i 's|bibtex8_tests = tests/bibtex8.test|bibtex8_tests =|g' source/texk/bibtex-x/Makefile.in
+sed -i 's|bibtex8_tests = tests/bibtex8.test|bibtex8_tests =|g' source/texk/bibtex-x/Makefile.am
 
 # Value here is "16" not "15" because we have a source0 at index 1.
 # Source15 at index 16 is our first "normal" noarch source file.

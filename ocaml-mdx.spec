@@ -6,7 +6,7 @@
 
 Name:           ocaml-mdx
 Version:        2.2.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Executable code blocks inside markdown files
 
 License:        ISC
@@ -79,6 +79,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Fri Mar 24 2023 Jerry James <loganjerry@gmail.com> - 2.2.1-3
+- Rebuild for ocaml-csexp 1.5.2
+
 * Tue Mar 21 2023 Jerry James <loganjerry@gmail.com> - 2.2.1-2
 - Rebuild for ocaml-version 3.6.1
 - Re-enable debuginfo now that dune is fixed

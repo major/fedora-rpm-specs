@@ -6,7 +6,8 @@ Version:	2.0.3
 Release:	201%{?dist}
 
 Summary:	Power Assert for Ruby
-License:	Ruby or BSD
+# SPDX confirmed
+License:	Ruby OR BSD-2-Clause
 URL:	https://github.com/ruby/power_assert
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
 Source1:	%{gem_name}-tests-%{version}.tar.gz

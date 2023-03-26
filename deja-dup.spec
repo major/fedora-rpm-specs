@@ -1,6 +1,6 @@
 Name:           deja-dup
-Version:        44.0
-Release:        3%{?dist}
+Version:        44.1
+Release:        1%{?dist}
 Summary:        Simple backup tool and frontend for duplicity
 
 License:        GPL-3.0-or-later
@@ -76,6 +76,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.metain
 %{_datadir}/help/*
 
 %changelog
+* Fri Mar 24 2023 Gwyn Ciesla <gwync@protonmail.com> - 44.1-1
+- 44.1
+
 * Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 44.0-3
 - migrated to SPDX license
 

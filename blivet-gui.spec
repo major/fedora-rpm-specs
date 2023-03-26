@@ -1,7 +1,7 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 2.4.0
-Release: 3%{?dist}
+Version: 2.4.1
+Release: 1%{?dist}
 Source0: http://github.com/storaged-project/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 Source1: blivet-gui_event.conf
 License: GPL-2.0-or-later
@@ -74,6 +74,44 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Fri Mar 24 2023 Packit <hello@packit.dev> - 2.4.1-1
+- New version 2.4.1 (Vojtech Trefny)
+- ci: Add Packit configuration for downstream builds on release (Vojtech Trefny)
+- spec: Bump release to 27 for Packit daily builds (Vojtech Trefny)
+- ci: Use Packit for daily builds in Copr (Vojtech Trefny)
+- Translated using Weblate (Friulian) (Fabio Tomat)
+- Translated using Weblate (Indonesian) (Andika Triwidada)
+- Translated using Weblate (Hebrew) (Yaron Shahrabani)
+- Translated using Weblate (Georgian) (Temuri Doghonadze)
+- Translated using Weblate (Russian) (Igor Gorbounov)
+- Translated using Weblate (Slovak) (Ondrej Sulek)
+- Translated using Weblate (Kazakh) (Baurzhan Muftakhidinov)
+- Translated using Weblate (Swedish) (Luna Jernberg)
+- Translated using Weblate (Kazakh) (Baurzhan Muftakhidinov)
+- Translated using Weblate (Kazakh) (Baurzhan Muftakhidinov)
+- Translated using Weblate (Croatian) (Gogo Gogsi)
+- Translated using Weblate (Kazakh) (Baurzhan Muftakhidinov)
+- Translated using Weblate (Kazakh) (Baurzhan Muftakhidinov)
+- Translated using Weblate (Kazakh) (Baurzhan Muftakhidinov)
+- Translated using Weblate (Turkish) (Oğuz Ersen)
+- Translated using Weblate (Chinese (Simplified) (zh_CN)) (yangyangdaji)
+- Translated using Weblate (Korean) (김인수)
+- Translated using Weblate (Ukrainian) (Yuri Chornoivan)
+- Translated using Weblate (Polish) (Piotr Drąg)
+- Translated using Weblate (Kazakh) (Baurzhan Muftakhidinov)
+- Translated using Weblate (Finnish) (Jiri Grönroos)
+- Update translation files (Weblate)
+- Translated using Weblate (German) (Ettore Atalan)
+- Fix various typos discovered by spellintian (Vojtech Trefny)
+- Translated using Weblate (Chinese (Simplified) (zh_CN)) (yangyangdaji)
+- Translated using Weblate (French) (Alexandre Hen)
+- spec: Change license string to the SPDX format required by Fedora (Vojtech Trefny)
+- Translated using Weblate (Korean) (김인수)
+- Translated using Weblate (German) (Ettore Atalan)
+- Update translation files (Weblate)
+- Translated using Weblate (Turkish) (Oğuz Ersen)
+- Sync spec with downstream (Vojtech Trefny)
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

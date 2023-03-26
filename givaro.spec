@@ -3,57 +3,45 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555.
 #
 # We can enable the Doxygen PDF documentation as a substitute.
-%if 0%{?fc37}
-# Temporarily disable Doxygen documentation; doxygen-1.9.4-1.fc37 allocates
-# memory until it crashes with
-#
-#   out of dynamic memory in yy_create_buffer()
-#       lexical analyzer: /builddir/build/BUILD/doxygen-1.9.4/src/defargs.l
-#
-# and this is not related to switching from HTML to PDF documentation. (It
-# occurred in the F37 mass rebuild).
-%bcond_with doc_pdf
-%else
 %bcond_without doc_pdf
-%endif
 
-Name:		givaro
-Version:	4.1.1
+Name:           givaro
+Version:        4.1.1
 %global so_version 9
-Release:	12%{?dist}
-Summary:	C++ library for arithmetic and algebraic computations
+Release:        13%{?dist}
+Summary:        C++ library for arithmetic and algebraic computations
 
 # The entire source is CECILL-B except for src/kernel/recint/reclonglong.h,
 # which is LGPL-3.0-or-later, and various Autotools build-system files, which
 # do not contribute to the licenses of the binary RPMs.
-License:	CECILL-B AND LGPL-3.0-or-later
-URL:		https://casys.gricad-pages.univ-grenoble-alpes.fr/givaro/
-Source0:	https://github.com/linbox-team/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
+License:        CECILL-B AND LGPL-3.0-or-later
+URL:            https://casys.gricad-pages.univ-grenoble-alpes.fr/givaro/
+Source0:        https://github.com/linbox-team/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 # Fix a memory leak.  The original code creates a temporary object, then does
 # not dispose of it.  This change prevents creation of the temporary.
 # https://github.com/linbox-team/givaro/pull/134
-Patch:		%{name}-mem-leak.patch
+Patch:          %{name}-mem-leak.patch
 # Sagemath patch to fix issues with long long and flint
-Patch:		%{name}-26932_recintvsflint_longlong.patch
+Patch:          %{name}-26932_recintvsflint_longlong.patch
 # Add missing #include <cstdint> for (u)int64_t
 # Fixes failure to compile on GCC 13.
 # https://github.com/linbox-team/givaro/pull/218
 Patch:          https://github.com/linbox-team/%{name}/pull/218.patch
 
 %if %{with doc_pdf}
-BuildRequires:	doxygen
-BuildRequires:	doxygen-latex
+BuildRequires:  doxygen
+BuildRequires:  doxygen-latex
 BuildRequires:  tex-xetex-bin
 BuildRequires:  /usr/bin/xindy
-BuildRequires:	tex(stmaryrd.sty)
+BuildRequires:  tex(stmaryrd.sty)
 %endif
 
-BuildRequires:	gcc-c++
-BuildRequires:	ghostscript
-BuildRequires:	gmp-devel
-BuildRequires:	libtool
-BuildRequires:	make
-BuildRequires:	tex(stmaryrd.sty)
+BuildRequires:  gcc-c++
+BuildRequires:  ghostscript
+BuildRequires:  gmp-devel
+BuildRequires:  libtool
+BuildRequires:  make
+BuildRequires:  tex(stmaryrd.sty)
 
 
 %description
@@ -68,15 +56,15 @@ and univariate polynomials (and therefore recursive multivariate).
 
 
 %package        devel
-Summary:	Files useful for %{name} development
-Requires:	%{name}%{?_isa} = %{version}-%{release}
+Summary:        Files useful for %{name} development
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    devel
 The libraries and header files for using %{name} for development.
 
 
 %package        devel-doc
-Summary:	Documentation for %{name} development
+Summary:        Documentation for %{name} development
 BuildArch:      noarch
 
 %description    devel-doc
@@ -92,8 +80,8 @@ Documentation for using %{name} for development.
 #   of Macaulay2's functioning, then GC tries to free objects it did not
 #   allocate, which leads to a segfault.
 %package        static
-Summary:	Static library for %{name}
-Requires:	%{name}-devel%{?_isa} = %{version}-%{release}
+Summary:        Static library for %{name}
+Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
 
 
 %description    static
@@ -198,6 +186,9 @@ export LD_LIBRARY_PATH=$PWD/src/.libs
 
 
 %changelog
+* Sat Mar 25 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 4.1.1-13
+- Re-enable documentation on F37
+
 * Mon Jan 23 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 4.1.1-12
 - Revert workaround for missing dependency on texlive-wasy
 

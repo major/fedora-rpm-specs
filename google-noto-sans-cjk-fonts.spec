@@ -2,7 +2,7 @@
 
 Epoch:   1
 Version: 2.004
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL:     https://github.com/googlefonts/noto-cjk
 
 BuildRequires:            python3
@@ -29,36 +29,11 @@ Source1:  genfontconf.py
 Source10: 65-%{fontpkgname}.conf
 Source11: 65-google-noto-sans-cjk-mono-fonts.conf
 
-%global obsoletes_epoch_version_release 0:20201206-8
-
-%global obsoletes_pkg()\
-%define subpkgname %1\
-Obsoletes:      %{subpkgname} < %{obsoletes_epoch_version_release}\
-Provides:       %{subpkgname} = %{epoch}:%{version}-%{release}\
-
-%global obsoletes_sans()\
-%define langname %1\
-%obsoletes_pkg google-noto-sans-cjk-%{langname}-fonts\
-%obsoletes_pkg google-noto-sans-%{langname}-fonts\
-%obsoletes_pkg google-noto-sans-mono-cjk-%{langname}-fonts\
-
 %global fontpkgheader     %{expand:
-
 # The Noto Sans CJK fonts have both Variable and non-Variable fonts.
 # It will cause some issues if install both VF and non-VF fonts,
 # add Conflicts here to only install either VF or non-VF fonts.
 Conflicts: google-noto-sans-cjk-vf-fonts
-
-%obsoletes_pkg google-noto-cjk-fonts
-%obsoletes_pkg google-noto-cjk-fonts-common
-%obsoletes_pkg google-noto-sans-cjk-ttc-fonts
-
-%obsoletes_sans sc
-%obsoletes_sans tc
-%obsoletes_sans hk
-%obsoletes_sans jp
-%obsoletes_sans kr
-
 }
 
 
@@ -94,6 +69,10 @@ python3 genfontconf.py "ja" "monospace" "Noto Sans Mono CJK JP" \
 %fontfiles
 
 %changelog
+* Fri Mar 24 2023 Peng Wu <pwu@redhat.com> - 1:2.004-3
+- Fix dnf upgrade issue
+- Resolves: RHBZ#2181349
+
 * Thu Mar 16 2023 Peng Wu <pwu@redhat.com> - 1:2.004-2
 - Update the spec file with some Obsoletes and Provides
 

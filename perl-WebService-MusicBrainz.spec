@@ -2,7 +2,7 @@
 
 Name:           perl-WebService-MusicBrainz
 Version:        1.0.6
-Release:        4%{?dist}
+Release:        %autorelease
 Summary:        Perl interface to search the musicbrainz.org database
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/WebService-MusicBrainz
@@ -47,51 +47,4 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %perl_vendorlib/WebService
 
 %changelog
-* Sat Feb 04 2023 Gerald Cox <gbcox@fedoraproject.org> - 1.0.6-4
-- Missing dependency - rhbz#2159825
-
-* Tue Jan 31 2023 Gerald Cox <gbcox@fedoraproject.org> - 1.0.6-3
-- Rebuilt for SPDX
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Mon Jul 25 2022 Gerald Cox <gbcox@fedoraproject.org> - 1.0.6-1
-- Upstream release rhbz#2110839
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jun 01 2022 Jitka Plesnikova <jplesnik@redhat.com> - 1.0.5-11
-- Perl 5.36 rebuild
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Jul 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-9
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri May 21 2021 Jitka Plesnikova <jplesnik@redhat.com> - 1.0.5-8
-- Perl 5.34 rebuild
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jun 23 2020 Jitka Plesnikova <jplesnik@redhat.com> - 1.0.5-5
-- Perl 5.32 rebuild
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Tue Oct 08 2019 Gerald Cox <gbcox@fedoraproject.org> - 1.0.5-3
-- Description change, files changes rhbz#1758929
-
-* Mon Oct 07 2019 Gerald Cox <gbcox@fedoraproject.org> - 1.0.5-2
-- BuildArch noarch, License Artistic 2.0 or GPL+ rhbz#1758929
-
-* Sun Oct 06 2019 Gerald Cox <gbcox@fedoraproject.org> - 1.0.5-1
-- Initial build rhbz#1758929
+%autochangelog

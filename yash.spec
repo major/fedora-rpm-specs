@@ -12,16 +12,19 @@
 %global		yashdocdir		%{_datadir}/doc/%{name}-doc-%{version}
 %endif
 
-%global		mainrel		1
+%global		baserelease		1
 %undefine		minorver
 %undefine       _changelog_trimtime
 
 Name:		yash
 Version:	%{mainver}
-Release:	%{?minorver:0.}%{mainrel}%{?minorver:.%{minorver}}%{?dist}
+Release:	%{?minorver:0.}%{baserelease}%{?minorver:.%{minorver}}%{?dist}
 Summary:	Yet Another SHell
 
-License:	GPLv2+
+# License header in .c files are GPL-2.0-or-later
+# However, doc/intro.txt says this is under GPL-2.0-only
+# SPDX confirmed
+License:	GPL-2.0-only
 URL:		http://yash.osdn.net/
 Source0:	http://osdn.dl.osdn.net/yash/%{repoid}/%{name}-%{version}%{?minorver}.tar.xz
 #Source1:	http://dl.osdn.jp/yash/%{repoid}/%{name}-doc-%{docver}%{?minorver}-ja.tar.gz
@@ -54,7 +57,7 @@ Yash also has its own features beyond POSIX, such as:
 %package	doc
 Summary:	Documentation for %{name}
 Version:	%{docver}
-License:	CC-BY-SA
+License:	CC-BY-SA-2.1-JP
 BuildArch:	noarch
 Requires:	%{name} = %{mainver}-%{release}
 #Requires:	%{name} >= %{version}

@@ -2,12 +2,17 @@
 
 Name:           gnome-shell
 Version:        44.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Window management and application launching for GNOME
 
 License:        GPLv2+
 URL:            https://wiki.gnome.org/Projects/GnomeShell
 Source0:        https://download.gnome.org/sources/gnome-shell/44/%{name}-%{tarball_version}.tar.xz
+
+# https://gitlab.gnome.org/GNOME/gnome-shell/-/commit/58af42caeaf8ef51f62aa22880c04638f21d5e06
+# https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/6539
+# Fix a typo that broke screenshot notifications
+Patch0: 0001-screenshot-Fix-code-typo.patch
 
 # Replace Epiphany with Firefox in the default favourite apps list
 Patch10001: gnome-shell-favourite-apps-firefox.patch
@@ -228,6 +233,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Shell.Porta
 %{_mandir}/man1/gnome-shell.1*
 
 %changelog
+* Fri Mar 24 2023 Adam Williamson <awilliam@redhat.com> - 44.0-3
+- Backport a fix for screenshot notifications
+
 * Sun Mar 19 2023 Florian Müllner <fmuellner@redhat.com> - 44.0-2
 - Fix timed logout
   Resolves: #2177853

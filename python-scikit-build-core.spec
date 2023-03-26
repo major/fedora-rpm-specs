@@ -15,12 +15,6 @@ BuildRequires:  cmake
 BuildRequires:  ninja-build
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-Requires:       cmake
-Recommends:     (ninja-build or make)
-Recommends:     python3dist(pyproject-metadata)
-Recommends:     python3dist(pathspec)
-Suggests:       ninja-build
-Suggests:       gcc
 
 %global _description %{expand:
 A next generation Python CMake adaptor and Python API for plugins}
@@ -29,6 +23,12 @@ A next generation Python CMake adaptor and Python API for plugins}
 
 %package -n python3-scikit-build-core
 Summary:        %{summary}
+Requires:       cmake
+Recommends:     (ninja-build or make)
+Recommends:     python3dist(pyproject-metadata)
+Recommends:     python3dist(pathspec)
+Suggests:       ninja-build
+Suggests:       gcc
 %description -n python3-scikit-build-core %_description
 
 %prep

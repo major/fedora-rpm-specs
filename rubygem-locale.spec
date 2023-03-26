@@ -6,7 +6,7 @@
 %global	gitdate_num	20131012
 
 %undefine	usegit
-%global	mainrel	1
+%global	baserelease	1
 
 # Generated from locale-2.0.0.gem by gem2rpm -*- rpm-spec -*-
 %if %{?fedora:0%{fedora} < 17}%{?rhel:0%{rhel} < 7}
@@ -23,15 +23,15 @@
 %global	gem_name	locale
 
 %if 0%{?usegit} >= 1
-%global	baserelease	%{mainrel}.D%{gitdate_num}git%{shorthash}
+%global	fedorarel	%{baserelease}.D%{gitdate_num}git%{shorthash}
 %else
-%global	baserelease	%{mainrel}
+%global	fedorarel	%{baserelease}
 %endif
 
 Summary:	Pure ruby library which provides basic APIs for localization
 Name:		rubygem-%{gem_name}
 Version:	2.1.3
-Release:	%{baserelease}%{?dist}.6
+Release:	%{fedorarel}%{?dist}
 License:	GPLv2 or Ruby
 URL:		http://locale.rubyforge.org/
 %if	0%{?usegit} >= 1

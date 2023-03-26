@@ -42,7 +42,7 @@ Utils for BOUT++
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version} -p 1
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
 

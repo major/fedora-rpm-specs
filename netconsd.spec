@@ -1,15 +1,13 @@
 %global forgeurl https://github.com/facebook/netconsd
 
 Name:           netconsd
-Version:        0.1
+Version:        0.2
 Release:        %autorelease
 Summary:        The Netconsole Daemon
 
 License:        BSD
 URL:            https://facebookmicrosites.github.io/netconsd
 Source:         %{forgeurl}/archive/v%{version}/%{name}-%{version}.tar.gz
-# ensure our LDFLAGS don't get clobbered
-Patch0:         %{forgeurl}/pull/14.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  make

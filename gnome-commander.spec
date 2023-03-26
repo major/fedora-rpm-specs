@@ -40,20 +40,20 @@
 
 %global        shortver              1.16
 %global        fullver               %{shortver}.0
-%global        mainrel               1
+%global        baserelease           1
 
 %if 0%{?use_release} >= 1
-%global        baserelease             %{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}
+%global        fedorarel             %{?prever:0.}%{baserelease}%{?prever:.%{prerpmver}}
 %endif
 %if 0%{?use_gitbare} >= 1
-%global        baserelease             %{mainrel}.%{git_version}
+%global        fedorarel             %{baserelease}.%{git_version}
 %endif
 
 Name:          gnome-commander
 # Downgrade 3 times, sorry...
 Epoch:         4
 Version:       %{fullver}
-Release:       %{baserelease}%{flagrel}%{?dist}
+Release:       %{fedorarel}%{flagrel}%{?dist}
 Summary:       A nice and fast file manager for the GNOME desktop
 Summary(pl):   Menadżer plików dla GNOME oparty o Norton Commander'a (TM)
 Summary(sv):   GNOME Commander är en snabb och smidig filhanderare för GNOME

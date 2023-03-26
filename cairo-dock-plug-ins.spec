@@ -9,7 +9,7 @@
 %global	shorthash	%(c=%{githash} ; echo ${c:0:7})
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
-%global	mainrel	42
+%global	baserelease	42
 
 
 %global	ruby_vendorlib	%(ruby -rrbconfig -e "puts RbConfig::CONFIG['vendorlibdir']")
@@ -28,7 +28,7 @@
 
 Name:			cairo-dock-plug-ins
 Version:		%{mainver}
-Release:		%{mainrel}%{?use_git:.%{gitdate}git%{shorthash}}%{?dist}.1
+Release:		%{baserelease}%{?use_git:.%{gitdate}git%{shorthash}}%{?dist}
 Summary:		Plug-ins files for Cairo-Dock
 
 License:		GPLv3+

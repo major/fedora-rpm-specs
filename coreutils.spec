@@ -1,7 +1,7 @@
 Summary: A set of basic GNU tools commonly used in shell scripts
 Name:    coreutils
 Version: 9.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv3+
 Url:     https://www.gnu.org/software/coreutils/
 Source0: https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
@@ -13,6 +13,12 @@ Source50:   supported_utils
 Source51:   coreutils-provides.inc
 Source105:  coreutils-colorls.sh
 Source106:  coreutils-colorls.csh
+
+# cksum: fix reporting of failed checks (#2180056)
+Patch1: coreutils-9.2-cksum-check.patch
+
+# copy: fix --reflink=auto to fallback in more cases (#2180056)
+Patch2: coreutils-9.2-cp-reflink.patch
 
 # do not make coreutils-single depend on /usr/bin/coreutils
 %global __requires_exclude ^%{_bindir}/coreutils$
@@ -252,6 +258,10 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %license COPYING
 
 %changelog
+* Fri Mar 24 2023 Kamil Dudka <kdudka@redhat.com> - 9.2-3
+- copy: fix --reflink=auto to fallback in more cases (#2180056)
+- cksum: fix reporting of failed checks (#2180056)
+
 * Wed Mar 22 2023 Kamil Dudka <kdudka@redhat.com> - 9.2-2
 - coreutils-getgrouplist.patch: drop a patch no longer needed
 

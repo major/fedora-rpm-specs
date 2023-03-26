@@ -1,6 +1,6 @@
 Name:           python-zodbpickle
-Version:        2.6
-Release:        2%{?dist}
+Version:        3.0
+Release:        1%{?dist}
 Summary:        Fork of Python 2 pickle module for ZODB
 
 # Code taken from the python 3 sources is covered by the PSF-2.0 license.
@@ -22,7 +22,7 @@ This package presents a uniform pickling interface for ZODB:
   can use to pickle binary values such that they will be unpickled as
   bytes under Py3k.
 - Under Py3k, this package forks the pickle module (and the supporting C
-  extension) from Python 3.5 through 3.11.  The fork adds support for
+  extension) from Python 3.7 through 3.12.  The fork adds support for
   the noload operations used by ZODB.}
 
 %description %{common_desc}
@@ -47,20 +47,17 @@ rst2html --no-datestamp README.rst README.html
 %pyproject_install
 %pyproject_save_files zodbpickle
 
-# We do not want the C source files or the python 2 interface
-rm -f %{buildroot}%{python3_sitearch}/zodbpickle/*.c
-rm -f %{buildroot}%{python3_sitearch}/zodbpickle/pickle*_2.py
-rm -fr %{buildroot}%{python3_sitearch}/zodbpickle/tests/*_2*
-rm -fr %{buildroot}%{python3_sitearch}/zodbpickle/tests/__pycache__/*_2*
-sed -ri '/pickle(tester|tools)?_2/d;/\.c$/d' %{pyproject_files}
-
 %check
 %tox
 
 %files -n python3-zodbpickle -f %{pyproject_files}
 %doc CHANGES.html README.html
+%exclude %{python3_sitearch}/zodbpickle/*.c
 
 %changelog
+* Fri Mar 24 2023 Jerry James <loganjerry@gmail.com> - 3.0-1
+- Version 3.0
+
 * Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 2.6-2
 - Dynamically generate BuildRequires
 

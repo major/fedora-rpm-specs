@@ -32,7 +32,7 @@ BuildRequires:	rubygem(pry)
 %if 0%{?fedora}
 %setIMver 40 1:7.1.1 1:7.1.2
 %setIMver 39 1:7.1.1 1:7.1.2
-%setIMver 38 1:7.1.0 1:7.1.1
+%setIMver 38 1:7.1.1 1:7.1.2
 %setIMver 37 1:6.9.12 1:6.9.13
 %setIMver 36 1:6.9.12 1:6.9.13
 %endif

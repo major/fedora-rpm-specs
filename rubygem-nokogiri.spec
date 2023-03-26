@@ -1,7 +1,7 @@
 %global	mainver		1.14.2
 #%%global	prever		.rc4
 
-%global	mainrel		1
+%global	baserelease		1
 %global	prerpmver		%(echo "%{?prever}" | sed -e 's|\\.||g')
 
 %global	gem_name	nokogiri
@@ -11,7 +11,7 @@
 Summary:	An HTML, XML, SAX, and Reader parser
 Name:		rubygem-%{gem_name}
 Version:	%{mainver}
-Release:	%{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}%{?dist}
+Release:	%{?prever:0.}%{baserelease}%{?prever:.%{prerpmver}}%{?dist}
 
 # SPDX confirmed
 # MIT: see LICENSE.md

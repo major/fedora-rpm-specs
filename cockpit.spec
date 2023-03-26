@@ -49,7 +49,7 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        288
+Version:        288.1
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
@@ -674,6 +674,9 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Fri Mar 24 2023 Packit <hello@packit.dev> - 288.1-1
+- Fix broken "SELinux" menu entry
+
 * Thu Mar 23 2023 Packit <hello@packit.dev> - 288-1
 - Accounts: Show shell and home directory on detail page
 - Accounts: Custom user ID during account creation

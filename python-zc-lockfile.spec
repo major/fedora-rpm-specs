@@ -1,5 +1,5 @@
 Name:           python-zc-lockfile
-Version:        3.0
+Version:        3.0.post1
 Release:        1%{?dist}
 Summary:        Basic Inter-Process Locks
 License:        ZPLv2.1
@@ -58,6 +58,9 @@ rm -f %{buildroot}%{python3_sitelib}/zc/lockfile/*.txt
 %dir %{python3_sitelib}/zc/
 
 %changelog
+* Fri Mar 24 2023 Dan Radez <dradez@redhat.com> - 3.0.post1-1
+- update to 3.0.post1 rhbz#2173862
+
 * Mon Feb 27 2023 Dan Radez <dradez@redhat.com> - 3.0-1
 - update to 3.0 rhbz#2172824
 

@@ -1,7 +1,7 @@
 %global glib2_version 2.76.0
 
 Name:           gobject-introspection
-Version:        1.76.0
+Version:        1.76.1
 Release:        1%{?dist}
 Summary:        Introspection system for GObject-based libraries
 
@@ -90,6 +90,9 @@ Libraries and headers for gobject-introspection
 %{_mandir}/man1/g-ir-scanner.1*
 
 %changelog
+* Fri Mar 24 2023 David King <amigadave@amigadave.com> - 1.76.1-1
+- Update to 1.76.1
+
 * Tue Mar 14 2023 David King <amigadave@amigadave.com> - 1.76.0-1
 - Update to 1.76.0
 

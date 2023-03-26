@@ -17,18 +17,18 @@
 %global	git_version	D%{gitbaredate}git%{git_short}
 %endif
 
-%global	mainrel		1
+%global	baserelease		1
 
 %if 0%{?use_release} >= 1
-%global         baserelease   %{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}
+%global         fedorarel   %{?prever:0.}%{baserelease}%{?prever:.%{prerpmver}}
 %endif
 %if 0%{?use_gitbare} >= 1
-%global         baserelease   %{mainrel}.%{git_version}
+%global         fedorarel   %{baserelease}.%{git_version}
 %endif
 
 Name:           lxtask
 Version:        0.1.10
-Release:        %{baserelease}%{?dist}.5
+Release:        %{fedorarel}%{?dist}
 Summary:        Lightweight and desktop independent task manager
 
 License:        GPLv2+

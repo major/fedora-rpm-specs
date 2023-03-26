@@ -416,6 +416,9 @@ install -dp %{buildroot}%{_libexecdir}/%{name}
 install -p -m0755 bin/gvproxy %{buildroot}%{_libexecdir}/%{name}
 cd ..
 
+# Sanitize paths in %%{_bindir}/docker
+sed -i 's;%{buildroot}%{_sysconfdir};%{_sysconfdir}/containers;g' %{buildroot}%{_bindir}/docker
+
 # do not include docker and podman-remote man pages in main package
 for file in `find %{buildroot}%{_mandir}/man[15] -type f | sed "s,%{buildroot},," | grep -v -e remote -e docker`; do
     echo "$file*" >> podman.file-list
