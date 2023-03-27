@@ -2,8 +2,8 @@
 
 Summary: Gives a fake root environment
 Name: fakeroot
-Version: 1.30.1
-Release: 2%{?dist}
+Version: 1.31
+Release: 1%{?dist}
 # setenv.c: LGPLv2+
 # contrib/Fakeroot-Stat-1.8.8: Perl (GPL+ or Artistic)
 # the rest: GPLv3+
@@ -14,11 +14,13 @@ Source0: https://ftp.debian.org/debian/pool/main/f/fakeroot/%{name}_%{version}.o
 
 # Debian package patches, from debian.tar.xz
 Patch2: debian_fix-shell-in-fakeroot.patch
-# Address some POSIX-types related problems.
-Patch4: fakeroot-inttypes.patch
+# git commit 8ce7846 2013-07-26  Address some POSIX-types related problems.
+# Patch4: fakeroot-inttypes.patch
 # Fix LD_LIBRARY_PATH for multilib: https://bugzilla.redhat.com/show_bug.cgi?id=1241527
 Patch5: fakeroot-multilib.patch
-Patch7: relax_tartest.patch
+# Patch7: relax_tartest.patch
+# Fix from Debian for i686
+Patch8: compile-time64-wraps-with-D_TIME_BITS-64.patch
 
 
 BuildRequires: make
@@ -165,6 +167,12 @@ fi
 %ghost %{_libdir}/libfakeroot/libfakeroot-0.so
 
 %changelog
+* Wed Mar 15 2023 Sérgio Basto <sergio@serjux.com> - 1.31-1
+- Update fakeroot to 1.31 (#2167522)
+- Add fix from Debian
+- Drop fakeroot-inttypes.patch which had almost 10 year old and I dont know what his purpose
+- Drop relax_tartest.patch we don't need it anymore
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.30.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -12,7 +12,7 @@
 Summary: A tool for automatically mounting and unmounting filesystems
 Name: autofs
 Version: 5.1.8
-Release: 9%{?dist}
+Release: 20%{?dist}
 Epoch: 1
 License: GPLv2+
 Source: https://www.kernel.org/pub/linux/daemons/autofs/v5/autofs-%{version}.tar.gz
@@ -38,6 +38,36 @@ Patch19: autofs-5.1.8-dont-use-initgroups-at-spawn.patch
 Patch20: autofs-5.1.8-fix-missing-unlock-in-sasl_do_kinit_ext_cc.patch
 Patch21: autofs-5.1.8-fix-invalid-tsv-access.patch
 Patch22: autofs-5.1.8-configure-c99.patch
+Patch23: autofs-5.1.8-fix-autofs-regression-due-to-positive_timeout.patch
+Patch24: autofs-5.1.8-fix-parse-module-instance-mutex-naming.patch
+Patch25: autofs-5.1.8-serialise-lookup-module-open-and-reinit.patch
+Patch26: autofs-5.1.8-coverity-fix-for-invalid-access.patch
+Patch27: autofs-5.1.8-fix-hosts-map-deadlock-on-restart.patch
+Patch28: autofs-5.1.8-fix-deadlock-with-hosts-map-reload.patch
+Patch29: autofs-5.1.8-fix-memory-leak-in-update_hosts_mounts.patch
+Patch30: autofs-5.1.8-fix-minus-only-option-handling-in-concat_options.patch
+Patch31: autofs-5.1.8-fix-incorrect-path-for-is_mounted-in-try_remount.patch
+Patch32: autofs-5.1.8-fix-additional-tsv-invalid-access.patch
+Patch33: autofs-5.1.8-fix-use_ignore_mount_option-description.patch
+Patch34: autofs-5.1.8-include-addtional-log-info-for-mounts.patch
+Patch35: autofs-5.1.8-fail-on-empty-replicated-host-name.patch
+Patch36: autofs-5.1.8-improve-handling-of-ENOENT-in-sss-setautomntent.patch
+Patch37: autofs-5.1.8-dont-immediately-call-function-when-waiting.patch
+Patch38: autofs-5.1.8-fix-return-status-of-mount_autofs.patch
+Patch39: autofs-5.1.8-dont-close-lookup-at-umount.patch
+Patch40: autofs-5.1.8-fix-deadlock-in-lookups.patch
+Patch41: autofs-5.1.8-dont-delay-expire.patch
+Patch42: autofs-5.1.8-make-amd-mapent-search-function-name-clear.patch
+Patch43: autofs-5.1.8-rename-statemachine-to-signal_handler.patch
+Patch44: autofs-5.1.8-make-signal-handling-consistent.patch
+Patch45: autofs-5.1.8-eliminate-last-remaining-state_pipe-usage.patch
+Patch46: autofs-5.1.8-add-function-master_find_mapent_by_devid.patch
+Patch47: autofs-5.1.8-use-device-id-to-locate-autofs_point-when-setting-log-priotity.patch
+Patch48: autofs-5.1.8-add-command-pipe-handling-functions.patch
+Patch49: autofs-5.1.8-switch-to-application-wide-command-pipe.patch
+Patch50: autofs-5.1.8-get-rid-of-unused-field-submnt_count.patch
+Patch51: autofs-5.1.8-fix-mount-tree-startup-reconnect.patch
+Patch52: autofs-5.1.8-fix-unterminated-read-in-handle_cmd_pipe_fifo_message.patch
 
 %if %{with_systemd}
 BuildRequires: systemd-units
@@ -124,6 +154,36 @@ echo %{version}-%{release} > .version
 %patch20 -p1
 %patch21 -p1
 %patch22 -p1
+%patch23 -p1
+%patch24 -p1
+%patch25 -p1
+%patch26 -p1
+%patch27 -p1
+%patch28 -p1
+%patch29 -p1
+%patch30 -p1
+%patch31 -p1
+%patch32 -p1
+%patch33 -p1
+%patch34 -p1
+%patch35 -p1
+%patch36 -p1
+%patch37 -p1
+%patch38 -p1
+%patch39 -p1
+%patch40 -p1
+%patch41 -p1
+%patch42 -p1
+%patch43 -p1
+%patch44 -p1
+%patch45 -p1
+%patch46 -p1
+%patch47 -p1
+%patch48 -p1
+%patch49 -p1
+%patch50 -p1
+%patch51 -p1
+%patch52 -p1
 
 %build
 LDFLAGS=-Wl,-z,now
@@ -231,6 +291,38 @@ fi
 %dir /etc/auto.master.d
 
 %changelog
+* Sat Mar 25 2023 Ian Kent <ikent@redhat.com> - 1:5.1.8-20
+- fix autofs regression due to positive_timeout.
+- fix parse module instance mutex naming.
+- serialise lookup module open and reinit.
+- coverity fix for invalid access.
+- fix hosts map deadlock on restart.
+- fix deadlock with hosts map reload.
+- fix memory leak in update_hosts_mounts().
+- fix minus only option handling in concat_options().
+- fix incorrect path for is_mounted() in try_remount().
+- fix additional tsv invalid access.
+- fix use_ignore_mount_option description.
+- include addtional log info for mounts.
+- fail on empty replicated host name.
+- improve handling of ENOENT in sss setautomntent().
+- don't immediately call function when waiting.
+- fix return status of mount_autofs().
+- don't close lookup at umount.
+- fix deadlock in lookups.
+- dont delay expire.
+- make amd mapent search function name clear.
+- rename statemachine() to signal_handler().
+- make signal handling consistent.
+- eliminate last remaining state_pipe usage.
+- add function master_find_mapent_by_devid().
+- use device id to locate autofs_point when setting log priotity.
+- add command pipe handling functions.
+- switch to application wide command pipe.
+- get rid of unused field submnt_count.
+- fix mount tree startup reconnect.
+- fix unterminated read in handle_cmd_pipe_fifo_message().
+
 * Fri Mar 10 2023 Arjun Shankar <arjun@redhat.com> - 1:5.1.8-9
 - Port configure script to C99
 

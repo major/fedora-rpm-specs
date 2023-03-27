@@ -1,5 +1,5 @@
 Name:           bout++
-Version:        4.4.2
+Version:        5.0.0
 Release:        %autorelease
 Summary:        Library for the BOUndary Turbulence simulation framework
 
@@ -7,6 +7,16 @@ Summary:        Library for the BOUndary Turbulence simulation framework
 License:        GPLv3+
 URL:            https://boutproject.github.io/
 Source0:        https://github.com/boutproject/BOUT-dev/releases/download/v%{version}/BOUT++-v%{version}.tar.gz
+
+Patch:  https://github.com/boutproject/BOUT-dev/pull/2659.patch
+Patch:  https://github.com/boutproject/BOUT-dev/pull/2661.patch
+Patch:  https://github.com/boutproject/BOUT-dev/pull/2664.patch
+# Removed confliting whitespace changes in PVODE
+Patch:  https://github.com/boutproject/BOUT-dev/pull/2678.patch
+Patch:  https://github.com/boutproject/BOUT-dev/commit/489270184ba9e03cb9996c614050cb92513424e6.patch#./petsc_318_compat.patch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 %if 0%{?fedora} >= 33
 %bcond_without flexiblas
@@ -44,16 +54,16 @@ Source0:        https://github.com/boutproject/BOUT-dev/releases/download/v%{ver
 
 BuildRequires:  m4
 BuildRequires:  zlib-devel
-BuildRequires:  autoconf
-BuildRequires:  autoconf-archive
+BuildRequires:  cmake
 BuildRequires:  gettext-devel
-BuildRequires:  automake
 BuildRequires:  environment-modules
 BuildRequires:  netcdf-devel
 BuildRequires:  netcdf-cxx%{?fedora:4}-devel
 BuildRequires:  hdf5-devel
 BuildRequires:  fftw-devel
 BuildRequires:  make
+BuildRequires:  fmt-devel
+BuildRequires:  chrpath
 BuildRequires:  python%{python3_pkgversion}
 BuildRequires:  python%{python3_pkgversion}-numpy
 BuildRequires:  python%{python3_pkgversion}-Cython
@@ -309,8 +319,6 @@ Recommends: python%{python3_pkgversion}-boutdata
 
 BuildArch: noarch
 %py_provides python%{python3_pkgversion}-%{name}
-%py_provides python%{python3_pkgversion}-bout_runners
-%py_provides python%{python3_pkgversion}-zoidberg
 
 %description -n python%{python3_pkgversion}-%{name}
 Python%{python3_pkgversion} library for pre and post processing of BOUT++ data
@@ -339,9 +347,12 @@ This package contains the documentation.
 #
 
 %prep
-%autosetup -n BOUT++-v%{version} -p 1
+%autosetup -n BOUT++-v%{version}.dev10626+gd935fa1ea -p 1
 
-sed -e '/boututils/d' -e '/boutdata/d' -i make.config.in
+
+# Switch to standard theme
+# sphinx_book_theme is not packaged
+sed -e 's/html_theme = "sphinx_book_theme"/html_theme = "sphinxdoc"/' -i manual/sphinx/conf.py
 
 %if %{with system_mpark}
 # use mpark provided by fedora
@@ -358,10 +369,6 @@ do
     sed -i '/^#!\//d' $f
 done
 
-autoupdate
-touch build-aux/config.rpath
-autoreconf -vif
-
 
 #
 #           BUILD
@@ -376,11 +383,10 @@ export CXX=mpicxx
 for mpi in %{mpi_list}
 do
   mkdir build_$mpi
-  cp -al [^b]* build-aux bin build_$mpi
 done
 for mpi in %{mpi_list}
 do
-  pushd build_$mpi
+  %global _vpath_builddir build_$mpi
   if [ $mpi = mpich ] ; then
       %_mpich_load
   elif [ $mpi = openmpi ] ; then
@@ -390,54 +396,43 @@ do
       exit 1
   fi
 
-  %configure \
-	     --with-netcdf \
-             --with-hdf5 \
-             --enable-shared \
-	     --with-system-mpark \
-    --libdir=%{_libdir}/$mpi/lib \
-    --bindir=%{_libdir}/$mpi/bin \
-    --sbindir=%{_libdir}/$mpi/sbin \
-    --includedir=%{_includedir}/$mpi-%{_arch} \
-    --datarootdir=%{_datadir} \
+  %cmake \
+      -DBOUT_USE_FFTW=ON \
+      -DBOUT_USE_NETCDF=ON \
+      -DBOUT_USE_SCOREP=OFF \
+      -DBOUT_USE_SYSTEM_MPARK_VARIANT=ON \
+      -DBOUT_USE_LAPACK=ON \
+      -DBOUT_USE_NLS=ON \
+      -DBOUT_USE_SYSTEM_FMT=ON \
+      -DBOUT_USE_UUID_SYSTEM_GENERATOR=ON \
+      -DCMAKE_INSTALL_PREFIX=/ \
+      -DCMAKE_INSTALL_LIBDIR=%{_libdir}/$mpi/lib \
+      -DCMAKE_INSTALL_BINDIR=%{_libdir}/$mpi/bin \
+      -DCMAKE_INSTALL_INCLUDEDIR=%{_includedir}/$mpi-%{_arch}/bout++/ \
+      -DCMAKE_INSTALL_DATAROOTDIR=%{_datadir} \
+      -DCMAKE_INSTALL_PYTHON_SITEARCH=${MPI_PYTHON3_SITEARCH} \
+%if %{with manual}
+      -DBOUT_BUILD_DOCS=ON \
+%endif
 %if %{with petsc}
-           --with-petsc \
+      -DBOUT_USE_PETSC=ON \
 %endif
 %if %{with sundials}
-           --with-sundials \
+      -DBOUT_USE_SUNDIALS=ON \
 %endif
 
-  sed -e "s| -L%{_libdir} | |g" \
-      -e "s| -Wl,--as-needed | |g" \
-      -i make.config
+      %cmake_build
 
-  # Debug linking issues:
-  # -e 's|@$(LD)|$(LD)|'  \
+%if %{with manual}
+      %global _vpath_builddir build_$mpi/manual
+      %cmake_build
+%endif
 
-  %if %{with flexiblas}
-  sed -e 's|-lblas|-lflexiblas|g' \
-      -e 's|-llapack|-lflexiblas|g' \
-      -i make.config
-  %endif
-
-  # We musn't escape anymore
-  sed -e 's/\\#/#/g' -i make.config
-
-  cat make.config
-
-  make %{?_smp_mflags} shared
-  ls -l lib
-  make %{?_smp_mflags} python
-  export LD_LIBRARY_PATH=$(pwd)/lib
-  %if %{with manual}
-  make %{?_smp_mflags} -C manual html
-  %endif
   if [ $mpi = mpich ] ; then
       %_mpich_unload
   elif [ $mpi = openmpi ] ; then
       %_openmpi_unload
   fi
-  popd
 done
 
 #
@@ -448,19 +443,20 @@ done
 
 for mpi in %{mpi_list}
 do
-  pushd build_$mpi
+  %global _vpath_builddir build_$mpi
   if [ $mpi = mpich ] ; then
       %_mpich_load
   else
       %_openmpi_load
   fi
-  make install DESTDIR=${RPM_BUILD_ROOT}
+  %cmake_install
 
-  # mark this as a released version, to disable compiling the library
-  sed -i '27 i RELEASED                 = %{version}-%{release}' ${RPM_BUILD_ROOT}/%{_includedir}/${mpi}-%{_arch}/bout++/make.config
+  for f in $(find ${RPM_BUILD_ROOT}/${MPI_LIB} ${RPM_BUILD_ROOT}/${MPI_PYTHON3_SITEARCH} | grep /libbout) ; do
+    chrpath -r $MPI_LIB $f
+  done
 
   rm -rf  ${RPM_BUILD_ROOT}/usr/share/bout++
-  popd
+
   mkdir -p ${RPM_BUILD_ROOT}/usr/share/modulefiles/bout++
   cat > ${RPM_BUILD_ROOT}/usr/share/modulefiles/bout++/$MPI_COMPILER <<EOF
 #%Module 1.0
@@ -475,6 +471,11 @@ prereq mpi/$MPI_COMPILER
 setenv    BOUT_TOP   $MPI_INCLUDE/bout++/
 EOF
 
+%if %{with manual}
+      %global _vpath_builddir build_$mpi/manual
+      %cmake_install
+%endif
+
   if [ $mpi = mpich ] ; then
       %_mpich_unload
   else
@@ -482,31 +483,6 @@ EOF
   fi
 done
 
-# install python libraries
-pushd tools/pylib
-for d in bout_runners zoidberg
-do
-    mkdir -p ${RPM_BUILD_ROOT}/%{python3_sitelib}/$d
-    cp $d/*py ${RPM_BUILD_ROOT}/%{python3_sitelib}/$d/
-done
-popd
-
-# install manual
-%if %{with manual}
-mandir=$(ls build_*/manual -d|head -n1)
-mkdir -p ${RPM_BUILD_ROOT}/%{_defaultdocdir}/bout++/
-rm -rf $mandir/html/.buildinfo
-rm -rf $mandir/html/.doctrees
-rm -rf $mandir/html/_sources
-cp -r $mandir/html ${RPM_BUILD_ROOT}/%{_defaultdocdir}/bout++/
-%endif
-
-# install boutcore library
-for mpi in %{mpi_list}
-do
-    mkdir -p ${RPM_BUILD_ROOT}/%{python3_sitearch}/${mpi}/
-    install build_$mpi/tools/pylib/boutcore.*.so ${RPM_BUILD_ROOT}/%{python3_sitearch}/${mpi}/
-done
 
 %find_lang libbout
 
@@ -560,7 +536,7 @@ done
 
 %if %{with mpich}
 %files mpich
-%{_libdir}/mpich/lib/libbout++.so.4.4.0
+%{_libdir}/mpich/lib/libbout++.so.5.0.0
 %{_libdir}/mpich/lib/*.so.1.0.0
 %{_libdir}/mpich/bin/*
 %doc README.md
@@ -575,6 +551,7 @@ done
 %files mpich-devel
 %{_includedir}/mpich-%{_arch}/bout++
 %{_libdir}/mpich/lib/*.so
+%{_libdir}/mpich/lib/cmake/*
 
 %files -n python%{python3_pkgversion}-%{name}-mpich
 %{python3_sitearch}/mpich/*
@@ -583,7 +560,7 @@ done
 
 %if %{with openmpi}
 %files openmpi
-%{_libdir}/openmpi/lib/libbout++.so.4.4.0
+%{_libdir}/openmpi/lib/libbout++.so.5.0.0
 %{_libdir}/openmpi/lib/*.so.1.0.0
 %{_libdir}/openmpi/bin/*
 %doc README.md
@@ -598,6 +575,7 @@ done
 %files openmpi-devel
 %{_includedir}/openmpi-%{_arch}/bout++
 %{_libdir}/openmpi/lib/*.so
+%{_libdir}/openmpi/lib/cmake/*
 
 %files -n python%{python3_pkgversion}-%{name}-openmpi
 %{python3_sitearch}/openmpi/*
@@ -607,8 +585,6 @@ done
 %dir /usr/share/modulefiles/bout++/
 
 %files -n python%{python3_pkgversion}-%{name}
-%{python3_sitelib}/bout_runners
-%{python3_sitelib}/zoidberg
 %doc README.md
 %doc CITATION.bib
 %doc CITATION.cff

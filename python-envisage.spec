@@ -3,20 +3,19 @@
 #global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           python-%{srcname}
-Version:        6.1.1
+Version:        7.0.1
 Release:        1%{?dist}
 Summary:        Extensible application framework
 
 # Images have different licenses. For image license breakdown check
 # image_LICENSE.txt file.
 # All remaining source or image files are in BSD 3-clause license
-License:        BSD and LGPLv2 and CC-BY-SA
+License:        BSD-3-Clause AND LGPL-2.0-only AND CC-BY-SA-1.0 AND CC-BY-SA-2.5 AND CC-BY-SA-3.0 AND CC-BY-SA-4.0
 URL:            https://github.com/enthought/envisage
 Source0:        https://github.com/enthought/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
 BuildArch:      noarch
 # For docs
-BuildRequires:  python%{python3_pkgversion}-sphinx
 BuildRequires:  python%{python3_pkgversion}-sphinx-copybutton
 BuildRequires:  python%{python3_pkgversion}-enthought-sphinx-theme
 # For tests
@@ -46,17 +45,6 @@ build GUIs from Envisage.  It is now recommended to use the Task framework.
 %package -n python%{python3_pkgversion}-%{srcname}
 Summary:        Extensible application framework
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
-# For tests
-BuildRequires:  python%{python3_pkgversion}-apptools
-BuildRequires:  python%{python3_pkgversion}-ipykernel
-BuildRequires:  python%{python3_pkgversion}-ipython
-BuildRequires:  python%{python3_pkgversion}-traitsui
-Requires:       python%{python3_pkgversion}-apptools
-Requires:       python%{python3_pkgversion}-ipykernel
-Requires:       python%{python3_pkgversion}-ipython
-Requires:       python%{python3_pkgversion}-traitsui
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
 
 %description -n python%{python3_pkgversion}-%{srcname}
 Envisage is a Python-based framework for building extensible applications,
@@ -81,7 +69,7 @@ build GUIs from Envisage.  It is now recommended to use the Task framework.
 
 %package doc
 Summary:        Documentation for %{name}
-License:        BSD and CC-BY-SA
+License:        BSD-3-Clause AND CC-BY-SA-1.0 AND CC-BY-SA-2.5 AND CC-BY-SA-3.0 AND CC-BY-SA-4.0
 
 %description doc
 Documentation and examples for %{name}
@@ -94,29 +82,31 @@ sed -i -e 's/\r//' docs/source/envisage_core_documentation/*.rst
 # Cleanup
 find -name .gitignore -delete
 
+%generate_buildrequires
+%pyproject_buildrequires -t
+
 
 %build
-%py3_build
-%__python3 -m sphinx -b html docs/source docs/build
+%pyproject_wheel
+xvfb-run %__python3 -m sphinx -b html docs/source docs/build
 rm docs/build/.buildinfo
 mv docs/build docs/html
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{srcname}
 # Do not ship tests
 find %{buildroot}%{python3_sitelib}/%{srcname} -name tests -type d -exec rm -r {} +
+sed -i -e '\,/tests$,d' -e '\,/tests/,d' %{pyproject_files}
 
 
 %check
 xvfb-run %{__python3} -m unittest discover -v envisage
 
  
-%files -n python%{python3_pkgversion}-%{srcname}
+%files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
 %license *LICENSE*
-%doc CHANGES.rst README.rst
-%{python3_sitelib}/%{srcname}/
-%{python3_sitelib}/*egg-info/
 
 %files doc
 %license *LICENSE*
@@ -124,6 +114,10 @@ xvfb-run %{__python3} -m unittest discover -v envisage
 
 
 %changelog
+* Sat Mar 25 2023 Orion Poplawski <orion@nwra.com> - 7.0.1-1
+- Update to 7.0.1
+- Use SPDX License tag
+
 * Thu Feb 16 2023 Orion Poplawski <orion@nwra.com> - 6.1.1-1
 - Update to 6.1.1
 

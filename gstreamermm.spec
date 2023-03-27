@@ -5,7 +5,7 @@
 
 Name:           gstreamermm
 Version:        1.10.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 
 Summary:        C++ wrapper for GStreamer library
 
@@ -33,6 +33,8 @@ BuildRequires: doxygen graphviz m4
 %if 0%{?fedora}
 BuildRequires: mingw32-filesystem
 BuildRequires: mingw64-filesystem
+BuildRequires: mingw32-gcc-c++
+BuildRequires: mingw64-gcc-c++
 BuildRequires: mingw32-glibmm24
 BuildRequires: mingw64-glibmm24
 BuildRequires: mingw32-gtkmm30
@@ -194,6 +196,9 @@ popd
 %endif
 
 %changelog
+* Sat Mar 25 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.10.0-19
+- add missing build dependencies on mingw g++
+
 * Wed Feb 01 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.10.0-18
 - fix FTBFS with gtest-1.13.0 (fixes rhbz#2165230)
 

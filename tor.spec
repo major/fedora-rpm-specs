@@ -20,7 +20,7 @@
 
 Name:       tor
 Version:    0.4.7.13
-Release:    2%{?dist}
+Release:    3%{?dist}
 License:    BSD
 Summary:    Anonymizing overlay network for TCP
 URL:        https://www.torproject.org
@@ -184,6 +184,9 @@ fi
 
 
 %changelog
+* Sat Mar 25 2023 Marcel Härry <mh+fedora@scrit.ch> - 0.4.7.13-3
+- Rebuilt to address issue bz#2180871
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.7.13-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

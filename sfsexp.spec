@@ -1,17 +1,14 @@
 Name:		sfsexp
 %global libname	libsexp
-Version:	1.4.0
+Version:	1.4.1
 %global soname	1
 %global sominor	0.0
-Release:	5%{?dist}
+Release:	1%{?dist}
 Summary:	Small Fast S-Expression Library
 
 License:	LGPL-2.1-or-later
 URL:		https://github.com/mjsottile/sfsexp
 Source0:	%{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
-# included in the repo but not the distribution archive (until a new release is
-# cut containing https://github.com/mjsottile/sfsexp/pull/20) :
-Source1:	LICENSE_LGPL
 
 BuildRequires:	gcc
 Buildrequires:	perl-interpreter
@@ -35,7 +32,6 @@ developing applications that use %{name}.
 %build
 %configure --disable-static
 %make_build
-cp -p %{SOURCE1} .
 
 %check
 pushd tests
@@ -58,6 +54,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sat Mar 25 2023 Michael J Gruber <mjg@fedoraproject.org> - 1.4.1-1
+- Update to 1.4.1 (rhbz#2181691)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

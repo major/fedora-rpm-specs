@@ -2,8 +2,8 @@
 %{!?version_no_tilde: %define version_no_tilde %{shrink:%(echo '%{version}' | tr '~' '-')}}
 
 Name:           btrfs-progs
-Version:        6.2.1
-Release:        2%{?dist}
+Version:        6.2.2
+Release:        1%{?dist}
 Summary:        Userspace programs for btrfs
 
 License:        GPL-2.0-only
@@ -154,6 +154,9 @@ popd
 %{python3_sitearch}/btrfsutil-*.egg-info/
 
 %changelog
+* Sun Mar 26 2023 Neal Gompa <ngompa@fedoraproject.org> - 6.2.2-1
+- Update to 6.2.2
+
 * Wed Mar 22 2023 Neal Gompa <ngompa@fedoraproject.org> - 6.2.1-2
 - Add patch to force default sectorsize to 4k
 

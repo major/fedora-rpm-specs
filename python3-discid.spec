@@ -1,50 +1,53 @@
-%global srcname python3-discid
-%global sum Libdiscid Python bindings
-%global desc Python-discid implements Python bindings for MusicBrainz libdiscid.
-
-Name:    %{srcname}
+Name:    python3-discid
 Version: 1.2.0
-Release: 7%{?dist}
-Summary: %{sum}
+Release: 8%{?dist}
+Summary: Libdiscid Python bindings
 URL:     https://github.com/JonnyJD/python-discid
 License: LGPLv3+
 
-Source0: https://github.com/JonnyJD/python-discid/archive/v%{version}/%{srcname}-%{version}.tar.gz
+Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildArch: noarch
-
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
-BuildRequires: python3-sphinx
-
 Requires: libdiscid
 
 
 %description
-%{desc}
+Python-discid implements Python bindings for MusicBrainz libdiscid.
+
 
 %prep
 %autosetup -n python-discid-%{version}
 
-%build
-%py3_build
 
-# Generate html docs
-PYTHONPATH=${PWD} sphinx-build-3 doc/ html
-# Remove the sphinx-build leftovers
-rm -rf html/.{doctrees,buildinfo}
+%generate_buildrequires
+%pyproject_buildrequires
+
+
+%build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files discid
 
-%files
-%{python3_sitelib}/discid-*.egg-info
-%{python3_sitelib}/discid/
+
+%check
+%{python3} setup.py check
+
+
+%files -f %{pyproject_files}
 %license COPYING COPYING.LESSER
 %doc README.rst CHANGES.rst
-%docdir /html
+
 
 %changelog
+* Sat Mar 25 2023 Peter Oliver <rpm@mavit.org.uk> - 1.2.0-8
+- Don’t build the documentation (since we weren’t installing it anyway).
+  Fixes #2180481.
+- Follow latest Python packaging guidelines.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

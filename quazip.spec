@@ -1,5 +1,3 @@
-%undefine __cmake_in_source_build
-
 %if 0%{?rhel}
 # EPEL - only Qt5 packages
 %bcond_with	qt4
@@ -212,21 +210,20 @@ export QT_ENABLE_REGEXP_JIT=0
 
 %if %{with qt4}
 %global _vpath_builddir build-qt4
-%cmake_build -t check
+%ctest
 %endif
 
 %if %{with qt5}
 %global _vpath_builddir build-qt5
-%cmake_build -t check
+%ctest
 %endif
 
 %if %{with qt6}
 %global _vpath_builddir build-qt6
-%cmake_build -t check
+%ctest
 %endif
 %endif
 
-%ldconfig_scriptlets
 
 %if %{with qt4}
 %files

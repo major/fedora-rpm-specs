@@ -7,7 +7,7 @@
 Name:		lightdm
 Summary:	A cross-desktop Display Manager
 Version:	1.32.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 
 # library/bindings are LGPLv2 or LGPLv3, the rest GPLv3+
 License:	(LGPLv2 or LGPLv3) and GPLv3+
@@ -20,6 +20,7 @@ Source12:	lightdm-tmpfiles.conf
 Source13:	lightdm.service
 Source14:	lightdm.logrotate
 Source15:	lightdm.rules
+Source16:	lightdm.sysusers
 
 
 # .conf snippets
@@ -57,7 +58,7 @@ BuildRequires:	pkgconfig(Qt5Core) pkgconfig(Qt5DBus) pkgconfig(Qt5Gui)
 BuildRequires:	pkgconfig(x11)
 BuildRequires:	pkgconfig(xcb)
 BuildRequires:	pkgconfig(xdmcp)
-BuildRequires:	systemd
+BuildRequires:	systemd-rpm-macros
 BuildRequires:	vala
 
 Requires:	%{name}-gobject%{?_isa} = %{version}-%{release}
@@ -66,15 +67,16 @@ Requires:	dbus
 %if 0%{?fedora} || 0%{?rhel} >= 7
 Requires:	polkit-js-engine
 %endif
+Requires:	/sbin/nologin
 Requires:	systemd
 Requires:	xorg-x11-xinit
 Requires:   (lightdm-greeter = 1.2 if xorg-x11-server-Xorg)
 %{?systemd_requires}
+%{?sysusers_requires_compat}
 
 Obsoletes: lightdm-qt < %{version}-%{release}
 Obsoletes: lightdm-qt-devel < %{version}-%{release}
 
-Requires(pre):	shadow-utils
 Requires(post):	psmisc dbus-daemon
 
 # needed for anaconda to boot into runlevel 5 after install
@@ -182,6 +184,7 @@ rm -fv %{buildroot}%{_libdir}/lib*.la
 %{__install} -Dpm 0644 %{SOURCE13} %{buildroot}%{_unitdir}/lightdm.service
 %{__install} -Dpm 0644 %{SOURCE14} %{buildroot}%{_sysconfdir}/logrotate.d/lightdm
 %{__install} -Dpm 0644 %{SOURCE15} %{buildroot}%{_datadir}/polkit-1/rules.d/lightdm.rules
+%{__install} -Dpm 0644 %{SOURCE16} %{buildroot}%{_sysusersdir}/lightdm.conf
 %{__install} -pm 0644 %{SOURCE20} %{SOURCE21} %{SOURCE22} %{SOURCE23}	\
 	%{SOURCE24} %{SOURCE25} %{SOURCE26} %{buildroot}%{_datadir}/lightdm/lightdm.conf.d/
 
@@ -196,10 +199,7 @@ rm -fv %{buildroot}%{_libdir}/lib*.la
 
 
 %pre
-%{_bindir}/getent group lightdm >/dev/null || %{_sbindir}/groupadd -r lightdm
-%{_bindir}/getent passwd lightdm >/dev/null || %{_sbindir}/useradd -g lightdm \
-	-M -d /var/lib/lightdm -s /sbin/nologin -r lightdm
-exit 0
+%sysusers_create_compat %{SOURCE16}
 
 %post
 # todo: document need/purpose for this snippet
@@ -240,6 +240,7 @@ fi
 %{_libdir}/girepository-1.0/LightDM-1.typelib
 %{_mandir}/man1/dm-tool.1*
 %{_mandir}/man1/lightdm*
+%{_sysusersdir}/lightdm.conf
 %{_unitdir}/lightdm.service
 %{_datadir}/accountsservice
 %{_datadir}/dbus-1/interfaces/*.xml
@@ -277,6 +278,9 @@ fi
 
 
 %changelog
+* Sat Mar 25 2023 Leigh Scott <leigh123linux@gmail.com> - 1.32.0-4
+- Use systemd sysusers config to create user and group
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.32.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

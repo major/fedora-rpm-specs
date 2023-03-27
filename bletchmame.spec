@@ -5,15 +5,19 @@ Version:        2.15
 Release:        %autorelease
 Summary:        MAME emulator frontend
 
-License:        GPLv3
+License:        GPL-3.0-or-later
 URL:            https://www.bletchmame.org
-Source0:        %{forgeurl}/archive/v%{version}/%{name}-%{version}.tar.gz
-Source1:        README.fedora
+Source:         %{forgeurl}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source:         README.fedora
 # Use the distribution MAME by default
-Patch0:         bletchmame-default-paths.patch
+Patch:          bletchmame-default-paths.patch
+# Avoid method deprecated in Qt 6.4.0
+Patch:          %{forgeurl}/commit/a72c6cc3b83209c446394528e36cc69b45cb9132.patch
+# Qt 6.4 compilation fixes
+Patch:          %{forgeurl}/commit/b7866b44c8222697ffe3cdc1b101f4d7d7da6bce.patch
 # Disable broken tests on 32 bit architectures
 # https://github.com/npwoods/bletchmame/issues/256
-Patch1:         bletchmame-disable-broken-tests.patch
+Patch:          bletchmame-disable-broken-tests.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -27,6 +31,7 @@ BuildRequires:  qt6-qttools-devel
 BuildRequires:  qt6-qtbase-devel
 BuildRequires:  qt6-qt5compat-devel
 BuildRequires:  quazip-qt6-devel
+BuildRequires:  sed
 BuildRequires:  zlib-devel
 
 Recommends:     mame
@@ -44,9 +49,11 @@ emulation.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
+%patch2 -p1
 # Disable broken tests on 32 bit architectures
 %ifarch armv7hl i686 s390x
-%patch1 -p1
+%patch3 -p1
 %endif
 
 cp -p %{SOURCE1} .
@@ -59,6 +66,13 @@ ln -s %{_includedir}/observable lib/observable
 mkdir include
 echo "v%{version}" | \
   perl scripts/process_version.pl --versionhdr > include/version.gen.h
+
+# Disable -Werror to avoid build failures
+sed -i 's/-Werror//' CMakeLists.txt
+
+# Disable broken test due to Qt upgrade
+rm src/tests/prefs_test.cpp
+sed -i 's:src/tests/prefs_test.cpp::g' CMakeLists.txt
 
 %build
 # Disable libraries as they're only for internal use and not meant to be

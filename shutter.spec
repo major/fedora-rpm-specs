@@ -8,10 +8,10 @@
 
 Name:       shutter
 %if 0%{?usesnapshot}
-Version:    0.99.3
+Version:    0.99.5
 Release:    0.1%{?snapshottag}%{?dist}
 %else
-Version:    0.99.3
+Version:    0.99.4
 Release:    1%{?dist}
 %endif
 Summary:    GTK+3-based screenshot application written in Perl
@@ -95,11 +95,6 @@ chmod 0644 %{buildroot}%{_datadir}/%{name}/resources/system/upload_plugins/uploa
 
 %find_lang %{name} --all-name
 
-# Install AppData
-mkdir -p %{buildroot}%{_metainfodir}/
-cp share/appdata/shutter.appdata.xml %{buildroot}%{_metainfodir}/shutter.appdata.xml
-rm %{buildroot}/%{_datadir}/appdata/shutter.appdata.xml
-
 # Symlink duplicated files
 rm %{buildroot}%{_datadir}/icons/HighContrast/scalable/apps/shutter-panel.svg
 ln -s %{_datadir}/icons/HighContrast/scalable/apps/shutter.svg %{buildroot}%{_datadir}/icons/HighContrast/scalable/apps/shutter-panel.svg
@@ -123,7 +118,7 @@ ln -s %{_datadir}/icons/Tango/scalable %{buildroot}/%{_datadir}/shutter/resource
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
-appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.metainfo.xml
 
 %files -f %{name}.lang
 %doc CHANGES README
@@ -131,7 +126,7 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %license %{_datadir}/%{name}/resources/license/*
 %{_bindir}/%{name}
 %{perl_vendorlib}/Shutter/
-%{_metainfodir}/%{name}.appdata.xml
+%{_metainfodir}/%{name}.metainfo.xml
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/%{name}
 %{_mandir}/man1/%{name}*
@@ -140,6 +135,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %{_datadir}/icons/HighContrast/
 
 %changelog
+* Sat Mar 25 2023 Martin Gansser <martinkg@fedoraproject.org> - 0.99.4-1
+- Update to 0.99.4-1
+
 * Mon Mar 06 2023 Martin Gansser <martinkg@fedoraproject.org> - 0.99.3-1
 - Update to 0.99.3-1
 

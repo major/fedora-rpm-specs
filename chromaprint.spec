@@ -1,18 +1,12 @@
-%bcond_without bootstrap
-
-%if %{with bootstrap}
+%if 0%{?rhel} && 0%{?rhel} < 9
 %bcond_with ffmpeg
 %else
-%if 0%{?fedora} >= 36
-%bcond_without ffmpeg
-%else
-%bcond_with ffmpeg
-%endif
+%bcond ffmpeg %{?with_bootstrap:0}%{!?with_bootstrap:1}
 %endif
 
 Name:           chromaprint
 Version:        1.5.1
-Release:        9%{?with_bootstrap:_bootstrap}%{?dist}
+Release:        10%{?dist}
 Summary:        Library implementing the AcoustID fingerprinting
 
 License:        GPLv2+
@@ -113,6 +107,10 @@ rm  -f %{buildroot}%{_libdir}/lib*.la
 %endif
 
 %changelog
+* Sat Mar 25 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.5.1-10
+- Switch off bootstrap mode
+- Simplify bootstrap mode logic
+
 * Tue Mar 14 2023 Sérgio Basto <sergio@serjux.com> - 1.5.1-9_bootstrap
 - Add a bootstrap package as suggests in
   https://github.com/acoustid/chromaprint/issues/129#issuecomment-1468612507

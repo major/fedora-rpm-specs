@@ -13,11 +13,10 @@
 
 Name:		xrootd
 Epoch:		1
-Version:	5.5.3
+Version:	5.5.4
 Release:	1%{?dist}
 Summary:	Extended ROOT file server
-
-License:	LGPLv3+
+License:	LGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND curl AND MIT AND Zlib
 URL:		https://xrootd.slac.stanford.edu/
 Source0:	https://xrootd.slac.stanford.edu/download/v%{version}/%{name}-%{version}.tar.gz
 #		Disable LTO for XrdPosix on 32 bit architectures
@@ -220,6 +219,7 @@ The VOMS attribute extractor plugin for XRootD.
 
 %package scitokens
 Summary:	SciTokens authorization support for XRootD
+License:	Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause
 Requires:	%{name}-server%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 
@@ -452,6 +452,8 @@ if [ $1 -eq 0 ] ; then
 fi
 
 %postun server
+%tmpfiles_create %{_tmpfilesdir}/%{name}.conf
+
 if [ $1 -ge 1 ] ; then
     systemctl daemon-reload >/dev/null 2>&1 || :
     for DAEMON in xrootd cmsd frm_purged frm_xfrd; do
@@ -505,6 +507,7 @@ fi
 %attr(-,xrootd,xrootd) %config(noreplace) %{_sysconfdir}/%{name}/*.cfg
 %attr(-,xrootd,xrootd) %{_localstatedir}/log/%{name}
 %attr(-,xrootd,xrootd) %{_localstatedir}/spool/%{name}
+%ghost %attr(-,xrootd,xrootd) %{_rundir}/%{name}
 
 %files selinux
 %{_datadir}/selinux/packages/%{name}/%{name}.pp
@@ -651,7 +654,7 @@ fi
 
 %files -n xrdcl-http
 %{_libdir}/libXrdClHttp-5.so
-%{_sysconfdir}/xrootd/client.plugins.d/xrdcl-http-plugin.conf
+%config(noreplace) %{_sysconfdir}/%{name}/client.plugins.d/xrdcl-http-plugin.conf
 
 %if %{ceph}
 %files ceph
@@ -683,6 +686,9 @@ fi
 %doc %{_pkgdocdir}
 
 %changelog
+* Fri Mar 24 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.5.4-1
+- Update to version 5.5.4
+
 * Sat Feb 18 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.5.3-1
 - Update to version 5.5.3
 

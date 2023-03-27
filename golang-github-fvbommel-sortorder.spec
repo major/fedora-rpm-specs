@@ -3,7 +3,7 @@
 
 # https://github.com/fvbommel/sortorder
 %global goipath         github.com/fvbommel/sortorder
-Version:                1.0.2
+Version:                1.1.0
 
 %gometa
 
@@ -14,7 +14,7 @@ Sort orders and comparison functions.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        6%{?dist}
+Release:        1%{?dist}
 Summary:        Sort orders and comparison functions
 
 License:        MIT
@@ -40,6 +40,9 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Sat Mar 25 2023 Sérgio Basto <sergio@serjux.com> - 1.1.0-1
+- Update golang-github-fvbommel-sortorder to 1.1.0 (#2179670)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
