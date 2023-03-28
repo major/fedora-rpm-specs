@@ -20,11 +20,11 @@
 %endif
 
 Name: nagios-plugins
-Version: 2.4.0
+Version: 2.4.3
 %if 0%{?fromgit}
-Release: 8.%{?commdate}git%{?shortcommit}%{?dist}
+Release: 1.%{?commdate}git%{?shortcommit}%{?dist}
 %else
-Release: 8%{?dist}
+Release: 1%{?dist}
 %endif
 
 Summary: Host/service/network monitoring program plugins for Nagios
@@ -45,6 +45,8 @@ Patch0: %{name}-stringop-truncation.patch
 # Patch from upstream PR https://github.com/nagios-plugins/nagios-plugins/pull/581
 Patch1: %{name}-ntpsec-support.patch
 Patch2: nagios-plugins-0002-Remove-assignment-of-not-parsed-to-jitter.patch
+# Patch sent upstream https://github.com/nagios-plugins/nagios-plugins/pull/637
+Patch3: %{name}-uninitialized-warnings.patch
 Patch7: nagios-plugins-0007-Fix-the-use-lib-statement-and-the-external-ntp-comma.patch
 Patch12: nagios-plugins-0012-fix-perl-ntp-ipv6.patch
 
@@ -600,12 +602,13 @@ Provides check_wave support for Nagios.
 %autosetup -n %{name}-%{version} -N
 %endif
 
-%patch0 -p1 -b .stringop-truncation.patch
-%patch1 -p1 -b .ntpsec-support.patch
-%patch2 -p1 -b .remove_ntp_jitter
-%patch7 -p1 -b .fix_ntpcommands
+%patch -P 0 -p1 -b .stringop-truncation.patch
+%patch -P 1 -p1 -b .ntpsec-support.patch
+%patch -P 2 -p1 -b .remove_ntp_jitter
+%patch -P 3 -p1 -b .uninitialized-warnings.patch
+%patch -P 7 -p1 -b .fix_ntpcommands
 %if 0%{?bootstrap} == 0
-%patch12 -p1 -b .fix_perl_ntp
+%patch -P 12 -p1 -b .fix_perl_ntp
 %endif
 
 %build
@@ -878,6 +881,9 @@ chmod 644 %{buildroot}/%{_libdir}/nagios/plugins/utils.pm
 %{_libdir}/nagios/plugins/check_wave
 
 %changelog
+* Sun Mar 26 2023 Guido Aulisi <guido.aulisi@gmail.com> - 2.4.3-1
+- Update to 2.4.3
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

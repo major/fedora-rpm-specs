@@ -6,8 +6,8 @@
 %endif
 
 Name:		perl-Exporter-Tiny
-Version:	1.006000
-Release:	2%{?dist}
+Version:	1.006001
+Release:	1%{?dist}
 Summary:	An exporter with the features of Sub::Exporter but only core dependencies
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Exporter-Tiny
@@ -92,6 +92,13 @@ make test
 %{_mandir}/man3/Exporter::Shiny.3*
 
 %changelog
+* Sun Mar 26 2023 Paul Howarth <paul@city-fan.org> - 1.006001-1
+- Update to 1.006001
+  Documentation
+  - Don't mention Alt::Lexical::Var::ButSupportModernPerl in manual
+  Packaging
+  - No longer dynamically recommend Alt::Lexical::Var::ButSupportModernPerl
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.006000-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

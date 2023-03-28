@@ -8,22 +8,21 @@
 
 %if 0%{?git_post_release_enabled}
   # Git commit is needed for post-release version.
-  %global gitcommit b359d888fd3fcccf1252f5f1dc390299e701493e
+  %global gitcommit 21d7b4e7a03ec8145b0b90c4f0b15c27d6f53788
   %global gitshortcommit %(c=%{gitcommit}; echo ${c:0:7})
-  %global gitsnapinfo .20220527git%{gitshortcommit}
+  %global gitsnapinfo .20230326git%{gitshortcommit}
 %endif
 
 Name:           gnome-shell-extension-system-monitor-applet
 Epoch:          1
 Version:        38
-Release:        21%{?gitsnapinfo}%{?dist}
+Release:        22%{?gitsnapinfo}%{?dist}
 Summary:        A Gnome shell system monitor extension
 
 # The entire source code is GPLv3+ except convenience.js, which is BSD
 License:        GPLv3+ and BSD
 URL:            https://extensions.gnome.org/extension/120/system-monitor/
 Source0:        %{giturl}/archive/%{?gitcommit}%{!?gitcommit:v%{version}}/%{name}-%{version}%{?gitshortcommit:-%{gitshortcommit}}.tar.gz
-Patch0:         gnome-shell-extension-system-monitor-applet-001_fix_for_gnome-shell_43.patch
 
 BuildArch:      noarch
 
@@ -90,6 +89,21 @@ fi
 
 
 %changelog
+* Sun Mar 26 2023 Nicolas Viéville <nicolas.vieville@uphf.fr> - 1:38-22.20230326git21d7b4e
+- Updated to last upstream commits
+- Remove patch for gnome 43 - applied upstream
+- Disable Python output buffering
+- Add setting for tooltip delay
+- Added the possibility to rearrange the graphs
+- Remove "nvidia gpu only" message
+- gpu_usage.sh: Replace cut and gawk with shell internals
+- Wrap into register class
+- Fix a small typo in extension.js
+- Add space before 'R' in disk usage string
+- Gnome-Shell 43 compatibility update
+- Continue running when screen is locked and optionally show on lockscreen,
+  using session modes
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:38-21.20220527gitb359d88
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

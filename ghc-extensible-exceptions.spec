@@ -6,7 +6,7 @@
 
 Name:           ghc-%{pkg_name}
 Version:        0.1.1.4
-Release:        %autorelease
+Release:        %autorelease -b 2
 Summary:        Extensible exceptions
 
 License:        BSD-3-Clause

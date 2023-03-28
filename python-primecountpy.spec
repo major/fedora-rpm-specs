@@ -2,7 +2,7 @@
 
 Name:           python-primecountpy
 Version:        0.1.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Python Primecount wrapper
 
 # GPL-3.0-only: setup.py
@@ -15,6 +15,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(primecount)
 BuildRequires:  python3-cysignals-devel
 BuildRequires:  python3-devel
+BuildRequires:  %{py3_dist pytest-cython}
 
 %description
 This package provides a Cython interface to the C++ library primecount.
@@ -81,9 +82,8 @@ rm docs/build/html/.buildinfo
 %pyproject_save_files primecountpy
 
 %check
-# If Fedora gets pytest-cython, we can do this instead:
-#%%pytest --doctest-cython primecountpy -v
-%pyproject_check_import
+ln -s ../$(find build -name \*.so) primecountpy
+%pytest --doctest-cython primecountpy -v
 
 %files -n python3-primecountpy -f %{pyproject_files}
 %doc README.md
@@ -93,6 +93,9 @@ rm docs/build/html/.buildinfo
 %license LICENSE
 
 %changelog
+* Sun Mar 26 2023 Jerry James <loganjerry@gmail.com> - 0.1.0-8
+- Test with pytest-cython
+
 * Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 0.1.0-7
 - Dynamically generate BuildRequires
 

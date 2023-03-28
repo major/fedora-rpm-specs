@@ -5,8 +5,8 @@ implements many SSH protocol features such as the various channels,\
 SFTP, SCP, forwarding, session multiplexing over a connection and more.
 
 Name:           python-%{srcname}
-Version:        2.12.0
-Release:        2%{?dist}
+Version:        2.13.1
+Release:        1%{?dist}
 Summary:        Asynchronous SSH for Python
 
 License:        EPL-2.0 or GPLv2+
@@ -79,6 +79,9 @@ sed -i '1,1s@^#!.*$@#!%{__python3}@' examples/*.py
 
 
 %changelog
+* Sun Mar 26 2023 Georg Sauthoff <mail@gms.tf> - 2.13.1-1
+- Update to latest upstream version (fixes fedora#2156599)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

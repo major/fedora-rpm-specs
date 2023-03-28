@@ -5,7 +5,7 @@
 %global crate sysinfo
 
 Name:           rust-sysinfo
-Version:        0.28.2
+Version:        0.28.4
 Release:        %autorelease
 Summary:        Library to get system information such as processes, CPUs, disks, components and networks
 

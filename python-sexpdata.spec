@@ -5,7 +5,7 @@ functions like pickle, json or PyYAML module.}
 
 
 Name:           python-%{srcname}
-Version:        0.0.4
+Version:        1.0.0
 Release:        1%{?dist}
 Summary:        S-expression parser for Python
 
@@ -55,6 +55,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Sun Mar 26 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 1.0.0-1
+- Update to 1.0.0
+
 * Sun Feb 12 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 0.0.4-1
 - Update to 0.0.4
 - Switch to latest Python guidelines

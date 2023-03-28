@@ -1,5 +1,5 @@
 Name:           eccodes
-Version:        2.28.0
+Version:        2.29.0
 Release:        1%{?dist}
 Summary:        WMO data format decoding and encoding
 
@@ -52,7 +52,7 @@ Patch1:         eccodes-soversion.patch
 # (and again, unfortunately this issue is not public)
 
 BuildRequires:  cmake3
-BuildRequires:  gcc
+BuildRequires:  gcc-c++
 BuildRequires:  gcc-gfortran
 BuildRequires:  /usr/bin/git
 BuildRequires:  jasper-devel
@@ -209,12 +209,6 @@ popd
 # * ENABLE_NETCDF
 #   NetCDF is only needed to create the grib_to_netcdf convert tool
 #
-# * ENABLE_PYTHON has value AUTO as default, so if python2 is available
-#   during a package build it will build an interface for it.
-#   To make sure it does not do so,  explicitely switch it off.
-#   Python3 support has been moved to an additional project now,
-#   so python handling has been removed completely from this spec file.
-#
 #-- Also add an explicit option to not use rpath
 #
 # Note: -DINSTALL_LIB_DIR=%%{_lib} is needed because otherwise
@@ -236,8 +230,7 @@ popd
         -DCMAKE_SKIP_INSTALL_RPATH=TRUE \
         -DECCODES_SOVERSION=%{so_version} \
         -DECCODES_SOVERSION_F90=%{so_version_f90} \
-        -DCMAKE_Fortran_FLAGS="-fPIC" \
-        -DENABLE_PYTHON2=OFF
+        -DCMAKE_Fortran_FLAGS="-fPIC"
 
 # note the final '..' is no longer needed to the cmake3 call.
 # this is now hidden in the %%cmake3 macro
@@ -358,6 +351,10 @@ ctest3 -V %{?_smp_mflags}
 %doc %{_datadir}/doc/%{name}/
 
 %changelog
+* Sun Mar 26 2023 Jos de Kloe <josdekloe@gmail.com> - 2.29.0-1
+- Upgrade to upstream version 2.29.0
+  Note that the source code now uses g++ in stead of gcc for compilation.
+
 * Sun Feb 12 2023 Jos de Kloe <josdekloe@gmail.com> - 2.28.0-1
 - Upgrade to upstream version 2.28.0
 

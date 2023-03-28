@@ -1,6 +1,6 @@
 Name:           bloaty
 Version:        1.1
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        A size profiler for binaries
 
 
@@ -61,6 +61,9 @@ support for WebAssembly.
 
 
 %changelog
+* Mon Mar 27 2023 Rich Mattes <richmattes@gmail.com> - 1.1-20
+- Rebuild for abseil-cpp-20230125.1
+
 * Thu Jan 26 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.1-19
 - Patch for GCC 13
 

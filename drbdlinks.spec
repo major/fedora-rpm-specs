@@ -2,25 +2,23 @@ Summary:           Program for managing links into a DRBD shared partition
 Name:              drbdlinks
 Version:           1.29
 Release:           8%{?dist}
-License:           GPLv2
+License:           GPL-2.0-only
 URL:               https://www.tummy.com/software/drbdlinks/
 Source0:           https://github.com/linsomniac/%{name}/archive/release-%{version}/%{name}-%{version}.tar.gz
 Source1:           drbdlinks.logrotate
 Source2:           drbdlinksclean.service
 Source3:           drbdlinksclean-wrapper
-%if 0%{?rhel} >= 8 || 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 8
 Requires:          python3
 BuildRequires:     python3-devel
 %else
 Requires:          python2
 BuildRequires:     python2
 %endif
-Requires(post):    systemd
-Requires(preun):   systemd
-Requires(postun):  systemd
-BuildRequires:     systemd
 BuildRequires:     make
+BuildRequires:     systemd-rpm-macros
 BuildArch:         noarch
+%{?systemd_requires}
 
 %description
 The drbdlinks program manages links into a DRBD partition which is shared
@@ -42,7 +40,7 @@ to the name, but this can be overridden.
 
 %install
 install -D -p -m 755 %{name} $RPM_BUILD_ROOT%{_sbindir}/%{name}
-%if 0%{?rhel} >= 8 || 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 8
 sed -e '1 s|^#!.*python|#!%{__python3}|g' -i $RPM_BUILD_ROOT%{_sbindir}/%{name}
 %else
 sed -e '1 s|^#!.*python|#!%{__python}|g' -i $RPM_BUILD_ROOT%{_sbindir}/%{name}

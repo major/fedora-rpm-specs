@@ -9,7 +9,7 @@
 
 Name:           ghc-%{pkg_name}
 Version:        3.3.1
-Release:        %autorelease
+Release:        %autorelease -b 10
 Summary:        Obtain minified jQuery code
 
 License:        MIT

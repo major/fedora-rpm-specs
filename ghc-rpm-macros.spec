@@ -8,7 +8,7 @@
 
 Name:           ghc-rpm-macros
 Version:        2.5.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
 License:        GPLv3+
@@ -109,6 +109,18 @@ Obsoletes:      ghc-attempt < 0.4.0.2, ghc-attempt-devel < 0.4.0.2, ghc-attempt-
 %if 0%{?fedora} >= 36
 Obsoletes:      ghc-regex-applicative-text < 0.1.0.1-16, ghc-regex-applicative-text-devel < 0.1.0.1-16, ghc-regex-applicative-text-doc < 0.1.0.1-16, ghc-regex-applicative-text-prof < 0.1.0.1-16
 %endif
+%if 0%{?fedora} >= 38
+Obsoletes:      ghc-bytestring-show < 0.3.5.7, ghc-bytestring-show-devel < 0.3.5.7, ghc-bytestring-show-doc < 0.3.5.7, ghc-bytestring-show-prof < 0.3.5.7
+Obsoletes:      ghc-djinn-ghc < 0.1, ghc-djinn-ghc-devel < 0.1, ghc-djinn-ghc-doc < 0.1, ghc-djinn-ghc-prof < 0.1
+Obsoletes:      ghc-ghc-mtl < 1.2.2, ghc-ghc-mtl-devel < 1.2.2, ghc-ghc-mtl-doc < 1.2.2, ghc-ghc-mtl-prof < 1.2.2
+Obsoletes:      ghc-ghc-syb-utils < 0.3.1, ghc-ghc-syb-utils-devel < 0.3.1, ghc-ghc-syb-utils-doc < 0.3.1, ghc-ghc-syb-utils-prof < 0.3.1
+Obsoletes:      ghc-cabal-helper < 1.2, ghc-cabal-helper-devel < 1.2, ghc-cabal-helper-doc < 1.2, ghc-cabal-helper-prof < 1.2
+Obsoletes:      ghc-cabal-plan < 0.8, ghc-cabal-plan-devel < 0.8, ghc-cabal-plan-doc < 0.8, ghc-cabal-plan-prof < 0.8
+Obsoletes:      ghc-optics-core < 0.4, ghc-optics-core-devel < 0.4, ghc-optics-core-doc < 0.4, ghc-optics-core-prof < 0.4
+Obsoletes:      ghc-semialign < 1.2, ghc-semialign-devel < 1.2, ghc-semialign-doc < 1.2, ghc-semialign-prof < 1.2
+Obsoletes:      ghc-topograph < 1.0.0.2, ghc-topograph-devel < 1.0.0.2, ghc-topograph-doc < 1.0.0.2, ghc-topograph-prof < 1.0.0.2
+Obsoletes:      ghc-indexed-profunctors < 0.1.1-18, ghc-indexed-profunctors-devel < 0.1.1-18, ghc-indexed-profunctors-doc < 0.1.1-18, ghc-indexed-profunctors-prof < 0.1.1-18
+%endif
 
 %description -n ghc-obsoletes
 Meta package for obsoleting deprecated Haskell packages.
@@ -190,6 +202,9 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 
 
 %changelog
+* Sun Mar 26 2023 Jens Petersen <petersen@redhat.com> - 2.5.2-2
+- add obsoletes for F38
+
 * Wed Feb 15 2023 Jens Petersen <petersen@redhat.com> - 2.5.2-1
 - ghc-dep.sh: check for *_p.a under Hadrian platform subdir as well
 - ghc.attr: include Hadrian lib/ subdir in .conf regex

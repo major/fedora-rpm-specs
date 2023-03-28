@@ -1,6 +1,6 @@
 Name:           primecount
-Version:        7.6
-Release:        4%{?dist}
+Version:        7.7
+Release:        2%{?dist}
 Summary:        Fast prime counting function implementation
 
 # BSD-2-Clause: the project as a whole
@@ -105,6 +105,14 @@ export CXXFLAGS='%{build_cxxflags} -DLIBDIVIDE_SSE2'
 %{_libdir}/pkgconfig/primecount.pc
 
 %changelog
+* Sun Mar 26 2023 Kim Walisch <walki@fedoraproject.org> - 7.7-2
+- Fix -Wstrict-prototypes warning in test/api_c.c
+
+* Sun Mar 26 2023 Kim Walisch <walki@fedoraproject.org> - 7.7-1
+- Version 7.7
+- Fix primecount_pi(-1) crash
+- Fix GCC/Clang -Wstrict-prototypes warnings
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

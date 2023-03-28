@@ -2,7 +2,7 @@
 
 Name:           plasma-dialer
 Version:        23.01.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        BSD and CC0 and GPLv2 and GPLv2+ and GPLv3 and GPLv3+ and LGPLv2+ and LGPLv2.1 and LGPLv2.1+ and LGPLv3 and LGPLv3
 Summary:        Convergent Plasma Mobile dialer application
 Url:            https://invent.kde.org/plasma-mobile/plasma-dialer
@@ -121,6 +121,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/%{kde_name}.deskt
 %{_kf5_libdir}/libktelephonymetatypes.a
 
 %changelog
+* Mon Mar 27 2023 Rich Mattes <richmattes@gmail.com> - 23.01.0-2
+- Rebuild for abseil-cpp-20230125.1
+
 * Mon Jan 30 2023 Justin Zobel <justin@1707.io> - 23.01.0-1
 - Update to 23.01.0
 

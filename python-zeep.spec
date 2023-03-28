@@ -4,8 +4,8 @@ code to use the services and types in the document. This\
 provides an easy to use programmatic interface to a SOAP server.
 
 Name:           python-%{srcname}
-Version:        4.2.0
-Release:        2%{?dist}
+Version:        4.2.1
+Release:        1%{?dist}
 Summary:        A fast and modern Python SOAP client
 
 License:        MIT and BSD
@@ -25,33 +25,9 @@ ExcludeArch:    s390x
 # required for py3_build macro
 BuildRequires:  python3-devel
 
-BuildRequires:  python3-setuptools
+# NB: the python dependency auto-generator is enabled by default,
+#     we opt-in the build-time dependency generator, cf. below
 
-
-# from setup.py
-BuildRequires: python3-attrs
-BuildRequires: python3-cached_property
-BuildRequires: python3-isodate
-BuildRequires: python3-lxml
-BuildRequires: python3-platformdirs
-BuildRequires: python3-requests
-BuildRequires: python3-requests-toolbelt
-BuildRequires: python3-pytz
-
-## for tests
-BuildRequires: python3-freezegun
-BuildRequires: python3-mock
-BuildRequires: python3-pretend
-BuildRequires: python3-pytest-cov
-BuildRequires: python3-pytest
-BuildRequires: python3-requests-file
-BuildRequires: python3-requests-mock
-BuildRequires: python3-aioresponses
-BuildRequires: python3-pytest-asyncio
-BuildRequires: python3-pytest-httpx
-BuildRequires: python3-xmlsec
-
-%{?python_enable_dependency_generator}
 
 %description
 %{desc}
@@ -67,7 +43,11 @@ Summary:        %{summary}
 %autosetup -p1 -n %{srcname}-%{version}
 
 # disable linting dependencies and exact test dependencies
-sed -i -e "s/\('\(isort\|flake\)\)/# \1/"  -e "s/\('[A-Za-z_-]\+\)==/\1>=/"  setup.py
+sed -i -e '/isort\|flake\|coverage\[toml\]/d' -e 's/\([a-z]\)[>=]\{2\}[0-9.]\+/\1/' setup.py
+
+
+%generate_buildrequires
+%pyproject_buildrequires -x xmlsec -x test
 
 
 %build
@@ -88,6 +68,10 @@ PYTHONPATH=src %{__python3} -m pytest tests
 
 
 %changelog
+* Sun Mar 26 2023 Georg Sauthoff <mail@gms.tf> - 4.2.1-1
+- bump version (fixes fedora#2144333)
+- migrate to build-time dependency generator as proposed in #2079681#c4
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

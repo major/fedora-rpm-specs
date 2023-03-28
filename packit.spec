@@ -2,7 +2,7 @@
 %global real_name packit
 
 Name:           %{real_name}
-Version:        0.70.0
+Version:        0.71.0
 Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
@@ -102,6 +102,9 @@ cp files/bash-completion/packit %{buildroot}%{_datadir}/bash-completion/completi
 %{python3_sitelib}/*
 
 %changelog
+* Sat Mar 25 2023 Packit <hello@packit.dev> - 0.71.0-1
+- `upstream_tag_template` is now also used when looking for the latest version tag in Git. This allows upstream repositories to mix different tag-patterns in the same repository, but consider only one to tell the latest version. (#1891)
+
 * Mon Mar 20 2023 Packit <hello@packit.dev> - 0.70.0-1
 - Now packit uses the `get_current_version` action defined by the user to retrieve version before updating the specfile %%setup macro (if any). (#1886)
 

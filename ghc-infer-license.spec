@@ -8,7 +8,7 @@
 
 Name:           ghc-%{pkg_name}
 Version:        0.2.0
-Release:        %autorelease
+Release:        %autorelease -b 5
 Summary:        Infer software license from a given license file
 
 License:        MIT

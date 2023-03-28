@@ -6,7 +6,7 @@
 
 Name:           ghc-%{pkg_name}
 Version:        0.3.9
-Release:        %autorelease
+Release:        %autorelease -b 23
 Summary:        Fast unicode character sets based on complemented PATRICIA tries
 
 License:        BSD-3-Clause

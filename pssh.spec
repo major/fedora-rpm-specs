@@ -1,14 +1,10 @@
-%global commit d4909c949d5036392bd3fa92cb3156e2b0ef520b
-%global scommit %(c=%{commit}; echo ${c:0:7})
-
 Summary:       Parallel SSH tools
 Name:          pssh
-Version:       2.3.4
-Release:       4%{?dist}
+Version:       2.3.5
+Release:       1%{?dist}
 License:       BSD
 Url:           https://github.com/lilydjwg/pssh
-Source0:       https://github.com/lilydjwg/%{name}/archive/%{commit}.tar.gz#/%{name}-%{scommit}.tar.gz
-
+Source0:       https://github.com/lilydjwg/pssh/archive/refs/tags/v%{version}.tar.gz
 Requires:      openssh-clients
 BuildArch:     noarch
 BuildRequires: python3-devel
@@ -24,18 +20,24 @@ Parallell version includes:
  o slurp : pslurp
 
 %prep
-%autosetup -p1 -n %{name}-%{commit}
+%autosetup
 sed -i -e '1 d' psshlib/askpass_{client,server}.py
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%{py3_build}
+%pyproject_wheel
 
 %install
-%{py3_install}
+%pyproject_install
+
 install -D -m 0755 %{buildroot}%{_bindir}/pssh-askpass \
-    %{buildroot}%{_libexecdir}/%{name}/pssh-askpass
+    %{buildroot}%{_libexecdir}/pssh/pssh-askpass
 rm -f %{buildroot}%{_bindir}/pssh-askpass
 mv %{buildroot}%{_bindir}/pscp %{buildroot}%{_bindir}/pscp.pssh
+install -d %{buildroot}%{_mandir}/man1
+install -p -m 0644 man/man1/*.1  %{buildroot}%{_mandir}/man1
 mv %{buildroot}%{_mandir}/man1/pscp.1 %{buildroot}%{_mandir}/man1/pscp.pssh.1
 
 %files
@@ -51,11 +53,14 @@ mv %{buildroot}%{_mandir}/man1/pscp.1 %{buildroot}%{_mandir}/man1/pscp.pssh.1
 %{_mandir}/man1/pscp.pssh.1*
 %{_mandir}/man1/pslurp.1*
 %{_mandir}/man1/pssh.1*
-%{_libexecdir}/%{name}
-%{python3_sitelib}/%{name}-%{version}*
-%{python3_sitelib}/%{name}lib
+%{_libexecdir}/pssh
+%{python3_sitelib}/pssh-%{version}*
+%{python3_sitelib}/psshlib
 
 %changelog
+* Sun Mar 26 2023 Terje Rosten <terje.rosten@ntnu.no> - 2.3.5-1
+- 2.3.5
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate pyo3-ffi
 
 Name:           rust-pyo3-ffi
-Version:        0.18.1
+Version:        0.18.2
 Release:        %autorelease
 Summary:        Python-API bindings for the PyO3 ecosystem
 
@@ -65,7 +65,6 @@ use the "abi3" feature of the "%{crate}" crate.
 %package     -n %{name}+abi3-py310-devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       python3-devel >= 3.10
 
 %description -n %{name}+abi3-py310-devel %{_description}
 
@@ -78,7 +77,6 @@ use the "abi3-py310" feature of the "%{crate}" crate.
 %package     -n %{name}+abi3-py311-devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       python3-devel >= 3.11
 
 %description -n %{name}+abi3-py311-devel %{_description}
 
@@ -91,7 +89,6 @@ use the "abi3-py311" feature of the "%{crate}" crate.
 %package     -n %{name}+abi3-py37-devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       python3-devel >= 3.7
 
 %description -n %{name}+abi3-py37-devel %{_description}
 
@@ -104,7 +101,6 @@ use the "abi3-py37" feature of the "%{crate}" crate.
 %package     -n %{name}+abi3-py38-devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       python3-devel >= 3.8
 
 %description -n %{name}+abi3-py38-devel %{_description}
 
@@ -117,7 +113,6 @@ use the "abi3-py38" feature of the "%{crate}" crate.
 %package     -n %{name}+abi3-py39-devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       python3-devel >= 3.9
 
 %description -n %{name}+abi3-py39-devel %{_description}
 

@@ -1,7 +1,7 @@
 
 Name:		backupninja
-Version:	1.2.1
-Release:	3%{?dist}
+Version:	1.2.2
+Release:	1%{?dist}
 Summary:	Lightweight, extensible backup system
 
 License:	GPLv2
@@ -73,6 +73,9 @@ mkdir -p -m 0750 %{buildroot}/%{_sysconfdir}/backup.d
 
 
 %changelog
+* Sat Mar 25 2023 Denis Fateyev <denis@fateyev.com> - 1.2.2-1
+- Update to 1.2.2 version
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

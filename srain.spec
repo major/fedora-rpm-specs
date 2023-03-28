@@ -1,7 +1,7 @@
 %global uuid    im.srain.Srain
 
 Name:           srain
-Version:        1.5.0
+Version:        1.5.1
 Release:        %autorelease
 Summary:        Modern, beautiful IRC client written in GTK+ 3
 

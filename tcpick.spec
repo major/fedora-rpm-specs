@@ -2,7 +2,10 @@ Summary:        TCP stream sniffer, tracker and capturer
 Name:           tcpick
 Version:        0.2.1
 Release:        43%{?dist}
-License:        GPLv2+
+# tcpick itself is GPL-2.0-or-later but uses other source codes, breakdown:
+# BSD-3-Clause: src/{tcp,udp}.h
+# LGPL-2.1-or-later: src/{ip,udp}.h
+License:        GPL-2.0-or-later AND BSD-3-Clause AND LGPL-2.1-or-later
 URL:            http://tcpick.sourceforge.net/
 Source0:        https://downloads.sourceforge.net/sourceforge/%{name}/%{name}-%{version}.tar.gz
 Patch0:         tcpick-0.2.1-CVE-2006-0048.patch

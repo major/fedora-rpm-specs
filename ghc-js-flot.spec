@@ -8,7 +8,7 @@
 
 Name:           ghc-%{pkg_name}
 Version:        0.8.3
-Release:        %autorelease
+Release:        %autorelease -b 11
 Summary:        Obtain minified flot code
 
 License:        MIT

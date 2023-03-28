@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        23.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python networking library for WebSocket and WAMP
 
 License:        MIT
@@ -31,7 +31,9 @@ BuildRequires:  %py3_dist six
 BuildRequires:  %py3_dist twisted
 BuildRequires:  %py3_dist txaio
 BuildRequires:  %py3_dist pynacl
+%if 0%{?fedora}
 BuildRequires:  %py3_dist cbor2
+%endif
 BuildRequires:  %py3_dist cryptography
 BuildRequires:  %py3_dist hyperlink
 %{?python_provide:%python_provide python3-%{pypi_name}}
@@ -62,6 +64,13 @@ rm -rf %{pypi_name}.egg-info
 rm pytest.ini
 # Some packages are always outdated...
 sed -i -e "s/cryptography>=3.4.6/cryptography>=3.4.2/g" setup.py
+# Remove packages that will try to import attrs (optionnal deps) since in EPEL it's outdated and doesn't allow the import of attrs
+# See https://www.attrs.org/en/stable/changelog.html#id11
+%if ! 0%{?fedora}
+rm -rf autobahn/xbr/test/*
+sed -i '\@recursive-include autobahn/xbr/test/catalog/schema@d' MANIFEST.in
+sed -i '\@autobahn/xbr/test/profile@d' MANIFEST.in
+%endif
 
 %build
 # Disable in case local builder support NVX
@@ -73,8 +82,12 @@ AUTOBAHN_USE_NVX=false %py3_build
 AUTOBAHN_USE_NVX=false %py3_install
 
 %check
+%if 0%{?fedora}
 # Ignore tests that rely on optional and not packaged deps.
 USE_ASYNCIO=1 %pytest --pyargs autobahn -k 'not test_no_memory_arg and not test_basic and not test_websocket_custom_loop and not TestSerializer'
+%else
+USE_ASYNCIO=1 %pytest --ignore=xbr/test --pyargs autobahn -k 'not test_no_memory_arg and not test_basic and not test_websocket_custom_loop and not TestSerializer and not TestDecimalSerializer'
+%endif
 
 %files -n python3-%{pypi_name}
 %license LICENSE
@@ -94,6 +107,9 @@ USE_ASYNCIO=1 %pytest --pyargs autobahn -k 'not test_no_memory_arg and not test_
 %license LICENSE
 
 %changelog
+* Sun Mar 26 2023 Julien Enselme <jujens@jujens.eu> - 23.1.2-2
+- Correct build on EPEL
+
 * Wed Feb 08 2023 Julien Enselme <jujens@jujens.eu> - 23.1.2-1
 - Update to 23.1.2
 

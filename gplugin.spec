@@ -1,11 +1,11 @@
 %bcond_without check
 
 Name:           gplugin
-Version:        0.39.1
+Version:        0.40.0
 Release:        %autorelease
 Summary:        GObject based library that implements a reusable plugin system
 
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            https://keep.imfreedom.org/gplugin/gplugin
 Source0:        https://downloads.sourceforge.net/pidgin/%{name}-%{version}.tar.xz
 Source1:        https://downloads.sourceforge.net/pidgin/%{name}-%{version}.tar.xz.asc

@@ -5,7 +5,7 @@
 
 Summary:        Open Source IRC server
 Name:           unrealircd
-Version:        6.0.6
+Version:        6.0.7
 Release:        1%{?dist}
 # UnrealIRCd declares itself as GPL-2.0-or-later as it's the common denominator for
 # a GPL-1.0-or-later and GPL-2.0-or-later mixture, breakdown of other source codes:
@@ -27,6 +27,8 @@ Patch0:         unrealircd-6.0.6-crypto-policy.patch
 Patch1:         unrealircd-6.0.5-geoip.patch
 # Same options like in unrealircd(ctl) shell script
 Patch2:         unrealircd-6.0.3-unrealircdctl.patch
+# Disable UTF8-aware spamfilter for PCRE2 < 10.36
+Patch3:         unrealircd-6.0.7-pcre2-10.00.patch
 BuildRequires:  gnupg2
 BuildRequires:  gcc
 BuildRequires:  make
@@ -36,7 +38,11 @@ BuildRequires:  openssl-devel
 %else
 BuildRequires:  openssl11-devel
 %endif
+%if 0%{?fedora} || 0%{?rhel} > 8
+BuildRequires:  pcre2-devel >= 10.36
+%else
 BuildRequires:  pcre2-devel >= 10.00
+%endif
 BuildRequires:  libargon2-devel >= 20161029
 BuildRequires:  libsodium-devel >= 1.0.16
 BuildRequires:  c-ares-devel >= 1.6.0
@@ -82,6 +88,9 @@ touch -c -r doc/conf/examples/example.conf{.crypto-policy,}
 %patch1 -p1 -b .geoip
 touch -c -r doc/conf/modules.default.conf{.geoip,}
 %patch2 -p1 -b .unrealircdctl
+%if 0%{?rhel} && 0%{?rhel} < 9
+%patch3 -p1 -b .pcre2-10.00
+%endif
 
 %build
 %if 0%{?rhel} == 7
@@ -94,11 +103,6 @@ sed \
 # https://github.com/unrealircd/unrealircd/pull/183
 %if %{with maxmind} && 0%{?rhel} && 0%{?rhel} < 9
 sed -e 's|libmaxminddb >= 1.4.3|libmaxminddb >= 1.2.0|g' -i configure
-%endif
-
-# https://github.com/unrealircd/unrealircd/pull/196
-%if 0%{?rhel} && 0%{?rhel} < 9
-sed -e 's|libpcre2-8 >= 10.34|libpcre2-8 >= 10.00|g' -i configure
 %endif
 
 # Mention new unrealircdctl tool rather than shell script
@@ -222,6 +226,9 @@ fi
 %endif
 
 %changelog
+* Sun Mar 26 2023 Robert Scheck <robert@fedoraproject.org> 6.0.7-1
+- Upgrade to 6.0.7 (#2181536)
+
 * Sat Feb 04 2023 Robert Scheck <robert@fedoraproject.org> 6.0.6-1
 - Upgrade to 6.0.6 (#2166855)
 

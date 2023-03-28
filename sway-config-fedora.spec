@@ -1,8 +1,8 @@
 %bcond_without  sddm
-%global sway_ver 1.7
+%global sway_ver 1.8
 
 Name:           sway-config-fedora
-Version:        0.2.0
+Version:        0.3.0
 Release:        %autorelease
 Summary:        Fedora Sway Spin configuration for Sway
 
@@ -59,7 +59,7 @@ Conflicts:      sddm-greeter-displayserver
 
 Requires:       lxqt-themes-fedora
 Requires:       sddm >= 0.19.0^git20221123.3e48649
-Requires:       sway
+Requires:       sway >= %{sway_ver}
 
 %description -n sddm-wayland-sway
 This package contains configuration and dependencies for SDDM

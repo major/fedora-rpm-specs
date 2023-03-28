@@ -8,7 +8,7 @@
 
 Name:           ghc-%{pkg_name}
 Version:        0.19.1.0
-Release:        %autorelease
+Release:        %autorelease -b 8
 Summary:        JavaScript parser and pretty-printer library
 
 License:        BSD-3-Clause

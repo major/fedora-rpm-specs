@@ -6,15 +6,13 @@
 %global srcname_ jupyter_console
 
 Name:           python-%{srcname}
-Version:        6.5.1
+Version:        6.6.3
 Release:        %autorelease
 Summary:        Jupyter terminal console
 
 License:        BSD-3-Clause
 URL:            https://jupyter.org
 Source0:        %pypi_source %{srcname_}
-# https://github.com/jupyter/jupyter_console/pull/276#issuecomment-1437436234
-Patch:          0001-Skip-flaky-tests.patch
 
 BuildArch:      noarch
 
@@ -57,7 +55,7 @@ Documentation for jupyter-console
 %pyproject_wheel
 
 # generate html docs
-%make_build -C docs html PYTHONPATH="%{pyproject_build_lib}"
+%make_build -C docs html PYTHONPATH=$PWD
 mv docs/_build/html .
 # remove the sphinx-build leftovers
 rm -rf html/.{doctrees,buildinfo}

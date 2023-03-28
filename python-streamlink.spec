@@ -7,21 +7,22 @@ who want access to the video stream data. This project was forked from
 Livestreamer, which is no longer maintained.}
 
 Name:           python-%{srcname}
-Version:        5.1.2
-Release:        2%{?dist}
+Version:        5.3.1
+Release:        1%{?dist}
 Summary:        Python library for extracting streams from various websites
 
 # src/streamlink/packages/requests_file.py is ASL 2.0
 License:        BSD-2-Clause AND Apache-2.0
 URL:            https://streamlink.github.io/
 Source0:        https://github.com/%{srcname}/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
-# Drop development dependencies not available in Fedora or not usefull for tests
-Patch0:         %{name}-5.1.0-dev_dependencies.patch
+# - Drop development dependencies not available in Fedora or not usefull for tests
+# - Fix dependency versions
+Patch0:         %{name}-5.3.1-dependencies.patch
 # Use pycryptodomex library instead of pycryptodome
-Patch1:         %{name}-5.1.0-pycryptodomex.patch
+Patch1:         %{name}-5.3.1-pycryptodomex.patch
 # - Drop intersphinx mappings (no network available during build)
 # - Fix dependency versions
-Patch2:         %{name}-5.1.0-doc.patch
+Patch2:         %{name}-5.3.1-doc.patch
 # Ensure python3 interpreter is called during build
 Patch3:         %{name}-5.1.0-python3.patch
 
@@ -106,6 +107,9 @@ TZ=UTC %pytest
 
 
 %changelog
+* Sun Mar 26 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 5.3.1-1
+- Update to 5.3.1
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

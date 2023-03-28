@@ -1,8 +1,8 @@
 %global alt_name GPaste
 
 Name:           gpaste
-Version:        43.1
-Release:        2%{?dist}
+Version:        44.0
+Release:        1%{?dist}
 Summary:        Clipboard management system
 
 License:        BSD-2-Clause
@@ -11,13 +11,14 @@ Source0:        https://www.imagination-land.org/files/%{name}/%{alt_name}-%{ver
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
+BuildRequires:  gettext
+BuildRequires:  libappstream-glib
 BuildRequires:  meson
-BuildRequires:  pkgconfig(appstream-glib)
 BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  pkgconfig(gdk-3.0)
 BuildRequires:  pkgconfig(gdk-pixbuf-2.0)
 BuildRequires:  pkgconfig(gdk-x11-3.0)
-BuildRequires:  pkgconfig(gcr-3)
+BuildRequires:  pkgconfig(gcr-4)
 BuildRequires:  pkgconfig(gio-2.0)
 BuildRequires:  pkgconfig(gjs-1.0)
 BuildRequires:  pkgconfig(glib-2.0)
@@ -26,7 +27,7 @@ BuildRequires:  pkgconfig(gobject-2.0)
 BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(gtk4)
 BuildRequires:  pkgconfig(libadwaita-1)
-BuildRequires:  pkgconfig(mutter-clutter-11)
+BuildRequires:  pkgconfig(mutter-clutter-12)
 BuildRequires:  pkgconfig(pango)
 BuildRequires:  pkgconfig(systemd)
 BuildRequires:  pkgconfig(x11)
@@ -199,6 +200,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/org.gn
 
 
 %changelog
+* Sun Mar 26 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 44.0-1
+- Update to 44.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

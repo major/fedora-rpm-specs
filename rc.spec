@@ -2,13 +2,15 @@ Summary:          Re-implementation for Unix of the Plan 9 shell
 Name:             rc
 Version:          1.7.4
 Release:          19%{?dist}
-License:          zlib
-URL:              http://tobold.org/article/rc
-Source0:          http://static.tobold.org/%{name}/%{name}-%{version}.tar.gz
+License:          Zlib
+URL:              https://github.com/rakitzis/rc
+Source0:          https://github.com/rakitzis/rc/archive/v%{version}/%{name}-%{version}.tar.gz
 Conflicts:        filesystem < 3
 Provides:         /bin/rc
 Requires(post):   grep
 Requires(postun): sed
+BuildRequires:    autoconf
+BuildRequires:    automake
 BuildRequires:    gcc
 BuildRequires:    make
 BuildRequires:    readline-devel
@@ -20,6 +22,7 @@ This is a re-implementation for Unix, by Byron Rakitzis, of the Plan 9 shell.
 
 %prep
 %setup -q
+autoreconf --force --install
 
 %build
 %configure --with-edit=gnu

@@ -5,8 +5,8 @@
 
 Name:    digikam
 Summary: A digital camera accessing & photo management application
-Version: 7.9.0
-Release: 6%{?beta}%{?dist}
+Version: 7.10.0
+Release: 1%{?beta}%{?dist}
 
 License: GPL-2.0-or-later
 URL:     http://www.digikam.org/
@@ -41,6 +41,7 @@ BuildRequires: gettext
 BuildRequires: gcc-c++
 BuildRequires: ImageMagick-devel
 BuildRequires: ImageMagick-c++-devel >= 6.7
+BuildRequires: libheif-devel
 BuildRequires: libjpeg-devel
 BuildRequires: libtiff-devel
 BuildRequires: marble-astro-devel
@@ -71,6 +72,7 @@ BuildRequires: pkgconfig(Qt5WebKit)
 %endif
 %endif
 #BuildRequires: kf5-libkipi-devel >= 16.03
+BuildRequires: ksanecore-devel
 BuildRequires: kf5-libksane-devel >= 16.03
 BuildRequires: kf5-kconfig-devel
 BuildRequires: kf5-kdoctools-devel
@@ -254,6 +256,11 @@ update-desktop-database -q &> /dev/null
 
 
 %changelog
+* Sun Mar 26 2023 Alexey Kurov <nucleo@fedoraproject.org> - 7.10.0-1
+- digiKam-7.10.0
+- BR: ksanecore-devel
+- BR: libheif-devel
+
 * Tue Feb 21 2023 Than Ngo <than@redhat.com> - 7.9.0-6
 - migrated to SPDX license
 

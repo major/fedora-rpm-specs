@@ -9,7 +9,7 @@
 %bcond_with qt6
 
 Name:           python-ezdxf
-Version:        1.0.2
+Version:        1.0.3
 Release:        %autorelease
 Summary:        Create/manipulate DXF drawings
 
@@ -221,11 +221,11 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
 
 # See tox-extras.ini:
 # Note: It is NOT safe to parallelize these tests with pytest-xdist!
-%pytest -k "${k-}" tests integration_tests
+%pytest -k "${k-}" tests integration_tests -v
 
 # Since the user can disable the C extensions, test the pure-Python
 # implementations too:
-EZDXF_DISABLE_C_EXT=1 %pytest -k "${k-}" tests integration_tests
+EZDXF_DISABLE_C_EXT=1 %pytest -k "${k-}" tests integration_tests -v
 
 %files -n python3-ezdxf -f %{pyproject_files}
 # pyproject-rpm-macros handles the LICENSE file; verify with “rpm -qL -p …”

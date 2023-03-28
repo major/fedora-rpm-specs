@@ -8,7 +8,7 @@
 
 Name:           ghc-%{pkg_name}
 Version:        1.0.0.3
-Release:        %autorelease
+Release:        %autorelease -b 6
 Summary:        SPDX license expression language, Extras
 
 License:        BSD-3-Clause

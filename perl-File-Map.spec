@@ -1,6 +1,6 @@
 Name:           perl-File-Map
-Version:        0.67
-Release:        10%{?dist}
+Version:        0.68
+Release:        1%{?dist}
 Summary:        Memory mapping made simple and safe
 License:        GPL+ or Artistic
 
@@ -75,6 +75,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -exec rm -f {} \;
 
 
 %changelog
+* Sun Mar 26 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.68-1
+- Update to 0.68
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.67-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

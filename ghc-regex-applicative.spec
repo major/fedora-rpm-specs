@@ -8,7 +8,7 @@
 
 Name:           ghc-%{pkg_name}
 Version:        0.3.4
-Release:        %autorelease
+Release:        %autorelease -b 29
 Summary:        Regex-based parsing with applicative interface
 
 License:        MIT

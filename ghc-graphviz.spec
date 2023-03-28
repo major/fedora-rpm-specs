@@ -8,7 +8,7 @@
 
 Name:           ghc-%{pkg_name}
 Version:        2999.20.1.0
-Release:        %autorelease
+Release:        %autorelease -b 27
 Summary:        Bindings to Graphviz for graph visualization
 
 License:        BSD-3-Clause
