@@ -4,8 +4,8 @@
 %bcond_without tests
 
 Name:           python-pyerfa
-Version:        2.0.0.1
-Release:        6%{?dist}
+Version:        2.0.0.3
+Release:        1%{?dist}
 Summary:        Python wrapper for the ERFA library
 License:        BSD
 URL:            https://github.com/liberfa/pyerfa
@@ -77,6 +77,9 @@ popd
 
 
 %changelog
+* Mon Mar 27 2023 Christian Dersch <lupinix@fedoraproject.org> - 2.0.0.3-1
+- new version
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

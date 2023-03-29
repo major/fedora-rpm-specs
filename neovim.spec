@@ -40,7 +40,7 @@
 
 Name:           neovim
 Version:        0.8.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 License:        Apache-2.0 AND Vim
 Summary:        Vim-fork focused on extensibility and agility
@@ -52,6 +52,7 @@ Source2:        spec-template
 
 Patch0:         neovim-fix-fortify-source.patch
 Patch1:         https://github.com/neovim/neovim/pull/22780.patch
+Patch2:         https://github.com/neovim/neovim/pull/22729.patch
 
 Patch1000:      neovim-lua-bit32.patch
 
@@ -114,6 +115,7 @@ parts of Vim, without compromise, and more.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %if %{without luajit}
 %patch1000 -p1
@@ -1894,6 +1896,9 @@ find %{buildroot}%{_datadir} \( -name "*.bat" -o -name "*.awk" \) \
 %{_datadir}/nvim/runtime/tutor/en/vim-01-beginner.tutor.json
 
 %changelog
+* Mon Mar 27 2023 Andreas Schneider <asn@redhat.com> - 0.8.3-4
+- resolves: rhbz#2181836 - Fix snprintf buffer overflow with tags
+
 * Sat Mar 25 2023 Andreas Schneider <asn@redhat.com> - 0.8.3-3
 - resolves: rhbz#2165805 - Fix snprintf buffer overflow
 

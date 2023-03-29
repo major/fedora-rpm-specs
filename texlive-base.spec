@@ -23,7 +23,7 @@
 
 Name: %{shortname}-base
 Version: %{source_date}
-Release: 70%{?dist}
+Release: 71%{?dist}
 Epoch: 11
 Summary: TeX formatting system
 # The only files in the base package are directories, cache, and license texts
@@ -462,6 +462,7 @@ Source421: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pagelayo
 Source422: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texaccents.tar.xz
 Source423: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texaccents.doc.tar.xz
 Source424: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/upmendex.doc.tar.xz
+Source425: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texaccents.source.tar.xz
 
 Patch1: tl-kpfix.patch
 Patch2: tl-format.patch
@@ -7055,6 +7056,9 @@ Summary: Convert composite accented characters to Unicode
 Version: svn64447
 License: MIT
 Requires: texlive-base texlive-kpathsea
+Requires: snobol4
+# snobol4
+BuildArch: noarch
 
 %description -n %{shortname}-texaccents
 This small utility, written in SNOBOL, converts the composition
@@ -8650,7 +8654,21 @@ export TEXMFCACHE=\$(realpath \$HOME/.cache/texlive);
 %{_bindir}/mtxrun --script context "\$@"
 EOF
 chmod 0755 context
+
+# fix texaccents
+# TODO: Detect snobol4 version rather than hardcoding it here.
+rm -f texaccents
+cat > texaccents << EOF
+#!/bin/sh
+env SNOPATH=/usr/lib64/snobol4/2.3.1/lib:/usr/share/texlive/texmf-dist/scripts/texaccents /usr/bin/snobol4 /usr/share/texlive/texmf-dist/scripts/texaccents/texaccents.sno "\$@"
+EOF
+chmod 0755 texaccents
 popd
+
+# more texaccents fixes
+mv %{buildroot}%{_texdir}/texmf-dist/source/support/texaccents/* %{buildroot}%{_texdir}/texmf-dist/scripts/texaccents
+sed -i 's|host.inc|host.sno|g' %{buildroot}%{_texdir}/texmf-dist/scripts/texaccents/texaccents.sno
+sed -i 's|repl.inc|repl.sno|g' %{buildroot}%{_texdir}/texmf-dist/scripts/texaccents/grepl.inc
 
 # Move docs
 mkdir -p %{buildroot}%{_datadir}/
@@ -11062,6 +11080,16 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %doc %{_texdir}/texmf-dist/doc/latex/yplan/
 
 %changelog
+* Mon Mar 27 2023 Tom Callaway <spot@fedoraproject.org> - 11:20230311-71
+- fix texaccents so that:
+  1. it has all the includes it needs
+  2. it is noarch
+  3. it has a proper launcher script
+  NOTE1: texaccents will no longer pickup a Requires on /usr/bin/snobol4
+         but it still needs it. It's pending review for inclusion in Fedora.
+  NOTE2: With snobol4, texaccents itself runs but does not function usefully
+         at the moment
+
 * Mon Mar 20 2023 Tom Callaway <spot@fedoraproject.org> - 11:20230311-70
 - TeXLive 2023
 - bring digestif over here

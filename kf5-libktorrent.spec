@@ -2,7 +2,7 @@
 
 Name:    kf5-libktorrent
 Summary: Library providing torrent downloading code
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -82,6 +82,9 @@ Requires: cmake(Qt5Network)
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

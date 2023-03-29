@@ -1,7 +1,7 @@
 %global kf5_min_version 5.88.0
 
 Name:           calindori
-Version:        23.01.0
+Version:        23.03.80
 Release:        1%{?dist}
 Summary:        Calendar application for Plasma Mobile
 License:        GPLv3+ and LGPLv3+ and BSD and CC0
@@ -67,6 +67,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 %license LICENSES/*
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Mon Jan 30 2023 Justin Zobel <justin@1707.io> - 23.01.0-1
 - Update to 23.01.0
 

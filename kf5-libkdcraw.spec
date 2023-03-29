@@ -2,7 +2,7 @@
 
 Name:    kf5-libkdcraw
 Summary: A C++ interface around LibRaw library
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 
 # libkdcraw is GPLv2+,
@@ -72,12 +72,14 @@ Requires: cmake(Qt5Gui)
 
 %files devel
 %{_kf5_libdir}/libKF5KDcraw.so
-%{_kf5_includedir}/libkdcraw_version.h
 %{_kf5_includedir}/KDCRAW/
 %{_kf5_libdir}/cmake/KF5KDcraw/
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

@@ -1,7 +1,7 @@
 %global framework libkdepim
 
 Name:    kf5-%{framework}
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 Summary: Library for common kdepim apps
 
@@ -79,22 +79,28 @@ developing applications that use %{name}.
 %files -f %{name}.lang
 %license LICENSES/*
 %{_kf5_datadir}/qlogging-categories5/*%{framework}.*
-%{_kf5_libdir}/libKF5Libkdepim.so.5*
-%{_qt5_plugindir}/designer/kdepimwidgets.so
+%{_kf5_libdir}/libKPim5Libkdepim.so.5
+%{_kf5_libdir}/libKPim5Libkdepim.so.5.*
 
 %ldconfig_scriptlets akonadi
 
 %files devel
-%{_kf5_libdir}/libKF5Libkdepim.so
+%{_includedir}/KPim5/Libkdepim/
 %{_kf5_libdir}/cmake/KF5Libkdepim/
-%{_kf5_includedir}/Libkdepim/
+%{_kf5_libdir}/cmake/KPim5Libkdepim/
+%{_kf5_libdir}/cmake/KPim5MailTransportDBusService/
+%{_kf5_libdir}/libKPim5Libkdepim.so
 %{_kf5_archdatadir}/mkspecs/modules/qt_Libkdepim.pri
 %{_kf5_libdir}/cmake/MailTransportDBusService/
 %{_kf5_datadir}/dbus-1/interfaces/org.kde.addressbook.service.xml
 %{_kf5_datadir}/dbus-1/interfaces/org.kde.mailtransport.service.xml
+%{_kf5_qtplugindir}/designer/kdepim5widgets.so
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

@@ -4,17 +4,17 @@
 Name:           perl-DateTime-Format-Mail
 Epoch:          1
 Version:        0.403
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Convert between DateTime and RFC2822/822 formats
-License:        GPL+ or Artistic        
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DateTime-Format-Mail            
-Source0:        https://cpan.metacpan.org/authors/id/B/BO/BOOK/DateTime-Format-Mail-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/modules/by-module/DateTime/DateTime-Format-Mail-%{version}.tar.gz
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
@@ -35,6 +35,7 @@ BuildRequires:  perl(Test::Pod::Coverage) >= 1.08
 BuildRequires:  perl(Test::CPAN::Meta)
 %endif
 # Dependencies
+# (none)
 
 %description
 RFCs 2822 and 822 specify date formats to be used by email. This module parses
@@ -56,7 +57,7 @@ make %{?_smp_mflags}
 
 %install
 make pure_install DESTDIR=%{buildroot}
-%{_fixperms} %{buildroot}
+%{_fixperms} -c %{buildroot}
 
 %check
 make test %{?with_perl_DateTime_Format_Mail_enables_extra_test:\
@@ -69,6 +70,11 @@ make test %{?with_perl_DateTime_Format_Mail_enables_extra_test:\
 %{_mandir}/man3/DateTime::Format::Mail.3*
 
 %changelog
+* Mon Mar 27 2023 Paul Howarth <paul@city-fan.org> - 1:0.403-21
+- Use SPDX-format license tag
+- Use author-independent source URL
+- Fix permissions verbosely
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.403-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

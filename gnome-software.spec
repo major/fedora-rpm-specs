@@ -5,7 +5,6 @@
 %global gtk4_version 4.9.2
 %global json_glib_version 1.2.0
 %global libadwaita_version 1.3.alpha
-%global libsoup_version 2.52.0
 %global libxmlb_version 0.1.7
 %global packagekit_version 1.1.1
 
@@ -21,7 +20,7 @@
 
 Name:      gnome-software
 Version:   44.0
-Release:   2%{?dist}
+Release:   3%{?dist}
 Summary:   A software center for GNOME
 
 License:   GPL-2.0-or-later
@@ -77,7 +76,6 @@ Requires: json-glib%{?_isa} >= %{json_glib_version}
 Requires: iso-codes
 # librsvg2 is needed for gdk-pixbuf svg loader
 Requires: librsvg2%{?_isa}
-Requires: libsoup%{?_isa} >= %{libsoup_version}
 Requires: libxmlb%{?_isa} >= %{libxmlb_version}
 
 Recommends: PackageKit%{?_isa} >= %{packagekit_version}
@@ -152,7 +150,7 @@ official-repos = [ 'rhel-%{?rhel}' ]
 %else
 official-repos = [ 'anaconda', 'fedora', 'fedora-debuginfo', 'fedora-source', 'koji-override-0', 'koji-override-1', 'rawhide', 'rawhide-debuginfo', 'rawhide-source', 'updates', 'updates-debuginfo', 'updates-source', 'updates-testing', 'updates-testing-debuginfo', 'updates-testing-source', 'fedora-modular', 'fedora-modular-debuginfo', 'fedora-modular-source', 'rawhide-modular', 'rawhide-modular-debuginfo', 'rawhide-modular-source', 'fedora-cisco-openh264', 'fedora-cisco-openh264-debuginfo' ]
 required-repos = [ 'fedora', 'updates' ]
-packaging-format-preference = [ 'flatpak:fedora', 'rpm' ]
+packaging-format-preference = [ 'flatpak:fedora-testing', 'flatpak:fedora', 'rpm' ]
 %endif
 FOE
 
@@ -230,6 +228,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/gnome-software/
 
 %changelog
+* Sun Mar 26 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 44.0-3
+- Fix libsoup runtime dependency
+
 * Fri Mar 24 2023 Milan Crha <mcrha@redhat.com> - 44.0-2
 - Resolves: #2181367 (Prefer Fedora Flatpaks before RPM before other sources for apps)
 

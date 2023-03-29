@@ -8,7 +8,7 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 Summary: The Akonadi Contacts Library
 
@@ -121,8 +121,8 @@ xvfb-run -a \
 %{_kf5_datadir}/akonadi/plugins/serializer/
 %{_kf5_datadir}/kf5/akonadi/contact/
 %{_kf5_datadir}/qlogging-categories5/*%{framework}.*
-%{_kf5_libdir}/libKF5AkonadiContact.so.*
-%{_kf5_libdir}/libKF5ContactEditor.so.*
+%{_kf5_libdir}/libKPim5AkonadiContact.so.*
+%{_kf5_libdir}/libKPim5ContactEditor.so.*
 %{_kf5_qtplugindir}/akonadi_serializer_*.so
 %{_kf5_qtplugindir}/pim5/kcms/kaddressbook/kcm_akonadicontact_actions.so
 %{_kf5_qtplugindir}/pim5/akonadi/contacts/plugins/categorieseditwidgetplugin.so
@@ -130,19 +130,20 @@ xvfb-run -a \
 %files devel
 %{_kf5_archdatadir}/mkspecs/modules/qt_AkonadiContact.pri
 %{_kf5_archdatadir}/mkspecs/modules/qt_ContactEditor.pri
-%{_kf5_includedir}/AkonadiContact/akonadi-contact_version.h
-%{_kf5_includedir}/AkonadiContact/Akonadi
-%{_kf5_includedir}/AkonadiContact/akonadi
-%{_kf5_includedir}/AkonadiContactEditor/Akonadi
-%{_kf5_includedir}/AkonadiContactEditor/akonadi
-%{_kf5_includedir}/AkonadiContactEditor/akonadi-contact-editor_version.h
+%{_includedir}/KPim5/AkonadiContact/
+%{_includedir}/KPim5/AkonadiContactEditor/
 %{_kf5_libdir}/cmake/KF5AkonadiContact/
-%{_kf5_libdir}/cmake/KF5ContactEditor/
-%{_kf5_libdir}/libKF5AkonadiContact.so
-%{_kf5_libdir}/libKF5ContactEditor.so
+%{_kf5_libdir}/cmake/KPim5AkonadiContact/
+%{_kf5_libdir}/cmake/KF5AkonadiContactEditor/
+%{_kf5_libdir}/cmake/KPim5ContactEditor/
+%{_kf5_libdir}/libKPim5AkonadiContact.so
+%{_kf5_libdir}/libKPim5ContactEditor.so
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

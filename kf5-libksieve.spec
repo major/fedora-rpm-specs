@@ -1,7 +1,7 @@
 %global framework libksieve
 
 Name:    kf5-%{framework}
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 Summary: Sieve support library
 
@@ -25,6 +25,7 @@ BuildRequires:  cmake(Qt5UiTools)
 BuildRequires:  cmake(Qt5Widgets)
 BuildRequires:  cmake(Qt5Xml)
 BuildRequires:  pkgconfig(Qt5WebEngineWidgets)
+BuildRequires:  cmake(KF5TextAutoCorrection)
 
 %global kf5_ver 5.23.0
 BuildRequires:  extra-cmake-modules >= %{kf5_ver}
@@ -88,23 +89,27 @@ Requires:       cmake(KF5SyntaxHighlighting)
 %{_kf5_datadir}/knsrcfiles/ksieve_script.knsrc
 %{_kf5_datadir}/qlogging-categories5/*%{framework}.*
 %{_kf5_datadir}/sieve/
-%{_kf5_libdir}/libKF5KManageSieve.so.*
-%{_kf5_libdir}/libKF5KSieve.so.*
-%{_kf5_libdir}/libKF5KSieveUi.so.*
+%{_kf5_libdir}/libKPim5KManageSieve.so.*
+%{_kf5_libdir}/libKPim5KSieve.so.*
+%{_kf5_libdir}/libKPim5KSieveUi.so.*
 
 %files devel
 %{_kf5_archdatadir}/mkspecs/modules/qt_KManageSieve.pri
 %{_kf5_archdatadir}/mkspecs/modules/qt_KSieveUi.pri
-%{_kf5_includedir}/KManageSieve/
-%{_kf5_includedir}/KSieveUi/
+%{_includedir}/KPim5/KManageSieve/
+%{_includedir}/KPim5/KSieveUi/
 %{_kf5_includedir}/KSieve/libksieve_version.h
 %{_kf5_libdir}/cmake/KF5LibKSieve/
-%{_kf5_libdir}/libKF5KManageSieve.so
-%{_kf5_libdir}/libKF5KSieve.so
-%{_kf5_libdir}/libKF5KSieveUi.so
+%{_kf5_libdir}/cmake/KPim5LibKSieve/
+%{_kf5_libdir}/libKPim5KManageSieve.so
+%{_kf5_libdir}/libKPim5KSieve.so
+%{_kf5_libdir}/libKPim5KSieveUi.so
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

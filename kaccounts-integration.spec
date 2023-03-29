@@ -1,6 +1,6 @@
 
 Name:    kaccounts-integration
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 Summary: Small system to administer web accounts across the KDE desktop
 License: GPLv2+
@@ -30,6 +30,7 @@ BuildRequires:  kf5-kiconthemes-devel
 BuildRequires:  kf5-kconfig-devel
 BuildRequires:  kf5-kwallet-devel
 BuildRequires:  kf5-kdbusaddons-devel
+BuildRequires:  cmake(QCoro5)
 
 BuildRequires:  pkgconfig(Qt5Gui)
 BuildRequires:  pkgconfig(Qt5Qml)
@@ -89,6 +90,7 @@ Headers, development libraries and documentation for %{name}.
 %doc README*
 %license LICENSES/*
 %{_kf5_datadir}/kpackage/kcms/kcm_kaccounts/
+%{_kf5_datadir}/applications/kcm_kaccounts.desktop
 %{_kf5_qtplugindir}/plasma/kcms/systemsettings/kcm_kaccounts.so
 %{_kf5_plugindir}/kded/kded_accounts.so
 %{_qt5_plugindir}/kaccounts/daemonplugins/kaccounts_kio_webdav_plugin.so
@@ -103,6 +105,9 @@ Headers, development libraries and documentation for %{name}.
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

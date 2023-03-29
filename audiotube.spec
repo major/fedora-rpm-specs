@@ -1,7 +1,7 @@
 %global kf5_min_version 5.86.0
 
 Name:           audiotube
-Version:        23.01.0
+Version:        23.03.80
 Release:        1%{?dist}
 License:        GPLv2+
 Summary:        AudioTube can search YouTube Music, list albums and artists, play automatically generated playlists, albums and allows to put your own playlist together.
@@ -34,6 +34,7 @@ BuildRequires: cmake(KF5CoreAddons)   >= %{kf5_min_version}
 BuildRequires: cmake(KF5Crash)        >= %{kf5_min_version}
 BuildRequires: cmake(KF5I18n)         >= %{kf5_min_version}
 BuildRequires: cmake(KF5Kirigami2)    >= %{kf5_min_version}
+BuildRequires: cmake(KF5KirigamiAddons)
 BuildRequires: cmake(KF5WindowSystem) >= %{kf5_min_version}
 
 Requires:   hicolor-icon-theme
@@ -69,6 +70,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Mon Jan 30 2023 Justin Zobel <justin@1707.io> - 23.01.0-1
 - Update to 23.01.0
 

@@ -2,12 +2,12 @@ Name: hyphen-hsb
 Summary: Upper Sorbian hyphenation rules
 %global upstreamid 20110620
 Version: 0.%{upstreamid}
-Release: 22%{?dist}
+Release: 23%{?dist}
 #? in a url causes trouble
 #http://tug.org/svn/texhyphen/trunk/hyph-utf8/tex/generic/hyph-utf8/patterns/tex/hyph-hsb.tex?view=co
 Source0: hyph-hsb.tex
 URL: http://tug.org/tex-hyphen
-License: LPPL
+License: LPPL-1.3a
 BuildArch: noarch
 BuildRequires: hyphen-devel
 Requires: hyphen
@@ -38,6 +38,9 @@ cp -p hyph_hsb_DE.dic $RPM_BUILD_ROOT/%{_datadir}/hyphen
 %{_datadir}/hyphen/*
 
 %changelog
+* Mon Mar 27 2023 Caolán McNamara <caolanm@redhat.com> - 0.20110620-23
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20110620-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -102,20 +105,20 @@ cp -p hyph_hsb_DE.dic $RPM_BUILD_ROOT/%{_datadir}/hyphen
 * Fri Jan 13 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20110620-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
 
-* Mon Oct 17 2011 Caolan McNamara <caolanm@redhat.com> - 0.20110620-1
+* Mon Oct 17 2011 Caolán McNamara <caolanm@redhat.com> - 0.20110620-1
 - latest version
 
 * Wed Feb 09 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20100531-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 
-* Tue Jun 01 2010 Caolan McNamara <caolanm@redhat.com> - 0.20100531-1
+* Tue Jun 01 2010 Caolán McNamara <caolanm@redhat.com> - 0.20100531-1
 - latest version
 
 * Fri Jul 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20080619-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 
-* Tue Jul 14 2009 Caolan McNamara <caolanm@redhat.com> - 0.20080619-2
+* Tue Jul 14 2009 Caolán McNamara <caolanm@redhat.com> - 0.20080619-2
 - links doesn't have a -no-references mode anymore
 
-* Mon Mar 23 2009 Caolan McNamara <caolanm@redhat.com> - 0.20080619-1
+* Mon Mar 23 2009 Caolán McNamara <caolanm@redhat.com> - 0.20080619-1
 - initial version

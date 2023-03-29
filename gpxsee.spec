@@ -1,7 +1,7 @@
 %global appname GPXSee
 
 Name:           gpxsee
-Version:        12.2
+Version:        12.3
 Release:        1%{?dist}
 Summary:        GPS log file viewer and analyzer
 
@@ -70,6 +70,31 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Mon Mar 27 2023 Packit <hello@packit.dev> - 12.3-1
+- Added currents rendering (Martin Tůma)
+- Render masts as pylons (Martin Tůma)
+- Label sizes adjustment (Martin Tůma)
+- Properly crop the image (Martin Tůma)
+- Various ENC rendering improvements (Martin Tůma)
+- Translated using Weblate (Catalan) (raf)
+- A better point items layout algorithm (Martin Tůma)
+- A better "entry prohibited" line (Martin Tůma)
+- Added fog signals rendering (Martin Tůma)
+- Render lights merged with the root objects, not as separate objects (Martin Tůma)
+- Translated using Weblate (Norwegian Bokmål) (ovl-1)
+- Removed duplicit map error debug output (Martin Tůma)
+- Properly chceck for GCS/PCS files (Martin Tůma)
+- Do not try to load the style when it does not exist (Martin Tůma)
+- Version++ (Martin Tůma)
+- Render international border lines (Martin Tůma)
+- Fixed header length check (Martin Tůma)
+- Added missing nmea serial port baudrate setting (Martin Tůma)
+- Translated using Weblate (Esperanto) (Nikolay Korotkiy)
+- Translated using Weblate (Ukrainian) (Nikolay Korotkiy)
+- Translated using Weblate (Russian) (Nikolay Korotkiy)
+- Translated using Weblate (Finnish) (Nikolay Korotkiy)
+- Translated using Weblate (Chinese (Simplified)) (mtriau)
+
 * Sun Mar 05 2023 Packit <hello@packit.dev> - 12.2-1
 - Translated using Weblate (Catalan) (raf)
 - Translated using Weblate (Hungarian) (99 efi)

@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 Name:    kdegraphics-mobipocket 
 Summary: A collection of plugins to handle mobipocket files 
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -59,11 +59,14 @@ Provides:  qmobipocket-devel%{?_isa} = %{version}-%{release}
 
 %files devel
 %{_libdir}/libqmobipocket.so
-%{_includedir}/qmobipocket/
+%{_includedir}/QMobipocket/
 %{_libdir}/cmake/QMobipocket/
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

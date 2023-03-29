@@ -3,7 +3,7 @@
 Summary: Qt5 - Wayland platform support and QtCompositor module
 Name:    qt5-%{qt_module}
 Version: 5.15.8
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -183,6 +183,9 @@ popd
 
 
 %changelog
+* Mon Mar 27 2023 Than Ngo <than@redhat.com> - 5.15.8-5
+- Fix bz#2179854, rebuild against new qt5-qtbase
+
 * Mon Mar 20 2023 Than Ngo <than@redhat.com> - 5.15.8-4
 - Fix bz#2178389, rebuild against new qt5-qtbase
 

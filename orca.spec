@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           orca
-Version:        44~rc
+Version:        44.0
 Release:        1%{?dist}
 Summary:        Assistive technology for people with visual impairments
 
@@ -74,6 +74,9 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/orca-autostart.de
 
 
 %changelog
+* Mon Mar 27 2023 David King <amigadave@amigadave.com> - 44.0-1
+- Update to 44.0
+
 * Thu Mar 09 2023 David King <amigadave@amigadave.com> - 44~rc-1
 - Update to 44.rc
 

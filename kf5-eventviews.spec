@@ -1,7 +1,7 @@
 %global framework eventviews
 
 Name:    kf5-%{framework}
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 Summary: KDE PIM library for displaying events and calendars
 
@@ -91,16 +91,20 @@ developing applications that use %{name}.
 %files -f %{name}.lang
 %license LICENSES/*
 %{_kf5_datadir}/qlogging-categories5/*%{framework}.*
-%{_kf5_libdir}/libKF5EventViews.so.*
+%{_kf5_libdir}/libKPim5EventViews.so.*
 
 %files devel
 %{_kf5_archdatadir}/mkspecs/modules/qt_EventViews.pri
-%{_kf5_includedir}/EventViews/
+%{_includedir}/KPim5/EventViews/
 %{_kf5_libdir}/cmake/KF5EventViews/
-%{_kf5_libdir}/libKF5EventViews.so
+%{_kf5_libdir}/cmake/KPim5EventViews/
+%{_kf5_libdir}/libKPim5EventViews.so
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

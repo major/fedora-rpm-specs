@@ -1,6 +1,6 @@
 Name:    kdenetwork-filesharing
 Summary: Network filesharing
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
@@ -27,6 +27,7 @@ BuildRequires: kf5-kio-devel
 BuildRequires: kf5-kwidgetsaddons-devel
 BuildRequires: kf5-rpm-macros
 BuildRequires: pkgconfig(packagekitqt5)
+BuildRequires: cmake(QCoro5)
 BuildRequires: cmake(Qt5Qml)
 BuildRequires: cmake(Qt5Widgets)
 
@@ -74,6 +75,9 @@ Conflicts: kde-l10n < 17.03
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

@@ -1,6 +1,6 @@
 Name:           glade
 Version:        3.40.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        User Interface Designer for GTK+
 
 # - /usr/bin/glade is GPLv2+
@@ -23,7 +23,7 @@ BuildRequires:  libxml2-devel
 BuildRequires:  meson
 BuildRequires:  python3-devel
 BuildRequires:  python3-gobject-devel
-BuildRequires:  webkit2gtk3-devel
+BuildRequires:  webkit2gtk4.1-devel
 BuildRequires:  /usr/bin/appstream-util
 BuildRequires:  /usr/bin/xsltproc
 
@@ -57,6 +57,8 @@ developing applications that use Glade widget library.
 
 %prep
 %autosetup -p1
+# glade does not use libsoup, no other porting necessary
+sed -i -e 's/webkit2gtk-4.0/webkit2gtk-4.1/' meson.build
 
 
 %build
@@ -115,6 +117,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Glade.de
 
 
 %changelog
+* Sun Mar 26 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.40.0-3
+- Use webkit2gtk-4.1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.40.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

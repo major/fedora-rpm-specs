@@ -28,7 +28,7 @@
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
 Version: 5.27.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/plasma/%{name}
@@ -80,6 +80,9 @@ Patch105:       plasma-workspace-5.21.90-folderview_layout.patch
 Patch106:       plasma-workspace-5.25.90-enable-open-terminal-action.patch
 # default to enable the lock/logout actions
 Patch107:       plasma-workspace-5.25.90-enable-lock-logout-action.patch
+# Hide virtual keyboard indicator on sddm.
+# Do not remove this as it breaks Fedora's QA policy
+Patch108:       hide-virtual-keyboard-indicator-on-sddm.patch
 
 # udev
 BuildRequires:  zlib-devel
@@ -796,6 +799,9 @@ fi
 
 
 %changelog
+* Mon Mar 27 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.3-3
+- Add patch to hide the virtual keyboard indicator from sddm
+
 * Wed Mar 22 2023 Adam Williamson <awilliam@redhat.com> - 5.27.3-2
 - Backport MR #2767 to fix slow startup issue (#2179998)
 

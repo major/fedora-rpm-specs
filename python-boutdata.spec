@@ -11,6 +11,8 @@ URL:            http://boutproject.github.io
 Source0:        %pypi_source
 BuildArch:      noarch
 
+Patch:          https://github.com/boutproject/boutdata/pull/89.patch
+
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
 # From setup_requires in setup.py:

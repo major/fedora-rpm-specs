@@ -1,6 +1,6 @@
 %global neo_major 23
 %global neo_minor 05
-%global neo_build 25593.9
+%global neo_build 25593.18
 
 Name: intel-compute-runtime
 Version: %{neo_major}.%{neo_minor}.%{neo_build}
@@ -150,6 +150,9 @@ rm -rv third_party/sse2neon
 %doc
 
 %changelog
+* Mon Mar 27 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 23.05.25593.18-1
+- intel-compute-runtime-23.05.25593.18 (fixes RHBZ#2176000 )
+
 * Mon Mar 06 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 23.05.25593.9-1
 - intel-compute-runtime-23.05.25593.9
 

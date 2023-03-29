@@ -1,6 +1,6 @@
 Name:    kamera
 Summary: Digital camera support for KDE 
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 
 License: GPLv2
@@ -14,6 +14,7 @@ URL:     https://www.kde.org/applications/graphics/
 Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/kamera-%{version}.tar.xz
 
 BuildRequires: extra-cmake-modules
+BuildRequires: kf5-kcmutils-devel
 BuildRequires: kf5-kconfig-devel
 BuildRequires: kf5-kconfigwidgets-devel
 BuildRequires: kf5-kdoctools-devel
@@ -54,15 +55,18 @@ Requires: kde-cli-tools
 
 %files -f %{name}.lang
 %doc AUTHORS README
-%license COPYING*
-%{_kf5_datadir}/applications/%{name}.desktop
+%{_kf5_datadir}/applications/kcm_%{name}.desktop
 %{_kf5_datadir}/solid/actions/solid_camera.desktop
-%{_kf5_libdir}/qt5/plugins/plasma/kcms/systemsettings_qwidgets/kamera.so
-%{_kf5_metainfodir}/org.kde.kamera.metainfo.xml
-%{_kf5_plugindir}/kio/kio_kamera.so
+%{_kf5_datadir}/qlogging-categories5/%{name}.categories
+%{_kf5_libdir}/qt5/plugins/plasma/kcms/systemsettings_qwidgets/kcm_%{name}.so
+%{_kf5_metainfodir}/org.kde.%{name}.metainfo.xml
+%{_kf5_plugindir}/kio/kio_%{name}.so
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

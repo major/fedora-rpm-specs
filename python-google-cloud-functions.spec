@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-functions
 %global         forgeurl    https://github.com/googleapis/python-functions
-Version:        1.11.0
+Version:        1.12.0
 %global         tag         v%{version}
 %forgemeta
 

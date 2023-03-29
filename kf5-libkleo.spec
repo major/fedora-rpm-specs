@@ -1,7 +1,7 @@
 %global framework libkleo
 
 Name:    kf5-%{framework}
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 Summary: KDE PIM cryptographic library
 
@@ -90,17 +90,21 @@ developing applications that use %{name}.
 %license LICENSES/*
 %{_kf5_sysconfdir}/xdg/libkleopatrarc
 %{_kf5_datadir}/qlogging-categories5/*%{framework}.*
-%{_kf5_libdir}/libKF5Libkleo.so.*
+%{_kf5_libdir}/libKPim5Libkleo.so.*
 %{_kf5_datadir}/libkleopatra/
 
 %files devel
-%{_kf5_libdir}/libKF5Libkleo.so
+%{_kf5_libdir}/libKPim5Libkleo.so
 %{_kf5_libdir}/cmake/KF5Libkleo/
-%{_kf5_includedir}/Libkleo/
+%{_kf5_libdir}/cmake/KPim5Libkleo/
+%{_includedir}/KPim5/Libkleo/
 %{_kf5_archdatadir}/mkspecs/modules/qt_Libkleo.pri
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

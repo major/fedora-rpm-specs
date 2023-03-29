@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-spanner
 %global         forgeurl    https://github.com/googleapis/python-spanner
-Version:        3.28.0
+Version:        3.29.0
 %global         tag         v%{version}
 %forgemeta
 

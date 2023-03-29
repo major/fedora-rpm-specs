@@ -1,7 +1,7 @@
 %global framework mailimporter
 
 Name:    kf5-%{framework}
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 Summary: Mail importer library
 
@@ -44,6 +44,7 @@ BuildRequires:  kf5-libkdepim-devel >= %{majmin_ver}
 BuildRequires:  kf5-pimcommon-devel >= %{majmin_ver}
 BuildRequires:  kf5-kmime-devel >= %{majmin_ver}
 BuildRequires:  cmake(KF5PimTextEdit)
+BuildRequires:  cmake(KF5TextAutoCorrection)
 
 Obsoletes:      kdepim-libs < 7:16.04.0
 Conflicts:      kdepim-libs < 7:16.04.0
@@ -88,26 +89,32 @@ Requires:       %{name}-akonadi%{?_isa} = %{version}-%{release}
 %files -f %{name}.lang
 %license LICENSES/*
 %{_kf5_datadir}/qlogging-categories5/*%{framework}.*
-%{_kf5_libdir}/libKF5MailImporter.so.*
+%{_kf5_libdir}/libKPim5MailImporter.so.*
 
 %ldconfig_scriptlets akonadi
 
 %files akonadi
-%{_kf5_libdir}/libKF5MailImporterAkonadi.so.*
+%{_kf5_libdir}/libKPim5MailImporterAkonadi.so.*
 
 %files devel
-%{_kf5_libdir}/libKF5MailImporter.so
+%{_kf5_libdir}/libKPim5MailImporter.so
 %{_kf5_libdir}/cmake/KF5MailImporter/
-%{_kf5_includedir}/MailImporter/
 %{_kf5_archdatadir}/mkspecs/modules/qt_MailImporter.pri
 # akonadi
-%{_kf5_libdir}/libKF5MailImporterAkonadi.so
+%{_kf5_libdir}/libKPim5MailImporterAkonadi.so
 %{_kf5_libdir}/cmake/KF5MailImporterAkonadi/
-%{_kf5_includedir}/MailImporterAkonadi/
+%{_kf5_libdir}/cmake/KF5MailImporter/
+%{_kf5_libdir}/cmake/KPim5MailImporterAkonadi/
+%{_kf5_libdir}/cmake/KPim5MailImporter/
+%{_includedir}/KPim5/MailImporterAkonadi/
+%{_includedir}/KPim5/MailImporter/
 %{_kf5_archdatadir}/mkspecs/modules/qt_MailImporterAkonadi.pri
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

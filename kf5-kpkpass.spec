@@ -9,7 +9,7 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 Summary: Library to deal with Apple Wallet pass files
 
@@ -88,15 +88,19 @@ make test/fast ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||
 %if 0%{?mime}
 %{_kf5_datadir}/mime/packages/application-vnd-apple-pkpass.xml
 %endif
-%{_kf5_libdir}/libKPimPkPass.so.5*
+%{_kf5_libdir}/libKPim5PkPass.so.5*
 
 %files devel
-%{_includedir}/KPim/
-%{_kf5_libdir}/libKPimPkPass.so
+%{_includedir}/KPim5/KPkPass/
+%{_kf5_libdir}/libKPim5PkPass.so
 %{_kf5_libdir}/cmake/KPimPkPass/
+%{_kf5_libdir}/cmake/KPim5PkPass/
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

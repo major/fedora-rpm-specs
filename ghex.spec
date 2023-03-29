@@ -3,12 +3,12 @@
 %global __provides_exclude_from ^%{_libdir}/gtkhex-4.0/.*\\.so$
 
 Name:           ghex
-Version:        44.alpha
+Version:        44.0
 Release:        1%{?dist}
 Summary:        Binary editor for GNOME
 
 # Source code is under GPLv2+, help is under GFDL and icon is under CC-BY-SA.
-License:        GPLv2+ and GFDL and CC-BY-SA
+License:        GPL-2.0-or-later AND GFDL-1.1-no-invariants-or-later AND CC-BY-SA-4.0
 URL:            https://gitlab.gnome.org/GNOME/ghex
 Source0:        https://download.gnome.org/sources/ghex/43/ghex-%{tarball_version}.tar.xz
 
@@ -92,6 +92,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/org.gnome.G
 
 
 %changelog
+* Mon Mar 27 2023 David King <amigadave@amigadave.com> - 44.0-1
+- Update to 44.0
+
 * Mon Feb 06 2023 David King <amigadave@amigadave.com> - 44.alpha-1
 - Update to 44.alpha
 

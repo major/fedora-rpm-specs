@@ -5,15 +5,15 @@
 %bcond_with storj
 
 Name: filezilla
-Version: 3.62.2
-Release: 4%{?dist}
+Version: 3.63.2.1
+Release: 1%{?dist}
 Summary: FTP, FTPS and SFTP client
 License: GPL-2.0-or-later
 URL: https://filezilla-project.org/
 
 Source0: https://download.filezilla-project.org/FileZilla_%{version}_src.tar.bz2
 #Patch0: appdata.patch
-Patch1: wxwidgets3.2.patch
+#Patch1: wxwidgets3.2.patch
 
 %if 0%{?rhel} == 8
 # libuv-devel not present on s390x on EL-8
@@ -149,6 +149,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/docs
 %{_libdir}/libfzclient-commonui*
 
 %changelog
+* Mon Mar 27 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.63.2.1-1
+- 3.63.2.1
+
 * Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.62.2-4
 - migrated to SPDX license
 

@@ -1,6 +1,6 @@
 Name:    ksysguard
 Version: 5.22.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: KDE Process Management application
 
 License: GPLv2
@@ -15,6 +15,10 @@ URL:     https://invent.kde.org/plasma/%{name}
 %global stable stable
 %endif
 Source0: http://download.kde.org/%{stable}/%{name}/%{version}/%{name}-%{version}.tar.xz
+
+# Upstream
+# https://invent.kde.org/plasma/ksysguard/-/commit/cb52be2f743a6717355445889dd3e2e265ad75fa
+Patch0:        0001-lmsensors_fix_buffer_size_passed_to_snprintf.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
@@ -71,7 +75,7 @@ Conflicts: %{name} < 5.21.1-2
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 
 %build
@@ -113,6 +117,10 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.ksysguard
 
 
 %changelog
+* Mon Mar 27 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.22.0-9
+- Backport patch from upstream.
+- Fix BZ#2179990
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.22.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

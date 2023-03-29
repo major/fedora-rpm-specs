@@ -13,7 +13,7 @@
 
 Name:    okular
 Summary: A document viewer
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 
 License: GPL-2.0-only
@@ -65,6 +65,7 @@ BuildRequires: cmake(Qt5PrintSupport)
 BuildRequires: cmake(Qt5Svg)
 BuildRequires: cmake(Qt5Qml)
 BuildRequires: cmake(Qt5Quick)
+BuildRequires: cmake(Qt5X11Extras)
 
 # okular-mobile
 BuildRequires: kf5-purpose-devel
@@ -227,6 +228,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.ok
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

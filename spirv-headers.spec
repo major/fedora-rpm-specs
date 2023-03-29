@@ -1,4 +1,6 @@
-%global sdkver 1.3.239.0
+%global commit 90547c54e24e01aae41a68124e7a304d0ec11dd0
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+
 
 Name:           spirv-headers
 Version:        1.5.5
@@ -7,7 +9,7 @@ Summary:        Header files from the SPIR-V registry
 
 License:        MIT
 URL:            https://github.com/KhronosGroup/SPIRV-Headers/
-Source0:        %url/archive/sdk-%{sdkver}.tar.gz#/SPIRV-Headers-sdk-%{sdkver}.tar.gz
+Source0:        %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 
 BuildArch:      noarch
 
@@ -40,7 +42,7 @@ This includes:
 * The XML registry fil
 
 %prep
-%autosetup -n SPIRV-Headers-sdk-%{sdkver}
+%autosetup -n SPIRV-Headers-%{commit}
 chmod a-x include/spirv/1.2/spirv.py
 
 

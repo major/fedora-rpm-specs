@@ -1,15 +1,10 @@
-%global vc_commit f5a087ee4db10e303fbc32e7e1ee09d04925c9cd
+%global vc_commit e37df7acc9c8a80e382917bb18b24ebf8d56df05
 %global vc_shortcommit %(c=%{vc_commit}; echo ${c:0:7})
 
 %global optflags %{optflags} -w
 
-%ifarch i686
-%global optflags %(echo %{optflags} | sed 's/-flto / /')
-%global _lto_cflags %{nil}
-%endif
-
 Name: intel-igc
-Version: 1.0.13463.1
+Version: 1.0.13700.7
 Release: 1%{?dist}
 Summary: Intel Graphics Compiler for OpenCL
 
@@ -17,13 +12,6 @@ License: MIT
 URL: https://github.com/intel/intel-graphics-compiler
 Source0: %{url}/archive/igc-%{version}/igc-%{version}.tar.gz
 Source1: https://github.com/intel/vc-intrinsics/archive/%{vc_commit}/vc-intrinsics-%{vc_shortcommit}.tar.gz
-
-# https://github.com/intel/intel-graphics-compiler/issues/282
-# https://github.com/intel/intel-graphics-compiler/commit/e98d39974436de32408aefaafbd040ef07f29cf4
-Patch01: e98d39974436de32408aefaafbd040ef07f29cf4.patch
-
-# https://github.com/intel/intel-graphics-compiler/commit/f40b939f5f5db8209a8bc2f8940ce47eb7b5defd
-Patch02: f40b939f5f5db8209a8bc2f8940ce47eb7b5defd.patch
 
 # This is just for Intel GPUs
 ExclusiveArch:  x86_64
@@ -126,6 +114,9 @@ tar -xf %{SOURCE1}
 %{_libdir}/pkgconfig/igc-opencl.pc
 
 %changelog
+* Mon Mar 27 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.0.13700.7-1
+- intel-igc-1.0.13700.7 (fixes RHBZ#2177378 )
+
 * Mon Mar 06 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.0.13463.1-1
 - intel-igc-1.0.13463.1 (fixes RHBZ#2175129 )
 

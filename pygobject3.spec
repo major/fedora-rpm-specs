@@ -4,7 +4,7 @@
 %define python3_version                3.7
 
 Name:           pygobject3
-Version:        3.44.0
+Version:        3.44.1
 Release:        1%{?dist}
 Summary:        Python bindings for GObject Introspection
 
@@ -20,6 +20,10 @@ BuildRequires:  pkgconfig(py3cairo) >= %{pycairo_version}
 BuildRequires:  meson
 BuildRequires:  python3-devel >= %{python3_version}
 BuildRequires:  python3-setuptools
+# Test dependencies.
+BuildRequires:  python3dist(pytest)
+BuildRequires:  gtk4
+BuildRequires:  xorg-x11-server-Xvfb
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python_Appendix/#_byte_compilation_reproducibility
 %global py_reproducible_pyc_path %{buildroot}%{python3_sitelib}
@@ -79,6 +83,10 @@ This package contains files required to embed PyGObject
 %install
 %meson_install
 
+%check
+%{shrink:xvfb-run -s "-screen 0 1600x1200x24" %meson_test --timeout-multiplier=5}
+
+
 %files -n python3-gobject
 %{python3_sitearch}/gi/_gi_cairo*.so
 
@@ -102,6 +110,9 @@ This package contains files required to embed PyGObject
 %{_libdir}/pkgconfig/pygobject-3.0.pc
 
 %changelog
+* Mon Mar 27 2023 David King <amigadave@amigadave.com> - 3.44.1-1
+- Update to 3.44.1
+
 * Sun Mar 19 2023 David King <amigadave@amigadave.com> - 3.44.0-1
 - Update to 3.44.0
 

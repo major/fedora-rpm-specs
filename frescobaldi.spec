@@ -1,18 +1,16 @@
 %{!?qt5_qtwebengine_arches:%global qt5_qtwebengine_arches %{ix86} x86_64 %{arm} aarch64 mips mipsel mips64el}
 
 Name:           frescobaldi
-Version:        3.2
-Release:        5%{?dist}
+Version:        3.3.0
+Release:        1%{?dist}
 Summary:        Edit LilyPond sheet music with ease!
 
 # hyphenator.py is LGPLv2+
 # The rest, including the core of the program, is GPLv2+
 License:        GPLv2+ and LGPL-2.0-or-later
 URL:            http://www.frescobaldi.org/
-Source0:        https://github.com/wbsoft/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/%{name}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:         frescobaldi-3.1.2-setup.patch
-Patch1:         0001-Remove-nested-list-from-metainfo-release.patch
-Patch2:         0001-Avoid-event-QKeySequence-member-comparisons-1480.patch
 
 BuildArch:      noarch
 ExclusiveArch: %{qt5_qtwebengine_arches}
@@ -60,13 +58,9 @@ yet lightweight and easy to use. It features:
 find -name "*.py"  -exec sed -i -e 's|#! python||' {} \;
 
 %patch0 -p0
-%patch1 -p0
-%patch2 -p1
 
 %build
 python3 ./setup.py build
-#cd %{name}_app/po
-#make
 make -C linux/
 
 %install
@@ -89,7 +83,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 %files
 %license COPYING
-%doc ChangeLog README* THANKS TODO
+%doc CHANGELOG.md README* THANKS TODO
 %{_bindir}/%{name}
 %{python3_sitelib}/%{name}_app
 %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
@@ -99,6 +93,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_metainfodir}/*.metainfo.xml
 
 %changelog
+* Mon Mar 27 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.3.0-1
+- 3.3.0
+
 * Thu Mar 09 2023 Nils Philippsen <nils@tiptoe.de> - 3.2-5
 - Apply upstream fix for event issue (#2176793)
 - Remove trailing white space

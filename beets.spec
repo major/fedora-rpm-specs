@@ -1,10 +1,14 @@
 Name:           beets
 Version:        1.6.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Music library manager and MusicBrainz tagger
 License:        MIT and ISC
 URL:            http://beets.io
 Source0:        https://github.com/beetbox/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
+
+# Fix extlinks for sphinx 6.0.0
+Patch0:         2106f471affd1dab35b4b26187b9c74d034528c5.diff
+
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-sphinx
@@ -19,7 +23,7 @@ BuildRequires:  python3-rarfile
 # Tests
 BuildRequires:  python3-jellyfish
 BuildRequires:  gstreamer1-plugins-good
-BuildRequires: make
+BuildRequires:  make
 BuildArch:      noarch
 
 Requires:       python3 >= 3.5
@@ -131,6 +135,9 @@ rm -f docs/_build/html/{.buildinfo,objects.inv}
 %files doc
 %doc docs/_build/html docs/_build/text
 %changelog
+* Mon Mar 27 2023 Michele Baldessari <michele@acksyn.org> - 1.6.0-3
+- Fix doc build with sphinx > 6.0.0 (rhbz#2180464)
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 Name:    kalarm
 Summary: Personal Alarm Scheduler
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 
 # code (generally) GPLv2, docs GFDL
@@ -69,7 +69,6 @@ BuildRequires: pkgconfig(phonon4qt5)
 
 # kde-apps
 %global majmin_ver %(echo %{version} | cut -d. -f1,2)
-#BuildRequires: kf5-kalarmcal-devel >= %{majmin_ver}
 BuildRequires: kf5-akonadi-contacts-devel >= %{majmin_ver}
 BuildRequires: kf5-akonadi-mime-devel >= %{majmin_ver}
 BuildRequires: kf5-akonadi-server-devel >= %{majmin_ver}
@@ -90,6 +89,11 @@ BuildRequires: xorg-x11-server-Xvfb
 %endif
 
 Requires: kdepim-runtime >= %{majmin_ver}
+
+# kf5-kalarmcal was merged into kalarm
+# https://invent.kde.org/pim/kalarm/-/merge_requests/13
+Obsoletes: kf5-kalarmcal < 22.12.50
+Provides:  kf5-kalarmcal = %{version}-%{release}
 
 %description
 KAlarm is a personal alarm message, command and email scheduler.
@@ -148,6 +152,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

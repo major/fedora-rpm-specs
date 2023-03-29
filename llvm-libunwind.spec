@@ -4,17 +4,17 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2158587
 %undefine _include_frame_pointers
 
-%global maj_ver 15
+%global maj_ver 16
 %global min_ver 0
-%global patch_ver 7
-#global rc_ver 3
+%global patch_ver 0
+#global rc_ver 4
 %global libunwind_version %{maj_ver}.%{min_ver}.%{patch_ver}
 
 %global libunwind_srcdir libunwind-%{libunwind_version}%{?rc_ver:rc%{rc_ver}}.src
 
 Name:       llvm-libunwind
 Version:    %{libunwind_version}%{?rc_ver:~rc%{rc_ver}}
-Release:    4%{?dist}
+Release:    1%{?dist}
 Summary:    LLVM libunwind
 
 License:    Apache-2.0 WITH LLVM-exception OR NCSA OR MIT
@@ -90,6 +90,7 @@ export ASMFLAGS=$CFLAGS
 %else
     -DLIBUNWIND_LIBDIR_SUFFIX= \
 %endif
+    -DCMAKE_INSTALL_INCLUDEDIR=%{_includedir}/llvm-libunwind \
     -DLIBUNWIND_INSTALL_SPHINX_HTML_DIR=%{_pkgdocdir}/html \
     -DSPHINX_WARNINGS_AS_ERRORS=OFF \
     -DSPHINX_EXECUTABLE=%{_bindir}/sphinx-build-3
@@ -131,6 +132,14 @@ rm %{buildroot}%{_pkgdocdir}/html/.buildinfo
 %{_libdir}/libunwind.so.1.0
 
 %files devel
+%{_includedir}/llvm-libunwind/__libunwind_config.h
+%{_includedir}/llvm-libunwind/libunwind.h
+%{_includedir}/llvm-libunwind/libunwind.modulemap
+%{_includedir}/llvm-libunwind/mach-o/compact_unwind_encoding.h
+%{_includedir}/llvm-libunwind/mach-o/compact_unwind_encoding.modulemap
+%{_includedir}/llvm-libunwind/unwind.h
+%{_includedir}/llvm-libunwind/unwind_arm_ehabi.h
+%{_includedir}/llvm-libunwind/unwind_itanium.h
 %dir %{_libdir}/llvm-unwind
 %{_libdir}/llvm-unwind/libunwind.so
 
@@ -142,6 +151,18 @@ rm %{buildroot}%{_pkgdocdir}/html/.buildinfo
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Tue Mar 21 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0-1
+- Update to LLVM 16.0.0
+
+* Wed Mar 15 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc4-1
+- Update to LLVM 16.0.0 RC4
+
+* Thu Feb 23 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc3-1
+- Update to LLVM 16.0.0 RC3
+
+* Mon Feb 20 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc1-1
+- Update to LLVM 16.0.0 RC1
+
 * Wed Feb 01 2023 Tom Stellard <tstellar@redhat.com> - 15.0.7-4
 - Omit frame pointers when building
 

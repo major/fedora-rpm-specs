@@ -1,15 +1,12 @@
-# NOTE: Even though ansible-core is in 8.6, it is only available
-# at *runtime*, not at *buildtime* - so we can't have
-# ansible-core as a build_dep on RHEL8
-%if 0%{?fedora} || 0%{?rhel} >= 9
-%bcond_without ansible
+# NOTE: ansible-core is in rhel-8.6 and newer, but not installable
+# in buildroot as it depended on modular Python.
+# It has been installable at buildtime in 8.8 and newer.
 %if 0%{?fedora}
 BuildRequires: ansible-packaging
 %else
+%if 0%{?rhel} >= 8
 BuildRequires: ansible-core >= 2.11.0
 %endif
-%else
-%bcond_with ansible
 %endif
 
 %bcond_with collection_artifact
@@ -30,7 +27,7 @@ Name: linux-system-roles
 Url: https://github.com/linux-system-roles
 Summary: Set of interfaces for unified system management
 Version: 1.35.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv3+ and MIT and BSD and Python
 %global _pkglicensedir %{_licensedir}/%{name}
@@ -45,24 +42,6 @@ License: GPLv3+ and MIT and BSD and Python
 
 %global collection_version %{version}
 
-# Helper macros originally from macros.ansible by Igor Raits <ignatenkobrain>
-# On RHEL, not available, so we must define those macros locally
-# On Fedora, provided by ansible-packager
-# Not used (yet). Could be made to point to AH in RHEL - but what about CentOS Stream?
-#%%{!?ansible_collection_url:%%define ansible_collection_url() https://galaxy.ansible.com/%%{collection_namespace}/%%{collection_name}}
-%if 0%{?rhel}
-Provides: ansible-collection(%{collection_namespace}.%{collection_name}) = %{collection_version}
-%global ansible_collection_files %{_datadir}/ansible/collections/ansible_collections/%{collection_namespace}/
-%define ansible_roles_dir %{_datadir}/ansible/roles
-%if %{without ansible}
-# Untar and copy everything instead of galaxy-installing the built artifact when ansible is not available
-%define ansible_collection_build() tar -cf %{_tmppath}/%{collection_namespace}-%{collection_name}-%{version}.tar.gz .
-%define ansible_collection_install() mkdir -p %{buildroot}%{ansible_collection_files}%{collection_name}; (cd %{buildroot}%{ansible_collection_files}%{collection_name}; tar -xf %{_tmppath}/%{collection_namespace}-%{collection_name}-%{version}.tar.gz)
-%else
-%define ansible_collection_build() ansible-galaxy collection build
-%define ansible_collection_install() ansible-galaxy collection install -n -p %{buildroot}%{_datadir}/ansible/collections %{collection_namespace}-%{collection_name}-%{version}.tar.gz
-%endif
-%endif
 # be compatible with the usual Fedora Provides:
 Provides: ansible-collection-%{collection_namespace}-%{collection_name} = %{collection_version}-%{release}
 
@@ -215,6 +194,11 @@ Source24: %{archiveurl24}
 Source1001: extrasources.inc
 
 %include %{SOURCE1001}
+
+# Includes with ansible_collection_build/_install that differ between RHEL versions
+Source1002: ansible-packaging.inc
+
+%include %{SOURCE1002}
 
 Source995: CHANGELOG.md
 
@@ -748,6 +732,12 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Mon Mar 13 2023 Noriko Hosoi <nhosoi@redhat.com> - 1.35.1-2
+- Eliminate with/without ansible condition since ansible-core is available on Fedora's.
+- Eliminate rhel specific ansible-packaging contents.
+- Introduce ansible-packaging.inc to maintain the compatibility.
+  Thus, for fedora's, have empty ansible-packaging.inc in the branch.
+
 * Tue Feb 21 2023 Packit <hello@packit.dev> - 1.35.1-1
 - Update to upstream version 1.35.1
 

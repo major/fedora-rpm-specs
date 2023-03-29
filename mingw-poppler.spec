@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       23.02.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       MinGW Windows Poppler library
 
 License:       (GPLv2 or GPLv3) and GPLv2+ and LGPLv2+ and MIT
@@ -81,7 +81,6 @@ MinGW Windows Poppler-Qt5 library.
 %package -n mingw32-%{pkgname}-qt6
 Summary:       MinGW Windows Poppler-Qt6 library
 Requires:      mingw32-%{pkgname} = %{version}-%{release}
-ExcludeArch:   s390x
 
 %description -n mingw32-%{pkgname}-qt6
 MinGW Windows Poppler-Qt6 library.
@@ -126,7 +125,6 @@ MinGW Windows Poppler-Qt5 library.
 %package -n mingw64-%{pkgname}-qt6
 Summary:       MinGW Windows Poppler-Qt6 library
 Requires:      mingw64-%{pkgname} = %{version}-%{release}
-ExcludeArch:   s390x
 
 %description -n mingw64-%{pkgname}-qt6
 MinGW Windows Poppler-Qt6 library.
@@ -244,6 +242,9 @@ rm -f %{buildroot}%{mingw64_bindir}/*.exe
 
 
 %changelog
+* Sun Mar 26 2023 Orion Poplawski <orion@nwra.com> - 23.02.0-2
+- Remove all ExcludeArch: s390x lines
+
 * Tue Feb 07 2023 Sandro Mani <manisandro@gmail.com> - 23.02.0-1
 - Update to 23.02.0
 

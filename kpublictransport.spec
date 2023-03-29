@@ -1,5 +1,5 @@
 Name:           kpublictransport
-Version:        22.12.3
+Version:        23.03.80
 Release:        1%{?dist}
 License:        BSD and CC0-1.0 and LGPLv2+ and MIT and ODbL-1.0
 Summary:        Library to assist with accessing public transport timetables and other data
@@ -13,6 +13,9 @@ BuildRequires: zlib-devel
 
 BuildRequires: cmake(Qt5Core)
 BuildRequires: cmake(Qt5Quick)
+
+BuildRequires: cmake(KF5I18n)
+BuildRequires: cmake(KF5NetworkManagerQt)
 
 %description
 %{summary}.
@@ -32,8 +35,11 @@ BuildRequires: cmake(Qt5Quick)
 
 %{_kf5_libdir}/libKPublicTransport.so.1
 %{_kf5_libdir}/libKPublicTransport.so.%{version}
+%{_kf5_libdir}/libKPublicTransportOnboard.so.1
+%{_kf5_libdir}/libKPublicTransportOnboard.so.%{version}
 
 %{_kf5_qmldir}/org/kde/kpublictransport/*
+%{_kf5_datadir}/qlogging-categories5/org_kde_kpublictransport_onboard.categories
 
 %package devel
 Summary: Development files for %{name}
@@ -50,6 +56,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{_kf5_libdir}/*.so
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

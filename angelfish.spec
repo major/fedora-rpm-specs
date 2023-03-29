@@ -1,5 +1,5 @@
 Name:           angelfish
-Version:        23.01.0
+Version:        23.03.80
 Release:        1%{?dist}
 Summary:        Plasma Mobile minimal web browser
 
@@ -28,6 +28,7 @@ BuildRequires:  cmake(KF5Kirigami2)
 BuildRequires:  cmake(KF5KirigamiAddons)
 BuildRequires:  cmake(KF5Notifications)
 BuildRequires:  cmake(KF5Purpose)
+BuildRequires:  cmake(KF5QQC2DesktopStyle)
 BuildRequires:  cmake(KF5WindowSystem)
 BuildRequires:  cmake(Qt5Core)
 BuildRequires:  cmake(Qt5Feedback)
@@ -80,6 +81,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 %{_kf5_metainfodir}/org.kde.%{name}.metainfo.xml
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Mon Jan 30 2023 Justin Zobel <justin@1707.io> - 23.01.0-1
 - Update to 23.01.0
 

@@ -5,7 +5,7 @@
 
 Name:           perl-%{cpan_name}
 Epoch:          2
-Version:        7.68
+Version:        7.70
 Release:        1%{?dist}
 Summary:        Create a module Makefile
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -272,6 +272,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Mar 27 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2:7.70-1
+- 7.70 bump
+
 * Mon Mar 20 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2:7.68-1
 - 7.68 bump
 

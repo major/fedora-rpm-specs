@@ -1,7 +1,7 @@
 %global framework mailcommon
 
 Name:    kf5-%{framework}
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 Summary: Mail applications support library
 
@@ -41,6 +41,7 @@ BuildRequires:  cmake(KF5ItemModels)
 BuildRequires:  cmake(KF5ItemViews)
 BuildRequires:  cmake(KF5KIO)
 BuildRequires:  cmake(KF5SyntaxHighlighting)
+BuildRequires:  cmake(KF5TextAutoCorrection)
 BuildRequires:  cmake(KF5TextWidgets)
 BuildRequires:  cmake(KF5WidgetsAddons)
 BuildRequires:  cmake(KF5WindowSystem)
@@ -55,7 +56,7 @@ BuildRequires:  kf5-kmailtransport-devel >= %{majmin_ver}
 BuildRequires:  kf5-kmime-devel >= %{majmin_ver}
 BuildRequires:  kf5-libkdepim-devel >= %{majmin_ver}
 BuildRequires:  kf5-mailimporter-devel >= %{majmin_ver}
-BuildRequires:  kf5-messagelib-devel >= %{majmin_ver}
+BuildRequires:  cmake(KPim5MessageCore)
 BuildRequires:  kf5-pimcommon-devel >= %{majmin_ver}
 
 BuildRequires:  pkgconfig(libxslt)
@@ -71,7 +72,7 @@ Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       cmake(KF5Akonadi)
 Requires:       cmake(KF5AkonadiMime)
-Requires:       cmake(KF5MessageComposer)
+Requires:       cmake(KPim5MessageComposer)
 Requires:       cmake(KF5PimCommon)
 %description    devel
 %{summary}.
@@ -98,17 +99,21 @@ Requires:       cmake(KF5PimCommon)
 %files -f %{name}.lang
 %license LICENSES/*
 %{_kf5_datadir}/qlogging-categories5/*%{framework}.*
-%{_kf5_libdir}/libKF5MailCommon.so.*
-%{_qt5_plugindir}/designer/mailcommonwidgets.so
+%{_kf5_libdir}/libKPim5MailCommon.so.*
+%{_qt5_plugindir}/designer/mailcommon5widgets.so
 
 %files devel
 %{_kf5_archdatadir}/mkspecs/modules/qt_MailCommon.pri
-%{_kf5_includedir}/MailCommon/
+%{_includedir}/KPim5/MailCommon/
 %{_kf5_libdir}/cmake/KF5MailCommon/
-%{_kf5_libdir}/libKF5MailCommon.so
+%{_kf5_libdir}/cmake/KPim5MailCommon/
+%{_kf5_libdir}/libKPim5MailCommon.so
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

@@ -1,6 +1,6 @@
 Name:    spectacle
 Summary: Screenshot capture utility
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 
 License: GPLv2
@@ -39,19 +39,25 @@ BuildRequires: kf5-kdoctools-devel
 
 BuildRequires: cmake(KF5GlobalAccel)
 BuildRequires: cmake(KF5GuiAddons)
+BuildRequires: cmake(KF5Kipi)
+BuildRequires: kf5-libkipi-devel
+BuildRequires: cmake(KF5Kirigami2)
 BuildRequires: cmake(KF5NewStuff)
 BuildRequires: cmake(KF5Screen)
 BuildRequires: cmake(KF5Wayland)
+BuildRequires: cmake(KPipeWire)
 
-BuildRequires: cmake(KF5Kipi)
-BuildRequires: kf5-libkipi-devel
-
+BuildRequires: cmake(PlasmaWaylandProtocols)
 BuildRequires: cmake(Qt5DBus)
 BuildRequires: cmake(Qt5PrintSupport)
+BuildRequires: cmake(Qt5QuickControls2)
 BuildRequires: cmake(Qt5Quick)
 BuildRequires: cmake(Qt5Svg)
+BuildRequires: cmake(Qt5WaylandClient)
 BuildRequires: cmake(Qt5X11Extras)
+BuildRequires: qt5-qtbase-private-devel
 
+BuildRequires: pkgconfig(wayland-client)
 BuildRequires: pkgconfig(xcb-cursor)
 BuildRequires: pkgconfig(xcb-image)
 BuildRequires: pkgconfig(xcb-util)
@@ -118,6 +124,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.spectacle
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

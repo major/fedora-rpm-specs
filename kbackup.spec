@@ -1,5 +1,5 @@
 Name:           kbackup
-Version:        22.12.3
+Version:        23.03.80
 Release:        1%{?dist}
 Summary:        Back up your data in a simple, user friendly way
 Summary(fr):    Sauvegarder vos données de manière simple et conviviale
@@ -15,6 +15,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  gettext
 BuildRequires:  kf5-rpm-macros
 BuildRequires:  libappstream-glib
+BuildRequires:  libarchive-devel
 
 BuildRequires:  cmake
 BuildRequires:  cmake(KF5Archive)
@@ -86,6 +87,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

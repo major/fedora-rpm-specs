@@ -1,7 +1,7 @@
 %global framework pimcommon
 
 Name:    kf5-%{framework}
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 Summary: PIM common libraries
 
@@ -44,6 +44,7 @@ BuildRequires:  cmake(KF5Ldap)
 BuildRequires:  cmake(KF5NewStuff)
 BuildRequires:  cmake(KF5Purpose)
 BuildRequires:  cmake(KF5Service)
+BuildRequires:  cmake(KF5TextAutoCorrection)
 BuildRequires:  cmake(KF5Wallet)
 BuildRequires:  cmake(KF5WidgetsAddons)
 BuildRequires:  cmake(KF5WindowSystem)
@@ -126,24 +127,19 @@ developing applications that use %{name}.
 %license LICENSES/*
 %{_kf5_datadir}/qlogging-categories5/*%{framework}.*
 %{_kf5_libdir}/libKF5PimCommon.so.5*
-%{_qt5_plugindir}/designer/pimcommonwidgets.so
+%{_qt5_plugindir}/designer/pimcommon5widgets.so
 
 %ldconfig_scriptlets akonadi
 
 %files akonadi
 %{_kf5_libdir}/libKF5PimCommonAkonadi.so.5*
-%{_kf5_libdir}/libKF5PimCommonAutoCorrection.so.5*
-%{_qt5_plugindir}/designer/pimcommonakonadiwidgets.so
+%{_qt5_plugindir}/designer/pimcommon5akonadiwidgets.so
 
 %files devel
 %{_kf5_libdir}/libKF5PimCommon.so
-%{_kf5_libdir}/libKF5PimCommonAutoCorrection.so
 %{_kf5_libdir}/cmake/KF5PimCommon/
-%{_kf5_libdir}/cmake/KF5PimCommonAutoCorrection/
 %{_kf5_includedir}/PimCommon/
-%{_kf5_includedir}/PimCommonAutoCorrection/
 %{_kf5_archdatadir}/mkspecs/modules/qt_PimCommon.pri
-%{_kf5_archdatadir}/mkspecs/modules/qt_PimCommonAutoCorrection.pri
 # akonadi
 %{_kf5_libdir}/libKF5PimCommonAkonadi.so
 %{_kf5_libdir}/cmake/KF5PimCommonAkonadi/
@@ -152,6 +148,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

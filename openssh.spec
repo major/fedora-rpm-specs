@@ -47,7 +47,7 @@
 
 # Do not forget to bump pam_ssh_agent_auth release if you rewind the main package release to 1
 %global openssh_ver 9.0p1
-%global openssh_rel 13
+%global openssh_rel 14
 %global pam_ssh_agent_ver 0.10.4
 %global pam_ssh_agent_rel 7
 
@@ -595,7 +595,8 @@ install -p -D -m 0644 %{SOURCE19} %{buildroot}%{_sysusersdir}/openssh-server.con
 # Migration service/script for Fedora 38 change to remove group ownership for standard host keys
 # See https://fedoraproject.org/wiki/Changes/SSHKeySignSuidBit
 install -m744 %{SOURCE20} $RPM_BUILD_ROOT/%{_libexecdir}/openssh/ssh-host-keys-migration.sh
-install -m644 %{SOURCE21} $RPM_BUILD_ROOT/%{_unitdir}/ssh-host-keys-migration.service # enabled in 90-default.preset
+# Pulled-in via a `Wants=` in `sshd.service` & `sshd@.service`
+install -m644 %{SOURCE21} $RPM_BUILD_ROOT/%{_unitdir}/ssh-host-keys-migration.service
 install -d $RPM_BUILD_ROOT/%{_localstatedir}/lib
 touch $RPM_BUILD_ROOT/%{_localstatedir}/lib/.ssh-host-keys-migration
 
@@ -748,6 +749,9 @@ test -f %{sysconfig_anaconda} && \
 %endif
 
 %changelog
+* Tue Mar 14 2023 Timothée Ravier <tim@siosm.fr> - 9.0p1-14
+- Make sshd & sshd@ units want ssh-host-keys-migration.service
+
 * Mon Mar 13 2023 Zoltan Fridrich <zfridric@redhat.com> - 9.0p1-13
 - Add sk-dummy subpackage for test purposes (rhbz#2176795)
 

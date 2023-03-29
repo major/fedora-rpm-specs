@@ -1,6 +1,6 @@
 Name:           google-gson
-Version:        2.9.1
-Release:        2%{?dist}
+Version:        2.10.1
+Release:        1%{?dist}
 Summary:        Java lib for conversion of Java objects into JSON representation
 License:        ASL 2.0
 URL:            https://github.com/google/gson
@@ -48,7 +48,8 @@ rm ./gson/src/test/java/com/google/gson/functional/EnumWithObfuscatedTest.java
 # to check later
 rm ./gson/src/test/java/com/google/gson/internal/bind/DefaultDateTypeAdapterTest.java
 # remove unnecessary dependency on parent POM
-%pom_remove_parent
+# POM doesn't specify parent.
+#%%pom_remove_parent
 
 %pom_remove_plugin :copy-rename-maven-plugin gson
 %pom_remove_plugin :proguard-maven-plugin gson
@@ -84,6 +85,9 @@ rm extras/src/test/java/com/google/gson/typeadapters/PostConstructAdapterFactory
 %license LICENSE
 
 %changelog
+* Mon Mar 27 2023 Sérgio Basto <sergio@serjux.com> - 2.10.1-1
+- Update google-gson to 2.10.1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

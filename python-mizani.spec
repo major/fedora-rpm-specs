@@ -86,7 +86,7 @@ sed -i -e 's/--cov=mizani --cov-report=xml//' pytest.ini
   cp -a doc/_build/man/*.1 ${RPM_BUILD_ROOT}%{_mandir}/man1
   gzip ${RPM_BUILD_ROOT}%{_mandir}/man1/*.1
 %endif
-%pyproject_save_files mizani
+%pyproject_save_files %{pypi_name}
 
 
 %check

@@ -1,12 +1,12 @@
 Name:           python-railroad-diagrams
-Version:        2.0.4
+Version:        3.0.1
 Release:        %autorelease
 Summary:        Library to generate railroad diagrams
 License:        MIT
 URL:            https://github.com/tabatkins/railroad-diagrams
 
 # Upstream doesn't do tags: https://github.com/tabatkins/railroad-diagrams/issues/91
-%global commit f87f9483d96da76d784b489c34688832fb88cf84
+%global commit c3a16b9dcb06f5d0ae2260f8414136917871d4c5
 %global forgeurl %url
 %forgemeta
 %global distprefix %{nil}

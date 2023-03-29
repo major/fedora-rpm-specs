@@ -14,7 +14,7 @@ Epoch:          1
 Epoch:          0
 %endif
 Version:        7.1.1.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An X application for displaying and manipulating images
 
 %global VER %(foo=%{version}; echo ${foo:0:5})
@@ -44,7 +44,7 @@ BuildRequires:  perl-generators
 %if 0%{?rhel} && 0%{?rhel} < 8
 BuildRequires:  ghostscript-devel
 %else
-BuildRequires:  libgs-devel, ghostscript-x11
+BuildRequires:  libgs-devel
 %endif
 BuildRequires:  pkgconfig(ddjvuapi)
 BuildRequires:  pkgconfig(libwmf)
@@ -413,6 +413,9 @@ rm PerlMagick/demo/Generic.ttf
 %doc PerlMagick/demo/ PerlMagick/Changelog PerlMagick/README.txt
 
 %changelog
+* Mon Mar 27 2023 Luya Tshimbalanga <luya@fedoraproject.org> - 1:7.1.1.4-3
+- Stop requiring ghostcripts-x11 upon request for security issue
+
 * Thu Mar 23 2023 Kalev Lember <klember@redhat.com> - 1:7.1.1.4-2
 - Fix missing epoch in ImageMagick-heic requires (#2181176)
 

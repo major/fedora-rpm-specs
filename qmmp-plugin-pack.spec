@@ -1,6 +1,6 @@
 Name:           qmmp-plugin-pack
-Version:        2.1.0
-Release:        5%{?dist}
+Version:        2.1.1
+Release:        1%{?dist}
 Summary:        A set of extra plugins for Qmmp
 
 License:        GPLv2+
@@ -17,8 +17,6 @@ BuildRequires:  taglib-devel
 BuildRequires:  yasm
 
 Recommends:     yt-dlp
-
-Obsoletes:	qmmp-plugin-pack-freeworld < %{version}-%{release}
 
 # Do not check .so files in an application-specific library directory
 %global __provides_exclude_from ^%{_libdir}/qmmp/.*\\.so$
@@ -61,6 +59,10 @@ Plugin pack is a set of extra plugins for Qmmp.
 
 
 %changelog
+* Mon Mar 27 2023 Karel Volný <kvolny@redhat.com> 2.1.1-1
+- new version 2.1.1 (rhbz#2181635)
+- see the upstream changelog at http://qmmp.ylsoftware.com/
+
 * Sun Mar 12 2023 Neal Gompa <ngompa@fedoraproject.org> - 2.1.0-5
 - Rebuild for ffmpeg 6.0
 

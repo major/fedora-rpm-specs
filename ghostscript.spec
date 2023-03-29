@@ -44,8 +44,8 @@
 
 Name:             ghostscript
 Summary:          Interpreter for PostScript language & PDF
-Version:          10.0.0
-Release:          4%{?dist}
+Version:          10.01.0
+Release:          1%{?dist}
 
 License:          AGPL-3.0-or-later
 
@@ -59,6 +59,8 @@ Requires:         %{name}-tools-printing%{?_isa} = %{version}-%{release}
 
 Provides:         ghostscript-core = %{version}-%{release}
 Obsoletes:        ghostscript-core < 9.53.3-6
+Provides:         ghostscript-x11 = %{version}-%{release}
+Obsoletes:        ghostscript-x11 < 10.01.0-1
 
 # Auxiliary build requirements:
 BuildRequires:    automake
@@ -104,11 +106,7 @@ BuildRequires:    make
 # ----------------    last rebase that are necessary for any reason:
 #Patch000: example000.patch
 
-Patch001: ghostscript-10.0.0-Fix-color-info-juggling-with-x11-devices.patch
-Patch002: ghostscript-10.0.0-Deal-with-different-VM-modes-during-CIDFont-loading.patch
-# https://github.com/OpenPrinting/cups-filters/issues/484
-Patch003: ghostscript-10.0.0-CUPS-PWG-Apple-Raster-output-device-Do-not-match-cus.patch
-Patch004: ghostscript-10.0.0-pdfwrite-Substituted-TTF-CIDFont-CID-hand.patch
+Patch001: ghostscript-10.01.0-pdfwrite-Substituted-TTF-CIDFont-CID-hand.patch
 
 # Downstream patches -- these should be always included when doing rebase:
 # ------------------
@@ -146,6 +144,9 @@ Requires:         urw-base35-fonts
 %description -n libgs
 This library provides Ghostscript's core functionality, based on Ghostscript's
 API, which is useful for many packages that are build on top of Ghostscript.
+
+It also provides an X11-based driver for Ghostscript, which enables displaying
+of various document files (including PS and PDF).
 
 # ---------------
 
@@ -217,16 +218,6 @@ of various document files (including PS and PDF).
 
 # ---------------
 
-%package x11
-Summary:          Ghostscript's X11-based driver for document rendering
-Requires:         %{name}%{?_isa} = %{version}-%{release}
-
-%description x11
-This package provides X11-based driver for Ghostscript, which enables displaying
-of various document files (including PS and PDF).
-
-# ---------------
-
 %package doc
 Summary:          Documentation files for Ghostscript
 Requires:         %{name} = %{version}-%{release}
@@ -268,13 +259,17 @@ git commit --all --amend --no-edit > /dev/null
 #     ... searches for necessary fonts in these column-separated directories,
 #         not just default ones
 #
+# --without-x
+#     ... builds gs library  without X functionality (previously provided by ghostscript-x11)
+#
 # NOTE:   In RHEL we need to keep the /usr/share/ghostscript/conf.d/ folder
 #         for China's GB18030 official certification:
+
 %if %{defined rhel} || %{defined centos}
-%configure --enable-dynamic --disable-compile-inits --without-versioned-path \
+%configure --without-x --disable-compile-inits --without-versioned-path \
            --with-fontpath="%{urw_base35_fontpath}:%{google_droid_fontpath}:%{_datadir}/%{name}/conf.d/"
 %else
-%configure --enable-dynamic --disable-compile-inits --without-versioned-path \
+%configure --disable-compile-inits --without-versioned-path \
            --with-fontpath="%{urw_base35_fontpath}:%{google_droid_fontpath}"
 %endif
 %make_build so
@@ -379,19 +374,12 @@ done
 %{_mandir}/man1/pdf2*
 %{_mandir}/man1/ps2*
 
-%lang(de) %{_mandir}/de/man1/gsnd*
-%lang(de) %{_mandir}/de/man1/eps2*
-%lang(de) %{_mandir}/de/man1/pdf2*
-%lang(de) %{_mandir}/de/man1/ps2*
-
 # ---------------
 
 %files tools-dvipdf
 %{_bindir}/dvipdf
 
 %{_mandir}/man1/dvipdf*
-
-%lang(de) %{_mandir}/de/man1/dvipdf*
 
 # ---------------
 
@@ -403,8 +391,6 @@ done
 %{_mandir}/man1/pf2afm*
 %{_mandir}/man1/pfbtopfa*
 %{_mandir}/man1/printafm*
-
-%lang(de) %{_mandir}/de/man1/printafm*
 
 # ---------------
 
@@ -428,17 +414,17 @@ done
 
 # ---------------
 
-%files x11
-%{_libdir}/%{name}/
-
-# ---------------
-
 %files doc
 %doc %{_docdir}/%{name}/
 
 # =============================================================================
 
 %changelog
+* Mon Mar 27 2023 Richard Lescak <rlescak@redhat.com> - 10.01.0-1
+- rebase to version 10.01.0 (#2180908)
+- ghostscript-x11 removed, X functionality now builds directly into library for Fedora (#2178720)
+- German manual pages removed
+
 * Thu Mar 16 2023 Richard Lescak <rlescak@redhat.com> - 10.0.0-4
 - fix embedding of CIDFonts
 

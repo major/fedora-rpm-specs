@@ -2,8 +2,8 @@ Name:    khelpcenter
 Summary: Show documentation for KDE applications
 # Override khelpcenter subpackage from kde-runtime-15.04 (no longer built)
 Epoch:   1
-Version: 22.12.3
-Release: 2%{?dist}
+Version: 23.03.80
+Release: 1%{?dist}
 
 License: GPLv2 or GPLv3
 URL:     https://invent.kde.org/system/%{name}
@@ -96,6 +96,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 
 
 %changelog
+* Wed Mar 22 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:23.03.80-1
+- 23.03.80
+
 * Wed Mar 22 2023 Jan Grulich <jgrulich@redhat.com> - 1:22.12.3-2
 - Rebuild (grantlee-qt5)
 

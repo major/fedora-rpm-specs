@@ -3,7 +3,7 @@
 Name:           kalendar
 %global uuid    org.kde.%{name}
 %global suuid   %{uuid}ac
-Version:        22.12.3
+Version:        23.03.80
 Release:        1%{?dist}
 Summary:        A calendar application using Akonadi to sync with external services
 License:        GPLv3+
@@ -38,20 +38,22 @@ BuildRequires:  cmake(KF5CoreAddons)       >= %{kf5_min_version}
 BuildRequires:  cmake(KF5DBusAddons)       >= %{kf5_min_version}
 BuildRequires:  cmake(KF5I18n)             >= %{kf5_min_version}
 BuildRequires:  cmake(KF5ItemModels)       >= %{kf5_min_version}
+BuildRequires:  cmake(KF5KirigamiAddons)
 BuildRequires:  cmake(KF5Kirigami2)        >= %{kf5_min_version}
 BuildRequires:  cmake(KF5Libkdepim)
-BuildRequires:  cmake(KF5MailCommon)
+BuildRequires:  cmake(KPim5MailCommon)
 BuildRequires:  cmake(KF5People)           >= %{kf5_min_version}
 BuildRequires:  cmake(KF5PimCommonAkonadi)
 BuildRequires:  cmake(KF5Service)          >= %{kf5_min_version}
+BuildRequires:  cmake(KF5TextAutoCorrection)
 BuildRequires:  cmake(KF5WindowSystem)     >= %{kf5_min_version}
 BuildRequires:  cmake(KF5XmlGui)           >= %{kf5_min_version}
 
-BuildRequires:  cmake(KF5Akonadi)
-BuildRequires:  cmake(KF5AkonadiContact)
-BuildRequires:  cmake(KF5CalendarSupport)
-BuildRequires:  cmake(KF5EventViews)
-BuildRequires:  cmake(KF5GrantleeTheme)
+BuildRequires:  cmake(KPim5Akonadi)
+BuildRequires:  cmake(KPim5AkonadiContact)
+BuildRequires:  cmake(KPim5CalendarSupport)
+BuildRequires:  cmake(KPim5EventViews)
+BuildRequires:  cmake(KPim5GrantleeTheme)
 BuildRequires:  cmake(KF5Plasma)
 BuildRequires:  cmake(Grantlee5)
 BuildRequires:  qqc2-desktop-style
@@ -112,6 +114,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/%{uuid}.ap
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

@@ -21,7 +21,7 @@
 
 Name:    kf5-%{framework}
 Summary: PIM Storage Service
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 
 License: LGPLv2+
@@ -245,14 +245,15 @@ fi
 %{_kf5_datadir}/config.kcfg/resourcebase.kcfg
 %{_kf5_datadir}/kf5/akonadi/
 %if ! 0%{?bootstrap}
-%{_kf5_qtplugindir}/designer/akonadiwidgets.so
+%{_kf5_qtplugindir}/designer/akonadi5widgets.so
 %endif
+%{_kf5_qtplugindir}/designer/akonadi5widgets.so
 %{_kf5_qtplugindir}/sqldrivers/libqsqlite3.so
-%{_kf5_libdir}/libKF5AkonadiAgentBase.so.5*
-%{_kf5_libdir}/libKF5AkonadiCore.so.5*
-%{_kf5_libdir}/libKF5AkonadiPrivate.so.5*
-%{_kf5_libdir}/libKF5AkonadiWidgets.so.5*
-%{_kf5_libdir}/libKF5AkonadiXml.so.5*
+%{_kf5_libdir}/libKPim5AkonadiAgentBase.so.5*
+%{_kf5_libdir}/libKPim5AkonadiCore.so.5*
+%{_kf5_libdir}/libKPim5AkonadiPrivate.so.5*
+%{_kf5_libdir}/libKPim5AkonadiWidgets.so.5*
+%{_kf5_libdir}/libKPim5AkonadiXml.so.5*
 # let newer %%trigger-based scriptlets catch this -- rex
 %{_kf5_datadir}/icons/hicolor/*/apps/akonadi.*
 
@@ -267,17 +268,18 @@ fi
 %{_kf5_bindir}/asapcat
 
 %{_kf5_datadir}/dbus-1/interfaces/org.freedesktop.Akonadi.*.xml
-%{_kf5_includedir}/Akonadi/
-%{_kf5_includedir}/AkonadiAgentBase/
-%{_kf5_includedir}/AkonadiCore/
-%{_kf5_includedir}/AkonadiWidgets/
-%{_kf5_includedir}/AkonadiXml/
-%{_kf5_libdir}/libKF5AkonadiAgentBase.so
-%{_kf5_libdir}/libKF5AkonadiCore.so
-%{_kf5_libdir}/libKF5AkonadiPrivate.so
-%{_kf5_libdir}/libKF5AkonadiWidgets.so
-%{_kf5_libdir}/libKF5AkonadiXml.so
+%{_includedir}/KPim5/Akonadi/
+%{_includedir}/KPim5/AkonadiAgentBase/
+%{_includedir}/KPim5/AkonadiCore/
+%{_includedir}/KPim5/AkonadiWidgets/
+%{_includedir}/KPim5/AkonadiXml/
+%{_kf5_libdir}/libKPim5AkonadiAgentBase.so
+%{_kf5_libdir}/libKPim5AkonadiCore.so
+%{_kf5_libdir}/libKPim5AkonadiPrivate.so
+%{_kf5_libdir}/libKPim5AkonadiWidgets.so
+%{_kf5_libdir}/libKPim5AkonadiXml.so
 %{_kf5_libdir}/cmake/KF5Akonadi/
+%{_kf5_libdir}/cmake/KPim5Akonadi/
 %{_kf5_archdatadir}/mkspecs/modules/qt_Akonadi*.pri
 %{_kf5_qtplugindir}/pim5/akonadi/akonadi_test_searchplugin.so
 %{_kf5_datadir}/kdevappwizard/templates/akonadiresource.tar.bz2
@@ -304,6 +306,9 @@ fi
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

@@ -2,13 +2,13 @@
 %global gstreamer1_min_version 1.18.0
 
 Name:           pitivi
-Version:        2022.06.0
-Release:        5%{?dist}
+Version:        2023.03
+Release:        1%{?dist}
 Summary:        Non-linear video editor
 
 License:        LGPL-2.0-or-later
 URL:            http://www.pitivi.org/
-Source0:        https://gitlab.gnome.org/GNOME/pitivi/-/archive/%{version}/pitivi-%{version}.tar.gz
+Source0:        https://download.gnome.org/sources/pitivi/2023/pitivi-%{version}.tar.xz
 
 BuildRequires:  meson
 BuildRequires:  gcc
@@ -43,6 +43,7 @@ Requires:	libnotify
 Requires:	python3-inotify
 Requires:	python3-canberra
 Requires:	python3-gobject
+Requires:       python3-scipy
 Requires:	gobject-introspection
 Requires:	opus-tools
 Requires:       gsound
@@ -102,6 +103,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.pitivi.Pitivi.des
 %{python3_sitearch}/pitivi/
 
 %changelog
+* Mon Mar 27 2023 Gwyn Ciesla <gwync@protonmail.com> - 2023.03-1
+- 2023.03
+
 * Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 2022.06.0-5
 - migrated to SPDX license
 

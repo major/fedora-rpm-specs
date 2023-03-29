@@ -1,7 +1,7 @@
 %global framework messagelib
 
 Name:    kf5-%{framework}
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 Summary: KDE Message libraries
 
@@ -51,6 +51,7 @@ BuildRequires:  kf5-rpm-macros >= %{kf5_ver}
 
 BuildRequires:  cmake(KF5NewStuff)
 BuildRequires:  cmake(KF5SyntaxHighlighting)
+BuildRequires:  cmake(KF5TextAutoCorrection)
 
 #global majmin_ver %(echo %{version} | cut -d. -f1,2)
 %global majmin_ver %{version}
@@ -86,7 +87,7 @@ Requires:       cmake(KF5AkonadiMime)
 Requires:       cmake(KF5Contacts)
 Requires:       cmake(KF5IdentityManagement)
 Requires:       cmake(KF5Libkleo)
-Requires:       cmake(KF5MessageCore)
+Requires:       cmake(KPim5MessageCore)
 Requires:       cmake(KF5Mime)
 Requires:       cmake(KF5PimCommon)
 Requires:       cmake(Qt5WebEngine)
@@ -122,13 +123,13 @@ Requires:       cmake(Qt5WebEngine)
 %{_kf5_datadir}/messagelist/
 %{_kf5_datadir}/messageviewer/
 %{_kf5_datadir}/qlogging-categories5/*%{framework}.*
-%{_kf5_libdir}/libKF5MessageComposer.so.*
-%{_kf5_libdir}/libKF5MessageCore.so.*
-%{_kf5_libdir}/libKF5MessageList.so.*
-%{_kf5_libdir}/libKF5MessageViewer.so.*
-%{_kf5_libdir}/libKF5MimeTreeParser.so.*
-%{_kf5_libdir}/libKF5TemplateParser.so.*
-%{_kf5_libdir}/libKF5WebEngineViewer.so.*
+%{_kf5_libdir}/libKPim5MessageComposer.so.*
+%{_kf5_libdir}/libKPim5MessageCore.so.*
+%{_kf5_libdir}/libKPim5MessageList.so.*
+%{_kf5_libdir}/libKPim5MessageViewer.so.*
+%{_kf5_libdir}/libKPim5MimeTreeParser.so.*
+%{_kf5_libdir}/libKPim5TemplateParser.so.*
+%{_kf5_libdir}/libKPim5WebEngineViewer.so.*
 %{_kf5_qtplugindir}/pim5/messageviewer/grantlee/5.0/messageviewer_grantlee_extension.so
 %{_kf5_qtplugindir}/pim5/messageviewer/headerstyle/messageviewer_defaultgrantleeheaderstyleplugin.so
 ## check this -- rex
@@ -137,42 +138,45 @@ Requires:       cmake(Qt5WebEngine)
 
 %files devel
 %{_kf5_archdatadir}/mkspecs/modules/qt_MessageComposer.pri
-%{_kf5_includedir}/MessageComposer/
-%{_kf5_libdir}/cmake/KF5MessageComposer/
-%{_kf5_libdir}/libKF5MessageComposer.so
+%{_includedir}/KPim5/MessageComposer/
+%{_kf5_libdir}/cmake/KPim5MessageComposer/
+%{_kf5_libdir}/libKPim5MessageComposer.so
 
 %{_kf5_archdatadir}/mkspecs/modules/qt_MessageCore.pri
-%{_kf5_includedir}/MessageCore/
-%{_kf5_libdir}/cmake/KF5MessageCore/
-%{_kf5_libdir}/libKF5MessageCore.so
+%{_includedir}/KPim5/MessageCore/
+%{_kf5_libdir}/cmake/KPim5MessageCore/
+%{_kf5_libdir}/libKPim5MessageCore.so
 
 %{_kf5_archdatadir}/mkspecs/modules/qt_MessageList.pri
-%{_kf5_includedir}/MessageList/
-%{_kf5_libdir}/cmake/KF5MessageList/
-%{_kf5_libdir}/libKF5MessageList.so
+%{_includedir}/KPim5/MessageList/
+%{_kf5_libdir}/cmake/KPim5MessageList/
+%{_kf5_libdir}/libKPim5MessageList.so
 
 %{_kf5_archdatadir}/mkspecs/modules/qt_MessageViewer.pri
-%{_kf5_includedir}/MessageViewer/
-%{_kf5_libdir}/cmake/KF5MessageViewer/
-%{_kf5_libdir}/libKF5MessageViewer.so
+%{_includedir}/KPim5/MessageViewer/
+%{_kf5_libdir}/cmake/KPim5MessageViewer/
+%{_kf5_libdir}/libKPim5MessageViewer.so
 
-%{_kf5_includedir}/MimeTreeParser/
-%{_kf5_libdir}/cmake/KF5MimeTreeParser/
-%{_kf5_libdir}/libKF5MimeTreeParser.so
+%{_includedir}/KPim5/MimeTreeParser/
+%{_kf5_libdir}/cmake/KPim5MimeTreeParser/
+%{_kf5_libdir}/libKPim5MimeTreeParser.so
 #{_kf5_archdatadir}/mkspecs/modules/qt_MimeTreeParser.pri
 
 %{_kf5_archdatadir}/mkspecs/modules/qt_TemplateParser.pri
-%{_kf5_includedir}/TemplateParser/
-%{_kf5_libdir}/cmake/KF5TemplateParser/
-%{_kf5_libdir}/libKF5TemplateParser.so
+%{_includedir}/KPim5/TemplateParser/
+%{_kf5_libdir}/cmake/KPim5TemplateParser/
+%{_kf5_libdir}/libKPim5TemplateParser.so
 
 %{_kf5_archdatadir}/mkspecs/modules/qt_WebEngineViewer.pri
-%{_kf5_includedir}/WebEngineViewer/
-%{_kf5_libdir}/cmake/KF5WebEngineViewer/
-%{_kf5_libdir}/libKF5WebEngineViewer.so
+%{_includedir}/KPim5/WebEngineViewer/
+%{_kf5_libdir}/cmake/KPim5WebEngineViewer/
+%{_kf5_libdir}/libKPim5WebEngineViewer.so
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

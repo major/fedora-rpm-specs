@@ -3,7 +3,7 @@
 
 Name:    libkomparediff2
 Summary: Library to compare files and strings
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 
 # Library: GPLv2+ (some files LGPLv2+), CMake scripts: BSD
@@ -92,12 +92,15 @@ developing applications that use %{name}.
 %{_libdir}/libkomparediff2.so.5*
 
 %files devel
-%{_includedir}/libkomparediff2/
+%{_includedir}/KompareDiff2/
 %{_libdir}/libkomparediff2.so
 %{_libdir}/cmake/LibKompareDiff2/
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

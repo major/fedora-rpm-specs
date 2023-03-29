@@ -1,8 +1,8 @@
 %global apiver 0.4
 
 Name:           gegl04
-Version:        0.4.38
-Release:        3%{?dist}
+Version:        0.4.44
+Release:        1%{?dist}
 Summary:        Graph based image processing framework
 
 # The binary is under the GPL, while the libs are under LGPL.
@@ -13,7 +13,6 @@ Source0:        http://download.gimp.org/pub/gegl/%{apiver}/gegl-%{version}.tar.
 
 Patch0:         gegl04-openexr.patch
 Patch1:         gegl04-gtk.patch
-Patch2:         libraw.patch
 
 BuildRequires:  chrpath
 BuildRequires:  enscript
@@ -176,6 +175,9 @@ chrpath --delete %{buildroot}%{_libdir}/gegl-%{apiver}/*.so
 
 
 %changelog
+* Mon Mar 27 2023 Josef Ridky <jridky@redhat.com> - 0.4.44-1
+- New upstream release 0.4.44 (#2142383)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.38-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

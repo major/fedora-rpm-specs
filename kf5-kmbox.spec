@@ -9,7 +9,7 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 Summary: The KMbox Library
 
@@ -78,16 +78,20 @@ make test ARGS="--output-on-failure --timeout 120" -C %{_target_platform} ||:
 %files
 %license LICENSES/*
 %{_kf5_datadir}/qlogging-categories5/*%{framework}.*
-%{_kf5_libdir}/libKF5Mbox.so.*
+%{_kf5_libdir}/libKPim5Mbox.so.*
 
 %files devel
 %{_kf5_archdatadir}/mkspecs/modules/qt_KMbox.pri
-%{_kf5_includedir}/KMbox
-%{_kf5_libdir}/cmake/KF5Mbox
-%{_kf5_libdir}/libKF5Mbox.so
+%{_includedir}/KPim5/KMbox
+%{_kf5_libdir}/cmake/KF5Mbox/
+%{_kf5_libdir}/cmake/KPim5Mbox/
+%{_kf5_libdir}/libKPim5Mbox.so
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

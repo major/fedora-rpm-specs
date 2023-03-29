@@ -3,7 +3,7 @@
 
 Summary: System and process monitoring utilities
 Name: procps-ng
-Version: 4.0.2
+Version: 4.0.3
 Release: 1%{?dist}
 License: GPL+ and GPLv2 and GPLv2+ and GPLv3+ and LGPLv2+
 URL: https://sourceforge.net/projects/procps-ng/
@@ -115,7 +115,8 @@ make check
 %make_install
 
 # these are created by make, yet empty. This causes rpmbuild errors.
-rm -rf %{buildroot}%{_mandir}/{pl,pt_BR,sv}/man5
+rm -rf %{buildroot}%{_mandir}/pl/man5
+rm -rf %{buildroot}%{_mandir}/{fr,de,pt_BR}/man3
 
 %find_lang %{name} --all-name --with-man
 
@@ -145,6 +146,9 @@ ln -s %{_bindir}/pidof %{buildroot}%{_sbindir}/pidof
 %files i18n -f %{name}.lang
 
 %changelog
+* Fri Mar 24 2023 Jan Rybar <jrybar@redhat.com> - 4.0.3-1
+- rebase to 4.0.3
+
 * Mon Feb 13 2023 Jan Rybar <jrybar@redhat.com> - 4.0.2-1
 - rebase to 4.0.2
 

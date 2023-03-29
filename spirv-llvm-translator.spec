@@ -1,15 +1,17 @@
 
-%global commit 78ad93b9952cb78889b86e9aa390d013c49dca0b
+%global commit 81c9ac632ead5c233728725179ed2530c2c820ec
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           spirv-llvm-translator
-Version:        15.0.0
-Release:        3%{?dist}
+Version:        16.0.0
+Release:        1%{?dist}
 Summary:        LLVM to SPIRV Translator
 
 License:        NCSA
 URL:            https://github.com/KhronosGroup/SPIRV-LLVM-Translator
-Source0:        https://github.com/KhronosGroup/SPIRV-LLVM-Translator/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+Source0:        %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+
+Patch0: 0001-Fix-standalone-builds-with-LLVM_LINK_LLVM_DYLIB-ON.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -19,6 +21,7 @@ BuildRequires:  llvm-devel
 BuildRequires:  llvm-static
 BuildRequires:  spirv-headers-devel
 BuildRequires:  spirv-tools-devel
+BuildRequires:  zlib-devel
 
 %description
 Khronos LLVM to SPIRV Translator. This is a library
@@ -42,13 +45,19 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 This package contains the standalone llvm to spirv tool.
 
 %prep
-%autosetup -n SPIRV-LLVM-Translator-%{commit}
+%autosetup -n SPIRV-LLVM-Translator-%{commit} -p1
 
 %build
 %cmake -GNinja \
        -DLLVM_BUILD_TOOLS=ON \
        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
        -DCMAKE_INSTALL_RPATH:BOOL=";" \
+       -DLLVM_DIR="/usr/lib64/cmake/llvm/" \
+%if 0%{?__isa_bits} == 64
+       -DLLVM_LIBDIR_SUFFIX=64 \
+%else
+       -DLLVM_LIBDIR_SUFFIX= \
+%endif
        -DLLVM_EXTERNAL_PROJECTS="SPIRV-Headers" \
        -DLLVM_EXTERNAL_SPIRV_HEADERS_SOURCE_DIR="/usr/include/spirv/"
 
@@ -71,6 +80,9 @@ This package contains the standalone llvm to spirv tool.
 %{_libdir}/pkgconfig/LLVMSPIRVLib.pc
 
 %changelog
+* Mon Feb 20 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0-1
+- Update to LLVM 16.0.0
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 15.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

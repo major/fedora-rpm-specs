@@ -2,7 +2,7 @@
 
 Name:    kf5-audiocd-kio
 Summary: KF5 Audiocd kio slave
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 
 # code GPLv2+, handbook/docs GFDL
@@ -101,26 +101,30 @@ Documentation for %{name}.
 %{_qt5_plugindir}/libaudiocd_encoder_opus.so
 %{_qt5_plugindir}/libaudiocd_encoder_vorbis.so
 %{_qt5_plugindir}/libaudiocd_encoder_wav.so
-%{_qt5_plugindir}/kcm_audiocd.so
 %{_kf5_plugindir}/kio/audiocd.so
 %{_kf5_datadir}/config.kcfg/audiocd_*_encoder.kcfg
 %dir %{_kf5_datadir}/konqsidebartng/
 %dir %{_kf5_datadir}/konqsidebartng/virtual_folders
 %dir %{_kf5_datadir}/konqsidebartng/virtual_folders/services/
 %{_kf5_datadir}/konqsidebartng/virtual_folders/services/audiocd.desktop
-%{_kf5_datadir}/kservices5/audiocd.desktop
 %{_kf5_datadir}/solid/actions/solid_audiocd.desktop
+%{_kf5_datadir}/applications/kcm_audiocd.desktop
+%{_kf5_qtplugindir}/plasma/kcms/systemsettings_qwidgets/kcm_audiocd.so
 
 %files devel
 %{_kf5_libdir}/libaudiocdplugins.so
-%{_includedir}/audiocdencoder.h
-%{_includedir}/audiocdplugins_export.h
+%{_includedir}/audiocdplugins/audiocdencoder.h
+%{_includedir}/audiocdplugins/audiocdplugins_export.h
+%{_includedir}/audiocdplugins/audiocdplugins_version.h
 
 %files doc -f %{name}-doc.lang
 %license COPYING.DOC
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

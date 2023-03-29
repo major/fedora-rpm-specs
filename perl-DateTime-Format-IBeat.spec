@@ -1,17 +1,17 @@
 Name:           perl-DateTime-Format-IBeat
 Version:        0.161
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        Format times in .beat notation 
-License:        GPL+ or Artistic 
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DateTime-Format-IBeat            
-Source0:        http://backpan.perl.org/authors/id/E/EM/EMARTIN/DateTime-Format-IBeat-0.161.tar.gz
+Source0:        https://cpan.metacpan.org/modules/by-module/DateTime/DateTime-Format-IBeat-%{version}.tar.gz
 BuildArch:      noarch 
 # Build
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker)
 # Module
 BuildRequires:  perl(Carp)
@@ -24,6 +24,7 @@ BuildRequires:  perl(Test::More) >= 0.47
 # Optional Tests
 BuildRequires:  perl(Test::Pod) >= 1.00
 # Dependencies
+# (none)
 
 %description
 No Time Zones, No Geographical Borders 
@@ -43,7 +44,7 @@ make %{?_smp_mflags}
 %install
 make pure_install DESTDIR=%{buildroot}
 find %{buildroot} -type f -name .packlist -delete
-%{_fixperms} %{buildroot}
+%{_fixperms} -c %{buildroot}
 
 %check
 make test
@@ -55,6 +56,11 @@ make test
 %{_mandir}/man3/DateTime::Format::IBeat.3*
 
 %changelog
+* Mon Mar 27 2023 Paul Howarth <paul@city-fan.org> - 0.161-46
+- Use SPDX-format license tag
+- Use author-independent source URL
+- Fix permissions verbosely
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.161-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

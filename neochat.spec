@@ -1,6 +1,6 @@
 Name: neochat
-Version: 23.01.0
-Release: 2%{?dist}
+Version: 23.03.80
+Release: 1%{?dist}
 
 License: GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND BSD-3-Clause
 URL: https://invent.kde.org/network/%{name}
@@ -95,6 +95,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_kf5_datadir}/krunner/dbusplugins/*.desktop
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Tue Feb 07 2023 Marc Deop <marcdeop@fedoraproject.org> - 23.01.0-2
 - Require kf5-kirigami2-addons
 

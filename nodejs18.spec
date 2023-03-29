@@ -595,14 +595,9 @@ ln -s ./node/cppgc %{buildroot}%{_includedir}/cppgc
 for soname in libv8 libv8_libbase libv8_libplatform; do
     ln -s libnode.so.%{nodejs_soversion} %{buildroot}%{_libdir}/%{pkgname}-${soname}.so
     ln -s libnode.so.%{nodejs_soversion} %{buildroot}%{_libdir}/%{pkgname}-${soname}.so.%{v8_major}
-done
-
-%if 0%{?nodejs_default}
-for soname in libv8 libv8_libbase libv8_libplatform; do
     ln -s libnode.so.%{nodejs_soversion} %{buildroot}%{_libdir}/${soname}.so
     ln -s libnode.so.%{nodejs_soversion} %{buildroot}%{_libdir}/${soname}.so.%{v8_major}
 done
-%endif
 
 # install documentation
 mkdir -p %{buildroot}%{_pkgdocdir}/html
@@ -784,11 +779,12 @@ end
 %files -n %{pkgname}-libs
 %license LICENSE
 %{_libdir}/libnode.so.%{nodejs_soversion}
-%{_libdir}/libv8.so.%{v8_major}
+%{_libdir}/%{pkgname}-libv8.so.%{v8_major}
 %{_libdir}/%{pkgname}-libv8_libbase.so.%{v8_major}
 %{_libdir}/%{pkgname}-libv8_libplatform.so.%{v8_major}
 %dir %{nodejs_datadir}/
 %if 0%{?nodejs_default}
+%{_libdir}/libv8.so.%{v8_major}
 %{_libdir}/libv8_libbase.so.%{v8_major}
 %{_libdir}/libv8_libplatform.so.%{v8_major}
 %endif
@@ -800,11 +796,9 @@ end
 %{_libdir}/%{pkgname}-libv8.so
 %{_libdir}/%{pkgname}-libv8_libbase.so
 %{_libdir}/%{pkgname}-libv8_libplatform.so
-%if 0%{?nodejs_default}
 %{_libdir}/libv8.so
 %{_libdir}/libv8_libbase.so
 %{_libdir}/libv8_libplatform.so
-%endif
 
 
 %files -n %{pkgname}-npm

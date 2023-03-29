@@ -4,7 +4,7 @@
 %global base_name kdeconnect-kde
 
 Name:    kde-connect
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 License: GPLv2+
 Summary: KDE Connect client for communication with smartphones
@@ -24,6 +24,7 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  firewalld-filesystem
 BuildRequires:  libappstream-glib
 BuildRequires:  gcc-c++
+BuildRequires:  libxkbcommon-devel
 
 BuildRequires:  extra-cmake-modules >= 5.42
 BuildRequires:  kf5-rpm-macros
@@ -36,9 +37,11 @@ BuildRequires:  cmake(KF5IconThemes)
 BuildRequires:  cmake(KF5KCMUtils)
 BuildRequires:  cmake(KF5KIO)
 BuildRequires:  cmake(KF5Kirigami2)
+BuildRequires:  cmake(KF5ModemManagerQt)
 BuildRequires:  cmake(KF5Notifications)
 BuildRequires:  cmake(KF5Package)
 BuildRequires:  cmake(KF5People)
+BuildRequires:  cmake(KF5PeopleVCard)
 BuildRequires:  cmake(KF5Service)
 BuildRequires:  cmake(KF5Wayland)
 
@@ -58,6 +61,7 @@ BuildRequires:  cmake(Qt5X11Extras)
 BuildRequires:  cmake(Qt5WaylandClient)
 BuildRequires:  cmake(PlasmaWaylandProtocols)
 BuildRequires:  pkgconfig(wayland-client)
+BuildRequires:  wayland-protocols-devel
 BuildRequires:  qt5-qtbase-private-devel
 
 BuildRequires:  cmake(Qca-qt5)
@@ -85,6 +89,7 @@ Requires:       qca-qt5-ossl%{?_isa}
 Requires:       kde-cli-tools
 # /usr/bin/kdeconnect-app
 Requires:       kf5-kirigami2%{?_isa}
+Requires:       kf5-kirigami2-addons
 
 %description
 KDE Connect adds communication between KDE and your smartphone.
@@ -165,12 +170,13 @@ done
 %{_kf5_datadir}/kservices5/*.desktop
 %{_kf5_datadir}/plasma/plasmoids/org.kde.kdeconnect/
 %{_kf5_datadir}/qlogging-categories5/kdeconnect*
+%{_kf5_datadir}/applications/kcm_kdeconnect.desktop
 %{_kf5_metainfodir}/org.kde.kdeconnect.appdata.xml
 %{_kf5_metainfodir}/org.kde.kdeconnect.metainfo.xml
 %{_kf5_plugindir}/kfileitemaction/kdeconnectfileitemaction.so
 %{_kf5_plugindir}/kio/kdeconnect.so
 %{_qt5_archdatadir}/qml/org/kde/kdeconnect/
-%{_qt5_plugindir}/kcm_kdeconnect.so
+%{_qt5_plugindir}/plasma/kcms/systemsettings_qwidgets/kcm_kdeconnect.so
 
 %files -n kdeconnectd
 %{_sysconfdir}/xdg/autostart/org.kde.kdeconnect.daemon.desktop
@@ -191,6 +197,9 @@ done
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

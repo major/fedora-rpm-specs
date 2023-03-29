@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-dms
 %global         forgeurl    https://github.com/googleapis/python-dms
-Version:        1.6.1
+Version:        1.6.2
 %global         tag         v%{version}
 %forgemeta
 

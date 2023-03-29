@@ -1,11 +1,19 @@
 Name: ghostwriter
-Version: 2.2.0
-Release: 2%{?dist}
+Version: 23.03.80
+Release: 1%{?dist}
 
 License: GPL-3.0-or-later AND Apache-2.0 AND CC-BY-4.0 AND CC-BY-SA-4.0 AND MPL-1.1 AND BSD AND LGPL-3.0-only AND MIT AND ISC
 Summary: Cross-platform, aesthetic, distraction-free Markdown editor
-URL: https://github.com/KDE/%{name}
-Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+URL:     https://invent.kde.org/office/%{name}
+Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+
+BuildRequires: extra-cmake-modules
+
+BuildRequires: cmake(KF5Sonnet)
+BuildRequires: cmake(KF5CoreAddons)
+BuildRequires: cmake(KF5XmlGui)
+BuildRequires: cmake(KF5ConfigWidgets)
+BuildRequires: cmake(KF5WidgetsAddons)
 
 BuildRequires: cmake(Qt5Concurrent)
 BuildRequires: cmake(Qt5Core)
@@ -52,35 +60,32 @@ whether your masterpiece be that next blog post, your school paper,
 or your novel.
 
 %prep
-%autosetup -n %{name}-%{version} -p1
-mkdir -p %{_vpath_builddir}
-rm -rf 3rdparty/hunspell
+%autosetup -p1
 
 %build
-pushd %{_vpath_builddir}
-    %qmake_qt5 PREFIX=%{_prefix} ..
-popd
-%make_build -C %{_vpath_builddir}
+%cmake_kf5
+%cmake_build
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdata.xml
-desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.kde.%{name}.metainfo.xml
+desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.desktop
 
 %install
-%make_install INSTALL_ROOT=%{buildroot} -C %{_vpath_builddir}
-%find_lang %{name} --with-qt
+%cmake_install
+%find_lang %{name} --all-name --with-qt --with-man
 
 %files -f %{name}.lang
-%doc CHANGELOG.md CONTRIBUTING.md CREDITS.md README.md
+%doc CHANGELOG.md CONTRIBUTING.md README.md
 %license COPYING
 %{_bindir}/%{name}
-%{_mandir}/man1/%{name}.1*
-%dir %{_datadir}/ghostwriter
-%{_datadir}/applications/%{name}.desktop
+%{_datadir}/applications/org.kde.%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
-%{_metainfodir}/%{name}.appdata.xml
+%{_metainfodir}/org.kde.%{name}.metainfo.xml
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

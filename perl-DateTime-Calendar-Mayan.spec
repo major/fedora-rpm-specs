@@ -1,7 +1,7 @@
 Name:		perl-DateTime-Calendar-Mayan 
 Version:	0.0601 
 Release:	41%{?dist}
-License:	GPL+ or Artistic 
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:	Mayan Long Count Calendar 
 URL:		https://metacpan.org/release/DateTime-Calendar-Mayan
 Source0:	https://cpan.metacpan.org/modules/by-module/DateTime/DateTime-Calendar-Mayan-%{version}.tar.gz
@@ -25,6 +25,7 @@ BuildRequires:	perl(DateTime::Duration)
 BuildRequires:	perl(Test::More)
 BuildRequires:	perl(warnings)
 # Dependencies
+# (none)
 
 %description
 An implementation of the Mayan Long Count, Haab, and Tzolkin calendars

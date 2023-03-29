@@ -8,7 +8,7 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 Summary: The KMailTransport Library
 
@@ -115,7 +115,7 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 %files -f %{name}.lang
 %license LICENSES/*
 %{_kf5_datadir}/qlogging-categories5/*%{framework}.*
-%{_kf5_libdir}/libKF5MailTransport.so.*
+%{_kf5_libdir}/libKPim5MailTransport.so.*
 %{_kf5_datadir}/config.kcfg/mailtransport.kcfg
 %{_kf5_qtplugindir}/kcm_mailtransport.so
 %dir %{_kf5_qtplugindir}/pim5
@@ -126,21 +126,26 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 %ldconfig_scriptlets akonadi
 
 %files akonadi
-%{_kf5_libdir}/libKF5MailTransportAkonadi.so.5*
+%{_kf5_libdir}/libKPim5MailTransportAkonadi.so.5*
 
 %files devel
-%{_kf5_includedir}/MailTransport/
-%{_kf5_libdir}/libKF5MailTransport.so
+%{_includedir}/KPim5/MailTransport/
+%{_kf5_libdir}/libKPim5MailTransport.so
 %{_kf5_libdir}/cmake/KF5MailTransport/
+%{_kf5_libdir}/cmake/KPim5MailTransport/
 %{_kf5_archdatadir}/mkspecs/modules/qt_KMailTransport.pri
 # akonadi
-%{_kf5_includedir}/MailTransportAkonadi/
-%{_kf5_libdir}/libKF5MailTransportAkonadi.so
+%{_includedir}/KPim5/MailTransportAkonadi/
+%{_kf5_libdir}/libKPim5MailTransportAkonadi.so
 %{_kf5_libdir}/cmake/KF5MailTransportAkonadi/
+%{_kf5_libdir}/cmake/KPim5MailTransportAkonadi/
 %{_kf5_archdatadir}/mkspecs/modules/qt_KMailTransportAkonadi.pri
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

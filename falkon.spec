@@ -2,7 +2,7 @@
 %bcond_with python
 
 Name:           falkon
-Version:        22.12.3
+Version:        23.03.80
 Release:        1%{?dist}
 Summary:        Modern web browser
 
@@ -184,6 +184,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.fa
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

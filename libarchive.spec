@@ -5,7 +5,7 @@ Version:        3.6.1
 Release:        5%{?dist}
 Summary:        A library for handling streaming archive formats
 
-License:        BSD
+License:        BSD 2-Clause License AND BSD 2-clause NetBSD License BSD 2-Clause License
 URL:            https://www.libarchive.org/
 Source0:        https://libarchive.org/downloads/%{name}-%{version}.tar.gz
 

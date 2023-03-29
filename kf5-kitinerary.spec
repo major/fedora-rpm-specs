@@ -8,7 +8,7 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 Summary: A library containing itinerary data model and itinerary extraction code
 
@@ -21,10 +21,11 @@ URL:     https://invent.kde.org/frameworks/%{framework}
 %else
 %global stable stable
 %endif
+
+%global majmin_ver %{version}
+
 Source0:        http://download.kde.org/%{stable}/release-service/%{version}/src/%{framework}-%{version}.tar.xz
 
-# fix gcc 13 compilation
-Patch0:         0ef772c3e0ff8f049f299ad14b3c65327e4fe69e.patch
 
 # libical (and thus kcalendarcore) not on all arches for RHEL8.
 %if 0%{?rhel} == 8
@@ -33,17 +34,17 @@ ExclusiveArch: x86_64 ppc64le aarch64 %{arm}
 
 BuildRequires:  extra-cmake-modules
 BuildRequires:  kf5-rpm-macros
+BuildRequires:  kpublictransport >= %{majmin_ver}
 BuildRequires:  qt5-qtbase-private-devel
 
+BuildRequires:  cmake(ZXing)
 BuildRequires:  cmake(KF5I18n)
 
 # kde-pim pkgs
-#global majmin_ver %(echo %{version} | cut -d. -f1,2)
-%global majmin_ver %{version}
-BuildRequires: kf5-kmime-devel >= %{majmin_ver}
-BuildRequires: kf5-kcalendarcore-devel >= %{majmin_ver}
-BuildRequires: kf5-kcontacts-devel >= %{majmin_ver}
-BuildRequires: kf5-kpkpass-devel >= %{majmin_ver}
+BuildRequires:  kf5-kmime-devel >= %{majmin_ver}
+BuildRequires:  kf5-kcalendarcore-devel >= %{majmin_ver}
+BuildRequires:  kf5-kcontacts-devel >= %{majmin_ver}
+BuildRequires:  kf5-kpkpass-devel >= %{majmin_ver}
 
 # kde-pim cmake
 BuildRequires:  cmake(KF5Mime)
@@ -114,17 +115,23 @@ make test/fast ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||
 %doc README.md
 %license LICENSES/*
 %{_kf5_datadir}/qlogging-categories5/*%{framework}.*
-%{_kf5_libdir}/libKPimItinerary.so.5*
+%{_kf5_libdir}/libKPim5Itinerary.so.5*
 %{_kf5_libexecdir}/kitinerary-extractor
 %{_kf5_datadir}/mime/packages/application-vnd-kde-itinerary.xml
 
 %files devel
-%{_includedir}/KPim/
-%{_kf5_libdir}/libKPimItinerary.so
+%{_includedir}/KPim5/kitinerary/
+%{_includedir}/KPim5/KItinerary/
+%{_includedir}/KPim5/kitinerary_version.h
+%{_kf5_libdir}/libKPim5Itinerary.so
+%{_kf5_libdir}/cmake/KPim5Itinerary/
 %{_kf5_libdir}/cmake/KPimItinerary/
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

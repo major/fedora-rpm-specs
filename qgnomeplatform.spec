@@ -1,6 +1,6 @@
 Name:           qgnomeplatform
 Version:        0.9.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Qt Platform Theme aimed to accommodate Gnome settings
 
 License:        LGPL-2.0-or-later
@@ -108,6 +108,9 @@ modifying them - making them fit into the environment as well as possible.
 %{_qt6_plugindir}/wayland-decoration-client/libqgnomeplatformdecoration.so
 
 %changelog
+* Mon Mar 27 2023 Jan Grulich <jgrulich@redhat.com> - 0.9.0-11
+- Rebuild (qt6)
+
 * Fri Mar 10 2023 Jan Grulich <jgrulich@redhat.com> - 0.9.0-10
 - Add support for KColorScheme using Adwaita-like color schemes
 

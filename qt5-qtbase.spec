@@ -53,7 +53,7 @@
 Name:    qt5-qtbase
 Summary: Qt5 - QtBase components
 Version: 5.15.8
-Release: 7%{?dist}
+Release: 8%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -143,7 +143,9 @@ Patch101: qtbase-5.15.8-fix-missing-qtsan-include.patch
 
 # Workaround for font rendering issue with cjk-vf-fonts
 # https://bugreports.qt.io/browse/QTBUG-111994
+# https://bugreports.qt.io/browse/QTBUG-112136
 Patch102: qtbase-QTBUG-111994.patch
+Patch103: qtbase-QTBUG-112136.patch
 
 # Do not check any files in %%{_qt5_plugindir}/platformthemes/ for requires.
 # Those themes are there for platform integration. If the required libraries are
@@ -421,6 +423,7 @@ Qt5 libraries used for drawing widgets and OpenGL items.
 %patch100 -p1
 %patch101 -p1
 %patch102 -p1
+%patch103 -p1
 
 # move some bundled libs to ensure they're not accidentally used
 pushd src/3rdparty
@@ -1100,6 +1103,10 @@ fi
 
 
 %changelog
+* Mon Mar 27 2023 Than Ngo <than@redhat.com> - 5.15.8-8
+- Fix bz#2179854, Qt 5 render the Bold style CJK character very thick
+  with Noto CJK variable fonts
+
 * Mon Mar 20 2023 Than Ngo <than@redhat.com> - 5.15.8-7
 - Fix bz#2178389, Qt application render very thin fonts after
   switch to VF version of Noto CJK fonts

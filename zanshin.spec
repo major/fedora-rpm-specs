@@ -11,7 +11,7 @@
 %endif
 
 Name:           zanshin
-Version:        22.12.3
+Version:        23.03.80
 Release:        1%{?dist}
 Summary:        Todo/action management software
 
@@ -34,13 +34,13 @@ BuildRequires:  extra-cmake-modules
 BuildRequires:  gettext
 BuildRequires:  intltool
 ## kf5
-BuildRequires:  cmake(KF5Akonadi)
-BuildRequires:  cmake(KF5AkonadiCalendar) cmake(KF5AkonadiContact)
-BuildRequires:  cmake(KF5AkonadiNotes)
-BuildRequires:  cmake(KF5AkonadiSearch)
-BuildRequires:  cmake(KF5IdentityManagement)
-BuildRequires:  cmake(KF5KontactInterface)
-BuildRequires:  cmake(KF5Ldap)
+BuildRequires:  cmake(KPim5Akonadi)
+BuildRequires:  cmake(KPim5AkonadiCalendar) cmake(KPim5AkonadiContact)
+BuildRequires:  cmake(KPim5AkonadiNotes)
+BuildRequires:  cmake(KPim5AkonadiSearch)
+BuildRequires:  cmake(KPim5IdentityManagement)
+BuildRequires:  cmake(KPim5KontactInterface)
+BuildRequires:  cmake(KPim5Ldap)
 BuildRequires:  cmake(KF5Runner)
 BuildRequires:  cmake(KF5Wallet)
 BuildRequires:  cmake(Qt5Gui)
@@ -108,22 +108,21 @@ time \
 %endif
 
 %files common -f %{name}.lang
-%doc AUTHORS HACKING TODO
-%license LICENSES/*.txt
 %{_kf5_datadir}/icons/hicolor/*/*/zanshin.*
 
 %files
 %{_kf5_bindir}/zanshin*
 %{_kf5_metainfodir}/org.kde.zanshin.metainfo.xml
 %{_kf5_datadir}/applications/org.kde.zanshin.desktop
-%{_kf5_datadir}/kservices5/plasma-runner-zanshin.desktop
-%{_kf5_datadir}/kservices5/zanshin_part.desktop
 %{_kf5_datadir}/kxmlgui5/zanshin/
 %{_qt5_plugindir}/pim5/kontact/kontact_zanshinplugin.so
-%{_qt5_plugindir}/krunner_zanshin.so
 %{_qt5_plugindir}/zanshin_part.so
+%{_kf5_plugindir}/krunner/org.kde.%{name}.so
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

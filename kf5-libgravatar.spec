@@ -1,7 +1,7 @@
 %global framework libgravatar
 
 Name:    kf5-%{framework}
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 Summary: Gravatar support library
 
@@ -20,6 +20,7 @@ Source0:        http://download.kde.org/%{stable}/release-service/%{version}/src
 %{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
 
 BuildRequires:  cmake(KF5PimTextEdit)
+BuildRequires:  cmake(KF5TextAutoCorrection)
 BuildRequires:  cmake(Qt5Widgets)
 BuildRequires:  cmake(Qt5Network)
 BuildRequires:  cmake(Qt5Test)
@@ -72,17 +73,21 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %files -f %{name}.lang
 %license LICENSES/*
 %{_kf5_datadir}/qlogging-categories5/*%{framework}.*
-%{_kf5_libdir}/libKF5Gravatar.so.5*
+%{_kf5_libdir}/libKPim5Gravatar.so.5*
 
 %files devel
-%{_kf5_libdir}/libKF5Gravatar.so
+%{_kf5_libdir}/libKPim5Gravatar.so
 %{_kf5_libdir}/cmake/KF5Gravatar/
-%{_kf5_includedir}/Gravatar/
+%{_kf5_libdir}/cmake/KPim5Gravatar/
+%{_includedir}/KPim5/Gravatar/
 
 %{_kf5_archdatadir}/mkspecs/modules/qt_Gravatar.pri
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 Name:    kdf
 Summary: View disk usage
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -76,11 +76,13 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/*kdf.desktop ||:
 %{_kf5_datadir}/applications/org.kde.kdf.desktop
 %{_kf5_datadir}/applications/org.kde.kwikdisk.desktop
 %{_kf5_metainfodir}/org.kde.*.appdata.xml
-%{_kf5_datadir}/kservices5/kcmdf.desktop
 %{_kf5_datadir}/kxmlgui5/kdf/
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

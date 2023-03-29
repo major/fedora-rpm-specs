@@ -8,8 +8,8 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 22.12.3
-Release: 2%{?dist}
+Version: 23.03.80
+Release: 1%{?dist}
 Summary: The KPimTextEdit Library
 
 License: LGPLv2+
@@ -43,7 +43,6 @@ BuildRequires:  cmake(KF5Emoticons)
 BuildRequires:  cmake(KF5I18n)
 BuildRequires:  cmake(KF5IconThemes)
 BuildRequires:  cmake(KF5KIO)
-BuildRequires:  cmake(KF5PimTextEdit)
 BuildRequires:  cmake(KF5Sonnet)
 BuildRequires:  cmake(KF5SyntaxHighlighting)
 BuildRequires:  cmake(KF5TextWidgets)
@@ -87,7 +86,7 @@ developing applications that use %{name}.
 
 # Please DO NOT REMOVE OR COMMENT OUT THIS PATCH! Ask kkofler for help with
 # rebasing if needed. The patch is usually trivial to rebase.
-%patch100 -p1 -b .install_and_export_for_blogilo
+%patch -P 100 -p1 -b .install_and_export_for_blogilo
 
 ## upstream patches
 
@@ -120,17 +119,21 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 %files -f %{name}.lang
 %license LICENSES/*
 %{_kf5_datadir}/qlogging-categories5/*%{framework}.*
-%{_kf5_libdir}/libKF5PimTextEdit.so.*
-%{_qt5_plugindir}/designer/kpimtexteditwidgets.so
+%{_kf5_libdir}/libKPim5TextEdit.so.*
+%{_qt5_plugindir}/designer/kpimtextedit5widgets.so
 
 %files devel
-%{_kf5_includedir}/KPIMTextEdit/
-%{_kf5_libdir}/libKF5PimTextEdit.so
+%{_kf5_libdir}/libKPim5TextEdit.so
+%{_includedir}/KPim5/KPIMTextEdit/
 %{_kf5_libdir}/cmake/KF5PimTextEdit/
+%{_kf5_libdir}/cmake/KPim5TextEdit
 %{_kf5_archdatadir}/mkspecs/modules/qt_KPIMTextEdit.pri
 
 
 %changelog
+* Wed Mar 22 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Wed Mar 22 2023 Jan Grulich <jgrulich@redhat.com> - 22.12.3-2
 - Rebuild (grantlee-qt5)
 

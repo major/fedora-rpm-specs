@@ -9,8 +9,8 @@ can be customized according to users' wishes, which offers a wide
 variety of possibilities for providing flowing feedback.}
 
 Name:           python-%{pypi_name}
-Version:        0.1.6
-Release:        4%{?dist}
+Version:        0.2.0
+Release:        1%{?dist}
 Summary:        Show feedback in toast-like notifications
 
 License:        MIT
@@ -71,6 +71,9 @@ toml-adapt -path pyproject.toml -a change -dep PyQt5 -ver X
 %doc README.md CHANGELOG.md CODE_OF_CONDUCT.md
 
 %changelog
+* Mon Mar 27 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.2.0-1
+- Update to the latest release
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

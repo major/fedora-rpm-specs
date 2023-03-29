@@ -1,5 +1,5 @@
 Name:           python-sentry-sdk
-Version:        1.16.0
+Version:        1.17.0
 Release:        1%{?dist}
 Summary:        The new Python SDK for Sentry.io
 
@@ -163,6 +163,9 @@ sed -i 's/loop/event_loop/g' tests/integrations/aiohttp/test_aiohttp.py
 
 
 %changelog
+* Mon Mar 27 2023 Roman Inflianskas <rominf@aiven.io> - 1.17.0-1
+- Update to 1.17.0 (resolve rhbz#2179098)
+
 * Tue Feb 28 2023 Roman Inflianskas <rominf@aiven.io> - 1.16.0-1
 - Update to 1.16.0 (resolve rhbz#2167733)
 - Switch to MIT license

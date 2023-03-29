@@ -9,7 +9,7 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 Summary: The Akonadi Notes Library
 
@@ -91,16 +91,20 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 
 %files -f %{name}.lang
 %license LICENSES/*
-%{_kf5_libdir}/libKF5AkonadiNotes.so.*
+%{_kf5_libdir}/libKPim5AkonadiNotes.so.*
 
 %files devel
 %{_kf5_libdir}/cmake/KF5AkonadiNotes/
-%{_kf5_libdir}/libKF5AkonadiNotes.so
+%{_kf5_libdir}/cmake/KPim5AkonadiNotes/
+%{_kf5_libdir}/libKPim5AkonadiNotes.so
 %{_kf5_archdatadir}/mkspecs/modules/qt_AkonadiNotes.pri
-%{_kf5_includedir}/AkonadiNotes
+%{_includedir}/KPim5/AkonadiNotes
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

@@ -1,29 +1,29 @@
 %bcond_with bootstrap
 
 Name:           byte-buddy
-Version:        1.12.10
-Release:        3%{?dist}
+Version:        1.14.2
+Release:        1%{?dist}
 Summary:        Runtime code generation for the Java virtual machine
 License:        ASL 2.0
 URL:            http://bytebuddy.net/
-# ./generate-tarball.sh
-Source0:        %{name}-%{version}.tar.gz
+Source0:        https://github.com/raphw/byte-buddy/archive/refs/tags/byte-buddy-%{version}.tar.gz
 
 # Patch the build to avoid bundling inside shaded jars
 Patch1:         0001-Avoid-bundling-asm.patch
 Patch2:         0002-Remove-dependencies.patch
-Patch3:         0003-Remove-Java-14-tests.patch
-Patch4:         0004-Remove-JDK-15-sealed-classes.patch
 
+BuildRequires:  javapackages-extra
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
+BuildRequires:  mvn(codes.rafael.modulemaker:modulemaker-maven-plugin)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(net.bytebuddy:byte-buddy)
 BuildRequires:  mvn(net.bytebuddy:byte-buddy-dep)
 BuildRequires:  mvn(org.apache.maven:maven-compat)
 BuildRequires:  mvn(org.apache.maven.plugin-testing:maven-plugin-testing-harness)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
 BuildRequires:  mvn(org.mockito:mockito-core)
 BuildRequires:  mvn(org.ow2.asm:asm-analysis)
 BuildRequires:  mvn(org.ow2.asm:asm-util)
@@ -79,19 +79,13 @@ This package contains API documentation for %{name}.
 
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
-%patch4 -p1
 
-rm byte-buddy-agent/src/test/java/net/bytebuddy/agent/VirtualMachineAttachmentTest.java
-rm byte-buddy-agent/src/test/java/net/bytebuddy/agent/VirtualMachineForOpenJ9Test.java
+find -name '*.class' -delete
 
-# Cause pre-compiled stuff to be re-compiled
-mv byte-buddy-dep/src/precompiled/java/net/bytebuddy/build/*.java \
-  byte-buddy-dep/src/main/java/net/bytebuddy/build
-mkdir -p byte-buddy-dep/src/test/java/net/bytebuddy/test/precompiled/
-mv byte-buddy-dep/src/precompiled/java/net/bytebuddy/test/precompiled/*.java \
-  byte-buddy-dep/src/test/java/net/bytebuddy/test/precompiled/
-rm byte-buddy-dep/src/test/java/net/bytebuddy/test/precompiled/GenericRecordSample.java
+rm byte-buddy-agent/src/test/java/net/bytebuddy/agent/VirtualMachineAttachmentTest.java\
+   byte-buddy-agent/src/test/java/net/bytebuddy/agent/VirtualMachineForOpenJ9Test.java\
+   byte-buddy-agent/src/test/java/net/bytebuddy/test/utility/JnaRule.java\
+;
 
 # Don't ship android or benchmark modules
 %pom_disable_module byte-buddy-android
@@ -108,7 +102,6 @@ rm byte-buddy-dep/src/test/java/net/bytebuddy/test/precompiled/GenericRecordSamp
 %pom_remove_plugin :coveralls-maven-plugin
 %pom_remove_plugin :spotbugs-maven-plugin
 %pom_remove_plugin :jitwatch-jarscan-maven-plugin
-%pom_remove_plugin :clirr-maven-plugin
 %pom_remove_plugin :maven-release-plugin
 %pom_remove_plugin :nexus-staging-maven-plugin
 
@@ -119,30 +112,26 @@ rm byte-buddy-dep/src/test/java/net/bytebuddy/test/precompiled/GenericRecordSamp
 %pom_xpath_set "pom:createSourcesJar" "false" byte-buddy
 
 # Drop build dep on findbugs annotations, used only by the above check plugins
-%pom_remove_dep :findbugs-annotations
-sed -i -e '/SuppressFBWarnings/d' $(grep -lr SuppressFBWarnings)
-
-# Plugin for generating Java 9 module-info file is not in Fedora
-%pom_remove_plugin -r :modulemaker-maven-plugin
+%pom_remove_dep -r :findbugs-annotations
+%java_remove_annotations byte-buddy-agent byte-buddy-dep byte-buddy-maven-plugin -n SuppressFBWarnings
 
 %pom_remove_dep org.ow2.asm:asm-deprecated
 
-%pom_remove_plugin :maven-shade-plugin byte-buddy
-%pom_remove_plugin :maven-shade-plugin byte-buddy-benchmark
+%pom_remove_plugin -r :maven-shade-plugin
+%pom_remove_dep -r net.java.dev.jna:jna
+%pom_remove_dep -r net.java.dev.jna:jna-platform
 
-%pom_remove_dep net.java.dev.jna:jna byte-buddy
-%pom_remove_dep net.java.dev.jna:jna byte-buddy-dep
-%pom_remove_dep net.java.dev.jna:jna byte-buddy-agent
-
-%pom_remove_dep net.java.dev.jna:jna-platform byte-buddy
-%pom_remove_dep net.java.dev.jna:jna-platform byte-buddy-dep
-%pom_remove_dep net.java.dev.jna:jna-platform byte-buddy-agent
+%mvn_package :byte-buddy-parent __noinstall
 
 %build
 # Ignore test failures, there seems to be something different about the
 # bytecode of our recompiled test resources, expect 6 test failures in
 # the byte-buddy-dep module
-%mvn_build -s -- -P'java8,!checks' -Dsourcecode.test.version=1.8 -Dmaven.test.failure.ignore=true
+
+# NOTE you can obtain valid profiles for precompilation by:
+# xmllint --xpath '//*[local-name()="profile"]/*[local-name()="id"]/text()' byte-buddy-dep/pom.xml | grep 'precompile$' | grep -v 'no-precompile$' | sed 's/\(.*\)/-P\1/'
+profiles='-Pjava-8-precompile -Pjava-8-parameters-precompile -Pjava-11-precompile -Pjava-16-precompile -Pjava-17-precompile'
+%mvn_build -s -- -P'java8,!checks' "${profiles}" -Dsourcecode.test.version=1.8 -Dmaven.test.failure.ignore=true
 
 %install
 %mvn_install
@@ -156,13 +145,16 @@ sed -i -e '/SuppressFBWarnings/d' $(grep -lr SuppressFBWarnings)
 
 %files maven-plugin -f .mfiles-%{name}-maven-plugin
 
-%files parent -f .mfiles-%{name}-parent
-%license LICENSE NOTICE
-
 %files javadoc -f .mfiles-javadoc
 %license LICENSE NOTICE
 
 %changelog
+* Thu Feb 23 2023 Marian Koncek <mkoncek@redhat.com> - 1.14.2-1
+- Update to upstream version 1.14.2
+
+* Tue Feb 21 2023 Marian Koncek <mkoncek@redhat.com> - 1.12.10-4
+- Enable modulemaker-maven-plugin
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.10-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,13 +4,14 @@ Name:           openlierox
 # Because we downgraded from 0.59 to 0.58 as 0.59 never became stable
 Epoch:          1
 Version:        0.58
-Release:        0.28.%{prever}%{?dist}
+Release:        0.29.%{prever}%{?dist}
 Summary:        Addictive realtime multi-player 2D shoot-em-up
 License:        LGPLv2+
 URL:            http://openlierox.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/%{name}/OpenLieroX_%{version}_%{prever}.src.tar.bz2
 Source1:        %{name}.desktop
 Source2:        README.fedora
+Patch1:         openlierox-gcc13.patch
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  SDL_mixer-devel SDL_image-devel gd-devel
@@ -89,6 +90,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Mon Mar 27 2023 Hans de Goede <hdegoede@redhat.com> - 1:0.58-0.29.rc5
+- Fix FTBFS (rhbz#2171632)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.58-0.28.rc5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:    kdepim-addons
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 Summary: Additional plugins for KDE PIM applications
 
@@ -39,31 +39,32 @@ BuildRequires:  cmake(KF5Holidays)
 BuildRequires:  cmake(KF5I18n)
 BuildRequires:  cmake(KF5KHtml)
 BuildRequires:  cmake(KF5Prison)
+BuildRequires:  cmake(KF5TextAutoCorrection)
 BuildRequires:  cmake(KF5XmlGui)
 
-BuildRequires:  cmake(KF5Akonadi)
-BuildRequires:  cmake(KF5AkonadiNotes)
-BuildRequires:  cmake(KF5CalendarSupport)
-BuildRequires:  cmake(KF5EventViews)
-BuildRequires:  cmake(KF5GrantleeTheme)
-BuildRequires:  cmake(KF5Gravatar)
-BuildRequires:  cmake(KF5IncidenceEditor)
-BuildRequires:  cmake(KF5KontactInterface)
-BuildRequires:  cmake(KPimAddressbookImportExport)
+BuildRequires:  cmake(KPim5Akonadi)
+BuildRequires:  cmake(KPim5AkonadiNotes)
+BuildRequires:  cmake(KPim5CalendarSupport)
+BuildRequires:  cmake(KPim5EventViews)
+BuildRequires:  cmake(KPim5GrantleeTheme)
+BuildRequires:  cmake(KPim5Gravatar)
+BuildRequires:  cmake(KPim5IncidenceEditor)
+BuildRequires:  cmake(KPim5KontactInterface)
+BuildRequires:  cmake(KPim5AddressbookImportExport)
 
-BuildRequires:  cmake(KF5Libkdepim)
-BuildRequires:  cmake(KF5Libkleo)
-BuildRequires:  cmake(KF5MailCommon)
-BuildRequires:  cmake(KF5MailImporterAkonadi)
-BuildRequires:  cmake(KF5MessageComposer)
-BuildRequires:  cmake(KF5MessageCore)
-BuildRequires:  cmake(KF5MessageList)
-BuildRequires:  cmake(KF5MessageViewer)
+BuildRequires:  cmake(KPim5Libkdepim)
+BuildRequires:  cmake(KPim5Libkleo)
+BuildRequires:  cmake(KPim5MailCommon)
+BuildRequires:  cmake(KPim5MailImporterAkonadi)
+BuildRequires:  cmake(KPim5MessageComposer)
+BuildRequires:  cmake(KPim5MessageCore)
+BuildRequires:  cmake(KPim5MessageList)
+BuildRequires:  cmake(KPim5MessageViewer)
 BuildRequires:  cmake(KF5PimCommon)
-BuildRequires:  cmake(KF5Tnef)
-BuildRequires:  cmake(KPimImportWizard)
-BuildRequires:  cmake(KPimItinerary)
-BuildRequires:  cmake(KPimPkPass)
+BuildRequires:  cmake(KPim5Tnef)
+BuildRequires:  cmake(KPim5ImportWizard)
+BuildRequires:  cmake(KPim5Itinerary)
+BuildRequires:  cmake(KPim5PkPass)
 
 #global majmin_ver %%(echo %%{version} | cut -d. -f1,2)
 %global majmin_ver %{version}
@@ -125,7 +126,6 @@ Supplements:    korganizer
 %files -f %{name}.lang
 %license LICENSES/*
 %{_kf5_datadir}/icons/hicolor/scalable/status/moon-phase-*
-%{_kf5_datadir}/kconf_update/languagetool_kmail.upd
 %{_kf5_datadir}/kconf_update/webengineurlinterceptoradblock.upd
 %{_kf5_datadir}/qlogging-categories5/*%{name}.*
 %{_kf5_libdir}/libadblocklibprivate.so.5*
@@ -150,11 +150,7 @@ Supplements:    korganizer
 %{_kf5_qtplugindir}/pim5/kaddressbook/
 
 # KMail
-#{_kf5_datadir}/kmail2/pics/*
 %{_kf5_bindir}/kmail_*.sh
-%{_kf5_libdir}/libgrammarcommon.so.*
-%{_kf5_libdir}/libkmailgrammalecte.so.*
-%{_kf5_libdir}/libkmaillanguagetool.so.*
 %{_kf5_libdir}/libkmailmarkdown.so.*
 %{_kf5_libdir}/libkmailquicktextpluginprivate.so.*
 %{_kf5_qtplugindir}/pim5/akonadi/
@@ -183,6 +179,9 @@ Supplements:    korganizer
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

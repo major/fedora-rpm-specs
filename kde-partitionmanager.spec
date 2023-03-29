@@ -6,7 +6,7 @@
 %global kpmcoremin 22.03
 
 Name:           kde-partitionmanager
-Version:        22.12.3
+Version:        23.03.80
 Release:        1%{?dist}
 Summary:        KDE Partition Manager
 
@@ -94,6 +94,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdat
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

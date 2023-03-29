@@ -6,7 +6,7 @@
 %endif
 
 Name:    kio-extras
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 Summary: Additional components to increase the functionality of KIO Framework
 
@@ -22,10 +22,6 @@ URL:     https://invent.kde.org/network/%{name}
 Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 ## upstramable patches
-
-# Don't eat up memory attempting to create thumbnail of huge images
-# https://bugs.kde.org/show_bug.cgi?id=420173
-Patch1001: kio-extras_largeimages.patch
 
 ## upstream patches
 
@@ -220,6 +216,9 @@ time make test -C %{_target_platform} ARGS="--output-on-failure --timeout 10" ||
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

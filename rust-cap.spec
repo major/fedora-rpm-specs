@@ -76,7 +76,8 @@ use the "stats" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test
+# * tests can not be run in parallel
+%cargo_test -- -- --test-threads 1
 %endif
 
 %changelog

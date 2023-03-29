@@ -1,11 +1,11 @@
 %global packname RInside
 
 Name:		R-%{packname}
-Version:	0.2.17
-Release:	4%{?dist}
+Version:	0.2.18
+Release:	1%{?dist}
 Summary:	C++ Classes to Embed R in C++ (and C) Applications
 
-License:	GPLv2+
+License:	GPL-2.0-or-later
 URL:		https://cran.r-project.org/package=%{packname}
 Source0:	%{url}&version=%{version}#/%{packname}_%{version}.tar.gz
 #		Adapt RInsideLdFlags function to Fedora packaging (no static
@@ -91,6 +91,9 @@ rmdir %{buildroot}%{_libdir}/R/library/%{packname}/lib
 %{_libdir}/R/library/%{packname}/examples
 
 %changelog
+* Mon Mar 27 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.2.18-1
+- New release 0.2.18
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.17-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

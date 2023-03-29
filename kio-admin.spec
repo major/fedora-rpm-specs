@@ -1,10 +1,10 @@
 Name:           kio-admin
-Version:        1.0.0
+Version:        23.03.80
 Release:        1%{?dist}
 Summary:        Manage files as administrator using the admin:// KIO protocol
 License:        (GPL-2.0-only or GPL-3.0-only) and BSD-3-Clause and CC0-1.0 and FSFAP
 URL:            https://invent.kde.org/system/kio-admin
-Source:         https://download.kde.org/stable/kio-admin/%{name}-%{version}.tar.zst
+Source:         https://download.kde.org/stable/kio-admin/%{name}-%{version}.tar.xz
 
 BuildRequires:  extra-cmake-modules
 BuildRequires:  gcc-c++
@@ -26,7 +26,7 @@ existing KIO infrastructure to run file://
 operations in root-scope.
 
 %prep
-%autosetup -p1 -n %{name}-v%{version}
+%autosetup -p1
 
 %build
 %cmake_kf5
@@ -50,5 +50,8 @@ operations in root-scope.
 %{_kf5_datadir}/polkit-1/actions/org.kde.kio.admin.policy
 
 %changelog	
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Mon Jan 23 2023 Onuralp SEZER <thunderbirdtr@fedoraproject.org> - 1.0.0-1
 - initial kio-admin package

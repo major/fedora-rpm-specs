@@ -9,8 +9,8 @@
 %endif
 
 Name:    kf5-kcalendarutils
-Version: 22.12.3
-Release: 2%{?dist}
+Version: 23.03.80
+Release: 1%{?dist}
 Summary: The KCalendarUtils Library
 
 License: LGPLv2+
@@ -100,17 +100,21 @@ make test ARGS="--output-on-failure --timeout 60" -C %{_target_platform} ||:
 %files -f %{name}.lang
 %license LICENSES/*
 %{_kf5_datadir}/qlogging-categories5/*%{framework}.*
-%{_kf5_libdir}/libKF5CalendarUtils.so.*
+%{_kf5_libdir}/libKPim5CalendarUtils.so.*
 %{grantlee5_plugindir}/kcalendar_grantlee_plugin.so
 
 %files devel
-%{_kf5_includedir}/KCalUtils/
-%{_kf5_libdir}/libKF5CalendarUtils.so
+%{_includedir}/KPim5/KCalUtils/
+%{_kf5_libdir}/libKPim5CalendarUtils.so
 %{_kf5_libdir}/cmake/KF5CalendarUtils/
+%{_kf5_libdir}/cmake/KPim5CalendarUtils/
 %{_kf5_archdatadir}/mkspecs/modules/qt_KCalUtils.pri
 
 
 %changelog
+* Wed Mar 22 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Wed Mar 22 2023 Jan Grulich <jgrulich@redhat.com> - 22.12.3-2
 - Rebuild (grantlee-qt5)
 

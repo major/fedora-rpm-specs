@@ -9,7 +9,7 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 Summary: The Akonadi Mime Library
 
@@ -105,7 +105,7 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 %{_kf5_datadir}/config.kcfg/specialmailcollections.kcfg
 %{_kf5_datadir}/mime/packages/x-vnd.kde.contactgroup.xml
 %{_kf5_datadir}/qlogging-categories5/*%{framework}.*
-%{_kf5_libdir}/libKF5AkonadiMime.so.*
+%{_kf5_libdir}/libKPim5AkonadiMime.so.*
 %{_kf5_qtplugindir}/akonadi_serializer_mail.so
 
 %files devel 
@@ -113,11 +113,15 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 %{_kf5_bindir}/akonadi_benchmarker
 %endif
 %{_kf5_archdatadir}/mkspecs/modules/qt_AkonadiMime.pri
-%{_kf5_includedir}/AkonadiMime
+%{_includedir}/KPim5/AkonadiMime/
 %{_kf5_libdir}/cmake/KF5AkonadiMime/
-%{_kf5_libdir}/libKF5AkonadiMime.so
+%{_kf5_libdir}/cmake/KPim5AkonadiMime/
+%{_kf5_libdir}/libKPim5AkonadiMime.so
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

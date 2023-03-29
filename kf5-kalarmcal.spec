@@ -9,8 +9,8 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 21.12.3
-Release: 3%{?dist}
+Version: 22.03.80
+Release: 1%{?dist}
 Summary: The KAlarmCal Library
 
 License: LGPLv2+
@@ -108,6 +108,9 @@ make test ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||:
 
 
 %changelog
+* Thu Mar 23 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.03.80-1
+- 22.03.80
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 21.12.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

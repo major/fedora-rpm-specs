@@ -4,7 +4,7 @@
 # 2) When making changes, increment the version (in baserelease) by 1.
 #    rpmdev-bumpspec and other tools update the macro below, which is used
 #    in Version: to get the desired effect.
-%global baserelease 253
+%global baserelease 254
 
 Summary: Red Hat specific rpm configuration files
 Name: redhat-rpm-config
@@ -253,6 +253,9 @@ install -p -m 644 -t %{buildroot}%{_rpmluadir}/fedora/srpm forge.lua
 %doc buildflags.md
 
 %changelog
+* Thu Mar  9 2023 Florian Weimer <fweimer@redhat.com> - 254-1
+- Switch ELN to x86-64-v3
+
 * Tue Feb 28 2023 Maxwell G <gotmax@e.email> - 253-1
 - Include RUSTFLAGS in %%set_build_flags
 - Fixes: rhbz#2167183

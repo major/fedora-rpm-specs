@@ -2,7 +2,7 @@ Name:           perl-Data-Visitor
 Version:        0.31
 Release:        8%{?dist}
 Summary:        Visitor style traversal of Perl data structures
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-Visitor
 Source0:        https://cpan.metacpan.org/modules/by-module/Data/Data-Visitor-%{version}.tar.gz
 BuildArch:      noarch
@@ -55,11 +55,7 @@ find %{buildroot} -type f -name .packlist -delete
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENCE
-%else
-%doc LICENCE
-%endif
 %doc Changes CONTRIBUTING README t/
 %{perl_vendorlib}/Data/
 %{_mandir}/man3/Data::Visitor.3*

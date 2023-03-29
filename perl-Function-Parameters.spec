@@ -2,8 +2,8 @@
 %bcond_without perl_Function_Parameters_enables_optional_test
 
 Name:           perl-Function-Parameters
-%global cpan_version 2.001005
-Version:        2.1.5
+%global cpan_version 2.001006
+Version:        2.1.6
 Release:        1%{?dist}
 Summary:        Subroutine definitions with parameter lists
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -25,6 +25,7 @@ BuildRequires:  perl(overload)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
+BuildRequires:  perl(warnings::register)
 BuildRequires:  perl(XSLoader)
 # Tests:
 BuildRequires:  perl(aliased)
@@ -50,6 +51,7 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(threads)
 BuildRequires:  perl(threads::shared)
 %endif
+# Dependencies
 Requires:       perl(Moose::Util::TypeConstraints)
 
 %description
@@ -80,6 +82,14 @@ make test
 %{_mandir}/man3/Function::Parameters::Info.3*
 
 %changelog
+* Mon Mar 27 2023 Paul Howarth <paul@city-fan.org> - 2.1.6-1
+- Update to 2.001006 (rhbz#2182064)
+  - Work around perl core issue GH#20950 (use re "eval" doesn't capture lexical
+    %%^H environment like eval() does and stringifies it instead), by
+    downgrading the previous hard error to a warning (in the new category
+    'Function::Parameters') and switching Function::Parameters off in the
+    affected scope
+
 * Fri Jan 27 2023 Paul Howarth <paul@city-fan.org> - 2.1.5-1
 - Update to 2.001005 (rhbz#2164971)
   - Fix failures with perl 5.37.5..5.37.6 caused by new internal opcode

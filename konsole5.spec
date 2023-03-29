@@ -9,7 +9,7 @@
 
 Name:    konsole5
 Summary: KDE Terminal emulator
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 
 # sources: MIT and LGPLv2 and LGPLv2+ and GPLv2+
@@ -77,6 +77,7 @@ BuildRequires: cmake(KF5XmlGui)
 BuildRequires: libappstream-glib
 BuildRequires: cmake(Qt5Core)
 BuildRequires: cmake(Qt5DBus)
+BuildRequires: cmake(Qt5Multimedia)
 BuildRequires: cmake(Qt5PrintSupport)
 BuildRequires: cmake(Qt5Widgets)
 BuildRequires: libicu-devel
@@ -139,22 +140,25 @@ make test -C %{_target_platform} ARGS="--output-on-failure --timeout 30" ||:
 %files -f konsole.lang
 %dir %{_kf5_datadir}/knsrcfiles/
 %doc README*
+%{_kf5_sysconfdir}/xdg/konsolerc~
 %{_kf5_bindir}/konsole
 %{_kf5_bindir}/konsoleprofile
 %{_kf5_datadir}/applications/org.kde.konsole.desktop
-%{_kf5_datadir}/kconf_update/konsole_globalaccel.upd
+%{_kf5_datadir}/kconf_update/konsole.upd
+%{_kf5_datadir}/kconf_update/konsole_add_hamburgermenu_to_toolbar.sh
 %{_kf5_datadir}/kio/servicemenus/konsolerun.desktop
 %{_kf5_datadir}/knotifications5/konsole.notifyrc
 %{_kf5_datadir}/knsrcfiles/konsole.knsrc
 %{_kf5_datadir}/kservicetypes5/terminalemulator.desktop
 %{_kf5_datadir}/qlogging-categories5/konsole.*
+%{_kf5_datadir}/zsh/site-functions/_konsole
 %{_kf5_libdir}/kconf_update_bin/konsole_globalaccel
+%{_kf5_libdir}/kconf_update_bin/konsole_show_menubar
 %{_kf5_metainfodir}/org.kde.konsole.appdata.xml
 
 %ldconfig_scriptlets part
 
 %files part
-%license COPYING*
 %config(noreplace) %{_kf5_sysconfdir}/xdg/konsolerc
 %{_kf5_datadir}/konsole/
 %{_kf5_libdir}/libkonsoleapp.so.*
@@ -165,6 +169,9 @@ make test -C %{_target_platform} ARGS="--output-on-failure --timeout 30" ||:
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

@@ -3,11 +3,11 @@
 %global __suggests_exclude ^R\\(.*\\)
 
 Name:		R-%{packname}
-Version:	0.3.17
-Release:	2%{?dist}
+Version:	0.3.18
+Release:	1%{?dist}
 Summary:	littler: R at the Command-Line via 'r'
 
-License:	GPLv2+
+License:	GPL-2.0-or-later
 URL:		https://cran.r-project.org/package=%{packname}
 Source0:	%{url}&version=%{version}#/%{packname}_%{version}.tar.gz
 
@@ -90,6 +90,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check --ignore-vignettes %{packname}
 %{_libdir}/R/library/%{packname}/examples
 
 %changelog
+* Mon Mar 27 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.3.18-1
+- New upstream release 0.3.18
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.17-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 Name:    kaddressbook
 Summary: Contact Manager
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 
 # code (generally) GPLv2, docs GFDL
@@ -45,6 +45,7 @@ BuildRequires: cmake(KF5DocTools)
 BuildRequires: cmake(KF5KCMUtils)
 BuildRequires: cmake(KF5Crash)
 BuildRequires: cmake(KF5Prison)
+BuildRequires: cmake(KF5TextAutoCorrection)
 
 BuildRequires: cmake(Gpgmepp)
 
@@ -148,16 +149,20 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 # Kontact integration
 %{_kf5_qtplugindir}/pim5/kontact/kontact_kaddressbookplugin.so
 # put in own subpkg?
-%{_kf5_libdir}/libKPimAddressbookImportExport.so.*
+%{_kf5_libdir}/libKPim5AddressbookImportExport.so.*
 
 %files devel
-%{_kf5_libdir}/libKPimAddressbookImportExport.so
-%{_includedir}/KPim/
+%{_kf5_libdir}/libKPim5AddressbookImportExport.so
+%{_includedir}/KPim5/
 %{_libdir}/cmake/KPimAddressbookImportExport/
+%{_libdir}/cmake/KPim5AddressbookImportExport/
 %{_kf5_archdatadir}/mkspecs/modules/qt_KAddressbookImportExport.pri
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

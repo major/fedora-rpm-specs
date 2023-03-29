@@ -9,7 +9,7 @@
 
 Name:    akonadi-import-wizard
 Summary: Akonadi Import Wizard
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 
 # code (generally) GPLv2, docs GFDL
@@ -42,6 +42,7 @@ BuildRequires: cmake(KF5Crash)
 BuildRequires: cmake(KF5DBusAddons)
 BuildRequires: cmake(KF5DocTools)
 BuildRequires: cmake(KF5KIO)
+BuildRequires: cmake(KF5TextAutoCorrection)
 BuildRequires: cmake(KF5Wallet)
 
 %global majmin_ver %(echo %{version} | cut -d. -f1,2)
@@ -121,20 +122,23 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 %{_kf5_datadir}/icons/hicolor/*/apps/kontact-import-wizard.*
 %{_kf5_datadir}/importwizard/
 # -libs?
-%{_kf5_libdir}/libKPimImportWizard.so.5*
+%{_kf5_libdir}/libKPim5ImportWizard.so.5*
 %{_kf5_qtplugindir}/pim5/importwizard/
 
 %files devel
-%{_kf5_libdir}/libKPimImportWizard.so
+%{_kf5_libdir}/libKPim5ImportWizard.so
 %{_kf5_libdir}/cmake/KPimImportWizard/
-# wtf, *not* kf5_includedir? --rex
-%dir %{_includedir}/KPim/
-%{_includedir}/KPim/importwizard_version.h
-%dir %{_kf5_includedir}/KPim/
-%{_kf5_includedir}/KPim/ImportWizard/
-%{_kf5_includedir}/KPim/importwizard/
+%{_kf5_libdir}/cmake/KPim5ImportWizard/
+%dir %{_includedir}/KPim5/
+%{_includedir}/KPim5/importwizard_version.h
+%dir %{_includedir}/KPim5/
+%{_includedir}/KPim5/ImportWizard/
+%{_includedir}/KPim5/importwizard/
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

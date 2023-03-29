@@ -1,6 +1,6 @@
 Name:    ktp-approver
 Summary: KDE Channel Approver for Telepathy
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 
 License: LGPLv2+
@@ -65,6 +65,9 @@ Conflicts: kde-l10n < 17.03
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

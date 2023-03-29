@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit bc228bd0c249a9e4aa3dcf238c2b1bb138943b07
+%global commit 762805c0d194ad435583f5149901e83d0be2b944
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 38.8
+Version: 38.9
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -813,6 +813,20 @@ exit 0
 %endif
 
 %changelog
+* Fri Mar 24 2023 Zdenek Pytela <zpytela@redhat.com> - 38.9-1
+- Allow sssd read accountsd fifo files
+- Add support for the passt_t domain
+- Allow virtd_t and svirt_t work with passt
+- Add new interfaces in the virt module
+- Add passt interfaces defined conditionally
+- Allow tshark the setsched capability
+- Allow poweroff create connections to system dbus
+- Allow wg load kernel modules, search debugfs dir
+- Boolean: allow qemu-ga manage ssh home directory
+- Label smtpd with sendmail_exec_t
+- Label msmtp and msmtpd with sendmail_exec_t
+- Allow dovecot to map files in /var/spool/dovecot
+
 * Fri Mar 03 2023 Zdenek Pytela <zpytela@redhat.com> - 38.8-1
 - Confine gnome-initial-setup
 - Allow qemu-guest-agent create and use vsock socket

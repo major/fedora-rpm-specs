@@ -4,7 +4,7 @@
 
 Summary: Qt6 - WebView component
 Name:    qt6-%{qt_module}
-Version: 6.4.2
+Version: 6.4.3
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -98,5 +98,8 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Mon Mar 27 2023 Jan Grulich <jgrulich@redhat.com> - 6.4.3-1
+- 6.4.3
+
 * Wed Jan 25 2023 Jan Grulich <jgrulich@redhat.com> - 6.4.2-1
 - 6.4.2

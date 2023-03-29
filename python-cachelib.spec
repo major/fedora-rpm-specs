@@ -5,7 +5,7 @@ Version:        0.10.0
 Release:        3%{?dist}
 Summary:        A collection of cache libraries with a common API
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://pypi.org/project/cachelib/
 Source0:        %{pypi_source}
 

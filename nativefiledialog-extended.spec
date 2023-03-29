@@ -1,6 +1,6 @@
 Name:           nativefiledialog-extended
-Version:        1.0.1
-Release:        2%{?dist}
+Version:        1.0.2
+Release:        1%{?dist}
 Summary:        Native file dialog library with C and C++ bindings
 
 License:        Zlib
@@ -66,6 +66,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Mon Mar 27 2023 Jonathan Wright <jonathan@almalinux.org> - 1.0.2-1
+- Update to 1.0.2 rhbz#2181792
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

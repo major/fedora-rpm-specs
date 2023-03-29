@@ -1,6 +1,6 @@
 Name:    dragon
 Summary: Media player
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 
 # code: KDE e.V. may determine that future GPL versions are accepted
@@ -82,7 +82,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.dr
 desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.dragonplayer.desktop
 
 %files -f %{name}.lang
-%doc README HACKING TODO
 %license LICENSES/*
 %{_kf5_datadir}/solid/actions/dragonplayer-opendvd.desktop
 %{_kf5_datadir}/solid/actions/dragonplayer-openaudiocd.desktop
@@ -95,11 +94,13 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.dragonpla
 %{_kf5_datadir}/icons/oxygen/*/actions/player-volume-muted.*
 %{_mandir}/man1/dragon.1*
 # -libs subpkg ? --rex
-%{_kf5_datadir}/kservices5/dragonplayer_part.desktop
 %{_kf5_plugindir}/parts/dragonpart.so
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

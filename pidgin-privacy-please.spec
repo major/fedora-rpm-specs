@@ -1,82 +1,62 @@
-Name:           pidgin-privacy-please
-Version:        0.7.1
-Release:        24%{?dist}
-Summary:        Security and Privacy plugin for Pidgin
-Summary(fr):    Plugin de sécurité et confidentialité pour Pidgin
+Name: pidgin-privacy-please
+Version: 0.7.1
+Release: 25%{?dist}
 
-License:        GPLv3
-URL:            http://code.google.com/p/pidgin-privacy-please/
-Source0:        http://pidgin-privacy-please.googlecode.com/files/%{name}-%{version}.tar.gz
-%if 0%{?rhel} <= 5
-ExcludeArch:    ppc
-%endif
+License: GPL-3.0-or-later
+Summary: Security and privacy plugin for Pidgin
+URL: https://code.google.com/archive/p/%{name}/
+Source0: https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/%{name}/%{name}-%{version}.tar.gz
+
+BuildRequires: automake
+BuildRequires: gcc
+BuildRequires: gettext
+BuildRequires: intltool
 BuildRequires: make
-BuildRequires:  gcc
-BuildRequires:  gettext
-BuildRequires:  intltool
-BuildRequires:  pidgin-devel >= 2.5
-Requires:       pidgin >= 2.5
+BuildRequires: pidgin-devel
 
+Requires: pidgin%{?_isa}
 
 %description
 pidgin-privacy-please is a Pidgin plugin to stop spammers from annoying you.
-It offers the following features:
-  - Block individual users
-  - Auto-reply to blocked messages
-  - Block messages from people who are not on your contact list (with an
-optional auto-reply)
-  - Block messages using regular expressions, either against the message
-sender, the message content, or both
-  - Suppress repeated/all authorization requests
-  - Suppress OSCAR (ICQ/AIM) authorization requests
-  - Automatically show user info on authorization requests
-  - Block jabber headline messages (eg. alerts from the MSN transport)
-  - Block AOL system messages
-  - Challenge-response bot-check 
-%description -l fr
-pidgin-privacy-please est un plugin pour Pidgin qui va empêcher les spammeurs
-de vous ennuyer.
-Il offre les fonctionnalités suivantes :
-  - Blocage d'utilisateurs
-  - Réponse automatique pour les messages bloqués
-  - Bloque les messages des personnes qui ne sont pas dans votre liste de
-contacts (avec une réponse automatique en option)
-  - Filtre les messages en utilisant des expressions régulières, dans
-l'expéditeur du message, son contenu, ou les deux
-  - Supprime les demandes d'autorisation répétées
-  - Supprime les demandes d'autorisation d'OSCAR (ICQ / AIM)
-  - Affiche automatiquement les informations de l'utilisateur qui demandes une
-autorisation
-  - Bloque les messages titre de jabber (ex: alertes de transport MSN)
-  - Bloque les messages système d'AOL
-  - Contrôle des bot par la méthode Challenge-réponse
 
+It offers the following features:
+
+  - Block individual users.
+  - Auto-reply to blocked messages.
+  - Block messages from people who are not on your contact list (with an
+optional auto-reply).
+  - Block messages using regular expressions, either against the message
+sender, the message content, or both.
+  - Suppress repeated/all authorization requests.
+  - Automatically show user info on authorization requests.
+  - Block XMPP (Jabber) headline messages (eg. alerts from transports).
+  - Block AOL system messages.
+  - Challenge-response bot-check.
 
 %prep
-%setup -q -n %{name}-%{version}%{?prever}
-
+%autosetup -p1
 
 %build
 %configure
-%{__make} %{?_smp_mflags}
-
+%make_build
 
 %install
-%{__rm} -rf %{buildroot}
-%{__make} install DESTDIR=%{buildroot} INSTALL="install -p"
+%make_install
 %find_lang %{name}
-
-# remove .la file
-%{__rm} %{buildroot}/%{_libdir}/pidgin/libpidgin_pp.la
-
-
+find %{buildroot} -type f -name '*.la' -delete
 
 %files -f %{name}.lang
-%doc AUTHORS ChangeLog COPYING README
+%doc AUTHORS ChangeLog README
+%license COPYING
 %{_libdir}/pidgin/libpidgin_pp.so
 
-
 %changelog
+* Mon Mar 27 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.7.1-25
+- Performed major SPEC cleanup.
+- Switched to SPDX license tag.
+- Fixed URLs.
+- Updated description.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

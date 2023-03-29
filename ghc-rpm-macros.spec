@@ -8,7 +8,7 @@
 
 Name:           ghc-rpm-macros
 Version:        2.5.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
 License:        GPLv3+
@@ -120,6 +120,7 @@ Obsoletes:      ghc-optics-core < 0.4, ghc-optics-core-devel < 0.4, ghc-optics-c
 Obsoletes:      ghc-semialign < 1.2, ghc-semialign-devel < 1.2, ghc-semialign-doc < 1.2, ghc-semialign-prof < 1.2
 Obsoletes:      ghc-topograph < 1.0.0.2, ghc-topograph-devel < 1.0.0.2, ghc-topograph-doc < 1.0.0.2, ghc-topograph-prof < 1.0.0.2
 Obsoletes:      ghc-indexed-profunctors < 0.1.1-18, ghc-indexed-profunctors-devel < 0.1.1-18, ghc-indexed-profunctors-doc < 0.1.1-18, ghc-indexed-profunctors-prof < 0.1.1-18
+Obsoletes:      ghc-regex-compat-tdfa < 0.95.1.4-38, ghc-regex-compat-tdfa-devel < 0.95.1.4-38, ghc-regex-compat-tdfa-doc < 0.95.1.4-38, ghc-regex-compat-tdfa-prof < 0.95.1.4-38
 %endif
 
 %description -n ghc-obsoletes
@@ -202,6 +203,9 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 
 
 %changelog
+* Mon Mar 27 2023 Jens Petersen <petersen@redhat.com> - 2.5.2-3
+- f38: also obsolete regex-compat-tdfa
+
 * Sun Mar 26 2023 Jens Petersen <petersen@redhat.com> - 2.5.2-2
 - add obsoletes for F38
 

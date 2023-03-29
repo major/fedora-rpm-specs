@@ -1,7 +1,7 @@
 Name:		perl-Date-Range
 Version:	1.41
 Release:	6%{?dist}
-License:	GPLv2+
+License:	GPL-2.0-or-later
 Summary:	Work with a range of dates
 URL:		https://metacpan.org/release/Date-Range
 Source0:	https://cpan.metacpan.org/modules/by-module/Date/Date-Range-%{version}.tar.gz

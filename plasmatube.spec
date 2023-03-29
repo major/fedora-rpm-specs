@@ -1,5 +1,5 @@
 Name:           plasmatube
-Version:        23.01.0
+Version:        23.03.80
 Release:        1%{?dist}
 License:        GPLv3+ and CC0 and CC-BY-SA
 Summary:        YouTube video player based on QtMultimedia and youtube-dl
@@ -14,6 +14,7 @@ BuildRequires:  libappstream-glib
 
 BuildRequires:  cmake(KF5Config)
 BuildRequires:  cmake(KF5I18n)
+BuildRequires:  cmake(KF5CoreAddons)
 BuildRequires:  cmake(KF5Kirigami2)
 
 BuildRequires:  cmake(Qt5Core)
@@ -52,6 +53,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/org.kde.%{nam
 %{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Mon Jan 30 2023 Justin Zobel <justin@1707.io> - 23.01.0-1
 - Update to 23.01.0
 

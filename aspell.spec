@@ -9,7 +9,7 @@ Epoch: 12
 #            modules/speller/default/affix.cpp
 # GPLv2+  .. ltmain.sh, misc/po-filter.c
 # BSD     .. myspell/munch.c
-License: LGPLv2+ and LGPLv2 and GPLv2+ and BSD
+License: LGPL-2.0-or-later AND LGPL-2.1-only AND GPL-2.0-or-later AND BSD-2-Clause
 URL: http://aspell.net/
 Source: ftp://ftp.gnu.org/gnu/aspell/aspell-%{version}.tar.gz
 

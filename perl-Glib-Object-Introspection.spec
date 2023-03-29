@@ -1,6 +1,6 @@
 Name:           perl-Glib-Object-Introspection
-Version:        0.049
-Release:        11%{?dist}
+Version:        0.050
+Release:        1%{?dist}
 Summary:        Dynamically create Perl language bindings
 License:        LGPLv2+
 URL:            https://metacpan.org/release/Glib-Object-Introspection
@@ -24,6 +24,7 @@ BuildRequires:  perl(warnings)
 BuildRequires:  pkgconfig(gobject-introspection-1.0) >= 0.10.0
 BuildRequires:  pkgconfig(gmodule-2.0) >= 2.0.0
 BuildRequires:  pkgconfig(libffi) >= 3.0.0
+BuildRequires:  perl(Cairo::GObject)
 # Run-time
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Glib) >= 1.320
@@ -83,16 +84,20 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 LANG=C.UTF-8 make test
 
 %files
+%doc NEWS README.md
 %license LICENSE
-%doc NEWS perl-Glib-Object-Introspection.doap README
 %{perl_vendorarch}/auto/*
 %{perl_vendorarch}/Glib*
 %{_mandir}/man3/*
 
 %files -n perli11ndoc
 %{_bindir}/perli11ndoc
+%{_mandir}/man1/perli11ndoc*
 
 %changelog
+* Mon Mar 27 2023 Sérgio Basto <sergio@serjux.com> - 0.050-1
+- Update perl-Glib-Object-Introspection to 0.050 (#2181971)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.049-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

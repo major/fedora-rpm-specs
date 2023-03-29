@@ -21,6 +21,9 @@ License:        BSD and ASL 2.0 and Python
 URL:            https://reproject.readthedocs.io/
 Source0:        %{pypi_source}
 
+# Disable tests requiring external data
+Patch0:         reproject-Skip-test-that-downloads-external-file.patch
+
 BuildRequires:  gcc
 
 BuildRequires:  python3-astropy
@@ -29,10 +32,12 @@ BuildRequires:  python3-astropy-helpers
 BuildRequires:  python3-Cython
 BuildRequires:  python3-devel
 BuildRequires:  python3-extension-helpers
+BuildRequires:  python3-pip
 BuildRequires:  python3-pytest-astropy
 BuildRequires:  python3-scipy
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-setuptools_scm
+BuildRequires:  python3-wheel
 
 %description
 %{sum}.
@@ -47,13 +52,13 @@ Requires:       python3-astropy-healpix
 %{sum}.
 
 %prep
-%setup -q -n %{srcname}-%{version}
+%autosetup -p1 -n %{srcname}-%{version}
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %check
 %ifnarch s390x

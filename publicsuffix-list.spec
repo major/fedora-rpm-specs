@@ -1,11 +1,11 @@
 %bcond_without  dafsa
 
 Name:           publicsuffix-list
-Version:        20221208
+Version:        20230318
 Release:        %autorelease
 Summary:        Cross-vendor public domain suffix database
 
-License:        MPLv2.0
+License:        MPL-2.0
 URL:            https://publicsuffix.org/
 Source0:        https://publicsuffix.org/list/public_suffix_list.dat
 Source1:        https://www.mozilla.org/media/MPL/2.0/index.txt

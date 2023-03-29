@@ -9,7 +9,7 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 Summary: The KIMAP Library
 
@@ -96,18 +96,22 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 %files -f %{name}.lang
 %license LICENSES/*
 %{_kf5_datadir}/qlogging-categories5/*%{framework}.*
-%{_kf5_libdir}/libKF5IMAP.so.*
+%{_kf5_libdir}/libKPim5IMAP.so.*
 
 %files devel
-%{_kf5_includedir}/KIMAP/
-%{_kf5_libdir}/libKF5IMAP.so
+%{_includedir}/KPim5/KIMAP/
+%{_kf5_libdir}/libKPim5IMAP.so
 %{_kf5_libdir}/cmake/KF5IMAP/
-%{_kf5_includedir}/KIMAPTest/kimaptest/
+%{_kf5_libdir}/cmake/KPim5IMAP/
+%{_includedir}/KPim5/KIMAPTest/kimaptest/
 %{_kf5_libdir}/libkimaptest.a
 %{_kf5_archdatadir}/mkspecs/modules/qt_KIMAP.pri
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

@@ -1,7 +1,7 @@
 %global kf5_min_version 5.88.0
 
 Name:           kasts
-Version:        23.01.0
+Version:        23.03.80
 Release:        1%{?dist}
 License:        GPLv2 and GPLv2+ and GPLv3+ and BSD and LGPLv3+
 Summary:        A mobile podcast application
@@ -55,6 +55,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 %{_kf5_datadir}/applications/org.kde.%{name}.desktop
 %{_kf5_datadir}/icons/hicolor/scalable/actions/media-playback-start-cloud.svg
 %{_kf5_datadir}/icons/hicolor/scalable/apps/%{name}.svg
+%{_kf5_datadir}/icons/hicolor/scalable/apps/%{name}-tray-dark.svg
+%{_kf5_datadir}/icons/hicolor/scalable/apps/%{name}-tray-light.svg
 %{_kf5_libdir}/libKastsSolidExtras.so
 %{_kf5_libdir}/libKMediaSession.so
 %{_kf5_libdir}/qt5/qml/org/kde/kmediasession/libkmediasession-qmlplugin.so
@@ -66,6 +68,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Mon Jan 30 2023 Justin Zobel <justin@1707.io> - 23.01.0-1
 - Update to 23.01.0
 

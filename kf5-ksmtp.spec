@@ -1,7 +1,7 @@
 %global framework ksmtp 
 
 Name:    kf5-%{framework}
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 Summary: KDE SMTP libraries
 
@@ -72,16 +72,21 @@ Requires:       kf5-kmime-devel >= %{version}
 %files -f %{name}.lang
 %license LICENSES/*
 %{_kf5_datadir}/qlogging-categories5/*%{framework}.*
-%{_kf5_libdir}/libKPimSMTP.so.*
+%{_kf5_libdir}/libKPim5SMTP.so.*
 
 %files devel
-%{_kf5_libdir}/libKPimSMTP.so
+%{_kf5_libdir}/libKPim5SMTP.so
 %{_kf5_libdir}/cmake/KPimSMTP/
-%{_includedir}/KPim/
+%{_kf5_libdir}/cmake/KPim5SMTP/
+%{_includedir}/KPim5/KSMTP/
+%{_includedir}/KPim5/ksmtp_version.h
 %{_kf5_archdatadir}/mkspecs/modules/qt_KSMTP.pri
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

@@ -3,7 +3,7 @@
 
 %global         srcname     google-cloud-access-approval
 %global         forgeurl    https://github.com/googleapis/python-access-approval
-Version:        1.11.0
+Version:        1.11.1
 %global         tag         v%{version}
 %forgemeta
 

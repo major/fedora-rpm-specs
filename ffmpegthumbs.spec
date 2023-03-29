@@ -1,6 +1,6 @@
 Name:    ffmpegthumbs
-Version: 22.12.3
-Release: 3%{?dist}
+Version: 23.03.80
+Release: 1%{?dist}
 Summary: KDE ffmpegthumbnailer service
 
 License: GPL-2.0-or-later
@@ -63,6 +63,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 
 
 %changelog
+* Tue Mar 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Tue Mar 21 2023 Sérgio Basto <sergio@serjux.com> - 22.12.3-3
 - Rebuild to fix bodhi override of releasever 2 to 1
 

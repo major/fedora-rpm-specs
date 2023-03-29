@@ -2,11 +2,11 @@
 %bcond_with network
 
 Name:           python-%{pypi_name}
-Version:        0.12.7
+Version:        0.13
 Release:        1%{?dist}
 Summary:        Extract the top level domain from the URL given
 
-License:        MPLv1.1 or GPLv2 or LGPLv2
+License:        MPL-1.1 OR GPL-2.0-only OR LGPL-2.1-or-later
 URL:            https://github.com/barseghyanartur/tld
 Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
@@ -76,6 +76,11 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v --pyargs 
 %license LICENSE_GPL2.0.txt LICENSE_LGPL_2.1.txt LICENSE_MPL_1.1.txt
 
 %changelog
+* Mon Mar 27 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.13-1
+- Update to v0.13
+- Fix license tag (says "LGPLv2 only", should be "LGPLv2 or later")
+- Convert license tag to SPDX
+
 * Sun Feb 19 2023 Fabian Affolter <mail@fabian-affolter.ch> - 0.12.7-1
 - Update to latest upstream release 0.12.7 (closes rhbz#2166763)
 

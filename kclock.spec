@@ -2,7 +2,7 @@
 %global orig_name org.kde.kclock
 
 Name:           kclock
-Version:        23.01.0
+Version:        23.03.80
 Release:        1%{?dist}
 License:        GPLv2+ and LGPLv2.1+ and CC-BY and GPLv3+
 Summary:        Clock app for Plasma Mobile
@@ -83,7 +83,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_sysconfdir}/xdg/autostart/%{klockd_name}-autostart.desktop
 %{_datadir}/dbus-1/services/org.kde.%{name}d.service
 %{_kf5_datadir}/knotifications5/%{name}d.notifyrc
-%{_kf5_datadir}/kservices5/plasma-applet-org.kde.plasma.%{name}_1x2.desktop
 %{_kf5_datadir}/dbus-1/interfaces/*.xml
 
 %files plasma-applet
@@ -93,6 +92,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_qt5_plugindir}/plasma/applets/plasma_applet_%{name}_1x2.so
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Mon Jan 30 2023 Justin Zobel <justin@1707.io> - 23.01.0-1
 - Update to 23.01.0
 

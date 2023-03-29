@@ -12,7 +12,7 @@
 
 Name:    dolphin
 Summary: KDE File Manager
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -55,6 +55,7 @@ BuildRequires:  cmake(KF5WindowSystem)
 
 BuildRequires:  phonon-qt5-devel
 BuildRequires:  qt5-qtbase-devel
+BuildRequires:  cmake(Qt5X11Extras)
 
 %if ! 0%{?bootstrap}
 BuildRequires:  kf5-kactivities-devel
@@ -156,6 +157,7 @@ make test ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||:
 %{_kf5_datadir}/kconf_update/dolphin_detailsmodesettings.upd
 %dir %{_kf5_datadir}/dolphin
 %{_kf5_datadir}/dolphin/dolphinpartactions.desktop
+%{_kf5_datadir}/zsh/site-functions/_dolphin
 
 %ldconfig_scriptlets libs
 
@@ -174,6 +176,9 @@ make test ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||:
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

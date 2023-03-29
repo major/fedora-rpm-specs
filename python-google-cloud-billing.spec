@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-billing
 %global         forgeurl    https://github.com/googleapis/python-billing
-Version:        1.10.0
+Version:        1.10.1
 %global         tag         v%{version}
 %forgemeta
 

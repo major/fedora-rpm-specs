@@ -9,7 +9,7 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 Summary: The Kontact Interface Library
 
@@ -35,6 +35,7 @@ BuildRequires:  kf5-kxmlgui-devel >= 5.15
 BuildRequires:  kf5-kiconthemes-devel >= 5.15
 BuildRequires:  libX11-devel
 BuildRequires:  qt5-qtbase-devel
+BuildRequires:  qt5-qtx11extras-devel
 %if 0%{?tests}
 BuildRequires: dbus-x11
 BuildRequires: time
@@ -89,16 +90,20 @@ make test ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||:
 %files -f %{name}.lang
 %license LICENSES/*
 %{_kf5_datadir}/qlogging-categories5/*%{framework}.*
-%{_kf5_libdir}/libKF5KontactInterface.so.*
+%{_kf5_libdir}/libKPim5KontactInterface.so.*
 
 %files devel
-%{_kf5_includedir}/KontactInterface/
-%{_kf5_libdir}/libKF5KontactInterface.so
+%{_kf5_libdir}/libKPim5KontactInterface.so
 %{_kf5_libdir}/cmake/KF5KontactInterface/
+%{_kf5_libdir}/cmake/KPim5KontactInterface/
 %{_kf5_archdatadir}/mkspecs/modules/qt_KontactInterface.pri
+%{_includedir}/KPim5/KontactInterface/
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

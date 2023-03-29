@@ -1,7 +1,7 @@
 %global base_name libkcddb
 
 Name:    kf5-%{base_name}
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 Summary: CDDB retrieval library
 
@@ -22,6 +22,7 @@ BuildRequires: cmake(KF5Config)
 BuildRequires: cmake(KF5DocTools)
 BuildRequires: cmake(KF5Codecs)
 BuildRequires: cmake(KF5I18n)
+BuildRequires: cmake(KF5KCMUtils)
 BuildRequires: cmake(KF5KIO)
 BuildRequires: cmake(KF5WidgetsAddons)
 
@@ -89,16 +90,15 @@ echo '%{_kf5_docdir}/HTML/*/kcontrol' > %{name}-doc.lang
 %files -f %{name}.lang
 %license LICENSES/*
 %{_kf5_libdir}/libKF5Cddb.so.5*
-%{_qt5_plugindir}/kcm_cddb.so
+%{_kf5_qtplugindir}/plasma/kcms/systemsettings_qwidgets/kcm_cddb.so
+%{_kf5_datadir}/applications/kcm_cddb.desktop
 %{_kf5_datadir}/config.kcfg/libkcddb5.kcfg
-%{_kf5_datadir}/kservices5/libkcddb.desktop
 %{_kf5_datadir}/qlogging-categories5/%{base_name}*
 
 %files devel
 %{_kf5_libdir}/libKF5Cddb.so
 %{_kf5_includedir}/KCddb/
 %{_includedir}/KCddb5/
-%{_kf5_includedir}/kcddb_version.h
 %{_kf5_libdir}/cmake/KF5Cddb/
 %{_qt5_archdatadir}/mkspecs/modules/qt_KCddb.pri
 
@@ -106,6 +106,9 @@ echo '%{_kf5_docdir}/HTML/*/kcontrol' > %{name}-doc.lang
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

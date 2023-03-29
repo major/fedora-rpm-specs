@@ -8,7 +8,7 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 Summary: The KLDAP Library
 
@@ -95,20 +95,21 @@ make test ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||:
 %files -f %{name}.lang
 %license LICENSES/*
 %{_kf5_datadir}/qlogging-categories5/*ldap.*
-%{_kf5_libdir}/libKF5Ldap.so.*
+%{_kf5_libdir}/libKPim5Ldap.so.*
 %{_kf5_plugindir}/kio/ldap.so
-#{_kf5_datadir}/kservices5/ldap.protocol
-#{_kf5_datadir}/kservices5/ldaps.protocol
-#{_kf5_docdir}/HTML/en/kioslave5/ldap/
 
 %files devel
-%{_kf5_includedir}/KLDAP/
-%{_kf5_libdir}/libKF5Ldap.so
+%{_includedir}/KPim5/KLDAP/
+%{_kf5_libdir}/libKPim5Ldap.so
 %{_kf5_libdir}/cmake/KF5Ldap/
+%{_kf5_libdir}/cmake/KPim5Ldap/
 %{_kf5_archdatadir}/mkspecs/modules/qt_Ldap.pri
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

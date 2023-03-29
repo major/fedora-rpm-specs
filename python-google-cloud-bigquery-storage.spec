@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-bigquery-storage
 %global         forgeurl    https://github.com/googleapis/python-bigquery-storage
-Version:        2.19.0
+Version:        2.19.1
 %global         tag         v%{version}
 %forgemeta
 

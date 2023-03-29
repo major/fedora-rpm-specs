@@ -1,11 +1,11 @@
 Summary: Command-line tools and library for transforming PDF files
 Name:    qpdf
 Version: 11.3.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 # MIT: e.g. libqpdf/sha2.c
 # upstream uses ASL 2.0 now, but he allowed other to distribute qpdf under
 # old license (see README)
-License: (Artistic 2.0 or ASL 2.0) and MIT
+License: Apache-2.0 OR Artistic-2.0
 URL:     http://qpdf.sourceforge.net/
 Source0: http://downloads.sourceforge.net/sourceforge/%{name}/%{name}-%{version}.tar.gz
 Source1: http://downloads.sourceforge.net/sourceforge/%{name}/%{name}-%{version}-doc.zip
@@ -90,9 +90,9 @@ QPDF Manual
 %prep
 %setup -q
 
-%patch1 -p1 -b .relax
+%patch 1 -p1 -b .relax
 %ifarch s390x
-%patch2 -p1 -b .s390x-disable-streamtest
+%patch 2 -p1 -b .s390x-disable-streamtest
 %endif
 
 # unpack zip file with manual
@@ -113,6 +113,11 @@ unzip %{SOURCE1}
 
 install -m 0644 %{name}-%{version}-doc/%{name}-manual.pdf %{buildroot}/%{_pkgdocdir}/%{name}-manual.pdf
 
+# install bash/zsh completions
+mkdir -p %{buildroot}%{bash_completions_dir}
+mkdir -p %{buildroot}%{zsh_completions_dir}
+install -m 0644 completions/bash/qpdf %{buildroot}%{bash_completions_dir}/qpdf
+install -m 0644 completions/zsh/_qpdf %{buildroot}%{zsh_completions_dir}/_qpdf
 
 %check
 %ctest
@@ -124,6 +129,10 @@ install -m 0644 %{name}-%{version}-doc/%{name}-manual.pdf %{buildroot}/%{_pkgdoc
 %{_bindir}/qpdf
 %{_bindir}/zlib-flate
 %{_mandir}/man1/*
+%dir %{bash_completions_dir}
+%{bash_completions_dir}/qpdf
+%dir %{zsh_completions_dir}
+%{zsh_completions_dir}/_qpdf
 
 %files libs
 %doc README.md TODO ChangeLog
@@ -142,6 +151,9 @@ install -m 0644 %{name}-%{version}-doc/%{name}-manual.pdf %{buildroot}/%{_pkgdoc
 
 
 %changelog
+* Mon Mar 27 2023 Zdenek Dohnal <zdohnal@redhat.com> - 11.3.0-2
+- 2181519 - qpdf bash and zsh completion files are missing
+
 * Thu Mar 02 2023 Zdenek Dohnal <zdohnal@redhat.com> - 11.3.0-1
 - 2173354 - qpdf-11.3.0 is available
 

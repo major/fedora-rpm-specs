@@ -107,6 +107,7 @@ Source25:       plasma-desktop.conf
 Source26:       80-kde.preset
 Source27:       81-desktop.preset
 Source28:       longer-default-shutdown-timeout.conf
+Source29:       org.gnome.settings-daemon.plugins.power.gschema.override
 
 BuildArch:      noarch
 
@@ -1267,6 +1268,7 @@ sed -i -e "s|(%{release_name}%{?prerelease})|(Server Edition%{?prerelease})|g" %
 sed -e "s#\$version#%{bug_version}#g" -e 's/$edition/Server/;s/<!--.*-->//;/^$/d' %{SOURCE20} > %{buildroot}%{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.server
 sed -i -e "/^DEFAULT_HOSTNAME=/d" %{buildroot}%{_prefix}/lib/os-release.server
 install -Dm0644 %{SOURCE14} -t %{buildroot}%{_prefix}/lib/systemd/system-preset/
+install -Dm0644 %{SOURCE29} -t %{buildroot}%{_datadir}/glib-2.0/schemas/
 %endif
 
 %if %{with silverblue}
@@ -1585,6 +1587,7 @@ ln -s --relative %{buildroot}%{_swidtagdir} %{buildroot}%{_sysconfdir}/swid/swid
 %{_prefix}/lib/os-release.server
 %{_prefix}/lib/systemd/system-preset/80-server.preset
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.server
+%{_datadir}/glib-2.0/schemas/org.gnome.settings-daemon.plugins.power.gschema.override
 %endif
 
 

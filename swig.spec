@@ -56,7 +56,7 @@
 Summary: Connects C/C++/Objective C to some high-level programming languages
 Name:    swig
 Version: 4.1.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPL-3.0-or-later AND BSD-3-Clause
 URL:     http://swig.sourceforge.net/
 Source0: http://downloads.sourceforge.net/project/swig/swig/swig-%{version}/swig-%{version}.tar.gz
@@ -68,6 +68,9 @@ Source3: ccache-swig.sh
 Source4: ccache-swig.csh
 %endif
 Patch0: swig-configure-c99.patch
+# Octave 8.1 support
+# https://patch-diff.githubusercontent.com/raw/swig/swig/pull/2512.patch
+Patch1: swig-octave-8.1.patch
 
 BuildRequires: coreutils
 BuildRequires: findutils
@@ -346,6 +349,9 @@ install -pm 644 Tools/swig.gdb %{buildroot}%{_datadir}/%{name}/gdb
 %{_datadir}/%{name}/gdb
 
 %changelog
+* Thu Mar 16 2023 Orion Poplawski <orion@nwra.com> - 4.1.1-5
+- Add patch to support octave 8.1
+
 * Thu Feb 02 2023 Jitka Plesnikova <jplesnik@redhat.com> - 4.1.1-4
 - Disable PHP test on i686
 

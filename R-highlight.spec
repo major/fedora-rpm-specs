@@ -1,10 +1,10 @@
 %global packname highlight
 
 Name:		R-%{packname}
-Version:	0.5.0
-Release:	11%{?dist}
+Version:	0.5.1
+Release:	1%{?dist}
 Summary:	R Syntax Highlighter
-License:	GPLv3+
+License:	GPL-3.0-or-later
 URL:		https://cran.r-project.org/package=%{packname}
 Source0:	%{url}&version=%{version}#/%{packname}_%{version}.tar.gz
 #		Don't create std::string from NULL (gcc 12 error)
@@ -53,6 +53,9 @@ rm -f %{buildroot}%{_libdir}/R/library/R.css
 %{_libdir}/R/library/%{packname}/stylesheet
 
 %changelog
+* Mon Mar 27 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.5.1-1
+- Update to 0.5.1
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -8,8 +8,8 @@
 %endif
 
 Name:    kf5-%{base_name}
-Version: 22.12.3
-Release: 2%{?dist}
+Version: 23.03.80
+Release: 1%{?dist}
 Summary: The Akonadi Calendar Library
 
 License: LGPLv2+
@@ -104,7 +104,7 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 %{_kf5_datadir}/knotifications5/kalendarac.notifyrc
 %{_kf5_datadir}/qlogging-categories5/*%{base_name}.*
 %{_kf5_datadir}/qlogging-categories5/org_kde_kalendarac.categories
-%{_kf5_libdir}/libKF5AkonadiCalendar.so.*
+%{_kf5_libdir}/libKPim5AkonadiCalendar.so.*
 %{_kf5_qtplugindir}/akonadi_serializer_kcalcore.so
 %{_kf5_qtplugindir}/kf5/org.kde.kcalendarcore.calendars/libakonadicalendarplugin.so
 %{_kf5_sysconfdir}/xdg/autostart/org.kde.kalendarac.desktop
@@ -112,14 +112,18 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 
 %files devel
 %{_kf5_archdatadir}/mkspecs/modules/qt_AkonadiCalendar.pri
-%{_kf5_includedir}/AkonadiCalendar/Akonadi/
-%{_kf5_includedir}/AkonadiCalendar/akonadi-calendar_version.h
-%{_kf5_includedir}/AkonadiCalendar/akonadi/
+%{_includedir}/KPim5/AkonadiCalendar/Akonadi/
+%{_includedir}/KPim5/AkonadiCalendar/akonadi-calendar_version.h
+%{_includedir}/KPim5/AkonadiCalendar/akonadi/
 %{_kf5_libdir}/cmake/KF5AkonadiCalendar/
-%{_kf5_libdir}/libKF5AkonadiCalendar.so
+%{_kf5_libdir}/cmake/KPim5AkonadiCalendar/
+%{_kf5_libdir}/libKPim5AkonadiCalendar.so
 
 
 %changelog
+* Wed Mar 22 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Wed Mar 22 2023 Jan Grulich <jgrulich@redhat.com> - 22.12.3-2
 - Rebuild (grantlee-qt5)
 

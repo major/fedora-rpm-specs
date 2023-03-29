@@ -1,7 +1,7 @@
 %global framework incidenceeditor
 
 Name:    kf5-%{framework}
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 Summary: KDE PIM library for creating and editing calendar incidences
 
@@ -29,17 +29,18 @@ BuildRequires:  cmake(Qt5Widgets)
 BuildRequires:  cmake(KGantt)
 
 BuildRequires:  cmake(Grantlee5)
-BuildRequires:  cmake(KF5Akonadi)
-BuildRequires:  cmake(KF5AkonadiMime)
+BuildRequires:  cmake(KPim5Akonadi)
+BuildRequires:  cmake(KPim5AkonadiMime)
+BuildRequires:  cmake(KF5TextAutoCorrection)
 BuildRequires:  cmake(KF5CalendarCore)
-BuildRequires:  cmake(KF5CalendarSupport)
-BuildRequires:  cmake(KF5CalendarUtils)
+BuildRequires:  cmake(KPim5CalendarSupport)
+BuildRequires:  cmake(KPim5CalendarUtils)
 BuildRequires:  cmake(KF5Codecs)
-BuildRequires:  cmake(KF5EventViews)
+BuildRequires:  cmake(KPim5EventViews)
 BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(KF5Ldap)
-BuildRequires:  cmake(KF5Libkdepim)
-BuildRequires:  cmake(KF5MailTransport)
+BuildRequires:  cmake(KPim5Ldap)
+BuildRequires:  cmake(KPim5Libkdepim)
+BuildRequires:  cmake(KPim5MailTransport)
 
 #global majmin_ver %(echo %{version} | cut -d. -f1,2)
 %global majmin_ver %{version}
@@ -62,11 +63,11 @@ Conflicts:      kdepim-libs < 7:16.04.0
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       cmake(KF5CalendarCore)
-Requires:       cmake(KF5CalendarSupport)
-Requires:       cmake(KF5CalendarUtils)
-Requires:       cmake(KF5EventViews)
-Requires:       cmake(KF5MailTransport)
-Requires:       cmake(KF5Mime)
+Requires:       cmake(KPim5CalendarSupport)
+Requires:       cmake(KPim5CalendarUtils)
+Requires:       cmake(KPim5EventViews)
+Requires:       cmake(KPim5MailTransport)
+Requires:       cmake(KPim5Mime)
 %description    devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
@@ -93,16 +94,20 @@ developing applications that use %{name}.
 %files -f %{name}.lang
 %license LICENSES/*
 %{_kf5_datadir}/qlogging-categories5/*%{framework}.*
-%{_kf5_libdir}/libKF5IncidenceEditor.so.*
+%{_kf5_libdir}/libKPim5IncidenceEditor.so.*
 
 %files devel
 %{_kf5_archdatadir}/mkspecs/modules/qt_IncidenceEditor.pri
-%{_kf5_includedir}/IncidenceEditor/
+%{_includedir}/KPim5/IncidenceEditor/
 %{_kf5_libdir}/cmake/KF5IncidenceEditor/
-%{_kf5_libdir}/libKF5IncidenceEditor.so
+%{_kf5_libdir}/cmake/KPim5IncidenceEditor/
+%{_kf5_libdir}/libKPim5IncidenceEditor.so
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

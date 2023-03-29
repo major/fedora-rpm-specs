@@ -1,7 +1,7 @@
 %global framework      calendarsupport
 
 Name:    kf5-%{framework}
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 Summary: KDE PIM library for calendar and even handling
 
@@ -92,16 +92,20 @@ developing applications that use %{name}.
 %files -f %{name}.lang
 %license LICENSES/*
 %{_kf5_datadir}/qlogging-categories5/*%{framework}.*
-%{_kf5_libdir}/libKF5CalendarSupport.so.*
+%{_kf5_libdir}/libKPim5CalendarSupport.so.*
 
 %files devel
 %{_kf5_archdatadir}/mkspecs/modules/qt_CalendarSupport.pri
-%{_kf5_includedir}/CalendarSupport/
+%{_includedir}/KPim5/CalendarSupport/
 %{_kf5_libdir}/cmake/KF5CalendarSupport/
-%{_kf5_libdir}/libKF5CalendarSupport.so
+%{_kf5_libdir}/cmake/KPim5CalendarSupport/
+%{_kf5_libdir}/libKPim5CalendarSupport.so
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

@@ -6,7 +6,7 @@
 
 Summary: A full-service natural language dependency parser
 Name: link-grammar
-Version: 5.12.2
+Version: 5.12.3
 Release: 1%{?dist}
 License: LGPL-2.1-or-later
 Source: http://www.abisource.com/downloads/link-grammar/%{version}/link-grammar-%{version}.tar.gz
@@ -125,6 +125,9 @@ find $RPM_BUILD_ROOT/%{_libdir}/ -name '*.la' | xargs rm -f
 %endif
 
 %changelog
+* Mon Mar 27 2023 Gwyn Ciesla <gwync@protonmail.com> - 5.12.3-1
+- 5.12.3
+
 * Fri Mar 10 2023 Gwyn Ciesla <gwync@protonmail.com> - 5.12.2-1
 - 5.12.2
 

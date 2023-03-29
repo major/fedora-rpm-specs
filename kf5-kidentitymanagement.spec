@@ -8,7 +8,7 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 Summary: The KIdentityManagement Library
 
@@ -87,22 +87,26 @@ make test ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||:
 %files -f %{name}.lang
 %license LICENSES/*
 %{_kf5_datadir}/qlogging-categories5/*%{framework}.*
-%{_kf5_libdir}/libKF5IdentityManagement.so.*
-%{_kf5_libdir}/libKF5IdentityManagementWidgets.so.*
+%{_kf5_libdir}/libKPim5IdentityManagement.so.*
+%{_kf5_libdir}/libKPim5IdentityManagementWidgets.so.*
 %{_kf5_archdatadir}/mkspecs/modules/qt_KIdentityManagementWidgets.pri
 
 
 %files devel
 %{_datadir}/dbus-1/interfaces/kf5_org.kde.pim.IdentityManager.xml
 %{_kf5_archdatadir}/mkspecs/modules/qt_KIdentityManagement.pri
-%{_kf5_includedir}/KIdentityManagement/
-%{_kf5_includedir}/KIdentityManagementWidgets/
+%{_includedir}/KPim5/KIdentityManagement/
+%{_includedir}/KPim5/KIdentityManagementWidgets/
 %{_kf5_libdir}/cmake/KF5IdentityManagement/
-%{_kf5_libdir}/libKF5IdentityManagement.so
-%{_kf5_libdir}/libKF5IdentityManagementWidgets.so
+%{_kf5_libdir}/cmake/KPim5IdentityManagement/
+%{_kf5_libdir}/libKPim5IdentityManagement.so
+%{_kf5_libdir}/libKPim5IdentityManagementWidgets.so
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

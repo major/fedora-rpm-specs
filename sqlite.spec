@@ -4,16 +4,16 @@
 %bcond_with static
 %bcond_without check
 
-%define realver 3400100
-%define docver 3400100
-%define rpmver 3.40.1
-%define year 2022
+%define realver 3410200
+%define docver 3410200
+%define rpmver 3.41.2
+%define year 2023
 
 Summary: Library that implements an embeddable SQL database engine
 Name: sqlite
 Version: %{rpmver}
-Release: 2%{?dist}
-License: Public Domain
+Release: 1%{?dist}
+License: blessing
 URL: http://www.sqlite.org/
 
 Source0: http://www.sqlite.org/%{year}/sqlite-src-%{realver}.zip
@@ -275,6 +275,10 @@ make test
 %endif
 
 %changelog
+* Mon Mar 27 2023 Zuzana Miklankova <zmiklank@redhat.com> - 3.41.2-1
+- Updated to version 3.41.2 (https://sqlite.org/releaselog/3_41_2.html)
+- Migrated to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.40.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

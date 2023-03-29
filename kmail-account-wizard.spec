@@ -9,7 +9,7 @@
 
 Name:    kmail-account-wizard
 Summary: KMail Account Wizard
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -52,6 +52,7 @@ BuildRequires: cmake(KF5Notifications)
 BuildRequires: cmake(KF5NotifyConfig)
 BuildRequires: cmake(KF5Parts)
 BuildRequires: cmake(KF5Service)
+BuildRequires: cmake(KF5TextAutoCorrection)
 BuildRequires: cmake(KF5TextEditor)
 BuildRequires: cmake(KF5Wallet)
 BuildRequires: cmake(KF5Kross)
@@ -129,6 +130,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

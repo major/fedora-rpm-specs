@@ -44,7 +44,7 @@ Summary:    Perl-compatible regular expression library
 # missing:                              GPLv2+ with exception
 # test-driver:                          GPLv2+ with exception
 # testdata:                             Public Domain
-License:    BSD
+License:    BSD-3-Clause
 URL:        https://www.pcre.org/
 Source0:    https://github.com/PCRE2Project/pcre2/releases/download/pcre2-%{version}/pcre2-%{version}.tar.bz2
 Source1:    https://github.com/PCRE2Project/pcre2/releases/download/pcre2-%{version}/pcre2-%{version}.tar.bz2.sig

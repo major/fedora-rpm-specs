@@ -2,7 +2,7 @@
 
 Name:    kf5-libksane
 Summary: SANE Library interface for KDE
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 
 License: LGPLv2+
@@ -25,7 +25,10 @@ BuildRequires: kf5-kwallet-devel
 BuildRequires: kf5-kwidgetsaddons-devel
 BuildRequires: kf5-rpm-macros
 
-BuildRequires: cmake(KSaneCore)
+# commenting out cmake(KSaneCore) only because Marc Deop's personal scripts
+# cannot yet handle dependencies properly via cmake()
+# BuildRequires: cmake(KSaneCore)
+BuildRequires: ksanecore-devel
 
 BuildRequires: pkgconfig(sane-backends)
 
@@ -79,6 +82,9 @@ Requires: cmake(Qt5Widgets)
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

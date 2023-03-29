@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-automl
 %global         forgeurl    https://github.com/googleapis/python-automl
-Version:        2.11.0
+Version:        2.11.1
 %global         tag         v%{version}
 %forgemeta
 

@@ -9,7 +9,7 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 Summary: The Akonadi Search library and indexing agent
 
@@ -104,23 +104,27 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 %{_kf5_bindir}/akonadi_indexing_agent
 %{_kf5_datadir}/akonadi/agents/akonadiindexingagent.desktop
 %{_kf5_datadir}/qlogging-categories5/*%{framework}.*
-%{_kf5_libdir}/libKF5AkonadiSearchCore.so.*
-%{_kf5_libdir}/libKF5AkonadiSearchDebug.so.*
-%{_kf5_libdir}/libKF5AkonadiSearchPIM.so.*
-%{_kf5_libdir}/libKF5AkonadiSearchXapian.so.*
+%{_kf5_libdir}/libKPim5AkonadiSearchCore.so.*
+%{_kf5_libdir}/libKPim5AkonadiSearchDebug.so.*
+%{_kf5_libdir}/libKPim5AkonadiSearchPIM.so.*
+%{_kf5_libdir}/libKPim5AkonadiSearchXapian.so.*
 %{_kf5_plugindir}/krunner/kcms/kcm_krunner_pimcontacts.so
 %{_kf5_plugindir}/krunner/krunner_pimcontacts.so
 %{_kf5_qtplugindir}/pim5/akonadi/
 
 %files devel
-%{_kf5_includedir}/AkonadiSearch/
+%{_includedir}/KPim5/AkonadiSearch/
 %{_kf5_libdir}/cmake/KF5AkonadiSearch/
-%{_kf5_libdir}/libKF5AkonadiSearchCore.so
-%{_kf5_libdir}/libKF5AkonadiSearchDebug.so
-%{_kf5_libdir}/libKF5AkonadiSearchPIM.so
-%{_kf5_libdir}/libKF5AkonadiSearchXapian.so
+%{_kf5_libdir}/cmake/KPim5AkonadiSearch/
+%{_kf5_libdir}/libKPim5AkonadiSearchCore.so
+%{_kf5_libdir}/libKPim5AkonadiSearchDebug.so
+%{_kf5_libdir}/libKPim5AkonadiSearchPIM.so
+%{_kf5_libdir}/libKPim5AkonadiSearchXapian.so
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

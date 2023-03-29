@@ -1,5 +1,5 @@
 Name:           kweather 
-Version:        23.01.0
+Version:        23.03.80
 Release:        1%{?dist}
 License:        GPLv2+
 Summary:        Convergent KDE weather application
@@ -64,15 +64,17 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 %{_kf5_metainfodir}/org.kde.plasma.%{name}_1x4.appdata.xml
 %{_kf5_datadir}/icons/hicolor/scalable/apps/org.kde.%{name}.svg
 %{_kf5_datadir}/dbus-1/services/org.kde.%{name}.service
-%{_kf5_datadir}/kservices5/plasma-applet-org.kde.plasma.%{name}_1x4.desktop
 %{_kf5_datadir}/plasma/plasmoids/org.kde.plasma.%{name}_1x4/contents/ui/LocationSelector.qml
 %{_kf5_datadir}/plasma/plasmoids/org.kde.plasma.%{name}_1x4/contents/ui/WeatherContainer.qml
 %{_kf5_datadir}/plasma/plasmoids/org.kde.plasma.%{name}_1x4/contents/ui/main.qml
-%{_kf5_datadir}/plasma/plasmoids/org.kde.plasma.%{name}_1x4/metadata.desktop
 %{_kf5_datadir}/plasma/plasmoids/org.kde.plasma.%{name}_1x4/metadata.json
+%{_kf5_datadir}/plasma/plasmoids/org.kde.plasma.%{name}_1x4/metadata.json.license
 %{_kf5_qtplugindir}/plasma/applets/plasma_applet_%{name}_1x4.so
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Mon Jan 30 2023 Justin Zobel <justin@1707.io> - 23.01.0-1
 - Update to 23.01.0
 

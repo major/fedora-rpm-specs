@@ -1,8 +1,8 @@
 Name:		perl-Params-Coerce
 Version:	0.15
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Allows your classes to do coercion of parameters
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Params-Coerce
 Source0:	https://cpan.metacpan.org/modules/by-module/Params/Params-Coerce-%{version}.tar.gz
 BuildArch:	noarch
@@ -53,6 +53,9 @@ make test
 %{_mandir}/man3/Params::Coerce.3*
 
 %changelog
+* Mon Mar 27 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.15-9
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

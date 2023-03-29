@@ -3,17 +3,16 @@
 
 Summary: Mesa demos
 Name: mesa-demos
-Version: 8.5.0
+Version: 9.0.0
 Release: 1%{?dist}
 License: MIT
 URL: http://www.mesa3d.org
-Source0: https://mesa.freedesktop.org/archive/demos/%{version}/%{name}-%{version}.tar.bz2
+Source0: https://archive.mesa3d.org/demos/%{name}-%{version}.tar.xz
 Source1: http://www.x.org/pub/individual/app/%{xdriinfo}.tar.bz2
 Source2: mesad-git-snapshot.sh
 # Patch pointblast/spriteblast/dinoshade out for legal reasons
 # (not in public domain)
 Patch0: mesa-demos-8.5.0-legal.patch
-Patch1: meson-Fix-DEMOS_DATA_DIR-when-with-system-data-files.patch
 # Fix xdriinfo not working with libglvnd
 Patch2: xdriinfo-1.0.4-glvnd.patch
 BuildRequires: meson
@@ -21,12 +20,18 @@ BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: pkgconfig
 BuildRequires: freeglut-devel
+BuildRequires: glslang
 BuildRequires: mesa-libGL-devel
 BuildRequires: mesa-libEGL-devel
 BuildRequires: mesa-libGLES-devel
 BuildRequires: mesa-libgbm-devel
 BuildRequires: libGLU-devel
 BuildRequires: libXext-devel
+BuildRequires: libdecor-devel
+BuildRequires: libxcb-devel
+BuildRequires: libxkbcommon-devel
+BuildRequires: libxkbcommon-x11-devel
+BuildRequires: vulkan-loader-devel
 BuildRequires: wayland-devel
 BuildRequires: wayland-protocols-devel
 BuildRequires: freetype-devel
@@ -53,7 +58,6 @@ The egl-utils package provides the eglinfo and es2_info utilities.
 %prep
 %setup -q -n %{name}-%{version} -b1
 %patch0 -p1 -b .legal
-%patch1 -p1
 pushd ../%{xdriinfo}
 %patch2 -p1
 popd
@@ -70,6 +74,7 @@ rm -rf src/demos/spriteblast.c
     -Dwayland=enabled \
     -Degl=enabled \
     -Dgles2=enabled \
+    -Dvulkan=enabled \
     -Dlibdrm=enabled \
     -Dosmesa=disabled
 
@@ -113,6 +118,10 @@ install -m 0755 %{_vpath_builddir}/src/egl/opengles2/es2_info %{buildroot}%{_bin
 %{_bindir}/es2_info
 
 %changelog
+* Mon Mar 27 2023 Erico Nunes <ernunes@redhat.com> - 9.0.0-1
+- Update to 9.0.0
+- Enable vulkan demos
+
 * Fri Feb 03 2023 Erico Nunes <ernunes@redhat.com> - 8.5.0-1
 - Update to 8.5.0
 - Change build system to meson

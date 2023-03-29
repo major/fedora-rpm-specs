@@ -7,7 +7,7 @@
 
 Name:    kmail
 Summary: Mail client
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 
 # code (generally) GPLv2, docs GFDL
@@ -65,6 +65,7 @@ BuildRequires: cmake(KF5NotifyConfig)
 BuildRequires: cmake(KF5Parts)
 BuildRequires: cmake(KF5Service)
 BuildRequires: cmake(KF5Sonnet)
+BuildRequires: cmake(KF5TextAutoCorrection)
 BuildRequires: cmake(KF5TextWidgets)
 BuildRequires: cmake(KF5WindowSystem)
 BuildRequires: cmake(KF5XmlGui)
@@ -222,6 +223,9 @@ end
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

@@ -7,7 +7,7 @@
 
 Name:           junit5
 Version:        5.9.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Java regression testing framework
 License:        EPL-2.0
 URL:            https://junit.org/junit5/
@@ -26,7 +26,6 @@ Source203:      https://repo1.maven.org/maven2/org/junit/platform/junit-platform
 Source205:      https://repo1.maven.org/maven2/org/junit/platform/junit-platform-launcher/%{platform_version}/junit-platform-launcher-%{platform_version}.pom
 Source206:      https://repo1.maven.org/maven2/org/junit/platform/junit-platform-runner/%{platform_version}/junit-platform-runner-%{platform_version}.pom
 Source207:      https://repo1.maven.org/maven2/org/junit/platform/junit-platform-suite-api/%{platform_version}/junit-platform-suite-api-%{platform_version}.pom
-Source208:      https://repo1.maven.org/maven2/org/junit/platform/junit-platform-reporting/%{platform_version}/junit-platform-reporting-%{platform_version}.pom
 Source209:      https://repo1.maven.org/maven2/org/junit/platform/junit-platform-testkit/%{platform_version}/junit-platform-testkit-%{platform_version}.pom
 Source210:      https://repo1.maven.org/maven2/org/junit/platform/junit-platform-suite-commons/%{platform_version}/junit-platform-suite-commons-%{platform_version}.pom
 # Jupiter POMs
@@ -39,6 +38,9 @@ Source304:      https://repo1.maven.org/maven2/org/junit/jupiter/junit-jupiter-p
 Source400:      https://repo1.maven.org/maven2/org/junit/vintage/junit-vintage-engine/%{vintage_version}/junit-vintage-engine-%{vintage_version}.pom
 # BOM POM
 Source500:      https://repo1.maven.org/maven2/org/junit/junit-bom/%{version}/junit-bom-%{version}.pom
+
+Patch1:         0001-Drop-transitive-requirement-on-apiguardian.patch
+Patch2:         0002-Add-missing-module-static-requires.patch
 
 BuildRequires:  asciidoc
 %if %{with bootstrap}
@@ -71,17 +73,21 @@ JUnit 5 User Guide.
 
 %prep
 %setup -q -n %{name}-r%{version}
-find -name \*.jar -delete
+find -name '*.jar' -delete
+
+%patch1 -p1
+%patch2 -p1
 
 cp -p %{SOURCE100} pom.xml
-
-# Module depends on open-test-reporting
-rm -r junit-platform-reporting/src/main/java/org/junit/platform/reporting/open
 
 for source in $(echo %{sources} | cut -d ' ' -f3-); do
   module=${source}
   module=${module##*/}
   module=${module%%-*}
+  if [ -d ${module}/src/module ]; then
+    mkdir -p ${module}/src/main/java
+    mv -t ${module}/src/main/java ${module}/src/module/*/module-info.java
+  fi
   cp -p ${source} ${module}/pom.xml
   %pom_add_parent org.fedoraproject.xmvn.junit5:aggregator:any ${module}
   # OSGi BSN
@@ -89,7 +95,7 @@ for source in $(echo %{sources} | cut -d ' ' -f3-); do
   %pom_xpath_inject pom:project "<properties><osgi.bsn>${bsn}</osgi.bsn></properties>" ${module}
   # Incorrect scope - API guardian is just annotation, needed only during compilation
   %pom_xpath_set -f "pom:dependency[pom:artifactId='apiguardian-api']/pom:scope" provided ${module}
-  %pom_xpath_set -f "pom:dependency[pom:scope='runtime']/pom:scope" "compile" ${module}
+  %pom_xpath_set -f "pom:dependency[pom:scope='runtime']/pom:scope" compile ${module}
 done
 
 %pom_remove_parent junit-bom
@@ -125,6 +131,9 @@ ln -s ../../javadoc/junit5 documentation/src/docs/api
 %doc documentation/src/docs/*
 
 %changelog
+* Thu Feb 23 2023 Marian Koncek <mkoncek@redhat.com> - 5.9.0-3
+- Enable module-info generation
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.9.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

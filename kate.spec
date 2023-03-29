@@ -11,7 +11,7 @@
 
 Name:    kate
 Summary: Advanced Text Editor
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 
 # kwrite LGPLv2+
@@ -54,6 +54,7 @@ BuildRequires: cmake(Qt5Widgets)
 BuildRequires: cmake(Qt5Script)
 BuildRequires: cmake(Qt5Sql)
 BuildRequires: cmake(Qt5Test)
+BuildRequires: cmake(Qt5X11Extras)
 
 %if ! 0%{?bootstrap}
 BuildRequires: cmake(KF5Activities)
@@ -155,6 +156,8 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 %{_kf5_datadir}/kconf_update/migrate_kate_sessions_applet_to_kdeplasma-addons.sh
 %{_kf5_metainfodir}/org.kde.kate.appdata.xml
 %{_kf5_qtplugindir}/ktexteditor/cmaketoolsplugin.so
+%{_kf5_qtplugindir}/ktexteditor/eslintplugin.so
+%{_kf5_qtplugindir}/ktexteditor/formatplugin.so
 %{_mandir}/man1/kate.1*
 
 
@@ -200,6 +203,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

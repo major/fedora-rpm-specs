@@ -1,7 +1,7 @@
 Summary: The GNU disk partition manipulation program
 Name:    parted
-Version: 3.5
-Release: 11%{?dist}
+Version: 3.5.28
+Release: 1%{?dist}
 License: GPL-3.0-or-later
 URL:     http://www.gnu.org/software/parted
 
@@ -9,31 +9,6 @@ Source0: https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
 Source1: https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz.sig
 Source2: pubkey.phillip.susi
 Source3: pubkey.brian.lane
-
-# Upstream patches since v3.5 release
-Patch0001: 0001-maint-post-release-administrivia.patch
-Patch0002: 0002-parted-add-type-command.patch
-Patch0003: 0003-libparted-add-swap-flag-for-DASD-label.patch
-Patch0004: 0004-parted-Reset-the-filesystem-type-when-changing-the-i.patch
-Patch0005: 0005-tests-t3200-type-change-now-passes.patch
-Patch0006: 0006-libparted-Fix-check-for-availability-of-_type_id-fun.patch
-Patch0007: 0007-parted-Simplify-code-for-json-output.patch
-Patch0008: 0008-disk.in.h-Remove-use-of-enums-with-define.patch
-Patch0009: 0009-libparted-Fix-handling-of-gpt-partition-types.patch
-Patch0010: 0010-tests-Add-a-libparted-test-for-ped_partition_set_sys.patch
-Patch0011: 0011-libparted-Fix-handling-of-msdos-partition-types.patch
-Patch0012: 0012-tests-Add-a-libparted-test-for-ped_partition_set_sys.patch
-Patch0013: 0013-show-GPT-UUIDs-in-JSON-output.patch
-Patch0014: 0014-gpt-Add-no_automount-partition-flag.patch
-Patch0015: 0015-tests-XFS-requires-a-minimum-size-of-300M.patch
-Patch0016: 0016-libparted-Fix-problem-with-creating-1s-partitions.patch
-Patch0017: 0017-tests-Fixing-libparted-test-framework-usage.patch    
-Patch0018: 0018-filesys-Check-for-null-from-close_fn.patch
-Patch0019: 0019-libparted-Fix-potential-NULL-dereference-in-ped_disk.patch
-Patch0020: 0020-strlist-Handle-realloc-error-in-wchar_to_str.patch
-Patch0021: 0021-ui-Add-checks-for-prompt-being-NULL.patch
-Patch0022: 0022-tests-Fix-formatting-and-snprintf-warnings-in-tests.patch
-Patch0023: 0023-parted-Fix-ending-sector-location-when-using-kibi-IE.patch
 
 BuildRequires: gcc
 BuildRequires: e2fsprogs-devel
@@ -123,9 +98,9 @@ make check
 %{_mandir}/man8/parted.8*
 %{_mandir}/man8/partprobe.8*
 %{_libdir}/libparted.so.2
-%{_libdir}/libparted.so.2.0.4
+%{_libdir}/libparted.so.2.0.5
 %{_libdir}/libparted-fs-resize.so.0
-%{_libdir}/libparted-fs-resize.so.0.0.4
+%{_libdir}/libparted-fs-resize.so.0.0.5
 %{_infodir}/parted.info*
 
 %files devel
@@ -138,6 +113,11 @@ make check
 
 
 %changelog
+* Mon Mar 27 2023 Brian C. Lane <bcl@redhat.com> - 3.5.28-1
+- Upstream 3.5.28 Alpha release
+- Dropped all patches included in new upstream release
+- Bumped minor version on libparted.so and libparted-fs-resize.so
+
 * Fri Mar 17 2023 Brian C. Lane <bcl@redhat.com> - 3.5-11
 - parted: Fix ending sector location when using kibi IEC suffix (bcl)
 - tests: Fix formatting and snprintf warnings in tests. (bcl)

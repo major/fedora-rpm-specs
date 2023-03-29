@@ -1,6 +1,6 @@
 Name:           bzip3
-Version:        1.2.2
-Release:        2%{?dist}
+Version:        1.2.3
+Release:        1%{?dist}
 Summary:        Tools for compressing and decompressing bzip3 files
 # bz3grep:                  BSD-2-Clause
 # include/common.h:         LGPL-3.0-or-later
@@ -57,6 +57,8 @@ BuildRequires:  make
 BuildRequires:  pkgconf-pkg-config
 # sed in build-aux/git-version-gen
 BuildRequires:  sed
+# Tests:
+# md5sum is not helpful
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 # Executed by bz3grep
 Requires:       grep
@@ -158,6 +160,9 @@ fi
 %{_libdir}/pkgconfig/bzip3.pc
 
 %changelog
+* Mon Mar 27 2023 Petr Pisar <ppisar@redhat.com> - 1.2.3-1
+- 1.2.3 bump
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@ Name:		perl-Data-Binary
 Version:	0.01
 Release:	14%{?dist}
 Summary:	Simple detection of binary versus text in strings
-License:	Artistic 2.0
+License:	Artistic-2.0
 URL:		https://metacpan.org/release/Data-Binary
 Source0:	https://cpan.metacpan.org/modules/by-module/Data/Data-Binary-%{version}.tar.gz
 BuildArch:	noarch
@@ -21,7 +21,8 @@ BuildRequires:	perl(strict)
 BuildRequires:	perl(warnings)
 # Test Suite
 BuildRequires:	perl(Test::More)
-# Runtime
+# Dependencies
+# (none)
 
 %description
 This simple module provides string equivalents to the -T / -B operators. Since

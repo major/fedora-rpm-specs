@@ -1,6 +1,6 @@
 Name:    krfb
 Summary: Desktop sharing
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 
 License: GPLv2+ and GFDL
@@ -33,6 +33,7 @@ BuildRequires: kf5-kwidgetsaddons
 BuildRequires: kf5-kxmlgui-devel
 BuildRequires: cmake(KF5Wayland)
 BuildRequires: cmake(KF5WindowSystem)
+BuildRequires: cmake(KPipeWire)
 
 BuildRequires: cmake(PlasmaWaylandProtocols)
 
@@ -58,6 +59,7 @@ BuildRequires: pkgconfig(wayland-client)
 
 BuildRequires: pkgconfig(xtst)
 BuildRequires: libjpeg-devel
+BuildRequires: libepoxy-devel
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 
@@ -122,6 +124,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.krfb.desk
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

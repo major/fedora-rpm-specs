@@ -1,7 +1,7 @@
 %global base_name libkcompactdisc
 
 Name:    kf5-%{base_name}
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 Summary: A KDE compact disc library
 
@@ -70,13 +70,15 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %files devel
 %{_kf5_includedir}/KCompactDisc/
-%{_kf5_includedir}/kcompactdisc_version.h
 %{_kf5_libdir}/libKF5CompactDisc.so
 %{_kf5_libdir}/cmake/KF5CompactDisc/
 #{_qt5_archdatadir}/mkspecs/modules/qt_KCompactDisc.pri
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

@@ -9,7 +9,7 @@
 
 Name:    pim-sieve-editor
 Summary: Sieve Editor
-Version: 22.12.3
+Version: 23.03.80
 Release: 1%{?dist}
 
 # code (generally) GPLv2, docs GFDL
@@ -47,6 +47,7 @@ BuildRequires: cmake(KF5DBusAddons)
 BuildRequires: cmake(KF5DocTools)
 BuildRequires: cmake(KF5IconThemes)
 BuildRequires: cmake(KF5KIO)
+BuildRequires: cmake(KF5TextAutoCorrection)
 
 # kde-apps
 %global majmin_ver %(echo %{version} | cut -d. -f1,2)
@@ -117,6 +118,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

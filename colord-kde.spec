@@ -1,6 +1,6 @@
 
 Name:           colord-kde
-Version:        22.12.3
+Version:        23.03.80
 Release:        1%{?dist}
 Summary:        Colord support for KDE
 
@@ -16,10 +16,12 @@ BuildRequires:  kf5-kconfig-devel
 BuildRequires:  kf5-kconfigwidgets-devel
 BuildRequires:  kf5-kcoreaddons-devel
 BuildRequires:  kf5-kcmutils-devel
+BuildRequires:  kf5-kdeclarative-devel
 BuildRequires:  kf5-kdbusaddons-devel
 BuildRequires:  kf5-kiconthemes-devel
 BuildRequires:  kf5-ki18n-devel
 BuildRequires:  kf5-kio-devel
+BuildRequires:  kf5-kitemmodels-devel
 BuildRequires:  kf5-kitemviews-devel
 BuildRequires:  kf5-knotifications-devel
 BuildRequires:  kf5-plasma-devel
@@ -58,13 +60,17 @@ KDE support for colord including KDE Daemon module and System Settings module.
 %license COPYING
 %doc MAINTAINERS TODO
 %{_kf5_bindir}/colord-kde-icc-importer
-%{_kf5_qtplugindir}/kcm_colord.so
+%{_kf5_qtplugindir}/plasma/kcms/systemsettings/kcm_colord.so
 %{_kf5_plugindir}/kded/colord.so
 %{_kf5_datadir}/applications/colordkdeiccimporter.desktop
-%{_kf5_datadir}/kservices5/kcm_colord.desktop
+%{_kf5_datadir}/kpackage/kcms/kcm_colord/contents/ui/ProfileMetaDataView.qml
+%{_kf5_datadir}/kpackage/kcms/kcm_colord/contents/ui/main.qml
 
 
 %changelog
+* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
+- 23.03.80
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 
