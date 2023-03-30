@@ -1,93 +1,72 @@
-%{!?_httpd_apxs:       %{expand: %%global _httpd_apxs       %%{_sbindir}/apxs}}
-%{!?_httpd_mmn:        %{expand: %%global _httpd_mmn        %%(cat %{_includedir}/httpd/.mmn || echo missing-httpd-devel)}}
-%{!?_httpd_confdir:    %{expand: %%global _httpd_confdir    %%{_sysconfdir}/httpd/conf.d}}
-# /etc/httpd/conf.d with httpd < 2.4 and defined as /etc/httpd/conf.modules.d with httpd >= 2.4
-%{!?_httpd_modconfdir: %{expand: %%global _httpd_modconfdir %%{_sysconfdir}/httpd/conf.d}}
-%{!?_httpd_moddir:    %{expand: %%global _httpd_moddir    %%{_libdir}/httpd/modules}}
-
-
 Name:           mod_auth_cas
-Version:        1.1
-Release:        10%{?dist}
-Summary:        Apache 2.2/2.4 compliant module that supports the CASv1 and CASv2 protocols
+Version:        1.2
+Release:        4%{?dist}
+Summary:        Apache CAS Authentication Module for the JASIG/Apereo CAS Server
 
-License:        APLv2
-URL:            http://www.ja-sig.org/wiki/display/CASC/mod_auth_cas
-Source0:        https://github.com/Jasig/%{name}/archive/v%{version}.tar.gz
+License:        Apache-2.0
+URL:            https://github.com/apereo/mod_auth_cas
+Source0:        https://github.com/apereo/%{name}/archive/v%{version}/%{name}-v%{version}.tar.gz
 Source1:        auth_cas_mod.conf
 Source2:        auth_cas_httpd.conf
+# https://github.com/apereo/mod_auth_cas/pull/210
+Patch0:         0001-Patch-obsolete-autotools-m4-macro.patch
+# https://github.com/apereo/mod_auth_cas/pull/209
+Patch1:         0002-Update-to-pcre2.patch
 
-BuildRequires:  gcc
 BuildRequires:  openssl-devel
 BuildRequires:  httpd-devel
 BuildRequires:  m4, readline-devel, autoconf, automake
 BuildRequires:  libcurl-devel
 BuildRequires:  libtool
-BuildRequires:  pcre-devel
+# Created issue with upstream https://github.com/apereo/mod_auth_cas/issues/208
+BuildRequires:  pcre2-devel
+BuildRequires:  gcc
 
-Requires:       httpd
+Requires:       httpd-mmn = %{_httpd_mmn}
 Requires:       mod_ssl
 
 %description
-mod_auth_cas is an Apache 2.2 and 2.4 compliant module that supports the CASv1
-and CASv2 protocols
+The purpose of this module is to allow an Apache web server to interact
+with an authentication server that conforms to the CAS version 1 or 2
+protocol or SAML protocol as used by the JASIG/Apereo CAS Server
 
 %prep
-%setup -q -n %{name}-1.1
+%autosetup -p1
 
 %build
 autoreconf -vif #BZ926155 - support aarch64
 %configure --with-apxs=%{_httpd_apxs}
-make %{?_smp_mflags}
+%make_build
 
 %install
-rm -rf %{buildroot}
-make install DESTDIR=%{buildroot} LIBEXECDIR=%{_httpd_moddir}
-echo "DEBUG: _httpd_modconfdir: %{_httpd_modconfdir}"
-echo "DEBUG: _httpd_confdir: %{_httpd_modconfdir}"
-%if "%{_httpd_modconfdir}" == "%{_httpd_confdir}"
-# httpd <= 2.2.x
-cat %{SOURCE1} %{SOURCE2} > auth_cas.conf
-install -Dp -m 644 auth_cas.conf %{buildroot}%{_httpd_modconfdir}/auth_cas.conf
-%else
-# httpd >= 2.4.x
+%make_install
 install -Dp -m 644 %{SOURCE1} %{buildroot}%{_httpd_modconfdir}/10-auth_cas.conf
 install -Dp -m 644 %{SOURCE2} %{buildroot}%{_httpd_confdir}/auth_cas.conf
-%endif
 
-mkdir -p %{buildroot}/var/cache/httpd/%{name}
-
+mkdir -p %{buildroot}%{_localstatedir}/cache/httpd/%{name}
 
 %files
 %doc README
-%{_libdir}/httpd/modules/*.so
-%config(noreplace) %{_httpd_confdir}/*.conf
-%config(noreplace) %{_httpd_modconfdir}/*.conf
+%{_libdir}/httpd/modules/mod_auth_cas.so
+%config(noreplace) %{_httpd_confdir}/auth_cas.conf
+%config(noreplace) %{_httpd_modconfdir}/10-auth_cas.conf
 
-%defattr(-,apache,apache,-)
-%dir /var/cache/httpd/%{name}
+%dir %attr(-,apache,apache) %{_localstatedir}/cache/httpd/%{name}
 
 %changelog
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+* Tue Mar 14 2023 Scott Williams <vwbusguy@fedoraproject.org> - 1.2-4
+- Patch whitespace in spec file
+- Fix syntax for applying patches during rpm build
+- Bump BuildRequires to use pcre2-devel
 
-* Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+* Tue Mar 14 2023 Tim Hansen <timhansen46@fedoraproject.org> - 1.2-3
+- Add patches for pending upstream pull requests.
 
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+* Tue Mar 07 2023 Tim Hansen <timhansen46@fedoraproject.org> - 1.2-2
+- spec file modernization
 
-* Thu Feb 08 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+* Tue Mar 02 2021 Scott Williams <vwbusguy@fedoraproject.org> - 1.2-1
+- Version bump to v1.2 and support for EL8
 
 * Fri Sep 02 2016 Adam Miller <maxamillion@fedoraproject.org> - 1.1-3
 - Fix /var/cache/httpd/mod_auth_cas directory ownership (BZ#1368448)
@@ -153,4 +132,3 @@ mkdir -p %{buildroot}/var/cache/httpd/%{name}
 
 * Fri Aug 07 2009 Adam Miller <maxamillion@fedoraproject.org> - 1.0.8-1
 - First attempt to package mod_auth_cas for Fedora
-

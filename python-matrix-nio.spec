@@ -1,5 +1,5 @@
 Name:           python-matrix-nio
-Version:        0.20.1
+Version:        0.20.2
 Release:        %autorelease
 Summary:        A Matrix client library
 

@@ -1,5 +1,5 @@
 Name:           primecount
-Version:        7.7
+Version:        7.8
 Release:        2%{?dist}
 Summary:        Fast prime counting function implementation
 
@@ -105,6 +105,12 @@ export CXXFLAGS='%{build_cxxflags} -DLIBDIVIDE_SSE2'
 %{_libdir}/pkgconfig/primecount.pc
 
 %changelog
+* Tue Mar 28 2023 Kim Walisch <walki@fedoraproject.org> - 7.8-2
+- Updated test/pi_gourdon.cpp and test/pi_deleglise_rivat.cpp
+
+* Tue Mar 28 2023 Kim Walisch <walki@fedoraproject.org> - 7.8-1
+- Fix integer overflow in pi(x) for x <= -2^63
+
 * Sun Mar 26 2023 Kim Walisch <walki@fedoraproject.org> - 7.7-2
 - Fix -Wstrict-prototypes warning in test/api_c.c
 

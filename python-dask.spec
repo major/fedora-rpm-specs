@@ -10,8 +10,8 @@
 %global debug_package %{nil}
 
 Name:           python-%{srcname}
-Version:        2023.2.0
-%global tag     2023.2.0
+Version:        2023.3.2
+%global tag     2023.3.2
 Release:        %autorelease
 Summary:        Parallel PyData with Task Scheduling
 
@@ -207,8 +207,10 @@ pytest_args=(
 
   -n %[0%{?have_arm}?"2":"auto"]
 
-  # Ignore https://github.com/numpy/numpy/issues/20225 and Pandas issues
-  -W ignore::DeprecationWarning
+%ifarch %{ix86}
+  # Ignore 32-bit warning
+  -W 'ignore:invalid value encountered in cast:RuntimeWarning'
+%endif
 
   -k "${k-}"
 

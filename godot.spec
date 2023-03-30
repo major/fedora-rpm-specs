@@ -13,8 +13,8 @@
 %define rdnsname org.godotengine.Godot
 
 Name:           godot
-Version:        4.0
-Release:        2%{?dist}
+Version:        4.0.1
+Release:        1%{?dist}
 Summary:        Multi-platform 2D and 3D game engine with a feature-rich editor
 %if 0%{?mageia}
 Group:          Development/Tools
@@ -27,14 +27,8 @@ Source1:        https://downloads.tuxfamily.org/godotengine/%{version}/%{name}-%
 
 # https://github.com/godotengine/godot/pull/73443
 Patch0:         godot-pr73443-unbundle-openxr.patch
-# https://github.com/godotengine/godot/pull/74294
-Patch1:         godot-pr74294-system-embree-64bit.patch
-# https://github.com/godotengine/godot/pull/74648
-Patch2:         godot-pr74648-gcc13.patch
-# SCons 4.5.0 regression: https://github.com/SCons/scons/issues/4321
-Patch3:         workaround-scons-4.5.0-regression.patch
 # libsquish doesn't have a .pc file on Fedora
-Patch4:         libsquish_no_pkgconfig.patch
+Patch1:         libsquish_no_pkgconfig.patch
 
 # Upstream does not support those arches (for now)
 ExcludeArch:    ppc64 ppc64le s390x
@@ -305,6 +299,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnsname}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnsname}.appdata.xml
 
 %changelog
+* Tue Mar 28 2023 Rémi Verschelde <akien@fedoraproject.org> - 4.0.1-1
+- Version 4.0.1-stable
+
 * Fri Mar 10 2023 Rémi Verschelde <akien@fedoraproject.org> - 4.0-2
 - Obsolete headless/server packages
 - Fix F36 armv7hl build by forcing LTO off

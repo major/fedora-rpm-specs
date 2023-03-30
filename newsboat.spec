@@ -2,7 +2,7 @@
 %bcond_with check
 
 Name:    newsboat
-Version: 2.30.1
+Version: 2.31
 Release: %{autorelease}
 Summary: RSS/Atom feed reader for the text console
 
@@ -13,10 +13,8 @@ Source1: https://newsboat.org/releases/%{version}/%{name}-%{version}.tar.xz.asc
 Source2: https://newsboat.org/newsboat.pgp
 
 Patch:  0001-make-do-not-require-Cargo.lock.patch
-Patch:  0002-libnewsboat-relax-requirements.patch
-# Following patches should be included in next release; prune when updating
-Patch:  https://github.com/newsboat/newsboat/commit/b8fb4ae0cd6d01fb8fa47f4efa30790beec33ba5.patch#/gcc-13-fix.patch
-Patch:  https://github.com/newsboat/newsboat/commit/feac1fd9574aff55eab954ce91b75a8d003c0fbb.patch#/deps-lexopt-0.3.patch
+Patch:  0002-rust-relax-requirements.patch
+## # Following patches should be included in next release; prune when updating
 
 # Source file verification
 BuildRequires: make
@@ -50,14 +48,7 @@ Newsboat is a fork of Newsbeuter, an RSS/Atom feed reader for the text console.
 
 %generate_buildrequires
 INTERNAL_CRATES=$'libnewsboat\nlibnewsboat-ffi\nregex-rs\nstrprintf'
-
-find rust/ -type f -name Cargo.toml|while read -r manifest
-do
-    cargo-inspector --all-features -BR "${manifest}"|grep -vwe "${INTERNAL_CRATES}"
-%if %{with check}
-    cargo-inspector --all-features -TR "${manifest}"|grep -vwe "${INTERNAL_CRATES}"
-%endif
-done
+cargo2rpm --path=Cargo.toml buildrequires --all-features %{?with_check:--with-check}|grep -vwe "${INTERNAL_CRATES}"
 
 %build
 # Respect RPM settings

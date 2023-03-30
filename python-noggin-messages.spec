@@ -2,8 +2,8 @@
 %global modname noggin_messages
 
 Name:           python-%{srcname}
-Version:        1.0.2
-Release:        5%{?dist}
+Version:        1.0.3
+Release:        1%{?dist}
 Summary:        Fedora Messaging message schemas for Noggin
 
 License:        MIT
@@ -51,6 +51,75 @@ This package contains the fedora-messaging message schemas for Noggin.
 
 
 %changelog
+* Tue Mar 28 2023 Packit <hello@packit.dev> - 1.0.3-1
+- Version 1.0.3 (Aurélien Bompard)
+- Implement review suggestions (Aurélien Bompard)
+- Update noggin schemas (Ryan Lerch)
+- Bump pytest-cov from 3.0.0 to 4.0.0 (dependabot[bot])
+- Bump flake8 from 4.0.1 to 5.0.4 (dependabot[bot])
+- Bump automat from 20.2.0 to 22.10.0 (dependabot[bot])
+- Bump incremental from 21.3.0 to 22.10.0 (dependabot[bot])
+- Bump certifi from 2022.9.24 to 2022.12.7 (dependabot[bot])
+- Bump urllib3 from 1.26.12 to 1.26.15 (dependabot[bot])
+- Bump liccheck from 0.7.3 to 0.8.3 (dependabot[bot])
+- Bump setuptools from 59.6.0 to 67.6.1 (dependabot[bot])
+- Bump attrs from 21.4.0 to 22.2.0 (dependabot[bot])
+- Update tomli (Aurélien Bompard)
+- Update pyproject.toml (Jonathan Wright)
+- Use poetry-core (Jonathan Wright)
+- Update the dependabot approve action (Aurélien Bompard)
+- Don't use tox-poetry, it's deprecated (Aurélien Bompard)
+- Add an authorized license (Aurélien Bompard)
+- Fix Mergify config (Aurélien Bompard)
+- Follow Poetry's dep on platformdirs to fix the licenses check (Aurélien Bompard)
+- Drop support for python 3.6 (Aurélien Bompard)
+- Bump cryptography from 38.0.3 to 39.0.2 (dependabot[bot])
+- Fix compatibility with tox-poetry by pinning tox to 3.X (Aurélien Bompard)
+- Bump zope-interface from 5.5.1 to 5.5.2 (dependabot[bot])
+- Bump zope-interface from 5.5.0 to 5.5.1 (dependabot[bot])
+- Bump liccheck from 0.7.2 to 0.7.3 (dependabot[bot])
+- Bump pytz from 2022.5 to 2022.6 (dependabot[bot])
+- Bump cryptography from 38.0.1 to 38.0.3 (dependabot[bot])
+- Bump babel from 2.10.3 to 2.11.0 (dependabot[bot])
+- Bump stevedore from 3.5.1 to 3.5.2 (dependabot[bot])
+- Bump pbr from 5.10.0 to 5.11.0 (dependabot[bot])
+- Bump pika from 1.3.0 to 1.3.1 (dependabot[bot])
+- Bump pytz from 2022.4 to 2022.5 (dependabot[bot])
+- Bump fedora-messaging from 3.1.0 to 3.2.0 (dependabot[bot])
+- Bump stevedore from 3.5.0 to 3.5.1 (dependabot[bot])
+- Bump zope-interface from 5.4.0 to 5.5.0 (dependabot[bot])
+- Bump pytz from 2022.2.1 to 2022.4 (dependabot[bot])
+- Bump pyopenssl from 22.0.0 to 22.1.0 (dependabot[bot])
+- Bump certifi from 2022.9.14 to 2022.9.24 (dependabot[bot])
+- Bump idna from 3.3 to 3.4 (dependabot[bot])
+- Bump certifi from 2022.6.15.2 to 2022.9.14 (dependabot[bot])
+- Bump fedora-messaging from 3.0.2 to 3.1.0 (dependabot[bot])
+- Bump certifi from 2022.6.15.1 to 2022.6.15.2 (dependabot[bot])
+- Bump certifi from 2022.6.15 to 2022.6.15.1 (dependabot[bot])
+- Bump black from 22.6.0 to 22.8.0 (dependabot[bot])
+- Bump urllib3 from 1.26.11 to 1.26.12 (dependabot[bot])
+- Bump pygments from 2.12.0 to 2.13.0 (dependabot[bot])
+- Bump pytz from 2022.2 to 2022.2.1 (dependabot[bot])
+- Bump pytz from 2022.1 to 2022.2 (dependabot[bot])
+- Bump pbr from 5.9.0 to 5.10.0 (dependabot[bot])
+- Bump liccheck from 0.7.1 to 0.7.2 (dependabot[bot])
+- Bump urllib3 from 1.26.10 to 1.26.11 (dependabot[bot])
+- Bump blinker from 1.4 to 1.5 (dependabot[bot])
+- Bump atomicwrites from 1.4.0 to 1.4.1 (dependabot[bot])
+- Bump urllib3 from 1.26.9 to 1.26.10 (dependabot[bot])
+- Bump cryptography from 37.0.3 to 37.0.4 (dependabot[bot])
+- Bump imagesize from 1.3.0 to 1.4.1 (dependabot[bot])
+- Bump cffi from 1.15.0 to 1.15.1 (dependabot[bot])
+- Bump pika from 1.2.1 to 1.3.0 (dependabot[bot])
+- Bump black from 22.3.0 to 22.6.0 (dependabot[bot])
+- Bump cryptography from 37.0.2 to 37.0.3 (dependabot[bot])
+- Bump babel from 2.10.2 to 2.10.3 (dependabot[bot])
+- Bump colorama from 0.4.4 to 0.4.5 (dependabot[bot])
+- Bump certifi from 2022.5.18.1 to 2022.6.15 (dependabot[bot])
+- Bump babel from 2.10.1 to 2.10.2 (dependabot[bot])
+- Bump liccheck from 0.7.0 to 0.7.1 (dependabot[bot])
+- Bump liccheck from 0.6.5 to 0.7.0 (dependabot[bot])
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

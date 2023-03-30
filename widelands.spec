@@ -2,17 +2,14 @@
 %global fonts font(amiri) font(dejavusans) font(dejavusansmono) font(dejavuserif) font(widelands) font(gargi) font(wenquanyimicrohei) font(frankruehlclm)
 
 Name:           widelands
-Version:        1.0
-Release:        6%{?dist}
+Version:        1.1
+Release:        1%{?dist}
 Summary:        Open source realtime-strategy game
 
 License:        GPLv2+
 URL:            http://www.widelands.org
-Source0:        https://launchpad.net/widelands/1.x/%{version}/+download/widelands-%{version}.tar.gz
-Source1:        https://launchpad.net/widelands/1.x/%{version}/+download/widelands-%{version}.tar.gz.asc
-Source2:        gpgkey-B79C81844E3EFFC3726CD477D53DCA9A6A3B14A4.gpg
+Source0:        https://github.com/widelands/widelands/archive/v%{version}/%{name}-%{version}.tar.gz
 # gnu++11 fix in CMakeLists.txt for PPC64 little-endian
-# + remove -Werror=uninitialized to fix build with gcc12
 Patch0:         widelands-build19-ppc64le.patch
 # Fix failures on s390x due to uninitialized variables
 Patch1:         widelands-build20-gcc10.patch
@@ -22,8 +19,11 @@ Patch1:         widelands-build20-gcc10.patch
 # at glew 2.3, or maybe backport:
 # https://github.com/nigels-com/glew/commit/715afa0ff56c0eb12c23938b80aa2813daa10d81
 Patch2:         widelands-1.0-make-sdl2-use-x11.patch
-Patch3:         widelands-1.0-gcc12.1.patch
+Patch3:         widelands-1.1-gcc13.patch
+Patch4:         widelands-1.1-f37-sys-minizip-buildfix.patch
+Patch5:         widelands-1.1-disable-some-tests.patch
 
+BuildRequires: asio-devel
 BuildRequires: SDL2-devel
 BuildRequires: SDL2_image-devel
 BuildRequires: SDL2_mixer-devel
@@ -39,8 +39,8 @@ BuildRequires: gcc-c++
 BuildRequires: glew-devel
 BuildRequires: libpng-devel
 BuildRequires: libcurl-devel
+BuildRequires: minizip-devel
 BuildRequires: python3
-BuildRequires: gnupg2
 # For the %%build part generating the symlinks
 BuildRequires: fontconfig %{fonts}
 Requires:      hicolor-icon-theme
@@ -54,14 +54,20 @@ perhaps will have a thought, what Widelands is all about.
 
 
 %prep
-gpgv2 --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
-%autosetup -p1
+%setup -q
+%patch0 -p1
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
+%patch4 -p1
+%ifarch s390x
+%patch5 -p1
+%endif
 
 
 %build
 %cmake \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=%{_bindir} \
     -DWL_INSTALL_BASEDIR=%{_prefix}/share/%{name} \
     -DWL_INSTALL_DATADIR=%{_prefix}/share/%{name} \
     -DOPTION_BUILD_WEBSITE_TOOLS=OFF \
@@ -71,6 +77,10 @@ gpgv2 --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
 
 %install
 %cmake_install
+
+mkdir -p $RPM_BUILD_ROOT%{_bindir}
+mv $RPM_BUILD_ROOT%{_prefix}/games/%{name} \
+   $RPM_BUILD_ROOT%{_bindir}/%{name}
 
 # Validate desktop file (provided by upstream)
 desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
@@ -188,6 +198,10 @@ popd
 
 
 %changelog
+* Mon Mar 27 2023 Hans de Goede <hdegoede@redhat.com> - 1.1-1
+- New upstream release 1.1 (rhbz#2135131)
+- Fix FTBFS (rhbz#2171759)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

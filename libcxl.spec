@@ -1,8 +1,8 @@
 Name:           libcxl
 Version:        1.7
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Coherent accelerator interface
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/ibm-capi/libcxl
 Source0:        https://github.com/ibm-capi/libcxl/archive/v%{version}.tar.gz
 Patch1:         remove_2_backslashes_in_shell_call.patch
@@ -30,7 +30,7 @@ developing applications that use %{name}.
 
 %prep
 %setup -q
-%patch1 -p1
+%patch 1 -p1
 
 %build
 %make_build
@@ -57,6 +57,11 @@ cp -a build/man3 $RPM_BUILD_ROOT%{_mandir}/
 %{_libdir}/libcxl.so
 
 %changelog
+* Tue Mar 28 2023 Than Ngo <than@redhat.com> - 1.7-14
+- Migrated to SPDX license
+- Fixed deprecated patch rpm macro
+
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

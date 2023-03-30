@@ -21,6 +21,7 @@ Source1:        gen_clean_tarball.sh
 # * bump nalgebra from 0.27.1 to 0.30:
 #   https://github.com/statrs-dev/statrs/commit/9cb3081
 #   https://github.com/statrs-dev/statrs/pull/162
+#   https://github.com/statrs-dev/statrs/pull/187
 # * drop nightly-only feature
 Patch0:         statrs-fix-metadata.diff
 

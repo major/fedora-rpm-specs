@@ -1,5 +1,5 @@
-%global commit  7e02df60048db0898131ea365f387a026e4e648d
-%global date    20220822
+%global commit  c21b9fb85134b1eba304f5d71685a1ee6339cef0
+%global date    20230324
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global corename gambatte

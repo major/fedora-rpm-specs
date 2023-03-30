@@ -46,7 +46,7 @@ Name: ovn
 Summary: Open Virtual Network support
 URL: http://www.openvswitch.org/
 Version: 23.03.0
-Release: 4%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
+Release: 16%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
 Obsoletes: openvswitch-ovn-common < %{?epoch_ovs:%{epoch_ovs}:}2.11.0-8
 Provides: openvswitch-ovn-common = %{?epoch:%{epoch}:}%{version}-%{release}
 
@@ -438,6 +438,40 @@ fi
 %{_unitdir}/ovn-controller-vtep.service
 
 %changelog
+* Tue Mar 28 2023 Numan Siddique <numans@ovn.org> - 23.03.0-16
+- Sync to upstream OVN branch-23.03. Below are the commits
+since last update (23.03.0-4)
+
+- northd: prevents sending packet to conntrack for router ports (#2062431)
+[Upstream: 2bab96e899b5da5ae0c3b24bd04ece93d1339824]
+
+- lb: Allow IPv6 template LBs to use explicit backends.
+[Upstream: d01fdfdb2c97222cf326c8ab5579f670ded6e3cb]
+
+- controller: lflow: do not use tcp as default IP protocol for ct_snat_to_vip action (#2157846)
+[Upstream: 6a16c741e5a10a817ca8251898f48bf9eeb971f5]
+
+- northd: Drop packets for LBs with no backends (#2177173)
+[Upstream: 77384b7fe3f7d3260fd2f94a3bd75b8ca79f56ae]
+
+- northd: Use generic ct.est flows for LR LBs (#2172048 2170885)
+[Upstream: 81eaa98bbb608bda320abfa0122ba073de6597d7]
+
+- northd: drop ct.inv packets in post snat and lb_aff_learn stages (#2160685)
+[Upstream: 0af110c400cc29bb037172cdfd674794716771df]
+
+- controller: Add config option per LB to enable/disable CT flush (#2178962)
+[Upstream: 89fc85fa7f2b00f404ec5aef4ce8f2236474fbab]
+
+- northd: Ignore remote chassis when computing the supported feature set.
+[Upstream: 80b7e48a877abd337eb54b9bb9c7b4280aa9ff74]
+
+- controller: Use ofctrl_add_flow for CT SNAT hairpin flows.
+[Upstream: 888215e2164b476462f12d206a3d734958ef79e2]
+
+- rhel: pass options to stop daemon command in systemd units
+[Upstream: ed7095613abf3d36cbcf347e1238b84e6843eaf1]
+
 * Tue Mar 07 2023 Numan Siddique <numans@ovn.org> - 23.03.0-4
 - Update to upstream OVN 23.03.0
 

@@ -2,10 +2,10 @@ Name: cozy
 %global rtld_name com.github.geigi.cozy
 
 Summary: Modern audiobook player
-License: GPLv3+
+License: GPL-3.0-or-later
 
 Version: 1.2.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 URL: https://cozy.geigi.de
 Source0: https://github.com/geigi/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -17,6 +17,11 @@ Patch0: 0000--unbundle-inject.patch
 
 # The appdata XML file does not pass validation
 Patch1: 0001-fix-appdata-file.patch
+
+# Fix crash at startup
+# See: https://bugzilla.redhat.com/show_bug.cgi?id=2182220
+#      https://github.com/geigi/cozy/issues/756
+Patch2: 0002-fix-invalid-version-none.patch
 
 BuildArch: noarch
 
@@ -100,14 +105,15 @@ Here are some of the current features:
 %setup -q
 
 # Unbundle inject
-%patch0 -p1
+%patch 0 -p1
 rm -rf cozy/ext/inject
 
 # Run the "find unpatched imports" script
 "%{SOURCE99}" "$(pwd)"
 
 # Apply other patches
-%patch1 -p1
+%patch 1 -p1
+%patch 2 -p1
 
 
 %build
@@ -120,6 +126,13 @@ rm -rf cozy/ext/inject
 %install
 %meson_install
 %find_lang %{rtld_name}
+
+# Move "actions" icons out of /usr/share/icons/ to avoid conflicts with other packages
+# See: https://bugzilla.redhat.com/show_bug.cgi?id=2120689
+#      https://github.com/geigi/cozy/issues/710
+COZY_ICON_DIR="%{buildroot}%{_datadir}/%{rtld_name}/icons/hicolor/scalable"
+install -m 755 -d "${COZY_ICON_DIR}"
+mv %{buildroot}%{_datadir}/icons/hicolor/scalable/actions "${COZY_ICON_DIR}/actions"
 
 # Remove the "devel" icon
 rm %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{rtld_name}.Devel.svg
@@ -142,13 +155,17 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rtld_name}.desktop
 %{_datadir}/applications/%{rtld_name}.desktop
 %{_datadir}/glib-2.0/schemas/%{rtld_name}.gschema.xml
 %{_datadir}/icons/hicolor/*/apps/%{rtld_name}.svg
-%{_datadir}/icons/hicolor/scalable/actions/*-symbolic.svg
 %{_datadir}/icons/hicolor/symbolic/apps/%{rtld_name}-symbolic.svg
 %{_metainfodir}/%{rtld_name}.appdata.xml
 %{python3_sitelib}/%{name}/
 
 
 %changelog
+* Tue Mar 28 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.2.1-3
+- Move "actions" icons out of /usr/share/icons to avoid conflicts with other packages
+- Add a patch to fix crash at startup
+- Convert License tag to SPDX
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

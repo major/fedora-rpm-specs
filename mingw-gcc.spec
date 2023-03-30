@@ -14,14 +14,14 @@
 # Run the testsuite
 %global enable_tests 0
 
-%global DATE 20230304
-%global gitrev 1ae5227bd538f0ad8e5dbda14bde96d1c1db6f55
+%global DATE 20230324
+%global gitrev 053e16ff35e0921f66d5b48f2b2e4a51eca89e43
 %global gcc_version 13.0.1
 %global gcc_major 13
 
 Name:           mingw-gcc
 Version:        %{gcc_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        MinGW Windows cross-compiler (GCC) for C
 
 License:        GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions
@@ -918,6 +918,9 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 
 
 %changelog
+* Tue Mar 28 2023 Sandro Mani <manisandro@gmail.com> - 13.0.1-3
+- Update to 20230324 snapshot
+
 * Fri Mar 24 2023 Sandro Mani <manisandro@gmail.com> - 13.0.1-2
 - Split out libstdc++ (#2181524)
 

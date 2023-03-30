@@ -7,8 +7,8 @@
 #
 
 Name:    qcad
-Version: 3.27.9.0
-Release: 2%{?dist}
+Version: 3.28.0.0
+Release: 1%{?dist}
 Summary: Powerful 2D CAD system
 
 ## Main license: GPLv3
@@ -27,7 +27,7 @@ Summary: Powerful 2D CAD system
 ## is waived) and BSD (3-clauses).
 
 License: GPLv3 and GPLv2+ and MIT and BSD and Public Domain and CC-BY and Hershey
-Source0: https://github.com/qcad/qcad/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0: https://github.com/qcad/qcad/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1: %{name}.desktop
 Source2: %{name}.appdata.xml
 URL: https://www.qcad.org/
@@ -86,11 +86,7 @@ You dont need any CAD experience to get started with QCAD immediately.
 %autosetup -n %{name}-%{version} -p0
 
 # Use Fedora Qt5 scripts
-cp -a src/3rdparty/qt-labs-qtscriptgenerator-5.15.3 src/3rdparty/qt-labs-qtscriptgenerator-5.15.7
-mv src/3rdparty/qt-labs-qtscriptgenerator-5.15.7/qt-labs-qtscriptgenerator-5.15.3.pro \
- src/3rdparty/qt-labs-qtscriptgenerator-5.15.7/qt-labs-qtscriptgenerator-5.15.7.pro
- 
- cp -a src/3rdparty/qt-labs-qtscriptgenerator-5.15.3 src/3rdparty/qt-labs-qtscriptgenerator-5.15.8
+cp -a src/3rdparty/qt-labs-qtscriptgenerator-5.15.3 src/3rdparty/qt-labs-qtscriptgenerator-5.15.8
 mv src/3rdparty/qt-labs-qtscriptgenerator-5.15.8/qt-labs-qtscriptgenerator-5.15.3.pro \
  src/3rdparty/qt-labs-qtscriptgenerator-5.15.8/qt-labs-qtscriptgenerator-5.15.8.pro
 
@@ -229,6 +225,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_mandir}/man1/*
 
 %changelog
+* Tue Mar 28 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.28.0.0-1
+- Release 3.28.0.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.27.9.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

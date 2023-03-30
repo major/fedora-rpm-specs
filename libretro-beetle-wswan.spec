@@ -1,5 +1,5 @@
-%global commit  16d96f64a32cbe1fa89c40b142298dbd007f2f4d
-%global date    20220618
+%global commit  3f56cefe2b1f56dd2775452ca17f57a2c673c3b6
+%global date    20230324
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global corename beetle-wswan

@@ -5,7 +5,7 @@
 %global namespc Libxfce4ui
 
 Name:           libxfce4ui
-Version:        4.18.2
+Version:        4.18.3
 Release:        %autorelease
 Summary:        Commonly used Xfce widgets
 

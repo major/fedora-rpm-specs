@@ -1,5 +1,5 @@
-%global commit  00c7cb8ea97ad9a372307405d8abf34e401fec8a
-%global date    20220719
+%global commit  65460e3a9ad529f6901caf669abbda11f437ab55
+%global date    20230220
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global corename beetle-ngp

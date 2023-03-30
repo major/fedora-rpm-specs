@@ -2,8 +2,8 @@
 %global upname EDIM
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.3.6
-Release:        3%{?dist}
+Version:        1.3.7
+Release:        1%{?dist}
 Summary:        Elementary divisors of integer matrices
 
 License:        GPL-2.0-or-later
@@ -102,6 +102,9 @@ gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
 %{gap_archdir}/pkg/%{upname}/doc/
 
 %changelog
+* Tue Mar 28 2023 Jerry James <loganjerry@gmail.com> - 1.3.7-1
+- Version 1.3.7
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

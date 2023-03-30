@@ -20,7 +20,7 @@
 
 Name:           mingw-qt6-%{qt_module}
 Version:        6.4.2
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtTools component
 
 License:        GPLv3 with exceptions or LGPLv2 with exceptions
@@ -246,6 +246,9 @@ ln -s %{_libdir}/cmake/Qt6LinguistTools %{buildroot}%{mingw64_libdir}/cmake/Qt6L
 
 
 %changelog
+* Tue Mar 28 2023 Sandro Mani <manisandro@gmail.com> - 6.4.2-1
+- Update to 6.4.2
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

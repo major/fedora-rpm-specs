@@ -8,7 +8,7 @@
 Summary:	Pulled Pork for Snort and Suricata rule management
 Name:		pulledpork
 Version:	0.7.4
-Release:	6%{?dist}
+Release:	7%{?dist}
 # contrib/oink-conv.pl is GPLv2+
 License:	GPLv2+
 URL:		https://github.com/shirkdog/pulledpork
@@ -102,6 +102,9 @@ done
 
 
 %changelog
+* Tue Mar 28 2023 Marcin Dulak <marcindulak@fedoraproject.org> - 0.7.4-6
+- Change changelog email
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -117,7 +120,7 @@ done
 * Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
 
-* Sat Sep 12 2020 Marcin Dulak <Marcin.Dulak@gmail.com> - 0.7.4-1
+* Sat Sep 12 2020 Marcin Dulak <marcindulak@fedoraproject.org> - 0.7.4-1
 - New upstream version
 - Add a simple execution test
 
@@ -139,7 +142,7 @@ done
 * Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
-* Sat Dec 09 2017 Marcin Dulak <Marcin.Dulak@gmail.com> - 0.7.3-1
+* Sat Dec 09 2017 Marcin Dulak <marcindulak@fedoraproject.org> - 0.7.3-1
 - version 0.7.3
 
 * Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-4
@@ -148,10 +151,10 @@ done
 * Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
-* Wed Nov 30 2016 Marcin Dulak <Marcin.Dulak@gmail.com> - 0.7.2-2
+* Wed Nov 30 2016 Marcin Dulak <marcindulak@fedoraproject.org> - 0.7.2-2
 - pulledpork.conf: IPRVersion needs to be path ending with slash
 - pulledpork.conf: version must match the pulledpork version
 
-* Tue Nov 08 2016 Marcin Dulak <Marcin.Dulak@gmail.com> - 0.7.2-1
+* Tue Nov 08 2016 Marcin Dulak <marcindulak@fedoraproject.org> - 0.7.2-1
 - version 0.7.2, based on https://github.com/jasonish/nsm-rpms
 

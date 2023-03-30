@@ -5,8 +5,8 @@ Name: aspell-%{lang}
 # Have to bump this to make it newer than the old, bad version.
 Epoch: 51
 Version: 0.50
-Release: 21%{?dist}
-License: GPLv2+
+Release: 22%{?dist}
+License: GPL-2.0-or-later
 URL: http://aspell.net/
 Source0: ftp://ftp.gnu.org/gnu/aspell/dict/%{lang}/aspell-%{lang}-%{version}-%{langrelease}.tar.bz2
 Buildrequires: aspell >= 12:0.60
@@ -34,6 +34,9 @@ make install DESTDIR=$RPM_BUILD_ROOT libdir=%{_libdir}
 %{_libdir}/aspell-0.60/*
 
 %changelog
+* Tue Mar 28 2023 Nikola Forró <nforro@redhat.com> - 51:0.50-22
+- Use SPDX license expression in License
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 51:0.50-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

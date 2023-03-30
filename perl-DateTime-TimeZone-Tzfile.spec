@@ -9,7 +9,7 @@ Name:           perl-DateTime-TimeZone-Tzfile
 Version:        0.011
 Release:        18%{?dist}
 Summary:        Tzfile (zoneinfo) timezone files
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DateTime-TimeZone-Tzfile
 Source0:        https://cpan.metacpan.org/authors/id/Z/ZE/ZEFRAM/DateTime-TimeZone-Tzfile-%{version}.tar.gz
 BuildArch:      noarch

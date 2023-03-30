@@ -19,9 +19,9 @@ Summary: KDE Workspace
 Name:    kde-workspace
 Epoch:   1
 Version: 4.11.22
-Release: 37%{?dist}
+Release: 38%{?dist}
 
-License: GPLv2
+License: GPL-2.0-only
 URL:     https://github.com/KDE/%{name}
 Source0: https://github.com/KDE/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1: kdm-settings-2.tar.gz
@@ -273,25 +273,25 @@ Obsoletes: kde-plasma-translatoid < 1.30-20
 # Well, I looked at doing this using the context menu plugin system and it
 # looked like a lot more work than this simple patch to me. -- Kevin
 # FIXME/REBASE -- rex
-%patch2 -p1 -b .plasma-konsole
-%patch3 -p1 -b .strigi
-%patch4 -p1 -b .harden
+%patch 2 -p1 -b .plasma-konsole
+%patch 3 -p1 -b .strigi
+%patch 4 -p1 -b .harden
 # no backup file, since the whole dir gets installed
-%patch19 -p1 -b .kdm_plymouth
-%patch20 -p1 -b .xsession_errors_O_APPEND
-%patch27 -p1 -b .kdm_logind
-%patch28 -p1 -b .colorschemes-kde4
+%patch 19 -p1 -b .kdm_plymouth
+%patch 20 -p1 -b .xsession_errors_O_APPEND
+%patch 27 -p1 -b .kdm_logind
+%patch 28 -p1 -b .colorschemes-kde4
 
 # upstreamable patches
-%patch52 -p1 -b .bz#732830-login
-%patch53 -p1 -b .kdm_xauth
-%patch56 -p0 -b .kdm_local_ipv6
-%patch57 -p1 -b .bug796969
-%patch58 -p1 -b .new_rundir
+%patch 52 -p1 -b .bz#732830-login
+%patch 53 -p1 -b .kdm_xauth
+%patch 56 -p0 -b .kdm_local_ipv6
+%patch 57 -p1 -b .bug796969
+%patch 58 -p1 -b .new_rundir
 %if 0%{?kdm_settings}
 pushd kdm-settings
 #this patch can't have backups
-%patch59 -p1
+%patch 59 -p1
 popd
 %endif
 
@@ -579,6 +579,10 @@ rm -rfv %{buildroot}%{_kde4_docdir}/HTML/en/kcontrol/colors/
 
 
 %changelog
+* Tue Mar 28 2023 Than Ngo <than@redhat.com> - 4.11.22-38
+- migrated to SPDX license
+- Fix deprecated patch rpm macro
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.11.22-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

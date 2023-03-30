@@ -30,7 +30,7 @@
 # Enable static library builds by default.
 %bcond_without staticlibs
 # Build a fresh libjvm.so for use in a copy of the bootstrap JDK
-%bcond_without fresh_libjvm
+%bcond_with fresh_libjvm
 # Build with system libraries
 %bcond_with system_libs
 
@@ -342,14 +342,14 @@
 %endif
 
 # New Version-String scheme-style defines
-%global featurever 19
+%global featurever 20
 %global interimver 0
-%global updatever 2
+%global updatever 0
 %global patchver 0
 # buildjdkver is usually same as %%{featurever},
 # but in time of bootstrap of next jdk, it is featurever-1,
 # and this it is better to change it here, on single place
-%global buildjdkver %{featurever}
+%global buildjdkver 19
 # We don't add any LTS designator for STS packages (Fedora and EPEL).
 # We need to explicitly exclude EPEL as it would have the %%{rhel} macro defined.
 %if 0%{?rhel} && !0%{?epel}
@@ -391,8 +391,8 @@
 %global origin_nice     OpenJDK
 %global top_level_dir_name   %{origin}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
-%global buildver        7
-%global rpmrelease      2
+%global buildver        36
+%global rpmrelease      1
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -695,17 +695,10 @@ Patch1001: fips-19u-%{fipsver}.patch
 
 #############################################
 #
-# OpenJDK patches which missed 19.0.2
+# OpenJDK patches which missed last update
 #
 #############################################
-# JDK-8297804: (tz) Update Timezone Data to 2022g
-Patch2006: jdk8297804-tzdata2022g.patch
-# JDK-8295447: NullPointerException with invalid pattern matching construct in constructor call
-Patch2007: jdk8295447-npe_in_constructor.patch
-# JDK-8296239: ISO 4217 Amendment 174 Update
-Patch2008: jdk8296239-iso4217_up174.patch
-# JDK-8299439: java/text/Format/NumberFormat/CurrencyFormat.java fails for hr_HR
-Patch2009: jdk8299439-test_for_hr.patch 
+#empty now
 
 BuildRequires: autoconf
 BuildRequires: automake
@@ -964,14 +957,9 @@ pushd %{top_level_dir_name}
 %patch3 -p1
 %patch6 -p1
 # Add crypto policy and FIPS support
-%patch1001 -p1
+#%%patch1001 -p1 - todo, adapt fips patch for jdk20
 # nss.cfg PKCS11 support; must come last as it also alters java.security
 %patch1000 -p1
-# updates which missed 19.0.2
-%patch2006 -p1
-%patch2007 -p1
-%patch2008 -p1
-%patch2009 -p1 
 popd # openjdk
 
 %patch600
@@ -1144,7 +1132,6 @@ function buildjdk() {
     --with-boot-jdk=${buildjdk} \
     --with-debug-level=${debuglevel} \
     --with-native-debug-symbols="%{debug_symbols}" \
-    --disable-sysconf-nss \
     --enable-unlimited-crypto \
     --with-zlib=%{link_type} \
     --with-freetype=%{link_type} \
@@ -1609,6 +1596,17 @@ done
 %endif
 
 %changelog
+* Tue Mar 28  2023 Jiri Vanel <jvanek@redhat.com> - 1:20.0.0.0.36-1.rolling
+- moved to jdk20 
+- remvoed already upstreamed patches patch2006,2007,2008,2009
+- commented out not yet adapted patch1001 - fips support
+- removed --disable-sysconf-nss due to missing patch 1001 from configure
+-- todo return both patch1001 and disable-sysconf-nss!
+- adapted rh1750419-redhat_alt_java.patch and rh1750419-redhat_alt_java.patch patches
+- inverted fresh_libjvm behavior to be disabled by default. fails:
+-- See: https://koji.fedoraproject.org/koji/taskinfo?taskID=99242677
+
+
 * Tue Feb 07  2023 Jiri Vanel <jvanek@redhat.com> - 1:19.0.2.0.7-2.rolling
 - added png icons from x11 source package, so they can be reused by rpms
 

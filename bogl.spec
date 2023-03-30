@@ -1,7 +1,7 @@
 Summary: A terminal program for displaying Unicode on the console
 Name: bogl
 Version: 0.1.18
-Release: 48%{?dist}
+Release: 49%{?dist}
 URL: http://packages.debian.org/unstable/source/bogl
 Source0: http://update2.intellique.com/repository/archive/pool/main/b/bogl/bogl_0.1.18-1.5.tar.gz
 Source1: 14x14cjk.bdf.gz
@@ -15,7 +15,7 @@ Patch6: bogl-0.1.18-noexecstack.patch
 Patch7: bogl-0.1.18-format-security.patch
 Patch8: bogl-0.1.18-fix-multiple-definition.patch
 Epoch: 0
-License: GPLv2+
+License: GPL-2.0-or-later
 BuildRequires: gcc
 BuildRequires: gd-devel
 BuildRequires: libpng-devel
@@ -91,6 +91,9 @@ rm $RPM_BUILD_ROOT/%{_datadir}/terminfo/b/bterm
 /usr/share/bogl
 
 %changelog
+* Tue Mar 28 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 0:0.1.18-49
+- SPDX migration
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0:0.1.18-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

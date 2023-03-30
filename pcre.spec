@@ -26,7 +26,7 @@ Summary:    Perl-compatible regular expression library
 # testdata:                 Public Domain (see LICENSE file)
 ## Binary packages:
 # other files:              BSD
-License:    BSD
+License:    BSD-3-Clause
 URL:        https://www.pcre.org/
 Source0:    https://ftp.pcre.org/pub/%{name}/%{?rcversion:Testing/}%{name}-%{myversion}.tar.bz2
 Source1:    https://ftp.pcre.org/pub/%{name}/%{?rcversion:Testing/}%{name}-%{myversion}.tar.bz2.sig

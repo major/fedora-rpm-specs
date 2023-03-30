@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 39.6
+Version: 39.8
 Release: 1%{?dist}
 License: GPLv2+ and MIT
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -46,6 +46,7 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 %define simplelinever 1.9.0-1
 %define subscriptionmanagerver 1.26
 %define utillinuxver 2.15.1
+%define rpmostreever 2023.2
 
 BuildRequires: libtool
 BuildRequires: gettext-devel >= %{gettextver}
@@ -237,6 +238,11 @@ Requires: nm-connection-editor
 Requires: librsvg2
 Requires: gnome-kiosk
 Requires: brltty
+# dependencies for rpm-ostree payload module
+Requires: rpm-ostree >= %{rpmostreever}
+Requires: ostree
+# used by ostree command for native containers
+Requires: skopeo
 
 %description install-img-deps
 The anaconda-install-img-deps metapackage lists all boot.iso installation image dependencies.
@@ -463,6 +469,46 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 28 2023 Packit <hello@packit.dev> - 39.8-1
+- Move ostreecontainer deps to install-img-deps (jkonecny)
+- Add 'vga' to the list of preserved kernel arguments (#2176782) (awilliam)
+- Improve documentation of our Cockpit CI tests (jkonecny)
+- Download cockpit rpms during build (jkonecny)
+- Add --strict mode to makeupdates script (jkonecny)
+- docs: Document the `autopart --nohome` issue (vponcova)
+- Remove a react-core tarball (mkolman)
+- WebUI tweak local test execution (jkonecny)
+- Add missing deps to install_dependencies.sh (jkonecny)
+- WebUI: do not force to manually remove updates.img (jkonecny)
+- Update translations from Weblate
+
+* Tue Mar 28 2023 Packit <hello@packit.dev> - 39.7-1
+- Remove the SourceFactory class from the pyanaconda.payload module (vponcova)
+- Simplify creation of a source based on its URL (vponcova)
+- Protect the specified devices with all their ancestors (vponcova)
+- Protect HDD sources from the Payloads module (vponcova)
+- Use the simplified NFS source in the UI (vponcova)
+- Simplify the NFS source (vponcova)
+- Improve access to the repository configuration of a source (vponcova)
+- Protect the stage2 device from the Storage module (vponcova)
+- Don't protect unavailable devices (vponcova)
+- Update pixel tests for a new cockpit-ws (jkonecny)
+- webui: update links for downloading cockpit-ws and cockpit-bridge RPMs
+  (kkoukiou)
+- Don't parse additional repositories during start-up (vponcova)
+- Implement needs_network for rpm_ostree_container (#2125655) (jkonecny)
+- Move rpm-ostree deps from Lorax to Anaconda (#2125655) (jkonecny)
+- Deduplicate test data creation func in rpm ostree (jkonecny)
+- Add release note for ostreecontainer (#2125655) (jkonecny)
+- Add new OSTree container source test (#2125655) (jkonecny)
+- Enable RPM OSTree from container source in payload (#2125655) (jkonecny)
+- Add RPM OSTree source from container (#2125655) (jkonecny)
+- WebUI: Fix keyboard navigation on welcome screen (ozobal)
+- Add test step logging and screenshots to WebUI tests (zveleba)
+- Ignore newly found pylint detections (vslavik)
+- Fix network configuration from kickstart in intramfs (rvykydal)
+- Update translations from Weblate
+
 * Tue Mar 21 2023 Packit <hello@packit.dev> - 39.6-1
 - Adjust to pykickstart moving new network commands to F39 (awilliam)
 - Generate the ostreesetup kickstart command (vponcova)

@@ -2,7 +2,7 @@ Name:           perl-Devel-Cycle
 Version:        1.12
 Release:        26%{?dist}
 Summary:        Find memory cycles in objects
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-Cycle
 Source0:        https://cpan.metacpan.org/modules/by-module/Devel/Devel-Cycle-%{version}.tar.gz
 Patch0:         Devel-Cycle-1.11-512.patch
@@ -37,7 +37,7 @@ based memory management, circular references will cause memory leaks.
 %setup -q -n Devel-Cycle-%{version}
 
 # Fix a Perl 5.12 incompatibility (#757274, CPAN RT#56681)
-%patch0 -p1
+%patch -P 0 -p1
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor

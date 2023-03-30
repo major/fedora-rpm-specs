@@ -2,15 +2,16 @@ Name:           perl-Devel-Caller
 Version:        2.06
 Release:        30%{?dist}
 Summary:        Meatier versions of caller
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-Caller
 Source0:        https://cpan.metacpan.org/authors/id/R/RC/RCLAMP/Devel-Caller-%{version}.tar.gz
+BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)

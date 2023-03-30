@@ -3,7 +3,7 @@
 Summary: Utility for modifying/upgrading files
 Name: patch
 Version: 2.7.6
-Release: 20%{?dist}
+Release: 21%{?dist}
 License: GPL-3.0-or-later
 URL: https://savannah.gnu.org/projects/patch/
 Source: https://ftp.gnu.org/gnu/patch/patch-%{version}.tar.xz
@@ -57,35 +57,35 @@ applications.
 
 %prep
 %setup -q
-%patch0 -p1 -b .avoid-set_file_attributes-sign-conversion-warnings
-%patch1 -p1 -b .test-suite-compatibility-fixes
-%patch2 -p1 -b .fix-korn-shell-incompatibility
-%patch3 -p1 -b .fix-segfault-with-mangled-rename-patch
-%patch4 -p1 -b .allow-input-files-to-be-missing-for-ed-style-patches
+%patch 0 -p1 -b .avoid-set_file_attributes-sign-conversion-warnings
+%patch 1 -p1 -b .test-suite-compatibility-fixes
+%patch 2 -p1 -b .fix-korn-shell-incompatibility
+%patch 3 -p1 -b .fix-segfault-with-mangled-rename-patch
+%patch 4 -p1 -b .allow-input-files-to-be-missing-for-ed-style-patches
 # CVE-2018-1000156, Malicious patch files cause ed to execute arbitrary commands
-%patch5 -p1 -b .CVE-2018-1000156
-%patch6 -p1 -b .CVE-2019-13638-invoked-ed-directly-instead-of-using-the-shell
-%patch7 -p1 -b .switch-from-fork-execlp-to-execute
-%patch8 -p1 -b .cleanups-in-do_ed_script
-%patch9 -p1 -b .avoid-warnings-gcc8
-%patch10 -p1 -b .check-of-return-value-of-fwrite
-%patch11 -p1 -b .fix-ed-style-test-failure
-%patch12 -p1 -b .dont-leak-temporary-file-on-failed-ed-style-patch
-%patch13 -p1 -b .dont-leak-temporary-file-on-failed-multi-file-ed-style-patch
-%patch14 -p1 -b .make-debug-output-more-useful
-%patch15 -p1 -b .CVE-2018-6952-fix-swapping-fake-lines-in-pch_swap
-%patch16 -p1 -b .improve_support_for_memory_leak_detection
-%patch17 -p1 -b .skip-ed-test-when-the-ed-utility-is-not-installed
-%patch18 -p1 -b .abort_when_cleaning_up_fails
-%patch19 -p1 -b .crash-RLIMIT_NOFILE
-%patch20 -p1 -b .CVE-2019-13636-symlinks
-%patch21 -p1 -b .avoid-invalid-memory-access-in-context-format-diffs
+%patch 5 -p1 -b .CVE-2018-1000156
+%patch 6 -p1 -b .CVE-2019-13638-invoked-ed-directly-instead-of-using-the-shell
+%patch 7 -p1 -b .switch-from-fork-execlp-to-execute
+%patch 8 -p1 -b .cleanups-in-do_ed_script
+%patch 9 -p1 -b .avoid-warnings-gcc8
+%patch 10 -p1 -b .check-of-return-value-of-fwrite
+%patch 11 -p1 -b .fix-ed-style-test-failure
+%patch 12 -p1 -b .dont-leak-temporary-file-on-failed-ed-style-patch
+%patch 13 -p1 -b .dont-leak-temporary-file-on-failed-multi-file-ed-style-patch
+%patch 14 -p1 -b .make-debug-output-more-useful
+%patch 15 -p1 -b .CVE-2018-6952-fix-swapping-fake-lines-in-pch_swap
+%patch 16 -p1 -b .improve_support_for_memory_leak_detection
+%patch 17 -p1 -b .skip-ed-test-when-the-ed-utility-is-not-installed
+%patch 18 -p1 -b .abort_when_cleaning_up_fails
+%patch 19 -p1 -b .crash-RLIMIT_NOFILE
+%patch 20 -p1 -b .CVE-2019-13636-symlinks
+%patch 21 -p1 -b .avoid-invalid-memory-access-in-context-format-diffs
 # CVE-2018-17942 gnulib: heap-based buffer overflow
-%patch22 -p1 -b .CVE-2018-17942-gnulib_buffer_overflow
-%patch23 -p1 -b .failed_assertion
+%patch 22 -p1 -b .CVE-2018-17942-gnulib_buffer_overflow
+%patch 23 -p1 -b .failed_assertion
 # SELinux support.
-%patch100 -p1 -b .selinux
-%patch101 -p1
+%patch 100 -p1 -b .selinux
+%patch 101 -p1
 
 %build
 CFLAGS="$RPM_OPT_FLAGS -D_GNU_SOURCE"
@@ -109,6 +109,9 @@ make check
 %{_mandir}/*/*
 
 %changelog
+* Tue Mar 28 2023 Than Ngo <than@redhat.com> - 2.7.6-21
+- Fix deprecated patch macro
+
 * Tue Feb 21 2023 Than Ngo <than@redhat.com> - 2.7.6-20
 - migrated to SPDX license
 

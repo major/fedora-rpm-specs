@@ -1,8 +1,8 @@
 Summary: pilot desktop software
 Name: jpilot
 Version: 1.8.2
-Release: 23%{?dist}
-License: GPLv2
+Release: 25%{?dist}
+License: GPL-2.0-only
 URL: http://www.jpilot.org/
 Source0: http://jpilot.org/jpilot-%{version}.tar.gz
 Source1: jpilot.desktop
@@ -70,6 +70,12 @@ install -m 644 icons/jpilot-icon3.xpm $RPM_BUILD_ROOT%{_datadir}/pixmaps/
 %{_datadir}/applications/*
 
 %changelog
+* Tue Mar 28 2023 Nikola Forró <nforro@redhat.com> - 1.8.2-25
+- Fix License
+
+* Tue Mar 28 2023 Nikola Forró <nforro@redhat.com> - 1.8.2-24
+- Use SPDX license expression in License
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

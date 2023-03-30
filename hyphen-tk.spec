@@ -1,13 +1,11 @@
 Name: hyphen-tk
 Summary: Turkmen hyphenation rules
-%global upstreamid 20110620
+%global upstreamid 20210322
 Version: 0.%{upstreamid}
-Release: 22%{?dist}
-#? in a url causes trouble
-#http://tug.org/svn/texhyphen/trunk/hyph-utf8/tex/generic/hyph-utf8/patterns/tex/hyph-tk.tex?view=co
-Source: hyph-tk.tex
+Release: 1%{?dist}
+Source: http://mirror.ctan.org/language/hyph-utf8/tex/generic/hyph-utf8/patterns/tex/hyph-tk.tex
 URL: http://tug.org/tex-hyphen
-License: Public Domain
+License: MIT
 BuildArch: noarch
 BuildRequires: hyphen-devel
 Requires: hyphen
@@ -27,7 +25,7 @@ substrings.pl hyph-tk.tex hyph_tk_TM.dic UTF-8
 echo "Created with substring.pl by substrings.pl hyph-tk.tex hyph_tk_TM.dic UTF-8" > README
 echo "Original in-line credits were:" >> README
 echo "" >> README
-head -n 15 hyph-tk.tex >> README
+head -n 33 hyph-tk.tex >> README
 
 %install
 mkdir -p $RPM_BUILD_ROOT/%{_datadir}/hyphen
@@ -39,6 +37,10 @@ cp -p hyph_tk_TM.dic $RPM_BUILD_ROOT/%{_datadir}/hyphen
 %{_datadir}/hyphen/hyph_tk_TM.dic
 
 %changelog
+* Tue Mar 28 2023 Caolán McNamara <caolanm@redhat.com> - 0.20210322-1
+- latest version with clarified license
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20110620-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

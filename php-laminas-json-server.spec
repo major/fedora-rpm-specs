@@ -1,13 +1,13 @@
 # remirepo/Fedora spec file for php-laminas-json-server
 #
-# Copyright (c) 2015-2022 Remi Collet
+# Copyright (c) 2015-2023 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    5c07f08c91ea2d7f6b58b1aeb32aa4bb281b81cd
+%global gh_commit    c997f45abdec80fbb5c666588b9c3e529560242b
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-json-server
@@ -23,11 +23,11 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        3.7.0
-Release:        2%{?dist}
+Version:        3.8.0
+Release:        1%{?dist}
 Summary:        %{namespace} Json-Server is a JSON-RPC server implementation
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        %{gh_commit}/%{name}-%{version}-%{gh_short}.tgz
 Source1:        makesrc.sh
@@ -164,6 +164,9 @@ exit $ret
 
 
 %changelog
+* Tue Mar 28 2023 Remi Collet <remi@remirepo.net> - 3.8.0-1
+- update to 3.8.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

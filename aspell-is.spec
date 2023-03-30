@@ -5,8 +5,8 @@ Summary: Icelandic dictionaries for Aspell
 Name: aspell-%{lang}
 Epoch: 50
 Version: 0.51.1
-Release: 30%{?dist}
-License: GPLv2+
+Release: 31%{?dist}
+License: GPL-2.0-or-later
 URL: http://aspell.net/
 Source: ftp://ftp.gnu.org/gnu/aspell/dict/%{lang}/aspell-%{lang}-%{version}-%{langrelease}.tar.bz2
 Buildrequires: aspell >= 12:%{aspellrelease}
@@ -37,6 +37,9 @@ mv $RPM_BUILD_ROOT/%{_libdir}/aspell-%{aspellrelease}/*slenska.alias $RPM_BUILD_
 %{_libdir}/aspell-%{aspellrelease}/*
 
 %changelog
+* Tue Mar 28 2023 Nikola Forró <nforro@redhat.com> - 50:0.51.1-31
+- Use SPDX license expression in License
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 50:0.51.1-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

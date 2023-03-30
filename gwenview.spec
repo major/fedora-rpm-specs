@@ -2,11 +2,11 @@ Name:    gwenview
 Summary: An image viewer
 Epoch:   1
 Version: 23.03.80
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # app: GPLv2+
 # lib:  IJG and (LGPLv2 or LGPLv3 or LGPLv3+ (KDE e.V.)) and LGPLv2+ and GPLv2+
-License: GPLv2+
+License: GPL-2.0-or-later
 URL:     https://www.kde.org/applications/graphics/gwenview/
 %global revision %(echo %{version} | cut -d. -f3)
 %if %{revision} >= 50
@@ -124,6 +124,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.gwenview.
 
 
 %changelog
+* Tue Mar 28 2023 Than Ngo <than@redhat.com> - 23.03.80-2
+- migrated to SPDX license
+
 * Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:23.03.80-1
 - 23.03.80
 

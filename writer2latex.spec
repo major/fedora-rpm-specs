@@ -4,9 +4,9 @@
 
 Name:          writer2latex
 Version:       1.0.2
-Release:       39%{?dist}
+Release:       40%{?dist}
 Summary:       Document Converter from ODT to LaTeX
-License:       LGPLv2
+License:       LGPL-2.1-only
 Url:           http://writer2latex.sourceforge.net/
 Source0:       http://writer2latex.svn.sourceforge.net/viewvc/writer2latex/tags/%{version}.tar.gz
 Source1:       writer2latex.metainfo.xml
@@ -138,6 +138,9 @@ install -p -m 644 %{SOURCE1} %{SOURCE2} $RPM_BUILD_ROOT/%{_datadir}/appdata
 %{_datadir}/appdata/writer2xhtml.metainfo.xml
 
 %changelog
+* Tue Mar 28 2023 Caolán McNamara <caolanm@redhat.com> - 1.0.2-40
+- migrated to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,22 +2,17 @@
 %global pypi_name authheaders
 
 Name:           python-%{pypi_name}
-Version:        0.13.0
-Release:        8%{?dist}
+Version:        0.15.2
+Release:        1%{?dist}
 Summary:        A library wrapping email authentication header verification and generation
 
 # Licensing described in LICENSE file
-License:        MIT and zlib and ZPLv2.1
+License:        MIT and ZPL-2.1
 URL:            https://github.com/ValiMail/authentication-headers
 Source0:        %{pypi_source}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(authres) >= 1.0.1
-BuildRequires:  python3dist(dkimpy) >= 0.7.1
-BuildRequires:  python3dist(dnspython)
-BuildRequires:  python3dist(publicsuffix2)
-BuildRequires:  python3dist(setuptools)
 
 %description
 %{summary}.
@@ -33,26 +28,40 @@ Requires:       publicsuffix-list
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
 # Remove bundled publicsuffix data
 rm -f %{pypi_name}/public_suffix_list.txt
+# Use public suffix data from installed RPM
+ln -s %{_datadir}/publicsuffix/public_suffix_list.dat %{pypi_name}/public_suffix_list.txt
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
-# Use public suffix data from installed RPM
-ln -sr %{buildroot}%{_datadir}/publicsuffix/public_suffix_list.dat %{buildroot}%{python3_sitelib}/%{pypi_name}/public_suffix_list.txt
+%pyproject_install
+%pyproject_save_files %{pypi_name}
 
-%files -n python3-%{pypi_name}
-%doc README.md
+# Re-link so this is a relative path
+ln -srf %{buildroot}%{_datadir}/publicsuffix/public_suffix_list.dat %{buildroot}%{python3_sitelib}/%{pypi_name}/public_suffix_list.txt
+
+%check
+%pyproject_check_import %{pypi_name}
+PYTHONPATH=. %{__python3} %{pypi_name}/test/test_authentication.py -v
+
+%files -n python3-%{pypi_name} -f %{pyproject_files}
+%doc README.md CHANGES
 %license COPYING
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
+%{_bindir}/dmarc-policy-find
 
 %changelog
+* Mon Mar 27 2023 Michel Alexandre Salim <salimma@fedoraproject.org> - 0.15.2-1
+- Update to 0.15.2
+- Convert to SPDX
+- Convert to new Python guidelines
+- Run tests
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

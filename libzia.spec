@@ -1,6 +1,6 @@
 Name:		libzia
 Version:	4.42
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Platform abstraction layer for the tucnak package
 License:	GPLv2
 URL:		http://tucnak.nagano.cz/
@@ -17,6 +17,8 @@ BuildRequires:	libftdi-devel
 BuildRequires:	binutils-devel
 BuildRequires:	gnutls-devel
 BuildRequires:	gtk3-devel
+# Used for direct control of display power saving features (via exec)
+Requires:	xset
 # This is to fulfill Fedora requirement - it marks the interface with
 # version number 0. Upstream uses --release versioning in libtool.
 # They do not support linking between different versions of tucnak and
@@ -69,6 +71,9 @@ rmdir %{buildroot}%{_datadir}/libzia/doc/ %{buildroot}%{_datadir}/libzia %{build
 %{_libdir}/pkgconfig/libzia.pc
 
 %changelog
+* Tue Mar 28 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 4.42-2
+- Added missing xset requirement (reported by David Jež <djez@redhat.com>)
+
 * Mon Mar 13 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 4.42-1
 - New version
   Related: rhbz#2177170

@@ -7,7 +7,7 @@
 
 Name:           gnome-maps
 Version:        44.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Map application for GNOME
 
 License:        GPL-2.0-or-later
@@ -48,6 +48,7 @@ Requires:       libadwaita%{?_isa}
 Requires:       libgweather4%{?_isa}
 Requires:       libshumate%{?_isa} >= %{libshumate_version}
 Requires:       libsoup3%{?_isa}
+Requires:       rest%{?_isa}
 
 %description
 GNOME Maps is a simple map application for the GNOME desktop.
@@ -92,6 +93,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Maps.deskto
 
 
 %changelog
+* Tue Mar 28 2023 Kalev Lember <klember@redhat.com> - 44.0-3
+- Add missing runtime dep on rest
+
 * Wed Mar 22 2023 Adam Williamson <awilliam@redhat.com> - 44.0-2
 - Backport MR #295, another animation tile server ban fix (#2177995)
 

@@ -48,7 +48,7 @@
 
 Summary:   Firmware update daemon
 Name:      fwupd
-Version:   1.8.12
+Version:   1.8.13
 Release:   %autorelease
 License:   LGPL-2.1-or-later
 URL:       https://github.com/fwupd/fwupd
@@ -72,7 +72,6 @@ BuildRequires: libarchive-devel
 BuildRequires: libcbor-devel
 BuildRequires: gobject-introspection-devel
 BuildRequires: gcab
-BuildRequires: pandoc
 %ifarch %{valgrind_arches}
 BuildRequires: valgrind
 BuildRequires: valgrind-devel
@@ -277,7 +276,7 @@ done
 %systemd_postun_with_restart fwupd.service
 
 %files -f %{name}.lang
-%doc README.md AUTHORS
+%doc README.md
 %license COPYING
 %config(noreplace)%{_sysconfdir}/fwupd/daemon.conf
 %if 0%{?have_uefi}
@@ -345,7 +344,7 @@ done
 %{_datadir}/fwupd/quirks.d/builtin.quirk.gz
 %{_datadir}/doc/fwupd/*.html
 %if 0%{?have_uefi}
-%{_sysconfdir}/grub.d/35_fwupd
+%config(noreplace)%{_sysconfdir}/grub.d/35_fwupd
 %endif
 %{_libdir}/libfwupd.so.2*
 %{_libdir}/girepository-1.0/Fwupd-2.0.typelib

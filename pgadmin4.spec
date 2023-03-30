@@ -7,7 +7,7 @@ Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
 Version:        6.21
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -269,6 +269,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Tue Mar 28 2023 Sandro Mani <manisandro@gmail.com> - 6.21-2
+- Drop PGADMIN_INT_KEY env-var
+
 * Wed Mar 15 2023 Sandro Mani <manisandro@gmail.com> - 6.21-1
 - Update to 6.21
 

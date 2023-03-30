@@ -1,9 +1,9 @@
 Name:           taskopen
 Version:        1.1.5
-Release:        5%{?dist}
+Release:        %autorelease
 Summary:        Script for taking notes and open urls with taskwarrior
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/ValiValpas/taskopen
 Source0:        https://github.com/ValiValpas/taskopen/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
@@ -53,30 +53,4 @@ rm -rfv $RPM_BUILD_ROOT/%{_datadir}/taskopen/doc
 %{_datadir}/%{name}/
 
 %changelog
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Mar 26 2021 Jan Staněk <jstanek@redhat.com> - 1.1.5-1
-- Update to version 1.1.5
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Fri Jan 31 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Tue Aug 20 2019 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 1.1.4-1
-- Initial build
-- Update as per review comments: https://bugzilla.redhat.com/show_bug.cgi?id=1743802
+%autochangelog

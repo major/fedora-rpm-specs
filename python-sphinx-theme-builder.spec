@@ -1,8 +1,8 @@
-%global prerel  b1
+%global prerel  b2
 
 Name:           python-sphinx-theme-builder
 Version:        0.2.0
-Release:        0.7.%{prerel}%{?dist}
+Release:        0.8.%{prerel}%{?dist}
 Summary:        Streamline the Sphinx theme development workflow
 
 # Most of the code is MIT.  However,
@@ -10,8 +10,6 @@ Summary:        Streamline the Sphinx theme development workflow
 License:        MIT and BSD-3-Clause
 URL:            https://github.com/pradyunsg/sphinx-theme-builder
 Source0:        %{url}/archive/%{version}%{prerel}/sphinx-theme-builder-%{version}%{prerel}.tar.gz
-# Use the builtin tomllib instead of deprecated tomli package
-Patch0:         https://github.com/pradyunsg/sphinx-theme-builder/commit/1e44d47.patch
 
 BuildArch:      noarch
 
@@ -68,6 +66,10 @@ help2man -N --version-string=%{version}%{prerel} %{buildroot}%{_bindir}/stb > \
 %license LICENSE
 
 %changelog
+* Tue Mar 28 2023 Jerry James <loganjerry@gmail.com> - 0.2.0-0.8.b2
+- Version 0.2.0b2
+- Drop upstreamed tomllib patch
+
 * Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 0.2.0-0.7.b1
 - Add cli extras subpackage containing the stb binary
 - Dynamically generate BuildRequires

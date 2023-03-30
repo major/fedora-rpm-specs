@@ -1,42 +1,45 @@
 # The function of bootstrap is that it disables the wheel subpackage
-%bcond_with bootstrap
-
+%bcond bootstrap 0
 # Default: when bootstrapping -> disable tests
-%if %{with bootstrap}
-%bcond_with tests
-%else
-%bcond_without tests
-%endif
+%bcond tests %{without bootstrap}
 
 # Similar to what we have in pythonX.Y.spec files.
 # If enabled, provides unversioned executables and other stuff.
 # Disable it if you build this package in an alternative stack.
-%bcond_without main_python
+%bcond main_python 1
 
 %global pypi_name wheel
 %global python_wheel_name %{pypi_name}-%{version}-py3-none-any.whl
 
 Name:           python-%{pypi_name}
-Version:        0.38.4
-Release:        2%{?dist}
+Version:        0.40.0
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Built-package format for Python
 
-# packaging is ASL 2.0 or BSD
-License:        MIT and (ASL 2.0 or BSD)
+# packaging is Apache-2.0 OR BSD-2-Clause
+License:        MIT AND (Apache-2.0 OR BSD-2-Clause)
 URL:            https://github.com/pypa/wheel
 Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
+# This is used in bootstrap mode where we manually install the wheel and
+# entrypoints
+Source1:        wheel-entrypoint
 BuildArch:      noarch
 
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
-
 # python3 bootstrap: this is rebuilt before the final build of python3, which
 # adds the dependency on python3-rpm-generators, so we require it manually
 BuildRequires:  python3-rpm-generators
 
+# Needed to manually build and unpack the wheel
+%if %{with bootstrap}
+BuildRequires:  python%{python3_pkgversion}-flit-core
+BuildRequires:  unzip
+%endif
+
 %if %{with tests}
 BuildRequires:  python%{python3_pkgversion}-pytest
+BuildRequires:  python%{python3_pkgversion}-setuptools
 # several tests compile extensions
 # those tests are skipped if gcc is not found
 BuildRequires:  gcc
@@ -58,7 +61,7 @@ It has two different roles:
 # Actual version can be found in git history:
 # https://github.com/pypa/wheel/commits/master/src/wheel/vendored/packaging/tags.py
 %global bundled %{expand:
-Provides:       bundled(python3dist(packaging)) = 21.3
+Provides:       bundled(python3dist(packaging)) = 23
 }
 
 
@@ -69,44 +72,62 @@ Summary:        %{summary}
 %description -n python%{python3_pkgversion}-%{pypi_name} %{_description}
 
 
-%if %{without bootstrap}
 %package -n     %{python_wheel_pkg_prefix}-%{pypi_name}-wheel
 Summary:        The Python wheel module packaged as a wheel
 %{bundled}
 
 %description -n %{python_wheel_pkg_prefix}-%{pypi_name}-wheel
 A Python wheel of wheel to use with virtualenv.
-%endif
 
 
 %prep
 %autosetup -n %{pypi_name}-%{version} -p1
 
 
+%if %{without bootstrap}
+%generate_buildrequires
+%pyproject_buildrequires
+%endif
+
+
 %build
-%py3_build
+%if %{with bootstrap}
+%global _pyproject_wheeldir dist
+%python3 -m flit_core.wheel
+%else
+%pyproject_wheel
+%endif
 
 
 %install
-%py3_install
+# pip is not available when bootstrapping, so we need to unpack the wheel and
+# create the entrypoints manually.
+%if %{with bootstrap}
+mkdir -p %{buildroot}%{python3_sitelib}
+unzip %{_pyproject_wheeldir}/%{python_wheel_name} \
+    -d %{buildroot}%{python3_sitelib} -x wheel-%{version}.dist-info/RECORD
+install -Dpm 0755 %{SOURCE1} %{buildroot}%{_bindir}/wheel
+%py3_shebang_fix %{buildroot}%{_bindir}/wheel
+%else
+%pyproject_install
+%endif
+
 mv %{buildroot}%{_bindir}/%{pypi_name}{,-%{python3_version}}
 %if %{with main_python}
 ln -s %{pypi_name}-%{python3_version} %{buildroot}%{_bindir}/%{pypi_name}-3
 ln -s %{pypi_name}-3 %{buildroot}%{_bindir}/%{pypi_name}
 %endif
 
-%if %{without bootstrap}
-# We can only use bdist_wheel when wheel is installed, hence we don't build the wheel in %%build
-export PYTHONPATH=%{buildroot}%{python3_sitelib}
-%py3_build_wheel
 mkdir -p %{buildroot}%{python_wheel_dir}
-install -p dist/%{python_wheel_name} -t %{buildroot}%{python_wheel_dir}
-%endif
+install -p %{_pyproject_wheeldir}/%{python_wheel_name} -t %{buildroot}%{python_wheel_dir}
 
+
+%check
+# Smoke test
+%{py3_test_envvars} wheel-%{python3_version} version
+%py3_check_import wheel
 
 %if %{with tests}
-%check
-rm setup.cfg  # to drop pytest coverage options configured there
 %pytest -v --ignore build
 %endif
 
@@ -120,15 +141,16 @@ rm setup.cfg  # to drop pytest coverage options configured there
 %endif
 %{python3_sitelib}/%{pypi_name}*/
 
-%if %{without bootstrap}
 %files -n %{python_wheel_pkg_prefix}-%{pypi_name}-wheel
 %license LICENSE.txt
 # we own the dir for simplicity
 %dir %{python_wheel_dir}/
 %{python_wheel_dir}/%{python_wheel_name}
-%endif
 
 %changelog
+* Tue Mar 14 2023 Maxwell G <maxwell@gtmx.me> - 1:0.40.0-1
+- Update to 0.40.0. Fixes rhbz#2178246.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.38.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

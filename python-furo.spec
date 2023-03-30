@@ -1,6 +1,6 @@
 Name:           python-furo
-Version:        2022.12.07
-Release:        2%{?dist}
+Version:        2023.03.27
+Release:        1%{?dist}
 Summary:        Clean customizable Sphinx documentation theme
 
 License:        MIT
@@ -14,7 +14,7 @@ BuildArch:      noarch
 
 BuildRequires:  make
 BuildRequires:  nodejs-devel
-BuildRequires:  npm
+BuildRequires:  nodejs-npm
 BuildRequires:  python-sphinx-doc
 BuildRequires:  python3-devel
 BuildRequires:  python3-docs
@@ -112,6 +112,9 @@ rm -rf html/{.buildinfo,.doctrees}
 %license LICENSE
 
 %changelog
+* Tue Mar 28 2023 Jerry James <loganjerry@gmail.com> - 2023.03.27-1
+- Version 2023.03.27
+
 * Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 2022.12.07-2
 - Dynamically generate BuildRequires
 - The node header tarball is no longer needed

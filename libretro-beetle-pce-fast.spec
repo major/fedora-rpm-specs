@@ -1,6 +1,6 @@
-%global commit  cc248db4d2f47d0f255fbc1a3c651df4beb3d835
+%global commit  69d93f14affd498fb5c71c99591422cfeeb49a33
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date    20220828
+%global date    20230317
 
 %global corename beetle-pce-fast
 

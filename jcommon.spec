@@ -1,8 +1,8 @@
 Name: jcommon
 Version: 1.0.23
-Release: 25%{?dist}
+Release: 26%{?dist}
 Summary: JFree Java utility classes
-License: LGPLv2+
+License: LGPL-2.1-or-later
 # Github: https://github.com/jfree/jcommon
 # There are no tags which we can use to get sources. See:
 #   https://github.com/jfree/jcommon/issues/1
@@ -75,6 +75,9 @@ fi
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Tue Mar 28 2023 Caolán McNamara <caolanm@redhat.com> - 1.0.23-26
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.23-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

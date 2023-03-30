@@ -1,6 +1,6 @@
 Name:           debconf
-Version:        1.5.79
-Release:        6%{?dist}
+Version:        1.5.82
+Release:        1%{?dist}
 Summary:        Debian configuration management system
 
 License:        BSD
@@ -259,6 +259,9 @@ done
 %{python3_sitelib}/__pycache__/debconf.*
 
 %changelog
+* Mon Mar 27 2023 Sérgio Basto <sergio@serjux.com> - 1.5.82-1
+- Update debconf to 1.5.82 (#2148805)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.79-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

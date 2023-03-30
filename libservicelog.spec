@@ -1,6 +1,6 @@
 Name:          libservicelog
 Version:       1.1.19
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       Servicelog Database and Library
 
 #v29_notify_gram.c v29_notify_gram.h are GPLv2+
@@ -37,7 +37,7 @@ Contains header files for building with libservicelog.
 
 %prep
 %setup -q
-%patch0 -p1 -b .libs
+%patch 0 -p1 -b .libs
 
 %build
 autoreconf -fiv
@@ -78,6 +78,9 @@ getent group service >/dev/null || /usr/sbin/groupadd -r service
 
 
 %changelog
+* Tue Mar 28 2023 Than Ngo <than@redhat.com> - 1.1.19-7
+- Fixed patch rpm macro
+
 * Thu Feb 16 2023 Than Ngo <than@redhat.com> - 1.1.19-6
 - migrated to SPDX license
 

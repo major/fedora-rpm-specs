@@ -45,36 +45,40 @@
 Name:           perl
 # These are all found licenses. They are distributed among various
 # subpackages.
-# dist/Tie-File/lib/Tie/File.pm:        GPLv2+ or Artistic
-# cpan/Getopt-Long/lib/Getopt/Long.pm:  GPLv2+ or Artistic
-# cpan/Compress-Raw-Zlib/Zlib.xs:       (GPL+ or Artistic) and zlib
-# cpan/Digest-MD5/MD5.xs:               (GPL+ or Artistic) and BSD
-# cpan/Time-Piece/Piece.xs:             (GPL+ or Artistic) and BSD
-# dist/PathTools/Cwd.xs:                (GPL+ or Artistic) and BSD
-# util.c:                               (GPL+ or Artistic) and BSD
-# cpan/perlfaq/lib/perlfaq4.pod:        (GPL+ or Artistic) and Public Domain
-# cpan/Test-Simple/lib/Test/Tutorial.pod:   (GPL+ or Artistic) and
-#                                           Public Domain
-# cpan/MIME-Base64/Base64.xs:           (GPL+ or Artistic) and MIT
-# cpan/Test-Simple/lib/ok.pm:           CC0
+# dist/Tie-File/lib/Tie/File.pm:        GPL-2.0-or-later OR Artistic-1.0-Perl
+# cpan/Getopt-Long/lib/Getopt/Long.pm:  GPL-2.0-or-later OR Artistic-1.0-Perl
+# cpan/Compress-Raw-Zlib/Zlib.xs:       (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Zlib
+# RSA-MD does not have to be recorded in the License
+# cpan/Digest-MD5/MD5.xs:               (GPL-1.0-or-later OR Artistic-1.0-Perl)
+#                                        AND RSA-MD
+# cpan/Time-Piece/Piece.xs:             (GPL-1.0-or-later OR Artistic-1.0-Perl)
+#                                        AND BSD-2-Clause-Views
+# dist/PathTools/Cwd.xs:                (GPL-1.0-or-later OR Artistic-1.0-Perl)
+#                                        AND BSD-3-Clause
+# util.c:                               (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Martin-Birgmeier
+# cpan/perlfaq/lib/perlfaq4.pod:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND LicenseRef-Fedora-Public-Domain
+# cpan/Test-Simple/lib/Test/Tutorial.pod:   (GPL-1.0-or-later OR Artistic-1.0-Perl)
+#                                            AND LicenseRef-Fedora-Public-Domain
+# cpan/MIME-Base64/Base64.xs:           (GPL-1.0-or-later OR Artistic-1.0-Perl)
+#                                        AND MIT (Bellcore)
+# cpan/Test-Simple/lib/ok.pm:           CC0-1.0
 # cpan/Text-Tabs/lib/Text/Wrap.pm:      TTWL
-# cpan/Encode/bin/encguess:             Artistic 2.0
-# cpan/libnet/lib/Net/libnetFAQ.pod:    Artistic    (CPAN RT#117888)
-# cpan/Unicode-Collate/Collate/allkeys.txt:     Unicode
+# cpan/Encode/bin/encguess:             Artistic-2.0
+# cpan/Unicode-Collate/Collate/allkeys.txt:     Unicode-DFS-2015
 # inline.h:                             MIT
 # lib/unicore:                          UCD
 # ext/SDBM_File/sdbm.{c,h}:             Public domain
-# regexec.c, regcomp.c:                 HSRL
+# regexec.c, regcomp.c:                 Spencer-86
 # cpan/Locale-Maketext-Simple/lib/Locale/Maketext/Simple.pm:    MIT (with
 #                                       exception for Perl)
 # time64.c:                             MIT
-# perly.h:                              GPLv3+ with Bison exception
+# perly.h:                              GPL-3.0-or-later WITH Bison-exception-2.2
 # pod/perlpodstyle.pod:                 MIT
-# pod/perlunicook.pod:                  (GPL+ or Artistic) and Public Domain
+# pod/perlunicook.pod:                  (GPL-1.0-or-later OR Artistic-1.0-Perl) AND LicenseRef-Fedora-UltraPermissive
 # pod/perlgpl.pod:                      GPL text
 # pod/perlartistic.pod:                 Artistic text
-# ext/File-Glob/bsd_glob.{c,h}:         BSD
-# Other files:                          GPL+ or Artistic
+# ext/File-Glob/bsd_glob.{c,h}:         BSD-3-Clause
+# Other files:                          GPL-1.0-or-later OR Artistic-1.0-Perl
 ## Not in a binary package
 # ebcdic_tables.h:                                  MIT
 # cpan/podlators/t/docs/pod.t:                      MIT
@@ -90,8 +94,8 @@ Name:           perl
 # cpan/podlators/t/style/strict.t:                  MIT
 # cpan/Term-ANSIColor/t/lib/Test/RRA/Config.pm:     MIT
 ## Unbundled
-# cpan/Compress-Raw-Bzip2/bzip2-src:    BSD
-# cpan/Compress-Raw-Zlib/zlib-src:      zlib
+# cpan/Compress-Raw-Bzip2/bzip2-src:    bzip2-1.0.6
+# cpan/Compress-Raw-Zlib/zlib-src:      Zlib
 # perl.h (EBDIC parts)                              MIT
 ## perl sub-package notice
 # perluniprops.pod is generated from lib/unicore sources:   UCD
@@ -100,7 +104,7 @@ Name:           perl
 # This sub-subpackage doesn't contain any copyrightable material.
 # Nevertheless, it needs a License tag, so we'll use the generic
 # "perl" license.
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          %{perl_epoch}
 Version:        %{perl_version}
 # release number must be even higher, because dual-lived modules will be broken otherwise
@@ -352,7 +356,7 @@ details on the Perl decomposition into packages.
 
 %package interpreter
 Summary:        Standalone executable Perl interpreter
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 # perl-interpreter denotes a package with the perl executable.
 # Full EVR is for compatibility with systems that swapped perl and perl-core
 # <https://fedoraproject.org/wiki/Changes/perl_Package_to_Install_Core_Modules>,
@@ -407,7 +411,7 @@ package.
 
 %package libs
 Summary:        The libraries for the perl run-time
-License:        (GPL+ or Artistic) and BSD and HSRL and MIT and UCD and Public domain
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Martin-Birgmeier AND Spencer-86 AND MIT AND UCD AND LicenseRef-Fedora-Public-Domain
 # Compat provides
 Provides:       %perl_compat
 # Interpreter version to fulfil required genersted from "require 5.006;"
@@ -461,7 +465,7 @@ directories).
 %package devel
 Summary:        Header files for use in perl development
 # l1_char_class_tab.h is generated from lib/unicore sources:    UCD
-License:        (GPL+ or Artistic) and UCD
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND UCD
 %if %{with perl_enables_systemtap}
 Requires:       systemtap-sdt-devel
 %endif
@@ -491,7 +495,7 @@ Most perl packages will need to install perl-devel to build.
 
 %package macros
 Summary:        Macros for rpmbuild
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 BuildArch:      noarch
 Requires:       %perl_compat
 Requires:       perl-interpreter
@@ -505,7 +509,7 @@ RPM macros that are handy when building binary RPM packages.
 
 %package tests
 Summary:        The Perl test suite
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 # right?
 AutoReqProv:    0
 Requires:       %perl_compat
@@ -524,7 +528,7 @@ modules).
 
 %package utils
 Summary:        Utilities packaged with the Perl distribution
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        %{perl_version}
 BuildArch:      noarch
@@ -544,7 +548,7 @@ packages like perldoc by perl-Pod-Perldoc and splain by perl-diagnostics.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Archive-Tar
 Summary:        A module for Perl manipulation of .tar files
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        2.40
 BuildArch:      noarch
@@ -572,7 +576,7 @@ gzipped tar files.
 
 %package Attribute-Handlers
 Summary:        Simpler definition of attribute handlers
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.02
 BuildArch:      noarch
@@ -593,7 +597,7 @@ phases (i.e. in a "BEGIN", "CHECK", "INIT", or "END" block).
 %if %{dual_life} || %{rebuild_from_scratch}
 %package autodie
 Summary:        Replace functions with ones that succeed or die
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        2.34
 Requires:       %perl_compat
@@ -618,7 +622,7 @@ autodie in preference to "Fatal".
 
 %package AutoLoader
 Summary:        Load subroutines only on demand
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        5.74
 BuildArch:      noarch
@@ -636,7 +640,7 @@ loading them all at once.
 
 %package AutoSplit
 Summary:        Split a package for automatic loading
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 # Real version 1.06
 Version:        5.74
@@ -655,7 +659,7 @@ utility, to automatically configure libraries for automatic loading.
 
 %package autouse
 Summary:        Postpone load of modules until a function is used
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.11
 BuildArch:      noarch
@@ -674,7 +678,7 @@ and substitute themselves with the correct definitions.
 
 %package B
 Summary:        Perl compiler backend
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.83
 Requires:       %perl_compat
@@ -693,7 +697,7 @@ compiler.
 
 %package base
 Summary:        Establish an ISA relationship with base classes at compile time
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        2.27
 BuildArch:      noarch
@@ -712,7 +716,7 @@ lighter-weight "parent".
 
 %package Benchmark
 Summary:        Benchmark running times of Perl code
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.23
 Requires:       %perl_compat
@@ -729,7 +733,7 @@ how long it takes to execute some code.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package bignum
 Summary:        Transparent big number support for Perl
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        0.65
 Requires:       %perl_compat
@@ -750,7 +754,7 @@ BigFloats in a transparent way.
 
 %package blib
 Summary:        Use uninstalled version of a package
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.07
 Requires:       %perl_compat
@@ -772,7 +776,7 @@ Summary:        Alternative warn and die for modules
 Epoch:          0
 # Real version 1.52
 Version:        1.52
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Requires:       %perl_compat
 Provides:       perl(Carp::Heavy) = %{version}
 %if %{defined perl_bootstrap}
@@ -795,7 +799,7 @@ but it is a good educated guess.
 
 %package Class-Struct
 Summary:        Declare struct-like data types as Perl classes
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        0.66
 Requires:       %perl_compat
@@ -813,7 +817,7 @@ Perl 5 class that implements a struct-like data structure.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Compress-Raw-Bzip2
 Summary:        Low-Level Interface to bzip2 compression library
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        2.103
 Requires:       perl(Exporter), perl(File::Temp)
@@ -827,7 +831,7 @@ It is used by IO::Compress::Bzip2.
 
 %package Compress-Raw-Zlib
 Summary:        Low-Level Interface to the zlib compression library
-License:        (GPL+ or Artistic) and zlib
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Zlib
 Epoch:          0
 Version:        2.105
 Requires:       %perl_compat
@@ -842,7 +846,7 @@ It is used by IO::Compress::Zlib.
 
 %package Config-Extensions
 Summary:        Hash lookup of which Perl core extensions were built
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        0.03
 Requires:       %perl_compat
@@ -859,7 +863,7 @@ core extensions that were enabled for this perl.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Config-Perl-V
 Summary:        Structured data retrieval of perl -V output
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        0.33
 Requires:       %perl_compat
@@ -879,7 +883,7 @@ module that will return you the output of "perl -V" in a structure.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package constant
 Summary:        Perl pragma to declare constants
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.33
 Requires:       %perl_compat
@@ -911,7 +915,7 @@ away if the constant is false.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package CPAN
 Summary:        Query, download and build perl modules from CPAN sites
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        2.33
 Requires:       make
@@ -985,7 +989,7 @@ external download clients to fetch distributions from the net.
 Summary:        Distribution metadata for a CPAN dist
 Epoch:          0
 Version:        2.150010
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Requires:       %perl_compat
 Requires:       perl(CPAN::Meta::YAML) >= 0.011
 Requires:       perl(Encode)
@@ -1009,7 +1013,7 @@ Summary:        Set of version requirements for a CPAN dist
 Epoch:          0
 # Real version 2.140
 Version:        2.140
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Requires:       %perl_compat
 BuildArch:      noarch
 # CPAN-Meta-Requirements used to have six decimal places
@@ -1031,7 +1035,7 @@ them to the simplest representation.
 Version:        0.018
 Epoch:          0
 Summary:        Read and write a subset of YAML for CPAN Meta files
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 BuildArch:      noarch
 Requires:       %perl_compat
 %if %{defined perl_bootstrap}
@@ -1048,7 +1052,7 @@ used for any other general YAML parsing or generation task.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Data-Dumper
 Summary:        Stringify perl data structures, suitable for printing and eval
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        2.184
 Requires:       %perl_compat
@@ -1070,7 +1074,7 @@ structures correctly.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package DB_File
 Summary:        Perl5 access to Berkeley DB version 1.x
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.857
 Requires:       %perl_compat
@@ -1090,7 +1094,7 @@ interface defined here mirrors the Berkeley DB interface closely.
 
 %package DBM_Filter
 Summary:        Filter DBM keys and values
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        0.06
 Requires:       %perl_compat
@@ -1112,7 +1116,7 @@ hashes associated with DBM files.
 
 %package debugger
 Summary:        Perl debugger
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.60
 BuildArch:      noarch
@@ -1153,7 +1157,7 @@ a programmatic interface to the debugging API.
 
 %package deprecate
 Summary:        Perl pragma for deprecating the inclusion of a module in core
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        0.04
 Requires:       %perl_compat
@@ -1175,7 +1179,7 @@ module will not break their code.
 
 %package Devel-Peek
 Summary:        A data debugging tool for the XS programmer
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.32
 Requires:       %perl_compat
@@ -1193,7 +1197,7 @@ should look.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Devel-PPPort
 Summary:        Perl Pollution Portability header generator
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        3.68
 Requires:       %perl_compat
@@ -1213,7 +1217,7 @@ of old releases, but users can still reap the benefit.
 
 %package Devel-SelfStubber
 Summary:        Generate stubs for a SelfLoading module
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.06
 BuildArch:      noarch
@@ -1231,7 +1235,7 @@ loaded. They are needed specifically for inherited autoloaded methods.
 
 %package diagnostics
 Summary:        Produce verbose warning diagnostics
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.39
 BuildArch:      noarch
@@ -1255,7 +1259,7 @@ standard input.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Digest
 Summary:        Modules that calculate message digests
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 # Epoch bump for clean upgrade over old standalone package
 Epoch:          0
 Version:        1.20
@@ -1277,7 +1281,7 @@ bytes or bits.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Digest-MD5
 Summary:        Perl interface to the MD5 Algorithm
-License:        (GPL+ or Artistic) and BSD
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 # Epoch bump for clean upgrade over old standalone package
 Epoch:          0
 # Real version 2.58
@@ -1300,7 +1304,7 @@ input a message of arbitrary length and produces as output a 128-bit
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Digest-SHA
 Summary:        Perl extension for SHA-1/224/256/384/512
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 # Epoch bump for clean upgrade over old standalone package
 Epoch:          1
 Version:        6.02
@@ -1321,7 +1325,7 @@ module can handle all types of input, including partial-byte data.
 
 %package DirHandle
 Summary:        Supply object methods for directory handles
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.05
 BuildArch:      noarch
@@ -1340,7 +1344,7 @@ for lexical handles.
 
 %package doc
 Summary:        Perl language documentation
-License:        (GPL+ or Artistic) and UCD and Public Domain
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND UCD AND LicenseRef-Fedora-UltraPermissive
 Epoch:          0
 Version:        %{perl_version}
 BuildArch:      noarch
@@ -1355,7 +1359,7 @@ page format.
 
 %package Dumpvalue
 Summary:        Screen dump of Perl data
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 # Real version 1.21
 Version:        2.27
@@ -1373,7 +1377,7 @@ data structures.
 
 %package DynaLoader
 Summary:        Dynamically load C libraries into Perl code
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.52
 Requires:       %perl_compat
@@ -1392,7 +1396,7 @@ see XSLoader module.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Encode
 Summary:        Character encodings in Perl
-License:        (GPL+ or Artistic) and Artistic 2.0 and UCD
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Artistic-2.0 AND UCD
 Epoch:          4
 Version:        3.17
 Requires:       %perl_compat
@@ -1407,7 +1411,7 @@ of the system. Perl strings are sequences of characters.
 
 %package encoding
 Summary:        Write your Perl script in non-ASCII or non-UTF-8
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          4
 Version:        3.00
 # Keeping this sub-package arch-specific because it installs files into
@@ -1432,13 +1436,13 @@ support.
 
 However, this encoding module is deprecated under perl 5.18. It uses
 a mechanism provided by perl that is deprecated under 5.18 and higher, and may
-be removed in a future version.
+be removed in a future version.GPL-1.0-or-later OR Artistic-1.0-Perl
 
 The easiest and the best alternative is to write your script in UTF-8.
 
 %package Encode-devel
 Summary:        Character encodings in Perl
-License:        (GPL+ or Artistic) and UCD
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND UCD
 Epoch:          4
 Version:        3.17
 Requires:       %perl_compat
@@ -1457,7 +1461,7 @@ your own encoding to perl. No knowledge of XS is necessary.
 
 %package encoding-warnings
 Summary:        Warn on implicit encoding conversions
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        0.13
 BuildArch:      noarch
@@ -1476,7 +1480,7 @@ supported; and the module will do nothing thereafter.
 
 %package English
 Summary:        Nice English or awk names for ugly punctuation variables
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.11
 Requires:       %perl_compat
@@ -1495,7 +1499,7 @@ seems to like to read.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Env
 Summary:        Perl module that imports environment variables as scalars or arrays
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.05
 Requires:       %perl_compat
@@ -1513,7 +1517,7 @@ variables to be treated as scalar or array variables.
 
 %package Errno
 Summary:        System errno constants
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.36
 Requires:       %perl_compat
@@ -1534,7 +1538,7 @@ which will export all POSIX defined error numbers.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package experimental
 Summary:        Experimental features made easy
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        0.028
 Requires:       %perl_compat
@@ -1552,7 +1556,7 @@ experimental features.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Exporter
 Summary:        Implements default import method for modules
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        5.77
 Requires:       %perl_compat
@@ -1574,7 +1578,7 @@ the common case.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package ExtUtils-CBuilder
 Summary:        Compile and link C code for Perl modules
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 # Epoch bump for clean upgrade over old standalone package
 Epoch:          1
 Version:        0.280236
@@ -1601,7 +1605,7 @@ by the Module::Build project, but may be useful for other purposes as well.
 
 %package ExtUtils-Constant
 Summary:        Generate XS code to import C header constants
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        0.25
 BuildArch:      noarch
@@ -1622,7 +1626,7 @@ Perl modules to AUTOLOAD constants defined in C library header files.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package ExtUtils-Command
 Summary:        Perl routines to replace common UNIX commands in Makefiles
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          2
 Version:        7.64
 BuildArch:      noarch
@@ -1641,7 +1645,7 @@ easier to deal with in Makefiles.
 
 %package ExtUtils-Embed
 Summary:        Utilities for embedding Perl in C/C++ applications
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.35
 Requires:       perl-devel
@@ -1658,7 +1662,7 @@ Utilities for embedding Perl in C/C++ applications.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package ExtUtils-Install
 Summary:        Install files from here to there
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        2.20
 BuildArch:      noarch
@@ -1679,7 +1683,7 @@ pages, etc.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package ExtUtils-MakeMaker
 Summary:        Create a module Makefile
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          2
 Version:        7.64
 # These dependencies are weak in order to relieve building noarch
@@ -1721,7 +1725,7 @@ Create a module Makefile.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package ExtUtils-Manifest
 Summary:        Utilities to write and check a MANIFEST file
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          1
 Version:        1.73
 Requires:       %perl_compat
@@ -1737,7 +1741,7 @@ BuildArch:      noarch
 
 %package ExtUtils-Miniperl
 Summary:        Write the C code for perlmain.c
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.11
 Requires:       perl-devel
@@ -1759,7 +1763,7 @@ STDOUT.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package ExtUtils-MM-Utils
 Summary:        ExtUtils::MM methods without dependency on ExtUtils::MakeMaker
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          1
 # Real version 7.11
 # Dual-life ExtUtils-MakeMaker generate it with its version
@@ -1780,7 +1784,7 @@ is an overkill for small subroutines.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package ExtUtils-ParseXS
 Summary:        Module and a script for converting Perl XS code into C code
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 # Epoch bump for clean upgrade over old standalone package
 Epoch:          1
 Version:        3.45
@@ -1799,7 +1803,7 @@ necessary to let Perl access those functions.
 
 %package Fcntl
 Summary:        File operation options
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.15
 Requires:       %perl_compat
@@ -1813,7 +1817,7 @@ Fcntl module provides file operation related options.
 
 %package fields
 Summary:        Compile-time class fields
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 # Real version 2.24
 Version:        2.27
@@ -1832,7 +1836,7 @@ The "fields" pragma enables compile-time and run-time verified class fields.
 
 %package File-Basename
 Summary:        Parse file paths into directory, file name, and suffix
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        2.85
 BuildArch:      noarch
@@ -1850,7 +1854,7 @@ and suffix.
 
 %package File-Compare
 Summary:        Compare files or file handles
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 # Normalized version
 Version:        1.100.700
@@ -1868,7 +1872,7 @@ files specified by a file name or a file handle.
 
 %package File-Copy
 Summary:        Copy files or file handles
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        2.39
 BuildArch:      noarch
@@ -1886,7 +1890,7 @@ useful for getting the contents of a file from one place to another.
 
 %package File-DosGlob
 Summary:        DOS-like globbing
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.12
 Requires:       %perl_compat
@@ -1904,7 +1908,7 @@ wild cards in directory components.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package File-Fetch
 Summary:        Generic file fetching mechanism
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.04
 Requires:       perl(IPC::Cmd) >= 0.36
@@ -1922,7 +1926,7 @@ File::Fetch is a generic file fetching mechanism.
 
 %package File-Find
 Summary:        Traverse a directory tree
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.40
 Requires:       %perl_compat
@@ -1940,7 +1944,7 @@ file found similar to the Unix find command.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package File-Path
 Summary:        Create or remove directory trees
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        2.18
 Requires:       %perl_compat
@@ -1958,7 +1962,7 @@ depth and to delete an entire directory subtree from the file system.
 
 %package File-stat
 Summary:        By-name interface to Perl built-in stat functions
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.12
 BuildArch:      noarch
@@ -1977,7 +1981,7 @@ return the similarly named structure field name from the stat(2) function.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package File-Temp
 Summary:        Return name and handle of a temporary file safely
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          1
 # Normalized version
 Version:        0.231.100
@@ -2000,7 +2004,7 @@ can be used to create a temporary directory.
 
 %package FileCache
 Summary:        Keep more files open than the system permits
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.10
 BuildArch:      noarch
@@ -2018,7 +2022,7 @@ maximum number of file descriptors, or the suggested maximum.
 
 %package FileHandle
 Summary:        Object methods for file handles
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        2.03
 BuildArch:      noarch
@@ -2036,7 +2040,7 @@ input/output operations on them.
 
 %package filetest
 Summary:        Perl pragma to control the filetest permission operators
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.03
 BuildArch:      noarch
@@ -2058,7 +2062,7 @@ with other tools.
 # FIXME Filter-Simple? version?
 %package Filter
 Summary:        Perl source filters
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          2
 Version:        1.60
 Requires:       %perl_compat
@@ -2075,7 +2079,7 @@ sees it.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Filter-Simple
 Summary:        Simplified Perl source filtering
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        0.96
 BuildArch:      noarch
@@ -2094,7 +2098,7 @@ Filter::Util::Call; one that is sufficient for most common cases.
 
 %package FindBin
 Summary:        Locate a directory of an original Perl script
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.53
 Requires:       %perl_compat
@@ -2111,7 +2115,7 @@ relative to the bin directory.
 %if %{with gdbm}
 %package GDBM_File
 Summary:        Perl5 access to the gdbm library
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          1
 Version:        1.23
 Requires:       %perl_compat
@@ -2128,7 +2132,7 @@ provided by the GNU gdbm library.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Getopt-Long
 Summary:        Extended processing of command line options
-License:        GPLv2+ or Artistic
+License:        GPL-2.0-or-later OR Artistic-1.0-Perl
 Epoch:          1
 Version:        2.52
 Requires:       %perl_compat
@@ -2155,7 +2159,7 @@ enabled by default.
 
 %package Getopt-Std
 Summary:        Process single-character switches with switch clustering
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.13
 Requires:       %perl_compat
@@ -2172,7 +2176,7 @@ containing all switches to be recognized.
 
 %package Hash-Util
 Summary:        General-utility hash subroutines
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        0.28
 Requires:       %perl_compat
@@ -2189,7 +2193,7 @@ really warrant a keyword.
 
 %package Hash-Util-FieldHash
 Summary:        Support for inside-out classes
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.26
 Requires:       %perl_compat
@@ -2205,7 +2209,7 @@ inside-out technique of class construction.
 
 %package if
 Summary:        Use a Perl module if a condition holds
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 # Normalized 0.0610
 Version:        0.61.000
@@ -2221,7 +2225,7 @@ The "if" module is used to conditionally load another module.
 
 %package IO
 Summary:        Perl input/output modules
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.50
 Requires:       %perl_compat
@@ -2236,7 +2240,7 @@ This is a collection of Perl input/output modules.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package IO-Compress
 Summary:        IO::Compress wrapper for modules
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        2.106
 Requires:       %perl_compat
@@ -2256,7 +2260,7 @@ purpose is to to be sub-classed by IO::Compress modules.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package IO-Socket-IP
 Summary:        Drop-in replacement for IO::Socket::INET supporting both IPv4 and IPv6
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        0.41
 Requires:       %perl_compat
@@ -2275,7 +2279,7 @@ arguments and methods are provided in a backward-compatible way.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package IO-Zlib
 Summary:        Perl IO:: style interface to Compress::Zlib
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 # Epoch bump for clean upgrade over old standalone package
 Epoch:          1
 Version:        1.11
@@ -2302,7 +2306,7 @@ IO::Handle interface.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package IPC-Cmd
 Summary:        Finding and running system commands made easy
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 # Epoch bump for clean upgrade over old standalone package
 Epoch:          2
 Version:        1.04
@@ -2320,7 +2324,7 @@ independent way, but have them still work.
 
 %package IPC-Open3
 Summary:        Open a process for reading, writing, and error handling
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.22
 Requires:       %perl_compat
@@ -2342,7 +2346,7 @@ error output for handling the errors.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package IPC-SysV
 Summary:        Object interface to System V IPC
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        2.09
 Requires:       %perl_compat
@@ -2359,7 +2363,7 @@ inter-process calls.
 
 %package I18N-Collate
 Summary:        Compare 8-bit scalar data according to the current locale
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.02
 Requires:       %perl_compat
@@ -2376,7 +2380,7 @@ page for further information.
 
 %package I18N-Langinfo
 Summary:        Query locale information
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        0.21
 Requires:       %perl_compat
@@ -2393,7 +2397,7 @@ locale".
 
 %package I18N-LangTags
 Summary:        Functions for dealing with RFC 3066 language tags
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        0.45
 Requires:       %perl_compat
@@ -2414,7 +2418,7 @@ as they are needed in a variety of protocols and applications.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package HTTP-Tiny
 Summary:        A small, simple, correct HTTP/1.1 client
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        0.080
 Requires:       perl(bytes)
@@ -2439,7 +2443,7 @@ resumes after EINTR.
 Summary:        JSON::XS compatible pure-Perl module
 Epoch:          1
 Version:        4.07
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 BuildArch:      noarch
 Requires:       %perl_compat 
 Requires:       perl(Data::Dumper)
@@ -2461,7 +2465,7 @@ JSON::PP is a pure-Perl module and is compatible with JSON::XS.
 
 %package less
 Summary:        Perl pragma to request less of something
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        0.03
 BuildArch:      noarch
@@ -2478,7 +2482,7 @@ can't know.
 
 %package lib
 Summary:        Manipulate @INC at compile time
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        0.65
 Requires:       %perl_compat
@@ -2494,7 +2498,7 @@ This module simplifies the manipulation of @INC at compile time.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package libnet
 Summary:        Perl clients for various network protocols
-License:        (GPL+ or Artistic) and Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        3.14
 Requires:       %perl_compat
@@ -2519,7 +2523,7 @@ protocols used in the internet community.
 
 %package libnetcfg
 Summary:        Configure libnet
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          %perl_epoch
 Version:        %perl_version
 # Net::Config is optional
@@ -2534,7 +2538,7 @@ The libnetcfg utility can be used to configure the libnet.
 
 %package locale
 Summary:        Pragma to use or avoid POSIX locales for built-in operations
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.10
 Requires:       %perl_compat
@@ -2556,7 +2560,7 @@ block.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Locale-Maketext
 Summary:        Framework for localization
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.31
 Requires:       %perl_compat
@@ -2595,7 +2599,7 @@ to alleviate the need of creating Language Classes for module authors.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Math-BigInt
 Summary:        Arbitrary-size integer and float mathematics
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          1
 # Real version 1.999830
 Version:        1.9998.30
@@ -2616,7 +2620,7 @@ This provides Perl modules for arbitrary-size integer and float mathematics.
 
 %package Math-BigInt-FastCalc
 Summary:        Math::BigInt::Calc XS implementation
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 # Version normalized to dot format
 # Real version 0.5012
@@ -2632,7 +2636,7 @@ This package provides support for faster big integer calculations.
 
 %package Math-BigRat
 Summary:        Arbitrary big rational numbers
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 # Real version 0.2621
 Version:        0.2621
@@ -2651,7 +2655,7 @@ for arbitrary big rational numbers.
 
 %package Math-Complex
 Summary:        Complex numbers and trigonometric functions
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.59
 Requires:       %perl_compat
@@ -2669,7 +2673,7 @@ associated with and/or extended to complex numbers.
 
 %package Memoize
 Summary:        Transparently speed up functions by caching return values
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.03
 Requires:       %perl_compat
@@ -2689,7 +2693,7 @@ the value all over again.
 
 %package meta-notation
 Summary:        Change nonprintable characters below 0x100 into printables
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        %{perl_version}
 BuildArch:      noarch
@@ -2708,9 +2712,9 @@ unchanged.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package MIME-Base64
 Summary:        Encoding and decoding of Base64 and quoted-printable strings
-# cpan/MIME-Base64/Base64.xs:   (GPL+ or Artistic) and MIT (Bellcore's part)
-# Other files:                  GPL+ or Artistic
-License:        (GPL+ or Artistic) and MIT
+# cpan/MIME-Base64/Base64.xs:   (GPL-1.0-or-later OR Artistic-1.0-Perl) and MIT (Bellcore's part)
+# Other files:                  GPL-1.0-or-later OR Artistic-1.0-Perl
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND MIT
 Epoch:          0
 Version:        3.16
 Requires:       %perl_compat
@@ -2728,7 +2732,7 @@ encoder/decoder. These encoding methods are specified in RFC 2045 - MIME
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Module-CoreList
 Summary:        What modules are shipped with versions of perl
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          1
 Version:        5.20220520
 Requires:       %perl_compat
@@ -2746,7 +2750,7 @@ are shipped with each version of perl.
 
 %package Module-CoreList-tools
 Summary:        Tool for listing modules shipped with perl
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          1
 Version:        5.20220520
 Requires:       %perl_compat
@@ -2770,7 +2774,7 @@ modules were shipped with given perl version.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Module-Load
 Summary:        Runtime require of both modules and files
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 # Epoch bump for clean upgrade over old standalone package
 Epoch:          1
 Version:        0.36
@@ -2789,7 +2793,7 @@ either a file or a module.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Module-Load-Conditional
 Summary:        Looking up module information / loading at runtime
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        0.74
 Requires:       %perl_compat
@@ -2806,7 +2810,7 @@ of the modules you have installed on your system during runtime.
 
 %package Module-Loaded
 Summary:        Mark modules as loaded or unloaded
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 # Epoch bump for clean upgrade over old standalone package
 Epoch:          1
 Version:        0.08
@@ -2829,7 +2833,7 @@ offers you a very simple way to mark modules as loaded and/or unloaded.
 Summary:        Gather package and POD information from perl module files
 Epoch:          0
 Version:        1.000037
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 BuildArch:      noarch
 Requires:       %perl_compat
 %if %{defined perl_bootstrap}
@@ -2842,7 +2846,7 @@ Gather package and POD information from perl module files
 
 %package mro
 Summary:        Method resolution order
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.26
 Requires:       %perl_compat
@@ -2858,7 +2862,7 @@ resolution order and method caching in general.
 %if %{with gdbm}
 %package NDBM_File
 Summary:        Tied access to ndbm files
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.15
 Requires:       %perl_compat
@@ -2876,7 +2880,7 @@ be used the next time your program runs.
 
 %package Net
 Summary:        By-name interface to Perl built-in network resolver
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.03
 BuildArch:      noarch
@@ -2894,7 +2898,7 @@ getnet*(), getproto*(), and getserv*() functions.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Net-Ping
 Summary:        Check a remote host for reachability
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        2.74
 Requires:       %perl_compat
@@ -2914,7 +2918,7 @@ a network.
 
 %package NEXT
 Summary:        Pseudo-class that allows method redispatch
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        0.69
 Requires:       %perl_compat
@@ -2932,7 +2936,7 @@ if the calling method had not originally been found.
 %if %{with gdbm}
 %package ODBM_File
 Summary:        Tied access to odbm files
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.17
 Requires:       %perl_compat
@@ -2950,7 +2954,7 @@ be used the next time your program runs.
 
 %package Opcode
 Summary:        Disable named opcodes when compiling a perl code
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.57
 Requires:       %perl_compat
@@ -2967,7 +2971,7 @@ will not be executed.
 
 %package open
 Summary:        Perl pragma to set default PerlIO layers for input and output
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.13
 Requires:       %perl_compat
@@ -2986,7 +2990,7 @@ The "open" pragma serves as one of the interfaces to declare default "layers"
 
 %package overload
 Summary:        Overloading Perl operations
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.35
 BuildArch:      noarch
@@ -3006,7 +3010,7 @@ POD instead.
 
 %package overloading
 Summary:        Perl pragma to lexically control overloading
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        0.02
 BuildArch:      noarch
@@ -3023,7 +3027,7 @@ Overloading pragma allows you to lexically disable or enable overloading.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package parent
 Summary:        Establish an ISA relationship with base classes at compile time
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 # Epoch bump for clean upgrade over old standalone package
 Epoch:          1
 Version:        0.238
@@ -3050,7 +3054,7 @@ inheritance from those modules at the same time. Mostly similar in effect to:
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Params-Check
 Summary:        Generic input parsing/checking mechanism
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 # Epoch bump for clean upgrade over old standalone package
 Epoch:          1
 Version:        0.38
@@ -3067,7 +3071,7 @@ Params::Check is a generic input parsing/checking mechanism.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package PathTools
 Summary:        PathTools Perl module (Cwd, File::Spec)
-License:        (GPL+ or Artistic) and BSD
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND BSD-3-Clause
 Epoch:          0
 Version:        3.84
 Requires:       %perl_compat
@@ -3089,7 +3093,7 @@ PathTools Perl module (Cwd, File::Spec).
 %package perlfaq
 Summary:        Frequently asked questions about Perl
 # Code examples are Public Domain
-License:        (GPL+ or Artistic) and Public Domain
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND LicenseRef-Fedora-Public-Domain
 Epoch:          0
 Version:        5.20210520
 Requires:       %perl_compat
@@ -3107,7 +3111,7 @@ questions about Perl and Perl programming.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package PerlIO-via-QuotedPrint
 Summary:        PerlIO layer for quoted-printable strings
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        0.09
 Requires:       %perl_compat
@@ -3129,7 +3133,7 @@ writing to a handle.
 Summary:        Map Perl operating system names to generic types
 Version:        1.010
 Epoch:          0
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Requires:       %perl_compat
 %if %{defined perl_bootstrap}
 %gendep_perl_Perl_OSType
@@ -3148,7 +3152,7 @@ systems are given the type 'Windows' rather than 'Win32').
 
 %package ph
 Summary:        Selected system header files converted to Perl headers
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        %{perl_version}
 Requires:       %perl_compat
@@ -3176,7 +3180,7 @@ package.
 Summary:        Check POD documents for syntax errors
 Epoch:          4
 Version:        1.74
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Requires:       %perl_compat
 %if %{defined perl_bootstrap}
 %gendep_perl_Pod_Checker
@@ -3191,7 +3195,7 @@ Plain Old Documentation format specifications.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Pod-Escapes
 Summary:        Resolve POD escape sequences
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 # Epoch bump for clean upgrade over old standalone package
 Epoch:          1
 Version:        1.07
@@ -3207,7 +3211,7 @@ This module provides things that are useful in decoding Pod E<...> sequences.
 
 %package Pod-Functions
 Summary:        Group Perl functions as in perlfunc POD
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.14
 BuildArch:      noarch
@@ -3224,7 +3228,7 @@ This module enumerates the Perl functions that are documented in perlfunc POD.
 
 %package Pod-Html
 Summary:        Convert POD files to HTML
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.33
 Requires:       %perl_compat
@@ -3242,7 +3246,7 @@ of things it knows how to cross-reference.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Pod-Perldoc
 Summary:        Look up Perl documentation in Pod format
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 # Real version 3.2801
 Version:        3.28.01
@@ -3278,7 +3282,7 @@ the perl library modules.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Pod-Simple
 Summary:        Framework for parsing POD documentation
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 # Epoch bump for clean upgrade over old standalone package
 Epoch:          1
 Version:        3.43
@@ -3297,7 +3301,7 @@ documentation for Perl and for Perl modules.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Pod-Usage
 Summary:        Print a usage message from embedded pod documentation
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          4
 Version:        2.01
 Requires:       %perl_compat
@@ -3322,7 +3326,7 @@ verbose level is 2, then the entire manual page is printed.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package podlators
 Summary:        Format POD source into various output formats
-License:        (GPL+ or Artistic) and MIT
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND FSFAP
 Epoch:          1
 Version:        4.14
 BuildArch:      noarch
@@ -3343,7 +3347,7 @@ with various capabilities.
 
 %package POSIX
 Summary:        Perl interface to IEEE Std 1003.1
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        2.03
 Requires:       %perl_compat
@@ -3359,7 +3363,7 @@ The POSIX module permits you to access all (or nearly all) the standard POSIX
 
 %package Safe
 Summary:        Compile and execute code in restricted compartments
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        2.43
 Requires:       %perl_compat
@@ -3377,7 +3381,7 @@ security purposes.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Scalar-List-Utils
 Summary:        A selection of general-utility scalar and list subroutines
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          5
 Version:        1.62
 Requires:       %perl_compat
@@ -3394,7 +3398,7 @@ such that being individual extensions would be wasteful.
 
 %package Search-Dict
 Summary:        Search for a key in a dictionary file
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.07
 Requires:       %perl_compat
@@ -3411,7 +3415,7 @@ or equal (string-wise) to a key.
 
 %package SelectSaver
 Summary:        Save and restore selected file handle
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.02
 BuildArch:      noarch
@@ -3428,7 +3432,7 @@ file handle that was selected when it was created.
 
 %package SelfLoader
 Summary:        Load functions only on demand
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.26
 BuildArch:      noarch
@@ -3446,7 +3450,7 @@ perlsub.
 
 %package sigtrap
 Summary:        Perl pragma to enable simple signal handling
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.10
 BuildArch:      noarch
@@ -3464,7 +3468,7 @@ The sigtrap pragma is a simple interface for installing signal handlers.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Socket
 Summary:        C socket.h defines and structure manipulators
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          4
 Version:        2.033
 Requires:       %perl_compat
@@ -3482,7 +3486,7 @@ includes all of the commonly used pound-defines like AF_INET, SOCK_STREAM, etc.
 
 %package sort
 Summary:        Perl pragma to control sort() behavior
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        2.05
 BuildArch:      noarch
@@ -3501,7 +3505,7 @@ function.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Storable
 Summary:        Persistence for Perl data structures
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          1
 Version:        3.26
 Requires:       %perl_compat
@@ -3524,7 +3528,7 @@ can be conveniently stored to disk and retrieved at a later time.
 
 %package subs
 Summary:        Perl pragma to predeclare subroutine names
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.04
 BuildArch:      noarch
@@ -3541,7 +3545,7 @@ before they're declared.
 
 %package Symbol
 Summary:        Manipulate Perl symbols and their names
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.09
 BuildArch:      noarch
@@ -3556,7 +3560,7 @@ The Symbol module provides functions for manipulating Perl symbols.
 
 %package Sys-Hostname
 Summary:        Try every conceivable way to get a hostname
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.24
 Requires:       %perl_compat
@@ -3574,7 +3578,7 @@ result.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Sys-Syslog
 Summary:        Perl interface to the UNIX syslog(3) calls
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        0.36
 Requires:       %perl_compat
@@ -3592,7 +3596,7 @@ a string priority and a list of printf() arguments just like at syslog(3).
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Term-ANSIColor
 Summary:        Color screen output using ANSI escape sequences
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        5.01
 Requires:       %perl_compat
@@ -3613,7 +3617,7 @@ imported to be used.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Term-Cap
 Summary:        Perl termcap interface
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.17
 Requires:       %perl_compat
@@ -3633,7 +3637,7 @@ capability (termcap) database.
 
 %package Term-Complete
 Summary:        Perl word completion
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.403
 Requires:       %perl_compat
@@ -3648,7 +3652,7 @@ Conflicts:      perl-interpreter < 4:5.30.1-451
 
 %package Term-ReadLine
 Summary:        Perl interface to various read-line packages
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.17
 Requires:       %perl_compat
@@ -3666,7 +3670,7 @@ on CPAN (under the "Term::ReadLine::*" name space).
 
 %package Test
 Summary:        Simple framework for writing test scripts
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.31
 Requires:       %perl_compat
@@ -3685,7 +3689,7 @@ such that their output is in the format that Test::Harness expects to see.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Test-Harness
 Summary:        Run Perl standard test scripts with statistics
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          1
 Version:        3.44
 Requires:       %perl_compat
@@ -3702,7 +3706,7 @@ Use TAP::Parser, Test::Harness package was whole rewritten.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Test-Simple
 Summary:        Basic utilities for writing tests
-License:        (GPL+ or Artistic) and CC0 and Public Domain
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND CC0-1.0 AND LicenseRef-Fedora-Public-Domain
 Epoch:          3
 Version:        1.302190
 Requires:       %perl_compat
@@ -3718,7 +3722,7 @@ Basic utilities for writing tests.
 
 %package Text-Abbrev
 Summary:        Create an abbreviation table from a list
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.02
 Requires:       %perl_compat
@@ -3735,7 +3739,7 @@ an associative array. The values are the original list elements.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Text-Balanced
 Summary:        Extract delimited text sequences from strings
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        2.04
 Requires:       %perl_compat
@@ -3753,7 +3757,7 @@ after skipping a specified prefix string.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Text-ParseWords
 Summary:        Parse text into an array of tokens or array of arrays
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        3.31
 Requires:       %perl_compat
@@ -3791,7 +3795,7 @@ up long lines, it will not join short lines together.
 
 %package Thread
 Summary:        Manipulate threads in Perl (for old code only)
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        3.05
 BuildArch:      noarch
@@ -3817,7 +3821,7 @@ model (i.e., use the threads and threads::shared modules) as soon as possible.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Thread-Queue
 Summary:        Thread-safe queues
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        3.14
 Requires:       %perl_compat
@@ -3835,7 +3839,7 @@ any number of threads.
 
 %package Tie
 Summary:        Base classes for tying variables
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 # Version from Tie::StdHandle
 Version:        4.6
@@ -3852,7 +3856,7 @@ handles, and scalars.
 
 %package Tie-File
 Summary:        Access the lines of a disk file via a Perl array
-License:        GPLv2+ or Artistic
+License:        GPL-2.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.06
 Requires:       %perl_compat
@@ -3872,7 +3876,7 @@ the array are reflected in the file immediately.
 
 %package Tie-Memoize
 Summary:        Add data to a hash when needed
-License:        GPLv2+ or Artistic
+License:        GPL-2.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.1
 Requires:       %perl_compat
@@ -3891,7 +3895,7 @@ access, and to use the cached value on the following accesses.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Tie-RefHash
 Summary:        Use references as hash keys
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.40
 Requires:       %perl_compat
@@ -3914,7 +3918,7 @@ Tie::RefHash.
 
 %package Time
 Summary:        By-name interface to Perl built-in time functions
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.03
 BuildArch:      noarch
@@ -3931,7 +3935,7 @@ and localtime () functions.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Time-HiRes
 Summary:        High resolution alarm, sleep, gettimeofday, interval timers
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          4
 Version:        1.9770
 Requires:       %perl_compat
@@ -3950,7 +3954,7 @@ high resolution time and timers.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Time-Local
 Summary:        Efficiently compute time from local and GMT time
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          2
 # Real version 1.30
 Version:        1.300
@@ -3972,7 +3976,7 @@ so dates before the system's epoch may not work on all operating systems.
 
 %package Time-Piece
 Summary:        Time objects from localtime and gmtime
-License:        (GPL+ or Artistic) and BSD
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND BSD-2-Clause-Views
 Epoch:          0
 Version:        1.3401
 Requires:       %perl_compat
@@ -3988,7 +3992,7 @@ behave as expected.
 
 %package Thread-Semaphore
 Summary:        Thread-safe semaphores
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        2.13
 Requires:       %perl_compat
@@ -4011,7 +4015,7 @@ multiple resources at once.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package threads
 Summary:        Perl interpreter-based threads
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          1
 Version:        2.27
 Requires:       %perl_compat
@@ -4035,7 +4039,7 @@ variables, you need to also load threads::shared.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package threads-shared
 Summary:        Perl extension for sharing data structures between threads
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.64
 Requires:       %perl_compat
@@ -4055,7 +4059,7 @@ hashes and hash refs.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Unicode-Collate
 Summary:        Unicode Collation Algorithm
-License:        (GPL+ or Artistic) and Unicode
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Unicode-DFS-2015
 Epoch:          0
 Version:        1.31
 Requires:       %perl_compat
@@ -4073,7 +4077,7 @@ Collation Algorithm).
 %if %{dual_life} || %{rebuild_from_scratch}
 %package Unicode-Normalize
 Summary:        Unicode Normalization Forms
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.31
 Requires:       %perl_compat
@@ -4091,7 +4095,7 @@ Unicode normalization forms as defined in Unicode Standard Annex #15.
 
 %package Unicode-UCD
 Summary:        Unicode character database
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        0.78
 BuildArch:      noarch
@@ -4108,7 +4112,7 @@ interface to the Unicode Character Database.
 
 %package User-pwent
 Summary:        By-name interface to Perl built-in user name resolver
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 # Real versions - User::grent = 1.03, User::pwent = 1.01
 Version:        1.03
@@ -4125,7 +4129,7 @@ and getpw*() functions.
 
 %package vars
 Summary:        Perl pragma to predeclare global variable names
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.05
 BuildArch:      noarch
@@ -4149,7 +4153,7 @@ discouraged.
 %if %{dual_life} || %{rebuild_from_scratch}
 %package version
 Summary:        Perl extension for Version Objects
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 # Epoch bump for clean upgrade over old standalone package
 Epoch:          8
 # real version 0.9929
@@ -4166,7 +4170,7 @@ Perl extension for Version Objects
 
 %package vmsish
 Summary:        Perl pragma to control VMS-specific language features
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          0
 Version:        1.04
 BuildArch:      noarch

@@ -12,8 +12,8 @@ ExclusiveArch:	x86_64 aarch64
 
 Summary:	Data Acquisition Library
 Name:		daq
-Version:	2.0.6
-Release:	15%{?dist}
+Version:	2.0.7
+Release:	1%{?dist}
 # sfbpf is BSD (various versions)
 License:	GPLv2 and BSD
 URL:		https://www.snort.org
@@ -110,6 +110,10 @@ find $RPM_BUILD_ROOT -type f -name "*.a" -delete -print
 
 
 %changelog
+* Tue Mar 28 2023 Marcin Dulak <marcindulak@fedoraproject.org> - 2.0.7-1
+- New upstream release
+- Change changelog email
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.6-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -152,5 +156,5 @@ find $RPM_BUILD_ROOT -type f -name "*.a" -delete -print
 * Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
-* Sat Nov 12 2016 Marcin Dulak <Marcin.Dulak@gmail.com> - 2.0.6-1
+* Sat Nov 12 2016 Marcin Dulak <marcindulak@fedoraproject.org> - 2.0.6-1
 - initial version, based on Lawrence R. Rogers's daq.spec from forensics.cert.org

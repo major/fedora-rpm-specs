@@ -99,11 +99,12 @@
 
 Name:			graphviz
 Summary:		Graph Visualization Tools
-Version:		7.1.0
-Release:		2%{?dist}
+Version:		8.0.1
+Release:		1%{?dist}
 License:		EPL-1.0
 URL:			http://www.graphviz.org/
-Source0:		https://gitlab.com/%{name}/%{name}/-/archive/%{version}/%{name}-%{version}.tar.bz2
+#Source0:		https://gitlab.com/%%{name}/%%{name}/-/archive/%%{version}/%%{name}-%%{version}.tar.bz2
+Source0:		https://gitlab.com/api/v4/projects/%{name}%2F%{name}/packages/generic/%{name}-releases/%{version}/%{name}-%{version}.tar.xz
 BuildRequires:		gcc-g++
 BuildRequires:		zlib-devel
 BuildRequires:		libpng-devel
@@ -204,8 +205,6 @@ Requires(post):		/sbin/ldconfig
 Requires(postun):	/sbin/ldconfig
 # rhbz#1838679
 Patch0:			graphviz-4.0.0-gvpack-neato-static.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=2155048
-Patch1:			graphviz-7.0.6-fix-python-3.12.patch
 
 %if ! %{JAVA}
 Obsoletes:              graphviz-java < %{version}-%{release}
@@ -414,7 +413,10 @@ Go extension for graphviz.
 find -type f -regex '.*\.\(c\|h\)$' -exec chmod a-x {} ';'
 
 %build
-./autogen.sh
+# https://gitlab.com/graphviz/graphviz/-/issues/2367
+#./autogen.sh
+autoreconf -fi
+
 %if %{JAVA}
 # Hack in the java includes we need
 sed -i '/JavaVM.framework/!s/JAVA_INCLUDES=/JAVA_INCLUDES=\"_MY_JAVA_INCLUDES_\"/g' configure
@@ -773,6 +775,10 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Tue Mar 28 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 8.0.1-1
+- New version
+  Resolves: rhbz#2182174
+
 * Tue Jan 24 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 7.1.0-2
 - Release bump to handle gs update
 

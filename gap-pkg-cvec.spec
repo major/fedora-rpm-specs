@@ -1,7 +1,7 @@
 %global pkgname  cvec
 
 Name:           gap-pkg-%{pkgname}
-Version:        2.8.0
+Version:        2.8.1
 Release:        1%{?dist}
 Summary:        Compact vectors over finite fields
 
@@ -92,6 +92,9 @@ gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
 %{gap_archdir}/pkg/%{pkgname}/example/
 
 %changelog
+* Tue Mar 28 2023 Jerry James <loganjerry@gmail.com> - 2.8.1-1
+- Version 2.8.1
+
 * Fri Mar 24 2023 Jerry James <loganjerry@gmail.com> - 2.8.0-1
 - Version 2.8.0
 

@@ -20,7 +20,11 @@
 %endif
 
 # support qtchooser (adds qtchooser .conf file)
+%if 0%{?flatpak}
+%global qtchooser 0
+%else
 %global qtchooser 1
+%endif
 %if 0%{?qtchooser}
 %global priority 10
 %ifarch %{multilib_basearchs}
@@ -53,7 +57,7 @@
 Name:    qt5-qtbase
 Summary: Qt5 - QtBase components
 Version: 5.15.8
-Release: 8%{?dist}
+Release: 9%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -1103,6 +1107,9 @@ fi
 
 
 %changelog
+* Tue Mar 28 2023 Kalev Lember <klember@redhat.com> - 5.15.8-9
+- Disable qtchooser for flatpak builds
+
 * Mon Mar 27 2023 Than Ngo <than@redhat.com> - 5.15.8-8
 - Fix bz#2179854, Qt 5 render the Bold style CJK character very thick
   with Noto CJK variable fonts

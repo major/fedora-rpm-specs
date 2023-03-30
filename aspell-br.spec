@@ -4,8 +4,8 @@ Summary: Breton dictionaries for Aspell
 Name: aspell-%{lang}
 Epoch: 50
 Version: 0.50
-Release: 34%{?dist}
-License: GPLv2
+Release: 36%{?dist}
+License: GPL-2.0-only
 URL: http://aspell.net/
 Source: ftp://ftp.gnu.org/gnu/aspell/dict/%{lang}/aspell-%{lang}-%{version}-%{langrelease}.tar.bz2
 Patch0: aspell-br-0.50-conf.patch
@@ -35,6 +35,12 @@ make install DESTDIR="$RPM_BUILD_ROOT"
 %{_libdir}/aspell-0.60/*
 
 %changelog
+* Tue Mar 28 2023 Nikola Forró <nforro@redhat.com> - 50:0.50-36
+- Fix License
+
+* Tue Mar 28 2023 Nikola Forró <nforro@redhat.com> - 50:0.50-35
+- Use SPDX license expression in License
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 50:0.50-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

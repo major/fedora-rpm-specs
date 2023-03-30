@@ -7,7 +7,7 @@
 
 Name:		FoXlibf
 Version:	4.1.2
-Release:	18%{?dist}
+Release:	19%{?dist}
 Summary:	A Fortran XML Library
 License:	zlib and BSD
 URL:		http://www1.gly.bris.ac.uk/~walker/FoX/
@@ -82,6 +82,9 @@ chmod -x %{buildroot}%{_libdir}/*.a
 %{_libdir}/libFoX*.a
 
 %changelog
+* Tue Mar 28 2023 Marcin Dulak <marcindulak@fedoraproject.org> - 4.1.2-19
+- Change changelog email
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.2-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -121,7 +124,7 @@ chmod -x %{buildroot}%{_libdir}/*.a
 * Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
 
-* Mon Oct 31 2016 Marcin Dulak <Marcin.Dulak@gmail.com> - 4.1.2-5
+* Mon Oct 31 2016 Marcin Dulak <marcindulak@fedoraproject.org> - 4.1.2-5
 - Rebuilt for new gcc-gfortran on el7
 
 * Wed Feb 03 2016 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.2-4
@@ -130,10 +133,10 @@ chmod -x %{buildroot}%{_libdir}/*.a
 * Tue Jun 16 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.1.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
 
-* Mon Apr 13 2015 Marcin Dulak <Marcin.Dulak@gmail.com> - 4.1.2-2
+* Mon Apr 13 2015 Marcin Dulak <marcindulak@fedoraproject.org> - 4.1.2-2
 - rebuild for gcc-gfortran-5.0.0
 
-* Sat Nov 8 2014 Marcin Dulak <Marcin.Dulak@gmail.com> - 4.1.2-1
+* Sat Nov 8 2014 Marcin Dulak <marcindulak@fedoraproject.org> - 4.1.2-1
 - renamed to FoXlibf
 
 * Thu May 29 2014 Tom Callaway <spot@fedoraproject.org> - 4.1.2-1

@@ -3,8 +3,8 @@
 %global srcname astropy
 
 Name: python-%{srcname}
-Version: 5.2
-Release: 3%{?dist}
+Version: 5.2.1
+Release: 1%{?dist}
 Summary: A Community Python Library for Astronomy
 License: BSD
 
@@ -108,22 +108,8 @@ export CPATH="/usr/include/cfitsio:/usr/include/wcslib"
 export PYTEST_ADDOPTS='-p no:cacheprovider'
 # https://github.com/astropy/astropy/issues/13522
 pytest_args=(
- --deselect astropy/coordinates/tests/test_pickle.py::test_simple_object
- --deselect astropy/cosmology/flrw/tests/test_base.py::TestFLRW::test_name
- --deselect astropy/cosmology/flrw/tests/test_lambdacdm.py::TestLambdaCDM::test_name
- --deselect astropy/cosmology/flrw/tests/test_lambdacdm.py::TestFlatLambdaCDM::test_name
- --deselect astropy/cosmology/flrw/tests/test_w0cdm.py::TestwCDM::test_name 
- --deselect astropy/cosmology/flrw/tests/test_w0cdm.py::TestFlatwCDM::test_name 
- --deselect astropy/cosmology/flrw/tests/test_w0wacdm.py::Testw0waCDM::test_name
- --deselect astropy/cosmology/flrw/tests/test_w0wacdm.py::TestFlatw0waCDM::test_name
- --deselect astropy/cosmology/flrw/tests/test_w0wzcdm.py::Testw0wzCDM::test_name
- --deselect astropy/cosmology/flrw/tests/test_wpwazpcdm.py::TestwpwaCDM::test_name
- --deselect astropy/cosmology/tests/test_core.py::TestCosmology::test_name
- --deselect "astropy/table/tests/test_pprint.py::TestColumnsShowHide::test_remove[pprint_exclude_names]"
- --deselect "astropy/table/tests/test_pprint.py::TestColumnsShowHide::test_remove[pprint_include_names]"
- --deselect astropy/time/tests/test_mask.py::test_mask_not_writeable
+ --deselect astropy/visualization/wcsaxes/tests/test_misc.py::test_contour_empty
 %ifarch i686
- --deselect astropy/io/fits/tests/test_table.py::TestVLATables::test_copy_vla
  --deselect "astropy/modeling/tests/test_models.py::TestFittable1DModels::test_fitter1D[TRFLSQFitter-BrokenPowerLaw1D-test_parameters22]"
 %endif
 %ifarch aarch64
@@ -155,6 +141,11 @@ popd
 %license LICENSE.rst
 
 %changelog
+* Tue Mar 28 2023 Christian Dersch <lupinix@fedoraproject.org> - 5.2.1-1
+- new version, required for numpy 1.24 compat
+- reenable some tests
+- disable test astropy/visualization/wcsaxes/tests/test_misc.py::test_contour_empty
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

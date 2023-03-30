@@ -1,8 +1,8 @@
 Name: jcommon-serializer
 Version: 0.3.0
-Release: 33%{?dist}
+Release: 34%{?dist}
 Summary: JFree Java General Serialization Framework
-License: LGPLv2+
+License: LGPL-2.1-or-later
 Source0: http://downloads.sourceforge.net/jfreereport/%{name}-%{version}.tar.gz
 URL: http://www.jfree.org/jfreereport/jcommon-serializer
 BuildRequires: ant, java-devel, jpackage-utils, libbase >= 1.0.0
@@ -53,6 +53,9 @@ cp -rp javadoc/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 %{_javadocdir}/%{name}
 
 %changelog
+* Tue Mar 28 2023 Caolán McNamara <caolanm@redhat.com> - 0.3.0-34
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

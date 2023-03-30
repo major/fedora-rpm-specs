@@ -26,7 +26,7 @@
 
 Name:              redis
 Version:           %{upstream_ver}%{?upstream_pre:~%{upstream_pre}}
-Release:           1%{?dist}
+Release:           2%{?dist}
 Summary:           A persistent key-value database
 # redis, hiredis: BSD-3-Clause
 # hdrhistogram, jemalloc, lzf, linenoise: BSD-2-Clause
@@ -37,7 +37,6 @@ URL:               https://redis.io
 Source0:           https://download.redis.io/releases/%{name}-%{upstream_ver}%{?upstream_pre:-%{upstream_pre}}.tar.gz
 Source1:           %{name}.logrotate
 Source2:           %{name}-sentinel.service
-Source6:           %{name}-shutdown
 Source3:           %{name}.service
 Source7:           %{name}-limit-systemd
 Source9:           macros.%{name}
@@ -64,8 +63,6 @@ BuildRequires:     systemd-rpm-macros
 BuildRequires:     openssl-devel
 # redis-trib functionality migrated to redis-cli
 Obsoletes:         redis-trib < 5
-# Required for redis-shutdown
-Requires:          /bin/awk
 Requires:          logrotate
 Requires(pre):     shadow-utils
 Requires(post):    systemd
@@ -194,9 +191,6 @@ install -p -D -m 644 %{S:7} %{buildroot}%{_sysconfdir}/systemd/system/%{name}-se
 # Fix non-standard-executable-perm error.
 chmod 755 %{buildroot}%{_bindir}/%{name}-*
 
-# Install redis-shutdown
-install -pDm755 %{S:6} %{buildroot}%{_libexecdir}/%{name}-shutdown
-
 # Install redis module header
 install -pDm644 src/%{name}module.h %{buildroot}%{_includedir}/%{name}module.h
 
@@ -289,7 +283,6 @@ fi
 %exclude %{_includedir}
 %exclude %{_docdir}/%{name}/*
 %{_bindir}/%{name}-*
-%{_libexecdir}/%{name}-*
 %{_mandir}/man1/%{name}*
 %{_mandir}/man5/%{name}*
 %{_unitdir}/%{name}.service
@@ -314,6 +307,9 @@ fi
 
 
 %changelog
+* Tue Mar 28 2023 Remi Collet <remi@remirepo.net> - 7.2~rc1-2
+- drop redis-shutdown helper and rely on systemd #2181181
+
 * Thu Mar 23 2023 Remi Collet <remi@remirepo.net> - 7.2~rc1-1
 - Upstream 7.2-rc1 release candidate.
 

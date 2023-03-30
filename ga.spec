@@ -17,17 +17,12 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:    ga
-Version: 5.7.2
-Release: 13%{?dist}
+Version: 5.8.2
+Release: 1%{?dist}
 Summary: Global Arrays Toolkit
 License: BSD
 Source: https://github.com/GlobalArrays/ga/releases/download/v%{version}/ga-%{version}.tar.gz
 URL: http://github.com/GlobalArrays/ga
-Patch0:        elempatch_test.patch
-Patch1:        ga572_version.patch
-Patch2:        dereferencing_fix.patch
-Patch3:        ga-c99-1.patch
-Patch4:        ga-c99-2.patch
 ExclusiveArch: %{ix86} x86_64 %{arm} aarch64 ppc64le 
 BuildRequires: openmpi-devel, %{mpich_name}-devel, gcc-c++, gcc-gfortran
 BuildRequires: %{blaslib}-devel, openssh-clients, dos2unix
@@ -117,11 +112,6 @@ Requires: %{blaslib}-devel, %{name}-common = %{version}, %{name}-openmpi = %{ver
 
 %prep
 %setup -q -c -n %{name}-%{version}
-%patch0 -p0
-%patch1 -p0
-%patch2 -p0
-%patch3 -p0
-%patch4 -p0
 
 pushd %{name}-%{ga_version}
 
@@ -185,7 +175,6 @@ find %{buildroot} -type f -name "*.la" -exec rm -f {} \;
 
 mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}/sysctl.d
 echo 'kernel.shmmax = 134217728' > $RPM_BUILD_ROOT/%{_sysconfdir}/sysctl.d/armci.conf
-dos2unix %{name}-%{ga_version}/COPYRIGHT
 %define do_test 1
 %check
 %if %{?do_test}0
@@ -209,40 +198,43 @@ cd ..
 
 %files common
 %doc %{name}-%{ga_version}/README.md %{name}-%{ga_version}/CHANGELOG.md
-%doc %{name}-%{ga_version}/COPYRIGHT
+%doc %{name}-%{ga_version}/DISCLAIMER %{name}-%{ga_version}/LICENSE
 %config(noreplace) %{_sysconfdir}/sysctl.d/armci.conf
 
 %files mpich
-%doc %{name}-%{ga_version}/COPYRIGHT
+%doc %{name}-%{ga_version}/DISCLAIMER %{name}-%{ga_version}/LICENSE
 %{_libdir}/%{mpich_name}/lib/lib*.so.*
 %{_libdir}/%{mpich_name}/bin/*.x
 %files mpich-devel
-%doc %{name}-%{ga_version}/COPYRIGHT
+%doc %{name}-%{ga_version}/DISCLAIMER %{name}-%{ga_version}/LICENSE
 %{_libdir}/%{mpich_name}/lib/lib*.so
 %{_includedir}/%{mpich_name}-%{_arch}/*
 %{_libdir}/%{mpich_name}/bin/ga-config
 %{_libdir}/%{mpich_name}/bin/armci-config
 %{_libdir}/%{mpich_name}/bin/comex-config
 %files mpich-static
-%doc %{name}-%{ga_version}/COPYRIGHT
+%doc %{name}-%{ga_version}/DISCLAIMER %{name}-%{ga_version}/LICENSE
 %{_libdir}/%{mpich_name}/lib/lib*.a
 
 %files openmpi
-%doc %{name}-%{ga_version}/COPYRIGHT
+%doc %{name}-%{ga_version}/DISCLAIMER %{name}-%{ga_version}/LICENSE
 %{_libdir}/openmpi/lib/lib*.so.*
 %{_libdir}/openmpi/bin/*.x
 %files openmpi-devel
-%doc %{name}-%{ga_version}/COPYRIGHT
+%doc %{name}-%{ga_version}/DISCLAIMER %{name}-%{ga_version}/LICENSE
 %{_libdir}/openmpi/lib/lib*.so
 %{_includedir}/openmpi-%{_arch}/*
 %{_libdir}/openmpi/bin/ga-config
 %{_libdir}/openmpi/bin/armci-config
 %{_libdir}/openmpi/bin/comex-config
 %files openmpi-static
-%doc %{name}-%{ga_version}/COPYRIGHT
+%doc %{name}-%{ga_version}/DISCLAIMER %{name}-%{ga_version}/LICENSE
 %{_libdir}/openmpi/lib/lib*.a
 
 %changelog
+* Thu Jan 19 2023 Marcin Dulak <marcindulak@fedoraproject.org> - 5.8.2-1
+- New upstream release
+
 * Thu Jan 19 2023 Marcin Dulak <marcindulak@fedoraproject.org> - 5.7.2-13
 - Exlude %%{ix86} due to bug #2142304
 

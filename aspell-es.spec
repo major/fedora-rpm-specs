@@ -4,8 +4,8 @@ Summary: Spanish dictionaries for Aspell
 Name: aspell-%{lang}
 Epoch: 50
 Version: 1.11
-Release: 25%{?dist}
-License: GPLv2
+Release: 27%{?dist}
+License: GPL-2.0-only
 URL: http://aspell.net/
 Source: ftp://ftp.gnu.org/gnu/aspell/dict/%{lang}/aspell6-%{lang}-%{version}-%{langrelease}.tar.bz2
 Buildrequires: aspell >= 12:0.60
@@ -35,6 +35,12 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_libdir}/aspell-0.60/*
 
 %changelog
+* Tue Mar 28 2023 Nikola Forró <nforro@redhat.com> - 50:1.11-27
+- Fix License
+
+* Tue Mar 28 2023 Nikola Forró <nforro@redhat.com> - 50:1.11-26
+- Use SPDX license expression in License
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 50:1.11-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

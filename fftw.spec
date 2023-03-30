@@ -13,7 +13,7 @@
 
 Name:           fftw
 Version:        3.3.10
-Release:        5%{?dist}
+Release:        7%{?dist}
 Summary:        A Fast Fourier Transform library
 License:        GPLv2+
 URL:            http://www.fftw.org
@@ -27,6 +27,16 @@ BuildRequires:  gcc-gfortran
 %ifarch %{ix86} x86_64 ia64
 %global quad 1
 %endif
+
+# Names of precisions to (maybe) build
+%global prec_names prec_name[0]=single;prec_name[1]=double;prec_name[2]=long;prec_name[3]=quad
+# Number of precisions to build; sometimes quad is not possible
+%global nprec 3
+%if %{quad}
+%global nprec 4
+%endif
+# Number of precisions to build for MPI
+%global nmpiprec 3
 
 # For check phase
 BuildRequires:  time
@@ -277,11 +287,7 @@ export F77=gfortran
 BASEFLAGS="--enable-shared --disable-dependency-tracking --enable-threads"
 BASEFLAGS+=" --enable-openmp"
 
-# Precisions to build
-prec_name[0]=single
-prec_name[1]=double
-prec_name[2]=long
-prec_name[3]=quad
+%prec_names
 
 # Corresponding flags
 prec_flags[0]=--enable-single
@@ -292,31 +298,27 @@ prec_flags[3]=--enable-quad-precision
 %ifarch x86_64
 # Enable SSE2 and AVX support for x86_64
 for ((i=0; i<2; i++)) ; do
-    prec_flags[i]+=" --enable-sse2 --enable-avx"
+    prec_flags[i]+=" --enable-sse2 --enable-avx --enable-avx2"
 done
 %endif
 
-# No NEON run time detection, not all ARM SoCs have NEON
-#%ifarch %{arm}
-## Compile support for NEON instructions
-#for ((i=0; i<2; i++)) ; do
-#    prec_flags[i]+=" --enable-neon"
-#done
-#%endif
+%ifarch %{arm64}
+# Compile support for NEON instructions
+for ((i=0; i<2; i++)) ; do
+    prec_flags[i]+=" --enable-neon"
+done
+BASEFLAGS+=" --enable-armv8-cntvct-el0"
+%endif
 
-#%ifarch ppc ppc64
-## Compile support for Altivec instructions
-#for ((i=0; i<2; i++)) ; do
-#    prec_flags[i]+=" --enable-altivec"
-#done
-#%endif
+%ifarch ppc ppc64
+# Compile support for Altivec instructions; only supported for single precision
+for ((i=0; i<1; i++)) ; do
+    prec_flags[i]+=" --enable-altivec"
+done
+%endif
 
 # Loop over precisions
-%if %{quad}
-for ((iprec=0; iprec<4; iprec++)) ; do
-%else
-for ((iprec=0; iprec<3; iprec++)) ; do
-%endif
+for ((iprec=0; iprec<%{nprec}; iprec++)) ; do
     mkdir ${prec_name[iprec]}${ver_name[iver]}
     cd ${prec_name[iprec]}${ver_name[iver]}
     ln -s ../configure .
@@ -328,16 +330,19 @@ for ((iprec=0; iprec<3; iprec++)) ; do
 done
 
 # MPI Builds - this duplicates the non-mpi builds, but oh well
-for mpi in %{mpi_list} ; do
+for mpi in %{?mpi_list} ; do
     module load mpi/${mpi}-%{_arch}
     # Loop over precisions - no quad precision support with MPI
-    for((iprec=0;iprec<3;iprec++)) ; do
+    for((iprec=0;iprec<%{nmpiprec};iprec++)) ; do
         mkdir ${mpi}-${prec_name[iprec]}${ver_name[iver]}
         cd ${mpi}-${prec_name[iprec]}${ver_name[iver]}
         ln -s ../configure .
         # Force linking the _mpi.so libraries with the mpi libs.  This works because
         # we get rid of all of the non-mpi components of these builds
         export CC=mpicc
+        if [ $mpi = "openmpi" ]; then
+            export MPIRUN="mpirun --oversubscribe"
+        fi
         %{configure} ${BASEFLAGS} ${prec_flags[iprec]} \
             --enable-mpi \
             --libdir=%{_libdir}/$mpi/lib \
@@ -352,23 +357,21 @@ for mpi in %{mpi_list} ; do
 done
 
 %install
+%prec_names
+
 # Explicitly load shell support for the environment-modules package, used
 # below via 'module' pseudo-command.
 source /etc/profile.d/modules.sh
 
-%if %{quad}
-for ver in single double long quad ; do
-%else
-for ver in single double long ; do
-%endif
-    %make_install -C $ver
+for((iprec=0;iprec<%{nprec};iprec++)) ; do
+    %make_install -C ${prec_name[iprec]}
 done
 
 # MPI
-for mpi in %{mpi_list} ; do
+for mpi in %{?mpi_list} ; do
     module load mpi/${mpi}-%{_arch}
-    for ver in single double long ; do
-        %make_install -C ${mpi}-${ver}
+    for((iprec=0;iprec<%{nmpiprec};iprec++)) ; do
+        %make_install -C ${mpi}-${prec_name[iprec]}
         # Remove duplicated non-mpi libraries, binaries, and data
         find %{buildroot}%{_libdir}/${mpi}/lib -name libfftw\* -a \! -name \*_mpi.\* -delete
         rm -r %{buildroot}%{_libdir}/${mpi}/{bin,share}
@@ -380,28 +383,25 @@ rm -f %{buildroot}%{_infodir}/dir
 find %{buildroot} -name \*.la -delete
 
 %check
+%prec_names
 # Explicitly load shell support for the environment-modules package, used
 # below via 'module' pseudo-command.
 . /etc/profile.d/modules.sh
 
 bdir=$(pwd)
-%if %{quad}
-for ver in single double long quad ; do
-%else
-for ver in single double long ; do
-%endif
-    export LD_LIBRARY_PATH=$bdir/$ver/.libs:$bdir/$ver/threads/.libs
-    %make_build -C $ver check
+for((iprec=0;iprec<%{nprec};iprec++)) ; do
+    export LD_LIBRARY_PATH=$bdir/${prec_name[iprec]}/.libs:$bdir/${prec_name[iprec]}/threads/.libs
+    %make_build -C ${prec_name[iprec]} check
 done
 
 # MPI
 # Allow oversubscription with openmpi
 export OMPI_MCA_rmaps_base_oversubscribe=1
-for mpi in %{mpi_list} ; do
+for mpi in %{?mpi_list} ; do
     module load mpi/${mpi}-%{_arch}
-    for ver in single double long ; do
-        export LD_LIBRARY_PATH=$bdir/$ver/.libs:$bdir/$ver/threads/.libs
-        %make_build -C ${mpi}-${ver}/mpi check
+    for((iprec=0;iprec<%{nmpiprec};iprec++)) ; do
+        export LD_LIBRARY_PATH=$bdir/${prec_name[iprec]}/.libs:$bdir/${prec_name[iprec]}/threads/.libs
+        %make_build -C ${mpi}-${prec_name[iprec]}/mpi check
     done
     module unload mpi/${mpi}-%{_arch}
 done
@@ -525,6 +525,18 @@ done
 %endif
 
 %changelog
+* Tue Mar 28 2023 David Cantrell <dcantrell@redhat.com> - 3.3.10-7
+- Rebuild
+
+* Mon Mar 27 2023 Trent Piepho <tpiepho@gmail.com> - 3.3.10-6
+- Enable AVX2 on x86-86
+- Enable NEON on aarch64
+- Clean up precision list
+- Fix for OpenMPI build with < 4 processors
+- Fix building with no enabled MPI types
+- Enable single precision Altivec on PPC
+- Enable CNTVCT_EL0 support on ARMv8
+
 * Thu Mar 02 2023 Orion Poplawski <orion@nwra.com> - 3.3.10-5
 - Use make macros
 - Drop openmpi vader workaround

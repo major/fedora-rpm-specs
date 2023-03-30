@@ -3,7 +3,7 @@ Epoch:          1
 Version:        1.79
 Release:        7%{?dist}
 Summary:        Parse and format strptime and strftime patterns
-License:        Artistic 2.0
+License:        Artistic-2.0
 URL:            https://metacpan.org/release/DateTime-Format-Strptime
 Source0:        https://cpan.metacpan.org/modules/by-module/DateTime/DateTime-Format-Strptime-%{version}.tar.gz
 BuildArch:      noarch
@@ -43,7 +43,8 @@ BuildRequires:  perl(utf8)
 # Optional Tests
 BuildRequires:  perl(CPAN::Meta) >= 2.120900
 BuildRequires:  perl(CPAN::Meta::Prereqs)
-# Runtime
+# Dependencies
+# (none)
 
 %description
 This module implements most of strptime(3), the POSIX function that is the

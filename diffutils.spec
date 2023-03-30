@@ -1,7 +1,7 @@
 Summary: GNU collection of diff utilities
 Name: diffutils
 Version: 3.9
-Release: 3%{?dist}
+Release: 4%{?dist}
 URL: https://www.gnu.org/software/diffutils/diffutils.html
 Source: https://ftp.gnu.org/gnu/diffutils/diffutils-%{version}.tar.xz
 Patch1: diffutils-cmp-s-empty.patch
@@ -29,9 +29,9 @@ Install diffutils if you need to compare text files.
 %prep
 %setup -q
 # For 'cmp -s', compare file sizes only if both non-zero (bug #563618).
-%patch1 -p1 -b .cmp-s-empty
+%patch 1 -p1 -b .cmp-s-empty
 
-%patch2 -p1 -b .i18n
+%patch 2 -p1 -b .i18n
 
 # Run autoreconf for aarch64 support (bug #925256).
 autoreconf
@@ -59,6 +59,9 @@ make check
 %{_infodir}/diffutils.info*
 
 %changelog
+* Tue Mar 28 2023 Than Ngo <than@redhat.com> - 3.9-4
+- Fix deprecated patch rpm marco
+
 * Tue Feb 21 2023 Than Ngo <than@redhat.com> - 3.9-3
 - migrated to SPDX license
 

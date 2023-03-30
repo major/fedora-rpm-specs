@@ -4,7 +4,7 @@
 %global dnf_conflict 4.11.0
 %global swig_version 3.0.12
 %global libdnf_major_version 0
-%global libdnf_minor_version 68
+%global libdnf_minor_version 70
 %global libdnf_micro_version 0
 
 %define __cmake_in_source_build 1
@@ -56,7 +56,7 @@
 
 Name:           libdnf
 Version:        %{libdnf_major_version}.%{libdnf_minor_version}.%{libdnf_micro_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Library providing simplified C and Python API to libsolv
 License:        LGPLv2+
 URL:            https://github.com/rpm-software-management/libdnf
@@ -304,6 +304,13 @@ popd
 %endif
 
 %changelog
+* Fri Mar 03 2023 Jan Kolarik <jkolarik@redhat.com> - 0.70.0-1
+- Update to 0.70.0
+- Allow change of architecture for packages during security updates with noarch involved (RhBug:2124483)
+- "dnf_keyring_add_public_keys": reset localError to NULL after free (RhBug:2121222)
+- context: Get RPM db path from RPM
+- Fix memory leak of SolvUserdata
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.68.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

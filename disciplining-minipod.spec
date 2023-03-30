@@ -4,7 +4,7 @@ Library providing C disciplining algorithm used with oscillatord to discipling
 oscillators using the minipod algorithm developed by Matthias Lorentz.}
 
 Name:           disciplining-minipod
-Version:        3.5.0
+Version:        3.5.1
 Release:        %autorelease
 Summary:        Disciplining algorithm for Atomic Reference Time Card
 

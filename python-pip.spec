@@ -14,7 +14,7 @@
 
 Name:           python-%{srcname}
 Version:        %{base_version}%{?prerel:~%{prerel}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A tool for installing and managing Python packages
 
 # We bundle a lot of libraries with pip, which itself is under MIT license.
@@ -82,6 +82,10 @@ Patch:          nowarn-pip._internal.main.patch
 # (This also breaks Python's test suite when warnings are treated as errors.)
 # Upstream issue: https://github.com/pypa/packaging/issues/368
 Patch:          no-version-warning.patch
+
+# Fix compatibility with Sphinx 6+, merged upstream
+Patch:          https://github.com/pypa/pip/pull/11883.patch
+Patch:          https://github.com/pypa/pip/pull/11904.patch
 
 # Downstream only patch
 # Users might have local installations of pip from using
@@ -383,6 +387,10 @@ pytest_k='not completion'
 %{python_wheel_dir}/%{python_wheel_name}
 
 %changelog
+* Mon Mar 27 2023 Karolina Surma <ksurma@redhat.com> - 23.0.1-2
+- Fix compatibility with Sphinx 6+
+Resolves: rhbz#2180479
+
 * Mon Feb 20 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 23.0.1-1
 - Update to 23.0.1
 Resolves: rhbz#2165760

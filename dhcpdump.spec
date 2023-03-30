@@ -1,12 +1,20 @@
 Name:           dhcpdump
 Version:        1.8
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Parse DHCP packets
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            http://www.mavetju.org/unix/general.php
 Source0:        http://www.mavetju.org/download/%{name}-%{version}.tar.gz
-Patch0: dhcpdump-c99.patch
+Patch0: dhcpdump.c.patch
+Patch1: dhcpdump-build.patch
+Patch2: dhcpdump-bugfix_ethertype.patch
+Patch3: dhcpdump-bugfix_flags.patch
+Patch4: dhcpdump-bugfix_opt82.patch
+Patch5: dhcpdump-bugfix_strcounts.patch
+Patch6: dhcpdump-warnings.patch
+Patch7: dhcpdump-spelling.patch
+
 
 BuildRequires:  gcc
 BuildRequires:  libpcap-devel
@@ -21,7 +29,7 @@ A utility to analyze sniffed DHCP packets.
 
 
 %build
-%make_build CFLAGS="%{build_cflags}" LDFLAGS="%{build_ldflags}"
+%make_build
 
 %install
 install -D -p -m 755 -t %{buildroot}%{_bindir} %{name}
@@ -35,6 +43,9 @@ install -D -p -m 644 -t %{buildroot}%{_mandir}/man8/ %{name}.8
 
 
 %changelog
+* Thu Feb 23 2023 Boian Bonev <bbonev@ipacct.com> - 1.8-5
+- Import multiple fixes from Debian
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

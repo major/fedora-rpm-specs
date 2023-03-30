@@ -9,7 +9,7 @@ Name:           perl-DateTime-TimeZone-SystemV
 Version:        0.010
 Release:        18%{?dist}
 Summary:        System V and POSIX timezone strings
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DateTime-TimeZone-SystemV
 Source0:        https://cpan.metacpan.org/authors/id/Z/ZE/ZEFRAM/DateTime-TimeZone-SystemV-%{version}.tar.gz
 BuildArch:      noarch
@@ -32,6 +32,7 @@ BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage)
 %endif
 # Dependencies
+# (none)
 
 %description
 An instance of this class represents a timezone that was specified by means

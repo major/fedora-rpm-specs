@@ -1,11 +1,9 @@
 Summary: An ircII chat client
 Name: epic
 Version: 2.10.10
-Release: 7%{?dist}
+Release: 8%{?dist}
 Epoch: 4
-# The entire source code is Freely redistributable without restriction except some
-# files (notably, glob.c, and compat.c) may contain some source covered by BSD
-License: Freely redistributable without restriction and BSD
+License: BSD-3-Clause AND ISC AND LicenseRef-Fedora-Public-Domain
 Source0: ftp://ftp.epicsol.org/pub/epic/EPIC4-PRODUCTION/epic4-%{version}.tar.xz
 Source1: ftp://ftp.epicsol.org/pub/epic/EPIC4-PRODUCTION/epic4-help-current.tar.bz2
 Source2: epic.wmconfig
@@ -74,8 +72,9 @@ rm -rf doc/CVS
 rm -f $RPM_BUILD_ROOT/%{_libexecdir}/wserv
 
 %files
-%doc BUG_FORM COPYRIGHT INSTALL KNOWNBUGS UPDATES
+%doc BUG_FORM INSTALL KNOWNBUGS README UPDATES
 %doc doc/*
+%license COPYRIGHT
 %{_bindir}/*
 %{_libexecdir}/*
 %dir %{_datadir}/epic
@@ -87,6 +86,10 @@ rm -f $RPM_BUILD_ROOT/%{_libexecdir}/wserv
 %{_datadir}/epic/help/*
 
 %changelog
+* Tue Mar 28 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 4:2.10.10-8
+- SPDX migration
+- Add %%license, add README to %%doc
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4:2.10.10-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

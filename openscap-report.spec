@@ -1,8 +1,8 @@
 %global pymodule_name openscap_report
 
 Name:           openscap-report
-Version:        0.2.1
-Release:        1%{?dist}
+Version:        0.2.2
+Release:        0%{?dist}
 Summary:        A tool for generating human-readable reports from (SCAP) XCCDF and ARF results
 
 # The entire source code is LGPL-2.1+ and GPL-2.0+ and MIT except schemas/ and assets/, which are Public Domain
@@ -11,6 +11,7 @@ URL:            https://github.com/OpenSCAP/%{name}
 Source0:        https://github.com/OpenSCAP/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
+
 BuildRequires:  python3-devel
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-sphinx_rtd_theme
@@ -59,6 +60,26 @@ install -m 0644 -Dt %{buildroot}%{_mandir}/man1 _build_docs/oscap-report.1
 
 
 %changelog
+* Tue Mar 28 2023 Packit <hello@packit.dev> - 0.2.2-0
+- 0.2.2 (Jan Rodak)
+- Clean up CI jobs titles (Evgeny Kolesnikov)
+- Fix RHEL8/EPEL8 build and test integration (Evgeny Kolesnikov)
+- Show message for OVAL object (Jan Rodak)
+- Parse message of collected OVAL object (Jan Rodak)
+- Create OvalObjectMessage (Jan Rodak)
+- Create a clickable rule title to show rule detail (Jan Rodak)
+- Add a copy remediation to the clipboard (Jan Rodak)
+- Uderline remediation summary (Jan Rodak)
+- Replace word search with filter (Jan Rodak)
+- Fix compatibility issue with python3.8 in the test suite (Jan Rodak)
+- Execute test suite with python3.8 and the latest python (Jan Rodak)
+- Create package dependency test for centos stream 8 (Jan Rodak)
+- Create copr build for rhel8 (Jan Rodak)
+- Fix TypeError: 'type' object is not subscriptable coused by downgrade (Jan Rodak)
+- Downgrade the minimum version of python (Jan Rodak)
+- Add spec file for rhel8 (Jan Rodak)
+- Fix W3601 (Jan Rodak)
+
 * Mon Mar 13 2023 Packit <hello@packit.dev> - 0.2.1-1
 - 0.2.1 (Jan Rodak)
 - Add rule weight attribute to report (Jan Rodak)

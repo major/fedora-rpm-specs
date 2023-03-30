@@ -1,5 +1,5 @@
-%global commit  162918f06d9a705330b2ba128e0d3b65fd1a1bcc
-%global date    20220828
+%global commit  dd6393f76ff781df0f4e8c953f5b053b1e61b313
+%global date    20230224
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global corename beetle-vb

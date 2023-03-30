@@ -1,7 +1,7 @@
 %global xfceversion 4.18
 
 Name:           xfce4-session
-Version:        4.18.1
+Version:        4.18.2
 Release:        %autorelease
 Summary:        Xfce session manager
 

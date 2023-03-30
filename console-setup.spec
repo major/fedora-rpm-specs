@@ -1,11 +1,11 @@
 
 Name:		console-setup
 Version:	1.218
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Tools for configuring the console using X Window System key maps
 
 # For a breakdown of the licensing, see COPYRIGHT, copyright, copyright.fonts and copyright.xkb
-License:	GPLv2+ and MIT and Public Domain
+License:	GPL-2.0-or-later AND MIT AND LicenseRef-Fedora-Public-Domain
 URL:		http://packages.debian.org/cs/sid/console-setup
 Source0:	http://ftp.de.debian.org/debian/pool/main/c/%{name}/%{name}_%{version}.tar.xz
 
@@ -96,6 +96,9 @@ cp -a Fonts/fontsets Fonts/*.equivalents Fonts/*.set \
 
 
 %changelog
+* Tue Mar 28 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.218-2
+- SPDX migration
+
 * Fri Mar 17 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.218-1
 - Update to latest upstream version
   Resolves: #2178377

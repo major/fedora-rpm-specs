@@ -5,8 +5,8 @@
 %global _docdir_fmt python3-zope-testrunner
 
 Name:           python-zope-testrunner
-Version:        5.6
-Release:        3%{?dist}
+Version:        6.0
+Release:        1%{?dist}
 Summary:        Zope testrunner script
 
 License:        ZPL-2.1
@@ -115,6 +115,9 @@ popd
 %doc docs/_build/html
 
 %changelog
+* Tue Mar 28 2023 Jerry James <loganjerry@gmail.com> - 6.0-1
+- Version 6.0
+
 * Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 5.6-3
 - Create subunit extras subpackage
 - Dynamically generate BuildRequires

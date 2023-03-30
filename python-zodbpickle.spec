@@ -1,5 +1,5 @@
 Name:           python-zodbpickle
-Version:        3.0
+Version:        3.0.1
 Release:        1%{?dist}
 Summary:        Fork of Python 2 pickle module for ZODB
 
@@ -55,6 +55,9 @@ rst2html --no-datestamp README.rst README.html
 %exclude %{python3_sitearch}/zodbpickle/*.c
 
 %changelog
+* Tue Mar 28 2023 Jerry James <loganjerry@gmail.com> - 3.0.1-1
+- Version 3.0.1
+
 * Fri Mar 24 2023 Jerry James <loganjerry@gmail.com> - 3.0-1
 - Version 3.0
 

@@ -1,8 +1,8 @@
 Summary: A collection of programs for manipulating patch files
 Name: patchutils
 Version: 0.4.2
-Release: 9%{?dist}
-License: GPLv2+
+Release: 10%{?dist}
+License: GPL-2.0-or-later
 URL: http://cyberelk.net/tim/patchutils/
 Source0: http://cyberelk.net/tim/data/patchutils/stable/%{name}-%{version}.tar.xz
 Obsoletes: interdiff <= 0.0.10
@@ -43,6 +43,9 @@ make check
 %{_mandir}/*/*
 
 %changelog
+* Tue Mar 28 2023 Than Ngo <than@redhat.com> - 0.4.2-10
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
