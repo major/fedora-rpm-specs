@@ -1,8 +1,8 @@
 %bcond_without check
 
-%global tag      v1.3.0
+%global tag      v1.3.1
 %global forgeurl https://github.com/pop-os/keyboard-configurator
-Version:         1.3.0
+Version:         1.3.1
 %forgemeta
 
 Name:          system76-keyboard-configurator
@@ -74,6 +74,9 @@ appstream-util validate-relax --nonet linux/com.system76.keyboardconfigurator.ap
 
 
 %changelog
+* Wed Mar 29 2023 Link Dupont <linkdupont@fedoraproject.org> - 1.3.1-1
+- New upstream version (RHBZ#2182528)
+
 * Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 1.3.0-3
 - Rebuild for fixed frame pointer compiler flags in Rust RPM macros.
 

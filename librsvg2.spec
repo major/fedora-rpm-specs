@@ -14,15 +14,16 @@
 
 Name:           librsvg2
 Summary:        An SVG library based on cairo
-Version:        2.55.90
+Version:        2.56.0
 Release:        1%{?dist}
 
 License:        LGPLv2+
 URL:            https://wiki.gnome.org/Projects/LibRsvg
-Source0:        https://download.gnome.org/sources/librsvg/2.55/librsvg-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/librsvg/2.56/librsvg-%{version}.tar.xz
 
 %if ! 0%{?bundled_rust_deps}
 # Patches to build with Fedora-packaged rust crates
+Patch:          0001-Remove-unused-chrono-wasmbind-feature.patch
 Patch:          0001-Fedora-Drop-dependencies-required-for-benchmarking.patch
 %endif
 
@@ -112,7 +113,7 @@ chrpath --delete %{buildroot}%{_libdir}/gdk-pixbuf-2.0/*/loaders/libpixbufloader
 rm -f %{buildroot}%{_pkgdocdir}/COMPILING.md
 
 %files
-%doc code-of-conduct.md CONTRIBUTING.md README.md
+%doc code-of-conduct.md NEWS README.md
 %license COPYING.LIB
 %{_libdir}/librsvg-2.so.*
 %{_libdir}/gdk-pixbuf-2.0/*/loaders/libpixbufloader-svg.so
@@ -137,6 +138,9 @@ rm -f %{buildroot}%{_pkgdocdir}/COMPILING.md
 %{_mandir}/man1/rsvg-convert.1*
 
 %changelog
+* Wed Mar 29 2023 Kalev Lember <klember@redhat.com> - 2.56.0-1
+- Update to 2.56.0
+
 * Thu Mar 02 2023 Kalev Lember <klember@redhat.com> - 2.55.90-1
 - Update to 2.55.90
 

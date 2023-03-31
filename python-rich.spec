@@ -14,6 +14,7 @@ BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
 # for checks
 BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(setuptools)
 
 %description
 Rich is a Python library for rich text and beautiful formatting in the terminal.

@@ -1,12 +1,12 @@
 Name:           python-certifi
-Version:        2022.09.24
-Release:        2%{?dist}
+Version:        2022.12.07
+Release:        1%{?dist}
 Summary:        Python package for providing Mozilla's CA Bundle
 
 License:        MPL-2.0
 URL:            https://certifi.io/
 Source:         https://github.com/certifi/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch:          certifi-2022.09.24-use-system-cert.patch
+Patch:          certifi-2022.12.07-use-system-cert.patch
 
 BuildArch:      noarch
 
@@ -79,6 +79,10 @@ diff --ignore-blank-lines /etc/pki/tls/certs/ca-bundle.crt contents
 
 
 %changelog
+* Wed Mar 15 2023 Miro Hrončok <mhroncok@redhat.com> - 2022.12.07-1
+- Update to 2022.12.07
+- Fixes: rhbz#2178694
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.09.24-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

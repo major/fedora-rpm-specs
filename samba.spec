@@ -134,8 +134,8 @@
 
 %define samba_requires_eq()  %(LC_ALL="C" echo '%*' | xargs -r rpm -q --qf 'Requires: %%{name} = %%{epoch}:%%{version}\\n' | sed -e 's/ (none):/ /' -e 's/ 0:/ /' | grep -v "is not")
 
-%global samba_version 4.18.0
-%global baserelease 12
+%global samba_version 4.18.1
+%global baserelease 0
 # This should be rc1 or %%nil
 %global pre_release %nil
 
@@ -171,7 +171,7 @@
 %global talloc_version 2.4.0
 %global tdb_version 1.4.8
 %global tevent_version 0.14.1
-%global ldb_version 2.7.1
+%global ldb_version 2.7.2
 
 %global required_mit_krb5 1.20.1
 
@@ -4369,6 +4369,12 @@ fi
 %endif
 
 %changelog
+* Wed Mar 29 2023 Guenther Deschner <gdeschner@redhat.com> - 4.18.1-0
+- resolves: #2182787 - Update to version 4.18.1
+- resolves: #2182772, #2182773 - Security fixes for CVE-2023-0225
+- resolves: #2182774, #2182775 - Security fixes for CVE-2023-0922
+- resolves: #2182776, #2182777 - Security fixes for CVE-2023-0614
+
 * Tue Mar 21 2023 Andreas Schneider <asn@redhat.com> - 4.18.0-12
 - Fix ctdb file lists when built with test suite enabled
 

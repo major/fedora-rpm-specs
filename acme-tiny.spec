@@ -9,7 +9,7 @@
 
 Name:		acme-tiny
 Version:	5.0.1
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Tiny auditable script to issue, renew Let's Encrypt certificates
 
 License:	MIT
@@ -133,6 +133,9 @@ exit 0
 %{_sbindir}/acme_tiny
 
 %changelog
+* Tue Mar 28 2023 Stuart D. Gathman <stuart@gathman.org> - 5.0.1-5
+- Verified SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -145,7 +148,7 @@ exit 0
 * Thu Oct 28 2021 Stuart D. Gathman <stuart@gathman.org> 5.0.1-1
 - New upstream release
 
-* Tue Sep  8 2021 Stuart D. Gathman <stuart@gathman.org> 4.1.1-2
+* Wed Sep  8 2021 Stuart D. Gathman <stuart@gathman.org> 4.1.1-2
 - Remove CLI override in acme-tiny.service (uses /etc/sysconfig/acme-tiny now)
 
 * Tue Sep  7 2021 Stuart D. Gathman <stuart@gathman.org> 4.1.1-1

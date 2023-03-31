@@ -1,9 +1,9 @@
 Name:       php-gettext-languages
 Version:    2.10.0
-Release:    2%{?dist}
+Release:    3%{?dist}
 BuildArch:  noarch
 
-License:    MIT and Unicode
+License:    MIT and Unicode-DFS-2016
 Summary:    Generate gettext language lists with plural rules
 URL:        https://github.com/mlocati/cldr-to-gettext-plural-rules
 # Upstream removes the tests from the archive, so the tarball is manually built from a checkout.
@@ -77,6 +77,9 @@ phpunit7 --bootstrap tests/bootstrap.php --verbose
 
 
 %changelog
+* Wed Mar 29 2023 Sundeep Anand <suanand@redhat.com> - 2.10.0-3
+- update license tag to as per SPDX identifiers
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

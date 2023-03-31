@@ -5,7 +5,7 @@ Summary:       GNU Emacs text editor
 Name:          emacs
 Epoch:         1
 Version:       28.2
-Release:       4%{?dist}
+Release:       5%{?dist}
 License:       GPLv3+ and CC0
 URL:           http://www.gnu.org/software/emacs/
 Source0:       https://ftp.gnu.org/gnu/emacs/emacs-%{version}.tar.xz
@@ -33,6 +33,7 @@ Patch7:        https://git.savannah.gnu.org/cgit/emacs.git/patch/?id=d48bb4874bc
 # https://debbugs.gnu.org/cgi/bugreport.cgi?bug=60208
 # backport of https://git.savannah.gnu.org/cgit/emacs.git/patch/?id=e59216d3be86918b995bd63273c851ebc6176a83
 Patch8:        native-compile-with_-Q.patch
+Patch9:        webkit2gtk-4.1.patch
 
 BuildRequires: gcc
 BuildRequires: atk-devel
@@ -78,7 +79,7 @@ BuildRequires: systemd-devel
 BuildRequires: libgccjit-devel
 
 BuildRequires: gtk3-devel
-BuildRequires: webkit2gtk3-devel
+BuildRequires: webkit2gtk4.1-devel
 
 BuildRequires: gnupg2
 
@@ -220,6 +221,7 @@ cp -p %{SOURCE3} lib/
 %patch6 -p1
 %patch7 -p1 -b .ctags-local-execution-cve
 %patch8 -p1 -b .native-compile-Q
+%patch9 -p1 -b .webkit2gtk-4.1
 autoconf
 
 grep -v "tetris.elc" lisp/Makefile.in > lisp/Makefile.in.new \
@@ -544,6 +546,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 %{_includedir}/emacs-module.h
 
 %changelog
+* Fri Feb 10 2023 Michael Catanzaro <mcatanzaro@redhat.com> - 1:28.2-5
+- Use webkit2gtk-4.1
+
 * Fri Jan 27 2023 Dan Čermák <dan.cermak@cgc-instruments.com> - 1:28.2-4
 - Ensure that emacs-nox loads the correct eln files
 

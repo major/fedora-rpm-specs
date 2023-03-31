@@ -3,7 +3,7 @@
 %bcond_with tests
 %global ansible_licensedir %{_defaultlicensedir}/ansible
 %global ansible_docdir %{_defaultdocdir}/ansible
-%global min_ansible_core 2.14.2
+%global min_ansible_core 2.14.4
 
 # Roles' files and templates should not be mangled.
 # These files are installed on remote systems which may or may not have the
@@ -20,7 +20,7 @@ BuildRequires:  python%{python3_pkgversion}-rpm-macros
 
 Name:           ansible
 Summary:        Curated set of Ansible collections included in addition to ansible-core
-Version:        7.3.0
+Version:        7.4.0
 %global uversion %(tr -d '~' <<< %{version})
 Release:        1%{?dist}
 
@@ -221,6 +221,9 @@ hardlink -v %{buildroot}%{ansible_licensedir}
 %{python3_sitelib}/ansible-%{uversion}-py%{python3_version}.egg-info/
 
 %changelog
+* Wed Mar 29 2023 Maxwell G <maxwell@gtmx.me> - 7.4.0-1
+- Update to 7.4.0.
+
 * Wed Mar 01 2023 Maxwell G <maxwell@gtmx.me> - 7.3.0-1
 - Update to 7.3.0.
 

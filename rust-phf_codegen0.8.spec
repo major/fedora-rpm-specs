@@ -2,21 +2,22 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate markup5ever
+%global crate phf_codegen
 
-Name:           rust-markup5ever
-Version:        0.11.0
+Name:           rust-phf_codegen0.8
+Version:        0.8.0
 Release:        %autorelease
-Summary:        Common code for xml5ever and html5ever
+Summary:        Codegen library for PHF types
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/markup5ever
+# https://github.com/sfackler/rust-phf/pull/118
+License:        MIT
+URL:            https://crates.io/crates/phf_codegen
 Source:         %{crates_source}
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Common code for xml5ever and html5ever.}
+Codegen library for PHF types.}
 
 %description %{_description}
 
@@ -30,9 +31,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/local_names.txt
+# FIXME: no license files detected
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

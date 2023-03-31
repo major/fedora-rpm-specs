@@ -37,13 +37,15 @@ Summary:        %{summary}
 
 %description -n python3-%{srcname} %{_description}
 
+%pyproject_extras_subpkg -n python3-%{srcname} async
+
 
 %prep
 %forgeautosetup
 
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -x async
 
 
 %build

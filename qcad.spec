@@ -8,7 +8,7 @@
 
 Name:    qcad
 Version: 3.28.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Powerful 2D CAD system
 
 ## Main license: GPLv3
@@ -26,7 +26,7 @@ Summary: Powerful 2D CAD system
 ## Other fonts in directory 'fonts' are released as public domain (all copyright
 ## is waived) and BSD (3-clauses).
 
-License: GPLv3 and GPLv2+ and MIT and BSD and Public Domain and CC-BY and Hershey
+License: GPL-3.0-only and GPL-2.0-or-later and MIT and BSD and Public Domain and CC-BY-3.0 and Hershey
 Source0: https://github.com/qcad/qcad/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1: %{name}.desktop
 Source2: %{name}.appdata.xml
@@ -190,9 +190,7 @@ QTLIB=%{_qt5_libdir} \
 QTDIR=%{_qt5_libdir} \
 QTINC=%{_qt5_headerdir} \
 WISECONFIGDIR=%{_datadir}/wise2 \
-%if 0%{?fedora} >= 31
 QT_QPA_PLATFORM=xcb \
-%endif
 PATH=%{_libdir}:%{_QCAD_DIR}
 %{_QCAD_DIR}/%{name}-bin "\$@"
 EOF
@@ -209,7 +207,7 @@ install -pm 644 %{SOURCE2} %{buildroot}%{_metainfodir}/
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 %files
-%doc README.md
+%doc README.md readme.txt
 %license LICENSE.txt gpl-3.0.txt gpl-3.0-exceptions.txt cc-by-3.0.txt fonts/hershey.readme
 %license fonts/README.sazanami fonts/LICENSE_E.mplus fonts/osifont_license.txt
 %license src/3rdparty/dxflib/gpl-2.0greater.txt
@@ -225,6 +223,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_mandir}/man1/*
 
 %changelog
+* Wed Mar 29 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.28.0.0-2
+- Fix License tag
+
 * Tue Mar 28 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.28.0.0-1
 - Release 3.28.0.0
 

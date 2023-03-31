@@ -58,7 +58,7 @@ This package contains version 2 of the API, which uses libsoup3 internally.
 
 %package -n     geocode-glib2-devel
 Summary:        Development files for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       geocode-glib2%{?_isa} = %{version}-%{release}
 
 %description -n geocode-glib2-devel
 The %{name}-devel package contains libraries and header files for

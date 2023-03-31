@@ -1,6 +1,6 @@
 Name:           geoclue2
-Version:        2.6.0
-Release:        5%{?dist}
+Version:        2.7.0
+Release:        1%{?dist}
 Summary:        Geolocation service
 
 License:        GPLv2+
@@ -14,7 +14,7 @@ BuildRequires:  glib2-devel
 BuildRequires:  gobject-introspection-devel
 BuildRequires:  gtk-doc
 BuildRequires:  json-glib-devel
-BuildRequires:  libsoup-devel
+BuildRequires:  libsoup3-devel
 BuildRequires:  meson
 BuildRequires:  ModemManager-glib-devel
 BuildRequires:  systemd
@@ -149,6 +149,10 @@ exit 0
 
 
 %changelog
+* Wed Mar 29 2023 Kalev Lember <klember@redhat.com> - 2.7.0-1
+- Update to 2.7.0
+- Switch to libsoup 3
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

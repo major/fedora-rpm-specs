@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        81
+Version:        82
 
 %forgemeta
 
@@ -33,6 +33,7 @@ Requires:       glibc
 Requires:       policycoreutils
 Requires:       qemu-img
 Requires:       systemd
+Requires:       skopeo
 Requires:       tar
 Requires:       util-linux
 Requires:       python3-%{pypi_name} = %{version}-%{release}
@@ -251,6 +252,20 @@ fi
 
 
 %changelog
+* Wed Mar 29 2023 Packit <hello@packit.dev> - 82-1
+Changes with 82
+----------------
+  * CI: update fedora-38 images (#1273)
+  * ci: update manifest tests (#1242)
+  * rpmbuild: build on fedora-38 (#1268)
+  * stages: add ovf stage (#1266)
+  * test: this test requires to be able to bindmount (#1261)
+
+Contributions from: Jakub Rusz, Sanne Raymaekers, Simon de Vlieger, Thomas Lavocat
+
+— Somewhere on the Internet, 2023-03-29
+
+
 * Mon Feb 27 2023 Tomáš Hozza <thozza@redhat.com> - 81-1
 Changes with 81
 ----------------

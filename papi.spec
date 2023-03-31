@@ -11,7 +11,7 @@
 Summary: Performance Application Programming Interface
 Name: papi
 Version: 7.0.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: BSD
 Requires: papi-libs = %{version}-%{release}
 URL: http://icl.cs.utk.edu/papi/
@@ -27,7 +27,7 @@ BuildRequires: kernel-headers >= 2.6.32
 BuildRequires: chrpath
 BuildRequires: lm_sensors-devel
 %if %{without bundled_libpfm}
-BuildRequires: libpfm-devel >= 4.6.0-1
+BuildRequires: libpfm-devel >= 4.13.0-1
 %if %{with_static}
 BuildRequires: libpfm-static >= 4.6.0-1
 %endif
@@ -181,6 +181,9 @@ find %{buildroot} -type f -executable ! -iname "*.py" ! -iname "*.sh" | xargs ch
 %endif
 
 %changelog
+* Tue Mar 28 2023 William Cohen <wcohen@redhat.com> - 7.0.1-3
+- Rebuild with libpfm-4.13.0.
+
 * Wed Mar 15 2023 William Cohen <wcohen@redhat.com> - 7.0.1-2
 - Bump NVR and rebuild.
 

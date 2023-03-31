@@ -1,7 +1,7 @@
 %global soversion 5
 
 Name:           libcint
-Version:        5.2.2
+Version:        5.3.0
 Release:        1%{?dist}
 Summary:        General Gaussian-type orbitals integrals for quantum chemistry
 License:        BSD
@@ -73,6 +73,9 @@ make -C %{_host} test ARGS=-V
 %{_libdir}/libcint.so
 
 %changelog
+* Wed Mar 29 2023 Susi Lehtola <jussilehtola@fedoraproject.org> - 5.3.0-1
+- Update to 5.3.0.
+
 * Thu Mar 23 2023 Susi Lehtola <jussilehtola@fedoraproject.org> - 5.2.2-1
 - Update to 5.2.2.
 

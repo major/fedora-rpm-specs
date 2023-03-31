@@ -6,7 +6,7 @@ from an XML text format, which is also called TTX. It supports TrueType, \
 OpenType, AFM and to an extent Type 1 and some Mac-specific formats.
 
 Name:           fonttools
-Version:        4.39.2
+Version:        4.39.3
 Release:        1%{?dist}
 Summary:        Tools to manipulate font files
 
@@ -96,6 +96,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} %{python3} -m pytest --ignore Tests/o
 %{python3_sitearch}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Mar 29 2023 Parag Nemade <pnemade AT redhat DOT com> - 4.39.3-1
+- Update to 4.39.3 version (#2182480)
+
 * Mon Mar 20 2023 Parag Nemade <pnemade AT redhat DOT com> - 4.39.2-1
 - Update to 4.39.2 version (#2179416)
 

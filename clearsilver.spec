@@ -2,7 +2,7 @@
 
 Name:           clearsilver
 Version:        0.10.5
-Release:        73%{?dist}
+Release:        74%{?dist}
 Summary:        Fast and powerful HTML templating system
 # Technically, the license is "Neotonic ClearSilver", but it is a copy of 
 # ASL 1.1 with the trademarks as the only difference.
@@ -44,10 +44,8 @@ to ClearSilver.
 %package     -n perl-%{name}
 Summary:        Perl interface to the ClearSilver HTML templating system
 BuildRequires:  perl-interpreter
-%if 0%{?fedora} > 6
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
-%endif
 %if 0%{?rhel} > 7
 BuildRequires:  perl-ExtUtils-MakeMaker
 %endif
@@ -158,6 +156,9 @@ ln -s clearsilver-%{version}.jar $RPM_BUILD_ROOT%{_libdir}/java/clearsilver.jar
 
 
 %changelog
+* Tue Mar 28 2023 Davide Cavalca <dcavalca@fedoraproject.org> - 0.10.5-74
+- Fix build for EPEL 9
+
 * Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.10.5-73
 - migrated to SPDX license
 

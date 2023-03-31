@@ -57,7 +57,7 @@
 Name:    qt5-qtbase
 Summary: Qt5 - QtBase components
 Version: 5.15.8
-Release: 9%{?dist}
+Release: 10%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -394,40 +394,40 @@ Qt5 libraries used for drawing widgets and OpenGL items.
 %setup -q -n %{qt_module}-everywhere-src-%{version}
 
 ## dowstream patches
-%patch3 -p1 -b .private_api_warning
+%patch -P3 -p1 -b .private_api_warning
 
 ## upstream fixes
 
 %patch50 -p1 -b .QT_VERSION_CHECK
 # FIXME/TODO : rebase or drop -- rdieter
-#patch51 -p1 -b .hidpi_scale_at_192
-%patch52 -p1 -b .moc_macros
-%patch53 -p1 -b .qt5gui_cmake_isystem_includes
-%patch54 -p1 -b .qmake_LFLAGS
-%patch55 -p1 -b .no_relocatable
-%patch56 -p1 -b .libglvnd
-%patch61 -p1 -b .qt5-qtbase-cxxflag
+#patch -P51 -p1 -b .hidpi_scale_at_192
+%patch -P52 -p1 -b .moc_macros
+%patch -P53 -p1 -b .qt5gui_cmake_isystem_includes
+%patch -P54 -p1 -b .qmake_LFLAGS
+%patch -P55 -p1 -b .no_relocatable
+%patch -P56 -p1 -b .libglvnd
+%patch -P61 -p1 -b .qt5-qtbase-cxxflag
 %if 0%{?fedora} < 35
-%patch63 -p1 -b .firebird
+%patch -P63 -p1 -b .firebird
 %else
-%patch64 -p1 -b .firebird
+%patch -P64 -p1 -b .firebird
 %endif
 %if 0%{?fedora} > 27
-%patch65 -p1 -b .mysql
+%patch -P65 -p1 -b .mysql
 %endif
-%patch68 -p1
+%patch -P68 -p1
 
 %if 0%{?fedora} > 30 || 0%{?rhel} > 8
-%patch80 -p1 -b .use-wayland-on-gnome.patch
+%patch -P80 -p1 -b .use-wayland-on-gnome.patch
 %endif
 
-%patch90 -p1 -b .gcc11
+%patch -P90 -p1 -b .gcc11
 
 ## upstream patches
-%patch100 -p1
-%patch101 -p1
-%patch102 -p1
-%patch103 -p1
+%patch -P100 -p1
+%patch -P101 -p1
+%patch -P102 -p1
+%patch -P103 -p1
 
 # move some bundled libs to ensure they're not accidentally used
 pushd src/3rdparty
@@ -1107,6 +1107,11 @@ fi
 
 
 %changelog
+* Wed Mar 29 2023 Than Ngo <than@redhat.com> - 5.15.8-10
+- Related bz#2179854, Qt 5 render the Bold style CJK character very thick
+  with Noto CJK variable fonts
+- Fix deprecated patch rpm macro
+
 * Tue Mar 28 2023 Kalev Lember <klember@redhat.com> - 5.15.8-9
 - Disable qtchooser for flatpak builds
 

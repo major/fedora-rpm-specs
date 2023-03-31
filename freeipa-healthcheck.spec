@@ -17,10 +17,10 @@
 
 Name:           %{prefix}-healthcheck
 Version:        0.12
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Health check tool for %{productname}
 BuildArch:      noarch
-License:        GPLv3
+License:        GPL-3.0-or-later
 URL:            https://github.com/freeipa/freeipa-healthcheck
 Source0:        https://github.com/freeipa/freeipa-healthcheck/archive/%{version}.tar.gz
 Source1:        ipahealthcheck.conf
@@ -156,6 +156,9 @@ PYTHONPATH=src PATH=$PATH:$RPM_BUILD_ROOT/usr/bin pytest-3 tests/test_*
 
 
 %changelog
+* Wed Mar 29 2023 Rob Crittenden <rcritten@redhat.com> - 0.12-3
+- Migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

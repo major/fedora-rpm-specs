@@ -1,18 +1,14 @@
 Name:           javacc-maven-plugin
-Version:        2.6
-Release:        38%{?dist}
+Version:        3.0.1
+Release:        1%{?dist}
 Summary:        JavaCC Maven Plugin
-License:        ASL 2.0
-URL:            https://github.com/mojohaus/javacc-maven-plugin
+
+License:        Apache-2.0
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
-
-#svn export http://svn.codehaus.org/mojo/tags/javacc-maven-plugin-2.6
-#tar cjf javacc-maven-plugin-2.6.tar.bz2 javacc-maven-plugin-2.6
-Source0:        javacc-maven-plugin-2.6.tar.bz2
-Source1:        http://www.apache.org/licenses/LICENSE-2.0.txt
-
-Patch0:         javacc-maven-plugin-pom.patch
+URL:            https://github.com/mojohaus/javacc-maven-plugin
+Source0:        %{url}/archive/%{name}-%{version}.tar.gz
+Source1:        https://www.apache.org/licenses/LICENSE-2.0.txt
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(junit:junit)
@@ -21,26 +17,32 @@ BuildRequires:  mvn(org.apache.maven.doxia:doxia-sink-api)
 BuildRequires:  mvn(org.apache.maven.doxia:doxia-site-renderer)
 BuildRequires:  mvn(org.apache.maven:maven-model)
 BuildRequires:  mvn(org.apache.maven:maven-plugin-api)
-BuildRequires:  mvn(org.apache.maven:maven-project)
+BuildRequires:  mvn(org.apache.maven.plugin-tools:maven-plugin-annotations)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-plugin-plugin)
 BuildRequires:  mvn(org.apache.maven.reporting:maven-reporting-api)
 BuildRequires:  mvn(org.apache.maven.reporting:maven-reporting-impl)
 BuildRequires:  mvn(org.codehaus.mojo:mojo-parent:pom:)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-plugin-plugin)
 
 %description
 Maven Plugin for processing JavaCC grammar files.
 
-%package javadoc
-Summary:        Javadoc for %{name}
-
-%description javadoc
-API documentation for %{name}.
+%javadoc_package
 
 %prep
-%setup -q 
-%patch0 -b .sav
+%autosetup -n %{name}-%{name}-%{version}
 cp -p %{SOURCE1} .
+
+# Do not use jtb, which is unmaintained.  It accessed only via reflection to
+# avoid depending on Java 1.5 for compilation.
+%pom_remove_dep edu.ucla.cs.compilers:jtb
+
+# Disable integration tests
+%pom_remove_plugin org.apache.maven.plugins:maven-invoker-plugin
+rm -fr src/it
+
+# Disable building the web site
+rm -fr src/site
 
 %build
 %mvn_build
@@ -49,12 +51,13 @@ cp -p %{SOURCE1} .
 %mvn_install
 
 %files -f .mfiles
-%doc LICENSE-2.0.txt src/main/resources/NOTICE
-
-%files javadoc -f .mfiles-javadoc
-%doc LICENSE-2.0.txt src/main/resources/NOTICE
+%license LICENSE-2.0.txt src/main/resources/NOTICE
 
 %changelog
+* Wed Mar 29 2023 Jerry James <loganjerry@gmail.com> - 3.0.1-1
+- Version 3.0.1
+- Convert License tag to SPDX
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -10,7 +10,7 @@
 Summary:        Real-time Midi I/O Library
 Name:           portmidi
 Version:        217
-Release:        51%{?dist}
+Release:        52%{?dist}
 License:        MIT
 URL:            http://portmedia.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/portmedia/%{name}-src-%{version}.zip
@@ -22,8 +22,9 @@ Patch1:         portmidi-no_date_footer.patch
 Patch2:         portmidi-217-format-security.patch
 Patch3:         portmidi-no.c++.patch
 Patch4:         portmidi-cyrex-0.21.patch
-Patch5:         portmidi-no.java.patch
-Patch6:         portmidi-c99.patch
+Patch5:         portmidi-c99.patch
+# Number no java patches 100 and above
+Patch100:       portmidi-no.java.patch
 BuildRequires: make
 BuildRequires:  alsa-lib-devel
 BuildRequires:  cmake
@@ -79,16 +80,11 @@ real-time MIDI input/output library. This package contains
 }some test applications.
 
 %prep
-%setup -q -n %{name}
-%patch0 -p1 -b .buildfix
-%patch1 -p1 -b .no.date
-%patch2 -p1 -b .fmt.security
-%patch3 -p1 -b .no.c++
-%patch4 -p1 -b .pyrex021
+%autosetup -n %{name} -N
+%autopatch -p 1 -M 99
 %if ! 0%{?JAVA}
-%patch5 -p1 -b .no.java
+%autopatch -p 1 -m 100
 %endif
-%patch6 -p1
 
 
 # generate Cython C files during build
@@ -218,6 +214,9 @@ rm -f %{buildroot}%{_libdir}/libportmidi_s.so
 %{_libdir}/lib*.so
 
 %changelog
+* Wed Mar 29 2023 Michael J Gruber <mjg@fedoraproject.org> - 217-52
+- Adjust patch macro usage to rpm >= 4.18
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 217-51
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

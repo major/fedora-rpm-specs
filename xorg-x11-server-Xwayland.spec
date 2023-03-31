@@ -8,7 +8,7 @@
 
 Summary:   Xwayland
 Name:      xorg-x11-server-Xwayland
-Version:   23.1.0
+Version:   23.1.1
 Release:   1%{?gitdate:.%{gitdate}git%{shortcommit}}%{?dist}
 
 URL:       http://www.x.org
@@ -131,6 +131,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/pkgconfig/xwayland.pc
 
 %changelog
+* Wed Mar 29 2023 Olivier Fourdan <ofourdan@redhat.com> - 23.1.1-1
+- xwayland 23.1.1 - (#2182734)
+  CVE fix for: CVE-2023-1393
+
 * Wed Mar 22 2023 Olivier Fourdan <ofourdan@redhat.com> - 23.1.0-1
 - xwayland 23.1.0 - (#2180913)
 

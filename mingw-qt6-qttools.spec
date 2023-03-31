@@ -19,7 +19,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.4.2
+Version:        6.4.3
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtTools component
 
@@ -246,6 +246,9 @@ ln -s %{_libdir}/cmake/Qt6LinguistTools %{buildroot}%{mingw64_libdir}/cmake/Qt6L
 
 
 %changelog
+* Wed Mar 29 2023 Sandro Mani <manisandro@gmail.com> - 6.4.3-1
+- Update to 6.4.3
+
 * Tue Mar 28 2023 Sandro Mani <manisandro@gmail.com> - 6.4.2-1
 - Update to 6.4.2
 

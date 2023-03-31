@@ -1,10 +1,10 @@
 Name:    libatomic_ops
 Summary: Atomic memory update operations
-Version: 7.6.14
-Release: 2%{?dist}
+Version: 7.8.0
+Release: 1%{?dist}
 
-# libatomic_ops MIT, libatomic_ops_gpl GPLv2
-License: GPLv2 and MIT
+# libatomic_ops MIT, libatomic_ops_gpl GPLv2+
+License: GPL-2.0-or-later AND MIT
 URL:     https://github.com/ivmai/libatomic_ops/
 Source0: https://github.com/ivmai/libatomic_ops/releases/download/v%{version}/libatomic_ops-%{version}.tar.gz
 
@@ -44,20 +44,14 @@ Files for developing with %{name} and linking statically.
   --enable-shared \
   --disable-silent-rules
 
-# kill rpath
-sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
-sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
-
 %make_build
 
 
 %install
 %make_install
 
-## unpackaged files
-rm -fv %{buildroot}%{_libdir}/lib*.la
 # omit dup'd docs
-rm -fv %{buildroot}%{_docdir}/libatomic_ops/{COPYING,README*,*.txt}
+rm -fv %{buildroot}%{_docdir}/libatomic_ops/{COPYING,LICENSE,README*,*.txt}
 
 
 %check
@@ -67,13 +61,13 @@ export LD_LIBRARY_PATH=%{_builddir}/%{name}-%{version}/src/.libs/
 
 %files
 %license COPYING
-%license doc/LICENSING.txt
+%license LICENSE
 %doc AUTHORS ChangeLog README.md
 %{_libdir}/libatomic_ops.so.1*
 %{_libdir}/libatomic_ops_gpl.so.1*
 
 %files devel
-%doc doc/README*
+%doc README_*.txt
 %{_includedir}/atomic_ops.h
 %{_includedir}/atomic_ops_malloc.h
 %{_includedir}/atomic_ops_stack.h
@@ -88,6 +82,9 @@ export LD_LIBRARY_PATH=%{_builddir}/%{name}-%{version}/src/.libs/
 
 
 %changelog
+* Wed Mar 29 2023 Dan Horák <dan[at]danny.cz> - 7.8.0-1
+- Update to 7.8.0 (#2182540)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.6.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

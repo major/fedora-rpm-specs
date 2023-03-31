@@ -4,7 +4,7 @@
 
 Name: ansible-core
 Summary: A radically simple IT automation system
-Version: 2.14.3
+Version: 2.14.4
 %global uversion %{version_no_tilde %{quote:%nil}}
 Release: 1%{?dist}
 # The main license is GPLv3+. Many of the files in lib/ansible/module_utils
@@ -240,6 +240,9 @@ make PYTHON=%{python3} tests-py3
 
 
 %changelog
+* Wed Mar 29 2023 Maxwell G <maxwell@gtmx.me> - 2.14.4-1
+- Update to 2.14.4. Fixes rhbz#2173765.
+
 * Wed Mar 01 2023 Maxwell G <maxwell@gtmx.me> - 2.14.3-1
 - Update to 2.14.3.
 

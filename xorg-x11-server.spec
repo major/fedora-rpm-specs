@@ -46,7 +46,7 @@
 Summary:   X.Org X11 X server
 Name:      xorg-x11-server
 Version:   1.20.14
-Release:   20%{?gitdate:.%{gitdate}}%{?dist}
+Release:   21%{?gitdate:.%{gitdate}}%{?dist}
 URL:       http://www.x.org
 License:   MIT
 
@@ -135,6 +135,8 @@ Patch121: 0007-xkb-reset-the-radio_groups-pointer-to-NULL-after-fre.patch
 Patch122: 0008-Xext-fix-invalid-event-type-mask-in-XTestSwapFakeInp.patch
 # CVE-2023-0494
 Patch123: 0001-Xi-fix-potential-use-after-free-in-DeepCopyPointerCl.patch
+# CVE-2023-1393
+Patch124: 0001-composite-Fix-use-after-free-of-the-COW.patch
 
 # Only on F38 and later (patch number starts at 3801, see autopatch below)
 # Upstream commits 73d6e88, f69280dd and 4127776, minus the xwayland.pc.in change
@@ -554,6 +556,9 @@ find %{inst_srcdir}/hw/xfree86 -name \*.c -delete
 
 
 %changelog
+* Wed Mar 29 2023 Olivier Fourdan <ofourdan@redhat.com> - 1.20.14-21
+- CVE fix for: CVE-2023-1393
+
 * Thu Feb 23 2023 Olivier Fourdan <ofourdan@redhat.com> - 1.20.14-20
 - Fix xvfb-run script with --listen-tcp
 

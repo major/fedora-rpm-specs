@@ -1,6 +1,6 @@
 Name:       dblatex
 Version:    0.3.12
-Release:    10%{?dist}
+Release:    11%{?dist}
 Summary:    DocBook to LaTeX/ConTeXt Publishing
 BuildArch:  noarch
 # Most of package is GPLv2+, except:
@@ -78,10 +78,7 @@ Authors:
 
 
 %prep
-%setup -q -n %{name}3-%{version}
-%patch 0 -p1 -b .disable-debian
-%patch 1 -p1 -b .which-shutil
-%patch 2 -p1 -b .rsvg
+%autosetup -n %{name}3-%{version} -p 1
 
 rm -rf lib/contrib
 %py3_shebang_fix .
@@ -135,6 +132,9 @@ cp -p %{SOURCE1} COPYING-docbook-xsl
 %postun -p /usr/bin/texhash
 
 %changelog
+* Wed Mar 29 2023 Michael J Gruber <mjg@fedoraproject.org> - 0.3.12-11
+- Adjust patch macro usage to rpm >= 4.18 in a cleaner way
+
 * Tue Mar 28 2023 Than Ngo <than@redhat.com> - 0.3.12-10
 - Fix deprecated patch rpm macro
 

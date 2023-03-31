@@ -1,23 +1,26 @@
 # bitcode has no debuginfo
 %global debug_package %{nil}
 
-%global llvm_maj_ver 15
+%global llvm_maj_ver 16
+# If you bump LLVM, please reset bugfix_version to 0; I fork upstream sources,
+# but I prepare the initial *.0 tag long before Fedora/EL picks up new LLVM.
+# An LLVM update will require uploading new sources, contact mystro256 if FTBFS.
+%global bugfix_version 0
 %global upstreamname ROCm-Device-Libs
 
 Name:           rocm-device-libs
-Version:        5.4.1
-Release:        2%{?dist}
+Version:        %{llvm_maj_ver}.%{bugfix_version}
+Release:        1%{?dist}
 Summary:        AMD ROCm LLVM bit code libraries
 
 Url:            https://github.com/RadeonOpenCompute/ROCm-Device-Libs
 License:        NCSA
-Source0:        https://github.com/RadeonOpenCompute/%{upstreamname}/archive/refs/tags/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+# I fork upstream sources because they don't target stable LLVM, but rather the
+# bleeding edge LLVM branch. My fork is a snapshot with bugfixes backported:
+Source0:        https://github.com/mystro256/%{upstreamname}/archive/refs/tags/%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 # Upstream is working on a solution, patch is adapted from debian:
 #https://salsa.debian.org/rocm-team/rocm-device-libs/-/blob/master/debian/patches/cmake-amdgcn-bitcode.patch
 Patch0:         0001-Use-FHS-compliant-install.patch
-# I think this change requires LLVM 16, revert for now:
-#https://github.com/RadeonOpenCompute/ROCm-Device-Libs/commit/85f95b94960c6f7ff4ff0242a399deb4a204fb6a
-Patch1:         0001-Revert-Update-counters-for-gfx11.patch
 
 BuildRequires:  cmake
 BuildRequires:  clang-devel
@@ -40,7 +43,7 @@ libraries in the form of bit code. Specifically:
  - Heterogeneous Compute built-in library
 
 %prep
-%autosetup -p1 -n %{upstreamname}-rocm-%{version}
+%autosetup -p1 -n %{upstreamname}-%{version}
 
 %build
 %cmake -DCMAKE_BUILD_TYPE="RELEASE"
@@ -58,6 +61,9 @@ libraries in the form of bit code. Specifically:
 %{_libdir}/amdgcn
 
 %changelog
+* Wed Mar 29 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 16.0-1
+- Update to 16.0 (forked sources for Fedora)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary:        A Tool for manipulating BibTeX data bases
 Name:           BibTool
 Version:        2.68
-Release:        9%{?dist}
+Release:        10%{?dist}
 Source0:        https://github.com/ge-ne/bibtool/releases/download/BibTool_2_68/BibTool-%{version}.tar.gz
 Source1:        https://github.com/ge-ne/bibtool/releases/download/BibTool_2_68/BibTool-%{version}.tar.gz.asc
 # Imported from public key servers; author provides no fingerprint!
@@ -29,12 +29,7 @@ goes beyond the possibilities --- and intentions --- of BibTeX.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%setup -q -n %{name}
-%patch0 -p1 -b .regex
-%patch1 -p1 -b .fontcommands
-%patch2 -p1 -b .luatex85
-%patch3 -p1 -b .regex-posix
-%patch4 -p1 -b .make-check
+%autosetup -n %{name} -p 1
 sed -i -e 's%^#!/usr/local/bin/tclsh%#! %{_bindir}/tclsh%' Tcl/bibtool.tcl
 sed -i -e 's%^#!/usr/local/bin/perl%#! %{_bindir}/perl%' Perl/bibtool.pl
 # configure will recreate the directory, but only with config.h within
@@ -63,6 +58,9 @@ make install-man INSTALLPREFIX=$RPM_BUILD_ROOT INSTALL='install -p -m 644'
 %{_mandir}/man1/bibtool.1*
 
 %changelog
+* Wed Mar 29 2023 Michael J Gruber <mjg@fedoraproject.org> - 2.68-10
+- Adjust patch macro usage to rpm >= 4.18
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.68-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

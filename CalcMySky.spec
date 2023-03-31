@@ -1,6 +1,6 @@
 Name: CalcMySky
-Version:  0.2.1
-Release:  2%{?dist}
+Version:  0.3.0
+Release:  1%{?dist}
 Summary: Simulator of light scattering by planetary atmospheres 
 
 License: GPL-3.0-only
@@ -56,15 +56,18 @@ These are the development files.
 %{_bindir}/calcmysky
 %{_bindir}/showmysky
 %{_datadir}/CalcMySky/
-%{_libdir}/libShowMySky-Qt6.so.14*
+%{_libdir}/libShowMySky-Qt6.so.15*
 
 %files devel
-%{_libdir}/ShowMySky-Qt6/
+%{_libdir}/cmake/ShowMySky-Qt6/
 %{_libdir}/libShowMySky-Qt6.so
 %{_includedir}/ShowMySky/
 
 
 %changelog
+* Wed Mar 29 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.3.0-1
+- 0.3.0
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -5,17 +5,15 @@
 %global crate xml5ever
 
 Name:           rust-xml5ever
-Version:        0.16.2
+Version:        0.17.0
 Release:        %autorelease
 Summary:        Push based streaming parser for xml
 
-# Upstream license specification: MIT / Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/xml5ever
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * drop unused, benchmark-only criterion dev-dependency to speed up builds
-Patch:          xml5ever-fix-metadata.diff
+# Automatically generated patch to strip foreign dependencies
+Patch:          xml5ever-fix-metadata-auto.diff
 
 BuildRequires:  rust-packaging >= 21
 

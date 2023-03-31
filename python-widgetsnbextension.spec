@@ -1,7 +1,7 @@
 %global pypi_name widgetsnbextension
 
 Name:           python-%{pypi_name}
-Version:        4.0.6
+Version:        4.0.7
 Release:        1%{?dist}
 Summary:        Interactive HTML widgets for Jupyter notebooks
 
@@ -52,6 +52,9 @@ mv {%{buildroot}%{_prefix}/etc,%{buildroot}%{_sysconfdir}}/jupyter/nbconfig/note
 %config(noreplace) %{_sysconfdir}/jupyter/nbconfig/notebook.d/widgetsnbextension.json
 
 %changelog
+* Wed Mar 29 2023 Lumír Balhar <lbalhar@redhat.com> - 4.0.7-1
+- Update to 4.0.7 (rhbz#2182420)
+
 * Wed Mar 22 2023 Lumír Balhar <lbalhar@redhat.com> - 4.0.6-1
 - Update to 4.0.6 (rhbz#2180505)
 

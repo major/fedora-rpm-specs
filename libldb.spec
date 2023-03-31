@@ -24,7 +24,7 @@
 %global tevent_version 0.14.1
 
 Name: libldb
-Version: 2.7.1
+Version: 2.7.2
 Release: 1%{?dist}
 Summary: A schema-less, ldap like, API and database
 Requires: libtalloc%{?_isa} >= %{talloc_version}
@@ -222,7 +222,10 @@ rm -f $RPM_BUILD_ROOT/%{_mandir}/man3/_*
 %endif
 
 %changelog
-* Thu Feb 23 2023 Pavel Filipenský <pfilipen@redhat.com> - 2.7.7-1
+* Wed Mar 29 2023 Guenther Deschner <gdeschner@redhat.com> - 2.7.2-1
+- rhbz#2182738 - libldb-2.7.2 is available
+
+* Thu Feb 23 2023 Pavel Filipenský <pfilipen@redhat.com> - 2.7.1-1
 - SPDX migration
 
 * Thu Feb 16 2023 Guenther Deschner <gdeschner@redhat.com> - 2.7.1-1

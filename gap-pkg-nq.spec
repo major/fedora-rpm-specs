@@ -1,8 +1,8 @@
 %global pkgname nq
 
 Name:           gap-pkg-%{pkgname}
-Version:        2.5.9
-Release:        3%{?dist}
+Version:        2.5.10
+Release:        1%{?dist}
 Summary:        Nilpotent Quotients of finitely presented groups
 
 License:        GPL-2.0-or-later
@@ -55,7 +55,7 @@ gap makedoc.g
 
 %install
 mkdir -p %{buildroot}%{gap_archdir}/pkg/%{pkgname}/doc
-cp -a *.g bin examples gap tst VERSION %{buildroot}%{gap_archdir}/pkg/%{pkgname}
+cp -a *.g bin examples gap tst %{buildroot}%{gap_archdir}/pkg/%{pkgname}
 %gap_copy_docs
 
 %check
@@ -76,6 +76,9 @@ gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
 %{gap_archdir}/pkg/%{pkgname}/examples/
 
 %changelog
+* Wed Mar 29 2023 Jerry James <loganjerry@gmail.com> - 2.5.10-1
+- Version 2.5.10
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

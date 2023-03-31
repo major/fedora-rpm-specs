@@ -15,7 +15,7 @@ Name:		perl-Test-Assert
 Version:	0.0504
 Release:	39%{?dist}
 Summary:	Assertion methods for those who like JUnit
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-Assert
 Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-Assert-%{version}.tar.gz
 # Upstream signing key, bug #1118362
@@ -63,6 +63,7 @@ BuildRequires:	perl(Test::Signature)
 BuildRequires:	perl(Test::Spelling), hunspell-en
 %endif
 # Dependencies
+# (none)
 
 %description
 This class provides a set of assertion methods useful for writing tests.

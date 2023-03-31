@@ -520,9 +520,55 @@ find -name "*.info*"|xargs rm -f
 find -name "*.orig" | xargs rm -f
 ! find -name "*.rej" # Should not happen.
 
-# Change the version that gets printed at GDB startup, so it is distro-specific.
+# In the past a distro name prefix was added to the version string in
+# version.in.
+#
+# However, placing text at the start of version.in can cause problems;
+# GDB will have a version string that starts with text rather than a
+# number as is the case with upstream GDB, and for most (all?) other
+# distros.
+#
+# GDB's version string is exposed to users as part of the Python API,
+# and it is not uncommon for users to try and grok the version number
+# from this string.  Having Fedora/RHEL GDB not start with the major
+# version number can be unexpected, and might cause tools/script that
+# work for other builds of GDB to fail with Fedora/RHEL GDB.
+#
+# So, we switched to use the more standard --with-pkgversion configure
+# option.  This ensures the distro name is still included in the 'gdb
+# --version' output, but the text is no longer part of the string
+# exposed in the Python API.
+#
+# Unfortunately, for RHEL the dist_name macro is not defined.  At
+# least not on RHEL 9 or earlier.  So, if dist_name is not defined,
+# but the rhel macro is, then we use a hard-coded RHEL appropriate
+# string.
+#
+# FIXME: It would be nice to rewrite this using %elif, but this is not
+# supported on older (pre 9) RHEL systems.
+
+%if 0%{?dist_name:1}
+
+%global pkgversion_configure_flag --with-pkgversion=%{dist_name}
+
+%else
+
+%if 0%{?fedora:1}
+%global pkgversion_configure_flag --with-pkgversion=Fedora Linux
+%endif
+
+%if 0%{?rhel:1}
+%global pkgversion_configure_flag --with-pkgversion=Red Hat Enterprise Linux
+%endif
+
+%endif
+
+# Change the version that gets printed by GDB.  The 'version' here is
+# usually the same as the original upstream version on which we are
+# based.  The 'release' is new information we're adding and identifies
+# the modifications we've made to upstream.
 cat > gdb/version.in << _FOO
-%{?dist_name} %{version}-%{release}
+%{?version_prefix:%version_prefix }%{version}-%{release}
 _FOO
 
 # Remove the info and other generated files added by the FSF release
@@ -644,6 +690,9 @@ export PKG_CONFIG_PATH=%{_libdir}/pkgconfig
 ../configure							\
 	${COMMON_GDB_CONFIGURE_FLAGS}				\
 	${GDB_MINIMAL_CONFIGURE_FLAGS}				\
+%if 0%{?pkgversion_configure_flag:1}
+	"%{pkgversion_configure_flag}"				\
+%endif
 	--with-auto-load-dir='$debugdir:$datadir/auto-load%{?scl::%{_root_datadir}/gdb/auto-load}'	\
 	--with-auto-load-safe-path='$debugdir:$datadir/auto-load%{?scl::%{_root_datadir}/gdb/auto-load}'	\
 %ifarch sparc sparcv9
@@ -744,6 +793,9 @@ $(: ppc64 host build crashes on ppc variant of libexpat.so )	\
 ../configure							\
 	${COMMON_GDB_CONFIGURE_FLAGS}				\
 	${GDB_FULL_CONFIGURE_FLAGS}				\
+%if 0%{?pkgversion_configure_flag:1}
+	"%{pkgversion_configure_flag}"				\
+%endif
 	--with-auto-load-dir='$debugdir:$datadir/auto-load%{?scl::%{_root_datadir}/gdb/auto-load}'	\
 	--with-auto-load-safe-path='$debugdir:$datadir/auto-load%{?scl::%{_root_datadir}/gdb/auto-load}'	\
 %ifarch sparc sparcv9
@@ -1192,6 +1244,11 @@ fi
 %endif
 
 %changelog
+* Wed Mar 29 2023 Andrew Burgess <aburgess@redhat.com>
+- Used --with-pkgversion to place the distribution name in the version
+  string rather than placing the string directly into the version.in
+  file.
+
 * Fri Mar 24 2023 Kevin Buettner <kevinb@redhat.com> - 13.1-2
 - Backport fix for RHBZ 2177655.  (Luis Machado)
 

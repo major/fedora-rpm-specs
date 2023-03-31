@@ -1,17 +1,13 @@
 %global __cmake_in_source_build 1
 
 Name:           stellarium
-Version:        1.2
-Release:        9%{?dist}
+Version:        23.1
+Release:        1%{?dist}
 Summary:        Photo-realistic nightsky renderer
 
 License:        GPL-2.0-or-later
 URL:            http://www.stellarium.org
 Source0:        https://github.com/Stellarium/stellarium/archive/v%{version}/stellarium-%{version}.tar.gz
-Patch0:         1261f74dc4aa6bbd01ab514343424097f8cf46b7.patch
-Patch1:         eba61df3b38605befcb43687a4c0a159dbc0c5cb.patch
-Patch2:         787a894897b7872ae96e6f5804a182210edd5c78.patch
-
 
 # Disabled due to lconvert segfaulting on armv7hl
 # https://bugzilla.redhat.com/show_bug.cgi?id=1884681
@@ -53,10 +49,6 @@ constellations, planets, major satellites and nebulas.
 
 %prep
 %setup -q
-
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
 
 %build
 export CFLAGS="$RPM_OPT_FLAGS -fPIC"
@@ -105,6 +97,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.stellarium.Ste
 %ldconfig_scriptlets
 
 %changelog
+* Mon Mar 27 2023 Gwyn Ciesla <gwync@protonmail.com> - 23.1-1
+- 23.1
+
 * Mon Mar 20 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.2-9
 - Patches for CVE-2023-28371
 

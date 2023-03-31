@@ -1,7 +1,7 @@
 %global pypi_name ipywidgets
 
 Name:           python-%{pypi_name}
-Version:        8.0.5
+Version:        8.0.6
 Release:        %autorelease
 Summary:        IPython HTML widgets for Jupyter
 

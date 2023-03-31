@@ -89,9 +89,10 @@ Requires: nftables
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
-
-%if 0%{?fedora} || 0%{?rhel} >= 9
+%if 0%{?fedora} || 0%{?rhel} >= 8
 Requires: (%{name}-selinux if selinux-policy-%{selinuxtype})
+%else
+Requires: %{name}-selinux
 %endif
 
 %description server

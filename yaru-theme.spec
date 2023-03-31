@@ -97,7 +97,6 @@ Summary:        Yaru icon theme
 License:        CC-BY-SA
 
 Requires:       hicolor-icon-theme
-Requires:       humanity-icon-theme
 
 Suggests:       gnome-shell-theme-yaru
 Suggests:       yaru-gtk3-theme

@@ -7,11 +7,11 @@
 # Copyright (c) 2022 Red Hat GmbH
 # Author: Stefano Brivio <sbrivio@redhat.com>
 
-%global git_hash 1ee2f7cada9e6f739a00d39bb9821f1ce3493d92
+%global git_hash b10b983fbd00634e275083c37446a538dbff0dbe
 %global selinuxtype targeted
 
 Name:		passt
-Version:	0^20230321.g1ee2f7c
+Version:	0^20230329.gb10b983
 Release:	1%{?dist}
 Summary:	User-mode networking daemons for virtual machines and namespaces
 License:	AGPLv3+ and BSD
@@ -62,18 +62,17 @@ ln -sr %{buildroot}%{_mandir}/man1/pasta.1 %{buildroot}%{_mandir}/man1/pasta.avx
 
 pushd contrib/selinux
 make -f %{_datadir}/selinux/devel/Makefile
-install -p -m 644 -D passt.pp %{buildroot}%{_datadir}/selinux/packages/%{name}/passt.pp
-install -p -m 644 -D passt.if %{buildroot}%{_datadir}/selinux/devel/include/contrib/passt.if
-install -p -m 644 -D pasta.pp %{buildroot}%{_datadir}/selinux/packages/%{name}/pasta.pp
-install -p -m 644 -D pasta.if %{buildroot}%{_datadir}/selinux/devel/include/contrib/pasta.if
+install -p -m 644 -D passt.pp %{buildroot}%{_datadir}/selinux/packages/%{selinuxtype}/passt.pp
+install -p -m 644 -D passt.if %{buildroot}%{_datadir}/selinux/devel/include/distributed/passt.if
+install -p -m 644 -D pasta.pp %{buildroot}%{_datadir}/selinux/packages/%{selinuxtype}/pasta.pp
 popd
 
 %pre selinux
 %selinux_relabel_pre -s %{selinuxtype}
 
 %post selinux
-%selinux_modules_install -s %{selinuxtype} %{_datadir}/selinux/packages/%{name}/passt.pp
-%selinux_modules_install -s %{selinuxtype} %{_datadir}/selinux/packages/%{name}/pasta.pp
+%selinux_modules_install -s %{selinuxtype} %{_datadir}/selinux/packages/%{selinuxtype}/passt.pp
+%selinux_modules_install -s %{selinuxtype} %{_datadir}/selinux/packages/%{selinuxtype}/pasta.pp
 
 %postun selinux
 if [ $1 -eq 0 ]; then
@@ -103,13 +102,16 @@ fi
 %endif
 
 %files selinux
-%dir %{_datadir}/selinux/packages/%{name}
-%{_datadir}/selinux/packages/%{name}/passt.pp
-%{_datadir}/selinux/devel/include/contrib/passt.if
-%{_datadir}/selinux/packages/%{name}/pasta.pp
-%{_datadir}/selinux/devel/include/contrib/pasta.if
+%{_datadir}/selinux/packages/%{selinuxtype}/passt.pp
+%{_datadir}/selinux/devel/include/distributed/passt.if
+%{_datadir}/selinux/packages/%{selinuxtype}/pasta.pp
 
 %changelog
+* Wed Mar 29 2023 Stefano Brivio <sbrivio@redhat.com> - 0^20230329.gb10b983-1
+- Adjust path for SELinux policy and interface file to latest guidelines
+- Don't install useless SELinux interface file for pasta
+- Upstream changes: https://passt.top/passt/log/?qt=range&q=2023_03_21.1ee2f7c..2023_03_29.b10b983
+
 * Tue Mar 21 2023 Stefano Brivio <sbrivio@redhat.com> - 0^20230321.g1ee2f7c-1
 - Upstream changes: https://passt.top/passt/log/?qt=range&q=2023_03_17.dd23496..2023_03_21.1ee2f7c
 

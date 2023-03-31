@@ -1,8 +1,8 @@
 %global srcname Flask-SQLAlchemy
 
 Name:           python-flask-sqlalchemy
-Version:        2.5.1
-Release:        8%{?dist}
+Version:        3.0.3
+Release:        1%{?dist}
 Summary:        Adds SQLAlchemy support to Flask application
 
 License:        BSD
@@ -17,18 +17,12 @@ SQLAlchemy to your application. It aims to simplify using SQLAlchemy with
 Flask by providing useful defaults and extra helpers that make it easier
 to accomplish common tasks.
 
+
 %package -n python3-flask-sqlalchemy
 Summary:        Adds SQLAlchemy support to Flask application
-
-%py_provides python3-%{srcname}
-%py_provides python3-flask-sqlalchemy
-
 BuildRequires:  python3-devel
-BuildRequires:  python3-mock
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-flask
 BuildRequires:  python3-pytest
-BuildRequires:  python3-sqlalchemy
+%py_provides    python3-%{srcname}
 
 %description -n python3-flask-sqlalchemy
 Flask-SQLAlchemy is an extension for Flask that adds support for
@@ -38,30 +32,37 @@ to accomplish common tasks.
 
 Python 3 version.
 
+
 %prep
-%setup -q -n %{srcname}-%{version}
-rm -f docs/_static/.DS_Store
-rm -f docs/.DS_Store
-rm -f docs/_themes/.gitignore
+%autosetup -p1 -n %{srcname}-%{version}
+
+
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files flask_sqlalchemy
+
 
 %check
-# We expect 2 warnings in one test due to Flask >= 2.2.0
-# Upstream report: https://github.com/pallets-eco/flask-sqlalchemy/issues/1068
-%pytest --deselect tests/test_basic_app.py::test_persist_selectable
+%pytest
 
-%files -n python3-flask-sqlalchemy
+
+%files -n python3-flask-sqlalchemy -f %{pyproject_files}
 %license LICENSE.rst
 %doc docs/ README.rst CHANGES.rst PKG-INFO
-%{python3_sitelib}/Flask_SQLAlchemy-*.egg-info/
-%{python3_sitelib}/flask_sqlalchemy/
+
 
 %changelog
+* Tue Feb 07 2023 Sandro Mani <manisandro@gmail.com> - 3.0.3-1
+- Update to 3.0.3
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

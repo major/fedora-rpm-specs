@@ -3,7 +3,7 @@
 %global srcname astropy
 
 Name: python-%{srcname}
-Version: 5.2.1
+Version: 5.2.2
 Release: 1%{?dist}
 Summary: A Community Python Library for Astronomy
 License: BSD
@@ -108,7 +108,6 @@ export CPATH="/usr/include/cfitsio:/usr/include/wcslib"
 export PYTEST_ADDOPTS='-p no:cacheprovider'
 # https://github.com/astropy/astropy/issues/13522
 pytest_args=(
- --deselect astropy/visualization/wcsaxes/tests/test_misc.py::test_contour_empty
 %ifarch i686
  --deselect "astropy/modeling/tests/test_models.py::TestFittable1DModels::test_fitter1D[TRFLSQFitter-BrokenPowerLaw1D-test_parameters22]"
 %endif
@@ -141,6 +140,10 @@ popd
 %license LICENSE.rst
 
 %changelog
+* Wed Mar 29 2023 Christian Dersch <lupinix@fedoraproject.org> - 5.2.2-1
+- new version
+- enable astropy/visualization/wcsaxes/tests/test_misc.py::test_contour_empty (fixed upstream)
+
 * Tue Mar 28 2023 Christian Dersch <lupinix@fedoraproject.org> - 5.2.1-1
 - new version, required for numpy 1.24 compat
 - reenable some tests

@@ -1,18 +1,16 @@
 %global srcname ijson
 
 Name:           python-%{srcname}
-Version:        3.1.4
-Release:        6%{?dist}
+Version:        3.2.0
+Release:        %autorelease
 Summary:        Iterative JSON parser
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/ICRAR/ijson
 Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
 BuildArch:      noarch
-
-Recommends:     yajl
-Recommends:     python3dist(cffi)
+BuildRequires:  python3-devel
 
 BuildRequires:  python3dist(setuptools)
 
@@ -23,12 +21,11 @@ Iterative JSON parser with standard Python iterator interfaces.}
 
 %package -n     python3-%{srcname}
 Summary:        %{summary}
-BuildRequires:  python3-devel
+Recommends:     yajl
+Recommends:     python3dist(cffi)
 
 # Test dependencies
 BuildRequires:  python3dist(cffi)
-BuildRequires:  yajl
-BuildRequires:  yajl-devel
 
 %description -n python3-%{srcname} %_description
 
@@ -54,20 +51,4 @@ PYTHONPATH=%{buildroot}%{python3_sitelib}:$PWD %{python3} -m unittest discover
 %{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info
 
 %changelog
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.4-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.4-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 3.1.4-4
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Jun 23 2021 Kai A. Hiller <V02460@gmail.com> - 3.1.4-1
-- Initial package.
+%autochangelog

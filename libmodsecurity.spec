@@ -1,26 +1,31 @@
-
 Name: libmodsecurity
 Version: 3.0.8
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A library that loads/interprets rules written in the ModSecurity SecRules
 
-License: ASL 2.0
-URL: https://www.modsecurity.org/
+License: Apache-2.0
+URL: https://github.com/SpiderLabs/ModSecurity
 
 Source0: https://github.com/SpiderLabs/ModSecurity/releases/download/v%{version}/modsecurity-v%{version}.tar.gz
+# https://github.com/SpiderLabs/ModSecurity/pull/2828
+# Remove CHANGES changes
+Patch0:  2828.patch
 
-BuildRequires: gcc-c++
-BuildRequires: make
-BuildRequires: flex
+BuildRequires: autoconf
+BuildRequires: automake
 BuildRequires: bison
+BuildRequires: flex
+BuildRequires: gcc-c++
 BuildRequires: git-core
-BuildRequires: ssdeep-devel
-BuildRequires: pkgconfig(libxml-2.0)
-BuildRequires: pkgconfig(yajl)
+BuildRequires: libtool
+BuildRequires: make
 BuildRequires: pkgconfig(libcurl)
-BuildRequires: pkgconfig(geoip)
-BuildRequires: pkgconfig(libpcre)
+BuildRequires: pkgconfig(libmaxminddb)
+BuildRequires: pkgconfig(libpcre2-8)
+BuildRequires: pkgconfig(libxml-2.0)
 BuildRequires: pkgconfig(lmdb)
+BuildRequires: pkgconfig(yajl)
+BuildRequires: ssdeep-devel
 
 # libinjection is supposed to be bundled (same as with mod_security 2.x)
 # See: https://github.com/client9/libinjection#embedding
@@ -58,13 +63,16 @@ applications that use %{name}.
 
 
 %build
-%configure --libdir=%{_libdir} --with-lmdb
+autoreconf -ivf
+%configure --libdir=%{_libdir} --with-lmdb --with-pcre2 --with-pcre=no
 %make_build
 
 
 %install
 %make_install
 
+# Clean out files that should not be part of the rpm.
+find %{buildroot} -name '*.la' -delete
 
 %ldconfig_scriptlets
 
@@ -87,6 +95,13 @@ applications that use %{name}.
 
 
 %changelog
+* Mon Mar 27 2023 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 3.0.8-3
+- Use PCRE2 rhbz#2128321
+- Use libmaxminddb instead of old GeoIP
+- Migrate to SPDX identifier for License
+- Change homepage
+- Remove .la file for EPEL
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,14 +1,9 @@
 Name: squashfs-tools
-Version: 4.6
+Version: 4.6.1
 Summary: Utility for the creation of squashfs filesystems
 %global forgeurl https://github.com/plougher/%{name}
-%global tag %{name}-%{version}
+%global tag %{version}
 %forgemeta
-# Upstream used a different naming scheme for the release to help
-# someone else out. That required us to set a tag to correctly get
-# the release file correct. However it also caused the tag to be
-# used in the version, which we don't want when based on a release.
-%undefine distprefix
 URL:	 %{forgeurl}
 Source:  %{forgesource}
 # https://github.com/plougher/squashfs-tools/pull/231
@@ -16,7 +11,7 @@ Source:  %{forgesource}
 # https://bugzilla.redhat.com/show_bug.cgi?id=2178510
 # Fix a crash caused by an out-of-bounds access that was inadvertently
 # re-introduced in a memory leak fix
-Release: 2%{dist}
+Release: 1%{dist}
 License: GPLv2+
 
 BuildRequires: make
@@ -59,6 +54,13 @@ make INSTALL_PREFIX=%{buildroot}/usr INSTALL_DIR=%{buildroot}%{_sbindir} INSTALL
 %{_sbindir}/sqfscat
 
 %changelog
+* Wed Mar 29 2023 Bruno Wolff III <bruno@wolff.to> - 4.6.1-1
+- Phillip is now doing two tags per release and we can
+- use the one that works better with forgemeta
+- There are a few fixes after the 4.6 release. I think only
+- one applies to Fedora because of the build options we use.
+- It was not something that affects image builds.
+
 * Fri Mar 17 2023 Bruno Wolff III <bruno@wolff.to> - 4.6-2
 - Remove the dist prefix from the release
 

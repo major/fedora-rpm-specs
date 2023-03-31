@@ -7,9 +7,9 @@
 
 Name:           %{name}
 Version:        0.6.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        %{sum}
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/%{project}/%{name}
 Source0:        https://github.com/%{project}/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
@@ -58,6 +58,9 @@ rm -fr %{buildroot}%{python3_sitelib}/tests
 %{_datadir}/bash-completion/completions/transtats.bash
 
 %changelog
+* Wed Mar 29 2023 Sundeep Anand <suanand@redhat.com> - 0.6.0-4
+- update license tag to as per SPDX identifiers
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
