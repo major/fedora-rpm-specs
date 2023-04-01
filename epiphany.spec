@@ -46,6 +46,8 @@ BuildRequires: pkgconfig(sqlite3)
 BuildRequires: pkgconfig(webkitgtk-6.0) >= %{webkitgtk_version}
 BuildRequires: pkgconfig(webkitgtk-web-process-extension-6.0) >= %{webkitgtk_version}
 
+Requires: epiphany-runtime%{?_isa} = %{epoch}:%{version}-%{release}
+
 %description
 Epiphany is the web browser for the GNOME desktop. Its goal is to be
 simple and easy to use. Epiphany ties together many GNOME components

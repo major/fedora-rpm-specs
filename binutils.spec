@@ -2,7 +2,7 @@
 Summary: A GNU collection of binary utilities
 Name: binutils%{?_with_debug:-debug}
 Version: 2.40
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/binutils
 
@@ -261,9 +261,14 @@ Patch17: binutils-update-linker-manual.patch
 # Lifetime: Fixed in 2.41
 Patch18: binutils-objcopy-note-merge-speedup.patch
 
-# # Purpose:  Fix testsuite failures due to the patches applied here.
-# # Lifetime: Permanent, but varying with each new rebase.
+# Purpose:  Fix testsuite failures due to the patches applied here.
+# Lifetime: Permanent, but varying with each new rebase.
 Patch19: binutils-testsuite-fixes.patch
+
+# Purpose:  Stop the linker from associating allocated reloc sections with
+#            the .symtab section , which prevents it from being stripped.
+# Lifetime: Fixed in 2.41
+Patch20: binutils-reloc-symtab.patch
 
 #----------------------------------------------------------------------------
 
@@ -416,7 +421,7 @@ linker, and it may become deprecated in the future.
 %package gprofng
 Summary: Next Generating code profiling tool
 Provides: gprofng = %{version}-%{release}
-Requires: binutils >= %{version}
+Requires: binutils = %{version}-%{release}
 
 %description gprofng
 GprofNG is the GNU Next Generation Profiler for analyzing the performance 
@@ -764,9 +769,19 @@ run_tests()
 %endif
 
     pushd build-$target
+
+    # FIXME:  I have not been able to find a way to capture a "failed" return
+    # value from "make check" without having it also stop the build.  So in
+    # order to obtain the logs from the test runs if a check fails I have to
+    # run the tests twice.  Once to generate the logs and then a second time
+    # to generate the correct exit code.
+    
+    echo ================ $target == TEST RUN 1 =============================
+
+    # Run the tests and accumulate the logs - but ignore failures...
     
     if test x$native == x1 ; then
-	make -k check-gas check-binutils check-ld < /dev/null
+	make -k check-gas check-binutils check-ld < /dev/null || :
 %if %{with gold}
 	# The GOLD testsuite always returns an error code, even if no tests fail.
 	make -k check-gold < /dev/null || :
@@ -776,8 +791,6 @@ run_tests()
 	make -k check-gas check-binutils < /dev/null || :
     fi
     
-    echo ================ $target == TESTING BEGINS ========================
-
     for f in {gas/testsuite/gas,ld/ld,binutils/binutils}.sum
     do
 	if [ -f $f ]; then
@@ -793,8 +806,6 @@ run_tests()
 	cat gold/testsuite/*.log
     fi
 %endif
-
-    echo ================ $target == TESTING END ===========================
 
     for file in {gas/testsuite/gas,ld/ld,binutils/binutils}.{sum,log}
     do
@@ -814,6 +825,18 @@ run_tests()
 	rm -f    binutils-$target-gold.log.tar.xz
     fi
 %endif
+
+    echo ================ $target == TEST RUN 2 =============================
+
+    # Run the tests and this time fail if there are any errors.
+
+    if test x$native == x1 ; then
+	make -k check-gas check-binutils check-ld < /dev/null
+	# Ignore the gold tests - they always fail
+    else
+	# Do not try running linking tests for the cross-binutils.
+	make -k check-gas check-binutils < /dev/null
+    fi
 
     popd
 }
@@ -1205,6 +1228,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Thu Mar 30 2023 Nick Clifton  <nickc@redhat.com> - 2.40-6
+- Linker: Do not associate allocated reloc sections with the .symtab section.  (#2166419)
+
 * Wed Mar 08 2023 Nick Clifton  <nickc@redhat.com> - 2.40-5
 - Spec file: Rebuild libsframe.a with -fPIC enabled.  (#2174841)
 

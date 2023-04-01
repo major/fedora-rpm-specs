@@ -2,7 +2,7 @@
 %global lib_version 2301.0.0
 
 Name:           abseil-cpp
-Version:        20230125.1
+Version:        20230125.2
 Release:        1%{?dist}
 Summary:        C++ Common Libraries
 
@@ -110,6 +110,9 @@ Development headers for %{name}
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Thu Mar 30 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 20230125.2-1
+- Update to 20230125.2 (close RHBZ#2182229)
+
 * Thu Feb 23 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 20230125.1-1
 - Update to 20230125.1 (close RHBZ#2162638)
 

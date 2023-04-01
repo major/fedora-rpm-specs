@@ -6,7 +6,7 @@
 
 Name:           tigervnc
 Version:        1.13.1
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        A TigerVNC remote display system
 
 %global _hardened_build 1
@@ -77,7 +77,6 @@ BuildRequires:  libtool
 BuildRequires:  libxkbfile-devel
 BuildRequires:  libxshmfence-devel
 BuildRequires:  mesa-libGL-devel
-BuildRequires:  xorg-x11-font-utils
 BuildRequires:  xorg-x11-server-devel
 BuildRequires:  xorg-x11-server-source
 BuildRequires:  xorg-x11-util-macros
@@ -381,6 +380,14 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Thu Mar 30 2023 Jan Grulich <jgrulich@redhat.com> - 1.13.1-3
+- Drop BR: xorg-x11-font-utils
+  CVE-2023-1393
+
+* Thu Mar 30 2023 Jan Grulich <jgrulich@redhat.com> - 1.13.1-2
+- Rebuild (xorg-x11-server)
+  CVE-2023-1393
+
 * Wed Mar 01 2023 Jan Grulich <jgrulich@redhat.com> - 1.13.1-1
 - 1.13.1
 

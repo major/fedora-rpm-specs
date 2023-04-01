@@ -4,7 +4,7 @@
 Summary: An authorization framework
 Name: polkit
 Version: 122
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: LGPLv2+
 URL: http://www.freedesktop.org/wiki/Software/polkit
 Source0: https://gitlab.freedesktop.org/polkit/polkit/-/archive/%{version}/%{name}-%{version}.tar.gz
@@ -126,12 +126,12 @@ exit 0
 %{_unitdir}/polkit.service
 %dir %{_datadir}/polkit-1/
 %dir %{_datadir}/polkit-1/actions
-%attr(0700,polkitd,root) %dir %{_datadir}/polkit-1/rules.d
+%attr(0750,root,polkitd) %dir %{_datadir}/polkit-1/rules.d
 %{_datadir}/polkit-1/actions/org.freedesktop.policykit.policy
 %{_datadir}/polkit-1/policyconfig-1.dtd
 %dir %{_sysconfdir}/polkit-1
 %{_datadir}/polkit-1/rules.d/50-default.rules
-%attr(0700,polkitd,root) %dir %{_sysconfdir}/polkit-1/rules.d
+%attr(0750,root,polkitd) %dir %{_sysconfdir}/polkit-1/rules.d
 %{_sysconfdir}/pam.d/polkit-1
 %{_bindir}/pkaction
 %{_bindir}/pkcheck
@@ -161,6 +161,10 @@ exit 0
 %{_libdir}/girepository-1.0/*.typelib
 
 %changelog
+* Thu Mar 30 2023 Jan Rybar <jrybar@redhat.com> - 122-5
+- config file permission change to increase security of polkitd
+- Resolves: bz#2182784
+
 * Wed Feb 08 2023 Jan Rybar <jrybar@redhat.com> - 122-4
 - Switch 'polkitd' to static UID/GID (fpc#1189) (on behalf of lucab)
 - Resolves: https://bugzilla.redhat.com/show_bug.cgi?id=2104615

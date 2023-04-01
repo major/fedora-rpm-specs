@@ -17,12 +17,12 @@
 %global tracker_miners_version 3.0.0
 
 Name:          gnome-photos
-Version:       43.0
+Version:       44.0
 Release:       %autorelease
 Summary:       Access, organize and share your photos on GNOME
 
 # GNOME Photos itself is GPLv3+, but the bundled libgd is LGPLv2+
-License:       GPLv3+ and LGPLv2+
+License:       GPL-3.0-or-later AND LGPL-2.1-or-later
 URL:           https://wiki.gnome.org/Apps/Photos
 Source0:       https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
 
@@ -36,7 +36,7 @@ BuildRequires: gettext >= %{gettext_version}
 BuildRequires: itstool
 BuildRequires: libxslt
 BuildRequires: meson
-BuildRequires: pkgconfig(babl)
+BuildRequires: pkgconfig(babl-0.1)
 BuildRequires: pkgconfig(cairo) >= %{cairo_version}
 BuildRequires: pkgconfig(cairo-gobject) >= %{cairo_version}
 BuildRequires: pkgconfig(gdk-pixbuf-2.0) >= %{gdk_pixbuf_version}

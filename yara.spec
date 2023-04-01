@@ -1,41 +1,49 @@
 Name:           yara
 Version:        4.3.0
-%global         upversion         %{version}-rc1
-
-Release:        0.rc1.3%{?dist}
+%global         baserelease 1
 Summary:        Pattern matching Swiss knife for malware researchers
+URL:            https://VirusTotal.github.io/yara/
+VCS:            https://github.com/VirusTotal/yara/
+#               https://github.com/VirusTotal/yara/releases
 
 # yara package itself is licensed with BSD 3 clause license
 # bison grammar parsers in libyara/* are licensed with  GPLv3+ license with exception from FSF alloving usage in larger work
 # resulting binary package licensed as BSD
-License:        BSD
-VCS:            https://github.com/VirusTotal/yara/
-#               https://github.com/VirusTotal/yara/releases
-URL:            https://VirusTotal.github.io/yara/
+License:        BSD-3-Clause
+
+%global         common_description %{expand:
+YARA is a tool aimed at (but not limited to) helping malware researchers to
+identify and classify malware samples. With YARA you can create descriptions
+of malware families (or whatever you want to describe) based on textual or
+binary patterns. Each description, a.k.a rule, consists of a set of strings
+and a Boolean expression which determine its logic.}
 
 
 %global         gituser         VirusTotal
 %global         gitname         yara
-# Commit of version 4.3.0rc1
-%global         commit          8b8384d15fc5358cee449d88070cc9c8be9ec4ce
+%global         gitdate         20230322
+# Commit of version 4.3.0rc1 + fixes
+%global         commit          96790e56fc0fc0ce8598d215f969d8b7d8ca1015
 %global         shortcommit     %(c=%{commit}; echo ${c:0:7})
 
+%bcond_without  release
 
-# Build from git commit baseline
-#Source0:       https://github.com/%%{gituser}/%%{gitname}/archive/%%{commit}/%%{name}-%%{version}-%%{shortcommit}.tar.gz
+
 # Build from git release version
-# Source0:        https://github.com/%%{gituser}/%%{gitname}/archive/v%%{version}.tar.gz#/%%{name}-%%{version}.tar.gz
-Source0:        https://github.com/%{gituser}/%{gitname}/archive/v%{upversion}.tar.gz#/%{name}-%{upversion}.tar.gz
-
+%if %{with release}
+Release:       %{baserelease}%{?dist}
+# Source0:     https://github.com/%%{gituser}/%%{gitname}/archive/v%%{upversion}.tar.gz#/%%{name}-%%{upversion}.tar.gz
+Source0:       https://github.com/%{gituser}/%{gitname}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+%else
+# Build from git commit baseline
+Release:       %{baserelease}.%{gitdate}git%{shortcommit}%{?dist}
+Source0:       https://github.com/%{gituser}/%{gitname}/archive/%{commit}/%{name}-%{version}-git%{gitdate}-%{shortcommit}.tar.gz
+%endif
 
 # Use default sphix theme to generate documentation rather than sphinx_rtd_theme
 # to avoid static installation of font files on fedora >= 24
 Patch1:         yara-docs-theme.patch
 
-# https://github.com/VirusTotal/yara/commit/90c43e24f0dedd130bea199e6c23094271c3f491
-# test-pe fails on s390x
-Patch2:         https://github.com/VirusTotal/yara/commit/90c43e24f0dedd130bea199e6c23094271c3f491.patch#/yara-4.3.0-test-pe-s390x.patch
-Patch3:         https://github.com/VirusTotal/yara/commit/d1a6ef20c049d86a136111dce53b4eb65c4df1bd.patch#/yara-4.3.0-test-pe2-s390x.patch
 
 BuildRequires:  git
 BuildRequires:  gcc
@@ -69,12 +77,7 @@ BuildRequires:  openssl-devel
 BuildRequires:  /usr/bin/sphinx-build
 
 %description
-YARA is a tool aimed at (but not limited to) helping malware researchers to
-identify and classify malware samples. With YARA you can create descriptions
-of malware families (or whatever you want to describe) based on textual or
-binary patterns. Each description, a.k.a rule, consists of a set of strings
-and a Boolean expression which determine its logic.
-
+%{common_description}
 
 %package doc
 Summary:        Documentation for %{name}
@@ -82,6 +85,7 @@ BuildArch:      noarch
 
 %description doc
 This package contains documentation for %{name}.
+%{common_description}
 
 
 %package        devel
@@ -92,16 +96,15 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description    devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
-
+%{common_description}
 
 %prep
-# autosetup -n %%{gitname}-%%{commit} -p 1 -S git
-%autosetup -n %{gitname}-%{upversion} -p 1 -S git
+%if %{with release}
+    %autosetup -n %{gitname}-%{version} -p 1 -S git
+%else
+    %autosetup -n %{gitname}-%{commit} -p 1 -S git
+%endif
 autoreconf --force --install
-
-
-
-
 
 %build
 
@@ -186,6 +189,9 @@ make check || (
 
 
 %changelog
+* Thu Mar 30 2023 Michal Ambroz <rebus at, seznam.cz> - 4.3.0-1
+- bump to 4.3.0
+
 * Tue Jan 24 2023 Michal Ambroz <rebus at, seznam.cz> - 4.3.0-0.rc1.3
 - fix EPEL9 build = reenable the SHA1 certificate validation in OpenSSL for make check
 

@@ -26,7 +26,7 @@
 
 Name:              redis
 Version:           %{upstream_ver}%{?upstream_pre:~%{upstream_pre}}
-Release:           2%{?dist}
+Release:           3%{?dist}
 Summary:           A persistent key-value database
 # redis, hiredis: BSD-3-Clause
 # hdrhistogram, jemalloc, lzf, linenoise: BSD-2-Clause
@@ -275,8 +275,8 @@ fi
 %attr(0750, redis, root) %dir %{_sysconfdir}/%{name}
 %attr(0640, redis, root) %config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf
 %attr(0640, redis, root) %config(noreplace) %{_sysconfdir}/%{name}/sentinel.conf
-%dir %attr(0750, redis, redis) %{_libdir}/%{name}
-%dir %attr(0750, redis, redis) %{redis_modules_dir}
+%dir %{_libdir}/%{name}
+%dir %{redis_modules_dir}
 %dir %attr(0750, redis, redis) %{_sharedstatedir}/%{name}
 %dir %attr(0750, redis, redis) %{_localstatedir}/log/%{name}
 %exclude %{macrosdir}
@@ -307,6 +307,9 @@ fi
 
 
 %changelog
+* Thu Mar 30 2023 Remi Collet <remi@remirepo.net> - 7.2~rc1-3
+- fix modules directory ownership and permissions #2176173
+
 * Tue Mar 28 2023 Remi Collet <remi@remirepo.net> - 7.2~rc1-2
 - drop redis-shutdown helper and rely on systemd #2181181
 

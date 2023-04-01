@@ -9,8 +9,8 @@ diff.
 
 
 Name:           python-diff-cover
-Version:        7.3.0
-Release:        2%{?dist}
+Version:        7.3.2
+Release:        1%{?dist}
 BuildArch:      noarch
 
 License:        ASL 2.0
@@ -30,7 +30,7 @@ BuildRequires: python3-setuptools
 BuildRequires: python3-chardet >= 4
 BuildRequires: python3-pytest-mock
 BuildRequires: python3-pytest-datadir
-BuildRequires: python3-tomli
+BuildRequires: (python3-tomli if python3 < 3.11)
 
 %description
 %{desc}
@@ -98,6 +98,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} \
 %{_bindir}/diff-quality
 
 %changelog
+* Mon Mar 06 2023 Miro Hrončok <mhroncok@redhat.com> - 7.3.2-1
+- Update to 7.3.2
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

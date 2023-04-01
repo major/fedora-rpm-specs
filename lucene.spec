@@ -1,7 +1,7 @@
 Summary:        High-performance, full-featured text search engine
 Name:           lucene
-Version:        9.4.0
-Release:        2%{?dist}
+Version:        9.5.0
+Release:        1%{?dist}
 Epoch:          0
 # License breakdown is present in NOTICE.txt file
 License:        ASL 2.0 and MIT and BSD
@@ -45,6 +45,8 @@ Source30:       https://repo1.maven.org/maven2/org/apache/lucene/lucene-sandbox/
 Source31:       https://repo1.maven.org/maven2/org/apache/lucene/lucene-spatial3d/%{version}/lucene-spatial3d-%{version}.pom
 Source32:       https://repo1.maven.org/maven2/org/apache/lucene/lucene-suggest/%{version}/lucene-suggest-%{version}.pom
 Source33:       https://repo1.maven.org/maven2/org/apache/lucene/lucene-test-framework/%{version}/lucene-test-framework-%{version}.pom
+
+Patch1:         0001-Use-antlr4-automatic-module-name.patch
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(com.ibm.icu:icu4j)
@@ -224,10 +226,6 @@ find -mindepth 1 -maxdepth 1 ! -name lucene ! -name LICENSE.txt ! -name NOTICE.t
 mv -t . lucene/*
 rmdir lucene
 
-# Javadoc generation would fail otherwise
-find -name 'module-info.java' -delete
-find -wholename '*/src/test' -exec rm -rf {} +
-
 cp %SOURCE1 pom.xml
 
 function add_pom {
@@ -308,6 +306,9 @@ popd
 %files suggest -f .mfiles-lucene-suggest
 
 %changelog
+* Thu Mar 30 2023 Marian Koncek <mkoncek@redhat.com> - 0:9.5.0-1
+- Update to upstream version 9.5.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0:9.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

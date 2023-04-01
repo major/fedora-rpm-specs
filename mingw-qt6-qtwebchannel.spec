@@ -35,11 +35,13 @@ BuildRequires:  cmake
 BuildRequires:  ninja-build
 
 BuildRequires:  mingw32-filesystem >= 96
+BuildRequires:  mingw32-gcc-c++
 BuildRequires:  mingw32-qt6-qtbase = %{version}
 BuildRequires:  mingw32-qt6-qtdeclarative = %{version}
 BuildRequires:  mingw32-qt6-qtwebsockets = %{version}
 
 BuildRequires:  mingw64-filesystem >= 96
+BuildRequires:  mingw64-gcc-c++
 BuildRequires:  mingw64-qt6-qtbase = %{version}
 BuildRequires:  mingw64-qt6-qtdeclarative = %{version}
 BuildRequires:  mingw64-qt6-qtwebsockets = %{version}

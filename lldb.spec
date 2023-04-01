@@ -4,13 +4,14 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2158587
 %undefine _include_frame_pointers
 
-%global lldb_version 15.0.7
-#global rc_ver 3
+%global lldb_version 16.0.0
+#global rc_ver 4
 %global lldb_srcdir %{name}-%{lldb_version}%{?rc_ver:rc%{rc_ver}}.src
+%global cmake_srcdir cmake-%{lldb_version}%{?rc_ver:rc%{rc_ver}}.src
 
 Name:		lldb
 Version:	%{lldb_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	3%{?dist}
+Release:	1%{?dist}
 Summary:	Next generation high-performance debugger
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -19,9 +20,7 @@ Source0:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{lldb_v
 Source1:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{lldb_version}%{?rc_ver:-rc%{rc_ver}}/%{lldb_srcdir}.tar.xz.sig
 Source2:	release-keys.asc
 
-# TODO: Drop once 16.0.0 is out
-Patch0:		https://github.com/llvm/llvm-project/commit/6f59f302e4358b4dc869bc298c2b9c06aa716b60.diff
-##
+Patch0: 0001-lldb-Change-LLVM_COMMON_CMAKE_UTILS-usage.patch
 
 BuildRequires:	clang
 BuildRequires:	cmake
@@ -38,6 +37,7 @@ BuildRequires:	libxml2-devel
 BuildRequires:	libedit-devel
 BuildRequires:	python3-lit
 BuildRequires:	multilib-rpm-config
+BuildRequires:	doxygen
 
 Requires:	python3-lldb
 
@@ -80,6 +80,7 @@ The package contains the LLDB Python module.
 	-DCMAKE_SKIP_RPATH:BOOL=ON \
 	-DLLVM_LINK_LLVM_DYLIB:BOOL=ON \
 	-DLLVM_CONFIG:FILEPATH=/usr/bin/llvm-config-%{__isa_bits} \
+	-DLLVM_COMMON_CMAKE_UTILS=%{_libdir}/cmake/llvm/ \
 	\
 	-DLLDB_DISABLE_CURSES:BOOL=OFF \
 	-DLLDB_DISABLE_LIBEDIT:BOOL=OFF \
@@ -135,6 +136,18 @@ rm -f %{buildroot}%{python3_sitearch}/six.*
 %{python3_sitearch}/lldb
 
 %changelog
+* Tue Mar 21 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0-1
+- Update to LLVM 16.0.0
+
+* Wed Mar 15 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc4-1
+- Update to LLVM 16.0.0 RC4
+
+* Thu Feb 23 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc3-1
+- Update to LLVM 16.0.0 RC3
+
+* Tue Feb 14 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc1-1
+- Update to LLVM 16.0.0 RC1
+
 * Thu Jan 19 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 15.0.7-3
 - Include the Apache license adopted in 2019.
 

@@ -8,7 +8,7 @@
 #%%global snaprel %{?snapdate:.git%{snapdate}.%{shortcommit}}
 
 # for rpmdev-bumpspec
-%global baserelease 5
+%global baserelease 6
 
 Name:       ipsilon
 Version:    3.0.4
@@ -57,7 +57,7 @@ Requires:       python3-jinja2
 Requires:       python3-lxml
 Requires:       python3-sqlalchemy
 Requires:       open-sans-fonts
-Requires:       fontawesome-fonts
+Requires:       font(fontawesome)
 Requires:       pam
 Requires(pre):  shadow-utils
 
@@ -461,6 +461,9 @@ exit 0
 
 
 %changelog
+* Thu Mar 30 2023 Jerry James <loganjerry@gmail.com> - 3.0.4-6
+- Change fontawesome-fonts R to match fontawesome 4.x
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

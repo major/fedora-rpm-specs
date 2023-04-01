@@ -1,33 +1,82 @@
 
 Name:    cantata
 Summary: Music Player Daemon (MPD) graphical client
-Version: 2.4.2
-Release: 7%{?dist}
+Version: 2.5.0
+Release: 1%{?dist}
 
-License: GPLv2+
-URL:     https://github.com/cdrummond/cantata
+# Most files in this project are GPL-2.0-or-later.  Exceptions:
+# (GPL-2.0-only OR GPL-3.0-only):
+# - support/shortcutsmodel.{cpp,h}
+# - support/shortcutssettingswidget.{cpp,h}
+# GPL-3.0-or-later:
+# - context/lyricsettings.{cpp,h}
+# - context/ultimatelyrics.{cpp,h}
+# - context/ultimatelyricsprovider.{cpp,h}
+# - mpd-interface/cuefile.{cpp,h}
+# - widgets/stretchheaderview.{cpp,h}
+# LGPL-2.0-or-later:
+# - devices/musicbrainz.{cpp,h}
+# - support/acceleratormanager.{cpp,h}
+# - support/acceleratormanager_private.h
+# LGPL-2.1-or-later:
+# - support/kmessagewidget.{cpp,h}
+# - 3rdparty/solid-lite/xdgbasedirs.cpp
+# - 3rdparty/solid-lite/xdgbasedirs_p.h
+# LGPL-2.1-only:
+# - support/fancytabwidget.{cpp,h}
+# LGPL-3.0-only:
+# - icons/yaru/render-bitmaps.py
+# (LGPL-2.1-only OR LGPL-3.0-only):
+# - 3rdparty/solid-lite (except as noted above)
+# MIT:
+# - support/windowmanager.{cpp,h}
+#
+# The following are not built into the binary RPM so their licenses are ignored:
+# - 3rdparty/ebur128
+# - 3rdparty/kcategorizedview
+# - 3rdparty/qtiocompressor
+# - 3rdparty/qtsingleapplication
+# - 3rdparty/qxt
+License: GPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
+URL:     https://github.com/CDrummond/cantata
 Source0: https://github.com/CDrummond/cantata/releases/download/v%{version}/cantata-%{version}.tar.bz2
+Source1: com.github.cdrummond.cantata.metainfo.xml
+# Unbundle the FontAwesome font file and adapt to FontAwesome 6.x
+Patch0:  %{name}-unbundle-fontawesome.patch
+# Unbundle qtiocompressor
+Patch1:  %{name}-unbundle-qtiocompressor.patch
 
-BuildRequires: cdparanoia-devel
+BuildRequires: appstream
 BuildRequires: cmake
 BuildRequires: desktop-file-utils
+BuildRequires: ffmpeg-free-devel
+BuildRequires: gcc-c++
 BuildRequires: gettext
-BuildRequires: libcdio-paranoia-devel
 BuildRequires: pkgconfig(phonon4qt5)
-BuildRequires: pkgconfig(Qt5DBus) pkgconfig(Qt5Gui) pkgconfig(Qt5Network) pkgconfig(Qt5Xml)
+BuildRequires: pkgconfig(Qt5DBus)
+BuildRequires: pkgconfig(Qt5Gui)
 BuildRequires: pkgconfig(Qt5Multimedia)
+BuildRequires: pkgconfig(Qt5Network)
 BuildRequires: pkgconfig(Qt5Svg)
+BuildRequires: pkgconfig(Qt5Xml)
+BuildRequires: qtiocompressor-devel
 # translations
 BuildRequires: qt5-linguist
 BuildRequires: media-player-info
+BuildRequires: pkgconfig(avahi-client)
+BuildRequires: pkgconfig(cdparanoia-3)
 BuildRequires: pkgconfig(libcddb)
+BuildRequires: pkgconfig(libcdio_paranoia)
+BuildRequires: pkgconfig(libebur128)
+BuildRequires: pkgconfig(libmpg123)
 BuildRequires: pkgconfig(libmtp)
 BuildRequires: pkgconfig(libmusicbrainz5)
 BuildRequires: pkgconfig(taglib)
 BuildRequires: pkgconfig(taglib-extras)
 BuildRequires: systemd-devel
 
-Requires: fontawesome-fonts
+Requires: font(fontawesome6brands)
+Requires: font(fontawesome6free)
 Requires: media-player-info
 
 %description
@@ -55,23 +104,29 @@ media keys (via Qxt support)
 
 
 %prep
-%setup -q
+%autosetup -p1
 
 rm -fv translations/blank.ts
 
+# Make sure the bundled FontAwesome font file is not used
+rm -fv support/Cantata-FontAwesome* support/support.qrc
+
+# Make sure the bundled qtiocompressor is not used
+rm -rf 3rdparty/qtiocompressor
+
+# Inject the version number for qtiocompressor
+iocversion=$(ls -1 %{_libdir}/libQt5Solutions_IOCompressor-*.so | sed 's/.*-\([.[:digit:]]*\)\.so/\1/')
+sed -i "s/@IOCVERSION@/$iocversion/" CMakeLists.txt
 
 %build
 PATH="%{_qt5_bindir}:$PATH" ; export PATH ;
-
-CXXFLAGS="%{optflags} -I/usr/include/QtSolutions" # see bug 1077936
 
 %cmake \
   -DCMAKE_BUILD_TYPE=Release \
   -DENABLE_KDE:BOOL=%{?kde:ON}%{!?kde:OFF} \
   -DENABLE_QT5:BOOL=%{?qt5:ON}%{!?qt5:OFF} \
-  -DENABLE_FFMPEG:BOOL=OFF \
+  -DENABLE_FFMPEG:BOOL=ON \
   -DENABLE_LIBVLC:BOOL=OFF \
-  -DENABLE_MPG123:BOOL=OFF \
   -DDENABLE_UDISKS2:BOOL=ON
 
 %cmake_build
@@ -80,11 +135,16 @@ CXXFLAGS="%{optflags} -I/usr/include/QtSolutions" # see bug 1077936
 %install
 %cmake_install
 
+mkdir -p %{buildroot}%{_metainfodir}
+install -pm 644 %{SOURCE1} %{buildroot}%{_metainfodir}
+
 %find_lang %{name} --with-qt --all-name
 
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/cantata.desktop 
+appstreamcli validate --no-net \
+  %{buildroot}%{_metainfodir}/com.github.cdrummond.cantata.metainfo.xml
 
 
 %files -f %{name}.lang
@@ -93,6 +153,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/cantata.desktop
 %{_bindir}/cantata
 # libexecdir type stuff
 %{_prefix}/lib/cantata/
+%{_metainfodir}/com.github.cdrummond.cantata.metainfo.xml
 %{_datadir}/applications/cantata.desktop
 %{_datadir}/icons/hicolor/*/*/*
 %dir %{_datadir}/cantata/
@@ -102,6 +163,14 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/cantata.desktop
 
 
 %changelog
+* Thu Mar 30 2023 Jerry James <loganjerry@gmail.com> - 2.5.0-1
+- Version 2.5.0 (bz 2060187)
+- Convert the License tag to SPDX and clarify the license
+- Add an AppData file (bz 2099339)
+- Unbundle the FontAwesome font, libebur128, and qtiocompressor
+- Be compatible with FontAwesome 6.x
+- Enable avahi, ffmpeg, and mpg123 support
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,15 +3,12 @@
 #
 
 Name: rshim
-# Upstream uses a dash in the version. Not valid in the Version field, so we use a dot instead.
-#   https://github.com/Mellanox/rshim-user-space/issues/105
-%global upstream_ver 2.0.6-19
-Version: %{lua: print((string.gsub(rpm.expand("%{upstream_ver}"),"-",".")))}
+Version: 2.0.7
 Release: %autorelease
 Summary: User-space driver for Mellanox BlueField SoC
 License: GPLv2
 URL: https://github.com/mellanox/rshim-user-space
-Source0: https://github.com/Mellanox/rshim-user-space/archive/refs/tags/%{name}-%{upstream_ver}.tar.gz
+Source0: https://github.com/Mellanox/rshim-user-space/archive/refs/tags/%{name}-%{version}.tar.gz
 
 BuildRequires: gcc, autoconf, automake, make
 BuildRequires: pkgconfig(libpci), pkgconfig(libusb-1.0), pkgconfig(fuse)
@@ -27,7 +24,7 @@ interface. It provides ways to push boot stream, debug the target or login
 via the virtual console or network interface.
 
 %prep
-%setup -q -n rshim-user-space-%{name}-%{upstream_ver}
+%setup -q -n rshim-user-space-%{name}-%{version}
 
 %build
 ./bootstrap.sh

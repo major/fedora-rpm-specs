@@ -1,5 +1,5 @@
 Name:           homebank
-Version:        5.6.1
+Version:        5.6.3
 Release:        %{autorelease}
 Summary:        Free easy personal accounting for all  
 

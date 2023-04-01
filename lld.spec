@@ -28,7 +28,7 @@
 
 Name:		%{pkg_name}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	The LLVM Linker
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -41,7 +41,8 @@ Source4:	release-keys.asc
 
 ExcludeArch:	s390x
 
-Patch0:		0001-PATCH-lld-CMake-Check-for-gtest-headers-even-if-lit..patch
+# Backport from LLVM 17.
+Patch2:     0001-lld-Use-installed-llvm_gtest-in-standalone-builds.patch
 
 # Bundle libunwind header need during build for MachO support
 Patch1:		0002-PATCH-lld-Import-compact_unwind_encoding.h-from-libu.patch
@@ -191,6 +192,9 @@ fi
 %{install_libdir}/liblld*.so.*
 
 %changelog
+* Fri Mar 24 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0-2
+- Use installed llvm_gtest
+
 * Tue Mar 21 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0-1
 - Update to LLVM 16.0.0
 

@@ -1,4 +1,4 @@
-%if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
+%if 0%{?fedora} || 0%{?rhel} >= 9
 %bcond_without flexiblas
 %endif
 %if %{with flexiblas}
@@ -9,7 +9,7 @@
 
 Name:           ncl
 Version:        6.6.2
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        NCAR Command Language and NCAR Graphics
 
 License:        BSD
@@ -18,6 +18,7 @@ Source0:        https://github.com/NCAR/ncl/archive/%{version}/%{name}-%{version
 Source1:        Site.local.ncl
 Source2:        ncarg.csh
 Source3:        ncarg.sh
+ExcludeArch:    %{ix86}
 
 # ymake uses cpp with some defines on the command line to generate a 
 # Makefile which consists in:
@@ -63,10 +64,10 @@ Patch16:        ncl-5.2.1-secondary.patch
 # Fix build with proj8
 Patch17:        ncl-proj8.patch
 
-BuildRequires: make
 BuildRequires:  /bin/csh
 BuildRequires:  gcc-c++
 BuildRequires:  gcc-gfortran
+BuildRequires:  make
 BuildRequires:  netcdf-fortran-devel
 BuildRequires:  cairo-devel
 BuildRequires:  hdf-static, hdf-devel >= 4.2r2
@@ -187,7 +188,7 @@ sed -i -e 's;load "\$NCARG_ROOT/lib/ncarg/nclex\([^ ;]*\);loadscript(ncargpath("
 #make Build CCOPTIONS="$RPM_OPT_FLAGS -fPIC -Werror-implicit-function-declaration" F77=gfortran F77_LD=gfortran\
 
 FCOPTIONS="$RPM_OPT_FLAGS -fPIC -fno-second-underscore -fno-range-check -fopenmp"
-%if 0%{?fedora} >= 32 || 0%{?rhel} >= 9
+%if 0%{?fedora} || 0%{?rhel} >= 9
 FCOPTIONS="$FCOPTIONS -fallow-argument-mismatch -fcommon"
 %endif
 make Build CCOPTIONS="$RPM_OPT_FLAGS -std=c99 -fPIC -fno-strict-aliasing -fopenmp -fcommon -DH5_USE_110_API" \
@@ -359,6 +360,9 @@ done
 
 
 %changelog
+* Thu Mar 30 2023 Orion Poplawski <orion@nwra.com> - 6.6.2-34
+- Drop i686 builds
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.2-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

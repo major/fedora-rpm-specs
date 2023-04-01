@@ -5,7 +5,7 @@ Summary: DNSSEC key and zone management software
 Name: opendnssec
 Version: 2.1.10
 Release: 6%{?dist}
-License: BSD
+License: BSD-2-Clause
 Url: http://www.opendnssec.org/
 Source0: http://www.opendnssec.org/files/source/%{?prever:testing/}%{name}-%{version}%{?prever}.tar.gz
 Source1: ods-enforcerd.service

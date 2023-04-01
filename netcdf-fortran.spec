@@ -1,6 +1,6 @@
 Name:           netcdf-fortran
-Version:        4.5.4
-Release:        3%{?dist}
+Version:        4.6.0
+Release:        1%{?dist}
 Summary:        Fortran libraries for NetCDF-4
 
 License:        NetCDF and ASL 2.0
@@ -8,24 +8,18 @@ URL:            http://www.unidata.ucar.edu/software/netcdf/
 Source0:        https://github.com/Unidata/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 # Use pkgconfig in nf-config to avoid multi-lib issues and remove FFLAGS
 Patch1:         netcdf-fortran-pkgconfig.patch
+%if 0%{?fedora} >= 38
+ExcludeArch:    %{ix86}
+%endif
 
-BuildRequires: make
 BuildRequires:  gcc-gfortran
+BuildRequires:  make
 BuildRequires:  netcdf-devel >= 4.6.0
-#mpiexec segfaults if ssh is not present
-#https://trac.mcs.anl.gov/projects/mpich2/ticket/1576
-BuildRequires:  openssh-clients
 # For Patch1
 BuildRequires:  libtool
 
 %global with_mpich 1
 %global with_openmpi 1
-%if 0%{?rhel} <= 6
-%ifarch ppc64
-# No mpich on ppc64 in EL6
-%global with_mpich 0
-%endif
-%endif
 
 %if %{with_mpich}
 %global mpi_list mpich
@@ -63,8 +57,6 @@ This package contains the NetCDF Fortran static library.
 Summary: NetCDF Fortran mpich libraries
 BuildRequires: mpich-devel
 BuildRequires: netcdf-mpich-devel
-Provides: %{name}-mpich2 = %{version}-%{release}
-Obsoletes: %{name}-mpich2 < 4.2-10
 
 %description mpich
 NetCDF Fortran parallel mpich libraries
@@ -77,8 +69,6 @@ Requires: gcc-gfortran%{_isa}
 Requires: pkgconfig
 Requires: netcdf-mpich-devel
 Requires: libcurl-devel
-Provides: %{name}-mpich2-devel = %{version}-%{release}
-Obsoletes: %{name}-mpich2-devel < 4.2-10
 
 %description mpich-devel
 NetCDF Fortran parallel mpich development files
@@ -87,8 +77,6 @@ NetCDF Fortran parallel mpich development files
 %package mpich-static
 Summary: NetCDF Fortran mpich static libraries
 Requires: %{name}-mpich-devel%{?_isa} = %{version}-%{release}
-Provides: %{name}-mpich2-static = %{version}-%{release}
-Obsoletes: %{name}-mpich2-static < 4.2-10
 
 %description mpich-static
 NetCDF Fortran parallel mpich static libraries
@@ -128,18 +116,12 @@ NetCDF Fortran parallel openmpi static libraries
 
 
 %prep
-%setup -q
-%patch1 -p1 -b .pkgconfig
+%autosetup -p1
 autoreconf
 sed -i -e '1i#!/bin/sh' examples/F90/run_f90_par_examples.sh
 
 
 %build
-# This package fails its testsuite if LTO is enabled on i686
-# Disable LTO for now
-%ifarch i686
-%define _lto_cflags %{nil}
-%endif
 #Do out of tree builds
 %global _configure ../configure
 
@@ -151,15 +133,8 @@ export F77="gfortran"
 export FC="gfortran"
 export FCFLAGS="$RPM_OPT_FLAGS"
 export FFLAGS="$RPM_OPT_FLAGS"
-# Temporary fix for FTBFS due to gcc 10 - reported upstream:
-# https://github.com/Unidata/netcdf-fortran/issues/212
-%if 0%{?fedora} >= 32
-export FCFLAGS="$FCFLAGS -fallow-argument-mismatch"
-export FFLAGS="$FFLAGS -fallow-argument-mismatch"
-%endif
 %configure --enable-extra-example-tests --with-fmoddir=%{_fmoddir}
-# Seeing failures with highly parallel builds, e.g. -j12 on ppc64le
-make #{?_smp_mflags}
+%make_build
 popd
 
 # MPI builds
@@ -181,7 +156,8 @@ do
     --with-fmoddir=%{_fmoddir}/${mpi} \
     --enable-parallel \
     --enable-parallel-tests
-  make #{?_smp_mflags}
+  %make_build
+  #make #{?_smp_mflags}
   module purge
   popd
 done
@@ -203,15 +179,16 @@ done
 
 %check
 make -C build check VERBOSE=1
-# Handle builders that can't resolve their own name
-sed -i -s 's/mpiexec/mpiexec -host localhost/' */*.sh
-# mpich tests hang on s390x on EL9
-%if 0%{?el} != 9 && "%{_arch}" != "s390x"
+# mpich tests hang on s390x
+%ifnarch s390x
+# Allow oversubscription with openmpi
+export OMPI_MCA_rmaps_base_oversubscribe=1
+# openmpi 5+
+export PRTE_MCA_rmaps_default_mapping_policy=:oversubscribe
 for mpi in %{mpi_list}
 do
   module load mpi/$mpi-%{_arch}
-  # mpich is failing - see https://github.com/Unidata/netcdf-fortran/pull/41
-  make -C $mpi check VERBOSE=1 || :
+  make -C $mpi check VERBOSE=1
   module purge
 done
 %endif
@@ -279,6 +256,11 @@ done
 
 
 %changelog
+* Thu Mar 30 2023 Orion Poplawski <orion@nwra.com> - 4.6.0-1
+- Update to 4.6.0
+- Drop i686 builds
+- Cleanup spec and drop old workarounds
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

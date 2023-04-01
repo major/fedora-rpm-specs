@@ -4,7 +4,7 @@
 Summary: GNU tools and libraries for localized translated messages
 Name: gettext
 Version: 0.21.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # The following are licensed under LGPLv2+:
 # - libintl and its headers
@@ -19,7 +19,7 @@ Release: 2%{?dist}
 # - libasprintf info files
 # - libtextstyle info files
 # Everything else is GPLv3+
-License: GPLv3+ and LGPLv2+ and GFDL
+License: GPL-3.0-or-later and LGPL-2.0-or-later and GFDL-1.2-or-later
 URL: https://www.gnu.org/software/gettext/
 Source: https://ftp.gnu.org/pub/gnu/%{name}/%{name}-%{version}.tar.gz
 Source2: msghack.py
@@ -93,7 +93,7 @@ programs.
 
 %package runtime
 Summary: GNU runtime libraries and programs for producing multi-lingual messages
-License: GPLv3+ and LGPLv2+
+License: GPL-3.0-or-later and LGPL-2.0-or-later
 # Depend on the exact version of the library sub package
 Requires: %{name}-libs%{_isa} = %{version}-%{release}
 Requires: %{name}-envsubst = %{version}-%{release}
@@ -109,7 +109,7 @@ and is a powerful and simple method for internationalizing programs.
 %package common-devel
 Summary: Common development files for %{name}
 # autopoint archive
-License: GPLv3+
+License: GPL-3.0-or-later
 BuildArch: noarch
 
 %description common-devel
@@ -121,7 +121,7 @@ Summary: Development files for %{name}
 # autopoint is GPLv3+
 # libasprintf is LGPLv2+
 # libgettextpo is GPLv3+
-License: LGPLv2+ and GPLv3+ and GFDL
+License: LGPL-2.0-or-later and GPL-3.0-or-later and GFDL-1.2-or-later
 Requires: %{name} = %{version}-%{release}
 Requires: %{name}-libs = %{version}-%{release}
 Requires: %{name}-common-devel = %{version}-%{release}
@@ -142,7 +142,7 @@ want to add gettext support for your project.
 Summary: Libraries for %{name}
 # libasprintf is LGPLv2+
 # libgettextpo is GPLv3+
-License: LGPLv2+ and GPLv3+
+License: LGPL-2.0-or-later and GPL-3.0-or-later
 Obsoletes: libtextstyle < %{version}-%{release}
 
 %description libs
@@ -416,6 +416,9 @@ make check LIBUNISTRING=-lunistring
 %{_mandir}/man1/msghack.1*
 
 %changelog
+* Wed Mar 29 2023 Sundeep Anand <suanand@redhat.com> - 0.21.1-3
+- update license tag to as per SPDX identifiers
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

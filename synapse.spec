@@ -1,25 +1,29 @@
 Name:		synapse
 Version:	0.2.99.4
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	A semantic launcher written in Vala
 
-License:	GPLv3+
+# SPDX confirmed
+License:	LGPL-2.0-or-later AND GPL-2.0-or-later AND GPL-3.0-or-later
 URL:		https://launchpad.net/synapse-project
 Source0:	https://launchpad.net/synapse-project/0.3/%{version}/+download/%{name}-%{version}.tar.xz
 
 BuildRequires: make
-BuildRequires: desktop-file-utils
 BuildRequires: gcc
 BuildRequires: gettext
-BuildRequires: gtk3-devel
 BuildRequires: intltool
-BuildRequires: json-glib-devel
-BuildRequires: libgee-devel
-BuildRequires: keybinder3-devel
-BuildRequires: libnotify-devel
-BuildRequires: vala-devel
-BuildRequires: %{_bindir}/valac
-BuildRequires: zeitgeist-devel
+BuildRequires: desktop-file-utils
+
+BuildRequires: pkgconfig(glib-2.0)
+BuildRequires: pkgconfig(gtk+-3.0)
+BuildRequires: pkgconfig(gio-unix-2.0)
+BuildRequires: pkgconfig(gee-0.8)
+BuildRequires: pkgconfig(json-glib-1.0)
+BuildRequires: pkgconfig(keybinder-3.0)
+BuildRequires: pkgconfig(libnotify)
+BuildRequires: pkgconfig(zeitgeist-2.0)
+BuildRequires: pkgconfig(rest-0.7)
+BuildRequires: /usr/bin/valac
 
 %description
 Synapse is a semantic launcher written in Vala that you can use to start
@@ -33,31 +37,37 @@ use of the Zeitgeist engine.
 %configure --disable-static --enable-zeitgeist=yes --disable-silent-rules
 %make_build
 
-
 %install
 %make_install
-
 %find_lang %{name}
 
 desktop-file-install \
---delete-original \
---dir=%{buildroot}%{_datadir}/applications \
-%{buildroot}%{_datadir}/applications/synapse.desktop
+  --delete-original \
+  --dir=%{buildroot}%{_datadir}/applications \
+  %{buildroot}%{_datadir}/applications/synapse.desktop
 
+%check
 desktop-file-validate %{buildroot}/%{_datadir}/applications/synapse.desktop
 
 %files -f %{name}.lang
-%{!?_licensedir:%global license %%doc}
 %license COPYING
 %license COPYING.GPL2
 %license COPYING.LGPL2.1
-%doc README AUTHORS
+%doc README
+%doc AUTHORS
+
 %{_bindir}/%{name}
 %{_datadir}/applications/synapse.desktop
 %{_mandir}/man1/synapse.1.*
 %{_datadir}/icons/hicolor/scalable/apps/synapse.svg
 
 %changelog
+* Thu Mar 30 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.2.99.4-12
+- Migrate to SPDX identifier
+- Fix up BuildRequires
+- Some more clean up spec file
+- Add rest support
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.99.4-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

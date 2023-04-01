@@ -2,8 +2,8 @@
 %bcond_without  gui
 
 Name:           ansifilter
-Version:        2.18
-Release:        5%{?dist}
+Version:        2.19
+Release:        1%{?dist}
 Summary:        ANSI terminal escape code converter
 License:        GPLv3+
 URL:            http://www.andre-simon.de/doku/ansifilter/ansifilter.php
@@ -76,6 +76,9 @@ rm -frv %{buildroot}%{_docdir}
 %license COPYING
 %{_bindir}/ansifilter
 %{_mandir}/man1/ansifilter.1*
+%{_datadir}/bash-completion/completions/ansifilter
+%{_datadir}/fish/vendor_completions.d/ansifilter.fish
+%{_datadir}/zsh/site-functions/_ansifilter
 
 %if %{with gui}
 %files gui
@@ -87,6 +90,9 @@ rm -frv %{buildroot}%{_docdir}
 %endif
 
 %changelog
+* Fri Mar 31 2023 Filipe Rosset <rosset.filipe@gmail.com> - 2.19-1
+- Update to 2.19 fixes rhbz#2178834
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.18-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

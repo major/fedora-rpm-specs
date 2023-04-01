@@ -3,10 +3,12 @@
 Summary: Ruby client for the Stomp messaging protocol
 Name: rubygem-%{gem_name}
 Version: 1.4.10
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: ASL 2.0
 URL: http://stomp.codehaus.org/
 Source0: http://rubygems.org/gems/%{gem_name}-%{version}.gem
+# https://github.com/stompgem/stomp/pull/175
+Patch0: https://salsa.debian.org/ruby-team/ruby-stomp/-/raw/5be6383a7a34a1d1891708d6aa8688cb4a6f89a5/debian/patches/fix-FTBFS-with-ruby-rspec-3.12.patch
 BuildRequires: rubygems-devel 
 BuildRequires: rubygem(rspec)
 BuildArch: noarch
@@ -26,6 +28,7 @@ This package contains documentation for %{name}.
 gem unpack %{SOURCE0}
 
 %setup -q -D -T -n  %{gem_name}-%{version}
+%patch -P 0 -p1
 
 gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
 
@@ -80,6 +83,9 @@ popd
 
 
 %changelog
+* Thu Mar 30 2023 Steve Traylen <steve.traylen@cern.ch> - 1.4.10-8
+- Fix for rspec 3.12, https://bugs.debian.org/1027092
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.10-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

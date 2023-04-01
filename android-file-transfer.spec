@@ -3,10 +3,10 @@
 
 Name:           android-file-transfer
 Version:        4.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Reliable Android MTP client with minimalist UI
 
-License:        LGPLv2+
+License:        LGPL-2.1-only
 URL:            https://github.com/whoozle/android-file-transfer-linux
 Source0:        %{url}/archive/v%{version}/%{name}-linux-%{version}.tar.gz
 
@@ -70,6 +70,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %{_datadir}/metainfo/%{name}.appdata.xml
 
 %changelog
+* Thu Mar 30 2023 Marek Blaha <mblaha@redhat.com> - 4.2-7
+- migrated to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

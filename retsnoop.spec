@@ -64,6 +64,9 @@ Source1:        %{libbpf_url}/archive/v%{libbpf_version}/libbpf-%{libbpf_version
 Source2:        %{bpftool_url}/archive/v%{bpftool_version}/bpftool-%{bpftool_version}.tar.gz
 Source3:        README.Fedora
 
+# bump addr2line, gimli, and object dependencies to the latest versions
+Patch:          0001-bump-addr2line-gimli-and-object-to-latest-versions.patch
+
 # has a Rust component
 ExclusiveArch:  %{rust_arches}
 # rust syn crate not compiling on 32-bit ARM

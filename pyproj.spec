@@ -1,10 +1,10 @@
 # note: PROJ_MIN_VERSION is defined in the setup.py file of pyproj
 # a compatibility matrix is also provided in docs/installation.rst
-%global minimal_needed_proj_version 8.2.0
+%global minimal_needed_proj_version 9.0.0
 
 Name:           pyproj
-Version:        3.4.1
-Release:        3%{?dist}
+Version:        3.5.0
+Release:        1%{?dist}
 Summary:        Cython wrapper to provide python interfaces to Proj
 # this software uses the "MIT:Modern Style with sublicense" license
 License:        MIT
@@ -190,6 +190,9 @@ py.test-3 -m "not network and not grid"
 
 
 %changelog
+* Thu Mar 30 2023 Jos de Kloe <josdekloe@gmail.com> 3.5.0-0
+- Update to 3.5.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

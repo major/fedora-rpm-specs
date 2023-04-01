@@ -3,7 +3,7 @@
 
 # https://github.com/go-delve/delve
 %global goipath         github.com/go-delve/delve
-Version:                1.2.0
+Version:                1.20.1
 
 %global common_description %{expand:
 Delve is a debugger for the Go programming language. The goal of the project 
@@ -12,10 +12,13 @@ easy to invoke and easy to use. Chances are if you're using a debugger, things
 aren't going your way. With that in mind, Delve should stay out of your way as 
 much as possible.}
 
+# Currently Delve only supports x86_64 and aarch64
+%global golang_arches x86_64 aarch64
+
 %gometa
 
 Name:           delve
-Release:        2%{?dist}
+Release:        %autorelease
 Summary:        A debugger for the Go programming language
 # Detected licences
 # - Expat License at 'LICENSE'
@@ -23,77 +26,75 @@ License:        MIT
 URL:            %{gourl}
 Source0:        %{gosource}
 
-# Currently Delve only supports x86_64
-ExcludeArch:    ppc64le
-ExcludeArch:    s390x
-ExcludeArch:    aarch64
-ExcludeArch:    i686
-ExcludeArch:    armv7hl
+# This dependencies are only in use in x86_64
+%ifarch x86_64
+BuildRequires:  golang(github.com/cilium/ebpf)
+BuildRequires:  golang(github.com/cilium/ebpf/link)
+BuildRequires:  golang(github.com/cilium/ebpf/ringbuf)
+%endif
+BuildRequires:  golang(github.com/cosiner/argv)
+BuildRequires:  golang(github.com/creack/pty)
+BuildRequires:  golang(github.com/derekparker/trie)
+BuildRequires:  golang(github.com/go-delve/liner)
+BuildRequires:  golang(github.com/google/go-dap)
+BuildRequires:  golang(github.com/hashicorp/golang-lru/simplelru)
+BuildRequires:  golang(github.com/mattn/go-isatty)
+BuildRequires:  golang(github.com/sirupsen/logrus)
+BuildRequires:  golang(github.com/spf13/cobra)
+BuildRequires:  golang(github.com/spf13/cobra/doc)
+BuildRequires:  golang(golang.org/x/arch/arm64/arm64asm)
+BuildRequires:  golang(golang.org/x/arch/ppc64/ppc64asm)
+BuildRequires:  golang(golang.org/x/arch/x86/x86asm)
+BuildRequires:  golang(golang.org/x/sys/unix)
+BuildRequires:  golang(golang.org/x/tools/go/packages)
+BuildRequires:  golang(gopkg.in/yaml.v2)
+BuildRequires:  golang(go.starlark.net/resolve)
+BuildRequires:  golang(go.starlark.net/starlark)
+BuildRequires:  golang(go.starlark.net/syntax)
+BuildRequires:  lsof
+BuildRequires:  git
 
-Patch1: ./disable-default-compression-dwz-test.patch
-Patch2: ./integration-test-symlinks.patch
-Patch3: ./clean-empty-doc.patch
-
-BuildRequires: golang(github.com/cosiner/argv)
-BuildRequires: golang(github.com/mattn/go-isatty)
-BuildRequires: golang(github.com/peterh/liner)
-BuildRequires: golang(github.com/pkg/profile)
-BuildRequires: golang(github.com/sirupsen/logrus)
-BuildRequires: golang(github.com/spf13/cobra)
-BuildRequires: golang(golang.org/x/arch/x86/x86asm)
-BuildRequires: golang(golang.org/x/sys/unix)
-BuildRequires: golang(golang.org/x/sys/windows)
-BuildRequires: golang(gopkg.in/yaml.v2)
+# This patch won't be necessary in future releases.
+# It makes 1.20.1 compatible with go-dap 0.7 instead of 0.6.
+Patch0001:      add_address_operator_for_go-dap_compatibility.patch
 
 %description
 %{common_description}
 
-
-%package -n %{goname}-devel
-Summary:       %{summary}
-BuildArch:     noarch
-
-%description -n %{goname}-devel
-%{common_description}
-
-This package contains library source intended for
-building other packages which use import path with
-%{goipath} prefix.
-
-
 %prep
-%forgeautosetup -p1
+echo "=== Start prep ==="
+%goprep
+%patch -P 0001 -p1
 
-rm -rf vendor/
-
+%generate_buildrequires
+%go_generate_buildrequires
 
 %build
-%gobuildroot
-%gobuild -o _bin/dlv %{goipath}/cmd/dlv
-
+echo "=== Start build ==="
+%gobuild -o %{gobuilddir}/bin/dlv %{goipath}/cmd/dlv
+echo "=== End build ==="
 
 %install
-%goinstall
-install -Dpm 0755 _bin/dlv %{buildroot}%{_bindir}/dlv
-
+%gopkginstall
+install -m 0755 -vd %{buildroot}%{_bindir}
+install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 
 %if %{with check}
 %check
 export GO111MODULE=off
 export GOPATH=%{buildroot}/%{gopath}:%{gopath}
-
 delvepath=%{buildroot}/%{gopath}/src/%{goipath}
 cp -r _fixtures $delvepath
 cp -r pkg/dwarf/line/_testdata $delvepath/pkg/dwarf/line
+cp -r pkg/proc/internal/ebpf $delvepath/pkg/proc/internal/
+
 pushd $delvepath
-for d in $(go list ./... | grep -v cmd | grep -v scripts); do
-    %gotest ${d}
-done
-rm -rf $delvepath/_fixtures
-rm -rf $delvepath/pkg/dwarf/line/_testdata
+echo "=== Start tests ==="
+%gotest $(go list ./... | awk '!/(cmd|scripts)/ {print $1}')
+echo "=== End tests ==="
+rm -rf $delvepath
 popd
 %endif
-
 
 %files
 %license LICENSE
@@ -101,14 +102,5 @@ popd
 %doc Documentation/*
 %{_bindir}/dlv
 
-
-%files -n %{goname}-devel -f devel.file-list
-%license LICENSE
-
-
 %changelog
-* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Fri Nov 2 2018 Derek Parker <deparker@redhat.com> - 1.2.0-1
-- First package for Fedora
+%autochangelog

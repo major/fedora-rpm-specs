@@ -38,6 +38,9 @@ Patch4: wx316_customLanguages.patch
 # Fedora lv2 1.18.8 switched to meson build, which changed include file path
 Patch5: audacity-3.1.3-lv2-meson-switch.patch
 
+# Fix build with GCC 13 (#2171444)
+Patch6: gcc13.patch
+
 BuildRequires: cmake
 BuildRequires: gettext-devel
 
@@ -142,6 +145,7 @@ For the most up to date manual content, use the on-line manual.
 %if 0%{?fedora} >= 37
 %patch5 -p1
 %endif
+%patch -P6 -p1
 
 %build
 %if 0%{?rhel} == 7

@@ -1,7 +1,7 @@
 
 Name:    heaptrack
-Version: 1.2.0
-Release: 13%{?dist}
+Version: 1.4.0
+Release: 1%{?dist}
 Summary: A heap memory profiler for Linux
 
 License: GPLv2+
@@ -20,6 +20,7 @@ BuildRequires:  kf5-kitemmodels-devel
 BuildRequires:  kf5-threadweaver-devel
 BuildRequires:  kf5-kconfigwidgets-devel
 BuildRequires:  kf5-kio-devel
+BuildRequires:  kf5-kiconthemes-devel
 
 BuildRequires:  kdiagram-devel
 
@@ -75,7 +76,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.heaptrack.des
 
 
 %files -f heaptrack.lang
-%license COPYING
+%license LICENSES/GPL-2.0-or-later.txt
 %{_bindir}/heaptrack
 %{_bindir}/heaptrack_gui
 %{_bindir}/heaptrack_print
@@ -86,10 +87,14 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.heaptrack.des
 %{_libdir}/heaptrack/libheaptrack_inject.so
 %{_libdir}/heaptrack/libheaptrack_preload.so
 %{_libdir}/heaptrack/libexec/heaptrack_interpret
+%{_libdir}/heaptrack/libexec/heaptrack_env
 %{_datadir}/icons/hicolor/*/apps/heaptrack*
 
 
 %changelog
+* Thu Mar 30 2023 Jan Grulich <jgrulich@redhat.com> - 1.4.0-1
+- 1.4.0
+
 * Mon Mar 06 2023 Jan Grulich <jgrulich@redhat.com> - 1.2.0-13
 - Fix build failure against GCC13
 

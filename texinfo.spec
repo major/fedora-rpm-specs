@@ -2,8 +2,8 @@
 
 Summary: Tools needed to create Texinfo format documentation files
 Name: texinfo
-Version: 7.0.2
-Release: 2%{?dist}
+Version: 7.0.3
+Release: 1%{?dist}
 License: GPLv3+
 Url: http://www.gnu.org/software/texinfo/
 Source0: ftp://ftp.gnu.org/gnu/texinfo/texinfo-%{version}.tar.xz
@@ -152,6 +152,10 @@ export ALL_TESTS=yes
 %{_mandir}/man1/pdftexi2dvi.1*
 
 %changelog
+* Thu Mar 30 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 7.0.3-1
+- Update to texinfo-7.0.3
+  Resolves: #2181837
+
 * Wed Feb 22 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 7.0.2-2
 - Fix possible use of an undefined value as an ARRAY reference in ParserNonXS.pm
   (causes FTBFS of a2ps)

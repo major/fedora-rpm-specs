@@ -1,5 +1,5 @@
 Name:           gio-qt
-Version:        0.0.11
+Version:        0.0.12
 Release:        %autorelease
 Summary:        Gio wrapper for Qt applications 
 License:        LGPLv3+

@@ -1,17 +1,17 @@
 %undefine __cmake_in_source_build
 
 Name:    hotspot
-Version: 1.3.0
-Release: 6%{?dist}
+Version: 1.4.1
+Release: 1%{?dist}
 Summary: The Linux perf GUI for performance analysis
 
 License: GPLv2+
 URL:     https://github.com/KDAB/hotspot
 
 Source0: https://github.com/KDAB/%{name}/releases/download/v%{version}/%{name}-v%{version}.tar.gz
-Patch0:  hotspot-v1.0.0-powerpc.patch
 
 BuildRequires:  extra-cmake-modules
+BuildRequires:  kf5-rpm-macros
 BuildRequires:  kf5-kcoreaddons-devel
 BuildRequires:  kf5-ki18n-devel
 BuildRequires:  kf5-kitemmodels-devel
@@ -19,11 +19,24 @@ BuildRequires:  kf5-threadweaver-devel
 BuildRequires:  kf5-kconfigwidgets-devel
 BuildRequires:  kf5-kio-devel
 BuildRequires:  kf5-kwindowsystem-devel
+BuildRequires:  cmake(KF5Notifications)
+BuildRequires:  cmake(KF5IconThemes)
+BuildRequires:  cmake(KF5Parts)
+BuildRequires:  cmake(KF5Archive)
+BuildRequires:  cmake(KF5SyntaxHighlighting)
+BuildRequires:  cmake(KGraphViewerPart)
+BuildRequires:  kddockwidgets-devel
 
+BuildRequires:  qcustomplot-qt5-devel
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  qt5-qtsvg-devel
+BuildRequires:  cmake(Qt5X11Extras)
 
 BuildRequires:  elfutils-devel
+BuildRequires:  elfutils-debuginfod-client-devel
+
+Recommends:     rust-cpp_demangle
+
 
 %description
 A standalone GUI for performance data. Attempting to provide a UI like
@@ -45,12 +58,24 @@ KCachegrind around Linux perf.
 
 %files
 %license LICENSE.GPL.txt
-%{_bindir}/hotspot
-%{_datadir}/icons/hicolor/*/*/hotspot*
+%{_kf5_bindir}/hotspot
+%{_kf5_datadir}/icons/hicolor/*/*/hotspot*
 %{_libexecdir}/hotspot-perfparser
 %{_libexecdir}/elevate_perf_privileges.sh
+%{_kf5_libexecdir}/kauth/hotspot-auth-helper
+%{_kf5_datadir}/applications/com.kdab.hotspot.desktop
+%{_kf5_datadir}/dbus-1/system-services/com.kdab.hotspot.perf.service
+%{_kf5_datadir}/dbus-1/system.d/com.kdab.hotspot.perf.conf
+%{_kf5_datadir}/knotifications5/hotspot.notifyrc
+%{_kf5_metainfodir}/com.kdab.Hotspot.appdata.xml
+%{_kf5_datadir}/polkit-1/actions/com.kdab.hotspot.perf.policy
+
 
 %changelog
+* Thu Mar 30 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1.4.1-1
+- Update to version 1.4.1
+- Remove unneded patch
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

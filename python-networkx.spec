@@ -1,6 +1,17 @@
+# There is a bootstrap loop between libpysal and networkx when tests/docs are
+# enabled
+%bcond_with     bootstrap
+
+# Whether to build documentation and run tests
+%if %{without bootstrap} && 0%{?rhel} == 0
+%bcond_without  doctest
+%else
+%bcond_with     doctest
+%endif
+
 Name:           python-networkx
 Version:        2.8.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Creates and Manipulates Graphs and Networks
 License:        BSD-3-Clause
 URL:            https://networkx.org/
@@ -18,9 +29,6 @@ Patch0:         %{name}-doc.patch
 # See https://github.com/networkx/networkx/issues/5913
 Patch1:         %{name}-test.patch
 
-# There is a bootstrap loop between libpysal and networkx when tests/docs are enabled
-%bcond_with     bootstrap
-
 BuildArch:      noarch
 
 BuildRequires:  make
@@ -29,8 +37,7 @@ BuildRequires:  pyproject-rpm-macros
 BuildRequires:  %{py3_dist setuptools}
 BuildRequires:  %{py3_dist pip}
 BuildRequires:  %{py3_dist wheel}
-%if %{without bootstrap}
-%if 0%{?rhel} == 0
+%if %{with doctest}
 BuildRequires:  %{py3_dist matplotlib}
 BuildRequires:  %{py3_dist numpy}
 BuildRequires:  %{py3_dist pandas}
@@ -67,7 +74,6 @@ BuildRequires:  sympy-doc
 BuildRequires:  tex(latex)
 BuildRequires:  tex-preview
 %endif
-%endif
 
 %description
 NetworkX is a Python package for the creation, manipulation, and
@@ -75,21 +81,13 @@ study of the structure, dynamics, and functions of complex networks.
 
 %package -n python3-networkx
 Summary:        Creates and Manipulates Graphs and Networks
-Recommends:     %{py3_dist lxml}
-Recommends:     %{py3_dist matplotlib}
-Recommends:     %{py3_dist numpy}
-Recommends:     %{py3_dist pandas}
-Recommends:     %{py3_dist pydot}
-Recommends:     %{py3_dist pygraphviz}
-Recommends:     %{py3_dist scipy}
 Recommends:     xdg-utils
 
 %description -n python3-networkx
 NetworkX is a Python 3 package for the creation, manipulation, and
 study of the structure, dynamics, and functions of complex networks.
 
-%if %{without bootstrap}
-%if 0%{?rhel} == 0
+%if %{with doctest}
 %package doc
 # The content is BSD-3-Clause.  Other licenses are due to files copied in by
 # Sphinx.
@@ -129,13 +127,14 @@ Provides:       bundled(js-underscore)
 
 %description doc
 Documentation for networkx
-%endif
+
+%pyproject_extras_subpkg -n python3-networkx extra
 %endif
 
 %prep
 %autosetup -p0 -n networkx-networkx-%{version}
 
-%if 0%{?rhel} == 0
+%if %{with doctest}
 # Use local objects.inv for intersphinx
 sed -e 's|\("https://docs\.python\.org/3/", \)None|\1"%{_docdir}/python3-docs/html/objects.inv"|' \
     -e 's|\("https://numpy\.org/doc/stable/", \)None|\1"%{_docdir}/python3-numpy-doc/objects.inv"|' \
@@ -144,10 +143,16 @@ sed -e 's|\("https://docs\.python\.org/3/", \)None|\1"%{_docdir}/python3-docs/ht
     -i doc/conf.py
 %endif
 
+# Fedora does not have osmnx or momepy
+sed -i '/osmnx/d;/momepy/d' requirements/example.txt
+
+# Allow use of numpydoc 1.4 until Fedora catches up
+sed -i 's/\(numpydoc>=1.\)5/\14/' requirements/doc.txt
+
 %build
 %pyproject_wheel
 
-%if %{without bootstrap} && 0%{?rhel} == 0
+%if %{with doctest}
 # Build the documentation
 PYTHONPATH=%{pyproject_build_lib} make -C doc html
 rst2html --no-datestamp README.rst README.html
@@ -159,7 +164,7 @@ rst2html --no-datestamp README.rst README.html
 mv %{buildroot}%{_docdir}/networkx-%{version} ./installed-docs
 rm -f installed-docs/INSTALL.txt
 
-%if %{without bootstrap} && 0%{?rhel} == 0
+%if %{with doctest}
 # Repack uncompressed zip archives
 for fil in $(find doc/build -name \*.zip); do
   mkdir zip
@@ -172,25 +177,27 @@ done
 %endif
 
 %check
-%if 0%{?rhel} == 0
-%if %{without bootstrap}
+%if %{with doctest}
 %pytest
 %else
 %pyproject_check_import -e '*.tests.*' -e '*.conftest'
 %endif
-%endif
 
 %files -n python3-networkx -f %{pyproject_files}
-%if %{without bootstrap} && 0%{?rhel} == 0
+%if %{with doctest}
 %doc README.html installed-docs/*
 %endif
 
-%if %{without bootstrap} && 0%{?rhel} == 0
+%if %{with doctest}
 %files doc
 %doc doc/build/html/*
 %endif
 
 %changelog
+* Thu Mar 30 2023 Jerry James <loganjerry@gmail.com> - 2.8.8-3
+- Add "extra" extras subpackage
+- Simplify conditionals
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 %{?python_enable_dependency_generator}
 
 Name:           pungi
-Version:        4.3.7
-Release:        2%{?dist}
+Version:        4.3.8
+Release:        1%{?dist}
 Summary:        Distribution compose tool
 
 License:        GPL-2.0-only
@@ -138,6 +138,26 @@ rm %{buildroot}%{_bindir}/pungi
 %{_bindir}/%{name}-wait-for-signed-ostree-handler
 
 %changelog
+* Thu Mar 30 2023 Haibo Lin <hlin@redhat.com> - 4.3.8-1
+- createiso: Update possibly changed file on DVD (lsedlar)
+- pkgset: Stop reuse if configuration changed (lsedlar)
+- Allow disabling inheriting ExcludeArch to noarch packages (lsedlar)
+- pkgset: Support extra builds with no tags (lsedlar)
+- buildinstall: Avoid pointlessly tweaking the boot images (lsedlar)
+- Prevent to reuse if unsigned packages are allowed (hlin)
+- Pass parent id/respin id to CTS (lsedlar)
+- Exclude existing files in boot.iso (hlin)
+- image-build/osbuild: Pull ISOs into the compose (lsedlar)
+- Retry 401 error from CTS (lsedlar)
+- gather: Better detection of debuginfo in lookaside (lsedlar)
+- Log versions of all installed packages (hlin)
+- Use authentication for all CTS calls (lsedlar)
+- Fix black complaints (lsedlar)
+- Add vhd.gz extension to compressed VHD images (lsedlar)
+- Add vhd-compressed image type (lsedlar)
+- Update to work with latest mock (lsedlar)
+- Default bztar format for sdist command (onosek)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

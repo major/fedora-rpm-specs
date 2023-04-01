@@ -1,34 +1,35 @@
 Name:           thonny
 Version:        4.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python IDE for beginners
 
 # Code is MIT, toolbar icons are EPL-1.0
-# Vendored python-pipkin is MIT, python-filelock is Unlicense
-License:        MIT AND EPL-1.0 AND Unlicense
+# Vendored python-pipkin is MIT
+License:        MIT AND EPL-1.0
 URL:            https://thonny.org
-Source0:        %{pypi_source}
+Source:         %{pypi_source}
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 BuildRequires:  python3-tkinter
+BuildRequires:  python3-filelock
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 BuildRequires:  xorg-x11-server-Xvfb
-BuildRequires:  pyproject-rpm-macros
 # To compile the localization files
 BuildRequires:  babel
 
 Requires:       python3-tkinter
 # Pip is necessary for pip_gui plugin, therefore explicit Requires
 Requires:       python3-pip
+# Unbundled library needs to be explicitly Required
+Requires:       python3-filelock
 Requires:       hicolor-icon-theme
 
-# Vendor Libraries
+# Vendored library - not yet packaged in Fedora
 Provides:       bundled(python3dist(pipkin)) = 1.0~b7
-Provides:       bundled(python3dist(filelock)) = 3.9
 
 Recommends:     python3-asttokens
 Recommends:     python3-distro
@@ -48,6 +49,9 @@ and special mode for learning about references.
 # Remove localization helper scripts, we don't need them in the package
 rm thonny/locale/compile_mo.bat thonny/locale/update_pot.bat thonny/locale/thonny.pot
 
+# Remove the vendored python-filelock
+rm -r thonny/vendored_libs/filelock/
+
 # Add placeholder to language file, already fixed in upstream.
 # https://github.com/thonny/thonny/issues/2626
 sed -i 's/Muovi nel Cestino/Muovi %s nel Cestino/' thonny/locale/it_IT/LC_MESSAGES/thonny.po
@@ -58,7 +62,7 @@ sed -i 's/#!\/usr\/bin\/env python3//' thonny/vendored_libs/pipkin/__main__.py
 sed -i 's/#!\/usr\/bin\/env python3//' thonny/vendored_libs/pipkin/proxy.py
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 %build
 # Don't use the upstream compiled language files, compile them during the build
@@ -88,10 +92,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.thonn
 
 
 %check
-xvfb-run py.test-3 --pyargs thonny
+%global __pytest xvfb-run %__pytest
+%pytest --pyargs thonny
 
 %files -f %{pyproject_files}
-%license LICENSE.txt licenses/ECLIPSE-ICONS-LICENSE.txt
+%license licenses/ECLIPSE-ICONS-LICENSE.txt
 %doc README.rst CHANGELOG.rst CREDITS.rst
 %{_bindir}/%{name}
 %{_datadir}/icons/hicolor/*/apps/thonny.png
@@ -101,6 +106,9 @@ xvfb-run py.test-3 --pyargs thonny
 
 
 %changelog
+* Fri Mar 17 2023 Karolina Surma <ksurma@redhat.com> - 4.0.2-2
+- Unbundle python-filelock
+
 * Wed Feb 01 2023 abrarwali <abrarwali@tutanota.com> - 4.0.2-1
 - New upstream version 4.0.2
 

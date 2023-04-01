@@ -1,8 +1,8 @@
 %global __requires_exclude .*BugzillaClient.*
 
 Name:           vym
-Version:        2.8.8
-Release:        6%{?dist}
+Version:        2.9.0
+Release:        1%{?dist}
 Summary:        View your mind
 
 License:        GPL-2.0-or-later
@@ -18,9 +18,9 @@ Source6:	vym-logo-new-32.png
 Source7:	vym-logo-new-48.png
 Source8:	vym-logo-new-256.png
 
-BuildRequires: make
+BuildRequires:  make cmake
 BuildRequires:  qt5-qtbase-devel qt5-qtsvg-devel libXext-devel desktop-file-utils
-BuildRequires:  qt5-qtscript-devel
+BuildRequires:  qt5-qtscript-devel qt5-linguist
 
 %{?filter_setup:
 %filter_from_requires /^perl(BugzillaClient)$/d
@@ -44,13 +44,13 @@ to organize tasks, to get an overview over complex contexts.
 
 %global docval %{_docdir}
 
-%{qmake_qt5} DOCDIR="%{?docval}" PREFIX=%{_prefix} DATADIR=%{_datadir}/vym CMAKE_INSTALL_PREFIX=%{_datadir}
-
-%{__make} %{?_smp_mflags}
+%cmake -DCMAKE_INSTALL_DATAROOTDIR:PATH=share/vym
+%cmake_build
 
 
 %install
-%{__make} install INSTALL_ROOT=%{buildroot} COPY="%{__cp} -p -f"
+mkdir -p %{buildroot}%{_datadir}/vym
+%cmake_install
 
 %{__mkdir} -p %{buildroot}%{_datadir}/applications/
 
@@ -82,6 +82,7 @@ desktop-file-install             \
 install -m a+rx,u+w -d %{buildroot}%{_datadir}/mime/packages
 install -p -m a+r,u+w %{SOURCE2} %{buildroot}%{_datadir}/mime/packages/vym.xml
 
+
 %files
 %license LICENSE.txt
 %doc README.md demos/* doc/*
@@ -98,6 +99,9 @@ install -p -m a+r,u+w %{SOURCE2} %{buildroot}%{_datadir}/mime/packages/vym.xml
 
 
 %changelog
+* Fri Mar 24 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.9.0-1
+- 2.9.0
+
 * Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.8.8-6
 - migrated to SPDX license
 

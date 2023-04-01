@@ -35,16 +35,18 @@
 %global nodejs_release %{baserelease}
 %global nodejs_envr %{nodejs_epoch}:%{nodejs_version}-%{nodejs_release}
 
-%global nodejs_datadir %{_datarootdir}/node-%{nodejs_major}
+%global nodejs_pkg_major 18
+
+%global nodejs_datadir %{_datarootdir}/node-%{nodejs_pkg_major}
 
 # Determine if this should be the default version for this Fedora release
 # The default version will own /usr/bin/node and friends
 %if 0%{?fedora} == 37 || 0%{?fedora} == 38
-%global nodejs_default %{nodejs_major}
+%global nodejs_default %{nodejs_pkg_major}
 %endif
 
 %global nodejs_default_sitelib %{_prefix}/lib/node_modules
-%global nodejs_private_sitelib %{nodejs_default_sitelib}_%{nodejs_major}
+%global nodejs_private_sitelib %{nodejs_default_sitelib}_%{nodejs_pkg_major}
 
 
 # == Bundled Dependency Versions ==
@@ -112,7 +114,7 @@
 %global histogram_version 0.9.7
 
 
-Name: nodejs18
+Name: nodejs%{nodejs_pkg_major}
 Epoch: %{nodejs_epoch}
 Version: %{nodejs_version}
 Release: %{nodejs_release}
@@ -132,7 +134,9 @@ Source2: btest402.js
 # The binary data that icu-small can use to get icu-full capability
 Source3: https://github.com/unicode-org/icu/releases/download/release-%{icu_major}-%{icu_minor}/icu4c-%{icu_major}_%{icu_minor}-data-bin-b.zip
 Source4: https://github.com/unicode-org/icu/releases/download/release-%{icu_major}-%{icu_minor}/icu4c-%{icu_major}_%{icu_minor}-data-bin-l.zip
-Source100: nodejs-sources.sh
+Source200: nodejs-sources.sh
+Source202: nodejs.pc.in
+Source203: v8.pc.in
 
 # These are full sources for dependencies included as WASM blobs in the source of Node itself.
 # Note: These sources would also include pre-compiled WASM blobs… so they are adjusted not to.
@@ -174,6 +178,7 @@ BuildRequires: gcc >= 8.3.0
 BuildRequires: gcc-c++ >= 8.3.0
 %endif
 
+BuildRequires: pkgconf
 BuildRequires: jq
 
 # needed to generate bundled provides for npm dependencies
@@ -555,29 +560,29 @@ chmod 0755 %{buildroot}/%{_bindir}/node
 chrpath --delete %{buildroot}%{_bindir}/node
 
 # Rename the node binary
-mv %{buildroot}%{_bindir}/node %{buildroot}%{_bindir}/node-%{nodejs_major}
+mv %{buildroot}%{_bindir}/node %{buildroot}%{_bindir}/node-%{nodejs_pkg_major}
 
 # Move the npm binary to npm-NODEJS_MAJOR
 rm -f %{buildroot}%{_bindir}/npm
 
 ln -srf %{buildroot}%{nodejs_private_sitelib}/npm/bin/npm-cli.js \
-        %{buildroot}%{_bindir}/npm-%{nodejs_major}
+        %{buildroot}%{_bindir}/npm-%{nodejs_pkg_major}
 
 # Move the npx binary to npm-NODEJS_MAJOR
 rm -f %{buildroot}%{_bindir}/npx
 
 ln -srf %{buildroot}%{nodejs_private_sitelib}/npm/bin/npx-cli.js \
-        %{buildroot}%{_bindir}/npx-%{nodejs_major}
+        %{buildroot}%{_bindir}/npx-%{nodejs_pkg_major}
 
 # Add the symlinks back for the default version
 %if 0%{?nodejs_default}
-ln -srf %{buildroot}%{_bindir}/node-%{nodejs_major} \
+ln -srf %{buildroot}%{_bindir}/node-%{nodejs_pkg_major} \
         %{buildroot}%{_bindir}/node
 
-ln -srf %{buildroot}%{_bindir}/npm-%{nodejs_major} \
+ln -srf %{buildroot}%{_bindir}/npm-%{nodejs_pkg_major} \
         %{buildroot}%{_bindir}/npm
 
-ln -srf %{buildroot}%{_bindir}/npx-%{nodejs_major} \
+ln -srf %{buildroot}%{_bindir}/npx-%{nodejs_pkg_major} \
         %{buildroot}%{_bindir}/npx
 %endif
 
@@ -593,10 +598,12 @@ done
 ln -s ./node/cppgc %{buildroot}%{_includedir}/cppgc
 
 for soname in libv8 libv8_libbase libv8_libplatform; do
-    ln -s libnode.so.%{nodejs_soversion} %{buildroot}%{_libdir}/%{pkgname}-${soname}.so
-    ln -s libnode.so.%{nodejs_soversion} %{buildroot}%{_libdir}/%{pkgname}-${soname}.so.%{v8_major}
-    ln -s libnode.so.%{nodejs_soversion} %{buildroot}%{_libdir}/${soname}.so
-    ln -s libnode.so.%{nodejs_soversion} %{buildroot}%{_libdir}/${soname}.so.%{v8_major}
+  ln -srf %{buildroot}%{_libdir}/libnode.so.%{nodejs_soversion} %{buildroot}%{_libdir}/${soname}.so.%{v8_major}.%{v8_minor}
+  ln -srf %{buildroot}%{_libdir}/libnode.so.%{nodejs_soversion} %{buildroot}%{_libdir}/${soname}.so
+
+  %if 0%{?nodejs_default}
+    ln -srf %{buildroot}%{_libdir}/libnode.so.%{nodejs_soversion} %{buildroot}%{_libdir}/${soname}.so.%{v8_major}
+  %endif
 done
 
 # install documentation
@@ -615,18 +622,18 @@ mv %{buildroot}%{_includedir}/node/config.gypi \
 # Install the GDB init tool into the documentation directory
 mv %{buildroot}/%{_datadir}/doc/node/gdbinit %{buildroot}/%{_pkgdocdir}/gdbinit
 
-mkdir -p %{buildroot}%{_mandir}/nodejs-%{nodejs_major}/man1 \
-         %{buildroot}%{_mandir}/nodejs-%{nodejs_major}/man5 \
-         %{buildroot}%{_mandir}/nodejs-%{nodejs_major}/man7 \
+mkdir -p %{buildroot}%{_mandir}/nodejs-%{nodejs_pkg_major}/man1 \
+         %{buildroot}%{_mandir}/nodejs-%{nodejs_pkg_major}/man5 \
+         %{buildroot}%{_mandir}/nodejs-%{nodejs_pkg_major}/man7 \
          %{buildroot}%{nodejs_default_sitelib}/npm/man \
          %{buildroot}%{nodejs_private_sitelib}/npm/man \
          %{buildroot}%{_pkgdocdir}/npm
 
 # install manpage docs to mandir
 cp -pr deps/npm/man/* \
-       %{buildroot}%{_mandir}/nodejs-%{nodejs_major}/
+       %{buildroot}%{_mandir}/nodejs-%{nodejs_pkg_major}/
 rm -rf %{buildroot}%{nodejs_private_sitelib}/npm/man
-ln -srf %{buildroot}%{_mandir}/nodejs-%{nodejs_major} \
+ln -srf %{buildroot}%{_mandir}/nodejs-%{nodejs_pkg_major} \
         %{buildroot}%{nodejs_private_sitelib}/npm/man
 
 %if 0%{?nodejs_default}
@@ -642,10 +649,10 @@ done
 
 # Install the node interpreter manpage
 mv %{buildroot}%{_mandir}/man1/node.1 \
-   %{buildroot}%{_mandir}/nodejs-%{nodejs_major}/man1/
+   %{buildroot}%{_mandir}/nodejs-%{nodejs_pkg_major}/man1/
 
 %if 0%{?nodejs_default}
-ln -srf %{buildroot}%{_mandir}/nodejs-%{nodejs_major}/man1/node.1 \
+ln -srf %{buildroot}%{_mandir}/nodejs-%{nodejs_pkg_major}/man1/node.1 \
         %{buildroot}%{_mandir}/man1/
 %endif
 
@@ -692,21 +699,37 @@ unzip -d %{buildroot}%{icudatadir} %{SOURCE4} icudt%{icu_major}l.dat
 unzip -d %{buildroot}%{icudatadir} %{SOURCE3} icudt%{icu_major}b.dat
 %endif
 
+# Add pkg-config files
+mkdir -p %{buildroot}%{_libdir}/pkgconfig
+sed -e 's#@PREFIX@#%{_prefix}#g' \
+    -e 's#@INCLUDEDIR@#%{_includedir}#g' \
+    -e 's#@LIBDIR@#%{_libdir}#g' \
+    -e 's#@PKGCONFNAME@#nodejs-%{nodejs_pkg_major}#g' \
+    -e 's#@NODEJS_VERSION@#%{nodejs_version}#g' \
+    %{SOURCE202} > %{buildroot}%{_libdir}/pkgconfig/nodejs-%{nodejs_pkg_major}.pc
+
+sed -e 's#@PREFIX@#%{_prefix}#g' \
+    -e 's#@INCLUDEDIR@#%{_includedir}#g' \
+    -e 's#@LIBDIR@#%{_libdir}#g' \
+    -e 's#@PKGCONFVERSION@#v8-%{v8_major}.%{v8_minor}#g' \
+    -e 's#@V8_VERSION@#%{v8_version}#g' \
+    %{SOURCE203} > %{buildroot}%{_libdir}/pkgconfig/v8-%{v8_major}.%{v8_minor}.pc
+
 
 %check
 # Fail the build if the versions don't match
-LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}/%{_bindir}/node-%{nodejs_major} -e "require('assert').equal(process.versions.node, '%{nodejs_version}')"
-LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}/%{_bindir}/node-%{nodejs_major} -e "require('assert').equal(process.versions.v8.replace(/-node\.\d+$/, ''), '%{v8_version}')"
-LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}/%{_bindir}/node-%{nodejs_major} -e "require('assert').equal(process.versions.ares.replace(/-DEV$/, ''), '%{c_ares_version}')"
+LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}/%{_bindir}/node-%{nodejs_pkg_major} -e "require('assert').equal(process.versions.node, '%{nodejs_version}')"
+LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}/%{_bindir}/node-%{nodejs_pkg_major} -e "require('assert').equal(process.versions.v8.replace(/-node\.\d+$/, ''), '%{v8_version}')"
+LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}/%{_bindir}/node-%{nodejs_pkg_major} -e "require('assert').equal(process.versions.ares.replace(/-DEV$/, ''), '%{c_ares_version}')"
 
 # Ensure we have punycode and that the version matches
-LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}/%{_bindir}/node-%{nodejs_major} -e "require(\"assert\").equal(require(\"punycode\").version, '%{punycode_version}')"
+LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}/%{_bindir}/node-%{nodejs_pkg_major} -e "require(\"assert\").equal(require(\"punycode\").version, '%{punycode_version}')"
 
 # Ensure we have npm and that the version matches
-LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}%{_bindir}/node-%{nodejs_major} %{buildroot}%{_bindir}/npm-%{nodejs_major} version --json |jq -e '.npm == "%{npm_version}"'
+LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}%{_bindir}/node-%{nodejs_pkg_major} %{buildroot}%{_bindir}/npm-%{nodejs_pkg_major} version --json |jq -e '.npm == "%{npm_version}"'
 
 # Make sure i18n support is working
-NODE_PATH=%{buildroot}%{_prefix}/lib/node_modules:%{buildroot}%{nodejs_private_sitelib}/npm/node_modules LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}/%{_bindir}/node-%{nodejs_major} --icu-data-dir=%{buildroot}%{icudatadir} %{SOURCE2}
+NODE_PATH=%{buildroot}%{_prefix}/lib/node_modules:%{buildroot}%{nodejs_private_sitelib}/npm/node_modules LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}/%{_bindir}/node-%{nodejs_pkg_major} --icu-data-dir=%{buildroot}%{icudatadir} %{SOURCE2}
 
 
 %if 0%{?rhel} && 0%{?rhel} < 8
@@ -758,10 +781,10 @@ end
 
 %endif
 
-%{_bindir}/node-%{nodejs_major}
+%{_bindir}/node-%{nodejs_pkg_major}
 %{nodejs_private_sitelib}
 
-%doc %{_mandir}/nodejs-%{nodejs_major}/man1/node.1*
+%doc %{_mandir}/nodejs-%{nodejs_pkg_major}/man1/node.1*
 
 
 %files -n %{pkgname}-devel
@@ -769,6 +792,7 @@ end
 %{_libdir}/libnode.so
 %{nodejs_datadir}/common.gypi
 %{_pkgdocdir}/gdbinit
+%{_libdir}/pkgconfig/nodejs-%{nodejs_pkg_major}.pc
 
 
 %files -n %{pkgname}-full-i18n
@@ -779,9 +803,9 @@ end
 %files -n %{pkgname}-libs
 %license LICENSE
 %{_libdir}/libnode.so.%{nodejs_soversion}
-%{_libdir}/%{pkgname}-libv8.so.%{v8_major}
-%{_libdir}/%{pkgname}-libv8_libbase.so.%{v8_major}
-%{_libdir}/%{pkgname}-libv8_libplatform.so.%{v8_major}
+%{_libdir}/libv8.so.%{v8_major}.%{v8_minor}
+%{_libdir}/libv8_libbase.so.%{v8_major}.%{v8_minor}
+%{_libdir}/libv8_libplatform.so.%{v8_major}.%{v8_minor}
 %dir %{nodejs_datadir}/
 %if 0%{?nodejs_default}
 %{_libdir}/libv8.so.%{v8_major}
@@ -793,12 +817,10 @@ end
 %{_includedir}/libplatform
 %{_includedir}/v8*.h
 %{_includedir}/cppgc
-%{_libdir}/%{pkgname}-libv8.so
-%{_libdir}/%{pkgname}-libv8_libbase.so
-%{_libdir}/%{pkgname}-libv8_libplatform.so
 %{_libdir}/libv8.so
 %{_libdir}/libv8_libbase.so
 %{_libdir}/libv8_libplatform.so
+%{_libdir}/pkgconfig/v8-%{v8_major}.%{v8_minor}.pc
 
 
 %files -n %{pkgname}-npm
@@ -813,12 +835,12 @@ end
 %exclude %doc %{_mandir}/man1/node.1*
 %endif
 
-%{_bindir}/npm-%{nodejs_major}
-%{_bindir}/npx-%{nodejs_major}
+%{_bindir}/npm-%{nodejs_pkg_major}
+%{_bindir}/npx-%{nodejs_pkg_major}
 %{nodejs_private_sitelib}/npm
 
-%doc %{_mandir}/nodejs-%{nodejs_major}/
-%exclude %doc %{_mandir}/nodejs-%{nodejs_major}/man1/node.1*
+%doc %{_mandir}/nodejs-%{nodejs_pkg_major}/
+%exclude %doc %{_mandir}/nodejs-%{nodejs_pkg_major}/man1/node.1*
 
 
 %files -n %{pkgname}-docs

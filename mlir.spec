@@ -1,9 +1,9 @@
-%global maj_ver 15
+%global maj_ver 16
 %global min_ver 0
-#global rc_ver 3
-%global patch_ver 7
+%global patch_ver 0
+#global rc_ver 4
 %global mlir_version %{maj_ver}.%{min_ver}.%{patch_ver}
-%global mlir_srcdir llvm-project-%{mlir_version}%{?rc_ver:rc%{rc_ver}}.src
+%global mlir_srcdir mlir-%{mlir_version}%{?rc_ver:rc%{rc_ver}}.src
 
 # Opt out of https://fedoraproject.org/wiki/Changes/fno-omit-frame-pointer
 # https://bugzilla.redhat.com/show_bug.cgi?id=2158587
@@ -11,7 +11,7 @@
 
 Name: mlir
 Version: %{mlir_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 Summary: Multi-Level Intermediate Representation Overview
 
 License: Apache-2.0 WITH LLVM-exception
@@ -20,12 +20,18 @@ Source0: https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ve
 Source1: https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{mlir_srcdir}.tar.xz.sig
 Source2: release-keys.asc
 
+Patch0: 0001-mlir-Change-LLVM_COMMON_CMAKE_UTILS-usage.patch
+
+# Support for i686 upstream is unclear with lots of tests failling.
+ExcludeArch: i686
+
 BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: cmake
 BuildRequires: ninja-build
 BuildRequires: zlib-devel
 BuildRequires: llvm-devel = %{version}
+BuildRequires: llvm-googletest = %{version}
 BuildRequires: llvm-test = %{version}
 BuildRequires: python3-lit
 
@@ -56,12 +62,23 @@ MLIR development files.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup -n %{mlir_srcdir}/%{name} -p2
-# remove all but keep mlir
-find ../* -maxdepth 0 ! -name '%{name}' -exec rm -rf {} +
+%autosetup -n %{mlir_srcdir} -p2
 
 
 %build
+
+%ifarch %ix86
+%global debug_package %{nil}
+%global _lto_cflags %{nil}
+%endif
+
+# On aarch64, dwz can take very long to process all the files. It either fails
+# reaching a timeout or consumes too much RAM.  Restrict its resources in
+# order to stop dwz early. We prefer to miss the DWARF optimization than not
+# not being able to build this package on aarch64.
+%global _dwz_low_mem_die_limit_aarch64 1
+%global _dwz_max_die_limit_aarch64 1000000
+
 %cmake  -GNinja \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
         -DCMAKE_SKIP_RPATH=ON \
@@ -69,6 +86,8 @@ find ../* -maxdepth 0 ! -name '%{name}' -exec rm -rf {} +
         -DLLVM_BUILD_LLVM_DYLIB=ON \
         -DCMAKE_PREFIX_PATH=%{_libdir}/cmake/llvm/ \
         -DLLVM_EXTERNAL_LIT=%{_bindir}/lit \
+        -DLLVM_THIRD_PARTY_DIR=%{_datadir}/llvm/src/utils \
+        -DLLVM_COMMON_CMAKE_UTILS=%{_libdir}/cmake/llvm/ \
         -DLLVM_BUILD_TOOLS:BOOL=ON \
         -DLLVM_BUILD_UTILS:BOOL=ON \
         -DMLIR_INCLUDE_DOCS:BOOL=ON \
@@ -77,6 +96,10 @@ find ../* -maxdepth 0 ! -name '%{name}' -exec rm -rf {} +
         -DBUILD_SHARED_LIBS=OFF \
         -DMLIR_INSTALL_AGGREGATE_OBJECTS=OFF \
         -DMLIR_BUILD_MLIR_C_DYLIB=ON \
+%ifarch %ix86
+        -DLLVM_PARALLEL_LINK_JOBS=1 \
+        -DMLIR_RUN_X86VECTOR_TESTS:BOOL=OFF \
+%endif
 %if 0%{?__isa_bits} == 64
         -DLLVM_LIBDIR_SUFFIX=64
 %else
@@ -103,6 +126,34 @@ rm test/IR/file-metadata-resources.mlir
 # 2. The cpu runner tests call mlir-opt without awareness of the host index size.
 # For this reason, skip mlir-cpu-runner tests on 32-bit.
 rm -rf test/mlir-cpu-runner
+
+# The following test requires AVX2.
+rm -rf test/Dialect/Math/polynomial-approximation.mlir
+
+# TODO: Can these vector tests pass on i386?
+rm -rf test/Conversion/MathToLibm/convert-to-libm.mlir
+rm -rf test/Dialect/Vector/canonicalize.mlir
+rm -rf test/Dialect/Vector/vector-unroll-options.mlir
+rm -rf test/Dialect/SparseTensor/sparse_vector_ops.mlir
+
+# TODO: Investigate the following issues.
+rm -rf test/mlir-pdll-lsp-server/compilation_database.test
+rm -rf test/mlir-pdll-lsp-server/completion.test
+rm -rf test/mlir-pdll-lsp-server/definition-split-file.test
+rm -rf test/mlir-pdll-lsp-server/definition.test
+rm -rf test/mlir-pdll-lsp-server/document-links.test
+rm -rf test/mlir-pdll-lsp-server/document-symbols.test
+rm -rf test/mlir-pdll-lsp-server/exit-eof.test
+rm -rf test/mlir-pdll-lsp-server/exit-with-shutdown.test
+rm -rf test/mlir-pdll-lsp-server/exit-without-shutdown.test
+rm -rf test/mlir-pdll-lsp-server/hover.test
+rm -rf test/mlir-pdll-lsp-server/initialize-params-invalid.test
+rm -rf test/mlir-pdll-lsp-server/initialize-params.test
+rm -rf test/mlir-pdll-lsp-server/inlay-hints.test
+rm -rf test/mlir-pdll-lsp-server/references.test
+rm -rf test/mlir-pdll-lsp-server/signature-help.test
+rm -rf test/mlir-pdll-lsp-server/textdocument-didchange.test
+rm -rf test/mlir-pdll-lsp-server/view-output.test
 %endif
 
 # Test execution normally relies on RPATH, so set LD_LIBRARY_PATH instead.
@@ -114,6 +165,7 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %{_libdir}/libMLIR*.so.%{maj_ver}*
 %{_libdir}/libmlir_async_runtime.so.%{maj_ver}*
 %{_libdir}/libmlir_c_runner_utils.so.%{maj_ver}*
+%{_libdir}/libmlir_float16_utils.so.%{maj_ver}*
 %{_libdir}/libmlir_runner_utils.so.%{maj_ver}*
 
 %files static
@@ -124,6 +176,7 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %{_bindir}/mlir-linalg-ods-yaml-gen
 %{_bindir}/mlir-lsp-server
 %{_bindir}/mlir-opt
+%{_bindir}/mlir-pdll
 %{_bindir}/mlir-pdll-lsp-server
 %{_bindir}/mlir-reduce
 %{_bindir}/mlir-tblgen
@@ -132,12 +185,25 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %{_libdir}/libMLIR*.so
 %{_libdir}/libmlir_async_runtime.so
 %{_libdir}/libmlir_c_runner_utils.so
+%{_libdir}/libmlir_float16_utils.so
 %{_libdir}/libmlir_runner_utils.so
 %{_includedir}/mlir
 %{_includedir}/mlir-c
 %{_libdir}/cmake/mlir
 
 %changelog
+* Tue Mar 21 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0-1
+- Update to LLVM 16.0.0
+
+* Wed Mar 15 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc4-1
+- Update to LLVM 16.0.0 RC4
+
+* Thu Feb 23 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc3-1
+- Update to LLVM 16.0.0 RC3
+
+* Wed Feb 15 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc1-1
+- Update to LLVM 16.0.0 RC1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 15.0.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

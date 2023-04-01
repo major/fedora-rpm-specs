@@ -1,51 +1,47 @@
+# Documentation can no longer be built in Fedora due to missing python modules:
+# ablog, myst-nb, sphinx-togglebutton
+# This also means that doctests cannot be run.
+%bcond_with docs
+
 Name:           python-pydata-sphinx-theme
-Version:        0.9.0
-Release:        3%{?dist}
+Version:        0.13.3
+Release:        1%{?dist}
 Summary:        Bootstrap-based Sphinx theme from the PyData community
 
 # This project is BSD-3-Clause.
 # The bundled bootstrap JavaScript library is MIT.
 License:        BSD-3-Clause and MIT
 BuildArch:      noarch
-URL:            https://github.com/pydata/pydata-sphinx-theme
-Source0:        %{url}/archive/v%{version}/pydata-sphinx-theme-%{version}.tar.gz
+URL:            https://pydata-sphinx-theme.readthedocs.io/
+Source0:        https://github.com/pydata/pydata-sphinx-theme/archive/v%{version}/pydata-sphinx-theme-%{version}.tar.gz
 # Source1 and Source2 created with ./prepare_vendor.sh
 Source1:        pydata-sphinx-theme-%{version}-vendor.tar.xz
 Source2:        pydata-sphinx-theme-%{version}-vendor-licenses.txt
+%if %{with docs}
+# Generating image files requires network access.  Instead, we scrape these from
+# https://pydata-sphinx-theme.readthedocs.io/en/latest/_images.  See
+# docs/_static/gallery.yaml for a list of images to download.
+Source3:        pydata-gallery.tar.xz
+%endif
 # Fedora-only patch: unbundle the fontawesome fonts
 Patch0:         %{name}-fontawesome.patch
 
-BuildRequires:  fontawesome5-fonts-all
+BuildRequires:  fontawesome-fonts-all
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  nodejs-devel
-BuildRequires:  npm
+BuildRequires:  nodejs-npm
 BuildRequires:  python3-devel
-BuildRequires:  pyproject-rpm-macros
-BuildRequires:  %{py3_dist beautifulsoup4}
-BuildRequires:  %{py3_dist docutils}
-BuildRequires:  %{py3_dist nodeenv}
-BuildRequires:  %{py3_dist packaging}
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist pytest-regressions}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  %{py3_dist sphinx-theme-builder}
-BuildRequires:  %{py3_dist wheel}
 BuildRequires:  yarnpkg
+%if %{without docs}
+BuildRequires:  %{py3_dist pytest-regressions}
+%endif
 
-# Documentation dependencies
-BuildRequires:  %{py3_dist jupyter-sphinx}
-BuildRequires:  %{py3_dist myst-parser}
-BuildRequires:  %{py3_dist numpydoc}
-BuildRequires:  %{py3_dist numpy}
-BuildRequires:  %{py3_dist pandas}
-BuildRequires:  %{py3_dist plotly}
-BuildRequires:  %{py3_dist sphinx-design}
-BuildRequires:  %{py3_dist sphinx-sitemap}
-BuildRequires:  %{py3_dist sphinxext-rediraffe}
-BuildRequires:  %{py3_dist xarray}
+Provides:       bundled(js-bootstrap) = 5.2.3
+
+%if %{without docs}
+Obsoletes:      %{name}-doc < 0.13.0-1
+%endif
 
 %global _description %{expand:
 This package contains a Sphinx extension for creating document components
@@ -61,69 +57,56 @@ optimized for HTML+CSS.
 
 - The tabbed directive creates tabbed content.
 
-- opticon and fa (fontawesome) roles allow for inline icons to be added.}
+- opticon and fa (fontawesome) roles allow for inline icons to be added.
+
+See https://pydata-sphinx-theme.readthedocs.io/ for documentation.}
 
 %description %_description
 
 %package     -n python3-pydata-sphinx-theme
 Summary:        Bootstrap-based Sphinx theme from the PyData community
-Requires:       fontawesome5-fonts-all
+Requires:       fontawesome-fonts-all
 
 %description -n python3-pydata-sphinx-theme %_description
 
+%if %{with docs}
 %package        doc
 Summary:        Documentation for pydata-sphinx-theme
 
 %description    doc
 Documentation for pydata-sphinx-theme.
+%endif
 
 %prep
 %autosetup -n pydata-sphinx-theme-%{version} -p1 -a1
 cp -p %{SOURCE2} .
 
+%if %{with docs}
+%setup -n pydata-sphinx-theme-%{version} -q -T -D -a 3
+
+# Point to the local switcher instead of the inaccessible one on the web
+sed -i 's,https://pydata-sphinx-theme\.readthedocs\.io/en/latest/,,' docs/conf.py
+%else
+# We cannot run doctests
+sed -i '/pydata-sphinx-theme\[doc\]/d' pyproject.toml
+%endif
+
 # Substitute the installed nodejs version for the requested version
 sed -i 's,^\(node-version = \)".*",\1"%{nodejs_version}",' pyproject.toml
 
-# Create a node header tarball so we don't try to download it
-mkdir -p node-v%{nodejs_version}/include
-cp -a %{_includedir}/node node-v%{nodejs_version}/include
-tar czf node-v%{nodejs_version}-headers.tar.gz node-v%{nodejs_version}
-npm config set tarball $PWD/node-v%{nodejs_version}-headers.tar.gz
-
-# ValueError: invalid mode: 'rU' while trying to load binding.gyp
-# https://bugzilla.redhat.com/show_bug.cgi?id=2099065
-sed 's/"rU"/"r"/' -i .package-cache/v6/npm-node-gyp-7.1.2-*-integrity/node_modules/node-gyp/gyp/pylib/gyp/input.py
+%generate_buildrequires
+%if %{with docs}
+%pyproject_buildrequires -x test,doc
+%else
+%pyproject_buildrequires -x test
+%endif
 
 %build
-export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
 export YARN_CACHE_FOLDER="$PWD/.package-cache"
 yarn install --offline
-
-# Workaround deprecated md4 used in webpack
-find node_modules/webpack/lib/ -type f -exec sed -i 's/md4/sha256/g' {} +
-
-# Humor nodeenv, which wants a binary named nodejs
-nodejs=$(which nodejs 2> /dev/null || :)
-if [ -z "$nodejs" ]; then
-  if [ -d ~/bin ]; then
-    PREEXISTING_BIN=1
-  else
-    PREEXISTING_BIN=0
-    mkdir ~/bin
-  fi
-  ln -s %{_bindir}/node ~/bin/nodejs
-fi
-python3 -m nodeenv --node=system --prebuilt --clean-src $PWD/.nodeenv
+nodeenv --node=system --prebuilt --clean-src $PWD/.nodeenv
 
 %pyproject_wheel
-
-if [ -z "$nodejs" ]; then
-  if [ "$PREEXISTING_BIN" = 0 ]; then
-    rm -fr ~/bin
-  else
-    rm ~/bin/nodejs
-  fi
-fi
 
 %install
 %pyproject_install
@@ -131,24 +114,34 @@ fi
 sed -i '/\.gitignore/d' %{pyproject_files}
 rm %{buildroot}%{python3_sitelib}/pydata_sphinx_theme/theme/pydata_sphinx_theme/static/.gitignore
 
+%if %{with docs}
 # We need an installed tree before documentation building works properly
-export PYTHONPATH=%{buildroot}%{python3_sitelib}
 cd docs
-sphinx-build -a . _build
+%{py3_test_envvars} sphinx-build -a . _build
 rm _build/.buildinfo
 cd -
+%endif
 
 %check
-%pytest
+# Sphinx 5.3.0 does not have the translation the translation test looks for
+%pytest -k 'not test_translations'
 
 %files -n python3-pydata-sphinx-theme -f %{pyproject_files}
 %doc README.md
 
+%if %{with docs}
 %files doc
 %doc docs/_build/*
 %license LICENSE
+%endif
 
 %changelog
+* Thu Mar 30 2023 Jerry James <loganjerry@gmail.com> - 0.13.3-1
+- Version 0.13.3
+- Stop building documentation due to missing dependencies
+- Dynamically generate python BuildRequires
+- The node header tarball is no longer needed
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

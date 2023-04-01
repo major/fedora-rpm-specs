@@ -6,13 +6,12 @@
 %endif
 
 Name: dnsdist
-Version: 1.7.3
-Release: 3%{?dist}
+Version: 1.8.0
+Release: 2%{?dist}
 Summary: Highly DNS-, DoS- and abuse-aware loadbalancer
 License: GPLv2
 URL: https://dnsdist.org
 Source0: https://downloads.powerdns.com/releases/%{name}-%{version}.tar.bz2
-Patch0: dnsdist-1.7.3-includes.patch
 
 ExcludeArch: %{ix86} #1994125
 ExcludeArch: armv7hl #1994125
@@ -83,7 +82,7 @@ rename .js .min.js html/js/*.js
 %endif
 
 make %{?_smp_mflags}
-mv dnsdistconf.lua dnsdist.conf.sample
+%{__cp} dnsdist.conf-dist dnsdist.conf.sample
 
 %install
 make install DESTDIR=%{buildroot}
@@ -91,6 +90,8 @@ make install DESTDIR=%{buildroot}
 # install systemd unit file
 install -D -p -m 644 %{name}.service %{buildroot}%{_unitdir}/%{name}.service
 install -d %{buildroot}%{_sysconfdir}/%{name}/
+%{__mv} %{buildroot}%{_sysconfdir}/%{name}/dnsdist.conf-dist %{buildroot}%{_sysconfdir}/%{name}/dnsdist.conf
+chmod 0640 %{buildroot}/%{_sysconfdir}/%{name}/dnsdist.conf
 
 %pre
 getent group dnsdist >/dev/null || groupadd -r dnsdist
@@ -117,9 +118,15 @@ exit 0
 %{_unitdir}/%{name}.service
 %{_unitdir}/%{name}@.service
 %dir %{_sysconfdir}/%{name}/
-
+%config(noreplace) %{_sysconfdir}/%{name}/dnsdist.conf
 
 %changelog
+* Thu Mar 30 2023 Sander Hoentjen <sander@hoentjen.eu> - 1.8.0-2
+- Fix specfile error
+
+* Thu Mar 30 2023 Sander Hoentjen <sander@hoentjen.eu> - 1.8.0-1
+- Update to 1.8.0 (#2128188)
+
 * Mon Feb 20 2023 Sander Hoentjen <sander@hoentjen.eu> - 1.7.3-3
 - add patch for missing includes
 

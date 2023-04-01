@@ -57,7 +57,7 @@ Version: 13.1
 
 # The release always contains a leading reserved number, start it at 1.
 # `upstream' is not a part of `name' to stay fully rpm dependencies compatible for the testing.
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ and GPLv2+ with exceptions and GPL+ and LGPLv2+ and LGPLv3+ and BSD and Public Domain and GFDL
 # Do not provide URL for snapshots as the file lasts there only for 2 days.
@@ -89,12 +89,17 @@ Recommends: dnf-command(debuginfo-install)
 # below, but it cannot hurt either -- rdieter
 Conflicts: gdb-headless < 7.12-29
 
-Summary: A stub package for GNU source-level debugger
+Summary: A GNU source-level debugger for C, C++, Fortran, Go and other languages
 Requires: gdb-headless%{?_isa} = %{version}-%{release}
 
 %description
-'gdb' package is only a stub to install gcc-gdb-plugin for 'compile' commands.
-See package 'gdb-headless'.
+GDB, the GNU debugger, allows you to debug programs written in C, C++,
+Fortran, Go, and other languages, by executing them in a controlled
+fashion and printing their data.
+
+If you want to use GDB for development purposes, you should install
+the 'gdb' package which will install 'gdb-headless' and possibly other
+useful packages too.
 
 %package headless
 %endif
@@ -455,8 +460,8 @@ Conflicts: %{name}-headless > %{version}-%{release}
 
 %description minimal
 GDB, the GNU debugger, allows you to debug programs written in C, C++,
-Java, and other languages, by executing them in a controlled fashion
-and printing their data.
+Fortran, Go, and other languages, by executing them in a controlled
+fashion and printing their data.
 
 This package provides a minimal version of GDB, tailored to be used by
 the Fedora buildroot.  It should probably not be used by end users.
@@ -467,8 +472,8 @@ Summary: A standalone server for GDB (the GNU source-level debugger)
 
 %description gdbserver
 GDB, the GNU debugger, allows you to debug programs written in C, C++,
-Java, and other languages, by executing them in a controlled fashion
-and printing their data.
+Fortran, Go, and other languages, by executing them in a controlled
+fashion and printing their data.
 
 This package provides a program that allows you to run GDB on a different
 machine than the one which is running the program being debugged.
@@ -1244,6 +1249,9 @@ fi
 %endif
 
 %changelog
+* Thu Mar 30 2023 Alexandra Hájková <ahajkova@redhat.com> - 12.1-3
+- Update gdb-6.6-buildid-locate.patch to fix RHBZ 2181221.
+
 * Wed Mar 29 2023 Andrew Burgess <aburgess@redhat.com>
 - Used --with-pkgversion to place the distribution name in the version
   string rather than placing the string directly into the version.in

@@ -18,8 +18,8 @@
 
 Summary:	A dynamic, any to any, pixel format conversion library
 Name:		babl
-Version:	0.1.92
-Release:	4%{?dist}
+Version:	0.1.102
+Release:	1%{?dist}
 
 # Compute some version related macros
 # Ugly hack, you need to get your quoting backslashes/percent signs straight
@@ -30,9 +30,8 @@ Release:	4%{?dist}
 
 # The gggl codes contained in this package are under the GPL, with exceptions allowing their use under libraries covered under the LGPL
 License:	LGPLv3+ and GPLv3+
-URL:		http://www.gegl.org/babl/
+URL:		https://www.gegl.org/babl/
 Source0:	https://download.gimp.org/pub/babl/%{apiver}/%{name}-%{version}.tar.xz
-Patch1:     babl-meson.patch
 
 BuildRequires:	gcc
 BuildRequires:	openssh-clients
@@ -107,6 +106,7 @@ popd
 %files
 %license docs/COPYING*
 %doc AUTHORS NEWS
+%{_bindir}/babl
 %{_libdir}/libbabl-%{apiver}.so.0*
 %{_libdir}/babl-%{apiver}/
 %dir %{_libdir}/girepository-1.0
@@ -115,7 +115,7 @@ popd
 %files devel
 %{_includedir}/babl-%{apiver}/
 %{_libdir}/libbabl-%{apiver}.so
-%{_libdir}/pkgconfig/%{name}.pc
+%{_libdir}/pkgconfig/%{name}-%{apiver}.pc
 %dir %{_datadir}/gir-1.0
 %{_datadir}/gir-1.0/Babl-%{apiver}.gir
 %{_datadir}/vala/
@@ -124,6 +124,9 @@ popd
 %doc %{develdocdir}
 
 %changelog
+* Tue Mar 07 2023 David King <amigadave@amigadave.com> - 0.1.102-1
+- Update to 0.1.102
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.92-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

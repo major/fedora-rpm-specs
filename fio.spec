@@ -1,6 +1,6 @@
 Name:		fio
-Version:	3.33
-Release:	2%{?dist}
+Version:	3.34
+Release:	1%{?dist}
 Summary:	Multithreaded IO generation tool
 
 License:	GPLv2
@@ -31,7 +31,6 @@ BuildRequires:	libcurl-devel
 BuildRequires:	openssl-devel
 %ifarch x86_64 ppc64le
 BuildRequires:	libpmem-devel
-BuildRequires:	libpmemblk-devel
 %endif
 
 %ifnarch %{arm} %{ix86} ppc64le
@@ -60,7 +59,6 @@ Recommends:     %{name}-engine-nbd
 %endif
 %ifarch x86-64 ppc64le
 Recommends:     %{name}-engine-dev-dax
-Recommends:     %{name}-engine-pmemblk
 Recommends:     %{name}-engine-libpmem
 %endif
 %ifnarch %{arm} %{ix86} ppc64le
@@ -115,17 +113,6 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 dev-dax engine for %{name}.
 Read and write using device DAX to a persistent memory device
 (e.g., /dev/dax0.0) through the PMDK libpmem library.
-%endif
-
-%ifarch x86_64 ppc64le
-%package engine-pmemblk
-Summary:        PMDK pmemblk engine for %{name}.
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-
-%description engine-pmemblk
-pmemblk engine for %{name}.
-Read and write using filesystem DAX to a file on a filesystem mounted with
-DAX on a persistent memory device through the PMDK libpmemblk library.
 %endif
 
 %ifarch x86_64 ppc64le
@@ -224,11 +211,6 @@ make install prefix=%{_prefix} mandir=%{_mandir} libdir=%{_libdir}/fio DESTDIR=$
 %{_libdir}/fio/fio-nbd.so
 %endif
 
-%ifarch x86_64 ppc64le
-%files engine-pmemblk
-%{_libdir}/fio/fio-pmemblk.so
-%endif
-
 %ifnarch %{arm} %{ix86} ppc64le
 %if %{with rados}
 %files engine-rados
@@ -247,6 +229,10 @@ make install prefix=%{_prefix} mandir=%{_mandir} libdir=%{_libdir}/fio DESTDIR=$
 %endif
 
 %changelog
+* Fri Mar 24 2023 Pavel Reichl <preichl@redhat.com> - 3.34-1
+- New upstream version (RHBZ#2178183)
+- Drop support for pmeblk https://github.com/axboe/fio/commit/04c1cdc
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.33-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

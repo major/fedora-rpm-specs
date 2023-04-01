@@ -3,11 +3,15 @@
 
 Name:             R-%{packname}
 Version:          0.3.0
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Easily work with 'Font Awesome' Icons
+%if 0%{?fedora} > 38
+License:          MIT
+%else
 # Font bits are OFL
 # Rest is MIT
-License:          MIT and OFL
+License:          MIT AND OFL-1.1-RFN
+%endif
 URL:              https://CRAN.R-project.org/package=%{packname}
 Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{version}.tar.gz
 
@@ -20,8 +24,12 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{version}.
 
 BuildArch:        noarch
 Requires:         R-core
+%if 0%{?fedora} > 38
+Requires:         fontawesome-fonts-web
+%else
 # This package has a copy of the fontawesome free fonts v6
-Provides:         bundled(fontawesome-fonts) = 6.1.1
+Provides:         bundled(fontawesome-fonts-web) = 6.1.1
+%endif
 BuildRequires:    R-devel
 BuildRequires:    tex(latex)
 BuildRequires:    R-rlang >= 0.4.10
@@ -31,6 +39,8 @@ BuildRequires:    R-dplyr >= 1.0.8
 BuildRequires:    R-knitr >= 1.31
 BuildRequires:    R-testthat >= 3.0.0
 BuildRequires:    R-rsvg
+# For the tests
+BuildRequires:    glibc-langpack-en
 
 %description
 Easily and flexibly insert 'Font Awesome' icons into 'R Markdown' documents
@@ -55,6 +65,12 @@ mkdir -p %{buildroot}%{rlibdir}
 test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)
 rm -f %{buildroot}%{rlibdir}/R.css
 
+%if 0%{?fedora} > 38
+# Unbundle the FontAwesome fonts
+rm -fr %{buildroot}%{rlibdir}/%{packname}/fontawesome
+ln -s ../../../fontawesome %{buildroot}%{rlibdir}/%{packname}
+%endif
+
 %check
 %{_bindir}/R CMD check %{packname}
 
@@ -73,6 +89,11 @@ rm -f %{buildroot}%{rlibdir}/R.css
 %{rlibdir}/%{packname}/fontawesome
 
 %changelog
+* Thu Mar 30 2023 Jerry James <loganjerry@gmail.com> - 0.3.0-3
+- Unbundle the FontAwesome fonts for F39+
+- Convert the License tag to SPDX
+- BR the English langpack for the tests
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

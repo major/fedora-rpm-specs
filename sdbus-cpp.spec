@@ -6,10 +6,10 @@
 
 Name:           sdbus-cpp
 Version:        %{version_major}.%{version_minor}.%{version_micro}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        High-level C++ D-Bus library
 
-License:        LGPLv2
+License:        LGPL-2.1-only
 URL:            https://github.com/Kistler-Group/sdbus-cpp
 Source0:        %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
@@ -91,6 +91,9 @@ out of the D-Bus IDL XML description.
 
 
 %changelog
+* Thu Mar 30 2023 Marek Blaha <mblaha@redhat.com> - 1.2.0-3
+- migrated to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

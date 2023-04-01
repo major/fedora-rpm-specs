@@ -1,22 +1,15 @@
 %global pypi_name XStatic-Font-Awesome
 
 Name:           python-%{pypi_name}
-Version:        4.7.0.0
-Release:        20%{?dist}
+Version:        6.2.1.1
+Release:        1%{?dist}
 Summary:        Font-Awesome (XStatic packaging standard)
 
-# font awesome is licensed under SIL 1.1.
-# https://fedoraproject.org/wiki/Licensing:Main?rd=Licensing#Good_Licenses_4
-# short name: OFL
-# Code is distributed under MIT
-License:        OFL and MIT
+# The license is "same as Font-Awesome", which is OFL-1.1-RFN
+License:        OFL-1.1-RFN
 URL:            https://fortawesome.github.io/Font-Awesome/
-Source0:        https://files.pythonhosted.org/packages/source/X/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
+Source0:        %pypi_source %{pypi_name}
 BuildArch:      noarch
-
-BuildRequires:  web-assets-devel
-BuildRequires:  fontawesome-fonts-web >= 4.1.0
-BuildRequires:  fontawesome-fonts
 
 %description
 Font Awesome icons packaged for setuptools (easy_install) / pip.
@@ -31,12 +24,9 @@ nor has any extra requirements.
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 Requires:       python3-XStatic
-Requires:       web-assets-filesystem
-Requires:       fontawesome-fonts-web >= 4.1.0
-Requires:       fontawesome-fonts
+Requires:       fontawesome-fonts-web >= 6.2.1
 
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
@@ -55,32 +45,38 @@ This package provides Python 3 build of %{pypi_name}.
 %autosetup -n %{pypi_name}-%{version}
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
 
-# use fontawesome-fonts directly
-rm -f %{buildroot}/%{python3_sitelib}/xstatic/pkg/font_awesome/data/fonts/*
-ln -s %{_datadir}/fonts/fontawesome/*  %{buildroot}/%{python3_sitelib}/xstatic/pkg/font_awesome/data/fonts/
-
-# use fontawesome-fonts-web for css, scss,
-for dir in css less scss ; do
-rm -rf %{buildroot}/%{python3_sitelib}/xstatic/pkg/font_awesome/data/$dir
-ln -s %{_datadir}/font-awesome-web/$dir %{buildroot}/%{python3_sitelib}/xstatic/pkg/font_awesome/data/$dir
-done
+# use fontawesome-fonts-web for css, js, less, metadata, scss, sprites, svgs,
+# webfonts
+rm -rf %{buildroot}%{python3_sitelib}/xstatic/pkg/font_awesome/data
+ln -s %{_datadir}/fontawesome %{buildroot}%{python3_sitelib}/xstatic/pkg/font_awesome/data
 
 
 %files -n python3-%{pypi_name}
 %doc README.txt
 %{python3_sitelib}/xstatic/pkg/font_awesome
-%{python3_sitelib}/XStatic_Font_Awesome-%{version}-py%{python3_version}.egg-info
+%{python3_sitelib}/XStatic_Font_Awesome-%{version}.dist-info
 %{python3_sitelib}/XStatic_Font_Awesome-%{version}-py%{python3_version}-nspkg.pth
 
 
 %changelog
+* Mon Mar  6 2023 Jerry James <loganjerry@gmail.com> - 6.2.1.1-1
+- Version 6.2.1.1
+- Unbundle the FontAwesome fonts
+- Update python macro usage
+- Convert License tag to SPDX
+- Remove unused web-assets dependencies
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.0.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

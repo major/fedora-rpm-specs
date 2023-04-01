@@ -14,7 +14,7 @@
 
 Name:           fast_float
 Summary:        Fast & exact implementation of C++ from_chars for float/double
-Version:        3.10.1
+Version:        3.11.0
 Release:        %autorelease
 
 URL:            https://github.com/fastfloat/fast_float

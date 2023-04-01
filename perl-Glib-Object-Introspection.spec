@@ -1,17 +1,23 @@
 Name:           perl-Glib-Object-Introspection
 Version:        0.050
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Dynamically create Perl language bindings
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://metacpan.org/release/Glib-Object-Introspection
 Source0:        https://cpan.metacpan.org/authors/id/X/XA/XAOC/Glib-Object-Introspection-%{version}.tar.gz
 Patch1:         perl-Glib-Object-Introspection_lib_pattern.patch
+# 1/2 Fix handling empty closure callbacks, bug #2181971, CPAN RT#147409,
+# in upstream after 0.050.
+Patch2:         Glib-Object-Introspection-0.050-Check-for-empty-closures.patch
+# 2/2 Fix handling empty closure callbacks, bug #2181971, CPAN RT#147409,
+# in upstream after 0.050.
+Patch3:         Glib-Object-Introspection-0.050-tests-Add-empty-callback.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(Config)
 BuildRequires:  perl(Cwd)
 BuildRequires:  perl(ExtUtils::Depends) >= 0.3
@@ -44,6 +50,9 @@ Requires:       perl(Glib) >= 1.320
 %{?perl_default_filter}
 # Remove under-specified dependencies
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Glib\\)$
+# Remove private libraries
+%global __provides_exclude %{?__provides_exclude:%__provides_exclude|}^(libgimarshallingtests|libregress).so\\(\\)
+%global __provides_exclude %{?__provides_exclude:%__provides_exclude|}^perl\\(Glib::Object::Introspection::Install::Files\\)
 
 %description
 Glib::Object::Introspection uses the gobject-introspection and libffi projects
@@ -63,38 +72,73 @@ BuildArch:      noarch
 This is a documentation viewer for GObject Introspection (GIR) files. With
 perl(Gtk3), it provides an interactive graphical browser.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %autosetup -p1 -n Glib-Object-Introspection-%{version}
+# Help generators to recognize Perl scripts
+for F in t/*.t t/inc/setup.pl; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 # If LANG is not set to UTF8, then when later running the test
 # suite, you will see multiple failures handling UTF8 data
-LANG=C.UTF-8 %{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS"
-LANG=C.UTF-8 make %{?_smp_mflags}
+export LANG=C.UTF-8
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="$RPM_OPT_FLAGS"
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-
-find $RPM_BUILD_ROOT -type f -name .packlist -delete
-find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
-
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+find %{buildroot} -type f -name '*.bs' -size 0 -delete
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a build t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:build
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 LANG=C.UTF-8 make test
 
 %files
 %doc NEWS README.md
 %license LICENSE
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/Glib*
-%{_mandir}/man3/*
+%dir %{perl_vendorarch}/auto/Glib
+%dir %{perl_vendorarch}/auto/Glib/Object
+%{perl_vendorarch}/auto/Glib/Object/Introspection
+%dir %{perl_vendorarch}/Glib
+%dir %{perl_vendorarch}/Glib/Object
+%{perl_vendorarch}/Glib/Object/Introspection
+%{perl_vendorarch}/Glib/Object/Introspection.pm
+%{_mandir}/man3/Glib::Object::Introspection.*
 
 %files -n perli11ndoc
 %{_bindir}/perli11ndoc
-%{_mandir}/man1/perli11ndoc*
+%{_mandir}/man1/perli11ndoc.*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Thu Mar 30 2023 Petr Pisar <ppisar@redhat.com> - 0.050-2
+- Fix handling empty closure callbacks (#2181971)
+- Convert a license to an SPDX format
+- Package tests in perl-Glib-Object-Introspection-tests package
+
 * Mon Mar 27 2023 Sérgio Basto <sergio@serjux.com> - 0.050-1
 - Update perl-Glib-Object-Introspection to 0.050 (#2181971)
 

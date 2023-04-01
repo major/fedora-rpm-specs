@@ -13,7 +13,7 @@
 %else
 %global with_nginx 0
 %endif
-%global upstream_version 6.1.1
+%global upstream_version 6.2
 #global upstream_prever  RC5
 #global upstream_lower   rc5
 
@@ -21,8 +21,12 @@ Summary:    Blog tool and publishing platform
 URL:        http://www.wordpress.org
 Name:       wordpress
 Version:    %{upstream_version}%{?upstream_prever:~%upstream_lower}
-Release:    2%{?dist}
-License:    GPLv2
+Release:    1%{?dist}
+# Wordpress     is GPL-2.0-or-later
+# php-simplepie is BSD-3-Clause
+# php-getid3    is LGPL-3.0-or-later (or some others)
+# php-mailer    is LGPL-2.1-only
+License:    GPL-2.0-or-later AND BSD-3-Clause AND LGPL-3.0-or-later AND LGPL-2.1-only
 
 Source0:    https://wordpress.org/%{name}-%{upstream_version}%{?upstream_prever:-%{upstream_prever}}.tar.gz
 Source1:    wordpress-httpd-conf
@@ -108,7 +112,7 @@ Provides: bundled(php-simplepie) = 1.5.8
 # grep ' VERSION '  wordpress/wp-includes/ID3/getid3.php
 Provides: bundled(php-getid3) = 1.9.22
 # grep ' VERSION ' wordpress/wp-includes/PHPMailer/PHPMailer.php
-Provides: bundled(php-phpmailer)  = 6.6.5
+Provides: bundled(php-phpmailer)  = 6.7
 Provides: wordpress-mu = %{version}-%{release}
 Obsoletes: wordpress-mu < 2.9.3
 
@@ -262,6 +266,10 @@ end
 
 
 %changelog
+* Thu Mar 30 2023 Remi Collet <remi@remirepo.net> - 6.2-1
+- WordPress 6.2 “Dolphy”
+- use SPDX license IDs
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

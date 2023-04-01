@@ -1,39 +1,32 @@
 Name:		converseen
-Version:	0.9.11.0
+Version:	0.9.11.1
 Release:	1%{?dist}
-Summary:	A batch image conversion tool written in C++ with Qt5 and Magick++
-
-License:	GPLv3
+Summary:  A batch image conversion tool written in C++ with Qt5 and Magick++
+License:  GPLv3
 URL:		http://converseen.sf.net/
 Source0:	http://downloads.sourceforge.net/converseen/%{name}-%{version}.tar.bz2
-
 BuildRequires:	cmake
 BuildRequires:	desktop-file-utils
 BuildRequires:	ImageMagick-devel
 BuildRequires:	ImageMagick-c++-devel
 BuildRequires:	qt5-qtbase-devel
 BuildRequires:	qt5-linguist
-  
 
 %description
 Converseen is a batch image conversion tool and resizer written in C++ with Qt5
 and Magick++.  Converseen allows you to convert images in more than 100
 different formats!
 
-
 %prep
 %autosetup
-
 
 %build
 %cmake
 %cmake_build
 
-
 %install
 %cmake_install
 desktop-file-validate %{buildroot}/%{_datadir}/applications/net.fasterland.%{name}.desktop
-
 
 %files
 %doc COPYING
@@ -44,8 +37,10 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/net.fasterland.%{nam
 %{_datadir}/metainfo/%{name}.appdata.xml
 %{_datadir}/kservices5/ServiceMenus/%{name}_import.desktop
 
-
 %changelog
+* Fri Mar 31 2023 Filipe Rosset <rosset.filipe@gmail.com> - 0.9.11.1-1
+- Update to 0.9.11.1 fixes rhbz#2177564
+
 * Wed Feb 15 2023 Filipe Rosset <rosset.filipe@gmail.com> - 0.9.11.0-1
 - Update to 0.9.11.0 fixes rhbz#2169785
 

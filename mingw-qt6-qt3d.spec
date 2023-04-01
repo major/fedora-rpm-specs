@@ -31,6 +31,11 @@ Source0:        https://github.com/qt/%{qt_module}/archive/%{commit}/%{qt_module
 Source0:        http://download.qt.io/%{?pre:development}%{?!pre:official}_releases/qt/%{release_version}/%{version}%{?pre:-%pre}/submodules/%{qt_module}-everywhere-src-%{version}%{?pre:-%pre}.tar.xz
 %endif
 
+# Fix GCC13 build
+Patch0:         qt3d-gcc13.patch
+# HACK: add missing -msse2 when building opengl and rhi renderer plugins
+Patch1:         qt3d-sse2.patch
+
 BuildRequires:  cmake
 BuildRequires:  ninja-build
 

@@ -1,7 +1,7 @@
 # -*-Mode: rpm-spec -*-
 
 Name:      azote
-Version:   1.10.1
+Version:   1.11.0
 Release:   1%{?dist}
 BuildArch: noarch
 Summary:   Wallpaper and color manager for Sway, i3 and some other WMs
@@ -73,6 +73,9 @@ done
 %license LICENSE LICENSE-COLORTHIEF
 
 %changelog
+* Thu Mar 30 2023 Bob Hepple <bob.hepple@gmail.com> - 1.11.0-1
+- new version
+
 * Sat Mar 11 2023 Bob Hepple <bob.hepple@gmail.com> - 1.10.1-1
 - new version
 

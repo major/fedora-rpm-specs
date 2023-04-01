@@ -18,7 +18,7 @@
 
 Name:           certbot
 Version:        2.2.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        A free, automated certificate authority client
 
 License:        Apache-2.0
@@ -71,7 +71,7 @@ Requires:      python3-certbot = \%{version}-\%{release}\
 
 %define _package_doc() \%package -n %1\
 Summary:    Documenation for %1 libraries
-Requires:   fontawesome-fonts
+Requires:   font(fontawesome)
 
 %define _files() \%files -n python3-certbot-dns-%1\
 \%license LICENSE.txt\
@@ -275,11 +275,21 @@ semanage fcontext -a -t cert_t '%{_sysconfdir}/(letsencrypt|certbot)/(live|archi
 restorecon -R %{_sysconfdir}/letsencrypt || :
 %systemd_post certbot-renew.timer
 
+# Remind users to enable certbot-renew.timer if they need certbot to automatically renew certs
+if [ "$1" -eq 1 ] ; then
+  echo ""
+  echo "Certbot auto renewal timer is not started by default."
+  echo "Run 'systemctl start certbot-renew.timer' to enable automatic renewals."
+fi
+
+
 %preun
 %systemd_preun certbot-renew.timer
 
+
 %postun
 %systemd_postun certbot-renew.timer
+
 
 %files -n certbot
 %license LICENSE.txt
@@ -294,6 +304,7 @@ restorecon -R %{_sysconfdir}/letsencrypt || :
 %{_unitdir}/certbot-renew.service
 %{_unitdir}/certbot-renew.timer
 
+
 %files -n python3-certbot
 %license LICENSE.txt
 %doc README.rst CHANGELOG.md
@@ -301,11 +312,13 @@ restorecon -R %{_sysconfdir}/letsencrypt || :
 %{python3_sitelib}/certbot/
 %{python3_sitelib}/certbot-%{version}.dist-info/
 
+
 %files -n python3-acme
 %license LICENSE.txt
 %doc README.rst CHANGELOG.md
 %{python3_sitelib}/acme/
 %{python3_sitelib}/acme-%{version}.dist-info/
+
 
 %files -n python3-certbot-apache
 %license LICENSE.txt
@@ -313,11 +326,13 @@ restorecon -R %{_sysconfdir}/letsencrypt || :
 %{python3_sitelib}/certbot_apache/
 %{python3_sitelib}/certbot_apache-%{version}.dist-info/
 
+
 %files -n python3-certbot-nginx
 %license LICENSE.txt
 %doc README.rst
 %{python3_sitelib}/certbot_nginx/
 %{python3_sitelib}/certbot_nginx-%{version}.dist-info/
+
 
 %_files cloudflare
 %if 0%{?fedora} || 0%{?rhel} < 9
@@ -355,6 +370,12 @@ restorecon -R %{_sysconfdir}/letsencrypt || :
 
 
 %changelog
+* Thu Mar 30 2023 Jerry James <loganjerry@gmail.com> - 2.2.0-3
+- Change fontawesome-fonts R to match fontawesome 4.x
+
+* Thu Mar 30 2023 Jonathan Wright <jonathan@almalinux.org> - 2.2.0-2
+- add reminder about certbot-renew.timer during install
+
 * Mon Mar 20 2023 Jonathan Wright <jonathan@almalinux.org> - 2.2.0-1
 - build all certbot packages from a single source package rhbz#2132123
 - update to 2.2.0

@@ -1,6 +1,6 @@
 Name:		qmmp
-Version:	2.1.2
-Release:	5%{?dist}
+Version:	2.1.3
+Release:	1%{?dist}
 Summary:	Qt-based multimedia player
 
 License:	GPLv2+ and CC-BY-SAv4+
@@ -52,8 +52,6 @@ Recommends:	lame
 Recommends:	opus-tools
 Recommends:	wavpack
 Recommends:	flac
-
-Obsoletes:	qmmp-plugins-freeworld < 2.1.2-2
 
 # Do not check .so files in an application-specific library directory
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*\\.so$
@@ -149,6 +147,10 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-enqueue.desk
 %{_libdir}/libqmmp*.so
 
 %changelog
+* Thu Mar 30 2023 Karel Volný <kvolny@redhat.com> 2.1.3-1
+- new version 2.1.3 (rhbz#2182859)
+- see the upstream changelog at http://qmmp.ylsoftware.com/
+
 * Fri Mar 17 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2.1.2-5
 - Enable musepack input plugin
 

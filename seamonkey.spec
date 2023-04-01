@@ -38,8 +38,8 @@
 
 Name:           seamonkey
 Summary:        Web browser, e-mail, news, IRC client, HTML editor
-Version:        2.53.15
-Release:        2%{?dist}
+Version:        2.53.16
+Release:        1%{?dist}
 URL:            http://www.seamonkey-project.org
 License:        MPLv2.0
 
@@ -49,19 +49,19 @@ Source0:	http://archive.mozilla.org/pub/seamonkey/releases/%{version}/source/sea
 Source1:	http://archive.mozilla.org/pub/seamonkey/releases/%{version}/source/seamonkey-%{version}.source-l10n.tar.xz
 %endif
 
-Source3:	seamonkey-2.53.15-GNUmakefile
+Source3:	seamonkey-2.53.16-GNUmakefile
 Source4:	seamonkey.desktop
 Source5:	seamonkey-mail.desktop
 Source6:	seamonkey-ua-update.json.in
 
 Patch1:		seamonkey-2.53.15-nss_3_79_0.patch
+Patch2:		seamonkey-2.53.16-mozilla-1769631.patch
 Patch3:		seamonkey-2.53.9-mozilla-1516803.patch
 Patch5:		firefox-35-rhbz-1173156.patch
 Patch7:		firefox-51-mozilla-1005640.patch
 Patch9:		seamonkey-2.53.1-mozilla-revert-1332139.patch
 Patch10:	seamonkey-2.53.7-mozilla-440908.patch
-Patch11:	seamonkey-2.53.14-mozilla-1434478.patch
-Patch12:	seamonkey-2.53.10-mozilla-1449641.patch
+Patch11:	seamonkey-2.53.16-mozilla-1434478.patch
 Patch13:	seamonkey-2.53.10-mozilla-1460295.patch
 Patch14:	seamonkey-2.53.11-adjacent-sibling.patch
 Patch15:	seamonkey-2.53.10-mozilla-1442861.patch
@@ -83,27 +83,22 @@ Patch31:	seamonkey-2.53.1-mozilla-526293.patch
 Patch34:	seamonkey-2.53.3-startupcache.patch
 Patch35:	seamonkey-2.53.8-server-folder.patch
 Patch36:	seamonkey-2.53.15-locale-matchos-UI.patch
-Patch37:	seamonkey-2.53.15-mozilla-1720968.patch
+Patch37:	seamonkey-2.53.16-mozilla-1720968.patch
 Patch38:	seamonkey-2.53.8-mozilla-521861.patch
 Patch39:	seamonkey-2.53.8.1-dateformat.patch
 Patch40:	seamonkey-2.53.10-slowscript.patch
 Patch41:	seamonkey-2.53.15-revert-1737436.patch
 Patch42:	seamonkey-2.53.10-postmessage.patch
-Patch44:	seamonkey-2.53.15-pre-regexp.patch
-Patch45:	seamonkey-2.53.13-regexp.patch
+Patch45:	seamonkey-2.53.16-regexp.patch
 Patch46:	seamonkey-2.53.10-regexp-imported.patch
-Patch47:	seamonkey-2.53.13-ffmpeg59-headers.patch
-Patch48:	seamonkey-2.53.15-ffmpeg59-1750760.patch
-Patch49:	seamonkey-2.53.15-post-regexp.patch
-Patch50:	seamonkey-2.53.15-mozilla-1464782.patch
 
 Patch60:	seamonkey-2.53.11-ua-update.patch
 Patch61:	seamonkey-2.53.13-ua-update-preload.patch
 Patch62:	seamonkey-2.53.11-compat-version.patch
-Patch63:	seamonkey-2.53.11-mozilla-1513677.patch
 Patch66:	seamonkey-2.53.11-startupcache1.patch
 Patch67:	seamonkey-2.53.13-wasm-gc.patch
-Patch68:	seamonkey-2.53.14-cbindgen.patch
+Patch68:	seamonkey-2.53.16-mozilla-1519319.patch
+Patch69:	seamonkey-2.53.16-stylo_config.patch
 
 %{?with_system_nspr:BuildRequires:      nspr-devel >= %{nspr_version}}
 %{?with_system_nss:BuildRequires:       nss-devel >= %{nss_version}}
@@ -159,7 +154,7 @@ BuildRequires:	rust >= 1.58
 BuildRequires:	cargo
 
 # temporary to avoid python-3.11 issues
-BuildRequires:	python3.9
+BuildRequires: python3.9
 
 Requires:       mozilla-filesystem
 Requires:       hicolor-icon-theme
@@ -200,13 +195,13 @@ cd mozilla
 cp %{SOURCE3} GNUmakefile
 
 %patch1 -p0 -b .nss_3_79_0
+%patch2 -p1 -b .1769631
 %patch3 -p1 -b .1516803
 %patch5 -p2 -b .1173156
 %patch7 -p1 -b .1005640
 %{?with_system_libvpx:%patch9 -p1 -b .1332139}
 %patch10 -p1 -b .440908
 %patch11 -p1 -b .1434478
-%patch12 -p1 -b .1449641
 %patch13 -p1 -b .1460295
 %patch14 -p1 -b .adjacent-sibling
 %patch15 -p1 -b .1442861
@@ -238,21 +233,16 @@ cp %{SOURCE3} GNUmakefile
 
 #  just pre-remove to avoid huge patches...
 rm -rf js/src/{irregexp,new-regexp}
-%patch44 -p0
 %patch45 -p1
 %patch46 -p1
-%patch47 -p1
-%patch48 -p1 -b .1750760
-%patch49 -p0
-%patch50 -p1 -b .1464782
 
 %patch60 -p1 -b .ua-update
 %patch61 -p1 -b .ua-update-preload
 %patch62 -p1 -b .compat-version
-%patch63 -p1 -b .1513677
 %patch66 -p1 -b .startupcache1
 %patch67 -p1 -b .wasm-gc
-%patch68 -p1 -b .no-cbindgen
+%patch68 -p1 -b .1519319
+%patch69 -p1 -b .stylo_config
 
 %if %{without calendar}
 sed -i 's/MOZ_CALENDAR/UNDEF_MOZ_CALENDAR/' comm/suite/installer/package-manifest.in
@@ -443,6 +433,8 @@ export CFLAGS=$MOZ_OPT_FLAGS
 export CXXFLAGS=$MOZ_OPT_FLAGS
 export LDFLAGS=$MOZ_LINK_FLAGS
 
+unset RUSTFLAGS
+
 
 make %{?_smp_mflags}
 
@@ -535,6 +527,10 @@ mkdir -p $RPM_BUILD_ROOT%{_libdir}/mozilla/extensions/%{seamonkey_app_id}
 
 
 %changelog
+* Thu Mar 30 2023 Dmitry Butskoy <Dmitry@Butskoy.name> 2.53.16-1
+- update to 2.53.16
+- backport fix for mozbz 1769631
+
 * Wed Feb 15 2023 Tom Callaway <spot@fedoraproject.org> - 2.53.15-2
 - rebuild for libvpx
 

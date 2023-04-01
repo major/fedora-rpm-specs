@@ -1,7 +1,7 @@
 #The debug build is disabled by default, please use # --with debug to override
 %bcond_with debug
 
-%global baseversion 252
+%global baseversion 253
 
 %undefine _auto_set_build_flags
 
@@ -22,7 +22,6 @@ Source0:        https://github.com/mamedev/%{name}/archive/%{name}0%{baseversion
 Source1:        https://mamedev.org/releases/whatsnew_0%{baseversion}.txt
 Patch0:         %{name}-fortify.patch
 Patch1:         0001-Hack-allowing-bgfx-to-initialise-in-absence-of-dx9-s.patch
-Patch2:         https://patch-diff.githubusercontent.com/raw/mamedev/mame/pull/10924.patch
 Patch3:         0001-If-combination-of-wayland-videodriver-and-bgfx-video.patch
 
 # %%{arm}:
@@ -77,8 +76,8 @@ Provides:       bundled(bx)
 Provides:       bundled(linenoise)
 #Below have no fedora packages ATM and are very tiny
 Provides:       bundled(lsqlite3)
-#mame does not build with lua-5.4
-Provides:       bundled(lua) = 5.3.4
+#check if lua can be unbundled
+Provides:       bundled(lua) = 5.4.4
 Provides:       bundled(luafilesystem)
 Provides:       bundled(lua-linenoise)
 Provides:       bundled(lua-zlib)

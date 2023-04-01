@@ -2,13 +2,12 @@
 
 Name:           gegl04
 Version:        0.4.44
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Graph based image processing framework
 
 # The binary is under the GPL, while the libs are under LGPL.
-# The main package only installs the libs, which makes the license:
-License:        LGPLv3+
-URL:            http://www.gegl.org/
+License:        GPL-3.0-or-later AND LGPL-3.0-or-later
+URL:            https://www.gegl.org/
 Source0:        http://download.gimp.org/pub/gegl/%{apiver}/gegl-%{version}.tar.xz
 
 Patch0:         gegl04-openexr.patch
@@ -28,7 +27,7 @@ BuildRequires:  suitesparse-devel
 BuildRequires:  vala
 BuildRequires:  asciidoc
 
-BuildRequires:  pkgconfig(babl) >= 0.1.78
+BuildRequires:  pkgconfig(babl-0.1) >= 0.1.100
 BuildRequires:  pkgconfig(cairo) >= 1.12.2
 BuildRequires:  pkgconfig(exiv2) >= 0.25
 BuildRequires:  pkgconfig(gdk-pixbuf-2.0) >= 2.32.0
@@ -107,7 +106,6 @@ applications that use GEGL API version %{apiver}.
 %package        tools
 Summary:        Command line tools for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-License:        GPLv3+
 Obsoletes:      gegl03-tools < 0.3.31
 Conflicts:      gegl < 0.4
 
@@ -175,6 +173,10 @@ chrpath --delete %{buildroot}%{_libdir}/gegl-%{apiver}/*.so
 
 
 %changelog
+* Thu Mar 30 2023 David King <amigadave@amigadave.com> - 0.4.44-2
+- Build against newer babl releases
+- Use SPDX for license fields
+
 * Mon Mar 27 2023 Josef Ridky <jridky@redhat.com> - 0.4.44-1
 - New upstream release 0.4.44 (#2142383)
 

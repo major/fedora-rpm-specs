@@ -3,12 +3,14 @@
 # Copyright (c) 2012 Andy Cress
 #
 Name:      ipmiutil
-Version: 3.1.2
-Release: 14%{?dist}
+Version: 3.1.9
+Release: 1%{?dist}
 Summary:   Easy-to-use IPMI server management utilities
 License:   BSD
 Source:    http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 URL:       http://ipmiutil.sourceforge.net
+BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
+%define group  System/Management
 # Suggests: cron or vixie-cron or cronie or similar
 %{!?_unitdir: %define _unitdir  /usr/lib/systemd/system}
 %define unit_dir  %{_unitdir}
@@ -90,7 +92,11 @@ make
 rm -rf %{buildroot}
 make install DESTDIR=%{buildroot}
 
+%clean
+rm -rf %{buildroot}
+
 %files
+%defattr(-, root, root, -)
 %dir %{_datadir}/%{name}
 %dir %{_var}/lib/%{name}
 %{_bindir}/ipmiutil
@@ -127,6 +133,7 @@ make install DESTDIR=%{buildroot}
 %{systemd_fls}/ipmiutil_asy.service
 %{systemd_fls}/ipmiutil_wdt.service
 %{systemd_fls}/ipmi_port.service
+%{_datadir}/%{name}/ipmiutil.env.template
 %{_datadir}/%{name}/ipmiutil.env
 %{_datadir}/%{name}/ipmiutil.pre
 %{_datadir}/%{name}/ipmiutil.setup
@@ -196,17 +203,23 @@ make install DESTDIR=%{buildroot}
 %post
 /sbin/ldconfig
 # POST_INSTALL, $1 = 1 if rpm -i, $1 = 2 if rpm -U
-if [ "$1" = "1" ]
-then
-   # doing rpm -i, first time
-   vardir=%{_var}/lib/%{name}
-   scr_dir=%{_datadir}/%{name}
+vardir=%{_var}/lib/%{name}
+scr_dir=%{_datadir}/%{name}
 
+# Install right scripts/service files no matter install or upgrade
 %if 0%{?req_systemd}
 %service_add_post ipmi_port.service ipmiutil_evt.service ipmiutil_asy.service ipmiutil_wdt.service
 %else
    if [ -x /bin/systemctl ] && [ -d %{unit_dir} ]; then
-      echo "IINITDIR=%{init_dir}" >>%{_datadir}/%{name}/ipmiutil.env
+      # Replace if exists, append if not.
+      # Use # as the sed delimiter to prevent handling slash in the path.
+      if [ ! -f %{_datadir}/%{name}/ipmiutil.env ]; then
+         cp %{_datadir}/%{name}/ipmiutil.env.template %{_datadir}/%{name}/ipmiutil.env
+      fi
+      grep -q 'IINITDIR' %{_datadir}/%{name}/ipmiutil.env \
+         && sed -i 's#^IINITDIR=.*#IINITDIR=%{init_dir}#' %{_datadir}/%{name}/ipmiutil.env \
+         || echo "IINITDIR=%{init_dir}" >> %{_datadir}/%{name}/ipmiutil.env
+      cp -f ${scr_dir}/ipmiutil_evt.service %{unit_dir}
       cp -f ${scr_dir}/ipmiutil_evt.service %{unit_dir}
       cp -f ${scr_dir}/ipmiutil_asy.service %{unit_dir}
       cp -f ${scr_dir}/ipmiutil_wdt.service %{unit_dir}
@@ -221,6 +234,9 @@ then
    fi
 %endif
 
+if [ "$1" = "1" ]
+then
+   # doing rpm -i, first time
    # Test whether an IPMI interface is known to the motherboard
    IPMIret=1
    which dmidecode >/dev/null 2>&1 && IPMIret=0
@@ -279,7 +295,7 @@ else
     fi
    fi
 fi
-%if 0%{?fedora} >= 18
+%if 0%{?fedora} >= 18 || 0%{?rhel} >= 7
 %systemd_post  ipmiutil_evt.service
 %systemd_post  ipmiutil_asy.service
 %systemd_post  ipmiutil_wdt.service
@@ -295,12 +311,15 @@ then
 %else
    if [ -x /bin/systemctl ]; then
      if [ -f %{unit_dir}/ipmiutil_evt.service ]; then
-%if 0%{?fedora} >= 18
+%if 0%{?fedora} >= 18 || 0%{?rhel} >= 7
 %systemd_preun  ipmiutil_evt.service
 %systemd_preun  ipmiutil_asy.service
 %systemd_preun  ipmiutil_wdt.service
 %systemd_preun  ipmi_port.service
 %else
+   ret=1
+   which systemctl >/dev/null 2>&1 && ret=0
+   if [ $ret -eq 0 ]; then
         systemctl disable ipmi_port.service >/dev/null 2>&1 || :
         systemctl disable ipmiutil_evt.service >/dev/null 2>&1 || :
         systemctl disable ipmiutil_asy.service >/dev/null 2>&1 || :
@@ -309,6 +328,7 @@ then
         systemctl stop ipmiutil_asy.service >/dev/null 2>&1 || :
         systemctl stop ipmiutil_wdt.service >/dev/null 2>&1 || :
         systemctl stop ipmi_port.service    >/dev/null 2>&1 || :
+   fi
 %endif
      fi
    else 
@@ -334,39 +354,53 @@ fi
 %postun
 # after uninstall,  $1 = 1 if update, $1 = 0 if rpm -e
 /sbin/ldconfig
+# Remove files from scr_dir only when uninstall
+if [ "$1" = "0" ]
+then
+   if [ -x /bin/systemctl ] && [ -d %{unit_dir} ]; then
+      if [ -f %{unit_dir}/ipmiutil_evt.service ]; then
+         rm -f %{unit_dir}/ipmiutil_evt.service  2>/dev/null || :
+         rm -f %{unit_dir}/ipmiutil_asy.service  2>/dev/null || :
+         rm -f %{unit_dir}/ipmiutil_wdt.service  2>/dev/null || :
+         rm -f %{unit_dir}/ipmi_port.service     2>/dev/null || :
+      fi
+   else
+      if [ -f %{init_dir}/ipmiutil_evt.service ]; then
+         rm -f %{init_dir}/ipmiutil_wdt 2>/dev/null || :
+         rm -f %{init_dir}/ipmiutil_asy 2>/dev/null || :
+         rm -f %{init_dir}/ipmiutil_evt 2>/dev/null || :
+         rm -f %{init_dir}/ipmi_port    2>/dev/null || :
+      fi
+   fi
+fi
+
 %if 0%{?req_systemd}
 %service_del_postun ipmi_port.service ipmiutil_evt.service ipmiutil_asy.service ipmiutil_wdt.service
 %else
-if [ -x /bin/systemctl ]; then
-%if 0%{?fedora} >= 18
-%systemd_postun_with_restart  ipmi_port.service
+%if 0%{?fedora} >= 18 || 0%{?rhel} >= 7
+%systemd_postun_with_restart ipmi_port.service
+%systemd_postun_with_restart ipmiutil_evt.service
+%systemd_postun_with_restart ipmiutil_asy.service
+%systemd_postun_with_restart ipmiutil_wdt.service
 %else
-   systemctl daemon-reload  || :
-   if [ $1 -ge 1 ] ; then
-      # Package upgrade, not uninstall
-      systemctl try-restart ipmi_port.service  || :
-   fi
-%endif
-   if [ -f %{unit_dir}/ipmiutil_evt.service ]; then
-      rm -f %{unit_dir}/ipmiutil_evt.service  2>/dev/null || :
-      rm -f %{unit_dir}/ipmiutil_asy.service  2>/dev/null || :
-      rm -f %{unit_dir}/ipmiutil_wdt.service  2>/dev/null || :
-      rm -f %{unit_dir}/ipmi_port.service     2>/dev/null || :
-   fi
-else
-   if [ -f %{init_dir}/ipmiutil_evt.service ]; then
-      rm -f %{init_dir}/ipmiutil_wdt 2>/dev/null || :
-      rm -f %{init_dir}/ipmiutil_asy 2>/dev/null || :
-      rm -f %{init_dir}/ipmiutil_evt 2>/dev/null || :
-      rm -f %{init_dir}/ipmi_port    2>/dev/null || :
-   fi
+ret=1
+which systemctl >/dev/null 2>&1 && ret=0
+if [ $ret -eq 0 ]; then
+ systemctl daemon-reload  || :
+ if [ $1 -ge 1 ]; then
+   # Package upgrade, not uninstall
+   systemctl try-restart ipmi_port.service     || :
+   systemctl try-restart ipmiutil_evt.service  || :
+   systemctl try-restart ipmiutil_asy.service  || :
+   systemctl try-restart ipmiutil_wdt.service  || :
+ fi
 fi
+%endif
 %endif
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.2-14
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
+* Thu Mar 30 2023 Andrew Cress <arcress at users.sourceforge.net> - 3.1.9-1
+  Merged with upstream ipmiutil-3.1.9
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

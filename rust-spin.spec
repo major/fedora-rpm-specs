@@ -5,13 +5,16 @@
 %global crate spin
 
 Name:           rust-spin
-Version:        0.9.6
+Version:        0.9.7
 Release:        %autorelease
 Summary:        Spin-based synchronization primitives
 
 License:        MIT
 URL:            https://crates.io/crates/spin
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * drop unused, benchmark-only criterion dev-dependency to speed up builds
+Patch:          spin-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 

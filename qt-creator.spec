@@ -1,4 +1,4 @@
-%define prerelease beta2
+#define prerelease beta2
 
 # We need avoid oython byte compiler to not crash over template .py file which
 # is not a valid python file, only for the IDE
@@ -8,7 +8,7 @@
 
 Name:           qt-creator
 Version:        10.0.0
-Release:        0.3%{?dist}
+Release:        1%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPLv3 with exceptions
@@ -18,6 +18,7 @@ Source1:        qt-creator-Fedora-privlibs
 
 # Bundled clang for patched libClangFormat
 Source2:        https://github.com/llvm/llvm-project/releases/download/llvmorg-%{clangver}/clang-%{clangver}.src.tar.xz
+Source3:        https://github.com/llvm/llvm-project/releases/download/llvmorg-%{clangver}/cmake-%{clangver}.src.tar.xz
 
 # In Fedora, the ninja command is called ninja-build
 Patch0:         qt-creator_ninja-build.patch
@@ -33,7 +34,6 @@ Patch4:         qt-creator-clangformat.patch
 Patch5:         clangFormat.patch
 
 BuildRequires:  chrpath
-BuildRequires:  clang-devel
 BuildRequires:  cmake
 #BuildRequires:  cmake(KF5SyntaxHighlighting)
 BuildRequires:  cmake(Qt6Concurrent)
@@ -85,8 +85,6 @@ Requires:       qt5-qtquickcontrols%{?_isa}
 Requires:       qt5-qtbase-devel
 Requires:       gcc-c++
 Requires:       %{name}-data = %{version}-%{release}
-Requires:       clang-libs%{?_isa} = %{clangver}
-Requires:       clang-resource-filesystem
 
 Provides:       qtcreator = %{version}-%{release}
 Provides:       bundled(libclangFormat) = %{clangver}
@@ -134,6 +132,8 @@ User documentation for %{name}.
 %prep
 %autosetup -p1 -n qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease} -a2
 
+tar xf %{SOURCE3}
+
 # Remove some bundled libraries to be sure
 rm -rf src/shared/qbs
 rm -rf src/plugins/help/qlitehtml/litehtml
@@ -142,12 +142,16 @@ rm -rf src/libs/3rdparty/yaml-cpp
 
 
 %build
+mv cmake cmake.qtcreator
+
 # Build libclangFormat
+ln -sf cmake-%{clangver}.src cmake
 pushd clang-%{clangver}.src
 %cmake -G Ninja -DBUILD_SHARED_LIBS=OFF
 %cmake_build -- clangFormat
 popd
 
+rm cmake && ln -s cmake.qtcreator cmake
 %cmake -G Ninja \
     -DBUILD_PLUGIN_CLANGREFACTORING=ON \
     -DBUILD_PLUGIN_CLANGPCHMANAGER=ON \
@@ -157,7 +161,6 @@ popd
     -Djournald=ON \
     -DBUILD_DEVELOPER_DOCS=ON \
     -DCMAKE_INSTALL_LIBDIR=%{_lib}
-
 %cmake_build
 %cmake_build -- qch_docs
 
@@ -215,6 +218,9 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
+* Wed Mar 29 2023 Sandro Mani <manisandro@gmail.com> - 10.0.0-1
+- Update to 10.0.0
+
 * Mon Mar 27 2023 Jan Grulich <jgrulich@redhat.com>
 - Rebuild (qt6)
 

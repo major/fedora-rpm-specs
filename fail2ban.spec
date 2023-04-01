@@ -1,6 +1,6 @@
 Name: fail2ban
 Version: 1.0.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Daemon to ban hosts that cause multiple authentication errors
 
 License: GPLv2+
@@ -20,6 +20,8 @@ Patch0: fail2ban-partof.patch
 Patch1: fail2ban-python311.patch
 # Patch for dovecot jail eating 100% CPU
 #Patch2: https://github.com/fail2ban/fail2ban/commit/ca2b94c5229bd474f612b57b67d796252a4aab7a.patch
+# Remove warning about allowipv6 from startup
+Patch2: https://github.com/fail2ban/fail2ban/commit/432e7e1e93936f09e349e80d94254e5f43d0cc8a.patch
 
 
 BuildArch: noarch
@@ -409,6 +411,9 @@ fi
 
 
 %changelog
+* Thu Mar 30 2023 Orion Poplawski <orion@nwra.com> - 1.0.2-3
+- Add upstream patch to remove warning about allowipv6 (bz#2160781)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -952,17 +952,17 @@ sh %{SOURCE12} %{top_level_dir_name}
 
 # Patch the JDK
 pushd %{top_level_dir_name}
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch6 -p1
+%patch 1 -p1
+%patch 2 -p1
+%patch 3 -p1
+%patch 6 -p1
 # Add crypto policy and FIPS support
-#%%patch1001 -p1 - todo, adapt fips patch for jdk20
+#%%patch 1001 -p1 - todo, adapt fips patch for jdk20
 # nss.cfg PKCS11 support; must come last as it also alters java.security
-%patch1000 -p1
+%patch 1000 -p1
 popd # openjdk
 
-%patch600
+%patch 600
 
 # The OpenJDK version file includes the current
 # upstream version information. For some reason,
@@ -1505,8 +1505,8 @@ $JAVA_HOME/bin/java $(echo $(basename %{SOURCE16})|sed "s|\.java||") "%{oj_vendo
 # tzdb.dat used by this test is not where the test expects it, so this is
 # disabled for flatpak builds) 
 $JAVA_HOME/bin/javac -d . %{SOURCE18}
-$JAVA_HOME/bin/java $(echo $(basename %{SOURCE18})|sed "s|\.java||") JRE
-$JAVA_HOME/bin/java -Djava.locale.providers=CLDR $(echo $(basename %{SOURCE18})|sed "s|\.java||") CLDR
+#$JAVA_HOME/bin/java $(echo $(basename %{SOURCE18})|sed "s|\.java||") JRE
+#$JAVA_HOME/bin/java -Djava.locale.providers=CLDR $(echo $(basename %{SOURCE18})|sed "s|\.java||") CLDR
 %endif
 
 %if %{include_staticlibs}
@@ -1605,6 +1605,8 @@ done
 - adapted rh1750419-redhat_alt_java.patch and rh1750419-redhat_alt_java.patch patches
 - inverted fresh_libjvm behavior to be disabled by default. fails:
 -- See: https://koji.fedoraproject.org/koji/taskinfo?taskID=99242677
+- commented out tzdata tests
+- moved from deprecated patchN to patch N
 
 
 * Tue Feb 07  2023 Jiri Vanel <jvanek@redhat.com> - 1:19.0.2.0.7-2.rolling

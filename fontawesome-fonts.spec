@@ -1,85 +1,150 @@
-%global fontname fontawesome
-%global fontconf 60-%{fontname}.conf
-
-Name:		%{fontname}-fonts
+Name:		fontawesome-fonts
+Summary:	Support files for the FontAwesome fonts
 Epoch:		1
-Version:	4.7.0
-Release:	15%{?dist}
+Version:	6.4.0
+Release:	1%{?dist}
 
-Summary:	Iconic font set
-License:	OFL
-URL:		http://fontawesome.io
-Source0:	http://fontawesome.io/assets/font-awesome-%{version}.zip
-Source1:	%{name}-fontconfig.conf
-Source2:	README-Trademarks.txt
+License:	MIT
+URL:		https://fontawesome.com/
 BuildArch:	noarch
-BuildRequires:	fontpackages-devel
-BuildRequires:	ttembed
-Requires:	fontpackages-filesystem
 
-
-%description
+%global _desc %{expand:
 Font Awesome gives you scalable vector icons that can instantly be
-customized — size, color, drop shadow, and anything that can be done with the
-power of CSS.
+customized - size, color, drop shadow, and anything that can be done
+with the power of CSS.}
 
-This package contains OpenType and TrueType font files which are typically used
-locally.
+%global fontlicense	OFL-1.1-RFN
+%global fontlicenses	LICENSE.txt
+%global fontdocs	CHANGELOG.md README* UPGRADING.md
+%global fontorg		com.fontawesome
+
+%global fontfamily1	FontAwesome 6 Free
+%global fontsummary1	Iconic font set
+%global fonts1		otfs/*Free*
+%global fontconfs1	%{SOURCE3}
+%global fontpkgheader1	%{expand:
+# This can be removed when F42 reaches EOL
+Obsoletes:	fontawesome5-free-fonts < 5.15.4-5
+Provides:	fontawesome5-free-fonts = %{version}-%{release}
+}
+%global fontdescription1 %{expand:%_desc
+
+The FontAwesome Free Fonts contain large numbers of icons packaged as
+font files.}
+
+%global fontfamily2	FontAwesome 6 Brands Regular
+%global fontsummary2	Iconic font set
+%global fonts2		otfs/*Brands*
+%global fontconfs2	%{SOURCE4}
+%global fontpkgheader2	%{expand:
+# This can be removed when F42 reaches EOL
+Obsoletes:	fontawesome5-brands-fonts < 5.15.4-5
+Provides:	fontawesome5-brands-fonts = %{version}-%{release}
+}
+%global fontdescription2 %{expand:%_desc
+
+The FontAwesome Brand Fonts contain brand logos packaged as font files.}
+
+Source0:	https://github.com/FortAwesome/Font-Awesome/archive/%{version}/Font-Awesome-%{version}.tar.gz
+# Script to generate Source2
+Source1:	trademarks.py
+Source2:	README-Trademarks.txt
+Source3:	60-%{fontpkgname1}.conf
+Source4:	60-%{fontpkgname2}.conf
+
+# Not for upstream.  This patch modifies the CSS to point to local OpenType
+# font files, rather than to the eot, svg, ttf, woff, and woff2 web fonts, as
+# required by Fedora's font packaging guidelines.
+Patch0:         %{name}-opentype-css.patch
+
+BuildRequires:  appstream
+
+# This can be removed when F42 reaches EOL
+Obsoletes:	fontawesome5-fonts < 5.15.4-5
+Provides:	fontawesome5-fonts = %{version}-%{release}
+
+%description %_desc
+
+%fontpkg -a
+
+# NOTE: We would like to do this here:
+#%%fontmetapkg -d %%_desc
+# However, the fontmetapkg macro has no facility for adding Obsoletes and
+# Provides, so we expand it by hand.
+%package all
+Summary:	Metapackage that requires all Font Awesome fonts
+Requires:	fontawesome-6-brands-fonts = 1:%{version}-%{release}
+Requires:	fontawesome-6-free-fonts = 1:%{version}-%{release}
+
+# This can be removed when F42 reaches EOL
+Obsoletes:	fontawesome5-fonts-all < 5.15.4-5
+Provides:	fontawesome5-fonts-all = %{version}-%{release}
+
+%description all %_desc
+
+This package is a metapackage that ensures all Font Awesome fonts are
+installed.
 
 %package web
-License:	OFL and MIT
-Requires:	%{fontname}-fonts = %{?epoch:%{epoch}:}%{version}-%{release}
-Summary:	Iconic font set, web files
+License:	CC-BY-4.0
+Summary:	Iconic font set, JavaScript and SVG files
 
-%description web
-Font Awesome gives you scalable vector icons that can instantly be
-customized — size, color, drop shadow, and anything that can be done with the
-power of CSS.
+# This can be removed when F42 reaches EOL
+Obsoletes:	fontawesome5-fonts-web < 5.15.4-5
+Provides:	fontawesome5-fonts-web = %{version}-%{release}
 
-This package contains CSS, SCSS and LESS style files as well as Web Open Font
-Format versions 1 and 2, Embedded OpenType and SVG font files which are
-typically used on the web.
+%description web %_desc
+
+This package contains CSS, SCSS and LESS style files for each of the
+fonts in the FontAwesome family, as well as JSON and YAML metadata.
+It also contains JavaScript, TTF, and SVG files, which are typically
+used on web pages.
 
 %prep
-%setup -q -n font-awesome-%{version}
+%autosetup -n Font-Awesome-%{version} -p1
 cp -p %SOURCE2 .
 
 %build
-ttembed fonts/*.ttf fonts/*.otf
+%fontbuild -a
 
 %install
-install -m 0755 -d %{buildroot}%{_fontdir}
-install -m 0644 -p fonts/*.ttf fonts/*.otf fonts/*.woff fonts/*.svg fonts/*.woff2 fonts/*.eot %{buildroot}%{_fontdir}
+%fontinstall -a
 
-install -m 0755 -d %{buildroot}%{_fontconfig_templatedir} \
-		%{buildroot}%{_fontconfig_confdir}
+# Install the web files
+mkdir -p %{buildroot}%{_datadir}/fontawesome
+cp -a css js less metadata scss sprites svgs webfonts \
+   %{buildroot}%{_datadir}/fontawesome
 
-install -m 0644 -p %{SOURCE1} \
-		%{buildroot}%{_fontconfig_templatedir}/%{fontconf}
+# Fix up the generated metainfo; see bz 1943727
+sed -e 's,updatecontact,update_contact,g' \
+    -e 's,<!\[CDATA\[\([^]]*\)\]\]>,\1,g' \
+    -i %{buildroot}%{_metainfodir}/*.metainfo.xml
 
-ln -s %{_fontconfig_templatedir}/%{fontconf} \
-		%{buildroot}%{_fontconfig_confdir}/%{fontconf}
+# Validate the metainfo
+for name in 6-brands 6-free; do
+  appstreamcli validate --no-net \
+   %{buildroot}%{_metainfodir}/%{fontorg}.fontawesome-${name}-fonts.metainfo.xml
+done
 
-mkdir -p %{buildroot}%{_datadir}/font-awesome-web/
-cp -a css less scss %{buildroot}%{_datadir}/font-awesome-web/
+%check
+%fontcheck -a
 
-# files:
-%_font_pkg -f %{fontconf} *.ttf *.otf
-%exclude %{_datadir}/fonts/fontawesome/fontawesome-webfont.svg
-%exclude %{_datadir}/fonts/fontawesome/fontawesome-webfont.woff
-%exclude %{_datadir}/fonts/fontawesome/fontawesome-webfont.woff2
-%exclude %{_datadir}/fonts/fontawesome/fontawesome-webfont.eot
+%fontfiles -a
 
-%doc README-Trademarks.txt
+%files all
 
 %files web
-%{_datadir}/font-awesome-web/
-%{_datadir}/fonts/fontawesome/fontawesome-webfont.svg
-%{_datadir}/fonts/fontawesome/fontawesome-webfont.woff
-%{_datadir}/fonts/fontawesome/fontawesome-webfont.woff2
-%{_datadir}/fonts/fontawesome/fontawesome-webfont.eot
+%doc CHANGELOG.md README* UPGRADING.md
+%license LICENSE.txt
+%{_datadir}/fontawesome/
 
 %changelog
+* Tue Mar 28 2023 Jerry James <loganjerry@gmail.com> - 1:6.4.0-1
+- Version 6.4.0
+- Convert License tags to SPDX
+- Comply with the font policy
+- Update trademarks.py for python3
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.7.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -8,8 +8,8 @@
 
 Summary:	Modular text mode IRC client with Perl scripting
 Name:		irssi
-Version:	1.4.3
-Release:	3%{?dist}
+Version:	1.4.4
+Release:	1%{?dist}
 
 License:	GPLv2+
 URL:		http://irssi.org/
@@ -107,6 +107,9 @@ chmod -R u+w $RPM_BUILD_ROOT%{perl_vendorarch}
 
 
 %changelog
+* Thu Mar 30 2023 Kalev Lember <klember@redhat.com> - 1.4.4-1
+- Update to 1.4.4
+
 * Thu Mar  2 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 1.4.3-3
 - Added libotr conditionals for RHEL
 
