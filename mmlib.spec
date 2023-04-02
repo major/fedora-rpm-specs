@@ -22,10 +22,10 @@ BuildRequires:  pkgconfig(check)
 
 # docs option
 #   We do not rebuild the documentation, and do not install Sphinx-generated
-#   documentation, because we do not want to have to package python-linuxdoc
-#   (and its dependency python-fspath) in order to do so.
-# BuildRequires:  python3dist(sphinx)
-# BuildRequires:  python3dist(linuxdoc)
+#   documentation, because:
+#     “Building documentation does not seem to work as expected”
+#     https://github.com/mmlabs-mindmaze/mmlib/issues/6
+#   Prior to Fedora 39, we also lack the python3dist(linuxdoc) dependency.
 
 # nls option
 BuildRequires:  gettext

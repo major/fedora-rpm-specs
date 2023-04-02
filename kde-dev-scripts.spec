@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 Name:    kde-dev-scripts
 Summary: KDE SDK scripts
-Version: 23.03.80
+Version: 23.03.90
 Release: 1%{?dist}
 
 License: GPLv2+ and GPLv2+ and BSD
@@ -156,6 +156,9 @@ test -n "$(grep "/usr/bin/env" %{buildroot}%{_kf5_bindir}/* 2> /dev/null )" ||:
 
 
 %changelog
+* Fri Mar 31 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.90-1
+- 23.03.90
+
 * Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
 - 23.03.80
 

@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           maven-parent
-Version:        37
+Version:        39
 Release:        2%{?dist}
 Summary:        Apache Maven parent POM
 License:        ASL 2.0
@@ -31,6 +31,7 @@ Apache Maven parent POM file used by other Maven projects.
 %pom_remove_plugin :maven-enforcer-plugin
 %pom_remove_plugin :maven-checkstyle-plugin
 %pom_remove_plugin :apache-rat-plugin
+%pom_remove_plugin :spotless-maven-plugin
 %pom_remove_plugin -r :maven-scm-publish-plugin
 
 %pom_xpath_remove "pom:execution[pom:id='generate-helpmojo']" maven-plugins
@@ -45,6 +46,12 @@ Apache Maven parent POM file used by other Maven projects.
 %doc LICENSE NOTICE
 
 %changelog
+* Fri Mar 31 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 39-2
+- Rebuild with no changes
+
+* Thu Mar 23 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 39-1
+- Update to upstream version 39
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 37-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

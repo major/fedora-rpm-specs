@@ -4,15 +4,15 @@
 # optional versioned updates.
 Name: make
 Epoch: 1
-Version: 4.4
-Release: 3%{?dist}
+Version: 4.4.1
+Release: 1%{?dist}
 License: GPLv3+
 URL: http://www.gnu.org/software/make/
 Source: ftp://ftp.gnu.org/gnu/make/make-%{version}.tar.gz
 
 %if "%{name}" != "make"
 # Set this to the sub-package base name, for "make-latest"
-%global make make44
+%global make make441
 %if 0%{?rhel} > 0
 %global _prefix /opt/rh/%{make}
 %else
@@ -43,10 +43,6 @@ Patch1: make-4.0-noclock_gettime.patch
 
 # BZs #142691, #17374
 Patch2: make-4.3-j8k.patch
-
-# Upstream commit 92ab2e642d2c04b3dcb5a736ae6193680bfd5f74
-# Remove for 4.4.1 or later
-Patch3: make-4.4-sigpipe.patch
 
 # autoreconf
 BuildRequires: make
@@ -138,6 +134,9 @@ echo ============END TESTING===========
 %{_includedir}/gnumake.h
 
 %changelog
+* Fri Mar 31 2023 DJ Delorie <dj@redhat.com> - 1:4.4.1-1
+- Rebase to make 4.4
+
 * Mon Jan 30 2023 DJ Delorie <dj@redhat.com> - 1:4.4-3
 - Handle SIGPIPE as a fatal signal
 

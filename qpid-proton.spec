@@ -1,13 +1,14 @@
 %global proton_datadir %{_datadir}/proton
-%global gem_name qpid_proton
 %global __cmake_in_source_build 1
 
 %global __provides_exclude_from ^%{proton_datadir}/examples/.*$
 %global __requires_exclude_from ^%{proton_datadir}/examples/.*$
 
+%undefine __brp_mangle_shebangs
+
 Name:           qpid-proton
-Version:        0.37.0
-Release:        5%{?dist}
+Version:        0.38.0
+Release:        1%{?dist}
 Summary:        A high performance, lightweight messaging library
 License:        ASL 2.0
 URL:            http://qpid.apache.org/proton/
@@ -30,13 +31,17 @@ BuildRequires:  doxygen
 BuildRequires:  libuuid-devel
 BuildRequires:  openssl-devel
 BuildRequires:  python3-devel
+BuildRequires:  python3-pip
+BuildRequires:  python3-rpm-macros
 BuildRequires:  python3-sphinx
+BuildRequires:  python3-wheel
 BuildRequires:  glibc-headers
 BuildRequires:  cyrus-sasl-devel
 BuildRequires:  jsoncpp-devel
 BuildRequires:  python3-setuptools
-BuildRequires:  ruby-devel
-BuildRequires:  rubygems-devel
+BuildRequires:  libuv-devel
+BuildRequires:  nspr-devel
+#BuildRequires:  opentelemetry-cpp-devel
 
 %description
 Proton is a high performance, lightweight messaging library. It can be used in
@@ -70,8 +75,9 @@ Obsoletes: perl-qpid-proton
 
 %package   cpp
 Summary:   C++ libraries for Qpid Proton
-Requires:  qpid-proton-c%{?_isa} = %{version}-%{release} 
+Requires:  qpid-proton-c%{?_isa} = %{version}-%{release}
 Requires:  jsoncpp
+#Requires:  opentelemetry-cpp
 
 %description cpp
 %{summary}.
@@ -125,13 +131,12 @@ Summary:   Development libraries for writing messaging apps with Qpid Proton
 Summary:   Documentation for the C development libraries for Qpid Proton
 BuildArch: noarch
 Obsoletes: qpid-proton-c-devel-doc
-Obsoletes: qpid-proton-c-devel-docs 
+Obsoletes: qpid-proton-c-devel-docs
 
 %description c-docs
 %{summary}.
 
 %files c-docs
-%defattr(-,root,root,-)
 %license %{proton_licensedir}/LICENSE.txt
 %doc %{proton_datadir}/docs/api-c
 %doc %{proton_datadir}/examples/README.md
@@ -152,7 +157,6 @@ Obsoletes: qpid-proton-cpp-devel-docs
 %{summary}.
 
 %files cpp-docs
-%defattr(-,root,root,-)
 %license %{proton_licensedir}/LICENSE.txt
 %{proton_datadir}/docs/api-cpp
 %doc %{proton_datadir}/examples/cpp/*.cpp
@@ -160,13 +164,12 @@ Obsoletes: qpid-proton-cpp-devel-docs
 %doc %{proton_datadir}/examples/cpp/README.dox
 %doc %{proton_datadir}/examples/cpp/CMakeLists.txt
 %doc %{proton_datadir}/examples/cpp/ssl-certs
+%doc %{proton_datadir}/examples/cpp/tracing.dox
 %doc %{proton_datadir}/examples/cpp/tutorial.dox
 
 
 %package -n python3-qpid-proton
 Summary:  Python language bindings for the Qpid Proton messaging framework
-%{?python_provide:%python_provide python3-qpid-proton}
-
 Requires: qpid-proton-c%{?_isa} = %{version}-%{release}
 Requires: python3
 
@@ -174,7 +177,11 @@ Requires: python3
 %{summary}.
 
 %files -n python3-qpid-proton
-%{python3_sitearch}/*
+%{python3_sitearch}/__pycache__/*
+%{python3_sitearch}/*.so
+%{python3_sitearch}/*.py*
+%{python3_sitearch}/proton
+%{python3_sitearch}/python_qpid_proton-%{version}.dist-info/*
 
 
 %package -n python-qpid-proton-docs
@@ -186,7 +193,6 @@ Obsoletes:  python-qpid-proton-doc
 %{summary}.
 
 %files -n python-qpid-proton-docs
-%defattr(-,root,root,-)
 %license %{proton_licensedir}/LICENSE.txt
 %doc %{proton_datadir}/docs/api-py
 %doc %{proton_datadir}/examples/python
@@ -195,6 +201,7 @@ Obsoletes:  python-qpid-proton-doc
 %package tests
 Summary:   Qpid Proton Tests
 BuildArch: noarch
+
 %description tests
 %{summary}.
 
@@ -202,70 +209,54 @@ BuildArch: noarch
 %doc %{proton_datadir}/tests
 
 
-%package -n rubygem-%{gem_name}
-Group:   System Environment/Libraries
-Summary: Ruby language bindings for the Qpid Proton messaging framework
-Obsoletes:  rubygem-%{gem_name}-doc
-
-%description -n rubygem-%{gem_name}
-Proton is a high performance, lightweight messaging library. It can be used in
-the widest range of messaging applications including brokers, client libraries,
-routers, bridges, proxies, and more. Proton is based on the AMQP 1.0 messaging
-standard.
-
-%files -n rubygem-%{gem_name}
-%dir %{gem_instdir}
-%{gem_libdir}
-%{gem_extdir_mri}
-%exclude %{gem_cache}
-%{gem_spec}
-%doc %{gem_instdir}/examples
-%doc %{gem_instdir}/tests
-
-
 %prep
 %setup -q -n %{name}-%{version}
-%patch0 -p1
+%patch -p1 0
 
 
 %build
-
-mkdir buildpython3
-cd buildpython3
+mkdir -p BLD
+cd BLD
 %cmake \
-    -DSYSINSTALL_BINDINGS=ON \
     -DCMAKE_SKIP_RPATH:BOOL=OFF \
-    -DENABLE_FUZZ_TESTING=NO \
    "-DCMAKE_C_FLAGS=$CFLAGS -Wno-deprecated-declarations" \
+    -DENABLE_FUZZ_TESTING=NO \
     ..
-#make all docs %{?_smp_mflags}
-make all docs -j1
-(cd python/dist; %py3_build)
+make all docs %{?_smp_mflags}
 
 
 %install
 rm -rf %{buildroot}
 
-cd buildpython3
+cd BLD
 %make_install
-(cd python/dist; %py3_install)
 
-chmod +x %{buildroot}%{python3_sitearch}/_cproton.so
+(cd python/dist
+# Need to remove anything built by the python cmake build in proton
+# so that we rebuild from scratch
+rm -rf build
+# Need to do the python package build here as we rely on the qpid-proton-core
+# library to be installed so we don't duplicate it inside the extension
+# That is also why we have to point pkg-config at the installed library
+PKG_CONFIG_PATH=%{buildroot}%{_libdir}/pkgconfig %py3_build_wheel
+# Fix wheel arch name mismatch for some arches
+%if "%{_arch}" == "i386"
+%define whl_arch "i686"
+%elif "%{_arch}" == "arm"
+%define whl_arch "armv7l"
+%else
+%define whl_arch "%{_arch}"
+%endif
+%py3_install_wheel python_qpid_proton-%{version}-cp311-cp311-linux_%{whl_arch}.whl
+# We seem to need to strip the build extension otherwise it seems to embed a reference to
+# the buildroot in the debug info which fails the rpmbuild - probably because we massaged
+# the pkgconfig path above
+strip %{buildroot}%{python3_sitearch}/_cproton*.so)
 
 install -dm 755 %{buildroot}%{proton_licensedir}
 install -pm 644 %{SOURCE1} %{buildroot}%{proton_licensedir}
 install -pm 644 %{buildroot}%{proton_datadir}/LICENSE.txt %{buildroot}%{proton_licensedir}
 rm -f %{buildroot}%{proton_datadir}/LICENSE.txt
-
-cd ruby/gem/
-mkdir -p %{buildroot}%{gem_instdir}
-install -dm 755 %{buildroot}%{gem_dir}/specifications
-mkdir -p %{buildroot}%{gem_extdir_mri}
-cp -a %{buildroot}%{ruby_vendorarchdir}/cproton.so %{buildroot}%{gem_extdir_mri}/
-touch %{buildroot}%{gem_extdir_mri}/gem.build_complete
-chmod 644 %{buildroot}%{gem_extdir_mri}/gem.build_complete
-cp -a examples tests lib %{buildroot}%{gem_instdir}/
-install -pm 644 %{gem_name}.gemspec %{buildroot}%{gem_spec}
 
 # clean up files that are not shipped
 rm -rf %{buildroot}%{_exec_prefix}/bindings
@@ -273,8 +264,6 @@ rm -rf %{buildroot}%{_libdir}/java
 rm -rf %{buildroot}%{_libdir}/libproton-jni.so
 rm -rf %{buildroot}%{_datarootdir}/java
 rm -rf %{buildroot}%{_libdir}/proton.cmake
-rm -rf %{buildroot}%{_libdir}/ruby
-rm -rf %{buildroot}%{_datarootdir}/ruby
 rm -fr %{buildroot}%{proton_datadir}/examples/CMakeFiles
 rm -f  %{buildroot}%{proton_datadir}/examples/Makefile
 rm -f  %{buildroot}%{proton_datadir}/examples/*.cmake
@@ -288,6 +277,8 @@ rm -f  %{buildroot}%{proton_datadir}/examples/c/receive
 rm -f  %{buildroot}%{proton_datadir}/examples/c/send
 rm -f  %{buildroot}%{proton_datadir}/examples/c/send-abort
 rm -f  %{buildroot}%{proton_datadir}/examples/c/send-ssl
+rm -f  %{buildroot}%{proton_datadir}/examples/c/raw_connect
+rm -f  %{buildroot}%{proton_datadir}/examples/c/raw_echo
 rm -fr %{buildroot}%{proton_datadir}/examples/cpp/CMakeFiles
 rm -f  %{buildroot}%{proton_datadir}/examples/cpp/*.cmake
 rm -f  %{buildroot}%{proton_datadir}/examples/cpp/Makefile
@@ -322,7 +313,6 @@ rm -fr %{buildroot}%{proton_datadir}/examples/engine/java
 rm -fr %{buildroot}%{proton_datadir}/examples/go
 rm -fr %{buildroot}%{proton_datadir}/examples/java
 rm -fr %{buildroot}%{proton_datadir}/examples/javascript
-rm -fr %{buildroot}%{proton_datadir}/examples/ruby
 rm -fr %{buildroot}%{proton_datadir}/examples/perl
 rm -fr %{buildroot}%{proton_datadir}/examples/php
 rm -f  %{buildroot}%{proton_datadir}/CMakeLists.txt
@@ -330,6 +320,9 @@ rm -f  %{buildroot}%{proton_datadir}/CMakeLists.txt
 %check
 
 %changelog
+* Fri Mar 31 2023 Kim van der Riet <kvanderr@redhat.com> - 0.38.0-1
+- Rebased to 0.38.0, opentelemetry-cpp not included as no pkgs in Fedora yet.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.37.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -363,7 +356,7 @@ rm -f  %{buildroot}%{proton_datadir}/CMakeLists.txt
 * Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.35.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
 
-* Fri July 16 2021 Kim van der Riet <kvanderr@redhat.com> - 0.35.0-1
+* Fri Jul 16 2021 Kim van der Riet <kvanderr@redhat.com> - 0.35.0-1
 - Rebased to 0.35.0
 
 * Tue May  4 2021 Irina Boverman <iboverma@redhat.com> - 0.34.0-1
@@ -521,7 +514,7 @@ rm -f  %{buildroot}%{proton_datadir}/CMakeLists.txt
 * Tue Sep  8 2015 Irina Boverman <iboverma@redhat.com> - 0.10-2
 - Added dependency on cyrus-sasl-devel and cyrus-sasl-lib
 - Added 0001-PROTON-974-Accept-a-single-symbol-in-SASL-mechs-fram.patch
- 
+
 * Wed Sep  2 2015 Irina Boverman <iboverma@redhat.com> - 0.10-1
 - Rebased to 0.10
 
@@ -627,7 +620,7 @@ rm -f  %{buildroot}%{proton_datadir}/CMakeLists.txt
 - Removed redundant package name from summary.
 - Removed debugging artifacts from specfile.
 - Moved unversioned library to the -devel package.
-- Added dependency on main package to -devel. 
+- Added dependency on main package to -devel.
 - Fixed directory ownerships.
 
 * Fri Nov 30 2012 Darryl L. Pierce <dpierce@redhat.com> - 0.2-2

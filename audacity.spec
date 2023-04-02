@@ -13,7 +13,7 @@
 Name: audacity
 
 Version: 3.1.3
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Multitrack audio editor
 License: GPL-2.0-only
 URL:     https://www.audacityteam.org/
@@ -290,6 +290,9 @@ rm %{buildroot}%{_datadir}/doc/%{name}/LICENSE.txt
 
 
 %changelog
+* Thu Mar 30 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.1.3-9
+- Added patch to fix GCC 13 build error (Fixes RHBZ: 2171444)
+
 * Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.1.3-8
 - migrated to SPDX license
 

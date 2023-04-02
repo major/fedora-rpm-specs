@@ -9,7 +9,7 @@ Name:           perl-Devel-Hide
 Version:        0.0015
 Release:        5%{?dist}
 Summary:        Forces the unavailability of specified Perl modules (for testing)
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-Hide
 Source0:        https://cpan.metacpan.org/modules/by-module/Devel/Devel-Hide-%{version}.tar.gz
 BuildArch:      noarch
@@ -34,6 +34,7 @@ BuildRequires:  perl(Test::Pod) >= 1.18
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
 %endif
 # Dependencies
+# (none)
 
 %description
 Given a list of Perl modules/filenames, this module makes require and use

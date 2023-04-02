@@ -23,7 +23,7 @@
 
 Name:    cantor
 Summary: KDE Frontend to Mathematical Software
-Version: 23.03.80
+Version: 23.03.90
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -48,6 +48,7 @@ Patch2:  cantor-21.04.3-no-julia-internal.patch
 
 %global majmin_ver %(echo %{version} | cut -d. -f1,2)
 BuildRequires: analitza-devel >= %{majmin_ver}
+BuildRequires: openblas-devel
 
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
@@ -258,6 +259,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Fri Mar 31 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.90-1
+- 23.03.90
+
 * Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
 - 23.03.80
 

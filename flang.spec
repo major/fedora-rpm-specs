@@ -1,9 +1,10 @@
-%global maj_ver 15
+%global maj_ver 16
 %global min_ver 0
-%global patch_ver 7
-#global rc_ver 3
+%global patch_ver 0
+#global rc_ver 4
 %global flang_version %{maj_ver}.%{min_ver}.%{patch_ver}
 %global flang_srcdir flang-%{flang_version}%{?rc_ver:rc%{rc_ver}}.src
+%global cmake_srcdir cmake-%{flang_version}%{?rc_ver:rc%{rc_ver}}.src
 
 # Opt out of https://fedoraproject.org/wiki/Changes/fno-omit-frame-pointer
 # https://bugzilla.redhat.com/show_bug.cgi?id=2158587
@@ -11,7 +12,7 @@
 
 Name: flang
 Version: %{flang_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 3%{?dist}
+Release: 1%{?dist}
 Summary: a Fortran language front-end designed for integration with LLVM
 
 License: Apache-2.0 WITH LLVM-exception
@@ -23,15 +24,29 @@ Source2: release-keys.asc
 # flang depends on one internal clang tablegen file for documentation generation.
 Source3: https://raw.githubusercontent.com/llvm/llvm-project/llvmorg-%{flang_version}%{?rc_ver:-rc%{rc_ver}}/clang/include/clang/Driver/Options.td
 
+Source4: TestAliasAnalysis.h
+
 # Needed for documentation generation
 Patch1: 0001-PATCH-flang-Disable-use-of-sphinx_markdown_tables.patch
-Patch2: link-against-libclang-cpp.patch
 
-# TODO: Can be dropped for LLVM 16. The first one is a plain backport, and the second
-# one has been upstreamed as https://reviews.llvm.org/D131475.
-Patch3: 0001-flang-docs-nfc-Refine-FlangOptionsDocs.td.patch
-Patch4: 0001-Use-find_program-for-clang-tblgen.patch
-Patch5: 0001-Flang-Explicitly-include-cstdint-NFC.patch
+Patch2: 0001-Flang-Fix-CMakePolicy.cmake.patch
+
+# The Bye plugin is not distributed on Fedora.
+Patch3: 0001-flang-Remove-the-dependency-on-Bye.patch
+
+# Fedora does not distribute libclangBasic.a.
+Patch4: remove-clangBasic-dependency.diff
+
+# Fedora uses CLANG_DEFAULT_PIE_ON_LINUX=OFF.
+Patch5: 0001-Match-Fedora-s-value-for-CLANG_DEFAULT_PIE_ON_LINUX.patch
+
+# Fedora and RHEL use a different triple for ppc64le
+Patch6: 0001-PowerPC-Flang-Fix-triple.patch
+
+# Backports from LLVM 17:
+Patch20: 0001-flang-Fixed-restrictions-checking-for-OpenACC-loop-a.patch
+Patch21: 0001-flang-Fixed-uninitialized-std-unique_ptr-dereference.patch
+Patch22: 0001-flang-Fix-dereference-of-std-optional-with-no-value.patch
 
 # Avoid gcc reaching 4GB of memory on 32-bit targets and also running out of
 # memory on builders with many CPUs.
@@ -43,8 +58,9 @@ Patch5: 0001-Flang-Explicitly-include-cstdint-NFC.patch
 %global debug_package %{nil}
 %endif
 
-# Link error on that target
-ExcludeArch: i686
+# Link error on i686.
+# s390x is not supported upstream yet.
+ExcludeArch: i686 s390x
 
 BuildRequires: gcc
 BuildRequires: gcc-c++
@@ -58,6 +74,7 @@ BuildRequires: ninja-build
 BuildRequires: python3-lit >= 12.0.0
 BuildRequires: python3-sphinx
 BuildRequires: python3-recommonmark
+BuildRequires: doxygen
 
 # The new flang drive requires clang-devel
 BuildRequires: clang-devel = %{version}
@@ -92,17 +109,23 @@ Documentation for Flang
 mkdir -p ../clang/include/clang/Driver
 cp %{SOURCE3} ../clang/include/clang/Driver
 
+mkdir -p ../llvm-project-%{flang_version}%{?rc_ver:rc%{rc_ver}}.src/mlir/test/lib/Analysis/
+cp %{SOURCE4} ../llvm-project-%{flang_version}%{?rc_ver:rc%{rc_ver}}.src/mlir/test/lib/Analysis/
+
 %build
 %cmake -GNinja \
        -DMLIR_TABLEGEN_EXE=%{_bindir}/mlir-tblgen \
        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
        -DCMAKE_INSTALL_RPATH=";" \
        -DCLANG_DIR=%{_libdir}/cmake/clang \
+       -DCLANG_LINK_CLANG_DYLIB:BOOL=ON \
        -DLLVM_MAIN_SRC_DIR=%{_datadir}/llvm/src \
        -DBUILD_SHARED_LIBS:BOOL=ON \
        -DLLVM_LINK_LLVM_DYLIB:BOOL=ON \
        -DLLVM_EXTERNAL_LIT=%{_bindir}/lit \
+       -DLLVM_THIRD_PARTY_DIR=%{_datadir}/llvm/src/utils \
        -DCMAKE_PREFIX_PATH=%{_libdir}/cmake/llvm/ \
+       -DLLVM_COMMON_CMAKE_UTILS=%{_libdir}/cmake/llvm/ \
 \
        -DFLANG_INCLUDE_DOCS:BOOL=ON \
        -DLLVM_ENABLE_SPHINX:BOOL=ON \
@@ -139,10 +162,6 @@ install -d %{buildroot}%{_pkgdocdir}/html
 cp -r %{_vpath_builddir}/docs/html/* %{buildroot}%{_pkgdocdir}/html/
 
 %check
-
-# Assertion failure: lib/Semantics/canonicalize-acc.cpp:93
-# /usr/include/c++/11/optional:447: constexpr const _Tp& std::_Optional_base_impl<_Tp, _Dp>::_M_get() const [with _Tp = Fortran::parser::DoConstruct; _Dp = std::_Optional_base<Fortran::parser::DoConstruct, false, false>]: Assertion 'this->_M_is_engaged()' failed.
-rm test/Semantics/OpenACC/acc-canonicalization-validity.f90
 
 %ifarch s390x
 rm test/Evaluate/folding07.f90
@@ -184,12 +203,15 @@ export LD_LIBRARY_PATH=%{_builddir}/%{flang_srcdir}/%{_build}/lib
 %{_libdir}/libFortranParser.so.%{maj_ver}*
 %{_libdir}/libflangFrontend.so.%{maj_ver}*
 %{_libdir}/libflangFrontendTool.so.%{maj_ver}*
+%{_libdir}/libFIRAnalysis.so.%{maj_ver}
 %{_libdir}/libFIRBuilder.so.%{maj_ver}
 %{_libdir}/libFIRCodeGen.so.%{maj_ver}
 %{_libdir}/libFIRDialect.so.%{maj_ver}
 %{_libdir}/libFIRSupport.so.%{maj_ver}
+%{_libdir}/libFIRTestAnalysis.so.%{maj_ver}
 %{_libdir}/libFIRTransforms.so.%{maj_ver}
-
+%{_libdir}/libHLFIRDialect.so.%{maj_ver}
+%{_libdir}/libHLFIRTransforms.so.%{maj_ver}
 
 %files devel
 %{_libdir}/libFortranLower.so
@@ -197,16 +219,20 @@ export LD_LIBRARY_PATH=%{_builddir}/%{flang_srcdir}/%{_build}/lib
 %{_libdir}/libFortranCommon.so
 %{_libdir}/libFortranSemantics.so
 %{_libdir}/libFortran_main.a
+%{_libdir}/libFIRAnalysis.so
 %{_libdir}/libFIRBuilder.so
 %{_libdir}/libFIRCodeGen.so
 %{_libdir}/libFIRDialect.so
 %{_libdir}/libFIRSupport.so
+%{_libdir}/libFIRTestAnalysis.so
 %{_libdir}/libFIRTransforms.so
 %{_libdir}/libFortranDecimal.so
 %{_libdir}/libFortranRuntime.so
 %{_libdir}/libFortranEvaluate.so
 %{_libdir}/libflangFrontend.so
 %{_libdir}/libflangFrontendTool.so
+%{_libdir}/libHLFIRDialect.so
+%{_libdir}/libHLFIRTransforms.so
 %{_includedir}/flang
 %{_libdir}/cmake/
 
@@ -215,6 +241,18 @@ export LD_LIBRARY_PATH=%{_builddir}/%{flang_srcdir}/%{_build}/lib
 %doc %{_pkgdocdir}/html/
 
 %changelog
+* Tue Mar 21 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0-1
+- Update to LLVM 16.0.0
+
+* Thu Mar 16 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc4-1
+- Update to LLVM 16.0.0 RC4
+
+* Tue Mar 14 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc3-2
+- Stop building on s390x
+
+* Mon Feb 27 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc3-1
+- Update to LLVM 16.0.0 RC3
+
 * Thu Jan 19 2023 Nikita Popov <npopov@redhat.com> - 15.0.7-3
 - Fix build with GCC 13
 

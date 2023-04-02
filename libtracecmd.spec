@@ -1,11 +1,12 @@
 Name: libtracecmd
 Version: 1.2.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: LGPLv2
 Summary: A library for reading tracing instances stored in a trace file
 
 URL: https://git.kernel.org/pub/scm/utils/trace-cmd/trace-cmd.git/
 Source0: https://git.kernel.org/pub/scm/utils/trace-cmd/trace-cmd.git/snapshot/trace-cmd-libtracecmd-%{version}.tar.gz
+Patch0:  trace-cmd-Allow-building-with-GNU-Make-4.4.patch
 
 ExcludeArch: %{ix86} %{arm}
 
@@ -69,6 +70,9 @@ chrpath --delete %{buildroot}/%{_libdir}/libtracecmd.so*
 %{_includedir}/trace-cmd
 
 %changelog
+* Fri Mar 31 2023 Jerome Marchand <jmarchan@redhat.com> - 1.2.0-3
+- Fix build: RHBZ#2171769
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

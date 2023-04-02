@@ -6,12 +6,9 @@
 
 Name: trace-cmd
 Version: %{srcversion}
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2 and LGPLv2
 Summary: A user interface to Ftrace
-Requires: libtracecmd
-Requires: libtracefs
-Requires: libtraceevent
 
 ExcludeArch: %{ix86} %{arm}
 
@@ -24,6 +21,8 @@ Source0: https://git.kernel.org/pub/scm/utils/trace-cmd/trace-cmd.git/snapshot/t
 Source1: trace-cmd.conf
 Source2: trace-cmd.service
 Source3: 98-trace-cmd.rules
+Patch0:  trace-cmd-Allow-building-with-GNU-Make-4.4.patch
+
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: xmlto
@@ -110,6 +109,10 @@ rm -rf %{buildroot}/%{_mandir}/man3/*
 %{_libdir}/%{name}/python/
 
 %changelog
+* Fri Mar 31 2023 Jerome Marchand <jmarchan@redhat.com> - 3.1.4-3
+- Fix build: RHBZ#2171770
+- Also remove explicit lib dependency that fedpkg lint complains about.
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

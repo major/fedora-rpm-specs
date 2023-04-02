@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 
 Name:           konversation
-Version: 23.03.80
+Version: 23.03.90
 Release: 1%{?dist}
 Summary:        A user friendly IRC client
 
@@ -153,6 +153,9 @@ fi
 
 
 %changelog
+* Fri Mar 31 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.90-1
+- 23.03.90
+
 * Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
 - 23.03.80
 

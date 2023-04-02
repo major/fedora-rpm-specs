@@ -2,7 +2,7 @@
 %global sway_ver 1.8
 
 Name:           sway-config-fedora
-Version:        0.3.0
+Version:        0.3.1
 Release:        %autorelease
 Summary:        Fedora Sway Spin configuration for Sway
 

@@ -46,7 +46,7 @@ ExcludeArch: i686
 Summary:          389 Directory Server (base)
 Name:             389-ds-base
 Version:          2.3.2
-Release:          2%{?dist}
+Release:          3%{?dist}
 License:          GPLv3+ and (ASL 2.0 or MIT)
 URL:              https://www.port389.org
 Conflicts:        selinux-policy-base < 3.9.8
@@ -277,6 +277,7 @@ Source2:          %{name}-devel.README
 Source3:          https://github.com/jemalloc/%{jemalloc_name}/releases/download/%{jemalloc_ver}/%{jemalloc_name}-%{jemalloc_ver}.tar.bz2
 %endif
 Source4:          389-ds-base.sysusers
+Patch0:           0001-Issue-5642-Build-fails-against-setuptools-67.0.0.patch
 
 %description
 389 Directory Server is an LDAPv3 compliant server.  The base package includes
@@ -709,6 +710,9 @@ exit 0
 %endif
 
 %changelog
+* Fri Mar 31 2023 Viktor Ashirov <vashirov@redhat.com> - 2.3.2-3
+- Fix build issue against setuptools 67.0.0 (#2183375)
+
 * Tue Feb 28 2023 Simon Pichugin <spichugi@redhat.com> - 2.3.2-2
 - Use systemd-sysusers for dirsrv user and group (#2173834)
 

@@ -1,17 +1,17 @@
 Name:           perl-Scope-Guard
 Summary:        Lexically scoped resource management
 Version:        0.21
-Release:        22%{?dist}
-License:        GPL+ or Artistic
-Source0:        https://cpan.metacpan.org/authors/id/C/CH/CHOCOLATE/Scope-Guard-%{version}.tar.gz 
+Release:        24%{?dist}
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Scope-Guard
+Source0:        https://cpan.metacpan.org/modules/by-module/Scope/Scope-Guard-%{version}.tar.gz
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker)
 # Module Runtime
 BuildRequires:  perl(Carp)
@@ -20,9 +20,8 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Test Suite
 BuildRequires:  perl(Test::More)
-# Runtime
-
-%{?perl_default_filter}
+# Dependencies
+# (none)
 
 %description
 This module provides a convenient way to perform cleanup or other forms of
@@ -30,7 +29,7 @@ resource management at the end of a scope. It is particularly useful when
 dealing with exceptions: the Scope::Guard constructor takes a reference to
 a subroutine that is guaranteed to be called even if the thread of
 execution is aborted prematurely. This effectively allows lexically-scoped
-"promises" to be made that are automatically honored by perl's garbage
+"promises" to be made that are automatically honored by Perl's garbage
 collector.
 
 %prep
@@ -42,8 +41,8 @@ make %{?_smp_mflags}
 
 %install
 make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -exec rm -f {} \;
-%{_fixperms} %{buildroot}
+find %{buildroot} -type f -name .packlist -delete
+%{_fixperms} -c %{buildroot}
 
 %check
 make test
@@ -54,6 +53,15 @@ make test
 %{_mandir}/man3/Scope::Guard.3*
 
 %changelog
+* Fri Mar 31 2023 Paul Howarth <paul@city-fan.org> - 0.21-24
+- Use author-independent source URL
+- Drop redundant use of %%{?perl_default_filter}
+- Simplify find command using -delete
+- Fix permissions verbosely
+
+* Fri Mar 31 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.21-23
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

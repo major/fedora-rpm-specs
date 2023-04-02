@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 
 Name:    kmouth
-Version: 23.03.80
+Version: 23.03.90
 Release: 1%{?dist}
 Summary: A program that speaks for you 
 
@@ -78,6 +78,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.kmouth.de
 
 
 %changelog
+* Fri Mar 31 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.90-1
+- 23.03.90
+
 * Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
 - 23.03.80
 

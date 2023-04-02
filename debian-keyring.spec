@@ -1,7 +1,7 @@
 %global upstreamname debian-archive-keyring
 
 Name:           debian-keyring
-Version:        2023.2
+Version:        2023.3
 Release:        1%{?dist}
 Summary:        GnuPG archive keys of the Debian archive
 
@@ -41,6 +41,9 @@ make
 
 
 %changelog
+* Fri Mar 31 2023 Sandro Mani <manisandro@gmail.com> - 2023.3-1
+- Update to 2023.3
+
 * Sun Mar 19 2023 Sandro Mani <manisandro@gmail.com> - 2023.2-1
 - Update to 2023.2
 

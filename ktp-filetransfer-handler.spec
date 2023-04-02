@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 Name:    ktp-filetransfer-handler
 Summary: Telepathy file transfer handler
-Version: 23.03.80
+Version: 23.03.90
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -63,6 +63,9 @@ Telepathy-KDE file transfer handler. It basically does two thigs:
 
 
 %changelog
+* Fri Mar 31 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.90-1
+- 23.03.90
+
 * Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
 - 23.03.80
 

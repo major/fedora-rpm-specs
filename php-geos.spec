@@ -3,8 +3,8 @@
 #
 # remirepo spec file for php-geos
 #
-# Copyright (c) 2016-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2016-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -26,7 +26,7 @@ Release:        26%{?dist}
 Summary:        PHP module for GEOS
 
 # See COPYING
-License:        LGPLv2+ and MIT
+License:        LGPL-2.1-or-later AND MIT
 URL:            http://trac.osgeo.org/geos
 Source0:        https://git.osgeo.org/gogs/geos/php-geos/archive/%{version}%{?prever}.tar.gz
 
@@ -64,12 +64,12 @@ PHP module for GEOS.
 mv %{name} NTS
 
 cd NTS
-%patch0 -p1 -b .test
-%patch1 -p1 -b .wformat
-%patch2 -p1 -b .arginfo
-%patch3 -p1 -b .zendlong
-%patch4 -p1 -b .arg
-%patch5 -p1 -b .php82
+%patch -P0 -p1 -b .test
+%patch -P1 -p1 -b .wformat
+%patch -P2 -p1 -b .arginfo
+%patch -P3 -p1 -b .zendlong
+%patch -P4 -p1 -b .arg
+%patch -P5 -p1 -b .php82
 
 sed -e '/PHP_GEOS_VERSION/s/"0.0"/"%{version}%{?prever}"/' -i php_geos.h
 
@@ -180,6 +180,9 @@ exit $ret
 
 
 %changelog
+* Fri Mar 31 2023 Remi Collet <remi@remirepo.net> - 1.0.0-27
+- use SPDX license ID
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

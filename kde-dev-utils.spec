@@ -1,6 +1,6 @@
 Name:    kde-dev-utils
 Summary: Utilities for developers using KDE
-Version: 23.03.80
+Version: 23.03.90
 Release: 1%{?dist}
 
 License: GPLv2+ and LGPLv2+
@@ -119,6 +119,9 @@ desktop-file-validate %{buildroot}/%{_kf5_datadir}/applications/org.kde.kuiviewe
 
 
 %changelog
+* Fri Mar 31 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.90-1
+- 23.03.90
+
 * Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
 - 23.03.80
 

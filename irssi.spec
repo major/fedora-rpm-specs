@@ -9,12 +9,14 @@
 Summary:	Modular text mode IRC client with Perl scripting
 Name:		irssi
 Version:	1.4.4
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 License:	GPLv2+
 URL:		http://irssi.org/
 Source0:	https://github.com/%{name}/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
-Source1:	irssi-config.h
+Source1:	https://github.com/%{name}/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz.asc
+Source2:	gpgkey-7EE65E3082A5FB06AC7C368D00CCB587DDBEF0E1.asc
+Source3:	irssi-config.h
 
 BuildRequires:	make
 BuildRequires:	ncurses-devel
@@ -22,6 +24,7 @@ BuildRequires:	openssl-devel
 BuildRequires:	zlib-devel
 BuildRequires:	pkgconf-pkg-config
 BuildRequires:	glib2-devel
+BuildRequires:	gnupg2
 BuildRequires:	perl-devel
 BuildRequires:	perl-generators
 BuildRequires:	perl(ExtUtils::Embed)
@@ -58,6 +61,7 @@ being maintained.
 
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 
@@ -74,7 +78,7 @@ autoreconf -fi
 
 %make_build CFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing"
 mv irssi-config.h irssi-config-$(getconf LONG_BIT).h
-cp -p %{SOURCE1} irssi-config.h
+cp -p %{SOURCE3} irssi-config.h
 
 
 %install
@@ -107,6 +111,9 @@ chmod -R u+w $RPM_BUILD_ROOT%{perl_vendorarch}
 
 
 %changelog
+* Thu Mar 30 2023 Todd Zullinger <tmz@pobox.com> - 1.4.4-2
+- verify upstream source signature
+
 * Thu Mar 30 2023 Kalev Lember <klember@redhat.com> - 1.4.4-1
 - Update to 1.4.4
 

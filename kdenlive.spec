@@ -2,7 +2,7 @@
 
 Name:    kdenlive
 Summary: Non-linear video editor
-Version: 23.03.80
+Version: 23.03.90
 Release: 1%{?dist}
 
 License: (GPL-2.0-only or GPL-3.0-only) and GPL-2.0-or-later and GPL-3.0-or-later and LGPL-3.0-only and BSD-3-Clause and CC0-1.0
@@ -119,17 +119,19 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 %{_kf5_datadir}/icons/*/*/*/*
 %{_kf5_datadir}/config.kcfg/kdenlivesettings.kcfg
 %{_kf5_datadir}/knotifications5/kdenlive.notifyrc
-%{_kf5_datadir}/kservices5/mltpreview.desktop
 %{_kf5_datadir}/kxmlgui5/kdenlive/
 %{_datadir}/knsrcfiles/*.knsrc
 %{_kf5_datadir}/qlogging-categories5/kdenlive.categories
 %{_kf5_mandir}/man1/kdenlive.1*
 %{_kf5_mandir}/man1/kdenlive_render.1*
 # consider subpkg for multilib
-%{_kf5_qtplugindir}/mltpreview.so
+%{_kf5_plugindir}/thumbcreator/mltpreview.so
 
 
 %changelog
+* Fri Mar 31 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.90-1
+- 23.03.90
+
 * Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
 - 23.03.80
 

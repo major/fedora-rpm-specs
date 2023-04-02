@@ -6,11 +6,12 @@
 
 
 Name: rabbitmq-server
-Version: 3.11.11
+Version: 3.11.12
 Release: 1%{?dist}
 License: MPLv1.1
 Source0: https://github.com/rabbitmq/rabbitmq-server/releases/download/v%{version}/%{name}_%{version}.orig.tar.xz
 Source1: https://github.com/rabbitmq/rabbitmq-server/releases/download/v%{version}/%{name}_%{version}.orig.tar.xz.asc
+Source2: https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
 # curl -O https://raw.githubusercontent.com/lemenkov/rabbitmq-server/cdfc661/packaging/RPMS/Fedora/rabbitmq-server.logrotate
 Source3: rabbitmq-server.logrotate
 # curl -O https://raw.githubusercontent.com/rabbitmq/rabbitmq-server-release/rabbitmq_v3_6_16/packaging/RPMS/Fedora/rabbitmq-server.tmpfiles
@@ -23,11 +24,13 @@ Patch4: rabbitmq-server-0004-force-python3.patch
 Patch5: rabbitmq-server-0005-Partially-revert-Use-template-in-rabbitmq-script-wra.patch
 
 URL: https://www.rabbitmq.com/
-BuildRequires: make
 BuildRequires: elixir
 BuildRequires: erlang >= %{erlang_minver}
+# for %%gpgverify
+BuildRequires: gnupg2
 BuildRequires: hostname
 BuildRequires: libxslt
+BuildRequires: make
 BuildRequires: python3
 BuildRequires: python3-simplejson
 BuildRequires: rsync
@@ -60,6 +63,7 @@ performance enterprise messaging. The RabbitMQ server is a robust and
 scalable implementation of an AMQP broker.
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 # We have to remove it until common_test subpackage lands RHOS
@@ -183,6 +187,9 @@ done
 
 
 %changelog
+* Fri Mar 31 2023 Peter Lemenkov <lemenkov@gmail.com> - 3.11.12-1
+- Ver. 3.11.12
+
 * Mon Mar 20 2023 Peter Lemenkov <lemenkov@gmail.com> - 3.11.11-1
 - Ver. 3.11.11
 

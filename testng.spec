@@ -2,7 +2,7 @@
 
 Name:           testng
 Version:        7.6.1
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Java-based testing framework
 License:        ASL 2.0
 URL:            http://testng.org/
@@ -28,7 +28,7 @@ BuildRequires:  javapackages-bootstrap
 BuildRequires:  maven-local
 BuildRequires:  mvn(com.beust:jcommander)
 BuildRequires:  mvn(com.google.code.findbugs:jsr305)
-BuildRequires:  mvn(com.google.inject:guice::no_aop:)
+BuildRequires:  mvn(com.google.inject:guice)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.ant:ant)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
@@ -69,8 +69,6 @@ find -name *.class -delete
 rm src/main/java/org/testng/internal/Yaml*.java
 rm src/main/java/org/testng/Converter.java
 
-%pom_xpath_inject "pom:dependency[pom:artifactId='guice']" "<classifier>no_aop</classifier>"
-
 cp -p ./src/main/java/*.dtd.html ./src/main/resources/.
 
 %mvn_file : %{name}
@@ -92,6 +90,12 @@ cp -p ./src/main/java/*.dtd.html ./src/main/resources/.
 %license LICENSE.txt
 
 %changelog
+* Fri Mar 31 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 7.6.1-4
+- Rebuild with no changes
+
+* Tue Mar 21 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 7.6.1-3
+- Port to Google Guice 5
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

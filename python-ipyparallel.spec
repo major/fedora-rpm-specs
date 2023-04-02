@@ -1,15 +1,16 @@
-%global __requires_exclude python.*dist\\((ipython\\[test\\]|pytest-cov|testpath)\\)
+%if %{?fedora}%{!?fedora:0} < 38
+# python3-ipython-tests lacks auto-generated provides in Fedora < 38
+%global __requires_exclude python.*dist\\(ipython\\[test\\]\\)
+%endif
 
 Name:		python-ipyparallel
-Version:	8.5.0
+Version:	8.5.1
 Release:	1%{?dist}
 Summary:	Interactive Parallel Computing with IPython
 
 License:	BSD-3-Clause
 URL:		https://github.com/ipython/ipyparallel
-Source0:	https://github.com/ipython/ipyparallel/archive/%{version}/%{name}-%{version}.tar.gz
-#		Jupyter labextension
-Source1:	%{name}-labextension.tar.gz
+Source0:	%pypi_source ipyparallel
 
 BuildArch:	noarch
 BuildRequires:	make
@@ -73,7 +74,7 @@ Summary:	Documentation for python-ipyparallel
 This package contains the documentation of python-ipyparallel.
 
 %prep
-%setup -q -n ipyparallel-%{version} -a 1
+%setup -q -n ipyparallel-%{version}
 
 rm ipyparallel/labextension/schemas/ipyparallel-labextension/package.json.orig
 
@@ -132,6 +133,10 @@ mv %{buildroot}%{_prefix}%{_sysconfdir} %{buildroot}%{_sysconfdir}
 %doc docs/build/html
 
 %changelog
+* Thu Mar 30 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 8.5.1-1
+- Update to 8.5.1
+- Use source from PyPI
+
 * Sat Mar 18 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 8.5.0-1
 - Update to 8.5.0
 - Drop patches (accepted upstream)

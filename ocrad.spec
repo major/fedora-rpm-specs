@@ -1,8 +1,8 @@
 Summary: An Optical Character Recognition program
 Name: ocrad
 Version: 0.28
-Release: 3%{?dist}
-License: GPLv3+
+Release: 4%{?dist}
+License: GPL-3.0-or-later
 Source: ftp://ftp.gnu.org/gnu/ocrad/%{name}-%{version}.tar.lz
 Patch0: ocrad-0.25-nostatic.patch
 URL: http://www.gnu.org/software/ocrad/ocrad.html
@@ -41,6 +41,9 @@ rm -f ${RPM_BUILD_ROOT}%{_infodir}/dir
 %attr(0644,root,root) %{_infodir}/ocrad.info.gz
 
 %changelog
+* Fri Mar 31 2023 Tomas Smetana <tsmetana@redhat.com> - 0.28-4
+- Use SPDX license tag
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.28-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

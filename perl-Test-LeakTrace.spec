@@ -8,8 +8,8 @@
 Name:		perl-Test-LeakTrace
 Summary:	Trace memory leaks
 Version:	0.17
-Release:	10%{?dist}
-License:	GPL+ or Artistic
+Release:	11%{?dist}
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-LeakTrace
 Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-LeakTrace-%{version}.tar.gz
 # Module Build
@@ -98,6 +98,9 @@ make test
 %{_mandir}/man3/Test::LeakTrace::Script.3*
 
 %changelog
+* Fri Mar 31 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.17-11
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

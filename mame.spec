@@ -22,6 +22,7 @@ Source0:        https://github.com/mamedev/%{name}/archive/%{name}0%{baseversion
 Source1:        https://mamedev.org/releases/whatsnew_0%{baseversion}.txt
 Patch0:         %{name}-fortify.patch
 Patch1:         0001-Hack-allowing-bgfx-to-initialise-in-absence-of-dx9-s.patch
+Patch2:         ppc64le-validation-failure-fix.patch
 Patch3:         0001-If-combination-of-wayland-videodriver-and-bgfx-video.patch
 
 # %%{arm}:

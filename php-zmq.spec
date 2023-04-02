@@ -1,7 +1,7 @@
 # spec file for php-zmq
 #
-# Copyright (c) 2013-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2013-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -21,8 +21,8 @@
 Summary:        ZeroMQ messaging
 Name:           php-%{pecl_name}
 Version:        1.1.3
-Release:        24%{?dist}
-License:        BSD
+Release:        25%{?dist}
+License:        BSD-3-Clause
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}.tgz
 
@@ -60,9 +60,9 @@ sed -i "s/int(1024)/int(1023)/g" %{pecl_name}-%{version}/tests/032-contextopt.ph
 mv %{pecl_name}-%{version} NTS
 
 cd NTS
-%patch0 -p1 -b .pr216
-%patch1 -p1 -b .pr222
-%patch2 -p1 -b .pr228
+%patch -P0 -p1 -b .pr216
+%patch -P1 -p1 -b .pr222
+%patch -P2 -p1 -b .pr228
 cd ..
 
 %if %{with_zts}
@@ -168,6 +168,9 @@ export TEST_PHP_EXECUTABLE=%{_bindir}/zts-php
 
 
 %changelog
+* Fri Mar 31 2023 Remi Collet <remi@remirepo.net> - 1.1.3-25
+- use SPDX license ID
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

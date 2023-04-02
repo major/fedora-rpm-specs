@@ -1,15 +1,9 @@
 %bcond_with bootstrap
 
-%if %{without bootstrap} && !0%{?rhel}
-%bcond_without maven_resolver_extra_modules
-%else
-%bcond_with maven_resolver_extra_modules
-%endif
-
 Name:           maven-resolver
 Epoch:          1
-Version:        1.7.3
-Release:        6%{?dist}
+Version:        1.9.7
+Release:        2%{?dist}
 License:        ASL 2.0
 Summary:        Apache Maven Artifact Resolver library
 URL:            https://maven.apache.org/resolver/
@@ -24,11 +18,16 @@ Patch0:         0001-Remove-use-of-deprecated-SHA-1-and-MD5-algorithms.patch
 BuildRequires:  javapackages-bootstrap-openjdk8
 %else
 BuildRequires:  maven-local-openjdk8
+BuildRequires:  mvn(com.google.guava:failureaccess)
+BuildRequires:  mvn(com.google.guava:guava)
+BuildRequires:  mvn(com.google.inject:guice)
 BuildRequires:  mvn(javax.inject:javax.inject)
+BuildRequires:  mvn(javax.servlet:javax.servlet-api)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.commons:commons-lang3)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
+BuildRequires:  mvn(org.apache.httpcomponents:httpclient)
+BuildRequires:  mvn(org.apache.httpcomponents:httpcore)
 BuildRequires:  mvn(org.apache.maven.wagon:wagon-provider-api)
 BuildRequires:  mvn(org.apache.maven:maven-parent:pom:)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-classworlds)
@@ -36,17 +35,12 @@ BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
 BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.inject)
 BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.plexus)
 BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
+BuildRequires:  mvn(org.hamcrest:hamcrest)
 BuildRequires:  mvn(org.hamcrest:hamcrest-core)
 BuildRequires:  mvn(org.mockito:mockito-core)
+BuildRequires:  mvn(org.slf4j:jcl-over-slf4j)
 BuildRequires:  mvn(org.slf4j:slf4j-api)
 BuildRequires:  mvn(org.slf4j:slf4j-simple)
-BuildRequires:  mvn(org.sonatype.sisu:sisu-guice::no_aop:)
-%endif
-%if %{with maven_resolver_extra_modules}
-BuildRequires:  mvn(javax.servlet:javax.servlet-api)
-BuildRequires:  mvn(org.eclipse.jetty:jetty-http)
-BuildRequires:  mvn(org.eclipse.jetty:jetty-server)
-BuildRequires:  mvn(org.eclipse.jetty:jetty-util)
 %endif
 
 Provides:       maven-resolver-api = %{epoch}:%{version}-%{release}
@@ -72,20 +66,17 @@ artifact transports and artifact resolution.
 %patch0 -p1
 
 # requires internet connection
-rm maven-resolver-transport-http/src/test/java/org/eclipse/aether/transport/http/HttpTransporterTest.java
+rm maven-resolver-transport-http/src/test/java/org/eclipse/aether/transport/http/{HttpServer,HttpTransporterTest}.java
+%pom_remove_dep org.eclipse.jetty: maven-resolver-transport-http
 
 %pom_remove_plugin -r :bnd-maven-plugin
 %pom_remove_plugin -r org.codehaus.mojo:animal-sniffer-maven-plugin
-%pom_remove_plugin -r org.apache.maven.plugins:maven-enforcer-plugin
+%pom_remove_plugin -r :japicmp-maven-plugin
 
 %pom_disable_module maven-resolver-demos
 %pom_disable_module maven-resolver-named-locks-hazelcast
 %pom_disable_module maven-resolver-named-locks-redisson
 %pom_disable_module maven-resolver-transport-classpath
-%if %{without maven_resolver_extra_modules}
-%pom_disable_module maven-resolver-transport-file
-%pom_disable_module maven-resolver-transport-http
-%endif
 %mvn_package :maven-resolver-test-util __noinstall
 
 # generate OSGi manifests
@@ -127,6 +118,12 @@ done
 %license LICENSE NOTICE
 
 %changelog
+* Fri Mar 31 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:1.9.7-2
+- Rebuild with no changes
+
+* Tue Mar 21 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:1.9.7-1
+- Update to upstream version 1.9.7
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.7.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

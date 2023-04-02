@@ -1,6 +1,6 @@
 Name:           imhex
 Version:        1.27.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A hex editor for reverse engineers and programmers
 
 License:        GPL-2.0-only AND Zlib AND MIT AND Apache-2.0
@@ -126,6 +126,9 @@ cp -a lib/external/xdgpp/LICENSE                                  %{buildroot}%{
 
 
 %changelog
+* Fri Mar 31 2023 Jonathan Wright <jonathan@almalinux.org> - 1.27.1-3
+- rebuild against yara 4.3
+
 * Thu Feb 16 2023 Jonathan Wright <jonathan@almalinux.org> - 1.27.1-2
 - stop building on ppc64le
 

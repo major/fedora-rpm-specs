@@ -2,7 +2,7 @@
 
 Name:           modello
 Version:        2.0.0
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        Modello Data Model toolkit
 # The majority of files are under MIT license, but some of them are ASL 2.0.
 # Some parts of the project are derived from the Exolab project,
@@ -22,6 +22,7 @@ ExclusiveArch:  %{java_arches} noarch
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
+BuildRequires:  mvn(com.google.inject:guice)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.maven.plugin-tools:maven-plugin-annotations)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-dependency-plugin)
@@ -34,7 +35,6 @@ BuildRequires:  mvn(org.codehaus.plexus:plexus-compiler-javac)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
 BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.plexus)
 BuildRequires:  mvn(org.sonatype.plexus:plexus-build-api)
-BuildRequires:  mvn(org.sonatype.sisu:sisu-guice::no_aop:)
 %endif
 
 # Explicit javapackages-tools requires since modello script uses
@@ -63,6 +63,9 @@ cp -p %{SOURCE1} LICENSE
 # We don't generate site; don't pull extra dependencies.
 %pom_remove_plugin :maven-site-plugin
 
+%pom_remove_dep -r :sisu-guice
+%pom_add_dep com.google.inject:guice modello-core
+
 %pom_remove_dep :jackson-bom
 %pom_disable_module modello-plugin-jackson modello-plugins
 %pom_disable_module modello-plugin-jsonschema modello-plugins
@@ -79,7 +82,7 @@ cp -p %{SOURCE1} LICENSE
 %install
 %mvn_install
 
-%jpackage_script org.codehaus.modello.ModelloCli "" "" modello:org.eclipse.sisu.plexus:org.eclipse.sisu.inject:google-guice-no_aop:atinject:plexus-containers/plexus-component-annotations:plexus/classworlds:plexus/utils:plexus/plexus-build-api:guava:plexus-compiler/plexus-compiler-api:plexus-compiler/plexus-compiler-javac %{name} true
+%jpackage_script org.codehaus.modello.ModelloCli "" "" modello:org.eclipse.sisu.plexus:org.eclipse.sisu.inject:google-guice:aopalliance:atinject:plexus-containers/plexus-component-annotations:plexus/classworlds:plexus/utils:plexus/plexus-build-api:guava:plexus-compiler/plexus-compiler-api:plexus-compiler/plexus-compiler-javac %{name} true
 
 %files -f .mfiles
 %doc LICENSE
@@ -89,6 +92,12 @@ cp -p %{SOURCE1} LICENSE
 %doc LICENSE
 
 %changelog
+* Fri Mar 31 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.0.0-5
+- Rebuild with no changes
+
+* Tue Mar 21 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.0.0-4
+- Port to Google Guice 5
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

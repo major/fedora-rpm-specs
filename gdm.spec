@@ -8,15 +8,15 @@
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
-Name: gdm
-Epoch: 1
-Version: 43.0
-Release: 7%{?dist}
+Name:    gdm
+Epoch:   1
+Version: 44.0
+Release: 1%{?dist}
 Summary: The GNOME Display Manager
 
-License: GPLv2+
-URL: https://wiki.gnome.org/Projects/GDM
-Source0: http://download.gnome.org/sources/gdm/43/gdm-%{tarball_version}.tar.xz
+License: GPL-2.0-or-later
+URL:     https://wiki.gnome.org/Projects/GDM
+Source0: https://download.gnome.org/sources/gdm/44/gdm-%{tarball_version}.tar.xz
 Source1: org.gnome.login-screen.gschema.override
 
 # moved here from pulseaudio-gdm-hooks-11.1-16
@@ -24,20 +24,8 @@ Source5: default.pa-for-gdm
 
 Source6: gdm.sysusers
 
-# pam_console removal
-Patch10001: 0001-pam-redhat-Remove-pam_console-from-service-files.patch
-
 # Downstream patches
 Patch70001: 0001-udev-Stick-with-wayland-on-hybrid-nvidia-with-vendor.patch
-# This is an upstream patch, but it is rediffed on the above downstream
-# patch and must be applied after it
-# Fix things so we get Wayland on UEFI VMs
-# https://bugzilla.redhat.com/show_bug.cgi?id=2172291
-# https://gitlab.gnome.org/GNOME/gdm/-/merge_requests/198
-Patch70002: 0002-udev-Try-to-detect-virtual-graphics-and-EFI-better.patch
-# https://gitlab.gnome.org/GNOME/gdm/-/merge_requests/199
-# Follow-up to the above to fix an erroneously-added line
-Patch70003: 0001-udev-Drop-duplicated-line.patch
 
 Patch80001: 0001-Honor-initial-setup-being-disabled-by-distro-install.patch
 Patch90001: 0001-data-add-system-dconf-databases-to-gdm-profile.patch
@@ -314,6 +302,9 @@ fi
 %{_libdir}/pkgconfig/gdm-pam-extensions.pc
 
 %changelog
+* Fri Mar 31 2023 David King <amigadave@amigadave.com> - 44.0-1
+- Update to 44.0
+
 * Thu Mar 02 2023 Adam Williamson <awilliam@redhat.com> - 43.0-7
 - Backport MR #199 to fix up a mistake in the virt efi patch
 

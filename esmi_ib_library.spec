@@ -17,6 +17,7 @@ Summary:        E-SMI: EPYC System management Interface In-band Library
 License:        NCSA
 URL:            https://github.com/amd/esmi_ib_library
 Source:         %{url}/archive/%{commit}/%{name}-%{commit}.tar.gz
+Patch0:         esmi-amd_hsmp-include.patch
 
 # This is a hardware enablement package for AMD x86_64 platforms
 ExclusiveArch:  x86_64
@@ -61,7 +62,12 @@ This package contains E-SMI tool, a program based on the E-SMI In-band library
 that provides options to Monitor and Control System Management functionality.
 
 %prep
-%autosetup -n %{name}-%{commit}
+%setup -q -n %{name}-%{commit}
+
+# The kernel on el8 and el9 is missing some includes we need so patch them in
+%if 0%{?el8} || 0%{?el9}
+%patch0 -p1
+%endif
 
 # Use FHS install paths and patch version detection
 sed -i CMakeLists.txt \

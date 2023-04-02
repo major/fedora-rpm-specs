@@ -1,7 +1,7 @@
 %global modname fedmsg
 
 Name:           fedmsg
-Version:        1.1.6
+Version:        1.1.7
 Release:        1%{?dist}
 Summary:        Tools for Fedora Infrastructure real-time messaging
 License:        LGPL-2.1-or-later
@@ -273,6 +273,10 @@ chmod 0644 %{buildroot}/%{_sysconfdir}/logrotate.d/%{modname}
 
 
 %changelog
+* Fri Mar 31 2023 Michal Konecny <mkonecny@redhat.com> - 1.1.7-1
+- Bump to version 1.1.7
+  See changelog at https://github.com/fedora-infra/fedmsg/releases/tag/1.1.7
+
 * Mon Feb 27 2023 Michal Konecny <mkonecny@redhat.com> - 1.1.6-1
 - Latest upstream
   See changelog at https://github.com/fedora-infra/fedmsg/releases/tag/1.1.6

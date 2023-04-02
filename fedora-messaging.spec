@@ -6,8 +6,8 @@ Tools and APIs to make working with AMQP in Fedora easier.
 %{?python_enable_dependency_generator}
 
 Name:           %{pkgname}
-Version:        3.2.0
-Release:        6%{?dist}
+Version:        3.3.0
+Release:        1%{?dist}
 Summary:        Set of tools for using Fedora's messaging infrastructure
 
 License:        GPLv2+
@@ -112,6 +112,17 @@ install -D -p -m 644 fm-consumer@.service $RPM_BUILD_ROOT%{_unitdir}/fm-consumer
 
 
 %changelog
+* Fri Mar 31 2023 Packit <hello@packit.dev> - 3.3.0-1
+- Version 3.3.0 (Aurélien Bompard)
+- Add a Github action to update pre-commit linters (Aurélien Bompard)
+- Update pre-commit linters (Aurélien Bompard)
+- Add koji-fedoramessaging-messages in the known schemas list (Aurélien Bompard)
+- Update linters (Aurélien Bompard)
+- Add support for asyncio-based callbacks in the consumer (Aurélien Bompard)
+- Improve documentation (Aurélien Bompard)
+- Upgrade the github action for integration tests (Aurélien Bompard)
+- Add a `message.load_message()` function (Aurélien Bompard)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -9,7 +9,7 @@ Name:           perl-Devel-Declare
 Version:        0.006022
 Release:        13%{?dist}
 Summary:        Adding keywords to perl, in perl
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-Declare
 Source0:        https://cpan.metacpan.org/modules/by-module/Devel/Devel-Declare-%{version}.tar.gz
 # Module Build
@@ -43,13 +43,12 @@ BuildRequires:  perl(Test::Requires)
 # Optional Tests
 BuildRequires:  perl(B::Compiling)
 %if !%{defined perl_bootstrap} && %{with perl_Devel_Declare_enables_extra_test}
-# Break build-cycle: perl-Devel-Declare → perl-Devel-CallParser
-# → perl-Devel-Declare
+# Break build-cycle: perl-Devel-Declare → perl-Devel-CallParser → perl-Devel-Declare
 BuildRequires:  perl(Devel::CallParser)
 %endif
 BuildRequires:  perl(Filter::Util::Call)
-# Runtime
-# necessary minimum versions not automatically detected
+# Dependencies
+# Necessary minimum versions not automatically detected
 Requires:       perl(B::Hooks::EndOfScope) >= 0.05
 
 # Avoid provides from perl shared objects

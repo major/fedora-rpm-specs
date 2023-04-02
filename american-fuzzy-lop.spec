@@ -10,12 +10,17 @@ Name:          american-fuzzy-lop
 Summary:       Practical, instrumentation-driven fuzzer for binary formats
 License:       ASL 2.0
 
-Release:       2%{?dist}
+Release:       3%{?dist}
 URL:           %{forgeurl}
 Source0:       %{forgesource}
 
 # For running the tests:
 Source1:       hello.c
+
+# Backport from branch stable upstream:
+Patch0: 0001-LLVM-plugin-16-support-proposal.patch
+# Taken from https://github.com/AFLplusplus/AFLplusplus/pull/1686
+Patch1: pr1686.diff
 
 # Only specific architectures are supported by upstream.
 # On non-x86 only afl-clang-fast* are built.
@@ -67,7 +72,7 @@ This subpackage contains clang and clang++ support for
 
 
 %prep
-%forgesetup
+%forgeautosetup -p1
 
 
 %build
@@ -257,6 +262,9 @@ test -n '%{clang_major}'
 
 
 %changelog
+* Mon Mar 27 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 4.05c-3
+- Rebuild with LLVM 16.0.0
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.05c-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

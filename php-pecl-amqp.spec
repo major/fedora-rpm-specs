@@ -1,7 +1,7 @@
 # Fedora spec file for php-pecl-amqp
 #
-# Copyright (c) 2012-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2012-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -22,8 +22,8 @@
 Summary:       Communicate with any AMQP compliant server
 Name:          php-pecl-amqp
 Version:       %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
-Release:       5%{?dist}
-License:       PHP
+Release:       6%{?dist}
+License:       PHP-3.01
 URL:           https://pecl.php.net/package/amqp
 Source0:       https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
 
@@ -64,7 +64,7 @@ sed -e 's/role="test"/role="src"/' \
 
 mv %{pecl_name}-%{upstream_version}%{?upstream_prever} NTS
 cd NTS
-%patch0 -p1 -b .php82
+%patch -P0 -p1 -b .php82
 
 sed -e 's/CFLAGS="-I/CFLAGS="$CFLAGS -I/' -i config.m4
 
@@ -230,6 +230,9 @@ exit $ret
 
 
 %changelog
+* Fri Mar 31 2023 Remi Collet <remi@remirepo.net> - 1.11.0-6
+- use SPDX license ID
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:    ffmpegthumbs
-Version: 23.03.80
+Version: 23.03.90
 Release: 1%{?dist}
 Summary: KDE ffmpegthumbnailer service
 
@@ -63,6 +63,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 
 
 %changelog
+* Fri Mar 31 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.90-1
+- 23.03.90
+
 * Tue Mar 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
 - 23.03.80
 

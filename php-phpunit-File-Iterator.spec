@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-phpunit-File-Iterator
 #
-# Copyright (c) 2009-2015 Christof Damian, Remi Collet
+# Copyright (c) 2009-2023 Christof Damian, Remi Collet
 #
 # License: MIT
 # http://opensource.org/licenses/MIT
@@ -19,12 +19,14 @@
 
 Name:           php-phpunit-File-Iterator
 Version:        1.4.5
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        FilterIterator implementation that filters files based on a list of suffixes
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{gh_project}-%{version}-%{gh_short}.tar.gz
+
+Patch0:         %{gh_project}-php8.patch
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 5.3.3
@@ -58,6 +60,8 @@ mkdir -p File/Iterator/
 mv src/* File/Iterator/
 mv       File/Iterator/Iterator.php File/Iterator.php
 
+%patch0 -p1
+
 
 %build
 %{_bindir}/phpab \
@@ -86,6 +90,9 @@ fi
 
 
 %changelog
+* Fri Mar 31 2023 Remi Collet <remi@remirepo.net> - 1.4.5-13
+- minimal fix for PHP 8
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

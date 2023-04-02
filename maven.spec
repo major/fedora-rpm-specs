@@ -6,8 +6,8 @@
 
 Name:           maven
 Epoch:          1
-Version:        3.8.6
-Release:        4%{?dist}
+Version:        3.9.1
+Release:        2%{?dist}
 Summary:        Java project management and project comprehension tool
 # maven itself is ASL 2.0
 # bundled slf4j is MIT
@@ -21,22 +21,19 @@ Source1:        maven-bash-completion
 Source2:        mvn.1
 
 Patch1:         0001-Adapt-mvn-script.patch
-# Downstream-specific, avoids dependency on logback
-# Used only when %%without logback is in effect
+# Downstream-specific, avoids build-dependency on logback
 Patch2:         0002-Invoke-logback-via-reflection.patch
-Patch3:         0003-Use-non-shaded-HTTP-wagon.patch
-Patch4:         0004-Remove-dependency-on-powermock.patch
-Patch5:         0005-Port-to-maven-resolver-1.7.2.patch
-# XMvn needs to be ported to Maven 3.8.5
-# For now restore backwards compatibility with Maven 3.8.4
-Patch6:         0006-Restore-DefaultModelValidator-compatibility-with-Mav.patch
+Patch3:         0003-Remove-dependency-on-powermock.patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap-openjdk8
 %else
 BuildRequires:  maven-local-openjdk8
-BuildRequires:  mvn(com.google.inject:guice::no_aop:)
+BuildRequires:  mvn(com.google.guava:failureaccess)
+BuildRequires:  mvn(com.google.guava:guava)
+BuildRequires:  mvn(com.google.inject:guice)
 BuildRequires:  mvn(commons-cli:commons-cli)
+BuildRequires:  mvn(commons-io:commons-io)
 BuildRequires:  mvn(commons-jxpath:commons-jxpath)
 BuildRequires:  mvn(javax.annotation:javax.annotation-api)
 BuildRequires:  mvn(javax.inject:javax.inject)
@@ -51,6 +48,8 @@ BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-api)
 BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-connector-basic)
 BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-impl)
 BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-spi)
+BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-transport-file)
+BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-transport-http)
 BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-transport-wagon)
 BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-util)
 BuildRequires:  mvn(org.apache.maven.shared:maven-shared-utils)
@@ -159,9 +158,6 @@ find -name 'pom.xml' -exec sed -i 's/\r//' {} +
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
 
 # not really used during build, but a precaution
 find -name '*.jar' -not -path '*/test/*' -delete
@@ -196,11 +192,8 @@ sed -i "
 
 %mvn_alias :maven-resolver-provider :maven-aether-provider
 
-%pom_xpath_inject 'pom:build/pom:plugins' '
-<plugin>
-	<groupId>org.eclipse.sisu</groupId>
-	<artifactId>sisu-maven-plugin</artifactId>
-</plugin>' maven-model-builder/pom.xml
+%pom_remove_plugin :plexus-component-metadata maven-model-builder
+%pom_add_plugin org.eclipse.sisu:sisu-maven-plugin maven-model-builder
 
 %build
 %mvn_build -- -Dproject.build.sourceEncoding=UTF-8
@@ -223,12 +216,6 @@ install -d -m 755 %{buildroot}%{_datadir}/bash-completion/completions/
 cp -a $M2_HOME/{bin,lib,boot} %{buildroot}%{homedir}/
 %if %{without bootstrap}
 xmvn-subst -s -R %{buildroot} -s %{buildroot}%{homedir}
-%endif
-
-# Workaround for xmvn-subst being unable to create symlink for MBI-built guice
-# XXX Remove once Guice is updated to version 5.
-%if %{with bootstrap}
-ln -sf %{_javadir}/google-guice-no_aop.jar %{buildroot}%{homedir}/lib/guice-4.*-no_aop.jar
 %endif
 
 # maven uses this hardcoded path in its launcher to locate jansi so we symlink it
@@ -309,6 +296,12 @@ if [[ $1 -eq 0 ]]; then update-alternatives --remove mvn %{homedir}/bin/mvn; fi
 %config %{_javaconfdir}/maven.conf-openjdk17
 
 %changelog
+* Fri Mar 31 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:3.9.1-2
+- Rebuild with no changes
+
+* Tue Mar 21 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:3.9.1-1
+- Update to upstream version 3.9.1
+
 * Fri Jan 27 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:3.8.6-4
 - Turn hard dependency on java-devel into a weak dependencny
 

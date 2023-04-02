@@ -1,13 +1,13 @@
 # remirepo/fedora spec file for php-yoast-phpunit-polyfills
 #
-# Copyright (c) 2020-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2020-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please preserve changelog entries
 #
 # Github
-%global gh_commit    3c621ff5429d2b1ff96dc5808ad6cde99d31ea4c
+%global gh_commit    3b59adeef77fb1c03ff5381dbb9d68b0aaff3171
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     Yoast
 %global gh_project   PHPUnit-Polyfills
@@ -23,11 +23,11 @@
 %global php_home     %{_datadir}/php
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        1.0.4
-Release:        2%{?dist}
+Version:        1.0.5
+Release:        1%{?dist}
 Summary:        Set of polyfills for changed PHPUnit functionality
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 # git snapshot to get upstream test suite
 Source0:        %{name}-%{version}-%{gh_short}.tgz
@@ -38,17 +38,11 @@ BuildArch:      noarch
 BuildRequires:  php(language) >= 5.4
 BuildRequires:  php-reflection
 # From composer.json, "require-dev": {
-#        "yoast/yoastcs": "^2.2.0"
-%if 0%{?fedora} >= 32 || 0%{?rhel} >= 9
+#        "yoast/yoastcs": "^2.3.0"
 BuildRequires:  phpunit9
-%endif
 BuildRequires:  phpunit8
-%if 0%{?fedora} < 35 && 0%{?rhel} < 9
-BuildRequires:  phpunit7
-BuildRequires:  phpunit
 %endif
 BuildRequires:  php-fedora-autoloader-devel
-%endif
 
 # From composer.json, "require": {
 #        "php": ">=5.4",
@@ -97,37 +91,22 @@ EOF
 : Run upstream test suite
 ret=0
 if [ -x %{_bindir}/phpunit ]; then
-  for cmd in php php71 php72 php73 php74; do
-    if which $cmd; then
-      $cmd %{_bindir}/phpunit --no-coverage --verbose || ret=1
-    fi
-  done
-fi
-if [ -x %{_bindir}/phpunit6 ]; then
-  for cmd in php php71 php72 php73 php74; do
-    if which $cmd; then
-      $cmd %{_bindir}/phpunit6 --no-coverage --verbose || ret=1
-    fi
-  done
+    %{_bindir}/phpunit --no-coverage || ret=1
 fi
 if [ -x %{_bindir}/phpunit7 ]; then
-  for cmd in php php71 php72 php73 php74; do
-    if which $cmd; then
-      $cmd %{_bindir}/phpunit7 --no-coverage --verbose || ret=1
-    fi
-  done
+    %{_bindir}/phpunit7 --no-coverage || ret=1
 fi
 if [ -x %{_bindir}/phpunit8 ]; then
-  for cmd in php php72 php73 php74 php80 php81; do
+  for cmd in php php80 php81 php82; do
     if which $cmd; then
-      $cmd %{_bindir}/phpunit8 --no-coverage --verbose || ret=1
+      $cmd %{_bindir}/phpunit8 --no-coverage || ret=1
     fi
   done
 fi
 if [ -x %{_bindir}/phpunit9 ]; then
   for cmd in php php80 php81 php82; do
     if which $cmd; then
-      $cmd %{_bindir}/phpunit9 --no-coverage --verbose || ret=1
+      $cmd %{_bindir}/phpunit9 --no-coverage || ret=1
     fi
   done
 fi
@@ -144,6 +123,9 @@ exit $ret
 
 
 %changelog
+* Fri Mar 31 2023 Remi Collet <remi@remirepo.net> - 1.0.5-1
+- update to 1.0.5
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

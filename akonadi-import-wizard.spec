@@ -9,7 +9,7 @@
 
 Name:    akonadi-import-wizard
 Summary: Akonadi Import Wizard
-Version: 23.03.80
+Version: 23.03.90
 Release: 1%{?dist}
 
 # code (generally) GPLv2, docs GFDL
@@ -136,6 +136,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 %{_includedir}/KPim5/importwizard/
 
 %changelog
+* Fri Mar 31 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.90-1
+- 23.03.90
+
 * Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
 - 23.03.80
 

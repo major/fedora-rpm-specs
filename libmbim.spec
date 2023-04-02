@@ -1,9 +1,9 @@
 Name: libmbim
-Version: 1.28.2
-Release: 3%{?dist}
+Version: 1.28.4
+Release: 1%{?dist}
 Summary: Support library for the Mobile Broadband Interface Model protocol
 License: LGPLv2+
-URL: http://freedesktop.org/software/libmbim
+URL: https://gitlab.freedesktop.org/mobile-broadband/libmbim/
 Source: https://gitlab.freedesktop.org/mobile-broadband/libmbim/-/archive/%{version}/%{name}-%{version}.tar.bz2
 
 # rh #2110589 -- FCC unLock support for Dell DW5931e & DW5823e WWAN 5G
@@ -98,6 +98,9 @@ cp -a src/mbimcli/mbimcli %{buildroot}%{_datadir}/bash-completion/completions/
 
 
 %changelog
+* Fri Mar 31 2023 Lubomir Rintel <lkundrak@v3.sk> - 1.28.4-1
+- Update to 1.28.4
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,17 +1,11 @@
 Name:           libpgf
-Version:        6.14.12
-Release:        21%{?dist}
+Version:        7.21.7
+Release:        1%{?dist}
 Summary:        PGF (Progressive Graphics File) library
 
 License:        LGPLv2+
 URL:            http://www.libpgf.org
-Source0:        http://downloads.sourceforge.net/%{name}/%{name}-src-%{version}.tar.gz
-# Modernize automake usage
-Patch0:         libpgf-auto.patch
-
-## backport upstream fixes
-Patch147: libpgf-r147.patch
-Patch148: libpgf-r148.patch
+Source0:        https://downloads.sourceforge.net/project/%{name}/%{name}/%{version}/libpgf.zip
 
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
@@ -35,11 +29,11 @@ developing applications that use %{name}.
 
 %prep
 %setup -q -n %{name}
-%patch0 -p1 -b .auto
-%patch147 -p1 -b .r147
-%patch148 -p1 -b .r148
+
+mv README.txt README
+
 # Fix line endings
-sed -i -e 's/\r//' configure.ac README
+sed -i -e 's/\r//' configure.ac Makefile.am src/Makefile.am autogen.sh README
 
 sed -i 's|$(DESTDIR)$(datadir)/doc/$(DOC_MODULE)|$(RPM_BUILD_DIR)/libpgf|g' doc/Makefile.am
 
@@ -61,16 +55,13 @@ export CXXFLAGS="%{optflags} -DLIBPGF_DISABLE_OPENMP -std=c++14"
 %install
 %make_install
 
-# unpackaged files
-rm -fv %{buildroot}%{_libdir}/libpgf.la
-
 
 %ldconfig_scriptlets
 
 %files
 %doc README
 %license COPYING
-%{_libdir}/libpgf.so.6*
+%{_libdir}/libpgf.so.7*
 
 %files devel
 %doc html
@@ -81,6 +72,9 @@ rm -fv %{buildroot}%{_libdir}/libpgf.la
 
 
 %changelog
+* Fri Mar 31 2023 Alexey Kurov <nucleo@fedoraproject.org> - 7.21.7-1
+- libpgf-7.21.7
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.14.12-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:           kongress
-Version:        23.03.80
+Version:        23.03.90
 Release:        1%{?dist}
 License:        CC0 and CC-BY-SA and BSD and GPLv3+
 Summary:        A companion application for conferences made by KDE
@@ -53,6 +53,9 @@ desktop-file-install --dir=%{buildroot}%{_kf5_datadir}/applications/ %{buildroot
 %license LICENSES/*
 
 %changelog
+* Fri Mar 31 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.90-1
+- 23.03.90
+
 * Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
 - 23.03.80
 

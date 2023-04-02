@@ -9,7 +9,7 @@
 %endif
 
 Name:    kf5-kcalendarutils
-Version: 23.03.80
+Version: 23.03.90
 Release: 1%{?dist}
 Summary: The KCalendarUtils Library
 
@@ -112,6 +112,9 @@ make test ARGS="--output-on-failure --timeout 60" -C %{_target_platform} ||:
 
 
 %changelog
+* Fri Mar 31 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.90-1
+- 23.03.90
+
 * Wed Mar 22 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
 - 23.03.80
 

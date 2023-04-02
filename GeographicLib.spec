@@ -1,5 +1,5 @@
 %global nativever 2.2
-%global baserelease 1
+%global baserelease 2
 %global pythonver 2.0
 %global pythonrelease %{nativever}.%{baserelease}
 
@@ -11,7 +11,7 @@ Summary:        Library for geographic coordinate transformations
 License:        MIT
 URL:            https://github.com/geographiclib/geographiclib
 Source0:        https://github.com/geographiclib/geographiclib/archive/v%{nativever}/%{name}-%{nativever}.tar.gz
-Source1:        https://github.com/geographiclib/geographiclib-python/archive/v%{pythonver}/%{name}-python-%{pythonver}.tar.gz
+Source1:        %{pypi_source geographiclib %pythonver}
 
 BuildRequires:  cmake
 BuildRequires:  doxygen
@@ -128,8 +128,7 @@ MinGW Windows %{name} python 3 bindings.
 %mingw_cmake -DDOCDIR= -DMANDIR= -DEXAMPLEDIR=
 %mingw_make_build
 
-pushd geographiclib-python-%{pythonver}
-cmake .
+pushd geographiclib-%{pythonver}
 # Native build
 %py3_build
 # MinGW build
@@ -144,7 +143,7 @@ popd
 # MinGW build
 %mingw_make_install
 
-pushd geographiclib-python-%{pythonver}
+pushd geographiclib-%{pythonver}
 # Native build
 %py3_install
 # MinGW build
@@ -245,6 +244,9 @@ popd
 
 
 %changelog
+* Fri Mar 31 2023 Sandro Mani <manisandro@gmail.com> - 2.2-2
+- Switch to pypi source
+
 * Wed Mar 08 2023 Sandro Mani <manisandro@gmail.com> - 2.2-1
 - Update to 2.2
 

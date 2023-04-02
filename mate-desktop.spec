@@ -17,9 +17,9 @@ Name:          mate-desktop
 License:       GPLv2+ and LGPLv2+ and MIT
 Version:       %{branch}.1
 %if 0%{?rel_build}
-Release:       1%{?dist}
+Release:       2%{?dist}
 %else
-Release:       0.16%{?git_rel}%{?dist}
+Release:       0.17%{?git_rel}%{?dist}
 %endif
 URL:           http://mate-desktop.org
 
@@ -94,7 +94,6 @@ BuildArch:  noarch
 Requires:   %{name} = %{version}-%{release}
 %if 0%{?fedora}
 Recommends:  earlyoom
-Conflicts: systemd-oomd-defaults
 %endif
 
 %description configs
@@ -209,6 +208,10 @@ install -m 644 %SOURCE4 %{buildroot}/%{_prefix}/lib/systemd/system-preset/80-mat
 
 
 %changelog
+* Sun Mar 26 2023 John Hein <c0eh3p702@sneakemail.com> - 1.26.1-3
+- Remove systemd-oom-defaults conflict. It causes too many dnf upgrade failures.
+- See https://bugzilla.redhat.com/show_bug.cgi?id=2078108
+
 * Wed Mar 15 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-1
 - update to 1.26.1
 - Fixes several issues with libmate-desktop

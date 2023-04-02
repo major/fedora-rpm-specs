@@ -7,9 +7,9 @@
 
 Name:		perl-Package-Generator
 Version:	1.106
-Release:	27%{?dist}
+Release:	28%{?dist}
 Summary:	Generate new packages quickly and easily
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Package-Generator
 Source0:	https://cpan.metacpan.org/modules/by-module/Package/Package-Generator-%{version}.tar.gz
 BuildArch:	noarch
@@ -64,6 +64,9 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/Package::Reaper.3*
 
 %changelog
+* Fri Mar 31 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.106-28
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.106-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.37.9000-176-g90233f113c
+%global glibcsrcdir glibc-2.37.9000-200-g885d3cda90
 %global glibcversion 2.37.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 4
+%global baserelease 5
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -230,6 +230,7 @@ Patch9: glibc-rh827510.patch
 Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
 Patch23: glibc-python3.patch
+Patch24: glibc-disable-werror-tst-realloc.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -2193,6 +2194,36 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Fri Mar 31 2023 Arjun Shankar <arjun@redhat.com> - 2.37.9000-5
+- Apply glibc-disable-werror-tst-realloc.patch to disable spurious GCC
+  warning; and
+- Auto-sync with upstream branch master,
+  commit 885d3cda907d0dee54b13cbbf61b040c9951d5a2:
+- Allow building with --disable-nscd again
+- system: Add "--" after "-c" for sh (BZ #28519)
+- posix: Fix some crashes in wordexp [BZ #18096]
+- LoongArch: ldconfig: Add comments for using EF_LARCH_OBJABI_V1
+- elf: Take into account ${sysconfdir} in elf/tst-ldconfig-p.sh
+- Fix tst-glibc-hwcaps-prepend-cache with custom configure prefix value
+- Fix tst-ldconfig-ld_so_conf-update with custom configure prefix value
+- support: introduce support_sysconfdir_prefix
+- Remove set-hooks.h from generic includes
+- Remove --with-default-link configure option
+- libio: Remove the usage of __libc_IO_vtables
+- libio: Do not autogenerate stdio_lim.h
+- Move libc_freeres_ptrs and libc_subfreeres to hidden/weak functions
+- benchtests: Move libmvec benchtest inputs to benchtests directory
+- stdio-common: tests: don't double-define _FORTIFY_SOURCE
+- LoongArch: ldconfig: Ignore EF_LARCH_OBJABI_V1 in shared objects
+- _dl_map_object_from_fd: Remove unnecessary debugger notification in error path
+- hppa: Drop 16-byte pthread lock alignment
+- Minor: don't call _dl_debug_update (which can have side effects) inside assert
+- x86: Don't check PREFETCHWT1 in tst-cpu-features-cpuinfo.c
+- Declare wcstofN, wcstofNx for C2x
+- Update printf %b/%B C2x support
+- ARC: run child from the separate start block in __clone
+- ARC: Add the clone3 wrapper
+
 * Mon Mar 13 2023 Florian Weimer <fweimer@redhat.com> - 2.37.9000-4
 - Auto-sync with upstream branch master,
   commit 90233f113cc941ef88ce03b7f73221a964dcaca8:

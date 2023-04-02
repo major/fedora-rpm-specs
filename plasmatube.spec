@@ -1,5 +1,5 @@
 Name:           plasmatube
-Version:        23.03.80
+Version:        23.03.90
 Release:        1%{?dist}
 License:        GPLv3+ and CC0 and CC-BY-SA
 Summary:        YouTube video player based on QtMultimedia and youtube-dl
@@ -53,6 +53,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/org.kde.%{nam
 %{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
 
 %changelog
+* Fri Mar 31 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.90-1
+- 23.03.90
+
 * Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
 - 23.03.80
 

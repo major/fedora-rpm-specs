@@ -1,20 +1,17 @@
-# Want to use Devel::GlobalDestruction::XS with perl < 5.13.7
-%global want_xs 0%{?fedora} < 16 && 0%{?rhel} < 7
-
 Name:		perl-Devel-GlobalDestruction
 Version:	0.14
-Release:	20%{?dist}
-License:	GPL+ or Artistic
+Release:	21%{?dist}
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:	Expose PL_dirty, the flag that marks global destruction
 URL:		https://metacpan.org/release/Devel-GlobalDestruction
-Source:		https://cpan.metacpan.org/authors/id/H/HA/HAARG/Devel-GlobalDestruction-%{version}.tar.gz
+Source:		https://cpan.metacpan.org/modules/by-module/Devel/Devel-GlobalDestruction-%{version}.tar.gz
 BuildArch:	noarch
 # Module Build
 BuildRequires:	coreutils
 BuildRequires:	findutils
 BuildRequires:	make
-BuildRequires:	perl-interpreter
 BuildRequires:	perl-generators
+BuildRequires:	perl-interpreter
 BuildRequires:	perl(base)
 BuildRequires:	perl(Carp)
 BuildRequires:	perl(DynaLoader)
@@ -38,12 +35,7 @@ BuildRequires:	perl(POSIX)
 BuildRequires:	perl(threads)
 BuildRequires:	perl(threads::shared)
 # Dependencies
-
-# Use Devel::GlobalDestruction::XS on older perls
-%if %{want_xs}
-BuildRequires:	perl(Devel::GlobalDestruction::XS)
-Requires:	perl(Devel::GlobalDestruction::XS)
-%endif
+# (none)
 
 %description
 Perl's global destruction is a little tricky to deal with with respect to
@@ -64,7 +56,6 @@ perl Makefile.PL INSTALLDIRS=vendor
 make %{?_smp_mflags}
 
 %install
-rm -rf %{buildroot}
 make pure_install DESTDIR=%{buildroot}
 find %{buildroot} -type f -name .packlist -delete
 %{_fixperms} -c %{buildroot}
@@ -78,6 +69,12 @@ make test
 %{_mandir}/man3/Devel::GlobalDestruction.3*
 
 %changelog
+* Fri Mar 31 2023 Paul Howarth <paul@city-fan.org> - 0.14-21
+- Use SPDX-format license tag
+- Use author-independent source URL
+- Drop redundant buildroot cleaning in %%install section
+- Drop support for old Perl versions needing XS helper
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

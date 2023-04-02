@@ -1,6 +1,6 @@
 Name:           perl-Glib-Object-Introspection
 Version:        0.050
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Dynamically create Perl language bindings
 License:        LGPL-2.1-or-later
 URL:            https://metacpan.org/release/Glib-Object-Introspection
@@ -12,6 +12,9 @@ Patch2:         Glib-Object-Introspection-0.050-Check-for-empty-closures.patch
 # 2/2 Fix handling empty closure callbacks, bug #2181971, CPAN RT#147409,
 # in upstream after 0.050.
 Patch3:         Glib-Object-Introspection-0.050-tests-Add-empty-callback.patch
+# Use system-wide compiler flags when building test libraries. It's silents
+# annocheck gating tests, CPAN RT#147466, proposed to the upstream.
+Patch4:         Glib-Object-Introspection-0.050-Use-CFLAGS-and-LDFLAGS-from-the-envirnoment-for-buil.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
@@ -21,7 +24,7 @@ BuildRequires:  perl-interpreter
 BuildRequires:  perl(Config)
 BuildRequires:  perl(Cwd)
 BuildRequires:  perl(ExtUtils::Depends) >= 0.3
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(ExtUtils::PkgConfig) >= 1
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Glib::MakeHelper)
@@ -134,6 +137,9 @@ LANG=C.UTF-8 make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Mar 31 2023 Petr Pisar <ppisar@redhat.com> - 0.050-3
+- Use system-wide compiler flags when building test libraries
+
 * Thu Mar 30 2023 Petr Pisar <ppisar@redhat.com> - 0.050-2
 - Fix handling empty closure callbacks (#2181971)
 - Convert a license to an SPDX format

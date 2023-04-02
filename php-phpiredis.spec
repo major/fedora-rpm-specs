@@ -3,8 +3,8 @@
 #
 # remirepo spec file for php-phpiredis
 #
-# Copyright (c) 2016-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2016-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -30,11 +30,11 @@
 
 Name:           php-%{pecl_name}
 Version:        1.0.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 
 Summary:        Client extension for Redis
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{pecl_name}-%{version}-%{gh_short}.tar.gz
 
@@ -72,7 +72,7 @@ incremental parser / serializer for the RESP protocol.
 mv %{gh_project}-%{gh_commit} NTS
 
 cd NTS
-%patch0 -p1 -b .pr67
+%patch -P0 -p1 -b .pr67
 
 # Check extension version
 ver=$(sed -n '/define PHP_PHPIREDIS_VERSION/{s/.* "//;s/".*$//;p}' php_phpiredis.h)
@@ -190,6 +190,9 @@ exit $ret
 
 
 %changelog
+* Fri Mar 31 2023 Remi Collet <remi@remirepo.net> - 1.0.1-12
+- use SPDX license ID
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,17 +2,20 @@
 
 Name:           perl-Gtk3
 Version:        0.038
-Release:        7%{?dist}.1
+Release:        8%{?dist}
 Summary:        Perl interface to the 3.x series of the GTK+ toolkit
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://metacpan.org/release/Gtk3
 Source0:        https://cpan.metacpan.org/authors/id/X/XA/XAOC/Gtk3-%{version}.tar.gz
+# Fix the tests to pass from a read-only location, CPAN RT#147461,
+# proposed to an upstream.
+Patch0:         Gtk3-0.038-Create-temporary-files-for-tests-in-HOME.patch
 BuildArch:      noarch
-BuildRequires:  findutils
 BuildRequires:  gtk3
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
@@ -30,6 +33,7 @@ BuildRequires:  perl(Scalar::Util)
 # Config used only on FreeBSD
 BuildRequires:  perl(constant)
 BuildRequires:  perl(Encode)
+BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Glib)
 BuildRequires:  perl(Glib::Object::Subclass)
@@ -54,32 +58,66 @@ Requires:       perl(POSIX)
 The Gtk3 module allows a Perl developer to use the GTK+ graphical user
 interface library. Find out more about GTK+ at <http://www.gtk.org/>.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+%if %{use_x11_tests}
+# X11 tests:
+Requires:       xorg-x11-server-Xvfb
+Requires:       font(:lang=en)
+%endif
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
-%setup -q -n Gtk3-%{version}
+%autosetup -p1 -n Gtk3-%{version}
+# Help generators to recognize Perl scripts
+for F in t/*.t t/inc/setup.pl; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_install}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec %{?use_x11_tests:xvfb-run -d }prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 %if %{use_x11_tests}
-    xvfb-run -a make test
+    xvfb-run -d make test
 %else
     make test
 %endif
 
 %files
-%{!?_licensedir:%global license %%doc}
 %license LICENSE
 %doc NEWS README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Gtk3.pm
+%{_mandir}/man3/Gtk3.*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Fri Mar 31 2023 Petr Pisar <ppisar@redhat.com> - 0.038-8
+- Convert a license to an SPDX format
+- Package tests into perl-Gtk3-tests package
+
 * Thu Feb  9 2023 Tom Callaway <spot@fedoraproject.org> - 0.038-7.1
 - rebuild for new epel macros
 

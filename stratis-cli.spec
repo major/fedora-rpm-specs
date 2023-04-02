@@ -1,5 +1,5 @@
 Name:           stratis-cli
-Version:        3.5.0
+Version:        3.5.1
 Release:        1%{?dist}
 Summary:        Command-line tool for interacting with the Stratis daemon
 
@@ -62,6 +62,9 @@ a2x -f manpage docs/stratis.txt
 %{python3_sitelib}/stratis_cli-*.egg-info/
 
 %changelog
+* Fri Mar 31 2023 Bryan Gurney <bgurney@redhat.com> - 3.5.1-1
+- Update to 3.5.1
+
 * Tue Jan 24 2023 Bryan Gurney <bgurney@redhat.com> - 3.5.0-1
 - Update to 3.5.0
 

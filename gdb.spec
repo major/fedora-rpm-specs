@@ -57,7 +57,7 @@ Version: 13.1
 
 # The release always contains a leading reserved number, start it at 1.
 # `upstream' is not a part of `name' to stay fully rpm dependencies compatible for the testing.
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ and GPLv2+ with exceptions and GPL+ and LGPLv2+ and LGPLv3+ and BSD and Public Domain and GFDL
 # Do not provide URL for snapshots as the file lasts there only for 2 days.
@@ -1249,6 +1249,10 @@ fi
 %endif
 
 %changelog
+* Fri Mar 31 2023 Keith Seitz <keiths@redhat.com> - 13.1-4
+- Backport "Fix crash in inside_main_func"
+  (Tom Tromey, RHBZ 2183595)
+
 * Thu Mar 30 2023 Alexandra Hájková <ahajkova@redhat.com> - 12.1-3
 - Update gdb-6.6-buildid-locate.patch to fix RHBZ 2181221.
 

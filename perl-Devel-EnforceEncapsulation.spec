@@ -2,7 +2,7 @@ Name:		perl-Devel-EnforceEncapsulation
 Version:	0.51
 Release:	27%{?dist}
 Summary:	Find access violations to blessed objects
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Devel-EnforceEncapsulation
 Source0:	https://cpan.metacpan.org/modules/by-module/Devel/Devel-EnforceEncapsulation-%{version}.tar.gz
 BuildArch:	noarch
@@ -27,6 +27,7 @@ BuildRequires:	perl(Pod::Coverage) >= 0.17
 BuildRequires:	perl(Test::Pod) >= 1.14
 BuildRequires:	perl(Test::Pod::Coverage) >= 1.04
 # Dependencies
+# (none)
 
 %description
 Encapsulation is the practice of creating subroutines to access the properties

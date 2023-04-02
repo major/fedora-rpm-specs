@@ -3,8 +3,8 @@
 #
 # remirepo spec file for php-maxminddb
 #
-# Copyright (c) 2018-2021 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2018-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -29,8 +29,8 @@
 Summary:       MaxMind DB Reader extension
 Name:          php-maxminddb
 Version:       1.11.0
-Release:       7%{?dist}
-License:       ASL 2.0
+Release:       8%{?dist}
+License:       Apache-2.0
 URL:           https://github.com/%{gh_owner}/%{gh_project}
 
 Source0:       %{name}-%{version}-%{gh_short}.tgz
@@ -264,6 +264,9 @@ exit $ret
 
 
 %changelog
+* Fri Mar 31 2023 Remi Collet <remi@remirepo.net> - 1.11.0-8
+- use SPDX license ID
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

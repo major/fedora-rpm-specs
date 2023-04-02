@@ -1,6 +1,6 @@
 Name:    kcron
 Summary: Cron KDE configuration module
-Version: 23.03.80
+Version: 23.03.90
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -62,6 +62,9 @@ Systemsettings module for the cron task scheduler.
 %{_kf5_datadir}/polkit-1/actions/local.kcron.crontab.policy
 
 %changelog
+* Fri Mar 31 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.90-1
+- 23.03.90
+
 * Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
 - 23.03.80
 

@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-phpunit-PHPUnit
 #
-# Copyright (c) 2010-2021 Remi Collet
+# Copyright (c) 2010-2023 Remi Collet
 # Copyright (c) 2006-2009 Christopher Stone
 #
 # License: MIT
@@ -28,7 +28,7 @@ Version:        %{major}.%{minor}
 Release:        19%{?dist}
 Summary:        The PHP Unit Testing framework version 5
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{gh_short}.tar.gz
 
@@ -106,8 +106,8 @@ Requires:       (php-composer(sebastian/resource-operations) >= 1.0 with php-com
 Requires:       (php-composer(sebastian/version) >= 2.0.1           with php-composer(sebastian/version) <  3)
 Requires:       (php-composer(myclabs/deep-copy) >= 1.3             with php-composer(myclabs/deep-copy) <  2)
 # Supported versions
-Recommends:      phpunit8
 Recommends:      phpunit9
+Recommends:      phpunit10
 Requires:       php-symfony4-yaml
 Requires:       php-dom
 Requires:       php-json
@@ -225,6 +225,9 @@ fi
 
 
 %changelog
+* Fri Mar 31 2023 Remi Collet <remi@remirepo.net> - 5.7.27-19
+- additional fix for PHP 8
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.27-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

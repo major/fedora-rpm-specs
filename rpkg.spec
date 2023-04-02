@@ -1,6 +1,6 @@
 Name:           rpkg
 Version:        1.66
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 Summary:        Python library for interacting with rpm+git
 License:        GPLv2+ and LGPLv2
@@ -40,6 +40,13 @@ Patch3:         0003-Remove-Environment-Markers-syntax.patch
 Patch4:         0004-Process-source-URLs-with-fragment-in-pre-push-hook.patch
 Patch5:         0005-container-build-update-signing-intent-help-for-OSBS-.patch
 Patch6:         0006-Do-not-generate-pre-push-hook-script-in-some-cases.patch
+Patch7:         0007-More-robust-spec-file-presence-checking.patch
+Patch8:         0008-Update-to-spec-file-presence-checking.patch
+Patch9:         0009-Add-more-information-about-pre-push-hook.patch
+Patch10:        0010-pre-push-check-have-to-use-spectool-with-define.patch
+Patch11:        0011-A-HEAD-query-into-a-lookaside-cache.patch
+Patch12:        0012-pre-push-hook-script-contains-a-user-s-config.patch
+Patch13:        0013-Fix-unittests-for-clone-and-pre-push-hook-script.patch
 
 %description
 Python library for interacting with rpm+git
@@ -256,6 +263,15 @@ example_cli_dir=$RPM_BUILD_ROOT%{_datadir}/%{name}/examples/cli
 
 
 %changelog
+* Sat Apr 1 2023 Ondřej Nosek <onosek@redhat.com> - 1.66-5
+- Patch: Fix unittests for `clone` and pre-push hook script
+- Patch: pre-push hook script contains a user's config
+- Patch: A HEAD query into a lookaside cache
+- Patch: `pre-push-check` have to use spectool with --define
+- Patch: Add more information about pre-push hook
+- Patch: Update to spec file presence checking
+- Patch: More robust spec file presence checking
+
 * Fri Mar 10 2023 Ondřej Nosek <onosek@redhat.com> - 1.66-4
 - Patch: Do not generate pre-push hook script in some cases
 

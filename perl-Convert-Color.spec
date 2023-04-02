@@ -1,6 +1,6 @@
 Name:           perl-Convert-Color
-Version:        0.13
-Release:        2%{?dist}
+Version:        0.16
+Release:        1%{?dist}
 Summary:        Color space conversions and named lookups
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Convert-Color
@@ -13,8 +13,9 @@ BuildRequires:  perl-generators
 BuildRequires:  perl(List::UtilsBy)
 BuildRequires:  perl(Module::Build) >= 0.4004
 BuildRequires:  perl(Module::Pluggable)
-BuildRequires:  perl(Test::More) >= 0.88
-BuildRequires:  perl(Test::Number::Delta)
+BuildRequires:  perl(Sub::Util) >= 1.40
+BuildRequires:  perl(Test2::V0)
+
 # For improved testing
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  /usr/share/X11/rgb.txt
@@ -27,7 +28,7 @@ and it provides ways to look up colors by a name.
 
 %prep
 %setup -q -n Convert-Color-%{version}
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 %{__perl} Build.PL --installdirs=vendor
@@ -47,6 +48,9 @@ and it provides ways to look up colors by a name.
 %{_mandir}/man3/*
 
 %changelog
+* Fri Mar 31 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.16-1
+- Upstream update.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

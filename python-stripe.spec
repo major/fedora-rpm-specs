@@ -1,5 +1,5 @@
 Name:           python-stripe
-Version:        5.3.0
+Version:        5.4.0
 Release:        1%{?dist}
 Summary:        Python library for the Stripe API
 
@@ -43,6 +43,8 @@ Summary:        %{summary}
 
 
 %check
+%pyproject_check_import
+
 # Testing suite depends on outdated unpackaged go libraries, hence no test
 # here.
 #
@@ -66,6 +68,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Mar 31 2023 Roman Inflianskas <rominf@aiven.io> - 5.4.0-1
+- Update to 5.4.0 (resolve rhbz#2183323)
+
 * Mon Mar 27 2023 Roman Inflianskas <rominf@aiven.io> - 5.3.0-1
 - Update to 5.3.0 (resolve rhbz#2173125)
 
