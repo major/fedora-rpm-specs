@@ -1,4 +1,4 @@
-%global	majorver	3.12.4
+%global	majorver	3.12.5
 #%%global	preminorver	.rc6
 %global	rpmminorver	.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver	%{majorver}%{?preminorver}
@@ -30,7 +30,6 @@ Patch1:    rubygem-rspec-mocks-3.12.0-display_keyword_hashes.patch
 Patch2:    rubygem-rspec-mocks-3.12.0-display_keyword_hashes-additional.patch
 # https://github.com/rspec/rspec-mocks/pull/1502
 
-#BuildRequires:	ruby(release)
 BuildRequires:	rubygems-devel
 %if %{without bootstrap}
 # rspec
@@ -125,6 +124,9 @@ cucumber
 %{gem_docdir}
 
 %changelog
+* Sat Apr  1 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.12.5-1
+- 3.12.5
+
 * Tue Mar 14 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.12.4-1
 - 3.12.4
 

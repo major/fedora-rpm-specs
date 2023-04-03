@@ -12,8 +12,12 @@
 %{?!WITH_QT4:           %global WITH_QT4 0}
 
 %if %{without bootstrap}
+%{?!WITH_GTK2:          %global WITH_GTK2 1}
+%{?!WITH_GTK3:          %global WITH_GTK3 1}
 %{?!WITH_QT5:           %global WITH_QT5 1}
 %else
+%{?!WITH_GTK2:          %global WITH_GTK2 0}
+%{?!WITH_GTK3:          %global WITH_GTK3 0}
 %{?!WITH_QT5:           %global WITH_QT5 0}
 %endif
 
@@ -30,6 +34,9 @@
 %endif
 
 %if 0%{?rhel}
+%if 0%{?rhel} > 9
+%global WITH_GTK2 0
+%endif
 %global WITH_MONO 0
 %global WITH_QT5 0
 %if 0%{?rhel} < 8
@@ -50,7 +57,7 @@
 
 Name:             avahi
 Version:          0.8
-Release:          20%{?dist}
+Release:          21%{?dist}
 Summary:          Local network service discovery
 License:          LGPLv2+
 URL:              http://avahi.org
@@ -67,8 +74,10 @@ BuildRequires:    libtool
 BuildRequires:    dbus-devel >= 0.90
 BuildRequires:    dbus-glib-devel >= 0.70
 BuildRequires:    desktop-file-utils
-%if %{without bootstrap}
+%if %{WITH_GTK2}
 BuildRequires:    gtk2-devel
+%endif
+%if %{WITH_GTK3}
 BuildRequires:    gtk3-devel >= 2.99.0
 %endif
 #BuildRequires:    gobject-introspection-devel
@@ -225,7 +234,7 @@ Requires:         %{name}-gobject%{?_isa} = %{version}-%{release}
 The avahi-gobject-devel package contains the header files and libraries
 necessary for developing programs using avahi-gobject.
 
-%if %{without bootstrap}
+%if %{WITH_GTK2}
 %package ui
 Summary:          Gtk user interface library for Avahi (Gtk+ 2 version)
 Requires:         %{name}-libs%{?_isa} = %{version}-%{release}
@@ -234,7 +243,9 @@ Requires:         gtk2
 
 %description ui
 This library contains a Gtk 2.x widget for browsing services.
+%endif
 
+%if %{WITH_GTK3}
 %package ui-gtk3
 Summary:          Gtk user interface library for Avahi (Gtk+ 3 version)
 Requires:         %{name}-libs%{?_isa} = %{version}-%{release}
@@ -243,12 +254,18 @@ Requires:         gtk3
 
 %description ui-gtk3
 This library contains a Gtk 3.x widget for browsing services.
+%endif
 
+%if %{WITH_GTK2} || %{WITH_GTK3}
 %package ui-devel
 Summary:          Libraries and header files for Avahi UI development
 Requires:         %{name}-devel%{?_isa} = %{version}-%{release}
+%if %{WITH_GTK2}
 Requires:         %{name}-ui%{?_isa} = %{version}-%{release}
+%endif
+%if %{WITH_GTK3}
 Requires:         %{name}-ui-gtk3%{?_isa} = %{version}-%{release}
+%endif
 
 %description ui-devel
 The avahi-ui-devel package contains the header files and libraries
@@ -468,10 +485,14 @@ NOCONFIGURE=1 ./autogen.sh
         --enable-shared=yes \
         --enable-static=no \
         --disable-silent-rules \
-%if %{without bootstrap}
+%if %{WITH_GTK2}
         --enable-gtk \
 %else
         --disable-gtk \
+%endif
+%if %{WITH_GTK3}
+        --enable-gtk3 \
+%else
         --disable-gtk3 \
 %endif
 %if ! %{WITH_PYTHON}
@@ -737,19 +758,27 @@ exit 0
 #%%{_datadir}/gir-1.0/Avahi-0.6.gir
 #%%{_datadir}/gir-1.0/AvahiCore-0.6.gir
 
-%if %{without bootstrap}
+%if %{WITH_GTK2}
 %files ui
 %{_libdir}/libavahi-ui.so.*
+%endif
 
+%if %{WITH_GTK3}
 %files ui-gtk3
 %{_libdir}/libavahi-ui-gtk3.so.*
+%endif
 
+%if %{WITH_GTK2} || %{WITH_GTK3}
 %files ui-devel
-%{_libdir}/libavahi-ui.so
-%{_libdir}/libavahi-ui-gtk3.so
 %{_includedir}/avahi-ui
+%if %{WITH_GTK2}
+%{_libdir}/libavahi-ui.so
 %{_libdir}/pkgconfig/avahi-ui.pc
+%endif
+%if %{WITH_GTK3}
+%{_libdir}/libavahi-ui-gtk3.so
 %{_libdir}/pkgconfig/avahi-ui-gtk3.pc
+%endif
 %endif
 
 %if %{WITH_QT3}
@@ -835,6 +864,9 @@ exit 0
 
 
 %changelog
+* Sun Mar 19 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.8-21
+- Disable GTK2 in ELN/RHEL10 builds
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -5,12 +5,12 @@
 %undefine _package_note_flags
 
 %global flocqdir %{ocamldir}/coq/user-contrib/Flocq
-%global coqver  8.16.1
-%global commit  0188199cb28d89a73937d009d935b016e2d394b5
+%global coqver  8.17.0
+%global commit  eb9be7d328d3521208834e5a9f326fc56fc2acea
 
 Name:           flocq
-Version:        4.1.0
-Release:        5%{?dist}
+Version:        4.1.1
+Release:        1%{?dist}
 Summary:        Formalization of floating point numbers for Coq
 
 License:        LGPL-3.0-or-later
@@ -95,6 +95,9 @@ cp -p src/Prop/*.v $RPM_BUILD_ROOT%{flocqdir}/Prop
 %{flocqdir}/Prop/*.v
 
 %changelog
+* Sat Apr  1 2023 Jerry James <loganjerry@gmail.com> - 4.1.1-1
+- Version 4.1.1
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 4.1.0-5
 - Bump release and rebuild
 

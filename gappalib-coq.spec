@@ -9,12 +9,12 @@
 # install the package and run "remake check" manually before committing.
 
 %global gappadir %{ocamldir}/coq/user-contrib/Gappa
-%global coqver  8.16.1
-%global commit  a21720330ab26166150d88a95689f755bb135480
+%global coqver  8.17.0
+%global commit  c761927f88a3a0e99efdf54fd93c2d8276deab91
 
 Name:           gappalib-coq
-Version:        1.5.2
-Release:        7%{?dist}
+Version:        1.5.3
+Release:        1%{?dist}
 Summary:        Coq support library for gappa
 
 License:        LGPL-3.0-or-later
@@ -100,6 +100,9 @@ remake check
 %{gappadir}/*.v
 
 %changelog
+* Sat Apr  1 2023 Jerry James <loganjerry@gmail.com> - 1.5.3-1
+- Version 1.5.3
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.5.2-7
 - Rebuild OCaml packages for F38
 

@@ -1,6 +1,6 @@
 Name: kiwix-desktop
 Version: 2.3.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPL-3.0-or-later
 Summary: Kiwix desktop application
@@ -14,6 +14,7 @@ BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: libappstream-glib
 BuildRequires: libkiwix-devel
+BuildRequires: libzim-devel
 BuildRequires: make
 BuildRequires: mustache-devel
 BuildRequires: pugixml-devel
@@ -21,7 +22,6 @@ BuildRequires: qt5-linguist
 BuildRequires: qt5-qtbase-devel
 BuildRequires: qt5-qtwebengine-devel
 BuildRequires: qtsingleapplication-qt5-devel
-BuildRequires: zimlib-devel
 
 Requires: aria2%{?_isa}
 Requires: hicolor-icon-theme
@@ -66,6 +66,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_metainfodir}/*.appdata.xml
 
 %changelog
+* Sat Apr 01 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2.3.1-3
+- Rebuilt due to libzim package rename.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

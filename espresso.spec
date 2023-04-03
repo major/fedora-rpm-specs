@@ -3,7 +3,7 @@
 
 Name:           espresso
 Version:        4.2.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Extensible Simulation Package for Research on Soft matter
 # segfault on s390x: https://github.com/espressomd/espresso/issues/3753
 # segfault on armv7hl: https://src.fedoraproject.org/rpms/espresso/pull-request/4
@@ -12,8 +12,9 @@ ExcludeArch:    s390x i686 armv7hl
 License:        GPLv3+
 URL:            https://espressomd.org
 Source0:        https://github.com/%{name}md/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz
-# skip fragile ICC python interface test on aarch64
-Patch0:         %{name}-aarch64.patch
+# skip fragile ICC python interface test
+# https://github.com/espressomd/espresso/issues/4567
+Patch0:         %{name}-icc.patch
 # fix deprecated histogram function arguments removed in numpy 1.24
 # https://github.com/espressomd/espresso/pull/4635
 Patch1:         %{name}-numpy.patch
@@ -106,10 +107,8 @@ This package contains %{name} compiled against MPICH2.
 
 %prep
 %setup -q -n %{name}
-%ifarch aarch64
-%patch0 -p1
-%endif
-%patch1 -p1
+%patch 0 -p1
+%patch 1 -p1
 
 %build
 %global defopts \\\
@@ -167,6 +166,9 @@ done
 %{python3_sitearch}/mpich/%{name}md/
 
 %changelog
+* Sat Apr 01 2023 Jean-Noël Grad <jgrad@icp.uni-stuttgart.de> - 4.2.0-8
+- Skip fragile ICC python interface test
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 4.2.0-7
 - Rebuilt for Boost 1.81
 

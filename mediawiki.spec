@@ -1,6 +1,6 @@
 Summary: A wiki engine
 Name: mediawiki
-Version: 1.39.2
+Version: 1.39.3
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL: https://www.mediawiki.org/
@@ -259,6 +259,9 @@ cd tests/phpunit
 
 
 %changelog
+* Sat Apr 01 2023 Michael Cronenworth <mike@cchtml.com> - 1.39.3-1
+- Update to 1.39.3
+
 * Sun Feb 26 2023 Michael Cronenworth <mike@cchtml.com> - 1.39.2-1
 - Update to 1.39.2
 - https://www.mediawiki.org/wiki/Release_notes/1.39#MediaWiki_1.39.2

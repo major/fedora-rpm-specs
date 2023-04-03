@@ -2,8 +2,9 @@
 
 Summary:	Persistent connections using Net::HTTP plus a speed fix
 Name:		rubygem-%{gem_name}
-Version:	4.0.1
-Release:	5%{?dist}
+Version:	4.0.2
+Release:	1%{?dist}
+# SPDX confirmed
 License:	MIT
 
 URL:		https://github.com/drbrain/net-http-persistent
@@ -59,20 +60,16 @@ popd
 
 %check
 pushd .%{gem_instdir}
-# testrb -Ilib test
-# Skip one test
-%if 0
-sed -i test/test_net_http_persistent_ssl_reuse.rb \
-	-e '\@def test_ssl_connection_reuse@s|^\(.*\)$|\1 ; skip "ignore for now"|'
-%endif
 
+# testrb -Ilib test
 export RUBYLIB=$(pwd)/lib:$(pwd)
 ruby -e 'Dir.glob("test/test_*.rb").each{|f| require f}'
 popd
 
 %files
 %dir	%{gem_instdir}
-%doc	%{gem_instdir}/[A-Z]*
+%doc	%{gem_instdir}/History.txt
+%license	%{gem_instdir}/README.rdoc
 %{gem_instdir}/lib/
 %{gem_spec}
 %exclude	%{gem_cache}
@@ -81,6 +78,10 @@ popd
 %{gem_docdir}/
 
 %changelog
+* Sat Apr  1 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.2-1
+- 4.0.2
+- Confirm SPDX
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

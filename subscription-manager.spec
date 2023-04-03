@@ -95,8 +95,8 @@
 %global exclude_packages %{exclude_packages}"
 
 Name: subscription-manager
-Version: 1.29.30
-Release: 2%{?dist}
+Version: 1.29.33.1
+Release: 1%{?dist}
 Summary: Tools and libraries for subscription and repository management
 %if 0%{?suse_version}
 Group:   Productivity/Networking/System
@@ -187,7 +187,6 @@ BuildRequires: openssl-devel
 BuildRequires: gcc
 BuildRequires: %{py_package_prefix}-setuptools
 BuildRequires: gettext
-BuildRequires: libnotify-devel
 
 %if 0%{?suse_version}
 BuildRequires: distribution-release
@@ -488,6 +487,7 @@ find %{buildroot} -name \*.py* -exec touch -r %{SOURCE0} '{}' \;
 
 %attr(755,root,root) %{_bindir}/rhsmcertd
 %attr(755,root,root) %{_libexecdir}/rhsmcertd-worker
+%attr(755,root,root) %{_libexecdir}/rhsm-package-profile-uploader
 
 
 # our config dirs and files
@@ -736,8 +736,183 @@ rmdir %{python_sitearch}/subscription_manager-*-*.egg-info --ignore-fail-on-non-
 rm -f /var/lib/rhsm/cache/rhsm_icon.json
 
 %changelog
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.29.30-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+* Thu Mar 02 2023 Pino Toscano <ptoscano@redhat.com> 1.29.33.1-1
+- tito: add rhel 9.2 releaser (ptoscano@redhat.com)
+- 2169251: connection: restore UEPConnection.getJob() (ptoscano@redhat.com)
+
+* Thu Feb 16 2023 Pino Toscano <ptoscano@redhat.com> 1.29.33-1
+- Translated using Weblate (French) (ljanda@redhat.com)
+- Translated using Weblate (Chinese (Simplified) (zh_CN)) (suanand@redhat.com)
+- Translated using Weblate (Japanese) (suanand@redhat.com)
+- Translated using Weblate (Japanese) (ljanda@redhat.com)
+- Translated using Weblate (French) (suanand@redhat.com)
+- Translated using Weblate (Korean) (simmon@nplob.com)
+- Update translation files (noreply@weblate.org)
+- Translated using Weblate (Korean) (jsefler@redhat.com)
+- ENT-5542: Build package using GitHub Actions (mhorky@redhat.com)
+- Test libdnf plugin using GitHub Actions (mhorky@redhat.com)
+- libdnf: fix return value of findProductId() (ptoscano@redhat.com)
+- ENT-5541: Publish PR coverage (mhorky@redhat.com)
+- New extraction for translatable strings (ptoscano@redhat.com)
+- Translated using Weblate (Kannada) (jsefler@redhat.com)
+- Translated using Weblate (Spanish) (ptoscano@redhat.com)
+- Simplify test setup for D-Bus fact collection (mhorky@redhat.com)
+- ENT-3759: Test on GitHub Actions (mhorky@redhat.com)
+
+* Mon Jan 16 2023 Pino Toscano <ptoscano@redhat.com> 1.29.32-1
+- Translated using Weblate (French) (ljanda@redhat.com)
+- Translated using Weblate (Chinese (Simplified) (zh_CN)) (suanand@redhat.com)
+- Translated using Weblate (Georgian) (temuri.doghonadze@gmail.com)
+- Translated using Weblate (Korean) (simmon@nplob.com)
+- Update translation files (noreply@weblate.org)
+- utils: import pkg_resources only when needed (ptoscano@redhat.com)
+- ENT-5536: Fix FileMonitor tests (mhorky@redhat.com)
+- Alter import of rhsm.config functions (mhorky@redhat.com)
+- Handle tests in containers better (mhorky@redhat.com)
+- Call parent methods in DBusServerStubProvider (mhorky@redhat.com)
+- Base D-Bus tests on SubManFixture (mhorky@redhat.com)
+- ENT-5532: Call rhsm-package-profile-uploader with --force-upload
+  (jhnidek@redhat.com)
+- 2108549: do not detect containers in OCP as such (ptoscano@redhat.com)
+- tests: extend InContainerTests for path checks (ptoscano@redhat.com)
+- Resolved issues in PR feedback (jajerome@redhat.com)
+- Updated request handling in connection.py (jajerome@redhat.com)
+- Resolve issues from PR review (jajerome@redhat.com)
+- Removed fixme since activateMachine() is still used (jajerome@redhat.com)
+- Black/flake8 fixes (jajerome@redhat.com)
+- FIXME: renamed default argument to not shadow inbuilt type
+  (jajerome@redhat.com)
+- FIXME: removed Restlib and using only BaseRestLib (jajerome@redhat.com)
+- FIXME: updated unregisterConsumer() to return True if status code is 204
+  (jajerome@redhat.com)
+- FIXME: changed unbindBySerial/unbindByPoolId to return bool
+  (jajerome@redhat.com)
+- FIXME: changed default value of facts in updateConsumerFacts()
+  (jajerome@redhat.com)
+- FIXME: sanitized email/lang variables in activateMachine()
+  (jajerome@redhat.com)
+- FIXME: made email argument required in activatemachine()
+  (jajerome@redhat.com)
+- FIXME: changed default value of serials argument to None
+  (jajerome@redhat.com)
+- FIXME: removed unused username/password arguments (jajerome@redhat.com)
+- FIXME: raise exceptions where sanitizing guest Id returns None
+  (jajerome@redhat.com)
+- FIXME: renamed response argument to result in validateResponse()
+  (jajerome@redhat.com)
+- FIXME: rename info argument to params in _request() (jajerome@redhat.com)
+- FIXME: added error message when redeeming subscription fails
+  (jajerome@redhat.com)
+- FIXME: removed unused UEPConnection class methods (jajerome@redhat.com)
+- Fixed profile tests setting Package release numbers as int instead of str
+  (jajerome@redhat.com)
+- FIXME: changed epoch data type to str in Package class (jajerome@redhat.com)
+- FIXME: added null-checks for stdout/stderr wrapper (jajerome@redhat.com)
+- FIXME: re-iterated a fix is not needed for urlparse (jajerome@redhat.com)
+- FIXME: added exception messages to parse_url() (jajerome@redhat.com)
+- FIXME: changed  lists to tuples in StatusSpinnerStyle class
+  (jajerome@redhat.com)
+- FIXME: fixed type hints for _normalize_string() (jajerome@redhat.com)
+- FIXME: use super() instead of class name (jajerome@redhat.com)
+- FIXME: fixed strings not being translated in is_log_level_valid()
+  (jajerome@redhat.com)
+- FIXME: resolved improper use of tempfile in save() (jajerome@redhat.com)
+- FIXME: fixed config_file argument not being used in save()
+  (jajerome@redhat.com)
+- FIXME: updated default value for files_name argument in read()
+  (jajerome@redhat.com)
+- FIXME: fixed minor typo in bogus() (jajerome@redhat.com)
+- FIXME: changed read() to return self instead of None (jajerome@redhat.com)
+- FIXME: set default argument 'facts' to None in registerConsumer()
+  (jajerome@redhat.com)
+- FIXME: renamed argument 'type' to 'consumer_type' in registerConsumer()
+  (jajerome@redhat.com)
+- FIXME: ping() resolved in rhsm/connection.py (jajerome@redhat.com)
+- Remove test dependency 'mock' (mhorky@redhat.com)
+- Fix failures of D-Bus' Register tests (mhorky@redhat.com)
+- Mark D-Bus tests (mhorky@redhat.com)
+- 2131789: Outsource uploading DNF profile to rhsmcertd (jhnidek@redhat.com)
+- Catch generic OSError during HTTPSConnection.connect() (ptoscano@redhat.com)
+- New extraction for translatable strings (ptoscano@redhat.com)
+- Translated using Weblate (French) (vincent.lefebvre59@gmail.com)
+- Translated using Weblate (Korean) (simmon@nplob.com)
+- Fix formatting of proxy errors w/o errno (ptoscano@redhat.com)
+- Catch also CertificateLoadingError for identity cert loading
+  (ptoscano@redhat.com)
+- ENT-4286: Additional fix for exception handling (jajerome@redhat.com)
+- Remove D-Bus env vars from container and CI files (mhorky@redhat.com)
+- 2121350: Implement "force" register option in rhsm dbus python binding
+  (jajerome@redhat.com)
+- Show locals in pytest output (mhorky@redhat.com)
+- Improve formatting of CertificateLoadingError (ptoscano@redhat.com)
+- Raise a new CertificateLoadingError on X.509 loading failures
+  (ptoscano@redhat.com)
+- Improve formatting of UnknownContentException (ptoscano@redhat.com)
+- connection: improve the internal UnknownContentException
+  (ptoscano@redhat.com)
+- utils: add terminal_printable_content (ptoscano@redhat.com)
+- connection: rename NetworkException to UnknownContentException
+  (ptoscano@redhat.com)
+- Improve formatting of ProxyException (ptoscano@redhat.com)
+- connection: improve the internal ProxyException (ptoscano@redhat.com)
+- Improve formatting of socket.gaierror (ptoscano@redhat.com)
+- Improve formatting of ConnectionError (ptoscano@redhat.com)
+- Improve formatting of BadCertificateException (ptoscano@redhat.com)
+- connection: extend BadCertificateException w/ SSL exception
+  (ptoscano@redhat.com)
+- connection: drop dead code (ptoscano@redhat.com)
+- ENT-4286: Simplify exception reporting with system_exit()
+  (jajerome@redhat.com)
+- 2136694: Clear progress messages properly (mhorky@redhat.com)
+- rhsmcertd reads default_log_level from rhsm.conf (jhnidek@redhat.com)
+- 2097679: Additional fix for non-interactive parameters (jajerome@redhat.com)
+- 2097679: Fixed script hang in non-interactive execution (jajerome@redhat.com)
+
+* Wed Oct 19 2022 Christopher Snyder <csnyder@redhat.com> 1.29.31-1
+- warning: refname 'subscription-manager-1.29.30-1' is ambiguous.
+- Translated using Weblate (Georgian) (temuri.doghonadze@gmail.com)
+- tests: fix typos in test method names (ptoscano@redhat.com)
+- 2125227: Fixed incorrect registration warning with yum/dnf
+  (jajerome@redhat.com)
+- 2094942: Fixed expected message for manual attach case (jajerome@redhat.com)
+- ENT-5102: Type-hint rhsmlib/facts (mhorky@redhat.com)
+- 2094942: Improve warning message (auto-attach in SCA mode)
+  (jhnidek@redhat.com)
+- Update INSTALL.md (mhorky@redhat.com)
+- Remove unused classes of DBus tests (mhorky@redhat.com)
+- ENT-5317: Update DBus tests of Unregister objects (mhorky@redhat.com)
+- ENT-5317: Update DBus tests of Register objects (mhorky@redhat.com)
+- ENT-5317: Update DBus tests of Products object (mhorky@redhat.com)
+- ENT-5317: Update DBus tests of AllFacts object (mhorky@redhat.com)
+- ENT-5317: Update DBus tests of Entitlement object (mhorky@redhat.com)
+- Fix typo in method name of EntitlementService (mhorky@redhat.com)
+- ENT-5317: Update DBus tests of Consumer object (mhorky@redhat.com)
+- ENT-5317: Update DBus tests of Attach object (mhorky@redhat.com)
+- Fix possible parsing issues of dmidecode output (mhorky@redhat.com)
+- ENT-5317: New way to test DBus methods, starting with Config
+  (mhorky@redhat.com)
+- cockpit: disable the reference branch for sub-man-cockpit
+  (ptoscano@redhat.com)
+- TESTING.md: Remove mention of pytest-xdist (mhorky@redhat.com)
+- INSTALL.md: Update list of packages to be installed (mhorky@redhat.com)
+- Stop calling pytest with --failed-first (mhorky@redhat.com)
+- GCP: Better computing of cached token TTL (jhnidek@redhat.com)
+- 2101510: Fix D-Bus Register() and update entitlement certs
+  (jhnidek@redhat.com)
+- 2120744: Close keycloak connection properly (jhnidek@redhat.com)
+- 2094942: [RFE] Improve the message, when  SCA is enabled (jhnidek@redhat.com)
+- Replaced list[] with List[] and dict[] with Dict[]. (jhnidek@redhat.com)
+- Update TESTING.md (mhorky@redhat.com)
+- Update README.md (mhorky@redhat.com)
+- Add INSTALL.md (mhorky@redhat.com)
+- Added type hints to package rhsmlib.service (jhnidek@redhat.com)
+- Added some missing imports. (jhnidek@redhat.com)
+- Reformated using black. (jhnidek@redhat.com)
+- Added one FIXME to redeem.py (jhnidek@redhat.com)
+- Added type hints and FIXMEs to rhsm package. (jhnidek@redhat.com)
+- [wip] ENT-5100: Type hint rhsm (mhorky@redhat.com)
+- Added type hints to syspurpose package (jhnidek@redhat.com)
+- Drop libnotify-devel usage (ptoscano@redhat.com)
 
 * Tue Aug 09 2022 Christopher Snyder <csnyder@redhat.com> 1.29.30-1
 - Fix issue, when connection is not shared (jhnidek@redhat.com)

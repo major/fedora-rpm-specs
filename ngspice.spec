@@ -13,36 +13,33 @@
 %global	userelease	1
 %endif
 
-%global	majorver	39
-%global	minorver	3
-%global	docver	39
+%global	majorver	40
+#%%global	minorver	3
+%global	docver	40
 %undefine	prever
 %global	prerpmver	%(echo "%{?prever}" | sed -e 's|-||g')
 
-%global	mainrel	1
-
 %if 0%{?usegitbare} >= 1
-%global	gitcommit	4bcd4daf559e70f268b5540bdf6afdf38e458e13
-%global	gitdate	20221227
+%global	gitcommit	86951501a7ffffcd43454659d09f8a81055b7096
+%global	gitdate	20230319
 %global	shortcommit	%(c=%{gitcommit}; echo ${c:0:7})
 
-%global	tarballdate	20221231
-%global	tarballtime	2138
+%global	tarballdate	20230324
+%global	tarballtime	1531
 %endif
 
-%if 0%{?userelease} >= 1
-%global	baserelease	%{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}
+%if	0%{?userelease} >= 1
+%global	fedoraver		%{majorver}%{?minorver:.%minorver}
 %endif
-%if 0%{?usegitbare} >= 1
-%global	baserelease	%{?prever:0.}%{mainrel}.D%{gitdate}git%{shortcommit}
-#%%global	baserelease	%{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}
+%if	0%{?usegitbare} >= 1
+%global	fedoraver		%{majorver}%{?minorver:.%minorver}^%{gitdate}git%{shortcommit}
 %endif
 
 %undefine       _changelog_trimtime
 
 Name:			ngspice
-Version:		%{majorver}%{?minorver:.%minorver}
-Release:		%{baserelease}%{?dist}
+Version:		%{fedoraver}
+Release:		1%{?dist}
 Summary:		A mixed level/signal circuit simulator
 
 License:		BSD
@@ -157,19 +154,19 @@ developing applications that use libngspice.
 %setup -q -n %{name}-%{majorver}
 git init
 git config user.name "%{name} maintainer"
-git config user.email "%{name}-owner@fedoraproject.org"
+git config user.email "%{name}-maintainers@fedoraproject.org"
 git add .
 git commit -m "base" -q -a
 %endif
 
 %if 0%{?usegitbare} >= 1
-%setup -q -c -T -a 0
+%setup -q -c -n %{name}-%{majorver}%{?minorver:.%minorver}-%{gitdate}git%{shortcommit} -T -a 0
 git clone ./%{name}.git/
 cd %{name}
 git config user.name "%{name} maintainer"
-git config user.email "%{name}-owner@fedoraproject.org"
+git config user.email "%{name}-maintainers@fedoraproject.org"
 
-git checkout -b %{name}-%{version}-fedora %{gitcommit}
+git checkout -b %{name}-%{majorver}-fedora %{gitcommit}
 %endif
 
 pushd src/spicelib/devices/adms
@@ -189,7 +186,7 @@ done
 %endif
 popd
 
-%patch0 -p2 -b .link
+%patch -P0 -p2 -b .link
 git commit -m "Link libspice.so with -lBLT or -lBLIlite, depending on whether in tk mode or not" -a
 
 # make sure the examples are UTF-8...
@@ -453,6 +450,9 @@ popd
 %{_includedir}/ngspice/
 
 %changelog
+* Sat Apr  1 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 40-1
+- Update to 40
+
 * Fri Feb  3 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 39.3-1
 - Update to 39.3
 

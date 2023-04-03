@@ -36,6 +36,9 @@ device-dependent properties of a CD-ROM can use this library.
 
 %prep
 %autosetup -n pycdio-%{version} -p1
+# hotfix for Python 3.12, please bring this upstream
+# fixes https://bugzilla.redhat.com/2155240
+sed -i 's/assertEquals/assertEqual/' test/test-cdtext.py
 
 %build
 %py3_build

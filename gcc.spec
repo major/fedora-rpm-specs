@@ -1,5 +1,5 @@
-%global DATE 20230329
-%global gitrev 5864cb72cba24f25ae864298e85b553f0cadee5d
+%global DATE 20230401
+%global gitrev 21536f033a889b9c0aa53f7888469bab3d9296bd
 %global gcc_version 13.0.1
 %global gcc_major 13
 # Note, gcc_release must be integer, if you want to add suffixes to
@@ -136,7 +136,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.11%{?dist}
+Release: %{gcc_release}.12%{?dist}
 # libgcc, libgfortran, libgomp, libstdc++ and crtstuff have
 # GCC Runtime Exception.
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions and LGPLv2+ and BSD
@@ -845,32 +845,32 @@ so that there cannot be any synchronization problems.
 
 %prep
 %setup -q -n gcc-%{version}-%{DATE} -a 1 -a 2 -a 3
-%patch0 -p0 -b .hack~
-%patch2 -p0 -b .sparc-config-detection~
-%patch3 -p0 -b .libgomp-omp_h-multilib~
-%patch4 -p0 -b .libtool-no-rpath~
+%patch -P0 -p0 -b .hack~
+%patch -P2 -p0 -b .sparc-config-detection~
+%patch -P3 -p0 -b .libgomp-omp_h-multilib~
+%patch -P4 -p0 -b .libtool-no-rpath~
 %if %{build_isl}
-%patch5 -p0 -b .isl-dl~
-%patch6 -p0 -b .isl-dl2~
+%patch -P5 -p0 -b .isl-dl~
+%patch -P6 -p0 -b .isl-dl2~
 %endif
 %if %{build_libstdcxx_docs}
-%patch7 -p0 -b .libstdc++-docs~
+%patch -P7 -p0 -b .libstdc++-docs~
 %endif
-%patch8 -p0 -b .no-add-needed~
-%patch9 -p0 -b .Wno-format-security~
+%patch -P8 -p0 -b .no-add-needed~
+%patch -P9 -p0 -b .Wno-format-security~
 %if 0%{?fedora} >= 29 || 0%{?rhel} > 7
-%patch10 -p0 -b .rh1574936~
+%patch -P10 -p0 -b .rh1574936~
 %endif
-%patch11 -p0 -b .d-shared-libphobos~
+%patch -P11 -p0 -b .d-shared-libphobos~
 
-%patch50 -p0 -b .rh2155127~
+%patch -P50 -p0 -b .rh2155127~
 touch -r isl-0.24/m4/ax_prog_cxx_for_build.m4 isl-0.24/m4/ax_prog_cc_for_build.m4
 
 %if 0%{?rhel} >= 9
-%patch100 -p1 -b .fortran-fdec-duplicates~
-%patch101 -p1 -b .fortran-flogical-as-integer~
-%patch102 -p1 -b .fortran-fdec-override-kind~
-%patch103 -p1 -b .fortran-fdec-non-logical-if~
+%patch -P100 -p1 -b .fortran-fdec-duplicates~
+%patch -P101 -p1 -b .fortran-flogical-as-integer~
+%patch -P102 -p1 -b .fortran-fdec-override-kind~
+%patch -P103 -p1 -b .fortran-fdec-non-logical-if~
 %endif
 
 %ifarch %{arm}
@@ -3458,6 +3458,14 @@ end
 %endif
 
 %changelog
+* Sat Apr  1 2023 Jakub Jelinek <jakub@redhat.com> 13.0.1-0.12
+- update from trunk
+  - PRs analyzer/107396, bootstrap/101834, c++/101118, c++/105221, c++/105452,
+	c++/107897, c++/108887, c++/109278, c++/109319, libstdc++/109242,
+	libstdc++/109339, libstdc++/109340, modula2/109315, modula2/109336,
+	target/85048, target/109254, target/109328, tree-optimization/91645,
+	tree-optimization/109342, tree-optimization/109362
+
 * Wed Mar 29 2023 Jakub Jelinek <jakub@redhat.com> 13.0.1-0.11
 - update from trunk
   - PRs analyzer/109098, bootstrap/84402, bootstrap/109310, c++/105481,

@@ -1,6 +1,6 @@
 Name: subscription-manager-cockpit
-Version: 4
-Release: 2%{?dist}
+Version: 6
+Release: 1%{?dist}
 Summary: Subscription Manager Cockpit UI
 %if 0%{?suse_version}
 Group: System Environment/Base
@@ -83,8 +83,24 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*
 %{_datadir}/icons/hicolor/symbolic/apps/*.svg
 
 %changelog
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+* Mon Feb 20 2023 Pino Toscano <ptoscano@redhat.com> 6-1
+- Translated using Weblate (Kannada) (jsefler@redhat.com)
+- Translated using Weblate (Georgian) (temuri.doghonadze@gmail.com)
+- 2169976: insights: fix spawn_error_to_string in more cases
+  (ptoscano@redhat.com)
+
+* Fri Jan 06 2023 Pino Toscano <ptoscano@redhat.com> 5-1
+- Translated using Weblate (French) (vincent.lefebvre59@gmail.com)
+- Translated using Weblate (Korean) (simmon@nplob.com)
+- Translated using Weblate (Georgian) (temuri.doghonadze@gmail.com)
+- 2077759: invoke cockpit.translate() after document loading
+  (ptoscano@redhat.com)
+- test: Drop outdated copy of packagelib.py (martin@piware.de)
+- Added missing keys to react components (jhnidek@redhat.com)
+- Fix the issue, when it is not possible to install insights-client
+  (jhnidek@redhat.com)
+- test: Sync packagelib.py with cockpit main (martin@piware.de)
+- New target and added one project directory to .gitignore (jhnidek@redhat.com)
 
 * Wed Jul 27 2022 Jiri Hnidek <jhnidek@redhat.com> 4-1
 

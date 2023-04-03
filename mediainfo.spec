@@ -1,8 +1,8 @@
 %global libzen_version  0.4.40
 
 Name:           mediainfo
-Version:        22.12
-Release:        4%{?dist}
+Version:        23.03
+Release:        1%{?dist}
 Summary:        Supplies technical and tag information about a video or audio file (CLI)
 
 License:        BSD-2-Clause
@@ -209,6 +209,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 
 
 %changelog
+* Sat Apr 01 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 23.03-1
+- Update to 23.03
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.12-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

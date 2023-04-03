@@ -1,6 +1,6 @@
 Name: libkiwix
 Version: 12.0.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 License: GPL-3.0-or-later
 Summary: Common code base for all Kiwix ports
@@ -16,11 +16,11 @@ BuildRequires: gtest-devel
 BuildRequires: libcurl-devel
 BuildRequires: libicu-devel
 BuildRequires: libmicrohttpd-devel
+BuildRequires: libzim-devel
 BuildRequires: meson
 BuildRequires: mustache-devel
 BuildRequires: ninja-build
 BuildRequires: pugixml-devel
-BuildRequires: zimlib-devel
 BuildRequires: zlib-devel
 
 Provides: kiwix-lib = %{?epoch:%{epoch}:}%{version}-%{release}
@@ -60,6 +60,9 @@ Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %{_libdir}/pkgconfig/kiwix.pc
 
 %changelog
+* Sat Apr 01 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 12.0.0-5
+- Rebuilt due to libzim package rename.
+
 * Sun Jan 29 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 12.0.0-4
 - Build with C++14 instead of C++11 for gtest-1.13.0
 

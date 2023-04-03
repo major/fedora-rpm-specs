@@ -3,11 +3,11 @@
 # %%global gitcommit %%(c=%%{gitcommit_full}; echo ${c:0:7})
 
 Name:           kdiff3
-Version:        1.10.0
+Version:        1.10.1
 Release:        1%{?dist}
 Summary:        Compare + merge 2 or 3 files or directories
 
-License:        GPLv2
+License:        GPL-2.0-or-later
 URL:            https://github.com/KDE/kdiff3
 # Source0:        https://github.com/KDE/kdiff3/tarball/%%{gitcommit_full}
 Source0:        https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz
@@ -83,6 +83,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 
 
 %changelog
+* Sat Apr 01 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 1.10.1-1
+- Update to 1.10.1
+
 * Thu Feb 02 2023 Justin Zobel <justin@1707.io> - 1.10.0-1
 - Update to 1.10.0
 

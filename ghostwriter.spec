@@ -1,19 +1,17 @@
 Name: ghostwriter
 Version: 23.03.90
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPL-3.0-or-later AND Apache-2.0 AND CC-BY-4.0 AND CC-BY-SA-4.0 AND MPL-1.1 AND BSD AND LGPL-3.0-only AND MIT AND ISC
 Summary: Cross-platform, aesthetic, distraction-free Markdown editor
-URL:     https://invent.kde.org/office/%{name}
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+URL: https://invent.kde.org/office/%{name}
+Source0: https://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
-BuildRequires: extra-cmake-modules
-
-BuildRequires: cmake(KF5Sonnet)
-BuildRequires: cmake(KF5CoreAddons)
-BuildRequires: cmake(KF5XmlGui)
 BuildRequires: cmake(KF5ConfigWidgets)
+BuildRequires: cmake(KF5CoreAddons)
+BuildRequires: cmake(KF5Sonnet)
 BuildRequires: cmake(KF5WidgetsAddons)
+BuildRequires: cmake(KF5XmlGui)
 
 BuildRequires: cmake(Qt5Concurrent)
 BuildRequires: cmake(Qt5Core)
@@ -30,12 +28,13 @@ BuildRequires: cmake(Qt5Xml)
 BuildRequires: cmake(Qt5XmlPatterns)
 
 BuildRequires: desktop-file-utils
+BuildRequires: extra-cmake-modules
 BuildRequires: gcc-c++
 BuildRequires: hunspell-devel
 BuildRequires: libappstream-glib
-BuildRequires: make
+BuildRequires: ninja-build
 
-Provides: bundled(cmark-gfm) = 0.29.0.gfm.3
+Provides: bundled(cmark-gfm) = 0.29.0.gfm.6
 Provides: bundled(fontawesome-fonts) = 5.10.2
 Provides: bundled(nodejs-mathjax-full) = 3.1.2
 Provides: bundled(nodejs-react) = 17.0.1
@@ -63,7 +62,8 @@ or your novel.
 %autosetup -p1
 
 %build
-%cmake_kf5
+%cmake_kf5 -G Ninja \
+    -DCMAKE_BUILD_TYPE=Release
 %cmake_build
 
 %check
@@ -83,6 +83,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_metainfodir}/org.kde.%{name}.metainfo.xml
 
 %changelog
+* Sat Apr 01 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 23.03.90-2
+- Switched to Ninja.
+- Explicitly set Release configuration.
+- Sorted all BuildRequires by name for better readability.
+- Updated bundled libraries versions. Fixes rhbz#2128046.
+
 * Fri Mar 31 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.90-1
 - 23.03.90
 

@@ -1,6 +1,6 @@
 Name:           xsnow
-Version:        3.6.0
-Release:        2%{?dist}
+Version:        3.7.4
+Release:        1%{?dist}
 Summary:        Let it snow on your desktop
 
 License:        GPLv3+
@@ -16,6 +16,7 @@ BuildRequires:  libXext-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  gsl-devel
 BuildRequires:  gtk3-devel
+BuildRequires:  gettext
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 
@@ -53,8 +54,10 @@ desktop-file-validate \
 # Validate AppData file
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
+%find_lang %{name}
 
-%files
+
+%files -f %{name}.lang
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
@@ -65,6 +68,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Sat Apr 01 2023 Andrea Musuruane <musuruan@gmail.com> - 3.7.4-1
+- Updated to new upstream release
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

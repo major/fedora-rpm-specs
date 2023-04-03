@@ -3,11 +3,25 @@
 # works on other fedora and epel releases, which are supported by this software.
 # No quick Rawhide-only fixes will be allowed.
 
+%if 0%{?fedora} >= 38
+# openmpi segmentation fault on i686 bug #2142304
+ExcludeArch: %{ix86} s390x
+%else
+# ga/nwchem most likely does not support s390x
+# https://github.com/edoapra/fedpkg/issues/10
+ExcludeArch: s390x
+%endif
+
+%if 0%{?el6} || 0%{?el7}
+need libxc version > 3
+%quit
+%endif
+
 %global upstream_name nwchem
 
-%{?!major_version: %global major_version 7.0.2}
-%{?!git_hash: %global git_hash 5d4a0e84c8f8d9656a0ac37e796a9a4eff8c5ad9}
-%{?!ga_version: %global ga_version 5.7.2-3}
+%{?!major_version: %global major_version 7.2.0}
+%{?!git_hash: %global git_hash d0d141fdfbf9595b9fd0ec3c7c803c6c5fe020b2}
+%{?!ga_version: %global ga_version 5.8.2-1}
 
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
@@ -27,10 +41,6 @@
 # build with python support
 %{?!PYTHON_SUPPORT: %global PYTHON_SUPPORT 1}
 
-# ga/nwchem most likely does not support s390x
-# https://github.com/edoapra/fedpkg/issues/10
-ExclusiveArch: %{ix86} x86_64 %{arm} aarch64 ppc64le
-
 # static (a) or shared (so) libpython.*
 %global BLASOPT -L%{_libdir} -l%{blaslib}
 # from https://nwchemgit.github.io/ forum:
@@ -39,17 +49,15 @@ ExclusiveArch: %{ix86} x86_64 %{arm} aarch64 ppc64le
 %global BLAS_SIZE 4
 %global LAPACK_LIB -L%{_libdir} -l%{blaslib}
 
-
 Name:			nwchem
 Version:		%{major_version}
-Release:		12%{?dist}
+Release:		1%{?dist}
 Summary:		Delivering High-Performance Computational Chemistry to Science
 
 License:		ECL 2.0
 URL:			https://nwchemgit.github.io/
 # Nwchem changes naming convention of tarballs very often!
 Source0:		https://github.com/nwchemgit/nwchem/archive/%{git_hash}.tar.gz
-Patch0:			python310.patch
 
 # https://fedoraproject.org/wiki/Packaging:Guidelines#Compiler_flags
 # One needs to patch gfortran/gcc makefiles in order to use
@@ -80,6 +88,7 @@ BuildRequires:		%{blaslib}-devel
 BuildRequires:		flexiblas-openblas-serial
 Requires:		flexiblas-openblas-serial
 %endif
+BuildRequires:		libxc-devel
 
 %if 0%{?rhel} == 6
 BuildRequires:		net-tools
@@ -171,8 +180,9 @@ This package contains the data files.
 
 %prep
 %setup -q -n %{name}-%{git_hash}
-%patch0 -p0
 
+# remove the whole src/libext
+rm -rf src/libext/{elpa,libext_utils,libxc,mpich,openblas,plumed,scalapack,tblite}
 
 # remove bundling of BLAS/LAPACK
 rm -rf src/blas src/lapack
@@ -226,6 +236,12 @@ echo export IPCCSD=Y >> settings.sh
 echo export CCSDTQ=Y >> settings.sh
 echo export CCSDTLR=Y >> settings.sh
 echo export NWCHEM_LONG_PATHS=Y >> settings.sh
+# https://github.com/nwchemgit/nwchem/issues/723
+echo unset USE_LIBXC >> settings.sh
+echo export LIBXC_LIB="'%{_libdir}'" >> settings.sh
+echo export LIBXC_INCLUDE="'%{_includedir}'" >> settings.sh
+echo export LIBXC_MODDIR="'%{_libdir}/gfortran/modules'" >> settings.sh
+echo export NO_NWPWXC_VDW3A=1 >> settings.sh
 #
 echo export HAS_BLAS=yes >> settings.sh
 echo export BLASOPT="'%{BLASOPT}'" >> settings.sh
@@ -270,7 +286,7 @@ echo -n "%{name}_binary$MPI_SUFFIX " >>  ../bin/%{NWCHEM_TARGET}/%{name}$MPI_SUF
 echo '"$@"' >>  ../bin/%{NWCHEM_TARGET}/%{name}$MPI_SUFFIX&& \
 chmod 755  ../bin/%{NWCHEM_TARGET}/%{name}$MPI_SUFFIX&& \
 cat ../bin/%{NWCHEM_TARGET}/%{name}$MPI_SUFFIX&& \
-NWCHEM_TARGET=%{NWCHEM_TARGET} %{__make} USE_INTERNALBLAS=1 clean&& \
+NWCHEM_TARGET=%{NWCHEM_TARGET} %{__make} USE_INTERNALBLAS=1 USE_MPI=y clean&& \
 cd ..
 
 # build openmpi version
@@ -425,15 +441,6 @@ export NWCHEM_NWPW_LIBRARY=$RPM_BUILD_ROOT%{_datadir}/%{name}/libraryps/
 mv QA QA.orig.orig
 cp -rp QA.orig.orig QA.orig
 
-%if "x%{?NWCHEM_TARGET}" == "xLINUX"
-%if 0%{?fedora} == 21
-# small_intchk (and more) hang on Fedora 21 i386? MD Jun 10 2014
-%{__sed} -i '/runtests.mpi.unix/d' QA.orig/doafewqmtests.mpi
-echo './runtests.mpi.unix procs $np h2o_bnl' >> QA.orig/doafewqmtests.mpi
-echo './runtests.mpi.unix procs $np h2o-response' >> QA.orig/doafewqmtests.mpi
-%endif
-%endif
-
 export NPROC=2 # test on 2 cores
 export FLEXIBLAS=openblas-serial
 
@@ -451,9 +458,12 @@ export LD_LIBRARY_PATH=${MPI_LIB}&& \
 export PATH=%{PKG_TOP}/bin/$NWCHEM_TARGET:${MPI_BIN}:${PATH}&& \
 export MPIRUN_PATH=${MPI_BIN}/mpiexec&& \
 export MPIRUN_NPOPT="-verbose -np" && \
+export USE_LIBXC=True && \
 export NWCHEM_EXECUTABLE=%{PKG_TOP}/bin/$NWCHEM_TARGET/nwchem$MPI_SUFFIX&& \
 timeout ${TIMEOUT_OPTS} time ./doafewqmtests.mpi ${NPROC} 2>&1 < /dev/null | tee ../doafewqmtests.mpi.${NPROC}$MPI_SUFFIX.log&& \
 mv testoutputs ../testoutputs.doafewqmtests.mpi.${NPROC}$MPI_SUFFIX.log&& \
+timeout ${TIMEOUT_OPTS} time ./dolibxctests.mpi ${NPROC} 2>&1 < /dev/null | tee ../dolibxctests.mpi.${NPROC}$MPI_SUFFIX.log&& \
+mv testoutputs ../testoutputs.dolibxctests.mpi.${NPROC}$MPI_SUFFIX.log&& \
 cd ..&& \
 rm -rf QA
 
@@ -501,6 +511,11 @@ mv QA.orig QA
 
 
 %changelog
+* Tue Mar 28 2023 Marcin Dulak <marcindulak@fedoraproject.org> - 7.2.0-1
+- New upstream release
+- Build with libxc support bug #2081873
+- Remove %%{ix86} support due to openmpi bug #2142304
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -519,22 +534,22 @@ mv QA.orig QA
 * Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 7.0.2-7
 - Rebuilt for Python 3.10
 
-* Wed Jan 27 2021 Marcin Dulak <Marcin.Dulak@gmail.com> - 7.0.2-6
+* Wed Jan 27 2021 Marcin Dulak <marcindulak@fedoraproject.org> - 7.0.2-6
 - Requires %{name} instead of %{name-common} to handle install dependencies
 - export FLEXIBLAS=openblas-serial using a wrapper https://bugzilla.redhat.com/show_bug.cgi?id=1920009
 
 * Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
 
-* Tue Nov 24 2020 Marcin Dulak <Marcin.Dulak@gmail.com> - 7.0.2-4
+* Tue Nov 24 2020 Marcin Dulak <marcindulak@fedoraproject.org> - 7.0.2-4
 - Patch for Python 3.10
 - Compile with USE_NOIO=TRUE https://github.com/nwchemgit/nwchem/issues/272
 
-* Sat Nov 21 2020 Marcin Dulak <Marcin.Dulak@gmail.com> - 7.0.2-3
+* Sat Nov 21 2020 Marcin Dulak <marcindulak@fedoraproject.org> - 7.0.2-3
 - Replace OMP_NUM_THREADS=1 with FLEXIBLAS=openblas-serial to restore https://src.fedoraproject.org/rpms/flexiblas/c/4286c061697330a8d30d2cd3a1d20f018da81258
 - Replace mentions of the old website with nwchemgit.github.io
 
-* Mon Oct 19 2020 Marcin Dulak <Marcin.Dulak@gmail.com> - 7.0.2-2
+* Mon Oct 19 2020 Marcin Dulak <marcindulak@fedoraproject.org> - 7.0.2-2
 - Set OMP_NUM_THREADS=1 https://github.com/edoapra/fedpkg/issues/10#issuecomment-699276160
 - Fix hostname br for el6
 
@@ -578,26 +593,26 @@ mv QA.orig QA
 * Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
 
-* Tue Jan 21 2020 Marcin Dulak <Marcin.Dulak@gmail.com> - 7.0.0-2
+* Tue Jan 21 2020 Marcin Dulak <marcindulak@fedoraproject.org> - 7.0.0-2
 - new upstream snapshot release
 
-* Fri Oct 04 2019 Marcin Dulak <Marcin.Dulak@gmail.com> - 7.0.0-1
+* Fri Oct 04 2019 Marcin Dulak <marcindulak@fedoraproject.org> - 7.0.0-1
 - new upstream snapshot release
 
-* Fri Aug 30 2019 Marcin Dulak <Marcin.Dulak@gmail.com> - 6.8.2-1
+* Fri Aug 30 2019 Marcin Dulak <marcindulak@fedoraproject.org> - 6.8.2-1
 - new upstream snapshot release
 - switch to python3 br on fedora >= 30 bug #1738065
 
 * Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 6.8.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
 
-* Mon Jun 03 2019 Marcin Dulak <Marcin.Dulak@gmail.com> - 6.8.1-10
+* Mon Jun 03 2019 Marcin Dulak <marcindulak@fedoraproject.org> - 6.8.1-10
 - removal of tcsh br requires a patch https://github.com/nwchemgit/nwchem/issues/120
 
-* Mon Jun 03 2019 Marcin Dulak <Marcin.Dulak@gmail.com> - 6.8.1-9
+* Mon Jun 03 2019 Marcin Dulak <marcindulak@fedoraproject.org> - 6.8.1-9
 - remove br tcsh since it's orphaned in Fedora 30
 
-* Fri May 17 2019 Marcin Dulak <Marcin.Dulak@gmail.com> - 6.8.1-8
+* Fri May 17 2019 Marcin Dulak <marcindulak@fedoraproject.org> - 6.8.1-8
 - explicit mpi related requires on epel7/epel6
 
 * Thu Feb 14 2019 Orion Poplawski <orion@nwra.com> - 6.8.1-7
@@ -606,7 +621,7 @@ mv QA.orig QA
 * Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 6.8.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
 
-* Sun Jul 15 2018 Marcin Dulak <Marcin.Dulak@gmail.com> - 6.8.1-6
+* Sun Jul 15 2018 Marcin Dulak <marcindulak@fedoraproject.org> - 6.8.1-6
 - protect yourself from Fedora changing rpm macros: no python_version available in f29
 
 * Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 6.8.1-5
@@ -615,18 +630,18 @@ mv QA.orig QA
 * Thu Jun 28 2018 Edoardo Apra <edoardo.apra@gmail.com> - 6.8.1-4
 - requires ga rpm version >= 5.6.5-1
 
-* Fri Jun 15 2018 Marcin Dulak <Marcin.Dulak@gmail.com> - 6.8.1-3
+* Fri Jun 15 2018 Marcin Dulak <marcindulak@fedoraproject.org> - 6.8.1-3
 - minor cleanup
 - br libibverbs-devel
 
 * Thu Jun 14 2018 Edoardo Apra <edoardo.apra@gmail.com> - 6.8.1-2
 - 6.8.1 release tarball
 
-* Thu Jun 14 2018 Marcin Dulak <Marcin.Dulak@gmail.com> - 6.8.1-1
+* Thu Jun 14 2018 Marcin Dulak <marcindulak@fedoraproject.org> - 6.8.1-1
 - upstream update, sources are at github now
 - drop el6 support
 
-* Fri Jun 08 2018 Marcin Dulak <Marcin.Dulak@gmail.com> - 6.6.27746-34
+* Fri Jun 08 2018 Marcin Dulak <marcindulak@fedoraproject.org> - 6.6.27746-34
 - patch https://github.com/nwchemgit/nwchem/issues/41
 
 * Thu Feb 08 2018 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.27746-33
@@ -638,7 +653,7 @@ mv QA.orig QA
 * Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.27746-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
 
-* Wed Feb 15 2017 Marcin Dulak <Marcin.Dulak@gmail.com> - 6.6.27746-30
+* Wed Feb 15 2017 Marcin Dulak <marcindulak@fedoraproject.org> - 6.6.27746-30
 - restore nwchemrc
 
 * Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.27746-29
@@ -647,14 +662,14 @@ mv QA.orig QA
 * Fri Oct 21 2016 Orion Poplawski <orion@cora.nwra.com> - 6.6.27746-28
 - Rebuild for openmpi 2.0
 
-* Tue Jul 19 2016 Marcin Dulak <Marcin.Dulak@gmail.com> - 6.6.27746-27
+* Tue Jul 19 2016 Marcin Dulak <marcindulak@fedoraproject.org> - 6.6.27746-27
 - apply upstream patches for gcc version 6 (see bug# 1356735)
 - set NWCHEM env variables instead of prepending (bug #1347788)
 
-* Sat Jul 16 2016 Marcin Dulak <Marcin.Dulak@gmail.com> - 6.6.27746-26
+* Sat Jul 16 2016 Marcin Dulak <marcindulak@fedoraproject.org> - 6.6.27746-26
 - remove compiler native arch optimizations (see bug# 1347788)
 
-* Sat Jul 16 2016 Marcin Dulak <Marcin.Dulak@gmail.com> - 6.6.27746-25
+* Sat Jul 16 2016 Marcin Dulak <marcindulak@fedoraproject.org> - 6.6.27746-25
 - kill hanging %%check after 30min timeout (see bug #1356735)
 - remove defattr
 - prevent macros from continuing after an intermediate command error
@@ -667,7 +682,7 @@ mv QA.orig QA
 * Wed Nov 18 2015 Rafael Fonseca <rdossant@redhat.com> - 6.5.26243-23
 - Make nwchem x86 exclusive because of its BuildRequires (#1278066)
 
-* Sat Nov  7 2015 Marcin Dulak <Marcin.Dulak@gmail.com> - 6.6.27746-22
+* Sat Nov  7 2015 Marcin Dulak <marcindulak@fedoraproject.org> - 6.6.27746-22
 - upstream update
 - files-attr
 
@@ -677,10 +692,10 @@ mv QA.orig QA
 * Tue Sep 15 2015 Orion Poplawski <orion@cora.nwra.com> - 6.5.26243-20
 - Rebuild for openmpi 1.10.0
 
-* Fri Aug 28 2015 Marcin Dulak <Marcin.Dulak@gmail.com> - 6.5.26243-19
+* Fri Aug 28 2015 Marcin Dulak <marcindulak@fedoraproject.org> - 6.5.26243-19
 - hostname is in net-tools only on el6
 
-* Thu Aug 27 2015 Marcin Dulak <Marcin.Dulak@gmail.com> - 6.5.26243-18
+* Thu Aug 27 2015 Marcin Dulak <marcindulak@fedoraproject.org> - 6.5.26243-18
 - BuildRequires net-tools (hostname) needed
 
 * Sun Jul 26 2015 Sandro Mani <manisandro@gmail.com> - 6.5.26243-17
@@ -689,18 +704,18 @@ mv QA.orig QA
 * Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 6.5.26243-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
 
-* Thu May 21 2015 Marcin Dulak <Marcin.Dulak@gmail.com> - 6.5.26243-15
+* Thu May 21 2015 Marcin Dulak <marcindulak@fedoraproject.org> - 6.5.26243-15
 - fix linking of mpich/openmpi
 
-* Mon Mar 30 2015 Marcin Dulak <Marcin.Dulak@gmail.com> - 6.5.26243-15
+* Mon Mar 30 2015 Marcin Dulak <marcindulak@fedoraproject.org> - 6.5.26243-15
 - EACCSD, IPCCSD enabled
 - fix Fedora 23 linking of mpich/openmpi
 
-* Mon Mar 2 2015 Marcin Dulak <Marcin.Dulak@gmail.com> - 6.5.26243-14
+* Mon Mar 2 2015 Marcin Dulak <marcindulak@fedoraproject.org> - 6.5.26243-14
 - fix bug #1196616
 - allow SRPM build on noarch
 
-* Sat Nov 15 2014 Marcin Dulak <Marcin.Dulak@gmail.com> - 6.5.26243-13
+* Sat Nov 15 2014 Marcin Dulak <marcindulak@fedoraproject.org> - 6.5.26243-13
 - upstream update
 - MRCC_THEORY and NWCHEM_LONG_PATHS enabled
 - exclude aarch64
@@ -709,7 +724,7 @@ mv QA.orig QA
 * Sun Aug 17 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 6.3.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
 
-* Tue Jun 10 2014 Marcin Dulak <Marcin.Dulak@gmail.com> - 6.3.2-11
+* Tue Jun 10 2014 Marcin Dulak <marcindulak@fedoraproject.org> - 6.3.2-11
 - explicit Requires needed bug #1105509
 - excluding tests (hang on Fedora 21 i686)
 - added arm to ifarch (koji does: rpmbuild -bs --target arm --nodeps)
@@ -717,16 +732,16 @@ mv QA.orig QA
 * Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 6.3.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
 
-* Tue Apr 8 2014 Marcin Dulak <Marcin.Dulak@gmail.com> 6.3.2-9
+* Tue Apr 8 2014 Marcin Dulak <marcindulak@fedoraproject.org> 6.3.2-9
 - removed bundling of BLAS, LAPACK, GA
 
 * Tue Mar 18 2014 Björn Esser <bjoern.esser@gmail.com> - 6.3.2-8
 - rebuilt for mpich-3.1
 
-* Fri Feb 7 2014 Marcin Dulak <Marcin.Dulak@gmail.com> 6.3.2-7
+* Fri Feb 7 2014 Marcin Dulak <marcindulak@fedoraproject.org> 6.3.2-7
 - exclude ppc64 on el6
 
-* Fri Feb 7 2014 Marcin Dulak <Marcin.Dulak@gmail.com> 6.3.2-6
+* Fri Feb 7 2014 Marcin Dulak <marcindulak@fedoraproject.org> 6.3.2-6
 - common is noarch
 - LICENSE* in common
 - %%config(noreplace) %%{_sysconfdir}/profile.d/* + more explicit glob
@@ -736,42 +751,42 @@ mv QA.orig QA
 - fdupes removed: runs twice (for i686 and x86_64) and exchanges links on
   these two platforms, giving: BuildError: mismatch when analyzing ...
 
-* Sat Jan 25 2014 Marcin Dulak <Marcin.Dulak@gmail.com> 6.3.2-5
+* Sat Jan 25 2014 Marcin Dulak <marcindulak@fedoraproject.org> 6.3.2-5
 - ExcludeArch: %%arm
 
-* Fri Jan 24 2014 Marcin Dulak <Marcin.Dulak@gmail.com> 6.3.2-4
+* Fri Jan 24 2014 Marcin Dulak <marcindulak@fedoraproject.org> 6.3.2-4
 - the idea of %%optflags dropped, resulting executables were broken
 
-* Tue Jan 14 2014 Marcin Dulak <Marcin.Dulak@gmail.com> 6.3.2-3
+* Tue Jan 14 2014 Marcin Dulak <marcindulak@fedoraproject.org> 6.3.2-3
 - https://bugzilla.redhat.com/show_bug.cgi?id=984605#c12: timestamps
 
-* Wed Nov 6 2013 Marcin Dulak <Marcin.Dulak@gmail.com> 6.3.2-2
+* Wed Nov 6 2013 Marcin Dulak <marcindulak@fedoraproject.org> 6.3.2-2
 - update version
 - explicitly set ARMCI_NETWORK=SOCKETS for serial build
 - dependency on openssh-clients for serial build
 - use tatlas on Fedora >= 21
 - basis are now under src/basis/libraries
 
-* Wed Jul 10 2013 Marcin Dulak <Marcin.Dulak@gmail.com> 6.3.1-2
+* Wed Jul 10 2013 Marcin Dulak <marcindulak@fedoraproject.org> 6.3.1-2
 - conform to http://fedoraproject.org/wiki/Packaging:MPI#Packaging_of_MPI_software
 
-* Wed Jul 10 2013 Marcin Dulak <Marcin.Dulak@gmail.com> 6.3.1-1
+* Wed Jul 10 2013 Marcin Dulak <marcindulak@fedoraproject.org> 6.3.1-1
 - adopted for Fedora and EPEL
 - split into the main and data package
 
 * Mon Aug 13 2012 Marcin Dulak <Marcin.Dulak@fysik.dtu.dk> 6.1.1-1
 - restructured for build.opensuse.org and Fedora based on nwchem.spec
 
-* Sat Feb 4 2012 Marcin Dulak <Marcin.Dulak@gmail.com> 6.1-1
+* Sat Feb 4 2012 Marcin Dulak <marcindulak@fedoraproject.org> 6.1-1
 - USE_NOFSCHECK set to True
 - src/data/* installed under %%{prefix}/share/%%{prgname}/data
 - contrib/python/Gnuplot.py excluded
 - scalapack build on Fedora (for some reason libscalapack.a not found on build.opensuse.org)
 - {doc,web} directories not in source anymore
 
-* Wed Dec 21 2011 Marcin Dulak <Marcin.Dulak@gmail.com> 6.1.pre6-1
+* Wed Dec 21 2011 Marcin Dulak <marcindulak@fedoraproject.org> 6.1.pre6-1
 - allow pre releases to be built
 - fixed ga-5-0 configure problems on EL5 and openSUSE 11.3-12.1
 
-* Mon Oct 31 2011 Marcin Dulak <Marcin.Dulak@gmail.com> 6.0-1
+* Mon Oct 31 2011 Marcin Dulak <marcindulak@fedoraproject.org> 6.0-1
 - initial version

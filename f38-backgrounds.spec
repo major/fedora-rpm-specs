@@ -6,7 +6,7 @@
 %global with_extras 1
 
 Name:           %{bgname}-backgrounds
-Version:        %{relnum}.0.2
+Version:        %{relnum}.1.0
 Release:        %autorelease
 Summary:        Fedora %{relnum} default desktop background
 
@@ -21,6 +21,10 @@ BuildArch:      noarch
 BuildRequires:  kde-filesystem
 BuildRequires:  make
 
+# for lossy optimization
+BuildRequires:  pngquant
+
+Requires:	%{name}-budgie = %{version}-%{release}
 Requires:       %{name}-gnome = %{version}-%{release}
 Requires:       %{name}-kde = %{version}-%{release}
 Requires:       %{name}-xfce = %{version}-%{release}
@@ -37,6 +41,15 @@ License:        CC-BY-SA-4.0
 
 %description    base
 This package contains base images for Fedora  %{relnum} default background.
+
+%package        budgie
+Summary:        Fedora  %{relnum} default wallpaper for Budgie
+Requires:       %{name}-base = %{version}-%{release}
+Recommends:	%{name}-gnome = %{version}-%{release}
+
+%description    budgie
+This package contains Budgie desktop wallpaper for the
+Fedora  %{relnum} default theme.
 
 %package        gnome
 Summary:        Fedora  %{relnum} default wallpaper for Gnome and Cinnamon
@@ -145,6 +158,9 @@ This package contains  supplemental wallpapers for XFCE
 %files gnome
 %{_datadir}/gnome-background-properties/%{bgname}.xml
 %dir %{_datadir}/gnome-background-properties/
+
+%files budgie
+%{_datadir}/gnome-background-properties/%{bgname}-budgie.xml
 
 %files mate
 %{_datadir}/mate-background-properties/%{bgname}.xml

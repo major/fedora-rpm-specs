@@ -1,25 +1,27 @@
-%global appname libzim
-
-Name: zimlib
-Version: 8.1.0
-Release: 4%{?dist}
+Name: libzim
+Version: 8.1.1
+Release: 1%{?dist}
 
 License: GPL-2.0-only AND Apache-2.0 AND BSD-3-Clause
 Summary: Reference implementation of the ZIM specification
 
-URL: https://github.com/openzim/%{appname}
-Source0: %{url}/archive/%{version}.tar.gz
+URL: https://github.com/openzim/%{name}
+Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires: gcc
-BuildRequires: gcc-c++
 BuildRequires: gtest-devel
 BuildRequires: libicu-devel
 BuildRequires: libzstd-devel
-BuildRequires: meson
-BuildRequires: ninja-build
 BuildRequires: xapian-core-devel
 BuildRequires: xz-devel
 BuildRequires: zlib-devel
+
+BuildRequires: gcc
+BuildRequires: gcc-c++
+BuildRequires: meson
+BuildRequires: ninja-build
+
+Provides: zimlib = %{?epoch:%{epoch}:}%{version}-%{release}
+Obsoletes: zimlib < %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description
 The ZIM library is the reference implementation for the ZIM file
@@ -34,10 +36,10 @@ Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %{summary}.
 
 %prep
-%autosetup -n %{appname}-%{version} -p1
+%autosetup -p1
 
 %build
-%meson -Dwerror=false -Dcpp_std=c++14
+%meson -Dcpp_std=c++14 -Dwerror=false
 %meson_build
 
 %install
@@ -46,14 +48,18 @@ Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %files
 %doc AUTHORS ChangeLog README.md
 %license COPYING
-%{_libdir}/%{appname}.so.8*
+%{_libdir}/%{name}.so.8*
 
 %files devel
 %{_includedir}/zim
-%{_libdir}/%{appname}.so
-%{_libdir}/pkgconfig/%{appname}.pc
+%{_libdir}/%{name}.so
+%{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sat Apr 01 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 8.1.1-1
+- Renamed package to libzim.
+- Updated to version 8.1.1.
+
 * Mon Jan 30 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 8.1.0-4
 - Build with C++14 instead of C++11 for gtest-1.13.0.
 

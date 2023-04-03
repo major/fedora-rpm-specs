@@ -1,13 +1,13 @@
 Name:           nftables
-Version:        1.0.5
-Release:        2%{?dist}
+Version:        1.0.7
+Release:        1%{?dist}
 # Upstream released a 0.100 version, then 0.4. Need Epoch to get back on track.
 Epoch:          1
 Summary:        Netfilter Tables userspace utilites
 
 License:        GPLv2
 URL:            https://netfilter.org/projects/nftables/
-Source0:        %{url}/files/%{name}-%{version}.tar.bz2
+Source0:        %{url}/files/%{name}-%{version}.tar.xz
 Source1:        nftables.service
 Source2:        nftables.conf
 Source3:        main.nft
@@ -32,6 +32,7 @@ BuildRequires: jansson-devel
 BuildRequires: python3-devel
 BuildRequires: readline-devel
 BuildRequires: libedit-devel
+BuildRequires: python3-setuptools
 
 %description
 Netfilter Tables userspace utilities.
@@ -54,6 +55,10 @@ The nftables python module provides an interface to libnftables via ctypes.
 
 %prep
 %autosetup -p1
+# upstream: https://git.netfilter.org/nftables/commit/py?id=1acc2fd48c755a8931fa87b8d0560b750316059f
+sed -i 's/distutils.core/setuptools/' py/setup.py
+# this part is downstream only and prevents setuptools from installing an egg:
+sed -i 's/--prefix $(DESTDIR)$(prefix)/--root $(DESTDIR) --prefix $(prefix)/' py/Makefile*
 
 %build
 #./autogen.sh
@@ -125,6 +130,10 @@ sed -i -e 's/\(sofile=\)".*"/\1"'$sofile'"/' \
 %{python3_sitelib}/nftables/
 
 %changelog
+* Sat Apr 01 2023 Kevin Fenzi <kevin@scrye.com> - 1.0.7-1
+- Update to 1.0.7. Fixes rhbz#2155658
+- Build the package with setuptools instead of distutils. Fixes: rhbz#2154872
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.0.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

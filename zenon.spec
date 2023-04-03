@@ -3,11 +3,11 @@
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
-%global coqver 8.16.1
+%global coqver 8.17.0
 
 Name:		zenon
 Version:	0.8.5
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	Automated theorem prover for first-order classical logic
 License:	BSD-3-Clause
 URL:		http://zenon-prover.org/
@@ -98,6 +98,9 @@ fi
 %{_mandir}/man5/zenon-format.5*
 
 %changelog
+* Sat Apr  1 2023 Jerry James <loganjerry@gmail.com> - 0.8.5-15
+- Rebuild for coq 8.17.0
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.8.5-14
 - Bump release and rebuild
 

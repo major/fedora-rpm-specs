@@ -4,7 +4,7 @@
 %global libadwaita_version  1.2
 
 Name:           komikku
-Version:        1.14.0
+Version:        1.17.1
 Release:        %autorelease
 Summary:        A manga reader for GNOME
 BuildArch:      noarch
@@ -12,6 +12,9 @@ BuildArch:      noarch
 License:        GPLv3+
 URL:            https://gitlab.com/valos/Komikku
 Source0:        %{url}/-/archive/v%{version}/%{appname}-v%{version}.tar.gz
+
+Patch0:         tzlocal-2.1.patch
+BuildRequires:  git-core
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  intltool
@@ -27,9 +30,9 @@ Requires:       hicolor-icon-theme
 Requires:       gtk4 >= %{gtk4_version}
 Requires:       libadwaita >= %{libadwaita_version}
 Requires:       libnotify
+Requires:       webkitgtk6.0
 Requires:       python3-beautifulsoup4
 Requires:       python3-brotli
-Requires:       python3-cloudscraper
 Requires:       python3-dateparser  %dnl >= 1.1.4 | https://bugzilla.redhat.com/show_bug.cgi?id=2115204
 Requires:       python3-emoji
 Requires:       python3-gobject
@@ -39,9 +42,11 @@ Requires:       python3-natsort
 # The conflict between python-magic and python-file-magic should be brought to
 # FESCO.
 Requires:       python3dist(file-magic)
+Requires:       python3-piexif
 Requires:       python3-pillow
 Requires:       python3-pure-protobuf
 Requires:       python3-rarfile
+Requires:       python3-requests
 Requires:       python3-unidecode
 
 %description
@@ -67,7 +72,10 @@ Keys features
 * Light and dark themes
 
 %prep
-%autosetup -n %{appname}-v%{version} -p1
+%autosetup -n %{appname}-v%{version} -N -S git -p1
+%if 0%fedora <= 37
+%autopatch 0
+%endif
 
 
 %build

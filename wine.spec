@@ -26,7 +26,7 @@
 %endif
 
 # build with wine-staging patches, see:  https://github.com/wine-staging/wine-staging
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel}
 %global wine_staging 1
 %endif
 # 0%%{?fedora}
@@ -49,7 +49,6 @@ URL:            https://www.winehq.org/
 Source0:        https://dl.winehq.org/wine/source/8.0/wine-%{version}.tar.xz
 Source10:       https://dl.winehq.org/wine/source/8.0/wine-%{version}.tar.xz.sign
 
-Source1:        wine.init
 Source2:        wine.systemd
 Source3:        wine-README-Fedora
 Source4:        wine-32.conf
@@ -98,7 +97,7 @@ Source900: https://github.com/wine-staging/wine-staging/archive/v%{version}.tar.
 %endif
 
 %if !%{?no64bit}
-%if 0%{fedora} > 36
+%if 0%{?fedora} > 36
 ExclusiveArch:  %{ix86} x86_64 aarch64
 %else
 # Fedora 36 Clang doesn't build PE binaries on ARM at the moment
@@ -179,9 +178,7 @@ BuildRequires:  libva-devel
 %endif
 # 0%%{?wine_staging}
 
-%if 0%{?fedora} >= 10 || 0%{?rhel} >= 6
 BuildRequires:  icoutils
-%endif
 
 %ifarch %{ix86} x86_64
 BuildRequires:  mingw32-FAudio
@@ -402,7 +399,6 @@ Provides:       wine-openal = %{version}-%{release}
 %description core
 Wine core package includes the basic wine stuff needed by all other packages.
 
-%if 0%{?fedora} >= 15 || 0%{?rhel} >= 7
 %package systemd
 Summary:        Systemd config for the wine binfmt handler
 Requires:       systemd >= 23
@@ -414,18 +410,6 @@ Obsoletes:      wine-sysvinit < %{version}-%{release}
 %description systemd
 Register the wine binary handler for windows executables via systemd binfmt
 handling. See man binfmt.d for further information.
-%endif
-
-%if 0%{?rhel} == 6
-%package sysvinit
-Summary:        SysV initscript for the wine binfmt handler
-BuildArch:      noarch
-Requires(post): /sbin/chkconfig, /sbin/service
-Requires(preun): /sbin/chkconfig, /sbin/service
-
-%description sysvinit
-Register the wine binary handler for windows executables via SysV init files.
-%endif
 
 %package filesystem
 Summary:        Filesystem directories for wine
@@ -448,12 +432,7 @@ Requires(post): desktop-file-utils >= 0.8
 Requires(postun): desktop-file-utils >= 0.8
 Requires:       wine-core = %{version}-%{release}
 Requires:       wine-common = %{version}-%{release}
-%if 0%{?fedora} >= 15 || 0%{?rhel} >= 7
 Requires:       wine-systemd = %{version}-%{release}
-%endif
-%if 0%{?rhel} == 6
-Requires:       wine-sysvinit = %{version}-%{release}
-%endif
 Requires:       hicolor-icon-theme
 BuildArch:      noarch
 
@@ -493,9 +472,7 @@ Requires:      wine-webdings-fonts = %{version}-%{release}
 Requires:      wine-wingdings-fonts = %{version}-%{release}
 # intermediate fix for #593140
 Requires:      liberation-sans-fonts liberation-serif-fonts liberation-mono-fonts
-%if 0%{?fedora} > 12
 Requires:      liberation-narrow-fonts
-%endif
 
 %description fonts
 %{summary}
@@ -840,14 +817,8 @@ chrpath --delete %{buildroot}%{_bindir}/wineserver32
 mkdir -p %{buildroot}%{_sysconfdir}/wine
 
 # Allow users to launch Windows programs by just clicking on the .exe file...
-%if 0%{?rhel} < 7
-mkdir -p %{buildroot}%{_initrddir}
-install -p -c -m 755 %{SOURCE1} %{buildroot}%{_initrddir}/wine
-%endif
-%if 0%{?fedora} >= 15 || 0%{?rhel} >= 7
 mkdir -p %{buildroot}%{_binfmtdir}
 install -p -c -m 644 %{SOURCE2} %{buildroot}%{_binfmtdir}/wine.conf
-%endif
 
 # add wine dir to desktop
 mkdir -p %{buildroot}%{_sysconfdir}/xdg/menus/applications-merged
@@ -864,7 +835,6 @@ mkdir -p %{buildroot}%{_datadir}/wine/gecko
 mkdir -p %{buildroot}%{_datadir}/wine/mono
 
 # extract and install icons
-%if 0%{?fedora} > 10
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/apps
 
 # This replacement masks a composite program icon .SVG down
@@ -918,8 +888,6 @@ sed -i -e "$PROGRAM_ICONFIX" %{buildroot}%{_datadir}/icons/hicolor/scalable/apps
 install -p -m 644 programs/wordpad/wordpad.svg \
  %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/wordpad.svg
 sed -i -e "$PROGRAM_ICONFIX" %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/wordpad.svg
-
-%endif
 
 # install desktop files
 desktop-file-install \
@@ -1024,9 +992,7 @@ do iconv -f iso8859-1 -t utf-8 README.$lang > \
 done;
 popd
 
-%if 0%{?fedora} || 0%{?rhel} > 6
 rm -f %{buildroot}%{_initrddir}/wine
-%endif
 
 # wine makefiles are currently broken and don't install the wine man page
 install -p -m 0644 loader/wine.man %{buildroot}%{_mandir}/man1/wine.1
@@ -1041,22 +1007,6 @@ install -p -m 0644 %{SOURCE150} %{buildroot}/%{_metainfodir}/%{name}.appdata.xml
 appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appdata.xml
 
 
-%if 0%{?rhel} == 6
-%post sysvinit
-if [ $1 -eq 1 ]; then
-/sbin/chkconfig --add wine
-/sbin/chkconfig --level 2345 wine on
-/sbin/service wine start &>/dev/null || :
-fi
-
-%preun sysvinit
-if [ $1 -eq 0 ]; then
-/sbin/service wine stop >/dev/null 2>&1
-/sbin/chkconfig --del wine
-fi
-%endif
-
-%if 0%{?fedora} >= 15 || 0%{?rhel} > 6
 %post systemd
 %binfmt_apply wine.conf
 
@@ -1064,7 +1014,6 @@ fi
 if [ $1 -eq 0 ]; then
 /bin/systemctl try-restart systemd-binfmt.service
 fi
-%endif
 
 %ldconfig_post core
 
@@ -1372,8 +1321,10 @@ fi
 %{_libdir}/wine/%{winepedir}/dxdiagn.dll
 %ghost %{_libdir}/wine/%{winepedir}/dxgi.dll
 %{_libdir}/wine/%{winepedir}/wine-dxgi.dll
+%if 0%{?wine_staging}
 %{_libdir}/wine/%{winepedir}/dxgkrnl.sys
 %{_libdir}/wine/%{winepedir}/dxgmms1.sys
+%endif
 %{_libdir}/wine/%{winepedir}/dxtrans.dll
 %{_libdir}/wine/%{winepedir}/dxva2.dll
 %{_libdir}/wine/%{winepedir}/esent.dll
@@ -1439,9 +1390,7 @@ fi
 %{_libdir}/wine/%{winepedir}/ksproxy.ax
 %{_libdir}/wine/%{winepedir}/ksuser.dll
 %{_libdir}/wine/%{winepedir}/ktmw32.dll
-%if 0%{?fedora} > 24
 %{_libdir}/wine/%{winepedir}/l3codeca.acm
-%endif
 %{_libdir}/wine/%{winepedir}/light.msstyles
 %{_libdir}/wine/%{winepedir}/loadperf.dll
 %{_libdir}/wine/%{winesodir}/localspl.so
@@ -1729,18 +1678,20 @@ fi
 %{_libdir}/wine/%{winepedir}/wevtsvc.dll
 %{_libdir}/wine/%{winepedir}/wiaservc.dll
 %{_libdir}/wine/%{winepedir}/wimgapi.dll
+%if 0%{?wine_staging}
 %{_libdir}/wine/%{winepedir}/win32k.sys
+%endif
 %{_libdir}/wine/%{winepedir}/win32u.dll
 %{_libdir}/wine/%{winepedir}/windows.devices.enumeration.dll
 %{_libdir}/wine/%{winepedir}/windows.gaming.ui.gamebar.dll
-%if 0%{?wine_staging}
 %{_libdir}/wine/%{winepedir}/windows.gaming.input.dll
 %{_libdir}/wine/%{winepedir}/windows.globalization.dll
 %{_libdir}/wine/%{winepedir}/windows.media.speech.dll
-%endif
 %{_libdir}/wine/%{winepedir}/windows.media.dll
 %{_libdir}/wine/%{winepedir}/windows.media.devices.dll
+%if 0%{?wine_staging}
 %{_libdir}/wine/%{winepedir}/windows.networking.connectivity
+%endif
 %{_libdir}/wine/%{winepedir}/windows.networking.dll
 %{_libdir}/wine/%{winepedir}/windows.perception.stub.dll
 %{_libdir}/wine/%{winepedir}/windows.system.profile.systemmanufacturers.dll
@@ -1792,10 +1743,8 @@ fi
 %{_libdir}/wine/%{winepedir}/wow64.dll
 %{_libdir}/wine/%{winepedir}/wow64win.dll
 %endif
-%if 0%{?wine_staging}
 %ifarch x86_64
 %{_libdir}/wine/%{winepedir}/wow64cpu.dll
-%endif
 %endif
 %{_libdir}/wine/%{winepedir}/wpc.dll
 %{_libdir}/wine/%{winepedir}/wpcap.dll
@@ -1834,12 +1783,10 @@ fi
 %{_libdir}/wine/%{winepedir}/x3daudio1_5.dll
 %{_libdir}/wine/%{winepedir}/x3daudio1_6.dll
 %{_libdir}/wine/%{winepedir}/x3daudio1_7.dll
-%if 0%{?wine_staging}
 %{_libdir}/wine/%{winepedir}/xactengine2_0.dll
 %{_libdir}/wine/%{winepedir}/xactengine2_4.dll
 %{_libdir}/wine/%{winepedir}/xactengine2_7.dll
 %{_libdir}/wine/%{winepedir}/xactengine2_9.dll
-%endif
 %{_libdir}/wine/%{winepedir}/xactengine3_0.dll
 %{_libdir}/wine/%{winepedir}/xactengine3_1.dll
 %{_libdir}/wine/%{winepedir}/xactengine3_2.dll
@@ -2495,11 +2442,9 @@ fi
 %{_libdir}/wine/%{winesodir}/win32u.dll.so
 %{_libdir}/wine/%{winesodir}/windows.devices.enumeration.dll.so
 %{_libdir}/wine/%{winesodir}/windows.gaming.ui.gamebar.dll.so
-%if 0%{?wine_staging}
 %{_libdir}/wine/%{winesodir}/windows.gaming.input.dll.so
 %{_libdir}/wine/%{winesodir}/windows.globalization.dll.so
 %{_libdir}/wine/%{winesodir}/windows.media.speech.dll.so
-%endif
 %{_libdir}/wine/%{winesodir}/windows.media.dll.so
 %{_libdir}/wine/%{winesodir}/windows.media.devices.dll.so
 %{_libdir}/wine/%{winesodir}/windows.networking.connectivity.so
@@ -2744,19 +2689,10 @@ fi
 %{_datadir}/desktop-directories/Wine.directory
 %config %{_sysconfdir}/xdg/menus/applications-merged/wine.menu
 %{_metainfodir}/%{name}.appdata.xml
-%if 0%{?fedora} >= 10
 %{_datadir}/icons/hicolor/scalable/apps/*svg
-%endif
 
-%if 0%{?fedora} >= 15 || 0%{?rhel} >= 7
 %files systemd
 %config %{_binfmtdir}/wine.conf
-%endif
-
-%if 0%{?rhel} == 6
-%files sysvinit
-%{_initrddir}/wine
-%endif
 
 # ldap subpackage
 %files ldap

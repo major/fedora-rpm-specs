@@ -17,7 +17,7 @@ Name:          mate-desktop
 License:       GPLv2+ and LGPLv2+ and MIT
 Version:       %{branch}.1
 %if 0%{?rel_build}
-Release:       2%{?dist}
+Release:       3%{?dist}
 %else
 Release:       0.17%{?git_rel}%{?dist}
 %endif
@@ -208,7 +208,10 @@ install -m 644 %SOURCE4 %{buildroot}/%{_prefix}/lib/systemd/system-preset/80-mat
 
 
 %changelog
-* Sun Mar 26 2023 John Hein <c0eh3p702@sneakemail.com> - 1.26.1-3
+* Sat Apr 01 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-3
+- bump version to get higher version than f37 build
+
+* Sun Mar 26 2023 John Hein <c0eh3p702@sneakemail.com> - 1.26.1-2
 - Remove systemd-oom-defaults conflict. It causes too many dnf upgrade failures.
 - See https://bugzilla.redhat.com/show_bug.cgi?id=2078108
 

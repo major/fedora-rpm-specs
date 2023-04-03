@@ -10,7 +10,7 @@
 %{!?build_mpich:%global build_mpich 1}
 %global pv_maj 5
 %global pv_min 11
-%global pv_patch 0
+%global pv_patch 1
 %global pv_majmin %{pv_maj}.%{pv_min}
 #global rcsuf RC1
 %{?rcsuf:%global relsuf .%{rcsuf}}
@@ -81,8 +81,8 @@
 %endif
 
 Name:           paraview
-Version:        %{pv_maj}.%{pv_min}.%{pv_patch}
-Release:        3%{?dist}
+Version:        5.11.1
+Release:        1%{?dist}
 Summary:        Parallel visualization application
 
 License:        BSD
@@ -93,9 +93,6 @@ Source2:        FindPEGTL.cmake
 # Fix cmake files install location
 # https://gitlab.kitware.com/paraview/paraview/issues/19724
 Patch0:         paraview-cmakedir.patch
-# Add missing includes for gcc 13
-# https://gitlab.kitware.com/vtk/vtk/-/issues/18782
-Patch1:         vtk-include.patch
 # Fix build with newer freetype
 # https://gitlab.kitware.com/vtk/vtk/-/issues/18033
 Patch3:         paraview-freetype.patch
@@ -521,10 +518,7 @@ developing applications that use %{name}-mpich.
 
 
 %prep
-%setup -q -n ParaView-v%{version}%{?versuf}
-%patch0 -p1
-%patch1 -p1
-%patch3 -p1 -b .freetype
+%autosetup -p1 -n ParaView-v%{version}%{?versuf}
 
 %if %{with VisitBridge}
 cp -p Utilities/VisItBridge/README.md Utilities/VisItBridge/README-VisItBridge.md
@@ -770,6 +764,9 @@ update-mime-database %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Sat Apr 01 2023 Orion Poplawski <orion@nwra.com> - 5.11.1-1
+- Update to 5.11.1
+
 * Fri Jan 20 2023 Orion Poplawski <orion@nwra.com> - 5.11.0-3
 - Add patch for gcc 13
 

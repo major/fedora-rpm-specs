@@ -18,8 +18,8 @@
 %bcond_with doc
 
 Name:           coq
-Version:        8.16.1
-Release:        3%{?dist}
+Version:        8.17.0
+Release:        1%{?dist}
 Summary:        Proof management system
 
 # The project as a whole is LGPL-2.1-only.  Exceptions:
@@ -32,27 +32,22 @@ Source1:        fr.inria.coqide.desktop
 Source2:        coq.xml
 Source3:        fr.inria.coqide.metainfo.xml
 
-# Sphinx documentation fails with sphinx 5+ (`language` must be set to
-# an actual value, not `None`)
-# https://github.com/coq/coq/pull/16310
-Patch0:         16310.patch
-
 # ANTLR is unavailable on i686
 # See https://fedoraproject.org/wiki/Changes/Drop_i686_JDKs
 ExclusiveArch:  %{java_arches}
 
 BuildRequires:  ocaml >= 4.09.0
-BuildRequires:  ocaml-dune >= 2.5.0
+BuildRequires:  ocaml-dune >= 2.9
 BuildRequires:  ocaml-findlib-devel >= 1.8.1
-BuildRequires:  ocaml-lablgtk3-devel >= 3.0
-BuildRequires:  ocaml-lablgtk3-sourceview3-devel >= 3.0
+BuildRequires:  ocaml-lablgtk3-sourceview3-devel >= 3.1.2
 BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-ounit-devel
 BuildRequires:  ocaml-zarith-devel >= 1.11
-BuildRequires:  antlr4
+BuildRequires:  antlr4 >= 4.7.1
 BuildRequires:  appstream
 BuildRequires:  csdp-tools
 BuildRequires:  desktop-file-utils
+BuildRequires:  git-core
 BuildRequires:  libicns-utils
 BuildRequires:  make
 BuildRequires:  python3-devel
@@ -63,7 +58,6 @@ BuildRequires:  time
 %if %{with doc}
 # For documentation
 BuildRequires:  hevea
-BuildRequires:  latexmk
 BuildRequires:  %{py3_dist beautifulsoup4}
 BuildRequires:  %{py3_dist pexpect}
 BuildRequires:  %{py3_dist sphinx}
@@ -211,42 +205,40 @@ cd doc/tools/coqrst/notations
 antlr4 -Dlanguage=Python3 -visitor -no-listener TacticNotations.g
 cd -
 
-%ifarch %{ocaml_native_compiler}
-%global opt_option -native-compiler yes -coqide opt -bin-annot
-%else
-%global opt_option -byte-only -coqide byte
-%endif
-%ifarch %{ocaml_natdynlink}
-%global opt_option %{opt_option} -natdynlink yes
-%else
-%global opt_option %{opt_option} -natdynlink no
-%endif
-
 # Set our configuration options
 ./configure -prefix %{_prefix}                       \
             -libdir %{ocamldir}/coq                  \
+            -configdir %{_sysconfdir}/xdg/%{name}    \
             -mandir %{_mandir}                       \
             -docdir %{coqdocdir}                     \
-            -configdir %{_sysconfdir}/xdg/%{name}    \
-            -bytecode-compiler yes                   \
-            %{opt_option}                            \
-            -browser "xdg-open %s"                   \
-%if %{with doc}
-            -with-doc yes
+%ifarch %{ocaml_natdynlink}
+            -natdynlink yes                          \
 %else
-            -with-doc no
+            -natdynlink no                           \
+%endif
+            -browser "xdg-open %s"                   \
+            -bytecode-compiler yes                   \
+%ifarch %{ocaml_native_compiler}
+            -native-compiler yes
+%else
+            -native-compiler no
 %endif
 
 # Build the binary artifacts
 export SPHINXWARNOPT="-w$PWD/sphinx-warn.log"
-make world VERBOSE=1
+make dunestrap VERBOSE=1 DUNEOPT=--verbose
+%if %{with doc}
+%dune_build
+%else
+%dune_build -p coq-core,coq-stdlib,coq,coqide-server,coqide
+%endif
 
 %install
-%make_install
-
-# FIXME: why didn't this install in libdir?
-mkdir -p %{buildroot}%{ocamldir}
-mv %{buildroot}%{_prefix}/lib/{coq*,stublibs} %{buildroot}%{ocamldir}
+%if %{with doc}
+%dune_install
+%else
+%dune_install coq-core coq-stdlib coq coqide-server coqide
+%endif
 
 # Install the LaTeX style file
 mkdir -p %{buildroot}%{_texmf_main}/tex/latex/misc
@@ -260,9 +252,6 @@ mkdir -p %{buildroot}%{_sysconfdir}/xdg/%{name}
 %if %{with doc}
 # Prepare the documentation for installation
 find doc/sphinx/_build/html -name .buildinfo -delete
-%else
-# Remove duplicated documentation files
-rm -fr %{buildroot}%{coqdocdir}
 %endif
 
 # Use links rather than copying binaries
@@ -312,20 +301,8 @@ done
 mkdir -p %{buildroot}%{_datadir}/gtksourceview-3.0/styles
 ln -s ../../coq/coq_style.xml %{buildroot}%{_datadir}/gtksourceview-3.0/styles
 
-# We install our own documentation
-rm -fr %{buildroot}%{_prefix}/doc
-
 # Byte compile the tools
-%py_byte_compile %{python3} %{buildroot}%{ocamldir}/coq/tools
-
-# Install opam files
-cp -p coq.opam %{buildroot}%{ocamldir}/coq/opam
-
-mkdir -p %{buildroot}%{ocamldir}/coq-stdlib
-cp -p coq-stdlib.opam %{buildroot}%{ocamldir}/coq-stdlib/opam
-
-mkdir -p %{buildroot}%{ocamldir}/coq-doc
-cp -p coq-doc.opam %{buildroot}%{ocamldir}/coq-doc/opam
+%py_byte_compile %{python3} %{buildroot}%{ocamldir}/coq-core/tools
 
 %files
 %{ocamldir}/coq/
@@ -342,12 +319,10 @@ cp -p coq-doc.opam %{buildroot}%{ocamldir}/coq-doc/opam
 %{_bindir}/coq_makefile
 %{_bindir}/coqnative
 %{_bindir}/coqpp
-%{_bindir}/coqproofworker.%{camlsuffix}
-%{_bindir}/coqqueryworker.%{camlsuffix}
-%{_bindir}/coqtacticworker.%{camlsuffix}
 %{_bindir}/coq-tex
 %{_bindir}/coqtop*
 %{_bindir}/coqwc
+%{_bindir}/coqworker.%{camlsuffix}
 %{_bindir}/coqworkmgr
 %{_bindir}/csdpcert
 %{_bindir}/ocamllibdep
@@ -366,9 +341,11 @@ cp -p coq-doc.opam %{buildroot}%{ocamldir}/coq-doc/opam
 %endif
 %{_mandir}/man1/coqwc.1*
 %{_texmf_main}/tex/latex/misc/
+%if %{with doc}
 # This should really go in the doc subpackage, but because it is installed in
 # an arch-specific path, it cannot be part of a noarch package.
 %{ocamldir}/coq-doc/
+%endif
 
 %files coqide-server
 %{_bindir}/coqidetop*
@@ -403,6 +380,10 @@ cp -p coq-doc.opam %{buildroot}%{ocamldir}/coq-doc/opam
 %endif
 
 %changelog
+* Sat Apr  1 2023 Jerry James <loganjerry@gmail.com> - 8.17.0-1
+- Version 8.17.0
+- Drop upstreamed patch for Sphinx 5 support
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 8.16.1-3
 - Rebuild OCaml packages for F38
 

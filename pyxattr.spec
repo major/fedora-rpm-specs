@@ -43,7 +43,8 @@ export TEST_IGNORE_XATTRS=security.selinux
 # the module is just a C extension => need to add the installed destination to
 # PYTHONPATH, otherwise it won't be found
 export PYTHONPATH=%{buildroot}%{python3_sitearch}:$PYTHONPATH
-python3 -m pytest tests
+# in Copr, skip tests that fail with OSError: [Errno 95] Operation not supported
+python3 -m pytest tests %{?copr_projectname:-k 'not (binary_payload or create_on_existing or empty_value or large_value or many_ops or mixed_access or set_get_remove)'}
 
 %files -n python3-%{name}
 %{python3_sitearch}/xattr.cpython-%{python3_version_nodots}*

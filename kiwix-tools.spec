@@ -1,6 +1,6 @@
 Name: kiwix-tools
 Version: 3.4.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPL-3.0-or-later
 Summary: Common code base for all Kiwix ports
@@ -39,6 +39,9 @@ tools.
 %{_mandir}/*/man1/kiwix*.1*
 
 %changelog
+* Sat Apr 01 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 3.4.0-3
+- Rebuilt due to libzim package rename.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
