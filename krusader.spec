@@ -1,11 +1,14 @@
 Name:		krusader
 Version:	2.8.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	An advanced twin-panel (commander-style) file-manager for KDE
 
 License:	GPL-2.0-or-later
 URL:		https://www.krusader.org/
 Source0:	https://download.kde.org/stable/%{name}/%{version}/%{name}-%{version}.tar.xz
+
+# https://invent.kde.org/utilities/krusader/-/commit/e5a71586952049ac92fab6f05ed1ab05c1e733c4
+Patch100:	%{name}-2.8.0-fractional-scaling-fix.patch
 
 BuildRequires:	bzip2-devel
 BuildRequires:	cmake
@@ -50,7 +53,7 @@ such as smb or fish. It is (almost) completely customizable, very user
 friendly, fast and looks great on your desktop! You should give it a try.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 %cmake_kf5 -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo
@@ -80,6 +83,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_sysconfdir}/xdg/kio_isorc
 
 %changelog
+* Sun Apr 02 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2.8.0-4
+- Backported upstream patch with fractional scaling fixes.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

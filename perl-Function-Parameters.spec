@@ -2,13 +2,14 @@
 %bcond_without perl_Function_Parameters_enables_optional_test
 
 Name:           perl-Function-Parameters
-%global cpan_version 2.001006
-Version:        2.1.6
+%global cpan_version 2.002002
+Version:        2.2.2
 Release:        1%{?dist}
 Summary:        Subroutine definitions with parameter lists
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Function-Parameters
 Source0:        https://cpan.metacpan.org/authors/id/M/MA/MAUKE/Function-Parameters-%{cpan_version}.tar.gz
+BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  make
@@ -28,26 +29,19 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(warnings::register)
 BuildRequires:  perl(XSLoader)
 # Tests:
-BuildRequires:  perl(aliased)
-BuildRequires:  perl(attributes)
 BuildRequires:  perl(constant)
-BuildRequires:  perl(feature)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(Hash::Util) >= 0.07
 BuildRequires:  perl(integer)
-BuildRequires:  perl(lib)
+BuildRequires:  perl(Test::Fatal)
+BuildRequires:  perl(Test::More)
+BuildRequires:  perl(utf8)
+%if %{with perl_Function_Parameters_enables_optional_test}
+# Optional tests:
 BuildRequires:  perl(Moose)
 BuildRequires:  perl(Moose::Util)
 BuildRequires:  perl(MooseX::Types)
 BuildRequires:  perl(MooseX::Types::Moose)
-BuildRequires:  perl(Sub::Name)
-BuildRequires:  perl(Test::Deep)
-BuildRequires:  perl(Test::Fatal)
-BuildRequires:  perl(Test::More)
-BuildRequires:  perl(utf8)
-BuildRequires:  perl(vars)
-%if %{with perl_Function_Parameters_enables_optional_test}
-# Optional tests:
 BuildRequires:  perl(threads)
 BuildRequires:  perl(threads::shared)
 %endif
@@ -82,6 +76,32 @@ make test
 %{_mandir}/man3/Function::Parameters::Info.3*
 
 %changelog
+* Sun Apr  2 2023 Paul Howarth <paul@city-fan.org> - 2.2.2-1
+- Update to 2.002002 (rhbz#2183727)
+  - Provide //= for default arguments, which are also used when the caller
+    passes in undef
+  - Provide more type combinators in parameter declarations: In addition to |
+    (union types), now ~ & / are also supported (for
+    complement types, intersection types, and alternative types, respectively)
+  - Enable type coercions: if a parameter has a declared type and that type
+    supports coercions ($type->has_coercion returns true), call its
+    ->coerce($value) method to transform arguments before type checking
+  - Enable inline type checks: if a parameter has a declared type and that
+    type supports inlining ($type->can_be_inlined returns true), its inline
+    code (as provided by ->inline_check('$value')) is baked into the function
+    definition instead of a call to ->check($value), which may speed up type
+    checks
+  - Move a big chunk of tests to xt/ (author testing only)
+  - Remove xt/ from the distribution
+  - Enable parallel testing by default (with -j4)
+  - Fix (hopefully) Windows builds using nmake.exe
+  - Work around old versions of ExtUtils::MakeMaker not providing
+    is_make_type(), whose version dependency is undocumented (sigh)
+  - Restrict GNU syntax for exporting variables to type 'gmake'; should fix
+    building on BSD, Solaris, etc.
+  - Declare dependency on ExtUtils::MakeMaker 7+ and remove compatibility code
+    for older versions
+
 * Mon Mar 27 2023 Paul Howarth <paul@city-fan.org> - 2.1.6-1
 - Update to 2.001006 (rhbz#2182064)
   - Work around perl core issue GH#20950 (use re "eval" doesn't capture lexical

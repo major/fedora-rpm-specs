@@ -6,7 +6,7 @@
 %global crate gtk
 
 Name:           rust-gtk
-Version:        0.17.0
+Version:        0.17.1
 Release:        %autorelease
 Summary:        Rust bindings for the GTK+ 3 library
 

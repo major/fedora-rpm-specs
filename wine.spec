@@ -40,7 +40,7 @@
 %endif
 
 Name:           wine
-Version:        8.4
+Version:        8.5
 Release:        1%{?dist}
 Summary:        A compatibility layer for windows applications
 
@@ -49,10 +49,10 @@ URL:            https://www.winehq.org/
 Source0:        https://dl.winehq.org/wine/source/8.0/wine-%{version}.tar.xz
 Source10:       https://dl.winehq.org/wine/source/8.0/wine-%{version}.tar.xz.sign
 
-Source2:        wine.systemd
-Source3:        wine-README-Fedora
-Source4:        wine-32.conf
-Source5:        wine-64.conf
+Source1:        wine.systemd
+Source2:        wine-README-Fedora
+Source3:        wine-32.conf
+Source4:        wine-64.conf
 
 # desktop files
 Source100:      wine-notepad.desktop
@@ -818,7 +818,7 @@ mkdir -p %{buildroot}%{_sysconfdir}/wine
 
 # Allow users to launch Windows programs by just clicking on the .exe file...
 mkdir -p %{buildroot}%{_binfmtdir}
-install -p -c -m 644 %{SOURCE2} %{buildroot}%{_binfmtdir}/wine.conf
+install -p -c -m 644 %{SOURCE1} %{buildroot}%{_binfmtdir}/wine.conf
 
 # add wine dir to desktop
 mkdir -p %{buildroot}%{_sysconfdir}/xdg/menus/applications-merged
@@ -940,18 +940,18 @@ desktop-file-install \
   --dir=%{buildroot}%{_datadir}/applications \
   %{SOURCE300}
 
-cp -p %{SOURCE3} README-FEDORA
+cp -p %{SOURCE2} README-FEDORA
 
 cp -p %{SOURCE502} README-tahoma
 
 mkdir -p %{buildroot}%{_sysconfdir}/ld.so.conf.d/
 
 %ifarch %{ix86} %{arm}
-install -p -m644 %{SOURCE4} %{buildroot}%{_sysconfdir}/ld.so.conf.d/
+install -p -m644 %{SOURCE3} %{buildroot}%{_sysconfdir}/ld.so.conf.d/
 %endif
 
 %ifarch x86_64 aarch64
-install -p -m644 %{SOURCE5} %{buildroot}%{_sysconfdir}/ld.so.conf.d/
+install -p -m644 %{SOURCE4} %{buildroot}%{_sysconfdir}/ld.so.conf.d/
 %endif
 
 
@@ -1346,6 +1346,7 @@ fi
 %{_libdir}/wine/%{winepedir}/gphoto2.ds
 %{_libdir}/wine/%{winesodir}/gphoto2.so
 %{_libdir}/wine/%{winepedir}/gpkcsp.dll
+%{_libdir}/wine/%{winepedir}/graphicscapture.dll
 %{_libdir}/wine/%{winepedir}/hal.dll
 %{_libdir}/wine/%{winepedir}/hh.exe
 %{_libdir}/wine/%{winepedir}/hhctrl.ocx
@@ -2127,6 +2128,7 @@ fi
 %{_libdir}/wine/%{winesodir}/glu32.dll.so
 %{_libdir}/wine/%{winesodir}/gphoto2.ds.so
 %{_libdir}/wine/%{winesodir}/gpkcsp.dll.so
+%{_libdir}/wine/%{winesodir}/graphicscapture.dll.so
 %{_libdir}/wine/%{winesodir}/hal.dll.so
 %{_libdir}/wine/%{winesodir}/hh.exe.so
 %{_libdir}/wine/%{winesodir}/hhctrl.ocx.so
@@ -2775,6 +2777,9 @@ fi
 %endif
 
 %changelog
+* Sat Apr 01 2023 Michael Cronenworth <mike@cchtml.com> - 8.5-1
+- version update
+
 * Tue Mar 21 2023 Michael Cronenworth <mike@cchtml.com> - 8.4-1
 - version update
 

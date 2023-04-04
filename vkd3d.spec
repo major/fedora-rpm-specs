@@ -1,6 +1,6 @@
 Name:		vkd3d
-Version:	1.6
-Release:	2%{?dist}
+Version:	1.7
+Release:	1%{?dist}
 Summary:	D3D12 to Vulkan translation library
 
 License:	LGPLv2+
@@ -241,6 +241,9 @@ find %{buildroot} -regextype egrep -regex '.*\.a$|.*\.la$' ! -iname '*.dll.a' -d
 
 
 %changelog
+* Sat Apr 01 2023 - Michael Cronenworth <mike@cchtml.com> - 1.7-1
+- version update
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

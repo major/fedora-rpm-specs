@@ -1,6 +1,6 @@
-%global commit 3ec0fd9debd531faaabb391d900dcfc6ee3c0aca
+%global commit 01fcfec95a52c1b28aaeaaeebd4b89375ee738eb
 # git log -1 --pretty=format:%ct
-%global timestamp 1664810141
+%global timestamp 1679910698
 %global nanopb_commit 13666952914f3cf43a70c6b9738a7dc0dd06a6dc
 
 %global srcname qFlipper
@@ -8,7 +8,7 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           qflipper
-Version:        1.2.1
+Version:        1.3.0
 Release:        %autorelease
 Summary:        Desktop application for updating Flipper Zero firmware via PC
 

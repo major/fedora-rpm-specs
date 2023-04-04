@@ -1,7 +1,7 @@
 %bcond_without docs
 
 Name:           libipuz
-Version:        0.4.1
+Version:        0.4.2
 Release:        %autorelease
 Summary:        Library for parsing .ipuz puzzle files
 

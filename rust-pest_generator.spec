@@ -5,7 +5,7 @@
 %global crate pest_generator
 
 Name:           rust-pest_generator
-Version:        2.5.6
+Version:        2.5.7
 Release:        %autorelease
 Summary:        Pest code generator
 

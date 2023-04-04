@@ -6,7 +6,7 @@
 %global crate gdk
 
 Name:           rust-gdk
-Version:        0.17.0
+Version:        0.17.1
 Release:        %autorelease
 Summary:        Rust bindings for the GDK 3 library
 

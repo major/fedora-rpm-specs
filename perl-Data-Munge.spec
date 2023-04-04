@@ -1,53 +1,57 @@
+%global cpan_version 0.10
 Name:           perl-Data-Munge
-Version:        0.097
-Release:        19%{?dist}
+Version:        0.100
+Release:        1%{?dist}
 Summary:        Utility functions for working with perl data structures and code references
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Data-Munge
-Source0:        https://cpan.metacpan.org/modules/by-module/Data/Data-Munge-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/modules/by-module/Data/Data-Munge-%{cpan_version}.tar.gz
 BuildArch:      noarch
-BuildRequires:  findutils
+# build requirements
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(File::Find)
 BuildRequires:  perl(File::Spec)
+# Run-time:
+# Scalar::Util not used since perl 5.016
+BuildRequires:  perl(Exporter)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
-# Run-time:
-BuildRequires:  perl(base)
-BuildRequires:  perl(Exporter)
-# Scalar::Util not used since perl 5.016
 # Tests:
-BuildRequires:  perl(Test::More)
-BuildRequires:  perl(Test::Warnings)
+BuildRequires:  perl(Test2::V0)
+BuildRequires:  perl(Test::Pod)
 
 %description
 This module defines a few generally useful utility functions that process
 perl data structures and code references.
 
 %prep
-%setup -q -n Data-Munge-%{version}
+%setup -q -n Data-Munge-%{cpan_version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+/usr/bin/perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-make test
+%{make_build} test
 
 %files
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Data*
+%{_mandir}/man3/Data*
 
 %changelog
+* Sun Apr 02 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.100-1
+- Update to 0.10
+- Use %%{make_build} and %%{make_install} where appropriate
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.097-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

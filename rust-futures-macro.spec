@@ -5,7 +5,7 @@
 %global crate futures-macro
 
 Name:           rust-futures-macro
-Version:        0.3.27
+Version:        0.3.28
 Release:        %autorelease
 Summary:        Futures-rs procedural macro implementations
 

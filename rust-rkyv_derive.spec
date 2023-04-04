@@ -5,7 +5,7 @@
 %global crate rkyv_derive
 
 Name:           rust-rkyv_derive
-Version:        0.7.40
+Version:        0.7.41
 Release:        %autorelease
 Summary:        Derive macro for rkyv
 

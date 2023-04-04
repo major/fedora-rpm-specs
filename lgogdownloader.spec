@@ -1,5 +1,5 @@
 Name:		lgogdownloader
-Version:	3.10
+Version:	3.11
 Release:	1%{?dist}
 Summary:	GOG.com download client
 
@@ -47,6 +47,9 @@ same API as the official GOG Galaxy.
 %{_mandir}/man1/lgogdownloader.1.*
 
 %changelog
+* Sun Apr 2 2023 Benjamin Lowry <ben@ben.gmbh> - 3.11-1
+- lgogdownloader 3.11
+
 * Sat Mar 18 2023 Benjamin Lowry <ben@ben.gmh> - 3.10-1
 - lgogdownloader 3.10
 

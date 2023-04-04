@@ -7,7 +7,7 @@
 
 Name:           gnome-maps
 Version:        44.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Map application for GNOME
 
 License:        GPL-2.0-or-later
@@ -21,6 +21,7 @@ Patch0:         295.patch
 
 BuildRequires:  gcc
 BuildRequires:  gettext
+BuildRequires:  gsettings-desktop-schemas
 BuildRequires:  meson
 BuildRequires:  pkgconfig(geoclue-2.0)
 BuildRequires:  pkgconfig(geocode-glib-2.0)
@@ -43,6 +44,7 @@ Requires:       geoclue2-libs%{?_isa}
 Requires:       geocode-glib2%{?_isa}
 Requires:       gjs%{?_isa} >= %{gjs_version}
 Requires:       gobject-introspection%{?_isa}
+Requires:       gsettings-desktop-schemas%{?_isa}
 Requires:       gtk4%{?_isa}
 Requires:       libadwaita%{?_isa}
 Requires:       libgweather4%{?_isa}
@@ -93,6 +95,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Maps.deskto
 
 
 %changelog
+* Sun Apr 02 2023 Kalev Lember <klember@redhat.com> - 44.0-4
+- Add missing dep on gsettings-desktop-schemas
+
 * Tue Mar 28 2023 Kalev Lember <klember@redhat.com> - 44.0-3
 - Add missing runtime dep on rest
 

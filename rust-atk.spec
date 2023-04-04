@@ -5,7 +5,7 @@
 %global crate atk
 
 Name:           rust-atk
-Version:        0.17.0
+Version:        0.17.1
 Release:        %autorelease
 Summary:        Rust bindings for the ATK library
 

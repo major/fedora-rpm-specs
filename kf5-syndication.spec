@@ -9,7 +9,7 @@
 
 Name:    kf5-%{framework}
 Epoch:   1
-Version: 5.104.0
+Version: 5.105.0
 Release: 1%{?dist}
 Summary: The Syndication Library
 
@@ -84,6 +84,9 @@ export CTEST_OUTPUT_ON_FAILURE=1
 
 
 %changelog
+* Sun Apr 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:5.105.0-1
+- 5.105.0
+
 * Sat Mar 04 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:5.104.0-1
 - 5.104.0
 

@@ -2,7 +2,7 @@
 %global framework kcodecs
 
 Name:           kf5-%{framework}
-Version: 5.104.0
+Version: 5.105.0
 Release: 1%{?dist}
 Summary:        KDE Frameworks 5 Tier 1 addon with string manipulation methods
 
@@ -67,6 +67,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sun Apr 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.105.0-1
+- 5.105.0
+
 * Sat Mar 04 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.104.0-1
 - 5.104.0
 

@@ -2,7 +2,7 @@
 %bcond_without ninja_build
 
 Name:           ddnet
-Version:        16.8
+Version:        16.9
 Release:        1%{?dist}
 Summary:        DDraceNetwork, a cooperative racing mod of Teeworlds
 
@@ -178,6 +178,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Sat Apr 01 2023 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 16.9-1
+- Update to 16.9 (#2181915)
+
 * Mon Mar 06 2023 Sérgio Basto <sergio@serjux.com> - 16.8-1
 - Update ddnet to 16.8 (#2173319)
 

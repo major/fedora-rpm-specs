@@ -6,11 +6,11 @@
 %endif
 
 Name:		perl-Exporter-Tiny
-Version:	1.006001
+Version:	1.006002
 Release:	1%{?dist}
 Summary:	An exporter with the features of Sub::Exporter but only core dependencies
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
-URL:		https://metacpan.org/release/Exporter-Tiny
+URL:		https://exportertiny.github.io/
 Source0:	https://cpan.metacpan.org/modules/by-module/Exporter/Exporter-Tiny-%{version}.tar.gz
 BuildArch:	noarch
 # Module Build
@@ -92,6 +92,14 @@ make test
 %{_mandir}/man3/Exporter::Shiny.3*
 
 %changelog
+* Sun Apr  2 2023 Paul Howarth <paul@city-fan.org> - 1.006002-1
+- Update to 1.006002
+  Documentation
+  - Link to Exporter::Almighty in pod
+  - Update copyright dates
+  Packaging
+  - Set homepage in metadata to https://exportertiny.github.io
+
 * Sun Mar 26 2023 Paul Howarth <paul@city-fan.org> - 1.006001-1
 - Update to 1.006001
   Documentation

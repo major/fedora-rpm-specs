@@ -3,7 +3,7 @@
 
 Name:           kf5-%{framework}
 Summary:        A Qt wrapper for Bluez
-Version: 5.104.0
+Version: 5.105.0
 Release: 1%{?dist}
 
 License:        LGPLv2+
@@ -82,6 +82,9 @@ Development files for %{name}.
 
 
 %changelog
+* Sun Apr 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.105.0-1
+- 5.105.0
+
 * Sat Mar 04 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.104.0-1
 - 5.104.0
 

@@ -8,7 +8,7 @@
 %endif
 
 Name:           crosswords
-Version:        0.3.7.2
+Version:        0.3.8
 Release:        %autorelease
 Summary:        Solve crossword puzzles
 

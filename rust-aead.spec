@@ -5,7 +5,7 @@
 %global crate aead
 
 Name:           rust-aead
-Version:        0.5.1
+Version:        0.5.2
 Release:        %autorelease
 Summary:        Traits for Authenticated Encryption with Associated Data
 
@@ -60,6 +60,18 @@ This package contains library source intended for building other packages which
 use the "alloc" feature of the "%{crate}" crate.
 
 %files       -n %{name}+alloc-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+arrayvec-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+arrayvec-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "arrayvec" feature of the "%{crate}" crate.
+
+%files       -n %{name}+arrayvec-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+blobby-devel

@@ -37,7 +37,7 @@ ExclusiveArch:          x86_64 %{ix86} aarch64 %{arm} %{power64}
 %endif
 
 Name:			elk
-Version:		8.7.2
+Version:		8.7.10
 Release:		1%{?dist}
 Summary:		An all-electron full-potential linearised augmented-plane wave code
 
@@ -246,9 +246,9 @@ export TIMEOUT_OPTS='--preserve-status --kill-after 10 7200'
 %global docheck() \
 cp -rp tests-libxc.orig tests-libxc&& \
 cp -rp tests.orig tests&& \
-sed -i "s#../../src/elk#$ELK_EXECUTABLE#g" tests/test-mpi.sh&& \
+sed -i "s#mpirun -n 4 ../../src/elk#$ELK_EXECUTABLE#g" tests/test-mpi.sh&& \
 sed -i "/Failed/ a \ \ \ \ cat test.log" tests/test-mpi.sh&& \
-timeout ${TIMEOUT_OPTS} time %{__make} test-libxc 2>&1 | tee test-libxc.${NPROC}$MPI_SUFFIX.log&& \
+timeout ${TIMEOUT_OPTS} time %{__make} test-libxc-mpi 2>&1 | tee test-libxc-mpi.${NPROC}$MPI_SUFFIX.log&& \
 rm -rf tests tests-libxc&& \
 cp -rp tests.orig tests&& \
 sed -i "s#mpirun -n 4 ../../src/elk#$ELK_EXECUTABLE#g" tests/test-mpi.sh&& \
@@ -302,6 +302,10 @@ mv tests.orig tests
 
 
 %changelog
+* Tue Mar 28 2023 Marcin Dulak <marcindulak@fedoraproject.org> - 8.7.10-1
+- New upstream release
+- Use 4 cores for test-libxc-mpi
+
 * Thu Jan 19 2023 Marcin Dulak <marcindulak@fedoraproject.org> - 8.7.2-1
 - New upstream release
 

@@ -7,20 +7,20 @@ pkg-config --variable=completionsdir bash-completion ||
 echo %_sysconfdir/bash_completion.d)
 
 Name:           datamash
-Version:        1.7
-Release:        5%{?dist}
+Version:        1.8
+Release:        1%{?dist}
 Summary:        A statistical, numerical and textual operations tool
 
 License:        GPLv3+
 URL:            https://www.gnu.org/software/%{name}/
-Source0:        http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
-Patch1:         datamash-1.7-decorate.patch
+Source0:        https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  gettext perl(Digest::MD5) perl(Digest::SHA) perl(Data::Dumper)
 BuildRequires:  perl(FileHandle) perl(File::Compare) perl(File::Find)
 BuildRequires:  pkgconfig bash-completion
 BuildRequires:  make
+BuildRequires:  texinfo
 
 %description
 GNU datamash is a command-line program which performs basic
@@ -29,12 +29,11 @@ files.
 
 %prep
 %setup
-# .UR not defined in el6 an macros
-%{?el6:sed -i -e 's/^.UR //g' datamash.1}
-%ifarch armv7hl
-%patch1 -p1
-%endif
+
+# work around upstream gnulib issue that break ppc64le
+# cf. https://bugzilla.redhat.com/show_bug.cgi?id=2056736#c10
 rm lib/error.*
+
 
 %build
 %configure
@@ -47,7 +46,7 @@ rm lib/error.*
 %{__mkdir_p} %{buildroot}%{compdir}
 %{__mv} %{buildroot}%{_datadir}/datamash/bash-completion.d/datamash %{buildroot}%{compdir}
 # E: non-executable-script /usr/share/bash-completion/completions/datamash 644 /bin/bash
-%{__sed} -i '1d' %{buildroot}%{compdir}/datamash
+%{__sed} -i '/^#!/,1d' %{buildroot}%{compdir}/datamash
 
 %check
 %{__make} check
@@ -69,10 +68,16 @@ fi
 %{compdir}/datamash
 
 %license COPYING
-%doc README NEWS THANKS TODO AUTHORS ChangeLog
+%doc README NEWS THANKS AUTHORS ChangeLog
 %{_mandir}/man1/*
 
 %changelog
+* Sun Apr 02 2023 Georg Sauthoff <mail@gms.tf> - 1.8-1
+- bump to upstream 1.8
+- remove epel6 support (since it's EOL since Nov 2020)
+- remove armv7hl patch since upstream fixed the format specifier (and armv7hl is EOL after f36)
+- future proof shell bang line removal
+
 * Sun Feb 12 2023 Filipe Rosset <rosset.filipe@gmail.com> - 1.7-5
 - Remove obsolete requirements for %%post/%%preun scriptlets
 

@@ -1,8 +1,8 @@
 %global framework kiconthemes
 
 Name:    kf5-%{framework}
-Version: 5.104.0
-Release: 2%{?dist}
+Version: 5.105.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 3 integration module with icon themes
 
 License: LGPLv2+ and GPLv2+
@@ -13,8 +13,6 @@ URL:     https://api.kde.org/frameworks/kiconthemes/
 Source0: http://download.kde.org/%{stable}/frameworks/%{majmin}/%{framework}-%{version}.tar.xz
 
 ## upstream patches
-# https://invent.kde.org/frameworks/kiconthemes/-/commit/d5d04e3c3fa92fbfd95eced39c3e272b8980563d
-Patch1:  add-missing-comma-between-enum-values.patch
 
 ## upstreamable patches
 
@@ -83,6 +81,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sun Apr 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.105.0-1
+- 5.105.0
+
 * Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.104.0-2
 - Add patch from upstream
 

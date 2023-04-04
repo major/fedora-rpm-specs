@@ -1,5 +1,5 @@
 Name:           atomic-queue
-Version:        1.1
+Version:        1.4
 Release:        %autorelease
 Summary:        C++ lockless queue
 

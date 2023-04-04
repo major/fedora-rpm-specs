@@ -5,16 +5,14 @@
 %global pkgver %{pkg_name}-%{version}
 
 %global liftedasync lifted-async-0.10.2.3
-%global constraints constraints-0.13.4
-%global typeequality type-equality-1
-%global subpkgs %{typeequality} %{constraints} %{liftedasync}
+%global subpkgs %{liftedasync}
 
 # testsuite missing deps: hspec-contrib
 
 Name:           ghc-%{pkg_name}
 Version:        1.10.0
 # can only be reset when all subpkgs bumped
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Shell-like (systems) programming in Haskell
 
 License:        BSD-3-Clause
@@ -22,9 +20,7 @@ Url:            https://hackage.haskell.org/package/%{pkg_name}
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{pkgver}/%{pkgver}.tar.gz
 Source1:        https://hackage.haskell.org/package/%{liftedasync}/%{liftedasync}.tar.gz
-Source2:        https://hackage.haskell.org/package/%{constraints}/%{constraints}.tar.gz
-Source3:        https://hackage.haskell.org/package/%{typeequality}/%{typeequality}.tar.gz
-Source4:        https://hackage.haskell.org/package/%{pkgver}/%{pkg_name}.cabal#/%{pkgver}.cabal
+Source2:        https://hackage.haskell.org/package/%{pkgver}/%{pkg_name}.cabal#/%{pkgver}.cabal
 # End cabal-rpm sources
 
 # Begin cabal-rpm deps:
@@ -68,16 +64,10 @@ BuildRequires:  ghc-transformers-prof
 BuildRequires:  ghc-transformers-base-prof
 BuildRequires:  ghc-unix-compat-prof
 %endif
-# for missing dep 'constraints':
-BuildRequires:  ghc-binary-devel
-BuildRequires:  ghc-deepseq-devel
-BuildRequires:  ghc-hashable-devel
-BuildRequires:  ghc-transformers-compat-devel
+# for missing dep 'lifted-async':
+BuildRequires:  ghc-constraints-devel
 %if %{with ghc_prof}
-BuildRequires:  ghc-binary-prof
-BuildRequires:  ghc-deepseq-prof
-BuildRequires:  ghc-hashable-prof
-BuildRequires:  ghc-transformers-compat-prof
+BuildRequires:  ghc-constraints-prof
 %endif
 # End cabal-rpm deps
 
@@ -86,10 +76,9 @@ Shelly provides convenient systems programming in Haskell, similar in spirit to
 POSIX shells. Shelly:
 
 * is aimed at convenience and getting things done rather than being
-  a demonstration of elegance.
-* has detailed and useful error messages
+  a demonstration of elegance,
+* has detailed and useful error messages,
 * maintains its own environment, making it thread-safe.
-* is modern, using Text filepath/directory
 
 Shelly is originally forked from the Shellish package.
 
@@ -138,8 +127,6 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 %if %{defined ghclibdir}
 %ghc_lib_subpackage -l BSD-3-Clause %{liftedasync}
-%ghc_lib_subpackage -l BSD-2-Clause %{constraints}
-%ghc_lib_subpackage -l BSD-3-Clause %{typeequality}
 %endif
 
 %global version %{main_version}
@@ -147,12 +134,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 %prep
 # Begin cabal-rpm setup:
-%setup -q -n %{pkgver} -a1 -a2 -a3
-cp -bp %{SOURCE4} %{pkg_name}.cabal
+%setup -q -n %{pkgver} -a1
+cp -bp %{SOURCE2} %{pkg_name}.cabal
 # End cabal-rpm setup
-( cd %{typeequality}
-  cabal-tweak-dep-ver base '<4.14' '<4.17'
-)
 
 
 %build
@@ -191,6 +175,9 @@ cp -bp %{SOURCE4} %{pkg_name}.cabal
 
 
 %changelog
+* Sun Apr  2 2023 Jens Petersen <petersen@redhat.com> - 1.10.0-11
+- constraints is now package in Fedora
+
 * Sun Jan 22 2023 Jens Petersen <petersen@redhat.com> - 1.10.0-10
 - https://hackage.haskell.org/package/shelly-1.10.0/changelog
 - refresh to cabal-rpm-2.1.0 with SPDX migration

@@ -4,8 +4,8 @@
 ExcludeArch: s390x
 
 Name:    google-cpu_features
-Version: 0.6.0
-Release: 6%{?dist}
+Version: 0.7.0
+Release: %autorelease
 Summary: A cross-platform C library to retrieve CPU features at runtime
 License: ASL 2.0
 URL:     https://github.com/google/cpu_features
@@ -13,6 +13,7 @@ Source0: https://github.com/google/cpu_features/archive/v%{version}/cpu_features
 
 Patch0:  google-cpu_features-unbundle_gtest.patch
 Patch1:  google-cpu_features-create_soname.patch
+Patch2:  google-cpu_features-compile_tests_with_C++14.patch
 
 BuildRequires: cmake
 BuildRequires: gcc
@@ -38,7 +39,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %cmake \
  -DCMAKE_BUILD_TYPE:STRING=Release \
  -DCPUFEATURES_VERSION_MAJOR:STRING=0 \
- -DCPUFEATURES_VERSION:STRING=0.6 \
+ -DCPUFEATURES_VERSION:STRING=0.7 \
  -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES \
  -DBUILD_PIC:BOOL=ON -DBUILD_TESTING:BOOL=ON
 %cmake_build
@@ -53,7 +54,8 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %license LICENSE
 %doc README.md CONTRIBUTING.md
 %{_bindir}/list_cpu_features
-%{_libdir}/libcpu_features.so.0*
+%{_libdir}/libcpu_features.so.0.7
+%{_libdir}/libcpu_features.so.0
 
 %files devel
 %{_libdir}/libcpu_features.so
@@ -61,20 +63,4 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{_libdir}/cmake/CpuFeatures/
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Mar 17 2021 Antonio Trande <sagitter@fedoraproject.org> - 0.6.0-2
-- Follow some tips from reviewing
-
-* Fri Feb 26 2021 Antonio Trande <sagitter@fedoraproject.org> - 0.6.0-1
-- Initial package
+%autochangelog

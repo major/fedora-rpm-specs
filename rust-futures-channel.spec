@@ -6,7 +6,7 @@
 %global crate futures-channel
 
 Name:           rust-futures-channel
-Version:        0.3.27
+Version:        0.3.28
 Release:        %autorelease
 Summary:        Channels for asynchronous communication using futures-rs
 

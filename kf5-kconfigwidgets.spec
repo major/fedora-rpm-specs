@@ -1,8 +1,8 @@
 %global framework kconfigwidgets
 
 Name:    kf5-%{framework}
-Version: 5.104.0
-Release: 2%{?dist}
+Version: 5.105.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 3 addon for creating configuration dialogs
 
 License: GPLv2+ and LGPLv2+ and MIT
@@ -12,8 +12,6 @@ URL:     https://invent.kde.org/frameworks/%{framework}
 %global stable %stable_kf5
 Source0: http://download.kde.org/%{stable}/frameworks/%{majmin}/%{framework}-%{version}.tar.xz
 
-# Can be dropped with KF5 5.105 (already merged there)
-Patch0:  kcolorschememanager-dont-override-color-scheme-set-by-platform-theme.patch
 
 BuildRequires:  extra-cmake-modules >= %{majmin}
 BuildRequires:  kf5-kauth-devel >= %{majmin}
@@ -87,6 +85,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sun Apr 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.105.0-1
+- 5.105.0
+
 * Mon Mar 20 2023 Jan Grulich <jgrulich@redhat.com> - 5.104.0-2
 - KColorSchemeManager: don't override color scheme set by platform theme
 

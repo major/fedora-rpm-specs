@@ -6,7 +6,7 @@
 %global crate pest_meta
 
 Name:           rust-pest_meta
-Version:        2.5.6
+Version:        2.5.7
 Release:        %autorelease
 Summary:        Pest meta language parser and validator
 

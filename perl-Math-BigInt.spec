@@ -1,9 +1,9 @@
 Name:           perl-Math-BigInt
 Epoch:          1
-%global cpan_version 1.999837
+%global cpan_version 1.999838
 # Keep 4-digit version to compete with perl.spec
 Version:        %(echo %{cpan_version} | sed 's/\(\.....\)/\1./')
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Arbitrary-size integer and float mathematics
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Math-BigInt
@@ -67,7 +67,7 @@ with "%{_libexecdir}/%{name}/test".
 %setup -q -n Math-BigInt-%{cpan_version}
 
 # Help generators to recognize Perl scripts
-for F in t/*.t t/alias.inc `find t -name *.pm`; do
+for F in t/*.t t/alias.inc; do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
     chmod +x "$F"
 done
@@ -106,6 +106,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Apr 02 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:1.9998.38-1
+- 1.999838 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.9998.37-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

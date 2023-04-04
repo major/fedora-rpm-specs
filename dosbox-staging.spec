@@ -57,6 +57,10 @@ BuildRequires: speexdsp-devel
 Requires: hicolor-icon-theme
 Requires: fluid-soundfont-gm
 
+# Some libraries are loadewd at runtime, see rhbz#2176658
+Requires: mesa-dri-drivers
+Requires: mesa-libEGL
+
 # src/lib/enet
 # Based on fork github.com/lsalzman/enet
 Provides: bundled(enet)

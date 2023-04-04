@@ -1,5 +1,9 @@
 %global srcname pikepdf
 
+# Bconds are needed for Python bootstrap
+%bcond docs 1
+%bcond tests 1
+
 Name:           python-%{srcname}
 Version:        7.1.2
 Release:        %autorelease
@@ -12,8 +16,10 @@ Source0:        %pypi_source
 BuildRequires:  gcc-c++
 BuildRequires:  qpdf-devel >= 11.2.0
 BuildRequires:  python3-devel
+%if %{with tests}
 # Tests:
 BuildRequires:  poppler-utils
+%endif
 
 %description
 pikepdf is a Python library for reading and writing PDF files. pikepdf is
@@ -28,6 +34,7 @@ pikepdf is a Python library for reading and writing PDF files. pikepdf is
 based on QPDF, a powerful PDF manipulation and repair library.
 
 
+%if %{with docs}
 %package -n python-%{srcname}-doc
 Summary:        pikepdf documentation
 
@@ -36,6 +43,7 @@ BuildRequires:  python3-ipython-sphinx
 
 %description -n python-%{srcname}-doc
 Documentation for pikepdf
+%endif
 
 
 %prep
@@ -49,12 +57,13 @@ sed -i -e "s/release = .\+/release = '%{version}'/g" docs/conf.py
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r -x docs -x test
+%pyproject_buildrequires %{?with_docs: -x docs} %{?with_tests: -x test}
 
 
 %build
 %pyproject_wheel
 
+%if %{with docs}
 # generate html docs
 export PYTHONPATH="%{pyproject_build_lib}"
 pushd docs
@@ -62,6 +71,7 @@ sphinx-build-3 . ../html
 popd
 # remove the sphinx-build leftovers
 rm -rf html/.{doctrees,buildinfo}
+%endif
 
 
 %install
@@ -71,17 +81,21 @@ rm -r %{buildroot}%{python3_sitearch}/core
 %pyproject_save_files %{srcname}
 
 
+%if %{with tests}
 %check
 %{pytest} -ra
+%endif
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE.txt
 %doc README.md
 
+%if %{with docs}
 %files -n python-%{srcname}-doc
 %doc html
 %license LICENSE.txt
+%endif
 
 
 %changelog

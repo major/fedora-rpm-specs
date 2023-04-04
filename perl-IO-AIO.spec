@@ -1,13 +1,13 @@
 # work around upstream versioning being decimal rather than v-string
-%global upstream_version 4.79
-%global extraversion %{nil}
+%global upstream_version 4.8
+%global extraversion 0
 %if "%{upstream_version}%{extraversion}" != "%{upstream_version}"
 Provides:	perl(IO::AIO) = %{upstream_version}%{extraversion}
 %endif
 
 Name:		perl-IO-AIO
 Version:	%{upstream_version}%{extraversion}
-Release:	2%{?dist}
+Release:	1%{?dist}
 Summary:	Asynchronous Input/Output
 License:	GPL-2.0-or-later
 URL:		https://metacpan.org/release/IO-AIO
@@ -71,7 +71,7 @@ If no paths are given, treescan will use the current directory.
 %setup -q -n IO-AIO-%{upstream_version}
 
 # Fix shellbang in treescan
-%patch0
+%patch -P 0
 
 %build
 PERL_CANARY_STABILITY_NOPROMPT=1 perl Makefile.PL \
@@ -99,6 +99,16 @@ make test
 %{_mandir}/man1/treescan.1*
 
 %changelog
+* Sun Apr  2 2023 Paul Howarth <paul@city-fan.org> - 4.80-1
+- Update to 4.8
+  - Remove long-obsolete "paths must be absolute" text in aio_open/stat
+    descriptions
+  - Another workaround for the low-quality musl libc
+  - Test for umount separately, as it is more portable
+  - Some low-quality posix attempts (openbsd, osx) declare the availability of
+    fexecve() but then don't even bother to implement a stub
+- Avoid use of deprecated patch syntax
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.79-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
