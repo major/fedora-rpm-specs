@@ -1,9 +1,9 @@
 %global __cmake_in_source_build 1
-#%%global git_commit 4a068f565b21f313cb39d9e855d84c886ecfe393
-#%%global git_date 20130403
+%global git_commit 142325a93c6ad70f851f43434acfdf75e12dfe03
+%global git_date 20230403
 
-#%%global git_short_commit %%(echo %%{git_commit} | cut -c -8)
-#%%global git_suffix %%{git_date}git%%{git_short_commit}
+%global git_short_commit %(echo %{git_commit} | cut -c -8)
+%global git_suffix %{git_date}git%{git_short_commit}
 
 # git clone git://git.osmocom.org/gr-osmosdr
 # cd %%{name}
@@ -12,18 +12,22 @@
 
 Name:             rtl-sdr
 URL:              http://sdr.osmocom.org/trac/wiki/rtl-sdr
-Version:          0.6.0
-Release:          13%{?dist}
+Version:          0.6.0^%{git_suffix}
+Release:          1%{?dist}
 License:          GPLv2+
 BuildRequires:    gcc
 BuildRequires:    cmake
 BuildRequires:    libusbx-devel
 #BuildRequires:    libusb1-devel
-Requires(pre):    shadow-utils, glibc-common
+Requires(pre):    shadow-utils
+Requires(pre):    glibc-common
 Summary:          SDR utilities for Realtek RTL2832 based DVB-T dongles
-Source0:          https://github.com/steve-m/librtlsdr/archive/%{version}/librtlsdr-%{version}.tar.gz
+Source0:          https://github.com/steve-m/librtlsdr/archive/%{git_commit}/librtlsdr-%{git_commit}.tar.gz
+#Source0:          https://github.com/steve-m/librtlsdr/archive/%%{version}/librtlsdr-%%{version}.tar.gz
 # https://osmocom.org/projects/rtl-sdr/repository/revisions/222517b506278178ab93182d79ccf7eb04d107ce
-Patch0:           librtlsdr-0.6.0-pkgconfig.patch
+
+# drop the patch for non snapshot release
+Patch0:           rtl-sdr-0.6.0-version-fix.patch
 
 %description
 This package can turn your RTL2832 based DVB-T dongle into a SDR receiver.
@@ -31,13 +35,13 @@ This package can turn your RTL2832 based DVB-T dongle into a SDR receiver.
 %package devel
 Summary:          Development files for rtl-sdr
 Requires:         %{name}%{?_isa} = %{version}-%{release}
+Requires:         cmake-filesystem
 
 %description devel
 Development files for rtl-sdr.
 
 %prep
-%setup -q -n librtlsdr-%{version}
-%patch0 -p1
+%autosetup -p1 -n librtlsdr-%{git_commit}
 rm -f src/getopt/*
 rmdir src/getopt
 
@@ -71,10 +75,14 @@ exit 0
 
 %files devel
 %{_includedir}/*
+%{_libdir}/cmake/rtlsdr
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Mon Apr  3 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 0.6.0^20230403git142325a9-1
+- New snapshot
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

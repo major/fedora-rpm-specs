@@ -9,8 +9,8 @@
 %bcond_with bootstrap
 
 Name:           gap-pkg-%{pkgname}
-Version:        4.1.25
-Release:        4%{?dist}
+Version:        4.1.26
+Release:        1%{?dist}
 Summary:        GAP support for crystallographic groups
 
 License:        GPL-2.0-or-later
@@ -101,6 +101,9 @@ gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 %{gap_libdir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Mon Apr  3 2023 Jerry James <loganjerry@gmail.com> - 4.1.26-1
+- Version 4.1.26
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.25-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

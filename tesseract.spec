@@ -7,8 +7,8 @@
 %endif
 
 Name:          tesseract
-Version:       5.3.0
-Release:       6%{?dist}
+Version:       5.3.1
+Release:       1%{?dist}
 Summary:       Raw OCR Engine
 
 License:       Apache-2.0
@@ -16,17 +16,10 @@ URL:           https://github.com/tesseract-ocr/%{name}
 Source0:       https://github.com/tesseract-ocr/tesseract/archive/%{version}%{?pre:-%pre}/%{name}-%{version}%{?pre:-%pre}.tar.gz
 
 # Fix library name case
-# Fix shared library version suffix
-# Honour TESSDATA_PREFIX
 # Build training libs statically
 Patch0:        tesseract_cmake.patch
-# Generate correct libdir path in /usr/lib64/pkgconfig/tesseract.pc
-# Already merged upstream, can be dropped at next release
-# https://github.com/tesseract-ocr/tesseract/commit/5e116fa5cad249b8a08d22af652cf52f44fbb8cd
-Patch1:	       tesseract_libdir.patch
-# Fixed FTBFS under GCC 13:
-# https://github.com/tesseract-ocr/tesseract/commit/2025b53de6b3d97285d7c5f80497493007c586c3
-Patch2:        tesseract_gcc13.patch
+# Don't assume neon available on arm64/aarch64
+Patch1:        tesseract_neon.patch
 
 
 BuildRequires: cmake
@@ -44,7 +37,7 @@ BuildRequires: /usr/bin/xsltproc
 
 %if %{with mingw}
 BuildRequires: mingw32-filesystem >= 95
-BuildRequires: mingw32-gcc
+BuildRequires: mingw32-gcc-c++
 BuildRequires: mingw32-giflib
 BuildRequires: mingw32-binutils
 BuildRequires: mingw32-icu
@@ -56,7 +49,7 @@ BuildRequires: mingw32-libwebp
 BuildRequires: mingw32-pango
 
 BuildRequires: mingw64-filesystem >= 95
-BuildRequires: mingw64-gcc
+BuildRequires: mingw64-gcc-c++
 BuildRequires: mingw64-giflib
 BuildRequires: mingw64-binutils
 BuildRequires: mingw64-icu
@@ -171,7 +164,7 @@ cp -a doc/*.5 %{buildroot}%{_mandir}/man5/
 %license LICENSE
 %doc AUTHORS ChangeLog README.md
 %{_bindir}/%{name}
-%{_libdir}/lib%{name}.so.5.3.0
+%{_libdir}/lib%{name}.so.5.3.1
 %{_datadir}/%{name}/
 %{_mandir}/man1/tesseract.1*
 
@@ -249,6 +242,9 @@ cp -a doc/*.5 %{buildroot}%{_mandir}/man5/
 
 
 %changelog
+* Mon Apr 03 2023 Sandro Mani <manisandro@gmail.com> - 5.3.1-1
+- Update to 5.3.1
+
 * Mon Mar 20 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 5.3.0-6
 - Backported GCC 13 build fix. Fixed FTBFS on Fedora 38+.
 

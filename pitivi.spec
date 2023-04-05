@@ -3,7 +3,7 @@
 
 Name:           pitivi
 Version:        2023.03
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Non-linear video editor
 
 License:        LGPL-2.0-or-later
@@ -47,6 +47,7 @@ Requires:       python3-scipy
 Requires:	gobject-introspection
 Requires:	opus-tools
 Requires:       gsound
+Requires:       libpeas
 
 %description
 Pitivi is an application using the GStreamer multimedia framework to
@@ -103,6 +104,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.pitivi.Pitivi.des
 %{python3_sitearch}/pitivi/
 
 %changelog
+* Mon Apr 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 2023.03-2
+- require libpeas
+
 * Mon Mar 27 2023 Gwyn Ciesla <gwync@protonmail.com> - 2023.03-1
 - 2023.03
 

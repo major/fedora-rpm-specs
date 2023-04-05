@@ -1,6 +1,6 @@
 Name:    fotoxx
-Version: 23.2
-Release: 2%{?dist}
+Version: 23.31
+Release: 1%{?dist}
 Summary: Photo editor
 
 License: GPL-3.0-or-later
@@ -75,6 +75,9 @@ ln -s %{_bindir}/fotoxx %{buildroot}%{_bindir}/fotoxx-snap
 %{_datadir}/metainfo/
 
 %changelog
+* Mon Apr 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 23.31-1
+- 23.31
+
 * Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 23.2-2
 - migrated to SPDX license
 

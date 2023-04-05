@@ -10,9 +10,11 @@
 Name:           qbs
 # qbs was previously packaged as part of qt-creator, using the qt-creator version, hence the epoch bump
 Epoch:          1
-Version:        1.24.1
+Version:        2.0.0
 Release:        1%{?dist}
 Summary:        Cross platform build tool
+# Fails to build on i686
+ExcludeArch:    i686
 
 # See LGPL_EXCEPTION.txt
 License:        LGPLv2 with exceptions and LGPLv3 with exceptions
@@ -34,11 +36,12 @@ BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  python3-lxml
 BuildRequires:  python3-beautifulsoup4
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtbase-private-devel
-BuildRequires:  qt5-qdoc
-BuildRequires:  qt5-qhelpgenerator
-BuildRequires:  qt5-qtscript-devel
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-qtbase-private-devel
+BuildRequires:  qt6-qt5compat-devel
+#BuildRequires:  qt6-qdoc
+#BuildRequires:  qt6-qhelpgenerator
+# BuildRequires:  qt6-qtscript-devel
 
 # Needed for tests
 BuildRequires:  glibc-static
@@ -47,8 +50,8 @@ BuildRequires:  libasan
 BuildRequires:  libtsan
 %endif
 BuildRequires:  libstdc++-static
-BuildRequires:  qt5-qtdeclarative-devel
-BuildRequires:  qt5-qttools-devel
+BuildRequires:  qt6-qtdeclarative-devel
+BuildRequires:  qt6-qttools-devel
 
 
 %description
@@ -127,7 +130,7 @@ rm %{buildroot}%{_bindir}/tst_*
 %doc README.md
 %{_bindir}/%{name}*
 %{_libdir}/%{name}/
-%{_libdir}/libqbs*.so.1.24*
+%{_libdir}/libqbs*.so.2.0*
 %{_libexecdir}/qbs/
 %{_datadir}/%{name}/
 %{_mandir}/man1/%{name}.1*
@@ -145,6 +148,9 @@ rm %{buildroot}%{_bindir}/tst_*
 
 
 %changelog
+* Mon Apr 03 2023 Sandro Mani <manisandro@gmail.com> - 1:2.0.0-1
+- Update to 2.0.0
+
 * Thu Feb 23 2023 Sandro Mani <manisandro@gmail.com> - 1:1.24.1-1
 - Update to 1.24.1
 

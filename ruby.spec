@@ -1,6 +1,6 @@
 %global major_version 3
 %global minor_version 2
-%global teeny_version 1
+%global teeny_version 2
 %global major_minor_version %{major_version}.%{minor_version}
 
 %global ruby_version %{major_minor_version}.%{teeny_version}
@@ -27,20 +27,20 @@
 %global rubygems_dir %{_datadir}/rubygems
 
 # Bundled libraries versions
-%global rubygems_version 3.4.6
+%global rubygems_version 3.4.10
 %global rubygems_molinillo_version 0.8.0
 %global rubygems_optparse_version 0.3.0
 %global rubygems_tsort_version 0.1.0
 
 # Default gems.
-%global bundler_version 2.4.6
+%global bundler_version 2.4.10
 %global bundler_connection_pool_version 2.3.0
 %global bundler_fileutils_version 1.7.0
 %global bundler_pub_grub_version 0.5.0
 %global bundler_net_http_persistent_version 4.0.1
 %global bundler_thor_version 1.2.1
 %global bundler_tsort_version 0.1.1
-%global bundler_uri_version 0.12.0
+%global bundler_uri_version 0.12.1
 
 %global bigdecimal_version 3.1.3
 %global did_you_mean_version 1.6.3
@@ -101,7 +101,7 @@
 Summary: An interpreter of object-oriented scripting language
 Name: ruby
 Version: %{ruby_version}%{?development_release}
-Release: 179%{?dist}
+Release: 180%{?dist}
 # BSD-3-Clause: missing/{crypt,mt19937,setproctitle}.c
 # ISC: missing/strl{cat,cpy}.c
 # Public Domain for example for: include/ruby/st.h, strftime.c, missing/*, ...
@@ -1321,12 +1321,12 @@ mv test/ruby/test_jit.rb{,.disable} || :
 %{gem_dir}/specifications/default/syntax_suggest-1.0.2.gemspec
 %{gem_dir}/specifications/default/syslog-0.1.1.gemspec
 %{gem_dir}/specifications/default/tempfile-0.1.3.gemspec
-%{gem_dir}/specifications/default/time-0.2.1.gemspec
+%{gem_dir}/specifications/default/time-0.2.2.gemspec
 %{gem_dir}/specifications/default/timeout-0.3.1.gemspec
 %{gem_dir}/specifications/default/tmpdir-0.1.3.gemspec
 %{gem_dir}/specifications/default/tsort-0.1.1.gemspec
 %{gem_dir}/specifications/default/un-0.2.1.gemspec
-%{gem_dir}/specifications/default/uri-0.12.0.gemspec
+%{gem_dir}/specifications/default/uri-0.12.1.gemspec
 %{gem_dir}/specifications/default/weakref-0.1.2.gemspec
 #%%{gem_dir}/specifications/default/win32ole-1.8.9.gemspec
 %{gem_dir}/specifications/default/yaml-0.2.1.gemspec
@@ -1567,6 +1567,10 @@ mv test/ruby/test_jit.rb{,.disable} || :
 
 
 %changelog
+* Fri Mar 31 2023 Vít Ondruch <vondruch@redhat.com> - 3.2.2-180
+- Upgrade to Ruby 3.2.2.
+  Resolves: rhbz#2183284
+
 * Thu Feb 09 2023 Vít Ondruch <vondruch@redhat.com> - 3.2.1-179
 - Upgrade to Ruby 3.2.1.
   Resolves: rhbz#2168292

@@ -3,7 +3,7 @@
 
 Summary: Linux kernel and C library user-space interface documentation
 Name: man-pages
-Version: 6.03
+Version: 6.04
 Release: %autorelease
 License: GPL+ and GPLv2+ and BSD and MIT and Copyright only
 URL: http://www.kernel.org/doc/man-pages/

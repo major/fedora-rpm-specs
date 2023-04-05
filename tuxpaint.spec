@@ -1,17 +1,14 @@
 Name:           tuxpaint
-Version:        0.9.28
-Release:        8%{?dist}
+Version:        0.9.29
+Release:        1%{?dist}
 
 Epoch:          1
 Summary:        Drawing program designed for young children
 
 License:        GPL-2.0-or-later
 URL:            http://www.tuxpaint.org/
-Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}-sdl2.tar.gz
-Patch1:         tuxpaint-0.9.21-fix-desktop-file.patch
-Patch2:         tuxpaint-0.9.21-makej.patch
-Patch3:         desktop.patch
-Patch4:         fill-crash.patch
+Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+Patch0:         desktop.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -52,11 +49,8 @@ Requires:	%{name} = %{epoch}:%{version}-%{release}
 Development files for tuxpaint extensions/plugins
 
 %prep
-%setup -qn %{name}-%{version}-sdl2
-%patch1 -p0 -b .fixdesktopfile
-%patch2 -p1 -b .makej
-%patch3 -p0 -b .desktop
-%patch4 -p1 -b .fill-tool
+%setup -q
+%%patch -P 0 -p0 -b .desktop
 
 sed -i -e '/\/gnome\/apps\/Graphics/d' Makefile
 find docs -type f -exec perl -pi -e 's/\r\n/\n/' {} \;
@@ -150,12 +144,16 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}
 %{_mandir}/man1/*
 %{_mandir}/*/man1/*
 %{_sysconfdir}/bash_completion.d/tuxpaint-completion.bash
+%{_datadir}/metainfo/org.tuxpaint.Tuxpaint.appdata.xml
 
 %files devel
 %doc %{_datadir}/doc/%{name}-%{version}/
 %{_includedir}/tuxpaint/
 
 %changelog
+* Mon Apr 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 1:0.9.29-1
+- 0.9.29
+
 * Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 1:0.9.28-8
 - migrated to SPDX license
 

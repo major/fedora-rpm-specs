@@ -1,5 +1,5 @@
 %global packname ggplot2
-%global packver  3.3.6
+%global packver  3.4.2
 %global rlibdir  %{_datadir}/R/library
 
 %global __suggests_exclude ^R\\((Hmisc|maptools|quantreg|sf|vdiffr)\\)
@@ -9,7 +9,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          1%{?dist}
 Summary:          Create Elegant Data Visualisations Using the Grammar of Graphics
 
 License:          MIT
@@ -18,27 +18,29 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 
 # Here's the R view of the dependencies world:
 # Depends:
-# Imports:   R-digest, R-glue, R-grDevices, R-grid, R-gtable >= 0.1.1, R-isoband, R-MASS, R-mgcv, R-rlang >= 0.3.0, R-scales >= 0.5.0, R-stats, R-tibble, R-withr >= 2.0.0
-# Suggests:  R-covr, R-dplyr, R-ggplot2movies, R-hexbin, R-Hmisc, R-knitr, R-lattice, R-mapproj, R-maps, R-maptools, R-multcomp, R-munsell, R-nlme, R-profvis, R-quantreg, R-RColorBrewer, R-rgeos, R-rmarkdown, R-rpart, R-sf >= 0.7-3, R-svglite >= 1.2.0.9001, R-testthat >= 2.1.0, R-vdiffr >= 0.3.0
+# Imports:   R-cli, R-glue, R-grDevices, R-grid, R-gtable >= 0.1.1, R-isoband, R-lifecycle > 1.0.1, R-MASS, R-mgcv, R-rlang >= 1.1.0, R-scales >= 1.2.0, R-stats, R-tibble, R-vctrs >= 0.5.0, R-withr >= 2.5.0
+# Suggests:  R-covr, R-dplyr, R-ggplot2movies, R-hexbin, R-Hmisc, R-knitr, R-lattice, R-mapproj, R-maps, R-maptools, R-multcomp, R-munsell, R-nlme, R-profvis, R-quantreg, R-ragg, R-RColorBrewer, R-rgeos, R-rmarkdown, R-rpart, R-sf >= 0.7-3, R-svglite >= 1.2.0.9001, R-testthat >= 3.1.2, R-vdiffr >= 1.0.0, R-xml2
 # LinkingTo:
 # Enhances:
 
 BuildArch:        noarch
 BuildRequires:    R-devel
 BuildRequires:    tex(latex)
-BuildRequires:    R-digest
+BuildRequires:    R-cli
 BuildRequires:    R-glue
 BuildRequires:    R-grDevices
 BuildRequires:    R-grid
 BuildRequires:    R-gtable >= 0.1.1
 BuildRequires:    R-isoband
+BuildRequires:    R-lifecycle > 1.0.1
 BuildRequires:    R-MASS
 BuildRequires:    R-mgcv
-BuildRequires:    R-rlang >= 0.4.10
-BuildRequires:    R-scales >= 0.5.0
+BuildRequires:    R-rlang >= 1.1.0
+BuildRequires:    R-scales >= 1.2.0
 BuildRequires:    R-stats
 BuildRequires:    R-tibble
-BuildRequires:    R-withr >= 2.0.0
+BuildRequires:    R-vctrs >= 0.5.0
+BuildRequires:    R-withr >= 2.5.0
 BuildRequires:    R-dplyr
 BuildRequires:    R-ggplot2movies
 BuildRequires:    R-hexbin
@@ -50,12 +52,13 @@ BuildRequires:    R-multcomp
 BuildRequires:    R-munsell
 BuildRequires:    R-nlme
 BuildRequires:    R-profvis
+BuildRequires:    R-ragg
 BuildRequires:    R-RColorBrewer
 BuildRequires:    R-rgeos
 BuildRequires:    R-rmarkdown
 BuildRequires:    R-rpart
 BuildRequires:    R-svglite >= 1.2.0.9001
-BuildRequires:    R-testthat >= 2.1.0
+BuildRequires:    R-testthat >= 3.1.2
 BuildRequires:    R-xml2
 %if %{with suggests}
 BuildRequires:    R-Hmisc
@@ -96,7 +99,7 @@ export LANG=C.UTF-8
 %if %{with suggests}
 %{_bindir}/R CMD check %{packname}
 %else
-_R_CHECK_FORCE_SUGGESTS_=0 VDIFFR_RUN_TESTS=false %{_bindir}/R CMD check %{packname}
+_R_CHECK_FORCE_SUGGESTS_=0 VDIFFR_RUN_TESTS=false %{_bindir}/R CMD check %{packname} --no-examples
 %endif
 
 
@@ -117,6 +120,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 VDIFFR_RUN_TESTS=false %{_bindir}/R CMD check %{packn
 
 
 %changelog
+* Mon Apr  3 2023 Tom Callaway <spot@fedoraproject.org> - 3.4.2-1
+- update to 3.4.2
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

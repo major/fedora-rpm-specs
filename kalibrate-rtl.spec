@@ -1,17 +1,20 @@
-%global git_commit aae11c8a8dc79692a94ccfee39ba01e8c8c05d38
-%global git_date 20141008
+%global git_commit 340003eb0846b069c3edef19ed3363b8ac7b5215
+%global git_date 20230403
 %global git_short_commit %(echo %{git_commit} | cut -c -8)
 %global git_suffix %{git_date}git%{git_short_commit}
 
 Name:             kalibrate-rtl
 URL:              http://github.com/steve-m/kalibrate-rtl
-Version:          0.4.1
-Release:          20.%{git_suffix}%{?dist}
+Version:          0.4.1^%{git_suffix}
+Release:          1%{?dist}
 License:          BSD
-BuildRequires:  gcc-c++
-BuildRequires:    autoconf, automake, rtl-sdr-devel, fftw-devel
+BuildRequires:    gcc-c++
+BuildRequires:    autoconf
+BuildRequires:    automake
+BuildRequires:    rtl-sdr-devel
+BuildRequires:    fftw-devel
 BuildRequires:    libusbx-devel
-BuildRequires: make
+BuildRequires:    make
 Summary:          GSM based frequency calibration for rtl-sdr
 Source0:          https://github.com/steve-m/%{name}/archive/%{git_commit}/%{name}-%{git_commit}.tar.gz
 
@@ -22,24 +25,28 @@ can use those GSM base stations to calculate the local oscillator frequency
 offset.
 
 %prep
-%setup -qn %{name}-%{git_commit}
+%autosetup -p1 -n %{name}-%{git_commit}
 autoreconf -fi
 
 %build
 %configure
-make CFLAGS="%{optflags}" LDFLAGS="%{?__global_ldflags}" %{?_smp_mflags}
+%make_build
 
 %install
-make install DESTDIR=%{buildroot}
+%make_install
 
 # Rename kal to kal-rtl to avoid possible conflicts
 mv %{buildroot}%{_bindir}/kal %{buildroot}%{_bindir}/kal-rtl
 
 %files
-%doc COPYING README AUTHORS
+%license COPYING
+%doc README.md AUTHORS
 %{_bindir}/*
 
 %changelog
+* Mon Apr  3 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 0.4.1^20230403git340003eb-1
+- New snapshot
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-20.20141008gitaae11c8a
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

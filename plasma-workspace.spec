@@ -28,7 +28,7 @@
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
 Version: 5.27.3
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/plasma/%{name}
@@ -431,6 +431,11 @@ Requires:       kwin-wayland >= %{majmin_ver}
 Requires:       maliit-keyboard
 %if %{with sddm_wayland_default}
 Supplements:    (sddm and plasma-workspace-wayland)
+%if ! (0%{?fedora} && 0%{?fedora} < 38)
+# Replace sddm-x11 with sddm-wayland-plasma
+## N.B.: If sddm gets updated in F36/F37, this will need to be bumped
+Obsoletes:      sddm-x11 < 0.19.0^git20230320.e07e805-3
+%endif
 %endif
 BuildArch:      noarch
 
@@ -799,6 +804,9 @@ fi
 
 
 %changelog
+* Mon Apr 03 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.27.3-4
+- Add Obsoletes sddm-x11 for sddm-wayland transition in F38+
+
 * Mon Mar 27 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.3-3
 - Add patch to hide the virtual keyboard indicator from sddm
 

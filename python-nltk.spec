@@ -1,8 +1,8 @@
 %global mod_name nltk
 Name:           python-nltk
 Epoch:          1
-Version:        3.6.2
-Release:        6%{?dist}
+Version:        3.8.1
+Release:        1%{?dist}
 Summary:        Natural Language Toolkit
 
 # The entire source code is ASL 2.0 except nltk/stem/porter.py is
@@ -40,7 +40,7 @@ research projects.
 This package provides the Python 3 build of NLTK.
 
 %prep
-%setup -q -n %{mod_name}-%{version}
+%autosetup -n %{mod_name}-%{version}
 
 for f in $(grep -Frl '/usr/bin/env' %{mod_name}); do
   sed -i -e "s|^#!/usr/bin/env python$|#!%{__python3}|g" $f
@@ -69,6 +69,9 @@ done
 
 
 %changelog
+* Fri Mar 31 2023 FeRD (Frank Dana) <ferdnyc@gmail.com> - 1:3.8.1-1
+- New upstream release
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.6.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

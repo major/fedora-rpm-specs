@@ -1,6 +1,10 @@
+# This is the correct folder for firewalld service files, even on x86_64
+# It is not used for shared objects
+%global fw_services %{_prefix}/lib/firewalld/services
+
 Name:           hdhomerun
-Version:        20200907
-Release:        6%{?dist}
+Version:        20230323
+Release:        1%{?dist}
 Summary:        Silicon Dust HDHomeRun configuration utility
 
 License:        LGPLv3 and GPLv3
@@ -8,6 +12,7 @@ URL:            http://www.silicondust.com/
 Source0:        http://download.silicondust.com/hdhomerun/libhdhomerun_%{version}.tgz
 Source1:        http://download.silicondust.com/hdhomerun/hdhomerun_config_gui_%{version}.tgz
 Source2:        hdhomerun_config_gui.desktop
+Source3:        %{name}.xml
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -82,6 +87,9 @@ for size in 16x16 32x32 128x128 256x256 512x512; do
     %{buildroot}%{_datadir}/icons/hicolor/${size}/apps/hdhr.png
 done
 
+# Install firewalld config
+mkdir -p %{buildroot}%{fw_services}
+install -pm 0644 %{SOURCE3} %{buildroot}%{fw_services}/
 
 %files
 %license libhdhomerun/LICENSE hdhomerun_config_gui/COPYING
@@ -93,6 +101,7 @@ done
 %{_bindir}/hdhomerun_config_gui
 %{_datadir}/applications/hdhomerun_config_gui.desktop
 %{_datadir}/icons/hicolor/*/apps/hdhr.png
+%{fw_services}/%{name}.xml
 
 %files devel
 %dir %{_includedir}/hdhomerun
@@ -100,6 +109,10 @@ done
 
 
 %changelog
+* Mon Apr 03 2023 Andrew Bauer <zonexpertconsulting@outlook.com> - 20230323-1
+- 20230323 release
+- add hdhomerun firewalld config
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20200907-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

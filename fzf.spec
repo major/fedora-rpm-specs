@@ -2,7 +2,7 @@
 
 # https://github.com/junegunn/fzf
 %global goipath         github.com/junegunn/fzf
-Version:                0.38.0
+Version:                0.39.0
 %global tag             %{version}
 
 %gometa
@@ -21,7 +21,7 @@ BuildRequires:  golang(github.com/gdamore/tcell/v2/encoding)
 BuildRequires:  golang(github.com/mattn/go-isatty) >= 0.0.16
 BuildRequires:  golang(github.com/mattn/go-runewidth) >= 0.0.14
 BuildRequires:  golang(github.com/mattn/go-shellwords) >= 1.0.12
-BuildRequires:  golang(github.com/rivo/uniseg) >= 0.4.2
+BuildRequires:  golang(github.com/rivo/uniseg) >= 0.4.4
 BuildRequires:  golang(github.com/saracen/walker) >= 0.1.3
 BuildRequires:  golang(golang.org/x/term)
 

@@ -1,8 +1,9 @@
 %global appname include-what-you-use
 %global toolchain clang
+%global llvmver 16.0.0
 
 Name: iwyu
-Version: 0.19
+Version: 0.20
 Release: 1%{?dist}
 
 License: NCSA
@@ -10,15 +11,16 @@ Summary: C/C++ source files #include analyzer based on clang
 URL: https://github.com/%{appname}/%{appname}
 Source0: %{url}/archive/%{version}/%{appname}-%{version}.tar.gz
 
-BuildRequires: clang-devel
-BuildRequires: libcxx-devel
-BuildRequires: llvm-devel
-BuildRequires: llvm-static
+BuildRequires: clang >= %{llvmver}
+BuildRequires: clang-devel >= %{llvmver}
+BuildRequires: libcxx-devel >= %{llvmver}
+BuildRequires: llvm-devel >= %{llvmver}
+BuildRequires: llvm-static >= %{llvmver}
+
 BuildRequires: ncurses-devel
 BuildRequires: python3-devel
 BuildRequires: zlib-devel
 
-BuildRequires: clang
 BuildRequires: cmake
 BuildRequires: ninja-build
 
@@ -67,6 +69,9 @@ sed -e s@lib/@lib\${LLVM_LIBDIR_SUFFIX}/@g -i CMakeLists.txt
 %{_mandir}/man1/%{appname}.1*
 
 %changelog
+* Mon Apr 03 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.20-1
+- Updated to version 0.20.
+
 * Sun Mar 19 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.19-1
 - Resurrected package.
 - Updated to version 0.19.

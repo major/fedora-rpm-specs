@@ -2,7 +2,7 @@ Name: mythes-pt
 Summary: Portuguese thesaurus
 %global upstreamid 20060817
 Version: 0.%{upstreamid}
-Release: 30%{?dist}
+Release: 31%{?dist}
 Source: http://download.services.openoffice.org/contrib/dictionaries/thes_pt_PT_v2.zip
 URL: http://download.services.openoffice.org/contrib/dictionaries
 BuildRequires: unzip
@@ -34,7 +34,7 @@ mkdir -p $RPM_BUILD_ROOT/%{_datadir}/mythes
 cp -p th_pt_PT_v2.* $RPM_BUILD_ROOT/%{_datadir}/mythes
 pushd $RPM_BUILD_ROOT/%{_datadir}/mythes/
 pt_PT_aliases="pt_AO pt_BR"
-for lang in $it_IT_aliases; do
+for lang in $pt_PT_aliases; do
         ln -s th_pt_PR_v2.dat "th_"$lang"_v2.dat"
         ln -s th_pt_PR_v2.idx "th_"$lang"_v2.idx"
 done
@@ -45,6 +45,9 @@ done
 %{_datadir}/mythes/*
 
 %changelog
+* Mon Apr 03 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.20060817-31
+- Fix aliases
+
 * Fri Feb 24 2023 Caolán McNamara <caolanm@redhat.com> - 0.20060817-30
 - migrated to SPDX license
 

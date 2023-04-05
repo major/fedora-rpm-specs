@@ -23,7 +23,7 @@
 
 Name:           dnsmasq
 Version:        2.89
-Release:        1%{?extraversion:.%{extraversion}}%{?dist}
+Release:        2%{?extraversion:.%{extraversion}}%{?dist}
 Summary:        A lightweight DHCP/caching DNS server
 
 # SPDX identifiers already
@@ -45,6 +45,8 @@ Patch1:         dnsmasq-2.77-underflow.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=1852373
 Patch2:         dnsmasq-2.81-configuration.patch
 Patch3:         dnsmasq-2.78-fips.patch
+# https://thekelleys.org.uk/gitweb/?p=dnsmasq.git;h=eb92fb32b746f2104b0f370b5b295bb8dd4bd5e5
+Patch4:         dnsmasq-2.89-edns0-size.patch
 
 
 Requires:       nettle
@@ -212,6 +214,9 @@ install -Dpm 644 %{SOURCE2} %{buildroot}%{_sysusersdir}/%{name}.conf
 %endif
 
 %changelog
+* Mon Apr 03 2023 Petr Menšík <pemensik@redhat.com> - 2.89-2
+- Limit offered EDNS0 size 1232 (CVE-2023-28450)
+
 * Mon Feb 13 2023 Petr Menšík <pemensik@redhat.com> - 2.89-1
 - Update to 2.89 (#2167121)
 

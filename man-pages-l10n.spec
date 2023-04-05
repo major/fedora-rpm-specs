@@ -25,7 +25,7 @@
     vi:    "Vietnamese"
 
 Name:           man-pages-l10n
-Version:        4.17.0
+Version:        4.18.0
 Release:        %autorelease
 Summary:        Translated man pages from the Linux Documentation Project and other software projects
 

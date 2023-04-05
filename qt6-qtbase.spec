@@ -38,7 +38,7 @@ BuildRequires: pkgconfig(libsystemd)
 
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
-Version: 6.4.3
+Version: 6.5.0
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -66,11 +66,6 @@ Source6: 10-qt6-check-opengl2.sh
 # macros
 Source10: macros.qt6-qtbase
 
-# borrowed from opensuse
-# track private api via properly versioned symbols
-# downside: binaries produced with these differently-versioned symbols are no longer
-# compatible with qt-project.org's Qt binary releases.
-Patch1: qtbase-tell-truth-about-private-api.patch
 Patch2: qtbase-use-qgnomeplatform-as-default-platform-theme-on-gnome.patch
 
 # upstreamable patches
@@ -124,6 +119,7 @@ BuildRequires: libb2-devel
 BuildRequires: libjpeg-devel
 BuildRequires: libmng-devel
 BuildRequires: libtiff-devel
+BuildRequires: libzstd-devel
 BuildRequires: tslib-devel
 BuildRequires: pkgconfig(alsa)
 # required for -accessibility
@@ -335,10 +331,6 @@ popd
 # check to ensure that can't happen -- rex
 test -x configure || chmod +x configure
 
-# use proper perl interpretter so autodeps work as expected
-sed -i -e "s|^#!/usr/bin/env perl$|#!%{__perl}|" \
- mkspecs/features/data/unix/findclasslist.pl
-
 
 %build
 # QT is known not to work properly with LTO at this point.  Some of the issues
@@ -386,6 +378,7 @@ export MAKEFLAGS="%{?_smp_mflags}"
  -DQT_FEATURE_sql_psql=ON \
  -DQT_FEATURE_sql_sqlite=ON \
  -DQT_FEATURE_rpath=OFF \
+ -DQT_FEATURE_zstd=ON \
  %{?dbus_linked:-DQT_FEATURE_dbus_linked=ON} \
  %{?pcre:-DQT_FEATURE_system_pcre2=ON} \
  %{?sqlite:-DQT_FEATURE_system_sqlite=ON} \
@@ -431,7 +424,7 @@ translationdir=%{_qt6_translationdir}
 
 Name: Qt6
 Description: Qt6 Configuration
-Version: 6.4.3
+Version: 6.5.0
 EOF
 
 # rpm macros
@@ -489,7 +482,7 @@ install -p -m755 -D %{SOURCE6} %{buildroot}%{_sysconfdir}/X11/xinit/xinitrc.d/10
 mkdir -p %{buildroot}%{_qt6_headerdir}/QtXcb
 install -m 644 src/plugins/platforms/xcb/*.h %{buildroot}%{_qt6_headerdir}/QtXcb/
 
-rm %{buildroot}/%{_bindir}/qt-cmake-private-install.cmake
+rm %{buildroot}/%{_qt6_libexecdir}/qt-cmake-private-install.cmake
 
 # Use better location for some new scripts in qtbase-6.0.1
 mv %{buildroot}/%{_qt6_libexecdir}/ensure_pro_file.cmake %{buildroot}/%{_qt6_libdir}/cmake/Qt6/ensure_pro_file.cmake
@@ -561,8 +554,8 @@ make check -k ||:
 %{_rpmmacrodir}/macros.qt6-qtbase
 
 %files devel
-%dir %{_qt6_datadir}/modules
-%dir %{_qt6_libdir}/metatypes
+%dir %{_qt6_libdir}/qt6/modules
+%dir %{_qt6_libdir}/qt6/metatypes
 %dir %{_qt6_libdir}/cmake/Qt6
 %dir %{_qt6_libdir}/cmake/Qt6/platforms
 %dir %{_qt6_libdir}/cmake/Qt6/platforms/Platform
@@ -591,7 +584,7 @@ make check -k ||:
 %dir %{_qt6_libdir}/cmake/Qt6OpenGLWidgets
 %dir %{_qt6_libdir}/cmake/Qt6PrintSupport
 %dir %{_qt6_libdir}/cmake/Qt6Sql
-%dir %{_qt6_libdir}/cmake/Qt6XcbQpaPrivate
+# dir {_qt6_libdir}/cmake/Qt6XcbQpaPrivate
 %dir %{_qt6_libdir}/cmake/Qt6Test
 %dir %{_qt6_libdir}/cmake/Qt6Widgets
 %dir %{_qt6_libdir}/cmake/Qt6WidgetsTools
@@ -600,40 +593,43 @@ make check -k ||:
 %dir %{_qt6_bindir}
 %endif
 %{_bindir}/androiddeployqt
+%{_bindir}/androiddeployqt6
 %{_bindir}/androidtestrunner
 %{_bindir}/qdbuscpp2xml*
 %{_bindir}/qdbusxml2cpp*
 %{_bindir}/qmake*
 %{_bindir}/qtpaths*
 %{_bindir}/qt-cmake
-%{_bindir}/qt-cmake-private
-%{_bindir}/qt-cmake-standalone-test
+# {_bindir}/qt-cmake-private
+# {_bindir}/qt-cmake-standalone-test
 %{_bindir}/qt-configure-module
 %{_libdir}/qt6/bin/qmake6
 %{_qt6_bindir}/androiddeployqt
+%{_qt6_bindir}/androiddeployqt6
 %{_qt6_bindir}/androidtestrunner
 %{_qt6_bindir}/qdbuscpp2xml
 %{_qt6_bindir}/qdbusxml2cpp
 %{_qt6_bindir}/qmake
 %{_qt6_bindir}/qtpaths*
 %{_qt6_bindir}/qt-cmake
-%{_qt6_bindir}/qt-cmake-private
-%{_qt6_bindir}/qt-cmake-private-install.cmake
-%{_qt6_bindir}/qt-cmake-standalone-test
 %{_qt6_bindir}/qt-configure-module
+%{_qt6_libexecdir}/qt-cmake-private
+%{_qt6_libexecdir}/qt-cmake-standalone-test
 %{_qt6_libexecdir}/cmake_automoc_parser
 %{_qt6_libexecdir}/qt-internal-configure-tests
-%{_qt6_libexecdir}/syncqt.pl
+%{_qt6_libexecdir}/sanitizer-testrunner.py
+%{_qt6_libexecdir}/syncqt
 %{_qt6_libexecdir}/android_emulator_launcher.sh
 %{_qt6_libexecdir}/moc
 %{_qt6_libexecdir}/tracegen
+%{_qt6_libexecdir}/tracepointgen
 %{_qt6_libexecdir}/qlalr
 %{_qt6_libexecdir}/qt-internal-configure-tests
 %{_qt6_libexecdir}/qvkgen
 %{_qt6_libexecdir}/rcc
 %{_qt6_libexecdir}/uic
 %{_qt6_libexecdir}/qt-testrunner.py
-%{_qt6_datadir}/modules/*.json
+%{_qt6_libdir}/qt6/modules/*.json
 %if "%{_qt6_headerdir}" != "%{_includedir}"
 %dir %{_qt6_headerdir}
 %endif
@@ -677,8 +673,8 @@ make check -k ||:
 %{_qt6_libdir}/libQt6Test.so
 %{_qt6_libdir}/libQt6Widgets.prl
 %{_qt6_libdir}/libQt6Widgets.so
-%{_qt6_libdir}/libQt6XcbQpa.prl
-%{_qt6_libdir}/libQt6XcbQpa.so
+# {_qt6_libdir}/libQt6XcbQpa.prl
+# {_qt6_libdir}/libQt6XcbQpa.so
 %{_qt6_libdir}/libQt6Xml.prl
 %{_qt6_libdir}/libQt6Xml.so
 %{_qt6_libdir}/libQt6EglFSDeviceIntegration.prl
@@ -693,8 +689,10 @@ make check -k ||:
 %{_qt6_libdir}/cmake/Qt6/libexec/*
 %{_qt6_libdir}/cmake/Qt6/platforms/*.cmake
 %{_qt6_libdir}/cmake/Qt6/platforms/Platform/*.cmake
+%{_qt6_libdir}/cmake/Qt6/qbatchedtestrunner.in.cpp
 %{_qt6_libdir}/cmake/Qt6/ModuleDescription.json.in
 %{_qt6_libdir}/cmake/Qt6/QtFileConfigure.txt.in
+%{_qt6_libdir}/cmake/Qt6/QtConfigureTimeExecutableCMakeLists.txt.in
 %{_qt6_libdir}/cmake/Qt6/QtSeparateDebugInfo.Info.plist.in
 %{_qt6_libdir}/cmake/Qt6/3rdparty/extra-cmake-modules/COPYING-CMAKE-SCRIPTS
 %{_qt6_libdir}/cmake/Qt6/3rdparty/extra-cmake-modules/find-modules/*.cmake
@@ -732,9 +730,9 @@ make check -k ||:
 %{_qt6_libdir}/cmake/Qt6Test/*.cmake
 %{_qt6_libdir}/cmake/Qt6Widgets/*.cmake
 %{_qt6_libdir}/cmake/Qt6WidgetsTools/*.cmake
-%{_qt6_libdir}/cmake/Qt6XcbQpaPrivate/*.cmake
+# {_qt6_libdir}/cmake/Qt6XcbQpaPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6Xml/*.cmake
-%{_qt6_libdir}/metatypes/*.json
+%{_qt6_libdir}/qt6/metatypes/*.json
 %{_qt6_libdir}/pkgconfig/*.pc
 
 %if 0%{?egl}
@@ -798,7 +796,7 @@ make check -k ||:
 %{_qt6_libdir}/libQt6OpenGLWidgets.so.6*
 %{_qt6_libdir}/libQt6PrintSupport.so.6*
 %{_qt6_libdir}/libQt6Widgets.so.6*
-%{_qt6_libdir}/libQt6XcbQpa.so.6*
+# {_qt6_libdir}/libQt6XcbQpa.so.6*
 # Generic
 %{_qt6_plugindir}/generic/libqevdevkeyboardplugin.so
 %{_qt6_plugindir}/generic/libqevdevmouseplugin.so
@@ -826,16 +824,16 @@ make check -k ||:
 %{_qt6_plugindir}/egldeviceintegrations/libqeglfs-x11-integration.so
 %{_qt6_plugindir}/egldeviceintegrations/libqeglfs-kms-egldevice-integration.so
 %{_qt6_plugindir}/egldeviceintegrations/libqeglfs-emu-integration.so
-%{_qt6_plugindir}/xcbglintegrations/libqxcb-egl-integration.so
+# {_qt6_plugindir}/xcbglintegrations/libqxcb-egl-integration.so
 %endif
 # Platforms
 %{_qt6_plugindir}/platforms/libqlinuxfb.so
 %{_qt6_plugindir}/platforms/libqminimal.so
 %{_qt6_plugindir}/platforms/libqoffscreen.so
-%{_qt6_plugindir}/platforms/libqxcb.so
+# {_qt6_plugindir}/platforms/libqxcb.so
 %{_qt6_plugindir}/platforms/libqvnc.so
 %{_qt6_plugindir}/platforms/libqvkkhrdisplay.so
-%{_qt6_plugindir}/xcbglintegrations/libqxcb-glx-integration.so
+# {_qt6_plugindir}/xcbglintegrations/libqxcb-glx-integration.so
 # Platformthemes
 %{_qt6_plugindir}/platformthemes/libqxdgdesktopportal.so
 %{_qt6_plugindir}/platformthemes/libqgtk3.so
@@ -843,6 +841,12 @@ make check -k ||:
 
 
 %changelog
+* Mon Apr 03 2023 Jan Grulich <jgrulich@redhat.com> - 6.5.0-1
+- 6.5.0
+
+* Mon Apr 03 2023 Jan Grulich <jgrulich@redhat.com> - 6.4.3-2
+- Enable zstd support
+
 * Thu Mar 23 2023 Jan Grulich <jgrulich@redhat.com> - 6.4.3-1
 - 6.4.3
 

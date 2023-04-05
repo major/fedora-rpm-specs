@@ -12,7 +12,7 @@
 
 Name: flang
 Version: %{flang_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: a Fortran language front-end designed for integration with LLVM
 
 License: Apache-2.0 WITH LLVM-exception
@@ -109,8 +109,8 @@ Documentation for Flang
 mkdir -p ../clang/include/clang/Driver
 cp %{SOURCE3} ../clang/include/clang/Driver
 
-mkdir -p ../llvm-project-%{flang_version}%{?rc_ver:rc%{rc_ver}}.src/mlir/test/lib/Analysis/
-cp %{SOURCE4} ../llvm-project-%{flang_version}%{?rc_ver:rc%{rc_ver}}.src/mlir/test/lib/Analysis/
+mkdir -p include/mlir/test/lib/Analysis/
+cp %{SOURCE4} include/mlir/test/lib/Analysis/
 
 %build
 %cmake -GNinja \
@@ -241,6 +241,9 @@ export LD_LIBRARY_PATH=%{_builddir}/%{flang_srcdir}/%{_build}/lib
 %doc %{_pkgdocdir}/html/
 
 %changelog
+* Mon Apr 03 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0-2
+- Fix mlir header path
+
 * Tue Mar 21 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0-1
 - Update to LLVM 16.0.0
 

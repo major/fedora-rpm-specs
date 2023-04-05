@@ -43,7 +43,7 @@
 Name:              netatalk
 Epoch:             5
 Version:           3.1.14
-Release:           2%{?dist}
+Release:           3%{?dist}
 Summary:           Open Source Apple Filing Protocol(AFP) File Server
 License:           GPL+ and GPLv2 and GPLv2+ and LGPLv2+ and BSD and FSFUL and MIT
 # Project is also mirrored at https://github.com/Netatalk/Netatalk
@@ -61,6 +61,7 @@ ExcludeArch:       aarch64 s390x
 Patch0:            netatalk-3.0.1-basedir.patch
 Patch1:            netatalk-systemd-execstartpre.patch
 Patch2:            netatalk-Spotlight-Allow-building-with-Tracker-3.x.patch
+Patch3:            netatalk-cve-2022-45188.patch
 
 BuildRequires:     make
 BuildRequires:     automake
@@ -232,6 +233,9 @@ sh test/afpd/test.sh
 %{_mandir}/man*/netatalk-config.1*
 
 %changelog
+* Mon Apr 03 2023 Andrew Bauer <zonexpertconsulting@outlook.com> - 5:3.1.14-3
+- fix CVE-2022-45188
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5:3.1.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

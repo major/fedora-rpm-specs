@@ -1,16 +1,27 @@
 Name: fail2ban
 Version: 1.0.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Daemon to ban hosts that cause multiple authentication errors
 
 License: GPLv2+
 URL: http://fail2ban.sourceforge.net/
 Source0: https://github.com/%{name}/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source1: https://github.com/%{name}/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz.asc
+# Releases are signed by Serg G. Brester (sebres) <info AT sebres.de>.  The
+# fingerprint can be found in a signature file:
+#   gpg --list-packets fail2ban-1.0.2.tar.gz.asc | grep 'issuer fpr'
+#
+# The following commands can be used to fetch the signing key via fingerprint
+# and extract it:
+#   fpr=8738559E26F671DF9E2C6D9E683BF1BEBD0A882C
+#   gpg --receive-keys $fpr
+#   gpg -a --export-options export-minimal --export $fpr >gpgkey-$fpr.asc
+Source2: gpgkey-8738559E26F671DF9E2C6D9E683BF1BEBD0A882C.asc
 # SELinux policy
-Source1: fail2ban.fc
-Source2: fail2ban.if
-Source3: fail2ban.te
-Source4: Makefile
+Source3: fail2ban.fc
+Source4: fail2ban.if
+Source5: fail2ban.te
+Source6: Makefile
 
 # Give up being PartOf iptables and ipset for now
 # https://bugzilla.redhat.com/show_bug.cgi?id=1379141
@@ -43,6 +54,7 @@ BuildRequires: systemd
 BuildRequires: selinux-policy-devel
 BuildRequires: make
 BuildRequires: bash-completion
+BuildRequires: gnupg2
 
 # Default components
 Requires: %{name}-firewalld = %{version}-%{release}
@@ -206,6 +218,7 @@ by default.
 
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 # Use Fedora paths
@@ -216,7 +229,7 @@ find -type f -exec sed -i -e '1s,^#!/usr/bin/python *,#!/usr/bin/python%{python3
 %endif
 
 # SELinux sources
-cp -p %SOURCE1 %SOURCE2 %SOURCE3 .
+cp -p %SOURCE3 %SOURCE4 %SOURCE5 .
 
 # 2to3 has been removed from setuptools and we already use the binary in
 # %%prep.
@@ -229,7 +242,7 @@ sed -i "/use_2to3/d" setup.py
 %else
 %py3_build
 %endif
-make -f %SOURCE4
+make -f %SOURCE6
 
 
 %install
@@ -411,6 +424,9 @@ fi
 
 
 %changelog
+* Sun Apr 02 2023 Todd Zullinger <tmz@pobox.com> - 1.0.2-4
+- verify upstream source signature
+
 * Thu Mar 30 2023 Orion Poplawski <orion@nwra.com> - 1.0.2-3
 - Add upstream patch to remove warning about allowipv6 (bz#2160781)
 

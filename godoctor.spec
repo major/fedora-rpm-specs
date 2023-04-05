@@ -3,7 +3,7 @@
 
 # https://github.com/godoctor/godoctor
 %global goipath         github.com/godoctor/godoctor
-Version:                0.6
+Version:                0.7
 
 %gometa
 
@@ -14,13 +14,27 @@ Go Doctor - The Golang Refactoring Engine.}
 %global godocs          doc README.md
 
 Name:           godoctor
-Release:        15%{?dist}
+Release:        %autorelease
 Summary:        A golang refactoring tool
 
 # Upstream license specification: BSD-3-Clause
-License:        BSD
+License:        BSD-3-Clause
 URL:            %{gourl}
 Source0:        %{gosource}
+# https://github.com/godoctor/godoctor/pull/61
+Patch:          0001-Add-missing-error-handlers-to-tests.patch
+# https://github.com/godoctor/godoctor/pull/62
+Patch:          0002-Normalize-paths-in-TestFindOccurrences.patch
+# https://github.com/godoctor/godoctor/pull/63
+Patch:          0003-Merge-pull-request-63-from-godoctor-fix-tests-1-20.patch
+# Fedora specific
+Patch:          0004-Skip-occurrence-test-that-uses-modules.patch
+# https://github.com/godoctor/godoctor/issues/60#issuecomment-1450973808
+Patch:          0005-Skip-tests-that-appear-to-be-broken.patch
+# https://github.com/godoctor/godoctor/pull/64
+Patch:          0006-Copy-existing-environment-when-loading-packages.patch
+# For under Go 1.20
+Patch:          0007-Revert-patch-to-showast-debug-output.patch
 
 BuildRequires:  golang(github.com/willf/bitset)
 BuildRequires:  golang(golang.org/x/tools/go/ast/astutil)
@@ -33,6 +47,10 @@ BuildRequires:  golang(golang.org/x/tools/go/loader)
 
 %prep
 %goprep
+%autopatch -p1 -M 5
+%if %{fedora} < 38
+%autopatch -p1 6
+%endif
 
 %build
 %gobuild -o %{gobuilddir}/bin/godoctor %{goipath}
@@ -44,6 +62,7 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 
 %if %{with check}
 %check
+#export GOCACHE="${PWD}/$(mktemp -d godoctor.XXXXXX)"
 %global gotestflags %{gotestflags} -timeout 60m
 %gocheck
 %endif
@@ -56,51 +75,4 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-15
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-14
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue Jul 19 2022 Maxwell G <gotmax@e.email> - 0.6-13
-- Rebuild for CVE-2022-{1705,32148,30631,30633,28131,30635,30632,30630,1962} in
-  golang
-
-* Fri Jun 17 2022 Robert-André Mauchin <zebob.m@gmail.com> - 0.6-12
-- Rebuilt for CVE-2022-1996, CVE-2022-24675, CVE-2022-28327, CVE-2022-27191,
-  CVE-2022-29526, CVE-2022-30629
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Thu Jul 11 2019 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.6-5
-- Update to latest Go macros
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Tue Oct 23 2018 Nicolas Mailhot <nim@fedoraproject.org>
-- 0.6-3
-- redhat-rpm-config-123 triggers bugs in gosetup, remove it from Go spec files as it’s just an alias
-- https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/message/RWD5YATAYAFWKIDZBB7EB6N5DAO4ZKFM/
-
-* Wed Oct 10 2018 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.6-2
-- rebuilt
-
-* Tue Aug 14 2018 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.6-1
-- First package for Fedora
+%autochangelog

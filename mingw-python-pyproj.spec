@@ -4,8 +4,8 @@
 
 Name:           mingw-python-%{pypi_name}
 Summary:        MinGW Python %{pypi_name} library
-Version:        3.4.1
-Release:        3%{?dist}
+Version:        3.5.0
+Release:        1%{?dist}
 BuildArch:      noarch
 
 License:        MIT
@@ -91,6 +91,9 @@ export PROJ_VERSION=`mingw64-pkg-config --modversion proj`
 
 
 %changelog
+* Mon Apr 03 2023 Sandro Mani <manisandro@gmail.com> - 3.5.0-1
+- Update to 3.5.0
+
 * Sat Mar 04 2023 Sandro Mani <manisandro@gmail.com> - 3.4.1-3
 - Rebuild (proj)
 

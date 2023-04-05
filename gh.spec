@@ -38,6 +38,11 @@ Requires:       git-core
 %prep
 %goprep
 
+# Use golang-github-cli-cyrpto forked module
+# https://github.com/cli/cli/issues/4731
+sed -i "s|golang.org/x/crypto|github.com/cli/crypto|" $(find . -name "*.go" -type f)
+sed -i "s|github.com/cli/crypto/nacl/box|golang.org/x/crypto/nacl/box|" $(find . -name "*.go" -type f)
+
 %generate_buildrequires
 %go_generate_buildrequires
 

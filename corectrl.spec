@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 %global uuid    org.%{name}.%{name}
 
 Name:           corectrl
-Version:        1.3.4
+Version:        1.3.5
 Release:        %autorelease
 Summary:        Friendly hardware control
 
@@ -79,7 +79,7 @@ to be flexible, comfortable and accessible to regular users.
 
 
 %prep
-%autosetup -n %{name}-947719d97a37f67315cf38d5dc986c06aa85aa99
+%autosetup -n %{name}-v%{version}
 # Unbundle 3rdparty
 pushd 3rdparty
 rm -rf \

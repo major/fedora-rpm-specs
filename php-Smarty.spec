@@ -1,7 +1,7 @@
 %global github_owner   smarty-php
 %global github_name    smarty
-%global github_version 3.1.47
-%global github_commit  a09364fe1706cb465e910eb040e592053d7effb8
+%global github_version 3.1.48
+%global github_commit  2fc443806cdcaee4441be4d0bb09f8fa56a17f2c
 
 %global composer_vendor  smarty
 %global composer_project smarty
@@ -14,7 +14,7 @@
 Name:          php-Smarty
 Summary:       Smarty - the compiling PHP template engine
 Version:       %{github_version}
-Release:       2%{?dist}
+Release:       1%{?dist}
 
 License:       LGPLv3
 URL:           http://www.smarty.net
@@ -85,6 +85,10 @@ php -r '
 
 
 %changelog
+* Mon Apr 03 2023 Shawn Iwinski <shawn@iwin.ski> - 3.1.48-1
+- Update to 3.1.48
+- CVE-2023-28447 (RHBZ #2183911, 2183912, 2183913, 2183914)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.47-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

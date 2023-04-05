@@ -15,12 +15,12 @@
 
 %global major_version 3
 %global minor_version 3
-%global patch_version 0
+%global patch_version 1
 %global laapi_version 3.11.0
 
 Name:           flexiblas
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        A BLAS/LAPACK wrapper library with runtime exchangeable backends
 
 # GPLv3 with an exception for the BLAS/LAPACK interface
@@ -420,6 +420,9 @@ make -C build64 test
 %endif
 
 %changelog
+* Mon Apr 03 2023 Iñaki Úcar <iucar@fedoraproject.org> - 3.3.1-1
+- Update to 3.3.1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

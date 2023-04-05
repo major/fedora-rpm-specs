@@ -3,7 +3,7 @@ Version:        26.4.13
 Release:        3%{?dist}
 Summary:        Synchronous multi-master wsrep provider (replication engine)
 
-License:        GPLv2
+License:        GPL-2.0-only
 URL:            http://galeracluster.com/
 
 # Actually, the truth is, we do use galera source tarball provided by MariaDB on

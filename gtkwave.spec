@@ -1,6 +1,6 @@
 Summary:	Waveform Viewer
 Name:		gtkwave
-Version:	3.3.114
+Version:	3.3.115
 Release:	1%{?dist}
 License:	GPL-2.0-or-later
 URL:		http://gtkwave.sourceforge.net/
@@ -187,6 +187,16 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/gtkwave.ap
 %{_mandir}/man5/gtkwaverc.5*
 
 %changelog
+* Mon Apr  3 2023 Paul Howarth <paul@city-fan.org> - 3.3.115-1
+- Update to 3.3.115
+  - Fix VZT reader with -fstrict-aliasing
+  - Fix use_multi_state condition in vzt_write.c
+  - Fix for UNDEF vs strings at start of a vzt file
+  - Fix sleep() time scaling redefine for mingw
+  - Use MapViewOfFileEx for mmap on Windows (fstapi)
+  - Define FST_DO_MISALIGNED_OPS on AArch64 (fstapi)
+  - Fixed attrbegin short length problem
+
 * Sun Feb 19 2023 Paul Howarth <paul@city-fan.org> - 3.3.114-1
 - Update to 3.3.114
   - Buffer overflow fixes in FST reader

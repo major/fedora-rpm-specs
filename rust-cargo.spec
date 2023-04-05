@@ -22,7 +22,11 @@ Patch:          cargo-fix-metadata-auto.diff
 # * drop dependencies on compiler internals
 # * drop feature for vendored OpenSSL
 # * drop cargo binary (shipped with rust)
+# * bump toml_edit from v0.14 to v0.19 + toml v0.7:
+#   https://github.com/rust-lang/cargo/commit/a9f704a
+#   https://github.com/rust-lang/cargo/commit/6007f05
 Patch:          cargo-fix-metadata.diff
+Patch:          0001-port-to-toml_edit-v0.19-and-toml-v0.7.patch
 
 ExclusiveArch:  %{rust_arches}
 

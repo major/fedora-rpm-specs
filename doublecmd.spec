@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           doublecmd
-Version:        1.0.10
+Version:        1.0.11
 Release:        1%{?dist}
 Summary:        Cross platform open source file manager with two panels
 
@@ -121,6 +121,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/polkit-1/actions/org.doublecmd.root.policy
 
 %changelog
+* Mon Apr 03 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 1.0.11-1
+- Update to 1.0.11
+
 * Mon Jan 23 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 1.0.10-1
 - Update to 1.0.10
 

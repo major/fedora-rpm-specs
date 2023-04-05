@@ -45,7 +45,7 @@
 Name:             ghostscript
 Summary:          Interpreter for PostScript language & PDF
 Version:          10.01.0
-Release:          1%{?dist}
+Release:          2%{?dist}
 
 License:          AGPL-3.0-or-later
 
@@ -107,6 +107,7 @@ BuildRequires:    make
 #Patch000: example000.patch
 
 Patch001: ghostscript-10.01.0-pdfwrite-Substituted-TTF-CIDFont-CID-hand.patch
+Patch002: ghostscript-10.01.0-set-a4-as-default-pagesize.patch
 
 # Downstream patches -- these should be always included when doing rebase:
 # ------------------
@@ -420,6 +421,9 @@ done
 # =============================================================================
 
 %changelog
+* Mon Apr 03 2023 Richard Lescak <rlescak@redhat.com> - 10.01.0-2
+- set 'a4' as a default in gs_init.ps to fix unrecognized 'Letter' page size (#2183166)
+
 * Mon Mar 27 2023 Richard Lescak <rlescak@redhat.com> - 10.01.0-1
 - rebase to version 10.01.0 (#2180908)
 - ghostscript-x11 removed, X functionality now builds directly into library for Fedora (#2178720)

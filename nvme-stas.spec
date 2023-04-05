@@ -1,6 +1,6 @@
 Name:    nvme-stas
 Summary: NVMe STorage Appliance Services
-Version: 2.1.2
+Version: 2.2.1
 Release: 1%{?dist}
 License: ASL 2.0
 URL:     https://github.com/linux-nvme/nvme-stas
@@ -10,7 +10,7 @@ BuildArch:     noarch
 
 BuildRequires: meson >= 0.57.0
 BuildRequires: glib2-devel
-BuildRequires: libnvme-devel >= 1.2
+BuildRequires: libnvme-devel >= 1.4
 BuildRequires: libxslt
 BuildRequires: docbook-style-xsl
 BuildRequires: systemd-devel
@@ -31,7 +31,7 @@ BuildRequires: python3-gobject-devel
 BuildRequires: python3-lxml
 
 Requires:      avahi
-Requires:      python3-libnvme >= 1.2
+Requires:      python3-libnvme >= 1.4
 Requires:      python3-dasbus
 Requires:      python3-pyudev
 Requires:      python3-systemd
@@ -47,7 +47,6 @@ stafd (STorage Appliance Finder) and stacd (STorage Appliance Connector).
 
 %prep
 %autosetup -p1 -n %{name}-%{version_no_tilde}
-sed -i meson.build -e "s/subdir('test')//"
 
 %build
 %meson -Dman=true -Dhtml=true
@@ -96,6 +95,9 @@ mv %{buildroot}/%{_sysconfdir}/stas/sys.conf.doc %{buildroot}/%{_sysconfdir}/sta
 
 
 %changelog
+* Mon Apr 03 2023 Tomas Bzatek <tbzatek@redhat.com> - 2.2.1-1
+- Upstream v2.2.1 release
+
 * Wed Feb 01 2023 Tomas Bzatek <tbzatek@redhat.com> - 2.1.2-1
 - Upstream v2.1.2 release
 

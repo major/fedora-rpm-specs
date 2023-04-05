@@ -1,18 +1,18 @@
 Summary: Take care of your own pigeon as they fight
 Name: pigeonascent
 Version: 1.5.2
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: MIT
 Url: https://escada-games.itch.io/pigeon-ascent
 Source0: http://www.identicalsoftware.com/pigeonascent/%{name}-%{version}.tgz
 Source1: pigeonascent.desktop
 Source2: pigeonascent.png
 Source3: pigeonascent.metainfo.xml
-BuildRequires: godot-headless
+BuildRequires: godot3-headless
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 Requires: hicolor-icon-theme
-Requires: godot-runner
+Requires: godot3-runner
 BuildArch:      noarch
 ExcludeArch:    ppc64le
 ExcludeArch:    s390x
@@ -26,7 +26,7 @@ your bird?
 %setup -q -n pigeonAscent
 
 %build
-godot-headless --export-pack Linux64 pigeonascent.pck
+godot3-headless --export-pack Linux64 pigeonascent.pck
 
 %install
 mkdir -p %{buildroot}/%{_datadir}/%{name}
@@ -49,6 +49,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.metain
 %{_datadir}/%{name}
 
 %changelog
+* Mon Apr 03 2023 Dennis Payne <dulsi@identicalsoftware.com> - 1.5.2-7
+- Use godot3 not godot4
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

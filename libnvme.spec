@@ -3,13 +3,11 @@
 
 Name:    libnvme
 Summary: Linux-native nvme device management library
-Version: 1.3
+Version: 1.4
 Release: 1%{?dist}
 License: LGPLv2+
 URL:     https://github.com/linux-nvme/libnvme
 Source0: %{url}/archive/v%{version_no_tilde}/%{name}-%{version_no_tilde}.tar.gz
-
-Patch0:  libnvme-1.3-meson_nss_includes.patch
 
 BuildRequires: gcc gcc-c++
 BuildRequires: swig
@@ -19,6 +17,7 @@ BuildRequires: meson >= 0.50
 BuildRequires: json-c-devel >= 0.13
 BuildRequires: openssl-devel
 BuildRequires: dbus-devel
+BuildRequires: keyutils-libs-devel
 %if (0%{?rhel} == 0)
 BuildRequires: kernel-headers >= 5.15
 %endif
@@ -60,7 +59,7 @@ This package contains Python bindings for libnvme.
 %autosetup -p1 -n %{name}-%{version_no_tilde}
 
 %build
-%meson -Dpython=true -Ddocs=all -Ddocs-build=true -Dhtmldir=%{_pkgdocdir}
+%meson -Dpython=enabled -Ddocs=all -Ddocs-build=true -Dhtmldir=%{_pkgdocdir}
 %meson_build
 
 %install
@@ -76,9 +75,9 @@ mv %{buildroot}/usr/*.rst %{buildroot}%{_pkgdocdir}/
 %files
 %license COPYING ccan/licenses/*
 %{_libdir}/libnvme.so.1
-%{_libdir}/libnvme.so.1.3.0
+%{_libdir}/libnvme.so.1.4.0
 %{_libdir}/libnvme-mi.so.1
-%{_libdir}/libnvme-mi.so.1.3.0
+%{_libdir}/libnvme-mi.so.1.4.0
 
 %files devel
 %{_libdir}/libnvme.so
@@ -98,6 +97,9 @@ mv %{buildroot}/usr/*.rst %{buildroot}%{_pkgdocdir}/
 %{python3_sitearch}/libnvme/*
 
 %changelog
+* Mon Apr 03 2023 Tomas Bzatek <tbzatek@redhat.com> - 1.4-1
+- Upstream v1.4 release
+
 * Tue Jan 31 2023 Tomas Bzatek <tbzatek@redhat.com> - 1.3-1
 - Upstream v1.3 release
 

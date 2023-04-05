@@ -22,6 +22,9 @@ Source0:        https://github.com/tornadoweb/tornado/archive/v%{version}/%{srcn
 # fixes FTBFS with Python 3.8
 Patch1:         Do-not-turn-DeprecationWarning-into-Exception.patch
 
+# Skip undecorated coroutine test in py312
+Patch:          https://github.com/tornadoweb/tornado/commit/802196b.patch
+
 BuildRequires:  gcc
 BuildRequires:  python3-devel
 

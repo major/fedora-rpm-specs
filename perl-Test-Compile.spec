@@ -1,9 +1,9 @@
 # Real version
-%global cpan_version v3.1.1
+%global cpan_version v3.2.0
 
 Name:           perl-Test-Compile
 Version:        %(echo '%{cpan_version}' | tr -d 'v')
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Check whether Perl module files compile correctly
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Compile
@@ -80,7 +80,7 @@ for F in Test/Compile.pm Test/Compile/Internal.pm; do
 done
 # Remove author tests
 rm %{buildroot}%{_libexecdir}/%{name}/t/999-*
-perl -i -ne 'print $_ unless m{\@INC = grep .* \@INC;}' %{buildroot}%{_libexecdir}/%{name}/t/scripts/lib.pl
+perl -i -ne 'print $_ unless m{\@INC = grep .* \@INC;}' %{buildroot}%{_libexecdir}/%{name}/t/scripts/messWithLib.pl
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
 cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
@@ -102,6 +102,12 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Apr 03 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.2.0-2
+- Fix failing test
+
+* Mon Apr 03 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.2.0-1
+- 3.2.0 bump
+
 * Tue Mar 28 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.1.1-1
 - 3.1.1 bump
 - Package tests

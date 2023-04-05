@@ -1,5 +1,5 @@
 Name:           vokoscreenNG
-Version:        3.5.0
+Version:        3.6.0
 Release:        %autorelease
 Summary:        Powerful screencast creator to record the screen
 

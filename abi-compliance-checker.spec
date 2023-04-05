@@ -1,9 +1,9 @@
 Name:           abi-compliance-checker
 Version:        2.3
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        An ABI Compliance Checker
 
-License:        GPLv2+ or LGPLv2+
+License:        LGPL-2.1+
 URL:            http://lvc.github.io/abi-compliance-checker/
 Source0:        https://github.com/lvc/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -57,6 +57,9 @@ perl Makefile.pl -install --prefix=%{_prefix} --destdir=%{buildroot}
 
 
 %changelog
+* Mon Apr 03 2023 Richard Shaw <hobbes1069@gmail.com> - 2.3-13
+- Update license field to SPDX.
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

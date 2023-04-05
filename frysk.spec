@@ -1,20 +1,22 @@
 Summary:	Execution analysis and debugging tool-suite
 Name:		frysk
 Version:	0.4
-Release:	88%{?dist}
+Release:	89%{?dist}
 
 # Fedora 17+ is still waiting for vte et.al. bindings.
 %define enable_gnome %{fedora}0 < 170
 %define enable_devel %{fedora}0 < 170
 
 # https://docs.fedoraproject.org/en-US/legal/allowed-licenses/
+# https://docs.fedoraproject.org/en-US/legal/license-review-process/
+# https://gitlab.com/fedora/legal/fedora-license-data/-/issues/new
 # origin: Legacy Abbreviation -> SPDX
 #
 # getopt GPLv2+ with exception -> GPL-2.0-or-later WITH Classpath-exception-2.0
-# frysk: GPLv2 with exception -> GPL-2.0 WITH ???redhat??? exception
+# frysk: GPLv2 with 398-exception -> GPL-2.0 WITH ???redhat??? exception
 # libunwind: MIT Modern Style with sublicense -> MIT
 
-License:	GPLv2 with exception AND GPL-2.0-or-later WITH Classpath-exception-2.0 AND MIT
+License:	GPL-2.0-only WITH 389-exception AND GPL-2.0-or-later WITH Classpath-exception-2.0 AND MIT
 
 URL:		http://sourceware.org/frysk
 Source:		ftp://sourceware.org/pub/frysk/%{name}-%{version}.tar.bz2
@@ -466,6 +468,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/%{name}/funit-*-nodebug
 %endif
 
 %changelog
+* Mon Apr 9 2023 Andrew Cagney <cagney@fedoraproject.org> - 0.4-89
+- update frysk licence
+
 * Thu Mar 9 2023 Andrew Cagney <cagney@fedoraproject.org> - 0.4-88
 - update getopt and libunwind sub licences
 

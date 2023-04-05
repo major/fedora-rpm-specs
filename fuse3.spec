@@ -6,7 +6,7 @@
 %endif
 
 Name:		fuse3
-Version:	3.14.0
+Version:	3.14.1
 Release:	1%{?dist}
 Summary:	File System in Userspace (FUSE) v3 utilities
 License:	GPL+
@@ -73,7 +73,7 @@ Common files for FUSE v2 and FUSE v3.
 
 %prep
 %setup -n libfuse-fuse-%{version}
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 export LC_ALL=en_US.UTF-8
@@ -172,6 +172,9 @@ rm -f %{buildroot}%{_udevrulesdir}/99-fuse3.rules
 %endif
 
 %changelog
+* Mon Apr  3 2023 Tom Callaway <spot@fedoraproject.org> - 3.14.1-1
+- update to 3.14.1
+
 * Tue Feb 28 2023 Richard W.M. Jones <rjones@redhat.com> - 3.14.0-1
 - Update to 3.14.0
 

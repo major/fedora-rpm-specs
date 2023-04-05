@@ -1,8 +1,8 @@
 %global pkg_name %{name}3
 
 Name:           starcal
-Version:        3.2.0
-Release:        2%{?dist}
+Version:        3.2.1
+Release:        1%{?dist}
 Summary:        A full-featured international calendar written in Python
 
 License:        GPLv3+
@@ -63,6 +63,9 @@ desktop-file-install     \
 %{_datadir}/icons/hicolor/*/apps/%{pkg_name}*.png
 
 %changelog
+* Mon Apr 03 2023 Hedayat Vatankhah <hedayat.fwd+rpmchlog@gmail.com> - 3.2.1-1
+- New upstream version, with updated Hijri calendar
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

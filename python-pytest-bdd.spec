@@ -21,6 +21,11 @@ Source10:       pytest-bdd.1
 Source11:       pytest-bdd-generate.1
 Source12:       pytest-bdd-migrate.1
 
+# Remove old pytest logic
+# Fixes FTBFS with setuptools >= 67.5.1
+# Resolved upstream: https://github.com/pytest-dev/pytest-bdd/pull/580
+Patch:          remove-old-pytest-logic.patch
+
 BuildArch:      noarch
  
 BuildRequires:  python3-devel
@@ -70,7 +75,7 @@ Summary:        Documentation for pytest-bdd
 
 
 %prep
-%autosetup -n pytest-bdd-%{version}
+%autosetup -p1 -n pytest-bdd-%{version}
 
 # Do not require package metadata from the installed wheel to build the
 # documentation:

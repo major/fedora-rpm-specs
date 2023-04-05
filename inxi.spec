@@ -1,6 +1,6 @@
 Name:           inxi
-Version:        3.3.25
-Release:        2%{?dist}
+Version:        3.3.26
+Release:        1%{?dist}
 Summary:        A full featured system information script
 
 License:        GPL-3.0-or-later
@@ -61,6 +61,9 @@ install -p -D -m 644 %{name}.1.gz %{buildroot}/%{_mandir}/man1/%{name}.1.gz
 
 
 %changelog
+* Mon Apr 03 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 3.3.26-1
+- Update to 3.3.26
+
 * Sat Mar 11 2023 Fabio Valentini <decathorpe@gmail.com> - 3.3.25-2
 - Rebuild for https://pagure.io/releng/issue/11327
 

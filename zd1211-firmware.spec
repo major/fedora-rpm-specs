@@ -1,6 +1,6 @@
 Name:		zd1211-firmware
 Version:	1.5
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	Firmware for wireless devices based on zd1211 chipset
 License:	GPLv2
 URL:		http://zd1211.wiki.sourceforge.net
@@ -8,23 +8,24 @@ Source0:	http://downloads.sourceforge.net/zd1211/zd1211-firmware-%{version}.tar.
 Patch0:		zd1211-firmware-1.4-build__from_headers.patch
 BuildArch:	noarch
 
-BuildRequires: make
 BuildRequires:  gcc
+BuildRequires:  make
+BuildRequires:  xz
 
 %description
 This package contains the firmware required to work with the zd1211 chipset.
 
 
 %prep
-%setup -q -n %{name}
-%patch0 -p1
+%autosetup -p1 -n %{name}
 sed -i 's/\r//' *.h
 
 %build
-make CFLAGS="$RPM_OPT_FLAGS" %{?_smp_mflags}
+%{make_build}
 
 %install
-make install FW_DIR=$RPM_BUILD_ROOT/lib/firmware/zd1211 
+%{make_install} FW_DIR=$RPM_BUILD_ROOT/lib/firmware/zd1211
+xz -C crc32 $RPM_BUILD_ROOT/lib/firmware/zd1211/*
 
 
 %files
@@ -35,6 +36,9 @@ make install FW_DIR=$RPM_BUILD_ROOT/lib/firmware/zd1211
 
 
 %changelog
+* Mon Apr 03 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 1.5-13
+- Compress firmware
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

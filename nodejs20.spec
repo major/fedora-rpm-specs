@@ -193,7 +193,9 @@ BuildRequires: unzip
 
 
 
+%if 0%{?nodejs_default}
 Provides: nodejs = %{nodejs_envr}
+%endif
 
 %if %{with bundled}
 Provides:      bundled(libuv) = %{libuv_version}
@@ -333,8 +335,12 @@ Requires: nodejs-packaging
 Requires: libuv-devel%{?_isa}
 %endif
 
+%if 0%{?nodejs_default}
 Provides: nodejs-devel = %{nodejs_envr}
-Conflicts: nodejs-devel
+%endif
+
+Provides: nodejs-devel-pkg = %{nodejs_envr}
+Conflicts: nodejs-devel-pkg
 
 
 %description -n %{pkgname}-devel

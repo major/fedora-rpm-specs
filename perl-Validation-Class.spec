@@ -1,6 +1,6 @@
 Name:           perl-Validation-Class
-Version:        7.900058
-Release:        4%{?dist}
+Version:        7.900059
+Release:        1%{?dist}
 Summary:        Powerful Data Validation Framework
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Validation-Class
@@ -37,7 +37,6 @@ BuildRequires:  perl(lib)
 # Optional testsuite requirement
 BuildRequires:  perl(Class::Method::Modifiers)
 
-
 %description
 Validation::Class is a scalable data validation library with interfaces for
 applications of all sizes. The most common usage of Validation::Class is to
@@ -68,6 +67,9 @@ complete set of pre-defined validations and filters referred to as
 %{_mandir}/man3/*
 
 %changelog
+* Mon Apr 03 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 7.900059-1
+- Upstream update to 7.900059.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.900058-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -77,7 +79,7 @@ complete set of pre-defined validations and filters referred to as
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.900058-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
-* Mon Jun 027 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 7.900058-1
+* Mon Jun 27 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 7.900058-1
 - Upstream update to 7.900058.
 - Modernize spec file.
 

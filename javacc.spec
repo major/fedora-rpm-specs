@@ -28,18 +28,36 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
+# Build in bootstrap mode on new architectures
+%bcond_with bootstrap
+
 Name:           javacc
-Version:        7.0.4
-Release:        14%{?dist}
+Version:        7.0.12
+Release:        1%{?dist}
 Epoch:          0
 Summary:        A parser/scanner generator for java
-License:        BSD
-URL:            http://javacc.org
-Source0:        https://github.com/javacc/javacc/archive/%{version}.tar.gz
+
+# BSD-3-Clause: the project as a whole
+# BSD-2-Clause:
+# - src/main/javacc/ConditionParser.jj
+# - src/main/java/org/javacc/parser/OutputFile.java
+# - src/main/java/org/javacc/utils/OutputFileGenerator.java
+License:        BSD-3-Clause AND BSD-2-Clause
+URL:            https://javacc.org/
+Source0:        https://github.com/javacc/javacc/archive/%{name}-%{version}.tar.gz
+# Fix javadoc errors in the JavaCharStream template
+# https://github.com/javacc/javacc/pull/257
+Patch0:         0001-Fix-javadoc-errors-in-JavaCharStream.template.patch
+# Remove duplicate @Deprecated annotations
+# https://github.com/javacc/javacc/pull/259
+Patch1:         0002-Remove-extraneous-Deprecated-annotations.patch
 
 BuildRequires:  javapackages-local
 BuildRequires:  ant
+%if %{without bootstrap}
 BuildRequires:  javacc
+%endif
+
 # Explicit javapackages-tools requires since scripts use
 # /usr/share/java-utils/java-functions
 Requires:       javapackages-tools
@@ -56,6 +74,12 @@ standard capabilities related to parser generation such as tree building (via
 a tool called JJTree included with JavaCC), actions, debugging, etc.
 
 %package manual
+# BSD-3-Clause: the project license
+# GPL-2.0-or-later: docs/grammars/AsnParser.jj
+# LGPL-2.1-or-later: docs/grammars/{ChemNumber.jj,RTFParser.jj}
+# AFL-2.0 OR BSD-3-Clause: docs/grammars/EcmaScript.jjt
+# ISC: docs/grammars/JSONParser.jjt
+License:        BSD-3-Clause AND GPL-2.0-or-later AND LGPL-2.1-or-later AND (AFL-2.0 OR BSD-3-Clause) AND ISC
 Summary:        Manual for %{name}
 
 %description manual
@@ -68,30 +92,41 @@ Requires:       %{name} = %{version}-%{release}
 %description demo
 Examples for %{name}.
 
-%package javadoc
-Summary:        Javadoc for %{name}
-
-%description javadoc
-This package contains the API documentation for %{name}.
+%javadoc_package
 
 %prep
-%setup -q -n %{name}-%{version}
+%autosetup -n %{name}-%{name}-%{version} -p1
 
+%if %{without bootstrap}
 # Remove binary information in the source tar
 find . -name "*.jar" -delete
-find . -name "*.class" -delete
+%endif
+find examples -name .gitignore -delete
 
-find ./examples -type f -exec sed -i 's/\r//' {} \;
+fixtimestamp() {
+  touch -r $1.orig $1
+  rm $1.orig
+}
+
+mv examples/JJTreeExamples/cpp/README examples/JJTreeExamples/cpp/README.orig
+iconv -f WINDOWS-1252 -t UTF-8 examples/JJTreeExamples/cpp/README.orig > \
+  examples/JJTreeExamples/cpp/README
+fixtimestamp examples/JJTreeExamples/cpp/README
+
+sed -i.orig 's/\r//' examples/JJTreeExamples/cpp/eg3.jjt
+fixtimestamp examples/JJTreeExamples/cpp/eg3.jjt
 
 %build
+%if %{without bootstrap}
 build-jar-repository -p bootstrap javacc
+%endif
 
 # There is maven pom which doesn't really work for building. The tests don't
 # work either (even when using bundled jars).
 ant jar javadoc -Dant.build.javac.source=1.8 -Dant.build.javac.target=1.8
 
 # The pom dependencies are also wrong
-%mvn_artifact --skip-dependencies pom.xml target/javacc-%{version}.jar
+%mvn_artifact --skip-dependencies pom.xml target/javacc.jar
 
 %install
 %mvn_file : %{name}
@@ -103,24 +138,32 @@ ln -s %{_bindir}/javacc %{buildroot}%{_bindir}/javacc.sh
 %jpackage_script jjdoc '' '' javacc jjdoc true
 %jpackage_script jjtree '' '' javacc jjtree true
 
+# Swizzle an absolute symlink into a relative symlink
+rm %{buildroot}%{_bindir}/javacc.sh
+ln -s javacc %{buildroot}%{_bindir}/javacc.sh
+
 %files -f .mfiles
 %license LICENSE
-%doc README
+%doc README.md
 %{_bindir}/javacc
 %{_bindir}/javacc.sh
 %{_bindir}/jjdoc
 %{_bindir}/jjtree
 
 %files manual
-%doc www/*
+%doc docs/*
 
 %files demo
 %doc examples
 
-%files javadoc -f .mfiles-javadoc
-%license LICENSE
-
 %changelog
+* Sat Apr  1 2023 Jerry James <loganjerry@gmail.com> - 0:7.0.12-1
+- Update to 7.0.12
+- Convert License tag to SPDX
+- Add bootstrap build mode
+- Add patch to fix javadoc errors in the JavaCharStream template
+- Add patch to remove duplicate @Deprecated annotations
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0:7.0.4-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -6,8 +6,8 @@
 %endif
 
 Name:           python-peewee
-Version:        3.15.4
-Release:        2%{?dist}
+Version:        3.16.0
+Release:        1%{?dist}
 Summary:        A simple and small ORM
 
 License:        MIT
@@ -107,6 +107,9 @@ psql -c "CREATE EXTENSION hstore" peewee_test
 
 
 %changelog
+* Mon Apr 03 2023 Viliam Krizan <vkrizan@redhat.com> - 3.16.0-1
+- new version rhbz#2174257
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.15.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -155,7 +155,7 @@ Provides: bundled(golang(github.com/xanzy/ssh_agent)) = v0.3.3
 for Cloud Native Buildpacks.
 
 %prep
-%autosetup -Sgit -n %{name}-%{built_tag_strip}
+%autosetup -Sgit -n %{name}-%{gen_version}
 
 %build
 %set_build_flags

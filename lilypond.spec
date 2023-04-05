@@ -3,8 +3,8 @@
 %global _python_bytecompile_extra 0
 
 Name:		lilypond
-Version:	2.25.2
-Release:	2%{?dist}
+Version:	2.25.3
+Release:	1%{?dist}
 Summary:	A typesetting system for music notation
 
 License:	GPL-3.0-only
@@ -118,6 +118,9 @@ ln -s %{_fontdir} $RPM_BUILD_ROOT%{_datadir}/lilypond/%{version}/fonts/otf
 %doc COPYING
 
 %changelog
+* Mon Apr 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.25.3-1
+- 2.25.3
+
 * Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.25.2-2
 - migrated to SPDX license
 

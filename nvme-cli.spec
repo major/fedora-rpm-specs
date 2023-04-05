@@ -2,7 +2,7 @@
 %{!?version_no_tilde: %define version_no_tilde %{shrink:%(echo '%{version}' | tr '~' '-')}}
 
 Name:           nvme-cli
-Version:        2.3
+Version:        2.4
 Release:        1%{?dist}
 Summary:        NVMe management command line interface
 
@@ -17,7 +17,7 @@ BuildRequires:  systemd-rpm-macros
 BuildRequires:  zlib-devel
 BuildRequires:  openssl-devel
 
-BuildRequires:  libnvme-devel >= 1.3
+BuildRequires:  libnvme-devel >= 1.4
 BuildRequires:  json-c-devel >= 0.13
 
 %if (0%{?rhel} == 0)
@@ -83,6 +83,9 @@ rm -rf %{buildroot}%{_pkgdocdir}/nvme
 
 
 %changelog
+* Mon Apr 03 2023 Tomas Bzatek <tbzatek@redhat.com> - 2.4-1
+- Update to 2.4
+
 * Wed Feb 01 2023 Tomas Bzatek <tbzatek@redhat.com> - 2.3-1
 - Update to 2.3
 

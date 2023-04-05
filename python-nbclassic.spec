@@ -1,5 +1,5 @@
 Name:           python-nbclassic
-Version:        0.5.3
+Version:        0.5.4
 Release:        %autorelease
 Summary:        Jupyter Notebook as a Jupyter Server Extension
 
@@ -63,8 +63,12 @@ Requires:       hicolor-icon-theme
 Requires:       python-jupyter-filesystem
 
 # Originally bundled fonts
-Requires:       fontawesome-fonts
+Requires:       font(fontawesome)
+%if 0%{?fedora} > 38
+Requires:       fontawesome4-fonts-web
+%else
 Requires:       fontawesome-fonts-web
+%endif
 
 # Bundled JS libraries in nbclassic/static/components/
 # generated in unpacked sources by:
@@ -111,8 +115,9 @@ sed -ri "s/'(pytest-cov|coverage|nbval|pytest-playwright|pytest_tornasync)',?//g
 
 # Unbundle fonts
 pushd %{buildroot}%{python3_sitelib}/nbclassic/static/components
-  rm -r font-awesome/fonts
+  rm -r font-awesome/{fonts,css}
   ln -vfs %{_datadir}/fonts/fontawesome font-awesome/fonts
+  ln -vfs %{_datadir}/font-awesome-web/css font-awesome/css
 popd
 
 install -m 0755 -p -d %{buildroot}%{_sysconfdir}/jupyter/jupyter_server_config.d

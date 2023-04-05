@@ -1,12 +1,12 @@
 Name:           cpu-x
-Version:        4.5.2
+Version:        4.5.3
 Release:        %autorelease
 Summary:        Gathers information on CPU, motherboard and more
 ExclusiveArch:  i686 x86_64
 
 License:        GPLv3+
-URL:            https://github.com/X0rg/CPU-X
-Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+URL:            https://thetumultuousunicornofdarkness.github.io/CPU-X/
+Source0:        https://github.com/TheTumultuousUnicornOfDarkness/CPU-X/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
@@ -18,7 +18,7 @@ BuildRequires:  nasm
 BuildRequires:  pkgconfig(glfw3)
 BuildRequires:  pkgconfig(gtk+-3.0) >= 3.12.0
 BuildRequires:  pkgconfig(json-c)
-BuildRequires:  pkgconfig(libcpuid) >= 0.6.2
+BuildRequires:  pkgconfig(libcpuid) >= 0.6.3
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(libpci)
 BuildRequires:  pkgconfig(libproc2)
@@ -34,7 +34,7 @@ Recommends:     polkit
 
 # https://github.com/X0rg/CPU-X/issues/105
 Provides:       bundled(bandwidth) = 1.5.1
-Provides:       bundled(dmidecode) = 3.4.f50b925
+Provides:       bundled(dmidecode) = 3.5.484f893
 
 %description
 Free software that gathers information on CPU, motherboard and more.

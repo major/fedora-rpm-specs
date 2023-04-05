@@ -1,52 +1,57 @@
-%global pypi_name gpiozero
-
-Name:           python-%{pypi_name}
+Name:           python-gpiozero
 Version:        1.6.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Interface to GPIO on Raspberry Pi
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/RPi-Distro/python-gpiozero
-Source0:        %pypi_source
+Source:         %{pypi_source gpiozero}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
 
 %description
 A simple interface to GPIO devices with Raspberry Pi.
 
-%package -n     python3-%{pypi_name}
+%package -n     python3-gpiozero
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
+# Several files have `import pkg_resources`
 Requires:       python3dist(setuptools)
 Recommends:     python3dist(pigpio)
 
-%description -n python3-%{pypi_name}
+%description -n python3-gpiozero
 A simple interface to GPIO devices with Raspberry Pi.
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n gpiozero-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files gpiozero gpiozerocli
 
-#check
-#{__python3} setup.py test
-# this is not testable without RPi
+%check
+# running the actual testsuite requires a real Raspberry Pi
+%pyproject_check_import -e 'gpiozero.pins.*io'
 
-%files -n python3-%{pypi_name}
+%files -n python3-gpiozero -f %{pyproject_files}
 %doc README.rst
 %{_bindir}/pinout
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/gpiozerocli/
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Mar 31 2023 Miro Hrončok <mhroncok@redhat.com> - 1.6.2-8
+- Require runtime dependencies during build
+- Run import check during the build
+- Convert the license tag to SPDX
+- Install the LICENSE.rst file
+- Fixes: rhbz#2183380
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

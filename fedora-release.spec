@@ -1269,6 +1269,8 @@ sed -e "s#\$version#%{bug_version}#g" -e 's/$edition/Server/;s/<!--.*-->//;/^$/d
 sed -i -e "/^DEFAULT_HOSTNAME=/d" %{buildroot}%{_prefix}/lib/os-release.server
 install -Dm0644 %{SOURCE14} -t %{buildroot}%{_prefix}/lib/systemd/system-preset/
 install -Dm0644 %{SOURCE29} -t %{buildroot}%{_datadir}/glib-2.0/schemas/
+install -Dm0644 %{SOURCE28} -t %{buildroot}%{_prefix}/lib/systemd/system.conf.d/
+install -Dm0644 %{SOURCE28} -t %{buildroot}%{_prefix}/lib/systemd/user.conf.d/
 %endif
 
 %if %{with silverblue}
@@ -1586,6 +1588,8 @@ ln -s --relative %{buildroot}%{_swidtagdir} %{buildroot}%{_sysconfdir}/swid/swid
 %files identity-server
 %{_prefix}/lib/os-release.server
 %{_prefix}/lib/systemd/system-preset/80-server.preset
+%{_prefix}/lib/systemd/system.conf.d/longer-default-shutdown-timeout.conf
+%{_prefix}/lib/systemd/user.conf.d/longer-default-shutdown-timeout.conf
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.server
 %{_datadir}/glib-2.0/schemas/org.gnome.settings-daemon.plugins.power.gschema.override
 %endif

@@ -1,7 +1,7 @@
 Summary: Windows MetaFile Library
 Name: libwmf
 Version: 0.2.12
-Release: 11%{?dist}
+Release: 12%{?dist}
 #libwmf is under the LGPLv2+, however...
 #1. The tarball contains an old version of the urw-fonts under GPL+.
 #   Those fonts are not installed
@@ -19,7 +19,7 @@ Requires: %{name}-lite = %{version}-%{release}
 # for file triggers
 Requires: gdk-pixbuf2%{?_isa} >= 2.31.5-2.fc24
 
-BuildRequires: gtk2-devel, libtool, libxml2-devel, libpng-devel
+BuildRequires: freetype-devel, gdk-pixbuf2-devel, libtool, libxml2-devel, libpng-devel
 BuildRequires: libjpeg-devel, libXt-devel, libX11-devel, dos2unix, libtool
 BuildRequires: make
 
@@ -35,7 +35,7 @@ A library for parsing Windows MetaFile vector graphics (WMF).
 %package devel
 Summary: Support files necessary to compile applications with libwmf
 Requires: libwmf = %{version}-%{release}
-Requires: gtk2-devel, libxml2-devel, libjpeg-devel
+Requires: freetype-devel, libX11-devel, libxml2-devel, libjpeg-devel, libpng-devel
 
 %description devel
 Libraries, headers, and support files necessary to compile applications 
@@ -94,6 +94,9 @@ sed -i $RPM_BUILD_ROOT%{_datadir}/libwmf/fonts/fontmap -e 's#libwmf/fonts#fonts/
 
 
 %changelog
+* Mon Apr 03 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.2.12-12
+- Fix build and devel dependencies
+
 * Thu Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 0.2.12-11
 - migrated to SPDX license
 

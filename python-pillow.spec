@@ -12,8 +12,8 @@
 %endif
 
 Name:           python-%{srcname}
-Version:        9.4.0
-Release:        3%{?dist}
+Version:        9.5.0
+Release:        1%{?dist}
 Summary:        Python image processing library
 
 # License: see http://www.pythonware.com/products/pil/license.htm
@@ -295,6 +295,9 @@ popd
 
 
 %changelog
+* Mon Apr 03 2023 Sandro Mani <manisandro@gmail.com> - 9.5.0-1
+- Update to 9.5.0
+
 * Sat Mar 04 2023 Sandro Mani <manisandro@gmail.com> - 9.4.0-3
 - Rebuild (libimagequant)
 

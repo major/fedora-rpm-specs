@@ -1,6 +1,6 @@
 Name:           xpanes
-Version:        4.1.3
-Release:        5%{?dist}
+Version:        4.1.4
+Release:        %autorelease
 Summary:        Awesome tmux-based terminal divider
 License:        MIT
 URL:            https://github.com/greymd/tmux-xpanes
@@ -53,32 +53,4 @@ ln -s _xpanes %{buildroot}%{_datadir}/zsh/site-functions/_tmux-xpanes
 
 
 %changelog
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.3-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.3-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Mon May 31 2021 Carl George <carl@george.computer> - 4.1.3-1
-- Latest upstream
-
-* Thu Jan 28 2021 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sat Aug 29 2020 Carl George <carl@george.computer> - 4.1.2-1
-- Latest upstream
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Fri Jan 31 2020 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Oct 03 2019 Carl George <carl@george.computer> - 4.1.1-1
-- Initial package rhbz#1759206
+%autochangelog

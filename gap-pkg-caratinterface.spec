@@ -2,8 +2,8 @@
 %global upname  CaratInterface
 
 Name:           gap-pkg-%{pkgname}
-Version:        2.3.4
-Release:        4%{?dist}
+Version:        2.3.5
+Release:        1%{?dist}
 Summary:        GAP interface to CARAT
 
 License:        GPL-2.0-or-later
@@ -14,10 +14,11 @@ Source0:        https://www.math.uni-bielefeld.de/~gaehler/gap/%{upname}/%{upnam
 
 BuildRequires:  carat
 BuildRequires:  gap-devel
+BuildRequires:  gap-pkg-io
 BuildRequires:  tth
 
 Requires:       carat
-Requires:       gap-core
+Requires:       gap-pkg-io
 
 Suggests:       gap-pkg-cryst
 
@@ -97,6 +98,9 @@ gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 %{gap_libdir}/pkg/%{upname}/htm/
 
 %changelog
+* Mon Apr  3 2023 Jerry James <loganjerry@gmail.com> - 2.3.5-1
+- Version 2.3.5
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

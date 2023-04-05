@@ -1,7 +1,7 @@
 Name:           perl-Math-BigInt-FastCalc
-%global cpan_version 0.5013
-Version:        0.501.300
-Release:        4%{?dist}
+%global cpan_version 0.5014
+Version:        0.501.400
+Release:        1%{?dist}
 Summary:        Math::BigInt::Calc with some XS for more speed
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Math-BigInt-FastCalc
@@ -24,7 +24,7 @@ BuildRequires:  perl(Math::BigInt::Calc) >= 1.999801
 BuildRequires:  perl(XSLoader)
 # Tests:
 BuildRequires:  perl(Math::BigFloat)
-BuildRequires:  perl(Math::BigInt) >= 1.999831
+BuildRequires:  perl(Math::BigInt) >= 1.999838
 BuildRequires:  perl(Test::More) >= 0.88
 Conflicts:      perl < 4:5.22.0-348
 
@@ -39,7 +39,7 @@ This Perl module provides support for fast big integer calculations.
 Summary:        Tests for %{name}
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
-Requires:       perl(Math::BigInt) >= 1.999831
+Requires:       perl(Math::BigInt) >= 1.999838
 
 %description tests
 Tests from %{name}. Execute them
@@ -54,7 +54,7 @@ perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
 find -type f -exec chmod -x {} +
 
 # Help generators to recognize Perl scripts
-for F in t/*.t t/Math/BigInt/Lib/TestUtil.pm; do
+for F in t/*.t; do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
     chmod +x "$F"
 done
@@ -74,7 +74,7 @@ cp -a t %{buildroot}%{_libexecdir}/%{name}
 rm %{buildroot}%{_libexecdir}/%{name}/t/00sig.t
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
-cd %{_libexecdir}/%{name} && exec prove -I . -r -j "$(getconf _NPROCESSORS_ONLN)"
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
 EOF
 chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
@@ -94,6 +94,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Apr 03 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.501.400-1
+- 0.5014 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.501.300-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

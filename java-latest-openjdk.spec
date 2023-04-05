@@ -277,9 +277,9 @@
 %endif
 
 # New Version-String scheme-style defines
-%global featurever 19
+%global featurever 20
 %global interimver 0
-%global updatever 2
+%global updatever 0
 %global patchver 0
 
 # We don't add any LTS designator for STS packages (Fedora and EPEL).
@@ -321,8 +321,8 @@
 %global origin_nice     OpenJDK
 %global top_level_dir_name   %{origin}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
-%global buildver        7
-%global rpmrelease      5
+%global buildver        36
+%global rpmrelease      1
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -851,7 +851,6 @@ exit 0
 %endif
 %endif
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libsctp.so
-%{_jvmdir}/%{sdkdir -- %{?1}}/lib/libsystemconf.so
 %ifarch %{svml_arches}
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libjsvml.so
 %endif
@@ -2059,8 +2058,8 @@ $JAVA_HOME/bin/java $(echo $(basename %{SOURCE14})|sed "s|\.java||")
 $JAVA_HOME/bin/javac -d . %{SOURCE15}
 export PROG=$(echo $(basename %{SOURCE15})|sed "s|\.java||")
 export SEC_DEBUG="-Djava.security.debug=properties"
-$JAVA_HOME/bin/java ${SEC_DEBUG} ${PROG} true
-$JAVA_HOME/bin/java ${SEC_DEBUG} -Djava.security.disableSystemPropertiesFile=true ${PROG} false
+#$JAVA_HOME/bin/java ${SEC_DEBUG} ${PROG} true
+#$JAVA_HOME/bin/java ${SEC_DEBUG} -Djava.security.disableSystemPropertiesFile=true ${PROG} false
 
 # Check java launcher has no SSB mitigation
 if ! nm $JAVA_HOME/bin/java | grep set_speculation ; then true ; else false; fi
@@ -2354,6 +2353,12 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
+* Mon Apr 03 2023 Jiri Vanek <jvanek@redhat.com> - 1:20.0.0.0.36-1.rolling
+- bumed to jdk20
+- removed no loger existing libsystemconf.so
+- commented out usage if Source15 TestSecurityProperties.java test, as honoring of
+-- system crypto policies comes from fips aptch which is not yet adapted
+
 * Mon Jan 30 2023 Jiri Vanek <jvanek@redhat.com> - 1:19.0.2.0.7-5.rolling
 - Using icons whcih are now part of the portble tarball
 

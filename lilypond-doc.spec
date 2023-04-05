@@ -1,6 +1,6 @@
 Name:           lilypond-doc
-Version:        2.25.2
-Release:        2%{?dist}
+Version:        2.25.3
+Release:        1%{?dist}
 Summary:        HTML documentation for LilyPond
 
 License:        GPL-3.0-only
@@ -34,6 +34,9 @@ mkdir -p $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Apr 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.25.3-1
+- 2.25.3
+
 * Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.25.2-2
 - migrated to SPDX license
 

@@ -17,7 +17,7 @@ of identified hills vs. total distance), average ascent of hills,
 total ascent, total descent and many others.}
 
 Name:           python-%{pypi_name}
-Version:        0.3.10
+Version:        0.3.11
 Release:        1%{?dist}
 Summary:        A minimalistic toolbox for extracting features from sports activity files
 
@@ -122,6 +122,9 @@ sed -r -i 's/(release = ")[[:digit:].]+"/\1%{version}"/' docs/conf.py
 %doc examples/
 
 %changelog
+* Mon Apr 3 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.3.11-1
+- Upgrade to 0.3.11
+
 * Tue Mar 7 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.3.10-1
 - Upgrade to 0.3.10
 

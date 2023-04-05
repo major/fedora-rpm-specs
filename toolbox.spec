@@ -17,6 +17,9 @@ Summary:       Tool for containerized command line environments on Linux
 License:       ASL 2.0
 URL:           https://containertoolbx.org/
 Source0:       https://github.com/containers/%{name}/releases/download/%{version}/%{name}-%{version}-vendored.tar.xz
+%if 0%{?rhel}
+Source1:       %{name}.conf
+%endif
 
 # Upstream
 Patch0:        toolbox-Don-t-use-podman-1-when-generating-the-comp.patch
@@ -25,10 +28,18 @@ Patch1:        toolbox-Sprinkle-a-debug-log.patch
 # Fedora specific
 Patch100:      toolbox-Make-the-build-flags-match-Fedora-s-gobuild.patch
 Patch101:      toolbox-Make-the-build-flags-match-Fedora-s-gobuild-for-PPC64.patch
+%if 0%{?rhel}
+Patch102:      toolbox-Add-migration-paths-for-coreos-toolbox-users.patch
+%endif
 
 BuildRequires: gcc
 BuildRequires: go-md2man
 BuildRequires: golang >= 1.19.4
+BuildRequires: meson >= 0.58.0
+BuildRequires: pkgconfig(bash-completion)
+BuildRequires: shadow-utils-subid-devel
+BuildRequires: systemd
+BuildRequires: systemd-rpm-macros
 %if ! 0%{?rhel}
 BuildRequires: golang(github.com/HarryMichal/go-version) >= 1.0.1
 BuildRequires: golang(github.com/acobaugh/osrelease) >= 0.1.0
@@ -41,21 +52,18 @@ BuildRequires: golang(github.com/spf13/cobra) >= 1.3.0
 BuildRequires: golang(github.com/spf13/viper) >= 1.10.1
 BuildRequires: golang(golang.org/x/sys/unix)
 BuildRequires: golang(golang.org/x/term)
+BuildRequires: pkgconfig(fish)
 # for tests
 # BuildRequires: codespell
 # BuildRequires: golang(github.com/stretchr/testify) >= 1.7.0
 # BuildRequires: ShellCheck
 %endif
-BuildRequires: meson >= 0.58.0
-BuildRequires: pkgconfig(bash-completion)
-BuildRequires: pkgconfig(fish)
-BuildRequires: shadow-utils-subid-devel
-BuildRequires: systemd
-BuildRequires: systemd-rpm-macros
 
 Requires:      containers-common
-Requires:      flatpak-session-helper
 Requires:      podman >= 1.4.0
+%if ! 0%{?rhel}
+Requires:      flatpak-session-helper
+%endif
 
 
 %description
@@ -144,11 +152,13 @@ Dockerfile if the image isn't based on the fedora-toolbox image.
 Summary:       Tests for %{name}
 
 Requires:      %{name}%{?_isa} = %{version}-%{release}
-Requires:      bats
 Requires:      coreutils
 Requires:      gawk
 Requires:      grep
 Requires:      skopeo
+%if ! 0%{?rhel}
+Requires:      bats
+%endif
 
 %description   tests
 The %{name}-tests package contains system tests for %{name}.
@@ -165,6 +175,10 @@ The %{name}-tests package contains system tests for %{name}.
 %patch101 -p1
 %endif
 
+%if 0%{?rhel}
+%patch102 -p1
+%endif
+
 %gomkdir -s %{_builddir}/%{extractdir}/src %{?rhel:-k}
 
 
@@ -174,9 +188,14 @@ export GOPATH=%{gobuilddir}:%{gopath}
 export CGO_CFLAGS="%{optflags} -D_GNU_SOURCE -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64"
 
 %meson \
+%if 0%{?rhel}
+    -Dfish_completions_dir=%{_datadir}/fish/vendor_completions.d \
+    -Dmigration_path_for_coreos_toolbox=true \
+%endif
     -Dprofile_dir=%{_sysconfdir}/profile.d \
     -Dtmpfiles_dir=%{_tmpfilesdir} \
     -Dzsh_completions_dir=%{_datadir}/zsh/site-functions
+
 %meson_build
 
 
@@ -186,6 +205,10 @@ export CGO_CFLAGS="%{optflags} -D_GNU_SOURCE -D_LARGEFILE_SOURCE -D_LARGEFILE64_
 
 %install
 %meson_install
+
+%if 0%{?rhel}
+install -m0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/containers/%{name}.conf
+%endif
 
 
 %files
