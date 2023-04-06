@@ -2,7 +2,7 @@ Name:           perl-Devel-Leak
 Version:        0.03
 Release:        51%{?dist}
 Summary:        Utility for looking for perl objects that are not reclaimed
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-Leak
 Source0:        https://cpan.metacpan.org/modules/by-module/Devel/Devel-Leak-%{version}.tar.gz
 # Build:
@@ -22,6 +22,7 @@ BuildRequires:  perl(vars)
 # Tests:
 BuildRequires:  perl(Test)
 # Deps:
+# (none)
 
 %{?perl_default_filter}
 

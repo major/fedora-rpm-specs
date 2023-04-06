@@ -8,7 +8,7 @@
 
 Summary: Qt6 - Qt Data Visualization component
 Name:    qt6-%{qt_module}
-Version: 6.4.3
+Version: 6.5.0
 Release: 1%{?dist}
 
 License: GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -83,8 +83,8 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{_qt6_archdatadir}/mkspecs/modules/*
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtDataVisualizationTestsConfig.cmake
 %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/*.cmake
-%{_qt6_datadir}/modules/*.json
-%{_qt6_libdir}/metatypes/qt6*_metatypes.json
+%{_qt6_libdir}/qt6/modules/*.json
+%{_qt6_libdir}/qt6/metatypes/qt6*_metatypes.json
 %{_qt6_libdir}/pkgconfig/*.pc
 
 %if 0%{?_qt6_examplesdir:1}
@@ -95,6 +95,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Tue Apr 04 2023 Jan Grulich <jgrulich@redhat.com> - 6.5.0-1
+- 6.5.0
+
 * Thu Mar 23 2023 Jan Grulich <jgrulich@redhat.com> - 6.4.3-1
 - 6.4.3
 

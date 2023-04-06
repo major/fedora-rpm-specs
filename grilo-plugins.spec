@@ -5,7 +5,7 @@
 %global goa_version 3.17.91
 
 Name:		grilo-plugins
-Version:	0.3.15
+Version:	0.3.16
 Release:	%autorelease
 Summary:	Plugins for the Grilo framework
 

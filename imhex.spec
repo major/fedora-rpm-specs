@@ -1,6 +1,6 @@
 Name:           imhex
-Version:        1.27.1
-Release:        3%{?dist}
+Version:        1.28.0
+Release:        1%{?dist}
 Summary:        A hex editor for reverse engineers and programmers
 
 License:        GPL-2.0-only AND Zlib AND MIT AND Apache-2.0
@@ -40,6 +40,8 @@ Provides:       bundled(libpl)
 # https://github.com/ekg/intervaltree
 Provides:       bundled(intervaltree) = 0.1
 Provides:       bundled(xdgpp)
+# working on packaging this, bundling for now as to now delay updates
+Provides:       bundled(miniaudio) = 0.11.11
 
 # ftbfs on these arches.  armv7hl might compile when capstone 5.x
 # is released upstream and we can build against it
@@ -126,6 +128,9 @@ cp -a lib/external/xdgpp/LICENSE                                  %{buildroot}%{
 
 
 %changelog
+* Tue Apr 04 2023 Jonathan Wright <jonathan@almalinux.org> - 1.28.0-1
+- update to 1.28.0 rhbz#2184379
+
 * Fri Mar 31 2023 Jonathan Wright <jonathan@almalinux.org> - 1.27.1-3
 - rebuild against yara 4.3
 

@@ -10,7 +10,7 @@
 
 Summary: Qt6 - Sensors component
 Name:    qt6-%{qt_module}
-Version: 6.4.3
+Version: 6.5.0
 Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
@@ -115,8 +115,8 @@ popd
 %dir %{_qt6_libdir}/cmake/Qt6SensorsQuick/
 %{_qt6_libdir}/cmake/Qt6SensorsQuick/*.cmake
 %{_qt6_archdatadir}/mkspecs/modules/qt_lib_sensors*.pri
-%{_qt6_libdir}/metatypes/qt6*_metatypes.json
-%{_qt6_datadir}/modules/*.json
+%{_qt6_libdir}/qt6/metatypes/qt6*_metatypes.json
+%{_qt6_libdir}/qt6/modules/*.json
 %{_qt6_libdir}/pkgconfig/*.pc
 
 %if 0%{?examples}
@@ -125,6 +125,9 @@ popd
 %endif
 
 %changelog
+* Tue Apr 04 2023 Jan Grulich <jgrulich@redhat.com> - 6.5.0-1
+- 6.5.0
+
 * Thu Mar 23 2023 Jan Grulich <jgrulich@redhat.com> - 6.4.3-1
 - 6.4.3
 

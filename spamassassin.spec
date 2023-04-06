@@ -60,7 +60,7 @@ Summary: Spam filter for email which can be invoked from mail delivery agents
 Name: spamassassin
 Version: 4.0.0
 #Release: 0.8.%%{prerev}%%{?dist}
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: ASL 2.0
 URL: https://spamassassin.apache.org/
 Source0: https://www.apache.org/dist/%{name}/source/%{real_name}-%{version}.tar.bz2
@@ -85,6 +85,11 @@ Source15: spamassassin.sysconfig.el
 Source16: sa-update.service
 Source17: sa-update.timer
 
+# GPG Keys and source signatures
+Source100: https://www.apache.org/dist/%{name}/source/%{real_name}-%{version}.tar.bz2.asc
+Source101: https://www.apache.org/dist/%{name}/source/%{real_name}-rules-%{version}.r1905950.tgz.asc
+Source102: https://www.apache.org/dist/spamassassin/KEYS
+
 # Patches 0-99 are RH specific
 # https://bugzilla.redhat.com/show_bug.cgi?id=1055593
 # Switch to using gnupg2 instead of gnupg1
@@ -99,6 +104,7 @@ Requires(post): diffutils
 
 BuildRequires: make
 BuildRequires: gcc
+BuildRequires: gnupg2
 BuildRequires: perl-interpreter >= 2:5.8.0
 BuildRequires: perl-generators
 BuildRequires: perl(Net::DNS)
@@ -205,6 +211,8 @@ To filter spam for all users, add that line to /etc/procmailrc
 (creating if necessary).
 
 %prep
+%{gpgverify} --keyring='%{SOURCE102}' --signature='%{SOURCE100}' --data='%{SOURCE0}'
+%{gpgverify} --keyring='%{SOURCE102}' --signature='%{SOURCE101}' --data='%{SOURCE1}'
 %setup -q -n Mail-SpamAssassin-%{version}
 # Patches 0-99 are RH specific
 %patch0 -p1
@@ -389,6 +397,9 @@ exit 0
 %endif
 
 %changelog
+* Sun Apr 02 2023 Todd Zullinger <tmz@pobox.com> - 4.0.0-4
+- Verify upstream source signatures
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

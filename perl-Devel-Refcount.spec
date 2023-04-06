@@ -2,7 +2,7 @@ Name:           perl-Devel-Refcount
 Version:        0.10
 Release:        31%{?dist}
 Summary:        Obtain the REFCNT value of a referent
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-Refcount
 Source0:        http://www.cpan.org/modules/by-module/Devel/Devel-Refcount-%{version}.tar.gz
 # Build

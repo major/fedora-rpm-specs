@@ -1,14 +1,14 @@
 Name:           tiled
-Version:        1.10.0
-Release:        1%{?dist}
 Summary:        Tiled Map Editor
+
+Version:        1.10.1
+Release:        1%{?dist}
+
 # tiled itself is GPLv2+, libtiled and tmxviewer are BSD
-License:        GPLv2+ and BSD
+License:        GPL-2.0-or-later AND BSD-2-Clause
+
 URL:            http://www.mapeditor.org
 Source0:        https://github.com/mapeditor/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
-
-# Explicitly specify location of plugins
-Patch0:         0000-set-plugin-dir.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
@@ -27,8 +27,8 @@ BuildRequires:  qt5-qtdeclarative-devel
 BuildRequires:  qt5-qttools-devel
 BuildRequires:  zlib-devel
 
-# qbs segfaults in Qt5Script on ppc64le during the build
-ExcludeArch:    ppc64le
+# qbs.i386 is disabled in F39+
+ExcludeArch:    %{ix86}
 
 %description
 Tiled is a general purpose tile map editor. It is built to be easy to use,
@@ -41,7 +41,7 @@ to view Tiled maps.
 
 %package devel
 Summary:        Development headers for Tiled
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://www.mapeditor.org
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description devel
@@ -50,7 +50,7 @@ Development headers for the Tiled map editor.
 
 %package plugin-python
 Summary:        Python plugin for Tiled
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://www.mapeditor.org
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description plugin-python
@@ -62,7 +62,7 @@ A plugin for tiled which allows to write Python plugins.
 %package plugin-rpmap
 
 Summary:        MapTool plugin for Tiled
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://www.mapeditor.org
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description plugin-rpmap
@@ -73,7 +73,7 @@ A plugin for tiled which allows to save maps as rpmap MapTool maps.
 
 %package plugin-tbin
 Summary:        tBIN plugin for Tiled
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://www.mapeditor.org
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description plugin-tbin
@@ -84,7 +84,7 @@ A plugin for tiled which allows support for the tBIN map format.
 
 %package plugin-droidcraft
 Summary:        Droidcraft plugin for Tiled
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://www.mapeditor.org
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description plugin-droidcraft
@@ -95,7 +95,7 @@ A plugin for tiled which allows to save maps as .dat droidcraft maps.
 
 %package plugin-flare
 Summary:        Flare plugin for Tiled
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://www.mapeditor.org
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description plugin-flare
@@ -106,7 +106,7 @@ A plugin for tiled which allows to save maps as .txt flare maps.
 
 %package plugin-replica-island
 Summary:        Replica Island plugin for Tiled
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://www.mapeditor.org
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description plugin-replica-island
@@ -117,7 +117,7 @@ A plugin for tiled which allows to save maps as .bin Replica Island maps.
 
 %package plugin-t-engine4
 Summary:        T-Engine4 plugin for Tiled
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://www.mapeditor.org
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description plugin-t-engine4
@@ -128,7 +128,7 @@ A plugin for tiled which allows to export maps as .lua T-Engine4 maps.
 
 %package plugin-defold
 Summary:        Defold plugin for Tiled
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://www.mapeditor.org
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description plugin-defold
@@ -139,7 +139,7 @@ A plugin for tiled which allows to export maps as .tilemap Defold maps.
 
 %package plugin-gmx
 Summary:        GameMaker Studio 1.4 plugin for Tiled
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://www.mapeditor.org
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description plugin-gmx
@@ -151,7 +151,7 @@ as GameMaker Studio 1.4 room files (.gmx).
 
 %package plugin-yy
 Summary:        GameMaker Studio 2.3 plugin for Tiled
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://www.mapeditor.org
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description plugin-yy
@@ -163,7 +163,7 @@ as GameMaker Studio 2.3 room files (.yy).
 
 %package plugin-tscn
 Summary:        Godot 4 scene plugin for Tiled
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://www.mapeditor.org
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description plugin-tscn
@@ -179,27 +179,21 @@ as Godot Engine 4 scene files (.tscn).
 # Remove copy of zlib
 rm -rf src/zlib
 
-# Explicitly specify location of plugins
-%patch0 -p1
-sed -e 's|__RPM_TILED_PLUGIN_DIR__|%{_libdir}/%{name}/plugins|g' -i src/libtiled/libtiled.qbs
 
 %build
 qbs setup-toolchains --detect
 qbs setup-qt --detect
-qbs build qbs.installPrefix:"%{_prefix}" projects.Tiled.useRPaths:false projects.Tiled.installHeaders:true
+
+%global qbs_args qbs.installPrefix:"%{_prefix}" projects.Tiled.useRPaths:false projects.Tiled.installHeaders:true projects.Tiled.libDir:"%{_lib}"
+qbs build %{qbs_args}
+
 
 %install
-qbs qbs.installPrefix:"%{_prefix}" projects.Tiled.useRPaths:false projects.Tiled.installHeaders:true
+qbs %{qbs_args}
 qbs install --install-root %{buildroot}
 
 # Clean build artefacts
 find -name ".uic" -or -name ".moc" -or -name ".rcc" -delete
-
-# Validate desktop file
-desktop-file-validate %{buildroot}/%{_datadir}/applications/org.mapeditor.Tiled.desktop
-
-# Appdata
-appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.mapeditor.Tiled.appdata.xml
 
 # locale files
 %find_lang %{name} --with-qt
@@ -207,14 +201,14 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.mape
 # Removed development file (this version does not install headers anyway)
 # rm %{buildroot}/%{_libdir}/lib%{name}.so
 
-# Hack: qbs always installs to usr/lib, move libraries if _libdir is different
-# See also:
-#  https://www.qt.io/blog/2018/10/29/deprecation-of-qbs
-#  https://github.com/mapeditor/tiled/issues/3397
-mkdir -p %{buildroot}%{_libdir}
-[ "%{buildroot}%{_prefix}/lib" = "%{buildroot}%{_libdir}" ] || mv -v %{buildroot}%{_prefix}/lib/* %{buildroot}%{_libdir}
+
+%check
+desktop-file-validate %{buildroot}/%{_datadir}/applications/org.mapeditor.Tiled.desktop
+appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.mapeditor.Tiled.appdata.xml
+
 
 %ldconfig_scriptlets
+
 
 %files -f %{name}.lang
 %doc AUTHORS NEWS.md README.md COPYING LICENSE.GPL LICENSE.BSD
@@ -285,6 +279,11 @@ mkdir -p %{buildroot}%{_libdir}
 %{_libdir}/%{name}/plugins/libtscn.so
 
 %changelog
+* Tue Apr 04 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.10.1-1
+- Update to v1.10.1
+- Drop Patch0 (change the default plugin dir - now supported upstream)
+- Migrate license tag to SPDX
+
 * Sat Mar 11 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.10.0-1
 - Update to v1.10.0
 

@@ -45,15 +45,16 @@ Name: lvm2
 Epoch: %{rhel}
 %endif
 Version: 2.03.20
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2
 URL: https://sourceware.org/lvm2/
 Source0: https://sourceware.org/pub/lvm2/releases/LVM2.%{version}.tgz
 # https://bugzilla.redhat.com/show_bug.cgi?id=2180557
 # https://github.com/lvmteam/lvm2/pull/114
 # Fix an invalid import which breaks lvm2-lvmdbusd.service and thus anaconda
-Patch0: 0001-Fix-import-of-utils-from-lvmdbusd.cfg.patch
-#Patch1: 0001-*
+Patch1: 0001-Fix-import-of-utils-from-lvmdbusd.cfg.patch
+Patch2: 0002-lvmdbusd-Correct-locking-for-_common_log.patch
+Patch3: 0003-lvmdbusd-Correct-seg.-fault-on-s390x-ELN.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -107,7 +108,6 @@ or more physical volumes and creating one or more logical volumes
 
 %prep
 %autosetup -p1 -n LVM2.%{version}
-#%%patch1 -p1 -b .backup1
 
 %build
 %global _default_pid_dir /run
@@ -660,6 +660,9 @@ An extensive functional testsuite for LVM2.
 %endif
 
 %changelog
+* Tue Apr 04 2023 Marian Csontos <mcsontos@redhat.com> - 2.03.20-3
+- Fix segfault in lvmdbusd on s390x.
+
 * Tue Mar 21 2023 Adam Williamson <awilliam@redhat.com> - 2.03.20-2
 - Backport PR #114 to fix #2180557
 

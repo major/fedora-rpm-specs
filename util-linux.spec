@@ -2,12 +2,12 @@
 Summary: Collection of basic system utilities
 Name: util-linux
 Version: 2.39
-Release: 0.1%{?dist}
+Release: 0.3%{?dist}
 License: GPLv2 and GPLv2+ and LGPLv2+ and BSD with advertising and Public Domain
 URL: https://en.wikipedia.org/wiki/Util-linux
 
 ### Macros
-%global upstream_version %{version}-rc1
+%global upstream_version %{version}-rc2
 %global upstream_major %(eval echo %{version} | sed -e 's/\([[:digit:]]*\)\.\([[:digit:]]*\)\.[[:digit:]]*$/\1.\2/')
 
 %global compldir %{_datadir}/bash-completion/completions/
@@ -93,10 +93,6 @@ Patch0: login-lastlog-create.patch
 # Add `/run/motd.d` to the hardcoded MOTD_FILE
 # https://github.com/coreos/console-login-helper-messages/issues/60
 Patch1: login-default-motd-file.patch
-# upstream, already in >= v2.39-rc2
-Patch2: libmount-dont-ignore-autofs-mounts-by-default.patch
-Patch3: mount-ignore-autofs-entries-in-mount-listing.patch
-
 
 %description
 The util-linux package contains a large variety of low-level system
@@ -922,6 +918,9 @@ fi
 %{_libdir}/python*/site-packages/libmount/
 
 %changelog
+* Tue Apr  4 2023 Karel Zak <kzak@redhat.com> - 2.39-0.2
+- upgrade to v2.39-rc2
+
 * Mon Mar 20 2023 Karel Zak <kzak@redhat.com> - 2.39-0.1
 - upgrade to v2.39-rc1
   https://kernel.org/pub/linux/utils/util-linux/v2.39/v2.39-ReleaseNotes

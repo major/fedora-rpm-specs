@@ -10,7 +10,7 @@
 
 Summary: Qt6 - Wayland platform support and QtCompositor module
 Name:    qt6-%{qt_module}
-Version: 6.4.3
+Version: 6.5.0
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -144,7 +144,6 @@ popd
 %{_qt6_libdir}/libQt6WlShellIntegration.prl
 %{_qt6_libdir}/cmake/Qt6WaylandCompositor/Qt6WaylandCompositorConfig*.cmake
 %{_qt6_archdatadir}/mkspecs/modules/*.pri
-%{_qt6_datadir}/modules/*.json
 %{_qt6_libdir}/cmake/Qt6/*.cmake
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtWaylandTestsConfig.cmake
 %{_qt6_libdir}/cmake/Qt6Gui/*.cmake
@@ -163,7 +162,8 @@ popd
 %{_qt6_libdir}/cmake/Qt6WlShellIntegrationPrivate/
 %dir  %{_qt6_libdir}/cmake/Qt6WaylandGlobalPrivate/
 %{_qt6_libdir}/cmake/Qt6WaylandGlobalPrivate/
-%{_qt6_libdir}/metatypes/qt6*_metatypes.json
+%{_qt6_libdir}/qt6/metatypes/qt6*_metatypes.json
+%{_qt6_libdir}/qt6/modules/*.json
 %{_qt6_libdir}/pkgconfig/*.pc
 
 
@@ -173,6 +173,9 @@ popd
 %endif
 
 %changelog
+* Tue Apr 04 2023 Jan Grulich <jgrulich@redhat.com> - 6.5.0-1
+- 6.5.0
+
 * Thu Mar 23 2023 Jan Grulich <jgrulich@redhat.com> - 6.4.3-1
 - 6.4.3
 

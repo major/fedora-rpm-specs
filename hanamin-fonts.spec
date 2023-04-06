@@ -1,9 +1,10 @@
 Version:	20170904
-Release:	15%{?dist}
+Release:	16%{?dist}
 URL:		http://fonts.jp/hanazono/
 
 %global	foundry		hanamin
-%global	fontlicense	Copyright only or OFL
+## https://gitlab.com/fedora/legal/fedora-license-data/-/issues/179#note_1331780205
+%global	fontlicense	LicenseRef-Fedora-UltraPermissive OR OFL-1.1-RFN
 %global	fontlicenses	LICENSE.txt
 %global	fontdocs	README.txt THANKS.txt
 %global	fontdocsex	%{fontlicenses}
@@ -60,6 +61,9 @@ done
 %fontfiles -a
 
 %changelog
+* Tue Apr  4 2023 Akira TAGOH <tagoh@redhat.com> - 20170904-16
+- Migrated license tag to SPDX.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20170904-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

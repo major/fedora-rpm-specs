@@ -8,7 +8,7 @@
 
 Name:           qt-creator
 Version:        10.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPLv3 with exceptions
@@ -79,10 +79,8 @@ BuildRequires:  yaml-cpp-devel
 
 Requires:       hicolor-icon-theme
 Requires:       xdg-utils
-Requires:       qt5-qtquickcontrols%{?_isa}
 
-# we need qt-devel and gcc-c++ to compile programs using qt-creator
-Requires:       qt5-qtbase-devel
+# we need gcc-c++ to compile programs using qt-creator
 Requires:       gcc-c++
 Requires:       %{name}-data = %{version}-%{release}
 
@@ -218,6 +216,9 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
+* Tue Apr 04 2023 Jan Grulich <jgrulich@redhat.com>
+- Rebuild (qt6)
+
 * Wed Mar 29 2023 Sandro Mani <manisandro@gmail.com> - 10.0.0-1
 - Update to 10.0.0
 

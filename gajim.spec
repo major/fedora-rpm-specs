@@ -1,8 +1,8 @@
 %global appid org.gajim.Gajim
 
 Name:     gajim
-Version:  1.7.2
-Release:  1%{?dist}
+Version:  1.7.3
+Release:  2%{?dist}
 Summary:  Jabber client written in PyGTK
 License:  GPLv3
 URL:      https://gajim.org/
@@ -49,6 +49,7 @@ Recommends:  gstreamer1-plugins-good-gtk
 # OMEMO
 Recommends:  python3-axolotl
 Recommends:  python3-protobuf
+Recommends:  python3-qrcode
 
 %description
 Gajim is a Jabber client written in PyGTK. The goal of Gajim's developers is
@@ -93,6 +94,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{appid}.
 %{_datadir}/icons/hicolor/scalable/apps/%{appid}-symbolic.svg
 
 %changelog
+* Tue Apr 04 2023 Michael Kuhn <suraia@fedoraproject.org> - 1.7.3-2
+- Recommend python3-qrcode for OMEMO (#2181758)
+
+* Tue Apr 04 2023 Michael Kuhn <suraia@fedoraproject.org> - 1.7.3-1
+- Update to 1.7.3
+
 * Sat Mar 11 2023 Michael Kuhn <suraia@fedoraproject.org> - 1.7.2-1
 - Update to 1.7.2
 

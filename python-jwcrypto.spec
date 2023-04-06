@@ -19,7 +19,7 @@ Version:        1.4.2
 Release:        %autorelease
 Summary:        Implements JWK, JWS, JWE specifications using python-cryptography
 
-License:        LGPLv3+
+License:        LGPL-3.0-or-later
 URL:            https://github.com/latchset/%{srcname}
 Source0:        https://github.com/latchset/%{srcname}/releases/download/v%{version}/%{srcname}-%{version}.tar.gz
 

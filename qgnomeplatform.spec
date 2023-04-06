@@ -1,6 +1,6 @@
 Name:           qgnomeplatform
 Version:        0.9.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Qt Platform Theme aimed to accommodate Gnome settings
 
 License:        LGPL-2.0-or-later
@@ -10,6 +10,7 @@ Source0:        https://github.com/FedoraQt/QGnomePlatform/archive/%{version}/QG
 # Upstream patches
 Patch0:         qgnomeplatform-fix-window-content-geometry-for-qt5-when-shadows-are-enabled.patch
 Patch1:         qgnomeplatform-add-support-for-kcolorscheme-using-adwaita-like-color-schemes.patch
+Patch3:         qgnomeplatform-fix-qt6-build.patch
 
 Patch50:        qgnomeplatform-use-more-updated-window-states-value.patch
 
@@ -108,6 +109,9 @@ modifying them - making them fit into the environment as well as possible.
 %{_qt6_plugindir}/wayland-decoration-client/libqgnomeplatformdecoration.so
 
 %changelog
+* Tue Apr 04 2023 Jan Grulich <jgrulich@redhat.com> - 0.9.0-12
+- Rebuild (qt6)
+
 * Mon Mar 27 2023 Jan Grulich <jgrulich@redhat.com> - 0.9.0-11
 - Rebuild (qt6)
 

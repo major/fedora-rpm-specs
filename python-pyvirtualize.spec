@@ -25,7 +25,7 @@ And of course, you can use it to access all the API through python.
 Name:           python-%{modname}
 # pypi tells current version
 Version:        0.10
-Release:        12.%{date}git%(c=%commit0; echo ${c:0:7} )%{?dist}
+Release:        13.%{date}git%(c=%commit0; echo ${c:0:7} )%{?dist}
 Summary:        Another python frontend to access and manage pyvmomi
 
 License:        ASL 2.0
@@ -64,6 +64,10 @@ Requires:       python%{python3_other_pkgversion}-pyvmomi
 %package doc
 Summary:        Documentation files for %{srcname}
 BuildRequires:  web-assets-devel
+%if 0%{?fedora} > 38
+BuildRequires:  python-sphinxcontrib-jquery 
+BuildRequires:  js-jquery
+%endif
 Requires:       js-jquery
 # some js files of documentation are licensed with BSD
 License:        ASL 2.0 and BSD
@@ -77,8 +81,11 @@ This package installs %{summary}.
 # skip backported dependencies
 sed -i /typing/d requirements.txt
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 %{?python3_other_pkgversion: %py3_other_build}
 %if 0%{?with_build_doc}
 # drop useless files
@@ -93,14 +100,16 @@ ln -fs %{_jsdir}/jquery/3/jquery.js docs/build/html/_static
 
 %install
 %{?python3_other_pkgversion: %py3_other_install}
-%py3_install
+%pyproject_install
 
 
 %files -n python%{python3_pkgversion}-%{modname}
 %license LICENSE
 %doc README.md
 %{python3_sitelib}/%{srcname}/
-%{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info/
+# skip egg-info due to PEP 517/518
+##%%{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info/
+%{python3_sitelib}/%{srcname}-%{version}.dist-info/
 
 %if 0%{?python3_other_pkgversion}
 %files -n python%{python3_other_pkgversion}-%{modname}
@@ -116,6 +125,10 @@ ln -fs %{_jsdir}/jquery/3/jquery.js docs/build/html/_static
 
 
 %changelog
+* Tue Apr 04 2023 Raphael Groner <raphgro-at-fedoraproject.org> - 0.10.13.20191018gitdc2d971
+- use new python macros, generate buildrequires
+- fix sphinx with unbundled jquery
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-12.20191018gitdc2d971
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -7,13 +7,17 @@
 
 Name:           python-peewee
 Version:        3.16.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A simple and small ORM
 
 License:        MIT
 URL:            https://github.com/coleifer/peewee
 # PyPI tarball doesn't have tests
 Source:         %{url}/archive/%{version}/peewee-%{version}.tar.gz
+
+# https://github.com/coleifer/peewee/issues/2699
+# https://github.com/coleifer/peewee/commit/027eccff176bf458972900d6a329e05d5b969eb4
+Patch0:         fix-timeouts-in-test-runs.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
@@ -107,6 +111,9 @@ psql -c "CREATE EXTENSION hstore" peewee_test
 
 
 %changelog
+* Tue Apr 04 2023 Viliam Krizan <vkrizan@redhat.com> - 3.16.0-2
+- Add patch to fix sqlite timeouts in test runs on the build system
+
 * Mon Apr 03 2023 Viliam Krizan <vkrizan@redhat.com> - 3.16.0-1
 - new version rhbz#2174257
 

@@ -7,7 +7,7 @@
 %global _hardened_build 1
 
 Name:           haproxy
-Version:        2.7.5
+Version:        2.7.6
 Release:        1%{?dist}
 Summary:        HAProxy reverse proxy for high availability environments
 
@@ -127,6 +127,9 @@ done
 %{_sysusersdir}/%{name}.conf
 
 %changelog
+* Tue Apr 04 2023 Ryan O'Hara <rohara@redhat.com> - 2.7.6-1
+- Update to 2.7.6 (#2182310)
+
 * Thu Mar 23 2023 Ryan O'Hara <rohara@redhat.com> - 2.7.5-1
 - Update to 2.7.5 (#2154925)
 

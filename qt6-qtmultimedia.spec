@@ -17,7 +17,7 @@
 
 Summary: Qt6 - Multimedia support
 Name:    qt6-%{qt_module}
-Version: 6.4.3
+Version: 6.5.0
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -64,6 +64,7 @@ BuildRequires: libswresample-free-devel
 %if 0%{?openal}
 BuildRequires: pkgconfig(openal)
 %endif
+BuildRequires: pkgconfig(xrandr)
 BuildRequires: pkgconfig(xv)
 BuildRequires: pkgconfig(xkbcommon) >= 0.5.0
 BuildRequires: openssl-devel
@@ -165,8 +166,8 @@ popd
 %dir %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins
 %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/*.cmake
 %{_qt6_archdatadir}/mkspecs/modules/*.pri
-%{_qt6_libdir}/metatypes/qt6*_metatypes.json
-%{_qt6_datadir}/modules/*.json
+%{_qt6_libdir}/qt6/metatypes/qt6*_metatypes.json
+%{_qt6_libdir}/qt6/modules/*.json
 %{_qt6_libdir}/pkgconfig/*.pc
 
 
@@ -177,6 +178,9 @@ popd
 
 
 %changelog
+* Tue Apr 04 2023 Jan Grulich <jgrulich@redhat.com> - 6.5.0-1
+- 6.5.0
+
 * Thu Mar 23 2023 Jan Grulich <jgrulich@redhat.com> - 6.4.3-1
 - 6.4.3
 

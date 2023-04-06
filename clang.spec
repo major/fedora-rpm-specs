@@ -42,7 +42,7 @@
 
 Name:		%pkg_name
 Version:	%{clang_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A C language family front-end for LLVM
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -64,7 +64,6 @@ Source7:	macros.%{name}
 Patch1:     0003-PATCH-Make-funwind-tables-the-default-on-all-archs.patch
 Patch2:     0003-PATCH-clang-Don-t-install-static-libraries.patch
 Patch3:     0001-Driver-Add-a-gcc-equivalent-triple-to-the-list-of-tr.patch
-Patch4:     0001-cmake-Allow-shared-libraries-to-customize-the-soname.patch
 # Drop the following patch after debugedit adds support to DWARF-5:
 # https://sourceware.org/bugzilla/show_bug.cgi?id=28728
 Patch5:     0010-PATCH-clang-Produce-DWARF4-by-default.patch
@@ -345,7 +344,6 @@ sed -i 's/\@FEDORA_LLVM_LIB_SUFFIX\@//g' test/lit.cfg.py
 %endif
 %if %{with compat_build}
 	-DCLANG_BUILD_TOOLS:BOOL=OFF \
-	-DLLVM_CMAKE_DIR=%{install_libdir}/cmake/llvm \
 	-DCMAKE_INSTALL_PREFIX=%{install_prefix} \
 	-DCLANG_INCLUDE_TESTS:BOOL=OFF \
 %else
@@ -612,6 +610,9 @@ false
 
 %endif
 %changelog
+* Thu Mar 23 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0-2
+- Remove unnecessary patch and macro
+
 * Mon Mar 20 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0-1
 - Update to LLVM 16.0.0
 

@@ -584,7 +584,6 @@ make check -k ||:
 %dir %{_qt6_libdir}/cmake/Qt6OpenGLWidgets
 %dir %{_qt6_libdir}/cmake/Qt6PrintSupport
 %dir %{_qt6_libdir}/cmake/Qt6Sql
-# dir {_qt6_libdir}/cmake/Qt6XcbQpaPrivate
 %dir %{_qt6_libdir}/cmake/Qt6Test
 %dir %{_qt6_libdir}/cmake/Qt6Widgets
 %dir %{_qt6_libdir}/cmake/Qt6WidgetsTools
@@ -600,8 +599,6 @@ make check -k ||:
 %{_bindir}/qmake*
 %{_bindir}/qtpaths*
 %{_bindir}/qt-cmake
-# {_bindir}/qt-cmake-private
-# {_bindir}/qt-cmake-standalone-test
 %{_bindir}/qt-configure-module
 %{_libdir}/qt6/bin/qmake6
 %{_qt6_bindir}/androiddeployqt
@@ -673,8 +670,6 @@ make check -k ||:
 %{_qt6_libdir}/libQt6Test.so
 %{_qt6_libdir}/libQt6Widgets.prl
 %{_qt6_libdir}/libQt6Widgets.so
-# {_qt6_libdir}/libQt6XcbQpa.prl
-# {_qt6_libdir}/libQt6XcbQpa.so
 %{_qt6_libdir}/libQt6Xml.prl
 %{_qt6_libdir}/libQt6Xml.so
 %{_qt6_libdir}/libQt6EglFSDeviceIntegration.prl
@@ -730,7 +725,6 @@ make check -k ||:
 %{_qt6_libdir}/cmake/Qt6Test/*.cmake
 %{_qt6_libdir}/cmake/Qt6Widgets/*.cmake
 %{_qt6_libdir}/cmake/Qt6WidgetsTools/*.cmake
-# {_qt6_libdir}/cmake/Qt6XcbQpaPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6Xml/*.cmake
 %{_qt6_libdir}/qt6/metatypes/*.json
 %{_qt6_libdir}/pkgconfig/*.pc
@@ -796,7 +790,6 @@ make check -k ||:
 %{_qt6_libdir}/libQt6OpenGLWidgets.so.6*
 %{_qt6_libdir}/libQt6PrintSupport.so.6*
 %{_qt6_libdir}/libQt6Widgets.so.6*
-# {_qt6_libdir}/libQt6XcbQpa.so.6*
 # Generic
 %{_qt6_plugindir}/generic/libqevdevkeyboardplugin.so
 %{_qt6_plugindir}/generic/libqevdevmouseplugin.so
@@ -824,16 +817,13 @@ make check -k ||:
 %{_qt6_plugindir}/egldeviceintegrations/libqeglfs-x11-integration.so
 %{_qt6_plugindir}/egldeviceintegrations/libqeglfs-kms-egldevice-integration.so
 %{_qt6_plugindir}/egldeviceintegrations/libqeglfs-emu-integration.so
-# {_qt6_plugindir}/xcbglintegrations/libqxcb-egl-integration.so
 %endif
 # Platforms
 %{_qt6_plugindir}/platforms/libqlinuxfb.so
 %{_qt6_plugindir}/platforms/libqminimal.so
 %{_qt6_plugindir}/platforms/libqoffscreen.so
-# {_qt6_plugindir}/platforms/libqxcb.so
 %{_qt6_plugindir}/platforms/libqvnc.so
 %{_qt6_plugindir}/platforms/libqvkkhrdisplay.so
-# {_qt6_plugindir}/xcbglintegrations/libqxcb-glx-integration.so
 # Platformthemes
 %{_qt6_plugindir}/platformthemes/libqxdgdesktopportal.so
 %{_qt6_plugindir}/platformthemes/libqgtk3.so

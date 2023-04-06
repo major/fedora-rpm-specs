@@ -1,6 +1,6 @@
 Name:           liferea
 Epoch:          1
-Version:        1.14.3
+Version:        1.14.4
 Release:        1%{?dist}
 Summary:        An RSS/RDF feed reader
 
@@ -87,6 +87,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/net.sourc
 
 
 %changelog
+* Tue Apr 04 2023 josef radinger <cheese@nosuchhost.net> - 1:1.14.4-1
+- bump version
+
 * Sat Mar 25 2023 josef radinger <cheese@nosuchhost.net> - 1:1.14.3-1
 - bump version
 

@@ -10,8 +10,8 @@
 %bcond_with lwt
 
 Name:           ocaml-dune
-Version:        3.7.0
-Release:        2%{?dist}
+Version:        3.7.1
+Release:        1%{?dist}
 Summary:        Composable build system for OCaml and Reason
 
 # Dune itself is MIT.  Some bundled libraries have a different license:
@@ -429,10 +429,13 @@ developing applications that use ocaml-xdg.
 %prep
 %autosetup -N -n dune-%{version}
 %if %{without lwt}
-%patch 0 -p1
+%autopatch 0 -p1
 rm -fr otherlibs/dune-rpc-lwt dune-rpc-lwt.opam
 %endif
 %autopatch -m1 -p1
+
+# Allow use of Sphinx 6
+sed -i 's/, < 6//'g doc/requirements.txt
 
 %build
 ./configure \
@@ -545,6 +548,9 @@ cd -
 %files -n ocaml-xdg-devel -f .ofiles-xdg-devel
 
 %changelog
+* Tue Apr  4 2023 Jerry James <loganjerry@gmail.com> - 3.7.1-1
+- Version 3.7.1
+
 * Fri Mar 24 2023 Jerry James <loganjerry@gmail.com> - 3.7.0-2
 - Rebuild for ocaml-csexp 1.5.2
 

@@ -2,7 +2,7 @@
 %global copr_common_version 0.16.3.dev
 
 Name:       copr-keygen
-Version:    1.88
+Version:    1.89
 Release:    1%{?dist}
 Summary:    Part of Copr build system. Aux service that generate keys for signd
 
@@ -158,16 +158,15 @@ systemctl condrestart httpd &>/dev/null || :
 %{_bindir}/gpg_copr.sh
 %{_bindir}/gpg-copr
 %{_bindir}/gpg-copr-prolong
-%config(noreplace)  %{_sysconfdir}/sudoers.d/copr_signer
 
+%config %{_sysconfdir}/cron.daily/*
+%config %{_sysconfdir}/logrotate.d/copr-keygen
+%config %{_sysconfdir}/sudoers.d/copr_signer
+
+# Only copr-signer owned files go below!
 %defattr(600, copr-signer, copr-signer, 700)
 %{_sharedstatedir}/copr-keygen
 %config(noreplace) %{_sysconfdir}/copr-keygen
-
-%{_sysconfdir}/logrotate.d/copr-keygen
-
-%config %attr(0755, root, root) %{_sysconfdir}/cron.daily/*
-
 %dir %{_localstatedir}/log/copr-keygen
 %ghost %{_localstatedir}/log/copr-keygen/main.log
 
@@ -177,6 +176,9 @@ systemctl condrestart httpd &>/dev/null || :
 
 
 %changelog
+* Wed Mar 22 2023 Jiri Kyjovsky <j1.kyjovsky@gmail.com> 1.89-1
+- Fix config files installation pattern
+
 * Tue Jan 24 2023 Jakub Kadlcik <frostyx@email.cz> 1.88-1
 - Fix validation for projects with dash and/or dot in their name
 

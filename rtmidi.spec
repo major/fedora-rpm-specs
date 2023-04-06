@@ -1,6 +1,6 @@
 Name:       rtmidi
-Version:    4.0.0
-Release:    4%{?dist}
+Version:    5.0.0
+Release:    1%{?dist}
 Summary:    Library for realtime MIDI input/output (ALSA support)
 License:    MIT
 URL:        https://www.music.mcgill.ca/~gary/rtmidi/index.html
@@ -41,8 +41,6 @@ sed -i.orig -e 's/\/lib/\/%{_lib}/' Makefile.in rtmidi.pc.in
 dos2unix doc/release.txt doc/doxygen/tutorial.txt
 
 %build
-find . -name Makefile.in -delete
-./autogen.sh --no-configure
 %configure --docdir=%{_docdir}/%{name}-devel --with-jack --with-alsa
 make %{?_smp_mflags} AM_DEFAULT_VERBOSITY=1
 
@@ -70,6 +68,10 @@ rm %{buildroot}%{_libdir}/lib%{name}.{a,la}
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Apr 04 2023 Joonas Sarajärvi <muep@iki.fi> - 5.0.0-1
+- New version
+- C++11 syntax used in headers
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

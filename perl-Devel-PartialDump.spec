@@ -2,7 +2,7 @@ Name:           perl-Devel-PartialDump
 Version:        0.20
 Release:        18%{?dist}
 Summary:        Partial dumping of data structures, optimized for argument printing
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-PartialDump
 Source0:        https://cpan.metacpan.org/modules/by-module/Devel/Devel-PartialDump-%{version}.tar.gz
 BuildArch:      noarch
@@ -31,7 +31,7 @@ BuildRequires:  perl(if)
 BuildRequires:  perl(ok)
 BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Test::Warnings) >= 0.009
-# Runtime
+# Dependencies
 Requires:       perl(overload)
 
 # Filter bogus provide of perl(DB)

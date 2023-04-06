@@ -16,9 +16,9 @@
 
 Name:           osc
 Summary:        Open Build Service Commander
-Version:        1.0.1
+Version:        1.1.0
 # Bump the release as necessary to ensure we're one level up from upstream
-Release:        %{obsrel}.%{baserelease}%{?dist}
+Release:        1%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://github.com/openSUSE/%{name}
 Source:         %{URL}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -127,6 +127,9 @@ python3 setup.py test
 %dir %{osc_plugin_dir}
 
 %changelog
+* Tue Apr 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.1.0-1
+- 1.1.0
+
 * Mon Mar 20 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.0.1-1
 - 1.0.1, fixes rhbz#2179512
 

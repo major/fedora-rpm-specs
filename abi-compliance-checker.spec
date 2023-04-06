@@ -3,7 +3,7 @@ Version:        2.3
 Release:        13%{?dist}
 Summary:        An ABI Compliance Checker
 
-License:        LGPL-2.1+
+License:        LGPL-2.1-or-later
 URL:            http://lvc.github.io/abi-compliance-checker/
 Source0:        https://github.com/lvc/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 

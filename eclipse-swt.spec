@@ -1,22 +1,20 @@
 Epoch:                  1
 
-%global swtdir          eclipse-platform-sources-I20221123-1800
-%global eclipse_rel     %{version}
-%global eclipse_tag     R-%{eclipse_rel}-202211231800
-%global swtsrcdir       eclipse.platform.swt/bundles/org.eclipse.swt
+%global swtdir          eclipse.platform.swt-R%{major_version}_%{minor_version}
+%global swtsrcdir       bundles/org.eclipse.swt
 %global eclipse_arch    %{_arch}
+%global major_version   4
+%global minor_version   27
 
 Name:           eclipse-swt
-Version:        4.26
-Release:        2%{?dist}
+Version:        %{major_version}.%{minor_version}
+Release:        1%{?dist}
 Summary:        Eclipse SWT: The Standard Widget Toolkit for GTK+
 
 License:        EPL-2.0
 URL:            https://www.eclipse.org/swt/
 
-Source0:        https://download.eclipse.org/eclipse/downloads/drops4/%{eclipse_tag}/eclipse-platform-sources-%{eclipse_rel}.tar.xz
-# Copy of the script https://git.eclipse.org/c/linuxtools/org.eclipse.linuxtools.eclipse-build.git/tree/utils/ensure_arch.sh. Need for create secondary arch for s390x
-Source1:        ensure_arch.sh
+Source0:        https://github.com/eclipse-platform/eclipse.platform.swt/archive/refs/tags/%{swtdir}.tar.gz
 
 # Avoid the need for a javascript interpreter at build time
 Patch0:         eclipse-swt-avoid-javascript-at-build.patch
@@ -54,34 +52,14 @@ operating systems on which it is implemented.
 %setup -q -n %{swtdir}
 %patch0 -p1
 %patch1 -p1
-
-# Remove pre-compiled native launchers	
-rm -rf rt.equinox.binaries/org.eclipse.equinox.executable/{bin,contributed}/
-
-# Delete pre-built binary artifacts except some test data that cannot be generated
-rm -rf rt.equinox.p2/
-rm -rf eclipse.jdt.core/org.eclipse.jdt.core.tests.model/
-find . ! -path "*/JCL/*" ! -name "rtstubs*.jar" ! -name "javax15api.jar" ! -name "j9stubs.jar" ! -name "annotations.jar" \
--type f -name *.jar -delete
-find -name '*.class' -delete
-find -name '*.jar' -delete
-find -name '*.so' -delete
-find -name '*.dll' -delete
-find -name '*.jnilib' -delete
-
 # Patch doesn't support path with spaces, renaming and back to apply patch
 mv %{swtsrcdir}/Eclipse\ SWT\ PI %{swtsrcdir}/Eclipse-SWT-PI
 %patch2 -p1
 mv %{swtsrcdir}/Eclipse-SWT-PI %{swtsrcdir}/Eclipse\ SWT\ PI
 
 # This part generates secondary fragments using primary fragments
-%pom_xpath_inject "pom:plugin[pom:artifactId='target-platform-configuration']/pom:configuration/pom:environments" \
-  "<environment><os>linux</os><ws>gtk</ws><arch>s390x</arch></environment>" eclipse-platform-parent
-rm -rf eclipse.platform.swt.binaries/bundles/org.eclipse.swt.gtk.linux.s390x
-rm -rf rt.equinox.framework/bundles/org.eclipse.equinox.launcher.gtk.linux.s390x
-for dir in rt.equinox.binaries equinox/bundles eclipse.platform.swt.binaries/bundles ; do
-  %{_sourcedir}/ensure_arch.sh "$dir" x86_64 s390x	
-done
+%pom_xpath_inject "pom:profiles/pom:profile[pom:id='unix']/pom:build/pom:plugins/pom:plugin[pom:artifactId='target-platform-configuration']/pom:configuration/pom:environments" \
+  "<environment><os>linux</os><ws>gtk</ws><arch>s390x</arch></environment>" .
 
 cp %{swtsrcdir}/Eclipse\ SWT/common/library/* %{swtsrcdir}/Eclipse\ SWT\ PI/gtk/library/
 cp %{swtsrcdir}/Eclipse\ SWT/common/version.txt %{swtsrcdir}/
@@ -89,7 +67,6 @@ cp %{swtsrcdir}/Eclipse\ SWT\ PI/{common,cairo}/library/* %{swtsrcdir}/Eclipse\ 
 cp %{swtsrcdir}/Eclipse\ SWT\ OpenGL/glx/library/* %{swtsrcdir}/Eclipse\ SWT\ PI/gtk/library/
 cp %{swtsrcdir}/Eclipse\ SWT\ WebKit/gtk/library/* %{swtsrcdir}/Eclipse\ SWT\ PI/gtk/library/
 cp %{swtsrcdir}/Eclipse\ SWT\ AWT/gtk/library/* %{swtsrcdir}/Eclipse\ SWT\ PI/gtk/library/
-cp eclipse.platform.swt.binaries/bundles/org.eclipse.swt.gtk.linux.%{eclipse_arch}/about_files/*.txt %{swtsrcdir}/about_files/
 
 %build
 
@@ -122,7 +99,7 @@ VER=$(echo $JAR | sed -e "s/.*_\(.*\)\.jar/\1/")
 
 %mvn_install -J %{swtsrcdir}/docs/api/
 
-#fix so permissions
+# fix so permissions
 find %{swtsrcdir}/*.so -name *.so -exec chmod a+x {} \;
 
 install -d 755 %{buildroot}/%{_libdir}/%{name}
@@ -134,6 +111,9 @@ cp -a %{swtsrcdir}/*.so %{buildroot}/%{_libdir}/%{name}
 %license NOTICE
 
 %changelog
+* Tue Apr 04 2023 Nicolas De Amicis <deamicis@bluewin.ch> - 1:4.27-1
+- Bump to 4.27
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.26-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

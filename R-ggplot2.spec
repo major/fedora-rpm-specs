@@ -99,7 +99,7 @@ export LANG=C.UTF-8
 %if %{with suggests}
 %{_bindir}/R CMD check %{packname}
 %else
-_R_CHECK_FORCE_SUGGESTS_=0 VDIFFR_RUN_TESTS=false %{_bindir}/R CMD check %{packname} --no-examples
+_R_CHECK_FORCE_SUGGESTS_=0 VDIFFR_RUN_TESTS=false %{_bindir}/R CMD check %{packname} --no-examples --no-vignettes
 %endif
 
 

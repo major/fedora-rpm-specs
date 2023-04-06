@@ -16,7 +16,7 @@
 %bcond_without zchunk
 %endif
 
-%if 0%{?rhel} && 0%{?rhel} < 8
+%if 0%{?rhel} && 0%{?rhel} < 7
 %bcond_with libmodulemd
 %else
 %bcond_without libmodulemd
@@ -30,12 +30,11 @@
 
 Summary:        Creates a common metadata repository
 Name:           createrepo_c
-Version:        0.20.1
-Release:        4%{?dist}
-License:        GPLv2+
+Version:        0.21.1
+Release:        1%{?dist}
+License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/createrepo_c
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0: createrepo_c-c99.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -57,8 +56,13 @@ BuildRequires:  zchunk
 %endif
 %if %{with libmodulemd}
 BuildRequires:  pkgconfig(modulemd-2.0) >= %{libmodulemd_version}
+%if 0%{?rhel} && 0%{?rhel} <= 7
+BuildRequires:  libmodulemd2
+Requires:       libmodulemd2%{?_isa} >= %{libmodulemd_version}
+%else
 BuildRequires:  libmodulemd
 Requires:       libmodulemd%{?_isa} >= %{libmodulemd_version}
+%endif
 %endif
 Requires:       %{name}-libs =  %{version}-%{release}
 BuildRequires:  bash-completion
@@ -184,6 +188,14 @@ ln -sr %{buildroot}%{_bindir}/modifyrepo_c %{buildroot}%{_bindir}/modifyrepo
 %{python3_sitearch}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Apr 04 2023 Jan Kolarik <jkolarik@redhat.com> - 0.21.1-1
+- Update to 0.21.1
+- Add --duplicated-nevra "keep-last" option, and --delayed-dump
+- Add optional filelists-ext metadata
+- Replace 'cp' binary execution with gio
+- Fix errors while parsing utf8 chars in cli options
+- Use g_pattern_spec_match() with glib >= 2.70.0
+
 * Tue Feb 28 2023 Miro Hrončok <mhroncok@redhat.com> - 0.20.1-4
 - BuildRequire python3-setuptools explicitly, don't assume they are pulled transitively
 

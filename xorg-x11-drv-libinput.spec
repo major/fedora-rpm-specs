@@ -7,8 +7,8 @@
 
 Summary:    Xorg X11 libinput input driver
 Name:       xorg-x11-drv-libinput
-Version:    1.2.1
-Release:    3%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Version:    1.3.0
+Release:    1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 URL:        http://www.x.org
 License:    MIT
 
@@ -78,6 +78,9 @@ Xorg X11 libinput input driver development files.
 %{_includedir}/xorg/libinput-properties.h
 
 %changelog
+* Tue Apr 04 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.3.0-1
+- xf86-input-libinput 1.3.0
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name: conan
-Version: 2.0.2
+Version: 2.0.3
 Release: 1%{?dist}
 
 License: MIT
@@ -61,10 +61,13 @@ find -name '*.py' \( \! -perm /u+x,g+x,o+x -exec sed -e '/^#!/Q 0' -e 'Q 1' {} \
 
 %files -f %{pyproject_files}
 %license LICENSE.md
-%doc README.rst contributors.txt
+%doc README.md contributors.txt
 %{_bindir}/%{name}
 
 %changelog
+* Tue Apr 04 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2.0.3-1
+- Updated to version 2.0.3.
+
 * Wed Mar 15 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2.0.2-1
 - Updated to version 2.0.2.
 

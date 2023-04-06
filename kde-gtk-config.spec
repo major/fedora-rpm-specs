@@ -4,8 +4,8 @@
 
 Name:    kde-gtk-config
 Summary: Configure the appearance of GTK apps in KDE
-Version: 5.27.3
-Release: 2%{?dist}
+Version: 5.27.4
+Release: 1%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 # KDE e.V. may determine that future LGPL versions are accepted
@@ -21,7 +21,6 @@ URL:     https://invent.kde.org/plasma/%{name}
 Source0: http://download.kde.org/%{stable}/plasma/%{version}/kde-gtk-config-%{version}.tar.xz
 
 # upstream patches
-Patch1: 0001-retrieve-text-DPI-from-kcm-fronts.patch
 
 ## upstreamable patches
 
@@ -92,6 +91,9 @@ appearance of GTK apps in KDE.
 
 
 %changelog
+* Tue Apr 04 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.4-1
+- 5.27.4
+
 * Wed Mar 29 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.3-2
 - Backport patch from upstream
 - Fix BZ#2173739

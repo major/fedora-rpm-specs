@@ -188,6 +188,7 @@ gzip ChangeLog
       -D WITH_QSPATIALITE:BOOL=TRUE \
       -D WITH_SERVER_LANDINGPAGE_WEBAPP=ON
 export YARN_CACHE_FOLDER="$PWD/.package-cache"
+%global _smp_mflags -j1
 %cmake_build
 
 

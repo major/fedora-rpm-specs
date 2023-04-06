@@ -1,5 +1,5 @@
 %if 0%{?fedora}
-# With _package_note_file enabled, godot.x11.opt.tools fails to link with:
+# With _package_note_file enabled, got.x11.opt.tools fails to link with:
 # g++: fatal error: environment variable 'RPM_ARCH' not defined
 %undefine _package_note_file
 %ifarch %{arm32}
@@ -13,7 +13,7 @@
 %define rdnsname org.godotengine.Godot
 
 Name:           godot
-Version:        4.0.1
+Version:        4.0.2
 Release:        1%{?dist}
 Summary:        Multi-platform 2D and 3D game engine with a feature-rich editor
 %if 0%{?mageia}
@@ -83,7 +83,7 @@ BuildRequires:  python3-scons
 
 %if %{system_embree}
 %ifarch aarch64 x86_64
-BuildRequires:  embree-devel
+BuildRequires:  embree-devel < 4
 %endif
 %endif
 
@@ -299,6 +299,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnsname}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnsname}.appdata.xml
 
 %changelog
+* Tue Apr 04 2023 Rémi Verschelde <akien@fedoraproject.org> - 4.0.2-1
+- Version 4.0.2-stable
+
 * Tue Mar 28 2023 Rémi Verschelde <akien@fedoraproject.org> - 4.0.1-1
 - Version 4.0.1-stable
 

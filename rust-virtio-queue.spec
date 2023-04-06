@@ -5,7 +5,7 @@
 %global crate virtio-queue
 
 Name:           rust-virtio-queue
-Version:        0.7.0
+Version:        0.7.1
 Release:        1%{?dist}
 Summary:        Virtio queue implementation
 
@@ -17,9 +17,6 @@ Source2:        https://raw.githubusercontent.com/rust-vmm/vm-virtio/main/LICENS
 # Manually created patch for downstream crate metadata changes
 # * drop unused, benchmark-only criterion dev-dependency to speed up builds
 Patch:          virtio-queue-fix-metadata.diff
-# Fix endianess issues on the mock queue
-# https://github.com/rust-vmm/vm-virtio/pull/223
-Patch:          virtio-queue-fix-endianess-issues-in-mock-queue.diff
 
 ExcludeArch:    i686
 
@@ -91,6 +88,10 @@ cp %{SOURCE2} .
 %endif
 
 %changelog
+* Tue Apr 04 2023 Sergio Lopez <slp@redhat.com> - 0.7.1-1
+- Update to version 0.7.1
+- Drop virtio-queue-fix-endianess-issues-in-mock-queue.diff patch
+
 * Wed Feb 08 2023 Sergio Lopez <slp@redhat.com> - 0.7.0-1
 - Update to version 0.7.0
 - Add virtio-queue-fix-endianess-issues-in-mock-queue.diff patch

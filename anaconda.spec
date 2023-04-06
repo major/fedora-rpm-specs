@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 39.8
+Version: 39.9
 Release: 1%{?dist}
 License: GPLv2+ and MIT
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -469,6 +469,24 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Apr 04 2023 Packit <hello@packit.dev> - 39.9-1
+- fsset: Catch SwapSpaceError when trying to activate swaps (vtrefny)
+- Add tests for threads (vslavik)
+- Add and use thread_manager.add_thread() (vslavik)
+- Use the simplified HDD source in the UI (vponcova)
+- Simplify the HDD source (vponcova)
+- Add the create_hdd_url function (vponcova)
+- Move thread tests according to renaming (vslavik)
+- Compatibility layer for threading->core.threads (vslavik)
+- Rename core module threading to threads (vslavik)
+- Move threading from pyanaconda to pyanaconda.core (vslavik)
+- Rename threadMgr to thread_manager (vslavik)
+- Allow showing proxy passwords on the installation source spoke (jstodola)
+- Allow showing passwords on the subscription spoke (jstodola)
+- Always hide the user password by default (jstodola)
+- Always hide the root password by default (jstodola)
+- Update translations from Weblate
+
 * Tue Mar 28 2023 Packit <hello@packit.dev> - 39.8-1
 - Move ostreecontainer deps to install-img-deps (jkonecny)
 - Add 'vga' to the list of preserved kernel arguments (#2176782) (awilliam)

@@ -2,7 +2,7 @@
 
 Name:    kmenuedit
 Summary: KDE menu editor
-Version: 5.27.3
+Version: 5.27.4
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -79,6 +79,9 @@ Conflicts:      kde-workspace < 4.11.15-3
 
 
 %changelog
+* Tue Apr 04 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.4-1
+- 5.27.4
+
 * Tue Mar 14 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.3-1
 - 5.27.3
 

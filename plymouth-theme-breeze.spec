@@ -2,7 +2,7 @@
 %global         base_name breeze-plymouth
 
 Name:    plymouth-theme-breeze
-Version: 5.27.3
+Version: 5.27.4
 Release: 1%{?dist}
 Summary: Breeze theme for Plymouth
 
@@ -59,6 +59,9 @@ install -D -m644 -p %{SOURCE10} \
 
 
 %changelog
+* Tue Apr 04 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.4-1
+- 5.27.4
+
 * Tue Mar 14 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.3-1
 - 5.27.3
 

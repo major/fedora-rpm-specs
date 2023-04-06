@@ -17,8 +17,8 @@
 
 
 Name:           certbot
-Version:        2.2.0
-Release:        3%{?dist}
+Version:        2.5.0
+Release:        1%{?dist}
 Summary:        A free, automated certificate authority client
 
 License:        Apache-2.0
@@ -370,6 +370,9 @@ fi
 
 
 %changelog
+* Tue Apr 04 2023 Jonathan Wright <jonathan@almalinux.org> - 2.5.0-1
+- Update to 2.5.0 rhbz#2155209
+
 * Thu Mar 30 2023 Jerry James <loganjerry@gmail.com> - 2.2.0-3
 - Change fontawesome-fonts R to match fontawesome 4.x
 

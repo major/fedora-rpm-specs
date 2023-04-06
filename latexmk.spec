@@ -1,6 +1,6 @@
 Name:           latexmk
-Version:        4.79
-Release:        2%{?dist}
+Version:        4.80
+Release:        1%{?dist}
 Summary:        A make-like utility for LaTeX files
 
 %global upstreamver %(sed 's/\\.//' <<< %{version})
@@ -31,14 +31,10 @@ Before using a previewer, read the file README.fedora.
 %prep
 %autosetup -n %{name}
 
-fixtimestamp() {
-  touch -r $1.orig $1
-  rm -f $1.orig
-}
-
 # Invoke perl directly
 sed -i.orig "s|^#\!/usr/bin/env perl|#\!/usr/bin/perl -w|" latexmk.pl
-fixtimestamp latexmk.pl
+touch -r latexmk.pl.orig latexmk.pl
+rm latexmk.pl.orig
 
 %build
 cp -p %{SOURCE2} README.fedora
@@ -63,6 +59,9 @@ rm -f extra-scripts/*.bat
 %license COPYING
 
 %changelog
+* Tue Apr  4 2023 Jerry James <loganjerry@gmail.com> - 4.80-1
+- Version 4.80
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.79-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

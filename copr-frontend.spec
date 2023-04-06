@@ -48,7 +48,7 @@
 }
 
 Name:       copr-frontend
-Version:    1.196
+Version:    1.198
 Release:    1%{?dist}
 Summary:    Frontend for Copr
 
@@ -73,7 +73,6 @@ BuildRequires: graphviz
 BuildRequires: python3-devel
 
 %if %{with check}
-BuildRequires: fedora-messaging
 BuildRequires: python3-alembic
 BuildRequires: python3-anytree
 BuildRequires: python3-click
@@ -99,7 +98,6 @@ BuildRequires: python3-gobject
 BuildRequires: python3-html2text
 BuildRequires: python3-html5-parser
 BuildRequires: python3-humanize
-BuildRequires: python3-libmodulemd1 >= 1.7.0
 BuildRequires: python3-lxml
 BuildRequires: python3-markdown
 BuildRequires: python3-munch
@@ -133,7 +131,7 @@ Requires: redis
 Requires: %flavor_guard
 
 Requires: (copr-selinux if selinux-policy-targeted)
-Requires: fedora-messaging
+Recommends: fedora-messaging
 Requires: js-jquery
 Requires: python3-anytree
 Requires: python3-click
@@ -158,7 +156,6 @@ Requires: python3-gobject
 Requires: python3-html2text
 Requires: python3-html5-parser
 Requires: python3-humanize
-Requires: python3-libmodulemd1 >= 1.7.0
 Requires: python3-lxml
 Requires: python3-markdown
 Requires: python3-mod_wsgi
@@ -389,6 +386,22 @@ usermod -L copr-fe
 
 
 %changelog
+* Tue Apr 04 2023 Jiri Kyjovsky <j1.kyjovsky@gmail.com> 1.198-1
+- Don't 500 for KRB5_USER_DENYLIST_PATTERNS=None
+- Explicitly ask which user checks the permissions
+- Make sure user can build in the project before uploading
+- Change the whooshee packages field to IDLIST
+- Run copr-frontend update-indexes daily
+
+* Wed Mar 22 2023 Jiri Kyjovsky <j1.kyjovsky@gmail.com> 1.197-1
+- Allow automation (cron) to remove builds
+- Allow specifying a KRB5 user denylist
+- Fix broken rubygem rebuild page.
+- Restrict forking of large projects
+- Define some copr-specific environment variables
+- Remove libmodulemd1 dependency
+- Fix sorting by build time
+
 * Tue Feb 07 2023 Jakub Kadlcik <frostyx@email.cz> 1.196-1
 - rawhide_to_release usable index
 - rawhide_to_release: don't repeatedly query for CoprChroot

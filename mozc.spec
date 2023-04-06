@@ -6,14 +6,15 @@
 
 Name:		mozc
 Version:	2.28.4950.102
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	A Japanese Input Method Editor (IME) designed for multi-platform
 
-License:	BSD and ASL 2.0 and UCD and Public Domain and mecab-ipadic
+License:	BSD-3-Clause AND Apache-2.0 AND Unicode-DFS-2015 AND NAIST-2003
 URL:		https://github.com/google/mozc
 # data/unicode/: UCD
 #  Copyright (c) 1991-2008 Unicode, Inc.
 # data/test/stress_test/sentences.txt: Public Domain
+#   See https://gitlab.com/fedora/legal/fedora-license-data/-/issues/178#note_1331790847
 # data/dictionary_oss/: mecab-ipadic and BSD
 #   See http://code.google.com/p/mozc/issues/detail?id=20
 #   also data/installer/credits_en.html
@@ -42,6 +43,7 @@ URL:		https://github.com/google/mozc
 Source0:	%{name}-%{version}.tar.bz2
 Source1:	mozc-init.el
 # Public Domain
+## https://gitlab.com/fedora/legal/fedora-license-data/-/issues/181#note_1339185494
 Source2:	http://www.post.japanpost.jp/zipcode/dl/kogaki/zip/ken_all.zip
 Source3:	http://www.post.japanpost.jp/zipcode/dl/jigyosyo/zip/jigyosyo.zip
 Source4:	ibus-setup-mozc-jp.desktop
@@ -250,6 +252,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Tue Apr  4 2023 Akira TAGOH <tagoh@redhat.com> - 2.28.4950.102-5
+- Migrated license tag to SPDX.
+
 * Fri Mar 24 2023 Akira TAGOH <tagoh@redhat.com> - 2.28.4950.102-4
 - Rebuilt for abseil-cpp 20230125.1
 

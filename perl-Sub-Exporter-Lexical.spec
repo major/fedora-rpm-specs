@@ -1,6 +1,6 @@
 Name:           perl-Sub-Exporter-Lexical
-Version:        0.092292
-Release:        21%{?dist}
+Version:        1.000
+Release:        1%{?dist}
 Summary:        Export lexically-available subs with Sub::Exporter
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Sub-Exporter-Lexical
@@ -13,8 +13,9 @@ BuildRequires:  %{__make}
 BuildRequires:  perl-interpreter >= 1:v5.12.0
 BuildRequires:  perl-generators
 
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
-BuildRequires:  perl(Lexical::Sub)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.78
+BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(Lexical::Sub) >= 0.10
 BuildRequires:  perl(Sub::Exporter) >= 0.978
 BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(warnings)
@@ -53,6 +54,9 @@ rm $RPM_BUILD_ROOT%{perl_vendorlib}/Sub/Exporter/snippet.pl
 %{_mandir}/man3/*
 
 %changelog
+* Tue Apr 04 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.000-1
+- Update to 1.000.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.092292-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

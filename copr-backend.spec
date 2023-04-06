@@ -9,7 +9,7 @@
 %global copr_common_version 0.16.4.dev
 
 Name:       copr-backend
-Version:    1.165
+Version:    1.167
 Release:    1%{?dist}
 Summary:    Backend for Copr
 
@@ -38,16 +38,13 @@ BuildRequires: python3-setuptools
 
 BuildRequires: python3-copr
 BuildRequires: python3-copr-common >= %copr_common_version
-BuildRequires: python3-copr-messaging
 BuildRequires: python3-daemon
 BuildRequires: python3-dateutil
 BuildRequires: python3-distro
-BuildRequires: python3-fedmsg
 BuildRequires: python3-filelock
 BuildRequires: python3-gobject
 BuildRequires: python3-httpretty
 BuildRequires: python3-humanize
-BuildRequires: python3-libmodulemd1 >= 1.7.0
 BuildRequires: python3-munch
 BuildRequires: python3-netaddr
 BuildRequires: python3-packaging
@@ -78,15 +75,14 @@ Requires:   openssh-clients
 Requires:   prunerepo >= %prunerepo_version
 Requires:   python3-copr
 Requires:   python3-copr-common >= %copr_common_version
-Requires:   python3-copr-messaging
+Recommends: python3-copr-messaging
 Requires:   python3-daemon
 Requires:   python3-dateutil
-Requires:   python3-fedmsg
+Recommends: python3-fedmsg
 Requires:   python3-filelock
 Requires:   python3-gobject
 Requires:   python3-humanize
 Requires:   python3-jinja2
-Requires:   python3-libmodulemd1 >= 1.7.0
 Requires:   python3-munch
 Requires:   python3-netaddr
 Requires:   python3-novaclient
@@ -245,6 +241,15 @@ useradd -r -g copr -G lighttpd -s /bin/bash -c "COPR user" copr
 %exclude %{_pkgdocdir}/playbooks
 
 %changelog
+* Tue Apr 04 2023 Jiri Kyjovsky <j1.kyjovsky@gmail.com> 1.167-1
+- Run createrepo without --database
+- Make copr_messaging optional
+
+* Wed Mar 22 2023 Jiri Kyjovsky <j1.kyjovsky@gmail.com> 1.166-1
+- Don't include package name into srpm result dir name
+- Remove libmodulemd1 dependency
+- Hardlink RPMs while doing rawhide_to_release
+- Make sign key domain name configurable
 * Wed Jan 25 2023 Jakub Kadlcik <frostyx@email.cz> 1.165-1
 - Skip the test_run_prunerepo test because of Koji
 

@@ -17,28 +17,28 @@
 %global with_zts   0%{?__ztsphp:1}
 %global ini_name   40-%{pecl_name}.ini
 # Test suite requires a Samba server and configuration file
-%global with_tests 0%{?_with_tests:1}
+%bcond_with        tests
 
 Name:           php-smbclient
-Version:        1.0.6
-Release:        9%{?dist}
+Version:        1.1.0
+Release:        1%{?dist}
 Summary:        PHP wrapper for libsmbclient
 
 License:        BSD-2-Clause
 URL:            https://github.com/eduardok/libsmbclient-php
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}%{?prever}.tgz
-%if %{with_tests}
+%if %{with tests}
 Source2:        %{pecl_name}-phpunit.xml
 %endif
 
-Patch0:         %{pecl_name}-stub.patch
+Patch0:         %{pecl_name}-bug98.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  php-devel
 BuildRequires:  php-pear
 BuildRequires:  libsmbclient-devel > 3.6
-%if %{with_tests}
+%if %{with tests}
 BuildRequires:  php-composer(phpunit/phpunit)
 BuildRequires:  samba
 %endif
@@ -73,7 +73,7 @@ sed -e 's/role="test"/role="src"/' \
     -i package.xml
 
 cd NTS
-%patch0 -p1
+%patch -P0 -p1 -b .pr100
 
 # Check extension version
 ver=$(sed -n '/define PHP_SMBCLIENT_VERSION/{s/.* "//;s/".*$//;p}' php_smbclient.h)
@@ -141,7 +141,7 @@ done
     --modules | grep %{pecl_name}
 %endif
 
-%if %{with_tests}
+%if %{with tests}
 : Upstream test suite for NTS extension
 cd NTS
 cp %{SOURCE2} phpunit.xml
@@ -167,6 +167,12 @@ cp %{SOURCE2} phpunit.xml
 
 
 %changelog
+* Tue Apr  4 2023 Remi Collet <remi@remirepo.net> - 1.1.0-1
+- update to 1.1.0
+- drop patch merged upstream
+- add workaround for regression in libsmbclient 4.16.9/4.17.5
+  from https://github.com/eduardok/libsmbclient-php/pull/100
+
 * Fri Mar 31 2023 Remi Collet <remi@remirepo.net> - 1.0.6-9
 - use SPDX license ID
 

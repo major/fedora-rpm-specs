@@ -8,7 +8,7 @@
 
 Summary: Qt6 - NetworkAuth component
 Name:    qt6-%{qt_module}
-Version: 6.4.3
+Version: 6.5.0
 Release: 1%{?dist}
 
 License: GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -90,8 +90,8 @@ popd
 %dir %{_qt6_libdir}/cmake/Qt6NetworkAuth/
 %{_qt6_libdir}/cmake/Qt6NetworkAuth/*.cmake
 %{_qt6_archdatadir}/mkspecs/modules/qt_lib_networkauth*.pri
-%{_qt6_datadir}/modules/*.json
-%{_qt6_libdir}/metatypes/qt6*_metatypes.json
+%{_qt6_libdir}/qt6/modules/*.json
+%{_qt6_libdir}/qt6/metatypes/qt6*_metatypes.json
 %{_qt6_libdir}/pkgconfig/*.pc
 
 %files examples
@@ -99,6 +99,9 @@ popd
 
 
 %changelog
+* Tue Apr 04 2023 Jan Grulich <jgrulich@redhat.com> - 6.5.0-1
+- 6.5.0
+
 * Thu Mar 23 2023 Jan Grulich <jgrulich@redhat.com> - 6.4.3-1
 - 6.4.3
 

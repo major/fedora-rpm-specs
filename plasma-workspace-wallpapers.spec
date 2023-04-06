@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 
 Name:    plasma-workspace-wallpapers
-Version: 5.27.3
+Version: 5.27.4
 Release: 1%{?dist}
 Summary: Additional wallpapers for Plasma workspace
 License: LGPLv3
@@ -80,6 +80,9 @@ Obsoletes:      plasma-workspace-wallpapers < 5.2.0-2
 %{_datadir}/wallpapers/Volna/
 
 %changelog
+* Tue Apr 04 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.4-1
+- 5.27.4
+
 * Tue Mar 14 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.3-1
 - 5.27.3
 

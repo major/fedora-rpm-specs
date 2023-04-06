@@ -9,9 +9,24 @@ Source0:        https://github.com/%{name}/%{name}/archive/%{name}_%{version}/%{
 
 BuildArch:      noarch
 BuildRequires:  dos2unix
+
+# python3 bootstrap: this is built before the final build of python3, which
+# adds the dependency on python3-rpm-generators, so we require it manually
+# (python BuildRequires systemtap-sdt-devel which requires python3-pyparsing)
+BuildRequires:  python3-rpm-generators
+# We need those for the same reason:
+%bcond doc      1
+%bcond tests    1
+
 BuildRequires:  python%{python3_pkgversion}-devel
+
+%if %{with doc}
 BuildRequires:  python%{python3_pkgversion}-sphinx
+%endif
+%if %{with tests}
 BuildRequires:  python%{python3_pkgversion}-pytest
+%endif
+
 
 %description
 pyparsing is a module that can be used to easily and directly configure syntax
@@ -26,6 +41,7 @@ pyparsing is a module that can be used to easily and directly configure syntax
 definitions for any number of text parsing applications.
 
 
+%if %{with doc}
 %package        doc
 Summary:        Documentation for %{name}
 
@@ -39,6 +55,7 @@ License:        MIT and GPLv2+ and GPLv3+ and BSD
 
 %description    doc
 The package contains documentation for pyparsing.
+%endif
 
 
 %prep
@@ -49,18 +66,19 @@ dos2unix -k examples/*
 
 %generate_buildrequires
 # tox lists only the [diagrams] extra and coverage as deps, so we bypass it
-%pyproject_buildrequires -x diagrams
+%pyproject_buildrequires %{?with_tests:-x diagrams}
 
 
 %build
 %pyproject_wheel
 
-# build docs
+%if %{with doc}
 pushd docs
 # Theme is not available
 sed -i '/alabaster/d' conf.py
 sphinx-build -b html . html
 popd
+%endif
 
 
 %install
@@ -69,16 +87,21 @@ popd
 
 
 %check
+%pyproject_check_import %{!?with_tests:-e pyparsing.diagram}
+%if %{with tests}
 %pytest -v
+%endif
 
 
 %files -n python%{python3_pkgversion}-pyparsing -f %{pyproject_files}
 %license LICENSE
 %doc CHANGES README.rst
 
+%if %{with doc}
 %files doc
 %license LICENSE
 %doc CHANGES README.rst docs/html examples
+%endif
 
 
 %changelog

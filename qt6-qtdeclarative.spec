@@ -15,7 +15,7 @@
 
 Summary: Qt6 - QtDeclarative component
 Name:    qt6-%{qt_module}
-Version: 6.4.3
+Version: 6.5.0
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -184,6 +184,7 @@ make check -k -C tests ||:
 %{_qt6_libdir}/libQt6QuickDialogs2.so.6*
 %{_qt6_libdir}/libQt6QuickDialogs2QuickImpl.so.6*
 %{_qt6_libdir}/libQt6QuickDialogs2Utils.so.6*
+%{_qt6_libdir}/libQt6QuickEffects.so.6*
 %{_qt6_libdir}/libQt6QuickLayouts.so.6*
 %{_qt6_libdir}/libQt6QuickWidgets.so.6*
 %{_qt6_libdir}/libQt6QuickParticles.so.6*
@@ -215,6 +216,8 @@ make check -k -C tests ||:
 %dir %{_qt6_libdir}/cmake/Qt6QmlModels
 %dir %{_qt6_libdir}/cmake/Qt6QmlTools
 %dir %{_qt6_libdir}/cmake/Qt6QmlWorkerScript
+%dir %{_qt6_libdir}/cmake/Qt6QmlTypeRegistrarPrivate
+%dir %{_qt6_libdir}/cmake/Qt6QuickEffectsPrivate
 %dir %{_qt6_libdir}/cmake/Qt6Quick
 %dir %{_qt6_libdir}/cmake/Qt6QuickControls2
 %dir %{_qt6_libdir}/cmake/Qt6QuickControls2Impl
@@ -249,7 +252,7 @@ make check -k -C tests ||:
 %{_qt6_libdir}/libQt6QmlWorkerScript.so
 %{_qt6_libdir}/libQt6Quick*.so
 %{_qt6_libdir}/libQt6QmlXmlListModel.so
-%{_qt6_libdir}/metatypes/qt6*_metatypes.json
+%{_qt6_libdir}/qt6/metatypes/qt6*_metatypes.json
 %{_qt6_archdatadir}/mkspecs/modules/*.pri
 %{_qt6_archdatadir}/mkspecs/features/*.prf
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtDeclarativeTestsConfig.cmake
@@ -274,6 +277,8 @@ make check -k -C tests ||:
 %{_qt6_libdir}/cmake/Qt6QmlModels/*.cmake
 %{_qt6_libdir}/cmake/Qt6QmlTools/*.cmake
 %{_qt6_libdir}/cmake/Qt6QmlWorkerScript/*.cmake
+%{_qt6_libdir}/cmake/Qt6QmlTypeRegistrarPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6QuickEffectsPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6Quick/*.cmake
 %{_qt6_libdir}/cmake/Qt6QuickControls2/*.cmake
 %{_qt6_libdir}/cmake/Qt6QuickControls2Impl/*.cmake
@@ -289,7 +294,7 @@ make check -k -C tests ||:
 %{_qt6_libdir}/cmake/Qt6QuickTemplates2/*.cmake
 %{_qt6_libdir}/cmake/Qt6QmlXmlListModel/*.cmake
 %{_qt6_libdir}/cmake/Qt6QuickWidgets/*.cmake
-%{_qt6_datadir}/modules/*.json
+%{_qt6_libdir}/qt6/modules/*.json
 %{_qt6_libdir}/pkgconfig/*.pc
 
 %files static
@@ -308,6 +313,8 @@ make check -k -C tests ||:
 %{_qt6_libdir}/libQt6QmlModels.prl
 %{_qt6_libdir}/libQt6Qml.prl
 %{_qt6_libdir}/libQt6QmlCompiler.prl
+%{_qt6_libdir}/libQt6QmlTypeRegistrar.prl
+%{_qt6_libdir}/libQt6QmlTypeRegistrar.a
 %{_qt6_libdir}/libQt6PacketProtocol.a
 %{_qt6_libdir}/libQt6PacketProtocol.prl
 %{_qt6_libdir}/libQt6QuickControlsTestUtils.a
@@ -322,6 +329,9 @@ make check -k -C tests ||:
 %endif
 
 %changelog
+* Mon Apr 03 2023 Jan Grulich <jgrulich@redhat.com> - 6.5.0-1
+- 6.5.0
+
 * Thu Mar 23 2023 Jan Grulich <jgrulich@redhat.com> - 6.4.3-1
 - 6.4.3
 

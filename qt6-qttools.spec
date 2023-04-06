@@ -10,7 +10,7 @@
 
 Summary: Qt6 - QtTool components
 Name:    qt6-qttools
-Version: 6.4.3
+Version: 6.5.0
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -322,7 +322,6 @@ popd
 %{_qt6_headerdir}/QtUiPlugin
 %{_qt6_headerdir}/QtUiTools/
 %{_qt6_headerdir}/QtTools/
-%{_qt6_datadir}/modules/*.json
 %{_qt6_libdir}/libQt6Designer*.so
 %{_qt6_libdir}/libQt6Help.so
 %{_qt6_libdir}/libQt6UiTools.so
@@ -355,7 +354,8 @@ popd
 %{_qt6_archdatadir}/mkspecs/modules/qt_lib_uiplugin.pri
 %{_qt6_archdatadir}/mkspecs/modules/qt_lib_uitools.pri
 %{_qt6_archdatadir}/mkspecs/modules/qt_lib_uitools_private.pri
-%{_qt6_libdir}/metatypes/qt6*_metatypes.json
+%{_qt6_libdir}/qt6/metatypes/qt6*_metatypes.json
+%{_qt6_libdir}/qt6/modules/*.json
 %{_qt6_libdir}/pkgconfig/*.pc
 
 %files static
@@ -371,6 +371,9 @@ popd
 
 
 %changelog
+* Tue Apr 04 2023 Jan Grulich <jgrulich@redhat.com> - 6.5.0-1
+- 6.5.0
+
 * Thu Mar 23 2023 Jan Grulich <jgrulich@redhat.com> - 6.4.3-1
 - 6.4.3
 

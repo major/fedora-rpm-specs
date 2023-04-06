@@ -1,6 +1,6 @@
 %global _cups_serverbin %{_prefix}/lib/cups
 
-%global upstream_version 2.0b3
+%global upstream_version 2.0b4
 
 %if 0%{?fedora}
 %bcond_without mdns
@@ -11,8 +11,8 @@
 
 Name: cups-browsed
 Epoch: 1
-Version: 2.0~b3
-Release: 2%{?dist}
+Version: 2.0~b4
+Release: 1%{?dist}
 Summary: Daemon for local auto-installation of remote printers
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -23,10 +23,6 @@ Source0: %{URL}/releases/download/%{upstream_version}/%{name}-%{upstream_version
 
 
 # Patches
-# https://github.com/OpenPrinting/cups-browsed/pull/4
-Patch0001: 0001-configure.ac-cups-browsed-doesn-t-need-C.patch
-# https://github.com/OpenPrinting/cups-browsed/pull/6
-Patch0002: 0001-Coverity-fixes.patch
 
 
 # remove once CentOS Stream 10 is released, cups-browsed
@@ -137,10 +133,6 @@ rm -f %{buildroot}%{_pkgdocdir}/CHANGES-1.x.md
 rm -f %{buildroot}%{_pkgdocdir}/{LICENSE,COPYING,NOTICE}
 
 
-%check
-make check
-
-
 %post
 %systemd_post cups-browsed.service
 
@@ -184,6 +176,9 @@ done
 
 
 %changelog
+* Mon Apr 03 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0~b4-1
+- 2179346 - cups-browsed-2.0b4 is available
+
 * Wed Mar 01 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0~b3-2
 - use Epoch to ensure upgrade path because I didn't read FPG carefully
 

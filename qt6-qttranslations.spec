@@ -7,7 +7,7 @@
 
 Summary: Qt6 - QtTranslations module
 Name:    qt6-%{qt_module}
-Version: 6.4.3
+Version: 6.5.0
 Release: 1%{?dist}
 
 License: GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -88,6 +88,7 @@ Provides: %{_qt6}-zh_TW = %{version}-%{release}
 
 %files
 %license LICENSES/*
+%{_qt6_datadir}/translations/catalogs.json
 %lang(ar) %{_qt6_translationdir}/*_ar.qm
 %lang(bg) %{_qt6_translationdir}/*_bg.qm
 %lang(ca) %{_qt6_translationdir}/*_ca.qm
@@ -125,6 +126,9 @@ Provides: %{_qt6}-zh_TW = %{version}-%{release}
 
 
 %changelog
+* Tue Apr 04 2023 Jan Grulich <jgrulich@redhat.com> - 6.5.0-1
+- 6.5.0
+
 * Thu Mar 23 2023 Jan Grulich <jgrulich@redhat.com> - 6.4.3-1
 - 6.4.3
 

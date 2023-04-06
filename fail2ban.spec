@@ -1,6 +1,6 @@
 Name: fail2ban
 Version: 1.0.2
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Daemon to ban hosts that cause multiple authentication errors
 
 License: GPLv2+
@@ -27,8 +27,6 @@ Source6: Makefile
 # https://bugzilla.redhat.com/show_bug.cgi?id=1379141
 # https://bugzilla.redhat.com/show_bug.cgi?id=1573185
 Patch0: fail2ban-partof.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=2034205
-Patch1: fail2ban-python311.patch
 # Patch for dovecot jail eating 100% CPU
 #Patch2: https://github.com/fail2ban/fail2ban/commit/ca2b94c5229bd474f612b57b67d796252a4aab7a.patch
 # Remove warning about allowipv6 from startup
@@ -424,6 +422,9 @@ fi
 
 
 %changelog
+* Tue Apr 04 2023 Orion Poplawski <orion@nwra.com> - 1.0.2-5
+- Drop downstream python3.11 patch, upstream went with a different fix
+
 * Sun Apr 02 2023 Todd Zullinger <tmz@pobox.com> - 1.0.2-4
 - verify upstream source signature
 

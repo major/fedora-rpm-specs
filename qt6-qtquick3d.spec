@@ -10,7 +10,7 @@
 
 Summary: Qt6 - Quick3D Libraries and utilities
 Name:    qt6-%{qt_module}
-Version: 6.4.3
+Version: 6.5.0
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -129,6 +129,7 @@ popd
 %{_qt6_libdir}/libQt6Quick3DAssetUtils.so.6*
 %{_qt6_libdir}/libQt6Quick3DEffects.so.6*
 %{_qt6_libdir}/libQt6Quick3DHelpers.so.6*
+%{_qt6_libdir}/libQt6Quick3DHelpersImpl.so*
 %{_qt6_libdir}/libQt6Quick3DParticleEffects.so.6*
 %{_qt6_libdir}/libQt6Quick3DGlslParser.so.6*
 %dir %{_qt6_qmldir}/QtQuick3D/
@@ -151,16 +152,17 @@ popd
 %{_qt6_bindir}/materialeditor
 %{_qt6_bindir}/shapegen
 %{_qt6_archdatadir}/mkspecs/modules/*.pri
-%{_qt6_datadir}/modules/*.json
-%{_qt6_includedir}/QtQuick3D/
-%{_qt6_includedir}/QtQuick3DAssetImport/
+%{_qt6_libdir}/qt6/modules/*.json
+%{_qt6_includedir}/QtQuick3D
+%{_qt6_includedir}/QtQuick3DAssetImport
 %{_qt6_includedir}/QtQuick3DIblBaker
 %{_qt6_includedir}/QtQuick3DParticles
-%{_qt6_includedir}/QtQuick3DRuntimeRender/
-%{_qt6_includedir}/QtQuick3DUtils/
-%{_qt6_includedir}/QtQuick3DAssetUtils/
-%{_qt6_includedir}/QtQuick3DHelpers/
-%{_qt6_includedir}/QtQuick3DGlslParser/
+%{_qt6_includedir}/QtQuick3DRuntimeRender
+%{_qt6_includedir}/QtQuick3DUtils
+%{_qt6_includedir}/QtQuick3DAssetUtils
+%{_qt6_includedir}/QtQuick3DHelpers
+%{_qt6_includedir}/QtQuick3DHelpersImpl
+%{_qt6_includedir}/QtQuick3DGlslParser
 %dir %{_qt6_libdir}/cmake/Qt6Quick3DIblBaker
 %{_qt6_libdir}/cmake/Qt6Quick3DIblBaker/*.cmake
 %dir %{_qt6_libdir}/cmake/Qt6Quick3DParticles
@@ -190,6 +192,8 @@ popd
 %{_qt6_libdir}/cmake/Qt6Quick3DEffects/*.cmake
 %dir %{_qt6_libdir}/cmake/Qt6Quick3DHelpers/
 %{_qt6_libdir}/cmake/Qt6Quick3DHelpers/*.cmake
+%dir %{_qt6_libdir}/cmake/Qt6Quick3DHelpersImpl/
+%{_qt6_libdir}/cmake/Qt6Quick3DHelpersImpl/*.cmake
 %dir %{_qt6_libdir}/cmake/Qt6Quick3DGlslParserPrivate
 %{_qt6_libdir}/cmake/Qt6Quick3DGlslParserPrivate/*.cmake
 %dir %{_qt6_libdir}/cmake/Qt6Quick3DParticleEffects
@@ -215,11 +219,13 @@ popd
 %{_qt6_libdir}/libQt6Quick3DEffects.so
 %{_qt6_libdir}/libQt6Quick3DHelpers.prl
 %{_qt6_libdir}/libQt6Quick3DHelpers.so
+%{_qt6_libdir}/libQt6Quick3DHelpersImpl.prl
+%{_qt6_libdir}/libQt6Quick3DHelpersImpl.so
 %{_qt6_libdir}/libQt6Quick3DGlslParser.prl
 %{_qt6_libdir}/libQt6Quick3DGlslParser.so
 %{_qt6_libdir}/libQt6Quick3DParticleEffects.prl
 %{_qt6_libdir}/libQt6Quick3DParticleEffects.so
-%{_qt6_libdir}/metatypes/qt6*_metatypes.json
+%{_qt6_libdir}/qt6/metatypes/qt6*_metatypes.json
 %{_qt6_plugindir}/qmltooling/libqmldbg_quick3dprofiler.so
 %{_qt6_libdir}/pkgconfig/*.pc
 
@@ -232,6 +238,9 @@ popd
 %endif
 
 %changelog
+* Tue Apr 04 2023 Jan Grulich <jgrulich@redhat.com> - 6.5.0-1
+- 6.5.0
+
 * Thu Mar 23 2023 Jan Grulich <jgrulich@redhat.com> - 6.4.3-1
 - 6.4.3
 

@@ -2,7 +2,7 @@ Name:		perl-Devel-OverloadInfo
 Version:	0.007
 Release:	7%{?dist}
 Summary:	Introspect overloaded operators
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Devel-OverloadInfo
 Source0:	https://cpan.metacpan.org/modules/by-module/Devel/Devel-OverloadInfo-%{version}.tar.gz
 BuildArch:	noarch
@@ -30,7 +30,7 @@ BuildRequires:	perl(warnings)
 BuildRequires:	perl(parent)
 BuildRequires:	perl(Test::Fatal)
 BuildRequires:	perl(Test::More) >= 0.88
-# Runtime
+# Dependencies
 Requires:	perl(Sub::Util) >= 1.40
 
 %description

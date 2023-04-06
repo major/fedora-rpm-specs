@@ -1,7 +1,7 @@
 # Upstream has not made a new release since 2010
 %global srcname clisp
-%global commit  957c79a252bda35e56ca5c64d4af8d7ef9de9037
-%global date    20221228
+%global commit  79cbafdbc6337d6dcd8f2dbad69fb7ebf7a46012
+%global date    20230212
 %global forgeurl https://gitlab.com/gnu-clisp/clisp
 
 # There is a plus on the end for unreleased versions, not for released versions
@@ -9,6 +9,10 @@
 
 # This package uses toplevel ASMs which are incompatible with LTO
 %global _lto_cflags %{nil}
+
+%if ! (0%{?rhel} > 9)
+%bcond_without gtk2
+%endif
 
 Name:		clisp
 Summary:	ANSI Common Lisp implementation
@@ -34,20 +38,16 @@ Source3:	http://translationproject.org/latest/clisp/de.po
 Patch0:		%{name}-db.patch
 # https://sourceforge.net/p/clisp/patches/32/
 Patch1:		%{name}-format.patch
-# The ENSURE_6X macro adds 6 'X' characters to a string.  However, it allocates
-# only 6 bytes more than the length of the string, which is not enough for the
-# null terminator.  See https://bugzilla.redhat.com/show_bug.cgi?id=2115476.
-Patch2:         %{name}-ensure-6x.patch
 # The combination of register and volatile is nonsensical
-Patch3:		%{name}-register-volatile.patch
+Patch2:		%{name}-register-volatile.patch
 # A test that writes to /dev/pts/0 succeeds or fails apparently at random.
 # I can only guess that /dev/pts/0 may or may not be what the test expects.
 # Perhaps we are racing with something else that allocates a pty.  Disable
 # the test for now.
-Patch4:         %{name}-pts-access.patch
+Patch3:         %{name}-pts-access.patch
 # Work around a problem inlining a function on ppc64le
 # See https://bugzilla.redhat.com/show_bug.cgi?id=2049371
-Patch5:         %{name}-no-inline.patch
+Patch4:         %{name}-no-inline.patch
 
 BuildRequires:	dbus-devel
 BuildRequires:	diffutils
@@ -59,15 +59,17 @@ BuildRequires:	gdbm-devel
 BuildRequires:	gettext-devel
 BuildRequires:	ghostscript
 BuildRequires:	glibc-langpack-en
-BUildRequires:	glibc-langpack-fr
+BuildRequires:	glibc-langpack-fr
 BuildRequires:	glibc-langpack-ja
 BuildRequires:	glibc-langpack-zh
 BuildRequires:	groff
+%if %{with gtk2}
 BuildRequires:	gtk2-devel
+BuildRequires:	libglade2-devel
+%endif
 BuildRequires:	libXaw-devel
 BuildRequires:	libXft-devel
 BuildRequires:	libdb-devel
-BuildRequires:	libglade2-devel
 BuildRequires:	libsigsegv-devel
 BuildRequires:	libsvm-devel
 BuildRequires:	libunistring-devel
@@ -123,7 +125,7 @@ Files necessary for linking CLISP programs.
 %forgesetup
 %autopatch -M4 -p0
 %ifarch %{power64}
-%patch5 -p0
+%autopatch 5 -p0
 %endif
 cp -p %{SOURCE1} emacs
 cp -p %{SOURCE2} %{SOURCE3} src/po
@@ -172,7 +174,9 @@ export LC_ALL=C.UTF-8
 	    --with-module=dbus \
 	    --with-module=fastcgi \
 	    --with-module=gdbm \
+%if %{with gtk2}
 	    --with-module=gtk2 \
+%endif
 	    --with-module=libsvm \
 	    --with-module=pari \
 	    --with-module=pcre \
@@ -267,8 +271,10 @@ rm -f dbus.o
 ln -s ../dbus/dbus.o dbus.o
 rm -f gdbm.o
 ln -s ../gdbm/gdbm.o gdbm.o
+%if %{with gtk2}
 rm -f gtk.o
 ln -s ../gtk2/gtk.o gtk.o
+%endif
 rm -f libsvm.o
 ln -s ../libsvm/libsvm.o libsvm.o
 rm -f linux.o
@@ -324,9 +330,11 @@ make -C build base-mod-check
 %dir %{_libdir}/%{instdir}/gdbm/
 %{_libdir}/%{instdir}/gdbm/*.fas
 %{_libdir}/%{instdir}/gdbm/preload.lisp
+%if %{with gtk2}
 %dir %{_libdir}/%{instdir}/gtk2/
 %{_libdir}/%{instdir}/gtk2/*.fas
 %{_libdir}/%{instdir}/gtk2/preload.lisp
+%endif
 %dir %{_libdir}/%{instdir}/libsvm/
 %{_libdir}/%{instdir}/libsvm/*.fas
 %{_libdir}/%{instdir}/libsvm/preload.lisp
@@ -397,6 +405,7 @@ make -C build base-mod-check
 %{_libdir}/%{instdir}/gdbm/gdbm.lisp
 %{_libdir}/%{instdir}/gdbm/*.o
 %{_libdir}/%{instdir}/gdbm/*.sh
+%if %{with gtk2}
 %{_libdir}/%{instdir}/gtk2/Makefile
 %{_libdir}/%{instdir}/gtk2/*.cfg
 %{_libdir}/%{instdir}/gtk2/*.glade
@@ -404,6 +413,7 @@ make -C build base-mod-check
 %{_libdir}/%{instdir}/gtk2/gtk.lisp
 %{_libdir}/%{instdir}/gtk2/*.o
 %{_libdir}/%{instdir}/gtk2/*.sh
+%endif
 %{_libdir}/%{instdir}/libsvm/README
 %{_libdir}/%{instdir}/libsvm/Makefile
 %{_libdir}/%{instdir}/libsvm/*.h
@@ -444,6 +454,11 @@ make -C build base-mod-check
 
 
 %changelog
+* Tue Apr  4 2023 Jerry James <loganjerry@gmail.com> - 2.49.93-30
+- Update to allow non-simple strings in FORMAT and FORMATTER
+- Drop upstreamed ensure-6x patch
+- Disable gtk2 support for RHEL 10 (thanks to Yaakov Selkowitz)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.49.93-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

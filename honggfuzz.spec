@@ -1,6 +1,6 @@
 Name:          honggfuzz
 Version:       2.5
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       General-purpose, easy-to-use fuzzer
 
 License:       ASL 2.0
@@ -68,9 +68,7 @@ Development files for %{name}.
 %build
 # Upstream removes -D_FORTIFY_SOURCE claiming that "fortify-source
 # intercepts some functions", so we also remove it here.
-export CFLAGS="$(echo %{__global_cflags} |
-                 sed 's/ [^ ]*_FORTIFY_SOURCE[^ ]* / /')"
-export LDFLAGS="%{__global_ldflags}"
+%undefine _fortify_level
 %make_build
 
 
@@ -122,6 +120,9 @@ hfuzz_cc/hfuzz-g++ hello.cpp -o hello
 
 
 %changelog
+* Fri Mar 24 2023 Siddhesh Poyarekar <siddhesh@redhat.com> 2.5-2
+- Use _fortify_level macro to disable fortification.
+
 * Thu Jan 19 2023 Richard W.M. Jones <rjones@redhat.com> 2.5-1
 - New upstream version 2.5
 

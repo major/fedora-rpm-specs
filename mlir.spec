@@ -11,7 +11,7 @@
 
 Name: mlir
 Version: %{mlir_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Multi-Level Intermediate Representation Overview
 
 License: Apache-2.0 WITH LLVM-exception
@@ -23,7 +23,8 @@ Source2: release-keys.asc
 Patch0: 0001-mlir-Change-LLVM_COMMON_CMAKE_UTILS-usage.patch
 
 # Support for i686 upstream is unclear with lots of tests failling.
-ExcludeArch: i686
+# Remove s390x build temporarily.
+ExcludeArch: i686 s390x
 
 BuildRequires: gcc
 BuildRequires: gcc-c++
@@ -192,6 +193,9 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %{_libdir}/cmake/mlir
 
 %changelog
+* Mon Apr 03 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0-2
+- Disable s390x builds temporarily
+
 * Tue Mar 21 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0-1
 - Update to LLVM 16.0.0
 

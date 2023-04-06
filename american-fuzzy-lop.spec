@@ -4,21 +4,20 @@
 
 Version:       4.05c
 %global forgeurl https://github.com/AFLplusplus/AFLplusplus/
+%global commit 7101192865893e00b9029d0cb898a3ca3015d50b
 %forgemeta
 
 Name:          american-fuzzy-lop
 Summary:       Practical, instrumentation-driven fuzzer for binary formats
 License:       ASL 2.0
 
-Release:       3%{?dist}
+Release:       4%{?dist}
 URL:           %{forgeurl}
 Source0:       %{forgesource}
 
 # For running the tests:
 Source1:       hello.c
 
-# Backport from branch stable upstream:
-Patch0: 0001-LLVM-plugin-16-support-proposal.patch
 # Taken from https://github.com/AFLplusplus/AFLplusplus/pull/1686
 Patch1: pr1686.diff
 
@@ -262,6 +261,9 @@ test -n '%{clang_major}'
 
 
 %changelog
+* Mon Apr 03 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 4.05c-4
+- Fix s390x build
+
 * Mon Mar 27 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 4.05c-3
 - Rebuild with LLVM 16.0.0
 

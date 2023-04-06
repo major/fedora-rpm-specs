@@ -4,7 +4,7 @@
 %global oldname gnome-passwordsafe
 
 Name:           secrets
-Version:        7.2
+Version:        7.3
 Release:        %autorelease
 Summary:        Manage your passwords
 
@@ -12,9 +12,6 @@ License:        GPLv3
 URL:            https://gitlab.gnome.org/World/secrets
 Source0:        %{url}/-/archive/%{version}/%{name}-%{version}.tar.bz2
 BuildArch:      noarch
-# https://bugzilla.redhat.com/show_bug.cgi?id=2029547#c24
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_architecture_support
-ExcludeArch:    s390x
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  intltool
@@ -28,9 +25,10 @@ BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(validators)
 BuildRequires:  python3dist(zxcvbn)
 
-BuildRequires:  pkgconfig(glib-2.0) >= 2.66
+BuildRequires:  pkgconfig(gio-2.0) >= 2.66
+BuildRequires:  pkgconfig(glib-2.0) >= 2.73.1
 BuildRequires:  pkgconfig(gobject-introspection-1.0) >= 1.66
-BuildRequires:  pkgconfig(gtk4) >= 4.6.2
+BuildRequires:  pkgconfig(gtk4) >= 4.9
 BuildRequires:  pkgconfig(libadwaita-1) >= 1.1.99
 
 %if %{with tests}

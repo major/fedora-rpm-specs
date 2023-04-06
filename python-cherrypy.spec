@@ -10,7 +10,7 @@
 Name:           python-cherrypy
 %global         camelname CherryPy
 Version:        18.8.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Pythonic, object-oriented web development framework
 License:        BSD
 URL:            https://cherrypy.dev/
@@ -21,6 +21,11 @@ Patch1:         pytest-ignore-cgi-DeprecationWarnings.patch
 
 # Ignore urllib3.contrib.pyopenssl DeprecationWarnings
 Patch2:         pytest-ignore-urllib3-pyopenssl-DeprecationWarnings.patch
+
+# replace pkg_resources with importlib
+# github issue #1973 https://github.com/cherrypy/cherrypy/issues/1973
+# github pr https://github.com/cherrypy/cherrypy/pull/1993
+Patch3:         0001-GitHub-Issue-1973-RFE-Replace-use-of-pkg_resources-w.patch
 
 BuildArch:      noarch
 
@@ -93,11 +98,13 @@ export WEBTEST_INTERACTIVE=false
 %doc cherrypy/tutorial
 %{_bindir}/cherryd
 %{python3_sitelib}/*
-%exclude %{python3_sitelib}/cherrypy/cherryd
 %exclude %{python3_sitelib}/cherrypy/test
 %exclude %{python3_sitelib}/cherrypy/tutorial
 
 %changelog
+* Tue Apr 04 2023 Dan Radez <dradez@redhat.com> - 18.8.0-4
+- rhbz#2183388 submitting upstream patch to resolve pkg_resources dep warning
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 18.8.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

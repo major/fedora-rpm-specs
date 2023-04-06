@@ -20,7 +20,7 @@
 
 Name:           flexiblas
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A BLAS/LAPACK wrapper library with runtime exchangeable backends
 
 # GPLv3 with an exception for the BLAS/LAPACK interface
@@ -33,6 +33,7 @@ Source0:        https://github.com/mpimd-csc/%{name}/archive/v%{version}/%{name}
 
 BuildRequires:  make, cmake, python
 BuildRequires:  gcc-fortran, gcc-c++
+BuildRequires:  multilib-rpm-config
 %if %{with system_lapack}
 BuildRequires:  blas-static, lapack-static
 %endif
@@ -262,6 +263,9 @@ echo "default = %{default_backend}" > %{buildroot}%{_sysconfdir}/%{name}rc
 echo "default = %{default_backend64}" > %{buildroot}%{_sysconfdir}/%{name}64rc
 %endif
 
+# Replace arch-dependent header file with arch-independent stub
+%multilib_fix_c_header --file %{_includedir}/%{name}/%{name}_config.h
+
 # remove dummy hook
 rm -f %{buildroot}%{_libdir}/%{name}*/lib%{name}_hook_dummy.so
 
@@ -420,6 +424,9 @@ make -C build64 test
 %endif
 
 %changelog
+* Tue Apr 04 2023 Iñaki Úcar <iucar@fedoraproject.org> - 3.3.1-2
+- Fix multilib config header conflict
+
 * Mon Apr 03 2023 Iñaki Úcar <iucar@fedoraproject.org> - 3.3.1-1
 - Update to 3.3.1
 

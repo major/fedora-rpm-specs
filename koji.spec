@@ -8,7 +8,7 @@
 %{?!python3_pkgversion:%global python3_pkgversion 3}
 
 Name: koji
-Version: 1.32.0
+Version: 1.32.1
 Release: 1%{?dist}
 # the included arch lib from yum's rpmUtils is GPLv2+
 License: LGPLv2 and GPLv2+
@@ -348,6 +348,9 @@ done
 %systemd_postun kojira.service
 
 %changelog
+* Tue Apr 04 2023 Kevin Fenzi <kevin@scrye.com> - 1.32.1-1
+- Update tp 1.32.1. Fixes rhbz#2184380
+
 * Thu Feb 16 2023 Kevin Fenzi <kevin@scrye.com> - 1.32.0-1
 - Update to 1.32.0. Fixes rhbz#2170361
 

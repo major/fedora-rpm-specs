@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           pre-commit
-Version:        3.2.0
+Version:        3.2.2
 Release:        1%{?dist}
 Summary:        Framework for managing and maintaining multi-language pre-commit hooks
 
@@ -172,6 +172,9 @@ k="${k-}${k+ and }not test_run_a_ruby_hook"
 
 
 %changelog
+* Tue Apr 04 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 3.2.2-1
+- Update to 3.2.2 (close RHBZ#2173816)
+
 * Thu Feb 23 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 3.1.0-1
 - Update to 3.1.0 (close RHBZ#2172751)
 

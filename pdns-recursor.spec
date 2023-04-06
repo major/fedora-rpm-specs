@@ -3,8 +3,8 @@
 %endif
 
 Name: pdns-recursor
-Version: 4.7.2
-Release: 3%{?dist}
+Version: 4.8.4
+Release: 1%{?dist}
 Summary: Modern, advanced and high performance recursing/non authoritative name server
 License: GPLv2
 URL: https://powerdns.com
@@ -120,6 +120,9 @@ exit 0
 
 
 %changelog
+* Tue Apr 04 2023 Morten Stevens <mstevens@fedoraproject.org> - 4.8.4-1
+- Update to 4.8.4
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 4.7.2-3
 - Rebuilt for Boost 1.81
 

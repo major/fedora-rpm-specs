@@ -3,7 +3,7 @@
 #global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           python-%{srcname}
-Version:        7.0.1
+Version:        7.0.3
 Release:        1%{?dist}
 Summary:        Extensible application framework
 
@@ -114,6 +114,9 @@ xvfb-run %{__python3} -m unittest discover -v envisage
 
 
 %changelog
+* Wed Apr 05 2023 Orion Poplawski <orion@nwra.com> - 7.0.3-1
+- Update to 7.0.3
+
 * Sat Mar 25 2023 Orion Poplawski <orion@nwra.com> - 7.0.1-1
 - Update to 7.0.1
 - Use SPDX License tag

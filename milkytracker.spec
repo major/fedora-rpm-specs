@@ -1,6 +1,6 @@
 Name:           milkytracker
 Version:        1.03.00
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Module tracker software for creating music
 
 License:        GPLv3+
@@ -66,6 +66,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %{_pkgdocdir}
 
 %changelog
+* Tue Apr 04 2023 Joonas Sarajärvi <muep@iki.fi> - 1.03.00-6
+- Rebuild for rtmidi 5
+
 * Mon Feb 27 2023 Joonas Sarajärvi <muep@iki.fi> - 1.03.00-5
 - Rebuild with C++11, in order to be compatible with rtmidi-5.0.0
 

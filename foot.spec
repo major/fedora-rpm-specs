@@ -1,6 +1,6 @@
 Name:           foot
-Version:        1.13.1
-Release:        2%{?dist}
+Version:        1.14.0
+Release:        1%{?dist}
 Summary:        Fast, lightweight and minimalistic Wayland terminal emulator
 
 License:        MIT
@@ -10,9 +10,11 @@ Source0:        %{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 BuildRequires:  gcc
 BuildRequires:  meson >= 0.58.0
 BuildRequires:  desktop-file-utils
+BuildRequires:  libappstream-glib
 BuildRequires:  python3
 BuildRequires:  systemd-rpm-macros
 
+BuildRequires:  libutempter
 BuildRequires:  pkgconfig(fcft) >= 3.0.1
 BuildRequires:  pkgconfig(fontconfig)
 BuildRequires:  pkgconfig(libutf8proc)
@@ -75,14 +77,17 @@ Requires:       ncurses-base
 
 %install
 %meson_install
+install -D -pv -m0644 -t %{buildroot}%{_metainfodir} \
+    org.codeberg.dnkl.foot.metainfo.xml
 # Will be installed to correct location with rpm macros
 rm %{buildroot}%{_docdir}/%{name}/LICENSE
 
 
 %check
 %meson_test
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 desktop-file-validate \
-    %{buildroot}/%{_datadir}/applications/%{name}*.desktop
+    %{buildroot}/%{_datadir}/applications/org.codeberg.dnkl.%{name}*.desktop
 
 
 %post
@@ -98,17 +103,13 @@ desktop-file-validate \
 %{_bindir}/%{name}
 %{_bindir}/%{name}client
 %{_datadir}/%{name}/
-%{_datadir}/applications/%{name}*.desktop
+%{_datadir}/applications/org.codeberg.dnkl.%{name}*.desktop
 %{_datadir}/icons/hicolor/48x48/apps/%{name}.png
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
-%{_datadir}/bash-completion/completions/foot*
-%dir %{_datadir}/fish
-%dir %{_datadir}/fish/vendor_completions.d
-%{_datadir}/fish/vendor_completions.d/foot*
-%dir %{_datadir}/zsh
-%dir %{_datadir}/zsh/site-functions
-%{_datadir}/zsh/site-functions/_%{name}
-%{_datadir}/zsh/site-functions/_%{name}client
+%{_metainfodir}/org.codeberg.dnkl.foot.metainfo.xml
+%{bash_completions_dir}/foot*
+%{fish_completions_dir}/foot*
+%{zsh_completions_dir}/_foot*
 %dir %{_docdir}/%{name}
 %doc %{_docdir}/%{name}/CHANGELOG.md
 %doc %{_docdir}/%{name}/README.md
@@ -127,6 +128,11 @@ desktop-file-validate \
 
 
 %changelog
+* Tue Apr 04 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.14.0-1
+- Update to 1.14.0 (#2184129)
+- Install AppStream metadata
+- Use new macros for shell completion directories
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

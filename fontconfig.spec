@@ -5,12 +5,13 @@
 Summary:	Font configuration and customization library
 Name:		fontconfig
 Version:	2.14.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 # src/ftglue.[ch] is in Public Domain
 # src/fccache.c contains Public Domain code
+## https://gitlab.com/fedora/legal/fedora-license-data/-/issues/177
 # fc-case/CaseFolding.txt is in the UCD
 # otherwise MIT
-License:	MIT and Public Domain and UCD
+License:	HPND AND LicenseRef-Fedora-Public-Domain AND Unicode-DFS-2016
 Source:		http://fontconfig.org/release/%{name}-%{version}.tar.xz
 URL:		http://fontconfig.org
 Source1:	25-no-bitmap-fedora.conf
@@ -192,6 +193,9 @@ fi
 %doc fontconfig-devel.txt fontconfig-devel
 
 %changelog
+* Tue Apr  4 2023 Akira TAGOH <tagoh@redhat.com> - 2.14.2-2
+- Migrated license tag to SPDX.
+
 * Fri Jan 27 2023 Akira TAGOH <tagoh@redhat.com> - 2.14.2-1
 - New upstream release.
 
