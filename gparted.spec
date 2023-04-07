@@ -14,7 +14,7 @@ BuildRequires:	perl(XML::Parser)
 BuildRequires:	desktop-file-utils
 BuildRequires:	intltool
 BuildRequires:	pkgconfig
-BuildRequires:	polkit-devel
+BuildRequires:	polkit-devel, polkit
 BuildRequires:	libappstream-glib
 BuildRequires:	itstool
 BuildRequires:	gcc-c++
@@ -67,6 +67,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.a
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/metainfo/%{name}.appdata.xml
 %{_datadir}/icons/hicolor/*/apps/gparted.*
+%{_datadir}/polkit-1/actions/org.gnome.gparted.policy
 %{_datadir}/appdata/gparted.appdata.xml
 %{_datadir}/help/*/gparted/*
 %{_mandir}/man8/gparted.*

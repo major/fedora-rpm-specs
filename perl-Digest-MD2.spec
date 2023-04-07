@@ -2,7 +2,7 @@ Summary:	Perl interface to the MD2 Algorithm
 Name:		perl-Digest-MD2
 Version:	2.04
 Release:	29%{?dist}
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:		https://metacpan.org/release/Digest-MD2
 Source0:	https://cpan.metacpan.org/authors/id/G/GA/GAAS/Digest-MD2-%{version}.tar.gz
 Patch0:		Digest-MD2-2.03-utf8.patch
@@ -11,9 +11,9 @@ BuildRequires:	coreutils
 BuildRequires:	findutils
 BuildRequires:	gcc
 BuildRequires:	make
-BuildRequires:	perl-interpreter
 BuildRequires:	perl-devel
 BuildRequires:	perl-generators
+BuildRequires:	perl-interpreter
 BuildRequires:	perl(ExtUtils::MakeMaker)
 # Module Runtime
 BuildRequires:	perl(DynaLoader)
@@ -23,6 +23,7 @@ BuildRequires:	perl(vars)
 # Test Suite
 # (no additional dependencies)
 # Dependencies
+# (no additional dependencies)
 
 # Don't "provide" private Perl libs
 %{?perl_default_filter}
@@ -40,7 +41,7 @@ Digest::MD5.
 %setup -q -n Digest-MD2-%{version}
 
 # Convert docs to UTF-8 encoding
-%patch0 -p1
+%patch -P 0 -p1
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}"

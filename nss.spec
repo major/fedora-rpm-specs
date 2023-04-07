@@ -1,5 +1,5 @@
 %global nspr_version 4.35.0
-%global nss_version 3.88.1
+%global nss_version 3.89.0
 # NOTE: To avoid NVR clashes of nspr* packages:
 # - reset %%{nspr_release} to 1, when updating %%{nspr_version}
 # - increment %%{nspr_version}, when updating the NSS part only
@@ -7,7 +7,7 @@
 %global nss_release %baserelease
 # use "%%global nspr_release %%[%%baserelease+n]" to handle offsets when
 # release number between nss and nspr are different.
-%global nspr_release %[%baserelease+3]
+%global nspr_release %[%baserelease+4]
 # only need to update this as we added new
 # algorithms under nss policy control
 %global crypto_policies_version 20210118
@@ -133,9 +133,6 @@ Patch40:          nss-no-dbm-man-page.patch
 
 # https://bugzilla.mozilla.org/show_bug.cgi?id=1774659
 Patch51:	nss-3.79-dbtool.patch
-
-# fix rebuilds error
-Patch52:          nss-3.85-fedora-rebuild-errors.patch
 
 Patch100:         nspr-config-pc.patch
 Patch101:         nspr-gcc-atomics.patch
@@ -389,6 +386,10 @@ export XCFLAGS="$XCFLAGS -Wno-error=maybe-uninitialized"
 
 # Similarly, but for gcc-11
 export XCFLAGS="$XCFLAGS -Wno-array-parameter"
+
+# aaaand gcc-133:
+# https://bugzilla.mozilla.org/show_bug.cgi?id=1826650
+export XCFLAGS="$XCFLAGS -Wno-dangling-pointer"
 
 export LDFLAGS=$RPM_LD_FLAGS
 
@@ -1094,6 +1095,9 @@ update-crypto-policies &> /dev/null || :
 
 
 %changelog
+* Fri Mar 10 2023 Frantisek Krenzelok <krenzelok.frantisek@gmail.com> - 3.89.0-1
+- Update NSS to 3.89.0
+
 * Fri Feb 10 2023 Frantisek Krenzelok <krenzelok.frantisek@gmail.com> - 3.88.1-1
 - Update NSS to 3.88.1
 

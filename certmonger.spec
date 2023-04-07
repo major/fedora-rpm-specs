@@ -27,16 +27,14 @@
 %bcond_with xmlrpc
 
 Name:		certmonger
-Version:	0.79.17
-Release:	4%{?dist}
+Version:	0.79.18
+Release:	1%{?dist}
 Summary:	Certificate status monitor and PKI enrollment client
 
 License:	GPL-3.0-or-later
 URL:		http://pagure.io/certmonger/
 Source0:	http://releases.pagure.org/certmonger/certmonger-%{version}.tar.gz
 #Source1:	http://releases.pagure.org/certmonger/certmonger-%%{version}.tar.gz.sig
-
-Patch0001:	0001-Rename-DBus-service-and-conf-files-to-match-canonica.patch
 
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -266,6 +264,9 @@ exit 0
 %endif
 
 %changelog
+* Wed Apr 05 2023 Rob Crittenden <rcritten@redhat.com> - 0.79.18-1
+- Update to upstream 0.79.18
+
 * Thu Feb 23 2023 Rob Crittenden <rcritten@redhat.com> - 0.79.17-4
 - migrated to SPDX license
 

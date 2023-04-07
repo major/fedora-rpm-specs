@@ -6,6 +6,9 @@ License:        (GPL-2.0-only or GPL-3.0-only) and BSD-3-Clause and CC0-1.0 and 
 URL:            https://invent.kde.org/system/kio-admin
 Source:         https://download.kde.org/stable/kio-admin/%{name}-%{version}.tar.xz
 
+# RHEL 9 cmake is at 3.20, lower the minimum cmake required
+Patch1:         kio-admin-lower-cmake-minimum.patch
+
 BuildRequires:  extra-cmake-modules
 BuildRequires:  gcc-c++
 BuildRequires:  kf5-rpm-macros

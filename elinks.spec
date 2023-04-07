@@ -1,7 +1,7 @@
 Name:      elinks
 Summary:   A text-mode Web browser
 Version:   0.16.0
-Release:   3%{?dist}
+Release:   4%{?dist}
 License:   GPLv2
 URL:       https://github.com/rkd77/elinks
 Source:    https://github.com/rkd77/elinks/releases/download/v%{version}/elinks-%{version}.tar.xz
@@ -49,6 +49,7 @@ Patch6: 0006-elinks-0.16.0-libidn2.patch
 
 # let list_is_singleton() return false for an empty list (#1075415)
 Patch15: elinks-0.12pre6-list_is_singleton.patch
+Patch16: elinks-configure-c99.patch
 
 %description
 Elinks is a text-based Web browser. Elinks does not display any images,
@@ -129,6 +130,9 @@ exit 0
 %{_mandir}/man5/*
 
 %changelog
+* Fri Mar 24 2023 Arjun Shankar <arjun@redhat.com> - 0.16.0-4
+- Port configure script to C99
+
 * Mon Feb 20 2023 Jan Rybar <jrybar@redhat.com> - 0.16.0-3
 - parallel builds cause FTBFS
 - Resolves: bz#2171476

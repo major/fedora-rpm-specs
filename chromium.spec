@@ -241,7 +241,7 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 111.0.5563.146
+Version: 112.0.5615.49
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -260,7 +260,7 @@ Patch2: chromium-107.0.5304.110-gn-system.patch
 Patch5: chromium-77.0.3865.75-no-zlib-mangle.patch
 
 # Do not use unrar code, it is non-free
-Patch6: chromium-108-norar.patch
+Patch6: chromium-112-norar.patch
 
 # Use Gentoo's Widevine hack
 # https://gitweb.gentoo.org/repo/gentoo.git/tree/www-client/chromium/files/chromium-widevine-r3.patch
@@ -347,6 +347,9 @@ Patch106: chromium-98.0.4758.80-epel7-erase-fix.patch
 # Add additional operator== to make el7 happy.
 Patch107: chromium-99.0.4844.51-el7-extra-operator==.patch
 
+# Split out ios shared feed protos
+Patch108: chromium-112-feed_protos.patch
+
 # system ffmpeg
 Patch114: chromium-107-ffmpeg-duration.patch
 Patch115: chromium-107-proprietary-codecs.patch
@@ -354,9 +357,6 @@ Patch115: chromium-107-proprietary-codecs.patch
 Patch116: chromium-108-ffmpeg-first_dts.patch
 # revert new-channel-layout-api on f36, old ffmpeg-free
 Patch117: chromium-108-ffmpeg-revert-new-channel-layout-api.patch
-
-# enable Qt
-Patch121: chromium-108-enable-allowqt.patch
 
 # gcc13
 Patch122: chromium-109-gcc13.patch
@@ -954,14 +954,12 @@ udev.
 %patch -P107 -p1 -b .el7-extra-operator-equalequal
 %endif
 
+%patch -P108 -p1 -b .chrome_feed_response_metadata
+
 %patch -P130 -p1 -b .VirtualCursor-std-layout
 
 %patch -P146 -p1 -b .LargerThan4k
 
-%if %{use_qt}
-%patch -P121 -p1 -b .enable-allowqt
-%endif
-  
 %patch -P122 -p1 -b .gcc13
 
 # Feature specific patches
@@ -1129,16 +1127,10 @@ CHROMIUM_CORE_GN_DEFINES+=' current_os="linux"'
 CHROMIUM_CORE_GN_DEFINES+=' treat_warnings_as_errors=false'
 CHROMIUM_CORE_GN_DEFINES+=' use_custom_libcxx=false'
 CHROMIUM_CORE_GN_DEFINES+=' enable_iterator_debugging=false'
-CHROMIUM_CORE_GN_DEFINES+=' enable_js_type_check=false'
 CHROMIUM_CORE_GN_DEFINES+=' enable_vr=false'
 CHROMIUM_CORE_GN_DEFINES+=' build_dawn_tests=false enable_perfetto_unittests=false'
 CHROMIUM_CORE_GN_DEFINES+=' disable_fieldtrial_testing_config=true'
 CHROMIUM_CORE_GN_DEFINES+=' blink_symbol_level=0 symbol_level=0 v8_symbol_level=0'
-# clang =< 14 and C++20, linker errors std::u16string
-# build failure on rhel and fedora 36
-%if 0%{?rhel} || 0%{?fedora} == 36
-CHROMIUM_CORE_GN_DEFINES+=' use_cxx17=true'
-%endif
 export CHROMIUM_CORE_GN_DEFINES
 
 # browser gn defines
@@ -1308,8 +1300,6 @@ cp -a %{SOURCE3} %{buildroot}%{chromium_path}/%{chromium_browser_channel}.sh
 
 %if ! %{use_vaapi}
 # remove vaapi flags
-grep -v features %{SOURCE3} > %{buildroot}%{chromium_path}/%{chromium_browser_channel}.sh
-chmod 755 %{buildroot}%{chromium_path}/%{chromium_browser_channel}.sh
 echo "# system wide chromium flags" > %{buildroot}%{_sysconfdir}/%{name}/%{name}.conf
 %endif
 
@@ -1652,6 +1642,10 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Wed Apr 05 2023 Than Ngo <than@redhat.com> - 112.0.5615.49-1
+- update to 112.0.5615.49
+- fix #2184142, Small fonts in menus
+
 * Tue Mar 28 2023 Than Ngo <than@redhat.com> - 111.0.5563.146-1
 - update to 111.0.5563.146
 

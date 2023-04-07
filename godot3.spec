@@ -1,11 +1,13 @@
+%if 0%{?fedora}
+# With _package_note_file enabled, godot.x11.opt.tools fails to link with:
+# g++: fatal error: environment variable 'RPM_ARCH' not defined
+%undefine _package_note_file
+%endif
+
 # Headless is editor binary to run without X11, e.g. for exporting games from CLI
 %bcond_without  headless
 # Server is template (optimized, no tools) binary to run multiplayer servers
 %bcond_without  server
-
-# With _package_note_file enabled, godot.x11.opt.tools fails to link with:
-# g++: fatal error: environment variable 'RPM_ARCH' not defined
-%undefine _package_note_file
 
 %define status  stable
 %define uversion %{version}-%{status}
@@ -16,7 +18,7 @@
 
 Name:           godot3
 Version:        3.5.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Multi-platform 2D and 3D game engine with a feature-rich editor (version 3)
 %if 0%{?mageia}
 Group:          Development/Tools
@@ -27,8 +29,7 @@ URL:            https://godotengine.org
 Source0:        https://downloads.tuxfamily.org/godotengine/%{version}/%{uname}-%{uversion}.tar.xz
 Source1:        https://downloads.tuxfamily.org/godotengine/%{version}/%{uname}-%{uversion}.tar.xz.sha256
 
-# SCons 4.5.0 regression: https://github.com/SCons/scons/issues/4321
-Patch0:         workaround-scons-4.5.0-regression.patch
+Patch0:         godot3-dist-files-rebranding.patch
 
 # Upstream does not support those arches (for now)
 ExcludeArch:    ppc64 ppc64le s390x
@@ -75,7 +76,7 @@ BuildRequires:  python3-scons
 
 %if %{system_embree}
 %ifarch aarch64 x86_64
-BuildRequires:  embree-devel
+BuildRequires:  embree-devel < 4
 %endif
 %endif
 
@@ -296,6 +297,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnsname}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnsname}.appdata.xml
 
 %changelog
+* Wed Apr 05 2023 Rémi Verschelde <akien@fedoraproject.org> - 3.5.2-2
+- Fix desktop and other dist files for godot3 binary name (rhbz#2184360)
+
 * Fri Mar 10 2023 Rémi Verschelde <akien@fedoraproject.org> - 3.5.2-1
 - Rename package to godot3 in preparation for the incompatible update to Godot 4.0
 - Version 3.5.2-stable

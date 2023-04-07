@@ -1,6 +1,6 @@
 Name:		worker
-Version:	4.11.0
-Release:	2%{?dist}
+Version:	4.12.1
+Release:	1%{?dist}
 Summary:	File Manager for the X11
 
 License:	GPLv2+
@@ -46,6 +46,7 @@ desktop-file-install	\
 %license COPYING
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/WorkerIcon*.xpm
+%{_datadir}/metainfo/de.boomerangsworld.worker.metainfo.xml
 %{_mandir}/man1/%{name}.1*
 %{_mandir}/*/man1/%{name}.1*
 %{_datadir}/%{name}/
@@ -54,6 +55,9 @@ desktop-file-install	\
 
 
 %changelog
+* Wed Apr 05 2023 Filipe Rosset <rosset.filipe@gmail.com> - 4.12.1-1
+- Update to 4.12.1 fixes rhbz#2175428
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.11.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

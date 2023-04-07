@@ -1,11 +1,13 @@
 Name:		dokuwiki
 Summary:	Standards compliant simple to use wiki
-License:	GPLv2
 
-%global		releasenum 2022-07-31a
+# DokuWiki is GPL v2. bundled(splitbrain/php-jsstrip) is BSD.
+License:	GPL-2.0-only AND BSD-3-Clause
+
+%global		releasenum 2023-04-04
 %global		releasetag %(rel="%{releasenum}"; echo "${rel//-/}")
 Version:	%{releasetag}
-Release:	3%{?dist}
+Release:	1%{?dist}
 
 URL:		https://www.dokuwiki.org/dokuwiki
 Source0:	https://download.dokuwiki.org/src/%{name}/%{name}-%{releasenum}.tgz
@@ -31,6 +33,10 @@ Requires:	php-composer(simplepie/simplepie) >= 1.5.6
 Requires:	php-composer(splitbrain/php-archive) >= 1.2.1
 Requires:	php-composer(splitbrain/php-cli) >= 1.1.8
 Requires:	php-composer(splitbrain/slika) >= 1.0.5
+
+# TODO: Unbundle this.
+# Package review request: https://bugzilla.redhat.com/show_bug.cgi?id=2184480
+Provides:   bundled(php-splitbrain-php-jsstrip) = 1.0.1
 
 
 %description
@@ -82,9 +88,10 @@ rmdir vendor/simplepie || true
 rm -r vendor/splitbrain/php-archive
 rm -r vendor/splitbrain/php-cli
 rm -r vendor/splitbrain/slika
-rmdir vendor/splitbrain || true
+# rm -r vendor/splitbrain/php-jsstrip
+# rmdir vendor/splitbrain || true
 
-%patch1 -p1 -b .bundled
+%patch -P1 -p1 -b .bundled
 
 mv -f conf/mysql.conf.php.example .
 
@@ -148,7 +155,7 @@ install -d -p %{buildroot}%{_sysconfdir}/httpd/conf.d
 install -d -p %{buildroot}%{_datadir}/%{name}
 install -d -p %{buildroot}%{_datadir}/%{name}/bin
 install -d -p %{buildroot}%{_localstatedir}/lib/%{name}
-mkdir -p %{buildroot}%{_localstatedir}/lib/%{name}/data/{index,tmp,media,attic,pages,cache,meta,locks,media_attic,media_meta}
+mkdir -p %{buildroot}%{_localstatedir}/lib/%{name}/data/{attic,cache,index,locks,log,media,media_attic,media_meta,meta,pages,tmp}
 rm -f install.php
 rm -f inc/.htaccess
 rm -f inc/lang/.htaccess
@@ -212,23 +219,29 @@ fi
 %{_datadir}/%{name}/vendor
 %dir %{_localstatedir}/lib/%{name}
 %attr(0755,apache,apache) %dir %{_localstatedir}/lib/%{name}/data
-%attr(0755,apache,apache) %dir %{_localstatedir}/lib/%{name}/data/media
 %attr(0755,apache,apache) %dir %{_localstatedir}/lib/%{name}/data/attic
 %attr(0755,apache,apache) %dir %{_localstatedir}/lib/%{name}/data/cache
-%attr(0755,apache,apache) %dir %{_localstatedir}/lib/%{name}/data/meta
-%attr(0755,apache,apache) %dir %{_localstatedir}/lib/%{name}/data/locks
-%attr(0755,apache,apache) %dir %{_localstatedir}/lib/%{name}/data/tmp
 %attr(0755,apache,apache) %dir %{_localstatedir}/lib/%{name}/data/index
+%attr(0755,apache,apache) %dir %{_localstatedir}/lib/%{name}/data/locks
+%attr(0755,apache,apache) %dir %{_localstatedir}/lib/%{name}/data/log
+%attr(0755,apache,apache) %dir %{_localstatedir}/lib/%{name}/data/media
 %attr(0755,apache,apache) %dir %{_localstatedir}/lib/%{name}/data/media_attic
 %attr(0755,apache,apache) %dir %{_localstatedir}/lib/%{name}/data/media_meta
+%attr(0755,apache,apache) %dir %{_localstatedir}/lib/%{name}/data/meta
 %attr(0755,apache,apache) %dir %{_localstatedir}/lib/%{name}/data/pages
 %attr(0755,apache,apache) %dir %{_localstatedir}/lib/%{name}/data/pages/wiki
+%attr(0755,apache,apache) %dir %{_localstatedir}/lib/%{name}/data/tmp
 %{_localstatedir}/lib/%{name}/data/pages/*/*
 
 %files selinux
 %doc DOKUWIKI-SELINUX.README
 
 %changelog
+* Wed Apr 05 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 20230404-1
+- Update to latest release (2023-04-04 "Jack Jackrum")
+- Fix package not creating the data/log directory
+- Migrate license tag to SPDX
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20220731a-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

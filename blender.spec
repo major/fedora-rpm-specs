@@ -1,4 +1,4 @@
-%global blender_api 3.4
+%global blender_api 3.5
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
 %bcond_with     clang
@@ -34,7 +34,7 @@
 
 Name:           blender
 Epoch:          1
-Version:        3.4.1
+Version:        3.5.0
 Release:        %autorelease
 
 
@@ -45,20 +45,8 @@ URL:            https://www.blender.org
 Source0:        https://download.%{name}.org/source/%{name}-%{version}.tar.xz
 Source1:        macros.%{name}
 
-# Include missing pyconfig header for 3.10
-Patch:          %{name}-usd-pythonlibs-fix.diff
-
-# Include missing system error from GCC 13+
-# https://developer.blender.org/D17151
-Patch:		%{name}-include-system-error-library.diff
-
-# Fix building with boost >= 1.81
-# https://projects.blender.org/blender/blender/commit/79837c5ed4b57925bf6c6bb9e7c2248f6f52bbb0
-Patch:          https://projects.blender.org/blender/blender/commit/79837c5ed4b57925bf6c6bb9e7c2248f6f52bbb0.patch
-
-# Fix building with ffmpeg >= 6.0
-# https://projects.blender.org/blender/blender/commit/0d080d1a07a26055796b0ea5b7095a01dec9fee0
-Patch:          %{name}-3.4.1-ffmpeg6.patch
+# https://projects.blender.org/blender/blender/pulls/106575
+Patch:		106575.patch
 
 # Development stuff
 BuildRequires:  boost-devel
@@ -254,8 +242,11 @@ sed -i "s/date_time/date_time python%{python3_version_nodots}/" \
     -DCMAKE_CXX_FLAGS="%{optflags} -Wl,--as-needed" \
     -DCMAKE_CXX_STANDARD=17 \
     -DCMAKE_SKIP_RPATH=ON \
+%if %{with clang}
+    -D_CLANG_LIBRARIES=%{_libdir}/libclang-cpp.so \
+%endif
     -DEMBREE_INCLUDE_DIR=%{_includedir}/embree3 \
-    -DEMBREE_LIBRARY=%{_lidir}/embree3.so \
+    -DEMBREE_LIBRARY=%{_libdir}/libembree3.so.3 \
     -DPYTHON_VERSION=%{python3_version} \
     -DWITH_COMPILER_CCACHE=ON \
     -DWITH_CYCLES=%{cyclesflag} \
@@ -285,7 +276,8 @@ sed -i "s/date_time/date_time python%{python3_version_nodots}/" \
 %else
     -DWITH_USD=OFF \
 %endif
-    -DXR_OPENXR_SDK_LOADER_LIBRARY=%{_libdir}/libopenxr_loader.so.1
+    -DXR_OPENXR_SDK_LOADER_LIBRARY=%{_libdir}/libopenxr_loader.so.1 \
+    -DWITH_LIBS_PRECOMPILED=OFF
 
 %cmake_build
 

@@ -1,5 +1,5 @@
 Name:           bzip3
-Version:        1.2.3
+Version:        1.3.0
 Release:        1%{?dist}
 Summary:        Tools for compressing and decompressing bzip3 files
 # bz3grep:                  BSD-2-Clause
@@ -160,6 +160,9 @@ fi
 %{_libdir}/pkgconfig/bzip3.pc
 
 %changelog
+* Wed Apr 05 2023 Petr Pisar <ppisar@redhat.com> - 1.3.0-1
+- 1.3.0 bump
+
 * Mon Mar 27 2023 Petr Pisar <ppisar@redhat.com> - 1.2.3-1
 - 1.2.3 bump
 

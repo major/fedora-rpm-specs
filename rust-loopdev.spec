@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        0.4.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Setup and control loop devices
 
 # Upstream license specification: MIT
@@ -14,6 +14,7 @@ License:        MIT
 URL:            https://crates.io/crates/loopdev
 Source:         %{crates_source}
 Patch0:         loopdev-fix-test.diff
+Patch1:         loopdev-bindgen-version.diff
 
 ExclusiveArch:  %{rust_arches}
 
@@ -81,6 +82,9 @@ use the "direct_io" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Wed Apr 5 2023 mulhern <amulhern@redhat.com> - 0.4.0-2
+- Add patch to increase bindgen dependency lower-bound to 0.63.0; fixes FTBFS
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

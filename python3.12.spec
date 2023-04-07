@@ -14,10 +14,10 @@ URL: https://www.python.org/
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
 %global general_version %{pybasever}.0
-%global prerel a6
+%global prerel a7
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 # Getting this build in Koji on 32bit ARM is frustrating due to technical problems
@@ -1361,7 +1361,7 @@ CheckPython optimized
 %{_includedir}/python%{LDVERSION_optimized}/*.h
 %{_includedir}/python%{LDVERSION_optimized}/internal/
 %{_includedir}/python%{LDVERSION_optimized}/cpython/
-%doc Misc/README.valgrind Misc/valgrind-python.supp Misc/gdbinit
+%doc Misc/README.valgrind Misc/valgrind-python.supp
 
 %if %{with main_python}
 %{_bindir}/2to3
@@ -1583,6 +1583,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Wed Apr 05 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.12.0~a7-1
+- Update to 3.12.0a7
+
 * Thu Mar 23 2023 Miro Hrončok <mhroncok@redhat.com> - 3.12.0~a6-2
 - Increase the test timeout during package build
 

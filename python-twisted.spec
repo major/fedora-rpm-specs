@@ -17,6 +17,16 @@ Source0:        %vcs/archive/%{srcname}-%{version}/%{srcname}-%{version}.tar.gz
 # Import gobject from gi.repository for Python 3
 # https://twistedmatrix.com/trac/ticket/9642
 Patch1:         0001-Import-gobject-from-gi.repository-in-Python-3.patch
+# https://github.com/twisted/twisted/issues/11839
+Patch2:         0002-Use-old-import-path-for-attrs-classes-and-functions.patch
+# https://github.com/twisted/twisted/pull/11734
+Patch3:         0003-Fix-tests-for-Python-3.11.patch
+# https://github.com/twisted/twisted/pull/11787
+Patch4:         0004-11786-fix-misuse-of-mktime-in-tests.patch
+# https://github.com/twisted/twisted/pull/11733
+Patch5:         0005-fix-sendmail-tests-for-python-3.11.patch
+# downstream-only patch for skipping tests that fail during a mock build
+Patch6:         0006-Skip-failing-tests.patch
 
 BuildArch:      noarch
 
@@ -25,7 +35,6 @@ BuildArch:      noarch
 %package -n python3-%{srcname}
 Summary:        %{summary}
 
-BuildRequires:  gcc
 BuildRequires:  git-core
 BuildRequires:  python3-devel >= 3.3
 
@@ -37,9 +46,11 @@ Recommends:  python3-%{srcname}+tls
 
 %prep
 %autosetup -p1 -n %{srcname}-%{srcname}-%{version}
+# cython-test-exception-raiser isn't packaged yet
+sed -e '/cython-test-exception-raiser/d' -i setup.cfg
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -x test
 
 %build
 %pyproject_wheel
@@ -65,9 +76,9 @@ ln -s ./twistd %{buildroot}%{_bindir}/twistd-3
 echo "%ghost %{python3_sitelib}/twisted/plugins/dropin.cache" >> %{pyproject_files}
 
 %check
-# can't get this to work within the buildroot yet due to multicast
-# https:# twistedmatrix.com/trac/ticket/7494
-PATH=%{buildroot}%{_bindir}:$PATH PYTHONPATH=%{pyproject_build_lib} %{buildroot}%{_bindir}/trial twisted ||:
+# avoid "unsupported locale setting" error
+export LC_ALL=C
+PATH=%{buildroot}%{_bindir}:$PATH PYTHONPATH=%{pyproject_build_lib} %{buildroot}%{_bindir}/trial twisted
 
 %files -n python3-twisted  -f %{pyproject_files}
 %doc NEWS.rst README.rst

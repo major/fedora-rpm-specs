@@ -8,7 +8,7 @@
 %bcond_with libsodium_crypt
 %endif
 
-%define patchlevel 1429
+%define patchlevel 1440
 
 %if %{?WITH_SELINUX:0}%{!?WITH_SELINUX:1}
 %define WITH_SELINUX 1
@@ -50,9 +50,11 @@ Summary: The VIM editor
 URL:     http://www.vim.org/
 Name: vim
 Version: %{baseversion}.%{patchlevel}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 2
-License: Vim and MIT
+# the Apache-2.0 is Apache 2.0 with runtime library exception - reported to legal for adding to the list of allowed licenses, but swift-lang uses it as well
+# Open Publication License 1.0 or later - reported to legal for adding to the allowed licenses list
+License: Vim AND LGPL-2.1-or-later AND MIT AND Apache-2.0 AND GPL-1.0-only AND (GPL-2.0-only OR Vim) AND BSD-2-Clause AND BSD-3-Clause AND GPL-2.0-or-later AND GPL-3.0-or-later
 Source0: ftp://ftp.vim.org/pub/vim/unix/vim-%{baseversion}-%{patchlevel}.tar.bz2
 Source1: virc
 Source2: vimrc
@@ -167,6 +169,9 @@ Conflicts: %{name}-minimal < %{epoch}:8.2.3642-2
 # shared files between common and minimal
 Requires: %{name}-data = %{epoch}:%{version}-%{release}
 Requires: %{name}-filesystem
+# the hexdump binary was part of the package for long time, ship it with it
+# still for convenience
+Requires: xxd
 # vim-toml was a separate package but the runtime files have been included
 # directly in vim since 8.2.3519.  The vim-toml package has been retired in
 # Fedora, obsolete it so it doesn't get left on users' systems.  Added in F38,
@@ -356,6 +361,17 @@ Requires: vim-enhanced
 %description default-editor
 This subpackage contains files needed to set Vim as the default editor.
 %endif
+
+%package -n xxd
+Summary: A hex dump utility
+# the xxd related file were shipped in vim-common in the past,
+# we have to conflict with the old ones
+# remove this Conflicts once C10S is released
+Conflicts: %{name}-common < 2:9.0.1440-2
+
+%description -n xxd
+xxd creates a hex dump of a given file or standard input.  It can also convert
+a hex dump back to its original binary form.
 
 
 %prep
@@ -835,12 +851,10 @@ touch %{buildroot}/%{_datadir}/%{name}/vimfiles/doc/tags
 %lang(zh_TW) %{_datadir}/%{name}/%{vimdir}/lang/zh_TW
 %lang(zh_CN.UTF-8) %{_datadir}/%{name}/%{vimdir}/lang/zh_CN.UTF-8
 %lang(zh_TW.UTF-8) %{_datadir}/%{name}/%{vimdir}/lang/zh_TW.UTF-8
-/%{_bindir}/xxd
 %{_mandir}/man1/rvim.*
 %{_mandir}/man1/vim.*
 %{_mandir}/man1/vimdiff.*
 %{_mandir}/man1/vimtutor.*
-%{_mandir}/man1/xxd.*
 %{_mandir}/man5/vimrc.*
 
 %if %{with gui}
@@ -1002,7 +1016,22 @@ touch %{buildroot}/%{_datadir}/%{name}/vimfiles/doc/tags
 %config(noreplace) %{_sysconfdir}/profile.d/vim-default-editor.*
 %endif
 
+%files -n xxd
+%license LICENSE
+%{_bindir}/xxd
+%{_mandir}/man1/xxd.*
+
+
 %changelog
+* Wed Apr 05 2023 Andreas Schneider <asn@redhat.com> - 2:9.0.1440-2
+- create xxd package, because it is used by hex.nvim
+
+* Wed Apr 05 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.1440-2
+- list most licenses available in binary rpms and migrate them into SPDX syntax
+
+* Wed Apr 05 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.1440-1
+- patchlevel 1440
+
 * Mon Mar 27 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.1429-1
 - patchlevel 1429
 

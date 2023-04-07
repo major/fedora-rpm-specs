@@ -2,7 +2,7 @@ Name:		perl-Digest-Perl-MD5
 Version:	1.9
 Release:	28%{?dist}
 Summary:	Perl implementation of Ron Rivest's MD5 Algorithm
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Digest-Perl-MD5
 Source0:	https://cpan.metacpan.org/modules/by-module/Digest/Digest-Perl-MD5-%{version}.tar.gz
 BuildArch:	noarch
@@ -22,6 +22,7 @@ BuildRequires:	perl(vars)
 # Test Suite
 BuildRequires:	perl(lib)
 BuildRequires:	perl(Test)
+# Dependencies
 Requires:	perl(Symbol)
 
 %description

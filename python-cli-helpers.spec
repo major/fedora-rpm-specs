@@ -3,14 +3,13 @@
 Summary:        Python helpers for common CLI tasks
 Name:           python-cli-helpers
 Version:        2.3.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        BSD
 URL:            https://github.com/dbcli/cli_helpers
 Source0:        https://github.com/dbcli/cli_helpers/archive/v%{version}/cli_helpers-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  python3-configobj
 BuildRequires:  python3-devel
-BuildRequires:  python3-mock
 BuildRequires:  python3-pytest
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-tabulate
@@ -34,7 +33,6 @@ Requires:       python3-wcwidth
 
 %{?python_extras_subpkg:%python_extras_subpkg -n python3-cli-helpers -i %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info styles}
 
-
 %prep
 %autosetup -n %{pypi_name}-%{version}
 rm -rf %{pypi_name}.egg-info
@@ -55,6 +53,9 @@ PYTHONPATH=build/lib/ py.test-3
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Apr 05 2023 Terje Rosten <terje.rosten@ntnu.no> - 2.3.0-3
+- mock dep was removed in 2.0.1
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

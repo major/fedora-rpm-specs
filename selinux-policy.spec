@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit 762805c0d194ad435583f5149901e83d0be2b944
+%global commit fd8c414d883570c82f1e4381992ead8abf0e5fb4
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 38.9
+Version: 38.10
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -813,6 +813,14 @@ exit 0
 %endif
 
 %changelog
+* Tue Apr 04 2023 Zdenek Pytela <zpytela@redhat.com> - 38.10-1
+- Allow certmonger dbus chat with the cron system domain
+- Allow geoclue read network sysctls
+- Allow geoclue watch the /etc directory
+- Allow logwatch_mail_t read network sysctls
+- Allow insights-client read all sysctls
+- Allow passt manage qemu pid sock files
+
 * Fri Mar 24 2023 Zdenek Pytela <zpytela@redhat.com> - 38.9-1
 - Allow sssd read accountsd fifo files
 - Add support for the passt_t domain

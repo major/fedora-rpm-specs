@@ -23,7 +23,7 @@
 
 Name:           dnsmasq
 Version:        2.89
-Release:        2%{?extraversion:.%{extraversion}}%{?dist}
+Release:        3%{?extraversion:.%{extraversion}}%{?dist}
 Summary:        A lightweight DHCP/caching DNS server
 
 # SPDX identifiers already
@@ -90,6 +90,8 @@ server's leases.
 %if %{with i18n}
 %package        langpack
 Summary:        Translations for few languages
+License:        LicenseRef-Fedora-Public-Domain AND GPL-2.0-or-later
+BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
 # Will not do separate packages for every single language, those translations are small enough
 Supplements:    (%{name} = %{version}-%{release} and (langpacks-de or langpacks-es or langpacks-fi or langpacks-fr or langpacks-id or langpacks-it or langpacks-ka or langpacks-no or langpacks-pl or langpacks-pt_BR or langpacks-ro) )
@@ -173,7 +175,7 @@ install -Dpm 644 %{SOURCE2} %{buildroot}%{_sysusersdir}/%{name}.conf
 
 %if %{with i18n}
 %make_install PREFIX=/usr install-i18n
-%find_lang %{name}
+%find_lang %{name} --with-man
 %endif
 
 %pre
@@ -210,10 +212,13 @@ install -Dpm 644 %{SOURCE2} %{buildroot}%{_sysusersdir}/%{name}.conf
 
 %if %{with i18n}
 %files langpack -f %{name}.lang
-%{_mandir}/{es,fr}/man8/dnsmasq*
 %endif
 
 %changelog
+* Wed Apr 05 2023 Petr Menšík <pemensik@redhat.com> - 2.89-3
+- Add separate SPDX licenses also to translations
+- Include localized man pages simpler way, make them noarch
+
 * Mon Apr 03 2023 Petr Menšík <pemensik@redhat.com> - 2.89-2
 - Limit offered EDNS0 size 1232 (CVE-2023-28450)
 

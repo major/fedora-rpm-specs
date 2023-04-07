@@ -5,6 +5,18 @@
 #%%global majminver 5.3
 %global majminver $(echo %{version} | sed -E 's/\.[0-9]+$//')
 
+%if 0%{?rhel} <= 8 || 0%{?fedora}
+%bcond_without plugin
+%else
+%bcond_with plugin
+%endif
+
+%if 0%{?rhel} <= 9 || 0%{?fedora}
+%bcond_without gtk2
+%else
+%bcond_with gtk2
+%endif
+
 Name:           gutenprint
 Summary:        Printer Drivers Package
 Version:        5.3.4
@@ -21,7 +33,7 @@ Patch5:         gutenprint-manpage.patch
 Patch6:         gutenprint-python36syntax.patch
 Patch7:         gutenprint-xmlfixes.patch
 Patch8:         gutenprint-libusb-crash.patch
-License:        GPLv2+
+License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND MIT AND GPL-3.0-or-later WITH Bison-exception-2.2
 
 #### removed patches, because the seems useless
 # I'll leave them here, in case its removal will break something
@@ -53,8 +65,6 @@ BuildRequires: libtool
 BuildRequires: make
 # we use pkgconfig in spec file to get correct devel packages
 BuildRequires: pkgconfig
-# gutenprint library uses functions from GTK2 for gutenprint UI library
-BuildRequires: pkgconfig(gtk+-2.0)
 # for gutenprint usb backend gutenprintMAJMIN+usb
 BuildRequires: pkgconfig(libusb-1.0)
 # Make sure we get postscriptdriver tags - for automatic driver installation
@@ -68,10 +78,14 @@ BuildRequires: sed
 
 # the plugin is built only in Fedora, so
 # no need gimp devel files for its ui
-%if 0%{?rhel} <= 8 || 0%{?fedora}
+%if %{with plugin}
 BuildRequires:  pkgconfig(gimpui-2.0)
 %endif
 
+%if %{with gtk2}
+# gutenprint library uses functions from GTK2 for gutenprint UI library
+BuildRequires: pkgconfig(gtk+-2.0)
+%endif
 
 ## NOTE ##
 # The README file in this package contains suggestions from upstream
@@ -95,6 +109,7 @@ Summary:       libgutenprint library
 %description libs
 This package includes libgutenprint library, necessary to run gutenprint.
 
+%if %{with gtk2}
 %package libs-ui
 Summary:       libgutenprintui2 library
 Requires:      %{name}-libs%{?_isa} = %{version}-%{release}
@@ -102,17 +117,20 @@ Requires:      %{name}-libs%{?_isa} = %{version}-%{release}
 %description libs-ui
 This package includes libgutenprintui2 library, which contains
 GTK+ widgets, which may be used for print dialogs etc.
+%endif
 
 %package devel
 Summary:        Library development files for gutenprint
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+%if %{with gtk2}
 Requires:       gtk2-devel
+%endif
 
 %description devel
 This package contains headers and libraries required to build applications that
 uses gutenprint package.
 
-%if 0%{?rhel} <= 8 || 0%{?fedora}
+%if %{with plugin}
 %package plugin
 Summary:        GIMP plug-in for gutenprint
 Requires:       %{name}%{?_isa} = %{version}-%{release}
@@ -174,14 +192,17 @@ sed -i -e 's,^#!/usr/bin/python3,#!%{__python3},' src/cups/cups-genppdupdate.in
 sed -i -e 's,^\(TESTS *=.*\) run-weavetest,\1,' test/Makefile.in
 
 %configure --disable-dependency-tracking \
-		--disable-static \
-		--enable-samples \
-		--enable-escputil \
-		--enable-test \
-		--disable-rpath \
-		--enable-cups-1_2-enhancements \
-		--disable-cups-ppds \
-		--enable-simplified-cups-ppds
+    --disable-static \
+    --enable-samples \
+    --enable-escputil \
+    --enable-test \
+    --disable-rpath \
+    --enable-cups-1_2-enhancements \
+    --disable-cups-ppds \
+%if %{without gtk2}
+    --disable-libgutenprintui2 \
+%endif
+    --enable-simplified-cups-ppds
 
 %make_build
 
@@ -212,7 +233,7 @@ cat %{name}-po.lang >>%{name}.lang
 # to chrpath, please let me know!
 for file in \
   %{buildroot}%{_sbindir}/cups-genppd.%{majminver} \
-%if 0%{?rhel} <= 8 || 0%{?fedora}
+%if %{with plugin}
   %{buildroot}%{_libdir}/gimp/*/plug-ins/* \
 %endif
   %{buildroot}%{_libdir}/*.so.* \
@@ -223,7 +244,7 @@ do
   chrpath --delete ${file}
 done
 
-%if 0%{?rhel} > 8
+%if %{without plugin}
 %{_bindir}/rm -f %{buildroot}%{_bindir}/testpattern \
 %endif
 
@@ -251,21 +272,26 @@ exit 0
 %{_libdir}/libgutenprint.so.9
 %{_libdir}/libgutenprint.so.9.5.0
 
+%if %{with gtk2}
 %files libs-ui
 %{_libdir}/libgutenprintui2.so.2
 %{_libdir}/libgutenprintui2.so.2.5.0
+%endif
 
 %files devel
 %doc ChangeLog doc/developer/reference-html doc/developer/gutenprint.pdf
-%doc doc/gutenprint doc/gutenprintui2
+%doc doc/gutenprint
 %{_includedir}/gutenprint/
-%{_includedir}/gutenprintui2/
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/gutenprint.pc
-%{_libdir}/pkgconfig/gutenprintui2.pc
 %exclude %{_libdir}/*.la
+%if %{with gtk2}
+%doc doc/gutenprintui2
+%{_includedir}/gutenprintui2/
+%{_libdir}/pkgconfig/gutenprintui2.pc
+%endif
 
-%if 0%{?rhel} <= 8 || 0%{?fedora}
+%if %{with plugin}
 %files plugin
 %{_libdir}/gimp/*/plug-ins/gutenprint
 
@@ -288,6 +314,10 @@ exit 0
 %{_mandir}/man8/cups-genppd*8*.gz
 
 %changelog
+* Wed Apr 05 2023 Zdenek Dohnal <zdohnal@redhat.com> - 5.3.4-11
+- GTK2 is not in CentOS Stream 10, dont ship libs-ui subpackage there
+- Add other licenses to License tag and use SPDX identifiers to comply with FPG
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.4-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

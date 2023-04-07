@@ -14,7 +14,7 @@
 %bcond_without pzstd
 
 Name:           zstd
-Version:        1.5.4
+Version:        1.5.5
 Release:        1%{?dist}
 Summary:        Zstd compression library
 
@@ -137,6 +137,9 @@ install -D -m644 programs/%{name}.1 %{buildroot}%{_mandir}/man1/p%{name}.1
 %ldconfig_scriptlets -n lib%{name}
 
 %changelog
+* Wed Apr 05 2023 Pádraig Brady <P@draigBrady.com> - 1.5.5-1
+- Latest upstream
+
 * Mon Feb 13 2023 Pádraig Brady <P@draigBrady.com> - 1.5.4-1
 - Latest upstream
 

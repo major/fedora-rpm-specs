@@ -1,5 +1,5 @@
 Name:           devscripts
-Version:        2.23.3
+Version:        2.23.4
 Release:        1%{?dist}
 Summary:        Scripts for Debian Package maintainers
 
@@ -161,6 +161,9 @@ rm -f %{buildroot}%{_datadir}/bash-completion/completions/bts
 
 
 %changelog
+* Wed Apr 05 2023 Sandro Mani <manisandro@gmail.com> - 2.23.4-1
+- Update to 2.23.4
+
 * Sun Mar 19 2023 Sandro Mani <manisandro@gmail.com> - 2.23.3-1
 - Update to 2.23.3
 

@@ -1,5 +1,5 @@
 Name:		squeekboard
-Version:	1.21.0
+Version:	1.22.0
 Release:	1%{?dist}
 Summary:	a Wayland virtual keyboard
 

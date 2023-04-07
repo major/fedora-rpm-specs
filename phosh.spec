@@ -3,7 +3,7 @@
 %global libgmobile_commit v0.0.1
 
 Name:		phosh
-Version:	0.25.1
+Version:	0.26.0
 Release:	1%{?dist}
 Summary:	Graphical shell for mobile devices
 License:	GPLv3+
@@ -32,7 +32,7 @@ BuildRequires:	meson
 BuildRequires:	cmake
 BuildRequires:	pam-devel
 BuildRequires:	callaudiod-devel
-BuildRequires:	feedbackd-devel
+BuildRequires:	feedbackd-devel >= 0.1.0
 BuildRequires:	dbus-daemon
 BuildRequires:	pkgconfig(alsa)
 BuildRequires:	pkgconfig(evince-document-3.0)
@@ -65,14 +65,14 @@ BuildRequires:	desktop-file-utils
 BuildRequires:	git-core
 BuildRequires:	systemd-rpm-macros
 
-Requires:	phoc >= 0.21.0
+Requires:	phoc >= 0.25.0
 Requires:	iio-sensor-proxy
 Requires:	gnome-session
 Requires:	gnome-shell
 Requires:	lato-fonts
 Requires:	hicolor-icon-theme
 
-Recommends:	squeekboard
+Recommends:	squeekboard >= 1.21.0
 
 %description
 Phosh is a simple shell for Wayland compositors speaking the layer-surface

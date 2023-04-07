@@ -9,7 +9,7 @@ Name:		perl-Dist-CheckConflicts
 Version:	0.11
 Release:	27%{?dist}
 Summary:	Declare version conflicts for your dist
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Dist-CheckConflicts
 Source0:	https://cpan.metacpan.org/modules/by-module/Dist/Dist-CheckConflicts-%{version}.tar.gz
 BuildArch:	noarch
@@ -43,7 +43,8 @@ BuildRequires:	perl(Test::NoTabs)
 BuildRequires:	perl(Test::Pod) >= 1.41
 BuildRequires:	perl(Test::Pod::Coverage) >= 1.08
 %endif
-# Runtime
+# Dependencies
+# (none)
 
 %description
 One shortcoming of the CPAN clients that currently exist is that they have no
@@ -82,11 +83,7 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %endif
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
 %doc Changes README
 %{perl_vendorlib}/Dist/
 %{_mandir}/man3/Dist::CheckConflicts.3*

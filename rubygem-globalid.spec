@@ -4,15 +4,15 @@
 %bcond_with bootstrap
 
 Name: rubygem-%{gem_name}
-Version: 1.0.0
-Release: 4%{?dist}
+Version: 1.1.0
+Release: 1%{?dist}
 Summary: Refer to any model with a URI: gid://app/class/id
 License: MIT
 URL: http://www.rubyonrails.org
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/rails/globalid.git && cd globalid
-# git checkout v1.0.0
-# tar czvf globalid-1.0.0-tests.tar.gz test/
+# git checkout v1.1.0
+# tar czvf globalid-1.1.0-tests.tar.gz test/
 Source1: %{gem_name}-%{version}-tests.tar.gz
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -57,11 +57,6 @@ ln -s %{_builddir}/test test
 # Avoid Bundler dependency.
 sed -i "/bundler\/setup/ s/^/#/" ./test/helper.rb
 
-# The skipped test case is probably going to be "fixed" by:
-# https://github.com/rails/globalid/pull/107
-sed -i "/defaults to nil when secret_token is not present' do/a \\
-    skip 'Not compatible with Rails 5.2'" test/cases/railtie_test.rb
-
 ruby -Ilib:test -rforwardable -e "Dir.glob './test/cases/*test.rb', &method(:require)"
 popd
 %endif
@@ -79,6 +74,10 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Tue Feb 28 2023 Pavel Valena <pvalena@redhat.com> - 1.1.0-1
+- Update to globalid 1.1.0.
+  Resolves: rhbz#2161792
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

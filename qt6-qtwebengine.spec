@@ -43,7 +43,7 @@
 
 Summary: Qt6 - QtWebEngine components
 Name:    qt6-qtwebengine
-Version: 6.4.3
+Version: 6.5.0
 Release: 1%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
@@ -360,12 +360,12 @@ cp -p src/3rdparty/chromium/LICENSE LICENSE.Chromium
 # consider doing this as part of the tarball creation step instead?  rdieter
 # fix/workaround
 # fatal error: QtWebEngineCore/qtwebenginecoreglobal.h: No such file or directory
-if [ ! -f "./include/QtWebEngineCore/qtwebenginecoreglobal.h" ]; then
-%_qt6_bindir/syncqt.pl -version %{version}
-fi
-
-# abort if this doesn't get created by syncqt.pl
-test -f "./include/QtWebEngineCore/qtwebenginecoreglobal.h"
+# if [ ! -f "./include/QtWebEngineCore/qtwebenginecoreglobal.h" ]; then
+# {_qt6_libexecdir}/syncqt -version {version}
+# fi
+#
+# # abort if this doesn't get created by syncqt.pl
+# test -f "./include/QtWebEngineCore/qtwebenginecoreglobal.h"
 
 
 %build
@@ -527,7 +527,6 @@ done
 
 %files devel
 %{_rpmmacrodir}/macros.qt6-qtwebengine
-%{_qt6_datadir}/modules/*.json
 %dir %{_qt6_headerdir}/QtPdf
 %{_qt6_headerdir}/QtPdf/*
 %dir %{_qt6_headerdir}/QtPdfQuick
@@ -540,7 +539,8 @@ done
 %{_qt6_headerdir}/QtWebEngineQuick/*
 %dir %{_qt6_headerdir}/QtWebEngineWidgets
 %{_qt6_headerdir}/QtWebEngineWidgets/*
-%{_qt6_libdir}/metatypes/*.json
+%{_qt6_libdir}/qt6/metatypes/*.json
+%{_qt6_libdir}/qt6/modules/*.json
 %{_qt6_libdir}/libQt6Pdf.so
 %{_qt6_libdir}/libQt6PdfQuick.so
 %{_qt6_libdir}/libQt6PdfWidgets.so
@@ -599,6 +599,9 @@ done
 
 
 %changelog
+* Tue Apr 04 2023 Jan Grulich <jgrulich@redhat.com> - 6.5.0-1
+- 6.5.0
+
 * Fri Mar 24 2023 Jan Grulich <jgrulich@redhat.com> - 6.4.3-1
 - 6.4.3
 

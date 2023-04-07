@@ -9,7 +9,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        78
+Version:        79
 
 %gometa
 
@@ -53,11 +53,12 @@ Provides: bundled(golang(cloud.google.com/go/compute)) = v1.10.0
 Provides: bundled(golang(cloud.google.com/go/iam)) = v0.3.0
 Provides: bundled(golang(cloud.google.com/go/storage)) = v1.27.0
 Provides: bundled(golang(github.com/acarl005/stripansi)) = v0.0.0_20180116102854_5a71ef0e047d
-Provides: bundled(golang(github.com/aws/aws_sdk_go)) = v1.44.114
+Provides: bundled(golang(github.com/aws/aws_sdk_go)) = v1.44.230
 Provides: bundled(golang(github.com/aymerick/douceur)) = v0.2.0
-Provides: bundled(golang(github.com/Azure/azure_pipeline_go)) = v0.2.3
 Provides: bundled(golang(github.com/Azure/azure_sdk_for_go)) = v68.0.0+incompatible
-Provides: bundled(golang(github.com/Azure/azure_storage_blob_go)) = v0.13.0
+Provides: bundled(golang(github.com/Azure/azure_sdk_for_go/sdk/azcore)) = v1.3.0
+Provides: bundled(golang(github.com/Azure/azure_sdk_for_go/sdk/internal)) = v1.1.1
+Provides: bundled(golang(github.com/Azure/azure_sdk_for_go/sdk/storage/azblob)) = v1.0.0
 Provides: bundled(golang(github.com/Azure/go_autorest)) = v14.2.0+incompatible
 Provides: bundled(golang(github.com/Azure/go_autorest/autorest)) = v0.11.28
 Provides: bundled(golang(github.com/Azure/go_autorest/autorest/adal)) = v0.9.18
@@ -134,7 +135,6 @@ Provides: bundled(golang(github.com/labstack/gommon)) = v0.4.0
 Provides: bundled(golang(github.com/letsencrypt/boulder)) = v0.0.0_20220331220046_b23ab962616e
 Provides: bundled(golang(github.com/mailru/easyjson)) = v0.7.6
 Provides: bundled(golang(github.com/mattn/go_colorable)) = v0.1.13
-Provides: bundled(golang(github.com/mattn/go_ieproxy)) = v0.0.1
 Provides: bundled(golang(github.com/mattn/go_isatty)) = v0.0.16
 Provides: bundled(golang(github.com/mattn/go_runewidth)) = v0.0.13
 Provides: bundled(golang(github.com/matttproud/golang_protobuf_extensions)) = v1.0.2_0.20181231171920_c182affec369
@@ -147,7 +147,7 @@ Provides: bundled(golang(github.com/modern_go/concurrent)) = v0.0.0_201803060126
 Provides: bundled(golang(github.com/modern_go/reflect2)) = v1.0.2
 Provides: bundled(golang(github.com/opencontainers/go_digest)) = v1.0.0
 Provides: bundled(golang(github.com/opencontainers/image_spec)) = v1.0.3_0.20220114050600_8b9d41f48198
-Provides: bundled(golang(github.com/opencontainers/runc)) = v1.1.3
+Provides: bundled(golang(github.com/opencontainers/runc)) = v1.1.5
 Provides: bundled(golang(github.com/opencontainers/runtime_spec)) = v1.0.3_0.20210326190908_1c3f411f0417
 Provides: bundled(golang(github.com/openshift_online/ocm_sdk_go)) = v0.1.315
 Provides: bundled(golang(github.com/oracle/oci_go_sdk/v54)) = v54.0.0
@@ -182,7 +182,8 @@ Provides: bundled(golang(go.etcd.io/bbolt)) = v1.3.6
 Provides: bundled(golang(go.mozilla.org/pkcs7)) = v0.0.0_20200128120323_432b2356ecb1
 Provides: bundled(golang(go.opencensus.io)) = v0.23.0
 Provides: bundled(golang(golang.org/x/crypto)) = v0.2.0
-Provides: bundled(golang(golang.org/x/mod)) = v0.6.0_dev.0.20220419223038_86c51ed26bb4
+Provides: bundled(golang(golang.org/x/exp)) = v0.0.0_20230307190834_24139beb5833
+Provides: bundled(golang(golang.org/x/mod)) = v0.6.0
 Provides: bundled(golang(golang.org/x/net)) = v0.4.0
 Provides: bundled(golang(golang.org/x/oauth2)) = v0.0.0_20220909003341_f21342109be1
 Provides: bundled(golang(golang.org/x/sync)) = v0.0.0_20220722155255_886fb9371eb4
@@ -190,7 +191,7 @@ Provides: bundled(golang(golang.org/x/sys)) = v0.3.0
 Provides: bundled(golang(golang.org/x/term)) = v0.3.0
 Provides: bundled(golang(golang.org/x/text)) = v0.5.0
 Provides: bundled(golang(golang.org/x/time)) = v0.2.0
-Provides: bundled(golang(golang.org/x/tools)) = v0.1.12
+Provides: bundled(golang(golang.org/x/tools)) = v0.2.0
 Provides: bundled(golang(golang.org/x/xerrors)) = v0.0.0_20220609144429_65e65417b02f
 Provides: bundled(golang(google.golang.org/api)) = v0.98.0
 Provides: bundled(golang(google.golang.org/appengine)) = v1.6.7
@@ -572,6 +573,27 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Apr 05 2023 Packit <hello@packit.dev> - 79-1
+Changes with 79
+----------------
+  * Add Butane test and Ignition logs (#3223)
+  * Add tags to CIV instances (#3343)
+  * COMPOSER-1936: Use check_gpg=True during testing (#3353)
+  * New image type: Azure EAP for RHEL 8.6+ (no RHEL 9). (#3288)
+  * build(deps): bump github.com/opencontainers/runc from 1.1.3 to 1.1.5 (#3365)
+  * containers/osbuild-composer: wait for fluentd in entrypoint (#3357)
+  * distro/rhel: add payload repos to os package set (#3329)
+  * internal/boot: boot VMWare VMs with EFI and SCSI (#3351)
+  * packit: build RPMs also for EPEL 9 and RHEL (#3359)
+  * per-distro rpmmd cache directory (#3317)
+  * upload/azure: modernize & do not upload zeroed pages (#3367)
+  * weldr+distro: allow to send Manifest warnings on ComposeReply (#3319)
+
+Contributions from: Achilleas Koutsou, Alexander Todorov, Brian C. Lane, Diaa Sami, Irene Diez, Jakub Rusz, Juan Abia, Mario Cattamo, Ondřej Budai, Sanne Raymaekers, Tomáš Hozza, dependabot[bot]
+
+— Somewhere on the Internet, 2023-04-05
+
+
 * Wed Mar 22 2023 Packit <hello@packit.dev> - 78-1
 Changes with 78
 ----------------

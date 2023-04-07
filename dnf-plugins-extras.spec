@@ -4,10 +4,10 @@
 %undefine __cmake_in_source_build
 
 Name:           dnf-plugins-extras
-Version:        4.0.17
-Release:        2%{?dist}
+Version:        4.1.0
+Release:        1%{?dist}
 Summary:        Extras Plugins for DNF
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/%{name}
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -82,31 +82,6 @@ Obsoletes:      python3-%{name}-snapper < %{dnf_plugins_extra_obsolete}
 %description -n python3-dnf-plugin-snapper
 Snapper Plugin for DNF, Python 3 version. Creates snapshot every transaction.
 
-%package -n python3-dnf-plugin-system-upgrade
-Summary:        System Upgrade Plugin for DNF
-Requires:       python3-%{name}-common = %{version}-%{release}
-Requires:       python3-systemd
-%{?python_provide:%python_provide python3-%{name}-system-upgrade}
-Provides:       dnf-command(system-upgrade)
-Provides:       dnf-command(offline-upgrade)
-Provides:       dnf-command(offline-distrosync)
-Provides:       %{name}-system-upgrade = %{version}-%{release}
-Provides:       system-upgrade = %{version}-%{release}
-Provides:       dnf-plugin-system-upgrade = %{version}-%{release}
-Provides:       python3-%{name}-system-upgrade = %{version}-%{release}
-Obsoletes:      python3-%{name}-system-upgrade < %{dnf_plugins_extra_obsolete}
-Obsoletes:      fedup < 0.9.4
-Obsoletes:      dnf-plugin-system-upgrade < 0.10
-Conflicts:      python2-dnf-plugin-system-upgrade < %{version}-%{release}
-BuildRequires:  pkgconfig(systemd)
-BuildRequires:  systemd
-BuildRequires:  python3-systemd
-%{?systemd_requires}
-
-%description -n python3-dnf-plugin-system-upgrade
-System Upgrade Plugin for DNF, Python 3 version. Enables offline system upgrades and distrosync
-using three commands: ``system-upgrade``, ``offline-upgrade``, and ``offline-distrosync``.
-
 %package -n python3-dnf-plugin-tracer
 Summary:        Tracer Plugin for DNF
 Requires:       python3-%{name}-common = %{version}-%{release}
@@ -159,14 +134,6 @@ $releasever and $basearch.
 %install
   %cmake_install
 
-mkdir -p %{buildroot}%{_unitdir}/system-update.target.wants/
-pushd %{buildroot}%{_unitdir}/system-update.target.wants/
-  ln -sr ../dnf-system-upgrade.service
-popd
-
-ln -sf %{_mandir}/man8/dnf-system-upgrade.8.gz %{buildroot}%{_mandir}/man8/dnf-offline-upgrade.8.gz
-ln -sf %{_mandir}/man8/dnf-system-upgrade.8.gz %{buildroot}%{_mandir}/man8/dnf-offline-distrosync.8.gz
-
 %find_lang %{name}
 
 %check
@@ -194,16 +161,6 @@ ln -sf %{_mandir}/man8/dnf-system-upgrade.8.gz %{buildroot}%{_mandir}/man8/dnf-o
 %{python3_sitelib}/dnf-plugins/__pycache__/snapper.*
 %{_mandir}/man8/dnf-snapper.*
 
-%files -n python3-dnf-plugin-system-upgrade
-%{_unitdir}/dnf-system-upgrade.service
-%{_unitdir}/dnf-system-upgrade-cleanup.service
-%{_unitdir}/system-update.target.wants/dnf-system-upgrade.service
-%{python3_sitelib}/dnf-plugins/system_upgrade.py
-%{python3_sitelib}/dnf-plugins/__pycache__/system_upgrade.*
-%{_mandir}/man8/dnf-system-upgrade.*
-%{_mandir}/man8/dnf-offline-upgrade.8.gz
-%{_mandir}/man8/dnf-offline-distrosync.8.gz
-
 %files -n python3-dnf-plugin-tracer
 %{python3_sitelib}/dnf-plugins/tracer.*
 %{python3_sitelib}/dnf-plugins/__pycache__/tracer.*
@@ -221,6 +178,10 @@ ln -sf %{_mandir}/man8/dnf-system-upgrade.8.gz %{buildroot}%{_mandir}/man8/dnf-o
 %{_mandir}/man8/dnf-showvars.*
 
 %changelog
+* Wed Apr 05 2023 Jan Kolarik <jkolarik@redhat.com> - 4.1.0-1
+- Update to 4.1.0
+- Move system-upgrade plugin to core (RhBug:2054235)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.17-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

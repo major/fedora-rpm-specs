@@ -29,7 +29,7 @@
 %global git_gvproxy https://%{import_path_gvproxy}
 %global commit_gvproxy aab0ac9367fc5142f5857c36ac2352bcb3c60ab7
 
-%global built_tag v4.4.4
+%global built_tag v4.5.0-rc1
 %global built_tag_strip %(b=%{built_tag}; echo ${b:1})
 %global gen_version %(b=%{built_tag_strip}; echo ${b/-/"~"})
 
@@ -46,6 +46,7 @@ Source0: %{git0}/archive/%{built_tag}.tar.gz
 Source1: %{git_plugins}/archive/%{commit_plugins}/%{repo_plugins}-%{commit_plugins}.tar.gz
 Source2: %{git_gvproxy}/archive/%{commit_gvproxy}/%{repo_gvproxy}-%{commit_gvproxy}.tar.gz
 Provides: %{name}-manpages = %{epoch}:%{version}-%{release}
+BuildRequires: gettext-envsubst
 BuildRequires: go-md2man
 BuildRequires: btrfs-progs-devel
 BuildRequires: gcc
@@ -401,9 +402,11 @@ PODMAN_VERSION=%{version} %{__make} PREFIX=%{buildroot}%{_prefix} ETCDIR=%{_sysc
        install.docker \
        install.docker-docs \
        install.remote \
-%if 0%{?fedora} >= 36 || 0%{?rhel} >= 10
+%if 0%{?fedora} || 0%{?rhel} >= 10
         install.modules-load
 %endif
+
+sed -i 's;%{buildroot};;g' %{buildroot}%{_bindir}/docker
 
 # install dnsname plugin
 cd %{repo_plugins}-%{commit_plugins}

@@ -1,8 +1,8 @@
 %global libname libaime
 
 Name:            aime
-Version:         8.20221204
-Release:         2%{?dist}
+Version:         8.20230311
+Release:         1%{?dist}
 Summary:         An application embeddable programming language interpreter
 License:         GPLv3+
 URL:             http://aime-embedded.sourceforge.net/
@@ -53,6 +53,9 @@ rm -frv %{buildroot}%{_infodir}/dir
 %{_includedir}/%{name}.h
 
 %changelog
+* Wed Apr 05 2023 Filipe Rosset <rosset.filipe@gmail.com> - 8.20230311-1
+- Update to 8.20230311 fixes rhbz#2178928
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.20221204-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

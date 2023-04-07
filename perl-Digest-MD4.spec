@@ -1,8 +1,8 @@
 Name:		perl-Digest-MD4
 Version:	1.9
-Release:	33%{?dist}
+Release:	34%{?dist}
 Summary:	Perl interface to the MD4 Algorithm
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Digest-MD4
 Source0:	https://cpan.metacpan.org/modules/by-module/Digest/Digest-MD4-%{version}.tar.gz
 # Module Build
@@ -10,11 +10,7 @@ BuildRequires:	coreutils
 BuildRequires:	findutils
 BuildRequires:	gcc
 BuildRequires:	gdbm-devel
-%if 0%{?fedora} > 13 || 0%{?rhel} > 6
 BuildRequires:	libdb-devel
-%else
-BuildRequires:	db4-devel
-%endif
 BuildRequires:	make
 BuildRequires:	perl-devel
 BuildRequires:	perl-generators
@@ -31,6 +27,7 @@ BuildRequires:	perl(Encode)
 BuildRequires:	perl(File::Spec)
 BuildRequires:	perl(MIME::Base64)
 # Dependencies
+# (none)
 
 # Don't "provide" private Perl libs
 %{?perl_default_filter}
@@ -64,6 +61,10 @@ make test
 %{_mandir}/man3/Digest::MD4.3*
 
 %changelog
+* Wed Apr  5 2023 Paul Howarth <paul@city-fan.org> - 1.9-34
+- Use SPDX-format license tag
+- Drop support for building with ancient Fedoras and RHEL < 7
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

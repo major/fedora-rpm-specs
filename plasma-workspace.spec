@@ -28,7 +28,7 @@
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
 Version: 5.27.4.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/plasma/%{name}
@@ -430,7 +430,7 @@ Supplements:    (sddm and plasma-workspace-wayland)
 %if ! (0%{?fedora} && 0%{?fedora} < 38)
 # Replace sddm-x11 with sddm-wayland-plasma
 ## N.B.: If sddm gets updated in F36/F37, this will need to be bumped
-Obsoletes:      sddm-x11 < 0.19.0^git20230320.e07e805-3
+Obsoletes:      sddm-x11 < 0.19.0^git20230404.e652433-2
 %endif
 %endif
 BuildArch:      noarch
@@ -800,6 +800,9 @@ fi
 
 
 %changelog
+* Wed Apr 05 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.27.4.1-2
+- Bump sddm Obsoletes for F38+
+
 * Tue Apr 04 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.4.1-1
 - 5.27.4.1
 

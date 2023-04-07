@@ -62,7 +62,7 @@
 
 %global major_version 3
 %global minor_version 26
-%global patch_version 2
+%global patch_version 3
 
 # Set to RC version if building RC, else comment out.
 #global rcsuf rc1
@@ -529,6 +529,10 @@ popd
 
 
 %changelog
+* Wed Apr 05 2023 Björn Esser <besser82@fedoraproject.org> - 3.26.3-1
+- cmake-3.26.3
+  Fixes rhbz#2184478
+
 * Thu Mar 30 2023 Björn Esser <besser82@fedoraproject.org> - 3.26.2-1
 - cmake-3.26.2
   Fixes rhbz#2182863

@@ -1,8 +1,8 @@
 %global srcname fido2
 
 Name:           python-%{srcname}
-Version:        1.1.0
-Release:        2%{?dist}
+Version:        1.1.1
+Release:        1%{?dist}
 Summary:        Functionality for FIDO 2.0, including USB device communication
 
 # Main code is BSD
@@ -68,6 +68,9 @@ BuildRequires:  python%{python3_pkgversion}-pytest
 
 
 %changelog
+* Wed Apr 05 2023 Orion Poplawski <orion@nwra.com> - 1.1.1-1
+- Update to 1.1.1
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

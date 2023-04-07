@@ -4,7 +4,7 @@
 
 Summary: Qt6 - WebView component
 Name:    qt6-%{qt_module}
-Version: 6.4.3
+Version: 6.5.0
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -84,11 +84,11 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{_qt6_libdir}/libQt6WebView.prl
 %{_qt6_libdir}/libQt6WebViewQuick.so
 %{_qt6_libdir}/libQt6WebViewQuick.prl
-%{_qt6_libdir}/metatypes/*.json
 %{_qt6_libdir}/pkgconfig/Qt6WebView.pc
 %{_qt6_libdir}/pkgconfig/Qt6WebViewQuick.pc
 %{_qt6_archdatadir}/mkspecs/modules/*.pri
-%{_qt6_datadir}/modules/*.json
+%{_qt6_libdir}/qt6/metatypes/*.json
+%{_qt6_libdir}/qt6/modules/*.json
 
 %if 0%{?examples}
 %files examples
@@ -98,6 +98,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Wed Apr 05 2023 Jan Grulich <jgrulich@redhat.com> - 6.5.0-1
+- 6.5.0
+
 * Mon Mar 27 2023 Jan Grulich <jgrulich@redhat.com> - 6.4.3-1
 - 6.4.3
 

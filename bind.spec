@@ -61,9 +61,23 @@ Conflicts: %1 \
 
 Summary:  The Berkeley Internet Name Domain (BIND) DNS (Domain Name System) server
 Name:     bind
-License:  MPL-2.0
+License:  MPL-2.0 AND ISC AND MIT AND BSD-3-Clause AND BSD-2-Clause
+# Most of code is licensed under MPL-2.0. Some additions follow:
+# ./contrib/dlz/* ISC and/or MPL-2.0
+# ./lib/isccc/*.c ISC and/or MPL-2.0
+# ./lib/isccc/include/isccc/*.h ISC and/or MPL-2.0
+# ./lib/isc/picohttpparser.c Expat, should be MIT
+# ./lib/isc/picohttpparser.h Expat, should be MIT
+# ./lib/isc/url.c Expat and/or MPL-2.0, should be MIT
+# ./lib/isc/include/isc/url.h Expat and/or MPL-2.0
+# ./lib/dns/dnstap.c BSD-3-clause and/or MPL-2.0
+# ./lib/isc/commandline.c BSD-3-clause and/or MPL-2.0
+# ./lib/isc/file.c BSD-3-clause and/or MPL-2.0
+# ./lib/isc/string.c BSD-3-clause and/or MPL-2.0
+# ./lib/isc/tm.c BSD-2-clause and/or MPL-2.0
+# ./lib/isccfg/parser.c BSD-2-clause and/or MPL-2.0
 Version:  9.18.13
-Release:  1%{?dist}
+Release:  2%{?dist}
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
 #
@@ -948,6 +962,9 @@ fi;
 %endif
 
 %changelog
+* Wed Apr 05 2023 Petr Menšík <pemensik@redhat.com> - 32:9.18.13-2
+- Enumerate all SPDX licenses used
+
 * Sat Mar 18 2023 Petr Menšík <pemensik@redhat.com> - 32:9.18.13-1
 - Update to 9.18.3 (#2178717)
 

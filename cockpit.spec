@@ -49,7 +49,7 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        288.1
+Version:        289
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
@@ -392,6 +392,85 @@ Provides: cockpit-sosreport = %{version}-%{release}
 Recommends: (reportd if abrt)
 %endif
 
+Provides: bundled(npm(@patternfly/patternfly)) = 4.224.4
+Provides: bundled(npm(@patternfly/react-core)) = 4.276.8
+Provides: bundled(npm(@patternfly/react-icons)) = 4.93.6
+Provides: bundled(npm(@patternfly/react-styles)) = 4.92.6
+Provides: bundled(npm(@patternfly/react-table)) = 4.113.0
+Provides: bundled(npm(@patternfly/react-tokens)) = 4.94.6
+Provides: bundled(npm(argparse)) = 1.0.10
+Provides: bundled(npm(attr-accept)) = 1.1.3
+Provides: bundled(npm(autolinker)) = 3.16.2
+Provides: bundled(npm(available-typed-arrays)) = 1.0.5
+Provides: bundled(npm(call-bind)) = 1.0.2
+Provides: bundled(npm(core-js)) = 2.6.12
+Provides: bundled(npm(deep-equal)) = 2.0.5
+Provides: bundled(npm(define-properties)) = 1.2.0
+Provides: bundled(npm(es-get-iterator)) = 1.1.3
+Provides: bundled(npm(file-selector)) = 0.1.19
+Provides: bundled(npm(focus-trap)) = 6.9.2
+Provides: bundled(npm(for-each)) = 0.3.3
+Provides: bundled(npm(function-bind)) = 1.1.1
+Provides: bundled(npm(functions-have-names)) = 1.2.3
+Provides: bundled(npm(get-intrinsic)) = 1.2.0
+Provides: bundled(npm(gopd)) = 1.0.1
+Provides: bundled(npm(has-bigints)) = 1.0.2
+Provides: bundled(npm(has-property-descriptors)) = 1.0.0
+Provides: bundled(npm(has-symbols)) = 1.0.3
+Provides: bundled(npm(has-tostringtag)) = 1.0.0
+Provides: bundled(npm(has)) = 1.0.3
+Provides: bundled(npm(internal-slot)) = 1.0.5
+Provides: bundled(npm(is-arguments)) = 1.1.1
+Provides: bundled(npm(is-bigint)) = 1.0.4
+Provides: bundled(npm(is-boolean-object)) = 1.1.2
+Provides: bundled(npm(is-callable)) = 1.2.7
+Provides: bundled(npm(is-date-object)) = 1.0.5
+Provides: bundled(npm(is-map)) = 2.0.2
+Provides: bundled(npm(is-number-object)) = 1.0.7
+Provides: bundled(npm(is-regex)) = 1.1.4
+Provides: bundled(npm(is-set)) = 2.0.2
+Provides: bundled(npm(is-string)) = 1.0.7
+Provides: bundled(npm(is-symbol)) = 1.0.4
+Provides: bundled(npm(is-typed-array)) = 1.1.10
+Provides: bundled(npm(is-weakmap)) = 2.0.1
+Provides: bundled(npm(is-weakset)) = 2.0.2
+Provides: bundled(npm(isarray)) = 2.0.5
+Provides: bundled(npm(js-sha1)) = 0.6.0
+Provides: bundled(npm(js-sha256)) = 0.9.0
+Provides: bundled(npm(js-tokens)) = 4.0.0
+Provides: bundled(npm(json-stable-stringify-without-jsonify)) = 1.0.1
+Provides: bundled(npm(lodash)) = 4.17.21
+Provides: bundled(npm(loose-envify)) = 1.4.0
+Provides: bundled(npm(object-assign)) = 4.1.1
+Provides: bundled(npm(object-inspect)) = 1.12.3
+Provides: bundled(npm(object-is)) = 1.1.5
+Provides: bundled(npm(object-keys)) = 1.1.1
+Provides: bundled(npm(object.assign)) = 4.1.4
+Provides: bundled(npm(popper.js)) = 1.16.1
+Provides: bundled(npm(prop-types-extra)) = 1.1.1
+Provides: bundled(npm(prop-types)) = 15.8.1
+Provides: bundled(npm(react-dom)) = 18.2.0
+Provides: bundled(npm(react-dropzone)) = 9.0.0
+Provides: bundled(npm(react-is)) = 16.13.1
+Provides: bundled(npm(react)) = 18.2.0
+Provides: bundled(npm(regexp.prototype.flags)) = 1.4.3
+Provides: bundled(npm(remarkable)) = 2.0.1
+Provides: bundled(npm(scheduler)) = 0.23.0
+Provides: bundled(npm(side-channel)) = 1.0.4
+Provides: bundled(npm(sprintf-js)) = 1.0.3
+Provides: bundled(npm(stop-iteration-iterator)) = 1.0.0
+Provides: bundled(npm(tabbable)) = 5.3.3
+Provides: bundled(npm(throttle-debounce)) = 2.3.0
+Provides: bundled(npm(tippy.js)) = 5.1.2
+Provides: bundled(npm(tslib)) = 2.5.0
+Provides: bundled(npm(uuid)) = 7.0.3
+Provides: bundled(npm(warning)) = 4.0.3
+Provides: bundled(npm(which-boxed-primitive)) = 1.0.2
+Provides: bundled(npm(which-collection)) = 1.0.1
+Provides: bundled(npm(which-typed-array)) = 1.1.9
+Provides: bundled(npm(xterm-addon-canvas)) = 0.3.0
+Provides: bundled(npm(xterm)) = 5.1.0
+
 %description system
 This package contains the Cockpit shell and system configuration interfaces.
 
@@ -674,6 +753,10 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Apr 05 2023 Packit <hello@packit.dev> - 289-1
+- Metrics: Indicate high usage and use colorblind-friendly colors
+- Accounts: Improve password validation
+
 * Fri Mar 24 2023 Packit <hello@packit.dev> - 288.1-1
 - Fix broken "SELinux" menu entry
 

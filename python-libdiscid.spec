@@ -1,18 +1,15 @@
-%global pypi_name python-libdiscid
-
 Name:           python-libdiscid
-Version:        2.0.1
-Release:        5%{?dist}
+Version:        2.0.2
+Release:        1%{?dist}
 Summary:        Python bindings for libdiscid
 
 License:        MIT
 URL:            https://github.com/sebastinas/python-libdiscid
-Source0:        %{pypi_source}
+Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  libdiscid-devel
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  pyproject-rpm-macros
 BuildRequires:  python%{python3_pkgversion}-sphinx
 
 %description
@@ -34,6 +31,8 @@ for the MusicBrainz database.
 
 %prep
 %autosetup
+# for sphinx 6.1.3
+sed -i 's/("http:\/\/musicbrainz.org\/doc\/%s", "")/("http:\/\/musicbrainz.org\/doc\/%s", "%s")/g' docs/conf.py
 
 
 %build
@@ -53,12 +52,14 @@ popd
 
 
 %files -n python%{python3_pkgversion}-libdiscid -f %{pyproject_files}
-%license LICENSE
-%doc changelog PKG-INFO html
+%doc CHANGELOG.md README.md
 %exclude %{python3_sitearch}/*libdiscid*/tests/
 
 
 %changelog
+* Wed Apr 05 2023 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 2.0.2-1
+- Update to 2.0.2 (rhbz #2139176 and #2180472)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
