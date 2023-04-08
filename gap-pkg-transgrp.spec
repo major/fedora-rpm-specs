@@ -1,11 +1,13 @@
 %global pkgname transgrp
 
 Name:           gap-pkg-%{pkgname}
-Version:        3.6.3
-Release:        5%{?dist}
+Version:        3.6.4
+Release:        1%{?dist}
 Summary:        Transitive groups library
 
-License:        GPL-2.0-only OR GPL-3.0-only
+# Artistic-2.0: presentation of the data in the data files
+# GPL-2.0-only OR GPL-3.0-only: the code
+License:        Artistic-2.0 AND (GPL-2.0-only OR GPL-3.0-only)
 BuildArch:      noarch
 ExclusiveArch:  %{gap_arches} noarch
 URL:            https://www.gap-system.org/Packages/transgrp.html
@@ -53,7 +55,8 @@ to John Cannon and Derek Holt.
 
 %package doc
 # The content is GPL-2.0-only OR GPL-3.0-only.  The remaining licenses cover
-# the various fonts embedded in PDFs.
+# the various fonts embedded in PDFs.  Note that Artistic-2.0 is omitted
+# since that covers the data files only.
 # AMS: OFL-1.1-RFN
 # CM: Knuth-CTAN
 # Nimbus: AGPL-3.0-only
@@ -75,7 +78,7 @@ sed -i '/UseReferences.*ext/d' doc/manual.tex
 export LC_ALL=C.UTF-8
 
 # Compress large group files
-parallel %{?_smp_mflags} --no-notice gzip --best ::: dat32/*.grp data/*.grp
+parallel %{?_smp_mflags} --no-notice gzip --best ::: dat32/*.grp
 
 # Build the documentation
 mkdir ../../doc
@@ -119,6 +122,10 @@ gap -l "%{buildroot}%{gap_libdir};" --bare -c 'LoadPackage("GAPDoc");' tst/testa
 %{gap_libdir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Wed Apr  5 2023 Jerry James <loganjerry@gmail.com> - 3.6.4-1
+- Version 3.6.4
+- Add Artistic-2.0 to License
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

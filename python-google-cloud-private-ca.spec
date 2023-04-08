@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-private-ca
 %global         forgeurl    https://github.com/googleapis/python-security-private-ca
-Version:        1.7.1
+Version:        1.8.0
 %global         tag         v%{version}
 %forgemeta
 

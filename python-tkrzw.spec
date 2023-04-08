@@ -1,12 +1,14 @@
 %global	module	tkrzw
 
 Name:		python-%{module}
-Version:	0.1.29
+Version:	0.1.30
 Release:	1%{?dist}
 License:	ASL 2.0
 Summary:	TKRZW Python bindings
 URL:		https://dbmx.net/tkrzw/
 Source0:	https://dbmx.net/tkrzw/pkg-python/%{module}-python-%{version}.tar.gz
+# https://github.com/estraier/tkrzw-python/issues/6
+Patch0:		%{name}-%{version}.patch
 BuildRequires:	gcc-c++
 BuildRequires:	python3-setuptools
 # python3-devel
@@ -14,9 +16,9 @@ BuildRequires:	pkgconfig(python3)
 # zlib-devel
 #BuildRequires:	pkgconfig(zlib)
 # tkrzw_build_util
-BuildRequires:	tkrzw >= 1.0.21
+BuildRequires:	tkrzw >= 1.0.27
 # tkrzw-devel
-BuildRequires:	pkgconfig(tkrzw) >= 1.0.21
+BuildRequires:	pkgconfig(tkrzw) >= 1.0.27
 # python3-sphinx
 BuildRequires:	python3dist(sphinx)
 # Temporary disabled: https://github.com/estraier/tkrzw-python/issues/4
@@ -76,6 +78,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 
 
 %changelog
+* Thu Apr 06 2023 TI_Eugene <ti.eugene@gmail.com> - 0.1.30-1
+- Version bump
+
 * Mon Feb 20 2023 TI_Eugene <ti.eugene@gmail.com> - 0.1.29-1
 - Version bump
 

@@ -19,7 +19,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-qtbase
-Version:        6.4.3
+Version:        6.5.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtBase component
 # Can't make package noarch as it could lead to -DQT_HOST_PATH_CMAKE_DIR=%%{_libdir}/cmake ponting to the wrong libdir
@@ -42,6 +42,8 @@ Patch1:         qtbase-readlink.patch
 Patch2:         qtbase-include-toolchain.patch
 # Specify correct Header path in qmake config
 Patch3:         qtbase-qmakeconf.patch
+# Fix mingw build
+Patch4:         qtbase-mingw.patch
 
 
 BuildRequires:  cmake
@@ -180,10 +182,14 @@ rm -rf src/3rdparty/{freetype,libjpeg,libpng,pcre2,sqlite,zlib}
 
 
 # Delete unused files
-rm %{buildroot}%{mingw32_libdir}/qt6/bin/{android_emulator_launcher.sh,ensure_pro_file.cmake,qt-internal-configure-tests,syncqt.pl}
-rm %{buildroot}%{mingw64_libdir}/qt6/bin/{android_emulator_launcher.sh,ensure_pro_file.cmake,qt-internal-configure-tests,syncqt.pl}
-rm %{buildroot}%{mingw32_bindir}/{qt-cmake-private,qt-cmake-private-install.cmake,qt-cmake-standalone-test,qt-configure-module}
-rm %{buildroot}%{mingw64_bindir}/{qt-cmake-private,qt-cmake-private-install.cmake,qt-cmake-standalone-test,qt-configure-module}
+rm %{buildroot}%{mingw32_libdir}/qt6/bin/{android_emulator_launcher.sh,ensure_pro_file.cmake,qt-internal-configure-tests}
+rm %{buildroot}%{mingw64_libdir}/qt6/bin/{android_emulator_launcher.sh,ensure_pro_file.cmake,qt-internal-configure-tests}
+rm %{buildroot}%{mingw32_bindir}/qt-configure-module
+rm %{buildroot}%{mingw64_bindir}/qt-configure-module
+rm %{buildroot}%{mingw32_bindir}/qmake6
+rm %{buildroot}%{mingw64_bindir}/qmake6
+rm %{buildroot}%{mingw32_bindir}/qtpaths6
+rm %{buildroot}%{mingw64_bindir}/qtpaths6
 
 # Move host scripts
 mkdir -p %{buildroot}%{_prefix}/%{mingw32_target}/bin/qt6
@@ -261,8 +267,43 @@ sed -i "1i CROSS_COMPILE=%{mingw64_target}-" %{buildroot}%{mingw64_libdir}/qt6/m
 %{mingw32_libdir}/Qt6Xml.prl
 %dir %{mingw32_libdir}/qt6/
 %dir %{mingw32_libdir}/qt6/bin/
+%{mingw32_libdir}/qt6/bin/qt-cmake-private
+%{mingw32_libdir}/qt6/bin/qt-cmake-private-install.cmake
+%{mingw32_libdir}/qt6/bin/qt-cmake-standalone-test
 %{mingw32_libdir}/qt6/bin/qt-testrunner.py
+%{mingw32_libdir}/qt6/bin/sanitizer-testrunner.py
+%dir %{mingw32_libdir}/qt6/metatypes/
+%{mingw32_libdir}/qt6/metatypes/qt6concurrent_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6core_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6dbus_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6devicediscoverysupportprivate_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6fbsupportprivate_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6gui_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6network_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6opengl_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6openglwidgets_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6printsupport_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6sql_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6test_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6widgets_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6xml_relwithdebinfo_metatypes.json
 %{mingw32_libdir}/qt6/mkspecs/
+%{mingw32_libdir}/qt6/modules/
+%{mingw32_libdir}/qt6/modules/Concurrent.json
+%{mingw32_libdir}/qt6/modules/Core.json
+%{mingw32_libdir}/qt6/modules/DBus.json
+%{mingw32_libdir}/qt6/modules/DeviceDiscoverySupportPrivate.json
+%{mingw32_libdir}/qt6/modules/EntryPointPrivate.json
+%{mingw32_libdir}/qt6/modules/FbSupportPrivate.json
+%{mingw32_libdir}/qt6/modules/Gui.json
+%{mingw32_libdir}/qt6/modules/Network.json
+%{mingw32_libdir}/qt6/modules/OpenGL.json
+%{mingw32_libdir}/qt6/modules/OpenGLWidgets.json
+%{mingw32_libdir}/qt6/modules/PrintSupport.json
+%{mingw32_libdir}/qt6/modules/Sql.json
+%{mingw32_libdir}/qt6/modules/Test.json
+%{mingw32_libdir}/qt6/modules/Widgets.json
+%{mingw32_libdir}/qt6/modules/Xml.json
 %dir %{mingw32_libdir}/qt6/plugins
 %dir %{mingw32_libdir}/qt6/plugins/generic
 %{mingw32_libdir}/qt6/plugins/generic/qtuiotouchplugin.dll
@@ -270,6 +311,8 @@ sed -i "1i CROSS_COMPILE=%{mingw64_target}-" %{buildroot}%{mingw64_libdir}/qt6/m
 %{mingw32_libdir}/qt6/plugins/imageformats/qgif.dll
 %{mingw32_libdir}/qt6/plugins/imageformats/qico.dll
 %{mingw32_libdir}/qt6/plugins/imageformats/qjpeg.dll
+%dir %{mingw32_libdir}/qt6/plugins/networkinformation
+%{mingw32_libdir}/qt6/plugins/networkinformation/qnetworklistmanager.dll
 %dir %{mingw32_libdir}/qt6/plugins/platforms
 %{mingw32_libdir}/qt6/plugins/platforms/qdirect2d.dll
 %{mingw32_libdir}/qt6/plugins/platforms/qoffscreen.dll
@@ -303,21 +346,6 @@ sed -i "1i CROSS_COMPILE=%{mingw64_target}-" %{buildroot}%{mingw64_libdir}/qt6/m
 %{mingw32_libdir}/cmake/Qt6Test/
 %{mingw32_libdir}/cmake/Qt6Widgets/
 %{mingw32_libdir}/cmake/Qt6Xml/
-%dir %{mingw32_libdir}/metatypes
-%{mingw32_libdir}/metatypes/qt6concurrent_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/metatypes/qt6core_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/metatypes/qt6dbus_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/metatypes/qt6devicediscoverysupportprivate_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/metatypes/qt6fbsupportprivate_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/metatypes/qt6gui_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/metatypes/qt6network_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/metatypes/qt6opengl_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/metatypes/qt6openglwidgets_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/metatypes/qt6printsupport_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/metatypes/qt6sql_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/metatypes/qt6test_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/metatypes/qt6widgets_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/metatypes/qt6xml_relwithdebinfo_metatypes.json
 %{mingw32_libdir}/pkgconfig/Qt6Concurrent.pc
 %{mingw32_libdir}/pkgconfig/Qt6Core.pc
 %{mingw32_libdir}/pkgconfig/Qt6DBus.pc
@@ -333,8 +361,6 @@ sed -i "1i CROSS_COMPILE=%{mingw64_target}-" %{buildroot}%{mingw64_libdir}/qt6/m
 %{mingw32_libdir}/pkgconfig/Qt6Xml.pc
 %dir %{mingw32_includedir}/qt6/
 %{mingw32_includedir}/qt6/*
-%dir %{mingw32_datadir}/qt6/
-%{mingw32_datadir}/qt6/modules/
 %{mingw32_docdir}/qt6/
 
 %dir %{_prefix}/%{mingw32_target}/bin/qt6/
@@ -394,8 +420,43 @@ sed -i "1i CROSS_COMPILE=%{mingw64_target}-" %{buildroot}%{mingw64_libdir}/qt6/m
 %{mingw64_libdir}/Qt6Xml.prl
 %dir %{mingw64_libdir}/qt6/
 %dir %{mingw64_libdir}/qt6/bin/
+%{mingw64_libdir}/qt6/bin/qt-cmake-private
+%{mingw64_libdir}/qt6/bin/qt-cmake-private-install.cmake
+%{mingw64_libdir}/qt6/bin/qt-cmake-standalone-test
 %{mingw64_libdir}/qt6/bin/qt-testrunner.py
+%{mingw64_libdir}/qt6/bin/sanitizer-testrunner.py
+%dir %{mingw64_libdir}/qt6/metatypes/
+%{mingw64_libdir}/qt6/metatypes/qt6concurrent_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6core_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6dbus_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6devicediscoverysupportprivate_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6fbsupportprivate_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6gui_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6network_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6opengl_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6openglwidgets_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6printsupport_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6sql_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6test_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6widgets_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6xml_relwithdebinfo_metatypes.json
 %{mingw64_libdir}/qt6/mkspecs/
+%{mingw64_libdir}/qt6/modules/
+%{mingw64_libdir}/qt6/modules/Concurrent.json
+%{mingw64_libdir}/qt6/modules/Core.json
+%{mingw64_libdir}/qt6/modules/DBus.json
+%{mingw64_libdir}/qt6/modules/DeviceDiscoverySupportPrivate.json
+%{mingw64_libdir}/qt6/modules/EntryPointPrivate.json
+%{mingw64_libdir}/qt6/modules/FbSupportPrivate.json
+%{mingw64_libdir}/qt6/modules/Gui.json
+%{mingw64_libdir}/qt6/modules/Network.json
+%{mingw64_libdir}/qt6/modules/OpenGL.json
+%{mingw64_libdir}/qt6/modules/OpenGLWidgets.json
+%{mingw64_libdir}/qt6/modules/PrintSupport.json
+%{mingw64_libdir}/qt6/modules/Sql.json
+%{mingw64_libdir}/qt6/modules/Test.json
+%{mingw64_libdir}/qt6/modules/Widgets.json
+%{mingw64_libdir}/qt6/modules/Xml.json
 %dir %{mingw64_libdir}/qt6/plugins
 %dir %{mingw64_libdir}/qt6/plugins/generic
 %{mingw64_libdir}/qt6/plugins/generic/qtuiotouchplugin.dll
@@ -403,6 +464,8 @@ sed -i "1i CROSS_COMPILE=%{mingw64_target}-" %{buildroot}%{mingw64_libdir}/qt6/m
 %{mingw64_libdir}/qt6/plugins/imageformats/qgif.dll
 %{mingw64_libdir}/qt6/plugins/imageformats/qico.dll
 %{mingw64_libdir}/qt6/plugins/imageformats/qjpeg.dll
+%dir %{mingw64_libdir}/qt6/plugins/networkinformation
+%{mingw64_libdir}/qt6/plugins/networkinformation/qnetworklistmanager.dll
 %dir %{mingw64_libdir}/qt6/plugins/platforms
 %{mingw64_libdir}/qt6/plugins/platforms/qdirect2d.dll
 %{mingw64_libdir}/qt6/plugins/platforms/qoffscreen.dll
@@ -436,21 +499,6 @@ sed -i "1i CROSS_COMPILE=%{mingw64_target}-" %{buildroot}%{mingw64_libdir}/qt6/m
 %{mingw64_libdir}/cmake/Qt6Test/
 %{mingw64_libdir}/cmake/Qt6Widgets/
 %{mingw64_libdir}/cmake/Qt6Xml/
-%dir %{mingw64_libdir}/metatypes
-%{mingw64_libdir}/metatypes/qt6concurrent_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/metatypes/qt6core_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/metatypes/qt6dbus_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/metatypes/qt6devicediscoverysupportprivate_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/metatypes/qt6fbsupportprivate_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/metatypes/qt6gui_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/metatypes/qt6network_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/metatypes/qt6opengl_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/metatypes/qt6openglwidgets_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/metatypes/qt6printsupport_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/metatypes/qt6sql_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/metatypes/qt6test_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/metatypes/qt6widgets_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/metatypes/qt6xml_relwithdebinfo_metatypes.json
 %{mingw64_libdir}/pkgconfig/Qt6Concurrent.pc
 %{mingw64_libdir}/pkgconfig/Qt6Core.pc
 %{mingw64_libdir}/pkgconfig/Qt6DBus.pc
@@ -466,8 +514,6 @@ sed -i "1i CROSS_COMPILE=%{mingw64_target}-" %{buildroot}%{mingw64_libdir}/qt6/m
 %{mingw64_libdir}/pkgconfig/Qt6Xml.pc
 %dir %{mingw64_includedir}/qt6/
 %{mingw64_includedir}/qt6/*
-%dir %{mingw64_datadir}/qt6/
-%{mingw64_datadir}/qt6/modules/
 %{mingw64_docdir}/qt6/
 
 %dir %{_prefix}/%{mingw64_target}/bin/qt6/
@@ -480,6 +526,9 @@ sed -i "1i CROSS_COMPILE=%{mingw64_target}-" %{buildroot}%{mingw64_libdir}/qt6/m
 
 
 %changelog
+* Thu Apr 06 2023 Sandro Mani <manisandro@gmail.com> - 6.5.0-1
+- Update to 6.5.0
+
 * Wed Mar 29 2023 Sandro Mani <manisandro@gmail.com> - 6.4.3-1
 - Update to 6.4.3
 

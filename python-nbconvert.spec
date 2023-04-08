@@ -63,7 +63,6 @@ sed -i '/"pytest-cov",/d' pyproject.toml
 sed -i '/"pytest-dependency",/d' pyproject.toml
 sed -i '/pyppeteer/d' pyproject.toml
 sed -i 's/"sphinx==.*"/"sphinx"/' pyproject.toml
-sed -i 's/"mistune>=.*"/"mistune"/' pyproject.toml
 
 mkdir -p share/templates/classic/static/
 cp -v %{SOURCE1} share/templates/classic/static/style.css

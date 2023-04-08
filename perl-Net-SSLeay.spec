@@ -6,12 +6,13 @@
 
 Name:		perl-Net-SSLeay
 Version:	1.92
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Perl extension for using OpenSSL
 License:	Artistic-2.0
 URL:		https://metacpan.org/release/Net-SSLeay
 Source0:	https://cpan.metacpan.org/modules/by-module/Net/Net-SSLeay-%{version}.tar.gz
 Patch10:	Net-SSLeay-1.90-pkgconfig.patch
+Patch12:	Net-SSLeay-1.92-no-sha1.patch
 # =========== Module Build ===========================
 BuildRequires:	coreutils
 BuildRequires:	findutils
@@ -85,7 +86,11 @@ so you can write servers or clients for more complicated applications.
 
 # Get libraries to link against from pkg-config
 # https://github.com/radiator-software/p5-net-ssleay/pull/127
-%patch10
+%patch -P 10
+
+# Work around EL-9, ELN issues with SHA-1 usage
+# https://github.com/radiator-software/p5-net-ssleay/pull/433
+%patch -P 12
 
 # Fix permissions in examples to avoid bogus doc-file dependencies
 chmod -c 644 examples/*
@@ -123,6 +128,11 @@ make test
 %{_mandir}/man3/Net::SSLeay::Handle.3*
 
 %changelog
+* Thu Apr  6 2023 Paul Howarth <paul@city-fan.org> - 1.92-7
+- Update test suite to handle potential unavailability of sha1 algorithm
+  https://github.com/radiator-software/p5-net-ssleay/pull/433
+- Avoid deprecated patch syntax
+
 * Fri Mar 17 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.92-6
 - Update license to SPDX format
 

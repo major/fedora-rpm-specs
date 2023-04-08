@@ -3,7 +3,7 @@
 Summary:        ASCII art library
 Name:           aalib
 Version:        1.4.0
-Release:        0.45.%{rc_subver}%{?dist}
+Release:        0.46.%{rc_subver}%{?dist}
 License:        LGPLv2+
 URL:            http://aa-project.sourceforge.net/aalib/
 Source0:        http://download.sourceforge.net/aa-project/%{name}-1.4%{rc_subver}.tar.gz
@@ -13,6 +13,7 @@ Patch2:         aalib-1.4rc5-bug149361.patch
 Patch3:         aalib-1.4rc5-rpath.patch
 Patch4:		aalib-1.4rc5-x_libs.patch
 Patch5:		aalib-1.4rc5-libflag.patch
+Patch6: aalib-c99.patch
 BuildRequires:  slang-devel libXt-devel gpm-devel ncurses-devel
 BuildRequires:	autoconf libtool
 BuildRequires: make
@@ -46,6 +47,7 @@ with aalib.
 %patch3 -p1 -b .rpath
 %patch4 -p1 -b .x_libs
 %patch5 -p0 -b .libflag
+%patch6 -p1
 # included libtool is too old, we need to rebuild
 autoreconf -v -f -i
 
@@ -85,6 +87,9 @@ touch -r NEWS $RPM_BUILD_ROOT%{_bindir}/aalib-config $RPM_BUILD_ROOT%{_datadir}/
 %{_datadir}/aclocal/aalib.m4
 
 %changelog
+* Thu Apr 06 2023 Florian Weimer <fweimer@redhat.com> - 1.4.0-0.46.rc5
+- Port to C99
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-0.45.rc5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

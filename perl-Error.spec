@@ -1,9 +1,9 @@
 Name:           perl-Error
 Epoch:          1
 Version:        0.17029
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Error/exception handling in an OO-ish way
-License:        (GPL+ or Artistic) and MIT
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND X11
 URL:            https://metacpan.org/release/Error
 Source0:        https://cpan.metacpan.org/modules/by-module/Error/Error-%{version}.tar.gz
 BuildArch:      noarch
@@ -59,20 +59,20 @@ find %{buildroot} -type f -name .packlist -delete
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
-# GPL+ or Artistic
+# GPL-1.0-or-later OR Artistic-1.0-Perl
 %doc ChangeLog Changes README examples/
 %{perl_vendorlib}/Error.pm
 %{_mandir}/man3/Error.3*
-# MIT
+# X11
 %{perl_vendorlib}/Error/
 %{_mandir}/man3/Error::Simple.3*
 
 %changelog
+* Thu Apr  6 2023 Paul Howarth <paul@city-fan.org> - 1:0.17029-12
+- Use SPDX-format license tag
+- Use %%license unconditionally
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.17029-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

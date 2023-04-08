@@ -45,7 +45,7 @@
 Name:             ghostscript
 Summary:          Interpreter for PostScript language & PDF
 Version:          10.01.0
-Release:          2%{?dist}
+Release:          3%{?dist}
 
 License:          AGPL-3.0-or-later
 
@@ -107,7 +107,9 @@ BuildRequires:    make
 #Patch000: example000.patch
 
 Patch001: ghostscript-10.01.0-pdfwrite-Substituted-TTF-CIDFont-CID-hand.patch
-Patch002: ghostscript-10.01.0-set-a4-as-default-pagesize.patch
+Patch002: ghostscript-10.01.0-convert-defaultpage-to-lowercase.patch
+Patch003: ghostscript-10.01.0-CVE-2023-28879.patch
+
 
 # Downstream patches -- these should be always included when doing rebase:
 # ------------------
@@ -421,6 +423,10 @@ done
 # =============================================================================
 
 %changelog
+* Thu Apr 06 2023 Richard Lescak <rlescak@redhat.com> - 10.01.0-3
+- fix for CVE-2023-28879 (#2184586)
+- add patch for converting default page name to lowercase (#2183166)
+
 * Mon Apr 03 2023 Richard Lescak <rlescak@redhat.com> - 10.01.0-2
 - set 'a4' as a default in gs_init.ps to fix unrecognized 'Letter' page size (#2183166)
 

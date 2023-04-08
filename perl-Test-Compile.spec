@@ -1,5 +1,5 @@
 # Real version
-%global cpan_version v3.2.0
+%global cpan_version v3.2.2
 
 Name:           perl-Test-Compile
 Version:        %(echo '%{cpan_version}' | tr -d 'v')
@@ -102,6 +102,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Apr 06 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.2.2-1
+- 3.2.2 bump
+
 * Mon Apr 03 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.2.0-2
 - Fix failing test
 

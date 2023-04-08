@@ -3,7 +3,7 @@
 %undefine __cmake3_in_source_build
 
 Name:       csmock
-Version:    3.4.0
+Version:    3.4.1
 Release:    1%{?dist}
 Summary:    A mock wrapper for Static Analysis tools
 
@@ -30,6 +30,7 @@ BuildRequires: python%{python3_pkgversion}-devel
 Requires: csmock-common                 >= %{version}-%{release}
 Requires: csmock-plugin-clang           >= %{version}-%{release}
 Requires: csmock-plugin-cppcheck        >= %{version}-%{release}
+Requires: csmock-plugin-gitleaks        >= %{version}-%{release}
 Requires: csmock-plugin-shellcheck      >= %{version}-%{release}
 
 BuildArch: noarch
@@ -101,6 +102,7 @@ This package contains the divine plug-in for csmock.
 
 %package -n csmock-plugin-gitleaks
 Summary: experimental csmock plug-in
+Requires: csdiff > 3.0.0
 Requires: csmock-common
 
 %description -n csmock-plugin-gitleaks
@@ -286,7 +288,11 @@ This package contains the unicontrol plug-in for csmock.
 %{python3_sitelib}/csmock/plugins/__pycache__/unicontrol.*
 
 %changelog
+* Thu Apr 06 2023 Kamil Dudka <kdudka@redhat.com> 3.4.1-1
+- update to latest upstream
+
 * Wed Feb 22 2023 Kamil Dudka <kdudka@redhat.com> 3.4.0-1
+- migrate to SPDX license
 - update to latest upstream release
 
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.5-2

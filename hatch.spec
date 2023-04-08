@@ -5,7 +5,7 @@
 #global snapdate yyyymmdd
 
 Name:           hatch
-Version:        1.6.3%{?commit:^%{snapdate}git%(echo '%{commit}' | cut -b -7)}
+Version:        1.7.0%{?commit:^%{snapdate}git%(echo '%{commit}' | cut -b -7)}
 Release:        %autorelease
 Summary:        A modern project, package, and virtual env manager
 
@@ -53,15 +53,6 @@ Source1000:     hatch-run.1
 Source1100:     hatch-shell.1
 Source1200:     hatch-status.1
 Source1300:     hatch-version.1
-
-# Partial backport of upstream commit 0201239cea9e5ada8133f076a243f95c467426e3
-# so that test TestTemplate.test_create_necessary_directories continues to pass
-# with hatchling 1.12, but without the changelog entry. For hatch (vs.
-# hatchling) the only change is in the test.
-#
-# Remove unnecessary encoding declaration
-# https://github.com/pypa/hatch/pull/659
-Patch:          pr-659.patch
 
 BuildArch:      noarch
 

@@ -3,7 +3,7 @@
 
 Name:		qpdfview
 Version:	0.5.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	GPLv2+
 Summary:	Tabbed PDF Viewer
 Url:		https://launchpad.net/qpdfview
@@ -185,6 +185,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-qt6.desktop
 %{_mandir}/man?/*
 
 %changelog
+* Thu Apr 06 2023 Sandro Mani <manisandro@gmail.com> - 0.5.0-3
+- Rebuild (tesseract)
+
 * Tue Feb 07 2023 Florian Weimer <fweimer@redhat.com> - 0.5.0-2
 - Fix C99 compatibility issue
 

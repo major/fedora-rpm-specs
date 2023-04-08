@@ -92,7 +92,7 @@ Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
 Version:        6.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
@@ -854,6 +854,9 @@ rm -rf %{buildroot}%{_datadir}/%{name}/examples
 %{_mandir}/man3/libswscale.3*
 
 %changelog
+* Thu Apr 06 2023 Adam Williamson <awilliam@redhat.com> - 6.0-5
+- Rebuild (tesseract) again
+
 * Mon Apr 03 2023 Neal Gompa <ngompa@fedoraproject.org> - 6.0-4
 - Include RISC-V support sources in the tarball
 

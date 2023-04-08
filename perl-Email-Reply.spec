@@ -2,7 +2,7 @@ Name:           perl-Email-Reply
 Version:        1.204
 Release:        23%{?dist}
 Summary:        Reply to an email message
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Email-Reply
 Source0:        https://cpan.metacpan.org/modules/by-module/Email/Email-Reply-%{version}.tar.gz
 BuildArch:      noarch
@@ -26,7 +26,8 @@ BuildRequires:  perl(Email::MIME::Modifier)
 BuildRequires:  perl(Email::Simple)
 BuildRequires:  perl(Email::Simple::Creator)
 BuildRequires:  perl(Test::More) >= 0.88
-# Runtime
+# Dependencies
+# (none)
 
 %description
 This package provides a simple way to reply to email messages.

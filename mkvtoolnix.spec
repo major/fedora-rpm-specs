@@ -1,8 +1,8 @@
 Summary: Matroska container manipulation utilities
 Name: mkvtoolnix
-Version: 74.0.0
-Release: 2%{?dist}
-License: GPLv2+
+Version: 75.0.0
+Release: 1%{?dist}
+License: GPL-2.0-or-later AND LGPL-2.1-or-later
 Source0: https://mkvtoolnix.download/sources/mkvtoolnix-%{version}.tar.xz
 Source1: https://mkvtoolnix.download/sources/mkvtoolnix-%{version}.tar.xz.sig
 Source2: https://mkvtoolnix.download/gpg-pub-moritzbunkus.txt
@@ -43,9 +43,9 @@ BuildRequires: %{_bindir}/qmake6
 BuildRequires: %{_bindir}/xsltproc
 Requires: libebml%{_isa} >= 1.4.4
 Requires: libmatroska%{_isa} >= 1.7.1
-# bundles a modified avilib
+# bundles a modified avilib GPLv2+
 Provides: bundled(avilib) = 0.6.10
-# https://www.bunkus.org/videotools/librmff/index.html
+# https://www.bunkus.org/videotools/librmff/index.html LGPLv2+
 Provides: bundled(librmff) = 0.6.0
 
 %description
@@ -122,6 +122,10 @@ drake tests:run_unit
 %{_datadir}/mkvtoolnix
 
 %changelog
+* Thu Apr 06 2023 Dominik Mierzejewski <dominik@greysector.net> - 75.0.0-1
+- update to 75.0.0 (#2181894)
+- switch License: to SPDX
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 74.0.0-2
 - Rebuilt for Boost 1.81
 

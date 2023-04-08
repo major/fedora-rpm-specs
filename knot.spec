@@ -7,7 +7,7 @@
 
 Summary:	High-performance authoritative DNS server
 Name:		knot
-Version:	3.2.5
+Version:	3.2.6
 Release:	1%{?dist}
 License:	GPL-3.0-or-later
 URL:		https://www.knot-dns.cz
@@ -47,6 +47,8 @@ BuildRequires:	pkgconfig(libfstrm)
 BuildRequires:	pkgconfig(libprotobuf-c)
 # geoip dependencies
 BuildRequires:	pkgconfig(libmaxminddb)
+# XDP dependencies
+BuildRequires:	pkgconfig(libbpf)
 
 # Distro-dependent dependencies
 %if 0%{?suse_version}
@@ -54,33 +56,20 @@ BuildRequires:	python3-Sphinx
 BuildRequires:	lmdb-devel
 BuildRequires:	protobuf-c
 Requires(pre):	pwdutils
-%endif
-%if 0%{?rhel} && 0%{?rhel} <= 7
-BuildRequires:	python-sphinx
-BuildRequires:	lmdb-devel
-%endif
-%if 0%{?fedora} || 0%{?rhel} > 7
-BuildRequires:	python3-sphinx
-BuildRequires:	pkgconfig(lmdb)
-%endif
-
-%if 0%{?centos} == 7 || 0%{?rhel} == 7
-%define configure_xdp --enable-xdp=no
-%else
-%define use_xdp 1
-%if 0%{?rhel} == 8 || 0%{?suse_version}
-# Use the embedded libbpf
-%define use_xdp 1
-%define configure_xdp --enable-xdp=yes --enable-quic=yes
-BuildRequires:	pkgconfig(libelf)
-%else
-# XDP is auto-enabled when libbpf is present
-%define configure_xdp --enable-quic=yes
-BuildRequires:	pkgconfig(libbpf) >= 0.0.6
-%if 0%{?fedora} >= 36
+%if 0%{?sle_version} != 150400
 BuildRequires:	pkgconfig(libxdp)
 %endif
 %endif
+%if 0%{?fedora} || 0%{?rhel}
+BuildRequires:	python3-sphinx
+BuildRequires:	pkgconfig(lmdb)
+%if 0%{?fedora}
+BuildRequires:	pkgconfig(libxdp)
+%endif
+%endif
+
+%if 0%{?rhel} >= 9 || 0%{?suse_version} || 0%{?fedora}
+%define configure_quic --enable-quic=yes
 %endif
 
 Requires(post):		systemd %{_sbindir}/runuser
@@ -176,7 +165,7 @@ CFLAGS="%{optflags} -DNDEBUG -Wno-unused"
   --with-moduledir=%{_libdir}/knot/modules-%{BASE_VERSION} \
   --with-storage=/var/lib/knot \
   %{?configure_db_sizes} \
-  %{?configure_xdp} \
+  %{?configure_quic} \
   --disable-static \
   --enable-dnstap=yes \
   --with-module-dnstap=shared \
@@ -259,7 +248,7 @@ getent passwd knot >/dev/null || \
 %license COPYING
 %doc %{_pkgdocdir}
 %exclude %{_pkgdocdir}/html
-%attr(770,root,knot) %dir %{_sysconfdir}/knot
+%attr(750,root,knot) %dir %{_sysconfdir}/knot
 %config(noreplace) %attr(640,root,knot) %{_sysconfdir}/knot/knot.conf
 %if 0%{?fedora} || 0%{?rhel} > 7
 %config(noreplace) %attr(644,root,root) %{_sysconfdir}/dbus-1/system.d/cz.nic.knotd.conf
@@ -288,10 +277,8 @@ getent passwd knot >/dev/null || \
 %{_bindir}/kdig
 %{_bindir}/khost
 %{_bindir}/knsupdate
-%if 0%{?use_xdp}
 %{_sbindir}/kxdpgun
 %{_mandir}/man8/kxdpgun.*
-%endif
 %{_mandir}/man1/kdig.*
 %{_mandir}/man1/khost.*
 %{_mandir}/man1/knsupdate.*
@@ -336,6 +323,10 @@ getent passwd knot >/dev/null || \
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Thu Apr 06 2023 Jakub Ružička <jakub.ruzicka@nic.cz> - 3.2.6-1
+- Update to 3.2.6
+- Sync upstream packaging improvements
+
 * Thu Feb 02 2023 Jakub Ružička <jakub.ruzicka@nic.cz> - 3.2.5-1
 - Update to 3.2.5
 

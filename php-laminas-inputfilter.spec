@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    01c56c11904565b0f594c9cb745b5457a0e390eb
+%global gh_commit    c5a53b1e72a2270b441391728291f7136e9461d1
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-inputfilter
@@ -22,7 +22,7 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        2.24.0
+Version:        2.24.1
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
@@ -174,6 +174,9 @@ exit $ret
 %{php_home}/%{namespace}/%{library}
 
 %changelog
+* Thu Apr  6 2023 Remi Collet <remi@remirepo.net> - 2.24.1-1
+- update to 2.24.1 (no change)
+
 * Thu Feb  2 2023 Remi Collet <remi@remirepo.net> - 2.24.0-1
 - update to 2.24.0
 

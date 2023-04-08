@@ -4,7 +4,7 @@
 Summary: Statistics collection daemon for filling RRD files
 Name: collectd
 Version: 5.12.0
-Release: 27%{?dist}
+Release: 28%{?dist}
 License: GPLv2
 URL: https://collectd.org/
 
@@ -24,6 +24,7 @@ Patch0: %{name}-include-collectd.d.patch
 Patch1: %{name}-gcc11.patch
 Patch2: %{name}-remove-des-support-from-snmp-plugin.patch
 Patch3: %{name}-py311-dont-include-longintrepr.patch
+Patch4: collectd-c99.patch
 
 BuildRequires: perl-devel
 BuildRequires: perl-generators
@@ -1224,6 +1225,9 @@ make check
 
 
 %changelog
+* Thu Apr 06 2023 Florian Weimer <fweimer@redhat.com> - 5.12.0-28
+- Port to C99
+
 * Tue Jan 24 2023 Adam Williamson <awilliam@redhat.com> - 5.12.0-27
 - rebuild for new libgps
 

@@ -3,11 +3,11 @@
 %undefine __cmake3_in_source_build
 
 Name:       cscppc
-Version:    2.2.2
-Release:    2%{?dist}
+Version:    2.2.3
+Release:    1%{?dist}
 Summary:    A compiler wrapper that runs Cppcheck in background
 
-License:    GPLv3+
+License:    GPL-3.0-or-later
 URL:        https://github.com/csutils/%{name}
 Source0:    https://github.com/csutils/%{name}/releases/download/%{name}-%{version}/%{name}-%{version}.tar.xz
 Source1:    https://github.com/csutils/%{name}/releases/download/%{name}-%{version}/%{name}-%{version}.tar.xz.asc
@@ -135,6 +135,10 @@ done
 %{_mandir}/man1/csmatch.1*
 
 %changelog
+* Thu Apr 06 2023 Kamil Dudka <kdudka@redhat.com> 2.2.3-1
+- migrate to SPDX license
+- update to latest upstream
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

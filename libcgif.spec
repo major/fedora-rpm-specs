@@ -1,13 +1,13 @@
 # remirepo/fedora spec file for libcgif
 #
-# Copyright (c) 2021-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2021-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 
-%global gh_commit   b05de324c4413558bea330fb350ad4fd13396529
+%global gh_commit   968fa662d31276be53139c1a7f0accaec38765dc
 %global gh_short    %(c=%{gh_commit}; echo ${c:0:7})
 #global gh_date     20211001
 %global gh_owner    dloebl
@@ -17,8 +17,8 @@
 
 Name:          %{libname}
 Summary:       A fast and lightweight GIF encoder
-Version:       0.3.0
-Release:       3%{?dist}
+Version:       0.3.1
+Release:       1%{?dist}
 License:       MIT
 
 URL:           https://github.com/%{gh_owner}/%{gh_project}
@@ -90,6 +90,9 @@ for %{libname}.
 
 
 %changelog
+* Thu Apr  6 2023 Remi Collet <remi@remirepo.net> - 0.3.1-1
+- update to 0.3.1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

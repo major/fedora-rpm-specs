@@ -1,5 +1,5 @@
 Name:           python3-mypy
-Version:        1.1.1
+Version:        1.2.0
 Release:        1%{?dist}
 Summary:        A static type checker for Python
 %{?python_provide:%python_provide python3-mypy}
@@ -24,7 +24,7 @@ Provides: python-typeshed = 1:0.1-0.20191011git2
 # Needed to generate the man pages
 BuildRequires:  help2man
 BuildRequires:  (python3dist(typed-ast) >= 1.4 with python3dist(typed-ast) < 2)
-BuildRequires:  (python3dist(mypy-extensions) >= 0.4 with python3dist(mypy-extensions) < 0.5)
+BuildRequires:  python3dist(mypy-extensions)
 
 BuildArch:      noarch
 
@@ -81,6 +81,9 @@ end
 %{_mandir}/man1/stubgen.1*
 
 %changelog
+* Thu Apr 06 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.2.0-1
+- 1.2.0
+
 * Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.1.1-1
 - 1.1.1
 

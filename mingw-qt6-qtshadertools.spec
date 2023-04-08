@@ -16,7 +16,7 @@
 %global release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.4.3
+Version:        6.5.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - Qt Shader Tools component
 
@@ -109,9 +109,9 @@ Fedora Windows cross-compiler.
 %{mingw32_libdir}/Qt6ShaderTools.prl
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_shadertools_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_shadertools.pri
-%{mingw32_libdir}/metatypes/qt6shadertools_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6shadertools_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/modules/ShaderTools.json
 %{mingw32_libdir}/pkgconfig/Qt6ShaderTools.pc
-%{mingw32_datadir}/qt6/modules/ShaderTools.json
 %{mingw32_includedir}/qt6/QtShaderTools/
 
 
@@ -125,13 +125,16 @@ Fedora Windows cross-compiler.
 %{mingw64_libdir}/Qt6ShaderTools.prl
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_shadertools_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_shadertools.pri
-%{mingw64_libdir}/metatypes/qt6shadertools_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6shadertools_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/modules/ShaderTools.json
 %{mingw64_libdir}/pkgconfig/Qt6ShaderTools.pc
-%{mingw64_datadir}/qt6/modules/ShaderTools.json
 %{mingw64_includedir}/qt6/QtShaderTools/
 
 
 %changelog
+* Thu Apr 06 2023 Sandro Mani <manisandro@gmail.com> - 6.5.0-1
+- Update to 6.5.0
+
 * Wed Mar 29 2023 Sandro Mani <manisandro@gmail.com> - 6.4.3-1
 - Update to 6.4.3
 

@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-storage
 %global         forgeurl    https://github.com/googleapis/python-storage
-Version:        2.7.0
+Version:        2.8.0
 %global         tag         v%{version}
 %forgemeta
 

@@ -13,11 +13,11 @@
 %bcond_without python3
 
 Name:       csdiff
-Version:    3.0.0
+Version:    3.0.1
 Release:    1%{?dist}
 Summary:    Non-interactive tools for processing code scan results in plain-text
 
-License:    GPLv3+
+License:    GPL-3.0-or-later
 URL:        https://github.com/csutils/csdiff
 Source0:    https://github.com/csutils/csdiff/releases/download/%{name}-%{version}/%{name}-%{version}.tar.xz
 Source1:    https://github.com/csutils/csdiff/releases/download/%{name}-%{version}/%{name}-%{version}.tar.xz.asc
@@ -133,6 +133,10 @@ make version.cc
 %endif
 
 %changelog
+* Thu Apr 06 2023 Kamil Dudka <kdudka@redhat.com> 3.0.1-1
+- migrate to SPDX license
+- update to latest upstream
+
 * Fri Mar 10 2023 Kamil Dudka <kdudka@redhat.com> 3.0.0-1
 - update to latest upstream release
 

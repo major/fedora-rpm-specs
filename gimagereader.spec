@@ -1,6 +1,6 @@
 Name:          gimagereader
 Version:       3.4.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       A front-end to tesseract-ocr
 
 License:       GPL-3.0-or-later
@@ -144,6 +144,9 @@ Common files for %{name}.
 %{_datadir}/applications/%{name}-qt5.desktop
 
 %changelog
+* Thu Apr 06 2023 Sandro Mani <manisandro@gmail.com> - 3.4.1-2
+- Rebuild (tesseract)
+
 * Sun Jan 29 2023 Sandro Mani <manisandro@gmail.com> - 3.4.1-1
 - Update to 3.4.1
 

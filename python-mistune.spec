@@ -22,6 +22,12 @@ BuildRequires:  python3dist(pytest)
 %package -n python3-%{srcname}
 Summary:        %{summary}
 
+# Allow upgrades from Fedora 37 with python3-mistune08 to Fedora 38 with python3-mistune
+# as python3-nbconvert requires mistune 2 on Fedora 38+.
+# See https://bugzilla.redhat.com/2177923
+# If the Fedora 37 python3-mistune08 package is ever bumped, this needs to be bumped as well!
+Obsoletes:      python3-mistune08 < 0.8.4-8
+
 %description -n python3-%{srcname} %{common_description}
 
 %package doc

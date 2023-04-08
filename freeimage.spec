@@ -6,7 +6,7 @@
 
 Name:           freeimage
 Version:        3.19.0
-Release:        0.13%{?svn_rev:.svn%svn_rev}%{?dist}
+Release:        0.14%{?svn_rev:.svn%svn_rev}%{?dist}
 Summary:        Multi-format image decoder library
 
 # freeimage is tripple-licensed, see
@@ -26,10 +26,8 @@ Patch0:         FreeImage_unbundle.patch
 Patch1:         FreeImage_doxygen.patch
 # Patch for openexr 3
 Patch2:         freeimage-openexr3.patch
-# Patch for libtiff-4.4.0 compatibility
-Patch3:         freeimage-libtiff44.patch
 # Patch for LibRaw 0.21.0 compatibility
-Patch4:         libraw.patch
+Patch3:         libraw.patch
 
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
@@ -163,6 +161,9 @@ ldconfig -n %{buildroot}%{_libdir}
 
 
 %changelog
+* Thu Apr 06 2023 Sandro Mani <manisandro@gmail.com> - 3.19.0-0.14.svn1889
+- Syncronize FreeImage_unbundle.patch with mingw-freeimage
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.19.0-0.13.svn1889
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 %global real_name packit
 
 Name:           %{real_name}
-Version:        0.72.0
+Version:        0.73.0
 Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
@@ -102,6 +102,9 @@ cp files/bash-completion/packit %{buildroot}%{_datadir}/bash-completion/completi
 %{python3_sitelib}/*
 
 %changelog
+* Thu Apr 06 2023 Packit <hello@packit.dev> - 0.73.0-1
+- Packit now supports monorepo configuration in CLI (#1864)
+
 * Fri Mar 31 2023 Packit <hello@packit.dev> - 0.72.0-1
 - Packit now preserves `autorelease` macro during `propose_downstream` and `pull_from_upstream`. (#1904)
 

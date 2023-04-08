@@ -2,7 +2,7 @@ Name:		perl-Env-Sanctify
 Summary:	Lexically scoped sanctification of %%ENV
 Version:	1.12
 Release:	28%{?dist}
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Env-Sanctify
 Source0:	https://cpan.metacpan.org/modules/by-module/Env/Env-Sanctify-%{version}.tar.gz
 BuildArch:	noarch
@@ -23,9 +23,10 @@ BuildRequires:	perl(IO::Handle)
 BuildRequires:	perl(IPC::Open3)
 BuildRequires:	perl(Pod::Coverage::TrustPod)
 BuildRequires:	perl(Test::More) >= 0.47
-BuildRequires:	perl(Test::Pod)
-BuildRequires:	perl(Test::Pod::Coverage)
-# Runtime
+BuildRequires:	perl(Test::Pod) >= 1.41
+BuildRequires:	perl(Test::Pod::Coverage) >= 1.08
+# Dependencies
+# (none)
 
 %description
 Env::Sanctify is a module that provides lexically-scoped manipulation and
@@ -49,19 +50,10 @@ find %{buildroot} -type f -name .packlist -delete
 %{_fixperms} -c %{buildroot}
 
 %check
-# Pod test modules too old prior to RHEL-7
-%if 0%{?fedora} || 0%{?rhel} > 6
 make test AUTHOR_TESTING=1 RELEASE_TESTING=1
-%else
-make test AUTHOR_TESTING=1
-%endif
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
 %doc Changes README examples/
 %{perl_vendorlib}/Env/
 %{_mandir}/man3/Env::Sanctify.3*

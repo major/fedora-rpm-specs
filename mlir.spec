@@ -11,7 +11,7 @@
 
 Name: mlir
 Version: %{mlir_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Multi-Level Intermediate Representation Overview
 
 License: Apache-2.0 WITH LLVM-exception
@@ -23,8 +23,7 @@ Source2: release-keys.asc
 Patch0: 0001-mlir-Change-LLVM_COMMON_CMAKE_UTILS-usage.patch
 
 # Support for i686 upstream is unclear with lots of tests failling.
-# Remove s390x build temporarily.
-ExcludeArch: i686 s390x
+ExcludeArch: i686
 
 BuildRequires: gcc
 BuildRequires: gcc-c++
@@ -80,6 +79,12 @@ MLIR development files.
 %global _dwz_low_mem_die_limit_aarch64 1
 %global _dwz_max_die_limit_aarch64 1000000
 
+# On s390x, dwz consumes too much RAM.  Restrict its resources in
+# order to stop dwz early. We prefer to miss the DWARF optimization than not
+# not being able to build this package on aarch64.
+%global _dwz_low_mem_die_limit_s390x 1
+%global _dwz_max_die_limit_s390x 1000000
+
 %cmake  -GNinja \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
         -DCMAKE_SKIP_RPATH=ON \
@@ -97,8 +102,10 @@ MLIR development files.
         -DBUILD_SHARED_LIBS=OFF \
         -DMLIR_INSTALL_AGGREGATE_OBJECTS=OFF \
         -DMLIR_BUILD_MLIR_C_DYLIB=ON \
-%ifarch %ix86
+%ifarch %ix86 ppc64le
         -DLLVM_PARALLEL_LINK_JOBS=1 \
+%endif
+%ifarch %ix86
         -DMLIR_RUN_X86VECTOR_TESTS:BOOL=OFF \
 %endif
 %if 0%{?__isa_bits} == 64
@@ -193,6 +200,10 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %{_libdir}/cmake/mlir
 
 %changelog
+* Mon Apr 03 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0-3
+- Re-enable s390x builds
+- Link ppc64le serially in order to avoid hitting memory limits
+
 * Mon Apr 03 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0-2
 - Disable s390x builds temporarily
 

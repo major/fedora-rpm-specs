@@ -9,7 +9,7 @@
 %define	radicale_major	3
 
 %if %{?radicale_major} >= 3
-%define	radicale_version	3.1.7
+%define	radicale_version	3.1.8
 %else
 %if %{?radicale_major} >= 2
 %define	radicale_version	2.1.12
@@ -49,8 +49,7 @@ Source50:	  %{name}-test-example.ics
 Source51:	  %{name}-test-example.vcf
 
 Patch0:           %{name}-config-storage-hooks-SELinux-note.patch
-Patch1:           %{name}-fix-move-behind-proxy-PR-1271.patch
-Patch2:           %{name}-disable-timestamp-if-started-by-systemd-PR-1276.patch
+Patch1:           %{name}-3.1.8-20230322-6ae831a3.patch
 
 BuildArch:        noarch
 
@@ -445,7 +444,7 @@ fi
 
 
 %files -n python3-%{radicale_package_name}
-%license COPYING
+%license COPYING.md
 %{python3_sitelib}/%{name}
 %{python3_sitelib}/Radicale-*.egg-info
 
@@ -459,6 +458,11 @@ fi
 
 
 %changelog
+* Tue Mar 21 2023 Peter Bieringer <pb@bieringer.de> - 3.1.8-38
+- Add patch against upstream 6ae831a3
+- Extend SELinux policy to allow native journald logging
+- Update to 3.1.8
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.7-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

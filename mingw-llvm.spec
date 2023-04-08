@@ -10,11 +10,11 @@
 
 
 %global pkgname llvm
-%global libver 15
+%global libver 16
 
 Name:          mingw-%{pkgname}
-Version:       15.0.7
-Release:       2%{?dist}
+Version:       16.0.0
+Release:       1%{?dist}
 Summary:       LLVM for MinGW
 
 License:       NCSA
@@ -130,7 +130,7 @@ SET(CMAKE_EXE_LINKER_FLAGS "%{__global_ldflags}")
 EOF
 
 # Build native llvm-tblgen, rather than depending on version-matching native package
-%cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_SHARED_LIBS=OFF
+%cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_SHARED_LIBS=OFF -DLLVM_INCLUDE_TESTS=OFF
 %cmake_build --target llvm-tblgen
 
 CMAKE_OPTS="
@@ -249,6 +249,9 @@ install -Dpm 0755 %{_vpath_builddir}/bin/llvm-tblgen %{buildroot}%{_prefix}/%{mi
 
 
 %changelog
+* Thu Apr 06 2023 Sandro Mani <manisandro@gmail.com> - 16.0.0-1
+- Update to 16.0.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 15.0.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

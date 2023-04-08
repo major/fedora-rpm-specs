@@ -1,7 +1,7 @@
 %global         srcname     guest-configs
 
 %global         forgeurl    https://github.com/GoogleCloudPlatform/%{srcname}
-Version:        20230327.00
+Version:        20230403.00
 %global         tag         %{version}
 %forgemeta
 

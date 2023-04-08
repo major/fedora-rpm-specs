@@ -25,8 +25,8 @@
 
 Summary:       Tools to access and modify virtual machine disk images
 Name:          guestfs-tools
-Version:       1.51.1
-Release:       2%{?dist}
+Version:       1.51.2
+Release:       1%{?dist}
 License:       GPLv2+
 
 # Build only for architectures that have a kernel
@@ -405,6 +405,9 @@ end
 
 
 %changelog
+* Thu Apr 06 2023 Richard W.M. Jones <rjones@redhat.com> - 1.51.2-1
+- New development version 1.51.2
+
 * Tue Feb 21 2023 Richard W.M. Jones <rjones@redhat.com> - 1.51.1-2
 - Fix BR hwdata-devel for PCI IDs data
 

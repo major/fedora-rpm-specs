@@ -9,7 +9,7 @@ Name:           perl-Eval-Closure
 Version:        0.14
 Release:        20%{?dist}
 Summary:        Safely and cleanly create closures via string eval
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Eval-Closure
 Source0:        https://cpan.metacpan.org/authors/id/D/DO/DOY/Eval-Closure-%{version}.tar.gz
 BuildArch:      noarch
@@ -17,8 +17,8 @@ BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker)
 # Module Runtime
 BuildRequires:  perl(Carp)
@@ -44,7 +44,7 @@ BuildRequires:  perl(warnings)
 # Optional Tests
 BuildRequires:  perl(Test::Output)
 %endif
-# Runtime
+# Dependencies
 Requires:       perl(Devel::LexAlias) >= 0.05
 Requires:       perl(Perl::Tidy)
 
@@ -74,7 +74,7 @@ make %{?_smp_mflags}
 %install
 make pure_install DESTDIR=%{buildroot}
 find %{buildroot} -type f -name .packlist -delete
-%{_fixperms} %{buildroot}
+%{_fixperms} -c %{buildroot}
 
 %check
 make test

@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-kms
 %global         forgeurl    https://github.com/googleapis/python-kms
-Version:        2.16.0
+Version:        2.16.1
 %global         tag         v%{version}
 %forgemeta
 

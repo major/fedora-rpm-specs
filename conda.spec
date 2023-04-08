@@ -1,7 +1,7 @@
 %bcond_without tests
 
 Name:           conda
-Version:        23.3.0
+Version:        23.3.1
 Release:        %autorelease
 Summary:        Cross-platform, Python-agnostic binary package manager
 
@@ -207,6 +207,7 @@ py.test-%{python3_version} -vv -m "not integration" \
     --deselect=tests/test_cli.py::test_run_returns_zero_errorlevel \
     --deselect=tests/test_cli.py::test_run_readonly_env \
     --deselect=tests/test_misc.py::test_explicit_missing_cache_entries \
+    --ignore=tests/conda_env/specs/test_binstar.py \
     --deselect=tests/conda_env/test_create.py::test_create_update_remote_env_file \
     --deselect=tests/cli/test_main_clean.py \
     --deselect=tests/cli/test_main_notices.py::test_notices_appear_once_when_running_decorated_commands \

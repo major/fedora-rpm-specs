@@ -1,8 +1,8 @@
 %global _lto_cflags %{nil}
-%global _lib_min_ver 69
+%global _lib_min_ver 70
 
 Name:		tkrzw
-Version:	1.0.26
+Version:	1.0.27
 Release:	1%{?dist}
 Summary:	A straightforward implementation of DBM
 License:	ASL 2.0
@@ -102,6 +102,9 @@ install -t %{buildroot}%{_mandir}/man1 -m 0644 -p tkrzw_*.1
 
 
 %changelog
+* Thu Apr 06 2023 TI_Eugene <ti.eugene@gmail.com> - 1.0.27-1
+- Version bump
+
 * Wed Mar 01 2023 TI_Eugene <ti.eugene@gmail.com> - 1.0.26-1
 - Version bump
 

@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/ralph-irving/squeezelite/
-%global commit   39555f934696f6dffbfd03c3a1391ec96535ba1a
+%global commit   74fe7934ec60cc31565f088796f56e911f51679c
 %forgemeta
 
 # Raspberry Pi-specific GPIO support.
@@ -15,7 +15,7 @@
 
 
 Name:            squeezelite
-Version:         1.9.9.1412
+Version:         1.9.9.1428
 Release:         %autorelease
 Summary:         Headless music player for streaming from Logitech Media Server
 

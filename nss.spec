@@ -134,6 +134,11 @@ Patch40:          nss-no-dbm-man-page.patch
 # https://bugzilla.mozilla.org/show_bug.cgi?id=1774659
 Patch51:	nss-3.79-dbtool.patch
 
+# Fix build with recent GCC 13
+# https://bugzilla.mozilla.org/show_bug.cgi?id=1826650
+# https://bugzilla.mozilla.org/attachment.cgi?id=9327255
+Patch52:          nss-3.89-dangling.patch
+
 Patch100:         nspr-config-pc.patch
 Patch101:         nspr-gcc-atomics.patch
 
@@ -386,10 +391,6 @@ export XCFLAGS="$XCFLAGS -Wno-error=maybe-uninitialized"
 
 # Similarly, but for gcc-11
 export XCFLAGS="$XCFLAGS -Wno-array-parameter"
-
-# aaaand gcc-133:
-# https://bugzilla.mozilla.org/show_bug.cgi?id=1826650
-export XCFLAGS="$XCFLAGS -Wno-dangling-pointer"
 
 export LDFLAGS=$RPM_LD_FLAGS
 

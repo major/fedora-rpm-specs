@@ -1,6 +1,6 @@
 %global majorversion 0
 %global minorversion 3
-%global microversion 67
+%global microversion 68
 
 %global apiversion   0.3
 %global spaversion   0.2
@@ -332,7 +332,7 @@ cp %{SOURCE1} subprojects/packagefiles/
 %build
 %meson \
     -D docs=enabled -D man=enabled -D gstreamer=enabled -D systemd=enabled	\
-    -D gstreamer-device-provider=disabled -D sdl2=disabled 			\
+    -D sdl2=disabled 								\
     -D audiotestsrc=disabled -D videotestsrc=disabled				\
     -D volume=disabled -D bluez5-codec-aptx=disabled 		  		\
     -D bluez5-codec-lc3plus=disabled						\
@@ -424,6 +424,8 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_mandir}/man1/pipewire.1*
 %dir %{_datadir}/pipewire/
 %{_datadir}/pipewire/pipewire.conf
+%{_datadir}/pipewire/pipewire.conf.avail/10-rates.conf
+%{_datadir}/pipewire/pipewire.conf.avail/20-upmix.conf
 %{_datadir}/pipewire/minimal.conf
 %{_datadir}/pipewire/filter-chain.conf
 %{_datadir}/pipewire/filter-chain/*.conf
@@ -460,6 +462,8 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-roc-sink.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-roc-source.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-rtkit.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-rtp-sap.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-rtp-session.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-rtp-sink.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-rtp-source.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-rt.so
@@ -491,7 +495,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_libdir}/spa-%{spaversion}/vulkan/
 %endif
 %{_datadir}/pipewire/client.conf
+%{_datadir}/pipewire/client.conf.avail/20-upmix.conf
 %{_datadir}/pipewire/client-rt.conf
+%{_datadir}/pipewire/client-rt.conf.avail/20-upmix.conf
 
 %files gstreamer
 %{_libdir}/gstreamer-1.0/libgstpipewire.*
@@ -586,6 +592,7 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_mandir}/man1/pipewire-pulse.1*
 %{_userunitdir}/pipewire-pulse.*
 %{_datadir}/pipewire/pipewire-pulse.conf
+%{_datadir}/pipewire/pipewire-pulse.conf.avail/20-upmix.conf
 %endif
 
 %if %{with v4l2}
@@ -598,6 +605,10 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-x11-bell.so
 
 %changelog
+* Thu Apr 6 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.68-1
+- Update version to 0.3.68
+- Enable gstreamer-device-provider (rhbz#2183691)
+
 * Thu Mar 9 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.67-1
 - Update version to 0.3.67
 

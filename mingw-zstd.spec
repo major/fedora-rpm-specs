@@ -3,7 +3,7 @@
 %global pkgname zstd
 
 Name:          mingw-%{pkgname}
-Version:       1.5.4
+Version:       1.5.5
 Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
@@ -79,6 +79,9 @@ MINGW64_CMAKE_ARGS="-DCMAKE_INSTALL_INCLUDEDIR=%{mingw64_includedir}/%{pkgname}"
 
 
 %changelog
+* Thu Apr 06 2023 Sandro Mani <manisandro@gmail.com> - 1.5.5-1
+- Update to 1.5.5
+
 * Wed Feb 15 2023 Sandro Mani <manisandro@gmail.com> - 1.5.4-1
 - Update to 1.5.4
 

@@ -2,7 +2,7 @@ Name:           perl-Email-Abstract
 Version:        3.009
 Release:        6%{?dist}
 Summary:        Unified interface to mail representations
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Email-Abstract
 Source0:        https://cpan.metacpan.org/modules/by-module/Email/Email-Abstract-%{version}.tar.gz
 BuildArch:      noarch

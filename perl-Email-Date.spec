@@ -2,7 +2,7 @@ Name:           perl-Email-Date
 Version:        1.104
 Release:        26%{?dist}
 Summary:        Find and format date headers
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Email-Date
 Source0:        https://cpan.metacpan.org/modules/by-module/Email/Email-Date-%{version}.tar.gz
 BuildArch:      noarch
@@ -57,11 +57,7 @@ find %{buildroot} -type f -name .packlist -delete
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
 %doc README
 %{perl_vendorlib}/Email/
 %{_mandir}/man3/Email::Date.3*

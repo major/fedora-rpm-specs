@@ -2,8 +2,8 @@
 
 %define catalogue        %{_sysconfdir}/X11/fontpath.d
 
-Version: 0.2.20080216.1
-Release: 68%{?dist}
+Version: 0.2.20080216.2
+Release: 1%{?dist}
 URL:     http://www.freedesktop.org/wiki/Software/CJKUnifonts
 
 %global foundry           CJKUni
@@ -25,7 +25,7 @@ the CJK Unifonts project.
 
 CJK Unifonts in Kai face.}
 
-Source0:  http://ftp.debian.org/debian/pool/main/t/ttf-arphic-ukai/ttf-arphic-ukai_%{version}.orig.tar.gz
+Source0:  http://deb.debian.org/debian/pool/main/f/fonts-arphic-ukai/fonts-arphic-ukai_%{version}.orig.tar.bz2
 Source10: 65-%{fontpkgname}.conf
 Source11: 90-%{fontpkgname}-embolden.conf
 
@@ -53,6 +53,10 @@ ln -s %{fontdir}/ %{buildroot}%{catalogue}/%{name}
 
 
 %changelog
+* Thu Apr  6 2023 Peng Wu <pwu@redhat.com> - 0.2.20080216.2-1
+- Update to 0.2.20080216.2
+- Resolves: RHBZ#2184836
+
 * Tue Feb 28 2023 Peng Wu <pwu@redhat.com> - 0.2.20080216.1-68
 - Update to follow New Fonts Packaging Guidelines
 - Migrate to SPDX license

@@ -1,8 +1,8 @@
 %global pkgname digraphs
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.6.1
-Release:        3%{?dist}
+Version:        1.6.2
+Release:        1%{?dist}
 Summary:        GAP package for digraphs and multidigraphs
 
 # The project as a whole is GPL-3.0-or-later.
@@ -11,6 +11,9 @@ License:        GPL-3.0-or-later AND LGPL-3.0-only
 ExclusiveArch:  %{gap_arches}
 URL:            https://digraphs.github.io/Digraphs/
 Source0:        https://github.com/digraphs/Digraphs/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
+# Work around a test failure
+# https://github.com/digraphs/Digraphs/issues/577
+Patch0:         %{name}-test.patch
 
 BuildRequires:  gap-devel
 BuildRequires:  GAPDoc-doc
@@ -21,6 +24,7 @@ BuildRequires:  gap-pkg-io
 BuildRequires:  gap-pkg-nautytracesinterface
 BuildRequires:  gap-pkg-orb
 BuildRequires:  gcc-c++
+BuildRequires:  graphviz
 BuildRequires:  libtool
 BuildRequires:  make
 BuildRequires:  planarity-devel
@@ -32,6 +36,7 @@ Requires:       gap-pkg-orb%{?_isa}
 
 Recommends:     gap-pkg-grape%{?_isa}
 Recommends:     gap-pkg-nautytracesinterface%{?_isa}
+Recommends:     graphviz
 
 # The bundled copy of bliss has been modified for better integration with GAP
 Provides:       bundled(bliss) = 0.73
@@ -57,7 +62,7 @@ Requires:       GAPDoc-doc
 This package contains documentation for gap-pkg-%{pkgname}.
 
 %prep
-%autosetup -n %{pkgname}-%{version}
+%autosetup -n %{pkgname}-%{version} -p1
 
 # Make sure the bundled planarity is not used
 rm -fr extern/edge-addition-planarity-suite-Version_3.0.1.0
@@ -74,13 +79,9 @@ ln -s ../%{pkgname}-%{version} ../pkg
 gap -l "$PWD/..;" makedoc.g
 rm -fr ../pkg
 
-# Remove a useless empty directory
-rmdir bin/lib
-
 %install
-# make install doesn't put ANYTHING where it is supposed to go, so...
 mkdir -p %{buildroot}%{gap_archdir}/pkg/%{pkgname}/doc
-cp -a bin data gap notebooks tst VERSION* *.g \
+cp -a bin data gap notebooks tst VERSIONS *.g \
    %{buildroot}%{gap_archdir}/pkg/%{pkgname}
 %gap_copy_docs
 
@@ -103,6 +104,10 @@ rm -fr ../pkg
 %{gap_archdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Thu Apr  6 2023 Jerry James <loganjerry@gmail.com> - 1.6.2-1
+- Version 1.6.2
+- Add patch to work around a test failure
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

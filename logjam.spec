@@ -2,7 +2,7 @@
 
 Name:		logjam
 Version:	4.6.2
-Release:	29%{?dist}
+Release:	30%{?dist}
 Epoch:		1
 Summary:	GTK2 client for LiveJournal
 License:	GPLv2+
@@ -28,6 +28,7 @@ Obsoletes:	loserjabber, logjam-gnome
 Patch1:		logjam-4.4.1-fedora-desktop.patch
 Patch2:		logjam-4.6.2-format-security-fix.patch
 Patch3:		logjam-4.6.2-gcc10.patch
+Patch4: logjam-c99.patch
 
 %description
 This is the new GTK2 client for LiveJournal (http://www.livejournal.com).
@@ -49,6 +50,7 @@ current music from XMMS.
 %patch1 -p1 -b .desktop
 %patch2 -p1 -b .format-security
 %patch3 -p1 -b .gcc10
+%patch4 -p1
 
 %build
 touch NEWS README AUTHORS
@@ -88,6 +90,9 @@ desktop-file-install \
 %endif
 
 %changelog
+* Thu Apr 06 2023 Florian Weimer <fweimer@redhat.com> - 1:4.6.2-30
+- Port to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.6.2-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
