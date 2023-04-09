@@ -16,7 +16,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.4.3
+Version:        6.5.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - Qt Serial Port component
 
@@ -100,11 +100,11 @@ Fedora Windows cross-compiler.
 %{mingw32_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtSerialPortTestsConfig.cmake
 %{mingw32_libdir}/pkgconfig/Qt6SerialPort.pc
 %{mingw32_libdir}/libQt6SerialPort.dll.a
-%{mingw32_libdir}/metatypes/qt6serialport_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6serialport_relwithdebinfo_metatypes.json
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_serialport.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_serialport_private.pri
 %{mingw32_libdir}/Qt6SerialPort.prl
-%{mingw32_datadir}/qt6/modules/SerialPort.json
+%{mingw32_libdir}/qt6/modules/SerialPort.json
 
 
 # Win64
@@ -116,14 +116,17 @@ Fedora Windows cross-compiler.
 %{mingw64_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtSerialPortTestsConfig.cmake
 %{mingw64_libdir}/pkgconfig/Qt6SerialPort.pc
 %{mingw64_libdir}/libQt6SerialPort.dll.a
-%{mingw64_libdir}/metatypes/qt6serialport_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6serialport_relwithdebinfo_metatypes.json
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_serialport.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_serialport_private.pri
 %{mingw64_libdir}/Qt6SerialPort.prl
-%{mingw64_datadir}/qt6/modules/SerialPort.json
+%{mingw64_libdir}/qt6/modules/SerialPort.json
 
 
 %changelog
+* Fri Apr 07 2023 Sandro Mani <manisandro@gmail.com> - 6.5.0-1
+- Update to 6.5.0
+
 * Wed Mar 29 2023 Sandro Mani <manisandro@gmail.com> - 6.4.3-1
 - Update to 6.4.3
 

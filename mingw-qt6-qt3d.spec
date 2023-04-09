@@ -16,7 +16,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.4.3
+Version:        6.5.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - Qt3d component
 
@@ -185,18 +185,18 @@ Fedora Windows cross-compiler.
 %{mingw32_libdir}/Qt63DQuickInput.prl
 %{mingw32_libdir}/Qt63DQuickRender.prl
 %{mingw32_libdir}/Qt63DQuickScene2D.prl
-%{mingw32_libdir}/metatypes/qt63danimation_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/metatypes/qt63dcore_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/metatypes/qt63dextras_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/metatypes/qt63dinput_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/metatypes/qt63dlogic_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/metatypes/qt63drender_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/metatypes/qt63dquick_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/metatypes/qt63dquickanimation_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/metatypes/qt63dquickextras_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/metatypes/qt63dquickinput_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/metatypes/qt63dquickrender_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/metatypes/qt63dquickscene2d_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt63danimation_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt63dcore_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt63dextras_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt63dinput_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt63dlogic_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt63drender_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt63dquick_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt63dquickanimation_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt63dquickextras_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt63dquickinput_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt63dquickrender_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt63dquickscene2d_relwithdebinfo_metatypes.json
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_3dquick.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_3danimation.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_3danimation_private.pri
@@ -236,18 +236,18 @@ Fedora Windows cross-compiler.
 %{mingw32_libdir}/qt6/qml/Qt3D/
 %{mingw32_libdir}/qt6/qml/QtQuick/Scene2D/
 %{mingw32_libdir}/qt6/qml/QtQuick/Scene3D/
-%{mingw32_datadir}/qt6/modules/3DAnimation.json
-%{mingw32_datadir}/qt6/modules/3DCore.json
-%{mingw32_datadir}/qt6/modules/3DExtras.json
-%{mingw32_datadir}/qt6/modules/3DInput.json
-%{mingw32_datadir}/qt6/modules/3DLogic.json
-%{mingw32_datadir}/qt6/modules/3DRender.json
-%{mingw32_datadir}/qt6/modules/3DQuick.json
-%{mingw32_datadir}/qt6/modules/3DQuickAnimation.json
-%{mingw32_datadir}/qt6/modules/3DQuickExtras.json
-%{mingw32_datadir}/qt6/modules/3DQuickInput.json
-%{mingw32_datadir}/qt6/modules/3DQuickRender.json
-%{mingw32_datadir}/qt6/modules/3DQuickScene2D.json
+%{mingw32_libdir}/qt6/modules/3DAnimation.json
+%{mingw32_libdir}/qt6/modules/3DCore.json
+%{mingw32_libdir}/qt6/modules/3DExtras.json
+%{mingw32_libdir}/qt6/modules/3DInput.json
+%{mingw32_libdir}/qt6/modules/3DLogic.json
+%{mingw32_libdir}/qt6/modules/3DRender.json
+%{mingw32_libdir}/qt6/modules/3DQuick.json
+%{mingw32_libdir}/qt6/modules/3DQuickAnimation.json
+%{mingw32_libdir}/qt6/modules/3DQuickExtras.json
+%{mingw32_libdir}/qt6/modules/3DQuickInput.json
+%{mingw32_libdir}/qt6/modules/3DQuickRender.json
+%{mingw32_libdir}/qt6/modules/3DQuickScene2D.json
 
 
 # Win64
@@ -335,18 +335,18 @@ Fedora Windows cross-compiler.
 %{mingw64_libdir}/Qt63DQuickInput.prl
 %{mingw64_libdir}/Qt63DQuickRender.prl
 %{mingw64_libdir}/Qt63DQuickScene2D.prl
-%{mingw64_libdir}/metatypes/qt63danimation_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/metatypes/qt63dcore_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/metatypes/qt63dextras_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/metatypes/qt63dinput_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/metatypes/qt63dlogic_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/metatypes/qt63drender_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/metatypes/qt63dquick_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/metatypes/qt63dquickanimation_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/metatypes/qt63dquickextras_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/metatypes/qt63dquickinput_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/metatypes/qt63dquickrender_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/metatypes/qt63dquickscene2d_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt63danimation_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt63dcore_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt63dextras_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt63dinput_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt63dlogic_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt63drender_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt63dquick_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt63dquickanimation_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt63dquickextras_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt63dquickinput_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt63dquickrender_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt63dquickscene2d_relwithdebinfo_metatypes.json
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_3dquick.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_3danimation.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_3danimation_private.pri
@@ -386,21 +386,24 @@ Fedora Windows cross-compiler.
 %{mingw64_libdir}/qt6/qml/Qt3D/
 %{mingw64_libdir}/qt6/qml/QtQuick/Scene2D/
 %{mingw64_libdir}/qt6/qml/QtQuick/Scene3D/
-%{mingw64_datadir}/qt6/modules/3DAnimation.json
-%{mingw64_datadir}/qt6/modules/3DCore.json
-%{mingw64_datadir}/qt6/modules/3DExtras.json
-%{mingw64_datadir}/qt6/modules/3DInput.json
-%{mingw64_datadir}/qt6/modules/3DLogic.json
-%{mingw64_datadir}/qt6/modules/3DRender.json
-%{mingw64_datadir}/qt6/modules/3DQuick.json
-%{mingw64_datadir}/qt6/modules/3DQuickAnimation.json
-%{mingw64_datadir}/qt6/modules/3DQuickExtras.json
-%{mingw64_datadir}/qt6/modules/3DQuickInput.json
-%{mingw64_datadir}/qt6/modules/3DQuickRender.json
-%{mingw64_datadir}/qt6/modules/3DQuickScene2D.json
+%{mingw64_libdir}/qt6/modules/3DAnimation.json
+%{mingw64_libdir}/qt6/modules/3DCore.json
+%{mingw64_libdir}/qt6/modules/3DExtras.json
+%{mingw64_libdir}/qt6/modules/3DInput.json
+%{mingw64_libdir}/qt6/modules/3DLogic.json
+%{mingw64_libdir}/qt6/modules/3DRender.json
+%{mingw64_libdir}/qt6/modules/3DQuick.json
+%{mingw64_libdir}/qt6/modules/3DQuickAnimation.json
+%{mingw64_libdir}/qt6/modules/3DQuickExtras.json
+%{mingw64_libdir}/qt6/modules/3DQuickInput.json
+%{mingw64_libdir}/qt6/modules/3DQuickRender.json
+%{mingw64_libdir}/qt6/modules/3DQuickScene2D.json
 
 
 %changelog
+* Fri Apr 07 2023 Sandro Mani <manisandro@gmail.com> - 6.5.0-1
+- Update to 6.5.0
+
 * Wed Mar 29 2023 Sandro Mani <manisandro@gmail.com> - 6.4.3-1
 - Update to 6.4.3
 

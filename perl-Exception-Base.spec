@@ -1,48 +1,87 @@
 Name:           perl-Exception-Base
 Version:        0.2501
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Lightweight exceptions
-License:        GPL+ or Artistic
-
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Exception-Base
-Source0:        https://cpan.metacpan.org/authors/id/D/DE/DEXTER/Exception-Base-%{version}.tar.gz
-
+Source0:        https://cpan.metacpan.org/modules/by-module/Exception/Exception-Base-%{version}.tar.gz
+Source2:        to_string_changes_errors.t
 BuildArch:      noarch
+# Module Build
+BuildRequires:  coreutils
+BuildRequires:  findutils
+BuildRequires:  make
 BuildRequires:  perl-generators
-BuildRequires:  perl(Module::Build)
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker)
+# Module Runtime
+BuildRequires:  perl(constant)
+BuildRequires:  perl(overload)
+BuildRequires:  perl(Scalar::Util)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(Symbol)
+BuildRequires:  perl(warnings)
+# Test Suite
+BuildRequires:  perl(base)
+BuildRequires:  perl(Carp)
+BuildRequires:  perl(Cwd)
+BuildRequires:  perl(File::Basename)
+BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(if)
 BuildRequires:  perl(Test::Unit::Lite)
-
-%{?perl_default_filter}
+# Test for https://bugzilla.redhat.com/show_bug.cgi?id=1273668
+BuildRequires:  perl(Storable)
+BuildRequires:  perl(Test::More)
+# Dependencies
+Requires:       perl(Scalar::Util)
+Requires:       perl(Symbol)
 
 %description
 This class implements a fully OO exception mechanism similar to
 Exception::Class or Class::Throwable. It provides a simple interface
 allowing programmers to declare exception classes. These classes can be
 thrown and caught. Each uncaught exception prints full stack trace if the
-default verbosity is uppered for debugging purposes.
+default verbosity is increased for debugging purposes.
 
 %prep
 %setup -q -n Exception-Base-%{version}
 
 %build
-%{__perl} Build.PL installdirs=vendor
-./Build
+perl Makefile.PL INSTALLDIRS=vendor
+make %{?_smp_mflags}
 
 %install
-./Build install destdir=$RPM_BUILD_ROOT create_packlist=0
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
-
-%{_fixperms} $RPM_BUILD_ROOT/*
+make pure_install DESTDIR=%{buildroot}
+find %{buildroot} -type f -name .packlist -delete
+%{_fixperms} -c %{buildroot}
 
 %check
-./Build test
+make test
+
+# to_string() appends 'undef' to array attribute
+# https://bugzilla.redhat.com/show_bug.cgi?id=1273668
+# https://github.com/dex4er/perl-Exception-Base/issues/3
+# Fixed in 0.2501
+make test TEST_FILES=%{SOURCE2}
 
 %files
-%doc Changes Incompatibilities README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%license LICENSE
+%doc Changes Incompatibilities README examples/
+%{perl_vendorlib}/Exception/
+%{_mandir}/man3/Exception::Base.3*
 
 %changelog
+* Fri Apr  7 2023 Paul Howarth <paul@city-fan.org> - 0.2501-23
+- Spec clean-up
+  - Use SPDX-format license tag
+  - Use author-independent source URL
+  - Classify buildreqs by usage
+  - Drop redundant use of %%{?perl_default_filter}
+  - Use EU::MM flow rather than Module::Build flow
+  - Include test for rhbz#1273668
+  - Package LICENSE file
+  - Make %%files list more explicit
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2501-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

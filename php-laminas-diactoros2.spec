@@ -10,7 +10,7 @@
 
 %global gh_owner     laminas
 %global gh_project   laminas-diactoros
-%global gh_commit    6028af6c3b5ced4d063a680d2483cce67578b902
+%global gh_commit    0e9dd2516460be1a9c26ccdf9091ef293a1c3c6f
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global php_home     %{_datadir}/php
 %global namespace    Laminas
@@ -37,8 +37,8 @@
 %{!?phpdir:  %global phpdir  %{_datadir}/php}
 
 Name:          php-%{gh_project}%{major}
-Version:       2.24.0
-Release:       2%{?gh_release}%{?dist}
+Version:       2.25.0
+Release:       1%{?gh_release}%{?dist}
 Summary:       PSR HTTP Message implementations v%{major}
 
 License:       BSD-3-Clause
@@ -60,7 +60,7 @@ BuildArch:     noarch
 %if %{with tests}
 ## composer.json
 BuildRequires: php(language) >= 8.0
-BuildRequires: (php-composer(psr/http-message)                           >= 1.0 with php-composer(psr/http-message)                           < 2)
+BuildRequires: (php-composer(psr/http-message)                           >= 1.1 with php-composer(psr/http-message)                           < 2)
 BuildRequires: (php-composer(psr/http-factory)                           >= 1.0 with php-composer(psr/http-factory)                           < 2)
 #    "require-dev": {
 #        "ext-curl": "*",
@@ -68,14 +68,14 @@ BuildRequires: (php-composer(psr/http-factory)                           >= 1.0 
 #        "ext-gd": "*",
 #        "ext-libxml": "*",
 #        "http-interop/http-factory-tests": "^0.9.0",
-#        "laminas/laminas-coding-standard": "~2.4.0",
+#        "laminas/laminas-coding-standard": "~2.5",
 #        "php-http/psr7-integration-tests": "^1.1.1",
-#        "phpunit/phpunit": "^9.5.27"
+#        "phpunit/phpunit": "^9.5.28"
 #        "psalm/plugin-phpunit": "^0.18.4",
-#        "vimeo/psalm": "^5.4"
+#        "vimeo/psalm": "^5.6"
 #    },
 %global phpunit %{_bindir}/phpunit9
-BuildRequires:  phpunit9 >= 9.5.27
+BuildRequires:  phpunit9 >= 9.5.28
 BuildRequires:  php-curl
 BuildRequires:  php-dom
 BuildRequires:  php-gd
@@ -96,9 +96,9 @@ BuildRequires:  php-fedora-autoloader-devel
 #    "require": {
 #        "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
 #        "psr/http-factory": "^1.0",
-#        "psr/http-message": "^1.0"
+#        "psr/http-message": "^1.1"
 Requires:       php(language) >= 8.0
-Requires:      (php-composer(psr/http-message)                           >= 1.0 with php-composer(psr/http-message)                           < 2)
+Requires:      (php-composer(psr/http-message)                           >= 1.1 with php-composer(psr/http-message)                           < 2)
 Requires:      (php-composer(psr/http-factory)                           >= 1.0 with php-composer(psr/http-factory)                           < 2)
 # phpcompatinfo (computed from version 2.4.0)
 Requires:       php-json
@@ -204,6 +204,10 @@ exit $RETURN_CODE
 
 
 %changelog
+* Fri Apr  7 2023 Remi Collet <remi@remirepo.net> - 2.25.0-1
+- update to 2.25.0
+- raise dependency on psr/http-message 1.1
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.24.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -16,7 +16,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.4.3
+Version:        6.5.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtWebsockets component
 
@@ -103,12 +103,12 @@ Fedora Windows cross-compiler.
 %{mingw32_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qmlwebsockets*
 %{mingw32_libdir}/pkgconfig/Qt6WebSockets.pc
 %{mingw32_libdir}/libQt6WebSockets.dll.a
-%{mingw32_libdir}/metatypes/qt6websockets_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6websockets_relwithdebinfo_metatypes.json
 %{mingw32_libdir}/Qt6WebSockets.prl
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_websockets.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_websockets_private.pri
 %{mingw32_libdir}/qt6/qml/QtWebSockets/
-%{mingw32_datadir}/qt6/modules/WebSockets.json
+%{mingw32_libdir}/qt6/modules/WebSockets.json
 
 
 # Win64
@@ -121,15 +121,18 @@ Fedora Windows cross-compiler.
 %{mingw64_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qmlwebsockets*
 %{mingw64_libdir}/pkgconfig/Qt6WebSockets.pc
 %{mingw64_libdir}/libQt6WebSockets.dll.a
-%{mingw64_libdir}/metatypes/qt6websockets_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6websockets_relwithdebinfo_metatypes.json
 %{mingw64_libdir}/Qt6WebSockets.prl
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_websockets.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_websockets_private.pri
 %{mingw64_libdir}/qt6/qml/QtWebSockets/
-%{mingw64_datadir}/qt6/modules/WebSockets.json
+%{mingw64_libdir}/qt6/modules/WebSockets.json
 
 
 %changelog
+* Fri Apr 07 2023 Sandro Mani <manisandro@gmail.com> - 6.5.0-1
+- Update to 6.5.0
+
 * Wed Mar 29 2023 Sandro Mani <manisandro@gmail.com> - 6.4.3-1
 - Update to 6.4.3
 

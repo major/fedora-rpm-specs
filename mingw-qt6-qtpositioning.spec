@@ -16,8 +16,8 @@
 %global release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.4.3
-Release:        1%{?dist}
+Version:        6.5.0
+Release:        2%{?dist}
 Summary:        Qt6 for Windows - Qt Positioning component
 
 # Base license is LGPLv3 or GPLv2
@@ -41,11 +41,14 @@ BuildRequires:  ninja-build
 BuildRequires:  mingw32-filesystem >= 96
 BuildRequires:  mingw32-gcc-c++
 BuildRequires:  mingw32-qt6-qtbase = %{version}
+BuildRequires:  mingw32-qt6-qtdeclarative = %{version}
+BuildRequires:  mingw32-qt6-qtserialport = %{version}
 
 BuildRequires:  mingw64-filesystem >= 96
 BuildRequires:  mingw64-gcc-c++
 BuildRequires:  mingw64-qt6-qtbase = %{version}
-
+BuildRequires:  mingw64-qt6-qtdeclarative = %{version}
+BuildRequires:  mingw64-qt6-qtserialport = %{version}
 
 Provides:       bundled(clip2tri)
 Provides:       bundled(poly2tri)
@@ -109,42 +112,72 @@ cp -a src/3rdparty/clipper/LICENSE LICENSE.clipper
 %files -n mingw32-qt6-%{qt_module}
 %license LICENSES/*GPL*
 %{mingw32_bindir}/Qt6Positioning.dll
+%{mingw32_bindir}/Qt6PositioningQuick.dll
 %{mingw32_includedir}/qt6/QtPositioning/
+%{mingw32_includedir}/qt6/QtPositioningQuick/
 %{mingw32_libdir}/Qt6Positioning.prl
+%{mingw32_libdir}/Qt6PositioningQuick.prl
 %{mingw32_libdir}/cmake/Qt6/FindGconf.cmake
 %{mingw32_libdir}/cmake/Qt6/FindGypsy.cmake
 %{mingw32_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtPositioningTestsConfig.cmake
 %{mingw32_libdir}/cmake/Qt6Bundled_Clip2Tri/
 %{mingw32_libdir}/cmake/Qt6Positioning/
+%{mingw32_libdir}/cmake/Qt6PositioningQuick/
+%{mingw32_libdir}/cmake/Qt6Qml/QmlPlugins/
 %{mingw32_libdir}/pkgconfig/Qt6Positioning.pc
+%{mingw32_libdir}/pkgconfig/Qt6PositioningQuick.pc
 %{mingw32_libdir}/libQt6Positioning.dll.a
-%{mingw32_libdir}/metatypes/qt6positioning_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/libQt6PositioningQuick.dll.a
+%{mingw32_libdir}/qt6/metatypes/qt6positioning_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6positioningquick_relwithdebinfo_metatypes.json
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_positioning.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_positioning_private.pri
+%{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_positioningquick.pri
+%{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_positioningquick_private.pri
 %{mingw32_libdir}/qt6/plugins/position/
-%{mingw32_datadir}/qt6/modules/Positioning.json
+%{mingw32_libdir}/qt6/modules/Positioning.json
+%{mingw32_libdir}/qt6/modules/PositioningQuick.json
+%{mingw32_libdir}/qt6/qml/QtPositioning/
 
 # Win64
 %files -n mingw64-qt6-%{qt_module}
 %license LICENSES/*GPL*
 %{mingw64_bindir}/Qt6Positioning.dll
+%{mingw64_bindir}/Qt6PositioningQuick.dll
 %{mingw64_includedir}/qt6/QtPositioning/
+%{mingw64_includedir}/qt6/QtPositioningQuick/
 %{mingw64_libdir}/Qt6Positioning.prl
+%{mingw64_libdir}/Qt6PositioningQuick.prl
 %{mingw64_libdir}/cmake/Qt6/FindGconf.cmake
 %{mingw64_libdir}/cmake/Qt6/FindGypsy.cmake
 %{mingw64_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtPositioningTestsConfig.cmake
 %{mingw64_libdir}/cmake/Qt6Bundled_Clip2Tri/
 %{mingw64_libdir}/cmake/Qt6Positioning/
+%{mingw64_libdir}/cmake/Qt6PositioningQuick/
+%{mingw64_libdir}/cmake/Qt6Qml/QmlPlugins/
 %{mingw64_libdir}/pkgconfig/Qt6Positioning.pc
+%{mingw64_libdir}/pkgconfig/Qt6PositioningQuick.pc
 %{mingw64_libdir}/libQt6Positioning.dll.a
-%{mingw64_libdir}/metatypes/qt6positioning_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/libQt6PositioningQuick.dll.a
+%{mingw64_libdir}/qt6/metatypes/qt6positioning_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6positioningquick_relwithdebinfo_metatypes.json
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_positioning.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_positioning_private.pri
+%{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_positioningquick.pri
+%{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_positioningquick_private.pri
 %{mingw64_libdir}/qt6/plugins/position/
-%{mingw64_datadir}/qt6/modules/Positioning.json
+%{mingw64_libdir}/qt6/modules/Positioning.json
+%{mingw64_libdir}/qt6/modules/PositioningQuick.json
+%{mingw64_libdir}/qt6/qml/QtPositioning/
 
 
 %changelog
+* Fri Apr 7 2023 Marie Loise Nolden <loise@kde.org> - 6.5.0-2
+- fix missing quick/serialport modules
+
+* Fri Apr 07 2023 Sandro Mani <manisandro@gmail.com> - 6.5.0-1
+- Update to 6.5.0
+
 * Wed Mar 29 2023 Sandro Mani <manisandro@gmail.com> - 6.4.3-1
 - Update to 6.4.3
 

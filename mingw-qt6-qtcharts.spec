@@ -16,7 +16,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.4.3
+Version:        6.5.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtCharts component
 
@@ -110,15 +110,15 @@ Fedora Windows cross-compiler.
 %{mingw32_libdir}/libQt6ChartsQml.dll.a
 %{mingw32_libdir}/Qt6Charts.prl
 %{mingw32_libdir}/Qt6ChartsQml.prl
-%{mingw32_libdir}/metatypes/qt6charts_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/metatypes/qt6chartsqml_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6charts_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6chartsqml_relwithdebinfo_metatypes.json
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_charts.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_charts_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_chartsqml.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_chartsqml_private.pri
 %{mingw32_libdir}/qt6/qml/QtCharts/
-%{mingw32_datadir}/qt6/modules/Charts.json
-%{mingw32_datadir}/qt6/modules/ChartsQml.json
+%{mingw32_libdir}/qt6/modules/Charts.json
+%{mingw32_libdir}/qt6/modules/ChartsQml.json
 
 
 # Win64
@@ -138,19 +138,22 @@ Fedora Windows cross-compiler.
 %{mingw64_libdir}/libQt6ChartsQml.dll.a
 %{mingw64_libdir}/Qt6Charts.prl
 %{mingw64_libdir}/Qt6ChartsQml.prl
-%{mingw64_libdir}/metatypes/qt6charts_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/metatypes/qt6chartsqml_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6charts_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6chartsqml_relwithdebinfo_metatypes.json
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_charts.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_charts_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_chartsqml.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_chartsqml_private.pri
 %{mingw64_libdir}/qt6/qml/QtCharts/
-%{mingw64_datadir}/qt6/modules/Charts.json
-%{mingw64_datadir}/qt6/modules/ChartsQml.json
+%{mingw64_libdir}/qt6/modules/Charts.json
+%{mingw64_libdir}/qt6/modules/ChartsQml.json
 
 
 
 %changelog
+* Fri Apr 07 2023 Sandro Mani <manisandro@gmail.com> - 6.5.0-1
+- Update to 6.5.0
+
 * Wed Mar 29 2023 Sandro Mani <manisandro@gmail.com> - 6.4.3-1
 - Update to 6.4.3
 

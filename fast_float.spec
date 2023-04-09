@@ -14,7 +14,7 @@
 
 Name:           fast_float
 Summary:        Fast & exact implementation of C++ from_chars for float/double
-Version:        3.11.0
+Version:        4.0.0
 Release:        %autorelease
 
 URL:            https://github.com/fastfloat/fast_float
@@ -27,6 +27,14 @@ License:        Apache-2.0 OR MIT
 
 Source0:        %{url}/archive/v%{version}/fast_float-%{version}.tar.gz
 Source1:        %{stf_url}/archive/%{stf_commit}/supplemental_test_files-%{stf_commit}.tar.gz
+
+# We need to update some of our exhaustive tests to the new API
+# https://github.com/fastfloat/fast_float/pull/193
+#   Fixes:
+# Some exhaustive tests fail since version 4.0.0 [Note: This is due to the API
+# change with respect to error reports.]
+# https://github.com/fastfloat/fast_float/issues/191
+Patch:          %{url}/pull/193.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -65,7 +73,7 @@ Requires:       cmake-filesystem
 
 
 %prep
-%autosetup
+%autosetup -p1
 %setup -q -T -D -b 1
 # Compiling with -Werror makes sense for upstream CI, but is excessively strict
 # for downstream builds across a variety of compiler versions.

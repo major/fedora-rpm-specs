@@ -1,20 +1,26 @@
 %{?mingw_package_header}
 
 Name:           mingw-librsvg2
-Version:        2.55.1
-Release:        2%{?dist}
+Version:        2.56.0
+Release:        1%{?dist}
 Summary:        SVG library based on cairo for MinGW
 
 License:        LGPLv2+
 URL:            https://wiki.gnome.org/Projects/LibRsvg
-Source:         https://download.gnome.org/sources/librsvg/2.55/librsvg-%{version}.tar.xz
+BuildArch:      noarch
+Source0:        https://download.gnome.org/sources/librsvg/2.56/librsvg-%{version}.tar.xz
+# tar xf librsvg-${version}.tar.xz
+# cd librsvg-${version}
+# cargo vendor
+# tar cfJ ../librsvg-${version}-vendor.tar.xz vendor
+Source1:        librsvg-%{version}-vendor.tar.xz
 # Add missing link libs
 Patch0:         librsvg_libs.patch
 
-BuildArch:      noarch
 
 BuildRequires:  cargo
 BuildRequires:  make
+BuildRequires:  automake
 
 BuildRequires:  mingw32-filesystem >= 95
 BuildRequires:  mingw32-gcc
@@ -80,7 +86,16 @@ applications that use librsvg2.
 
 
 %prep
-%autosetup -p1 -n librsvg-%{version}
+%autosetup -p1 -n librsvg-%{version} -a1
+
+mkdir -p .cargo
+cat > .cargo/config.toml <<EOF
+[source.crates-io]
+replace-with = "vendored-sources"
+
+[source.vendored-sources]
+directory = "vendor"
+EOF
 
 
 %build
@@ -142,6 +157,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/doc/librsvg
 
 
 %changelog
+* Fri Mar 31 2023 Sandro Mani <manisandro@gmail.com> - 2.56.0-1
+- Update to 2.56.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.55.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

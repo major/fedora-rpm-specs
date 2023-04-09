@@ -4,11 +4,15 @@
 
 %global crate linux-loader
 
+# compile and run tests only on supported architectures
+%global supported_arches aarch64 x86_64
+
 Name:           rust-linux-loader
 Version:        0.8.1
 Release:        %autorelease
 Summary:        Linux kernel image loading crate
 
+# Unintended license: https://github.com/rust-vmm/linux-loader/issues/136
 License:        Apache-2.0 AND BSD-3-Clause
 URL:            https://crates.io/crates/linux-loader
 Source:         %{crates_source}
@@ -18,9 +22,6 @@ Source:         %{crates_source}
 Patch:          linux-loader-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
-
-# Currently only these architectures are supported.  See the README.
-ExclusiveArch:  aarch64 x86_64
 
 %global _description %{expand:
 A Linux kernel image loading crate.}
@@ -100,14 +101,18 @@ use the "pe" feature of the "%{crate}" crate.
 %cargo_generate_buildrequires
 
 %build
+%ifarch %{supported_arches}
 %cargo_build
+%endif
 
 %install
 %cargo_install
 
 %if %{with check}
+%ifarch %{supported_arches}
 %check
 %cargo_test
+%endif
 %endif
 
 %changelog

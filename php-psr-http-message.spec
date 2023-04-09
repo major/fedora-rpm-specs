@@ -1,7 +1,7 @@
 #
 # RPM spec file for php-psr-http-message
 #
-# Copyright (c) 2014-2016 Shawn Iwinski <shawn.iwinski@gmail.com>
+# Copyright (c) 2014-2023 Shawn Iwinski <shawn.iwinski@gmail.com>
 #
 # License: MIT
 # http://opensource.org/licenses/MIT
@@ -11,8 +11,8 @@
 
 %global github_owner     php-fig
 %global github_name      http-message
-%global github_version   1.0.1
-%global github_commit    f6561bf28d520154e4b0ec72be95418abe6d9363
+%global github_version   1.1
+%global github_commit    cb6ce4845ce34a8ad9e68117c10ee90a29919eba
 
 %global composer_vendor  psr
 %global composer_project http-message
@@ -21,21 +21,24 @@
 
 Name:          php-%{composer_vendor}-%{composer_project}
 Version:       %{github_version}
-Release:       14%{?github_release}%{?dist}
+Release:       1%{?github_release}%{?dist}
 Summary:       Common interface for HTTP messages (PSR-7)
 
+Group:         Development/Libraries
 License:       MIT
 URL:           https://github.com/%{github_owner}/%{github_name}
 Source0:       %{url}/archive/%{github_commit}/%{name}-%{github_version}-%{github_commit}.tar.gz
 
 BuildArch:     noarch
-# Autoload generation
-BuildRequires: %{_bindir}/phpab
+# Autoloader generation
+BuildRequires: php-fedora-autoloader-devel
 # For tests
 BuildRequires: php-cli
 
 # phpcompatinfo (computed from version 1.0)
-Requires:      php(language) >= 5.3.0
+Requires:      php(language) >= 7.2
+# Autoloader
+Requires:      php-composer(fedora/autoloader)
 
 # Composer
 Provides:      php-composer(%{composer_vendor}/%{composer_project}) = %{version}
@@ -57,7 +60,7 @@ Autoloader: %{phpdir}/Psr/Http/Message/autoload.php
 
 %build
 : Generate autoloader
-%{_bindir}/phpab --nolower --output src/autoload.php src
+%{_bindir}/phpab --template fedora --output src/autoload.php src
 
 
 %install
@@ -84,6 +87,11 @@ exit (interface_exists("Psr\\Http\\Message\\UriInterface") ? 0 : 1);
 
 
 %changelog
+* Fri Apr  7 2023 Remi Collet <remi@remirepo.net> - 1.1-1
+- update to 1.1
+- raise dependency on PHP 7.2
+- use fedora/autoloader
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

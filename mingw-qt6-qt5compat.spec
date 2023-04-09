@@ -16,7 +16,7 @@
 %global release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.4.3
+Version:        6.5.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - Qt5Compat component
 
@@ -104,10 +104,10 @@ Fedora Windows cross-compiler.
 %{mingw32_libdir}/cmake/Qt6BuildInternals/StandaloneTests/Qt5CompatTestsConfig.cmake
 %{mingw32_libdir}/cmake/Qt6/FindWrapIconv.cmake
 %{mingw32_libdir}/pkgconfig/Qt6Core5Compat.pc
-%{mingw32_libdir}/metatypes/qt6core5compat_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6core5compat_relwithdebinfo_metatypes.json
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_core5compat.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_core5compat_private.pri
-%{mingw32_datadir}/qt6/modules/Core5Compat.json
+%{mingw32_libdir}/qt6/modules/Core5Compat.json
 
 # Win64
 %files -n mingw64-qt6-%{qt_module}
@@ -120,13 +120,16 @@ Fedora Windows cross-compiler.
 %{mingw64_libdir}/cmake/Qt6BuildInternals/StandaloneTests/Qt5CompatTestsConfig.cmake
 %{mingw64_libdir}/cmake/Qt6/FindWrapIconv.cmake
 %{mingw64_libdir}/pkgconfig/Qt6Core5Compat.pc
-%{mingw64_libdir}/metatypes/qt6core5compat_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6core5compat_relwithdebinfo_metatypes.json
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_core5compat.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_core5compat_private.pri
-%{mingw64_datadir}/qt6/modules/Core5Compat.json
+%{mingw64_libdir}/qt6/modules/Core5Compat.json
 
 
 %changelog
+* Fri Apr 07 2023 Sandro Mani <manisandro@gmail.com> - 6.5.0-1
+- Update to 6.5.0
+
 * Wed Mar 29 2023 Sandro Mani <manisandro@gmail.com> - 6.4.3-1
 - Update to 6.4.3
 

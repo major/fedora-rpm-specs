@@ -16,7 +16,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.4.3
+Version:        6.5.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtActiveQt component
 
@@ -128,13 +128,13 @@ Fedora Windows cross-compiler.
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_axcontainer_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_axserver.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_axserver_private.pri
-%{mingw32_libdir}/metatypes/qt6axbaseprivate_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/metatypes/qt6axcontainer_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/metatypes/qt6axserver_relwithdebinfo_metatypes.json
-%{mingw32_datadir}/qt6/modules/ActiveQt.json
-%{mingw32_datadir}/qt6/modules/AxBasePrivate.json
-%{mingw32_datadir}/qt6/modules/AxContainer.json
-%{mingw32_datadir}/qt6/modules/AxServer.json
+%{mingw32_libdir}/qt6/metatypes/qt6axbaseprivate_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6axcontainer_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6axserver_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/modules/ActiveQt.json
+%{mingw32_libdir}/qt6/modules/AxBasePrivate.json
+%{mingw32_libdir}/qt6/modules/AxContainer.json
+%{mingw32_libdir}/qt6/modules/AxServer.json
 
 # Win64
 %files -n mingw64-qt6-%{qt_module}
@@ -169,16 +169,19 @@ Fedora Windows cross-compiler.
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_axcontainer_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_axserver.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_axserver_private.pri
-%{mingw64_libdir}/metatypes/qt6axbaseprivate_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/metatypes/qt6axcontainer_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/metatypes/qt6axserver_relwithdebinfo_metatypes.json
-%{mingw64_datadir}/qt6/modules/ActiveQt.json
-%{mingw64_datadir}/qt6/modules/AxBasePrivate.json
-%{mingw64_datadir}/qt6/modules/AxContainer.json
-%{mingw64_datadir}/qt6/modules/AxServer.json
+%{mingw64_libdir}/qt6/metatypes/qt6axbaseprivate_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6axcontainer_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6axserver_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/modules/ActiveQt.json
+%{mingw64_libdir}/qt6/modules/AxBasePrivate.json
+%{mingw64_libdir}/qt6/modules/AxContainer.json
+%{mingw64_libdir}/qt6/modules/AxServer.json
 
 
 %changelog
+* Fri Apr 07 2023 Sandro Mani <manisandro@gmail.com> - 6.5.0-1
+- Update to 6.5.0
+
 * Wed Mar 29 2023 Sandro Mani <manisandro@gmail.com> - 6.4.3-1
 - Update to 6.4.3
 

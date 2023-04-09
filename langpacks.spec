@@ -4,7 +4,7 @@
 
 Name:      langpacks
 Version:   3.0
-Release:   31%{?dist}
+Release:   32%{?dist}
 Summary:   Langpacks meta-package
 
 License:   GPL-2.0-or-later
@@ -1439,6 +1439,9 @@ DESTDIR=%{buildroot} appstream-util split-appstream %{SOURCE1}
 DESTDIR=%{buildroot} appstream-util split-appstream %{SOURCE2}
 
 %changelog
+* Fri Apr  7 2023 Peng Wu <pwu@redhat.com> - 3.0-32
+- Rebuild the langpacks package for Fedora 38
+
 * Wed Feb  8 2023 Peng Wu <pwu@redhat.com> - 3.0-31
 - Update for Noto CJK Variable Fonts
 - https://fedoraproject.org/wiki/Changes/Noto_CJK_Variable_Fonts

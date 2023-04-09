@@ -11,8 +11,8 @@
 
 %global github_owner     doctrine
 %global github_name      data-fixtures
-%global github_version   1.6.3
-%global github_commit    c27821d038e64f1bfc852a94064d65d2a75ad01f
+%global github_version   1.6.5
+%global github_commit    e6b97f557942ea17564bbc30ae3ebc9bd2209363
 %global github_short     %(c=%{github_commit}; echo ${c:0:7})
 
 %global composer_vendor  doctrine
@@ -40,7 +40,7 @@
 
 Name:          php-%{composer_vendor}-datafixtures
 Version:       %{github_version}
-Release:       2%{?dist}
+Release:       1%{?dist}
 Summary:       Data Fixtures for all Doctrine Object Managers
 
 License:       MIT
@@ -72,6 +72,7 @@ BuildRequires: php-composer(fedora/autoloader)
 
 # composer.json
 Requires:      php(language) >= %{php_min_ver}
+Requires:     (php-composer(doctrine/deprecations) >= %{doctrine_dep_min_ver}   with php-composer(doctrine/deprecations) < %{doctrine_dep_max_ver})
 Requires:     (php-composer(doctrine/persistence) >= %{doctrine_pers_min_ver}   with php-composer(doctrine/persistence) < %{doctrine_pers_max_ver})
 # composer.json: optional and deprecated
 Suggests:      php-composer(alcaeus/mongo-php-adapter)
@@ -101,7 +102,7 @@ Autoloader: %{phpdir}/Doctrine/Common/DataFixtures/autoload.php
 
 %build
 : Create autoloader
-cat <<'AUTOLOAD' | tee lib/Doctrine/Common/DataFixtures/autoload.php
+cat <<'AUTOLOAD' | tee src/autoload.php
 <?php
 /**
  * Autoloader for %{name} and its' dependencies
@@ -112,6 +113,7 @@ require_once '%{phpdir}/Fedora/Autoloader/autoload.php';
 \Fedora\Autoloader\Autoload::addPsr4('Doctrine\\Common\\DataFixtures\\', __DIR__);
 
 \Fedora\Autoloader\Dependencies::required([
+    '%{phpdir}/Doctrine/Deprecations/autoload.php',
     [
         '%{phpdir}/Doctrine/Persistence3/autoload.php',
         '%{phpdir}/Doctrine/Persistence2/autoload.php',
@@ -127,8 +129,8 @@ AUTOLOAD
 
 
 %install
-mkdir -p %{buildroot}%{phpdir}
-cp -rp lib/* %{buildroot}%{phpdir}/
+mkdir -p   %{buildroot}%{phpdir}/Doctrine/Common
+cp -rp src %{buildroot}%{phpdir}/Doctrine/Common/DataFixtures
 
 
 %check
@@ -137,9 +139,8 @@ cp -rp lib/* %{buildroot}%{phpdir}/
 cat << 'BOOTSTRAP' | tee bootstrap.php
 <?php
 require_once '%{buildroot}%{phpdir}/Doctrine/Common/DataFixtures/autoload.php';
-\Fedora\Autoloader\Autoload::addPsr0('Doctrine\\Tests\\', __DIR__.'/tests');
+\Fedora\Autoloader\Autoload::addPsr4('Doctrine\\Tests\\', __DIR__.'/tests');
 \Fedora\Autoloader\Dependencies::required([
-    '%{phpdir}/Doctrine/Deprecations/autoload.php',
     [
         '%{phpdir}/Doctrine/DBAL3/autoload.php',
         '%{phpdir}/Doctrine/DBAL/autoload.php',
@@ -149,7 +150,7 @@ require_once '%{buildroot}%{phpdir}/Doctrine/Common/DataFixtures/autoload.php';
 BOOTSTRAP
 
 : ignore as doctrine/phpcr-odm not available
-rm tests/Doctrine/Tests/Common/DataFixtures/Executor/PHPCRExecutorTest.php
+rm tests/Common/DataFixtures/Executor/PHPCRExecutorTest.php
 
 : Upstream tests
 RETURN_CODE=0
@@ -173,6 +174,10 @@ exit $RETURN_CODE
 
 
 %changelog
+* Fri Apr  7 2023 Remi Collet <remi@remirepo.net> - 1.6.5-1
+- update to 1.6.5
+- add dependency on doctrine/deprecations
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

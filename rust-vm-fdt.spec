@@ -13,6 +13,7 @@ License:        Apache-2.0 OR BSD-3-Clause
 URL:            https://crates.io/crates/vm-fdt
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
+# * exclude maintainer-only files from the package
 Patch:          vm-fdt-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
@@ -78,7 +79,12 @@ use the "long_running_test" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test
+%ifarch %{ix86}
+# * skip overflow test on 32-bit targets (for causing capacity overflow panic)
+%cargo_test -f long_running_test -- -- --exact --skip=writer::tests::test_overflow_subtract
+%else
+%cargo_test -f long_running_test
+%endif
 %endif
 
 %changelog

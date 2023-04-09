@@ -6,7 +6,7 @@
 
 Name:           vim-%{upstream_name}
 Version:        3.10.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        A vim plugins to check syntax for programming languages
 Summary(fr):    Une extension de vim vérifiant la syntaxe pour les langages de programmation
 
@@ -34,6 +34,7 @@ Obsoletes:      %name-d < %version-%release
 Obsoletes:      %name-lisp < %version-%release
 Obsoletes:      %name-rnc < %version-%release
 Obsoletes:      %name-go < %version-%release
+Obsoletes:      %name-coffee < %version-%release
 
 %description
 Syntastic is a syntax checking plugin that runs files through external syntax
@@ -83,7 +84,8 @@ Permet de vérifier les fichiers sources écrit en %{-n*}.                      
 %{vimfiles}/autoload/syntastic/c.vim
 %add_subpackage -n c gcc
 %add_subpackage -n cabal cabal-install
-%add_subpackage -n coffee coffee-script
+# cofee-script has been retired
+#%%add_subpackage -n coffee coffee-script
 %add_subpackage -n coq coq
 %add_subpackage -n cpp gcc-c++
 %add_subpackage -n cs mono-core
@@ -181,6 +183,8 @@ rm -r syntax_checkers/chef
 rm -r syntax_checkers/cmake
 rm -r syntax_checkers/co
 rm -r syntax_checkers/cobol
+# coffee-script has been removed from fedora as of f39
+rm -r syntax_checkers/coffee
 rm -r syntax_checkers/cuda
 # https://pagure.io/packaging-committee/issue/312
 rm -r syntax_checkers/d
@@ -283,6 +287,9 @@ appstream-util validate-relax --nonet %{buildroot}%{appdata_dir}/vim-syntastic.m
 
 
 %changelog
+* Fri Apr 7 2023 Martin Jackson <mhjacks@swbell.net> - 3.10.0-20
+- cofee-script has retired, so stop building it. bz#2184502
+
 * Thu Feb 23 2023 Martin Jackson <mhjacks@swbell.net> - 3.10.0-19
 - Perl6 has come back! Thanks topazus.
 

@@ -1,9 +1,9 @@
 Name:           aldo
 Version:        0.7.7
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A morse tutor
 
-License:        GPLv2+
+License:        GPL-2.0-or-later AND GPL-3.0
 URL:            http://aldo.nongnu.org/
 
 Source0:        http://savannah.nongnu.org/download/aldo/%{name}-%{version}.tar.bz2
@@ -45,6 +45,9 @@ four type of training methods:
 
 
 %changelog
+* Fri Apr 07 2023 Richard Shaw <hobbes1069@gmail.com> - 0.7.7-11
+- Update to SPDX license format.
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.7-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

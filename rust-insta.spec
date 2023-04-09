@@ -12,6 +12,9 @@ Summary:        Snapshot testing library for Rust
 License:        Apache-2.0
 URL:            https://crates.io/crates/insta
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * relax csv dependency from =1.1.6 to ^1.1.6
+Patch:          insta-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 

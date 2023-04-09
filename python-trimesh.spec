@@ -265,6 +265,11 @@ while read -r t
 do
   k="${k-}${k+ and }not ($(sed -r 's/::/ and /' <<<"${t}"))"
 done < <(sed -r '/^[[:blank:]]*($|#)/d' <<'EOF'
+# Two new failures in tests/test_boolean.py with Blender 3.5.0
+# https://github.com/mikedh/trimesh/issues/1894
+BooleanTest::test_boolean
+BooleanTest::test_multiple
+
 %ifnarch x86_64
 # CacheTest.test_hash fails, or may fail, because xxhash is not faster than CRC
 # and/or MD5.
@@ -285,6 +290,7 @@ GLTFTest::test_export_custom_attributes
 OBJTest::test_vertex_color
 PermutateTest::test_permutate
 PlyTest::test_face_attributes
+PlyTest::test_uv_export
 PlyTest::test_vertex_attributes
 %endif
 
@@ -316,6 +322,7 @@ RleTest::test_brle_logical_not
 RleTest::test_brle_to_dense
 RleTest::test_brle_to_rle
 RleTest::test_rle_encode_decode
+SampleTest::test_sample_volume
 SubdivideTest::test_loop_correct
 VoxelGridTest::test_local
 VoxelGridTest::test_roundtrip

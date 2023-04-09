@@ -1,6 +1,6 @@
 Name:       ibus-table
-Version:    1.16.14
-Release:    3%{?dist}
+Version:    1.17.0
+Release:    1%{?dist}
 Summary:    The Table engine for IBus platform
 License:    LGPL-2.1-or-later
 URL:        https://github.com/mike-fabian/ibus-table
@@ -150,6 +150,13 @@ fi
 %{_datadir}/installed-tests/%{name}
 
 %changelog
+* Fri Apr 07 2023 Mike FABIAN <mfabian@redhat.com> - 1.17.0-1
+- Update to 1.17.0
+- New option commit_invalid_mode: Choose what happens when a
+  character not in valid input characters is typed
+  (Resolves: github-mike-fabian-issue#133)
+- Translation update from Weblate (de 100%, uk 100%)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.14-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

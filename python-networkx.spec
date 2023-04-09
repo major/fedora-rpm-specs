@@ -10,8 +10,8 @@
 %endif
 
 Name:           python-networkx
-Version:        2.8.8
-Release:        3%{?dist}
+Version:        3.1
+Release:        1%{?dist}
 Summary:        Creates and Manipulates Graphs and Networks
 License:        BSD-3-Clause
 URL:            https://networkx.org/
@@ -25,51 +25,22 @@ Source0:        https://github.com/networkx/networkx/archive/networkx-%{version}
 # - osmnx requires osmnx
 # - plot_lines requires momepy
 Patch0:         %{name}-doc.patch
-# Temporary workaround for a failing test.
-# See https://github.com/networkx/networkx/issues/5913
-Patch1:         %{name}-test.patch
 
 BuildArch:      noarch
 
 BuildRequires:  make
 BuildRequires:  python3-devel
-BuildRequires:  pyproject-rpm-macros
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist wheel}
+
 %if %{with doctest}
-BuildRequires:  %{py3_dist matplotlib}
-BuildRequires:  %{py3_dist numpy}
-BuildRequires:  %{py3_dist pandas}
-BuildRequires:  %{py3_dist scipy}
-
-# Extras
-BuildRequires:  %{py3_dist lxml}
-BuildRequires:  %{py3_dist pygraphviz}
-BuildRequires:  %{py3_dist pydot}
-BuildRequires:  %{py3_dist sympy}
-
 # Tests
-BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist pytest-mpl}
 
 # Documentation
 BuildRequires:  python-pygraphviz-doc
 BuildRequires:  python3-docs
 BuildRequires:  python3-numpy-doc
-BuildRequires:  %{py3_dist cairocffi}
-BuildRequires:  %{py3_dist contextily}
 BuildRequires:  %{py3_dist geopandas}
-BuildRequires:  %{py3_dist igraph}
 BuildRequires:  %{py3_dist libpysal}
-BuildRequires:  %{py3_dist nb2plots}
-BuildRequires:  %{py3_dist numpydoc}
-BuildRequires:  %{py3_dist pillow}
-BuildRequires:  %{py3_dist pydata-sphinx-theme}
-BuildRequires:  %{py3_dist seaborn}
-BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  %{py3_dist sphinx-gallery}
-BuildRequires:  %{py3_dist texext}
 BuildRequires:  sympy-doc
 BuildRequires:  tex(latex)
 BuildRequires:  tex-preview
@@ -121,7 +92,7 @@ study of the structure, dynamics, and functions of complex networks.
 # searchindex.js: BSD-2-Clause
 License:        BSD-3-Clause AND BSD-2-Clause AND MIT
 Summary:        Documentation for networkx
-Requires:       fontawesome5-fonts-all
+Requires:       fontawesome-fonts-all
 Provides:       bundled(js-jquery)
 Provides:       bundled(js-underscore)
 
@@ -143,11 +114,26 @@ sed -e 's|\("https://docs\.python\.org/3/", \)None|\1"%{_docdir}/python3-docs/ht
     -i doc/conf.py
 %endif
 
+# Permit older versions of doc packages where Fedora is behind
+sed -e 's/\(sphinx>=\)6\.1/\15.3/' \
+    -e 's/\(sphinx-gallery>=\)0\.12/\10.11/' \
+    -e 's/\(numpydoc>=1.\)5/\14/' \
+    -i requirements/doc.txt
+
+# Permit older versions of example packages where Fedora is behind
+sed -e 's/\(seaborn>=0\.1\)2/\11/' \
+    -e 's/\(cairocffi>=1\.\)4/\13/' \
+    -i requirements/example.txt
+
 # Fedora does not have osmnx or momepy
 sed -i '/osmnx/d;/momepy/d' requirements/example.txt
 
-# Allow use of numpydoc 1.4 until Fedora catches up
-sed -i 's/\(numpydoc>=1.\)5/\14/' requirements/doc.txt
+%generate_buildrequires
+%if %{with doctest}
+%pyproject_buildrequires -x doc,extra,test requirements/example.txt
+%else
+%pyproject_buildrequires
+%endif
 
 %build
 %pyproject_wheel
@@ -194,6 +180,11 @@ done
 %endif
 
 %changelog
+* Fri Apr  7 2023 Jerry James <loganjerry@gmail.com> - 3.1-1
+- Version 3.1
+- Drop obsolete test patch
+- Dynamically generate python dependencies
+
 * Thu Mar 30 2023 Jerry James <loganjerry@gmail.com> - 2.8.8-3
 - Add "extra" extras subpackage
 - Simplify conditionals

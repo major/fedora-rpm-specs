@@ -16,7 +16,7 @@
 %global release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.4.3
+Version:        6.5.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtSvg component
 
@@ -109,8 +109,8 @@ Fedora Windows cross-compiler.
 %{mingw32_libdir}/cmake/Qt6SvgWidgets/
 %{mingw32_libdir}/pkgconfig/Qt6Svg.pc
 %{mingw32_libdir}/pkgconfig/Qt6SvgWidgets.pc
-%{mingw32_libdir}/metatypes/qt6svg_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/metatypes/qt6svgwidgets_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6svg_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6svgwidgets_relwithdebinfo_metatypes.json
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_svg.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_svg_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_svgwidgets.pri
@@ -118,8 +118,8 @@ Fedora Windows cross-compiler.
 %dir %{mingw32_libdir}/qt6/plugins/iconengines/
 %{mingw32_libdir}/qt6/plugins/iconengines/qsvgicon.dll
 %{mingw32_libdir}/qt6/plugins/imageformats/qsvg.dll
-%{mingw32_datadir}/qt6/modules/Svg.json
-%{mingw32_datadir}/qt6/modules/SvgWidgets.json
+%{mingw32_libdir}/qt6/modules/Svg.json
+%{mingw32_libdir}/qt6/modules/SvgWidgets.json
 
 # Win64
 %files -n mingw64-qt6-%{qt_module}
@@ -139,8 +139,8 @@ Fedora Windows cross-compiler.
 %{mingw64_libdir}/cmake/Qt6SvgWidgets/
 %{mingw64_libdir}/pkgconfig/Qt6Svg.pc
 %{mingw64_libdir}/pkgconfig/Qt6SvgWidgets.pc
-%{mingw64_libdir}/metatypes/qt6svg_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/metatypes/qt6svgwidgets_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6svg_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6svgwidgets_relwithdebinfo_metatypes.json
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_svg.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_svg_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_svgwidgets.pri
@@ -148,11 +148,14 @@ Fedora Windows cross-compiler.
 %dir %{mingw64_libdir}/qt6/plugins/iconengines/
 %{mingw64_libdir}/qt6/plugins/iconengines/qsvgicon.dll
 %{mingw64_libdir}/qt6/plugins/imageformats/qsvg.dll
-%{mingw64_datadir}/qt6/modules/Svg.json
-%{mingw64_datadir}/qt6/modules/SvgWidgets.json
+%{mingw64_libdir}/qt6/modules/Svg.json
+%{mingw64_libdir}/qt6/modules/SvgWidgets.json
 
 
 %changelog
+* Fri Apr 07 2023 Sandro Mani <manisandro@gmail.com> - 6.5.0-1
+- Update to 6.5.0
+
 * Wed Mar 29 2023 Sandro Mani <manisandro@gmail.com> - 6.4.3-1
 - Update to 6.4.3
 

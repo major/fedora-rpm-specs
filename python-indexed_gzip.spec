@@ -4,7 +4,7 @@
 %bcond_without tests
 
 Name:           python-indexed_gzip
-Version:        1.7.0
+Version:        1.7.1
 Release:        %autorelease
 Summary:        Fast random access of gzip files in Python
 

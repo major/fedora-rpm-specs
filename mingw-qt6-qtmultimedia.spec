@@ -16,7 +16,7 @@
 %global release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.4.3
+Version:        6.5.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtMultimedia component
 
@@ -151,12 +151,12 @@ Fedora Windows cross-compiler.
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_multimediawidgets_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_spatialaudio.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_spatialaudio_private.pri
-%{mingw32_libdir}/metatypes/qt6multimedia_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/metatypes/qt6multimediawidgets_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/metatypes/qt6spatialaudio_relwithdebinfo_metatypes.json
-%{mingw32_datadir}/qt6/modules/Multimedia.json
-%{mingw32_datadir}/qt6/modules/MultimediaWidgets.json
-%{mingw32_datadir}/qt6/modules/SpatialAudio.json
+%{mingw32_libdir}/qt6/metatypes/qt6multimedia_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6multimediawidgets_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6spatialaudio_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/modules/Multimedia.json
+%{mingw32_libdir}/qt6/modules/MultimediaWidgets.json
+%{mingw32_libdir}/qt6/modules/SpatialAudio.json
 
 
 # Win64
@@ -202,15 +202,18 @@ Fedora Windows cross-compiler.
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_multimediawidgets_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_spatialaudio.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_spatialaudio_private.pri
-%{mingw64_libdir}/metatypes/qt6multimedia_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/metatypes/qt6multimediawidgets_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/metatypes/qt6spatialaudio_relwithdebinfo_metatypes.json
-%{mingw64_datadir}/qt6/modules/Multimedia.json
-%{mingw64_datadir}/qt6/modules/MultimediaWidgets.json
-%{mingw64_datadir}/qt6/modules/SpatialAudio.json
+%{mingw64_libdir}/qt6/metatypes/qt6multimedia_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6multimediawidgets_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6spatialaudio_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/modules/Multimedia.json
+%{mingw64_libdir}/qt6/modules/MultimediaWidgets.json
+%{mingw64_libdir}/qt6/modules/SpatialAudio.json
 
 
 %changelog
+* Fri Apr 07 2023 Sandro Mani <manisandro@gmail.com> - 6.5.0-1
+- Update to 6.5.0
+
 * Wed Mar 29 2023 Sandro Mani <manisandro@gmail.com> - 6.4.3-1
 - Update to 6.4.3
 

@@ -7,7 +7,7 @@ Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
 Version:        6.21
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -77,7 +77,7 @@ Requires: (python3dist(flask-login) >= 0 with python3dist(flask-login) < 1)
 Requires: (python3dist(flask-mail) >= 0 with python3dist(flask-mail) < 1)
 Requires: (python3dist(flask-migrate) >= 4 with python3dist(flask-migrate) < 5)
 Requires: python3dist(dnspython) >= 2.2.1
-Requires: (python3dist(flask-sqlalchemy) >= 2.5 with python3dist(flask-sqlalchemy) < 2.6)
+Requires: python3dist(flask-sqlalchemy) >= 2.5
 Requires: python3dist(flask-wtf) >= 1.0.1
 Requires: (python3dist(flask-compress) >= 1 with python3dist(flask-compress) < 2)
 Requires: (python3dist(flask-paranoid) >= 0 with python3dist(flask-paranoid) < 1)
@@ -114,7 +114,6 @@ Requires: python3dist(azure-mgmt-rdbms) >= 10.1
 Requires: python3dist(azure-mgmt-resource) >= 21
 Requires: python3dist(azure-mgmt-subscription) >= 3
 Requires: python3dist(azure-identity) >= 1.9
-Requires: python3dist(ua-parser) >= 0.15
 
 Obsoletes: pgadmin3 < 1.23.0b-8
 Provides:  pgadmin3 = %{version}-%{release}
@@ -191,11 +190,11 @@ ln -s %{_bindir}/optipng $(readlink -f .package-cache/v6/npm-optipng-bin-*/node_
 # Update bundled mozjpeg
 mozjpeg_dir=$(readlink -f .package-cache/v6/npm-mozjpeg-*/node_modules/mozjpeg/)
 cp -a %SOURCE7 ${mozjpeg_dir}/vendor/source/mozjpeg.tar.gz
-%patch100 -p0 -d ${mozjpeg_dir}/lib
+%patch 100 -p0 -d ${mozjpeg_dir}/lib
 
 # Patch glob-parent
 globparent_dir=$(readlink -f .package-cache/v6/npm-glob-parent-*/node_modules/glob-parent/)
-%patch101 -p0 -d ${globparent_dir}
+%patch 101 -p0 -d ${globparent_dir}
 
 
 %build
@@ -269,6 +268,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Fri Apr 07 2023 Sandro Mani <manisandro@gmail.com> - 6.21-3
+- Relax flask-sqlalchemy requirement
+
 * Tue Mar 28 2023 Sandro Mani <manisandro@gmail.com> - 6.21-2
 - Drop PGADMIN_INT_KEY env-var
 

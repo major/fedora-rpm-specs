@@ -8,13 +8,15 @@
 %endif
 
 Name:           perl-DynaLoader-Functions
-Version:        0.003
-Release:        18%{?dist}
+Version:        0.004
+Release:        1%{?dist}
 Summary:        Deconstructed dynamic C library loading
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DynaLoader-Functions
 Source0:        https://cpan.metacpan.org/authors/id/Z/ZE/ZEFRAM/DynaLoader-Functions-%{version}.tar.gz
 BuildArch:      noarch
+BuildRequires:  coreutils
+BuildRequires:  findutils
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(Module::Build)
@@ -28,6 +30,7 @@ BuildRequires:  perl(DynaLoader)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(parent)
 # Tests:
+BuildRequires:  perl-devel
 BuildRequires:  perl(Test::More)
 %if %{with perl_DynaLoader_Functions_enables_optional_test}
 # Optional tests:
@@ -36,6 +39,7 @@ BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage)
 %endif
+# Dependencies
 Requires:       perl(Carp)
 Requires:       perl(DynaLoader)
 
@@ -68,11 +72,11 @@ for F in t/*.t; do
 done
 
 %build
-perl Build.PL installdirs=vendor optimize="$RPM_OPT_FLAGS"
+perl Build.PL --installdirs=vendor --optimize="%{optflags}"
 ./Build
 
 %install
-./Build install destdir=$RPM_BUILD_ROOT create_packlist=0
+./Build install --destdir=%{buildroot} --create_packlist=0
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
@@ -89,20 +93,30 @@ popd
 rm -r "$DIR"
 EOF
 chmod +x %{buildroot}%{_libexecdir}/%{name}/test
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} -c %{buildroot}
 
 %check
 ./Build test
 
 %files
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/DynaLoader/
+%{_mandir}/man3/DynaLoader::Functions.3*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Apr  7 2023 Paul Howarth <paul@city-fan.org> - 0.004-1
+- Update to 0.004 (rhbz#2185089)
+  - Port test C code to Perl 5.33.1, which defines a PERL_VERSION_GE() macro
+    that clashes with the one this code previously had
+  - In test C code, avoid a compiler warning that arises on Perl 5.20
+  - In test C code, rename some macros for better style
+  - In test C code, better argument parenthesisation in a macro
+- Fix permissions verbosely
+- Make %%files list more explicit
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.003-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@ Name:		perl-Event
 Version:	1.28
 Release:	7%{?dist}
 Summary:	Event loop processing
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Event
 Source0:	https://cpan.metacpan.org/modules/by-module/Event/Event-%{version}.tar.gz
 # Module Build
@@ -28,7 +28,7 @@ BuildRequires:	perl(vars)
 BuildRequires:	perl(Symbol)
 BuildRequires:	perl(Test) >= 1
 BuildRequires:	perl(Test::More)
-# Runtime
+# Dependencies
 Requires:	perl(Time::HiRes)
 
 %{?perl_default_filter}

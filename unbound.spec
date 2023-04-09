@@ -80,7 +80,7 @@ BuildRequires: systemd-devel
 BuildRequires: libnghttp2-devel
 %endif
 %if %{with redis}
-BuildRequires: redis-devel
+BuildRequires: hiredis-devel
 %endif
 %if 0%{?fedora} >= 30 || 0%{?rhel} >= 9
 BuildRequires: systemd-rpm-macros

@@ -16,7 +16,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.4.3
+Version:        6.5.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtSensors component
 
@@ -109,8 +109,8 @@ Fedora Windows cross-compiler.
 %{mingw32_libdir}/pkgconfig/Qt6SensorsQuick.pc
 %{mingw32_libdir}/libQt6Sensors.dll.a
 %{mingw32_libdir}/libQt6SensorsQuick.dll.a
-%{mingw32_libdir}/metatypes/qt6sensors_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/metatypes/qt6sensorsquick_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6sensors_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6sensorsquick_relwithdebinfo_metatypes.json
 %{mingw32_libdir}/Qt6Sensors.prl
 %{mingw32_libdir}/Qt6SensorsQuick.prl
 %dir %{mingw32_libdir}/qt6/plugins/sensors/
@@ -121,8 +121,8 @@ Fedora Windows cross-compiler.
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_sensorsquick.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_sensorsquick_private.pri
 %{mingw32_libdir}/qt6/qml/QtSensors/
-%{mingw32_datadir}/qt6/modules/Sensors.json
-%{mingw32_datadir}/qt6/modules/SensorsQuick.json
+%{mingw32_libdir}/qt6/modules/Sensors.json
+%{mingw32_libdir}/qt6/modules/SensorsQuick.json
 
 # Win64
 %files -n mingw64-qt6-%{qt_module}
@@ -140,8 +140,8 @@ Fedora Windows cross-compiler.
 %{mingw64_libdir}/pkgconfig/Qt6SensorsQuick.pc
 %{mingw64_libdir}/libQt6Sensors.dll.a
 %{mingw64_libdir}/libQt6SensorsQuick.dll.a
-%{mingw64_libdir}/metatypes/qt6sensors_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/metatypes/qt6sensorsquick_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6sensors_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6sensorsquick_relwithdebinfo_metatypes.json
 %{mingw64_libdir}/Qt6Sensors.prl
 %{mingw64_libdir}/Qt6SensorsQuick.prl
 %dir %{mingw64_libdir}/qt6/plugins/sensors/
@@ -152,11 +152,14 @@ Fedora Windows cross-compiler.
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_sensorsquick.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_sensorsquick_private.pri
 %{mingw64_libdir}/qt6/qml/QtSensors/
-%{mingw64_datadir}/qt6/modules/Sensors.json
-%{mingw64_datadir}/qt6/modules/SensorsQuick.json
+%{mingw64_libdir}/qt6/modules/Sensors.json
+%{mingw64_libdir}/qt6/modules/SensorsQuick.json
 
 
 %changelog
+* Fri Apr 07 2023 Sandro Mani <manisandro@gmail.com> - 6.5.0-1
+- Update to 6.5.0
+
 * Wed Mar 29 2023 Sandro Mani <manisandro@gmail.com> - 6.4.3-1
 - Update to 6.4.3
 

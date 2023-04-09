@@ -12,6 +12,8 @@ Summary:        Adds support for Doxygen xml output to reStructuredText and Sphi
 License:        BSD
 URL:            https://github.com/%{owner}/%{srcname}
 Source0:        %{URL}/archive/v%{version}.tar.gz
+Source1:        %{URL}/releases/download/v%{version}/%{srcname}-%{version}.tar.gz.sig
+Source2:        https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x8aed58021feacdd5f27ba0e6a72f627716ea9d96#./vermware.key
 
 BuildArch:      noarch
 
@@ -36,6 +38,7 @@ BuildRequires:  %{py3_dist furo}
 # a git repo
 BuildRequires:  git
 BuildRequires:  make
+BuildRequires:  gnupg2
 
 # Set the name of the documentation directory
 %global _docdir_fmt %{name}
@@ -59,6 +62,7 @@ License:        BSD and zlib
 This package contains documentation for developer documentation for %{srcname}.
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -n %{srcname}-%{version} -p1
 
 %build

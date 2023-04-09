@@ -19,7 +19,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.4.3
+Version:        6.5.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtTools component
 
@@ -149,10 +149,10 @@ ln -s %{_libdir}/cmake/Qt6LinguistTools %{buildroot}%{mingw64_libdir}/cmake/Qt6L
 %{mingw32_libdir}/libQt6Designer.dll.a
 %{mingw32_libdir}/libQt6Help.dll.a
 %{mingw32_libdir}/libQt6UiTools.dll.a
-%{mingw32_libdir}/metatypes/qt6designercomponentsprivate_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/metatypes/qt6designer_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/metatypes/qt6help_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/metatypes/qt6uitools_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6designercomponentsprivate_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6designer_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6help_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6uitools_relwithdebinfo_metatypes.json
 %{mingw32_libdir}/Qt6DesignerComponents.prl
 %{mingw32_libdir}/Qt6Designer.prl
 %{mingw32_libdir}/Qt6Help.prl
@@ -169,13 +169,13 @@ ln -s %{_libdir}/cmake/Qt6LinguistTools %{buildroot}%{mingw64_libdir}/cmake/Qt6L
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_uitools_private.pri
 %{mingw32_libdir}/qt6/plugins/designer/
 %{mingw32_libdir}/Qt6UiTools.prl
-%{mingw32_datadir}/qt6/modules/DesignerComponentsPrivate.json
-%{mingw32_datadir}/qt6/modules/Designer.json
-%{mingw32_datadir}/qt6/modules/Help.json
-%{mingw32_datadir}/qt6/modules/Linguist.json
-%{mingw32_datadir}/qt6/modules/Tools.json
-%{mingw32_datadir}/qt6/modules/UiPlugin.json
-%{mingw32_datadir}/qt6/modules/UiTools.json
+%{mingw32_libdir}/qt6/modules/DesignerComponentsPrivate.json
+%{mingw32_libdir}/qt6/modules/Designer.json
+%{mingw32_libdir}/qt6/modules/Help.json
+%{mingw32_libdir}/qt6/modules/Linguist.json
+%{mingw32_libdir}/qt6/modules/Tools.json
+%{mingw32_libdir}/qt6/modules/UiPlugin.json
+%{mingw32_libdir}/qt6/modules/UiTools.json
 %{mingw32_datadir}/qt6/phrasebooks/
 
 
@@ -215,10 +215,10 @@ ln -s %{_libdir}/cmake/Qt6LinguistTools %{buildroot}%{mingw64_libdir}/cmake/Qt6L
 %{mingw64_libdir}/libQt6Designer.dll.a
 %{mingw64_libdir}/libQt6Help.dll.a
 %{mingw64_libdir}/libQt6UiTools.dll.a
-%{mingw64_libdir}/metatypes/qt6designercomponentsprivate_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/metatypes/qt6designer_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/metatypes/qt6help_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/metatypes/qt6uitools_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6designercomponentsprivate_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6designer_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6help_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6uitools_relwithdebinfo_metatypes.json
 %{mingw64_libdir}/Qt6DesignerComponents.prl
 %{mingw64_libdir}/Qt6Designer.prl
 %{mingw64_libdir}/Qt6Help.prl
@@ -235,17 +235,20 @@ ln -s %{_libdir}/cmake/Qt6LinguistTools %{buildroot}%{mingw64_libdir}/cmake/Qt6L
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_uitools_private.pri
 %{mingw64_libdir}/qt6/plugins/designer/
 %{mingw64_libdir}/Qt6UiTools.prl
-%{mingw64_datadir}/qt6/modules/DesignerComponentsPrivate.json
-%{mingw64_datadir}/qt6/modules/Designer.json
-%{mingw64_datadir}/qt6/modules/Help.json
-%{mingw64_datadir}/qt6/modules/Linguist.json
-%{mingw64_datadir}/qt6/modules/Tools.json
-%{mingw64_datadir}/qt6/modules/UiPlugin.json
-%{mingw64_datadir}/qt6/modules/UiTools.json
+%{mingw64_libdir}/qt6/modules/DesignerComponentsPrivate.json
+%{mingw64_libdir}/qt6/modules/Designer.json
+%{mingw64_libdir}/qt6/modules/Help.json
+%{mingw64_libdir}/qt6/modules/Linguist.json
+%{mingw64_libdir}/qt6/modules/Tools.json
+%{mingw64_libdir}/qt6/modules/UiPlugin.json
+%{mingw64_libdir}/qt6/modules/UiTools.json
 %{mingw64_datadir}/qt6/phrasebooks/
 
 
 %changelog
+* Fri Apr 07 2023 Sandro Mani <manisandro@gmail.com> - 6.5.0-1
+- Update to 6.5.0
+
 * Wed Mar 29 2023 Sandro Mani <manisandro@gmail.com> - 6.4.3-1
 - Update to 6.4.3
 

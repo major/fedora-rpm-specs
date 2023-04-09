@@ -16,7 +16,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.4.3
+Version:        6.5.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtWebChannel component
 
@@ -100,7 +100,7 @@ Fedora Windows cross-compiler.
 %license LICENSES/*GPL*
 %{mingw32_bindir}/Qt6WebChannel.dll
 %{mingw32_includedir}/qt6/QtWebChannel/
-%{mingw32_libdir}/metatypes/qt6webchannel_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6webchannel_relwithdebinfo_metatypes.json
 %{mingw32_libdir}/cmake/Qt6WebChannel/
 %{mingw32_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtWebChannelTestsConfig.cmake
 %{mingw32_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6webchannel*
@@ -110,14 +110,14 @@ Fedora Windows cross-compiler.
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_webchannel_private.pri
 %{mingw32_libdir}/qt6/qml/QtWebChannel/
 %{mingw32_libdir}/Qt6WebChannel.prl
-%{mingw32_datadir}/qt6/modules/WebChannel.json
+%{mingw32_libdir}/qt6/modules/WebChannel.json
 
 # Win64
 %files -n mingw64-qt6-%{qt_module}
 %license LICENSES/*GPL*
 %{mingw64_bindir}/Qt6WebChannel.dll
 %{mingw64_includedir}/qt6/QtWebChannel/
-%{mingw64_libdir}/metatypes/qt6webchannel_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6webchannel_relwithdebinfo_metatypes.json
 %{mingw64_libdir}/cmake/Qt6WebChannel/
 %{mingw64_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtWebChannelTestsConfig.cmake
 %{mingw64_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6webchannel*
@@ -127,12 +127,15 @@ Fedora Windows cross-compiler.
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_webchannel_private.pri
 %{mingw64_libdir}/qt6/qml/QtWebChannel/
 %{mingw64_libdir}/Qt6WebChannel.prl
-%{mingw64_datadir}/qt6/modules/WebChannel.json
+%{mingw64_libdir}/qt6/modules/WebChannel.json
 
 
 
 
 %changelog
+* Fri Apr 07 2023 Sandro Mani <manisandro@gmail.com> - 6.5.0-1
+- Update to 6.5.0
+
 * Wed Mar 29 2023 Sandro Mani <manisandro@gmail.com> - 6.4.3-1
 - Update to 6.4.3
 
