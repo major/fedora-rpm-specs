@@ -1,6 +1,6 @@
 Name:           raft
-Version:        0.16.0
-Release:        2%{?dist}
+Version:        0.17.1
+Release:        1%{?dist}
 Summary:        C implementation of the Raft consensus protocol
 
 License:        LGPL-3.0-only WITH LGPL-3.0-linking-exception
@@ -13,8 +13,8 @@ BuildRequires:  autoconf libtool
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(liblz4)
 BuildRequires:  pkgconfig(libuv)
-# Breaking so-library change
-Conflicts:      dqlite < 1.10.0
+# Breaking header change
+Conflicts:      dqlite < 1.14.0
 
 %description
 Fully asynchronous C implementation of the Raft consensus protocol. It consists
@@ -82,6 +82,9 @@ rm -f %{buildroot}%{_libdir}/libraft.la
 %doc docs/_build/html/
 
 %changelog
+* Sat Apr 08 2023 Reto Gantenbein <reto.gantenbein@linuxmonk.ch> - 0.17.1-1
+- Update to 0.17.1
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

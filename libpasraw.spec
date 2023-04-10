@@ -4,10 +4,10 @@ Version:        1.3.0
 %forgemeta
 
 Name:           libpasraw
-Release:        12%{?dist}
+Release:        %autorelease
 Summary:        Pascal interface to libraw
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 
@@ -63,39 +63,4 @@ make install PREFIX=%{buildroot}%{_prefix}
 
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Tue Dec 20 2022 Gwyn Ciesla <gwync@protonmail.com> - 1.3.0-11
-- LibRaw rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon May 11 2020 Gwyn Ciesla <gwync@protonmail.com> - 1.3.0-5
-- Rebuild for new LibRaw
-
-* Mon Mar 16 2020 Mattia Verga <mattia.verga@protonmail.com> - 1.3.0-4
-- Use %%make_build macro
-
-* Mon Mar 16 2020 Mattia Verga <mattia.verga@protonmail.com> - 1.3.0-3
-- Add -devel subpackage
-
-* Sun Mar 15 2020 Mattia Verga <mattia.verga@protonmail.com> - 1.3.0-2
-- Fix license file
-- Use ldflags
-
-* Sat Mar 07 2020 Mattia Verga <mattia.verga@protonmail.com> - 1.3-1.20200302gitdbbe4cc
-- Initial packaging
+%autochangelog

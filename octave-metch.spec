@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        0.6
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Mesh/volume registration toolbox
 License:        GPLv2+
 URL:            http://iso2mesh.sourceforge.net/cgi-bin/index.cgi?metch
@@ -86,6 +86,9 @@ chmod -x inst/*
 %{octpkgdir}/packinfo
 
 %changelog
+* Sat Apr 08 2023 Orion Poplawski <orion@nwra.com> - 0.6-11
+- Rebuild with octave 8.1.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

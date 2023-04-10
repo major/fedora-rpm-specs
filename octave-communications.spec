@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        1.2.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Communications for Octave
 License:        GPLv3+
 URL:            https://octave.sourceforge.io/communications/
@@ -77,6 +77,9 @@ chmod a-x %{buildroot}/%{octpkgdir}/@galois/*.m
 %{octpkgdir}/comms.info
 
 %changelog
+* Sat Apr 08 2023 Orion Poplawski <orion@nwra.com> - 1.2.4-5
+- Rebuild with octave 8.1.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

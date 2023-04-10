@@ -1,5 +1,5 @@
 %global nativever 2.2
-%global baserelease 2
+%global baserelease 3
 %global pythonver 2.0
 %global pythonrelease %{nativever}.%{baserelease}
 
@@ -244,6 +244,9 @@ popd
 
 
 %changelog
+* Sat Apr 08 2023 Orion Poplawski <orion@nwra.com> - 2.2-3
+- Rebuild with octave 8.1.0
+
 * Fri Mar 31 2023 Sandro Mani <manisandro@gmail.com> - 2.2-2
 - Switch to pypi source
 

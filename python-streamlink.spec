@@ -8,7 +8,7 @@ Livestreamer, which is no longer maintained.}
 
 Name:           python-%{srcname}
 Version:        5.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python library for extracting streams from various websites
 
 # src/streamlink/packages/requests_file.py is ASL 2.0
@@ -45,7 +45,7 @@ Recommends:     /usr/bin/ffmpeg
 
 %package doc
 Summary:        Documentation for %{name}
-Requires:       fontawesome-fonts
+Requires:       fontawesome-fonts-all
 Requires:       google-roboto-slab-fonts
 Requires:       lato-fonts
 
@@ -107,6 +107,9 @@ TZ=UTC %pytest
 
 
 %changelog
+* Sat Apr 08 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 5.3.1-2
+- Fix RHBZ #2185401 (switch to Font Awesome 6)
+
 * Sun Mar 26 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 5.3.1-1
 - Update to 5.3.1
 

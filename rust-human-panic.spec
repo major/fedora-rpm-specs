@@ -5,16 +5,13 @@
 %global crate human-panic
 
 Name:           rust-human-panic
-Version:        1.1.0
+Version:        1.1.3
 Release:        %autorelease
 Summary:        Panic messages for humans
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/human-panic
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * bump os_info dependency from 2.0.6 to 3
-Patch:          human-panic-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

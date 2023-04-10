@@ -15,7 +15,7 @@
 
 Name:              NLopt
 Version:           2.7.1
-Release:           12%{?dist}
+Release:           13%{?dist}
 Summary:           Open-Source library for nonlinear optimization
 
 # Get a lowercase name for virtual provides.
@@ -296,6 +296,9 @@ EOF
 
 
 %changelog
+* Sat Apr 08 2023 Orion Poplawski <orion@nwra.com> - 2.7.1-13
+- Rebuild with octave 8.1.0
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

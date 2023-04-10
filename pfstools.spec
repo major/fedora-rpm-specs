@@ -1,6 +1,6 @@
 Name:		pfstools
 Version:	2.2.0
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Programs for handling high-dynamic range images
 
 License:	GPL-2.0-or-later
@@ -307,6 +307,9 @@ export CXXFLAGS="%{optflags} -std=gnu++11"
 %{_includedir}/pfs
 
 %changelog
+* Sat Apr 08 2023 Orion Poplawski <orion@nwra.com> - 2.2.0-11
+- Rebuild with octave 8.1.0
+
 * Fri Mar 31 2023 Tomas Smetana <tsmetana@redhat.com> - 2.2.0-10
 - Use SPDX tag for license
 

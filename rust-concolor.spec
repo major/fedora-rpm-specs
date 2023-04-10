@@ -5,7 +5,7 @@
 %global crate concolor
 
 Name:           rust-concolor
-Version:        0.0.11
+Version:        0.1.1
 Release:        %autorelease
 Summary:        Control console coloring across all dependencies
 
@@ -15,8 +15,6 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * remove Windows-specific features
 Patch:          concolor-fix-metadata.diff
-# * fix missing cfg-gate for a doctest
-Patch:          concolor-doc-test-fix.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -52,16 +50,16 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+api_unstable-devel
+%package     -n %{name}+api-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+api_unstable-devel %{_description}
+%description -n %{name}+api-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "api_unstable" feature of the "%{crate}" crate.
+use the "api" feature of the "%{crate}" crate.
 
-%files       -n %{name}+api_unstable-devel
+%files       -n %{name}+api-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+auto-devel
@@ -76,18 +74,6 @@ use the "auto" feature of the "%{crate}" crate.
 %files       -n %{name}+auto-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+bitflags-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+bitflags-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "bitflags" feature of the "%{crate}" crate.
-
-%files       -n %{name}+bitflags-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+clicolor-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -98,18 +84,6 @@ This package contains library source intended for building other packages which
 use the "clicolor" feature of the "%{crate}" crate.
 
 %files       -n %{name}+clicolor-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+concolor-query-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+concolor-query-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "concolor-query" feature of the "%{crate}" crate.
-
-%files       -n %{name}+concolor-query-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+core-devel
@@ -177,17 +151,17 @@ use the "term" feature of the "%{crate}" crate.
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires
+%cargo_generate_buildrequires -f api
 
 %build
-%cargo_build
+%cargo_build -f api
 
 %install
-%cargo_install
+%cargo_install -f api
 
 %if %{with check}
 %check
-%cargo_test
+%cargo_test -f api
 %endif
 
 %changelog

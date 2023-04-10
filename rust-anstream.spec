@@ -2,23 +2,27 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate bytes-cast-derive
+%global crate anstream
 
-Name:           rust-bytes-cast-derive
-Version:        0.2.0
+Name:           rust-anstream
+Version:        0.2.6
 Release:        %autorelease
-Summary:        Safely re-interpreting &[u8] bytes as custom structs without copying, for efficiently reading structured binary data
+Summary:        Simple cross platform library for writing colored text to a terminal
 
-License:        Zlib OR Apache-2.0 OR MIT
-URL:            https://crates.io/crates/bytes-cast-derive
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/anstream
 Source:         %{crates_source}
+# Automatically generated patch to strip foreign dependencies
+Patch:          anstream-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+# * drop unused, benchmark-only criterion dev-dependency to speed up builds
+# * drop Windows-specific features
+Patch:          anstream-fix-metadata.diff
 
-BuildRequires:  rust-packaging >= 21
+BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Safely re-interpreting &[u8] bytes as custom structs without copying,
-for efficiently reading structured binary data. Procedural macro for
-compile-time soundness checking.}
+A simple cross platform library for writing colored text to a terminal.}
 
 %description %{_description}
 
@@ -34,7 +38,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%license %{crate_instdir}/LICENSE-ZLIB
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -48,6 +51,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+auto-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+auto-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "auto" feature of the "%{crate}" crate.
+
+%files       -n %{name}+auto-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

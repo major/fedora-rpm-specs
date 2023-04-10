@@ -1,16 +1,16 @@
 %global base_name partitionmanager
 
-%global unstable 0
-%global kf5min 5.90
-%global qtmin 5.15.0
+%global unstable 1
+%global kf5min 5.91
+%global qtmin 5.15.2
 %global kpmcoremin 22.03
 
 Name:           kde-partitionmanager
 Version:        23.03.90
-Release:        1%{?dist}
+Release:        %autorelease
 Summary:        KDE Partition Manager
 
-License:        GPLv3+
+License:        GPL-3.0-or-later AND LGPL-3.0-or-later AND MIT AND CC-BY-4.0 AND CC0-1.0 AND GFDL-1.2-or-later
 URL:            http://www.kde.org/applications/system/kdepartitionmanager/
 %if 0%{?unstable}
 Source0:        http://download.kde.org/unstable/release-service/%{version}/src/partitionmanager-%{version}.tar.xz
@@ -60,10 +60,6 @@ manipulate filesystems.
 %prep
 %autosetup -p1 -n partitionmanager-%{version}
 
-# Small fix for the desktop file
-# Upstream has already fixed it in master branch
-sed -i s/SingleMainWindow=True/SingleMainWindow=true/g ./src/org.kde.partitionmanager.desktop
-
 
 %build
 %cmake_kf5
@@ -94,22 +90,4 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdat
 
 
 %changelog
-* Fri Mar 31 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.90-1
-- 23.03.90
-
-* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
-- 23.03.80
-
-* Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
-- 22.12.3
-
-* Tue Jan 31 2023 Marc Deop <marcdeop@fedoraproject.org> - 22.12.2-1
-- 22.12.2
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.12.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Tue Jan 03 2023 Justin Zobel <justin@1707.io> - 22.12.1-1
-- Update to 22.12.1
-
 %autochangelog

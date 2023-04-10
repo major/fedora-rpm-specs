@@ -5,16 +5,15 @@
 %global crate concolor-query
 
 Name:           rust-concolor-query
-Version:        0.1.0
+Version:        0.3.3
 Release:        %autorelease
 Summary:        Look up colored console capabilities
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/concolor-query
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * remove Windows-specific features
-Patch:          concolor-query-fix-metadata.diff
+# Automatically generated patch to strip foreign dependencies
+Patch:          concolor-query-fix-metadata-auto.diff
 
 BuildRequires:  rust-packaging >= 21
 

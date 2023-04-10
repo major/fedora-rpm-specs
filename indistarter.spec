@@ -12,7 +12,7 @@ Version:        2.3.1^%{date}%{shortcommit}
 Release:        %autorelease
 Summary:        GUI to start, stop and control an INDI server
 
-License:        GPLv3+
+License:        GPL-3.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND BSD-3-Clause AND MPL-1.1
 URL:            https://github.com/pchev/%{name}
 %if "%{?gittag}"
 Source0:        %{url}/archive/%{gittag}/%{name}-%{version}.tar.gz

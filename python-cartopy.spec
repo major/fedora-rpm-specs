@@ -9,8 +9,8 @@ Version:        0.21.1
 Release:        %autorelease
 Summary:        Cartographic Python library with Matplotlib visualisations
 
-License:        LGPLv3
-URL:            http://scitools.org.uk/cartopy/docs/latest/
+License:        LGPL-3.0-only
+URL:            https://scitools.org.uk/cartopy/docs/latest/
 Source0:        %pypi_source %{Srcname}
 # Set location of Fedora-provided pre-existing data.
 Source1:        siteconfig.py

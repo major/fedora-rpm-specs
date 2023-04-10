@@ -2,7 +2,7 @@ Name:           perl-Exception-Class
 Version:        1.45
 Release:        7%{?dist}
 Summary:        Module that allows you to declare real exception classes in Perl
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Exception-Class
 Source0:        https://cpan.metacpan.org/modules/by-module/Exception/Exception-Class-%{version}.tar.gz
 BuildArch:      noarch
@@ -28,7 +28,8 @@ BuildRequires:  perl(Test::More) >= 0.96
 # Optional Tests
 BuildRequires:  perl(CPAN::Meta) >= 2.120900
 BuildRequires:  perl(CPAN::Meta::Prereqs)
-# Runtime
+# Dependencies
+# (none)
 
 %description
 Exception::Class allows you to declare exception hierarchies in your

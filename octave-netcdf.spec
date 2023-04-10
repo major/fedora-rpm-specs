@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        1.0.16
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A MATLAB compatible NetCDF interface for Octave
 License:        GPLv2+
 URL:            https://octave.sourceforge.io/%{octpkg}/
@@ -52,6 +52,9 @@ A MATLAB compatible NetCDF interface for Octave.
 %{_metainfodir}/octave-%{octpkg}.metainfo.xml
 
 %changelog
+* Sat Apr 08 2023 Orion Poplawski <orion@nwra.com> - 1.0.16-3
+- Rebuild with octave 8.1.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.16-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

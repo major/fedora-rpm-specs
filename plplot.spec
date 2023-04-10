@@ -63,7 +63,7 @@
 
 Name:           plplot
 Version:        5.15.0
-Release:        50%{?dist}
+Release:        51%{?dist}
 Summary:        Library of functions for making scientific plots
 
 License:        LGPLv2+
@@ -759,6 +759,9 @@ export DISPLAY=:99
 
 
 %changelog
+* Sat Apr 08 2023 Orion Poplawski <orion@nwra.com> - 5.15.0-51
+- Rebuild with octave 8.1.0
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 5.15.0-50
 - Rebuild OCaml packages for F38
 

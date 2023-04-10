@@ -2,7 +2,7 @@ Name:		perl-ExtUtils-Config
 Version:	0.008
 Release:	28%{?dist}
 Summary:	A wrapper for perl's configuration
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/ExtUtils-Config
 Source0:	https://cpan.metacpan.org/modules/by-module/ExtUtils/ExtUtils-Config-%{version}.tar.gz
 BuildArch:	noarch
@@ -25,7 +25,8 @@ BuildRequires:	perl(File::Spec)
 BuildRequires:	perl(IO::Handle)
 BuildRequires:	perl(IPC::Open3)
 BuildRequires:	perl(Test::More) >= 0.88
-# Runtime
+# Dependencies
+# (none)
 
 %description
 ExtUtils::Config is an abstraction around the %%Config hash.
@@ -46,11 +47,7 @@ find %{buildroot} -type f -name .packlist -delete
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
 %doc Changes README
 %{perl_vendorlib}/ExtUtils/
 %{_mandir}/man3/ExtUtils::Config.3*

@@ -4,14 +4,17 @@
 
 %global crate predicates
 
-Name:           rust-predicates
-Version:        3.0.2
+Name:           rust-predicates2
+Version:        2.1.5
 Release:        %autorelease
 Summary:        Implementation of boolean-valued predicate functions
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/predicates
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * drop unused color and color-auto features and their dependencies
+Patch:          predicates-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -45,18 +48,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+color-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+color-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "color" feature of the "%{crate}" crate.
-
-%files       -n %{name}+color-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+diff-devel

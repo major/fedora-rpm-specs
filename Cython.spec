@@ -5,7 +5,7 @@
 %bcond_without cython_compile
 
 Name:           Cython
-Version:        0.29.33
+Version:        0.29.34
 Release:        1%{?dist}
 Summary:        Language for writing Python extension modules
 
@@ -133,6 +133,12 @@ cp -p cython-mode-init.el cython-mode-init.elc %{buildroot}%{_emacs_sitestartdir
 
 
 %changelog
+* Mon Apr 03 2023 Miro Hrončok <mhroncok@redhat.com> - 0.29.34-1
+- Update to 0.29.34
+- Fixes: rhbz#1823181
+- Fixes: rhbz#2172822
+- Fixes: rhbz#2177838
+
 * Fri Feb 17 2023 Miro Hrončok <mhroncok@redhat.com> - 0.29.33-1
 - Update to 0.29.33
 - Fix test failures with NumPy 1.24

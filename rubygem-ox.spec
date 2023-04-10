@@ -1,7 +1,7 @@
 %global gem_name ox
 
 Name:           rubygem-%{gem_name}
-Version:        2.14.13
+Version:        2.14.14
 Release:        1%{?dist}
 Summary:        Fast XML parser and object serializer
 
@@ -9,7 +9,7 @@ License:        MIT
 URL:            http://www.ohler.com/ox
 Source0:        https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/ohler55/ox && cd ox
-# git archive -v -o rubygem-ox-2.14.13-repo.tgz v2.14.13 test/ examples/
+# git archive -v -o rubygem-ox-2.14.14-repo.tgz v2.14.14 test/ examples/
 Source1:        %{name}-%{version}-repo.tgz
 
 BuildRequires:  gcc
@@ -95,6 +95,9 @@ popd
 
 
 %changelog
+* Sat Apr 08 2023 František Dvořák <valtri@civ.zcu.cz> - 2.14.14-1
+- Update to 2.14.14 (#2165160)
+
 * Fri Jan 20 2023 František Dvořák <valtri@civ.zcu.cz> - 2.14.13-1
 - Update to 2.14.13 (#2161449)
 

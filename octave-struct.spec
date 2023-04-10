@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        1.0.18
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Structure handling for Octave
 License:        GPLv3+
 URL:            https://octave.sourceforge.io/struct/
@@ -49,6 +49,9 @@ included in the octave core.
 
 
 %changelog
+* Sat Apr 08 2023 Orion Poplawski <orion@nwra.com> - 1.0.18-2
+- Rebuild with octave 8.1.0
+
 * Fri Mar 17 2023 Orion Poplawski <orion@nwra.com> - 1.0.18-1
 - Update to 1.0.18
 

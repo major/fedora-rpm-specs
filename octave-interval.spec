@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        3.2.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Interval arithmetic for Octave
 # The source code is GPLv3+ except src/crlibm/ which is LGPLv2+
 License:        GPLv3+ and LGPLv2+
@@ -72,6 +72,9 @@ arithmetic.
 
 
 %changelog
+* Sat Apr 08 2023 Orion Poplawski <orion@nwra.com> - 3.2.1-5
+- Rebuild with octave 8.1.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

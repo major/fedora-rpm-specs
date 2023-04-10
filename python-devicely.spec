@@ -4,7 +4,7 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
 # We can generate PDF documentation as a substitute.
-%bcond_without doc_pdf
+%bcond_with doc_pdf
 
 # no debug files
 # package can not be noarch due to the missing dependencies in s390x
@@ -21,16 +21,12 @@ sensor data with other researchers while mantaining people's privacy.}
 
 Name:           python-%{pypi_name}
 Version:        1.1.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A Python package for reading, timeshifting and writing sensor data
 
 License:        MIT
 URL:            https://github.com/hpi-dhc/%{pypi_name}
 Source0:        %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
-
-# building docs is now working in clean environment
-# already fixed in https://github.com/hpi-dhc/devicely/pull/60
-Patch0:         0001-Docs.patch
 
 # It depends on pyedflib which is not available on s390x
 # https://bugzilla.redhat.com/show_bug.cgi?id=2027046
@@ -108,6 +104,9 @@ toml-adapt -path pyproject.toml -a change -dep ALL -ver X
 %endif
 
 %changelog
+* Sat Apr 8 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 1.1.1-5
+- Temporarily disable building docs
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

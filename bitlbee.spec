@@ -3,13 +3,16 @@
 Summary:           IRC to other chat networks gateway
 Name:              bitlbee
 Version:           3.6
-Release:           10%{?dist}
+Release:           11%{?dist}
 License:           GPLv2+ and MIT
 URL:               https://www.bitlbee.org/
 Source0:           https://get.bitlbee.org/src/%{name}-%{version}.tar.gz
 Source1:           bitlbee.sysusersd
 # Downstream: Run bitlbee as non-root and bind to 127.0.0.1 only
 Patch0:            bitlbee-forkdaemon.patch
+# Replace the now dead Twitter tokens with fresh ones
+# See: https://github.com/bitlbee/bitlbee/pull/187
+Patch1:            bitlbee-twitter.patch
 
 BuildRequires:     gcc
 BuildRequires:     make
@@ -59,6 +62,7 @@ and malleable encryption.
 echo With OTR %with_otr
 %setup -q
 %patch0 -p1 -b .forkdaemon
+%patch1 -p1
 touch -c -r bitlbee.conf{.forkdaemon,}
 
 %build
@@ -133,6 +137,9 @@ mkdir -p $RPM_BUILD_ROOT{%{_localstatedir}/lib,%{_libdir}}/%{name}/
 %endif
 
 %changelog
+* Sat Apr 08 2023 Frantisek Sumsal <frantisek@sumsal.cz> - 3.6-11
+- Replace the now dead Twitter tokens with fresh ones
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

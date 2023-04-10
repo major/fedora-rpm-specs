@@ -2,7 +2,7 @@ Name:		perl-Expect
 Version:	1.35
 Release:	20%{?dist}
 Summary:	Expect for Perl
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Expect
 Source0:	https://cpan.metacpan.org/modules/by-module/Expect/Expect-%{version}.tar.gz
 BuildArch:	noarch
@@ -31,7 +31,8 @@ BuildRequires:	perl(Config)
 BuildRequires:	perl(File::Temp)
 BuildRequires:	perl(Test::Builder)
 BuildRequires:	perl(Test::More) >= 0.98
-# Runtime
+# Dependencies
+# (none)
 
 %description
 This module provides Expect-like functionality to Perl. Expect is
@@ -56,11 +57,7 @@ find %{buildroot} -type f -name .packlist -delete
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
 %doc Changes README.md examples/ tutorial/
 %{perl_vendorlib}/Expect.pm
 %{_mandir}/man3/Expect.3*

@@ -1,6 +1,6 @@
 Name:           vfrnav
 Version:        20201231
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        VFR/IFR Navigation
 
 License:        GPLv2+
@@ -479,6 +479,9 @@ fi
 %endif
 
 %changelog
+* Sat Apr 08 2023 Orion Poplawski <orion@nwra.com> - 20201231-39
+- Rebuild with octave 8.1.0
+
 * Tue Jan 24 2023 Adam Williamson <awilliam@redhat.com> - 20201231-38
 - rebuild for new libgps
 

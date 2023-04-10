@@ -2,23 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate bytes-cast-derive
+%global crate concolor-override
 
-Name:           rust-bytes-cast-derive
-Version:        0.2.0
+Name:           rust-concolor-override
+Version:        1.0.0
 Release:        %autorelease
-Summary:        Safely re-interpreting &[u8] bytes as custom structs without copying, for efficiently reading structured binary data
+Summary:        Global override of color control
 
-License:        Zlib OR Apache-2.0 OR MIT
-URL:            https://crates.io/crates/bytes-cast-derive
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/concolor-override
 Source:         %{crates_source}
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Safely re-interpreting &[u8] bytes as custom structs without copying,
-for efficiently reading structured binary data. Procedural macro for
-compile-time soundness checking.}
+Global override of color control.}
 
 %description %{_description}
 
@@ -34,7 +32,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%license %{crate_instdir}/LICENSE-ZLIB
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

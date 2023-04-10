@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        3.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Computer-Aided Control System Design (CACSD) Tools for Octave
 License:        GPLv3+
 URL:            http://octave.sourceforge.net/control/
@@ -61,6 +61,9 @@ done;
 
 
 %changelog
+* Sat Apr 08 2023 Orion Poplawski <orion@nwra.com> - 3.5.0-2
+- Rebuild with octave 8.1.0
+
 * Tue Feb 21 2023 Thomas Sailer <fedora@tsailer.ch> - 3.5.0-1
 - Update to 3.5.0
 

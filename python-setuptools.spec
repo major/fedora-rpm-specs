@@ -19,7 +19,7 @@
 Name:           python-setuptools
 # When updating, update the bundled libraries versions bellow!
 Version:        65.5.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Easily build and distribute Python packages
 # setuptools is MIT
 # appdirs is MIT
@@ -41,6 +41,10 @@ Source0:        %{pypi_source %{srcname} %{version}}
 
 # Some test deps are optional and either not desired or not available in Fedora, thus this patch removes them.
 Patch:          Remove-optional-or-unpackaged-test-deps.patch
+
+# Tests compatibility with wheel 0.40+
+# Merged upstream
+Patch:          https://github.com/pypa/setuptools/pull/3787.patch
 
 BuildArch:      noarch
 
@@ -227,6 +231,9 @@ PYTHONPATH=$(pwd) %pytest \
 
 
 %changelog
+* Tue Mar 28 2023 Miro Hrončok <mhroncok@redhat.com> - 65.5.1-3
+- Fix tests with wheel 0.40
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 65.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

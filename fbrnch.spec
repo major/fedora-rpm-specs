@@ -7,18 +7,20 @@
 %global fedoradists fedora-dists-2.1.1
 %global pagure pagure-0.1.1
 %global pdc pdc-0.1.1
-%global subpkgs %{bodhi} %{coprapi} %{cachedjsonfile} %{pdc} %{fedoradists} %{pagure}
+%global simpleprompt simple-prompt-0.1.0
+%global subpkgs %{bodhi} %{coprapi} %{cachedjsonfile} %{pdc} %{fedoradists} %{pagure} %{simpleprompt}
 
 Name:           fbrnch
-Version:        1.2.1
+Version:        1.3
 # can only be reset when all subpkgs bumped
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Fedora packager tool to build package branches
 
 # bodhi-hs, pdc-hs: MIT
 # copr-api, fedora-dists: GPLv3+
 # fbrnch, pagure-hs: GPLv2+
-License:        GPL-2.0-or-later and MIT and GPL-3.0-or-later
+# simple-prompt: BSD3
+License:        GPL-2.0-or-later and MIT and GPL-3.0-or-later and BSD-3-Clause
 Url:            https://hackage.haskell.org/package/%{name}
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{name}-%{version}/%{name}-%{version}.tar.gz
@@ -28,6 +30,7 @@ Source3:        https://hackage.haskell.org/package/%{coprapi}/%{coprapi}.tar.gz
 Source4:        https://hackage.haskell.org/package/%{fedoradists}/%{fedoradists}.tar.gz
 Source5:        https://hackage.haskell.org/package/%{pagure}/%{pagure}.tar.gz
 Source6:        https://hackage.haskell.org/package/%{pdc}/%{pdc}.tar.gz
+Source7:        https://hackage.haskell.org/package/%{simpleprompt}/%{simpleprompt}.tar.gz
 # End cabal-rpm sources
 
 # Begin cabal-rpm deps:
@@ -58,6 +61,7 @@ BuildRequires:  ghc-rpm-nvr-devel
 BuildRequires:  ghc-rpmbuild-order-devel
 BuildRequires:  ghc-simple-cmd-devel
 BuildRequires:  ghc-simple-cmd-args-devel
+#BuildRequires:  ghc-simple-prompt-devel
 BuildRequires:  ghc-text-devel
 BuildRequires:  ghc-time-devel
 BuildRequires:  ghc-typed-process-devel
@@ -83,6 +87,11 @@ BuildRequires:  ghc-time-prof
 BuildRequires:  ghc-xdg-basedir-devel
 %if %{with ghc_prof}
 BuildRequires:  ghc-xdg-basedir-prof
+%endif
+# for missing dep 'simple-prompt'
+BuildRequires:  ghc-extra-devel
+%if %{with ghc_prof}
+BuildRequires:  ghc-extra-prof
 %endif
 # manpage
 BuildRequires:  help2man
@@ -124,6 +133,7 @@ and many more commands.
 %ghc_lib_subpackage -l GPL-3.0-or-later %{fedoradists}
 %ghc_lib_subpackage -l GPL-2.0-or-later %{pagure}
 %ghc_lib_subpackage -l MIT %{pdc}
+%ghc_lib_subpackage -l BSD-3-Clause %{simpleprompt}
 %endif
 
 %global version %{main_version}
@@ -131,7 +141,7 @@ and many more commands.
 
 %prep
 # Begin cabal-rpm setup:
-%setup -q -a1 -a2 -a3 -a4 -a5 -a6
+%setup -q -a1 -a2 -a3 -a4 -a5 -a6 -a7
 # End cabal-rpm setup
 
 
@@ -165,6 +175,44 @@ install -pm 644 -D %{name}.man %{buildroot}%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Sat Apr  8 2023 Jens Petersen <petersen@redhat.com> - 1.3-10
+- new 'autospec' command converts packages to use rpmautospec
+- new 'move-artifacts' command moves rpmbuild artifacts into dirs (--delete)
+- new 'srpm-spec' command shows or diffs srpm specfiles
+- new 'unpushed' command shows unpushed commits; and --latest option
+- new 'bzusers' command searches users in bugzilla
+- 'build': check for Bodhi update before koji tags
+- 'build': do not repeat header when merging
+- 'build': improve logic and prompt for unpushed check
+- 'bump': add --changelog override and handle autorelease
+- 'copr': intersperse newlines between packages
+- 'diff': --debug option to print package header
+- 'diff': handle missing and non-release branches
+- 'install': add --ignore-builddeps (for existing built rpms)
+- 'install': ignore dead.package's
+- 'install': show dnf commands with sudoLog and cmdN sudo
+- 'merge': --no-fetch option
+- 'mock': add --arch option
+- 'mock': new --shell-only option which skips build
+- 'override': default to ./ when no pkg path given
+- 'parallel': if single layer, don't output layer no
+- 'parallel': improve sidetag update transition messages, now waits 90s
+- 'parallel': output tweaks for more packages/layers and existing nvr
+- 'parallel': prompt whether to continue after failure
+- 'parallel': reverse the package order for update changelog
+- 'parallel': be quieter when many parallel packages
+- 'push': --no-fetch option and also print header
+- 'push': allow specifying a ref
+- 'rename-rawhide': now pulls to get latest
+- 'scratch': add --srpm option to build existing srpm
+- 'status': add pkg/branch prefix before latest log
+- Bugzilla: update checkRepoCreatedComment for fedora-admin automation
+- Copr branchRelease: do not error for EPELNext!
+- buildRPMs: backup the build.log file to build.log.prev
+- buildRPMs: print NVR instead of package name
+- kojiWatchTask: use koji-tool to get build.log tail on failure
+- use simple-prompt
+
 * Wed Jan  4 2023 Jens Petersen <petersen@redhat.com> - 1.2.1-9
 - fedora-packager-kerberos not in epel9
 

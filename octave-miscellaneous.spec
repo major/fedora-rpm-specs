@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        1.3.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Miscellaneous functions for Octave
 License:        GPLv3+
 URL:            https://octave.sourceforge.io/miscellaneous/
@@ -70,6 +70,9 @@ rm -rf %{buildroot}/%{octpkgdir}/test
 %doc %{octpkgdir}/packinfo/COPYING
 
 %changelog
+* Sat Apr 08 2023 Orion Poplawski <orion@nwra.com> - 1.3.0-12
+- Rebuild with octave 8.1.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

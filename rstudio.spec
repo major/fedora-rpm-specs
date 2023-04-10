@@ -46,7 +46,7 @@
 
 Name:           rstudio
 Version:        %{rstudio_version}+%{rstudio_version_suffix}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        RStudio base package
 ExclusiveArch:  %{java_arches}
 
@@ -350,6 +350,9 @@ chown -R %{name}-server:%{name}-server %{_sharedstatedir}/%{name}-server
 %config(noreplace) %{_sysconfdir}/pam.d/%{name}
 
 %changelog
+* Sat Apr 08 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2023.03.0+386-2
+- Fix yarn path
+
 * Fri Mar 17 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2023.03.0+386-1
 - Update to 2023.03.0+386
 

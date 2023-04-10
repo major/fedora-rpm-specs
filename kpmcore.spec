@@ -1,13 +1,13 @@
-%global unstable 0
-%global kf5min 5.90
-%global qtmin 5.15.0
+%global unstable 1
+%global kf5min 5.92
+%global qtmin 5.15.2
 %global sover 12
 
 Name:           kpmcore
 Version:        23.03.90
-Release:        1%{?dist}
+Release:        %autorelease
 Summary:        Library for managing partitions by KDE programs
-License:        GPLv3+
+License:        GPL-3.0-or-later AND MIT AND CC-BY-4.0 AND CC0-1.0
 URL:            https://github.com/KDE/kpmcore
 %if 0%{?unstable}
 Source0:        http://download.kde.org/unstable/release-service/%{version}/src/%{name}-%{version}.tar.xz
@@ -89,19 +89,4 @@ developing applications that use %{name}
 
 
 %changelog
-* Fri Mar 31 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.90-1
-- 23.03.90
-
-* Mon Mar 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.80-1
-- 23.03.80
-
-* Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
-- 22.12.3
-
-* Tue Jan 31 2023 Marc Deop <marcdeop@fedoraproject.org> - 22.12.2-1
-- 22.12.2
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.12.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
 %autochangelog

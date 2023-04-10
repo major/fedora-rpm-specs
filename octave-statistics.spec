@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        1.5.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Additional statistics functions for Octave
 License:        GPLv3+ and Public Domain
 URL:            https://github.com/gnu-octave/%{octpkg}
@@ -61,6 +61,9 @@ chmod a-x %{buildroot}/%{octpkgdir}/*.m
 
 
 %changelog
+* Sat Apr 08 2023 Orion Poplawski <orion@nwra.com> - 1.5.4-2
+- Rebuild with octave 8.1.0
+
 * Mon Mar 20 2023 Orion Poplawski <orion@nwra.com> - 1.5.4-1
 - Update to 1.5.4
 

@@ -11,8 +11,8 @@ colorsys module in the Python standard library):
 * Percentage rgb() triplet}
 
 Name:           python-webcolors
-Version:        1.12
-Release:        4%{?dist}
+Version:        1.13
+Release:        1%{?dist}
 Summary:        A library for working with HTML and CSS color names and value formats
 
 License:        BSD-3-Clause
@@ -60,6 +60,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Sat Apr 08 2023 Dridi Boukelmoune <dridi@fedoraproject.org> - 1.13-1
+- Bumped version to 1.13
+
 * Wed Feb 15 2023 Carl George <carl@george.computer> - 1.12-4
 - Convert to pyproject macros
 

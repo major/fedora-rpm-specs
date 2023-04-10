@@ -56,7 +56,7 @@
 Summary: Connects C/C++/Objective C to some high-level programming languages
 Name:    swig
 Version: 4.1.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPL-3.0-or-later AND BSD-3-Clause
 URL:     http://swig.sourceforge.net/
 Source0: http://downloads.sourceforge.net/project/swig/swig/swig-%{version}/swig-%{version}.tar.gz
@@ -349,6 +349,9 @@ install -pm 644 Tools/swig.gdb %{buildroot}%{_datadir}/%{name}/gdb
 %{_datadir}/%{name}/gdb
 
 %changelog
+* Sat Apr 08 2023 Orion Poplawski <orion@nwra.com> - 4.1.1-6
+- Rebuild with octave 8.1.0
+
 * Thu Mar 16 2023 Orion Poplawski <orion@nwra.com> - 4.1.1-5
 - Add patch to support octave 8.1
 

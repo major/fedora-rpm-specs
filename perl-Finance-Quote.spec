@@ -4,11 +4,12 @@
 
 Name:           perl-Finance-Quote
 Version:        %{RPM_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A Perl module that retrieves stock and mutual fund quotes
 License:        GPL-2.0-or-later
 URL:            https://metacpan.org/release/Finance-Quote
 Source0:        https://cpan.metacpan.org/modules/by-module/Finance/Finance-Quote-%{module_version}.tar.gz
+Patch0:         Finance-Quote-1.54-FTfunds.patch
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
@@ -69,7 +70,7 @@ BuildRequires:  perl(feature)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod::Coverage)
-# Runtime
+# Dependencies
 Requires:       perl(LWP::Protocol::https)
 
 %description
@@ -78,6 +79,10 @@ using various source.
 
 %prep
 %setup -q -n Finance-Quote-%{module_version}
+
+# Tweak regex to fix FTfunds.pm
+# https://github.com/finance-quote/finance-quote/pull/262
+%patch -P 0 -p 1
 
 # Remove redundant exec permissions
 find lib/ -type f -name '*.pm' -exec chmod -c -x {} \;
@@ -155,6 +160,10 @@ make test
 %{_mandir}/man3/Finance::Quote::ZA.3*
 
 %changelog
+* Sat Apr  8 2023 Paul Howarth <paul@city-fan.org> - 1.5400-3
+- Tweak regex to fix FTfunds.pm
+  https://github.com/finance-quote/finance-quote/pull/262
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5400-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

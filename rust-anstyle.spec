@@ -2,23 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate bytes-cast-derive
+%global crate anstyle
 
-Name:           rust-bytes-cast-derive
-Version:        0.2.0
+Name:           rust-anstyle
+Version:        0.3.5
 Release:        %autorelease
-Summary:        Safely re-interpreting &[u8] bytes as custom structs without copying, for efficiently reading structured binary data
+Summary:        ANSI text styling
 
-License:        Zlib OR Apache-2.0 OR MIT
-URL:            https://crates.io/crates/bytes-cast-derive
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/anstyle
 Source:         %{crates_source}
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Safely re-interpreting &[u8] bytes as custom structs without copying,
-for efficiently reading structured binary data. Procedural macro for
-compile-time soundness checking.}
+ANSI text styling.}
 
 %description %{_description}
 
@@ -34,7 +32,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%license %{crate_instdir}/LICENSE-ZLIB
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -48,6 +45,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+std-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+std-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "std" feature of the "%{crate}" crate.
+
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

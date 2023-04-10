@@ -2,19 +2,12 @@
 %define libver 1
 
 Name: dwarves
-Version: 1.24
-Release: 3%{?dist}
+Version: 1.25
+Release: 1%{?dist}
 License: GPLv2
 Summary: Debugging Information Manipulation Tools (pahole & friends)
 URL: http://acmel.wordpress.com
 Source: http://fedorapeople.org/~acme/dwarves/%{name}-%{version}.tar.xz
-Patch0: 0001-pahole-Support-lang-lang_exclude-asm.patch
-Patch1: 0002-btf_encoder-Add-extra-debug-info-for-unsupported-DWA.patch
-Patch2: 0003-btf_encoder-Store-the-CU-being-processed-to-avoid-ch.patch
-Patch3: 0004-core-Add-DW_TAG_unspecified_type-to-tag__is_tag_type.patch
-Patch4: 0005-core-Record-if-a-CU-has-a-DW_TAG_unspecified_type.patch
-Patch5: 0006-btf_encoder-Encode-DW_TAG_unspecified_type-returning.patch
-Patch6: 0007-dwarves-Zero-initialize-struct-cu-in-cu__new-to-prev.patch
 Requires: %{libname}%{libver} = %{version}-%{release}
 BuildRequires: gcc
 BuildRequires: cmake >= 2.8.12
@@ -72,13 +65,6 @@ Debugging information processing library development files.
 
 %prep
 %setup -q
-%patch -P0 -p1
-%patch -P1 -p1
-%patch -P2 -p1
-%patch -P3 -p1
-%patch -P4 -p1
-%patch -P5 -p1
-%patch -P6 -p1
 
 %build
 %cmake -DCMAKE_BUILD_TYPE=Release .
@@ -93,7 +79,7 @@ rm -Rf %{buildroot}
 %files
 %doc README.ctracer
 %doc README.btf
-%doc changes-v1.24
+%doc changes-v1.25
 %doc NEWS
 %{_bindir}/btfdiff
 %{_bindir}/codiff
@@ -145,6 +131,18 @@ rm -Rf %{buildroot}
 %{_libdir}/%{libname}_reorganize.so
 
 %changelog
+* Sat Apr  8 2023 Arnaldo Carvalho de Melo <acme@redhat.com> - 1.25-1
+- New release: v1.25
+- Support for DW_TAG_unspecified_type more generally.
+- Make sure struct member offsets are in ascending order. Rust BTF needs this.
+- Support C atomic types (DW_TAG_atomic_type).
+- Initial support for DW_TAG_LLVM_annotation, used for BTF type tags, for __rcu, __user, etc
+- Exclude functions with the same name (static functions in different CUs), inconsistent prototypes or not following calling convention.
+- Allow generation of BTF for optimized functions, those that end with a .isra*, .constprop*.
+- Support 'pahole --lang=/--lang_exclude=asm'
+- Support --compile from DWARF in addition to from BTF.
+- Exclude RUST CUs in 'btfdiff', as those are not yet being BTF encoded.
+
 * Fri Feb 17 2023 Arnaldo Carvalho de Melo <acme@redhat.com> - 1.24-3
 - Backport the DW_TAG_unspecified_type support while 1.25 gets ready wrt optimized functions support
 

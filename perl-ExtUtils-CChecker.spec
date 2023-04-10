@@ -2,7 +2,7 @@ Name:           perl-ExtUtils-CChecker
 Version:        0.11
 Release:        6%{?dist}
 Summary:        Configure-time utilities for using C headers, libraries, or OS features
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ExtUtils-CChecker
 Source0:        https://cpan.metacpan.org/modules/by-module/ExtUtils/ExtUtils-CChecker-%{version}.tar.gz
 BuildArch:      noarch
@@ -35,7 +35,7 @@ requirements before attempting to actually build the module.
 %setup -qn ExtUtils-CChecker-%{version}
 
 %build
-perl Build.PL installdirs=vendor
+perl Build.PL --installdirs=vendor
 ./Build
 
 %install

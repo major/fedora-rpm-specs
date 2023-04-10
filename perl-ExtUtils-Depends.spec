@@ -2,7 +2,7 @@ Name:           perl-ExtUtils-Depends
 Version:        0.8001
 Release:        7%{?dist}
 Summary:        Easily build XS extensions that depend on XS extensions
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ExtUtils-Depends
 Source0:        https://cpan.metacpan.org/modules/by-module/ExtUtils/ExtUtils-Depends-%{version}.tar.gz
 BuildArch:      noarch
@@ -32,7 +32,7 @@ BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More)
-# Runtime
+# Dependencies
 Requires:       perl(DynaLoader)
 
 %description

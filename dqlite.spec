@@ -1,6 +1,6 @@
 Name:           dqlite
-Version:        1.13.0
-Release:        2%{?dist}
+Version:        1.14.0
+Release:        1%{?dist}
 Summary:        Embeddable, replicated and fault tolerant SQL engine
 
 License:        LGPL-3.0-only WITH LGPL-3.0-linking-exception
@@ -11,7 +11,7 @@ BuildRequires:  autoconf libtool
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(liblz4)
 BuildRequires:  pkgconfig(libuv)
-BuildRequires:  pkgconfig(raft) >= 0.16.0
+BuildRequires:  pkgconfig(raft) >= 0.17.1
 BuildRequires:  pkgconfig(sqlite3)
 
 %description
@@ -53,6 +53,9 @@ rm -f %{buildroot}%{_libdir}/libdqlite.la
 %{_includedir}/%{name}.h
 
 %changelog
+* Sat Apr 08 2023 Reto Gantenbein <reto.gantenbein@linuxmonk.ch> - 1.14.0-1
+- Update to 1.14.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

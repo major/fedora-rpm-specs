@@ -1,8 +1,8 @@
 %global gem_name ruby_version
 
 Name:           rubygem-%{gem_name}
-Version:        1.0.2
-Release:        5%{?dist}
+Version:        1.0.3
+Release:        1%{?dist}
 Summary:        Adds the RubyVersion pseudo-constant
 
 License:        MIT
@@ -62,10 +62,8 @@ popd
 %dir %{gem_instdir}/
 %{gem_libdir}/
 %{gem_spec}
-%exclude %{gem_instdir}/pkg/
 %exclude %{gem_instdir}/.gitignore
 %exclude %{gem_instdir}/.rspec
-%exclude %{gem_instdir}/.travis.yml
 %exclude %{gem_instdir}/spec/
 %exclude %{gem_instdir}/Gemfile
 %exclude %{gem_instdir}/Gemfile.lock
@@ -76,10 +74,13 @@ popd
 %files doc
 %doc %{gem_docdir}/
 %doc %{gem_instdir}/ChangeLog.md
-%doc %{gem_instdir}/README.rdoc
+%doc %{gem_instdir}/README.md
 
 
 %changelog
+* Sat Apr 08 2023 František Dvořák <valtri@civ.zcu.cz> - 1.0.3-1
+- Update to 1.0.3 (#2185255)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 # From src/version.h:#define OCTAVE_API_VERSION
-%global octave_api api-v57
+%global octave_api api-v58
 
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
@@ -36,8 +36,8 @@
 
 Name:           octave
 Epoch:          6
-Version:        7.3.0
-Release:        4%{?dist}
+Version:        8.1.0
+Release:        1%{?dist}
 Summary:        A high-level language for numerical computations
 License:        GPLv3+
 URL:            http://www.octave.org
@@ -50,9 +50,6 @@ Source2:        xorg.conf
 %if !%{builddocs}
 Source3:        octave-%{version}-docs.tar.xz
 %endif
-# Infinite loop with texinfo 7
-# https://savannah.gnu.org/bugs/index.php?63810
-Patch0:         https://hg.savannah.gnu.org/hgweb/octave/raw-rev/ab6d276f6fcb
 # Add needed time.h header
 Patch2:         octave-time.patch
 
@@ -117,7 +114,7 @@ BuildRequires:  mesa-libGL-devel
 BuildRequires:  mesa-libGLU-devel
 BuildRequires:  mesa-libOSMesa-devel
 BuildRequires:  ncurses-devel
-BuildRequires:  pcre-devel
+BuildRequires:  pcre2-devel
 BuildRequires:  portaudio-devel
 BuildRequires:  qhull-devel
 BuildRequires:  qrupdate-devel
@@ -415,9 +412,9 @@ make check
 %{_bindir}/octave*
 %dir %{_libdir}/octave/
 %dir %{_libdir}/octave/%{version}
-%{_libdir}/octave/%{version}/liboctave.so.9*
-%{_libdir}/octave/%{version}/liboctgui.so.8*
-%{_libdir}/octave/%{version}/liboctinterp.so.10*
+%{_libdir}/octave/%{version}/liboctave.so.10*
+%{_libdir}/octave/%{version}/liboctgui.so.9*
+%{_libdir}/octave/%{version}/liboctinterp.so.11*
 %{_libdir}/octave/%{version}/mkoctfile-%{version}
 %{_libdir}/octave/%{version}/oct/
 %{_libdir}/octave/%{version}/octave-config-%{version}
@@ -461,6 +458,10 @@ make check
 %{_pkgdocdir}/refcard*.pdf
 
 %changelog
+* Sat Apr 08 2023 Orion Poplawski <orion@nwra.com> - 6:8.1.0-1
+- Update to 8.1.0
+- Build with pcre2 (bz#2128340)
+
 * Fri Mar 17 2023 Orion Poplawski <orion@nwra.com> - 6:7.3.0-4
 - Add upstream patch to fix doc builds
 
