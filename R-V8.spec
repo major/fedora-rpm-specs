@@ -1,15 +1,16 @@
 %global packname V8
-%global packver  4.2.2
+%global packver  4.3.0
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
-Version:          4.2.2
+Version:          4.3.0
 Release:          %autorelease
 Summary:          Embedded JavaScript and WebAssembly Engine for R
 
 License:          MIT
 URL:              https://CRAN.R-project.org/package=%{packname}
 Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.tar.gz
+Patch:            0001-Use-local-path-for-example-sources.patch
 
 # nodejs does not build on all arches
 ExclusiveArch:    %{nodejs_arches}
@@ -21,11 +22,9 @@ ExclusiveArch:    %{nodejs_arches}
 # LinkingTo:
 # Enhances:
 
-Requires:         js-underscore
 BuildRequires:    R-devel
 BuildRequires:    tex(latex)
 BuildRequires:    v8-devel
-BuildRequires:    web-assets-devel
 BuildRequires:    js-underscore
 BuildRequires:    R-Rcpp-devel >= 0.12.12
 BuildRequires:    R-jsonlite >= 1.0
@@ -46,6 +45,8 @@ An R interface to V8: Google's open source JavaScript and WebAssembly engine.
 
 %prep
 %setup -q -c -n %{packname}
+cd V8
+%autopatch -p1
 
 
 %build
@@ -56,11 +57,6 @@ mkdir -p %{buildroot}%{rlibdir}
 %{_bindir}/R CMD INSTALL -l %{buildroot}%{rlibdir} %{packname}
 test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)
 rm -f %{buildroot}%{rlibdir}/R.css
-
-# Replace bundled copy with symlink to packaged version (note that this cannot
-# be done in prep because R CMD INSTALL copies symlink targets.)
-ln -sf %{_jsdir}/underscore/underscore-min.js \
-    %{buildroot}%{rlibdir}/%{packname}/js/underscore.js
 
 
 %check

@@ -3,10 +3,10 @@
 
 Name:           python-%{srcname}
 Version:        1.0.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A heap with decrease-key and increase-key operations
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://pypi.python.org/pypi/%{srcname}
 Source0:        %pypi_source %{pkgname}
 
@@ -59,6 +59,9 @@ BuildRequires:  python3-test
 
 
 %changelog
+* Sat Apr 08 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.0.1-13
+- Switch to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

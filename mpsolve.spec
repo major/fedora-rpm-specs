@@ -25,7 +25,7 @@ fi \
 
 Name:           mpsolve
 Version:        3.2.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Multiprecision polynomial solver
 
 License:        GPL-3.0-or-later
@@ -283,6 +283,9 @@ make check
 %doc %{octpkgdir}/doc-cache
 
 %changelog
+* Sun Apr 09 2023 Orion Poplawski <orion@nwra.com> - 3.2.1-16
+- Rebuild for octave 8.1.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

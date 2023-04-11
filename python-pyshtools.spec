@@ -11,7 +11,7 @@ Version:        4.10.1
 Release:        %autorelease
 Summary:        Tools for working with spherical harmonics
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://shtools.github.io/SHTOOLS/
 Source0:        %pypi_source
 # https://github.com/numpy/numpy/issues/20941

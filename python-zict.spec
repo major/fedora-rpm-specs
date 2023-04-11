@@ -5,7 +5,7 @@ Version:        2.2.0
 Release:        %autorelease
 Summary:        Mutable mapping tools
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://pypi.python.org/pypi/%{srcname}
 Source0:        %pypi_source
 

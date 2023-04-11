@@ -1,12 +1,12 @@
 %global octpkg dicom
 
 Name:           octave-%{octpkg}
-Version:        0.4.1
+Version:        0.5.1
 Release:        %autorelease
 Summary:        Dicom processing for Octave
-License:        GPLv3+
-URL:            http://octave.sourceforge.net/dicom/
-Source0:        http://downloads.sourceforge.net/octave/%{octpkg}-%{version}.tar.gz
+License:        GPL-3.0-or-later
+URL:            https://gnu-octave.github.io/packages/dicom/
+Source0:        https://downloads.sourceforge.net/project/octave/Octave%20Forge%20Packages/Individual%20Package%20Releases/%{octpkg}-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -25,9 +25,6 @@ Digital communications in medicine (DICOM) files.
 %prep
 %autosetup -n %{octpkg}-%{version}
 
-# Remove unneeded file that depends on python2
-rm -f doc/mkfuncdocs.py
-
 %build
 # Tell it where gdcm headers are
 export GDCM_CXXFLAGS="-I%{_includedir}/gdcm/"
@@ -35,6 +32,8 @@ export GDCM_CXXFLAGS="-I%{_includedir}/gdcm/"
 
 %install
 %octave_pkg_install
+# Remove unneeded files that depends on python
+rm %{buildroot}%{octpkgdir}/doc/mk*.py
 
 %check
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
@@ -54,3 +53,4 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_metainfodir}/%{name}.metainfo.xml
 
 %changelog
+%autochangelog

@@ -2,10 +2,10 @@
 
 Name:           python-%{srcname}
 Version:        1.2.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Web Mercator XYZ tile utilities
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/mapbox/mercantile
 Source0:        %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
@@ -63,6 +63,9 @@ rm -rf html/.{buildinfo,doctrees}
 %{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Sat Apr 08 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.2.1-8
+- Switch to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,9 +1,10 @@
 Name:           glava
 Version:        1.6.3
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        OpenGL audio spectrum visualizer
 
-License:        GPLv3 and MIT
+# See license note in README.md
+License:        GPL-3.0-only and MIT
 URL:            https://github.com/jarcode-foss/glava
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Fedora-specific
@@ -58,6 +59,9 @@ make PYTHON=%{python3} glad
 
 
 %changelog
+* Sun Apr 09 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.6.3-13
+- Switch to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

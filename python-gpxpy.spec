@@ -5,7 +5,7 @@ Version:        1.5.0
 Release:        %autorelease
 Summary:        GPX file parser and GPS track manipulation library
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/tkrajina/gpxpy
 Source0:        %pypi_source
 # https://github.com/tkrajina/gpxpy/pull/241

@@ -4,10 +4,10 @@
 
 Name:           python-%{srcname}
 Version:        1.0.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        A test runner that outputs newline delimited JSON results
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://github.com/flying-sheep/ndjson-testrunner
 Source0:        https://files.pythonhosted.org/packages/source/n/%{srcname}/%{srcname}-%{version}.tar.gz
 # https://github.com/flying-sheep/ndjson-testrunner/pull/1
@@ -60,6 +60,9 @@ PYTHONPATH="%{buildroot}%{python3_sitelib}" \
 %{python3_sitelib}/%{srcname_}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Apr 07 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.0.0-19
+- Switch to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

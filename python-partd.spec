@@ -5,7 +5,7 @@ Version:        1.3.0
 Release:        %autorelease
 Summary:        Appendable key-value storage
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/dask/partd
 Source0:        %pypi_source %{srcname}
 

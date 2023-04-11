@@ -2,12 +2,13 @@
 
 Name:           cawbird
 Version:        1.4.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Fork of the Corebird GTK Twitter client that continues to work with Twitter
 
 License:        GPLv3+
 URL:            https://github.com/IBBoard/cawbird
 Source0:        %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Patch0: cawbird-c99.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  intltool
@@ -73,6 +74,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Sun Apr 09 2023 Florian Weimer <fweimer@redhat.com> - 1.4.2-6
+- Port to C99 (#2185474)
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

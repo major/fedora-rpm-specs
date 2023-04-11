@@ -2,10 +2,10 @@
 
 Name:           python-%{srcname}
 Version:        0.3.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Various image processing algorithms
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://gitlab.gnome.org/World/OpenPaperwork/libpillowfight
 # PyPI tarball does not include tests.
 #Source0:        https://files.pythonhosted.org/packages/source/p/%%{srcname}/%%{srcname}-%%{version}.tar.gz
@@ -71,6 +71,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} \
 
 
 %changelog
+* Sat Apr 08 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.3.0-14
+- Switch to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

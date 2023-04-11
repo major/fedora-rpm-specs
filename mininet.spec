@@ -4,10 +4,10 @@
 
 Name:           mininet
 Version:        2.3.1~b1%{?snapdate:^git%{snapdate}.%{shortcommit}}
-Release:        3%{?dist}
+Release:        %autorelease
 Summary:        Emulator for rapid prototyping of Software Defined Networks
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{name}/%{name}
 %if 0%{?snapdate}
 Source0:        %{url}/archive/%{commit}/%{name}-%{commit}.tar.gz
@@ -75,12 +75,4 @@ install -D -t %{buildroot}%{_mandir}/man1 mn.1 mnexec.1
 %{_mandir}/man1/mnexec.1*
 
 
-%changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1~b1^git20220711.3f5503d-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1~b1^git20220711.3f5503d-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jul 11 2022 Iñaki Úcar <iucar@fedoraproject.org> - 2.3.1~b1^git20220711.3f5503d-1
-- Initial packaging for Fedora
+%autochangelog

@@ -1,8 +1,8 @@
 Name:           cctz
 Version:        2.3
 %global sover   2
-Release:        10%{?dist}
-License:        ASL 2.0
+Release:        11%{?dist}
+License:        Apache-2.0
 Summary:        Translating between absolute and civil times using time zone rules
 Url:            https://github.com/google/cctz
 Source0:        https://github.com/google/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -73,6 +73,9 @@ Development files for %{name} library.
 
 
 %changelog
+* Sun Apr 09 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 2.3-11
+- Switch to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

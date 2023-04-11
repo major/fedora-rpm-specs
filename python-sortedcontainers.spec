@@ -2,10 +2,10 @@
 
 Name:           python-%{srcname}
 Version:        2.4.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Pure Python sorted container types
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://pypi.python.org/pypi/%{srcname}
 # PyPI tarball does not include docs or tests.
 Source0:        https://github.com/grantjenks/python-sortedcontainers/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -95,6 +95,9 @@ popd
 
 
 %changelog
+* Sat Apr 08 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 2.4.0-10
+- Switch to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

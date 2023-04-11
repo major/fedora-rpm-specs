@@ -5,7 +5,7 @@ Version:        2023.2.0
 Release:        %autorelease
 Summary:        Source of XYZ tiles providers
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/geopandas/xyzservices
 Source0:        %{pypi_source}
 

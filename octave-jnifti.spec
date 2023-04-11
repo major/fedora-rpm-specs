@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        0.5
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Fast NIfTI-1/2 reader and NIfTI-to-JNIfTI converter for MATLAB/Octave
 License:        GPLv3+ or ASL 2.0
 URL:            https://github.com/fangq/jnifti
@@ -114,6 +114,9 @@ mv *.m inst/
 %doc samples
 
 %changelog
+* Sun Apr 09 2023 Orion Poplawski <orion@nwra.com> - 0.5-10
+- Rebuild for octave 8.1.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -5,8 +5,8 @@ Version:        0.1.36
 Release:        %autorelease
 Summary:        Multi-Language GL/GLES/EGL/GLX/WGL Loader-Generator
 
-# Mostly MIT, ASL 2.0 for Khronos and EGL specifications/headers.
-License:        MIT and ASL 2.0
+# Mostly MIT, Apache-2.0 for Khronos and EGL specifications/headers.
+License:        MIT and Apache-2.0
 URL:            https://github.com/Dav1dde/glad
 Source0:        %pypi_source
 BuildArch:      noarch

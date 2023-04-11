@@ -7,7 +7,7 @@ Version:        1.0.7
 Release:        %autorelease
 Summary:        Python library for calculating contours in 2D quadrilateral grids
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://contourpy.readthedocs.io/
 Source0:        %pypi_source %{srcname}
 

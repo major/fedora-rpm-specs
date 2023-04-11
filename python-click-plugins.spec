@@ -3,13 +3,13 @@
 
 Name:           python-%{srcname}
 Version:        1.1.1
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Click extension to register CLI commands via setuptools
 %global _description \
 An extension module for click to register external CLI commands via setuptools \
 entry-points.
 
-License:        MIT
+License:        BSD-3-Clause
 URL:            https://pypi.python.org/pypi/%{srcname}
 Source0:        %pypi_source
 
@@ -55,6 +55,9 @@ export LANG=C.UTF-8
 
 
 %changelog
+* Sat Apr 08 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.1.1-15
+- Switch to SPDX with corrected license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

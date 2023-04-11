@@ -13,7 +13,7 @@
 Name:    plasma-discover
 Summary: KDE and Plasma resources management GUI
 Version: 5.27.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 License: GPLv2 or GPLv3
@@ -32,6 +32,7 @@ Source0: http://download.kde.org/%{stable}/plasma/%{verdir}/%{base_name}-%{versi
 Source10: discoverrc
 
 ## upstream patches
+Patch100: fwupd-user-agent-and-redirects.patch
 
 ## downstream patches
 # workaround PK metadata refresh issues (always force refresh)
@@ -307,6 +308,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.di
 
 
 %changelog
+* Sun Apr 09 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.4-2
+- Backport patch to fix fwupd updates
+
 * Tue Apr 04 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.4-1
 - 5.27.4
 

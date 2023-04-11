@@ -5,7 +5,7 @@ Version:        0.8.2
 Release:        %autorelease
 Summary:        Python wrapper for OCR engines (Tesseract, Cuneiform, etc)
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://gitlab.gnome.org/World/OpenPaperwork/pyocr
 Source0:        %pypi_source
 

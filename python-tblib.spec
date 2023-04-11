@@ -2,10 +2,10 @@
 
 Name:           python-%{srcname}
 Version:        1.7.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Traceback serialization library
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://pypi.python.org/pypi/%{srcname}
 Source0:        %pypi_source
 
@@ -68,6 +68,9 @@ PYTHONPATH="%{buildroot}%{python3_sitelib}:tests" \
 
 
 %changelog
+* Sat Apr 08 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.7.0-7
+- Switch to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

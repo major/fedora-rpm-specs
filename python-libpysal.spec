@@ -6,7 +6,7 @@ Version:        4.7.0
 Release:        %autorelease
 Summary:        Python Spatial Analysis Library core components
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://pysal.org
 # PyPI source doesn't include test data or docs.
 Source0:        https://github.com/pysal/libpysal/archive/%{tag}/%{srcname}-%{version}.tar.gz

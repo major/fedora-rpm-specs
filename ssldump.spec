@@ -1,6 +1,6 @@
 Summary:        SSL/TLS network protocol analyzer
 Name:           ssldump
-Version:        1.6
+Version:        1.7
 Release:        1%{?dist}
 # pcap/{attrib.h,{logpkt,sys}.[ch]} are BSD-2-Clause, rest is BSD-4-Clause
 License:        BSD-4-Clause AND BSD-2-Clause
@@ -53,6 +53,9 @@ export LDFLAGS="$RPM_LD_FLAGS $(pkg-config --libs-only-L openssl11)"
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sun Apr 09 2023 Robert Scheck <robert@fedoraproject.org> 1.7-1
+- Upgrade to 1.7 (#2185446)
+
 * Sat Feb 04 2023 Robert Scheck <robert@fedoraproject.org> 1.6-1
 - Upgrade to 1.6 (#2166994)
 

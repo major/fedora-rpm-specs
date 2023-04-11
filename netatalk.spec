@@ -43,7 +43,7 @@
 Name:              netatalk
 Epoch:             5
 Version:           3.1.14
-Release:           3%{?dist}
+Release:           4%{?dist}
 Summary:           Open Source Apple Filing Protocol(AFP) File Server
 License:           GPL+ and GPLv2 and GPLv2+ and LGPLv2+ and BSD and FSFUL and MIT
 # Project is also mirrored at https://github.com/Netatalk/Netatalk
@@ -62,6 +62,8 @@ Patch0:            netatalk-3.0.1-basedir.patch
 Patch1:            netatalk-systemd-execstartpre.patch
 Patch2:            netatalk-Spotlight-Allow-building-with-Tracker-3.x.patch
 Patch3:            netatalk-cve-2022-45188.patch
+Patch4:            netatalk-configure-c99.patch
+Patch5:            netatalk-c99.patch
 
 BuildRequires:     make
 BuildRequires:     automake
@@ -233,6 +235,9 @@ sh test/afpd/test.sh
 %{_mandir}/man*/netatalk-config.1*
 
 %changelog
+* Sun Apr  9 2023 Florian Weimer <fweimer@redhat.com> - 5:3.1.14-4
+- C99 compatibility fixes
+
 * Mon Apr 03 2023 Andrew Bauer <zonexpertconsulting@outlook.com> - 5:3.1.14-3
 - fix CVE-2022-45188
 

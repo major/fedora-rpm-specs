@@ -4,10 +4,10 @@
 
 Name:           python-%{srcname}
 Version:        0.4.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Python Fast Noise with SIMD
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            http://github.com/robbmcleod/pyfastnoisesimd
 Source0:        https://files.pythonhosted.org/packages/source/p/%{srcname}/%{srcname}-%{version}.tar.gz
 # https://github.com/Auburns/FastNoiseSIMD/commit/32873404111701397781fe9ef21931fed4f7f766
@@ -84,6 +84,9 @@ popd
 
 
 %changelog
+* Sat Apr 08 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.4.2-8
+- Switch to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

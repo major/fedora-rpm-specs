@@ -1,6 +1,6 @@
 Name:           vorta
-Version:        0.8.10
-Release:        2%{?dist}
+Version:        0.8.11
+Release:        1%{?dist}
 Summary:        A GUI for Borg Backup
 License:        GPL-3.0-only AND BSD-2-Clause AND OFL-1.1
 # src/vorta/qt_single_application.py if BSD-2-Clause
@@ -62,6 +62,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Sun Apr 09 2023 Jonathan Wright <jonathan@almalinux.org> - 0.8.11-1
+- Update to 0.8.11 rhbz#2185461
+
 * Mon Jan 23 2023 Jonathan Wright <jonathan@almalinux.org> - 0.8.10-2
 - Add requires qt5-qtsvg rhbz#2162072
 

@@ -1,11 +1,11 @@
 %global __remake_config 0
 
 Name:           libfabric
-Version:        1.17.1
+Version:        1.18.0
 Release:        1%{?dist}
 Summary:        Open Fabric Interfaces
 
-License:        BSD or GPLv2
+License:        BSD-2-Clause OR GPL-2.0-only
 URL:            https://github.com/ofiwg/libfabric
 Source0:        https://github.com/ofiwg/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.bz2
 
@@ -94,6 +94,10 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Sun Apr 09 2023 Orion Poplawski <orion@nwra.com> - 1.18.0-1
+- Update to 1.18.0
+- Use SPDX License tag
+
 * Sun Mar 05 2023 Orion Poplawski <orion@nwra.com> - 1.17.1-1
 - Update to 1.17.1
 

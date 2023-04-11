@@ -15,7 +15,7 @@
 
 Name:          postgis
 Version:       3.3.2
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       Geographic Information Systems Extensions to PostgreSQL
 License:       GPLv2+
 
@@ -26,6 +26,8 @@ Source3:       http://download.osgeo.org/%{name}/source/%{name}-%{prevversion}.t
 
 # Add proj8 compatibility to postgis-2.x (needed for upgrade package)
 Patch1:        postgis2-proj8.patch
+Patch2:	       postgis-c99.patch
+Patch3:	       postgis-c99-2.patch
 
 %ifnarch armv7hl
 BuildRequires: SFCGAL-devel
@@ -154,9 +156,12 @@ tar xf %{SOURCE0}
 
 cd %{name}-%{prevversion}
 %patch1 -p1
+%patch -P 2 -p2
+%patch -P 3 -p1
 ./autogen.sh
 )
 %endif
+%patch -P 3 -p1
 cp -p %{SOURCE2} .
 
 
@@ -404,6 +409,9 @@ fi
 
 
 %changelog
+* Sun Apr 09 2023 Florian Weimer <fweimer@redhat.com> - 3.3.2-4
+- C99 compatibility fixes
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

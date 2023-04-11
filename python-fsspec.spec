@@ -2,21 +2,19 @@
 #     fsspec -> distributed -> dask -> fsspec
 #     fsspec -> gcsfs -> fsspec
 #     fsspec -> zarr -> fsspec
-%bcond_without bootstrap
+%bcond_with bootstrap
 
 %global srcname fsspec
 
 Name:           python-%{srcname}
-Version:        2023.3.0
-%global tag     2023.3.0
+Version:        2023.4.0
+%global tag     2023.4.0
 Release:        %autorelease
 Summary:        Specification for Pythonic file system interfaces
 
 License:        BSD-3-Clause
 URL:            https://github.com/fsspec/filesystem_spec
 Source0:        %{url}/archive/%{tag}/%{srcname}-%{tag}.tar.gz
-# https://github.com/fsspec/filesystem_spec/issues/1161
-Patch:          0001-Fix-path-test-in-git-archive-paths.patch
 
 BuildArch:      noarch
 
@@ -27,7 +25,7 @@ BuildRequires:  python3dist(pytest-mock)
 BuildRequires:  python3dist(pytest-vcr)
 BuildRequires:  python3dist(cloudpickle)
 %if %{without bootstrap}
-BuildRequires:  python3dist(distributed)
+#BuildRequires:  python3dist(distributed) -- not yet available in Fedora
 BuildRequires:  python3dist(zarr)
 %endif
 BuildRequires:  python3dist(jinja2)

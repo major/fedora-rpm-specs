@@ -5,7 +5,7 @@ Version:        1.2.1
 Release:        %autorelease
 Summary:        C++ headers for C extension development
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/nucleic/cppy
 Source0:        %pypi_source
 

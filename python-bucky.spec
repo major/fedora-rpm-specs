@@ -1,12 +1,17 @@
+%global forgeurl        https://github.com/trbs/bucky
+%global commit          cda507241c8898c3a1926cae18371bce84be6d2c
+%global forgesetupargs  -n bucky-%{commit}
+
 Name:           python-bucky
-Version:        2.3.0
-Release:        18%{?dist}
+Version:        2.3.1
+Release:        %autorelease -p
 Summary:        CollectD and StatsD adapter for Graphite
+%forgemeta
 
 License:        ASL 2.0
-URL:            http://pypi.python.org/pypi/bucky
+URL:            %{forgeurl}
 
-Source0:        https://files.pythonhosted.org/packages/source/b/bucky/bucky-%{version}.tar.gz
+Source0:        %{forgesource}
 Source1:        python-bucky-example.conf
 Source2:        python-bucky-supervisord-example.conf
 
@@ -29,13 +34,13 @@ Requires:       python3-six
 Requires:       python3-setuptools
 Requires:       python3-watchdog
 Requires:       python3-setproctitle
-Requires:       python3-crypto
+Requires:       python3-cryptography
 %{?python_provide:%python_provide python3-bucky}
 
 %description -n python3-bucky %_description
 
 %prep
-%setup -q -n bucky-%{version}
+%forgeautosetup
 %{__install} -m 644 %{SOURCE2} .
 
 
@@ -80,6 +85,10 @@ fi
 
 
 %changelog
+* Sun Apr 09 2023 Jonathan Steffan <jsteffan@fedoraproject.org> - 2.3.1-0.1.20230409gitcda5072
+- Update BuildRequires to python3-cryptography (RHBZ#2061786)
+- Update to 2.3.1 prerelease with support for python3-cryptography
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

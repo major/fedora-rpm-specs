@@ -2,8 +2,8 @@
 %global uuid        org.cvfosammmm.Setzer
 
 Name:           setzer
-Version:        0.4.8
-Release:        2%{?dist}
+Version:        55
+Release:        1%{?dist}
 Summary:        LaTeX editor written in Python with Gtk
 
 %forgemeta
@@ -22,24 +22,23 @@ BuildRequires:  python3-devel
 
 BuildRequires:  gtk3-devel
 BuildRequires:  gtksourceview4-devel
+BuildRequires:  libhandy-devel
 BuildRequires:  gspell-devel
 BuildRequires:  poppler-glib-devel
 BuildRequires:  python3-cairo
-BuildRequires:  python3-pdfminer
-BuildRequires:  python3-pyxdg
 BuildRequires:  python3-gobject-devel
-BuildRequires:  webkit2gtk3
+BuildRequires:  python3-pexpect
+BuildRequires:  webkit2gtk4.1
 Requires:       gtk3
 Requires:       gtksourceview4
+Requires:       libhandy
 Requires:       gspell
 Requires:       hicolor-icon-theme
 Requires:       poppler-glib
 Requires:       python3-cairo
-Requires:       python3-pdfminer
-Requires:       python3-pyxdg
 Requires:       python3-gobject
-Requires:       webkit2gtk3
-Requires:       xdg-utils
+Requires:       python3-pexpect
+Requires:       webkit2gtk4.1
 
 Requires:       texlive
 Requires:       texlive-synctex
@@ -94,6 +93,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{uuid}.desktop
 
 
 %changelog
+* Sun Apr 09 2023 Lyes Saadi <fedora@lyes.eu> - 55-1
+- Updating to 55 (fix #2177312)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

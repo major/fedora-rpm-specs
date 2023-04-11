@@ -5,7 +5,7 @@ Version:        1.3.6
 Release:        %autorelease
 Summary:        Fast and direct raster I/O for use with Numpy and SciPy
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/rasterio/rasterio
 # PyPI tarball doesn't include test data.
 Source0:        https://github.com/rasterio/rasterio/archive/%{version}/%{srcname}-%{version}.tar.gz

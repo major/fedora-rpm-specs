@@ -3,7 +3,7 @@
 
 Name:           apache-commons-exec
 Version:        1.3
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Java library to reliably execute external processes from within the JVM
 License:        ASL 2.0
 URL:            http://commons.apache.org/exec/
@@ -46,15 +46,18 @@ done
 # http://commons.apache.org/exec/faq.html#environment-testing)
 chmod a+x src/test/scripts/*.sh
 
-# Skip Exec57Test (it is unstable), see rhbz#1202260
-find -name Exec57Test.java -delete
 
 %mvn_file :%{short_name} %{short_name} %{name}
 
 
 %build
-%mvn_build -- -Dcommons.osgi.symbolicName=org.apache.commons.exec -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
-
+# - Skip Exec57Test (it is unstable), see RHBZ #1202260
+# - Skip Exec34Test/Exec41Test/Exec60Test ("socket: Operation not permitted" on Koji)
+%mvn_build -- \
+  -Dcommons.osgi.symbolicName=org.apache.commons.exec \
+  -Dmaven.compiler.source=1.8 \
+  -Dmaven.compiler.target=1.8 \
+  -Dtest=\!org.apache.commons.exec.issues.Exec34Test,\!org.apache.commons.exec.issues.Exec41Test,\!org.apache.commons.exec.issues.Exec57Test,\!org.apache.commons.exec.issues.Exec60Test
 
 %install
 %mvn_install
@@ -70,6 +73,9 @@ find -name Exec57Test.java -delete
 
 
 %changelog
+* Sun Apr 09 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 1.3-26
+- Fix RHBZ #2171437 (FTBFS)
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

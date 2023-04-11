@@ -7,7 +7,7 @@ Version:        1.6.6
 Release:        %autorelease
 Summary:        MinGW compiled library for JavaScript Object Notation format
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://wiki.gnome.org/Projects/JsonGlib
 Source0:        https://download.gnome.org/sources/%{pkgname}/1.6/%{pkgname}-%{version}.tar.xz
 

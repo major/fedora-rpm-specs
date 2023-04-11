@@ -10,8 +10,8 @@ Version:        0.5.1
 Release:        %autorelease
 Summary:        Airspeed Velocity: A simple Python history benchmarking tool
 
-# Mostly BSD; MIT for extern & www/vendor/*.{css,js}
-License:        BSD and MIT
+# Mostly BSD-3-Clause; MIT for extern & www/vendor/*.{css,js}
+License:        BSD-3-Clause and MIT
 URL:            https://github.com/airspeed-velocity/asv
 Source0:        %{pypi_source}
 # Not needed upstream.

@@ -10,6 +10,7 @@ Summary:        Low-Level R to Java Interface
 License:        LGPL-2.1-only
 URL:            https://cran.r-project.org/package=%{packname}
 Source0:        %{url}&version=%{packvers}#/%{packname}_%{packvers}.tar.gz
+Patch0:         R-rJava-configure-c99.patch
 
 BuildRequires:  R-devel >= 3.6.0
 Recommends:     %{name}-javadoc = %{version}-%{release}
@@ -29,6 +30,7 @@ Javadoc for %{name}
 
 %prep
 %setup -q -c -n %{packname}
+%patch -P 0 -p1
 rm %{packname}/inst/jri/*.jar
 
 %build

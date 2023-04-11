@@ -1,12 +1,14 @@
 %global octpkg parallel
 
 Name:           octave-%{octpkg}
-Version:        4.0.0
-Release:        8%{?dist}
+Version:        4.0.1
+Release:        1%{?dist}
 Summary:        Parallel execution package for cluster computers for Octave
 License:        GPLv3+
 URL:            https://octave.sourceforge.io/parallel/
 Source0:        https://downloads.sourceforge.net/octave/%{octpkg}-%{version}.tar.gz
+# Fix build with octave 8.1 - https://savannah.gnu.org/bugs/?63922
+Patch0:         octave-parallel-octave8.1.patch
 
 BuildRequires:  octave-devel
 BuildRequires:  gnutls-devel
@@ -26,7 +28,10 @@ Parallel execution package for cluster computers.
 
 %prep
 #setup -qcT
-%setup -q -n %{octpkg}-%{version}
+%autosetup -p1 -n %{octpkg}-%{version}
+cd src
+# For patch of configure.ac
+./bootstrap
 
 %build
 export CXXFLAGS="%{optflags}"
@@ -67,6 +72,10 @@ rm -rf  %{buildroot}/%{octpkgdir}/doc
 %{octpkgdir}/bin/octave-pserver
 
 %changelog
+* Sat Apr 08 2023 Orion Poplawski <orion@nwra.com> - 4.0.1-1
+- Update to 4.0.1
+- Add patch to build with octave 8.1.0
+
 * Sat Apr 08 2023 Orion Poplawski <orion@nwra.com> - 4.0.0-8
 - Rebuild with octave 8.1.0
 

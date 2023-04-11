@@ -5,7 +5,7 @@ Version:        22.3.5
 Release:        %autorelease
 Summary:        ISO country, subdivision, language, currency and script definitions and their translations
 
-License:        LGPLv2
+License:        LGPL-2.1-only
 URL:            https://github.com/flyingcircusio/pycountry
 Source0:        %pypi_source
 # Rebased from Debian:

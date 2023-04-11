@@ -8,7 +8,7 @@ Version:        1.3.0
 Release:        %autorelease
 Summary:        Context geo-tiles in Python
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/geopandas/contextily
 Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 

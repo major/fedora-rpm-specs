@@ -3,10 +3,10 @@
 
 Name:           python-%{srcname}
 Version:        2.0.1
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Python XMP Toolkit for working with metadata
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/python-xmp-toolkit/python-xmp-toolkit
 Source0:        %{pypi_source %{pypi_name}}
 # https://github.com/python-xmp-toolkit/python-xmp-toolkit/pull/68
@@ -87,6 +87,9 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %changelog
+* Sat Apr 08 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 2.0.1-18
+- Switch to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

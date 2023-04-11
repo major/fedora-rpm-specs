@@ -213,7 +213,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        3%{?rc_version:.%rc_version}%{?dist}
+Release:        4%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -469,7 +469,7 @@ Requires: policycoreutils >= 2.1.12-5
 Requires: tar
 Requires(pre): certmonger >= %{certmonger_version}
 Requires(pre): 389-ds-base >= %{ds_version}
-Requires: fontawesome-fonts
+Requires: font(fontawesome)
 Requires: open-sans-fonts
 %if 0%{?fedora} >= 32 || 0%{?rhel} >= 9
 # https://pagure.io/freeipa/issue/8632
@@ -1741,6 +1741,9 @@ fi
 %endif
 
 %changelog
+* Thu Mar 30 2023 Jerry James <loganjerry@gmail.com> - 4.10.1-4
+- Change fontawesome-fonts R to match fontawesome 4.x
+
 * Fri Jan 20 2023 Alexander Bokovoy <abokovoy@redhat.com> - 4.10.1-3
 - Rebuild against Samba 4.18.0RC1
 
