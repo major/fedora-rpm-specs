@@ -1,6 +1,6 @@
 Name:           shotwell
-Version:        0.31.7
-Release:        4%{?dist}
+Version:        0.31.90
+Release:        1%{?dist}
 Summary:        A photo organizer for the GNOME desktop
 
 # LGPLv2+ for the code
@@ -8,8 +8,6 @@ Summary:        A photo organizer for the GNOME desktop
 License:        LGPL-2.1-or-later AND CC-BY-SA-3.0
 URL:            https://wiki.gnome.org/Apps/Shotwell
 Source0:        https://download.gnome.org/sources/shotwell/0.31/shotwell-%{version}.tar.xz
-# https://gitlab.gnome.org/GNOME/shotwell/-/merge_requests/69
-Patch0:         shotwell-0.31.7-gphoto-vala-fix.patch
 
 BuildRequires:  vala
 BuildRequires:  desktop-file-utils
@@ -109,11 +107,14 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Shotwell-Vi
 %{_datadir}/glib-2.0/schemas/*.xml
 %{_datadir}/icons/hicolor/*/apps/org.gnome.Shotwell.png
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.Shotwell-symbolic.svg
-%{_datadir}/metainfo/org.gnome.Shotwell.appdata.xml
+%{_metainfodir}/org.gnome.Shotwell.appdata.xml
 %{_mandir}/man1/*
 
 
 %changelog
+* Mon Apr 10 2023 David King <amigadave@amigadave.com> - 0.31.90-1
+- Update to 0.31.90
+
 * Mon Mar 13 2023 David King <amigadave@amigadave.com> - 0.31.7-4
 - Fix build with latest Vala
 

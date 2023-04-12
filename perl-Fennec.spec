@@ -2,7 +2,7 @@ Name:		perl-Fennec
 Version:	2.018
 Release:	16%{?dist}
 Summary:	A tester's toolbox, and best friend
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Fennec
 Source0:	http://cpan.metacpan.org/authors/id/E/EX/EXODIST/Fennec-%{version}.tar.gz
 BuildArch:	noarch
@@ -36,7 +36,7 @@ BuildRequires:	perl(warnings)
 BuildRequires:	perl(Data::Dumper)
 BuildRequires:	perl(lib)
 BuildRequires:	perl(Test::Pod) >= 1.00
-# Runtime
+# Dependencies
 Requires:	perl(Child) >= 0.010
 Requires:	perl(Mock::Quick) >= 1.106
 Requires:	perl(Test::Exception) >= 0.29

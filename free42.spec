@@ -1,7 +1,7 @@
 Name:           free42
 URL:            http://www.thomasokken.com/free42/
 Epoch:          1
-Version:        3.0.18
+Version:        3.0.19
 Release:        %autorelease
 License:        GPL-2.0-only AND BSD-3-Clause
 Summary:        42S Calculator Simulator

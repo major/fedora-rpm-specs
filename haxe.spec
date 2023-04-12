@@ -3,8 +3,8 @@
 %global commit_hx3compat f1f18201e5c0479cb5adf5f6028788b37f37b730
 
 Name:           haxe
-Version:        4.2.5
-Release:        5%{?dist}
+Version:        4.3.0
+Release:        1%{?dist}
 Summary:        Multi-target universal programming language
 
 # As described in https://haxe.org/foundation/open-source.html:
@@ -38,7 +38,7 @@ BuildRequires:  ocaml-ptmap-devel
 BuildRequires:  ocaml-sha-devel
 BuildRequires:  ocaml-luv-devel
 BuildRequires:  zlib-devel
-BuildRequires:  pcre-devel
+BuildRequires:  pcre2-devel
 BuildRequires:  pkgconfig(libuv)
 BuildRequires:  mbedtls-devel
 BuildRequires:  cmake
@@ -111,6 +111,9 @@ popd
 %{_datadir}/%{name}/
 
 %changelog
+* Mon Apr 10 2023 Andy Li <andy@onthewings.net> - 4.3.0-1
+- New upstream version 4.3.0. (RHBZ#2185083, RHBZ#2128307)
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 4.2.5-5
 - Rebuild OCaml packages for F38
 

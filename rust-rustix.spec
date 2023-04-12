@@ -5,7 +5,7 @@
 %global crate rustix
 
 Name:           rust-rustix
-Version:        0.36.11
+Version:        0.37.11
 Release:        %autorelease
 Summary:        Safe Rust bindings to POSIX/Unix/Linux/Winsock2-like syscalls
 
@@ -19,7 +19,7 @@ Patch:          rustix-fix-metadata-auto.diff
 # * make cc build-dependency non-optional
 Patch:          rustix-fix-metadata.diff
 # * unconditionally rebuild static objects from Assembly
-Patch:          0001-Unconditionally-compile-C-code-from-source.patch
+Patch:          0001-Unconditionally-compile-C-Assembly-code-from-source.patch
 
 BuildRequires:  rust-packaging >= 21
 
@@ -179,6 +179,30 @@ This package contains library source intended for building other packages which
 use the "libc_errno" feature of the "%{crate}" crate.
 
 %files       -n %{name}+libc_errno-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+linux_4_11-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+linux_4_11-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "linux_4_11" feature of the "%{crate}" crate.
+
+%files       -n %{name}+linux_4_11-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+linux_latest-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+linux_latest-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "linux_latest" feature of the "%{crate}" crate.
+
+%files       -n %{name}+linux_latest-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+mm-devel

@@ -8,7 +8,7 @@
 
 Name:       rocm-runtime
 Version:    %{rocm_version}
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    ROCm Runtime Library
 
 License:    NCSA
@@ -80,6 +80,9 @@ sed -i "s|\({CLANG_ARG_LIST}\)|\1 --hip-device-lib-path=%{_libdir}/amdgcn/bitcod
 %{_libdir}/cmake/hsa-runtime64/
 
 %changelog
+* Mon Apr 10 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.4.1-3
+- Rebuild with llvm 16
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

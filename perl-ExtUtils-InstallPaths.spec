@@ -2,7 +2,7 @@ Name:		perl-ExtUtils-InstallPaths
 Version:	0.012
 Release:	17%{?dist}
 Summary:	Build.PL install path logic made easy
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/ExtUtils-InstallPaths
 Source0:	https://cpan.metacpan.org/modules/by-module/ExtUtils/ExtUtils-InstallPaths-%{version}.tar.gz
 BuildArch:	noarch
@@ -24,7 +24,8 @@ BuildRequires:	perl(Config)
 BuildRequires:	perl(File::Spec::Functions) >= 0.83
 BuildRequires:	perl(File::Temp)
 BuildRequires:	perl(Test::More)
-# Runtime
+# Dependencies
+# (none)
 
 %description
 This module tries to make install path resolution as easy as possible.
@@ -54,11 +55,7 @@ find %{buildroot} -type f -name .packlist -delete
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
 %doc Changes
 %{perl_vendorlib}/ExtUtils/
 %{_mandir}/man3/ExtUtils::InstallPaths.3*

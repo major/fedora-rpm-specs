@@ -1,10 +1,10 @@
 Summary:	SIP test tool / traffic generator
 Name:		sipp
 Version:	3.7.0
-Release:        %autorelease
-License:	GPLv2+
+Release:	%autorelease
+License:	GPLv2-or-later
 URL:		https://github.com/SIPp/sipp
-VCS:            scm:git:https://github.com/SIPp/sipp.git
+VCS:		scm:git:https://github.com/SIPp/sipp.git
 Source0:	https://github.com/SIPp/sipp/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Patch1:		sipp-0001-Removal-of-bundled-gmock-gtest.patch
 Patch2:		sipp-0002-Temporary-disable-this-gmock-flag.patch

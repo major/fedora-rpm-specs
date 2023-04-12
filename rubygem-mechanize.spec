@@ -1,6 +1,6 @@
 # Initially Generated from mechanize-0.8.5.gem by gem2rpm -*- rpm-spec -*-
 
-%global	majorver		2.8.5
+%global	majorver		2.9.0
 %undefine	preminorver	
 %global	rpmminorver		.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver		%{majorver}%{?preminorver}
@@ -14,9 +14,10 @@
 Summary:	A handy web browsing ruby object
 Name:		rubygem-%{gem_name}
 Version:	%{majorver}
-Release:	%{?preminorver:0.}%{baserelease}%{?preminorver:%{rpmminorver}}%{?dist}.2
+Release:	%{?preminorver:0.}%{baserelease}%{?preminorver:%{rpmminorver}}%{?dist}
+# SPDX confirmed
 License:	MIT
-URL:		http://mechanize.rubyforge.org/
+URL:		https://github.com/sparklemotion/mechanize
 Source0:	https://rubygems.org/gems/%{gem_name}-%{fullver}.gem
 # Kill ntlm-http support
 # https://github.com/sparklemotion/mechanize/issues/282
@@ -76,18 +77,15 @@ mv ../%{gem_name}-%{version}.gemspec .
 find . -name \*.rb -print0 | xargs --null chmod 0644
 
 # Patches
-%patch0 -p1 -b .ntlm
-%patch1 -p1 -b .ntlmtest
+%patch -P0 -p1 -b .ntlm
+%patch -P1 -p1 -b .ntlmtest
 
 sed -i -e '\@ntlm-http@d' %{gem_name}-%{version}.gemspec
 # Kill also this for now
 sed -i -e '\@rubyntlm@d' %{gem_name}-%{version}.gemspec
-# Allow addressable 2.7 for now
-sed -i -e '\@addressable@s|2\.8|2.7|' %{gem_name}-%{version}.gemspec
-
-gem build %{gem_name}-%{version}.gemspec
 
 %build
+gem build %{gem_name}-%{version}.gemspec
 %gem_install
 
 %install
@@ -141,6 +139,10 @@ popd
 %{gem_instdir}/examples/
 
 %changelog
+* Mon Apr 10 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.9.0-1
+- 2.9.0
+- SPDX confirmed
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.5-1.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

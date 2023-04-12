@@ -2,7 +2,7 @@
 %global uvversion 1.44.2
 
 %global llvmversion 14.0.5
-%global llvmcommit julia-14.0.6-0
+%global llvmcommit julia-14.0.6-2
 
 %global libwhichversion 1.1.0
 %global libwhichcommit 81e9723c0273d78493dc8c8ed570f68d9ce7e89e
@@ -14,7 +14,10 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2045732
 %global libunwindversion 1.5.0
 
-%global pkgcommit 887b06bb9b768bfca0622f112dc739d1a770932c
+%global ittapiversion 3.24.0
+%global ittapicommit 0014aec56fea2f30c1374f40861e1bccdd53d0cb
+
+%global pkgcommit 1b73599d2ed8ef26ded339b1a3e80b6f26afd553
 %global statisticscommit 20fbe576ec406180b1dddf4c7fbe16458a7aef21
 
 %global logocommit 168fb6c1164e341df360ed6ced519e1e0cb7de3a
@@ -30,14 +33,14 @@
 
 Name:           julia
 Version:        1.9.0
-Release:        0.beta4%{?dist}
+Release:        0.rc2%{?dist}
 Summary:        High-level, high-performance dynamic language for technical computing
 # Julia itself is MIT
 # libuv, libwhich, libblastrampoline and libunwind are MIT
 # LLVM is Apache-2.0 WITH LLVM-exception
 License:        MIT and Apache-2.0-WITH-LLVM-exception
 URL:            http://julialang.org/
-Source0:        https://github.com/JuliaLang/julia/releases/download/v1.9.0-beta4/julia-1.9.0-beta4.tar.gz
+Source0:        https://github.com/JuliaLang/julia/releases/download/v1.9.0-rc2/julia-1.9.0-rc2.tar.gz
 # Julia currently uses a custom version of libuv, patches are not yet upstream
 Source1:        https://api.github.com/repos/JuliaLang/libuv/tarball/%{uvcommit}#/libuv-%{uvcommit}.tar.gz
 Source2:        https://api.github.com/repos/JuliaLang/llvm-project/tarball/%{llvmcommit}#/llvm-%{llvmcommit}.tar.gz
@@ -47,13 +50,13 @@ Source5:        https://api.github.com/repos/JuliaLang/Statistics.jl/tarball/%{s
 Source6:        https://raw.githubusercontent.com/JuliaLang/julia-logo-graphics/%{logocommit}/images/julia-logo-color.svg
 Source7:        https://api.github.com/repos/staticfloat/libblastrampoline/tarball/%{blastrampolinecommit}#/blastrampoline-%{blastrampolinecommit}.tar.gz
 Source8:        https://github.com/libunwind/libunwind/releases/download/v1.5/libunwind-%{libunwindversion}.tar.gz
-# https://github.com/JuliaLang/julia/pull/48931
-Patch0:         julia-libexecdir.patch
+Source9:        https://api.github.com/repos/intel/ittapi/tarball/%{ittapicommit}#/ittapi-%{ittapicommit}.tar.gz
 Provides:       bundled(libuv) = %{uvversion}
 Provides:       bundled(llvm) = %{llvmversion}
 Provides:       bundled(libblastrampoline) = %{blastrampolineversion}
 Provides:       bundled(libwhich) = %{libwhichversion}
 Provides:       bundled(libunwind) = %{libunwindversion}
+Provides:       bundled(ittapi) = %{ittapiversion}
 BuildRequires:  ca-certificates
 BuildRequires:  desktop-file-utils
 BuildRequires:  dSFMT-devel
@@ -152,14 +155,7 @@ needed when programming in the Julia language, but rather for embedding
 Julia into external programs or debugging Julia itself.
 
 %prep
-%setup -q -n julia-1.9.0-beta4
-
-%patch0 -p1
-# Set timestamps older than tarball to prevent `make install` from calling `make docs` again
-# (which requires Internet access)
-touch -d "2023-02-08 18:16:05 +0100" base/linking.jl
-touch -d "2023-02-08 18:16:05 +0100" Makefile
-touch -d "2023-02-08 18:16:05 +0100" base/Makefile
+%setup -q -n julia-1.9.0-rc2
 
 mkdir -p deps/srccache stdlib/srccache
 
@@ -236,7 +232,7 @@ cp -p %SOURCE6 contrib/julia.svg
 
 # About build, build_libdir and build_bindir, see https://github.com/JuliaLang/julia/issues/5063#issuecomment-32628111
 # About USE_INTEL_JITEVENTS=0, see https://github.com/JuliaLang/julia/issues/47989
-%global commonopts USE_SYSTEM_LLVM=0 USE_SYSTEM_LIBUNWIND=0 USE_SYSTEM_PCRE=1 USE_SYSTEM_BLAS=1 USE_SYSTEM_LAPACK=1 USE_SYSTEM_GMP=1 USE_SYSTEM_MPFR=1 USE_SYSTEM_LIBSUITESPARSE=1 USE_SYSTEM_DSFMT=1 USE_SYSTEM_LIBUV=0 USE_SYSTEM_UTF8PROC=1 USE_SYSTEM_LIBGIT2=1 USE_SYSTEM_LIBSSH2=1 USE_SYSTEM_MBEDTLS=1 USE_SYSTEM_CURL=1 USE_SYSTEM_PATCHELF=1 USE_SYSTEM_LIBM=0 USE_SYSTEM_OPENLIBM=1 USE_SYSTEM_ZLIB=1 USE_SYSTEM_P7ZIP=1 USE_SYSTEM_NGHTTP2=1 USE_SYSTEM_CSL=1 USE_SYSTEM_LIBBLASTRAMPOLINE=0 USE_SYSTEM_LIBWHICH=0 USE_BINARYBUILDER=0 USE_INTEL_JITEVENTS=0 BUNDLE_DEBUG_LIBS=0 JULIA_SPLITDEBUG=1 TAGGED_RELEASE_BANNER="Fedora %{fedora} build" VERBOSE=1 %{march} %{cpu_target} %{blas} %{suitesparse_lib} prefix=%{_prefix} bindir=%{_bindir} libdir=%{_libdir} libexecdir=%{_libexecdir} datarootdir=%{_datarootdir} includedir=%{_includedir} sysconfdir=%{_sysconfdir} build_prefix=%{_builddir}/%{buildsubdir}/build%{_prefix} build_libdir=%{_builddir}/%{buildsubdir}/build%{_libdir} JULIA_CPU_THREADS=$(echo %{?_smp_mflags} | sed s/-j//)
+%global commonopts USE_SYSTEM_LLVM=0 USE_SYSTEM_LIBUNWIND=0 USE_SYSTEM_PCRE=1 USE_SYSTEM_BLAS=1 USE_SYSTEM_LAPACK=1 USE_SYSTEM_GMP=1 USE_SYSTEM_MPFR=1 USE_SYSTEM_LIBSUITESPARSE=1 USE_SYSTEM_DSFMT=1 USE_SYSTEM_LIBUV=0 USE_SYSTEM_UTF8PROC=1 USE_SYSTEM_LIBGIT2=1 USE_SYSTEM_LIBSSH2=1 USE_SYSTEM_MBEDTLS=1 USE_SYSTEM_CURL=1 USE_SYSTEM_PATCHELF=1 USE_SYSTEM_LIBM=0 USE_SYSTEM_OPENLIBM=1 USE_SYSTEM_ZLIB=1 USE_SYSTEM_P7ZIP=1 USE_SYSTEM_NGHTTP2=1 USE_SYSTEM_CSL=1 USE_SYSTEM_LIBBLASTRAMPOLINE=0 USE_SYSTEM_LIBWHICH=0 USE_BINARYBUILDER=0 BUNDLE_DEBUG_LIBS=0 JULIA_SPLITDEBUG=1 TAGGED_RELEASE_BANNER="Fedora %{fedora} build" VERBOSE=1 %{march} %{cpu_target} %{blas} %{suitesparse_lib} prefix=%{_prefix} bindir=%{_bindir} libdir=%{_libdir} libexecdir=%{_libexecdir} datarootdir=%{_datarootdir} includedir=%{_includedir} sysconfdir=%{_sysconfdir} build_prefix=%{_builddir}/%{buildsubdir}/build%{_prefix} build_libdir=%{_builddir}/%{buildsubdir}/build%{_libdir} JULIA_CPU_THREADS=$(echo %{?_smp_mflags} | sed s/-j//)
 
 
 %build
@@ -486,6 +482,9 @@ desktop-file-validate %{buildroot}%{_datarootdir}/applications/%{name}.desktop
 exit 0
 
 %changelog
+* Mon Apr 10 2023 Milan Bouchet-Valat <nalimilan@club.fr> - 1.9.0-0.rc2
+- New upstream release.
+
 * Wed Mar 8 2023 Milan Bouchet-Valat <nalimilan@club.fr> - 1.9.0-0.beta4
 - New upstream release.
 - Drop i686 support due to test failures.

@@ -2,7 +2,7 @@ Name:		fontawesome-fonts
 Summary:	Support files for the FontAwesome fonts
 Epoch:		1
 Version:	6.4.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 License:	MIT
 URL:		https://fontawesome.com/
@@ -59,10 +59,6 @@ Patch0:         %{name}-opentype-css.patch
 
 BuildRequires:  appstream
 
-# This can be removed when F42 reaches EOL
-Obsoletes:	fontawesome5-fonts < 5.15.4-5
-Provides:	fontawesome5-fonts = %{version}-%{release}
-
 %description %_desc
 
 %fontpkg -a
@@ -90,6 +86,8 @@ License:	CC-BY-4.0
 Summary:	Iconic font set, JavaScript and SVG files
 
 # This can be removed when F42 reaches EOL
+Obsoletes:	fontawesome5-fonts < 5.15.4-5
+Provides:	fontawesome5-fonts = %{version}-%{release}
 Obsoletes:	fontawesome5-fonts-web < 5.15.4-5
 Provides:	fontawesome5-fonts-web = %{version}-%{release}
 
@@ -139,6 +137,9 @@ done
 %{_datadir}/fontawesome/
 
 %changelog
+* Mon Apr 10 2023 Jerry James <loganjerry@gmail.com> - 1:6.4.0-2
+- Move obsoletes/provides to the right package (rhbz#2185459)
+
 * Tue Mar 28 2023 Jerry James <loganjerry@gmail.com> - 1:6.4.0-1
 - Version 6.4.0
 - Convert License tags to SPDX

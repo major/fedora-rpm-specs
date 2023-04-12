@@ -2,7 +2,8 @@ Name: libosip2
 Version: 5.3.1
 Release: 1%{?dist}
 Summary: oSIP is an implementation of SIP
-License: LGPLv2+
+License: LGPL-2.0-or-later
+
 URL: https://www.gnu.org/software/osip/
 
 Source0: https://ftp.gnu.org/gnu/osip/%{name}-%{version}.tar.gz
@@ -24,7 +25,7 @@ IETF for H.323.
 
 %package devel
 Summary: Development libraries for oSIP
-Requires: %{name} = %{version}-%{release}
+Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
 The GNU oSIP library is written in C and get no dependencies except the

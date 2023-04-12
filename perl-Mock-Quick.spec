@@ -2,15 +2,14 @@ Name:		perl-Mock-Quick
 Version:	1.111
 Release:	20%{?dist}
 Summary:	Quickly mock objects and classes, side-effect free
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Mock-Quick
 Source0:	http://cpan.metacpan.org/authors/id/E/EX/EXODIST/Mock-Quick-%{version}.tar.gz
 BuildArch:	noarch
 # Module Build
 BuildRequires:	coreutils
-BuildRequires:	make
-BuildRequires:	perl-interpreter
 BuildRequires:	perl-generators
+BuildRequires:	perl-interpreter
 BuildRequires:	perl(Module::Build) >= 0.42
 # Module Runtime
 BuildRequires:	perl(base)
@@ -25,7 +24,8 @@ BuildRequires:	perl(Fennec::Lite) >= 0.004
 BuildRequires:	perl(Path::Class)
 BuildRequires:	perl(Test::Exception) >= 0.29
 BuildRequires:	perl(Test::More) >= 0.88
-# Runtime
+# Dependencies
+# (none)
 
 %description
 Mock-Quick is here to solve the current problems with Mocking libraries.
@@ -56,7 +56,7 @@ perl Build.PL --installdirs=vendor
 
 %install
 ./Build install --destdir=%{buildroot} --create_packlist=0
-%{_fixperms} %{buildroot}
+%{_fixperms} -c %{buildroot}
 
 %check
 ./Build test

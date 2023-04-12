@@ -7,7 +7,7 @@
 %global rustflags_debuginfo 1
 
 Name:           rust-fedora-update-feedback
-Version:        2.1.1
+Version:        2.1.2
 Release:        %autorelease
 Summary:        Provide feedback for Fedora updates (inspired by fedora-easy-karma)
 

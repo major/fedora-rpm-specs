@@ -1,4 +1,4 @@
-%global version_base 3.6.0
+%global version_base 3.6.1
 #global gitnum 120
 #global githash 1a0b1ae238e1deb132a0ae4a8d0c589d583cc5b0
 #global githashshort %{lua:print(string.sub(rpm.expand('%{githash}'), 1, 11))}

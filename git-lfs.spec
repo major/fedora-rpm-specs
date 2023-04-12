@@ -17,7 +17,8 @@ Name:           git-lfs
 Release:        %autorelease
 Summary:        Git extension for versioning large files
 
-License:        MIT
+# See LICENSE.md for details.
+License:        MIT AND BSD-3-Clause
 URL:            https://git-lfs.github.io/
 Source0:        https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-v%{version}.tar.gz
 Source1:        https://github.com/git-lfs/git-lfs/releases/download/v%{version}/sha256sums.asc#/sha256sums-%{version}.asc

@@ -2,7 +2,7 @@ Name:		perl-ExtUtils-Helpers
 Version:	0.026
 Release:	22%{?dist}
 Summary:	Various portability utilities for module builders
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/ExtUtils-Helpers
 Source0:	https://cpan.metacpan.org/modules/by-module/ExtUtils/ExtUtils-Helpers-%{version}.tar.gz
 BuildArch:	noarch
@@ -26,7 +26,8 @@ BuildRequires:	perl(warnings)
 BuildRequires:	perl(Cwd)
 BuildRequires:	perl(lib)
 BuildRequires:	perl(Test::More)
-# Runtime
+# Dependencies
+# (none)
 
 %description
 This module provides various portable helper functions for module building
@@ -52,11 +53,7 @@ find %{buildroot} -type f -name .packlist -delete
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
 %doc Changes README
 %{perl_vendorlib}/ExtUtils/
 %{_mandir}/man3/ExtUtils::Helpers.3*

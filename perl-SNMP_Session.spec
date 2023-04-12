@@ -1,15 +1,17 @@
 Name:           perl-SNMP_Session
 Version:        1.13
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        SNMP support for Perl 5
 
-License:        Artistic 2.0
+License:        Artistic-2.0
 URL:            http://code.google.com/p/snmp-session/
 Source0:        http://snmp-session.googlecode.com/files/SNMP_Session-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker)
+Requires:       perl(IO::Socket::INET6)
+Requires:       perl(Socket6)
 
 %description
 Pure Perl SNMP v1 and SNMP v2 support for Perl 5.
@@ -25,15 +27,13 @@ chmod -c 644 test/*
 
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 
 %install
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} ';'
-find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
-chmod -R u+w $RPM_BUILD_ROOT/*
+%{make_install}
+%{_fixperms} %{buildroot}/*
 
 
 %check
@@ -41,11 +41,18 @@ make test
 
 
 %files
-%doc Artistic README README.SNMP_util index.html test/
+%license Artistic
+%doc README README.SNMP_util index.html test/
 %{perl_vendorlib}/*
 
 
 %changelog
+* Tue Apr 04 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.13-33
+- Fix ipv6
+- Modernize spec file
+- Use %license macro
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

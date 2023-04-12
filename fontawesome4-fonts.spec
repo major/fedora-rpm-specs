@@ -1,10 +1,11 @@
 %global fontname fontawesome4
 %global fontconf 60-fontawesome.conf
+%global _fontdir %{_fontbasedir}/fontawesome
 
-Name:		%{fontname}-fonts
+Name:		fontawesome4-fonts
 Epoch:		1
 Version:	4.7.0
-Release:	16%{?dist}
+Release:	17%{?dist}
 
 Summary:	Iconic font set
 License:	OFL-1.1-RFN
@@ -81,6 +82,9 @@ cp -a css less scss %{buildroot}%{_datadir}/font-awesome-web/
 %{_fontdir}/fontawesome-webfont.eot
 
 %changelog
+* Mon Apr 10 2023 Jerry James <loganjerry@gmail.com> - 1:4.7.0-17
+- Move fonts back to /usr/share/fonts/fontawesome
+
 * Fri Feb 24 2023 Jerry James <loganjerry@gmail.com> - 1:4.7.0-16
 - Name change to fontawesome4-fonts
 - Convert License tags to SPDX

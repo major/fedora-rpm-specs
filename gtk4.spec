@@ -6,7 +6,7 @@
 %global pango_version 1.50.0
 %global cairo_version 1.14.0
 %global gdk_pixbuf_version 2.30.0
-%global wayland_protocols_version 1.25
+%global wayland_protocols_version 1.31
 %global wayland_version 1.21.0
 %global epoxy_version 1.4
 
@@ -16,13 +16,13 @@
 %global __provides_exclude_from ^%{_libdir}/gtk-4.0
 
 Name:           gtk4
-Version:        4.10.1
+Version:        4.11.1
 Release:        %autorelease
 Summary:        GTK graphical user interface library
 
 License:        LGPL-2.0-or-later
 URL:            https://www.gtk.org
-Source0:        https://download.gnome.org/sources/gtk/4.10/gtk-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/gtk/4.11/gtk-%{version}.tar.xz
 Source1:        settings.ini
 # Temporarily revert this until we figure out how to best restore
 # private requires that are needed for rpm automatic dep extraction.

@@ -11,6 +11,10 @@ Summary: Portal frontend service to flatpak
 License: LGPLv2+
 URL:     https://github.com/flatpak/xdg-desktop-portal/
 Source0: https://github.com/flatpak/xdg-desktop-portal/releases/download/%{version}/%{name}-%{version}.tar.xz
+# https://bugzilla.redhat.com/show_bug.cgi?id=2176759
+# https://github.com/flatpak/xdg-desktop-portal/pull/985
+# Help fix apps hanging on start in KDE with GNOME portal installed
+Patch0:  985.patch
 
 BuildRequires: gcc
 BuildRequires: gettext

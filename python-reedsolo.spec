@@ -6,8 +6,8 @@ Version:        1.7.0
 Release:        %autorelease
 Summary:        Pure-Python Reed Solomon encoder/decoder
 License:        Public Domain
-URL:            https://github.com/tomerfiliba/reedsolomon
-Source0:        %{url}/archive/v%{version}.tar.gz
+URL:            https://github.com/tomerfiliba-org/reedsolomon
+Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel

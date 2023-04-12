@@ -1,13 +1,13 @@
-%global release_commit_hash fb19eb5f11f206ffb442a9e0c519cb0f2cb3fd8b
+%global release_commit_hash 61ea9b6681104cadf0a3f8c25bd3e5685ee6691a
 
 # Use old cmake macro behaviour.
 %define __cmake_in_source_build 1
 
 Name: remmina
-Version: 1.4.29
-Release: 5%{?dist}
+Version: 1.4.30
+Release: 1%{?dist}
 Summary: Remote Desktop Client
-License: GPLv2+ and MIT
+License: GPL-2.0-or-later and MIT
 URL: https://remmina.org
 
 Source0: https://gitlab.com/Remmina/Remmina/-/archive/v%{version}/Remmina-%{version}.tar.gz#/%{name}-%{version}.tar.gz
@@ -17,10 +17,6 @@ Source0: https://gitlab.com/Remmina/Remmina/-/archive/v%{version}/Remmina-%{vers
 # use http://www.muflone.com/remmina-plugin-builder/ with remmina bundled source.
 # So we can't use it directly only as instructions.
 Source1: pluginBuild-CMakeLists.txt
-
-Patch01: 0001_add_mime_text_formats_for_rdp_clibpoard.patch
-Patch02: 0002_fix_unlock_crash.patch
-Patch03: 0003_remmina_rdp_monitor_get_fix_maxw_maxh_and_monitorids_calculation.patch
 
 BuildRequires: cmake
 BuildRequires: cups-devel
@@ -346,6 +342,11 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdat
 %{_mandir}/man1/remmina-gnome.1*
 
 %changelog
+* Mon Apr 10 2023 Phil Wyett <philip.wyett@kathenas.org> - 1.4.30-1
+- New upstream version 1.4.30.
+- Use SPDX license identifiers.
+- Remove no longer needed patches.
+
 * Tue Feb 28 2023 Phil Wyett <philip.wyett@kathenas.org> - 1.4.29-5
 - Add patch: 0003_remmina_rdp_monitor_get_fix_maxw_maxh_and_monitorids_calculation.patch
 

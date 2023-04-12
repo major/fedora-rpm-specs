@@ -1,22 +1,29 @@
 Name:		perl-Parallel-Runner
 Version:	0.013
-Release:	29%{?dist}
+Release:	30%{?dist}
 Summary:	An object to manage running things in parallel processes
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Parallel-Runner
 Source0:	https://cpan.metacpan.org/authors/id/E/EX/EXODIST/Parallel-Runner-%{version}.tar.gz
 Patch0:		Parallel-Runner-0.013-T::E.patch
 BuildArch:	noarch
+# Module Build
+BuildRequires:	coreutils
 BuildRequires:	perl-generators
+BuildRequires:	perl-interpreter
+BuildRequires:	perl(Module::Build) >= 0.40
+# Module Runtime
 BuildRequires:	perl(Carp)
 BuildRequires:	perl(Child) >= 0.009
 BuildRequires:	perl(POSIX)
-BuildRequires:	perl(Module::Build) >= 0.40
 BuildRequires:	perl(strict)
-BuildRequires:	perl(warnings)
-BuildRequires:	perl(Test::Exception)
-BuildRequires:	perl(Test::More)
 BuildRequires:	perl(Time::HiRes)
+BuildRequires:	perl(warnings)
+# Test Suite
+BuildRequires:	perl(Test::Exception)
+BuildRequires:	perl(Test::More) >= 0.88
+# Dependencies
+# (none)
 
 %description
 There are several other modules to do this, you probably want one of them. This
@@ -39,15 +46,15 @@ exits.
 %setup -q -n Parallel-Runner-%{version}
 
 # Use Test::Exception rather than Text::Exception::LessClever
-%patch0
+%patch -P 0
 
 %build
-perl Build.PL installdirs=vendor
+perl Build.PL --installdirs=vendor
 ./Build
 
 %install
-./Build install destdir=%{buildroot} create_packlist=0
-%{_fixperms} $R%{buildroot}
+./Build install --destdir=%{buildroot} --create_packlist=0
+%{_fixperms} -c %{buildroot}
 
 %check
 ./Build test
@@ -55,9 +62,16 @@ perl Build.PL installdirs=vendor
 %files
 %doc CHANGES README
 %{perl_vendorlib}/Parallel/
-%{_mandir}/man3/Parallel::Runner.3pm*
+%{_mandir}/man3/Parallel::Runner.3*
 
 %changelog
+* Mon Apr 10 2023 Paul Howarth <paul@city-fan.org> - 0.013-30
+- Spec tidy-up
+  - Classify buildreqs by usage
+  - Use SPDX-format license tag
+  - Avoid use of deprecated patch syntax
+  - Fix permissions verbosely
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.013-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -6,6 +6,11 @@
 %global lsbldso ld-lsb.so
 %endif
 
+%ifarch alpha
+%global ldso ld-linux-alpha.so.2
+%global lsbldso ld-lsb-alpha.so
+%endif
+
 %ifarch ia64
 %global ldso ld-linux-ia64.so.2
 %global lsbldso ld-lsb-ia64.so
@@ -51,6 +56,12 @@
 %global lsbldso ld-lsb-aarch64.so
 %endif
 
+%ifarch ia64 ppc64 s390x x86_64
+%global qual ()(64bit)
+%else
+%global qual %{nil}
+%endif
+
 %global upstreamlsbrelver 2.0
 %global lsbrelver 4.1
 %global srcrelease 1
@@ -66,7 +77,7 @@
 Summary: Implementation of Linux Standard Base specification
 Name: redhat-lsb
 Version: 4.1
-Release: 60%{?dist}
+Release: 61%{?dist}
 URL: http://www.linuxfoundation.org/collaborate/workgroups/lsb
 Source0: https://fedorahosted.org/releases/r/e/redhat-lsb/%{name}-%{version}-%{srcrelease}.tar.bz2
 Patch0: lsb-release-3.1-update-init-functions.patch
@@ -106,6 +117,9 @@ BuildRequires: perl(Getopt::Long)
 %ifarch aarch64
 %global archname aarch64
 %endif
+%ifarch alpha
+%define archname alpha
+%endif
 
 Requires: redhat-lsb-core%{?_isa} = %{version}-%{release}
 Requires: redhat-lsb-cxx%{?_isa} = %{version}-%{release}
@@ -126,30 +140,6 @@ independent software vendors.
 The lsb package provides utilities, libraries etc. needed for LSB Compliant 
 Applications. It also contains requirements that will ensure that all 
 components required by the LSB are installed on the system.
-
-%package submod-security
-Summary: LSB Security submodule support
-Requires: nspr%{?_isa}
-# Requires: nspr-devel
-Requires: nss%{?_isa}
-
-Provides: lsb-submod-security-%{archname} = %{version}-%{release}
-Provides: lsb-submod-security-noarch = %{version}-%{release}
-
-%description submod-security
-The Linux Standard Base (LSB) Security submodule specifications define 
-components that are required to be present on an LSB conforming system.
-
-%package submod-multimedia
-Summary: LSB Multimedia submodule support
-Requires: alsa-lib%{?_isa}
-
-Provides: lsb-submod-multimedia-%{archname} = %{version}-%{release}
-Provides: lsb-submod-multimedia-noarch = %{version}-%{release}
-
-%description submod-multimedia
-The Linux Standard Base (LSB) Multimedia submodule specifications define 
-components that are required to be present on an LSB conforming system.
 
 %package core
 Summary: LSB Core module support
@@ -303,7 +293,6 @@ Requires: /usr/sbin/usermod
 Requires: /usr/bin/wc
 Requires: /usr/bin/xargs
 Requires: /usr/bin/zcat
-Requires: redhat-lsb-submod-security%{?_isa} = %{version}-%{release}
 
 Provides: lsb-core-%{archname} = %{version}-%{release}
 Provides: lsb-core-noarch = %{version}-%{release}
@@ -324,9 +313,9 @@ Provides: lsb-cxx-noarch = %{version}-%{release}
 
 %description cxx
 The Linux Standard Base (LSB) CXX module supports the core interfaces by
-providing system interfaces, libraries, and a runtime environment for 
-applications built using the C++ programming language. These interfaces 
-provide low-level support for the core constructs of the language, and 
+providing system interfaces, libraries, and a runtime environment for
+applications built using the C++ programming language. These interfaces
+provide low-level support for the core constructs of the language, and
 implement the standard base C++ libraries.
 
 %package desktop
@@ -373,7 +362,6 @@ Requires: qt-x11%{?_isa}
 Requires: qt3%{?_isa}
 # xml
 Requires: libxml2%{?_isa}
-Requires: redhat-lsb-submod-multimedia%{?_isa} = %{version}-%{release}
 Requires: redhat-lsb-core%{?_isa} = %{version}-%{release}
 
 Provides: lsb-desktop-%{archname} = %{version}-%{release}
@@ -446,21 +434,8 @@ Provides: lsb-printing-noarch = %{version}-%{release}
 Obsoletes: redhat-lsb-printing < %{version}-%{release}
 
 %description printing
-The Linux Standard Base (LSB) Printing specifications define components that 
+The Linux Standard Base (LSB) Printing specifications define components that
 are required to be present on an LSB conforming system.
-
-%package trialuse
-Summary: LSB Trialuse module support
-Requires: redhat-lsb-submod-multimedia%{?_isa} = %{version}-%{release}
-Requires: redhat-lsb-submod-security%{?_isa} = %{version}-%{release}
-Requires: redhat-lsb-core%{?_isa} = %{version}-%{release}
-
-Provides: lsb-trialuse-%{archname} = %{version}-%{release}
-Provides: lsb-trialuse-noarch = %{version}-%{release}
-
-%description trialuse
-The Linux Standard Base (LSB) Trialuse module support defines components
-which are not required parts of the LSB Specification.
 
 %package supplemental
 Summary: LSB supplemental dependencies required by LSB certification tests
@@ -485,104 +460,29 @@ to be on LSB conforming system.
 cd lsb-release-%{upstreamlsbrelver}
 %make_build
 
-%pre
-# remove the extra symlink /bin/mailx -> /bin/mail
-if [ -e /bin/mailx ]; then
-   if [ -L /bin/mailx ]; then
-     rm -f /bin/mailx
-   fi
-fi
-
 %install
 # LSB uses /usr/lib rather than /usr/lib64 even for 64bit OS
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir} $RPM_BUILD_ROOT/%{_lib} $RPM_BUILD_ROOT%{_mandir} \
+mkdir -p $RPM_BUILD_ROOT%{_sysconfdir} $RPM_BUILD_ROOT%{_libdir} $RPM_BUILD_ROOT%{_mandir} \
          $RPM_BUILD_ROOT%{_bindir} $RPM_BUILD_ROOT/usr/lib/lsb \
-         $RPM_BUILD_ROOT%{_sysconfdir}/lsb-release.d/ $RPM_BUILD_ROOT%{_sbindir} \
-         $RPM_BUILD_ROOT%{_datadir}/lsb/%{lsbrelver}
+         $RPM_BUILD_ROOT%{_sbindir}
+
 
 # manually add Locale::Constants. This module is just an alias of Locale::Codes::Constants
 mkdir -p $RPM_BUILD_ROOT%{perl_vendorlib}/Locale
 cp -p Constants.pm $RPM_BUILD_ROOT%{perl_vendorlib}/Locale
 cp -p Constants.pod $RPM_BUILD_ROOT%{perl_vendorlib}/Locale
 
-make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
+%make_install
 cd lsb-release-%{upstreamlsbrelver}
 make mandir=$RPM_BUILD_ROOT/%{_mandir} prefix=$RPM_BUILD_ROOT/%{_prefix} install
 cd ..
-# we keep more lsb information in /usr/share/lsb
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/lsb/%{lsbrelver}/modules
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/lsb/%{lsbrelver}/submodules
 
 #prepare installation of doc
 cp -p lsb-release-2.0/COPYING .
 cp -p lsb-release-2.0/README README.lsb_release
 
-# relations between modules and submodules
-modules="core cxx desktop languages printing trialuse"
-submodules="core perl python cpp toolkit-gtk toolkit-qt toolkit-qt3"
-submodules="${submodules} xml multimedia security desktop-misc graphics graphics-ext"
-submodules="${submodules} printing"
-
-core="core security"
-cxx="cpp"
-desktop="desktop-misc graphics graphics-ext multimedia toolkit-gtk toolkit-qt toolkit-qt3"
-desktop="${desktop} xml"
-languages="perl python"
-printing="printing"
-trialuse="security multimedia"
-
-for mod in ${modules};do
-  touch $RPM_BUILD_ROOT%{_sysconfdir}/lsb-release.d/${mod}-%{lsbrelver}-%{archname}
-  touch $RPM_BUILD_ROOT%{_sysconfdir}/lsb-release.d/${mod}-%{lsbrelver}-noarch
-done
-
-for submod in ${submodules};do
-  touch $RPM_BUILD_ROOT%{_datadir}/lsb/%{lsbrelver}/submodules/${submod}-%{lsbrelver}-%{archname}
-  touch $RPM_BUILD_ROOT%{_datadir}/lsb/%{lsbrelver}/submodules/${submod}-%{lsbrelver}-noarch
-done
-for moddir in ${modules};do
-    mkdir -p $RPM_BUILD_ROOT%{_datadir}/lsb/%{lsbrelver}/modules/${moddir}
-done
-
-for submod in ${core};do
-  ln -snf ../../submodules/${submod}-%{lsbrelver}-%{archname} \
-$RPM_BUILD_ROOT%{_datadir}/lsb/%{lsbrelver}/modules/core/${submod}-%{lsbrelver}-%{archname}
-  ln -snf ../../submodules/${submod}-%{lsbrelver}-noarch \
-$RPM_BUILD_ROOT%{_datadir}/lsb/%{lsbrelver}/modules/core/${submod}-%{lsbrelver}-noarch
-done
-for submod in ${cxx};do
-  ln -snf ../../submodules/${submod}-%{lsbrelver}-%{archname} \
-$RPM_BUILD_ROOT%{_datadir}/lsb/%{lsbrelver}/modules/cxx/${submod}-%{lsbrelver}-%{archname}
-  ln -snf ../../submodules/${submod}-%{lsbrelver}-noarch \
-$RPM_BUILD_ROOT%{_datadir}/lsb/%{lsbrelver}/modules/cxx/${submod}-%{lsbrelver}-noarch
-done
-for submod in ${desktop};do
-  ln -snf ../../submodules/${submod}-%{lsbrelver}-%{archname} \
-$RPM_BUILD_ROOT%{_datadir}/lsb/%{lsbrelver}/modules/desktop/${submod}-%{lsbrelver}-%{archname}
-  ln -snf ../../submodules/${submod}-%{lsbrelver}-noarch \
-$RPM_BUILD_ROOT%{_datadir}/lsb/%{lsbrelver}/modules/desktop/${submod}-%{lsbrelver}-noarch
-done
-for submod in ${languages};do
-  ln -snf ../../submodules/${submod}-%{lsbrelver}-%{archname} \
-$RPM_BUILD_ROOT%{_datadir}/lsb/%{lsbrelver}/modules/languages/${submod}-%{lsbrelver}-%{archname}
-  ln -snf ../../submodules/${submod}-%{lsbrelver}-noarch \
-$RPM_BUILD_ROOT%{_datadir}/lsb/%{lsbrelver}/modules/languages/${submod}-%{lsbrelver}-noarch
-done
-for submod in ${printing};do
-  ln -snf ../../submodules/${submod}-%{lsbrelver}-%{archname} \
-$RPM_BUILD_ROOT%{_datadir}/lsb/%{lsbrelver}/modules/printing/${submod}-%{lsbrelver}-%{archname}
-  ln -snf ../../submodules/${submod}-%{lsbrelver}-noarch \
-$RPM_BUILD_ROOT%{_datadir}/lsb/%{lsbrelver}/modules/printing/${submod}-%{lsbrelver}-noarch
-done
-for submod in ${trialuse};do
-  ln -snf ../../submodules/${submod}-%{lsbrelver}-%{archname} \
-$RPM_BUILD_ROOT%{_datadir}/lsb/%{lsbrelver}/modules/trialuse/${submod}-%{lsbrelver}-%{archname}
-  ln -snf ../../submodules/${submod}-%{lsbrelver}-noarch \
-$RPM_BUILD_ROOT%{_datadir}/lsb/%{lsbrelver}/modules/trialuse/${submod}-%{lsbrelver}-noarch
-done
-
 for LSBVER in %{lsbsover}; do
-  ln -snf %{ldso} $RPM_BUILD_ROOT/%{_lib}/%{lsbldso}.$LSBVER
+  ln -snf %{ldso} $RPM_BUILD_ROOT/%{_libdir}/%{lsbldso}.$LSBVER
 done
 
 mkdir -p $RPM_BUILD_ROOT/bin
@@ -602,124 +502,38 @@ ln -snf ../../../sbin/chkconfig $RPM_BUILD_ROOT/usr/lib/lsb/remove_initd
 
 cp -p redhat_lsb_init $RPM_BUILD_ROOT/bin/redhat_lsb_init
 
-%postun submod-security -p <lua>
-os.remove("%{_datadir}/lsb/%{lsbrelver}/submodules")
-os.remove("%{_datadir}/lsb/%{lsbrelver}/modules")
-os.remove("%{_datadir}/lsb/%{lsbrelver}")
-os.remove("%{_datadir}/lsb")
-%postun submod-multimedia -p <lua>
-os.remove("%{_datadir}/lsb/%{lsbrelver}/submodules")
-os.remove("%{_datadir}/lsb/%{lsbrelver}/modules")
-os.remove("%{_datadir}/lsb/%{lsbrelver}")
-os.remove("%{_datadir}/lsb")
-%postun core -p <lua> 
-os.remove("%{_datadir}/lsb/%{lsbrelver}/submodules")
-os.remove("%{_datadir}/lsb/%{lsbrelver}/modules")
-os.remove("%{_datadir}/lsb/%{lsbrelver}")
-os.remove("%{_datadir}/lsb")
-%postun cxx -p <lua> 
-os.remove("%{_datadir}/lsb/%{lsbrelver}/submodules")
-os.remove("%{_datadir}/lsb/%{lsbrelver}/modules")
-os.remove("%{_datadir}/lsb/%{lsbrelver}")
-os.remove("%{_datadir}/lsb")
-%postun desktop -p <lua> 
-os.remove("%{_datadir}/lsb/%{lsbrelver}/submodules")
-os.remove("%{_datadir}/lsb/%{lsbrelver}/modules")
-os.remove("%{_datadir}/lsb/%{lsbrelver}")
-os.remove("%{_datadir}/lsb")
-%postun languages -p <lua> 
-os.remove("%{_datadir}/lsb/%{lsbrelver}/submodules")
-os.remove("%{_datadir}/lsb/%{lsbrelver}/modules")
-os.remove("%{_datadir}/lsb/%{lsbrelver}")
-os.remove("%{_datadir}/lsb")
-%postun printing -p <lua> 
-os.remove("%{_datadir}/lsb/%{lsbrelver}/submodules")
-os.remove("%{_datadir}/lsb/%{lsbrelver}/modules")
-os.remove("%{_datadir}/lsb/%{lsbrelver}")
-os.remove("%{_datadir}/lsb")
-%postun trialuse -p <lua> 
-os.remove("%{_datadir}/lsb/%{lsbrelver}/submodules")
-os.remove("%{_datadir}/lsb/%{lsbrelver}/modules")
-os.remove("%{_datadir}/lsb/%{lsbrelver}")
-os.remove("%{_datadir}/lsb")
 
 %files
-%{_datadir}/lsb/
-
-%files submod-security
-%{_datadir}/lsb/%{lsbrelver}/submodules/security-%{lsbrelver}-%{archname}
-%{_datadir}/lsb/%{lsbrelver}/submodules/security-%{lsbrelver}-noarch
-
-%files submod-multimedia
-%{_datadir}/lsb/%{lsbrelver}/submodules/multimedia-%{lsbrelver}-%{archname}
-%{_datadir}/lsb/%{lsbrelver}/submodules/multimedia-%{lsbrelver}-noarch
 
 %files core
 %doc README README.lsb_release
 %license COPYING
 %{_sysconfdir}/redhat-lsb
-%dir %{_sysconfdir}/lsb-release.d
 %{_mandir}/*/*
 %{_bindir}/*
-#/bin/mailx
 /bin/redhat_lsb_init
 /usr/lib/lsb
-/%{_lib}/*so*
+%{_libdir}/*so*
 /lib/lsb*
-%{_datadir}/lsb/%{lsbrelver}/modules/core
-%{_sysconfdir}/lsb-release.d/core*
-%{_datadir}/lsb/%{lsbrelver}/submodules/core-%{lsbrelver}-%{archname}
-%{_datadir}/lsb/%{lsbrelver}/submodules/core-%{lsbrelver}-noarch
 
 %files cxx
-%{_sysconfdir}/lsb-release.d/cxx*
-%{_datadir}/lsb/%{lsbrelver}/modules/cxx
-%{_datadir}/lsb/%{lsbrelver}/submodules/cpp-%{lsbrelver}-%{archname}
-%{_datadir}/lsb/%{lsbrelver}/submodules/cpp-%{lsbrelver}-noarch
 
 %files desktop
-%{_sysconfdir}/lsb-release.d/desktop*
-%{_datadir}/lsb/%{lsbrelver}/modules/desktop
-%{_datadir}/lsb/%{lsbrelver}/submodules/toolkit-gtk-%{lsbrelver}-%{archname}
-%{_datadir}/lsb/%{lsbrelver}/submodules/toolkit-gtk-%{lsbrelver}-noarch
-%{_datadir}/lsb/%{lsbrelver}/submodules/toolkit-qt-%{lsbrelver}-%{archname}
-%{_datadir}/lsb/%{lsbrelver}/submodules/toolkit-qt-%{lsbrelver}-noarch
-%{_datadir}/lsb/%{lsbrelver}/submodules/toolkit-qt3-%{lsbrelver}-%{archname}
-%{_datadir}/lsb/%{lsbrelver}/submodules/toolkit-qt3-%{lsbrelver}-noarch
-%{_datadir}/lsb/%{lsbrelver}/submodules/xml-%{lsbrelver}-%{archname}
-%{_datadir}/lsb/%{lsbrelver}/submodules/xml-%{lsbrelver}-noarch
-%{_datadir}/lsb/%{lsbrelver}/submodules/desktop-misc-%{lsbrelver}-%{archname}
-%{_datadir}/lsb/%{lsbrelver}/submodules/desktop-misc-%{lsbrelver}-noarch
-%{_datadir}/lsb/%{lsbrelver}/submodules/graphics-%{lsbrelver}-%{archname}
-%{_datadir}/lsb/%{lsbrelver}/submodules/graphics-%{lsbrelver}-noarch
-%{_datadir}/lsb/%{lsbrelver}/submodules/graphics-ext-%{lsbrelver}-%{archname}
-%{_datadir}/lsb/%{lsbrelver}/submodules/graphics-ext-%{lsbrelver}-noarch
 
 %files languages
-%{_sysconfdir}/lsb-release.d/languages*
-%{_datadir}/lsb/%{lsbrelver}/modules/languages
-%{_datadir}/lsb/%{lsbrelver}/submodules/perl-%{lsbrelver}-%{archname}
-%{_datadir}/lsb/%{lsbrelver}/submodules/perl-%{lsbrelver}-noarch
 %{perl_vendorlib}/Locale/Constants.pm
 %{perl_vendorlib}/Locale/Constants.pod
-%{_datadir}/lsb/%{lsbrelver}/submodules/python-%{lsbrelver}-%{archname}
-%{_datadir}/lsb/%{lsbrelver}/submodules/python-%{lsbrelver}-noarch
 
 %files printing
-%{_sysconfdir}/lsb-release.d/printing*
-%{_datadir}/lsb/%{lsbrelver}/modules/printing
-%{_datadir}/lsb/%{lsbrelver}/submodules/printing-%{lsbrelver}-%{archname}
-%{_datadir}/lsb/%{lsbrelver}/submodules/printing-%{lsbrelver}-noarch
-
-%files trialuse
-%{_sysconfdir}/lsb-release.d/trialuse*
-%{_datadir}/lsb/%{lsbrelver}/modules/trialuse
 
 %files supplemental
 #no files, just dependencies
 
 
 %changelog
+* Mon Apr 10 2023 Sérgio Basto <sergio@serjux.com> - 4.1-61
+- Remove "Trial Use" specs, because LSB 5.0 Trial Use is completely outdated
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-60
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

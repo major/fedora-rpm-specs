@@ -1,9 +1,13 @@
 Name:          tnftp
-Version:       20210827
-Release:       5%{?dist}
+Version:       20230409
+Release:       1%{?dist}
 Summary:       FTP (File Transfer Protocol) client from NetBSD
 
+# Awaiting fedora-legal review on BSD-2-Clause-NetBSD before I can change this expression
+#     -dcantrell
+#License:       0BSD AND BSD-2-Clause AND BSD-2-Clause-NetBSD AND BSD-3-Clause AND ISC
 License:       BSD and ISC
+
 # From the README:
 # `tnftp' is a `port' of the NetBSD FTP client to other systems.
 # See http://www.NetBSD.org/ for more details about NetBSD.
@@ -19,29 +23,36 @@ BuildRequires: automake
 BuildRequires: libtool
 
 %description
-%{name} is the FTP (File Transfer Protocol) client from NetBSD.  FTP is a widely
-used protocol for transferring files over the Internet and for archiving files.
-%{name} provides some advanced features beyond the Linux netkit ftp client, but
-maintains a similar user interface to the traditional ftp client.  It was
-formerly called lukemftp.
+%{name} is the FTP (File Transfer Protocol) client from NetBSD.  FTP
+is a widely used protocol for transferring files over the Internet and
+for archiving files.  %{name} provides some advanced features beyond
+the Linux netkit ftp client, but maintains a similar user interface to
+the traditional ftp client.  It was formerly called lukemftp.
 
 %prep
 %setup -q
 
 %build
 export CFLAGS="%{optflags}"
-%configure --enable-editcomplete --without-local-libedit --enable-ipv6 --enable-ssl
-make %{?_smp_mflags}
+%configure --enable-editcomplete \
+           --without-local-libedit \
+           --enable-ipv6 \
+           --enable-ssl
+%make_build
 
 %install
-make install DESTDIR=%{buildroot}
+%make_install
 
 %files
-%doc ChangeLog COPYING INSTALL NEWS README THANKS todo
+%doc ChangeLog INSTALL NEWS README THANKS todo
+%license COPYING
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1.gz
 
 %changelog
+* Mon Apr 10 2023 David Cantrell <dcantrell@redhat.com> - 20230409-1
+- Upgrade to tnftp-20230409
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20210827-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

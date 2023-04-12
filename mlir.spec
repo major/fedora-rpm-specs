@@ -1,3 +1,4 @@
+%global toolchain clang
 %global maj_ver 16
 %global min_ver 0
 %global patch_ver 0
@@ -11,7 +12,7 @@
 
 Name: mlir
 Version: %{mlir_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Multi-Level Intermediate Representation Overview
 
 License: Apache-2.0 WITH LLVM-exception
@@ -25,8 +26,7 @@ Patch0: 0001-mlir-Change-LLVM_COMMON_CMAKE_UTILS-usage.patch
 # Support for i686 upstream is unclear with lots of tests failling.
 ExcludeArch: i686
 
-BuildRequires: gcc
-BuildRequires: gcc-c++
+BuildRequires: clang
 BuildRequires: cmake
 BuildRequires: ninja-build
 BuildRequires: zlib-devel
@@ -200,6 +200,9 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %{_libdir}/cmake/mlir
 
 %changelog
+* Thu Apr 06 2023 Nikita Popov <npopov@redhat.com> - 16.0.0-4
+- Build with clang
+
 * Mon Apr 03 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0-3
 - Re-enable s390x builds
 - Link ppc64le serially in order to avoid hitting memory limits

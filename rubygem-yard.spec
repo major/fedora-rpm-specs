@@ -1,7 +1,7 @@
 %global	gem_name	yard
 
 Name:		rubygem-%{gem_name}
-Version:	0.9.29
+Version:	0.9.32
 Release:	1%{?dist}
 
 Summary:	Documentation tool for consistent and usable documentation in Ruby
@@ -79,7 +79,6 @@ find %{buildroot}%{gem_instdir}/bin -type f | xargs chmod 0755
 rm -f %{buildroot}%{gem_cache}
 
 %check
-exit 0
 # FIXME
 # investigate this: was okay with yard 0.9.28
 sed -i spec/cli/diff_spec.rb \
@@ -96,15 +95,22 @@ rspec -r spec_helper spec
 %{_bindir}/yardoc
 %{_bindir}/yri
 
-%{gem_instdir}/bin
 %{gem_libdir}/
+%{gem_instdir}/bin
+%{gem_instdir}/po/
+%{gem_instdir}/templates/
+
 %{gem_spec}
 %{?gem_plugin}
 
 %files doc
 %doc	%{gem_docdir}
+%doc	%{gem_instdir}/docs/
 
 %changelog
+* Mon Apr 10 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.9.32-1
+- 0.9.32
+
 * Sun Apr  9 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.9.29-1
 - 0.9.29
 - Whitespace cleanup

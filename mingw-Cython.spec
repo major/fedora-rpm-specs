@@ -7,8 +7,8 @@
 
 Name:          mingw-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       0.29.33
-Release:       2%{?dist}
+Version:       0.29.34
+Release:       1%{?dist}
 
 License:       Apache-2.0
 URL:           http://www.cython.org
@@ -108,6 +108,9 @@ MinGW Windows Python3 %{pypi_name} library.
 
 
 %changelog
+* Mon Apr 10 2023 Sandro Mani <manisandro@gmail.com> - 0.29.34-1
+- Update to 0.29.34
+
 * Mon Mar 20 2023 Sandro Mani <manisandro@gmail.com> - 0.29.33-2
 - Add host build
 

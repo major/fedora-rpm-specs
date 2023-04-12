@@ -5,7 +5,7 @@
 %global crate timerfd
 
 Name:           rust-timerfd
-Version:        1.4.0
+Version:        1.4.1
 Release:        %autorelease
 Summary:        Rust interface to the Linux kernel's timerfd API
 

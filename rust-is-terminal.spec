@@ -5,7 +5,7 @@
 %global crate is-terminal
 
 Name:           rust-is-terminal
-Version:        0.4.5
+Version:        0.4.7
 Release:        %autorelease
 Summary:        Test whether a given stream is a terminal
 

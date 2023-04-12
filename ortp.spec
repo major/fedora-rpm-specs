@@ -1,99 +1,82 @@
-Name:           ortp
-Version:        0.23.0
-Release:        12%{?dist}
-Summary:        A C library implementing the RTP protocol (RFC3550)
-Epoch:          2
+Name: ortp
+Version: 5.2.45
+Release: 1%{?dist}
+Summary: A C library implementing the RTP protocol (RFC3550)
+License: AGPL-3.0-or-later
 
-License:        LGPLv2+ and VSL
-URL:            http://www.linphone.org/eng/documentation/dev/ortp.html
-# version 0.23.0 no longer exists at linphone.org
-# we are reverting to it so linphone-3.6.1 runs until we can get
-# recent linphone built.
-Source:         https://gitlab.linphone.org/BC/public/%{name}/-/archive/%{version}/%{name}-%{version}.tar.gz
-#Patch1:		ortp-libsrtp-1.5-fix.patch
-#Patch2:		ortp-logging-warning.patch
-# ortp-0.23.0 was calling crypto_get_random, which was a private API
-# and has been removed.  This patch reads /dev/urandom instead.
-Patch3:		ortp-random.patch
-# Support libsrtp2
-Patch4:		ortp-libsrtp2.patch
-# Fix warning on strncpy: see rtcp_APP_get_name() in rtcpparse.c
-Patch5:		ortp-gcc10.patch
+URL: https://gitlab.linphone.org/BC/public/ortp/
+
+Source: https://gitlab.linphone.org/BC/public/%{name}/-/archive/%{version}/%{name}-%{version}.tar.gz
+
+Epoch: 3
+
+# Patches.
+Patch00: 0001_ortp_set_current_version.patch
+Patch01: 0002_ortp_pkgconfig_add_bctoolbox_requires_and_fix_libdir_location.patch
+Patch02: 0003_ortp_doxygen_remove_obsolete_elements.patch
+
+BuildRequires: cmake
+BuildRequires: gcc-c++
 BuildRequires: make
-BuildRequires:  doxygen
-BuildRequires:  graphviz
+BuildRequires: doxygen
+BuildRequires: graphviz
+BuildRequires: libsrtp-devel
+BuildRequires: openssl-devel
+BuildRequires: bctoolbox-devel
 
-BuildRequires:  libtool perl-Carp
-BuildRequires:  libsrtp-devel
-BuildRequires:  openssl-devel
+# Make sure we obsolete really old releases.
+Obsoletes: ortp < %{epoch}:5.2.45-1
 
 %description
 oRTP is a C library that implements RTP (RFC3550).
 
-%package        devel
-Summary:        Development libraries for ortp
-Requires:       %{name} = %{epoch}:%{version}-%{release}
-Requires:       pkgconfig
-Requires:       libsrtp-devel
-%if 0%{?fedora} > 16
-Requires:       libzrtpcpp-devel
-%endif
+%package devel
+Summary: Development libraries for ortp
+Requires: %{name}%{?_isa} = %{epoch}:%{version}-%{release}
+# Make sure we obsolete really old releases.
+Obsoletes: ortp-devel < %{epoch}:5.2.45-1
+Requires: libsrtp-devel
+Requires: libzrtpcpp-devel
 
-%description    devel
+%description devel
 Libraries and headers required to develop software with ortp.
 
 %prep
-%setup0 -q
-
-#patch1 -p1 -b .srtp-15
-#patch2 -p1 -b .warn
-%patch3 -p1 -b .rand
-%patch4 -p1 -b .srtp2
-%patch5 -p1 -b .gcc10
-
-autoreconf -i -f
-
-%{__perl} -pi.dot  -e 's/^(HAVE_DOT\s+=)\s+NO$/\1 YES/;s/^(CALL_GRAPH\s+=)\s+NO$/\1 YES/;s/^(CALLER_GRAPH\s+=)\s+NO$/\1 YES/' ortp.doxygen.in
+%autosetup -p1
 
 %build
-%configure --disable-static \
-           --enable-ipv6 \
-           --enable-ssl-hmac
-
-
-make %{?_smp_mflags}
+%cmake \
+  -DCMAKE_SKIP_INSTALL_RPATH=ON \
+  -DENABLE_STATIC=OFF \
+  -DENABLE_DOC=OFF
+%cmake_build
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
-find $RPM_BUILD_ROOT -name \*.la -exec rm {} \;
-rm doc/html/html.tar
-rm -r %{buildroot}%{_datadir}/doc/%{name}-%{version}
+%cmake_install
 
-%ldconfig_scriptlets
+# Remove not required (should not be generated) versioned folder in docs.
+rm -rf %{buildroot}%{_datadir}/doc/ortp-%{version}
 
 %files
-%doc AUTHORS ChangeLog TODO NEWS README
-%license COPYING
-%{_libdir}/libortp.so.9*
+%license LICENSE.txt
+%{_bindir}/ortp_tester
+%{_libdir}/libortp.so.15*
 
 %files devel
-%doc doc/html 
-%{_includedir}/%{name}
+%license LICENSE.txt
+%doc AUTHORS.md CHANGELOG.md README.md
+%{_includedir}/ortp
+%{_libdir}/cmake/ortp/
 %{_libdir}/libortp.so
 %{_libdir}/pkgconfig/ortp.pc
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:0.23.0-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2:0.23.0-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2:0.23.0-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Sep 14 2021 Sahana Prasad <sahana@redhat.com> - 2:0.23.0-9
-- Rebuilt with OpenSSL 3.0.0
+* Sun Apr 09 2023 Phil Wyett <philip.wyett@kathenas.org> - 3:5.2.45-1
+- New upstream version 5.2.45.
+- Increment EPOCH to 3.
+- soname bump to 15.
+- Change to cmake build system.
+- Modernize, rework and reformat the spec file.
 
 * Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2:0.23.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild

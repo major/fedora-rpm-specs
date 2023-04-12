@@ -1,19 +1,18 @@
 %undefine _package_note_flags
 
 Name:           ocaml-luv
-Version:        0.5.11
-Release:        8%{?dist}
+Version:        0.5.12
+Release:        1%{?dist}
 Summary:        OCaml binding to libuv for cross-platform asynchronous I/O
 
 License:        MIT
 URL:            https://github.com/aantron/luv
 Source0:        %{url}/releases/download/%{version}/luv-%{version}.tar.gz
 
-BuildRequires:  ocaml >= 4.02.0
+BuildRequires:  ocaml >= 4.03.0
 BuildRequires:  ocaml-alcotest-devel >= 0.8.1
 BuildRequires:  ocaml-ctypes-devel >= 0.14.0
 BuildRequires:  ocaml-dune >= 2.0.0
-BuildRequires:  ocaml-result-devel
 BuildRequires:  pkgconfig(libuv)
 
 %description
@@ -29,7 +28,6 @@ API, and an alternative to the standard module Unix.
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       ocaml-ctypes-devel%{?_isa}
-Requires:       ocaml-result-devel%{?_isa}
 
 %description    devel
 The %{name}-devel package contains libraries and signature
@@ -70,6 +68,9 @@ export LUV_USE_SYSTEM_LIBUV=yes
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Apr 10 2023 Jerry James <loganjerry@gmail.com> - 0.5.12-1
+- Version 0.5.12
+
 * Tue Mar 21 2023 Jerry James <loganjerry@gmail.com> - 0.5.11-8
 - Rebuild for ocaml-ctypes 0.20.2
 

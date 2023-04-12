@@ -21,7 +21,7 @@ Release:        %autorelease
 Summary:        Go library for parsing and verifying versions and version constraints
 
 # Upstream license specification: MPL-2.0
-License:        MPLv2.0
+License:        MPL-2.0
 URL:            %{gourl}
 Source0:        %{gosource}
 

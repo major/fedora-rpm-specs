@@ -1,5 +1,5 @@
 Name:           linode-cli
-Version:        5.28.1
+Version:        5.35.0
 Release:        %autorelease
 Summary:        Official command-line interface to the Linode platform
 
@@ -44,6 +44,8 @@ mv data-3 %{buildroot}/%{python3_sitelib}/linodecli/
 %files -f %{pyproject_files}
 %doc README.rst
 %license LICENSE
+%{_bindir}/lin
+%{_bindir}/linode
 %{_bindir}/linode-cli
 %{_datadir}/bash-completion/
 %{python3_sitelib}/linodecli/data-3

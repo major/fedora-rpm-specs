@@ -21,6 +21,8 @@ URL:            http://www.swamiproject.org/
 #         Use this example as you please (public domain)
 #     - examples/split_sfont.c
 #         Public domain use as you please
+#   Texts were added to public-domain-text.txt in fedora-license-data:
+#   https://gitlab.com/fedora/legal/fedora-license-data/-/merge_requests/228
 #
 # Additionally, the following unused files are removed in %%prep:
 # • The following are GPL-2.0-only:

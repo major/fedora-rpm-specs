@@ -1,12 +1,13 @@
 Name:           aprsdigi
 Version:        3.5.1
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        AX.25 Automatic Position Reporting System
 
-License:        GPLv2
+License:        GPL-2.0
 URL:            https://github.com/n2ygk/aprsdigi/releases
+
 Source0:        https://github.com/n2ygk/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
-Patch0: aprsdigi-c99.patch
+Patch0:         aprsdigi-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  libax25-devel
@@ -80,6 +81,9 @@ EOL
 
 
 %changelog
+* Mon Apr 10 2023 Richard Shaw <hobbes1069@gmail.com> - 3.5.1-24
+- Migrate to SPDX license format.
+
 * Wed Feb 08 2023 Florian Weimer <fweimer@redhat.com> - 3.5.1-23
 - C99 compatibility fixes
 

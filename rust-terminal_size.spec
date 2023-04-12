@@ -5,7 +5,7 @@
 %global crate terminal_size
 
 Name:           rust-terminal_size
-Version:        0.2.5
+Version:        0.2.6
 Release:        %autorelease
 Summary:        Gets the size of your Linux or Windows terminal
 
@@ -64,7 +64,7 @@ use the "default" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# stty: /dev/stderr: Inappropriate ioctl for device
+# skip tests that don't work without a TTY
 %cargo_test -- -- --skip unix::compare_with_stty
 %endif
 

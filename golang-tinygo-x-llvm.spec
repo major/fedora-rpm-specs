@@ -26,7 +26,7 @@ Version:        0
 Release:        %autorelease -p
 Summary:        Go bindings to a system-installed LLVM
 
-License:        ASL 2.0 and NCSA
+License:        Apache-2.0 AND NCSA
 URL:            %{gourl}
 Source0:        %{gosource}
 # Fedora specific

@@ -1,5 +1,5 @@
 Name:           perl-Business-ISBN-Data
-Version:        20230331.001
+Version:        20230410.001
 Release:        1%{?dist}
 Summary:        The data pack for Business::ISBN
 License:        Artistic-2.0
@@ -11,7 +11,7 @@ BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.64
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::Manifest) >= 1.21
 # Module Runtime
@@ -25,7 +25,8 @@ BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Test::More) >= 0.95
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage)
-# Runtime
+# Dependencies
+# (none)
 
 %description
 This is a data pack for Business::ISBN.  You can update
@@ -53,6 +54,9 @@ make test
 %{_mandir}/man3/Business::ISBN::Data.3*
 
 %changelog
+* Mon Apr 10 2023 Paul Howarth <paul@city-fan.org> - 20230410.001-1
+- 20230410.001 bump (rhbz#2185525)
+
 * Mon Apr 03 2023 Jitka Plesnikova <jplesnik@redhat.com> - 20230331.001-1
 - 20230331.001 bump
 

@@ -18,11 +18,11 @@ Android.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.14%{?dist}
+Release:        0.15%{?dist}
 Summary:        FUSE filesystem for light-weight, lazily-loaded, read-only Git
 
 # Upstream license specification: Apache-2.0
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %{gourl}
 Source0:        %{gosource}
 # Increase a timeout for slow armv7hl.
@@ -88,6 +88,9 @@ git config --global user.name "Koji Build System"
 %gopkgfiles
 
 %changelog
+* Mon Apr 10 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0-0.15
+- Switch to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

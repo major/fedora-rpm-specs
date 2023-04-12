@@ -5,7 +5,7 @@
 %global crate fd-lock
 
 Name:           rust-fd-lock
-Version:        3.0.10
+Version:        3.0.12
 Release:        %autorelease
 Summary:        Advisory cross-platform lock on a file using a file descriptor to it
 

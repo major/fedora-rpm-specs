@@ -21,7 +21,7 @@ Release:        %autorelease -p
 Summary:        Functionality for measuring and displaying byte sizes
 
 # Upstream license specification: BSD-3-Clause
-License:        BSD
+License:        BSD-3-Clause
 URL:            %{gourl}
 Source0:        %{gosource}
 
@@ -47,5 +47,4 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
-* Sat Oct 08 2022 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0-0.1.20221008git4913239
-- Initial package
+%autochangelog

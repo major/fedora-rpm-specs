@@ -2,10 +2,10 @@
 
 Name:           api-sanity-checker
 Version:        1.98.7
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        An automatic generator of basic unit tests for a shared C/C++ library
 
-License:        GPLv2
+License:        GPL-2.0
 URL:            http://forge.ispras.ru/projects/api-sanity-autotest
 # https://github.com/lvc/api-sanity-checker/archive/%%{version}.tar.gz
 Source0:        %{name}-%{version}.tar.gz
@@ -49,7 +49,7 @@ features.
 
 
 %prep
-%setup -q
+%autosetup
 chmod -x LICENSE
 
 
@@ -78,6 +78,9 @@ sed -i '3,5d' %{buildroot}%{_mandir}/man1/api-sanity-checker.1
 
 
 %changelog
+* Mon Apr 10 2023 Richard Shaw <hobbes1069@gmail.com> - 1.98.7-17
+- Migrate to SPDX license format.
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.98.7-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

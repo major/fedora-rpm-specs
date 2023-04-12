@@ -15,6 +15,7 @@ BuildRequires:  pyproject-rpm-macros
 # for checks
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(setuptools)
+BuildRequires:  python3dist(attrs)
 
 %description
 Rich is a Python library for rich text and beautiful formatting in the terminal.
@@ -52,7 +53,7 @@ code, tracebacks, and more — out of the box.
 
 # some tests are skipped so python-rich builds during Python 3.11 mass rebuild
 # downstream report: https://bugzilla.redhat.com/show_bug.cgi?id=2049619
-%pytest -k "not test_inspect_text and not test_inspect_integer_with_methods and not test_log and not test_attrs_broken and not test_inspect_builtin_function"
+%pytest -vv -k "not test_inspect_text and not test_inspect_integer_with_methods and not test_log and not test_attrs_broken and not test_inspect_builtin_function"
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE

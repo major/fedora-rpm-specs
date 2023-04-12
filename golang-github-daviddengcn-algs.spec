@@ -15,10 +15,10 @@ Some algorithms in go: maxflow(min-cuts or graph-cuts), edit-distance.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.9%{?dist}
+Release:        0.10%{?dist}
 Summary:        Maxflow and edit-distance algorithms in Go
 
-License:        BSD
+License:        BSD-2-Clause-Views
 URL:            %{gourl}
 Source0:        %{gosource}
 
@@ -46,6 +46,9 @@ BuildRequires:  golang(github.com/golangplus/testing/assert)
 %gopkgfiles
 
 %changelog
+* Mon Apr 10 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0-0.10
+- Switch to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

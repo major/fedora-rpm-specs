@@ -1,5 +1,5 @@
 Name:           python-zeroconf
-Version:        0.47.4
+Version:        0.56.0
 Release:        1%{?dist}
 Summary:        Pure Python Multicast DNS Service Discovery Library
 
@@ -27,7 +27,7 @@ supporting Bonjour/Avahi.
 
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n zeroconf-%{version}
 
 
 %generate_buildrequires
@@ -53,6 +53,9 @@ supporting Bonjour/Avahi.
 
 
 %changelog
+* Mon Apr 10 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.56.0-1
+- Update to 0.56.0
+
 * Mon Mar 20 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.47.4-1
 - Update to 0.47.4
 

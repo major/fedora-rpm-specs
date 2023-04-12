@@ -3,7 +3,7 @@ Version:        1.8.1
 Release:        %autorelease
 Summary:        A system for high-quality audio network performance over the Internet
 
-License:        MIT and GPL-3.0-only and LGPL-3.0-only
+License:        MIT and GPL-3.0-or-later and LGPL-3.0-only
 URL:            https://github.com/%{name}/%{name}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 

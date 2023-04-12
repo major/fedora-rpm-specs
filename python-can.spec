@@ -1,14 +1,14 @@
+%global candidate rc0
 # Currently fails
 %define with_tests 0
 
-Name:           python-can
-Version:        4.0.0
-Release:        4%{?dist}
-Summary:        Controller Area Network (CAN) support for Python
-
-License:        LGPLv3
-URL:            https://github.com/hardbyte/python-can
-Source0:        https://github.com/hardbyte/python-can/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Name:      python-can
+Version:   4.2.0
+Release:   0.1%{?candidate:.%{candidate}}%{?dist}
+Summary:   Controller Area Network (CAN) support for Python
+License:   LGPLv3
+URL:       https://github.com/hardbyte/python-can
+Source0:   https://github.com/hardbyte/python-can/archive/%{version}.tar.gz#/%{name}-%{version}%{?candidate:%{candidate}}.tar.gz
 
 BuildArch: noarch
 
@@ -44,7 +44,7 @@ providing common abstractions to different hardware devices, and a suite of
 utilities for sending and receiving messages on a can bus.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{version}%{?candidate:%{candidate}}
 
 %build
 %py3_build
@@ -64,6 +64,12 @@ rm -rf %{buildroot}/%{python3_sitelib}/test/
 %{python3_sitelib}/*
 
 %changelog
+* Mon Apr 10 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 4.2.0-0.1.rc0
+- Update to 4.2.0rc0
+
+* Mon Apr 10 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 4.1.0-1
+- Update to 4.1.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,26 +1,31 @@
+%global llvm_maj_ver 16
+# If you bump LLVM, please reset bugfix_version to 0; I fork upstream sources,
+# but I prepare the initial *.0 tag long before Fedora/EL picks up new LLVM.
+# An LLVM update will require uploading new sources, contact mystro256 if FTBFS.
+%global bugfix_version 0
 %global upstreamname ROCm-CompilerSupport
-%global rocm_release 5.4
-%global rocm_patch 1
-%global rocm_version %{rocm_release}.%{rocm_patch}
 
 Name:           rocm-compilersupport
-Version:        %{rocm_version}
-Release:        3%{?dist}
+Version:        %{llvm_maj_ver}.%{bugfix_version}
+Release:        1%{?dist}
 Summary:        Various AMD ROCm LLVM related services
 
 Url:            https://github.com/RadeonOpenCompute/ROCm-CompilerSupport
 License:        NCSA
-Source0:        https://github.com/RadeonOpenCompute/%{upstreamname}/archive/refs/tags/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+# I fork upstream sources because they don't target stable LLVM, but rather the
+# bleeding edge LLVM branch. My fork is a snapshot with bugfixes backported:
+Source0:        https://github.com/Mystro256/%{upstreamname}/archive/refs/tags/%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
-# Patch adopted from Gentoo:
-#https://gitweb.gentoo.org/repo/gentoo.git/commit/?id=ff5673d31363d797f1e40afa8038b9a9fa4c56c1
-Patch0:         rocm-comgr-5.3.3-fix-tests.patch
+Patch0:         0001-Test-reporting-error.patch
+Patch1:	        0002-Fix-comgr_mangled_names_test.patch
+Patch2:         0003-Skip-device-libs-test-errors.patch
 
 BuildRequires:  cmake
-BuildRequires:  clang-devel >= 15.0.0
+BuildRequires:  clang-devel >= %{llvm_maj_ver}
+BuildRequires:  clang(major) = %{llvm_maj_ver}
 BuildRequires:  lld-devel
-BuildRequires:  llvm-devel >= 15.0.0
-BuildRequires:  rocm-device-libs >= %(echo %{version} | sed 's/\.[0-9]*$/.0/')
+BuildRequires:  llvm-devel(major) = %{llvm_maj_ver}
+BuildRequires:  rocm-device-libs >= %{llvm_maj_ver}
 BuildRequires:  zlib-devel
 
 #Only the following architectures are useful for ROCm packages:
@@ -31,7 +36,7 @@ This package currently contains one library, the Code Object Manager (Comgr)
 
 %package -n rocm-comgr
 Summary:        AMD ROCm LLVM Code Object Manager
-Provides:       comgr(rocm) = %{rocm_release}
+Provides:       comgr(rocm) = %{llvm_maj_ver}
 
 %description -n rocm-comgr
 The AMD Code Object Manager (Comgr) is a shared library which provides
@@ -48,7 +53,7 @@ The API is documented in the header file:
 "%{_includedir}/amd_comgr.h"
 
 %prep
-%autosetup -p1 -n %{upstreamname}-rocm-%{version}
+%autosetup -p1 -n %{upstreamname}-%{version}
 
 ##Fix issue wit HIP, where compilation flags are incorrect, see issue:
 #https://github.com/RadeonOpenCompute/ROCm-CompilerSupport/issues/49
@@ -85,6 +90,9 @@ sed -i 's/lib\(\/clang\)/%{_lib}\1/' lib/comgr/src/comgr-compiler.cpp
 %{_includedir}/amd_comgr.h
 
 %changelog
+* Wed Mar 29 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 16.0-1
+- Update to 16.0 (forked sources for Fedora)
+
 * Mon Feb 27 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.4.1-3
 - Use patch from Gentoo to improve test failures
 

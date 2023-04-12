@@ -2,7 +2,7 @@ Name:           perl-ExtUtils-XSBuilder
 Version:        0.28
 Release:        44%{?dist}
 Summary:        Modules that parse C header files and create XS glue code
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ExtUtils-XSBuilder
 Source0:        https://cpan.metacpan.org/modules/by-module/ExtUtils/ExtUtils-XSBuilder-%{version}.tar.gz
 BuildArch:      noarch
