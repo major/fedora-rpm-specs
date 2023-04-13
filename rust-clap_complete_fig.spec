@@ -6,7 +6,7 @@
 %global crate clap_complete_fig
 
 Name:           rust-clap_complete_fig
-Version:        4.1.2
+Version:        4.2.0
 Release:        %autorelease
 Summary:        Generator library used with clap for Fig completion scripts
 

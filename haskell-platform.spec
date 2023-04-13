@@ -23,7 +23,7 @@
 
 Name:           haskell-platform
 Version:        2022.2
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Standard Haskell distribution
 
 License:        BSD
@@ -47,7 +47,8 @@ Source13:       https://hackage.haskell.org/package/%{casatypes}/%{casatypes}.ta
 Source20:       stack-symlink-distro-ghc
 # End cabal-rpm sources
 # https://github.com/commercialhaskell/stack/issues/5866
-Patch1:         https://patch-diff.githubusercontent.com/raw/commercialhaskell/stack/pull/6028.patch
+# https://github.com/commercialhaskell/stack/pull/6028
+Patch1:         6028-2.9.1.patch
 
 BuildRequires:  ghc
 BuildRequires:  alex
@@ -369,8 +370,10 @@ Stack is a cross-platform program for developing Haskell projects.
 # Begin cabal-rpm setup:
 %setup -q -c -a1 -a2 -a3 -a4 -a5 -a6 -a7 -a8 -a9 -a10 -a11 -a12 -a13
 # End cabal-rpm setup
-#%%patch1 -p0 -b .orig
-
+(
+cd %{stack}
+%patch 1 -p1 -b .orig
+)
 
 %build
 # Begin cabal-rpm build:
@@ -409,6 +412,9 @@ install -p -m 644 %{SOURCE20} %{buildroot}%{_bindir}/stack-symlink-distro-ghc
 
 
 %changelog
+* Tue Apr 11 2023 Jens Petersen <petersen@redhat.com> - 2022.2-22
+- backport fix for error: InvalidAbsFile "/usr/lib64/ghc-9.2.3/lib/../lib/x86_64-linux-ghc-9.2.3/rts-1.0.2/include/ghcversion.h" (#5866)
+
 * Tue Feb 21 2023 Jens Petersen <petersen@redhat.com> - 2022.2-21
 - update to stack 2.9.1
 - https://hackage.haskell.org/package/stack-2.9.1/changelog

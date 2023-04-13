@@ -4,7 +4,7 @@ Name:          mysql-connector-java
 Version:       8.0.30
 Release:       2%{?dist}
 Epoch:         1
-License:       GPLv2 with exceptions
+License:       GPL-2.0-only
 URL:           http://dev.mysql.com/downloads/connector/j/
 Source0:       %{name}-%{version}-nojars.tar.xz
 

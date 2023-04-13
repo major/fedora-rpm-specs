@@ -150,7 +150,7 @@
 
 Name:             mariadb
 Version:          10.5.18
-Release:          2%{?with_debug:.debug}%{?dist}
+Release:          3%{?with_debug:.debug}%{?dist}
 Epoch:            3
 
 Summary:          A very fast and robust SQL database server
@@ -212,6 +212,7 @@ Patch10:          %{pkgnamepatch}-ssl-cipher-tests.patch
 #   https://gcc.gnu.org/gcc-13/porting_to.html
 Patch11:          mariadb-10.5-gcc13.patch
 Patch12:          rocksdb-6.8-gcc13.patch
+Patch13:          mariadb-c99.patch
 
 BuildRequires:    make
 BuildRequires:    cmake gcc-c++
@@ -746,6 +747,7 @@ rm -r storage/rocksdb/
 %patch11 -p1
 %if %{with rocksdb}
 %patch12 -p1 -d storage/rocksdb/rocksdb/
+%patch13 -p1
 %endif
 
 # generate a list of tests that fail, but are not disabled by upstream
@@ -1646,6 +1648,9 @@ fi
 %endif
 
 %changelog
+* Tue Apr 11 2023 Florian Weimer <fweimer@redhat.com> - 3:10.5.18-3
+- Port to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3:10.5.18-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -16,7 +16,7 @@
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
 Version: 1.12.1
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://portal.hdfgroup.org/display/HDF5/HDF5
@@ -38,6 +38,7 @@ Patch3: hdf5-build.patch
 # Remove Fedora build flags from h5cc/h5c++/h5fc
 # https://bugzilla.redhat.com/show_bug.cgi?id=1794625
 Patch5: hdf5-wrappers.patch
+Patch6: hdf5-configure-c99.patch
 
 BuildRequires: gcc-gfortran
 %if %{with java}
@@ -543,6 +544,9 @@ fi
 
 
 %changelog
+* Tue Apr 11 2023 Florian Weimer <fweimer@redhat.com> - 1.12.1-12
+- Apply upstream patch to fix C99 compatibility issue
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

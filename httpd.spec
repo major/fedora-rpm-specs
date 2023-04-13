@@ -23,7 +23,7 @@
 
 Summary: Apache HTTP Server
 Name: httpd
-Version: 2.4.56
+Version: 2.4.57
 Release: 1%{?dist}
 URL: https://httpd.apache.org/
 Source0: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2
@@ -850,6 +850,9 @@ exit $rv
 %{_rpmconfigdir}/macros.d/macros.httpd
 
 %changelog
+* Tue Apr 11 2023 Luboš Uhliarik <luhliari@redhat.com> - 2.4.57-1
+- new version 2.4.57
+
 * Thu Mar 09 2023 Luboš Uhliarik <luhliari@redhat.com> - 2.4.56-1
 - new version 2.4.56
 

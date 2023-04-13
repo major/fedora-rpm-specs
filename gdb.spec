@@ -1249,6 +1249,10 @@ fi
 %endif
 
 %changelog
+* Tue Apr 11 2023 Keith Seitz
+- Backport "Fix a potential illegal memory access in the BFD library..."
+  (Nick Clifton, binutils/29988)
+
 * Fri Mar 31 2023 Keith Seitz <keiths@redhat.com> - 13.1-4
 - Backport "Fix crash in inside_main_func"
   (Tom Tromey, RHBZ 2183595)

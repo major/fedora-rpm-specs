@@ -8,17 +8,20 @@
 %endif
 
 Name:           perl-Devel-CallChecker
-Version:        0.008
-Release:        19%{?dist}
+Version:        0.009
+Release:        1%{?dist}
 Summary:        Custom op checking attached to subroutines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-CallChecker
-Source0:        https://cpan.metacpan.org/authors/id/Z/ZE/ZEFRAM/Devel-CallChecker-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/modules/by-module/Devel/Devel-CallChecker-%{version}.tar.gz
+# Build
+BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::CBuilder) >= 0.15
 BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
@@ -28,7 +31,6 @@ BuildRequires:  perl(DynaLoader::Functions) >= 0.001
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(parent)
 # Tests
-BuildRequires:  perl(ExtUtils::CBuilder) >= 0.15
 BuildRequires:  perl(ExtUtils::ParseXS)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(IO::File) >= 1.03
@@ -41,6 +43,7 @@ BuildRequires:  perl(threads)
 BuildRequires:  perl(threads::shared)
 BuildRequires:  perl(Thread::Semaphore)
 %endif
+# Dependencies
 Requires:       perl(DynaLoader)
 Requires:       perl(DynaLoader::Functions) >= 0.001
 
@@ -81,13 +84,14 @@ for F in t/*.t; do
 done
 
 %build
-perl Build.PL installdirs=vendor optimize="$RPM_OPT_FLAGS"
+perl Build.PL --installdirs=vendor --optimize="%{optflags}"
 ./Build
 
 %install
-./Build install destdir=$RPM_BUILD_ROOT create_packlist=0
-find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
-%{_fixperms} $RPM_BUILD_ROOT/*
+./Build install --destdir=%{buildroot} --create_packlist=0
+find %{buildroot} -type f -name '*.bs' -empty -delete
+%{_fixperms} -c %{buildroot}
+
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
@@ -110,14 +114,20 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %files
 %doc Changes README
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/Devel*
-%{_mandir}/man3/*
+%{perl_vendorarch}/auto/Devel/
+%{perl_vendorarch}/Devel/
+%{_mandir}/man3/Devel::CallChecker.3*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Apr 11 2023 Paul Howarth <paul@city-fan.org> - 0.009-1
+- 0.009 bump (rhbz#2185631)
+- Use author-independent source URL
+- Fix permissions verbosely
+- Make %%files list more explicit
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.008-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

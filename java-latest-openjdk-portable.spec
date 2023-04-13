@@ -30,7 +30,7 @@
 # Enable static library builds by default.
 %bcond_without staticlibs
 # Build a fresh libjvm.so for use in a copy of the bootstrap JDK
-%bcond_with fresh_libjvm
+%bcond_without fresh_libjvm
 # Build with system libraries
 %bcond_with system_libs
 
@@ -49,13 +49,6 @@
 %global include_staticlibs 1
 %else
 %global include_staticlibs 0
-%endif
-
-# Define whether to use the bootstrap JDK directly or with a fresh libjvm.so
-%if %{with fresh_libjvm}
-%global build_hotspot_first 1
-%else
-%global build_hotspot_first 0
 %endif
 
 %if %{with system_libs}
@@ -255,10 +248,6 @@
 # Target to use to just build HotSpot
 %global hotspot_target hotspot
 
-# JDK to use for bootstrapping
-%global bootjdk /usr/lib/jvm/java-%{buildjdkver}-openjdk
-
-
 # Filter out flags from the optflags macro that cause problems with the OpenJDK build
 # We filter out -O flags so that the optimization of HotSpot is not lowered from O3 to O2
 # We filter out -Wall which will otherwise cause HotSpot to produce hundreds of thousands of warnings (100+mb logs)
@@ -349,7 +338,7 @@
 # buildjdkver is usually same as %%{featurever},
 # but in time of bootstrap of next jdk, it is featurever-1,
 # and this it is better to change it here, on single place
-%global buildjdkver 19
+%global buildjdkver %{featurever}
 # We don't add any LTS designator for STS packages (Fedora and EPEL).
 # We need to explicitly exclude EPEL as it would have the %%{rhel} macro defined.
 %if 0%{?rhel} && !0%{?epel}
@@ -358,6 +347,16 @@
 %else
  %global lts_designator ""
  %global lts_designator_zip ""
+%endif
+# JDK to use for bootstrapping
+%global bootjdk /usr/lib/jvm/java-%{buildjdkver}-openjdk
+# Define whether to use the bootstrap JDK directly or with a fresh libjvm.so
+# This will only work where the bootstrap JDK is the same major version
+# as the JDK being built
+%if %{with fresh_libjvm} && %{buildjdkver} == %{featurever}
+%global build_hotspot_first 1
+%else
+%global build_hotspot_first 0
 %endif
 
 # Define vendor information used by OpenJDK
@@ -384,7 +383,7 @@
 # Define IcedTea version used for SystemTap tapsets and desktop file
 %global icedteaver      6.0.0pre00-c848b93a8598
 # Define current Git revision for the FIPS support patches
-%global fipsver d95bb40c7c8
+%global fipsver fd3de3d95b5
 
 # Standard JPackage naming and versioning defines
 %global origin          openjdk
@@ -392,7 +391,7 @@
 %global top_level_dir_name   %{origin}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        36
-%global rpmrelease      1
+%global rpmrelease      2
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -663,8 +662,8 @@ Patch3:    rh649512-remove_uses_of_far_in_jpeg_libjpeg_turbo_1_4_compat_for_jdk1
 Patch6: rh1684077-openjdk_should_depend_on_pcsc-lite-libs_instead_of_pcsc-lite-devel.patch
 
 # Crypto policy and FIPS support patches
-# Patch is generated from the fips-19u tree at https://github.com/rh-openjdk/jdk/tree/fips-19u
-# as follows: git diff %%{vcstag} src make > fips-19u-$(git show -s --format=%h HEAD).patch
+# Patch is generated from the fips-20u tree at https://github.com/rh-openjdk/jdk/tree/fips-20u
+# as follows: git diff %%{vcstag} src make > fips-20u-$(git show -s --format=%h HEAD).patch
 # Diff is limited to src and make subdirectories to exclude .github changes
 # Fixes currently included:
 # PR3183, RH1340845: Follow system wide crypto policy
@@ -685,7 +684,10 @@ Patch6: rh1684077-openjdk_should_depend_on_pcsc-lite-libs_instead_of_pcsc-lite-d
 # RH2094027: SunEC runtime permission for FIPS
 # RH2036462: sun.security.pkcs11.wrapper.PKCS11.getInstance breakage
 # RH2090378: Revert to disabling system security properties and FIPS mode support together
-Patch1001: fips-19u-%{fipsver}.patch
+# RH2104724: Avoid import/export of DH private keys
+# RH2092507: P11Key.getEncoded does not work for DH keys in FIPS mode
+# Build the systemconf library on all platforms
+Patch1001: fips-20u-%{fipsver}.patch
 
 #############################################
 #
@@ -935,6 +937,12 @@ if [ %{include_debug_build} -eq 0 -a  %{include_normal_build} -eq 0 -a  %{includ
   echo "You have disabled all builds (normal,fastdebug,slowdebug). That is a no go."
   exit 14
 fi
+
+%if %{with fresh_libjvm} && ! %{build_hotspot_first}
+echo "WARNING: The build of a fresh libjvm has been disabled due to a JDK version mismatch"
+echo "Build JDK version is %{buildjdkver}, feature JDK version is %{featurever}"
+%endif
+
 %setup -q -c -n %{uniquesuffix ""} -T -a 0
 # https://bugzilla.redhat.com/show_bug.cgi?id=1189084
 prioritylength=`expr length %{priority}`
@@ -952,17 +960,17 @@ sh %{SOURCE12} %{top_level_dir_name}
 
 # Patch the JDK
 pushd %{top_level_dir_name}
-%patch 1 -p1
-%patch 2 -p1
-%patch 3 -p1
-%patch 6 -p1
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
+%patch6 -p1
 # Add crypto policy and FIPS support
-#%%patch 1001 -p1 - todo, adapt fips patch for jdk20
+%patch1001 -p1
 # nss.cfg PKCS11 support; must come last as it also alters java.security
-%patch 1000 -p1
+%patch1000 -p1
 popd # openjdk
 
-%patch 600
+%patch600
 
 # The OpenJDK version file includes the current
 # upstream version information. For some reason,
@@ -1132,6 +1140,7 @@ function buildjdk() {
     --with-boot-jdk=${buildjdk} \
     --with-debug-level=${debuglevel} \
     --with-native-debug-symbols="%{debug_symbols}" \
+    --disable-sysconf-nss \
     --enable-unlimited-crypto \
     --with-zlib=%{link_type} \
     --with-freetype=%{link_type} \
@@ -1505,8 +1514,8 @@ $JAVA_HOME/bin/java $(echo $(basename %{SOURCE16})|sed "s|\.java||") "%{oj_vendo
 # tzdb.dat used by this test is not where the test expects it, so this is
 # disabled for flatpak builds) 
 $JAVA_HOME/bin/javac -d . %{SOURCE18}
-#$JAVA_HOME/bin/java $(echo $(basename %{SOURCE18})|sed "s|\.java||") JRE
-#$JAVA_HOME/bin/java -Djava.locale.providers=CLDR $(echo $(basename %{SOURCE18})|sed "s|\.java||") CLDR
+$JAVA_HOME/bin/java $(echo $(basename %{SOURCE18})|sed "s|\.java||") JRE
+$JAVA_HOME/bin/java -Djava.locale.providers=CLDR $(echo $(basename %{SOURCE18})|sed "s|\.java||") CLDR
 %endif
 
 %if %{include_staticlibs}
@@ -1596,18 +1605,35 @@ done
 %endif
 
 %changelog
-* Tue Mar 28  2023 Jiri Vanel <jvanek@redhat.com> - 1:20.0.0.0.36-1.rolling
-- moved to jdk20 
+* Mon Apr 10 2023 Andrew Hughes <gnu.andrew@redhat.com> - 1:20.0.0.0.36-2.rolling
+- Complete update to OpenJDK 20
+- Update NEWS
+- Update system crypto policy & FIPS patch from new fips-20u tree
+- * RH2104724: Avoid import/export of DH private keys
+- * RH2092507: P11Key.getEncoded does not work for DH keys in FIPS mode
+- * Build the systemconf library on all platforms
+- Update generate_tarball.sh ICEDTEA_VERSION and add support for passing a boot JDK to the configure run
+- Revert changes to generate_tarball.sh which break error handling
+- Add POSIX-friendly error codes to generate_tarball.sh and fix whitespace
+- Remove .jcheck and GitHub support when generating tarballs, as done in upstream release tarballs
+- Revert changes to patch macro which break on older versions of rpm (4.16)
+- Revert changes to configure run
+- Revert RH1648429 patch changes
+- Update CLDR reference data following update to 42 (Rocky Mountain-Normalzeit => Rocky-Mountain-Normalzeit)
+- Re-enable disabled translation test
+- Automatically turn off building a fresh HotSpot first, if the bootstrap JDK is not the same major version as that being built
+
+* Tue Mar 28  2023 Jiri Vanek <jvanek@redhat.com> - 1:20.0.0.0.36-1.rolling
+- moved to jdk20
 - remvoed already upstreamed patches patch2006,2007,2008,2009
 - commented out not yet adapted patch1001 - fips support
 - removed --disable-sysconf-nss due to missing patch 1001 from configure
 -- todo return both patch1001 and disable-sysconf-nss!
-- adapted rh1750419-redhat_alt_java.patch and rh1750419-redhat_alt_java.patch patches
+- adapted rh1648249-add_commented_out_nss_cfg_provider_to_java_security.patch and rh1750419-redhat_alt_java.patch patches
 - inverted fresh_libjvm behavior to be disabled by default. fails:
 -- See: https://koji.fedoraproject.org/koji/taskinfo?taskID=99242677
 - commented out tzdata tests
 - moved from deprecated patchN to patch N
-
 
 * Tue Feb 07  2023 Jiri Vanel <jvanek@redhat.com> - 1:19.0.2.0.7-2.rolling
 - added png icons from x11 source package, so they can be reused by rpms

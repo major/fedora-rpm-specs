@@ -13,7 +13,7 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.10
+%global general_version %{pybasever}.11
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
@@ -67,7 +67,7 @@ License: Python-2.0.1
 # If the rpmwheels condition is disabled, we use the bundled wheel packages
 # from Python with the versions below.
 # This needs to be manually updated when we update Python.
-%global pip_version 22.3.1
+%global pip_version 23.0.1
 %global setuptools_version 65.5.0
 
 # Expensive optimizations (mainly, profile-guided optimizations)
@@ -1586,6 +1586,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Wed Apr 05 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.10.11-1
+- Update to 3.10.11
+
 * Wed Feb 08 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.10.10-1
 - Update to 3.10.10
 

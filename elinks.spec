@@ -1,8 +1,8 @@
 Name:      elinks
 Summary:   A text-mode Web browser
 Version:   0.16.0
-Release:   4%{?dist}
-License:   GPLv2
+Release:   5%{?dist}
+License:   GPL-2.0-only
 URL:       https://github.com/rkd77/elinks
 Source:    https://github.com/rkd77/elinks/releases/download/v%{version}/elinks-%{version}.tar.xz
 Source2:   elinks.conf
@@ -130,6 +130,9 @@ exit 0
 %{_mandir}/man5/*
 
 %changelog
+* Tue Apr 11 2023 Lukáš Zaoral <lzaoral@redhat.com> - 0.16.0-5
+- migrate to SPDX license format
+
 * Fri Mar 24 2023 Arjun Shankar <arjun@redhat.com> - 0.16.0-4
 - Port configure script to C99
 

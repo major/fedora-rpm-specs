@@ -175,7 +175,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        112.0
-Release:        2%{?pre_tag}%{?dist}
+Release:        3%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
@@ -256,6 +256,7 @@ Patch415:        mozilla-1670333.patch
 # https://phabricator.services.mozilla.com/D173021
 Patch416:        libwebrtc-pipewire-capturer-import-dmabuf-directly-into-desktop-frame.patch
 Patch417:        mozilla-1826583.patch
+Patch418:        mozilla-1827429.patch
 
 # PGO/LTO patches
 Patch600:        pgo.patch
@@ -538,6 +539,7 @@ This package contains results of tests executed during build.
 %patch415 -p1 -b .1670333
 %patch416 -p1 -b .libwebrtc-pipewire-capturer-import-dmabuf-directly-into-desktop-frame
 %patch417 -p1 -b .1826583
+%patch418 -p1 -b .1827429
 
 # PGO patches
 %if %{build_with_pgo}
@@ -1087,6 +1089,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Tue Apr 11 2023 Martin Stransky <stransky@redhat.com>- 112.0-3
+- Added wayland window fix mzbz#1827429
+
 * Thu Apr 6 2023 Martin Stransky <stransky@redhat.com>- 112.0-2
 - Updated to 112.0 build 2
 - don't crash on wayland logging (mzbz#1826583/rhbz#2184842).

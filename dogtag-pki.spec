@@ -14,7 +14,7 @@ Name:             dogtag-pki
 # Downstream release number:
 # - development/stabilization (unsupported): 0.<n> where n >= 1
 # - GA/update (supported): <n> where n >= 1
-%global           release_number 1
+%global           release_number 2
 
 # Development phase:
 # - development (unsupported): alpha<n> where n >= 1
@@ -752,6 +752,12 @@ Provides:         pki-server-theme = %{version}-%{release}
 Obsoletes:        %{product_id}-server-theme < %{version}-%{release}
 Provides:         %{product_id}-server-theme = %{version}-%{release}
 
+%if 0%{?fedora} > 38
+Requires:         fontawesome4-fonts-web
+%else
+Requires:         fontawesome-fonts-web
+%endif
+
 # Ensure we end up with a useful installation
 Conflicts:        pki-base < %{version}
 Conflicts:        pki-javadoc < %{version}
@@ -866,6 +872,16 @@ pkgs=base\
     --work-dir=%{_vpath_builddir} \
     --install-dir=%{buildroot} \
     install
+
+# Unbundle the FontAwesome fonts
+rm %{buildroot}%{_datadir}/pki/common-ui/fonts/fontawesome-webfont.woff
+%if 0%{?fedora} > 38
+ln -s ../../../fonts/fontawesome4/fontawesome-webfont.woff \
+    %{buildroot}%{_datadir}/pki/common-ui/fonts/fontawesome-webfont.woff
+%else
+ln -s ../../../fonts/fontawesome/fontawesome-webfont.woff \
+    %{buildroot}%{_datadir}/pki/common-ui/fonts/fontawesome-webfont.woff
+%endif
 
 %if %{with server}
 
@@ -1274,6 +1290,9 @@ fi
 
 ################################################################################
 %changelog
+* Mon Feb 27 2023 Jerry James <loganjerry@gmail.com> - 11.3.1-2
+- Unbundle the FontAwesome font
+
 * Tue Feb 07 2023 Dogtag PKI Team <devel@lists.dogtagpki.org> - 11.3.1-1
 - Rebase to PKI 11.3.1
 

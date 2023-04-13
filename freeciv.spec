@@ -1,8 +1,8 @@
 %define _hardened_build 1
 
 Name:           freeciv
-Version:        3.0.6
-Release:        2%{?dist}
+Version:        3.0.7
+Release:        1%{?dist}
 Summary:        A multi-player strategy game
 
 License:        GPL-2.0-or-later
@@ -110,6 +110,9 @@ find $RPM_BUILD_ROOT -name '*.a' -delete
 %{_bindir}/freeciv-qt
 
 %changelog
+* Tue Apr 11 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.0.7-1
+- 3.0.7
+
 * Sat Mar 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.0.6-2
 - migrated to SPDX license
 

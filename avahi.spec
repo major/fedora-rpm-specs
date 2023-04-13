@@ -1,4 +1,5 @@
 %bcond_with bootstrap
+%bcond_without check
 
 %if %{without bootstrap}
 %{?!WITH_MONO:          %global WITH_MONO 1}
@@ -57,7 +58,7 @@
 
 Name:             avahi
 Version:          0.8
-Release:          21%{?dist}
+Release:          22%{?dist}
 Summary:          Local network service discovery
 License:          LGPLv2+
 URL:              http://avahi.org
@@ -155,6 +156,8 @@ Patch11: 0011-avahi_dns_packet_consume_uint32-fix-potential-undefi.patch
 # https://github.com/lathiat/avahi/pull/324
 # https://github.com/lathiat/avahi/commit/9d31939e55280a733d930b15ac9e4dda4497680c
 Patch16: 0016-Fix-NULL-pointer-crashes-from-175.patch
+# https://github.com/lathiat/avahi/pull/407
+Patch17: 0017-Emit-error-if-requested-service-is-not-found.patch
 
 ## downstream patches
 Patch100: avahi-0.6.30-mono-libdir.patch
@@ -380,8 +383,8 @@ necessary for developing programs using avahi.
 %package compat-howl
 Summary:          Libraries for howl compatibility
 Requires:         %{name}-libs%{?_isa} = %{version}-%{release}
-Obsoletes:        howl-libs
-Provides:         howl-libs
+Obsoletes:        howl-libs < 0.6-16
+Provides:         howl-libs = %{version}-%{release}
 
 %description compat-howl
 Libraries that are compatible with those provided by the howl package.
@@ -390,8 +393,8 @@ Libraries that are compatible with those provided by the howl package.
 Summary:          Header files for development with the howl compatibility libraries
 Requires:         %{name}-compat-howl%{?_isa} = %{version}-%{release}
 Requires:         %{name}-devel%{?_isa} = %{version}-%{release}
-Obsoletes:        howl-devel
-Provides:         howl-devel
+Obsoletes:        howl-devel < 0.6-16
+Provides:         howl-devel = %{version}-%{release}
 
 %description compat-howl-devel
 Header files for development with the howl compatibility libraries.
@@ -485,6 +488,9 @@ NOCONFIGURE=1 ./autogen.sh
         --enable-shared=yes \
         --enable-static=no \
         --disable-silent-rules \
+%if %{with check}
+        --enable-tests \
+%endif
 %if %{WITH_GTK2}
         --enable-gtk \
 %else
@@ -574,10 +580,16 @@ rm -fv %{buildroot}%{_sysconfdir}/rc.d/init.d/avahi-dnsconfd
 
 
 %check
+%if %{with check}
+  %make_build check
+%endif
+%if %{without bootstrap}
+  for i in %{buildroot}%{_datadir}/applications/b*.desktop ; do
+    desktop-file-validate $i
+  done
+%endif
 %if %{WITH_PYTHON}
-for i in %{buildroot}%{_datadir}/applications/*.desktop ; do
-desktop-file-validate $i
-done
+  desktop-file-validate %{buildroot}%{_datadir}/applications/avahi-discover.desktop
 %endif
 
 
@@ -699,6 +711,7 @@ exit 0
 %{_mandir}/man1/avahi-resolve-host-name.1*
 %{_mandir}/man1/avahi-set-host-name.1*
 
+%if %{without bootstrap}
 %files ui-tools
 %{_bindir}/bshell
 %{_bindir}/bssh
@@ -716,6 +729,7 @@ exit 0
 %{_mandir}/man1/avahi-bookmarks*
 %{_datadir}/applications/avahi-discover.desktop
 %{python2_sitelib}/avahi_discover/
+%endif
 %endif
 
 %files devel
@@ -864,6 +878,12 @@ exit 0
 
 
 %changelog
+* Sun Mar 19 2023 Petr Menšík <pemensik@redhat.com> - 0.8-22
+- Enable unit tests during check
+- Prevent crashes on some invalid DBus calls
+- Provide versioned howl compatibility package
+- Correct bootstrap option
+
 * Sun Mar 19 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.8-21
 - Disable GTK2 in ELN/RHEL10 builds
 

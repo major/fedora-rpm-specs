@@ -1,45 +1,42 @@
-%global sover 2
-%global with_tests 1
-#global commit a2d016c84d2034f43062d7f22b4874cfffe5c127
-#global shortcommit %(c=%{commit}; echo ${c:0:7})
-#global candidate RC1
+%global toolchain clang
 
-Name:           pocl
-%global ver 1.8
-Version:        %{lua:ver = string.gsub(rpm.expand("%{ver}"), "-", "~"); print(string.lower(ver))}
-Release:        3%{?candidate:.%{candidate}}%{?shortcommit:.%{shortcommit}}%{?dist}
-Summary:        Portable Computing Language - an OpenCL implementation
-# The whole code is under MIT
-# except include/utlist.h which is under BSD (and unbundled) and
-# except lib/kernel/vecmath which is under GPLv3+ or LGPLv3+ (and unbundled in future)
-License:        MIT and BSD and (GPLv3+ or LGPLv3+)
-URL:            http://portablecl.org/
+Name: pocl
+Version: 3.1
+Release: 1%{?dist}
 
-%if 0%{?shortcommit}
-Source0:        https://github.com/pocl/pocl/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
-%else
-Source0:        https://github.com/pocl/pocl/archive/refs/tags/v%{version}%{?candidate:-%{candidate}}.tar.gz#/%{name}-%{version}.tar.gz
-%endif
+# The entire code is under MIT
+# include/utlist.h which is under BSD-1-Clause (unbundled)
+# lib/kernel/vecmath which is under GPL-3.0-or-later OR LGPL-3.0-or-later
+License: MIT AND BSD-1-Clause AND (GPL-3.0-or-later OR LGPL-3.0-or-later)
+Summary: Portable Computing Language - an OpenCL implementation
+URL: https://github.com/%{name}/%{name}
+Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  cmake
-BuildRequires:  clang clang-devel
-BuildRequires:  compiler-rt
-BuildRequires:  glew-devel
-BuildRequires:  hwloc-devel
-BuildRequires:  libedit-devel
-BuildRequires:  libtool
-BuildRequires:  libtool-ltdl-devel
-BuildRequires:  llvm llvm-devel
-BuildRequires:  mesa-libGL-devel
-BuildRequires:  mesa-libEGL-devel
-BuildRequires:  ocl-icd-devel
-BuildRequires:  uthash-devel
-BuildRequires:  zlib-devel
-#BuildRequires:  vecmath-devel
+# https://github.com/pocl/pocl/commit/20d1bfa9bfd301964f7b2fc6d7f4589dd04e1b5c
+# https://github.com/pocl/pocl/commit/bf50f0052e4248cd1acfaaa8da95c5e4ca52f815
+Patch100: %{name}-3.1-llvm16.patch
+
+BuildRequires: cmake
+BuildRequires: clang
+BuildRequires: clang-devel
+BuildRequires: compiler-rt
+BuildRequires: glew-devel
+BuildRequires: hwloc-devel
+BuildRequires: libedit-devel
+BuildRequires: libtool
+BuildRequires: libtool-ltdl-devel
+BuildRequires: llvm-devel
+BuildRequires: mesa-libGL-devel
+BuildRequires: mesa-libEGL-devel
+BuildRequires: ocl-icd-devel
+BuildRequires: uthash-devel
+BuildRequires: zlib-devel
+BuildRequires: ninja-build
+
 # https://bugzilla.redhat.com/show_bug.cgi?id=1082364
-Requires:       libstdc++-devel%{?_isa}
+Requires: libstdc++-devel%{?_isa}
 # Runtime dependency, because libm.so is required for kernels
-Requires:       glibc-devel%{?_isa}
+Requires: glibc-devel%{?_isa}
 
 %description
 Pocl's goal is to become an efficient open source (MIT-licensed) implementation
@@ -57,84 +54,73 @@ functions are suitable for parallelization in multiple ways (SIMD, VLIW,
 superscalar,...).
 
 %package devel
-Summary:        Portable Computing Language development files
-Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       clang%{?_isa}
-Requires:       ocl-icd-devel%{?_isa}
-Requires:       opencl-filesystem
-Requires:       uthash-devel
+Summary: Portable Computing Language development files
+Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires: clang%{?_isa}
+Requires: ocl-icd-devel%{?_isa}
+Requires: opencl-filesystem
+Requires: uthash-devel
 
 %description devel
 Portable Computing Language development files.
 
 %prep
-%if 0%{?shortcommit}
-%autosetup -p1 -n pocl-%{commit}
-%else
-%autosetup -p1 -n %{name}-%{version}%{?candidate:-%{candidate}}
-%endif
-
+%autosetup -p1
 
 # Unbundle uthash
 find . -depth -name utlist* -print -delete
 
-
 %build
-# CPU detection fails on ARM, so we need to manually specify the CPU as generic.
-%cmake .. \
-    -DENABLE_ICD=1 \
+%cmake -G Ninja \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DENABLE_ICD:BOOL=ON \
+    -DENABLE_CUDA:BOOL=OFF \
+    -DENABLE_TESTS:BOOL=ON \
+    -DENABLE_EXAMPLES:BOOL=OFF \
     -DPOCL_INSTALL_ICD_VENDORDIR=%{_sysconfdir}/OpenCL/vendors \
     -DEXTRA_KERNEL_CXX_FLAGS="%{optflags}" \
 %ifarch %{ix86} x86_64
     -DKERNELLIB_HOST_CPU_VARIANTS=distro \
 %endif
-%ifarch aarch64 %{arm}
-    -DLLC_HOST_CPU="generic" \
+%ifarch aarch64
+    -DLLC_HOST_CPU="cortex-a53" \
 %endif
-    -DPOCL_ICD_ABSOLUTE_PATH=OFF \
-    %{nil}
-    # -DENABLE_TESTSUITES=all Requires clBLAS
+%ifarch riscv64
+    -DLLC_HOST_CPU="generic-rv64" \
+%endif
+    -DPOCL_ICD_ABSOLUTE_PATH:BOOL=OFF \
+    -DENABLE_POCL_BUILDING:BOOL=ON
 %cmake_build
 
 %install
 %cmake_install
 
-# Unbundle vecmath
-#rm -vf %%{buildroot}/%%{_libdir}/pocl/vecmath/
-#ln -vs %%{_includedir}/vecmath %%{buildroot}/%%{_libdir}/pocl/vecmath
-# <visit0r> but you need to run the .py to generate the files under the pocl dir
-
-%if 0%{?with_tests}
 %check
-# https://github.com/pocl/pocl/issues/602
-# https://github.com/pocl/pocl/issues/603
-  ctest -VV \
-  %ifarch %{ix86} %{arm}
-    || :
-  %else
-    ;
-  %endif
+# Upstream support running tests only on x86_64
+%ifarch x86_64
+%ctest
 %endif
 
-%ldconfig_scriptlets
-
 %files
+%doc README.md doc/sphinx/source/*.rst
 %license LICENSE
-%doc README doc/sphinx/source/*.rst
 %{_sysconfdir}/OpenCL/vendors/%{name}.icd
-%{_libdir}/lib%{name}.so.%{sover}*
+%{_libdir}/lib%{name}.so.2*
 %{_datadir}/%{name}/
 %{_libdir}/%{name}/
-%{_libdir}/%{name}/libpocl-devices-basic.so
-%{_libdir}/%{name}/libpocl-devices-pthread.so
 
 %files devel
 %{_bindir}/poclcc
 %{_libdir}/lib%{name}.so
-%{_libdir}/%{name}/libllvmopencl.so
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Apr 11 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 3.1-1
+- Updated to version 3.1.
+- Fixed FTBFS on Fedora 37+.
+- Performed major SPEC cleanup.
+- Switched to SPDX license tag.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

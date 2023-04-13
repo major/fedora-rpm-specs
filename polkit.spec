@@ -4,8 +4,8 @@
 Summary: An authorization framework
 Name: polkit
 Version: 122
-Release: 5%{?dist}
-License: LGPLv2+
+Release: 6%{?dist}
+License: LGPL-2.0-or-later
 URL: http://www.freedesktop.org/wiki/Software/polkit
 Source0: https://gitlab.freedesktop.org/polkit/polkit/-/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -161,6 +161,9 @@ exit 0
 %{_libdir}/girepository-1.0/*.typelib
 
 %changelog
+* Tue Apr 11 2023 Lukáš Zaoral <lzaoral@redhat.com> - 122-6
+- migrate to SPDX license format
+
 * Thu Mar 30 2023 Jan Rybar <jrybar@redhat.com> - 122-5
 - config file permission change to increase security of polkitd
 - Resolves: bz#2182784

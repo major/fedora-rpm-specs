@@ -20,7 +20,7 @@
 Summary: GTK+ graphical user interface library
 Name: gtk2
 Version: 2.24.33
-Release: 13%{?dist}
+Release: 14%{?dist}
 License: LGPLv2+
 URL: http://www.gtk.org
 #VCS: git:git://git.gnome.org/gtk+#gtk-2-24
@@ -35,6 +35,7 @@ Patch2: icon-padding.patch
 Patch8: tooltip-positioning.patch
 # https://bugzilla.gnome.org/show_bug.cgi?id=611313
 Patch15: window-dragging.patch
+Patch16: gtk2-c99.patch
 
 BuildRequires: pkgconfig(atk) >= %{atk_version}
 BuildRequires: pkgconfig(glib-2.0) >= %{glib2_version}
@@ -334,6 +335,9 @@ gtk-query-immodules-2.0-%{__isa_bits} --update-cache
 %doc tmpdocs/examples
 
 %changelog
+* Tue Apr 11 2023 Florian Weimer <fweimer@redhat.com> - 2.24.33-14
+- Backport upstream patch to fix C99 compatibility issue
+
 * Wed Feb 01 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2.24.33-13
 - Make the gtk-immodules-imsettings subpackage noarch
 

@@ -1,6 +1,6 @@
 Name:           podman-compose
-Version:        1.0.3
-Release:        8%{?dist}
+Version:        1.0.6
+Release:        1%{?dist}
 Summary:        Run docker-compose.yml using podman
 License:        GPL-2.0-only
 URL:            https://github.com/containers/podman-compose
@@ -42,6 +42,9 @@ sed -i /python3/d %{buildroot}%{python3_sitelib}/podman_compose.py
 %{python3_sitelib}/podman_compose*
 
 %changelog
+* Tue Apr 11 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.0.6-1
+- 1.0.6
+
 * Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.0.3-8
 - migrated to SPDX license
 

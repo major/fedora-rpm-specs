@@ -99,7 +99,7 @@
 
 Name:			graphviz
 Summary:		Graph Visualization Tools
-Version:		8.0.1
+Version:		8.0.2
 Release:		1%{?dist}
 License:		EPL-1.0
 URL:			http://www.graphviz.org/
@@ -413,8 +413,6 @@ Go extension for graphviz.
 find -type f -regex '.*\.\(c\|h\)$' -exec chmod a-x {} ';'
 
 %build
-# https://gitlab.com/graphviz/graphviz/-/issues/2367
-#./autogen.sh
 autoreconf -fi
 
 %if %{JAVA}
@@ -775,6 +773,10 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Tue Apr 11 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 8.0.2-1
+- New version
+  Resolves: rhbz#2185659
+
 * Tue Mar 28 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 8.0.1-1
 - New version
   Resolves: rhbz#2182174

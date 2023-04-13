@@ -1,19 +1,16 @@
 Name: bowtie2
-Version: 2.4.1
-Release: 7%{?dist}
+Version: 2.5.1
+Release: 1%{?dist}
 # Use the word "ultra fast" rather than "ultrafast".
 # https://github.com/BenLangmead/bowtie2/issues/291
 Summary: An ultra fast and memory-efficient read aligner
-# * bowtie2: GPLv3+
+# * bowtie2: GPL-3.0-or-later
 # * TinyThread++: zlib, for files: tinythread.{h,cpp} fast_mutex.h
 #   https://tinythreadpp.bitsnbites.eu/
 #   https://gitorious.org/tinythread/tinythreadpp
-License: GPLv3+ and zlib
+License: GPL-3.0-or-later AND Zlib
 URL: http://bowtie-bio.sourceforge.net/bowtie2/index.shtml
 Source0: https://github.com/BenLangmead/%{name}/archive/v%{version}.tar.gz
-# Fix to build with given CXXFLAGS.
-# https://github.com/BenLangmead/bowtie2/pull/296
-Patch0: bowtie2-makefile-cxxflags.patch
 BuildRequires: gcc-c++
 BuildRequires: help2man
 BuildRequires: libasan
@@ -28,9 +25,7 @@ BuildRequires: perl(Sys::Hostname)
 BuildRequires: perl(Test::Deep)
 BuildRequires: perl(lib)
 BuildRequires: python3
-%ifarch x86_64
-BuildRequires: tbb-devel
-%else
+%ifnarch x86_64
 BuildRequires: simde-devel
 %endif
 BuildRequires: zlib-devel
@@ -131,6 +126,11 @@ scripts/test/simple_tests.pl \
 %{_mandir}/man1/bowtie2-inspect.1*
 
 %changelog
+* Wed Apr  5 2023 Tom Callaway <spot@fedoraproject.org> - 2.5.1-1
+- Update to 2.5.1. The tbb is no longer used.
+  Resolves: rhbz#1885616
+- Fix license tag to use SPDX syntax.
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

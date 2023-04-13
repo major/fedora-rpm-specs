@@ -1,9 +1,9 @@
 Summary: ModSecurity Rules
 Name: mod_security_crs
 Version: 3.3.4
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: ASL 2.0
-URL: https://www.owasp.org/index.php/Category:OWASP_ModSecurity_Core_Rule_Set_Project
+URL: https://coreruleset.org/
 Source: https://github.com/coreruleset/coreruleset/archive/refs/tags/v%{version}.tar.gz
 BuildArch: noarch
 Requires: mod_security >= 2.9.6
@@ -48,6 +48,9 @@ done
 %{_datarootdir}/mod_modsecurity_crs
 
 %changelog
+* Mon Mar 20 2023 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 3.3.4-4
+- Change URL to new official homepage
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -11,7 +11,7 @@
 %global build_tests 1
 
 Name:       libindi
-Version:    2.0.0
+Version:    2.0.1
 Release:    %autorelease
 Summary:    Instrument Neutral Distributed Interface
 
@@ -26,6 +26,7 @@ BuildRequires: libev-devel
 BuildRequires: libogg-devel
 BuildRequires: libnova-devel
 BuildRequires: libtheora-devel
+BuildRequires: libXISF-devel
 BuildRequires: systemd
 
 BuildRequires: pkgconfig(cfitsio)

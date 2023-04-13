@@ -168,6 +168,7 @@ pushd deps/srccache
     cp -p %SOURCE3 .
     cp -p %SOURCE7 .
     cp -p %SOURCE8 .
+    cp -p %SOURCE9 .
 popd
 
 

@@ -1,7 +1,7 @@
 Summary:          List packages that have no dependencies (like deborphan)
 Name:             rpmorphan
-Version:          1.17
-Release:          18%{?dist}
+Version:          1.19
+Release:          1%{?dist}
 License:          GPLv2+
 
 BuildArch:        noarch
@@ -12,7 +12,7 @@ URL:              http://rpmorphan.sourceforge.net
 # have the same version number (happened with 1.12).
 Source0:          http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 
-BuildRequires: make
+BuildRequires:    make
 BuildRequires:    /usr/bin/pod2man
 BuildRequires:    perl-generators
 
@@ -87,6 +87,9 @@ mv $RPM_BUILD_ROOT/usr/lib/%{name} $RPM_BUILD_ROOT%{_datadir}/%{name}
 
 
 %changelog
+* Tue Apr 11 2023 Richard W.M. Jones <rjones@redhat.com> - 1.19-1
+- New upstream version 1.19 (RHBZ#2176113)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

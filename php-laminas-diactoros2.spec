@@ -10,7 +10,7 @@
 
 %global gh_owner     laminas
 %global gh_project   laminas-diactoros
-%global gh_commit    0e9dd2516460be1a9c26ccdf9091ef293a1c3c6f
+%global gh_commit    13f45e5ba09c9b27752247d3be186fc49c2ca3a5
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global php_home     %{_datadir}/php
 %global namespace    Laminas
@@ -37,7 +37,7 @@
 %{!?phpdir:  %global phpdir  %{_datadir}/php}
 
 Name:          php-%{gh_project}%{major}
-Version:       2.25.0
+Version:       2.25.1
 Release:       1%{?gh_release}%{?dist}
 Summary:       PSR HTTP Message implementations v%{major}
 
@@ -204,6 +204,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Tue Apr 11 2023 Remi Collet <remi@remirepo.net> - 2.25.1-1
+- update to 2.25.1
+
 * Fri Apr  7 2023 Remi Collet <remi@remirepo.net> - 2.25.0-1
 - update to 2.25.0
 - raise dependency on psr/http-message 1.1

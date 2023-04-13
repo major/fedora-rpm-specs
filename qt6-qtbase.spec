@@ -1,4 +1,3 @@
-
 # See http://bugzilla.redhat.com/223663
 %global multilib_archs x86_64 %{ix86} %{?mips} ppc64 ppc s390x s390 sparc64 sparcv9
 %global multilib_basearchs x86_64 %{?mips64} ppc64 s390x sparc64
@@ -39,7 +38,7 @@ BuildRequires: pkgconfig(libsystemd)
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
 Version: 6.5.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt-project.org/
@@ -81,9 +80,6 @@ Patch51: qtbase-moc-macros.patch
 # drop -O3 and make -O2 by default
 Patch54: qtbase-cxxflag.patch
 
-# support firebird version 3.x
-Patch55: qtbase-firebird.patch
-
 # fix for new mariadb
 Patch56: qtbase-mysql.patch
 
@@ -120,6 +116,7 @@ BuildRequires: libjpeg-devel
 BuildRequires: libmng-devel
 BuildRequires: libtiff-devel
 BuildRequires: libzstd-devel
+BuildRequires: mtdev-devel
 BuildRequires: tslib-devel
 BuildRequires: pkgconfig(alsa)
 # required for -accessibility
@@ -133,6 +130,7 @@ BuildRequires: pkgconfig(gl)
 BuildRequires: pkgconfig(glib-2.0)
 BuildRequires: pkgconfig(gtk+-3.0)
 BuildRequires: pkgconfig(libproxy-1.0)
+BuildRequires: pkgconfig(libsctp)
 # xcb-sm
 BuildRequires: pkgconfig(ice) pkgconfig(sm)
 BuildRequires: pkgconfig(libpng)
@@ -153,6 +151,8 @@ BuildRequires: pkgconfig(egl)
 BuildRequires: pkgconfig(gbm)
 BuildRequires: pkgconfig(libglvnd)
 BuildRequires: pkgconfig(x11)
+# only needed for GLES2 and GLES3 builds
+#BuildRequires: pkgconfig(glesv2)
 
 %global sqlite 1
 BuildRequires: pkgconfig(sqlite3) >= 3.7
@@ -162,7 +162,7 @@ BuildRequires: pkgconfig(libpcre2-posix) >= 10.20
 BuildRequires: pkgconfig(libpcre) >= 8.0
 %global pcre 1
 BuildRequires: pkgconfig(xcb-xkb)
-BuildRequires: pkgconfig(xcb) pkgconfig(xcb-glx) pkgconfig(xcb-icccm) pkgconfig(xcb-image) pkgconfig(xcb-keysyms) pkgconfig(xcb-renderutil)
+BuildRequires: pkgconfig(xcb) pkgconfig(xcb-glx) pkgconfig(xcb-icccm) pkgconfig(xcb-image) pkgconfig(xcb-keysyms) pkgconfig(xcb-renderutil) pkgconfig(xcb-cursor)
 BuildRequires: pkgconfig(zlib)
 BuildRequires: perl
 BuildRequires: perl-generators
@@ -180,18 +180,10 @@ BuildRequires: xorg-x11-server-Xvfb
 Requires: %{name}-common = %{version}-%{release}
 
 ## Sql drivers
-# FIXME: disable for now, they don't seem to be implemented in Qt 6.0.0
-# if rhel
-%global no_ibase 1
-%global no_tds 1
-# endif
-
-# workaround gold linker bug(s) by not using it
-# https://bugzilla.redhat.com/1458003
-# https://sourceware.org/bugzilla/show_bug.cgi?id=21074
-# reportedly fixed or worked-around, re-enable if there's evidence of problems -- rex
-# https://bugzilla.redhat.com/show_bug.cgi?id=1635973
-%global use_gold_linker 0
+%if 0%{?fedora} || 0%{?epel}
+%global ibase 1
+%endif
+	
 
 %description
 Qt is a software toolkit for developing applications.
@@ -221,15 +213,12 @@ Requires: qt6-rpm-macros
 %if 0%{?use_clang}
 Requires: clang >= 3.7.0
 %endif
-%if 0%{?no_ibase} == 0
+%if 0%{?ibase}
 Requires: %{name}-ibase%{?_isa} = %{version}-%{release}
 %endif
 Requires: %{name}-mysql%{?_isa} = %{version}-%{release}
 Requires: %{name}-odbc%{?_isa} = %{version}-%{release}
 Requires: %{name}-postgresql%{?_isa} = %{version}-%{release}
-%if 0%{?no_tds} == 0
-Requires: %{name}-tds%{?_isa} = %{version}-%{release}
-%endif
 %description devel
 %{summary}.
 
@@ -260,7 +249,7 @@ Requires: pkgconfig(zlib)
 %description static
 %{summary}.
 
-%if 0%{?no_ibase} == 0
+%if 0%{?ibase}
 %package ibase
 Summary: IBase driver for Qt6's SQL classes
 BuildRequires: firebird-devel
@@ -294,22 +283,11 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %description postgresql
 %{summary}.
 
-%if 0%{?no_tds} == 0
-%package tds
-Summary: TDS driver for Qt6's SQL classes
-BuildRequires: freetds-devel
-Requires: %{name}%{?_isa} = %{version}-%{release}
-%description tds
-%{summary}.
-%endif
-
 # debating whether to do 1 subpkg per library or not -- rex
 %package gui
 Summary: Qt6 GUI-related libraries
 Requires: %{name}%{?_isa} = %{version}-%{release}
-%if 0%{?fedora} > 20
 Recommends: mesa-dri-drivers
-%endif
 # for Source6: 10-qt6-check-opengl2.sh:
 # glxinfo
 Requires: glx-utils
@@ -367,12 +345,15 @@ export MAKEFLAGS="%{?_smp_mflags}"
  -DQT_FEATURE_enable_new_dtags=ON \
  -DQT_FEATURE_journald=%{?journald:ON}%{!?journald:OFF} \
  -DQT_FEATURE_openssl_linked=ON \
+ -DQT_FEATURE_libproxy=ON \
+ -DQT_FEATURE_sctp=ON \
  -DQT_FEATURE_separate_debug_info=OFF \
  -DQT_FEATURE_reduce_relocations=OFF \
  -DQT_FEATURE_relocatable=OFF \
  -DQT_FEATURE_system_jpeg=ON \
  -DQT_FEATURE_system_png=ON \
  -DQT_FEATURE_system_zlib=ON \
+ %{?ibase:-DQT_FEATURE_sql_ibase=ON} \
  -DQT_FEATURE_sql_odbc=ON \
  -DQT_FEATURE_sql_mysql=ON \
  -DQT_FEATURE_sql_psql=ON \
@@ -382,9 +363,6 @@ export MAKEFLAGS="%{?_smp_mflags}"
  %{?dbus_linked:-DQT_FEATURE_dbus_linked=ON} \
  %{?pcre:-DQT_FEATURE_system_pcre2=ON} \
  %{?sqlite:-DQT_FEATURE_system_sqlite=ON} \
- %{?no_tds:-DQT_FEATURE_sql_tds=OFF}%{!?no_tds:-DQT_FEATURE_sql_tds=ON} \
- %{?no_ibase:-DQT_FEATURE_sql_ibase=OFF}%{!?no_ibase:-DQT_FEATURE_sql_ibase=ON} \
- %{?use_gold_linker:-DQT_FEATURE_use_gold_linker=OFF} \
  -DBUILD_SHARED_LIBS=ON \
  -DQT_BUILD_EXAMPLES=%{?examples:ON}%{!?examples:OFF} \
  -DQT_BUILD_TESTS=%{?tests:ON}%{!?tests:OFF} \
@@ -577,7 +555,6 @@ make check -k ||:
 %dir %{_qt6_libdir}/cmake/Qt6Gui
 %dir %{_qt6_libdir}/cmake/Qt6GuiTools
 %dir %{_qt6_libdir}/cmake/Qt6HostInfo
-%dir %{_qt6_libdir}/cmake/Qt6FbSupportPrivate
 %dir %{_qt6_libdir}/cmake/Qt6KmsSupportPrivate
 %dir %{_qt6_libdir}/cmake/Qt6Network
 %dir %{_qt6_libdir}/cmake/Qt6OpenGL
@@ -621,7 +598,6 @@ make check -k ||:
 %{_qt6_libexecdir}/tracegen
 %{_qt6_libexecdir}/tracepointgen
 %{_qt6_libexecdir}/qlalr
-%{_qt6_libexecdir}/qt-internal-configure-tests
 %{_qt6_libexecdir}/qvkgen
 %{_qt6_libexecdir}/rcc
 %{_qt6_libexecdir}/uic
@@ -670,6 +646,8 @@ make check -k ||:
 %{_qt6_libdir}/libQt6Test.so
 %{_qt6_libdir}/libQt6Widgets.prl
 %{_qt6_libdir}/libQt6Widgets.so
+%{_qt6_libdir}/libQt6XcbQpa.prl
+%{_qt6_libdir}/libQt6XcbQpa.so 
 %{_qt6_libdir}/libQt6Xml.prl
 %{_qt6_libdir}/libQt6Xml.so
 %{_qt6_libdir}/libQt6EglFSDeviceIntegration.prl
@@ -720,11 +698,12 @@ make check -k ||:
 %{_qt6_libdir}/cmake/Qt6OpenGL/*.cmake
 %{_qt6_libdir}/cmake/Qt6OpenGLWidgets/*.cmake
 %{_qt6_libdir}/cmake/Qt6PrintSupport/*.cmake
-%{_qt6_libdir}/cmake/Qt6Sql/*.cmake
+%{_qt6_libdir}/cmake/Qt6Sql/Qt6Sql*.cmake
 %{_qt6_libdir}/cmake/Qt6Sql/Qt6QSQLiteDriverPlugin*.cmake
 %{_qt6_libdir}/cmake/Qt6Test/*.cmake
 %{_qt6_libdir}/cmake/Qt6Widgets/*.cmake
 %{_qt6_libdir}/cmake/Qt6WidgetsTools/*.cmake
+%{_qt6_libdir}/cmake/Qt6XcbQpaPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6Xml/*.cmake
 %{_qt6_libdir}/qt6/metatypes/*.json
 %{_qt6_libdir}/pkgconfig/*.pc
@@ -756,10 +735,10 @@ make check -k ||:
 %{_qt6_examplesdir}/
 %endif
 
-%if 0%{?no_ibase} == 0
+%if 0%{?ibase}
 %files ibase
 %{_qt6_plugindir}/sqldrivers/libqsqlibase.so
-
+%{_qt6_libdir}/cmake/Qt6Sql/Qt6QIBaseDriverPlugin*.cmake
 %endif
 
 %files mysql
@@ -774,11 +753,6 @@ make check -k ||:
 %{_qt6_plugindir}/sqldrivers/libqsqlpsql.so
 %{_qt6_libdir}/cmake/Qt6Sql/Qt6QPSQLDriverPlugin*.cmake
 
-%if 0%{?no_tds} == 0
-%files tds
-%{_qt6_plugindir}/sqldrivers/libqsqltds.so
-%endif
-
 %ldconfig_scriptlets gui
 
 %files gui
@@ -790,6 +764,7 @@ make check -k ||:
 %{_qt6_libdir}/libQt6OpenGLWidgets.so.6*
 %{_qt6_libdir}/libQt6PrintSupport.so.6*
 %{_qt6_libdir}/libQt6Widgets.so.6*
+%{_qt6_libdir}/libQt6XcbQpa.so.6*
 # Generic
 %{_qt6_plugindir}/generic/libqevdevkeyboardplugin.so
 %{_qt6_plugindir}/generic/libqevdevmouseplugin.so
@@ -817,13 +792,16 @@ make check -k ||:
 %{_qt6_plugindir}/egldeviceintegrations/libqeglfs-x11-integration.so
 %{_qt6_plugindir}/egldeviceintegrations/libqeglfs-kms-egldevice-integration.so
 %{_qt6_plugindir}/egldeviceintegrations/libqeglfs-emu-integration.so
+%{_qt6_plugindir}/xcbglintegrations/libqxcb-egl-integration.so
 %endif
 # Platforms
 %{_qt6_plugindir}/platforms/libqlinuxfb.so
 %{_qt6_plugindir}/platforms/libqminimal.so
 %{_qt6_plugindir}/platforms/libqoffscreen.so
+%{_qt6_plugindir}/platforms/libqxcb.so
 %{_qt6_plugindir}/platforms/libqvnc.so
 %{_qt6_plugindir}/platforms/libqvkkhrdisplay.so
+%{_qt6_plugindir}/xcbglintegrations/libqxcb-glx-integration.so
 # Platformthemes
 %{_qt6_plugindir}/platformthemes/libqxdgdesktopportal.so
 %{_qt6_plugindir}/platformthemes/libqgtk3.so
@@ -831,6 +809,10 @@ make check -k ||:
 
 
 %changelog
+* Fri Apr 7 2023 Marie Loise Nolden <loise@kde.org> - 6.5.0-2
+- fix xcb plugin with new dependency xcb-cursor instead of Xcursor
+  introduction with qt 6.5, add firebird sql plugin cleanly, clean up spec file
+  
 * Mon Apr 03 2023 Jan Grulich <jgrulich@redhat.com> - 6.5.0-1
 - 6.5.0
 

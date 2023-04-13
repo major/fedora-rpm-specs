@@ -1,13 +1,13 @@
 # remirepo/fedora spec file for php-psr-http-factory
 #
-# Copyright (c) 2018-2019 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2018-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 
-%global gh_commit    12ac7fcd07e5b077433f5f2bee95b3a771bf61be
+%global gh_commit    e616d01114759c4c489f93b099585439f795fe35
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     php-fig
 %global gh_project   http-factory
@@ -16,8 +16,8 @@
 %global pk_project   %{gh_project}
 
 Name:      php-%{pk_vendor}-%{pk_project}
-Version:   1.0.1
-Release:   9%{?dist}
+Version:   1.0.2
+Release:   1%{?dist}
 Summary:   Common interfaces for PSR-7 HTTP message factories
 
 License:   MIT
@@ -27,15 +27,15 @@ Source0:   %{url}/archive/%{gh_commit}/%{name}-%{version}-%{gh_commit}.tar.gz
 BuildArch: noarch
 # For tests
 BuildRequires: php(language) >= 7
-BuildRequires: (php-composer(psr/http-message) >= 1.0   with php-composer(psr/http-message) < 2)
+BuildRequires: (php-composer(psr/http-message) >= 1.0   with php-composer(psr/http-message) < 3)
 BuildRequires: php-cli
 BuildRequires: php-fedora-autoloader-devel
 
 # From composer.json,    "require": {
 #       "php": ">=7.0.0",
-#       "psr/http-message": "^1.0"
+#       "psr/http-message": "^1.0 || ^2.0"
 Requires:  php(language) >= 7
-Requires: (php-composer(psr/http-message) >= 1.0   with php-composer(psr/http-message) < 2)
+Requires: (php-composer(psr/http-message) >= 1.0   with php-composer(psr/http-message) < 3)
 # phpcompatinfo (computed from version 1.0.0)
 #     <none>
 # Autoloader
@@ -65,9 +65,12 @@ Autoloader: %{_datadir}/php/Psr/Http/Message/%{pk_project}-autoload.php
 %{_bindir}/phpab --template fedora --output src/%{pk_project}-autoload.php src
 
 cat << 'EOF' | tee -a src/%{pk_project}-autoload.php
-\Fedora\Autoloader\Dependencies::required(array(
-    '%{_datadir}/php/Psr/Http/Message/autoload.php',
-));
+\Fedora\Autoloader\Dependencies::required([
+    [
+        '%{_datadir}/php/Psr/Http/Message2/autoload.php',
+        '%{_datadir}/php/Psr/Http/Message/autoload.php',
+    ],
+]);
 EOF
 
 
@@ -92,6 +95,10 @@ exit (interface_exists("Psr\\Http\\Message\\RequestFactoryInterface") ? 0 : 1);
 
 
 %changelog
+* Tue Apr 11 2023 Remi Collet <remi@remirepo.net> - 1.0.2-1
+- update to 1.0.2
+- allow psr/http-message 2.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

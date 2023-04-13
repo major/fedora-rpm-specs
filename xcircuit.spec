@@ -11,7 +11,7 @@
 
 Name:			xcircuit
 Version:		%{short_version}.30
-Release:		7%{?dist}
+Release:		8%{?dist}
 Summary:		Electronic circuit schematic drawing program
 
 License:		GPLv2+
@@ -23,6 +23,7 @@ Source1:		%{name}.desktop
 Source2:		%{name}.png
 
 Patch0:		xcircuit-3.9.40-format-security.patch
+Patch1: xcircuit-c99.patch
 
 BuildRequires: make
 BuildRequires:	pkgconfig(cairo)
@@ -55,6 +56,7 @@ CAD program for circuit schematic drawing and schematic capture.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 #439604: TCL 8.5.1
 sed -i lib/tcl/tkcon.tcl \
@@ -117,6 +119,9 @@ desktop-file-install \
 %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Tue Apr 11 2023 Florian Weimer <fweimer@redhat.com> - 3.10.30-8
+- Port to C99
+
 * Tue Jan 24 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.10.30-7
 - Rebuild for ghostscript 10
 

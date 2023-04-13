@@ -7,7 +7,7 @@
 
 Name:           PyYAML
 Version:        6.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 %global uversion %{version}
 Summary:        YAML parser and emitter for Python
 
@@ -111,6 +111,9 @@ rm -rf ext/_yaml.c
 
 
 %changelog
+* Tue Apr 11 2023 John Eckersberg <jeckersb@redhat.com> - 6.0-7
+- Rebuilt for Python 3.12 / Cython 0.29.34 (rhbz#2177815)
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

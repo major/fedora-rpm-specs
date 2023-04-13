@@ -14,20 +14,14 @@ print(string.sub(hash, 0, 16))
 }
 
 Name: libgcrypt
-Version: 1.10.1
-Release: 7%{?dist}
+Version: 1.10.2
+Release: 1%{?dist}
 URL: https://www.gnupg.org/
 Source0: https://www.gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-%{version}.tar.bz2
 Source1: https://www.gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-%{version}.tar.bz2.sig
 Source2: wk@g10code.com
 # Pass the annobin flags to the libgcrypt.so (#2016349)
 Patch1: libgcrypt-1.10.1-annobin.patch
-# https://dev.gnupg.org/T5919
-# tests occasionally fail with "error generating RSA key: Number is not prime"
-# https://git.gnupg.org/cgi-bin/gitweb.cgi?p=libgcrypt.git;a=patch;h=cd30ed3c0
-Patch2: 0001-cipher-Change-the-bounds-for-RSA-key-generation-roun.patch
-
-Patch3: libgcrypt-configure-c99.patch
 
 %global gcrylibdir %{_libdir}
 %global gcrysoname libgcrypt.so.20
@@ -63,9 +57,7 @@ applications using libgcrypt.
 
 %prep
 %setup -q
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+%patch 1 -p1
 
 %build
 # This package has a configure test which uses ASMs, but does not link the
@@ -108,12 +100,12 @@ LIBGCRYPT_FORCE_FIPS_MODE=1 make check
     %{?__debug_package:%{__debug_install_post}} \
     %{__arch_install_post} \
     %{__os_install_post} \
-    pushd src \
+    cd src \
     sed -i -e 's|FILE=.*|FILE=\\\$1|' gen-note-integrity.sh \
     READELF=readelf AWK=awk ECHO_N="-n" bash gen-note-integrity.sh %{libpath} > %{libpath}.hmac \
-    objcopy --update-section .note.fdo.integrity=%{libpath}.hmac %{libpath} new \
-    mv -f new %{libpath} \
-    rm -f %{libpath}.hmac \
+    objcopy --update-section .note.fdo.integrity=%{libpath}.hmac %{libpath} %{libpath}.new \
+    mv -f %{libpath}.new %{libpath} \
+    rm -f %{libpath}.hmac
 %{nil}
 
 %install
@@ -183,6 +175,9 @@ mkdir -p -m 755 $RPM_BUILD_ROOT/etc/gcrypt
 %license COPYING
 
 %changelog
+* Tue Apr 11 2023 Jakub Jelen <jjelen@redhat.com> - 1.10.2-1
+- New upstream release (#2185084)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

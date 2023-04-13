@@ -1,12 +1,12 @@
 # remirepo/fedora spec file for php-netresearch-jsonmapper
 #
-# Copyright (c) 2017-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2017-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    cfa81ea1d35294d64adb9c68aa4cb9e92400e53f
+%global gh_commit    f60565f8c0566a31acf06884cdaa591867ecc956
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     cweiske
 %global gh_project   jsonmapper
@@ -18,11 +18,11 @@
 %global with_tests   0%{!?_without_tests:1}
 
 Name:           php-%{pk_vendor}-%{pk_project}
-Version:        4.1.0
-Release:        2%{?dist}
+Version:        4.2.0
+Release:        1%{?dist}
 Summary:        Map nested JSON structures onto PHP classes
 
-License:        OSL 3.0
+License:        OSL-3.0
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        %{name}-%{version}-%{gh_short}.tgz
 # Git snapshot with tests
@@ -128,6 +128,9 @@ exit $ret
 
 
 %changelog
+* Tue Apr 11 2023 Remi Collet <remi@remirepo.net> - 4.2.0-1
+- update to 4.2.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -9,9 +9,9 @@ Name:           perl-Params-Classify
 Version:        0.015
 Release:        18%{?dist}
 Summary:        Argument type classification
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Params-Classify
-Source0:        https://cpan.metacpan.org/authors/id/Z/ZE/ZEFRAM/Params-Classify-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/modules/by-module/Params/Params-Classify-%{version}.tar.gz
 # Module Build
 BuildRequires:  coreutils
 BuildRequires:  findutils

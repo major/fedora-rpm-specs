@@ -104,7 +104,7 @@ ExcludeArch: s390x
 
 Name:    icecat
 Epoch:   1
-Version: 102.9.0
+Version: 102.10.0
 Release: %autorelease -e %{redhat_ver}
 Summary: GNU version of Firefox browser
 

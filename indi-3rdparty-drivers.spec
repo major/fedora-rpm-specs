@@ -29,14 +29,14 @@
 %global webcam_pkg indi-3rdparty-webcam
 %global weewx_pkg indi-3rdparty-weewx-json
 
-%global indi_version 2.0.0
+%global indi_version 2.0.1
 
 # Define boolean to quickly set option and dependencies for
 # unit tests
 %global build_tests 1
 
 Name:           indi-3rdparty-drivers
-Version:        2.0.0
+Version:        2.0.1
 Release:        %autorelease
 Summary:        INDI 3rdparty drivers
 License:        LGPL-2.1-or-later

@@ -12,8 +12,8 @@
 
 Name:             ddccontrol
 URL:              https://github.com/ddccontrol/ddccontrol
-Version:          0.5.1
-Release:          7%{?dist}
+Version:          0.6.1
+Release:          1%{?dist}
 License:          GPLv2+
 BuildRequires:    gtk2-devel
 BuildRequires:    pkgconfig
@@ -40,11 +40,8 @@ Requires:         /sbin/modprobe
 Requires(post):   /sbin/modprobe
 Summary:          Control your monitor by software using the DDC/CI protocol
 Source0:          https://github.com/ddccontrol/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
-# autoload i2c-dev module
-Source1:          %{name}-modules-autoload.conf
 # no monitors on s390(x)
 ExcludeArch:      s390 s390x
-Patch0:           ddccontrol-0.5.1-autoconf-2.71-fix.patch
 
 %description
 DDCcontrol is a program to control monitor parameters, like brightness and
@@ -101,8 +98,11 @@ make install DESTDIR=%{buildroot} libdir=%{_libdir}
 
 desktop-file-validate %{buildroot}%{_datadir}/applications/gddccontrol.desktop
 
-# autoload i2c-dev module
-install -m 644 -D %{SOURCE1} %{buildroot}%{_prefix}/lib/modules-load.d/%{name}.conf
+# move i2c-dev module configuration to the correct place
+# https://github.com/ddccontrol/ddccontrol/issues/146
+A="%{buildroot}%{_libdir}/modules-load.d"
+B="%{buildroot}%{_prefix}/lib/modules-load.d"
+[ "$A" = "$B" ] || mv "$A" "$B"
 
 # move html to subdir
 mkdir %{buildroot}%{_docdir}/%{name}/html
@@ -138,7 +138,7 @@ rm -rf %{buildroot}%{_datadir}/icons/Bluecurve
 %{_libexecdir}/%{name}/ddcpci
 %endif
 %{_libexecdir}/%{name}/ddccontrol_service
-%{_prefix}/lib/modules-load.d/%{name}.conf
+%{_prefix}/lib/modules-load.d/%{name}-i2c-dev.conf
 %{_libdir}/lib*.so.*
 %{_datadir}/dbus-1/interfaces/ddccontrol.DDCControl.xml
 %{_datadir}/dbus-1/system-services/ddccontrol.DDCControl.service
@@ -160,6 +160,10 @@ rm -rf %{buildroot}%{_datadir}/icons/Bluecurve
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Apr 11 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 0.6.1-1
+- New version
+  Resolves: rhbz#2183835
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

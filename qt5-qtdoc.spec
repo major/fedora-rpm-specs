@@ -2,8 +2,8 @@
 
 Summary: Main Qt5 Reference Documentation
 Name:    qt5-%{qt_module}
-Version: 5.15.8
-Release: 3%{?dist}
+Version: 5.15.9
+Release: 1%{?dist}
 
 License: GFDL-1.3-no-invariants-or-later
 Url:     http://www.qt.io
@@ -50,6 +50,9 @@ make install_docs INSTALL_ROOT=%{buildroot}
 
 
 %changelog
+* Tue Apr 11 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.9-1
+- 5.15.9
+
 * Tue Jan 31 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.8-3
 - migrated to SPDX license
 

@@ -1,7 +1,7 @@
 %define _legacy_common_support 1
 Name:           MagicPoint
 Version:        1.13a
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        X based presentation software
 License:        BSD
 URL:            http://member.wide.ad.jp/wg/mgp/
@@ -19,6 +19,7 @@ Patch8:         magicpoint-1.13a-giflib5.patch
 # libpng > 1.5.0 compatibility
 Patch9:         magicpoint-1.13a-libpng.patch
 Patch10:        magicpoint-1.13a-libmng-lib64.patch
+Patch11: MagicPoint-c99.patch
 BuildRequires:  make gcc
 BuildRequires:  giflib-devel libpng-devel libmng-devel fontconfig-devel 
 BuildRequires:  libXmu-devel libXft-devel m17n-lib-devel
@@ -65,6 +66,9 @@ rm sample/.cvsignore sample/*akefile*
 
 
 %changelog
+* Tue Apr 11 2023 Florian Weimer <fweimer@redhat.com> - 1.13a-34
+- Port to C99 (#2185873)
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13a-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,8 @@
+%global sover 1.6
+
 Name:           kddockwidgets
 Version:        1.6.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Qt dock widget library
 
 License:        GPL-3.0-only AND GPL-2.0-only AND BSD-3-Clause
@@ -14,6 +16,10 @@ BuildRequires:  cmake(Qt5Widgets)
 BuildRequires:  cmake(Qt5X11Extras)
 BuildRequires:  cmake(Qt5QuickControls2)
 BuildRequires:  qt5-qtbase-private-devel
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6QuickControls2)
+BuildRequires:  qt6-qtbase-private-devel
+BuildRequires:  libxkbcommon-devel
 
 %{?_qt5:Requires:       %{_qt5}%{?_isa} = %{_qt5_version}}
 
@@ -29,23 +35,54 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
+%package        qt6
+Summary:        Qt dock widget library for Qt 6
+
+%{?_qt6:Requires:       %{_qt6}%{?_isa} = %{_qt6_version}}
+
+%description    qt6
+%{description}
+
+%package        qt6-devel
+Summary:        Development files for %{name}-qt6
+
+Requires:       %{name}-qt6%{?_isa} = %{version}-%{release}
+%description    qt6-devel
+The %{name}-qt6-devel package contains libraries and header files for
+developing applications that use %{name}-qt6.
+
+
 %prep
 %autosetup -n KDDockWidgets-%{version}
 
 
 %build
-%cmake -G Ninja -DCMAKE_BUILD_TYPE=Release
+%global _vpath_builddir %{_target_platform}-qt5
+%cmake \
+    -G Ninja \
+    -DCMAKE_BUILD_TYPE=Release
 %cmake_build
 
+%global _vpath_builddir %{_target_platform}-qt6
+%cmake \
+    -G Ninja \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DKDDockWidgets_QT6=ON
+%cmake_build
 
 %install
+%global _vpath_builddir %{_target_platform}-qt5
 %cmake_install
 rm -r %{buildroot}%{_datadir}/doc
+
+%global _vpath_builddir %{_target_platform}-qt6
+%cmake_install
+rm -r %{buildroot}%{_datadir}/doc/KDDockWidgets-qt6
 
 %files
 %license LICENSES/* LICENSE.txt
 %doc CONTRIBUTORS.txt Changelog README.md
-%{_libdir}/libkddockwidgets.so.1*
+%{_libdir}/libkddockwidgets.so.%{sover}*
 
 %files devel
 %{_includedir}/kddockwidgets
@@ -53,7 +90,21 @@ rm -r %{buildroot}%{_datadir}/doc
 %{_libdir}/libkddockwidgets.so
 %{_libdir}/qt5/mkspecs/modules/qt_KDDockWidgets.pri
 
+%files qt6
+%license LICENSES/* LICENSE.txt
+%doc CONTRIBUTORS.txt Changelog README.md
+%{_libdir}/libkddockwidgets-qt6.so.%{sover}*
+
+%files qt6-devel
+%{_includedir}/kddockwidgets-qt6
+%{_libdir}/cmake/KDDockWidgets-qt6
+%{_libdir}/libkddockwidgets-qt6.so
+%{_libdir}/qt6/mkspecs/modules/qt_KDDockWidgets.pri
+
 %changelog
+* Tue Apr 11 2023 Vasiliy Glazov <vascom2@gmail.com> - 1.6.0-3
+- Add Qt6 version
+
 * Tue Mar 28 2023 Vasiliy Glazov <vascom2@gmail.com> - 1.6.0-2
 - Pin Qt5 version
 

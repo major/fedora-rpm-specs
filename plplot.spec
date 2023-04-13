@@ -63,7 +63,7 @@
 
 Name:           plplot
 Version:        5.15.0
-Release:        51%{?dist}
+Release:        52%{?dist}
 Summary:        Library of functions for making scientific plots
 
 License:        LGPLv2+
@@ -85,6 +85,7 @@ Patch7:         plplot-ocaml.patch
 Patch9:         plplot-5.12.0-safe-string.patch
 Patch10:        plplot-pyqt5-sip-path.patch
 Patch11:        plplot-sip-build-support.patch
+Patch12: plplot-cmake-c99.patch
 
 
 BuildRequires:  cmake >= 3.13.2
@@ -401,6 +402,7 @@ Requires:       wxGTK-devel%{?_isa}
 %patch9 -p1 -b .safestring
 %patch10 -p1 -b .sip-path
 %patch11 -p1 -b .sip-build
+%patch12 -p1
 # Use cmake FindLua
 rm cmake/modules/FindLua.cmake
 
@@ -759,6 +761,9 @@ export DISPLAY=:99
 
 
 %changelog
+* Tue Apr 11 2023 Florian Weimer <fweimer@redhat.com> - 5.15.0-52
+- Port to C99
+
 * Sat Apr 08 2023 Orion Poplawski <orion@nwra.com> - 5.15.0-51
 - Rebuild with octave 8.1.0
 

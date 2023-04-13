@@ -4,6 +4,10 @@
 
 %global crate ring
 
+# compile and run tests only on supported architectures
+# https://bugzilla.redhat.com/show_bug.cgi?id=1869980
+%global supported_arches x86_64 %{ix86} aarch64 %{arm}
+
 Name:           rust-ring
 Version:        0.16.20
 Release:        %autorelease
@@ -19,10 +23,6 @@ Patch:          ring-fix-metadata-auto.diff
 # * drop profiles that set compiler flags that are incompatible with packaging
 # * set package.license in metadata to match package license
 Patch:          ring-fix-metadata.diff
-
-# * ring does not support ppc64le and s390x:
-#   https://bugzilla.redhat.com/show_bug.cgi?id=1869980
-ExcludeArch:    ppc64le s390x
 
 BuildRequires:  rust-packaging >= 21
 
@@ -161,16 +161,20 @@ use the "wasm32_c" feature of the "%{crate}" crate.
 %cargo_generate_buildrequires
 
 %build
+%ifarch %{supported_arches}
 %cargo_build
+%endif
 
 %install
 %cargo_install
 
 %if %{with check}
+%ifarch %{supported_arches}
 %check
 # * files needed for integration tests are not included in published crates
 %cargo_test -- --lib
 %cargo_test -- --doc
+%endif
 %endif
 
 %changelog

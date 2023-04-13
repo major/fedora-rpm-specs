@@ -1,15 +1,15 @@
 # Review: https://bugzilla.redhat.com/show_bug.cgi?id=442473
 
 Name:           parcellite
-Version:        1.2.1
-Release:        10%{?prerelease:.%{?prerelease}}%{?dist}
+Version:        1.2.2
+Release:        2%{?dist}
 Summary:        A lightweight GTK+ clipboard manager
 
 License:        GPLv3+
 URL:            http://parcellite.sourceforge.net/
-Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/rickyrockrat/%{name}/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  gtk2-devel >= 2.10.0 
 BuildRequires:  desktop-file-utils
@@ -23,15 +23,15 @@ In GNOME and Xfce the clipboard manager will be started automatically. For
 other desktops or window managers you should also install a panel with a 
 system tray or notification area if you want to use this package.
 
-
 %prep
 %setup -q
+sh -v autogen.sh
 # remove useless files
-rm -rf autom4te.cache */*~ || :
+rm -rfv autom4te.cache */*~ || :
 
 %build
 %configure
-%make_build
+CFLAGS="$RPM_OPT_FLAGS" %make_build -f Makefile.simple
 
 
 %install
@@ -68,6 +68,12 @@ desktop-file-install \
 
 
 %changelog
+* Tue Apr 11 2023 Raphael Groner <raphgro@fedoraproject.org> - 1.2.2-2
+- enable debuginfo
+
+* Tue Apr 11 2023 Raphael Groner <raphgro@fedoraproject.org> - 1.2.2-1
+- bump version, fix security issue#79
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

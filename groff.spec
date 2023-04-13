@@ -4,7 +4,33 @@ Summary: A document formatting system
 Name: groff
 Version: 1.22.4
 Release: 11%{?dist}
-License: GPLv3+ and GFDL and BSD and MIT
+# Everything is under GPL-3.0-or-later, except for the following files:
+# MIT license
+#  -- tmac/hyphen.den
+#     tmac/hyphen.det
+# GFDL license
+#  -- ./FDL
+# BSD-4-Clause-UC
+#  -- tmac/doc.tmac
+#     tmac/doc-old.tmac
+#     tmac/doc-common
+#     tmac/doc-ditroff
+#     tmac/doc-nroff
+#     tmac/doc-syms
+#     tmac/groff_mdoc.man
+#     tmac/e.tmac
+#     tmac/groff_me.man
+#     doc/meintro.me
+#     doc/meintro_fr.me
+#     doc/meref.me
+# X11 license
+#  -- src/devices/xditview/*
+# Public domain
+#  -- src/preproc/grn
+#     contrib/grap2graph/grap2graph.sh
+#     contrib/pic2graph/pic2graph.sh
+#     contrib/eqn2graph/eqn2graph.sh
+License: GPL-3.0-or-later AND GFDL-1.3-or-later AND BSD-4-Clause-UC AND MIT AND X11 AND LicenseRef-Fedora-Public-Domain
 URL: http://www.gnu.org/software/groff/
 Source: ftp://ftp.gnu.org/gnu/groff/groff-%{version}.tar.gz
 

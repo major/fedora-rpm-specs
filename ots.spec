@@ -1,12 +1,13 @@
 Name:		ots
 Summary:	A text summarizer
 Version:	0.5.0
-Release:	27%{?dist}
+Release:	28%{?dist}
 
 License:	GPLv2+
 URL:		http://libots.sourceforge.net/
 
 Source0:	http://prdownloads.sourceforge.net/libots/ots-%{version}.tar.gz
+Patch0: ots-c99.patch
 
 
 BuildRequires: make
@@ -44,7 +45,7 @@ The %{name}-libs package contains shared libraries used by %{name}.
 
 
 %prep
-%setup -q 
+%autosetup -p1
 
 
 %build
@@ -86,6 +87,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Tue Apr 11 2023 Florian Weimer <fweimer@redhat.com> - 0.5.0-28
+- Port to C99 (#2185829)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

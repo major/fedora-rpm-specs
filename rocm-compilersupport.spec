@@ -1,3 +1,5 @@
+# The package follows LLVM's version, but API version is still important:
+%global comgr_maj_api_ver 2
 %global llvm_maj_ver 16
 # If you bump LLVM, please reset bugfix_version to 0; I fork upstream sources,
 # but I prepare the initial *.0 tag long before Fedora/EL picks up new LLVM.
@@ -7,7 +9,7 @@
 
 Name:           rocm-compilersupport
 Version:        %{llvm_maj_ver}.%{bugfix_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Various AMD ROCm LLVM related services
 
 Url:            https://github.com/RadeonOpenCompute/ROCm-CompilerSupport
@@ -17,7 +19,7 @@ License:        NCSA
 Source0:        https://github.com/Mystro256/%{upstreamname}/archive/refs/tags/%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
 Patch0:         0001-Test-reporting-error.patch
-Patch1:	        0002-Fix-comgr_mangled_names_test.patch
+Patch1:         0002-Fix-comgr_mangled_names_test.patch
 Patch2:         0003-Skip-device-libs-test-errors.patch
 
 BuildRequires:  cmake
@@ -36,7 +38,7 @@ This package currently contains one library, the Code Object Manager (Comgr)
 
 %package -n rocm-comgr
 Summary:        AMD ROCm LLVM Code Object Manager
-Provides:       comgr(rocm) = %{llvm_maj_ver}
+Provides:       comgr(major) = %{comgr_maj_api_ver}
 
 %description -n rocm-comgr
 The AMD Code Object Manager (Comgr) is a shared library which provides
@@ -76,7 +78,7 @@ sed -i 's/lib\(\/clang\)/%{_lib}\1/' lib/comgr/src/comgr-compiler.cpp
 %files -n rocm-comgr
 %license LICENSE.txt lib/comgr/NOTICES.txt
 %doc lib/comgr/README.md
-%{_libdir}/libamd_comgr.so.2{,.*}
+%{_libdir}/libamd_comgr.so.%{comgr_maj_api_ver}{,.*}
 #Files already included:
 %exclude %{_docdir}/amd_comgr/LICENSE.txt
 %exclude %{_docdir}/amd_comgr/NOTICES.txt
@@ -90,6 +92,9 @@ sed -i 's/lib\(\/clang\)/%{_lib}\1/' lib/comgr/src/comgr-compiler.cpp
 %{_includedir}/amd_comgr.h
 
 %changelog
+* Tue Apr 11 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 16.0-2
+- Fix comgr provides (should be major api version of comgr), for RHBZ#2185838
+
 * Wed Mar 29 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 16.0-1
 - Update to 16.0 (forked sources for Fedora)
 

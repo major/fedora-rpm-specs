@@ -1,10 +1,10 @@
 %global appname Komikku
 %global uuid    info.febvre.%{appname}
-%global gtk4_version        4.8.1
-%global libadwaita_version  1.2
+%global gtk4_version        4.10.1
+%global libadwaita_version  1.3.1
 
 Name:           komikku
-Version:        1.17.1
+Version:        1.18.0
 Release:        %autorelease
 Summary:        A manga reader for GNOME
 BuildArch:      noarch
@@ -12,9 +12,6 @@ BuildArch:      noarch
 License:        GPLv3+
 URL:            https://gitlab.com/valos/Komikku
 Source0:        %{url}/-/archive/v%{version}/%{appname}-v%{version}.tar.gz
-
-Patch0:         tzlocal-2.1.patch
-BuildRequires:  git-core
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  intltool
@@ -72,10 +69,7 @@ Keys features
 * Light and dark themes
 
 %prep
-%autosetup -n %{appname}-v%{version} -N -S git -p1
-%if 0%fedora <= 37
-%autopatch 0
-%endif
+%autosetup -n %{appname}-v%{version}
 
 
 %build

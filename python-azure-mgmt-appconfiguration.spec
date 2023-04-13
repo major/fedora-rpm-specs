@@ -4,7 +4,7 @@
 %global         srcname     azure-mgmt-appconfiguration
 
 Name:           python-%{srcname}
-Version:        2.2.0
+Version:        3.0.0
 Release:        %autorelease
 Summary:        Microsoft Azure App Configuration Management Client Library for Python
 License:        MIT

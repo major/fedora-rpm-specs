@@ -161,7 +161,8 @@ fi
 
 %changelog
 * Wed Apr 05 2023 Petr Pisar <ppisar@redhat.com> - 1.3.0-1
-- 1.3.0 bump
+- 1.3.0 bump (CVE-2023-29415, CVE-2023-29416, CVE-2023-29417, CVE-2023-29418,
+  CVE-2023-29419, CVE-2023-29420, CVE-2023-29421)
 
 * Mon Mar 27 2023 Petr Pisar <ppisar@redhat.com> - 1.2.3-1
 - 1.2.3 bump

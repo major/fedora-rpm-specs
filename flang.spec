@@ -12,7 +12,7 @@
 
 Name: flang
 Version: %{flang_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: a Fortran language front-end designed for integration with LLVM
 
 License: Apache-2.0 WITH LLVM-exception
@@ -48,10 +48,49 @@ Patch20: 0001-flang-Fixed-restrictions-checking-for-OpenACC-loop-a.patch
 Patch21: 0001-flang-Fixed-uninitialized-std-unique_ptr-dereference.patch
 Patch22: 0001-flang-Fix-dereference-of-std-optional-with-no-value.patch
 
+%{lua:
+
+-- Return the maximum number of parallel jobs a build can run based on the
+-- amount of maximum memory used per process (per_proc_mem).
+function print_max_procs(per_proc_mem)
+    local f = io.open("/proc/meminfo", "r")
+    local mem = 0
+    local nproc_str = nil
+    for line in f:lines() do
+        _, _, mem = string.find(line, "MemTotal:%s+(%d+)%s+kB")
+        if mem then
+           break
+        end
+    end
+    f:close()
+
+    local proc_handle = io.popen("nproc")
+    _, _, nproc_str = string.find(proc_handle:read("*a"), "(%d+)")
+    proc_handle:close()
+    local nproc = tonumber(nproc_str)
+    if nproc < 1 then
+        nproc = 1
+    end
+    local mem_mb = mem / 1024
+    local cpu = math.floor(mem_mb / per_proc_mem)
+    if cpu < 1 then
+        cpu = 1
+    end
+
+    if cpu > nproc then
+        cpu = nproc
+    end
+    print(cpu)
+end
+}
+
 # Avoid gcc reaching 4GB of memory on 32-bit targets and also running out of
 # memory on builders with many CPUs.
 %global _lto_cflags %{nil}
-%global _smp_mflags -j1
+# The amount of RAM used per process has been set by trial and error.
+# This number may increase/decrease from time to time and may require changes.
+# We prefer to be on the safe side in order to avoid spurious errors.
+%global _smp_mflags -j%{lua: print_max_procs(6144)}
 
 # We don't produce debug info on ARM to avoid OOM during the build.
 %ifarch %{arm}
@@ -241,6 +280,9 @@ export LD_LIBRARY_PATH=%{_builddir}/%{flang_srcdir}/%{_build}/lib
 %doc %{_pkgdocdir}/html/
 
 %changelog
+* Thu Apr 06 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0-3
+- Set the amount of jobs dynamically
+
 * Mon Apr 03 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0-2
 - Fix mlir header path
 

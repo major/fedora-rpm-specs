@@ -103,6 +103,7 @@ This package contains various miners and metadata extractors for tracker.
   -Dsystemd_user_services=false \
   -Diso=disabled \
   -Dnetwork_manager=disabled \
+  -Dbattery_detection=none \
   -Ddomain_prefix=%{domain_ontology} \
 %endif
 %if ! 0%{?with_libcue}

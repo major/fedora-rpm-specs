@@ -14,7 +14,7 @@
 
 %global         srcname     azure-cli
 %global         forgeurl    https://github.com/Azure/azure-cli
-Version:        2.46.0
+Version:        2.47.0
 %global         tag         %{srcname}-%{version}
 %global         distprefix  %{nil}
 %forgemeta

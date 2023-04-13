@@ -26,8 +26,8 @@
 # than a Fedora release lifecycle.
 %global nodejs_epoch 1
 %global nodejs_major 19
-%global nodejs_minor 8
-%global nodejs_patch 1
+%global nodejs_minor 9
+%global nodejs_patch 0
 # nodejs_soversion - from NODE_MODULE_VERSION in src/node_version.h
 %global nodejs_soversion 111
 %global nodejs_abi %{nodejs_soversion}
@@ -97,7 +97,7 @@
 
 # npm - from deps/npm/package.json
 %global npm_epoch 1
-%global npm_version 9.5.1
+%global npm_version 9.6.3
 
 # In order to avoid needing to keep incrementing the release version for the
 # main package forever, we will just construct one for npm that is guaranteed

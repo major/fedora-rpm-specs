@@ -1,14 +1,14 @@
 # remirepo/fedora spec file for php-psr-http-server-middleware
 #
-# Copyright (c) 2020 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2020-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 
 # Github
-%global gh_commit    2296f45510945530b9dceb8bcedb5cb84d40c5f5
+%global gh_commit    c1481f747daaa6a0782775cd6a8c26a1bf4a3829
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     php-fig
 %global gh_project   http-server-middleware
@@ -21,8 +21,8 @@
 %global ns_sub       Server
 
 Name:           php-%{pk_vendor}-%{pk_project}
-Version:        1.0.1
-Release:        8%{?dist}
+Version:        1.0.2
+Release:        1%{?dist}
 Summary:        Common interface for HTTP server-side middleware
 
 License:        MIT
@@ -33,7 +33,7 @@ BuildArch:      noarch
 # For tests
 BuildRequires:  php(language) >= 7.0
 BuildRequires:  php-cli
-BuildRequires: (php-composer(%{pk_vendor}/http-message)        >= 1.0  with php-composer(%{pk_vendor}/http-message)        < 2)
+BuildRequires: (php-composer(%{pk_vendor}/http-message)        >= 1.0  with php-composer(%{pk_vendor}/http-message)        < 3)
 BuildRequires: (php-composer(%{pk_vendor}/http-server-handler) >= 1.0  with php-composer(%{pk_vendor}/http-server-handler) < 2)
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
@@ -41,9 +41,9 @@ BuildRequires:  php-fedora-autoloader-devel
 # From composer.json,    "require": {
 #        "php": ">=7.0",
 #        "psr/http-message": "^1.0",
-#        "psr/http-server-handler": "^1.0"
+#        "psr/http-server-handler": "^1.0 || ^2.0"
 Requires:       php(language) >= 7.0
-Requires:      (php-composer(%{pk_vendor}/http-message)        >= 1.0  with php-composer(%{pk_vendor}/http-message)        < 2)
+Requires:      (php-composer(%{pk_vendor}/http-message)        >= 1.0  with php-composer(%{pk_vendor}/http-message)        < 3)
 Requires:      (php-composer(%{pk_vendor}/http-server-handler) >= 1.0  with php-composer(%{pk_vendor}/http-server-handler) < 2)
 # phpcompatinfo (computed from version 1.0.1)
 #     only core
@@ -77,7 +77,10 @@ Autoloader: %{_datadir}/php/%{ns_vendor}/%{ns_project}/%{ns_sub}/middleware-auto
 %{_bindir}/phpab --template fedora --output src/middleware-autoload.php src
 cat << 'EOF' | tee -a src/middleware-autoload.php
 \Fedora\Autoloader\Dependencies::required([
-    '%{_datadir}/php/Psr/Http/Message/autoload.php',
+    [
+        '%{_datadir}/php/Psr/Http/Message2/autoload.php',
+        '%{_datadir}/php/Psr/Http/Message/autoload.php',
+    ],
     '%{_datadir}/php/Psr/Http/Server/autoload.php',
 ]);
 EOF
@@ -104,6 +107,10 @@ exit (interface_exists("%{ns_vendor}\\%{ns_project}\\%{ns_sub}\\MiddlewareInterf
 
 
 %changelog
+* Tue Apr 11 2023 Remi Collet <remi@remirepo.net> - 1.0.2-1
+- update to 1.0.2
+- allow psr/http-message 2.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

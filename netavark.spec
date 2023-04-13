@@ -297,6 +297,12 @@ go-md2man -in %{name}.1.md -out %{name}.1
 %install
 %{__make} DESTDIR=%{buildroot} PREFIX=%{_prefix} install
 
+%preun
+%systemd_preun %{name}-dhcp-proxy.service
+
+%postun
+%systemd_postun %{name}-dhcp-proxy.service
+
 %files
 %license LICENSE
 %dir %{_libexecdir}/podman
@@ -304,6 +310,8 @@ go-md2man -in %{name}.1.md -out %{name}.1
 %ifarch %{golang_arches}
 %{_mandir}/man1/%{name}.1*
 %endif
+%{_unitdir}/%{name}-dhcp-proxy.service
+%{_unitdir}/%{name}-dhcp-proxy.socket
 
 %changelog
 %autochangelog

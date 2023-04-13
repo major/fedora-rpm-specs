@@ -3,7 +3,7 @@
 Summary:       Library of Assorted Spiffy Things
 Name:          libast
 Version:       0.7.1
-Release:       0.36.%{cvs}cvs%{?dist}
+Release:       0.37.%{cvs}cvs%{?dist}
 License:       BSD
 URL:           http://www.eterm.org/
 # Sources are pulled from cvs:
@@ -13,6 +13,7 @@ URL:           http://www.eterm.org/
 Source:        libast-%{cvs}.tar.gz
 Source1:       libast-wrapper.h
 Patch0:        libast-m4-include.patch
+Patch1: libast-configure-c99.patch
 BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: imlib2-devel
@@ -39,7 +40,7 @@ development documentation for libast. If you like to develop programs
 using libast, you will need to install libast-devel.
 
 %prep
-%autosetup -n libast-%{cvs}
+%autosetup -p1 -n libast-%{cvs}
 
 %build
 ./autogen.sh
@@ -77,6 +78,9 @@ touch -r ChangeLog %{buildroot}%{_bindir}/libast-config
 %exclude %{_libdir}/*.a
 
 %changelog
+* Tue Apr 11 2023 Florian Weimer <fweimer@redhat.com> - 0.7.1-0.37.20080502cvs
+- Port configure script to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-0.36.20080502cvs
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

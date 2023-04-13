@@ -62,7 +62,7 @@
 Summary: Qt5 - QtWebEngine components
 Name:    qt5-qtwebengine
 Version: 5.15.12
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -678,6 +678,9 @@ done
 
 
 %changelog
+* Tue Apr 11 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.12-5
+- Rebuild (qt5)
+
 * Thu Feb 23 2023 Florian Weimer <fweimer@redhat.com> - 5.15.12-4
 - Port bundled libsync to C99 (#2155642)
 

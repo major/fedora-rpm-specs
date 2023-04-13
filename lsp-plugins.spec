@@ -1,5 +1,5 @@
 Name:           lsp-plugins
-Version:        1.2.5
+Version:        1.2.6
 Release:        1%{?dist}
 Summary:        Linux Studio Plugins
 
@@ -124,7 +124,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 %files -n liblsp-r3d-glx
 %license COPYING COPYING.LESSER
-%{_libdir}/liblsp-r3d-glx-lib-1.0.8.so
+%{_libdir}/liblsp-r3d-glx-lib-1.0.9.so
 
 %files -n liblsp-r3d-glx-devel
 %{_libdir}/liblsp-r3d-glx-lib.so
@@ -156,9 +156,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 %files clap
 %dir %{_libdir}/clap
-%{_libdir}/clap/%{name}-clap-%{version}.clap
+%{_libdir}/clap/%{name}-clap.clap
 
 %changelog
+* Tue Apr 04 2023 Vasiliy Glazov <vascom2@gmail.com> - 1.2.6-1
+- Update to 1.2.6
+
 * Mon Jan 30 2023 Vasiliy Glazov <vascom2@gmail.com> - 1.2.5-1
 - Update to 1.2.5
 - Add CLAP plugin

@@ -1,5 +1,5 @@
 Name: gfs2-utils
-Version: 3.5.0
+Version: 3.5.1
 Release: 1%{?dist}
 # Refer to doc/README.licence in the upstream tarball
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
@@ -66,6 +66,9 @@ modifying, and correcting inconsistencies in GFS2 file systems.
 %{_prefix}/lib/udev/rules.d/82-gfs2-withdraw.rules
 
 %changelog
+* Tue Apr 11 2023 Andrew Price <anprice@redhat.com> - 3.5.1-1
+- New upstream release
+
 * Thu Feb 09 2023 Andrew Price <anprice@redhat.com> - 3.5.0-1
 - New upstream release
 - Drop all patches

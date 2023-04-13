@@ -1,11 +1,9 @@
 
-%global _hardened_build 1
-
 #%%global dev rc1
 
 Name:           civetweb
 Summary:        Embedded C/C++ web server
-Version:        1.15
+Version:        1.16
 Release:        1%{?dev:%{dev}}%{?dist}
 License:        MIT
 Url:            https://github.com/civetweb/civetweb
@@ -36,8 +34,6 @@ Civetweb shared libs and associated header files
     -G "Unix Makefiles" \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DBUILD_CONFIG=rpmbuild \
-    -DCMAKE_INSTALL_PREFIX=%{_prefix} \
-    -DCMAKE_INSTALL_LIBDIR:PATH=%{_libdir} \
     -DCIVETWEB_ENABLE_CXX:BOOL=ON \
     -DBUILD_SHARED_LIBS:BOOL=ON \
     -DCIVETWEB_BUILD_TESTING:BOOL=OFF
@@ -62,8 +58,12 @@ mkdir -p %{buildroot}%{_docdir}/civetweb
 %{_libdir}/libcivetweb.so
 %{_libdir}/libcivetweb-cpp.so
 %{_libdir}/cmake/civetweb/*
+%{_datadir}/pkgconfig/*
 
 %changelog
+* Tue Apr 11 2023 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 1.16-1
+- civetweb 1.16 GA
+
 * Tue Mar 7 2023 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 1.15-1
 - civetweb 1.15 GA, initial build
 

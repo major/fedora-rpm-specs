@@ -1,7 +1,7 @@
 Name:           liferea
 Epoch:          1
 Version:        1.14.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An RSS/RDF feed reader
 
 License:        GPL-2.0-or-later
@@ -45,8 +45,8 @@ browse through their items, and show their contents.
 %build
 %configure --disable-static
 
-%if 0%{?rhel} < 8
-xvfb-run -- %make_build CFLAGS="%{optflags} --std=c99"
+%if 0%{?rhel} > 0 && 0%{?rhel} < 8
+xvfb-run -- %make_build CFLAGS="%{optflags} --std=gnu99"
 %else
 xvfb-run -- %make_build
 %endif
@@ -87,6 +87,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/net.sourc
 
 
 %changelog
+* Tue Apr 11 2023 Florian Weimer <fweimer@redhat.com> - 1:1.14.4-2
+- Do not build with -std=c99
+
 * Tue Apr 04 2023 josef radinger <cheese@nosuchhost.net> - 1:1.14.4-1
 - bump version
 

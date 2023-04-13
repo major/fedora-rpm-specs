@@ -9,7 +9,7 @@
 %global ms_version   0.4.2
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 1
+%global baserelease 2
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -63,6 +63,8 @@ Source0:        https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/%{ver
 %endif
 
 ## upstream patches
+Patch0001:	0001-context-make-driver-runnable-when-we-add-a-runnable-.patch
+Patch0002:	0002-alsa-fix-capture-timings-and-drift.patch
 
 ## upstreamable patches
 
@@ -605,6 +607,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-x11-bell.so
 
 %changelog
+* Tue Apr 11 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.68-2
+- Add 2 patches for some critical bugs.
+
 * Thu Apr 6 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.68-1
 - Update version to 0.3.68
 - Enable gstreamer-device-provider (rhbz#2183691)

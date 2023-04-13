@@ -11,8 +11,8 @@
 
 Summary: Qt5 - QtDeclarative component
 Name:    qt5-%{qt_module}
-Version: 5.15.8
-Release: 4%{?dist}
+Version: 5.15.9
+Release: 1%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -27,28 +27,26 @@ Source5: qv4global_p-multilib.h
 ## upstream patches
 ## repo: https://invent.kde.org/qt/qt/qtdeclarative
 ## branch: kde/5.15
-## git format-patch v5.15.8-lts-lgpl
-Patch1:  0001-Document-that-StyledText-also-supports-nbsp-and-quot.patch
-Patch2:  0002-Support-apos-in-styled-text.patch
-Patch3:  0003-Remove-unused-QPointer-QQuickPointerMask.patch
-Patch4:  0004-QQmlDelegateModel-Refresh-the-view-when-a-column-is-.patch
-Patch5:  0005-Fix-sweep-step-for-tainted-QObject-JavaScript-wrappe.patch
-Patch6:  0006-Fix-TapHandler-so-that-it-actually-registers-a-tap.patch
-Patch7:  0007-Revert-Fix-TapHandler-so-that-it-actually-registers-.patch
-Patch8:  0008-QQmlJs-FixedPoolArray-fix-UB-precondition-violation-.patch
-Patch9:  0009-V4-Do-not-call-dtor-of-an-object-we-continue-to-use.patch
-Patch10: 0010-Make-sure-QQuickWidget-and-its-offscreen-window-s-sc.patch
-Patch11: 0011-QQuickItem-Guard-against-cycles-in-nextPrevItemInTab.patch
-Patch12: 0012-QSGOpenGLDistanceFieldGlyphCache-fix-multiplication-.patch
-Patch13: 0013-QSGOpenGLDistanceFieldGlyphCache-fix-UB-ordering-of-.patch
-Patch14: 0014-Reset-currentChanges-if-currentChanges-is-active-whe.patch
-Patch15: 0015-Don-t-convert-QByteArray-in-startDrag.patch
-Patch16: 0016-Fix-build-after-95290f66b806a307b8da1f72f8fc2c698019.patch
-Patch17: 0017-Implement-accessibility-for-QQuickWidget.patch
-Patch18: 0018-Send-ObjectShow-event-for-visible-components-after-i.patch
-Patch19: 0019-QQuickItem-avoid-emitting-signals-during-destruction.patch
-Patch20: 0020-a11y-track-item-enabled-state.patch
-Patch21: 0021-Make-QaccessibleQuickWidget-private-API.patch
+## git format-patch v5.15.9-lts-lgpl
+Patch1:  0001-Remove-unused-QPointer-QQuickPointerMask.patch
+Patch2:  0002-QQmlDelegateModel-Refresh-the-view-when-a-column-is-.patch
+Patch3:  0003-Fix-TapHandler-so-that-it-actually-registers-a-tap.patch
+Patch4:  0004-Revert-Fix-TapHandler-so-that-it-actually-registers-.patch
+Patch5:  0005-Make-sure-QQuickWidget-and-its-offscreen-window-s-sc.patch
+Patch6:  0006-QQuickItem-Guard-against-cycles-in-nextPrevItemInTab.patch
+Patch7:  0007-Don-t-convert-QByteArray-in-startDrag.patch
+Patch8:  0008-Fix-build-after-95290f66b806a307b8da1f72f8fc2c698019.patch
+Patch9:  0009-Implement-accessibility-for-QQuickWidget.patch
+Patch10: 0010-Send-ObjectShow-event-for-visible-components-after-i.patch
+Patch11: 0011-QQuickItem-avoid-emitting-signals-during-destruction.patch
+Patch12: 0012-a11y-track-item-enabled-state.patch
+Patch13: 0013-Make-QaccessibleQuickWidget-private-API.patch
+Patch14: 0014-Qml-Don-t-crash-when-as-casting-to-type-with-errors.patch
+Patch15: 0015-Fix-missing-glyphs-when-using-NativeRendering.patch
+Patch16: 0016-Revert-Fix-missing-glyphs-when-using-NativeRendering.patch
+Patch17: 0017-QQmlImportDatabase-Make-sure-the-newly-added-import-.patch
+Patch18: 0018-QQuickState-when-handle-QJSValue-properties-correctl.patch
+Patch19: 0019-Models-Avoid-crashes-when-deleting-cache-items.patch
 
 
 ## upstreamable patches
@@ -235,6 +233,9 @@ make check -k -C tests ||:
 
 
 %changelog
+* Tue Apr 11 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.9-1
+- 5.15.9
+
 * Wed Mar 15 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.15.8-4
 - Backport fix for crashes in V4 JIT (#2177696)
 

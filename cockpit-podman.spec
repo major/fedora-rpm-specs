@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-podman
-Version:        65
+Version:        66
 Release:        1%{?dist}
 Summary:        Cockpit component for Podman containers
 License:        LGPL-2.1-or-later
@@ -38,6 +38,37 @@ Requires:       podman >= 2.0.4
 Requires:       criu-libs
 %endif
 
+Provides: bundled(npm(@patternfly/patternfly)) = 4.224.4
+Provides: bundled(npm(@patternfly/react-core)) = 4.276.9
+Provides: bundled(npm(@patternfly/react-icons)) = 4.93.6
+Provides: bundled(npm(@patternfly/react-styles)) = 4.92.7
+Provides: bundled(npm(@patternfly/react-table)) = 4.113.1
+Provides: bundled(npm(@patternfly/react-tokens)) = 4.94.6
+Provides: bundled(npm(attr-accept)) = 1.1.3
+Provides: bundled(npm(core-js)) = 2.6.12
+Provides: bundled(npm(date-fns)) = 2.28.0
+Provides: bundled(npm(docker-names)) = 1.2.1
+Provides: bundled(npm(file-selector)) = 0.1.19
+Provides: bundled(npm(focus-trap)) = 6.9.2
+Provides: bundled(npm(js-tokens)) = 4.0.0
+Provides: bundled(npm(lodash)) = 4.17.21
+Provides: bundled(npm(loose-envify)) = 1.4.0
+Provides: bundled(npm(object-assign)) = 4.1.1
+Provides: bundled(npm(popper.js)) = 1.16.1
+Provides: bundled(npm(prop-types-extra)) = 1.1.1
+Provides: bundled(npm(prop-types)) = 15.8.1
+Provides: bundled(npm(react-dom)) = 18.2.0
+Provides: bundled(npm(react-dropzone)) = 9.0.0
+Provides: bundled(npm(react-is)) = 16.13.1
+Provides: bundled(npm(react)) = 18.2.0
+Provides: bundled(npm(scheduler)) = 0.23.0
+Provides: bundled(npm(tabbable)) = 5.3.3
+Provides: bundled(npm(throttle-debounce)) = 2.3.0
+Provides: bundled(npm(tippy.js)) = 5.1.2
+Provides: bundled(npm(tslib)) = 2.5.0
+Provides: bundled(npm(warning)) = 4.0.3
+Provides: bundled(npm(xterm)) = 4.18.0
+
 %description
 The Cockpit user interface for Podman containers.
 
@@ -58,6 +89,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Tue Apr 11 2023 Packit <hello@packit.dev> - 66-1
+ - Container list can be sorted
+ - Custom healthcheck actions
+
 * Wed Mar 22 2023 Packit <hello@packit.dev> - 65-1
 - Show dialog errors at the top of the dialogs
 - Build system and documentation improvements

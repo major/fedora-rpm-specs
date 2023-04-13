@@ -1,8 +1,8 @@
 Summary: A set of basic GNU tools commonly used in shell scripts
 Name:    coreutils
 Version: 9.2
-Release: 3%{?dist}
-License: GPLv3+
+Release: 4%{?dist}
+License: GPL-3.0-or-later
 Url:     https://www.gnu.org/software/coreutils/
 Source0: https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
 Source1: https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz.sig
@@ -258,6 +258,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %license COPYING
 
 %changelog
+* Tue Apr 11 2023 Lukáš Zaoral <lzaoral@redhat.com> - 9.2-4
+- migrate to SPDX license format
+
 * Fri Mar 24 2023 Kamil Dudka <kdudka@redhat.com> - 9.2-3
 - copy: fix --reflink=auto to fallback in more cases (#2180056)
 - cksum: fix reporting of failed checks (#2180056)

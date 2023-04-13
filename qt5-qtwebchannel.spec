@@ -2,8 +2,8 @@
 
 Summary: Qt5 - WebChannel component
 Name:    qt5-%{qt_module}
-Version: 5.15.8
-Release: 3%{?dist}
+Version: 5.15.9
+Release: 1%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -87,6 +87,9 @@ popd
 
 
 %changelog
+* Tue Apr 11 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.9-1
+- 5.15.9
+
 * Tue Jan 31 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.8-3
 - migrated to SPDX license
 

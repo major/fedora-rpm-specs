@@ -21,6 +21,9 @@ BuildArch:      noarch
 License:        BSD-3-Clause AND MIT AND Python-2.0.1
 URL:            https://github.com/has2k1/%(pypi_name)
 Source0:        %{pypi_source %{pypi_name}}
+# Fix TypeError for Sphinx >= 6.1.3 (RHBZ#2180474)
+# Already fixed upstream, pending next release: https://github.com/has2k1/mizani/commit/09d6e53dc6a297ed4aa5d2fa48e624ee3b00b25c
+Patch:          sphinx-6.1.3.patch
 
 %description %_description
 
@@ -28,6 +31,7 @@ Source0:        %{pypi_source %{pypi_name}}
 Summary:        %{summary}
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
+BuildRequires:  git-core
 %if %{with doc} || %{with man}
 BuildRequires:  make
 BuildRequires:  coreutils
@@ -51,7 +55,7 @@ Requires:       python3-%{pypi_name} == %{version}
 %endif
 
 %prep
-%autosetup -p1 -n %{pypi_name}-%{version}
+%autosetup -p1 -n %{pypi_name}-%{version} -S git
 
 # Disable coverage
 sed -i -e 's/--cov=mizani --cov-report=xml//' pytest.ini

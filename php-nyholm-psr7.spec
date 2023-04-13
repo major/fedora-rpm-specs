@@ -1,14 +1,14 @@
 # remirepo/fedora spec file for php-nyholm-psr7
 #
-# Copyright (c) 2019-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2019-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
 # github
-%global gh_commit    f734364e38a876a23be4d906a2a089e1315be18a
+%global gh_commit    bf4aebd170fadf5fd808c70b90535de327e81a50
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     Nyholm
 %global gh_project   psr7
@@ -31,8 +31,8 @@
 %global http_factory_tests_short      %(c=%{http_factory_tests_commit}; echo ${c:0:7})
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        1.5.1
-Release:        3%{?dist}
+Version:        1.6.0
+Release:        1%{?dist}
 Summary:        A fast PHP7 implementation of PSR-7
 
 License:        MIT
@@ -136,7 +136,7 @@ sed -e 's:./vendor/http-interop/http-factory-tests:http-factory-tests-%{http_fac
 # TODO testCanDetachStream may fail on local build (extension conflicts ?)
 # testIsNotSeekable|testIsNotWritable|testIsNotReadable|testRewindNotSeekable fail only in mock
 ret=0
-for cmdarg in "php %{phpunit}" php74 php80 php81 php82; do
+for cmdarg in "php %{phpunit}" php80 php81 php82; do
   if which $cmdarg; then
     set $cmdarg
     $1 ${2:-%{_bindir}/phpunit9} \
@@ -158,6 +158,9 @@ exit $ret
 
 
 %changelog
+* Tue Apr 11 2023 Remi Collet <remi@remirepo.net> - 1.6.0-1
+- update to 1.6.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

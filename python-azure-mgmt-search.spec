@@ -1,14 +1,10 @@
-# EPEL9 does not have python-aiohttp packaged yet.
-%if 0%{?fedora}
-%bcond_without  tests
-%else
+# Upstream now requires docker for tests.
 %bcond_with     tests
-%endif
 
 %global         srcname     azure-mgmt-search
 
 Name:           python-%{srcname}
-Version:        8.0.0
+Version:        9.0.0
 Release:        %autorelease
 Summary:        Microsoft Azure Search Management Client Library for Python
 License:        MIT

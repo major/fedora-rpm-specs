@@ -1,11 +1,12 @@
 Name:           matio
 Version:        1.5.23
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Library for reading/writing Matlab MAT files
 
 License:        BSD-2-Clause
 URL:            http://sourceforge.net/projects/matio
 Source0:        http://downloads.sourceforge.net/matio/matio-%{version}.tar.gz
+Patch0: matio-configure-c99.patch
 
 BuildRequires: make
 BuildRequires:  doxygen
@@ -36,7 +37,7 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q
+%autosetup -p1
 
 
 %build
@@ -90,6 +91,9 @@ make check || ( cat test/testsuite.log && exit $fail )
 
 
 %changelog
+* Tue Apr 11 2023 Florian Weimer <fweimer@redhat.com> - 1.5.23-5
+- Port configure script to C99
+
 * Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.5.23-4
 - migrated to SPDX license
 

@@ -3,7 +3,7 @@
 %bcond_with docs
 
 Name:           python-%{pypi_name}
-Version:        5.2.1
+Version:        5.2.2
 Release:        1%{?dist}
 Summary:        Objects and routines pertaining to date and time (tempora)
 
@@ -80,7 +80,6 @@ LANG=C.utf-8 %{__python3} -m pytest --ignore=build
 %doc README.rst
 %{_bindir}/calc-prorate
 %{python3_sitelib}/%{pypi_name}*
-%exclude %{python3_sitelib}/tempora/tests
 
 %if %{with docs}
 %files -n python-%{pypi_name}-doc
@@ -89,6 +88,9 @@ LANG=C.utf-8 %{__python3} -m pytest --ignore=build
 %endif
 
 %changelog
+* Tue Apr 11 2023 Dan Radez <dradez@redhat.com> - 5.2.2-1
+- update to 5.2.2 rhbz#2185610
+
 * Thu Jan 19 2023 Dan Radez <dradez@redhat.com> - 5.2.1-1
 - update to 5.2.1 (rhbz#2157607)
 

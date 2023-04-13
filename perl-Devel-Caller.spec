@@ -1,10 +1,11 @@
 Name:           perl-Devel-Caller
-Version:        2.06
-Release:        30%{?dist}
+Version:        2.07
+Release:        1%{?dist}
 Summary:        Meatier versions of caller
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-Caller
-Source0:        https://cpan.metacpan.org/authors/id/R/RC/RCLAMP/Devel-Caller-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/modules/by-module/Devel/Devel-Caller-%{version}.tar.gz
+# Build
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -12,7 +13,7 @@ BuildRequires:  make
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
@@ -24,6 +25,7 @@ BuildRequires:  perl(XSLoader)
 # Tests:
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(vars)
+# Dependencies:
 Requires:       perl(PadWalker) >= 0.08
 
 %global __provides_exclude %{?__provides_exclude:__provides_exclude|}^perl\\(DB\\)
@@ -36,13 +38,13 @@ Devel::Caller - Meatier versions of caller.
 %setup -q -n Devel-Caller-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name '*.bs' -size 0 -delete
-%{_fixperms} %{buildroot}/*
+%{make_install}
+find %{buildroot} -type f -name '*.bs' -empty -delete
+%{_fixperms} -c %{buildroot}
 
 %check
 make test
@@ -51,9 +53,17 @@ make test
 %doc Changes
 %{perl_vendorarch}/auto/Devel/
 %{perl_vendorarch}/Devel/
-%{_mandir}/man3/Devel::Caller.3pm*
+%{_mandir}/man3/Devel::Caller.3*
 
 %changelog
+* Tue Apr 11 2023 Paul Howarth <paul@city-fan.org> - 2.07-1
+- Update to 2.07 (rhbz#2185832)
+  - Fix compatibility with bleadperl (CPAN RT#144051)
+  - Small Pod and Distribution clean-ups (GH#1)
+- Use author-independent source URL
+- Fix permissions verbosely
+- Use %%{make_build} and %%{make_install}
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.06-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

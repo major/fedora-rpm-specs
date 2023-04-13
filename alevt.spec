@@ -1,6 +1,6 @@
 Name: alevt
 Version: 1.8.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Teletext decoder/browser
 License: GPLv2
 URL: https://gitlab.com/alevt/alevt
@@ -10,6 +10,7 @@ Patch0: alevt-1.6.2-pixmap.patch
 Patch1: alevt-1.6.2-manpath.patch
 Patch2: alevt-1.8.1-doublefont.patch
 Patch3: alevt-1.6.2-zlib.patch
+Patch4: alevt-c99.patch
 BuildRequires: gcc
 BuildRequires: libX11-devel
 BuildRequires: libpng-devel
@@ -31,6 +32,7 @@ one to capture teletext pages from scripts.
 %patch1 -p1 -b .manpath
 %patch2 -p1 -b .double
 %patch3 -p1 -b .zlib
+%patch4 -p1
 
 %build
 CC="$CC -DVERSION=\\\"%{version}\\\""
@@ -59,6 +61,9 @@ desktop-file-install \
 %doc README.md CHANGELOG COPYRIGHT
 
 %changelog
+* Tue Apr 11 2023 Florian Weimer <fweimer@redhat.com> - 1.8.1-2
+- Port to C99
+
 * Mon Jan 30 2023 Lucian Langa <lucilanga@gnome.eu.org> - 1.8.1-1
 - port doublefont patch to 1.8.1
 - drop rus/greek patch (updated upstream)

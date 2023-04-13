@@ -47,9 +47,9 @@
 Name:             gawk
 Summary:          The GNU version of the AWK text processing utility
 Version:          5.1.1
-Release:          5%{?dist}
+Release:          6%{?dist}
 
-License:          GPLv3+ and GPLv2+ and LGPLv2+ and BSD
+License:          GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND BSD-3-Clause
 
 URL:              https://www.gnu.org/software/gawk/
 Source0:          https://ftp.gnu.org/gnu/gawk/gawk-%{version}.tar.xz
@@ -292,6 +292,9 @@ install -m 0644 -p awklib/eg/data/* %{buildroot}%{_docdir}/%{name}/eg/data/
 # =============================================================================
 
 %changelog
+* Tue Apr 11 2023 Lukáš Zaoral <lzaoral@redhat.com> - 5.1.1-6
+- migrate to SPDX license format
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

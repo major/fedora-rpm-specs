@@ -1,51 +1,25 @@
-%if 0%{?el6}
-%bcond_with systemd
-%global rundir /var/run/
-%else
-%bcond_without systemd
-%global rundir /run/
-%endif
-
-%global gh_owner vincentbernat
-
 Name:     lldpd
-Version:  1.0.4
-Release:  12%{?dist}
+Version:  1.0.16
+Release:  1%{?dist}
 Summary:  ISC-licensed implementation of LLDP
 
 License:  ISC
-URL:      https://%{gh_owner}.github.io/%{name}/
-Source0:  https://media.luffy.cx/files/lldpd/lldpd-%{version}.tar.gz
+URL:      https://github.com/lldpd/
+Source0:  https://github.com/lldpd/lldpd/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:  %{name}-fedora.service
 Source2:  %{name}-tmpfiles
 Source3:  %{name}-fedora.sysconfig
-Source4:  %{name}-el6.init
-Source5:  %{name}-el7.service
-Patch0: lldpd-configure-c99.patch
+Source4:  %{name}-systemd-sysusers.conf
 
-BuildRequires: gcc
-BuildRequires: readline-devel
 BuildRequires: check-devel
-BuildRequires: net-snmp-devel
+BuildRequires: gcc
 BuildRequires: libxml2-devel
-# EL6 needs libevent2 as the package
-%if 0%{?el6}
-BuildRequires: libevent2-devel
-%else
 BuildRequires: libevent-devel
-%endif
-
-%if 0%{?with_systemd}
-# For systemd stuff
-BuildRequires: systemd
 BuildRequires: make
+BuildRequires: net-snmp-devel
+BuildRequires: readline-devel
+BuildRequires: systemd-devel
 %{?systemd_requires}
-%else
-Requires(post): chkconfig
-Requires(preun): chkconfig
-# This is for /sbin/service
-Requires(preun): initscripts
-%endif
 
 Requires(pre): shadow-utils
 
@@ -69,35 +43,24 @@ Summary: %{summary}
 %build
 %configure --disable-static --with-snmp --disable-silent-rules \
   --with-privsep-user=%{name} --with-privsep-group=%{name} \
-  --with-privsep-chroot=%{rundir}%{name}/chroot \
-  --with-lldpd-ctl-socket=%{rundir}%{name}/%{name}.socket \
-%if 0%{?with_systemd}
+  --with-privsep-chroot=%{_rundir}%{name}/chroot \
+  --with-lldpd-ctl-socket=%{_rundir}%{name}/%{name}.socket \
   --with-systemdsystemunitdir=%{_unitdir} --with-sysusersdir=no
-%endif
 
-make %{?_smp_mflags}
+%make_build
 
 
 %install
 %make_install
 
-%if 0%{?with_systemd}
-%if 0%{?fedora} >= 26
 install -p -D -m644 %{SOURCE1} %{buildroot}%{_unitdir}/%{name}.service
-%else
-install -p -D -m644 %{SOURCE5} %{buildroot}%{_unitdir}/%{name}.service
-%endif
 install -p -D -m644 %{SOURCE2} %{buildroot}%{_tmpfilesdir}/%{name}.conf
-%else
-install -p -D -m755 %{SOURCE4} %{buildroot}%{_initddir}/%{name}
-%endif
 install -p -D -m644 %{SOURCE3} %{buildroot}/etc/sysconfig/%{name}
 
-install -d -D -m 0755 %{buildroot}%{rundir}%{name}/chroot
+install -d -D -m 0755 %{buildroot}%{_rundir}%{name}/chroot
 install -d -m 0755 %{buildroot}%{_sharedstatedir}/%{name}
 # remove the docs from buildroot
 rm -rf %{buildroot}/usr/share/doc/%{name}
-
 
 # don't include completion conf yet
 rm -f %{buildroot}/usr/share/bash-completion/completions/lldpcli
@@ -105,65 +68,39 @@ rm -f %{buildroot}/usr/share/zsh/vendor-completions/_lldpcli
 rm -f %{buildroot}/usr/share/zsh/site-functions/_lldpcli
 
 # remove static libtool archive
-rm -f %{buildroot}%{_libdir}/liblldpctl.la
+find %{buildroot} -type f -name "*.la" -delete
+
+%ldconfig_scriptlets
 
 %pre
-getent group %{name} >/dev/null || groupadd -r %{name}
-getent passwd %{name} >/dev/null || \
-    useradd -r -g %{name} -d %{_sharedstatedir}/%{name} -s /sbin/nologin \
-    -c "Used by the %{name} daemon" %{name}
+%sysusers_create_compat %{SOURCE4}
 exit 0
 
 %post
-/sbin/ldconfig
-%if 0%{?with_systemd}
-%systemd_post %{name}.service
-%else
-# This adds the proper /etc/rc*.d links for the script
-/sbin/chkconfig --add %{name}
-%endif
+%systemd_post lldpd.service
 
 %preun
-%if 0%{?with_systemd}
-%systemd_preun %{name}.service
-%else
-if [ $1 -eq 0 ] ; then
-    /sbin/service %{name} stop >/dev/null 2>&1
-    /sbin/chkconfig --del %{name}
-fi
-%endif
+%systemd_preun lldpd.service
 
 %postun
-/sbin/ldconfig
-%if 0%{?with_systemd}
-%systemd_postun_with_restart %{name}.service
-%else
-if [ "$1" -ge "1" ] ; then
-    /sbin/service %{name} condrestart >/dev/null 2>&1 || :
-fi
-%endif
+%systemd_postun_with_restart lldpd.service
 
 %files
-%doc NEWS README.md
 %license LICENSE
+%doc NEWS README.md
+%config %{_sysconfdir}/%{name}.d
+%config(noreplace) %{_sysconfdir}/sysconfig/%{name}
 %{_sbindir}/lldpcli
 %{_sbindir}/lldpctl
 %{_sbindir}/%{name}
-%config %{_sysconfdir}/%{name}.d
-%config(noreplace) %{_sysconfdir}/sysconfig/%{name}
 %{_mandir}/man8/lldpcli.8*
 %{_mandir}/man8/lldpctl.8*
 %{_mandir}/man8/%{name}.8*
-%{_libdir}/liblldpctl.so.4
-%{_libdir}/liblldpctl.so.4.8.0
-%dir %{rundir}%{name}
-%dir %{rundir}%{name}/chroot
-%if 0%{?with_systemd}
+%{_libdir}/liblldpctl.so.4*
+%dir %{_rundir}%{name}
+%dir %{_rundir}%{name}/chroot
 %{_unitdir}/%{name}.service
 %{_tmpfilesdir}/%{name}.conf
-%else
-%{_initddir}/%{name}
-%endif
 %dir %attr(-,lldpd,lldpd) %{_sharedstatedir}/%{name}
 
 %files devel
@@ -174,6 +111,11 @@ fi
 
 
 %changelog
+* Tue Apr 11 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 1.0.16-1
+- Update to 1.0.16
+- Modernise spec file
+- CVEs: CVE-2020-27827, CVE-2020-27827, CVE-2021-43612
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

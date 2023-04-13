@@ -1,17 +1,12 @@
 Name:           accountsservice
-Version:        23.11.69
-Release:        2%{?dist}
+Version:        23.13.9
+Release:        1%{?dist}
 Summary:        D-Bus interfaces for querying and manipulating user account information
 License:        GPLv3+
 URL:            https://www.freedesktop.org/wiki/Software/AccountsService/
 
 #VCS: git:git://gitlab.freedesktop.org/accountsservice/accountsservice
 Source0:        https://www.freedesktop.org/software/accountsservice/accountsservice-%{version}.tar.xz
-Source1:        https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/mocklibc/mocklibc-1.0.tar.gz
-# https://wrapdb.mesonbuild.com/v1/projects/mocklibc/1.0/2/get_zip
-Source2:        mocklibc-1.0-2-wrap.zip
-
-Patch0:         0001-daemon-Fix-boot-delay.patch
 
 BuildRequires:  gettext-devel
 BuildRequires:  pkgconfig(dbus-1)
@@ -24,10 +19,15 @@ BuildRequires:  gtk-doc
 BuildRequires:  git
 BuildRequires:  meson
 BuildRequires:  vala
+BuildRequires:  python3-dbusmock
 
 Requires:       polkit
 Requires:       shadow-utils
 %{?systemd_requires}
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=2185850
+Patch10001:     0001-mocklibc-Fix-compiler-warning.patch
+Patch10002:     0002-user-manager-Fix-another-compiler-warning.patch
 
 %description
 The accountsservice project provides a set of D-Bus interfaces for
@@ -54,11 +54,6 @@ files needed to build applications that use accountsservice-libs.
 
 %prep
 %autosetup -S git
-
-mkdir -p subprojects/packagecache
-cd subprojects/packagecache
-cp %{SOURCE1} .
-cp %{SOURCE2} .
 
 %build
 %meson \
@@ -119,6 +114,11 @@ mkdir -p $RPM_BUILD_ROOT%{_datadir}/accountsservice/interfaces/
 %{_datadir}/vala/vapi/accountsservice.*
 
 %changelog
+* Tue Apr 11 2023 Ray Strode <rstrode@redhat.com> - 23.13.9-1
+- Update to 23.13.9
+- Fix C99 compile error
+  Resolves: #2185850
+
 * Fri Mar 24 2023 Ray Strode <rstrode@redhat.com> - 23.11.69-2
 - Fix delay during boot for some users
   Resolves: #2180768

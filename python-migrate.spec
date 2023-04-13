@@ -2,7 +2,7 @@
 
 Name: python-migrate
 Version: 0.13.0
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Schema migration tools for SQLAlchemy
 
 License: MIT
@@ -60,6 +60,10 @@ sed -i "s/import unittest2/import unittest as unittest2/g" \
     migrate/tests/fixture/base.py
 %endif
 
+# Utilize a valid version identifier for test-requirements.txt
+# for setuptools 66+
+sed -i 's/2010h/2010/' test-requirements.txt
+
 %build
 %py3_build
 
@@ -87,6 +91,10 @@ echo 'sqlite:///__tmp__' > test_db.cfg
 %{python3_sitelib}/*
 
 %changelog
+* Thu Apr 06 2023 Charalampos Stratakis <cstratak@redhat.com> - 0.13.0-12
+- Utilize a valid version scheme for test requirements to fix FTBFS with
+  setuptools >= 66.0.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

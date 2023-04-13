@@ -12,6 +12,7 @@ License:        GPL-2.0-or-later and MIT and BSD-3-Clause
 URL:            https://pcem-emulator.co.uk
 Source:         %{forgeurl}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source:         %{metadata_forgeurl}/archive/%{metadata_commit}/flathub-%{metadata_commit}.tar.gz
+Patch0: pcem-c99.patch
 
 # checking for cpu... configure: error: Unsupported CPU.
 ExcludeArch:    armv7hl ppc64le s390x
@@ -49,7 +50,7 @@ PCem (short for PC Emulator) is an IBM PC emulator that specializes in running
 old operating systems and software that are designed for IBM PC compatibles.
 
 %prep
-%autosetup -b 1
+%autosetup -p1 -b 1
 
 # Use our build flags
 sed -i configure.ac \

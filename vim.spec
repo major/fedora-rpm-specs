@@ -8,7 +8,7 @@
 %bcond_with libsodium_crypt
 %endif
 
-%define patchlevel 1440
+%define patchlevel 1443
 
 %if %{?WITH_SELINUX:0}%{!?WITH_SELINUX:1}
 %define WITH_SELINUX 1
@@ -50,11 +50,17 @@ Summary: The VIM editor
 URL:     http://www.vim.org/
 Name: vim
 Version: %{baseversion}.%{patchlevel}
-Release: 2%{?dist}
+Release: 1%{?dist}
 Epoch: 2
-# the Apache-2.0 is Apache 2.0 with runtime library exception - reported to legal for adding to the list of allowed licenses, but swift-lang uses it as well
-# Open Publication License 1.0 or later - reported to legal for adding to the allowed licenses list
-License: Vim AND LGPL-2.1-or-later AND MIT AND Apache-2.0 AND GPL-1.0-only AND (GPL-2.0-only OR Vim) AND BSD-2-Clause AND BSD-3-Clause AND GPL-2.0-or-later AND GPL-3.0-or-later
+# swift.vim contains Apache 2.0 with runtime library exception:
+# which is taken as Apache-2.0 WITH Swift-exception - reported to legal as https://gitlab.com/fedora/legal/fedora-license-data/-/issues/188
+# resolution: the license is good for Fedora, but the file does not have a creativity from 
+#
+# Open Publication License 1.0 or later for Vim documentation - reported to legal for adding to the allowed licenses list
+# response here: https://lists.fedoraproject.org/archives/list/legal@lists.fedoraproject.org/message/4UTW5GFDELGMG6K3NQ7NBU42LC2FJOB5/
+# resolution: take it as OPUBL-1.0, the license won't be added to allowed license list, but if a project uses it for documentation
+# and don't use license options mentioned in the OPUBL 1.0 license text (which both are the case for Vim), the license is allowed
+License: Vim AND LGPL-2.1-or-later AND MIT AND GPL-1.0-only AND (GPL-2.0-only OR Vim) AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND GPL-2.0-or-later AND GPL-3.0-or-later AND OPUBL-1.0
 Source0: ftp://ftp.vim.org/pub/vim/unix/vim-%{baseversion}-%{patchlevel}.tar.bz2
 Source1: virc
 Source2: vimrc
@@ -1023,6 +1029,12 @@ touch %{buildroot}/%{_datadir}/%{name}/vimfiles/doc/tags
 
 
 %changelog
+* Tue Apr 11 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.1443-1
+- patchlevel 1443
+
+* Tue Apr 11 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.1440-2
+- incorporate License tag changes based on legal team response
+
 * Wed Apr 05 2023 Andreas Schneider <asn@redhat.com> - 2:9.0.1440-2
 - create xxd package, because it is used by hex.nvim
 

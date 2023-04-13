@@ -2,12 +2,13 @@
 
 Name:           taigo
 Version:        0.3
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Virtual pet for your desktop built with GTK+, Vala, and love
 
 License:        GPLv3+
 URL:            https://github.com/Appadeia/taigo
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0: taigo-c99.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
@@ -52,6 +53,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Tue Apr 11 2023 Florian Weimer <fweimer@redhat.com> - 0.3-9
+- Port to C99
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -56,8 +56,8 @@
 
 Name:    qt5-qtbase
 Summary: Qt5 - QtBase components
-Version: 5.15.8
-Release: 10%{?dist}
+Version: 5.15.9
+Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -125,8 +125,6 @@ Patch64: qt5-qtbase-5.12.1-firebird-4.0.0.patch
 # fix for new mariadb
 Patch65: qtbase-opensource-src-5.9.0-mysql.patch
 
-# python3
-Patch68: qtbase-everywhere-src-5.11.1-python3.patch
 
 # https://fedoraproject.org/wiki/Changes/Qt_Wayland_By_Default_On_Gnome
 # https://bugzilla.redhat.com/show_bug.cgi?id=1732129
@@ -137,11 +135,11 @@ Patch90: %{name}-gcc11.patch
 
 ## upstream patches
 # https://invent.kde.org/qt/qt/qtbase, kde/5.15 branch
-# git diff v5.15.8-lts-lgpl..HEAD | gzip > kde-5.15-rollup-$(date +%Y%m%d).patch.gz
+# git diff v5.15.9-lts-lgpl..HEAD | gzip > kde-5.15-rollup-$(date +%Y%m%d).patch.gz
 # patch100 in lookaside cache due to large'ish size -- rdieter
-Patch100: kde-5.15-rollup-20230227.patch.gz
+Patch100: kde-5.15-rollup-20230411.patch.gz
 # HACK to make 'fedpkg sources' consider it 'used"
-Source100: kde-5.15-rollup-20230227.patch.gz
+Source100: kde-5.15-rollup-20230411.patch.gz
 
 Patch101: qtbase-5.15.8-fix-missing-qtsan-include.patch
 
@@ -415,7 +413,6 @@ Qt5 libraries used for drawing widgets and OpenGL items.
 %if 0%{?fedora} > 27
 %patch -P65 -p1 -b .mysql
 %endif
-%patch -P68 -p1
 
 %if 0%{?fedora} > 30 || 0%{?rhel} > 8
 %patch -P80 -p1 -b .use-wayland-on-gnome.patch
@@ -591,7 +588,7 @@ translationdir=%{_qt5_translationdir}
 
 Name: Qt5
 Description: Qt5 Configuration
-Version: 5.15.8
+Version: 5.15.9
 EOF
 
 # rpm macros
@@ -1107,6 +1104,9 @@ fi
 
 
 %changelog
+* Tue Apr 11 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.9-1
+- 5.15.9
+
 * Wed Mar 29 2023 Than Ngo <than@redhat.com> - 5.15.8-10
 - Related bz#2179854, Qt 5 render the Bold style CJK character very thick
   with Noto CJK variable fonts

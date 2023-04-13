@@ -1,3 +1,7 @@
+# This needs manual update as ROCclr hardcodes a "dlopen" to comgr:
+# https://github.com/ROCm-Developer-Tools/ROCclr/blob/develop/device/comgrctx.cpp#L62
+%global comgr_maj_api_ver 2
+
 %global upstreamname ROCm-OpenCL-Runtime
 %global rocm_release 5.4
 %global rocm_patch 3
@@ -11,7 +15,7 @@
 
 Name:           rocm-opencl
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm OpenCL Runtime
 
 Url:            https://github.com/RadeonOpenCompute/ROCm-OpenCL-Runtime
@@ -34,7 +38,7 @@ BuildRequires:  pkgconfig(ocl-icd)
 BuildRequires:  rocm-comgr-devel
 BuildRequires:  rocm-runtime-devel
 
-Requires:       comgr(rocm) = %{rocm_release}
+Requires:       comgr(major) = %{comgr_maj_api_ver}
 Requires:       ocl-icd%{?_isa}
 Requires:       opencl-filesystem
 
@@ -171,6 +175,9 @@ mv %{buildroot}%{_bindir}/clinfo %{buildroot}%{_bindir}/rocm-clinfo
 %{_bindir}/rocm-clinfo
 
 %changelog
+* Tue Apr 11 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.4.3-2
+- Fix comgr requires (should be major api version of comgr), for RHBZ#2185838
+
 * Wed Feb 08 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.4.3-1
 - Update to 5.4.3
 

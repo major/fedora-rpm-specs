@@ -24,14 +24,14 @@
 %global import_path %{provider_prefix}
 %global git0 https://github.com/opencontainers/runc
 
-%global built_tag v1.1.4
+%global built_tag v1.1.5
 %global built_tag_strip %(b=%{built_tag}; echo ${b:1})
 %global gen_version %(b=%{built_tag_strip}; echo ${b/-/"~"})
 
 Name: %{repo}
 Epoch: 2
 Version: %{gen_version}
-Release: 2%{?dist}
+Release: 1%{?dist}
 Summary: CLI for running Open Containers
 License: Apache-2.0 and BSD-2-Clause and BSD-3-Clause and MIT
 URL: %{git0}
@@ -139,6 +139,9 @@ install -p -m 0644 contrib/completions/bash/%{name} %{buildroot}%{_datadir}/bash
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Wed Apr 05 2023 Sonia Xu <sonix@amazon.com> - 2:1.1.5-1
+- Update to 1.1.5.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.1.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

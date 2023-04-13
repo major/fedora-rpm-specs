@@ -4,7 +4,7 @@
 %global         srcname     azure-mgmt-keyvault
 
 Name:           python-%{srcname}
-Version:        10.1.0
+Version:        10.2.0
 Release:        %autorelease
 Summary:        Microsoft Azure Keyvault Management Client Library for Python
 License:        MIT

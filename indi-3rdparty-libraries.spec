@@ -1,10 +1,10 @@
 %global libapogee_pkg indi-3rdparty-libapogee
 %global libfli_pkg indi-3rdparty-libfli
 
-%global indi_version 2.0.0
+%global indi_version 2.0.1
 
 Name:           indi-3rdparty-libraries
-Version:        2.0.0
+Version:        2.0.1
 Release:        %autorelease
 Summary:        INDI 3rdparty libraries
 License:        LGPL-2.0-or-later
