@@ -1,7 +1,7 @@
 %global pypi_name pelican
 Name:           python-%{pypi_name}
-Version:        4.7.2
-Release:        3%{?dist}
+Version:        4.8.0
+Release:        1%{?dist}
 Summary:        A tool to generate a static blog from reStructuredText or Markdown input files
 
 License:        AGPLv3
@@ -9,6 +9,10 @@ URL:            http://getpelican.com
 Source0:        https://github.com/getpelican/pelican/archive/%{version}.tar.gz#/%{pypi_name}-%{version}.tar.gz
 
 BuildArch:      noarch
+
+# https://github.com/getpelican/pelican/commit/33aca76d78601f0f0da635c8a14c89bbbc9ff8d6.patch
+# this patch was rebased on pelican-4.8.0:
+Patch0001: adjust-extlinks-sphinx5.patch
 
 %description
 Pelican is a static site generator, written in Python_.
@@ -72,7 +76,7 @@ Pelican is a static site generator, written in Python_.
 
 
 %prep
-%autosetup -p1 -n %{pypi_name}-%{version}
+%autosetup -p1 -S git -n %{pypi_name}-%{version}
 # make file not zero length to silence rpmlint
 echo " " > pelican/themes/simple/templates/tag.html
 
@@ -132,6 +136,9 @@ ln -s ./pelican-themes %{buildroot}/%{_bindir}/pelican-themes-3
 
 
 %changelog
+* Wed Apr 12 2023 Matthias Runge <mrunge@redhat.com> - 4.8.0-1
+- update to 4.8.0, resolves rhbz#2180476, rhbz#1941973
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

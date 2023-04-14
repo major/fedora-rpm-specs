@@ -8,7 +8,7 @@ Name:           perl-File-Find-Object-Rule
 Version:        0.0313
 Release:        5%{?dist}
 Summary:        Alternative interface to File::Find::Object
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-Find-Object-Rule
 Source0:        https://cpan.metacpan.org/modules/by-module/File/File-Find-Object-Rule-%{version}.tar.gz
 Patch0:         File-Find-Object-Rule-0.0310-shellbang.patch
@@ -42,6 +42,7 @@ BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More)
 # Dependencies
+# (none)
 
 %description
 File::Find::Object::Rule is a friendlier interface to File::Find::Object. It 
@@ -51,7 +52,7 @@ allows you to build rules that specify the desired files and directories.
 %setup -qn File-Find-Object-Rule-%{version}
 
 # Avoid use of /usr/bin/env
-%patch0
+%patch -P 0
 
 %build
 perl Build.PL --installdirs=vendor

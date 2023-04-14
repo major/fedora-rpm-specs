@@ -1,5 +1,5 @@
 %undefine _package_note_flags
-%global commit_haxelib 4b27f91d8a4ff279d9903091680fee2c93a0d574
+%global commit_haxelib f17fffa97554b1bdba37750e3418051f017a5bc2
 %global commit_hx3compat f1f18201e5c0479cb5adf5f6028788b37f37b730
 
 Name:           haxe
@@ -111,8 +111,9 @@ popd
 %{_datadir}/%{name}/
 
 %changelog
-* Mon Apr 10 2023 Andy Li <andy@onthewings.net> - 4.3.0-1
+* Wed Apr 12 2023 Andy Li <andy@onthewings.net> - 4.3.0-1
 - New upstream version 4.3.0. (RHBZ#2185083, RHBZ#2128307)
+- Update haxelib to 4.1.0.
 
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 4.2.5-5
 - Rebuild OCaml packages for F38

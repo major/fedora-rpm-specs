@@ -16,7 +16,7 @@ the interface supplied by the %{name} library.
 
 Name: ecryptfs-utils
 Version: 111
-Release: 30%{?dist}
+Release: 31%{?dist}
 Summary: The eCryptfs mount helper and support libraries
 License: GPLv2+
 URL: https://launchpad.net/ecryptfs
@@ -96,6 +96,7 @@ BuildRequires: automake autoconf libtool glib2-devel gettext-devel perl-podlator
 
 Requires: keyutils, cryptsetup, util-linux, gettext-runtime
 Requires: kmod(ecryptfs.ko)
+Suggests: ecryptfs-utils-loginmount
 
 %description
 eCryptfs is a stacked cryptographic filesystem that ships in Linux
@@ -104,6 +105,15 @@ helper and supporting libraries to perform key management and mount
 functions.
 
 Install %{name} if you would like to mount eCryptfs.
+
+%package loginmount
+Summary: The eCryptfs configuration to automount Private directory
+Requires: %{name} = %{version}-%{release}
+Requires: pkgconfig
+BuildArch: noarch
+
+%description loginmount
+Configuration required to automatically mount eCryptfs ~/Private directory for users
 
 %package devel
 Summary: The eCryptfs userspace development package
@@ -120,7 +130,7 @@ Summary: Python bindings for the eCryptfs utils
 Requires: %{name} = %{version}-%{release}
 BuildRequires: python%{python3_pkgversion}-devel
 BuildRequires: make
-Provides: %{name}-python
+Provides: %{name}-python = %{version}-%{release}
 Obsoletes:  %{name}-python < %{version}-%{release}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{name}}
 
@@ -228,14 +238,14 @@ done
 %pre
 groupadd -r -f ecryptfs
 
-%post 
+%post loginmount
 /sbin/ldconfig
 if [ $1 -eq 1 ] ; then 
  # Initial installation 
  authselect enable-feature with-ecryptfs >/dev/null 2>&1
 fi
 
-%postun 
+%postun loginmount
 /sbin/ldconfig
 if [ $1 -eq 0 ] ; then
  # Package removal, not upgrade
@@ -303,6 +313,8 @@ fi
 %{_mandir}/man8/pam_ecryptfs.8.gz
 %{_mandir}/man8/umount.ecryptfs.8.gz
 
+%files loginmount
+
 %files devel
 %{_libdir}/libecryptfs.so
 %{_libdir}/pkgconfig/libecryptfs.pc
@@ -316,6 +328,9 @@ fi
 
 
 %changelog
+* Wed Apr 12 2023 Michal Hlavinka <mhlavink@redhat.com> - 111-31
+- split automount configuration scriptlets to separate subpackage ecryptfs-utils-loginmount
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 111-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

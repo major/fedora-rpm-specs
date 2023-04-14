@@ -2,7 +2,7 @@
 %define py3_shbang_opts %nil
 
 Name:           tortoisehg
-Version:        6.3.2
+Version:        6.4
 Release:        2%{?dist}
 Summary:        Mercurial GUI command line tool thg
 License:        GPLv2+
@@ -11,10 +11,10 @@ Source0:        https://www.mercurial-scm.org/release/tortoisehg/targz/tortoiseh
 Source1:        thg.appdata.xml
 BuildArch:      noarch
 BuildRequires:  make
-BuildRequires:  python3-devel, python3-setuptools, gettext, python3-sphinx, python3-qt5, desktop-file-utils, libappstream-glib
+BuildRequires:  python3-devel, python3-setuptools, gettext, python3-sphinx, python3-pyqt6-base, desktop-file-utils, libappstream-glib
 BuildRequires:  mercurial
 Requires:       mercurial, python3-iniparse
-Requires:       python3-qt5, python3-qscintilla-qt5, python3-pygments
+Requires:       python3-qscintilla-qt6, python3-pygments
 Requires:       python3-gobject-base
 
 %description
@@ -42,21 +42,19 @@ Note that the nautilus extension has been deprecated upstream.
 #sed -i '/curver = (0,0,0)/a\        if len(curver) < 3: curver = curver + (0,)' tortoisehg/hgqt/bugreport.py
 
 %build
+export THG_QT_API=PyQt6
 %py3_build
 
 # override config.py from setup.py build_config()
-cat > build/lib/tortoisehg/util/config.py << EOT
-bin_path     = "%{_bindir}"
-license_path = "%{_licensedir}/tortoisehg/COPYING.txt"
-locale_path  = "%{_datadir}/locale"
-icon_path    = "%{_datadir}/pixmaps/tortoisehg"
-nofork       = True
-EOT
+sed \
+  "s|^\(license_path *= *\).*|\1'%{_licensedir}/tortoisehg/COPYING.txt'|g" \
+  build/lib/tortoisehg/util/config.py
 
 (cd doc && make html)
 rm doc/build/html/.buildinfo
 
 %install
+export THG_QT_API=PyQt6
 %py3_install
 rm $RPM_BUILD_ROOT/%{python3_sitelib}/hgext3rd/__init__.*
 rm $RPM_BUILD_ROOT/%{python3_sitelib}/hgext3rd/__pycache__/__init__.*
@@ -91,6 +89,12 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT/%{_datadir}/appdata/thg.ap
 %{_datadir}/nautilus-python/extensions/nautilus-thg.py*
 
 %changelog
+* Wed Apr 12 2023 Mads Kiilerich <mads@kiilerich.com> - 6.4-2
+- Switch to Qt6
+
+* Wed Apr 12 2023 Mads Kiilerich <mads@kiilerich.com> - 6.4-1
+- tortoisehg 6.4
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

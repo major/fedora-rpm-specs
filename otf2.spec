@@ -5,8 +5,8 @@
 # writing of non-sionlib traces.
 
 Name:           otf2
-Version:        3.0.2
-Release:        3%{?dist}
+Version:        3.0.3
+Release:        1%{?dist}
 Summary:        Open Trace Format 2 library
 
 License:        BSD-3-Clause
@@ -169,6 +169,9 @@ make check
 %endif
 
 %changelog
+* Tue Apr 11 2023  <vagrant@rhel8.localdomain> - 3.0.3-1
+- New version
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

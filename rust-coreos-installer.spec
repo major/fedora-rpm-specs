@@ -5,14 +5,14 @@
 # The library is for internal code reuse and is not a public API
 %global __cargo_is_lib 0
 
-%global dracutcommit 38d9f618cd6817ec7c1f1797b273d6f1f46852cb
+%global dracutcommit a4be31dde8cfb3e5d579c3c5cef9205a704d03b5
 %global dracutshortcommit %(c=%{dracutcommit}; echo ${c:0:7})
 
 %global crate coreos-installer
 
 Name:           rust-%{crate}
 Version:        0.17.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Installer for Fedora CoreOS and RHEL CoreOS
 
 # Upstream license specification: Apache-2.0
@@ -180,6 +180,10 @@ from the initramfs in IoT/Edge and is supported by the community.
 %endif
 
 %changelog
+* Tue Apr 11 2023 Irene Diez <idiez@redhat.com> - 0.17.0-2
+- Update dracut/scripts: no need to mount the filesystem
+  https://github.com/coreos/coreos-installer-dracut/pull/30
+
 * Fri Mar 10 2023 Benjamin Gilbert <bgilbert@redhat.com> - 0.17.0-1
 - New release
 

@@ -151,7 +151,7 @@ Source19: run-wayland-compositor
 # Build patches
 # Fixes installation of those addons which don't have ID on IceCat ("Cannot find id for addon" error).
 Patch1: %{name}-fix_addon_installation.patch
-Patch2: %{name}-libevent_linkflag.patch
+Patch2: %{name}-commasplit.patch
 Patch3: mozilla-build-arm.patch
 Patch4: %{name}-build-arm-libaom.patch
 Patch5: rhbz-1219542-s390-build.patch
@@ -353,49 +353,49 @@ to run GNU IceCat native on Wayland.
 # Copy license files
 tar -xf %{SOURCE5}
 
-%patch1 -p1 -b .fix_addon_installation
-#patch2 -p0 -b .libevent_linkflag
-%patch3 -p1 -b .build-arm-libaom
-%patch4 -p1 -b .arm
+%patch1 -p 1 -b .fix_addon_installation
+%patch2 -p 1 -b .commasplit
+%patch3 -p 1 -b .build-arm-libaom
+%patch4 -p 1 -b .arm
 %ifarch s390
-%patch5 -p1 -b .rhbz-1219542-s390
+%patch5 -p 1 -b .rhbz-1219542-s390
 %endif
-%patch6 -p1 -b .1773336
+%patch6 -p 1 -b .1773336
 
 %if 0%{?disable_elfhack}
-%patch41 -p1 -b .disable-elfhack
+%patch41 -p 1 -b .disable-elfhack
 %endif
 
 # Fedora patches
-%patch219 -p1 -b .rhbz-1173156
-%patch221 -p1 -b .firefox-nss-addon-hack
-%patch224 -p1 -b .glibcxx
-%patch225 -p1 -b .gcc13
+%patch219 -p 1 -b .rhbz-1173156
+%patch221 -p 1 -b .firefox-nss-addon-hack
+%patch224 -p 1 -b .glibcxx
+%patch225 -p 1 -b .gcc13
 
 # ARM run-time patch
 %ifarch aarch64
-%patch40 -p1 -b .aarch64-skia
-%patch226 -p1 -b .1354671
+%patch40 -p 1 -b .aarch64-skia
+%patch226 -p 1 -b .1354671
 %endif
 
 %ifarch %{arm}
-%patch44  -p1 -b .build-arm-libopus
+%patch44  -p 1 -b .build-arm-libopus
 %endif
 
-%patch402 -p1 -b .1196777
+%patch402 -p 1 -b .1196777
 %ifarch %{power64}
-%patch423 -p1 -b .1512162
+%patch423 -p 1 -b .1512162
 %endif
 
 #%%patch584 -p1 -b .firefox-disable-ffvpx-with-vapi
 #%%patch585 -p1 -b .firefox-vaapi-extra-frames
-%patch54 -p1 -b .1669639
+%patch54 -p 1 -b .1669639
 
 # PGO patches
 %if 0%{?build_with_pgo}
 %if !%{build_with_clang}
-%patch600 -p1 -b .pgo
-%patch602 -p1 -b .1516803
+%patch600 -p 1 -b .pgo
+%patch602 -p 1 -b .1516803
 %endif
 %endif
 

@@ -1,4 +1,4 @@
-%global lit_version 16.0.0
+%global lit_version 16.0.1
 #global rc_ver 4
 #global post_ver 0
 
@@ -13,6 +13,8 @@ License: NCSA
 Summary: Tool for executing llvm test suites
 URL: https://pypi.python.org/pypi/lit
 Source0: %{pypi_source lit %{lit_version}%{?rc_ver:rc%{rc_ver}}%{?post_ver:.post%{post_ver}}}
+# Remove the license file if it gets included in the tarball again.
+Source1: https://raw.githubusercontent.com/llvm/llvm-project/llvmorg-%{lit_version}%{?rc_ver:rc%{rc_ver}}/llvm/utils/lit/LICENSE.TXT
 
 # for file check
 %if %{with check}
@@ -35,6 +37,7 @@ lit is a tool used by the LLVM project for executing its test suites.
 
 %prep
 %autosetup -n lit-%{lit_version}%{?rc_ver:rc%{rc_ver}}%{?post_ver:.post%{post_ver}} -p4
+cp %{SOURCE1} ./
 
 %build
 %py3_build
@@ -57,6 +60,9 @@ sed -i -e '1{\@^#!/usr/bin/env python@d}' %{buildroot}%{python3_sitelib}/lit/*.p
 %{_bindir}/lit
 
 %changelog
+* Mon Apr 10 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.1-1
+- Update to LLVM 16.0.1
+
 * Mon Mar 20 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0-1
 - Update to LLVM 16.0.0
 

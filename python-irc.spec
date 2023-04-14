@@ -34,6 +34,11 @@ Summary:        %{summary}
 %prep
 %autosetup -n %{projname}-%{version}
 
+%if 0%{?rhel}
+# relax setuptools requirement in EPEL
+sed -i 's/setuptools>=56/setuptools/' pyproject.toml
+%endif
+
 # https://github.com/jaraco/irc/pull/204
 sed -i '/exclude =/a\    scripts*' setup.cfg
 

@@ -7,10 +7,10 @@
 
 Name:           perl-Devel-CheckLib
 Version:        1.16
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Check that a library is available
 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-CheckLib
 Source0:        https://cpan.metacpan.org/modules/by-module/Devel/Devel-CheckLib-%{version}.tar.gz
 
@@ -65,6 +65,9 @@ make test
 
 
 %changelog
+* Wed Apr 12 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.16-5
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

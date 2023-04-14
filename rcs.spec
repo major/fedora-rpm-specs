@@ -1,16 +1,18 @@
 Summary: Revision Control System (RCS) file version management tools
 Name: rcs
 Version: 5.10.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPL-3.0-or-later
 URL: http://www.gnu.org/software/rcs/
 Source: http://ftp.gnu.org/gnu/rcs/%{name}-%{version}.tar.lz
+Patch0: rcs-configure-c99.patch
 
 # for bundled(gnulib) see https://fedorahosted.org/fpc/ticket/174
 Provides: bundled(gnulib)
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: autoconf
+BuildRequires: automake
 BuildRequires: groff
 BuildRequires: ghostscript
 BuildRequires: ed
@@ -29,7 +31,7 @@ The rcs package should be installed if you need a system for managing
 different versions of files.
 
 %prep
-%setup -q
+%autosetup -p1
 
 autoconf
 
@@ -54,6 +56,9 @@ make check XFAIL_TESTS="`tests/known-failures %{version}`"
 %{_infodir}/*
 
 %changelog
+* Wed Apr 12 2023 Florian Weimer <fweimer@redhat.com> - 5.10.1-5
+- Port configure script to C99
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.10.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

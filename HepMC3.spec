@@ -2,37 +2,15 @@
 %undefine __cmake3_in_source_build
 
 Name:		HepMC3
-Version:	3.2.5
-Release:	7%{?dist}
+Version:	3.2.6
+Release:	1%{?dist}
 Summary:	C++ Event Record for Monte Carlo Generators
 
-#		HepMC3 itself is GPLv3+
+#		HepMC3 itself is LGPLv3+
 #		The included bxzstr header-only library is MPLv2.0
-License:	GPL-3.0-or-later AND MPL-2.0
+License:	LGPL-3.0-or-later AND MPL-2.0
 URL:		https://hepmc.web.cern.ch/hepmc/
 Source0:	https://hepmc.web.cern.ch/hepmc/releases/%{name}-%{version}.tar.gz
-#		Use the correct CMake variable name for PYTHIA8_VERSION
-#		https://gitlab.cern.ch/hepmc/HepMC3/-/merge_requests/166
-Patch0:		%{name}-pythia8-version.patch
-#		Fix test failures on big endian architectures (s390x)
-#		https://gitlab.cern.ch/hepmc/HepMC3/-/merge_requests/167
-Patch1:		%{name}-endian.patch
-#		Fix doxygen markup
-#		https://gitlab.cern.ch/hepmc/HepMC3/-/merge_requests/168
-Patch2:		%{name}-dox.patch
-#		Updates for Python 3.11
-#		Backported from upstream
-Patch3:		%{name}-python-3.11.patch
-#		Fix compiler warning about compare with different signedness
-#		https://gitlab.cern.ch/hepmc/HepMC3/-/merge_requests/199
-Patch4:		%{name}-compiler-warning.patch
-#		Remove @endcode without matching @code
-#		https://gitlab.cern.ch/hepmc/HepMC3/-/merge_requests/200
-Patch5:		%{name}-remove-endcode-without-matching-code.patch
-#		Updates for Python 3.12
-#		Backported from pybind11 upstream
-#		https://gitlab.cern.ch/hepmc/HepMC3/-/merge_requests/237
-Patch6:		%{name}-python-3.12.patch
 
 #		The ROOT cmake file used by this project requires cmake 3.9
 BuildRequires:	cmake3 >= 3.9
@@ -43,6 +21,7 @@ BuildRequires:	root-hist
 BuildRequires:	root-io
 BuildRequires:	root-tree
 BuildRequires:	json-devel
+BuildRequires:	protobuf-devel
 BuildRequires:	doxygen
 BuildRequires:	graphviz
 %if %{?rhel}%{!?rhel:0} == 7
@@ -107,8 +86,24 @@ Requires:	%{name}-devel%{?_isa} = %{version}-%{release}
 %description rootIO-devel
 This package provides development files for %{name}-rootIO.
 
+%package protobufIO
+Summary:	C++ Event Record for Monte Carlo Generators - protobuf IO
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+
+%description protobufIO
+This package provides a library for protobuf IO support.
+
+%package protobufIO-devel
+Summary:	C++ Event Record for Monte Carlo Generators - %{name}-protobufIO development files
+Requires:	%{name}-protobufIO%{?_isa} = %{version}-%{release}
+Requires:	%{name}-devel%{?_isa} = %{version}-%{release}
+
+%description protobufIO-devel
+This package provides development files for %{name}-protobufIO.
+
 %package interfaces-devel
 Summary:	C++ Event Record for Monte Carlo Generators - generator interfaces
+License:	LGPL-3.0-or-later AND GPL-3.0-or-later
 Requires:	%{name}-devel = %{version}-%{release}
 BuildArch:	noarch
 
@@ -118,7 +113,7 @@ This package provides HepMC3 interfaces to some common Monte Carlo generators.
 %if %{?rhel}%{!?rhel:0} == 7
 %package -n python2-%{name}
 Summary:	HeppMC3 Python 2 bindings
-License:	GPL-3.0-or-later AND CNRI-Python AND BSD-3-Clause
+License:	LGPL-3.0-or-later AND CNRI-Python AND BSD-3-Clause
 %py_provides	python2-%{name}
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
@@ -127,9 +122,10 @@ This package provides the Python 2 bindings for HepMC3.
 
 %package -n python2-%{name}-search
 Summary:	HepMC3 search module Python 2 bindings
-License:	GPL-3.0-or-later AND CNRI-Python AND BSD-3-Clause
+License:	LGPL-3.0-or-later AND CNRI-Python AND BSD-3-Clause
 %py_provides	python2-%{name}-search
 Requires:	%{name}-search%{?_isa} = %{version}-%{release}
+Requires:	%{name}%{?_isa} = %{version}-%{release}
 Requires:	python2-%{name}%{?_isa} = %{version}-%{release}
 
 %description -n python2-%{name}-search
@@ -137,17 +133,29 @@ This package provides the Python 2 bindings for HepMC3 search module.
 
 %package -n python2-%{name}-rootIO
 Summary:	HepMC3 ROOT I/O module Python 2 bindings
-License:	GPL-3.0-or-later AND CNRI-Python AND BSD-3-Clause
+License:	LGPL-3.0-or-later AND CNRI-Python AND BSD-3-Clause
 %py_provides	python2-%{name}-rootIO
 Requires:	%{name}-rootIO%{?_isa} = %{version}-%{release}
+Requires:	%{name}%{?_isa} = %{version}-%{release}
 Requires:	python2-%{name}%{?_isa} = %{version}-%{release}
 
 %description -n python2-%{name}-rootIO
 This package provides the Python 2 bindings for HepMC3 ROOT I/O module.
 
+%package -n python2-%{name}-protobufIO
+Summary:	HepMC3 protobuf I/O module Python 2 bindings
+License:	LGPL-3.0-or-later AND CNRI-Python AND BSD-3-Clause
+%py_provides	python2-%{name}-protobufIO
+Requires:	%{name}-protobufIO%{?_isa} = %{version}-%{release}
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+Requires:	python2-%{name}%{?_isa} = %{version}-%{release}
+
+%description -n python2-%{name}-protobufIO
+This package provides the Python 2 bindings for HepMC3 protobuf I/O module.
+
 %package -n python%{?python3_other_pkgversion}-%{name}
 Summary:	HepMC3 Python 3 bindings
-License:	GPL-3.0-or-later AND CNRI-Python AND BSD-3-Clause
+License:	LGPL-3.0-or-later AND CNRI-Python AND BSD-3-Clause
 %py_provides	python%{python3_other_pkgversion}-%{name}
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
@@ -156,9 +164,10 @@ This package provides the Python 3 bindings for HepMC3.
 
 %package -n python%{?python3_other_pkgversion}-%{name}-search
 Summary:	HepMC3 search module Python 3 bindings
-License:	GPL-3.0-or-later AND CNRI-Python AND BSD-3-Clause
+License:	LGPL-3.0-or-later AND CNRI-Python AND BSD-3-Clause
 %py_provides	python%{python3_other_pkgversion}-%{name}-search
 Requires:	%{name}-search%{?_isa} = %{version}-%{release}
+Requires:	%{name}%{?_isa} = %{version}-%{release}
 Requires:	python%{python3_other_pkgversion}-%{name}%{?_isa} = %{version}-%{release}
 
 %description -n python%{?python3_other_pkgversion}-%{name}-search
@@ -166,18 +175,30 @@ This package provides the Python 3 bindings for HepMC3 search module.
 
 %package -n python%{?python3_other_pkgversion}-%{name}-rootIO
 Summary:	HepMC3 ROOT I/O module Python 3 bindings
-License:	GPL-3.0-or-later AND CNRI-Python AND BSD-3-Clause
+License:	LGPL-3.0-or-later AND CNRI-Python AND BSD-3-Clause
 %py_provides	python%{python3_other_pkgversion}-%{name}-rootIO
 Requires:	%{name}-rootIO%{?_isa} = %{version}-%{release}
+Requires:	%{name}%{?_isa} = %{version}-%{release}
 Requires:	python%{python3_other_pkgversion}-%{name}%{?_isa} = %{version}-%{release}
 
 %description -n python%{?python3_other_pkgversion}-%{name}-rootIO
 This package provides the Python 3 bindings for HepMC3 ROOT I/O module.
+
+%package -n python%{?python3_other_pkgversion}-%{name}-protobufIO
+Summary:	HepMC3 protobuf I/O module Python 3 bindings
+License:	LGPL-3.0-or-later AND CNRI-Python AND BSD-3-Clause
+%py_provides	python%{python3_other_pkgversion}-%{name}-protobufIO
+Requires:	%{name}-protobufIO%{?_isa} = %{version}-%{release}
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+Requires:	python%{python3_other_pkgversion}-%{name}%{?_isa} = %{version}-%{release}
+
+%description -n python%{?python3_other_pkgversion}-%{name}-protobufIO
+This package provides the Python 3 bindings for HepMC3 protobuf I/O module.
 %endif
 
 %package -n python%{python3_pkgversion}-%{name}
 Summary:	HepMC3 Python 3 bindings
-License:	GPL-3.0-or-later AND CNRI-Python AND BSD-3-Clause
+License:	LGPL-3.0-or-later AND CNRI-Python AND BSD-3-Clause
 %py_provides	python%{python3_pkgversion}-%{name}
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
@@ -186,9 +207,10 @@ This package provides the Python 3 bindings for HepMC3.
 
 %package -n python%{python3_pkgversion}-%{name}-search
 Summary:	HepMC3 search module Python 3 bindings
-License:	GPL-3.0-or-later AND CNRI-Python AND BSD-3-Clause
+License:	LGPL-3.0-or-later AND CNRI-Python AND BSD-3-Clause
 %py_provides	python%{python3_pkgversion}-%{name}-search
 Requires:	%{name}-search%{?_isa} = %{version}-%{release}
+Requires:	%{name}%{?_isa} = %{version}-%{release}
 Requires:	python%{python3_pkgversion}-%{name}%{?_isa} = %{version}-%{release}
 
 %description -n python%{python3_pkgversion}-%{name}-search
@@ -196,13 +218,25 @@ This package provides the Python 3 bindings for HepMC3 search module.
 
 %package -n python%{python3_pkgversion}-%{name}-rootIO
 Summary:	HepMC3 ROOT I/O module Python 3 bindings
-License:	GPL-3.0-or-later AND CNRI-Python AND BSD-3-Clause
+License:	LGPL-3.0-or-later AND CNRI-Python AND BSD-3-Clause
 %py_provides	python%{python3_pkgversion}-%{name}-rootIO
 Requires:	%{name}-rootIO%{?_isa} = %{version}-%{release}
+Requires:	%{name}%{?_isa} = %{version}-%{release}
 Requires:	python%{python3_pkgversion}-%{name}%{?_isa} = %{version}-%{release}
 
 %description -n python%{python3_pkgversion}-%{name}-rootIO
 This package provides the Python 3 bindings for HepMC3 ROOT I/O module.
+
+%package -n python%{python3_pkgversion}-%{name}-protobufIO
+Summary:	HepMC3 protobuf I/O module Python 3 bindings
+License:	LGPL-3.0-or-later AND CNRI-Python AND BSD-3-Clause
+%py_provides	python%{python3_pkgversion}-%{name}-protobufIO
+Requires:	%{name}-protobufIO%{?_isa} = %{version}-%{release}
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+Requires:	python%{python3_pkgversion}-%{name}%{?_isa} = %{version}-%{release}
+
+%description -n python%{python3_pkgversion}-%{name}-protobufIO
+This package provides the Python 3 bindings for HepMC3 protobuf I/O module.
 
 %package doc
 Summary:	C++ Event Record for Monte Carlo Generators - documentation
@@ -213,18 +247,12 @@ This package provides HepMC manuals and examples.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
 
 %build
 %cmake3 \
 	-DHEPMC3_ENABLE_ROOTIO:BOOL=ON \
 	-DHEPMC3_ROOTIO_INSTALL_LIBDIR:PATH=%{_libdir}/root \
+	-DHEPMC3_ENABLE_PROTOBUFIO:BOOL=ON \
 	-DHEPMC3_ENABLE_TEST:BOOL=ON \
 	-DHEPMC3_INSTALL_INTERFACES:BOOL=ON \
 	-DHEPMC3_INSTALL_EXAMPLES:BOOL=ON \
@@ -251,6 +279,7 @@ rm %{buildroot}%{_includedir}/%{name}/bxzstr/LICENSE
 %ldconfig_scriptlets
 %ldconfig_scriptlets search
 %ldconfig_scriptlets rootIO
+%ldconfig_scriptlets protobufIO
 
 %files
 %{_libdir}/libHepMC3.so.3
@@ -270,6 +299,7 @@ rm %{buildroot}%{_includedir}/%{name}/bxzstr/LICENSE
 %{_includedir}/%{name}/bxzstr/lzma_stream_wrapper.hpp
 %{_includedir}/%{name}/bxzstr/stream_wrapper.hpp
 %{_includedir}/%{name}/bxzstr/strict_fstream.hpp
+%{_includedir}/%{name}/bxzstr/zstd_stream_wrapper.hpp
 %{_includedir}/%{name}/bxzstr/z_stream_wrapper.hpp
 %{_includedir}/%{name}/AssociatedParticle.h
 %{_includedir}/%{name}/Attribute.h
@@ -324,9 +354,11 @@ rm %{buildroot}%{_includedir}/%{name}/bxzstr/LICENSE
 %dir %{_datadir}/%{name}/cmake
 %{_datadir}/%{name}/cmake/HepMC3Config.cmake
 %{_datadir}/%{name}/cmake/HepMC3Config-version.cmake
+%{_datadir}/%{name}/cmake/HepMC3Targets.cmake
+%{_datadir}/%{name}/cmake/HepMC3Targets-release.cmake
 
 %files search
-%{_libdir}/libHepMC3search.so.4
+%{_libdir}/libHepMC3search.so.5
 
 %files search-devel
 %{_libdir}/libHepMC3search.so
@@ -336,6 +368,8 @@ rm %{buildroot}%{_includedir}/%{name}/bxzstr/LICENSE
 %{_includedir}/%{name}/FilterAttribute.h
 %{_includedir}/%{name}/Relatives.h
 %{_includedir}/%{name}/Selector.h
+%{_datadir}/%{name}/cmake/HepMC3searchTargets.cmake
+%{_datadir}/%{name}/cmake/HepMC3searchTargets-release.cmake
 
 %files rootIO
 %{_libdir}/root/libHepMC3rootIO.so.3
@@ -349,6 +383,18 @@ rm %{buildroot}%{_includedir}/%{name}/bxzstr/LICENSE
 %{_includedir}/%{name}/ReaderRootTree.h
 %{_includedir}/%{name}/WriterRoot.h
 %{_includedir}/%{name}/WriterRootTree.h
+%{_datadir}/%{name}/cmake/HepMC3rootIOTargets.cmake
+%{_datadir}/%{name}/cmake/HepMC3rootIOTargets-release.cmake
+
+%files protobufIO
+%{_libdir}/libHepMC3protobufIO.so.1
+
+%files protobufIO-devel
+%{_libdir}/libHepMC3protobufIO.so
+%{_includedir}/%{name}/Readerprotobuf.h
+%{_includedir}/%{name}/Writerprotobuf.h
+%{_datadir}/%{name}/cmake/HepMC3protobufIOTargets.cmake
+%{_datadir}/%{name}/cmake/HepMC3protobufIOTargets-release.cmake
 
 %files interfaces-devel
 %{_datadir}/%{name}/interfaces
@@ -373,6 +419,12 @@ rm %{buildroot}%{_includedir}/%{name}/bxzstr/LICENSE
 %{python2_sitearch}/pyHepMC3/rootIO/pyHepMC3rootIO.so
 %{python2_sitearch}/pyHepMC3.rootIO-*.egg-info
 
+%files -n python2-%{name}-protobufIO
+%dir %{python2_sitearch}/pyHepMC3/protobufIO
+%{python2_sitearch}/pyHepMC3/protobufIO/__init__.py*
+%{python2_sitearch}/pyHepMC3/protobufIO/pyHepMC3protobufIO.so
+%{python2_sitearch}/pyHepMC3.protobufIO-*.egg-info
+
 %files -n python%{?python3_other_pkgversion}-%{name}
 %dir %{python3_other_sitearch}/pyHepMC3
 %{python3_other_sitearch}/pyHepMC3/__init__.py
@@ -394,6 +446,13 @@ rm %{buildroot}%{_includedir}/%{name}/bxzstr/LICENSE
 %{python3_other_sitearch}/pyHepMC3/rootIO/__pycache__
 %{python3_other_sitearch}/pyHepMC3/rootIO/pyHepMC3rootIO.so
 %{python3_other_sitearch}/pyHepMC3.rootIO-*.egg-info
+
+%files -n python%{?python3_other_pkgversion}-%{name}-protobufIO
+%dir %{python3_other_sitearch}/pyHepMC3/protobufIO
+%{python3_other_sitearch}/pyHepMC3/protobufIO/__init__.py
+%{python3_other_sitearch}/pyHepMC3/protobufIO/__pycache__
+%{python3_other_sitearch}/pyHepMC3/protobufIO/pyHepMC3protobufIO.so
+%{python3_other_sitearch}/pyHepMC3.protobufIO-*.egg-info
 %endif
 
 %files -n python%{python3_pkgversion}-%{name}
@@ -418,6 +477,13 @@ rm %{buildroot}%{_includedir}/%{name}/bxzstr/LICENSE
 %{python3_sitearch}/pyHepMC3/rootIO/pyHepMC3rootIO.so
 %{python3_sitearch}/pyHepMC3.rootIO-*.egg-info
 
+%files -n python%{python3_pkgversion}-%{name}-protobufIO
+%dir %{python3_sitearch}/pyHepMC3/protobufIO
+%{python3_sitearch}/pyHepMC3/protobufIO/__init__.py
+%{python3_sitearch}/pyHepMC3/protobufIO/__pycache__
+%{python3_sitearch}/pyHepMC3/protobufIO/pyHepMC3protobufIO.so
+%{python3_sitearch}/pyHepMC3.protobufIO-*.egg-info
+
 %files doc
 %dir %{_pkgdocdir}
 %{_pkgdocdir}/examples
@@ -425,6 +491,13 @@ rm %{buildroot}%{_includedir}/%{name}/bxzstr/LICENSE
 %license COPYING
 
 %changelog
+* Wed Apr 12 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.2.6-1
+- Update to version 3.2.6
+- Update license tag for license change (GPLv3 to LGPLv3)
+- New protobuf IO subpackage
+- Soname bump for libHepMC3search in HepMC3-search subpackage
+- Drop patches accepted upstream or previously backported
+
 * Tue Mar 21 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.2.5-7
 - Rebuild for root 6.28
 - Fix Python 3.12 build

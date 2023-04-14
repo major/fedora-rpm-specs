@@ -1,7 +1,7 @@
 Name:     libpcap
 Epoch:    14
-Version:  1.10.3
-Release:  3%{?dist}
+Version:  1.10.4
+Release:  1%{?dist}
 Summary:  A system-independent interface for user-level packet capture
 License:  ISC AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause-UC
 URL:      https://www.tcpdump.org/
@@ -18,7 +18,8 @@ BuildRequires: glibc-kernheaders >= 2.2.0
 BuildRequires: rdma-core-devel
 %endif
 
-Source:  https://www.tcpdump.org/release/%{name}-%{version}.tar.gz
+Source0:  https://www.tcpdump.org/release/%{name}-%{version}.tar.gz
+Source1:  https://www.tcpdump.org/release/%{name}-%{version}.tar.gz.sig
 
 Patch0001:      0001-man-tcpdump-and-tcpslice-have-manpages-in-man8.patch
 Patch0002:      0002-pcap-config-mitigate-multilib-conflict.patch
@@ -92,13 +93,16 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libpcap.a
 %{_mandir}/man5/pcap*.5*
 
 %changelog
+* Wed Apr 12 2023 Michal Ruprich <mruprich@redhat.com> - 14:1.10.4-1
+- New version 1.10.4
+
 * Tue Mar 21 2023 Michal Ruprich <mruprich@redhat.com> - 14:1.10.3-3
 - SPDX migration
 
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 14:1.10.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
-* Mon Jan 17 2023 Michal Ruprich <mruprich@redhat.com> - 14:1.10.3-1
+* Tue Jan 17 2023 Michal Ruprich <mruprich@redhat.com> - 14:1.10.3-1
 - New version 1.10.3
 
 * Tue Jan 03 2023 Michal Ruprich <mruprich@redhat.com> - 14:1.10.2-1

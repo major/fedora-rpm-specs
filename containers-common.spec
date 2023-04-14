@@ -68,8 +68,8 @@ Requires: container-network-stack
 Requires: oci-runtime
 Recommends: crun
 Requires: (crun if fedora-release-identity-server)
-Recommends: netavark
-Requires: (netavark if fedora-release-identity-server)
+Recommends: netavark >= 1.6.0-1
+Requires: (netavark >= 1.6.0-1 if fedora-release-identity-server)
 Recommends: slirp4netns
 Requires: (slirp4netns if fedora-release-identity-server)
 Recommends: passt

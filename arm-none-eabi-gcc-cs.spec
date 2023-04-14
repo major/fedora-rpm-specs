@@ -10,7 +10,7 @@
 Name:           %{target}-gcc-cs
 Epoch:          1
 Version:        12.2.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        GNU GCC for cross-compilation for %{target} target
 
 # Most of the sources are licensed under GPLv3+ with these exceptions:
@@ -307,6 +307,9 @@ popd
 %endif
 
 %changelog
+* Wed Apr 12 2023 Michal Hlavinka <mhlavink@redhat.com> - 1:12.2.0-4
+- rebuild for updated newlib package
+
 * Thu Jan 19 2023 Florian Weimer <fweimer@redhat.com> - 1:12.2.0-3
 - Backport upstream patches for improved C99 compatibility
 

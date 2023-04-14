@@ -3,10 +3,11 @@ Name:          libdnet
 License:       BSD
 
 %global forgeurl https://github.com/ofalk/%{name}
-Version:       1.16.3
+Version:       1.16.4
+%global tag libdnet-%{version}
 %forgemeta
 
-Release:       2%{?dist}
+Release:       1%{?dist}
 URL:           %{forgeurl}
 Source:        %{forgesource}
 
@@ -93,6 +94,9 @@ popd
 %{python3_sitearch}/*
 
 %changelog
+* Wed Apr 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.16.4-1
+- Rebase to 1.16.4 (RHBZ#2185292)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,15 +1,15 @@
 %undefine __cmake_in_source_build
 
-# https://github.com/vacuum-im/vacuum-im/commit/b6c5dad75568660ff19cdb29d93439af2f65be6d
-%global         commit b6c5dad75568660ff19cdb29d93439af2f65be6d
+# https://github.com/vacuum-im/vacuum-im/commit/0abd5e11dd3e2538b8c47f5a06febedf73ae99ee
+%global         commit 0abd5e11dd3e2538b8c47f5a06febedf73ae99ee
 %global         shortcommit %(c=%{commit}; echo ${c:0:7})
-%global         commitdate 20200608
+%global         commitdate 20211209
 %global         sname vacuum
 
 Name:           %{sname}-im
 Summary:        XMPP/Jabber client
 Version:        1.3.0
-Release:        0.26.%{commitdate}git%{shortcommit}%{?dist}
+Release:        0.27.%{commitdate}git%{shortcommit}%{?dist}
 License:        GPLv3
 Url:            http://www.vacuum-im.org/
 Source0:        https://github.com/Vacuum-IM/vacuum-im/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -62,8 +62,8 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 This package includes files needed to develop Vacuum-IM modules.
 
 %prep
-%setup -q -n %{name}-%{commit}
-%patch0 -p0
+%autosetup -p0 -n %{name}-%{commit}
+#%%patch0 -p0
 
 # Fix W: wrong-file-end-of-line-encoding /usr/share/doc/vacuum-im/AUTHORS
 sed -i 's/\r$//' AUTHORS CHANGELOG README TRANSLATORS
@@ -138,6 +138,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.metai
 %{_includedir}/%{name}
 
 %changelog
+*  Wed Apr 12 2023 Martin Gansser <martinkg@fedoraproject.org> - 1.3.0-0.27.20211209git0abd5e1
+- Update to 1.3.0-0.27.20211209git0abd5e1
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-0.26.20200608gitb6c5dad
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -5,7 +5,16 @@ Release:        %autorelease
 
 URL:            https://nemequ.github.io/%{name}/
 Source0:        https://github.com/nemequ/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
-License:        CC0
+# The CC0-1.0 license is *not allowed* in Fedora for code, but this package
+# falls under the following blanket exception:
+#
+#   Existing uses of CC0-1.0 on code files in Fedora packages prior to
+#   2022-08-01, and subsequent upstream versions of those files in those
+#   packages, continue to be allowed. We encourage Fedora package maintainers
+#   to ask upstreams to relicense such files.
+#
+# https://gitlab.com/fedora/legal/fedora-license-data/-/issues/91#note_1151947383
+License:        CC0-1.0
 
 BuildRequires:  gcc-c++
 BuildRequires:  make

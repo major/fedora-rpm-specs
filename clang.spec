@@ -9,7 +9,7 @@
 
 %global maj_ver 16
 %global min_ver 0
-%global patch_ver 0
+%global patch_ver 1
 #global rc_ver 4
 %global clang_version %{maj_ver}.%{min_ver}.%{patch_ver}
 
@@ -42,7 +42,7 @@
 
 Name:		%pkg_name
 Version:	%{clang_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	2%{?dist}
+Release:	1%{?dist}
 Summary:	A C language family front-end for LLVM
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -346,6 +346,7 @@ sed -i 's/\@FEDORA_LLVM_LIB_SUFFIX\@//g' test/lit.cfg.py
 	-DCLANG_BUILD_TOOLS:BOOL=OFF \
 	-DCMAKE_INSTALL_PREFIX=%{install_prefix} \
 	-DCLANG_INCLUDE_TESTS:BOOL=OFF \
+	-DLLVM_CMAKE_DIR=%{install_libdir}/cmake/llvm \
 %else
 	-DCLANG_INCLUDE_TESTS:BOOL=ON \
 	-DLLVM_BUILD_UTILS:BOOL=ON \
@@ -353,7 +354,6 @@ sed -i 's/\@FEDORA_LLVM_LIB_SUFFIX\@//g' test/lit.cfg.py
 	-DLLVM_EXTERNAL_LIT=%{_bindir}/lit \
 	-DLLVM_LIT_ARGS="-vv" \
 	-DLLVM_MAIN_SRC_DIR=%{_datadir}/llvm/src \
-	-DLLVM_CMAKE_DIR=/usr/%{_lib}/cmake/llvm \
 %if 0%{?__isa_bits} == 64
 	-DLLVM_LIBDIR_SUFFIX=64 \
 %else
@@ -406,7 +406,7 @@ rm -Rf %{buildroot}%{install_prefix}/lib/{libear,libscanbuild}
 # File in the macros file for other packages to use.  We are not doing this
 # in the compat package, because the version macros would # conflict with
 # eachother if both clang and the clang compat package were installed together.
-install -p -m0644 -D %{SOURCE5} %{buildroot}%{_rpmmacrodir}/macros.%{name}
+install -p -m0644 -D %{SOURCE7} %{buildroot}%{_rpmmacrodir}/macros.%{name}
 sed -i -e "s|@@CLANG_MAJOR_VERSION@@|%{maj_ver}|" \
        -e "s|@@CLANG_MINOR_VERSION@@|%{min_ver}|" \
        -e "s|@@CLANG_PATCH_VERSION@@|%{patch_ver}|" \
@@ -610,6 +610,12 @@ false
 
 %endif
 %changelog
+* Wed Apr 12 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.1-1
+- Update to LLVM 16.0.1
+
+* Wed Apr 12 2023 Timm Bäder <tbaeder@redhat.com> - 16.0.0-3
+- Use correct source for clang.macros file
+
 * Thu Mar 23 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0-2
 - Remove unnecessary patch and macro
 

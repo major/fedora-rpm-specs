@@ -6,7 +6,7 @@
 %bcond_with qtgui
 
 Name:           mingw-%{pkgname}
-Version:        1.23.0
+Version:        1.23.1
 Release:        1%{?dist}
 Summary:        Open Audio Library
 
@@ -148,6 +148,9 @@ install -Dpm644 alsoftrc.sample %{buildroot}%{mingw64_sysconfdir}/openal/alsoft.
 %{mingw64_datadir}/openal
 
 %changelog
+* Wed Apr 12 2023 Sandro Mani <manisandro@gmail.com> - 1.23.1-1
+- Update to 1.23.1
+
 * Tue Feb 07 2023 Sandro Mani <manisandro@gmail.com> - 1.23.0-1
 - Update to 1.23.0
 

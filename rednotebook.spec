@@ -1,28 +1,34 @@
-Name:           rednotebook
-Version:        2.29.3
-Release:        2%{?dist}
-Summary:        Daily journal with calendar, templates and keyword searching
+Name: rednotebook
+Version: 2.29.4
+Release: 1%{?dist}
+Summary: Daily journal with calendar, templates and keyword searching
+License: GPL-2.0-or-later
 
-License:        GPLv2+
-URL:            http://rednotebook.sourceforge.net
-Source0:        https://github.com/jendrikseipp/rednotebook/archive/v%{version}/%{name}-%{version}.tar.gz
-BuildArch:      noarch
+URL: http://rednotebook.sourceforge.net
 
-BuildRequires:  gettext
-BuildRequires:  python3-devel
+Source0: https://github.com/jendrikseipp/rednotebook/archive/v%{version}/%{name}-%{version}.tar.gz
+
+BuildArch: noarch
+
+BuildRequires: gettext
+BuildRequires: python3-devel
 %if 0%{?fedora} || 0%{?rhel} >= 9
-BuildRequires:  python-setuptools
+BuildRequires: python-setuptools
 %else
-BuildRequires:  python3-setuptools
+BuildRequires: python3-setuptools
 %endif
-BuildRequires:  desktop-file-utils
+BuildRequires: desktop-file-utils
 
-Requires:       python3-PyYAML
-Requires:       webkitgtk4
-Requires:       python3-chardet
-Requires:       python3-enchant
-Requires:       hicolor-icon-theme
-Requires:       gtksourceview4
+Requires: python3-PyYAML
+%if 0%{?fedora} >= 37
+Requires: webkit2gtk4.1
+%else
+Requires: webkitgtk4
+%endif
+Requires: python3-chardet
+Requires: python3-enchant
+Requires: hicolor-icon-theme
+Requires: gtksourceview4
 
 %description
 RedNotebook is a modern desktop journal. It lets you format, tag and
@@ -66,6 +72,12 @@ mv %{buildroot}/%{_datadir}/metainfo/%{name}.appdata.xml %{buildroot}/%{_datadir
 %{python3_sitelib}/%{name}/__pycache__
 
 %changelog
+* Wed Apr 12 2023 Phil Wyett <philip.wyett@kathenas.org> - 2.29.4-1
+- New upstream version 2.29.4.
+- Use SPDX license identifier.
+- Requires webkit2gtk4.1 where able.
+- Little spec file rework.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.29.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

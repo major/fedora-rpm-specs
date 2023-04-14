@@ -1,12 +1,13 @@
 Summary:        A straightforward implementation of DBM
 Name:           kyotocabinet
 Version:        1.2.79
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        GPLv3
 URL:            https://dbmx.net/%{name}/
 Source:         https://dbmx.net/%{name}/pkg/%{name}-%{version}.tar.gz
 Patch0:         kyotocabinet-1.2.76-cflags.patch
 Patch1:         kyotocabinet-1.2.76-8-byte-atomics.patch
+Patch2: kyotocabinet-configure-c99.patch
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 BuildRequires:  gcc-c++, zlib-devel, lzo-devel, xz-devel
 
@@ -51,6 +52,7 @@ applications that use Kyoto Cabinet.
 %setup -q
 %patch0 -p1 -b .cflags
 %patch1 -p1 -b .8-byte-atomics
+%patch2 -p1
 
 %build
 %configure --disable-opt --enable-lzo --enable-lzma
@@ -140,6 +142,9 @@ make check
 %doc COPYING doc/api/* kyotocabinet.idl
 
 %changelog
+* Wed Apr 12 2023 Florian Weimer <fweimer@redhat.com> - 1.2.79-3
+- Port configure script to C99 (#2186199)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.79-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

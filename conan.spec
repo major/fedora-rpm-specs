@@ -1,5 +1,5 @@
 Name: conan
-Version: 2.0.3
+Version: 2.0.4
 Release: 1%{?dist}
 
 License: MIT
@@ -65,6 +65,9 @@ find -name '*.py' \( \! -perm /u+x,g+x,o+x -exec sed -e '/^#!/Q 0' -e 'Q 1' {} \
 %{_bindir}/%{name}
 
 %changelog
+* Wed Apr 12 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2.0.4-1
+- Updated to version 2.0.4.
+
 * Tue Apr 04 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2.0.3-1
 - Updated to version 2.0.3.
 

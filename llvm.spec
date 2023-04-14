@@ -20,7 +20,7 @@
 #global rc_ver 4
 %global maj_ver 16
 %global min_ver 0
-%global patch_ver 0
+%global patch_ver 1
 %global llvm_srcdir llvm-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:rc%{rc_ver}}.src
 %global cmake_srcdir cmake-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:rc%{rc_ver}}.src
 %global third_party_srcdir third-party-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:rc%{rc_ver}}.src
@@ -75,7 +75,7 @@
 
 Name:		%{pkg_name}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}
-Release:	2%{?dist}
+Release:	1%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -279,7 +279,11 @@ export ASMFLAGS=$CFLAGS
 	\
 	-DLLVM_INCLUDE_TESTS:BOOL=ON \
 	-DLLVM_BUILD_TESTS:BOOL=ON \
+%if %{with compat_build}
+	-DLLVM_INSTALL_GTEST:BOOL=OFF \
+%else
 	-DLLVM_INSTALL_GTEST:BOOL=ON \
+%endif
 	-DLLVM_LIT_ARGS=-v \
 	\
 	-DLLVM_INCLUDE_EXAMPLES:BOOL=ON \
@@ -563,6 +567,9 @@ fi
 %endif
 
 %changelog
+* Tue Apr 11 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.1-1
+- Update to LLVM 16.0.1
+
 * Thu Mar 23 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0-2
 - Distribute libllvm_gtest.a and libllvm_gtest_main.a with llvm-googletest
 - Stop distributing /usr/share/llvm/src/utils

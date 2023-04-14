@@ -1,8 +1,8 @@
 # vkamrk dynamicly loads modules that reference static functions in the main binary
 %undefine _strict_symbol_defs_build
 
-%global codate 20230121
-%global commit0 30d2cd37f0566589d90914501fc7c51a4e51f559
+%global codate 20230412
+%global commit0 ab6e6f34077722d5ae33f6bd40b18ef9c0e99a15
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 # Some tests fail on s390x
@@ -14,12 +14,9 @@ Version:        2017.08
 Release:        0.18.%{codate}git%{shortcommit0}%{?dist}
 Summary:        Vulkan benchmarking suite
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://github.com/vkmark/vkmark
 Source0:        https://github.com/vkmark/vkmark/archive/%{commit0}.tar.gz#/%{name}-%{version}-%{shortcommit0}.tar.gz
-
-# https://github.com/vkmark/vkmark/pull/49
-Patch0:         cstdint.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  meson
@@ -66,6 +63,10 @@ configurable scenes.
 
 
 %changelog
+* Sat Apr 12 2023 Yanko Kaneti <yaneti@declera.com> - 2017.08-0.18.20230312gitab6e6f3
+- Pull a recent snapshot. Brings back the kms backend. Drop upstreamed patch
+- Migrate to SPDX license identifier
+
 * Sat Jan 21 2023 Yanko Kaneti <yaneti@declera.com> - 2017.08-0.18.20230121git30d2cd3
 - Pull a recent snapshot + addtional patch to fixup standard includes
 

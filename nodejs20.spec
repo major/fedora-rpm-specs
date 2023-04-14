@@ -416,10 +416,11 @@ Recommends: %{pkgname}-docs = %{nodejs_envr}
 # the automatic dependency-generation script.
 Provides: npm(npm) = %{npm_version}
 
+
+%if 0%{?nodejs_default}
 # Satisfy dependency requests for "npm"
 Provides: npm = %{npm_envr}
 
-%if 0%{?nodejs_default}
 # Obsolete the old 'npm' package
 Obsoletes: npm < 1:9
 %endif

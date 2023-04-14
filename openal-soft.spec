@@ -1,12 +1,11 @@
 Name:           openal-soft
-Version:        1.23.0
+Version:        1.23.1
 Release:        1%{?dist}
 Summary:        Open Audio Library
 
 License:        LGPL-2.0-or-later AND BSD-3-Clause
 URL:            https://openal-soft.org/
 Source0:        https://openal-soft.org/openal-releases/openal-soft-%{version}.tar.bz2
-Patch0:         openal-soft-arm_neon-only-for-32bit.patch
 
 BuildRequires:  alsa-lib-devel
 BuildRequires:  cmake
@@ -120,6 +119,9 @@ sed -i 's/#allow-moves = false/allow-moves = true/' \
 %{_bindir}/alsoft-config
 
 %changelog
+* Wed Apr 12 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 1.23.1-1
+- Updated to version 1.23.1.
+
 * Mon Feb 06 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 1.23.0-1
 - Updated to version 1.23.0.
 

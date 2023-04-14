@@ -1,6 +1,6 @@
 Name:           esptool
 Version:        4.5.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A utility to communicate with the ROM bootloader in Espressif ESP8266 & ESP32
 
 License:        GPL-2.0-or-later
@@ -22,6 +22,11 @@ Developed by the community, not by Espressif Systems.
 
 %prep
 %autosetup -p1
+
+# Relax the upper bound of the requirement, as we currently have
+# python-reedsolo 1.7.0 in Fedora
+# Raised upstream: https://github.com/espressif/esptool/issues/872
+sed -i "s/reedsolo>=1.5.3,<=1.6.0/reedsolo>=1.5.3/" setup.py
 
 
 %generate_buildrequires
@@ -59,6 +64,10 @@ done
 
 
 %changelog
+* Tue Apr 11 2023 Karolina Surma <ksurma@redhat.com> - 4.5.1-2
+- Relax the requirement on python3-reedsolo to fix FTI
+Resolves: rhbz#2185836
+
 * Wed Mar 08 2023 Karolina Surma <ksurma@redhat.com> - 4.5.1-1
 - Update to 4.5.1
 Resolves: rhbz#2159572

@@ -54,7 +54,7 @@
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
 Version: %{openssh_ver}
-Release: %{openssh_rel}%{?dist}.1
+Release: %{openssh_rel}%{?dist}.2
 URL: http://www.openssh.com/portable.html
 #URL1: https://github.com/jbeverly/pam_ssh_agent_auth/
 Source0: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
@@ -106,6 +106,7 @@ Patch306: pam_ssh_agent_auth-0.10.2-compat.patch
 Patch307: pam_ssh_agent_auth-0.10.2-dereference.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2070113
 Patch308: pam_ssh_agent_auth-0.10.4-rsasha2.patch
+Patch309: pam_ssh_agent-configure-c99.patch
 
 #https://bugzilla.mindrot.org/show_bug.cgi?id=1641 (WONTFIX)
 Patch400: openssh-7.8p1-role-mls.patch
@@ -236,6 +237,10 @@ Patch1004: openssh-8.7p1-gssapi-auth.patch
 # https://github.com/openssh/openssh-portable/pull/323
 Patch1006: openssh-8.7p1-negotiate-supported-algs.patch
 
+Patch1007: openssh-configure-c99-1.patch
+Patch1008: openssh-configure-c99-2.patch
+Patch1009: openssh-configure-c99-3.patch
+
 # downstream only
 # we skip some ssh-rsa/ssh-dss tests to make native test suite pass
 #Patch1100: openssh-8.8p1-skip-some-tests.patch
@@ -314,7 +319,7 @@ Requires: openssh = %{version}-%{release}
 %package -n pam_ssh_agent_auth
 Summary: PAM module for authentication with ssh-agent
 Version: %{pam_ssh_agent_ver}
-Release: %{pam_ssh_agent_rel}.%{openssh_rel}%{?dist}.1
+Release: %{pam_ssh_agent_rel}.%{openssh_rel}%{?dist}.2
 License: BSD
 
 %description
@@ -375,6 +380,7 @@ pushd pam_ssh_agent_auth-pam_ssh_agent_auth-%{pam_ssh_agent_ver}
 %patch305 -p2 -b .psaa-agent
 %patch307 -p2 -b .psaa-deref
 %patch308 -p2 -b .rsasha2
+%patch309 -p1 -b .psaa-configure-c99
 # Remove duplicate headers and library files
 rm -f $(cat %{SOURCE5})
 popd
@@ -440,6 +446,10 @@ popd
 %patch1004 -p1 -b .gssapi-auth
 
 %patch1006 -p1 -b .negotiate-supported-algs
+
+%patch1007 -p1 -b .configure-c99-1
+%patch1008 -p1 -b .configure-c99-2
+%patch1009 -p1 -b .configure-c99-3
 
 #%patch1100 -p1 -b .skipsshrsadsstests
 
@@ -749,6 +759,9 @@ test -f %{sysconfig_anaconda} && \
 %endif
 
 %changelog
+* Wed Apr 12 2023 Florian Weimer <fweimer@redhat.com> - 9.0p1-14.2
+- C99 compatiblity fixes
+
 * Tue Mar 14 2023 Timothée Ravier <tim@siosm.fr> - 9.0p1-14
 - Make sshd & sshd@ units want ssh-host-keys-migration.service
 

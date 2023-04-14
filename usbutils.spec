@@ -3,7 +3,7 @@ Version: 015
 Release: %autorelease
 Summary: Linux USB utilities
 URL:     http://www.linux-usb.org/
-License: GPLv2+
+License: GPL-2.0-or-later
 
 Source0: https://www.kernel.org/pub/linux/utils/usb/usbutils/%{name}-%{version}.tar.xz
 

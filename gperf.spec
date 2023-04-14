@@ -1,8 +1,8 @@
 Summary: A perfect hash function generator
 Name: gperf
 Version: 3.1
-Release: 15%{?dist}
-License: GPLv3+
+Release: 16%{?dist}
+License: GPL-3.0-or-later
 Source: ftp://ftp.gnu.org/pub/gnu/gperf/gperf-%{version}.tar.gz
 URL: http://www.gnu.org/software/gperf/
 
@@ -37,6 +37,9 @@ rm -rf $RPM_BUILD_ROOT{%{_mandir}/{dvi,html},%{_datadir}/doc}
 %{_infodir}/gperf.info*
 
 %changelog
+* Wed Apr 12 2023 Lukáš Zaoral <lzaoral@redhat.com> - 3.1-16
+- migrate to SPDX license format
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

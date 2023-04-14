@@ -1,18 +1,18 @@
 Summary:	Recognizes file formats and extracts format-specific comments
 Name:		perl-File-Comments
 Version:	0.08
-Release:	36%{?dist}
-License:	GPL+ or Artistic
+Release:	37%{?dist}
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:		https://metacpan.org/release/File-Comments
-Source0:	https://cpan.metacpan.org/authors/id/M/MS/MSCHILLI/File-Comments-%{version}.tar.gz
+Source0:	https://cpan.metacpan.org/modules/by-module/File/File-Comments-%{version}.tar.gz
 Patch0:		File-Comments-0.08-provides.patch
 BuildArch:	noarch
 # Module Build
 BuildRequires:	coreutils
 BuildRequires:	findutils
 BuildRequires:	make
-BuildRequires:	perl-interpreter
 BuildRequires:	perl-generators
+BuildRequires:	perl-interpreter
 BuildRequires:	perl(ExtUtils::MakeMaker)
 # Module Runtime
 BuildRequires:	perl(File::Basename)
@@ -51,7 +51,7 @@ JavaScript, Python and PHP.
 # are not satisfied by packages that are already required)
 
 # Remove provide for local package not in regular search path
-%patch0
+%patch -P 0
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor
@@ -59,8 +59,8 @@ make %{?_smp_mflags}
 
 %install
 make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -exec rm -f {} ';'
-%{_fixperms} %{buildroot}
+find %{buildroot} -type f -name .packlist -delete
+%{_fixperms} -c %{buildroot}
 
 %check
 make test TEST_VERBOSE=1
@@ -81,6 +81,14 @@ make test TEST_VERBOSE=1
 %{_mandir}/man3/File::Comments::Plugin::Shell.3*
 
 %changelog
+* Wed Apr 12 2023 Paul Howarth <paul@city-fan.org> - 0.08-37
+- Spec tidy-up
+  - Use SPDX-format license tag
+  - Use author-independent source URL
+  - Avoid use of deprecated patch syntax
+  - Simplify find command using -delete
+  - Fix permissions verbosely
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,12 +1,16 @@
 Name:           rapid-photo-downloader
 Version:        0.9.33
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Images downloader for external devices
 
 License:        GPLv3+
 URL:            http://damonlynch.net/rapid/
 Source0:        http://launchpad.net/rapid/pyqt/%{version}/+download/%{name}-%{version}.tar.gz
 BuildArch:      noarch
+
+# Conform to pep440 to fix FTBFS with setuptools >= 66.0.0
+# Sent upstream: https://github.com/damonlynch/rapid-photo-downloader/pull/103
+Patch:          pep440.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  gettext
@@ -52,7 +56,7 @@ It does not download images directly from a camera unless the camera
 is recognized as an external drive.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 %{__python3} setup.py build
@@ -80,6 +84,10 @@ desktop-file-install                                        \
 %{_mandir}/man1/*
 
 %changelog
+* Tue Apr 04 2023 Charalampos Stratakis <cstratak@redhat.com> - 0.9.33-6
+- Fix FTBFS with setuptools >= 66.0.0
+Resolves: rhbz#2183371
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.33-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

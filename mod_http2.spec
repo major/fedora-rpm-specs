@@ -2,8 +2,8 @@
 %{!?_httpd_mmn: %global _httpd_mmn %(cat %{_includedir}/httpd/.mmn 2>/dev/null || echo 0-0)}
 
 Name:		mod_http2
-Version:	2.0.11
-Release:	2%{?dist}
+Version:	2.0.14
+Release:	1%{?dist}
 Summary:	module implementing HTTP/2 for Apache 2
 License:	ASL 2.0
 URL:		https://icing.github.io/mod_h2/
@@ -13,7 +13,7 @@ BuildRequires:  gcc
 BuildRequires:  pkgconfig, httpd-devel >= 2.4.20, libnghttp2-devel >= 1.7.0, openssl-devel >= 1.0.2
 BuildRequires:  autoconf, libtool, /usr/bin/hostname
 Requires:       httpd-mmn = %{_httpd_mmn}
-Conflicts:      httpd < 2.4.25-8
+Conflicts:      httpd < 2.4.48
 # https://bugzilla.redhat.com/show_bug.cgi?id=2131458
 Conflicts:      libnghttp2 < 1.50.0-1
 
@@ -47,6 +47,9 @@ echo "LoadModule proxy_http2_module modules/mod_proxy_http2.so" > %{buildroot}%{
 %{_httpd_moddir}/mod_proxy_http2.so
 
 %changelog
+* Wed Apr 12 2023 Luboš Uhliarik <luhliari@redhat.com> - 2.0.14-1
+- new version 2.0.14
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

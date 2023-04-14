@@ -1,6 +1,6 @@
 %bcond_with devel
 
-%global basever 1.23.2
+%global basever 1.23.4
 #%%global rcnum   0
 
 Name:           syncthing
@@ -67,7 +67,7 @@ Provides:       bundled(golang(github.com/certifi/gocertifi)) = 431795d
 # github.com/cespare/xxhash : MIT
 Provides:       bundled(golang(github.com/cespare/xxhash/v2)) = 2.2.0
 # github.com/chmduquesne/rollinghash : MIT
-Provides:       bundled(golang(github.com/chmduquesne/rollinghash)) = a60f8e7
+Provides:       bundled(golang(github.com/chmduquesne/rollinghash)) = 4.0.0+incompatible
 # github.com/cpuguy83/go-md2man : MIT
 Provides:       bundled(golang(github.com/cpuguy83/go-md2man/v2)) = 2.0.2
 # github.com/d4l3k/messagediff : MIT
@@ -91,15 +91,15 @@ Provides:       bundled(golang(github.com/gogo/protobuf)) = 1.3.2
 # github.com/golang/mock : ASL 2.0
 Provides:       bundled(golang(github.com/golang/mock)) = 1.6.0
 # github.com/golang/protobuf : BSD
-Provides:       bundled(golang(github.com/golang/protobuf)) = 1.5.2
+Provides:       bundled(golang(github.com/golang/protobuf)) = 1.5.3
 # github.com/golang/snappy : BSD
 Provides:       bundled(golang(github.com/golang/snappy)) = 0.0.4
 # github.com/google/pprof : ASL 2.0
-Provides:       bundled(golang(github.com/google/pprof)) = 798e818
+Provides:       bundled(golang(github.com/google/pprof)) = d61513b
 # github.com/greatroar/blobloom : ASL 2.0
 Provides:       bundled(golang(github.com/greatroar/blobloom)) = 0.7.2
 # github.com/hashicorp/golang-lru : MPLv2.0
-Provides:       bundled(golang(github.com/hashicorp/golang-lru/v2)) = 2.0.1
+Provides:       bundled(golang(github.com/hashicorp/golang-lru/v2)) = 2.0.2
 # github.com/jackpal/gateway : BSD
 Provides:       bundled(golang(github.com/jackpal/gateway)) = 1.0.7
 # github.com/jackpal/go-nat-pmp : ASL 2.0
@@ -109,7 +109,7 @@ Provides:       bundled(golang(github.com/julienschmidt/httprouter)) = 1.3.0
 # github.com/kballard/go-shellquote : MIT
 Provides:       bundled(golang(github.com/kballard/go-shellquote)) = 95032a8
 # github.com/klauspost/cpuid : MIT
-Provides:       bundled(golang(github.com/klauspost/cpuid/v2)) = 2.2.3
+Provides:       bundled(golang(github.com/klauspost/cpuid/v2)) = 2.2.4
 # github.com/lib/pq : MIT
 Provides:       bundled(golang(github.com/lib/pq)) = 1.10.7
 # github.com/maruel/panicparse : ASL 2.0
@@ -123,13 +123,13 @@ Provides:       bundled(golang(github.com/minio/sha256-simd)) = 1.0.0
 # github.com/miscreant/miscreant.go : MIT
 Provides:       bundled(golang(github.com/miscreant/miscreant.go)) = 26d3763
 # github.com/onsi/ginkgo : MIT
-Provides:       bundled(golang(github.com/onsi/ginkgo/v2)) = 2.8.1
+Provides:       bundled(golang(github.com/onsi/ginkgo/v2)) = 2.9.0
 # github.com/oschwald/geoip2-golang : ISC
 Provides:       bundled(golang(github.com/oschwald/geoip2-golang)) = 1.8.0
 # github.com/oschwald/maxminddb-golang : ISC
 Provides:       bundled(golang(github.com/oschwald/maxminddb-golang)) = 1.10.0
 # github.com/petermattis/goid : ASL 2.0
-Provides:       bundled(golang(github.com/petermattis/goid)) = a150e88
+Provides:       bundled(golang(github.com/petermattis/goid)) = 8ff7bb2
 # github.com/pierrec/lz4 : BSD
 Provides:       bundled(golang(github.com/pierrec/lz4/v4)) = 4.1.17
 # github.com/pkg/errors : BSD
@@ -141,7 +141,7 @@ Provides:       bundled(golang(github.com/prometheus/client_golang)) = 1.14.0
 # github.com/prometheus/client_model : ASL 2.0
 Provides:       bundled(golang(github.com/prometheus/client_model)) = 0.3.0
 # github.com/prometheus/common : ASL 2.0
-Provides:       bundled(golang(github.com/prometheus/common)) = 0.39.0
+Provides:       bundled(golang(github.com/prometheus/common)) = 0.42.0
 # github.com/prometheus/procfs : ASL 2.0
 Provides:       bundled(golang(github.com/prometheus/procfs)) = 0.9.0
 # github.com/quic-go/qtls-go1-19 : BSD-3-Clause
@@ -157,7 +157,7 @@ Provides:       bundled(golang(github.com/russross/blackfriday/v2)) = 2.1.0
 # github.com/sasha-s/go-deadlock : ASL 2.0
 Provides:       bundled(golang(github.com/sasha-s/go-deadlock)) = 0.3.1
 # github.com/shirou/gopsutil : BSD
-Provides:       bundled(golang(github.com/shirou/gopsutil/v3)) = 3.23.1
+Provides:       bundled(golang(github.com/shirou/gopsutil/v3)) = 3.23.2
 # github.com/syncthing/notify : MIT
 Provides:       bundled(golang(github.com/syncthing/notify)) = c6b7342
 # github.com/syndtr/goleveldb : BSD
@@ -171,23 +171,23 @@ Provides:       bundled(golang(github.com/vitrun/qart)) = bf64b92
 # github.com/yusufpapurcu/wmi : MIT
 Provides:       bundled(golang(github.com/yusufpapurcu/wmi)) = 1.2.2
 # golang.org/x/crypto : BSD
-Provides:       bundled(golang(golang.org/x/crypto)) = 0.6.0
+Provides:       bundled(golang(golang.org/x/crypto)) = 0.7.0
 # golang.org/x/exp : BSD
-Provides:       bundled(golang(golang.org/x/exp)) = 5e25df0
+Provides:       bundled(golang(golang.org/x/exp)) = 24139be
 # golang.org/x/mod : BSD
-Provides:       bundled(golang(golang.org/x/mod)) = 0.8.0
+Provides:       bundled(golang(golang.org/x/mod)) = 0.9.0
 # golang.org/x/net : BSD
-Provides:       bundled(golang(golang.org/x/net)) = 0.7.0
+Provides:       bundled(golang(golang.org/x/net)) = 0.8.0
 # golang.org/x/sys : BSD
-Provides:       bundled(golang(golang.org/x/sys)) = 0.5.0
+Provides:       bundled(golang(golang.org/x/sys)) = 0.6.0
 # golang.org/x/text: BSD
-Provides:       bundled(golang(golang.org/x/text)) = 0.7.0
+Provides:       bundled(golang(golang.org/x/text)) = 0.8.0
 # golang.org/x/time : BSD
 Provides:       bundled(golang(golang.org/x/time)) = 0.3.0
 # golang.org/x/tools : BSD
-Provides:       bundled(golang(golang.org/x/tools)) = 0.6.0
+Provides:       bundled(golang(golang.org/x/tools)) = 0.7.0
 # google.golang.org/protobuf : BSD
-Provides:       bundled(golang(google.golang.org/protobuf)) = 1.28.1
+Provides:       bundled(golang(google.golang.org/protobuf)) = 1.29.0
 
 %description
 Syncthing replaces other file synchronization services with something

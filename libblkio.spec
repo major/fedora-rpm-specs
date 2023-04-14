@@ -5,10 +5,10 @@ Version:       1.2.2
 
 Summary:       Block device I/O library
 Name:          libblkio
-Release:       3%{?dist}
+Release:       4%{?dist}
 URL:           %{forgeurl}
 Source0:       %{forgesource}
-License:       Apache-2.0 OR MIT
+License:       (Apache-2.0 OR MIT) AND (Apache-2.0 OR BSD-3-Clause) AND MIT AND BSD-3-Clause AND Unicode-DFS-2016
 
 # Basic build requirements.
 BuildRequires: gcc, gcc-c++
@@ -97,6 +97,9 @@ export RUSTFLAGS="%build_rustflags"
 
 
 %changelog
+* Thu Mar 09 2023 Stefan Hajnoczi <stefanha@redhat.com> - 1.2.2-4
+- Update overall license to include crate dependency licenses
+
 * Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 1.2.2-3
 - Rebuild for fixed frame pointer compiler flags in Rust RPM macros.
 

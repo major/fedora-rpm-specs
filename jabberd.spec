@@ -14,7 +14,7 @@
 Summary:        OpenSource server implementation of the Jabber protocols
 Name:           jabberd
 Version:        2.6.1
-Release:        23%{?dist}
+Release:        24%{?dist}
 License:        GPLv2+
 Source0:        https://github.com/jabberd2/jabberd2/releases/download/jabberd-%{version}/jabberd-%{version}.tar.xz
 Source1:        README.fedora
@@ -29,6 +29,7 @@ Patch5:         0003-sx-ssl.c-adapt-to-openssl-1.1.patch
 Patch6:         0001-Fix-build-errors-with-MariaDB-10.2.patch
 # rhbz1510642
 Patch7:         181e736dcbb19c828266d88837f4343510b4d20e.patch
+Patch8:         jabberd-c99.patch
 URL:            http://jabberd2.org/
 BuildRequires:  openssl-devel libidn-devel expat-devel
 BuildRequires:  perl-generators
@@ -111,6 +112,7 @@ This package defaults to use pam and sqlite.
 %patch4 -p1
 %patch5 -p1
 %patch7 -p1
+%patch8 -p1
 autoreconf --verbose --force --install
 %endif
 %patch6 -p1
@@ -355,6 +357,9 @@ fi
 %attr(700, jabber, jabber) %{_var}/lib/%{name}
 
 %changelog
+* Wed Apr 12 2023 Arjun Shankar <arjun@redhat.com> - 2.6.1-24
+- Port to C99 (#2186195)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

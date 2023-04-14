@@ -1,7 +1,7 @@
 %global	gem_name	yard
 
 Name:		rubygem-%{gem_name}
-Version:	0.9.32
+Version:	0.9.34
 Release:	1%{?dist}
 
 Summary:	Documentation tool for consistent and usable documentation in Ruby
@@ -71,6 +71,11 @@ mkdir -p %{buildroot}%{gem_dir}
 cp -a .%{gem_dir}/* \
 	%{buildroot}%{gem_dir}/
 
+pushd %{buildroot}%{gem_instdir}
+rm -rf .yardopts* \
+	%{nil}
+popd
+
 mkdir -p %{buildroot}%{_bindir}
 cp -a .%{_bindir}/* \
 	%{buildroot}%{_bindir}/
@@ -89,6 +94,7 @@ rspec -r spec_helper spec
 %dir	%{gem_instdir}
 %license	%{gem_instdir}/LEGAL
 %license	%{gem_instdir}/LICENSE
+%doc	%{gem_instdir}/CHANGELOG.md
 %doc	%{gem_instdir}/README.md
 
 %{_bindir}/yard
@@ -108,6 +114,12 @@ rspec -r spec_helper spec
 %doc	%{gem_instdir}/docs/
 
 %changelog
+* Thu Apr 13 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.9.34-1
+- 0.9.34
+
+* Wed Apr 12 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.9.33-1
+- 0.9.33
+
 * Mon Apr 10 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.9.32-1
 - 0.9.32
 

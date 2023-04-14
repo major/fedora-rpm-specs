@@ -15,8 +15,8 @@
 %bcond_with     release_tests
 
 Name:           perl-Log-Dispatch
-Version:        2.70
-Release:        10%{?dist}
+Version:        2.71
+Release:        1%{?dist}
 Summary:        Dispatches messages to one or more outputs
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Log-Dispatch
@@ -66,7 +66,7 @@ BuildRequires:  perl(Specio::Library::Builtins)
 BuildRequires:  perl(Specio::Library::Numeric)
 BuildRequires:  perl(Specio::Library::String)
 BuildRequires:  perl(strict)
-BuildRequires:  perl(Sys::Syslog) >= 0.25
+BuildRequires:  perl(Sys::Syslog) >= 0.28
 BuildRequires:  perl(Try::Tiny)
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(warnings)
@@ -158,6 +158,9 @@ represented by the Apache::Log class.
 %endif
 
 %changelog
+* Wed Apr 12 2023 Tom Callaway <spot@fedoraproject.org> - 2.71-1
+- update to 2.71
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.70-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

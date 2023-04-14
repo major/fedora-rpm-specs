@@ -1,16 +1,18 @@
 Name:           enet
 Version:        1.3.17
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Thin, simple and robust network layer on top of UDP
 
 License:        MIT
-URL:            http://enet.bespin.org
+URL:            http://sauerbraten.org/enet/
 Source0:        %{url}/download/%{name}-%{version}.tar.gz
-Patch:          enet-cmake-0.patch
-Patch:          enet-cmake-1.patch
+Patch:          0-enet-cmake-version.patch
+Patch:          1-enet-change-irc.patch
+Patch:          2-enet-change-url.patch
 
+BuildRequires:  cmake
 BuildRequires:  gcc
-BuildRequires: make
+BuildRequires:  make
 
 %description
 ENet is a relatively thin, simple and robust network communication layer on
@@ -30,7 +32,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 %configure --disable-static
@@ -54,6 +56,10 @@ find %{buildroot} -name '*.la' -delete -print
 %{_libdir}/pkgconfig/lib%{name}.pc
 
 %changelog
+* Wed Apr 12 2023 François Cami <fcami@fedoraproject.org> - 1.3.17-6
+- Update cmake version patches
+- Add upstream patches updating URL and IRC channel.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.17-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -34,6 +34,9 @@ Source:         %{gosource}
 %prep
 %goprep
 
+# remove integration tests to avoid extra deps
+rm -rf integration
+
 %generate_buildrequires
 %go_generate_buildrequires
 

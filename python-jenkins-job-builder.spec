@@ -1,8 +1,8 @@
 %global srcname jenkins-job-builder
 
 Name:           python-%{srcname}
-Version:        4.3.0
-Release:        1%{dist}
+Version:        5.0.1
+Release:        1%{?dist}
 # Someone thought that 2.0.0.0b3 < 2.0.0
 Epoch:          1
 Summary:        Manage Jenkins jobs with YAML
@@ -58,6 +58,9 @@ export PBR_VERSION=%{version}
 %{_bindir}/jenkins-jobs
 
 %changelog
+* Wed Apr 12 2023 Christoph Erhardt <fedora@sicherha.de> - 1:5.0.1-1
+- Update to 5.0.1 (rhbz#2186133)
+
 * Wed Mar 01 2023 Christoph Erhardt <fedora@sicherha.de> - 1:4.3.0-1
 - Update to 4.3.0 (rhbz#2173887)
 

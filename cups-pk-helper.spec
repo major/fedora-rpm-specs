@@ -1,6 +1,6 @@
 Name:           cups-pk-helper
 Version:        0.2.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A helper that makes system-config-printer use PolicyKit
 
 License:        GPLv2+
@@ -9,18 +9,15 @@ Source0:        http://www.freedesktop.org/software/cups-pk-helper/releases/cups
 
 Patch0:         polkit_result.patch
 
-BuildRequires:  libtool >= 1.4.3
-BuildRequires:  cups-devel >= 1.2
-BuildRequires:  glib2-devel >= 2.29.8
-BuildRequires:  gtk2-devel >= 2.12.0
-BuildRequires:  dbus-glib-devel >= 0.74
+BuildRequires:  gcc
+BuildRequires:  gettext
+BuildRequires:  cups-devel >= 1.6
+BuildRequires:  glib2-devel >= 2.36.0
 BuildRequires:  polkit-devel >= 0.97
 BuildRequires:  meson
 
-Requires:       cups-libs >= 1.2
-Requires:       dbus >= 1.2
-Requires:       dbus-glib >= 0.74
-Requires:       glib2 >= 2.29.8
+Requires:       cups-libs%{?_isa} >= 1.6
+Requires:       glib2%{?_isa} >= 2.36.0
 
 
 %description
@@ -48,6 +45,9 @@ interfaces available under control of PolicyKit.
 
 
 %changelog
+* Tue Apr 04 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.2.7-3
+- Update dependencies
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

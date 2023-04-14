@@ -1,4 +1,4 @@
-%global	mainver		1.14.2
+%global	mainver		1.14.3
 #%%global	prever		.rc4
 
 %global	baserelease		1
@@ -27,9 +27,6 @@ Source0:	https://rubygems.org/gems/%{gem_name}-%{mainver}%{?prever}.gem
 # %%{SOURCE2} %%{name} %%{version}
 Source1:	rubygem-%{gem_name}-%{version}%{?prever}-full.tar.gz
 Source2:	nokogiri-create-full-tarball.sh
-# ./test/html/test_element_description.rb:62 fails, as usual......
-# Patch0:		rubygem-nokogiri-1.5.0.beta3-test-failure.patch
-#Patch0:		rubygem-nokogiri-1.5.0-allow-non-crosscompile.patch
 # Shut down libxml2 version unmatching warning
 Patch0:	%{name}-1.11.0.rc4-shutdown-libxml2-warning.patch
 BuildRequires:	ruby(release)
@@ -60,16 +57,6 @@ correctly implemented CSS3 selector support as well as XPath support.
 Nokogiri also features an Hpricot compatibility layer to help ease the change
 to using correct CSS and XPath.
 
-%if 0
-%package	jruby
-Summary:	JRuby support for %{name}
-Requires:	%{name} = %{version}-%{release}
-
-%description	jruby
-This package contains JRuby support for %{name}.
-%endif
-
-
 %package	doc
 Summary:	Documentation for %{name}
 Requires:	%{name} = %{version}-%{release}
@@ -92,7 +79,7 @@ This package provides non-Gem support for %{gem_name}.
 mv ../%{gem_name}-%{version}.gemspec .
 
 # patches
-%patch0 -p1
+%patch -P0 -p1
 
 # remove bundled external libraries
 sed -i \
@@ -122,10 +109,10 @@ sed -i \
 	gumbo-parser/src/Makefile \
 	-e 's|^\(CFLAGS.*=.*\)$|\1 -fPIC|'
 
+%build
 # Ummm...
 env LANG=C.UTF-8 gem build %{gem_name}-%{version}.gemspec
 
-%build
 # 1.6.0 needs this
 export NOKOGIRI_USE_SYSTEM_LIBRARIES=yes
 
@@ -186,6 +173,7 @@ pushd %{buildroot}%{gem_instdir}
 rm -rf \
 	Gemfile* \
 	Rakefile \
+	Vagrantfile \
 	dependencies.yml \
 	ext \
 	*gemspec \
@@ -260,7 +248,9 @@ popd
 %{gem_extdir_mri}/
 
 %dir	%{gem_instdir}/
-%doc	%{gem_instdir}/[A-Z]*
+%license	%{gem_instdir}/LICENSE*.md
+%doc	%{gem_instdir}/CHANGELOG.md
+%doc	%{gem_instdir}/README.md
 
 %{gem_instdir}/bin/
 %{gem_instdir}/lib/
@@ -268,15 +258,23 @@ popd
 %dir	%{gem_instdir}/gumbo-parser
 %dir	%{gem_instdir}/gumbo-parser/src
 %doc	%{gem_instdir}/gumbo-parser/[A-Z]*
-%doc	%{gem_instdir}/gumbo-parser/src/README.md
+%license	%{gem_instdir}/gumbo-parser/src/README.md
 
 %{gem_dir}/specifications/%{gem_name}-%{mainver}%{?prever}.gemspec
 
 %files	doc
 %defattr(-,root,root,-)
-%{gem_dir}/doc/%{gem_name}-%{mainver}%{?prever}/
+%doc	%{gem_instdir}/CODE_OF_CONDUCT.md
+%doc	%{gem_instdir}/CONTRIBUTING.md
+%doc	%{gem_instdir}/ROADMAP.md
+%doc	%{gem_instdir}/SECURITY.md
+%doc	%{gem_dir}/doc/%{gem_name}-%{mainver}%{?prever}/
 
 %changelog
+* Wed Apr 12 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.14.3-1
+- 1.14.3
+- SPDX confirmed
+
 * Tue Feb 14 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.14.2-1
 - 1.14.2
 

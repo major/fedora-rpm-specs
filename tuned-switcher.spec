@@ -1,12 +1,12 @@
 Name: tuned-switcher
-Version: 0.7.1
-Release: 2%{?dist}
+Version: 0.7.2
+Release: 1%{?dist}
 
 # Main code - GPL-3.0-or-later.
 # Icon - Apache-2.0.
 License: GPL-3.0-or-later AND Apache-2.0
 Summary: Simple utility to manipulate the Tuned service
-URL: https://github.com/EasyCoding/%{name}
+URL: https://github.com/xvitaly/%{name}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires: cmake(Qt5Core)
@@ -60,6 +60,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Wed Apr 12 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.7.2-1
+- Updated to version 0.7.2.
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           rpld
 Version:        1.8
-Release:        0.37.beta1%{?dist}
+Release:        0.38.beta1%{?dist}
 Summary:        RPL/RIPL remote boot daemon
 # No version specified.
 License:        GPL+
@@ -10,6 +10,7 @@ Source2:	%{name}.sysconfig
 Source3:	%{name}.service
 Patch0:         rpld_1.8beta1-6.diff.gz
 Patch1:         rpld-1.8-makefile.patch
+Patch2:         rpld-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -42,6 +43,7 @@ do
 done
 
 %patch1 -p1
+%patch2 -p1
 
 %build
 make OPT="-fPIE -pie $RPM_OPT_FLAGS" %{?_smp_mflags}
@@ -68,6 +70,9 @@ install -m 0644 %SOURCE3 $RPM_BUILD_ROOT%{_unitdir}/%{name}.service
 %{_unitdir}/%{name}.service
 
 %changelog
+* Wed Apr 12 2023 Arjun Shankar <arjun@redhat.com> - 1.8-0.38.beta1
+- Port to C99 (#2186219)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-0.37.beta1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

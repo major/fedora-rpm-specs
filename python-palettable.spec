@@ -8,7 +8,7 @@ color maps for matplotlib. You can use Palettable to customize matplotlib
 plots or supply colors for a web application.}
 
 Name:           python-%{pypi_name}
-Version:        3.3.0
+Version:        3.3.1
 Release:        %{autorelease}
 Summary:        Library of color palettes for Python
 BuildArch:      noarch

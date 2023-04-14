@@ -4,18 +4,13 @@
 %global crate helvum
 
 Name:           rust-helvum
-Version:        0.3.4
+Version:        0.4.0
 Release:        %autorelease
 Summary:        GTK patchbay for pipewire
 
 License:        GPL-3.0-only
 URL:            https://crates.io/crates/helvum
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * bump pipewire dependency from 0.4 to 0.6:
-#   https://gitlab.freedesktop.org/pipewire/helvum/-/commit/6ce5b2e
-#   https://gitlab.freedesktop.org/pipewire/helvum/-/commit/24b1d0d
-Patch:          helvum-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 23
 BuildRequires:  meson
@@ -35,7 +30,7 @@ Requires:       hicolor-icon-theme
 # MIT
 # MIT OR Apache-2.0
 # Unlicense OR MIT
-License:        GPL-3.0-only AND MIT
+License:        GPL-3.0-only AND MIT AND (Apache-2.0 OR MIT) AND (Unlicense OR MIT)
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}
@@ -62,6 +57,7 @@ sed -i -e '/Cargo.lock/d' meson.build
 
 %build
 %cargo_build
+%cargo_license_summary
 %{cargo_license} > LICENSE.dependencies
 %meson
 %meson_build

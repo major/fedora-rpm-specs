@@ -21,8 +21,8 @@
 %{?el7:%global dts devtoolset-9}
 
 Name:           scorep
-Version:        8.0
-Release:        2%{?dist}
+Version:        8.1
+Release:        1%{?dist}
 Summary:        Scalable Performance Measurement Infrastructure for Parallel Codes
 License:        BSD-3-Clause
 URL:            http://www.vi-hps.org/projects/score-p/
@@ -221,7 +221,7 @@ rm -rf vendor/{opari2,otf2,cubew,cubelib}
 mkdir bin
 # configure expects llvm-config
 ln -s %_bindir/llvm-config-%__isa_bits bin/llvm-config
-%patch1 -p1 -b .rpath
+%patch -P 1 -p1 -b .rpath
 %{?unwind:tar fx %SOURCE1}
 
 
@@ -470,6 +470,9 @@ make -C serial check V=1
 
 
 %changelog
+* Tue Apr 11 2023  <vagrant@rhel8.localdomain> - 8.1-1
+- New version
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:    layer-shell-qt
 Version: 5.27.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Library to easily use clients based on wlr-layer-shell
 
 License: LGPLv3+
@@ -69,6 +69,9 @@ Requires: cmake(Qt5Gui) >= 5.15.0
 
 
 %changelog
+* Wed Apr 12 2023 Jan Grulich <jgrulich@redhat.com> - 5.27.4-2
+- Rebuild (qt5)
+
 * Tue Apr 04 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.4-1
 - 5.27.4
 

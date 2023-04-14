@@ -7,12 +7,12 @@
 
 
 Name:           %{srcname}
-Version:        0.6.2
-Release:        5%{?dist}
+Version:        0.7.0
+Release:        1%{?dist}
 Summary:        %{sum}
 
 License:        MIT
-URL:            https://pypi.org/project/%{srcname}
+URL:            http://pypi.python.org/pypi/%{srcname}
 Source0:        https://files.pythonhosted.org/packages/source/s/%{srcname}/%{srcname}-%{version}.tar.gz
 
 BuildArch:      noarch
@@ -32,7 +32,6 @@ Requires:       python3-urwidtrees
 Requires:       python3-docker
 %if %{with tests}
 BuildRequires:  python3-pytest
-BuildRequires:  python3-pytest-capturelog
 BuildRequires:  python3-flexmock
 BuildRequires:  python3-urwid
 BuildRequires:  python3-urwidtrees
@@ -76,6 +75,13 @@ py.test-%{python3_version} -vv tests || :
 
 
 %changelog
+* Wed Apr 12 2023 Packit <hello@packit.dev> - 0.7.0-1
+- 0.7.0 release (Tomas Tomecek)
+- RPM packaging: drop pytest-capturelog (Tomas Tomecek)
+- simplify packit.yaml (Tomas Tomecek)
+- Use more sources for port binding (soyo42)
+- Read alternative cpu-count safely (soyo42)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

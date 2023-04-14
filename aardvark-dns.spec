@@ -10,7 +10,7 @@
 %global debug_package %{nil}
 %endif
 
-%global built_tag v1.5.0
+%global built_tag v1.6.0
 %global built_tag_strip %(b=%{built_tag}; echo ${b:1})
 %global gen_version %(b=%{built_tag_strip}; echo ${b/-/"~"})
 
@@ -30,16 +30,15 @@ BuildRequires: make
 BuildRequires: rust-packaging
 BuildRequires: rust-srpm-macros
 # cargo tree --prefix none | awk '{print "Provides: bundled(crate("$1")) = "$2}' | sort | uniq
-Provides: bundled(crate(aardvark-dns)) = v1.5.0
-Provides: bundled(crate(anyhow)) = v1.0.68
-Provides: bundled(crate(async-broadcast)) = v0.5.0
+Provides: bundled(crate(anyhow)) = v1.0.70
+Provides: bundled(crate(async-broadcast)) = v0.5.1
 Provides: bundled(crate(async-trait)) = v0.1.56
 Provides: bundled(crate(atty)) = v0.2.14
 Provides: bundled(crate(autocfg)) = v1.1.0
 Provides: bundled(crate(bitflags)) = v1.3.2
 Provides: bundled(crate(bytes)) = v1.1.0
 Provides: bundled(crate(cfg-if)) = v1.0.0
-Provides: bundled(crate(chrono)) = v0.4.23
+Provides: bundled(crate(chrono)) = v0.4.24
 Provides: bundled(crate(clap)) = v3.2.23
 Provides: bundled(crate(clap_derive)) = v3.2.18
 Provides: bundled(crate(clap_lex)) = v0.2.4
@@ -50,11 +49,11 @@ Provides: bundled(crate(error-chain)) = v0.12.4
 Provides: bundled(crate(event-listener)) = v2.5.2
 Provides: bundled(crate(form_urlencoded)) = v1.0.1
 Provides: bundled(crate(futures-channel)) = v0.3.21
-Provides: bundled(crate(futures-core)) = v0.3.25
+Provides: bundled(crate(futures-core)) = v0.3.28
 Provides: bundled(crate(futures-executor)) = v0.3.21
 Provides: bundled(crate(futures-io)) = v0.3.21
-Provides: bundled(crate(futures-task)) = v0.3.25
-Provides: bundled(crate(futures-util)) = v0.3.25
+Provides: bundled(crate(futures-task)) = v0.3.28
+Provides: bundled(crate(futures-util)) = v0.3.28
 Provides: bundled(crate(getrandom)) = v0.2.7
 Provides: bundled(crate(hashbrown)) = v0.12.2
 Provides: bundled(crate(heck)) = v0.4.0
@@ -65,12 +64,10 @@ Provides: bundled(crate(indexmap)) = v1.9.1
 Provides: bundled(crate(ipnet)) = v2.5.0
 Provides: bundled(crate(itoa)) = v1.0.2
 Provides: bundled(crate(lazy_static)) = v1.4.0
-Provides: bundled(crate(libc)) = v0.2.139
-Provides: bundled(crate(lock_api)) = v0.4.7
+Provides: bundled(crate(libc)) = v0.2.140
 Provides: bundled(crate(log)) = v0.4.17
 Provides: bundled(crate(match_cfg)) = v0.1.0
 Provides: bundled(crate(matches)) = v0.1.9
-Provides: bundled(crate(memchr)) = v2.5.0
 Provides: bundled(crate(memoffset)) = v0.7.1
 Provides: bundled(crate(mio)) = v0.8.4
 Provides: bundled(crate(nibble_vec)) = v0.1.0
@@ -81,44 +78,41 @@ Provides: bundled(crate(num_cpus)) = v1.13.1
 Provides: bundled(crate(num_threads)) = v0.1.6
 Provides: bundled(crate(once_cell)) = v1.13.0
 Provides: bundled(crate(os_str_bytes)) = v6.1.0
-Provides: bundled(crate(parking_lot)) = v0.12.1
-Provides: bundled(crate(parking_lot_core)) = v0.9.3
 Provides: bundled(crate(percent-encoding)) = v2.1.0
 Provides: bundled(crate(pin-project-lite)) = v0.2.9
 Provides: bundled(crate(pin-utils)) = v0.1.0
 Provides: bundled(crate(ppv-lite86)) = v0.2.16
 Provides: bundled(crate(proc-macro-error)) = v1.0.4
 Provides: bundled(crate(proc-macro-error-attr)) = v1.0.4
-Provides: bundled(crate(proc-macro2)) = v1.0.40
+Provides: bundled(crate(proc-macro2)) = v1.0.54
 Provides: bundled(crate(quick-error)) = v1.2.3
-Provides: bundled(crate(quote)) = v1.0.20
+Provides: bundled(crate(quote)) = v1.0.26
 Provides: bundled(crate(radix_trie)) = v0.2.1
 Provides: bundled(crate(rand)) = v0.8.5
 Provides: bundled(crate(rand_chacha)) = v0.3.1
 Provides: bundled(crate(rand_core)) = v0.6.3
 Provides: bundled(crate(resolv-conf)) = v0.7.0
-Provides: bundled(crate(scopeguard)) = v1.1.0
 Provides: bundled(crate(serde)) = v1.0.139
 Provides: bundled(crate(serde_derive)) = v1.0.139
-Provides: bundled(crate(signal-hook)) = v0.3.14
+Provides: bundled(crate(signal-hook)) = v0.3.15
 Provides: bundled(crate(signal-hook-registry)) = v1.4.0
 Provides: bundled(crate(slab)) = v0.4.6
 Provides: bundled(crate(smallvec)) = v1.9.0
-Provides: bundled(crate(socket2)) = v0.4.4
+Provides: bundled(crate(socket2)) = v0.4.9
 Provides: bundled(crate(static_assertions)) = v1.1.0
 Provides: bundled(crate(strsim)) = v0.10.0
 Provides: bundled(crate(syn)) = v1.0.98
+Provides: bundled(crate(syn)) = v2.0.12
 Provides: bundled(crate(syslog)) = v6.0.1
 Provides: bundled(crate(termcolor)) = v1.1.3
 Provides: bundled(crate(textwrap)) = v0.16.0
 Provides: bundled(crate(thiserror)) = v1.0.31
 Provides: bundled(crate(thiserror-impl)) = v1.0.31
-Provides: bundled(crate(time)) = v0.1.44
 Provides: bundled(crate(time)) = v0.3.11
 Provides: bundled(crate(tinyvec)) = v1.6.0
 Provides: bundled(crate(tinyvec_macros)) = v0.1.0
-Provides: bundled(crate(tokio)) = v1.25.0
-Provides: bundled(crate(tokio-macros)) = v1.8.0
+Provides: bundled(crate(tokio)) = v1.27.0
+Provides: bundled(crate(tokio-macros)) = v2.0.0
 Provides: bundled(crate(toml)) = v0.5.9
 Provides: bundled(crate(tracing)) = v0.1.36
 Provides: bundled(crate(tracing-attributes)) = v0.1.22
@@ -131,7 +125,6 @@ Provides: bundled(crate(unicode-ident)) = v1.0.1
 Provides: bundled(crate(unicode-normalization)) = v0.1.21
 Provides: bundled(crate(url)) = v2.2.2
 Provides: bundled(crate(version_check)) = v0.9.4
-
 %description
 %{summary}
 

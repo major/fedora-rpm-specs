@@ -27,7 +27,7 @@ Name: linux-system-roles
 Url: https://github.com/linux-system-roles
 Summary: Set of interfaces for unified system management
 Version: 1.36.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv3+ and MIT and BSD and Python
 %global _pkglicensedir %{_licensedir}/%{name}
@@ -378,6 +378,9 @@ for module in "${!module_map[@]}"; do
   cp -pL $moduledir/$module $role/library/$module
   ls -alrtF $role/library/$module
   sed -i -e ':a;N;$!ba;s/description:\n\( *\)/description:\n\1- WARNING: Do not use this module directly! It is only for role internal use.\n\1/' $role/library/$module
+
+  # Remove doc_fragments
+  sed -i '/^extends_documentation_fragment:/,/^[^ -]/{/^extends/d;/^[ -]/d}' $role/library/$module
 done
 
 # containers.podman:
@@ -743,6 +746,9 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Tue Apr 11 2023 Rich Megginson <rmeggins@redhat.com> - 1.36.0-2
+- remove doc fragments from vendored modules
+
 * Fri Apr 07 2023 Rich Megginson <rmeggins@redhat.com> - 1.36.0-1
 - update to upstream version 1.36.0
 - fix handling of postgresql examples

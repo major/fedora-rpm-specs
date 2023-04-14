@@ -1,10 +1,11 @@
 Name:           rep-gtk
 Version:        0.90.8.3
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        GTK+ binding for librep Lisp environment
 License:        GPLv2+
 URL:            http://sawfish.wikia.com/
 Source0:        http://download.tuxfamily.org/librep/%{name}/%{name}_%{version}.tar.bz2
+Patch0: rep-gtk-c99.patch
 
 BuildRequires: make
 BuildRequires:  gtk2-devel
@@ -27,7 +28,7 @@ Requires:       pkgconfig
 Link libraries and C header files for librep development.
 
 %prep
-%setup -q -n %{name}_%{version}
+%autosetup -p1 -n %{name}_%{version}
 
 %build
 ./autogen.sh --nocfg
@@ -48,6 +49,9 @@ find %{buildroot}%{_libdir} -name \*.la -exec rm '{}' \;
 %{_libdir}/pkgconfig/rep-gtk.pc
 
 %changelog
+* Wed Apr 12 2023 Florian Weimer <fweimer@redhat.com> - 0.90.8.3-16
+- Port to C99
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.90.8.3-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

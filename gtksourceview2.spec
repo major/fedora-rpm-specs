@@ -6,7 +6,7 @@
 Summary: A library for viewing source files
 Name: gtksourceview2
 Version: 2.11.2
-Release: 37%{?dist}
+Release: 38%{?dist}
 License: LGPLv2+ and GPLv2+
 # the library itself is LGPL, some .lang files are GPL
 URL: http://gtksourceview.sourceforge.net/
@@ -18,6 +18,7 @@ Patch0: gtksourceview-2.11.2-cflags.patch
 Patch1: gtksourceview-2.11-fix-GCONST-def.patch
 Patch2: gtksourceview-2.11-add-libs.patch
 Patch3: gtksourceview-2.11-glib-unicode-constant.patch
+Patch4: gtksourceview-2.11-c99.patch
 BuildRequires: libxml2-devel
 BuildRequires: GConf2-devel
 BuildRequires: glib2-devel >= %{glib2_version}
@@ -51,6 +52,7 @@ applications which use GtkSourceView 2.x.
 %patch1 -p1 -b .gconst
 #%%patch2 -p1 -b .addlibs
 %patch3 -p1 -b .glib-deprecated
+%patch4 -p1
 
 # Explictly use gtk+-2.0
 sed -i.gtk configure -e '\@gtk+-3.0@s|2.90|9999|'
@@ -88,6 +90,9 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/gtksourceview-2.0/language-specs/convert.py
 %{_datadir}/gir-1.0/GtkSource-2.0.gir
 
 %changelog
+* Wed Apr 12 2023 Arjun Shankar <arjun@redhat.com> - 2.11.2-38
+- Port to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.2-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
