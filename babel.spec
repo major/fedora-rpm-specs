@@ -15,12 +15,17 @@
 
 Name:           babel
 Version:        2.12.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools for internationalizing Python applications
 
 License:        BSD-3-Clause
 URL:            https://babel.pocoo.org/
 Source:         %{pypi_source Babel}
+
+# Freeze format_time() tests to a specific date to fix test failures
+# Partially fixes https://bugzilla.redhat.com/2179515
+# 2 doctests are still deselected (as doctests are not part of this fix)
+Patch:          https://github.com/python-babel/babel/pull/998.patch
 
 BuildArch:      noarch
 
@@ -28,6 +33,7 @@ BuildRequires:  python3-devel
 
 %if %{without bootstrap}
 BuildRequires:  coreutils
+BuildRequires:  /usr/bin/faketime
 # The Python test dependencies are not generated from tox.ini,
 # because it would require complex patching to be usable
 # and becasue we want to avoid the tox dependency in ELN/RHEL.
@@ -109,7 +115,14 @@ install -D -m 0644 built-docs/man/babel.1 %{buildroot}%{_mandir}/man1/pybabel.1
 export TZ=UTC
 %pyproject_check_import
 %if %{without bootstrap}
-%pytest
+# The deselected doctests fail without pytz when run during Eastern Daylight Time
+# https://github.com/python-babel/babel/issues/988
+%pytest %{!?pytz_tests:-k "not (babel.dates.format_time or babel.dates.get_timezone_name)"}
+
+# For good measure, we run the deselected tests during Eastern Standard Time
+# The date is more or less in the middle of Eastern Standard Time, the time is arbitrary
+%global __pytest faketime '2023-01-09 12:13:14' %__pytest
+%pytest -k "babel.dates.format_time or babel.dates.get_timezone_name"
 %endif
 
 %files
@@ -129,6 +142,9 @@ export TZ=UTC
 %endif
 
 %changelog
+* Mon Apr 10 2023 Miro Hrončok <mhroncok@redhat.com> - 2.12.1-2
+- Fix DST-related test failures
+
 * Wed Mar 01 2023 Miro Hrončok <mhroncok@redhat.com> - 2.12.1-1
 - Update to 2.12.1
 

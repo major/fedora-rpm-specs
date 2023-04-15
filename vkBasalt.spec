@@ -13,6 +13,10 @@ License: zlib and ASL 2.0
 URL: https://github.com/DadSchoorse/vkBasalt
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+# FTBFS with new GCC 13
+# https://github.com/DadSchoorse/vkBasalt/issues/209
+Patch0: FTBFS-with-new-GCC-13.patch
+
 BuildRequires: gcc-c++ >= 9
 BuildRequires: glibc-devel
 BuildRequires: glslang

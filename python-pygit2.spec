@@ -1,7 +1,7 @@
 %global pkgname pygit2
 
 Name:           python-%{pkgname}
-Version:        1.11.1
+Version:        1.12.0
 Release:        %autorelease
 Summary:        Python bindings for libgit2
 
@@ -45,8 +45,6 @@ Documentation for %{name}.
 
 %prep
 %autosetup -n %{pkgname}-%{version} -p1
-
-sed -i -e '/LIBGIT2_VER_MINOR/s/5/6/g' src/types.h
 
 
 %build

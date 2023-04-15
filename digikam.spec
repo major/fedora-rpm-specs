@@ -5,7 +5,7 @@
 
 Name:    digikam
 Summary: A digital camera accessing & photo management application
-Version: 7.10.0
+Version: 8.0.0
 Release: 1%{?beta}%{?dist}
 
 License: GPL-2.0-or-later
@@ -26,7 +26,6 @@ Source10: digikam-import.desktop
 ## upstream patches
 
 ## upstreamable patches
-Patch0: digikam-include.patch
 
 %if 0%{?ninja}
 BuildRequires: ninja-build
@@ -54,8 +53,8 @@ BuildRequires: pkgconfig(lcms2)
 BuildRequires: pkgconfig(libgphoto2_port) pkgconfig(libusb-1.0) pkgconfig(libusb)
 BuildRequires: pkgconfig(libpng) >= 1.2.7
 BuildRequires: pkgconfig(phonon4qt5)
-## uses QtAv now (not available in fedora)
 BuildRequires: pkgconfig(glu)
+BuildRequires: pkgconfig(Qt5NetworkAuth)
 BuildRequires: pkgconfig(Qt5OpenGL)
 BuildRequires: pkgconfig(Qt5Svg)
 BuildRequires: pkgconfig(Qt5XmlPatterns)
@@ -71,7 +70,19 @@ BuildRequires: pkgconfig(Qt5WebEngine)
 BuildRequires: pkgconfig(Qt5WebKit)
 %endif
 %endif
-#BuildRequires: kf5-libkipi-devel >= 16.03
+# MediaPlayer support
+BuildRequires: pkgconfig(libavcodec)
+BuildRequires: pkgconfig(libavdevice)
+BuildRequires: pkgconfig(libavfilter)
+BuildRequires: pkgconfig(libavformat)
+BuildRequires: pkgconfig(libswscale)
+BuildRequires: pkgconfig(libass)
+BuildRequires: pkgconfig(openal)
+BuildRequires: pkgconfig(libpulse)
+BuildRequires: pkgconfig(libva)
+BuildRequires: pkgconfig(xext)
+BuildRequires: pkgconfig(xv)
+
 BuildRequires: ksanecore-devel
 BuildRequires: kf5-libksane-devel >= 16.03
 BuildRequires: kf5-kconfig-devel
@@ -90,6 +101,7 @@ BuildRequires: kf5-kcoreaddons-devel
 BuildRequires: kf5-knotifyconfig-devel
 BuildRequires: kf5-knotifications-devel
 BuildRequires: kf5-solid-devel
+BuildRequires: kf5-sonnet-devel
 BuildRequires: kf5-kitemviews-devel
 BuildRequires: kf5-kbookmarks-devel
 BuildRequires: kf5-rpm-macros
@@ -167,7 +179,7 @@ BuildArch: noarch
   -DENABLE_AKONADICONTACTSUPPORT:BOOL=ON \
   -DENABLE_APPSTYLES:BOOL=ON \
   -DENABLE_KFILEMETADATASUPPORT:BOOL=ON \
-  -DENABLE_MEDIAPLAYER:BOOL=OFF \
+  -DENABLE_MEDIAPLAYER:BOOL=ON \
   -DENABLE_MYSQLSUPPORT:BOOL=ON \
   -DENABLE_INTERNALMYSQL:BOOL=ON \
   -DENABLE_QWEBENGINE:BOOL=%{?qwebengine:ON}%{!?qwebengine:OFF}
@@ -216,7 +228,7 @@ update-desktop-database -q &> /dev/null
 %files -f digikam.lang
 %doc AUTHORS ChangeLog
 %doc NEWS README.md
-%license COPYING
+%license LICENSES/GPL-2.0-or-later.txt
 %{_kf5_bindir}/digikam
 %{_kf5_bindir}/digitaglinktree
 %{_kf5_bindir}/cleanup_digikamdb
@@ -256,6 +268,11 @@ update-desktop-database -q &> /dev/null
 
 
 %changelog
+* Thu Apr 13 2023 Alexey Kurov <nucleo@fedoraproject.org> - 8.0.0-1
+- digiKam-8.0.0
+- enabled MediaPlayer
+- BR: kf5-sonnet-devel
+
 * Sun Mar 26 2023 Alexey Kurov <nucleo@fedoraproject.org> - 7.10.0-1
 - digiKam-7.10.0
 - BR: ksanecore-devel

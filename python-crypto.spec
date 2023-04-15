@@ -7,7 +7,7 @@
 Summary:	Cryptography library for Python
 Name:		python-crypto
 Version:	2.6.1
-Release:	43%{?dist}
+Release:	44%{?dist}
 # Mostly Public Domain apart from parts of HMAC.py and setup.py, which are Python
 License:	Public Domain and Python
 URL:		http://www.pycrypto.org/
@@ -58,22 +58,22 @@ or PyCryptodome software instead.
 %setup -n pycrypto-%{version} -q
 
 # Use distribution compiler flags rather than upstream's
-%patch0 -p1
+%patch -P 0 -p1
 
 # Fix divisions within benchmarking suite:
-%patch1 -p1
+%patch -P 1 -p1
 
 # AES.new with invalid parameter crashes python
 # https://github.com/dlitz/pycrypto/issues/176
 # CVE-2013-7459
-%patch2 -p1
+%patch -P 2 -p1
 
 # Unbundle libtomcrypt (#1087557)
 rm -rf src/libtom
-%patch3
+%patch -P 3
 
 # log() not available in libgmp, need libm too
-%patch4
+%patch -P 4
 
 # When creating ElGamal keys, the generator wasn't a square residue: ElGamal
 # encryption done with those keys cannot be secure under the DDH assumption
@@ -85,36 +85,36 @@ rm -rf src/libtom
 # https://github.com/Legrandin/pycryptodome/commit/99c27a3b
 # Converted to pull request for pycrypto:
 # https://github.com/dlitz/pycrypto/pull/256
-%patch5
+%patch -P 5
 
 # Replace the user-space RNG with a thin wrapper to os.urandom
 # Based on https://github.com/Legrandin/pycryptodome/commit/afd6328f
 # Fixes compatibility with Python 3.8 (#1718332)
-%patch6
+%patch -P 6
 
 # We already require Python 2.4 or later, so drop support for Python 2.1
 # in the code
-%patch7
+%patch -P 7
 
 # Fix Python 3.10 compatibility
 # https://bugzilla.redhat.com/show_bug.cgi?id=1897544
-%patch8
+%patch -P 8
 
 # Fix Python 3.11 compatibility
 # https://bugzilla.redhat.com/show_bug.cgi?id=2021808
-%patch9
+%patch -P 9
 
 # Convert all code to Python 3 before the ability to use 2to3 goes away
-%patch10
+%patch -P 10
 
 # Drop use of deprecated distutils, going away in Python 3.12
-%patch11
+%patch -P 11
 
 # Get rid of a SyntaxWarning in test_random.py
-%patch12
+%patch -P 12
 
 # Fix Python 3.12 compatibility
-%patch13
+%patch -P 13
 
 %build
 %global optflags %{optflags} -fno-strict-aliasing
@@ -139,6 +139,10 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} %{__python3} pct-speedtest.py
 %{python3_sitearch}/pycrypto-%{version}-py3.*.egg-info
 
 %changelog
+* Thu Apr 13 2023 Paul Howarth <paul@city-fan.org> - 2.6.1-44
+- More Python 3.12 compatibility fixes (rhbz#2186406)
+- Avoid deprecated patch syntax
+
 * Mon Mar 13 2023 Paul Howarth <paul@city-fan.org> - 2.6.1-43
 - Fix Python 3.12 compatibility (rhbz#2177718)
 

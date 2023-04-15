@@ -7,7 +7,13 @@ Version: %{gen_version}
 Summary: A signal-forwarding process manager for containers
 License: GPL-3.0-or-later
 Release: %autorelease
+# For centos on rhcontainerbot/qm copr
+%if 0%{?centos}
+Epoch: 4
+ExclusiveArch: aarch64 ppc64le s390x x86_64
+%else
 ExclusiveArch: %{golang_arches_future}
+%endif
 URL: https://github.com/openSUSE/%{name}
 # Tarball fetched from upstream
 Source0: %{url}/archive/%{built_tag}.tar.gz

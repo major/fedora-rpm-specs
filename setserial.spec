@@ -3,7 +3,7 @@
 Summary: A utility for configuring serial ports
 Name: setserial
 Version: 2.17
-Release: 56%{?dist}
+Release: 57%{?dist}
 Source: https://sourceforge.net/projects/setserial/files/setserial/%{version}/%{name}-%{version}.tar.gz
 Patch0: setserial-2.17-fhs.patch
 Patch1: setserial-2.17-rc.patch
@@ -11,6 +11,8 @@ Patch2: setserial-2.17-readme.patch
 Patch3: setserial-2.17-spelling.patch
 Patch4: setserial-hayesesp.patch
 Patch5: setserial-aarch64.patch
+Patch6: setserial-configure-c99.patch
+Patch7: setserial-c99.patch
 License: GPL+
 URL: http://setserial.sourceforge.net/
 ExcludeArch: s390 s390x
@@ -44,6 +46,8 @@ rm -f config.cache
 
 # Support aarch64 (bug #926522).
 %patch5 -p1 -b .aarch64
+%patch6 -p1
+%patch7 -p1
 
 %build
 %set_build_flags
@@ -64,6 +68,9 @@ make install DESTDIR=${RPM_BUILD_ROOT}
 %{_mandir}/man*/*
 
 %changelog
+* Thu Apr 13 2023 Florian Weimer <fweimer@redhat.com> - 2.17-57
+- Port to C99
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.17-56
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

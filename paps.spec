@@ -1,6 +1,6 @@
 Name:           paps
 Version:        0.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        LGPL-2.0-or-later
 URL:            https://github.com/dov/paps
@@ -43,6 +43,7 @@ Patch59:        %{name}-ft-header.patch
 Patch60:        %{name}-a3.patch
 ## rhbz#1214939
 Patch61:	%{name}-fix-paper-size-truncate.patch
+Patch62:	paps-c99.patch
 ### For paps
 Patch100:	%{name}-fix-src-to-paps.patch
 Patch101:	%{name}-fix-build.patch
@@ -86,6 +87,7 @@ pushd %{name}-0.6.8
 %patch59 -p1 -b .ft-header
 %patch60 -p1 -b .a3
 %patch61 -p1 -b .paper-size
+%patch62 -p2 -b .configure-c99
 libtoolize -f -c
 autoreconf -f -i
 popd
@@ -144,6 +146,9 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="/usr/bin/install -p"
 
 
 %changelog
+* Thu Apr 13 2023 Florian Weimer <fweimer@redhat.com> - 0.8.0-2
+- C99 compatibility fixes for paps 0.6.8
+
 * Wed Mar  1 2023 Akira TAGOH <tagoh@redhat.com> - 0.8.0-1
 - New upstream release.
   Resolves: rhbz#2168726

@@ -6,7 +6,7 @@
 %endif
 
 Name:           perl-Archive-Tar
-Version:        3.00
+Version:        3.02
 Release:        1%{?dist}
 Summary:        A module for Perl manipulation of .tar files
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -149,15 +149,18 @@ make test
 
 %files
 %doc CHANGES README
-%{_bindir}/*
+%{_bindir}/ptar*
 %{perl_vendorlib}/Archive/
-%{_mandir}/man3/*.3*
-%{_mandir}/man1/*.1*
+%{_mandir}/man3/Archive::Tar*.3*
+%{_mandir}/man1/ptar*.1*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Apr 13 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.02-1
+- 3.02 bump
+
 * Mon Mar 27 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.00-1
 - 3.00 bump
 

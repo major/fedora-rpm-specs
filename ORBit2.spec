@@ -4,7 +4,7 @@
 Summary: A high-performance CORBA Object Request Broker
 Name: ORBit2
 Version: 2.14.19
-Release: 31%{?dist}
+Release: 32%{?dist}
 #VCS: git:git://git.gnome.org/ORBit2
 Source: http://download.gnome.org/sources/ORBit2/2.14/%{name}-%{version}.tar.bz2
 License: LGPL-2.0-or-later AND GPL-2.0-or-later
@@ -24,6 +24,7 @@ Patch0: ORBit2-2.14.3-multilib.patch
 Patch1: ORBit2-2.14.3-ref-leaks.patch
 Patch2: ORBit2-make-j-safety.patch
 Patch3: ORBit2-allow-deprecated.patch
+Patch4: ORBit2-configure-c99.patch
 
 %description
 ORBit is a high-performance CORBA (Common Object Request Broker
@@ -64,6 +65,7 @@ write such programs, you'll also need to install the ORBIT package.
 %patch1 -p1 -b .ref-leaks
 %patch2 -p1 -b .make-j
 %patch3 -p1 -b .deprecated
+%patch4 -p1
 
 %build
 %configure --disable-gtk-doc --enable-purify --disable-static --disable-rpath
@@ -129,6 +131,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_bindir}/typelib-dump
 %{_datadir}/gtk-doc
 
 %changelog
+* Thu Apr 13 2023 Florian Weimer <fweimer@redhat.com> - 2.14.19-32
+- Port configure script to C99 (#2186427)
+
 * Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.14.19-31
 - migrated to SPDX license
 

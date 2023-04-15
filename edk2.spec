@@ -14,6 +14,8 @@ ExclusiveArch: x86_64 aarch64
 %define TOOLCHAIN      GCC5
 %define OPENSSL_VER    1.1.1k
 
+%define DBXDATE        20230314
+
 %if %{defined rhel}
 %define build_ovmf 0
 %define build_aarch64 0
@@ -37,7 +39,7 @@ ExclusiveArch: x86_64 aarch64
 
 Name:       edk2
 Version:    %{GITDATE}git%{GITCOMMIT}
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    UEFI firmware for 64-bit virtual machines
 License:    BSD-2-Clause-Patent and OpenSSL and MIT
 URL:        http://www.tianocore.org
@@ -54,8 +56,10 @@ Source4: edk2-platforms-54306d023e7d.tar.xz
 Source5: jansson-2.13.1.tar.bz2
 
 # json description files
-Source10: 50-edk2-aarch64.json
-Source11: 51-edk2-aarch64-verbose.json
+Source10: 50-edk2-aarch64-qcow2.json
+Source11: 51-edk2-aarch64-raw.json
+Source12: 52-edk2-aarch64-verbose-qcow2.json
+Source13: 53-edk2-aarch64-verbose-raw.json
 
 Source20: 50-edk2-arm-verbose.json
 
@@ -76,8 +80,8 @@ Source81: edk2-build.fedora
 Source82: edk2-build.fedora.platforms
 Source83: edk2-build.rhel-9
 
-Source90: DBXUpdate-20220812.x64.bin
-Source91: DBXUpdate-20220812.ia32.bin
+Source90: DBXUpdate-%{DBXDATE}.x64.bin
+Source91: DBXUpdate-%{DBXDATE}.ia32.bin
 
 Patch0001: 0001-BaseTools-do-not-build-BrotliCompress-RH-only.patch
 Patch0002: 0002-MdeModulePkg-remove-package-private-Brotli-include-p.patch
@@ -154,6 +158,9 @@ Summary:    UEFI firmware for aarch64 virtual machines
 BuildArch:  noarch
 Provides:   AAVMF = %{version}-%{release}
 Obsoletes:  AAVMF < 20180508-100.gitee3198e672e2.el7
+
+# need libvirt version with qcow2 support
+Conflicts:  libvirt-daemon-driver-qemu < 9.2.0
 
 # No Secure Boot for AAVMF yet, but we include OpenSSL for the IPv6 stack.
 Provides:   bundled(openssl) = %{OPENSSL_VER}
@@ -279,7 +286,7 @@ tar -xf %{SOURCE5} --strip-components=1 --directory RedfishPkg/Library/JsonLib/j
 chmod -Rf a+rX,u+w,g-w,o-w .
 
 cp -a -- \
-   %{SOURCE10} %{SOURCE11} \
+   %{SOURCE10} %{SOURCE11} %{SOURCE12} %{SOURCE13} \
    %{SOURCE20} \
    %{SOURCE30} %{SOURCE31} %{SOURCE32} \
    %{SOURCE40} %{SOURCE41} %{SOURCE42} %{SOURCE43} %{SOURCE44} %{SOURCE45} \
@@ -335,7 +342,7 @@ touch OvmfPkg/AmdSev/Grub/grub.efi   # dummy
 ./edk2-build.py --config edk2-build.rhel-9 --silent --release-date "$RELEASE_DATE" -m ovmf
 virt-fw-vars --input   RHEL-9/ovmf/OVMF_VARS.fd \
              --output  RHEL-9/ovmf/OVMF_VARS.secboot.fd \
-             --set-dbx DBXUpdate-20220812.x64.bin \
+             --set-dbx DBXUpdate-%{DBXDATE}.x64.bin \
              --enroll-redhat --secure-boot
 build_iso RHEL-9/ovmf
 
@@ -345,15 +352,15 @@ build_iso RHEL-9/ovmf
 ./edk2-build.py --config edk2-build.fedora.platforms --silent -m x64
 virt-fw-vars --input   Fedora/ovmf/OVMF_VARS.fd \
              --output  Fedora/ovmf/OVMF_VARS.secboot.fd \
-             --set-dbx DBXUpdate-20220812.x64.bin \
+             --set-dbx DBXUpdate-%{DBXDATE}.x64.bin \
              --enroll-redhat --secure-boot
 virt-fw-vars --input   Fedora/ovmf-4m/OVMF_VARS.fd \
              --output  Fedora/ovmf-4m/OVMF_VARS.secboot.fd \
-             --set-dbx DBXUpdate-20220812.x64.bin \
+             --set-dbx DBXUpdate-%{DBXDATE}.x64.bin \
              --enroll-redhat --secure-boot
 virt-fw-vars --input   Fedora/ovmf-ia32/OVMF_VARS.fd \
              --output  Fedora/ovmf-ia32/OVMF_VARS.secboot.fd \
-             --set-dbx DBXUpdate-20220812.ia32.bin \
+             --set-dbx DBXUpdate-%{DBXDATE}.ia32.bin \
              --enroll-redhat --secure-boot
 build_iso Fedora/ovmf
 build_iso Fedora/ovmf-ia32
@@ -361,7 +368,7 @@ build_iso Fedora/ovmf-ia32
 # experimental stateless builds
 virt-fw-vars --input   Fedora/experimental/OVMF.stateless.fd \
              --output  Fedora/experimental/OVMF.stateless.secboot.fd \
-             --set-dbx DBXUpdate-20220812.x64.bin \
+             --set-dbx DBXUpdate-%{DBXDATE}.x64.bin \
              --enroll-redhat --secure-boot
 
 for image in \
@@ -477,8 +484,10 @@ ln -s ../%{name}/arm/QEMU_EFI-pflash.raw \
 
 # json description files
 install -m 0644 \
-        50-edk2-aarch64.json \
-        51-edk2-aarch64-verbose.json \
+        50-edk2-aarch64-qcow2.json \
+        51-edk2-aarch64-raw.json \
+        52-edk2-aarch64-verbose-qcow2.json \
+        53-edk2-aarch64-verbose-raw.json \
         %{buildroot}%{_datadir}/qemu/firmware
 %if %{defined fedora}
 install -m 0644 \
@@ -574,8 +583,14 @@ done
 %{_datadir}/%{name}/aarch64/QEMU_EFI.fd
 %{_datadir}/%{name}/aarch64/QEMU_EFI.silent.fd
 %{_datadir}/%{name}/aarch64/QEMU_VARS.fd
-%{_datadir}/qemu/firmware/50-edk2-aarch64.json
-%{_datadir}/qemu/firmware/51-edk2-aarch64-verbose.json
+%if %{defined fedora}
+%{_datadir}/%{name}/aarch64/BL32_AP_MM.fd
+%{_datadir}/%{name}/aarch64/QEMU_EFI.kernel.fd
+%endif
+%{_datadir}/qemu/firmware/50-edk2-aarch64-qcow2.json
+%{_datadir}/qemu/firmware/51-edk2-aarch64-raw.json
+%{_datadir}/qemu/firmware/52-edk2-aarch64-verbose-qcow2.json
+%{_datadir}/qemu/firmware/53-edk2-aarch64-verbose-raw.json
 # endif build_aarch64
 %endif
 
@@ -673,6 +688,11 @@ done
 
 
 %changelog
+* Thu Apr 13 2023 Gerd Hoffmann <kraxel@redhat.com> - 20230301gitf80f052277c8-2
+- add StandaloneMM and ArmVirtQemuKernel builds.
+- add json files for qcow2 images.
+- update dbx files to 2023-03.
+
 * Mon Mar 06 2023 Gerd Hoffmann <kraxel@redhat.com> - 20230301gitf80f052277c8-1
 - update to edk2-stable202302
 - update dbx database to 20220812

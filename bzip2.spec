@@ -3,8 +3,8 @@
 Summary: File compression utility
 Name: bzip2
 Version: 1.0.8
-Release: 13%{?dist}
-License: BSD
+Release: 14%{?dist}
+License: BSD-4-Clause
 URL: http://www.bzip.org/
 #Source0: http://www.bzip.org/%{version}/%{name}-%{version}.tar.gz
 Source0: https://sourceware.org/pub/bzip2/%{name}-%{version}.tar.gz
@@ -121,6 +121,9 @@ ln -s bzgrep.1 $RPM_BUILD_ROOT%{_mandir}/man1/bzfgrep.1
 %{_libdir}/pkgconfig/bzip2.pc
 
 %changelog
+* Thu Apr 13 2023 Lukáš Zaoral <lzaoral@redhat.com> - 1.0.8-14
+- migrate to SPDX license format
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

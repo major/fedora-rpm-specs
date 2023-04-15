@@ -1,0 +1,86 @@
+%global srcname flask-mongoengine
+
+Name:           python-flask-mongoengine
+Version:        1.0.0
+Release:        1%{?dist}
+Summary:        Flask extension that provides integration with MongoEngine
+
+License:        BSD-3-Clause
+URL:            https://flask-mongoengine.readthedocs.org/
+Source0:        %{pypi_source}
+
+BuildArch:      noarch
+
+
+%description
+A Flask extension that provides integration with MongoEngine. It handles
+connection management for your app. You can also use WTForms as model forms
+for your models.
+
+
+%package -n python3-flask-mongoengine
+Summary:        Flask extension that provides integration with MongoEngine
+BuildRequires:  python3-devel
+
+%description -n python3-flask-mongoengine
+A Flask extension that provides integration with MongoEngine. It handles
+connection management for your app. You can also use WTForms as model forms
+for your models.
+
+Python 3 version.
+
+
+%prep
+%autosetup -p1 -n %{srcname}-%{version}
+
+
+%generate_buildrequires
+%pyproject_buildrequires
+
+
+%build
+%pyproject_wheel
+
+
+%install
+%pyproject_install
+%pyproject_save_files flask_mongoengine
+
+
+%check
+# No real tests except coverage tests
+%py3_check_import flask_mongoengine
+
+
+%files -n python3-flask-mongoengine -f %{pyproject_files}
+%license LICENSE
+%doc README.rst
+
+
+%changelog
+* Wed Feb 08 2023 Sandro Mani <manisandro@gmail.com> - 1.0.0-1
+- Update to 1.0.0
+
+* Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
+
+* Thu Jun 18 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.7.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
+
+* Wed Aug 27 2014 Matej Stuchlik <mstuchli@redhat.com> - 0.7.1-1
+- Update to 0.7.1
+
+* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
+* Tue Aug 13 2013 Matej Stuchlik <mstuchli@redhat.com> - 0.7-1
+- Updated to 0.7
+
+* Sun Aug 04 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
+
+* Thu Apr 04 2013 Matej Stuchlik <mstuchli@redhat.com> - 0.6-2
+- Added patch that removes unused dependencies and changed the URL field
+
+* Wed Apr 3 2013 mstuchli <mstuchli@redhat.com> - 0.6-1
+- Initial spec

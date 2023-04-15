@@ -11,15 +11,15 @@
 %endif
 
 Name:           python-%{srcname}
-Version:        6.1.0
-Release:        5%{?dist}
+Version:        6.4.0
+Release:        1%{?dist}
 Summary:        Static file serving for Python web apps
 
 License:        MIT
 URL:            http://whitenoise.evans.io/
 # pypi source does not contain tests
 Source0:        https://github.com/evansd/whitenoise/archive/refs/tags/%{version}.tar.gz
-Patch1:         whitenoise-6.1.0-default-docs-theme.patch
+Patch:          whitenoise-6.4.0-default-docs-theme.patch
 
 BuildArch:      noarch
 
@@ -35,19 +35,14 @@ Heroku, OpenShift and other PaaS providers.)
 Summary:        Static file serving for Python web apps
 License:        MIT
 
-BuildRequires:  python3-brotli
 BuildRequires:  python3-devel
+BuildRequires:  python3-brotli
 %if 0%{?with_django}
 BuildRequires:  python3-django
 %endif
-BuildRequires:  python3-pytest
-BuildRequires:  python3-requests
-BuildRequires:  python3-setuptools
-%if 0%{?with_django}
-Requires:       python3-django
-%endif
-%{?python_provide:%python_provide python3-%{srcname}}
 
+#for tests
+BuildRequires:  python3-pytest
 
 %description -n python3-%{srcname}
 Radically simplified static file serving for python web apps. with a couple of
@@ -75,9 +70,12 @@ rm docs/changelog.rst
 # copy common doc files to top dir
 cp -pr docs/ README.rst LICENSE ../
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %build
-%py3_build
+%pyproject_wheel
 
 # Build documentation
 %if 0%{?with_docs}
@@ -90,7 +88,9 @@ popd
 
 
 %install
-%py3_install
+%pyproject_install
+
+%pyproject_save_files whitenoise
 
 
 %if 0%{?with_check}
@@ -100,11 +100,9 @@ export DJANGO_SETTINGS_MODULE=tests.django_settings
 %endif
 
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
 %license LICENSE
-%{python3_sitelib}/%{srcname}
-%{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info
 
 
 %if 0%{?with_docs}
@@ -115,6 +113,10 @@ export DJANGO_SETTINGS_MODULE=tests.django_settings
 
 
 %changelog
+* Thu Apr 13 2023 Jonathan Wright <jonathan@almalinux.org> - 6.4.0-1
+- update to 6.4.0 rhbz#2093782
+- modernize spec
+
 * Thu Mar 02 2023 Jonathan Wright <jonathan@almalinux.org > - 6.1.0-5
 - Skip tests on EL9 due to missing python3-django package
 - Remove unnecessary python3-brotli exclusion for el8

@@ -16,7 +16,7 @@
 
 Name:           cinnamon
 Version:        5.6.8
-Release:        1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
+Release:        2%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 Summary:        Window management and application launching for GNOME
 License:        GPLv2+ and LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
@@ -34,6 +34,7 @@ Patch1:         set_wheel.patch
 #Patch2:         revert_25aef37.patch
 Patch3:         default_panal_launcher.patch
 Patch4:         remove_crap_from_menu.patch
+Patch5:         fix_path.patch
 
 ExcludeArch:    %{ix86}
 
@@ -329,6 +330,9 @@ EOF
 %endif
 
 %changelog
+* Thu Apr 13 2023 Leigh Scott <leigh123linux@gmail.com> - 5.6.8-2
+- Fix settings on aarch64
+
 * Mon Mar 20 2023 Leigh Scott <leigh123linux@gmail.com> - 5.6.8-1
 - Update to 5.6.8 release
 

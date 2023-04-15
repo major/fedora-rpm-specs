@@ -19,7 +19,7 @@
 %undefine _py3_shebang_s
 
 Name:           python-tox
-Version:        4.4.8
+Version:        4.4.11
 Release:        1%{?dist}
 Summary:        Virtualenv-based automation of test activities
 
@@ -123,10 +123,6 @@ export SETUPTOOLS_SCM_PRETEND_VERSION="%{version}"
 
 %if %{with tests}
 %check
-# test_verbosity_guess_miss_match and some others need
-#   existing tox.ini config, reported https://github.com/tox-dev/tox/issues/2839
-touch tox.ini
-
 # Skipped tests use internal virtualenv functionality to
 # download wheels which does not work with "bundled" version of wheel in
 # the Fedora's virtualenv patch.
@@ -150,7 +146,12 @@ k="${k-}${k+ and }not test_local_execute_basic_pass_show_on_standard_newline_flu
 k="${k-}${k+ and }not test_local_execute_write_a_lot"
 %endif
 
-%pytest -v -n auto -k "${k-}" --run-integration
+# test_sequential is flaky when heavily parallelized,
+# some files are created in place and there seem to be a race condition. 
+# https://github.com/tox-dev/tox/issues/2985
+%pytest -v --run-integration tests/session/cmd/test_sequential.py
+
+%pytest -v -n auto -k "${k-}" --run-integration --ignore tests/session/cmd/test_sequential.py
 %endif
 
 
@@ -159,6 +160,9 @@ k="${k-}${k+ and }not test_local_execute_write_a_lot"
 
 
 %changelog
+* Wed Apr 12 2023 Miro Hrončok <mhroncok@redhat.com> - 4.4.11-1
+- Update to 4.4.11 (rhbz#2184726)
+
 * Wed Mar 29 2023 Miro Hrončok <mhroncok@redhat.com> - 4.4.8-1
 - Update to 4.4.8 (rhbz#2177519)
 

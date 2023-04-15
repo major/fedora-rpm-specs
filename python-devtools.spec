@@ -1,8 +1,8 @@
 %global pypi_name devtools
 
 Name:           python-%{pypi_name}
-Version:        0.10.0
-Release:        2%{?dist}
+Version:        0.11.0
+Release:        1%{?dist}
 Summary:        Dev tools for Python
 
 License:        MIT
@@ -20,6 +20,7 @@ BuildRequires:  python3-devel
 # for tests
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-mock
+BuildRequires:  black
 
 
 Recommends:     python3-pygments
@@ -36,7 +37,6 @@ Documentation for %{name}.
 %prep
 %autosetup -n python-%{pypi_name}-%{version}
 # Remove upper bound on executing version
-sed -r -i "s/(executing.*),<[^\"']/\1/" pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires -w
@@ -53,8 +53,11 @@ sed -r -i "s/(executing.*),<[^\"']/\1/" pyproject.toml
 
 
 %check
+# until we get pytester_pretty packaged
+rm -f tests/test_insert_assert.py
+
 %pytest --pyargs \
--k "not test_repr_str and not test_executing_failure and not test_return_args and not test_colours"
+-k "not test_repr_str and not test_executing_failure and not test_return_args and not test_colours and not test_insert_assert_no_pretty"
 
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
@@ -68,6 +71,9 @@ sed -r -i "s/(executing.*),<[^\"']/\1/" pyproject.toml
 
 
 %changelog
+* Thu Apr 13 2023 Jonathan Wright <jonathan@almalinux.org> - 0.11.0-1
+- update to 0.11.0 rhbz#2184884
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

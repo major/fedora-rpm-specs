@@ -2,7 +2,7 @@
 %global pypi_name gitlab
 
 Name:           python-%{pypi_name}
-Version:        3.13.0
+Version:        3.14.0
 Release:        1%{?dist}
 Summary:        Interact with GitLab API
 
@@ -65,6 +65,9 @@ sed -i 's/pytest-github-actions-annotate-failures.*//' requirements-test.txt
 %doc README.rst
 
 %changelog
+* Thu Apr 13 2023 Steve Traylen <steve.traylen@cern.ch> - 3.14.0-1
+- New 3.14.0 version
+
 * Thu Mar 2 2023 Steve Traylen <steve.traylen@cern.ch> - 3.13.0-1
 - New 3.13.0 version
 

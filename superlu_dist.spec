@@ -9,11 +9,6 @@
 %bcond_without cmake
 %bcond_with manual
 
-# Choose if using 64-bit integers for indexing sparse matrices
-%if %{?__isa_bits:%{__isa_bits}}%{!?__isa_bits:32} == 64
-%bcond_with index64
-%endif
-
 %bcond_without mpich
 %bcond_without openmpi
 
@@ -46,24 +41,19 @@
 # Following scalapack
 %bcond_without optimized_blas
 
-%if 0%{?fedora} || 0%{?rhel} >= 9
 %global blaslib flexiblas
+
+# Choose if using 64-bit integers for indexing sparse matrices
+%if %{?__isa_bits:%{__isa_bits}}%{!?__isa_bits:32} == 64
+%bcond_without index64
+%endif
+
 %if %{with index64}
 %global OPENBLASLINK -lflexiblas64
 %global OPENBLASLIB /libflexiblas64.so
 %else
 %global OPENBLASLINK -lflexiblas
 %global OPENBLASLIB /libflexiblas.so
-%endif
-%else
-%global blaslib openblas
-%if %{with index64}
-%global OPENBLASLINK -lopenblaso64
-%global OPENBLASLIB /libopenblaso64.so
-%else
-%global OPENBLASLINK -lopenblaso
-%global OPENBLASLIB /libopenblaso.so
-%endif
 %endif
 
 %bcond_without check
@@ -86,14 +76,9 @@ BuildRequires: metis-devel
 %global METISINC %{_includedir}/metis.h
 %endif
 
-%if 0%{?el7}
-# For good enough C++
-%global dts devtoolset-7-
-%endif
-
 Name: superlu_dist
-Version: 8.1.1
-Release: 3%{?dist}
+Version: 8.1.2
+Release: 1%{?dist}
 Epoch:   1
 
 Summary: Solution of large, sparse, nonsymmetric systems of linear equations
@@ -112,7 +97,7 @@ Patch3: %name-scotch_parmetis.patch
 Patch4: %name-only_short_tests.patch
 
 BuildRequires: scotch-devel
-BuildRequires: %{?dts}gcc-c++, dos2unix, chrpath
+BuildRequires: gcc-c++, dos2unix, chrpath
 %if %{with cmake}
 BuildRequires: cmake3
 %endif
@@ -156,7 +141,7 @@ BuildRequires: openmpi-devel
 # ptscotch-openmpi-devel-parmetis unavailable on rhel8 ??
 BuildRequires: ptscotch-openmpi-devel >= 6.0.5 %{!?el8:ptscotch-openmpi-devel-parmetis >= 6.0.5}
 %if %{with CombBLAS}
-BuildRequires: combblas-openmpi-devel
+BuildRequires: combblas-openmpi-devel >= 2.0.0
 %endif
 Requires:      gcc-gfortran%{?_isa}
 
@@ -189,7 +174,7 @@ BuildRequires: mpich-devel
 BuildRequires: ptscotch-mpich-devel  >= 6.0.5
 BuildRequires: ptscotch-mpich-devel-parmetis  >= 6.0.5
 %if %{with CombBLAS}
-BuildRequires: combblas-mpich-devel
+BuildRequires: combblas-mpich-devel >= 2.0.0
 %endif
 Requires:      gcc-gfortran%{?_isa}
 
@@ -215,18 +200,17 @@ Development files for %name-mpich
 
 %if %{with manual}
 cp %SOURCE1 make.inc
-%patch0 -p1 -b .orig
+%patch 0 -p1 -b .orig
 %endif
 
 %if %{with cmake}
 dos2unix CMakeLists.txt
-%patch1 -p1 -b .fix_pkgconfig_creation
+%patch 1 -p1 -b .fix_pkgconfig_creation
 %endif
 %patch4 -p1 -b .only_short_tests
 
 %build
 %if %{with manual}
-%{?dts:source /opt/rh/devtoolset-7/enable}
 export CFLAGS="%build_cflags" LDFLAGS="%build_ldflags" CXXFLAGS="%build_cxxflags"
 # This order to leave openmpi version in place for %%check
 for m in %mpich %openmpi; do
@@ -264,20 +248,13 @@ done
 # Manual build method
 
 %if %{with cmake}
-%if 0%{?el7}
-%{?dts:source /opt/rh/devtoolset-7/enable}
-%endif
-
 %if %{with openmpi}
 %{_openmpi_load}
 mkdir -p build/openmpi
-%if 0%{?rhel} == 7
-. /opt/rh/devtoolset-7/enable
-%endif
 export CC=$MPI_BIN/mpicc
 export CXX=$MPI_BIN/mpic++
 export CXXFLAGS="%optflags -I$MPI_INCLUDE"
-export LDFLAGS="%build_ldflags -L$MPI_LIB -lptscotch"
+export LDFLAGS="%build_ldflags -L$MPI_LIB -lptscotch -lptscotcherr -lptscotcherrexit"
 %cmake3 -B build/openmpi -DCMAKE_BUILD_TYPE:STRING=Release \
  -DBUILD_STATIC_LIBS:BOOL=FALSE \
  -DCMAKE_Fortran_COMPILER:FILEPATH=$MPI_BIN/mpifort \
@@ -296,7 +273,7 @@ export LDFLAGS="%build_ldflags -L$MPI_LIB -lptscotch"
  -DTPL_BLAS_LIBRARIES:BOOL=ON -DTPL_BLAS_LIBRARIES:FILEPATH=%{_libdir}%{OPENBLASLIB} -DTPL_ENABLE_LAPACKLIB:BOOL=OFF -DTPL_LAPACK_LIBRARIES:BOOL=OFF \
  -DMPI_C_HEADER_DIR:PATH="$MPI_INCLUDE -I%{METISINC}" \
  -DMPI_CXX_LINK_FLAGS:STRING="-L$MPI_LIB -lptscotch -lptscotcherr -lptscotcherrexit -L%{_libdir} %{METISLINK} -lscotch -fopenmp" \
-%if 0%{?fedora} || 0%{?rhel} < 8
+%if 0%{?fedora}
  -DTPL_PARMETIS_INCLUDE_DIRS:PATH=$MPI_INCLUDE \
  -DTPL_PARMETIS_LIBRARIES:STRING="$MPI_LIB/libptscotchparmetis.so;%{METISLIB}" \
 %endif
@@ -305,13 +282,11 @@ export LDFLAGS="%build_ldflags -L$MPI_LIB -lptscotch"
 %else
  -DXSDK_INDEX_SIZE=32 \
 %endif
-%if 0%{?rhel} && 0%{?rhel} >= 8
  -DTPL_ENABLE_PARMETISLIB:BOOL=OFF \
-%endif
  -Denable_double:BOOL=ON -Denable_complex16:BOOL=ON \
  -Denable_examples:BOOL=ON -Denable_tests:BOOL=ON -DBUILD_TESTING:BOOL=ON \
  -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} -DCMAKE_INSTALL_BINDIR:PATH=$MPI_BIN -DCMAKE_INSTALL_INCLUDEDIR:PATH=$MPI_INCLUDE/%{name} \
- -DCMAKE_INSTALL_LIBDIR:PATH=$MPI_LIB
+ -DCMAKE_INSTALL_LIBDIR:PATH=$MPI_LIB -DTPL_ENABLE_INTERNAL_BLASLIB:BOOL=ON -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON
 
 %make_build V=1 -C build/openmpi
 %{_openmpi_unload}
@@ -320,14 +295,11 @@ export LDFLAGS="%build_ldflags -L$MPI_LIB -lptscotch"
 %if %{with mpich}
 %{_mpich_load}
 mkdir -p build/mpich
-%if 0%{?rhel} == 7
-. /opt/rh/devtoolset-7/enable
-%endif
 export CC=$MPI_BIN/mpicc
 export CXX=$MPI_BIN/mpic++
 export CFLAGS="%optflags -DPRNTlevel=0 -DDEBUGlevel=0"
 export CXXFLAGS="%optflags -I$MPI_INCLUDE"
-export LDFLAGS="%build_ldflags -L$MPI_LIB -lptscotch"
+export LDFLAGS="%build_ldflags -L$MPI_LIB -lptscotch -lptscotcherr -lptscotcherrexit"
 %cmake3 -B build/mpich -DCMAKE_BUILD_TYPE:STRING=Release \
  -DBUILD_STATIC_LIBS:BOOL=FALSE \
  -DCMAKE_Fortran_COMPILER:FILEPATH=$MPI_BIN/mpifort \
@@ -346,7 +318,7 @@ export LDFLAGS="%build_ldflags -L$MPI_LIB -lptscotch"
  -DTPL_BLAS_LIBRARIES:BOOL=ON -DTPL_BLAS_LIBRARIES:FILEPATH=%{_libdir}%{OPENBLASLIB} -DTPL_ENABLE_LAPACKLIB:BOOL=OFF -DTPL_LAPACK_LIBRARIES:BOOL=OFF \
  -DMPI_C_HEADER_DIR:PATH="$MPI_INCLUDE -I%{METISINC}" \
  -DMPI_CXX_LINK_FLAGS:STRING="-L$MPI_LIB -lptscotch -lptscotcherr -lptscotcherrexit -L%{_libdir} %{METISLINK} -lscotch" \
-%if 0%{?fedora} || 0%{?rhel} < 8
+%if 0%{?fedora}
  -DTPL_PARMETIS_INCLUDE_DIRS:PATH=$MPI_INCLUDE \
  -DTPL_PARMETIS_LIBRARIES:STRING="$MPI_LIB/libptscotchparmetis.so;%{METISLIB}" \
 %endif
@@ -355,13 +327,11 @@ export LDFLAGS="%build_ldflags -L$MPI_LIB -lptscotch"
 %else
  -DXSDK_INDEX_SIZE=32 \
 %endif
-%if 0%{?rhel} && 0%{?rhel} >= 8
  -DTPL_ENABLE_PARMETISLIB:BOOL=OFF \
-%endif
  -Denable_double:BOOL=ON -Denable_complex16:BOOL=ON \
  -Denable_examples:BOOL=ON -Denable_tests:BOOL=ON -DBUILD_TESTING:BOOL=ON \
  -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} -DCMAKE_INSTALL_BINDIR:PATH=$MPI_BIN -DCMAKE_INSTALL_INCLUDEDIR:PATH=$MPI_INCLUDE/%{name} \
- -DCMAKE_INSTALL_LIBDIR:PATH=$MPI_LIB
+ -DCMAKE_INSTALL_LIBDIR:PATH=$MPI_LIB -DTPL_ENABLE_INTERNAL_BLASLIB:BOOL=ON -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON
 
 %make_build -C build/mpich
 %{_mpich_unload}
@@ -421,9 +391,6 @@ chrpath -r $MPI_LIB %buildroot$MPI_LIB/libsuperlu_dist*.so*
 # CMake build method
 
 
-# This is hanging inconsistently in koji, normally on i686 and arm.  I
-# can't debug it, so let's hope it doesn't deadlock in realistic
-# situations.
 %if %{with check}
 
 %check
@@ -444,22 +411,18 @@ make clean
 %if %{with cmake}
 %if %{with openmpi}
 %{_openmpi_load}
-pushd EXAMPLE
 # Waiting for excluding OpenMPI support in i686
 %ifnarch %{ix86}
-export OMPI_MCA_rmaps_base_oversubscribe=1
-mpirun -n 4 -v ../build/openmpi/EXAMPLE/pddrive -r 2 -c 2 g20.rua
+#mpirun -n 4 -v ../build/openmpi/EXAMPLE/pddrive -r 2 -c 2 g20.rua
+%ctest -- --test-dir build/openmpi -VV
 %endif
-popd
 %{_openmpi_unload}
 %endif
 
 %if %{with mpich}
 %{_mpich_load}
-pushd EXAMPLE
-export OMPI_MCA_rmaps_base_oversubscribe=1
-mpirun -n 4 -v ../build/mpich/EXAMPLE/pddrive -r 2 -c 2 g20.rua
-popd
+#mpirun -n 4 -v ../build/mpich/EXAMPLE/pddrive -r 2 -c 2 g20.rua
+%ctest -- --test-dir build/mpich -VV
 %{_mpich_unload}
 %endif
 %endif
@@ -471,7 +434,7 @@ popd
 %files openmpi
 %license License.txt
 %_libdir/openmpi/lib/*.so.8
-%_libdir/openmpi/lib/*.so.8.1.1
+%_libdir/openmpi/lib/*.so.8.1.2
 
 %files openmpi-devel
 %_libdir/openmpi/lib/*.so
@@ -490,7 +453,7 @@ popd
 %files mpich
 %license License.txt
 %_libdir/mpich/lib/*.so.8
-%_libdir/mpich/lib/*.so.8.1.1
+%_libdir/mpich/lib/*.so.8.1.2
 
 %files mpich-devel
 %_libdir/mpich/lib/*.so
@@ -503,6 +466,9 @@ popd
 
 
 %changelog
+* Thu Apr 13 2023 Antonio Trande <sagitter@fedoraproject.org> - 1:8.1.2-1
+- Release 8.1.2
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:8.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

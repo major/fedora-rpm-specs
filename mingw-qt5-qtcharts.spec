@@ -16,8 +16,8 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt5-%{qt_module}
-Version:        5.15.8
-Release:        2%{?dist}
+Version:        5.15.9
+Release:        1%{?dist}
 Summary:        Qt5 for Windows - QtCharts component
 
 # See LICENSE.GPL3, respectively, for exception details
@@ -124,6 +124,9 @@ mkdir .git
 
 
 %changelog
+* Thu Apr 13 2023 Sandro Mani <manisandro@gmail.com> - 5.15.9-1
+- Update to 5.15.9
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

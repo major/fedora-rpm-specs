@@ -9,7 +9,7 @@
 Summary: iSCSI daemon and utility programs
 Name: iscsi-initiator-utils
 Version: 6.%{open_iscsi_version}.%{open_iscsi_build}
-Release: 10.git%{shortcommit0}%{?dist}
+Release: 11.git%{shortcommit0}%{?dist}
 License: GPLv2+
 URL: https://github.com/open-iscsi/open-iscsi
 Source0: https://github.com/open-iscsi/open-iscsi/archive/%{commit0}.tar.gz#/open-iscsi-%{shortcommit0}.tar.gz
@@ -42,6 +42,7 @@ Patch0023: 0023-stop-using-Werror-for-now.patch
 Patch0024: 0024-minor-service-file-updates.patch
 Patch0025: 0001-Remove-dependences-from-iscsi-init.service.patch
 Patch0026: 0026-try-not-to-require-network-online.patch
+Patch0027: 0001-fix-libiscsi-firmware-discovery-issue-with-NULL-drec.patch
 
 BuildRequires: flex bison doxygen kmod-devel systemd-units
 BuildRequires: autoconf automake libtool libmount-devel openssl-devel
@@ -286,6 +287,9 @@ systemctl --no-reload preset iscsi.service iscsi-starter.service &>/dev/null || 
 %{python3_sitearch}/*
 
 %changelog
+* Thu Apr 13 2023 Chris Leech <cleech@redhat.com> - 6.2.1.4-11.git2a8f9d8
+- fix libiscsi regression causing faults in udisksd during iscsi firmware discovery
+
 * Mon Feb  6 2023 Zbigniew Jedrzejewski-Szmek <zbyszek@in.waw.pl> - 6.2.1.4-10.git2a8f9d8
 - Move fedora-release version requirement to the fedora-release-common subpackage
 

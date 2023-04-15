@@ -2,7 +2,7 @@
 
 # https://github.com/maxmind/geoipupdate
 %global goipath	github.com/maxmind/geoipupdate
-Version:	4.11.1
+Version:	5.0.0
 
 %gometa
 
@@ -19,6 +19,7 @@ BuildRequires:	coreutils
 BuildRequires:	crontabs
 BuildRequires:	golang(github.com/gofrs/flock)
 BuildRequires:	golang(github.com/spf13/pflag)
+BuildRequires:	golang(golang.org/x/sync/errgroup)
 BuildRequires:	make
 BuildRequires:	pandoc
 BuildRequires:	perl-interpreter
@@ -104,6 +105,17 @@ install -p -m 0644 _build/GeoIP.conf.5 %{buildroot}%{_mandir}/man5/GeoIP.conf.5
 %config(noreplace) %{_sysconfdir}/cron.weekly/geoipupdate
 
 %changelog
+* Thu Apr 13 2023 Paul Howarth <paul@city-fan.org> - 5.0.0-1
+- Update to 5.0.0
+  - Redefined the 'Reader' and 'Writer' interface APIs in
+    'pkg/geoipupdate/database'; this change aims to to make it easier to
+    introduce custom implementations of these interfaces
+  - Changed the signature of 'NewConfig' in 'pkg/geoipupdate' to accept
+    optional parameters; this change allows the introduction of new flags or
+    config options without making breaking changes to the function's signature
+  - Introduced 'Parallelism' as a new flag and config option to enable
+    concurrent database updates
+
 * Fri Mar 17 2023 Paul Howarth <paul@city-fan.org> - 4.11.1-1
 - Update to 4.11.1
   - 'github.com/pkg/errors' is no longer used to wrap errors

@@ -1,22 +1,22 @@
 Name:           btop
 Version:        1.2.13
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Modern and colorful command line resource monitor that shows usage and stats
 
 # The entire source code is ASL 2.0 except:
 # include/robin_hood.h - MIT
 # include/widechar_width.hpp - Public Domain
-License:        ASL 2.0 and MIT and Public Domain
+License:        Apache-2.0 and MIT and Public Domain
 URL:            https://github.com/aristocratos/btop
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
 BuildRequires:  make
-%if 0%{?el8}
-BuildRequires:  gcc-toolset-11-gcc-c++
-BuildRequires:  gcc-toolset-11-annobin-plugin-gcc
-BuildRequires:  gcc-toolset-11-binutils
+%if 0%{?el8} || 0%{?el9}
+BuildRequires:  gcc-toolset-12-gcc-c++
+BuildRequires:  gcc-toolset-12-annobin-plugin-gcc
+BuildRequires:  gcc-toolset-12-binutils
 %endif
 
 Requires:       hicolor-icon-theme
@@ -39,11 +39,11 @@ C++ version and continuation of bashtop and bpytop.
 
 
 %build
-%{?el8:. /opt/rh/gcc-toolset-11/enable}
-%if 0%{?rhel} || 0%{?fedora} < 36
-%set_build_flags
-%endif
+%{?el8:. /opt/rh/gcc-toolset-12/enable}
+%{?el9:. /opt/rh/gcc-toolset-12/enable}
 
+# to build debuginfo
+export CXXFLAGS="${CXXFLAGS} -g"
 %make_build
 
 
@@ -62,6 +62,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/btop.desktop
 %{_datadir}/icons/hicolor/*/apps/btop.*
 
 %changelog
+* Thu Apr 13 2023 Jonathan Wright <jonathan@almalinux.org> - 1.2.13-3
+- fix ftbfs
+- update license to SPDX
+- use latest gcc on el8/el9
+- remove <f36 code from spec
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.13-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

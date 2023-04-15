@@ -1249,6 +1249,11 @@ fi
 %endif
 
 %changelog
+* Thu Apr 13 2023 Alexandra Hájková <ahajkova@redhat.com>
+- Remove gdb-6.3-bz140532-ppc-unwinding-test.patch, it adds
+  powerpc-bcl-prologue.exp test which seems to be a subset of
+  upstream powerpc-prologue.exp
+
 * Tue Apr 11 2023 Keith Seitz
 - Backport "Fix a potential illegal memory access in the BFD library..."
   (Nick Clifton, binutils/29988)

@@ -5,11 +5,12 @@
 Summary: A text formatting package based on SGML
 Name: linuxdoc-tools
 Version: 0.9.82
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: MIT
 Source: http://http.us.debian.org/debian/pool/main/l/linuxdoc-tools/%{name}_%{version}.orig.tar.gz
 Patch01: 0001-downstream-Changed-default-papersize-to-letter.patch
 Patch02: 0002-downstream-Added-fix-to-have-lib64-in-perl-path-on-6.patch
+Patch3: linuxdoc-tools-c99.patch
 Url: http://packages.qa.debian.org/l/linuxdoc-tools.html
 BuildRequires: git gcc
 BuildRequires: flex flex-static sgml-common jade gawk groff autoconf automake texinfo
@@ -102,6 +103,9 @@ exit 0
 %{_mandir}/*/*
 
 %changelog
+* Thu Apr 13 2023 Florian Weimer <fweimer@redhat.com> - 0.9.82-2
+- Port sgmls non-autoconf configure script to C99
+
 * Sun Feb 05 2023 Julien Rische <jrische@redhat.com> - 0.9.82-1
 - New version 0.9.82
 

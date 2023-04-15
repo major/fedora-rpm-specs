@@ -4,7 +4,7 @@
 
 Name: heimdal
 Version: 7.8.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: A Kerberos 5 implementation without export restrictions
 License: BSD and MIT
 URL: http://www.heimdal.software/heimdal
@@ -28,6 +28,7 @@ Source31: %{name}-ipropd-slave-wrapper
 Patch1: heimdal-1.6.0-c25f45a-rename-commands.patch
 Patch4: heimdal-7.7.0-configure.patch
 Patch5: heimdal-7.7.0-58c8ad96-py3.patch
+Patch6: heimdal-configure-c99.patch
 
 BuildRequires:  gettext
 BuildRequires:  bison
@@ -128,6 +129,7 @@ PATH.
 %patch1 -p1 -b .cmds
 %patch4 -p1 -b .config
 %patch5 -p1 -b .2to3
+%patch6 -p1
 
 for f in lib/*/*.py; do
     sed -i "$f" -re 's,^#!/usr/(local/|)bin/python,#!/usr/bin/python3,'
@@ -426,6 +428,9 @@ fi
 %{_sysconfdir}/profile.d/%{name}.csh
 
 %changelog
+* Thu Apr 13 2023 Florian Weimer <fweimer@redhat.com> - 7.8.0-6
+- Port configure script to C99
+
 * Wed Mar 08 2023 Alexander Boström <abo@root.snowtree.se> - 7.8.0-5
 - Remove conditionals prior to RHEL7
 

@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for rnp
 #
-# Copyright (c) 2022 Remi Collet
+# Copyright (c) 2022-2023 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -23,8 +23,8 @@
 
 Name:          rnp
 Summary:       OpenPGP (RFC4880) tools
-Version:       0.16.2
-Release:       5%{?dist}
+Version:       0.16.3
+Release:       1%{?dist}
 # See rnp-files-by-license.txt and upstream LICENSE* files
 License:       BSD-2-Clause AND BSD-3-Clause AND Apache-2.0 AND MIT
 
@@ -154,6 +154,9 @@ FILTER="$FILTER|cli_tests-Encryption|cli_tests-Misc"
 
 
 %changelog
+* Thu Apr 13 2023 Remi Collet <remi@remirepo.net> - 0.16.3-1
+- update to 0.16.3
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,32 +2,15 @@
 %bcond_without  soupsieve
 %bcond_without  tests
 
-%if 0%{?fedora} < 32 && 0%{?rhel} < 8
-%global         py2 1
-%endif
-
 Name:           python-beautifulsoup4
-Version:        4.12.0
+Version:        4.12.2
 Release:        1%{?dist}
 Summary:        HTML/XML parser for quick-turnaround applications like screen-scraping
 License:        MIT
 URL:            http://www.crummy.com/software/BeautifulSoup/
 Source0:        https://files.pythonhosted.org/packages/source/b/beautifulsoup4/beautifulsoup4-%{version}.tar.gz
+Patch0:         tox.patch
 BuildArch:      noarch
-%if 0%{?py2}
-BuildRequires:  python2-devel >= 2.7
-# html5lib BR just for test coverage
-%if %{with tests}
-BuildRequires:  python2-html5lib
-%endif
-BuildRequires:  python2-setuptools
-%if %{with soupsieve}
-BuildRequires:  python2-soupsieve
-%endif
-BuildRequires:  python2-lxml
-BuildRequires:  /usr/bin/2to3
-BuildRequires:  python2-tools
-%endif
 # html5lib BR just for test coverage
 %if %{with tests}
 BuildRequires:  python3-html5lib
@@ -60,18 +43,6 @@ minutes with Beautiful Soup.}
 
 %description %_description
 
-%if 0%{?py2}
-%package     -n python2-beautifulsoup4
-Summary:        %summary
-Requires:       python2-lxml
-%if %{with soupsieve}
-Requires:       python2-soupsieve
-%endif
-%{?python_provide:%python_provide python2-beautifulsoup4}
-
-%description -n python2-beautifulsoup4 %_description
-%endif
-
 %package     -n python3-beautifulsoup4
 Summary:        %summary
 Requires:       python3-lxml
@@ -84,44 +55,31 @@ Obsoletes:      python3-BeautifulSoup < 1:3.2.1-2
 %description -n python3-beautifulsoup4 %_description
 
 %prep
-%setup -q -n beautifulsoup4-%{version}
-rm -rf %{py3dir} && cp -a . %{py3dir}
+%autosetup -n beautifulsoup4-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires -t
 
 %build
-%{?py2:%{py2_build}}
-pushd %{py3dir}
-2to3 --write --nobackups .
-%{py3_build}
+%pyproject_wheel
 
 %install
-%{?py2:%{py2_install}}
-pushd %{py3dir}
-%{py3_install}
+%pyproject_install
+%pyproject_save_files bs4
 
 %check
-%py3_check_import bs4
-
-%if %{with tests}
-%{?py2:%{__python2} -m unittest discover -s bs4 || : }
-pushd %{py3dir}
-%{__python3} -m unittest discover -s bs4 || :
-%endif
-
-%if 0%{?py2}
-%files -n python2-beautifulsoup4
-%license COPYING.txt
-%doc NEWS.txt
-%{python2_sitelib}/beautifulsoup4-%{version}*.egg-info
-%{python2_sitelib}/bs4
-%endif
+%tox
 
 %files -n python3-beautifulsoup4
 %license LICENSE
 %doc NEWS.txt
-%{python3_sitelib}/beautifulsoup4-%{version}*.egg-info
+%{python3_sitelib}/beautifulsoup4-%{version}.dist-info/
 %{python3_sitelib}/bs4
 
 %changelog
+* Thu Apr 13 2023 Terje Rosten <terje.rosten@ntnu.no> - 4.12.2-1
+- 4.12.2
+
 * Mon Mar 20 2023 Terje Rosten <terje.rosten@ntnu.no> - 4.12.0-1
 - 4.12.0
 

@@ -12,7 +12,7 @@
 %global cmake_srcdir cmake-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:rc%{rc_ver}}.src
 %global maj_ver 16
 %global min_ver 0
-%global patch_ver 0
+%global patch_ver 1
 
 %if %{with compat_build}
 %global pkg_name lld%{maj_ver}
@@ -28,7 +28,7 @@
 
 Name:		%{pkg_name}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}
-Release:	2%{?dist}
+Release:	1%{?dist}
 Summary:	The LLVM Linker
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -192,6 +192,9 @@ fi
 %{install_libdir}/liblld*.so.*
 
 %changelog
+* Thu Apr 13 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.1-1
+- Update to LLVM 16.0.1
+
 * Fri Mar 24 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0-2
 - Use installed llvm_gtest
 

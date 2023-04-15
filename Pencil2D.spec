@@ -1,123 +1,166 @@
-%define nameapp pencil2d
-
 Name:           Pencil2D
 Version:        0.6.6
-Release:        6%{?dist}
-Summary:        Animation/drawing software
-License:        GPLv2
+Release:        %autorelease
+Summary:        Create traditional hand-drawn animation using both bitmap and vector graphics
+
+# The entire source is GPL-2.0-only, except:
+#
+# The following sources are copied and modified from an unknown version
+# (copyright date 2016) of the Qt example. Since they are based on example code
+# rather than library code, we do not consider this a case of bundling.
+#   - core_lib/src/interface/flowlayout.{h,cpp} are BSD-3-Clause
+#
+# The following sources are derived, but not copied, from QAquarelle, which is
+# GPL-2.0-or-later; however, it is not clearly indicated that the resulting
+# source file is under the same license, so we assume the overall project
+# license of GPL-2.0-only applies.
+#   - core_lib/src/tool/strokemanager.cpp is derived from GPL-2.0-or-later
+#     code, but is probably GPL-2.0-only
+#
+# Additionally, the following are under other allowed licenses but, for one
+# reason or another, do not contribute to the licenses of the binary RPMs.
+#
+# The following sources belong to a bundled copy of the miniz library (version
+# 2.1.0 as of this writing); they are removed in %%prep in order to use the
+# system miniz library, and their licenses do not contribute to the licenses of
+# the binary RPMs.
+#   - core_lib/src/miniz.cpp is MIT
+#   - core_lib/src/miniz.h appears to be Unlicense, although there is some
+#     ambiguity
+#
+# The following source belongs to a bundled copy of Catch (catch2) (version
+# 2.5.0 as of this writing); it is removed in %%prep in order to use the system
+# Catch library. Because version 2.x (catch2) is header-only, it is treated as
+# a static library and would contribute to the licenses of the binary RPMs,
+# except that it is used only for test executables that are not installed.
+#   - tests/src/catch.hpp is BSL-1.0
+License:        GPL-2.0-only AND BSD-3-Clause
 URL:            https://github.com/pencil2d/pencil
 Source0:        %{url}/archive/v%{version}/pencil-%{version}.tar.gz
-#  set fixed stack value, because MISIGSTKSZ is no longer constexpr
-Patch0:         %{name}-constexpr-sigstacksz-fix.patch
 
-BuildRequires:  desktop-file-utils
+# Add a LICENSE.QT.TXT file for BSD-3-Clause code from Qt
+# https://github.com/pencil2d/pencil/pull/1757
+# Modified for 0.6.6 to remove mention of source files not yet introduced.
+Patch:          0001-Add-a-LICENSE.QT.TXT-file-for-BSD-3-Clause-code-from.patch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc-c++
 BuildRequires:  make
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtmultimedia-devel
-BuildRequires:  qt5-qtsvg-devel
-BuildRequires:  qt5-qtxmlpatterns-devel
+
+BuildRequires:  pkgconfig(Qt5)
+# app/app.pro:
+# QT += core widgets gui xml multimedia svg network
+# core_lib/core_lib.pro:
+# QT += core widgets gui xml xmlpatterns multimedia svg
+# tests/tests.pro:
+# QT += core widgets gui xml xmlpatterns multimedia svg testlib
+BuildRequires:  pkgconfig(Qt5Core)
+BuildRequires:  pkgconfig(Qt5Gui)
+BuildRequires:  pkgconfig(Qt5Multimedia)
+BuildRequires:  pkgconfig(Qt5Network)
+BuildRequires:  pkgconfig(Qt5Svg)
+BuildRequires:  pkgconfig(Qt5Test)
+BuildRequires:  pkgconfig(Qt5Widgets)
+BuildRequires:  pkgconfig(Qt5Xml)
+BuildRequires:  pkgconfig(Qt5XmlPatterns)
+
+BuildRequires:  miniz-devel
+# Header-only:
+%if 0%{?fc36} || 0%{?fc37} || 0%{?el9}
+BuildRequires:  catch-static
+%else
+BuildRequires:  catch2-static
+%endif
+
+BuildRequires:  desktop-file-utils
+# Required by guidelines (https://pagure.io/packaging-committee/issue/1053):
+BuildRequires:  libappstream-glib
+# Matches what gnome-software and others use:
+BuildRequires:  appstream
+
+BuildRequires:  help2man
+BuildRequires:  xorg-x11-server-Xvfb
+
+# Required to import and export videos. This is essential functionality for an
+# animation tool, so we make it a hard dependency.
+BuildRequires:  /usr/bin/ffmpeg
+Requires:       /usr/bin/ffmpeg
+
+# For %%{_datadir}/icons/hicolor
 Requires:       hicolor-icon-theme
 
+%global app_id org.pencil2d.Pencil2D
+
 %description
-Pencil2D lets you create traditional hand-drawn animation
+%{summary}.
+
 
 %prep
-%setup -q -n pencil-%{version}
+%autosetup -n pencil-%{version} -p1
 
-%patch -p1
+# Unbundle miniz
+rm -v core_lib/src/miniz.h core_lib/src/miniz.cpp
+sed -r -i '/\bminiz\.(h|cpp)/d' core_lib/core_lib.pro
+echo 'LIBS_PRIVATE += -lminiz' | tee -a */*.pro >/dev/null
+
+# Unbundle catch2
+rm -v tests/src/catch.hpp
+sed -r -i '/\bcatch\.hpp/d' tests/tests.pro
+echo 'INCLUDEPATH += "%{_includedir}/catch2"' >> tests/tests.pro
+
 
 %build
-%{qmake_qt5} PREFIX=%{_prefix}
+# We want the compiled-in version information to describe this as a release
+# build to the user. We could set DEFINES+=PENCIL2D_RELEASE, but that would set
+# QT_NO_DEBUG_OUTPUT; we would rather preserve that to help with debugging, as
+# it does no harm except for a slight impact on performance. Instead, we define
+# PENCIL2D_RELEASE_BUILD directly. See common.pri for details.
+%{qmake_qt5} PREFIX='%{_prefix}' DEFINES+=PENCIL2D_RELEASE_BUILD
 %make_build
 
+# Sometimes the formatting in help2man-generated man pages is of poor to
+# marginal quality; in this case, it is good enough that it is not worth
+# furnishing a hand-written man page. We need xvfb-run to generate the man page
+# because the application aborts when it is run in a headless environment.
+xvfb-run -a -- help2man --no-info --output=pencil2d.1 ./bin/pencil2d
+
+
 %install
-export INSTALL_ROOT=%{buildroot}
-%make_install
+%make_install INSTALL_ROOT='%{buildroot}'
+
+install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 pencil2d.1
+
 
 %check
-desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
+desktop-file-validate '%{buildroot}%{_datadir}/applications/%{app_id}.desktop'
+appstream-util validate-relax --nonet \
+    '%{buildroot}%{_metainfodir}/%{app_id}.metainfo.xml'
+appstreamcli validate --nonet \
+    '%{buildroot}%{_metainfodir}/%{app_id}.metainfo.xml'
 
 # Run catch tests
 ./tests/bin/tests
 
+
 %files
-%license LICENSE.TXT
-%doc docs/*
-%{_bindir}/%{nameapp}
-%{_datadir}/applications/*.desktop
-%{_datadir}/bash-completion/completions/%{nameapp}
-%{_datadir}/icons/hicolor/*/apps/*
-%{_datadir}/metainfo/org.%{nameapp}.*
-%{_datadir}/mime/packages/org.%{nameapp}.*
-%{_datadir}/zsh/site-functions/_%{nameapp}
+%license LICENSE.TXT LICENSE.QT.TXT
+
+%doc README.md
+%doc ChangeLog.md
+
+%{_bindir}/pencil2d
+%{_mandir}/man1/pencil2d.1*
+
+%{_datadir}/applications/%{app_id}.desktop
+%{_datadir}/icons/hicolor/*/apps/%{app_id}.png
+%{_metainfodir}/%{app_id}.metainfo.xml
+%{_datadir}/mime/packages/%{app_id}.xml
+
+%{_datadir}/bash-completion/completions/pencil2d
+%{_datadir}/zsh/site-functions/_pencil2d
 
 
 %changelog
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.6-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.6-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.6-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Sun Aug 22 2021 Andy Mender <andymenderunix@fedoraproject.org> - 0.6.6-3
-- Add patch to fix stack size in tests
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.6-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Sun Mar 7 2021 Andy Mender <andymenderunix@fedoraproject.org> - 0.6.6-1
-- Update to version 0.6.6
-- Remove CJK character workaround
-
-* Mon Jan 25 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.5-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sun Nov 29 2020 Andy Mender <andymenderunix@fedoraproject.org> - 0.6.5-3
-- Re-enable tests
-
-* Mon Nov 23 2020 Andy Mender <andymenderunix@fedoraproject.org> - 0.6.5-2
-- Change URL and Source0 to primary upstream URL
-- List only mandatory BuildRequires
-- Fix buildroot name in %%prep stage
-- Clean up %%build stage
-- Add locale fix for CJK filenames in test resources
-- Add tests to %%check stage (currently disabled)
-- Fix %%files paths
-
-* Wed Aug 26 2020 Luis M. Segundo <blackfile@fedoraproject.org> - 0.6.5-1
-- Update to 0.6.5
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.4-5
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Jul 13 2020 Marie Loise Nolden <loise@kde.org> - 0.6.4-4
-- Fix for Qt 5.15.0 
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Mon Jun 03 2019 Luis M. Segundo <blackfile@fedoraproject.org> - 0.6.4-1
-- Update to 0.6.4
-
-* Thu Mar 21 2019 Luis Bazan <lbazan@fedoraproject.org> - 0.6.3-2
-- Fix comment #17 BZ #1632851 and #1691144
-
-* Sun Mar 17 2019 Luis M. Segundo <blackfile@fedoraproject.org> - 0.6.3-1
-- Update to 0.6.3
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Sun Sep 16 2018 Luis M. Segundo <blackfile@fedoraproject.org> - 0.6.2-1
-- first release
+%autochangelog

@@ -5,13 +5,15 @@
 
 Name:           pragha
 Version:        1.3.3
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Lightweight GTK+ music manager
 
 License:        GPLv3+
 URL:            https://github.com/pragha-music-player/pragha
 #VCS: git:https://github.com/pragha-music-player/pragha.git
 Source0:        https://github.com/pragha-music-player/pragha/releases/download/v%{version}/pragha-%{version}.tar.bz2
+Patch0: pragha-c99-1.patch
+Patch1: pragha-c99-2.patch
 
 BuildRequires: make
 BuildRequires:  pkgconfig(gtk+-3.0) >= 3.8.0
@@ -64,7 +66,7 @@ author.
 
 
 %prep
-%setup -q
+%autosetup -p1
 
 # Hack to support grilo 0.3
 sed -i -e 's/grilo-0\.2/grilo-0.3/g' configure
@@ -101,6 +103,9 @@ find %{buildroot}%{_libdir}/pragha -name \*.ls -exec rm -f {} \;
 %{_libdir}/pragha
 
 %changelog
+* Thu Apr 13 2023 Florian Weimer <fweimer@redhat.com> - 1.3.3-25
+- Apply upstream patches to fix C99 compatibility issues
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

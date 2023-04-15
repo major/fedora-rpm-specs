@@ -1,12 +1,13 @@
 Summary:        Libraries for the Matchbox Desktop
 Name:           libmatchbox 
 Version:        1.9
-Release:        32%{?dist}
+Release:        33%{?dist}
 Url:            http://projects.o-hand.com/matchbox/
 License:        LGPLv2+
 Source:         http://projects.o-hand.com/matchbox/sources/libmatchbox/%{version}/%{name}-%{version}.tar.bz2
 Patch0:         libmatchbox-1.9-add-needed.patch
 Patch1:		libmatchbox-1.9-libpng.patch
+Patch2: libmatchbox-c99.patch
 BuildRequires:  pango-devel
 BuildRequires:  libpng-devel
 BuildRequires:  libjpeg-devel
@@ -35,6 +36,7 @@ Static libraries and header files from %{name}
 %setup -q
 %patch0 -p1 -b .add-needed
 %patch1 -p1 -b .libpng
+%patch2 -p1
 
 %build
 autoreconf -v --install
@@ -62,6 +64,9 @@ find $RPM_BUILD_ROOT -name '*.a' -exec rm -f {} ';'
 %{_includedir}/libmb/*.h
 
 %changelog
+* Thu Apr 13 2023 Florian Weimer <fweimer@redhat.com> - 1.9-33
+- Apply upstream patch to fix C99 compatibility issue
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

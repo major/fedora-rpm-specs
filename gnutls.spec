@@ -12,13 +12,6 @@ sha256sum:close()
 print(string.sub(hash, 0, 16))
 }
 
-%global with_srp 0%{?fedora} < 38
-
-%global with_mingw 0
-%if 0%{?fedora}
-%global with_mingw 0%{!?_without_mingw:1}
-%endif 
-
 Version: 3.8.0
 Release: %{?autorelease}%{!?autorelease:1%{?dist}}
 Patch: gnutls-3.2.7-rpath.patch
@@ -41,6 +34,19 @@ Patch: gnutls-3.8.0-ktls-Do-not-return-GNUTLS_E_INTERRUPTED-AGAIN-from-s.patch
 %bcond_without gost
 %bcond_with certificate_compression
 %bcond_without tests
+
+%if 0%{?fedora} < 38
+%bcond_without srp
+%else
+%bcond_with srp
+%endif
+
+%if 0%{?fedora}
+%bcond_without mingw
+%else
+%bcond_with mingw
+%endif
+
 
 Summary: A TLS protocol implementation
 Name: gnutls
@@ -82,7 +88,7 @@ BuildRequires: unbound-devel unbound-libs
 %endif
 BuildRequires: make gtk-doc
 
-%if %{with_mingw}
+%if %{with mingw}
 BuildRequires:  mingw32-filesystem >= 95
 BuildRequires:  mingw32-gcc
 BuildRequires:  mingw32-gcc-c++
@@ -180,7 +186,7 @@ This package contains library that implements the DANE protocol for verifying
 TLS certificates through DNSSEC.
 %endif
 
-%if %{with_mingw}
+%if %{with mingw}
 %package -n mingw32-%{name}
 Summary:        MinGW GnuTLS TLS/SSL encryption library
 Requires:       pkgconfig
@@ -243,7 +249,7 @@ pushd native_build
 %else
 	   --disable-gost \
 %endif
-%if %{with_srp}
+%if %{with srp}
            --enable-srp-authentication \
 %endif
 %ifarch %{ix86}
@@ -284,11 +290,11 @@ pushd native_build
 %make_build
 popd
 
-%if %{with_mingw}
+%if %{with mingw}
 # MinGW does not support CCASFLAGS
 export CCASFLAGS=""
 %mingw_configure \
-%if %{with_srp}
+%if %{with srp}
     --enable-srp-authentication \
 %endif
     --enable-sha1-support \
@@ -339,7 +345,7 @@ ln -s ".$fname.hmac" "$RPM_BUILD_ROOT%{_libdir}/.libgnutls.so.30.hmac"
 %find_lang gnutls
 popd
 
-%if %{with_mingw}
+%if %{with mingw}
 %mingw_make_install
 
 # Remove .la files
@@ -404,7 +410,7 @@ popd
 %{_bindir}/ocsptool
 %{_bindir}/psktool
 %{_bindir}/p11tool
-%if %{with_srp}
+%if %{with srp}
 %{_bindir}/srptool
 %endif
 %if %{with dane}
@@ -419,7 +425,7 @@ popd
 %{_libdir}/libgnutls-dane.so.*
 %endif
 
-%if %{with_mingw}
+%if %{with mingw}
 %files -n mingw32-%{name}
 %license LICENSE doc/COPYING doc/COPYING.LESSER
 %{mingw32_bindir}/certtool.exe
@@ -430,7 +436,7 @@ popd
 %{mingw32_bindir}/ocsptool.exe
 %{mingw32_bindir}/p11tool.exe
 %{mingw32_bindir}/psktool.exe
-%if %{with_srp}
+%if %{with srp}
 %{mingw32_bindir}/srptool.exe
 %endif
 %{mingw32_libdir}/libgnutls.dll.a
@@ -448,7 +454,7 @@ popd
 %{mingw64_bindir}/ocsptool.exe
 %{mingw64_bindir}/p11tool.exe
 %{mingw64_bindir}/psktool.exe
-%if %{with_srp}
+%if %{with srp}
 %{mingw64_bindir}/srptool.exe
 %endif
 %{mingw64_libdir}/libgnutls.dll.a

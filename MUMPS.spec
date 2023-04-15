@@ -44,7 +44,7 @@
 
 Name: MUMPS
 Version: %{soname_version}.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A MUltifrontal Massively Parallel sparse direct Solver
 License: CeCILL-C 
 URL: http://mumps.enseeiht.fr/
@@ -77,7 +77,8 @@ BuildRequires: lapack-devel
 %endif
 %endif
 BuildRequires: metis-devel
-BuildRequires: scotch-devel >= 6.0.1
+BuildRequires: scotch-devel >= 7.0.1
+BuildRequires: scotch-devel-metis >= 7.0.1
 
 BuildRequires: openssh-clients
 BuildRequires: hwloc-devel
@@ -132,15 +133,16 @@ Summary: MUMPS libraries compiled against openmpi
 BuildRequires: openmpi-devel
 BuildRequires: blacs-openmpi-devel
 BuildRequires: scalapack-openmpi-devel
-BuildRequires: metis-devel
-BuildRequires: ptscotch-openmpi-devel >= 6.0.1
+#BuildRequires: metis-devel
+BuildRequires: ptscotch-openmpi-devel >= 7.0.1
+BuildRequires: ptscotch-openmpi-devel-parmetis >= 7.0.1
 %if 0%{?fedora}
 BuildRequires: rpm-mpi-hooks
 %endif
 Requires: %{name}-common = %{version}-%{release}
 Requires: openmpi%{?_isa}
 Requires: scalapack-openmpi%{?_isa}
-Requires: ptscotch-openmpi%{?_isa} >= 6.0.1
+Requires: ptscotch-openmpi%{?_isa} >= 7.0.1
 
 %description openmpi
 MUMPS libraries compiled against openmpi.
@@ -179,15 +181,16 @@ Summary: MUMPS libraries compiled against MPICH
 BuildRequires: mpich-devel
 BuildRequires: blacs-mpich-devel
 BuildRequires: scalapack-mpich-devel
-BuildRequires: metis-devel
-BuildRequires: ptscotch-mpich-devel >= 6.0.1
+#BuildRequires: metis-devel
+BuildRequires: ptscotch-mpich-devel >= 7.0.1
+BuildRequires: ptscotch-mpich-devel-parmetis >= 7.0.1
 %if 0%{?fedora}
 BuildRequires: rpm-mpi-hooks
 %endif
 Requires: %{name}-common = %{version}-%{release}
 Requires: mpich%{?_isa}
 Requires: scalapack-mpich%{?_isa}
-Requires: ptscotch-mpich%{?_isa} >= 6.0.1
+Requires: ptscotch-mpich%{?_isa} >= 7.0.1
 
 %description mpich
 MUMPS libraries compiled against MPICH.
@@ -270,9 +273,11 @@ sed -e 's|@@MPIFORTRANLIB@@|%{mpifort_libs}|g' -i Makefile.inc
 MUMPS_MPI=openmpi
 MUMPS_INCDIR=-I$MPI_INCLUDE
 LMETISDIR=%{_libdir}
-LMETIS="-L%{_libdir} -lmetis"
+LMETIS="-lmetis -L$MPI_LIB -lptscotchparmetis"
+IMETIS=-I%{_includedir}
+#IMETIS=-I$MPI_LIB/scotch
 SCOTCHDIR=$MPI_LIB
-ISCOTCH=-I$MPI_INCLUDE
+ISCOTCH=-I$MPI_INCLUDE/scotch
 LSCOTCH=" -L$MPI_LIB -lesmumps -lscotch -lscotcherr -lptesmumps -lptscotch -lptscotcherr"
 IPORD=" -I$PWD/PORD/include/"
 LPORD=" -L$PWD/PORD/lib -lpord"
@@ -312,7 +317,7 @@ make all \
  MUMPS_MPI="$MUMPS_MPI" \
  MUMPS_INCDIR="$MUMPS_INCDIR $INCBLAS" \
  MUMPS_LIBF77="${LIBBLAS} -L$MPI_LIB -Wl,-rpath -Wl,$MPI_LIB %{mpic_libs} $MPIFORTRANSLIB -lscalapack $MPIBLACSLIBS" \
- LMETISDIR="$LMETISDIR" LMETIS="$LMETIS" \
+ LMETISDIR="$LMETISDIR" LMETIS="$LMETIS" IMETIS="$IMETIS" \
  SCOTCHDIR=$SCOTCHDIR \
  ISCOTCH=$ISCOTCH \
  LSCOTCH="$LSCOTCH" \
@@ -354,11 +359,13 @@ sed -e 's|@@MPIFORTRANLIB@@|%{mpifort_libs}|g' -i Makefile.inc
 
 MUMPS_MPI=mpich
 MUMPS_INCDIR=-I$MPI_INCLUDE
-LMETISDIR=%{_libdir}
-LMETIS="-L%{_libdir} -lmetis"
+LMETISDIR=$MPI_LIB
+LMETIS="-lmetis -L$MPI_LIB -lptscotchparmetis"
+IMETIS=-I%{_includedir}
+#IMETIS=-I$MPI_LIB/scotch
 SCOTCHDIR=$MPI_LIB
-ISCOTCH=-I$MPI_INCLUDE
-LSCOTCH=" -L$MPI_LIB -lesmumps -lscotch -lscotcherr -lptesmumps -lptscotch -lptscotcherr"
+ISCOTCH=-I$MPI_INCLUDE/scotch
+LSCOTCH="-L$MPI_LIB -lesmumps -lscotch -lscotcherr -lptesmumps -lptscotch -lptscotcherr"
 export IPORD=" -I$PWD/PORD/include/"
 export LPORD=" -L$PWD/PORD/lib -lpord"
 FPIC_OPT=-fPIC
@@ -397,7 +404,7 @@ make all \
  MUMPS_MPI="$MUMPS_MPI" \
  MUMPS_INCDIR="$MUMPS_INCDIR $INCBLAS" \
  MUMPS_LIBF77="${LIBBLAS} -L$MPI_LIB %{mpich_libs} $MPIFORTRANSLIB -lscalapack $MPIBLACSLIBS" \
- LMETISDIR="$LMETISDIR" LMETIS="$LMETIS" \
+ LMETISDIR="$LMETISDIR" LMETIS="$LMETIS" IMETIS="$IMETIS" \
  SCOTCHDIR=$SCOTCHDIR \
  ISCOTCH=$ISCOTCH \
  LSCOTCH="$LSCOTCH" \
@@ -463,10 +470,11 @@ make all \
  LIBSEQ="-L../libseq -lmpiseq" \
  INCSEQ="-I../libseq $INCBLAS" \
  LMETISDIR=%{_libdir} \
- LMETIS="-L%{_libdir} -lmetis" \
+ IMETIS=-I%{_includedir} \
+ LMETIS="-L%{_libdir} -lmetis -lscotchmetis" \
  SCOTCHDIR=%{_prefix} \
- ISCOTCH=-I%{_includedir} \
- LSCOTCH=" -L%{_libdir} -lesmumps -lscotch -lscotcherr -lscotchmetis" \
+ ISCOTCH=-I%{_includedir}/scotch \
+ LSCOTCH=" -L%{_libdir} -lesmumps -lscotch -lscotcherr" \
  IPORD="$IPORD" \
  LPORD="$LPORD" \
  OPTL="%{__global_ldflags}"
@@ -695,6 +703,10 @@ EOF
 %{_rpmmacrodir}/macros.MUMPS
 
 %changelog
+* Thu Apr 13 2023 Antonio Trande <sagitter@fedoraproject.org> - 5.5.1-4
+- Rebuild for Scotch-7
+- Add scotch -metis sub-packages
+
 * Tue Feb 21 2023 Antonio Trande <sagitter@fedoraproject.org> - 5.5.1-3
 - Disable OpenMPI tests in Fedora 38+ i686
 

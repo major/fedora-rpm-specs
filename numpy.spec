@@ -163,7 +163,8 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 # Some tests also overflow on 32bit
 %global ix86_k and not test_vector_matrix_values and not test_matrix_vector_values and not test_identityless_reduction_huge_array and not (TestKind and test_all)
 %endif
-python3 runtests.py --no-build -- -ra -k 'not test_ppc64_ibm_double_double128 %{?ix86_k}'
+python3 runtests.py --no-build -- -ra -k 'not test_ppc64_ibm_double_double128 %{?ix86_k}' \
+                                  -W "ignore:pkg_resources is deprecated as an API::pkg_resources"
 %endif
 
 

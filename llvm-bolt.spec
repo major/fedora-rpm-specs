@@ -7,7 +7,7 @@
 %global maj_ver 16
 %global min_ver 0
 #global rc_ver 4
-%global patch_ver 0
+%global patch_ver 1
 %global bolt_version %{maj_ver}.%{min_ver}.%{patch_ver}
 %global bolt_srcdir llvm-project-%{bolt_version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -25,10 +25,11 @@ Source2: release-keys.asc
 # BOLT is not respecting the component split of LLVM and requires some private
 # header to be able in order to compile. Try to disable as much libraries as
 # possible in order to reduce build time.
-Patch12: rm-llvm-libs.diff
-# Backports from LLVM 17.
-Patch13: 0001-BOLT-NFC-Remove-C-style-out-of-bounds-array-ref.patch
-Patch14: 0001-AArch64-fix-bug-55005-handle-DW_CFA_GNU_NegateRAStat.patch
+Patch0: rm-llvm-libs.diff
+
+# Backports from LLVM 17:
+Patch1: 0001-Add-REQUIRES-asserts-to-test-that-uses-debug-only-fl.patch
+Patch2: 0001-BOLT-Fix-section-end-sym.s-test-to-only-run-x86-Linu.patch
 
 BuildRequires: gcc
 BuildRequires: gcc-c++
@@ -160,6 +161,9 @@ rm -f %{buildroot}/%{_builddir}/%{bolt_srcdir}/%{_vpath_builddir}/%{_lib}/lib*.a
 %doc %{_pkgdocdir}
 
 %changelog
+* Thu Apr 13 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.1-1
+- Update to LLVM 16.0.1
+
 * Tue Mar 21 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0-1
 - Update to LLVM 16.0.0
 

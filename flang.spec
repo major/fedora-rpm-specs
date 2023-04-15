@@ -1,6 +1,6 @@
 %global maj_ver 16
 %global min_ver 0
-%global patch_ver 0
+%global patch_ver 1
 #global rc_ver 4
 %global flang_version %{maj_ver}.%{min_ver}.%{patch_ver}
 %global flang_srcdir flang-%{flang_version}%{?rc_ver:rc%{rc_ver}}.src
@@ -12,7 +12,7 @@
 
 Name: flang
 Version: %{flang_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 3%{?dist}
+Release: 1%{?dist}
 Summary: a Fortran language front-end designed for integration with LLVM
 
 License: Apache-2.0 WITH LLVM-exception
@@ -42,11 +42,6 @@ Patch5: 0001-Match-Fedora-s-value-for-CLANG_DEFAULT_PIE_ON_LINUX.patch
 
 # Fedora and RHEL use a different triple for ppc64le
 Patch6: 0001-PowerPC-Flang-Fix-triple.patch
-
-# Backports from LLVM 17:
-Patch20: 0001-flang-Fixed-restrictions-checking-for-OpenACC-loop-a.patch
-Patch21: 0001-flang-Fixed-uninitialized-std-unique_ptr-dereference.patch
-Patch22: 0001-flang-Fix-dereference-of-std-optional-with-no-value.patch
 
 %{lua:
 
@@ -280,6 +275,9 @@ export LD_LIBRARY_PATH=%{_builddir}/%{flang_srcdir}/%{_build}/lib
 %doc %{_pkgdocdir}/html/
 
 %changelog
+* Thu Apr 13 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.1-1
+- Update to LLVM 16.0.1
+
 * Thu Apr 06 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0-3
 - Set the amount of jobs dynamically
 

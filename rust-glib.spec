@@ -5,7 +5,7 @@
 %global crate glib
 
 Name:           rust-glib
-Version:        0.17.5
+Version:        0.17.8
 Release:        %autorelease
 Summary:        Rust bindings for the GLib library
 

@@ -7,6 +7,13 @@ Summary:        Pytest plugin to randomly order tests and control random.seed
 License:        MIT
 URL:            https://github.com/pytest-dev/pytest-randomly
 Source0:        %{url}/archive/%{version}/%{upstream_name}-%{version}.tar.gz
+
+# Tests support for pytest 7.3.x
+# https://github.com/pytest-dev/pytest-randomly/pull/540
+# Merged upstream without preserving pytest 7.2.x compatibility
+# Rebased; requirements/py*.txt changes not included
+Patch:          pytest-7.3.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -28,7 +35,7 @@ Summary:        %{summary}
 %{summary}.
 
 %prep
-%autosetup -n %{upstream_name}-%{version}
+%autosetup -p1 -n %{upstream_name}-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires

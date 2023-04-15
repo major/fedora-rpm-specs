@@ -1,0 +1,52 @@
+Name:           python-pylint-venv
+Version:        3.0.1
+Release:        1%{?dist}
+Summary:        Make pylint respect virtualenvs
+
+License:        MIT
+URL:            https://github.com/jgosmann/pylint-venv/
+Source0:        %{url}/archive/v%{version}/pylint-venv-%{version}.tar.gz
+
+BuildArch:      noarch
+BuildRequires:  python3-devel
+BuildRequires:  pylint
+
+%description
+%summary
+
+
+%package -n python3-pylint-venv
+Summary:        %{summary}
+%description -n python3-pylint-venv
+%summary
+
+
+%prep
+%autosetup -n pylint-venv-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
+
+
+%build
+%pyproject_wheel
+
+
+%install
+%pyproject_install
+
+%pyproject_save_files pylint_venv
+
+
+%check
+%pyproject_check_import
+
+
+%files -n python3-pylint-venv -f %{pyproject_files}
+%license LICENSE.txt
+%doc README.rst
+
+
+%changelog
+* Tue Apr 11 2023 Jonathan Wright <jonathan@knownhost.com> - 3.0.1
+- initial package build

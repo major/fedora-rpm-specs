@@ -9,7 +9,21 @@ Release: 11%{?dist}
 #  -- tmac/hyphen.den
 #     tmac/hyphen.det
 # GFDL license
-#  -- ./FDL
+#  -- contrib/mom/momdoc/*
+#     contrib/pdfmark/pdfmark.ms
+#     contrib/pdfmark/pdfroff.1.man
+#     contrib/hdtbl/groff_hdtbl.7.man
+#     tmac/groff_trace.7.man
+#     src/roff/groff/groff.1.man
+#     src/roff/troff/troff.1.man
+#     man/groff_diff.7.man
+#     man/ditroff.7.man
+#     man/groff_out.5.man
+#     man/groff_tmac.5.man
+#     man/groff.7.man
+#     man/roff.7.man
+#     doc/fdl.texi
+#     doc/groff.texi
 # BSD-4-Clause-UC
 #  -- tmac/doc.tmac
 #     tmac/doc-old.tmac

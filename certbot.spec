@@ -18,7 +18,7 @@
 
 Name:           certbot
 Version:        2.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A free, automated certificate authority client
 
 License:        Apache-2.0
@@ -30,6 +30,7 @@ Source11:       certbot-renew-systemd.timer
 Source12:       certbot-sysconfig-certbot
 Source13:       certbot-cli.ini
 Source14:       certbot-README.fedora
+Source15:       certbot.logrotate
 
 BuildArch:      noarch
 
@@ -250,6 +251,7 @@ install -Dm 0644 --preserve-timestamps %{SOURCE10} %{buildroot}%{_unitdir}/certb
 install -Dm 0644 --preserve-timestamps %{SOURCE11} %{buildroot}%{_unitdir}/certbot-renew.timer
 install -Dm 0644 --preserve-timestamps %{SOURCE12} %{buildroot}%{_sysconfdir}/sysconfig/certbot
 install -Dm 0644 --preserve-timestamps %{SOURCE13} %{buildroot}%{_sysconfdir}/letsencrypt/cli.ini
+install -Dm 0644 --preserve-timestamps %{SOURCE14} %{buildroot}%{_sysconfdir}/logrotate.d/certbot
 cp -a %{SOURCE14} %{_builddir}/%{name}-%{version}/README.fedora
 
 # project uses old letsencrypt dir for compatibility
@@ -275,7 +277,7 @@ semanage fcontext -a -t cert_t '%{_sysconfdir}/(letsencrypt|certbot)/(live|archi
 restorecon -R %{_sysconfdir}/letsencrypt || :
 %systemd_post certbot-renew.timer
 
-# Remind users to enable certbot-renew.timer if they need certbot to automatically renew certs
+# Remind users to start certbot-renew.timer if they need certbot to automatically renew certs
 if [ "$1" -eq 1 ] ; then
   echo ""
   echo "Certbot auto renewal timer is not started by default."
@@ -301,6 +303,7 @@ fi
 %dir %{_localstatedir}/log/letsencrypt
 %config(noreplace) %{_sysconfdir}/%{oldpkg}/cli.ini
 %config(noreplace) %{_sysconfdir}/sysconfig/certbot
+%config(noreplace) %{_sysconfdir}/logrotate.d/certbot
 %{_unitdir}/certbot-renew.service
 %{_unitdir}/certbot-renew.timer
 
@@ -370,6 +373,9 @@ fi
 
 
 %changelog
+* Thu Apr 13 2023 Jonathan Wright <jonathan@almalinux.org> - 2.5.0-2
+- Include logrotate configuration rhbz#2102070
+
 * Tue Apr 04 2023 Jonathan Wright <jonathan@almalinux.org> - 2.5.0-1
 - Update to 2.5.0 rhbz#2155209
 

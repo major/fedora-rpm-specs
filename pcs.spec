@@ -1,6 +1,6 @@
 Name: pcs
 Version: 0.11.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/LicensingGuidelines/
 # https://fedoraproject.org/wiki/Licensing:Main?rd=Licensing#Good_Licenses
 # GPL-2.0-only: pcs
@@ -17,8 +17,8 @@ BuildArch: noarch
 %global pcs_source_name %{name}-%{version_or_commit}
 
 # ui_commit can be determined by hash, tag or branch
-%global ui_commit 0.1.16
-%global ui_modules_version 0.1.16
+%global ui_commit 0.1.16.1
+%global ui_modules_version 0.1.16.1
 %global ui_src_name pcs-web-ui-%{ui_commit}
 
 %global pcs_snmp_pkg_name  pcs-snmp
@@ -47,9 +47,12 @@ Source101: https://github.com/ClusterLabs/pcs-web-ui/releases/download/%{ui_comm
 
 # pcs patches: <= 200
 # Patch0: name.patch
+Patch0: fix-pcs-config-checkpoint-diff.patch
+Patch1: fix-pcs-stonith-update-scsi-devices.patch
 
 # ui patches: >200
 Patch201: fix-broken-typeahead-component.patch
+Patch202: fix-cluster-status-fence-levels.patch
 
 # git for patches
 BuildRequires: git-core
@@ -78,9 +81,7 @@ BuildRequires: ruby-devel
 BuildRequires: rubygem-backports
 BuildRequires: rubygem-childprocess
 BuildRequires: rubygem-ethon
-BuildRequires: rubygem-eventmachine
 BuildRequires: rubygem-ffi
-BuildRequires: rubygem-io-console
 BuildRequires: rubygem-json
 BuildRequires: rubygem-mustermann
 BuildRequires: rubygem-puma
@@ -107,7 +108,7 @@ BuildRequires: nss-tools
 # for creating the web ui favicon symlink to the Fedora logo
 BuildRequires: fedora-logos
 # for building web ui
-%if 0%{?fedora} < 38
+%if 0%{?fedora} < 37
 BuildRequires: npm
 %else
 BuildRequires: nodejs-npm
@@ -136,7 +137,6 @@ Requires: ruby >= 2.5.0
 Requires: rubygem-backports
 Requires: rubygem-childprocess
 Requires: rubygem-ethon
-Requires: rubygem-eventmachine
 Requires: rubygem-ffi
 Requires: rubygem-json
 Requires: rubygem-mustermann
@@ -249,12 +249,16 @@ update_times_patch(){
 # patch web-ui sources
 %autosetup -D -T -b 100 -a 101 -S git -n %{ui_src_name} -N
 %autopatch -p1 -m 201
-update_times_patch %%{PATCH201}
+# update_times_patch %%{PATCH201}
+update_times_patch %{PATCH201}
+update_times_patch %{PATCH202}
 
 # patch pcs sources
 %autosetup -S git -n %{pcs_source_name} -N
 %autopatch -p1 -M 200
 # update_times_patch %%{PATCH0}
+update_times_patch %{PATCH0}
+update_times_patch %{PATCH1}
 
 # generate .tarball-version if building from an untagged commit, not a released version
 # autogen uses git-version-gen which uses .tarball-version for generating version number
@@ -421,6 +425,15 @@ run_all_tests
 %license pyagentx_LICENSE.txt
 
 %changelog
+* Wed Apr 12 2023 Michal Pospisil <mpospisi@redhat.com> - 0.11.5-2
+- Fix displaying differences between configuration checkpoints in “pcs config checkpoint diff” command
+- Fix “pcs stonith update-scsi-devices” command which was broken since Pacemaker-2.1.5-rc1
+- Fixed loading of cluster status in the web interface when fencing levels are configured
+- Fixed a vulnerability in pcs-web-ui-node-modules
+- Swapped BuildRequires: npm for BuildRequires: nodejs-npm in Fedora 37 because of NodeJS packaging change
+- Removed BuildRequires: rubygem-io-console
+- Removed dependency rubygem-eventmachine
+
 * Thu Feb 16 2023 Michal Pospisil <mpospisi@redhat.com> - 0.11.5-1
 - Rebased to the latest upstream sources (see CHANGELOG.md)
 - Fixed broken filtering in create resource/fence device wizards in the web interface

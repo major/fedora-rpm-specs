@@ -10,6 +10,9 @@ Source:         %{pypi_source pytest %{base_version}%{?prerelease}}
 # see https://github.com/pytest-dev/pytest/issues/10042#issuecomment-1237132867
 Patch:          pytest-7.1.3-fix-xfails.patch
 
+# unittest: add addDuration function for Python 3.12 support
+Patch:          https://github.com/pytest-dev/pytest/commit/1b81d63.patch
+
 # Remove -s from Python shebang,
 # ensure that packages installed with pip to user locations are testable
 # https://bugzilla.redhat.com/2152171

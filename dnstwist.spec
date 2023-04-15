@@ -2,7 +2,7 @@ Name: dnstwist
 Summary: Domain name permutation engine
 License: Apache-2.0
 
-Version: 20230402
+Version: 20230413
 Release: 1%{?dist}
 
 URL:     https://github.com/elceef/%{name}/
@@ -22,15 +22,21 @@ BuildArch: noarch
 
 Requires: GeoIP-GeoLite-data >= %{geolite_version}
 Requires: python3dist(dnspython) >= 1.16.0
-Requires: python3dist(geoip2) >= 1.3.2
+Requires: python3dist(geoip2) >= 4.0.0
 Requires: python3dist(idna) >= 2.8
 Requires: python3dist(ssdeep) >= 3.1
 Requires: python3dist(tld) >= 0.9.1
-Requires: python3dist(tlsh)
+Requires: python3dist(tlsh) >= 4.5.0
 Requires: python3dist(whois) >= 0.8
 
-Requires: ((python3dist(pillow) >= 9.0.0) if chromedriver)
-Requires: ((python3dist(selenium) >= 3.14) if chromedriver)
+Requires: ((python3dist(pillow) >= 7.0.0) if chromedriver)
+# FIXME: Upstream claims that dnstwist requires python3-selenium >= 4.0.0,
+#        but the version currently available in Fedora is 3.141.0.
+#        Since selenium support is an optional feature in dnstwist,
+#        allow users to install and use the old version
+#        while we wait for an update to the python-selenium package.
+#        See: https://bugzilla.redhat.com/show_bug.cgi?id=1814799
+Requires: ((python3dist(selenium) >= 3.141.0) if chromedriver)
 
 %{?python_enable_dependency_generator}
 
@@ -72,6 +78,9 @@ install -m 644 -p docs/%{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Thu Apr 13 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 20230413-1
+- Update to v20230413
+
 * Sun Apr 02 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 20230402-1
 - Update to v20230402
 - Migrate license tag to SPDX

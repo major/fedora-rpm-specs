@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.02
+Version: 12.03
 Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
@@ -524,6 +524,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Apr 13 2023 Nick Clifton  <nickc@redhat.com> - 12.03-1
+- configure: Simplify.
+
 * Tue Apr 11 2023 Nick Clifton  <nickc@redhat.com> - 12.02-1
 - gcc plugin: Add filenames to string notes.  Allow use of ANNOBIN environment variable.
 - llvm plugin: Add workaround for building with LLVM-16.

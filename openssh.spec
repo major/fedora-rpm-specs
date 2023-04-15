@@ -47,14 +47,14 @@
 
 # Do not forget to bump pam_ssh_agent_auth release if you rewind the main package release to 1
 %global openssh_ver 9.0p1
-%global openssh_rel 14
+%global openssh_rel 15
 %global pam_ssh_agent_ver 0.10.4
-%global pam_ssh_agent_rel 7
+%global pam_ssh_agent_rel 8
 
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
 Version: %{openssh_ver}
-Release: %{openssh_rel}%{?dist}.2
+Release: %{openssh_rel}%{?dist}
 URL: http://www.openssh.com/portable.html
 #URL1: https://github.com/jbeverly/pam_ssh_agent_auth/
 Source0: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
@@ -241,6 +241,8 @@ Patch1007: openssh-configure-c99-1.patch
 Patch1008: openssh-configure-c99-2.patch
 Patch1009: openssh-configure-c99-3.patch
 
+Patch1010: openssh-8.7p1-CVE-2023-25136.patch
+
 # downstream only
 # we skip some ssh-rsa/ssh-dss tests to make native test suite pass
 #Patch1100: openssh-8.8p1-skip-some-tests.patch
@@ -319,7 +321,7 @@ Requires: openssh = %{version}-%{release}
 %package -n pam_ssh_agent_auth
 Summary: PAM module for authentication with ssh-agent
 Version: %{pam_ssh_agent_ver}
-Release: %{pam_ssh_agent_rel}.%{openssh_rel}%{?dist}.2
+Release: %{pam_ssh_agent_rel}.%{openssh_rel}%{?dist}
 License: BSD
 
 %description
@@ -450,6 +452,7 @@ popd
 %patch1007 -p1 -b .configure-c99-1
 %patch1008 -p1 -b .configure-c99-2
 %patch1009 -p1 -b .configure-c99-3
+%patch1010 -p1 -b .cve-2023-25136
 
 #%patch1100 -p1 -b .skipsshrsadsstests
 
@@ -759,6 +762,11 @@ test -f %{sysconfig_anaconda} && \
 %endif
 
 %changelog
+* Thu Apr 13 2023 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.0p1-15
+- Fix self-DoS
+  Resolves: CVE-2023-25136
+- Remove too aggressive coverity fix causing native tests failure
+
 * Wed Apr 12 2023 Florian Weimer <fweimer@redhat.com> - 9.0p1-14.2
 - C99 compatiblity fixes
 

@@ -24,7 +24,7 @@
 
 Name:           hypre
 Version:        2.24.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        High performance matrix preconditioners
 License:        LGPLv2
 URL:            http://www.llnl.gov/casc/hypre/
@@ -273,6 +273,9 @@ done
 %endif
 
 %changelog
+* Thu Apr 13 2023 Antoio Trande <sagitter@fedoraproject.org> - 2.24.0-5
+- Rebuild for Scotch-7
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.24.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

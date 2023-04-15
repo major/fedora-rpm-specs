@@ -6,7 +6,7 @@
 
 Name:           freeimage
 Version:        3.19.0
-Release:        0.14%{?svn_rev:.svn%svn_rev}%{?dist}
+Release:        0.16%{?svn_rev:.svn%svn_rev}%{?dist}
 Summary:        Multi-format image decoder library
 
 # freeimage is tripple-licensed, see
@@ -28,6 +28,8 @@ Patch1:         FreeImage_doxygen.patch
 Patch2:         freeimage-openexr3.patch
 # Patch for LibRaw 0.21.0 compatibility
 Patch3:         libraw.patch
+# Proposed fix for CVE-2021-33367
+Patch4:         CVE-2021-33367.patch
 
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
@@ -161,6 +163,12 @@ ldconfig -n %{buildroot}%{_libdir}
 
 
 %changelog
+* Thu Apr 13 2023 Sandro Mani <manisandro@gmail.com> - 3.19.0-0.16.svn1889
+- Fix empty CVE-2021-33367.patch
+
+* Thu Apr 13 2023 Sandro Mani <manisandro@gmail.com> - 3.19.0-0.15.svn1889
+- Add proposed fix for CVE-2021-33367
+
 * Thu Apr 06 2023 Sandro Mani <manisandro@gmail.com> - 3.19.0-0.14.svn1889
 - Syncronize FreeImage_unbundle.patch with mingw-freeimage
 

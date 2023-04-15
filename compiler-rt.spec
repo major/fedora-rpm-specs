@@ -6,7 +6,7 @@
 
 %global maj_ver 16
 %global min_ver 0
-%global patch_ver 0
+%global patch_ver 1
 #global rc_ver 4
 %global compiler_rt_version %{maj_ver}.%{min_ver}.%{patch_ver}
 
@@ -130,6 +130,9 @@ popd
 %endif
 
 %changelog
+* Thu Apr 13 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.1-1
+- Update to LLVM 16.0.1
+
 * Tue Mar 21 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0-1
 - Update to LLVM 16.0.0
 

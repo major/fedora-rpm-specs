@@ -9,8 +9,8 @@
 %endif
 
 Name:           krita
-Version:        5.1.4
-Release:        4%{?dist}
+Version:        5.1.5
+Release:        1%{?dist}
 
 Summary:        Krita is a sketching and painting program
 License:        GPL-2.0-or-later
@@ -20,8 +20,7 @@ Source0:        https://download.kde.org/%{?pre:un}stable/krita/%{versiondir}%{?
 ## downstream patches
 #org.kde.krita.appdata.xml: failed to parse org.kde.krita.appdata.xml: Error on line 505 char 110: <caption> already set 'Atau' and tried to replace with ' yang aktif'
 #org.kde.krita.appdata.xml: failed to parse org.kde.krita.appdata.xml: Error on line 514 char 120: <caption> already set 'xxOr the active' and tried to replace with 'xx'
-Patch1: krita-5.1.1-appstream_validate.patch
-Patch2: libraw.patch
+Patch1: krita-5.1.5-appstream_validate.patch
 
 ## upstream patches
 
@@ -59,12 +58,13 @@ BuildRequires:  pkgconfig(kseexpr)
 BuildRequires:  pkgconfig(lcms2)
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(fftw3)
+BuildRequires:  pkgconfig(libheif)
 BuildRequires:  pkgconfig(libinput)
 BuildRequires:  pkgconfig(libjpeg)
-BuildRequires:  pkgconfig(libturbojpeg)
 BuildRequires:  pkgconfig(libopenjp2)
 BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(libraw)
+BuildRequires:  pkgconfig(libturbojpeg)
 BuildRequires:  pkgconfig(libwebp)
 BuildRequires:  pkgconfig(OpenColorIO)
 BuildRequires:  pkgconfig(OpenEXR)
@@ -173,6 +173,10 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.krita.des
 
 
 %changelog
+* Thu Apr 13 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 5.1.5-1
+- Updated to version 5.1.5.
+- Enabled libheif support.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

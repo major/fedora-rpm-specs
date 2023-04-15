@@ -2,25 +2,27 @@
 %global simple_name qtawesome
 
 Name:		python-%{pypi_name}
-Version:	1.1.1
-Release:	5%{?dist}
+Version:	1.2.3
+Release:	1%{?dist}
 
 Summary:	FontAwesome icons in PyQt and PySide applications
-License:	MIT and OFL
+# MIT: QtAwesome code and the bundled phosphor and remixicon fonts
+# CC-BY-4.0: the bundled codicon font
+# Apache-2.0: the bundled material design icons fonts
+# OFL-1.1: the bundled elusive icons font
+# OFL-1.1-RFN: the bundled fontawesome icon fonts
+%if 0%{?fedora} > 38
+License:	MIT AND CC-BY-4.0 AND Apache-2.0 AND OFL-1.1
+%else
+License:	MIT AND CC-BY-4.0 AND Apache-2.0 AND OFL-1.1 AND OFL-1.1-RFN
+%endif
 URL:		https://github.com/spyder-ide/%{simple_name}
 
 Source0:	%pypi_source
 
 BuildArch:	noarch
 
-BuildRequires:	python3-setuptools
 BuildRequires:	python3-devel
-
-#provides font files
-#./qtawesome/fonts/fontawesome-webfont.ttf
-Provides:	bundled(elusiveicons-fonts) = 001.000
-#./qtawesome/fonts/elusiveicons-webfont.ttf
-Provides:	bundled(fontawesome-fonts) = 4.4.1
 
 %description
 QtAwesome enables iconic fonts such as Font Awesome and Elusive.
@@ -31,9 +33,31 @@ Rick Blommers.
 %package -n     python3-%{pypi_name}
 Summary:	FontAwesome icons in PyQt and PySide applications
 %{?python_provide:%python_provide python3-%{pypi_name}}
- 
-Requires:	python3-QtPy
-Requires:	python3-six
+
+#provides font files
+#./qtawesome/fonts/codicon.ttf
+Provides:	bundled(codicon-fonts) = 1.10
+#./qtawesome/fonts/elusiveicons-webfont.ttf
+Provides:	bundled(elusiveicons-fonts) = 001.000
+#./qtawesome/fonts/materialdesignicons5-webfont.ttf
+Provides:	bundled(materialdesignicons5-fonts) = 5.9.55
+#./qtawesome/fonts/materialdesignicons6-webfont.ttf
+Provides:	bundled(materialdesignicons6-fonts) = 1.0
+#./qtawesome/fonts/phosphor.ttf
+Provides:	bundled(phosphor-fonts) = 1.3
+#./qtawesome/fonts/remixicon.ttf
+Provides:	bundled(remixicon-fonts) = 2.5
+%if 0%{?fedora} > 38
+Requires:	fontawesome4-fonts-web
+Requires:	fontawesome-fonts-web
+%else
+#./qtawesome/fonts/fontawesome4.7-webfont.ttf
+Provides:	bundled(fontawesome-fonts-web) = 4.7.0
+#./qtawesome/fonts/fontawesome5-brands-webfont.ttf
+#./qtawesome/fonts/fontawesome5-regular-webfont.ttf
+#./qtawesome/fonts/fontawesome5-solid-webfont.ttf
+Provides:	bundled(fontawesome5-fonts-web) = 5.15.4
+%endif
 
 %description -n python3-%{pypi_name}
 
@@ -44,23 +68,52 @@ Rick Blommers.
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+
+# Fix end of line encoding
+sed -i 's/\r//' README.md
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files qtawesome
 
-%files -n python3-%{pypi_name} 
+%if 0%{?fedora} > 38
+# Unbundle the fontawesome 4.x font
+rm %{buildroot}%{python3_sitelib}/qtawesome/fonts/fontawesome4.7-webfont.ttf
+ln -s %{_datadir}/fonts/fontawesome4/fontawesome-webfont.ttf \
+      %{buildroot}%{python3_sitelib}/qtawesome/fonts/fontawesome4.7-webfont.ttf
+# Unbundle the fontawesome 5.x fonts
+# Version 6 is backwards compatible with version 5
+rm %{buildroot}%{python3_sitelib}/qtawesome/fonts/fontawesome5-*.ttf
+ln -s %{_datadir}/fontawesome/webfonts/fa-brands-400.ttf \
+      %{buildroot}%{python3_sitelib}/qtawesome/fonts/fontawesome5-brands-webfont.ttf
+ln -s %{_datadir}/fontawesome/webfonts/fa-regular-400.ttf \
+      %{buildroot}%{python3_sitelib}/qtawesome/fonts/fontawesome5-regular-webfont.ttf
+ln -s %{_datadir}/fontawesome/webfonts/fa-solid-900.ttf \
+      %{buildroot}%{python3_sitelib}/qtawesome/fonts/fontawesome5-solid-webfont.ttf
+%endif
+
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE.txt
 %doc README.md
 %{_bindir}/qta-browser
-%{python3_sitelib}/qtawesome
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Thu Apr 13 2023 Jonathan Wright <jonathan@almalinux.org> - 1.2.3-1
+- Update to 1.2.3 rhbz#2136710
+
+* Thu Mar 30 2023 Jerry James <loganjerry@gmail.com> - 1.2.2-1
+- Update to 1.2.2
+- Unbundle the FontAwesome fonts
+- Update python macro usage
+- Convert License tag to SPDX
+- Move Provides for bundled fonts to python3-qtawesome
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

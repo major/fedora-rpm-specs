@@ -1,6 +1,6 @@
 Name:           imhex
 Version:        1.28.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A hex editor for reverse engineers and programmers
 
 License:        GPL-2.0-only AND Zlib AND MIT AND Apache-2.0
@@ -128,6 +128,9 @@ cp -a lib/external/xdgpp/LICENSE                                  %{buildroot}%{
 
 
 %changelog
+* Thu Apr 13 2023 Jonathan Wright <jonathan@almalinux.org> - 1.28.0-2
+- rebuild to fix FTI on f37 related to libyara
+
 * Tue Apr 04 2023 Jonathan Wright <jonathan@almalinux.org> - 1.28.0-1
 - update to 1.28.0 rhbz#2184379
 

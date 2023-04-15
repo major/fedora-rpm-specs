@@ -1,10 +1,10 @@
-%global tag_version release-43-beta5
+%global tag_version release-43
 #%%global is_official 0%%(echo %%{tag_version} | egrep -q 'alpha|beta|final'; echo $?)
+%global is_official 0%(echo %{tag_version} | egrep -q 'alpha|beta|final'; echo $?)
 #%%global is_official 0
-%global is_official 0
 
 Name:       cldr-emoji-annotation
-Version:    43~beta5
+Version:    43
 Release:    1%{?dist}
 %if 0%{?fedora:1}%{?rhel:0}
 Epoch:      1
@@ -14,7 +14,7 @@ Summary:    Emoji annotation files in CLDR
 License:    Unicode-DFS-2016
 URL:        https://unicode.org/cldr
 %if %is_official
-Source0:    https://github.com/unicode-org/cldr/releases/download/%{tag_version}/cldr-common-%{version}.zip
+Source0:    https://github.com/unicode-org/cldr/releases/download/%{tag_version}/cldr-core-%{version}.zip
 %else
 Source0:    https://github.com/unicode-org/cldr/archive/refs/tags/%{tag_version}.zip#/cldr-%{tag_version}.zip
 %endif
@@ -126,6 +126,9 @@ done
 %{_datadir}/pkgconfig/*.pc
 
 %changelog
+* Thu Apr 13 2023 Takao Fujiwara <tfujiwar@gmail.com> - 1:43
+- Bump to release-43
+
 * Tue Apr 11 2023 Takao Fujiwara <tfujiwar@gmail.com> - 1:43~beta5-1
 - Bump to release-43-beta5
 

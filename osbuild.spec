@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        82
+Version:        83
 
 %forgemeta
 
@@ -252,6 +252,23 @@ fi
 
 
 %changelog
+* Wed Apr 12 2023 Packit <hello@packit.dev> - 83-1
+Changes with 83
+----------------
+  * .gitlab-ci: drop fedora-35 (#1281)
+  * .gitlab-ci: remove RHEL 8.6/9.0 ga runners (#1279)
+  * Preserve manifest list digest when embedding containers (#1252)
+  * WSL conf stage (#1278)
+  * ci: remove codecov (#1271)
+  * schutzfile: update manifest-db ref 2023-03-20 (#1260)
+  * stage/systemd: be able to write a preset file (#1269)
+  * stages/org.osbuild.ovf: support older python3 versions (#1276)
+
+Contributions from: Achilleas Koutsou, Sanne Raymaekers, SchutzBot, Simon de Vlieger
+
+— Somewhere on the Internet, 2023-04-12
+
+
 * Wed Mar 29 2023 Packit <hello@packit.dev> - 82-1
 Changes with 82
 ----------------

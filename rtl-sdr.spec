@@ -13,7 +13,7 @@
 Name:             rtl-sdr
 URL:              http://sdr.osmocom.org/trac/wiki/rtl-sdr
 Version:          0.6.0^%{git_suffix}
-Release:          1%{?dist}
+Release:          2%{?dist}
 License:          GPLv2+
 BuildRequires:    gcc
 BuildRequires:    cmake
@@ -56,7 +56,7 @@ rmdir src/getopt
 rm -f %{buildroot}%{_libdir}/*.a
 
 # Fix udev rules and allow access only to users in rtlsdr group
-sed -i 's/MODE:="0666"/GROUP:="rtlsdr", MODE:="0660", ENV{ID_SOFTWARE_RADIO}="1"/' ./rtl-sdr.rules
+sed -i 's/GROUP="plugdev"/GROUP="rtlsdr"/' ./rtl-sdr.rules
 install -Dpm 644 ./rtl-sdr.rules %{buildroot}%{_prefix}/lib/udev/rules.d/10-rtl-sdr.rules
 
 %pre
@@ -80,6 +80,10 @@ exit 0
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Thu Apr 13 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 0.6.0^20230403git142325a9-2
+- Fixed device group to be rtlsdr
+  Resolves: rhbz#2186090
+
 * Mon Apr  3 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 0.6.0^20230403git142325a9-1
 - New snapshot
 

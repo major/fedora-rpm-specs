@@ -8,7 +8,7 @@
 %global _lto_cflags %{nil}
 
 # Testing libpetsc ?
-%bcond_without check
+%bcond_with check
 #
 
 # Python binding and its testing
@@ -72,7 +72,7 @@
 ## SuperLUDIST needs parmetis
 %if 0%{?fedora} || 0%{?rhel} > 7
 %bcond_without superludist >= 6.3.0
-%bcond_without cgns
+%bcond_with cgns
 %bcond_without hdf5
 %else
 # Needed superludist >= 6.3.0
@@ -167,9 +167,7 @@
   --with-hdf5-lib="-lhdf5 -lhdf5_hl" \\\
  %endif \
  %if %{with cgns} \
-  --with-cgns=1 \\\
-  --with-cgns-include= \\\
-  --with-cgns-lib=-lcgns \\\
+  --with-cgns=0 \\\
  %endif \
   --with-x=1 \\\
   --with-openmp=0 \\\
@@ -239,7 +237,7 @@
  %endif \
  %if %{with cgns} \
   --with-cgns=1 \\\
-  --with-cgns-include= \\\
+  --with-cgns-include=%{_includedir} \\\
   --with-cgns-lib=-lcgns \\\
  %endif \
  %if %{with hdf5} \
@@ -249,7 +247,7 @@
  %endif \
  %if %{with ptscotch} \
   --with-ptscotch=1 \\\
-  --with-ptscotch-include= \\\
+  --with-ptscotch-include=$MPI_INCLUDE/scotch \\\
   --with-ptscotch-lib="-L$MPI_LIB -lptscotch -lscotch -lptscotcherr -lscotcherr" \\\
  %endif \
  %if %{with mumps} \
@@ -285,12 +283,12 @@
 %global mpichversion %(rpm -qi mpich | awk -F': ' '/Version/ {print $2}')
 %global openmpiversion %(rpm -qi openmpi | awk -F': ' '/Version/ {print $2}')
 %global majorver 3
-%global releasever 3.17
+%global releasever 3.18
 
 Name:    petsc
 Summary: Portable Extensible Toolkit for Scientific Computation
-Version: %{releasever}.4
-Release: 15%{?dist}
+Version: %{releasever}.5
+Release: 1%{?dist}
 License: BSD
 URL:     https://petsc.org/
 Source0: https://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-with-docs-%{version}.tar.gz
@@ -305,8 +303,8 @@ Patch1:  %{name}-lib64.patch
 # Reverting patch for Hypre-2.11.2
 Patch2:  %{name}-3.14-hypre_2.11.2_reverting.patch
 
-Patch3:  %{name}-3.17.0-fix_mumps_includes.patch
-Patch4:  %{name}-3.13.0-fix_metis64.patch
+Patch3:  %{name}-3.18.0-fix_mumps_includes.patch
+Patch4:  %{name}-3.18.0-fix_metis64.patch
 Patch5:  %{name}-3.15.0-fix_sundials_version.patch
 Patch6:  %{name}-3.14.1-fix_pkgconfig_file.patch
 Patch7:  %{name}-3.17.0-avoid_fake_MKL_detection.patch
@@ -571,7 +569,7 @@ rm -rf petsc4py-%{version}
 
 pushd %{name}-%{version}
 
-%patch7 -p1 -b .backup
+%patch 7 -p1 -b .backup
 
 %if 0%{?fedora}
 find . -name 'setup.py' | xargs %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3}"
@@ -589,19 +587,19 @@ popd
 %if %{with arch64}
 cp -a %{name}-%{version} build64
 pushd build64
-%patch1 -p0
+%patch 1 -p0
 %if %{with metis64}
-%patch4 -p1 -b .metis64
+%patch 4 -p1 -b .metis64
 %endif
 popd
 %endif
 
 pushd %{name}-%{version}
-%patch0 -p0 -b .backup
-%patch5 -p1 -b .backup
-%patch6 -p1 -b .backup
+%patch 0 -p0 -b .backup
+%patch 5 -p1 -b .backup
+%patch 6 -p1 -b .backup
 %if 0%{?python3_version_nodots} >= 311
-#%%patch8 -p1 -b .backup
+#%%patch 8 -p1 -b .backup
 %endif
 popd
 
@@ -614,7 +612,7 @@ cp -a %{name}-%{version} buildmpich_dir
 
 # Do NOT move up this patch
 pushd %{name}-%{version}
-%patch3 -p1
+%patch 3 -p1 -b .backup
 popd
 
 %build
@@ -1168,6 +1166,9 @@ xvfb-run -a make MAKE_NP=$RPM_BUILD_NCPUS all test -C build64 V=1 MPIEXEC='%{_bu
 %endif
 
 %changelog
+* Thu Apr 13 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.18.5-1
+- Release 3.18.5
+
 * Fri Mar 03 2023 Orion Poplawski <orion@nwra.com> - 3.17.4-15
 - Rebuild for mpich 4.0.3
 

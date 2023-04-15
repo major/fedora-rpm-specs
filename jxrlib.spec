@@ -20,8 +20,6 @@ Source2:        JPEGXR_DPK_Spec_1.0.pdf
 Patch0:         jxrlib_warnings.patch
 # Mingw build fixes
 Patch1:         jxrlib_mingw.patch
-# Fix undefined uintptr_t
-Patch2:         jxrlib_stdint.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -77,7 +75,6 @@ done
 
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 # Remove shipped binaries
 rm -rf bin

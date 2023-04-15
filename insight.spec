@@ -18,7 +18,7 @@
 
 Name:		insight
 Version:	%(echo %{ver} | tr - .)%{?snap:.%{snap}}
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Graphical debugger based on GDB
 License:	GPLv3+ and GPLv3+ with exceptions and GPLv2+ and GPLv2+ with exceptions and GPL+ and LGPLv2+ and BSD and Public Domain and GFDL
 Url:		https://www.sourceware.org/insight/
@@ -91,6 +91,7 @@ Patch203:	insight-13.0-print-check-value.patch
 Patch204:	insight-13.0-distutils.patch
 Patch205:	insight-13.0-noselfmove.patch
 Patch206:	insight-configure-c99.patch
+Patch207:	insight-13.0-bfd-CVE-2023-1972.patch
 
 
 %description
@@ -127,6 +128,7 @@ the latest GDB version.
 %patch204 -p1
 %patch205 -p1
 %patch206 -p1
+%patch207 -p1
 
 
 #-------------------------------------------------------------------------------
@@ -183,7 +185,7 @@ LDFLAGS="${LDFLAGS:-%{?build_ldflags}}" ; export LDFLAGS
 		--disable-rpath						\
 		--disable-sim						\
 		--disable-zlib						\
-		--enable-gdb-build-warnings=,-Wno-unused,-Wno-deprecated-declarations,-Wno-nonnull-compare,-Wno-address \
+		--enable-gdb-build-warnings=,-Wno-unused,-Wno-deprecated-declarations,-Wno-nonnull-compare,-Wno-address,-Wno-stringop-overflow \
 		--with-gdb-datadir='%{_datadir}/insight'		\
 		--with-jit-reader-dir='%{_libdir}/insight'		\
 		--with-separate-debug-dir='/usr/lib/debug'		\
@@ -322,10 +324,15 @@ ${INSTALL} -m 644 gdb/gdbtk/insight_icon.svg				\
 
 #-------------------------------------------------------------------------------
 %changelog
+#-------------------------------------------------------------------------------
+
+* Fri Apr 14 2023 Patrick Monnerat <patrick@monnerat.net> 13.0.50.20220502-9
+- Disable stringop-overflow warnings.
+- Patch "bfd-CVE-2023-1972" fixes a security issue in bfd library.
+  https://bugzilla.redhat.com/show_bug.cgi?id=2185646
+
 * Wed Jan 25 2023 Florian Weimer <fweimer@redhat.com> - 13.0.50.20220502-8
 - Apply binutils-gdb upstream patch to fix C99 issue in configure script
-
-#-------------------------------------------------------------------------------
 
 * Tue Jan 24 2023 Patrick Monnerat <patrick@monnerat.net> 13.0.50.20220502-7
 - Patch "noselfmove" removes the move to self tests.

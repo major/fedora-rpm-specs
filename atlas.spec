@@ -5,10 +5,10 @@ Version:        3.10.3
 %if "%{?enable_native_atlas}" != "0"
 %define dist .native
 %endif
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Automatically Tuned Linear Algebra Software
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            http://math-atlas.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/math-atlas/%{name}%{version}.tar.bz2
 Source1:        PPRO32.tgz
@@ -770,6 +770,9 @@ fi
 %endif
 
 %changelog
+* Thu Apr 13 2023 Lukáš Zaoral <lzaoral@redhat.com> - 3.10.3-23
+- migrate to SPDX license format
+
 * Mon Mar 06 2023 Jakub Martisko <jamartis@redhat.com> - 3.10.3-22
 - During the compilation, use grep -F instead of fgrep
 Resolves: rhbz#2171443

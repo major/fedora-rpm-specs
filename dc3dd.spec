@@ -1,6 +1,6 @@
 Name:           dc3dd
 Version:        7.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Patched version of GNU dd for use in computer forensics
 
 License:        GPLv3+
@@ -10,6 +10,7 @@ Source0:        http://downloads.sourceforge.net/dc3dd/%{name}-%{version}.zip
 #Fixing build error: automatic de-ANSI-fication support has been removed
 #Removing the check for AM_C_PROTOTYPES
 Patch1:         dc3dd-01_automake.patch
+Patch2:         dc3dd-configure-c99.patch
 
 # Original Archlinux patch to fix build with recent libtools version
 # Author: mschlenker
@@ -78,6 +79,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_mandir}/man1/%{name}.*
 
 %changelog
+* Thu Apr 13 2023 Florian Weimer <fweimer@redhat.com> - 7.3.0-2
+- Port configure script to C99
+
 * Mon Mar 06 2023 Michal Ambroz <rebus [AT] seznam.cz> - 7.3.0-1
 - bump to new upstream release 7.3.0
 

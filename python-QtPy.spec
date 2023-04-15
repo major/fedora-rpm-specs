@@ -2,7 +2,7 @@
 %global simple_name qtpy
 
 Name:           python-%{pypi_name}
-Version:        2.3.0
+Version:        2.3.1
 Release:        %autorelease
 Summary:        Provides an abstraction layer on top of the various Qt bindings
 
@@ -10,7 +10,7 @@ License:        MIT and BSD
 URL:            https://github.com/spyder-ide/%{simple_name}
 Source0:        https://github.com/spyder-ide/%{simple_name}/archive/v%{version}/%{simple_name}-%{version}.tar.gz
 BuildArch:      noarch
- 
+
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-devel
 
@@ -51,7 +51,7 @@ rm -rf %{pypi_name}.egg-info
 %install
 %py3_install
 
-%files -n python3-%{pypi_name} 
+%files -n python3-%{pypi_name}
 %license LICENSE.txt
 %doc CHANGELOG.md README.md
 %{_bindir}/qtpy

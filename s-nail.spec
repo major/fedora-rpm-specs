@@ -1,6 +1,6 @@
 Name:           s-nail
 Version:        14.9.24
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Environment for sending and receiving mail
 
 # Everything is ISC except parts coming from the original Heirloom mailx which are BSD
@@ -11,7 +11,10 @@ Source1:        https://www.sdaoden.eu/downloads/%{name}-%{version}.tar.xz.asc
 # https://ftp.sdaoden.eu/steffen.asc
 Source2:        steffen.asc
 
-BuildRequires: make
+# https://bugzilla.redhat.com/show_bug.cgi?id=2171723
+Patch0:		s-nail-makeflags.patch
+
+BuildRequires:  make
 BuildRequires:  gnupg2
 BuildRequires:  gcc
 BuildRequires:  openssl
@@ -143,6 +146,10 @@ fi
 
 
 %changelog
+* Thu Apr 13 2023 Tomas Korbar <tkorbar@redhat.com> - 14.9.24-4
+- Fix s-nail makeflags
+- Resolves: rhbz#2171723
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 14.9.24-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

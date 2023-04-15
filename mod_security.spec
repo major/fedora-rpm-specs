@@ -9,8 +9,8 @@
 
 Summary: Security module for the Apache HTTP Server
 Name: mod_security
-Version: 2.9.6
-Release: 2%{?dist}
+Version: 2.9.7
+Release: 1%{?dist}
 License: ASL 2.0
 URL: http://www.modsecurity.org/
 Source: https://github.com/SpiderLabs/ModSecurity/releases/download/v%{version}/modsecurity-%{version}.tar.gz
@@ -30,8 +30,8 @@ Requires(pre): httpd-filesystem
 BuildRequires: gcc, make, autoconf, automake, libtool
 BuildRequires: httpd-devel
 BuildRequires: perl-generators
+BuildRequires: pcre2-devel
 BuildRequires: pkgconfig(libcurl)
-BuildRequires: pkgconfig(libpcre)
 BuildRequires: pkgconfig(libxml-2.0)
 BuildRequires: pkgconfig(lua)
 
@@ -70,6 +70,7 @@ This package contains the ModSecurity Audit Log Collector.
            --enable-pcre-match-limit-recursion=1000000 \
            --with-apxs=%{_httpd_apxs} \
            --with-yajl \
+           --with-pcre2 \
            --disable-static
 
 # remove rpath
@@ -143,6 +144,10 @@ install -m0644 mlogc/mlogc-default.conf %{buildroot}%{_sysconfdir}/mlogc.conf
 %endif
 
 %changelog
+* Thu Apr 13 2023 Luboš Uhliarik <luhliari@redhat.com> - 2.9.7-1
+- new version 2.9.7
+- use pcre2 instead of deprecated pcre (rhbz #2128330)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

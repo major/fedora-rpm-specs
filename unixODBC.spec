@@ -1,7 +1,7 @@
 Summary: A complete ODBC driver manager for Linux
 Name: unixODBC
 Version: 2.3.11
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL: http://www.unixODBC.org/
 # Programs are GPL, libraries are LGPL, except News Server library is GPL.
 License: GPLv2+ and LGPLv2+
@@ -12,6 +12,7 @@ Source5: README.dist
 
 Patch8: so-version-bump.patch
 Patch9: keep-typedefs.patch
+Patch10: unixODBC-c99.patch
 
 Conflicts: iodbc
 
@@ -38,6 +39,7 @@ ODBC, you need to install this package.
 %setup -q
 %patch8 -p1 -b .soname-bump
 %patch9 -p1
+%patch10 -p1
 
 chmod 0644 Drivers/MiniSQL/*.c
 chmod 0644 Drivers/nn/*.c
@@ -115,6 +117,9 @@ find $RPM_BUILD_ROOT%{_libdir} -name "*.so"   | sed "s|^$RPM_BUILD_ROOT||" > dev
 %_libdir/pkgconfig/*.pc
 
 %changelog
+* Thu Apr 13 2023 Florian Weimer <fweimer@redhat.com> - 2.3.11-3
+- Port to C99
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

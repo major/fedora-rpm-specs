@@ -4,7 +4,7 @@
 # https://gitlab.com/gitlab-org/cli
 %global goipath         gitlab.com/gitlab-org/cli
 %global forgeurl        https://gitlab.com/gitlab-org/cli
-Version:                1.27.0
+Version:                1.28.0
 
 %global repo            cli
 %global archivename     %{repo}-%{version}

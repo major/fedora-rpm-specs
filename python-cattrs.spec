@@ -37,8 +37,7 @@ BuildRequires:  (python3dist(immutables) >= 0.18)
 # msgpack = "^1.0.2"
 BuildRequires:  (python3dist(msgpack) >= 1.0.2 with python3dist(msgpack) < 2~~)
 # orjson = { version = "^3.5.2", markers = "implementation_name == 'cpython'" }
-# Not yet packaged: python-orjson
-# BuildRequires:  (python3dist(orjson) >= 3.5.2 with python3dist(orjson) < 4~~)
+BuildRequires:  (python3dist(orjson) >= 3.5.2 with python3dist(orjson) < 4~~)
 # pymongo = "^4.2.0"
 BuildRequires:  (python3dist(pymongo) >= 4.2 with python3dist(pymongo) < 5~~)
 # pytest = "^7.1.3"
@@ -124,8 +123,6 @@ PYTHONPATH="${PWD}/src" %make_build -C docs latex \
 %pyproject_save_files cattrs cattr
 
 %check
-# No python-orjson package for now:
-k="${k-}${k+ and }not test_orjson and not test_orjson_converter"
 %pytest --ignore-glob='bench/*' -k "${k-}" -n auto
 
 %files -n python3-cattrs -f %{pyproject_files}

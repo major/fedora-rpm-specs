@@ -6,17 +6,13 @@
 %global crate glib-macros
 
 Name:           rust-glib-macros0.16
-Version:        0.16.3
+Version:        0.16.8
 Release:        %autorelease
 Summary:        Rust bindings for the GLib library, proc macros crate
 
 License:        MIT
 URL:            https://crates.io/crates/glib-macros
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * enable missing default features of the syn dependency:
-#   https://github.com/gtk-rs/gtk-rs-core/pull/1065
-Patch:          glib-macros-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 

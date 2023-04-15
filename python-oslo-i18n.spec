@@ -13,7 +13,7 @@ or library.
 
 Name:           python-oslo-i18n
 Version:        5.1.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        OpenStack i18n library
 License:        ASL 2.0
 URL:            https://github.com/openstack/%{pypi_name}
@@ -99,7 +99,9 @@ python3 setup.py build_sphinx --build-dir . -b html
 rm -rf html/.{doctrees,buildinfo}
 
 # Fix this rpmlint warning
+if [ -f html/_static/jquery.js ]; then
 sed -i "s|\r||g" html/_static/jquery.js
+fi
 %endif
 
 # Install i18n .mo files (.po and .pot are not required)
@@ -127,6 +129,9 @@ mv %{buildroot}%{python3_sitelib}/oslo_i18n/locale %{buildroot}%{_datadir}/local
 %license LICENSE
 
 %changelog
+* Thu Apr 13 2023 Alfredo Moralejo <amoralej@redhat.com> - 5.1.0-5
+- Fixed compatibility with sphinx >= 6.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

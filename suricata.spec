@@ -1,6 +1,6 @@
 Summary: Intrusion Detection System
 Name: suricata
-Version: 6.0.10
+Version: 6.0.11
 Release: 1%{?dist}
 License: GPL-2.0-only
 URL: https://suricata-ids.org/
@@ -23,6 +23,8 @@ Patch4: suricata-5.0.4-geolite-path-fixup.patch
 Patch5: suricata-6.0.3-log-path-fixup.patch
 # Build fails with ambiguous python shebang
 Patch6: suricata-6.0.9-python.patch
+# Build has a warning that this fixes
+Patch7: suricata-6.0.11-maxint.patch
 
 BuildRequires: make
 BuildRequires: gcc gcc-c++
@@ -77,12 +79,13 @@ Matching, and GeoIP identification.
 %prep
 %setup -q 
 install -m 644 %{SOURCE2} doc/
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
+%patch -P1 -p1
+%patch -P2 -p1
+%patch -P3 -p1
+%patch -P4 -p1
+%patch -P5 -p1
+%patch -P6 -p1
+%patch -P7 -p1
 sed -i 's/(datadir)/(sysconfdir)/' etc/Makefile.am
 %ifarch x86_64
 sed -i 's/-D__KERNEL__/-D__KERNEL__ -D__x86_64__/' ebpf/Makefile.am
@@ -194,6 +197,9 @@ fi
 %{_datadir}/%{name}/rules
 
 %changelog
+* Thu Apr 13 2023 Steve Grubb <sgrubb@redhat.com> 6.0.11-1
+- New security and bugfix release
+
 * Mon Mar 13 2023 Steve Grubb <sgrubb@redhat.com> 6.0.10-1
 - New security and bugfix release
 
