@@ -1,6 +1,6 @@
 %global project_version_major 5
 %global project_version_minor 0
-%global project_version_patch 7
+%global project_version_patch 8
 
 Name:           dnf5
 Version:        %{project_version_major}.%{project_version_minor}.%{project_version_patch}
@@ -65,6 +65,7 @@ Obsoletes:      microdnf < 4
 %global libmodulemd_version 2.5.0
 %global librepo_version 1.15.0
 %global libsolv_version 0.7.21
+%global sqlite_version 3.35.0
 %global swig_version 4
 %global zchunk_version 0.9.11
 
@@ -83,7 +84,7 @@ BuildRequires:  pkgconfig(librepo) >= %{librepo_version}
 BuildRequires:  pkgconfig(libsolv) >= %{libsolv_version}
 BuildRequires:  pkgconfig(libsolvext) >= %{libsolv_version}
 BuildRequires:  pkgconfig(rpm) >= 4.17.0
-BuildRequires:  pkgconfig(sqlite3)
+BuildRequires:  pkgconfig(sqlite3) >= %{sqlite_version}
 BuildRequires:  toml11-static
 
 %if %{with clang}
@@ -238,6 +239,7 @@ License:        LGPL-2.1-or-later
 #Requires:       libmodulemd{?_isa} >= {libmodulemd_version}
 Requires:       libsolv%{?_isa} >= %{libsolv_version}
 Requires:       librepo%{?_isa} >= %{librepo_version}
+Requires:       sqlite-libs%{?_isa} >= %{sqlite_version}
 
 %description -n libdnf5
 Package management library.
@@ -376,6 +378,7 @@ Python 3 bindings for the libdnf library.
 
 %files -n python3-libdnf5
 %{python3_sitearch}/libdnf5
+%{python3_sitearch}/libdnf5-*.dist-info
 %license COPYING.md
 %license lgpl-2.1.txt
 %endif
@@ -395,6 +398,7 @@ Python 3 bindings for the libdnf5-cli library.
 
 %files -n python3-libdnf5-cli
 %{python3_sitearch}/libdnf5_cli
+%{python3_sitearch}/libdnf5_cli-*.dist-info
 %license COPYING.md
 %license lgpl-2.1.txt
 %endif
@@ -625,6 +629,42 @@ ln -sr %{buildroot}%{_bindir}/dnf5 %{buildroot}%{_bindir}/microdnf
 
 
 %changelog
+* Thu Apr 13 2023 Nicola Sella <nsella@redhat.com> - 5.0.8-1
+- Update to 5.0.8
+- Improve error message in download command
+- Add repoquery --latest-limit option
+- Add dg, in, rei, rm aliases
+- Add "up" and "update" aliases for "upgrade" command
+- Update documentation with info about package spec expressions (RhBug:2160420)
+- Add formatting options repoquery --requires, --provides..
+- Remove unused repoquery nevra option
+- Add `--queryformat` option to repoquery
+- Improved progress bars
+- Fix logic of installroot with deduplication
+- Correctly load repos from installroot config file
+- Improved loading and downloading of key files
+- Improved modules: Change State to set and get the whole ModuleState
+- New API method rpm::Package::is_available_locally
+- Move description of DNF5 changes to doc
+- Improved dnf5daemon logic and removed unused code
+- Improved progress bar
+- Improved handling of obsolete package installation
+- Remove showdupesfromrepos config option
+- man: Add info about download command destination
+- Print resolve logs to stderr
+- Fix double loading of system repo in dnf5daemon
+- Set a minimal sqlite version
+- Change to --use-host-config, warning suggesting --use-host-config
+- Add capability to find binaries to resolve_spec
+- Add pre-commit file
+- Improved by fixing memory leaks
+- Improved tests by enabling with multithreading
+- Improve documentation  for list command
+- Add compatibility alias ls->list
+- Implement info command
+- Implement list command
+- Fix --exactdeps argument description
+
 * Wed Mar 8 2023 Nicola Sella <nsella@redhat.com> - 5.0.7-1
 - Document set/get vars in python api
 - Document --strict deprecation

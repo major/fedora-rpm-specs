@@ -6,7 +6,7 @@
 
 # Unset -s on python shebang to allow RPM-installed sphinx to be used
 # with user-installed modules (#1903763)
-%global py3_shebang_flags %(echo %py3_shebang_flags | sed s/s//)
+%undefine _py3_shebang_s
 
 # No internet in Koji
 %bcond_with internet
@@ -24,35 +24,29 @@
 %global upstream_name Sphinx
 
 Name:       python-sphinx
-%global     general_version 5.3.0
+%global     general_version 6.1.3
 #global     prerel ...
 %global     upstream_version %{general_version}%{?prerel}
 Version:    %{general_version}%{?prerel:~%{prerel}}
-Release:    4%{?dist}
+Release:    1%{?dist}
 Epoch:      1
 Summary:    Python documentation generator
 
-# Unless otherwise noted, the license for code is BSD
-# sphinx/util/inspect.py has bits licensed with PSF license v2 (Python)
+# Unless otherwise noted, the license for code is BSD-2-Clause
 # sphinx/themes/haiku/static/haiku.css_t has bits licensed with MIT
-# JS: JQuery, Underscore, css3-mediaqueries are available under MIT
-License:    BSD and Python and MIT
+License:    BSD-2-Clause AND MIT
 
 URL:        https://www.sphinx-doc.org/
-Source0:    %{pypi_source %{upstream_name} %{upstream_version}}
+Source:     %{pypi_source %{upstream_name} %{upstream_version}}
 
 # Allow extra themes to exist. We pull in python3-sphinx-theme-alabaster
 # which causes that test to fail.
-Patch1:     sphinx-test_theming.diff
+Patch:      sphinx-test_theming.diff
 
-# Backported upstream commit included in Sphinx 6+ ensures compatibility
-# with python-pygments 2.14+
-# https://github.com/sphinx-doc/sphinx/commit/965768bfda2a00ba6
-Patch2:     fix-tests-with-pygments-2.14.patch
 
 # Backported upstream commit ensures compatibility with Babel 2.12
 # https://github.com/sphinx-doc/sphinx/commit/c5641702b
-Patch3:     fix-tests-with-babel-2.12.patch
+Patch:      fix-tests-with-babel-2.12.patch
 
 BuildArch:     noarch
 
@@ -63,9 +57,6 @@ BuildRequires: pyproject-rpm-macros
 %if %{with websupport}
 BuildRequires: python%{python3_pkgversion}-sphinxcontrib-websupport
 %endif
-
-# for fixes
-BuildRequires: dos2unix
 
 %if %{with tests}
 # tests import _testcapi
@@ -149,10 +140,6 @@ Summary:       Python documentation generator
 Recommends:    graphviz
 Recommends:    ImageMagick
 
-# Bundled JavaScript
-Provides:      bundled(jquery) = 3.5.1
-Provides:      bundled(underscore) = 1.3.1
-Provides:      bundled(css3-mediaqueries) = 1.0
 
 %description -n python%{python3_pkgversion}-sphinx
 Sphinx is a tool that makes it easy to create intelligent and
@@ -250,9 +237,6 @@ This package contains documentation in the HTML format.
 
 %prep
 %autosetup -n %{upstream_name}-%{upstream_version} -p1
-
-# fix line encoding of bundled jquery.js
-dos2unix -k ./sphinx/themes/basic/static/jquery.js
 
 %if %{without imagemagick_tests}
 rm tests/test_ext_imgconverter.py
@@ -374,6 +358,10 @@ mkdir %{buildroot}%{python3_sitelib}/sphinxcontrib
 
 
 %changelog
+* Fri Mar 10 2023 Karolina Surma <ksurma@redhat.com> - 1:6.1.3-1
+- Update to 6.1.3
+- Fixes rhbz#2135122
+
 * Thu Mar 09 2023 Karolina Surma <ksurma@redhat.com> - 1:5.3.0-4
 - Fix tests related to missing setuptools and Babel 2.12
 - Fixes rhbz#2176685

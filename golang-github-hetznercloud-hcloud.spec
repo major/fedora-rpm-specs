@@ -3,7 +3,7 @@
 
 # https://github.com/hetznercloud/hcloud-go
 %global goipath         github.com/hetznercloud/hcloud-go
-Version:                1.41.0
+Version:                1.42.0
 
 %gometa
 

@@ -1,6 +1,6 @@
 Name: eth-tools
 Version: 11.4.0.0
-Release: 203%{?dist}
+Release: 204%{?dist}
 Summary: Intel Ethernet Fabric Suite basic tools and libraries for fabric management
 
 License: BSD
@@ -26,6 +26,7 @@ BuildRequires: gcc-c++
 BuildRequires: tcl-devel
 BuildRequires: rdma-core-devel
 BuildRequires: net-snmp-devel
+BuildRequires: perl-generators
 
 
 %description basic
@@ -33,7 +34,6 @@ Contains basic tools for fabric management necessary on all compute nodes.
 
 %package fastfabric
 Summary: Management level tools and scripts
-Requires: perl
 Requires: eth-tools-basic%{?_isa} >= %{version}-%{release}
 
 %description fastfabric
@@ -91,6 +91,9 @@ BUILDDIR=%{_builddir} DESTDIR=%{buildroot} LIBDIR=%{_prefix}/lib DSAP_LIBDIR=%{_
 
 
 %changelog
+* Thu Apr 13 2023 Jitka Plesnikova <jplesnik@redhat.com> - 11.4.0.0-204
+- Use perl-generators to get list of all perl dependencies
+
 * Fri Feb 3 2023 Jijun Wang <jijun.wang@intel.com> - 11.4.0.0-203
 - Updated source URL in spec file
 

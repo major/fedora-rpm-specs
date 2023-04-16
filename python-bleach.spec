@@ -1,8 +1,8 @@
 %global modname bleach
 
 Name:           python-%{modname}
-Version:        4.0.0
-Release:        5%{?dist}
+Version:        6.0.0
+Release:        1%{?dist}
 Summary:        An easy whitelist-based HTML-sanitizing tool
 
 License:        ASL 2.0
@@ -17,39 +17,45 @@ attributes based on a white list.
 
 %description %{_description}
 
+
 %package -n python3-%{modname}
 Summary:        An easy whitelist-based HTML-sanitizing tool
-%{?python_provide:%python_provide python3-%{modname}}
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-pytest
-BuildRequires:  python3-pytest-runner
-BuildRequires:  python3-six
 BuildRequires:  python3-html5lib
-Requires:       python3-six
 Requires:       python3-html5lib
 
-%description -n python3-%{modname} %{_description}
+%description -n python3-%{modname}
+%{_description}
 
 Python 3 version.
 
-%prep
-%autosetup -n %{modname}-%{version} -p1 -S gendiff
 
-sed -i 's/pytest-runner>=2.0,<3dev/pytest-runner/' setup.py
+%prep
+%autosetup -n %{modname}-%{version} -p1
+
+# Remove pregenerated egg-info
+rm -rf bleach.egg-info
 
 # Remove vendored libraries which were added for https://github.com/mozilla/bleach/issues/386
 rm -r bleach/_vendor/
-# Bleach has a shim layer that references the vendored html5lib we just deleted. Let's patch up the
-# imports to use the real html5lib.
-sed -i "s/bleach._vendor.html5lib/html5lib/g" bleach/html5lib_shim.py tests/test_clean.py bleach/sanitizer.py
+# Bleach has a shim layer that references the vendored html5lib and urllib.parse we just deleted.
+# Let's patch up the imports to use the real html5lib and urllib.parse.
+sed -i "s/bleach._vendor.html5lib/html5lib/g" bleach/html5lib_shim.py tests/test_clean.py
+sed -i "s/bleach._vendor.parse/urllib.parse/g" bleach/parse_shim.py
+
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{modname}
 
 %check
 ! find %{buildroot}%{python3_sitelib}/bleach/ -type d | grep vendor
@@ -59,18 +65,18 @@ if [ $? -ne 0 ]; then
     /usr/bin/false
 fi;
 
-# https://bugs.python.org/issue27657
-# https://github.com/mozilla/bleach/issues/536
-# currently: ========== 190 failed, 142 passed, 23 deselected, 6 xfailed in 8.86s ===========
-%{__python3} -m pytest -k 'not test_uri_value_allowed_protocols and not test_css_parsing_gauntlet_regex_backtracking'
+%pytest -k 'not test_uri_value_allowed_protocols and not test_css_parsing_gauntlet_regex_backtracking'
 
-%files -n python3-%{modname}
+
+%files -n python3-%{modname} -f %{pyproject_files}
 %license LICENSE
 %doc README.rst
-%{python3_sitelib}/%{modname}-*.egg-info/
-%{python3_sitelib}/%{modname}/
+
 
 %changelog
+* Wed Feb 08 2023 Sandro Mani <manisandro@gmail.com> - 6.0.0-1
+- Update to 6.0.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

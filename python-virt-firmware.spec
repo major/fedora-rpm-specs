@@ -1,13 +1,13 @@
-%global pypi_version 1.8
+%global pypi_version 23.4
 
 Name:           python-virt-firmware
 Version:        %{pypi_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Tools for virtual machine firmware volumes
 
 License:        GPLv2
-URL:            https://gitlab.com/kraxel/virt-firmware
-Source0:        https://gitlab.com/kraxel/virt-firmware/-/archive/v%{pypi_version}/virt-firmware-v%{pypi_version}.tar.gz
+URL:            https://pypi.org/project/virt-firmware/
+Source0:        virt-firmware-%{pypi_version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -49,7 +49,7 @@ Requires:       edk2-ovmf
 test cases
 
 %prep
-%autosetup -n virt-firmware-v%{pypi_version}
+%autosetup -n virt-firmware-%{pypi_version}
 
 %build
 %py3_build
@@ -85,6 +85,9 @@ cp -ar tests %{buildroot}%{_datadir}/%{name}
 %{_datadir}/%{name}/tests
 
 %changelog
+* Fri Apr 14 2023 Gerd Hoffmann <kraxel@redhat.com> - 23.4-1
+- update to version 23.4
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

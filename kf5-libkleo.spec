@@ -1,7 +1,7 @@
 %global framework libkleo
 
 Name:    kf5-%{framework}
-Version: 23.03.90
+Version: 23.04.0
 Release: 1%{?dist}
 Summary: KDE PIM cryptographic library
 
@@ -102,6 +102,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Apr 14 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.0-1
+- 23.04.0
+
 * Fri Mar 31 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.90-1
 - 23.03.90
 

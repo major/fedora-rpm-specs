@@ -16,7 +16,7 @@
 
 Name:		gambas3
 Summary:	IDE based on a basic interpreter with object extensions
-Version:	3.18.1
+Version:	3.18.2
 Release:	1%{?dist}
 License:	GPL+
 URL:		http://gambas.sourceforge.net/
@@ -1028,9 +1028,9 @@ Requires:	%{name}-gb-xml = %{version}-%{release}
 
 %prep
 %setup -q -n gambas-%{version}
-%patch1 -p1 -b .nolintl
-%patch2 -p1 -b .noliconv
-%patch5 -p1 -b .gst1
+%patch -P1 -p1 -b .nolintl
+%patch -P2 -p1 -b .noliconv
+%patch -P5 -p1 -b .gst1
 for i in `find . |grep acinclude.m4`; do
 	sed -i 's|$AM_CFLAGS -O3|$AM_CFLAGS|g' $i
 	sed -i 's|$AM_CXXFLAGS -Os -fno-omit-frame-pointer|$AM_CXXFLAGS|g' $i
@@ -1795,6 +1795,9 @@ install -m 0644 -p main/mime/application-x-gambas3.xml %{buildroot}%{_datadir}/m
 %{_datadir}/%{name}/info/gb.xml.xslt.*
 
 %changelog
+* Fri Apr 14 2023 Tom Callaway <spot@fedoraproject.org> - 3.18.2-1
+- update to 3.18.2
+
 * Fri Mar  3 2023 Tom Callaway <spot@fedoraproject.org> - 3.18.1-1
 - update to 3.18.1
 

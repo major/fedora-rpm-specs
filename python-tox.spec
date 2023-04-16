@@ -19,7 +19,7 @@
 %undefine _py3_shebang_s
 
 Name:           python-tox
-Version:        4.4.11
+Version:        4.4.12
 Release:        1%{?dist}
 Summary:        Virtualenv-based automation of test activities
 
@@ -104,6 +104,7 @@ Obsoletes:      python3-tox < 3.24.4-2
 # see https://github.com/tox-dev/tox/pull/2843#discussion_r1065028356
 sed -ri -e 's/"(packaging|filelock|platformdirs|psutil|diff-cover|pyproject-api|pytest-xdist|wheel)>=.*/"\1",/g' \
         -e 's/"(virtualenv)>=.*/"\1>=20",/g' \
+        -e 's/"(hatchling)>=.*/"\1>=1.13",/g' \
     pyproject.toml
 
 %generate_buildrequires
@@ -146,12 +147,7 @@ k="${k-}${k+ and }not test_local_execute_basic_pass_show_on_standard_newline_flu
 k="${k-}${k+ and }not test_local_execute_write_a_lot"
 %endif
 
-# test_sequential is flaky when heavily parallelized,
-# some files are created in place and there seem to be a race condition. 
-# https://github.com/tox-dev/tox/issues/2985
-%pytest -v --run-integration tests/session/cmd/test_sequential.py
-
-%pytest -v -n auto -k "${k-}" --run-integration --ignore tests/session/cmd/test_sequential.py
+%pytest -v -n auto -k "${k-}" --run-integration
 %endif
 
 
@@ -160,6 +156,9 @@ k="${k-}${k+ and }not test_local_execute_write_a_lot"
 
 
 %changelog
+* Thu Apr 13 2023 Miro Hrončok <mhroncok@redhat.com> - 4.4.12-1
+- Update to 4.4.12 (rhbz#2186618)
+
 * Wed Apr 12 2023 Miro Hrončok <mhroncok@redhat.com> - 4.4.11-1
 - Update to 4.4.11 (rhbz#2184726)
 

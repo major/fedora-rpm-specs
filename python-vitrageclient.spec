@@ -1,5 +1,5 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0xa63ea142678138d1bb15f2e303bdfd64dd164087
+%global sources_gpg_sign 0xa7475c5f2122fec3f90343223fe3bf5aad1080e4
 %global pypi_name vitrageclient
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
@@ -11,8 +11,8 @@ Python client for Vitrage REST API. Includes python library for Vitrage API \
 and Command Line Interface (CLI) library.
 
 Name:           python-%{pypi_name}
-Version:        4.6.0
-Release:        2%{?dist}
+Version:        4.7.0
+Release:        1%{?dist}
 Summary:        Python client for Vitrage REST API
 
 License:        ASL 2.0
@@ -151,6 +151,9 @@ export PYTHON=%{__python3}
 %{_datadir}/bash-completion/completions/vitrage
 
 %changelog
+* Fri Apr 14 2023 Karolina Kula <kkula@redhat.com> 4.7.0-1
+- Update to upstream version 4.7.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

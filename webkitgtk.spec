@@ -16,7 +16,7 @@
 %bcond_without docs
 
 Name:           webkitgtk
-Version:        2.41.1
+Version:        2.41.2
 Release:        %autorelease
 Summary:        GTK web content engine library
 
@@ -29,13 +29,8 @@ Source1:        https://webkitgtk.org/releases/webkitgtk-%{version}.tar.xz.asc
 # $ gpg --export --export-options export-minimal D7FCF61CF9A2DEAB31D81BD3F3D322D0EC4582C3 5AA3BC334FD7E3369E7C77B291C559DBE4C9123B > webkitgtk-keys.gpg
 Source2:        webkitgtk-keys.gpg
 
-# https://commits.webkit.org/262385@main
-Patch0:         crashy-jit.patch
-
-# https://commits.webkit.org/262339@main
-# https://commits.webkit.org/262434@main
-# https://github.com/WebKit/WebKit/pull/12250
-Patch1:         build.patch
+# https://bugs.webkit.org/show_bug.cgi?id=255460
+Patch0:         build.patch
 
 BuildRequires:  bison
 BuildRequires:  bubblewrap

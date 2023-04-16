@@ -15,9 +15,9 @@
 Name:          engrampa
 Version:       %{branch}.0
 %if 0%{?rel_build}
-Release:       5%{?dist}
+Release:       6%{?dist}
 %else
-Release:       0.17%{?git_rel}%{?dist}
+Release:       0.18%{?git_rel}%{?dist}
 %endif
 Summary:       MATE Desktop file archiver
 License:       GPLv2+ and LGPLv2+
@@ -33,6 +33,7 @@ URL:           http://mate-desktop.org
 Patch1:        engrampa_0001-dlg-package-installer-fix-memory-leak.patch
 Patch2:        engrampa_0002-fr-window-fix-memory-leak.patch
 Patch3:        engrampa_0003-file-data-fix-memory-leak.patch
+Patch4: engrampa-c99.patch
 
 BuildRequires: make
 BuildRequires: mate-common
@@ -105,6 +106,9 @@ find %{buildroot} -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Fri Apr 14 2023 Florian Weimer <fweimer@redhat.com> - 1.26.0-6
+- Port to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

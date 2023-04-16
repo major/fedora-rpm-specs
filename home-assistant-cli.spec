@@ -1,12 +1,16 @@
 Name:           home-assistant-cli
 Version:        0.9.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Command-line tool for Home Assistant
 
 License:        ASL 2.0
 URL:            https://github.com/home-assistant/home-assistant-cli
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
+
+# Allow later dateparser
+# https://github.com/home-assistant-ecosystem/home-assistant-cli/pull/403
+Patch:          %{url}/pull/403.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -31,7 +35,7 @@ The Home Assistant Command-line interface (hass-cli) allows one to work with
 a local or a remote Home Assistant instance directly from the command-line.
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -n %{name}-%{version} -p1
 sed -i "/>=0.3.2,<0.4/d" setup.py
 
 %build
@@ -52,6 +56,9 @@ PYTHONPATH=%{buildroot}/%{python3_sitelib}/ pytest-%{python3_version} -v tests \
 %{python3_sitelib}/homeassistant_cli*.egg-info/
 
 %changelog
+* Sat Mar 11 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.9.6-3
+- Allow later dateparser
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -11,8 +11,8 @@
 %bcond_with test
 
 Name:           ocaml-bisect-ppx
-Version:        2.8.1
-Release:        8%{?dist}
+Version:        2.8.2
+Release:        1%{?dist}
 Summary:        Code coverage for OCaml and Reason
 
 # The project as a whole is MIT.
@@ -22,18 +22,15 @@ URL:            https://aantron.github.io/bisect_ppx/
 Source0:        https://github.com/aantron/bisect_ppx/archive/%{version}/bisect_ppx-%{version}.tar.gz
 # Adapt to changes in recent versions of ocamlformat
 Patch0:         %{name}-test.patch
-# Adapt to ppxlib 0.26.0
-# https://github.com/aantron/bisect_ppx/pull/400
-Patch1:         %{name}-ppat-construct.patch
 # Adapt to ppxlib 0.28.0
 # https://github.com/anmonteiro/bisect_ppx/commit/cc442a08e3a2e0e18deb48f3a696076ac0986728
-Patch2:         %{name}-ppxlib-0.28.0.patch
+Patch1:         %{name}-ppxlib-0.28.0.patch
 
 BuildRequires:  git-core
-BuildRequires:  ocaml >= 4.02.0
+BuildRequires:  ocaml >= 4.03.0
 BuildRequires:  ocaml-cmdliner-devel >= 1.0.0
 BuildRequires:  ocaml-dune >= 2.7.0
-BuildRequires:  ocaml-ppxlib-devel >= 0.21.0
+BuildRequires:  ocaml-ppxlib-devel >= 0.26.0
 
 %if %{with test}
 BuildRequires:  ocamlformat
@@ -91,6 +88,10 @@ _build/install/default/bin/bisect-ppx-report --help groff > \
 %files devel -f .ofiles-devel
 
 %changelog
+* Fri Apr 14 2023 Jerry James <loganjerry@gmail.com> - 2.8.2-1
+- Version 2.8.2
+- Drop upstreamed ppat-construct patch
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 2.8.1-8
 - Rebuild OCaml packages for F38
 

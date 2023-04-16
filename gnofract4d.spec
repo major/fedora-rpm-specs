@@ -1,6 +1,6 @@
 Name:           gnofract4d
 Version:        4.3
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Gnofract 4D is a Gnome-based program to draw fractals
 License:        BSD-3-Clause
 
@@ -13,6 +13,7 @@ Source2:        https://github.com/fract4d/gnofract4d/raw/master/testdata/test.a
 # Acquire the GIL before freeing python objects
 # https://github.com/fract4d/gnofract4d/pull/166
 Patch0:         %{name}-gil.patch
+Patch1:         gnofract4d-c99.patch
 
 BuildRequires:  adwaita-blue-gtk-theme
 BuildRequires:  appstream
@@ -114,6 +115,9 @@ mv ../test_main_window.py fract4dgui/tests
 %{_metainfodir}/com.github.fract4d.%{name}.metainfo.xml
 
 %changelog
+* Fri Apr 14 2023 Florian Weimer <fweimer@redhat.com> - 4.3-11
+- Port to C99
+
 * Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 4.3-10
 - Dynamically generate python BuildRequires
 

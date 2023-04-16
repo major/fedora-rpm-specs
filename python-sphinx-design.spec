@@ -1,6 +1,6 @@
 Name:           python-sphinx-design
-Version:        0.3.0
-Release:        4%{?dist}
+Version:        0.4.1
+Release:        1%{?dist}
 Summary:        Sphinx extension for responsive web components
 
 # This project is MIT, but bundles JSON glyphs
@@ -9,15 +9,13 @@ Summary:        Sphinx extension for responsive web components
 License:        MIT AND Apache-2.0
 URL:            https://github.com/executablebooks/sphinx-design
 Source0:        %{url}/archive/v%{version}/sphinx-design-%{version}.tar.gz
-# Support Sphinx 6.x
-Patch0:         %{url}/pull/106.patch
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
 
 # The Fedora package does not contain JSON glyphs
-Provides:       bundled(material-icons-fonts) = 4.0.0.c9e5528
+Provides:       bundled(material-icons-fonts) = 4.0.0.63c5cb3
 
 # Octicons is not available from Fedora
 # The upstream release tarball does not contain JSON glyphs
@@ -63,9 +61,6 @@ Documentation for %{name}.
 %prep
 %autosetup -n sphinx-design-%{version} -p1
 
-# Bump the pinned myst-parser version to enable build in F39+
-sed -i "s/myst-parser~=0.18.0/myst-parser~=1.0.0/g" pyproject.toml
-
 %generate_buildrequires
 %pyproject_buildrequires -t -x testing
 
@@ -94,6 +89,11 @@ rm -rf html/{.buildinfo,.doctrees}
 %license LICENSE
 
 %changelog
+* Fri Apr 14 2023 Jerry James <loganjerry@gmail.com> - 0.4.1-1
+- Version 0.4.1
+- Drop upstreamed Sphinx 6.x patch
+- Drop upstreamed workaround for myst-parser 1.0.0
+
 * Mon Mar 20 2023 Karolina Surma <ksurma@redhat.com> - 0.3.0-4
 - Allow building with python-myst-parser 1.0.0
 

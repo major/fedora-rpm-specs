@@ -6,7 +6,7 @@
 %global crate unsafe-libyaml
 
 Name:           rust-unsafe-libyaml
-Version:        0.2.7
+Version:        0.2.8
 Release:        %autorelease
 Summary:        Libyaml transpiled to rust by c2rust
 

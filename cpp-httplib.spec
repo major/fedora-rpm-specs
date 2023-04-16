@@ -13,7 +13,7 @@
 %endif
 
 Name:           cpp-httplib
-Version:        0.12.0
+Version:        0.12.2
 %forgemeta
 Release:        %autorelease
 
@@ -22,9 +22,6 @@ License:        MIT
 URL:            https://github.com/yhirose/cpp-httplib
 VCS:            git:%{forgeurl0}
 Source0:        %forgesource
-
-# https://github.com/yhirose/cpp-httplib/pull/1493
-Patch1:         cpp-httplib-0.12-gtest-reuse.patch
 
 BuildRequires:  redhat-rpm-config
 BuildRequires:  gcc-c++
@@ -45,7 +42,8 @@ It's extremely easy to setup. Just include the httplib.h file in your code!
 %package devel
 Summary:        A C++11 single-file header-only cross platform HTTP/HTTPS library
 Recommends:     cmake
-Requires:       openssl-devel zlib-devel brotli-devel
+Requires:       cmake-filesystem%{?_isa}
+Requires:       openssl-devel%{?_isa} zlib-devel%{?_isa} brotli-devel%{?_isa}
 %if %{with compile}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 %else

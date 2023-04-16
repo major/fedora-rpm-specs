@@ -1,5 +1,5 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0xa63ea142678138d1bb15f2e303bdfd64dd164087
+%global sources_gpg_sign 0xa7475c5f2122fec3f90343223fe3bf5aad1080e4
 %global sname oslo.config
 %global pypi_name oslo-config
 %global with_doc 1
@@ -9,8 +9,8 @@
 
 Name:       python-oslo-config
 Epoch:      2
-Version:    9.0.0
-Release:    2%{?dist}
+Version:    9.1.1
+Release:    1%{?dist}
 Summary:    OpenStack common configuration library
 
 Group:      Development/Languages
@@ -142,8 +142,7 @@ popd
 
 %check
 %if 0%{?repo_bootstrap} == 0
-# Skip test_generator_raises_error until https://review.opendev.org/#/c/742589/ is in tag release
-PYTHON=python3 stestr-3 run --black-regex test_generator_raises_error
+PYTHON=python3 stestr-3 run
 %endif
 
 %files -n python3-%{pypi_name}
@@ -163,6 +162,9 @@ PYTHON=python3 stestr-3 run --black-regex test_generator_raises_error
 %endif
 
 %changelog
+* Fri Apr 14 2023 Karolina Kula <kkula@redhat.com> 2:9.1.1-1
+- Update to upstream version 9.1.1
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:9.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

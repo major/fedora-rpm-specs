@@ -2,7 +2,7 @@
 
 Name:           sblim-smis-hba
 Version:        1.0.0
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        SBLIM SMIS HBA HDR Providers
 
 License:        EPL
@@ -23,6 +23,7 @@ Patch5:         sblim-smis-hba-1.0.0-prov-reg-sfcb-systemd.patch
 Patch6:         sblim-smis-hba-1.0.0-pegasus-interop.patch
 # Patch7: fixes multiple definiton of variables (FTBFS with GCC 10)
 Patch7:         sblim-smis-hba-1.0.0-fix-multiple-definition.patch
+Patch8: sblim-smis-hba-c99.patch
 
 BuildRequires: make
 BuildRequires:  sblim-cmpi-devel, sblim-cmpi-base-devel
@@ -47,6 +48,7 @@ SMI-S standards based HBA CMPI Providers.
 %patch5 -p1 -b .prov-reg-sfcb-systemd
 %patch6 -p1 -b .pegasus-interop
 %patch7 -p1 -b .fix-multiple-definition
+%patch8 -p1
 autoreconf -if
 
 
@@ -90,6 +92,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/cmpi/*a
 %sblim_preun
 
 %changelog
+* Fri Apr 14 2023 Florian Weimer <fweimer@redhat.com> - 1.0.0-32
+- Port to C99
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

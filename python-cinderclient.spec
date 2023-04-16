@@ -1,5 +1,5 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0xa63ea142678138d1bb15f2e303bdfd64dd164087
+%global sources_gpg_sign 0xa7475c5f2122fec3f90343223fe3bf5aad1080e4
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 %global sname cinderclient
@@ -11,8 +11,8 @@ Client library (cinderclient python module) and command line utility \
 (cinder) for interacting with OpenStack Cinder (Block Storage) API.
 
 Name:             python-cinderclient
-Version:          9.1.0
-Release:          2%{?dist}
+Version:          9.3.0
+Release:          1%{?dist}
 Summary:          Python API and CLI for OpenStack Cinder
 
 License:          ASL 2.0
@@ -47,10 +47,9 @@ BuildRequires:    python3-pbr
 Requires:         python3-pbr >= 5.5.0
 Requires:         python3-prettytable >= 0.7.2
 Requires:         python3-requests
-Requires:         python3-keystoneauth1 >= 4.3.1
+Requires:         python3-keystoneauth1 >= 5.0.0
 Requires:         python3-oslo-i18n >= 5.0.1
 Requires:         python3-oslo-utils >= 4.8.0
-Requires:         python3-simplejson >= 3.5.1
 Requires:         python3-stevedore >= 3.3.0
 
 %description -n python3-%{sname}
@@ -131,6 +130,9 @@ install -p -D -m 644 doc/build/man/cinder.1 %{buildroot}%{_mandir}/man1/cinder.1
 %endif
 
 %changelog
+* Fri Apr 14 2023 Karolina Kula <kkula@redhat.com> 9.3.0-1
+- Update to upstream version 9.3.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

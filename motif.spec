@@ -1,7 +1,7 @@
 Summary: Run-time libraries and programs
 Name: motif
 Version: 2.3.4
-Release: 27%{?dist}
+Release: 28%{?dist}
 License: LGPLv2+
 Source: http://downloads.sf.net/motif/motif-%{version}-src.tgz
 Source1: xmbind
@@ -31,6 +31,12 @@ Patch46: motif-2.3.4-bindings.patch
 Patch47: openMotif-2.3.0-no_X11R6.patch
 # FTBFS #1448819
 Patch48: motif-2.3.4-Fix-issues-with-Werror-format-security.patch
+Patch49: motif-configure-c99.patch
+Patch50: motif-c99-void-sprintf.patch
+Patch51: motif-c99-string.patch
+Patch52: motif-c99-bug1602.patch
+Patch53: motif-c99-bug1605.patch
+Patch54: motif-c99-bug1609.patch
 
 Conflicts: lesstif <= 0.92.32-6
 
@@ -70,6 +76,12 @@ This package contains the static Motif libraries.
 %patch46 -p1 -b .bindings
 %patch47 -p1 -b .no_X11R6
 %patch48 -p1 -b .format-security
+%patch49 -p1
+%patch50 -p1
+%patch51 -p1
+%patch52 -p1
+%patch53 -p1
+%patch54 -p1
 
 %build
 ./autogen.sh
@@ -119,6 +131,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_libdir}/lib*.a
 
 %changelog
+* Fri Apr 14 2023 Florian Weimer <fweimer@redhat.com> - 2.3.4-28
+- Port to C99 (#2186773)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

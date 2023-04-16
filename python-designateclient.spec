@@ -1,5 +1,5 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0xa63ea142678138d1bb15f2e303bdfd64dd164087
+%global sources_gpg_sign 0xa7475c5f2122fec3f90343223fe3bf5aad1080e4
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 %global with_doc 1
@@ -10,8 +10,8 @@ Client library and command line utility for interacting with Openstack Designate
 %global sname designateclient
 
 Name:       python-%{sname}
-Version:    5.0.0
-Release:    2%{?dist}
+Version:    5.2.0
+Release:    1%{?dist}
 Summary:    Python API and CLI for OpenStack Designate
 
 License:    ASL 2.0
@@ -126,6 +126,9 @@ rm -fr doc/build/html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Fri Apr 14 2023 Karolina Kula <kkula@redhat.com> 5.2.0-1
+- Update to upstream version 5.2.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

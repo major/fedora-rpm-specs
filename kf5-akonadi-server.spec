@@ -21,8 +21,8 @@
 
 Name:    kf5-%{framework}
 Summary: PIM Storage Service
-Version: 23.03.90
-Release: 2%{?dist}
+Version: 23.04.0
+Release: 1%{?dist}
 
 License: LGPLv2+
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -306,6 +306,9 @@ fi
 
 
 %changelog
+* Fri Apr 14 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.0-1
+- 23.04.0
+
 * Wed Apr 12 2023 Jan Grulich <jgrulich@redhat.com> - 23.03.90-2
 - Rebuild (qt5)
 

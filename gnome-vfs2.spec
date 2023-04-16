@@ -13,7 +13,7 @@
 Summary: The GNOME virtual file-system libraries
 Name: gnome-vfs2
 Version: 2.24.4
-Release: 41%{?dist}
+Release: 42%{?dist}
 License: LGPL-2.0-or-later and GPL-2.0-or-later
 # the daemon and the library are LGPLv2+
 # the modules are LGPLv2+ and GPLv2+
@@ -84,6 +84,8 @@ Patch404: gnome-vfs-2.24.xx-utf8-mounts.patch
 
 # https://bugzilla.gnome.org/show_bug.cgi?id=435653
 Patch405: 0001-Add-default-media-application-schema.patch
+Patch406: gnome-vfs2-configure-c99.patch
+Patch407: gnome-vfs2-c99.patch
 
 # from upstream
 Patch7: gnome-vfs-2.24.5-file-method-chmod-flags.patch
@@ -151,6 +153,8 @@ shares (SMB) to applications using GNOME VFS.
 %patch404 -p1 -b .utf8-mounts
 
 %patch405 -p1 -b .default-media
+%patch406 -p1
+%patch407 -p1
 
 %build
 # for patch 10 and 4
@@ -258,6 +262,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -fv {} ';'
 %config %{_sysconfdir}/gnome-vfs-2.0/modules/smb-module.conf
 
 %changelog
+* Fri Apr 14 2023 Florian Weimer <fweimer@redhat.com> - 2.24.4-42
+- Port to C99 (#2186690)
+
 * Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.24.4-41
 - migrated to SPDX license
 

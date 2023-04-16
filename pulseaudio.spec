@@ -77,7 +77,7 @@ BuildRequires:  xmltoman
 BuildRequires:  libsndfile-devel
 BuildRequires:  alsa-lib-devel
 BuildRequires:  glib2-devel
-BuildRequires:  gtk2-devel
+BuildRequires:  gtk3-devel
 BuildRequires:  avahi-devel
 BuildRequires:  libatomic_ops-static, libatomic_ops-devel
 BuildRequires:  pkgconfig(bluez) >= 5.0

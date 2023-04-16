@@ -6,7 +6,7 @@
 %global crate print_bytes
 
 Name:           rust-print_bytes
-Version:        1.1.1
+Version:        1.2.0
 Release:        %autorelease
 Summary:        Print bytes as losslessly as possible
 

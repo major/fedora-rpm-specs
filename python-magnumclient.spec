@@ -1,5 +1,5 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0xa63ea142678138d1bb15f2e303bdfd64dd164087
+%global sources_gpg_sign 0xa7475c5f2122fec3f90343223fe3bf5aad1080e4
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 %global sname python-magnumclient
 %global pname magnumclient
@@ -13,8 +13,8 @@ command-line tool (magnum).
 %global common_desc_tests Python-magnumclient test subpackage
 
 Name:           python-%{pname}
-Version:        4.0.0
-Release:        2%{?dist}
+Version:        4.1.0
+Release:        1%{?dist}
 Summary:        Client library for Magnum API
 
 License:        ASL 2.0
@@ -107,6 +107,9 @@ Requires:  python3-testtools
 Requires:  python3-keystoneauth1
 Requires:  python3-prettytable
 Requires:  python3-stestr
+%if 0%{?rhel}
+Requires:  python3-osprofiler
+%endif
 
 %description -n python3-%{pname}-tests
 %{common_desc_tests}
@@ -161,6 +164,9 @@ PYTHON=%{__python3} stestr run --slowest || true
 %{python3_sitelib}/%{pname}/tests
 
 %changelog
+* Fri Apr 14 2023 Karolina Kula <kkula@redhat.com> 4.1.0-1
+- Update to upstream version 4.1.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

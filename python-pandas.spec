@@ -13,7 +13,7 @@
 
 Name:           python-pandas
 Version:        1.5.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python library providing high-performance data analysis tools
 
 # The entire source is BSD-3-Clause and covered by LICENSE, except:
@@ -86,6 +86,13 @@ Patch:          https://github.com/pandas-dev/pandas/pull/49913.patch
 #   fixes:
 # ERROR at setup of test_to_read_gcs[…]
 Patch:          https://github.com/pandas-dev/pandas/commit/e73d4d29203dab20e001beb1090d07683de583d6.patch
+
+# Fix/mpl37 compat
+# https://github.com/pandas-dev/pandas/pull/52150
+#   Fixes:
+# python-pandas: FTBFS in Fedora rawhide/f38
+# https://bugzilla.redhat.com/show_bug.cgi?id=2171682
+Patch:          https://github.com/pandas-dev/pandas/pull/52150.patch
 
 %global _description %{expand:
 pandas is an open source, BSD-licensed library providing
@@ -709,6 +716,9 @@ export PYTHONHASHSEED="$(
 
 
 %changelog
+* Thu Apr 13 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.5.3-2
+- Fix RHBZ#2171682 by backporting upstream PR#52150
+
 * Mon Feb 27 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.5.3-1
 - Update to 1.5.3 (close RHBZ#2162303)
 

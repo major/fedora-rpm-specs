@@ -22,7 +22,7 @@
 Name:    kdebase3
 Summary: KDE 3 core files
 Version: 3.5.10
-Release: 76%{?dist}
+Release: 77%{?dist}
 
 # programs: GPLv2, libs: LGPLv2
 License: GPL-2.0-only
@@ -96,6 +96,7 @@ Patch100: kdebase-3.5.10-minicli-decimal-comma.patch
 # http://git.trinitydesktop.org/cgit/tdebase/commit/?id=48c6b8ff3d2cac37dccce46db29499a14fb025b1
 # http://git.trinitydesktop.org/cgit/tdebase/commit/?id=d9b4ee04db7e614a59470acc38a6482c15aed032
 Patch150: kdebase-3.5.10-openssl-1.1.patch
+Patch151: kdebase3-configure-c99.patch
 
 # security fixes
 
@@ -266,6 +267,7 @@ Protocol handlers (KIOslaves) for personal information management, including:
 %patch100 -p1 -b .minicli-decimal-comma
 
 %patch150 -p1 -b .openssl-1.1
+%patch151 -p1 -b .configure-c99
 
 # hacks to omit stuff that doesn't support DO_NOT_COMPILE
 # colors is pending on http://bugzilla.redhat.com/443343
@@ -762,6 +764,9 @@ fi
 
 
 %changelog
+* Fri Apr 14 2023 Florian Weimer <fweimer@redhat.com> - 3.5.10-77
+- Port configure script to C99 (#2186679)
+
 * Thu Feb 23 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 3.5.10-76
 - Rebuild against openexr2 2.5.8
 

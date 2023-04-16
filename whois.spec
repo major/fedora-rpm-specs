@@ -8,8 +8,8 @@
 %global forgeurl https://github.com/rfc1036/whois
 
 Name:       whois       
-Version:    5.5.15
-Release:    3%{?dist}
+Version:    5.5.16
+Release:    1%{?dist}
 Summary:    Improved WHOIS client
 License:    GPLv2+
 URL:        https://www.linux.it/~md/software/
@@ -94,7 +94,7 @@ whois tools messages translated into different natural languages.
   dscverify --keyring "${TMPKEY}" %{SOURCE1}
   rm -f "${TMPKEY}"
 %endif
-%autosetup -p1 -n %{name}
+%autosetup -p1
 
 %build
 %{make_build} CONFIG_FILE="%{_sysconfdir}/%{cfgfile}" \
@@ -150,6 +150,9 @@ fi
 %endif
 
 %changelog
+* Fri Apr 14 2023 Petr Menšík <pemensik@redhat.com> - 5.5.16-1
+- Update to 5.5.16 (#2173826)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.5.15-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

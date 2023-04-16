@@ -3,7 +3,7 @@
 %global _changelog_trimtime %(date +%s -d "1 year ago")
 
 Name:    yakuake
-Version: 23.03.90
+Version: 23.04.0
 Release: 1%{?dist}
 Summary: A drop-down terminal emulator
 
@@ -97,6 +97,9 @@ desktop-file-validate  %{buildroot}%{_kf5_datadir}/applications/org.kde.yakuake.
 
 
 %changelog
+* Fri Apr 14 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.0-1
+- 23.04.0
+
 * Fri Mar 31 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.03.90-1
 - 23.03.90
 

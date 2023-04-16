@@ -2,7 +2,7 @@
 
 Name:    hyperscan
 Version: 5.4.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: High-performance regular expression matching library
 
 License: BSD
@@ -23,6 +23,9 @@ ExclusiveArch: x86_64
 
 #patch to linking set up in build_wrapper
 #Patch0: hyperscan-5.4.0-build_wrapper_fix.patch
+
+#patch for validity check introduced that breaks integrations
+Patch1: hyperscan-5.4.1-remove_quick_validity_check.patch
 
 %description
 Hyperscan is a high-performance multiple regex matching library. It
@@ -57,7 +60,7 @@ needed for developing Hyperscan applications.
 
 %prep
 %setup
-#%patch0 -p0 -b .build_wrapper_fix
+%patch -P1 -p1
 
 %build
 # LTO seems to be losing the target prefix on ifunc targets leading to
@@ -84,6 +87,9 @@ needed for developing Hyperscan applications.
 %{_includedir}/hs/
 
 %changelog
+* Fri Apr 14 2023 Jason Taylor <jtfas90@gmail.com> - 5.4.1-2
+- Patch broken validity check introduced upstream in release 
+
 * Fri Feb 24 2023 Jason Taylor <jtfas90@gmail.com> - 5.4.1-1
 - Upstream bugfix release
 

@@ -1,14 +1,11 @@
 Name:           gupnp-igd
-Version:        1.2.0
-Release:        8%{?dist}
+Version:        1.6.0
+Release:        1%{?dist}
 Summary:        Library to handle UPnP IGD port mapping
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://wiki.gnome.org/Projects/GUPnP
-Source0:        https://download.gnome.org/sources/%{name}/1.2/%{name}-%{version}.tar.xz
-# https://gitlab.gnome.org/GNOME/gupnp-igd/-/merge_requests/7
-# https://gitlab.gnome.org/GNOME/gupnp-igd/-/merge_requests/9
-Patch0:         gupnp-igd-1.2.0-gupnp-1.6.patch
+Source0:        https://download.gnome.org/sources/%{name}/1.6/%{name}-%{version}.tar.xz
 
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gupnp-1.6)
@@ -62,6 +59,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Apr 14 2023 David King <amigadave@amigadave.com> - 1.6.0-1
+- Update to 1.6.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

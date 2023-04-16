@@ -1,13 +1,17 @@
 %undefine   __brp_mangle_shebangs
 
 Name:		magic
-Version:	8.3.388
+Version:	8.3.389
 Release:	1%{?dist}
 Summary:	A very capable VLSI layout tool
 
-# Apparently "MIT" in old identifier, but not sure for new identifier
-# Need investigating
-License:	MIT
+# SPDX confirmed
+# LICENSE: NTP-0
+# calma/:  NTP-0
+# bplane/bpBins.c and etc: TCL
+# drc/DRCcif.c: HPND
+# scmos/COPYRIGHT: NPND
+License:	NTP-0 AND TCL AND HPND
 URL:		http://opencircuitdesign.com/%{name}/index.html
 
 Source:	http://opencircuitdesign.com/%{name}/archive/%{name}-%{version}.tgz
@@ -171,6 +175,10 @@ rm -f %{buildroot}%{_mandir}/man1/extcheck.1*
 %doc	scmos/
 
 %changelog
+* Fri Apr 14 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.389-1
+- 8.3.389
+- SPDX migration
+
 * Tue Mar 28 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.388-1
 - 8.3.388
 

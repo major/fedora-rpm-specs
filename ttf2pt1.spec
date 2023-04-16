@@ -1,6 +1,6 @@
 Name: ttf2pt1
 Version: 3.4.4
-Release: 36%{?dist}
+Release: 37%{?dist}
 Summary: TrueType to Adobe Type 1 font converter
 Summary(sv): Konverterare från TrueType till Adobe Type 1
 
@@ -11,6 +11,7 @@ Patch0: ttf2pt1-destdir.patch
 Patch1: ttf2pt1-freetype.patch
 Patch2: ttf2pt1-sed.patch
 Patch3: ttf2pt1-doc.patch
+Patch4: ttf2pt1-c99.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -38,6 +39,7 @@ Adobe Type 1.
 %patch1
 %patch2
 %patch3
+%patch4 -p1
 
 
 %build
@@ -76,6 +78,9 @@ cp other/showg %buildroot/%_bindir/%{name}_showg
 
 
 %changelog
+* Fri Apr 14 2023 Florian Weimer <fweimer@redhat.com> - 3.4.4-37
+- Port to C99
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.4-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

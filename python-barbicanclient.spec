@@ -1,5 +1,5 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0xa63ea142678138d1bb15f2e303bdfd64dd164087
+%global sources_gpg_sign 0xa7475c5f2122fec3f90343223fe3bf5aad1080e4
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 %global with_doc 1
@@ -12,8 +12,8 @@ Python library for accessing the API (barbicanclient module), and \
 a command-line script (barbican).
 
 Name:           python-barbicanclient
-Version:        5.4.0
-Release:        2%{?dist}
+Version:        5.5.0
+Release:        1%{?dist}
 Summary:        Client Library for OpenStack Barbican Key Management API
 
 License:        ASL 2.0
@@ -49,7 +49,7 @@ Requires:       python3-oslo-i18n >= 3.15.3
 Requires:       python3-oslo-serialization >= 2.18.0
 Requires:       python3-oslo-utils >= 3.33.0
 Requires:       python3-prettytable
-Requires:       python3-keystoneauth1 >= 3.4.0
+Requires:       python3-keystoneauth1 >= 5.1.1
 Requires:       python3-pbr >= 2.0.0
 Requires:       python3-cliff >= 2.8.0
 
@@ -111,6 +111,9 @@ ln -s ./barbican %{buildroot}%{_bindir}/barbican-3
 %endif
 
 %changelog
+* Fri Apr 14 2023 Karolina Kula <kkula@redhat.com> 5.5.0-1
+- Update to upstream version 5.5.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

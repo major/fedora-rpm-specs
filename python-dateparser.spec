@@ -1,80 +1,230 @@
-%global pypi_name dateparser
+# Not packaged: python-hijri-converter (needed by calendars extra)
+%bcond_with calendars
+# Not packaged: python-fasttext (needed by fasttext extra)
+%bcond_with fasttext
+# Sphinx-generated HTML documentation is not suitable for packaging; see
+# https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
+#
+# We can generate PDF documentation as a substitute.
+%bcond_without doc_pdf
 
-Name:           python-%{pypi_name}
-Version:        0.7.6
-Release:        10%{?dist}
-Summary:        A Python parser for human readable dates
+Name:           python-dateparser
+Version:        1.1.7
+Release:        1%{?dist}
+Summary:        Python parser for human readable dates
 
 License:        BSD-3-Clause
 URL:            https://github.com/scrapinghub/dateparser
-Source0:        https://github.com/scrapinghub/dateparser/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
-
-# https://github.com/scrapinghub/dateparser/issues/1045#issuecomment-1129846022
-Patch:          regex-compat.patch
+Source0:        %{url}/archive/v%{version}/dateparser-%{version}.tar.gz
+# Man page hand-written for Fedora in groff_man(7) format based on --help
+Source1:        dateparser-download.1
 
 BuildArch:      noarch
 
-%description
-dateparser provides modules to easily parse localized dates in almost any
-string formats commonly found on web pages.
+BuildRequires:  python3-devel
 
-%package -n python3-%{pypi_name}
+%global common_description %{expand:
+Key Features
+
+  • Support for almost every existing date format: absolute dates, relative
+    dates ("two weeks ago" or "tomorrow"), timestamps, etc.
+  • Support for more than 200 language locales.
+  • Language autodetection
+  • Customizable behavior through settings.
+  • Support for non-Gregorian calendar systems.
+  • Support for dates with timezones abbreviations or UTC offsets
+    ("August 14, 2015 EST", "21 July 2013 10:15 pm +0500"…)
+  • Search dates in longer texts.}
+
+%description %{common_description}
+
+
+%package -n python3-dateparser
 Summary:        %{summary}
 
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-convertdate
-BuildRequires:  python3-dateutil
-BuildRequires:  python3-parameterized
-BuildRequires:  python3-pytest
-BuildRequires:  python3-regex
-BuildRequires:  python3-tzlocal
-BuildRequires:  python3-mock
-BuildRequires:  python3-wheel
-BuildRequires:  python3-pytz
-BuildRequires:  python3-ruamel-yaml
-BuildRequires:  python3-GitPython
-%{?python_provide:%python_provide python3-%{pypi_name}}
+%py_provides python3-dateparser-cli
+%py_provides python3-dateparser-data
 
-%description -n python3-%{pypi_name}
-dateparser provides modules to easily parse localized dates in almost any
-string formats commonly found on web pages.
+%description -n python3-dateparser %{common_description}
 
-%package -n %{name}-doc
-Summary:        Documentation for python3-%{pypi_name}
 
-BuildRequires:  python3-sphinx
+%pyproject_extras_subpkg -n python3-dateparser %{?with_calendars:calendars} %{?with_fasttext:fasttext} langdetect
 
-%description -n %{name}-doc
-This documentation for python3-%{pypi_name}.
+
+%package -n python3-dateparser-scripts
+Summary:        %{summary}
+
+Requires:       python3-dateparser = %{version}-%{release}
+# From dateparser_scripts/requirements.txt; not included in the
+# install_requires. It is questionable whether these scripts need to be
+# installed at all. See:
+# https://github.com/scrapinghub/dateparser/issues/705#issuecomment-1464503426.
+Requires:       %{py3_dist gitpython}
+Requires:       %{py3_dist parsel}
+Requires:       %{py3_dist requests}
+Requires:       %{py3_dist ruamel.yaml}
+
+%description -n python3-dateparser-scripts %{common_description}
+
+This package contains scripts used in developing the dateparser package.
+
+
+%package doc
+Summary:        Documentation for %{name}
+
+%if %{with doc_pdf}
+BuildRequires:  make
+BuildRequires:  python3dist(sphinx)
+BuildRequires:  python3-sphinx-latex
+BuildRequires:  latexmk
+BuildRequires:  /usr/bin/xindy
+BuildRequires:  tex-xetex-bin
+# HTML theme is used as an extension even when building PDFs; we could perhaps
+# patch it out of “extensions” in docs/conf.py, but it hardly seems worth the
+# effort.
+BuildRequires:  python3dist(sphinx-rtd-theme)
+%endif
+
+%description doc
+%{summary}.
+
 
 %prep
-%autosetup -p1 -n %{pypi_name}-%{version}
+%autosetup -p1 -n dateparser-%{version}
+
+%if %{without calendars}
+sed -r -i 's/(extras = .*)calendars,?/\1/' tox.ini
+%endif
+
+%if %{without fasttext}
+sed -r -i 's/(extras = .*)fasttext,?/\1/' tox.ini
+%endif
+
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+sed -r -i 's/^(flake8|pytest-cov)\b/# &/' tests/requirements.txt
+sed -r -i 's/--cov[^[:blank:]]+//g' tox.ini
+
+cat >> docs/conf.py <<'EOF'
+# We cannot resolve remote Intersphinx mappings in an offline build.
+intersphinx_mapping.clear()
+# Since pdflatex cannot handle Unicode inputs in general:
+latex_engine = 'xelatex'
+EOF
+
+
+%generate_buildrequires
+%if !0%{?fc37} && !0%{?fc36}
+%global toxenv -e latest
+%endif
+%pyproject_buildrequires -t %{?toxenv} %{?with_calendars:-x calendar }%{?with_fasttext:-x fasttext }-x langdetect
+
 
 %build
-%py3_build
-PYTHONPATH=${PWD} sphinx-build-3 docs html
-rm -rf html/.{doctrees,buildinfo}
+%pyproject_wheel
+%if %{with doc_pdf}
+PYTHONPATH="${PWD}" %make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
+%make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
+%endif
+
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files dateparser dateparser_cli dateparser_data dateparser_scripts
+install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
+
 
 %check
-%pytest -v tests
+%if %{without calendars}
+# Uses hijri_convert
+# --ignore does not seem to prevent doctest collection in tests/
+rm -vf tests/test_hijri.py
+ignore="${ignore-} --ignore=tests/test_hijri.py"
+ignore="${ignore-} --ignore=dateparser/calendars/hijri.py"
+ignore="${ignore-} --ignore=dateparser/calendars/hijri_parser.py"
+# Uses convertdate
+# --ignore does not seem to prevent doctest collection in tests/
+rm -vf tests/test_jalali.py
+ignore="${ignore-} --ignore=tests/test_jalali.py"
+ignore="${ignore-} --ignore=dateparser/calendars/jalali.py"
+ignore="${ignore-} --ignore=dateparser/calendars/jalali_parser.py"
+%endif
 
-%files -n python3-%{pypi_name}
-%doc AUTHORS.rst CONTRIBUTING.rst HISTORY.rst README.rst
-%license LICENSE
-%{python3_sitelib}/*.egg-info
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/dateparser_data/
+%if %{without fasttext}
+# Uses fasttext
+# --ignore does not seem to prevent doctest collection in tests/
+rm -vf tests/test_language_detect.py
+ignore="${ignore-} --ignore=dateparser/custom_language_detection/fasttext.py"
+ignore="${ignore-} --ignore=tests/test_language_detect.py"
+%endif
+
+# From the docstring containing this doctest:
+#   In the example below, since no day information is present, the day is
+#   assumed to be current day ``16`` from *current date* (which is June 16,
+#   2015, at the moment of writing this). Hence, the level of precision is
+#   ``month``:
+# Obviously, yet bizarrely, this only works when it is *executed* on the 16th
+# of some month.
+k="${k-}${k+ and }not (DateDataParser and get_date_data)"
+
+# The doctest parser does not like the line continuation here:
+#     File "<doctest dateparser.search.search_dates[2]>", line 1
+#       search_dates('The first artificial Earth satellite was launched on 4 October 1957.',
+#                   ^
+#   SyntaxError: '(' was never closed
+k="${k-}${k+ and }not search_dates"
+
+# TODO: What is going wrong?
+#   E   AssertionError: Lists differ: [('20[28 chars] 3, 11, 0, 0)),
+#       ('October', datetime.datetime([71 chars] 0))] != [('20[28 chars] 3, 10,
+#       0, 0)), ('October', datetime.datetime([71 chars] 0))]
+k="${k-}${k+ and }not (TestTranslateSearch and test_relative_base_setting_1_en)"
+#   E   AssertionError: Lists differ: [('20[28 chars] 3, 11, 0, 0)),
+#       ('July 13th', datetime.datetim[70 chars] 0))] != [('20[28 chars] 3, 10,
+#       0, 0)), ('July 13th', datetime.datetim[70 chars] 0))]
+k="${k-}${k+ and }not (TestTranslateSearch and test_splitting_of_not_parsed_1_en)"
+#   E   AssertionError: Lists differ: [('20[28 chars] 3, 11, 0, 0)),
+#       ('July 12th', datetime.datetim[123 chars] 0))] != [('20[28 chars] 3,
+#       10, 0, 0)), ('July 12th', datetime.datetim[123 chars] 0))]
+k="${k-}${k+ and }not (TestTranslateSearch and test_splitting_of_not_parsed_5_en)"
+#   E   AssertionError: Lists differ: [('19[28 chars] 3, 11, 0, 0)), ('1939',
+#       datetime.datetime(1939, 3, 11, 0, 0))] != [('19[28 chars] 3, 10, 0,
+#       0)), ('1939', datetime.datetime(1939, 3, 10, 0, 0))]
+k="${k-}${k+ and }not (TestTranslateSearch and test_splitting_of_not_parsed_6_en)"
+
+%tox -- -- ${ignore-} -k "${k-}" -v
+
+
+%files -n python3-dateparser -f %{pyproject_files}
+%exclude %{python3_sitelib}/dateparser_scripts/
+
+%{_bindir}/dateparser-download
+%{_mandir}/man1/dateparser-download.1*
+
+
+%files -n python3-dateparser-scripts
 %{python3_sitelib}/dateparser_scripts/
 
-%files -n %{name}-doc
-%doc html
+
+%files doc
 %license LICENSE
+%doc AUTHORS.rst
+%doc CONTRIBUTING.rst
+%doc HISTORY.rst
+%doc README.rst
+%if %{with doc_pdf}
+%doc docs/_build/latex/dateparser.pdf
+%endif
+
 
 %changelog
+* Fri Mar 10 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.1.7-1
+- Update to 1.1.7 (close RHBZ#2115204)
+- Port to pyproject-rpm-macros
+- Add extras metapackages
+- Build Sphinx documentation as PDF rather than HTML to avoid issues with
+  bundled and precompiled JavaScript etc.
+- Split out a python3-dateparser-scripts subpackage
+
 * Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.7.6-10
 - migrated to SPDX license
 

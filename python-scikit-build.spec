@@ -1,6 +1,8 @@
+%global pypi_name scikit_build
+
 Name:           python-scikit-build
-Version:        0.16.7
-Release:        1%{?dist}
+Version:        0.17.1
+Release:        %{autorelease}
 Summary:        Improved build system generator for Python C/C++/Fortran/Cython extensions
 
 # This project is mainly MIT but LICENSE also mentions some code
@@ -8,7 +10,7 @@ Summary:        Improved build system generator for Python C/C++/Fortran/Cython 
 # All bundled(cmake()) files listed are Apache-2.0 licensed.
 License:        MIT AND BSD-2-Clause-Views AND Apache-2.0
 URL:            https://github.com/scikit-build/scikit-build
-Source:         %{pypi_source scikit-build}
+Source0:        %{pypi_source %{pypi_name}}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -52,7 +54,7 @@ Provides:       bundled(cmake(UsePythonExtensions))
 
 
 %prep
-%autosetup -p1 -n scikit-build-%{version}
+%autosetup -n %{pypi_name}-%{version}
 
 
 %generate_buildrequires
@@ -83,8 +85,4 @@ export CXXFLAGS=' '
 
 
 %changelog
-* Fri Feb 17 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 0.16.7-1
-- Update to 0.16.7
-
-* Thu Feb 09 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 0.16.6-1
-- Initial package
+%autochangelog

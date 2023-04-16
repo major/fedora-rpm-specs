@@ -26,7 +26,7 @@ Summary:   NetworkManager VPN plugin for SSTP
 Name:      NetworkManager-sstp
 Epoch:     1
 Version:   1.3.1
-Release:   2%{?snapshot}%{?dist}
+Release:   3%{?snapshot}%{?dist}
 License:   GPLv2+
 URL:       https://gitlab.gnome.org/GNOME/network-manager-sstp
 
@@ -35,6 +35,7 @@ Source:    https://gitlab.gnome.org/GNOME/network-manager-sstp/-/archive/%{snaps
 %else
 Source:    https://download.gnome.org/sources/%{name}/1.3/%{name}-%{version}.tar.xz
 %endif
+Patch0: NetworkManager-sstp-c99.patch
 
 BuildRequires: make
 %if %{with gtk4}
@@ -83,9 +84,9 @@ the SSTP server with NetworkManager (GNOME files).
 
 %prep
 %if "%{?snapshot:1}" == "1"
-%setup -q -n network-manager-sstp-%{snapshot_full_commit_hash}
+%autosetup -p1 -n network-manager-sstp-%{snapshot_full_commit_hash}
 %else
-%setup -q
+%autosetup -p1
 %endif
 
 %build
@@ -131,6 +132,9 @@ rm -f %{buildroot}%{_libdir}/pppd/%{ppp_version}/*.la
 %endif
 
 %changelog
+* Fri Apr 14 2023 Florian Weimer <fweimer@redhat.com> - 1:1.3.1-3
+- Port to C99
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

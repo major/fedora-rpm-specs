@@ -1,5 +1,5 @@
 Name:		libpaper
-Version:	2.0.10
+Version:	2.1.0
 Release:	1%{?dist}
 # Needed to replace separate paper package
 Epoch:		1
@@ -102,11 +102,15 @@ install -m0755 src/localepaper %{buildroot}%{_libexecdir}
 
 %files -n paper
 %{_bindir}/paper
+%{_bindir}/paperconf
 %{_libexecdir}/localepaper
 %{_mandir}/man1/*
 %{_mandir}/man5/*
 
 %changelog
+* Fri Apr 14 2023 Tom Callaway <spot@fedoraproject.org> - 1:2.1.0-1
+- update to 2.1.0
+
 * Fri Mar  3 2023 Tom Callaway <spot@fedoraproject.org> - 1:2.0.10-1
 - update to 2.0.10
 

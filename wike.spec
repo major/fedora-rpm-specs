@@ -1,8 +1,8 @@
 %global appid com.github.hugolabe.Wike
 
 Name:           wike
-Version:        1.8.3
-Release:        2%{?dist}
+Version:        2.0.0
+Release:        1%{?dist}
 Summary:        Wikipedia Reader for the GNOME Desktop
 
 License:        GPL-3.0-or-later
@@ -20,19 +20,19 @@ BuildRequires:  libappstream-glib
 
 Requires:       hicolor-icon-theme
 Requires:       python3-gobject
-Requires:       gtk3
-Requires:       libhandy1
-Requires:       webkit2gtk4.1
+Requires:       gtk4
+Requires:       libadwaita
+Requires:       webkitgtk6.0
 Requires:       python3dist(dbus-python)
 Requires:       python3dist(requests)
 
 %description
-Wike is a Wikipedia reader for the GNOME Desktop. Provides access to all the 
-content of this online encyclopedia in a native application, with a simpler and 
+Wike is a Wikipedia reader for the GNOME Desktop. Provides access to all the
+content of this online encyclopedia in a native application, with a simpler and
 distraction-free view of articles.
 
 %prep
-%autosetup -n Wike-%{version} -p1
+%autosetup -n Wike-%{version}
 
 %build
 %meson
@@ -53,7 +53,6 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{appid}.desktop
 %{_datadir}/%{name}
 %{_datadir}/applications/%{appid}.desktop
 %{_datadir}/icons/hicolor/*/apps/*
-%{_datadir}/icons/hicolor/*/actions/*
 %{_datadir}/glib-2.0/schemas/%{appid}.gschema.xml
 %{_metainfodir}/%{appid}.metainfo.xml
 %dir %{_datadir}/dbus-1
@@ -64,6 +63,10 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{appid}.desktop
 %{_datadir}/gnome-shell/search-providers/%{appid}.SearchProvider.ini
 
 %changelog
+* Fri Apr 14 2023 Gustavo Costa <xfgusta@gmail.com> - 2.0.0-1
+- Update to 2.0.0 (rhbz#2186215)
+- Change gtk3, libhandy and webkit2gtk4.1 to gtk4, libadwaita and webkitgtk6.1
+
 * Sat Mar 04 2023 Gustavo Costa <xfgusta@gmail.com> - 1.8.3-2
 - Use webkit2gtk4.1
 

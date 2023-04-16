@@ -1,6 +1,6 @@
 Name:           libsmi
 Version:        0.4.8
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        A library to access SMI MIB information
 
 License:        GPLv2+ and BSD
@@ -12,6 +12,8 @@ Patch0:		libsmi-0.4.8-wget111.patch
 Patch1:		libsmi-0.4.8-CVE-2010-2891.patch
 Patch2:		libsmi-0.4.8-symbols-clash.patch
 Patch3:		libsmi-0.4.8-format-security-fix.patch
+Patch4: libsmi-configure-c99.patch
+Patch5: libsmi-c99.patch
 
 BuildRequires:  libtool
 BuildRequires:  flex, bison
@@ -47,9 +49,15 @@ libsmi-based applications.
 %patch1 -p1 -b .CVE-2010-2891
 %patch2 -p1 -b .clash
 %patch3 -p1 -b .format-security
+%patch4 -p1
+%patch5 -p1
+# Avoid re-running bison.  The regeneration appears to break the generated
+# C code.
+touch -r lib/parser-sming.y lib/parser-sming.c
 cp %{SOURCE2} .
 
 %build
+autoreconf -iv
 %configure \
     --enable-smi \
     --enable-sming \
@@ -98,6 +106,9 @@ make check ||:
 
 
 %changelog
+* Fri Apr 14 2023 Florian Weimer <fweimer@redhat.com> - 0.4.8-33
+- Port to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.8-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

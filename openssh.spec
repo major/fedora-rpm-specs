@@ -47,7 +47,7 @@
 
 # Do not forget to bump pam_ssh_agent_auth release if you rewind the main package release to 1
 %global openssh_ver 9.0p1
-%global openssh_rel 15
+%global openssh_rel 17
 %global pam_ssh_agent_ver 0.10.4
 %global pam_ssh_agent_rel 8
 
@@ -243,9 +243,10 @@ Patch1009: openssh-configure-c99-3.patch
 
 Patch1010: openssh-8.7p1-CVE-2023-25136.patch
 
-# downstream only
-# we skip some ssh-rsa/ssh-dss tests to make native test suite pass
-#Patch1100: openssh-8.8p1-skip-some-tests.patch
+Patch1011: openssh-9.0p1-evp-fips-sign.patch
+Patch1012: openssh-9.0p1-evp-fips-dh.patch
+Patch1013: openssh-9.0p1-evp-fips-ecdh.patch
+Patch1014: openssh-8.7p1-nohostsha1proof.patch
 
 License: BSD
 Requires: /sbin/nologin
@@ -440,6 +441,7 @@ popd
 
 %patch200 -p1 -b .audit
 %patch201 -p1 -b .audit-race
+%patch202 -p1 -b .audit-log
 %patch700 -p1 -b .fips
 
 %patch1001 -p1 -b .scp-clears-file
@@ -454,7 +456,10 @@ popd
 %patch1009 -p1 -b .configure-c99-3
 %patch1010 -p1 -b .cve-2023-25136
 
-#%patch1100 -p1 -b .skipsshrsadsstests
+%patch1011 -p1 -b .evp-fips-sign
+%patch1012 -p1 -b .evp-fips-dh
+%patch1013 -p1 -b .evp-fips-ecdh
+%patch1014 -p1 -b .nosha1hostproof
 
 %patch100 -p1 -b .coverity
 
@@ -762,6 +767,14 @@ test -f %{sysconfig_anaconda} && \
 %endif
 
 %changelog
+* Fri Apr 14 2023 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.0p1-17
+- In case when sha1 signatures are not supported, fallback to sha2 in hostproof
+- Audit logging patch was not applied (rhbz#2177471)
+
+* Thu Apr 13 2023 Norbert Pocs <npocs@redhat.com> - 9.0p1-16
+- Make the sign, dh, ecdh processes FIPS compliant by adopting to
+  openssl 3.0
+
 * Thu Apr 13 2023 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.0p1-15
 - Fix self-DoS
   Resolves: CVE-2023-25136

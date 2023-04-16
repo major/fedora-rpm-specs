@@ -11,7 +11,7 @@
 # https://git.sr.ht/~emersion/hut
 %global goipath         git.sr.ht/~emersion/hut
 %global topdir          hut-%{version}
-Version:                0.2.0
+Version:                0.3.0
 
 %gometa -f
 

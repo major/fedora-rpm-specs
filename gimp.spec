@@ -58,7 +58,7 @@ find $bytecode_compilation_path -type f -a -name "*.py" -print0 | xargs -0 $pyth
 Summary:        GNU Image Manipulation Program
 Name:           gimp
 Epoch:          2
-Version:        2.10.32
+Version:        2.10.34
 Release:        %autorelease
 
 # Compute some version related macros.
@@ -101,6 +101,7 @@ BuildRequires:  iso-codes-devel
 BuildRequires:  jasper-devel
 BuildRequires:  lcms2-devel >= 2.8
 BuildRequires:  libappstream-glib
+BuildRequires:  libheif-devel
 BuildRequires:  libgexiv2-devel >= 0.10.6
 BuildRequires:  libgudev1-devel >= 167
 BuildRequires:  libjpeg-devel
@@ -175,6 +176,9 @@ Conflicts:      %{name}-help-browser < %{epoch}:%{version}-%{release}
 #Demodularizing of gimp (#1772469)
 Obsoletes:	%{name} < %{epoch}:%{version}-%{release}
 Conflicts:	%{name} < %{epoch}:%{version}-%{release}
+
+#Remove dependency on RPM Fusion repository
+Obsoletes:  gimp-heif-plugin < 1.1.0-13
 
 Source0:        http://download.gimp.org/pub/gimp/v%{binver}/gimp-%{version}.tar.bz2
 
@@ -329,7 +333,7 @@ export RHEL_ALLOW_PYTHON2_FOR_BUILD=1
 %else
     --enable-default-binary=no \
 %endif
-    --with-libmng --with-libxpm --with-alsa --with-cairo-pdf \
+    --with-libmng --with-libxpm --with-alsa --with-cairo-pdf --with-libheif \
 %if 0%{?flatpak}
     --with-icc-directory=/run/host/usr/share/color/icc/ \
 %endif

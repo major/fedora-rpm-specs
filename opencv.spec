@@ -1,7 +1,11 @@
 %undefine __cmake_in_source_build
 
 %bcond_without  tests
-%bcond_without  extras
+%if %{without tests}
+%bcond_with     extras_tests
+%else
+%bcond_without  extras_tests
+%endif
 # linters are enabled by default if BUILD_DOCS OR BUILD_EXAMPLES
 %bcond_with     linters
 %bcond_with     ffmpeg
@@ -70,7 +74,7 @@ Version:        4.7.0
 %global minorver %(foo=%{version}; a=(${foo//./ }); echo ${a[1]} )
 %global padding  %(digits=00; num=%{minorver}; echo ${digits:${#num}:${#digits}} )
 %global abiver   %(echo %{majorver}%{padding}%{minorver} )
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Collection of algorithms for computer vision
 # This is normal three clause BSD.
 License:        BSD
@@ -83,7 +87,7 @@ URL:            https://opencv.org
 #
 Source0:        %{name}-clean-%{version}.tar.gz
 Source1:        %{name}_contrib-clean-%{version}.tar.gz
-%{?with_extras:
+%{?with_extras_tests:
 Source2:        %{name}_extra-clean-%{version}.tar.gz
 }
 Source3:        face_landmark_model.dat.xz
@@ -274,7 +278,7 @@ to provide decent performance and stability.
 %prep
 # autosetup doesn't work with 2 sources
 # https://github.com/rpm-software-management/rpm/issues/1204
-%setup -q -a1 %{?with_extras:-a2}
+%setup -q -a1 %{?with_extras_tests:-a2}
 %if 1
 # we don't use pre-built contribs except quirc
 pushd 3rdparty
@@ -365,7 +369,7 @@ install -pm 0644 %{SOURCE4} .cache/ade/
  -DWITH_OPENMP=ON \
  -DOPENCV_CONFIG_INSTALL_PATH=%{_lib}/cmake/OpenCV \
  -DOPENCV_GENERATE_PKGCONFIG=ON \
-%{?with_extras: -DOPENCV_TEST_DATA_PATH=opencv_extra-%{version}/testdata} \
+%{?with_extras_tests: -DOPENCV_TEST_DATA_PATH=opencv_extra-%{version}/testdata} \
  %{?with_gdcm: -DWITH_GDCM=ON } \
  %{?with_libmfx: -DWITH_MFX=ON } \
  %{?with_clp: -DWITH_CLP=ON } \
@@ -516,6 +520,9 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 %{_libdir}/libopencv_xphoto.so.{%{abiver},%{version}}
 
 %changelog
+* Thu Apr 13 2023 Sérgio Basto <sergio@serjux.com> - 4.7.0-5
+- if without tests also disable 500MB of extra tests
+
 * Mon Apr 03 2023 Sandro Mani <manisandro@gmail.com> - 4.7.0-4
 - Rebuild (tesseract)
 

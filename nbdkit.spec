@@ -49,10 +49,10 @@ ExclusiveArch:  x86_64
 %global patches_touch_autotools %{nil}
 
 # The source directory.
-%global source_directory 1.33-development
+%global source_directory 1.34-stable
 
 Name:           nbdkit
-Version:        1.33.12
+Version:        1.34.0
 Release:        1%{?dist}
 Summary:        NBD server
 
@@ -1243,6 +1243,9 @@ export LIBGUESTFS_TRACE=1
 
 
 %changelog
+* Fri Apr 14 2023 Richard W.M. Jones <rjones@redhat.com> - 1.34.0-1
+- New upstream stable version 1.34.0
+
 * Thu Apr 13 2023 Richard W.M. Jones <rjones@redhat.com> - 1.33.12-1
 - New upstream development version 1.33.12
 

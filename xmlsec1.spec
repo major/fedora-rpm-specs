@@ -1,18 +1,18 @@
 Summary: Library providing support for "XML Signature" and "XML Encryption" standards
 Name: xmlsec1
-Version: 1.2.37
-Release: 3%{?dist}%{?extra_release}
+Version: 1.3.0
+Release: 1%{?dist}%{?extra_release}
 License: MIT
 Source0: https://www.aleksey.com/xmlsec/download/xmlsec1-%{version}.tar.gz
 URL: http://www.aleksey.com/xmlsec/
 BuildRequires: make
 BuildRequires: pkgconfig(libxml-2.0) >= 2.8.0
 BuildRequires: pkgconfig(libxslt) >= 1.0.20
-BuildRequires: pkgconfig(openssl) >= 1.0.0
-BuildRequires: pkgconfig(nss) >= 3.11.1
-BuildRequires: pkgconfig(nspr) >= 4.4.1
+BuildRequires: pkgconfig(openssl) >= 3.0.0
+BuildRequires: pkgconfig(nss) >= 3.49.0
+BuildRequires: pkgconfig(nspr) >= 4.25.0
 BuildRequires: libgcrypt-devel >= 1.4.0
-BuildRequires: pkgconfig(gnutls) >= 2.8.0
+BuildRequires: pkgconfig(gnutls) >= 3.6.13
 BuildRequires: libtool-ltdl-devel
 # autoreconf stuff
 BuildRequires: autoconf
@@ -175,6 +175,9 @@ mv %{buildroot}%{_docdir}/xmlsec1/* __tmp_doc
 %{_libdir}/pkgconfig/xmlsec1-nss.pc
 
 %changelog
+* Fri Apr 14 2023 Tomas Halman <thalman@redhat.com> - 1.3.0-1
+- Resolves: rhbz#2186304 - rebase to version 1.3.0
+
 * Tue Mar 7 2023 Tomas Halman <thalman@redhat.com> - 1.2.37-3
 - migrated to SPDX license
 

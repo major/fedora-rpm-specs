@@ -1,8 +1,8 @@
 %global pymodule_name openscap_report
 
 Name:           openscap-report
-Version:        0.2.2
-Release:        0%{?dist}
+Version:        0.2.3
+Release:        1%{?dist}
 Summary:        A tool for generating human-readable reports from (SCAP) XCCDF and ARF results
 
 # The entire source code is LGPL-2.1+ and GPL-2.0+ and MIT except schemas/ and assets/, which are Public Domain
@@ -60,6 +60,42 @@ install -m 0644 -Dt %{buildroot}%{_mandir}/man1 _build_docs/oscap-report.1
 
 
 %changelog
+* Fri Apr 14 2023 Packit <hello@packit.dev> - 0.2.3-1
+- 0.2.3 (Jan Rodak)
+- Determine which product use (Jan Rodak)
+- Discover upstream (Jan Rodak)
+- Run only smoke test in Testing Farm (Jan Rodak)
+- Add weekly execution of integration test (Jan Rodak)
+- Add tmt tests (Jan Rodak)
+- Add tmt plan (Jan Rodak)
+- Modify the smoke test to use different ARF reports (Jan Rodak)
+- Add script for generation of ARF report (Jan Rodak)
+- Add filter for rule id (Jan Rodak)
+- Select new multi-check rules (Jan Rodak)
+- Create copy of multi-check rule for every OVAL definition (Jan Rodak)
+- Make method _get_applicable_cpe_ids_for_machine part of ProfileInfo and rename the method to get_list_of_cpe_platforms_that_satisfy_evaluation_target (Jan Rodak)
+- Adapt input of oval_cpe_definiton in test (Jan Rodak)
+- Adapt the mapping of OVAL definitions to the new OVAL definition analysis system and specify which OVAL result report is for CPE (Jan Rodak)
+- Parse all OVAL definition from all OVAL result reports (Jan Rodak)
+- Add parsing of OVAL refence to OVAL report (Jan Rodak)
+- Load all oval reports present in ARF report (Jan Rodak)
+- Fix typo in link (Jan Rodak)
+- Sync tests with downstream (Jan Rodak)
+- Add required parameter (Jan Rodak)
+- Move unit tests from interation_tests direcory (Jan Rodak)
+- Move function get_fake_args to test utils (Jan Rodak)
+- Create separate job propose_downstream for EPEL8 (Jan Rodak)
+- Sort chapters (Jan Rodak)
+- Add manual about report content (Jan Rodak)
+- Add assets (Jan Rodak)
+- Fix typo (Jan Rodak)
+- Add license tag (Jan Rodak)
+- Add explanation of result of OVAL definition (Jan Rodak)
+- Parse class of OVAL definition (Jan Rodak)
+- Add tests for CPE AL (Jan Rodak)
+- Fix negation of logical test (Jan Rodak)
+- Add support for check-fact-ref element in CPE-AL (Jan Rodak)
+
 * Tue Mar 28 2023 Packit <hello@packit.dev> - 0.2.2-0
 - 0.2.2 (Jan Rodak)
 - Clean up CI jobs titles (Evgeny Kolesnikov)

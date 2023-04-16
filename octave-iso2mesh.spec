@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        1.9.6
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A 3D surface and volumetric mesh generator for MATLAB/Octave
 # Main package: GPLv3+
 # Meshfix: GPLv2+
@@ -25,6 +25,7 @@ Patch0:         iso2mesh-1.9.6-CMakeCMP0064.patch
 # Fix the incorrect detection of Boost version
 # > -- NOTICE: This program requires Boost >= 1.34.1, and will not be compiled.
 Patch1:         iso2mesh-1.9.6-recent_Boost_version.patch
+Patch2:         octave-iso2mesh-c99.patch
 
 ExcludeArch:    armv7hl
 BuildRequires: make
@@ -74,6 +75,7 @@ rm -rf tools/tetgen
 mv ../cork-0.9.1 tools/cork
 mv ../meshfix-1.2.2 tools/meshfix
 mv ../tetgen1.5.1 tools/tetgen
+%patch -P 2 -p1
 rm -rf bin/*.mex* bin/*.exe bin/*.dll
 
 cp COPYING.txt COPYING
@@ -165,6 +167,9 @@ install -m 0755 -vp  bin/* %{buildroot}%{_libexecdir}/%{octpkg}/
 %doc sample
 
 %changelog
+* Fri Apr 14 2023 Florian Weimer <fweimer@redhat.com> - 1.9.6-11
+- Port to C99
+
 * Sun Apr 09 2023 Orion Poplawski <orion@nwra.com> - 1.9.6-10
 - Rebuild for octave 8.1.0
 

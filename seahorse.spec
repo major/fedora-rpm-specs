@@ -2,7 +2,7 @@
 
 Name:           seahorse
 Version:        43.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A GNOME application for managing encryption keys
 
 # seahorse is GPLv2+
@@ -12,6 +12,7 @@ URL:            https://wiki.gnome.org/Apps/Seahorse
 Source:         https://download.gnome.org/sources/%{name}/42/%{name}-%{tarball_version}.tar.xz
 # PR#212: Allow building with GnuPG-2.4.x
 Patch0:         https://gitlab.gnome.org/GNOME/seahorse/-/merge_requests/212.patch
+Patch1: seahorse-c99.patch
 
 BuildRequires:  pkgconfig(avahi-client)
 BuildRequires:  pkgconfig(avahi-glib)
@@ -81,6 +82,9 @@ desktop-file-validate ${RPM_BUILD_ROOT}%{_datadir}/applications/org.gnome.seahor
 %{_metainfodir}/org.gnome.seahorse.Application.appdata.xml
 
 %changelog
+* Fri Apr 14 2023 Florian Weimer <fweimer@redhat.com> - 43.0-3
+- Port to C99
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

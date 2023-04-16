@@ -1,14 +1,10 @@
 Summary: AMDGPU Userspace Register Debugger
 Name: umr
-Version: 1.0.6
+Version: 1.0.7
 Release: 1%{?dist}
 License: MIT
 URL: https://gitlab.freedesktop.org/tomstdenis/umr
 Source0: https://gitlab.freedesktop.org/tomstdenis/%{name}/-/archive/%{version}/%{name}-%{version}.tar.gz
-
-# I emailed this upstream, looks like the mailing list doesn't like html email
-# https://lists.freedesktop.org/archives/amd-gfx/2023-January/088826.html
-Patch0: 0001-gui-missing-string-include.patch
 
 #Glibc is too old prior to EL7, enable rt linking to avoid compilation failure
 %if 0%{?rhel} && 0%{?rhel} < 7
@@ -32,10 +28,14 @@ BuildRequires: libdrm-devel
 BuildRequires: cmake%{?rhel:3}
 BuildRequires: gcc-c++
 BuildRequires: libpciaccess-devel
+BuildRequires: mesa-libgbm-devel
+BuildRequires: nanomsg-devel
 BuildRequires: ncurses-devel
 BuildRequires: SDL2-devel
 BuildRequires: zlib-devel
 Requires: bash-completion
+#Disable unnecessary arches, as umr requires the amdgpu kernel module:
+ExclusiveArch:  x86_64 aarch64 ppc64le
 
 %description
 AMDGPU Userspace Register Debugger (UMR) is a tool to read and display, as well
@@ -51,6 +51,9 @@ AMDGPU Userspace Register Debugger header files and libraries
 
 %prep
 %autosetup -p1 -n %{name}-%{version}
+#Known issue, will be fixed upstream shortly:
+#https://gitlab.freedesktop.org/tomstdenis/umr/-/merge_requests/23
+sed -i "s/ImGui::Text(txt)/ImGui::TextUnformatted(txt)/" src/app/umr_gui.cpp
 
 %build
 %{!?cmake:%global cmake %%cmake3}
@@ -77,6 +80,9 @@ AMDGPU Userspace Register Debugger header files and libraries
 %{_libdir}/*.a
 
 %changelog
+* Wed Mar 29 2023 Jeremy Newton <alexjnewt AT hotmail DOT com> - 1.0.7-1
+- Update to 1.0.7
+
 * Mon Jan 23 2023 Jeremy Newton <alexjnewt AT hotmail DOT com> - 1.0.6-1
 - Update to 1.0.6
 

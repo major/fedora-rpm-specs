@@ -5,7 +5,7 @@
 %global crate crossbeam-channel
 
 Name:           rust-crossbeam-channel
-Version:        0.5.7
+Version:        0.5.8
 Release:        %autorelease
 Summary:        Multi-producer multi-consumer channels for message passing
 

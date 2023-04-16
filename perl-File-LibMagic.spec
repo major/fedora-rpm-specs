@@ -5,7 +5,7 @@ Name:		perl-File-LibMagic
 Version:	1.23
 Release:	8%{?dist}
 Summary:	Perl wrapper/interface for libmagic
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/File-LibMagic
 Source0:	https://cpan.metacpan.org/modules/by-module/File/File-LibMagic-%{version}.tar.gz
 # Build
@@ -42,6 +42,7 @@ BuildRequires:	perl(Test::More) >= 0.96
 BuildRequires:	perl(CPAN::Meta) >= 2.120900
 BuildRequires:	perl(CPAN::Meta::Prereqs)
 # Dependencies
+# (none)
 
 %description
 The File::LibMagic module is a simple perl interface to libmagic from the

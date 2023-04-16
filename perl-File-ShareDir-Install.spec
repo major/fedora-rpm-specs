@@ -2,7 +2,7 @@ Name:           perl-File-ShareDir-Install
 Version:        0.14
 Release:        3%{?dist}
 Summary:        Install shared files
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-ShareDir-Install
 Source0:        https://cpan.metacpan.org/modules/by-module/File/File-ShareDir-Install-%{version}.tar.gz
 BuildArch:      noarch
@@ -25,7 +25,8 @@ BuildRequires:  perl(Config)
 BuildRequires:  perl(CPAN::Meta::YAML)
 BuildRequires:  perl(File::Path)
 BuildRequires:  perl(Test::More)
-# Runtime
+# Dependencies
+# (none)
 
 %description
 File::ShareDir::Install allows you to install read-only data files from a

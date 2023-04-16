@@ -2,7 +2,7 @@
 
 Name:           ocaml-luv
 Version:        0.5.12
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OCaml binding to libuv for cross-platform asynchronous I/O
 
 License:        MIT
@@ -68,6 +68,9 @@ export LUV_USE_SYSTEM_LIBUV=yes
 %files devel -f .ofiles-devel
 
 %changelog
+* Fri Apr 14 2023 Jerry James <loganjerry@gmail.com> - 0.5.12-2
+- Rebuild for respun upstream tarball
+
 * Mon Apr 10 2023 Jerry James <loganjerry@gmail.com> - 0.5.12-1
 - Version 0.5.12
 

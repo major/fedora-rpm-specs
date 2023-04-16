@@ -47,7 +47,7 @@ Epoch:   1
 Name: openvswitch
 Summary: Open vSwitch daemon/database/utilities
 URL: https://www.openvswitch.org/
-Version: 3.1.0
+Version: 3.1.1
 Release: 1%{?dist}
 
 # Nearly all of openvswitch is ASL 2.0.  The bugtool is LGPLv2+, and the
@@ -600,6 +600,9 @@ fi
 %{_sysusersdir}/openvswitch.conf
 
 %changelog
+* Wed Apr 12 2023 Timothy Redaelli <tredaelli@redhat.com> - 3.1.1-1
+- Update for 3.1.1 (#2185071), includes fixes for CVE-2023-1668 (#2186245)
+
 * Fri Mar 03 2023 Timothy Redaelli <tredaelli@redhat.com> - 3.1.0-1
 - Update to 3.1.0 (#2150440)
 

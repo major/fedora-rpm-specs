@@ -10,7 +10,7 @@
 
 # https://git.sr.ht/~emersion/gqlclient
 %global goipath         git.sr.ht/~emersion/gqlclient
-%global commit          e4b2ae1fac10f151f917364bf3334c69076bea15
+%global commit          060f7297b33e14be7f314dddddbc4898bfec8201
 %global scm             git
 %global topdir          gqlclient-%{commit}
 %global archivename     %{topdir}

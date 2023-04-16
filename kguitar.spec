@@ -5,7 +5,7 @@
 
 Name:		  kguitar
 Version:	  0.5.1
-Release:	  37.%{svnver}%{?dist}
+Release:	  38.%{svnver}%{?dist}
 Summary:	  Guitar Tabulature Music Editor
 License:	  GPLv2+
 URL:		  http://kguitar.sf.net/
@@ -18,6 +18,7 @@ Source9:	  %{name}-snapshot.sh
 # Patch to make kguitar build with automake 1.11 or higher
 # https://sourceforge.net/tracker/?func=detail&aid=2804980&group_id=7693&atid=307693
 Patch0:		  %{name}-automake111.patch
+Patch1: kguitar-configure-c99.patch
 
 BuildRequires:	  autoconf
 BuildRequires:	  automake
@@ -56,6 +57,7 @@ Kguitar.
 %prep
 %setup -q -n %{name}
 %patch0 -p1 -b .automake111
+%patch1 -p1
 
 # Add more mime-types since the software is capable of handling them.
 sed -i 's|\*.kg|\*.kg;\*.gp3;\*.gp4;\*.mid;\*.tab;\*.xml|' %{name}/x-%{name}.desktop
@@ -130,6 +132,9 @@ fi
 %{_texmf_main}/tex/generic/kgtabs
 
 %changelog
+* Fri Apr 14 2023 Florian Weimer <fweimer@redhat.com> - 0.5.1-38.926svn
+- Port to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-37.926svn
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,10 +2,10 @@
 
 Name: numad
 Version: 0.5
-Release: 38.20150602git%{?dist}
+Release: 39.20150602git%{?dist}
 Summary: NUMA user daemon
 
-License: LGPLv2
+License: LGPL-2.1-only
 URL: https://pagure.io/numad
 # The source for this package was pulled from upstream's vcs.  Use the
 # following commands to generate the tarball:
@@ -60,6 +60,9 @@ install -p -m 644 numad.logrotate %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
 %systemd_postun numad.service
 
 %changelog
+* Thu Apr 13 2023 Lukáš Zaoral <lzaoral@redhat.com> - 0.5-39.20150602git
+- migrate to SPDX license format
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-38.20150602git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

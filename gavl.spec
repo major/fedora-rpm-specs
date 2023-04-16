@@ -1,12 +1,14 @@
 Name:           gavl
 Version:        1.4.0
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        A library for handling uncompressed audio and video data
 
 License:        GPLv3+
 URL:            http://gmerlin.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/gmerlin/gavl-%{version}.tar.gz
 Patch1:         gavl-1.1.1-system_libgdither.patch
+Patch2: gavl-configure-c99.patch
+Patch3: gavl-c99.patch
 
 BuildRequires:  libtool
 
@@ -44,6 +46,8 @@ developing applications that use %{name}.
 %prep
 %setup -q
 %patch1 -p1 -b .gdither
+%patch2 -p1
+%patch3 -p1
 
 #Disable buildtime cpu detection
 sed -i -i 's/LQT_TRY_CFLAGS/dnl LQT_TRY_CFLAGS/g' configure.ac
@@ -90,6 +94,9 @@ touch -r include/gavl/gavl.h $RPM_BUILD_ROOT%{_includedir}/gavl/gavl_version.h
 
 
 %changelog
+* Fri Apr 14 2023 Florian Weimer <fweimer@redhat.com> - 1.4.0-23
+- Port to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

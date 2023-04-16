@@ -1,5 +1,5 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0xa63ea142678138d1bb15f2e303bdfd64dd164087
+%global sources_gpg_sign 0xa7475c5f2122fec3f90343223fe3bf5aad1080e4
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 %global with_doc 1
@@ -16,7 +16,7 @@ external processes.
 Tests for the Oslo concurrency library.
 
 Name:           python-oslo-concurrency
-Version:        5.0.1
+Version:        5.1.1
 Release:        2%{?dist}
 Summary:        OpenStack Oslo concurrency library
 
@@ -93,8 +93,6 @@ Requires:  python3-%{pkg_name} = %{version}-%{release}
 Requires:  python3-hacking
 Requires:  python3-oslotest
 Requires:  python3-fixtures
-Requires:  python3-tox
-Requires:  python3-tox-current-env
 Requires:  python3-stestr
 
 %description -n python3-%{pkg_name}-tests
@@ -166,6 +164,9 @@ mv %{buildroot}%{python3_sitelib}/oslo_concurrency/locale %{buildroot}%{_datadir
 %license LICENSE
 
 %changelog
+* Fri Apr 14 2023 Karolina Kula <kkula@redhat.com> 5.1.1-2
+- Update to upstream version 5.1.1
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,4 +1,3 @@
-%{?python_enable_dependency_generator}
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
 %global sources_gpg_sign 0xa7475c5f2122fec3f90343223fe3bf5aad1080e4
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
@@ -12,8 +11,8 @@ Sushy is a Python library to communicate with Redfish based systems (http://redf
 %global common_desc_tests Tests for Sushy
 
 Name: python-%{sname}
-Version: 4.3.3
-Release: 2%{?dist}
+Version: 4.4.2
+Release: 1%{?dist}
 Summary: Sushy is a Python library to communicate with Redfish based systems
 License: ASL 2.0
 URL: http://launchpad.net/%{sname}/
@@ -24,9 +23,6 @@ Source0: http://tarballs.openstack.org/%{sname}/%{sname}-%{upstream_version}.tar
 Source101:        http://tarballs.openstack.org/%{sname}/%{sname}-%{upstream_version}.tar.gz.asc
 Source102:        https://releases.openstack.org/_static/%{sources_gpg_sign}.txt
 %endif
-
-Patch1: 0001-Handle-a-different-error-code-for-missing-TransferPr.patch
-Patch2: 0002-Handle-proper-code_status-in-unit-test.patch
 
 BuildArch: noarch
 
@@ -64,10 +60,14 @@ Summary: Sushy tests
 Requires: python3-%{sname} = %{version}-%{release}
 
 BuildRequires: python3-oslotest
-BuildRequires: python3-stestr
+BuildRequires: python3-testrepository
+BuildRequires: python3-testscenarios
+BuildRequires: python3-testtools
 
 Requires: python3-oslotest
-Requires: python3-stestr
+Requires: python3-testrepository
+Requires: python3-testscenarios
+Requires: python3-testtools
 
 %description -n python3-%{sname}-tests
 %{common_desc_tests}
@@ -127,6 +127,9 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Fri Apr 14 2023 Karolina Kula <kkula@redhat.com> 4.4.2-1
+- Update to upstream version 4.4.2
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

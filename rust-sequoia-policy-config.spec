@@ -14,7 +14,7 @@ Source:         %{crates_source}
 # Automatically generated patch to strip foreign dependencies
 Patch:          sequoia-policy-config-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * default to the OpenSSL crypto backend of sequoia-openpgp
+# * expose features for crypto backends without setting a default
 Patch:          sequoia-policy-config-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 23
@@ -73,24 +73,48 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+crypto-nettle-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+crypto-nettle-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "crypto-nettle" feature of the "%{crate}" crate.
+
+%files       -n %{name}+crypto-nettle-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+crypto-openssl-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+crypto-openssl-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "crypto-openssl" feature of the "%{crate}" crate.
+
+%files       -n %{name}+crypto-openssl-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires
+%cargo_generate_buildrequires -f crypto-openssl
 
 %build
-%cargo_build
-%cargo_license_summary
-%{cargo_license} > LICENSE.dependencies
+%cargo_build -f crypto-openssl
+%cargo_license_summary -f crypto-openssl
+%{cargo_license -f crypto-openssl} > LICENSE.dependencies
 
 %install
-%cargo_install
+%cargo_install -f crypto-openssl
 
 %if %{with check}
 %check
-%cargo_test
+%cargo_test -f crypto-openssl
 %endif
 
 %changelog

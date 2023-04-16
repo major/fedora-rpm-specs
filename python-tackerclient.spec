@@ -1,6 +1,5 @@
-%{?python_enable_dependency_generator}
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0x01527a34f0d0080f8a5db8d6eb6c5df21b4b6363
+%global sources_gpg_sign 0xa7475c5f2122fec3f90343223fe3bf5aad1080e4
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
@@ -10,8 +9,8 @@
 %global with_doc 1
 
 Name:       %{client}
-Version:    1.10.0
-Release:    3%{?dist}
+Version:    1.13.0
+Release:    1%{?dist}
 Summary:    OpenStack Tacker client
 License:    ASL 2.0
 URL:        http://launchpad.net/%{client}/
@@ -185,6 +184,9 @@ PYTHON=%{__python3} stestr --test-path $OS_TEST_PATH run
 %endif
 
 %changelog
+* Fri Apr 14 2023 Karolina Kula <kkula@redhat.com> 1.13.0-1
+- Update to upstream version 1.13.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

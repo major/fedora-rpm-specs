@@ -1,6 +1,5 @@
-%{?python_enable_dependency_generator}
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0x4c29ff0e437f3351fd82bdf47c5a3bc787dc7035
+%global sources_gpg_sign 0xa7475c5f2122fec3f90343223fe3bf5aad1080e4
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 %global pypi_name reno
 
@@ -17,8 +16,8 @@ of time with many releases can be time consuming and error prone. Reno \
 helps automate the hard parts.
 
 Name:           python-%{pypi_name}
-Version:        3.5.0
-Release:        3%{?dist}
+Version:        4.0.0
+Release:        1%{?dist}
 Summary:        Release NOtes manager
 
 License:        ASL 2.0
@@ -101,6 +100,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Fri Apr 14 2023 Karolina Kula <kkula@redhat.com> 4.0.0-1
+- Update to upstream version 4.0.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

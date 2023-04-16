@@ -1,5 +1,5 @@
 Name:       ibus-typing-booster
-Version:    2.22.2
+Version:    2.22.3
 Release:    1%{?dist}
 Summary:    A completion input method
 License:    GPL-3.0-or-later AND Apache-2.0
@@ -249,6 +249,11 @@ fi
 %{_datadir}/applications/emoji-picker.desktop
 
 %changelog
+* Fri Apr 14 2023 Mike FABIAN <mfabian@redhat.com> - 2.22.3-1
+- Update to 2.22.3
+- Apply workaround for committing multiline strings only for '^gtk3-im:(firefox|thunderbird)', i.e. not on Wayland
+  (Resolves: https://github.com/mike-fabian/ibus-typing-booster/issues/438)
+
 * Mon Apr 03 2023 Mike FABIAN <mfabian@redhat.com> - 2.22.2-1
 - Update to 2.22.2
 - Translation update from Weblate (ka 100%, sw 99.5%)

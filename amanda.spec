@@ -16,7 +16,7 @@
 Summary:       A network-capable tape backup solution
 Name:          amanda
 Version:       3.5.3
-Release:       1%{?dist}
+Release:       2%{?dist}
 Source:        https://github.com/zmanda/amanda/archive/tag-community-%{version}/amanda-%{version}.tar.gz
 Source1:       amanda.crontab
 Source4:       disklist
@@ -40,6 +40,7 @@ Patch5:        patch-tirpc
 # Specify the location or the xfs housekeeping directory
 # https://bugzilla.redhat.com/show_bug.cgi?id=1671117
 Patch6:        patch-xfsrestore-housekeeping
+Patch7: amanda-configure-c99.patch
 
 License:       BSD and GPLv3+ and GPLv2+ and GPLv2
 URL:           http://www.amanda.org
@@ -451,6 +452,9 @@ make check
 
 
 %changelog
+* Fri Apr 14 2023 Florian Weimer <fweimer@redhat.com> - 3.5.3-2
+- Port configure script to C99
+
 * Thu Mar 16 2023 Orion Poplawski <orion@nwra.com> - 3.5.3-1
 - Update to 3.5.3
 - Fixes CVE-2022-37703 (bz#2126849) CVE-2022-37704 (bz#2168789) CVE-2022-37705 (bz#2168797)

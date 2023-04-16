@@ -80,13 +80,13 @@ BuildRequires:  lua5.1-mpack
 BuildRequires:  jemalloc-devel
 %endif
 BuildRequires:  msgpack-devel >= 3.1.0
-BuildRequires:  libtermkey-devel
-BuildRequires:  libuv-devel >= 1.42.0
-BuildRequires:  libvterm-devel >= 0.3
+BuildRequires:  pkgconfig(termkey)
+BuildRequires:  pkgconfig(libuv) >= 1.42.0
+BuildRequires:  pkgconfig(vterm) >= 0.3
 # need the build with the fix for the resize buffer issue
 Requires:       libvterm >= 0.3
-BuildRequires:  unibilium-devel
-BuildRequires:  libtree-sitter-devel >= %{tree_sitter_min_ver}
+BuildRequires:  pkgconfig(unibilium)
+BuildRequires:  pkgconfig(libtree-sitter) >= %{tree_sitter_min_ver}
 # tree-sitter didn't do an soname bump. enforce the min version
 # see https://github.com/nvim-treesitter/nvim-treesitter/pull/3055/files
 Requires:       libtree-sitter >= %{tree_sitter_min_ver}
@@ -96,6 +96,7 @@ Suggests:       (python2-neovim if python2)
 Suggests:       (python3-neovim if python3)
 # XSel provides access to the system clipboard
 Recommends:     xsel
+Recommends:     wl-clipboard
 
 %description
 Neovim is a refactor - and sometimes redactor - in the tradition of

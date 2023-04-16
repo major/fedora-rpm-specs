@@ -6,8 +6,8 @@
 %endif
 
 Name:           guacamole-server
-Version:        1.5.0
-Release:        2%{?dist}
+Version:        1.5.1
+Release:        1%{?dist}
 Summary:        Server-side native components that form the Guacamole proxy
 License:        Apache-2.0
 URL:            https://guacamole.apache.org/
@@ -245,6 +245,9 @@ install -p -m 644 -D %{SOURCE2} %{buildroot}%{_sysusersdir}/guacd.conf
 %attr(750,%{username},%{username}) %{_sharedstatedir}/guacd/
 
 %changelog
+* Sat Apr 15 2023 Robert Scheck <robert@fedoraproject.org> - 1.5.1-1
+- Update to 1.5.1 (#2185877)
+
 * Sun Mar 12 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.5.0-2
 - Rebuild for ffmpeg 6.0
 

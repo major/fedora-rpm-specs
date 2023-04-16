@@ -1,5 +1,5 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0xa63ea142678138d1bb15f2e303bdfd64dd164087
+%global sources_gpg_sign 0xa7475c5f2122fec3f90343223fe3bf5aad1080e4
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 %global with_doc 1
 
@@ -9,8 +9,8 @@
 Client for OpenStack Octavia (Load Balancer as a Service)
 
 Name:           python-%{pypi_name}
-Version:        3.1.0
-Release:        2%{?dist}
+Version:        3.4.0
+Release:        1%{?dist}
 Summary:        Client for OpenStack Octavia (Load Balancer as a Service)
 
 License:        ASL 2.0
@@ -46,6 +46,7 @@ BuildRequires:  python3-oslo-log
 BuildRequires:  python3-openstackclient
 BuildRequires:  python3-cliff
 BuildRequires:  python3-stestr
+BuildRequires:  python3-munch
 
 Requires:       python3-cliff >= 2.8.0
 Requires:       python3-keystoneauth1 >= 3.18.0
@@ -56,6 +57,7 @@ Requires:       python3-pbr
 Requires:       python3-neutronclient >= 6.7.0
 Requires:       python3-openstackclient >= 3.12.0
 Requires:       python3-requests >= 2.14.2
+Requires:       python3-munch >= 2.1.0
 
 Summary:        Client for OpenStack Octavia (Load Balancer as a Service)
 %{?python_provide:%python_provide python3-%{pypi_name}}
@@ -157,6 +159,9 @@ stestr --test-path $OS_TEST_PATH run
 %{python3_sitelib}/%{pypi_name}/tests
 
 %changelog
+* Fri Apr 14 2023 Karolina Kula <kkula@redhat.com> 3.4.0-1
+- Update to upstream version 3.4.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

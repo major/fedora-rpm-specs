@@ -29,7 +29,7 @@
 %global git_gvproxy https://%{import_path_gvproxy}
 %global commit_gvproxy aab0ac9367fc5142f5857c36ac2352bcb3c60ab7
 
-%global built_tag v4.5.0-rc2
+%global built_tag v4.5.0
 %global built_tag_strip %(b=%{built_tag}; echo ${b:1})
 %global gen_version %(b=%{built_tag_strip}; echo ${b/-/"~"})
 

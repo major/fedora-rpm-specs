@@ -25,6 +25,14 @@ Source0:        %{url}/archive/%{version}/notejot-%{version}.tar.gz
 #
 # https://github.com/ximion/appstream/commit/ad98bfd8db789c80507e82278d6d766acba4937c
 Patch:          %{url}/pull/380.patch
+#   Simplify an overcomplicated Boolean expression
+# Fixes:
+#   Build error from source
+#   https://github.com/lainsce/notejot/issues/395
+# The code in question has been rewritten in the upstream development branch,
+# so this patch cannot be sent upstream, but the fix was noted in the upstream
+# issue.
+Patch:          0001-Simplify-an-overcomplicated-Boolean-expression.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

@@ -2,23 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate errno
+%global crate gst-plugin-version-helper
 
-Name:           rust-errno
-Version:        0.3.1
+Name:           rust-gst-plugin-version-helper
+Version:        0.7.5
 Release:        %autorelease
-Summary:        Cross-platform interface to the errno variable
+Summary:        Build.rs helper function for GStreamer plugin metadata
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/errno
+License:        MIT
+URL:            https://crates.io/crates/gst-plugin-version-helper
 Source:         %{crates_source}
-# Automatically generated patch to strip foreign dependencies
-Patch:          errno-fix-metadata-auto.diff
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Cross-platform interface to the `errno` variable.}
+Build.rs helper function for GStreamer plugin metadata.}
 
 %description %{_description}
 
@@ -32,9 +30,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CHANGELOG.md
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -48,18 +44,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+std-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+std-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
-
-%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

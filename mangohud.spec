@@ -3,8 +3,11 @@
 %global imgui_ver       1.81
 %global imgui_wrap_ver  1
 
+# Tests requires bundled stuff. Disable for now.
+%bcond_with tests
+
 Name:           mangohud
-Version:        0.6.8
+Version:        0.6.9
 Release:        %autorelease
 Summary:        Vulkan overlay layer for monitoring FPS, temperatures, CPU/GPU load and more
 
@@ -14,9 +17,10 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        https://github.com/ocornut/imgui/archive/v%{imgui_ver}/imgui-%{imgui_ver}.tar.gz
 Source2:        https://wrapdb.mesonbuild.com/v1/projects/imgui/%{imgui_ver}/%{imgui_wrap_ver}/get_zip#/imgui-%{imgui_ver}-%{imgui_wrap_ver}-wrap.zip
 
-# Fix building with GCC 13
-# https://github.com/flightlessmango/MangoHud/pull/956
-Patch0:         https://github.com/flightlessmango/MangoHud/pull/956.patch#/Fix-building-with-GCC-13.patch
+# MangoHud switched to bundled vulkan-headers since 0.6.9 version. This rebased
+# upstream patch which reverts this change.
+# https://github.com/flightlessmango/MangoHud/commit/bc282cf300ed5b6831177cf3e6753bc20f48e942
+Patch0:         mangohud-0.6.9-use-system-vulkan-headers.patch
 
 BuildRequires:  appstream
 BuildRequires:  dbus-devel
@@ -31,9 +35,14 @@ BuildRequires:  meson >= 0.60
 BuildRequires:  python3-mako
 BuildRequires:  spdlog-devel
 
+BuildRequires:  pkgconfig(nlohmann_json)
 BuildRequires:  pkgconfig(vulkan)
-BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(wayland-client)
+BuildRequires:  pkgconfig(x11)
+
+%if %{with tests}
+BuildRequires:  libcmocka-devel
+%endif
 
 Requires:       hicolor-icon-theme
 Requires:       vulkan-loader%{?_isa}
@@ -71,6 +80,11 @@ mv imgui-%{imgui_ver} subprojects/
     -Duse_system_vulkan=enabled \
     -Dwith_wayland=enabled \
     -Dwith_xnvctrl=disabled \
+    %if %{with tests}
+    -Dtests=enabled \
+    %else
+    -Dtests=disabled \
+    %endif
     %{nil}
 %meson_build
 

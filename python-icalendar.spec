@@ -1,6 +1,6 @@
 Name:           python-icalendar
-Version:        5.0.4
-Release:        3%{?dist}
+Version:        5.0.5
+Release:        1%{?dist}
 Summary:        Parser/generator of iCalendar files following the RFC 2445
 
 License:        BSD-2-Clause
@@ -72,6 +72,9 @@ popd
 %{_bindir}/icalendar
 
 %changelog
+* Fri Apr 14 2023 Gwyn Ciesla <gwync@protonmail.com> - 5.0.5-1
+- 5.0.5
+
 * Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 5.0.4-3
 - migrated to SPDX license
 

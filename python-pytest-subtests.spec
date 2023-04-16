@@ -1,8 +1,8 @@
 %global pypi_name pytest-subtests
 
 Name:           python-%{pypi_name}
-Version:        0.5.0
-Release:        5%{?dist}
+Version:        0.10.0
+Release:        1%{?dist}
 Summary:        Support for unittest subTest() and subtests fixture
 
 License:        MIT
@@ -49,6 +49,9 @@ PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=%{buildroot}%{python3_sitelib} \
 %{python3_sitelib}/pytest_subtests-%{version}-py*.egg-info/
 
 %changelog
+* Mon Mar 27 2023 Christian Heimes <cheimes@redhat.com> - 0.10.0-1
+- Update to 0.10.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

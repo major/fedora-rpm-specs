@@ -7,7 +7,7 @@
 %global crate hyper
 
 Name:           rust-hyper
-Version:        0.14.25
+Version:        0.14.26
 Release:        %autorelease
 Summary:        Fast and correct HTTP library
 

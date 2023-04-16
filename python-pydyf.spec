@@ -3,11 +3,11 @@
 
 Name:           python-pydyf
 Version:        0.6.0
-Release:        1%{?dist}
-Summary:        Low-level PDF creator 
+Release:        2%{?dist}
+Summary:        Low-level PDF creator
 # The test suite is released under the AGPL but we are not shipping any test
 # code in the "binary" (noarch) RPM so we can just use the 3-clause BSD.
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://www.courtbouillon.org/pydyf
 Source0:        %{pypi_source}
 # remove some dependency/pytest options which are mostly useful for developers
@@ -65,6 +65,9 @@ specification 1.7.
 
 
 %changelog
+* Fri Apr 14 2023 Felix Schwarz <fschwarz@fedoraproject.org> - 0.6.0-2
+- SPDX migration
+
 * Wed Mar 29 2023 Felix Schwarz <fschwarz@fedoraproject.org> - 0.6.0-1
 - update to 0.6.0
 

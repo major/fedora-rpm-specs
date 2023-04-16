@@ -19,6 +19,10 @@ BuildArch:      noarch
 # Remove various unpackaged testing dependencies that are used only for linting
 Patch0:         0000-ignore-missing-linters.patch
 
+# Backport part of the upstream patch to stop using pkg_resources
+# Upstream PR:  https://github.com/certbot/josepy/pull/158
+Patch1:         0001-stop-using-pkg_resources.patch
+
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 
@@ -64,7 +68,7 @@ Documentation for python-%{pypi_name}
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -p1 -n %{pypi_name}-%{version}
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
 

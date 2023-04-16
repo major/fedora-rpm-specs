@@ -1,6 +1,6 @@
 Name:           molsketch
-Version:        0.7.3
-Release:        2%{?dist}
+Version:        0.8.0
+Release:        1%{?dist}
 Summary:        Molecular Structures Editor
 License:        GPL-2.0-or-later
 URL:            http://molsketch.sourceforge.net
@@ -13,12 +13,11 @@ Source0:        https://downloads.sourceforge.net/molsketch/Molsketch-%{version}
 
 BuildRequires: make
 BuildRequires:  gcc-c++
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-linguist
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-linguist
 BuildRequires:  kdelibs-devel
 BuildRequires:  openbabel-devel
-BuildRequires:  dos2unix
-BuildRequires:  pkgconfig(Qt5Svg)
+BuildRequires:  pkgconfig(Qt6Svg)
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 
@@ -47,7 +46,7 @@ BuildArch:      noarch
 %package devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       qt5-qttools-devel
+Requires:       qt6-qttools-devel
 
 
 %description 	devel
@@ -64,12 +63,11 @@ applications that use %{name}.
 #%%setup -q -n Molsketch-latest (or Molsketch-master)
 # "-c" needed in v0.7.3 because of missing top-level dir
 %prep
-%setup -q -c
-dos2unix -k doc/cs/molsketch.adp
+%setup -q -n Molsketch-%{version}
 
 
 %build
-%{qmake_qt5} "MSK_PREFIX=%{_prefix}" "MSK_INSTALL_PREFIX=%{_prefix}" "MSK_INSTALL_DOCS=%{_docdir}/%{name}" "MSK_INSTALL_LIBS=%{_libdir}/%{name}" "MSK_INSTALL_INCLUDES=%{_includedir}" ./Molsketch.pro
+%{qmake_qt6} "MSK_PREFIX=%{_prefix}" "MSK_INSTALL_PREFIX=%{_prefix}" "MSK_INSTALL_DOCS=%{_docdir}/%{name}" "MSK_INSTALL_LIBS=%{_libdir}/%{name}" "MSK_INSTALL_INCLUDES=%{_includedir}" ./Molsketch.pro
 %make_build
 
 
@@ -105,6 +103,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Fri Apr 14 2023 Alexander Ploumistos <alexpl@fedoraproject.org> - 0.8.0-1
+- New version with additional dark icons and a fix for upstream issue #37
+- Switched to Qt6 
+- Removed dos2unix invocation and BR
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -238,4 +241,3 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 * Sat Apr 02 2016 Alexander Ploumistos <alexpl@fedoraproject.org> - 0.3.1-1
 - First release based on work by Huaren Zhong <huaren.zhong@gmail.com>
-

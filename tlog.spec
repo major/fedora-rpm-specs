@@ -19,8 +19,8 @@
 %{!?make_build:%global make_build %{__make} %{?_smp_mflags}}
 
 Name:           tlog
-Version:        12.1
-Release:        3%{?dist}
+Version:        13
+Release:        1%{?dist}
 Summary:        Terminal I/O logger
 
 %if "%{_vendor}" == "debbuild"
@@ -156,6 +156,11 @@ systemd-tmpfiles --create %{name}.conf >/dev/null 2>&1 || :
 /sbin/ldconfig
 
 %changelog
+* Fri Apr 14 2023 Justin Stephenson <jstephen@redhat.com> - 13-1
+- Release v13
+- Update the Fedora license
+- MAN: Add missing comma in tlog-rec-session.conf
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:           %{pypi_name}
 Version:        1.30.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A linter for YAML files
 
 License:        GPLv3+
@@ -46,7 +46,7 @@ mkdir -p %{buildroot}%{_mandir}/man1/
 install -m0644 docs/_build/man/%{pypi_name}.1.gz %{buildroot}%{_mandir}/man1/
 
 %check
-%{__python3} setup.py test
+%{__python3} -m unittest discover
 
 %files
 %doc README.rst
@@ -58,6 +58,9 @@ install -m0644 docs/_build/man/%{pypi_name}.1.gz %{buildroot}%{_mandir}/man1/
 %exclude %{python3_sitelib}/tests
 
 %changelog
+* Fri Apr 14 2023 Adrien Vergé <adrienverge@gmail.com> - 1.30.0-2
+- Update 'check' step to stop using setup.py
+
 * Wed Mar 22 2023 Adrien Vergé <adrienverge@gmail.com> - 1.30.0-1
 - Update to latest upstream version
 

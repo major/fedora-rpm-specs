@@ -5,7 +5,7 @@
 %endif
 
 Name:           ansible-collection-ansible-posix
-Version:        1.5.1
+Version:        1.5.2
 Release:        1%{?dist}
 Summary:        Ansible Collection targeting POSIX and POSIX-ish platforms
 
@@ -54,6 +54,9 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 
 
 %changelog
+* Fri Apr 14 2023 Maxwell G <maxwell@gtmx.me> - 1.5.2-1
+- Update to 1.5.2. Fixes rhbz#2185694.
+
 * Tue Jan 24 2023 Maxwell G <gotmax@e.email> - 1.5.1-1
 - Update to 1.5.1. Fixes rhbz#2162988.
 

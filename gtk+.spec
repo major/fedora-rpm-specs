@@ -2,7 +2,7 @@ Summary:	The GIMP ToolKit
 Name:		gtk+
 Epoch:		1
 Version:	1.2.10
-Release:	101%{?dist}
+Release:	102%{?dist}
 License:	LGPL-2.0-or-later
 URL:		http://www.gtk.org/
 Source0:	https://ftp.gnome.org/pub/gnome/sources/gtk+/1.2/gtk+-%{version}.tar.gz
@@ -248,6 +248,9 @@ make check LIBTOOL=/usr/bin/libtool
 %{_mandir}/man1/gtk-config.1*
 
 %changelog
+* Fri Apr 14 2023 Florian Weimer <fweimer@redhat.com> - 1:1.2.10-102
+- Fix C99 compatibility issues in ltconfig
+
 * Fri Mar  3 2023 Paul Howarth <paul@city-fan.org> - 1:1.2.10-101
 - Use SPDX-format license tag
 

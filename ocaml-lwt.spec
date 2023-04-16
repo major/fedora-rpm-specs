@@ -2,7 +2,7 @@
 
 Name:           ocaml-lwt
 Version:        5.6.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        OCaml lightweight thread library
 
 # The project as a whole is MIT.  The following files are BSD-2-Clause:
@@ -174,6 +174,9 @@ rm -rf %{buildroot}%{ocamldir}/lwt_ppx_let
 
 
 %changelog
+* Fri Apr 14 2023 Jerry James <loganjerry@gmail.com> - 5.6.1-8
+- Rebuild for respun ocaml-luv 0.5.12
+
 * Mon Apr 10 2023 Jerry James <loganjerry@gmail.com> - 5.6.1-7
 - Rebuild for ocaml-luv 0.5.12
 
