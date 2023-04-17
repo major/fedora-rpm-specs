@@ -14,7 +14,7 @@
 
 Name: openldap
 Version: 2.6.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: LDAP support libraries
 License: OpenLDAP
 URL: http://www.openldap.org/
@@ -46,6 +46,7 @@ Patch6: openldap-switch-to-lt_dlopenadvise-to-get-RTLD_GLOBAL-set.patch
 # System-wide default for CA certs
 Patch7: openldap-openssl-manpage-defaultCA.patch
 Patch8: openldap-add-export-symbols-LDAP_CONNECTIONLESS.patch
+Patch9: openldap-configure-c99.patch
 
 # check-password module specific patches
 Patch90: check-password-makefile.patch
@@ -154,6 +155,7 @@ pushd openldap-%{version}
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
+%patch9 -p2
 
 # build smbk5pwd with other overlays
 ln -s ../../../contrib/slapd-modules/smbk5pwd/smbk5pwd.c servers/slapd/overlays
@@ -504,6 +506,9 @@ exit 0
 %{_libdir}/libslapi-2.4*.so.*
 
 %changelog
+* Sat Apr 15 2023 Florian Weimer <fweimer@redhat.com> - 2.6.4-2
+- Apply upstream patch to fix C99 compatibility issues
+
 * Mon Feb 27 2023 Simon Pichugin <spichugi@redhat.com> - 2.6.4-1
 - Rebase to version 2.6.4
   Related: rhbz#2168351

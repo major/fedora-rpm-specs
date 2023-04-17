@@ -4,7 +4,7 @@
 %global         api_version     1.0
 
 Name:           mingw-gstreamer1-plugins-bad-free
-Version:        1.22.1
+Version:        1.22.2
 Release:        1%{?dist}
 Summary:        Cross compiled GStreamer1 plug-ins "bad"
 
@@ -26,8 +26,8 @@ BuildRequires:  orc-compiler
 
 BuildRequires:  mingw32-filesystem >= 95
 BuildRequires:  mingw64-filesystem >= 95
-BuildRequires:  mingw32-gcc
-BuildRequires:  mingw64-gcc
+BuildRequires:  mingw32-gcc-c++
+BuildRequires:  mingw64-gcc-c++
 BuildRequires:  mingw32-gstreamer1 >= %{version}
 BuildRequires:  mingw64-gstreamer1 >= %{version}
 BuildRequires:  mingw32-gstreamer1-plugins-base >= %{version}
@@ -520,6 +520,9 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 
 
 %changelog
+* Sat Apr 15 2023 Sandro Mani <manisandro@gmail.com> - 1.22.2-1
+- Update to 1.22.2
+
 * Sun Mar 19 2023 Sandro Mani <manisandro@gmail.com> - 1.22.1-1
 - Update to 1.22.1
 

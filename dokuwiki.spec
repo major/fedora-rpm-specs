@@ -7,7 +7,7 @@ License:	GPL-2.0-only AND BSD-3-Clause
 %global		releasenum 2023-04-04
 %global		releasetag %(rel="%{releasenum}"; echo "${rel//-/}")
 Version:	%{releasetag}
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 URL:		https://www.dokuwiki.org/dokuwiki
 Source0:	https://download.dokuwiki.org/src/%{name}/%{name}-%{releasenum}.tgz
@@ -32,11 +32,8 @@ Requires:	php-composer(phpseclib/phpseclib) >= 2.0.31
 Requires:	php-composer(simplepie/simplepie) >= 1.5.6
 Requires:	php-composer(splitbrain/php-archive) >= 1.2.1
 Requires:	php-composer(splitbrain/php-cli) >= 1.1.8
+Requires:	php-composer(splitbrain/php-jsstrip) >= 1.0.1
 Requires:	php-composer(splitbrain/slika) >= 1.0.5
-
-# TODO: Unbundle this.
-# Package review request: https://bugzilla.redhat.com/show_bug.cgi?id=2184480
-Provides:   bundled(php-splitbrain-php-jsstrip) = 1.0.1
 
 
 %description
@@ -237,6 +234,9 @@ fi
 %doc DOKUWIKI-SELINUX.README
 
 %changelog
+* Sat Apr 15 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 20230404-2
+- Unbundle php-splitbrain-php-jsstrip
+
 * Wed Apr 05 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 20230404-1
 - Update to latest release (2023-04-04 "Jack Jackrum")
 - Fix package not creating the data/log directory

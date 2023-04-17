@@ -4,13 +4,17 @@
 %endif
 
 Name:		python-ipyparallel
-Version:	8.5.1
-Release:	1%{?dist}
+Version:	8.6.1
+Release:	2%{?dist}
 Summary:	Interactive Parallel Computing with IPython
 
 License:	BSD-3-Clause
 URL:		https://github.com/ipython/ipyparallel
 Source0:	%pypi_source ipyparallel
+#		https://github.com/ipython/ipyparallel/pull/795
+Patch0:		%{name}-doc-fixes.patch
+#		https://github.com/ipython/ipyparallel/pull/796
+Patch1:		%{name}-teardown.patch
 
 BuildArch:	noarch
 BuildRequires:	make
@@ -75,8 +79,13 @@ This package contains the documentation of python-ipyparallel.
 
 %prep
 %setup -q -n ipyparallel-%{version}
+%patch0 -p1
+%patch1 -p1
 
 rm ipyparallel/labextension/schemas/ipyparallel-labextension/package.json.orig
+
+sed /autodoc_traits/d -i docs/source/conf.py
+sed s/autoconfigurable/autoclass/ -i docs/source/api/ipyparallel.rst
 
 %build
 %pyproject_wheel
@@ -133,6 +142,12 @@ mv %{buildroot}%{_prefix}%{_sysconfdir} %{buildroot}%{_sysconfdir}
 %doc docs/build/html
 
 %changelog
+* Sat Apr 15 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 8.6.1-2
+- Fix AttributeError in tests
+
+* Fri Apr 14 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 8.6.1-1
+- Update to 8.6.1
+
 * Thu Mar 30 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 8.5.1-1
 - Update to 8.5.1
 - Use source from PyPI

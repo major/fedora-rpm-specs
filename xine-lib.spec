@@ -37,7 +37,7 @@
 Summary:        A multimedia engine
 Name:           xine-lib
 Version:        1.2.13
-Release:        3%{?snapshot:.%{date}hg%{revision}}%{?dist}
+Release:        4%{?snapshot:.%{date}hg%{revision}}%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://www.xine-project.org/
 %if ! 0%{?snapshot}
@@ -51,6 +51,7 @@ Source1:        make_xinelib_snapshot.sh
 # ffmpeg6 compatibility
 # See: https://sourceforge.net/p/xine/xine-lib-1.2/ci/771f4ae27e582123ff3500444718fc8f96186d74/
 Patch0:         xine-lib-1.2.13-ffmpeg6-compatibility.patch
+Patch1: xine-lib-configure-c99.patch
 
 Provides:       xine-lib(plugin-abi) = %{plugin_abi}
 Provides:       xine-lib(plugin-abi)%{?_isa} = %{plugin_abi}
@@ -349,6 +350,9 @@ mkdir -p %{buildroot}%{codecdir}
 
 
 %changelog
+* Sat Apr 15 2023 Florian Weimer <fweimer@redhat.com> - 1.2.13-4
+- Port configure script to C99
+
 * Sat Mar 18 2023 Xavier Bachelot <xavier@bachelot.org> - 1.2.13-3
 - Enable external libdvdnav for EL9
 - Restore specfile compatibility with RPM Fusion for EL7/8

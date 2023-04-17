@@ -3,7 +3,7 @@
 
 Name:           keepassxc
 Version:        2.7.4
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Cross-platform password manager
 License:        Boost and BSD and CC0 and GPLv3 and LGPLv2 and LGPLv2+ and LGPLv3+ and Public Domain
 URL:            http://www.keepassxc.org/
@@ -31,8 +31,16 @@ Source2:        https://keepassxc.org/keepassxc_master_signing_key.asc
 # https://bodhi.fedoraproject.org/updates/FEDORA-2022-d1ac004bb1
 # reintroduced xcb patch for GNOME Wayland mentioning in the description the
 # problems keepassxc users experienced
+#
+# 15 April 2023 Germano Massullo's update: xcb.patch causes users no longer being
+# able to move KeepassXC database entries between groups on Fedora 38 GNOME
+# https://bugzilla.redhat.com/show_bug.cgi?id=2186217
+# disabling the patch fixes the problem, therefore it has been disabled on
+# Fedora >= 38
 
+%if (0%{?el} || 0%{?fedora} < 38)
 Patch0:         xcb.patch
+%endif
 Patch1:         appdata.patch
 
 BuildRequires:  botan2-devel
@@ -197,6 +205,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.%{nam
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Apr 15 2023 Germano Massullo <germano.massullo@gmail.com> - 2.7.4-8
+- disables xcb patch for Fedora >= 38
+
 * Wed Apr 12 2023 Jan Grulich <jgrulich@redhat.com> - 2.7.4-7
 - Rebuild (qt5)
 

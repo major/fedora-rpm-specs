@@ -6,7 +6,7 @@
 Name:    digikam
 Summary: A digital camera accessing & photo management application
 Version: 8.0.0
-Release: 1%{?beta}%{?dist}
+Release: 2%{?beta}%{?dist}
 
 License: GPL-2.0-or-later
 URL:     http://www.digikam.org/
@@ -24,6 +24,8 @@ Source0: http://download.kde.org/stable/digikam/%{version}/digiKam-%{version}.ta
 Source10: digikam-import.desktop
 
 ## upstream patches
+# fix ffmpeg5-related mediaplayer crash https://bugs.kde.org/show_bug.cgi?id=468480
+Patch0: digikam-8.0.0-ffmpeg5.patch
 
 ## upstreamable patches
 
@@ -268,6 +270,9 @@ update-desktop-database -q &> /dev/null
 
 
 %changelog
+* Sat Apr 15 2023 Alexey Kurov <nucleo@fedoraproject.org> - 8.0.0-2
+- fixed crash in MediaPlayer
+
 * Thu Apr 13 2023 Alexey Kurov <nucleo@fedoraproject.org> - 8.0.0-1
 - digiKam-8.0.0
 - enabled MediaPlayer

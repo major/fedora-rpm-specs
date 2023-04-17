@@ -7,7 +7,7 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           gnome-shell-extension-%{extension}
-Version:        26%{?commit:^1.%{shortcommit}}
+Version:        28%{?commit:^1.%{shortcommit}}
 Release:        %autorelease
 Summary:        Customize your GNOME Shell UX to suit your workflow
 License:        GPL-3.0-only

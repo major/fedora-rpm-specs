@@ -4,7 +4,7 @@
 
 Name:           alliance
 Version:        5.1.1
-Release:        28.%{snapdate}git%{shortcommit}%{?dist}
+Release:        29.%{snapdate}git%{shortcommit}%{?dist}
 Summary:        VLSI EDA System
 License:        GPL-2.0-only
 URL:            https://soc-extras.lip6.fr/en/alliance-abstract-en/
@@ -190,6 +190,9 @@ find documentation/tutorials/ \
 popd > /dev/null
 
 %build
+# The C parts use implicit ints, implicit function declarations,
+# and old-style function declarations heavily.
+export CFLAGS="%build_cflags -std=gnu89"
 export CXXFLAGS="-std=c++14 $RPM_OPT_FLAGS"
 pushd src > /dev/null
 %configure --enable-alc-shared             \
@@ -305,6 +308,9 @@ source %{_sysconfdir}/profile.d/alc_env.sh
 
 
 %changelog
+* Sat Apr 15 2023 Florian Weimer <fweimer@redhat.com> - 5.1.1-29.20160506gitd8c05cd
+- Build in C89 mode (#2187002)
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1-28.20160506gitd8c05cd
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

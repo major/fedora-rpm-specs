@@ -1,6 +1,6 @@
 Name:           texstudio
-Version:        4.5.1
-Release:        1%{?dist}
+Version:        4.5.2
+Release:        2%{?dist}
 
 Summary:        A feature-rich editor for LaTeX documents
 # texstudio binary: GPLv3 due to static linkage of bundled qcodeedit
@@ -54,7 +54,8 @@ all necessary LaTeX tools.
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch1 -p1 -b .update_check
+
+%patch -P 1 -p1 -b .update_check
 
 rm -rf {hunspell,qtsingleapplication,quazip}
 
@@ -80,7 +81,8 @@ install -Dp -m 0644 utilities/texstudio64x64.png \
     $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/46x46/apps/texstudio.png
 
 
-rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/{AUTHORS,COPYING,*.desktop,tex*.png,CHANGELOG.txt}
+rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/{AUTHORS,COPYING,*.desktop,tex*.png}
+rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/utilities/manual/source/CHANGELOG.md
 rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/{*.dic,*.aff}
 rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/qt_*.qm
 
@@ -107,13 +109,22 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_datadir}/texstudio/_images/*.png
 %{_datadir}/texstudio/_static/
 %{_datadir}/texstudio/README_*
+%{_datadir}/texstudio/CHANGELOG.md
 %{_datadir}/applications/texstudio.desktop
 %{_datadir}/icons/hicolor/*/apps/*.png
 %{_datadir}/icons/hicolor/*/apps/*.svg
+%{_datadir}/metainfo/texstudio.metainfo.xml
 
-%doc utilities/AUTHORS utilities/COPYING utilities/manual/CHANGELOG.txt
+%doc utilities/AUTHORS utilities/COPYING utilities/manual/source/CHANGELOG.md
 
 %changelog
+* Sat Apr 15 2023 Johannes Lips <hannes@fedoraproject.org> 4.5.2-2
+- fixed patch macro
+- minor fixes
+
+* Sat Apr 15 2023 Johannes Lips <hannes@fedoraproject.org> 4.5.2-1
+- Update to latest upstream release 4.5.2
+
 * Sat Feb 04 2023 Johannes Lips <hannes@fedoraproject.org> 4.5.1-1
 - Update to latest upstream release 4.5.1
 

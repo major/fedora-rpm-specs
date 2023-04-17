@@ -5,7 +5,7 @@
 %global crate polling
 
 Name:           rust-polling
-Version:        2.6.0
+Version:        2.7.0
 Release:        %autorelease
 Summary:        Portable interface to epoll, kqueue, event ports, and IOCP
 

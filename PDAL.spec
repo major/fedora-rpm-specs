@@ -8,7 +8,7 @@
 Summary:	Point Data Abstraction Library
 Name:		PDAL
 # NOTE: Re-verifiy test exclusions in %%check when updating
-Version:	2.5.2
+Version:	2.5.3
 Release:	1%{?dist}
 # The code is licensed BSD except for:
 # - filters/private/csf/* and plugins/i3s/lepcc/* are ASL 2.0
@@ -16,7 +16,7 @@ Release:	1%{?dist}
 # - plugins/e57/libE57Format/{src,include}/* is Boost
 License:	BSD-3-Clause AND Apache-2.0 AND MIT AND BSL-1.0
 URL:		https://www.pdal.io
-Source:		https://github.com/%{name}/%{name}/releases/download/%{version}/%{name}-%{version}-src.tar.gz
+Source:		https://github.com/%{name}/%{name}/releases/download/%{version}/%{name}-%{version}-src.tar.bz2
 # commented out due to size (320 MB larger)
 #Source1:	http://download.osgeo.org/proj/vdatum/%%{name}-vdatums.zip
 # originals
@@ -39,9 +39,6 @@ Patch0:		PDAL_unbundle.patch
 
 # Use correct libdir for PDAL_DRIVER_PATH when running tests
 Patch1:		PDAL_tests.patch
-
-# fix build with sphinxcontrib-bibtex 2.0 (RHBZ #1921498)
-Patch2:		PDAL_sphinxconf.patch
 
 BuildRequires:	boost-devel
 BuildRequires:	cmake
@@ -246,6 +243,9 @@ sphinx-build -b html . build/html
 %license LICENSE.txt
 
 %changelog
+* Sat Apr 15 2023 Sandro Mani <manisandro@gmail.com> - 2.5.3-1
+- Update to 2.5.3
+
 * Wed Mar 01 2023 Markus Neteler <neteler@mundialis.de> 2.5.2-1
 - Update to 2.5.2
 

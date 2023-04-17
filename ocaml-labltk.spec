@@ -7,7 +7,7 @@
 
 Name:          ocaml-labltk
 Version:       8.06.12
-Release:       3%{?dist}
+Release:       4%{?dist}
 
 Summary:       Tcl/Tk interface for OCaml
 
@@ -21,6 +21,7 @@ Patch1:        labltk-8.06.11-enable-debugging.patch
 
 # Resolve an issue with ./configure and Tcl detection.
 Patch2:        labltk-8.06.12-use-fpic-configure.patch
+Patch3: ocaml-labltk-configure-c99.patch
 
 BuildRequires: make
 BuildRequires: ocaml
@@ -50,6 +51,7 @@ This package contains the development files.
 
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 # Remove version control files which might get copied into documentation.
 find -name .gitignore -delete
@@ -121,6 +123,9 @@ install -m 0644 camltk/*.o $RPM_BUILD_ROOT%{_libdir}/ocaml/labltk
 
 
 %changelog
+* Sat Apr 15 2023 Florian Weimer <fweimer@redhat.com> - 8.06.12-4
+- Port configure stage to C99
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 8.06.12-3
 - Rebuild OCaml packages for F38
 

@@ -27,8 +27,8 @@ There is a limited support for (deprecated) optparse objects, too.
 
 
 Name:           argparse-manpage
-Version:        4
-Release:        2%{?dist}
+Version:        4.1
+Release:        1%{?dist}
 Summary:        %{sum Python}
 BuildArch:      noarch
 
@@ -180,6 +180,11 @@ PYTHONPATH=%buildroot%python3_sitearch %__python3 -m pytest -vv
 
 
 %changelog
+* Sat Apr 15 2023 Pavel Raiskup <praiskup@redhat.com> - 4.1-1
+- new `--include` feature, inspired by `help2man --include`
+- allow overriding build date with SOURCE_DATE_EPOCH environment variable
+- the AUTHORS section was changed to more standard AUTHOR
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

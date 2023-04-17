@@ -1,6 +1,6 @@
 Name:		kakasi
 Version:	2.3.6
-Release:	24%{?dist}
+Release:	25%{?dist}
 URL:		http://kakasi.namazu.org/
 License:	GPL-2.0-or-later
 BuildRequires:	autoconf automake libtool gettext-devel
@@ -8,6 +8,7 @@ BuildRequires: make
 
 Source:	http://kakasi.namazu.org/stable/%{name}-%{version}.tar.xz
 Patch4:		kakasi-multilib.patch
+Patch5: kakasi-configure-c99.patch
 
 
 Summary:	A Japanese character set conversion filter
@@ -95,6 +96,9 @@ iconv -f euc-jp -t utf-8 man/kakasi.1.ja > man/kakasi.1.ja.utf8 && touch -r man/
 
 
 %changelog
+* Sat Apr 15 2023 Florian Weimer <fweimer@redhat.com> - 2.3.6-25
+- Port configure script to C99 (#2186999)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.6-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

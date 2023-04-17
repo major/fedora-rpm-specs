@@ -7,7 +7,7 @@
 
 Name: darktable
 Version: 4.2.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 Summary: Utility to organize and develop raw images
 License: GPLv3+
@@ -55,8 +55,9 @@ BuildRequires: cmake(libavif) >= 0.8.2
 %endif
 BuildRequires: libcurl-devel >= 7.18.0
 BuildRequires: libgphoto2-devel >= 2.4.5
-# libheif is in RPMFusion only
-# BuildRequires: libheif-devel >= 1.9.0
+%if ((0%{?el} >= 9) || (0%{?fedora}))
+BuildRequires: libheif-devel >= 1.9.0
+%endif
 BuildRequires: libjasper-devel
 BuildRequires: libjpeg-devel
 BuildRequires: libjxl-devel >= 0.7.0
@@ -249,6 +250,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.darkt
 %{_libexecdir}/darktable/tools/subr.sh
 
 %changelog
+* Sat Apr 15 2023 Germano Massullo <germano.massullo@gmail.com> - 4.2.1-2
+- enables libheif-devel on EL>=9 and Fedora
+
 * Thu Feb 23 2023 Germano Massullo <germano.massullo@gmail.com> - 4.2.1-1
 - 4.2.1 release
 - removes appdata patch

@@ -5,7 +5,7 @@
 %global crate atomic-waker
 
 Name:           rust-atomic-waker
-Version:        1.1.0
+Version:        1.1.1
 Release:        %autorelease
 Summary:        Synchronization primitive for task wakeup
 

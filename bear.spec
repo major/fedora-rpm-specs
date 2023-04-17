@@ -6,6 +6,7 @@ Summary:        Tool that generates a compilation database for clang tooling
 License:        GPL-3.0-or-later
 URL:            https://github.com/rizsotto/%{name}
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0: bear-c99.patch
 
 BuildRequires:  cmake
 BuildRequires:  cmake(fmt)

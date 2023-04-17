@@ -3,7 +3,7 @@
 %global singleapplication_shortcommit %(c=%{singleapplication_commit}; echo ${c:0:7})
 
 Name: kdiskmark
-Version: 3.1.2
+Version: 3.1.3
 Release: %autorelease
 Summary: Simple open-source disk benchmark tool for Linux distros
 

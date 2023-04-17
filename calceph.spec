@@ -1,6 +1,6 @@
 Name:           calceph
-Version:        3.5.1
-Release:        3%{?dist}
+Version:        3.5.2
+Release:        1%{?dist}
 Summary:        Astronomical library to access planetary ephemeris files
 
 License:        CECILL-2.0 OR CECILL-B OR CECILL-C
@@ -118,6 +118,9 @@ make check
 
 
 %changelog
+* Sat Apr 15 2023 Mattia Verga <mattia.verga@proton.me> - 3.5.2-1
+- Update to 3.5.2 (fedora#2185865)
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
