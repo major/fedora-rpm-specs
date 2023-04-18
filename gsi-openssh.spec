@@ -24,12 +24,12 @@
 %global libedit 1
 
 %global openssh_ver 9.0p1
-%global openssh_rel 5
+%global openssh_rel 6
 
 Summary: An implementation of the SSH protocol with GSI authentication
 Name: gsi-openssh
 Version: %{openssh_ver}
-Release: %{openssh_rel}%{?dist}.1
+Release: %{openssh_rel}%{?dist}
 Provides: gsissh = %{version}-%{release}
 Obsoletes: gsissh < 5.8p2-2
 URL: http://www.openssh.com/portable.html
@@ -57,6 +57,8 @@ Patch100: openssh-6.7p1-coverity.patch
 Patch200: openssh-7.6p1-audit.patch
 # Audit race condition in forked child (#1310684)
 Patch201: openssh-7.1p2-audit-race-condition.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2049947
+Patch202: openssh-9.0p1-audit-log.patch
 
 #https://bugzilla.mindrot.org/show_bug.cgi?id=1641 (WONTFIX)
 Patch400: openssh-7.8p1-role-mls.patch
@@ -185,6 +187,13 @@ Patch1006: openssh-8.7p1-negotiate-supported-algs.patch
 Patch1007: openssh-configure-c99-1.patch
 Patch1008: openssh-configure-c99-2.patch
 Patch1009: openssh-configure-c99-3.patch
+
+Patch1010: openssh-8.7p1-CVE-2023-25136.patch
+
+Patch1011: openssh-9.0p1-evp-fips-sign.patch
+Patch1012: openssh-9.0p1-evp-fips-dh.patch
+Patch1013: openssh-9.0p1-evp-fips-ecdh.patch
+Patch1014: openssh-8.7p1-nohostsha1proof.patch
 
 # Fix issue with read-only ssh buffer during gssapi key exchange (#1938224)
 # https://github.com/openssh-gsskex/openssh-gsskex/pull/19
@@ -340,6 +349,7 @@ gpgv2 --quiet --keyring %{SOURCE3} %{SOURCE1} %{SOURCE0}
 
 %patch200 -p1 -b .audit
 %patch201 -p1 -b .audit-race
+%patch202 -p1 -b .audit-log
 %patch700 -p1 -b .fips
 
 %patch1001 -p1 -b .scp-clears-file
@@ -350,6 +360,11 @@ gpgv2 --quiet --keyring %{SOURCE3} %{SOURCE1} %{SOURCE0}
 %patch1007 -p1 -b .configure-c99-1
 %patch1008 -p1 -b .configure-c99-2
 %patch1009 -p1 -b .configure-c99-3
+%patch1010 -p1 -b .cve-2023-25136
+%patch1011 -p1 -b .evp-fips-sign
+%patch1012 -p1 -b .evp-fips-dh
+%patch1013 -p1 -b .evp-fips-ecdh
+%patch1014 -p1 -b .nosha1hostproof
 
 %patch100 -p1 -b .coverity
 
@@ -548,6 +563,9 @@ fi
 %attr(0744,root,root) %{_libexecdir}/gsissh/ssh-host-keys-migration.sh
 
 %changelog
+* Sun Apr 16 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.0p1-6
+- Based on openssh-9.0p1-17.fc39
+
 * Wed Apr 12 2023 Florian Weimer <fweimer@redhat.com> - 9.0p1-5.1
 - C99 compatiblity fixes
 

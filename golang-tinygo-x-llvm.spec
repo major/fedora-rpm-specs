@@ -2,10 +2,14 @@
 %bcond_without check
 
 %global min_llvm 14
+%if %{fedora} >= 38
+%global max_llvm 16
+%else
 %if %{fedora} >= 37
 %global max_llvm 15
 %else
 %global max_llvm 14
+%endif
 %endif
 
 # https://github.com/tinygo-org/go-llvm
@@ -31,6 +35,16 @@ URL:            %{gourl}
 Source0:        %{gosource}
 # Fedora specific
 Patch0001:      0001-Make-LLVM-config-file-architecture-independent.patch
+# Support LLVM 16.
+# https://github.com/tinygo-org/go-llvm/pull/45
+Patch0002:      0002-Remove-ConstFNeg.patch
+Patch0003:      0003-Remove-legacy-AddPruneEHPass.patch
+Patch0004:      0004-Use-c-17-when-building-with-LLVM-16.patch
+# https://github.com/tinygo-org/go-llvm/pull/46
+Patch0005:      0005-Fix-message-disposal.patch
+# LLVM 16 again.
+Patch0006:      0006-Port-LLVMGoWriteThinLTOBitcodeToMemoryBuffer-to-new-.patch
+Patch0007:      0007-TST-Skip-uwtable-in-LLVM-15.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  make

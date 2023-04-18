@@ -1,6 +1,6 @@
 Name:           xdg-desktop-portal-wlr
-Version:        0.6.0
-Release:        4%{?dist}
+Version:        0.7.0
+Release:        1%{?dist}
 Summary:        xdg-desktop-portal backend for wlroots
 
 License:        MIT
@@ -8,8 +8,6 @@ URL:            https://github.com/emersion/%{name}
 Source0:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz.sig
 Source2:        https://emersion.fr/.well-known/openpgpkey/hu/dj3498u4hyyarh35rkjfnghbjxug6b19#/gpgkey-0FDE7BE0E88F5E48.gpg
-
-Patch0:         %{url}/commit/c83b3cc.patch#/xdg-desktop-portal-wlr-0.6.0-screenshot-Announce-version-property.patch
 
 BuildRequires:  gcc
 BuildRequires:  gnupg2
@@ -79,6 +77,9 @@ remote-desktop xdg-desktop-portal interfaces for wlroots based compositors.
 
 
 %changelog
+* Sun Apr 16 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.7.0-1
+- Update to 0.7.0
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

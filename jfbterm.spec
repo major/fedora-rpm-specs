@@ -7,7 +7,7 @@
 Summary:   Japanese Console for Linux Frame Buffer Device
 Name:      jfbterm
 Version:   0.4.7
-Release:   52%{?dist}
+Release:   53%{?dist}
 License:   BSD
 Source0:   http://downloads.sourceforge.jp/jfbterm/13501/jfbterm-%{version}.tar.gz
 Patch0:    jfbterm-0.4.6-conf.patch
@@ -26,6 +26,7 @@ Patch13:   jfbterm-0.4.7-pagemask_userspace.patch
 # (bug 698532)
 Patch15:   jfbterm-0.4.7-hang-on-utmp-refresh-with-invalid-utid.patch
 Patch16:   jfbterm-0.4.7-wrong-inline-gcc5.patch
+Patch17: jfbterm-configure-c99.patch
 
 URL:         http://jfbterm.sourceforge.jp/
 
@@ -76,6 +77,7 @@ Features:
 %patch13 -p1 -b .pagemask
 %patch15 -p1 -b .utid_with_refresh
 %patch16 -p1 -b .inline_gcc5
+%patch17 -p1
 
 #autoconf
 touch Makefile.in aclocal.m4 config.h.in configure stamp-h.in
@@ -191,6 +193,9 @@ iconv -f EUCJP -t UTF8 README.ja.orig > README.ja && \
 %{_mandir}/man5/jfbterm.conf.5*
 
 %changelog
+* Sun Apr 16 2023 Florian Weimer <fweimer@redhat.com> - 0.4.7-53
+- Port configure script to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.7-52
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

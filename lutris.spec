@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 Name:           lutris
 Version:        0.5.12
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Install and play any video game easily
 
 License:        GPLv3
@@ -38,12 +38,13 @@ Requires:       glx-utils
 Requires:       gvfs
 Requires:       webkit2gtk3
 Requires:       python3-lxml
-Recommends: 	  p7zip, curl
-Recommends:	    fluid-soundfont-gs
+Recommends: 	p7zip, curl
+Recommends:	fluid-soundfont-gs
 Recommends:     wine-core
-Recommends:	    p7zip-plugins
-Recommends:	    gamemode
+Recommends:	p7zip-plugins
+Recommends:	gamemode
 Recommends:     libFAudio
+Recommends:     gamescope
 BuildRequires:  fdupes
 BuildRequires:  libappstream-glib
 BuildRequires:  meson, gettext
@@ -92,6 +93,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications share/applicatio
 %{_datadir}/locale/
 
 %changelog
+* Sun Apr 16 2023 Steve Cossette <farchord@gmail.com> 0.5.12-4
+- Added gamescope as a recommendation (Helps with game compatibility, and is supported by lutris)
+
 * Wed Feb 15 2023 Chris King <bunnyapocalypse@protonmail.com> 0.5.12-3
 - Fix missing depends by using both meson and py3 macros
 

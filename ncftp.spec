@@ -1,7 +1,7 @@
 Summary: Improved console FTP client
 Name: ncftp
 Version: 3.2.5
-Release: 27%{?dist}
+Release: 28%{?dist}
 Epoch: 2
 License: BSD-3-Clause
 URL: http://www.ncftp.com/ncftp/
@@ -11,6 +11,7 @@ Patch1: ncftp-3.0.3-resume.patch
 Patch2: ncftp-3.1.5-pmeter.patch
 Patch3: ncftp-3.2.3-ncursesw.patch
 Patch4: ncftp-3.2.5-gcc10.patch
+Patch5: ncftp-configure-c99.patch
 BuildRequires: make
 BuildRequires: ncurses-devel
 BuildRequires: autoconf, automake, libtool
@@ -28,6 +29,7 @@ anonymous logins, and more.
 %patch2 -p1 -b .pmeter
 %patch3 -p1 -b .ncursesw
 %patch4 -p1 -b .gcc10
+%patch5 -p1 -b .configure-c99
 
 
 %build
@@ -63,6 +65,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Sun Apr 16 2023 Florian Weimer <fweimer@redhat.com> - 2:3.2.5-28
+- Port configure script to C99 (#2187065)
+
 * Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 2:3.2.5-27
 - migrated to SPDX license
 

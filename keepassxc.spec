@@ -3,7 +3,7 @@
 
 Name:           keepassxc
 Version:        2.7.4
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Cross-platform password manager
 License:        Boost and BSD and CC0 and GPLv3 and LGPLv2 and LGPLv2+ and LGPLv3+ and Public Domain
 URL:            http://www.keepassxc.org/
@@ -38,7 +38,7 @@ Source2:        https://keepassxc.org/keepassxc_master_signing_key.asc
 # disabling the patch fixes the problem, therefore it has been disabled on
 # Fedora >= 38
 
-%if (0%{?el} || 0%{?fedora} < 38)
+%if (%{defined rhel} || (%{defined fedora} && 0%{?fedora} < 38))
 Patch0:         xcb.patch
 %endif
 Patch1:         appdata.patch
@@ -46,7 +46,7 @@ Patch1:         appdata.patch
 BuildRequires:  botan2-devel
 BuildRequires:  cmake >= 3.1
 BuildRequires:  desktop-file-utils
-%if 0%{?el8}
+%if %{defined rhel}
 BuildRequires:  gcc-toolset-12-gcc-c++
 BuildRequires:  gcc-toolset-12-annobin-plugin-gcc
 %else
@@ -140,7 +140,7 @@ sed -i '/type="contribute"/d' ./share/linux/org.keepassxc.KeePassXC.appdata.xml
 %endif
 
 %build
-%if 0%{?el8}
+%if %{defined rhel}
 . /opt/rh/gcc-toolset-12/enable
 %endif
 # -DWITH_XC_DOCS=OFF is needed on EL due missing rubygem-asciidoctor
@@ -205,6 +205,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.%{nam
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sun Apr 16 2023 Germano Massullo <germano.massullo@gmail.com> - 2.7.4-9
+- Rebuild (qt5)
+
 * Sat Apr 15 2023 Germano Massullo <germano.massullo@gmail.com> - 2.7.4-8
 - disables xcb patch for Fedora >= 38
 

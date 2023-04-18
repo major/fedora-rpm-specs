@@ -5,6 +5,7 @@ Summary:        Parallel scripting right from the Bourne-Again Shell
 License:        GPLv3+
 Url:            https://github.com/lanl/MPI-Bash
 Source0:        https://github.com/lanl/MPI-Bash/releases/download/v%{version}/mpibash-%{version}.tar.gz
+Patch0: mpibash-c99.patch
 BuildRequires: make
 BuildRequires:  bash-devel >= 4.4
 
@@ -68,7 +69,7 @@ This package contains example scripts for mpibash compiled with MPICH.
 
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 mkdir openmpi mpich

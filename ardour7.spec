@@ -26,7 +26,7 @@
 
 # This package is named ardour7 to allow parallel installation with older versions of Ardour.
 Name:       ardour7
-Version:    7.2.0
+Version:    7.3.0
 
 Release:    %autorelease
 Summary:    Digital Audio Workstation

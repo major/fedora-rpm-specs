@@ -34,6 +34,7 @@ Patch1:		%{name}-%{version}-unbundle-hunspell.patch
 
 # use system pdf viewers instead of hardcoded evince
 Patch2:		%{name}-%{version}-viewfiles.patch
+Patch3: texmaker-c99.patch
 
 # Excldue arches where qtwebengine-devel is missing
 ExcludeArch: ppc64 ppc64le s390x
@@ -47,9 +48,10 @@ license
 
 %prep
 %setup -q
-%patch0
-%patch1
-%patch2
+%patch0 -p0
+%patch1 -p0
+%patch2 -p0
+%patch3 -p1
 
 # get rid of zero-length space
 sed -i 's/\xe2\x80\x8b//g' utilities/%{name}.metainfo.xml

@@ -3,7 +3,7 @@
 
 Name:           wlroots
 Version:        0.16.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A modular Wayland compositor library
 
 # Source files/overall project licensed as MIT, but
@@ -35,6 +35,7 @@ Source2:        https://emersion.fr/.well-known/openpgpkey/hu/dj3498u4hyyarh35rk
 Source3:        examples.meson.build
 
 # Upstream patches
+Patch0:         %{url}/-/commit/f3ba14e491333d6bbba8c60328c4dbfd20571182.patch#/wlroots-0.16.2-render-vulkan-remove-hardcoded-validation-layers.patch
 
 # Fedora patches
 # Following patch is required for phoc.
@@ -143,6 +144,9 @@ install -pm0644 -D '%{SOURCE3}' '%{buildroot}/%{_pkgdocdir}/examples/meson.build
 
 
 %changelog
+* Sun Apr 16 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.16.2-2
+- Apply upstream patch to remove hardcoded Vulkan validation layers
+
 * Fri Feb 10 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.16.2-1
 - Update to 0.16.2 (#2168992)
 

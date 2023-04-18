@@ -19,18 +19,16 @@
 
 Name: network-manager-applet
 Summary: A network control and status applet for NetworkManager
-Version: 1.30.0
-Release: 3%{?dist}
+Version: 1.32.0
+Release: 1%{?dist}
 License: GPLv2+
 URL: http://www.gnome.org/projects/NetworkManager/
 Obsoletes: NetworkManager-gnome < %{obsoletes_ver}
 
-Source: https://download.gnome.org/sources/network-manager-applet/1.30/%{name}-%{version}.tar.xz
+Source: https://download.gnome.org/sources/network-manager-applet/1.32/%{name}-%{version}.tar.xz
 Patch1: 0001-nm-applet-no-notifications.patch
-Patch2: https://gitlab.gnome.org/GNOME/network-manager-applet/-/commit/d0d73192.patch#/0002-appindicator-outside-X11.patch
 
 Requires: NetworkManager >= %{nm_version}
-Requires: libnotify >= 0.4.3
 Requires: nm-connection-editor%{?_isa} = %{version}-%{release}
 Requires: libnma%{?_isa} >= %{libnma_version}
 
@@ -46,7 +44,6 @@ BuildRequires: gobject-introspection-devel >= 0.10.3
 BuildRequires: gettext-devel
 BuildRequires: /usr/bin/autopoint
 BuildRequires: pkgconfig
-BuildRequires: libnotify-devel >= 0.4
 BuildRequires: meson
 BuildRequires: intltool
 BuildRequires: gtk-doc
@@ -154,6 +151,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/nm-connection-edit
 
 
 %changelog
+* Sun Apr 16 2023 Lubomir Rintel <lkundrak@v3.sk> - 1.32.0-1
+- Update to 1.32.0 release
+
 * Fri Feb 17 2023 Lubomir Rintel <lkundrak@v3.sk> - 1.30.0-3
 - applet: use appindicator if we can outside of X11
 

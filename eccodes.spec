@@ -1,5 +1,5 @@
 Name:           eccodes
-Version:        2.29.0
+Version:        2.30.0
 Release:        1%{?dist}
 Summary:        WMO data format decoding and encoding
 
@@ -189,7 +189,6 @@ popd
 
 #-- The following features are disabled by default and not switched on:
 #
-# * AEC , support for Adaptive Entropy Coding
 # * MEMFS , Memory based access to definitions/samples
 # * MEMORY_MANAGEMENT , enable memory management
 # * ALIGN_MEMORY , enable memory alignment
@@ -351,6 +350,9 @@ ctest3 -V %{?_smp_mflags}
 %doc %{_datadir}/doc/%{name}/
 
 %changelog
+* Sun Apr 16 2023 Jos de Kloe <josdekloe@gmail.com> - 2.30.0-1
+- Upgrade to upstream version 2.30.0
+
 * Sun Mar 26 2023 Jos de Kloe <josdekloe@gmail.com> - 2.29.0-1
 - Upgrade to upstream version 2.29.0
   Note that the source code now uses g++ in stead of gcc for compilation.

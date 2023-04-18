@@ -1,9 +1,9 @@
 Name:           hstr
-Version:        2.6
+Version:        3.0
 Release:        1%{?dist}
 Summary:        Suggest box like shell history completion
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/dvorka/hstr
 Source0:        %url/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -42,6 +42,10 @@ autoreconf -fiv
 
 
 %changelog
+* Sun Apr 16 2023 Jonathan Wright <jonathan@almalinux.org> - 3.0-1
+- Update to 3.0
+- update license to spdx
+
 * Tue Jan 24 2023 Leigh Scott <leigh123linux@gmail.com> - 2.6-1
 - Update to 2.6
 

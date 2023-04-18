@@ -1,11 +1,11 @@
 %global gtk3_version 3.20.0
-%global libdmapsharing_version 2.9.10
+%global libdmapsharing_version 3.9.11
 %global libsecret_version 0.18
 
 %global __provides_exclude_from ^%{_libdir}/%{name}/plugins/.*/.*\\.so.*$
 
 Name:    rhythmbox
-Version: 3.4.6
+Version: 3.4.7
 Release: %autorelease
 Summary: Music Management Application
 
@@ -14,15 +14,14 @@ URL:     https://wiki.gnome.org/Apps/Rhythmbox
 Source0: https://download.gnome.org/sources/rhythmbox/3.4/%{name}-%{version}.tar.xz
 
 BuildRequires: pkgconfig(gobject-introspection-1.0) >= 0.10.0
-# FIXME: reenable grilo dependency after switching to libsoup 3
-# BuildRequires: pkgconfig(grilo-0.3) >= 0.3.0
+BuildRequires: pkgconfig(grilo-0.3) >= 0.3.1
 BuildRequires: pkgconfig(gstreamer-1.0)
 BuildRequires: pkgconfig(gstreamer-pbutils-1.0)
 BuildRequires: pkgconfig(gtk+-3.0) >= %{gtk3_version}
 BuildRequires: pkgconfig(gudev-1.0)
 BuildRequires: pkgconfig(json-glib-1.0)
 BuildRequires: pkgconfig(libbrasero-media3)
-BuildRequires: pkgconfig(libdmapsharing-3.0) >= %{libdmapsharing_version}
+BuildRequires: pkgconfig(libdmapsharing-4.0) >= %{libdmapsharing_version}
 %if 0%{?fedora} || 0%{?rhel} >= 9
 BuildRequires: pkgconfig(libgpod-1.0)
 %endif
@@ -30,7 +29,7 @@ BuildRequires: pkgconfig(libmtp)
 BuildRequires: pkgconfig(libnotify)
 BuildRequires: pkgconfig(libpeas-gtk-1.0)
 BuildRequires: pkgconfig(libsecret-1) >= %{libsecret_version}
-BuildRequires: pkgconfig(libsoup-2.4) >= 2.42.0
+BuildRequires: pkgconfig(libsoup-3.0) >= 3.0.7
 BuildRequires: pkgconfig(libxml-2.0)
 BuildRequires: pkgconfig(pygobject-3.0)
 BuildRequires: pkgconfig(tdb)
@@ -40,7 +39,6 @@ BuildRequires: gettext
 BuildRequires: intltool
 BuildRequires: itstool
 BuildRequires: kernel-headers
-BuildRequires: libappstream-glib
 BuildRequires: meson
 BuildRequires: python3-devel
 BuildRequires: yelp-tools
@@ -52,7 +50,7 @@ Requires: gtk3%{?_isa} >= %{gtk3_version}
 %if 0%{?fedora} || 0%{?rhel} >= 9
 Recommends: gvfs-afc
 %endif
-Requires: libdmapsharing%{?_isa} >= %{libdmapsharing_version}
+Requires: libdmapsharing4%{?_isa} >= %{libdmapsharing_version}
 Requires: libpeas-loader-python3%{?_isa}
 Requires: libsecret%{?_isa} >= %{libsecret_version}
 Requires: media-player-info
@@ -87,8 +85,8 @@ a Rhythmbox plugin.
 
 %build
 %meson \
-    -Dlirc=disabled \
-    -Dgrilo=disabled # FIXME: reenable grilo dependency after switching to libsoup 3
+    -Ddaap=enabled \
+    -Dlirc=disabled
 %meson_build
 
 %install
@@ -107,16 +105,6 @@ rm -rf %{buildroot}%{_libdir}/rhythmbox/plugins/*/*.h
 
 # Context plugin is disabled, so do not install the files.
 rm -rf %{buildroot}%{_libdir}/rhythmbox/plugins/context
-
-# Update the screenshot shown in the software center
-#
-# NOTE: It would be *awesome* if this file was pushed upstream.
-#
-# See http://people.freedesktop.org/~hughsient/appdata/#screenshots for more details.
-#
-appstream-util replace-screenshots %{buildroot}%{_metainfodir}/org.gnome.Rhythmbox3.appdata.xml \
-  https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/rhythmbox/a.png \
-  https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/rhythmbox/b.png 
 
 %check
 desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.Rhythmbox3*.desktop
@@ -148,8 +136,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.Rhythmbox3
 %{_libdir}/rhythmbox/plugins/dbus-media-server/
 %{_libdir}/rhythmbox/plugins/fmradio/
 %{_libdir}/rhythmbox/plugins/generic-player/
-# FIXME: reenable grilo dependency after switching to libsoup 3
-# %%{_libdir}/rhythmbox/plugins/grilo/
+%{_libdir}/rhythmbox/plugins/grilo/
 %{_libdir}/rhythmbox/plugins/im-status/
 %{_libdir}/rhythmbox/plugins/ipod/
 %{_libdir}/rhythmbox/plugins/iradio/

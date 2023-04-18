@@ -7,6 +7,7 @@ URL:            https://github.com/linuxdeepin/deepin-system-monitor
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # fix: No such file "KWayland/Client/clientmanagement.h"
 Patch0:         https://patch-diff.githubusercontent.com/raw/linuxdeepin/deepin-system-monitor/pull/63.patch
+Patch1: deepin-system-monitor-c99.patch
 Source1:        %{name}-appdata.xml
 
 BuildRequires:  cmake

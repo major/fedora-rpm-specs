@@ -7,7 +7,7 @@
 
 Name:           ocaml-gsl
 Version:        1.19.1
-Release:        46%{?dist}
+Release:        47%{?dist}
 Summary:        Interface to GSL (GNU scientific library) for OCaml
 License:        GPLv2
 
@@ -23,6 +23,7 @@ Source0:        https://github.com/mmottl/gsl-ocaml/releases/download/v%{version
 
 # Various build fixes for OCaml 4.05.0.
 Patch1:         gsl-1.19.1-ocaml45.patch
+Patch2: ocaml-gsl-c99.patch
 
 BuildRequires: make
 BuildRequires:  ocaml >= 3.07
@@ -53,6 +54,7 @@ developing applications that use %{name}.
 %setup -q -n gsl-ocaml-%{version}
 
 %patch1 -p1
+%patch2 -p1
 
 
 %build
@@ -89,6 +91,9 @@ make install
 
 
 %changelog
+* Sun Apr 16 2023 Florian Weimer <fweimer@redhat.com> - 1.19.1-47
+- Apply upstream patch to fix C99 compatibility issues
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.19.1-46
 - Bump release and rebuild.
 

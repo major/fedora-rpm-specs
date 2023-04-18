@@ -9,7 +9,7 @@ The img2pdf command complements the pdfimages command.
 
 Name:           python-%{srcname}
 Version:        0.4.4
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Lossless images to PDF conversion library and command
 
 License:        LGPLv3+
@@ -99,8 +99,9 @@ sed -i '1{/^#!\//d}' src/*.py
 sed -i '1i#!'%{__python3} src/img2pdf.py
 
 # cf. https://gitlab.mister-muffin.de/josch/img2pdf/issues/152
+#     https://gitlab.mister-muffin.de/josch/img2pdf/issues/161
 # XXX TODO enable again after issue is resolved
-PYTHONPATH=src %{__python3} -m pytest src/img2pdf_test.py -v -k 'not jpg_cmyk and not png_gray16[ and not tiff_cmyk8    and not tiff_rgb12 and not tiff_rgb14'
+PYTHONPATH=src %{__python3} -m pytest src/img2pdf_test.py -v -k 'not jpg_cmyk and not png_gray16[ and not tiff_cmyk8    and not tiff_rgb12 and not tiff_rgb14   and not png_gray1['
 
 %endif
 
@@ -115,6 +116,9 @@ PYTHONPATH=src %{__python3} -m pytest src/img2pdf_test.py -v -k 'not jpg_cmyk an
 
 
 %changelog
+* Sun Apr 16 2023 Georg Sauthoff <mail@gms.tf> - 0.4.4-7
+- Exclude fragile test case.
+
 * Sun Jan 22 2023 Georg Sauthoff <mail@gms.tf> - 0.4.4-6
 - Exclude ppc64le due to failing test cases.
 

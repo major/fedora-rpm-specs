@@ -52,7 +52,7 @@
 Summary: System for algebraic geometry and commutative algebra
 Name:    Macaulay2
 Version: 1.21
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 # GPL-2.0-only OR GPL-3.0-only:
 #   - the project as a whole
@@ -264,6 +264,7 @@ Patch5: %{name}-1.17-configure.patch
 Patch6: %{name}-1.16-rightarrow.patch
 # Fix LTO warnings about mismatched declarations and definitions
 Patch7: %{name}-1.18-lto.patch
+Patch8: Macaulay2-configure-c99.patch
 
 BuildRequires: 4ti2
 BuildRequires: appstream
@@ -445,6 +446,7 @@ ln -s %{_datadir}/factory \
 %patch5 -p1 -b .configure
 %patch6 -p1 -b .rightarrow
 %patch7 -p1 -b .lto
+%patch8 -p2 -b .configure-c99
 
 # repeatable builds: inject a node name
 sed -i 's,`uname -n`,build.fedoraproject.org,' configure.ac
@@ -613,6 +615,9 @@ make check -C BUILD/%{_target_platform}/Macaulay2/bin
 
 
 %changelog
+* Sat Apr 15 2023 Florian Weimer <fweimer@redhat.com> - 1.21-5
+- Port configure script to C99
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 1.21-4
 - Rebuilt for Boost 1.81
 

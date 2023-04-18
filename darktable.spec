@@ -1,13 +1,13 @@
 ###
-# To build darktable from Github master branch add cmake flag -DPROJECT_VERSION="%{version}"
+# To build darktable from Github master branch add cmake flag -DPROJECT_VERSION="%%{version}"
 # darktable stable releases have src/version_gen.c file that makes
-# -DPROJECT_VERSION="%{version}" no longer needed
+# -DPROJECT_VERSION="%%{version}" no longer needed
 # src/version_gen.c file is not available in darktable master Github branch instead
 ###
 
 Name: darktable
 Version: 4.2.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 Summary: Utility to organize and develop raw images
 License: GPLv3+
@@ -23,17 +23,17 @@ BuildRequires: colord-devel
 BuildRequires: cups-devel
 BuildRequires: desktop-file-utils
 BuildRequires: exiv2-devel >= 0.24
-%if 0%{?fedora}
+%if %{defined fedora}
 BuildRequires: flickcurl-devel
 %endif
-%if 0%{?fedora}
+%if %{defined fedora}
 BuildRequires: gcc
 %endif
-%if 0%{?el8}
-BuildRequires: gcc-toolset-11-toolchain
-BuildRequires: gcc-toolset-11-annobin-plugin-gcc
+%if 0%{?rhel}
+BuildRequires: gcc-toolset-12-gcc
+BuildRequires: gcc-toolset-12-annobin-plugin-gcc
 %endif
-%if 0%{?fedora}
+%if %{defined fedora}
 BuildRequires: gmic-devel
 %endif
 BuildRequires: GraphicsMagick-devel
@@ -41,7 +41,7 @@ BuildRequires: gtk3-devel >= 3.24.15
 BuildRequires: intltool
 # iso-codes dependency not mandatory, just optional / recommended
 # in future please check if EL7 iso-codes version is >= 3.66
-%if 0%{?fedora}
+%if %{defined fedora}
 BuildRequires: iso-codes-devel >= 3.66
 %endif
 BuildRequires: gettext
@@ -50,12 +50,12 @@ BuildRequires: lcms2-devel
 BuildRequires: lensfun-devel
 BuildRequires: libappstream-glib
 # libavif is not available in EPEL 8
-%if (0%{?el} > 8) || (0%{?fedora} >= 33)
+%if (%{defined rhel} && 0%{?rhel} > 8) || (%{defined fedora} && 0%{?fedora} >= 33)
 BuildRequires: cmake(libavif) >= 0.8.2
 %endif
 BuildRequires: libcurl-devel >= 7.18.0
 BuildRequires: libgphoto2-devel >= 2.4.5
-%if ((0%{?el} >= 9) || (0%{?fedora}))
+%if ((%{defined rhel} && 0%{?rhel} >= 9) || %{defined fedora})
 BuildRequires: libheif-devel >= 1.9.0
 %endif
 BuildRequires: libjasper-devel
@@ -71,21 +71,21 @@ BuildRequires: libwebp-devel
 BuildRequires: llvm-devel >= 3.9
 BuildRequires: make
 BuildRequires: opencl-headers
-%if 0%{?fedora} > 34
+%if %{defined fedora}
 BuildRequires: cmake(OpenEXR)
 BuildRequires: cmake(Imath)
 %else
 BuildRequires: OpenEXR-devel
 %endif
 BuildRequires: openjpeg2-devel
-%if 0%{?fedora}
+%if %{defined fedora}
 BuildRequires: osm-gps-map-devel >= 1.0
 %endif
 BuildRequires: perl-interpreter
 BuildRequires: perl(FindBin)
 # perl-lib contains lib.pm, that was used to be included in perl-interpreter
 # but on Fedora >= 33 it has been splitted to perl-lib
-%if ((0%{?el} > 8) || (0%{?fedora} > 32))
+%if ((%{defined rhel} && 0%{?rhel} > 8) || %{defined fedora})
 BuildRequires: perl-lib
 %endif
 BuildRequires: pkgconfig >= 0.22
@@ -93,7 +93,6 @@ BuildRequires: po4a
 BuildRequires: /usr/bin/pod2man
 BuildRequires: portmidi-devel
 BuildRequires: pugixml-devel >= 1.8
-# at the moment of build of darktable 3.8.0-3 there is a SDL problem that is being fixed
 BuildRequires: cmake(SDL2)
 BuildRequires: sqlite-devel
 BuildRequires: zlib-devel >= 1.2.11
@@ -101,7 +100,7 @@ BuildRequires: zlib-devel >= 1.2.11
 
 # iso-codes dependency not mandatory, just optional / recommended
 # in future please check if EL7 iso-codes version is >= 3.66
-%if 0%{?fedora}
+%if %{defined fedora}
 Requires: iso-codes >= 3.66
 %endif
 
@@ -171,8 +170,8 @@ sed -i -e 's, \"external/CL/\*\.h\" , ,' src/CMakeLists.txt
 # https://github.com/debbuild/debbuild/issues/182
 # 
 #
-%if 0%{?el8}
-. /opt/rh/gcc-toolset-11/enable
+%if %{defined rhel}
+. /opt/rh/gcc-toolset-12/enable
 
 mkdir %{_target_platform} 
 pushd %{_target_platform}
@@ -197,7 +196,7 @@ pushd %{_target_platform}
         -DRAWSPEED_ENABLE_LTO=ON
 %endif
 
-%if ((0%{?el} > 8) || (0%{?fedora} > 32))
+%if ((%{defined rhel} && 0%{?rhel} > 8) || %{defined fedora})
 %cmake_build
 %else
 %make_build
@@ -206,10 +205,10 @@ popd
 
 
 %install
-%if 0%{?el8}
-. /opt/rh/gcc-toolset-11/enable
+%if %{defined rhel}
+. /opt/rh/gcc-toolset-12/enable
 %endif
-%if ((0%{?el} > 8) || (0%{?fedora} > 32))
+%if ((%{defined rhel} && 0%{?rhel} > 8) || %{defined fedora})
 %cmake_install
 %else
 pushd %{_target_platform}
@@ -250,6 +249,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.darkt
 %{_libexecdir}/darktable/tools/subr.sh
 
 %changelog
+* Sun Apr 16 2023 Germano Massullo <germano.massullo@gmail.com> - 4.2.1-3
+- improved Linux distribution version macros
+
 * Sat Apr 15 2023 Germano Massullo <germano.massullo@gmail.com> - 4.2.1-2
 - enables libheif-devel on EL>=9 and Fedora
 

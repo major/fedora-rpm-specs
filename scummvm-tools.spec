@@ -3,8 +3,8 @@
 
 
 Name:		scummvm-tools
-Version:	2.6.0
-Release:	5%{?dist}
+Version:	2.7.0
+Release:	1%{?dist}
 Summary:	Tools for scummVM / S.C.U.M.M scripting language
 # All previous Lua versions are relicensed to MIT (https://www.lua.org/license.html)
 License:	GPLv3+ and LGPLv2+ and MIT
@@ -13,7 +13,6 @@ URL:		http://www.scummvm.org
 Source0:	http://www.scummvm.org/frs/%{name}/%{version}/%{name}-%{version}.tar.bz2
 Source1:	%{name}.desktop
 Patch1:		configure.patch
-Patch2:		wxwidgets3.2.patch
 BuildRequires:	make
 BuildRequires:	gcc-c++
 BuildRequires:	wxGTK-devel, libvorbis-devel, flac-devel, desktop-file-utils
@@ -67,6 +66,10 @@ desktop-file-install \
 
 
 %changelog
+* Sun Apr 16 2023 Christian Krause <chkr@fedoraproject.org> - 2.7.0-1
+- Update to latest upstream
+- Drop upstreamed patch
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 2.6.0-5
 - Rebuilt for Boost 1.81
 

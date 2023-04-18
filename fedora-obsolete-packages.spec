@@ -462,7 +462,13 @@ Source0:    README
 # Remove in F40
 # Retired and blocks upgrades.
 %obsolete_ticket https://src.fedoraproject.org/rpms/msv/c/d64a3747a979f709029501929c8ffe97be3e4238?branch=rawhide
-%obsolete msv 2013.6.1-20
+%obsolete msv-demo 2013.6.1-20
+%obsolete msv-javadoc 2013.6.1-20
+%obsolete msv-manual 2013.6.1-20
+%obsolete msv-msv 2013.6.1-20
+%obsolete msv-rngconv 2013.6.1-20
+%obsolete msv-xmlgen 2013.6.1-20
+%obsolete msv-zstdlib 2013.6.1-20
 
 # Remove in F40
 %obsolete_ticket https://bugzilla.redhat.com/show_bug.cgi?id=2172468

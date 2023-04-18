@@ -10,10 +10,14 @@ Version:                0.27.0
 
 %global CMSIS_commit        9fe411cef1cef5de58e5957b89760759de44e393
 %global avr_commit          6624554c02b237b23dc17d53e992bf54033fc228
+%if %{fedora} > 37
+%global clang_llvm_version  16
+%else
 %if %{fedora} > 36
 %global clang_llvm_version  15
 %else
 %global clang_llvm_version  14
+%endif
 %endif
 %global cmsis_svd_commit    df75ff974c76a911fc2815e29807f5ecaae06fc2
 %global compiler_rt_version %{clang_llvm_version}.0.0
@@ -84,6 +88,18 @@ Patch0003:      0003-Suggest-optional-packages-to-install-if-missing.patch
 # https://github.com/tinygo-org/tinygo/pull/2840
 Patch0004:      0004-Skip-TestDirFS-on-32-bit-systems.patch
 Patch0005:      0005-Skip-broken-tests-on-i686.patch
+
+# Support LLVM 16.
+# https://github.com/tinygo-org/tinygo/pull/3649
+Patch0006:      0006-cgo-Handle-elaborated-typedefs-from-libclang.patch
+Patch0007:      0007-Add-CPU-to-RISCV-targets.patch
+Patch0008:      0008-Handle-argmemonly-attribute-change-in-LLVM16.patch
+# https://github.com/tinygo-org/tinygo/pull/3566
+Patch0009:      0009-Update-transform-tests-with-opaque-pointers.patch
+# https://github.com/tinygo-org/tinygo/pull/3658
+Patch0010:      0010-Switch-interp-tests-to-opaque-pointers.patch
+# https://github.com/tinygo-org/tinygo/pull/3649
+Patch0011:      0011-Update-types-in-cgo-tests-for-LLVM-16.patch
 
 # Not supported upstream yet.
 ExcludeArch:    armv7hl ppc64le s390x

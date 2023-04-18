@@ -4,7 +4,7 @@
 Summary: KDE zeroconf implementation based on avahi
 Name:	 kdnssd-avahi
 Version: 0.1.3
-Release: 0.40.%{beta}%{?dist}
+Release: 0.41.%{beta}%{?dist}
 
 License: LGPLv2+
 URL:	 http://helios.et.put.poznan.pl/~jstachow/pub/
@@ -20,6 +20,8 @@ Patch301: kde3-automake-version.patch
 # also add --force-missing to get aarch64 support (#925029/#925627)
 Patch302: kde3-automake-add-missing.patch
 Patch303: kde3-autoconf-version.patch
+
+Patch399: kdnssd-avahi-fedora-c99.patch
 
 BuildRequires: avahi-qt3-devel
 BuildRequires: automake libtool
@@ -52,6 +54,7 @@ Provides: libkdnssd-devel
 %patch301 -p1 -b .automake-version
 %patch302 -p1 -b .automake-add-missing
 %patch303 -p1 -b .autoconf2.7x
+%patch399 -p1 -b .c99
 
 make -f admin/Makefile.common cvs
 
@@ -95,6 +98,9 @@ export QA_RPATHS=0x0001
 
 
 %changelog
+* Tue Mar 28 2023 DJ Delorie <dj@redhat.com> - 0.1.3-0.41.20080116svn
+- Fix C99 compatibility issue
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-0.40.20080116svn
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

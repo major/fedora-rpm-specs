@@ -2,12 +2,13 @@
 Summary:        Interactive CLI for MySQL Database with auto-completion and syntax highlighting
 Name:           mycli
 Version:        1.26.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        BSD
 URL:            https://mycli.net
 Source0:        %{pypi_source}
 Patch0:         mycli-1.26.1-reqs.patch
 Patch1:         mycli-1.26.1-paramiko.patch
+Patch2:         mycli-1.26.1-pycryptodomex.patch
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
@@ -20,7 +21,7 @@ BuildRequires:  python3dist(prompt-toolkit) >= 3.0.5
 BuildRequires:  python3dist(cli-helpers) >= 2.0.1
 BuildRequires:  python3dist(cli-helpers[styles]) >= 2.0.1
 BuildRequires:  python3dist(configobj) >= 5.0.5
-BuildRequires:  python3dist(pyaes) >= 1.6.1
+BuildRequires:  python3dist(pycryptodomex)
 BuildRequires:  python3dist(pymysql) >= 0.9.2
 BuildRequires:  python3dist(pyperclip)
 Suggests:       python3-mycli+ssh
@@ -54,6 +55,9 @@ syntax highlighting.
 %exclude %{python3_sitelib}/test/
 
 %changelog
+* Sun Apr 16 2023 Terje Rosten <terje.rosten@ntnu.no> - 1.26.1-3
+- Switch from pyaes to pycryptodomex
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

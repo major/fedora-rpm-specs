@@ -4,8 +4,8 @@
 %if !0%{?bootstrap}
 %global qalculate 1
 %if 0%{?fedora}
-# match julia.spec: ExcludeArch:  s390x ppc64le %{arm} aarch64
-%ifnarch s390x ppc64le %{arm} aarch64
+# match julia.spec: ExclusiveArch:  x86_64
+%ifarch x86_64
 %global julia 1
 %endif
 %global libr 1
@@ -24,7 +24,7 @@
 Name:    cantor
 Summary: KDE Frontend to Mathematical Software
 Version: 23.04.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+
 URL:     https://edu.kde.org/cantor/
@@ -259,6 +259,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Sun Apr 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.0-2
+- Make Julia exclusive to x86_64 (matching Fedora Julia package)
+
 * Fri Apr 14 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.0-1
 - 23.04.0
 
