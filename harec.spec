@@ -1,13 +1,13 @@
-%global commit a1aa5039bc199cfe56731dcdd4e1cb616a9ab7a5
+%global commit dd50ca7740408e3c6e41c0ca48b59b9f7f5911f2
 %global shortcommit %(c=%{commit}; echo ${c:0:8})
-%global date 20221126
+%global date 20230316
 
 Summary:        Hare bootstrap compiler
 Name:           harec
 License:        GPL-3.0-only
 
 Version:        0^%{date}git%{shortcommit}
-Release:        4%{?dist}
+Release:        1%{?dist}
 
 URL:            https://git.sr.ht/~sircmpwn/harec
 Source0:        %{url}/archive/%{shortcommit}.tar.gz
@@ -53,6 +53,9 @@ make check
 %{_bindir}/harec
 
 %changelog
+* Sat Apr 15 2023 Dridi Boukelmoune <dridi@fedoraproject.org> - 0^20230316gitdd50ca77-1
+- Updated to March 2023
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0^20221126gita1aa5039-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

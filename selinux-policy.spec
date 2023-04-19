@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit fd8c414d883570c82f1e4381992ead8abf0e5fb4
+%global commit 6484d55fa6a48127989b4049495fda106889f356
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 38.10
+Version: 38.11
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -813,6 +813,19 @@ exit 0
 %endif
 
 %changelog
+* Fri Apr 14 2023 Zdenek Pytela <zpytela@redhat.com> - 38.11-1
+- Allow dovecot-deliver write to the main process runtime fifo files
+- Allow dmidecode write to cloud-init tmp files
+- Allow chronyd send a message to cloud-init over a datagram socket
+- Allow cloud-init domain transition to insights-client domain
+- Allow mongodb read filesystem sysctls
+- Allow mongodb read network sysctls
+- Allow accounts-daemon read generic systemd unit lnk files
+- Allow blueman watch generic device dirs
+- Allow nm-dispatcher tlp plugin create tlp dirs
+- Allow systemd-coredump mounton /usr
+- Allow rabbitmq to read network sysctls
+
 * Tue Apr 04 2023 Zdenek Pytela <zpytela@redhat.com> - 38.10-1
 - Allow certmonger dbus chat with the cron system domain
 - Allow geoclue read network sysctls

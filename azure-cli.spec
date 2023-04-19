@@ -112,18 +112,8 @@ sed -i '/nspkg/d' src/azure-cli/requirements.py3.Linux.txt
 # but we can't install those until we actually build this package.
 sed -i '/azure-cli.*/d' src/azure-cli/requirements.py3.Linux.txt
 
-# Allow an older PyNaCl on F37. See BZ 2038614.
-sed -i 's/PyNaCl>=1.5/PyNaCl>=1.4/' \
-    src/azure-cli/requirements.py3.Linux.txt \
-    src/azure-cli/setup.py
-
-# Allow a newer version of packaging.
-sed -i 's/packaging>=20.9,<22.0/packaging>=20.9/' src/azure-cli-core/setup.py
-sed -i 's/packaging>=20.9,<22.0/packaging>=20.9/' src/azure-cli/setup.py
-
-# Allow newer paramiko in rawhide.
-sed -i 's/^paramiko==.*$/paramiko/' src/azure-cli/requirements.py3.Linux.txt
-sed -i 's/paramiko>=2.0.8,<3.0.0/paramiko>=2.0.8/' src/azure-cli-core/setup.py
+# Allow a newer version of semver.
+sed -i 's/semver==2.13.0/semver>=2.13.0/' src/azure-cli/setup.py
 
 # certifi's version is irrelevant since the package is empty in Fedora.
 sed -i 's/certifi.=.*$/certifi/' \
@@ -135,35 +125,11 @@ sed -i 's/urllib3\[secure\]/urllib3/' src/azure-cli/setup.py
 # Temporarily allow newer -common versions in rawhide.
 sed -i 's/^azure-common==.*$/azure-common==1.1.28/' src/azure-cli/requirements.py3.Linux.txt
 
-# Temporarily allow newer -core versions in rawhide.
+# # Temporarily allow newer -core versions in rawhide.
 sed -i 's/^azure-core==.*$/azure-core==1.25.1/' src/azure-cli/requirements.py3.Linux.txt
 
-# Allow slightly older PyOpenSSL.
-sed -i 's/^pyOpenSSL>=.*$/pyOpenSSL>=21.0.0/' src/azure-cli/requirements.py3.Linux.txt
-
-# Allow slightly older cryptography.
-sed -i 's/^cryptography>=.*$/cryptography>=37.0.0/' src/azure-cli/requirements.py3.Linux.txt
-
-# Allow slightly older oauthlib.
+# # Allow slightly older oauthlib.
 sed -i 's/^oauthlib>=.*$/oauthlib>=3.2.1/' src/azure-cli/requirements.py3.Linux.txt
-
-# Allow for older EPEL 9 packages.
-%if 0%{?rhel}
-sed -i 's/cffi.=.*$/cffi>=1.14.5/'              src/azure-cli/requirements.py3.Linux.txt
-sed -i 's/distro.=.*$/distro>=1.5.0/'           src/azure-cli/requirements.py3.Linux.txt
-sed -i 's/jmespath.=.*$/jmespath>=0.9.4/'       src/azure-cli/requirements.py3.Linux.txt
-sed -i 's/packaging.=.*$/packaging>=20.9/'      src/azure-cli/requirements.py3.Linux.txt
-sed -i 's/requests\[socks\].=.*$/requests\[socks\]>=2.25.1/' src/azure-cli/requirements.py3.Linux.txt
-sed -i 's/urllib3.=.*$/urllib3>=1.26.5/'        src/azure-cli/requirements.py3.Linux.txt
-%endif
-
-# EPEL9 omits servicebus because it requires uamqp, which currently lacks
-# OpenSSL 3.x support. 😢
-# See https://github.com/Azure/azure-uamqp-python/issues/276
-# See https://github.com/Azure/azure-c-shared-utility/discussions/566
-%if 0%{?rhel}
-rm -rf src/azure-cli/azure/cli/command_modules/servicebus
-%endif
 
 
 %generate_buildrequires

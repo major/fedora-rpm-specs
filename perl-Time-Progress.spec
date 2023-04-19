@@ -1,12 +1,13 @@
 Name:           perl-Time-Progress
-Version:        2.12
-Release:        19%{?dist}
+Version:        2.14
+Release:        1%{?dist}
 Summary:        Elapsed and estimated finish time reporting
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Time-Progress
 Source0:        https://cpan.metacpan.org/modules/by-module/Time/Time-Progress-%{version}.tar.gz
 BuildArch:      noarch
 # Build
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -43,10 +44,13 @@ make test
 
 %files
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Time*
+%{_mandir}/man3/Time*
 
 %changelog
+* Mon Apr 17 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.14-1
+- 2.14 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.12-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

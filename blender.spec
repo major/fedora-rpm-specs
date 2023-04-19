@@ -271,9 +271,7 @@ sed -i "s/date_time/date_time python%{python3_version_nodots}/" \
 %if %{with system_eigen3}
     -DWITH_SYSTEM_EIGEN3=ON \
 %endif
-%if %{with usd}
-    -DUSD_LIBRARY=%{_libdir}/libusd_usd_ms.so \
-%else
+%if %{without usd}
     -DWITH_USD=OFF \
 %endif
     -DXR_OPENXR_SDK_LOADER_LIBRARY=%{_libdir}/libopenxr_loader.so.1 \

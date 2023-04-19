@@ -1,8 +1,8 @@
 %global _hardened_build 1
 
 Name:    ppp
-Version: 2.4.9
-Release: 9%{?dist}
+Version: 2.5.0
+Release: 1%{?dist}
 Summary: The Point-to-Point Protocol daemon
 License: BSD and LGPLv2+ and GPLv2+ and Public Domain
 URL:     http://www.samba.org/ppp
@@ -22,34 +22,25 @@ Source11: ifdown-ppp
 Source12: ppp-watch.tar.xz
 
 # Fedora-specific
-Patch0002:     ppp-2.4.9-config.patch
-Patch0004:     0004-doc-add-configuration-samples.patch
-Patch0005:     ppp-2.4.9-build-sys-don-t-hardcode-LIBDIR-but-set-it-according.patch
-Patch0006:     0006-scritps-use-change_resolv_conf-function.patch
-Patch0011:     0011-build-sys-don-t-put-connect-errors-log-to-etc-ppp.patch
-Patch0012:     ppp-2.4.8-pppd-we-don-t-want-to-accidentally-leak-fds.patch
-Patch0013:     ppp-2.4.9-everywhere-O_CLOEXEC-harder.patch
-Patch0014:     0014-everywhere-use-SOCK_CLOEXEC-when-creating-socket.patch
-Patch0015:     0015-pppd-move-pppd-database-to-var-run-ppp.patch
-Patch0016:     0016-rp-pppoe-add-manpage-for-pppoe-discovery.patch
-Patch0018:     0018-scritps-fix-ip-up.local-sample.patch
-Patch0023:     0023-build-sys-install-rp-pppoe-plugin-files-with-standar.patch
-Patch0024:     0024-build-sys-install-pppoatm-plugin-files-with-standard.patch
-Patch0025:     ppp-2.4.8-pppd-install-pppd-binary-using-standard-perms-755.patch
-Patch0026:     ppp-2.4.9-configure-cflags-allow-commas.patch
-# https://github.com/ppp-project/ppp/commit/d7e62a8499c4032d79e05afbd8fd3efd51c5b148
-Patch0027:     ppp-2.4.9-pppd-eap-Fix-bug-causing-incorrect-response-length-3.patch
-# https://github.com/ppp-project/ppp/commit/e609ed8bb62e4648568eaa49fbbc858dfda6d122
-Patch0028:     ppp-2.4.9-pppd-Fix-logical-error-in-comparing-valid-encryption.patch
-# https://github.com/ppp-project/ppp/pull/267/commits/6bfe06b9428a60eb637d5450d65dd3932fe5a83f
-Patch0029:     ppp-2.4.9-pppd-Expose-the-MPPE-keys-generated-through-an-API-2.patch
+Patch0: ppp-2.5.0-use-change-resolv-function.patch
 
+BuildRequires: libtool
+BuildRequires: autoconf
+BuildRequires: automake
 BuildRequires: make
 BuildRequires: gcc
-BuildRequires: pam-devel, libpcap-devel, systemd, systemd-devel, glib2-devel
+BuildRequires: pam-devel
+BuildRequires: libpcap-devel
+BuildRequires: systemd
+BuildRequires: systemd-devel
+BuildRequires: glib2-devel
 BuildRequires: openssl-devel
+BuildRequires: linux-atm-libs-devel
 
-Requires: glibc >= 2.0.6, /etc/pam.d/system-auth, libpcap >= 14:0.8.3-6, systemd
+Requires: glibc >= 2.0.6
+Requires: /etc/pam.d/system-auth
+Requires: libpcap >= 14:0.8.3-6
+Requires: systemd
 Requires(pre): /usr/bin/getent
 Requires(pre): /usr/sbin/groupadd
 
@@ -72,6 +63,7 @@ service.
 %package devel
 Summary: Headers for ppp plugin development
 Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: pkgconf-pkg-config
 
 %description devel
 This package contains the header files for building plugins for ppp.
@@ -82,12 +74,14 @@ This package contains the header files for building plugins for ppp.
 tar -xJf %{SOURCE12}
 
 %build
-%configure --cflags="$RPM_OPT_FLAGS -fPIC -Wall -fno-strict-aliasing"
-%{make_build} LDFLAGS="%{?build_ldflags} -pie"
-%{make_build} -C ppp-watch LDFLAGS="%{?build_ldflags} -pie"
+autoreconf -fi
+export CFLAGS="%{build_cflags} -fno-strict-aliasing"
+%configure --enable-systemd --enable-cbcp --with-pam
+%make_build
+%make_build -C ppp-watch LDFLAGS="%{?build_ldflags} -pie"
 
 %install
-make INSTROOT=%{buildroot} install install-etcppp
+%make_install
 find scripts -type f | xargs chmod a-x
 make ROOT=%{buildroot} -C ppp-watch install
 
@@ -143,6 +137,7 @@ mkdir -p %{buildroot}%{_rundir}/ppp
 %{_sysconfdir}/ppp/ip-down.ipv6to4
 %{_sysconfdir}/ppp/ipv6-up
 %{_sysconfdir}/ppp/ipv6-down
+%{_sysconfdir}/ppp/openssl.cnf
 %{_mandir}/man8/chat.8*
 %{_mandir}/man8/pppd.8*
 %{_mandir}/man8/pppdump.8*
@@ -171,8 +166,13 @@ mkdir -p %{buildroot}%{_rundir}/ppp
 %files devel
 %{_includedir}/pppd
 %doc PLUGINS
+%{_libdir}/pkgconfig/pppd.pc
 
 %changelog
+* Thu Apr 13 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2.5.0-1
+- New version
+  Resolves: rhbz#2184291
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.9-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,7 +3,9 @@
 
 Summary:	LZMA compression utilities
 Name:		xz
-Version:	5.4.1
+# **PLEASE NOTE**: when bumping xz version, please rebuild
+# perl-Compress-Raw-Lzma, it has a strict xz version dep
+Version:	5.4.2
 Release:	1%{?dist}
 
 # Scripts xz{grep,diff,less,more} and symlinks (copied from gzip) are
@@ -134,6 +136,7 @@ LD_LIBRARY_PATH=$PWD/src/liblzma/.libs make check
 %{_mandir}/ko/man1/*xz*
 %{_mandir}/ro/man1/*xz*
 %{_mandir}/uk/man1/*xz*
+%{_mandir}/pt_BR/man1/*xz*
 %{profiledir}/*
 
 
@@ -164,9 +167,13 @@ LD_LIBRARY_PATH=$PWD/src/liblzma/.libs make check
 %{_mandir}/ko/man1/*lz*
 %{_mandir}/ro/man1/*lz*
 %{_mandir}/uk/man1/*lz*
+%{_mandir}/pt_BR/man1/*lz*
 
 
 %changelog
+* Mon Apr 17 2023 Matej Mužila <mmuzila@redhat.com> - 5.4.2-1
+- Rebase to version 5.4.2 (#2179570)
+
 * Mon Jan 23 2023 Richard W.M. Jones <rjones@redhat.com> - 5.4.1-1
 - Rebase to version 5.4.1 (#2142405)
 

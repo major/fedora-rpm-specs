@@ -5,7 +5,7 @@
 %global crate async-stream-impl
 
 Name:           rust-async-stream-impl
-Version:        0.3.4
+Version:        0.3.5
 Release:        %autorelease
 Summary:        Proc macros for async-stream crate
 

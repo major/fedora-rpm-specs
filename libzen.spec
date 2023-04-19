@@ -1,6 +1,6 @@
 Name:           libzen
-Version:        0.4.40
-Release:        2%{?dist}
+Version:        0.4.41
+Release:        1%{?dist}
 Summary:        Shared library for libmediainfo and medianfo*
 
 License:        Zlib
@@ -10,7 +10,7 @@ Source0:        https://mediaarea.net/download/source/%{name}/%{version}/%{name}
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  doxygen
-BuildRequires:  cmake
+BuildRequires:  cmake3
 BuildRequires:  pkgconfig(zlib)
 
 %description
@@ -51,13 +51,13 @@ popd
 cp Source/Doc/*.html ./
 
 pushd Project/CMake
-    %cmake
-    %cmake_build
+    %cmake3
+    %cmake3_build
 popd
 
 %install
 pushd Project/CMake
-    %cmake_install
+    %cmake3_install
 popd
 
 %files
@@ -77,6 +77,9 @@ popd
 
 
 %changelog
+* Mon Apr 17 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 0.4.41-1
+- Update to 0.4.41
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.40-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

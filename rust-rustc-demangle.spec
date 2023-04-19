@@ -5,7 +5,7 @@
 %global crate rustc-demangle
 
 Name:           rust-rustc-demangle
-Version:        0.1.22
+Version:        0.1.23
 Release:        %autorelease
 Summary:        Rust compiler symbol demangling
 

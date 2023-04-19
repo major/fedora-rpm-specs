@@ -1,7 +1,7 @@
 %global pkgname francy
 
 Name:           gap-pkg-%{pkgname}
-Version:        2.0.2
+Version:        2.0.3
 Release:        1%{?dist}
 Summary:        Framework for interactive discrete mathematics
 
@@ -66,12 +66,7 @@ cp -a *.g examples gap notebooks schema tst \
 
 %check
 export LC_ALL=C.UTF-8
-# The canvas test always fails.  One test in graph.tst always fails.
-# https://github.com/gap-packages/francy/issues/91
-rm %{buildroot}%{gap_libdir}/pkg/francy/tst/canvas.tst
-sed -i '/GetLinks/,+1d' %{buildroot}%{gap_libdir}/pkg/francy/tst/graph.tst
 gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
-cp -p tst/{canvas,graph}.tst %{buildroot}%{gap_libdir}/pkg/francy/tst
 
 %files
 %doc README.md
@@ -90,6 +85,9 @@ cp -p tst/{canvas,graph}.tst %{buildroot}%{gap_libdir}/pkg/francy/tst
 %{gap_libdir}/pkg/%{pkgname}/notebooks/
 
 %changelog
+* Mon Apr 17 2023 Jerry James <loganjerry@gmail.com> - 2.0.3-1
+- Version 2.0.3
+
 * Sat Mar  4 2023 Jerry James <loganjerry@gmail.com> - 2.0.2-1
 - Version 2.0.2
 

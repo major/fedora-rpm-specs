@@ -3,7 +3,7 @@
 
 Name:		owfs
 Version:	3.2p4
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	1-Wire Virtual File System
 
 # some parts licensed differently, see http://owfs.org/index.php?page=license
@@ -13,6 +13,7 @@ Source0:	https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name
 Source1:	owserver.xml
 # install into 'vendor' perl directories; not suitable for upstream
 Patch0:		owfs-0001-install-into-vendor-perl-directories.patch
+Patch1: owfs-configure-c99.patch
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 %{?systemd_requires}
@@ -169,6 +170,7 @@ and owpresent.
 %setup -q
 # Perl dirs
 %patch0 -p1
+%patch1 -p1
 
 sed -i -e 's/) Makefile.PL/& INSTALLDIRS=vendor/' \
 	module/swig/perl5/Makefile.am \
@@ -354,6 +356,9 @@ exit 0
 
 
 %changelog
+* Mon Apr 17 2023 Florian Weimer <fweimer@redhat.com> - 3.2p4-3
+- Port configure script to C99 (with extensions)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2p4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

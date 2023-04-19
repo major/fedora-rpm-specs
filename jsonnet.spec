@@ -1,6 +1,6 @@
 Name:           jsonnet
-Version:        0.19.1
-Release:        2%{?dist}
+Version:        0.20.0
+Release:        1%{?dist}
 Summary:        A data templating language based on JSON
 
 # The bundled MD5 library is RSA licenced
@@ -155,6 +155,9 @@ install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 '%{SOURCE1}' '%{SOURCE2}'
 
 
 %changelog
+* Mon Apr 17 2023 Pat Riehecky <riehecky@fnal.gov> - 0.20.0
+- Update to 0.20.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

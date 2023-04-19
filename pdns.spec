@@ -2,13 +2,12 @@
 %global backends %{nil}
 
 Name: pdns
-Version: 4.7.3
+Version: 4.7.4
 Release: 1%{?dist}
 Summary: A modern, advanced and high performance authoritative-only nameserver
 License: GPLv2
 URL: http://powerdns.com
 Source0: http://downloads.powerdns.com/releases/%{name}-%{version}.tar.bz2
-Patch0: pdns-gcc13.patch
 ExcludeArch: %{arm} %{ix86}
 
 Requires(pre): shadow-utils
@@ -321,6 +320,9 @@ exit 0
 %{_unitdir}/ixfrdist@.service
 
 %changelog
+* Mon Apr 17 2023 Morten Stevens <mstevens@fedoraproject.org> - 4.7.4-1
+- Update to 4.7.4
+
 * Tue Apr 04 2023 Morten Stevens <mstevens@fedoraproject.org> - 4.7.3-1
 - Update to 4.7.3
 

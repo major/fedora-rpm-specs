@@ -1,9 +1,9 @@
 Name:           speech-tools
 Version:        2.5
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Edinburgh speech tools library
 
-License:        MIT
+License:        MIT-Festival
 URL:            http://festvox.org
 Source0: http://festvox.org/packed/festival/%{version}/speech_tools-%{version}.0-release.tar.gz
 # The license is somewhat specific and only a part of the readme, so it needs to be copied.
@@ -104,6 +104,9 @@ but they might be depended upon by some third-party developers as well.
 %{_libdir}/*.a
 
 %changelog
+* Mon Apr 17 2023 Lukáš Tyrychtr <lukastyrychtr@gmail.com>
+- Migrated to the correct SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

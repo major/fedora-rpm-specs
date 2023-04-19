@@ -4,7 +4,7 @@
 %global srcname Vulkan-Headers
 
 Name:          mingw-%{pkgname}
-Version:       1.3.239.0
+Version:       1.3.243.0
 Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
@@ -70,6 +70,9 @@ MinGW Windows %{pkgname}.
 
 
 %changelog
+* Mon Apr 17 2023 Sandro Mani <manisandro@gmail.com> - 1.3.243.0-1
+- Update to 1.3.243.0
+
 * Tue Feb 07 2023 Sandro Mani <manisandro@gmail.com> - 1.3.239.0-1
 - Update to sdk 1.3.239.0
 

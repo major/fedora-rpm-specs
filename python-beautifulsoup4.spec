@@ -1,6 +1,6 @@
 # Ciruclar dependency with soupsieve which must be disabled at times
-%bcond_without  soupsieve
-%bcond_without  tests
+%bcond soupsieve 1
+%bcond tests 1
 
 Name:           python-beautifulsoup4
 Version:        4.12.2
@@ -14,13 +14,13 @@ BuildArch:      noarch
 # html5lib BR just for test coverage
 %if %{with tests}
 BuildRequires:  python3-html5lib
+BuildRequires:  python3-lxml
 %endif
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 %if %{with soupsieve}
 BuildRequires:  python3-soupsieve
 %endif
-BuildRequires:  python3-lxml
 
 %global _description %{expand:
 Beautiful Soup is a Python HTML/XML parser designed for quick
@@ -58,7 +58,7 @@ Obsoletes:      python3-BeautifulSoup < 1:3.2.1-2
 %autosetup -n beautifulsoup4-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires %{?with_tests: -t}
 
 %build
 %pyproject_wheel
@@ -67,8 +67,10 @@ Obsoletes:      python3-BeautifulSoup < 1:3.2.1-2
 %pyproject_install
 %pyproject_save_files bs4
 
+%if %{with tests}
 %check
 %tox
+%endif
 
 %files -n python3-beautifulsoup4
 %license LICENSE

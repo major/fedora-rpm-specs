@@ -18,7 +18,7 @@
 Summary: Round Robin Database Tool to store and display time-series data
 Name: rrdtool
 Version: 1.8.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: GPLv2+ with exceptions
 URL: https://oss.oetiker.ch/rrdtool/
 Source0: https://github.com/oetiker/rrdtool-1.x/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -32,6 +32,7 @@ Patch4: rrdtool-1.4.8-php-ppc-fix.patch
 # Fix BUILD_DATE in rrdtool help output
 # https://github.com/oetiker/rrdtool-1.x/commit/e59f703
 Patch5: rrdtool-1.8.0-BUILD_DATE-fix.patch
+Patch6: rrdtool-configure-c99.patch
 
 BuildRequires: make
 BuildRequires: gcc-c++
@@ -180,6 +181,7 @@ The %{name}-lua package includes RRDtool bindings for Lua.
 %endif
 %patch4 -p1 -b .php-ppc-fix
 %patch5 -p1 -b .BUILD_DATE-fix
+%patch6 -p1 -b .configure-c99
 
 # Fix to find correct python dir on lib64
 perl -pi -e 's|get_python_lib\(0,0,prefix|get_python_lib\(1,0,prefix|g' \
@@ -408,6 +410,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} php -n \
 %endif
 
 %changelog
+* Mon Apr 17 2023 Florian Weimer <fweimer@redhat.com> - 1.8.0-9
+- Backport upstream patch to fix C99 issue in configure script
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

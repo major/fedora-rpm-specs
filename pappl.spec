@@ -10,10 +10,13 @@
 Summary: Printer Application Framework (PAPPL)
 Name: pappl
 Version: 1.3.1
-Release: 2%{?dist}
-License: Apache-2.0
+Release: 3%{?dist}
+License: Apache-2.0 WITH LLVM-exception
 Source: https://github.com/michaelrsweet/pappl/releases/download/v%{version}/pappl-%{version}.tar.gz
 Url: https://www.msweet.org/pappl
+
+# https://github.com/michaelrsweet/pappl/pull/272
+Patch0001: pappl-writelog.patch
 
 BuildRequires: avahi-devel
 BuildRequires: cups-devel
@@ -88,6 +91,10 @@ rm -f %{buildroot}/%{_libdir}/libpappl.a
 %{_libdir}/pkgconfig/pappl.pc
 
 %changelog
+* Thu Apr 13 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1.3.1-3
+- fix crash due invalid buffer size in `write_log()`
+- use the correct license tag
+
 * Thu Feb 16 2023 Richard Lescak <rlescak@redhat.com> - 1.3.1-2
 - SPDX migration
 

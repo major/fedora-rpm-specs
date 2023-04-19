@@ -3,10 +3,10 @@
 Summary: Network monitoring tools including ping
 Name: iputils
 Version: 20221126
-Release: 2%{?dist}
+Release: 3%{?dist}
 # some parts are under the original BSD (ping.c)
 # some are under GPLv2+ (tracepath.c)
-License: BSD and GPLv2+
+License: BSD-4-Clause-UC AND GPL-2.0-or-later
 URL: https://github.com/iputils/iputils
 
 Source0: https://github.com/iputils/iputils/archive/%{version}/%{name}-%{version}.tar.gz
@@ -88,6 +88,9 @@ install -cp ifenslave.8 ${RPM_BUILD_ROOT}%{_mandir}/man8/
 %attr(644,root,root) %{_mandir}/man8/ifenslave.8*
 
 %changelog
+* Wed Apr 12 2023 Lukáš Zaoral <lzaoral@redhat.com> - 20221126-3
+- migrate to SPDX license format
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20221126-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

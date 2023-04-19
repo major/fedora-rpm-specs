@@ -1,6 +1,6 @@
 Name:			diffuse
-Version:		0.7.7
-Release:		2%{?dist}
+Version:		0.8.2
+Release:		1%{?dist}
 Summary:		Graphical tool for merging and comparing text files
 License:		GPLv2+
 URL:			https://mightycreak.github.io/diffuse/
@@ -14,6 +14,7 @@ BuildRequires:		python3-devel
 BuildRequires:		python3-gobject
 BuildRequires:		python3-cairo
 BuildRequires:		gtk-update-icon-cache
+BuildRequires:		glib2-devel
 Requires:		hicolor-icon-theme
 Requires:		gnome-icon-theme
 Requires:		gnome-icon-theme-legacy
@@ -62,8 +63,11 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.mightycreak
 %{_datadir}/gnome/help/%{name}
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.7-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+* Sun Apr 16 2023 niohiani <notinsideofhereiamnotinside@gmail.com> 0.8.2-1
+- Release 0.8.2
+
+* Fri Apr 07 2023 niohiani <notinsideofhereiamnotinside@gmail.com> 0.8.1-1
+- Release 0.8.1
 
 * Thu Nov 10 2022 niohiani <notinsideofhereiamnotinside@gmail.com> 0.7.7-1
 - New release - 0.7.7

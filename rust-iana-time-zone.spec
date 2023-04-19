@@ -5,7 +5,7 @@
 %global crate iana-time-zone
 
 Name:           rust-iana-time-zone
-Version:        0.1.55
+Version:        0.1.56
 Release:        %autorelease
 Summary:        Get the IANA time zone for the current system
 

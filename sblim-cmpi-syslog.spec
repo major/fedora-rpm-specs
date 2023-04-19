@@ -3,7 +3,7 @@
 Summary:        SBLIM syslog instrumentation
 Name:           sblim-cmpi-syslog
 Version:        0.9.0
-Release:        23%{?dist}
+Release:        24%{?dist}
 License:        EPL
 URL:            http://sourceforge.net/projects/sblim/
 # The source for this package was pulled from upstream's vcs.  Use the
@@ -22,6 +22,7 @@ Patch2:         sblim-cmpi-syslog-0.9.0-prov-reg-sfcb-systemd.patch
 Patch3:         sblim-cmpi-syslog-0.9.0-format-security.patch
 # Patch4: fix possible buffer overflow, remove usage of obsolete tmpnam()
 Patch4:         sblim-cmpi-syslog-0.9.0-buffer-overflow-remove-tmpnam.patch
+Patch5: sblim-cmpi-syslog-c99.patch
 
 BuildRequires: make
 BuildRequires:  perl-generators
@@ -59,6 +60,7 @@ SBLIM Base Syslog Testcase Files for SBLIM Testsuite
 %patch2 -p1 -b .prov-reg-sfcb-systemd
 %patch3 -p1 -b .format-security
 %patch4 -p1 -b .buffer-overflow-remove-tmpnam
+%patch5 -p1
 # removing COPYING, because it's misleading
 rm -f COPYING
 # ./autoconfiscate.sh
@@ -128,6 +130,9 @@ $RPM_BUILD_ROOT/%{_datadir}/sblim-testsuite/system/linux/messagelog.sh
 %postun -p /sbin/ldconfig
 
 %changelog
+* Mon Apr 17 2023 Florian Weimer <fweimer@redhat.com> - 0.9.0-24
+- Port to C99
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

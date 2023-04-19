@@ -16,7 +16,7 @@
 
 Name:		Singular
 Version:	%{downstreamver}%{?patchver}
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Computer Algebra System for polynomial computations
 # License analysis:
 # - The project as a whole is GPL-2.0-only OR GPL-3.0-only
@@ -123,6 +123,7 @@ Patch12:	%{name}-type-mismatch.patch
 Patch13:	%{name}-endian.patch
 # Disable examples that use the network to avoid hangs on the koji builders
 Patch14:	%{name}-doc-hang.patch
+Patch15: Singular-c99.patch
 
 %description
 Singular is a computer algebra system for polynomial computations, with
@@ -457,6 +458,9 @@ make check
 
 
 %changelog
+* Mon Apr 17 2023 Florian Weimer <fweimer@redhat.com> - 4.3.1p1-3
+- Backport upstream patch to fix C99 compatibility issue
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1p1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

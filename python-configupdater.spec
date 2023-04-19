@@ -8,11 +8,18 @@
 %bcond_without doc_pdf
 
 Name:           python-configupdater
-Version:        3.1
+Version:        3.1.1
 Release:        %autorelease
 Summary:        Parser like ConfigParser but for updating configuration files
 
-License:        MIT
+# ConfigUpdater is licensed under the MIT license; see below for details.
+#
+# ConfigUpdater includes code derived from the Python standard library, which
+# is licensed under the Python license, a permissive open source license.
+#
+# It is not well-documented which portions of the software are covered by
+# Python-2.0.1.
+License:        MIT AND Python-2.0.1
 URL:            https://github.com/pyscaffold/configupdater
 Source0:        %{pypi_source ConfigUpdater}
 
@@ -108,7 +115,6 @@ echo 'intersphinx_mapping.clear()' >> docs/conf.py
 
 
 %files -n python3-ConfigUpdater -f %{pyproject_files}
-%license LICENSE.txt
 %doc AUTHORS.rst
 %doc CHANGELOG.rst
 %doc CONTRIBUTING.rst

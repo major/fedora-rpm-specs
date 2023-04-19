@@ -11,7 +11,7 @@ provides a Python API (the aodhclient module) and a command-line tool.
 
 Name:             python-aodhclient
 Version:          3.2.0
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Python API and CLI for OpenStack Aodh
 
 License:          ASL 2.0
@@ -22,6 +22,7 @@ Source0:          https://tarballs.openstack.org/%{name}/%{pypi_name}-%{upstream
 Source101:        https://tarballs.openstack.org/%{name}/%{pypi_name}-%{upstream_version}.tar.gz.asc
 Source102:        https://releases.openstack.org/_static/%{sources_gpg_sign}.txt
 %endif
+Patch0:           0001-Revert-Add-OSprofiler-support-for-Aodh-client.patch
 
 BuildArch:        noarch
 
@@ -47,7 +48,6 @@ Requires:         python3-cliff >= 1.14.0
 Requires:         python3-oslo-i18n >= 1.5.0
 Requires:         python3-oslo-serialization >= 1.4.0
 Requires:         python3-oslo-utils >= 2.0.0
-Requires:         python3-osprofiler >= 1.4.0
 Requires:         python3-keystoneauth1 >= 1.0.0
 Requires:         python3-osc-lib >= 1.0.1
 Requires:         python3-pyparsing
@@ -128,6 +128,9 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Mon Apr 17 2023 Karolina Kula <kkula@redhat.com> 3.2.0-2
+- Reapply osprofiler support removal
+
 * Fri Apr 14 2023 Karolina Kula <kkula@redhat.com> 3.2.0-1
 - Update to upstream version 3.2.0
 

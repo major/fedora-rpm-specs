@@ -88,11 +88,6 @@ Source4:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ve
 Source5:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{third_party_srcdir}.tar.xz.sig
 Source6:	release-keys.asc
 
-%if %{without compat_build}
-Source7:	run-lit-tests
-Source8:	lit.fedora.cfg.py
-%endif
-
 # Backport from LLVM 17.
 Patch0:		D145763.diff
 

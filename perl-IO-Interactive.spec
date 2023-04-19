@@ -3,16 +3,17 @@
 
 Name:           perl-IO-Interactive
 Version:        1.023
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Utilities for interactive I/O
-# LICENSE:                  "the same terms as perl itself" and Artistic 2.0
-# license_clarification:    Artistic 2.0 (brian d foy's explanation)
-# lib/IO/Interactive.pm:    "the same terms as Perl itself"
-# IO-Ineractive-1.021 added the ambiguous LICENSE file, because there are
-# still files referring to Perl, but not referring Artistic 2.0, I keep the
-# (GPL+ or Artistic) part in the License tag.
+# lib/IO/Interactive.pm:    GPL-1.0-or-later OR Artistic-1.0-Perl
+# LICENSE:                  (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Artistic-2.0
+# license_clarification:    Artistic-2.0 (brian d foy's explanation)
+# README.pod:               "see LICENSE file and the modules files"
+# IO-Ineractive-1.021 added the ambiguous LICENSE file. Because there are
+# still files only referring to Perl, but not referring to Artistic-2.0,
+# I keep the (GPL-1.0-or-later OR Artistic-1.0-Perl) part in the License tag.
 # <https://github.com/briandfoy/io-interactive/issues/2>
-License:        (GPL+ or Artistic) and (Artistic 2.0)
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Artistic-2.0
 URL:            https://metacpan.org/release/IO-Interactive
 Source0:        https://cpan.metacpan.org/authors/id/B/BD/BDFOY/IO-Interactive-%{version}.tar.gz
 Source1:        license_clarification
@@ -40,9 +41,22 @@ BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
 %endif
 Requires:       perl(Carp)
 
+# Filter underspecified dependencies
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(Test::More\\)$
+
 %description
 This module provides utility subroutines that make it easier to develop
 interactive applications.
+
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+Requires:       perl(Test::More) >= 1
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n IO-Interactive-%{version}
@@ -51,6 +65,7 @@ install -m 0644 %{SOURCE1} .
 rm t/pod*
 perl -i -ne 'print $_ unless m{^t/pod}' MANIFEST
 %endif
+chmod +x t/*.t
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -58,18 +73,38 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+%if %{with perl_IO_Interactive_enables_optional_test}
+rm %{buildroot}%{_libexecdir}/%{name}/t/pod*
+%endif
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %license LICENSE
 %doc Changes examples license_clarification README.pod
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/IO
+%{perl_vendorlib}/IO/Interactive.pm
+%{_mandir}/man3/IO::Interactive.*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Mon Apr 17 2023 Petr Pisar <ppisar@redhat.com> - 1.023-8
+- Convert a licene tag to an SPDX format
+- Package the tests
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.023-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

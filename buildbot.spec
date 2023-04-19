@@ -20,8 +20,8 @@
 %endif
 
 Name:           buildbot
-Version:        3.7.0
-Release:        4%{?dist}
+Version:        3.8.0
+Release:        1%{?dist}
 
 Summary:        Build/test automation system
 License:        GPL-2.0-only
@@ -322,7 +322,7 @@ Summary:        Buildbot documentation
 %prep
 %setup -q -b0 -b1 -b2 -b3 -b4 -b5 -b6 -b7 -b8
 cd ..
-%patch0 -p1 -b .mock
+#%patch0 -p1 -b .mock
 
 
 %build
@@ -399,6 +399,9 @@ trial buildbot.test
 %endif
 
 %changelog
+* Mon Apr 17 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.8.0-1
+- 3.8.0
+
 * Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.7.0-4
 - migrated to SPDX license
 

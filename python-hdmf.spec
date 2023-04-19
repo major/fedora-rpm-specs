@@ -3,7 +3,7 @@
 
 %bcond_without tests
 
-%global desc %{expand: \
+%global desc %{expand:
 The Hierarchical Data Modeling Framework The Hierarchical Data Modeling
 Framework, or *HDMF* is a Python package for working with hierarchical data. It
 provides APIs for specifying data models, reading and writing data to different
@@ -11,10 +11,8 @@ storage backends, and representing data with Python object.Documentation of
 HDMF can be found at Release. Documentation of HDMF can be found at 
 https://hdmf.readthedocs.io}
 
-%global pypi_name hdmf
-
 Name:           python-hdmf
-Version:        3.5.1
+Version:        3.5.5
 Release:        %autorelease
 Summary:        A package for standardizing hierarchical object data
 
@@ -31,25 +29,15 @@ BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
 %endif
 
-%description
-%{desc}
+%description %{desc}
 
 %package -n python3-hdmf
 Summary:        %{summary}
 
-%description -n python3-hdmf
-%{desc}
+%description -n python3-hdmf %{desc}
 
 %prep
-%autosetup -n hdmf-%{version} -S patch -p1
-
-# Remove all upper bounds on dependency versions. These are added upstream as a
-# matter of course rather than due to known incompatibility, and it is more
-# likely that this package will be broken by the upper bounds than by changes
-# in new dependency versions.
-sed -r -i "s/,<[^']+'/'/" setup.py
-
-find * -type f -name "*.py" -exec sed -i '/^#![ ]*\/usr\/bin\/.*$/ d' {} 2>/dev/null ';'
+%autosetup -n hdmf-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires

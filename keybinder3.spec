@@ -7,7 +7,7 @@ URL:		https://github.com/kupferlauncher/keybinder
 Source0:	%{url}/releases/download/keybinder-3.0-v%{version}/keybinder-3.0-%{version}.tar.gz
 Patch0:     %{url}/pull/18.patch#/fix_gtkdoc.patch
 
-BuildRequires:	pkgconfig(gtk+-3.0), gnome-common, gtk-doc, gobject-introspection-devel
+BuildRequires:	pkgconfig(gtk+-3.0), gtk-doc, gobject-introspection-devel
 BuildRequires: make
 
 %description

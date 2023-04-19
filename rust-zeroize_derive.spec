@@ -5,7 +5,7 @@
 %global crate zeroize_derive
 
 Name:           rust-zeroize_derive
-Version:        1.4.1
+Version:        1.4.2
 Release:        %autorelease
 Summary:        Custom derive support for zeroize
 

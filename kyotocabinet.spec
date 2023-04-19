@@ -1,13 +1,12 @@
 Summary:        A straightforward implementation of DBM
 Name:           kyotocabinet
-Version:        1.2.79
-Release:        3%{?dist}
+Version:        1.2.80
+Release:        1%{?dist}
 License:        GPLv3
 URL:            https://dbmx.net/%{name}/
 Source:         https://dbmx.net/%{name}/pkg/%{name}-%{version}.tar.gz
 Patch0:         kyotocabinet-1.2.76-cflags.patch
 Patch1:         kyotocabinet-1.2.76-8-byte-atomics.patch
-Patch2: kyotocabinet-configure-c99.patch
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 BuildRequires:  gcc-c++, zlib-devel, lzo-devel, xz-devel
 
@@ -52,7 +51,6 @@ applications that use Kyoto Cabinet.
 %setup -q
 %patch0 -p1 -b .cflags
 %patch1 -p1 -b .8-byte-atomics
-%patch2 -p1
 
 %build
 %configure --disable-opt --enable-lzo --enable-lzma
@@ -142,6 +140,10 @@ make check
 %doc COPYING doc/api/* kyotocabinet.idl
 
 %changelog
+* Mon Apr 17 2023 Peng Wu <pwu@redhat.com> - 1.2.80-1
+- Update to 1.2.80
+- Resolves: RHBZ#2186606
+
 * Wed Apr 12 2023 Florian Weimer <fweimer@redhat.com> - 1.2.79-3
 - Port configure script to C99 (#2186199)
 

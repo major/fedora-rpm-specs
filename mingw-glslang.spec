@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Epoch:         1
-Version:       1.3.239.0
+Version:       1.3.243.0
 Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
@@ -14,6 +14,8 @@ URL:           https://github.com/KhronosGroup/%{pkgname}
 Source0:       %url/archive/sdk-%{version}/%{pkgname}-sdk-%{version}.tar.gz
 # Remove debug suffix for mingw builds
 Patch0:        glslang_debug-suffix.patch
+# Add missing cstdint include
+Patch1:        glslang_cstdint.h
 
 BuildRequires: make
 BuildRequires: cmake
@@ -97,6 +99,9 @@ MinGW Windows %{pkgname} library.
 
 
 %changelog
+* Mon Apr 17 2023 Sandro Mani <manisandro@gmail.com> - 1:1.3.243.0-1
+- Update to 1.3.243.0
+
 * Tue Feb 07 2023 Sandro Mani <manisandro@gmail.com> - 1:1.3.239.0-1
 - Update to sdk 1.3.239.0
 

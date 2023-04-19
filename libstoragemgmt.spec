@@ -1,7 +1,7 @@
 %bcond_with     test
 
 Name:           libstoragemgmt
-Version:        1.9.7
+Version:        1.9.8
 Release:        1%{?dist}
 Summary:        Storage array management library
 License:        LGPLv2+
@@ -444,6 +444,9 @@ fi
 %{_mandir}/man1/local_lsmplugin.1*
 
 %changelog
+* Mon Apr 17 2023 Tony Asleson <tasleson@redhat.com> - 1.9.8-1
+- Upgrade to 1.9.8
+
 * Mon Feb 20 2023 Tony Asleson <tasleson@redhat.com> - 1.9.7-1
 - Upgrade to 1.9.7
 

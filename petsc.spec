@@ -8,13 +8,13 @@
 %global _lto_cflags %{nil}
 
 # Testing libpetsc ?
-%bcond_with check
+%bcond_without check
 #
 
 # Python binding and its testing
 %bcond_without python
 %ifnarch %{power64} %{arm}
-%bcond_with pycheck
+%bcond_without pycheck
 %endif
 %global pymodule_name petsc4py
 %global pymodule_version %{version}
@@ -299,16 +299,12 @@ Patch0:  %{name}-3.11-no-rpath.patch
 
 ## Rename library name for 64-bit integer package
 Patch1:  %{name}-lib64.patch
-
-# Reverting patch for Hypre-2.11.2
-Patch2:  %{name}-3.14-hypre_2.11.2_reverting.patch
-
+Patch2:  %{name}-3.18.5-fix_make_compatibility.patch
 Patch3:  %{name}-3.18.0-fix_mumps_includes.patch
 Patch4:  %{name}-3.18.0-fix_metis64.patch
 Patch5:  %{name}-3.15.0-fix_sundials_version.patch
 Patch6:  %{name}-3.14.1-fix_pkgconfig_file.patch
 Patch7:  %{name}-3.17.0-avoid_fake_MKL_detection.patch
-Patch8:  %{name}-porting_to_python311.patch
 
 %if %{with superlu}
 BuildRequires: SuperLU-devel >= 5.2.0
@@ -519,7 +515,7 @@ BuildRequires: ptscotch-mpich-devel
 %endif
 %if %{with scalapack}
 BuildRequires: scalapack-mpich-devel
-%if 0%{?rhel} || 0%{?fedora} < 32
+%if 0%{?rhel}
 BuildRequires: blacs-mpich-devel
 %endif
 %endif
@@ -568,7 +564,7 @@ rm -rf petsc4py-%{version}
 %endif
 
 pushd %{name}-%{version}
-
+%patch 2 -p1 -b .backup
 %patch 7 -p1 -b .backup
 
 %if 0%{?fedora}
@@ -598,9 +594,6 @@ pushd %{name}-%{version}
 %patch 0 -p0 -b .backup
 %patch 5 -p1 -b .backup
 %patch 6 -p1 -b .backup
-%if 0%{?python3_version_nodots} >= 311
-#%%patch 8 -p1 -b .backup
-%endif
 popd
 
 %if %{with openmpi}

@@ -6,7 +6,7 @@
 %global crate async-stream
 
 Name:           rust-async-stream
-Version:        0.3.4
+Version:        0.3.5
 Release:        %autorelease
 Summary:        Asynchronous streams using async & await notation
 

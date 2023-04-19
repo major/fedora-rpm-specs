@@ -3,7 +3,7 @@
 Summary:  An archiving tool with ACL support
 Name: star
 Version: 1.6
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: CDDL
 URL: http://freecode.com/projects/star
 Source: https://downloads.sourceforge.net/s-tar/%{name}-%{version}.tar.bz2
@@ -27,6 +27,7 @@ Patch4: star-1.5.2-rmt-rh-access.patch
 # ~> downstream
 # ~> related to #968980
 Patch5: star-1.5.2-use-ssh-by-default.patch
+Patch6: star-configure-c99.patch
 
 BuildRequires: make
 BuildRequires: libattr-devel libacl-devel libtool libselinux-devel
@@ -100,7 +101,9 @@ done
 %build
 # This is config/work-around for atypical build system.  Variables used are
 # docummented makefiles.5.  GMAKE_NOWARN silences irritating warnings in
-# GNU/Linux ecosystem.
+# GNU/Linux ecosystem.  Build in C89 mode (-std=gnu89) because these
+# many of these warnings are actually errors as later C standards are
+# concerned.
 %global make_flags GMAKE_NOWARN=true                                    \\\
     RUNPATH=                                                            \\\
     LDPATH=                                                             \\\
@@ -109,7 +112,7 @@ done
     INS_BASE=$RPM_BUILD_ROOT%{_prefix}                                  \\\
     INS_RBASE=$RPM_BUILD_ROOT                                           \\\
     INSTALL='sh $(SRCROOT)/conf/install-sh -c -m $(INSMODEINS)'         \\\
-    COPTX="$RPM_OPT_FLAGS -DTRY_EXT2_FS"                                \\\
+    COPTX="%build_cflags -std=gnu89 -DTRY_EXT2_FS"                      \\\
     LDOPTX="$RPM_LD_FLAGS"                                              \\\
     DEFCCOM=gcc
 
@@ -198,6 +201,9 @@ fi
 %{_sysconfdir}/rmt
 
 %changelog
+* Mon Apr 17 2023 Florian Weimer <fweimer@redhat.com> - 1.6-9
+- Build in C89 mode (#2187168)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

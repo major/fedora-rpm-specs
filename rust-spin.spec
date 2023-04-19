@@ -5,7 +5,7 @@
 %global crate spin
 
 Name:           rust-spin
-Version:        0.9.7
+Version:        0.9.8
 Release:        %autorelease
 Summary:        Spin-based synchronization primitives
 

@@ -13,13 +13,16 @@
 
 Name:           python-%{pypi_name}
 Version:        0.7.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Create a custom 404 page with absolute URLs hardcoded
 
 License:        MIT
 URL:            https://pypi.python.org/pypi/%{pypi_name}
 Source0:        https://github.com/%{project_owner}/%{github_name}/archive/%{version}.tar.gz
 
+# Ensure compatibility with Sphinx 6+ - proposed upstream
+# https://github.com/readthedocs/sphinx-notfound-page/pull/218/
+Patch:          dont_test_for_jquery_presence_with_sphinx_6.patch
 
 BuildArch:      noarch
 
@@ -94,6 +97,10 @@ PYTHONPATH="$(pwd)" py.test-%{python3_version} -v .
 %{python3_sitelib}/%{importname}/
 
 %changelog
+* Fri Apr 14 2023 Karolina Surma <ksurma@redhat.com> - 0.7.1-7
+- Ensure compatibility with Sphinx 6+
+Resolves: rhbz#2180484
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:       bristol
 Version:    0.60.11
-Release:    24%{dist}
+Release:    25%{dist}
 Summary:    Synthesizer emulator
 
 License:    GPL-2.0-or-later
@@ -10,6 +10,7 @@ Source1:    %{name}.desktop
 Patch0:     bristol-0.60.9-CVE-2010-3351.patch
 Patch1:     bristol-0.60.11-fix-build-with-alsa.patch
 Patch2:     bristol-0.60.11-fix-common.patch
+Patch3: bristol-c99.patch
 
 BuildRequires: gcc autoconf automake libtool
 BuildRequires: libX11-devel alsa-lib-devel jack-audio-connection-kit-devel desktop-file-utils
@@ -82,6 +83,9 @@ desktop-file-install \
 %{_libdir}/lib*.so
 
 %changelog
+* Mon Apr 17 2023 Florian Weimer <fweimer@redhat.com> - 0.60.11-25
+- Port to C99
+
 * Sat Mar 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.60.11-24
 - migrated to SPDX license
 

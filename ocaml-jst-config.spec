@@ -6,12 +6,14 @@
 
 Name:           ocaml-jst-config
 Version:        0.15.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Compile-time configuration for Jane Street libraries
 
 License:        MIT
 URL:            https://github.com/janestreet/jst-config
 Source0:        %{url}/archive/v%{version}/jst-config-%{version}.tar.gz
+Patch0: ocaml-jst-config-c99-1.patch
+Patch1: ocaml-jst-config-c99-2.patch
 
 BuildRequires:  ocaml >= 4.08.0
 BuildRequires:  ocaml-base-devel >= 0.15
@@ -31,7 +33,7 @@ This package defines compile-time constants used in Jane Street libraries
 such as Base, Core, and Async.
 
 %prep
-%autosetup -n jst-config-%{version}
+%autosetup -p1 -n jst-config-%{version}
 
 %build
 %dune_build
@@ -56,6 +58,9 @@ sed -ri '/(archive|plugin)/d' \
 %{ocamldir}/jst-config/
 
 %changelog
+* Mon Apr 17 2023 Florian Weimer <fweimer@redhat.com> - 0.15.1-6
+- Port to C99
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.15.1-5
 - Rebuild OCaml packages for F38
 

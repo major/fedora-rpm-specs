@@ -242,7 +242,7 @@
 
 Name:	chromium%{chromium_channel}
 Version: 112.0.5615.121
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -347,9 +347,6 @@ Patch106: chromium-98.0.4758.80-epel7-erase-fix.patch
 # Add additional operator== to make el7 happy.
 Patch107: chromium-99.0.4844.51-el7-extra-operator==.patch
 
-# Split out ios shared feed protos
-Patch108: chromium-112-feed_protos.patch
-
 # system ffmpeg
 Patch114: chromium-107-ffmpeg-duration.patch
 Patch115: chromium-107-proprietary-codecs.patch
@@ -370,6 +367,8 @@ Patch146: chromium-110-LargerThan4k.patch
 # VAAPI
 # Upstream turned VAAPI on in Linux in 86
 Patch202: chromium-104.0.5112.101-enable-hardware-accelerated-mjpeg.patch
+Patch203: chromium-112-check-passthrough-command-decoder.patch
+Patch204: chromium-112-invert_of_GLImageNativePixmap_NativePixmapEGLBinding.patch
 Patch205: chromium-86.0.4240.75-fix-vaapi-on-intel.patch
 Patch206: chromium-112-ozone-wayland-vaapi-support.patch
 Patch207: chromium-112-enable-vaapi-ozone-wayland.patch
@@ -425,7 +424,7 @@ BuildRequires: %{toolset}-%{dts_version}-libatomic-devel
 %if 0%{?rhel} == 7 || 0%{?rhel} == 8
 BuildRequires: %{toolset}-%{dts_version}-toolchain, %{toolset}-%{dts_version}-libatomic-devel
 %endif
-%if 0{?fedora} || 0%{?rhel} > 8
+%if 0%{?fedora} || 0%{?rhel} > 8
 BuildRequires: gcc-c++
 BuildRequires: gcc
 BuildRequires: binutils
@@ -958,10 +957,6 @@ udev.
 %patch -P107 -p1 -b .el7-extra-operator-equalequal
 %endif
 
-%if 0%{?fedora} == 37
-%patch -P108 -p1 -R -b .chrome_feed_response_metadata
-%endif
-
 %patch -P130 -p1 -b .VirtualCursor-std-layout
 
 %patch -P146 -p1 -b .LargerThan4k
@@ -971,6 +966,8 @@ udev.
 # Feature specific patches
 %if %{use_vaapi}
 %patch -P202 -p1 -b .accel-mjpeg
+%patch -P203 -p1 -R -b .revert
+%patch -P204 -p1 -R -b .revert
 %patch -P205 -p1 -b .vaapi-intel-fix
 %patch -P206 -p1 -b .wayland-vaapi
 %patch -P207 -p1 -b .enable-wayland-vaapi
@@ -1040,9 +1037,11 @@ sed -i 's|moc|moc-qt5|g' ui/qt/moc_wrapper.py
 export LANG=en_US.UTF-8
 
 # reduce warnings
+%if %{clang}
 FLAGS=' -Wno-deprecated-declarations -Wno-unknown-warning-option -Wno-unused-command-line-argument'
 FLAGS+=' -Wno-unused-but-set-variable -Wno-unused-result -Wno-unused-function -Wno-unused-variable'
 FLAGS+=' -Wno-unused-const-variable -Wno-unneeded-internal-declaration'
+%endif
 
 %if %{system_build_flags}
 CFLAGS=${CFLAGS/-g }
@@ -1061,16 +1060,18 @@ CXXFLAGS="$FLAGS"
 %if %{clang}
 export CC=clang
 export CXX=clang++
+export AR=llvm-ar
+export NM=llvm-nm
+export READELF=llvm-readelf
 %else
 export CC=gcc
 export CXX=g++ 
+export AR="ar"
+export NM="nm"
+export READELF="readelf"
 %endif
 export CFLAGS
 export CXXFLAGS
-export LDFLAGS="$LDFLAGS -Wl,--threads=4"
-export AR="llvm-ar"
-export NM="llvm-nm"
-export READELF="llvm-readelf"
 
 # enable toolset on el7
 %if 0%{?rhel} == 7
@@ -1142,6 +1143,7 @@ CHROMIUM_CORE_GN_DEFINES+=' enable_vr=false'
 CHROMIUM_CORE_GN_DEFINES+=' build_dawn_tests=false enable_perfetto_unittests=false'
 CHROMIUM_CORE_GN_DEFINES+=' disable_fieldtrial_testing_config=true'
 CHROMIUM_CORE_GN_DEFINES+=' blink_symbol_level=0 symbol_level=0 v8_symbol_level=0'
+CHROMIUM_CORE_GN_DEFINES+=' blink_enable_generated_code_formatting=false'
 export CHROMIUM_CORE_GN_DEFINES
 
 # browser gn defines
@@ -1279,9 +1281,13 @@ mkdir -p %{builddir} && cp -a %{_bindir}/gn %{builddir}/
 
 %if %{build_headless}
 # Do headless first.
+# workaround for build dependency
+%build_target %{headlessbuilddir} gen/components/feed/core/proto/v2/wire/chrome_feed_response_metadata.pb.h
 %build_target %{headlessbuilddir} headless_shell
 %endif
 
+# workaround for build dependency
+%build_target %{builddir} gen/components/feed/core/proto/v2/wire/chrome_feed_response_metadata.pb.h
 %build_target %{builddir} chrome
 %build_target %{builddir} chrome_sandbox
 %build_target %{builddir} chromedriver
@@ -1653,6 +1659,11 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Mon Apr 17 2023 Than Ngo <than@redhat.com> - 112.0.5615.121-2
+- fix vaapi issue on xwayland
+- fix the build order, chrome_feed_response_metadata.pb.h file not found
+- fix compiler flags and typo
+
 * Sat Apr 15 2023 Than Ngo <than@redhat.com> - 112.0.5615.121-1
 - update to 112.0.5615.121
 

@@ -1,23 +1,19 @@
-%if 0%{?fedora} >= 36
-# Rawhide builds is broken,
-#    see: https://bugzilla.redhat.com/show_bug.cgi?id=2043178,
-#         https://bugzilla.redhat.com/show_bug.cgi?id=2048952
-%undefine _package_note_file
-%endif
-
 %global optflags %{optflags} -Wno-array-bounds
 
 %bcond_without test
 %bcond_without doc
 
 Name:           kitty
-Version:        0.26.5
+Version:        0.28.0
 Release:        %autorelease
 Summary:        Cross-platform, fast, feature full, GPU based terminal emulator
 
-# BSD:          docs/_templates/searchbox.html
-# zlib:         glfw/
-License:        GPLv3 and zlib and BSD
+# Zlib: glfw
+# LGPL-2.1-or-later: kitty/iqsort.h
+# BSD-1-Clause: kitty/uthash.h
+# MIT: docs/_static/custom.css
+# MIT: shell-integration/ssh/bootstrap-utils.sh
+License:        GPL-3.0-only AND LGPL-2.1-or-later AND Zlib AND BSD-1-Clause AND MIT
 URL:            https://sw.kovidgoyal.net/kitty
 Source0:        https://github.com/kovidgoyal/kitty/releases/download/v%{version}/%{name}-%{version}.tar.xz
 Source4:        https://github.com/kovidgoyal/kitty/releases/download/v%{version}/%{name}-%{version}.tar.xz.sig
@@ -30,7 +26,17 @@ Source1:        https://raw.githubusercontent.com/kovidgoyal/kitty/46c0951751444
 Source2:        kitty.sh
 Source3:        kitty.fish
 
+# Don't build kitten inside setup.py, use gobuild macro in the spec instead to build with fedora flags
+Patch0:         kitty-do-not-build-kitten.patch
 ## upstream patches
+Patch100:       https://github.com/kovidgoyal/kitty/commit/12efff6d089d92d8fc2eadca7105c3a6644f821c.patch#/kitty-unneeded-so-fix.patch
+Patch101:       https://github.com/kovidgoyal/kitty/commit/39eff0fe8c39f9d7b9d9a075c52a5a4725d89197.patch#/kitty-fix-ssh-kitten.patch
+
+# some golang deps aren't available
+ExcludeArch:    s390x %{ix86}
+
+BuildRequires:  golang >= 1.20.0
+BuildRequires:  go-rpm-macros
 
 BuildRequires:  gnupg2
 BuildRequires:  desktop-file-utils
@@ -59,9 +65,35 @@ BuildRequires:  pkgconfig(xrandr)
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  pkgconfig(libcrypto)
 
+BuildRequires:  golang(github.com/alecthomas/chroma/v2)
+BuildRequires:  golang(github.com/alecthomas/chroma/v2/lexers)
+BuildRequires:  golang(github.com/alecthomas/chroma/v2/styles)
+BuildRequires:  golang(github.com/ALTree/bigfloat)
+BuildRequires:  golang(github.com/bmatcuk/doublestar/v3)
+BuildRequires:  golang(github.com/disintegration/imaging)
+BuildRequires:  golang(github.com/google/go-cmp/cmp)
+BuildRequires:  golang(github.com/google/uuid)
+BuildRequires:  golang(github.com/jamesruan/go-rfc1924/base85)
+BuildRequires:  golang(github.com/seancfoley/ipaddress-go/ipaddr)
+BuildRequires:  golang(github.com/shirou/gopsutil/v3/process)
+BuildRequires:  golang(golang.org/x/exp/constraints)
+BuildRequires:  golang(golang.org/x/exp/maps)
+BuildRequires:  golang(golang.org/x/exp/rand)
+BuildRequires:  golang(golang.org/x/exp/slices)
+BuildRequires:  golang(golang.org/x/image/bmp)
+BuildRequires:  golang(golang.org/x/image/tiff)
+BuildRequires:  golang(golang.org/x/image/webp)
+BuildRequires:  golang(golang.org/x/sys/unix)
+
+%if %{with test}
 # For tests:
 BuildRequires:  /usr/bin/ssh
 BuildRequires:  /usr/bin/getent
+BuildRequires:  /usr/bin/zsh
+BuildRequires:  /usr/bin/fish
+BuildRequires:  /usr/bin/rg
+BuildRequires:  python3dist(pillow)
+%endif
 
 Requires:       python3%{?_isa}
 Requires:       hicolor-icon-theme
@@ -151,6 +183,7 @@ The terminfo file for Kitty Terminal.
 %if %{with doc}
 %package        doc
 Summary:        Documentation for %{name}
+BuildArch:      noarch
 
 BuildRequires:  python3dist(sphinx)
 %if ! 0%{?epel}
@@ -177,23 +210,33 @@ find -type f -name "*.py" -exec sed -e 's|/usr/bin/env python3|%{__python3}|g'  
                                     -e 's|/usr/bin/env -S kitty|/usr/bin/kitty|g' \
                                     -i "{}" \;
 
-# non-executable-script
-sed -e "s/f.endswith('\.so')/f.endswith('\.so') or f.endswith('\.py')/g" -i setup.py
+sed -i 's|github.com/bmatcuk/doublestar|github.com/bmatcuk/doublestar/v3|' $(find . -name "*.go" -type f)
+mkdir -p src/kitty
+ln -s ../../tools src/kitty/tools
+ln -s ../../kittens src/kitty/kittens
 
-# script-without-shebang '__init__.py'
-find -type f -name "*.py*" -exec chmod -x "{}"  \;
 
-
-%install
+%build
 %set_build_flags
 %{__python3} setup.py linux-package \
     --libdir-name=%{_lib}           \
-    --prefix=%{buildroot}%{_prefix} \
     --update-check-interval=0       \
     --verbose                       \
-    --debug                         \
     --shell-integration "disabled"  \
     %{nil}
+
+export GOPATH=$(pwd):%{gopath}
+unset LDFLAGS
+mkdir -p _build/bin
+%gobuild -o _build/bin/kitten ./src/kitty/tools/cmd
+
+%install
+# rpmlint fixes
+find linux-package -type f ! -executable -name "*.py" -exec sed -i '1{\@^#!%{__python3}@d}' "{}" \;
+find linux-package/%{_lib}/%{name}/shell-integration -type f ! -executable -exec sed -r -i '1{\@^#!/bin/(fish|zsh|sh|bash)@d}' "{}" \;
+
+cp -r linux-package %{buildroot}%{_prefix}
+install -m0755 -Dp _build/bin/kitten %{buildroot}%{_bindir}/kitten
 
 install -m0644 -Dp %{SOURCE1} %{buildroot}%{_metainfodir}/%{name}.appdata.xml
 
@@ -205,22 +248,23 @@ sed 's|KITTY_INSTALLATION_DIR=.*|KITTY_INSTALLATION_DIR="%{_libdir}/%{name}"|' \
 sed 's|set -l KITTY_INSTALLATION_DIR .*|set -l KITTY_INSTALLATION_DIR "%{_libdir}/%{name}"|' \
  -i %{buildroot}%{_sysconfdir}/fish/conf.d/%{name}.fish
 
-# script-without-shebang '__init__.py'
-find %{buildroot} -type f -name "*.py*" ! -name askpass.py -exec chmod -x "{}"  \;
-
 %if %{with doc}
 # rpmlint fixes
 rm %{buildroot}%{_datadir}/doc/%{name}/html/.buildinfo \
-   %{buildroot}%{_datadir}/doc/%{name}/html/.nojekyll
+   %{buildroot}%{_datadir}/doc/%{name}/html/.nojekyll   \
+   %{buildroot}%{_datadir}/doc/%{name}/html/_static/scripts/furo-extensions.js
 %endif
 
 
 %check
 %if %{with test}
+export %{gomodulesmode}
+export GOPATH=$(pwd):%{gopath}
 # Some tests ignores PATH env...
 mkdir -p kitty/launcher
 ln -s %{buildroot}%{_bindir}/%{name} kitty/launcher/
 export PATH=%{buildroot}%{_bindir}:$PATH
+export PYTHONPATH=$(pwd)
 %{__python3} setup.py test          \
     --prefix=%{buildroot}%{_prefix} \
     ||:
@@ -233,6 +277,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 %files
 %license LICENSE
 %{_bindir}/%{name}
+%{_bindir}/kitten
 %{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*/*/*.{png,svg}
 %{_libdir}/%{name}/

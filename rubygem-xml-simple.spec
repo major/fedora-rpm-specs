@@ -3,7 +3,7 @@
 # 1.1.9 is from ruby 3.0 only
 Name:		rubygem-%{gem_name}
 Version:	1.1.9
-Release:	4%{?dist}
+Release:	5%{?dist}
 
 Summary:	A simple API for XML processing
 License:	MIT
@@ -52,6 +52,13 @@ cp -a .%{gem_dir}/* \
 cp -a test .%{gem_instdir}
 pushd .%{gem_instdir}
 
+# Sometimes we see:
+# Error: test_perl_test_cases(TC_Perl_Mem_Copy): RuntimeError: Time moved backwards!
+# Error: test_perl_test_cases(TC_Perl_Mem_Share): RuntimeError: Time moved backwards!
+# See: https://apenwarr.ca/log/20181113
+grep -l backwards test/tc_*.rb | \
+	xargs sed -i '\@backwards@s|raise|#raise|'
+
 # passing nil to xml_in makes it search for the ruby script being run
 ruby -Ilib test/tc_perl_in.rb
 mv test/tc_perl_in.rb{,.bak}
@@ -69,6 +76,10 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Mon Apr 17 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.1.9-5
+- Fix tests which sometimes fail randomly due to generic mtime() resolution
+  issue
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.9-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 %global forgeurl https://github.com/Yubico/yubikey-manager/
-%global commit a767ecaf26a18871c3222dacbae0906d8d67f05c
+%global commit 4abe6b5573119488feb5f8db03f880f08836fed1
 
 Name:           yubikey-manager
-Version:        5.0.1
+Version:        5.1.0
 Release:        %autorelease
 Summary:        Python library and command line tool for configuring a YubiKey
 License:        BSD-2-Clause

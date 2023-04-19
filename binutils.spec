@@ -2,7 +2,7 @@
 Summary: A GNU collection of binary utilities
 Name: binutils%{?_with_debug:-debug}
 Version: 2.40
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/binutils
 
@@ -270,6 +270,11 @@ Patch19: binutils-testsuite-fixes.patch
 # Lifetime: Fixed in 2.41
 Patch20: binutils-reloc-symtab.patch
 
+# Purpose:  Stop an illegal memory access in the BFD library when loading
+#            a file with corrupt symbol version information.
+# Lifetime: Fixed in 2.41
+Patch21: binutils-CVE-2023-1972.patch
+
 #----------------------------------------------------------------------------
 
 Provides: bundled(libiberty)
@@ -527,7 +532,7 @@ done
 # The -print is there just to confirm that the command is working.
 %if %{without docs}
   find . -name *.info -print -exec touch {} \;
-%esle
+%else
 # If we are creating the docs, touch the texi files so that the info and
 # man pages will be rebuilt.
   find . -name *.texi -print -exec touch {} \;
@@ -1142,11 +1147,14 @@ exit 0
 %license COPYING COPYING3 COPYING3.LIB COPYING.LIB
 %doc README
 %{_bindir}/[!l]*
-%exclude %{_bindir}/gp-*
-%exclude %{_bindir}/gprofng
 # %%verify(symlink) does not work for some reason, so using "owner" instead.
 %verify(owner) %{_bindir}/ld
 %{_bindir}/ld.bfd
+
+%if %{with gprofng}
+%exclude %{_bindir}/gp-*
+%exclude %{_bindir}/gprofng
+%endif
 
 %if %{with docs}
 %{_mandir}/man1/
@@ -1154,12 +1162,15 @@ exit 0
 %exclude %{_mandir}/man1/gprofng*
 %{_infodir}/as.info.*
 %{_infodir}/binutils.info.*
-%{_infodir}/gprof.info.*
 %{_infodir}/ld.info.*
 %{_infodir}/bfd.info.*
 %{_infodir}/ctf-spec.info.*
+%{_infodir}/gprof.info.*
 %{_infodir}/sframe-spec.info.*
+
+%if %{with gprofng}
 %exclude %{_infodir}/gprofng*
+%endif
 %endif
 
 %if %{enable_shared}
@@ -1169,6 +1180,7 @@ exit 0
 %exclude %{_libdir}/libopcodes.so
 %exclude %{_libdir}/libctf.a
 %exclude %{_libdir}/libctf-nobfd.a
+
 %dir %{_libdir}/bfd-plugins
 # %%{_libdir}/bfd-plugins/libdep.a
 %{_libdir}/bfd-plugins/libdep.so
@@ -1180,6 +1192,7 @@ exit 0
 %{_libdir}/lib*.a
 %{_libdir}/libbfd.so
 %{_libdir}/libopcodes.so
+%exclude %{_libdir}/lib*.la
 
 %if %{with gold}
 %files gold
@@ -1228,6 +1241,10 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Mon Apr 17 2023 Nick Clifton  <nickc@redhat.com> - 2.40-7
+- Spec File: Fix typo.  (#2186396)
+- BFD library: Fix illegal memory access when loading corrupt symbol version info.  (#2186579)
+
 * Thu Mar 30 2023 Nick Clifton  <nickc@redhat.com> - 2.40-6
 - Linker: Do not associate allocated reloc sections with the .symtab section.  (#2166419)
 

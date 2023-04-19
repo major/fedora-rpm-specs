@@ -1,21 +1,16 @@
 Summary:    A GNU program for formatting C code
 Name:       indent
 Version:    2.2.13
-Release:    2%{?dist}
+Release:    3%{?dist}
 # COPYING:                      GPL-3.0 text
-# doc/indent.texi:              Latex2e-like (Fedora-acceptable,
-#                               TODO: waiting on an identifier
-#   <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/176>)
-#                               AND a subset of Latex2e WITH a texinfo-commented GPL clause
-#                               (Fedora legal recommends to ignore it
+# doc/indent.texi:              Latex2e-translated-notice
+#                               (AND a subset of Latex2e WITH a texinfo-commented GPL clause;
+#                               Fedora legal recommends to ignore this subset
 #   <http://lists.gnu.org/archive/html/bug-indent/2018-09/msg00008.html>
 #   <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/176>)
-#                               AND BSD-4.3TAHOE-like
+#                               AND BSD-4.3TAHOE
 #                               (BSD-4.3TAHOE refers to indent program, not
 #                               the manual)
-#                               (Fedora-acceptable,
-#                               TODO: waiting on an SPDX update
-#   <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/174>)
 # README.md:                    "See COPYING"
 # src/args.c:                   BSD-3-Clause AND GPL-3.0-or-later
 # src/args.h:                   BSD-3-Clause
@@ -71,8 +66,8 @@ Release:    2%{?dist}
 # config/texinfo.tex:           GPL-3.0-or-later WITH Texinfo exception
 # INSTALL:                      FSFAP
 ## Unbundled
-# doc/indent.info:              A subset of Latex2e
-#                               (Fedora legal recommends to ignore it)
+# doc/indent.info:              (A subset of Latex2e;
+#                               Fedora legal recommends to ignore it)
 #                               AND BSD-4.3TAHOE
 #                               (BSD-4.3TAHOE refers to indent program, not
 #                               the manual)
@@ -104,7 +99,7 @@ Release:    2%{?dist}
 # man/Makefile.in:              FSFULLRWD
 # po/Makefile.in.in:            FSFUL-like
 # src/Makefile.in:              FSFULLRWD
-License:    GPLv3+ and BSD and Verbatim
+License:    GPL-3.0-or-later AND BSD-3-Clause AND BSD-4.3TAHOE AND Latex2e-translated-notice
 URL:        https://www.gnu.org/software/%{name}/
 Source0:    https://ftpmirror.gnu.org/%{name}/%{name}-%{version}.tar.xz
 Source1:    https://ftpmirror.gnu.org/%{name}/%{name}-%{version}.tar.xz.sig
@@ -178,6 +173,10 @@ make check %{?_smp_mflags}
 %{_infodir}/indent.info*
 
 %changelog
+* Mon Apr 17 2023 Petr Pisar <ppisar@redhat.com> - 2.2.13-3
+- Correct a license to "GPL-3.0-or-later AND BSD-3-Clause AND BSD-4.3TAHOE AND
+  Latex2e-translated-notice"
+
 * Wed Apr 12 2023 Petr Pisar <ppisar@redhat.com> - 2.2.13-2
 - Check for setlocale() at configure time
 

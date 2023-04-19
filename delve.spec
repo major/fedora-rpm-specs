@@ -3,7 +3,7 @@
 
 # https://github.com/go-delve/delve
 %global goipath         github.com/go-delve/delve
-Version:                1.20.1
+Version:                1.20.2
 
 %global common_description %{expand:
 Delve is a debugger for the Go programming language. The goal of the project 
@@ -54,17 +54,12 @@ BuildRequires:  golang(go.starlark.net/syntax)
 BuildRequires:  lsof
 BuildRequires:  git
 
-# This patch won't be necessary in future releases.
-# It makes 1.20.1 compatible with go-dap 0.7 instead of 0.6.
-Patch0001:      add_address_operator_for_go-dap_compatibility.patch
-
 %description
 %{common_description}
 
 %prep
 echo "=== Start prep ==="
 %goprep
-%patch -P 0001 -p1
 
 %generate_buildrequires
 %go_generate_buildrequires

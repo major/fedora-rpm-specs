@@ -3,12 +3,12 @@
 
 Name:           unicode-emoji
 Version:        15.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Unicode Emoji Data Files
 
-License:        Unicode-TOU
+License:        Unicode-DFS-2016
 URL:            http://www.unicode.org/emoji/
-Source0:        http://www.unicode.org/copyright.html
+Source0:        https://www.unicode.org/license.txt
 Source1:        https://www.unicode.org/Public/emoji/15.0/ReadMe.txt
 Source2:        https://www.unicode.org/Public/15.0.0/ucd/emoji/emoji-data.txt
 Source3:        https://www.unicode.org/Public/emoji/15.0/emoji-sequences.txt
@@ -39,13 +39,17 @@ cp -p %{SOURCE5} %{buildroot}%{emojidir}
 cp -p %{SOURCE6} %{buildroot}%{emojidir}
 
 %files
-%license copyright.html
+%license license.txt
 %dir %{unicodedir}
 %dir %{emojidir}
 %doc %{emojidir}/ReadMe.txt
 %{emojidir}/emoji-*txt
 
 %changelog
+* Fri Apr 14 2023 Mike FABIAN <mfabian@redhat.com> - 15.0-3
+- Change license tag from Unicode-TOU to Unicode-DFS-2016
+  See: https://gitlab.com/fedora/legal/fedora-license-data/-/issues/199
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 15.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

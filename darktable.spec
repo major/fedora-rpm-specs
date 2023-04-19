@@ -30,8 +30,9 @@ BuildRequires: flickcurl-devel
 BuildRequires: gcc
 %endif
 %if 0%{?rhel}
-BuildRequires: gcc-toolset-12-gcc
-BuildRequires: gcc-toolset-12-annobin-plugin-gcc
+BuildRequires: gcc-toolset-12
+#BuildRequires: gcc-toolset-12-gcc
+#BuildRequires: gcc-toolset-12-annobin-plugin-gcc
 %endif
 %if %{defined fedora}
 BuildRequires: gmic-devel
@@ -170,7 +171,8 @@ sed -i -e 's, \"external/CL/\*\.h\" , ,' src/CMakeLists.txt
 # https://github.com/debbuild/debbuild/issues/182
 # 
 #
-%if %{defined rhel}
+#%%if %%{defined rhel}
+%if %{defined rhel} && 0%{?rhel} > 8
 . /opt/rh/gcc-toolset-12/enable
 
 mkdir %{_target_platform} 

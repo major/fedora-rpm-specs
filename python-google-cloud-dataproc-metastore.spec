@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-dataproc-metastore
 %global         forgeurl    https://github.com/googleapis/python-dataproc-metastore
-Version:        1.10.1
+Version:        1.11.0
 %global         tag         v%{version}
 %forgemeta
 

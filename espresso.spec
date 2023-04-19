@@ -1,9 +1,9 @@
-%global commit 18d49bfc4b6ca5be264f16d262338fda1f9141a7
+%global commit 9bb2daf1c83f5932b145a6135f3a48f969639ef3
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           espresso
-Version:        4.2.0
-Release:        8%{?dist}
+Version:        4.2.1
+Release:        1%{?dist}
 Summary:        Extensible Simulation Package for Research on Soft matter
 # segfault on s390x: https://github.com/espressomd/espresso/issues/3753
 # segfault on armv7hl: https://src.fedoraproject.org/rpms/espresso/pull-request/4
@@ -12,12 +12,6 @@ ExcludeArch:    s390x i686 armv7hl
 License:        GPLv3+
 URL:            https://espressomd.org
 Source0:        https://github.com/%{name}md/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz
-# skip fragile ICC python interface test
-# https://github.com/espressomd/espresso/issues/4567
-Patch0:         %{name}-icc.patch
-# fix deprecated histogram function arguments removed in numpy 1.24
-# https://github.com/espressomd/espresso/pull/4635
-Patch1:         %{name}-numpy.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake3 >= 3.16
@@ -107,8 +101,6 @@ This package contains %{name} compiled against MPICH2.
 
 %prep
 %setup -q -n %{name}
-%patch 0 -p1
-%patch 1 -p1
 
 %build
 %global defopts \\\
@@ -166,6 +158,9 @@ done
 %{python3_sitearch}/mpich/%{name}md/
 
 %changelog
+* Mon Apr 17 2023 Jean-Noël Grad <jgrad@icp.uni-stuttgart.de> - 4.2.1-1
+- Version bump to v4.2.1
+
 * Sat Apr 01 2023 Jean-Noël Grad <jgrad@icp.uni-stuttgart.de> - 4.2.0-8
 - Skip fragile ICC python interface test
 

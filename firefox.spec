@@ -73,6 +73,7 @@ ExcludeArch: i686
 %global system_libvpx     0
 %endif
 %global system_jpeg       1
+%global system_pixman     1
 %global use_bundled_cbindgen  1
 %if %{debug_build}
 %global release_build     0
@@ -174,13 +175,13 @@ ExcludeArch: i686
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        112.0
-Release:        3%{?pre_tag}%{?dist}
+Version:        112.0.1
+Release:        1%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20230406.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20230417.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source10:       firefox-mozconfig
@@ -230,6 +231,7 @@ Patch78:        firefox-i686-build.patch
 Patch79:        firefox-gcc-13-build.patch
 #Patch80:        D172126.diff
 #Patch81:        D172864.diff
+Patch83:        D173814.diff
 
 # Test patches
 # Generate without context by
@@ -282,6 +284,9 @@ BuildRequires:  nss-static >= %{nss_version}
 BuildRequires:  pkgconfig(libpng)
 %if %{?system_jpeg}
 BuildRequires:  libjpeg-devel
+%endif
+%if %{?system_pixman}
+BuildRequires:  pixman-devel
 %endif
 BuildRequires:  zip
 BuildRequires:  bzip2-devel
@@ -516,6 +521,7 @@ This package contains results of tests executed during build.
 %patch79 -p1 -b .firefox-gcc-13-build
 #%patch80 -p1 -b .D172126
 #%patch81 -p1 -b .D172864
+%patch83 -p1 -b .D173814
 
 # Test patches
 #%patch100 -p1 -b .firefox-tests-xpcshell
@@ -621,6 +627,10 @@ echo "ac_add_options --disable-tests" >> .mozconfig
 echo "ac_add_options --without-system-jpeg" >> .mozconfig
 %else
 echo "ac_add_options --with-system-jpeg" >> .mozconfig
+%endif
+
+%if %{?system_pixman}
+echo "ac_add_options --enable-system-pixman" >> .mozconfig
 %endif
 
 %if %{?system_libvpx}
@@ -1089,6 +1099,11 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Tue Apr 18 2023 Martin Stransky <stransky@redhat.com>- 112.0.1-1
+- Updated to 112.0.1
+- Added fix for rhbz#2187000
+- Enabled system pixman (by G.Hojda)
+
 * Tue Apr 11 2023 Martin Stransky <stransky@redhat.com>- 112.0-3
 - Added wayland window fix mzbz#1827429
 
