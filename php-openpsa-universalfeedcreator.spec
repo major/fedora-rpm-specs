@@ -2,11 +2,11 @@
 %global composer_project  universalfeedcreator
 Name: php-%{composer_vendor}-%{composer_project}
 
-Version: 1.8.4.1
-Release: 3%{?dist}
+Version: 1.8.5
+Release: 1%{?dist}
 
 Summary: RSS and Atom feed generator
-License: LGPLv2+
+License: LGPL-2.1-or-later
 
 %global repo_owner  flack
 %global repo_name   UniversalFeedCreator
@@ -76,6 +76,10 @@ phpunit --verbose --bootstrap %{buildroot}%{pkgdir}/autoload.php
 
 
 %changelog
+* Tue Apr 18 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.8.5-1
+- Update to v1.8.5
+- Convert License tag to SPDX
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

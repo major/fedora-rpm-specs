@@ -3,7 +3,7 @@
 
 # https://github.com/alecthomas/chroma
 %global goipath         github.com/alecthomas/chroma/v2
-Version:                2.5.0
+Version:                2.7.0
 
 %gometa -f
 
@@ -54,7 +54,8 @@ install -m 0644 -vp %{gobuilddir}/src/github.com/alecthomas/chroma/v2/styles/* %
 %files
 %license COPYING
 %doc pygments-lexers.txt README.md bin/README.hermit.md lexers/README.md
-%{_bindir}/*
+%{_bindir}/chroma
+%{_bindir}/chromad
 
 %gopkgfiles
 %{_datarootdir}/gocode/src/github.com/alecthomas/chroma/v2/lexers/embedded/

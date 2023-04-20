@@ -6,9 +6,9 @@
 
 Name:           perl-IO-Socket-INET6
 Version:        2.73
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Perl Object interface for AF_INET|AF_INET6 domain sockets
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IO-Socket-INET6
 Source0:        https://cpan.metacpan.org/modules/by-module/IO/IO-Socket-INET6-%{version}.tar.gz
 # Fix bad code in test. Original code hides error, related to BZ#1207174
@@ -71,6 +71,9 @@ make test
 %{_mandir}/man3/IO::Socket::INET6.3*
 
 %changelog
+* Tue Apr 18 2023 Michal Josef Špaček <mspacek@redhat.com> - 2.73-6
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.73-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

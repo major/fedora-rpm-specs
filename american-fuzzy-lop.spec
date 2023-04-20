@@ -2,24 +2,21 @@
 # changes, since clang releases are not ABI compatible between major
 # versions. See also https://bugzilla.redhat.com/1544964.
 
-Version:       4.05c
+Version:       4.06c
 %global forgeurl https://github.com/AFLplusplus/AFLplusplus/
-%global commit 7101192865893e00b9029d0cb898a3ca3015d50b
+%global commit 7f734c96d187312868178e8ead95dc103c557c1f
 %forgemeta
 
 Name:          american-fuzzy-lop
 Summary:       Practical, instrumentation-driven fuzzer for binary formats
 License:       ASL 2.0
 
-Release:       4%{?dist}
+Release:       1%{?dist}
 URL:           %{forgeurl}
 Source0:       %{forgesource}
 
 # For running the tests:
 Source1:       hello.c
-
-# Taken from https://github.com/AFLplusplus/AFLplusplus/pull/1686
-Patch1: pr1686.diff
 
 # Only specific architectures are supported by upstream.
 # On non-x86 only afl-clang-fast* are built.
@@ -261,6 +258,9 @@ test -n '%{clang_major}'
 
 
 %changelog
+* Tue Apr 18 2023 Richard W.M. Jones <rjones@redhat.com> - 4.06c-1
+- New upstream release 4.06c (RHBZ#2187629)
+
 * Mon Apr 03 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 4.05c-4
 - Fix s390x build
 

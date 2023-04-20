@@ -1,9 +1,16 @@
 Summary: A library for password generation and password quality checking
 Name: libpwquality
 Version: 1.4.5
-Release: 3%{?dist}
+Release: 4%{?dist}
 URL: https://github.com/libpwquality/libpwquality/
 Source0: https://github.com/libpwquality/libpwquality/releases/download/libpwquality-%{version}/libpwquality-%{version}.tar.bz2
+
+# Use setuptools instead of distutils
+# This fixes the build with Python 3.12+
+# https://bugzilla.redhat.com/2165572
+# Upstream PR: https://github.com/libpwquality/libpwquality/pull/74
+Patch1: setuptools.patch
+
 # The package is BSD licensed with option to relicense as GPLv2+
 # - this option is redundant as the BSD license allows that anyway.
 License: BSD or GPLv2+
@@ -21,6 +28,7 @@ BuildRequires: cracklib-devel
 BuildRequires: gettext
 BuildRequires: pam-devel
 BuildRequires: python3-devel
+BuildRequires: python3-setuptools
 
 %description
 This is a library for password quality checks and generation
@@ -49,7 +57,7 @@ for easy password quality checking and generation of random
 pronounceable passwords from Python applications.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %configure \
@@ -100,6 +108,10 @@ mkdir %{buildroot}%{_secconfdir}/pwquality.conf.d
 %{python3_sitearch}/*.egg-info
 
 %changelog
+* Fri Mar 31 2023 Miro Hrončok <mhroncok@redhat.com> - 1.4.5-4
+- Use setuptools instead of distutils to build this package
+- Resolves: rhbz#2165572
+
 * Wed Feb 01 2023 Adam Williamson <awilliam@redhat.com> - 1.4.5-3
 - Strengthen cracklib-dicts dependency to Recommends (#2158891)
 

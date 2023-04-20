@@ -1,5 +1,5 @@
 %if (0%{?rhel} > 0 && 0%{?rhel} < 8)
-# portable jdk 17 specific bug, _jvmdir being missing on el7
+# portable jdk 17 specific bug, _jvmdir being missing
 %define _jvmdir /usr/lib/jvm
 %endif
 
@@ -49,13 +49,6 @@
 %global include_staticlibs 1
 %else
 %global include_staticlibs 0
-%endif
-
-# Define whether to use the bootstrap JDK directly or with a fresh libjvm.so
-%if %{with fresh_libjvm}
-%global build_hotspot_first 1
-%else
-%global build_hotspot_first 0
 %endif
 
 %if %{with system_libs}
@@ -255,10 +248,6 @@
 # Target to use to just build HotSpot
 %global hotspot_target hotspot
 
-# JDK to use for bootstrapping
-%global bootjdk /usr/lib/jvm/java-%{buildjdkver}-openjdk
-
-
 # Filter out flags from the optflags macro that cause problems with the OpenJDK build
 # We filter out -O flags so that the optimization of HotSpot is not lowered from O3 to O2
 # We filter out -Wall which will otherwise cause HotSpot to produce hundreds of thousands of warnings (100+mb logs)
@@ -359,6 +348,16 @@
  %global lts_designator ""
  %global lts_designator_zip ""
 %endif
+# JDK to use for bootstrapping
+%global bootjdk /usr/lib/jvm/java-%{buildjdkver}-openjdk
+# Define whether to use the bootstrap JDK directly or with a fresh libjvm.so
+# This will only work where the bootstrap JDK is the same major version
+# as the JDK being built
+%if %{with fresh_libjvm} && %{buildjdkver} == %{featurever}
+%global build_hotspot_first 1
+%else
+%global build_hotspot_first 0
+%endif
 
 # Define vendor information used by OpenJDK
 %global oj_vendor Red Hat, Inc.
@@ -392,7 +391,7 @@
 %global top_level_dir_name   %{origin}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        10
-%global rpmrelease      1
+%global rpmrelease      2
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -698,9 +697,10 @@ Patch1001: fips-17u-%{fipsver}.patch
 
 #############################################
 #
-# OpenJDK patches targetted for 17.0.6
+# OpenJDK patches which missed last update
 #
 #############################################
+#empty now
 
 BuildRequires: autoconf
 BuildRequires: automake
@@ -752,7 +752,6 @@ BuildRequires: unzip
 BuildRequires: javapackages-filesystem
 BuildRequires: java-%{buildjdkver}-openjdk-devel
 %endif
-
 # Zero-assembler build requirement
 %ifarch %{zero_arches}
 BuildRequires: libffi-devel
@@ -829,7 +828,7 @@ The %{origin_nice} %{featurever} runtime environment - portable edition.
 
 %if %{include_normal_build}
 %package devel
-Summary: %{origin_nice} %{featurever} Development Environment portable edition.
+Summary: %{origin_nice} %{featurever} Development Environment portable edition
 %if (0%{?rhel} > 0 && 0%{?rhel} <= 8) || (0%{?fedora} >= 0 && 0%{?fedora} < 30)
 Group:   Development/Languages
 %endif
@@ -938,6 +937,12 @@ if [ %{include_debug_build} -eq 0 -a  %{include_normal_build} -eq 0 -a  %{includ
   echo "You have disabled all builds (normal,fastdebug,slowdebug). That is a no go."
   exit 14
 fi
+
+%if %{with fresh_libjvm} && ! %{build_hotspot_first}
+echo "WARNING: The build of a fresh libjvm has been disabled due to a JDK version mismatch"
+echo "Build JDK version is %{buildjdkver}, feature JDK version is %{featurever}"
+%endif
+
 %setup -q -c -n %{uniquesuffix ""} -T -a 0
 # https://bugzilla.redhat.com/show_bug.cgi?id=1189084
 prioritylength=`expr length %{priority}`
@@ -1185,7 +1190,7 @@ function installjdk() {
         install -m 644 nss.cfg ${imagepath}/conf/security/
 
         # Create fake alt-java as a placeholder for future alt-java
-		if [ -d man/man1 ] ; then
+        if [ -d man/man1 ] ; then
           pushd ${imagepath}
             # add alt-java man page
             echo "Hardened java binary recommended for launching untrusted code from the Web e.g. javaws" > man/man1/%{alt_java_name}.1
@@ -1271,6 +1276,10 @@ EOF
     fi
 }
 
+# stubs to copy icons to final images
+abs_src_path=$(pwd)/openjdk/src
+icon_stub_path=java.desktop/unix/classes/sun/awt/X11
+
 %if %{build_hotspot_first}
   # Build a fresh libjvm.so first and use it to bootstrap
   cp -LR --preserve=mode,timestamps %{bootjdk} newboot
@@ -1334,9 +1343,13 @@ for suffix in %{build_loop} ; do
 
   # Final setup on the main image
   top_dir_abs_main_build_path=$(pwd)/%{buildoutputdir -- ${suffix}%{main_suffix}}
-  installjdk ${top_dir_abs_main_build_path}/images/%{jdkimage}
-  installjdk ${top_dir_abs_main_build_path}/images/%{jreimage}
-  # Check debug symbols were built into the dynamic libraries
+  for image in %{jdkimage} %{jreimage} ; do
+    imagePath=${top_dir_abs_main_build_path}/images/${image}
+    installjdk ${imagePath}
+    mkdir -p ${imagePath}/ext_stubs/${icon_stub_path}
+    cp -av ${abs_src_path}/${icon_stub_path}/*.png ${imagePath}/ext_stubs/${icon_stub_path}
+  done
+  # Check debug symbols were built into the dynamic libraries; todo,  why it passes in JDK only?
   debugcheckjdk ${top_dir_abs_main_build_path}/images/%{jdkimage}
 
   # Print release information
@@ -1490,10 +1503,14 @@ if ! nm $JAVA_HOME/bin/%{alt_java_name} | grep set_speculation ; then true ; els
 $JAVA_HOME/bin/javac -d . %{SOURCE16}
 $JAVA_HOME/bin/java $(echo $(basename %{SOURCE16})|sed "s|\.java||") "%{oj_vendor}" "%{oj_vendor_url}" "%{oj_vendor_bug_url}" "%{oj_vendor_version}"
 
-# Check translations are available for new timezones
+%if ! 0%{?flatpak}
+# Check translations are available for new timezones (during flatpak builds, the
+# tzdb.dat used by this test is not where the test expects it, so this is
+# disabled for flatpak builds) 
 $JAVA_HOME/bin/javac -d . %{SOURCE18}
 $JAVA_HOME/bin/java $(echo $(basename %{SOURCE18})|sed "s|\.java||") JRE
 $JAVA_HOME/bin/java -Djava.locale.providers=CLDR $(echo $(basename %{SOURCE18})|sed "s|\.java||") CLDR
+%endif
 
 %if %{include_staticlibs}
 # Check debug symbols in static libraries (smoke test)
@@ -1582,6 +1599,12 @@ done
 %endif
 
 %changelog
+* Mon Apr 17 2023 Jiri Vanek <jvanek@redhat.com> - 1:17.0.6.0.10-2
+- Update generate_tarball.sh add support for passing a boot JDK to the configure run
+- Automatically turn off building a fresh HotSpot first, if the bootstrap JDK is not the same major version as that being built
+- added png icons from x11 source package, so they can be reused by rpms
+ - Fix flatpak builds by disabling TestTranslations test due to missing tzdb.dat
+
 * Thu Jan 26 2023 Andrew Hughes <gnu.andrew@redhat.com> - 1:17.0.6.0.10-1
 - Update to jdk-17.0.6.0+10
 - Update release notes to 17.0.6.0+10

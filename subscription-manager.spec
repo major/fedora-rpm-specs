@@ -95,7 +95,7 @@
 %global exclude_packages %{exclude_packages}"
 
 Name: subscription-manager
-Version: 1.29.33.1
+Version: 1.29.34
 Release: 1%{?dist}
 Summary: Tools and libraries for subscription and repository management
 %if 0%{?suse_version}
@@ -736,6 +736,33 @@ rmdir %{python_sitearch}/subscription_manager-*-*.egg-info --ignore-fail-on-non-
 rm -f /var/lib/rhsm/cache/rhsm_icon.json
 
 %changelog
+* Tue Apr 18 2023 Packit <hello@packit.dev> - 1.29.34-1
+- Automatic commit of package [subscription-manager] release [1.29.34-1]. (Pino Toscano)
+- Update TESTING.md (Matyas Horky)
+- Improved debug print of http traffic, when proxy is used (Jiri Hnidek)
+- ENT-5544: Remove Jenkins jobs, Containers (Matyas Horky)
+- ENT-5549: Remove unused code from entcertlib (Matyas Horky)
+- ENT-5549: Fix issues found when type-hinting (Matyas Horky)
+- ENT-5549: Fix return code handling of CLI (Matyas Horky)
+- ENT-5549: Fix found type hint issues (Matyas Horky)
+- ENT-5549: Fix object instantiation in EntitlementDirectory (Matyas Horky)
+- ENT-5549: Refactor ProductDirectory (Matyas Horky)
+- ENT-5549: Change internal implementation for some Cache methods (Matyas Horky)
+- ENT-5549: Clean up _sync_with_server arguments of cache objects (Matyas Horky)
+- ENT-5549: Remove 'autoheal' argument from Action clients (Matyas Horky)
+- Refactored code a little bit (Jiri Hnidek)
+- 2093291: Make locking more reliable (Jiri Hnidek)
+- test: add simple test for 2178610 (Pino Toscano)
+- Small improvement of debugging of http traffic (Jiri Hnidek)
+- 2093883: Fix issue with race condition in rhsm.service (Jiri Hnidek)
+- 2178610: do not collect unentitled products in SCA mode (Pino Toscano)
+- 2174297: register: do a simple strip() on environment(s) input (Pino Toscano)
+- Stop subclassing 'object' (Pino Toscano)
+- Remove pytest arguments for CentOS 9 Stream image (Matyas Horky)
+- tests: Install dnf-plugins-core every time (Matyas Horky)
+- 2169251: connection: restore UEPConnection.getJob() (Pino Toscano)
+- ENT-5106: Type-hint subscription_manager/ files (Matyas Horky)
+
 * Thu Mar 02 2023 Pino Toscano <ptoscano@redhat.com> 1.29.33.1-1
 - tito: add rhel 9.2 releaser (ptoscano@redhat.com)
 - 2169251: connection: restore UEPConnection.getJob() (ptoscano@redhat.com)

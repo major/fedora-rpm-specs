@@ -1,7 +1,7 @@
 %global srcname zict
 
 Name:           python-%{srcname}
-Version:        2.2.0
+Version:        3.0.0
 Release:        %autorelease
 Summary:        Mutable mapping tools
 
@@ -16,6 +16,9 @@ ExcludeArch: %{ix86}
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-asyncio)
+BuildRequires:  python3dist(pytest-repeat)
+BuildRequires:  python3dist(pytest-timeout)
 BuildRequires:  python3dist(lmdb)
 BuildRequires:  python3dist(psutil)
 

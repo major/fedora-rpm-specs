@@ -11,7 +11,6 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-asyncio
-BuildRequires:  python3-pytest-xdist
 
 
 %description
@@ -28,6 +27,11 @@ supporting Bonjour/Avahi.
 
 %prep
 %autosetup -p1 -n zeroconf-%{version}
+# Upstream requires this for https://github.com/python-poetry/poetry/issues/7505
+# But it's not relevant for the RPM package
+sed -i 's/poetry-core>=1.5.2/poetry-core/' pyproject.toml
+# We don't measure coverage in tests
+sed -Ei 's/--cov(-|=)[^ "]+//g' pyproject.toml
 
 
 %generate_buildrequires

@@ -1,6 +1,6 @@
 Name: NFStest		
-Version: 2.1.5
-Release: 15%{?dist}
+Version: 3.2
+Release: 1%{?dist}
 Summary: NFS Testing Tool
 
 License: GPLv2+ 
@@ -8,7 +8,7 @@ URL: http://wiki.linux-nfs.org/wiki/index.php/NFStest
 Source0: http://www.linux-nfs.org/~mora/nfstest/releases/%{name}-%{version}.tar.gz
 
 BuildArch: noarch
-BuildRequires: python2-devel
+BuildRequires: python3-devel
 Requires: nfs-utils sudo tcpdump 
 Requires: coreutils iproute iptables 
 Requires: openssh-clients psmisc util-linux
@@ -20,10 +20,10 @@ most of the functionality is focused mainly on testing the client.
 %setup -q
 
 %build
-%py2_build
+%py3_build
 
 %install
-%py2_install
+%py3_install
 
 %files
 %{_bindir}/nfstest_alloc
@@ -40,13 +40,19 @@ most of the functionality is focused mainly on testing the client.
 %{_bindir}/nfstest_sparse
 %{_bindir}/nfstest_xid
 %{_bindir}/nfstest_ssc
+%{_bindir}/nfstest_fcmp
+%{_bindir}/nfstest_rdma
+%{_bindir}/nfstest_xattr
 %{_mandir}/*/*
 #For noarch packages: sitelib
-%{python2_sitelib}/*
+%{python3_sitelib}/*
 
 %doc COPYING README
 
 %changelog
+* Mon Mar 27 2023 Steve Dickson <steved@redhat.com> 3.2-1
+- Update to latest upstream version: 3.2
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.5-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

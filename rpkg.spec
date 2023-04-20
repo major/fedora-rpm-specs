@@ -1,6 +1,6 @@
 Name:           rpkg
 Version:        1.66
-Release:        5%{?dist}
+Release:        6%{?dist}
 
 Summary:        Python library for interacting with rpm+git
 License:        GPLv2+ and LGPLv2
@@ -47,6 +47,12 @@ Patch10:        0010-pre-push-check-have-to-use-spectool-with-define.patch
 Patch11:        0011-A-HEAD-query-into-a-lookaside-cache.patch
 Patch12:        0012-pre-push-hook-script-contains-a-user-s-config.patch
 Patch13:        0013-Fix-unittests-for-clone-and-pre-push-hook-script.patch
+Patch14:        0014-import_srpm-allow-pre-generated-srpms.patch
+Patch15:        0015-Ignore-missing-spec-file-in-pre-push-hook.patch
+Patch16:        0016-Check-remote-file-with-correct-hash.patch
+Patch17:        0017-Allow-empty-commits-when-uses_rpmautospec.patch
+Patch18:        0018-Config-file-option-to-skip-the-hook-script-creation.patch
+Patch19:        0019-Pre-push-hook-won-t-check-private-branches.patch
 
 %description
 Python library for interacting with rpm+git
@@ -263,6 +269,14 @@ example_cli_dir=$RPM_BUILD_ROOT%{_datadir}/%{name}/examples/cli
 
 
 %changelog
+* Tue Apr 18 2023 Ondřej Nosek <onosek@redhat.com> - 1.66-6
+- Patch: Pre-push hook won't check private branches
+- Patch: Config file option to skip the hook script creation
+- Patch: Allow empty commits when `uses_rpmautospec`
+- Patch: Check remote file with correct hash
+- Patch: Ignore missing spec file in pre-push hook
+- Patch: import_srpm: allow pre-generated srpms
+
 * Sat Apr 1 2023 Ondřej Nosek <onosek@redhat.com> - 1.66-5
 - Patch: Fix unittests for `clone` and pre-push hook script
 - Patch: pre-push hook script contains a user's config

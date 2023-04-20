@@ -1,13 +1,13 @@
 Name:    We10X-icon-theme
 Summary: Colorful icon theme inspired by Microsoft Windows 10 aesthetic
-License: GPLv3
+License: GPL-3.0-only
 
-%global git_date    20230309
-%global git_commit  129340343dd0f930ad56e756645a793bb44478ba
+%global git_date    20230413
+%global git_commit  4c244fcd7302bc62e4a74a7f7300f0ed2293772f
 %global git_commit_short  %(c="%{git_commit}"; echo ${c:0:8})
 
 Version: 0
-Release: 27.%{git_date}git%{git_commit_short}%{?dist}
+Release: 28.%{git_date}git%{git_commit_short}%{?dist}
 
 URL: https://github.com/yeyushengfan258/%{name}
 Source0: %{url}/archive/%{git_commit}/%{name}-%{git_commit}.tar.gz
@@ -126,6 +126,10 @@ gtk-update-icon-cache --force %{_datadir}/icons/We10X-dark &>/dev/null || :
 
 
 %changelog
+* Tue Apr 18 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0-28.20230413git4c244fcd
+- Update to latest git snapshot (2023-04-13)
+- Convert License tag to SPDX
+
 * Mon Mar 13 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0-27.20230309git12934034
 - Update to latest git snapshot (2023-03-09)
 

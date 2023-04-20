@@ -37,7 +37,6 @@
 %endif
 
 %global clang_srcdir clang-%{clang_version}%{?rc_ver:rc%{rc_ver}}.src
-%global cmake_srcdir cmake-%{clang_version}%{?rc_ver:rc%{rc_ver}}.src
 %global clang_tools_srcdir clang-tools-extra-%{clang_version}%{?rc_ver:rc%{rc_ver}}.src
 
 Name:		%pkg_name
@@ -53,11 +52,9 @@ Source3:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{clang_
 Source1:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{clang_version}%{?rc_ver:-rc%{rc_ver}}/%{clang_tools_srcdir}.tar.xz
 Source2:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{clang_version}%{?rc_ver:-rc%{rc_ver}}/%{clang_tools_srcdir}.tar.xz.sig
 %endif
-Source4:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{clang_version}%{?rc_ver:-rc%{rc_ver}}/%{cmake_srcdir}.tar.xz
-Source5:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{clang_version}%{?rc_ver:-rc%{rc_ver}}/%{cmake_srcdir}.tar.xz.sig
-Source6:	release-keys.asc
+Source4:	release-keys.asc
 %if %{without compat_build}
-Source7:	macros.%{name}
+Source5:	macros.%{name}
 %endif
 
 # Patches for clang
@@ -77,6 +74,8 @@ Patch7:     D141581.diff
 Patch8:     D138472.diff
 
 Patch10:    fix-ieee128-cross.diff
+
+Patch11:    0001-Change-LLVM_COMMON_CMAKE_UTILS-usage.patch
 
 %if %{without compat_build}
 # Patches for clang-tools-extra
@@ -260,19 +259,13 @@ Requires:      python3
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE6}' --signature='%{SOURCE3}' --data='%{SOURCE0}'
-%{gpgverify} --keyring='%{SOURCE6}' --signature='%{SOURCE5}' --data='%{SOURCE4}'
+%{gpgverify} --keyring='%{SOURCE4}' --signature='%{SOURCE3}' --data='%{SOURCE0}'
 
-%setup -T -q -b 4 -n %{cmake_srcdir}
-# TODO: It would be more elegant to set -DLLVM_COMMON_CMAKE_UTILS=%{_builddir}/%{cmake_srcdir},
-# but this is not a CACHED variable, so we can't actually set it externally :(
-cd ..
-mv %{cmake_srcdir} cmake
 %if %{with compat_build}
 %autosetup -n %{clang_srcdir} -p2
 %else
 
-%{gpgverify} --keyring='%{SOURCE6}' --signature='%{SOURCE2}' --data='%{SOURCE1}'
+%{gpgverify} --keyring='%{SOURCE4}' --signature='%{SOURCE2}' --data='%{SOURCE1}'
 %setup -T -q -b 1 -n %{clang_tools_srcdir}
 %autopatch -m200 -p2
 
@@ -366,6 +359,7 @@ sed -i 's/\@FEDORA_LLVM_LIB_SUFFIX\@//g' test/lit.cfg.py
 %else
 	-DLLVM_TABLEGEN_EXE:FILEPATH=%{_bindir}/llvm-tblgen \
 %endif
+	-DLLVM_COMMON_CMAKE_UTILS=%{_libdir}/cmake/llvm \
 	-DCLANG_ENABLE_ARCMT:BOOL=ON \
 	-DCLANG_ENABLE_STATIC_ANALYZER:BOOL=ON \
 	-DCLANG_INCLUDE_DOCS:BOOL=ON \
@@ -406,7 +400,7 @@ rm -Rf %{buildroot}%{install_prefix}/lib/{libear,libscanbuild}
 # File in the macros file for other packages to use.  We are not doing this
 # in the compat package, because the version macros would # conflict with
 # eachother if both clang and the clang compat package were installed together.
-install -p -m0644 -D %{SOURCE7} %{buildroot}%{_rpmmacrodir}/macros.%{name}
+install -p -m0644 -D %{SOURCE5} %{buildroot}%{_rpmmacrodir}/macros.%{name}
 sed -i -e "s|@@CLANG_MAJOR_VERSION@@|%{maj_ver}|" \
        -e "s|@@CLANG_MINOR_VERSION@@|%{min_ver}|" \
        -e "s|@@CLANG_PATCH_VERSION@@|%{patch_ver}|" \

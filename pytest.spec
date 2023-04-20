@@ -1,5 +1,5 @@
 Name:           pytest
-%global base_version 7.2.2
+%global base_version 7.3.1
 #global prerelease ...
 Version:        %{base_version}%{?prerelease:~%{prerelease}}
 Release:        1%{?dist}
@@ -9,9 +9,6 @@ URL:            https://pytest.org
 Source:         %{pypi_source pytest %{base_version}%{?prerelease}}
 # see https://github.com/pytest-dev/pytest/issues/10042#issuecomment-1237132867
 Patch:          pytest-7.1.3-fix-xfails.patch
-
-# unittest: add addDuration function for Python 3.12 support
-Patch:          https://github.com/pytest-dev/pytest/commit/1b81d63.patch
 
 # Remove -s from Python shebang,
 # ensure that packages installed with pip to user locations are testable
@@ -46,6 +43,7 @@ BuildRequires:  pyproject-rpm-macros >= 0-51
 
 %if %{with tests}
 # we avoid using %%pyproject_buildrequires -x testing as it mixes optional and non-optional deps
+BuildRequires:  python3-attrs >= 19.2
 BuildRequires:  python3-hypothesis >= 3.56
 BuildRequires:  python3-pygments >= 2.7.2
 BuildRequires:  python3-xmlschema
@@ -182,6 +180,16 @@ find %{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Mon Apr 17 2023 Miro Hrončok <mhroncok@redhat.com> - 7.3.1-1
+- Update to 7.3.1
+- Changelog: https://docs.pytest.org/en/stable/changelog.html#pytest-7-3-1-2023-04-14
+- Fixes: rhbz#2186895
+
+* Sun Apr 09 2023 Miro Hrončok <mhroncok@redhat.com> - 7.3.0-1
+- Update to 7.3.0
+- Changelog: https://docs.pytest.org/en/stable/changelog.html#pytest-7-3-0-2023-04-08
+- Fixes: rhbz#2185393
+
 * Fri Mar 24 2023 Miro Hrončok <mhroncok@redhat.com> - 7.2.2-1
 - Update to 7.2.2
 - Changelog: https://docs.pytest.org/en/7.2.x/changelog.html#pytest-7-2-2-2023-03-03

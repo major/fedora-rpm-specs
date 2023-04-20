@@ -1,7 +1,7 @@
 Summary: A set of basic GNU tools commonly used in shell scripts
 Name:    coreutils
-Version: 9.2
-Release: 4%{?dist}
+Version: 9.3
+Release: 1%{?dist}
 License: GPL-3.0-or-later
 Url:     https://www.gnu.org/software/coreutils/
 Source0: https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
@@ -10,15 +10,11 @@ Source1: https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz.sig
 # which is linked as project keyring on https://savannah.gnu.org/projects/coreutils
 Source2: coreutils-keyring.gpg
 Source50:   supported_utils
-Source51:   coreutils-provides.inc
 Source105:  coreutils-colorls.sh
 Source106:  coreutils-colorls.csh
 
-# cksum: fix reporting of failed checks (#2180056)
-Patch1: coreutils-9.2-cksum-check.patch
-
-# copy: fix --reflink=auto to fallback in more cases (#2180056)
-Patch2: coreutils-9.2-cp-reflink.patch
+# revert a gnulib patch that broke the build
+Patch1:   coreutils-9.3-gnulib-strtol.patch
 
 # do not make coreutils-single depend on /usr/bin/coreutils
 %global __requires_exclude ^%{_bindir}/coreutils$
@@ -79,7 +75,7 @@ BuildRequires: glibc-langpack-ko
 Requires: %{name}-common = %{version}-%{release}
 
 Provides: coreutils-full = %{version}-%{release}
-%include %{SOURCE51}
+Provides: bundled(gnulib)
 Obsoletes: %{name} < 8.24-100
 
 %description
@@ -91,7 +87,7 @@ Summary:  coreutils multicall binary
 Suggests: coreutils-common
 Provides: coreutils = %{version}-%{release}
 Provides: coreutils%{?_isa} = %{version}-%{release}
-%include %{SOURCE51}
+Provides: bundled(gnulib)
 # To avoid clobbering installs
 Conflicts: coreutils < 8.24-100
 # Note RPM doesn't support separate buildroots for %files
@@ -258,6 +254,10 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %license COPYING
 
 %changelog
+* Tue Apr 18 2023 Kamil Dudka <kdudka@redhat.com> - 9.3-1
+- remove obsolete Provides for absolute paths
+- new upstream release 9.3
+
 * Tue Apr 11 2023 Lukáš Zaoral <lzaoral@redhat.com> - 9.2-4
 - migrate to SPDX license format
 

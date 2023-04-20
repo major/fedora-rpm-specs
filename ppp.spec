@@ -1,6 +1,9 @@
 %global _hardened_build 1
 
 Name:    ppp
+# When bumping the ppp version, please be sure to rebuild
+# NetworkManager against the new version - NetworkManager-ppp has a
+# dep that is tied to the ppp version and generated at build time
 Version: 2.5.0
 Release: 1%{?dist}
 Summary: The Point-to-Point Protocol daemon

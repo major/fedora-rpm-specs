@@ -4,14 +4,13 @@
 %endif
 
 Name:           module-build-service
-Version:        3.8.0
-Release:        3%{?dist}
+Version:        3.9.2
+Release:        1%{?dist}
 Summary:        The Module Build Service for Modularity
 
 License:        MIT
 URL:            https://pagure.io/fm-orchestrator
 Source0:        https://files.pythonhosted.org/packages/source/m/%{name}/%{name}-%{version}.tar.gz
-Patch0:         mbs_fedora_click.patch
 
 BuildArch:      noarch
 
@@ -205,7 +204,6 @@ for a number of tasks:
 
 %prep
 %setup -q
-%patch0 -p1
 
 
 # Workaround because python2-koji has no egg-info file at the momement
@@ -279,6 +277,12 @@ done
 %endif
 
 %changelog
+* Tue Apr 18 2023 Brendan Reilly <breilly@redhat.com> - 3.9.2-1
+- new version
+
+* Tue Apr 18 2023 Brendan Reilly <breilly@redhat.com> - 3.9.0-1
+- new version
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Summary:	Extensible editor for structured binary data
 Name:		poke
-Version:	3.0
+Version:	3.1
 Release:	%autorelease
 
 # Documentation under GFDL
@@ -112,6 +112,7 @@ cd -
 %{_includedir}/libpoke.h
 %{_libdir}/pkgconfig/%{name}.pc
 %{_libdir}/libpoke.so
+%{_datadir}/aclocal/%{name}.m4
 
 
 %files emacs

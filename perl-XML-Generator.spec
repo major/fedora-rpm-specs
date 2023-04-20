@@ -1,7 +1,7 @@
-Summary:            XML-Generator Perl module
+Summary:            Perl extension for generating XML
 Name:               perl-XML-Generator
-Version:            1.09
-Release:            4%{?dist}
+Version:            1.11
+Release:            1%{?dist}
 License:            GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:                https://metacpan.org/release/XML-Generator
 Source0:            https://cpan.metacpan.org/authors/id/T/TI/TIMLEGGE/XML-Generator-%{version}.tar.gz
@@ -30,7 +30,7 @@ BuildRequires:      perl(Tie::IxHash)
 Requires:           perl(warnings)
 
 %description
-perl module for generating XML documents
+Perl module for generating XML documents
 
 %package tests
 Summary:        Tests for %{name}
@@ -84,6 +84,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Apr 18 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.11-1
+- 1.11 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.09-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

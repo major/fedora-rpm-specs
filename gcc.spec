@@ -1,5 +1,5 @@
-%global DATE 20230404
-%global gitrev f9101c02b26988d799233db0b778732f7e56259f
+%global DATE 20230418
+%global gitrev 90e2966fefb872b610765ac4f89ad9bcab43d72c
 %global gcc_version 13.0.1
 %global gcc_major 13
 # Note, gcc_release must be integer, if you want to add suffixes to
@@ -136,7 +136,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.13%{?dist}
+Release: %{gcc_release}.14%{?dist}
 # libgcc, libgfortran, libgomp, libstdc++ and crtstuff have
 # GCC Runtime Exception.
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions and LGPLv2+ and BSD
@@ -286,6 +286,7 @@ Patch8: gcc13-no-add-needed.patch
 Patch9: gcc13-Wno-format-security.patch
 Patch10: gcc13-rh1574936.patch
 Patch11: gcc13-d-shared-libphobos.patch
+Patch12: gcc13-pr108969.patch
 
 Patch50: isl-rh2155127.patch
 
@@ -862,6 +863,7 @@ so that there cannot be any synchronization problems.
 %patch -P10 -p0 -b .rh1574936~
 %endif
 %patch -P11 -p0 -b .d-shared-libphobos~
+%patch -P12 -p0 -b .pr108969~
 
 %patch -P50 -p0 -b .rh2155127~
 touch -r isl-0.24/m4/ax_prog_cxx_for_build.m4 isl-0.24/m4/ax_prog_cc_for_build.m4
@@ -3458,6 +3460,29 @@ end
 %endif
 
 %changelog
+* Tue Apr 18 2023 Jakub Jelinek <jakub@redhat.com> 13.0.1-0.14
+- update from trunk and releases/gcc-13 branch
+  - PRs analyzer/108722, bootstrap/109510, c++/109277, c++/109357, c++/109420,
+	c++/109514, c++/109531, driver/108241, fortran/61615, fortran/85686,
+	fortran/87477, fortran/88247, fortran/91941, fortran/92779,
+	fortran/93339, fortran/93813, fortran/98408, fortran/99982,
+	fortran/100948, fortran/102106, fortran/104272, fortran/104312,
+	fortran/104349, fortran/105205, fortran/106918, fortran/109492,
+	fortran/109511, ipa/107769, ipa/108959, ipa/109318, libstdc++/108291,
+	libstdc++/108827, libstdc++/108969, libstdc++/109482,
+	libstdc++/109525, modula2/109423, modula2/109488, modula2/109496,
+	modula2/109497, target/54816, target/70243, target/99708,
+	target/104989, target/108812, target/108892, target/108947,
+	target/109040, target/109104, target/109374, target/109402,
+	target/109458, target/109479, target/109508, testsuite/108809,
+	testsuite/108815, tree-optimization/108139, tree-optimization/109392,
+	tree-optimization/109410, tree-optimization/109417,
+	tree-optimization/109427, tree-optimization/109434,
+	tree-optimization/109462, tree-optimization/109469,
+	tree-optimization/109473, tree-optimization/109491,
+	tree-optimization/109502, tree-optimization/109524,
+	tree-optimization/109539
+
 * Tue Apr  4 2023 Jakub Jelinek <jakub@redhat.com> 13.0.1-0.13
 - update from trunk
   - PRs c++/53164, c++/105848, c++/107484, c++/109160, c++/109300, ipa/109303,

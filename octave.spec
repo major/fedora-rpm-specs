@@ -36,7 +36,7 @@
 
 Name:           octave
 Epoch:          6
-Version:        8.1.0
+Version:        8.2.0
 Release:        1%{?dist}
 Summary:        A high-level language for numerical computations
 License:        GPLv3+
@@ -458,6 +458,9 @@ make check
 %{_pkgdocdir}/refcard*.pdf
 
 %changelog
+* Mon Apr 17 2023 Orion Poplawski <orion@nwra.com> - 6:8.2.0-1
+- Update to 8.2.0
+
 * Sat Apr 08 2023 Orion Poplawski <orion@nwra.com> - 6:8.1.0-1
 - Update to 8.1.0
 - Build with pcre2 (bz#2128340)

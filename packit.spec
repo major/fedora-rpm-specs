@@ -2,7 +2,7 @@
 %global real_name packit
 
 Name:           %{real_name}
-Version:        0.73.0
+Version:        0.74.0
 Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
@@ -94,7 +94,6 @@ cp files/bash-completion/packit %{buildroot}%{_datadir}/bash-completion/completi
 %{_mandir}/man1/packit*.1*
 %dir %{_datadir}/bash-completion/completions
 %{_datadir}/bash-completion/completions/%{real_name}
-%{_bindir}/_packitpatch
 
 %files -n python3-%{real_name}
 %license LICENSE
@@ -102,6 +101,11 @@ cp files/bash-completion/packit %{buildroot}%{_datadir}/bash-completion/completi
 %{python3_sitelib}/*
 
 %changelog
+* Sun Apr 16 2023 Packit <hello@packit.dev> - 0.74.0-1
+- Allow configuring tmt tests with fmf root outside of git root. (#1936)
+- Removed adding the "Signed-off-by" tag to commits created by Packit. (#1934)
+- Packit's source_git functionality installs/loads the `_packitpatch` script in a more reliable manner that doesn't rely on deprecated setuptools functionality. (#1926)
+
 * Thu Apr 06 2023 Packit <hello@packit.dev> - 0.73.0-1
 - Packit now supports monorepo configuration in CLI (#1864)
 

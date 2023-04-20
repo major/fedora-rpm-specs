@@ -391,7 +391,7 @@
 %global top_level_dir_name   %{origin}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        36
-%global rpmrelease      2
+%global rpmrelease      3
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -453,17 +453,21 @@
 %if (0%{?rhel} > 0 && 0%{?rhel} < 8)
 %define jreportablenameimpl() %(echo %{uniquesuffix ""} | sed "s;el7\\(_[0-9]\\)*;portable%{1}.jre.;g" | sed "s;openjdkportable;el;g")
 %define jdkportablenameimpl() %(echo %{uniquesuffix ""} | sed "s;el7\\(_[0-9]\\)*;portable%{1}.jdk.;g" | sed "s;openjdkportable;el;g")
+%define jdkportablesourcesnameimpl() %(echo %{uniquesuffix ""} | sed "s;el7\\(_[0-9]\\)*;portable%{1}.sources.;g" | sed "s;openjdkportable;el;g" | sed "s;.%{_arch};.noarch;g")
 %define staticlibsportablenameimpl() %(echo %{uniquesuffix ""} | sed "s;el7\\(_[0-9]\\)*;portable%{1}.static-libs.;g" | sed "s;openjdkportable;el;g")
 %else
 %define jreportablenameimpl() %(echo %{uniquesuffix ""} | sed "s;fc\\([0-9]\\)*;\\0.portable%{1}.jre;g" | sed "s;openjdkportable;el;g")
 %define jdkportablenameimpl() %(echo %{uniquesuffix ""} | sed "s;fc\\([0-9]\\)*;\\0.portable%{1}.jdk;g" | sed "s;openjdkportable;el;g")
+%define jdkportablesourcesnameimpl() %(echo %{uniquesuffix ""} | sed "s;fc\\([0-9]\\)*;\\0.portable%{1}.sources;g" | sed "s;openjdkportable;el;g" | sed "s;.%{_arch};.noarch;g")
 %define staticlibsportablenameimpl() %(echo %{uniquesuffix ""} | sed "s;fc\\([0-9]\\)*;\\0.portable%{1}.static-libs;g" | sed "s;openjdkportable;el;g")
 %endif
 %define jreportablearchive()  %{expand:%{jreportablenameimpl -- %%{1}}.tar.xz}
 %define jdkportablearchive()  %{expand:%{jdkportablenameimpl -- %%{1}}.tar.xz}
+%define jdkportablesourcesarchive()  %{expand:%{jdkportablesourcesnameimpl -- %%{1}}.tar.xz}
 %define staticlibsportablearchive()  %{expand:%{staticlibsportablenameimpl -- %%{1}}.tar.xz}
 %define jreportablename()     %{expand:%{jreportablenameimpl -- %%{1}}}
 %define jdkportablename()     %{expand:%{jdkportablenameimpl -- %%{1}}}
+%define jdkportablesourcesname()     %{expand:%{jdkportablesourcesnameimpl -- %%{1}}}
 # Intentionally use jdkportablenameimpl here since we want to have static-libs files overlayed on
 # top of the JDK archive
 %define staticlibsportablename()     %{expand:%{jdkportablenameimpl -- %%{1}}}
@@ -904,6 +908,12 @@ The %{origin_nice} %{featurever} libraries for static linking - portable edition
 # staticlibs
 %endif
 
+%package sources
+Summary: %{origin_nice} %{featurever} full patched sources of portable JDK
+
+%description sources
+The %{origin_nice} %{featurever} full patched sources of portable JDK to build, attach to debuggers or for debuginfo
+
 %prep
 
 echo "Preparing %{oj_vendor_version}"
@@ -933,6 +943,7 @@ else
   echo "include_fastdebug_build is %{include_fastdebug_build}, that is invalid. Use 1 for yes or 0 for no"
   exit 13
 fi
+
 if [ %{include_debug_build} -eq 0 -a  %{include_normal_build} -eq 0 -a  %{include_fastdebug_build} -eq 0 ] ; then
   echo "You have disabled all builds (normal,fastdebug,slowdebug). That is a no go."
   exit 14
@@ -1282,9 +1293,10 @@ EOF
     fi
 }
 
-# stubs to copy icons to final images
-abs_src_path=$(pwd)/openjdk/src
-icon_stub_path=java.desktop/unix/classes/sun/awt/X11
+pwd
+ls -l
+tar -cJf  ../%{jdkportablesourcesarchive -- ""} --transform "s|^|%{jdkportablesourcesname -- ""}/|" openjdk nss*
+sha256sum ../%{jdkportablesourcesarchive -- ""} > ../%{jdkportablesourcesarchive -- ""}.sha256sum
 
 %if %{build_hotspot_first}
   # Build a fresh libjvm.so first and use it to bootstrap
@@ -1352,8 +1364,6 @@ for suffix in %{build_loop} ; do
   for image in %{jdkimage} %{jreimage} ; do
     imagePath=${top_dir_abs_main_build_path}/images/${image}
     installjdk ${imagePath}
-    mkdir -p ${imagePath}/ext_stubs/${icon_stub_path}
-    cp -av ${abs_src_path}/${icon_stub_path}/*.png ${imagePath}/ext_stubs/${icon_stub_path}
   done
   # Check debug symbols were built into the dynamic libraries; todo,  why it passes in JDK only?
   debugcheckjdk ${top_dir_abs_main_build_path}/images/%{jdkimage}
@@ -1427,6 +1437,10 @@ for suffix in %{build_loop} ; do
 done # end of release / debug cycle loop
 
 %install
+mkdir -p $RPM_BUILD_ROOT%{_jvmdir}
+mv ../%{jdkportablesourcesarchive -- ""} $RPM_BUILD_ROOT%{_jvmdir}/
+mv ../%{jdkportablesourcesarchive -- ""}.sha256sum $RPM_BUILD_ROOT%{_jvmdir}/
+
 for suffix in %{build_loop} ; do
 top_dir_abs_main_build_path=$(pwd)/%{buildoutputdir -- ${suffix}%{main_suffix}}
 
@@ -1436,7 +1450,6 @@ top_dir_abs_main_build_path=$(pwd)/%{buildoutputdir -- ${suffix}%{main_suffix}}
   else
     nameSuffix=`echo "$suffix"| sed s/-/./`
   fi
-  mkdir -p $RPM_BUILD_ROOT%{_jvmdir}
   mv ../%{jdkportablearchive -- "$nameSuffix"} $RPM_BUILD_ROOT%{_jvmdir}/
   mv ../%{jdkportablearchive -- "$nameSuffix"}.sha256sum $RPM_BUILD_ROOT%{_jvmdir}/
   mv ../%{jreportablearchive -- "$nameSuffix"} $RPM_BUILD_ROOT%{_jvmdir}/
@@ -1457,7 +1470,7 @@ done
 ################################################################################
 # the licenses are packed onloy once and shared
 mkdir -p $RPM_BUILD_ROOT%{unpacked_licenses}
-mv ../%{jdkportablearchive -- "%{normal_suffix}"}-legal $RPM_BUILD_ROOT%{unpacked_licenses}/%{jdkportablearchive -- "%{normal_suffix}"}
+mv ../%{jdkportablearchive -- "%{normal_suffix}"}-legal $RPM_BUILD_ROOT%{unpacked_licenses}/%{jdkportablesourcesarchive -- "%{normal_suffix}"}
 # To show sha in the build log
 for file in `ls $RPM_BUILD_ROOT%{_jvmdir}/*.sha256sum` ; do ls -l $file ; cat $file ; done
 ################################################################################
@@ -1546,42 +1559,46 @@ done
 # main package builds always
 %{_jvmdir}/%{jreportablearchive -- %%{nil}}
 %{_jvmdir}/%{jreportablearchive -- %%{nil}}.sha256sum
-%license %{unpacked_licenses}/%{jdkportablearchive -- %%{nil}}
+%license %{unpacked_licenses}/%{jdkportablesourcesarchive -- %%{nil}}
 %else
 %files
 # placeholder
 %endif
 
+%if %{include_normal_build}
 %files devel
 %{_jvmdir}/%{jdkportablearchive -- %%{nil}}
 #%{_jvmdir}/%{jdkportablearchive -- .debuginfo}
 %{_jvmdir}/%{jdkportablearchive -- %%{nil}}.sha256sum
 #%{_jvmdir}/%{jdkportablearchive -- .debuginfo}.sha256sum
-%license %{unpacked_licenses}/%{jdkportablearchive -- %%{nil}}
+%license %{unpacked_licenses}/%{jdkportablesourcesarchive -- %%{nil}}
+%endif
 
+%if %{include_normal_build}
 %if %{include_staticlibs}
 %files static-libs
 %{_jvmdir}/%{staticlibsportablearchive -- %%{nil}}
 %{_jvmdir}/%{staticlibsportablearchive -- %%{nil}}.sha256sum
-%license %{unpacked_licenses}/%{jdkportablearchive -- %%{nil}}
+%license %{unpacked_licenses}/%{jdkportablesourcesarchive -- %%{nil}}
+%endif
 %endif
 
 %if %{include_debug_build}
 %files slowdebug
 %{_jvmdir}/%{jreportablearchive -- .slowdebug}
 %{_jvmdir}/%{jreportablearchive -- .slowdebug}.sha256sum
-%license %{unpacked_licenses}/%{jdkportablearchive -- %%{nil}}
+%license %{unpacked_licenses}/%{jdkportablesourcesarchive -- %%{nil}}
 
 %files devel-slowdebug
 %{_jvmdir}/%{jdkportablearchive -- .slowdebug}
 %{_jvmdir}/%{jdkportablearchive -- .slowdebug}.sha256sum
-%license %{unpacked_licenses}/%{jdkportablearchive -- %%{nil}}
+%license %{unpacked_licenses}/%{jdkportablesourcesarchive -- %%{nil}}
 
 %if %{include_staticlibs}
 %files static-libs-slowdebug
 %{_jvmdir}/%{staticlibsportablearchive -- .slowdebug}
 %{_jvmdir}/%{staticlibsportablearchive -- .slowdebug}.sha256sum
-%license %{unpacked_licenses}/%{jdkportablearchive -- %%{nil}}
+%license %{unpacked_licenses}/%{jdkportablesourcesarchive -- %%{nil}}
 %endif
 %endif
 
@@ -1589,22 +1606,33 @@ done
 %files fastdebug
 %{_jvmdir}/%{jreportablearchive -- .fastdebug}
 %{_jvmdir}/%{jreportablearchive -- .fastdebug}.sha256sum
-%license %{unpacked_licenses}/%{jdkportablearchive -- %%{nil}}
+%license %{unpacked_licenses}/%{jdkportablesourcesarchive -- %%{nil}}
 
 %files devel-fastdebug
 %{_jvmdir}/%{jdkportablearchive -- .fastdebug}
 %{_jvmdir}/%{jdkportablearchive -- .fastdebug}.sha256sum
-%license %{unpacked_licenses}/%{jdkportablearchive -- %%{nil}}
+%license %{unpacked_licenses}/%{jdkportablesourcesarchive -- %%{nil}}
 
 %if %{include_staticlibs}
 %files static-libs-fastdebug
 %{_jvmdir}/%{staticlibsportablearchive -- .fastdebug}
 %{_jvmdir}/%{staticlibsportablearchive -- .fastdebug}.sha256sum
-%license %{unpacked_licenses}/%{jdkportablearchive -- %%{nil}}
+%license %{unpacked_licenses}/%{jdkportablesourcesarchive -- %%{nil}}
 %endif
 %endif
 
+%files sources
+%{_jvmdir}/%{jdkportablesourcesarchive -- %%{nil}}
+%{_jvmdir}/%{jdkportablesourcesarchive -- %%{nil}}.sha256sum
+%license %{unpacked_licenses}/%{jdkportablesourcesarchive -- %%{nil}}
+
 %changelog
+* Fri Apr 14  2023 Jiri Vanek <jvanek@redhat.com> - 1:20.0.0.0.36-3.rolling
+- introduced archfull src archive
+- replaced nasty handling of icons.
+- needed for icons and src reference for rpms (debuginfo, src subpkg)
+- licences moved to proper sharable noarch
+
 * Mon Apr 10 2023 Andrew Hughes <gnu.andrew@redhat.com> - 1:20.0.0.0.36-2.rolling
 - Complete update to OpenJDK 20
 - Update NEWS

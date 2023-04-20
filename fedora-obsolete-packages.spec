@@ -488,6 +488,10 @@ Source0:    README
 %obsolete texlive-tablestyles-doc svn34495.0-67
 %obsolete texlive-pgf-cmykshadings svn52635-67
 
+# Remove in F41
+%obsolete_ticket https://src.fedoraproject.org/rpms/jython/c/5b613bd06ba08cea22e9906646b3a37aca4280c1?branch=rawhide
+%obsolete jython 2.7.1-17
+
 # This package won't be installed, but will obsolete other packages
 Provides: libsolv-self-destruct-pkg()
 

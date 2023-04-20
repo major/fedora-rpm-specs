@@ -1,6 +1,6 @@
 Name:           perl-Perl-Tidy-Sweetened
-Version:        1.18
-Release:        7%{?dist}
+Version:        1.19
+Release:        1%{?dist}
 Summary:        Tweaks to Perl::Tidy to support some syntactic sugar
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Perl-Tidy-Sweetened
@@ -9,11 +9,12 @@ BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(Config)
 BuildRequires:  perl(Module::Build::Tiny) >= 0.034
 # Run-time
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
-BuildRequires:  perl(Perl::Tidy)
+BuildRequires:  perl(Perl::Tidy) >= 20221112
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Tests
@@ -21,6 +22,12 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Most)
+Requires:       perl(Perl::Tidy) >= 20221112
+
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Perl::Tidy\\)
+# Filter modules bundled for tests
+%global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}^%{_libexecdir}
+%global __requires_exclude %{__requires_exclude}|^perl\\(TidierTests\\)
 
 %description
 There are a number of modules on CPAN that allow users to write their
@@ -29,16 +36,40 @@ shift off $self, can support type checking and offer other improvements.
 Unfortunately, they can break the support tools that the Perl community has
 come to rely on. This module attempts to work around those issues.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Perl-Tidy-Sweetened-%{version}
+
+# Help generators to recognize Perl scripts
+for F in `find t -name *.t`; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Build.PL --installdirs=vendor
 ./Build
 
 %install
-./Build install --destdir=$RPM_BUILD_ROOT --create_packlist=0
-%{_fixperms} $RPM_BUILD_ROOT/*
+./Build install --destdir=%{buildroot} --create_packlist=0
+%{_fixperms} %{buildroot}/*
+
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
 ./Build test
@@ -46,12 +77,19 @@ perl Build.PL --installdirs=vendor
 %files
 %license LICENSE
 %doc Changes README TODO
-%{_bindir}/*
-%{perl_vendorlib}/*
-%{_mandir}/man1/*
-%{_mandir}/man3/*
+%{_bindir}/perltid*
+%{perl_vendorlib}/Perl*
+%{_mandir}/man1/perltid*
+%{_mandir}/man3/Perl::Tidy::Sweet*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Tue Apr 18 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.19-1
+- 1.19 bump
+- Package tests
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.18-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -45,7 +45,7 @@
 
 # Choose if using 64-bit integers for indexing sparse matrices
 %if %{?__isa_bits:%{__isa_bits}}%{!?__isa_bits:32} == 64
-%bcond_without index64
+%bcond_with index64
 %endif
 
 %if %{with index64}
@@ -78,7 +78,7 @@ BuildRequires: metis-devel
 
 Name: superlu_dist
 Version: 8.1.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch:   1
 
 Summary: Solution of large, sparse, nonsymmetric systems of linear equations
@@ -466,6 +466,9 @@ make clean
 
 
 %changelog
+* Tue Apr 18 2023 Antonio Trande <sagitter@fedoraproject.org> - 1:8.1.2-2
+- Disable index64 builds
+
 * Thu Apr 13 2023 Antonio Trande <sagitter@fedoraproject.org> - 1:8.1.2-1
 - Release 8.1.2
 

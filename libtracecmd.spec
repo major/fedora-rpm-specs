@@ -1,12 +1,11 @@
 Name: libtracecmd
-Version: 1.2.0
-Release: 3%{?dist}
+Version: 1.3.1
+Release: 1%{?dist}
 License: LGPLv2
 Summary: A library for reading tracing instances stored in a trace file
 
 URL: https://git.kernel.org/pub/scm/utils/trace-cmd/trace-cmd.git/
 Source0: https://git.kernel.org/pub/scm/utils/trace-cmd/trace-cmd.git/snapshot/trace-cmd-libtracecmd-%{version}.tar.gz
-Patch0:  trace-cmd-Allow-building-with-GNU-Make-4.4.patch
 
 ExcludeArch: %{ix86} %{arm}
 
@@ -59,7 +58,7 @@ chrpath --delete %{buildroot}/%{_libdir}/libtracecmd.so*
 %license COPYING COPYING.LIB
 %doc README
 %{_libdir}/libtracecmd.so.1
-%{_libdir}/libtracecmd.so.1.2.0
+%{_libdir}/libtracecmd.so.1.3.1
 %{_docdir}/libtracecmd-doc
 %{_mandir}/man3/libtracecmd*
 %{_mandir}/man3/tracecmd*
@@ -70,6 +69,9 @@ chrpath --delete %{buildroot}/%{_libdir}/libtracecmd.so*
 %{_includedir}/trace-cmd
 
 %changelog
+* Tue Apr 18 2023 Zamir SUN <sztsian@gmail.com> - 1.3.1-1
+- Update to 1.3.1
+
 * Fri Mar 31 2023 Jerome Marchand <jmarchan@redhat.com> - 1.2.0-3
 - Fix build: RHBZ#2171769
 

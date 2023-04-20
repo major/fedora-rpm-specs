@@ -18,11 +18,11 @@
 
 # tini
 %global git_tini https://github.com/krallin/tini
-%global commit_tini de40ad007797e0dcd8b7126f27bb87401d224240
+%global commit_tini 0b44d3665869e46ccbac7414241b8256d6234dc4
 %global shortcommit_tini %(c=%{commit_tini}; echo ${c:0:7})
 
 Name:           moby-engine
-Version:        20.10.23
+Version:        23.0.4
 Release:        1%{?dist}
 Summary:        The open-source application container engine
 License:        Apache-2.0
@@ -32,6 +32,7 @@ Source2:        %{git_tini}/archive/%{commit_tini}/tini-%{shortcommit_tini}.tar.
 Source3:        docker.service
 Source4:        docker.sysconfig
 Source5:        moby-engine-systemd-sysusers.conf
+Source6:        generate-docs.sh
 
 # Seperate file containing virtual provides for bundled deps that's %%include'd in the specfile.
 Source100:      provides.spec.inc
@@ -132,8 +133,7 @@ This package installs %{summary}.
 
 # correct rpmlint errors for bash completion
 sed -i '/env bash/d' cli-%{version}/contrib/completion/bash/docker
-
-
+cp %{SOURCE6} cli-%{version}/scripts/docs/generate-man.sh
 %build
 mkdir -p _build/bin
 
@@ -195,7 +195,8 @@ mkdir -p _build/bin
         export GOBUILDTAGS="${BUILDTAGS}"
         %gobuild -o ../_build/bin/docker %{goipath_cli}/cmd/docker
         # make VERSION=%%{version} GITCOMMIT=%%{shortcommit_cli} dynbinary
-        man/md2man-all.sh
+
+	scripts/docs/generate-man.sh
 )
 
 %install
@@ -252,7 +253,7 @@ done
 
 %files
 %license LICENSE cli-LICENSE
-%doc AUTHORS CHANGELOG.md CONTRIBUTING.md MAINTAINERS NOTICE README.md
+%doc AUTHORS CONTRIBUTING.md MAINTAINERS NOTICE README.md
 %doc cli-MAINTAINERS cli-NOTICE cli-README.md
 %config(noreplace) %{_sysconfdir}/sysconfig/docker
 %{_bindir}/docker
@@ -280,6 +281,9 @@ done
 %{_datadir}/nano/Dockerfile.nanorc
 
 %changelog
+* Sun Jan 29 2023 John Ghatas <john@johnghatas.com>
+- Update moby-engine to 23.0.4
+
 * Sun Jan 29 2023 Sérgio Basto <sergio@serjux.com>
 - Update moby-engine to 20.10.23
 

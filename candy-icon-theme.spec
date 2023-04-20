@@ -4,13 +4,13 @@ License:        GPL-3.0-only
 
 %global git_repo    candy-icons
 %global git_url     https://github.com/EliverLara/%{git_repo}
-%global git_commit  01255451b1cf857753253734cb3d5807082a3534
-%global git_date    20230309
+%global git_commit  a017160b0831ad22a58f46e9afba83b3a282d83c
+%global git_date    20230412
 
 %global git_commit_short  %(c="%{git_commit}"; echo ${c:0:8})
 
 Version:        0
-Release:        35.%{git_date}git%{git_commit_short}%{?dist}
+Release:        36.%{git_date}git%{git_commit_short}%{?dist}
 
 URL:            https://www.opendesktop.org/p/1305251/
 Source0:        %{git_url}/archive/%{git_commit}/%{git_repo}-%{git_commit}.tar.gz
@@ -67,6 +67,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/Candy &>/dev/null || :
 
 
 %changelog
+* Tue Apr 18 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0-36.20230412gita017160b
+- Update to latest git snapshot (2023-04-12)
+
 * Wed Mar 22 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0-35.20230309git01255451
 - Update to latest git snapshot (2023-03-09)
 

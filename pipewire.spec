@@ -9,7 +9,7 @@
 %global ms_version   0.4.2
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 1
+%global baserelease 2
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -63,6 +63,10 @@ Source0:        https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/%{ver
 %endif
 
 ## upstream patches
+
+Patch0001:	0001-context-improve-state-calculations.patch
+Patch0002:	0002-Revert-alsa-mixer-allow-to-re-attach-the-mixer-contr.patch
+Patch0003:	0003-filter-chain-config-is-only-required-for-bq_raw.patch
 
 ## upstreamable patches
 
@@ -605,6 +609,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-x11-bell.so
 
 %changelog
+* Tue Apr 18 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.69-2
+- Add 3 useful patches.
+
 * Thu Apr 13 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.69-1
 - Update version to 0.3.69
 

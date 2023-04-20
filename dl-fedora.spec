@@ -5,7 +5,7 @@
 %bcond_with tests
 
 Name:           dl-fedora
-Version:        0.9.4
+Version:        0.9.5
 Release:        1%{?dist}
 Summary:        Fedora image download tool
 
@@ -77,6 +77,9 @@ mkdir -p %{buildroot}%{_datadir}/bash-completion/completions/
 
 
 %changelog
+* Tue Apr 18 2023 Jens Petersen <petersen@redhat.com> - 0.9.5-1
+- add F38 Sericea sway ostree image
+
 * Thu Mar 23 2023 Jens Petersen <petersen@redhat.com> - 0.9.4-1
 - add new F38 spins: Budgie and Sway
 - change koji target to --koji mirror option

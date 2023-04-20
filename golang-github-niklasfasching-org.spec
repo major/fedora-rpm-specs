@@ -3,7 +3,7 @@
 
 # https://github.com/niklasfasching/go-org
 %global goipath         github.com/niklasfasching/go-org
-Version:                1.6.3
+Version:                1.6.6
 
 %gometa
 
@@ -20,11 +20,13 @@ Summary:        Org mode parser with html & pretty printed org rendering
 License:        MIT
 URL:            %{gourl}
 Source0:        %{gosource}
+# Compatiblity with chroma 2.5.0+
+Patch:          https://github.com/niklasfasching/go-org/pull/100.patch
 
-BuildRequires:  golang(github.com/alecthomas/chroma) >= 0.10.0
-BuildRequires:  golang(github.com/alecthomas/chroma/formatters/html)
-BuildRequires:  golang(github.com/alecthomas/chroma/lexers)
-BuildRequires:  golang(github.com/alecthomas/chroma/styles)
+BuildRequires:  golang(github.com/alecthomas/chroma/v2) >= 2.5.0
+BuildRequires:  golang(github.com/alecthomas/chroma/v2/formatters/html)
+BuildRequires:  golang(github.com/alecthomas/chroma/v2/lexers)
+BuildRequires:  golang(github.com/alecthomas/chroma/v2/styles)
 BuildRequires:  golang(golang.org/x/net/html)
 BuildRequires:  golang(golang.org/x/net/html/atom)
 
@@ -46,6 +48,7 @@ Summary:        Org mode parser with html & pretty printed org rendering
 
 %prep
 %goprep
+%autopatch -p1
 
 %build
 %gobuild -o %{gobuilddir}/bin/go-org %{goipath}

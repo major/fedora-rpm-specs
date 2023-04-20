@@ -11,7 +11,7 @@
 
 Name:       cvs
 Version:    1.11.23
-Release:    63%{?dist}
+Release:    64%{?dist}
 Summary:    Concurrent Versions System
 URL: http://cvs.nongnu.org/
 # Source files in zlib/ directory are licensed under zlib/libpng
@@ -95,6 +95,8 @@ Patch33:    cvs-1.11.23-Close-a-configuration-file-on-a-syntax-error.patch
 # Do not use deprecated diff -L options, bug #772559,
 # <https://savannah.nongnu.org/bugs/?35267>
 Patch34:    cvs-1.11.23-Use-diff-label.patch
+# Enable cvs to build in C99 mode, bug #2187741
+Patch35:    cvs-1.11.23-c99.patch
 BuildRequires:  autoconf >= 2.58
 BuildRequires:  automake >= 1.7.9
 BuildRequires:  coreutils
@@ -212,6 +214,7 @@ pages in PDF.
 %patch32 -p1
 %patch33 -p1
 %patch34 -p1
+%patch35 -p1
 
 # Apply a patch to the generated files, OR
 # run autoreconf and require autoconf >= 2.58, automake >= 1.7.9
@@ -318,6 +321,9 @@ exit 0
 
 
 %changelog
+* Tue Apr 18 2023 Arjun Shankar <arjun@redhat.com> - 1.11.23-64
+- Port to C99 (#2187741)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.23-63
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,16 +1,22 @@
 %global repo_owner atextor
-%global repo_name  icat 
+%global repo_name  icat
 
 Name:    icat
-Version: 0.5
-Release: 12%{?dist}
 Summary: Output images in terminal
+License: BSD-2-Clause
 
-License: BSD
+%global git_commit 9b5aa622fdfbfbd37a97c9b8d3258100e1d26cd6
+%global git_date   20230110
+%global git_short  %(c="%{git_commit}"; echo "${c:0:7}")
+
+Version: 0.5
+Release: 13.%{git_date}git%{git_short}%{?dist}
+
 URL:     https://github.com/%{repo_owner}/%{repo_name}
-Source0: %{URL}/archive/v%{version}/%{repo_name}-%{version}.tar.gz
+Source0: %{URL}/archive/%{git_commit}/%{repo_name}-%{git_commit}.tar.gz
 
-BuildRequires: gcc imlib2-devel
+BuildRequires: gcc
+BuildRequires: imlib2-devel
 BuildRequires: make
 
 %description
@@ -18,12 +24,11 @@ Outputs an image on a 256-color or 24-bit color enabled terminal
 with UTF-8 locale, such as gnome-terminal, konsole or rxvt-unicode (urxvt).
 
 %prep
-%setup -q -n %{repo_name}-%{version}
+%setup -q -n %{repo_name}-%{git_commit}
 # Extract license from source code
 awk '1;/\*\//{exit}' < icat.c > LICENSE
 
 %build
-%set_build_flags
 %make_build
 
 %install
@@ -31,7 +36,7 @@ install -m 755 -d %{buildroot}/%{_bindir}
 install -m 755 ./icat %{buildroot}/%{_bindir}/icat
 
 install -m 755 -d %{buildroot}/%{_mandir}/man1
-install -m 755 ./icat.man %{buildroot}/%{_mandir}/man1/%{name}.1
+install -m 644 ./icat.man %{buildroot}/%{_mandir}/man1/%{name}.1
 
 %files
 %doc CHANGELOG README.md
@@ -40,6 +45,11 @@ install -m 755 ./icat.man %{buildroot}/%{_mandir}/man1/%{name}.1
 %{_mandir}/man1/*
 
 %changelog
+* Tue Apr 18 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.5-13.20230110git9b5aa62
+- Update to latest git snapshot (2023-01-10)
+- Fix man page having the executable permission bit set
+- Convert License tag to SPDX
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           espresso
 Version:        4.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Extensible Simulation Package for Research on Soft matter
 # segfault on s390x: https://github.com/espressomd/espresso/issues/3753
 # segfault on armv7hl: https://src.fedoraproject.org/rpms/espresso/pull-request/4
@@ -12,6 +12,9 @@ ExcludeArch:    s390x i686 armv7hl
 License:        GPLv3+
 URL:            https://espressomd.org
 Source0:        https://github.com/%{name}md/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz
+# fix for API change in setuptools
+# https://github.com/espressomd/espresso/pull/4709
+Patch0:         %{name}-setuptools.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake3 >= 3.16
@@ -22,6 +25,7 @@ BuildRequires:  python%{python3_pkgversion}-numpy
 BuildRequires:  python%{python3_pkgversion}-scipy
 BuildRequires:  python%{python3_pkgversion}-six
 BuildRequires:  python%{python3_pkgversion}-setuptools
+BuildRequires:  python%{python3_pkgversion}-packaging
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  boost-devel
 BuildRequires:  hdf5-devel
@@ -101,6 +105,7 @@ This package contains %{name} compiled against MPICH2.
 
 %prep
 %setup -q -n %{name}
+%patch 0 -p1
 
 %build
 %global defopts \\\
@@ -158,6 +163,9 @@ done
 %{python3_sitearch}/mpich/%{name}md/
 
 %changelog
+* Tue Apr 18 2023 Jean-Noël Grad <jgrad@icp.uni-stuttgart.de> - 4.2.1-2
+- Fix for API change in setuptools 67.3.0
+
 * Mon Apr 17 2023 Jean-Noël Grad <jgrad@icp.uni-stuttgart.de> - 4.2.1-1
 - Version bump to v4.2.1
 

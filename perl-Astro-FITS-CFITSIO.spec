@@ -1,5 +1,5 @@
 Name:           perl-Astro-FITS-CFITSIO
-Version:        1.16
+Version:        1.17
 Release:        1%{?dist}
 Summary:        Perl extension for using the cfitsio library
 # tarball m51 doesn't state license https://rt.cpan.org/Public/Bug/Display.html?id=66226
@@ -48,6 +48,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Tue Apr 18 2023 Orion Poplawski <orion@nwra.com> - 1.17-1
+- Update to 1.17
+
 * Sun Jan 22 2023 Orion Poplawski <orion@nwra.com> - 1.16-1
 - Update to 1.16
 

@@ -190,13 +190,7 @@ Provides:       libEGL-devel%{?_isa}
 Summary:        Mesa-based DRI drivers
 Requires:       %{name}-filesystem%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %if 0%{?with_va}
-%global major %(echo %{version} | cut -d. -f1)
-%global minor %(echo %{version} | cut -d. -f2)
-%global minor_next %(v="%{minor}"; echo $((++v)))
-# Do not require the exact full version but rather the matching
-# major.minor of the mesa release in order to allow for alternative
-# providers from other repos to slightly lag behind.
-Recommends:     (%{name}-va-drivers%{?_isa} >= %{?epoch:%{epoch}:}%{major}.%{minor} with %{name}-va-drivers%{?_isa} < %{?epoch:%{epoch}:}%{major}.%{minor_next})
+Recommends:     %{name}-va-drivers%{?_isa}
 %endif
 
 %description dri-drivers

@@ -1,12 +1,14 @@
 Summary:	A tiny replacement for Module::Build
 Name:		perl-Module-Build-Tiny
-Version:	0.039
-Release:	25%{?dist}
-License:	GPL+ or Artistic
+Version:	0.041
+Release:	1%{?dist}
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Module-Build-Tiny
 Source0:	https://cpan.metacpan.org/modules/by-module/Module/Module-Build-Tiny-%{version}.tar.gz
+Patch0:		Module-Build-Tiny-0.041-pod.patch
 BuildArch:	noarch
 # Module Build
+BuildRequires:	coreutils
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
 # Module
@@ -34,13 +36,11 @@ BuildRequires:	perl(File::ShareDir)
 BuildRequires:	perl(File::Spec)
 BuildRequires:	perl(File::Temp)
 BuildRequires:	perl(IO::File)
-BuildRequires:	perl(IO::Handle)
 BuildRequires:	perl(IPC::Open2)
-BuildRequires:	perl(IPC::Open3)
-BuildRequires:	perl(Test::More)
+BuildRequires:	perl(Test::More) >= 0.88
 BuildRequires:	perl(Test::Pod) >= 1.41
 BuildRequires:	perl(XSLoader)
-# Runtime
+# Dependencies
 Requires:	perl(DynaLoader)
 Requires:	perl(ExtUtils::CBuilder)
 Requires:	perl(ExtUtils::ParseXS)
@@ -66,12 +66,17 @@ Whereas Module::Build has over 6,700 lines of code; this module has less than
 %prep
 %setup -q -n Module-Build-Tiny-%{version}
 
+# Fix pod detection
+# https://github.com/Perl-Toolchain-Gang/module-build-tiny/issues/29
+%patch -P 0
+
 %build
 perl Build.PL --installdirs=vendor
 ./Build
 
 %install
 ./Build install --destdir=%{buildroot} --create_packlist=0
+%{_fixperms} -c %{buildroot}
 
 %check
 AUTHOR_TESTING=1 RELEASE_TESTING=1 ./Build test
@@ -83,6 +88,15 @@ AUTHOR_TESTING=1 RELEASE_TESTING=1 ./Build test
 %{_mandir}/man3/Module::Build::Tiny.3*
 
 %changelog
+* Tue Apr 18 2023 Paul Howarth <paul@city-fan.org> - 0.041-1
+- Update to 0.041
+  - Manify .pod after .pm
+  - Filter out script documentation from scripts
+  - Don't manify podless modules/scripts
+- Use SPDX-format license tag
+- Standardize permissions of packaged files
+- Add fix for POD generation (GH#29)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.039-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

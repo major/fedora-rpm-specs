@@ -10,7 +10,7 @@ License:        MIT
 #   Increment Y and reset Z when new macros or features are added
 #   Increment Z when this is a bugfix or a cosmetic change
 # Dropping support for EOL Fedoras is *not* considered a breaking change
-Version:        1.6.3
+Version:        1.7.0
 Release:        1%{?dist}
 
 # Macro files
@@ -147,6 +147,11 @@ export HOSTNAME="rpmbuild"  # to speedup tox in network-less mock, see rhbz#1856
 
 
 %changelog
+* Fri Mar 31 2023 Miro Hrončok <mhroncok@redhat.com> - 1.7.0-1
+- %%pyproject_buildrequires: Redirect stdout to stderr via Shell
+- Dependencies are recorded to a text file that is catted at the end
+- Fixes: rhbz#2183519
+
 * Mon Feb 13 2023 Lumír Balhar <lbalhar@redhat.com> - 1.6.3-1
 - Remove .dist-info directory at the end of %%pyproject_buildrequires
 - An incomplete .dist-info directory in $PWD can confuse tests in %%check

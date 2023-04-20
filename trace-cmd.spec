@@ -2,11 +2,11 @@
 #%%global git_commit trace-cmd-v2.6.2
 #%%global git_commit 57371aaa2f469d0ba15fd85276deca7bfdd7ce36
 
-%global srcversion 3.1.4
+%global srcversion 3.1.6
 
 Name: trace-cmd
 Version: %{srcversion}
-Release: 3%{?dist}
+Release: 1%{?dist}
 License: GPLv2 and LGPLv2
 Summary: A user interface to Ftrace
 
@@ -21,7 +21,6 @@ Source0: https://git.kernel.org/pub/scm/utils/trace-cmd/trace-cmd.git/snapshot/t
 Source1: trace-cmd.conf
 Source2: trace-cmd.service
 Source3: 98-trace-cmd.rules
-Patch0:  trace-cmd-Allow-building-with-GNU-Make-4.4.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -109,6 +108,9 @@ rm -rf %{buildroot}/%{_mandir}/man3/*
 %{_libdir}/%{name}/python/
 
 %changelog
+* Tue Apr 18 2023 Zamir SUN <sztsian@gmail.com> - 3.1.6-1
+- Update to 3.1.6
+
 * Fri Mar 31 2023 Jerome Marchand <jmarchan@redhat.com> - 3.1.4-3
 - Fix build: RHBZ#2171770
 - Also remove explicit lib dependency that fedpkg lint complains about.

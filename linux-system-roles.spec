@@ -27,7 +27,7 @@ Name: linux-system-roles
 Url: https://github.com/linux-system-roles
 Summary: Set of interfaces for unified system management
 Version: 1.36.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv3+ and MIT and BSD and Python
 %global _pkglicensedir %{_licensedir}/%{name}
@@ -460,8 +460,16 @@ find -type f -executable -name '*.py' -exec \
 
 %build
 %if %{with html}
+# HACK HACK HACK
+# pandoc/asciidoc on rhel 8.9 does not like the journald README badge links
+# remove all of the badge links from all README.md files
+# in the first 14 lines of the file, remove any line that looks like a
+# github action badge
+# HACK HACK HACK
 readmes=""
+matchstr="actions/workflows/"
 for role in %{rolenames}; do
+    sed -e "1,14 {\\,${matchstr},d; /\!\[/d}" -i $role/README.md
     readmes="${readmes} $role/README.md"
 done
 sh md2html.sh $readmes
@@ -471,7 +479,7 @@ mkdir .collections
 %if 0%{?rhel}
 # Convert the upstream collection readme to the downstream one
 %{SOURCE998} lsr_role2collection/collection_readme.md
-./galaxy_transform.py "%{collection_namespace}" "%{collection_name}" "%{collection_version}" \
+%{python3} ./galaxy_transform.py "%{collection_namespace}" "%{collection_name}" "%{collection_version}" \
                       "Red Hat Enterprise Linux System Roles Ansible Collection" \
                       "https://linux-system-roles.github.io" \
                       "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/administration_and_configuration_tasks_using_system_roles_in_rhel" \
@@ -504,7 +512,7 @@ extra_mapping="--extra-mapping fedora.linux_system_roles:%{collection_namespace}
 %else
 extra_mapping=""
 %endif
-LANG=C.utf-8 LC_ALL=C.utf-8 python3 release_collection.py --galaxy-yml galaxy.yml \
+LANG=C.utf-8 LC_ALL=C.utf-8 %{python3} release_collection.py --galaxy-yml galaxy.yml \
     --src-path $(pwd) --dest-path $(pwd)/.collections $includes --force --no-update \
     --src-owner %{name} --skip-git --skip-check --skip-changelog $extra_mapping --debug
 
@@ -746,6 +754,12 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Mon Apr 17 2023 Rich Megginson <rmeggins@redhat.com> - 1.36.3-2
+- strip github action badge links from headers of README.md files
+  before conversion to HTML - some of the converters do not like them
+- use %%{python3} instead of python3 to force use of system python3 in
+  order to use ruamel
+
 * Sat Apr 15 2023 Packit <hello@packit.dev> - 1.36.3-1
 - Update to upstream version 1.36.3
 

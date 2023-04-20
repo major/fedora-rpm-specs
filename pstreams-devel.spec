@@ -1,6 +1,6 @@
 Name:           pstreams-devel
 Version:        1.0.3
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        POSIX Process Control in C++
 
 License:        BSL-1.0
@@ -8,6 +8,7 @@ URL:            http://pstreams.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/pstreams/pstreams-%{version}.tar.gz
 Patch0:         pstreams-make-check.patch
 Patch1:         pstreams-doxyfile.patch
+Patch2:         pstreams-test-race.patch
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
@@ -32,6 +33,7 @@ API documentation for the pstreams-devel package, in HTML format.
 %setup -q -n pstreams-%{version}
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 make %{?_smp_mflags} docs
@@ -50,6 +52,9 @@ make install  DESTDIR=$RPM_BUILD_ROOT includedir=%{_includedir}
 %doc doc/html README AUTHORS ChangeLog
 
 %changelog
+* Tue Apr 18 2023 Jonathan Wakely <jwakely@fedoraproject.org> - 1.0.3-9
+- Add patch to fix sporadic test failure
+
 * Thu Mar 02 2023 Jonathan Wakely <jwakely@redhat.com> - 1.0.3-8
 - Migrated to SPDX license
 

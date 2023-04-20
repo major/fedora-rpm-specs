@@ -4,7 +4,7 @@
 
 Name:		rdesktop
 Version:	1.9.0
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	X client for remote desktop into Windows Terminal Server
 
 License:	GPLv3+
@@ -17,6 +17,7 @@ Source0:	https://github.com/%{name}/%{name}/releases/download/v%{version}/rdeskt
 Patch0:         https://patch-diff.githubusercontent.com/raw/rdesktop/rdesktop/pull/394.patch
 # Use system cypto policy
 Patch1:         rdesktop-crypto.patch
+Patch2: rdesktop-configure-c99.patch
 BuildRequires: make
 BuildRequires:	gnutls-devel
 BuildRequires:	krb5-devel
@@ -54,6 +55,9 @@ autoreconf -vif
 %{_mandir}/man1/*
 
 %changelog
+* Tue Apr 18 2023 Florian Weimer <fweimer@redhat.com> - 1.9.0-11
+- Port configure script to C99
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

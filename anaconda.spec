@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 39.10
+Version: 39.11
 Release: 1%{?dist}
 License: GPLv2+ and MIT
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -469,6 +469,33 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Apr 18 2023 Packit <hello@packit.dev> - 39.11-1
+- Add missing documentation about OEMDRV (#2171811) (jkonecny)
+- gui: Simplify invalid timezone handling. (vslavik)
+- Try to set timezone from language on welcome spoke (vslavik)
+- Revert "Remove the function get_locale_timezones" (vslavik)
+- Always set timezone with priority (vslavik)
+- Add timezone priority to module backend and interface (vslavik)
+- Fix logging to packaging.log (vponcova)
+- exception: only attach existent and non-empty files (#2185827) (awilliam)
+- WebUI: force symlink re-creation (jvanderwaa)
+- Don't set the __doc__ attribute (vponcova)
+- Remove the DeviceSetupError exception (vponcova)
+- Remove SetupDevice and TeardownDevice from DeviceTreeHandlerInterface
+  (vponcova)
+- Remove unused constants (vponcova)
+- Remove the DNFManager.remove_repository method (vponcova)
+- Remove the DNFManager.reset_substitution method (vponcova)
+- Remove the DNFManager.is_environment_valid method (vponcova)
+- Remove resolve_device from pyanaconda.payload.utils (vponcova)
+- Remove the TreeInfoMetadata._root_url attribute (vponcova)
+- po: fix (jvanderwaa)
+- WebUI: don't set step in React state (jvanderwaa)
+- WebUI: avoid relying on automated semicolon insertion (jvanderwaa)
+- .github: add codeql workflow for JavaScript (jvanderwaa)
+- WebUI: correct setState calls for SearchInput (jvanderwaa)
+- Update translations from Weblate
+
 * Tue Apr 11 2023 Packit <hello@packit.dev> - 39.10-1
 - webui: update reference images (kkoukiou)
 - webui: update CockpitPoWebpackPlugin and adjust configuration options

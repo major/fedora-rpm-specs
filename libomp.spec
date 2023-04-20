@@ -19,7 +19,7 @@
 
 Name: libomp
 Version: %{libomp_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: OpenMP runtime for clang
 
 License: Apache-2.0 WITH LLVM-exception OR NCSA
@@ -61,6 +61,9 @@ OpenMP runtime for clang.
 Summary: OpenMP header files
 Requires: %{name}%{?isa} = %{version}-%{release}
 Requires: clang-resource-filesystem%{?isa} = %{version}
+# Usually this is added automatically, but multilib repositories may not get
+# 32-bit dependencies right, e.g. x86_64 may miss the i686 dependency.
+Requires: libomp%{?isa} = %{version}
 
 %description devel
 OpenMP header files.
@@ -182,6 +185,9 @@ rm -rf %{buildroot}%{_libdir}/libarcher_static.a
 %{_libexecdir}/tests/libomp/
 
 %changelog
+* Tue Apr 18 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.1-2
+- Be explicit about libomp-devel denpending on libomp. Fix rhbz#2187642.
+
 * Thu Apr 13 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.1-1
 - Update to LLVM 16.0.1
 

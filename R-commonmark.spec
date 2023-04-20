@@ -4,8 +4,8 @@
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
-Version:          1.8.0
-Release:          2%{?dist}
+Version:          1.9.0
+Release:          1%{?dist}
 Summary:          High Performance CommonMark and Github Markdown Rendering in R
 
 License:          BSD
@@ -79,6 +79,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-examples
 
 
 %changelog
+* Mon Apr 17 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 1.9.0-1
+- update to 1.9.0
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

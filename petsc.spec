@@ -687,7 +687,9 @@ export FC=mpifort
 %if %{with metis}
  --with-metis=1 \
 %endif
+%if %{?__isa_bits:%{__isa_bits}}%{!?__isa_bits:32} == 64
  --with-64-bit-indices=0 \
+%endif
 %if %{with blas}
 %if 0%{?fedora} || 0%{?rhel} >= 9
  --with-blaslapack=1 --with-blaslapack-lib=-l%{blaslib}%{blasvar} --with-blaslapack-include=%{_includedir}/%{blaslib} \
@@ -728,7 +730,9 @@ export FC=mpifort
 %if %{with metis}
  --with-metis=1 \
 %endif
+%if %{?__isa_bits:%{__isa_bits}}%{!?__isa_bits:32} == 64
  --with-64-bit-indices=0 \
+%endif
 %if %{with blas}
 %if 0%{?fedora} || 0%{?rhel} >= 9
  --with-blaslapack=1 --with-blaslapack-lib=-l%{blaslib}%{blasvar} --with-blaslapack-include=%{_includedir}/%{blaslib} \
