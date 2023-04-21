@@ -1,7 +1,7 @@
 Name:		chmlib
 Summary:	Library for dealing with ITSS/CHM format files
 Version:	0.40
-Release:	28%{?dist}
+Release:	29%{?dist}
 License:	LGPLv2+
 Url:		http://www.jedrea.com/chmlib/
 %if 0%{?el7}%{?fedora}
@@ -18,6 +18,7 @@ Patch3:		chm_http-port-shortopt.patch
 Patch4:		chm_http-bind-localhost.patch
 # Submitted upstream https://github.com/jedwing/CHMLib/pull/12
 Patch5:		chm_http-output-server-address.patch
+Patch6: chmlib-c99.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
@@ -48,6 +49,7 @@ Files needed for developing apps using chmlib.
 %patch3 -p1 -b .shortopt
 %patch4 -p1 -b .localhost
 %patch5 -p1 -b .printaddr
+%patch6 -p1
 rm -f libtool
 mv configure.in configure.ac
 autoreconf -ivf
@@ -82,6 +84,9 @@ rm -f %{buildroot}/%{_libdir}/*.la
 
 
 %changelog
+* Wed Apr 19 2023 Florian Weimer <fweimer@redhat.com> - 0.40-29
+- Port to C99
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.40-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

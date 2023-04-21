@@ -9,10 +9,10 @@
 Name:		globus-gridftp-server
 %global _name %(tr - _ <<< %{name})
 Version:	13.24
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Grid Community Toolkit - Globus GridFTP Server
 
-License:	ASL 2.0
+License:	Apache-2.0
 URL:		https://github.com/gridcf/gct/
 Source:		https://repo.gridcf.org/gct6/sources/%{_name}-%{version}.tar.gz
 Source1:	%{name}.service
@@ -47,9 +47,9 @@ BuildRequires:	systemd
 #		Additional requirements for make check
 BuildRequires:	openssl
 #		Optional test dependency
-%if %{?rhel}%{!?rhel:0} == 7 || %{?rhel}%{!?rhel:0} == 8
+%if %{?rhel}%{!?rhel:0} == 7
 %ifarch ppc64le
-#		Fakeroot in EPEL is broken on ppc64le
+#		Fakeroot in EPEL 7 is broken on ppc64le
 BuildConflicts:	fakeroot
 %else
 BuildRequires:	fakeroot
@@ -249,6 +249,9 @@ fi
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Apr 19 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 13.24-5
+- Reenable optional test dependency fakeroot on ppc64le in EPEL 8
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 13.24-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,8 +2,8 @@
 %define py3_shbang_opts %nil
 
 Name:           tortoisehg
-Version:        6.4
-Release:        2%{?dist}
+Version:        6.4.2
+Release:        1%{?dist}
 Summary:        Mercurial GUI command line tool thg
 License:        GPLv2+
 URL:            https://foss.heptapod.net/mercurial/tortoisehg/thg
@@ -89,6 +89,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT/%{_datadir}/appdata/thg.ap
 %{_datadir}/nautilus-python/extensions/nautilus-thg.py*
 
 %changelog
+* Wed Apr 19 2023 Mads Kiilerich <mads@kiilerich.com> - 6.4.2-1
+- tortoisehg 6.4.2
+
 * Wed Apr 12 2023 Mads Kiilerich <mads@kiilerich.com> - 6.4-2
 - Switch to Qt6
 

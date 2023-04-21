@@ -3,7 +3,7 @@
 %global with_bundled 1
 
 %global goipath github.com/openshift/source-to-image
-Version:        1.3.2
+Version:        1.3.6
 
 %gometa
 
@@ -18,7 +18,7 @@ container images to version your runtime environments.}
 %global golicenses LICENSE
 
 Name:           source-to-image
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        A tool for building artifacts from source and injecting into docker images
 License:        ASL 2.0
 URL:            %{gourl}
@@ -91,6 +91,12 @@ export LDFLAGS="$LDFLAGS -X %{goipath}/pkg/version.versionFromGit=v%{version} "
 install -d -p %{buildroot}%{_bindir}
 install -p -m 0755 %{gobuilddir}/bin/s2i %{buildroot}%{_bindir}
 
+# shell completions
+mkdir -p %{buildroot}%{bash_completions_dir}
+%{buildroot}%{_bindir}/s2i completion bash > %{buildroot}%{bash_completions_dir}/s2i
+mkdir -p %{buildroot}%{zsh_completions_dir}
+%{buildroot}%{_bindir}/s2i completion zsh > %{buildroot}%{zsh_completions_dir}/s2i
+
 %if 0%{?with_devel}
 %godevelinstall
 %endif
@@ -106,12 +112,19 @@ export LDFLAGS="$LDFLAGS -X %{goipath}/pkg/version.versionFromGit=v%{version} "
 %endif
 %doc README.md CONTRIBUTING.md AUTHORS
 %{_bindir}/s2i
+%{bash_completions_dir}/s2i
+%{zsh_completions_dir}/s2i
 
 %if 0%{?with_devel}
 %gopkgfiles
 %endif
 
 %changelog
+* Sun Apr 09 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.3.6-1
+- Update to v1.3.6 (#2177650)
+- Rebuilt for CVE-2022-41723 (#2178483)
+- Add shell completions
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

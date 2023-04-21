@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-ramsey-uuid
 #
 # Copyright (c) 2020-2023 Remi Collet
-# License: CC-BY-SA
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -10,7 +10,7 @@
 %bcond_without tests
 
 # Github
-%global gh_commit    433b2014e3979047db08a17a205f410ba3869cf2
+%global gh_commit    60a4c63ab724854332900504274f6150ff26d286
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     ramsey
 %global gh_project   uuid
@@ -22,8 +22,8 @@
 %global ns_project   Uuid
 
 Name:           php-%{pk_vendor}-%{pk_name}
-Version:        4.7.3
-Release:        2%{?dist}
+Version:        4.7.4
+Release:        1%{?dist}
 Summary:        Library for generating and working with UUIDs
 
 License:        MIT
@@ -74,7 +74,7 @@ BuildRequires:  php-fedora-autoloader-devel
 # From composer.json, "require": {
 #        "php": "^8.0",
 #        "ext-json": "*",
-#        "brick/math": "^0.8.8 || ^0.9 || ^0.10",
+#        "brick/math": "^0.8.8 || ^0.9 || ^0.10 || ^0.11",
 #        "ramsey/collection": "^1.2 || ^2.0",
 Requires:       php(language) >= 8.0
 Requires:       php-json
@@ -170,6 +170,9 @@ exit $ret
 
 
 %changelog
+* Wed Apr 19 2023 Remi Collet <remi@remirepo.net> - 4.7.4-1
+- update to 4.7.4
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

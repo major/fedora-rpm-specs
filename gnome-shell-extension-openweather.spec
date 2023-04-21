@@ -11,6 +11,10 @@ License:        GPLv3+
 URL:            https://gitlab.com/skrewball/openweather
 Source0:        %{url}/-/archive/v%{version}/%{shortname}-v%{version}.tar.gz
 
+# Not working on GNOME44
+# https://bugzilla.redhat.com/show_bug.cgi?id=2187965
+Patch0:         v44-compat.patch
+
 BuildRequires:  gettext-devel
 BuildRequires:  glib2-devel
 BuildRequires:  make
@@ -34,7 +38,7 @@ enable the extension through the gnome-extensions app or via terminal:
 
 
 %prep
-%autosetup -n %{shortname}-v%{version}
+%autosetup -n %{shortname}-v%{version} -p1
 
 
 %build

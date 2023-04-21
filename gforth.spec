@@ -1,6 +1,6 @@
 Name:           gforth
 Version:        0.7.3
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Fast and portable implementation of the ANS Forth language
 
 License:        GPLv3+
@@ -11,6 +11,7 @@ Patch0:		gforth-0.7.0-shebang.patch
 Patch1:		gforth-0.7.0-compile-fix.patch
 Patch2:		gforth-libtool-build.patch
 Patch3:		configure-assumptions.patch
+Patch4: gforth-configure-c99.patch
 BuildRequires:  m4 libtool-ltdl-devel
 BuildRequires:  libffi-devel
 BuildRequires:  libtool
@@ -41,12 +42,14 @@ you can also use a traditional-style indirect threaded interpreter.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 iconv -f latin1 -t utf8 AUTHORS > AUTHORS.new
 mv -f AUTHORS.new AUTHORS
 
 
 %build
+autoreconf -iv
 CFLAGS="${RPM_OPT_FLAGS} `pkg-config libffi --cflags`" %configure
 # %%{_smp_mflags} breaks the build
 make libdir=%{_libdir}
@@ -120,6 +123,9 @@ fi
 
 
 %changelog
+* Wed Apr 19 2023 Florian Weimer <fweimer@redhat.com> - 0.7.3-21
+- Port configure script to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

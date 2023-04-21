@@ -1,9 +1,22 @@
 %global _hardened_build 1
 
 Name:    ppp
-# When bumping the ppp version, please be sure to rebuild
-# NetworkManager against the new version - NetworkManager-ppp has a
-# dep that is tied to the ppp version and generated at build time
+# Please be careful when bumping the ppp version. Several packages
+# have version-tied dependencies on it, including NetworkManager-ppp
+# (from NetworkManager) and NetworkManager-pptp , which are core
+# packages. They may need code changes to build against new ppp
+# versions. Please only bump ppp on a side tag and ensure it also
+# contains rebuilds of at least those two packages before merging.
+# Several other less important packages are also tied to the ppp
+# version, as of 2023-04-19 the list is:
+# NetworkManager-fortisslvpn
+# NetworkManager-l2tp
+# NetworkManager-ppp
+# NetworkManager-pptp
+# NetworkManager-sstp
+# sstp-client
+# These all need to be patched (if necessary) and rebuilt for new
+# versions of ppp.
 Version: 2.5.0
 Release: 1%{?dist}
 Summary: The Point-to-Point Protocol daemon

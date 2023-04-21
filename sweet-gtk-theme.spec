@@ -3,20 +3,20 @@ Summary: Light and dark, colorful GTK+ theme
 License: GPL-3.0-only
 URL: https://www.gnome-look.org/p/1253385/
 
-%global git_date_master 20230107
-%global git_commit_master 6830ec97b84b967c72df9a48c8901e068f33c259
+%global git_date_master 20230410
+%global git_commit_master 670c20d034891ad026cba75253ae139e7c570093
 
-%global git_date_ambar 20230107
-%global git_commit_ambar e5a075af9c57098bbda2eae599fa79271579ccac
+%global git_date_ambar 20230410
+%global git_commit_ambar d3a99c0fd5545575637085344349d66dd33c7138
 
-%global git_date_ambar_blue 20230107
-%global git_commit_ambar_blue 591bb456579b6273631e579312a7fb2256603746
+%global git_date_ambar_blue 20230410
+%global git_commit_ambar_blue 271a150e9fc78234205701295a307aeac4982748
 
-%global git_date_mars 20230107
-%global git_commit_mars faa8deb74208a991d89fa658ec9b20fe4d46dfb8
+%global git_date_mars 20230410
+%global git_commit_mars 9a774a45cec35fcc928510be95e5368beb1b946c
 
-%global git_date_nova 20230107
-%global git_commit_nova 110373a9dcfa9c6514403d6a2856688ac12acff1
+%global git_date_nova 20230410
+%global git_commit_nova e19223f9ccea49703bf2e60570b13d01918e4464
 
 %global git_date %( \
 	( \
@@ -28,7 +28,7 @@ URL: https://www.gnome-look.org/p/1253385/
 	) | sort -rn | head -n1)
 
 Version: 3.0
-Release: 9.%{git_date}%{?dist}
+Release: 10.%{git_date}%{?dist}
 
 %global repo_name  Sweet
 %global repo_url   https://github.com/EliverLara/%{repo_name}
@@ -131,6 +131,9 @@ mv "%{buildroot}%{_datadir}/themes/Sweet-master" "%{buildroot}%{_datadir}/themes
 
 
 %changelog
+* Wed Apr 19 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.0-10.20230410
+- Update to latest git snapshots
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-9.20230107
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

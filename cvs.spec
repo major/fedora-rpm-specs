@@ -11,7 +11,7 @@
 
 Name:       cvs
 Version:    1.11.23
-Release:    64%{?dist}
+Release:    65%{?dist}
 Summary:    Concurrent Versions System
 URL: http://cvs.nongnu.org/
 # Source files in zlib/ directory are licensed under zlib/libpng
@@ -321,6 +321,9 @@ exit 0
 
 
 %changelog
+* Wed Apr 19 2023 Arjun Shankar <arjun@redhat.com> - 1.11.23-65
+- Adjust cvs-1.11.23-c99.patch for a cleaner fix (#2187741)
+
 * Tue Apr 18 2023 Arjun Shankar <arjun@redhat.com> - 1.11.23-64
 - Port to C99 (#2187741)
 

@@ -56,9 +56,13 @@ An extension for colcon-core to support ROS packages.
 
 
 %check
+# Workaround pkg_resources deprecation warning leaking from
+# python-colcon-core
+# https://github.com/colcon/colcon-core/issues/552
 %{__python3} -m pytest \
     --ignore=test/test_spell_check.py \
     --ignore=test/test_flake8.py \
+    -W "ignore:pkg_resources is deprecated as an API::pkg_resources" \
     test
 
 

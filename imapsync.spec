@@ -1,12 +1,13 @@
 Name: imapsync
 Summary: Tool to migrate email between IMAP servers
 Version: 2.229
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: NLPL
 
 URL: http://github.com/imapsync/imapsync
 
 Source0: https://github.com/%{name}/%{name}/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
+Patch0: imapsync-remove-inet6-pkg.patch
 
 BuildArch: noarch
 BuildRequires: perl(App::cpanminus)
@@ -23,7 +24,6 @@ BuildRequires: perl(English)
 BuildRequires: perl(File::Copy::Recursive)
 BuildRequires: perl(File::Tail)
 BuildRequires: perl(HTML::Entities)
-BuildRequires: perl(IO::Socket::INET6)
 BuildRequires: perl(IO::Socket::SSL)
 BuildRequires: perl(IO::Tee)
 BuildRequires: perl(JSON::WebToken)
@@ -74,7 +74,6 @@ Requires: perl(File::Copy::Recursive)
 Requires: perl(File::Path)
 Requires: perl(File::Spec)
 Requires: perl(File::Tail)
-Requires: perl(IO::Socket::INET6)
 Requires: perl(IO::Socket::SSL)
 Requires: perl(IO::Tee)
 Requires: perl(JSON::WebToken)
@@ -102,7 +101,7 @@ and the process can be stopped and resumed. The original messages can
 optionally be deleted after a successful transfer.
 
 %prep
-%autosetup -n %{name}-%{name}-%{version}
+%autosetup -p1 -n %{name}-%{name}-%{version}
 
 cat << \EOF > %{name}-req
 #!/bin/sh
@@ -128,6 +127,9 @@ iconv -f iso-8859-1 -t utf-8 -o TODO.utf8 TODO && %{__mv} TODO.utf8 TODO
 %attr(644, root, root) %{_mandir}/man1/imapsync.1*
 
 %ChangeLog
+* Wed Apr 19 2023 Petr Salaba <psalaba@redhat.com> - 2.229-3
+- Remove deprecated IO::Socket::INET6
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.229-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

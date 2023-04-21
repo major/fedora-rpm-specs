@@ -1,12 +1,12 @@
 %global packname gargle
-%global packver  1.2.1
+%global packver  1.4.0
 %global rlibdir  %{_datadir}/R/library
 
 %global with_suggests 0
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          1%{?dist}
 Summary:          Utilities for Working with Google APIs
 
 License:          MIT
@@ -23,14 +23,15 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 BuildArch:        noarch
 BuildRequires:    R-devel
 BuildRequires:    tex(latex)
-BuildRequires:    R-cli >= 3.0.0
+BuildRequires:    R-cli >= 3.0.1
 BuildRequires:    R-fs >= 1.3.1
 BuildRequires:    R-glue >= 1.3.0
-BuildRequires:    R-httr >= 1.4.0
+BuildRequires:    R-httr >= 1.4.5
 BuildRequires:    R-jsonlite
+BuildRequires:    R-lifecycle
+BuildRequires:    R-openssl
 BuildRequires:    R-rappdirs
 BuildRequires:    R-rlang >= 1.0.0
-BuildRequires:    R-rstudioapi
 BuildRequires:    R-stats
 BuildRequires:    R-utils
 BuildRequires:    R-withr
@@ -40,11 +41,10 @@ BuildRequires:    R-aws.ec2metadata
 BuildRequires:    R-aws.signature
 BuildRequires:    R-httpuv
 BuildRequires:    R-knitr
-BuildRequires:    R-mockr
 BuildRequires:    R-rmarkdown
 BuildRequires:    R-sodium
 BuildRequires:    R-spelling
-BuildRequires:    R-testthat >= 3.1.2
+BuildRequires:    R-testthat >= 3.1.7
 %endif
 
 %description
@@ -92,11 +92,15 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-examples --no
 %{rlibdir}/%{packname}/R
 %{rlibdir}/%{packname}/help
 %{rlibdir}/%{packname}/discovery-doc-ingest
+%{rlibdir}/%{packname}/pseudo-oob
 %{rlibdir}/%{packname}/secret
 %{rlibdir}/%{packname}/WORDLIST
 
 
 %changelog
+* Wed Apr 19 2023 Tom Callaway <spot@fedoraproject.org> - 1.4.0-1
+- update to 1.4.0
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

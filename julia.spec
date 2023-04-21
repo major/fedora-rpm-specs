@@ -14,9 +14,6 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2045732
 %global libunwindversion 1.5.0
 
-%global ittapiversion 3.24.0
-%global ittapicommit 0014aec56fea2f30c1374f40861e1bccdd53d0cb
-
 %global pkgcommit 1b73599d2ed8ef26ded339b1a3e80b6f26afd553
 %global statisticscommit 20fbe576ec406180b1dddf4c7fbe16458a7aef21
 
@@ -50,13 +47,11 @@ Source5:        https://api.github.com/repos/JuliaLang/Statistics.jl/tarball/%{s
 Source6:        https://raw.githubusercontent.com/JuliaLang/julia-logo-graphics/%{logocommit}/images/julia-logo-color.svg
 Source7:        https://api.github.com/repos/staticfloat/libblastrampoline/tarball/%{blastrampolinecommit}#/blastrampoline-%{blastrampolinecommit}.tar.gz
 Source8:        https://github.com/libunwind/libunwind/releases/download/v1.5/libunwind-%{libunwindversion}.tar.gz
-Source9:        https://api.github.com/repos/intel/ittapi/tarball/%{ittapicommit}#/ittapi-%{ittapicommit}.tar.gz
 Provides:       bundled(libuv) = %{uvversion}
 Provides:       bundled(llvm) = %{llvmversion}
 Provides:       bundled(libblastrampoline) = %{blastrampolineversion}
 Provides:       bundled(libwhich) = %{libwhichversion}
 Provides:       bundled(libunwind) = %{libunwindversion}
-Provides:       bundled(ittapi) = %{ittapiversion}
 BuildRequires:  ca-certificates
 BuildRequires:  desktop-file-utils
 BuildRequires:  dSFMT-devel
@@ -100,14 +95,16 @@ BuildRequires:  zlib-devel
 Requires:       julia-common = %{version}-%{release}
 Requires:       ca-certificates
 Requires:       p7zip-plugins
-# Libraries used by CompilerSupportLibraries_jll
+# Libraries used by CompilerSupportLibraries_jll and blastrampoline
 # but not detected as they are dlopen()ed but not linked to
 %if 0%{?__isa_bits} == 64
 Requires:       libgfortran.so.5()(64bit)
 Requires:       libgomp.so.1()(64bit)
+Requires:       libopenblasp64_.so.0(64-bit)
 %else
 Requires:       libgfortran.so.5
 Requires:       libgomp.so.1
+Requires:       libopenblasp.so.0
 %endif
 # https://bugzilla.redhat.com/show_bug.cgi?id=1158026
 # https://github.com/JuliaLang/julia/issues/30087
@@ -168,7 +165,6 @@ pushd deps/srccache
     cp -p %SOURCE3 .
     cp -p %SOURCE7 .
     cp -p %SOURCE8 .
-    cp -p %SOURCE9 .
 popd
 
 
@@ -233,7 +229,7 @@ cp -p %SOURCE6 contrib/julia.svg
 
 # About build, build_libdir and build_bindir, see https://github.com/JuliaLang/julia/issues/5063#issuecomment-32628111
 # About USE_INTEL_JITEVENTS=0, see https://github.com/JuliaLang/julia/issues/47989
-%global commonopts USE_SYSTEM_LLVM=0 USE_SYSTEM_LIBUNWIND=0 USE_SYSTEM_PCRE=1 USE_SYSTEM_BLAS=1 USE_SYSTEM_LAPACK=1 USE_SYSTEM_GMP=1 USE_SYSTEM_MPFR=1 USE_SYSTEM_LIBSUITESPARSE=1 USE_SYSTEM_DSFMT=1 USE_SYSTEM_LIBUV=0 USE_SYSTEM_UTF8PROC=1 USE_SYSTEM_LIBGIT2=1 USE_SYSTEM_LIBSSH2=1 USE_SYSTEM_MBEDTLS=1 USE_SYSTEM_CURL=1 USE_SYSTEM_PATCHELF=1 USE_SYSTEM_LIBM=0 USE_SYSTEM_OPENLIBM=1 USE_SYSTEM_ZLIB=1 USE_SYSTEM_P7ZIP=1 USE_SYSTEM_NGHTTP2=1 USE_SYSTEM_CSL=1 USE_SYSTEM_LIBBLASTRAMPOLINE=0 USE_SYSTEM_LIBWHICH=0 USE_BINARYBUILDER=0 BUNDLE_DEBUG_LIBS=0 JULIA_SPLITDEBUG=1 TAGGED_RELEASE_BANNER="Fedora %{fedora} build" VERBOSE=1 %{march} %{cpu_target} %{blas} %{suitesparse_lib} prefix=%{_prefix} bindir=%{_bindir} libdir=%{_libdir} libexecdir=%{_libexecdir} datarootdir=%{_datarootdir} includedir=%{_includedir} sysconfdir=%{_sysconfdir} build_prefix=%{_builddir}/%{buildsubdir}/build%{_prefix} build_libdir=%{_builddir}/%{buildsubdir}/build%{_libdir} JULIA_CPU_THREADS=$(echo %{?_smp_mflags} | sed s/-j//)
+%global commonopts USE_SYSTEM_LLVM=0 USE_SYSTEM_LIBUNWIND=0 USE_SYSTEM_PCRE=1 USE_SYSTEM_BLAS=1 USE_SYSTEM_LAPACK=1 USE_SYSTEM_GMP=1 USE_SYSTEM_MPFR=1 USE_SYSTEM_LIBSUITESPARSE=1 USE_SYSTEM_DSFMT=1 USE_SYSTEM_LIBUV=0 USE_SYSTEM_UTF8PROC=1 USE_SYSTEM_LIBGIT2=1 USE_SYSTEM_LIBSSH2=1 USE_SYSTEM_MBEDTLS=1 USE_SYSTEM_CURL=1 USE_SYSTEM_PATCHELF=1 USE_SYSTEM_LIBM=0 USE_SYSTEM_OPENLIBM=1 USE_SYSTEM_ZLIB=1 USE_SYSTEM_P7ZIP=1 USE_SYSTEM_NGHTTP2=1 USE_SYSTEM_CSL=1 USE_SYSTEM_LIBBLASTRAMPOLINE=0 USE_SYSTEM_LIBWHICH=0 USE_BINARYBUILDER=0 USE_INTEL_JITEVENTS=0 BUNDLE_DEBUG_LIBS=0 JULIA_SPLITDEBUG=1 TAGGED_RELEASE_BANNER="Fedora %{fedora} build" VERBOSE=1 %{march} %{cpu_target} %{blas} %{suitesparse_lib} prefix=%{_prefix} bindir=%{_bindir} libdir=%{_libdir} libexecdir=%{_libexecdir} datarootdir=%{_datarootdir} includedir=%{_includedir} sysconfdir=%{_sysconfdir} build_prefix=%{_builddir}/%{buildsubdir}/build%{_prefix} build_libdir=%{_builddir}/%{buildsubdir}/build%{_libdir} JULIA_CPU_THREADS=$(echo %{?_smp_mflags} | sed s/-j//)
 
 
 %build
@@ -483,8 +479,9 @@ desktop-file-validate %{buildroot}%{_datarootdir}/applications/%{name}.desktop
 exit 0
 
 %changelog
-* Mon Apr 10 2023 Milan Bouchet-Valat <nalimilan@club.fr> - 1.9.0-0.rc2
+* Tue Apr 19 2023 Milan Bouchet-Valat <nalimilan@club.fr> - 1.9.0-0.rc2
 - New upstream release.
+- Fix missing dependency on OpenBLAS.
 
 * Wed Mar 8 2023 Milan Bouchet-Valat <nalimilan@club.fr> - 1.9.0-0.beta4
 - New upstream release.

@@ -1,11 +1,10 @@
 Summary:	A tiny replacement for Module::Build
 Name:		perl-Module-Build-Tiny
-Version:	0.041
+Version:	0.043
 Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Module-Build-Tiny
 Source0:	https://cpan.metacpan.org/modules/by-module/Module/Module-Build-Tiny-%{version}.tar.gz
-Patch0:		Module-Build-Tiny-0.041-pod.patch
 BuildArch:	noarch
 # Module Build
 BuildRequires:	coreutils
@@ -66,10 +65,6 @@ Whereas Module::Build has over 6,700 lines of code; this module has less than
 %prep
 %setup -q -n Module-Build-Tiny-%{version}
 
-# Fix pod detection
-# https://github.com/Perl-Toolchain-Gang/module-build-tiny/issues/29
-%patch -P 0
-
 %build
 perl Build.PL --installdirs=vendor
 ./Build
@@ -88,6 +83,12 @@ AUTHOR_TESTING=1 RELEASE_TESTING=1 ./Build test
 %{_mandir}/man3/Module::Build::Tiny.3*
 
 %changelog
+* Wed Apr 19 2023 Paul Howarth <paul@city-fan.org> - 0.043-1
+- Update to 0.043
+  - Restore manpage generation
+  - Add include/ to include paths
+  - Compile all .c files in src/
+
 * Tue Apr 18 2023 Paul Howarth <paul@city-fan.org> - 0.041-1
 - Update to 0.041
   - Manify .pod after .pm

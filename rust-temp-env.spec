@@ -5,7 +5,7 @@
 %global crate temp-env
 
 Name:           rust-temp-env
-Version:        0.3.2
+Version:        0.3.4
 Release:        %autorelease
 Summary:        Set environment variables temporarily
 

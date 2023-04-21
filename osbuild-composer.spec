@@ -9,7 +9,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        79
+Version:        80
 
 %gometa
 
@@ -84,7 +84,7 @@ Provides: bundled(golang(github.com/davecgh/go_spew)) = v1.1.1
 Provides: bundled(golang(github.com/deepmap/oapi_codegen)) = v1.8.2
 Provides: bundled(golang(github.com/dimchansky/utfbom)) = v1.1.1
 Provides: bundled(golang(github.com/docker/distribution)) = v2.8.1+incompatible
-Provides: bundled(golang(github.com/docker/docker)) = v20.10.17+incompatible
+Provides: bundled(golang(github.com/docker/docker)) = v20.10.24+incompatible
 Provides: bundled(golang(github.com/docker/docker_credential_helpers)) = v0.6.4
 Provides: bundled(golang(github.com/docker/go_connections)) = v0.4.0
 Provides: bundled(golang(github.com/docker/go_metrics)) = v0.0.1
@@ -451,10 +451,10 @@ The core osbuild-composer binary. This is suitable both for spawning in containe
 Summary:    The worker for osbuild-composer
 Requires:   systemd
 Requires:   qemu-img
-Requires:   osbuild >= 81
-Requires:   osbuild-ostree >= 81
-Requires:   osbuild-lvm2 >= 81
-Requires:   osbuild-luks2 >= 81
+Requires:   osbuild >= 83
+Requires:   osbuild-ostree >= 83
+Requires:   osbuild-lvm2 >= 83
+Requires:   osbuild-luks2 >= 83
 Requires:   %{name}-dnf-json = %{version}-%{release}
 
 %description worker
@@ -573,6 +573,25 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Apr 19 2023 Packit <hello@packit.dev> - 80-1
+Changes with 80
+----------------
+  * COMPOSER-1936: Enable regression-insecure-repo test for nightly CI pipeline (#3380)
+  * COMPOSER-1943: Fix failure in cross-distro.sh (#3379)
+  * Save manifest lists when pulling containers (#3336)
+  * Simplify packit config (#3339)
+  * Test/fix cs9 edge-simplified-installer test failure (#3382)
+  * build(deps): bump github.com/docker/docker from 20.10.17+incompatible to 20.10.24+incompatible (#3376)
+  * cloudapi/v2: expose repo metadata verification (#3387)
+  * dbjobqueue: Make dequeuing atomic (#3389)
+  * internal/worker: log dequeue failures (#3369)
+  * rpi firmware copy (#3391)
+
+Contributions from: Achilleas Koutsou, Alexander Todorov, Gianluca Zuccarelli, Jiri Popelka, Ondřej Budai, Sanne Raymaekers, Simon de Vlieger, dependabot[bot], yih
+
+— Somewhere on the Internet, 2023-04-19
+
+
 * Wed Apr 05 2023 Packit <hello@packit.dev> - 79-1
 Changes with 79
 ----------------

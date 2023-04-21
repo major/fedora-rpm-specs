@@ -2,21 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate miette-derive
+%global crate cargo-config2
 
-Name:           rust-miette-derive
-Version:        5.8.0
+Name:           rust-cargo-config2
+Version:        0.1.6
 Release:        %autorelease
-Summary:        Derive macros for miette
+Summary:        Load and resolve Cargo configuration
 
-License:        Apache-2.0
-URL:            https://crates.io/crates/miette-derive
+License:        Apache-2.0 OR MIT
+URL:            https://crates.io/crates/cargo-config2
 Source:         %{crates_source}
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Derive macros for miette. Like `thiserror` for Diagnostics.}
+Load and resolve Cargo configuration.}
 
 %description %{_description}
 
@@ -30,7 +30,10 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -48,6 +51,8 @@ use the "default" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
 %cargo_prep
+# drop integration tests which can only be compiled in-tree
+rm tests/test.rs
 
 %generate_buildrequires
 %cargo_generate_buildrequires
@@ -60,7 +65,8 @@ use the "default" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test
+# * skip tests which require cross-compile toolchains to be installed
+%cargo_test -- -- --skip resolve::tests::parse_cfg_list
 %endif
 
 %changelog

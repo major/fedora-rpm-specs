@@ -1,11 +1,11 @@
 %global _hardened_build 1
 
-%global upstream_version 2.0b4
+%global upstream_version 2.0rc1
 
 
 Name: libcupsfilters
 Epoch: 1
-Version: 2.0~b4
+Version: 2.0~rc1
 Release: 1%{?dist}
 Summary: Library for developing printing filters
 # the CUPS exception text is the same as LLVM exception, so using that name with
@@ -66,9 +66,6 @@ BuildRequires: pkgconfig(libtiff-4)
 # for pdftoraster filter
 BuildRequires: pkgconfig(poppler-cpp)
 
-# comment out this until we have cups-filters-2.0b in repos
-# otherwise we can't install build packages which requires cups
-# and cups-filters/libcupsfilters (at the finish of the Fedora change)
 # remove once CentOS Stream 10 is released
 Obsoletes: cups-filters-libs < 2.0
 
@@ -197,6 +194,9 @@ rm -f %{buildroot}%{_pkgdocdir}/{LICENSE,COPYING,NOTICE}
 
 
 %changelog
+* Wed Apr 19 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0~rc1-1
+- 2.0rc1
+
 * Wed Mar 01 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0~b4-1
 - (fedora#2173137) - libcupsfilters-2.0b4 is available
 - introduce Epoch because I'm not careful reader of FPG...

@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-machines
-Version:        287
+Version:        288
 Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
@@ -69,10 +69,10 @@ Provides: bundled(npm(@babel/runtime)) = 7.21.0
 Provides: bundled(npm(@novnc/novnc)) = 1.4.0
 Provides: bundled(npm(@patternfly/patternfly)) = 4.224.4
 Provides: bundled(npm(@patternfly/react-console)) = 4.95.5
-Provides: bundled(npm(@patternfly/react-core)) = 4.276.8
+Provides: bundled(npm(@patternfly/react-core)) = 4.276.9
 Provides: bundled(npm(@patternfly/react-icons)) = 4.93.6
-Provides: bundled(npm(@patternfly/react-styles)) = 4.92.6
-Provides: bundled(npm(@patternfly/react-table)) = 4.113.0
+Provides: bundled(npm(@patternfly/react-styles)) = 4.92.7
+Provides: bundled(npm(@patternfly/react-table)) = 4.113.1
 Provides: bundled(npm(@patternfly/react-tokens)) = 4.94.6
 Provides: bundled(npm(@spice-project/spice-html5)) = 0.2.1
 Provides: bundled(npm(attr-accept)) = 1.1.3
@@ -170,6 +170,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Apr 19 2023 Packit <hello@packit.dev> - 288-1
+- Indicate need for shutdown
+- Delete storage file upon disk detachment
+
 * Thu Apr 06 2023 Packit <hello@packit.dev> - 287-1
 - Show an alert when virtualization is disabled in BIOS/EFI
 

@@ -17,18 +17,13 @@
 %global major_version %%(echo %{version} | cut -f 1 -d '~' | cut -f 1 -d '.')
 
 Name:           gnome-settings-daemon
-Version:        44.0
+Version:        44.1
 Release:        %autorelease
 Summary:        The daemon sharing settings from GNOME to GTK+/KDE applications
 
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://gitlab.gnome.org/GNOME/gnome-settings-daemon
 Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
-# https://gitlab.gnome.org/GNOME/gnome-settings-daemon/-/merge_requests/325
-# https://gitlab.gnome.org/GNOME/gnome-settings-daemon/-/issues/736
-# https://bugzilla.redhat.com/show_bug.cgi?id=2180047
-# Ensure auto-suspend does not apply to VMs
-Patch0:         325.patch
 
 BuildRequires:  gcc
 BuildRequires:  gettext

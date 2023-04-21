@@ -8,21 +8,22 @@ Summary:   NetworkManager VPN plugin for PPTP
 Name:      NetworkManager-pptp
 Epoch:     1
 Version:   1.2.12
-Release:   1%{?dist}
+Release:   2%{?dist}
 License:   GPLv2+
 URL:       http://www.gnome.org/projects/NetworkManager/
 
 Source0:   https://download.gnome.org/sources/NetworkManager-pptp/1.2/%{name}-%{version}.tar.xz
 #Patch1: 0001-example.patch
 
-%global ppp_version %(sed -n 's/^#define\\s*VERSION\\s*"\\([^\\s]*\\)"$/\\1/p' %{_includedir}/pppd/patchlevel.h 2>/dev/null | grep . || echo bad)
+%global ppp_version %(pkg-config --modversion pppd 2>/dev/null || echo bad)
 
 BuildRequires: make
 BuildRequires: glib2-devel
 BuildRequires: gtk3-devel
 BuildRequires: NetworkManager-libnm-devel >= 1:1.2.0
 BuildRequires: libnma-devel >= 1.2.0
-BuildRequires: ppp-devel
+BuildRequires: pkgconfig
+BuildRequires: ppp-devel >= 2.5.0
 BuildRequires: libtool intltool gettext
 BuildRequires: libsecret-devel
 %if %with gtk4
@@ -102,6 +103,9 @@ rm -f %{buildroot}%{_libdir}/pppd/%{ppp_version}/*.la
 
 
 %changelog
+* Tue Apr 18 2023 Adam Williamson <awilliam@redhat.com> - 1.2.12-2
+- Rebuild for new ppp
+
 * Thu Mar 09 2023 Lubomir Rintel <lkundrak@v3.sk> - 1.2.12-1
 - Update to 1.2.12 release
 

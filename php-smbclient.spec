@@ -20,7 +20,7 @@
 %bcond_with        tests
 
 Name:           php-smbclient
-Version:        1.1.0
+Version:        1.1.1
 Release:        1%{?dist}
 Summary:        PHP wrapper for libsmbclient
 
@@ -30,8 +30,6 @@ Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}%{?prever}.tgz
 %if %{with tests}
 Source2:        %{pecl_name}-phpunit.xml
 %endif
-
-Patch0:         %{pecl_name}-bug98.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -73,8 +71,6 @@ sed -e 's/role="test"/role="src"/' \
     -i package.xml
 
 cd NTS
-%patch -P0 -p1 -b .pr100
-
 # Check extension version
 ver=$(sed -n '/define PHP_SMBCLIENT_VERSION/{s/.* "//;s/".*$//;p}' php_smbclient.h)
 if test "$ver" != "%{version}%{?prever}"; then
@@ -167,6 +163,10 @@ cp %{SOURCE2} phpunit.xml
 
 
 %changelog
+* Wed Apr 19 2023 Remi Collet <remi@remirepo.net> - 1.1.1-1
+- update to 1.1.1
+- drop patch merged upstream
+
 * Tue Apr  4 2023 Remi Collet <remi@remirepo.net> - 1.1.0-1
 - update to 1.1.0
 - drop patch merged upstream

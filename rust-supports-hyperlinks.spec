@@ -5,7 +5,7 @@
 %global crate supports-hyperlinks
 
 Name:           rust-supports-hyperlinks
-Version:        2.0.0
+Version:        2.1.0
 Release:        %autorelease
 Summary:        Detects whether a terminal supports rendering hyperlinks
 

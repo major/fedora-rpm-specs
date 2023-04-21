@@ -693,6 +693,7 @@ export PYTHONHASHSEED="$(
 %{pyproject_check_import \
   %{?with_bootstrap:-e 'pandas.io.formats.style'} \
   %{?with_bootstrap:-e 'pandas.io.formats.style_render'} \
+  %{?with_bootstrap:-e 'pandas.core.arrays.arrow.extension_types'} \
   -e 'pandas.conftest' \
   -e 'pandas.tests.*'}
 %endif

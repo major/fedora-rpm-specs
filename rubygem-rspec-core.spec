@@ -1,9 +1,9 @@
-%global	majorver	3.12.1
+%global	majorver	3.12.2
 #%%global	preminorver	.rc6
 %global	rpmminorver	.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver	%{majorver}%{?preminorver}
 
-%global	baserelease	2
+%global	baserelease	1
 
 %global	gem_name	rspec-core
 
@@ -88,7 +88,7 @@ This package contains documentation for %{name}.
 
 %prep
 %setup -q -T -n %{gem_name}-%{version} -b 1
-%patch0 -p1
+%patch -P0 -p1
 gem specification %{SOURCE0} -l --ruby > %{gem_name}.gemspec
 
 %build
@@ -204,6 +204,9 @@ done
 %{gem_docdir}
 
 %changelog
+* Wed Apr 19 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.12.2-1
+- 3.12.2
+
 * Fri Mar 03 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.12.1-2
 - Disable unwanted dependencies in RHEL builds
 

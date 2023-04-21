@@ -52,13 +52,13 @@ Requires:       python3-%{pypi_name} == %{version}
 %endif
 
 %prep
-%autosetup -p1 -n %{pypi_name}-%{version} -S git
+%autosetup -p1 -n %{pypi_name}-%{version}
 
 # Disable coverage
 sed -i -e 's/--cov=mizani --cov-report=xml//' pyproject.toml
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 
 %build

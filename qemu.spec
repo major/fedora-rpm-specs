@@ -321,11 +321,11 @@ Obsoletes: %{name}-system-unicore32-core <= %{epoch}:%{version}-%{release}
 %endif
 
 # To prevent rpmdev-bumpspec breakage
-%global baserelease 7
+%global baserelease 1
 
 Summary: QEMU is a FAST! processor emulator
 Name: qemu
-Version: 7.2.0
+Version: 7.2.1
 Release: %{baserelease}%{?rcrel}%{?dist}
 Epoch: 2
 License: GPLv2 and BSD and MIT and CC-BY
@@ -350,8 +350,6 @@ Patch: 0002-tests-Disable-pci_virtio_vga-for-ppc64.patch
 # Fix compat with kernel-headers >= 6.1
 Patch: 0003-Revert-linux-user-add-more-compat-ioctl-definitions.patch
 Patch: 0004-Revert-linux-user-fix-compat-with-glibc-2.36-sys-mou.patch
-# Fix virtio-blk-pci detect-zeroes=unmap (RHBZ#2173357)
-Patch: 0005-block-fix-detect-zeroes-with-BDRV_REQ_REGISTERED_BUF.patch
 # Fix build with glib2 2.75.3
 # https://bugzilla.redhat.com/show_bug.cgi?id=2173639
 # https://gitlab.com/qemu-project/qemu/-/issues/1518
@@ -2788,6 +2786,9 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 
 
 %changelog
+* Wed Apr 19 2023 Eduardo Lima (Etrunko) <etrunko@redhat.com> - 7.2.1-1
+- Rebase to qemu 7.2.1
+
 * Mon Feb 27 2023 Richard W.M. Jones <rjones@redhat.com> - 7.2.0-7
 - Fix virtio-blk-pci detect-zeroes=unmap (RHBZ#2173357)
 - Fix build with glib2 2.75.3 (RHBZ#2173639)

@@ -7,13 +7,13 @@
 %bcond_with tests
 
 Name:           mangohud
-Version:        0.6.9
+Version:        0.6.9.1
 Release:        %autorelease
 Summary:        Vulkan overlay layer for monitoring FPS, temperatures, CPU/GPU load and more
 
 License:        MIT
 URL:            https://github.com/flightlessmango/MangoHud
-Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/v0.6.9-1/%{name}-%{version}.tar.gz
 Source1:        https://github.com/ocornut/imgui/archive/v%{imgui_ver}/imgui-%{imgui_ver}.tar.gz
 Source2:        https://wrapdb.mesonbuild.com/v1/projects/imgui/%{imgui_ver}/%{imgui_wrap_ver}/get_zip#/imgui-%{imgui_ver}-%{imgui_wrap_ver}-wrap.zip
 
@@ -65,9 +65,9 @@ To install GUI front-end:
 
 
 %prep
-%autosetup -n %{appname}-%{version} -p1
-%setup -qn %{appname}-%{version} -DTa1
-%setup -qn %{appname}-%{version} -DTa2
+%autosetup -n %{appname}-0.6.9-1 -p1
+%setup -qn %{appname}-0.6.9-1 -DTa1
+%setup -qn %{appname}-0.6.9-1 -DTa2
 
 mkdir subprojects/imgui
 mv imgui-%{imgui_ver} subprojects/

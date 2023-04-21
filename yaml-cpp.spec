@@ -2,16 +2,19 @@
 
 Name:           yaml-cpp
 Version:        0.7.0
-Release:        2%{?dist}
+Release:        3%{?dist}
+
+License:        MIT
 Summary:        A YAML parser and emitter for C++
-License:        MIT 
 URL:            https://github.com/jbeder/yaml-cpp
-Source0:        https://github.com/jbeder/yaml-cpp/archive/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
 
-# Install pkgconf and cmake files in LIBDIR instead of DATADIR
-Patch0:         yaml-cpp-cmake.patch
+# CMake fixes from 0e6e28d1a38224fc8172fae0109ea7f673c096db commit
+Patch100:       yaml-cpp-cmake.patch
 
-BuildRequires:  cmake gcc gcc-c++
+BuildRequires:  cmake
+BuildRequires:  gcc
+BuildRequires:  gcc-c++
 BuildRequires:  make
 
 %description
@@ -19,9 +22,8 @@ yaml-cpp is a YAML parser and emitter in C++ written around the YAML 1.2 spec.
 
 %package        devel
 Summary:        Development files for %{name}
-License:        MIT
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       pkgconfig
+Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       libstdc++-devel%{?_isa}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -29,67 +31,68 @@ developing applications that use %{name}.
 
 %package        static
 Summary:        Static library for %{name}
-License:        MIT
-Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
+Requires:       %{name}-devel%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description    static
 The %{name}-static package contains the static library for %{name}.
 
-
 %prep
-%autosetup -p1 -n %{name}-%{name}-%{version}
-
+%autosetup -n %{name}-%{name}-%{version} -p1
 
 %build
-%cmake -B build_shared \
-       -DYAML_CPP_BUILD_TOOLS=OFF \
-       -DYAML_BUILD_SHARED_LIBS=ON \
-       -DYAML_CPP_BUILD_TESTS=OFF \
-       %{nil}
-%make_build -C build_shared
-
 %cmake -B build_static \
-       -DYAML_CPP_BUILD_TOOLS=OFF \
-       -DYAML_BUILD_SHARED_LIBS=OFF \
-       -DYAML_CPP_BUILD_TESTS=OFF \
-       %{nil}
+    -DCMAKE_BUILD_TYPE=Release \
+    -DYAML_CPP_BUILD_TOOLS:BOOL=OFF \
+    -DYAML_CPP_FORMAT_SOURCE:BOOL=OFF \
+    -DYAML_CPP_INSTALL:BOOL=ON \
+    -DYAML_BUILD_SHARED_LIBS:BOOL=OFF \
+    -DYAML_CPP_BUILD_TESTS:BOOL=OFF
 %make_build -C build_static
 
+%cmake -B build_shared \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DYAML_CPP_BUILD_TOOLS:BOOL=OFF \
+    -DYAML_CPP_FORMAT_SOURCE:BOOL=OFF \
+    -DYAML_CPP_INSTALL:BOOL=ON \
+    -DYAML_BUILD_SHARED_LIBS:BOOL=ON \
+    -DYAML_CPP_BUILD_TESTS:BOOL=OFF
+%make_build -C build_shared
 
 %install
 %make_install -C build_static yaml-cpp
 
 # Move files so they don't get trampled
 mv %{buildroot}%{_libdir}/cmake/%{name} \
-   %{buildroot}%{_libdir}/cmake/%{name}-static
+    %{buildroot}%{_libdir}/cmake/%{name}-static
 mv %{buildroot}%{_libdir}/pkgconfig/%{name}.pc \
-   %{buildroot}%{_libdir}/pkgconfig/%{name}-static.pc
+    %{buildroot}%{_libdir}/pkgconfig/%{name}-static.pc
 
 %make_install -C build_shared
-
-
-%ldconfig_scriptlets
-
 
 %files
 %doc CONTRIBUTING.md README.md
 %license LICENSE
-%{_libdir}/*.so.%{sover}*
+%{_libdir}/lib%{name}*.so.%{sover}*
 
 %files devel
 %{_includedir}/yaml-cpp/
-%{_libdir}/*.so
+%{_libdir}/lib%{name}.so
 %{_libdir}/cmake/%{name}
 %{_libdir}/pkgconfig/%{name}.pc
 
 %files static
 %license LICENSE
-%{_libdir}/*.a
+%{_libdir}/lib%{name}.a
 %{_libdir}/cmake/%{name}-static
 %{_libdir}/pkgconfig/%{name}-static.pc
 
-
 %changelog
+* Wed Apr 19 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.7.0-3
+- Fixed broken CMake configs (rhbz#2188009).
+- Backported CMake fixes from upstream.
+- Converted license tag to SPDX.
+- Performed minor SPEC cleanup.
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           jaxb-istack-commons
-Version:        4.1.1
-Release:        3%{?dist}
+Version:        4.2.0
+Release:        1%{?dist}
 Summary:        iStack Common Utility Code
 License:        BSD
 URL:            https://github.com/eclipse-ee4j/jaxb-istack-commons
@@ -82,6 +82,9 @@ popd
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Mon Apr 17 2023 Marian Koncek <mkoncek@redhat.com> - 4.2.0-1
+- Update to upstream version 4.2.0
+
 * Wed Feb 08 2023 Marian Koncek <mkoncek@redhat.com> - 4.1.1-3
 - Reorganize subpackages
 

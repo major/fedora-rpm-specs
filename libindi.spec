@@ -27,7 +27,7 @@ BuildRequires: libogg-devel
 BuildRequires: libnova-devel
 BuildRequires: libtheora-devel
 BuildRequires: libXISF-devel
-BuildRequires: systemd
+BuildRequires: systemd-rpm-macros
 
 BuildRequires: pkgconfig(cfitsio)
 BuildRequires: pkgconfig(fftw3)
@@ -85,6 +85,16 @@ Summary: INDI shared libraries
 These are the shared libraries of INDI.
 
 
+%if 0%{?build_qt5_client}
+%package qt
+Summary: INDI Qt5 client libraries
+Requires: %{name}-libs%{?_isa} = %{version}-%{release}
+
+%description qt
+These are the Qt5 client libraries of INDI.
+%endif
+
+
 %package static
 Summary: Static libraries, includes, etc. used to develop an application with %{name}
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
@@ -130,9 +140,18 @@ chmod -x drivers/telescope/pmc8driver.cpp
 
 %files libs
 %license COPYING.BSD COPYING.GPL COPYING.LGPL COPYRIGHT LICENSE
+%if 0%{?build_qt5_client}
+%exclude %{_libdir}/libindiclientqt.so.*
+%endif
 %{_libdir}/%{name}*.so.2
 %{_libdir}/%{name}*.so.2.*
 %{_libdir}/indi/MathPlugins
+
+%if 0%{?build_qt5_client}
+%files qt
+%{_libdir}/libindiclientqt.so.2
+%{_libdir}/libindiclientqt.so.2.*
+%endif
 
 %files devel
 %{_includedir}/%{name}

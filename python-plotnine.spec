@@ -47,7 +47,6 @@ Source0:        %{pypi_source %{pypi_name}}
 %package -n python3-%{pypi_name}
 Summary:        %{summary}
 BuildRequires:  python3-devel
-BuildRequires:  git-core
 BuildRequires:  python3-geopandas
 BuildRequires:  python3-adjustText
 BuildRequires:  comic-neue-fonts
@@ -87,7 +86,7 @@ Requires:       python3-%{pypi_name} == %{version}
 
 
 %prep
-%autosetup -p1 -n %{pypi_name}-%{version} -S git
+%autosetup -p1 -n %{pypi_name}-%{version}
 # Disable coverage in pytest
 sed -i -e 's/--cov=plotnine --cov-report=xml //' pyproject.toml
 # Tests are failing in f36 with ImportError

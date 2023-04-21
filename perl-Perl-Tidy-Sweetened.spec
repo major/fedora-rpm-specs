@@ -1,5 +1,5 @@
 Name:           perl-Perl-Tidy-Sweetened
-Version:        1.19
+Version:        1.20
 Release:        1%{?dist}
 Summary:        Tweaks to Perl::Tidy to support some syntactic sugar
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -14,7 +14,7 @@ BuildRequires:  perl(Module::Build::Tiny) >= 0.034
 # Run-time
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
-BuildRequires:  perl(Perl::Tidy) >= 20221112
+BuildRequires:  perl(Perl::Tidy) >= 20230309
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Tests
@@ -22,7 +22,7 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Most)
-Requires:       perl(Perl::Tidy) >= 20221112
+Requires:       perl(Perl::Tidy) >= 20230309
 
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Perl::Tidy\\)
 # Filter modules bundled for tests
@@ -86,6 +86,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Apr 19 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.20-1
+- 1.20 bump
+
 * Tue Apr 18 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.19-1
 - 1.19 bump
 - Package tests

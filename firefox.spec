@@ -292,7 +292,6 @@ BuildRequires:  zip
 BuildRequires:  bzip2-devel
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  pkgconfig(gtk+-3.0)
-BuildRequires:  pkgconfig(gtk+-2.0)
 BuildRequires:  pkgconfig(krb5)
 BuildRequires:  pkgconfig(pango)
 BuildRequires:  pkgconfig(freetype2) >= %{freetype_version}
@@ -976,9 +975,6 @@ sed -e "s/__VERSION__/%{version}/" \
 # Install Gnome search provider files
 mkdir -p %{buildroot}%{_datadir}/gnome-shell/search-providers
 cp %{SOURCE34} %{buildroot}%{_datadir}/gnome-shell/search-providers
-
-# Remove gtk2 support as flash plugin is no longer supported
-rm -rf %{buildroot}%{mozappdir}/gtk2/
 
 # Remove copied libraries to speed up build
 rm -f %{buildroot}%{mozappdirdev}/sdk/lib/libmozjs.so

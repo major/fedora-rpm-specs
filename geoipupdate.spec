@@ -2,7 +2,7 @@
 
 # https://github.com/maxmind/geoipupdate
 %global goipath	github.com/maxmind/geoipupdate
-Version:	5.0.0
+Version:	5.0.4
 
 %gometa
 
@@ -105,6 +105,21 @@ install -p -m 0644 _build/GeoIP.conf.5 %{buildroot}%{_mandir}/man5/GeoIP.conf.5
 %config(noreplace) %{_sysconfdir}/cron.weekly/geoipupdate
 
 %changelog
+* Wed Apr 19 2023 Paul Howarth <paul@city-fan.org> - 5.0.4-1
+- Update to 5.0.4
+  - The 5.0.0 release mistakenly set the file permissions on downloaded
+    databases to 0600; this restores the previous behavior of using 0644
+    (GH#217, GH#218)
+  - "Database ... up to date" messages are now only shown if the verbose flag
+    is set (GH#219)
+  - Since version 5.0.0, the default database directory was not being correctly
+    set for Debian and RPM package builds -  the directory
+    '/usr/local/share/GeoIP' was being used rather than '/usr/share/GeoIP';
+    this build restores '/usr/share/GeoIP' as the default directory for these
+    builds (GH#222)
+  - Since version 4.9.0, the incorrect commit was tagged; this release attempts
+    to fix the release process to prevent this issue
+
 * Thu Apr 13 2023 Paul Howarth <paul@city-fan.org> - 5.0.0-1
 - Update to 5.0.0
   - Redefined the 'Reader' and 'Writer' interface APIs in

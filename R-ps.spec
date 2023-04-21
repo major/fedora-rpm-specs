@@ -2,12 +2,12 @@
 %bcond_with bootstrap
 
 %global packname ps
-%global packver  1.7.1
+%global packver  1.7.5
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
-Version:          1.7.1
-Release:          2%{?dist}
+Version:          %{packver}
+Release:          1%{?dist}
 Summary:          List, Query, Manipulate System Processes
 
 License:          MIT
@@ -19,7 +19,7 @@ Patch0001:        0001-Don-t-run-example-that-uses-the-network.patch
 # Here's the R view of the dependencies world:
 # Depends:
 # Imports:   R-utils
-# Suggests:  R-callr, R-covr, R-curl, R-pingr, R-processx >= 3.1.0, R-R6, R-rlang, R-testthat, R-tibble
+# Suggests:  R-callr, R-covr, R-curl, R-pillar, R-pingr, R-processx >= 3.1.0, R-R6, R-rlang, R-testthat >= 3.0.0, R-webfakes
 # LinkingTo:
 # Enhances:
 
@@ -35,6 +35,7 @@ BuildRequires:    R-processx >= 3.1.0
 BuildRequires:    R-R6
 BuildRequires:    R-rlang
 BuildRequires:    R-testthat >= 3.0.0
+BuildRequires:    R-webfakes
 %endif
 
 %description
@@ -46,7 +47,7 @@ List, query and manipulate all system processes, on 'Windows', 'Linux' and
 %setup -q -c -n %{packname}
 
 pushd %{packname}
-%patch0001 -p1
+%patch -P0001 -p1
 
 # Don't need coverage; it's not packaged either.
 sed -i 's/covr, //g' DESCRIPTION
@@ -94,6 +95,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-examples --no
 
 
 %changelog
+* Wed Apr 19 2023 Tom Callaway <spot@fedoraproject.org> - 1.7.5-1
+- update to 1.7.5
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

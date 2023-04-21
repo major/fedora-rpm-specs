@@ -1,12 +1,13 @@
-%bcond_with bootstrap
+# asciicast missing
+%bcond_with suggests
 
 %global packname callr
-%global packver  3.7.1
+%global packver  3.7.3
 %global rlibdir  %{_datadir}/R/library
 
 Name:             R-%{packname}
-Version:          3.7.1
-Release:          2%{?dist}
+Version:          %{packver}
+Release:          1%{?dist}
 Summary:          Call R from R
 
 License:          MIT
@@ -16,7 +17,7 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 # Here's the R view of the dependencies world:
 # Depends:
 # Imports:   R-processx >= 3.6.1, R-R6, R-utils
-# Suggests:  R-cli>= 1.1.0, R-covr, R-mockery, R-ps, R-rprojroot, R-spelling, R-testthat, R-withr >= 2.3.0
+# Suggests:  R-asciicast, R-cli>= 1.1.0, R-covr, R-mockery, R-ps, R-rprojroot, R-spelling, R-testthat >= 3.0.0, R-withr >= 2.3.0
 # LinkingTo:
 # Enhances:
 
@@ -26,13 +27,14 @@ BuildRequires:    tex(latex)
 BuildRequires:    R-processx >= 3.6.1
 BuildRequires:    R-R6
 BuildRequires:    R-utils
-%if %{without bootstrap}
+%if %{with suggests}
+BuildRequires:    R-asciicast
 BuildRequires:    R-cli >= 1.1.0
 BuildRequires:    R-mockery
 BuildRequires:    R-ps
 BuildRequires:    R-rprojroot
 BuildRequires:    R-spelling
-BuildRequires:    R-testthat
+BuildRequires:    R-testthat >= 3.0.0
 BuildRequires:    R-withr >= 2.3.0
 %endif
 
@@ -60,8 +62,8 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %check
-%if %{without bootstrap}
-%{_bindir}/R CMD check %{packname}
+%if %{with suggests}
+%{_bindir}/R CMD check %{packname} --ignore-vignettes
 %endif
 
 
@@ -81,6 +83,10 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Apr 19 2023 Tom Callaway <spot@fedoraproject.org> - 3.7.3-1
+- update to 3.7.3
+- adjust packaging model to one where suggests are optional (and not enabled by default)
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

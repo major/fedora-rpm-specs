@@ -1,6 +1,6 @@
 # Initially Generated from mechanize-0.8.5.gem by gem2rpm -*- rpm-spec -*-
 
-%global	majorver		2.9.0
+%global	majorver		2.9.1
 %undefine	preminorver	
 %global	rpmminorver		.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver		%{majorver}%{?preminorver}
@@ -139,6 +139,9 @@ popd
 %{gem_instdir}/examples/
 
 %changelog
+* Wed Apr 19 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.9.1-1
+- 2.9.1
+
 * Mon Apr 10 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.9.0-1
 - 2.9.0
 - SPDX confirmed

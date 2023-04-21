@@ -1,14 +1,14 @@
 # remirepo/fedora spec file for php-http-message-factory
 #
-# Copyright (c) 2019 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2019-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 
 # Github
-%global gh_commit    a478cb11f66a6ac48d8954216cfed9aa06a501a1
+%global gh_commit    4d8778e1c7d405cbb471574821c1ff5b68cc8f57
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     php-http
 %global gh_project   message-factory
@@ -21,8 +21,8 @@
 
 # skip duplicated php prefix
 Name:      %{pk_vendor}-%{pk_project}
-Version:   1.0.2
-Release:   9%{?dist}
+Version:   1.1.0
+Release:   1%{?dist}
 Summary:   Factory interfaces for PSR-7 HTTP Message
 
 License:   MIT
@@ -35,7 +35,7 @@ BuildArch: noarch
 # For tests
 BuildRequires:  php(language) >= 5.4
 %if 0%{?fedora} >= 27 || 0%{?rhel} >= 8
-BuildRequires: (php-composer(psr/http-message) >= 1.0   with php-composer(psr/http-message) < 2)
+BuildRequires: (php-composer(psr/http-message) >= 1.0   with php-composer(psr/http-message) < 3)
 %else
 BuildRequires:  php-psr-http-message
 %endif
@@ -44,10 +44,10 @@ BuildRequires:  php-fedora-autoloader-devel
 
 # From composer.json,    "require": {
 #        "php": ">=5.4",
-#        "psr/http-message": "^1.0"
+#        "psr/http-message": "^1.0 || ^2.0"
 Requires:  php(language) >= 5.4
 %if 0%{?fedora} >= 27 || 0%{?rhel} >= 8
-Requires: (php-composer(psr/http-message) >= 1.0   with php-composer(psr/http-message) < 2)
+Requires: (php-composer(psr/http-message) >= 1.0   with php-composer(psr/http-message) < 3)
 %else
 Requires:  php-psr-http-message
 %endif
@@ -78,7 +78,10 @@ Autoloader: %{_datadir}/php/%{ns_vendor}/%{ns_project}/autoload.php
 
 cat << 'EOF' | tee -a src/autoload.php
 \Fedora\Autoloader\Dependencies::required([
-    '%{_datadir}/php/Psr/Http/Message/autoload.php',
+    [
+        '%{_datadir}/php/Psr/Http/Message2/autoload.php',
+        '%{_datadir}/php/Psr/Http/Message/autoload.php',
+    ],
 ]);
 EOF
 
@@ -105,6 +108,10 @@ exit (interface_exists("%{ns_vendor}\\%{ns_project}\\RequestFactory") ? 0 : 1);
 
 
 %changelog
+* Wed Apr 19 2023 Remi Collet <remi@remirepo.net> - 1.1.0-1
+- update to 1.1.0
+- allow psr/http-message 2.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

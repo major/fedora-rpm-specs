@@ -3,12 +3,12 @@
 %global git_commit_short %(c="%{git_commit}"; echo "${c:0:8}")
 
 Version: 163840
-Release: 8.%{git_date}git%{git_commit_short}%{?dist}
+Release: 9.%{git_date}git%{git_commit_short}%{?dist}
 
 URL: https://www.hanyang.co.kr/hygothic/
 
 %global foundry  HanYang
-%global fontlicense  OFL
+%global fontlicense  OFL-1.1
 %global fontlicenses  OFL.txt
 
 %global fontfamily  Gothic A1
@@ -54,6 +54,9 @@ Source99: gothicA1-fetch.sh
 
 
 %changelog
+* Wed Apr 19 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 163840-9.20180313git16680f86
+- Convert License tag to SPDX
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 163840-8.20180313git16680f86
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

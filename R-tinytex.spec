@@ -1,10 +1,10 @@
 %global packname tinytex
-%global packver  0.42
+%global packver  0.45
 %global rlibdir  %{_datadir}/R/library
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          1%{?dist}
 Summary:          Helper Functions to Install and Maintain TeX Live, and Compile LaTeX Documents
 
 License:          MIT
@@ -21,7 +21,7 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 BuildArch:        noarch
 BuildRequires:    R-devel
 BuildRequires:    tex(latex)
-BuildRequires:    R-xfun >= 0.23
+BuildRequires:    R-xfun >= 0.29
 BuildRequires:    R-testit
 BuildRequires:    R-rstudioapi
 
@@ -66,6 +66,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Apr 19 2023 Tom Callaway <spot@fedoraproject.org> - 0.45-1
+- update to 0.45
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.42-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

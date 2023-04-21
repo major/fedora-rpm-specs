@@ -1,5 +1,5 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0x4c29ff0e437f3351fd82bdf47c5a3bc787dc7035
+%global sources_gpg_sign 0xa7475c5f2122fec3f90343223fe3bf5aad1080e4
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 %global pypi_name oslo.i18n
@@ -12,8 +12,8 @@ The oslo.i18n library contain utilities for working with internationalization \
 or library.
 
 Name:           python-oslo-i18n
-Version:        5.1.0
-Release:        5%{?dist}
+Version:        6.0.0
+Release:        2%{?dist}
 Summary:        OpenStack i18n library
 License:        ASL 2.0
 URL:            https://github.com/openstack/%{pypi_name}
@@ -129,6 +129,9 @@ mv %{buildroot}%{python3_sitelib}/oslo_i18n/locale %{buildroot}%{_datadir}/local
 %license LICENSE
 
 %changelog
+* Wed Apr 19 2023 Karolina Kula <kkula@redhat.com> 6.0.0-2
+- Update to upstream version 6.0.0
+
 * Thu Apr 13 2023 Alfredo Moralejo <amoralej@redhat.com> - 5.1.0-5
 - Fixed compatibility with sphinx >= 6.0
 

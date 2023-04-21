@@ -5,7 +5,7 @@
 # If you bump LLVM, please reset bugfix_version to 0; I fork upstream sources,
 # but I prepare the initial *.0 tag long before Fedora/EL picks up new LLVM.
 # An LLVM update will require uploading new sources, contact mystro256 if FTBFS.
-%global bugfix_version 0
+%global bugfix_version 1
 %global upstreamname ROCm-Device-Libs
 
 Name:           rocm-device-libs
@@ -61,6 +61,9 @@ libraries in the form of bit code. Specifically:
 %{_libdir}/amdgcn
 
 %changelog
+* Wed Apr 19 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 16.1-1
+- Update to 16.1
+
 * Wed Mar 29 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 16.0-1
 - Update to 16.0 (forked sources for Fedora)
 

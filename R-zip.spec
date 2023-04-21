@@ -1,13 +1,13 @@
 %global packname zip
-%global packver  2.2.1
+%global packver  2.3.0
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          1%{?dist}
 Summary:          Cross-Platform 'zip' Compression
-
-License:          CC0
+# was CC-0 before, now MIT
+License:          MIT
 URL:              https://CRAN.R-project.org/package=%{packname}
 Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.tar.gz
 
@@ -73,6 +73,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Apr 19 2023 Tom Callaway <spot@fedoraproject.org> - 2.3.0-1
+- update to 2.3.0
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 # https://github.com/Yubico/yubihsm-connector
 %global goipath         github.com/Yubico/yubihsm-connector
-Version:                3.0.3
+Version:                3.0.4
 %global tag             %{version}
 
 %gometa
@@ -12,7 +12,7 @@ Version:                3.0.3
 Backend to talk to YubiHSM 2}
 
 Name:           yubihsm-connector
-Release:        6%{?dist}
+Release:        1%{?dist}
 Summary:        YubiHSM Connector
 
 # Upstream license specification: Apache-2.0
@@ -129,6 +129,9 @@ exit 0
 %{_udevrulesdir}/70-yubihsm-connector.rules
 
 %changelog
+* Wed Apr 19 2023 Jakub Jelen <jjelen@redhat.com> - 3.0.4-1
+- New upstream release (#2165238)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

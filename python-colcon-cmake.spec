@@ -46,9 +46,12 @@ An extension for colcon-core to support CMake projects.
 
 
 %check
+# Workaround pkg_resources deprecation warning
+# https://github.com/colcon/colcon-cmake/issues/127
 %{__python3} -m pytest \
     --ignore=test/test_spell_check.py \
     --ignore=test/test_flake8.py \
+    -W "ignore:pkg_resources is deprecated as an API::pkg_resources" \
     test
 
 

@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-phpspec-prophecy-phpunit
 #
-# Copyright (c) 2020 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2020-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -9,14 +9,14 @@
 
 %bcond_without       tests
 
-%global gh_commit    2d7a9df55f257d2cba9b1d0c0963a54960657177
+%global gh_commit    9f26c224a2fa335f33e6666cc078fbf388255e87
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     phpspec
 %global gh_project   prophecy-phpunit
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        2.0.1
-Release:        6%{?dist}
+Version:        2.0.2
+Release:        1%{?dist}
 Summary:        Integrating the Prophecy mocking library in PHPUnit test cases
 
 License:        MIT
@@ -82,15 +82,18 @@ phpab --output vendor/autoload.php fixtures tests
 
 cat << 'EOF' | tee -a vendor/autoload.php
 require_once '%{buildroot}%{_datadir}/php/Prophecy/PhpUnit/autoload.php';
+require_once '%{_datadir}/php/PHPUnit9/autoload.php';
 EOF
 
 : check autoloader
 php %{buildroot}%{_datadir}/php/Prophecy/PhpUnit/autoload.php
 
+: Fix expecteed path
+sed -e 's:src/::' -i tests/MockFailure.phpt
 
 : upstream test suite
 ret=0
-for cmd in php php73 php74 php80; do
+for cmd in php php80 php81 php82; do
   if which $cmd; then
     $cmd -d auto_prepend_file=vendor/autoload.php \
       %{_bindir}/phpunit9 || ret=1
@@ -110,6 +113,9 @@ exit $ret
 
 
 %changelog
+* Wed Apr 19 2023 Remi Collet <remi@remirepo.net> - 2.0.2-1
+- update to 2.0.2
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

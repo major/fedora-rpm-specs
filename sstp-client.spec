@@ -1,21 +1,27 @@
 %global _hardened_build 1
 %global __provides_exclude ^sstp-pppd-plugin\\.so$
-%global ppp_version %(rpm -q ppp > /dev/null && rpm -q ppp --qf '%{VERSION}' || echo 'broken')
+%global ppp_version %(pkg-config --modversion pppd 2>/dev/null || echo bad)
 %global commonname sstpc
 
 Name:           sstp-client
 Version:        1.0.18
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Secure Socket Tunneling Protocol(SSTP) Client
 License:        GPLv2+
 Url:            https://gitlab.com/eivnaes/sstp-client
 Source0:        https://gitlab.com/eivnaes/%{name}/-/releases/%{version}/downloads/dist-gzip/%{name}-%{version}.tar.gz
+Patch0:         0001-pppd-plugin-workaround-broken-pppd.h-header-for-memc.patch
+Patch1:         0001-Adding-support-for-compiling-against-pppd-version-2..patch
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  libevent-devel
 BuildRequires:  openssl-devel
 BuildRequires:  ppp
-BuildRequires:  ppp-devel
+BuildRequires:  pkgconfig
+BuildRequires:  ppp-devel >= 2.5.0
+# ppp 2.5.0 patches require autoreconf, drop this when a new version
+# is released and those patches are dropped
+BuildRequires:  autoconf automake libtool
 Requires(pre):  shadow-utils
 # PPP bumps location of the libraries with every new release.
 Requires:       ppp = %{ppp_version}
@@ -46,9 +52,11 @@ This package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
+# for ppp 2.5.0 patches
+autoreconf -fi
 %configure --disable-static                                          \
            --disable-silent-rules                                    \
            --with-libevent=2                                         \
@@ -102,6 +110,9 @@ rm -rf %{_localstatedir}/run/%{commonname}
 %{_libdir}/pkgconfig/sstp-client-1.0.pc
 
 %changelog
+* Tue Apr 18 2023 Adam Williamson <awilliam@redhat.com> - 1.0.18-3
+- Rebuild for new ppp
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.18-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

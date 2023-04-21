@@ -2,12 +2,17 @@
 
 Name:    tpm2-tools
 Version: 5.5
-Release: 2%{?candidate:.%{candidate}}%{?dist}
+Release: 3%{?candidate:.%{candidate}}%{?dist}
 Summary: A bunch of TPM testing toolS build upon tpm2-tss
 
 License: BSD
 URL:     https://github.com/tpm2-software/tpm2-tools
 Source0: https://github.com/tpm2-software/tpm2-tools/releases/download/%{version}%{?candidate:-%{candidate}}/%{name}-%{version}%{?candidate:-%{candidate}}.tar.gz
+
+# Disable optimization to avoid LTO + FORTIFY_SOURCE=3 issue:
+# https://bugzilla.redhat.com/show_bug.cgi?id=2171376
+# https://github.com/tpm2-software/tpm2-tools/issues/3210
+Patch0: tpm2-tools-fix-fortify.patch
 
 BuildRequires: make
 BuildRequires: gcc-c++
@@ -55,6 +60,10 @@ tpm2-tools is a batch of tools for tpm2.0. It is based on tpm2-tss.
 %{_mandir}/man1/tss2_*.1.gz
 
 %changelog
+* Mon Apr 17 2023 Anderson Toshiyuki Sasaki <ansasaki@redhat.com> - 5.5-3
+- Disable compiler optimization to fix LTO + FORTIFY_SOURCE=3 issue
+  Resolves rhbz#2171376
+
 * Tue Feb 21 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 5.5-2
 - Disable manpage regeneration in RHEL/ELN builds
 

@@ -2,12 +2,12 @@
 Summary: Collection of basic system utilities
 Name: util-linux
 Version: 2.39
-Release: 0.4%{?dist}
+Release: 0.5%{?dist}
 License: GPLv2 and GPLv2+ and LGPLv2+ and BSD with advertising and Public Domain
 URL: https://en.wikipedia.org/wiki/Util-linux
 
 ### Macros
-%global upstream_version %{version}-rc2
+%global upstream_version %{version}-rc3
 %global upstream_major %(eval echo %{version} | sed -e 's/\([[:digit:]]*\)\.\([[:digit:]]*\)\.[[:digit:]]*$/\1.\2/')
 
 %global compldir %{_datadir}/bash-completion/completions/
@@ -93,9 +93,6 @@ Patch0: login-lastlog-create.patch
 # Add `/run/motd.d` to the hardcoded MOTD_FILE
 # https://github.com/coreos/console-login-helper-messages/issues/60
 Patch1: login-default-motd-file.patch
-
-# upstream (#2180593)
-Patch2: libmount-fix-superblock-rw-ro-reconfiguration.patch
 
 %description
 The util-linux package contains a large variety of low-level system
@@ -921,6 +918,9 @@ fi
 %{_libdir}/python*/site-packages/libmount/
 
 %changelog
+* Wed Apr 19 2023 Karel Zak <kzak@redhat.com> - 2.39-0.5
+- upgrade to v2.39-rc3 (fixes XFS and rw/ro issues)
+
 * Wed Apr  5 2023 Karel Zak <kzak@redhat.com> - 2.39-0.4
 - fix #2180593 (superblock reconfiguration libmount issue)
 

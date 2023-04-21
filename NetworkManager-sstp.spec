@@ -1,6 +1,6 @@
 #global snapshot .20220407git182a55b9
 #global snapshot_full_commit_hash 182a55b942cb43fdbf398ade2d8862d83157ed4e
-%global ppp_version %(rpm -q ppp --queryformat '%{VERSION}')
+%global ppp_version %(pkg-config --modversion pppd 2>/dev/null || echo bad)
 
 %if 0%{?fedora} < 28 && 0%{?rhel} < 8
 %bcond_without libnm_glib
@@ -26,7 +26,7 @@ Summary:   NetworkManager VPN plugin for SSTP
 Name:      NetworkManager-sstp
 Epoch:     1
 Version:   1.3.1
-Release:   3%{?snapshot}%{?dist}
+Release:   4%{?snapshot}%{?dist}
 License:   GPLv2+
 URL:       https://gitlab.gnome.org/GNOME/network-manager-sstp
 
@@ -35,7 +35,8 @@ Source:    https://gitlab.gnome.org/GNOME/network-manager-sstp/-/archive/%{snaps
 %else
 Source:    https://download.gnome.org/sources/%{name}/1.3/%{name}-%{version}.tar.xz
 %endif
-Patch0: NetworkManager-sstp-c99.patch
+# backport from upstream to fix build against ppp 2.5.0
+Patch0: 0001-Support-to-compile-against-pppd-2.5.0.patch
 
 BuildRequires: make
 %if %{with gtk4}
@@ -53,7 +54,11 @@ BuildRequires: NetworkManager-libnm-devel >= 1.2.0
 %endif
 BuildRequires: sstp-client-devel
 BuildRequires: glib2-devel
-BuildRequires: ppp-devel >= 2.4.6
+BuildRequires: pkgconfig
+BuildRequires: ppp-devel >= 2.5.0
+# ppp 2.5.0 patches require autoreconf, drop this when a new version
+# is released and those patches are dropped
+BuildRequires: autoconf automake gettext-devel
 BuildRequires: libtool intltool gettext
 BuildRequires: libsecret-devel
 BuildRequires: libnma-devel >= 1.2.0
@@ -90,6 +95,8 @@ the SSTP server with NetworkManager (GNOME files).
 %endif
 
 %build
+# for ppp 2.5.0 patches
+autoreconf -if
 %if "%{?snapshot:1}" == "1"
 ./autogen.sh
 %endif
@@ -132,6 +139,9 @@ rm -f %{buildroot}%{_libdir}/pppd/%{ppp_version}/*.la
 %endif
 
 %changelog
+* Tue Apr 18 2023 Adam Williamson <awilliam@redhat.com> - 1:1.3.1-4
+- Rebuild for new ppp
+
 * Fri Apr 14 2023 Florian Weimer <fweimer@redhat.com> - 1:1.3.1-3
 - Port to C99
 

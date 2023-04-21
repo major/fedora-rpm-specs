@@ -1,6 +1,6 @@
 Name:           pyodbc
-Version:        4.0.30
-Release:        10%{?dist}
+Version:        4.0.39
+Release:        1%{?dist}
 Summary:        Python DB API 2.0 Module for ODBC
 License:        MIT
 URL:            https://github.com/mkleehammer/pyodbc
@@ -9,8 +9,6 @@ BuildRequires:  gcc-c++
 BuildRequires:  unixODBC-devel
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
-
-Patch0: pyodbc-4.0.30-PyUnicode_AsUTF8String.patch
 
 Recommends: (postgresql-odbc if postgresql-server)
 Recommends: (mariadb-connector-odbc if mariadb-server)
@@ -44,19 +42,28 @@ echo 'Version: %{version}' > PKG-INFO
 # (If the logic and/or parser in setup.py is changed, this might not work,
 # but the exact .egg-info filename in %%files works as a regression test.)
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %files -n python3-%{name}
 %license LICENSE.txt
 %doc README.md notes.txt
-%{python3_sitearch}/%{name}-%{version}-py%{python3_version}.egg-info/
 %{python3_sitearch}/%{name}%{python3_ext_suffix}
+%{python3_sitearch}/%{name}-%{version}.dist-info/
+%{python3_sitearch}/pyodbc.pyi
 
 %changelog
+* Mon Apr 17 2023 Ondřej Sloup <osloup@redhat.com> - 4.0.39-1
+- Rebase to the newest version
+- Remove the PyUnicode_AsUTF8String Patch file, as it is already merged in upstream
+- Change packaged files to match new setup.py requirements
+
 * Wed Jan 25 2023 Miro Hrončok <mhroncok@redhat.com> - 4.0.30-10
 - Fix version in the Python package metadata
 - This makes the package provide python3dist(pyodbc) = 4.0.30 instead of python3dist(pyodbc) = 4.0.0-unsupported

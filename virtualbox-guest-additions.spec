@@ -1,5 +1,5 @@
 Name:       virtualbox-guest-additions
-Version:    7.0.6
+Version:    7.0.8
 Release:    1%{?dist}
 Summary:    VirtualBox Guest Additions
 License:    GPLv2 or (GPLv2 and CDDL)
@@ -77,10 +77,10 @@ rm -r src/libs/libpng-1.6.*/
 rm -r src/libs/libxml2-2.9.*/
 rm -r src/libs/openssl-3.*/
 rm -r src/libs/zlib-1.2.*/
-rm -r src/libs/curl-7.*/
+rm -r src/libs/curl-8.*/
 rm -r src/libs/libvorbis-1.3.*/
 rm -r src/libs/libogg-1.3.*/
-rm -r src/libs/libtpms-0.9.0/
+rm -r src/libs/libtpms-0.9.*/
 
 
 %build
@@ -101,13 +101,13 @@ kmk %{_smp_mflags}                                             \
     VBOX_USE_SYSTEM_XORG_HEADERS=1                             \
     VBOX_USE_SYSTEM_GL_HEADERS=1                               \
     VBOX_NO_LEGACY_XORG_X11=1                                  \
-    SDK_VBOX_LIBPNG_INCS=""                                    \
-    SDK_VBOX_LIBXML2_INCS=""                                   \
-    SDK_VBOX_LZF_LIBS="lzf"                                    \
-    SDK_VBOX_LZF_INCS="/usr/include/liblzf"                    \
-    SDK_VBOX_OPENSSL_INCS=""                                   \
-    SDK_VBOX_OPENSSL_LIBS="ssl crypto"                         \
-    SDK_VBOX_ZLIB_INCS=""                                      \
+    SDK_VBoxLibPng_INCS=""                                    \
+    SDK_VBoxLibXml2_INCS=""                                   \
+    SDK_VBoxLzf_LIBS="lzf"                                    \
+    SDK_VBoxLzf_INCS="/usr/include/liblzf"                    \
+    SDK_VBoxOpenSslStatic_INCS="/usr/include/openssl"                                   \
+    SDK_VBoxOpenSslStatic_LIBS="ssl crypto"                         \
+    SDK_VBoxZlib_INCS=""                                      \
     VBOX_BUILD_PUBLISHER=_Fedora
 
 
@@ -184,6 +184,10 @@ getent passwd vboxadd >/dev/null || \
 
 
 %changelog
+* Wed Apr 19 2023 Sérgio Basto <sergio@serjux.com> - 7.0.8-1
+- Update virtualbox-guest-additions to 7.0.8 (#2187763)
+- Replaces with sed -i "s/VBOX_ZLIB_STATIC/VBoxZlibStatic/; s/VBOX_ZLIB-x86/VBoxZlib-x86/; s/VBOX_ZLIB/VBoxZlib/; s/VBOX_LIBXML2/VBoxLibXml2/; s/VBOX_VPX/VBoxLibVpx/;s/VBOX_LZF/VBoxLzf/;s/VBOX_LIBPNG/VBoxLibPng/; s/VBOX_LIBCURL/VBoxLibCurl/;s/VBOX_DXVK/VBoxDxVk/;s/VBOX_OGG/VBoxLibOgg/;s/VBOX_VORBIS/VBoxLibVorbis/; s/VBOX_TPMS/VBoxLibTpms/" virtualbox-guest-additions.spec
+
 * Mon Jan 30 2023 Sérgio Basto <sergio@serjux.com> - 7.0.6-1
 - Update virtualbox-guest-additions to 7.0.6 (#2161718)
 

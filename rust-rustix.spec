@@ -5,7 +5,7 @@
 %global crate rustix
 
 Name:           rust-rustix
-Version:        0.37.11
+Version:        0.37.12
 Release:        %autorelease
 Summary:        Safe Rust bindings to POSIX/Unix/Linux/Winsock2-like syscalls
 

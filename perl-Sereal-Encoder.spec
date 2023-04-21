@@ -6,7 +6,7 @@
 %endif
 
 Name:           perl-Sereal-Encoder
-Version:        5.003
+Version:        5.004
 Release:        1%{?dist}
 Summary:        Perl serialization into Sereal format
 # lib/Sereal/Encoder.pm:    GPL+ or Artistic
@@ -119,6 +119,11 @@ make test
 %{_mandir}/man3/Sereal::Encoder.3*
 
 %changelog
+* Wed Apr 19 2023 Paul Howarth <paul@city-fan.org> - 5.004-1
+- Update to 5.004 (rhbz#2188043)
+  - Decoder fixes: fix thaw ordering for frozen objects - nested THAW
+    operations now happen in the documented LIFO order (GH#283, GH#285)
+
 * Wed Feb  8 2023 Paul Howarth <paul@city-fan.org> - 5.003-1
 - Update to 5.003 (rhbz#2168016)
   - Update Miniz to 3.0.2, Zstd to 1.5.2 and Devel::CheckLib to 1.16

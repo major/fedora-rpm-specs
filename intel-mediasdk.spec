@@ -4,7 +4,7 @@
 
 Summary: Hardware-accelerated video processing on Intel integrated GPUs library
 Name: intel-mediasdk
-Version: 23.1.4
+Version: 23.2.0
 Release: 1%{?dist}
 URL: https://github.com/Intel-Media-SDK/MediaSDK
 Source0: %{url}/archive/%{name}-%{version}.tar.gz
@@ -111,6 +111,9 @@ questions and issues.
 %{_libdir}/libmfx-tracer.so.%{mfx_version}
 
 %changelog
+* Wed Apr 19 2023 Dominik Mierzejewski <dominik@greysector.net> - 23.2.0-1
+- update to 23.2.0 (#2158351)
+
 * Tue Mar 21 2023 Nicolas Chauvet <kwizart@gmail.com> - 23.1.4-1
 - Update to 23.1.4
 

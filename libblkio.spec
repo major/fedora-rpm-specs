@@ -5,9 +5,10 @@ Version:       1.2.2
 
 Summary:       Block device I/O library
 Name:          libblkio
-Release:       4%{?dist}
+Release:       5%{?dist}
 URL:           %{forgeurl}
 Source0:       %{forgesource}
+Patch0:        fix-nix-ioctl-feature.patch
 License:       (Apache-2.0 OR MIT) AND (Apache-2.0 OR BSD-3-Clause) AND MIT AND BSD-3-Clause AND Unicode-DFS-2016
 
 # Basic build requirements.
@@ -97,6 +98,9 @@ export RUSTFLAGS="%build_rustflags"
 
 
 %changelog
+* Wed Apr 19 2023 Stefan Hajnoczi <stefanha@redhat.com> - 1.2.2-5
+- Patch Cargo.toml files to enable nix "ioctl" feature (RHBZ#2186159)
+
 * Thu Mar 09 2023 Stefan Hajnoczi <stefanha@redhat.com> - 1.2.2-4
 - Update overall license to include crate dependency licenses
 

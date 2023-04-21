@@ -83,7 +83,7 @@
 # line.  gcc_release is the Fedora gcc release that the patches were
 # taken from.
 %global gcc_release 4
-%global cross_gcc_release 5
+%global cross_gcc_release 6
 %global cross_binutils_version 2.39-3
 %global isl_version 0.16.1
 %global isl_libmajor 15
@@ -124,6 +124,8 @@ Patch9: gcc12-Wno-format-security.patch
 Patch10: gcc12-rh1574936.patch
 Patch11: gcc12-d-shared-libphobos.patch
 Patch12: gcc12-pr107468.patch
+Patch13: gcc12-configure-c99-1.patch
+Patch14: gcc12-configure-c99-2.patch
 
 Patch900: cross-intl-filename.patch
 Patch901: cross-gcc-format-config.patch
@@ -286,6 +288,9 @@ cd %{srcdir}
 %patch10 -p0 -b .Wno-format-security~
 %patch11 -p0 -b .libphobos
 %patch12 -p0 -b .pr107468~
+
+%patch13 -p1
+%patch14 -p1
 
 #%patch900 -p0 -b .cross-intl~
 %patch901 -p0 -b .format-config~
@@ -867,6 +872,9 @@ chmod +x %{__ar_no_strip}
 %do_files xtensa-linux-gnu	%{build_xtensa}
 
 %changelog
+* Tue Apr 18 2023 Arjun Shankar <arjun@redhat.com> - 12.2.1-6
+- Backport upstream patches for improved C99 compatibility
+
 * Tue Jan 24 2023 Michael Brown <mbrown@fensystems.co.uk> - 12.2.1-5
 - Enable support for LoongArch64
 

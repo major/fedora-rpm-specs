@@ -4,8 +4,8 @@
 %undefine _auto_set_build_flags
 
 Name:           mingw-wine-gecko
-Version:        2.47.3
-Release:        2%{?dist}
+Version:        2.47.4
+Release:        1%{?dist}
 Summary:        Gecko library required for Wine
 
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
@@ -84,9 +84,9 @@ pushd js/src/ctypes/libffi
 rm -rf ./*
 gzip -dc %{SOURCE1} | tar -xf - --strip-components=1
 popd
-%patch1 -p1
-#patch2 -p1
-%patch3 -p1
+%patch -P 1 -p1
+#patch -P 2 -p1
+%patch -P 3 -p1
 
 # fix nsprpub cross compile detection
 sed -i 's,cross_compiling=.*$,cross_compiling=yes,' nsprpub/configure
@@ -139,6 +139,9 @@ install -p -m 0644 wine-gecko-%{version}-x86_64/dist/wine-gecko-%{version}-x86_6
 %{_datadir}/wine/gecko/wine-gecko-%{version}-x86_64.msi
 
 %changelog
+* Wed Apr 19 2023 Michael Cronenworth <mike@cchtml.com> - 2.47.4-1
+- version upgrade
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.47.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

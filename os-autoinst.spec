@@ -30,23 +30,28 @@
 %global github_owner    os-autoinst
 %global github_name     os-autoinst
 %global github_version  4.6
-%global github_commit   5a76fb8e636ccc4fdf22b7738caae6aa40895920
+%global github_commit   6802f4479120a2954adbfba6dbe2779842c5ac91
 # if set, will be a post-release snapshot build, otherwise a 'normal' build
-%global github_date     20221122
+%global github_date     20230418
 %global shortcommit     %(c=%{github_commit}; echo ${c:0:7})
 
 Name:           os-autoinst
 Version:        %{github_version}%{?github_date:^%{github_date}git%{shortcommit}}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        OS-level test automation
 License:        GPLv2+
 URL:            https://os-autoinst.github.io/openQA/
 Source0:        https://github.com/%{github_owner}/%{github_name}/archive/%{github_commit}/%{github_name}-%{github_commit}.tar.gz
+# https://github.com/os-autoinst/os-autoinst/pull/2303
+# Fix tests with Fedora tesseract data location
+Patch0:         0001-Drop-setting-of-TESSDATA_PREFIX-in-invoke-tests.patch
 
 # on SUSE this is conditional, for us it doesn't have to be but we
 # still use a macro just to keep build_requires similar for ease of
 # cross-comparison
 %define opencv_require pkgconfig(opencv)
+# Ditto
+%define ocr_requires tesseract tesseract-langpack-eng
 # The following line is generated from dependencies.yaml (upstream)
 %define build_base_requires %opencv_require gcc-c++ perl(Pod::Html) pkg-config pkgconfig(fftw3) pkgconfig(libpng) pkgconfig(sndfile) pkgconfig(theoraenc)
 # diff from SUSE: SUSE has 'ninja', Fedora has 'ninja-build'
@@ -76,7 +81,7 @@ Source0:        https://github.com/%{github_owner}/%{github_name}/archive/%{gith
 %define test_version_only_requires perl(Mojo::IOLoop::ReadWriteProcess) >= 0.28
 # diff from SUSE: it's python3-pillow-tk, not python3-Pillow-tk
 # The following line is generated from dependencies.yaml (upstream)
-%define test_requires %build_requires %test_base_requires %yamllint_requires perl(Inline::Python) perl(YAML::PP) python3-pillow-tk
+%define test_requires %build_requires %ocr_requires %test_base_requires %yamllint_requires perl(Inline::Python) perl(YAML::PP) python3-pillow-tk
 # diff from SUSE: dropped perl(Devel::Cover::Report::Codecov) as it's
 # not currently packaged for Fedora
 # The following line is generated from dependencies.yaml (upstream)
@@ -141,11 +146,6 @@ rm -f t/99-full-stack.t
 %if 0%{?no_osutils}
 rm -f t/13-osutils.t
 %endif # no_osutils
-
-# Tesseract 4.0.0 (in Rawhide as of 2018-11) fails utterly to OCR
-# the test needle properly:
-# https://github.com/tesseract-ocr/tesseract/issues/2052
-rm -f t/02-test_ocr.t
 
 # exclude unnecessary author tests
 rm xt/00-tidy.t
@@ -244,6 +244,9 @@ rm tools/lib/perlcritic/Perl/Critic/Policy/*.pm
 %files devel
 
 %changelog
+* Wed Apr 19 2023 Adam Williamson <awilliam@redhat.com> - 4.6^20230418git6802f44-1
+- Update to latest git, re-enable OCR tests
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.6^20221122git5a76fb8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

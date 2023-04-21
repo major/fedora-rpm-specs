@@ -1,49 +1,47 @@
+# SPDX-License-Identifier: MIT
+
 %global fontname ukij-tuz
-%global fontconf 66-%{fontname}.conf
 
-Name:		%{fontname}-fonts
-Version:	3.10
-Release:	22%{?dist}
-Summary:	Uyghur Computer Science Association (UKIJ) Unicode fonts
+Version: 3.10
+Release: 23%{?dist}
+URL:     http://www.ukij.org/fonts/
 
-License:	OFL
-URL:		http://www.ukij.org/fonts/
-Source0:	http://www.ukij.org/fonts/fonts/UKIJTuz.ttf
-Source1:        %{name}-fontconfig.conf
-Source2:        %{fontname}.metainfo.xml
+%global foundry           UKIJ
+%global fontlicense       OFL-1.1
 
-BuildArch:	noarch
-BuildRequires:	fontpackages-devel
-Requires:	fontpackages-filesystem
-
-%description
+%global fontfamily        UKIJ Tuz
+%global fontsummary       Uyghur Computer Science Association (UKIJ) Unicode fonts
+%global fonts             *.ttf
+%global fontconfs         %{SOURCE10}
+%global fontdescription   %{expand:
 Uyghur Computer Science Association (UKIJ) Unicode fonts
+}
+
+Source0:  http://www.ukij.org/fonts/fonts/UKIJTuz.ttf
+Source10: 66-%{fontpkgname}.conf
+
+%fontpkg
 
 %prep
+%setup -c -T
+cp -p %{SOURCE0} .
 
 %build
+%fontbuild
 
 %install
-install -m 0755 -d %{buildroot}%{_fontdir}
-install -m 0644 -p %{SOURCE0} %{buildroot}%{_fontdir}
+%fontinstall
 
-install -m 0755 -d %{buildroot}%{_fontconfig_templatedir} \
-		   %{buildroot}%{_fontconfig_confdir}
+%check
+%fontcheck
 
-install -m 0644 -p %{SOURCE1} \
-	%{buildroot}%{_fontconfig_templatedir}/%{fontconf}
-ln -s %{_fontconfig_templatedir}/%{fontconf} \
-      %{buildroot}%{_fontconfig_confdir}/%{fontconf}
-
-# Add AppStream metadata
-install -Dm 0644 -p %{SOURCE2} \
-        %{buildroot}%{_datadir}/appdata/%{fontname}.metainfo.xml
-
-%_font_pkg -f %{fontconf} *.ttf
-%doc
-%{_datadir}/appdata/%{fontname}.metainfo.xml
+%fontfiles
 
 %changelog
+* Fri Apr  7 2023 Peng Wu <pwu@redhat.com> - 3.10-23
+- Update to follow New Fonts Packaging Guidelines
+- Migrate to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.10-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

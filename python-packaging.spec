@@ -19,7 +19,7 @@
 %endif
 
 Name:           python-%{pypi_name}
-Version:        23.0
+Version:        23.1
 Release:        1%{?dist}
 Summary:        Core utilities for Python packages
 
@@ -136,6 +136,9 @@ echo '%{python3_sitelib}/packaging*' > %{pyproject_files}
 
 
 %changelog
+* Mon Apr 17 2023 Lumír Balhar <lbalhar@redhat.com> - 23.1-1
+- Update to 23.1 (rhbz#2186423)
+
 * Fri Feb 03 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 23.0-1
 - Update to 23.0.0
 - https://fedoraproject.org/wiki/Changes/Update_python-packaging_to_version_22_plus

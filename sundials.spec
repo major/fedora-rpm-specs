@@ -30,6 +30,10 @@
 ###########
 %global with_sercheck 1
 
+## PETSc ##
+%global with_petsc 1
+###########
+
 ## SuperLUMT ##
 %global with_superlumt 1
 ###########
@@ -40,11 +44,8 @@
 
 %if 0%{?rhel} && 0%{?rhel} >= 9
 # KLU support
-%global with_klu   0
+%global with_klu   1
 %global with_klu64 1
-## PETSc ##
-%global with_petsc 0
-###########
 ##########
 # Fortran
 %if 0%{?with_klu64}
@@ -65,22 +66,16 @@
 %global with_fortran 0
 %endif
 %endif
-## PETSc ##
-%global with_petsc 1
-###########
 %if 0%{?rhel} && 0%{?rhel} == 8
 %global with_klu 1
 %global with_fortran 0
-## PETSc ##
-%global with_petsc 1
-###########
 %endif
 ##########
 
 Summary:    Suite of nonlinear solvers
 Name:       sundials
-Version:    5.8.0
-Release:    15%{?dist}
+Version:    6.5.1
+Release:    2%{?dist}
 # SUNDIALS is licensed under BSD with some additional (but unrestrictive) clauses.
 # Check the file 'LICENSE' for details.
 License:    BSD
@@ -100,7 +95,7 @@ BuildRequires: make
 %if 0%{?with_fortran}
 BuildRequires: gcc-gfortran
 %endif
-BuildRequires: python%{python3_pkgversion}-devel
+BuildRequires: python3-devel
 BuildRequires: gcc, gcc-c++
 %if 0%{?epel}
 BuildRequires: epel-rpm-macros
@@ -236,14 +231,14 @@ This package contains the documentation files.
 pushd %{name}-%{version}
 
 %ifarch s390x x86_64 %{power64} aarch64
-%patch1 -p0 -b .set_superlumt64_name
+%patch 1 -p0 -b .set_superlumt64_name
 %endif
 %ifarch %{arm} %{ix86}
-%patch0 -p0 -b .set_superlumt_name
+%patch 0 -p0 -b .set_superlumt_name
 %endif
 
 %if 0%{?with_klu64}
-%patch3 -p1 -b .klu64
+%patch 3 -p1 -b .klu64
 %endif
 
 mv src/arkode/README.md src/README-arkode.md
@@ -648,19 +643,19 @@ rm -f %{buildroot}%{_includedir}/sundials/NOTICE
 %check
 %if 0%{?with_openmpi}
 %if 0%{?with_openmpicheck}
-%define _vpath_builddir buildopenmpi_dir/build
 %{_openmpi_load}
+%define _vpath_builddir buildopenmpi_dir/build
 %if %{with debug}
 export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$MPI_LIB
 export OMPI_MCA_rmaps_base_oversubscribe=yes
-ctest3 --force-new-ctest-process -VV -j1 --output-on-failure --debug
+%ctest -- -VV --output-on-failure --debug
 %else
 export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$MPI_LIB
 export OMPI_MCA_rmaps_base_oversubscribe=yes
 %ifarch aarch64 %{power64}
-/usr/bin/ctest --output-on-failure --force-new-ctest-process -j1 -E 'test_fsunlinsol_dense_mod|test_sunnonlinsol_petscsnes'
+%ctest -- --output-on-failure -E 'test_sunlinsol_superlumt'
 %else
-/usr/bin/ctest --output-on-failure --force-new-ctest-process -j1 -E 'test_sunnonlinsol_petscsnes|test_sunlinsol_klu'
+%ctest -- --output-on-failure -E 'test_sunlinsol_superlumt|test_fsunlinsol_dense_mod'
 %endif
 %endif
 %{_openmpi_unload}
@@ -671,17 +666,17 @@ export OMPI_MCA_rmaps_base_oversubscribe=yes
 
 %if 0%{?with_mpich}
 %if 0%{?with_mpichcheck}
-%define _vpath_builddir buildmpich_dir/build
 %{_mpich_load}
+%define _vpath_builddir buildmpich_dir/build
 %if %{with debug}
 export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$MPI_LIB
-ctest3 --force-new-ctest-process -VV -j1 --output-on-failure --debug
+%ctest -- -VV --output-on-failure --debug
 %else
 export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$MPI_LIB
 %ifarch aarch64 %{power64}
-/usr/bin/ctest --output-on-failure --force-new-ctest-process -j1 -E 'test_fsunlinsol_dense_mod|test_sunnonlinsol_petscsnes'
+%ctest -- --output-on-failure -E 'test_sunlinsol_superlumt'
 %else
-/usr/bin/ctest --output-on-failure --force-new-ctest-process -j1 -E 'test_sunnonlinsol_petscsnes|test_sunlinsol_klu'
+%ctest -- --output-on-failure -E 'test_sunlinsol_superlumt|test_fsunlinsol_dense_mod'
 %endif
 %endif
 %{_mpich_unload}
@@ -694,13 +689,13 @@ export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$MPI_LIB
 %define _vpath_builddir sundials-%{version}/build
 %if %{with debug}
 export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
-ctest3 --force-new-ctest-process -VV -j1 --output-on-failure --debug
+%ctest -- -VV --output-on-failure --debug
 %else
 export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %ifarch aarch64 %{power64}
-/usr/bin/ctest --output-on-failure --force-new-ctest-process -j1 -E 'test_fsunlinsol_dense_mod'
+%ctest -- --output-on-failure -E 'test_sunlinsol_superlumt'
 %else
-/usr/bin/ctest --output-on-failure --force-new-ctest-process -j1 -E 'test_sunlinsol_klu'
+%ctest -- --output-on-failure -E 'test_sunlinsol_superlumt|test_fsunlinsol_dense_mod'
 %endif
 %endif
 %endif
@@ -732,7 +727,6 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %{_libdir}/libsundials_sunnonlinsol*.so.*
 %if 0%{?with_fortran}
 %{_libdir}/libsundials_f*[_mod].so.*
-%{_libdir}/libsundials_f*[!_mod].so.*
 %endif
 
 %files devel
@@ -754,13 +748,13 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %{_libdir}/libsundials_sunnonlinsol*.so
 %if 0%{?with_fortran}
 %{_libdir}/libsundials_f*[_mod].so
-%{_libdir}/libsundials_f*[!_mod].so
 %{_fmoddir}/%{name}/
+%{_includedir}/sundials/sundials_futils.h
 %if %{with pthread}
 %{_libdir}/libsundials_fnvecpthreads.so
 %endif
 %if 0%{?with_superlumt}
-%{_libdir}/libsundials_fsunlinsolsuperlumt.so
+%{_libdir}/libsundials_sunlinsolsuperlumt.so
 %endif
 %endif
 %{_includedir}/nvector/
@@ -778,7 +772,6 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %{_includedir}/sundials/sundials_band.h
 %{_includedir}/sundials/sundials_dense.h
 %{_includedir}/sundials/sundials_direct.h
-%{_includedir}/sundials/sundials_futils.h
 %{_includedir}/sundials/sundials_iterative.h
 %{_includedir}/sundials/sundials_linearsolver.h
 %{_includedir}/sundials/sundials_math.h
@@ -790,8 +783,17 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %{_includedir}/sundials/sundials_types.h
 %{_includedir}/sundials/sundials_version.h
 %{_includedir}/sundials/sundials_config.h
-%{_includedir}/sundials/sundials_fconfig.h
-%{_includedir}/sundials/sundials_fnvector.h
+%{_includedir}/sundials/sundials_base.hpp
+%{_includedir}/sundials/sundials_context.h
+%{_includedir}/sundials/sundials_context.hpp
+%{_includedir}/sundials/sundials_convertibleto.hpp
+%{_includedir}/sundials/sundials_linearsolver.hpp
+%{_includedir}/sundials/sundials_logger.h
+%{_includedir}/sundials/sundials_matrix.hpp
+%{_includedir}/sundials/sundials_nonlinearsolver.hpp
+%{_includedir}/sundials/sundials_nvector.hpp
+%{_includedir}/sundials/sundials_profiler.h
+%{_includedir}/sunmemory/sunmemory_system.h
 
 %if 0%{?with_openmpi}
 %files openmpi
@@ -835,7 +837,6 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %endif
 %if 0%{?with_fortran}
 %{_libdir}/openmpi/lib/libsundials_f*[_mod].so.*
-%{_libdir}/openmpi/lib/libsundials_f*[!_mod].so.*
 %endif
 
 %files openmpi-devel
@@ -851,10 +852,10 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %{_includedir}/openmpi-%{_arch}/sunlinsol/
 %{_includedir}/openmpi-%{_arch}/sunmatrix/
 %{_includedir}/openmpi-%{_arch}/sunnonlinsol/
+%{_includedir}/openmpi-%{_arch}/sunmemory/
 %if 0%{?with_fortran}
 %{_fmoddir}/openmpi/%{name}/
 %{_libdir}/openmpi/lib/libsundials_f*[_mod].so
-%{_libdir}/openmpi/lib/libsundials_f*[!_mod].so
 %endif
 %{_libdir}/openmpi/lib/libsundials_generic.so
 %{_libdir}/openmpi/lib/libsundials_nvecparallel.so
@@ -928,7 +929,6 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %endif
 %if 0%{?with_fortran}
 %{_libdir}/mpich/lib/libsundials_f*[_mod].so.*
-%{_libdir}/mpich/lib/libsundials_f*[!_mod].so.*
 %endif
 
 
@@ -944,10 +944,10 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %{_includedir}/mpich-%{_arch}/sunlinsol/
 %{_includedir}/mpich-%{_arch}/sunmatrix/
 %{_includedir}/mpich-%{_arch}/sunnonlinsol/
+%{_includedir}/mpich-%{_arch}/sunmemory/
 %if 0%{?with_fortran}
 %{_fmoddir}/mpich/%{name}/
 %{_libdir}/mpich/lib/libsundials_f*[_mod].so
-%{_libdir}/mpich/lib/libsundials_f*[!_mod].so
 %endif
 %{_libdir}/mpich/lib/*.a
 %{_libdir}/mpich/lib/libsundials_generic.so
@@ -991,6 +991,12 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %doc sundials-%{version}/doc/arkode/*
 
 %changelog
+* Wed Apr 19 2023 Antonio Trande <sagitter@fedoraproject.org> - 6.5.1-2
+- Fix ctest commands
+
+* Wed Apr 19 2023 Antonio Trande <sagitter@fedoraproject.org> - 6.5.1-1
+- Release 6.5.1
+
 * Fri Mar 03 2023 Antonio Trande <sagitter@fedoraproject.org> - 5.8.0-15
 - Fix installed files in EPEL9
 

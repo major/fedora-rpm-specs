@@ -3,19 +3,11 @@
 # Enable building and packing of the testsuite
 %bcond_without  testsuite
 
-# Enable CMake in-source builds
-#   This is is a workaround for the https://fedoraproject.org/wiki/Changes/CMake_to_do_out-of-source_builds
-#   which reverts the CMake behaviour to before F33
-#   The Change owners offered themselves to help fix the affected packages via ProvenPackager rights.
-#   I'm generally in favor of this change, however when I tried to adapt it, I encountered a number of issues.
-#   That's why I disabled it for now.
-%global __cmake_in_source_build 1
-
 
 
 Name:           mariadb-connector-c
-Version:        3.2.7
-Release:        3%{?with_debug:.debug}%{?dist}
+Version:        3.3.4
+Release:        2%{?with_debug:.debug}%{?dist}
 Summary:        The MariaDB Native Client library (C driver)
 License:        LGPL-2.1-or-later
 Source:         https://downloads.mariadb.org/interstitial/connector-c-%{version}/%{name}-%{version}-src.tar.gz
@@ -29,7 +21,7 @@ Patch1:         testsuite.patch
 %endif
 
 Requires:       %{_sysconfdir}/my.cnf
-BuildRequires:  gcc-c++ cmake openssl-devel zlib-devel
+BuildRequires:  gcc-c++ cmake openssl-devel zlib-devel libzstd-devel
 # Remote-IO plugin
 BuildRequires:  libcurl-devel
 # auth_gssapi_client plugin
@@ -94,11 +86,11 @@ and require this package, so the /etc/my.cnf file is present.
 %prep
 %setup -q -n %{name}-%{version}-src
 %if %{with testsuite}
-%patch1 -p1
+%patch -P1 -p1
 %endif
 
 # Remove unsused parts
-rm -r win win-iconv zlib
+rm -r win win-iconv external/zlib
 
 
 
@@ -176,9 +168,7 @@ install -D -p -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/my.cnf.d/client.cnf
 # - ignore the testsuite result for now. Enable tests now, fix them later.
 # Note: there must be a database called 'test' created for the testcases to be run
 %if %{with testsuite}
-pushd unittest/libmariadb/
-%ctest || :
-popd
+%ctest --test-dir %{__cmake_builddir}/unittest/libmariadb/ || :
 %endif
 
 
@@ -230,6 +220,7 @@ popd
 %files test
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/*
+# Note: The following shared library should be moved from libdir to some sub-directory. e.g. libdir/mariadb/connector-c/tests
 %{_libdir}/libcctap.so
 %endif
 
@@ -250,6 +241,9 @@ popd
 #      Need to ensure, that the testsuite will also run properly on 'fedpkg local' buid, not damaging the host machine
 
 %changelog
+* Tue Apr 18 2023 Michal Schorm <mschorm@redhat.com> - 3.3.4-1
+- Rebase to 3.3.4
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

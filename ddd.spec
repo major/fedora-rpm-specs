@@ -1,28 +1,22 @@
 %define _hardened_build 1
 Summary: GUI for several command-line debuggers
 Name: ddd
-Version: 3.3.12
-Release: 44%{?dist}
+Version: 3.4.0
+Release: 0.rc3%{?dist}
 License: GPL-2.0-or-later
 URL: http://www.gnu.org/software/ddd/
-#Source0: http://dl.sf.net/ddd/ddd-%{version}.tar.gz
+#Source0: http://dl.sf.net/ddd/ddd-%%{version}.tar.gz
 #For rc:
-Source0: ftp://alpha.gnu.org/gnu/ddd/ddd-3.3.12.tar.gz
+Source0: https://alpha.gnu.org/gnu/ddd/ddd-%{version}-rc3.tar.gz
 #Source1: ddd.desktop
 Source2: ddd.png
-Patch1: ddd-3.3.11-lang.patch
-#Patch2: ddd-3.3.11-xprint.patch
-Patch3: ddd-3.3.11-htmlview.patch
-Patch4: ddd-3.3.12-rc1-strclass-includes.patch
-Patch5: ddd-3.3.12-debuginfo.patch
-Patch6: ddd-3.3.12-GDBAgent-fix.patch
-Patch7: ddd-lto.patch
+Patch0: ddd-3.3.12-debuginfo.patch
 
 Requires: gdb, xterm, gnuplot, xdg-utils, xorg-x11-fonts-ISO8859-1-75dpi, xorg-x11-fonts-ISO8859-1-100dpi, xclipboard, xfontsel
 BuildRequires:  gcc-c++
 BuildRequires: motif-devel, ncurses-devel, libXaw-devel
 BuildRequires: elfutils-libelf-devel, xterm 
-BuildRequires: desktop-file-utils, gdb, readline-devel, texinfo, autoconf, automake, libtool
+BuildRequires: desktop-file-utils, gdb, readline-devel, texinfo, autoconf, automake
 BuildRequires: make
 
 %description
@@ -42,27 +36,15 @@ manual, extensive help on the Motif user interface, and a command-line
 interface with full editing, history and completion capabilities.
 
 %prep
-%setup -qn ddd-%{version}
-%patch1 -p1 -b .lang
-#%patch2 -p1 -b .xprint
-%patch3 -p1 -b .htmlview
-%patch4 -p0
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
+%setup -qn ddd-%{version}-rc3
+%patch -P 0 -p1
 
 %build
-libtoolize --force
-aclocal
-autoheader
-automake --force-missing --add-missing
-autoconf
 export CXXFLAGS="${RPM_OPT_FLAGS} -fpermissive"
 %configure --with-readline --disable-dependency-tracking
 make %{?_smp_mflags}
 
 %install
-rm -rf $RPM_BUILD_ROOT
 make DESTDIR=$RPM_BUILD_ROOT install
 
 rm -f $RPM_BUILD_ROOT/%{_infodir}/dir*
@@ -76,22 +58,24 @@ install -D -m 0644 %{SOURCE2} \
     $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/48x48/apps/ddd.png
 
 %files
-%doc AUTHORS COPYING COPYING.DOC CREDITS 
-%doc INSTALL NEWS PROBLEMS README TIPS doc/ddd-paper.*
+%license COPYING*
+%doc AUTHORS CREDITS
+%doc INSTALL NEWS PROBLEMS README TIPS
 %{_bindir}/ddd
 %{_datadir}/applications/*.desktop
-%dir %{_datadir}/%{name}-%{version}
-%dir %{_datadir}/%{name}-%{version}/ddd
-%{_datadir}/%{name}-%{version}/COPYING
-%{_datadir}/%{name}-%{version}/NEWS
-%config(noreplace) %{_datadir}/%{name}-%{version}/ddd/Ddd
-%{_datadir}/%{name}-%{version}/themes/
-%{_datadir}/%{name}-%{version}/vsllib/
+%{_datadir}/%{name}-%{version}-rc3/COPYING
+%{_datadir}/%{name}-%{version}-rc3/NEWS
+%config(noreplace) %{_datadir}/%{name}-%{version}-rc3/ddd/Ddd
+%{_datadir}/%{name}-%{version}-rc3/themes/
+%{_datadir}/%{name}-%{version}-rc3/vsllib/
 %{_datadir}/icons/hicolor/48x48/apps/ddd.png
 %{_infodir}/ddd*
 %{_mandir}/man1/ddd.1*
 
 %changelog
+* Mon Apr 17 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.4.0-0.rc3
+- 3.4.0 rc3
+
 * Tue Feb 28 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.3.12-44
 - migrated to SPDX license
 

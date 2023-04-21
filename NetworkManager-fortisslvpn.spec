@@ -13,12 +13,15 @@
 Summary:   NetworkManager VPN plugin for Fortinet compatible SSLVPN
 Name:      NetworkManager-fortisslvpn
 Version:   1.4.0
-Release:   3%{?dist}
+Release:   4%{?dist}
 License:   GPLv2+
 URL:       http://www.gnome.org/projects/NetworkManager/
 Source0:   https://download.gnome.org/sources/NetworkManager-fortisslvpn/1.4/%{name}-%{version}.tar.xz
+# backports from upstream: fix build with ppp 2.5.0
+Patch0:    0001-Adding-support-for-compiling-against-pppd-2.5.0-or-m.patch
+Patch1:    0002-Fixing-configure.ac-from-previous-change.patch
 
-%global ppp_version %(sed -n 's/^#define\\s*VERSION\\s*"\\([^\\s]*\\)"$/\\1/p' %{_includedir}/pppd/patchlevel.h 2>/dev/null | grep . || echo bad)
+%global ppp_version %(pkg-config --modversion pppd 2>/dev/null || echo bad)
 
 BuildRequires: make
 BuildRequires: gcc
@@ -26,7 +29,11 @@ BuildRequires: gtk3-devel >= 3.4
 BuildRequires: dbus-devel >= 0.74
 BuildRequires: NetworkManager-libnm-devel >= 1:1.2.0
 BuildRequires: glib2-devel >= 2.32
-BuildRequires: ppp-devel
+BuildRequires: pkgconfig
+BuildRequires: ppp-devel >= 2.5.0
+# ppp 2.5.0 patches require autoreconf, drop this when a new version
+# is released and those patches are dropped
+BuildRequires: autoconf automake gettext-devel
 BuildRequires: libtool gettext
 BuildRequires: libsecret-devel
 BuildRequires: libnma-devel >= 1.2.0
@@ -68,6 +75,8 @@ the Fortinet compatible SSLVPN server with NetworkManager (GNOME files).
 
 
 %build
+# for ppp 2.5.0 patches
+autoreconf -fi
 %configure \
         --disable-static \
 %if %with gtk4
@@ -128,6 +137,9 @@ exit 0
 
 
 %changelog
+* Tue Apr 18 2023 Adam Williamson <awilliam@redhat.com> - 1.4.0-4
+- Rebuild for new ppp
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

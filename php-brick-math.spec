@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-brick-math
 #
-# Copyright (c) 2020-2021 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2020-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -10,7 +10,7 @@
 %bcond_without tests
 
 # Github
-%global gh_commit    459f2781e1a08d52ee56b0b1444086e038561e3f
+%global gh_commit    0ad82ce168c82ba30d1c01ec86116ab52f589478
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     brick
 %global gh_project   math
@@ -22,8 +22,8 @@
 %global ns_project   Math
 
 Name:           php-%{pk_vendor}-%{pk_name}
-Version:        0.10.2
-Release:        2%{?dist}
+Version:        0.11.0
+Release:        1%{?dist}
 Summary:        Arbitrary-precision arithmetic library
 
 License:        MIT
@@ -34,8 +34,7 @@ Source1:        makesrc.sh
 
 BuildArch:      noarch
 
-BuildRequires:  php(language) >= 7.4
-BuildRequires:  php-json
+BuildRequires:  php(language) >= 8.0
 BuildRequires:  php-pcre
 BuildRequires:  php-spl
 BuildRequires:  php-bcmath
@@ -52,10 +51,8 @@ BuildRequires:  phpunit9
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer.json, "require": {
-#        "php": "^7.4 || ^8.0",
-#        "ext-json": "*"
-Requires:       php(language) >= 7.1
-Requires:       php-json
+#        "php": "^8.0"
+Requires:       php(language) >= 8.0
 # From phpcompatifo report for 0.9.1
 Requires:       php-pcre
 Requires:       php-spl
@@ -107,7 +104,7 @@ ret=0
 # don't test Native with is terribly slow, as bcmath/gmp are set as mandatory
 for calc in GMP BCMath; do
   export CALCULATOR=$calc
-  for cmdarg in "php %{phpunit}" php74 php80 php81 php82; do
+  for cmdarg in "php %{phpunit}" php80 php81 php82; do
     if which $cmdarg; then
       set $cmdarg
       $1 ${2:-%{_bindir}/phpunit9} \
@@ -128,6 +125,10 @@ exit $ret
 
 
 %changelog
+* Wed Apr 19 2023 Remi Collet <remi@remirepo.net> - 0.11.0-1
+- update to 0.11.0
+- raise dependency on PHP 8.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

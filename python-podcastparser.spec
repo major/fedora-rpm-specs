@@ -2,8 +2,8 @@
 %global sum     Simplified, fast RSS parsing library
 
 Name:               python-%{modname}
-Version:            0.6.9
-Release:            3%{?dist}
+Version:            0.6.10
+Release:            1%{?dist}
 Summary:            %{sum}
 
 License:            ISC
@@ -52,6 +52,9 @@ find . -type f -name '*.py' -exec sed -i /env\ python/d {} ';'
 
 
 %changelog
+* Wed Apr 19 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.6.10-1
+- 0.6.10
+
 * Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.6.9-3
 - migrated to SPDX license
 

@@ -2,13 +2,18 @@
 
 Name:           python-%{srcname}
 Version:        0.11.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Bloom is a release automation tool
 
 License:        BSD
 URL:            http://www.ros.org/wiki/bloom
 Source0:        https://github.com/ros-infrastructure/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
 Source1:        index-v4.yaml
+
+# The usage of pkg_resources has been deprecated
+# This fixes FTBFS with the latest setuptools versions
+# Resolved upstream: https://github.com/ros-infrastructure/bloom/pull/693
+Patch:          require-packaging.patch
 
 BuildArch:      noarch
 
@@ -35,6 +40,7 @@ BuildRequires:  git
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-empy
 BuildRequires:  python%{python3_pkgversion}-nose
+BuildRequires:  python%{python3_pkgversion}-packaging
 BuildRequires:  python%{python3_pkgversion}-rosdep >= 0.15.0
 BuildRequires:  python%{python3_pkgversion}-rosdistro >= 0.8.0
 BuildRequires:  python%{python3_pkgversion}-setuptools
@@ -46,6 +52,7 @@ Conflicts:      python2-%{srcname} < 0.7.2-3
 Requires:       python%{python3_pkgversion}-catkin_pkg >= 0.4.3
 Requires:       python%{python3_pkgversion}-dateutil
 Requires:       python%{python3_pkgversion}-empy
+Requires:       python%{python3_pkgversion}-packaging
 Requires:       python%{python3_pkgversion}-PyYAML
 Requires:       python%{python3_pkgversion}-rosdep >= 0.15.0
 Requires:       python%{python3_pkgversion}-rosdistro >= 0.8.0
@@ -118,6 +125,10 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Tue Apr 04 2023 Charalampos Stratakis <cstratak@redhat.com> - 0.11.2-4
+- Fix FTBFS with the latest setuptools version
+Resolves: rhbz#2183391
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-build
 %global         forgeurl    https://github.com/googleapis/python-cloudbuild
-Version:        3.15.0
+Version:        3.16.0
 %global         tag         v%{version}
 %forgemeta
 

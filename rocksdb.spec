@@ -3,15 +3,12 @@
 %global forgeurl https://github.com/facebook/rocksdb
 
 Name:    rocksdb
-Version: 7.8.3
-Release: 2%{?dist}
+Version: 8.0.0
+Release: 1%{?dist}
 Summary: A Persistent Key-Value Store for Flash and RAM Storage
 
 License: GPLv2 or ASL 2.0 and BSD
 URL:     %{forgeurl}
-
-# https://github.com/facebook/rocksdb/issues/8609#issuecomment-1009572506
-Patch0: armhfp-8609.patch
 
 # https://git.alpinelinux.org/aports/tree/community/rocksdb/11-shared-liburing.patch
 Patch1: shared-liburing.patch
@@ -20,8 +17,6 @@ Patch1: shared-liburing.patch
 # and will use system libraries.
 Patch2: https://sources.debian.org/data/main/r/rocksdb/7.6.0-2/debian/patches/no_rpath.patch
 
-# https://gcc.gnu.org/gcc-13/porting_to.html
-Patch3: gcc13.patch
 
 BuildRequires: gcc-c++
 BuildRequires: cmake
@@ -68,10 +63,8 @@ Development files for RocksDB.
 
 %prep
 %forgesetup
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+%patch -P 1 -p1
+%patch -P 2 -p1
 
 
 %build
@@ -91,6 +84,7 @@ Development files for RocksDB.
   -DPORTABLE=ON \
   -DFAIL_ON_WARNINGS=OFF \
   -DWITH_TESTS=ON
+
 %cmake_build
 
 
@@ -114,8 +108,8 @@ rm %{buildroot}%{_libdir}/librocksdb.a
 %license COPYING
 %license LICENSE.Apache
 %license LICENSE.leveldb
-%{_libdir}/librocksdb.so.7
-%{_libdir}/librocksdb.so.7.8.3
+%{_libdir}/librocksdb.so.8
+%{_libdir}/librocksdb.so.8.0.0
 
 
 %files tools
@@ -131,6 +125,7 @@ rm %{buildroot}%{_libdir}/librocksdb.a
 
 %files devel
 %doc README.md
+%doc LANGUAGE-BINDINGS.md
 %license COPYING
 %license LICENSE.Apache
 %license LICENSE.leveldb
@@ -141,6 +136,9 @@ rm %{buildroot}%{_libdir}/librocksdb.a
 
 
 %changelog
+* Wed Apr 19 2023 Jonny Heggheim <hegjon@gmail.com> - 8.0.0-1
+- Updated to version 8.0.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.8.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

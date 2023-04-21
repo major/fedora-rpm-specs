@@ -1,6 +1,6 @@
 Name: QXlsx
-Version:  1.4.5
-Release:  3%{?dist}
+Version:  1.4.6
+Release:  1%{?dist}
 Summary:  Excel/XLSX file reader/writer library for Qt
 
 License: MIT
@@ -47,11 +47,14 @@ These are the development files.
 
 %files devel
 %{_libdir}/libQXlsxQt6.so
-%{_includedir}/QXlsx/
+%{_includedir}/QXlsxQt6/
 %{_libdir}/cmake/QXlsxQt6/
 
 
 %changelog
+* Wed Apr 19 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.4.6-1
+- 1.4.6
+
 * Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.4.5-3
 - migrated to SPDX license
 

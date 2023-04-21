@@ -1,5 +1,5 @@
 Name:           license-validate
-Version:        18
+Version:        19
 Release:        1%{?dist}
 Summary:        Validate SPEC license string
 
@@ -11,8 +11,8 @@ URL:            https://pagure.io/copr/license-validate/
 Source0:        %{name}-%{version}.tar.gz
 BuildArch:      noarch
 
-Requires:       fedora-license-data
-BuildRequires:  fedora-license-data
+Requires:       fedora-license-data >= 1.18
+BuildRequires:  fedora-license-data >= 1.18
 BuildRequires:  python3-devel
 
 # man pages
@@ -34,8 +34,6 @@ Validate whether the license string conforms to Fedora Licensing.
 
 %build
 ./generate-shortnames.py > fedora-shortnames.txt
-./generate-spdx-ids.py > fedora-spdx.txt
-./create-grammar.py grammar.lark fedora-spdx.txt > full-grammar.lark
 ./create-grammar.py grammar-shortnames.lark fedora-shortnames.txt > full-grammar-shortnames.lark
 for i in license-validate.1.asciidoc license-fedora2spdx.asciidoc; do
   a2x -d manpage -f manpage "$i"
@@ -48,7 +46,6 @@ install license-validate.py %{buildroot}%{_bindir}/license-validate
 install license-fedora2spdx.py %{buildroot}%{_bindir}/license-fedora2spdx
 
 mkdir -p %{buildroot}%{_datadir}/%{name}/
-install -m644 full-grammar.lark %{buildroot}%{_datadir}/%{name}/grammar.lark
 install -m644 full-grammar-shortnames.lark %{buildroot}%{_datadir}/%{name}/grammar-shortnames.lark
 
 mkdir -p %{buildroot}%{_mandir}/man1
@@ -56,7 +53,6 @@ install -m644 license-validate.1 %{buildroot}/%{_mandir}/man1/
 install -m644 license-fedora2spdx.1 %{buildroot}/%{_mandir}/man1/
 
 %check
-./validate-grammar.py full-grammar.lark
 ./validate-grammar.py full-grammar-shortnames.lark
 
 %files
@@ -70,6 +66,9 @@ install -m644 license-fedora2spdx.1 %{buildroot}/%{_mandir}/man1/
 
 
 %changelog
+* Thu Apr 20 2023 Miroslav Suchý <msuchy@redhat.com> 19-1
+- use spdx grammar from fedora-license-data
+
 * Thu Apr 06 2023 Miroslav Suchý <msuchy@redhat.com> 18-1
 - SPDX identifier are case insensitive
 

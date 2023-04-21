@@ -12,8 +12,8 @@
 
 %global github_owner     doctrine
 %global github_name      dbal
-%global github_version   3.6.1
-%global github_commit    57815c7bbcda3cd18871d253c1dd8cbe56f8526e
+%global github_version   3.6.2
+%global github_commit    b4bd1cfbd2b916951696d82e57d054394d84864c
 %global major            3
 
 %global composer_vendor  doctrine
@@ -76,7 +76,7 @@ Patch0:        %{name}-bin.patch
 BuildArch: noarch
 # Tests
 %if %{with tests}
-BuildRequires: phpunit9 >= 9.6.4
+BuildRequires: phpunit9 >= 9.6.6
 ## composer.json
 BuildRequires: php(language) >= %{php_min_ver}
 BuildRequires:(php-composer(doctrine/cache) >= %{doctrine_cache_min_ver} with php-composer(doctrine/cache) <  %{doctrine_cache_max_ver})
@@ -251,6 +251,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Wed Apr 19 2023 Remi Collet <remi@remirepo.net> - 3.6.2-1
+- update to 3.6.2
+
 * Mon Mar  6 2023 Remi Collet <remi@remirepo.net> - 3.6.1-1
 - update to 3.6.1
 

@@ -2,7 +2,7 @@
 %undefine _hardened_build
 
 %global no64bit   0
-%global winegecko 2.47.3
+%global winegecko 2.47.4
 %global winemono  7.4.0
 #global _default_patch_fuzz 2
 %ifarch %{ix86}
@@ -40,7 +40,7 @@
 %endif
 
 Name:           wine
-Version:        8.5
+Version:        8.6
 Release:        1%{?dist}
 Summary:        A compatibility layer for windows applications
 
@@ -93,7 +93,7 @@ Patch511:       wine-cjk.patch
 %if 0%{?wine_staging}
 # wine-staging patches
 # pulseaudio-patch is covered by that patch-set, too.
-Source900: https://github.com/wine-staging/wine-staging/archive/v%{version}.tar.gz#/wine-staging-%{version}.tar.gz
+Source900: https://github.com/wine-staging/wine-staging/archive/v%{version}.1.tar.gz#/wine-staging-%{version}.1.tar.gz
 %endif
 
 %if !%{?no64bit}
@@ -688,6 +688,8 @@ This package adds the opencl driver for wine.
 # setup and apply wine-staging patches
 gzip -dc %{SOURCE900} | tar -xf - --strip-components=1
 
+# https://bugs.winehq.org/show_bug.cgi?id=54868
+sed -i 's/DWORD pitch_in, DWORD pitch_out/unsigned int pitch_in, unsigned int pitch_out/' patches/wined3d-WINED3DFMT_B8G8R8X8_UNORM/0001-wined3d-Implement-WINED3DFMT_B8G8R8X8_UNORM-to-WINED.patch
 staging/patchinstall.py DESTDIR="`pwd`" --all
 
 %endif
@@ -2777,6 +2779,9 @@ fi
 %endif
 
 %changelog
+* Wed Apr 19 2023 Michael Cronenworth <mike@cchtml.com> - 8.6-1
+- version update
+
 * Sat Apr 01 2023 Michael Cronenworth <mike@cchtml.com> - 8.5-1
 - version update
 

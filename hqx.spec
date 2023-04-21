@@ -2,10 +2,10 @@
 
 Name: hqx
 Summary: %{summ program}
-License: LGPLv2+
+License: LGPL-2.1-or-later
 
 Version: 1.2
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 URL: https://github.com/grom358/hqx
 Source0: %{URL}/archive/v%{version}/%{name}-v%{version}.tar.gz
@@ -88,6 +88,9 @@ rm %{buildroot}%{_libdir}/lib%{name}.la
 
 
 %changelog
+* Wed Apr 19 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.2-6
+- Migrate License tag to SPDX
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

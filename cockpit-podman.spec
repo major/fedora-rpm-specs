@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-podman
-Version:        66
+Version:        67
 Release:        1%{?dist}
 Summary:        Cockpit component for Podman containers
 License:        LGPL-2.1-or-later
@@ -89,6 +89,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Apr 19 2023 Packit <hello@packit.dev> - 67-1
+- Fix building on non-x86_64 machines with esbuild-wasm
+- Translation updates
+
 * Tue Apr 11 2023 Packit <hello@packit.dev> - 66-1
  - Container list can be sorted
  - Custom healthcheck actions

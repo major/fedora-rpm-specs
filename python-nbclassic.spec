@@ -40,6 +40,10 @@ Source:         %{pypi_source nbclassic}
 # Patch to use the TeX fonts from the MathJax package rather than STIXWeb
 # See BZ: 1581899, 1580129
 Patch:          Use-MathJax-TeX-fonts-rather-than-STIXWeb.patch
+# Backport the changes in the desktop file to get the correct app title in
+# the graphical menu in Fedora
+Patch:          https://github.com/jupyter/nbclassic/pull/244.patch
+Patch:          https://github.com/jupyter/nbclassic/pull/245.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

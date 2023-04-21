@@ -1,14 +1,14 @@
 # Variables for if/when I need to source a commit instead of a release tag.
-%global  commit_date   20221109
-%global  commit_long   f2c0c94d8915353a35d94e7bbc72dfd93da2412f
+%global  commit_date   20230413
+%global  commit_long   0d39ef0488fa45fff6279c5461639741399f2c4a
 %global  commit_short  %(c=%{commit_long}; echo ${c:0:7})
 
 
 Name:       gnome-shell-extension-freon
 Summary:    GNOME Shell extension to display system temperature, voltage, and fan speed
 Epoch:      2
-Version:    45
-Release:    4.%{commit_date}git%{commit_short}%{?dist}
+Version:    49
+Release:    1.%{commit_date}git%{commit_short}%{?dist}
 URL:        https://github.com/UshakovVasilii/gnome-shell-extension-freon/wiki
 License:    GPLv2
 BuildArch:  noarch

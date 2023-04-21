@@ -27,10 +27,10 @@ Name:           gn
 #  7. Commit the changes
 #
 # See https://gn.googlesource.com/gn/+log for the latest changes.
-%global commit ffeea1b1fd070cb6a8d47154a03f8523486b50a7
-%global access 20230408
+%global commit 5a004f9427a050c6c393c07ddb85cba8ff3849fa
+%global access 20230419
 %global shortcommit %(echo '%{commit}' | cut -b -12)
-%global position 2087
+%global position 2088
 Version:        %{position}^%{access}git%{shortcommit}
 Release:        %autorelease
 Summary:        Meta-build system that generates build files for Ninja
@@ -54,9 +54,6 @@ Source2:        update-version
 # Stop overriding optimization flags; not sent upstream because this is
 # intentional on their part
 Patch:          gn-0153d369-no-O3.patch
-# Missing #include <stdint.h> for uint8_t (GCC 13)
-# https://bugs.chromium.org/p/gn/issues/detail?id=319
-Patch:          gn-5e19d2fb166f-stdint.patch
 # Error: redundant move in return statement (GCC 13)
 # https://bugs.chromium.org/p/gn/issues/detail?id=318
 # Apparently, removing the std::move causes an error (error: use of deleted

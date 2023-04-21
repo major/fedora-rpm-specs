@@ -2,8 +2,8 @@
 %bcond_without perl_Function_Parameters_enables_optional_test
 
 Name:           perl-Function-Parameters
-%global cpan_version 2.002002
-Version:        2.2.2
+%global cpan_version 2.002003
+Version:        2.2.3
 Release:        1%{?dist}
 Summary:        Subroutine definitions with parameter lists
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -21,7 +21,6 @@ BuildRequires:  perl(File::Find)
 BuildRequires:  perl(File::Spec)
 # Run-time:
 BuildRequires:  perl(Carp)
-BuildRequires:  perl(Moose::Util::TypeConstraints)
 BuildRequires:  perl(overload)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(strict)
@@ -40,13 +39,14 @@ BuildRequires:  perl(utf8)
 # Optional tests:
 BuildRequires:  perl(Moose)
 BuildRequires:  perl(Moose::Util)
+BuildRequires:  perl(Moose::Util::TypeConstraints)
 BuildRequires:  perl(MooseX::Types)
 BuildRequires:  perl(MooseX::Types::Moose)
 BuildRequires:  perl(threads)
 BuildRequires:  perl(threads::shared)
 %endif
 # Dependencies
-Requires:       perl(Moose::Util::TypeConstraints)
+# perl(Moose::Util::TypeConstraints) only used with Moose
 
 %description
 This module extends Perl with keywords that let you define functions with
@@ -76,6 +76,19 @@ make test
 %{_mandir}/man3/Function::Parameters::Info.3*
 
 %changelog
+* Wed Apr 19 2023 Paul Howarth <paul@city-fan.org> - 2.2.3-1
+- Update to 2.002003 (rhbz#2188007)
+  - Fix line numbers after inlined type checks (GH#42)
+    Previously, the code for type checks was inlined literally, so if a
+    particular check took 5 lines of code, all the following line numbers in
+    the source file would be off by 5 (they would be "pushed down" by the
+    interpolated code); these bad line numbers would show up in error messages
+    from Perl (including warn and die) as well as __LINE__ and caller (and
+    thus stack traces)
+- Drop explicit dependency on perl(Moose::Util::TypeConstraints), which is
+  only required when using this module in conjunction with Moose, and that
+  would pull in the dependency anyway
+
 * Sun Apr  2 2023 Paul Howarth <paul@city-fan.org> - 2.2.2-1
 - Update to 2.002002 (rhbz#2183727)
   - Provide //= for default arguments, which are also used when the caller

@@ -1,3 +1,12 @@
+#
+# Copyright 2008-2023 the Pacemaker project contributors
+#
+# The version control history for this file may have further details.
+#
+# This source code is licensed under the GNU General Public License version 2
+# or later (GPLv2+) WITHOUT ANY WARRANTY.
+#
+
 # User-configurable globals and defines to control package behavior
 # (these should not test {with X} values, which are declared later)
 
@@ -31,11 +40,11 @@
 ## Upstream pacemaker version, and its package version (specversion
 ## can be incremented to build packages reliably considered "newer"
 ## than previously built packages with the same pcmkversion)
-%global pcmkversion 2.1.5
-%global specversion 5
+%global pcmkversion 2.1.6
+%global specversion 1.rc1
 
 ## Upstream commit (full commit ID, abbreviated commit ID, or tag) to build
-%global commit a3f44794f94e1571c6ba0042915ade369b4ce4b1
+%global commit 095c09eee68f65ae3a3e0348fe868da43f47bab2
 
 ## Since git v2.11, the extent of abbreviation is autoscaled by default
 ## (used to be constant of 7), so we need to convey it for non-tags, too.
@@ -79,7 +88,7 @@
 
 ## Add option to prefix package version with "0."
 ## (so later "official" packages will be considered updates)
-%bcond_with pre_release
+%bcond_without pre_release
 
 ## NOTE: skip --with upstart_job
 
@@ -192,7 +201,7 @@ Name:          pacemaker
 Summary:       Scalable High-Availability cluster resource manager
 Version:       %{pcmkversion}
 Release:       %{pcmk_release}%{?dist}
-License:       GPLv2+ and LGPLv2+
+License:       GPL-2.0-or-later AND LGPL-2.1-or-later
 Url:           https://www.clusterlabs.org/
 
 # Example: https://codeload.github.com/ClusterLabs/pacemaker/tar.gz/e91769e
@@ -207,8 +216,8 @@ Source0:       https://codeload.github.com/%{github_owner}/%{name}/tar.gz/%{arch
 Source1:       https://codeload.github.com/%{github_owner}/%{nagios_name}/tar.gz/%{nagios_archive_github_url}
 
 # upstream commits
-Patch0:        0001-Fix-fenced-use-enum-fenced_target_by-consistently.patch
-Patch1:        0002-Low-libcrmcommon-Fix-problems-with-pcmk__output_and_.patch
+Patch0:        0001-Build-rpm-convert-licenses-to-SPDX.patch
+Patch1:        0002-Build-rpm-avoid-bare-wildcards-under-shared-director.patch
 
 Requires:      resource-agents
 Requires:      %{pkgname_pcmk_libs}%{?_isa} = %{version}-%{release}
@@ -226,6 +235,7 @@ ExclusiveArch: aarch64 i686 ppc64le s390x x86_64
 
 Requires:      %{python_path}
 BuildRequires: %{python_name}-devel
+BuildRequires: %{python_name}-setuptools
 
 # Pacemaker requires a minimum libqb functionality
 Requires:      libqb >= 0.17.0
@@ -310,7 +320,7 @@ Available rpmbuild rebuild options:
   --with(out) : cibsecrets hardening nls pre_release profiling stonithd
 
 %package cli
-License:       GPLv2+ and LGPLv2+
+License:       GPL-2.0-or-later AND LGPL-2.1-or-later
 Summary:       Command line tools for controlling Pacemaker clusters
 Requires:      %{pkgname_pcmk_libs}%{?_isa} = %{version}-%{release}
 Recommends:    pcmk-cluster-manager = %{version}-%{release}
@@ -332,7 +342,7 @@ to query and control the cluster from machines that may, or may not,
 be part of the cluster.
 
 %package -n %{pkgname_pcmk_libs}
-License:       GPLv2+ and LGPLv2+
+License:       GPL-2.0-or-later AND LGPL-2.1-or-later
 Summary:       Core Pacemaker libraries
 Requires(pre): %{pkgname_shadow_utils}
 Requires:      %{name}-schemas = %{version}-%{release}
@@ -351,7 +361,7 @@ The %{pkgname_pcmk_libs} package contains shared libraries needed for cluster
 nodes and those just running the CLI tools.
 
 %package cluster-libs
-License:       GPLv2+ and LGPLv2+
+License:       GPL-2.0-or-later AND LGPL-2.1-or-later
 Summary:       Cluster Libraries used by Pacemaker
 Requires:      %{pkgname_pcmk_libs}%{?_isa} = %{version}-%{release}
 
@@ -362,11 +372,26 @@ manager.
 The %{name}-cluster-libs package contains cluster-aware shared
 libraries needed for nodes that will form part of the cluster nodes.
 
+%package -n %{python_name}-%{name}
+License:       LGPL-2.1-or-later
+Summary:       Python libraries for Pacemaker
+Requires:      %{python_path}
+Requires:      %{pkgname_pcmk_libs} = %{version}-%{release}
+BuildArch:     noarch
+
+%description -n %{python_name}-%{name}
+Pacemaker is an advanced, scalable High-Availability cluster resource
+manager.
+
+The %{python_name}-%{name} package contains a Python library that can be used
+to interface with Pacemaker.
+
 %package remote
-License:       GPLv2+ and LGPLv2+
+License:       GPL-2.0-or-later AND LGPL-2.1-or-later
 Summary:       Pacemaker remote executor daemon for non-cluster nodes
 Requires:      %{pkgname_pcmk_libs}%{?_isa} = %{version}-%{release}
 Requires:      %{name}-cli = %{version}-%{release}
+Requires:      %{python_name}-%{name} = %{version}-%{release}
 Requires:      resource-agents
 # -remote can be fully independent of systemd
 %{?systemd_ordering}%{!?systemd_ordering:%{?systemd_requires}}
@@ -382,7 +407,7 @@ which is capable of extending pacemaker functionality to remote
 nodes not running the full corosync/cluster stack.
 
 %package -n %{pkgname_pcmk_libs}-devel
-License:       GPLv2+ and LGPLv2+
+License:       GPL-2.0-or-later AND LGPL-2.1-or-later
 Summary:       Pacemaker development package
 Requires:      %{pkgname_pcmk_libs}%{?_isa} = %{version}-%{release}
 Requires:      %{name}-cluster-libs%{?_isa} = %{version}-%{release}
@@ -405,7 +430,7 @@ The %{pkgname_pcmk_libs}-devel package contains headers and shared libraries
 for developing tools for Pacemaker.
 
 %package       cts
-License:       GPLv2+ and LGPLv2+
+License:       GPL-2.0-or-later AND LGPL-2.1-or-later
 Summary:       Test framework for cluster-related technologies like Pacemaker
 Requires:      %{python_path}
 Requires:      %{pkgname_pcmk_libs} = %{version}-%{release}
@@ -438,7 +463,7 @@ Pacemaker is an advanced, scalable High-Availability cluster resource
 manager.
 
 %package       schemas
-License:       GPLv2+
+License:       GPL-2.0-or-later
 Summary:       Schemas and upgrade stylesheets for Pacemaker
 BuildArch:     noarch
 
@@ -513,6 +538,10 @@ export LDFLAGS_HARDENED_LIB="%{?_hardening_ldflags}"
 
 make %{_smp_mflags} V=1
 
+pushd python
+%py3_build
+popd
+
 %check
 make %{_smp_mflags} check
 { cts/cts-scheduler --run load-stopped-loop \
@@ -529,6 +558,10 @@ make %{_smp_mflags} check
 make install \
   DESTDIR=%{buildroot} V=1 docdir=%{pcmk_docdir} \
   %{?_python_bytecompile_extra:%{?py_byte_compile:am__py_compile=true}}
+
+pushd python
+%py3_install
+popd
 
 mkdir -p %{buildroot}%{_datadir}/pacemaker/nagios/plugins-metadata
 for file in $(find %{nagios_name}-%{nagios_hash}/metadata -type f); do
@@ -704,18 +737,25 @@ exit 0
 %dir %{ocf_root}/resource.d
 %{ocf_root}/resource.d/pacemaker
 
-%doc %{_mandir}/man7/*
+%doc %{_mandir}/man7/*pacemaker*
 %exclude %{_mandir}/man7/pacemaker-controld.*
 %exclude %{_mandir}/man7/pacemaker-schedulerd.*
 %exclude %{_mandir}/man7/pacemaker-fenced.*
 %exclude %{_mandir}/man7/ocf_pacemaker_controld.*
 %exclude %{_mandir}/man7/ocf_pacemaker_o2cb.*
 %exclude %{_mandir}/man7/ocf_pacemaker_remote.*
-%doc %{_mandir}/man8/*
+%doc %{_mandir}/man8/crm*.8.gz
 %exclude %{_mandir}/man8/crm_master.*
+%doc %{_mandir}/man8/attrd_updater.*
+%doc %{_mandir}/man8/cibadmin.*
+%if %{with cibsecrets}
+    %doc %{_mandir}/man8/cibsecret.*
+%endif
 %exclude %{_mandir}/man8/fence_watchdog.*
 %exclude %{_mandir}/man8/pacemakerd.*
 %exclude %{_mandir}/man8/pacemaker-remoted.*
+%doc %{_mandir}/man8/iso8601.*
+%doc %{_mandir}/man8/stonith_admin.*
 
 %license licenses/GPLv2
 %doc COPYING
@@ -746,6 +786,14 @@ exit 0
 %doc COPYING
 %doc ChangeLog
 
+%files -n %{python_name}-%{name}
+%{python3_sitelib}/pacemaker/
+%{python3_sitelib}/pacemaker-*.egg-info
+%exclude %{python3_sitelib}/pacemaker/_cts/
+%license licenses/LGPLv2.1
+%doc COPYING
+%doc ChangeLog
+
 %files remote
 %config(noreplace) %{_sysconfdir}/sysconfig/pacemaker
 # state directory is shared between the subpackets
@@ -767,6 +815,7 @@ exit 0
 
 %files cts
 %{python_site}/cts
+%{python3_sitelib}/pacemaker/_cts/
 %{_datadir}/pacemaker/tests
 
 %{_libexecdir}/pacemaker/cts-log-watcher
@@ -778,8 +827,16 @@ exit 0
 
 %files -n %{pkgname_pcmk_libs}-devel
 %{_includedir}/pacemaker
-%{_libdir}/*.so
-%{_libdir}/pkgconfig/*.pc
+%{_libdir}/libcib.so
+%{_libdir}/liblrmd.so
+%{_libdir}/libcrmservice.so
+%{_libdir}/libcrmcommon.so
+%{_libdir}/libpe_status.so
+%{_libdir}/libpe_rules.so
+%{_libdir}/libpacemaker.so
+%{_libdir}/libstonithd.so
+%{_libdir}/libcrmcluster.so
+%{_libdir}/pkgconfig/*pacemaker*.pc
 %license licenses/LGPLv2.1
 %doc COPYING
 %doc ChangeLog
@@ -800,6 +857,13 @@ exit 0
 %license %{nagios_name}-%{nagios_hash}/COPYING
 
 %changelog
+* Wed Apr 19 2023 Klaus Wenninger <kwenning@redhat.com> - 2.1.6-0.1.rc1
+- Update for new upstream tarball for release candidate: Pacemaker-2.1.6-rc1,
+  for full details, see included ChangeLog file or
+  https://github.com/ClusterLabs/pacemaker/releases/tag/Pacemaker-2.1.6-rc1
+- Changed licenses to SPDX
+- Removed non-packet-specific wildcards from files-sections
+
 * Wed Mar 1 2023 Klaus Wenninger <kwenning@redhat.com> - 2.1.5-5
 - fix pcmk__output_and_clear_error
 

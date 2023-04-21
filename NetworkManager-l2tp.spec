@@ -7,12 +7,17 @@
 Summary:   NetworkManager VPN plugin for L2TP and L2TP/IPsec
 Name:      NetworkManager-l2tp
 Version:   1.20.8
-Release:   2%{?dist}
+Release:   3%{?dist}
 License:   GPLv2+
 URL:       https://github.com/nm-l2tp/NetworkManager-l2tp
 Source:    https://github.com/nm-l2tp/NetworkManager-l2tp/releases/download/%{version}/%{name}-%{version}.tar.xz
+# Backports from upstream main branch: fix build with ppp 2.5.0
+# No, these are not the same patch twice, they just have the same
+# commit message
+Patch0:    0001-Adding-support-for-compiling-against-pppd-2.5.0-curr.patch
+Patch1:    0002-Adding-support-for-compiling-against-pppd-2.5.0-curr.patch
 
-%global ppp_version %(sed -n 's/^#define\\s*VERSION\\s*"\\([^\\s]*\\)"$/\\1/p' %{_includedir}/pppd/patchlevel.h 2>/dev/null | grep . || echo bad)
+%global ppp_version %(pkg-config --modversion pppd 2>/dev/null || echo bad)
 
 BuildRequires: make
 BuildRequires: gcc
@@ -20,7 +25,11 @@ BuildRequires: glib2-devel
 BuildRequires: gtk3-devel
 BuildRequires: NetworkManager-libnm-devel >= 1:1.20.0
 BuildRequires: libnma-devel >= 1.8.0
-BuildRequires: ppp-devel
+BuildRequires: pkgconfig
+BuildRequires: ppp-devel >= 2.5.0
+# ppp 2.5.0 patches require autoreconf, drop this when a new version
+# is released and those patches are dropped
+BuildRequires: autoconf automake gettext-devel
 BuildRequires: libtool gettext
 BuildRequires: libsecret-devel
 BuildRequires: openssl-devel >= 1:1.1.0
@@ -52,12 +61,14 @@ This package contains software for integrating L2TP and L2TP over
 IPsec VPN support with the NetworkManager (GNOME files).
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
-if [ ! -f configure ]; then
-  autoreconf -fi
-fi
+#if [ ! -f configure ]; then
+#  autoreconf -fi
+#fi
+# for ppp 2.5.0 patches
+autoreconf -fi
 %configure \
     --disable-static \
     --runstatedir=/run \
@@ -116,6 +127,9 @@ exit 0
 %endif
 
 %changelog
+* Tue Apr 18 2023 Adam Williamson <awilliam@redhat.com> - 1.20.8-3
+- Rebuild for new ppp
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

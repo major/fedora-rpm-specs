@@ -10,7 +10,7 @@
 
 # https://github.com/klauspost/compress
 %global goipath         github.com/klauspost/compress
-Version:                1.16.3
+Version:                1.16.5
 
 %gometa
 

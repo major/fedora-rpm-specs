@@ -1,12 +1,12 @@
 %bcond_with bootstrap
 
 %global packname processx
-%global packver  3.7.0
+%global packver  3.8.1
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          1%{?dist}
 Summary:          Execute and Control System Processes
 
 License:          MIT
@@ -16,7 +16,7 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 # Here's the R view of the dependencies world:
 # Depends:
 # Imports:   R-ps >= 1.2.0, R-R6, R-utils
-# Suggests:  R-callr >= 3.2.0, R-cli, R-codetools, R-covr, R-curl, R-debugme, R-parallel, R-testthat, R-withr
+# Suggests:  R-callr >= 3.7.3, R-cli >= 3.3.0, R-codetools, R-covr, R-curl, R-debugme, R-parallel, R-rlang >= 1.0.2, R-testthat >= 3.0.0, R-webfakes, R-withr
 # LinkingTo:
 # Enhances:
 
@@ -26,7 +26,7 @@ BuildRequires:    R-ps >= 1.2.0
 BuildRequires:    R-R6
 BuildRequires:    R-utils
 %if %{without bootstrap}
-BuildRequires:    R-callr >= 3.7.0
+BuildRequires:    R-callr >= 3.7.3
 BuildRequires:    R-cli >= 3.3.0
 BuildRequires:    R-codetools
 BuildRequires:    R-curl
@@ -34,6 +34,7 @@ BuildRequires:    R-debugme
 BuildRequires:    R-parallel
 BuildRequires:    R-rlang >= 1.0.2
 BuildRequires:    R-testthat >= 3.0.0
+BuildRequires:    R-webfakes
 BuildRequires:    R-withr
 %endif
 
@@ -93,6 +94,9 @@ install -pm 0644 %{packname}/README.md %{buildroot}%{rlibdir}/%{packname}/
 
 
 %changelog
+* Wed Apr 19 2023 Tom Callaway <spot@fedoraproject.org> - 3.8.1-1
+- update to 3.8.1
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

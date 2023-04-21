@@ -49,7 +49,7 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        289
+Version:        290
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
@@ -393,10 +393,10 @@ Recommends: (reportd if abrt)
 %endif
 
 Provides: bundled(npm(@patternfly/patternfly)) = 4.224.4
-Provides: bundled(npm(@patternfly/react-core)) = 4.276.8
+Provides: bundled(npm(@patternfly/react-core)) = 4.276.9
 Provides: bundled(npm(@patternfly/react-icons)) = 4.93.6
-Provides: bundled(npm(@patternfly/react-styles)) = 4.92.6
-Provides: bundled(npm(@patternfly/react-table)) = 4.113.0
+Provides: bundled(npm(@patternfly/react-styles)) = 4.92.7
+Provides: bundled(npm(@patternfly/react-table)) = 4.113.1
 Provides: bundled(npm(@patternfly/react-tokens)) = 4.94.6
 Provides: bundled(npm(argparse)) = 1.0.10
 Provides: bundled(npm(attr-accept)) = 1.1.3
@@ -579,7 +579,7 @@ fi
 test -f %{_bindir}/firewall-cmd && firewall-cmd --reload --quiet || true
 
 # check for deprecated PAM config
-if grep --color=auto pam_cockpit_cert %{_sysconfdir}/pam.d/cockpit; then
+if test -f %{_sysconfdir}/pam.d/cockpit &&  grep -q pam_cockpit_cert %{_sysconfdir}/pam.d/cockpit; then
     echo '**** WARNING:'
     echo '**** WARNING: pam_cockpit_cert is a no-op and will be removed in a'
     echo '**** WARNING: future release; remove it from your /etc/pam.d/cockpit.'
@@ -753,6 +753,10 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Apr 19 2023 Packit <hello@packit.dev> - 290-1
+- Login page: Add autocomplete tags
+- webserver: Disallow direct URL logins with LoginTo=false
+
 * Wed Apr 05 2023 Packit <hello@packit.dev> - 289-1
 - Metrics: Indicate high usage and use colorblind-friendly colors
 - Accounts: Improve password validation

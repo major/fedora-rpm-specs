@@ -1,18 +1,18 @@
 %global packname TH.data
 %global packver 1.1
-%global packrel 1
+%global packrel 2
 
 %global with_check 0
 
 # Cannot use . in name
 Name:             R-TH-data
 Version:          %{packver}.%{packrel}
-Release:          2%{?dist}
+Release:          1%{?dist}
 Summary:          Data for other R packages
 
-License:          GPLv3
+License:          GPL-3.0-only
 URL:              https://CRAN.R-project.org/package=TH.data
-Source0:          ftp://cran.r-project.org/pub/R/contrib/main/%{packname}_%{packver}-%{packrel}.tar.gz
+Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}-%{packrel}.tar.gz
 
 Requires:         R-core
 Suggests:         R-gdata
@@ -20,7 +20,9 @@ Suggests:         R-plyr
 Suggests:         R-dplyr
 
 BuildRequires:    R-devel
-BuildREquires:    tex(latex), tex(upquote.sty)
+BuildRequires:    tex(latex), tex(upquote.sty)
+BuildRequires:    R-survival
+BuildRequires:    R-MASS
 # required for check (R-dplyr is only available in Fedora 30+)
 %if 0%{?fedora} >= 30 && %{with_check}
 BuildRequires:    R-gdata
@@ -72,6 +74,10 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/R/library/R.css
 
 
 %changelog
+* Wed Apr 19 2023 Tom Callaway <spot@fedoraproject.org> - 1.1.2-1
+- update to 1.1-2
+- correct license tag to SPDX syntax
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -14,6 +14,7 @@ URL:            https://crates.io/crates/fd-find
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop jemallocator dependency
+# * remove stabilized but previously unstable "clap/unstable-grouped" feature
 Patch:          fd-find-fix-metadata.diff
 # * drop jemallocator from code
 Patch:          0001-Remove-usage-of-jemallocator.patch

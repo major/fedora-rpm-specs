@@ -1,18 +1,20 @@
-%global giturl  https://github.com/snwh/%{name}
-
 Name:           paper-icon-theme
-Version:        1.5.0
-Release:        12%{?dist}
 Summary:        Modern freedesktop icon theme
+License:        CC-BY-SA-4.0
 
-License:        CC-BY-SA
+%global git_commit aa3e8af7a1f0831a51fd7e638a4acb077a1e5188
+%global git_date 20200312
+%global git_short %(c="%{git_commit}"; echo "${c:0:7}")
+
+Version:        1.5.0
+Release:        13.%{git_date}git%{git_short}%{?dist}
+
 URL:            https://snwh.org/paper
-Source0:        %{giturl}/archive/v.%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/snwh/%{name}/archive/%{git_commit}/%{name}-%{git_commit}.tar.gz
 
 BuildArch:      noarch
 
 BuildRequires:  meson
-BuildRequires:  xmlstarlet
 
 Requires:       adwaita-icon-theme
 Requires:       gnome-icon-theme
@@ -29,23 +31,10 @@ desktop environment.
 
 
 %prep
-%autosetup -n %{name}-v.%{version}
+%autosetup -n %{name}-%{git_commit}
 
 # remove stray executable bit from files
 find -executable -type f -exec chmod -x {} +
-
-# Find files that use 'osb:' attributes but do not have the 'xmlns:osb' namespace defined and fix them.
-for FILE in $(grep --include '*.svg' --recursive --files-with-matches -e 'osb:' ./ --null | xargs --null grep -e 'xmlns:osb' --files-without-match); do
-       TEMPNAME="$(mktemp --tmpdir paper.XXXXXXXX)"
-       xmlstarlet ed \
-               -N svg='http://www.w3.org/2000/svg' \
-               --insert '/svg:svg' \
-               --type attr \
-               -n 'xmlns:osb' \
-               -v 'http://www.openswatchbook.org/uri/2009/osb' \
-               < "${FILE}" > "${TEMPNAME}" 2>/dev/null
-       mv "${TEMPNAME}" "${FILE}"
-done
 
 
 %build
@@ -85,6 +74,11 @@ gtk-update-icon-cache --force %{_datadir}/icons/Paper-Mono-Dark &>/dev/null || :
 
 
 %changelog
+* Wed Apr 19 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.5.0-13.20200312gitaa3e8af
+- Update to latest git snapshot (2020-03-12)
+- Remove the invalid XML markup fix (issue fixed upstream)
+- Migrate License tag to SPDX
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

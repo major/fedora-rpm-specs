@@ -2,21 +2,25 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate miette-derive
+%global crate lddtree
 
-Name:           rust-miette-derive
-Version:        5.8.0
+Name:           rust-lddtree
+Version:        0.3.2
 Release:        %autorelease
-Summary:        Derive macros for miette
+Summary:        Read the ELF dependency tree
 
-License:        Apache-2.0
-URL:            https://crates.io/crates/miette-derive
+License:        MIT
+URL:            https://crates.io/crates/lddtree
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * skip building unused executable
+# * exclude tests and binary test fixtures from installed files
+Patch:          lddtree-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Derive macros for miette. Like `thiserror` for Diagnostics.}
+Read the ELF dependency tree.}
 
 %description %{_description}
 
@@ -31,6 +35,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -60,7 +65,12 @@ use the "default" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
+%ifarch aarch64
+# * skip test that doesn't work on aarch64
+%cargo_test -- -- --skip test_lddtree
+%else
 %cargo_test
+%endif
 %endif
 
 %changelog

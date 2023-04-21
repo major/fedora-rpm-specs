@@ -8,7 +8,7 @@
 #
 %global bootstrap    0
 # github
-%global gh_commit    bf4aebd170fadf5fd808c70b90535de327e81a50
+%global gh_commit    e874c8c4286a1e010fb4f385f3a55ac56a05cc93
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     Nyholm
 %global gh_project   psr7
@@ -31,7 +31,7 @@
 %global http_factory_tests_short      %(c=%{http_factory_tests_commit}; echo ${c:0:7})
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        1.6.0
+Version:        1.6.1
 Release:        1%{?dist}
 Summary:        A fast PHP7 implementation of PSR-7
 
@@ -158,6 +158,9 @@ exit $ret
 
 
 %changelog
+* Wed Apr 19 2023 Remi Collet <remi@remirepo.net> - 1.6.1-1
+- update to 1.6.1
+
 * Tue Apr 11 2023 Remi Collet <remi@remirepo.net> - 1.6.0-1
 - update to 1.6.0
 

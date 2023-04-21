@@ -1,10 +1,10 @@
 %global packname pkgcache
-%global packver  2.0.2
+%global packver  2.1.0
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          1%{?dist}
 Summary:          Cache 'CRAN'-Like Metadata and R Packages
 
 License:          MIT
@@ -13,8 +13,8 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 
 # Here's the R view of the dependencies world:
 # Depends:
-# Imports:   R-callr >= 2.0.4.9000, R-cli >= 3.2.0, R-curl >= 3.2, R-filelock, R-glue, R-jsonlite, R-prettyunits, R-R6, R-processx >= 3.3.0.9001, R-R6, R-rappdirs, R-tools, R-utils
-# Suggests:  R-covr, R-debugme, R-desc, R-fs, R-mockery, R-pillar, R-pingr, R-rprojroot, R-sessioninfo, R-spelling, R-testthat >= 3.0.0, R-webfakes, R-withr
+# Imports:   R-callr >= 2.0.4.9000, R-cli >= 3.2.0, R-curl >= 3.2, R-filelock, R-jsonlite, R-prettyunits, R-processx >= 3.3.0.9001, R-R6, R-rappdirs, R-tools, R-utils
+# Suggests:  R-covr, R-debugme, R-desc, R-fs, R-mockery, R-pillar, R-pingr, R-rprojroot, R-sessioninfo, R-spelling, R-testthat >= 3.0.0, R-webfakes >= 1.1.5, R-withr, R-zip
 # LinkingTo:
 # Enhances:
 
@@ -24,7 +24,6 @@ BuildRequires:    R-callr >= 2.0.4.9000
 BuildRequires:    R-cli >= 3.2.0
 BuildRequires:    R-curl >= 3.2
 BuildRequires:    R-filelock
-BuildRequires:    R-glue
 BuildRequires:    R-jsonlite
 BuildRequires:    R-prettyunits
 BuildRequires:    R-processx >= 3.3.0.9001
@@ -43,8 +42,9 @@ BuildRequires:    R-rprojroot
 BuildRequires:    R-sessioninfo
 BuildRequires:    R-spelling
 BuildRequires:    R-testthat >= 3.0.0
-BuildRequires:    R-webfakes
+BuildRequires:    R-webfakes >= 1.1.5
 BuildRequires:    R-withr
+BuildRequires:    R-zip
 
 %description
 Metadata and package cache for CRAN-like repositories. This is a utility
@@ -86,9 +86,12 @@ rm -f %{buildroot}%{rlibdir}/R.css
 %{rlibdir}/%{packname}/help
 %{rlibdir}/%{packname}/WORDLIST
 %{rlibdir}/%{packname}/libs
-
+%{rlibdir}/%{packname}/fixtures
 
 %changelog
+* Wed Apr 19 2023 Tom Callaway <spot@fedoraproject.org> - 2.1.0-1
+- update to 2.1.0
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

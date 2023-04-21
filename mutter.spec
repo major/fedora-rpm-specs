@@ -13,7 +13,7 @@
 
 Name:          mutter
 Version:       44.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Window and compositing manager based on Clutter
 
 License:       GPLv2+
@@ -31,6 +31,12 @@ Patch2:        mutter-42.alpha-disable-tegra.patch
 
 # https://pagure.io/fedora-workstation/issue/79
 Patch3:        0001-place-Always-center-initial-setup-fedora-welcome.patch
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=2187831
+# https://gitlab.gnome.org/GNOME/mutter/-/issues/2727
+# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/2954
+# Fix click-to-raise on X.org windows
+Patch4:        2954.patch
 
 BuildRequires: pkgconfig(gobject-introspection-1.0) >= 1.41.0
 BuildRequires: pkgconfig(sm)
@@ -175,6 +181,9 @@ the functionality of the installed %{name} package.
 %{_datadir}/mutter-%{mutter_api_version}/tests
 
 %changelog
+* Tue Apr 18 2023 Adam Williamson <awilliam@redhat.com> - 44.0-2
+- Backport MR #2954 to fix X.org click-to-raise (#2187831)
+
 * Sun Mar 19 2023 Florian Müllner <fmuellner@redhat.com> - 44.0-1
 - Update to 44.0
 

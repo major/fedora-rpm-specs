@@ -74,9 +74,12 @@ and sets up the environment to use the packages.
 
 
 %check
+# Workaround of pkg_resources deprecation warning
+# https://github.com/colcon/colcon-core/pull/553
 %{__python3} -m pytest \
     --ignore=test/test_spell_check.py \
     --ignore=test/test_flake8.py \
+    -W "ignore:pkg_resources is deprecated as an API::pkg_resources" \
     test
 
 

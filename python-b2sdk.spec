@@ -1,14 +1,15 @@
-%global srcname b2sdk
-
-Name:           python-%{srcname}
-Version:        1.19.0
+Name:           python-b2sdk
+Version:        1.21.0
 Release:        1%{?dist}
 Summary:        Backblaze B2 SDK
 
 License:        MIT
 URL:            https://github.com/Backblaze/b2-sdk-python
-Source0:        %{pypi_source}
+Source0:        %{pypi_source b2sdk}
 BuildArch:      noarch
+
+# Fedora does not ship with version 5 or lower
+Patch0:         relax-setuptools_scm-version.patch
 
 %global _description %{expand:
 Python library and a few handy utilities for easy access to all of the
@@ -20,17 +21,17 @@ FUSE filesystems, storage backend drivers for backup applications etc).}
 
 %description %_description
 
-%package -n python3-%{srcname}
+%package -n python3-b2sdk
 Summary:        %{summary}
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-setuptools_scm
 
-%description -n python3-%{srcname} %_description
+%description -n python3-b2sdk %_description
 
 %prep
-%setup -q -n %{srcname}-%{version}
-rm -rf %{srcname}.egg-info
+%autosetup -p1 -n b2sdk-%{version}
+rm -rf b2sdk.egg-info
 
 
 %build
@@ -42,17 +43,17 @@ rm -rf %{srcname}.egg-info
 rm -rf %{buildroot}%{python3_sitelib}/test
 
 
-%files -n python3-%{srcname}
+%files -n python3-b2sdk
 %doc CHANGELOG.md
 %doc README.md
 %license LICENSE
-%{python3_sitelib}/%{srcname}-*.egg-info/
-%{python3_sitelib}/%{srcname}/
+%{python3_sitelib}/b2sdk-*.egg-info/
+%{python3_sitelib}/b2sdk/
 
 
 %changelog
-* Mon Mar 06 2023 Jonny Heggheim <hegjon@gmail.com> - 1.19.0-1
-- Updated to version 1.19.0
+* Wed Apr 19 2023 Jonny Heggheim <hegjon@gmail.com> - 1.21.0-1
+- Updated to version 1.21.0
 
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild

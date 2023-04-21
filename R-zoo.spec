@@ -3,7 +3,7 @@
 # This is the main package version
 %global packver 1.8
 # Note that some R packages do not use packrel
-%global packrel 10
+%global packrel 12
 
 %global with_suggests 0
 
@@ -11,8 +11,8 @@
 
 Name:             R-%{packname}
 Version:          %{packver}.%{packrel}
-Release:          2%{?dist}
-License:          GPLv2 or GPLv3
+Release:          1%{?dist}
+License:          GPL-2.0-or-later
 URL:              https://CRAN.R-project.org/package=%{packname}
 Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}-%{packrel}.tar.gz
 
@@ -28,7 +28,6 @@ BuildRequires:    R-lattice >= 0.20.27
 BuildRequires:    R-AER
 BuildRequires:    R-coda
 BuildRequires:    R-chron
-BuildRequires:    R-fts
 BuildRequires:    R-ggplot2 >= 3.0.0
 BuildRequires:    R-mondate
 BuildRequires:    R-scales
@@ -101,6 +100,9 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/R/library/R.css
 %{_libdir}/R/library/%{packname}/include
 
 %changelog
+* Wed Apr 19 2023 Tom Callaway <spot@fedoraproject.org> - 1.8.12-1
+- update to 1.8-12
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

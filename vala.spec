@@ -2,15 +2,14 @@
 %global priority 90
 
 Name:           vala
-Version:        0.56.6
-Release:        2%{?dist}
+Version:        0.56.7
+Release:        1%{?dist}
 Summary:        A modern programming language for GNOME
 
 # Most files are LGPLv2.1+, curses.vapi is 2-clause BSD
 License:        LGPL-2.1-or-later AND BSD-2-Clause
 URL:            https://wiki.gnome.org/Projects/Vala
 Source0:        https://download.gnome.org/sources/%{name}/0.56/%{name}-%{version}.tar.xz
-Patch0: vala-g_chdir.patch
 
 BuildRequires:  bison
 BuildRequires:  flex
@@ -191,6 +190,9 @@ export -n VALAFLAGS
 
 
 %changelog
+* Wed Apr 19 2023 David King <amigadave@amigadave.com> - 0.56.7-1
+- Update to 0.56.7
+
 * Mon Apr 17 2023 Florian Weimer <fweimer@redhat.com> - 0.56.6-2
 - Fix C header for g_chdir, needed by deja-dup
 

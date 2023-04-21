@@ -18,7 +18,7 @@
 
 Name:    calligra 
 Version: 3.2.1
-Release: 22%{?dist}
+Release: 23%{?dist}
 Summary: An integrated office suite
 
 License: GPLv2+ and LGPLv2+
@@ -59,6 +59,7 @@ Patch201: calligra-gcc11.patch
 
 # Switch to C++17 because poppler needs it
 Patch202: calligra-c++17.patch
+Patch203: calligra-c99.patch
 
 BuildRequires: boost-devel
 BuildRequires: bzip2-devel bzip2
@@ -786,6 +787,9 @@ fi
 
 
 %changelog
+* Wed Apr 19 2023 Florian Weimer <fweimer@redhat.com> - 3.2.1-23
+- Port to C99
+
 * Mon Feb 06 2023 Marek Kasik <mkasik@redhat.com> - 3.2.1-22
 - Rebuild for poppler-23.02.0
 - Disable Okular support for now as it prevents to build Calligra currently

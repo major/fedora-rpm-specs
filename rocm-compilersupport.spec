@@ -1,10 +1,12 @@
-# The package follows LLVM's version, but API version is still important:
+# The package follows LLVM's major version, but API version is still important:
 %global comgr_maj_api_ver 2
+%global comgr_full_api_ver %{comgr_maj_api_ver}.5.0
+# LLVM information:
 %global llvm_maj_ver 16
 # If you bump LLVM, please reset bugfix_version to 0; I fork upstream sources,
 # but I prepare the initial *.0 tag long before Fedora/EL picks up new LLVM.
 # An LLVM update will require uploading new sources, contact mystro256 if FTBFS.
-%global bugfix_version 0
+%global bugfix_version 1
 %global upstreamname ROCm-CompilerSupport
 
 Name:           rocm-compilersupport
@@ -17,10 +19,6 @@ License:        NCSA
 # I fork upstream sources because they don't target stable LLVM, but rather the
 # bleeding edge LLVM branch. My fork is a snapshot with bugfixes backported:
 Source0:        https://github.com/Mystro256/%{upstreamname}/archive/refs/tags/%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-
-Patch0:         0001-Test-reporting-error.patch
-Patch1:         0002-Fix-comgr_mangled_names_test.patch
-Patch2:         0003-Skip-device-libs-test-errors.patch
 
 BuildRequires:  cmake
 BuildRequires:  clang-devel >= %{llvm_maj_ver}
@@ -39,6 +37,7 @@ This package currently contains one library, the Code Object Manager (Comgr)
 %package -n rocm-comgr
 Summary:        AMD ROCm LLVM Code Object Manager
 Provides:       comgr(major) = %{comgr_maj_api_ver}
+Provides:       rocm-comgr = %{comgr_full_api_ver}-%{release}
 
 %description -n rocm-comgr
 The AMD Code Object Manager (Comgr) is a shared library which provides
@@ -78,7 +77,8 @@ sed -i 's/lib\(\/clang\)/%{_lib}\1/' lib/comgr/src/comgr-compiler.cpp
 %files -n rocm-comgr
 %license LICENSE.txt lib/comgr/NOTICES.txt
 %doc lib/comgr/README.md
-%{_libdir}/libamd_comgr.so.%{comgr_maj_api_ver}{,.*}
+%{_libdir}/libamd_comgr.so.%{comgr_full_api_ver}
+%{_libdir}/libamd_comgr.so.%{comgr_maj_api_ver}
 #Files already included:
 %exclude %{_docdir}/amd_comgr/LICENSE.txt
 %exclude %{_docdir}/amd_comgr/NOTICES.txt
@@ -92,6 +92,13 @@ sed -i 's/lib\(\/clang\)/%{_lib}\1/' lib/comgr/src/comgr-compiler.cpp
 %{_includedir}/amd_comgr.h
 
 %changelog
+* Wed Apr 19 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 16.1-2
+- Rebuild against 16.1 rocm-device-libs
+
+* Wed Apr 19 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 16.1-1
+- Update to 16.1
+- Add rocm-comgr full api provides (currently 2.5.0)
+
 * Tue Apr 11 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 16.0-2
 - Fix comgr provides (should be major api version of comgr), for RHBZ#2185838
 
