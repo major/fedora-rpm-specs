@@ -1,7 +1,7 @@
 # Fedora spec file for php-pecl-uuid
 #
-# Copyright (c) 2012-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2012-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -17,8 +17,8 @@
 Summary:       Universally Unique Identifier extension for PHP
 Name:          php-pecl-uuid
 Version:       1.2.0
-Release:       8%{?dist}
-License:       LGPLv2+
+Release:       9%{?dist}
+License:       LGPL-2.1-or-later
 URL:           https://pecl.php.net/package/%{pecl_name}
 Source:        https://pecl.php.net/get/%{pecl_name}-%{version}.tgz
 
@@ -162,6 +162,9 @@ fi
 
 
 %changelog
+* Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 1.2.0-9
+- use SPDX license ID
+
 * Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 1.2.0-8
 - rebuild for https://fedoraproject.org/wiki/Changes/php82
 

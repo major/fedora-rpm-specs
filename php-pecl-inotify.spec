@@ -3,8 +3,8 @@
 #
 # remirepo spec file for php-pecl-inotify
 #
-# Copyright (c) 2013-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2013-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -20,8 +20,8 @@
 Summary:        Inotify
 Name:           php-pecl-%{pecl_name}
 Version:        3.0.0
-Release:        6%{?dist}
-License:        PHP
+Release:        7%{?dist}
+License:        PHP-3.01
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}.tgz
 
@@ -163,6 +163,9 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 3.0.0-7
+- use SPDX license ID
+
 * Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 3.0.0-6
 - rebuild for https://fedoraproject.org/wiki/Changes/php82
 

@@ -1,6 +1,6 @@
 Name: libptytty
 Version: 2.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: OS independent and secure pty/tty and utmp/wtmp/lastlog handling
 License: GPL-2.0-or-later
 URL: http://software.schmorp.de/
@@ -13,6 +13,8 @@ Source4: gpgkey-84874CAB6D1A397A.gpg
 #     gpg --recv-key 84874CAB6D1A397A
 #     gpg --export --export-options export-minimal 84874CAB6D1A397A \
 #         > gpgkey-84874CAB6D1A397A.gpg
+
+Patch0: libptytty-cmake-c99.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-g++
@@ -63,6 +65,9 @@ signify -V -p '%{SOURCE2}' -m '%{SOURCE0}'
 %doc README
 
 %changelog
+* Thu Apr 20 2023 Arjun Shankar <arjun@redhat.com> - 2.0-6
+- Port to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

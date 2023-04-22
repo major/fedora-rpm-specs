@@ -18,15 +18,14 @@
 
 Name:           python-setuptools
 # When updating, update the bundled libraries versions bellow!
-Version:        65.5.1
-Release:        3%{?dist}
+Version:        67.6.1
+Release:        1%{?dist}
 Summary:        Easily build and distribute Python packages
 # setuptools is MIT
-# appdirs is MIT
+# platformdirs is MIT
 # more-itertools is MIT
 # ordered-set is MIT
 # packaging is BSD-2-Clause OR Apache-2.0
-# pyparsing is MIT
 # importlib-metadata is Apache-2.0
 # importlib-resources is Apache-2.0
 # jaraco.text is MIT
@@ -41,10 +40,6 @@ Source0:        %{pypi_source %{srcname} %{version}}
 
 # Some test deps are optional and either not desired or not available in Fedora, thus this patch removes them.
 Patch:          Remove-optional-or-unpackaged-test-deps.patch
-
-# Tests compatibility with wheel 0.40+
-# Merged upstream
-Patch:          https://github.com/pypa/setuptools/pull/3787.patch
 
 BuildArch:      noarch
 
@@ -77,14 +72,14 @@ execute the software that requires pkg_resources.
 # Bundled packages are defined in multiple files. Generate the list with:
 # %%{_rpmconfigdir}/pythonbundles.py --namespace 'python%%{python3_pkgversion}dist' */_vendor/vendored.txt
 %global bundled %{expand:
-Provides: bundled(python%{python3_pkgversion}dist(appdirs)) = 1.4.3
-Provides: bundled(python%{python3_pkgversion}dist(importlib-metadata)) = 4.11.1
-Provides: bundled(python%{python3_pkgversion}dist(importlib-resources)) = 5.4
+Provides: bundled(python%{python3_pkgversion}dist(platformdirs)) = 2.6.2
+Provides: bundled(python%{python3_pkgversion}dist(importlib-metadata)) = 6
+Provides: bundled(python%{python3_pkgversion}dist(importlib-resources)) = 5.10.2
 Provides: bundled(python%{python3_pkgversion}dist(jaraco-text)) = 3.7
 Provides: bundled(python%{python3_pkgversion}dist(more-itertools)) = 8.8
 Provides: bundled(python%{python3_pkgversion}dist(ordered-set)) = 3.1.1
-Provides: bundled(python%{python3_pkgversion}dist(packaging)) = 21.3
-Provides: bundled(python%{python3_pkgversion}dist(pyparsing)) = 3.0.9
+Provides: bundled(python%{python3_pkgversion}dist(packaging)) = 23
+Provides: bundled(python%{python3_pkgversion}dist(typing-extensions)) = 4.4
 Provides: bundled(python%{python3_pkgversion}dist(typing-extensions)) = 4.0.1
 Provides: bundled(python%{python3_pkgversion}dist(zipp)) = 3.7
 Provides: bundled(python%{python3_pkgversion}dist(tomli)) = 2.0.1
@@ -231,6 +226,10 @@ PYTHONPATH=$(pwd) %pytest \
 
 
 %changelog
+* Thu Apr 20 2023 Charalampos Stratakis <cstratak@redhat.com> - 67.6.1-1
+- Update to 67.6.1
+- Fixes: rhbz#2144132
+
 * Tue Mar 28 2023 Miro Hrončok <mhroncok@redhat.com> - 65.5.1-3
 - Fix tests with wheel 0.40
 

@@ -192,6 +192,13 @@
 # RPM JDK builds keep the debug symbols internal, to be later stripped by RPM
 %global debug_symbols internal
 
+# VM variant being built
+%ifarch %{zero_arches}
+%global vm_variant zero
+%else
+%global vm_variant server
+%endif
+
 # With disabled nss is NSS deactivated, so NSS_LIBDIR can contain the wrong path
 # the initialization must be here. Later the pkg-config have buggy behavior
 # looks like openjdk RPM specific bug
@@ -310,7 +317,7 @@
 %global top_level_dir_name   %{origin}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        10
-%global rpmrelease      4
+%global rpmrelease      5
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -850,9 +857,9 @@ exit 0
 #%{_mandir}/man1/%{alt_java_name}-%{uniquesuffix -- %{?1}}.1* #TODO, resolve alt-java man page
 %{_mandir}/man1/keytool-%{uniquesuffix -- %{?1}}.1*
 %{_mandir}/man1/rmiregistry-%{uniquesuffix -- %{?1}}.1*
-%{_jvmdir}/%{sdkdir -- %{?1}}/lib/server/
+%{_jvmdir}/%{sdkdir -- %{?1}}/lib/%{vm_variant}/
 %ifarch %{share_arches}
-%attr(444, root, root) %ghost %{_jvmdir}/%{sdkdir -- %{?1}}/lib/server/classes.jsa
+%attr(444, root, root) %ghost %{_jvmdir}/%{sdkdir -- %{?1}}/lib/%{vm_variant}/classes.jsa
 %endif
 %dir %{etcjavasubdir}
 %dir %{etcjavadir -- %{?1}}
@@ -1026,6 +1033,7 @@ exit 0
 %define files_src() %{expand:
 %license %{_jvmdir}/%{sdkdir -- %{?1}}/legal
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/src.zip
+%{_jvmdir}/%{sdkdir -- %{?1}}/full_sources
 }
 
 %define files_static_libs() %{expand:
@@ -1221,6 +1229,8 @@ Provides: java-%{origin}-src%{?1} = %{epoch}:%{version}-%{release}
 %global __jar_repack 0
 
 %global portable_name %{name}-portable
+# the version must match, but sometmes we need to more precise, so including release
+%global portable_version %{version}-3
 
 Name:    java-17-%{origin}
 Version: %{newjavaver}.%{buildver}
@@ -1282,29 +1292,29 @@ Source16: CheckVendor.java
 # Ensure translations are available for new timezones
 Source18: TestTranslations.java
 
+BuildRequires: %{portable_name}-sources >= %{portable_version}
+
 %if %{include_normal_build}
-BuildRequires: %{portable_name} >= %{version}
-BuildRequires: %{portable_name}-devel >= %{version}
+BuildRequires: %{portable_name} >= %{portable_version}
+BuildRequires: %{portable_name}-devel >= %{portable_version}
 %if %{include_staticlibs}
-BuildRequires: %{portable_name}-static-libs >= %{version}
+BuildRequires: %{portable_name}-static-libs >= %{portable_version}
 %endif
 %endif
 %if %{include_fastdebug_build}
-BuildRequires: %{portable_name}-fastdebug >= %{version}
-BuildRequires: %{portable_name}-devel-fastdebug >= %{version}
+BuildRequires: %{portable_name}-fastdebug >= %{portable_version}
+BuildRequires: %{portable_name}-devel-fastdebug >= %{portable_version}
 %if %{include_staticlibs}
-BuildRequires: %{portable_name}-static-libs-fastdebug >= %{version}
+BuildRequires: %{portable_name}-static-libs-fastdebug >= %{portable_version}
 %endif
 %endif
 %if %{include_debug_build}
-BuildRequires: %{portable_name}-slowdebug >= %{version}
-BuildRequires: %{portable_name}-devel-slowdebug >= %{version}
+BuildRequires: %{portable_name}-slowdebug >= %{portable_version}
+BuildRequires: %{portable_name}-devel-slowdebug >= %{portable_version}
 %if %{include_staticlibs}
-BuildRequires: %{portable_name}-static-libs-slowdebug >= %{version}
+BuildRequires: %{portable_name}-static-libs-slowdebug >= %{portable_version}
 %endif
-%endif 
-
-
+%endif
 BuildRequires: desktop-file-utils
 # elfutils only are OK for build without AOT
 BuildRequires: elfutils-devel
@@ -1316,7 +1326,7 @@ BuildRequires: crypto-policies
 BuildRequires: pkgconfig
 BuildRequires: zip
 BuildRequires: javapackages-filesystem
-# 2022g required as of JDK-8297804
+# ?
 BuildRequires: tzdata-java >= 2022g
 
 %if %{with_systemtap}
@@ -1676,27 +1686,29 @@ if [ $prioritylength -ne 8 ] ; then
  echo "priority must be 8 digits in total, violated"
  exit 14
 fi
+
+tar -xf %{_jvmdir}/%{compatiblename}*portable.sources.noarch.tar.xz
 %if %{include_normal_build}
-tar -xf %{_jvmdir}/%{compatiblename}*portable.jdk.*tar.xz 
-#tar -xf %{_jvmdir}/%{compatiblename}*portable.jre.*tar.xz 
+tar -xf %{_jvmdir}/%{compatiblename}*portable.jdk.%{_arch}.tar.xz
+#tar -xf %{_jvmdir}/%{compatiblename}*portable.jre.%{_arch}.tar.xz
 %if %{include_staticlibs}
- tar -xf %{_jvmdir}/%{compatiblename}*portable.static-libs.*tar.xz 
+tar -xf %{_jvmdir}/%{compatiblename}*portable.static-libs.%{_arch}.tar.xz
 %endif
 %endif
 %if %{include_fastdebug_build}
- tar -xf %{_jvmdir}/%{compatiblename}*portable.fastdebug.jdk.*tar.xz 
- #tar -xf %{_jvmdir}/%{compatiblename}*portable.fastdebug.jre.*tar.xz 
+tar -xf %{_jvmdir}/%{compatiblename}*portable.fastdebug.jdk.%{_arch}.tar.xz
+#tar -xf %{_jvmdir}/%{compatiblename}*portable.fastdebug.jre.%{_arch}.tar.xz
 %if %{include_staticlibs}
- tar -xf %{_jvmdir}/%{compatiblename}*portable.fastdebug.static-libs.*tar.xz 
+tar -xf %{_jvmdir}/%{compatiblename}*portable.fastdebug.static-libs.%{_arch}.tar.xz
 %endif
 %endif
 %if %{include_debug_build}
- tar -xf %{_jvmdir}/%{compatiblename}*portable.slowdebug.jdk.*tar.xz 
- #tar -xf %{_jvmdir}/%{compatiblename}*portable.slowdebug.jre.*tar.xz 
+tar -xf %{_jvmdir}/%{compatiblename}*portable.slowdebug.jdk.%{_arch}.tar.xz
+#tar -xf %{_jvmdir}/%{compatiblename}*portable.slowdebug.jre.%{_arch}.tar.xz
 %if %{include_staticlibs}
- tar -xf %{_jvmdir}/%{compatiblename}*portable.slowdebug.static-libs.*tar.xz 
+tar -xf %{_jvmdir}/%{compatiblename}*portable.slowdebug.static-libs.%{_arch}.tar.xz
 %endif
-%endif 
+%endif
 
 # Extract systemtap tapsets
 %if %{with_systemtap}
@@ -1745,6 +1757,7 @@ done
 done
 
 %build
+
 %install
 function installjdk() {
     local imagepath=${1}
@@ -1759,6 +1772,11 @@ function installjdk() {
         # https://bugs.openjdk.java.net/browse/JDK-8173610
         find ${imagepath} -iname '*.so' -exec chmod +x {} \;
         find ${imagepath}/bin/ -exec chmod +x {} \;
+
+        # Install nss.cfg right away as we will be using the JRE above
+      	#is already there from portables
+        # Install nss.fips.cfg: NSS configuration for global FIPS mode (crypto-policies)
+      	#is already there from portables
 
         # Turn on system security properties
         sed -i -e "s:^security.useSystemPropertiesFile=.*:security.useSystemPropertiesFile=true:" \
@@ -1855,30 +1873,29 @@ EOF
 }
 
 for suffix in %{build_loop} ; do
-
   if [ "x$suffix" = "x" ] ; then
       debugbuild=""
   else
-      # change - something to .something
+      # change -something to .something
       debugbuild=`echo $suffix  | sed "s/-/./g"`
   fi
   # Final setup on the untarred images
   # TODO revisit. jre may be complety useless to unpack and process,
   # as all the files are taken from JDK tarball ans put to packages manually.
   # jre tarball may be usefull for  checking integrity of jre and jre headless subpackages
-   #for jdkjre in jdk jre ; do
-   for jdkjre in jdk ; do
-     buildoutputdir=`ls -d %{compatiblename}*portable${debugbuild}.${jdkjre}*`
-     top_dir_abs_main_build_path=$(pwd)/${buildoutputdir}
-     installjdk ${top_dir_abs_main_build_path}
-     # Check debug symbols were built into the dynamic libraries
-     if [ $jdkjre == jdk ] ; then
-       #jdk only?
-       debugcheckjdk ${top_dir_abs_main_build_path} 
-     fi
-     # Print release information
-     cat ${top_dir_abs_main_build_path}/release
-   done 
+  #for jdkjre in jdk jre ; do
+  for jdkjre in jdk ; do
+    buildoutputdir=`ls -d %{compatiblename}*portable${debugbuild}.${jdkjre}*`
+    top_dir_abs_main_build_path=$(pwd)/${buildoutputdir}
+    installjdk ${top_dir_abs_main_build_path}
+    # Check debug symbols were built into the dynamic libraries
+    if [ $jdkjre == jdk ] ; then
+      #jdk only?
+      debugcheckjdk ${top_dir_abs_main_build_path}
+    fi
+    # Print release information
+    cat ${top_dir_abs_main_build_path}/release
+  done
 # build cycles
 done # end of release / debug cycle loop
 
@@ -1892,15 +1909,26 @@ for suffix in %{build_loop} ; do
       debugbuild=`echo $suffix  | sed "s/-/./g"`
   fi
   buildoutputdir=`ls -d %{compatiblename}*portable${debugbuild}.jdk*`
-  top_dir_abs_main_build_path=$(pwd)/${buildoutputdir} 
-  %if %{include_staticlibs}
-     top_dir_abs_staticlibs_build_path=`ls -d $top_dir_abs_main_build_path/lib/static/*/glibc/`
-  %endif
+  top_dir_abs_main_build_path=$(pwd)/${buildoutputdir}
+%if %{include_staticlibs}
+  top_dir_abs_staticlibs_build_path=`ls -d $top_dir_abs_main_build_path/lib/static/*/glibc/`
+%endif
   jdk_image=${top_dir_abs_main_build_path}
+  src_image=`echo ${top_dir_abs_main_build_path} | sed "s/portable.*.%{_arch}/portable.sources.noarch/"`
 
 # Install the jdk
 mkdir -p $RPM_BUILD_ROOT%{_jvmdir}
+
+# Install icons
+for s in 16 24 32 48 ; do
+  install -D -p -m 644 \
+     ${src_image}/openjdk/src/java.desktop/unix/classes/sun/awt/X11/java-icon${s}.png \
+     $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/${s}x${s}/apps/java-%{javaver}-%{origin}.png
+done
+
+
 cp -a ${jdk_image} $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}
+cp -a ${src_image} $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources
 
 pushd ${jdk_image}
 
@@ -1960,16 +1988,6 @@ fi
 commondocdir=${RPM_BUILD_ROOT}%{_defaultdocdir}/%{uniquejavadocdir -- $suffix}
 install -d -m 755 ${commondocdir}
 cp -a ${top_dir_abs_main_build_path}/NEWS ${commondocdir}
-
-# Install icons and menu entries
-for s in 16 24 32 48 ; do
-  # TODO!! publish in portables!
-  mkdir -p ${buildoutputdir}/src/java.desktop/unix/classes/sun/awt/X11/ #remove this line to once published
-  echo "PALCEHOLDER TODO REMOVE.ME" > ${buildoutputdir}/src/java.desktop/unix/classes/sun/awt/X11/java-icon${s}.png
-  install -D -p -m 644 \
-    ${buildoutputdir}/src/java.desktop/unix/classes/sun/awt/X11/java-icon${s}.png \
-     $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/${s}x${s}/apps/java-%{javaver}-%{origin}.png
-done
 
 # Install desktop files
 install -d -m 755 $RPM_BUILD_ROOT%{_datadir}/{applications,pixmaps}
@@ -2332,6 +2350,12 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
+* Wed Apr 19 2023 Jiri Vanek <jvanek@redhat.com> - 1:17.0.6.0.10-5
+- using icons from source package
+- providing full sources via src package
+- requiring exact version.reelase of portables
+- returned libsystemconf.so
+
 * Mon Jan 30 2023 Jiri Vanek <jvanek@redhat.com> - 1:17.0.6.0.10-4
 - repacked bits are now requested in exact version
 

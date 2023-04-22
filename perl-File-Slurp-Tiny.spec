@@ -1,21 +1,17 @@
-# Test suite needs patching if we have Test::More < 0.88
-%global old_test_more %(perl -MTest::More -e 'print (($Test::More::VERSION) < 0.88 ? 1 : 0);' 2>/dev/null || echo 0)
-
 Name:		perl-File-Slurp-Tiny
 Version:	0.004
-Release:	22%{?dist}
+Release:	23%{?dist}
 Summary:	A simple, sane and efficient file slurper
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/File-Slurp-Tiny
-Source0:	https://cpan.metacpan.org/authors/id/L/LE/LEONT/File-Slurp-Tiny-%{version}.tar.gz
-Patch0:		File-Slurp-Tiny-0.003-old-Test::More.patch
+Source0:	https://cpan.metacpan.org/modules/by-module/File/File-Slurp-Tiny-%{version}.tar.gz
 BuildArch:	noarch
 # Build
 BuildRequires:	coreutils
 BuildRequires:	findutils
 BuildRequires:	make
-BuildRequires:	perl-interpreter
 BuildRequires:	perl-generators
+BuildRequires:	perl-interpreter
 BuildRequires:	perl(ExtUtils::MakeMaker)
 # Module
 BuildRequires:	perl(Carp)
@@ -26,8 +22,9 @@ BuildRequires:	perl(strict)
 BuildRequires:	perl(warnings)
 # Test Suite
 BuildRequires:	perl(File::Temp)
-BuildRequires:	perl(Test::More)
-# Runtime
+BuildRequires:	perl(Test::More) >= 0.88
+# Dependencies
+# (none)
 
 %description
 This module provides functions for fast and correct slurping and spewing
@@ -36,35 +33,35 @@ of files.
 %prep
 %setup -q -n File-Slurp-Tiny-%{version}
 
-# Test suite needs patching if we have Test::More < 0.88
-%if %{old_test_more}
-%patch0
-%endif
-
 %build
 perl Makefile.PL INSTALLDIRS=vendor
 make %{?_smp_mflags}
 
 %install
-rm -rf %{buildroot}
 make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -exec rm -f {} ';'
-%{_fixperms} %{buildroot}
+find %{buildroot} -type f -name .packlist -delete
+%{_fixperms} -c %{buildroot}
 
 %check
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
 %doc Changes README
 %{perl_vendorlib}/File/
 %{_mandir}/man3/File::Slurp::Tiny.3*
 
 %changelog
+* Thu Apr 20 2023 Paul Howarth <paul@city-fan.org> - 0.004-23
+- Spec tidy-up
+  - Drop support for building with Test::More < 0.88
+  - Use SPDX-format license tag
+  - Use author-independent source URL
+  - Drop redundant buildroot cleaning in %%install section
+  - Simplify find command using -delete
+  - Fix permissions verbosely
+  - Use %%license unconditionally
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.004-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 #
 # remirepo spec file for php-pecl-selinux
 #
-# Copyright (c) 2011-2022 Remi Collet
+# Copyright (c) 2011-2023 Remi Collet
 # Copyright (c) 2009-2010 KaiGai Kohei
 #
 # License: MIT
@@ -23,8 +23,8 @@
 Summary: SELinux binding for PHP scripting language
 Name:    php-pecl-selinux
 Version: 0.6.0
-Release: 4%{?dist}
-License: PHP
+Release: 5%{?dist}
+License: PHP-3.01
 URL:     https://pecl.php.net/package/%{pecl_name}
 Source:  https://pecl.php.net/get/%{pecl_name}-%{version}.tgz
 
@@ -160,6 +160,9 @@ REPORT_EXIT_STATUS=0 \
 
 
 %changelog
+* Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 0.6.0-5
+- use SPDX license ID
+
 * Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 0.6.0-4
 - rebuild for https://fedoraproject.org/wiki/Changes/php82
 

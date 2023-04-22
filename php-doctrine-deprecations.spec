@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-doctrine-deprecations
 #
-# Copyright (c) 2021 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2021-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -22,13 +22,15 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}
 Version:        1.0.0
-Release:        3%{?dist}
-Summary:        A small layer on top of trigger_error or PSR-3 logging
+Release:        4%{?dist}
+Summary:        A small layer on top of triggeFr_error or PSR-3 logging
 
 License:        MIT
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        %{name}-%{version}-%{gh_short}.tgz
 Source1:        makesrc.sh
+
+Patch0:         %{name}-php82.patch
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 7.1
@@ -79,6 +81,7 @@ Autoloader: %{_datadir}/php/%{ns_vendor}/%{ns_project}/autoload.php
 
 %prep
 %setup -q -n %{gh_project}-%{gh_commit}
+%patch -P0 -p1
 
 
 %build
@@ -122,7 +125,7 @@ cat << 'EOF' | tee -a vendor/autoload.php
 EOF
 
 ret=0
-for cmd in php php73 php74 php80; do
+for cmd in php php80 php81 php82; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit9 \
         --verbose || ret=1
@@ -143,6 +146,9 @@ exit $ret
 
 
 %changelog
+* Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 1.0.0-4
+- add upstream patch for test suite with PHP 8.2 #2171642
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

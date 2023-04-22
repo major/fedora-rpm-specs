@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-pecl-rrd
 #
-# Copyright (c) 2011-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2011-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -17,8 +17,8 @@
 Summary:      PHP Bindings for rrdtool
 Name:         php-pecl-rrd
 Version:      2.0.3
-Release:      7%{?dist}
-License:      BSD
+Release:      8%{?dist}
+License:      BSD-2-Clause
 URL:          https://pecl.php.net/package/rrd
 
 Source0:      https://pecl.php.net/get/%{pecl_name}-%{version}.tgz
@@ -121,7 +121,7 @@ cd NTS
     --modules | grep %{pecl_name}
 
 # See https://bugzilla.redhat.com/1224530 - segfault on ARM
-%ifnarch %{arm}
+%ifnarch %{arm} s390x
 if pkg-config librrd --atleast-version=1.5.0
 then
   : ignore test failed with rrdtool > 1.5
@@ -159,6 +159,9 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 2.0.3-8
+- use SPDX license ID
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name: remmina
 Version: 1.4.30
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Remote Desktop Client
 License: GPL-2.0-or-later and MIT
 URL: https://remmina.org
@@ -17,6 +17,9 @@ Source0: https://gitlab.com/Remmina/Remmina/-/archive/v%{version}/Remmina-%{vers
 # use http://www.muflone.com/remmina-plugin-builder/ with remmina bundled source.
 # So we can't use it directly only as instructions.
 Source1: pluginBuild-CMakeLists.txt
+
+# Patches.
+Patch00: 0001_remmina_fix_vnc_crash_domain_socket.patch
 
 BuildRequires: cmake
 BuildRequires: cups-devel
@@ -342,6 +345,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdat
 %{_mandir}/man1/remmina-gnome.1*
 
 %changelog
+* Thu Apr 20 2023 Phil Wyett <philip.wyett@kathenas.org> - 1.4.30-2
+- Add patch: 0001_remmina_fix_vnc_crash_domain_socket.patch
+
 * Mon Apr 10 2023 Phil Wyett <philip.wyett@kathenas.org> - 1.4.30-1
 - New upstream version 1.4.30.
 - Use SPDX license identifiers.

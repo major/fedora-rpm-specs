@@ -1,7 +1,7 @@
 # spec file for php-pecl-apfd
 #
-# Copyright (c) 2015-2021 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2015-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -19,8 +19,8 @@
 Summary:        Always Populate Form Data
 Name:           php-pecl-%{pecl_name}
 Version:        1.0.3
-Release:        6%{?dist}
-License:        BSD
+Release:        7%{?dist}
+License:        BSD-2-Clause
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}%{?prever}.tgz
 
@@ -160,6 +160,9 @@ cd ../ZTS
 
 
 %changelog
+* Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 1.0.3-7
+- use SPDX license ID
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

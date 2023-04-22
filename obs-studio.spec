@@ -10,6 +10,12 @@
 # x264 is not in Fedora
 %bcond_with x264
 
+%if "%{__isa_bits}" == "64"
+%global lib64_suffix ()(64bit)
+%endif
+%global openh264_soversion 7
+
+
 %global obswebsocket_version 5.2.2
 
 #global commit ad859a3f66daac0d30eebcc9b07b0c2004fb6040
@@ -18,7 +24,7 @@
 
 Name:           obs-studio
 Version:        29.1.0~beta4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Open Broadcaster Software Studio
 
 # OBS itself is GPL-2.0-or-later, while various plugin dependencies are of various other licenses
@@ -108,7 +114,11 @@ BuildRequires:  x264-devel
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 # Ensure that we have the full ffmpeg suite installed
-Requires:       /usr/bin/ffmpeg
+Requires:       ffmpeg-free
+# We dlopen() openh264, so weak-depend on it...
+## Note, we can do this because openh264 is provided in a default-enabled
+## third party repository provided by Cisco.
+Recommends:     libopenh264.so.%{openh264_soversion}%{?lib64_suffix}
 %if %{with x264}
 Requires:       x264
 %endif
@@ -287,6 +297,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Thu Apr 20 2023 Neal Gompa <ngompa@fedoraproject.org> - 29.1.0~beta4-2
+- Ensure ffmpeg-free and OpenH264 are expressed as dependencies
+
 * Tue Apr 18 2023 Neal Gompa <ngompa@fedoraproject.org> - 29.1.0~beta4-1
 - Initial build for Fedora
 

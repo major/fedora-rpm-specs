@@ -1,9 +1,9 @@
 Name:           librime
 Version:        1.8.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Rime Input Method Engine Library
 
-License:        GPLv3
+License:        GPL-3.0-only
 URL:            https://rime.im/
 Source0:        https://github.com/rime/librime/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
@@ -80,6 +80,9 @@ The %{name}-tools package contains tools for %{name}.
 
 
 %changelog
+* Thu Apr 20 2023 Peng Wu <pwu@redhat.com> - 1.8.5-2
+- Migrate to SPDX license
+
 * Thu Mar  9 2023 Peng Wu <pwu@redhat.com> - 1.8.5-1
 - Update to 1.8.5
 - Resolves: RHBZ#2167229

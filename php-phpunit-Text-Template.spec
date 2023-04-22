@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-phpunit-Text-Template
 #
-# Copyright (c) 2010-2015 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2010-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -16,10 +16,10 @@
 
 Name:           php-phpunit-Text-Template
 Version:        1.2.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Simple template engine
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{gh_project}-%{version}-%{gh_short}.tar.gz
 
@@ -69,7 +69,6 @@ fi
 
 
 %files
-%{!?_licensedir:%global license %%doc}
 %license LICENSE
 %doc README.md
 %doc composer.json
@@ -77,6 +76,9 @@ fi
 
 
 %changelog
+* Thu Apr 20 2023 Remi Collet <remi@fedoraproject.org> - 1.2.1-16
+- use SPDX license ID
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

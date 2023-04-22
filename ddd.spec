@@ -11,6 +11,7 @@ Source0: https://alpha.gnu.org/gnu/ddd/ddd-%{version}-rc3.tar.gz
 #Source1: ddd.desktop
 Source2: ddd.png
 Patch0: ddd-3.3.12-debuginfo.patch
+Patch1: ddd-lto.patch
 
 Requires: gdb, xterm, gnuplot, xdg-utils, xorg-x11-fonts-ISO8859-1-75dpi, xorg-x11-fonts-ISO8859-1-100dpi, xclipboard, xfontsel
 BuildRequires:  gcc-c++
@@ -38,6 +39,7 @@ interface with full editing, history and completion capabilities.
 %prep
 %setup -qn ddd-%{version}-rc3
 %patch -P 0 -p1
+%patch -P 1 -p0
 
 %build
 export CXXFLAGS="${RPM_OPT_FLAGS} -fpermissive"

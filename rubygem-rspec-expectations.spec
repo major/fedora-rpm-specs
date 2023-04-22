@@ -1,9 +1,9 @@
-%global	majorver	3.12.2
+%global	majorver	3.12.3
 #%%global	preminorver	.rc6
 %global	rpmminorver	.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver	%{majorver}%{?preminorver}
 
-%global	baserelease	2
+%global	baserelease	1
 
 %global	gem_name	rspec-expectations
 
@@ -109,6 +109,9 @@ cucumber \
 %{gem_docdir}
 
 %changelog
+* Fri Apr 21 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.12.3-1
+- 3.12.3
+
 * Fri Mar 10 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.12.2-2
 - Disable unwanted dependencies in RHEL builds
 

@@ -1,7 +1,7 @@
 # Fedora spec file for php-pecl-memcached
 #
-# Copyright (c) 2009-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2009-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -25,8 +25,8 @@
 Summary:      Extension to work with the Memcached caching daemon
 Name:         php-pecl-memcached
 Version:      %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
-Release:      4%{?dist}
-License:      PHP
+Release:      5%{?dist}
+License:      PHP-3.01
 URL:          https://pecl.php.net/package/%{pecl_name}
 
 Source0:      https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
@@ -254,6 +254,9 @@ exit $ret
 
 
 %changelog
+* Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 3.2.0-5
+- use SPDX license ID
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

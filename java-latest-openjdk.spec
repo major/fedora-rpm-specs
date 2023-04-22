@@ -30,7 +30,7 @@
 %global include_staticlibs 0
 %endif
 
-#palceholder - used in regexes, otherwise for no use in portables
+#placeholder - used in regexes, otherwise for no use in portables
 %global freetype_lib |libfreetype[.]so.*
 
 # The -g flag says to use strip -g instead of full strip on DSOs or EXEs.
@@ -322,7 +322,7 @@
 %global top_level_dir_name   %{origin}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        36
-%global rpmrelease      1
+%global rpmrelease      3
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -851,6 +851,7 @@ exit 0
 %endif
 %endif
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libsctp.so
+%{_jvmdir}/%{sdkdir -- %{?1}}/lib/libsystemconf.so
 %ifarch %{svml_arches}
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libjsvml.so
 %endif
@@ -1042,6 +1043,7 @@ exit 0
 %define files_src() %{expand:
 %license %{_jvmdir}/%{sdkdir -- %{?1}}/legal
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/src.zip
+%{_jvmdir}/%{sdkdir -- %{?1}}/full_sources
 }
 
 %define files_static_libs() %{expand:
@@ -1237,6 +1239,8 @@ Provides: java-%{origin}-src%{?1} = %{epoch}:%{version}-%{release}
 %global __jar_repack 0
 
 %global portable_name %{name}-portable
+# the version must match, but sometmes we need to more precise, so including release
+%global portable_version %{version}-3
 
 Name:    java-latest-%{origin}
 Version: %{newjavaver}.%{buildver}
@@ -1301,31 +1305,34 @@ Source16: CheckVendor.java
 # Ensure translations are available for new timezones
 Source18: TestTranslations.java
 
+BuildRequires: %{portable_name}-sources >= %{portable_version}
+
 %if %{include_normal_build}
-BuildRequires: %{portable_name} >= %{version}
-BuildRequires: %{portable_name}-devel >= %{version}
+BuildRequires: %{portable_name} >= %{portable_version}
+BuildRequires: %{portable_name}-devel >= %{portable_version}
 %if %{include_staticlibs}
-BuildRequires: %{portable_name}-static-libs >= %{version}
+BuildRequires: %{portable_name}-static-libs >= %{portable_version}
 %endif
 %endif
 %if %{include_fastdebug_build}
-BuildRequires: %{portable_name}-fastdebug >= %{version}
-BuildRequires: %{portable_name}-devel-fastdebug >= %{version}
+BuildRequires: %{portable_name}-fastdebug >= %{portable_version}
+BuildRequires: %{portable_name}-devel-fastdebug >= %{portable_version}
 %if %{include_staticlibs}
-BuildRequires: %{portable_name}-static-libs-fastdebug >= %{version}
+BuildRequires: %{portable_name}-static-libs-fastdebug >= %{portable_version}
 %endif
 %endif
 %if %{include_debug_build}
-BuildRequires: %{portable_name}-slowdebug >= %{version}
-BuildRequires: %{portable_name}-devel-slowdebug >= %{version}
+BuildRequires: %{portable_name}-slowdebug >= %{portable_version}
+BuildRequires: %{portable_name}-devel-slowdebug >= %{portable_version}
 %if %{include_staticlibs}
-BuildRequires: %{portable_name}-static-libs-slowdebug >= %{version}
+BuildRequires: %{portable_name}-static-libs-slowdebug >= %{portable_version}
 %endif
 %endif
 BuildRequires: desktop-file-utils
 # elfutils only are OK for build without AOT
 BuildRequires: elfutils-devel
 BuildRequires: gdb
+# Requirement for setting up nss.cfg and nss.fips.cfg
 BuildRequires: nss-devel
 # Requirement for system security property test
 BuildRequires: crypto-policies
@@ -1340,11 +1347,11 @@ BuildRequires: systemtap-sdt-devel
 %endif
 
 # Version in src/java.desktop/share/native/libfreetype/include/freetype/freetype.h
-Provides: bundled(freetype) = 2.12.0
+Provides: bundled(freetype) = 2.12.1
 # Version in src/java.desktop/share/native/libsplashscreen/giflib/gif_lib.h
 Provides: bundled(giflib) = 5.2.1
 # Version in src/java.desktop/share/native/libharfbuzz/hb-version.h
-Provides: bundled(harfbuzz) = 2.8.0
+Provides: bundled(harfbuzz) = 4.4.1
 # Version in src/java.desktop/share/native/liblcms/lcms2.h
 Provides: bundled(lcms2) = 2.12.0
 # Version in src/java.desktop/share/native/libjavajpeg/jpeglib.h
@@ -1686,32 +1693,33 @@ if [ %{include_debug_build} -eq 0 -a  %{include_normal_build} -eq 0 -a  %{includ
   echo "You have disabled all builds (normal,fastdebug,slowdebug). That is a no go."
   exit 14
 fi
-
+# https://bugzilla.redhat.com/show_bug.cgi?id=1189084
 prioritylength=`expr length %{priority}`
 if [ $prioritylength -ne 8 ] ; then
  echo "priority must be 8 digits in total, violated"
  exit 14
 fi
 
+tar -xf %{_jvmdir}/%{compatiblename}*portable.sources.noarch.tar.xz
 %if %{include_normal_build}
-tar -xf %{_jvmdir}/%{compatiblename}*portable.jdk.*tar.xz 
-#tar -xf %{_jvmdir}/%{compatiblename}*portable.jre.*tar.xz 
+tar -xf %{_jvmdir}/%{compatiblename}*portable.jdk.%{_arch}.tar.xz
+#tar -xf %{_jvmdir}/%{compatiblename}*portable.jre.%{_arch}.tar.xz
 %if %{include_staticlibs}
-tar -xf %{_jvmdir}/%{compatiblename}*portable.static-libs.*tar.xz 
+tar -xf %{_jvmdir}/%{compatiblename}*portable.static-libs.%{_arch}.tar.xz
 %endif
 %endif
 %if %{include_fastdebug_build}
-tar -xf %{_jvmdir}/%{compatiblename}*portable.fastdebug.jdk.*tar.xz 
-#tar -xf %{_jvmdir}/%{compatiblename}*portable.fastdebug.jre.*tar.xz 
+tar -xf %{_jvmdir}/%{compatiblename}*portable.fastdebug.jdk.%{_arch}.tar.xz
+#tar -xf %{_jvmdir}/%{compatiblename}*portable.fastdebug.jre.%{_arch}.tar.xz
 %if %{include_staticlibs}
-tar -xf %{_jvmdir}/%{compatiblename}*portable.fastdebug.static-libs.*tar.xz 
+tar -xf %{_jvmdir}/%{compatiblename}*portable.fastdebug.static-libs.%{_arch}.tar.xz
 %endif
 %endif
 %if %{include_debug_build}
-tar -xf %{_jvmdir}/%{compatiblename}*portable.slowdebug.jdk.*tar.xz 
-#tar -xf %{_jvmdir}/%{compatiblename}*portable.slowdebug.jre.*tar.xz 
+tar -xf %{_jvmdir}/%{compatiblename}*portable.slowdebug.jdk.%{_arch}.tar.xz
+#tar -xf %{_jvmdir}/%{compatiblename}*portable.slowdebug.jre.%{_arch}.tar.xz
 %if %{include_staticlibs}
-tar -xf %{_jvmdir}/%{compatiblename}*portable.slowdebug.static-libs.*tar.xz 
+tar -xf %{_jvmdir}/%{compatiblename}*portable.slowdebug.static-libs.%{_arch}.tar.xz
 %endif
 %endif
 
@@ -1919,6 +1927,7 @@ for suffix in %{build_loop} ; do
   top_dir_abs_staticlibs_build_path=`ls -d $top_dir_abs_main_build_path/lib/static/*/glibc/`
 %endif
   jdk_image=${top_dir_abs_main_build_path}
+  src_image=`echo ${top_dir_abs_main_build_path} | sed "s/portable.*.%{_arch}/portable.sources.noarch/"`
 
 # Install the jdk
 mkdir -p $RPM_BUILD_ROOT%{_jvmdir}
@@ -1926,12 +1935,13 @@ mkdir -p $RPM_BUILD_ROOT%{_jvmdir}
 # Install icons
 for s in 16 24 32 48 ; do
   install -D -p -m 644 \
-    ${jdk_image}/ext_stubs/java.desktop/unix/classes/sun/awt/X11/java-icon${s}.png \
+     ${src_image}/openjdk/src/java.desktop/unix/classes/sun/awt/X11/java-icon${s}.png \
      $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/${s}x${s}/apps/java-%{javaver}-%{origin}.png
 done
-rm -rvf ${jdk_image}/ext_stubs/ #currently jsut the icons
+
 
 cp -a ${jdk_image} $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}
+cp -a ${src_image} $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/full_sources
 
 pushd ${jdk_image}
 
@@ -2058,8 +2068,8 @@ $JAVA_HOME/bin/java $(echo $(basename %{SOURCE14})|sed "s|\.java||")
 $JAVA_HOME/bin/javac -d . %{SOURCE15}
 export PROG=$(echo $(basename %{SOURCE15})|sed "s|\.java||")
 export SEC_DEBUG="-Djava.security.debug=properties"
-#$JAVA_HOME/bin/java ${SEC_DEBUG} ${PROG} true
-#$JAVA_HOME/bin/java ${SEC_DEBUG} -Djava.security.disableSystemPropertiesFile=true ${PROG} false
+$JAVA_HOME/bin/java ${SEC_DEBUG} ${PROG} true
+$JAVA_HOME/bin/java ${SEC_DEBUG} -Djava.security.disableSystemPropertiesFile=true ${PROG} false
 
 # Check java launcher has no SSB mitigation
 if ! nm $JAVA_HOME/bin/java | grep set_speculation ; then true ; else false; fi
@@ -2353,6 +2363,12 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
+* Wed Apr 19 2023 Jiri Vanek <jvanek@redhat.com> - 1:20.0.0.0.36-3.rolling
+- using icons from source package
+- providing full sources via src package
+- requiring exact version.reelase of portables
+- returned libsystemconf.so
+
 * Mon Apr 03 2023 Jiri Vanek <jvanek@redhat.com> - 1:20.0.0.0.36-1.rolling
 - bumed to jdk20
 - removed no loger existing libsystemconf.so

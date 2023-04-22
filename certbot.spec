@@ -263,7 +263,8 @@ install -dm 0755 %{buildroot}%{_localstatedir}/log/letsencrypt
 %check
 for module in acme certbot %{MODULES} certbot-apache certbot-nginx; do
 pushd $module
-%pytest -v
+%pytest -v  -W "ignore:pkg_resources is deprecated as an API::pkg_resources" \
+    -W "ignore:Deprecated call to \`pkg_resources.declare_namespace('sphinxcontrib')\`::pkg_resources"
 popd
 done
 %endif

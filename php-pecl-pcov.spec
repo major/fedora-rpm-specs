@@ -3,8 +3,8 @@
 #
 # remirepo spec file for php-pecl-pcov
 #
-# Copyright (c) 2019-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2019-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -16,8 +16,8 @@
 Summary:        Code coverage driver
 Name:           php-pecl-%{pecl_name}
 Version:        1.0.11
-Release:        4%{?dist}
-License:        PHP
+Release:        5%{?dist}
+License:        PHP-3.01
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}.tgz
 
@@ -165,6 +165,9 @@ TEST_PHP_ARGS="-n -d extension=$PWD/modules/%{pecl_name}.so" \
 
 
 %changelog
+* Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 1.0.11-5
+- use SPDX license ID
+
 * Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 1.0.11-4
 - rebuild for https://fedoraproject.org/wiki/Changes/php82
 

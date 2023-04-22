@@ -10,19 +10,22 @@
   # Git commit is needed for post-release version.
   %global gitcommit 21d7b4e7a03ec8145b0b90c4f0b15c27d6f53788
   %global gitshortcommit %(c=%{gitcommit}; echo ${c:0:7})
-  %global gitsnapinfo .20230326git%{gitshortcommit}
+  %global gitsnapinfo .20230420git%{gitshortcommit}
 %endif
 
 Name:           gnome-shell-extension-system-monitor-applet
 Epoch:          1
 Version:        38
-Release:        22%{?gitsnapinfo}%{?dist}
+Release:        23%{?gitsnapinfo}%{?dist}
 Summary:        A Gnome shell system monitor extension
 
 # The entire source code is GPLv3+ except convenience.js, which is BSD
-License:        GPLv3+ and BSD
+License:        GPL-3.0-or-later AND BSD-3-Clause
 URL:            https://extensions.gnome.org/extension/120/system-monitor/
 Source0:        %{giturl}/archive/%{?gitcommit}%{!?gitcommit:v%{version}}/%{name}-%{version}%{?gitshortcommit:-%{gitshortcommit}}.tar.gz
+
+Patch0:         gnome-shell-extension-system-monitor-applet-001_add_compatibility_with_gnome-shell_lt_3.34_for_el8.patch
+Patch1:         gnome-shell-extension-system-monitor-applet-002_add_compatibility_with_gnome-shell_44.patch
 
 BuildArch:      noarch
 
@@ -89,6 +92,11 @@ fi
 
 
 %changelog
+* Thu Apr 20 2023 Nicolas Viéville <nicolas.vieville@uphf.fr> - 1:38-23.20230420git21d7b4e
+- Migrated to SPDX license
+- Add patch for gnome-shell < 3.34 (rhel 8) - RHBZ#2184351
+- Add patch for compatibility with gnome-shell 44 - RHBZ#2188339
+
 * Sun Mar 26 2023 Nicolas Viéville <nicolas.vieville@uphf.fr> - 1:38-22.20230326git21d7b4e
 - Updated to last upstream commits
 - Remove patch for gnome 43 - applied upstream

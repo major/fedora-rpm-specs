@@ -2,28 +2,28 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate libc
+%global crate indextree
 
-Name:           rust-libc
-Version:        0.2.142
+Name:           rust-indextree
+Version:        4.6.0
 Release:        %autorelease
-Summary:        Raw FFI bindings to platform libraries like libc
+Summary:        Arena based tree structure
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/libc
+License:        MIT
+URL:            https://crates.io/crates/indextree
 Source:         %{crates_source}
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Raw FFI bindings to platform libraries like libc.}
+Arena based tree structure by using indices instead of reference counted
+pointers.}
 
 %description %{_description}
 
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       glibc-devel
 
 %description    devel %{_description}
 
@@ -31,11 +31,10 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CONTRIBUTING.md
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
+%exclude %{crate_instdir}/Makefile
 
 %package     -n %{name}+default-devel
 Summary:        %{summary}
@@ -49,40 +48,52 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+align-devel
+%package     -n %{name}+deser-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+align-devel %{_description}
+%description -n %{name}+deser-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "align" feature of the "%{crate}" crate.
+use the "deser" feature of the "%{crate}" crate.
 
-%files       -n %{name}+align-devel
+%files       -n %{name}+deser-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+const-extern-fn-devel
+%package     -n %{name}+par_iter-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+const-extern-fn-devel %{_description}
+%description -n %{name}+par_iter-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "const-extern-fn" feature of the "%{crate}" crate.
+use the "par_iter" feature of the "%{crate}" crate.
 
-%files       -n %{name}+const-extern-fn-devel
+%files       -n %{name}+par_iter-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+extra_traits-devel
+%package     -n %{name}+rayon-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+extra_traits-devel %{_description}
+%description -n %{name}+rayon-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "extra_traits" feature of the "%{crate}" crate.
+use the "rayon" feature of the "%{crate}" crate.
 
-%files       -n %{name}+extra_traits-devel
+%files       -n %{name}+rayon-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+serde-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+serde-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "serde" feature of the "%{crate}" crate.
+
+%files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel
@@ -97,25 +108,12 @@ use the "std" feature of the "%{crate}" crate.
 %files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+use_std-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+use_std-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "use_std" feature of the "%{crate}" crate.
-
-%files       -n %{name}+use_std-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
 %cargo_prep
 
 %generate_buildrequires
 %cargo_generate_buildrequires
-echo 'glibc-devel'
 
 %build
 %cargo_build

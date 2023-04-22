@@ -3,8 +3,8 @@
 #
 # remirepo spec file for php-pecl-rpminfo
 #
-# Copyright (c) 2018-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2018-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -20,8 +20,8 @@
 Summary:        RPM information
 Name:           php-pecl-%{pecl_name}
 Version:        0.6.0
-Release:        7%{?dist}
-License:        PHP
+Release:        8%{?dist}
+License:        PHP-3.01
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}.tgz
 
@@ -164,6 +164,9 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 0.6.0-8
+- use SPDX license ID
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

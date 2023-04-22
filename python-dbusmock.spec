@@ -1,8 +1,8 @@
 %global modname dbusmock
 
 Name:             python-%{modname}
-Version:          0.28.7
-Release:          2%{?dist}
+Version:          0.29.0
+Release:          1%{?dist}
 Summary:          Mock D-Bus objects
 
 License:          LGPLv3+
@@ -51,6 +51,10 @@ rm -rf python-%{modname}.egg-info
 %{python3_sitelib}/*%{modname}*
 
 %changelog
+* Thu Apr 20 2023 Packit <hello@packit.dev> - 0.29.0-1
+ - Support loading templates from XDG_DATA_DIRS
+ - iio-sensors-proxy: Throw proper D-Bus errors instead of Python Exception
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.28.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

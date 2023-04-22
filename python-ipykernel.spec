@@ -1,27 +1,20 @@
 %global modname ipykernel
 
-# When we bootstrap new Python, we don't yet have all the documentation packages
-%bcond_without intersphinx
-# And the tests transitively require ipykernel
+# When we bootstrap new Python, we need to avoid a build dependnecy loop
 %bcond_without tests
+%bcond_without doc
 
 Name:           python-%{modname}
 Version:        6.17.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        IPython Kernel for Jupyter
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/ipython/%{modname}
 Source0:        https://github.com/ipython/%{modname}/releases/download/v%{version}/%{modname}-%{version}.tar.gz
 
 BuildArch:      noarch
 
-BuildRequires:  make
 BuildRequires:  python3-devel
-BuildRequires:  pyproject-rpm-macros
-BuildRequires:  python3-sphinx
-BuildRequires:  python3-sphinxcontrib-github-alt
-BuildRequires:  python3-myst-parser
-BuildRequires:  python3-pydata-sphinx-theme
 
 %global _description \
 This package provides the IPython kernel for Jupyter.
@@ -33,7 +26,13 @@ Summary:        %{summary}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{modname}}
 Requires:       python-jupyter-filesystem
 
-%if %{with intersphinx}
+%if %{with doc}
+BuildRequires:  make
+BuildRequires:  python3-sphinx
+BuildRequires:  python3-sphinxcontrib-github-alt
+BuildRequires:  python3-myst-parser
+BuildRequires:  python3-pydata-sphinx-theme
+# for intersphinx:
 BuildRequires:  python%{python3_pkgversion}-docs
 BuildRequires:  python%{python3_pkgversion}-ipython-doc
 BuildRequires:  python-jupyter-client-doc
@@ -47,16 +46,16 @@ Recommends:     python%{python3_pkgversion}-pillow
 
 %description -n python%{python3_pkgversion}-%{modname} %{_description}
 
+%if %{with doc}
 %package doc
 Summary:        Documentation for %{name}
-%if %{with intersphinx}
 Requires:       python%{python3_pkgversion}-docs
 Requires:       python%{python3_pkgversion}-ipython-doc
 Requires:       python-jupyter-client-doc
-%endif
 
 %description    doc
 This package contains the documentation of %{name}.
+%endif
 
 %prep
 %autosetup -p1 -n %{modname}-%{version}
@@ -65,7 +64,7 @@ This package contains the documentation of %{name}.
 # See https://github.com/ipython/ipykernel/pull/767
 sed -i '/"debugpy/d' pyproject.toml
 
-%if %{with intersphinx}
+%if %{with doc}
 # Use local objects.inv for intersphinx:
 sed -e "s|\(('https://docs.python.org/3/', \)None)|\1'/usr/share/doc/python3-docs/html/objects.inv')|" \
     -e "s|\(('https://ipython.readthedocs.io/en/latest', \)None)|\1'/usr/share/doc/python3-ipython-doc/html/objects.inv')|" \
@@ -74,19 +73,23 @@ sed -e "s|\(('https://docs.python.org/3/', \)None)|\1'/usr/share/doc/python3-doc
 %endif
 
 %generate_buildrequires
-%pyproject_buildrequires -w %{?with_tests:-x test}
+%pyproject_buildrequires %{?with_tests:-x test}
 
 %build
 %pyproject_wheel
 
+%if %{with doc}
 %make_build -C docs html
+%endif
 
 %install
 %pyproject_install
 %pyproject_save_files %{modname} %{modname}_launcher
+%if %{with doc}
 mkdir -p %{buildroot}%{_docdir}/%{name}
 cp -fpavr docs/_build/html %{buildroot}%{_docdir}/%{name}
 rm %{buildroot}%{_docdir}/%{name}/html/.buildinfo
+%endif
 
 # Install the kernel so it can be found
 # See https://bugzilla.redhat.com/show_bug.cgi?id=1327979#c19
@@ -95,8 +98,8 @@ ls %{buildroot}%{_datadir}/jupyter/kernels/python3/
 cat %{buildroot}%{_datadir}/jupyter/kernels/python3/kernel.json
 
 
-%if %{with tests}
 %check
+%if %{with tests}
 %pytest
 %else
 # datapub, pickleutil, serialize need ipyparallel
@@ -122,11 +125,16 @@ cat %{buildroot}%{_datadir}/jupyter/kernels/python3/kernel.json
 %{python3_sitelib}/%{modname}*.dist-info/
 %{_datadir}/jupyter/kernels/python3
 
+%if %{with doc}
 %files doc
 %doc %{_docdir}/%{name}/html
+%endif
 
 
 %changelog
+* Thu Apr 20 2023 Miro Hrončok <mhroncok@redhat.com> - 6.17.1-3
+- Convert the License tag to SPDX
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.17.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

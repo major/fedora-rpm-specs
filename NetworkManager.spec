@@ -1,12 +1,12 @@
 %global wpa_supplicant_version 1:1.1
 
-%global ppp_version %(pkg-config --modversion pppd 2>/dev/null || echo bad)
+%global ppp_version %(pkg-config --modversion pppd 2>/dev/null || sed -n 's/^#define\\s*VERSION\\s*"\\([^\\s]*\\)"$/\\1/p' %{_includedir}/pppd/patchlevel.h 2>/dev/null | grep . || echo bad)
 %global glib2_version %(pkg-config --modversion glib-2.0 2>/dev/null || echo bad)
 
 %global epoch_version 1
-%global real_version 1.43.5
+%global real_version 1.43.6
 %global rpm_version %{real_version}
-%global release_version 3
+%global release_version 1
 %global snapshot %{nil}
 %global git_sha %{nil}
 %global bcond_default_debug 0
@@ -197,7 +197,6 @@ Source6: 70-nm-connectivity.conf
 Source7: readme-ifcfg-rh.txt
 
 #Patch1: 0001-some.patch
-Patch1: 5df19f5b26c5921a401e63fb329e844a02d6b1f2.patch
 
 Requires(post): systemd
 %if 0%{?fedora} || 0%{?rhel} >= 8
@@ -252,9 +251,7 @@ BuildRequires: dbus-devel >= %{dbus_version}
 BuildRequires: glib2-devel >= 2.40.0
 BuildRequires: gobject-introspection-devel >= 0.10.3
 %if %{with ppp}
-# version constraint here is because the use of pkg-config to discover
-# the ppp version (above) only works from 2.5.0 onwards
-BuildRequires: ppp-devel >= 2.5.0
+BuildRequires: ppp-devel >= 2.4.5
 %endif
 %if %{with crypto_gnutls}
 BuildRequires: gnutls-devel >= 2.12
@@ -1248,6 +1245,9 @@ fi
 
 
 %changelog
+* Thu Apr 20 2023 Beniamino Galvani <bgalvani@redhat.com> - 1:1.43.6-1
+- Update to 1.43.6 release (development)
+
 * Tue Apr 18 2023 Adam Williamson <awilliam@redhat.com> - 1:1.43.5-3
 - Fix ppp version discovery
 

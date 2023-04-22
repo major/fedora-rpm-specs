@@ -1,5 +1,9 @@
 %global with_java 0
+%if 0%{?el7}%{?el8}
+%global with_php 1
+%else
 %global with_php 0
+%endif
 %global with_perl 1
 # The Lasso build system requires python, especially the binding generators
 %global with_python 1
@@ -42,9 +46,13 @@
 %endif
 
 %if %{with_php}
-  %global configure_args %{configure_args} --enable-php5=yes --with-php5-config-dir=%{php_inidir}
+  %if 0%{?fedora} || 0%{?rhel} > 7
+    %global configure_args %{configure_args} --enable-php5=no --enable-php7=yes --with-php7-config-dir=%{php_inidir}
+  %else
+    %global configure_args %{configure_args} --enable-php5=yes --with-php5-config-dir=%{php_inidir} --enable-php7=no
+  %endif
 %else
-  %global configure_args %{configure_args} --enable-php5=no
+  %global configure_args %{configure_args} --enable-php5=no --enable-php7=no
 %endif
 
 %if %{with_wsf}
@@ -58,16 +66,13 @@
 
 Summary: Liberty Alliance Single Sign On
 Name: lasso
-Version: 2.7.0
-Release: 10%{?dist}
+Version: 2.8.2
+Release: 1%{?dist}
 License: GPLv2+
-URL: http://lasso.entrouvert.org/
-Source: http://dev.entrouvert.org/lasso/lasso-%{version}.tar.gz
+URL: https://lasso.entrouvert.org/
+Source: https://dev.entrouvert.org/lasso/lasso-%{version}.tar.gz
 
-# Python: Don't call Py_DECREF(Py_True/Py_False) in register_constants()
-# Avoids a Fatal Python error: bool_dealloc: deallocating True or False
-# Fixes https://bugzilla.redhat.com/show_bug.cgi?id=1900651
-Patch1: lasso-python-dont-decref-true-false.patch
+Patch01: fix-removed-xmlsec-deprecations.patch
 
 BuildRequires: autoconf
 BuildRequires: automake
@@ -317,6 +322,15 @@ rm -fr %{buildroot}%{_defaultdocdir}/%{name}
 %endif
 
 %changelog
+* Thu Mar 30 2023 Xavier Bachelot <xavier@bachelot.org> - 2.8.2-1
+- Update to 2.8.2
+- Disable PHP bindings for PHP8, which is not supported yet
+
+* Thu Mar 09 2023 Xavier Bachelot <xavier@bachelot.org> - 2.8.1-1
+- Update to 2.8.1 (fixes RHBZ#2142849)
+- Enable php bindings
+- Update URL: and Source: tags to https
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

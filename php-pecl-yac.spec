@@ -1,7 +1,7 @@
 # Fedora spec file for php-pecl-yac (previously php-yac)
 #
-# Copyright (c) 2013-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2013-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -19,9 +19,9 @@
 Summary:        Lockless user data cache
 Name:           php-pecl-%{pecl_name}
 Version:        2.3.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 
-License:        PHP
+License:        PHP-3.01
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}.tgz
 
@@ -199,6 +199,9 @@ TEST_PHP_ARGS="$OPTS -d extension=$PWD/modules/%{pecl_name}.so" \
 
 
 %changelog
+* Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 2.3.1-6
+- use SPDX license ID
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,9 +3,9 @@
 
 Name:           php-pecl-geoip
 Version:        1.1.1
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Extension to map IP addresses to geographic places
-License:        PHP
+License:        PHP-3.01
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}.tgz
 
@@ -113,6 +113,9 @@ NO_INTERACTION=1 \
 
 
 %changelog
+* Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 1.1.1-22
+- use SPDX license ID
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -11,7 +11,7 @@ Name: iptables
 Summary: Tools for managing Linux kernel packet filtering capabilities
 URL: https://www.netfilter.org/projects/iptables
 Version: 1.8.9
-Release: 2%{?dist}
+Release: 3%{?dist}
 Source: %{url}/files/%{name}-%{version}.tar.xz
 Source1: iptables.init
 Source2: iptables-config
@@ -295,7 +295,9 @@ mv /var/tmp/alternatives.iptables.setup /var/lib/alternatives/iptables
 %?ldconfig
 %systemd_postun iptables.service ip6tables.service
 
-%post nft
+%post -e nft
+[[ %%{_excludedocs} == 1 ]] || do_man=true
+
 pfx=%{_sbindir}/iptables
 pfx6=%{_sbindir}/ip6tables
 %{_sbindir}/update-alternatives --install \
@@ -320,7 +322,7 @@ fi
 	$pfx ebtables $pfx-nft 10 \
 	--slave $pfx-save ebtables-save $pfx-nft-save \
 	--slave $pfx-restore ebtables-restore $pfx-nft-restore \
-	--slave $manpfx.8.gz ebtables-man $manpfx-nft.8.gz
+	${do_man:+--slave $manpfx.8.gz ebtables-man $manpfx-nft.8.gz}
 
 pfx=%{_sbindir}/arptables
 manpfx=%{_mandir}/man8/arptables
@@ -340,9 +342,9 @@ fi
 	$pfx arptables $pfx-nft 10 \
 	--slave $pfx-save arptables-save $pfx-nft-save \
 	--slave $pfx-restore arptables-restore $pfx-nft-restore \
-	--slave $manpfx.8.gz arptables-man $manpfx-nft.8.gz \
-	--slave $manpfx-save.8.gz arptables-save-man $manpfx-nft-save.8.gz \
-	--slave $manpfx-restore.8.gz arptables-restore-man $manpfx-nft-restore.8.gz \
+	${do_man:+--slave $manpfx.8.gz arptables-man $manpfx-nft.8.gz} \
+	${do_man:+--slave $manpfx-save.8.gz arptables-save-man $manpfx-nft-save.8.gz} \
+	${do_man:+--slave $manpfx-restore.8.gz arptables-restore-man $manpfx-nft-restore.8.gz} \
 	--slave $lepfx-helper arptables-helper $lepfx-nft-helper
 
 %postun nft
@@ -429,6 +431,9 @@ fi
 
 
 %changelog
+* Thu Apr 20 2023 Phil Sutter <psutter@redhat.com> - 1.8.9-3
+- Support %%_excludedocs macro in alternatives installation
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

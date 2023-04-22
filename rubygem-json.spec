@@ -2,11 +2,12 @@
 
 Name:           rubygem-%{gem_name}
 Version:        2.6.3
-Release:        202%{?dist}
+Release:        203%{?dist}
 
 Summary:        A JSON implementation in Ruby
 
-License:        Ruby or BSD
+# SPDX confirmed
+License:        Ruby OR BSD-2-Clause
 URL:            https://github.com/flori/json
 Source0:        https://rubygems.org/gems/%{gem_name}-%{version}.gem
 Source1:        rubygem-%{gem_name}-%{version}-missing-files.tar.gz
@@ -123,6 +124,9 @@ popd
 
 
 %changelog
+* Fri Apr 21 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.6.3-203
+- SPDX migration
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.3-202
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

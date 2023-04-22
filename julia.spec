@@ -30,7 +30,7 @@
 
 Name:           julia
 Version:        1.9.0
-Release:        0.rc2%{?dist}
+Release:        1.rc2%{?dist}
 Summary:        High-level, high-performance dynamic language for technical computing
 # Julia itself is MIT
 # libuv, libwhich, libblastrampoline and libunwind are MIT
@@ -100,11 +100,13 @@ Requires:       p7zip-plugins
 %if 0%{?__isa_bits} == 64
 Requires:       libgfortran.so.5()(64bit)
 Requires:       libgomp.so.1()(64bit)
-Requires:       libopenblasp64_.so.0(64-bit)
+Requires:       libopenblasp64_.so.0()(64-bit)
+Requires:       suitesparse64_
 %else
 Requires:       libgfortran.so.5
 Requires:       libgomp.so.1
 Requires:       libopenblasp.so.0
+Requires:       suitesparse
 %endif
 # https://bugzilla.redhat.com/show_bug.cgi?id=1158026
 # https://github.com/JuliaLang/julia/issues/30087
@@ -479,7 +481,11 @@ desktop-file-validate %{buildroot}%{_datarootdir}/applications/%{name}.desktop
 exit 0
 
 %changelog
-* Tue Apr 19 2023 Milan Bouchet-Valat <nalimilan@club.fr> - 1.9.0-0.rc2
+* Thu Apr 20 2023 Milan Bouchet-Valat <nalimilan@club.fr> - 1.9.0-1.rc2
+- Fix missing dependency on SuiteSparse.
+- Re-fix dependency on OpenBLAS.
+
+* Wed Apr 19 2023 Milan Bouchet-Valat <nalimilan@club.fr> - 1.9.0-0.rc2
 - New upstream release.
 - Fix missing dependency on OpenBLAS.
 

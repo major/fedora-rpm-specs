@@ -241,8 +241,8 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 112.0.5615.121
-Release: 2%{?dist}
+Version: 112.0.5615.165
+Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -977,7 +977,7 @@ udev.
 %patch -P300 -p1 -b .disblegnomekeyring
 %endif
 
-%if 0%{?rhel} == 8
+%if %{clang} && 0%{?rhel} == 8
 %patch -P301 -p1 -b .clang14_c++20
 %endif
 
@@ -1066,9 +1066,9 @@ export READELF=llvm-readelf
 %else
 export CC=gcc
 export CXX=g++ 
-export AR="ar"
-export NM="nm"
-export READELF="readelf"
+export AR=ar
+export NM=nm
+export READELF=readelf
 %endif
 export CFLAGS
 export CXXFLAGS
@@ -1659,6 +1659,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Thu Apr 20 2023 Than Ngo <than@redhat.com> - 112.0.5615.165-1
+- update to 112.0.5615.165
+
 * Mon Apr 17 2023 Than Ngo <than@redhat.com> - 112.0.5615.121-2
 - fix vaapi issue on xwayland
 - fix the build order, chrome_feed_response_metadata.pb.h file not found

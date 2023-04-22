@@ -2,15 +2,13 @@
 
 Name:           rubygem-%{gem_name}
 Summary:        Useful extensions to Ruby's String class
-Version:        2.8.5
-Release:        11%{?dist}
+Version:        2.8.6
+Release:        1%{?dist}
+# SPDX confirmed
 License:        MIT
 
 URL:            http://github.com/rsl/stringex
 Source0:        https://rubygems.org/gems/%{gem_name}-%{version}.gem
-# DEPRECATION WARNING: update_attributes! is deprecated and will be removed
-# from Rails 6.1 (please, use update! instead)
-Patch1:		rubygem-stringex-2.8.5-rails61-compati.patch
 
 BuildArch:      noarch
 
@@ -43,16 +41,10 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}
-%patch1 -p1
 
 # Relax unstable time-dependent test strictness
 sed -i test/performance/localization_performance_test.rb \
 	-e 's|allowed_difference = 25|allowed_difference = 99|'
-
-# Not sure why ruby3.2 needs this, but for now to make test
-# suite pass...
-sed -i ./test/unit/string_extensions_test.rb \
-	-e 's|\(remove_method :to_ascii\)|begin ; \1 ; rescue ; end|'
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -64,6 +56,15 @@ gem build ../%{gem_name}-%{version}.gemspec
 mkdir -p %{buildroot}%{gem_dir}
 cp -a .%{gem_dir}/* %{buildroot}%{gem_dir}/
 
+rm -f %{buildroot}%{gem_cache}
+pushd %{buildroot}%{gem_instdir}
+rm -rf \
+	Gemfile \
+	Rakefile \
+	stringex.gemspec \
+	test/ \
+	%{nil}
+popd
 
 %check
 pushd .%{gem_instdir}
@@ -82,19 +83,15 @@ popd
 %{gem_libdir}
 %{gem_spec}
 
-%exclude %{gem_cache}
-
 %files doc
 %doc %{gem_docdir}
 %doc %{gem_instdir}/README.md
 
-%{gem_instdir}/Gemfile
-%{gem_instdir}/Rakefile
-%{gem_instdir}/stringex.gemspec
-%{gem_instdir}/test/
-
-
 %changelog
+* Thu Apr 20 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.8.6-1
+- 2.8.6
+- SPDX confirmed
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.5-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

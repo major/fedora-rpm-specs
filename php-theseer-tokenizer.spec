@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-theseer-tokenizer
 #
-# Copyright (c) 2017-2021 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2017-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -15,10 +15,10 @@
 
 Name:           php-%{gh_vendor}-%{gh_project}
 Version:        1.2.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Library for converting tokenized PHP source code into XML
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_vendor}/%{gh_project}
 Source0:        %{name}-%{version}-%{?gh_short}.tgz
 Source1:        makesrc.sh
@@ -33,8 +33,7 @@ BuildRequires:  php-spl
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 # Tests
-%global phpunit %{_bindir}/phpunit7
-BuildRequires:  %{phpunit}
+BuildRequires:  phpunit9
 
 # From composer.json, "require": {
 #    "php": "^7.0 || ^8.0",
@@ -76,11 +75,10 @@ cp -pr src %{buildroot}%{_datadir}/php/%{ns_vendor}/%{ns_project}
 
 %check
 ret=0
-for cmdarg in "php %{phpunit}" php73 php74 php80; do
+for cmdarg in php php80 php81 php82; do
   if which $cmdarg; then
-      set $cmdarg
-      $1 -d auto_prepend_file=%{buildroot}%{_datadir}/php/%{ns_vendor}/%{ns_project}/autoload.php \
-        ${2:-%{_bindir}/phpunit7} \
+      $cmdarg -d auto_prepend_file=%{buildroot}%{_datadir}/php/%{ns_vendor}/%{ns_project}/autoload.php \
+        %{_bindir}/phpunit9 \
           --no-coverage --verbose || ret=1
   fi
 done
@@ -95,6 +93,10 @@ exit $ret
 
 
 %changelog
+* Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 1.2.1-5
+- use SPDX license ID
+- switch to phpunit9
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

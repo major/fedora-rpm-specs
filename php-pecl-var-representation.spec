@@ -3,8 +3,8 @@
 #
 # remirepo spec file for php-pecl-var-representation
 #
-# Copyright (c) 2021-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2021-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -24,9 +24,9 @@
 Summary:        A compact, more readable alternative to var_export
 Name:           php-pecl-var-representation
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
 
@@ -160,6 +160,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 0.1.4-2
+- use SPDX license ID
+
 * Mon Oct 17 2022 Remi Collet <remi@remirepo.net> - 0.1.4-1
 - update to 0.1.4
 

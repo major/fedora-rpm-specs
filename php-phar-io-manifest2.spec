@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-phar-io-manifest2
 #
-# Copyright (c) 2017-2020 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2017-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -26,10 +26,10 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        2.0.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Component for reading phar.io manifest information
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        %{name}-%{version}-%{gh_short}.tgz
 Source1:        makesrc.sh
@@ -46,11 +46,7 @@ BuildRequires:  php-spl
 BuildRequires:  php-xmlwriter
 BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 %if %{with tests}
-%if 0%{?fedora} >= 32
 %global phpunit %{_bindir}/phpunit9
-%else
-%global phpunit %{_bindir}/phpunit8
-%endif
 BuildRequires:  %{phpunit}
 %endif
 
@@ -109,7 +105,7 @@ touch vendor/autoload.php
 
 : Run upstream test suite
 ret=0
-for cmd in "php %{phpunit}" php73 php74 php80 php81; do
+for cmd in "php %{phpunit}" php80 php81 php82; do
   if which $cmd; then
     set $cmd
     $1 -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
@@ -130,6 +126,9 @@ exit $ret
 
 
 %changelog
+* Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 2.0.3-5
+- use SPDX license id
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

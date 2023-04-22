@@ -8,8 +8,8 @@
 Summary:        Provides a wrapper to the ImageMagick library
 Name:           php-pecl-%pecl_name
 Version:        3.7.0
-Release:        6%{?dist}
-License:        PHP
+Release:        7%{?dist}
+License:        PHP-3.01
 URL:            https://pecl.php.net/package/%pecl_name
 
 Source0:        https://pecl.php.net/get/%pecl_name-%{version}%{?prever}.tgz
@@ -186,6 +186,9 @@ cd ../ZTS
 
 
 %changelog
+* Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 3.7.0-7
+- use SPDX license ID
+
 * Thu Jan 05 2023 Neal Gompa <ngompa@fedoraproject.org> - 3.7.0-6
 - Rebuild for ImageMagick 7
 

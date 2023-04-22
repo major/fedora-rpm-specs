@@ -8,7 +8,7 @@
 #
 %global bootstrap    0
 # github
-%global gh_commit    e874c8c4286a1e010fb4f385f3a55ac56a05cc93
+%global gh_commit    ed7cf98f6562831dbc3c962406b5e49dc8179c8c
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     Nyholm
 %global gh_project   psr7
@@ -31,7 +31,7 @@
 %global http_factory_tests_short      %(c=%{http_factory_tests_commit}; echo ${c:0:7})
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        1.6.1
+Version:        1.7.0
 Release:        1%{?dist}
 Summary:        A fast PHP7 implementation of PSR-7
 
@@ -45,17 +45,17 @@ Source2:        https://github.com/php-http/psr7-integration-tests/archive/%{psr
 Source3:        https://github.com/http-interop/http-factory-tests/archive/%{http_factory_tests_commit}/%{name}-factory-tests-%{http_factory_tests_short}.tar.gz
 
 BuildArch:      noarch
-BuildRequires:  php(language) >= 7.1
+BuildRequires:  php(language) >= 7.2
 BuildRequires:  php-pcre
 BuildRequires:  php-spl
 %if %{with tests}
-BuildRequires: (php-composer(psr/http-message)          >= 1.0 with php-composer(psr/http-message)         < 2)
+BuildRequires: (php-composer(psr/http-message)          >= 1.1 with php-composer(psr/http-message)         < 3)
 BuildRequires: (php-composer(php-http/message-factory)  >= 1.0 with php-composer(php-http/message-factory) < 2)
 BuildRequires: (php-composer(psr/http-factory)          >= 1.0 with php-composer(psr/http-factory)         < 2)
 BuildRequires: (php-composer(symfony/error-handler)     >= 4.4 with php-composer(symfony/error-handler)    < 5)
 # from composer.json, "require-dev": {
 #        "phpunit/phpunit": "^7.5 || 8.5 || 9.4",
-#        "php-http/psr7-integration-tests": "^1.0",
+#        "php-http/psr7-integration-tests": "^1.0@dev",
 #        "http-interop/http-factory-tests": "^0.9",
 #        "symfony/error-handler": "^4.4"
 %global phpunit %{_bindir}/phpunit9
@@ -65,12 +65,12 @@ BuildRequires:  phpunit9 >= 9.4
 BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 
 # from composer.json, "require": {
-#        "php": ">=7.1",
-#        "psr/http-message": "^1.0",
+#        "php": ">=7.2",
+#        "psr/http-message": "^1.1 ||  || ^2.0",
 #        "php-http/message-factory": "^1.0",
 #        "psr/http-factory": "^1.0"
-Requires:       php(language) >= 7.1
-Requires:      (php-composer(psr/http-message)          >= 1.0 with php-composer(psr/http-message)         < 2)
+Requires:       php(language) >= 7.2
+Requires:      (php-composer(psr/http-message)          >= 1.1 with php-composer(psr/http-message)         < 3)
 Requires:      (php-composer(php-http/message-factory)  >= 1.0 with php-composer(php-http/message-factory) < 2)
 Requires:      (php-composer(psr/http-factory)          >= 1.0 with php-composer(psr/http-factory)         < 2)
 # from phpcompatinfo report for version 1.1.0
@@ -96,11 +96,14 @@ Autoloader: %{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php
 
 %build
 # Generate the Autoloader
-phpab --template fedora --output src/autoload.php src
+phpab --tolerant --template fedora --output src/autoload.php src
 
 cat << 'EOF' | tee -a src/autoload.php
 \Fedora\Autoloader\Dependencies::required([
-    '%{_datadir}/php/Psr/Http/Message/autoload.php',
+    [
+        '%{_datadir}/php/Psr/Http/Message2/autoload.php',
+        '%{_datadir}/php/Psr/Http/Message/autoload.php',
+    ],
     '%{_datadir}/php/Http/Message/autoload.php',
     '%{_datadir}/php/Psr/Http/Message/http-factory-autoload.php',
 ]);
@@ -158,6 +161,11 @@ exit $ret
 
 
 %changelog
+* Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 1.7.0-1
+- update to 1.7.0
+- raise dependency on psr/http-message 1.1 and allow 2.0
+- raise dependency on PHP 7.2
+
 * Wed Apr 19 2023 Remi Collet <remi@remirepo.net> - 1.6.1-1
 - update to 1.6.1
 

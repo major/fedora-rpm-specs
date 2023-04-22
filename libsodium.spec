@@ -13,8 +13,8 @@ Version:        1.0.18
 Release:        11%{?dist}
 Summary:        The Sodium crypto library
 License:        ISC
-URL:            http://libsodium.org/
-Source0:        http://download.libsodium.org/libsodium/releases/%{name}-%{version}.tar.gz
+URL:            https://libsodium.org/
+Source0:        https://download.libsodium.org/libsodium/releases/%{name}-%{version}.tar.gz
 
 BuildRequires: gcc
 BuildRequires: make

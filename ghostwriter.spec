@@ -1,6 +1,6 @@
 Name: ghostwriter
-Version: 23.03.90
-Release: 2%{?dist}
+Version: 23.04.0
+Release: 1%{?dist}
 
 License: GPL-3.0-or-later AND Apache-2.0 AND CC-BY-4.0 AND CC-BY-SA-4.0 AND MPL-1.1 AND BSD AND LGPL-3.0-only AND MIT AND ISC
 Summary: Cross-platform, aesthetic, distraction-free Markdown editor
@@ -83,6 +83,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_metainfodir}/org.kde.%{name}.metainfo.xml
 
 %changelog
+* Thu Apr 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.0-1
+- 23.04.0
+
 * Sat Apr 01 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 23.03.90-2
 - Switched to Ninja.
 - Explicitly set Release configuration.

@@ -1,17 +1,21 @@
 # Generated from yaml-lint-0.0.10.gem by gem2rpm -*- rpm-spec -*-
 %global gem_name yaml-lint
+# This commit corresponds to the relase in github which is not tagged :-(
+%global commit 8dfc583584e046c54617315734883c887768c6ca
 
-Name: rubygem-%{gem_name}
-Version: 0.0.10
-Release: 8%{?dist}
-Summary: Really simple YAML lint
-License: MIT
-URL: https://github.com/Pryz/yaml-lint
-Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
+Name:          rubygem-%{gem_name}
+Version:       0.1.2
+Release:       1%{?dist}
+Summary:       Really simple YAML lint
+License:       MIT
+URL:           https://github.com/Pryz/yaml-lint
+Source0:       https://rubygems.org/gems/%{gem_name}-%{version}.gem
+Source1:       https://github.com/Pryz/yaml-lint/archive/%{commit}/yaml-lint-%{commit}.tar.gz
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
-BuildRequires: ruby
-BuildArch: noarch
+BuildRequires: rubygem(rspec)
+BuildArch:     noarch
+
 
 %description
 Check if your YAML files can be loaded.
@@ -22,19 +26,30 @@ Summary: Documentation for %{name}
 Requires: %{name} = %{version}-%{release}
 BuildArch: noarch
 
+
 %description doc
 Documentation for %{name}.
+
 
 %prep
 %setup -q -n %{gem_name}-%{version}
 
+# unpack only the spec and LICENSE from SOURCE1
+tar zxf %{SOURCE1} --strip-components 1 \
+                   yaml-lint-%{commit}/spec \
+                   yaml-lint-%{commit}/LICENSE \
+                   yaml-lint-%{commit}/README.md \
+
+# Disable Coverals
+sed -i "s/^require 'coveralls'$//" spec/spec_helper.rb
+sed -i "s/^Coveralls.wear!//"      spec/spec_helper.rb
+
+
 %build
-# Create the gem as gem install only works on a gem file
 gem build ../%{gem_name}-%{version}.gemspec
 
-# %%gem_install compiles any C extensions and installs the gem into ./%%gem_dir
-# by default, so that we can move it into the buildroot in %%install
 %gem_install
+
 
 %install
 mkdir -p %{buildroot}%{gem_dir}
@@ -48,10 +63,10 @@ cp -a .%{_bindir}/* \
 
 find %{buildroot}%{gem_instdir}/bin -type f | xargs chmod a+x
 
+
 %check
-pushd .%{gem_instdir}
-# Run the test suite.
-popd
+rspec -I%{gem_instdir} spec
+
 
 %files
 %dir %{gem_instdir}
@@ -60,12 +75,20 @@ popd
 %{gem_libdir}
 %exclude %{gem_cache}
 %{gem_spec}
+%license LICENSE
+%doc README.md
+
 
 %files doc
 %doc %{gem_docdir}
 
 
 %changelog
+* Thu Apr 20 2023 Steve Traylen <steve.traylen@cern.ch> - 0.1.2-1
+- Upstream to 0.1.2
+- Include README, LICENSE and tests(and run them) from upstream
+- Clean up .spec file indentation and alignment
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.10-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

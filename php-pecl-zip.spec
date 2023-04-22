@@ -1,7 +1,7 @@
 # Fedora spec file for php-pecl-zip
 #
-# Copyright (c) 2013-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2013-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -21,8 +21,8 @@ Summary:      A ZIP archive management extension
 Summary(fr):  Une extension de gestion des ZIP
 Name:         php-pecl-zip
 Version:      %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:      2%{?dist}
-License:      PHP
+Release:      3%{?dist}
+License:      PHP-3.01
 URL:          https://pecl.php.net/package/zip
 
 Source0:      https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
@@ -162,6 +162,9 @@ TEST_PHP_EXECUTABLE=%{_bindir}/zts-php \
 
 
 %changelog
+* Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 1.21.1-3
+- use SPDX license ID
+
 * Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 1.21.1-2
 - rebuild for https://fedoraproject.org/wiki/Changes/php82
 

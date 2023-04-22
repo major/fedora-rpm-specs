@@ -15,10 +15,10 @@
 
 Name:             php-pecl-%peclName
 Version:          1.1.3
-Release:          6%{?dist}
+Release:          7%{?dist}
 Summary:          Pecl package for XML diff and merge
 
-License:          BSD
+License:          BSD-2-Clause
 URL:              http://pecl.php.net/package/%peclName
 Source0:          http://pecl.php.net/get/%peclName-%{version}.tgz
 
@@ -124,6 +124,9 @@ fi
 %{pecl_xmldir}/%{name}.xml
 
 %changelog
+* Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 1.1.3-7
+- use SPDX license ID
+
 * Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 1.1.3-6
 - rebuild for https://fedoraproject.org/wiki/Changes/php82
 

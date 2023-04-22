@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-phpunit-php-file-iterator2
 #
-# Copyright (c) 2009-2021 Christof Damian, Remi Collet
+# Copyright (c) 2009-2023 Christof Damian, Remi Collet
 #
 # License: MIT
 # http://opensource.org/licenses/MIT
@@ -29,10 +29,10 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        2.0.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        FilterIterator implementation that filters files based on a list of suffixes
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{gh_short}.tar.gz
 
@@ -86,7 +86,7 @@ touch vendor/autoload.php
 
 : Run upstream test suite
 ret=0
-for cmd in php php74 php80 php81; do
+for cmd in php php80 php81 php82; do
   if which $cmd; then
     $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
       %{_bindir}/phpunit8  --verbose || ret=1
@@ -106,6 +106,9 @@ exit $ret
 
 
 %changelog
+* Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 2.0.5-5
+- use SPDX license ID
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

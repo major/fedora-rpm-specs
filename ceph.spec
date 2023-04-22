@@ -160,7 +160,7 @@
 #################################################################################
 Name:		ceph
 Version:	17.2.6
-Release:	1%{?dist}
+Release:	2%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -193,6 +193,7 @@ Patch0023:	0023-src-s3select-include-s3select_parquet_intrf.h.patch
 Patch0024:	0024-gcc-13.patch
 Patch0025:	0025-selinux-prepare-for-anon-inode-controls-enablement.patch
 Patch0026:	0026-src-boost-libs-python-src-object.patch
+Patch0027:	0027-src-kv-rocksdb_cache-ShardedCache.h.patch
 # ceph 14.0.1 does not support 32-bit architectures, bugs #1727788, #1727787
 ExcludeArch:	i686 armv7hl
 %if 0%{?suse_version}
@@ -2617,6 +2618,9 @@ exit 0
 %config %{_sysconfdir}/prometheus/ceph/ceph_default_alerts.yml
 
 %changelog
+* Thu Apr 20 2023 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:17.2.6-2
+- ceph-17.2.6, rebuild with rocksdb-8.0.0
+
 * Fri Apr 7 2023 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:17.2.6-1
 - ceph-17.2.6 GA
 

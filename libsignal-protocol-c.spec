@@ -1,11 +1,14 @@
 Name:       libsignal-protocol-c
 Version:    2.3.3
-Release:    8%{?dist}
+Release:    9%{?dist}
 
 License:    GPLv3
 Summary:    Signal Protocol C library
 URL:        https://github.com/signalapp/libsignal-protocol-c
 Source0:    %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+# CVE-2022-48468: https://bugzilla.redhat.com/show_bug.cgi?id=2186673
+# Upstream is gone, so sadly we must carry this patch downstream.
+Patch0:     0001-CVE-2022-48468-unsigned-integer-overflow.patch
 
 BuildRequires: cmake
 BuildRequires: gcc
@@ -32,7 +35,7 @@ Development files for libsignal-protocol-c.
 
 
 %prep
-%setup -q -n %{name}-%{version}
+%autosetup -p1 -n %{name}-%{version}
 
 
 %build
@@ -61,6 +64,9 @@ ctest -V %{?_smp_mflags}
 
 
 %changelog
+* Wed Apr 19 2023 Randy Barlow <bowlofeggs@fedoraproject.org> - 2.3.3-9
+- Fix CVE-2022-48468: unsigned integer overflow (#2186673).
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

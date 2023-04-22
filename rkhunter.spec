@@ -3,7 +3,7 @@
 
 Name:           rkhunter
 Version:        1.4.6
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        A host-based tool to scan for rootkits, backdoors and local exploits
 
 License:        GPLv2+
@@ -16,6 +16,8 @@ Patch0:         rkhunter-1.4.6-fedoraconfig.patch
 Patch1:         rkhunter-1.4.6-drop-libkeyutils-check.patch
 # have ssh checks use the sshd.d directoy config files too.
 Patch2:         rkhunter-1.4.6-ssh.d.patch
+# Fix grep/egrep changes in f38+
+Patch3:         rkhunter-1.4.6-grep.patch
 BuildArch:      noarch
 BuildRequires:      perl-generators
 
@@ -98,6 +100,9 @@ EOF
 %{_mandir}/man8/*
 
 %changelog
+* Mon Apr 10 2023 Kevin Fenzi <kevin@scrye.com> - 1.4.6-20
+- Patch grep/egrep changes to avoid warnings in F38+
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.6-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

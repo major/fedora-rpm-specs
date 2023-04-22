@@ -3,8 +3,8 @@
 Summary: Ruby client for the Stomp messaging protocol
 Name: rubygem-%{gem_name}
 Version: 1.4.10
-Release: 8%{?dist}
-License: ASL 2.0
+Release: 9%{?dist}
+License: Apache-2.0
 URL: http://stomp.codehaus.org/
 Source0: http://rubygems.org/gems/%{gem_name}-%{version}.gem
 # https://github.com/stompgem/stomp/pull/175
@@ -83,6 +83,9 @@ popd
 
 
 %changelog
+* Thu Apr 20 2023 Steve Traylen <steve.traylen@cern.ch> - 1.4.10-9
+- Use an SPDX License field for Apache II
+
 * Thu Mar 30 2023 Steve Traylen <steve.traylen@cern.ch> - 1.4.10-8
 - Fix for rspec 3.12, https://bugs.debian.org/1027092
 

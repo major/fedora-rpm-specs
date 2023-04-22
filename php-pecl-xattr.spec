@@ -3,8 +3,8 @@
 #
 # remirepo spec file for php-pecl-xattr
 #
-# Copyright (c) 2013-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2013-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -20,8 +20,8 @@
 Summary:        Extended attributes
 Name:           php-pecl-%{pecl_name}
 Version:        1.4.0
-Release:        10%{?dist}
-License:        PHP
+Release:        11%{?dist}
+License:        PHP-3.01
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}.tgz
 
@@ -162,6 +162,9 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 1.4.0-11
+- use SPDX license ID
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-phpunit-Version
 #
-# Copyright (c) 2013-2016 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2013-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -15,10 +15,10 @@
 
 Name:           php-phpunit-Version
 Version:        2.0.1
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Managing the version number of Git-hosted PHP projects
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{gh_project}-%{version}-%{gh_short}.tar.gz
 
@@ -71,7 +71,6 @@ fi
 
 
 %files
-%{!?_licensedir:%global license %%doc}
 %license LICENSE
 %doc README.md
 %doc composer.json
@@ -80,6 +79,9 @@ fi
 
 
 %changelog
+* Thu Apr 20 2023 Remi Collet <remi@fedoraproject.org> - 2.0.1-15
+- use SPDX license ID
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

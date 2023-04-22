@@ -4,10 +4,17 @@
 Name:    libnvme
 Summary: Linux-native nvme device management library
 Version: 1.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPLv2+
 URL:     https://github.com/linux-nvme/libnvme
 Source0: %{url}/archive/v%{version_no_tilde}/%{name}-%{version_no_tilde}.tar.gz
+
+Patch100: libnvme-1.5-nbft.patch
+Patch101: libnvme-1.5-nbft-symbols.patch
+Patch102: libnvme-1.5-nbft-endianness.patch
+Patch103: libnvme-1.5-nbft-HOSTID-HOSTNQN-_CONFIGURED.patch
+Patch104: libnvme-1.5-nbft-doc1.patch
+Patch105: libnvme-1.5-nbft-doc2.patch
 
 BuildRequires: gcc gcc-c++
 BuildRequires: swig
@@ -97,6 +104,9 @@ mv %{buildroot}/usr/*.rst %{buildroot}%{_pkgdocdir}/
 %{python3_sitearch}/libnvme/*
 
 %changelog
+* Thu Apr 20 2023 Tomas Bzatek <tbzatek@redhat.com> - 1.4-2
+- Backport the NBFT parser from git master
+
 * Mon Apr 03 2023 Tomas Bzatek <tbzatek@redhat.com> - 1.4-1
 - Upstream v1.4 release
 

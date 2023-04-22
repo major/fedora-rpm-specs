@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-phpunit-php-token-stream4
 #
-# Copyright (c) 2010-2020 Christof Damian, Remi Collet
+# Copyright (c) 2010-2023 Christof Damian, Remi Collet
 #
 # License: MIT
 # http://opensource.org/licenses/MIT
@@ -27,10 +27,10 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        4.0.4
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Wrapper around PHP tokenizer extension
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        %{name}-%{version}-%{gh_short}.tgz
 Source1:        makesrc.sh
@@ -97,7 +97,7 @@ touch vendor/autoload.php
 
 : Run upstream test suite
 ret=0
-for cmd in php php73 php74 php80 php81; do
+for cmd in php php80 php81 php82; do
   if which $cmd; then
     $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
       %{_bindir}/phpunit9  --verbose || ret=1
@@ -118,6 +118,9 @@ exit $ret
 
 
 %changelog
+* Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 4.0.4-8
+- use SPDX license ID
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,8 +3,8 @@
 #
 # remirepo spec file for php-pecl-dio
 #
-# Copyright (c) 2013-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2013-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -20,8 +20,8 @@
 Summary:        Direct I/O functions
 Name:           php-pecl-%{pecl_name}
 Version:        0.2.1
-Release:        2%{?dist}
-License:        PHP
+Release:        3%{?dist}
+License:        PHP-3.01
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}%{?prever}.tgz
 
@@ -164,6 +164,9 @@ TEST_PHP_ARGS="-n -d extension=$PWD/modules/%{pecl_name}.so" \
 
 
 %changelog
+* Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 0.2.1-3
+- use SPDX license ID
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

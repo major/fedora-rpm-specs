@@ -46,6 +46,7 @@ Patch500: cyrus-sasl-2.1.27-coverity.patch
 Patch501: cyrus-sasl-2.1.27-cumulative-digestmd5.patch
 Patch502: cyrus-sasl-2.1.27-cumulative-ossl3.patch
 
+Patch599: cyrus-sasl-2.1.28-fedora-c99.patch
 
 BuildRequires: autoconf, automake, libtool, gdbm-devel, groff
 BuildRequires: krb5-devel >= 1.2.2, openssl-devel, pam-devel, pkgconfig
@@ -176,6 +177,7 @@ the GS2 authentication scheme.
 %patch500 -p1 -b .coverity
 %patch501 -p1 -b .digestmd5
 %patch502 -p1 -b .ossl3
+%patch599 -p1 -b .c99
 
 %build
 # reconfigure

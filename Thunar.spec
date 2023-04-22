@@ -39,6 +39,7 @@ BuildRequires:  gobject-introspection-devel
 Requires:       shared-mime-info
 Requires:       dbus
 Requires:       gvfs
+Requires:       tumbler
 
 Obsoletes:     thunar-vcs-plugin <= 0.2.0-24
 

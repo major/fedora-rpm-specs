@@ -3,12 +3,16 @@
 
 Name:           nvme-cli
 Version:        2.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NVMe management command line interface
 
 License:        GPLv2
 URL:            https://github.com/linux-nvme/nvme-cli
 Source0:        %{url}/archive/v%{version_no_tilde}/%{name}-%{version_no_tilde}.tar.gz
+
+Patch100:       nvme-cli-2.5-nbft-make-lookup_ctrl-function-public.patch
+Patch101:       nvme-cli-2.5-nbft.patch
+Patch102:       nvme-cli-2.5-nbft_plugin.patch
 
 BuildRequires:  meson >= 0.50.0
 BuildRequires:  gcc gcc-c++
@@ -17,7 +21,7 @@ BuildRequires:  systemd-rpm-macros
 BuildRequires:  zlib-devel
 BuildRequires:  openssl-devel
 
-BuildRequires:  libnvme-devel >= 1.4
+BuildRequires:  libnvme-devel >= 1.4-2
 BuildRequires:  json-c-devel >= 0.13
 
 %if (0%{?rhel} == 0)
@@ -83,6 +87,9 @@ rm -rf %{buildroot}%{_pkgdocdir}/nvme
 
 
 %changelog
+* Thu Apr 20 2023 Tomas Bzatek <tbzatek@redhat.com> - 2.4-2
+- Backport the NBFT support from git master
+
 * Mon Apr 03 2023 Tomas Bzatek <tbzatek@redhat.com> - 2.4-1
 - Update to 2.4
 

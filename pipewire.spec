@@ -1,6 +1,6 @@
 %global majorversion 0
 %global minorversion 3
-%global microversion 69
+%global microversion 70
 
 %global apiversion   0.3
 %global spaversion   0.2
@@ -9,7 +9,7 @@
 %global ms_version   0.4.2
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 2
+%global baserelease 1
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -63,10 +63,6 @@ Source0:        https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/%{ver
 %endif
 
 ## upstream patches
-
-Patch0001:	0001-context-improve-state-calculations.patch
-Patch0002:	0002-Revert-alsa-mixer-allow-to-re-attach-the-mixer-contr.patch
-Patch0003:	0003-filter-chain-config-is-only-required-for-bq_raw.patch
 
 ## upstreamable patches
 
@@ -518,31 +514,33 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_datadir}/doc/pipewire/html
 
 %files utils
-%{_bindir}/pw-mon
-%{_bindir}/pw-metadata
-%{_bindir}/pw-dsdplay
-%{_bindir}/pw-mididump
-%{_bindir}/pw-midiplay
-%{_bindir}/pw-midirecord
-%{_bindir}/pw-cli
-%{_bindir}/pw-dot
 %{_bindir}/pw-cat
+%{_bindir}/pw-cli
+%{_bindir}/pw-config
+%{_bindir}/pw-dot
+%{_bindir}/pw-dsdplay
 %{_bindir}/pw-dump
 %{_bindir}/pw-encplay
 %{_bindir}/pw-link
 %{_bindir}/pw-loopback
+%{_bindir}/pw-metadata
+%{_bindir}/pw-mididump
+%{_bindir}/pw-midiplay
+%{_bindir}/pw-midirecord
+%{_bindir}/pw-mon
 %{_bindir}/pw-play
 %{_bindir}/pw-profiler
 %{_bindir}/pw-record
 %{_bindir}/pw-reserve
 %{_bindir}/pw-top
-%{_mandir}/man1/pw-mon.1*
-%{_mandir}/man1/pw-cli.1*
 %{_mandir}/man1/pw-cat.1*
+%{_mandir}/man1/pw-cli.1*
+%{_mandir}/man1/pw-config.1*
 %{_mandir}/man1/pw-dot.1*
 %{_mandir}/man1/pw-link.1*
 %{_mandir}/man1/pw-metadata.1*
 %{_mandir}/man1/pw-mididump.1*
+%{_mandir}/man1/pw-mon.1*
 %{_mandir}/man1/pw-profiler.1*
 %{_mandir}/man1/pw-top.1*
 
@@ -609,6 +607,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-x11-bell.so
 
 %changelog
+* Thu Apr 20 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.70-1
+- Update version to 0.3.70
+
 * Tue Apr 18 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.69-2
 - Add 3 useful patches.
 

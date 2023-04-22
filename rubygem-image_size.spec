@@ -5,7 +5,8 @@ Version:	3.2.0
 Release:	2%{?dist}
 
 Summary:	Measure image size using pure Ruby
-License:	Ruby or GPLv2
+# SPDX confirmed
+License:	Ruby OR GPL-2.0-only
 URL:		https://github.com/toy/image_size
 
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem

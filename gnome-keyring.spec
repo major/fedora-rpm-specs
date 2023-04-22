@@ -4,7 +4,7 @@
 
 Name:    gnome-keyring
 Version: 42.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Framework for managing passwords and other secrets
 
 License: GPLv2+ and LGPLv2+
@@ -34,7 +34,8 @@ BuildRequires: /usr/bin/xsltproc
 
 Requires: /usr/bin/ssh-add
 Requires: /usr/bin/ssh-agent
-Requires: /usr/libexec/gcr-ssh-askpass
+# for /usr/libexec/gcr-ssh-askpass
+Requires: gcr3
 
 %description
 The gnome-keyring session daemon manages passwords and other types of
@@ -119,6 +120,10 @@ rm $RPM_BUILD_ROOT%{_libdir}/gnome-keyring/devel/*.la
 
 
 %changelog
+* Thu Apr 20 2023 Carl George <carl@george.computer> - 42.1-4
+- Switch dependency from /usr/libexec/gcr-ssh-askpass to gcr3
+- Resolves: rhbz#2188431
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 42.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.04
+Version: 12.06
 Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
@@ -524,6 +524,13 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Apr 20 2023 Nick Clifton  <nickc@redhat.com> - 12.06-1
+- gcc-plugin: use a bigger buffer for constructing notes.
+
+* Wed Apr 19 2023 Nick Clifton  <nickc@redhat.com> - 12.05-1
+- llvm-plugin: Fix detection of optimization level.  Improve test.
+- clang-plugin: Improve test.
+
 * Mon Apr 17 2023 Nick Clifton  <nickc@redhat.com> - 12.04-1
 - configure: More improvements.
 - annocheck: Fix seg-fault when checking for glibc components in string format notes.

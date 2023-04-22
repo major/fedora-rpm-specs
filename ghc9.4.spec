@@ -17,7 +17,7 @@
 # to handle RCs
 %global ghc_release %{version}
 
-%global base_ver 4.17.0.0
+%global base_ver 4.17.1.0
 %global ghc_bignum_ver 1.3
 %global ghc_compact_ver 0.1.0.0
 %global hpc_ver 0.6.1.0
@@ -70,7 +70,7 @@
 # no longer build testsuite (takes time and not really being used)
 %bcond_with testsuite
 
-# 9.4 needs llvm 10-13
+# 9.4 needs llvm 10-14
 # rhel9 binutils too old for llvm13:
 # https://bugzilla.redhat.com/show_bug.cgi?id=2141054
 # https://gitlab.haskell.org/ghc/ghc/-/issues/22427
@@ -88,12 +88,12 @@
 %endif
 
 Name: %{ghc_name}
-Version: 9.4.4
+Version: 9.4.5
 # Since library subpackages are versioned:
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 17%{?dist}
+Release: 19%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD and HaskellReport
@@ -145,7 +145,7 @@ BuildRequires: %{ghcboot}-compiler
 %if %{with abicheck}
 BuildRequires: %{name}
 %endif
-BuildRequires: ghc-rpm-macros-extra >= 2.5.0
+BuildRequires: ghc-rpm-macros-extra
 BuildRequires: %{ghcboot}-binary-devel
 BuildRequires: %{ghcboot}-bytestring-devel
 BuildRequires: %{ghcboot}-containers-devel
@@ -349,8 +349,8 @@ This provides the hadrian tool which can be used to build ghc.
 %ghc_lib_subpackage -d -l %BSDHaskellReport array-0.5.4.0
 %ghc_lib_subpackage -d -l %BSDHaskellReport -c gmp-devel%{?_isa},libffi-devel%{?_isa} base-%{base_ver}
 %ghc_lib_subpackage -d -l BSD binary-0.8.9.1
-%ghc_lib_subpackage -d -l BSD bytestring-0.11.3.1
-%ghc_lib_subpackage -d -l %BSDHaskellReport containers-0.6.6
+%ghc_lib_subpackage -d -l BSD bytestring-0.11.4.0
+%ghc_lib_subpackage -d -l %BSDHaskellReport containers-0.6.7
 %ghc_lib_subpackage -d -l %BSDHaskellReport deepseq-1.4.8.0
 %ghc_lib_subpackage -d -l %BSDHaskellReport directory-1.3.7.1
 %ghc_lib_subpackage -d -l %BSDHaskellReport exceptions-0.10.5
@@ -369,14 +369,14 @@ This provides the hadrian tool which can be used to build ghc.
 # see below for integer-gmp
 %ghc_lib_subpackage -d -x -l %BSDHaskellReport libiserv-%{ghc_version_override}
 %ghc_lib_subpackage -d -l BSD mtl-2.2.2
-%ghc_lib_subpackage -d -l BSD parsec-3.1.15.0
+%ghc_lib_subpackage -d -l BSD parsec-3.1.16.1
 %ghc_lib_subpackage -d -l BSD pretty-1.1.3.6
 %ghc_lib_subpackage -d -l %BSDHaskellReport process-1.6.16.0
 # see below for rts
 %ghc_lib_subpackage -d -l BSD stm-2.5.1.0
 %ghc_lib_subpackage -d -l BSD template-haskell-2.19.0.0
 %ghc_lib_subpackage -d -l BSD -c ncurses-devel%{?_isa} terminfo-0.4.1.5
-%ghc_lib_subpackage -d -l BSD text-2.0.1
+%ghc_lib_subpackage -d -l BSD text-2.0.2
 %ghc_lib_subpackage -d -l BSD time-1.12.2
 %ghc_lib_subpackage -d -l BSD transformers-0.5.6.2
 %ghc_lib_subpackage -d -l BSD unix-2.7.3
@@ -415,36 +415,36 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %prep
 %setup -q -n ghc-%{version} %{?with_testsuite:-b1}
 
-%patch1 -p1 -b .orig
-%patch3 -p1 -b .orig
+%patch -P1 -p1 -b .orig
+%patch -P3 -p1 -b .orig
 
-%patch2 -p1 -b .orig
-%patch5 -p1 -b .orig
+%patch -P2 -p1 -b .orig
+%patch -P5 -p1 -b .orig
 # should be safe but testing in pre-releases first
 %if 0%{?fedora} >= 37
-%patch7 -p1 -b .orig
+%patch -P7 -p1 -b .orig
 %endif
-%patch8 -p1 -b .orig
+%patch -P8 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
 
 %ifarch armv7hl
-%patch12 -p1 -b .orig
+%patch -P12 -p1 -b .orig
 %endif
 %ifarch aarch64 armv7hl
-%patch13 -p1 -b .orig
+%patch -P13 -p1 -b .orig
 %endif
 
 # remove s390x after complete switching to llvm
 %ifarch %{ghc_unregisterized_arches} s390x
-%patch15 -p1 -b .orig
-%patch16 -p1 -b .orig
+%patch -P15 -p1 -b .orig
+%patch -P16 -p1 -b .orig
 %endif
 
 #debian
-#%%patch24 -p1 -b .orig
-%patch26 -p1 -b .orig
-%patch27 -p1 -b .orig
+#%%patch -P24 -p1 -b .orig
+%patch -P26 -p1 -b .orig
+%patch -P27 -p1 -b .orig
 
 %if %{with haddock} && %{without hadrian}
 %global gen_contents_index gen_contents_index.orig
@@ -989,6 +989,11 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Thu Apr 20 2023 Jens Petersen <petersen@redhat.com> - 9.4.5-19
+- https://www.haskell.org/ghc/blog/20230418-ghc-9.4.5-released.html
+- https://downloads.haskell.org/~ghc/9.4.5/docs/users_guide/9.4.5-notes.html
+- version bumps for base, bytestring, containers, parsec, text
+
 * Mon Mar 20 2023 Jens Petersen <petersen@redhat.com> - 9.4.4-17
 - suffix hadrian with ghc_major
 - only add ld.so.conf.d and remove RPATH if _ghcdynlibdir

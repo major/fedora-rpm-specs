@@ -3,8 +3,8 @@
 #
 # remirepo spec file for php-pecl-ip2location
 #
-# Copyright (c) 2017-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2017-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -18,9 +18,9 @@
 
 Summary:        Get geo location information of an IP address
 Name:           php-pecl-%{pecl_name}
-License:        PHP
+License:        PHP-3.01
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
 
@@ -153,6 +153,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 8.1.2-2
+- use SPDX license ID
+
 * Wed Nov  9 2022 Remi Collet <remi@remirepo.net> - 8.1.2-1
 - update to 8.1.2
 

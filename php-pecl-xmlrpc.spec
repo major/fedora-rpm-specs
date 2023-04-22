@@ -3,8 +3,8 @@
 #
 # remirepo spec file for php-pecl-xmlrpc
 #
-# Copyright (c) 2020-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2020-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -26,11 +26,11 @@
 Summary:        Functions to write XML-RPC servers and clients
 Name:           php-pecl-%{pecl_name}
 Version:        %{upver}%{?lower:~%{lower}}
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 # Extension is PHP
-# Library is BSD
-License:        PHP and BSD
+# Library is MIT
+License:        PHP-3.01 AND MIT
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{upver}%{?rcver}.tgz
 
@@ -185,6 +185,9 @@ TEST_PHP_ARGS="-n -d extension=xml -d extension=%{buildroot}%{php_extdir}/%{pecl
 
 
 %changelog
+* Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 1.0.0~rc3-5
+- use SPDX license ID
+
 * Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 1.0.0~rc3-4
 - rebuild for https://fedoraproject.org/wiki/Changes/php82
 - add upstream patch for PHP 8.2

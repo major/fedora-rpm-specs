@@ -1,10 +1,11 @@
 Name:     gsequencer
-Version:  4.4.2
-Release:  1%{?dist}
+Version:  4.5.5
+Release:  0%{?dist}
 Summary:  Audio processing engine
 License:  GPLv3+ and AGPLv3+ and GFDL
 URL:      http://nongnu.org/gsequencer
-Source:   http://download.savannah.gnu.org/releases/gsequencer/4.4.x/%{name}-%{version}.tar.gz
+Source:   http://download.savannah.gnu.org/releases/gsequencer/4.5.x/%{name}-%{version}.tar.gz
+Patch0:   http://download.gsequencer.org/gsequencer-ldflags-stdc++.patch
 ExcludeArch:        i686
 BuildRequires:      make
 BuildRequires:      libtool
@@ -12,7 +13,10 @@ BuildRequires:      chrpath
 BuildRequires:      docbook-style-xsl
 BuildRequires:      gettext-devel
 BuildRequires:      gtk-doc
+BuildRequires:      dblatex
 BuildRequires:      fop
+BuildRequires:      libstdc++-devel
+BuildRequires:      nghttp2
 BuildRequires:      pkgconfig(uuid)
 BuildRequires:      pkgconfig(libxml-2.0)
 BuildRequires:      pkgconfig(libsoup-3.0)
@@ -54,11 +58,14 @@ automate ports.
 
 %prep
 %autosetup -N
+%patch0 -p0
 
 %build
 %undefine _strict_symbol_defs_build
 autoreconf -fi
 export CPPFLAGS='-DAGS_CSS_FILENAME=\"/usr/share/gsequencer/styles/ags.css\" -DAGS_ANIMATION_FILENAME=\"/usr/share/gsequencer/images/gsequencer-800x450.png\" -DAGS_LOGO_FILENAME=\"/usr/share/gsequencer/images/ags.png\" -DAGS_LICENSE_FILENAME=\"/usr/share/licenses/gsequencer/COPYING\" -DAGS_ONLINE_HELP_A4_PDF_FILENAME=\"/usr/share/doc/gsequencer/pdf/user-manual-a4.pdf\" -DAGS_ONLINE_HELP_LETTER_PDF_FILENAME=\"/usr/share/doc/gsequencer/pdf/user-manual-letter.pdf\"'
+export GSEQUENCER_LDFLAGS="%{build_ldflags} -L%{_libdir}"
+export MIDI2XML_LDFLAGS="%{build_ldflags} -L%{_libdir}"
 %configure FO_XSL="/usr/share/sgml/docbook/xsl-stylesheets/fo/docbook.xsl" HTMLHELP_XSL="/usr/share/sgml/docbook/xsl-stylesheets/htmlhelp/htmlhelp.xsl" --disable-upstream-gtk-doc --enable-introspection --disable-oss --enable-gtk-doc --enable-gtk-doc-html
 %make_build
 %make_build html
@@ -145,6 +152,9 @@ Advanced Gtk+ Sequencer library development documentation.
 %{_datadir}/doc/libags-audio-doc/
 
 %changelog
+* Tue Apr 11 2023 Joël Krähemann <jkraehemann@gmail.com> 4.5.4-0
+- updated Source to point to new minor version directory
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.2-1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

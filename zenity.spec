@@ -1,11 +1,27 @@
 Name:          zenity
 Version:       3.91.0
-Release:       1%{?dist}
+Release:       3%{?dist}
 Summary:       Display dialog boxes from shell scripts
 
 License:       LGPL-2.1-or-later
 URL:           https://wiki.gnome.org/Projects/Zenity
 Source:        https://download.gnome.org/sources/%{name}/3.91/%{name}-%{version}.tar.xz
+# https://bugzilla.redhat.com/show_bug.cgi?id=2177287
+# https://gitlab.gnome.org/GNOME/zenity/-/merge_requests/25
+# Fix crash caused by trying to set responses that aren't there
+# when --no-cancel and/or --auto-close are used
+Patch0:        0001-progress-don-t-update-responses-that-aren-t-there.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2184783
+# https://gitlab.gnome.org/GNOME/zenity/-/issues/54
+# https://gitlab.gnome.org/GNOME/zenity/-/merge_requests/26
+# https://gitlab.gnome.org/GNOME/zenity/-/merge_requests/27
+# Set 'heading' not 'title' for AdwMessageDialog, fix parsing multiple
+# tree rows from stdin
+Patch1:        0001-Set-dialog-heading-not-title.patch
+Patch2:        0001-tree-fix-handling-of-multi-row-stdin-input-54.patch
+# https://gitlab.gnome.org/GNOME/zenity/-/merge_requests/28
+# Fix errors shown on console when mousing over items in tree views
+Patch3:        0001-tree-column-view-don-t-steal-children.patch
 
 BuildRequires: pkgconfig(libadwaita-1) >= 1.2
 BuildRequires: /usr/bin/help2man
@@ -54,6 +70,13 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Zenity.desk
 
 
 %changelog
+* Thu Apr 20 2023 Adam Williamson <awilliam@redhat.com> - 3.91.0-3
+- Backport MRs #26 and #27 to fix bugs in tree views (#2184783)
+- Backport MR #28 to fix some console error spam
+
+* Thu Apr 20 2023 Adam Williamson <awilliam@redhat.com> - 3.91.0-2
+- Backport MR #25 for crash when --no-cancel and/or --auto-close are used (#2177287)
+
 * Tue Mar 07 2023 David King <amigadave@amigadave.com> - 3.91.0-1
 - Update to 3.91.0
 

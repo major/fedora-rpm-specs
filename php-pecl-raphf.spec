@@ -1,7 +1,7 @@
 # Fedora spec file for php-pecl-raphf
 #
-# Copyright (c) 2013-2021 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2013-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -20,8 +20,8 @@
 Summary:        Resource and persistent handles factory
 Name:           php-pecl-%{pecl_name}
 Version:        2.0.1
-Release:        10%{?dist}
-License:        BSD
+Release:        11%{?dist}
+License:        BSD-2-Clause
 URL:            http://pecl.php.net/package/%{pecl_name}
 Source0:        http://pecl.php.net/get/%{pecl_name}-%{version}.tgz
 
@@ -191,6 +191,9 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 2.0.1-11
+- use SPDX license ID
+
 * Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 2.0.1-10
 - rebuild for https://fedoraproject.org/wiki/Changes/php82
 

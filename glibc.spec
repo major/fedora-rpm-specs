@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.37.9000-200-g885d3cda90
+%global glibcsrcdir glibc-2.37.9000-300-g65cbd52174
 %global glibcversion 2.37.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 5
+%global baserelease 6
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -1168,7 +1168,6 @@ build()
 		--enable-bind-now \
 		--build=%{target} \
 		--enable-stack-protector=strong \
-		--enable-tunables \
 		--enable-systemtap \
 		${core_with_options} \
 %ifarch x86_64 %{ix86}
@@ -2194,6 +2193,72 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Thu Apr 20 2023 Florian Weimer <fweimer@redhat.com> - 2.37.9000-6
+- Auto-sync with upstream branch master,
+  commit 65cbd52174f5bc211dd655727c2239e25e55bfce:
+- build-many-glibcs.py: --disable-gcov for gcc-first
+- malloc: set NON_MAIN_ARENA flag for reclaimed memalign chunk (BZ #30101)
+- rcmd.c: Fix indentation in last commit
+- inet/rcmd.c: fix warn unused result
+- wcsmbs: Re-flow and sort routines, tests variables in Makefile
+- debug: Re-flow and sort routines variable in Makefile
+- math: Improve fmod(f) performance
+- Benchtests: Adjust timing
+- malloc: Assure that THP mode read do write OOB end of stringt
+- malloc: Assure that THP mode is always null terminated
+- aio: Fix freeing memory
+- elf: Stop including tls.h in ldsodefs.h
+- manual: update AddressSanitizer discussion
+- manual: document snprintf truncation better
+- manual: improve string section wording
+- manual: fix texinfo typo
+- <stdio.h>: Make fopencookie, vasprintf, asprintf available by default
+- <string.h>: Make strchrnul, strcasestr, memmem available by default
+- <sys/platform/x86.h>: Add PREFETCHI support
+- <sys/platform/x86.h>: Add AMX-COMPLEX support
+- <sys/platform/x86.h>: Add AVX-NE-CONVERT support
+- <sys/platform/x86.h>: Add AVX-VNNI-INT8 support
+- <sys/platform/x86.h>: Add MSRLIST support
+- <sys/platform/x86.h>: Add AVX-IFMA support
+- <sys/platform/x86.h>: Add AMX-FP16 support
+- <sys/platform/x86.h>: Add WRMSRNS support
+- <sys/platform/x86.h>: Add ArchPerfmonExt support
+- <sys/platform/x86.h>: Add CMPCCXADD support
+- <sys/platform/x86.h>: Add LASS support
+- <sys/platform/x86.h>: Add RAO-INT support
+- <sys/platform/x86.h>: Add LBR support
+- <sys/platform/x86.h>: Add RTM_FORCE_ABORT support
+- <sys/platform/x86.h>: Add SGX-KEYS support
+- <sys/platform/x86.h>: Add BUS_LOCK_DETECT support
+- <sys/platform/x86.h>: Add LA57 support
+- platform.texi: Move LAM after LAHF64_SAHF64
+- <bits/platform/x86.h>: Rename to x86_cpu_INDEX_7_ECX_15
+- hppa: Update struct __pthread_rwlock_arch_t comment.
+- hppa: Revise  __TIMESIZE define to use __WORDSIZE
+- libio: Remove unused pragma weak on vtable
+- malloc: Only set pragma weak for rpc freemem if required
+- compare_strings.py : Add --gmean flag
+- x86/dl-cacheinfo: remove unsused parameter from handle_amd
+- powerpc: Disable stack protector in early static initialization
+- nptl: Fix tst-cancel30 on sparc64
+- math: Remove the error handling wrapper from fmod and fmodf
+- math: Improve fmodf
+- math: Improve fmod
+- benchtests: Add fmodf benchmark
+- benchtests: Add fmod benchmark
+- x86: Set FSGSBASE to active if enabled by kernel
+- x86_64: Fix asm constraints in feraiseexcept (bug 30305)
+- manual: Document __wur usage under _FORTIFY_SOURCE
+- x86_64: Add rtld-stpncpy & rtld-strncpy
+- stdio-common: Fix building when !IS_IN (libc)
+- time: Fix strftime(3) API regarding nullability
+- Update arm libm-tests-ulps
+- getlogin_r: fix missing fallback if loginuid is unset (bug 30235)
+- memalign: Support scanning for aligned chunks.
+- malloc: Use C11 atomics on memusage
+- Remove --enable-tunables configure option
+- Remove --disable-experimental-malloc option
+
 * Fri Mar 31 2023 Arjun Shankar <arjun@redhat.com> - 2.37.9000-5
 - Apply glibc-disable-werror-tst-realloc.patch to disable spurious GCC
   warning; and

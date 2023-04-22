@@ -1,7 +1,7 @@
 # Fedora spec file for php-pecl-msgpack
 #
-# Copyright (c) 2012-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2012-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -24,9 +24,9 @@
 Summary:       API for communicating with MessagePack serialization
 Name:          php-pecl-msgpack
 Version:       %{upstream_version}%{?upstream_lower:~%{upstream_lower}}
-Release:       1%{?dist}
+Release:       2%{?dist}
 Source:        https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
-License:       BSD
+License:       BSD-3-Clause
 URL:           https://pecl.php.net/package/msgpack
 
 BuildRequires: php-devel >= 7.0
@@ -154,10 +154,8 @@ done
 %check
 # Erratic results
 rm */tests/034.phpt
-%ifarch aarch64
 # too slow
 rm */tests/035.phpt
-%endif
 
 cd NTS
 : Minimal load test for NTS extension
@@ -208,6 +206,9 @@ TEST_PHP_ARGS="-n -d extension_dir=$PWD/modules -d extension=%{pecl_name}.so" \
 
 
 %changelog
+* Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 2.2.0~RC2-2
+- use SPDX license ID
+
 * Fri Oct  7 2022 Remi Collet <remi@remirepo.net> - 2.2.0~RC2-1
 - update to 2.2.0RC2
 

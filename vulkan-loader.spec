@@ -1,5 +1,5 @@
 Name:           vulkan-loader
-Version:        1.3.239.0
+Version:        1.3.243.0
 Release:        %autorelease
 Summary:        Vulkan ICD desktop loader
 

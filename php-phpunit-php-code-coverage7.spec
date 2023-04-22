@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-phpunit-php-code-coverage7
 #
-# Copyright (c) 2013-2021 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2013-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -30,14 +30,14 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
 Version:        7.0.15
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        PHP code coverage information
 
-# Main license is BSD
-# BSD: D3
+# SPDX: Main license is BSD-3-Clause
+# BSD-3-Clause: D3
 # MIT: boostrap, d3, holder, html5shiv, jquery, respond
-# ASL 2.0: nvd3
-License:        BSD and MIT and ASL 2.0
+# Apache-2.0: nvd3
+License:        BSD-3-Clause AND MIT AND Apache-2.0
 URL:            https://github.com/%{gh_vendor}/%{gh_project}
 Source0:        https://github.com/%{gh_vendor}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{gh_short}.tar.gz
 
@@ -160,7 +160,7 @@ EOF
 
 
 ret=0
-for cmd in php php73 php74 php80; do
+for cmd in php php74 php80 php81 php82; do
   if which $cmd; then
     if [ $($cmd -r 'echo PHP_VERSION_ID;') -lt 80000 ]; then
       # ignore test failing with phpunit/php-token-stream v4
@@ -187,6 +187,9 @@ exit $ret
 
 
 %changelog
+* Thu Apr 20 2023 Remi Collet <remi@fedoraproject.org> - 7.0.15-5
+- use SPDX license ID
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.15-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

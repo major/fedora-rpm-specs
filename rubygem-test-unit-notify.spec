@@ -6,31 +6,26 @@
 Summary:	Test::Unit::Notify - A test result notify extension for Test::Unit
 Name:		rubygem-%{gem_name}
 Version:	1.0.4
-Release:	16%{?dist}
+Release:	17%{?dist}
 # https://github.com/test-unit/test-unit-notify/issues/2
-License:	LGPLv2+ and (LGPLv2+ or GFDL or CC-BY-SA)
-URL:		http://rubyforge.org/projects/test-unit/
+# https://cutter.osdn.jp/reference/readme.html
+# LGPL-2.1-or-later: overall
+# LGPL-3.0-or-later OR GFDL-1.3-or-later OR CC-BY-SA-3.0:
+#      kinotan icons (data/icons/kinotan)
+# SPDX confirmed
+License:	LGPL-2.1-or-later AND (LGPL-3.0-or-later OR GFDL-1.3-or-later OR CC-BY-SA-3.0)
+URL:		https://test-unit.github.io/#test-unit-notify
 Source0:	http://rubygems.org/gems/%{gem_name}-%{version}.gem
+Source1:	https://cutter.osdn.jp/reference/readme.html
 
-%if 0%{?fedora} >= 19
 Requires:	ruby(release)
 BuildRequires:	ruby(release)
-%else
-Requires:	ruby(abi) = %{rubyabi}
-Requires:	ruby 
-BuildRequires:	ruby(abi) = %{rubyabi}
-BuildRequires:	ruby 
-%endif
 Requires:	ruby(rubygems) 
-Requires:	rubygem(test-unit)
 BuildRequires:	rubygems-devel 
 BuildArch:	noarch
 
-Provides:	rubygem(%{gem_name}) = %{version}-%{release}
-
 %description
 Test::Unit::Notify - A test result notify extension for Test::Unit.
-
 
 %package	doc
 Summary:	Documentation for %{name}
@@ -41,22 +36,11 @@ BuildArch:	noarch
 Documentation for %{name}
 
 %prep
-%setup -q -c -T
-# Gem repack
-TOPDIR=$(pwd)
-mkdir tmpunpackdir
-pushd tmpunpackdir
-
-gem unpack %{SOURCE0}
-cd %{gem_name}-%{version}
-gem specification -l --ruby %{SOURCE0} > %{gem_name}.gemspec
-gem build %{gem_name}.gemspec
-mv %{gem_name}-%{version}.gem $TOPDIR
-
-popd
-rm -rf tmpunpackdir
+%autosetup -n %{gem_name}-%{version} -p1
+mv ../%{gem_name}-%{version}.gemspec .
 
 %build
+gem build ./%{gem_name}-%{version}.gemspec
 %gem_install
 
 # Permission
@@ -66,8 +50,15 @@ find . -type f -print0 | xargs --null chmod go-w
 mkdir -p %{buildroot}%{gem_dir}
 cp -a .%{gem_dir}/* \
 	%{buildroot}%{gem_dir}/
+cp -p %SOURCE1 %{buildroot}%{gem_instdir}/kinotan-readme.html
 
-rm -f %{buildroot}%{gem_instdir}/{Gemfile,Rakefile,.yardopts}
+rm -f %{buildroot}%{gem_cache}
+pushd %{buildroot}%{gem_instdir}
+rm -f  \
+	Gemfile \
+	Rakefile \
+	.yardopts \
+	%{nil}
 
 # No test suite available currently
 
@@ -75,10 +66,10 @@ rm -f %{buildroot}%{gem_instdir}/{Gemfile,Rakefile,.yardopts}
 %dir	%{gem_instdir}
 %{gem_instdir}/lib/
 %{gem_instdir}/data/
-%exclude	%{gem_cache}
 %{gem_spec}
 
-%doc	%{gem_instdir}/README.md
+%license	%{gem_instdir}/README.md
+%license	%{gem_instdir}/kinotan-readme.html
 %doc	%{gem_instdir}/doc/
 
 %files doc
@@ -86,6 +77,10 @@ rm -f %{buildroot}%{gem_instdir}/{Gemfile,Rakefile,.yardopts}
 %doc	%{gem_instdir}/screenshot/
 
 %changelog
+* Fri Apr 21 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.4-17
+- SPDX migration
+- modernize spec file
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

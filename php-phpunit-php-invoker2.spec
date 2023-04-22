@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-phpunit-php-invoker2
 #
-# Copyright (c) 2011-2018 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2011-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -22,10 +22,10 @@
 
 Name:           php-phpunit-php-invoker2
 Version:        2.0.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Invoke callables with a timeout
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{gh_short}.tar.gz
 
@@ -81,7 +81,7 @@ mkdir vendor
 
 : Run upstream test suite
 ret=0
-for cmd in php php72 php73 php74 php80; do
+for cmd in php php80 php81 php82; do
   if which $cmd; then
     $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}/autoload.php \
       %{_bindir}/phpunit8 --verbose || ret=1
@@ -92,7 +92,6 @@ exit $ret
 
 
 %files
-%{!?_licensedir:%global license %%doc}
 %license LICENSE
 %doc README.md
 %doc composer.json
@@ -101,6 +100,9 @@ exit $ret
 
 
 %changelog
+* Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 2.0.1-7
+- use SPDX license ID
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 # Fedora spec file for php-pecl-event
 #
-# Copyright (c) 2013-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2013-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -22,8 +22,8 @@
 Summary:       Provides interface to libevent library
 Name:          php-pecl-%{pecl_name}
 Version:       %{upstream_version}%{?upstream_prever:~%{upstream_prever}}%{?upstream_postver:+%{upstream_postver}}
-Release:       2%{?dist}
-License:       PHP
+Release:       3%{?dist}
+License:       PHP-3.01
 URL:           https://pecl.php.net/package/event
 Source0:       https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}%{?upstream_postver}.tgz
 
@@ -190,6 +190,9 @@ TEST_PHP_ARGS="-n $OPTS -d extension=$PWD/modules/%{pecl_name}.so" \
 
 
 %changelog
+* Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 3.0.8-2
+- use SPDX license ID
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

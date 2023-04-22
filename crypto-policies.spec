@@ -1,5 +1,5 @@
-%global git_date 20230301
-%global git_commit a12f7b20638be8f872ad1995c7d2edce41c227b5
+%global git_date 20230420
+%global git_commit 3d08ae70557e5a86686e5b24e443731bfdf232bb
 %{?git_commit:%global git_commit_hash %(c=%{git_commit}; echo ${c:0:7})}
 
 %global _python_bytecompile_extra 0
@@ -208,6 +208,10 @@ end
 %{_mandir}/man8/fips-finish-install.8*
 
 %changelog
+* Thu Apr 20 2023 Alexander Sosedkin <asosedkin@redhat.com> - 20230420-1.git3d08ae7
+- openssl: specify Groups explicitly
+- openssl: add support for Brainpool curves
+
 * Wed Mar 01 2023 Alexander Sosedkin <asosedkin@redhat.com> - 20230301-1.git2ea6d2a
 - rpm-sequoia: add separate rpm-sequoia backend
 - DEFAULT: allow SHA-1 and 1024 bit DSA in RPM (https://pagure.io/fesco/issue/2960)

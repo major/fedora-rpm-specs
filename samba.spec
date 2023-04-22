@@ -989,7 +989,7 @@ Requires(post): %{name}-client-libs = %{samba_depver}
 Requires: %{name}-libs = %{samba_depver}
 Requires(post): %{name}-libs = %{samba_depver}
 Requires: %{name}-winbind-modules = %{samba_depver}
-Recommends: %{name}-tools = %{samba_depver}
+Suggests: %{name}-tools = %{samba_depver}
 
 %if %{with libwbclient}
 Requires(post): libwbclient = %{samba_depver}
@@ -1261,6 +1261,13 @@ export python_LDFLAGS="$(echo ${LDFLAGS} | sed -e 's/-Wl,-z,defs//g')"
 %else
 export python_LDFLAGS="$(echo %{__global_ldflags} | sed -e 's/-Wl,-z,defs//g')"
 %endif
+
+# Add support for mock ccache plugin
+CCACHE="$(command -v ccache)"
+if [ -n "${CCACHE}" ]; then
+    ${CCACHE} -s
+    export CC="${CCACHE} gcc"
+fi
 
 %configure \
         --enable-fhs \
