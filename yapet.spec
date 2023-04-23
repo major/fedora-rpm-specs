@@ -1,8 +1,8 @@
 #global pre pre2
 
 Name:           yapet
-Version:        2.3
-Release:        12%{?pre}%{?dist}
+Version:        2.6
+Release:        1%{?pre}%{?dist}
 Summary:        Yet Another Password Encryption Tool
 License:        GPLv3+ with exceptions
 URL:            http://yapet.guengel.ch/
@@ -19,8 +19,6 @@ BuildRequires:  libargon2-devel
 BuildRequires:  devtoolset-7-gcc-c++
 %endif
 
-Patch0: gcc10.patch
-
 %description
 YAPET is a text based password manager using the AES-256 encryption
 algorithm to store passwords and associated information encrypted on
@@ -33,7 +31,6 @@ to encrypt and decrypt the password records.
 
 %prep
 %setup -qn %{name}-%{version}%{?pre}
-%patch0 -p1
 
 %build
 %if 0%{?rhel} == 7
@@ -70,6 +67,10 @@ rm -frv %{buildroot}%{_docdir}
 %{_mandir}/man*/*yapet*
 
 %changelog
+* Fri Apr 21 2023 Greg Bailey <gbailey@lxpro.com> - 2.6-1
+- Update to 2.6
+- Remove unnecessary patch
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

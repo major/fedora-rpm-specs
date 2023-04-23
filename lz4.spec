@@ -2,10 +2,10 @@
 
 Name:           lz4
 Version:        1.9.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Extremely fast compression algorithm
 
-License:        GPLv2+ and BSD
+License:        GPL-2.0-or-later AND BSD-2-Clause
 URL:            https://lz4.github.io/lz4/
 Source0:        https://github.com/lz4/lz4/archive/v%{version}/%{name}-%{version}.tar.gz
 
@@ -82,6 +82,9 @@ contains static libraries for static linking of applications.
 %{_libdir}/liblz4.a
 
 %changelog
+* Thu Apr 13 2023 Lukáš Zaoral <lzaoral@redhat.com> - 1.9.4-3
+- migrate to SPDX license format
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

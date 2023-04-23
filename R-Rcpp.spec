@@ -4,7 +4,7 @@
 
 Name:		R-%{packname}
 Version:	1.0.10
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Seamless R and C++ Integration
 
 #		The following three files uses the Boost Software License:
@@ -16,7 +16,7 @@ URL:		https://cran.r-project.org/package=%{packname}
 Source0:	%{url}&version=%{version}#/%{packname}_%{version}.tar.gz
 
 BuildRequires:	gcc-c++
-BuildRequires:	R-core-devel
+BuildRequires:	R-devel, tex(latex)
 BuildRequires:	R-inline
 BuildRequires:	dos2unix
 
@@ -111,6 +111,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 %{_libdir}/R/library/%{packname}/examples
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.0.10-2
+- R-maint-sig mass rebuild
+
 * Tue Jan 24 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 1.0.10-1
 - Update to 1.0.10
 

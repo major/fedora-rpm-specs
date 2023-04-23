@@ -8,7 +8,7 @@
 %bcond_with libsodium_crypt
 %endif
 
-%define patchlevel 1443
+%define patchlevel 1472
 
 %if %{?WITH_SELINUX:0}%{!?WITH_SELINUX:1}
 %define WITH_SELINUX 1
@@ -388,11 +388,11 @@ sed -i -e 's,/usr/bin/python3,%{__python3},' %{PATCH3005}
 
 # fix rogue dependencies from sample code
 chmod -x runtime/tools/mve.awk
-%patch2000 -p1 -b .fixkeys
-%patch2001 -p1
+%patch 2000 -p1 -b .fixkeys
+%patch 2001 -p1
 
 %if %{withhunspell}
-%patch2002 -p1
+%patch 2002 -p1
 %endif
 
 perl -pi -e "s,bin/nawk,bin/awk,g" runtime/tools/mve.awk
@@ -402,12 +402,12 @@ perl -pi -e "s,bin/nawk,bin/awk,g" runtime/tools/mve.awk
 %{__tar} xjf %{SOURCE100}
 %endif
 
-%patch3000 -p1
-%patch3001 -p1
-%patch3002 -p1
-%patch3003 -p1 -b .python-tests
-%patch3004 -p1 -b .fips-warning
-%patch3005 -p1 -b .copypaste
+%patch 3000 -p1
+%patch 3001 -p1
+%patch 3002 -p1
+%patch 3003 -p1 -b .python-tests
+%patch 3004 -p1 -b .fips-warning
+%patch 3005 -p1 -b .copypaste
 
 %build
 cd src
@@ -1029,6 +1029,9 @@ touch %{buildroot}/%{_datadir}/%{name}/vimfiles/doc/tags
 
 
 %changelog
+* Fri Apr 21 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.1472-1
+- patchlevel 1472
+
 * Tue Apr 11 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.1443-1
 - patchlevel 1443
 

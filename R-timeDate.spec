@@ -2,8 +2,8 @@
 %global rlibdir  %{_datadir}/R/library
 
 Name:             R-%{packname}
-Version:          4021.104
-Release:          2%{?dist}
+Version:          4022.108
+Release:          1%{?dist}
 Summary:          Rmetrics - chronological and calendar objects
 
 License:          GPLv2+
@@ -74,12 +74,17 @@ rm -f %{buildroot}%{rlibdir}/R.css
 %{rlibdir}/%{packname}/Meta
 %{rlibdir}/%{packname}/NEWS.md
 %{rlibdir}/%{packname}/_pkgdown.yml
+%{rlibdir}/%{packname}/pkgdown.yml
 %{rlibdir}/%{packname}/R
 %{rlibdir}/%{packname}/help
 %{rlibdir}/%{packname}/unitTests
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 4022.108-1
+- R-maint-sig mass rebuild
+- Update to latest version
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4021.104-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

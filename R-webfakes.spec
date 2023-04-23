@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Fake Web Apps for HTTP Testing
 
 License:          MIT
@@ -79,6 +79,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.1.7-2
+- R-maint-sig mass rebuild
+
 * Wed Feb  8 2023 Tom Callaway <spot@fedoraproject.org> - 1.1.7-1
 - update to 1.1.7
 

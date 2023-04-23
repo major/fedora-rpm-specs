@@ -14,7 +14,7 @@
 
 Name:             R-%{packname}
 Version:          1.0.4
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Convert Statistical Objects into Tidy Tibbles
 
 License:          MIT
@@ -187,6 +187,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-examples --no
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.0.4-2
+- R-maint-sig mass rebuild
+
 * Tue Mar 14 2023 Tom Callaway <spot@fedoraproject.org> - 1.0.4-1
 - update to 1.0.4
 

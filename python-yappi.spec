@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.3.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Yet Another Python Profiler, supports Multithread/CPU time profiling
 
 License:        MIT
@@ -18,7 +18,6 @@ Patch06:        0006-Use-PyCode_GetVarnames-added-in-3.11.0rc1.patch
 Patch07:        0007-Fix-IS_SUSPENDED-call-to-use-PyFrame_GetGenerator-gi.patch
 Patch09:        0009-Use-codeobject-co_varnames-for-Py-versions-11.patch
 Patch11:        0011-Cosmetic.patch
-Patch12:        0010-Unconditionally-set-LIB_RT_AVAILABLE-and-link-with-l.patch
 
 BuildRequires:  git
 BuildRequires:  gcc
@@ -67,6 +66,10 @@ export PYTHONPATH=%{buildroot}/%{python3_sitearch}
 %{_bindir}/%{srcname}-3*
 
 %changelog
+* Fri Apr 21 2023 Florian Weimer <fweimer@redhat.com> - 1.3.6-4
+- Drop 0010-Unconditionally-set-LIB_RT_AVAILABLE-and-link-with-l.patch,
+  python3-setuptools has been fixed.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

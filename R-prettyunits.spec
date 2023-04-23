@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          9%{?dist}
+Release:          10%{?dist}
 Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.tar.gz
 License:          MIT
 URL:              http://cran.r-project.org/web/packages/prettyunits/index.html
@@ -46,6 +46,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/R/library/R.css
 %{_datadir}/R/library/%{packname}/help
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.1.1-10
+- R-maint-sig mass rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

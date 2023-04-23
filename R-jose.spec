@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          1.2.0
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          JavaScript Object Signing and Encryption
 
 License:          MIT
@@ -56,7 +56,7 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 %check
 %if %{with_doc}
-%{_bindir}/R CMD check %{packname}
+%{_bindir}/R CMD check --ignore-vignettes %{packname}
 %else
 _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --ignore-vignettes
 %endif
@@ -78,6 +78,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --ignore-vignettes
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.2.0-3
+- R-maint-sig mass rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

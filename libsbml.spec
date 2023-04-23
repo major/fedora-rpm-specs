@@ -35,7 +35,7 @@ Obsoletes:      libsbml-sharp < 0:5.18.0-20
 
 Name:           libsbml
 Version:        5.19.0
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Systems Biology Markup Language library
 License:        LGPLv2+
 URL:            http://sbml.org/Software/libSBML
@@ -419,6 +419,9 @@ popd
 %endif
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 5.19.0-25
+- R-maint-sig mass rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.19.0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

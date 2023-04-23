@@ -1,6 +1,6 @@
 Name:           solaar
-Version:        1.1.8
-Release:        2%{?dist}
+Version:        1.1.9
+Release:        1%{?dist}
 Summary:        Device manager for a wide range of Logitech devices
 URL:            https://github.com/pwr/Solaar
 Source:         %{url}/archive/%{version}/Solaar-%{version}.tar.gz
@@ -23,6 +23,7 @@ Requires:       hicolor-icon-theme
 Requires:       solaar-udev
 Recommends:     (gnome-shell-extension-appindicator if gnome-shell)
 Recommends:     gtk3
+Recommends:     libappindicator-gtk3
 Recommends:     python3-gobject-base
 Recommends:     python3-hid-parser
 
@@ -122,6 +123,10 @@ fi
 
 
 %changelog
+* Fri Apr 21 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.1.9-1
+- update to 1.1.9 (#2184776)
+- add weak dependency on libappindicator-gtk3, required to show tray icon (#2181248)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

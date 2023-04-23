@@ -54,7 +54,7 @@ ln -s %{_javadocdir}/%{name} %{buildroot}%{rlibdir}/%{packname}/javadoc
 %check
 export LANG=C.UTF-8
 export _R_CHECK_FORCE_SUGGESTS_=0
-%{_bindir}/R CMD check --ignore-vignettes --no-examples %{packname}
+%{_bindir}/R CMD check --no-manual --ignore-vignettes --no-examples %{packname}
 
 %files
 %dir %{rlibdir}/%{packname}

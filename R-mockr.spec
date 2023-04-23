@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          0.2.1
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Mocking in R
 
 License:          GPLv3
@@ -74,6 +74,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-vignettes --n
 %{rlibdir}/%{packname}/doc
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.2.1-2
+- R-maint-sig mass rebuild
+
 * Thu Feb  2 2023 Tom Callaway <spot@fedoraproject.org> - 0.2.1-1
 - update to 0.2.1
 

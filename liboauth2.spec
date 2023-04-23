@@ -1,6 +1,6 @@
 Name: liboauth2
-Version: 1.4.4
-Release: 3%{?dist}
+Version: 1.5.1
+Release: 1%{?dist}
 Summary: Generic library to build OAuth 2.x and OpenID Connect servers and clients in C
 License: AGPLv3
 URL: https://github.com/zmartzone/liboauth2
@@ -18,6 +18,7 @@ BuildRequires: pkgconfig(cjose)
 BuildRequires: pkgconfig(jansson)
 BuildRequires: pkgconfig(libcurl)
 BuildRequires: pkgconfig(openssl)
+BuildRequires: pkgconfig(libpcre2-8)
 BuildRequires: gdb-minimal
 
 %description
@@ -89,6 +90,19 @@ find %{buildroot}%{_includedir}/oauth2 -name '*.h' | grep -v apache | sed 's@%{b
 
 
 %changelog
+* Thu Apr 20 2023 Packit <hello@packit.dev> - 1.5.1-1
+- fix pcre2-8 dependency
+- add END_TEST to test_openidc_resolver_url (Hans Zandbelt)
+- release 1.5.1 (Hans Zandbelt)
+- oops: copy/paste omisson for oauth2_jose_jwt_verify_ctx iat_validate (Hans Zandbelt)
+- avoid memory leak and fix check_oauth2 (Hans Zandbelt)
+- add issuer validation for JWT access tokens (Hans Zandbelt)
+- add support for resolving provider metadata from a Discovery endpoint (Hans Zandbelt)
+- add error logs about missing or invalid "active" boolean claim (Hans Zandbelt)
+- update eclipse .cproject (Hans Zandbelt)
+- update cjose link; see #43; thanks @compoundradius (Hans Zandbelt)
+- move repo to OpenIDC github organization (Hans Zandbelt)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

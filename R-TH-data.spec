@@ -7,7 +7,7 @@
 # Cannot use . in name
 Name:             R-TH-data
 Version:          %{packver}.%{packrel}
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Data for other R packages
 
 License:          GPL-3.0-only
@@ -74,6 +74,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/R/library/R.css
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.1.2-2
+- R-maint-sig mass rebuild
+
 * Wed Apr 19 2023 Tom Callaway <spot@fedoraproject.org> - 1.1.2-1
 - update to 1.1-2
 - correct license tag to SPDX syntax

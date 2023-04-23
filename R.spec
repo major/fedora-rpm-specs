@@ -1,5 +1,5 @@
-# We do not want this (we need +x on files in %%{_libdir}/R/bin/)
-%define __brp_mangle_shebangs /usr/bin/true
+# We need +x on these files
+%global __brp_mangle_shebangs_exclude_from %{_libdir}/R/bin/
 
 # The additional linker flags break binary R- packages
 # https://bugzilla.redhat.com/show_bug.cgi?id=2046246
@@ -12,17 +12,9 @@
 %bcond_without tests
 %endif
 
-# Using LTO breaks debuginfo (probably not true anymore?)
-# https://bugzilla.redhat.com/show_bug.cgi?id=1113404
-# Also, enabling LTO in Fedora 36 results in:
-# checking whether gfortran and gcc agree on double complex...
-# configure: WARNING: gfortran and gcc disagree on double complex
-# AND that leads to Fortran complex functions are not available on this platform
-%bcond_with lto
-
-# We need at least gcc 10 anyway
+# We need at least gcc 10
 %global enable_lto 1
-%if %{without lto} || (0%{?rhel} && 0%{?rhel} < 9)
+%if 0%{?rhel} && 0%{?rhel} < 9
 %global enable_lto 0
 %global _lto_cflags %nil
 %endif
@@ -35,13 +27,17 @@
 %global blasvar o
 %endif
 
+# Should be the previous version, to make mass-rebuilds easier
+%bcond_with bootstrap
+%global bootstrap_abi 4.2
+
 %global major_version 4
-%global minor_version 2
-%global patch_version 3
+%global minor_version 3
+%global patch_version 0
 
 Name:           R
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        A language for data analysis and graphics
 
 License:        GPL-2.0-or-later
@@ -49,7 +45,6 @@ URL:            https://www.r-project.org
 Source0:        https://cran.r-project.org/src/base/R-4/R-%{version}.tar.gz
 # see https://bugzilla.redhat.com/show_bug.cgi?id=1324145
 Patch0:         R-3.3.0-fix-java_path-in-javareconf.patch
-Patch1:         R-4.2.3-curl-v8.patch
 
 BuildRequires:  gcc-gfortran
 BuildRequires:  gcc-c++
@@ -75,6 +70,7 @@ BuildRequires:  libICE-devel
 BuildRequires:  libXt-devel
 BuildRequires:  libXmu-devel
 BuildRequires:  libicu-devel
+BuildRequires:  libtirpc-devel
 %ifarch %{valgrind_arches}
 BuildRequires:  valgrind-devel
 %endif
@@ -84,7 +80,6 @@ BuildRequires:  java-devel
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  libtool
-BuildRequires:  less
 BuildRequires:  tex(latex)
 BuildRequires:  texinfo-tex
 BuildRequires:  tex(upquote.sty)
@@ -117,23 +112,7 @@ and called at run time.
 Summary:        The minimal R components necessary for a functional runtime
 Requires:       libRmath%{?_isa} = %{version}-%{release}
 Requires:       xdg-utils
-# Bugzilla 1875165
-Recommends:     cups
-# R inherits the compiler flags it was built with, hence we need this on hardened systems
-Requires:       redhat-rpm-config
-Requires:       vi
-%if 0%{?fedora}
-Requires:       perl-interpreter
-%else
-Requires:       perl
-%endif
-Requires:       sed
-Requires:       gawk
-Requires:       tex(latex)
-Requires:       tex(dvips)
-Requires:       less
-Requires:       make
-Requires:       unzip
+Requires:       zip, unzip
 
 %ifnarch %{java_arches}
 Provides:       R-java = %{version}-%{release}
@@ -143,6 +122,9 @@ Obsoletes:      R-java < 4.1.3-3
 # This is our ABI provides to prevent mismatched installs.
 # R packages should autogenerate a Requires: R(ABI) based on the R they were built against.
 Provides:       R(ABI) = %{major_version}.%{minor_version}
+%if %{with bootstrap}
+Provides:       R(ABI) = %{bootstrap_abi}
+%endif
 
 # These are the submodules that R-core provides. Sometimes R modules say they
 # depend on one of these submodules rather than just R. These are provided for
@@ -155,7 +137,7 @@ Provides:       R(ABI) = %{major_version}.%{minor_version}
   print("Provides: R(" .. name .. ") = " .. rpm_version)
 }
 %add_submodule  base %{version}
-%add_submodule  boot 1.3-28
+%add_submodule  boot 1.3-28.1
 %add_submodule  class 7.3-21
 %add_submodule  cluster 2.1.4
 %add_submodule  codetools 0.2-19
@@ -166,9 +148,9 @@ Provides:       R(ABI) = %{major_version}.%{minor_version}
 %add_submodule  grDevices %{version}
 %add_submodule  grid %{version}
 %add_submodule  KernSmooth 2.23-20
-%add_submodule  lattice 0.20-45
-%add_submodule  MASS 7.3-58.2
-%add_submodule  Matrix 1.5-3
+%add_submodule  lattice 0.21-8
+%add_submodule  MASS 7.3-58.4
+%add_submodule  Matrix 1.5-4
 Obsoletes:      R-Matrix < 0.999375-7
 %add_submodule  methods %{version}
 %add_submodule  mgcv 1.8-42
@@ -180,7 +162,7 @@ Obsoletes:      R-Matrix < 0.999375-7
 %add_submodule  splines %{version}
 %add_submodule  stats %{version}
 %add_submodule  stats4 %{version}
-%add_submodule  survival 3.5-3
+%add_submodule  survival 3.5-5
 %add_submodule  tcltk %{version}
 %add_submodule  tools %{version}
 %add_submodule  translations %{version}
@@ -204,9 +186,12 @@ and called at run time.
 Summary:        Core files for development of R packages (no Java)
 Requires:       R-core%{?_isa} = %{version}-%{release}
 Requires:       libRmath-devel%{?_isa} = %{version}-%{release}
+# R inherits the compiler flags it was built with, hence we need this on hardened systems
+Requires:       redhat-rpm-config
 # You need all the BuildRequires for the development version
 Requires:       gcc-gfortran
 Requires:       gcc-c++
+Requires:       make
 Requires:       pkgconfig
 Requires:       tcl-devel
 Requires:       tk-devel
@@ -218,25 +203,18 @@ Requires:       tre-devel
 Requires:       %{blaslib}-devel
 Requires:       libX11-devel
 Requires:       libicu-devel
-Requires:       tex(latex)
-Requires:       texinfo-tex
-Requires:       tex(ecrm1000.tfm)
-Requires:       tex(ptmr8t.tfm)
-Requires:       tex(ptmb8t.tfm)
-Requires:       tex(pcrr8t.tfm)
-Requires:       tex(phvr8t.tfm)
-Requires:       tex(ptmri8t.tfm)
-Requires:       tex(ptmro8t.tfm)
-Requires:       tex(cm-super-ts1.enc)
+Requires:       libtirpc-devel
+Recommends:     tex(latex)
+Recommends:     texinfo-tex
 %if 0%{?fedora}
 # No inconsolata on RHEL tex
-Requires:       tex(inconsolata.sty)
+Recommends:     tex(inconsolata.sty)
 # "‘qpdf’ is needed for checks on size reduction of PDFs"
 # qpdf is not in epel, and since 99% of R doesn't use it, we'll let it slide.
-Requires:       qpdf
+Recommends:     qpdf
 %endif
 
-Provides:       R-Matrix-devel = 1.5.3
+Provides:       R-Matrix-devel = 1.5.4
 Obsoletes:      R-Matrix-devel < 0.999375-7
 
 %ifarch %{java_arches}
@@ -324,27 +302,7 @@ from the R project.  This package provides the static libRmath library.
 
 %prep
 %setup -q
-%patch0 -p1 -b .fixpath
-%patch1 -p1 -b .fixpath
-
-# Filter false positive provides.
-cat <<EOF > %{name}-prov
-#!/bin/sh
-%{__perl_provides} \
-| grep -v 'File::Copy::Recursive' | grep -v 'Text::DelimMatch'
-EOF
-
-%global __perl_provides %{_builddir}/R-%{version}/%{name}-prov
-chmod +x %{__perl_provides}
-
-# Filter unwanted Requires:
-cat << \EOF > %{name}-req
-#!/bin/sh
-%{__perl_requires} \
-| grep -v 'perl(Text::DelimMatch)'
-EOF
-%global __perl_requires %{_builddir}/R-%{version}/%{name}-req
-chmod +x %{__perl_requires}
+%patch -P0 -p1 -b .fixpath
 
 %build
 # Comment out default R_LIBS_SITE (since R 4.2) and set our own as always
@@ -356,7 +314,6 @@ export R_RD4PDF="times,hyper"
 sed -i 's|inconsolata,||g' etc/Renviron.in
 %endif
 export R_PDFVIEWER="%{_bindir}/xdg-open"
-export R_PRINTCMD="lpr"
 export R_BROWSER="%{_bindir}/xdg-open"
 
 %ifarch %{java_arches}
@@ -406,8 +363,8 @@ install -p CAPABILITIES %{buildroot}%{_pkgdocdir}
 # Install libRmath files
 (cd src/nmath/standalone; make install DESTDIR=%{buildroot})
 
-mkdir -p %{buildroot}/etc/ld.so.conf.d
-echo "%{_libdir}/R/lib" > %{buildroot}/etc/ld.so.conf.d/%{name}-%{_arch}.conf
+mkdir -p %{buildroot}%{_sysconfdir}/ld.so.conf.d
+echo "%{_libdir}/R/lib" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}-%{_arch}.conf
 
 mkdir -p %{buildroot}%{_datadir}/R/library
 
@@ -437,12 +394,12 @@ if [ ! -d "%{buildroot}%{_libdir}/R/include" ]; then
 fi
 
 # Symbolic link for LaTeX
-if [ ! -d "%{buildroot}%{_datadir}/texmf/tex/latex/R" ]; then
-	mkdir -p %{buildroot}%{_datadir}/texmf/tex/latex
-	pushd %{buildroot}%{_datadir}/texmf/tex/latex
-	ln -s %{_datadir}/R/texmf/tex/latex R
-	popd
-fi
+%{!?_texdir:  %global _texdir  %{_datadir}/texlive}
+%{!?_texdist: %global _texdist %{_texdir}/texmf-dist}
+for i in tex/latex bibtex/bib bibtex/bst; do
+  mkdir -p %{buildroot}%{_texdist}/$i
+  (cd %{buildroot}%{_texdist}/$i && ln -s %{_datadir}/R/texmf/$i R)
+done
 
 %check
 %if %{with tests}
@@ -452,20 +409,6 @@ ulimit -s 16384
 TZ="Europe/Paris" make check
 %endif
 
-%post core
-/sbin/ldconfig
-
-%postun core
-/sbin/ldconfig
-if [ $1 -eq 0 ] ; then
-    /usr/bin/mktexlsr %{_datadir}/texmf &>/dev/null || :
-fi
-
-%posttrans core
-/usr/bin/mktexlsr %{_datadir}/texmf &>/dev/null || :
-
-%ldconfig_scriptlets -n libRmath
-
 %files
 # Metapackage
 
@@ -473,7 +416,17 @@ fi
 %{_bindir}/R
 %{_bindir}/Rscript
 %{_datadir}/R/
-%{_datadir}/texmf/tex/latex/R
+# Links to LaTeX stuff
+%dir %{_texdir}
+%dir %{_texdist}
+%dir %{_texdist}/tex/
+%dir %{_texdist}/tex/latex/
+%{_texdist}/tex/latex/R
+%dir %{_texdist}/bibtex/
+%dir %{_texdist}/bibtex/bib/
+%{_texdist}/bibtex/bib/R
+%dir %{_texdist}/bibtex/bst/
+%{_texdist}/bibtex/bst/R
 # Have to break this out for the translations
 %dir %{_libdir}/R/
 %{_libdir}/R/bin/
@@ -504,7 +457,15 @@ fi
 %lang(tr) %{_libdir}/R/library/translations/tr/
 %lang(zh) %{_libdir}/R/library/translations/zh*/
 # base
-%{_libdir}/R/library/base/
+%dir %{_libdir}/R/library/base/
+%{_libdir}/R/library/base/CITATION
+%{_libdir}/R/library/base/demo/
+%{_libdir}/R/library/base/DESCRIPTION
+%{_libdir}/R/library/base/help/
+%doc %{_libdir}/R/library/base/html/
+%{_libdir}/R/library/base/INDEX
+%{_libdir}/R/library/base/Meta/
+%{_libdir}/R/library/base/R/
 # boot
 %dir %{_libdir}/R/library/boot/
 %{_libdir}/R/library/boot/bd.q
@@ -512,7 +473,7 @@ fi
 %{_libdir}/R/library/boot/data/
 %{_libdir}/R/library/boot/DESCRIPTION
 %{_libdir}/R/library/boot/help/
-%{_libdir}/R/library/boot/html/
+%doc %{_libdir}/R/library/boot/html/
 %{_libdir}/R/library/boot/INDEX
 %{_libdir}/R/library/boot/Meta/
 %{_libdir}/R/library/boot/NAMESPACE
@@ -530,12 +491,12 @@ fi
 %{_libdir}/R/library/class/CITATION
 %{_libdir}/R/library/class/DESCRIPTION
 %{_libdir}/R/library/class/help/
-%{_libdir}/R/library/class/html/
+%doc %{_libdir}/R/library/class/html/
 %{_libdir}/R/library/class/INDEX
 %{_libdir}/R/library/class/libs/
 %{_libdir}/R/library/class/Meta/
 %{_libdir}/R/library/class/NAMESPACE
-%{_libdir}/R/library/class/NEWS
+%doc %{_libdir}/R/library/class/NEWS
 %dir %{_libdir}/R/library/class/po/
 %lang(de) %{_libdir}/R/library/class/po/de/
 %lang(en) %{_libdir}/R/library/class/po/en*/
@@ -550,14 +511,12 @@ fi
 %{_libdir}/R/library/cluster/data/
 %{_libdir}/R/library/cluster/DESCRIPTION
 %{_libdir}/R/library/cluster/help/
-%{_libdir}/R/library/cluster/html/
+%doc %{_libdir}/R/library/cluster/html/
 %{_libdir}/R/library/cluster/INDEX
 %{_libdir}/R/library/cluster/libs/
 %{_libdir}/R/library/cluster/Meta/
 %{_libdir}/R/library/cluster/NAMESPACE
-%{_libdir}/R/library/cluster/NEWS.Rd
-%{_libdir}/R/library/cluster/R/
-%{_libdir}/R/library/cluster/test-tools.R
+%doc %{_libdir}/R/library/cluster/NEWS.Rd
 %dir %{_libdir}/R/library/cluster/po/
 %lang(de) %{_libdir}/R/library/cluster/po/de/
 %lang(en) %{_libdir}/R/library/cluster/po/en*/
@@ -566,26 +525,42 @@ fi
 %lang(ko) %{_libdir}/R/library/cluster/po/ko/
 %lang(lt) %{_libdir}/R/library/cluster/po/lt/
 %lang(pl) %{_libdir}/R/library/cluster/po/pl/
+%{_libdir}/R/library/cluster/R/
+%{_libdir}/R/library/cluster/test-tools.R
 # codetools
 %dir %{_libdir}/R/library/codetools/
 %{_libdir}/R/library/codetools/DESCRIPTION
 %{_libdir}/R/library/codetools/help/
-%{_libdir}/R/library/codetools/html/
+%doc %{_libdir}/R/library/codetools/html/
 %{_libdir}/R/library/codetools/INDEX
 %{_libdir}/R/library/codetools/Meta/
 %{_libdir}/R/library/codetools/NAMESPACE
 %{_libdir}/R/library/codetools/R/
 # compiler
-%{_libdir}/R/library/compiler/
+%dir %{_libdir}/R/library/compiler/
+%{_libdir}/R/library/compiler/DESCRIPTION
+%{_libdir}/R/library/compiler/help/
+%doc %{_libdir}/R/library/compiler/html/
+%{_libdir}/R/library/compiler/INDEX
+%{_libdir}/R/library/compiler/Meta/
+%{_libdir}/R/library/compiler/NAMESPACE
+%{_libdir}/R/library/compiler/R/
 # datasets
-%{_libdir}/R/library/datasets/
+%dir %{_libdir}/R/library/datasets/
+%{_libdir}/R/library/datasets/data/
+%{_libdir}/R/library/datasets/DESCRIPTION
+%{_libdir}/R/library/datasets/help/
+%doc %{_libdir}/R/library/datasets/html
+%{_libdir}/R/library/datasets/INDEX
+%{_libdir}/R/library/datasets/Meta/
+%{_libdir}/R/library/datasets/NAMESPACE
 # foreign
 %dir %{_libdir}/R/library/foreign/
-%{_libdir}/R/library/foreign/COPYRIGHTS
+%license %{_libdir}/R/library/foreign/COPYRIGHTS
 %{_libdir}/R/library/foreign/DESCRIPTION
 %{_libdir}/R/library/foreign/files/
 %{_libdir}/R/library/foreign/help/
-%{_libdir}/R/library/foreign/html/
+%doc %{_libdir}/R/library/foreign/html/
 %{_libdir}/R/library/foreign/INDEX
 %{_libdir}/R/library/foreign/libs/
 %{_libdir}/R/library/foreign/Meta/
@@ -598,16 +573,47 @@ fi
 %lang(pl) %{_libdir}/R/library/foreign/po/pl/
 %{_libdir}/R/library/foreign/R/
 # graphics
-%{_libdir}/R/library/graphics/
+%dir %{_libdir}/R/library/graphics/
+%{_libdir}/R/library/graphics/demo/
+%{_libdir}/R/library/graphics/DESCRIPTION
+%{_libdir}/R/library/graphics/help/
+%doc %{_libdir}/R/library/graphics/html/
+%{_libdir}/R/library/graphics/INDEX
+%{_libdir}/R/library/graphics/libs/
+%{_libdir}/R/library/graphics/Meta/
+%{_libdir}/R/library/graphics/NAMESPACE
+%{_libdir}/R/library/graphics/R/
 # grDevices
-%{_libdir}/R/library/grDevices
+%dir %{_libdir}/R/library/grDevices/
+%{_libdir}/R/library/grDevices/afm/
+%{_libdir}/R/library/grDevices/demo/
+%{_libdir}/R/library/grDevices/DESCRIPTION
+%{_libdir}/R/library/grDevices/enc/
+%{_libdir}/R/library/grDevices/fonts/
+%{_libdir}/R/library/grDevices/help/
+%doc %{_libdir}/R/library/grDevices/html/
+%{_libdir}/R/library/grDevices/icc/
+%{_libdir}/R/library/grDevices/INDEX
+%{_libdir}/R/library/grDevices/libs/
+%{_libdir}/R/library/grDevices/Meta/
+%{_libdir}/R/library/grDevices/NAMESPACE
+%{_libdir}/R/library/grDevices/R/
 # grid
-%{_libdir}/R/library/grid/
+%dir %{_libdir}/R/library/grid/
+%{_libdir}/R/library/grid/DESCRIPTION
+%doc %{_libdir}/R/library/grid/doc/
+%{_libdir}/R/library/grid/help/
+%doc %{_libdir}/R/library/grid/html/
+%{_libdir}/R/library/grid/INDEX
+%{_libdir}/R/library/grid/libs/
+%{_libdir}/R/library/grid/Meta/
+%{_libdir}/R/library/grid/NAMESPACE
+%{_libdir}/R/library/grid/R/
 # KernSmooth
 %dir %{_libdir}/R/library/KernSmooth/
 %{_libdir}/R/library/KernSmooth/DESCRIPTION
 %{_libdir}/R/library/KernSmooth/help/
-%{_libdir}/R/library/KernSmooth/html/
+%doc %{_libdir}/R/library/KernSmooth/html/
 %{_libdir}/R/library/KernSmooth/INDEX
 %{_libdir}/R/library/KernSmooth/libs/
 %{_libdir}/R/library/KernSmooth/Meta/
@@ -626,13 +632,14 @@ fi
 %{_libdir}/R/library/lattice/data/
 %{_libdir}/R/library/lattice/demo/
 %{_libdir}/R/library/lattice/DESCRIPTION
+%doc %{_libdir}/R/library/lattice/doc/
 %{_libdir}/R/library/lattice/help/
-%{_libdir}/R/library/lattice/html/
+%doc %{_libdir}/R/library/lattice/html/
 %{_libdir}/R/library/lattice/INDEX
 %{_libdir}/R/library/lattice/libs/
 %{_libdir}/R/library/lattice/Meta/
 %{_libdir}/R/library/lattice/NAMESPACE
-%{_libdir}/R/library/lattice/NEWS
+%doc %{_libdir}/R/library/lattice/NEWS.md
 %dir %{_libdir}/R/library/lattice/po/
 %lang(de) %{_libdir}/R/library/lattice/po/de/
 %lang(en) %{_libdir}/R/library/lattice/po/en*/
@@ -647,12 +654,12 @@ fi
 %{_libdir}/R/library/MASS/data/
 %{_libdir}/R/library/MASS/DESCRIPTION
 %{_libdir}/R/library/MASS/help/
-%{_libdir}/R/library/MASS/html/
+%doc %{_libdir}/R/library/MASS/html/
 %{_libdir}/R/library/MASS/INDEX
 %{_libdir}/R/library/MASS/libs/
 %{_libdir}/R/library/MASS/Meta/
 %{_libdir}/R/library/MASS/NAMESPACE
-%{_libdir}/R/library/MASS/NEWS
+%doc %{_libdir}/R/library/MASS/NEWS
 %dir %{_libdir}/R/library/MASS/po
 %lang(de) %{_libdir}/R/library/MASS/po/de/
 %lang(en) %{_libdir}/R/library/MASS/po/en*/
@@ -664,21 +671,21 @@ fi
 %{_libdir}/R/library/MASS/scripts/
 # Matrix
 %dir %{_libdir}/R/library/Matrix/
-%{_libdir}/R/library/Matrix/Copyrights
+%license %{_libdir}/R/library/Matrix/Copyrights
 %{_libdir}/R/library/Matrix/data/
-%{_libdir}/R/library/Matrix/doc/
 %{_libdir}/R/library/Matrix/DESCRIPTION
+%doc %{_libdir}/R/library/Matrix/doc/
 %{_libdir}/R/library/Matrix/Doxyfile
 %{_libdir}/R/library/Matrix/external/
 %{_libdir}/R/library/Matrix/help/
-%{_libdir}/R/library/Matrix/html/
+%doc %{_libdir}/R/library/Matrix/html/
 %{_libdir}/R/library/Matrix/include/
 %{_libdir}/R/library/Matrix/INDEX
 %{_libdir}/R/library/Matrix/libs/
-%{_libdir}/R/library/Matrix/LICENCE
+%license %{_libdir}/R/library/Matrix/LICENCE
 %{_libdir}/R/library/Matrix/Meta/
 %{_libdir}/R/library/Matrix/NAMESPACE
-%{_libdir}/R/library/Matrix/NEWS.Rd
+%doc %{_libdir}/R/library/Matrix/NEWS.Rd
 %dir %{_libdir}/R/library/Matrix/po/
 %lang(de) %{_libdir}/R/library/Matrix/po/de/
 %lang(en) %{_libdir}/R/library/Matrix/po/en*/
@@ -692,16 +699,40 @@ fi
 %{_libdir}/R/library/Matrix/test-tools-1.R
 %{_libdir}/R/library/Matrix/test-tools-Matrix.R
 # methods
-%{_libdir}/R/library/methods/
+%dir %{_libdir}/R/library/methods/
+%{_libdir}/R/library/methods/DESCRIPTION
+%{_libdir}/R/library/methods/help/
+%doc %{_libdir}/R/library/methods/html/
+%{_libdir}/R/library/methods/INDEX
+%{_libdir}/R/library/methods/libs/
+%{_libdir}/R/library/methods/Meta/
+%{_libdir}/R/library/methods/NAMESPACE
+%{_libdir}/R/library/methods/R/
 # mgcv
-%{_libdir}/R/library/mgcv/
+%dir %{_libdir}/R/library/mgcv/
+%{_libdir}/R/library/mgcv/CITATION
+%{_libdir}/R/library/mgcv/data/
+%{_libdir}/R/library/mgcv/DESCRIPTION
+%{_libdir}/R/library/mgcv/help/
+%doc %{_libdir}/R/library/mgcv/html/
+%{_libdir}/R/library/mgcv/INDEX
+%{_libdir}/R/library/mgcv/libs/
+%{_libdir}/R/library/mgcv/Meta/
+%{_libdir}/R/library/mgcv/NAMESPACE
+%dir %{_libdir}/R/library/mgcv/po/
+%lang(de) %{_libdir}/R/library/mgcv/po/de/
+%lang(en) %{_libdir}/R/library/mgcv/po/en*/
+%lang(fr) %{_libdir}/R/library/mgcv/po/fr/
+%lang(ko) %{_libdir}/R/library/mgcv/po/ko/
+%lang(pl) %{_libdir}/R/library/mgcv/po/pl/
+%{_libdir}/R/library/mgcv/R/
 # nlme
 %dir %{_libdir}/R/library/nlme/
 %{_libdir}/R/library/nlme/CITATION
 %{_libdir}/R/library/nlme/data/
 %{_libdir}/R/library/nlme/DESCRIPTION
 %{_libdir}/R/library/nlme/help/
-%{_libdir}/R/library/nlme/html/
+%doc %{_libdir}/R/library/nlme/html/
 %{_libdir}/R/library/nlme/INDEX
 %{_libdir}/R/library/nlme/libs/
 %{_libdir}/R/library/nlme/Meta/
@@ -720,12 +751,12 @@ fi
 %{_libdir}/R/library/nnet/CITATION
 %{_libdir}/R/library/nnet/DESCRIPTION
 %{_libdir}/R/library/nnet/help/
-%{_libdir}/R/library/nnet/html/
+%doc %{_libdir}/R/library/nnet/html/
 %{_libdir}/R/library/nnet/INDEX
 %{_libdir}/R/library/nnet/libs/
 %{_libdir}/R/library/nnet/Meta/
 %{_libdir}/R/library/nnet/NAMESPACE
-%{_libdir}/R/library/nnet/NEWS
+%doc %{_libdir}/R/library/nnet/NEWS
 %dir %{_libdir}/R/library/nnet/po
 %lang(de) %{_libdir}/R/library/nnet/po/de/
 %lang(en) %{_libdir}/R/library/nnet/po/en*/
@@ -735,19 +766,28 @@ fi
 %lang(pl) %{_libdir}/R/library/nnet/po/pl/
 %{_libdir}/R/library/nnet/R/
 # parallel
-%{_libdir}/R/library/parallel/
+%dir %{_libdir}/R/library/parallel/
+%{_libdir}/R/library/parallel/DESCRIPTION
+%doc %{_libdir}/R/library/parallel/doc/
+%{_libdir}/R/library/parallel/help/
+%doc %{_libdir}/R/library/parallel/html/
+%{_libdir}/R/library/parallel/INDEX
+%{_libdir}/R/library/parallel/libs/
+%{_libdir}/R/library/parallel/Meta/
+%{_libdir}/R/library/parallel/NAMESPACE
+%{_libdir}/R/library/parallel/R/
 # rpart
 %dir %{_libdir}/R/library/rpart/
 %{_libdir}/R/library/rpart/data/
 %{_libdir}/R/library/rpart/DESCRIPTION
-%{_libdir}/R/library/rpart/doc/
+%doc %{_libdir}/R/library/rpart/doc/
 %{_libdir}/R/library/rpart/help/
-%{_libdir}/R/library/rpart/html/
+%doc %{_libdir}/R/library/rpart/html/
 %{_libdir}/R/library/rpart/INDEX
 %{_libdir}/R/library/rpart/libs/
 %{_libdir}/R/library/rpart/Meta/
 %{_libdir}/R/library/rpart/NAMESPACE
-%{_libdir}/R/library/rpart/NEWS.Rd
+%doc %{_libdir}/R/library/rpart/NEWS.Rd
 %dir %{_libdir}/R/library/rpart/po
 %lang(de) %{_libdir}/R/library/rpart/po/de/
 %lang(en) %{_libdir}/R/library/rpart/po/en*/
@@ -761,12 +801,12 @@ fi
 %{_libdir}/R/library/spatial/CITATION
 %{_libdir}/R/library/spatial/DESCRIPTION
 %{_libdir}/R/library/spatial/help/
-%{_libdir}/R/library/spatial/html/
+%doc %{_libdir}/R/library/spatial/html/
 %{_libdir}/R/library/spatial/INDEX
 %{_libdir}/R/library/spatial/libs/
 %{_libdir}/R/library/spatial/Meta/
 %{_libdir}/R/library/spatial/NAMESPACE
-%{_libdir}/R/library/spatial/NEWS
+%doc %{_libdir}/R/library/spatial/NEWS
 %dir %{_libdir}/R/library/spatial/po
 %lang(de) %{_libdir}/R/library/spatial/po/de/
 %lang(en) %{_libdir}/R/library/spatial/po/en*/
@@ -778,28 +818,99 @@ fi
 %{_libdir}/R/library/spatial/PP.files
 %{_libdir}/R/library/spatial/R/
 # splines
-%{_libdir}/R/library/splines/
+%dir %{_libdir}/R/library/splines/
+%{_libdir}/R/library/splines/DESCRIPTION
+%{_libdir}/R/library/splines/help/
+%doc %{_libdir}/R/library/splines/html/
+%{_libdir}/R/library/splines/INDEX
+%{_libdir}/R/library/splines/libs/
+%{_libdir}/R/library/splines/Meta/
+%{_libdir}/R/library/splines/NAMESPACE
+%{_libdir}/R/library/splines/R/
 # stats
-%{_libdir}/R/library/stats/
+%dir %{_libdir}/R/library/stats/
+%license %{_libdir}/R/library/stats/COPYRIGHTS.modreg
+%{_libdir}/R/library/stats/demo/
+%{_libdir}/R/library/stats/DESCRIPTION
+%doc %{_libdir}/R/library/stats/doc/
+%{_libdir}/R/library/stats/help/
+%doc %{_libdir}/R/library/stats/html/
+%{_libdir}/R/library/stats/INDEX
+%{_libdir}/R/library/stats/libs/
+%{_libdir}/R/library/stats/Meta/
+%{_libdir}/R/library/stats/NAMESPACE
+%{_libdir}/R/library/stats/R/
+%{_libdir}/R/library/stats/SOURCES.ts
 # stats4
-%{_libdir}/R/library/stats4/
+%dir %{_libdir}/R/library/stats4/
+%{_libdir}/R/library/stats4/DESCRIPTION
+%{_libdir}/R/library/stats4/help/
+%doc %{_libdir}/R/library/stats4/html/
+%{_libdir}/R/library/stats4/INDEX
+%{_libdir}/R/library/stats4/Meta/
+%{_libdir}/R/library/stats4/NAMESPACE
+%{_libdir}/R/library/stats4/R/
 # survival
-%{_libdir}/R/library/survival/
+%dir %{_libdir}/R/library/survival/
+%{_libdir}/R/library/survival/CITATION
+%license %{_libdir}/R/library/survival/COPYRIGHTS
+%{_libdir}/R/library/survival/data/
+%{_libdir}/R/library/survival/DESCRIPTION
+%doc %{_libdir}/R/library/survival/doc/
+%{_libdir}/R/library/survival/help
+%doc %{_libdir}/R/library/survival/html/
+%{_libdir}/R/library/survival/INDEX
+%{_libdir}/R/library/survival/libs/
+%{_libdir}/R/library/survival/Meta/
+%{_libdir}/R/library/survival/NAMESPACE
+%doc %{_libdir}/R/library/survival/NEWS.Rd
+%{_libdir}/R/library/survival/R/
 # tcltk
-%{_libdir}/R/library/tcltk/
+%dir %{_libdir}/R/library/tcltk/
+%{_libdir}/R/library/tcltk/demo/
+%{_libdir}/R/library/tcltk/DESCRIPTION
+%{_libdir}/R/library/tcltk/exec/
+%{_libdir}/R/library/tcltk/help/
+%doc %{_libdir}/R/library/tcltk/html/
+%{_libdir}/R/library/tcltk/INDEX
+%{_libdir}/R/library/tcltk/libs/
+%{_libdir}/R/library/tcltk/Meta/
+%{_libdir}/R/library/tcltk/NAMESPACE
+%{_libdir}/R/library/tcltk/R/
 # tools
-%{_libdir}/R/library/tools/
+%dir %{_libdir}/R/library/tools/
+%{_libdir}/R/library/tools/DESCRIPTION
+%{_libdir}/R/library/tools/help/
+%doc %{_libdir}/R/library/tools/html/
+%{_libdir}/R/library/tools/INDEX
+%{_libdir}/R/library/tools/libs/
+%{_libdir}/R/library/tools/Meta/
+%{_libdir}/R/library/tools/NAMESPACE
+%{_libdir}/R/library/tools/R/
 # utils
-%{_libdir}/R/library/utils/
+%dir %{_libdir}/R/library/utils/
+%{_libdir}/R/library/utils/DESCRIPTION
+%doc %{_libdir}/R/library/utils/doc/
+%{_libdir}/R/library/utils/help/
+%doc %{_libdir}/R/library/utils/html/
+%{_libdir}/R/library/utils/iconvlist
+%{_libdir}/R/library/utils/INDEX
+%{_libdir}/R/library/utils/libs/
+%{_libdir}/R/library/utils/Meta/
+%{_libdir}/R/library/utils/misc/
+%{_libdir}/R/library/utils/NAMESPACE
+%{_libdir}/R/library/utils/R/
+%{_libdir}/R/library/utils/Sweave/
+# end of packages
 %{_libdir}/R/modules
-%{_libdir}/R/COPYING
-# %%{_libdir}/R/NEWS*
+%license %{_libdir}/R/COPYING
+# %%doc %%{_libdir}/R/NEWS*
 %{_libdir}/R/SVN-REVISION
 %{_infodir}/R-*.info*
 %{_mandir}/man1/*
 %{_pkgdocdir}
 %docdir %{_pkgdocdir}
-/etc/ld.so.conf.d/*
+%{_sysconfdir}/ld.so.conf.d/*
 
 %files core-devel
 %{_libdir}/pkgconfig/libR.pc
@@ -819,7 +930,7 @@ fi
 %endif
 
 %files -n libRmath
-%doc doc/COPYING
+%license doc/COPYING
 %{_libdir}/libRmath.so
 
 %files -n libRmath-devel
@@ -830,6 +941,13 @@ fi
 %{_libdir}/libRmath.a
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 4.3.0-1
+- Update to 4.3.0
+- Enable LTO (except for EPEL8)
+- Drop some tools from Requires for R-core
+- Move latex-stuff to Recommends for R-core-devel
+- Mark all html and doc folders as documentation
+
 * Thu Mar 23 2023 Iñaki Úcar <iucar@fedoraproject.org> - 4.2.3-2
 - Enable libcurl > 7
 

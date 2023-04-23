@@ -7,7 +7,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Call R from R
 
 License:          MIT
@@ -83,6 +83,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 3.7.3-2
+- R-maint-sig mass rebuild
+
 * Wed Apr 19 2023 Tom Callaway <spot@fedoraproject.org> - 3.7.3-1
 - update to 3.7.3
 - adjust packaging model to one where suggests are optional (and not enabled by default)

@@ -5,7 +5,7 @@
 
 Name:           R-%{packname}
 Version:        4.4.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Discrete-Event Simulation for R
 
 License:        GPLv2+
@@ -52,7 +52,7 @@ rm -f %{buildroot}%{rlibdir}/R.css
 %check
 export LANG=C.UTF-8
 export _R_CHECK_FORCE_SUGGESTS_=0
-%{_bindir}/R CMD check --ignore-vignettes %{packname}
+%{_bindir}/R CMD check --no-manual --ignore-vignettes %{packname}
 
 %files
 %dir %{rlibdir}/%{packname}
@@ -72,6 +72,9 @@ export _R_CHECK_FORCE_SUGGESTS_=0
 %{rlibdir}/%{packname}/include
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 4.4.5-5
+- R-maint-sig mass rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0xa63ea142678138d1bb15f2e303bdfd64dd164087
+%global sources_gpg_sign 0xa7475c5f2122fec3f90343223fe3bf5aad1080e4
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
@@ -12,8 +12,8 @@ troveclient module), and a command-line script (trove). Each \
 implements 100% (or less ;) ) of the Trove API.
 
 Name:           python-troveclient
-Version:        8.0.0
-Release:        2%{?dist}
+Version:        8.1.0
+Release:        1%{?dist}
 Summary:        Client library for OpenStack DBaaS API
 
 License:        ASL 2.0
@@ -138,6 +138,9 @@ PYTHONPATH=. %{__python3} setup.py test
 %endif
 
 %changelog
+* Fri Apr 21 2023 Karolina Kula <kkula@redhat.com> 8.1.0-1
+- Update to upstream version 8.1.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,13 +1,16 @@
 %bcond_without check
 %global pname hid-parser
+%global commit 7d947404d8259bc42fbb81dd0d81bd6d315e4ef0
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global snapshotdate 20210228
 
 Name:           python-hid-parser
 Version:        0.0.3
-Release:        2%{?dist}
+Release:        3.%{snapshotdate}git%{shortcommit}%{?dist}
 Summary:        Parse HID report descriptors
 License:        MIT
 URL:            https://github.com/usb-tools/python-hid-parser
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 BuildArch:      noarch
 BuildRequires:  python3-devel
 
@@ -24,7 +27,7 @@ Summary:        %{summary}
 %description -n python3-%{pname} %_desc
 
 %prep
-%autosetup
+%autosetup -n %{name}-%{commit}
 %generate_buildrequires
 %if %{with check}
 %pyproject_buildrequires -x test
@@ -49,6 +52,9 @@ Summary:        %{summary}
 %license LICENSE
 
 %changelog
+* Fri Apr 21 2023 Dominik Mierzejewski <dominik@greysector.net> - 0.0.3-3.20210228git7d94740
+- update to latest git HEAD
+
 * Wed Mar 08 2023 Dominik Mierzejewski <dominik@greysector.net> - 0.0.3-2
 - use automatic BuildRequires generation
 - conditionalize running tests

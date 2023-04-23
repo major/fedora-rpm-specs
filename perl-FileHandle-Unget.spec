@@ -1,11 +1,8 @@
-# Need to tweak provides filter differently if we have rpm 4.9 onwards
-%global rpm49 %(rpm --version | perl -p -e 's/^.* (\\d+)\\.(\\d+).*/sprintf("%d.%03d",$1,$2) ge 4.009 ? 1 : 0/e' 2>/dev/null || echo 0)
-
 Summary:	A FileHandle that supports ungetting of multiple bytes
 Name:		perl-FileHandle-Unget
 Version:	0.1634
-Release:	15%{?dist}
-License:	GPLv2
+Release:	16%{?dist}
+License:	GPL-2.0-only
 URL:		https://metacpan.org/release/FileHandle-Unget
 Source0:	https://cpan.metacpan.org/modules/by-module/FileHandle/FileHandle-Unget-%{version}.tar.gz
 BuildArch:	noarch
@@ -47,7 +44,7 @@ BuildRequires:	perl(UNIVERSAL::require)
 # Optional Tests
 BuildRequires:	perl(Devel::Leak)
 BuildRequires:	perl(Test::Pod)
-# Runtime
+# Dependencies
 Provides:	perl(FileHandle::Unget) = %{version}
 
 %description
@@ -58,14 +55,6 @@ string of bytes back on the input.
 
 %prep
 %setup -q -n FileHandle-Unget-%{version}
-
-# Drop bogus autodetected provide with wrong version
-%if %{rpm49}
-%global __provides_exclude ^perl\\(FileHandle::Unget\\)
-%else
-%global provfilt /bin/sh -c "%{__perl_provides} | grep -v '^perl(FileHandle::Unget)'"
-%global __perl_provides %{provfilt}
-%endif
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor
@@ -80,16 +69,17 @@ find %{buildroot} -type f -name .packlist -delete
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
 %doc CHANGES README TODO
 %{perl_vendorlib}/FileHandle/
 %{_mandir}/man3/FileHandle::Unget.3*
 
 %changelog
+* Fri Apr 21 2023 Paul Howarth <paul@city-fan.org> - 0.1634-16
+- Use SPDX-format license tag
+- Drop support for building with rpm < 4.9
+- Use %%license unconditionally
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1634-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

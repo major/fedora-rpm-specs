@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          1.1.0
-Release:          11%{?dist}
+Release:          12%{?dist}
 Summary:          Pretty Print R Code in the Terminal
 
 License:          MIT
@@ -69,6 +69,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.1.0-12
+- R-maint-sig mass rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

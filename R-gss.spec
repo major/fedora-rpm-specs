@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          2.2.4
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          General Smoothing Splines
 
 License:          GPLv2+
@@ -61,6 +61,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2.2.4-2
+- R-maint-sig mass rebuild
+
 * Wed Mar 15 2023 Tom Callaway <spot@fedoraproject.org> - 2.2.4-1
 - update to 2.2-4
 

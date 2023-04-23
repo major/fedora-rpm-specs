@@ -4,13 +4,13 @@
 
 Name:             R-%{packname}
 Version:          %{packver}.%{packrel}
-Release:          15%{?dist}
+Release:          16%{?dist}
 Summary:          Combine multi-dimensional arrays
 License:          LGPLv2+
 URL:              http://cran.r-project.org/web/packages/abind/index.html
 Source0:          http://cran.r-project.org/src/contrib/%{packname}_%{packver}-%{packrel}.tar.gz
 BuildArch:        noarch
-BuildRequires:    R-devel >= 3.0.0 R-methods R-utils
+BuildRequires:    R-devel >= 3.0.0 tex(latex) R-methods R-utils
 
 %description
 Combine multi-dimensional arrays. This is a generalization of cbind and rbind. 
@@ -44,6 +44,9 @@ test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)
 %{_datadir}/R/library/%{packname}/help
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.4.5-16
+- R-maint-sig mass rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -13,7 +13,7 @@ URL:		https://CRAN.R-project.org/package=%{packname}
 Source:		%{url}&version=%{packvers}-%{packrel}#/%{packname}_%{packvers}-%{packrel}.tar.gz
 
 BuildRequires:	R-devel
-BuildRequires:	tex(a4wide.sty)
+BuildRequires:	tex(latex)
 
 ExcludeArch:	%{ix86} s390x
 

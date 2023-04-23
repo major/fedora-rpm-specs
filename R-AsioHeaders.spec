@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          1.22.1.1
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          Asio C++ Header Files
 
 License:          Boost
@@ -82,6 +82,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.22.1.1-4
+- R-maint-sig mass rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

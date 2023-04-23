@@ -2,7 +2,7 @@ Name:           perl-GD
 Version:        2.76
 Release:        4%{?dist}
 Summary:        Perl interface to the GD graphics library
-License:        GPL+ or Artistic 2.0
+License:        GPL-1.0-or-later OR Artistic-2.0
 URL:            https://metacpan.org/release/GD
 Source0:        https://cpan.metacpan.org/modules/by-module/GD/GD-%{version}.tar.gz
 Patch0:         GD-2.74-utf8.patch
@@ -40,7 +40,7 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
-# Runtime
+# Dependencies
 Requires:       gd >= 2.0.28
 
 %global __provides_exclude %{?__provides_exclude:__provides_exclude|}^perl\\(GD::Polygon\\)$
@@ -55,10 +55,10 @@ create PNG images on the fly or modify existing files.
 %setup -q -n GD-%{version}
 
 # Re-code documentation as UTF8
-%patch0
+%patch -P 0
 
 # Upstream wants -Wformat=1 but we don't
-%patch1
+%patch -P 1
 
 # Fix shellbangs in sample scripts
 perl -pi -e 's|/usr/local/bin/perl\b|%{__perl}|' \

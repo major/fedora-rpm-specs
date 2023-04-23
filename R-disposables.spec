@@ -5,7 +5,7 @@
 
 Name:             R-%{packname}
 Version:          1.0.3
-Release:          15%{?dist}
+Release:          16%{?dist}
 Summary:          Create Disposable R Packages for Testing
 
 License:          MIT
@@ -75,6 +75,9 @@ rm %{buildroot}%{rlibdir}/%{packname}/README.markdown
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.0.3-16
+- R-maint-sig mass rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          1.0.3
-Release:          1%{?dist}
+Release:          3%{?dist}
 License:          GPL-2.0-or-later
 URL:              https://CRAN.R-project.org/package=%{packname}
 Source:           %{url}&version=%{ver}#/%{packname}_%{ver}.tar.gz
@@ -49,6 +49,12 @@ export LANG=C.UTF-8
 %{rlibdir}/%{packname}/help
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.0.3-3
+- R-maint-sig mass rebuild
+
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.0.3-2
+- R-maint-sig mass rebuild
+
 * Sat Apr 8 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 1.0.3-1
 - Initial package
 

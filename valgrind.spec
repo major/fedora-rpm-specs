@@ -2,8 +2,8 @@
 
 Summary: Dynamic analysis tools to detect memory or thread bugs and profile
 Name: %{?scl_prefix}valgrind
-Version: 3.20.0
-Release: 3%{?dist}
+Version: 3.21.0
+Release: 0.1.RC1%{?dist}
 Epoch: 1
 License: GPLv2+
 URL: https://www.valgrind.org/
@@ -69,7 +69,7 @@ URL: https://www.valgrind.org/
 # So those will already have their full symbol table.
 %undefine _include_minidebuginfo
 
-Source0: https://sourceware.org/pub/valgrind/valgrind-%{version}.tar.bz2
+Source0: https://sourceware.org/pub/valgrind/valgrind-%{version}.RC1.tar.bz2
 
 # Needs investigation and pushing upstream
 Patch1: valgrind-3.9.0-cachegrind-improvements.patch
@@ -82,8 +82,6 @@ Patch3: valgrind-3.16.0-some-stack-protector.patch
 
 # Add some -Wl,z,now.
 Patch4: valgrind-3.16.0-some-Wl-z-now.patch
-
-Patch5: valgrind-faultstatus-implicit-int.patch
 
 BuildRequires: make
 BuildRequires: glibc-devel
@@ -211,7 +209,7 @@ Valgrind User Manual for details.
 %endif
 
 %prep
-%setup -q -n %{?scl:%{pkg_name}}%{!?scl:%{name}}-%{version}
+%setup -q -n %{?scl:%{pkg_name}}%{!?scl:%{name}}-%{version}.RC1
 
 %patch1 -p1
 %patch2 -p1
@@ -220,7 +218,6 @@ Valgrind User Manual for details.
 %if 0%{?fedora} || 0%{?rhel} >= 7
 %patch3 -p1
 %patch4 -p1
-%patch5 -p1
 %endif
 
 %build
@@ -451,8 +448,11 @@ fi
 %endif
 
 %changelog
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.20.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+* Fri Apr 21 2023 Mark Wielaard <mjw@fedoraproject.org> - 3.21.0-0.1.RC1
+- Upstream 3.21.0-RC1
+- Remove upstreamed valgrind-faultstatus-implicit-int.patch
+- Adjust valgrind-3.16.0-some-{Wl-z-now,stack-protector}.patch
+  cg_merge is now a pything script.
 
 * Fri Nov 18 2022 Florian Weimer <fweimer@redhat.com> - 1:3.20.0-2
 - Avoid using implicit int C89 feature

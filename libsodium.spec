@@ -10,12 +10,18 @@
 
 Name:           libsodium
 Version:        1.0.18
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        The Sodium crypto library
 License:        ISC
 URL:            https://libsodium.org/
-Source0:        https://download.libsodium.org/libsodium/releases/%{name}-%{version}.tar.gz
 
+Source0:        https://download.libsodium.org/libsodium/releases/%{name}-%{version}.tar.gz
+Source1:        https://download.libsodium.org/libsodium/releases/%{name}-%{version}.tar.gz.sig
+# https://doc.libsodium.org/installation#integrity-checking
+Source2:        %{name}.pubkey
+
+
+BuildRequires: gnupg2
 BuildRequires: gcc
 BuildRequires: make
 
@@ -57,6 +63,8 @@ linking applications to use %{name}.
 
 
 %prep
+%{?gpgverify:%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'}
+
 %setup -q
 
 
@@ -105,6 +113,9 @@ make check
 
 
 %changelog
+* Fri Apr 21 2023 Remi Collet <remi@remirepo.net> - 1.0.18-12
+- check archive signature
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.18-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          1%{?dist}
+Release:          2%{?dist}
 Source0:          ftp://cran.r-project.org/pub/R/contrib/main/%{packname}_%{packver}.tar.gz
 License:          MIT
 URL:              https://cran.r-project.org/package=testthat
@@ -91,6 +91,9 @@ export _R_CHECK_FORCE_SUGGESTS_=0 LANG=C.UTF-8
 %{_libdir}/R/library/%{packname}/include/
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 3.1.7-2
+- R-maint-sig mass rebuild
+
 * Tue Mar 14 2023 Tom Callaway <spot@fedoraproject.org> - 3.1.7-1
 - update to 3.1.7
 

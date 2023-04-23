@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-sebastian-resource-operations2
 #
-# Copyright (c) 2015-2018 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2015-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -24,11 +24,10 @@
 
 Name:           php-sebastian-resource-operations%{major}
 Version:        2.0.2
-%global specrel 1
-Release:        %{?gh_date:1%{specrel}.%{?prever}%{!?prever:%{gh_date}git%{gh_short}}}%{!?gh_date:%{specrel}}%{?dist}.5
-Summary:        Provides a list of PHP built-in functions that operate on resources
+Release:        2%{?dist}
+Summary:        Provides a list of PHP built-in functions that operate on resources, version %{major}
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{gh_short}.tar.gz
 
@@ -75,7 +74,7 @@ cp -pr src %{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}
 %if %{with_tests}
 : Run upstream test suite
 ret=0
-for cmd in php php72 php73 php74 php80; do
+for cmd in php php80 php81 php82; do
   if which $cmd; then
     $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
     %{_bindir}/phpunit7  --verbose tests || ret=1
@@ -96,6 +95,9 @@ exit $ret
 
 
 %changelog
+* Fri Apr 21 2023 Remi Collet <remi@remirepo.net> - 2.0.2-2
+- use SPDX License id
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-1.5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

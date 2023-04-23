@@ -2,7 +2,7 @@ Name:           perl-Guard
 Version:        1.023
 Release:        26%{?dist}
 Summary:        Safe cleanup blocks
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Guard
 Source0:        https://cpan.metacpan.org/authors/id/M/ML/MLEHMANN/Guard-%{version}.tar.gz
 # Module Build
@@ -20,7 +20,7 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(XSLoader)
 # Test Suite
 # (no additional dependencies)
-# Runtime
+# Dependencies
 Requires:       perl(Exporter)
 Requires:       perl(warnings)
 Requires:       perl(XSLoader)
@@ -49,11 +49,7 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license COPYING
-%else
-%doc COPYING
-%endif
 %doc Changes README
 %{perl_vendorarch}/auto/Guard/
 %{perl_vendorarch}/Guard.pm

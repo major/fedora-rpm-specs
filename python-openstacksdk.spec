@@ -15,8 +15,8 @@ A collection of libraries for building applications to work with OpenStack \
 clouds - test files
 
 Name:           python-%{pypi_name}
-Version:        0.101.0
-Release:        2%{?dist}
+Version:        1.0.1
+Release:        1%{?dist}
 Summary:        An SDK for building applications to work with OpenStack
 
 License:        ASL 2.0
@@ -72,7 +72,6 @@ Requires:       python3-keystoneauth1 >= 3.18.0
 Requires:       python3-pbr >= 2.0.0
 Requires:       python3-appdirs
 Requires:       python3-requestsexceptions >= 1.2.0
-Requires:       python3-munch
 Requires:       python3-jmespath
 Requires:       python3-iso8601
 Requires:       python3-os-service-types >= 1.7.0
@@ -130,7 +129,7 @@ export OS_STDERR_CAPTURE=true
 export OS_TEST_TIMEOUT=20
 # FIXME(jpena) we are skipping some unit tests due to
 # https://storyboard.openstack.org/#!/story/2005677
-PYTHON=python3 stestr-3 --test-path ./openstack/tests/unit run --black-regex '(test_wait_for_task_.*|.*TestOsServiceTypesVersion.*|.*test_timeout_and_failures_not_fail.*)'
+PYTHON=python3 stestr-3 --test-path ./openstack/tests/unit run --exclude-regex '(test_wait_for_task_.*|.*TestOsServiceTypesVersion.*|.*test_timeout_and_failures_not_fail.*)'
 
 %files -n python3-%{pypi_name}
 %doc README.rst
@@ -150,6 +149,9 @@ PYTHON=python3 stestr-3 --test-path ./openstack/tests/unit run --black-regex '(t
 %endif
 
 %changelog
+* Fri Apr 21 2023 Karolina Kula <kkula@redhat.com> 1.0.1-1
+- Update to upstream version 1.0.1
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.101.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

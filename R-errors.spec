@@ -44,7 +44,7 @@ rm -f %{buildroot}%{rlibdir}/R.css
 export LANG=C.UTF-8
 export _R_CHECK_FORCE_SUGGESTS_=0
 rm -rf %{packname}/tests/testthat/{_snaps,test-tidyverse.R}
-%{_bindir}/R CMD check --ignore-vignettes %{packname}
+%{_bindir}/R CMD check --no-manual --ignore-vignettes %{packname}
 %endif
 
 %files

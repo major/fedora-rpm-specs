@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}.%{packrel}
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          General network (HTTP/FTP) client interface for R
 License:          BSD
 URL:              http://cran.r-project.org/web/packages/RCurl/index.html
@@ -61,6 +61,9 @@ rm -rf %{buildroot}%{_libdir}/R/library/R.css
 %{_libdir}/R/library/%{packname}/examples/
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.98.1.8-3
+- R-maint-sig mass rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.98.1.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

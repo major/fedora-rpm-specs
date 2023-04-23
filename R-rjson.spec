@@ -3,12 +3,12 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          3%{?dist}
 Source0:          %{url}&version=%{version}#/%{packname}_%{packver}.tar.gz
 License:          GPLv2
 URL:              https://CRAN.R-project.org/package=%{packname}
 Summary:          JSON for R
-BuildRequires:    R-devel >= 3.1.0, tetex-latex
+BuildRequires:    R-devel >= 3.1.0, tex(latex)
 
 %description
 Converts R object into JSON objects and vice-versa.
@@ -49,6 +49,9 @@ chmod +x %{buildroot}%{_libdir}/R/library/rjson/rpc_server/start_server
 %{_libdir}/R/library/%{packname}/unittests
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.2.21-3
+- R-maint-sig mass rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.21-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

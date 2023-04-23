@@ -4,11 +4,11 @@
 Summary: R module, Software to perform wavelet statistics and transforms
 Name: R-%{packname}
 Version: %{packver}
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2+
 Source0: ftp://cran.r-project.org/pub/R/contrib/main/%{packname}_%{packver}.tar.gz
 URL: http://cran.r-project.org/web/packages/wavethresh/
-BuildRequires: R-devel >= 3.4.0, tetex-latex, R-MASS
+BuildRequires: R-devel >= 3.4.0, tex(latex), R-MASS
 
 %description
 Software to perform 1-d and 2-d wavelet statistics and transforms
@@ -31,6 +31,9 @@ cd ..;%{_bindir}/R CMD check %{packname}
 %doc DESCRIPTION
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 4.7.0-3
+- R-maint-sig mass rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

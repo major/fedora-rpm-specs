@@ -74,8 +74,7 @@ R_LIBS_USER=%{buildroot}%{rlibdir} \
 
 
 %check
-NOT_CRAN=true \
-    %{_bindir}/R CMD check %{packname}
+%{_bindir}/R CMD check %{packname}
 
 %files
 %dir %{rlibdir}/%{packname}

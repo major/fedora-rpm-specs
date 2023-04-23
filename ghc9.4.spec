@@ -44,7 +44,10 @@
 %else
 %if %{with hadrian}
 %bcond_without haddock
+# https://gitlab.haskell.org/ghc/ghc/-/issues/23286
+%if 0%{?fedora} < 39
 %bcond_without manual
+%endif
 %else
 %ifarch s390x
 %if %{defined fedora}

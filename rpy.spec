@@ -1,10 +1,10 @@
 %global srcname rpy
 %global sum Python interface to the R language
 %global rmaj   4
-%if (0%{?fedora} && 0%{?fedora} >= 37)
-%global rmin   2
+%if (0%{?fedora} && 0%{?fedora} >= 38)
+%global rmin   3
 %else
-%global rmin   1
+%global rmin   2
 %endif
 
 %define add_rver() %{lua:
@@ -17,7 +17,7 @@
 
 Name:          rpy
 Version:       3.5.10
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       %{sum}
 License:       GPLv2+
 Url:           https://pypi.python.org/pypi/rpy2
@@ -83,6 +83,9 @@ cd %{srcname}2
 %{python3_sitearch}/__pycache__/*
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 3.5.10-2
+- R-maint-sig mass rebuild
+
 * Mon Mar  6 2023 Tom Callaway <spot@fedoraproject.org> - 3.5.10-1
 - update to 3.5.10
 

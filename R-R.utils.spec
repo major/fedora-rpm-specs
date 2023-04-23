@@ -1,10 +1,10 @@
 %global packname R.utils
-%global packver  2.12.0
+%global packver  2.12.2
 %global rlibdir  %{_datadir}/R/library
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          1%{?dist}
 Summary:          Various Programming Utilities
 
 License:          LGPLv2+
@@ -66,6 +66,10 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2.12.2-1
+- R-maint-sig mass rebuild
+- Update to latest version
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

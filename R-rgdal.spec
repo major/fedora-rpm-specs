@@ -1,12 +1,12 @@
 %global packname rgdal
 %global packver  1.6
-%global packrev  5
+%global packrev  6
 %global rlibdir  %{_libdir}/R/library
 %global with_suggests 0
 
 Name:             R-%{packname}
 Version:          %{packver}.%{packrev}
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Bindings for the 'Geospatial' Data Abstraction Library
 
 License:          GPLv2+
@@ -110,6 +110,12 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --ignore-vignettes
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.6.6-2
+- R-maint-sig mass rebuild
+
+* Wed Apr 19 2023 Tom Callaway <spot@fedoraproject.org> - 1.6.6-1
+- update to 1.6-6
+
 * Fri Mar  3 2023 Tom Callaway <spot@fedoraproject.org> - 1.6.5-1
 - update to 1.6-5
 

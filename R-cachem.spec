@@ -3,12 +3,12 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          3%{?dist}
 Source0:          ftp://cran.r-project.org/pub/R/contrib/main/%{packname}_%{packver}.tar.gz
 License:          MIT
 URL:              http://cran.r-project.org/web/packages/cachem/index.html
 Summary:          Cache R Objects with Automatic Pruning
-BuildRequires:    R-devel >= 3.0.0, tetex-latex, R-rlang, R-fastmap, gcc
+BuildRequires:    R-devel >= 3.0.0, tex(latex), R-rlang, R-fastmap, gcc
 BuildRequires:    R-testthat
 
 %description
@@ -44,6 +44,9 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/R/library/R.css
 %{_libdir}/R/library/%{packname}/libs
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.0.6-3
+- R-maint-sig mass rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

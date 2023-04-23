@@ -1,6 +1,6 @@
 Name:           proguard
-Version:        5.3.3
-Release:        17%{?dist}
+Version:        6.2.2
+Release:        1%{?dist}
 Summary:        Java class file shrinker, optimizer, obfuscator and preverifier
 
 License:        GPLv2+
@@ -9,29 +9,25 @@ Source0:        http://downloads.sourceforge.net/%{name}/%{name}%{version}.tar.g
 Source1:        %{name}.desktop
 Source2:        README.dist
 
-BuildRequires:  jpackage-utils
-BuildRequires:  java-devel >= 1:1.6.0
-BuildRequires:  ant
+BuildRequires:  java-devel >= 1:1.8.0
+BuildRequires:  maven-local
+BuildRequires:  mvn(com.google.code.gson:gson)
+BuildRequires:  mvn(org.apache.ant:ant)
+Requires:       javapackages-tools
 Requires:       jpackage-utils
 Requires:       java >= 1:1.6.0
+Obsoletes:      %{name}-manual < 5.3.4
 
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 %description
-ProGuard is a free Java class file shrinker, optimizer, obfuscator and 
-preverifier. It detects and removes unused classes, fields, methods, and 
-attributes. It optimizes bytecode and removes unused instructions. It 
-renames the remaining classes, fields, and methods using short meaningless 
-names. Finally, it preverifies the processed code for Java 6 or for Java 
-Micro Edition. 
-
-%package manual
-Summary:        Manual for %{name}
-Requires:       jpackage-utils
-
-%description manual
-The manual for %{name}.
+ProGuard is a free Java class file shrinker, optimizer, obfuscator and
+preverifier. It detects and removes unused classes, fields, methods, and
+attributes. It optimizes bytecode and removes unused instructions. It
+renames the remaining classes, fields, and methods using short meaningless
+names. Finally, it preverifies the processed code for Java 6 or for Java
+Micro Edition.
 
 %package gui
 Summary:        GUI for %{name}
@@ -39,79 +35,77 @@ Summary:        GUI for %{name}
 # ImageMagick
 BuildRequires:  ImageMagick
 BuildRequires:  desktop-file-utils
-Requires:       jpackage-utils
+Requires:       javapackages-tools
 Requires:       %{name} = %{version}-%{release}
 
 %description gui
 A GUI for %{name}.
 
+%package -n ant-%{name}
+Summary:        Ant task for %{name}
+Group:          Development/Libraries/Java
+
+%description -n ant-%{name}
+Ant task for %{name}
+
+
 %prep
-%setup -qn %{name}%{version}
+%setup -q -n %{name}%{version}
 
 # remove all jar and class files, the snippet from Packaging:Java does 
 # not work
-find -name '*.jar' -exec rm -f '{}' \;
-find -name '*.class' -exec rm -f '{}' \;
+find -name '*.jar' -print -delete
+find -name '*.class' -print -delete
 
-# remove the Class-Path from MANIFESTs
-sed -i '/class-path/I d' src/%{name}/gui/MANIFEST.MF
-sed -i '/class-path/I d' src/%{name}/retrace/MANIFEST.MF
+%pom_disable_module ../gradle buildscripts
+%pom_xpath_remove -r pom:addClasspath buildscripts
+%pom_remove_plugin -r :maven-source-plugin buildscripts
+%pom_remove_plugin -r :maven-javadoc-plugin buildscripts
 
-# this will create three png files from the favicon that contains multiple size 
-# icons: 0: 48x48, 1: 32x32, 2: 16x16
-convert docs/favicon.ico %{name}.png
-cp -p %{name}-0.png %{name}48.png
-cp -p %{name}-1.png %{name}32.png
-cp -p %{name}-2.png %{name}16.png
+%mvn_package :*anttask anttask
+%mvn_package :*gui gui
+%mvn_file :%{name}-base %{name}/%{name}-base %{name}/%{name}
 
 # add README.dist
 cp -p %{SOURCE2} .
 
 %build
-cd buildscripts/
-# build ProGuard, ProGuardGUI, retrace and anttask
-ant -Dant.jar=%{_javadir}/ant.jar basic anttask
+%mvn_build -f -j -- -f buildscripts/pom.xml -Dsource=8
 
 %install
-mkdir -p ${RPM_BUILD_ROOT}%{_javadir}/%{name}/
-cp -p lib/%{name}.jar ${RPM_BUILD_ROOT}%{_javadir}/%{name}/%{name}.jar
-cp -p lib/%{name}gui.jar ${RPM_BUILD_ROOT}%{_javadir}/%{name}/%{name}gui.jar
-cp -p lib/retrace.jar ${RPM_BUILD_ROOT}%{_javadir}/%{name}/retrace.jar
+%mvn_install
 
-mkdir -p ${RPM_BUILD_ROOT}%{_bindir}
-%jpackage_script proguard.ProGuard "" "" proguard proguard true
-%jpackage_script proguard.gui.ProGuardGUI "" "" proguard proguard-gui true
-%jpackage_script proguard.retrace.ReTrace "" "" proguard proguard-retrace true
+mkdir -p %{buildroot}%{_bindir}
+%jpackage_script proguard.ProGuard "" "" %{name} %{name} true
+%jpackage_script proguard.gui.ProGuardGUI "" "" %{name} %{name}-gui true
+%jpackage_script proguard.retrace.ReTrace "" "" %{name} %{name}-retrace true
+
+mkdir -p %{buildroot}%{_sysconfdir}/ant.d
+echo "proguard" > %{buildroot}%{_sysconfdir}/ant.d/%{name}
 
 #install the desktop file for proguard-gui
 desktop-file-install --dir=${RPM_BUILD_ROOT}%{_datadir}/applications %{SOURCE1}
 
-#copy icons
-mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/icons/hicolor/48x48/apps
-cp -p %{name}48.png ${RPM_BUILD_ROOT}%{_datadir}/icons/hicolor/48x48/apps/%{name}.png
-mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/icons/hicolor/32x32/apps
-cp -p %{name}32.png ${RPM_BUILD_ROOT}%{_datadir}/icons/hicolor/32x32/apps/%{name}.png
-mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/icons/hicolor/16x16/apps
-cp -p %{name}16.png ${RPM_BUILD_ROOT}%{_datadir}/icons/hicolor/16x16/apps/%{name}.png
+%files -f .mfiles
+%{_bindir}/%{name}
+%{_bindir}/%{name}-retrace
+%doc README.md
+%license LICENSE.md LICENSE_exception.md
 
-%files
-%dir %{_javadir}/%{name}
-%{_javadir}/%{name}/proguard.jar
-%{_javadir}/%{name}/retrace.jar
-%{_bindir}/proguard
-%{_bindir}/proguard-retrace
-%doc README examples/ README.dist
+%files -n ant-%{name} -f .mfiles-anttask
+%config(noreplace) %{_sysconfdir}/ant.d/%{name}
 
-%files manual
-%doc docs/*
-
-%files gui
+%files gui -f .mfiles-gui
 %{_bindir}/%{name}-gui
-%{_javadir}/%{name}/proguardgui.jar
 %{_datadir}/applications/%{name}.desktop
-%{_datadir}/icons/*/*/apps/*
 
 %changelog
+* Fri Apr 21 2023 Filipe Rosset <rosset.filipe@gmail.com> - 6.2.2-1
+- Update to 6.2.2 + spec cleanup
+
+* Sat Feb 25 2023 Sérgio Basto <sergio@serjux.com> - 6.2.0-1
+- Update to 6.2.0 based on https://build.opensuse.org/package/show/openSUSE:Factory/proguard
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.3-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          1.66.0
-Release:          2%{dist}
+Release:          3%{dist}
 Summary:          Tools for parsing Affymetrix data files
 Summary(fr):      Outils d'analyse de fichier de données de puces affymetrix
 License:          LGPLv2+
@@ -55,6 +55,9 @@ rm -rf %{buildroot}%{_libdir}/R/library/R.css
 %{_libdir}/R/library/%{packname}/libs
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.66.0-3
+- R-maint-sig mass rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.66.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,12 +3,12 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          3%{?dist}
 Source0:          %{url}&version=%{version}#/%{packname}_%{packver}.tar.gz
 License:          Artistic 2.0
 URL:              https://CRAN.R-project.org/package=%{packname}
 Summary:          R Interface to RESTful Web Services
-BuildRequires:    R-devel >= 3.4.0, tetex-latex, R-XML, R-RCurl
+BuildRequires:    R-devel >= 3.4.0, tex(latex), R-XML, R-RCurl
 BuildRequires:    R-S4Vectors-devel >= 0.13.15, R-yaml, R-rjson
 # Suggests
 BuildRequires:    R-getPass
@@ -46,6 +46,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-examples
 %{_libdir}/R/library/%{packname}/unitTests
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.0.15-3
+- R-maint-sig mass rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.15-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

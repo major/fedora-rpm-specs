@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          1.4.2
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Read Excel Files
 
 License:          MIT
@@ -69,7 +69,7 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %check
-%{_bindir}/R CMD check %{packname}
+%{_bindir}/R CMD check --ignore-vignettes %{packname}
 
 
 %files
@@ -91,6 +91,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.4.2-2
+- R-maint-sig mass rebuild
+
 * Thu Feb  9 2023 Tom Callaway <spot@fedoraproject.org> - 1.4.2-1
 - update to 1.4.2
 

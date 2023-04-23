@@ -7,7 +7,7 @@
 %endif
 
 Name:           goaccess
-Version:        1.7.1
+Version:        1.7.2
 Release:        1%{?dist}
 Summary:        Real-time web log analyzer and interactive viewer
 License:        GPLv2+
@@ -26,7 +26,7 @@ BuildRequires:  gettext-devel
 %if %{with openssl}
 BuildRequires:  openssl-devel
 %endif
-BuildRequires: make
+BuildRequires:  make
 
 %description
 GoAccess is a real-time web log analyzer and interactive viewer that runs in a
@@ -101,6 +101,9 @@ sed -i '/-pthread/d' configure.ac
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Apr 21 2023 Filipe Rosset <rosset.filipe@gmail.com> - 1.7.2-1
+- Update to 1.7.2, fixes rhbz#2183783
+
 * Thu Mar 2 2023 Fabio Alessandro Locati <fale@fedoraproject.org> - 1.7.1-1
 - Update to 1.7.1, fixes rhbz#2174504
 

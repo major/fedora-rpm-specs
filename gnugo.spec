@@ -17,8 +17,6 @@ BuildRequires:  gcc
 BuildRequires:  ncurses-devel readline-devel
 BuildRequires:  texinfo
 BuildRequires: make
-Requires(post): info
-Requires(preun): info
 
 
 %description

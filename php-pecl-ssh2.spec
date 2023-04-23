@@ -3,8 +3,8 @@
 %global with_zts  0%{!?_without_zts:%{?__ztsphp:1}}
 
 Name:           php-pecl-ssh2
-Version:        1.3.1
-Release:        7%{?dist}
+Version:        1.4
+Release:        1%{?dist}
 Summary:        Bindings for the libssh2 library
 
 License:        PHP-3.01
@@ -128,6 +128,9 @@ done
 
 
 %changelog
+* Fri Apr 21 2023 Remi Collet <remi@remirepo.net> - 1.4-1
+- Update to 1.4
+
 * Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 1.3.1-7
 - use SPDX license ID
 

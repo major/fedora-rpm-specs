@@ -3,8 +3,8 @@
 %global pypi_name yamllint
 
 Name:           %{pypi_name}
-Version:        1.30.0
-Release:        2%{?dist}
+Version:        1.31.0
+Release:        1%{?dist}
 Summary:        A linter for YAML files
 
 License:        GPLv3+
@@ -26,13 +26,16 @@ yamllint does not only check for syntax validity, but for weirdnesses like key
 repetition and cosmetic problems such as lines length, trailing spaces,
 indentation, etc.
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %prep
 %autosetup -n %{pypi_name}-%{version}
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
 
 %build
-%py3_build
+%pyproject_wheel
 
 %{__make} SPHINXBUILD=/usr/bin/sphinx-build-3 -C docs man
 gzip docs/_build/man/%{pypi_name}.1
@@ -40,7 +43,7 @@ gzip docs/_build/man/%{pypi_name}.1
 %install
 # Must do the subpackages' install first because the scripts in /usr/bin are
 # overwritten with every setup.py install.
-%py3_install
+%pyproject_install
 
 mkdir -p %{buildroot}%{_mandir}/man1/
 install -m0644 docs/_build/man/%{pypi_name}.1.gz %{buildroot}%{_mandir}/man1/
@@ -58,6 +61,9 @@ install -m0644 docs/_build/man/%{pypi_name}.1.gz %{buildroot}%{_mandir}/man1/
 %exclude %{python3_sitelib}/tests
 
 %changelog
+* Fri Apr 21 2023 Adrien Vergé <adrienverge@gmail.com> - 1.31.0-1
+- Update to latest upstream version
+
 * Fri Apr 14 2023 Adrien Vergé <adrienverge@gmail.com> - 1.30.0-2
 - Update 'check' step to stop using setup.py
 

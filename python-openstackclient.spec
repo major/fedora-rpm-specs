@@ -1,5 +1,5 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0xa63ea142678138d1bb15f2e303bdfd64dd164087
+%global sources_gpg_sign 0xa7475c5f2122fec3f90343223fe3bf5aad1080e4
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 # Command name
@@ -16,8 +16,8 @@ It is a thin wrapper to the stock python-*client modules that implement the \
 actual REST API client actions.
 
 Name:             python-%{sname}
-Version:          6.0.0
-Release:          2%{?dist}
+Version:          6.2.0
+Release:          1%{?dist}
 Summary:          OpenStack Command-line Client
 
 License:          ASL 2.0
@@ -75,11 +75,11 @@ BuildRequires:    python3-openstacksdk
 BuildRequires:    python3-ddt
 
 Requires:         python3-pbr
-Requires:         python3-openstacksdk >= 0.61.0
+Requires:         python3-openstacksdk >= 0.103.0
 Requires:         python3-oslo-i18n >= 3.15.3
 Requires:         python3-oslo-utils >= 3.33.0
 Requires:         python3-keystoneclient >= 1:3.22.0
-Requires:         python3-novaclient >= 1:17.0.0
+Requires:         python3-novaclient >= 1:18.1.0
 Requires:         python3-cinderclient >= 3.3.0
 Requires:         python3-neutronclient >= 6.7.0
 Requires:         python3-osc-lib >= 2.3.0
@@ -171,10 +171,8 @@ mkdir -p /etc/bash_completion.d
 openstack complete | sed -n '/_openstack/,$p' > /etc/bash_completion.d/osc.bash_completion
 
 %check
-%if %{lua:print(rpm.vercmp('%{version}', '6.0.0'));} > 0
 export PYTHON=%{__python3}
 stestr run
-%endif
 
 %files -n python3-%{sname}
 %license LICENSE
@@ -195,6 +193,9 @@ stestr run
 %license LICENSE
 
 %changelog
+* Fri Apr 21 2023 Karolina Kula <kkula@redhat.com> 6.2.0-1
+- Update to upstream version 6.2.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

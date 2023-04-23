@@ -1,5 +1,5 @@
-%global DATE 20230419
-%global gitrev fa3dfe9cf38be8a7cb0e7d0c11c67e8767f8e008
+%global DATE 20230421
+%global gitrev 4be14f2db84d42993908d17f2b66a655b5bc050d
 %global gcc_version 13.0.1
 %global gcc_major 13
 # Note, gcc_release must be integer, if you want to add suffixes to
@@ -136,7 +136,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.15%{?dist}
+Release: %{gcc_release}.16%{?dist}
 # libgcc, libgfortran, libgomp, libstdc++ and crtstuff have
 # GCC Runtime Exception.
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions and LGPLv2+ and BSD
@@ -286,6 +286,7 @@ Patch8: gcc13-no-add-needed.patch
 Patch9: gcc13-Wno-format-security.patch
 Patch10: gcc13-rh1574936.patch
 Patch11: gcc13-d-shared-libphobos.patch
+Patch12: gcc13-pr109583.patch
 
 Patch50: isl-rh2155127.patch
 
@@ -862,6 +863,7 @@ so that there cannot be any synchronization problems.
 %patch -P10 -p0 -b .rh1574936~
 %endif
 %patch -P11 -p0 -b .d-shared-libphobos~
+%patch -P12 -p0 -b .pr109583~
 
 %patch -P50 -p0 -b .rh2155127~
 touch -r isl-0.24/m4/ax_prog_cxx_for_build.m4 isl-0.24/m4/ax_prog_cc_for_build.m4
@@ -2488,6 +2490,7 @@ end
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/amxfp16intrin.h
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/prfchiintrin.h
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/raointintrin.h
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/amxcomplexintrin.h
 %endif
 %ifarch ia64
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/include/ia64intrin.h
@@ -3458,6 +3461,13 @@ end
 %endif
 
 %changelog
+* Fri Apr 21 2023 Jakub Jelinek <jakub@redhat.com> 13.0.1-0.16
+- update from trunk and releases/gcc-13 branch
+  - GCC 13.1-rc3
+  - PRs tree-optimization/109564
+- fix ICE on fneg/fadd optimization (PR tree-optimization/109583)
+- include amxcomplexintrin.h header on x86 (#2188608)
+
 * Wed Apr 19 2023 Jakub Jelinek <jakub@redhat.com> 13.0.1-0.15
 - update from trunk and releases/gcc-13 branch
   - GCC 13.1-rc2

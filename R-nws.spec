@@ -2,7 +2,7 @@
 
 Name:             R-%{packname}
 Version:          1.7.0.1
-Release:          30%{?dist}
+Release:          31%{?dist}
 Summary:          R functions for NetWorkSpaces and Sleigh
 Epoch:            1
 License:          GPLv2+
@@ -10,7 +10,7 @@ URL:              http://cran.r-project.org/web/packages/nws/index.html
 Source0:          http://cran.r-project.org/src/contrib/%{packname}_%{version}.tar.gz
 Patch0:           R-nws-fixpython3.patch
 BuildArch:        noarch
-BuildRequires:    R-devel >= 3.0.0, tetex-latex
+BuildRequires:    R-devel >= 3.0.0, tex(latex)
 
 %description
 Provides coordination and parallel execution facilities, as well as limited 
@@ -57,6 +57,9 @@ chmod -x %{buildroot}%{_datadir}/R/library/nws/bin/nwsutil.py
 %{_datadir}/R/library/%{packname}/help
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1:1.7.0.1-31
+- R-maint-sig mass rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.7.0.1-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

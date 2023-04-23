@@ -1,12 +1,16 @@
 Summary: A tool for generating SELinux security policies for containers
 Name: udica
 Version: 0.2.7
-Release: 4%{?dist}
+Release: 5%{?dist}
 Source0: https://github.com/containers/udica/archive/v%{version}.tar.gz
-Patch001: 0001-Add-device-access-option.patch
-Patch002: 0002-Syntax-changes-after-running-black.patch
-Patch003: 0003-Add-unit-test-for-device-access.patch
-Patch004: 0004-Rename-device-access-to-devices.patch
+#git format-patch -N 4a64ff7c1b8116a1894e72eee2a19706e970001f -- . ':!.cirrus.yml' ':!.github'
+Patch0001: 0001-Add-device-access-option.patch
+Patch0002: 0002-Syntax-changes-after-running-black.patch
+Patch0003: 0003-Add-unit-test-for-device-access.patch
+Patch0004: 0004-Rename-device-access-to-devices.patch
+Patch0005: 0005-Show-diff-when-checking-formatting.patch
+Patch0006: 0006-Fix-several-lint-findings.patch
+Patch0007: 0007-Fix-generating-policy-for-Crio-mounts.patch
 License: GPL-3.0-or-later
 BuildArch: noarch
 Url: https://github.com/containers/udica
@@ -62,6 +66,11 @@ install -m 0644 udica/man/man8/udica.8 %{buildroot}%{_mandir}/man8/udica.8
 %endif
 
 %changelog
+* Tue Apr 11 2023 Vit Mojzis <vmojzis@redhat.com> - 0.2.7-5
+- Show diff when checking formatting
+- Fix several lint findings
+- Fix generating policy for Crio mounts
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

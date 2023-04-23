@@ -1,5 +1,5 @@
 %global packname timeSeries
-%global packver  4021.104
+%global packver  4021.105
 %global rlibdir  %{_datadir}/R/library
 
 %global __suggests_exclude ^R\\((PerformanceAnalytics|fTrading|robustbase|xts)\\)
@@ -9,7 +9,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          1%{?dist}
 Summary:          Financial Time Series Objects (Rmetrics)
 
 License:          GPLv2+
@@ -88,6 +88,7 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 %license %{rlibdir}/%{packname}/COPYRIGHTS
 %doc %{rlibdir}/%{packname}/README
 %doc %{rlibdir}/%{packname}/THANKS
+%doc %{rlibdir}/%{packname}/NEWS.md
 %{rlibdir}/%{packname}/DESCRIPTION
 %{rlibdir}/%{packname}/INDEX
 %{rlibdir}/%{packname}/NAMESPACE
@@ -97,9 +98,15 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 %{rlibdir}/%{packname}/data
 %{rlibdir}/%{packname}/extensionsTests
 %{rlibdir}/%{packname}/unitTests
+%{rlibdir}/%{packname}/_pkgdown.yml
+%{rlibdir}/%{packname}/extdata
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 4021.105-1
+- R-maint-sig mass rebuild
+- Update to latest version
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4021.104-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

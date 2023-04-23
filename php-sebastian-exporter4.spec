@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-sebastian-exporter4
 #
-# Copyright (c) 2013-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2013-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -26,10 +26,10 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        4.0.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Export PHP variables for visualization, version %{major}
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        %{name}-%{version}-%{gh_short}.tgz
 Source1:        makesrc.sh
@@ -64,6 +64,10 @@ Provides:       php-composer(%{pk_vendor}/%{pk_project}) = %{version}
 %description
 Provides the functionality to export PHP variables for visualization.
 
+This package provides version %{major} of %{pk_vendor}/%{pk_project} library.
+
+Autoloader: %{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php
+
 
 %prep
 %setup -q -n %{gh_project}-%{gh_commit}
@@ -91,7 +95,7 @@ touch vendor/autoload.php
 
 : Run upstream test suite
 ret=0
-for cmd in php php74 php80 php81 php82; do
+for cmd in php php80 php81 php82; do
   if which $cmd; then
     $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
       %{_bindir}/phpunit9  --verbose || ret=1
@@ -109,6 +113,9 @@ exit $ret
 
 
 %changelog
+* Fri Apr 21 2023 Remi Collet <remi@remirepo.net> - 4.0.5-3
+- use SPDX License id
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

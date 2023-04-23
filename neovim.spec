@@ -40,7 +40,7 @@
 
 Name:           neovim
 Version:        0.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        Apache-2.0 AND Vim
 Summary:        Vim-fork focused on extensibility and agility
@@ -49,6 +49,9 @@ Url:            https://neovim.io
 Source0:        https://github.com/neovim/neovim/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        sysinit.vim
 Source2:        spec-template
+
+Patch0:         https://github.com/neovim/neovim/pull/23246.patch
+Patch1:         https://github.com/neovim/neovim/pull/23245.patch
 
 Patch1000:      neovim-lua-bit32.patch
 
@@ -86,7 +89,7 @@ BuildRequires:  pkgconfig(vterm) >= 0.3
 # need the build with the fix for the resize buffer issue
 Requires:       libvterm >= 0.3
 BuildRequires:  pkgconfig(unibilium)
-BuildRequires:  pkgconfig(libtree-sitter) >= %{tree_sitter_min_ver}
+BuildRequires:  pkgconfig(tree-sitter) >= %{tree_sitter_min_ver}
 # tree-sitter didn't do an soname bump. enforce the min version
 # see https://github.com/nvim-treesitter/nvim-treesitter/pull/3055/files
 Requires:       libtree-sitter >= %{tree_sitter_min_ver}
@@ -1953,6 +1956,9 @@ find %{buildroot}%{_datadir} \( -name "*.bat" -o -name "*.awk" \) \
 %{_datadir}/nvim/runtime/tutor/en/vim-01-beginner.tutor.json
 
 %changelog
+* Fri Apr 21 2023 Andreas Schneider <asn@redhat.com> - 0.9.0-2
+- resolves: rhbz#2188229 - Fix buffer overflow for user command
+
 * Fri Apr 07 2023 Andreas Schneider <asn@redhat.com> - 0.9.0-1
 - Update to version 0.9.0
   * For changelog see `:help news`

@@ -1,8 +1,8 @@
 Name:           perl-Hash-FieldHash
 Version:        0.15
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Lightweight field hash implementation
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Hash-FieldHash
 Source0:        https://cpan.metacpan.org/modules/by-module/Hash/Hash-FieldHash-%{version}.tar.gz
 Patch0:         Hash-FieldHash-0.15-Fix-building-on-Perl-without-dot-in-INC.patch
@@ -42,6 +42,7 @@ BuildRequires:  perl(Test::Pod) >= 1.14
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
 BuildRequires:  perl(Test::Synopsis)
 # Dependencies
+# (none)
 
 # Avoid provides from private shared objects
 %{?perl_default_filter}
@@ -54,7 +55,7 @@ out technique.
 %setup -q -n Hash-FieldHash-%{version}
 
 # Fix building on Perl without '.' in @INC
-%patch0 -p1
+%patch -P 0 -p1
 
 %build
 RELEASE_TESTING=1 perl Build.PL --installdirs=vendor --optimize="%{optflags}"
@@ -69,17 +70,18 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 ./Build test
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
 %doc Changes README.md benchmark/ example/
 %{perl_vendorarch}/auto/Hash/
 %{perl_vendorarch}/Hash/
 %{_mandir}/man3/Hash::FieldHash.3*
 
 %changelog
+* Fri Apr 21 2023 Paul Howarth <paul@city-fan.org> - 0.15-23
+- Use SPDX-format license tag
+- Avoid use of deprecated patch syntax
+- Use %%license unconditionally
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

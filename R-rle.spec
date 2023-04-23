@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          8%{?dist}
+Release:          9%{?dist}
 Summary:          Common Functions for Run-Length Encoded Vectors
 
 License:          GPLv3
@@ -70,6 +70,9 @@ rm %{buildroot}%{rlibdir}/%{packname}/NEWS
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.9.2-9
+- R-maint-sig mass rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -25,7 +25,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        5.1.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Handle HHVM/PHP environments, version %{major}
 
 License:        BSD-3-Clause
@@ -61,6 +61,10 @@ Provides:       php-composer(%{pk_vendor}/%{pk_project}) = %{version}
 %description
 This component provides functionality that helps writing PHP code that
 has runtime-specific (PHP / HHVM) execution paths.
+
+This package provides version %{major} of %{pk_vendor}/%{pk_project} library.
+
+Autoloader: %{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php
 
 
 %prep
@@ -106,6 +110,9 @@ exit $ret
 
 
 %changelog
+* Fri Apr 21 2023 Remi Collet <remi@remirepo.net> - 5.1.5-2
+- improve description
+
 * Fri Feb  3 2023 Remi Collet <remi@remirepo.net> - 5.1.5-1
 - update to 5.1.5
 

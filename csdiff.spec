@@ -13,7 +13,7 @@
 %bcond_without python3
 
 Name:       csdiff
-Version:    3.0.1
+Version:    3.0.2
 Release:    1%{?dist}
 Summary:    Non-interactive tools for processing code scan results in plain-text
 
@@ -133,6 +133,9 @@ make version.cc
 %endif
 
 %changelog
+* Fri Apr 21 2023 Kamil Dudka <kdudka@redhat.com> 3.0.2-1
+- update to latest upstream release
+
 * Thu Apr 06 2023 Kamil Dudka <kdudka@redhat.com> 3.0.1-1
 - migrate to SPDX license
 - update to latest upstream

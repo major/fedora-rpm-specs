@@ -1,6 +1,6 @@
 %global modulesdir %%(pkg-config --variable=modulesdir libcrypto)
 
-Summary: A dynamic OpenSSL provider for IBMCA
+Summary: OpenSSL provider for IBMCA
 Name: openssl-ibmca
 Version: 2.4.0
 Release: 1%{?dist}
@@ -20,7 +20,8 @@ ExclusiveArch: s390 s390x
 
 
 %description
-A dynamic OpenSSL provider for IBMCA crypto hardware on IBM Z machines.
+A dynamic OpenSSL provider for IBMCA crypto hardware on IBM Z machines
+to accelerate cryptographic operations.
 
 
 %prep

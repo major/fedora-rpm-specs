@@ -2,7 +2,7 @@
 
 Name:           rkward
 Version:        0.7.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Graphical frontend for R language
 Summary(fr):    Interface graphique pour le langage R
 
@@ -107,6 +107,9 @@ intégration dans les suites bureautiques.
 %{_libexecdir}/rkward.rbackend
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.7.4-4
+- R-maint-sig mass rebuild
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:		R-%{packname}
 Version:	1.58
-Release:	1%{?dist}
+Release:	2%{?dist}
 Source0:	https://rqtl.org/download/%{packname}_%{version}.tar.gz
 License:	GPLv3
 URL:		https://rqtl.org/
@@ -13,8 +13,8 @@ Summary:	Tools for analyzing QTL experiments
 #		to fail on 64 bit big endian architectures (ppc64, s390x)
 BuildRequires:	make
 BuildRequires:	gcc-c++
-BuildRequires:	R-core-devel >= 3.1.1
-BuildRequires:	tex(fullpage.sty)
+BuildRequires:	R-devel >= 3.1.1
+BuildRequires:	tex(latex)
 BuildRequires:	R-parallel, R-graphics, R-stats, R-utils, R-grDevices
 %if %{?fedora}%{!?fedora:0}
 #		R-testthat is not available in EPEL
@@ -108,6 +108,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 R CMD check %{packname}
 %{_libdir}/R/library/%{packname}/sampledata
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.58-2
+- R-maint-sig mass rebuild
+
 * Wed Jan 25 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 1.58-1
 - Update to 1.58
 - Workaround broken openblas on aarch64 in RHEL 8 and 9

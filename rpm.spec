@@ -32,7 +32,7 @@
 
 %global rpmver 4.18.1
 #global snapver rc1
-%global baserelease 1
+%global baserelease 2
 %global sover 9
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -97,7 +97,7 @@ BuildRequires: sqlite-devel
 
 %if %{with sequoia}
 %global crypto sequoia
-BuildRequires: rpm-sequoia-devel >= 1.0.0
+BuildRequires: rpm-sequoia-devel >= 1.4.0
 %else
 %global crypto openssl
 BuildRequires: openssl-devel
@@ -134,7 +134,7 @@ rpm-4.18.x-siteconfig.patch
 rpm-4.9.90-no-man-dirs.patch
 
 # Patches already upstream:
-# ...
+0001-Add-pgpVerifySignature2-and-pgpPrtParams2.patch
 
 # These are not yet upstream
 rpm-4.7.1-geode-i686.patch
@@ -618,6 +618,9 @@ fi
 %doc docs/librpm/html/*
 
 %changelog
+* Thu Apr 20 2023 Panu Matilainen <pmatilai@redhat.com> - 4.18.1-2
+- Backport improved crypto error messages from upstream
+
 * Wed Mar 15 2023 Michal Domonkos <mdomonko@redhat.com> - 4.18.1-1
 - Rebase to rpm 4.18.1 (https://rpm.org/wiki/Releases/4.18.1)
 

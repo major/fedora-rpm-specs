@@ -1,16 +1,16 @@
 %bcond_with check
 
 %global packname digest
-%global packver 0.6.29
+%global packver 0.6.31
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
-Source0:          ftp://cran.r-project.org/pub/R/contrib/main/%{packname}_%{packver}.tar.gz
+Release:          1%{?dist}
+URL:              https://CRAN.R-project.org/package=%{packname}
+Source0:          %{url}&version=%{version}#/%{packname}_%{version}.tar.gz
 License:          GPLv2+ and BSD and MIT and zlib
-URL:              http://cran.r-project.org/web/packages/digest/index.html
 Summary:          Create Cryptographic Hash Digest of R Objects
-BuildRequires:    R-devel >= 3.4.0, tetex-latex, R-utils
+BuildRequires:    R-devel >= 3.4.0, tex(latex), R-utils
 %if %{with check}
 # Test requires:
 BuildRequires:    R-simplermarkdown, R-tinytest
@@ -79,6 +79,10 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/R/library/R.css
 %{_libdir}/R/library/%{packname}/include/
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.6.31-1
+- R-maint-sig mass rebuild
+- Update to latest version
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.29-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

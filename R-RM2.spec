@@ -2,12 +2,12 @@
 
 Name:             R-%{packname}
 Version:          0.0
-Release:          33%{?dist}
+Release:          35%{?dist}
 Source0:          ftp://cran.r-project.org/pub/R/contrib/main/%{packname}_%{version}.tar.gz
 License:          GPLv3+
 URL:              http://cran.r-project.org/web/packages/RM2/
 Summary:          Revenue Management and Pricing for R
-BuildRequires:    R-devel >= 3.0.0, tetex-latex, R-msm, R-mvtnorm
+BuildRequires:    R-devel >= 3.0.0, tex(latex), R-msm, R-mvtnorm
 BuildArch:        noarch
 
 %description
@@ -40,6 +40,12 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/R/library/R.css
 %{_datadir}/R/library/%{packname}/help
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.0-35
+- R-maint-sig mass rebuild
+
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.0-34
+- R-maint-sig mass rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,14 +4,14 @@
 
 Name:		R-%{packname}
 Version:	0.3.18
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	littler: R at the Command-Line via 'r'
 
 License:	GPL-2.0-or-later
 URL:		https://cran.r-project.org/package=%{packname}
 Source0:	%{url}&version=%{version}#/%{packname}_%{version}.tar.gz
 
-BuildRequires:	R-core-devel
+BuildRequires:	R-devel, tex(latex)
 %if %{?fedora}%{!?fedora:0}
 BuildRequires:	R-knitr
 %endif
@@ -90,6 +90,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check --ignore-vignettes %{packname}
 %{_libdir}/R/library/%{packname}/examples
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.3.18-2
+- R-maint-sig mass rebuild
+
 * Mon Mar 27 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.3.18-1
 - New upstream release 0.3.18
 

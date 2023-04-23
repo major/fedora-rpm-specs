@@ -24,15 +24,14 @@
 
 
 Name:           bcc
-Version:        0.26.0
-Release:        2%{?dist}
+Version:        0.27.0
+Release:        1%{?dist}
 Summary:        BPF Compiler Collection (BCC)
 License:        ASL 2.0
 URL:            https://github.com/iovisor/bcc
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0:         tools-slabratetop-Fix-error-incomplete-definition-of.patch
-Patch1:         tools-readahead-Fix-Failed-to-attach-BPF-program-ent.patch
-Patch2:         Porting-from-distutils-to-setuptools.patch
+Patch0:         Updating-Powerpc-vmlinux-headers-from-Linux-kernel-6.patch
+Patch1:         sync-with-latest-libbpf-repo.patch
 
 # Arches will be included as upstream support is added and dependencies are
 # satisfied in the respective arches
@@ -241,6 +240,9 @@ cp -a libbpf-tools/tmp-install/bin/* %{buildroot}/%{_sbindir}/
 %endif
 
 %changelog
+* Fri Apr 21 2023 Jerome Marchand <jmarchan@redhat.com> - 0.27.0-1
+- Rebase to the latest release version (#2117708)
+
 * Mon Apr 03 2023 Jerome Marchand <jmarchan@redhat.com> - 0.26.0-2
 - Remove the dependency on distutils (RHBZ#2155029)
 - Fix macro-in-comment (fedpkg lint warning)

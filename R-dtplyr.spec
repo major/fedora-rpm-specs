@@ -1,5 +1,5 @@
 %global packname dtplyr
-%global packver  1.3.0
+%global packver  1.3.1
 %global rlibdir  %{_datadir}/R/library
 
 %global __suggests_exclude ^R\\((Lahman)\\)
@@ -64,7 +64,7 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %check
-%{_bindir}/R CMD check %{packname}
+%{_bindir}/R CMD check --ignore-vignettes %{packname}
 
 
 %files
@@ -82,6 +82,10 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.3.1-1
+- R-maint-sig mass rebuild
+- Update to latest version
+
 * Fri Mar  3 2023 Tom Callaway <spot@fedoraproject.org> - 1.3.0-1
 - update to 1.3.0
 

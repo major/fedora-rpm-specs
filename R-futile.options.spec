@@ -3,12 +3,12 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          11%{?dist}
+Release:          12%{?dist}
 Source0:          ftp://cran.r-project.org/pub/R/contrib/main/%{packname}_%{packver}.tar.gz
 License:          LGPLv3
 URL:              http://cran.r-project.org/web/packages/%{packname}/index.html
 Summary:          Futile options management
-BuildRequires:    R-devel >= 3.0.0, tetex-latex
+BuildRequires:    R-devel >= 3.0.0, tex(latex)
 BuildArch:        noarch
 
 %description
@@ -39,6 +39,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/R/library/R.css
 %{_datadir}/R/library/%{packname}/R
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.0.1-12
+- R-maint-sig mass rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

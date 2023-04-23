@@ -3,17 +3,13 @@
 %global xdg_desktop_portal_version 1.15.0
 
 Name:           xdg-desktop-portal-gnome
-Version:        44.0
+Version:        44.1
 Release:        %autorelease
 Summary:        Backend implementation for xdg-desktop-portal using GNOME
 
 License:        LGPL-2.1-or-later
 URL:            https://gitlab.gnome.org/GNOME/%{name}
 Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
-# https://bugzilla.redhat.com/show_bug.cgi?id=2176759
-# https://gitlab.gnome.org/GNOME/xdg-desktop-portal-gnome/-/merge_requests/78
-# Help fix apps hanging on start in KDE with GNOME portal installed
-Patch0:         78.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc

@@ -3,12 +3,14 @@
 Summary: Network diagnostic tool combining 'traceroute' and 'ping'
 Name: mtr
 Version: 0.95
-Release: 4%{?dist}
+Release: 5%{?dist}
 Epoch: 2
-License: GPLv2
+License: GPL-2.0-only
 URL: https://www.bitwizard.nl/mtr/
 Source0: https://github.com/traviscross/mtr/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1: net-x%{name}.desktop
+# https://github.com/traviscross/mtr/issues/469
+Patch0: https://github.com/traviscross/mtr/commit/5908af4c19188cb17b62f23368b6ef462831a0cb.patch#/mtr-0.95-snprintf-sizes.patch
 
 BuildRequires: gcc make ncurses-devel libcap-devel jansson-devel
 BuildRequires: autoconf automake libtool git
@@ -47,6 +49,7 @@ about each machine.
 
 %prep
 %setup -q
+%patch0 -p1 -b .snprintf-sizes
 
 %build
 ./bootstrap.sh
@@ -78,6 +81,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_datadir}/applications/net-x%{name}.desktop
 
 %changelog
+* Fri Apr 21 2023 Robert Scheck <robert@fedoraproject.org> - 2:0.95-5
+- Added upstream patch to fix segmentation fault for '-r' (#2188394)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:0.95-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

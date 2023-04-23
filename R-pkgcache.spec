@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Cache 'CRAN'-Like Metadata and R Packages
 
 License:          MIT
@@ -89,6 +89,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 %{rlibdir}/%{packname}/fixtures
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2.1.0-2
+- R-maint-sig mass rebuild
+
 * Wed Apr 19 2023 Tom Callaway <spot@fedoraproject.org> - 2.1.0-1
 - update to 2.1.0
 

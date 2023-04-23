@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}.%{packrel}
-Release:          8%{?dist}
+Release:          9%{?dist}
 Source0:          ftp://cran.r-project.org/pub/R/contrib/main/%{packname}_%{packver}-%{packrel}.tar.gz
 License:          GPLv2+
 URL:              http://cran.r-project.org/web/packages/expm
@@ -48,6 +48,9 @@ mkdir -p $RPM_BUILD_ROOT%{_libdir}/R/library
 %{_libdir}/R/library/%{packname}/test-tools.R
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.999.6-9
+- R-maint-sig mass rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.999.6-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

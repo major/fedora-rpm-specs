@@ -1,4 +1,4 @@
-%global device_mapper_version 1.02.193
+%global device_mapper_version 1.02.195
 
 %global enable_cache 1
 %global enable_lvmdbusd 1
@@ -44,17 +44,15 @@ Name: lvm2
 %if 0%{?rhel}
 Epoch: %{rhel}
 %endif
-Version: 2.03.20
-Release: 3%{?dist}
+Version: 2.03.21
+Release: 1%{?dist}
 License: GPLv2
 URL: https://sourceware.org/lvm2/
 Source0: https://sourceware.org/pub/lvm2/releases/LVM2.%{version}.tgz
 # https://bugzilla.redhat.com/show_bug.cgi?id=2180557
 # https://github.com/lvmteam/lvm2/pull/114
 # Fix an invalid import which breaks lvm2-lvmdbusd.service and thus anaconda
-Patch1: 0001-Fix-import-of-utils-from-lvmdbusd.cfg.patch
-Patch2: 0002-lvmdbusd-Correct-locking-for-_common_log.patch
-Patch3: 0003-lvmdbusd-Correct-seg.-fault-on-s390x-ELN.patch
+#Patch1: 0001-
 
 BuildRequires: make
 BuildRequires: gcc
@@ -660,6 +658,10 @@ An extensive functional testsuite for LVM2.
 %endif
 
 %changelog
+* Fri Apr 21 2023 Marian Csontos <mcsontos@redhat.com> - 2.03.21-1
+- Update to upstream version 2.03.21.
+- Allow (write)cache over raid+integrity LV.
+
 * Tue Apr 04 2023 Marian Csontos <mcsontos@redhat.com> - 2.03.20-3
 - Fix segfault in lvmdbusd on s390x.
 

@@ -9,7 +9,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          A 'dplyr' Back End for Databases
 
 License:          MIT
@@ -89,9 +89,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 %check
 %if %{with_suggests}
-%{_bindir}/R CMD check %{packname}
+%{_bindir}/R CMD check --ignore-vignettes %{packname}
 %else
-_R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
+_R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check --ignore-vignettes %{packname}
 %endif
 
 
@@ -110,6 +110,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2.3.1-2
+- R-maint-sig mass rebuild
+
 * Fri Mar  3 2023 Tom Callaway <spot@fedoraproject.org> - 2.3.1-1
 - update to 2.3.1
 

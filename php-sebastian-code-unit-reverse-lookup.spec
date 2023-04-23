@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-sebastian-code-unit-reverse-lookup
 #
-# Copyright (c) 2016-2017 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2016-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -21,10 +21,10 @@
 
 Name:           php-sebastian-%{gh_project}
 Version:        1.0.2
-Release:        6%{?dist}
-Summary:        Looks up which function or method a line of code belongs to
+Release:        7%{?dist}
+Summary:        Looks up which function or method a line of code belongs to, version 1
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{gh_short}.tar.gz
 
@@ -51,6 +51,8 @@ Provides:       php-composer(sebastian/%{gh_project}) = %{version}
 %description
 Looks up which function or method a line of code belongs to.
 
+This package provides the version 1 of the library.
+
 Autoloader: %{php_home}/%{ns_name}/autoload.php
 
 
@@ -75,7 +77,7 @@ touch vendor/autoload.php
 
 : Run upstream test suite
 ret=0
-for cmd in php php72 php73 php74 php80; do
+for cmd in php php80 php81 php82; do
   if which $cmd; then
    $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_name}/autoload.php \
      %{_bindir}/phpunit8 --verbose || ret=1
@@ -96,6 +98,9 @@ exit $ret
 
 
 %changelog
+* Fri Apr 21 2023 Remi Collet <remi@remirepo.net> - 1.0.2-7
+- use SPDX license ID
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

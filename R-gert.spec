@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          5%{?dist}
+Release:          6%{?dist}
 Summary:          Simple Git Client for R
 
 License:          MIT
@@ -59,9 +59,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 %check
 %if %{with network}
-%{_bindir}/R CMD check %{packname}
+%{_bindir}/R CMD check --ignore-vignettes %{packname}
 %else
-%{_bindir}/R CMD check %{packname} --no-examples
+%{_bindir}/R CMD check --ignore-vignettes %{packname} --no-examples
 %endif
 
 
@@ -83,6 +83,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.9.0-6
+- R-maint-sig mass rebuild
+
 * Sun Mar 05 2023 Pete Walter <pwalter@fedoraproject.org> - 1.9.0-5
 - Rebuild for libgit2 1.6.x
 

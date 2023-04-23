@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          1.1.0
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Examples of Recursive Lists and Nested or Split Data Frames
 
 License:          CC0
@@ -67,6 +67,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.1.0-2
+- R-maint-sig mass rebuild
+
 * Mon Feb 20 2023 Tom Callaway <spot@fedoraproject.org> - 1.1.0-1
 - update to 1.1.0
 

@@ -26,7 +26,7 @@
 %bcond_without tests_long
 
 Name:              openvpn
-Version:           2.6.2
+Version:           2.6.3
 Release:           1%{?dist}
 Summary:           A full-featured TLS VPN solution (beta release)
 URL:               https://community.openvpn.net/
@@ -66,6 +66,10 @@ BuildRequires:     systemd-devel
 
 %{?systemd_requires}
 Requires(pre):     /usr/sbin/useradd
+
+%if %{with dco}
+Recommends:        kmod-ovpn-dco >= 0.2
+%endif
 
 %if 0%{?rhel} > 7 || 0%{?fedora} > 34
 BuildRequires:  python3-docutils
@@ -236,6 +240,8 @@ getent passwd openvpn &>/dev/null || \
 %attr(0770,openvpn,openvpn) %{_sharedstatedir}/%{name}
 %attr(0750,-,openvpn) %{_rundir}/%{name}-client
 %attr(0750,-,openvpn) %{_rundir}/%{name}-server
+%ghost %{_rundir}/openvpn-client
+%ghost %{_rundir}/openvpn-server
 
 %files devel
 %{_pkgdocdir}/sample/sample-plugins
@@ -244,6 +250,11 @@ getent passwd openvpn &>/dev/null || \
 
 
 %changelog
+* Fri Apr 21 2023 David Sommerseth <davids@openvpn.net> - 2.6.3-1
+- Update to upstream OpenVPN 2.6.3
+- Remove BF-CBC from the --data-ciphers list in openvpn-server@.service
+- Add Recommends dependency to kmod-ovpn-dco (external Copr repo)
+
 * Fri Mar 24 2023 David Sommerseth <davids@openvpn.net> -2.6.2-1
 - Update to upstream OpenVPN 2.6.2
 

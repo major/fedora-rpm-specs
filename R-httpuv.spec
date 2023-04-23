@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          HTTP and WebSocket Server Library
 
 # Main: GPLv2+; http-parser: MIT; sha1: Public Domain
@@ -94,6 +94,9 @@ export LANG=C.UTF-8
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.6.9-2
+- R-maint-sig mass rebuild
+
 * Tue Feb 14 2023 Tom Callaway <spot@fedoraproject.org> - 1.6.9-1
 - update to 1.6.9
 

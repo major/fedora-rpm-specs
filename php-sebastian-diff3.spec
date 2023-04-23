@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-sebastian-diff3
 #
-# Copyright (c) 2013-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2013-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -28,12 +28,15 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        3.0.3
-Release:        7%{?dist}
-Summary:        Diff implementation
+Release:        8%{?dist}
+Summary:        Diff implementation, version %{major}
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{gh_short}.tar.gz
+# php-symfony4 going to disapear, only used for tests
+%global symfony_version 4.4.44
+Source2:        https://github.com/symfony/process/archive/v%{symfony_version}/php-symfony-process-%{symfony_version}.tar.gz
 
 # Fix for recent Symfony
 Patch0:         %{name}-tests.patch
@@ -48,7 +51,6 @@ BuildRequires:  php-spl
 #        "phpunit/phpunit": "^7.5 || ^8.0",
 #        "symfony/process": "^2 || ^3.3 || ^4"
 BuildRequires:  phpunit8
-BuildRequires:  php-symfony4-process
 %endif
 
 # from composer.json
@@ -66,11 +68,13 @@ Provides:       php-composer(%{pk_vendor}/%{pk_project}) = %{version}
 %description
 Diff implementation.
 
+This package provides the version %{major} of the library.
+
 Autoloader: %{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php
 
 
 %prep
-%setup -q -n %{gh_project}-%{gh_commit}
+%setup -q -n %{gh_project}-%{gh_commit} -a 2
 %patch0 -p0
 
 
@@ -87,17 +91,12 @@ cp -pr src %{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}
 %check
 %if %{with_tests}
 mkdir vendor
-%{_bindir}/phpab --output vendor/autoload.php tests
-cat << 'EOF' | tee -a vendor/autoload.php
-\Fedora\Autoloader\Dependencies::required([
-    '%{php_home}/Symfony4/Component/Process/autoload.php',
-]);
-EOF
+%{_bindir}/phpab --output vendor/autoload.php tests  process-%{symfony_version}
 
 
 : Run upstream test suite
 ret=0
-for cmd in php php74 php80 php81 php82; do
+for cmd in php php80 php81 php82; do
   if which $cmd; then
     $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
       %{_bindir}/phpunit8  --verbose || ret=1
@@ -118,6 +117,10 @@ exit $ret
 
 
 %changelog
+* Fri Apr 21 2023 Remi Collet <remi@remirepo.net> - 3.0.3-8
+- use SPDX license ID
+- use bundled symfony/process for test
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

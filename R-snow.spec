@@ -6,12 +6,12 @@
 
 Name:             R-%{packname}
 Version:          %{packver}.%{packrel}
-Release:          11%{?dist}
+Release:          12%{?dist}
 Source0:          ftp://cran.r-project.org/pub/R/contrib/main/%{packname}_%{packver}-%{packrel}.tar.gz
 License:          GPLv2+
 URL:              http://cran.r-project.org/web/packages/%{packname}/index.html
 Summary:          Simple Network of Workstations
-BuildRequires:    R-devel >= 3.0.0, tetex-latex, R-utils
+BuildRequires:    R-devel >= 3.0.0, tex(latex), R-utils
 # Suggests
 BuildRequires:    R-rlecuyer
 BuildArch:        noarch
@@ -52,6 +52,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/R/library/%{packname}/*.bat
 %{_datadir}/R/library/%{packname}/RunSnow*
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.4.4-12
+- R-maint-sig mass rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.4-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

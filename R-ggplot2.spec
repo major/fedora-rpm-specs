@@ -9,7 +9,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Create Elegant Data Visualisations Using the Grammar of Graphics
 
 License:          MIT
@@ -120,6 +120,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 VDIFFR_RUN_TESTS=false %{_bindir}/R CMD check %{packn
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 3.4.2-2
+- R-maint-sig mass rebuild
+
 * Mon Apr  3 2023 Tom Callaway <spot@fedoraproject.org> - 3.4.2-1
 - update to 3.4.2
 

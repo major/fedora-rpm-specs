@@ -1,7 +1,7 @@
 %bcond_with check
 
 %global packname vctrs
-%global packver  0.5.2
+%global packver  0.6.2
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
@@ -69,7 +69,7 @@ sed -i 's/covr, //g' DESCRIPTION
 # pkgdown appears to only be a maintenance thing.
 sed -i 's/pkgdown, //g' DESCRIPTION
 # Skip big-endian problems.
-%patch0001 -p1
+%patch -P0001 -p1
 popd
 
 
@@ -111,6 +111,10 @@ export LANG=C.UTF-8
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.6.2-1
+- R-maint-sig mass rebuild
+- Update to the latest version
+
 * Mon Feb 20 2023 Tom Callaway <spot@fedoraproject.org> - 0.5.2-1
 - update to 0.5.2
 
@@ -203,3 +207,4 @@ export LANG=C.UTF-8
 
 * Thu May 16 2019 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.1.0-1
 - initial package for Fedora
+

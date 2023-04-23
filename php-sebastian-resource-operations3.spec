@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-sebastian-resource-operations3
 #
-# Copyright (c) 2015-2020 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2015-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -25,11 +25,10 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        3.0.3
-%global specrel 1
-Release:        %{?gh_date:1%{specrel}.%{?prever}%{!?prever:%{gh_date}git%{gh_short}}}%{!?gh_date:%{specrel}}%{?dist}.5
+Release:        2%{?dist}
 Summary:        Provides a list of PHP built-in functions that operate on resources, version %{major}
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        %{name}-%{version}-%{gh_short}.tgz
 Source1:        makesrc.sh
@@ -56,7 +55,7 @@ Provides:       php-composer(%{pk_vendor}/%{pk_project}) = %{version}
 %description
 %{summary}.
 
-This package provides version %{major}.
+This package provides version %{major} of %{pk_vendor}/%{pk_project} library.
 
 Autoloader: %{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php
 
@@ -103,6 +102,9 @@ exit $ret
 
 
 %changelog
+* Fri Apr 21 2023 Remi Collet <remi@remirepo.net> - 3.0.3-2
+- use SPDX License id
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-1.5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

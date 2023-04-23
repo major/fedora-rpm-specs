@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          0.0.1
-Release:          13%{?dist}
+Release:          14%{?dist}
 Summary:          Movies Data
 
 License:          GPLv3
@@ -54,6 +54,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.0.1-14
+- R-maint-sig mass rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

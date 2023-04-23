@@ -46,7 +46,7 @@
 Name:		root
 Version:	6.28.02
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -3741,6 +3741,9 @@ fi
 %endif
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 6.28.02-3
+- R-maint-sig mass rebuild
+
 * Thu Mar 23 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.28.02-2
 - Disable uring in EPEL 9 (liburing is available, but uring not
   supported by kernel)

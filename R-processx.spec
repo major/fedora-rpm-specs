@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Execute and Control System Processes
 
 License:          MIT
@@ -94,6 +94,9 @@ install -pm 0644 %{packname}/README.md %{buildroot}%{rlibdir}/%{packname}/
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 3.8.1-2
+- R-maint-sig mass rebuild
+
 * Wed Apr 19 2023 Tom Callaway <spot@fedoraproject.org> - 3.8.1-1
 - update to 3.8.1
 

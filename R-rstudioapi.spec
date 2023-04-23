@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          0.13
-Release:          9%{?dist}
+Release:          10%{?dist}
 Summary:          Safely Access the RStudio API
 
 License:          MIT
@@ -71,6 +71,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.13-10
+- R-maint-sig mass rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,15 +1,17 @@
 %global gem_name bcrypt
 
 Name: rubygem-%{gem_name}
-Version: 3.1.17
-Release: 4%{?dist}
+Version: 3.1.18
+Release: 1%{?dist}
 Summary: Wrapper around bcrypt() password hashing algorithm
-# ext/* - Public Domain
+# ext/mri/* - Public Domain
+# ext/jruby/* - ISC
 # spec/TestBCrypt.java - ISC
+# TODO: SPDX conversion blocked on Public Domain
+# https://gitlab.com/fedora/legal/fedora-license-data/-/merge_requests/239
 License: MIT and Public Domain and ISC
 URL: https://github.com/codahale/bcrypt-ruby
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
-BuildRequires: ruby
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby-devel
@@ -56,7 +58,6 @@ popd
 %dir %{gem_instdir}
 %{gem_extdir_mri}
 %exclude %{gem_instdir}/.*
-%exclude %{gem_instdir}/appveyor.yml
 %license %{gem_instdir}/COPYING
 %{gem_libdir}
 %exclude %{gem_cache}
@@ -65,13 +66,17 @@ popd
 %files doc
 %doc %{gem_docdir}
 %doc %{gem_instdir}/CHANGELOG
-%{gem_instdir}/Gemfile*
+%{gem_instdir}/Gemfile
 %doc %{gem_instdir}/README.md
 %{gem_instdir}/Rakefile
 %{gem_instdir}/%{gem_name}.gemspec
 %{gem_instdir}/spec
 
 %changelog
+* Fri Apr 21 2023 Vít Ondruch <vondruch@redhat.com> - 3.1.18-1
+- Update to BCrypt 3.1.18.
+  Resolves: rhbz#2086966
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.17-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

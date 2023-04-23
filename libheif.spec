@@ -4,15 +4,13 @@
 %bcond_with hevc
 
 Name:           libheif
-Version:        1.15.1
-Release:        2%{?dist}
+Version:        1.15.2
+Release:        1%{?dist}
 Summary:        HEIF and AVIF file format decoder and encoder
 
 License:        LGPL-3.0-or-later and MIT
 URL:            https://github.com/strukturag/%{name}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# gcc-13 fix
-Patch0:         %{url}/commit/910588338cf2a17207c09b315baddf003e86316c.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -136,6 +134,10 @@ rm -rf third-party/
 
 
 %changelog
+* Tue Apr 11 2023 Sandro <devel@penguinpee.nl> - 1.15.2-1
+- Update to 1.15.2 (RHBZ#2183664)
+- Drop patch
+
 * Fri Mar 17 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.15.1-2
 - Adapt for Fedora
 
@@ -255,4 +257,3 @@ rm -rf third-party/
 
 * Thu Nov 29 2018 Leigh Scott <leigh123linux@googlemail.com> - 1.3.2-1
 - First build
-

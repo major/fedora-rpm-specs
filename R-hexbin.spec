@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          1.28.2
-Release:          8%{?dist}
+Release:          9%{?dist}
 Summary:          Hexagonal Binning Routines
 
 License:          GPLv2
@@ -74,6 +74,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-vignettes
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.28.2-9
+- R-maint-sig mass rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

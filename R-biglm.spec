@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}.%{packrel}
-Release:          7%{?dist}
+Release:          8%{?dist}
 Summary:          Bounded memory linear and generalized linear models
 
 # Only license attribution is in DESCRIPTION.
@@ -12,7 +12,7 @@ License:          GPL+
 URL:              http://cran.r-project.org/web/packages/biglm/index.html
 Source0:          http://cran.r-project.org/src/contrib/%{packname}_%{packver}-%{packrel}.tar.gz
 
-BuildRequires:    R-devel >= 3.4.0, tetex-latex, R-DBI, R-RSQLite, R-RODBC, R-methods
+BuildRequires:    R-devel >= 3.4.0, tex(latex), R-DBI, R-RSQLite, R-RODBC, R-methods
 
 %description
 Regression for data too large to fit in memory.
@@ -45,6 +45,9 @@ test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)
 %{_libdir}/R/library/%{packname}/libs/
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.9.2.1-8
+- R-maint-sig mass rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

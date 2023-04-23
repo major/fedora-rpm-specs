@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          1.6.9
-Release:          2%{?dist}
+Release:          3%{?dist}
 Source0:          ftp://cran.r-project.org/pub/R/contrib/main/%{packname}_%{version}.tar.gz
 License:          GPLv2+ and GPLv3+
 URL:              http://cran.r-project.org/web/packages/msm/
@@ -64,6 +64,9 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/R/library/R.css
 %{_libdir}/R/library/%{packname}/libs/%{packname}.so
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.6.9-3
+- R-maint-sig mass rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          List, Query, Manipulate System Processes
 
 License:          MIT
@@ -95,6 +95,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-examples --no
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.7.5-2
+- R-maint-sig mass rebuild
+
 * Wed Apr 19 2023 Tom Callaway <spot@fedoraproject.org> - 1.7.5-1
 - update to 1.7.5
 

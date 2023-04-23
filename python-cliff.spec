@@ -1,4 +1,3 @@
-%{?python_enable_dependency_generator}
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
@@ -15,8 +14,8 @@ http://readthedocs.org/docs/cliff/en/latest/
 %global common_desc_tests This package contains tests for the python cliff library.
 
 Name:             python-%{modname}
-Version:          4.0.0
-Release:          3%{?dist}
+Version:          4.2.0
+Release:          1%{?dist}
 Summary:          Command Line Interface Formulation Framework
 
 Group:            Development/Libraries
@@ -26,34 +25,24 @@ Source0:          https://pypi.io/packages/source/c/cliff/cliff-%{version}.tar.g
 
 BuildArch:        noarch
 
-# Use importlib.metadata on Python 3.10+
-# https://review.opendev.org/c/openstack/cliff/+/859579/1
-#
-# curl https://review.opendev.org/changes/openstack%2Fcliff~859579/revisions/1/patch?download |
-#   base64 -d > 6af10b8.diff
-Patch:            6af10b8.diff
-
 %package -n python3-%{modname}
 Summary:          Command Line Interface Formulation Framework
 %{?python_provide:%python_provide python3-%{modname}}
 
 BuildRequires:    python3-devel
 BuildRequires:    python3-setuptools
-BuildRequires:    python3-pbr
 BuildRequires:    python3-prettytable
 BuildRequires:    python3-stevedore
-BuildRequires:    python3-six
-BuildRequires:    python3-pyparsing
 BuildRequires:    python3-cmd2 >= 0.8.0
 BuildRequires:    python3-autopage
+BuildRequires:    python3-importlib-metadata
 
 Requires:         python3-prettytable
 Requires:         python3-stevedore >= 2.0.1
 Requires:         python3-cmd2 >= 1.0.0
-Requires:         python3-pyparsing
 Requires:         python3-yaml >= 3.12
-Requires:         python3-pbr >= 2.0.0
 Requires:         python3-autopage >= 0.4.0
+Requires:         python3-importlib-metadata >= 4.4
 
 %description -n python3-%{modname}
 %{common_desc}
@@ -90,7 +79,7 @@ Requires:         python3-PyYAML
 %{common_desc}
 
 %prep
-%autosetup -n %{modname}-%{upstream_version} -p1
+%setup -q -n %{modname}-%{upstream_version}
 rm -rf {test-,}requirements.txt
 
 # Remove bundled egg info
@@ -116,6 +105,9 @@ PYTHON=python3 python3 setup.py test
 %{python3_sitelib}/%{modname}/tests
 
 %changelog
+* Fri Apr 21 2023 Karolina Kula <kkula@redhat.com> 4.2.0-1
+- Update to upstream version 4.2.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

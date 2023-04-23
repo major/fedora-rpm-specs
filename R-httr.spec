@@ -9,7 +9,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Tools for Working with URLs and HTTP
 
 License:          MIT
@@ -92,6 +92,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} $ARGS
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.4.5-2
+- R-maint-sig mass rebuild
+
 * Fri Mar  3 2023 Tom Callaway <spot@fedoraproject.org> - 1.4.5-1
 - update to 1.4.5
 

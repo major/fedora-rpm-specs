@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          2.4.3
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Simple Key-Value Database
 
 License:          GPLv2+
@@ -70,6 +70,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2.4.3-3
+- R-maint-sig mass rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

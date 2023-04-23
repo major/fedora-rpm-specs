@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          1.0.0
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Data from Gapminder
 License:          CC0
 URL:              https://CRAN.R-project.org/package=%{packname}
@@ -66,6 +66,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.0.0-2
+- R-maint-sig mass rebuild
+
 * Wed Mar 15 2023 Tom Callaway <spot@fedoraproject.org> - 1.0.0-1
 - update to 1.0.0
 

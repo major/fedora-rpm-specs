@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Identify Global Objects in R Expressions
 
 License:          LGPLv2+
@@ -63,6 +63,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.16.2-2
+- R-maint-sig mass rebuild
+
 * Tue Mar  7 2023 Tom Callaway <spot@fedoraproject.org> - 0.16.2-1
 - update to 0.16.2
 

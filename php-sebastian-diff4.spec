@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-sebastian-diff4
 #
-# Copyright (c) 2013-2020 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2013-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -25,13 +25,16 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        4.0.4
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Diff implementation, version %{major}
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        %{name}-%{version}-%{gh_short}.tgz
 Source1:        makesrc.sh
+# php-symfony4 going to disapear, php-symfony5 not available, only used for tests
+%global symfony_version 5.4.22
+Source2:        https://github.com/symfony/process/archive/v%{symfony_version}/php-symfony-process-%{symfony_version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  php-fedora-autoloader-devel
@@ -43,7 +46,6 @@ BuildRequires:  php-spl
 #        "phpunit/phpunit": "^9.3",
 #        "symfony/process": "^4.2 || ^5"
 BuildRequires:  phpunit9 >= 9.3
-BuildRequires:  php-symfony4-process
 %endif
 
 # from composer.json
@@ -61,11 +63,13 @@ Provides:       php-composer(%{pk_vendor}/%{pk_project}) = %{version}
 %description
 Diff implementation.
 
+This package provides the version %{major} of the library.
+
 Autoloader: %{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php
 
 
 %prep
-%setup -q -n %{gh_project}-%{gh_commit}
+%setup -q -n %{gh_project}-%{gh_commit} -a 2
 
 
 %build
@@ -81,20 +85,12 @@ cp -pr src %{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}
 %check
 %if %{with tests}
 mkdir vendor
-%{_bindir}/phpab --output vendor/autoload.php tests
-cat << 'EOF' | tee -a vendor/autoload.php
-\Fedora\Autoloader\Dependencies::required([
-    [
-        '%{php_home}/Symfony5/Component/Process/autoload.php',
-        '%{php_home}/Symfony4/Component/Process/autoload.php',
-    ]
-]);
-EOF
+%{_bindir}/phpab --output vendor/autoload.php tests process-%{symfony_version}
 
 
 : Run upstream test suite
 ret=0
-for cmd in php php73 php74 php80; do
+for cmd in php php80 php81 php82; do
   if which $cmd; then
     $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
       %{_bindir}/phpunit9  --verbose || ret=1
@@ -115,6 +111,10 @@ exit $ret
 
 
 %changelog
+* Fri Apr 21 2023 Remi Collet <remi@remirepo.net> - 4.0.4-7
+- use SPDX license ID
+- use bundled symfony/process for test
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

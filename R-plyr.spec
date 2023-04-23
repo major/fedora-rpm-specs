@@ -1,5 +1,5 @@
 %global packname plyr
-%global packver  1.8.7
+%global packver  1.8.8
 %global rlibdir  %{_libdir}/R/library
 
 # Prevent loops and heavy dependencies.
@@ -7,7 +7,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          1%{?dist}
 Summary:          Tools for Splitting, Applying and Combining Data
 
 License:          MIT
@@ -86,6 +86,10 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.8.8-1
+- R-maint-sig mass rebuild
+- Update to latest version
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,12 +1,12 @@
 %global packname rsvg
-%global packver  2.3.1
+%global packver  2.4.0
 %global rlibdir  %{_libdir}/R/library
 
 %bcond_with bootstrap
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          1%{?dist}
 Summary:          Render SVG Images into PDF, PNG, PostScript, or Bitmap Arrays
 
 License:          MIT
@@ -56,7 +56,7 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 %check
 %if %{without bootstrap}
-%{_bindir}/R CMD check %{packname} --no-build-vignettes
+%{_bindir}/R CMD check %{packname} --ignore-vignettes --no-examples
 %endif
 
 
@@ -78,6 +78,10 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2.4.0-1
+- R-maint-sig mass rebuild
+- Update to latest version
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

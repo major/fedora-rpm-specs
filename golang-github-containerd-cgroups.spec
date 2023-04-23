@@ -6,7 +6,7 @@
 # https://github.com/containerd/cgroups
 %global goipath         github.com/containerd/cgroups
 Epoch:                  1
-Version:                1.0.4
+Version:                3.0.1
 
 %gometa
 

@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-sebastian-environment4
 #
-# Copyright (c) 2014-2019 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2014-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -28,10 +28,10 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        4.2.4
-Release:        6%{?dist}
-Summary:        Handle HHVM/PHP environments
+Release:        7%{?dist}
+Summary:        Handle HHVM/PHP environments, version %{major}
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{gh_short}.tar.gz
 
@@ -63,6 +63,10 @@ Provides:       php-composer(%{pk_vendor}/%{pk_project}) = %{version}
 This component provides functionality that helps writing PHP code that
 has runtime-specific (PHP / HHVM) execution paths.
 
+This package provides the version %{major} of the library.
+
+Autoloader: %{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php
+
 
 %prep
 %setup -q -n %{gh_project}-%{gh_commit}
@@ -88,7 +92,7 @@ touch vendor/autoload.php
 
 : Run tests
 ret=0
-for cmd in php php72 php73 php74 php80; do
+for cmd in php php80 php81 php82; do
   if which $cmd; then
    $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
      %{_bindir}/phpunit8 \
@@ -109,6 +113,9 @@ exit $ret
 
 
 %changelog
+* Fri Apr 21 2023 Remi Collet <remi@remirepo.net> - 4.2.4-7
+- use SPDX license ID
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

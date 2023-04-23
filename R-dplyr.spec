@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 %global packname dplyr
-%global packver  1.1.0
+%global packver  1.1.2
 %global rlibdir  %{_libdir}/R/library
 
 %global __suggests_exclude ^R\\((Lahman|RMySQL|RPostgreSQL)\\)
@@ -30,13 +30,13 @@ BuildRequires:    R-glue >= 1.3.2
 BuildRequires:    R-lifecycle >= 1.0.3
 BuildRequires:    R-magrittr >= 1.5
 BuildRequires:    R-methods
-BuildRequires:    R-pillar >= 1.5.1
+BuildRequires:    R-pillar >= 1.9.0
 BuildRequires:    R-R6
-BuildRequires:    R-rlang >= 1.0.6
-BuildRequires:    R-tibble >= 2.1.3
+BuildRequires:    R-rlang >= 1.1.0
+BuildRequires:    R-tibble >= 3.2.0
 BuildRequires:    R-tidyselect >= 1.2.0
 BuildRequires:    R-utils
-BuildRequires:    R-vctrs >= 0.5.2
+BuildRequires:    R-vctrs >= 0.6.0
 BuildRequires:    R-callr
 BuildRequires:    R-DBI
 BuildRequires:    R-ggplot2
@@ -91,14 +91,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 %check
 export LANG=C.UTF-8
 %if %{without bootstrap}
-# yay weird ibm arches
-%ifarch ppc64le
-%{_bindir}/R CMD check %{packname} --no-vignettes
+%{_bindir}/R CMD check --ignore-vignettes %{packname}
 %else
-%{_bindir}/R CMD check %{packname}
-%endif
-%else
-_R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-vignettes
+_R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check --ignore-vignettes %{packname}
 %endif
 
 
@@ -120,6 +115,10 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-vignettes
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.1.2-1
+- R-maint-sig mass rebuild
+- Update to the latest version
+
 * Mon Feb 27 2023 Tom Callaway <spot@fedoraproject.org> - 1.1.0-1
 - update to 1.1.0
 

@@ -13,7 +13,7 @@ options. Supports several parallel processing backends.}
 
 Name:             R-%{packname}
 Version:          %{ver}.%{packrel}
-Release:          1%{?dist}
+Release:          2%{?dist}
 Source0:          ftp://cran.r-project.org/pub/R/contrib/main/%{packname}_%{ver}-%{packrel}.tar.gz
 License:          GPLv2
 URL:              https://cran.rstudio.com/web/packages/pbapply/index.html
@@ -59,6 +59,9 @@ export LANG=C.UTF-8
 %{_datadir}/R/library/%{packname}/help
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.7.0-2
+- R-maint-sig mass rebuild
+
 * Wed Mar 15 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 1.7.0-1
 - Update to 1.7-0
 

@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Helpers for Developing Command Line Interfaces
 
 License:          MIT
@@ -99,6 +99,9 @@ export LANG=C.UTF-8
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 3.6.0-2
+- R-maint-sig mass rebuild
+
 * Sat Jan 21 2023 Tom Callaway <spot@fedoraproject.org> - 3.6.0-1
 - update to 3.6.0
 

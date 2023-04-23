@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-sebastian-comparator3
 #
-# Copyright (c) 2014-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2014-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -25,10 +25,10 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        3.0.5
-Release:        2%{?dist}
-Summary:        Compare PHP values for equality
+Release:        3%{?dist}
+Summary:        Compare PHP values for equality, version %{major}
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        %{name}-%{version}-%{gh_short}.tgz
 Source1:        makesrc.sh
@@ -64,6 +64,8 @@ Provides:       php-composer(%{pk_vendor}/%{pk_project}) = %{version}
 %description
 This component provides the functionality to compare PHP values for equality.
 
+This package provides the version %{major} of the library.
+
 Autoloader: %{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php
 
 
@@ -97,7 +99,7 @@ mkdir vendor
 
 : Run upstream test suite
 ret=0
-for cmd in php php74 php80 php81 php82; do
+for cmd in php php80 php81 php82; do
   if which $cmd; then
     $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
       %{_bindir}/phpunit8 --no-coverage --verbose || ret=1
@@ -118,6 +120,9 @@ exit $ret
 
 
 %changelog
+* Fri Apr 21 2023 Remi Collet <remi@remirepo.net> - 3.0.5-3
+- use SPDX license ID
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

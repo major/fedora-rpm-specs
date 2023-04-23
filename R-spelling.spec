@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          2.2
-Release:          8%{?dist}
+Release:          9%{?dist}
 Summary:          Tools for Spell Checking in R
 
 License:          MIT
@@ -70,6 +70,9 @@ NOT_CRAN=1 %{_bindir}/R CMD check %{packname}
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2.2-9
+- R-maint-sig mass rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

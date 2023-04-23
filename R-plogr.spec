@@ -3,12 +3,12 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          15%{?dist}
+Release:          16%{?dist}
 Source0:          ftp://cran.r-project.org/pub/R/contrib/main/%{packname}_%{packver}.tar.gz
 License:          MIT
 URL:              http://cran.r-project.org/web/packages/%{packname}/index.html
 Summary:          C++ Logging Library for R
-BuildRequires:    R-devel >= 3.0.0, tetex-latex, R-Rcpp-devel
+BuildRequires:    R-devel >= 3.0.0, tex(latex), R-Rcpp-devel
 BuildArch:        noarch
 
 %description
@@ -52,6 +52,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/R/library/R.css
 %{_datadir}/R/library/%{packname}/include
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.2.0-16
+- R-maint-sig mass rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

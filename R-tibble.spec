@@ -1,7 +1,7 @@
 %bcond_with suggests
 
 %global packname tibble
-%global packver  3.2.0
+%global packver  3.2.1
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}

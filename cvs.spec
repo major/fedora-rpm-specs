@@ -6,29 +6,291 @@
 %bcond_without cvs_enables_kerberos
 # Use PAM for pserver autentization
 %bcond_without cvs_enables_pam
+# Rebuild PDF documents from sources
+# https://bugs.ghostscript.com/show_bug.cgi?id=696765#c28
+%bcond_without cvs_enables_pdf
 # Disable xinetd support
 %bcond_with cvs_enables_xinetd
 
 Name:       cvs
 Version:    1.11.23
-Release:    65%{?dist}
+Release:    66%{?dist}
 Summary:    Concurrent Versions System
-URL: http://cvs.nongnu.org/
-# Source files in zlib/ directory are licensed under zlib/libpng
-# Other files are mostly GPL+, some of them are GPLv2+ or
-# LGPLv2+ and there is vms/pathnames.h BSD licensed
-# lib/md5.c is Public Domain.
+URL:        https://cvs.nongnu.org/
+# contrib/check_cvs.in:     FSFULLR-like (TODO: waiting on an identifier
+#                           <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/202>)
+# contrib/clmerge.in:       GPL-2.0-or-later
+# contrib/cln_hist.in:      GPL-2.0-or-later
+# contrib/commit_prep.in:   GPL-2.0-or-later
+# contrib/cvs_acls.in:      GPL-2.0-or-later
+# contrib/cvs2vendor.sh:    GPL-2.0-or-later
+# contrib/cvscheck.sh:      GPL-2.0-or-later
+# contrib/debug_check_log.sh:   GPL-2.0-or-later
+# contrib/log.in:           GPL-2.0-or-later
+# contrib/log_accum.in:     GPL-2.0-or-later
+# contrib/mfpipe.in:        GPL-2.0-or-later
+# contrib/pvcs2rcs.in:      GPL-2.0-or-later
+# contrib/rcs2log.sh:       GPL-2.0-or-later
+# contrib/rcs-to-cvs.sh:    GPL-2.0-or-later
+# contrib/rcslock.in:       GPL-2.0-or-later
+# contrib/sccs2rcs.in:      GPL-2.0-or-later
+# COPYING:              GPL-1.0 text
+# COPYING.LIB:          LGPL-2.0 text
+# diff/analyze.c:       GPL-2.0-or-later
+# diff/cmpbuf.c:        GPL-2.0-or-later
+# diff/cmpbuf.h:        GPL-2.0-or-later
+# diff/context.c:       GPL-2.0-or-later
+# diff/diff.c:          GPL-2.0-or-later
+# diff/diff.h:          GPL-2.0-or-later
+# diff/diff3.c:         GPL-2.0-or-later
+# diff/diffrun.h:       GPL-2.0-or-later
+# diff/dir.c:           GPL-2.0-or-later
+# diff/ed.c:            GPL-2.0-or-later
+# diff/ifdef.c:         GPL-2.0-or-later ("Refer to the GNU DIFF License")
+# diff/io.c:            GPL-2.0-or-later
+# diff/normal.c:        GPL-2.0-or-later
+# diff/util.c:          GPL-2.0-or-later
+# diff/side.c:          GPL-2.0-or-later ("Refer to the GNU DIFF License")
+# diff/system.h:        GPL-2.0-or-later
+# doc/cvs.1:            GPL-2.0-or-later
+# doc/cvs.man.header:   GPL-2.0-or-later (embedded into doc/cvs.1)
+# doc/cvs.info-1:       Latex2e-translated-notice
+# doc/cvs-paper.ms:     GPL-1.0-or-later (compiled into doc/cvs-paper.pdf)
+# doc/cvs.texinfo:      Latex2e-translated-notice (WITH a Tex processing exception
+#                       which is advised to be ignored)
+# FAQ:                  GPL-1.0-or-later
+# HACKING:              GPL-1.0-or-later
+# lib/argmatch.c:       GPL-2.0-or-later
+# lib/getdate.c:        LicenseRef-Fedora-Public-Domain
+#                       ("in the public domain and has no copyright")
+# lib/getdate.y:        LicenseRef-Fedora-Public-Domain
+#                       ("in the public domain and has no copyright")
+# lib/getline.c:        GPL-2.0-or-later
+# lib/getopt.c:         GPL-2.0-or-later
+# lib/getopt.h:         GPL-2.0-or-later
+# lib/getopt1.c:        GPL-2.0-or-later
+# lib/getpass.c:        GPL-2.0-or-later
+# lib/getpagesize.h:    GPL-2.0-or-later
+# lib/Makefile.am:      GPL-2.0-or-later
+# lib/md5.c:            LicenseRef-Fedora-Public-Domain
+#                       ("no copyright is claimed. This code is in the public
+#                       domain;")
+# lib/md5.h:            "See md5.c"
+# lib/regex.c:          GPL-2.0-or-later
+# lib/regex.h:          GPL-2.0-or-later
+# lib/sighandle.c:      GPL-2.0-or-later
+# lib/stripslash.c:     GPL-2.0-or-later
+# lib/system.h:         GPL-2.0-or-later
+# lib/wait.h:           GPL-2.0-or-later
+# lib/xgetwd.c:         GPL-2.0-or-later
+# lib/xgssapi.h:        GPL-2.0-or-later
+# lib/xselect.h:        GPL-2.0-or-later
+# lib/xsize.h:          GPL-2.0-or-later
+# lib/xtime.h:          GPL-2.0-or-later
+# lib/yesno.c:          GPL-2.0-or-later
+# man/cvs.5:            Latex2e-translated-notice
+# man/cvsbug.8:         GPL-2.0-or-later AND Latex2e-translated-notice
+# README:               GPL-1.0-or-later
+# src/admin.c:          GPL-1.0-or-later (as in the README file)
+# src/annotate.c:       GPL-1.0-or-later (as in the README file)
+# src/buffer.c:         GPL-2.0-or-later
+# src/buffer.h:         GPL-2.0-or-later
+# src/checkin.c:        GPL-1.0-or-later (as in the README file)
+# src/checkout.c:       GPL-1.0-or-later (as in the README file)
+# src/classify.c:       GPL-1.0-or-later (as in the README file)
+# src/client.c:         GPL-2.0-or-later
+# src/client.h:         GPL-2.0-or-later
+# src/commit.c:         GPL-1.0-or-later (as in the README file)
+# src/create_adm.c:     GPL-1.0-or-later (as in the README file)
+# src/cvs.h:            GPL-1.0-or-later (as in the README file)
+# src/cvsbug.in:        GPL-2.0-or-later
+# src/cvsrc.c:          GPL-1.0-or-later (as in the README file)
+# src/diff.c:           GPL-1.0-or-later (as in the README file)
+# src/edit.c:           GPL-2.0-or-later
+# src/edit.h:           GPL-2.0-or-later
+# src/entries.c:        GPL-1.0-or-later (as in the README file)
+# src/error.c:          GPL-2.0-or-later
+# src/error.h:          GPL-2.0-or-later
+# src/expand_path.c:    GPL-2.0-or-later
+# src/fileattr.c:       GPL-2.0-or-later
+# src/fileattr.h:       GPL-2.0-or-later
+# src/filesubr.c:       GPL-2.0-or-later
+# src/find_names.c:     GPL-1.0-or-later (as in the README file)
+# src/hardlink.c:       GPL-2.0-or-later
+# src/hardlink.h:       GPL-2.0-or-later
+# src/hash.c:           GPL-1.0-or-later (as in the README file)
+# src/hash.h:           GPL-1.0-or-later (as in the README file)
+# src/history.c:        GPL-2.0-or-later
+# src/history.h:        GPL-1.0-or-later (as in the README file)
+# src/ignore.c:         GPL-2.0-or-later
+# src/import.c:         GPL-1.0-or-later (as in the README file)
+# src/lock.c:           GPL-1.0-or-later (as in the README file)
+# src/log.c:            GPL-1.0-or-later (as in the README file)
+# src/login.c:          GPL-1.0-or-later (as in the README file)
+# src/logmsg.c:         GPL-1.0-or-later (as in the README file)
+# src/main.c:           GPL-1.0-or-later (as in the README file)
+# src/mkmodules.c:      GPL-1.0-or-later (as in the README file)
+# src/modules.c:        GPL-1.0-or-later (as in the README file)
+# src/myndbm.c:         GPL-1.0-or-later (as in the README file)
+# src/myndbm.h:         GPL-2.0-or-later
+# src/no_diff.c:        GPL-1.0-or-later (as in the README file)
+# src/parseinfo.c:      GPL-1.0-or-later (as in the README file)
+# src/patch.c:          GPL-1.0-or-later (as in the README file)
+# src/rcs.c:            GPL-1.0-or-later (as in the README file)
+# src/rcs.h:            GPL-1.0-or-later (as in the README file)
+# src/rcscmds.c:        GPL-1.0-or-later (as in the README file)
+# src/recurse.c:        GPL-1.0-or-later (as in the README file)
+# src/release.c:        GPL-2.0-or-later
+# src/remove.c:         GPL-1.0-or-later (as in the README file)
+# src/repos.c:          GPL-1.0-or-later (as in the README file)
+# src/root.c:           GPL-1.0-or-later (as in the README file)
+# src/root.h:           GPL-1.0-or-later (as in the README file)
+# src/run.c:            GPL-2.0-or-later
+# src/sanity.sh:        GPL-2.0-or-later
+# src/server.c:         GPL-2.0-or-later
+# src/server.h:         GPL-1.0-or-later (as in the README file)
+# src/stack.c:          GPL-1.0-or-later (as in the README file)
+# src/stack.h:          GPL-1.0-or-later (as in the README file)
+# src/status.c:         GPL-1.0-or-later (as in the README file)
+# src/subr.c:           GPL-1.0-or-later (as in the README file)
+# src/tag.c:            GPL-1.0-or-later (as in the README file)
+# src/update.c:         GPL-1.0-or-later (as in the README file)
+# src/update.h:         GPL-2.0-or-later
+# src/vers_ts.c:        GPL-1.0-or-later (as in the README file)
+# src/version.c:        GPL-1.0-or-later (as in the README file)
+# src/watch.c:          GPL-2.0-or-later
+# src/watch.h:          GPL-2.0-or-later
+# src/wrapper.c:        GPL-2.0-or-later
+# src/zlib.c:           GPL-2.0-or-later
+## Used at build time, but not in any binary package
+# acinclude.m4:         GPL-2.0-or-later AND GPL-1.0-or-later WITH Autoconf-exception-generic
+# contrib/Makefile.am:  GPL-2.0-or-later
+# depcomp:              GPL-2.0-or-later WITH Autoconf-exception-generic
+# diff/Makefile.am:     GPL-2.0-or-later
+# doc/Makefile.am:      GPL-2.0-or-later
+# doc/mkman.pl:         GPL-2.0-or-later
+# lib/test-getdate.sh:  GPL-2.0-or-later
+# Makefile.am:          GPL-2.0-or-later
+# Makefile.in:          FSFULLRWD AND GPL-2.0-or-later
+# man/Makefile.am:      GPL-2.0-or-later
+# mktemp.sh:            GPL-2.0-or-later
+# src/Makefile.am:      GPL-2.0-or-later
+# tools/Makefile.am:    GPL-2.0-or-later
+# vms/Makefile.am:      GPL-2.0-or-later
+# windows-NT/Makefile.am:       GPL-2.0-or-later
+# windows-NT/SCC/Makefile.am:   GPL-2.0-or-later
+## Never used, not packaged
+# contrib/cvs_acls.html:    GPL-2.0-or-later
+# contrib/descend.sh:       GPL-2.0-or-later
+# contrib/rcs2sccs.sh:      GPL-2.0-or-later
+# INSTALL:              GPL-1.0-or-later
+## Unbundled, never used
+# aclocal.m4:           FSFULLRWD AND FSFULLR
+# compile:              GPL-2.0-or-later WITH Autoconf-exception-generic
+# configure:            FSFUL
+# contrib/Makefile.in:  FSFULLRWD AND GPL-2.0-or-later
+# diff/Makefile.in:     FSFULLRWD
+# doc/Makefile.in:      FSFULLRWD AND GPL-2.0-or-later
+# doc/mdate-sh:         GPL-2.0-or-later WITH Autoconf-exception-generic
+# doc/texinfo.tex:      GPL-2.0-or-later WITH Texinfo exception
+#                       (Waiting on an identifier
+#                       <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/206>)
+# emx/config.h:         GPL-2.0-or-later
+# emx/filesubr.c:       GPL-2.0-or-later
+# emx/rcmd.h:           GPL-2.0-or-later
+# emx/startserver.c:    GPL-2.0-or-later
+# emx/stripslash.c:     GPL-2.0-or-later
+# emx/system.c:         GPL-2.0-or-later
+# install-sh:           X11 AND LicenseRef-Fedora-Public-Domain
+# lib/fncase.c:         GPL-2.0-or-later
+# lib/fnmatch.c:        LGPL-2.0-or-later
+# lib/fnmatch.h.in:     LGPL-2.0-or-later
+# lib/gethostname.c:    GPL-2.0-or-later
+# lib/Makefile.in:      FSFULLRWD AND GPL-2.0-or-later
+# lib/memmove.c:        LGPL-2.0-or-later (copied from libiberty)
+# lib/mkdir.c:          GPL-2.0-or-later
+# lib/rename.c:         GPL-2.0-or-later
+# lib/strerror.c:       LGPL-2.0-or-later (copied from libiberty)
+# man/Makefile.in:      FSFULLRWD AND GPL-2.0-or-later
+# mdate-sh:             GPL-2.0-or-later
+# missing:              GPL-2.0-or-later WITH Autoconf-exception-generic
+# mkinstalldirs:        LicenseRef-Fedora-Public-Domain ("Public domain.")
+#                       (TODO: waiting on approval
+#                       <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/203>)
+# os2/config.h:         GPL-2.0-or-later
+# os2/dirent.c:         xlock-like, NTP-like
+#                       (Waiting on an identier
+#                       <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/204>)
+# os2/dirent.h:         xlock-like, NTP-like
+#                       (Waiting on an identier
+#                       <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/204>)
+# os2/filesubr.c:       GPL-2.0-or-later
+# os2/os2inc.h:         GPL-2.0-or-later
+# os2/pwd.c:            GPL-1.0-or-later
+# os2/pwd.h:            GPL-1.0-or-later
+# os2/rcmd.c:           GPL-2.0-or-later
+# os2/rcmd.h:           GPL-2.0-or-later
+# os2/run.c:            GPL-2.0-or-later
+# os2/stripslash.c:     GPL-2.0-or-later
+# os2/watcom.mak:       GPL-2.0-or-later
+# src/Makefile.in:      FSFULLRWD AND GPL-2.0-or-later
+# tools/Makefile.in:    FSFULLRWD AND GPL-2.0-or-later
+# vms/dir.h:            GPL-1.0-or-later
+# vms/filesubr.c:       GPL-2.0-or-later
+# vms/filutils.c:       GPL-2.0-or-later
+# vms/filutils.h:       GPL-2.0-or-later
+# vms/getpass.c:        GPL-2.0-or-later
+# vms/getwd.c:          GPL-2.0-or-later
+# vms/Makefile.in:      FSFULLRWD AND GPL-2.0-or-later
+# vms/misc.c:           GPL-2.0-or-later
+# vms/misc.h:           GPL-2.0-or-later
+# vms/ndir.c:           GPL-2.0-or-later
+# vms/pathnames.h:      BSD-4-Clause
+# vms/pipe.c:           GPL-2.0-or-later
+# vms/pipe.h:           GPL-2.0-or-later
+# vms/vmsmunch_private.h:   "not copyrighted in any way" !
+# vms/waitpid.c:            GPL-2.0-or-later
+# windows-NT/filesubr.c:    GPL-2.0-or-later
+# windows-NT/Makefile.in:   FSFULLRWD AND GPL-2.0-or-later
+# windows-NT/mkdir.c:       GPL-2.0-or-later
+# windows-NT/ndir.c:        GPL-1.0-or-later
+# windows-NT/ndir.h:        GPL-1.0-or-later
+# windows-NT/pwd.c:         GPL-1.0-or-later
+# windows-NT/pwd.h:         GPL-1.0-or-later
+# windows-NT/rcmd.c:        GPL-2.0-or-later
+# windows-NT/run.c:         GPL-2.0-or-later
+# windows-NT/sockerror.c:   GPL-2.0-or-later
+# windows-NT/SCC/Makefile.in:   FSFULLRWD AND GPL-2.0-or-later
+# windows-NT/startserver.c: GPL-2.0-or-later
+# windows-NT/stripslash.c:  GPL-2.0-or-later
+# windows-NT/woe32.c:       GPL-2.0-or-later
+# ylwrap:                   GPL-2.0-or-later WITH Autoconf-exception-generic
+# zlib/*                            Zlib ("see copyright notice in zlib.h")
+# zlib/contrib/asm586/match.S:      GPL-1.0-or-later
+# zlib/contrib/asm686/match.S:      GPL-1.0-or-later
+# zlib/contrib/iostream2/zstream.h: MIT-open-group-like
+#                                   (Waiting on an identifier
+#                                   <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/205>)
+# zlib/contrib/minizip/unzip.h:     Zlib
+# zlib/contrib/minizip/zip.h:       Zlib
+# zlib/Makfile.in:                  Zlib ("see copyright notice in zlib.h")
+# zlib/zlib.h:                      Zlib
+# zlib/zlib.html:                   Zlib
+## Convert to SPDX after obtaining an identifier for contrib/check_cvs.in.
 License:    BSD and GPL+ and GPLv2+ and LGPLv2+ and zlib and Public Domain
-Source0:    ftp://ftp.gnu.org/non-gnu/cvs/source/stable/%{version}/cvs-%{version}.tar.bz2
-Source1:    cvs.xinetd
-Source2:    cvs.pam
-Source3:    cvs.sh
-Source4:    cvs.csh
-Source5:    cvs@.service
-Source6:    cvs.socket
-Source7:    cvs.target
-Source8:    cvs.sh.5
-Source9:    cvs.csh.5
+Source0:    https://ftp.gnu.org/non-gnu/cvs/source/stable/%{version}/cvs-%{version}.tar.bz2
+Source1:    https://ftp.gnu.org/non-gnu/cvs/source/stable/%{version}/cvs-%{version}.tar.bz2.sig
+# Retrieved from <hkp://keyserver.ubuntu.com> key server.
+Source2:    gpgkey-CB6A07CA90C54234E8A3C8D02C3D4E4C17F231A4.gpg
+Source3:    cvs.xinetd
+Source4:    cvs.pam
+Source5:    cvs.sh
+Source6:    cvs.csh
+Source7:    cvs@.service
+Source8:    cvs.socket
+Source9:    cvs.target
+Source10:   cvs.sh.5
+Source11:   cvs.csh.5
 # Fix up initial cvs login, bug #47457
 Patch0:     cvs-1.11.23-cvspass.patch
 # Build against system zlib
@@ -97,11 +359,21 @@ Patch33:    cvs-1.11.23-Close-a-configuration-file-on-a-syntax-error.patch
 Patch34:    cvs-1.11.23-Use-diff-label.patch
 # Enable cvs to build in C99 mode, bug #2187741
 Patch35:    cvs-1.11.23-c99.patch
+# Adjust tests to grep-3.9, proposed to the upstream,
+# <https://savannah.nongnu.org/bugs/index.php?64084>
+Patch36:    cvs-1.11.23-tests-Call-nonobsolete-grep-F.patch
 BuildRequires:  autoconf >= 2.58
 BuildRequires:  automake >= 1.7.9
 BuildRequires:  coreutils
+BuildRequires:  findutils
+%if %{with cvs_enables_pdf}
+BuildRequires:  ghostscript
+BuildRequires:  groff
+BuildRequires:  texinfo-tex
+%endif
 # glibc-common for iconv
 BuildRequires:  glibc-common
+BuildRequires:  gnupg2
 BuildRequires:  gzip
 %if %{with cvs_enables_kerberos}
 BuildRequires:  krb5-devel
@@ -170,7 +442,11 @@ This package provides a configuration for xinetd, an inetd implementation.
 %package doc
 Summary: Additional documentation for Concurrent Versions System
 License: GPL+
+%if !%{with cvs_enables_pdf}
+# Ghostscript stores a time stamp into output files and that
+# violates RPM noarch rules.
 BuildArch: noarch
+%endif
 
 %description doc
 FAQ, RCS format description, parallel development how-to, and Texinfo
@@ -178,46 +454,65 @@ pages in PDF.
 
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+%patch -p1 -P 0
+%patch -p1 -P 1
+%patch -p1 -P 2
+%patch -p1 -P 3
 %if !%{with cvs_enables_extra_test}
-%patch4 -p1
+%patch -p1 -P 4
 %endif
-%patch5 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1
-%patch11 -p1
+%patch -p1 -P 5
+%patch -p1 -P 7
+%patch -p1 -P 8
+%patch -p1 -P 9
+%patch -p1 -P 11
 %if %{with cvs_enables_pam}
-%patch12 -p1
+%patch -p1 -P 12
 %endif
-%patch13 -p1
-%patch14 -p1
-%patch15 -p1
-%patch17 -p1
-%patch19 -p1
-%patch20 -p1
-%patch21 -p1
-%patch22 -p1
-%patch23 -p1
-%patch24 -p1
-%patch25 -p1
-%patch26 -p1
-%patch27 -p1
-%patch28 -p1
-%patch29 -p1
-%patch30 -p1
-%patch31 -p1
-%patch32 -p1
-%patch33 -p1
-%patch34 -p1
-%patch35 -p1
+%patch -p1 -P 13
+%patch -p1 -P 14
+%patch -p1 -P 15
+%patch -p1 -P 17
+%patch -p1 -P 19
+%patch -p1 -P 20
+%patch -p1 -P 21
+%patch -p1 -P 22
+%patch -p1 -P 23
+%patch -p1 -P 24
+%patch -p1 -P 25
+%patch -p1 -P 26
+%patch -p1 -P 27
+%patch -p1 -P 28
+%patch -p1 -P 29
+%patch -p1 -P 30
+%patch -p1 -P 31
+%patch -p1 -P 32
+%patch -p1 -P 33
+%patch -p1 -P 34
+%patch -p1 -P 35
+%patch -p1 -P 36
 
-# Apply a patch to the generated files, OR
-# run autoreconf and require autoconf >= 2.58, automake >= 1.7.9
+# Remove bundled autotools files, they will be regenerated in %%build phase.
+# Keep acinclude.m4 becuse it defines ACX_WITH_GSSAPI.
+rm aclocal.m4 compile configure doc/mdate-sh doc/texinfo.tex \
+    install-sh mdate-sh missing mkinstalldirs ylwrap
+rm {.,contrib,diff,doc,lib,man,src,tools,vms,windows-NT,windows-NT/SCC,zlib}/Makefile.in
+# Remove bundled zlib
+rm -r zlib
+# Remove unused code
+find emx -type f \! -name Makefile.in -delete
+find os2 -type f \! -name Makefile.in -delete
+find vms -type f \! \( -name Makefile.am -o -name config.h.in \) -delete
+find windows-NT -type f \! \( -name Makefile.am -o -name config.h.in -o -name fix-msvc-mak\* \) -delete
+truncate --size=0 lib/fncase.c lib/fnmatch.c lib/fnmatch.h.in lib/gethostname.c \
+    lib/memmove.c lib/mkdir.c lib/rename.c lib/strerror.c
+# Remove pregenerated documentation
+%if %{with cvs_enables_pdf}
+rm doc/*.pdf
+%endif
+# Convert files to UTF-8
 for F in FAQ; do
     iconv -f ISO-8859-1 -t UTF-8 < "$F" > "${F}.UTF8"
     touch -r "$F"{,.UTF8}
@@ -225,8 +520,7 @@ for F in FAQ; do
 done
 
 %build
-%global _hardened_build 1
-autoreconf --install
+autoreconf --force --install
 
 %if %{with cvs_enables_pam}
     PAM_CONFIG="--enable-pam"
@@ -244,7 +538,7 @@ autoreconf --install
     -D_FILE_OFFSET_BITS=64 %-D_LARGEFILE64_SOURCE" \
     $PAM_CONFIG $KRB_CONFIG CSH=/bin/csh
 
-%{make_build}
+%{make_build} all doc
 
 %check
 if [ $(id -u) -ne 0 ] ; then
@@ -259,19 +553,19 @@ gzip $RPM_BUILD_ROOT/%{_infodir}/cvs* || true
 rm -f $RPM_BUILD_ROOT/%{_infodir}/dir
 
 %if %{with cvs_enables_xinetd}
-    install -D -m 644 %{SOURCE1} $RPM_BUILD_ROOT/%{_sysconfdir}/xinetd.d/%{name}
+    install -D -m 644 %{SOURCE3} $RPM_BUILD_ROOT/%{_sysconfdir}/xinetd.d/%{name}
 %endif
 mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/%{name}
 %if %{with cvs_enables_pam}
-    install -D -m 644 %{SOURCE2} $RPM_BUILD_ROOT/%{_sysconfdir}/pam.d/cvs
+    install -D -m 644 %{SOURCE4} $RPM_BUILD_ROOT/%{_sysconfdir}/pam.d/cvs
 %endif
-install -D -m 644 %{SOURCE3} $RPM_BUILD_ROOT/%{_sysconfdir}/profile.d/cvs.sh
-install -D -m 644 %{SOURCE4} $RPM_BUILD_ROOT/%{_sysconfdir}/profile.d/cvs.csh
-install -p -m 644 -D %{SOURCE5} $RPM_BUILD_ROOT%{_unitdir}/cvs\@.service
-install -p -m 644 -D %{SOURCE6} $RPM_BUILD_ROOT%{_unitdir}/cvs.socket
-install -p -m 644 -D %{SOURCE7} $RPM_BUILD_ROOT%{_unitdir}/cvs.target
-install -D -m 644 %{SOURCE8} $RPM_BUILD_ROOT/%{_mandir}/man5/cvs.sh.5
-install -D -m 644 %{SOURCE9} $RPM_BUILD_ROOT/%{_mandir}/man5/cvs.csh.5
+install -D -m 644 %{SOURCE5} $RPM_BUILD_ROOT/%{_sysconfdir}/profile.d/cvs.sh
+install -D -m 644 %{SOURCE6} $RPM_BUILD_ROOT/%{_sysconfdir}/profile.d/cvs.csh
+install -p -m 644 -D %{SOURCE7} $RPM_BUILD_ROOT%{_unitdir}/cvs\@.service
+install -p -m 644 -D %{SOURCE8} $RPM_BUILD_ROOT%{_unitdir}/cvs.socket
+install -p -m 644 -D %{SOURCE9} $RPM_BUILD_ROOT%{_unitdir}/cvs.target
+install -D -m 644 %{SOURCE10} $RPM_BUILD_ROOT/%{_mandir}/man5/cvs.sh.5
+install -D -m 644 %{SOURCE11} $RPM_BUILD_ROOT/%{_mandir}/man5/cvs.csh.5
 
 %if !%{with cvs_enables_contrib}
 rm -f $RPM_BUILD_ROOT/%{_bindir}/rcs2log
@@ -294,15 +588,17 @@ exit 0
 %files
 %license COPYING*
 %doc AUTHORS BUGS DEVEL-CVS HACKING MINOR-BUGS NEWS PROJECTS TODO README
-%{_bindir}/cvs*
-%{_mandir}/*/*
-%{_infodir}/*.info*
+%{_bindir}/%{name}*
+%{_mandir}/man1/%{name}.*
+%{_mandir}/man5/%{name}.*
+%{_mandir}/man8/cvsbug.*
+%{_infodir}/{cvs,cvsclient}.info*
 %dir %{_localstatedir}/%{name}
 %if %{with cvs_enables_pam}
-%config(noreplace) %{_sysconfdir}/pam.d/*
+%config(noreplace) %{_sysconfdir}/pam.d/%{name}
 %endif
-%config(noreplace) %{_sysconfdir}/profile.d/*
-%{_unitdir}/*
+%config(noreplace) %{_sysconfdir}/profile.d/%{name}.*
+%{_unitdir}/%{name}*
 
 %if %{with cvs_enables_contrib}
 %files contrib
@@ -321,6 +617,11 @@ exit 0
 
 
 %changelog
+* Wed Apr 19 2023 Petr Pisar <ppisar@redhat.com> - 1.11.23-66
+- Modernize a spec file
+- Build PDF documentation from sources
+- Adjust tests to grep-3.9
+
 * Wed Apr 19 2023 Arjun Shankar <arjun@redhat.com> - 1.11.23-65
 - Adjust cvs-1.11.23-c99.patch for a cleaner fix (#2187741)
 

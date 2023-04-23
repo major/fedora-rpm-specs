@@ -3,15 +3,19 @@
 %global modname ssh-python
 
 Name:           python-%{modname}
-Version:        0.10.0
-Release:        6%{?dist}
+Version:        1.0.0
+Release:        1%{?dist}
 Summary:        Bindings for libssh C library
 
-License:        LGPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/ParallelSSH/ssh-python
 Source0:        %{url}/archive/%{version}/%{modname}-%{version}.tar.gz
 
 Patch0001:      0001-Set-master_doc-to-index-in-conf.py-for-sphinx.patch
+# Upstream MR:  https://github.com/ParallelSSH/ssh-python/pull/71
+Patch0002:	0002-SafeConfigParser_removal_from_Python_3.12.patch
+# Versioneer used is extremely old, force version, see above MR for suggestion
+Patch0003:      0003-Fix_version_due_to_old_versioneer.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -43,8 +47,7 @@ Python 3 version.
 
 
 %prep
-%setup -n %{modname}-%{version}
-%patch1 -p1
+%autosetup -p1 -n %{modname}-%{version}
 # No bundled libs
 rm -vrf libssh
 sed -i -r 's:build_ssh[(].*:pass:' setup.py
@@ -92,6 +95,11 @@ Summary:        %{summary} documentation
 %doc examples/ _build/html/
 
 %changelog
+* Tue Apr 18 2023 Federico Pellegrin <fede@evolware.org> - 1.0.0-1
+- Bump to version 1.0.0
+- Local patch for Python 3.12 compatibility (fixes rhbz#2165556)
+- Fix wrong version in provides (fixes rhbz#2048102)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

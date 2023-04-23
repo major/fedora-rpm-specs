@@ -6,7 +6,7 @@ Version:        3.3.0
 Release:        %autorelease
 Summary:        FlexiBLAS API Interface for R
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://cran.r-project.org/package=%{packname}
 Source0:        %{url}&version=%{version}#/%{packname}_%{version}.tar.gz
 
@@ -38,7 +38,7 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 %check
 export LANG=C.UTF-8
-%{flags} %{_bindir}/R CMD check %{packname}
+%{flags} %{_bindir}/R CMD check --no-manual %{packname}
 
 %files
 %dir %{rlibdir}/%{packname}

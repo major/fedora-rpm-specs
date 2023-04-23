@@ -4,7 +4,7 @@
 
 Name:		R-%{packname}
 Version:	0.3.19
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Functions to Inline C, C++, Fortran Function Calls from R
 
 License:	LGPLv2+
@@ -12,7 +12,7 @@ URL:		https://cran.r-project.org/package=%{packname}
 Source0:	%{url}&version=%{version}#/%{packname}_%{version}.tar.gz
 
 BuildArch:	noarch
-BuildRequires:	R-core-devel
+BuildRequires:	R-devel, tex(latex)
 
 %if %{?fedora}%{!?fedora:0} >= 31 || %{?rhel}%{!?rhel:0} >= 8
 BuildRequires:	R-rpm-macros
@@ -51,6 +51,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 %{_datadir}/R/library/%{packname}/tinytest
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.3.19-7
+- R-maint-sig mass rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.19-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 # spec file for php-sebastian-global-state3
 #
-# Copyright (c) 2014-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2014-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -25,8 +25,8 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        3.0.2
-Release:        3%{?dist}
-Summary:        Snapshotting of global state
+Release:        4%{?dist}
+Summary:        Snapshotting of global state, version %{major}
 
 License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
@@ -74,6 +74,10 @@ Provides:       php-composer(%{pk_vendor}/%{pk_project}) = %{version}
 %description
 Snapshotting of global state,
 factored out of PHPUnit into a stand-alone component.
+
+This package provides the version %{major} of the library.
+
+Autoloader: %{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php
 
 
 %prep
@@ -136,6 +140,9 @@ exit $ret
 
 
 %changelog
+* Fri Apr 21 2023 Remi Collet <remi@remirepo.net> - 3.0.2-4
+- improve description and summary
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

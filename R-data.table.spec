@@ -1,5 +1,5 @@
 %global packname data.table
-%global packver  1.14.2
+%global packver  1.14.8
 %global rlibdir  %{_libdir}/R/library
 
 %global __suggests_exclude ^R\\((xts)\\)
@@ -8,8 +8,8 @@
 %global with_loop 0
 
 Name:             R-%{packname}
-Version:          1.14.2
-Release:          2%{?dist}
+Version:          %{packver}
+Release:          1%{?dist}
 Summary:          Extension of `data.frame`
 
 License:          MPLv2.0
@@ -61,9 +61,7 @@ Development files for %{name}.
 %setup -q -c -n %{packname}
 
 pushd %{packname}
-bunzip2 inst/tests/tests.Rraw.bz2
-%patch0001 -p1
-bzip2 inst/tests/tests.Rraw
+%patch -P0001 -p1
 popd
 
 
@@ -82,13 +80,13 @@ rm %{buildroot}%{rlibdir}/%{packname}/cc
 
 %check
 # Segfaults?
-%ifnarch aarch64
+%ifnarch aarch64 i686
 # Workaround /etc/localtime not being a symlink in koji.
 export TZ=Etc/UTC
 %if %{with_loop}
-%{_bindir}/R CMD check %{packname}
+%{_bindir}/R CMD check --ignore-vignettes %{packname}
 %else
-_R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
+_R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check --ignore-vignettes %{packname}
 %endif
 %endif
 
@@ -105,7 +103,7 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 %{rlibdir}/%{packname}/R
 %{rlibdir}/%{packname}/help
 %dir %{rlibdir}/%{packname}/libs
-%{rlibdir}/%{packname}/libs/datatable.so
+%{rlibdir}/%{packname}/libs/data_table.so
 %{rlibdir}/%{packname}/tests
 %dir %{rlibdir}/%{packname}/po
 %dir %{rlibdir}/%{packname}/po/en@quot
@@ -120,6 +118,10 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.14.8-1
+- R-maint-sig mass rebuild
+- Update to latest version
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

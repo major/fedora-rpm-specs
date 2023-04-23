@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 %global packname htmltools
-%global packver  0.5.4
+%global packver  0.5.5
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
@@ -79,6 +79,10 @@ export LANG=C.UTF-8
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.5.5-1
+- R-maint-sig mass rebuild
+- Update to latest version
+
 * Sat Jan 21 2023 Tom Callaway <spot@fedoraproject.org> - 0.5.4-1
 - update to 0.5.4
 

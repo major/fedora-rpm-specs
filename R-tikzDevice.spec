@@ -7,7 +7,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          R Graphics Output in LaTeX Format
 
 License:          GPLv2+
@@ -92,6 +92,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --ignore-vignettes
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.12.4-2
+- R-maint-sig mass rebuild
+
 * Tue Feb 14 2023 Tom Callaway <spot@fedoraproject.org> - 0.12.4-1
 - update to 0.12.4
 

@@ -8,9 +8,9 @@
 %global supported_arches x86_64 aarch64 %{ix86}
 
 Name:           rust-cpufeatures
-Version:        0.2.6
+Version:        0.2.7
 Release:        %autorelease
-Summary:        Lightweight runtime CPU feature detection
+Summary:        Lightweight runtime CPU feature detection for x86/x86_64 and aarch64
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/cpufeatures
@@ -74,8 +74,8 @@ use the "default" feature of the "%{crate}" crate.
 %cargo_install
 
 %if %{with check}
-%check
 %ifarch %{supported_arches}
+%check
 %cargo_test
 %endif
 %endif

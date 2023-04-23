@@ -24,7 +24,7 @@
 Name:    cantor
 Summary: KDE Frontend to Mathematical Software
 Version: 23.04.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPLv2+
 URL:     https://edu.kde.org/cantor/
@@ -259,6 +259,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 23.04.0-3
+- R-maint-sig mass rebuild
+
 * Sun Apr 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.0-2
 - Make Julia exclusive to x86_64 (matching Fedora Julia package)
 

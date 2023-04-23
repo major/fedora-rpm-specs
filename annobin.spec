@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.06
+Version: 12.07
 Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
@@ -524,6 +524,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Apr 21 2023 Nick Clifton  <nickc@redhat.com> - 12.07-1
+- gcc-plugin: generate warnings about misspelt -D_FORTIFY_SOURCE and/or -D_GLIBCXX_ASSERTIONS options.
+
 * Thu Apr 20 2023 Nick Clifton  <nickc@redhat.com> - 12.06-1
 - gcc-plugin: use a bigger buffer for constructing notes.
 

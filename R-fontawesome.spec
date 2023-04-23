@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          0.3.0
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          Easily work with 'Font Awesome' Icons
 %if 0%{?fedora} > 38
 License:          MIT
@@ -89,6 +89,9 @@ ln -s ../../../fontawesome %{buildroot}%{rlibdir}/%{packname}
 %{rlibdir}/%{packname}/fontawesome
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.3.0-4
+- R-maint-sig mass rebuild
+
 * Thu Mar 30 2023 Jerry James <loganjerry@gmail.com> - 0.3.0-3
 - Unbundle the FontAwesome fonts for F39+
 - Convert the License tag to SPDX

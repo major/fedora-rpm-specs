@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          1.5.8
-Release:          13%{?dist}
+Release:          14%{?dist}
 Summary:          Functions to Solve Quadratic Programming Problems
 
 License:          GPLv2+
@@ -65,6 +65,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.5.8-14
+- R-maint-sig mass rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.8-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

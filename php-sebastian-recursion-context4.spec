@@ -24,7 +24,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        4.0.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Recursively process PHP variables, version %{major}
 
 License:        BSD-3-Clause
@@ -54,6 +54,10 @@ Provides:       php-composer(%{pk_vendor}/%{pk_project}) = %{version}
 
 %description
 Provides functionality to recursively process PHP variables.
+
+This package provides version %{major} of %{pk_vendor}/%{pk_project} library.
+
+Autoloader: %{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php
 
 
 %prep
@@ -97,6 +101,9 @@ exit $ret
 
 
 %changelog
+* Fri Apr 21 2023 Remi Collet <remi@remirepo.net> - 4.0.5-2
+- improve description
+
 * Fri Feb  3 2023 Remi Collet <remi@remirepo.net> - 4.0.5-1
 - update to 4.0.5
 

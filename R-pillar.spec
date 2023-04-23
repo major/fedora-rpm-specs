@@ -1,7 +1,7 @@
 %bcond_with check
 
 %global packname pillar
-%global packver  1.8.1
+%global packver  1.9.0
 %global rlibdir  %{_datadir}/R/library
 
 Name:             R-%{packname}
@@ -30,7 +30,7 @@ BuildRequires:    R-lifecycle
 BuildRequires:    R-rlang >= 1.0.2
 BuildRequires:    R-utf8 >= 1.1.0
 BuildRequires:    R-utils
-BuildRequires:    R-vctrs >= 0.3.8
+BuildRequires:    R-vctrs >= 0.5.0
 %if %{with check}
 BuildRequires:    R-bit64
 BuildRequires:    R-debugme

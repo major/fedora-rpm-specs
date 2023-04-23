@@ -8,7 +8,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}.%{packrel}
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Multiple Precision Arithmetic
 License:          GPL-2.0-or-later
 URL:              https://CRAN.R-project.org/package=%{packname}
@@ -74,6 +74,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 
 
 %changelog
+* Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.7.1-2
+- R-maint-sig mass rebuild
+
 * Wed Feb  8 2023 Tom Callaway <spot@fedoraproject.org> - 0.7.1-1
 - update to 0.7-1
 
