@@ -4,7 +4,7 @@ Version:	13.6
 Release:	4%{?dist}
 Summary:	Grid Community Toolkit - GRAM Protocol Library
 
-License:	ASL 2.0
+License:	Apache-2.0
 URL:		https://github.com/gridcf/gct/
 Source:		https://repo.gridcf.org/gct6/sources/%{_name}-%{version}.tar.gz
 Source8:	README

@@ -1,6 +1,6 @@
 Name: elfutils
 Version: 0.189
-%global baserelease 1
+%global baserelease 2
 Release: %{baserelease}%{?dist}
 URL: http://elfutils.org/
 %global source_url ftp://sourceware.org/pub/elfutils/%{version}/
@@ -74,6 +74,10 @@ BuildRequires: gettext-devel
 
 # For s390x... FDO package notes are bogus.
 Patch1: elfutils-0.186-fdo-swap.patch
+# testsuite: Avoid C99 compatibility issues in run-native-test.sh
+Patch2: elfutils-0.189-c99-compat.patch
+# elfcompress: Don't compress if section already compressed unless forced
+Patch3: elfutils-0.189-elfcompress.patch
 
 %description
 Elfutils is a collection of utilities, including stack (to show
@@ -442,6 +446,10 @@ exit 0
 %systemd_postun_with_restart debuginfod.service
 
 %changelog
+* Sat Apr 22 2023 Mark Wielaard <mjw@fedoraproject.org> - 0.189-2
+- Add elfutils-0.189-c99-compat.patch
+- Add elfutils-0.189-elfcompress.patch
+
 * Fri Mar 3 2023 Mark Wielaard <mjw@fedoraproject.org> - 0.189-1
 - Upgrade to upsteam elfutils 0.189.
 

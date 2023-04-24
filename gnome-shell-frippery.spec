@@ -2,11 +2,11 @@
 %global gschemadir %{_datadir}/glib-2.0/schemas
 
 Name:           gnome-shell-frippery
-Version:        43.0
+Version:        44.0
 Release:        %autorelease
 Summary:        Extensions to provide a user experience more like that of GNOME 2
 
-License:        GPLv2
+License:        GPL-2.0-or-later
 URL:            http://frippery.org/extensions
 Source0:        %{url}/%{name}-%{version}.tgz
 

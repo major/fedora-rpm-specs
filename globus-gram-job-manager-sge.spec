@@ -10,8 +10,8 @@ Version:	3.3
 Release:	4%{?dist}
 Summary:	Grid Community Toolkit - Grid Engine Job Manager Support
 
-#		The sge.pm file is LGPLv2, the rest is ASL 2.0
-License:	ASL 2.0 and LGPLv2
+#		The sge.pm file is LGPL-2.1, the rest is Apache-2.0
+License:	Apache-2.0 AND LGPL-2.1-only
 URL:		https://github.com/gridcf/gct/
 Source:		https://repo.gridcf.org/gct6/sources/%{_name}-%{version}.tar.gz
 Source8:	README

@@ -186,7 +186,7 @@
 
 Name:           uwsgi
 Version:        2.0.21
-Release:        5%{?dist}
+Release:        7%{?dist}
 Summary:        Fast, self-healing, application container server
 # uwsgi is licensed under GPLv2 with a linking exception
 # docs are licensed under MIT
@@ -219,6 +219,7 @@ Patch16:        uwsgi_python311.patch
 # https://github.com/unbit/uwsgi/pull/2400
 Patch17:        uwsgi_fix_php81_filename_zend_string.patch
 Patch18:        uwsgi_fix_php82.patch
+Patch19:        uwsgi_fix_ruby_taint.patch
 
 BuildRequires:  curl, libxml2-devel, libuuid-devel, jansson-devel
 BuildRequires:  libyaml-devel, ruby-devel
@@ -1241,6 +1242,7 @@ cp -p %{SOURCE5} README.Fedora
 %patch12 -p1
 %patch13 -p1
 %patch18 -p1
+%patch19 -p1
 
 %if %{with perl} && (%{with python3} || %{with python3_other}) && %{with perlcoro}
 %{__python} -m lib2to3 --write --nobackups plugins/coroae/uwsgiplugin.py
@@ -1835,6 +1837,9 @@ exit 0
 
 
 %changelog
+* Fri Apr 21 2023 Ralf Ertzinger <ralf@skytale.net> - 2.0.21-7
+- Fix Ruby/Rack plugin for Ruby >= 3.2
+
 * Tue Jan 24 2023 Ralf Ertzinger <ralf@skytale.net> - 2.0.21-5
 - Rebuilt for new libgo.so
 

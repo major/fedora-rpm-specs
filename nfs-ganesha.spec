@@ -117,8 +117,8 @@ Requires: openSUSE-release
 #%%global dev rc6
 
 Name:		nfs-ganesha
-Version:	4.4
-Release:	2%{?dev:%{dev}}%{?dist}
+Version:	5.0
+Release:	1%{?dev:%{dev}}%{?dist}
 Summary:	NFS-Ganesha is a NFS Server running in user space
 License:	LGPL-3.0-or-later
 Url:		https://github.com/nfs-ganesha/nfs-ganesha/wiki
@@ -160,6 +160,11 @@ BuildRequires:	libblkid-devel
 BuildRequires:	libuuid-devel
 %if ( 0%{?with_mspac_support} )
 BuildRequires: libwbclient-devel
+%endif
+%if ( 0%{?with_monitoring_support} )
+BuildRequires: libcurl-devel
+BuildRequires: zlib-devel
+BuildRequires: libprometheus-cpp-devel
 %endif
 %if ( 0%{?with_monitoring_support} )
 BuildRequires: libcurl-devel
@@ -556,7 +561,7 @@ cd src && %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo	\
 	-DUSE_MAN_PAGE=%{use_man_page}			\
 	-DRPCBIND=%{use_rpcbind}			\
 	-D_MSPAC_SUPPORT=%{use_mspac_support}		\
-        -DUSE_MONITORING=%{use_monitoring_support}      \
+	-DUSE_MONITORING=%{use_monitoring_support}	\
 	-DSANITIZE_ADDRESS=%{use_sanitize_address}	\
 	-DUSE_MONITORING=ON				\
 %ifarch x86_64 aarch64
@@ -900,6 +905,9 @@ exit 0
 %endif
 
 %changelog
+* Fri Apr 21 2023 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 5.0-1
+- NFS-Ganesha 5.0 GA
+
 * Tue Feb 28 2023 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 4.4-2
 - enable Prometheus monitoring
 

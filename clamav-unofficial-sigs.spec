@@ -9,7 +9,7 @@
 %endif
 Name:           clamav-unofficial-sigs
 Version:        7.2.5
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Scripts to download unofficial clamav signatures 
 Group:          Applications/System
 License:        BSD
@@ -18,6 +18,7 @@ Source0:        https://github.com/extremeshok/%{name}/archive/%{version}/%{name
 Source1:        clamav-unofficial-sigs.cron
 Source2:        clamav-unofficial-sigs.logrotate
 Source3:        clamav-unofficial-sigs.man8
+Patch1:         clamav-unofficial-sigs-grep-backslash.patch
 BuildArch:      noarch
 BuildRequires:  bind-utils
 BuildRequires:  rsync
@@ -38,6 +39,7 @@ INetMsg and ScamNailer.
 
 %prep
 %setup -qn %{name}-%{version}
+%autopatch -p1
 sed -i -e '/user_configuration_complete/ s/^#//' config/user.conf
 sed -i -e '/ExecStart/ s^/usr/local/sbin^/usr/sbin^' systemd/clamav-unofficial-sigs.service
 
@@ -87,9 +89,6 @@ install -p -m0644 clamav-unofficial-sigs.cron %{buildroot}%{_sysconfdir}/cron.d/
 install -p -m0644 clamav-unofficial-sigs.logrotate %{buildroot}%{_sysconfdir}/logrotate.d/clamav-unofficial-sigs
 install -p -m0644 clamav-unofficial-sigs.man8 %{buildroot}%{_mandir}/man8/clamav-unofficial-sigs.8
 
-%clean
-rm -rf %{buildroot}
-
 %files
 %doc README.md 
 %license LICENSE
@@ -109,6 +108,10 @@ rm -rf %{buildroot}
 %{_mandir}/man*/%{name}*
 
 %changelog
+* Mon Apr 17 2023 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 7.2.5-6
+- Fix: grep: warning: stray \ before "
+- Remove clean section
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

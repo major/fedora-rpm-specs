@@ -4,8 +4,8 @@ Version:	3.0
 Release:	16%{?dist}
 Summary:	Grid Community Toolkit - SLURM Job Manager Support
 
-#		The slurm.pm file is BSD, the rest is ASL 2.0
-License:	ASL 2.0 and BSD
+#		The slurm.pm file is BSD, the rest is Apache-2.0
+License:	Apache-2.0 AND BSD-2-Clause
 URL:		https://github.com/gridcf/gct/
 Source:		https://repo.gridcf.org/gct6/sources/%{_name}-%{version}.tar.gz
 Source8:	README

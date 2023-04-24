@@ -1,5 +1,5 @@
 # Enable Qt by default
-%bcond qt 1
+%bcond_without qt
 
 # Vala/Vapi support ( upstream disabled by default, probably explains why it the build breaks often )
 %global vala 1

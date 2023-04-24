@@ -21,7 +21,7 @@
 
 # This flag is so I can build things very fast on a giant system.
 # Enabling this in koji causes aarch64 builds to timeout indefinitely.
-%global use_all_cpus 0
+%global use_all_cpus 1
 
 %if %{use_all_cpus}
 %global numjobs %{_smp_build_ncpus}
@@ -37,8 +37,9 @@
 # %1 where
 # %2 what
 %global build_target() \
+	export UV_THREADPOOL_SIZE=%{numjobs} ; \
 	export NINJA_STATUS="[%2:%f/%t] " ; \
-	ninja -j %{numjobs} -C '%1' '%2'
+	ninja -j %{numjobs} -C '%1' '%2' %limit_build -m 3072
 
 # enable|disable headless client build
 %global build_headless 1
@@ -242,7 +243,7 @@
 
 Name:	chromium%{chromium_channel}
 Version: 112.0.5615.165
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -319,8 +320,8 @@ Patch90: chromium-109-disable-GlobalMediaControlsCastStartStop.patch
 # patch for using system opus
 Patch91: chromium-108-system-opus.patch
 
-# fix prefers-color-scheme
-Patch92: chromium-110-gtktheme.patch
+# enable WebUIDarkMode
+Patch92: chromium-113-WebUIDarkMode.patch
 
 # need to explicitly include a kernel header on EL7 to support MFD_CLOEXEC, F_SEAL_SHRINK, F_ADD_SEALS, F_SEAL_SEAL
 Patch100: chromium-108-el7-include-fcntl-memfd.patch
@@ -1659,6 +1660,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Sat Apr 22 2023 Than Ngo <than@redhat.com> - 112.0.5615.165-2
+- enable WebUIDarkMode
+
 * Thu Apr 20 2023 Than Ngo <than@redhat.com> - 112.0.5615.165-1
 - update to 112.0.5615.165
 

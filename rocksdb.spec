@@ -3,7 +3,7 @@
 %global forgeurl https://github.com/facebook/rocksdb
 
 Name:    rocksdb
-Version: 8.0.0
+Version: 8.1.1
 Release: 1%{?dist}
 Summary: A Persistent Key-Value Store for Flash and RAM Storage
 
@@ -109,7 +109,7 @@ rm %{buildroot}%{_libdir}/librocksdb.a
 %license LICENSE.Apache
 %license LICENSE.leveldb
 %{_libdir}/librocksdb.so.8
-%{_libdir}/librocksdb.so.8.0.0
+%{_libdir}/librocksdb.so.8.1.1
 
 
 %files tools
@@ -136,6 +136,9 @@ rm %{buildroot}%{_libdir}/librocksdb.a
 
 
 %changelog
+* Sat Apr 22 2023 Jonny Heggheim <hegjon@gmail.com> - 8.1.1-1
+- Updated to version 8.1.1
+
 * Wed Apr 19 2023 Jonny Heggheim <hegjon@gmail.com> - 8.0.0-1
 - Updated to version 8.0.0
 

@@ -1,10 +1,10 @@
 %global richname QR-Code-generator
 %global cmakename qrcodegen-cmake
-%global cmakesuffix cmake1
+%global cmakesuffix cmake2
 
 Name: qr-code-generator
 Version: 1.8.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 License: MIT
 Summary: High-quality QR Code generator library
@@ -138,6 +138,9 @@ ln -s qrcodegen.hpp %{buildroot}%{_includedir}/qrcodegencpp/QrCode.hpp
 %{python3_sitelib}/qrcodegen-*.egg-info/
 
 %changelog
+* Sat Apr 22 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 1.8.0-5
+- Fixed namespaced targets detection.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

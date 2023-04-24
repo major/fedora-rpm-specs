@@ -12,7 +12,7 @@ Version:	11.4
 Release:	3%{?dist}
 Summary:	Grid Community Toolkit - Globus Gatekeeper
 
-License:	ASL 2.0
+License:	Apache-2.0
 URL:		https://github.com/gridcf/gct/
 Source:		https://repo.gridcf.org/gct6/sources/%{_name}-%{version}.tar.gz
 Source1:	%{name}.service

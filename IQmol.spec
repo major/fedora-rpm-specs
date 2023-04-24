@@ -1,6 +1,6 @@
 Name:           IQmol
 Version:        3.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A free open-source molecular editor and visualization package
 License:        BSD and GPLv2+ and GPLv3+
 URL:            http://iqmol.org
@@ -76,7 +76,7 @@ rm -rf src/OpenMesh/
 %cmake_install
 install -D -p -m 755 %{__cmake_builddir}/IQmol %{buildroot}%{_bindir}/IQmol
 mkdir -p %{buildroot}%{_datadir}/IQmol
-cp -pr share %{buildroot}%{_datadir}/IQmol
+cp -pr share/* %{buildroot}%{_datadir}/IQmol/
 install -D -p -m 644 resources/IQmol.png %{buildroot}%{_datadir}/pixmaps/IQmol.png
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications/ resources/IQmol.desktop
 
@@ -93,6 +93,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications/ resources/IQmol
 %doc samples/*
 
 %changelog
+* Sat Apr 22 2023 Susi Lehtola <jussilehtola@fedoraproject.org> - 3.1.2-2
+- Fix file paths for data files.
+
 * Sat Feb 11 2023 Susi Lehtola <jussilehtola@fedoraproject.org> - 3.1.2-1
 - Update to 3.1.2.
 

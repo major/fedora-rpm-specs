@@ -4,7 +4,7 @@ Version:	2.1
 Release:	10%{?dist}
 Summary:	Grid Community Toolkit - Globus XIO Rate Limiting Driver
 
-License:	ASL 2.0
+License:	Apache-2.0
 URL:		https://github.com/gridcf/gct/
 Source:		https://repo.gridcf.org/gct6/sources/%{_name}-%{version}.tar.gz
 Source8:	README

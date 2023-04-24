@@ -1,6 +1,6 @@
 Name: clamtk
-Version: 6.14
-Release: 6%{dist}
+Version: 6.15
+Release: 1%{dist}
 Summary: Easy to use graphical user interface for Clam anti virus
 License: GPL-1.0-or-later AND Artistic-2.0
 URL: https://github.com/dave-theunsub/clamtk
@@ -53,7 +53,7 @@ done
 %find_lang %{name} --with-gnome
 
 %files -f %{name}.lang
-%doc CHANGES DISCLAIMER LICENSE README.md credits.md
+%doc CHANGES DISCLAIMER.md LICENSE README.md credits.md
 
 # The main executable
 %{_bindir}/%{name}
@@ -75,6 +75,9 @@ done
 %{_datadir}/metainfo/com.github.davetheunsub.clamtk.appdata.xml
 
 %changelog
+* Sat Apr 22 2023 Dave M. <dave.nerd@gmail.com> - 6.15-1
+- Updated to release 6.15.
+
 * Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 6.14-6
 - migrate to SPDX license
 

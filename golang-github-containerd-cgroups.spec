@@ -6,7 +6,7 @@
 # https://github.com/containerd/cgroups
 %global goipath         github.com/containerd/cgroups
 Epoch:                  1
-Version:                3.0.1
+Version:                1.0.4
 
 %gometa
 
@@ -17,7 +17,7 @@ Go package for creating, managing, inspecting, and destroying cgroups.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        %autorelease
+Release:        5
 Summary:        Cgroups package for Go
 
 License:        Apache-2.0

@@ -1,5 +1,5 @@
 Name:           perl-Data-Compare
-Version:        1.28
+Version:        1.29
 Release:        1%{?dist}
 Summary:        Compare perl data structures
 # Some of the metadata files suggest GPL2 rather than GPL (any version)
@@ -72,6 +72,10 @@ make test
 %{_mandir}/man3/Data::Compare::Plugins::Scalar::Properties.3*
 
 %changelog
+* Sat Apr 22 2023 Paul Howarth <paul@city-fan.org> - 1.29-1
+- Update to 1.29
+  - Skip taint-mode tests if perl was built without taint support
+
 * Wed Mar 15 2023 Paul Howarth <paul@city-fan.org> - 1.28-1
 - Update to 1.28
   - Bug fix: undef values in hashes were treated incorrectly: need to check

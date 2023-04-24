@@ -1,5 +1,5 @@
 Name:           moarvm
-Version:        2023.02
+Version:        2023.04
 Release:        %autorelease
 Summary:        Metamodel On A Runtime Virtual Machine
 License:        Artistic-2.0
@@ -40,12 +40,12 @@ moarvm (Metamodel On A Runtime).
 %prep
 %autosetup -p1 -n MoarVM-%{version}
 
-# make sure to not bundle this
-rm -rf 3rdparty/libuv
-rm -rf 3rdparty/libatomicops
-rm -rf 3rdparty/dyncall
-rm -rf 3rdparty/libtommath
-rm -rf 3rdparty/mimalloc
+# remove bundled things
+rm -r 3rdparty/libuv
+rm -r 3rdparty/libatomicops
+rm -r 3rdparty/dyncall
+rm -r 3rdparty/libtommath
+rm -r 3rdparty/mimalloc
 
 %build
 %{__perl} Configure.pl --prefix=%{_prefix} --libdir=%{_libdir} \
@@ -66,10 +66,10 @@ chmod 755 %{buildroot}%{_libdir}/libmoar.so
 %doc CREDITS docs
 %{_bindir}/moar
 %{_libdir}/libmoar.so
-%{_datadir}/nqp
+%{_datadir}/nqp/
 
 %files devel
-%{_includedir}/moar
+%{_includedir}/moar/
 %{_datadir}/pkgconfig/moar.pc
 
 %changelog

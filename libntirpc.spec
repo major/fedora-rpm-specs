@@ -1,10 +1,8 @@
 
-%global		_hardened_build 1
-
 #%%global		dev rc3
 
 Name:		libntirpc
-Version:	4.3
+Version:	5.0
 Release:	1%{?dev:%{dev}}%{?dist}
 Summary:	New Transport Independent RPC Library
 License:	BSD-3-Clause
@@ -83,6 +81,9 @@ ln -s %{name}.so.%{version} %{buildroot}%{_libdir}/%{name}.so.4
 %{_libdir}/pkgconfig/libntirpc.pc
 
 %changelog
+* Fri Apr 21 2023 Kaleb S. KEITHLEY <kkeithle at redhat.com> 5.0-1
+- ntirpc-5.0 GA
+
 * Fri Jan 20 2023 Kaleb S. KEITHLEY <kkeithle at redhat.com> 4.3-1
 - ntirpc-4.3 GA
 

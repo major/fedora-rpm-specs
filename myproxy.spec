@@ -13,7 +13,7 @@ Version:        6.2.14
 Release:        4%{?dist}
 Summary:        Manage X.509 Public Key Infrastructure (PKI) security credentials
 
-License:        NCSA and BSD and ASL 2.0
+License:        NCSA AND BSD-4-Clause AND BSD-2-Clause AND Apache-2.0
 URL:            http://grid.ncsa.illinois.edu/myproxy/
 Source:         https://repo.gridcf.org/gct6/sources/%{name}-%{version}.tar.gz
 Source8:        README

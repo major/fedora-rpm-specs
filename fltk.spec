@@ -1,8 +1,12 @@
 # trim changelog included in binary rpms
 %global _changelog_trimtime %(date +%s -d "1 year ago")
 
-# MinGW is enabled by default, to disable use '--without mingw'
+# MinGW is enabled by default (except for RHEL), to disable use '--without mingw'
+%if 0%{?rhel}
+%bcond_with mingw
+%else
 %bcond_without mingw
+%endif
 
 Name:		    fltk
 Version:	    1.3.8

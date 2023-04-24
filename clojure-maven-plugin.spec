@@ -3,8 +3,8 @@
 %global artifactId  clojure-maven-plugin
 
 Name:           %{artifactId}
-Version:        1.8.4
-Release:        9%{?dist}
+Version:        1.9.2
+Release:        1%{?dist}
 Summary:        Clojure plugin for Maven
 
 License:        EPL-1.0
@@ -38,6 +38,9 @@ possible, when working in a mixed language, enterprise project.
 
 # release plugin is not required for RPM builds
 %pom_remove_plugin :maven-release-plugin
+%pom_remove_plugin :maven-enforcer-plugin
+%pom_remove_plugin :ossindex-maven-plugin
+%pom_remove_plugin :cyclonedx-maven-plugin
 
 # trivial port to commons-lang3
 %pom_remove_dep :commons-lang
@@ -49,7 +52,6 @@ sed -i "s/org.apache.commons.lang./org.apache.commons.lang3./g" \
     src/main/java/com/theoryinpractise/clojure/ClojureNReplMojo.java
 sed -i "s/org.apache.commons.lang./org.apache.commons.lang3./g" \
     src/main/java/com/theoryinpractise/clojure/ClojureSwankMojo.java
-
 
 %build
 # test1.clj does not get discovered if LANG=C
@@ -71,6 +73,10 @@ export LANG=en_US.utf8
 
 
 %changelog
+* Sat Apr 22 2023 Markku Korkeala <markku.korkeala@iki.fi> - 1.9.2-1
+- Update to upstream release 1.9.2
+- Remove unnecessary plugins from pom
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

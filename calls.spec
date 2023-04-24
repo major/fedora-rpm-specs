@@ -1,7 +1,7 @@
-%global libcall_ui_commit 619dd91561ad470db3d0e0e263ebc35d787afd2e
+%global libcall_ui_commit 6798b38d4d66d069751151b3e9a202c6de8d7f3c
 
 Name:		calls
-Version:	44.0
+Version:	44.1
 Release:	1%{?dist}
 Summary:	A phone dialer and call handler
 
@@ -82,6 +82,10 @@ rm %{buildroot}%{_datadir}/locale/el/LC_MESSAGES/call-ui.mo
 rm %{buildroot}%{_datadir}/locale/fr/LC_MESSAGES/call-ui.mo
 rm %{buildroot}%{_datadir}/locale/ru/LC_MESSAGES/call-ui.mo
 rm %{buildroot}%{_datadir}/locale/hr/LC_MESSAGES/call-ui.mo
+rm %{buildroot}%{_datadir}/locale/cs/LC_MESSAGES/call-ui.mo
+rm %{buildroot}%{_datadir}/locale/eu/LC_MESSAGES/call-ui.mo
+rm %{buildroot}%{_datadir}/locale/hi/LC_MESSAGES/call-ui.mo
+rm %{buildroot}%{_datadir}/locale/hu/LC_MESSAGES/call-ui.mo
 
 # We do not support the ofono backend
 rm -rf %{buildroot}%{_libdir}/calls/plugins/provider/ofono/
