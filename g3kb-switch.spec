@@ -1,7 +1,7 @@
 %global uuid g3kb-switch@g3kb-switch.org
 
 Name:           g3kb-switch
-Version:        1.1
+Version:        1.2
 Release:        %autorelease
 Summary:        CLI keyboard layout switcher for GNOME Shell
 
@@ -10,12 +10,6 @@ Summary:        CLI keyboard layout switcher for GNOME Shell
 License:        BSD-2-Clause AND GPL-2.0-only
 URL:            https://github.com/lyokha/g3kb-switch
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-# merged upstream
-# https://github.com/lyokha/g3kb-switch/pull/14
-# https://github.com/lyokha/g3kb-switch/pull/15
-# ability to set installation paths + avoid unnecessary CMakeDetermineCXXCompiler check
-Patch0:         g3kb-switch-cmake-fixes.patch
-Patch1:         g3kb-switch-gnome-44-support.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -29,6 +23,12 @@ This is a CLI keyboard layout switcher for Gnome 3 and 4x. It is
 not based on the X interface but rather implements direct D-Bus
 messaging with the Gnome Shell.
 
+%package devel
+Summary:        Development files for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description    devel
+%{summary}.
 
 %package        zsh-completion
 Summary:        Zsh completion for %{name}
@@ -75,6 +75,10 @@ cp -ap extension/%{uuid} %{buildroot}%{_datadir}/gnome-shell/extensions
 %dir %{_libdir}/%{name}
 %{_libdir}/%{name}/libg3kbswitch.so
 %{_datadir}/gnome-shell/extensions/%{uuid}/
+%{_mandir}/man1/%{name}.1*
+
+%files devel
+%{_datadir}/pkgconfig/%{name}.pc
 
 %files zsh-completion
 %{zsh_completions_dir}/_%{name}

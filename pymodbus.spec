@@ -22,7 +22,7 @@ Server Features \
 
 Name: pymodbus
 Version: 3.2.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: %{sum}
 
 License: BSD
@@ -61,6 +61,7 @@ Provides: bundled(python3-pyserial-asyncio)
 
 %prep
 %autosetup -p1
+sed -i '/setuptools/d' requirements.txt
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -95,6 +96,11 @@ rm -rf %{buildroot}%{python3_sitelib}/test
 %{python3_sitelib}/pymodbus/server/simulator/setup.json
 
 %changelog
+* Sun Apr 23 2023 Christian Krause <chkr@fedoraproject.org> - 3.2.2-2
+- Remove unneeded setuptools requirement which causes a
+  FailsToInstall problem in F39 (#2188643) (upstream removed
+  it as well in their development branch)
+
 * Fri Mar 31 2023 Christian Krause <chkr@fedoraproject.org> - 3.2.2-1
 - Update spec file to latest Python packaging guidelines
 - Update to 3.2.2 (#2168739)

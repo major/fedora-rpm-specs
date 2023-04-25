@@ -2,7 +2,7 @@ Name:		perl-Hash-StoredIterator
 Version:	0.008
 Release:	22%{?dist}
 Summary:	Functions for accessing a hash's internal iterator
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Hash-StoredIterator
 Source0:	https://cpan.metacpan.org/modules/by-module/Hash/Hash-StoredIterator-%{version}.tar.gz
 # Module Build
@@ -26,6 +26,7 @@ BuildRequires:	perl(XSLoader)
 BuildRequires:	perl(Test2::Bundle::Extended)
 BuildRequires:	perl(Test2::Tools::Spec)
 # Dependencies
+# (none)
 
 # Avoid provides for private shared objects
 %{?perl_default_filter}

@@ -1,7 +1,7 @@
 Name:           perl-Hash-Merge-Simple
 Version:        0.051
 Release:        25%{?dist}
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:        Recursively merge two or more hashes, simply
 URL:            https://metacpan.org/release/Hash-Merge-Simple
 Source:         https://cpan.metacpan.org/modules/by-module/Hash/Hash-Merge-Simple-%{version}.tar.gz
@@ -23,6 +23,7 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(Test::Deep)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Most)
+# Dependencies
 Requires:       perl(Clone)
 Requires:       perl(Exporter)
 

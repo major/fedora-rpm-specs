@@ -1,6 +1,6 @@
 Name:           s-nail
 Version:        14.9.24
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Environment for sending and receiving mail
 
 # Everything is ISC except parts coming from the original Heirloom mailx which are BSD
@@ -106,16 +106,20 @@ if [ $1 -eq 0 ]; then
 fi
 
 
-%post
+%post -e
+ALTERNATIVES_DOCS=""
+[ "%%{_excludedocs}" = 1 ] || ALTERNATIVES_DOCS='
+    --slave %{_mandir}/man1/mailx.1.gz mailx.1.gz %{_mandir}/man1/mailx.%{name}.1.gz
+    --slave %{_mandir}/man1/Mail.1.gz Mail.1.gz %{_mandir}/man1/mailx.%{name}.1.gz
+    --slave %{_mandir}/man1/mail.1.gz mail.1.gz %{_mandir}/man1/mailx.%{name}.1.gz
+    --slave %{_mandir}/man1/nail.1.gz nail.1.gz %{_mandir}/man1/mailx.%{name}.1.gz'
+
 # set up the alternatives files
 %{_sbindir}/update-alternatives --install %{_bindir}/mailx mailx %{_bindir}/mailx.%{name} 100 \
     --slave %{_bindir}/Mail Mail %{_bindir}/mailx.%{name} \
     --slave %{_bindir}/mail mail %{_bindir}/mailx.%{name} \
     --slave %{_bindir}/nail nail %{_bindir}/mailx.%{name} \
-    --slave %{_mandir}/man1/mailx.1.gz mailx.1.gz %{_mandir}/man1/mailx.%{name}.1.gz \
-    --slave %{_mandir}/man1/Mail.1.gz Mail.1.gz %{_mandir}/man1/mailx.%{name}.1.gz \
-    --slave %{_mandir}/man1/mail.1.gz mail.1.gz %{_mandir}/man1/mailx.%{name}.1.gz \
-    --slave %{_mandir}/man1/nail.1.gz nail.1.gz %{_mandir}/man1/mailx.%{name}.1.gz \
+    $ALTERNATIVES_DOCS \
     >/dev/null 2>&1 || :
 
 
@@ -146,6 +150,10 @@ fi
 
 
 %changelog
+* Fri Apr 21 2023 Tomas Korbar <tkorbar@redhat.com> - 14.9.24-5
+- Fix s-nail installation without docs
+- Resolves: rhbz#2188620
+
 * Thu Apr 13 2023 Tomas Korbar <tkorbar@redhat.com> - 14.9.24-4
 - Fix s-nail makeflags
 - Resolves: rhbz#2171723

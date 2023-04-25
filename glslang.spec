@@ -1,4 +1,4 @@
-%global sdkver 1.3.239.0
+%global sdkver 1.3.243.0
 
 Name:           glslang
 Version:        11.9.0
@@ -43,9 +43,6 @@ find . -name '*.h' -or -name '*.cpp' -or -name '*.hpp'| xargs chmod a-x
 
 %install
 %{cmake_install}
-
-# Install libglslang-default-resource-limits.a
-install -pm 0644 %{_vpath_builddir}/StandAlone/libglslang-default-resource-limits.a %{buildroot}%{_libdir}/
 
 # we don't want them in here
 rm -rf %{buildroot}%{_includedir}/SPIRV

@@ -496,7 +496,7 @@ done
 # Ignore errors on some architectures
 # armv7: https://bugzilla.redhat.com/show_bug.cgi?id=1998836
 # s390x: https://bugzilla.redhat.com/show_bug.cgi?id=1998838
-fail=1
+fail=0
 %ifarch armv7hl s390x
 fail=0
 %endif

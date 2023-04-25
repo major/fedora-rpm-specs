@@ -1,8 +1,7 @@
 %global	project_name	idxd-config
-%global	debug_package	%{nil}
 
 Name:		accel-config
-Version:	3.5.3
+Version:	4.0
 Release:	1%{?dist}
 Summary:	Configure accelerator subsystem devices
 # The entire source code is under GPLv2 except for accel-config
@@ -90,6 +89,9 @@ make check
 %{_libdir}/pkgconfig/lib%{name}.pc
 
 %changelog
+* Sun Apr 23 2023 Jun Miao <jun.miao@intel.com> - 4.0-1
+- Update to v4.0 release
+
 * Mon Feb 27 2023 Jun Miao <jun.miao@intel.com> - 3.5.3-1
 - Update to v3.5.3 release
 

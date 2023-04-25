@@ -2,7 +2,7 @@
 %define libname libnmstate
 
 Name:           nmstate
-Version:        2.2.9
+Version:        2.2.10
 Release:        %autorelease
 Summary:        Declarative network manager API
 License:        LGPLv2+
@@ -14,7 +14,7 @@ Source2:        https://nmstate.io/nmstate.gpg
 # https://bugzilla.redhat.com/show_bug.cgi?id=2161128
 # but list Requires manually
 Patch1:         0001-Workaround-for-Fedora-rust-packaging.patch
-Patch2:         0002-Upgrade-to-nix-0.26-and-env_logger-0.10.patch
+Patch2:         0002-fix_nix_deps.patch
 BuildRequires:  patchelf
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools

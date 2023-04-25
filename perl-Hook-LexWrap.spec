@@ -2,16 +2,16 @@ Name:           perl-Hook-LexWrap
 Version:        0.26
 Release:        19%{?dist}
 Summary:        Lexically scoped subroutine wrappers
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Hook-LexWrap
-Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/Hook-LexWrap-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/modules/by-module/Hook/Hook-LexWrap-%{version}.tar.gz
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker)
 # Module Runtime
 BuildRequires:  perl(Carp)
@@ -23,7 +23,8 @@ BuildRequires:  perl(CPAN::Meta) >= 2.120900
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod) >= 1.14
-# Runtime
+# Dependencies
+# (none)
 
 %description
 Hook::LexWrap allows you to install a pre- or post-wrapper (or both)
@@ -40,7 +41,6 @@ PERL_MM_FALLBACK_SILENCE_WARNING=1 perl Makefile.PL INSTALLDIRS=vendor
 make %{?_smp_mflags}
 
 %install
-rm -rf %{buildroot}
 make pure_install DESTDIR=%{buildroot}
 find %{buildroot} -type f -name .packlist -delete
 %{_fixperms} -c %{buildroot}
@@ -49,11 +49,7 @@ find %{buildroot} -type f -name .packlist -delete
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
 %doc Changes CONTRIBUTING README demo/
 %{perl_vendorlib}/Hook/
 %{_mandir}/man3/Hook::LexWrap.3*

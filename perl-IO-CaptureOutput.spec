@@ -9,7 +9,7 @@ Name:           perl-IO-CaptureOutput
 Version:        1.1105
 Release:        11%{?dist}
 Summary:        Capture STDOUT/STDERR from sub-processes and XS/C modules
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IO-CaptureOutput
 Source0:        https://cpan.metacpan.org/modules/by-module/IO/IO-CaptureOutput-%{version}.tar.gz
 BuildArch:      noarch
@@ -18,6 +18,7 @@ BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.17
 # Run-time:
 BuildRequires:  perl(Carp)
@@ -35,9 +36,10 @@ BuildRequires:  perl(IO::File)
 BuildRequires:  perl(Test::More) >= 0.62
 # Optional test:
 %if %{with perl_IO_CaptureOutput_enables_optional_test}
-#BuildRequires:  perl(Inline::C)
+BuildRequires:  perl(Inline::C)
 %endif
 # Dependencies:
+# (none)
 
 %description
 %{summary}.

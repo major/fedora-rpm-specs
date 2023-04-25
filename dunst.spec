@@ -3,7 +3,7 @@
 %global   dunst_confdir %{_sysconfdir}/xdg
 
 Name:     dunst
-Version:  1.9.1
+Version:  1.9.2
 Release:  %autorelease
 Summary:  Lightweight and customizable notification-daemon
 License:  BSD-3-Clause

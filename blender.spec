@@ -43,7 +43,9 @@ License:        GPL-2.0-or-later
 URL:            https://www.blender.org
 
 Source0:        https://download.%{name}.org/source/%{name}-%{version}.tar.xz
-Source1:        macros.%{name}
+# Upstream separated addons from the main source
+Source1:        https://projects.%{name}.org/%{name}/%{name}-addons/archive/v%{version}.tar.gz#/%{name}-addons-%{version}.tar.gz
+Source3:        macros.%{name}
 
 # https://projects.blender.org/blender/blender/pulls/106575
 Patch:		106575.patch
@@ -211,7 +213,15 @@ This package provides rpm macros to support the creation of third-party addon
 packages to extend Blender.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -a1
+
+# integrate addons in source tree
+mkdir scripts/addons
+for d in addons; do
+    mv %{name}-$d/* scripts/addons
+    # wipe .gitea and .github
+    rm -r %{name}-$d
+done
 
 # Delete the bundled FindOpenJPEG to make find_package use the system version
 # instead (the local version hardcodes the openjpeg version so it is not update
@@ -224,6 +234,7 @@ rm -f build_files/cmake/Modules/FindOpenJPEG.cmake
 # Work around CMake boost module needing the python version to find the library
 sed -i "s/date_time/date_time python%{python3_version_nodots}/" \
     build_files/cmake/platform/platform_unix.cmake
+
 
 
 %build
@@ -272,6 +283,8 @@ sed -i "s/date_time/date_time python%{python3_version_nodots}/" \
     -DWITH_SYSTEM_EIGEN3=ON \
 %endif
 %if %{without usd}
+    -DUSD_LIBRARY=%{_libdir}/libusd_usd_ms.so \
+%else
     -DWITH_USD=OFF \
 %endif
     -DXR_OPENXR_SDK_LOADER_LIBRARY=%{_libdir}/libopenxr_loader.so.1 \
@@ -291,7 +304,7 @@ sed -e 's/@VERSION@/%{blender_api}/g' %{SOURCE1} > %{buildroot}%{macrosdir}/macr
 
 # AppData
 install -p -m 644 -D release/freedesktop/org.%{name}.Blender.appdata.xml \
-          %{buildroot}%{_metainfodir}/%{name}.appdata.xml
+          %{buildroot}%{_metainfodir}/org.%{name}.Blender.appdata.xml
 
 # Localization
 %find_lang %{name}
@@ -302,7 +315,7 @@ find %{buildroot}%{_datadir}/%{name}/%{blender_api}/scripts -name "*.py" -exec c
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.%{name}.Blender.appdata.xml
 
 %files -f %{name}.lang
 %license COPYING
@@ -316,7 +329,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %{_datadir}/%{name}/
 %{_datadir}/icons/hicolor/*/apps/%{name}*.*
 %{_mandir}/man1/%{name}.*
-%{_metainfodir}/%{name}.appdata.xml
+%{_metainfodir}/org.%{name}.Blender.appdata.xml
 
 %files rpm-macros
 %{macrosdir}/macros.%{name}

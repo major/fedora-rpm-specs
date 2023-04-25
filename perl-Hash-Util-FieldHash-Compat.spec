@@ -2,7 +2,7 @@ Name:		perl-Hash-Util-FieldHash-Compat
 Version:	0.11
 Release:	22%{?dist}
 Summary:	Use Hash::Util::FieldHash or ties, depending on availability
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Hash-Util-FieldHash-Compat
 Source0:	https://cpan.metacpan.org/modules/by-module/Hash/Hash-Util-FieldHash-Compat-%{version}.tar.gz
 BuildArch:	noarch
@@ -28,7 +28,8 @@ BuildRequires:	perl(CPAN::Meta) >= 2.120900
 BuildRequires:	perl(CPAN::Meta::Prereqs)
 BuildRequires:	perl(File::Spec)
 BuildRequires:	perl(Test::More) >= 0.88
-# Runtime
+# Dependencies
+# (none)
 
 # We actually have this everywhere, so use it
 BuildRequires:	perl(Hash::Util::FieldHash)
@@ -55,11 +56,7 @@ find %{buildroot} -type f -name .packlist -delete
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENCE
-%else
-%doc LICENCE
-%endif
 %doc Changes CONTRIBUTING README
 %{perl_vendorlib}/Hash/
 %{_mandir}/man3/Hash::Util::FieldHash::Compat.3*

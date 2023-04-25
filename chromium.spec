@@ -21,7 +21,7 @@
 
 # This flag is so I can build things very fast on a giant system.
 # Enabling this in koji causes aarch64 builds to timeout indefinitely.
-%global use_all_cpus 1
+%global use_all_cpus 0
 
 %if %{use_all_cpus}
 %global numjobs %{_smp_build_ncpus}
@@ -37,9 +37,8 @@
 # %1 where
 # %2 what
 %global build_target() \
-	export UV_THREADPOOL_SIZE=%{numjobs} ; \
 	export NINJA_STATUS="[%2:%f/%t] " ; \
-	ninja -j %{numjobs} -C '%1' '%2' %limit_build -m 3072
+	ninja -j %{numjobs} -C '%1' '%2'
 
 # enable|disable headless client build
 %global build_headless 1
@@ -931,7 +930,7 @@ udev.
 %patch -P91 -p1 -b .system-opus
 %endif
 
-%patch -P92 -p1 -b .gtk-prefers-color-scheme
+%patch -P92 -p1 -b .WebUIDarkMod
 
 # Fedora branded user agent
 %if 0%{?fedora}
@@ -1282,13 +1281,9 @@ mkdir -p %{builddir} && cp -a %{_bindir}/gn %{builddir}/
 
 %if %{build_headless}
 # Do headless first.
-# workaround for build dependency
-%build_target %{headlessbuilddir} gen/components/feed/core/proto/v2/wire/chrome_feed_response_metadata.pb.h
 %build_target %{headlessbuilddir} headless_shell
 %endif
 
-# workaround for build dependency
-%build_target %{builddir} gen/components/feed/core/proto/v2/wire/chrome_feed_response_metadata.pb.h
 %build_target %{builddir} chrome
 %build_target %{builddir} chrome_sandbox
 %build_target %{builddir} chromedriver
@@ -1660,7 +1655,8 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
-* Sat Apr 22 2023 Than Ngo <than@redhat.com> - 112.0.5615.165-2
+* Sun Apr 23 2023 Than Ngo <than@redhat.com> - 112.0.5615.165-2
+- make --use-gl=egl default for x11/wayland
 - enable WebUIDarkMode
 
 * Thu Apr 20 2023 Than Ngo <than@redhat.com> - 112.0.5615.165-1

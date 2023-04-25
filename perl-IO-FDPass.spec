@@ -2,7 +2,7 @@ Name:		perl-IO-FDPass
 Version:	1.3
 Release:	8%{?dist}
 Summary:	Pass a file descriptor over a socket
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/IO-FDPass
 Source0:	https://cpan.metacpan.org/modules/by-module/IO/IO-FDPass-%{version}.tar.gz
 # Module Build

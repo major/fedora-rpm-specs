@@ -11,6 +11,7 @@ Group:		Applications/System
 
 Patch4:	add-default-link-flags-for-shared-libraries.patch
 Patch6: 	replace-mlxfwreset-with-mstfwreset-in-mstflint-message.patch
+Patch7: mstflint-c99.patch
 
 BuildRequires:	make
 BuildRequires:	libstdc++-devel, zlib-devel, libibmad-devel, gcc-c++, gcc
@@ -31,6 +32,7 @@ for network adapters based on Mellanox Technologies chips.
 
 %patch4 -p1
 %patch6 -p1
+%patch7 -p1
 
 find . -type f -iname '*.[ch]' -exec chmod a-x '{}' ';'
 find . -type f -iname '*.cpp' -exec chmod a-x '{}' ';'
