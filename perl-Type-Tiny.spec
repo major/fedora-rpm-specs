@@ -1,5 +1,5 @@
 Name:           perl-Type-Tiny
-Version:        2.002001
+Version:        2.004000
 Release:        1%{?dist}
 Summary:        Tiny, yet Moo(se)-compatible type constraint
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -196,6 +196,9 @@ sed -i -e '/^inc\//d' MANIFEST
 %{_mandir}/man3/Test::TypeTiny.3pm*
 
 %changelog
+* Mon Apr 24 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 2.004000-1
+- Update to 2.004000.
+
 * Mon Jan 30 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 2.002001-1
 - Update to 2.002001.
 

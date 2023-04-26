@@ -4,10 +4,10 @@
 
 Name:       gnome-shell-extension-%{shortname}
 Version:    0.%{snapshot_date}
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    A GNOME Shell extension for ibus-setup custom font settings
 
-License:    GPLv3+
+License:    GPL-3.0-or-later
 URL:        https://extensions.gnome.org/extension/1121/ibus-font-setting/
 Source0:    https://pwu.fedorapeople.org/ibus/ibus-font-setting/%{name}-%{snapshot_date}.tar.gz
 BuildArch:  noarch
@@ -35,6 +35,9 @@ install -Dp -m 0644 {extension.js,metadata.json,prefs.js,stylesheet.css} \
 
 
 %changelog
+* Mon Apr 24 2023 Peng Wu <pwu@redhat.com> - 0.20210510-6
+- Migrate to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20210510-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,9 +2,10 @@ Name:		perl-IO-Socket-Socks
 Version:	0.74
 Release:	17%{?dist}
 Summary:	Provides a way to create socks (4 or 5) client or server
-License:	LGPLv2+
+# See https://rt.cpan.org/Public/Bug/Display.html?id=44047 for license discussion
+License:	LGPL-2.0-or-later
 URL:		https://metacpan.org/release/IO-Socket-Socks
-Source0:	https://cpan.metacpan.org/authors/id/O/OL/OLEG/IO-Socket-Socks-%{version}.tar.gz
+Source0:	https://cpan.metacpan.org/modules/by-module/IO/IO-Socket-Socks-%{version}.tar.gz
 BuildArch:	noarch
 # Module Build
 BuildRequires:	coreutils

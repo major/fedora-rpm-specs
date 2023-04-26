@@ -15,7 +15,7 @@
 Summary:  Dynamic host configuration protocol software
 Name:     dhcp
 Version:  4.4.3
-Release:  7%{?prever:.%prever}%{?patchver:.%patchver}%{?dist}
+Release:  8%{?prever:.%prever}%{?patchver:.%patchver}%{?dist}
 
 # NEVER CHANGE THE EPOCH on this package.  The previous maintainer (prior to
 # dcantrell maintaining the package) made incorrect use of the epoch and
@@ -65,6 +65,7 @@ Patch26: 0026-Add-dhclient-5-B-option-description.patch
 Patch27: 0027-Add-missed-sd-notify-patch-to-manage-dhcpd-with-syst.patch
 Patch28: 0028-Use-system-getaddrinfo-for-dhcp.patch
 Patch29: CVE-2021-25220.patch
+Patch30: 0030-bind-configure-c99.patch
 
 BuildRequires: autoconf
 BuildRequires: automake
@@ -527,6 +528,9 @@ done
 %attr(0644,root,root) %{_mandir}/man8/keama.8.gz
 
 %changelog
+* Mon Apr 24 2023 Arjun Shankar <arjun@redhat.com> - 12:4.4.3-8.P1
+- Port bind9 configure script to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12:4.4.3-7.P1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

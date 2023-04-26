@@ -46,12 +46,12 @@
 
 Name:           rstudio
 Version:        %{rstudio_version}+%{rstudio_version_suffix}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        RStudio base package
 ExclusiveArch:  %{java_arches}
 
 # See NOTICE file
-License:        AGPL-3.0-only AND LGPL-2.1-or-later AND Apache-2.0 AND MIT AND BSD-3-Clause AND ISC AND W3C AND MPL-1.1 AND CPL-1.0 AND CC-BY-SA-4.0 AND LicenseRef-Fedora-Public-Domain
+License:        AGPL-3.0-or-later AND LGPL-2.1-or-later AND Apache-2.0 AND MIT AND BSD-3-Clause AND ISC AND W3C AND MPL-1.1 AND CPL-1.0 AND CC-BY-SA-4.0 AND LicenseRef-Fedora-Public-Domain
 URL:            https://github.com/%{name}/%{name}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source4:        https://github.com/quarto-dev/quarto/archive/refs/heads/release/%{name}-%{rstudio_codename}.tar.gz
@@ -350,6 +350,9 @@ chown -R %{name}-server:%{name}-server %{_sharedstatedir}/%{name}-server
 %config(noreplace) %{_sysconfdir}/pam.d/%{name}
 
 %changelog
+* Mon Apr 24 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2023.03.0+386-4
+- Fix visual editor mode bz#2189205
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2023.03.0+386-3
 - R-maint-sig mass rebuild
 

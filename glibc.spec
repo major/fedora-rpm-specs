@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 6
+%global baserelease 7
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -238,6 +238,8 @@ Patch24: glibc-disable-werror-tst-realloc.patch
 Obsoletes: glibc-profile < 2.4
 Obsoletes: nscd < 2.35
 Provides: ldconfig
+Provides: /sbin/ldconfig
+Provides: /usr/sbin/ldconfig
 
 # The dynamic linker supports DT_GNU_HASH
 Provides: rtld(GNU_HASH)
@@ -2193,6 +2195,9 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Mon Apr 24 2023 Florian Weimer <fweimer@redhat.com> - 2.37.9000-7
+- Explicitly provide ldconfig paths (#2188550)
+
 * Thu Apr 20 2023 Florian Weimer <fweimer@redhat.com> - 2.37.9000-6
 - Auto-sync with upstream branch master,
   commit 65cbd52174f5bc211dd655727c2239e25e55bfce:

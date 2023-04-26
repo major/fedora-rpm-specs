@@ -2,18 +2,26 @@
 # package version, as a reminder of the need to rebuild dependent packages on
 # every update. See additional notes near the downstream ABI versioning patch.
 # It should be 0.MAJOR.MINOR without leading zeros, e.g. 22.03 → 0.22.3.
-%global downstream_so_version 0.22.5
+%global downstream_so_version 0.23.05
 
 %bcond_without  alembic
 %bcond_with     documentation
+%bcond_without  draco
 %bcond_without  embree
-%bcond_without  imaging
 %bcond_with     jemalloc
-%bcond_with     openshading
-%bcond_with     openvdb
+# Not yet packaged: https://github.com/AcademySoftwareFoundation/MaterialX
+%bcond_with     materialx
+# Default "UNIX Makefiles" backend for CMake would also work fine; ninja is a
+# bit faster. We conditionalize it just in case there are backend-specific
+# issues in the future.
+%bcond_without  ninja
+%bcond_without  openshading
+%bcond_without  openvdb
 %bcond_without  ocio
 %bcond_without  oiio
-%bcond_without  python3
+%bcond_without  ptex
+# Not yet packaged
+%bcond_with     pyside6
 %bcond_without  usdview
 # TODO: Figure out how to re-enable the tests. Currently these want to install
 # into /usr/tests and, and there are issues with the launchers finding the
@@ -21,8 +29,8 @@
 %bcond_with  test
 
 Name:           usd
-Version:        22.05b
-Release:        %autorelease -b 9
+Version:        23.05
+Release:        %autorelease
 Summary:        3D VFX pipeline interchange file format
 
 # The entire source is Apache-2.0 except:
@@ -31,6 +39,7 @@ Summary:        3D VFX pipeline interchange file format
 #   - pxr/base/gf/ilmbase_*
 #   - pxr/base/js/rapidjson/msinttypes/
 #   - pxr/base/tf/pxrDoubleConversion/
+#   - pxr/base/tf/pxrCLI11/
 # BSD-2-Clause:
 #   - pxr/base/tf/pxrLZ4/
 # MIT:
@@ -50,9 +59,9 @@ Summary:        3D VFX pipeline interchange file format
 # do not contribute their license terms to the built RPMs.)
 License:        Apache-2.0 AND BSD-3-Clause AND BSD-2-Clause AND MIT AND (MIT OR Unlicense) AND (Apache-2.0 AND GPL-3.0-or-later WITH Bison-exception-2.2)
 URL:            http://www.openusd.org/
-%global forgeurl https://github.com/PixarAnimationStudios/%{name}
-Source0:        %{forgeurl}/archive/v%{version}/%{name}-%{version}.tar.gz
-Source1:        org.open%{name}.%{name}view.desktop
+%global forgeurl https://github.com/PixarAnimationStudios/usd
+Source0:        %{forgeurl}/archive/v%{version}/usd-%{version}.tar.gz
+Source1:        org.openusd.usdview.desktop
 # Latest stb_image.patch that applies cleanly against 2.27:
 #   %%{forgeurl}/raw/8f9bb9563980b41e7695148b63bf09f7abd38a41/pxr/imaging/hio/stb/stb_image.patch
 # We treat this as a source file because it is applied separately during
@@ -85,94 +94,75 @@ Source2:        stb_image.patch
 # to be versioned as well, which is undesired. This is not a serious problem
 # because we do not want to package the built plugin anyway. (It should not be
 # built with -DPXR_BUILD_EXAMPLES=OFF, but it is.)
-Patch:          USD-22.05-soversion.patch
-# Add missing #include for GCC13
-# https://github.com/PixarAnimationStudios/USD/pull/2215
-Patch:          %{forgeurl}/pull/2215.patch
-
-# Support OpenEXR 3
-# https://github.com/PixarAnimationStudios/USD/issues/1591
-#
-# See also:
-# Support compiling against imath
-# https://github.com/PixarAnimationStudios/USD/pull/1829
-# Support OpenVDB without depending on OpenEXR
-# https://github.com/PixarAnimationStudios/USD/pull/1728
-Patch:          USD-22.05-OpenEXR3.patch
-
-# Allow building against recent glibc with no malloc hooks (>= 2.34)
-# https://github.com/PixarAnimationStudios/USD/pull/1830
-Patch:          %{forgeurl}/pull/1830.patch
-
-# Do not access PyFrameObject fields directly on Python 3.10+
-#
-# Fixes a Python 3.11 incompatibility. Still accesses PyCodeObject fields
-# directly.
-# https://github.com/PixarAnimationStudios/USD/pull/1928
-Patch:          %{forgeurl}/pull/1928.patch
+Patch:          USD-23.05-soversion.patch
 
 # Port to Embree 4.x
 # https://github.com/PixarAnimationStudios/USD/pull/2266
 Patch:          %{forgeurl}/pull/2266.patch
 
-# Prefer TfHash to boost::hash
-# Part of https://github.com/PixarAnimationStudios/USD/issues/2172
-# Part of https://github.com/PixarAnimationStudios/USD/pull/2176/ (currently under review)
-# Needed for boost 1.81
-Patch:          USD-pr2176-pxr_vt_hash-use-tfhash.patch
-
-# Add missing header for g++13
-# https://github.com/PixarAnimationStudios/USD/commit/c1c1c1de039451afaba9a0e04b50f4607df67886
-Patch:          USD-c1c1c1de-g++13-header-include.patch
-
 # Base
-BuildRequires:  boost-devel
-BuildRequires:  boost-program-options
-BuildRequires:  cmake
-BuildRequires:  dos2unix
 BuildRequires:  gcc-c++
+
+BuildRequires:  cmake
+%if %{with ninja}
+BuildRequires:  ninja-build
+%endif
+
+BuildRequires:  dos2unix
+BuildRequires:  help2man
+
 BuildRequires:  pkgconfig(blosc)
+BuildRequires:  boost-devel
+BuildRequires:  pkgconfig(dri)
+BuildRequires:  hdf5-devel
+BuildRequires:  opensubdiv-devel
 BuildRequires:  pkgconfig(tbb)
 
-# Documentation
+BuildRequires:  cmake(OpenEXR) >= 3.0
+BuildRequires:  cmake(Imath) >= 3.0
+
+%if %{with alembic}
+BuildRequires:  cmake(Alembic)
+%endif
+
 %if %{with documentation}
 BuildRequires:  doxygen
 BuildRequires:  graphviz
 %endif
 
-# For imaging and usd imaging
-%if %{with imaging}
+%if %{with draco}
+BuildRequires:  draco-devel
+%endif
 
 %if %{with embree}
 BuildRequires:  embree-devel
 %endif
+
+%if %{with jemalloc}
+BuildRequires:  pkgconfig(jemalloc)
+%endif
+
+%if %{with ocio}
+BuildRequires:  cmake(OpenColorIO)
+%endif
+
+%if %{with oiio}
+BuildRequires:  pkgconfig(OpenImageIO)
+%endif
+
 %if %{with openshading}
 BuildRequires:  openshadinglanguage
 BuildRequires:  pkgconfig(oslexec)
 %endif
-BuildRequires:  opensubdiv-devel
+
 %if %{with openvdb}
 BuildRequires:  openvdb-devel
 %endif
-BuildRequires:  pkgconfig(dri)
-%if %{with jemalloc}
-BuildRequires:  pkgconfig(jemalloc)
-%endif
-%if %{with ocio}
-BuildRequires:  cmake(OpenColorIO)
-%endif
-%if %{with oiio}
-BuildRequires:  pkgconfig(OpenImageIO)
-%endif
-BuildRequires:  cmake(OpenEXR)
-BuildRequires:  cmake(Imath) >= 2.0
-BuildRequires:  pkgconfig(Ptex)
 
+%if %{with ptex}
+BuildRequires:  pkgconfig(Ptex)
 %endif
-%if %{with alembic}
-BuildRequires:  cmake(Alembic)
-BuildRequires:  hdf5-devel
-%endif
+
 
 # Header-only library: -static is for tracking per guidelines
 #
@@ -186,10 +176,8 @@ BuildRequires:  stb_image_write-static
 BuildRequires:  stb_image_resize-devel >= 0.97
 BuildRequires:  stb_image_resize-static
 
-Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
-%if %{with python3}
-Requires:       python3-%{name}%{?_isa} = %{version}-%{release}
-%endif
+Requires:       usd-libs%{?_isa} = %{version}-%{release}
+Requires:       python3-usd%{?_isa} = %{version}-%{release}
 
 # This package is only available for x86_64 and aarch64
 # Will fail to build on other architectures
@@ -215,13 +203,15 @@ Provides:       bundled(double-conversion) = 2.0.0
 Provides:       bundled(ilmbase) = 2.5.3
 # Version from: pxr/base/tf/pxrLZ4/lz4.h (LZ4_VERSION_{MAJOR,MINOR_PATCH})
 Provides:       bundled(lz4) = 1.9.2
+# Version from: pxr/base/tf/pxrCLI11/README.md
+Provides:       bundled(cli11) = 2.3.1
 # Version from:
 # third_party/renderman-24/plugin/rmanArgsParser/pugixml/pugiconfig.hpp
 # (header comment)
 Provides:       bundled(pugixml) = 1.9
 # Version from: pxr/base/js/rapidjson/rapidjson.h
 # (RAPIDJSON_{MAJOR,MINOR,PATCH}_VERSION)
-Provides:       bundled(rapidjson) = 1.0.2
+Provides:       bundled(rapidjson) = 1.1.0
 # Version from: pxr/imaging/hgiVulkan/spirv_reflect.h (header comment)
 Provides:       bundled(SPIRV-Reflect) = 1.0
 # Version from: pxr/imaging/hgiVulkan/vk_mem_alloc.h (header comment)
@@ -237,17 +227,15 @@ interchange between graphics applications.
 
 %package        devel
 Summary:        Development files for USD
-Requires:       cmake-filesystem
-Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+Requires:       usd-libs%{?_isa} = %{version}-%{release}
 
 %description devel
 This package contains the C++ header files and symbolic links to the shared
-libraries for %{name}. If you would like to develop programs using %{name},
-you will need to install %{name}-devel.
+libraries for usd. If you would like to develop programs using usd,
+you will need to install usd-devel.
 
-# For usdview
-%if %{with python3}
-%package -n python3-%{name}
+# For usdview, usdcompress
+%package -n python3-usd
 Summary: %{summary}
 
 BuildRequires:  pkgconfig(python3)
@@ -255,7 +243,11 @@ BuildRequires:  pkgconfig(Qt5)
 BuildRequires:  python3dist(jinja2)
 %if %{with usdview}
 BuildRequires:  desktop-file-utils
+%if %{with pyside6}
+BuildRequires:  python3dist(pyside6)
+%else
 BuildRequires:  python3dist(pyside2)
+%endif
 %endif
 BuildRequires:  python3dist(pyopengl)
 Requires:       font(roboto)
@@ -264,14 +256,18 @@ Requires:       font(robotolight)
 Requires:       font(robotomono)
 Requires:       python3dist(jinja2)
 %if %{with usdview}
+%if %{with pyside6}
+Requires:       python3dist(pyside6)
+%else
 Requires:       python3dist(pyside2)
+%endif
 %endif
 Requires:       python3dist(pyopengl)
 %py_provides    python3-pxr
 
-%description -n python3-%{name}
+%description -n python3-usd
 Python language bindings for the Universal Scene Description (USD) C++ API
-%endif
+
 
 %if %{with documentation}
 %package        doc
@@ -288,10 +284,8 @@ Documentation for the Universal Scene Description (USD) C++ API
 # Convert NOTICE.txt from CRNL line encoding
 dos2unix NOTICE.txt
 
-%if %{with python3}
 # Fix all Python shebangs recursively in .
 %py3_shebang_fix .
-%endif
 
 # Further drop shebangs line for some py files
 sed -r -i '1{/^#!/d}' \
@@ -337,7 +331,6 @@ sed -i 's|"${CMAKE_INSTALL_PREFIX}"|%{_libdir}/cmake/pxr|g' pxr/CMakeLists.txt
 find . -type f -exec gawk '/embree3/ { print FILENAME }' '{}' '+' |
   xargs -r sed -r -i 's/(embree)3/\14/'
 
-%build
 # Fix uic-qt5 use
 cat > uic-wrapper <<'EOF'
 #!/bin/sh
@@ -345,64 +338,67 @@ exec uic-qt5 -g python "$@"
 EOF
 chmod +x uic-wrapper
 
-# Fix python3 support
-# https://github.com/PixarAnimationStudios/USD/issues/1419
 
-flags="%{optflags} -Wl,--as-needed -DTBB_SUPPRESS_DEPRECATED_MESSAGES=1" \
-# Patch2 was not good enough to get the include path for Imath everywhere it
-# was needed. Add it globally.
-# https://github.com/PixarAnimationStudios/USD/issues/1591
-flags="${flags} $(pkgconf --cflags Imath)"
+%build
+%set_build_flags
+
+# Although upstream supports OpenEXR3 / Imath now, the necessary include path
+# is not set everywhere it’s needed. It’s not immediately clear exactly why
+# this is happening here or what should be changed upstream.
+extra_flags="${extra_flags-} $(pkgconf --cflags Imath)"
+# Suppress deprecation warnings from TBB; upstream should act on them
+# eventually, but they just add noise here.
+extra_flags="${extra_flags-} -DTBB_SUPPRESS_DEPRECATED_MESSAGES=1"
 
 %cmake \
-     -DCMAKE_CXX_FLAGS_RELEASE="${flags}" \
-     -DCMAKE_C_FLAGS_RELEASE="${flags}" \
-     -DCMAKE_CXX_STANDARD=17 \
-     -DCMAKE_EXE_LINKER_FLAGS="-pie" \
-     -DCMAKE_SKIP_RPATH=ON \
-     -DCMAKE_SKIP_INSTALL_RPATH=ON \
-     -DCMAKE_VERBOSE_MAKEFILE=ON \
-     -DPXR_BUILD_USDVIEW=%{?with_usdview:ON}%{?!with_usdview:OFF} \
-%if %{with documentation}
-     -DPXR_BUILD_DOCUMENTATION=TRUE \
+%if %{with ninja}
+     -GNinja \
 %endif
-     -DPXR_BUILD_EXAMPLES=OFF \
-     -DPXR_BUILD_TUTORIALS=OFF \
-     -DPXR_BUILD_TESTS=%{?with_test:ON}%{!?with_test:OFF} \
-%if %{with openvdb}
-     -DPXR_ENABLE_OPENVDB_SUPPORT=ON \
-%endif
-     -DPXR_INSTALL_LOCATION="%{_libdir}/%{name}/plugin" \
 %if %{with jemalloc}
      -DPXR_MALLOC_LIBRARY="%{_libdir}/libjemalloc.so" \
 %endif
-%if %{with alembic}
-     -DOPENEXR_LOCATION=%{_includedir} \
-     -DPXR_BUILD_ALEMBIC_PLUGIN=ON \
-%endif
-%if %{with embree}
-     -DPXR_BUILD_EMBREE_PLUGIN=ON \
-     -DEMBREE_LOCATION=%{_prefix} \
-%endif
-%if %{with ocio}
-     -DPXR_BUILD_OPENCOLORIO_PLUGIN=ON \
-%endif
-%if %{with oiio}
-     -DPXR_BUILD_OPENIMAGEIO_PLUGIN=ON \
-%endif
-%if %{with openshading}
-     -DPXR_ENABLE_OSL_SUPPORT=ON \
-%endif
-     -DPYTHON_EXECUTABLE=%{python3} \
-%if %{with python3}
-     -DPXR_USE_PYTHON_3=ON \
-     -DPYSIDE_AVAILABLE=ON \
-     -DPYSIDEUICBINARY:PATH=${PWD}/uic-wrapper \
-%else
-     -DPXR_ENABLE_PYTHON_SUPPORT=OFF \
-%endif
+     \
+     -DCMAKE_CXX_FLAGS_RELEASE="${CXXFLAGS-} ${extra_flags}" \
+     -DCMAKE_CXX_STANDARD=17 \
+     -DCMAKE_C_FLAGS_RELEASE="${CFLAGS-} ${extra_flags}" \
+     -DCMAKE_EXE_LINKER_FLAGS="${LDFLAGS}" \
+     -DCMAKE_SHARED_LINKER_FLAGS="${LDFLAGS}" \
+     -DCMAKE_SKIP_INSTALL_RPATH=ON \
+     -DCMAKE_SKIP_RPATH=ON \
+     -DCMAKE_VERBOSE_MAKEFILE=ON \
+     \
+     -DPXR_BUILD_DOCUMENTATION=%{expr:%{with documentation}?"TRUE":"FALSE"} \
+     -DPXR_BUILD_EXAMPLES=OFF \
+     -DPXR_BUILD_IMAGING=ON \
      -DPXR_BUILD_MONOLITHIC=ON \
-     -DPXR_ENABLE_MALLOCHOOK_SUPPORT=OFF
+     -DPXR_BUILD_TESTS=%{expr:%{with test}?"ON":"OFF"} \
+     -DPXR_BUILD_TUTORIALS=OFF \
+     -DPXR_BUILD_USD_IMAGING=ON \
+     -DPXR_BUILD_USD_TOOLS=ON \
+     -DPXR_BUILD_USDVIEW=%{expr:%{with usdview}?"ON":"OFF"} \
+     \
+     -DPXR_BUILD_ALEMBIC_PLUGIN=%{expr:%{with alembic}?"ON":"OFF"} \
+     -DPXR_BUILD_DRACO_PLUGIN=%{expr:%{with draco}?"ON":"OFF"} \
+     -DPXR_BUILD_EMBREE_PLUGIN=%{expr:%{with embree}?"ON":"OFF"} \
+     -DPXR_BUILD_MATERIALX_PLUGIN=%{expr:%{with materialx}?"ON":"OFF"} \
+     -DPXR_BUILD_OPENCOLORIO_PLUGIN=%{expr:%{with ocio}?"ON":"OFF"} \
+     -DPXR_BUILD_OPENIMAGEIO_PLUGIN=%{expr:%{with oiio}?"ON":"OFF"} \
+     -DPXR_BUILD_PRMAN_PLUGIN=OFF \
+     \
+     -DPXR_ENABLE_OPENVDB_SUPPORT=%{expr:%{with openvdb}?"ON":"OFF"} \
+     -DPXR_ENABLE_HDF5_SUPPORT=ON \
+     -DPXR_ENABLE_PTEX_SUPPORT=%{expr:%{with ptex}?"ON":"OFF"} \
+     -DPXR_ENABLE_OSL_SUPPORT=%{expr:%{with openshading}?"ON":"OFF"} \
+     -DPXR_ENABLE_MALLOCHOOK_SUPPORT=OFF \
+     -DPXR_ENABLE_PYTHON_SUPPORT=ON \
+     \
+     -DPXR_INSTALL_LOCATION="%{_libdir}/usd/plugin" \
+     \
+     -DPXR_VALIDATE_GENERATED_CODE=OFF \
+     \
+     -DPYSIDEUICBINARY:PATH=${PWD}/uic-wrapper \
+     -DPYSIDE_AVAILABLE=ON \
+     -DPYTHON_EXECUTABLE=%{python3}
 %cmake_build
 
 %install
@@ -421,7 +417,7 @@ desktop-file-install                                    \
 
 # Remove examples that were built and installed even though we set
 # -DPXR_BUILD_EXAMPLES=OFF.
-rm -vrf '%{buildroot}%{_datadir}/%{name}/examples'
+rm -vrf '%{buildroot}%{_datadir}/usd/examples'
 
 # Fix installation path for some files
 mv %{buildroot}%{_prefix}/lib/python/pxr/*.* \
@@ -431,30 +427,48 @@ mv %{buildroot}%{_prefix}/lib/python/pxr/Usdviewq/* \
         %{buildroot}%{python3_sitearch}/pxr/Usdviewq/
 %endif
 
-# Currently, the pxrConfig.cmake that is installed is not correct for
-# monolithic builds (and we must do a monolithic build in order to be usable as
-# a dependency for Blender). It relies on the libraries that would be in
-# pxrTargets.cmake, which is not generated for monolithic builds.
-# https://bugzilla.redhat.com/show_bug.cgi?id=2055414
-# https://github.com/PixarAnimationStudios/USD/issues/1088
-rm -vrf '%{buildroot}%{_libdir}/cmake'
+# TODO: Can we figure out how to fix the installation path for
+# pxrTargets{,-release}.cmake, instead of moving them after the fact? We choose
+# to put them in the same directory as pxrConfig.cmake.
+find %{buildroot}%{_prefix}/cmake -mindepth 1 -maxdepth 1 -type f \
+    -exec mv -v '{}' '%{buildroot}%{_libdir}/cmake/pxr' ';'
+
+# Generate and install man pages. While generating the man pages might more
+# properly go in %%build, it is generally much easier to do this here in a
+# single step, using the entry points installed into the buildroot. This is
+# especially true for the entry points that are Python scripts.
+install -d '%{buildroot}%{_mandir}/man1'
+for cmd in %{buildroot}%{_bindir}/*
+do
+  PYTHONPATH='%{buildroot}%{python3_sitearch}' \
+  LD_LIBRARY_PATH='%{buildroot}%{_libdir}' \
+      help2man \
+      --no-info --no-discard-stderr --version-string='%{version}' \
+      --output="%{buildroot}%{_mandir}/man1/$(basename "${cmd}").1" \
+      "${cmd}"
+done
 
 %check
 %if %{with usdview}
-desktop-file-validate %{buildroot}%{_datadir}/applications/org.open%{name}.%{name}view.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/org.openusd.usdview.desktop
 %endif
 %{?with_test:%ctest}
 
 %files
 %doc NOTICE.txt README.md
+
 %{_bindir}/sdfdump
 %{_bindir}/sdffilter
 %{_bindir}/usdGenSchema
 %{_bindir}/usdcat
 %{_bindir}/usdchecker
+%if %{with draco}
+%{_bindir}/usdcompress
+%endif
 %{_bindir}/usddiff
 %{_bindir}/usddumpcrate
 %{_bindir}/usdedit
+%{_bindir}/usdfixbrokenpixarschemas
 %{_bindir}/usdgenschemafromsdr
 %{_bindir}/usdrecord
 %{_bindir}/usdresolve
@@ -462,34 +476,59 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.open%{name}.%{nam
 %{_bindir}/usdstitchclips
 %{_bindir}/usdtree
 %{_bindir}/usdzip
-
-%if %{with python3}
-%files -n python3-%{name}
-%{python3_sitearch}/pxr
 %if %{with usdview}
-%{_datadir}/applications/org.open%{name}.%{name}view.desktop
+%{_datadir}/applications/org.openusd.usdview.desktop
 %{_bindir}/testusdview
 %{_bindir}/usdview
 %endif
+
+%{_mandir}/man1/sdfdump.1*
+%{_mandir}/man1/sdffilter.1*
+%{_mandir}/man1/usdGenSchema.1*
+%{_mandir}/man1/usdcat.1*
+%{_mandir}/man1/usdchecker.1*
+%if %{with draco}
+%{_mandir}/man1/usdcompress.1*
 %endif
+%{_mandir}/man1/usddiff.1*
+%{_mandir}/man1/usddumpcrate.1*
+%{_mandir}/man1/usdedit.1*
+%{_mandir}/man1/usdfixbrokenpixarschemas.1*
+%{_mandir}/man1/usdgenschemafromsdr.1*
+%{_mandir}/man1/usdrecord.1*
+%{_mandir}/man1/usdresolve.1*
+%{_mandir}/man1/usdstitch.1*
+%{_mandir}/man1/usdstitchclips.1*
+%{_mandir}/man1/usdtree.1*
+%{_mandir}/man1/usdzip.1*
+%if %{with usdview}
+%{_mandir}/man1/testusdview.1*
+%{_mandir}/man1/usdview.1*
+%endif
+
+%files -n python3-usd
+%{python3_sitearch}/pxr/
 
 %files libs
 %license LICENSE.txt
 %doc NOTICE.txt README.md
-%{_libdir}/lib%{name}_%{name}_ms.so.%{downstream_so_version}
-%{_libdir}/%{name}
-%exclude %{_libdir}/%{name}/%{name}/resources/codegenTemplates
+%{_libdir}/libusd_ms.so.%{downstream_so_version}
+%{_libdir}/usd/
+%exclude %{_libdir}/usd/usd/resources/codegenTemplates
 
 %files devel
 %doc BUILDING.md CHANGELOG.md VERSIONS.md
 %{_includedir}/pxr/
-%{_libdir}/lib%{name}_%{name}_ms.so
-%{_libdir}/%{name}/%{name}/resources/codegenTemplates/
+%{_libdir}/libusd_ms.so
+%{_libdir}/usd/usd/resources/codegenTemplates/
+%{_libdir}/cmake/pxr/pxrConfig.cmake
+%{_libdir}/cmake/pxr/pxrTargets.cmake
+%{_libdir}/cmake/pxr/pxrTargets-release.cmake
 
 %if %{with documentation}
 %files doc
 %license LICENSE.txt
-%{_docdir}/%{name}
+%{_docdir}/usd/
 %endif
 
 %changelog

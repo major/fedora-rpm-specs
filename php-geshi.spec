@@ -1,32 +1,25 @@
 Name:           php-geshi
-Version:        1.0.9.1
-Release:        11%{?dist}
 Summary:        Generic syntax highlighter
+License:        GPL-2.0-or-later
 
-License:        GPLv2+
+%global git_commit 7884d22244c6d2de5ac7ffd919ce4add02b36e66
+%global git_date 20230219
+%global git_short %(c="%{git_commit}"; echo "${c:0:7}")
+
+Version:        1.0.9.1
+Release:        12.%{git_date}git%{git_short}%{?dist}
+
 URL:            https://github.com/GeSHi/geshi-1.0
-Source0:        %{url}/archive/v%{version}/GeSHi-%{version}.tar.gz
-
-# Fixes the library removing newlines under certain conditions.
-# Backported for dokuwiki, which relies on this fix.
-# See: https://github.com/GeSHi/geshi-1.0/pull/134
-Patch0:         0000-PR134.patch
+Source0:        %{url}/archive/%{git_commit}/GeSHi-%{git_commit}.tar.gz
 
 # Some of the project files do not pass tests, fix those
 Patch1:         0001-fix-LangCheckTest-failures.patch
 
 BuildArch:      noarch
 
-# from composer.json "require-dev": {
-#        "phpunit/phpunit": "^5.7 || ^6.5 || ^7.5 || ^8.2"
-%if 0%{?rhel} == 7
-%global phpunit %{_bindir}/phpunit
-BuildRequires:  %{phpunit}
-%endif
-%if 0%{?fedora} >= 29 || 0%{?rhel} >= 8
-%global phpunit %{_bindir}/phpunit8
-BuildRequires:  %{phpunit}
-%endif
+BuildRequires:  phpunit8
+BuildRequires:  php-mbstring
+BuildRequires:  php-pcre
 
 Requires:       php-mbstring
 Requires:       php-pcre
@@ -42,9 +35,7 @@ with the following goals:
 
 
 %prep
-%setup -q -n geshi-1.0-%{version}
-%patch0 -p1
-%patch1 -p1
+%autosetup -p1 -n geshi-1.0-%{git_commit}
 
 find docs -type f -exec chmod a-x {} ';'
 find . -type f -name "*.php" -exec chmod a-x {} ';'
@@ -60,10 +51,8 @@ cd src
 cp -a geshi geshi.php %{buildroot}%{_datadir}/php/
 
 
-%if 0%{?phpunit:1}
 %check
-%{phpunit} --verbose
-%endif
+phpunit8 --verbose
 
 
 %files
@@ -72,10 +61,15 @@ cp -a geshi geshi.php %{buildroot}%{_datadir}/php/
 %doc docs/* contrib/
 %doc composer.json
 %{_datadir}/php/geshi.php
-%{_datadir}/php/geshi
+%{_datadir}/php/geshi/
 
 
 %changelog
+* Mon Apr 24 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0.9.1-12.20230219git7884d22
+- Update to latest git snapshot
+- Drop Patch0 (now included upstream)
+- Migrate License tag to SPDX
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

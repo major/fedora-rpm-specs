@@ -1,9 +1,9 @@
 Name:           kio-gdrive
 Version:        23.04.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An Google Drive KIO slave for KDE
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://community.kde.org/KIO_GDrive
 # use releaseme
 Source0:        https://download.kde.org/stable/release-service/%{version}/src/%{name}-%{version}.tar.xz
@@ -57,6 +57,9 @@ desktop-file-validate %{buildroot}%{_datadir}/remoteview/*.desktop
 %{_kf5_datadir}/metainfo/org.kde.kio_gdrive.metainfo.xml
 
 %changelog
+* Mon Apr 24 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 23.04.0-2
+- Fix license
+
 * Fri Apr 14 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.0-1
 - 23.04.0
 

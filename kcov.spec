@@ -9,8 +9,8 @@
 
 
 Name:           kcov
-Version:        39
-Release:        6%{?dist}
+Version:        41
+Release:        1%{?dist}
 Summary:        Code coverage tool without special compilation options
 
 # Licenses of kcov itself and its bundled js libraries (see below)
@@ -18,10 +18,7 @@ License:        GPLv2 and BSD and MIT
 URL:            https://simonkagstrom.github.io/%{name}
 Source:         https://github.com/SimonKagstrom/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-Patch0:         0001-Fix-build-with-binutils-2.39.patch
-Patch1:         0002-Fix-build-on-gcc-13-add-missing-stdint.h-include.patch
-
-# https://github.com/SimonKagstrom/kcov/blob/v35/src/solib-parser/lib.c#L87-L97
+# https://github.com/SimonKagstrom/kcov/blob/v41/src/solib-parser/lib.c#L87-L104
 ExcludeArch:    s390 s390x
 
 BuildRequires:  binutils-devel
@@ -115,8 +112,12 @@ tests/tools/run-tests build/src/kcov /tmp/ build-tests/ $(pwd) -v
 
 
 %changelog
-* Fri Jan 20 2022 Dridi Boukelmoune <dridi@fedoraproject.org> - 39-6
-- Patch for GCC 13
+* Mon Apr 24 2023 Dridi Boukelmoune <dridi@fedoraproject.org> - 41-1
+- Bump to version 41
+- Remove upstream patch for GCC 13
+
+* Fri Jan 20 2023 Dridi Boukelmoune <dridi@fedoraproject.org> - 39-6
+- Upstream patch for GCC 13
 
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 39-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
@@ -124,7 +125,7 @@ tests/tools/run-tests build/src/kcov /tmp/ build-tests/ $(pwd) -v
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 39-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
-* Fri Jan 28 2021 Dridi Boukelmoune <dridi@fedoraproject.org> - 39-3
+* Fri Jan 28 2022 Dridi Boukelmoune <dridi@fedoraproject.org> - 39-3
 - Conditionally build the extra tools
 
 * Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 39-2

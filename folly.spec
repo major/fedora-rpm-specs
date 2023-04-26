@@ -15,6 +15,24 @@
 # use this to re-test running all tests
 %bcond_with all_tests
 
+%ifarch aarch64
+# In file included from /builddir/build/BUILD/folly-2023.04.24.00/folly/detail/SplitStringSimd.cpp:18:
+# /builddir/build/BUILD/folly-2023.04.24.00/folly/detail/SplitStringSimdImpl.h: In static member function 'static uint64_t folly::detail::StringSplitAarch64Platform::equal(reg_t, char)':
+# /builddir/build/BUILD/folly-2023.04.24.00/folly/detail/SplitStringSimdImpl.h:129:25: note: use '-flax-vector-conversions' to permit conversions between vectors with differing element types or numbers of subparts
+#   129 |     return vget_lane_u64(vmovn_u16(u16s), 0);
+#       |            ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+# /builddir/build/BUILD/folly-2023.04.24.00/folly/detail/SplitStringSimdImpl.h:129:35: error: cannot convert 'uint8x8_t' to 'uint64x1_t'
+#   129 |     return vget_lane_u64(vmovn_u16(u16s), 0);
+#       |                          ~~~~~~~~~^~~~~~
+#       |                                   |
+#       |                                   uint8x8_t
+# In file included from /builddir/build/BUILD/folly-2023.04.24.00/folly/detail/SplitStringSimdImpl.h:29:
+# /usr/lib/gcc/aarch64-redhat-linux/13/include/arm_neon.h:2725:27: note:   initializing argument 1 of 'uint64_t vget_lane_u64(uint64x1_t, int)'
+#  2725 | vget_lane_u64 (uint64x1_t __a, const int __b)
+#       |                ~~~~~~~~~~~^~~
+%global optflags %optflags -flax-vector-conversions
+%endif
+
 %if 0%{?el9}
 # pandoc is not in CS9
 # https://bugzilla.redhat.com/show_bug.cgi?id=2035151
@@ -23,32 +41,28 @@
 %bcond_without docs
 %endif
 
-%bcond_without python
+# Python bindings not buildable with CMake
+# folly/iobuf.cpp:20:10: fatal error: folly/python/iobuf_api.h: No such file or directory   
+%bcond_with python
+
+%global liburing_min_version 2.1
+%if 0%{?fedora} || 0%{?rhel} >= 10
+%bcond_without uring
+%else
+# liburing too old: IORING_CQE_F_MORE added in
+# 674d092f634e61ab1ec72c190a29bc9bde0f5076 included in 2.1+
+%bcond_with uring
+%endif
 
 Name:           folly
-Version:        2022.07.11.00
+Version:        2023.04.24.00
 Release:        %{autorelease}
 Summary:        An open-source C++ library developed and used at Facebook
 
 License:        ASL 2.0
 URL:            https://github.com/facebook/folly
 Source:         %{url}/archive/v%{version}/folly-%{version}.tar.gz
-Patch:          %{name}-fix_codel_test.patch
-Patch:          %{name}-fix_async_udp_socket_integration_test.patch
-Patch:          %{name}-skip_eliasfanocoding_test_non_x64.patch
-Patch:          %{name}-gate_pico_spin_lock_64bit_only.patch
-# gcc considers __builtin_strlen not constant expression, don't use it
-Patch:          %{name}-workaround-gcc-strlen-not-constant_expr.patch
-# TypeInfoTest with gtest 1.12
-Patch:          %{name}-typeinfotest-gtest1_12.patch
-# Workaround for https://gcc.gnu.org/bugzilla/show_bug.cgi?id=106230
-# Fixed in gcc-12.1.1-4 (not in -3)
-# /builddir/build/BUILD/folly-2022.07.11.00/folly/synchronization/test/AtomicUtilTest.cpp:241:3: internal compiler error: in pop_local_binding, at cp/name-lookup.cc:2474
-#   241 |   for (ref_ atomic : std::array<obj_, Size>{}) {
-#       |   ^~~
-%if 0%{?fedora} <= 37
-Patch:          %{name}-gcc-pr106230-workaround.patch
-%endif
+Patch:          folly-fix_splitstring_aarch64.diff
 
 ExclusiveArch:  x86_64 aarch64 ppc64le
 
@@ -81,8 +95,10 @@ BuildRequires:  libdwarf-devel
 BuildRequires:  libevent-devel
 BuildRequires:  libsodium-devel
 BuildRequires:  libunwind-devel
+%if %{with uring}
 # 0.7-3 fixes build on armv7hl
-BuildRequires:  liburing-devel >= 0.7-3
+BuildRequires:  liburing-devel >= %{liburing_min_version}
+%endif
 BuildRequires:  libzstd-devel
 BuildRequires:  lz4-devel
 BuildRequires:  openssl-devel
@@ -126,13 +142,18 @@ Requires:       libdwarf-devel%{?_isa}
 Requires:       libevent-devel%{?_isa}
 Requires:       libsodium-devel%{?_isa}
 Requires:       libunwind-devel%{?_isa}
-Requires:       liburing-devel%{?_isa} >= 0.7-3
+%if %{with uring}
+Requires:       liburing-devel%{?_isa} >= %{liburing_min_version}
+%endif
 Requires:       libzstd-devel%{?_isa}
 Requires:       lz4-devel%{?_isa}
 Requires:       openssl-devel%{?_isa}
 Requires:       snappy-devel%{?_isa}
 Requires:       xz-devel%{?_isa}
 Requires:       zlib-devel%{?_isa}
+%if %{without python}
+Obsoletes:      %{name}-python < 2023.04.24.00-1
+%endif
 Obsoletes:      %{name}-static < 2022.02.28.00-1
 
 %description    devel %{_description}
@@ -243,6 +264,7 @@ EXCLUDED_TESTS='-E glog_test\.LogEveryMs\.basic'
 %ifarch aarch64
 # from https://copr.fedorainfracloud.org/coprs/salimma/folly-testing/build/4642135/
 EXCLUDED_TESTS='-E cache_locality_test\.Getcpu\.VdsoGetcpu'
+EXCLUDED_TESTS+='|AsyncUDPSocketTest\.AsyncSocketIntegrationTest\.PingPongNotifyMmsg'
 EXCLUDED_TESTS+='|HHWheelTimerTest\.HHWheelTimerTest\.FireOnce'
 EXCLUDED_TESTS+='|HHWheelTimerTest\.HHWheelTimerTest\.CancelTimeout'
 EXCLUDED_TESTS+='|HHWheelTimerTest\.HHWheelTimerTest\.DestroyTimeoutSet'

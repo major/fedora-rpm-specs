@@ -1,7 +1,7 @@
 %global gmobile_commit v0.0.1
 
 Name:           feedbackd
-Version:        0.1.1
+Version:        0.2.0
 Release:        1%{?dist}
 Summary:        Feedback library for GNOME
 

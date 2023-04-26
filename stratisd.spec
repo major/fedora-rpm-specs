@@ -5,7 +5,7 @@
 
 Name:           stratisd
 Version:        3.5.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Daemon that manages block devices to create filesystems
 
 # ASL 2.0
@@ -57,6 +57,8 @@ Requires:       libblkid
 
 # stratisd does not require clevis; it can be used in restricted environments
 # where clevis is not available.
+# If using encryption via clevis, stratisd requires the instance of clevis
+# that it uses to have been built in an environment with cryptsetup >= 2.6.0.
 Recommends:     clevis-luks >= 18
 
 %description
@@ -121,9 +123,12 @@ a2x -f manpage docs/stratis-dumpmetadata.txt
 
 %if %{with check}
 %check
-%if 0%{?rhel}
-%cargo_test --no-run
-%else
+# Compile stratisd tests only where package does not use vendoring.
+# This is a temporary step, to address the problem of loopdev crate
+# 0.4.0 failing to build properly in some situations due to a failure of
+# bindgen 0.59.0.
+# See https://github.com/stratis-storage/project/issues/607
+%if !0%{?rhel}
 %cargo_test -- --no-run
 %endif
 %endif
@@ -174,6 +179,9 @@ a2x -f manpage docs/stratis-dumpmetadata.txt
 %{_mandir}/man8/stratis-dumpmetadata.8*
 
 %changelog
+* Mon Apr 24 2023 Bryan Gurney <bgurney@redhat.com> - 3.5.4-2
+- Update spec file
+
 * Fri Apr 21 2023 Bryan Gurney <bgurney@redhat.com> - 3.5.4-1
 - Update to 3.5.4
 

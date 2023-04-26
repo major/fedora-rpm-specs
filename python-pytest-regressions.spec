@@ -61,6 +61,10 @@ sed -i "s/use_scm_version.*/version='%{version}',/;/setuptools_scm/d" setup.py
 sed -e 's/\(version = \).*/\1"%{version}"/' \
     -e 's/\(release = \).*/\1"%{version}"/' \
     -i doc/conf.py
+# Remove unnecessary dependencies
+sed -i '/"mypy",/d' setup.py
+sed -i '/"pre-commit",/d' setup.py
+sed -i '/"restructuredtext-lint",/d' setup.py
 
 %generate_buildrequires
 %pyproject_buildrequires -t -x num,image,dataframe

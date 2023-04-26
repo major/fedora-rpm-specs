@@ -2,7 +2,7 @@
 %global Srcname Fiona
 
 Name:           python-%{srcname}
-Version:        1.9.2
+Version:        1.9.3
 #global         pre rc1
 %global         uversion %{version}%{?pre}
 Release:        %autorelease

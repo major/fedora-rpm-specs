@@ -1,9 +1,9 @@
 Name:    python3-discid
 Version: 1.2.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Libdiscid Python bindings
 URL:     https://github.com/JonnyJD/python-discid
-License: LGPLv3+
+License: LGPL-3.0-or-later
 
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
@@ -43,6 +43,9 @@ Python-discid implements Python bindings for MusicBrainz libdiscid.
 
 
 %changelog
+* Mon Apr 24 2023 Peter Oliver <rpm@mavit.org.uk> - 1.2.0-9
+- SPDX migration.
+
 * Sat Mar 25 2023 Peter Oliver <rpm@mavit.org.uk> - 1.2.0-8
 - Don’t build the documentation (since we weren’t installing it anyway).
   Fixes #2180481.

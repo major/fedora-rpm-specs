@@ -6,18 +6,13 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*\\.so.*$
 
 Name:           gnome-maps
-Version:        44.0
-Release:        4%{?dist}
+Version:        44.1
+Release:        1%{?dist}
 Summary:        Map application for GNOME
 
 License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Apps/Maps
 Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
-# https://gitlab.gnome.org/GNOME/gnome-maps/-/merge_requests/295
-# https://gitlab.gnome.org/GNOME/gnome-maps/-/issues/546
-# https://bugzilla.redhat.com/show_bug.cgi?id=2177995
-# Fix another case of an animation causing too many tile requests
-Patch0:         295.patch
 
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -95,6 +90,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Maps.deskto
 
 
 %changelog
+* Mon Apr 24 2023 David King <amigadave@amigadave.com> - 44.1-1
+- Update to 44.1
+
 * Sun Apr 02 2023 Kalev Lember <klember@redhat.com> - 44.0-4
 - Add missing dep on gsettings-desktop-schemas
 

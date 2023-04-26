@@ -5,10 +5,10 @@
 
 Name:    %{srcname}
 Version: 0.10.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: %{sum}
 URL:     https://github.com/whipper-team/whipper
-License: GPLv3+
+License: GPL-3.0-or-later
 
 Source0: https://github.com/whipper-team/%{srcname}/archive/v%{version}.tar.gz
 
@@ -69,6 +69,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/com.github.wh
 %doc README.md TODO CHANGELOG.md HACKING COVERAGE
 
 %changelog
+* Mon Apr 24 2023 Peter Oliver <rpm@mavit.org.uk> - 0.10.0-9
+- SPDX migration.
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

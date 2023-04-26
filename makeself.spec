@@ -1,12 +1,14 @@
 Name:           makeself
-Version:        2.4.5
-Release:        4%{?dist}
+Version:        2.5.0
+Release:        1%{?dist}
 BuildArch:      noarch
 Summary:        Make self-extractable archives on Unix
 
 License:        GPLv2+
 URL:            http://%{name}.io/
 Source:         https://github.com/megastep/%{name}/archive/release-%{version}/%{name}-%{version}.tar.gz
+
+Patch0:         https://github.com/megastep/makeself/pull/303.patch
 
 BuildRequires:  %{_bindir}/iconv
 BuildRequires:  sed
@@ -34,7 +36,7 @@ to archives generated with WinZip Self-Extractor in the Windows world.
 
 
 %prep
-%setup -q -n %{name}-release-%{version}
+%autosetup -p1 -n %{name}-release-%{version}
 
 
 %build
@@ -54,13 +56,16 @@ ln -s %{name}.sh %{buildroot}%{_bindir}/%{name}
 
 
 %files
-%doc README.md COPYING %{name}.lsm
+%doc README.md COPYING
 %{_mandir}/man1/*
 %{_libexecdir}/*
 %{_bindir}/*
 
 
 %changelog
+* Mon Apr 24 2023 Dridi Boukelmoune <dridi@fedoraproject.org> - 2.5.0-1
+- Bump version to 2.5.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

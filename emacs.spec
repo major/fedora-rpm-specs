@@ -5,8 +5,8 @@ Summary:       GNU Emacs text editor
 Name:          emacs
 Epoch:         1
 Version:       28.2
-Release:       5%{?dist}
-License:       GPLv3+ and CC0
+Release:       6%{?dist}
+License:       GPL-3.0-or-later AND CC0-1.0
 URL:           http://www.gnu.org/software/emacs/
 Source0:       https://ftp.gnu.org/gnu/emacs/emacs-%{version}.tar.xz
 Source1:       https://ftp.gnu.org/gnu/emacs/emacs-%{version}.tar.xz.sig
@@ -158,7 +158,7 @@ on a terminal.
 Summary:       Emacs common files
 # The entire source code is GPLv3+ except lib-src/etags.c which is
 # also BSD.  Manual (info) is GFDL.
-License:       GPLv3+ and GFDL and BSD
+License:       GPL-3.0-or-later AND GFDL-1.3-no-invariants-or-later AND BSD-3-Clause
 Requires(preun): %{_sbindir}/alternatives
 Requires(posttrans): %{_sbindir}/alternatives
 Requires:      %{name}-filesystem = %{epoch}:%{version}-%{release}
@@ -546,6 +546,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 %{_includedir}/emacs-module.h
 
 %changelog
+* Mon Apr 24 2023 Lukáš Zaoral <lzaoral@redhat.com> - 1:28.2-6
+- migrate to SPDX license format
+
 * Fri Feb 10 2023 Michael Catanzaro <mcatanzaro@redhat.com> - 1:28.2-5
 - Use webkit2gtk-4.1
 

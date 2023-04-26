@@ -19,7 +19,13 @@ BuildRequires: pkgconfig
 BuildRequires: gobject-introspection-devel
 BuildRequires: make
 
+%if %{defined rhel}
+Obsoletes: redhat-menus < 12.0.2-24
+Provides:  redhat-menus = 12.0.2-24
+Conflicts: redhat-menus < 12.0.2-24
+%else
 Requires:  redhat-menus
+%endif
 
 %description
 gnome-menus is an implementation of the draft "Desktop
@@ -54,6 +60,10 @@ writing applications that use the GNOME menu system.
 %install
 %make_install
 find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
+%if %{defined rhel}
+cp $RPM_BUILD_ROOT%{_sysconfdir}/xdg/menus/{gnome-,}applications.menu
+mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/xdg/menus/applications-merged
+%endif
 
 %find_lang gnome-menus
 
@@ -63,6 +73,10 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %license COPYING.LIB
 %doc AUTHORS NEWS
 %{_sysconfdir}/xdg/menus/gnome-applications.menu
+%if %{defined rhel}
+%{_sysconfdir}/xdg/menus/applications.menu
+%dir %{_sysconfdir}/xdg/menus/applications-merged
+%endif
 %{_libdir}/lib*.so.*
 %{_datadir}/desktop-directories/*
 %dir %{_libdir}/girepository-1.0

@@ -6,7 +6,7 @@
 %global crate h2
 
 Name:           rust-h2
-Version:        0.3.17
+Version:        0.3.18
 Release:        %autorelease
 Summary:        HTTP/2 client and server
 

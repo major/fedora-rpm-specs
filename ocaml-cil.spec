@@ -4,7 +4,7 @@
 
 Name:           ocaml-cil
 Version:        1.7.3
-Release:        77%{?dist}
+Release:        78%{?dist}
 Summary:        CIL - Infrastructure for C Program Analysis and Transformation
 License:        BSD
 
@@ -44,6 +44,7 @@ Patch7:         cil-1.7.3-Fix-unescaped-left-brace-in-regex.patch
 
 # Fixes for -safe-string in OCaml 4.06.
 Patch8:         cil-1.7.3-safe-string.patch
+Patch9: ocaml-cil-c99.patch
 
 %description
 CIL (C Intermediate Language) is a high-level representation along
@@ -133,6 +134,7 @@ for gcc.
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
+%patch9 -p1
 
 %build
 
@@ -205,6 +207,9 @@ cp doc/html/cil/CIL.pdf doc/ocaml-cil/cil-manual.pdf
 
 
 %changelog
+* Mon Apr 24 2023 Florian Weimer <fweimer@redhat.com> - 1.7.3-78
+- Port to C99
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.7.3-77
 - Rebuild OCaml packages for F38
 

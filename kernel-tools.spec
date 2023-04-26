@@ -4,14 +4,14 @@
 # For a stable, released kernel, released_kernel should be 1. For rawhide
 # and/or a kernel built from an rc or git snapshot, released_kernel should
 # be 0.
-%global released_kernel 0
-%global baserelease 2
+%global released_kernel 1
+%global baserelease 1
 %global fedora_build %{baserelease}
 
 # base_sublevel is the kernel version we're starting with and patching
 # on top of -- for example, 3.1-rc7-git1 starts with a 3.0 base,
 # which yields a base_sublevel of 0.
-%global base_sublevel 2
+%global base_sublevel 3
 
 %global base_major 6
 
@@ -34,7 +34,7 @@
 %global upstream_major 6
 
 # The rc snapshot level
-%global rcrev 5
+%global rcrev 0
 # Set rpm version accordingly
 %global rpmversion %{upstream_major}.%{upstream_sublevel}.0
 %endif
@@ -204,6 +204,18 @@ testing Linux as a black box, rtla leverages kernel tracing
 capabilities to provide precise information about the properties
 and root causes of unexpected results.
 
+%package -n rv
+Summary: RV: Runtime Verification
+License: GPLv2
+%description -n rv
+Runtime Verification (RV) is a lightweight (yet rigorous) method that
+complements classical exhaustive verification techniques (such as model
+checking and theorem proving) with a more practical approach for
+complex systems.
+The rv tool is the interface for a collection of monitors that aim
+analysing the logical and timing behavior of Linux.
+
+
 %prep
 %setup -q -n kernel-%{kversion}%{?dist} -c
 
@@ -295,6 +307,9 @@ popd
 pushd tools/mm/
 %{tools_make} slabinfo page_owner_sort
 popd 
+pushd tools/verification/rv/
+%{tools_make}
+popd
 pushd tools/tracing/rtla
 %{tools_make}
 popd
@@ -398,6 +413,9 @@ popd
 pushd tools/mm/
 install -m755 slabinfo %{buildroot}%{_bindir}/slabinfo
 install -m755 page_owner_sort %{buildroot}%{_bindir}/page_owner_sort
+popd
+pushd tools/verification/rv/
+%{tools_make} DESTDIR=%{buildroot} install
 popd
 pushd tools/tracing/rtla/
 %{tools_make} DESTDIR=%{buildroot} install
@@ -569,7 +587,22 @@ popd
 %{_mandir}/man1/rtla-timerlat.1.gz
 %{_mandir}/man1/rtla.1.gz
 
+%files -n rv
+%{_bindir}/rv
+%{_mandir}/man1/rv-list.1.gz
+%{_mandir}/man1/rv-mon-wip.1.gz
+%{_mandir}/man1/rv-mon-wwnr.1.gz
+%{_mandir}/man1/rv-mon.1.gz
+%{_mandir}/man1/rv.1.gz
+
 %changelog
+* Mon Apr 24 2023 Justin M. Forbes <jforbes@fedoraproject.org> - 6.3.0-1
+- Linux v6.3
+- Add rv subpackage
+
+* Tue Apr 18 2023 Justin M. Forbes <jforbes@fedoraproject.org> - 6.3.0-0.rc7.git0.1
+- Linux v6.3-rc7
+
 * Wed Apr 05 2023 Justin M. Forbes <jforbes@fedoraproject.org> - 6.3.0-0.rc5.git0.2
 - Bump for build against new libtracefs
 

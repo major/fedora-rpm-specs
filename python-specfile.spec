@@ -13,7 +13,7 @@ in a minimal diff.}
 
 
 Name:           python-specfile
-Version:        0.15.0
+Version:        0.16.0
 Release:        1%{?dist}
 
 Summary:        A library for parsing and manipulating RPM spec files
@@ -67,6 +67,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Thu Apr 20 2023 Packit <hello@packit.dev> - 0.16.0-1
+- Added `Specfile.has_autorelease` property to detect if a spec file uses the `%%autorelease` macro. (#221)
+
 * Fri Mar 10 2023 Packit <hello@packit.dev> - 0.15.0-1
 - Parsing the spec file by RPM is now performed only if really necessary, greatly improving performance in certain scenarios. (#212)
 - Checked that license is a valid SPDX license.

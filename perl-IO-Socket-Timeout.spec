@@ -2,7 +2,7 @@ Name:           perl-IO-Socket-Timeout
 Version:        0.32
 Release:        24%{?dist}
 Summary:        IO::Socket with read/write timeout
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IO-Socket-Timeout
 Source0:        https://cpan.metacpan.org/modules/by-module/IO/IO-Socket-Timeout-%{version}.tar.gz
 BuildArch:      noarch

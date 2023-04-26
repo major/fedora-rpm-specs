@@ -13,8 +13,8 @@
 Name:             tcsh
 Summary:          An enhanced version of csh, the C shell
 Version:          6.24.07
-Release:          2%{?dist}
-License:          BSD
+Release:          3%{?dist}
+License:          BSD-3-Clause
 
 URL:              http://www.tcsh.org/
 Source:           ftp://ftp.astron.com/pub/tcsh/%{name}-%{version}.tar.gz
@@ -177,6 +177,9 @@ fi
 # =============================================================================
 
 %changelog
+* Mon Apr 24 2023 Lukáš Zaoral <lzaoral@redhat.com> - 6.24.07-3
+- migrate to SPDX license format
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.24.07-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

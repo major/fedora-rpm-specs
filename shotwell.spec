@@ -1,5 +1,5 @@
 Name:           shotwell
-Version:        0.31.90
+Version:        0.32.0
 Release:        1%{?dist}
 Summary:        A photo organizer for the GNOME desktop
 
@@ -7,7 +7,7 @@ Summary:        A photo organizer for the GNOME desktop
 # CC-BY-SA for some of the icons
 License:        LGPL-2.1-or-later AND CC-BY-SA-3.0
 URL:            https://wiki.gnome.org/Apps/Shotwell
-Source0:        https://download.gnome.org/sources/shotwell/0.31/shotwell-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/shotwell/0.32/shotwell-%{version}.tar.xz
 
 BuildRequires:  vala
 BuildRequires:  desktop-file-utils
@@ -112,6 +112,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Shotwell-Vi
 
 
 %changelog
+* Mon Apr 24 2023 David King <amigadave@amigadave.com> - 0.32.0-1
+- Update to 0.32.0
+
 * Mon Apr 10 2023 David King <amigadave@amigadave.com> - 0.31.90-1
 - Update to 0.31.90
 

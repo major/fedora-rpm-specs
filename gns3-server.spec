@@ -6,7 +6,7 @@
 
 Name:           gns3-server
 Version:        2.2.38
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Graphical Network Simulator 3
 
 License:        GPLv3
@@ -62,6 +62,7 @@ sed -i -r 's/aiofiles>=22.1.0,<22.2/aiofiles>=0.7/' requirements.txt
 sed -i -r 's/Jinja2>=3.1.2,<3.2/jinja2>=3.0.1/' requirements.txt
 sed -i -r 's/jsonschema>=4.17.3,<4.18/jsonschema>=3.2.0/' requirements.txt
 sed -i -r 's/py-cpuinfo>=9.0.0,<10.0/py-cpuinfo>=8.0.0/' requirements.txt
+sed -i -r 's/importlib-resources>=1.3; python_version <= \x273.9\x27/importlib-resources>=1.3; python_version < \x273.9\x27/' requirements.txt
 sed -i -r 's/sentry-sdk.*//g' requirements.txt
 sed -i -r '/setuptools/d' requirements.txt
 
@@ -132,6 +133,10 @@ cp -f %{_sbindir}/busybox %{python3_sitelib}/gns3server/compute/docker/resources
 %systemd_postun_with_restart gns3.service
 
 %changelog
+* Mon Apr 24 2023 Nicolas Chauvet <kwizart@gmail.com> - 2.2.38-2
+- Relax importlib-resources requirement
+  https://src.fedoraproject.org/rpms/gns3-server/pull-request/3
+
 * Tue Feb 28 2023 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.38-1
 - Update to 2.2.38
 

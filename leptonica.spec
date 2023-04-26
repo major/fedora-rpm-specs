@@ -4,6 +4,12 @@
 %bcond_without gnuplot
 %endif
 
+%if 0%{?rhel}
+%bcond_with mingw
+%else
+%bcond_without mingw
+%endif
+
 Name:          leptonica
 Version:       1.83.1
 Release:       1%{?dist}
@@ -32,6 +38,7 @@ BuildRequires: zlib-devel
 BuildRequires: gnuplot
 %endif
 
+%if %{with mingw}
 BuildRequires: mingw32-filesystem >= 95
 BuildRequires: mingw32-gcc-c++
 BuildRequires: mingw32-libjpeg-turbo
@@ -49,6 +56,7 @@ BuildRequires: mingw64-libpng
 BuildRequires: mingw64-zlib
 BuildRequires: mingw64-giflib
 BuildRequires: mingw64-libwebp
+%endif
 
 
 %description
@@ -87,6 +95,7 @@ Requires:      %{name}%{?_isa} = %{version}-%{release}
 The %{name}-tools package contains leptonica utility tools.
 
 
+%if %{with mingw}
 %package -n mingw32-%{name}
 Summary:       MinGW Windows Leptonica library
 Obsoletes:     mingw32-%{name}-static
@@ -103,6 +112,7 @@ BuildArch:     noarch
 
 %description -n mingw64-%{name}
 MinGW Windows Leptonica library.
+%endif
 
 
 %{?mingw_debug_package}
@@ -117,22 +127,28 @@ MinGW Windows Leptonica library.
 %cmake -DBUILD_PROG=ON
 %cmake_build
 
+%if %{with mingw}
 # MinGW build
 %mingw_cmake -DBUILD_PROG=ON -DSW_BUILD=OFF
 %mingw_make_build
+%endif
 
 
 %install
 %cmake_install
+%if %{with mingw}
 %mingw_make_install
+%endif
 
 # Compat symlinks
 ln -s %{_libdir}/libleptonica.so %{buildroot}%{_libdir}/liblept.so
+%if %{with mingw}
 ln -s %{mingw32_libdir}/libleptonica.dll.a %{buildroot}%{mingw32_libdir}/liblept.dll.a
 ln -s %{mingw64_libdir}/libleptonica.dll.a %{buildroot}%{mingw64_libdir}/liblept.dll.a
+%endif
 
 
-%mingw_debug_install_post
+%{?mingw_debug_install_post}
 
 
 %check
@@ -154,6 +170,7 @@ ln -s %{mingw64_libdir}/libleptonica.dll.a %{buildroot}%{mingw64_libdir}/liblept
 %files tools
 %{_bindir}/*
 
+%if %{with mingw}
 %files -n mingw32-%{name}
 %license leptonica-license.txt
 %{mingw32_bindir}/*.exe
@@ -174,6 +191,7 @@ ln -s %{mingw64_libdir}/libleptonica.dll.a %{buildroot}%{mingw64_libdir}/liblept
 %{mingw64_libdir}/libleptonica.dll.a
 %{mingw64_libdir}/pkgconfig/lept.pc
 %{mingw64_libdir}/cmake/leptonica/
+%endif
 
 
 %changelog

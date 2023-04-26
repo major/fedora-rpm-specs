@@ -1,5 +1,5 @@
 Name:       ibus-typing-booster
-Version:    2.22.3
+Version:    2.22.4
 Release:    1%{?dist}
 Summary:    A completion input method
 License:    GPL-3.0-or-later AND Apache-2.0
@@ -62,6 +62,7 @@ BuildRequires:  voikko-fi
 %endif
 %if 0%{?fedora}
 BuildRequires:  appstream
+BuildRequires:  libappstream-glib
 %endif
 BuildRequires:  desktop-file-utils
 BuildRequires:  python3-gobject
@@ -154,10 +155,9 @@ export PYTHON=%{__python3}
 
 %check
 export LC_ALL=C.UTF-8
-%if 0%{?fedora} <= 35
-  # now broken on f36, f37, f38 and f39, see: https://bugzilla.redhat.com/show_bug.cgi?id=2171887
-  appstreamcli validate --pedantic --no-net %{buildroot}/%{_datadir}/metainfo/*.appdata.xml
-%endif
+# now broken on f36, f37, f38 and f39, see: https://bugzilla.redhat.com/show_bug.cgi?id=2171887
+# appstreamcli validate --pedantic --no-net %{buildroot}/%{_datadir}/metainfo/*.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdata.xml
 desktop-file-validate \
     $RPM_BUILD_ROOT%{_datadir}/applications/ibus-setup-typing-booster.desktop
 desktop-file-validate \
@@ -249,7 +249,14 @@ fi
 %{_datadir}/applications/emoji-picker.desktop
 
 %changelog
-* Fri Apr 14 2023 Mike FABIAN <mfabian@redhat.com> - 2.22.3-1
+* Mon Apr 24 2023 Mike FABIAN <mfabian@redhat.com> - 2.22.4-1
+- Update to 2.22.4
+- Return empty program_name and window_title in get_active_window_xprop()
+  when xprop results are unexpected
+  (Resolves: https://bugzilla.redhat.com/show_bug.cgi?id=2175009)
+- Update emoji annotations from CLDR
+- Use appstream-util validate-relax
+
 - Update to 2.22.3
 - Apply workaround for committing multiline strings only for '^gtk3-im:(firefox|thunderbird)', i.e. not on Wayland
   (Resolves: https://github.com/mike-fabian/ibus-typing-booster/issues/438)

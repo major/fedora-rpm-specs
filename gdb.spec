@@ -1249,6 +1249,11 @@ fi
 %endif
 
 %changelog
+* Mon Apr 24 2023 Bruno Larsen <blarsen@redhat.com>
+- Remove gdb-6.5-last-address-space-byte-test.patch. It was used to
+  test for a regression in target_xfer_memory, a function that has
+  been removed from upstream back in 2006.
+
 * Thu Apr 13 2023 Alexandra Hájková <ahajkova@redhat.com>
 - Remove gdb-6.3-bz140532-ppc-unwinding-test.patch, it adds
   powerpc-bcl-prologue.exp test which seems to be a subset of

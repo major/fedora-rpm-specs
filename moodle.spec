@@ -6,13 +6,13 @@
 %define __perl_provides %{nil}
 
 Name:           moodle
-Version:        4.1.2
+Version:        4.2
 Release:       	1%{?dist}
 Summary:        A Course Management System
 
 License:        GPL-2.0-or-later
 URL:            https://moodle.org/
-Source0:        https://download.moodle.org/stable401/%{name}-%{version}.tgz
+Source0:        https://download.moodle.org/stable402/%{name}-%{version}.tgz
 Source1:        moodle.conf
 Source2:        moodle-config.php
 Source3:        moodle.cron
@@ -178,6 +178,9 @@ end
 %{_datadir}/php/php-simplepie/moodle_simplepie.php
 
 %changelog
+* Mon Apr 24 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.2-1
+- 4.2
+
 * Sat Mar 11 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.1.2-1
 - 4.1.2
 

@@ -1,10 +1,10 @@
 Name:           minuet
 Version:        23.04.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A KDE Software for Music Education
 #OFL license for bundled Bravura.otf font
 #and BSD license for cmake/FindFluidSynth.cmake
-License:        GPLv2+ and OFL
+License:        GPL-2.0-or-later AND OFL-1.1
 URL:            http://www.kde.org
 Source:         https://download.kde.org/stable/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
@@ -95,6 +95,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 
 
 %changelog
+* Mon Apr 24 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 23.04.0-2
+- Fix license
+
 * Fri Apr 14 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.0-1
 - 23.04.0
 

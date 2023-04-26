@@ -1,36 +1,31 @@
-#% global prerel -rc1
-
 Name:		iodine
-Version:		0.7.0
-Release:		21%{?dist}
-Summary:		Solution to tunnel IPv4 data through a DNS server
+Version:	0.8.0
+Release:	1%{?dist}
+Summary:	Solution to tunnel IPv4 data through a DNS server
 Summary(ru):	Решение для туннелирования IPv4 трафика через DNS сервер
-License:		ISC
-URL:			http://code.kryo.se/iodine/
-Source0:		http://code.kryo.se/%{name}/%{name}-%{version}%{?prerel}.tar.gz
+License:	ISC
+URL:		http://code.kryo.se/iodine/
+Source0:	https://github.com/yarrick/%{name}/archive/refs/tags/v%{version}/%{name}-%{version}.tar.gz
 # Initscripts and separate configs made by Nikolay Ulyanitsky
-Source1:		%{name}-client.conf
-Source2:		%{name}-server.conf
+Source1:	%{name}-client.conf
+Source2:	%{name}-server.conf
 
-Source5:		%{name}.logrotate.client
-Source6:		%{name}.logrotate.server
+Source5:	%{name}.logrotate.client
+Source6:	%{name}.logrotate.server
 
-Source7:		%{name}-client.service
-Source8:		%{name}-server.service
+Source7:	%{name}-client.service
+Source8:	%{name}-server.service
 
-# It still needed for EPEL5
+# Split man pages into client and server:
+Patch1:		iodine-0.8.0-split-man.patch
 
-# http://dev.kryo.se/iodine/ticket/119
-Patch1:		iodine-0.7.0.split-man.patch
-
-BuildRequires:  gcc
-BuildRequires:		zlib-devel
-
+BuildRequires:	make
+BuildRequires:	gcc
+BuildRequires:	zlib-devel
 BuildRequires:	systemd
-BuildRequires: make
 
-Requires:		%{name}-client
-Requires:		%{name}-server
+Requires:	%{name}-client
+Requires:	%{name}-server
 
 %description
 iodine lets you tunnel IPv4 data through a DNS server. This can be usable in
@@ -57,34 +52,33 @@ Iodine работает на Linux, Mac OS X, FreeBSD, NetBSD, OpenBSD и Window
 Он также содержит 3 файла документации: CHANGELOG, README, TODO.
 
 %package client
-Summary:			Client part of solution to tunnel IPv4 data through a DNS server
-Summary(ru):		Клиент для туннелирования IPv4 трафика через DNS сервер
+Summary:	Client part of solution to tunnel IPv4 data through a DNS server
+Summary(ru):	Клиент для туннелирования IPv4 трафика через DNS сервер
 %{?systemd_requires}
-
-Provides:			bundled(md5-deutsch)
+Provides:	bundled(md5-deutsch)
 
 %description client
-This is the client part of iodine sulution.
+This is the client part of iodine.
 
 %description client -l ru
 Это пакет клиентской части.
 
 %package server
-Summary:			Server part of solution to tunnel IPv4 data through a DNS server
-Summary(ru):		Сервер для туннелирования IPv4 трафика через DNS сервер
-Requires(post):	systemd
-Requires(preun):	systemd
-Requires(postun):	systemd
+Summary:	Server part of solution to tunnel IPv4 data through a DNS server
+Summary(ru):	Сервер для туннелирования IPv4 трафика через DNS сервер
+Requires(post):   systemd
+Requires(preun):  systemd
+Requires(postun): systemd
 # This is actually needed for the %%triggerun script but Requires(triggerun)
 # is not valid. We can use %%post because this particular %%triggerun script
 # should fire just after this package is installed.
 Requires(post):	systemd-sysv
 # /sbin/ifconfig and /sbin/route (bz#922225)
-Requires:			net-tools
-Provides:			bundled(md5-deutsch)
+Requires:	net-tools
+Provides:	bundled(md5-deutsch)
 
 %description server
-This is the server part of iodine solution.
+This is the server part of iodine.
 
 %description server -l ru
 Это пакет серверной части
@@ -94,8 +88,8 @@ This is the server part of iodine solution.
 %patch1 -p1 -b .split-man
 
 %build
-# It is fail to build without -c gcc flag (comes from upstream Makefile).
-make %{?_smp_mflags} prefix=%{_prefix} CFLAGS="-c %{optflags} -DLINUX"
+# Fails to build without -c gcc flag (comes from upstream Makefile).
+make %{?_smp_mflags} prefix=%{_prefix} CFLAGS="-c %{optflags} -DLINUX -D_GNU_SOURCE"
 
 %install
 make install prefix=%{buildroot}%{_prefix}
@@ -128,7 +122,7 @@ install -Dp -m 0644 %{SOURCE8} %{buildroot}/%{_unitdir}/%{name}-server.service
 %systemd_postun_with_restart %{name}-server.service
 
 %files
-%doc CHANGELOG README TODO
+%doc CHANGELOG LICENSE README.md
 
 %files client
 %{_sbindir}/%{name}
@@ -145,6 +139,11 @@ install -Dp -m 0644 %{SOURCE8} %{buildroot}/%{_unitdir}/%{name}-server.service
 %{_unitdir}/%{name}-server.service
 
 %changelog
+* Sun Apr 23 2023 Gabriel Somlo <gsomlo@gmail.com> - 0.8.0-1
+- Update to 0.8.0
+- Switch source to github
+- Spec file cleanup
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

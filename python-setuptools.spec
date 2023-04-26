@@ -18,7 +18,7 @@
 
 Name:           python-setuptools
 # When updating, update the bundled libraries versions bellow!
-Version:        67.6.1
+Version:        67.7.2
 Release:        1%{?dist}
 Summary:        Easily build and distribute Python packages
 # setuptools is MIT
@@ -226,6 +226,10 @@ PYTHONPATH=$(pwd) %pytest \
 
 
 %changelog
+* Fri Apr 21 2023 Charalampos Stratakis <cstratak@redhat.com> - 67.7.2-1
+- Update to 67.7.2
+- Fixes: rhbz#2144132
+
 * Thu Apr 20 2023 Charalampos Stratakis <cstratak@redhat.com> - 67.6.1-1
 - Update to 67.6.1
 - Fixes: rhbz#2144132

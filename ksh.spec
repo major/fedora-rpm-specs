@@ -4,7 +4,7 @@ URL:          http://www.kornshell.com/
 License:      EPL-2.0
 Epoch:        3
 Version:      1.0.4
-Release:      2%{?dist}
+Release:      3%{?dist}
 Source0:      https://github.com/ksh93/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:      kshcomp.conf
 Source2:      kshrc.rhs
@@ -137,6 +137,9 @@ fi
 %config(noreplace) %{_sysconfdir}/binfmt.d/kshcomp.conf
 
 %changelog
+* Thu Apr 13 2023 Lukáš Zaoral <lzaoral@redhat.com> - 3:1.0.4-3
+- migrate to SPDX license format
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3:1.0.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

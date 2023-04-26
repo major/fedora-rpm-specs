@@ -9,7 +9,7 @@
 
 Name:           mingw-python-%{pypi_name}
 Summary:        MinGW Python packaging core utils
-Version:        23.0
+Version:        23.1
 Release:        1%{?dist}
 BuildArch:      noarch
 
@@ -22,12 +22,14 @@ BuildRequires:  mingw32-filesystem >= 102
 BuildRequires:  mingw32-python3
 %if %{without bootstrap}
 BuildRequires:  mingw32-python3-build
+BuildRequires:  mingw32-python3-flit-core
 %endif
 
 BuildRequires:  mingw64-filesystem >= 102
 BuildRequires:  mingw64-python3
 %if %{without bootstrap}
 BuildRequires:  mingw64-python3-build
+BuildRequires:  mingw64-python3-flit-core
 %endif
 
 
@@ -66,7 +68,7 @@ mkdir %{distinfo}
 cat > %{distinfo}/METADATA << EOF
 Metadata-Version: 2.2
 Name: %{pypi_name}
-Version: 23.0
+Version: 23.1
 EOF
 %else
 %global distinfo %{pypi_name}-%{version}.dist-info
@@ -111,6 +113,9 @@ cp -a packaging %{distinfo} %{buildroot}%{mingw64_python3_hostsitearch}/
 
 
 %changelog
+* Mon Apr 24 2023 Sandro Mani <manisandro@gmail.com> - 23.1-1
+- Update to 23.1
+
 * Sat Feb 11 2023 Sandro Mani <manisandro@gmail.com> - 23.0-1
 - Update to 23.0
 

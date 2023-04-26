@@ -2,7 +2,7 @@
 
 Name:           python-sphinx-theme-builder
 Version:        0.2.0
-Release:        0.8.%{prerel}%{?dist}
+Release:        0.9.%{prerel}%{?dist}
 Summary:        Streamline the Sphinx theme development workflow
 
 # Most of the code is MIT.  However,
@@ -15,8 +15,6 @@ BuildArch:      noarch
 
 BuildRequires:  help2man
 BuildRequires:  python3-devel
-BuildRequires:  python3-docs
-BuildRequires:  python-sphinx-doc
 
 %description
 A tool for authoring Sphinx themes with a simple (opinionated) workflow.
@@ -43,7 +41,7 @@ sed -e 's|\("https://docs\.python\.org/3", \)None|\1"%{_docdir}/python3-docs/htm
 sed -i '/pytest-clarity/d;/pytest-pspec/d' tests/requirements.txt
 
 %generate_buildrequires
-%pyproject_buildrequires -x cli docs/requirements.txt tests/requirements.txt
+%pyproject_buildrequires -x cli tests/requirements.txt
 
 %build
 %pyproject_wheel
@@ -53,10 +51,9 @@ sed -i '/pytest-clarity/d;/pytest-pspec/d' tests/requirements.txt
 %pyproject_save_files sphinx_theme_builder
 
 # Install a man page
-export PYTHONPATH=%{buildroot}%{python3_sitelib}
 mkdir -p %{buildroot}%{_mandir}/man1
-help2man -N --version-string=%{version}%{prerel} %{buildroot}%{_bindir}/stb > \
-  %{buildroot}%{_mandir}/man1/stb.1
+%{py3_test_envvars} help2man -N --version-string=%{version}%{prerel} \
+  %{buildroot}%{_bindir}/stb > %{buildroot}%{_mandir}/man1/stb.1
 
 %check
 %pytest
@@ -66,6 +63,13 @@ help2man -N --version-string=%{version}%{prerel} %{buildroot}%{_bindir}/stb > \
 %license LICENSE
 
 %changelog
+* Mon Apr 24 2023 Jerry James <loganjerry@gmail.com> - 0.2.0-0.9.b2
+- Use %%py3_test_envvars to simplify man page installation
+
+* Wed Apr 19 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 0.2.0-0.9.b2
+- Unused docs BuildRequires were dropped to remove a dependency loop between
+python-sphinx-theme-builder and python-furo
+
 * Tue Mar 28 2023 Jerry James <loganjerry@gmail.com> - 0.2.0-0.8.b2
 - Version 0.2.0b2
 - Drop upstreamed tomllib patch

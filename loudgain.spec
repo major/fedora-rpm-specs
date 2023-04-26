@@ -5,7 +5,7 @@ Version: 0.6.8
 Name: %{repo}
 Release: %autorelease
 Summary: ReplayGain 2.0 audio loudness normalizer
-License: BSD
+License: BSD-2-Clause
 URL: %{forgeurl}
 Source0: %{forgesource}
 

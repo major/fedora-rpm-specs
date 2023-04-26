@@ -6,7 +6,7 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=1751749
 %global _target_platform %{_vendor}-%{_target_os}
 
-%if 0%{?flatpak}
+%if 0%{?flatpak} || 0%{?rhel}
 %bcond_with mingw
 %else
 %bcond_without mingw

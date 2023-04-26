@@ -3,7 +3,7 @@ Version:        16n
 Release:        %autorelease
 Summary:        Nigel's performance Monitor for Linux 
 
-License:        GPLv3
+License:        GPL-3.0-only
 URL:            http://nmon.sourceforge.net
 Source0:        https://sourceforge.net/projects/%{name}/files/lmon%{version}.c
 Source1:        https://sourceforge.net/projects/%{name}/files/Documentation.txt

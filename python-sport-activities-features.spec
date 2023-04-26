@@ -18,7 +18,7 @@ total ascent, total descent and many others.}
 
 Name:           python-%{pypi_name}
 Version:        0.3.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A minimalistic toolbox for extracting features from sports activity files
 
 License:        MIT
@@ -99,7 +99,7 @@ sed -r -i 's/(release = ")[[:digit:].]+"/\1%{version}"/' docs/conf.py
 
 %check	
 %if %{with tests}
-%pytest -k 'not test_data_analysis and not test_overpy_node_manipulation'
+%pytest -k 'not test_overpy_node_manipulation'
 %endif
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
@@ -122,6 +122,9 @@ sed -r -i 's/(release = ")[[:digit:].]+"/\1%{version}"/' docs/conf.py
 %doc examples/
 
 %changelog
+* Mon Apr 24 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.3.11-2
+- Enable one test
+
 * Mon Apr 3 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.3.11-1
 - Upgrade to 0.3.11
 

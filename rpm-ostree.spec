@@ -3,7 +3,7 @@
 
 Summary: Hybrid image/package system
 Name: rpm-ostree
-Version: 2023.2
+Version: 2023.3
 Release: 1%{?dist}
 License: LGPLv2+
 URL: https://github.com/coreos/rpm-ostree
@@ -241,6 +241,9 @@ $PYTHON autofiles.py > files.devel \
 %files devel -f files.devel
 
 %changelog
+* Mon Apr 24 2023 Joseph Marrero <jmarrero@fedoraproject.org> - 2023.3-1
+- https://github.com/coreos/rpm-ostree/releases/tag/v2023.3
+
 * Tue Mar 07 2023 Joseph Marrero <jmarrero@fedoraproject.org> - 2023.2-1
 - https://github.com/coreos/rpm-ostree/releases/tag/v2023.2
 

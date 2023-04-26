@@ -5,8 +5,8 @@
 %bcond_with tests
 
 Name:           koji-tool
-Version:        0.9.5
-Release:        2%{?dist}
+Version:        1.0
+Release:        1%{?dist}
 Summary:        Koji CLI tool for querying tasks and installing builds
 
 License:        BSD-3-Clause
@@ -81,6 +81,9 @@ mkdir -p %{buildroot}%{_datadir}/bash-completion/completions/
 
 
 %changelog
+* Mon Apr 24 2023 Jens Petersen <petersen@redhat.com> - 1.0-1
+- https://hackage.haskell.org/package/koji-tool-1.0/changelog
+
 * Thu Feb 16 2023 Jens Petersen <petersen@redhat.com> - 0.9.5-2
 - refresh to cabal-rpm-2.1.0 with SPDX migration
 

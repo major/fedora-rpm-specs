@@ -294,7 +294,7 @@ gtk-query-immodules-2.0-%{__isa_bits} --update-cache
 %ghost %{_libdir}/gtk-2.0/%{bin_version}/immodules.cache
 %{_libdir}/girepository-1.0
 %{_mandir}/man1/gtk-query-immodules-2.0*
-%{_mandir}/man1/update-gtk-immodules.1.gz
+%{_mandir}/man1/update-gtk-immodules.1*
 
 %files immodules
 %{_libdir}/gtk-2.0/%{bin_version}/immodules/im-am-et.so
@@ -326,7 +326,7 @@ gtk-query-immodules-2.0-%{__isa_bits} --update-cache
 %{_bindir}/gtk-demo
 %{_datadir}/gtk-2.0/demo
 %{_datadir}/gir-1.0
-%{_mandir}/man1/gtk-builder-convert.1.gz
+%{_mandir}/man1/gtk-builder-convert.1*
 
 %files devel-docs
 %{_datadir}/gtk-doc

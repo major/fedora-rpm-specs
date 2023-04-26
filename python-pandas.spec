@@ -13,7 +13,7 @@
 
 Name:           python-pandas
 Version:        1.5.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python library providing high-performance data analysis tools
 
 # The entire source is BSD-3-Clause and covered by LICENSE, except:
@@ -93,6 +93,43 @@ Patch:          https://github.com/pandas-dev/pandas/commit/e73d4d29203dab20e001
 # python-pandas: FTBFS in Fedora rawhide/f38
 # https://bugzilla.redhat.com/show_bug.cgi?id=2171682
 Patch:          https://github.com/pandas-dev/pandas/pull/52150.patch
+
+# CI: Unpin pyarrow<10
+# https://github.com/pandas-dev/pandas/pull/50314
+#
+# Merged upstream as 4878dfe551da2fa8e2bc33e774b595f099bfa74e:
+#   CI: Unpin pyarrow<10 (#50314)
+#   * CI: Unpin pyarrow<10
+#   * Skip test
+#
+# ----
+#
+# Add pandas.compat.pa_version_under11p0, required for pyarrow 11 support, from
+# the following PR/commit, but without the other associated changes:
+#
+# ENH: support reductions for pyarrow temporal types (#50998)
+# https://github.com/pandas-dev/pandas/pull/50998
+#
+# Merged upstream as 52306d957cb77a3823624679bb9606e244e7faa8:
+#   ENH: support reductions for pyarrow temporal types
+#   * unit check
+#   * lint fixup
+#
+# ----
+#
+# CI: unpin pyarrow, fix failing test
+# https://github.com/pandas-dev/pandas/pull/51175
+#
+# Merged upstream as 5f584bd29be7203db64bdf8619991927e29c74bc:
+#   CI: unpin pyarrow, fix failing test (#51175)
+#   * unpin pyarrow, fix failing test
+#   * cleanup
+#   * handle NaT/NaN
+#
+# ----
+#
+# All commits cherry-picked to tag v1.5.3 and combined into a single patch.
+Patch:          pandas-1.5.3-pyarrow-10-11.patch
 
 %global _description %{expand:
 pandas is an open source, BSD-licensed library providing
@@ -362,10 +399,8 @@ Recommends:     python3dist(zstandard) >= 0.15.2
 
 # This is just an “ecosystem” package in the upstream documentation, but there
 # is an integration test for it. This package historically had a weak
-# dependency on it, which we keep around until we package 1.4.0 to ensure
-# backward compatibility.
+# dependency on it, but this was unnecessary.
 BuildRequires:  python3dist(pandas-datareader)
-Recommends:     python3dist(pandas-datareader)
 
 %endif
 
@@ -625,16 +660,6 @@ k="${k-}${k+ and }not (TestDataFramePlotsSubplots and test_bar_log_subplots)"
 %endif
 
 %if 0%{?fedora} > 37
-# The text of an error message has changed in libarrow/pyarrow 10, which is
-# harmless but breaks one test. Disable it until a patch is available upstream.
-#   CI: pyarrow 10 broke our ci
-#   https://github.com/pandas-dev/pandas/issues/50058
-k="${k-}${k+ and }not test_arrow_array"
-
-# Probably also related to upstream pinning pyarrow < 10 for CI:
-# E   TypeError: Expected unicode, got pyarrow.lib.StringScalar
-k="${k-}${k+ and }not (TestConstructors and test_from_sequence_of_strings_pa_array)"
-
 # TODO: Why does this fail? Does it need a slightly older version of dask?
 # E           AssertionError: Caused unexpected warning(s): [('RuntimeWarning', RuntimeWarning('invalid value encountered in cast'), '/builddir/build/BUILDROOT/python-pandas-1.5.3-1.fc39.x86_64/usr/lib64/python3.11/site-packages/pandas/core/dtypes/cast.py', 1836)]
 k="${k-}${k+ and }not test_construct_dask_float_array_int_dtype_match_ndarray"
@@ -717,6 +742,10 @@ export PYTHONHASHSEED="$(
 
 
 %changelog
+* Wed Apr 19 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.5.3-3
+- Drop unnecessary weak dependency on python-pandas-datareader
+- Backport proper pyarrow 10 and 11 support
+
 * Thu Apr 13 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.5.3-2
 - Fix RHBZ#2171682 by backporting upstream PR#52150
 

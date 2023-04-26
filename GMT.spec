@@ -23,7 +23,7 @@
 
 Name:           GMT
 Version:        6.4.0
-Release:        5%{?dist}
+Release:        7%{?dist}
 Summary:        Generic Mapping Tools
 
 License:        LGPLv3+
@@ -31,6 +31,7 @@ URL:            https://www.generic-mapping-tools.org/
 Source0:        https://github.com/GenericMappingTools/gmt/releases/download/%{version}/gmt-%{version}-src.tar.xz
 # Add missing byteswap include
 Patch0:         https://patch-diff.githubusercontent.com/raw/GenericMappingTools/gmt/pull/6044.patch
+Patch1: GMT-c99.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -223,6 +224,12 @@ find $RPM_BUILD_ROOT -name \*.bat -delete
 
 
 %changelog
+* Mon Apr 24 2023 Florian Weimer <fweimer@redhat.com> - 6.4.0-7
+- Switch to upstream version of GMT-c99.patch
+
+* Mon Apr 24 2023 Florian Weimer <fweimer@redhat.com> - 6.4.0-6
+- Port to C99
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -13,17 +13,22 @@
 # published by the Open Source Initiative.
 
 %global manext .gz
+%global forgeurl0 https://github.com/NetworkConfiguration/openresolv
 
 Name:           openresolv
-Version:        3.12.0
-Release:        5%{?dist}
+Version:        3.13.1
+Release:        %autorelease
 Summary:        DNS management framework
 License:        BSD
 URL:            https://roy.marples.name/projects/openresolv
-Source:         https://roy.marples.name/downloads/openresolv/%{name}-%{version}.tar.xz
+VCS:            git:%{forgeurl0}
+Source0:        %{forgeurl0}/releases/download/v%{version}/%{name}-%{version}.tar.xz
+Source1:        %{forgeurl0}/releases/download/v%{version}/%{name}-%{version}.tar.xz.asc
+Source2:        http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xa785ed2755955d9e93ea59f6597f97ea9ad45549#/roy.marples.asc
 Requires:       bash
 BuildArch:      noarch
 BuildRequires:  make
+BuildRequires:  gnupg2
 Provides:       resolvconf = %{version}-%{release}
 Requires(post): %{_sbindir}/update-alternatives
 Requires(postun): %{_sbindir}/update-alternatives
@@ -38,8 +43,14 @@ openresolv can generate a combined resolv.conf or a configuration file for a loc
 (like unbound, dnsmasq or bind) that will route the dns requests according to the search domain.
 
 %prep
+%if 0%{?fedora} || 0%{?rhel} > 8
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%endif
+
 %autosetup
-sed -i -e '1 s,^#!/bin/sh$,,' *.in
+for F in *.in; do
+  [ "$F" != "resolvconf.in" ] && sed -i -e '1 s,^#!/bin/sh$,#,' $F
+done
 
 %build
 # not GNU autoconf
@@ -75,19 +86,4 @@ fi
 %ghost %{_mandir}/man8/resolvconf.8*
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Mon Feb 01 2021 Petr Menšík <pemensik@redhat.com> - 3.12.0-1
-- Initial build
-
-
+%autochangelog

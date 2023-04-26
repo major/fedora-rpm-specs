@@ -2,7 +2,7 @@ Summary:	I/O on in-core objects like strings and arrays for Perl
 Name:		perl-IO-stringy
 Version:	2.113
 Release:	11%{?dist}
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/IO-stringy
 Source0:	https://cpan.metacpan.org/modules/by-module/IO/IO-Stringy-%{version}.tar.gz
 BuildArch:	noarch
@@ -32,7 +32,8 @@ BuildRequires:	perl(Test::More) >= 0.88
 # Optional Tests
 BuildRequires:	perl(CPAN::Meta) >= 2.120900
 BuildRequires:	perl(CPAN::Meta::Prereqs)
-# Runtime
+# Dependencies
+# (none)
 
 # New upstream maintainer for 2.112 finally got the dist name right
 Provides:	perl-IO-Stringy = %{version}-%{release}
@@ -70,11 +71,7 @@ find %{buildroot} -type f -name .packlist -delete
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license COPYING LICENSE
-%else
-%doc COPYING LICENSE
-%endif
 %doc Changes examples/ README
 %{perl_vendorlib}/IO/
 %{_mandir}/man3/IO::AtomicFile.3*

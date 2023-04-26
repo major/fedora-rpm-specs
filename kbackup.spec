@@ -1,11 +1,11 @@
 Name:           kbackup
 Version:        23.04.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Back up your data in a simple, user friendly way
 Summary(fr):    Sauvegarder vos données de manière simple et conviviale
 Summary(ru):    Простое, дружественное к пользователю резервное копирование
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 Url:            https://github.com/KDE/kbackup
 Source0:        https://download.kde.org/stable/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
@@ -87,6 +87,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Mon Apr 24 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 23.04.0-2
+- Fix license
+
 * Fri Apr 14 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.0-1
 - 23.04.0
 

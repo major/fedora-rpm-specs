@@ -1,19 +1,18 @@
-# Requires explicit trust in builder's keyring
-%bcond_without SIGCHECK
+%global forgeurl0 https://github.com/NetworkConfiguration/dhcpcd
 
 Name: dhcpcd
-Version: 9.4.1
-Release: 4%{?dist}
+Version: 10.0.1
+Release: %autorelease
 Summary: A minimalistic network configuration daemon with DHCPv4, rdisc and DHCPv6 support
-License: BSD
-# Moved to github
-# https://github.com/NetworkConfiguration/dhcpcd
+License: BSD-2-Clause AND ISC AND MIT
 URL: http://roy.marples.name/projects/%{name}/
-Source0: http://roy.marples.name/downloads/%{name}/%{name}-%{version}.tar.xz
-Source1: %{name}.service
-Source2: %{name}@.service
-Source3: http://roy.marples.name/downloads/%{name}/%{name}-%{version}.tar.xz.distinfo.asc
-Source4: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xa785ed2755955d9e93ea59f6597f97ea9ad45549#/roy-marples.name.asc
+# Moved to github
+VCS: git:%{forgeurl0}
+Source0: %{forgeurl0}/releases/download/v%{version}/%{name}-%{version}.tar.xz
+Source1: %{forgeurl0}/releases/download/v%{version}/%{name}-%{version}.tar.xz.asc
+Source2: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xa785ed2755955d9e93ea59f6597f97ea9ad45549#/roy-marples.name.asc
+Source3: %{name}.service
+Source4: %{name}@.service
 Source5: systemd-sysusers.conf
 BuildRequires: gcc
 BuildRequires: systemd-rpm-macros
@@ -21,7 +20,7 @@ BuildRequires: chrony
 BuildRequires: systemd-devel
 BuildRequires: ypbind
 BuildRequires: make
-%if %{with SIGCHECK}
+%if 0%{?fedora} || 0%{?rhel} > 8
 BuildRequires: gnupg2
 %endif
 %{?systemd_requires}
@@ -31,13 +30,9 @@ that supports IPv4 and IPv6 configuration including configuration discovery
 through NDP, DHCPv4 and DHCPv6 protocols.
 
 %prep
-%if %{with SIGCHECK}
-GPGHOME="$(mktemp -d ./gpghome-XXXXXXX)"
-gpg --homedir "$GPGHOME" --import %{SOURCE4}
-gpg --homedir "$GPGHOME" --verify %{SOURCE3}
-rm -rf "$GPGHOME"
+%if 0%{?fedora} || 0%{?rhel} > 8
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %endif
-(cd %{_sourcedir} && tr -d '\r' <%{SOURCE3} | sha256sum -c)
 %autosetup
 
 %build
@@ -52,8 +47,8 @@ make test
 export BINMODE=755
 %make_install
 find %{buildroot} -name '*.la' -delete -print
-install -D -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/%{name}.service
-install -D -m 644 %{SOURCE2} %{buildroot}%{_unitdir}/%{name}@.service
+install -D -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/%{name}.service
+install -D -m 644 %{SOURCE4} %{buildroot}%{_unitdir}/%{name}@.service
 install -d %{buildroot}%{_sharedstatedir}/%{_name}
 
 %pre
@@ -87,69 +82,4 @@ install -d %{buildroot}%{_sharedstatedir}/%{_name}
 %{_sharedstatedir}/%{name}
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.4.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 9.4.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 9.4.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Mon Nov 01 2021 Petr Menšík <pemensik@redhat.com> - 9.4.1-1
-- Update to 9.4.1 (#2016639)
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 9.4.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Mon Mar 22 2021 Petr Menšík <pemensik@redhat.com> - 9.4.0-2
-- Reenable net device binding
-
-* Fri Mar 19 2021 Petr Menšík <pemensik@redhat.com> - 9.4.0-1
-- Update to 9.4.0
-
-* Tue Mar 02 2021 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 6.11.3-13
-- Rebuilt for updated systemd-rpm-macros
-  See https://pagure.io/fesco/issue/2583.
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 6.11.3-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 6.11.3-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 6.11.3-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 6.11.3-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 6.11.3-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Tue Jul 31 2018 Florian Weimer <fweimer@redhat.com> - 6.11.3-7
-- Rebuild with fixed binutils
-
-* Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 6.11.3-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 6.11.3-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 6.11.3-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 6.11.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 6.11.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Fri Aug 26 2016 Pavel Šimerda <psimerda@redhat.com> - 6.11.3-1
-- New version 6.11.3
-
-* Wed Aug 10 2016 Pavel Šimerda <psimerda@redhat.com> - 6.11.2-1
-- New version 6.11.2
-
-* Fri Feb 19 2016 Pavel Šimerda <psimerda@redhat.com> - 6.10.1-4
-- initial version
+%autochangelog

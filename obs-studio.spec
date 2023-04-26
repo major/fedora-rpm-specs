@@ -24,7 +24,7 @@
 
 Name:           obs-studio
 Version:        29.1.0~beta4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Open Broadcaster Software Studio
 
 # OBS itself is GPL-2.0-or-later, while various plugin dependencies are of various other licenses
@@ -114,7 +114,7 @@ BuildRequires:  x264-devel
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 # Ensure that we have the full ffmpeg suite installed
-Requires:       ffmpeg-free
+Requires:       /usr/bin/ffmpeg
 # We dlopen() openh264, so weak-depend on it...
 ## Note, we can do this because openh264 is provided in a default-enabled
 ## third party repository provided by Cisco.
@@ -297,6 +297,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Mon Apr 24 2023 Neal Gompa <ngompa@fedoraproject.org> - 29.1.0~beta4-3
+- Switch ffmpeg-free dependency to /usr/bin/ffmpeg
+
 * Thu Apr 20 2023 Neal Gompa <ngompa@fedoraproject.org> - 29.1.0~beta4-2
 - Ensure ffmpeg-free and OpenH264 are expressed as dependencies
 

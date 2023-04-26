@@ -1,6 +1,6 @@
 Name:           libnatpmp
-Version:        20150609
-Release:        18%{?dist}
+Version:        20230423
+Release:        1%{?dist}
 Summary:        Library of The NAT Port Mapping Protocol (NAT-PMP)
 License:        LGPL-2.0-or-later
 URL:            http://miniupnp.free.fr/libnatpmp.html
@@ -54,6 +54,9 @@ make testgetgateway
 %{_includedir}/natpmp.h
 
 %changelog
+* Mon Apr 24 2023 Gwyn Ciesla <gwync@protonmail.com> - 20230423-1
+- 20230423
+
 * Tue Feb 28 2023 Gwyn Ciesla <gwync@protonmail.com> - 20150609-18
 - migrated to SPDX license
 

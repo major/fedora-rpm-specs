@@ -7,8 +7,8 @@
 
 Name:          mingw-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       1.24.2
-Release:       4%{?dist}
+Version:       1.24.3
+Release:       1%{?dist}
 
 # Everything is BSD except for class SafeEval in numpy/lib/utils.py which is Python
 License:       BSD-3-Clause AND Apache-2.0
@@ -123,6 +123,9 @@ ln -s %{mingw64_python3_sitearch}/numpy/core/include/numpy/ %{buildroot}%{_prefi
 
 
 %changelog
+* Mon Apr 24 2023 Sandro Mani <manisandro@gmail.com> - 1.24.3-1
+- Update to 1.24.3
+
 * Tue Mar 21 2023 Sandro Mani <manisandro@gmail.com> - 1.24.2-4
 - Install missing headers from target build also for host build
 

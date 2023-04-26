@@ -1,4 +1,4 @@
-%global perl_version    5.36.0
+%global perl_version    5.36.1
 %global perl_epoch      4
 %global perl_arch_stem -thread-multi
 %global perl_archname %{_arch}-%{_os}%{perl_arch_stem}
@@ -108,7 +108,7 @@ License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          %{perl_epoch}
 Version:        %{perl_version}
 # release number must be even higher, because dual-lived modules will be broken otherwise
-Release:        495%{?dist}
+Release:        496%{?dist}
 Summary:        Practical Extraction and Report Language
 Url:            https://www.perl.org/
 Source0:        https://www.cpan.org/src/5.0/perl-%{perl_version}.tar.xz
@@ -180,7 +180,6 @@ Patch201:       perl-5.16.3-Link-XS-modules-to-libperl.so-with-EU-MM-on-Linux.pa
 
 # If optimizing -O is used, add the definition to .ph files, bug #2152012
 Patch202:       perl-5.36.0-Add-definition-of-OPTIMIZE-to-.ph-files.patch
-Patch203: perl-configure-c99.patch
 
 # Update some of the bundled modules
 # see http://fedoraproject.org/wiki/Perl/perl.spec for instructions
@@ -233,7 +232,7 @@ BuildRequires:  rsyslog
 
 
 # compat macro needed for rebuild
-%global perl_compat perl(:MODULE_COMPAT_5.36.0)
+%global perl_compat perl(:MODULE_COMPAT_5.36.1)
 
 Requires:       %perl_compat
 Requires:       perl-interpreter%{?_isa} = %{perl_epoch}:%{perl_version}-%{release}
@@ -414,6 +413,7 @@ Summary:        The libraries for the perl run-time
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Martin-Birgmeier AND Spencer-86 AND MIT AND UCD AND LicenseRef-Fedora-Public-Domain
 # Compat provides
 Provides:       %perl_compat
+Provides:       perl(:MODULE_COMPAT_5.36.0)
 # Interpreter version to fulfil required genersted from "require 5.006;"
 Provides:       perl(:VERSION) = %{perl_version}
 # Integeres are 64-bit on all platforms
@@ -2734,7 +2734,7 @@ encoder/decoder. These encoding methods are specified in RFC 2045 - MIME
 Summary:        What modules are shipped with versions of perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          1
-Version:        5.20220520
+Version:        5.20230423
 Requires:       %perl_compat
 Requires:       perl(List::Util)
 Requires:       perl(version) >= 0.88
@@ -2752,7 +2752,7 @@ are shipped with each version of perl.
 Summary:        Tool for listing modules shipped with perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Epoch:          1
-Version:        5.20220520
+Version:        5.20230423
 Requires:       %perl_compat
 Requires:       perl(feature)
 Requires:       perl(version) >= 0.88
@@ -4186,25 +4186,24 @@ you're not running VMS, this module does nothing.
 
 %prep
 %setup -q -n perl-%{perl_version}
-%patch1 -p1
+%patch -P1 -p1
 %ifarch %{multilib_64_archs}
-%patch2 -p1
+%patch -P2 -p1
 %endif
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1
-%patch10 -p1
-%patch11 -p1
-%patch12 -p1
-%patch13 -p1
-%patch200 -p1
-%patch201 -p1
-%patch202 -p1
-%patch203 -p1
+%patch -P3 -p1
+%patch -P4 -p1
+%patch -P5 -p1
+%patch -P6 -p1
+%patch -P7 -p1
+%patch -P8 -p1
+%patch -P9 -p1
+%patch -P10 -p1
+%patch -P11 -p1
+%patch -P12 -p1
+%patch -P13 -p1
+%patch -P200 -p1
+%patch -P201 -p1
+%patch -P202 -p1
 
 %if !%{defined perl_bootstrap}
 # Local patch tracking
@@ -7009,6 +7008,10 @@ popd
 
 # Old changelog entries are preserved in CVS.
 %changelog
+* Mon Apr 24 2023 Jitka Plesnikova <jplesnik@redhat.com> - 4:5.36.1-496
+- 5.36.1 bump (see <https://metacpan.org/release/SHAY/perl-5.36.1/view/pod/perldelta.pod>
+  or release notes
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4:5.36.0-495
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:    eog
-Version: 44.0
+Version: 44.1
 Release: 1%{?dist}
 Summary: Eye of GNOME image viewer
 
@@ -137,6 +137,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.eog.deskto
 %endif
 
 %changelog
+* Mon Apr 24 2023 David King <amigadave@amigadave.com> - 44.1-1
+- Update to 44.1
+
 * Sun Mar 19 2023 David King <amigadave@amigadave.com> - 44.0-1
 - Update to 44.0
 

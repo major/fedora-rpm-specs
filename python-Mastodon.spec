@@ -3,8 +3,8 @@
 %global modname Mastodon
 
 Name:               python-Mastodon
-Version:            1.8.0
-Release:            3%{?dist}
+Version:            1.8.1
+Release:            1%{?dist}
 Summary:            Python wrapper for the Mastodon API
 
 
@@ -60,6 +60,9 @@ Python %{python3_version} version.
 %{python3_sitelib}/%{modname}.py-*.egg-info/
 
 %changelog
+* Mon Apr 24 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.8.1-1
+- 1.8.1
+
 * Sat Mar 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.8.0-3
 - migrated to SPDX license
 

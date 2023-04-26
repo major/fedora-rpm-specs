@@ -6,6 +6,12 @@
 %bcond_with java
 %endif
 
+%if 0%{?rhel}
+%bcond_with mingw
+%else
+%bcond_without mingw
+%endif
+
 Name:          libwebp
 Version:       1.3.0
 Release:       2%{?dist}
@@ -37,6 +43,7 @@ BuildRequires: jpackage-utils
 BuildRequires: swig
 %endif
 
+%if %{with mingw}
 BuildRequires:  mingw32-filesystem >= 95
 BuildRequires:  mingw32-gcc
 BuildRequires:  mingw32-binutils
@@ -50,6 +57,7 @@ BuildRequires:  mingw64-binutils
 BuildRequires:  mingw64-giflib
 BuildRequires:  mingw64-libpng
 BuildRequires:  mingw64-libjpeg
+%endif
 
 
 %description
@@ -95,6 +103,7 @@ Java bindings for libwebp.
 %endif
 
 
+%if %{with mingw}
 %package -n mingw32-%{name}
 Summary:       MinGW Windows %{name} library
 BuildArch:     noarch
@@ -112,6 +121,7 @@ MinGW Windows %{name} library.
 
 
 %{?mingw_debug_package}
+%endif
 
 
 %prep
@@ -123,9 +133,11 @@ MinGW Windows %{name} library.
 %cmake
 %cmake_build
 
+%if %{with mingw}
 # MinGW build
 %mingw_cmake -DWEBP_BUILD_VWEBP=OFF
 %mingw_make_build
+%endif
 
 %if %{with java}
 # SWIG generated Java bindings
@@ -155,10 +167,12 @@ jar cvf ../libwebp.jar com/google/webp/*.class
 # Native build
 %cmake_install
 
+%if %{with mingw}
 # MinGW build
 %mingw_make_install
 rm -rf %{buildroot}%{mingw32_mandir}
 rm -rf %{buildroot}%{mingw64_mandir}
+%endif
 
 find "%{buildroot}/%{_libdir}" -type f -name "*.la" -delete
 
@@ -169,7 +183,7 @@ cp swig/*.jar swig/*.so %{buildroot}/%{_libdir}/%{name}-java/
 %endif
 
 
-%mingw_debug_install_post
+%{?mingw_debug_install_post}
 
 
 %check
@@ -215,6 +229,7 @@ cp swig/*.jar swig/*.so %{buildroot}/%{_libdir}/%{name}-java/
 %{_libdir}/%{name}-java/
 %endif
 
+%if %{with mingw}
 %files -n mingw32-libwebp
 %license PATENTS COPYING
 %{mingw32_bindir}/cwebp.exe
@@ -266,6 +281,7 @@ cp swig/*.jar swig/*.so %{buildroot}/%{_libdir}/%{name}-java/
 %{mingw64_libdir}/libwebpdemux.dll.a
 %{mingw64_libdir}/libwebpmux.dll.a
 %{mingw64_libdir}/libsharpyuv.dll.a
+%endif
 
 
 %changelog

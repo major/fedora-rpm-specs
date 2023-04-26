@@ -1,5 +1,5 @@
 Name:           perl-Convert-Color
-Version:        0.16
+Version:        0.17
 Release:        1%{?dist}
 Summary:        Color space conversions and named lookups
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -48,6 +48,9 @@ and it provides ways to look up colors by a name.
 %{_mandir}/man3/*
 
 %changelog
+* Mon Apr 24 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.17-1
+- Upstream update.
+
 * Fri Mar 31 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.16-1
 - Upstream update.
 

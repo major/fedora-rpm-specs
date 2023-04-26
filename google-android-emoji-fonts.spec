@@ -5,10 +5,10 @@
 Name:    %{fontname}-fonts
 # No sane versionning upstream, use git clone timestamp
 Version: 1.01
-Release: 0.21.%{checkout}%{?dist}
+Release: 0.22.%{checkout}%{?dist}
 Summary: Android Emoji font released by Google
 
-License:   ASL 2.0
+License:   Apache-2.0
 URL:       https://android.googlesource.com/platform/frameworks/base.git/+/jb-release/data/fonts/
 Source0:   %{archivename}.tar.xz
 Source1:   get-source-from-git.sh
@@ -54,6 +54,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/AndroidEm
 
 
 %changelog
+* Mon Apr 24 2023 Peter Oliver <rpm@mavit.org.uk> - 1.01-0.22.20120228git%{?dist}
+- SPDX migration.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-0.21.20120228git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

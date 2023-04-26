@@ -4,7 +4,7 @@ Name:           %{target}-gcc
 #FIXME:11.2 fails with Werror-format-security https://gcc.gnu.org/bugzilla/show_bug.cgi?id=100431
 #revert -Wno-format-security once fix is available
 Version:        12.2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Epoch:          1
 Summary:        Cross Compiling GNU GCC targeted at %{target}
 License:        GPLv2+
@@ -14,6 +14,8 @@ Source2:        README.fedora
 
 Patch0:         avr-gcc-4.5.3-mint8.patch
 Patch1:		avr-gcc-config.patch
+Patch2:		avr-gcc-configure-c99-1.patch
+Patch3:		avr-gcc-configure-c99-2.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  %{target}-binutils >= 1:2.23, zlib-devel gawk gmp-devel mpfr-devel libmpc-devel, flex
@@ -47,6 +49,8 @@ platform.
 pushd gcc-%{version}
 %patch0 -p2 -b .mint8
 #patch1 -p2 -b .config
+%patch2 -p1
+%patch3 -p1
 
 pushd libiberty
 #autoconf -f
@@ -146,6 +150,9 @@ rm -r $RPM_BUILD_ROOT%{_libexecdir}/gcc/%{target}/%{version}/install-tools ||:
 
 
 %changelog
+* Mon Apr 24 2023 Florian Weimer <fweimer@redhat.com> - 1:12.2.0-3
+- Backport upstream patches to fix C99 compatibility issues
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:12.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

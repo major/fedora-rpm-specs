@@ -5,7 +5,7 @@
 %global crate ordered-float
 
 Name:           rust-ordered-float
-Version:        3.6.0
+Version:        3.7.0
 Release:        %autorelease
 Summary:        Wrappers for total ordering on floats
 
@@ -13,7 +13,7 @@ License:        MIT
 URL:            https://crates.io/crates/ordered-float
 Source:         %{crates_source}
 
-BuildRequires:  rust-packaging >= 21
+BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
 Wrappers for total ordering on floats.}
@@ -116,6 +116,54 @@ This package contains library source intended for building other packages which
 use the "rkyv" feature of the "%{crate}" crate.
 
 %files       -n %{name}+rkyv-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rkyv_16-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rkyv_16-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rkyv_16" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rkyv_16-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rkyv_32-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rkyv_32-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rkyv_32" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rkyv_32-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rkyv_64-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rkyv_64-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rkyv_64" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rkyv_64-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rkyv_ck-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rkyv_ck-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rkyv_ck" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rkyv_ck-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde-devel

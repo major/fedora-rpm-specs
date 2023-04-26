@@ -1,16 +1,16 @@
-%global commit0 f767e56e06c94692df6cfcab56f2af222a7d85b9
+%global commit0 b9120de2453e71b68b344452ef12040ee53d47ab
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
-%global commit1 35d900a94ff0db152679a67bf6e4fbf40ebc34aa
+%global commit1 78866d2b6663435fa6fe6fa17ec11749e913a455
 %global shortcommit1 %(c=%{commit1}; echo ${c:0:7})
 
-%global snapdate 20230226
+%global snapdate 20230423
 
 %global __python %{__python3}
 
 Name:          trellis
 Version:       1.2.1
-Release:       16.%{snapdate}git%{shortcommit0}%{?dist}
+Release:       17.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:       Lattice ECP5 FPGA bitstream creation/analysis/programming tools
 License:       ISC
 URL:           https://github.com/YosysHQ/prj%{name}
@@ -117,6 +117,9 @@ install -Dpm644 -t %{buildroot}%{_mandir}/man1 man1/*
 %{_datadir}/%{name}/database
 
 %changelog
+* Sun Apr 23 2023 Gabriel Somlo <gsomlo@gmail.com> - 1.2.1-17.20230423gitb9120de
+- update to newer snapshot (incl. updated database)
+
 * Sun Feb 26 2023 Gabriel Somlo <gsomlo@gmail.com> - 1.2.1-16.20230226gitf767e56
 - Update to newer snapshot
 - Temp. use bundled pybind11 (https://github.com/pybind/pybind11/issues/4529)

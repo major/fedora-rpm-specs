@@ -4,7 +4,7 @@
 %bcond_without ikiwiki
 
 Name:           git-annex
-Version:        10.20230321
+Version:        10.20230407
 Release:        1%{?dist}
 Summary:        Manage files with git, without checking their contents into git
 
@@ -230,6 +230,9 @@ popd
 
 
 %changelog
+* Mon Apr 24 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 10.20230407-1
+- https://hackage.haskell.org/package/git-annex-10.20230407/changelog
+
 * Mon Mar 27 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 10.20230321-1
 - https://hackage.haskell.org/package/git-annex-10.20230321/changelog
 

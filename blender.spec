@@ -10,10 +10,10 @@
 %bcond_without  system_eigen3
 %bcond_without  wayland
 
-%ifarch x86_64 || aarch64 || ppc64le
+%ifarch x86_64 aarch64 ppc64le
 %global cyclesflag ON
 # Only available on x86_64 and aarch64
-%ifarch x86_64 || aarch64
+%ifarch x86_64 aarch64
 %bcond_without  embree
 %bcond_without  hidapi
 %ifarch x86_64
@@ -45,7 +45,7 @@ URL:            https://www.blender.org
 Source0:        https://download.%{name}.org/source/%{name}-%{version}.tar.xz
 # Upstream separated addons from the main source
 Source1:        https://projects.%{name}.org/%{name}/%{name}-addons/archive/v%{version}.tar.gz#/%{name}-addons-%{version}.tar.gz
-Source3:        macros.%{name}
+Source3:        macros.%{name}-rpm
 
 # https://projects.blender.org/blender/blender/pulls/106575
 Patch:		106575.patch
@@ -300,7 +300,7 @@ rm -rf %{buildroot}%{_docdir}/%{name}/*
 
 # rpm macros
 mkdir -p %{buildroot}%{macrosdir}
-sed -e 's/@VERSION@/%{blender_api}/g' %{SOURCE1} > %{buildroot}%{macrosdir}/macros.%{name}
+sed -e 's/@VERSION@/%{blender_api}/g' %{SOURCE1} > %{buildroot}%{macrosdir}/macros.%{name}-rpm
 
 # AppData
 install -p -m 644 -D release/freedesktop/org.%{name}.Blender.appdata.xml \
@@ -332,7 +332,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.%{name}.Bl
 %{_metainfodir}/org.%{name}.Blender.appdata.xml
 
 %files rpm-macros
-%{macrosdir}/macros.%{name}
+%{macrosdir}/macros.%{name}-rpm
 
 %changelog
 %autochangelog

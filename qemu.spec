@@ -325,7 +325,7 @@ Obsoletes: %{name}-system-unicore32-core <= %{epoch}:%{version}-%{release}
 
 Summary: QEMU is a FAST! processor emulator
 Name: qemu
-Version: 7.2.1
+Version: 8.0.0
 Release: %{baserelease}%{?rcrel}%{?dist}
 Epoch: 2
 License: GPLv2 and BSD and MIT and CC-BY
@@ -346,19 +346,13 @@ Source36: README.tests
 
 # Fix SGX assert
 Patch: 0001-target-i386-the-sgx_epc_get_section-stub-is-reachabl.patch
-Patch: 0002-tests-Disable-pci_virtio_vga-for-ppc64.patch
-# Fix compat with kernel-headers >= 6.1
-Patch: 0003-Revert-linux-user-add-more-compat-ioctl-definitions.patch
-Patch: 0004-Revert-linux-user-fix-compat-with-glibc-2.36-sys-mou.patch
-# Fix build with glib2 2.75.3
-# https://bugzilla.redhat.com/show_bug.cgi?id=2173639
-# https://gitlab.com/qemu-project/qemu/-/issues/1518
-# Patch is NOT UPSTREAM.
-Patch: 0006-PATCH-test-vmstate-fix-bad-GTree-usage-use-after-fre.patch
-# Fix one of the tests.  Sent upstream 2023-02-27.
-Patch: 0007-tests-Ensure-TAP-version-is-printed-before-other-mes.patch
+# Fix wrong type and rework inheritance.
+Patch: 0001-hw-pci-bridge-pci_expander_bridge-fix-type-in-pxb_cx.patch
+Patch: 0002-hw-pci-bridge-Make-PCIe-and-CXL-PXB-Devices-inherit-.patch
 
 BuildRequires: meson >= %{meson_version}
+BuildRequires: bison
+BuildRequires: flex
 BuildRequires: zlib-devel
 BuildRequires: glib2-devel
 BuildRequires: gnutls-devel
@@ -506,6 +500,8 @@ BuildRequires: fuse3-devel
 %if %{have_sdl_image}
 BuildRequires: SDL2_image-devel
 %endif
+# gvnc used by vnc-display-test
+BuildRequires: pkgconfig(gvnc-1.0)
 
 %if %{user_static}
 BuildRequires: glibc-static glib2-static zlib-static
@@ -604,15 +600,6 @@ Summary: qemu-pr-helper utility for %{name}
 %description -n qemu-pr-helper
 This package provides the qemu-pr-helper utility that is required for certain
 SCSI features.
-
-
-%package -n qemu-virtiofsd
-Summary: QEMU virtio-fs shared file system daemon
-Provides: vhostuser-backend(fs)
-%description -n qemu-virtiofsd
-This package provides virtiofsd daemon. This program is a vhost-user backend
-that implements the virtio-fs device that is used for sharing a host directory
-tree with a guest.
 
 
 %package tests
@@ -1444,6 +1431,7 @@ mkdir -p %{static_builddir}
   --disable-auth-pam               \\\
   --disable-avx2                   \\\
   --disable-avx512f                \\\
+  --disable-avx512bw               \\\
   --disable-blkio                  \\\
   --disable-block-drv-whitelist-in-tools \\\
   --disable-bochs                  \\\
@@ -1488,6 +1476,7 @@ mkdir -p %{static_builddir}
   --disable-kvm                    \\\
   --disable-l2tpv3                 \\\
   --disable-libdaxctl              \\\
+  --disable-libdw                  \\\
   --disable-libiscsi               \\\
   --disable-libnfs                 \\\
   --disable-libpmem                \\\
@@ -1557,7 +1546,6 @@ mkdir -p %{static_builddir}
   --disable-vhost-vdpa             \\\
   --disable-virglrenderer          \\\
   --disable-virtfs                 \\\
-  --disable-virtiofsd              \\\
   --disable-vnc                    \\\
   --disable-vnc-jpeg               \\\
   --disable-png                    \\\
@@ -1625,6 +1613,8 @@ run_configure \
   --enable-attr \
 %ifarch %{ix86} x86_64
   --enable-avx2 \
+  --enable-avx512f \
+  --enable-avx512bw \
 %endif
 %if %{have_libblkio}
   --enable-blkio \
@@ -1693,7 +1683,6 @@ run_configure \
 %if %{have_usbredir}
   --enable-usb-redir \
 %endif
-  --enable-virtiofsd \
   --enable-vhost-kernel \
   --enable-vhost-net \
   --enable-vhost-user \
@@ -1725,6 +1714,7 @@ run_configure \
 %endif
   --enable-gtk \
   --enable-libdaxctl \
+  --enable-libdw \
 %if %{have_block_nfs}
   --enable-libnfs \
 %endif
@@ -2183,12 +2173,6 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 %{_unitdir}/qemu-pr-helper.service
 %{_unitdir}/qemu-pr-helper.socket
 %{_mandir}/man8/qemu-pr-helper.8*
-
-
-%files -n qemu-virtiofsd
-%{_mandir}/man1/virtiofsd.1*
-%{_libexecdir}/virtiofsd
-%{_datadir}/qemu/vhost-user/50-qemu-virtiofsd.json
 
 
 %files tools
@@ -2786,6 +2770,9 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 
 
 %changelog
+* Thu Apr 20 2023 Eduardo Lima (Etrunko) <etrunko@redhat.com> - 8.0.0-1
+- Rebase to qemu 8.0.0
+
 * Wed Apr 19 2023 Eduardo Lima (Etrunko) <etrunko@redhat.com> - 7.2.1-1
 - Rebase to qemu 7.2.1
 

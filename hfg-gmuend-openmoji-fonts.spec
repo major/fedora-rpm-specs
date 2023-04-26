@@ -12,7 +12,7 @@ URL: https://openmoji.org/
 # In OpenMoji source
 ## OpenMoji graphics are licensed under the Creative Commons Share Alike License 4.0
 ## Code licensed under the GNU Lesser General Public License v3
-License: OFL and ASL 2.0 and CC-BY-SA and LGPLv3
+License: OFL-1.1 AND Apache-2.0 AND CC-BY-SA-4.0 AND LGPL-3.0-only
 
 # The OpenMoji don't, at the time of writing, have a way to build
 # Google-style TTFs that we need to show colour in most of our apps.

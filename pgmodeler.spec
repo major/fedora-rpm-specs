@@ -3,7 +3,7 @@
 %global __requires_exclude (%{_privatelibs})
 
 Name:             pgmodeler
-Version:          1.0.2
+Version:          1.0.3
 Release:          1%{?dist}
 Summary:          PostgreSQL Database Modeler
 
@@ -101,6 +101,9 @@ rm -f %{buildroot}/%{_docdir}/%{name}/LICENSE
 
 
 %changelog
+* Mon Apr 24 2023 Sandro Mani <manisandro@gmail.com> - 1.0.3-1
+- Update to 1.0.3
+
 * Sun Mar 19 2023 Sandro Mani <manisandro@gmail.com> - 1.0.2-1
 - Update to 1.0.2
 

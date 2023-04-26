@@ -1,6 +1,12 @@
+%if 0%{?rhel}
+%bcond_with mingw
+%else
+%bcond_without mingw
+%endif
+
 Name:          enchant2
 Version:       2.3.4
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       An Enchanting Spell Checking Library
 
 License:       LGPLv2+
@@ -23,6 +29,7 @@ BuildRequires: libvoikko-devel
 BuildRequires: nuspell-devel
 %endif
 
+%if %{with mingw}
 BuildRequires: mingw32-filesystem >= 131
 BuildRequires: mingw32-gcc-c++
 BuildRequires: mingw32-glib2
@@ -38,6 +45,7 @@ BuildRequires: mingw64-glib2
 BuildRequires: mingw64-hunspell
 %if !0%{?rhel}
 BuildRequires: mingw64-nuspell
+%endif
 %endif
 
 Provides:      bundled(gnulib)
@@ -84,6 +92,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 
+%if %{with mingw}
 %package -n mingw32-%{name}
 Summary:       MinGW Windows %{name} library
 BuildArch:     noarch
@@ -98,6 +107,7 @@ BuildArch:     noarch
 
 %description -n mingw64-%{name}
 MinGW Windows %{name} library.
+%endif
 
 
 %{?mingw_debug_package}
@@ -129,6 +139,7 @@ sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g;
 %make_build pkgdatadir=%{_datadir}/enchant-2
 popd
 
+%if %{with mingw}
 # MinGW build
 MINGW32_CONFIGURE_ARGS="--with-hunspell-dir=%{mingw32_datadir}/hunspell" \
 MINGW64_CONFIGURE_ARGS="--with-hunspell-dir=%{mingw64_datadir}/hunspell" \
@@ -137,23 +148,26 @@ MINGW64_CONFIGURE_ARGS="--with-hunspell-dir=%{mingw64_datadir}/hunspell" \
 MINGW32_MAKE_ARGS="pkgdatadir=%{mingw32_datadir}/enchant-2" \
 MINGW64_MAKE_ARGS="pkgdatadir=%{mingw64_datadir}/enchant-2" \
 %mingw_make_build
+%endif
 
 
 %install
 # Native build
 %make_install -C build_native pkgdatadir=%{_datadir}/enchant-2
 
+%if %{with mingw}
 # MinGW build
 MINGW32_MAKE_ARGS="pkgdatadir=%{mingw32_datadir}/enchant-2" \
 MINGW64_MAKE_ARGS="pkgdatadir=%{mingw64_datadir}/enchant-2" \
 %mingw_make_install
 rm -rf %{buildroot}%{mingw32_datadir}/{doc,man}
 rm -rf %{buildroot}%{mingw64_datadir}/{doc,man}
+%endif
 
 find %{buildroot} -name '*.la' -delete
 
 
-%mingw_debug_install_post
+%{?mingw_debug_install_post}
 
 
 %files
@@ -188,6 +202,7 @@ find %{buildroot} -name '*.la' -delete
 %{_mandir}/man5/enchant.5*
 
 
+%if %{with mingw}
 %files -n mingw32-%{name}
 %license COPYING.LIB
 %{mingw32_bindir}/enchant-lsmod-2.exe
@@ -221,9 +236,13 @@ find %{buildroot} -name '*.la' -delete
 %{mingw64_libdir}/libenchant-2.dll.a
 %{mingw64_libdir}/pkgconfig/enchant-2.pc
 %{mingw64_datadir}/enchant-2/
+%endif
 
 
 %changelog
+* Mon Apr 24 2023 Sandro Mani <manisandro@gmail.com> - 2.3.4-2
+- Disable mingw by default in RHEL builds
+
 * Mon Feb 20 2023 Sandro Mani <manisandro@gmail.com> - 2.3.4-1
 - Update to 2.3.4
 

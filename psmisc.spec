@@ -2,8 +2,8 @@
 Summary: Utilities for managing processes on your system
 Name: psmisc
 Version: 23.6
-Release: 2%{?dist}
-License: GPLv2+
+Release: 3%{?dist}
+License: GPL-2.0-or-later
 URL: https://gitlab.com/psmisc/psmisc
 
 Source: https://sourceforge.net/projects/%{name}/files/%{name}/%{name}-%{version}.tar.xz
@@ -69,6 +69,9 @@ mv $RPM_BUILD_ROOT%{_bindir}/fuser $RPM_BUILD_ROOT%{_sbindir}
 
 
 %changelog
+* Mon Apr 24 2023 Lukáš Zaoral <lzaoral@redhat.com> - 23.6-3
+- migrate to SPDX license format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

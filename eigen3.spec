@@ -13,6 +13,12 @@
 %global cmake_blas_flags -DBLAS_LIBRARIES=%{_libdir}/lib%{blaslib}%{blasvar}.so
 %endif
 
+%if 0%{?rhel}
+%bcond_with mingw
+%else
+%bcond_without mingw
+%endif
+
 Name:           eigen3
 Version:        3.4.0
 Release:        9%{?dist}
@@ -44,6 +50,7 @@ BuildRequires:  doxygen
 BuildRequires:  graphviz
 BuildRequires:  tex(latex)
 
+%if %{with mingw}
 BuildRequires:  mingw32-filesystem >= 95
 BuildRequires:  mingw32-gcc-c++
 BuildRequires:  mingw32-gcc-gfortran
@@ -57,6 +64,7 @@ BuildRequires:  mingw64-gcc-gfortran
 BuildRequires:  mingw64-fftw
 BuildRequires:  mingw64-gmp
 BuildRequires:  mingw64-mpfr
+%endif
 
 %description
 %{summary}.
@@ -81,6 +89,7 @@ BuildArch:      noarch
 %description doc
 Developer documentation for Eigen.
 
+%if %{with mingw}
 # Mingw32
 %package -n mingw32-%{name}
 Summary:        %{summary}
@@ -96,6 +105,7 @@ BuildArch:      noarch
 
 %description -n mingw64-%{name}
 %{summary}
+%endif
 
 
 %prep
@@ -119,15 +129,19 @@ BuildArch:      noarch
 rm -f %{_vpath_builddir}/doc/html/installdox
 rm -f %{_vpath_builddir}/doc/html/unsupported/installdox
 
+%if %{with mingw}
 # MinGW build
 MINGW32_CMAKE_ARGS="-DINCLUDE_INSTALL_DIR=%{mingw32_includedir}/%{name} -DCMAKEPACKAGE_INSTALL_DIR=%{mingw32_datadir}/cmake/%{name}" \
 MINGW64_CMAKE_ARGS="-DINCLUDE_INSTALL_DIR=%{mingw64_includedir}/%{name} -DCMAKEPACKAGE_INSTALL_DIR=%{mingw64_datadir}/cmake/%{name}" \
 %mingw_cmake -C%{SOURCE1} -DEIGEN_BUILD_PKGCONFIG:BOOL=ON -DEIGEN_TEST_CXX11=ON
+%endif
 
 
 %install
 %cmake_install
+%if %{with mingw}
 %mingw_make_install
+%endif
 
 
 %check
@@ -145,6 +159,7 @@ MINGW64_CMAKE_ARGS="-DINCLUDE_INSTALL_DIR=%{mingw64_includedir}/%{name} -DCMAKEP
 %files doc
 %doc %{_vpath_builddir}/doc/html
 
+%if %{with mingw}
 %files -n mingw32-%{name}
 %license COPYING.BSD COPYING.LGPL COPYING.MPL2 COPYING.README
 %{mingw32_includedir}/%{name}
@@ -156,6 +171,7 @@ MINGW64_CMAKE_ARGS="-DINCLUDE_INSTALL_DIR=%{mingw64_includedir}/%{name} -DCMAKEP
 %{mingw64_includedir}/%{name}
 %{mingw64_datadir}/pkgconfig/%{name}.pc
 %{mingw64_datadir}/cmake/%{name}/
+%endif
 
 
 %changelog

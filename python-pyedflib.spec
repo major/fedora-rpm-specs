@@ -11,8 +11,8 @@ In 2003, an improved version of the file protocol named EDF+ has
 been published and can be found at Kemp2003.}
 
 Name:           python-pyedflib
-Version:        0.1.30
-Release:        3%{?dist}
+Version:        0.1.32
+Release:        1%{?dist}
 Summary:        Python library to read/write EDF+/BDF+ files, based on EDFlib
 
 License:        BSD
@@ -114,6 +114,9 @@ grep -E "^#define[[:blank:]]+EDFLIB_VERSION[[:blank:]]+\($(
 %doc demo
 
 %changelog
+* Mon Apr 24 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.1.32-1
+- Update to 0.1.32 (close RHBZ#2187954)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.30-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

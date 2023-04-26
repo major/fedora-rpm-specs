@@ -16,8 +16,8 @@
 
 
 Name:           mapserver
-Version:        8.0.0
-Release:        7%{?dist}
+Version:        8.0.1
+Release:        1%{?dist}
 Summary:        Environment for building spatially-enabled internet applications
 %global dashver %(echo %version | sed 's|\\.|-|g')
 
@@ -248,7 +248,7 @@ rm %{buildroot}%{_sysconfdir}/mapserver-sample.conf
 
 
 %files
-%doc README.rst
+%doc README.md
 %doc etc/mapserver-sample.conf
 %{_bindir}/coshp
 %{_bindir}/legend
@@ -264,12 +264,12 @@ rm %{buildroot}%{_sysconfdir}/mapserver-sample.conf
 %{_datadir}/%{name}/
 
 %files libs
-%doc README.rst
+%doc README.md
 %{_libdir}/libmapserver.so.%{version}
 %{_libdir}/libmapserver.so.2
 
 %files devel
-%doc README.rst
+%doc README.md
 %{_libdir}/libmapserver.so
 %{_includedir}/%{name}/
 
@@ -280,7 +280,7 @@ rm %{buildroot}%{_sysconfdir}/mapserver-sample.conf
 %endif
 
 %files perl
-%doc README.rst
+%doc README.md
 %doc mapscript/perl/examples
 %dir %{perl_vendorarch}/auto/mapscript
 %{perl_vendorarch}/auto/mapscript/*
@@ -310,6 +310,9 @@ rm %{buildroot}%{_sysconfdir}/mapserver-sample.conf
 
 
 %changelog
+* Mon Apr 24 2023 Sandro Mani <manisandro@gmail.com> - 8.0.1-1
+- Update to 8.0.1
+
 * Thu Mar 09 2023 Sandro Mani <manisandro@gmail.com> - 8.0.0-7
 - Fix php extension name in 40-mapserver.ini
 
