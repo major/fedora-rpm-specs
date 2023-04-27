@@ -1,7 +1,7 @@
 Summary:        TCP stream sniffer, tracker and capturer
 Name:           tcpick
 Version:        0.2.1
-Release:        43%{?dist}
+Release:        44%{?dist}
 # tcpick itself is GPL-2.0-or-later but uses other source codes, breakdown:
 # BSD-3-Clause: src/{tcp,udp}.h
 # LGPL-2.1-or-later: src/{ip,udp}.h
@@ -38,6 +38,10 @@ like grep, sed and awk. It can handle eth and ppp interfaces.
 %patch6 -p1
 
 %build
+# Build in C89 mode because the package relies on many implicit
+# function declarations.
+%set_build_flags
+CC="$CC -std=gnu89"
 %configure --bindir=%{_sbindir}
 %make_build
 
@@ -60,6 +64,9 @@ touch -c -r AUTHORS AUTHORS.utf8; mv -f AUTHORS.utf8 AUTHORS
 %{_mandir}/it/man8/%{name}.8*
 
 %changelog
+* Tue Apr 25 2023 Florian Weimer <fweimer@redhat.com> - 0.2.1-44
+- Build in C89 mode (#2189659)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

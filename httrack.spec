@@ -1,10 +1,11 @@
 Name:           httrack
 Version:        3.49.2
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Website copier and offline browser
 License:        GPLv2+
 URL:            http://www.httrack.com
 Source0:        http://mirror.httrack.com/historical/%{name}-%{version}.tar.gz
+Patch0: httrack-configure-c99.patch
 BuildRequires:  desktop-file-utils
 BuildRequires:  libtool
 BuildRequires:  openssl-devel
@@ -32,7 +33,9 @@ This package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%setup -q
+%autosetup -p1
+# Do not try to re-run autoconf after patching generated files.
+touch -r aclocal.m4 m4/*.m4 configure
 
 # Suppress rpmlint error.
 iconv --from-code ISO8859-1 --to-code UTF-8 ./html/contact.html \
@@ -143,6 +146,9 @@ end
 %{_libdir}/libhttrack.so
 
 %changelog
+* Tue Apr 25 2023 Florian Weimer <fweimer@redhat.com> - 3.49.2-16
+- Port configure script to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.49.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

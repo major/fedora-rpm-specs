@@ -13,7 +13,7 @@ provides useful fixtures and markers to make testing easier.}
 %endif
 
 Name:           python-%{srcname}
-Version:        0.20.3
+Version:        0.21.0
 Release:        %autorelease
 Summary:        Pytest support for asyncio
 License:        ASL 2.0
@@ -74,7 +74,7 @@ sed -e '/setuptools_scm/ s/>=6.2//' -i pyproject.toml
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}
-%doc README.rst CHANGELOG.rst
+%doc README.rst
 
 
 %changelog

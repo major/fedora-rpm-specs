@@ -8,7 +8,7 @@
 Name:		perl-IPC-System-Simple
 Version:	1.30
 Release:	10%{?dist}
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:	Run commands simply, with detailed diagnostics
 URL:		https://metacpan.org/release/IPC-System-Simple
 Source0:	https://cpan.metacpan.org/modules/by-module/IPC/IPC-System-Simple-%{version}.tar.gz
@@ -41,6 +41,7 @@ BuildRequires:	perl(BSD::Resource)
 BuildRequires:	perl(Test::NoWarnings)
 %endif
 # Dependencies
+# (none)
 
 %description
 Calling Perl's in-built 'system()' function is easy; determining if it

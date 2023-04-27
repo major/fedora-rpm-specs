@@ -2,27 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate i18n-embed-fl
+%global crate pyproject-toml
 
-Name:           rust-i18n-embed-fl
-Version:        0.6.1
+Name:           rust-pyproject-toml
+Version:        0.5.2
 Release:        %autorelease
-Summary:        Macro to perform compile time checks when using the i18n-embed crate and the fluent localization system
+Summary:        Pyproject.toml parser in Rust
 
 License:        MIT
-URL:            https://crates.io/crates/i18n-embed-fl
+URL:            https://crates.io/crates/pyproject-toml
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * enable missing "syn/clone-impls" feature
-Patch:          i18n-embed-fl-fix-metadata.diff
-# * add missing test fixtures
-Patch:          add-missing-test-files.patch
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Macro to perform compile time checks when using the i18n-embed crate and
-the fluent localization system.}
+Pyproject.toml parser in Rust.}
 
 %description %{_description}
 
@@ -36,8 +30,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE.txt
-%doc %{crate_instdir}/CHANGELOG.md
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -68,8 +61,7 @@ use the "default" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * skip doctests that fail to compile
-%cargo_test -- -- --skip "src/lib.rs"
+%cargo_test
 %endif
 
 %changelog

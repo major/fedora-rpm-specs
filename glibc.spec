@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.37.9000-300-g65cbd52174
+%global glibcsrcdir glibc-2.37.9000-320-g904b94c07a
 %global glibcversion 2.37.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 7
+%global baserelease 8
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -2195,6 +2195,30 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Tue Apr 25 2023 Patsy Griffin <patsy@redhat.com> - 2.37.9000-8
+- Auto-sync with upstream branch master,
+  commit 904b94c07af84b7e4c98de3bbb822ccffcaf8c40.
+- socket: Add a test for MSG_CMSG_CLOEXEC
+- hurd: Do not take any flag from the CMSG_DATA
+- hurd: Implement MSG_CMSG_CLOEXEC
+- hurd: Don't pass FD_CLOEXEC in CMSG_DATA
+- hurd: Implement prefer_map_32bit_exec tunable
+- hurd: Don't attempt to deallocate MACH_PORT_DEAD
+- hurd: Only deallocate addrport when it's valid
+- hurd: Implement MAP_32BIT
+- Use O_CLOEXEC in more places (BZ #15722)
+- misc: Convert daemon () to GNU coding style
+- wcsmbs: Add wcsdup() tests. (BZ #30266)
+- string: Add tests for strndup (BZ #30266)
+- string: Add tests for strdup (BZ #30266)
+- string: Allow use of test-string.h for non-ifunc implementations.
+- hurd: Don't migrate reply port into __init1_tcbhead
+- hurd: Make dl-sysdep's open () cope with O_IGNORE_CTTY
+- Created tunable to force small pages on stack allocation.
+- malloc: Add missing shared thread library flags
+- linux: Re-flow and sort multiline Makefile definitions
+- posix: Re-flow and sort multiline Makefile definitions
+
 * Mon Apr 24 2023 Florian Weimer <fweimer@redhat.com> - 2.37.9000-7
 - Explicitly provide ldconfig paths (#2188550)
 

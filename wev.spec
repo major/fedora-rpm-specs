@@ -1,20 +1,15 @@
 # -*-Mode: rpm-spec -*-
 
-%global commit 54de46d120396ead4dcbce0b52cf506c200380f5
+%global commit 0fc054957275580a31d09679b95d9de9cf69d04a
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:     wev
 Version:  1.0.1
-Release:  0.20211133git%{shortcommit}%{?dist}
+Release:  0.20230425git%{shortcommit}%{?dist}
 Summary:  A tool for debugging events on a sway Wayland window
 License:  MIT
 URL:      https://git.sr.ht/~sircmpwn/wev
 Source0:  %{url}/archive/%{commit}.tar.gz#/%{name}-%{commit}.tar.gz
-
-# GNOME (ie mutter) still uses wl_seat-5.
-# REMOVE THIS PATCH when META_WL_SEAT_VERSION becomes '6'
-# in mutter/wayland/meta-wayland-versions.h
-Patch0:   mutter-wl_seat-5.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -44,6 +39,10 @@ analogous to the X11 tool xev.
 %doc README.md
 
 %changelog
+* Tue Apr 25 2023 Bob Hepple <bob.hepple@gmail.com> - 1.0.1-0.20230425git0fc0549
+- incorporate latest fixes
+- SPDX license specifier
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-0.20211133git54de46d
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

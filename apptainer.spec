@@ -31,7 +31,7 @@
 
 # This can be slightly different than %%{version}.
 # For example, it has dash instead of tilde for release candidates.
-%global package_version 1.1.7
+%global package_version 1.1.8
 
 # Uncomment this to include a multithreaded version of squashfuse_ll
 %global squashfuse_version 0.1.105
@@ -41,7 +41,7 @@
 
 Summary: Application and environment virtualization formerly known as Singularity
 Name: apptainer
-Version: 1.1.7
+Version: 1.1.8
 Release: 1%{?dist}
 # See LICENSE.md for first party code (BSD-3-Clause and LBNL BSD)
 # See LICENSE_THIRD_PARTY.md for incorporated code (ASL 2.0)
@@ -432,6 +432,9 @@ fi
 %attr(4755, root, root) %{_libexecdir}/%{name}/bin/starter-suid
 
 %changelog
+* Tue Apr 25 2023 Dave Dykstra <dwd@fnal.gov> - 1.1.8-1
+- Update to upstream 1.1.8, a security release.
+
 * Wed Mar 29 2023 Dave Dykstra <dwd@fnal.gov> - 1.1.7-1
 - Update to upstream 1.1.7.
 

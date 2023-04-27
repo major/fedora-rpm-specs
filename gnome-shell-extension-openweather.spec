@@ -2,7 +2,7 @@
 %global uuid %{shortname}-extension@jenslody.de
 
 Name:           gnome-shell-extension-%{shortname}
-Version:        119
+Version:        121
 Release:        %autorelease
 Summary:        Display weather information for any location on Earth
 BuildArch:      noarch
@@ -10,10 +10,6 @@ BuildArch:      noarch
 License:        GPLv3+
 URL:            https://gitlab.com/skrewball/openweather
 Source0:        %{url}/-/archive/v%{version}/%{shortname}-v%{version}.tar.gz
-
-# Not working on GNOME44
-# https://bugzilla.redhat.com/show_bug.cgi?id=2187965
-Patch0:         v44-compat.patch
 
 BuildRequires:  gettext-devel
 BuildRequires:  glib2-devel

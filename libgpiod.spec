@@ -2,7 +2,7 @@
 
 Name:          libgpiod
 Version:       2.0.1
-Release:       1%{?candidate:.%{candidate}}%{?dist}
+Release:       2%{?candidate:.%{candidate}}%{?dist}
 Summary:       C library and tools for interacting with linux GPIO char device
 
 License:       LGPLv2+
@@ -62,6 +62,10 @@ Files for development with %{name}.
 
 %prep
 %autosetup -p1
+# to prevent setuptools from installing an .egg, we need to pass --root to setup.py install
+# see https://github.com/pypa/setuptools/issues/3143
+# and https://github.com/pypa/pip/issues/11501
+sed -i 's/--prefix=$(DESTDIR)$(prefix)/--root=$(DESTDIR) --prefix=$(prefix)/' bindings/python/Makefile*
 
 %build
 autoreconf -vif
@@ -92,7 +96,8 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/libgpiodcxx.so.*
 
 %files -n python3-%{name}
-%{python3_sitearch}/gpiod-*/
+%{python3_sitearch}/gpiod/
+%{python3_sitearch}/gpiod-*.egg-info/
 
 %files devel
 %{_includedir}/gpiod.*
@@ -101,6 +106,9 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/%{name}*.so
 
 %changelog
+* Tue Apr 25 2023 Miro Hrončok <mhroncok@redhat.com> - 2.0.1-2
+- Don't install a Python .egg
+
 * Tue Apr 11 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 2.0.1-1
 - Update to 2.0.1
 

@@ -23,9 +23,9 @@
 %global github_owner    os-autoinst
 %global github_name     openQA
 %global github_version  4.6
-%global github_commit   b93eb7f4b04494cf3c7128a6db7ddb9b689a748b
+%global github_commit   f229f6d5c08963eb94886054c43d48a1d92c4d9a
 # if set, will be a post-release snapshot build, otherwise a 'normal' build
-%global github_date     20221123
+%global github_date     20230424
 %global shortcommit     %(c=%{github_commit}; echo ${c:0:7})
 
 # can't use linebreaks here!
@@ -45,17 +45,20 @@
 %define assetpack_requires perl(CSS::Minifier::XS) >= 0.01 perl(JavaScript::Minifier::XS) >= 0.11 perl(Mojolicious::Plugin::AssetPack) >= 1.36
 # Diff from SUSE: we use 'perl-interpreter' where they use 'perl',
 # our 'perl' is a metapackage and we don't want all of it
+# we use 'chrony' where they use 'ntp-daemon'
 # The following line is generated from dependencies.yaml (upstream)
-%define common_requires perl-interpreter >= 5.20.0 perl(Archive::Extract) > 0.7 perl(Carp::Always) >= 0.14.02 perl(Config::IniFiles) perl(Config::Tiny) perl(Cpanel::JSON::XS) >= 4.09 perl(Cwd) perl(Data::Dump) perl(Data::Dumper) perl(Digest::MD5) perl(Filesys::Df) perl(Getopt::Long) perl(Minion) >= 10.25 perl(Mojolicious) >= 9.20 perl(Regexp::Common) perl(Storable) perl(Time::Moment) perl(Try::Tiny)
+%define common_requires chrony perl-interpreter >= 5.20.0 perl(Carp::Always) >= 0.14.02 perl(Config::IniFiles) perl(Config::Tiny) perl(Cpanel::JSON::XS) >= 4.09 perl(Cwd) perl(Data::Dump) perl(Data::Dumper) perl(Digest::MD5) perl(Filesys::Df) perl(Getopt::Long) perl(Minion) >= 10.25 perl(Mojolicious) >= 9.30 perl(Regexp::Common) perl(Storable) perl(Time::Moment) perl(Try::Tiny)
+# Diff from SUSE: we package bsdcat and bsdtar separately
 # runtime requirements for the main package that are not required by other sub-packages
 # The following line is generated from dependencies.yaml (upstream)
-%define main_requires %assetpack_requires git-core hostname perl(BSD::Resource) perl(Carp) perl(CommonMark) perl(Config::Tiny) perl(DBD::Pg) >= 3.7.4 perl(DBI) >= 1.632 perl(DBIx::Class) >= 0.082801 perl(DBIx::Class::DeploymentHandler) perl(DBIx::Class::DynamicDefault) perl(DBIx::Class::OptimisticLocking) perl(DBIx::Class::ResultClass::HashRefInflator) perl(DBIx::Class::Schema::Config) perl(DBIx::Class::Storage::Statistics) perl(Date::Format) perl(DateTime) perl(DateTime::Duration) perl(DateTime::Format::Pg) perl(Exporter) perl(Fcntl) perl(File::Basename) perl(File::Copy) perl(File::Copy::Recursive) perl(File::Path) perl(File::Spec) perl(FindBin) perl(Getopt::Long::Descriptive) perl(IO::Handle) perl(IPC::Run) perl(JSON::Validator) perl(LWP::UserAgent) perl(Module::Load::Conditional) perl(Module::Pluggable) perl(Mojo::Base) perl(Mojo::ByteStream) perl(Mojo::IOLoop) perl(Mojo::JSON) perl(Mojo::Pg) perl(Mojo::RabbitMQ::Client) >= 0.2 perl(Mojo::URL) perl(Mojo::Util) perl(Mojolicious::Commands) perl(Mojolicious::Plugin) perl(Mojolicious::Static) perl(Net::OpenID::Consumer) perl(POSIX) perl(Pod::POM) perl(SQL::Translator) perl(Scalar::Util) perl(Sort::Versions) perl(Text::Diff) perl(Time::HiRes) perl(Time::ParseDate) perl(Time::Piece) perl(Time::Seconds) perl(URI::Escape) perl(YAML::PP) >= 0.026 perl(YAML::XS) perl(aliased) perl(base) perl(constant) perl(diagnostics) perl(strict) perl(warnings)
+%define main_requires %assetpack_requires bsdcat bsdtar git-core hostname perl(BSD::Resource) perl(Carp) perl(CommonMark) perl(Config::Tiny) perl(DBD::Pg) >= 3.7.4 perl(DBI) >= 1.632 perl(DBIx::Class) >= 0.082801 perl(DBIx::Class::DeploymentHandler) perl(DBIx::Class::DynamicDefault) perl(DBIx::Class::OptimisticLocking) perl(DBIx::Class::ResultClass::HashRefInflator) perl(DBIx::Class::Schema::Config) perl(DBIx::Class::Storage::Statistics) perl(Date::Format) perl(DateTime) perl(DateTime::Duration) perl(DateTime::Format::Pg) perl(Exporter) perl(Fcntl) perl(File::Basename) perl(File::Copy) perl(File::Copy::Recursive) perl(File::Path) perl(File::Spec) perl(FindBin) perl(Getopt::Long::Descriptive) perl(IO::Handle) perl(IPC::Run) perl(JSON::Validator) perl(LWP::UserAgent) perl(Module::Load::Conditional) perl(Module::Pluggable) perl(Mojo::Base) perl(Mojo::ByteStream) perl(Mojo::IOLoop) perl(Mojo::JSON) perl(Mojo::Pg) perl(Mojo::RabbitMQ::Client) >= 0.2 perl(Mojo::URL) perl(Mojo::Util) perl(Mojolicious::Commands) perl(Mojolicious::Plugin) perl(Mojolicious::Static) perl(Net::OpenID::Consumer) perl(POSIX) perl(Pod::POM) perl(SQL::Translator) perl(Scalar::Util) perl(Sort::Versions) perl(Text::Diff) perl(Time::HiRes) perl(Time::ParseDate) perl(Time::Piece) perl(Time::Seconds) perl(URI::Escape) perl(YAML::PP) >= 0.026 perl(YAML::XS) perl(aliased) perl(base) perl(constant) perl(diagnostics) perl(strict) perl(warnings)
 # The following line is generated from dependencies.yaml (upstream)
 %define client_requires curl git-core jq perl(Getopt::Long::Descriptive) perl(IO::Socket::SSL) >= 2.009 perl(IPC::Run) perl(JSON::Validator) perl(LWP::Protocol::https) perl(LWP::UserAgent) perl(Test::More) perl(YAML::PP) >= 0.020 perl(YAML::XS)
 # Diff from SUSE 1: case (they have openQA-client, we have openqa-client)
 # Diff from SUSE 2: we have 'sqlite' not 'sqlite3'
+# Diff from SUSE 3: we package bsdcat and bsdtar separately
 # The following line is generated from dependencies.yaml (upstream)
-%define worker_requires openqa-client optipng os-autoinst < 5 perl(Capture::Tiny) perl(File::Map) perl(Minion::Backend::SQLite) >= 5.0.7 perl(Mojo::IOLoop::ReadWriteProcess) >= 0.26 perl(Mojo::SQLite) psmisc sqlite >= 3.24.0
+%define worker_requires bsdcat bsdtar openqa-client optipng os-autoinst < 5 perl(Capture::Tiny) perl(File::Map) perl(Minion::Backend::SQLite) >= 5.0.7 perl(Mojo::IOLoop::ReadWriteProcess) >= 0.26 perl(Mojo::SQLite) psmisc sqlite >= 3.24.0
 # The following line is generated from dependencies.yaml (upstream)
 %define build_requires %assetpack_requires rubygem(sass)
 
@@ -92,7 +95,7 @@
 
 Name:           openqa
 Version:        %{github_version}%{?github_date:^%{github_date}git%{shortcommit}}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        OS-level automated testing framework
 License:        GPLv2+
 Url:            http://os-autoinst.github.io/openQA/
@@ -124,6 +127,7 @@ Source6:        openQA-worker.conf
 # cockpit jobs when a FreeIPA child fails:
 # https://progress.opensuse.org/issues/112256
 # https://progress.opensuse.org/issues/110458
+# https://github.com/os-autoinst/openQA/pull/4962
 Patch0:         0001-Don-t-restart-scheduled-or-running-chained-parents.patch
 
 BuildRequires: make
@@ -154,10 +158,17 @@ Recommends:     perl(Mojolicious::Plugin::OAuth2)
 Recommends:     perl(IO::Uncompress::UnXz)
 # server needs to run an rsync server if worker caching is used
 Recommends:     rsync
+# Optionally enabled with USE_PNGQUANT=1
+Recommends:     pngquant
 
 # For the httpd subpackage split in 4.3-7, needed for updates to work right
 Obsoletes:      openqa < 4.3-7
 
+# Note: Fedora does not have the issue SUSE has with noarch. on Fedora
+# if build for *any* arch fails, the build is considered failed for
+# *all* arches, so we can never get in a situation where the
+# perl-Mojolicious-Plugin-AssetPack version differs across arches as
+# SUSE can
 BuildArch:      noarch
 
 %description
@@ -291,8 +302,9 @@ Additional scripts for the use of openQA in the python programming language.
 
 %package local-db
 Summary:        Helper package to ease setup of postgresql DB
-Requires:       %name
+Requires:       %{name} = %{version}
 Requires:       postgresql-server
+BuildRequires:  postgresql-server
 Supplements:    packageand(%name:postgresql-server)
 
 %description local-db
@@ -302,7 +314,8 @@ next to the webui.
 %package single-instance
 Summary:        Convenience package for a single-instance setup
 Requires:       %{name}-local-db
-Requires:       %{name}-worker
+Requires:       %{name} = %{version}
+Requires:       %{name}-worker = %{version}
 Requires:       httpd
 
 %description single-instance
@@ -410,9 +423,7 @@ sed -i -e '/fails without network/d' t/32-openqa_client-script.t t/40-openqa-clo
 rm \
     t/01-test-utilities.t \
     t/17-labels_carry_over.t \
-    t/25-cache-service.t \
-    t/34-developer_mode-unit.t \
-    t/44-scripts.t
+    t/25-cache-service.t
 
 # "CI" set with longer timeouts as needed for higher performance variations
 # within CI systems, e.g. OBS. See t/lib/OpenQA/Test/TimeLimit.pm
@@ -488,8 +499,11 @@ fi
 %{_unitdir}/openqa-webui.service
 %{_unitdir}/openqa-livehandler.service
 %{_unitdir}/openqa-gru.service
+%dir %{_unitdir}/openqa-gru.service.requires
 %{_unitdir}/openqa-scheduler.service
+%dir %{_unitdir}/openqa-scheduler.service.requires
 %{_unitdir}/openqa-websockets.service
+%dir %{_unitdir}/openqa-websockets.service.requires
 %{_unitdir}/openqa-enqueue-audit-event-cleanup.service
 %{_unitdir}/openqa-enqueue-audit-event-cleanup.timer
 %{_unitdir}/openqa-enqueue-asset-cleanup.service
@@ -659,6 +673,9 @@ fi
 
 %files local-db
 %{_unitdir}/openqa-setup-db.service
+%{_unitdir}/openqa-gru.service.requires/postgresql.service
+%{_unitdir}/openqa-scheduler.service.requires/postgresql.service
+%{_unitdir}/openqa-websockets.service.requires/postgresql.service
 %{_datadir}/openqa/script/setup-db
 %{_bindir}/openqa-setup-db
 
@@ -675,6 +692,9 @@ fi
 %{_datadir}/openqa/lib/OpenQA/WebAPI/Plugin/FedoraUpdateRestart.pm
 
 %changelog
+* Mon Apr 24 2023 Adam Williamson <awilliam@redhat.com> - 4.6^20230424gitf229f6d-1
+- Update to latest git, re-sync spec, rebase patch
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.6^20221123gitb93eb7f-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

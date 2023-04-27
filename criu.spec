@@ -16,20 +16,20 @@
 %undefine _auto_set_build_flags
 
 Name: criu
-Version: 3.17.1
-Release: 5%{?dist}
+Version: 3.18
+Release: 1%{?dist}
 Summary: Tool for Checkpoint/Restore in User-space
 License: GPLv2
 URL: http://criu.org/
 Source0: https://github.com/checkpoint-restore/criu/archive/v%{version}/criu-%{version}.tar.gz
 
+# Fix to work on CPUs with larger XSAVE area (Sapphire Rapids)
+Patch0: https://github.com/checkpoint-restore/criu/commit/d739260c57576c636759afb312340fa3827312f6.patch
+
 # Add protobuf-c as a dependency.
 # We use this patch because the protobuf-c package name
 # in RPM and DEB is different.
 Patch99: criu.pc.patch
-Patch100: criu-glibc-2.36-1.patch
-Patch101: criu-glibc-2.36-2.patch
-Patch102: criu-glibc-2.36-3.patch
 
 %if 0%{?rhel} && 0%{?rhel} <= 7
 BuildRequires: perl
@@ -41,7 +41,7 @@ Source3: criu-ns.1
 
 # The patch aio-fix.patch is needed as RHEL7
 # doesn't do "nr_events *= 2" in ioctx_alloc().
-Patch199: aio-fix.patch
+Patch100: aio-fix.patch
 %endif
 
 Source5: criu-tmpfiles.conf
@@ -51,6 +51,8 @@ BuildRequires: systemd
 BuildRequires: libnet-devel
 BuildRequires: protobuf-devel protobuf-c-devel %{py_prefix}-devel libnl3-devel libcap-devel
 %if 0%{?fedora} || 0%{?rhel} > 7
+BuildRequires: %{py_prefix}-pip
+BuildRequires: %{py_prefix}-setuptools
 BuildRequires: asciidoctor
 BuildRequires: perl-interpreter
 BuildRequires: libselinux-devel
@@ -124,14 +126,11 @@ This script can help to workaround the so called "PID mismatch" problem.
 
 %prep
 %setup -q
-
-%patch99 -p1
-%patch100 -p1
-%patch101 -p1
-%patch102 -p1
+%patch -P 0 -p1
+%patch -P 99 -p1
 
 %if 0%{?rhel} && 0%{?rhel} <= 7
-%patch199 -p1
+%patch -P 100 -p1
 %endif
 
 %build
@@ -148,6 +147,8 @@ make docs V=1
 
 
 %install
+sed -e "s,--upgrade --force-reinstall,--disable-pip-version-check --progress-bar off --verbose,g" -i lib/Makefile
+rm -f crit/pyproject.toml
 make install-criu DESTDIR=$RPM_BUILD_ROOT PREFIX=%{_prefix} LIBDIR=%{_libdir}
 make install-lib DESTDIR=$RPM_BUILD_ROOT PREFIX=%{_prefix} LIBDIR=%{_libdir} PYTHON=%{py_binary}
 %if 0%{?fedora} || 0%{?rhel} > 7
@@ -204,11 +205,11 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libcriu.a
 %{python2_sitelib}/*egg-info
 %else
 %{python3_sitelib}/pycriu/*
-%{python3_sitelib}/*egg-info
 %endif
 
 %files -n crit
 %{_bindir}/crit
+%{python3_sitelib}/crit-%{version}*egg-info
 %doc %{_mandir}/man1/crit.1*
 
 %files -n criu-ns
@@ -216,6 +217,10 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libcriu.a
 %doc %{_mandir}/man1/criu-ns.1*
 
 %changelog
+* Tue Apr 25 2034 Adrian Reber <adrian@lisas.de> - 3.18-1
+- Update to 3.18
+- Apply patch from upstream to support newer CPUs
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.17.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

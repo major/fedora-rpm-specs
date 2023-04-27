@@ -14,7 +14,7 @@
 
 %global         srcname     azure-cli
 %global         forgeurl    https://github.com/Azure/azure-cli
-Version:        2.47.0
+Version:        2.48.1
 %global         tag         %{srcname}-%{version}
 %global         distprefix  %{nil}
 %forgemeta
@@ -125,11 +125,13 @@ sed -i 's/urllib3\[secure\]/urllib3/' src/azure-cli/setup.py
 # Temporarily allow newer -common versions in rawhide.
 sed -i 's/^azure-common==.*$/azure-common==1.1.28/' src/azure-cli/requirements.py3.Linux.txt
 
-# # Temporarily allow newer -core versions in rawhide.
+# Temporarily allow newer -core versions in rawhide.
 sed -i 's/^azure-core==.*$/azure-core==1.25.1/' src/azure-cli/requirements.py3.Linux.txt
 
-# # Allow slightly older oauthlib.
+# Allow slightly older versions.
+sed -i 's/^cryptography>=.*$/oauthlib>=37.0.2/' src/azure-cli/requirements.py3.Linux.txt
 sed -i 's/^oauthlib>=.*$/oauthlib>=3.2.1/' src/azure-cli/requirements.py3.Linux.txt
+sed -i 's/^pyOpenSSL>=.*$/pyOpenSSL>=21.0.0/' src/azure-cli/requirements.py3.Linux.txt
 
 
 %generate_buildrequires

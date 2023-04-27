@@ -1,13 +1,13 @@
 Name:           colm
-Version:        0.13.0.7
-Release:        8%{?dist}
+Version:        0.14.7
+Release:        1%{?dist}
 Summary:        Programming language designed for the analysis of computer languages
 
 # aapl/ and some headers from src/ are the LGPLv2+
 License:        MIT and LGPLv2+
 URL:            https://www.colm.net/open-source/colm/
 Source0:        https://www.colm.net/files/%{name}/%{name}-%{version}.tar.gz
-
+Patch0:		fc61ecb3a22b89864916ec538eaf04840e7dd6b5.diff
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  autoconf
@@ -32,7 +32,7 @@ Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %{summary}.
 
 %prep
-%autosetup
+%autosetup -p1
 # Do not pollute with docs
 sed -i -e "/dist_doc_DATA/d" Makefile.am
 
@@ -50,19 +50,29 @@ install -p -m 0644 -D %{name}.vim %{buildroot}%{_datadir}/vim/vimfiles/syntax/%{
 
 %files
 %license COPYING
-%doc ChangeLog README
-%{_bindir}/%{name}
+%doc README
+%{_bindir}/%{name}*
 %{_libdir}/lib%{name}-%{version}.so
 %dir %{_datadir}/vim
 %dir %{_datadir}/vim/vimfiles
 %dir %{_datadir}/vim/vimfiles/syntax
 %{_datadir}/vim/vimfiles/syntax/%{name}.vim
+%{_datadir}/doc/%{name}/*
+%{_datadir}/*.lm
+%{_datadir}/runtests
 
 %files devel
 %{_libdir}/lib%{name}.so
+%{_libdir}/libfsm*
 %{_includedir}/%{name}/
+%{_includedir}/libfsm*
+%{_includedir}/aapl*
+
 
 %changelog
+* Tue Apr 25 2023 Filipe Rosset <rosset.filipe@gmail.com> - 0.14.7-1
+- Update to 0.14.7 fixes rhbz#1825150
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0.7-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

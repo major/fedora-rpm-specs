@@ -55,7 +55,7 @@
 Summary: Xen is a virtual machine monitor
 Name:    xen
 Version: 4.17.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: GPLv2+ and LGPLv2+ and BSD
 URL:     http://xen.org/
 Source0: https://downloads.xenproject.org/release/xen/%{version}/xen-%{version}.tar.gz
@@ -116,6 +116,7 @@ Patch50: xsa427.patch
 Patch51: xsa428-4.17-1.patch
 Patch52: xsa428-4.17-2.patch
 Patch53: xsa429.patch
+Patch54: xsa430.patch
 
 
 %if %build_qemutrad
@@ -334,6 +335,7 @@ manage Xen virtual machines.
 %patch51 -p1
 %patch52 -p1
 %patch53 -p1
+%patch54 -p1
 
 # qemu-xen-traditional patches
 pushd tools/qemu-xen-traditional
@@ -941,6 +943,9 @@ fi
 %endif
 
 %changelog
+* Tue Apr 25 2023 Michael Young <m.a.young@durham.ac.uk> - 4.17.0-9
+- x86 shadow paging arbitrary pointer dereference [XSA-430, CVE-2022-42335]
+
 * Tue Mar 21 2023 Michael Young <m.a.young@durham.ac.uk> - 4.17.0-8
 - 3 security issues (#2180425)
   x86 shadow plus log-dirty mode use-after-free [XSA-427, CVE-2022-42332]

@@ -11,7 +11,7 @@
 
 Name:		libcxx
 Version:	%{libcxx_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	C++ standard library targeting C++11
 License:	Apache-2.0 WITH LLVM-exception OR MIT OR NCSA
 URL:		http://libcxx.llvm.org/
@@ -94,6 +94,7 @@ mv ../%{libcxxabi_srcdir} libcxxabi
 %cmake -GNinja \
 	-DCMAKE_BUILD_TYPE=RelWithDebInfo \
 	-DCMAKE_MODULE_PATH=%{_libdir}/cmake/llvm \
+	-DCMAKE_POSITION_INDEPENDENT_CODE=ON \
 %if 0%{?__isa_bits} == 64
 	-DLIBCXX_LIBDIR_SUFFIX:STRING=64 \
 	-DLIBCXXABI_LIBDIR_SUFFIX:STRING=64 \
@@ -140,6 +141,9 @@ mv ../%{libcxxabi_srcdir} libcxxabi
 %{_libdir}/libc++abi.a
 
 %changelog
+* Thu Apr 20 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.1-2
+- Enable PIC even for static libraries (rhbz#2186531)
+
 * Thu Apr 13 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.1-1
 - Update to LLVM 16.0.1
 

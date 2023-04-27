@@ -20,7 +20,7 @@
 #global rc_ver 4
 %global maj_ver 16
 %global min_ver 0
-%global patch_ver 1
+%global patch_ver 2
 %global llvm_srcdir llvm-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:rc%{rc_ver}}.src
 %global cmake_srcdir cmake-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:rc%{rc_ver}}.src
 %global third_party_srcdir third-party-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:rc%{rc_ver}}.src
@@ -87,9 +87,6 @@ Source3:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ve
 Source4:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{third_party_srcdir}.tar.xz
 Source5:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{third_party_srcdir}.tar.xz.sig
 Source6:	release-keys.asc
-
-# Backport from LLVM 17.
-Patch0:		D145763.diff
 
 # See https://reviews.llvm.org/D137890 for the next two patches
 Patch2:		0001-llvm-Add-install-targets-for-gtest.patch
@@ -562,6 +559,9 @@ fi
 %endif
 
 %changelog
+* Tue Apr 25 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.2-1
+- Update to LLVM 16.0.2
+
 * Tue Apr 11 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.1-1
 - Update to LLVM 16.0.1
 

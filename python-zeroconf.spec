@@ -1,5 +1,5 @@
 Name:           python-zeroconf
-Version:        0.56.0
+Version:        0.58.0
 Release:        1%{?dist}
 Summary:        Pure Python Multicast DNS Service Discovery Library
 
@@ -57,6 +57,9 @@ sed -Ei 's/--cov(-|=)[^ "]+//g' pyproject.toml
 
 
 %changelog
+* Tue Apr 25 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.58.0-1
+- Update to 0.58.0
+
 * Mon Apr 10 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.56.0-1
 - Update to 0.56.0
 

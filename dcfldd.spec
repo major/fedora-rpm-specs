@@ -1,5 +1,5 @@
 Name:           dcfldd
-Version:        1.9
+Version:        1.9.1
 Release:        1%{?dist}
 Summary:        Improved dd, useful for forensics and security
 
@@ -60,6 +60,9 @@ autoreconf -i
 %{_bindir}/dcfldd
 
 %changelog
+* Wed Apr 26 2023 Michal Ambroz <rebus at, seznam.cz> - 1.9.1-1
+- bump to 1.9.1
+
 * Thu Feb 09 2023 Michal Ambroz <rebus at, seznam.cz> - 1.9-1
 - bump to 1.9
 

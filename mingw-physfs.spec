@@ -1,8 +1,8 @@
 %{?mingw_package_header}
 
 Name:           mingw-physfs
-Version:        2.0.3
-Release:        22%{?dist}
+Version:        3.0.2
+Release:        1%{?dist}
 Summary:        MinGW compiled physfs library to provide abstract access to various archives
 
 License:        zlib
@@ -18,6 +18,7 @@ BuildRequires:  libtool
 
 BuildRequires:  mingw32-filesystem >= 95
 BuildRequires:  mingw32-gcc
+BuildRequires:  mingw32-gcc-c++
 BuildRequires:  mingw32-binutils
 BuildRequires:  mingw32-gettext
 BuildRequires:  mingw32-win-iconv
@@ -27,6 +28,7 @@ BuildRequires:  mingw32-readline
 
 BuildRequires:  mingw64-filesystem >= 95
 BuildRequires:  mingw64-gcc
+BuildRequires:  mingw64-gcc-c++
 BuildRequires:  mingw64-binutils
 BuildRequires:  mingw64-gettext
 BuildRequires:  mingw64-win-iconv
@@ -139,34 +141,36 @@ rm -rf lzma
 %install
 %mingw_make_install DESTDIR=$RPM_BUILD_ROOT
 
-mkdir -p %{buildroot}/%{_docdir}
-cp CHANGELOG.txt CREDITS.txt LICENSE.txt TODO.txt %{buildroot}/%{_docdir}
-
 find $RPM_BUILD_ROOT -name "*.la" -delete
 
 
 # Win32
 %files -n mingw32-physfs
+%license LICENSE.txt
 %{mingw32_bindir}/libphysfs.dll
 %{mingw32_includedir}/physfs.h
 %{mingw32_libdir}/libphysfs.dll.a
-%doc %{_docdir}/*
+%{mingw32_libdir}/pkgconfig/physfs.pc
 
 %files -n mingw32-physfs-static
 %{mingw32_libdir}/libphysfs.a
 
 # Win64
 %files -n mingw64-physfs
+%license LICENSE.txt
 %{mingw64_bindir}/libphysfs.dll
 %{mingw64_includedir}/physfs.h
 %{mingw64_libdir}/libphysfs.dll.a
-%doc %{_docdir}/*
+%{mingw64_libdir}/pkgconfig/physfs.pc
 
 %files -n mingw64-physfs-static
 %{mingw64_libdir}/libphysfs.a
 
 
 %changelog
+* Tue Apr 25 2023 Pete Walter <pwalter@fedoraproject.org> - 3.0.2-1
+- Update to 3.0.2
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

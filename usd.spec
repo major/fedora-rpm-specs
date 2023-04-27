@@ -513,14 +513,18 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.openusd.usdview.d
 %license LICENSE.txt
 %doc NOTICE.txt README.md
 %{_libdir}/libusd_ms.so.%{downstream_so_version}
+# While headers normally go in -devel packages, those in
+# %%{_libdir}/usd/usd/resources/codegenTemplates/ are used as data (templates
+# for generated code), and it makes sense to package them with the rest of the
+# library resources. (Technically, these are currently used only by the
+# usdGenSchema command-line tool, so they could be moved to the base package,
+# but this is probably too fussy.)
 %{_libdir}/usd/
-%exclude %{_libdir}/usd/usd/resources/codegenTemplates
 
 %files devel
 %doc BUILDING.md CHANGELOG.md VERSIONS.md
 %{_includedir}/pxr/
 %{_libdir}/libusd_ms.so
-%{_libdir}/usd/usd/resources/codegenTemplates/
 %{_libdir}/cmake/pxr/pxrConfig.cmake
 %{_libdir}/cmake/pxr/pxrTargets.cmake
 %{_libdir}/cmake/pxr/pxrTargets-release.cmake

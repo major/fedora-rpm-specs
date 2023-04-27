@@ -6,31 +6,22 @@
 
 # requires python3-Cython >= 0.29.17 for libcpp.utility.move
 %if 0%{?fedora} || 0%{?rhel} >= 9
-%bcond_without python
+# disable as folly's Python bindings can't currently be built
+%bcond_with python
 %else
 %bcond_with python
 %endif
 
-# tests currently failing
-# gmake[2]: *** [thrift/lib/py3/test/CMakeFiles/testing-py3-target.dir/build.make:82: thrift/lib/py3/test/gen-py3/testing_constants.h] Error 1
-# [FAILURE:/builddir/build/BUILD/fbthrift-2021.11.15.00/thrift/lib/py3/test/testing.thrift:17] Could not find include file thrift/annotation/cpp.thrift
 %bcond_without check
 
 Name:           fbthrift
-Version:        2022.07.11.00
+Version:        2023.04.24.00
 Release:        %autorelease
 Summary:        Facebook's branch of Apache Thrift, including a new C++ server
 
 License:        ASL 2.0
 URL:            https://github.com/facebook/fbthrift
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# causes deleted function error, revert
-# traced to https://github.com/facebook/fbthrift/blob/c1be51b727557db4696c9f39fff114dd44eaba4b/thrift/lib/py3/serializer.pyx#L80
-Patch:          %{name}-fix_serializer_assignment.patch
-# need to properly fix this; temporarily work around by disabling py3 tests
-# [FAILURE:/builddir/build/BUILD/fbthrift-2022.07.11.00/thrift/lib/py3/test/testing.thrift:17] Could not find include file thrift/annotation/cpp.thrift
-# Patch:          %%{name}-fix_py3_test_includes.patch
-Patch:          %{name}-disable_py3_tests.patch
 # when compiling with clang but with gcc's libstdc++, this is needed
 Source1:        %{name}-fix_contextstack.patch
 
@@ -54,6 +45,9 @@ BuildRequires:  wangle-devel = %{version}
 %if %{with check}
 BuildRequires:  gmock-devel
 BuildRequires:  gtest-devel
+%endif
+%if %{without python}
+Obsoletes:      python3-%{name} < 2023.04.24.00-1
 %endif
 
 %global _description %{expand:

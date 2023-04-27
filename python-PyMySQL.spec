@@ -1,13 +1,14 @@
 %global pypi_name PyMySQL
 
 Name:           python-%{pypi_name}
-Version:        1.0.2
-Release:        4%{?dist}
+Version:        1.0.3
+Release:        1%{?dist}
 Summary:        Pure-Python MySQL client library
 
 License:        MIT
 URL:            https://pypi.python.org/pypi/%{pypi_name}/
 Source0:        %pypi_source
+Source1:        setup.py
 
 BuildArch:      noarch
 
@@ -41,6 +42,7 @@ and Jython.
 rm -rf %{pypi_name}.egg-info
 # Remove tests files so they are not installed globally.
 rm -rf tests
+cp %{SOURCE1} .
 
 
 %build
@@ -57,11 +59,14 @@ rm -rf tests
 
 %files -n python%{python3_pkgversion}-%{pypi_name}
 %license LICENSE
-%doc README.rst
+%doc README.md
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 %{python3_sitelib}/pymysql/
 
 %changelog
+* Tue Apr 25 2023 Julien Enselme <jujens@jujens.eu> - 1.0.3-1
+- Update to 1.0.3
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

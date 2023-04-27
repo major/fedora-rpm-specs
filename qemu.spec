@@ -218,7 +218,13 @@
 %define requires_device_display_virtio_vga Requires: %{name}-device-display-virtio-vga = %{evr}
 %define requires_device_display_virtio_vga_gl Requires: %{name}-device-display-virtio-vga-gl = %{evr}
 %define requires_package_qemu_pr_helper Requires: qemu-pr-helper
+%ifnarch %{ix86}
 %define requires_package_virtiofsd Requires: vhostuser-backend(fs)
+%define obsoletes_package_virtiofsd %{nil}
+%else
+%define requires_package_virtiofsd %{nil}
+%define obsoletes_package_virtiofsd Obsoletes: %{name}-virtiofsd < %{evr}
+%endif
 
 %if %{have_virgl}
 %define requires_device_display_vhost_user_gpu Requires: %{name}-device-display-vhost-user-gpu = %{evr}
@@ -305,7 +311,7 @@
 %global obsoletes_some_modules \
 %{obsoletes_block_gluster} \
 %{obsoletes_block_rbd} \
-%{obsoletes_block_rbd} \
+%{obsoletes_package_virtiofsd} \
 Obsoletes: %{name}-system-lm32 <= %{epoch}:%{version}-%{release} \
 Obsoletes: %{name}-system-lm32-core <= %{epoch}:%{version}-%{release} \
 Obsoletes: %{name}-system-moxie <= %{epoch}:%{version}-%{release} \
@@ -321,7 +327,7 @@ Obsoletes: %{name}-system-unicore32-core <= %{epoch}:%{version}-%{release}
 %endif
 
 # To prevent rpmdev-bumpspec breakage
-%global baserelease 1
+%global baserelease 2
 
 Summary: QEMU is a FAST! processor emulator
 Name: qemu
@@ -1718,14 +1724,12 @@ run_configure \
 %if %{have_block_nfs}
   --enable-libnfs \
 %endif
-  --enable-libudev \
 %if %{have_liburing}
   --enable-linux-io-uring \
 %endif
   --enable-linux-user \
   --enable-live-block-migration \
   --enable-multiprocess \
-  --enable-vnc-jpeg \
   --enable-parallels \
 %if %{have_librdma}
   --enable-pvrdma \
@@ -1745,7 +1749,6 @@ run_configure \
   --enable-spice \
   --enable-spice-protocol \
 %endif
-  --enable-usb-redir \
   --enable-vdi \
   --enable-vhost-crypto \
 %if %{have_virgl}
@@ -2770,6 +2773,9 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 
 
 %changelog
+* Tue Apr 25 2023 Daniel P. Berrangé <berrange@redhat.com> - 8.0.0-2
+- Obsolete qemu-virtiofsd on i686 (rhbz #2189368)
+
 * Thu Apr 20 2023 Eduardo Lima (Etrunko) <etrunko@redhat.com> - 8.0.0-1
 - Rebase to qemu 8.0.0
 

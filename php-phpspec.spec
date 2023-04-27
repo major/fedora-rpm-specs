@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-phpspec
 #
-# Copyright (c) 2015-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2015-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -13,7 +13,7 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    7e44b188e8e01f9c9a8ca6cb0d7aceaabcea2133
+%global gh_commit    28faa87d1151a15848166226f33de61cb7107d0d
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     phpspec
 %global gh_project   phpspec
@@ -26,8 +26,8 @@
 %global symfony_max 5
 
 Name:           php-phpspec
-Version:        7.3.0
-Release:        2%{?dist}
+Version:        7.4.0
+Release:        1%{?dist}
 Summary:        Specification-oriented BDD framework for PHP
 
 License:        MIT
@@ -45,8 +45,8 @@ BuildRequires:  php(language) >= 7.3
 %if %{with tests}
 BuildRequires: (php-composer(phpspec/prophecy)         >= 1.9   with php-composer(phpspec/prophecy)         <  2)
 BuildRequires: (php-composer(phpspec/php-diff)         >= 1.0.0 with php-composer(phpspec/php-diff)         <  2)
-BuildRequires: (php-composer(sebastian/exporter)       >= 3     with php-composer(sebastian/exporter)       <  5)
-BuildRequires: (php-composer(doctrine/instantiator)    >= 1.0.5 with php-composer(doctrine/instantiator)    <  2)
+BuildRequires: (php-composer(sebastian/exporter)       >= 3     with php-composer(sebastian/exporter)       <  6)
+BuildRequires: (php-composer(doctrine/instantiator)    >= 1.0.5 with php-composer(doctrine/instantiator)    <  3)
 BuildRequires:  php-symfony4-console                   >= %{symfony_min}
 BuildRequires:  php-symfony4-event-dispatcher          >= %{symfony_min}
 BuildRequires:  php-symfony4-finder                    >= %{symfony_min}
@@ -55,9 +55,10 @@ BuildRequires:  php-symfony4-yaml                      >= %{symfony_min}
 # From composer.json, require-dev
 #        "behat/behat":           "^3.3",
 #        "symfony/filesystem":    "^3.4 || ^4.0 || ^5.0 || ^6.0",
-#        "phpunit/phpunit":       "^8.0 || ^9.0",
-#        "vimeo/psalm": "^4.3"
+#        "phpunit/phpunit":       "^8.0 || ^9.0 || ^10.0",
+#        "vimeo/psalm": "^4.3 || ^5.2"
 BuildRequires:  php-symfony4-filesystem                >= %{symfony_min}
+# keep v9 for PHP 8.0 and until v10 approved
 %global phpunit %{_bindir}/phpunit9
 BuildRequires:  %{phpunit}
 %endif
@@ -68,20 +69,20 @@ BuildRequires:  php-composer(fedora/autoloader) >= 1
 #        "php":                      "^7.3 || 8.0.* || 8.1.* || 8.2.*",
 #        "phpspec/prophecy":         "^1.9",
 #        "phpspec/php-diff":         "^1.0.0",
-#        "sebastian/exporter":       "^3.0 || ^4.0",
+#        "sebastian/exporter":       "^3.0 || ^4.0 || ^5.0",
 #        "symfony/console":          "^3.4 || ^4.4 || ^5.0 || ^6.0",
 #        "symfony/event-dispatcher": "^3.4 || ^4.4 || ^5.0 || ^6.0",
 #        "symfony/process":          "^3.4 || ^4.4 || ^5.0 || ^6.0",
 #        "symfony/finder":           "^3.4 || ^4.4 || ^5.0 || ^6.0",
 #        "symfony/yaml":             "^3.4 || ^4.4 || ^5.0 || ^6.0",
-#        "doctrine/instantiator":    "^1.0.5"
+#        "doctrine/instantiator":    "^1.0.5 || ^2"
 #        "ext-tokenizer":            "*"
 
 Requires:       php(language) >= 7.3
 Requires:      (php-composer(phpspec/prophecy)         >= 1.9   with php-composer(phpspec/prophecy)         <  2)
 Requires:      (php-composer(phpspec/php-diff)         >= 1.0.0 with php-composer(phpspec/php-diff)         <  2)
-Requires:      (php-composer(sebastian/exporter)       >= 3     with php-composer(sebastian/exporter)       <  5)
-Requires:      (php-composer(doctrine/instantiator)    >= 1.0.5 with php-composer(doctrine/instantiator)    <  2)
+Requires:      (php-composer(sebastian/exporter)       >= 3     with php-composer(sebastian/exporter)       <  6)
+Requires:      (php-composer(doctrine/instantiator)    >= 1.0.5 with php-composer(doctrine/instantiator)    <  3)
 Requires:       php-symfony4-console                   >= %{symfony_min}
 Requires:       php-symfony4-event-dispatcher          >= %{symfony_min}
 Requires:       php-symfony4-finder                    >= %{symfony_min}
@@ -150,10 +151,9 @@ for cmdarg in "php %{phpunit}" php80 php81 php82; do
     set $cmdarg
     $1 -d memory_limit=1G -d include_path=.:%{buildroot}%{_datadir}/php \
       bin/phpspec \
-        run --format pretty --verbose --no-ansi
+        run --format pretty --no-ansi
 
     $1 ${2:-%{_bindir}/phpunit9} \
-      --verbose \
       --bootstrap %{buildroot}%{_datadir}/php/PhpSpec/autoload.php
   fi
 done
@@ -170,6 +170,11 @@ done
 
 
 %changelog
+* Tue Apr 25 2023 Remi Collet <remi@remirepo.net> - 7.4.0-1
+- update to 7.4.0
+- allow sebastian/exporter 5
+- allow doctrine/instantiator 2
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

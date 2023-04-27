@@ -8,7 +8,7 @@
 
 Name:           budgie-desktop
 Version:        10.7.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A feature-rich, modern desktop designed to keep out the way of the user
 
 License:        GPLv2 and LGPLv2
@@ -19,6 +19,7 @@ Source2:        https://joshuastrobl.com/pubkey.gpg
 Patch0:         budgie-desktop-c99.patch
 Patch1:         0001-Fix-screenshot-for-libmutter-12.-337.patch
 Patch2:         0001-add-detection-of-zenity-version-and-use-different-fl.patch
+Patch3:         0001-Relevancy-algorithm-refinements-318.patch
 
 BuildRequires:  pkgconfig(accountsservice) >= 0.6.55
 BuildRequires:  pkgconfig(alsa) >= 1.2.6
@@ -188,6 +189,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/%{name}/*
 
 %changelog
+* Tue Apr 25 2023 Joshua Strobl <me@joshuastrobl.com> - 10.7.1-4
+- Backport relevancy search change that does not trigger Vala generated C to segfault
+
 * Sun Apr 23 2023 Joshua Strobl <me@joshuastrobl.com> - 10.7.1-3
 - Backport fixes for mutter and zenity
 

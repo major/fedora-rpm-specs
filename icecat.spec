@@ -22,7 +22,7 @@ ExcludeArch: s390x
 
 ### Optimization ###
 # Builds for debugging
-%global debug_build   0
+%global debug_build   1
 
 # Downgrade optimization
 %global less_optbuild 0
@@ -353,49 +353,49 @@ to run GNU IceCat native on Wayland.
 # Copy license files
 tar -xf %{SOURCE5}
 
-%patch1 -p 1 -b .fix_addon_installation
-%patch2 -p 1 -b .commasplit
-%patch3 -p 1 -b .build-arm-libaom
-%patch4 -p 1 -b .arm
+%patch 1 -p 1 -b .fix_addon_installation
+%patch 2 -p 1 -b .commasplit
+%patch 3 -p 1 -b .build-arm-libaom
+%patch 4 -p 1 -b .arm
 %ifarch s390
-%patch5 -p 1 -b .rhbz-1219542-s390
+%patch 5 -p 1 -b .rhbz-1219542-s390
 %endif
-%patch6 -p 1 -b .1773336
+%patch 6 -p 1 -b .1773336
 
 %if 0%{?disable_elfhack}
-%patch41 -p 1 -b .disable-elfhack
+%patch 41 -p 1 -b .disable-elfhack
 %endif
 
 # Fedora patches
-%patch219 -p 1 -b .rhbz-1173156
-%patch221 -p 1 -b .firefox-nss-addon-hack
-%patch224 -p 1 -b .glibcxx
-%patch225 -p 1 -b .gcc13
+%patch 219 -p 1 -b .rhbz-1173156
+%patch 221 -p 1 -b .firefox-nss-addon-hack
+%patch 224 -p 1 -b .glibcxx
+%patch 225 -p 1 -b .gcc13
 
 # ARM run-time patch
 %ifarch aarch64
-%patch40 -p 1 -b .aarch64-skia
-%patch226 -p 1 -b .1354671
+%patch 40 -p 1 -b .aarch64-skia
+%patch 226 -p 1 -b .1354671
 %endif
 
 %ifarch %{arm}
-%patch44  -p 1 -b .build-arm-libopus
+%patch 44  -p 1 -b .build-arm-libopus
 %endif
 
-%patch402 -p 1 -b .1196777
+%patch 402 -p 1 -b .1196777
 %ifarch %{power64}
-%patch423 -p 1 -b .1512162
+%patch 423 -p 1 -b .1512162
 %endif
 
-#%%patch584 -p1 -b .firefox-disable-ffvpx-with-vapi
-#%%patch585 -p1 -b .firefox-vaapi-extra-frames
-%patch54 -p 1 -b .1669639
+#%%patch 584 -p1 -b .firefox-disable-ffvpx-with-vapi
+#%%patch 585 -p1 -b .firefox-vaapi-extra-frames
+%patch 54 -p 1 -b .1669639
 
 # PGO patches
 %if 0%{?build_with_pgo}
 %if !%{build_with_clang}
-%patch600 -p 1 -b .pgo
-%patch602 -p 1 -b .1516803
+%patch 600 -p 1 -b .pgo
+%patch 602 -p 1 -b .1516803
 %endif
 %endif
 
@@ -649,6 +649,10 @@ echo "export STRIP=/bin/true" >> .mozconfig
 %if 0%{?launch_wayland_compositor}
 cp -p %{SOURCE19} .
 . ./run-wayland-compositor	
+%endif
+
+%if %{?debug_build}
+export CARGO_PROFILE_RELEASE_BUILD_OVERRIDE_DEBUG=true
 %endif
 
 #export MACH_USE_SYSTEM_PYTHON=1

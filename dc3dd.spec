@@ -1,6 +1,6 @@
 Name:           dc3dd
-Version:        7.3.0
-Release:        2%{?dist}
+Version:        7.3.1
+Release:        1%{?dist}
 Summary:        Patched version of GNU dd for use in computer forensics
 
 License:        GPLv3+
@@ -79,6 +79,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_mandir}/man1/%{name}.*
 
 %changelog
+* Wed Apr 26 2023 Michal Ambroz <rebus [AT] seznam.cz> - 7.3.1-1
+- bump to new upstream release 7.3.1
+
 * Thu Apr 13 2023 Florian Weimer <fweimer@redhat.com> - 7.3.0-2
 - Port configure script to C99
 

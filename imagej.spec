@@ -1,5 +1,5 @@
 Name:           imagej
-Version:        1.54c
+Version:        1.54d
 Release:        1%{?dist}
 Summary:        Image Processing and Analysis in Java
 
@@ -128,6 +128,9 @@ desktop-file-install --vendor=''                     \
 
 
 %changelog
+* Tue Apr 25 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.54d-1
+- Update to 1.54d (close RHBZ#2183396)
+
 * Fri Mar 10 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.54c-1
 - Update to 1.54c (close RHBZ#2175999)
 

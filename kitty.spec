@@ -4,7 +4,7 @@
 %bcond_without doc
 
 Name:           kitty
-Version:        0.28.0
+Version:        0.28.1
 Release:        %autorelease
 Summary:        Cross-platform, fast, feature full, GPU based terminal emulator
 
@@ -29,8 +29,7 @@ Source3:        kitty.fish
 # Don't build kitten inside setup.py, use gobuild macro in the spec instead to build with fedora flags
 Patch0:         kitty-do-not-build-kitten.patch
 ## upstream patches
-Patch100:       https://github.com/kovidgoyal/kitty/commit/12efff6d089d92d8fc2eadca7105c3a6644f821c.patch#/kitty-unneeded-so-fix.patch
-Patch101:       https://github.com/kovidgoyal/kitty/commit/39eff0fe8c39f9d7b9d9a075c52a5a4725d89197.patch#/kitty-fix-ssh-kitten.patch
+
 
 # some golang deps aren't available
 ExcludeArch:    s390x %{ix86}
@@ -69,7 +68,7 @@ BuildRequires:  golang(github.com/alecthomas/chroma/v2)
 BuildRequires:  golang(github.com/alecthomas/chroma/v2/lexers)
 BuildRequires:  golang(github.com/alecthomas/chroma/v2/styles)
 BuildRequires:  golang(github.com/ALTree/bigfloat)
-BuildRequires:  golang(github.com/bmatcuk/doublestar/v3)
+BuildRequires:  golang(github.com/bmatcuk/doublestar/v4)
 BuildRequires:  golang(github.com/disintegration/imaging)
 BuildRequires:  golang(github.com/google/go-cmp/cmp)
 BuildRequires:  golang(github.com/google/uuid)
@@ -210,7 +209,6 @@ find -type f -name "*.py" -exec sed -e 's|/usr/bin/env python3|%{__python3}|g'  
                                     -e 's|/usr/bin/env -S kitty|/usr/bin/kitty|g' \
                                     -i "{}" \;
 
-sed -i 's|github.com/bmatcuk/doublestar|github.com/bmatcuk/doublestar/v3|' $(find . -name "*.go" -type f)
 mkdir -p src/kitty
 ln -s ../../tools src/kitty/tools
 ln -s ../../kittens src/kitty/kittens

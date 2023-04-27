@@ -4,7 +4,7 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       67.7.1
+Version:       67.7.2
 Release:       1%{?dist}
 BuildArch:     noarch
 
@@ -98,6 +98,9 @@ find %{buildroot}%{mingw64_python3_sitearch}/ -name '*.exe' | xargs rm -f
 
 
 %changelog
+* Tue Apr 25 2023 Sandro Mani <manisandro@gmail.com> - 67.7.2-1
+- Update to 67.7.2
+
 * Sat Apr 22 2023 Sandro Mani <manisandro@gmail.com> - 67.7.1-1
 - Update to 67.7.1
 

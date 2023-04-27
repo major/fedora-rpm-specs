@@ -1249,6 +1249,12 @@ fi
 %endif
 
 %changelog
+* Tue Apr 25 2023 Bruno Larsen <blarsen@redhat.com>
+- Remove gdb-6.5-bz109921-DW_AT_decl_file-test.patch. That patch was
+  only a test for basic DWARF-2 support, ensuring that GDB found a
+  variable in a .h file; tests such as gdb.linespec/linespec.exp already
+  tests for it.
+
 * Mon Apr 24 2023 Bruno Larsen <blarsen@redhat.com>
 - Remove gdb-6.5-last-address-space-byte-test.patch. It was used to
   test for a regression in target_xfer_memory, a function that has

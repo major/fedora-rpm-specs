@@ -1,10 +1,10 @@
 
 Name:           sblim-cmpi-devel
 Version:        2.0.3
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        SBLIM CMPI Provider Development Support
 
-License:        EPL
+License:        EPL-1.0
 URL:            http://sblim.wiki.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/sblim/%{name}-%{version}.tar.bz2
 # Source1: macro definitions
@@ -58,6 +58,9 @@ cp %{SOURCE1} $RPM_BUILD_ROOT%{_rpmconfigdir}/macros.d
 %{_libdir}/libcmpiCppImpl.so*
 
 %changelog
+* Tue Apr 25 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.0.3-28
+- SPDX migration
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

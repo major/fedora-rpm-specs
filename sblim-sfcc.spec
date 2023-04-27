@@ -7,7 +7,7 @@
 Summary: Small Footprint CIM Client Library
 Name: sblim-sfcc
 Version: 2.2.8
-Release: 21%{?dist}
+Release: 22%{?dist}
 License: EPL-1.0
 URL: http://www.sblim.org
 Source0: http://downloads.sourceforge.net/project/sblim/%{name}/%{name}-%{version}.tar.bz2
@@ -66,7 +66,10 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libcmpisfcc.so.1.0.0
 %{_libdir}/libcmpisfcc.so
 
 %changelog
-* Wed Jan 18 2023 Timm Bäder <tbaeder@redhat.com> - 2.2.8-21
+* Tue Apr 25 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.2.8-22
+- SPDX migration
+
+* Wed Jan 21 2023 Timm Bäder <tbaeder@redhat.com> - 2.2.8-21
 - Add downstream patch to fix c99 incompatibilities
 - https://fedoraproject.org/wiki/Changes/PortingToModernC
 

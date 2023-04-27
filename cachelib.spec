@@ -9,9 +9,8 @@
 %bcond_with check
 
 %global forgeurl https://github.com/facebook/CacheLib
-%global commit bd22b0eb79f7e2326f77a22c278c48e454882291
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20220314
+%global tag 2023.04.24.00
+%global date %(echo %{tag} | sed -e 's|.00$||' | sed -e 's|\\.||g')
 # disable forge macro snapinfo generation
 # https://pagure.io/fedora-infra/rpmautospec/issue/240
 %global distprefix %{nil}
@@ -21,16 +20,14 @@
 %global major_ver 16
 
 Name:           cachelib
-Version:        %{major_ver}^%{date}git%{shortcommit}
+Version:        %{major_ver}^%{date}
 Release:        %autorelease
 Summary:        Pluggable caching engine for scale high performance cache services
 
 License:        ASL 2.0
 URL:            %forgeurl
-Source0:        %forgesource
-Patch0:         %{name}-fix_test_linking.patch
-# https://github.com/facebook/CacheLib/commit/2114d3fe8b60992e4b98c2e4e07761649aa47d89
-Patch2:         %{name}-avoid-bind-packed-buffer.patch
+Source0:        %{url}/archive/v%{tag}/%{name}-%{tag}.tar.gz
+Patch0:         %{name}-add_missing_includes.diff
 # needed on EL8; its gtest does not come with cmake files
 Patch100:       %{name}-find-gtest.patch
 
@@ -53,6 +50,7 @@ BuildRequires:  gmock-devel
 BuildRequires:  gtest-devel
 BuildRequires:  libdwarf-devel
 BuildRequires:  libzstd-devel
+BuildRequires:  numactl-devel
 BuildRequires:  wangle-devel
 BuildRequires:  zlib-devel
 BuildRequires:  tsl-sparse-map-devel
@@ -79,11 +77,10 @@ applications that use %{name}.
 
 
 %prep
-%forgesetup
-%patch0 -p1
-%patch2 -p1
+%autosetup -n CacheLib-%{tag} -N
+%autopatch -p1 -M 99
 %if 0%{?el8}
-%patch100 -p1
+%autopatch -p1 -m 100 -M 199
 %endif
 
 

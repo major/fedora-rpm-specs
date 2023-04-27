@@ -8,7 +8,7 @@
 %bcond_with libsodium_crypt
 %endif
 
-%define patchlevel 1472
+%define patchlevel 1486
 
 %if %{?WITH_SELINUX:0}%{!?WITH_SELINUX:1}
 %define WITH_SELINUX 1
@@ -388,11 +388,11 @@ sed -i -e 's,/usr/bin/python3,%{__python3},' %{PATCH3005}
 
 # fix rogue dependencies from sample code
 chmod -x runtime/tools/mve.awk
-%patch 2000 -p1 -b .fixkeys
-%patch 2001 -p1
+%patch -P 2000 -p1 -b .fixkeys
+%patch -P 2001 -p1
 
 %if %{withhunspell}
-%patch 2002 -p1
+%patch -P 2002 -p1
 %endif
 
 perl -pi -e "s,bin/nawk,bin/awk,g" runtime/tools/mve.awk
@@ -402,12 +402,12 @@ perl -pi -e "s,bin/nawk,bin/awk,g" runtime/tools/mve.awk
 %{__tar} xjf %{SOURCE100}
 %endif
 
-%patch 3000 -p1
-%patch 3001 -p1
-%patch 3002 -p1
-%patch 3003 -p1 -b .python-tests
-%patch 3004 -p1 -b .fips-warning
-%patch 3005 -p1 -b .copypaste
+%patch -P 3000 -p1
+%patch -P 3001 -p1
+%patch -P 3002 -p1
+%patch -P 3003 -p1 -b .python-tests
+%patch -P 3004 -p1 -b .fips-warning
+%patch -P 3005 -p1 -b .copypaste
 
 %build
 cd src
@@ -801,6 +801,7 @@ touch %{buildroot}/%{_datadir}/%{name}/vimfiles/doc/tags
 %exclude %{_datadir}/%{name}/%{vimdir}/defaults.vim
 %{_datadir}/%{name}/%{vimdir}/ftplugin
 %{_datadir}/%{name}/%{vimdir}/import/dist/vimhelp.vim
+%{_datadir}/%{name}/%{vimdir}/import/dist/vimhighlight.vim
 %{_datadir}/%{name}/%{vimdir}/indent
 %{_datadir}/%{name}/%{vimdir}/keymap
 %{_datadir}/%{name}/%{vimdir}/lang/*.vim
@@ -1029,6 +1030,9 @@ touch %{buildroot}/%{_datadir}/%{name}/vimfiles/doc/tags
 
 
 %changelog
+* Tue Apr 25 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.1486-1
+- patchlevel 1486
+
 * Fri Apr 21 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.1472-1
 - patchlevel 1472
 

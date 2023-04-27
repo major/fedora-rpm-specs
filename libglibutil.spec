@@ -1,5 +1,5 @@
 Name: libglibutil
-Version: 1.0.68
+Version: 1.0.69
 Release: 1%{?dist}
 Summary: Library of glib utilities
 License: BSD
@@ -43,6 +43,9 @@ This package contains the development library for %{name}.
 %{_includedir}/gutil
 
 %changelog
+* Tue Apr 25 2023 Alessandro Astone <ales.astone@gmail.com> - 1.0.69-1
+- Update to 1.0.69
+
 * Fri Feb 24 2023 Alessandro Astone <ales.astone@gmail.com> - 1.0.68-1
 - Update to 1.0.68
 

@@ -214,9 +214,7 @@ URL:        https://cvs.nongnu.org/
 # man/Makefile.in:      FSFULLRWD AND GPL-2.0-or-later
 # mdate-sh:             GPL-2.0-or-later
 # missing:              GPL-2.0-or-later WITH Autoconf-exception-generic
-# mkinstalldirs:        LicenseRef-Fedora-Public-Domain ("Public domain.")
-#                       (TODO: waiting on approval
-#                       <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/203>)
+# mkinstalldirs:        LicenseRef-Fedora-Public-Domain
 # os2/config.h:         GPL-2.0-or-later
 # os2/dirent.c:         xlock-like, NTP-like
 #                       (Waiting on an identier

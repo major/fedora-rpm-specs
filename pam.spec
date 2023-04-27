@@ -4,7 +4,7 @@
 Summary: An extensible library which provides authentication for applications
 Name: pam
 Version: 1.5.2
-Release: 17%{?dist}
+Release: 19%{?dist}
 # The library is BSD licensed with option to relicense as GPLv2+
 # - this option is redundant as the BSD license allows that anyway.
 # pam_timestamp and pam_loginuid modules are GPLv2+.
@@ -26,6 +26,7 @@ Patch1:  pam-1.5.2-redhat-modules.patch
 Patch2:  pam-1.5.0-noflex.patch
 Patch3:  pam-1.3.0-unix-nomsg.patch
 Patch4:  pam-1.5.2-pwhistory-config.patch
+Patch5:  pam-1.5.2-configure-c99.patch
 
 %{load:%{SOURCE3}}
 
@@ -116,10 +117,11 @@ mv pam-redhat-%{pam_redhat_version}/* modules
 
 cp %{SOURCE18} .
 
-%patch1 -p1 -b .redhat-modules
-%patch2 -p1 -b .noflex
-%patch3 -p1 -b .nomsg
-%patch4 -p1 -b .pwhistory-config
+%patch -P 1 -p1 -b .redhat-modules
+%patch -P 2 -p1 -b .noflex
+%patch -P 3 -p1 -b .nomsg
+%patch -P 4 -p1 -b .pwhistory-config
+%patch -P 5 -p1 -b .configure-c99
 
 autoreconf -i
 
@@ -355,6 +357,12 @@ done
 %{_pam_libdir}/libpam_misc.so.%{so_ver}*
 
 %changelog
+* Tue Apr 25 2023 Björn Esser <besser82@fedoraproject.org> - 1.5.2-19
+- Replace deprecated '%%patchN' with '%%patch -P N'
+
+* Tue Apr 25 2023 Arjun Shankar <arjun@redhat.com> - 1.5.2-18
+- Port configure script to C99
+
 * Thu Feb  9 2023 Iker Pedrosa <ipedrosa@redhat.com> - 1.5.2-17
 - Remove pam_console (#2166692)
 - Rebase to pam-redhat-1.2.0

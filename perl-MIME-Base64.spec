@@ -2,9 +2,9 @@ Name:           perl-MIME-Base64
 Version:        3.16
 Release:        490%{?dist}
 Summary:        Encoding and decoding of Base64 and quoted-printable strings
-# Base.xs:      (GPL+ or Artistic) and MIT (Bellcore's part)
-# Other files:  GPL+ or Artistic
-License:        (GPL+ or Artistic) and MIT
+# Base.xs:      (GPL-1.0-or-later OR Artistic-1.0-Perl) AND metamail
+# Other files:  GPL-1.0-or-later OR Artistic-1.0-Perl
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND metamail
 URL:            https://metacpan.org/release/MIME-Base64
 Source0:        https://cpan.metacpan.org/authors/id/C/CA/CAPOEIRAB/MIME-Base64-%{version}.tar.gz
 BuildRequires:  coreutils

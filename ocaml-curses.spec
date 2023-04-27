@@ -3,12 +3,13 @@
 
 Name:           ocaml-curses
 Version:        1.0.4
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        OCaml bindings for ncurses
 License:        LGPLv2+
 
 URL:            http://savannah.nongnu.org/projects/ocaml-tmk/
 Source0:        http://download.savannah.gnu.org/releases/ocaml-tmk/%{name}-%{version}.tar.gz
+Patch0: ocaml-curses-configure-c99.patch
 
 BuildRequires: make
 BuildRequires:  ocaml >= 4.00.1
@@ -41,7 +42,7 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q
+%autosetup -p1
 
 autoreconf
 
@@ -89,6 +90,9 @@ ocamlfind install curses META *.cmi *.cma *.a *.so *.mli
 
 
 %changelog
+* Tue Apr 25 2023 Florian Weimer <fweimer@redhat.com> - 1.0.4-30
+- Port configure script to C99
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.0.4-29
 - Rebuild OCaml packages for F38
 

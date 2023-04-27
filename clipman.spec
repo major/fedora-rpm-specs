@@ -3,7 +3,7 @@
 
 # https://github.com/yory8/clipman
 %global goipath         github.com/yory8/clipman
-Version:                1.6.1
+Version:                1.6.2
 
 %gometa
 
@@ -15,10 +15,10 @@ after an application exits.}
 %global godocs          README.md
 
 Name:           clipman
-Release:        6%{?dist}
+Release:        1%{?dist}
 Summary:        A simple clipboard manager for Wayland
 
-License:        GPLv3
+License:        GPL-3.0-only
 URL:            %{gourl}
 Source0:        %{gosource}
 
@@ -60,6 +60,10 @@ install -m 0644 -vpD docs/clipman.1  -t %{buildroot}%{_mandir}/man1/
 %gopkgfiles
 
 %changelog
+* Tue Apr 25 2023 Bob Hepple <bob.hepple@gmail.com> - 1.6.2-1
+- new version
+- use SPDX license specifier
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

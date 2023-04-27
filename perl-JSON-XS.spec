@@ -3,7 +3,7 @@ Summary:        JSON serializing/de-serializing, done correctly and fast
 Epoch:          1
 Version:        4.03
 Release:        9%{?dist}
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/JSON-XS
 Source0:        https://cpan.metacpan.org/modules/by-module/JSON/JSON-XS-%{version}.tar.gz
 # Build
@@ -36,6 +36,7 @@ BuildRequires:  perl(Tie::Hash)
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(warnings)
 # Dependencies
+# (none)
 
 %{?perl_default_filter}
 
@@ -94,7 +95,9 @@ make test
 %{_bindir}/json_xs
 %{perl_vendorarch}/auto/JSON/
 %{perl_vendorarch}/JSON/
-%{_mandir}/man[13]/*
+%{_mandir}/man1/json_xs.1*
+%{_mandir}/man3/JSON::XS.3*
+%{_mandir}/man3/JSON::XS::Boolean.3*
 
 %files tests
 %{_libexecdir}/%{name}

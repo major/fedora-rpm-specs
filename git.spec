@@ -80,7 +80,7 @@
 %global _package_note_file  %{_builddir}/%{name}-%{version}%{?rcrev}/.package_note-%{name}-%{version}-%{release}.%{_arch}.ld
 
 Name:           git
-Version:        2.40.0
+Version:        2.40.1
 Release:        1%{?rcrev}%{?dist}
 Summary:        Fast Version Control System
 License:        BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
@@ -1035,6 +1035,9 @@ rmdir --ignore-fail-on-non-empty "$testdir"
 %{?with_docs:%{_pkgdocdir}/git-svn.html}
 
 %changelog
+* Tue Apr 25 2023 Todd Zullinger <tmz@pobox.com> - 2.40.1-1
+- update to 2.40.1 (CVE-2023-25652, CVE-2023-25815, CVE-2023-29007)
+
 * Mon Mar 13 2023 Todd Zullinger <tmz@pobox.com> - 2.40.0-1
 - update to 2.40.0
 

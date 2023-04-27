@@ -13,7 +13,7 @@
 %global _lto_cflags %nil
 
 %global forgeurl https://github.com/facebook/mcrouter
-%global tag 2022.07.11.00
+%global tag 2023.04.24.00
 %global date %(echo %{tag} | sed -e 's|.00$||' | sed -e 's|\\.||g')
 
 Name:           mcrouter
@@ -43,7 +43,6 @@ BuildRequires:  fbthrift
 # for free
 BuildRequires:  procps-ng
 BuildRequires:  python3-devel
-BuildRequires:  python3-fbthrift-devel
 BuildRequires:  ragel
 # Test dependencies
 BuildRequires:  gtest-devel

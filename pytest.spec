@@ -2,13 +2,15 @@ Name:           pytest
 %global base_version 7.3.1
 #global prerelease ...
 Version:        %{base_version}%{?prerelease:~%{prerelease}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple powerful testing with Python
 License:        MIT
 URL:            https://pytest.org
 Source:         %{pypi_source pytest %{base_version}%{?prerelease}}
 # see https://github.com/pytest-dev/pytest/issues/10042#issuecomment-1237132867
 Patch:          pytest-7.1.3-fix-xfails.patch
+# Filter new pkg_resources deprecations, merged upstream
+Patch:          https://github.com/pytest-dev/pytest/pull/10938.patch
 
 # Remove -s from Python shebang,
 # ensure that packages installed with pip to user locations are testable
@@ -180,6 +182,10 @@ find %{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Mon Apr 24 2023 Miro Hrončok <mhroncok@redhat.com> - 7.3.1-2
+- Fix build with setuptools >= 67.5.0
+- Fixes: rhbz#2188982
+
 * Mon Apr 17 2023 Miro Hrončok <mhroncok@redhat.com> - 7.3.1-1
 - Update to 7.3.1
 - Changelog: https://docs.pytest.org/en/stable/changelog.html#pytest-7-3-1-2023-04-14

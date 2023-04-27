@@ -1,7 +1,7 @@
 %global forgeurl https://github.com/waydroid/waydroid
 %global selinuxtype targeted
 
-Version:        1.4.0
+Version:        1.4.1
 %global tag %{version}
 
 %forgemeta
@@ -142,6 +142,9 @@ fi
 %{_datadir}/selinux/%{selinuxtype}/%{name}.pp
 
 %changelog
+* Tue Apr 25 2023 Alessandro Astone <ales.astone@gmail.com> - 1.4.1-1
+- Update to 1.4.1
+
 * Wed Feb 08 2023 Alessandro Astone <ales.astone@gmail.com> - 1.4.0-1
 - Update to 1.4.0
 

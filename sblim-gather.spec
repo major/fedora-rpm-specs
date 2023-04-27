@@ -3,7 +3,7 @@
 
 Name:           sblim-gather
 Version:        2.2.9
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        SBLIM Gatherer
 
 License:        EPL-1.0
@@ -303,6 +303,9 @@ fi
 %ldconfig_postun provider
 
 %changelog
+* Tue Apr 25 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.2.9-29
+- SPDX migration
+
 * Mon Feb 27 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.2.9-28
 - Add systemd-units to BR (fixes FTBFS)
   Resolves: #2171724

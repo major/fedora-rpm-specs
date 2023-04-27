@@ -1,5 +1,5 @@
 Name:           jackson-bom
-Version:        2.14.2
+Version:        2.15.0
 Release:        1%{?dist}
 Summary:        Bill of materials POM for Jackson projects
 License:        Apache-2.0
@@ -37,6 +37,9 @@ A "bill of materials" POM for Jackson dependencies.
 %license LICENSE
 
 %changelog
+* Tue Apr 25 2023 Chris Kelley <ckelley@redhat.com> - 2.15.0-1
+- Update to version 2.15.0
+
 * Tue Jan 31 2023 Chris Kelley <ckelley@redhat.com> - 2.14.2-1
 - Update to version 2.14.2
 

@@ -15,6 +15,8 @@ Source2:        https://nmstate.io/nmstate.gpg
 # but list Requires manually
 Patch1:         0001-Workaround-for-Fedora-rust-packaging.patch
 Patch2:         0002-fix_nix_deps.patch
+# https://github.com/coreos/fedora-coreos-tracker/issues/1480
+Patch3:         0003-Fix-error-when-DHCP-with-auto-IP-address-on-STP-e.patch
 BuildRequires:  patchelf
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools

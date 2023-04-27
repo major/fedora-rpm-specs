@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.8.2
-Release:        1%{?dist}
+Release:        6%{?dist}
 Summary:        Python Library for Generating dbus-python Client Code
 
 License:        MPL-2.0
@@ -42,6 +42,21 @@ Python 3 version.
 %{python3_sitelib}/dbus_python_client_gen-*.egg-info/
 
 %changelog
+* Tue Apr 25 2023 mulhern <amulhern@redhat.com> - 0.8.2-6
+- Revise gating.yaml so that the phantom tier0 test becomes real
+
+* Tue Apr 25 2023 mulhern <amulhern@redhat.com> - 0.8.2-5
+- Rebuild again to see if tier0 test continues to appear
+
+* Tue Apr 25 2023 mulhern <amulhern@redhat.com> - 0.8.2-4
+- Rebuild to get rid of phantom tier0 test
+
+* Tue Apr 25 2023 mulhern <amulhern@redhat.com> - 0.8.2-3
+- Amend tmt specification
+
+* Tue Apr 25 2023 mulhern <amulhern@redhat.com> - 0.8.2-2
+- Use tmt format testing specification
+
 * Thu Feb 23 2023 Bryan Gurney <bgurney@redhat.com> - 0.8.2-1
 - Update to 0.8.2
 

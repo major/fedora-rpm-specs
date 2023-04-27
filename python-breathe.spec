@@ -4,6 +4,9 @@
 Breathe is an extension to reStructuredText and Sphinx to be able to read and \
 render the Doxygen xml output.
 
+# This is buildroot only in RHEL, and building the docs pulls in unwanted dependencies
+%bcond doc %{undefined rhel}
+
 Name:           python-%{srcname}
 Version:        4.35.0
 Release:        %autorelease
@@ -32,8 +35,10 @@ BuildRequires:  %{py3_dist Jinja2} >= 2.7.3
 BuildRequires:  %{py3_dist MarkupSafe} >= 0.23
 BuildRequires:  %{py3_dist Pygments} >= 1.6
 BuildRequires:  %{py3_dist pytest}
+%if %{with doc}
 BuildRequires:  %{py3_dist sphinx-copybutton}
 BuildRequires:  %{py3_dist furo}
+%endif
 # NOTE: git is only needed because part of the build process checks if it's in
 # a git repo
 BuildRequires:  git
@@ -67,10 +72,12 @@ This package contains documentation for developer documentation for %{srcname}.
 
 %build
 %py3_build
+%if %{with doc}
 # Build the documentation
 %make_build DOXYGEN=$(which doxygen) PYTHONPATH=$(pwd) html
 # Remove temporary build files
 rm documentation/build/html/.buildinfo
+%endif
 
 %install
 %py3_install
@@ -84,9 +91,11 @@ rm documentation/build/html/.buildinfo
 %{python3_sitelib}/*
 %license LICENSE
 
+%if %{with doc}
 %files doc
 %doc documentation/build/html
 %license LICENSE
+%endif
 
 %changelog
 %autochangelog

@@ -11,7 +11,7 @@
 Summary:   Multi Router Traffic Grapher
 Name:      mrtg
 Version:   2.17.10
-Release:   4%{?dist}
+Release:   5%{?dist}
 URL:       http://oss.oetiker.ch/mrtg/
 Source0:   http://oss.oetiker.ch/mrtg/pub/mrtg-%{version}.tar.gz
 Source1:   http://oss.oetiker.ch/mrtg/pub/mrtg-%{version}.tar.gz.md5
@@ -39,7 +39,7 @@ Patch1:    mrtg-2.17.2-socket6-fix.patch
 # Patch2: some devices return 2**32-2 on ifSpeed (e. g. IBM FibreChannel switches)
 Patch2:    mrtg-2.17.4-cfgmaker-ifhighspeed.patch
 Patch3:    mrtg-configure-c99.patch
-License:   GPLv2+
+License:   GPL-2.0-or-later
 Requires(post): systemd-units
 Requires(preun): systemd-units
 Requires(postun): systemd-units
@@ -213,6 +213,9 @@ fi
 %endif
 
 %changelog
+* Tue Apr 25 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.17.10-5
+- SPDX migration
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.17.10-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

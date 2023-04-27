@@ -1,11 +1,11 @@
-%if 0%{?fedora}
+%if 0%{?fedora} || ( 0%{?rhel} && 0%{?rhel} >= 8 )
 # Not all python modules are built with Python3 in EPEL
 %global with_python3 1
 %endif
 
 Name:           module-build-service
 Version:        3.9.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The Module Build Service for Modularity
 
 License:        MIT
@@ -24,7 +24,6 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-m2crypto
 BuildRequires:  python3-munch
-BuildRequires:  python3-funcsigs
 BuildRequires:  python3-solv
 BuildRequires:  python3-libmodulemd
 BuildRequires:  python3-openidc-client
@@ -277,6 +276,10 @@ done
 %endif
 
 %changelog
+* Mon Apr 24 2023 Diego Herrera <dherrera@redhat.com> - 3.9.2-2
+- Remove the python3-funcsigs requirement
+- EL8+ uses python3
+
 * Tue Apr 18 2023 Brendan Reilly <breilly@redhat.com> - 3.9.2-1
 - new version
 

@@ -152,7 +152,7 @@ Requires:       snappy-devel%{?_isa}
 Requires:       xz-devel%{?_isa}
 Requires:       zlib-devel%{?_isa}
 %if %{without python}
-Obsoletes:      %{name}-python < 2023.04.24.00-1
+Obsoletes:      python3-%{name} < 2023.04.24.00-1
 %endif
 Obsoletes:      %{name}-static < 2022.02.28.00-1
 
@@ -259,6 +259,8 @@ EXCLUDED_TESTS=
 # flaky tests
 # from https://koji.fedoraproject.org/koji/taskinfo?taskID=89703014
 EXCLUDED_TESTS='-E glog_test\.LogEveryMs\.basic'
+# from https://koji.fedoraproject.org/koji/taskinfo?taskID=100358727
+EXCLUDED_TESTS+='|fbstring_test\.FBString\.testAllClauses'
 %endif
 
 %ifarch aarch64

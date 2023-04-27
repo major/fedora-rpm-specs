@@ -2,7 +2,7 @@ Name:		perl-Jcode
 Version:	2.07
 Release:	40%{?dist}
 Summary:	Perl extension interface for converting Japanese text
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Jcode
 Source0:	https://cpan.metacpan.org/authors/id/D/DA/DANKOGAI/Jcode-%{version}.tar.gz
 Patch0:		Jcode-2.07-UTF-8.patch
@@ -48,7 +48,7 @@ Requires:	perl(Scalar::Util)
 %setup -q -n Jcode-%{version}
 
 # Fix character encoding of pod file
-%patch0 -p1 -b .timestamp
+%patch -P 0 -p1 -b .timestamp
 touch --reference=Jcode/Nihongo.pod.timestamp Jcode/Nihongo.pod
 rm Jcode/Nihongo.pod.timestamp
 

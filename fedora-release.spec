@@ -40,6 +40,7 @@
 %bcond_with budgie
 %bcond_with sway
 %bcond_with sericea
+%bcond_with mobility
 %else
 %bcond_without basic
 %bcond_without cinnamon
@@ -64,6 +65,7 @@
 %bcond_without budgie
 %bcond_without sway
 %bcond_without sericea
+%bcond_without mobility
 %endif
 
 %if %{with silverblue} || %{with kinoite} || %{with sericea}
@@ -1035,6 +1037,43 @@ itself as Fedora Sericea.
 %endif
 
 
+%if %{with mobility}
+%package mobility
+Summary:        Base package for Fedora Mobility specific default configurations
+
+RemovePathPostfixes: .mobility
+Provides:       fedora-release = %{version}-%{release}
+Provides:       fedora-release-variant = %{version}-%{release}
+Provides:       system-release
+Provides:       system-release(%{version})
+Provides:       base-module(platform:f%{version})
+Requires:       fedora-release-common = %{version}-%{release}
+
+# fedora-release-common Requires: fedora-release-identity, so at least one
+# package must provide it. This Recommends: pulls in
+# fedora-release-identity-mobility if nothing else is already doing so.
+Recommends:     fedora-release-identity-mobility
+
+
+%description mobility
+Provides a base package for Fedora Mobility specific configuration
+files to depend on.
+
+
+%package identity-mobility
+Summary:        Package providing the identity for Fedora Mobility
+
+RemovePathPostfixes: .mobility
+Provides:       fedora-release-identity = %{version}-%{release}
+Conflicts:      fedora-release-identity
+Requires(meta): fedora-release-mobility = %{version}-%{release}
+
+
+%description identity-mobility
+Provides the necessary files for a Fedora installation that is identifying
+itself as Fedora Mobility.
+%endif
+
 %prep
 mkdir -p licenses
 sed 's|@@VERSION@@|%{dist_version}|g' %{SOURCE2} >licenses/Fedora-Legal-README.txt
@@ -1412,9 +1451,15 @@ sed -i -e 's|BUG_REPORT_URL=.*|BUG_REPORT_URL="https://gitlab.com/fedora/sigs/sw
 sed -e "s#\$version#%{bug_version}#g" -e 's/$edition/Sericea/;s/<!--.*-->//;/^$/d' %{SOURCE20} > %{buildroot}%{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.sericea
 %endif
 
+%if %{with mobility}
+cp -p os-release %{buildroot}%{_prefix}/lib/os-release.mobility
+echo "VARIANT=\"Mobility\"" >> %{buildroot}%{_prefix}/lib/os-release.mobility
+echo "VARIANT_ID=mobility" >> %{buildroot}%{_prefix}/lib/os-release.mobility
+sed -i -e "s|(%{release_name}%{?prerelease})|(Mobility%{?prerelease})|g" %{buildroot}%{_prefix}/lib/os-release.mobility
+sed -e "s#\$version#%{bug_version}#g" -e 's/$edition/Mobility/;s/<!--.*-->//;/^$/d' %{SOURCE20} > %{buildroot}%{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.mobility
+%endif
 # Create the symlink for /etc/os-release
 ln -s ../usr/lib/os-release %{buildroot}%{_sysconfdir}/os-release
-
 
 # Set up the dist tag macros
 install -d -m 755 %{buildroot}%{_rpmconfigdir}/macros.d
@@ -1701,6 +1746,15 @@ ln -s --relative %{buildroot}%{_swidtagdir} %{buildroot}%{_sysconfdir}/swid/swid
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.sericea
 %{_prefix}/lib/systemd/system-preset/81-desktop.preset
 %{_unitdir}/timers.target.wants/rpm-ostree-countme.timer
+%endif
+
+
+%if %{with mobility}
+%files mobility
+%files identity-mobility
+%{_prefix}/lib/os-release.mobility
+%attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.mobility
+%{_prefix}/lib/systemd/system-preset/81-desktop.preset
 %endif
 
 

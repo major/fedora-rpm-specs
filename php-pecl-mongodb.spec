@@ -19,20 +19,21 @@
 %global ini_name   50-%{pecl_name}.ini
 
 # Bundled versions
-%global bundled_libmongo  1.23.2
+%global bundled_libmongo  1.23.3
 %global bundled_libcrypt  1.5.2
 
 # Build dependencies
-%global system_libmongo   1.23.1
+%global system_libmongo   1.23.3
 %global system_libcrypt   1.5.2
 
 Summary:        MongoDB driver for PHP
 Name:           php-pecl-%{pecl_name}
-%global upstream_version 1.15.1
+%global upstream_version 1.15.2
 #global upstream_prever  RC1
 #global upstream_lower   ~rc1
+%global sources          %{pecl_name}-%{upstream_version}%{?upstream_prever}
 Version:        %{upstream_version}%{?upstream_lower}
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        Apache-2.0
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
@@ -62,14 +63,13 @@ components necessary to build a fully-functional MongoDB driver.
 
 %prep
 %setup -q -c
-mv %{pecl_name}-%{upstream_version}%{?upstream_prever} NTS
 
 # Don't install/register tests and License
 sed -e 's/role="test"/role="src"/' \
     -e '/LICENSE/s/role="doc"/role="src"/' \
     -i package.xml
 
-pushd NTS
+pushd %{sources}
 
 # Check our macro values
 cat src/*_VERSION_CURRENT
@@ -88,9 +88,10 @@ fi
 
 popd
 
+mkdir NTS
 %if %{with_zts}
 # Duplicate source tree for NTS / ZTS build
-cp -pr NTS ZTS
+mkdir ZTS
 %endif
 
 # Create configuration file
@@ -103,13 +104,10 @@ extension=%{pecl_name}.so
 EOF
 
 
+%global _configure ../%{sources}/configure
+
 %build
 peclbuild() {
-  %{_bindir}/${1}ize
-
-  # Ensure we use system library
-  # Need to be removed only after phpize because of m4_include
-  rm -r src/libmongoc
 
   %configure \
     --with-php-config=%{_bindir}/${1}-config \
@@ -120,7 +118,14 @@ peclbuild() {
   make %{?_smp_mflags}
 }
 
-cd NTS
+
+cd %{sources}
+phpize
+# Ensure we use system library
+# Need to be removed only after phpize because of m4_include
+rm -r src/libmongoc*
+
+cd ../NTS
 peclbuild php
 
 %if %{with_zts}
@@ -148,7 +153,7 @@ install -D -m 644 %{ini_name} %{buildroot}%{php_ztsinidir}/%{ini_name}
 
 # Documentation
 for i in $(grep 'role="doc"' package.xml | sed -e 's/^.*name="//;s/".*$//')
-do install -Dpm 644 NTS/$i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
+do install -Dpm 644 %{sources}/$i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
 done
 
 
@@ -172,7 +177,7 @@ cd ../ZTS
 
 
 %files
-%license NTS/LICENSE
+%license %{sources}/LICENSE
 %doc %{pecl_docdir}/%{pecl_name}
 %{pecl_xmldir}/%{name}.xml
 
@@ -186,6 +191,12 @@ cd ../ZTS
 
 
 %changelog
+* Tue Apr 25 2023 Remi Collet <remi@remirepo.net> - 1.15.2-2
+- build out of sources tree
+
+* Tue Apr 25 2023 Remi Collet <remi@remirepo.net> - 1.15.2-1
+- update to 1.15.2 (no change)
+
 * Thu Feb  9 2023 Remi Collet <remi@remirepo.net> - 1.15.1-1
 - update to 1.15.1
 - cleanup spec macros

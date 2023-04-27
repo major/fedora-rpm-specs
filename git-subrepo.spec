@@ -1,6 +1,6 @@
 Name: git-subrepo
-Version: 0.4.5
-Release: 2%{?dist}
+Version: 0.4.6
+Release: 1%{?dist}
 
 License: MIT
 Summary: Git Submodule Alternative
@@ -36,6 +36,9 @@ sed -e '1 i #!/usr/bin/bash' -i ext/bashplus/lib/bash+.bash
 %{_mandir}/man1/*
 
 %changelog
+* Tue Apr 25 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.4.6-1
+- Updated to version 0.4.6.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

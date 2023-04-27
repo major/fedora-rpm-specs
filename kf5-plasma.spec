@@ -2,7 +2,7 @@
 
 Name:    kf5-plasma
 Version: 5.105.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 5 Tier 3 framework is foundation to build a primary user interface
 
 License: GPLv2+ and LGPLv2+ and BSD
@@ -42,9 +42,7 @@ BuildRequires:  kf5-kpackage-devel >= %{majmin}
 BuildRequires:  kf5-kparts-devel >= %{majmin}
 BuildRequires:  kf5-kservice-devel >= %{majmin}
 BuildRequires:  kf5-kirigami2-devel >= %{majmin}
-%if 0%{?fedora}
 BuildRequires:  kf5-kwayland-devel >= %{majmin}
-%endif
 BuildRequires:  kf5-kwidgetsaddons-devel >= %{majmin}
 BuildRequires:  kf5-kwindowsystem-devel >= %{majmin}
 BuildRequires:  kf5-kxmlgui-devel >= %{majmin}
@@ -69,10 +67,8 @@ BuildRequires:  qt5-qtx11extras-devel
 Requires:       qt5-qtquickcontrols%{?_isa}
 Requires:       qt5-qtquickcontrols2%{?_isa}
 
-%if 0%{?fedora}
 # https://bugzilla.redhat.com/1293415
 Conflicts:      kdeplasma-addons < 5.5.0-3
-%endif
 
 # upstream name
 Provides: plasma-framework = %{version}-%{release}
@@ -116,11 +112,9 @@ install -m644 -p %{SOURCE10} .
 mkdir -p %{buildroot}%{_kf5_datadir}/plasma/plasmoids
 mkdir -p %{buildroot}%{_kf5_qmldir}/org/kde/private
 
-%if 0%{?fedora}
 mkdir -p %{buildroot}%{_sysconfdir}/xdg/plasma-workspace/env
 sed -e "s|@@VERSION@@|%{version}|g" fedora-plasma-cache.sh.in > \
   %{buildroot}%{_sysconfdir}/xdg/plasma-workspace/env/fedora-plasma-cache.sh
-%endif
 
 
 %ldconfig_scriptlets
@@ -128,9 +122,7 @@ sed -e "s|@@VERSION@@|%{version}|g" fedora-plasma-cache.sh.in > \
 %files -f %{name}.lang
 %doc README.md
 %license LICENSES/*.txt
-%if 0%{?fedora}
 %{_sysconfdir}/xdg/plasma-workspace/env/fedora-plasma-cache.sh
-%endif
 %{_kf5_bindir}/plasmapkg2
 %{_kf5_libdir}/libKF5Plasma.so.*
 %{_kf5_libdir}/libKF5PlasmaQuick.so.*
@@ -167,6 +159,9 @@ sed -e "s|@@VERSION@@|%{version}|g" fedora-plasma-cache.sh.in > \
 
 
 %changelog
+* Tue Apr 25 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.105.0-2
+- Restore kf5-kwayland BR to RHEL builds
+
 * Sun Apr 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.105.0-1
 - 5.105.0
 

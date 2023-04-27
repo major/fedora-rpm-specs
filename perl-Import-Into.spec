@@ -2,7 +2,7 @@ Name:           perl-Import-Into
 Version:        1.002005
 Release:        23%{?dist}
 Summary:        Import packages into other packages
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Import-Into
 Source0:        https://cpan.metacpan.org/authors/id/H/HA/HAARG/Import-Into-%{version}.tar.gz
 BuildArch:      noarch
@@ -21,7 +21,8 @@ BuildRequires:  perl(base)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(Test::More)
-# Runtime
+# Dependencies
+# (none)
 
 %description
 Loading Import::Into creates a global method import::into which you can call on

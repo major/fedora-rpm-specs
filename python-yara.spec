@@ -1,5 +1,5 @@
 Name:           python-yara
-Version:        4.3.0
+Version:        4.3.1
 %global         baserelease     1
 Summary:        Python binding for the YARA pattern matching tool
 License:        Apache-2.0
@@ -14,8 +14,8 @@ VCS:            https://github.com/VirusTotal/yara-python/
 
 %global         gituser         VirusTotal
 %global         gitname         yara-python
-%global         commit          8106b84fa967bcd2fff4f5a40e558c36bb8d54e8
-%global         gitdate         20220809
+%global         commit          37dcb76cd5a07c62e6ed2646968c496e22e70729
+%global         gitdate         20230421
 %global         shortcommit     %(c=%{commit}; echo ${c:0:7})
 
 
@@ -150,6 +150,9 @@ pytest-3 -k "$EXCLUDE" tests.py -v
 
 #====================================================================
 %changelog
+* Wed Apr 26 2023 Michal Ambroz <rebus at, seznam.cz> - 4.3.1-1
+- bump to 4.3.1
+
 * Thu Mar 30 2023 Michal Ambroz <rebus at, seznam.cz> - 4.3.0-1
 - bump to 4.3.0
 

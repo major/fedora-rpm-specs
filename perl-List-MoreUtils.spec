@@ -2,7 +2,9 @@ Name:		perl-List-MoreUtils
 Version:	0.430
 Release:	8%{?dist}
 Summary:	Provide the stuff missing in List::Util
-License:	(GPL+ or Artistic) and ASL 2.0
+# All code present in version 0.416: GPL-1.0-or-later OR Artistic-1.0-Perl
+# All new code from version 0.417 onwards: Apache-2.0
+License:	(GPL-1.0-or-later OR Artistic-1.0-Perl) AND Apache-2.0
 URL:		https://metacpan.org/release/List-MoreUtils
 Source0:	https://cpan.metacpan.org/modules/by-module/List/List-MoreUtils-%{version}.tar.gz
 BuildArch:	noarch
@@ -47,7 +49,7 @@ BuildRequires:	perl(Tie::Array)
 %if ! ( 0%{?rhel} )
 BuildRequires:	perl(Test::LeakTrace)
 %endif
-# Runtime
+# Dependencies
 Requires:	perl(Carp)
 Requires:	perl(List::MoreUtils::XS) >= 0.430
 
@@ -70,11 +72,7 @@ make install DESTDIR=%{buildroot}
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license ARTISTIC-1.0 GPL-1 LICENSE
-%else
-%doc ARTISTIC-1.0 GPL-1 LICENSE
-%endif
 %doc Changes README.md
 %{perl_vendorlib}/List/
 %{_mandir}/man3/List::MoreUtils.3*

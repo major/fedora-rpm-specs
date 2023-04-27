@@ -7,6 +7,12 @@
 %global debug_package %{nil}
 %endif
 
+%if 0%{?rhel}
+%bcond_with btrfs
+%else
+%bcond_without btrfs
+%endif
+
 %global provider github
 %global provider_tld com
 %global project containers
@@ -25,7 +31,7 @@
 # gvproxy
 %global repo_gvproxy gvisor-tap-vsock
 # https://github.com/containers/gvisor-tap-vsock
-%global import_path_gvproxy %%{provider}.%{provider_tld}/%{project}/%{repo_gvproxy}
+%global import_path_gvproxy %{provider}.%{provider_tld}/%{project}/%{repo_gvproxy}
 %global git_gvproxy https://%{import_path_gvproxy}
 %global commit_gvproxy aab0ac9367fc5142f5857c36ac2352bcb3c60ab7
 
@@ -48,7 +54,9 @@ Source2: %{git_gvproxy}/archive/%{commit_gvproxy}/%{repo_gvproxy}-%{commit_gvpro
 Provides: %{name}-manpages = %{epoch}:%{version}-%{release}
 BuildRequires: gettext-envsubst
 BuildRequires: go-md2man
+%if %{with btrfs}
 BuildRequires: btrfs-progs-devel
+%endif
 BuildRequires: gcc
 BuildRequires: glib2-devel
 BuildRequires: glibc-devel

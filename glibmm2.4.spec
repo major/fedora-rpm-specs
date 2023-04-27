@@ -6,12 +6,13 @@
 %global libsigc_version 2.9.1
 
 Name:           glibmm2.4
-Version:        2.66.5
-Release:        3%{?dist}
+Version:        2.66.6
+Release:        1%{?dist}
 Summary:        C++ interface for the GLib library
 
-License:        LGPLv2+
-URL:            http://www.gtkmm.org/
+# Library sources are LGPL 2.1+, tools used to generate sources are GPL 2+.
+License:        LGPL-2.1-or-later AND GPL-2.0-or-later
+URL:            https://gtkmm.org/
 Source0:        https://download.gnome.org/sources/glibmm/%{release_version}/glibmm-%{version}.tar.xz
 
 Patch0:         glibmm24-gcc11.patch
@@ -89,7 +90,7 @@ chmod +x $RPM_BUILD_ROOT%{_libdir}/glibmm-%{apiver}/proc/gmmproc
 
 
 %files
-%license COPYING
+%license COPYING COPYING.tools
 %doc AUTHORS NEWS README.md
 %{_libdir}/libgiomm-%{apiver}.so.1*
 %{_libdir}/libglibmm-%{apiver}.so.1*
@@ -109,6 +110,9 @@ chmod +x $RPM_BUILD_ROOT%{_libdir}/glibmm-%{apiver}/proc/gmmproc
 
 
 %changelog
+* Tue Apr 25 2023 David King <amigadave@amigadave.com> - 2.66.6-1
+- Update to 2.66.6
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.66.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

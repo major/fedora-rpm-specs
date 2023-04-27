@@ -11,8 +11,8 @@
 %global _format() export %1=""; for x in %{modulenames}; do %1+=%2; %1+=" "; done;
 
 Name:           ec2-hibinit-agent
-Version:        1.0.4
-Release:        7%{?dist}
+Version:        1.0.5
+Release:        1%{?dist}
 Summary:        Hibernation setup utility for Amazon EC2
 
 License:        ASL 2.0
@@ -144,6 +144,9 @@ fi
 %selinux_relabel_post -s %{selinuxtype}
 
 %changelog
+* Tue Apr 25 2023 David Duncan <<davdunc@amazon.com>> - 1.0.5-1
+- Ensure we swapon the hibinit swapfile with the highest priority
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

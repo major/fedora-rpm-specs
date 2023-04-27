@@ -2,59 +2,69 @@
 %bcond_with docs
 
 Name:           python-deepdiff
-Version:        6.1.0
-Release:        2%{?dist}
+Version:        6.3.0
+Release:        1%{?dist}
 Summary:        Deep Difference and search of any Python object/data
+
 License:        MIT
 URL:            https://github.com/seperman/deepdiff/
-Source0:        https://github.com/seperman/deepdiff/archive/%{version}/%{name}-v%{version}.tar.gz
-BuildArch:      noarch
+Source:         %{url}/archive/%{version}/%{name}-v%{version}.tar.gz
 
-BuildRequires: make
+BuildArch:      noarch
+BuildRequires:  make
 BuildRequires:  python3-devel
-BuildRequires:  python3-ordered-set
-BuildRequires:  python3-pytest
+
+# For tests
+# Cherry picked test reqs from requirements-dev.txt
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(numpy)
+BuildRequires:  python3dist(toml)
+BuildRequires:  python3dist(python-dateutil)
 BuildRequires:  python3dist(jsonpickle)
-BuildRequires:  python3dist(mock)
-BuildRequires:  python3dist(setuptools)
+
 # For docs
 %if %{with docs}
 BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3-dotenv
 BuildRequires:  python3-sphinx-sitemap
 %endif
-# For tests
-BuildRequires:  python3dist(numpy)
-BuildRequires:  python3dist(click)
-BuildRequires:  python3dist(toml)
-BuildRequires:  python3dist(pyyaml)
 
-%description
-Deep Difference of dictionaries, iterables, strings and other
-objects. It will recursively look for all the changes.
+%global _description %{expand:
+Deep Difference of dictionaries, iterables, strings, and ANY other object.
+Includes additional modules with related functionality:
+DeepSearch: Search for objects within other objects.
+DeepHash: Hash any object based on their content.
+Delta: Store the difference of objects and apply them to other objects.
+Extract: Extract an item from a nested Python object using its path.
+commandline: Use DeepDiff from commandline.}
+
+%description %{_description}
 
 %package     -n python3-deepdiff
-Summary:        Python 3 package of %{name}
-Requires:       python3-jsonpickle
+Summary:        %{summary}
+Recommends:     python3-deepdiff+cli
 
-%description -n python3-deepdiff
-Deep Difference of dictionaries, iterables, strings and other
-objects. It will recursively look for all the changes.
+%description -n python3-deepdiff %{_description}
 
-This is the Python 3 package.
+
+# Add the cli as a extras subpackage which provides the deep executable.
+# Including the cli extra as the deep command doesnt function without it.
+%pyproject_extras_subpkg -n python3-deepdiff cli
+%{_bindir}/deep
 
 
 %prep
 %autosetup -n deepdiff-%{version} -p1
-# these tests require CleverCSV, which we don't package
-rm -f tests/test_command.py
-# so does this other test, unless we cut the csv line out of its
-# parametrization
-sed -i '/t1.csv/d' tests/test_serialization.py
+
 find deepdiff/ -name \*.py -exec sed -i '/#!\/usr\/bin\/env /d' {} \;
 
+
+%generate_buildrequires
+%pyproject_buildrequires -x cli,optimize
+
+
 %build
-%{py3_build}
+%pyproject_wheel
 
 %if %{with docs}
 # Build docs
@@ -63,23 +73,34 @@ make -C docs html
 rm -rf docs/_build/html/.{doctrees,buildinfo}
 %endif
 
+
 %install
-%{py3_install}
+%pyproject_install
+
+%pyproject_save_files deepdiff
+
 
 %check
-%{pytest}-3 tests/
+%pytest tests/
 
-%files -n python3-deepdiff
-%license LICENSE
+
+%files -n python3-deepdiff -f %{pyproject_files}
+
 %doc AUTHORS.md README.md
+
 %if %{with docs}
 %doc docs/_build/html
 %endif
-%{_bindir}/deep
-%{python3_sitelib}/deepdiff/
-%{python3_sitelib}/deepdiff-%{version}-py*.egg-info
+
+
 
 %changelog
+* Wed Apr 05 2023 Ryan Erickson <rerickso@redhat.com> - 6.3.0-1
+- Update to 6.3.0.
+- Surface cli extra as subpackage to fix cli if python3-deepdiff+cli installed.
+Resolves: rhbz#2171664
+Resolves: rhbz#2138689
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -146,4 +167,3 @@ rm -rf docs/_build/html/.{doctrees,buildinfo}
 
 * Sat Sep 22 2018 Susi Lehtola <jussilehtola@fedoraproject.org> - 3.3.0-1
 - First release.
-

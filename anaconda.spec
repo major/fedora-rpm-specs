@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 39.11
+Version: 39.12
 Release: 1%{?dist}
 License: GPLv2+ and MIT
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -469,6 +469,27 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Apr 25 2023 Packit <hello@packit.dev> - 39.12-1
+- WebUI: [pixel tests]  Hide progress stepper after finishing (rvykydal)
+- WebUI: allow webui_testvm to pick up development files (jvanderwaa)
+- pyanaconda: start cockpit-ws from a systemd unit (jvanderwaa)
+- webui: reset storage backend before autopart test (rvykydal)
+- WebUI: Update test for Hide progress stepper after finishing (rvykydal)
+- WebUI: Hide progress stepper after finishing (ozobal)
+- webui: [pixel tests] fix spacing of Storage Congfiguration options (rvykydal)
+- webui: fix spacing of Storage Congfiguration options (rvykydal)
+- Fix indefinite articles before "NFS" (jstodola)
+- Remove redundant return (vslavik)
+- Fix virt-install cockpit run on fedora-X images (jkonecny)
+- WebUI: Dynamically choose Quit/Reboot button label (ozobal)
+- WebUI: use Cockpit's run-tests (jvanderwaa)
+- WebUI: introduce a new MachineCase subclass for VirtInstallMachine
+  (jvanderwaa)
+- WebUI: touch dist/manifest.json explicitly (jvanderwaa)
+- Run webui-tests workflow on a testing runner for some time (rvykydal)
+- Add GH workflow to run webui integration tests in Permian on PR (rvykydal)
+- Update translations from Weblate
+
 * Tue Apr 18 2023 Packit <hello@packit.dev> - 39.11-1
 - Add missing documentation about OEMDRV (#2171811) (jkonecny)
 - gui: Simplify invalid timezone handling. (vslavik)

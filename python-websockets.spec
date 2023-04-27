@@ -5,13 +5,13 @@
 %endif
 
 Name:           python-%{pypi_name}
-Version:        10.4
-Release:        2%{?dist}
+Version:        11.0.2
+Release:        1%{?dist}
 Summary:        Implementation of the WebSocket Protocol for Python
 
 License:        BSD
 URL:            https://github.com/aaugustin/websockets
-Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
+Source0:        %pypi_source
 
 BuildRequires:  gcc
 
@@ -55,6 +55,9 @@ BuildRequires:  python3-devel
 %doc README.rst
 
 %changelog
+* Tue Apr 25 2023 Julien Enselme <jujens@jujens.eu> - 11.0.2-1
+- Update to 11.0.2
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 10.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -54,6 +54,13 @@ Source1100:     hatch-shell.1
 Source1200:     hatch-status.1
 Source1300:     hatch-version.1
 
+# Fix the sdist target when strict-naming is disabled (#834)
+# https://github.com/pypa/hatch/commit/1b10663e645efd6f37d616c5de34451dc2e015c0
+#
+# Backporting this commit makes tests/backend/builders/test_sdist.py compatible
+# with hatchling 1.14.1.
+Patch:          %{url}/commit/1b10663e645efd6f37d616c5de34451dc2e015c0.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
