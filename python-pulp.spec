@@ -10,11 +10,11 @@ files and call GLPK, COIN-OR CLP/CBC, CPLEX, GUROBI, MOSEK, XPRESS,
 CHOCO, MIPCL, SCIP to solve linear problems.}
 
 Name:           python-pulp
-Version:        2.6.0
+Version:        2.7.0
 Release:        %autorelease
 Summary:        A python Linear Programming API
 
-License:        BSD
+License:        BSD-1-Clause
 URL:            https://coin-or.github.io/pulp/
 Source0:        https://github.com/coin-or/pulp/archive/%{version}/pulp-%{version}.tar.gz
 

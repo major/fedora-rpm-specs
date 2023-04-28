@@ -1,17 +1,26 @@
 %global	hash_thread1	2501673c
 %global	hash_thread2	5d70
 
+%global	use_gcc_strict_sanitize	0
+
 Name:		xfe
 Version:	1.45
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	X File Explorer File Manager
 
-License:	GPLv2+
+# GPL-2.0-or-later:	README
+# Zlib:	src/xfeutils.h
+# MIT:	st/x.c
+# SPDX confirmed
+License:	GPL-2.0-or-later AND Zlib AND MIT
 URL:		http://roland65.free.fr/xfe/
 Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
 # Temporarily
 # Use system-wide startup-notification: need discuss with upstream
 Patch0:	xfe-1.44-use-system-libsn.patch
+# https://sourceforge.net/p/xfe/bugs/274/
+# xfe 1.45 segfaults with Ctrl-L
+Patch1:	xfe-1.45-ctrl-l-bug274.patch
 
 BuildRequires:	make
 BuildRequires:	gcc-c++
@@ -34,6 +43,11 @@ BuildRequires:	pkgconfig(x11-xcb)
 BuildRequires:	autoconf
 BuildRequires:	automake
 
+%if 0%{?use_gcc_strict_sanitize}
+BuildRequires:	libasan
+BuildRequires:	libubsan
+%endif
+
 %description
 X File Explorer (xfe) is a lightweight file manager for X11, 
 written using the FOX toolkit.
@@ -48,7 +62,8 @@ This package contains extra theme files for %{name}.
 
 %prep
 %setup -q
-%patch0 -p1 -b .syssn
+%patch -P0 -p1 -b .syssn
+%patch -P1 -p1 -b .ctrl-l
 
 for f in \
 	ChangeLog
@@ -74,6 +89,20 @@ autoreconf -fi
 rm -rf libsn
 
 %build
+%set_build_flags
+
+%if 0%{?use_gcc_strict_sanitize}
+export CC="${CC} -fsanitize=address -fsanitize=undefined"
+export CXX="${CXX} -fsanitize=address -fsanitize=undefined -fno-sanitize=vptr"
+export LDFLAGS="${LDFLAGS} -pthread"
+
+# Currently -fPIE binary cannot work with ASAN on kernel 4.12
+# https://github.com/google/sanitizers/issues/837
+export CFLAGS="$(echo $CFLAGS     | sed -e 's|-specs=[^ \t][^ \t]*hardened[^ \t][^ \t]*||g')"
+export CXXFLAGS="$(echo $CXXFLAGS | sed -e 's|-specs=[^ \t][^ \t]*hardened[^ \t][^ \t]*||g')"
+export LDFLAGS="$(echo $LDFLAGS   | sed -e 's|-specs=[^ \t][^ \t]*hardened[^ \t][^ \t]*||g')"
+%endif
+
 %configure \
 	--bindir=%{_libexecdir}/%{name}
 make %{?_smp_mflags}
@@ -150,6 +179,10 @@ ln -sf %{_sysconfdir}/xferc %{buildroot}%{_datadir}/%{name}/xferc
 %exclude	%{_datadir}/%{name}/icons/gnome*-theme/
 
 %changelog
+* Wed Apr 26 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.45-3
+- SPDX migration
+- Fix crash with Ctrl-L (upstream bug 274)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.45-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

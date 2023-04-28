@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit 6484d55fa6a48127989b4049495fda106889f356
+%global commit 61c90a7ada38cbbeaaef3b299b784721fe3c60c2
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 38.11
+Version: 38.12
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -813,6 +813,20 @@ exit 0
 %endif
 
 %changelog
+* Tue Apr 25 2023 Zdenek Pytela <zpytela@redhat.com> - 38.12-1
+- Allow telnetd read network sysctls
+- Allow munin system plugin read generic SSL certificates
+- Allow munin system plugin create and use netlink generic socket
+- Allow login_userdomain create user namespaces
+- Allow request-key to send syslog messages
+- Allow request-key to read/view any key
+- Add fs_delete_pstore_files() interface
+- Allow insights-client work with teamdctl
+- Allow insights-client read unconfined service semaphores
+- Allow insights-client get quotas of all filesystems
+- Add fs_read_pstore_files() interface
+- Allow generic kernel helper to read inherited kernel pipes
+
 * Fri Apr 14 2023 Zdenek Pytela <zpytela@redhat.com> - 38.11-1
 - Allow dovecot-deliver write to the main process runtime fifo files
 - Allow dmidecode write to cloud-init tmp files

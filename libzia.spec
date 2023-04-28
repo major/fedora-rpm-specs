@@ -1,6 +1,6 @@
 Name:		libzia
-Version:	4.42
-Release:	2%{?dist}
+Version:	4.43
+Release:	1%{?dist}
 Summary:	Platform abstraction layer for the tucnak package
 License:	GPLv2
 URL:		http://tucnak.nagano.cz/
@@ -71,6 +71,10 @@ rmdir %{buildroot}%{_datadir}/libzia/doc/ %{buildroot}%{_datadir}/libzia %{build
 %{_libdir}/pkgconfig/libzia.pc
 
 %changelog
+* Wed Apr 26 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 4.43-1
+- New version
+  Related: rhbz#2186987
+
 * Tue Mar 28 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 4.42-2
 - Added missing xset requirement (reported by David Jež <djez@redhat.com>)
 

@@ -25,11 +25,11 @@
 # feature releases that are only supported for nine months, which is shorter
 # than a Fedora release lifecycle.
 %global nodejs_epoch 1
-%global nodejs_major 19
-%global nodejs_minor 9
+%global nodejs_major 20
+%global nodejs_minor 0
 %global nodejs_patch 0
 # nodejs_soversion - from NODE_MODULE_VERSION in src/node_version.h
-%global nodejs_soversion 111
+%global nodejs_soversion 115
 %global nodejs_abi %{nodejs_soversion}
 %global nodejs_version %{nodejs_major}.%{nodejs_minor}.%{nodejs_patch}
 %global nodejs_release %{baserelease}
@@ -53,10 +53,10 @@
 # v8 - from deps/v8/include/v8-version.h
 # Epoch is set to ensure clean upgrades from the old v8 package
 %global v8_epoch 3
-%global v8_major 10
-%global v8_minor 8
-%global v8_build 168
-%global v8_patch 25
+%global v8_major 11
+%global v8_minor 3
+%global v8_build 244
+%global v8_patch 4
 %global v8_version %{v8_major}.%{v8_minor}.%{v8_build}.%{v8_patch}
 %global v8_release %{nodejs_epoch}.%{nodejs_major}.%{nodejs_minor}.%{nodejs_patch}.%{nodejs_release}
 
@@ -97,7 +97,7 @@
 
 # npm - from deps/npm/package.json
 %global npm_epoch 1
-%global npm_version 9.6.3
+%global npm_version 9.6.4
 
 # In order to avoid needing to keep incrementing the release version for the
 # main package forever, we will just construct one for npm that is guaranteed
@@ -148,6 +148,7 @@ Source111: undici-5.21.0-stripped.tar.gz
 Source112: wasi-sdk-14.0-linux.tar.gz
 
 Patch: 0001-Remove-unused-OpenSSL-config.patch
+Patch: 0002-libstdc-fix-incomplete-type-in-v8-internal-is_subtyp.patch
 
 %if 0%{?nodejs_default}
 %global pkgname nodejs
@@ -298,7 +299,7 @@ Provides: bundled(histogram) = %{histogram_version}
 
 # Upstream has added a new URL parser that has no option to build as a shared
 # library (19.7.0+)
-Provides: bundled(ada) = 1.0.4
+Provides: bundled(ada) = 2.0.0
 
 
 %description
@@ -647,7 +648,7 @@ for i in 1 5 7; do
   mkdir -p %{buildroot}%{_mandir}/man${i}
   for manpage in %{buildroot}%{nodejs_private_sitelib}/npm/man/man$i/*; do
     basename=$(basename ${manpage})
-    ln -srf %{buildroot}%{nodejs_private_sitelib}/npm/man/man${i}/${manpage} \
+    ln -srf %{buildroot}%{nodejs_private_sitelib}/npm/man/man${i}/${basename} \
             %{buildroot}%{_mandir}/man${i}/${basename}
   done
 done

@@ -1,7 +1,7 @@
 # fedora/remirepo spec file for php-pear-Net-DNS2
 #
-# Copyright (c) 2006-2017 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2006-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -13,8 +13,8 @@
 Summary:     Abstraction of various SASL mechanism responses
 Name:        php-pear-Auth-SASL
 Version:     1.1.0
-Release:     13%{?dist}
-License:     BSD
+Release:     14%{?dist}
+License:     BSD-3-Clause
 URL:         http://pear.php.net/package/Auth_SASL
 Source:      http://pear.php.net/get/%{pear_name}-%{version}.tgz
 
@@ -84,6 +84,9 @@ fi
 
 
 %changelog
+* Wed Apr 26 2023 Remi Collet <remi@remirepo.net> 1.1.0-14
+- use SPDX license ID
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

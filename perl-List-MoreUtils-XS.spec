@@ -5,11 +5,11 @@ Name:		perl-List-MoreUtils-XS
 Version:	0.430
 Release:	8%{?dist}
 Summary:	Provide compiled List::MoreUtils functions
-# Code from List-MoreUtils < 0.417 is GPL+ or Artistic
-# Anything after that is ASL 2.0
+# Code from List-MoreUtils < 0.417 is GPL-1.0-or-later OR Artistic-1.0-Perl
+# Anything after that is Apache-2.0
 # "git blame" on the upstream repo will probably be needed to
 # determine the license of any particular chunk of code
-License:	(GPL+ or Artistic) and ASL 2.0
+License:	(GPL-1.0-or-later OR Artistic-1.0-Perl) AND Apache-2.0
 URL:		https://metacpan.org/release/List-MoreUtils-XS
 Source0:	https://cpan.metacpan.org/modules/by-module/List/List-MoreUtils-XS-%{version}.tar.gz
 Patch0:		List-MoreUtils-XS-0.430-unbundle.patch
@@ -44,7 +44,8 @@ BuildRequires:	perl(Test::LeakTrace)
 %endif
 BuildRequires:	perl(Test::More) >= 0.96
 BuildRequires:	perl(Tie::Array)
-# Runtime
+# Dependencies
+# (none)
 
 # Don't "provide" private Perl libs
 %{?perl_default_filter}
@@ -56,7 +57,7 @@ This module provides accelerated versions of functions in List::MoreUtils.
 %setup -q -n List-MoreUtils-XS-%{version}
 
 # Unbundle bundled modules except private inc::Config::AutoConf::LMU
-%patch0
+%patch -P 0
 find inc/ -type f ! -name LMU.pm -print -delete
 
 %build

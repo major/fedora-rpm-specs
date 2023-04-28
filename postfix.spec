@@ -48,8 +48,8 @@
 
 Name: postfix
 Summary: Postfix Mail Transport Agent
-Version: 3.7.4
-Release: 1%{?dist}
+Version: 3.8.0
+Release: 2%{?dist}
 Epoch: 2
 URL: http://www.postfix.org
 License: (IBM and GPLv2+) or (EPL-2.0 and GPLv2+)
@@ -89,16 +89,15 @@ Source101: postfix-pam.conf
 
 # Patches
 
-Patch1: postfix-3.7.0-config.patch
+Patch1: postfix-3.8.0-config.patch
 Patch2: postfix-3.4.0-files.patch
 Patch3: postfix-3.3.3-alternatives.patch
-Patch4: postfix-3.7.0-large-fs.patch
+# probably rhbz#428996
+Patch4: postfix-3.8.0-large-fs.patch
 Patch9: pflogsumm-1.1.5-datecalc.patch
 # rhbz#1384871, sent upstream
 Patch10: pflogsumm-1.1.5-ipv6-warnings-fix.patch
 Patch11: postfix-3.4.4-chroot-example-fix.patch
-# sent upstream
-Patch12: postfix-3.7.0-whitespace-name-fix.patch
 # rhbz#1931403, sent upstream
 Patch13: pflogsumm-1.1.5-syslog-name-underscore-fix.patch
 
@@ -251,7 +250,6 @@ pushd pflogsumm-%{pflogsumm_ver}
 popd
 %endif
 %patch11 -p1 -b .chroot-example-fix
-%patch12 -p1 -b .whitespace-name-fix
 %patch13 -p1 -b .pflogsumm-1.1.5-syslog-name-underscore-fix
 
 # Backport 3.8-20221006 fix for uname -r detection
@@ -806,6 +804,13 @@ fi
 %endif
 
 %changelog
+* Wed Apr 26 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2:3.8.0-2
+- Dropped whitespace-name-fix patch, not needed
+
+* Wed Apr 26 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2:3.8.0-1
+- New version
+  Resolves: rhbz#2187121
+
 * Wed Jan 25 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2:3.7.4-1
 - New version
   Resolves: rhbz#2162932

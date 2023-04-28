@@ -10,7 +10,7 @@
 
 Name: pygtk2
 Version: 2.24.0
-Release: 39%{?dist}
+Release: 40%{?dist}
 License: LGPL-2.0-or-later
 Summary: Python bindings for GTK+
 URL: http://www.pygtk.org/
@@ -23,6 +23,7 @@ Patch0: 0001-Fix-leaks-of-Pango-objects.patch
 # Fix the build with pango 1.44
 # https://github.com/flathub/org.glimpse_editor.Glimpse/blob/master/patches/pygtk-Drop-the-PangoFont-find_shaper-virtual-method.patch
 Patch1: pygtk-Drop-the-PangoFont-find_shaper-virtual-method.patch
+Patch2: pygtk2-c99.patch
 
 # This was dropped from gnome-python; obsolete it here because, well,
 # we have to put it somewhere
@@ -129,6 +130,9 @@ find %{buildroot} -name '*.la' -or -name '*.a' | xargs rm -f
 %{_datadir}/gtk-doc/html/pygtk/
 
 %changelog
+* Wed Apr 26 2023 Florian Weimer <fweimer@redhat.com> - 2.24.0-40
+- Port to C99 (#2190017)
+
 * Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.24.0-39
 - migrated to SPDX license
 

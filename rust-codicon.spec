@@ -9,8 +9,7 @@ Version:        3.0.0
 Release:        6%{?dist}
 Summary:        Traits for encoding and decoding
 
-# Upstream license specification: Apache-2.0
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://crates.io/crates/codicon
 Source:         %{crates_source}
 

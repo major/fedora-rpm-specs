@@ -16,7 +16,7 @@ Summary: A GTK widget for VNC clients
 Name: gtk-vnc
 Version: 1.3.1
 Release: 2%{?dist}
-License: LGPLv2+
+License: LGPL-2.1-or-later
 Source: https://download.gnome.org/sources/%{name}/%{verdir}/%{name}-%{version}.tar.xz
 URL: https://gitlab.gnome.org/GNOME/gtk-vnc
 Requires: gvnc = %{version}-%{release}

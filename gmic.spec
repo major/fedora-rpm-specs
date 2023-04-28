@@ -18,7 +18,7 @@ Source1: zart-%{zart_version}.tar.gz
 # Source2: gmic-qt-%{gmic_qt_version}.tar.gz
 # GIT archive snapshot of https://github.com/dtschump/gmic-community
 Source3: gmic-community-%{gmic_community_version}.tar.gz
-License: (CeCILL or CeCILL-C) and GPLv3+
+License: ( CECILL-2.1 OR CECILL-C ) AND GPL-3.0-or-later
 Url: http://gmic.eu/
 %if %{use_system_cimg}
 BuildRequires: CImg-devel == 1:%{version}

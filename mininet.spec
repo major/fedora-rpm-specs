@@ -1,19 +1,15 @@
-%global snapdate 20220711
-%global commit 3f5503d7737a0f07eafce03594cf9ed5112e5ae8
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global relver 2.3.1
+%global prever b2
+%global gitver %{relver}%{?prever:%{prever}}
 
 Name:           mininet
-Version:        2.3.1~b1%{?snapdate:^git%{snapdate}.%{shortcommit}}
+Version:        %{relver}%{?prever:~%{prever}}
 Release:        %autorelease
 Summary:        Emulator for rapid prototyping of Software Defined Networks
 
 License:        BSD-3-Clause
 URL:            https://github.com/%{name}/%{name}
-%if 0%{?snapdate}
-Source0:        %{url}/archive/%{commit}/%{name}-%{commit}.tar.gz
-%else
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-%endif
+Source0:        %{url}/archive/%{gitver}/%{name}-%{gitver}.tar.gz
 
 BuildRequires:  python3-devel
 BuildRequires:  gcc
@@ -36,11 +32,7 @@ full line-rate execution.
 
 
 %prep
-%if 0%{?snapdate}
-%autosetup -p1 -n %{name}-%{commit}
-%else
-%autosetup -p1 -n %{name}-%{version}
-%endif
+%autosetup -p1 -n %{name}-%{gitver}
 
 
 %generate_buildrequires

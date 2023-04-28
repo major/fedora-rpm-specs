@@ -1,16 +1,15 @@
 %global project_version_major 5
 %global project_version_minor 0
-%global project_version_patch 8
+%global project_version_patch 9
 
 Name:           dnf5
 Version:        %{project_version_major}.%{project_version_minor}.%{project_version_patch}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
 Source0:        %{url}/archive/%{version}/dnf5-%{version}.tar.gz
 Patch1:         0001-Disable-tutorial-unit-tests.patch
-
 
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
@@ -213,6 +212,7 @@ It supports RPM packages, modulemd modules, and comps groups & environments.
 # TODO(jkolarik): history is not ready yet
 # %%{_mandir}/man8/dnf5-history.8.*
 %{_mandir}/man8/dnf5-install.8.*
+%{_mandir}/man8/dnf5-leaves.8.*
 %{_mandir}/man8/dnf5-makecache.8.*
 %{_mandir}/man8/dnf5-mark.8.*
 # TODO(jkolarik): module is not ready yet
@@ -629,6 +629,16 @@ ln -sr %{buildroot}%{_bindir}/dnf5 %{buildroot}%{_bindir}/microdnf
 
 
 %changelog
+* Wed Apr 26 2023 Nicola Sella <nsella@redhat.com> - 5.0.9-2
+- Release 5.0.9 (Nicola Sella)
+- Add `--userinstalled` to `repoquery` man page
+- Implement `repoquery -userinstalled`
+- Fix: progressbar: Prevent length_error exception (RhBug:2184271)
+- Add dnf5-plugins directory in documentation
+- Document `repoquery --leaves`
+- Implement `repoquery --leaves`
+- Implement new filters rpm::filter_leaves and rpm::filter_leaves_groups
+
 * Thu Apr 13 2023 Nicola Sella <nsella@redhat.com> - 5.0.8-1
 - Update to 5.0.8
 - Improve error message in download command

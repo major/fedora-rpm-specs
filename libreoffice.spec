@@ -268,9 +268,10 @@ Patch3: 0001-Revert-tdf-101630-gdrive-support-w-oAuth-and-Drive-A.patch
 Patch4: 0001-Use-sifr-and-sifr_dark-for-gnome.patch
 Patch5: 0001-rhbz-2171265-Report-fatal-InitApplicationServiceMana.patch
 Patch6: 0001-rhbz-2171265-Filter-out-all-non-.rdb-files.patch
+Patch7: 0001-Backport-fix-for-test-that-started-to-fail-with-libx.patch
 # TODO investigate these
-Patch7: 0001-aarch64-failing-here.patch
-Patch8: 0001-include-filename-if-the-test-fails.patch
+Patch8: 0001-aarch64-failing-here.patch
+Patch9: 0001-include-filename-if-the-test-fails.patch
 # not upstreamed
 Patch500: 0001-disable-libe-book-support.patch
 

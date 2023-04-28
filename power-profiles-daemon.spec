@@ -1,11 +1,11 @@
 Name:           power-profiles-daemon
-Version:        0.12
-Release:        3%{?dist}
+Version:        0.13
+Release:        1%{?dist}
 Summary:        Makes power profiles handling available over D-Bus
 
 License:        GPLv3+
 URL:            https://gitlab.freedesktop.org/hadess/power-profiles-daemon
-Source0:        https://gitlab.freedesktop.org/hadess/power-profiles-daemon/uploads/2f9a5e241fa718abfe2cb81b4bd35fc7/power-profiles-daemon-0.12.tar.xz
+Source0:        https://gitlab.freedesktop.org/hadess/power-profiles-daemon/uploads/1f2ea40547b2af8d255875d7085211e5/power-profiles-daemon-0.13.tar.xz
 
 BuildRequires:  meson
 BuildRequires:  gcc
@@ -78,6 +78,9 @@ fi
 %{_datadir}/gtk-doc/html/%{name}/
 
 %changelog
+* Wed Apr 26 2023 Bastien Nocera <bnocera@redhat.com> - 0.13-1
+- Update to 0.13
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

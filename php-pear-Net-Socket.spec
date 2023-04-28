@@ -1,7 +1,7 @@
 # fedora/remirepo spec file for php-pear-Net-Socket
 #
-# Copyright (c) 2006-2017 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2006-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -11,10 +11,10 @@
 
 Name:           php-pear-Net-Socket
 Version:        1.2.2
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Network Socket Interface
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            http://pear.php.net/package/Net_Socket
 Source0:        http://pear.php.net/get/%{pear_name}-%{version}.tgz
 
@@ -81,6 +81,9 @@ fi
 
 
 %changelog
+* Wed Apr 26 2023 Remi Collet <remi@remirepo.net> 1.2.2-14
+- use SPDX license ID
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

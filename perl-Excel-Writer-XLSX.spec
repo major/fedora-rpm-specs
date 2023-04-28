@@ -1,38 +1,55 @@
 Name:           perl-Excel-Writer-XLSX
-Version:        1.09
-Release:        4%{?dist}
+Version:        1.11
+Release:        1%{?dist}
 Summary:        Create a new file in the Excel 2007+ XLSX format
-License:        GPL+ or Artistic
+# lib/Excel/Writer/XLSX.pm: Artistic-1.0-Perl AND (GPL-1.0-or-later OR Artistic-1.0-Perl)
+#                           (The Artistic-1.0-Perl only part looks like
+#                           a mistake
+#                           <https://github.com/jmcnamara/excel-writer-xlsx/issues/285>)
+# LICENSE:      Artistic-1.0-Perl text
+# other files which declares a license: GPL-1.0-or-later OR Artistic-1.0-Perl
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Excel-Writer-XLSX
 Source0:        https://cpan.metacpan.org/authors/id/J/JM/JMCNAMARA/Excel-Writer-XLSX-%{version}.tar.gz
+# Fix regenerating a documentation with examples, proposed to the upstream,
+# <https://github.com/jmcnamara/excel-writer-xlsx/pull/286>.
+Patch0:         Excel-Writer-XLSX-1.11-Adjust-make-mydocs-invocation-to-Perl-without-dot-in.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
-BuildRequires:  glibc-common
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.8.2
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(lib)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+# Run-time:
 BuildRequires:  perl(Archive::Zip) >= 1.3
 BuildRequires:  perl(autouse)
 BuildRequires:  perl(Carp)
-BuildRequires:  perl(Date::Calc)
-BuildRequires:  perl(Date::Manip)
 BuildRequires:  perl(Digest::MD5)
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(Exporter)
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(File::Copy)
 BuildRequires:  perl(File::Find)
 BuildRequires:  perl(File::Temp) >= 0.19
-BuildRequires:  perl(integer)
+# Getopt::Long not used at tests
 BuildRequires:  perl(IO::File) >= 1.14
-BuildRequires:  perl(lib)
 BuildRequires:  perl(List::Util)
-BuildRequires:  perl(strict)
-BuildRequires:  perl(Test::More)
+# Pod::Usage not used at tests
 BuildRequires:  perl(utf8)
-BuildRequires:  perl(warnings)
+# Optinal run-time:
+BuildRequires:  perl(Date::Calc)
+BuildRequires:  perl(Date::Manip)
+# Tests:
+BuildRequires:  perl(Test::More)
+# Optional tests:
+# Test::Differences not helpful, a fallback exists
 Requires:       perl(Archive::Zip) >= 1.3
+Recommends:     perl(Date::Calc)
+Recommends:     perl(Date::Manip)
 Requires:       perl(File::Temp) >= 0.19
 Requires:       perl(IO::File) >= 1.14
 
@@ -40,36 +57,82 @@ Requires:       perl(IO::File) >= 1.14
 %global __requires_exclude %{?__requires_exclude:__requires_exclude|}^perl\\(Archive::Zip\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(File::Temp\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(IO::File\\)$
+# Remove private modules
+%global __requires_exclude %{__requires_exclude}|^perl\\(TestFunctions\\)
+%global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\(TestFunctions\\)
 
 %description
-The Excel::Writer::XLSX module can be used to create an Excel file in the
-2007+ XLSX format.
+The Excel::Writer::XLSX Perl module can be used to create an Excel file in the
+2007+ XLSX format. Multiple worksheets can be added to a workbook and
+formatting can be applied to cells. Text, numbers, and formulas can be written
+to the cells.
+
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       coreutils
+Requires:       perl-Test-Harness
+Requires:       perl(Date::Calc)
+Requires:       perl(Date::Manip)
+Requires:       perl(utf8)
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n Excel-Writer-XLSX-%{version}
-iconv --from=ISO-8859-1 --to=UTF-8 README > README.new
-touch -r README.new README
-mv README.new README
+%autosetup -p1 -n Excel-Writer-XLSX-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
-%{make_build}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+# Regenerate lib/Excel/Writer/XLSX/Examples.pm
+%{make_build} mydocs
+%{make_build} all
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/bash
+set -e
+# Many tests, e.g. t/regression/chart_axis25.t, create filed under CWD
+DIR=$(mktemp -d)
+cp -a %{_libexecdir}/%{name}/* "$DIR"
+pushd "$DIR"
+exec prove -I . -r -j "$(getconf _NPROCESSORS_ONLN)"
+popd
+rm -r "$DIR"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
-%doc Changes README examples
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
-%{_mandir}/man1/*
-%{_bindir}/*
+%license LICENSE
+# ./examples is compiled and packaged as Excel::Writer::XLSX::Examples
+%doc Changes CONTRIBUTING.md README
+%dir %{perl_vendorlib}/Excel
+%dir %{perl_vendorlib}/Excel/Writer
+%{perl_vendorlib}/Excel/Writer/XLSX
+%{perl_vendorlib}/Excel/Writer/XLSX.pm
+%{_mandir}/man3/Excel::Writer::XLSX.*
+%{_mandir}/man3/Excel::Writer::XLSX::*
+%{_mandir}/man1/extract_vba.*
+%{_bindir}/extract_vba
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Wed Apr 26 2023 Petr Pisar <ppisar@redhat.com> - 1.11-1
+- 1.11 bump
+- Package the tests
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.09-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

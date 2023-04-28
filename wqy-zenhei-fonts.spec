@@ -1,6 +1,21 @@
+# SPDX-License-Identifier: MIT
+
 %global fontname wqy-zenhei
-%global fontconf2 65-%{fontname}-sharp.conf
-%global common_desc \
+
+Version: 0.9.46
+Release: 29%{?dist}
+URL:     http://wenq.org/enindex.cgi
+
+%global foundry           WQY
+%global fontlicense       GPL-2.0-only WITH Font-exception-2.0
+%global fontlicenses      COPYING
+%global fontdocs          AUTHORS ChangeLog README
+
+%global fontfamily        ZenHei
+%global fontsummary       WenQuanYi Zen Hei CJK Font
+%global fonts             *.ttc
+%global fontconfs         %{SOURCE10}
+%global fontdescription   %{expand:
 WenQuanYi Zen Hei is a Hei-Ti style (sans-serif type) Chinese \
 outline font. It is designed for general purpose text formatting \
 and on-screen display of Chinese characters and symbols from \
@@ -18,60 +33,34 @@ and ko (Korean) locales for fontconfig. Starting from version \
 0.8, this font package has contained two font families, i.e. \
 the proportionally-spaced Zen Hei, and a mono-spaced face \
 named "WenQuanYi Zen Hei Mono".
+}
 
+Source0:  http://downloads.sourceforge.net/wqy/%{fontname}-%{version}-May.tar.bz2
+Source10: 66-%{fontpkgname}.conf
 
-Name:           %{fontname}-fonts
-Version:        0.9.46
-Release:        28%{?dist}
-Summary:        WenQuanYi Zen Hei CJK Font
-
-License:        GPLv2 with exceptions
-URL:            http://wenq.org/enindex.cgi
-Source0:        http://downloads.sourceforge.net/wqy/%{fontname}-%{version}-May.tar.bz2
-Source2:        %{name}-fontconfig.conf
-
-BuildArch:      noarch
-BuildRequires:  fontpackages-devel
-Requires:       fontpackages-filesystem
-Obsoletes:      wqy-zenhei-fonts-common < 0.9.45-5
-Provides:       wqy-zenhei-fonts-common = %{version}-%{release}
-
-%description
-%common_desc
+%fontpkg
 
 %prep
 %setup -q -n %{fontname}
-
-iconv -f GB18030 -t UTF-8 -o AUTHORS.utf8 AUTHORS
-touch -r AUTHORS AUTHORS.utf8
-mv AUTHORS.utf8 AUTHORS
-
-iconv -f ISO-8859-1 -t UTF-8 -o README.utf8 README
-touch -r README README.utf8
-mv README.utf8 README
+%linuxtext -e GB18030 AUTHORS
+%linuxtext -e ISO-8859-1 README
 
 %build
-%{nil}
+%fontbuild
 
 %install
-install -m 0755 -d %{buildroot}%{_fontdir}
-install -m 0644 -p *.ttc %{buildroot}%{_fontdir}
+%fontinstall
 
-install -m 0755 -d %{buildroot}%{_fontconfig_templatedir} \
-                   %{buildroot}%{_fontconfig_confdir}
+%check
+%fontcheck
 
-install -m 0644 -p %{SOURCE2} \
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf2}
-
-ln -s %{_fontconfig_templatedir}/%{fontconf2} \
-      %{buildroot}%{_fontconfig_confdir}/%{fontconf2}
-
-
-%_font_pkg -f ??-%{fontname}*.conf *.ttc
-%doc AUTHORS ChangeLog COPYING README
-
+%fontfiles
 
 %changelog
+* Thu Apr 13 2023 Peng Wu <pwu@redhat.com> - 0.9.46-29
+- Update to follow New Fonts Packaging Guidelines
+- Migrate to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.46-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

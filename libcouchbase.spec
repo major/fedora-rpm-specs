@@ -1,6 +1,6 @@
 Summary: Client and protocol library for the Couchbase project
 Name: libcouchbase
-Version: 3.3.5
+Version: 3.3.6
 Release: 1%{?dist}
 License: ASL 2.0
 BuildRequires: gcc, gcc-c++
@@ -111,6 +111,9 @@ export CTEST_OUTPUT_ON_FAILURE=1
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Apr 26 2023 Sergey Avseyev <sergey.avseyev@gmail.com> - 3.3.6-1
+- Update to 3.3.6
+
 * Thu Mar 09 2023 Sergey Avseyev <sergey.avseyev@gmail.com> - 3.3.5-1
 - Update to 3.3.5
 

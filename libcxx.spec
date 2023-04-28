@@ -4,14 +4,14 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2158587
 %undefine _include_frame_pointers
 
-%global libcxx_version 16.0.1
+%global libcxx_version 16.0.2
 #global rc_ver 4
 %global libcxx_srcdir libcxx-%{libcxx_version}%{?rc_ver:rc%{rc_ver}}.src
 %global libcxxabi_srcdir libcxxabi-%{libcxx_version}%{?rc_ver:rc%{rc_ver}}.src
 
 Name:		libcxx
 Version:	%{libcxx_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	2%{?dist}
+Release:	1%{?dist}
 Summary:	C++ standard library targeting C++11
 License:	Apache-2.0 WITH LLVM-exception OR MIT OR NCSA
 URL:		http://libcxx.llvm.org/
@@ -141,6 +141,9 @@ mv ../%{libcxxabi_srcdir} libcxxabi
 %{_libdir}/libc++abi.a
 
 %changelog
+* Wed Apr 26 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.2-1
+- Update to LLVM 16.0.2
+
 * Thu Apr 20 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.1-2
 - Enable PIC even for static libraries (rhbz#2186531)
 

@@ -2,13 +2,14 @@
 
 Name:		  R-%{packname}
 Version:	  0.9.31
-Release:	  42%{?dist}
+Release:	  43%{?dist}
 Summary:	  Quantile normalization and base calling for second generation sequencing data
 
 License:	  Artistic 2.0
 URL:		  http://rafalab.jhsph.edu/Rsolid/
 Source0:	  http://rafalab.jhsph.edu/Rsolid/Rsolid_0.9-31.tar.gz
 Patch0:           R-Rsolid-R3.patch
+Patch1:           R-Rsolid-configure-c99.patch
 BuildRequires:	  R-devel >= 3.4.0 tex(latex) hdf5-devel 
 
 %package	  devel
@@ -47,6 +48,7 @@ developing applications that use %{name}
 %prep
 %setup -q -c -n %{packname}
 %patch0 -p1 -b .fixed
+%patch1 -p1 -b .configure-c99
 
 %build
 
@@ -83,6 +85,9 @@ rm -rf %{packname}/configure
 
 
 %changelog
+* Wed Apr 26 2023 Florian Weimer <fweimer@redhat.com> - 0.9.31-43
+- Port configure script to c99
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.9.31-42
 - R-maint-sig mass rebuild
 

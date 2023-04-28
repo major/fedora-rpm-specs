@@ -18,6 +18,7 @@ Patch0: %{name}-13-fix_for_sphinx_4.patch
 BuildArch: noarch
 BuildRequires: make
 BuildRequires: python3-devel
+BuildRequires: python3-setuptools
 BuildRequires: python3-sphinx
 
 %description %_description

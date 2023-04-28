@@ -211,9 +211,7 @@
 %define requires_ui_egl_headless Requires: %{name}-ui-egl-headless = %{evr}
 %define requires_ui_opengl Requires: %{name}-ui-opengl = %{evr}
 %define requires_device_display_virtio_gpu Requires: %{name}-device-display-virtio-gpu = %{evr}
-%define requires_device_display_virtio_gpu_gl Requires: %{name}-device-display-virtio-gpu-gl = %{evr}
 %define requires_device_display_virtio_gpu_pci Requires: %{name}-device-display-virtio-gpu-pci = %{evr}
-%define requires_device_display_virtio_gpu_pci_gl Requires: %{name}-device-display-virtio-gpu-pci-gl = %{evr}
 %define requires_device_display_virtio_gpu_ccw Requires: %{name}-device-display-virtio-gpu-ccw = %{evr}
 %define requires_device_display_virtio_vga Requires: %{name}-device-display-virtio-vga = %{evr}
 %define requires_device_display_virtio_vga_gl Requires: %{name}-device-display-virtio-vga-gl = %{evr}
@@ -228,8 +226,12 @@
 
 %if %{have_virgl}
 %define requires_device_display_vhost_user_gpu Requires: %{name}-device-display-vhost-user-gpu = %{evr}
+%define requires_device_display_virtio_gpu_gl Requires: %{name}-device-display-virtio-gpu-gl = %{evr}
+%define requires_device_display_virtio_gpu_pci_gl Requires: %{name}-device-display-virtio-gpu-pci-gl = %{evr}
 %else
 %define requires_device_display_vhost_user_gpu %{nil}
+%define requires_device_display_virtio_gpu_gl %{nil}
+%define requires_device_display_virtio_gpu_pci_gl %{nil}
 %endif
 
 %if %{have_jack}
@@ -810,11 +812,13 @@ Requires: %{name}-common%{?_isa} = %{epoch}:%{version}-%{release}
 %description device-display-virtio-gpu
 This package provides the virtio-gpu display device for QEMU.
 
+%if %{have_virgl}
 %package device-display-virtio-gpu-gl
 Summary: QEMU virtio-gpu-gl display device
 Requires: %{name}-common%{?_isa} = %{epoch}:%{version}-%{release}
 %description device-display-virtio-gpu-gl
 This package provides the virtio-gpu-gl display device for QEMU.
+%endif
 
 %package device-display-virtio-gpu-pci
 Summary: QEMU virtio-gpu-pci display device
@@ -822,11 +826,13 @@ Requires: %{name}-common%{?_isa} = %{epoch}:%{version}-%{release}
 %description device-display-virtio-gpu-pci
 This package provides the virtio-gpu-pci display device for QEMU.
 
+%if %{have_virgl}
 %package device-display-virtio-gpu-pci-gl
 Summary: QEMU virtio-gpu-pci-gl display device
 Requires: %{name}-common%{?_isa} = %{epoch}:%{version}-%{release}
 %description device-display-virtio-gpu-pci-gl
 This package provides the virtio-gpu-pci-gl display device for QEMU.
+%endif
 
 %package device-display-virtio-gpu-ccw
 Summary: QEMU virtio-gpu-ccw display device
@@ -1874,6 +1880,8 @@ install -m 0644 -t %{buildroot}%{_datadir}/%{name}/tracetool/backend scripts/tra
 mkdir -p %{buildroot}%{_datadir}/%{name}/tracetool/format
 install -m 0644 -t %{buildroot}%{_datadir}/%{name}/tracetool/format scripts/tracetool/format/*.py
 
+# Ensure vhost-user directory is present even if built without virgl
+mkdir -p %{buildroot}%{_datadir}/%{name}/vhost-user
 
 # Create new directories and put them all under tests-src
 mkdir -p %{buildroot}%{testsdir}/python
@@ -2299,12 +2307,16 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 
 %files device-display-virtio-gpu
 %{_libdir}/%{name}/hw-display-virtio-gpu.so
+%if %{have_virgl}
 %files device-display-virtio-gpu-gl
 %{_libdir}/%{name}/hw-display-virtio-gpu-gl.so
+%endif
 %files device-display-virtio-gpu-pci
 %{_libdir}/%{name}/hw-display-virtio-gpu-pci.so
+%if %{have_virgl}
 %files device-display-virtio-gpu-pci-gl
 %{_libdir}/%{name}/hw-display-virtio-gpu-pci-gl.so
+%endif
 %files device-display-virtio-gpu-ccw
 %{_libdir}/%{name}/hw-s390x-virtio-gpu-ccw.so
 %files device-display-virtio-vga

@@ -1,6 +1,6 @@
 Name:           uudeview
 Version:        0.5.20
-Release:        51%{?dist}
+Release:        52%{?dist}
 
 License:        GPLv2+
 Source:         http://www.fpx.de/fp/Software/UUDeview/download/uudeview-0.5.20.tar.gz
@@ -8,6 +8,7 @@ Source1:        xdeview.desktop
 Patch0:         uudeview-debian-patches.patch
 Patch1:         uudeview-format-security.patch
 Patch2:         matherr.patch
+Patch3: uudeview-configure-c99.patch
 URL:            http://www.fpx.de/fp/Software/UUDeview/
 Summary:        Applications for uuencoding, uudecoding, ...
 BuildRequires: make
@@ -43,6 +44,7 @@ This package contains header files and static libraries for uulib.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p2
+%patch3 -p1
 %{__sed} -i -e "s,psfig,epsfig,g" doc/library.ltx
 %{__sed} -i -e "s,for ff_subdir in lib,for ff_subdir in %{_lib},g" configure
 
@@ -82,6 +84,9 @@ install -p -m 0644 uulib/libuu.a $RPM_BUILD_ROOT/%{_libdir}/
 %{_libdir}/*.a
 
 %changelog
+* Wed Apr 26 2023 Florian Weimer <fweimer@redhat.com> - 0.5.20-52
+- Port configure script to C99 (#2189809)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.20-51
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

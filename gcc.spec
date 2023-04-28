@@ -1,10 +1,10 @@
-%global DATE 20230421
-%global gitrev 4be14f2db84d42993908d17f2b66a655b5bc050d
-%global gcc_version 13.0.1
+%global DATE 20230426
+%global gitrev 99aa4c60d1f6a96b09f65b669d44bbab206f0a75
+%global gcc_version 13.1.1
 %global gcc_major 13
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
-%global gcc_release 0
+%global gcc_release 1
 %global nvptx_tools_gitrev 93e00909ceb9cbbc104f0fcba56c0361ffb3ca4b
 %global newlib_cygwin_gitrev 9e09d6ed83cce4777a5950412647ccc603040409
 %global _unpackaged_files_terminate_build 0
@@ -136,7 +136,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.16%{?dist}
+Release: %{gcc_release}%{?dist}
 # libgcc, libgfortran, libgomp, libstdc++ and crtstuff have
 # GCC Runtime Exception.
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions and LGPLv2+ and BSD
@@ -286,7 +286,6 @@ Patch8: gcc13-no-add-needed.patch
 Patch9: gcc13-Wno-format-security.patch
 Patch10: gcc13-rh1574936.patch
 Patch11: gcc13-d-shared-libphobos.patch
-Patch12: gcc13-pr109583.patch
 
 Patch50: isl-rh2155127.patch
 
@@ -863,7 +862,6 @@ so that there cannot be any synchronization problems.
 %patch -P10 -p0 -b .rh1574936~
 %endif
 %patch -P11 -p0 -b .d-shared-libphobos~
-%patch -P12 -p0 -b .pr109583~
 
 %patch -P50 -p0 -b .rh2155127~
 touch -r isl-0.24/m4/ax_prog_cxx_for_build.m4 isl-0.24/m4/ax_prog_cc_for_build.m4
@@ -3461,6 +3459,11 @@ end
 %endif
 
 %changelog
+* Wed Apr 26 2023 Jakub Jelinek <jakub@redhat.com> 13.1.1-1
+- update from releases/gcc-13 branch
+  - GCC 13.1 release
+  - PRs c/107041, target/109566
+
 * Fri Apr 21 2023 Jakub Jelinek <jakub@redhat.com> 13.0.1-0.16
 - update from trunk and releases/gcc-13 branch
   - GCC 13.1-rc3

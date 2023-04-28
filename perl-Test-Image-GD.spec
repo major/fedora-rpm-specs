@@ -1,55 +1,71 @@
 Name:           perl-Test-Image-GD
 Version:        0.03
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Module for testing images using GD
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Image-GD
 Source0:        https://cpan.metacpan.org/modules/by-module/Test/Test-Image-GD-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires: make
-BuildRequires:  perl-interpreter
+# Build
+BuildRequires:  coreutils
+BuildRequires:  findutils
+BuildRequires:  make
 BuildRequires:  perl-generators
-BuildRequires:  perl(Exporter)
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker)
-BuildRequires:  perl(File::Spec::Functions)
+# Module
+BuildRequires:  perl(Exporter)
 BuildRequires:  perl(GD)
 BuildRequires:  perl(Scalar::Util)
+BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::Builder)
+BuildRequires:  perl(warnings)
+# Test Suite
+BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(Test::Builder::Tester)
 BuildRequires:  perl(Test::More) >= 0.47
+# Optional Tests
 BuildRequires:  perl(Test::Pod) >= 1.14
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
-BuildRequires:  perl(strict)
-BuildRequires:  perl(warnings)
-
+# Dependencies
+# (none)
 
 %description
-This module is meant to be used for testing custom graphics, it attempts
-to "visually" compare the images, this means it ignores invisible differences
-like color palettes and meta data. It also provides some extra functions to
-check the size of the image.
+This module is meant to be used for testing custom graphics. It attempts
+to "visually" compare the images, which means that it ignores invisible
+differences like color palettes and metadata. It also provides some extra
+functions to check the size of the image.
 
 %prep
 %setup -q -n Test-Image-GD-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
+perl Makefile.PL INSTALLDIRS=vendor
 make %{?_smp_mflags}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
-%{_fixperms} $RPM_BUILD_ROOT/*
+make pure_install DESTDIR=%{buildroot}
+find %{buildroot} -type f -name .packlist -delete
+%{_fixperms} -c %{buildroot}
 
 %check
 make test
 
 %files
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Test/
+%{_mandir}/man3/Test::Image::GD.3*
 
 %changelog
+* Wed Apr 26 2023 Paul Howarth <paul@city-fan.org> - 0.03-29
+- Spec tidy-up
+  - Use SPDX-format license tag
+  - Classify buildreqs by usage
+  - Simplify find command using -delete
+  - Fix permissions verbosely
+  - Make %%files list more explicit
+  - Improve language use in %%description
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

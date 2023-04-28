@@ -2,7 +2,7 @@
 %global srcname PyQt-builder
 
 Name:           %{srcname}
-Version:        1.14.1
+Version:        1.15.0
 Release:        1%{?dist}
 Summary:        The PEP 517 compliant PyQt build system
 
@@ -50,6 +50,9 @@ rm -rf %{buildroot}/%{python3_sitelib}/pyqtbuild/bundle/dlls
 %{python3_sitelib}/PyQt_builder-%{version}.dist-info
 
 %changelog
+* Wed Apr 26 2023 Scott Talbert <swt@techie.net> - 1.15.0-1
+- Update to new upstream release 1.15.0 (#2185560)
+
 * Tue Jan 31 2023 Scott Talbert <swt@techie.net> - 1.14.1-1
 - Update to new upstream release 1.14.1 (#2131649)
 - Modernize python packaging

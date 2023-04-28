@@ -12,7 +12,7 @@
 %global with_rss 1
 %endif
 
-%global tracker_version 3.5.0~beta
+%global tracker_version 3.5.0
 
 %global systemd_units tracker-extract-3.service tracker-miner-fs-3.service tracker-miner-fs-control-3.service tracker-miner-rss-3.service tracker-writeback-3.service
 
@@ -23,7 +23,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           tracker-miners
-Version:        3.5.0
+Version:        3.5.1
 Release:        1%{?dist}
 Summary:        Tracker miners and metadata extractors
 
@@ -160,6 +160,9 @@ This package contains various miners and metadata extractors for tracker.
 
 
 %changelog
+* Wed Apr 26 2023 David King <amigadave@amigadave.com> - 3.5.1-1
+- Update to 3.5.1
+
 * Mon Mar 20 2023 David King <amigadave@amigadave.com> - 3.5.0-1
 - Update to 3.5.0 (#2179709)
 

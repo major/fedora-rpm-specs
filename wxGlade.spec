@@ -1,13 +1,12 @@
 Name:           wxGlade
-Version:        1.0.4
-Release:        6%{?dist}
+Version:        1.0.5
+Release:        1%{?dist}
 Summary:        A wxWidgets/wxPython/wxPerl GUI designer
 License:        MIT
 URL:            http://wxglade.sourceforge.net
 Source0:        https://downloads.sourceforge.net/project/wxglade/wxglade/%{version}/%{name}-%{version}.zip
 Source1:        wxglade.desktop
 Source2:        wxglade.png
-Patch0:         fix-startup-script-py310.patch
 BuildArch:      noarch
 BuildRequires:  desktop-file-utils
 BuildRequires:  python3-devel
@@ -51,6 +50,9 @@ install -pm 644 %{S:2} %{buildroot}%{_datadir}/icons/hicolor/32x32/apps
 %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Apr 26 2023 Scott Talbert <swt@techie.net> - 1.0.5-1
+- Update to new upstream release 1.0.5 (#2183890)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

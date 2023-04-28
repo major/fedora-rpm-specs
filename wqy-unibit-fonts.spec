@@ -1,22 +1,25 @@
+# SPDX-License-Identifier: MIT
+
 %global fontname wqy-unibit
 
-Name:           %{fontname}-fonts
-Version:        1.1.0
-Release:        31%{?dist}
-Summary:        WenQuanYi Unibit Bitmap Font
+BuildRequires:  make
+BuildRequires:  bdftopcf
+BuildRequires:  perl-interpreter
 
-License:        GPLv2 with exceptions
-URL:            http://wenq.org/enindex.cgi
-Source0:        http://downloads.sourceforge.net/wqy/wqy-unibit-bdf-%{version}-1.tar.gz
-Patch0:         wqy-unibit-fixes-build.patch
+Version: 1.1.0
+Release: 32%{?dist}
+URL:     http://wenq.org/enindex.cgi
 
-BuildArch:      noarch
-BuildRequires: make
-BuildRequires:  fontpackages-devel, bdftopcf
-BuildRequires:  perl
-Requires:       fontpackages-filesystem
+%global foundry           WQY
+%global fontlicense       GPL-2.0-only WITH Font-exception-2.0
+%global fontlicenses      COPYING
+%global fontdocs          AUTHORS ChangeLog README
 
-%description
+%global fontfamily        Unibit
+%global fontsummary       WenQuanYi Unibit Bitmap Font
+%global fonts             *.pcf
+%global fontconfs         %{SOURCE10}
+%global fontdescription   %{expand:
 The Wen Quan Yi Unibit is designed as a dual-width (16x16,16x8) 
 bitmap font to provide the most complete international symbol 
 coverage, serving as the system-wide fall-back font. This font 
@@ -34,29 +37,34 @@ high-quality glyphs from China National Standard GB19966-2005
 WenQuanYi contributors via their collaborative font editing website at
 http://wenq.org/eindex.cgi?Unicode_Chart_EN
 
+}
+
+Source0:  http://downloads.sourceforge.net/wqy/wqy-unibit-bdf-%{version}-1.tar.gz
+Patch0:   wqy-unibit-fixes-build.patch
+
+%fontpkg
+
 %prep
-%setup -q -n %{fontname}
-%patch0 -p1 -b .build
+%autosetup -n %{fontname}
 
 
 %build
-make %{?_smp_mflags}
+make
+%fontbuild
 
 %install
-install -m 0755 -d %{buildroot}%{_fontdir}
-install -m 0644 -p *.pcf %{buildroot}%{_fontdir}
+%fontinstall
 
-install -m 0755 -d %{buildroot}%{_fontconfig_templatedir} \
-                   %{buildroot}%{_fontconfig_confdir}
+%check
+%fontcheck
 
-
-%_font_pkg *.pcf
-
-%doc AUTHORS ChangeLog COPYING README
-%dir %{_fontdir}
-
+%fontfiles
 
 %changelog
+* Thu Apr 13 2023 Peng Wu <pwu@redhat.com> - 1.1.0-32
+- Update to follow New Fonts Packaging Guidelines
+- Migrate to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

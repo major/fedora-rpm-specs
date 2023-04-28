@@ -7,8 +7,8 @@
 %global vala_version 0.52.5
 
 Name:           budgie-desktop
-Version:        10.7.1
-Release:        4%{?dist}
+Version:        10.7.2
+Release:        1%{?dist}
 Summary:        A feature-rich, modern desktop designed to keep out the way of the user
 
 License:        GPLv2 and LGPLv2
@@ -16,10 +16,6 @@ URL:            https://github.com/BuddiesOfBudgie/budgie-desktop
 Source0:        %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz
 Source1:        %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz.asc
 Source2:        https://joshuastrobl.com/pubkey.gpg
-Patch0:         budgie-desktop-c99.patch
-Patch1:         0001-Fix-screenshot-for-libmutter-12.-337.patch
-Patch2:         0001-add-detection-of-zenity-version-and-use-different-fl.patch
-Patch3:         0001-Relevancy-algorithm-refinements-318.patch
 
 BuildRequires:  pkgconfig(accountsservice) >= 0.6.55
 BuildRequires:  pkgconfig(alsa) >= 1.2.6
@@ -58,7 +54,7 @@ BuildRequires:  meson
 BuildRequires:  mutter-devel
 BuildRequires:  sassc
 BuildRequires:  vala
-BuildRequires:  zenity
+BuildRequires:  zenity >= 3.91.0
 Requires:       budgie-control-center
 Requires:       budgie-desktop-view
 Requires:       budgie-screensaver
@@ -189,6 +185,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/%{name}/*
 
 %changelog
+* Wed Apr 26 2023 Joshua Strobl <me@joshuastrobl.com> - 10.7.2-1
+- Updated to 10.7.2
+
 * Tue Apr 25 2023 Joshua Strobl <me@joshuastrobl.com> - 10.7.1-4
 - Backport relevancy search change that does not trigger Vala generated C to segfault
 

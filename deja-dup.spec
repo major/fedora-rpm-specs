@@ -1,6 +1,6 @@
 Name:           deja-dup
 Version:        44.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple backup tool and frontend for duplicity
 
 License:        GPL-3.0-or-later
@@ -9,7 +9,7 @@ Source0:        https://gitlab.gnome.org/World/deja-dup/-/archive/%{version}/dej
 BuildRequires:  meson
 BuildRequires:  gettext desktop-file-utils intltool
 BuildRequires:  yelp-tools pango-devel cairo-devel
-BuildRequires:  vala-devel >= 0.36 vala
+BuildRequires:  libvala-devel vala
 BuildRequires:  libtool glib2-devel libnotify-devel
 BuildRequires:  libpeas-devel
 BuildRequires:  libsecret-devel
@@ -26,9 +26,8 @@ Requires:       duplicity >= 0.6.23
 Requires:       python3-gobject-base
 Requires:       python3-PyDrive2
 Recommends:     gvfs-fuse
-# Remove in f34+
-Provides:      deja-dup-nautilus = %{version}-%{release}
-Obsoletes:     deja-dup-nautilus < %{version}-%{release}
+Recommends:     restic
+Recommends:     rclone
 
 %description
 Déjà Dup is a simple backup tool. It hides the complexity of doing backups the
@@ -46,7 +45,7 @@ Features:
 %autosetup -p0
 
 %build
-%meson
+%meson -Denable_restic=true
 %meson_build
 
 %install
@@ -76,6 +75,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.metain
 %{_datadir}/help/*
 
 %changelog
+* Wed Apr 26 2023 Gwyn Ciesla <gwync@protonmail.com> - 44.1-2
+- Enable restic support.
+
 * Fri Mar 24 2023 Gwyn Ciesla <gwync@protonmail.com> - 44.1-1
 - 44.1
 

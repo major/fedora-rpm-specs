@@ -5,7 +5,7 @@
 Name:           mingw-python-qt5
 Summary:        MinGW Windows PyQt5
 Version:        5.15.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 BuildArch:      noarch
 
 # GPLv2 exceptions(see GPL_EXCEPTIONS*.txt)
@@ -103,6 +103,9 @@ mingw64-sip-build --build-dir=build_win64 --no-make --qt-shared --confirm-licens
 
 
 %changelog
+* Wed Apr 26 2023 Sandro Mani <manisandro@gmail.com> - 5.15.9-2
+- Rebuild (sip)
+
 * Tue Feb 07 2023 Sandro Mani <manisandro@gmail.com> - 5.15.9-1
 - Update to 5.15.9
 

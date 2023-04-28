@@ -4,7 +4,7 @@ Version:       1.5
 Release:       27%{?dist}
 Source0:       https://pypi.python.org/packages/source/g/%{name}/%{name}-%{version}.tar.gz
 URL:           https://pypi.python.org/pypi/gerrymander
-License:       ASL 2.0
+License:       Apache-2.0
 
 BuildArch:     noarch
 

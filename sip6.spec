@@ -1,7 +1,7 @@
 %global pypi_name sip
 
 Name:           sip6
-Version:        6.7.7
+Version:        6.7.9
 Release:        1%{?dist}
 Summary:        SIP - Python/C++ Bindings Generator
 %py_provides    python3-sip6
@@ -47,6 +47,9 @@ Python bindings for wxWidgets.}
 %{python3_sitearch}/sipbuild/
 
 %changelog
+* Wed Apr 26 2023 Scott Talbert <swt@techie.net> - 6.7.9-1
+- Update to new upstream release 6.7.9 (#2185559)
+
 * Tue Feb 07 2023 Scott Talbert <swt@techie.net> - 6.7.7-1
 - Update to new upstream release 6.7.7 (#2167385)
 

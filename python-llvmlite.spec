@@ -33,21 +33,22 @@ License:        BSD-2-Clause AND LicenseRef-Fedora-Public-Domain
 URL:            http://llvmlite.pydata.org/
 Source0:        %{forgesource}
 
-# Patch out maximum Python version check
+# Backport upstream commit:
+#   Remove maximum Python version limit
 #
-# Fedora must build this package with the current version of Python,
-# whether upstream is ready or not.
-#
-# Feature request / discussion issue for doing this without a patch:
+#   Allow any new version of Python for llvmlite. Closes #912
+#   https://github.com/numba/llvmlite/commit/9ea5668fff6d0e4099d7907aafae40df5b4c8655
+# Fixes:
 #   “Escape hatch” for maximum Python version check
 #   https://github.com/numba/llvmlite/issues/912
 # See also:
 #   python 3.10 support
 #   https://github.com/numba/llvmlite/issues/740
-Patch:          0001-Patch-out-maximum-Python-version-check.patch
+# To be released in 0.40.0 and 0.41.0. Cherry-picked onto tag v0.39.1:
+Patch:          0001-Remove-maximum-Python-version-limit.patch
 
-BuildRequires:  pyproject-rpm-macros
 BuildRequires:  python3-devel
+
 # 0.39.1 only supports llvm11
 BuildRequires:  llvm11-devel
 BuildRequires:  gcc-c++
@@ -119,7 +120,7 @@ export LLVM_CONFIG="%{_libdir}/llvm11/bin/llvm-config"
 %pyproject_wheel
 
 %if %{with doc_pdf}
-%make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
+%make_build -C docs latex SPHINXOPTS='-j%{?_smp_build_ncpus}'
 %make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
 %endif
 
@@ -129,7 +130,7 @@ export LLVM_CONFIG="%{_libdir}/llvm11/bin/llvm-config"
 
 %check
 %if %{with tests}
-LD_LIBRARY_PATH="%{buildroot}%{python3_sitearch}/llvmlite/binding/" PYTHONPATH="$PYTHONPATH:%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib}" %{python3} runtests.py
+PYTHONPATH='%{buildroot}%{python3_sitearch}' %{python3} runtests.py
 %endif
 
 %files -n python3-llvmlite -f %{pyproject_files}

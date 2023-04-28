@@ -14,8 +14,8 @@
 Summary: Network UPS Tools
 Name: nut
 Version: 2.8.0
-Release: 10%{?dist}
-License: GPLv2+ and GPLv3+
+Release: 11%{?dist}
+License: GPL-2.0-or-later AND GPL-3.0-or-later
 Url: https://www.networkupstools.org/
 Source: https://www.networkupstools.org/source/2.8/%{name}-%{version}.tar.gz
 Source4: libs.sh
@@ -267,14 +267,14 @@ fi
 
 %post
 /sbin/ldconfig
-%systemd_post nut-driver.service nut-server.service
+%systemd_post nut-driver.target nut.target
 
 %preun
-%systemd_preun nut-driver.service nut-server.service 
+%systemd_preun nut-driver.target nut.target
 
 %postun 
 /sbin/ldconfig
-%systemd_postun_with_restart nut-driver.service nut-server.service 
+%systemd_postun_with_restart nut-driver.target nut.target
 
 %pre client
 /usr/sbin/useradd -c "Network UPS Tools" -u %{nut_uid} \
@@ -481,6 +481,9 @@ fi
 %{_libdir}/pkgconfig/libnutscan.pc
 
 %changelog
+* Wed Apr 26 2023 Michal Hlavinka <mhlavink@redhat.com> - 2.8.0-11
+- update license tag format (SPDX migration) for https://fedoraproject.org/wiki/Changes/SPDX_Licenses_Phase_1
+
 * Tue Feb 14 2023 Michal Hlavinka <mhlavink@redhat.com> - 2.8.0-10
 - add nut-xml to nut recommends (#2151810)
 

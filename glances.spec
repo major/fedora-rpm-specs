@@ -76,6 +76,7 @@ install -D -p -m 644 conf/glances.conf $RPM_BUILD_ROOT/etc/glances/glances.conf
 
 %files -n glances -f %{pyproject_files}
 %doc AUTHORS COPYING README.rst
+%dir %{_sysconfdir}/glances
 %config(noreplace) %{_sysconfdir}/glances/glances.conf
 %exclude %{_datadir}/doc/glances
 %{_bindir}/glances

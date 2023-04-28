@@ -3,8 +3,8 @@
 %global py3_deps python3-PyQt5 python3-numpy python3-pyopengl
 
 Name:           python-%{srcname}
-Version:        0.13.1
-Release:        2%{?dist}
+Version:        0.13.3
+Release:        1%{?dist}
 Summary:        Scientific Graphics and GUI Library for Python
 License:        MIT
 URL:            https://www.pyqtgraph.org/
@@ -15,7 +15,8 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 # For Docs
-BuildRequires:  make %{py3_dist sphinx sphinx_rtd_theme}
+BuildRequires:  make %{py3_dist pydata-sphinx-theme sphinx sphinx_design}
+BuildRequires:  %{py3_dist sphinx_rtd_theme sphinxext-rediraffe}
 # For Tests
 BuildRequires:  %{py3_dist h5py pytest pytest-xvfb scipy six}
 BuildRequires:  mesa-dri-drivers %{py3_deps}
@@ -70,6 +71,9 @@ rm -f doc/build/html/objects.inv
 %doc pyqtgraph/examples doc/build/html
 
 %changelog
+* Wed Apr 26 2023 Scott Talbert <swt@techie.net> - 0.13.3-1
+- Update to new upstream release 0.13.3 (#2175373)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

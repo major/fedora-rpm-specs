@@ -3,8 +3,8 @@ Python bindings for the AWS Common Runtime}
 
 
 Name:           python-awscrt
-Version:        0.16.13
-Release:        2%{?dist}
+Version:        0.16.16
+Release:        1%{?dist}
 
 Summary:        Python bindings for the AWS Common Runtime
 # All files are licensed under Apache-2.0, except:
@@ -15,9 +15,6 @@ License:        Apache-2.0 AND MIT AND BSD-3-Clause
 URL:            https://github.com/awslabs/aws-crt-python
 
 Source0:        %{pypi_source awscrt}
-
-# https://github.com/awslabs/aws-crt-python/pull/456
-Patch0:         use-system-libcrypto.patch
 
 # one test requires internet connection, skip it
 Patch1:         skip-test-requiring-network.patch
@@ -32,7 +29,7 @@ BuildRequires:  openssl-devel
 BuildRequires:  python%{python3_pkgversion}-websockets
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=2180988
-ExcludeArch: s390x
+ExcludeArch:    s390x
 
 
 %description
@@ -79,6 +76,9 @@ PYTHONPATH="%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib}" %{py
 
 
 %changelog
+* Wed Apr 26 2023 Nikola Forró <nforro@redhat.com> - 0.16.16-1
+- New upstream release 0.16.16
+
 * Wed Mar 22 2023 Nikola Forró <nforro@redhat.com> - 0.16.13-2
 - Workaround a crash on %%ix86
 

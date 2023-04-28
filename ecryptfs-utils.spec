@@ -16,9 +16,9 @@ the interface supplied by the %{name} library.
 
 Name: ecryptfs-utils
 Version: 111
-Release: 31%{?dist}
+Release: 32%{?dist}
 Summary: The eCryptfs mount helper and support libraries
-License: GPLv2+
+License: GPL-2.0-or-later
 URL: https://launchpad.net/ecryptfs
 
 Source0: http://launchpad.net/ecryptfs/trunk/%{version}/+download/%{name}_%{version}.orig.tar.gz
@@ -328,6 +328,9 @@ fi
 
 
 %changelog
+* Wed Apr 26 2023 Michal Hlavinka <mhlavink@redhat.com> - 111-32
+- update license tag format (SPDX migration) for https://fedoraproject.org/wiki/Changes/SPDX_Licenses_Phase_1
+
 * Wed Apr 12 2023 Michal Hlavinka <mhlavink@redhat.com> - 111-31
 - split automount configuration scriptlets to separate subpackage ecryptfs-utils-loginmount
 

@@ -6,9 +6,9 @@ Name: dovecot
 Epoch: 1
 Version: 2.3.20
 %global prever %{nil}
-Release: 3%{?dist}
+Release: 4%{?dist}
 #dovecot itself is MIT, a few sources are PD, pigeonhole is LGPLv2
-License: MIT and LGPLv2
+License: MIT AND LGPL-2.1-only
 
 URL: https://www.dovecot.org/
 Source: https://www.dovecot.org/releases/2.3/%{name}-%{version}%{?prever}.tar.gz
@@ -112,7 +112,7 @@ The SQL drivers and authentication plug-ins are in their subpackages.
 %package pigeonhole
 Requires: %{name} = %{epoch}:%{version}-%{release}
 Summary: Sieve and managesieve plug-in for dovecot
-License: MIT and LGPLv2
+License: MIT AND LGPL-2.1-only
 
 %description pigeonhole
 This package provides sieve and managesieve plug-in for dovecot LDA.
@@ -490,6 +490,9 @@ make check
 %{_libdir}/%{name}/dict/libdriver_pgsql.so
 
 %changelog
+* Wed Apr 26 2023 Michal Hlavinka <mhlavink@redhat.com> - 1:2.3.20-4
+- update license tag format (SPDX migration) for https://fedoraproject.org/wiki/Changes/SPDX_Licenses_Phase_1
+
 * Tue Feb 14 2023 Michal Hlavinka <mhlavink@redhat.com> - 1:2.3.20-3
 - drop SHA1 OTP
 

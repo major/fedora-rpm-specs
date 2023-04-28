@@ -1,5 +1,5 @@
 Name:		perl-Image-ExifTool
-Version:	12.50
+Version:	12.60
 Release:	1%{?dist}
 License:	GPL+ or Artistic
 Summary:	Utility for reading and writing image meta info
@@ -80,6 +80,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Wed Apr 26 2023 Tom Callaway <spot@fedoraproject.org> - 12.60-1
+- update to latest stable (12.60)
+
 * Fri Mar  3 2023 Tom Callaway <spot@fedoraproject.org> - 12.50-1
 - update to latest stable (12.50)
 

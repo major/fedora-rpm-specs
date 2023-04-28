@@ -2,7 +2,7 @@ Name: libiscsi
 Summary: iSCSI client library
 Version: 1.19.0
 Release: 7%{?dist}
-License: LGPLv2+
+License: LGPL-2.1-or-later
 URL: https://github.com/sahlberg/%{name}
 
 #Source: https://github.com/sahlberg/libiscsi/archive/{version}.tar.gz
@@ -62,7 +62,7 @@ rm $RPM_BUILD_ROOT/%{libiscsi_libdir}/libiscsi.la
 
 %package utils
 Summary: iSCSI Client Utilities
-License: GPLv2+
+License: GPL-2.0-or-later
 Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %description utils

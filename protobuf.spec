@@ -19,7 +19,7 @@ Name:           protobuf
 # “patch” updates of protobuf.
 Version:        3.19.6
 %global so_version 30
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 # The entire source is BSD-3-Clause, except the following files, which belong
 # to the build system; are unpackaged maintainer utility scripts; or are used
@@ -47,7 +47,7 @@ Release:        2%{?dist}
 #   conformance/third_party/jsoncpp/jsoncpp.cpp
 License:        BSD-3-Clause
 URL:            https://github.com/protocolbuffers/protobuf
-Source0:        %{url}/archive/v%{version}%{?rcver}/%{name}-%{version}%{?rcver}-all.tar.gz
+Source0:        %{url}/archive/v%{version}%{?rcver}/protobuf-%{version}%{?rcver}-all.tar.gz
 
 Source1:        ftdetect-proto.vim
 Source2:        protobuf-init.el
@@ -98,7 +98,6 @@ BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  libtool
 
-BuildRequires:  pkgconfig
 BuildRequires:  make
 BuildRequires:  gcc-c++
 
@@ -106,11 +105,11 @@ BuildRequires:  emacs
 BuildRequires:  zlib-devel
 
 %ifnarch %{java_arches}
-Obsoletes:      %{name}-java-util < 3.19.4-4
-Obsoletes:      %{name}-javadoc < 3.19.4-4
-Obsoletes:      %{name}-parent < 3.19.4-4
-Obsoletes:      %{name}-bom < 3.19.4-4
-Obsoletes:      %{name}-javalite < 3.19.4-4
+Obsoletes:      protobuf-java-util < 3.19.4-4
+Obsoletes:      protobuf-javadoc < 3.19.4-4
+Obsoletes:      protobuf-parent < 3.19.4-4
+Obsoletes:      protobuf-bom < 3.19.4-4
+Obsoletes:      protobuf-javalite < 3.19.4-4
 %endif
 
 %description
@@ -128,7 +127,7 @@ breaking deployed programs that are compiled against the "old" format.
 
 %package compiler
 Summary:        Protocol Buffers compiler
-Requires:       %{name} = %{version}-%{release}
+Requires:       protobuf = %{version}-%{release}
 
 %description compiler
 This package contains Protocol Buffers compiler for all programming
@@ -136,18 +135,17 @@ languages
 
 %package devel
 Summary:        Protocol Buffers C++ headers and libraries
-Requires:       %{name} = %{version}-%{release}
-Requires:       %{name}-compiler = %{version}-%{release}
+Requires:       protobuf = %{version}-%{release}
+Requires:       protobuf-compiler = %{version}-%{release}
 Requires:       zlib-devel
-Requires:       pkgconfig
 
 %description devel
 This package contains Protocol Buffers compiler for all languages and
 C++ headers and libraries
 
 %package static
-Summary:        Static development files for %{name}
-Requires:       %{name}-devel = %{version}-%{release}
+Summary:        Static development files for protobuf
+Requires:       protobuf-devel = %{version}-%{release}
 
 %description static
 Static libraries for Protocol Buffers
@@ -164,8 +162,8 @@ lacks descriptors, reflection, and some other features.
 
 %package lite-devel
 Summary:        Protocol Buffers LITE_RUNTIME development libraries
-Requires:       %{name}-devel = %{version}-%{release}
-Requires:       %{name}-lite = %{version}-%{release}
+Requires:       protobuf-devel = %{version}-%{release}
+Requires:       protobuf-lite = %{version}-%{release}
 
 %description lite-devel
 This package contains development libraries built with
@@ -176,8 +174,8 @@ which only depends libprotobuf-lite, which is much smaller than libprotobuf but
 lacks descriptors, reflection, and some other features.
 
 %package lite-static
-Summary:        Static development files for %{name}-lite
-Requires:       %{name}-devel = %{version}-%{release}
+Summary:        Static development files for protobuf-lite
+Requires:       protobuf-devel = %{version}-%{release}
 
 %description lite-static
 This package contains static development libraries built with
@@ -188,21 +186,21 @@ which only depends libprotobuf-lite, which is much smaller than libprotobuf but
 lacks descriptors, reflection, and some other features.
 
 %if %{with python}
-%package -n python3-%{name}
+%package -n python3-protobuf
 Summary:        Python bindings for Google Protocol Buffers
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(wheel)
 %if %{with python_cpp}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       protobuf%{?_isa} = %{version}-%{release}
 %else
 BuildArch:      noarch
 %endif
-Conflicts:      %{name}-compiler > %{version}
-Conflicts:      %{name}-compiler < %{version}
-Provides:       %{name}-python3 = %{version}-%{release}
+Conflicts:      protobuf-compiler > %{version}
+Conflicts:      protobuf-compiler < %{version}
+Provides:       protobuf-python3 = %{version}-%{release}
 
-%description -n python3-%{name}
+%description -n python3-protobuf
 This package contains Python libraries for Google Protocol Buffers
 %endif
 
@@ -234,9 +232,9 @@ BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
 BuildRequires:  mvn(org.easymock:easymock)
-Conflicts:      %{name}-compiler > %{version}
-Conflicts:      %{name}-compiler < %{version}
-Obsoletes:      %{name}-javanano < 3.6.0
+Conflicts:      protobuf-compiler > %{version}
+Conflicts:      protobuf-compiler < %{version}
+Obsoletes:      protobuf-javanano < 3.6.0
 
 %description java
 This package contains Java Protocol Buffers runtime library.
@@ -257,11 +255,11 @@ Utilities to work with protos. It contains JSON support
 as well as utilities to work with proto3 well-known types.
 
 %package javadoc
-Summary:        Javadoc for %{name}-java
+Summary:        Javadoc for protobuf-java
 BuildArch:      noarch
 
 %description javadoc
-This package contains the API documentation for %{name}-java.
+This package contains the API documentation for protobuf-java.
 
 %package parent
 Summary:        Protocol Buffer Parent POM
@@ -290,8 +288,8 @@ This package contains syntax highlighting for Google Protocol Buffers
 descriptions in the Emacs editor.
 
 %prep
-%setup -q -n %{name}-%{version}%{?rcver} -a 3
-%ifarch %{ix86} armv7hl
+%setup -q -n protobuf-%{version}%{?rcver} -a 3
+%ifarch %{ix86}
 # IoTest.LargeOutput fails on 32bit arches
 # https://github.com/protocolbuffers/protobuf/issues/8082
 %patch1 -p1
@@ -302,7 +300,7 @@ descriptions in the Emacs editor.
 %patch4 -p1 -b .python311
 
 # Copy in the needed gtest/gmock implementations.
-%setup -q -T -D -b 3 -n %{name}-%{version}%{?rcver}
+%setup -q -T -D -b 3 -n protobuf-%{version}%{?rcver}
 rm -rvf 'third_party/googletest'
 mv '../%{gtest_dir}' 'third_party/googletest'
 
@@ -326,16 +324,7 @@ find -name '*.java' | xargs sed -ri \
 %pom_xpath_inject "pom:configuration/pom:instructions" "<Import-Package>sun.misc;resolution:=optional,*</Import-Package>" java/core
 
 # Backward compatibility symlink
-%mvn_file :protobuf-java:jar: %{name}/%{name}-java %{name}
-
-# This test is incredibly slow on arm
-# https://github.com/google/protobuf/issues/2389
-%ifarch %{arm} s390x
-mv java/core/src/test/java/com/google/protobuf/IsValidUtf8Test.java \
-   java/core/src/test/java/com/google/protobuf/IsValidUtf8Test.java.slow
-mv java/core/src/test/java/com/google/protobuf/DecodeUtf8Test.java \
-   java/core/src/test/java/com/google/protobuf/DecodeUtf8Test.java.slow
-%endif
+%mvn_file :protobuf-java:jar: protobuf/protobuf-java protobuf
 %endif
 
 rm -f src/solaris/libstdc++.la
@@ -361,7 +350,7 @@ popd
 %endif
 
 %if %{with java}
-%ifarch %ix86 s390x %{arm}
+%ifarch %{ix86} s390x
 export MAVEN_OPTS=-Xmx1024m
 %endif
 %pom_disable_module kotlin java/pom.xml
@@ -373,13 +362,7 @@ export MAVEN_OPTS=-Xmx1024m
 
 
 %check
-# Java tests fail on s390x
-%ifarch s390x
-fail=0
-%else
-fail=1
-%endif
-%make_build check CXXFLAGS="%{build_cxxflags} -Wno-error=type-limits" || exit $fail
+%make_build check CXXFLAGS="%{build_cxxflags} -Wno-error=type-limits"
 
 
 %install
@@ -404,9 +387,9 @@ install -p -m 644 -D editors/proto.vim %{buildroot}%{_datadir}/vim/vimfiles/synt
 %mvn_install
 %endif
 
-mkdir -p %{buildroot}%{_emacs_sitelispdir}/%{name}
-install -p -m 0644 editors/protobuf-mode.el %{buildroot}%{_emacs_sitelispdir}/%{name}
-install -p -m 0644 editors/protobuf-mode.elc %{buildroot}%{_emacs_sitelispdir}/%{name}
+mkdir -p %{buildroot}%{_emacs_sitelispdir}/protobuf
+install -p -m 0644 editors/protobuf-mode.el %{buildroot}%{_emacs_sitelispdir}/protobuf
+install -p -m 0644 editors/protobuf-mode.elc %{buildroot}%{_emacs_sitelispdir}/protobuf
 mkdir -p %{buildroot}%{_emacs_sitestartdir}
 install -p -m 0644 %{SOURCE2} %{buildroot}%{_emacs_sitestartdir}
 
@@ -432,7 +415,7 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_emacs_sitestartdir}
 
 %files emacs
 %license LICENSE
-%{_emacs_sitelispdir}/%{name}/
+%{_emacs_sitelispdir}/protobuf/
 %{_emacs_sitestartdir}/protobuf-init.el
 
 %files static
@@ -497,6 +480,13 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_emacs_sitestartdir}
 
 
 %changelog
+* Tue Apr 25 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 3.19.6-3
+- Remove unnecessary explicit pkgconfig dependencies
+- Remove an obsolete workaround for failing Java tests
+- Remove conditionals for retired 32-bit ARM architecture
+- Remove a slow-test workaround on s390x
+- Reduce macro indirection in the spec file
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.19.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

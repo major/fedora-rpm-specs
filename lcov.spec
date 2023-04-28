@@ -3,7 +3,7 @@ Version: 1.14
 Release: 9%{?dist}
 
 Summary: LTP GCOV extension code coverage tool
-License: GPLv2+
+License: GPL-2.0-or-later
 
 URL: https://github.com/linux-test-project/lcov/
 Source0: https://github.com/linux-test-project/lcov/releases/download/v%{version}/lcov-%{version}.tar.gz

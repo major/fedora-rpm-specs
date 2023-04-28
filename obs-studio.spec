@@ -23,8 +23,8 @@
 #global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           obs-studio
-Version:        29.1.0~beta4
-Release:        3%{?dist}
+Version:        29.1.0~rc1
+Release:        1%{?dist}
 Summary:        Open Broadcaster Software Studio
 
 # OBS itself is GPL-2.0-or-later, while various plugin dependencies are of various other licenses
@@ -45,8 +45,6 @@ Source1:        https://github.com/obsproject/obs-websocket/archive/%{obswebsock
 Patch0101:      0001-UI-Consistently-reference-the-software-H264-encoder-.patch
 Patch0102:      0002-obs-ffmpeg-Add-initial-support-for-the-OpenH264-H.26.patch
 Patch0103:      0003-UI-Add-support-for-OpenH264-as-the-worst-case-fallba.patch
-## From: https://github.com/obsproject/obs-studio/pull/8763
-Patch0104:      obs-studio-PR8763.patch
 
 
 # Downstream Fedora patches
@@ -224,6 +222,7 @@ cp plugins/obs-qsv11/QSV11-License-Clarification-Email.txt .fedora-rpm/licenses/
 cp deps/uthash/uthash/LICENSE .fedora-rpm/licenses/deps/uthash-LICENSE
 cp deps/blake2/LICENSE.blake2 .fedora-rpm/licenses/deps/
 cp deps/libff/LICENSE.libff .fedora-rpm/licenses/deps/
+cp deps/media-playback/LICENSE.media-playback .fedora-rpm/licenses/deps/
 cp libobs/graphics/libnsgif/LICENSE.libnsgif .fedora-rpm/licenses/deps/
 cp libobs/util/simde/LICENSE.simde .fedora-rpm/licenses/deps/
 cp plugins/decklink/LICENSE.decklink-sdk .fedora-rpm/licenses/deps
@@ -297,6 +296,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Wed Apr 26 2023 Neal Gompa <ngompa@fedoraproject.org> - 29.1.0~rc1-1
+- Update to 29.1.0~rc1
+
 * Mon Apr 24 2023 Neal Gompa <ngompa@fedoraproject.org> - 29.1.0~beta4-3
 - Switch ffmpeg-free dependency to /usr/bin/ffmpeg
 

@@ -1,7 +1,7 @@
 Summary: Python wrapper module around the OpenSSL library
 Name: pyOpenSSL
 Version: 23.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source0: https://files.pythonhosted.org/packages/source/p/pyOpenSSL/pyOpenSSL-%{version}.tar.gz
 
 BuildArch: noarch
@@ -70,6 +70,9 @@ rm doc/_build/html/.buildinfo
 %doc CHANGELOG.rst doc/_build/html
 
 %changelog
+* Tue Apr 25 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 23.0.0-2
+- Rebuilt
+
 * Fri Jan 20 2023 Paul Wouters <paul.wouters@aiven.io - 23.0.0-1
 - Resolves rhbz#2048162 pyOpenSSL-23.0.0 is available
 

@@ -6,7 +6,7 @@
 %bcond_without selinux
 
 Name:           frr
-Version:        8.5
+Version:        8.5.1
 Release:        1%{?dist}
 Summary:        Routing daemon
 License:        GPL-2.0-or-later AND ISC AND LGPL-2.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND (GPL-2.0-or-later  OR ISC) AND MIT
@@ -269,6 +269,9 @@ rm tests/lib/*grpc*
 %endif
 
 %changelog
+* Wed Apr 26 2023 Michal Ruprich <mruprich@redhat.com> - 8.5.1-1
+- New version 8.5.1
+
 * Wed Apr 12 2023 Michal Ruprich <mruprich@redhat.com> - 8.5-1
 - New version 8.5
 

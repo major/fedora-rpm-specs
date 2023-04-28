@@ -14,7 +14,7 @@
 
 Name:           gstreamer1-plugins-bad-free
 Version:        1.22.2
-Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
+Release:        2%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 License:        LGPLv2+ and LGPLv2
@@ -106,6 +106,7 @@ BuildRequires:  libxml2-devel
 BuildRequires:  game-music-emu-devel
 BuildRequires:  libkate-devel
 BuildRequires:  libmodplug-devel
+BuildRequires:  libmpcdec-devel
 ## Plugins not ported
 #BuildRequires:  libmusicbrainz-devel
 #BuildRequires:  libtimidity-devel
@@ -129,12 +130,15 @@ BuildRequires:  pkgconfig(ldacBT-enc)
 %endif
 BuildRequires:  qrencode-devel
 BuildRequires:  json-glib-devel
+BuildRequires:  vo-amrwbenc-devel
 %endif
 
 %if 0%{?fedora} >= 31 || 0%{?rhel} >= 9
 # libgstfdkaac.so used to be shipped in -nonfree
 Obsoletes: gstreamer1-plugins-bad-nonfree < 1.16.1-2
 %endif
+# voamrwbenc used to be shipped in -freeworld
+Obsoletes: gstreamer1-plugins-bad-freeworld < 1.22.2-2
 
 # Drop after f36
 Provides: gst-transcoder = 1.16.0-4
@@ -259,12 +263,14 @@ aren't tested well enough, or the code is not of good enough quality.
     -D neon=disabled -D rtmp=disabled \
     -D flite=disabled -D sbc=disabled -D opencv=disabled \
     %{!?with_extras:-D spandsp=disabled -D va=disabled } \
-    -D voamrwbenc=disabled -D x265=disabled \
+    %{!?with_extras:-D voamrwbenc=disabled } \
+    -D x265=disabled \
     -D dvbsuboverlay=disabled -D dvdspu=disabled -D siren=disabled \
     -D opensles=disabled -D tinyalsa=disabled \
     -D wasapi=disabled -D wasapi2=disabled -D avtp=disabled \
     -D dc1394=disabled -D directfb=disabled -D iqa=disabled \
-    -D libde265=disabled -D musepack=disabled -D openni2=disabled \
+    -D libde265=disabled -D openni2=disabled \
+    %{!?with_extras:-D musepack=disabled } \
     -D svthevcenc=disabled -D voaacenc=disabled \
     -D zxing=disabled -D wpe=disabled -D x11=disabled \
 %ifarch s390x
@@ -530,6 +536,9 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 
 %if %{with extras}
 %files extras
+# presets
+%{_datadir}/gstreamer-%{majorminor}/presets/GstVoAmrwbEnc.prs
+
 # Plugins with external dependencies
 %{_libdir}/gstreamer-%{majorminor}/libgstaom.so
 %{_libdir}/gstreamer-%{majorminor}/libgstassrender.so
@@ -545,6 +554,7 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %endif
 %{_libdir}/gstreamer-%{majorminor}/libgstmicrodns.so
 %{_libdir}/gstreamer-%{majorminor}/libgstmodplug.so
+%{_libdir}/gstreamer-%{majorminor}/libgstmusepack.so
 %{_libdir}/gstreamer-%{majorminor}/libgstopenal.so
 #{_libdir}/gstreamer-%{majorminor}/libgstopencv.so
 %{_libdir}/gstreamer-%{majorminor}/libgstopenexr.so
@@ -555,6 +565,7 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_libdir}/gstreamer-%{majorminor}/libgstsrt.so
 %{_libdir}/gstreamer-%{majorminor}/libgstteletext.so
 %{_libdir}/gstreamer-%{majorminor}/libgstva.so
+%{_libdir}/gstreamer-%{majorminor}/libgstvoamrwbenc.so
 
 %files zbar
 # Plugins with external dependencies
@@ -665,6 +676,9 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 
 
 %changelog
+* Mon Apr 24 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.22.2-2
+- Enable musepack and voamrwbenc in extras
+
 * Thu Apr 13 2023 Wim Taymans <wtaymans@redhat.com> - 1.22.2-1
 - Update to 1.22.2
 

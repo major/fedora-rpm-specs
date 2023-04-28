@@ -7,7 +7,7 @@ Version:        1.16.2
 Release:        1%{?dist}
 Summary:        Open-source legacy BIOS implementation
 
-License:        LGPLv3
+License:        LGPL-3.0-only
 URL:            http://www.coreboot.org/SeaBIOS
 
 Source0:        http://code.coreboot.org/p/seabios/downloads/get/%{name}-%{version}.tar.gz

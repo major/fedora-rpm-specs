@@ -30,7 +30,7 @@
 
 Name:           julia
 Version:        1.9.0
-Release:        1.rc2%{?dist}
+Release:        2.rc2%{?dist}
 Summary:        High-level, high-performance dynamic language for technical computing
 # Julia itself is MIT
 # libuv, libwhich, libblastrampoline and libunwind are MIT
@@ -100,7 +100,7 @@ Requires:       p7zip-plugins
 %if 0%{?__isa_bits} == 64
 Requires:       libgfortran.so.5()(64bit)
 Requires:       libgomp.so.1()(64bit)
-Requires:       libopenblasp64_.so.0()(64-bit)
+Requires:       libopenblasp64_.so.0()(64bit)
 Requires:       suitesparse64_
 %else
 Requires:       libgfortran.so.5
@@ -481,6 +481,9 @@ desktop-file-validate %{buildroot}%{_datarootdir}/applications/%{name}.desktop
 exit 0
 
 %changelog
+* Wed Apr 26 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.9.0-2.rc2
+- Re-fix dependency on OpenBLAS
+
 * Thu Apr 20 2023 Milan Bouchet-Valat <nalimilan@club.fr> - 1.9.0-1.rc2
 - Fix missing dependency on SuiteSparse.
 - Re-fix dependency on OpenBLAS.

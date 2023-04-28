@@ -2,7 +2,7 @@ Name:           perl-MLDBM
 Version:        2.05
 Release:        29%{?dist}
 Summary:        Store multi-level hash structure in single level tied hash
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MLDBM
 Source0:        https://cpan.metacpan.org/authors/id/C/CH/CHORNY/MLDBM-%{version}.tar.gz
 BuildArch:      noarch
@@ -28,6 +28,7 @@ BuildRequires:  perl(Test::More)
 # Optional Tests
 BuildRequires:  perl(DB_File)
 # Dependencies
+# (none)
 
 %description
 This module can serve as a transparent interface to any TIEHASH package that is

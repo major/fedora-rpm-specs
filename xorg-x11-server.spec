@@ -46,7 +46,7 @@
 Summary:   X.Org X11 X server
 Name:      xorg-x11-server
 Version:   1.20.14
-Release:   22%{?gitdate:.%{gitdate}}%{?dist}
+Release:   23%{?gitdate:.%{gitdate}}%{?dist}
 URL:       http://www.x.org
 License:   MIT
 
@@ -137,8 +137,10 @@ Patch122: 0008-Xext-fix-invalid-event-type-mask-in-XTestSwapFakeInp.patch
 Patch123: 0001-Xi-fix-potential-use-after-free-in-DeepCopyPointerCl.patch
 # CVE-2023-1393
 Patch124: 0001-composite-Fix-use-after-free-of-the-COW.patch
-
+# https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/1114
 Patch125: xorg-x11-server-fb-access-wrapper.patch
+# https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/1057
+Patch126: 0001-present-Send-a-PresentConfigureNotify-event-for-dest.patch
 
 # Only on F38 and later (patch number starts at 3801, see autopatch below)
 # Upstream commits 73d6e88, f69280dd and 4127776, minus the xwayland.pc.in change
@@ -558,6 +560,9 @@ find %{inst_srcdir}/hw/xfree86 -name \*.c -delete
 
 
 %changelog
+* Tue Apr 25 2023 Olivier Fourdan <ofourdan@redhat.com> - 1.20.14-23
+- Backport fix for a deadlock with DRI3 (#2189434)
+
 * Thu Apr 13 2023 Florian Weimer <fweimer@redhat.com> - 1.20.14-22
 - Make more functions available in fb.h with !FB_ACCESS_WRAPPER
 

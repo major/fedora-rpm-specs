@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-pear-Net-SMTP
 #
-# Copyright (c) 2006-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2006-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -11,10 +11,10 @@
 
 Name:           php-pear-Mail
 Version:        1.5.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Class that provides multiple interfaces for sending emails
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            http://pear.php.net/package/Mail
 Source0:        http://pear.php.net/get/%{pear_name}-%{version}.tgz
 
@@ -81,6 +81,9 @@ fi
 
 
 %changelog
+* Wed Apr 26 2023 Remi Collet <remi@remirepo.net> - 1.5.0-3
+- use SPDX license ID
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

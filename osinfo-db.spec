@@ -9,7 +9,7 @@ Summary: osinfo database files
 Name: osinfo-db
 Version: 20230308
 Release: 1%{?dist}
-License: LGPLv2+
+License: GPL-2.0-or-later
 Source0: https://fedorahosted.org/releases/l/i/libosinfo/%{name}-%{version}.tar.xz
 Source1: https://fedorahosted.org/releases/l/i/libosinfo/%{name}-%{version}.tar.xz.asc
 URL: http://libosinfo.org/

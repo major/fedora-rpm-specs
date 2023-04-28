@@ -3,7 +3,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           tracker
-Version:        3.5.0
+Version:        3.5.1
 Release:        1%{?dist}
 Summary:        Desktop-neutral metadata database and search tool
 
@@ -167,6 +167,9 @@ The %{name}-devel package contains the documentation for %{name}.
 
 
 %changelog
+* Wed Apr 26 2023 David King <amigadave@amigadave.com> - 3.5.1-1
+- Update to 3.5.1 (#2189611)
+
 * Mon Mar 20 2023 David King <amigadave@amigadave.com> - 3.5.0-1
 - Update to 3.5.0 (#2179710)
 

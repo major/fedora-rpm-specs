@@ -1,6 +1,6 @@
 Name:               python-slackclient
 Version:            3.21.2
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Slack Developer Kit for Python
 
 # SPDX
@@ -8,6 +8,8 @@ License:            MIT
 URL:                https://github.com/slackapi/python-slack-sdk
 Source0:            %{url}/archive/v%{version}/python-slack-sdk-%{version}.tar.gz
 BuildArch:          noarch
+
+Patch0:             unpin.patch
 
 BuildRequires:      python3-devel
 
@@ -26,7 +28,7 @@ Summary:            %{summary}
 %pyproject_extras_subpkg -n python3-slackclient optional
 
 %prep
-%autosetup -n python-slack-sdk-%{version}
+%autosetup -n python-slack-sdk-%{version} -p0
 # Remove prebuilt HTML documentation with bundled and precompiled JavaScript
 rm -rf docs docs-v*
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
@@ -70,6 +72,9 @@ k="${k-}${k+ and }not test_start_raises_an_error_if_rtm_ws_url_is_not_returned"
 %doc README.md
 
 %changelog
+* Wed Apr 26 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.21.2-2
+- Unpin websockets ceiling
+
 * Wed Apr 19 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.21.2-1
 - 3.21.2
 

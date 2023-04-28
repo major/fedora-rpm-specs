@@ -15,7 +15,7 @@ Version:        0.101.32
 Release:        7%{?dist}
 Summary:        Windows Installer tools
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://ftp.gnome.org/pub/GNOME/sources/%{name}
 Source0:        http://ftp.gnome.org/pub/GNOME/sources/%{name}/%{version}/%{name}-%{version}%{?_version_suffix}.tar.xz
 Patch0:         0001-Update-data-wixl.patch

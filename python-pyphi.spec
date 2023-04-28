@@ -1,74 +1,108 @@
 %bcond_without tests
 
-%global _description %{expand:
-PyPhi is a Python library for computing integrated information, and the
-associated quantities and objects.
-
-If you use this code, please cite the manuscript:
-
-Mayner WGP, Marshall W, Albantakis L, Findlay G, Marchman R, Tononi G (2017).
-PyPhi: A toolbox for integrated information. arXiv:1712.09644 [q-bio.NC].
-
-The manuscript is available at https://arxiv.org/abs/1712.09644.}
-
-%global forgeurl  https://github.com/wmayner/pyphi/
+# Sphinx-generated HTML documentation is not suitable for packaging; see
+# https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
+#
+# We can generate PDF documentation as a substitute.
+%bcond_without doc_pdf
 
 Name:           python-pyphi
 Version:        1.2.1
 Release:        %autorelease
-Summary:        A library for computing integrated information
+Summary:        A toolbox for integrated information theory
 
-%global tag  %{version}
-%forgemeta
+# The entire source is GPL-3.0-or-later, except:
+#
+#   - docs/_themes/ contains “krTheme Sphinx Style,” which is BSD-3-Clause; but
+#     we remove it in %%prep and do not use it.
+License:        GPL-3.0-or-later
+URL:            https://github.com/wmayner/pyphi/
+Source0:        %{url}/%{version}/pyphi-%{version}.tar.gz
 
-License:        GPLv3
-URL:            %forgeurl
-Source0:        %forgesource
 # https://github.com/wmayner/pyphi/pull/50
-Patch0:         0001-fix-py3.10-correct-collections-import.patch
-BuildRequires:  git-core
-BuildArch:      noarch
+Patch:          0001-fix-py3.10-correct-collections-import.patch
+# Remove sphinx-contrib-napoleon
+# https://github.com/wmayner/pyphi/pull/22
+Patch:          %{url}/pull/22.patch
 
 # Tests fails on s390x: https://github.com/wmayner/pyphi/issues/41
+# https://bugzilla.redhat.com/show_bug.cgi?id=2010104
 ExcludeArch:    s390x
+
+# The base package is arched so we can easily detect arch-dependent build
+# issues, but there is no compiled code.
+%global debug_package %{nil}
+
+BuildRequires:  python3-devel
+
+%if %{with doc_pdf}
+# Documentation
+BuildRequires:  make
+BuildRequires:  %{py3_dist sphinx}
+BuildRequires:  python3-sphinx-latex
+BuildRequires:  latexmk
+BuildRequires:  tex-xetex-bin
+BuildRequires:  /usr/bin/xindy
+# HTML theme module is imported even when building LaTeX:
+BuildRequires:  %{py3_dist sphinx_rtd_theme}
+%endif
+
+%global _description %{expand:
+PyPhi is a Python library for computing integrated information (𝚽), and the
+associated quantities and objects.
+
+If you use this code, please cite the paper:
+
+  Mayner WGP, Marshall W, Albantakis L, Findlay G, Marchman R, Tononi G. (2018)
+  PyPhi: A toolbox for integrated information theory. PLOS Computational
+  Biology 14(7): e1006343. https://doi.org/10.1371/journal.pcbi.1006343}
 
 %description %_description
 
 %package -n python3-pyphi
 Summary:        %{summary}
-BuildRequires:  make
-BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist pytest-lazy-fixture}
-BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  %{py3_dist sphinx_rtd_theme}
+
+BuildArch:      noarch
 
 %description -n python3-pyphi %_description
 
 %package doc
 Summary:        %{summary}
 
+BuildArch:      noarch
+
 %description doc
 Documentation for %{name}
 
-
 %prep
-%autosetup -n pyphi-%{version} -S git
+%autosetup -n pyphi-%{version} -p1
 
-# sphinx 1.3+, it's an extension
-# Also sent upstream: https://github.com/wmayner/pyphi/pull/22
-sed -i "s/sphinxcontrib.napoleon/sphinx.ext.napoleon/" docs/conf.py
+# Strip unnecessary shebangs from non-script files
+find . -type f -name '*.py' -execdir sed -r -i '1{/^#!/d}' '{}' '+'
 
-find pyphi -name "*.py" -exec sed -i '/#!\/usr\/bin\/env python3/ d' '{}' \;
+# Remove a bundled copy of gprof2dot (packaged in Fedora, upstream at
+# https://github.com/jrfonseca/gprof2dot); we do not need to do profiling and
+# will not ship it in the binary RPMs.
+rm -v profiling/gprof2dot
+# Remove a bundled copy of “krTheme Sphinx Style”
+rm -rvf docs/_themes/*
+
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+sed -r '/^(coverage|asv|virtualenv)\b/d' test_requirements.txt |
+  tee test_requirements.filtered.txt
+
+# Since pdflatex cannot handle Unicode inputs in general:
+echo "latex_engine = 'xelatex'" >> docs/conf.py
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires %{?with_tests:test_requirements.filtered.txt}
 
 %build
 %pyproject_wheel
-
-make -C docs SPHINXBUILD=sphinx-build-3 html
-rm docs/_build/html/{.doctrees,.buildinfo} -vf
+%if %{with doc_pdf}
+%make_build -C docs latex SPHINXOPTS='-j%{?_smp_build_ncpus}'
+%make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
+%endif
 
 %install
 %pyproject_install
@@ -84,61 +118,9 @@ rm docs/_build/html/{.doctrees,.buildinfo} -vf
 
 %files doc
 %license LICENSE.md
-%doc docs/_build/html/
+%if %{with doc_pdf}
+%doc docs/_build/latex/PyPhi.pdf
+%endif
 
 %changelog
 %autochangelog
-
-* Wed Aug 18 2021 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 1.2.0-13
-- Correctly disable tests on s390x
-
-* Wed Aug 18 2021 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 1.2.0-12
-- Fix build
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 1.2.0-10
-- Rebuilt for Python 3.10
-
-* Fri Jan 29 2021 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 1.2.0-9
-- Update URL
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-8
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 1.2.0-6
-- Rebuilt for Python 3.9
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Mon Aug 19 2019 Miro Hrončok <mhroncok@redhat.com> - 1.2.0-4
-- Rebuilt for Python 3.8
-
-* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Fri Jul 12 2019 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 1.2.0-2
-- Enable tests
-
-* Sat Jun 22 2019 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 1.2.0-1
-- Update to 1.2.0
-
-* Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Mon Nov 19 2018 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 1.1.0-2
-- Update license
-- Fix doc generation
-- Correct rpmlint errors
-
-* Wed Nov 14 2018 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 1.1.0-1
-- Initial rpm build

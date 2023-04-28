@@ -7,9 +7,9 @@
 
 Name:           avr-libc
 Version:        2.0.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        C library for use with GCC on Atmel AVR microcontrollers
-License:        BSD
+License:        BSD-3-Clause
 URL:            http://www.nongnu.org/avr-libc/
 #Source0:        http://download.savannah.gnu.org/releases/avr-libc/avr-libc-%{version}.tar.bz2
 #Source4:        http://distribute.atmel.no/tools/opensource/Atmel-AVR-GNU-Toolchain/3.4.2/avr/avr-patches.tar.gz
@@ -142,6 +142,9 @@ chmod -R u=rwX,g=rX,o=rX $RPM_BUILD_ROOT%{_docdir}/%{name}/html
 %doc %{_docdir}/%{name}/%{name}*.pdf
 
 %changelog
+* Wed Apr 26 2023 Michal Hlavinka <mhlavink@redhat.com> - 2.0.0-18
+- update license tag format (SPDX migration) for https://fedoraproject.org/wiki/Changes/SPDX_Licenses_Phase_1
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

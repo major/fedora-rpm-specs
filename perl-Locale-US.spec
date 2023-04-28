@@ -1,8 +1,8 @@
 Name:           perl-Locale-US
 Version:        3.04
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Two letter codes for state identification in the United States and vice versa
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Locale-US
 Source0:        https://cpan.metacpan.org/modules/by-module/Locale/Locale-US-%{version}.tar.gz
 Patch1:         Locale-US-2.112140-rt56989.patch
@@ -22,20 +22,21 @@ BuildRequires:  perl(warnings)
 # Tests
 BuildRequires:  perl(Test)
 # Dependencies
+# (none)
 
 %description
-Map from US two-letter codes to states and vice versa.
+Map from United States two-letter identification codes to states and vice versa.
 
 %prep
 %setup -q -n Locale-US-%{version}
 
 # Add regression test for CPAN RT#56989
-%patch1 -p1
+%patch -P 1 -p1
 
 # Doesn't actually use Data::Dumper
 sed -i -e '/use Data::Dumper/d' lib/Locale/US.pm t/1.t
 
-# Script should be executable, even if it's just a doc
+# Script should be executable
 chmod -c +x kruft2codes.pl
 
 %build
@@ -51,16 +52,20 @@ find %{buildroot} -type f -name .packlist -delete
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
-%doc Changes README codes.dat kruft.txt kruft2codes.pl
+%doc Changes README codes.dat kruft.txt
 %{perl_vendorlib}/Locale/
 %{_mandir}/man3/Locale::US*.3*
 
 %changelog
+* Wed Apr 26 2023 Paul Howarth <paul@city-fan.org> - 3.04-24
+- Spec tidy-up
+  - Use SPDX-format license tag
+  - Avoid use of deprecated patch syntax
+  - Use %%license unconditionally
+  - Don't package kruft2codes.pl as documentation; it's a maintainer script
+    that is installed alongside the module itself
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.04-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

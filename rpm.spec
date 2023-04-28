@@ -32,7 +32,7 @@
 
 %global rpmver 4.18.1
 #global snapver rc1
-%global baserelease 2
+%global baserelease 3
 %global sover 9
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -156,8 +156,8 @@ Summary:  Libraries for manipulating RPM packages
 License: GPLv2+ and LGPLv2+ with exceptions
 Requires(meta): %{name} = %{version}-%{release}
 %if %{with sequoia}
-# >= 1.2.0 required for v3 signature support
-Requires: rpm-sequoia%{_isa} >= 1.2.0
+# >= 1.4.0 required for pgpVerifySignature2() and pgpPrtParams2()
+Requires: rpm-sequoia%{_isa} >= 1.4.0
 %endif
 
 %description libs
@@ -618,6 +618,10 @@ fi
 %doc docs/librpm/html/*
 
 %changelog
+* Tue Apr 25 2023 Miro Hrončok <mhroncok@redhat.com> - 4.18.1-3
+- Explicitly require rpm-sequoia >= 1.4.0 on runtime to avoid
+  rpm: symbol lookup error: /lib64/librpmio.so.9: undefined symbol: _pgpVerifySignature2
+
 * Thu Apr 20 2023 Panu Matilainen <pmatilai@redhat.com> - 4.18.1-2
 - Backport improved crypto error messages from upstream
 

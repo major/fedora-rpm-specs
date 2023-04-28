@@ -1,56 +1,52 @@
-%global fontname wqy-microhei
-%global fontconf 66-%{fontname}.conf
+# SPDX-License-Identifier: MIT
 
+%global fontname wqy-microhei
 %global archivename %{fontname}-%{version}-beta
 
-Name:           %{fontname}-fonts
-Version:        0.2.0
-Release:        0.31.beta%{?dist}
-Summary:        Compact Chinese fonts derived from Droid
+Version: 0.2.0
+Release: 0.32.beta%{?dist}
+URL:     http://wenq.org/enindex.cgi?MicroHei(en)
 
-License:        ASL 2.0 or GPLv3 with exceptions
-URL:            http://wenq.org/enindex.cgi?MicroHei(en)
-Source0:        http://downloads.sourceforge.net/wqy/%{archivename}.tar.gz
-Source1:        %{name}-fontconfig.conf
+%global foundry           WQY
+%global fontlicense       Apache-2.0 OR GPL-3.0-only WITH Font-exception-2.0
+%global fontlicenses      LICENSE_Apache2.txt LICENSE_GPLv3.txt
+%global fontdocs          *.txt
+%global fontdocsex        %{fontlicenses}
 
-BuildArch:      noarch
-BuildRequires:  fontpackages-devel
-Requires:       fontpackages-filesystem
-
-%description
+%global fontfamily        MicroHei
+%global fontsummary       Compact Chinese fonts derived from Droid
+%global fonts             *.ttc
+%global fontconfs         %{SOURCE10}
+%global fontdescription   %{expand:
 A new Sans Serif CJK font derived from Google's "Droid Sans Fallback"
 and covers the entire GBK code points (20932 Han glyphs).
+}
+
+Source0:  http://downloads.sourceforge.net/wqy/%{archivename}.tar.gz
+Source10: 66-%{fontpkgname}.conf
+
+%fontpkg
 
 %prep
 %autosetup -n %{fontname}
-
-mv README.txt{,.orig}
-iconv -f iso8859-1 -t utf8 README.txt.orig > README.txt
-
+%linuxtext -e iso8859-1 AUTHORS.txt README.txt
 
 %build
-
+%fontbuild
 
 %install
-install -m 0755 -d %{buildroot}%{_fontdir}
-install -m 0644 -p *.ttc %{buildroot}%{_fontdir}
+%fontinstall
 
-install -m 0755 -d %{buildroot}%{_fontconfig_templatedir} \
-                   %{buildroot}%{_fontconfig_confdir}
+%check
+%fontcheck
 
-install -m 0644 -p %{SOURCE1} \
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}
-ln -s %{_fontconfig_templatedir}/%{fontconf} \
-      %{buildroot}%{_fontconfig_confdir}/%{fontconf}
-
-
-
-%_font_pkg -f %{fontconf} *.ttc
-%license LICENSE_Apache2.txt LICENSE_GPLv3.txt
-%doc README.txt
-
+%fontfiles
 
 %changelog
+* Wed Apr 12 2023 Peng Wu <pwu@redhat.com> - 0.2.0-0.32.beta
+- Update to follow New Fonts Packaging Guidelines
+- Migrate to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-0.31.beta
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

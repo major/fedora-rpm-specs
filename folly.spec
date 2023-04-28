@@ -261,6 +261,9 @@ EXCLUDED_TESTS=
 EXCLUDED_TESTS='-E glog_test\.LogEveryMs\.basic'
 # from https://koji.fedoraproject.org/koji/taskinfo?taskID=100358727
 EXCLUDED_TESTS+='|fbstring_test\.FBString\.testAllClauses'
+# from https://koji.fedoraproject.org/koji/buildinfo?buildID=2192717
+EXCLUDED_TESTS+='|AsyncUDPSocketTest\.AsyncSocketIntegrationTest\.PingPongNotifyMmsg'
+EXCLUDED_TESTS+='|HHWheelTimerTest\.HHWheelTimerTest\.CancelTimeout'
 %endif
 
 %ifarch aarch64

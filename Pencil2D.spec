@@ -68,11 +68,7 @@ BuildRequires:  pkgconfig(Qt5XmlPatterns)
 
 BuildRequires:  miniz-devel
 # Header-only:
-%if 0%{?fc36} || 0%{?fc37} || 0%{?el9}
-BuildRequires:  catch-static
-%else
 BuildRequires:  catch2-static
-%endif
 
 BuildRequires:  desktop-file-utils
 # Required by guidelines (https://pagure.io/packaging-committee/issue/1053):

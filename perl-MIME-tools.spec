@@ -2,7 +2,7 @@ Summary:	Modules for parsing and creating MIME entities in Perl
 Name:		perl-MIME-tools
 Version:	5.510
 Release:	3%{?dist}
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/MIME-tools
 Source0:	https://cpan.metacpan.org/modules/by-module/MIME/MIME-tools-%{version}.tar.gz
 Patch0:		MIME-tools-5.510-UTF8.patch
@@ -43,7 +43,7 @@ BuildRequires:	perl(Test::Deep)
 BuildRequires:	perl(Test::More)
 BuildRequires:	perl(Test::Pod)
 BuildRequires:	perl(Test::Pod::Coverage)
-# ================ Module Runtime ====================
+# ================ Dependencies ======================
 Requires:	perl(Convert::BinHex)
 
 # Currently fails a couple of kwalitee tests
@@ -64,7 +64,7 @@ rm -rv inc/
 sed -i -e '/^inc\// d' MANIFEST
 
 # Fix character encoding
-%patch0
+%patch -P 0
 
 # The more useful examples will go in %%{_bindir}
 mkdir useful-examples

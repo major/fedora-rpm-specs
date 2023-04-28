@@ -5,7 +5,7 @@
 
 Name:           stratisd
 Version:        3.5.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Daemon that manages block devices to create filesystems
 
 # ASL 2.0
@@ -24,8 +24,8 @@ Source1:        %{url}/releases/download/v%{version}/%{name}-%{version}-vendor.t
 Source2:        %{crates_source}
 
 
-%if 0%{?rhel}
 ExclusiveArch:  %{rust_arches}
+%if 0%{?rhel}
 ExcludeArch:    i686
 %endif
 
@@ -67,8 +67,9 @@ Recommends:     clevis-luks >= 18
 %package dracut
 Summary: Dracut modules for use with stratisd
 
-%if 0%{?rhel}
 ExclusiveArch:  %{rust_arches}
+%if 0%{?rhel}
+ExcludeArch:    i686
 %endif
 
 Requires:     stratisd
@@ -82,6 +83,9 @@ Requires:     plymouth
 Summary: Tools that support Stratis operation
 
 ExclusiveArch:  %{rust_arches}
+%if 0%{?rhel}
+ExcludeArch:    i686
+%endif
 
 Requires:     stratisd
 
@@ -179,6 +183,9 @@ a2x -f manpage docs/stratis-dumpmetadata.txt
 %{_mandir}/man8/stratis-dumpmetadata.8*
 
 %changelog
+* Wed Apr 26 2023 Bryan Gurney <bgurney@redhat.com> - 3.5.4-3
+- Fix up ExclusiveArch directives
+
 * Mon Apr 24 2023 Bryan Gurney <bgurney@redhat.com> - 3.5.4-2
 - Update spec file
 

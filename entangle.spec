@@ -4,7 +4,7 @@ Summary: Tethered shooting & control of digital cameras
 Name: entangle
 Version: 3.0
 Release: 3%{?dist}
-License: GPLv3+
+License: GPL-3.0-or-later
 Source: https://entangle-photo.org/download/sources/%{name}-%{version}.tar.xz
 Patch: 0001-meson-fix-build-for-meson-0.60.0.patch
 URL: https://entangle-photo.org/

@@ -11,7 +11,7 @@ Release:        1%{?dist}
 Summary:        C++ Template Image Processing Toolkit
 # CImg.h: Dual licensed
 # plugins/cimgmatlab.h: LGPLv3
-License:        (CeCILL or CeCILL-C) and LGPLv3
+License:        ( CECILL-2.0 OR CECILL-C ) AND LGPL-3.0-only
 URL:            https://github.com/dtschump/CImg
 Source0:        https://cimg.eu/files/CImg_%{version}.zip
 # This package has no dependencies actually, these below are 

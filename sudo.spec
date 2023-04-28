@@ -13,6 +13,7 @@ License: ISC
 URL: https://www.sudo.ws
 Source0: %{url}/dist/%{name}-%{version}%{?extraver}.tar.gz
 Source1: sudoers
+Patch0: sudo-configure-c99.patch
 Requires: pam
 Recommends: system-default-editor
 Recommends: %{name}-python-plugin%{?_isa} = %{version}-%{release}
@@ -70,7 +71,7 @@ BuildRequires:  python3-devel
 %{name}-python-plugin allows using sudo plugins written in Python.
 
 %prep
-%setup -q -n %{name}-%{version}%{?extraver}
+%autosetup -p1 -n %{name}-%{version}%{?extraver}
 
 %build
 # Remove bundled copy of zlib

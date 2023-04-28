@@ -2,13 +2,14 @@
 
 Name:    sugar-toolkit-gtk3
 Version: 0.120
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Sugar toolkit GTK+ 3
 License: LGPLv2+
 URL:     http://wiki.laptop.org/go/Sugar
 
 Source0: http://download.sugarlabs.org/sources/sucrose/glucose/%{name}/%{name}-%{version}.tar.xz
 Source1: macros.sugar
+Patch0: sugar-toolkit-gtk3-c99.patch
 
 BuildRequires: make
 BuildRequires: alsa-lib-devel
@@ -84,6 +85,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_datadir}/gir-1.0/*.gir
 
 %changelog
+* Wed Apr 26 2023 Florian Weimer <fweimer@redhat.com> - 0.120-3
+- Port to C99
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.120-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

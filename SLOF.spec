@@ -20,7 +20,7 @@ Version:        %{gittagdate}
 Release:        6.git%{gittagcommit}%{?dist}
 Summary:        Slimline Open Firmware
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            http://www.openfirmware.info/SLOF
 
 Source0:        https://github.com/aik/SLOF/archive/qemu-slof-%{gittagdate}.tar.gz

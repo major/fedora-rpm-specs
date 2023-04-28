@@ -4,7 +4,7 @@
 
 Name:           mingw-python-%{pypi_name}
 Summary:        MinGW Python %{pypi_name}
-Version:        1.14.1
+Version:        1.15.0
 Release:        1%{?dist}
 BuildArch:      noarch
 
@@ -79,6 +79,9 @@ rm -rf pyqtbuild/bundle/dlls/
 
 
 %changelog
+* Wed Apr 26 2023 Sandro Mani <manisandro@gmail.com> - 1.15.0-1
+- Update to 1.15.0
+
 * Thu Feb 02 2023 Sandro Mani <manisandro@gmail.com> - 1.14.1-1
 - Update to 1.14.1
 

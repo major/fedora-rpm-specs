@@ -1,12 +1,10 @@
 Name:           perl-Protocol-WebSocket
 Version:        0.26
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        WebSocket protocol
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Protocol-WebSocket
 Source0:        https://cpan.metacpan.org/authors/id/V/VT/VTI/Protocol-WebSocket-%{version}.tar.gz
-# includes Test::More with a higher version than available for epel6
-Patch1:         test_simple_include.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  perl-generators
@@ -18,9 +16,6 @@ BuildRequires:  perl(constant)
 BuildRequires:  perl(Digest::MD5)
 BuildRequires:  perl(Digest::SHA)
 BuildRequires:  perl(Encode)
-%if 0%{?el6}
-BuildRequires:  perl(Exporter)
-%endif
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(lib)
@@ -31,9 +26,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(warnings)
-%if 0%{?el6}
-BuildRequires:  perl(vars)
-%endif
 BuildRequires:  sed
 
 %{?perl_default_filter}
@@ -46,9 +38,6 @@ http servers or clients to provide WebSocket support.
 %prep
 %setup -q -n Protocol-WebSocket-%{version}
 %{__sed} -i 's|\r||' ./examples/reflex.pl
-%if 0%{?el6}
-%patch1 -p1
-%endif
 # Upstream is okay with wsconsole being made available as a binary for Fedora/EPEL
 # Module::Build::Tiny requires that all executables must be in script/
 %{__mv} util script
@@ -64,22 +53,21 @@ http servers or clients to provide WebSocket support.
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-%if 0%{?el6}
-PERL5LIB=test_simple_patch/lib ./Build test
-%else
 ./Build test
-%endif
 
 %files
-%{!?_licensedir:%global license %%doc}
 %license LICENSE
 %doc Changes examples
 %{perl_vendorlib}/*
-%{_mandir}/man1/*
 %{_mandir}/man3/*
 %{_bindir}/*
 
 %changelog
+* Wed Apr 26 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.26-14
+- Fix not created man page automatically in new Module::Build::Tiny (BZ#2189099)
+- Remove EPEL6 code
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

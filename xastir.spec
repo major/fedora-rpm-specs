@@ -2,13 +2,15 @@ Summary: Amateur Station Tracking and Reporting system for amateur radio
 Name:    xastir
 Epoch:   1
 Version: 2.1.4
-Release: 14%{?dist}
+Release: 15%{?dist}
 License: GPLv2+
 Source0: https://github.com/Xastir/Xastir/archive/Release-%{version}.tar.gz
 Source1: %{name}.desktop
 Source2: %{name}.png
 # Fix GCC10 FTBFS
 Patch0:  xastir_gcc10.patch
+Patch1:  xastir-fedora-c99-1.patch
+Patch2:  xastir-fedora-c99-2.patch
 URL:     http://www.xastir.org
 Requires: wget
 BuildRequires: make
@@ -33,6 +35,9 @@ software.
 %prep
 %setup -q -n Xastir-Release-%{version}
 %patch0 -p1
+%patch1 -p1
+%patch2 -p1
+touch -r configure.ac aclocal.m4 Makefile.in config.h.in
 
 %build
 #./bootstrap.sh
@@ -78,6 +83,9 @@ desktop-file-install \
 %doc README.MAPS UPGRADE
 
 %changelog
+* Tue Apr 25 2023 DJ Delorie <dj@redhat.com> - 1:2.1.4-15
+- Fix C99 compatibility issue
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.1.4-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

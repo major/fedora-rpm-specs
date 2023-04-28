@@ -6,7 +6,7 @@
 
 Name:           freeimage
 Version:        3.19.0
-Release:        0.16%{?svn_rev:.svn%svn_rev}%{?dist}
+Release:        0.17%{?svn_rev:.svn%svn_rev}%{?dist}
 Summary:        Multi-format image decoder library
 
 # freeimage is tripple-licensed, see
@@ -163,6 +163,9 @@ ldconfig -n %{buildroot}%{_libdir}
 
 
 %changelog
+* Wed Apr 26 2023 Sandro Mani <manisandro@gmail.com> - 3.19.0-0.17.svn1889
+- Bump for Release parity with f37
+
 * Thu Apr 13 2023 Sandro Mani <manisandro@gmail.com> - 3.19.0-0.16.svn1889
 - Fix empty CVE-2021-33367.patch
 

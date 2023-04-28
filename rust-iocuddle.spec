@@ -9,8 +9,7 @@ Version:        0.1.1
 Release:        6%{?dist}
 Summary:        Library for building runtime-safe linux `ioctl()` interfaces
 
-# Upstream license specification: Apache-2.0
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://crates.io/crates/iocuddle
 Source:         %{crates_source}
 

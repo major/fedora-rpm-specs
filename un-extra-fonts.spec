@@ -1,10 +1,22 @@
+# SPDX-License-Identifier: MIT
+
 %global fontname    un-extra
-%global fontconf    66-%{fontname}
-
-%global archivename un-fonts-extra
 %global alphatag    080608
+%global archivename un-fonts-extra
 
-%global common_desc_en \
+
+BuildArch: noarch
+
+Version: 1.0.2
+Release: 0.36.%{alphatag}%{?dist}
+License: GPL-2.0-only
+URL:     http://kldp.net/projects/unfonts/
+
+%global foundry           Un
+%global fontlicenses      COPYING
+%global fontdocs          README
+
+%global common_description %{expand:
 The UN set of Korean TrueType fonts is derived from the HLaTeX Type1 fonts \
 made by Koaunghi Un in 1998. They were converted to TrueType with \
 FontForge(PfaEdit) by Won-kyu Park in 2003. \
@@ -17,285 +29,221 @@ The Un Extra set is composed of: \
 - UnYetgul: old Korean printing style \
 - UnJamoSora, UnJamoNovel, UnJamoDotum, UnJamoBatang \
 - UnVada \
-- UnPilgia: script \
+- UnPilgia: script
+}
 
-%global common_desc_ko \
-은글꼴 시리즈는 HLaTex개발자이신 은광희님이 1998년에 개발한 폰트입니다. \
-2003년에 박원규님이 FontForge를 이용하여 트루타입폰트로 변환했습니다. \
-은글꼴은 가장 일반적인 글꼴들입니다. \
-\
-Extra 모음 \
-- 은펜, 은펜흘림: script \
-- 은타자: typewriter style \
-- 은봄: decorative \
-- 은신문 \
-- 은옛글: old Korean printing style \
-- 은자모소라, 은자모노벨, 은자모돋음, 은자모바탕 \
-- 은바다 \
-- 은필기a: script \ 
-
-Name:        %{fontname}-fonts
-Version:     1.0.2
-Release:     0.35.%{alphatag}%{?dist}
-Summary:     Un Extra family of Korean TrueType fonts
-Summary(ko): 한글 은글꼴 Extra 모음
-
-License:   GPLv2
-URL:       http://kldp.net/projects/unfonts/
-Source0:   http://kldp.net/frs/download.php/4696/%{archivename}-%{version}-%{alphatag}.tar.gz
-Source1:   %{name}-bom-fontconfig.conf
-Source2:   %{name}-jamobatang-fontconfig.conf
-Source3:   %{name}-jamodotum-fontconfig.conf
-Source4:   %{name}-jamonovel-fontconfig.conf
-Source5:   %{name}-jamosora-fontconfig.conf
-Source6:   %{name}-pen-fontconfig.conf
-Source7:   %{name}-penheulim-fontconfig.conf
-Source8:   %{name}-pilgia-fontconfig.conf
-Source9:   %{name}-shinmun-fontconfig.conf
-Source10:  %{name}-taza-fontconfig.conf
-Source11:  %{name}-vada-fontconfig.conf
-Source12:  %{name}-yetgul-fontconfig.conf
-
-BuildArch: noarch
-BuildRequires: fontpackages-devel
-
-
-%package common
-Summary:     Common files for the Un Extra font set
-Requires:    fontpackages-filesystem
-
-%files common
-%doc COPYING README
-
-
-%global un_subpkg() \
-%package -n %{fontname}-%{1}-fonts \
-Summary:     Un Extra fonts - %(echo %2) \
-Summary(ko): 한글 은글꼴 Extra 모음 - %(echo %3) \
-Requires:    %{name}-common = %{version}-%{release} \
-Obsoletes:   %{fontname}-fonts-%{1} < 1.0.2-0.10 \
-\
-\
-
-%un_subpkg bom UnBom 은봄
-%un_subpkg jamobatang UnJamoBatang 은자모바탕
-%un_subpkg jamodotum UnJamoDotum 은자모돋음
-%un_subpkg jamonovel UnJamoNovel 은자모노벨
-%un_subpkg jamosora UnJamoSora 은자모소라
-%un_subpkg pen UnPen 은펜
-%un_subpkg penheulim UnPenheulim 은펜흘림
-%un_subpkg pilgia UnPilgia 은필기a
-%un_subpkg shinmun UnShinmun 은신문
-%un_subpkg taza UnTaza 은타자
-%un_subpkg vada UnVada 은바다
-%un_subpkg yetgul UnYetgul 은옛글
-
-%description
-%common_desc_en
-
-%description -l ko
-%common_desc_ko
-
-%description common
-%common_desc_en
-
-This package consists of files used by other %{name} packages.
-
-%description -n %{fontname}-bom-fonts
-%common_desc_en
+%global fontfamily1       Un Extra Bom
+%global fontsummary1      Un Extra fonts - UnBom
+%global fontpkgheader1    %{expand:
+Obsoletes:       %{name}-common < 1.0.2-0.36.080608
+Provides:        %{name}-common = %{version}-%{release}
+}
+%global fonts1            UnBom.ttf
+%global fontconfs1        %{SOURCE11}
+%global fontdescription1  %{expand:
+%{common_description}
 
 This package includes UnBom, a decorative font.
+}
 
-%description -l ko -n %{fontname}-bom-fonts
-%common_desc_ko
-
-이 패키지에는 은봄글꼴이 포함되어 있습니다.
-
-%description -n %{fontname}-jamobatang-fonts
-%common_desc_en
+%global fontfamily2       Un Extra JamoBatang
+%global fontsummary2      Un Extra fonts - UnJamoBatang
+%global fontpkgheader2    %{expand:
+Obsoletes:       %{name}-common < 1.0.2-0.36.080608
+Provides:        %{name}-common = %{version}-%{release}
+}
+%global fonts2            UnJamoBatang.ttf
+%global fontconfs2        %{SOURCE12}
+%global fontdescription2  %{expand:
+%{common_description}
 
 This package includes the UnJamoBatang font.
+}
 
-%description -l ko -n %{fontname}-jamobatang-fonts
-%common_desc_ko
-
-이 패키지에는 은자모바탕글꼴이 포함되어 있습니다.
-
-%description -n %{fontname}-jamodotum-fonts
-%common_desc_en
+%global fontfamily3       Un Extra JamoDotum
+%global fontsummary3      Un Extra fonts - UnJamoDotum
+%global fontpkgheader3    %{expand:
+Obsoletes:       %{name}-common < 1.0.2-0.36.080608
+Provides:        %{name}-common = %{version}-%{release}
+}
+%global fonts3            UnJamoDotum.ttf
+%global fontconfs3        %{SOURCE13}
+%global fontdescription3  %{expand:
+%{common_description}
 
 This package includes the UNJamoDotum font.
+}
 
-%description -l ko -n %{fontname}-jamodotum-fonts
-%common_desc_ko
-
-이 패키지에는 은자모돋음글꼴이 포함되어 있습니다.
-
-%description -n %{fontname}-jamonovel-fonts
-%common_desc_en
+%global fontfamily4       Un Extra JamoNovel
+%global fontsummary4      Un Extra fonts - UnJamoNovel
+%global fontpkgheader4    %{expand:
+Obsoletes:       %{name}-common < 1.0.2-0.36.080608
+Provides:        %{name}-common = %{version}-%{release}
+}
+%global fonts4            UnJamoNovel.ttf
+%global fontconfs4        %{SOURCE14}
+%global fontdescription4  %{expand:
+%{common_description}
 
 This package includes the UNJamoNovel font.
+}
 
-%description -l ko -n %{fontname}-jamonovel-fonts
-%common_desc_ko
- 
-이 패키지에는 은자모노벨글꼴이 포함되어 있습니다.
-
-%description -n %{fontname}-jamosora-fonts
-%common_desc_en
+%global fontfamily5       Un Extra JamoSora
+%global fontsummary5      Un Extra fonts - UnJamoSora
+%global fontpkgheader5    %{expand:
+Obsoletes:       %{name}-common < 1.0.2-0.36.080608
+Provides:        %{name}-common = %{version}-%{release}
+}
+%global fonts5            UnJamoSora.ttf
+%global fontconfs5        %{SOURCE15}
+%global fontdescription5  %{expand:
+%{common_description}
 
 This package includes the UNJamoSora font.
+}
 
-%description -l ko -n %{fontname}-jamosora-fonts
-%common_desc_ko
-
-이 패키지에는 은자모소라글꼴이 포함되어 있습니다.
-
-%description -n %{fontname}-pen-fonts
-%common_desc_en
+%global fontfamily6       Un Extra Pen
+%global fontsummary6      Un Extra fonts - UnPen
+%global fontpkgheader6    %{expand:
+Obsoletes:       %{name}-common < 1.0.2-0.36.080608
+Provides:        %{name}-common = %{version}-%{release}
+}
+%global fonts6            UnPen.ttf
+%global fontconfs6        %{SOURCE16}
+%global fontdescription6  %{expand:
+%{common_description}
 
 This package includes UnPen, a script font.
+}
 
-%description -l ko -n %{fontname}-pen-fonts
-%common_desc_ko
-
-이 패키지에는 은펜글꼴이 포함되어 있습니다.
-
-%description -n %{fontname}-penheulim-fonts
-%common_desc_en
+%global fontfamily7       Un Extra Penheulim
+%global fontsummary7      Un Extra fonts - UnPenheulim
+%global fontpkgheader7    %{expand:
+Obsoletes:       %{name}-common < 1.0.2-0.36.080608
+Provides:        %{name}-common = %{version}-%{release}
+}
+%global fonts7            UnPenheulim.ttf
+%global fontconfs7        %{SOURCE17}
+%global fontdescription7  %{expand:
+%{common_description}
 
 This package includes UnPenheulim, a script font.
+}
 
-%description -l ko -n %{fontname}-penheulim-fonts
-%common_desc_ko
-
-이 패키지에는 은펜흘림글꼴이 포함되어 있습니다.
-
-%description -n %{fontname}-pilgia-fonts
-%common_desc_en
+%global fontfamily8       Un Extra Pilgia
+%global fontsummary8      Un Extra fonts - UnPilgia
+%global fontpkgheader8    %{expand:
+Obsoletes:       %{name}-common < 1.0.2-0.36.080608
+Provides:        %{name}-common = %{version}-%{release}
+}
+%global fonts8            UnPilgia.ttf
+%global fontconfs8        %{SOURCE18}
+%global fontdescription8  %{expand:
+%{common_description}
 
 This package includes UnPilgia, a script font.
+}
 
-%description -l ko -n %{fontname}-pilgia-fonts
-%common_desc_ko
-
-이 패키지에는 은필기a글꼴이 포함되어 있습니다.
-
-%description -n %{fontname}-shinmun-fonts
-%common_desc_en
+%global fontfamily9       Un Extra Shinmun
+%global fontsummary9      Un Extra fonts - UnShinmun
+%global fontpkgheader9    %{expand:
+Obsoletes:       %{name}-common < 1.0.2-0.36.080608
+Provides:        %{name}-common = %{version}-%{release}
+}
+%global fonts9            UnShinmun.ttf
+%global fontconfs9        %{SOURCE19}
+%global fontdescription9  %{expand:
+%{common_description}
 
 This package includes the UnShinmun font.
+}
 
-%description -l ko -n %{fontname}-shinmun-fonts
-%common_desc_ko
-
-이 패키지에는 은신문글꼴이 포함되어 있습니다.
-
-%description -n %{fontname}-taza-fonts
-%common_desc_en
+%global fontfamily10       Un Extra Taza
+%global fontsummary10      Un Extra fonts - UnTaza
+%global fontpkgheader10    %{expand:
+Obsoletes:       %{name}-common < 1.0.2-0.36.080608
+Provides:        %{name}-common = %{version}-%{release}
+}
+%global fonts10            UnTaza.ttf
+%global fontconfs10        %{SOURCE20}
+%global fontdescription10  %{expand:
+%{common_description}
 
 This package includes UnTaza, a typewriter font.
+}
 
-%description -l ko -n %{fontname}-taza-fonts
-%common_desc_ko
-
-이 패키지에는 은타자글꼴이 포함되어 있습니다.
-
-%description -n %{fontname}-vada-fonts
-%common_desc_en
+%global fontfamily11       Un Extra Vada
+%global fontsummary11      Un Extra fonts - UnVada
+%global fontpkgheader11    %{expand:
+Obsoletes:       %{name}-common < 1.0.2-0.36.080608
+Provides:        %{name}-common = %{version}-%{release}
+}
+%global fonts11            UnVada.ttf
+%global fontconfs11        %{SOURCE21}
+%global fontdescription11  %{expand:
+%{common_description}
 
 This package includes the UnVada font.
+}
 
-%description -l ko -n %{fontname}-vada-fonts
-%common_desc_ko
-
-이 패키지에는 은바다글꼴이 포함되어 있습니다.
-
-%description -n %{fontname}-yetgul-fonts
-%common_desc_en
+%global fontfamily12       Un Extra Yetgul
+%global fontsummary12      Un Extra fonts - UnYetgul
+%global fontpkgheader12    %{expand:
+Obsoletes:       %{name}-common < 1.0.2-0.36.080608
+Provides:        %{name}-common = %{version}-%{release}
+}
+%global fonts12            UnYetgul.ttf
+%global fontconfs12        %{SOURCE22}
+%global fontdescription12  %{expand:
+%{common_description}
 
 This package includes UnYetgul, an old Korean printing font.
-
-%description -l ko -n %{fontname}-yetgul-fonts
-%common_desc_ko
-
-이 패키지에는 은옛글글꼴이 포함되어 있습니다.
+}
 
 
-%_font_pkg -n bom -f %{fontconf}-bom.conf UnBom.ttf
-%_font_pkg -n jamobatang -f %{fontconf}-jamobatang.conf UnJamoBatang.ttf
-%_font_pkg -n jamodotum -f %{fontconf}-jamodotum.conf UnJamoDotum.ttf
-%_font_pkg -n jamonovel -f %{fontconf}-jamonovel.conf UnJamoNovel.ttf
-%_font_pkg -n jamosora -f %{fontconf}-jamosora.conf UnJamoSora.ttf
-%_font_pkg -n pen -f %{fontconf}-pen.conf UnPen.ttf
-%_font_pkg -n penheulim -f %{fontconf}-penheulim.conf UnPenheulim.ttf
-%_font_pkg -n pilgia -f %{fontconf}-pilgia.conf UnPilgia.ttf
-%_font_pkg -n shinmun -f %{fontconf}-shinmun.conf UnShinmun.ttf
-%_font_pkg -n taza -f %{fontconf}-taza.conf UnTaza.ttf
-%_font_pkg -n vada -f %{fontconf}-vada.conf UnVada.ttf
-%_font_pkg -n yetgul -f %{fontconf}-yetgul.conf UnYetgul.ttf
+Source0:  http://kldp.net/frs/download.php/4696/%{archivename}-%{version}-%{alphatag}.tar.gz
+Source11: 67-un-extra-bom-fonts.conf
+Source12: 67-un-extra-jamobatang-fonts.conf
+Source13: 67-un-extra-jamodotum-fonts.conf
+Source14: 67-un-extra-jamonovel-fonts.conf
+Source15: 67-un-extra-jamosora-fonts.conf
+Source16: 67-un-extra-pen-fonts.conf
+Source17: 67-un-extra-penheulim-fonts.conf
+Source18: 67-un-extra-pilgia-fonts.conf
+Source19: 67-un-extra-shinmun-fonts.conf
+Source20: 67-un-extra-taza-fonts.conf
+Source21: 67-un-extra-vada-fonts.conf
+Source22: 67-un-extra-yetgul-fonts.conf
 
+Name:     %{fontname}-fonts
+Summary:  Un Extra family of Korean TrueType fonts
+%description
+%wordwrap -v common_description
+
+%fontpkg -a
+
+%fontmetapkg
 
 %prep
 %setup -q -n un-fonts
-
+%linuxtext COPYING README
 
 %build
-
+%fontbuild -a
 
 %install
-rm -rf %{buildroot}
+%fontinstall -a
 
-install -m 0755 -d %{buildroot}%{_fontdir}
-install -m 0644 -p *.ttf %{buildroot}%{_fontdir}
+%check
+%fontcheck -a
 
-install -m 0755 -d %{buildroot}%{_fontconfig_templatedir} \
-                   %{buildroot}%{_fontconfig_confdir}
-
-install -m 0644 -p %{SOURCE1} \
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}-bom.conf
-install -m 0644 -p %{SOURCE2} \
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}-jamobatang.conf
-install -m 0644 -p %{SOURCE3} \
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}-jamodotum.conf
-install -m 0644 -p %{SOURCE4} \
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}-jamonovel.conf
-install -m 0644 -p %{SOURCE5} \
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}-jamosora.conf
-install -m 0644 -p %{SOURCE6} \
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}-pen.conf
-install -m 0644 -p %{SOURCE7} \
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}-penheulim.conf
-install -m 0644 -p %{SOURCE8} \
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}-pilgia.conf
-install -m 0644 -p %{SOURCE9} \
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}-shinmun.conf
-install -m 0644 -p %{SOURCE10} \
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}-taza.conf
-install -m 0644 -p %{SOURCE11} \
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}-vada.conf
-install -m 0644 -p %{SOURCE12} \
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}-yetgul.conf
-
-for fconf in %{fontconf}-bom.conf \
-    %{fontconf}-jamobatang.conf \
-    %{fontconf}-jamodotum.conf \
-    %{fontconf}-jamonovel.conf \
-    %{fontconf}-jamosora.conf \
-    %{fontconf}-pen.conf \
-    %{fontconf}-penheulim.conf \
-    %{fontconf}-pilgia.conf \
-    %{fontconf}-shinmun.conf \
-    %{fontconf}-taza.conf \
-    %{fontconf}-vada.conf \
-    %{fontconf}-yetgul.conf ; do
-  ln -s %{_fontconfig_templatedir}/$fconf \
-        %{buildroot}%{_fontconfig_confdir}/$fconf
-done
-
-
+%fontfiles -a
 
 %changelog
+* Tue Apr 11 2023 Peng Wu <pwu@redhat.com> - 1.0.2-0.36.080608
+- Update to follow New Fonts Packaging Guidelines
+- Migrate to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-0.35.080608
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

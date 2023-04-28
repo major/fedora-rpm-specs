@@ -1,10 +1,21 @@
-%global fontname un-core
-%global fontconf 67-%{fontname}
+# SPDX-License-Identifier: MIT
 
-%global alphatag    080608
+%global fontname un-core
+%global alphatag 080608
 %global archivename un-fonts-core-%{version}-%{alphatag}
 
-%global common_desc \
+BuildArch: noarch
+
+Version: 1.0.2
+Release: 0.43.%{alphatag}%{?dist}
+License: GPL-2.0-only
+URL:     http://kldp.net/projects/unfonts/
+
+%global foundry           Un
+%global fontlicenses      COPYING
+%global fontdocs          README
+
+%global common_description %{expand:
 The UN set of Korean TrueType fonts is derived from the HLaTeX Type1 fonts \
 made by Koaunghi Un in 1998. They were converted to TrueType with \
 FontForge(PfaEdit) by Won-kyu Park in 2003. \
@@ -16,215 +27,131 @@ The Un Core set is composed of: \
 - UnGraphic: sans-serif style \
 - UnGungseo: cursive, brush-stroke \
 - UnPilgi: script
+}
 
-%global common_desc_ko \
-은글꼴 시리즈는 HLaTex개발자이신 은광희님이 1998년에 개발한 폰트입니다. \
-2003년에 박원규님이 FontForge를 이용하여 트루타입폰트로 변환했습니다. \
-은글꼴은 가장 일반적인 글꼴들입니다. \
-\
-Core 모음: \
-- 은바탕: serif \
-- 은디나루: fantasy \
-- 은돋음: sans-serif \
-- 은그래픽: sans-serif style \
-- 은궁서: cursive, brush-stroke \
-- 은필기: script
-
-Name:           %{fontname}-fonts
-Version:        1.0.2
-Release:        0.42.%{alphatag}%{?dist}
-Summary:        Un Core family of Korean TrueType fonts
-Summary(ko):    한글 은글꼴 Core 모음
-
-License:        GPLv2
-URL:            http://kldp.net/projects/unfonts/
-Source0:        http://kldp.net/frs/download.php/4695/%{archivename}.tar.gz
-Source1:        %{name}-batang-fontconfig.conf
-Source2:        %{name}-dinaru-fontconfig.conf
-Source3:        %{name}-dotum-fontconfig.conf
-Source4:        %{name}-graphic-fontconfig.conf
-Source5:        %{name}-gungseo-fontconfig.conf
-Source6:        %{name}-pilgi-fontconfig.conf
-Source7:        %{fontname}-batang.metainfo.xml
-Source8:        %{fontname}-dinaru.metainfo.xml
-Source9:        %{fontname}-dotum.metainfo.xml
-Source10:       %{fontname}-graphic.metainfo.xml
-Source11:       %{fontname}.metainfo.xml
-Source12:       %{fontname}-gungseo.metainfo.xml
-Source13:       %{fontname}-pilgi.metainfo.xml
-
-BuildArch:      noarch
-BuildRequires:  fontpackages-devel libappstream-glib
-
-%package common
-Summary:        Common files of Un Core fonts
-Requires:       fontpackages-filesystem
-
-%description common
-%common_desc
-
-This package consists of files used by other %{name} packages.
-
-# un_subpkg 1:name 2:Name 3:Hangul [4:obsolete] [5:obsolete]
-%global un_subpkg() \
-%package -n %{fontname}-%1-fonts \
-Summary:        Un Core fonts - %(echo %2) \
-Summary(ko):    한글 은글꼴 Core 모음 - %(echo %3) \
-Requires:       %{name}-common = %{version}-%{release} \
-Obsoletes:      un-core-fonts-%1 < 1.0.2-0.9, %{?4:un-core-fonts-%{1}%{4} < 1.0.2-0.9},  %{?5:un-core-fonts-%{1}%{5} < 1.0.2-0.9} \
-\
-\
-
-%un_subpkg batang UnBatang 은바탕 bold
-%un_subpkg dinaru UnDinaru 은디나루 bold light
-%un_subpkg dotum UnDotum 은돋음 bold
-%un_subpkg graphic UnGraphic 은그래픽 bold
-%un_subpkg gungseo UnGungseo 은궁서
-%un_subpkg pilgi UnPilgi 은필기 bold
-
-
-%description
-%common_desc
-
-%description -l ko
-%common_desc_ko
-
-%description -n %{fontname}-batang-fonts
-%common_desc
+%global fontfamily1       Un Core Batang
+%global fontsummary1      Un Core fonts - UnBatang
+%global fontpkgheader1    %{expand:
+Obsoletes:       %{name}-common < 1.0.2-0.43.080608
+Provides:        %{name}-common = %{version}-%{release}
+}
+%global fonts1            UnBatang.ttf UnBatangBold.ttf
+%global fontconfs1        %{SOURCE11}
+%global fontdescription1  %{expand:
+%{common_description}
 
 This package includes UnBatang, a serif font.
+}
 
-%description -l ko -n %{fontname}-batang-fonts
-%common_desc_ko
-
-이 패키지에는 은바탕글꼴이 포함되어 있습니다.
-
-%description -n %{fontname}-dinaru-fonts
-%common_desc
+%global fontfamily2       Un Core Dinaru
+%global fontsummary2      Un Core fonts - UnDinaru
+%global fontpkgheader2    %{expand:
+Obsoletes:       %{name}-common < 1.0.2-0.43.080608
+Provides:        %{name}-common = %{version}-%{release}
+}
+%global fonts2            UnDinaru.ttf UnDinaruLight.ttf UnDinaruBold.ttf
+%global fontconfs2        %{SOURCE12}
+%global fontdescription2  %{expand:
+%{common_description}
 
 This package includes UnDinaru, a fantasy font.
+}
 
-%description -l ko -n %{fontname}-dinaru-fonts
-%common_desc_ko
-
-이 패키지에는 은디나루글꼴이 포함되어 있습니다.
-
-%description -n %{fontname}-dotum-fonts
-%common_desc
+%global fontfamily3       Un Core Dotum
+%global fontsummary3      Un Core fonts - UnDotum
+%global fontpkgheader3    %{expand:
+Obsoletes:       %{name}-common < 1.0.2-0.43.080608
+Provides:        %{name}-common = %{version}-%{release}
+}
+%global fonts3            UnDotum.ttf UnDotumBold.ttf
+%global fontconfs3        %{SOURCE13}
+%global fontdescription3  %{expand:
+%{common_description}
 
 This package includes UnDotum, a sans-serif font.
+}
 
-%description -l ko -n %{fontname}-dotum-fonts
-%common_desc_ko
-
-이 패키지에는 은돋음글꼴이 포함되어 있습니다.
-
-%description -n %{fontname}-graphic-fonts
-%common_desc
+%global fontfamily4       Un Core Graphic
+%global fontsummary4      Un Core fonts - UnGraphic
+%global fontpkgheader4    %{expand:
+Obsoletes:       %{name}-common < 1.0.2-0.43.080608
+Provides:        %{name}-common = %{version}-%{release}
+}
+%global fonts4            UnGraphic.ttf UnGraphicBold.ttf
+%global fontconfs4        %{SOURCE14}
+%global fontdescription4  %{expand:
+%{common_description}
 
 This package includes UnGraphic, a sans-serif font.
+}
 
-%description -l ko -n %{fontname}-graphic-fonts
-%common_desc_ko
-
-이 패키지에는 은그래픽글꼴이 포함되어 있습니다.
-
-%description -n %{fontname}-gungseo-fonts
-%common_desc
+%global fontfamily5       Un Core Gungseo
+%global fontsummary5      Un Core fonts - UnGungseo
+%global fontpkgheader5    %{expand:
+Obsoletes:       %{name}-common < 1.0.2-0.43.080608
+Provides:        %{name}-common = %{version}-%{release}
+}
+%global fonts5            UnGungseo.ttf
+%global fontconfs5        %{SOURCE15}
+%global fontdescription5  %{expand:
+%{common_description}
 
 This package includes UnGungseo, a cursive font.
+}
 
-%description -l ko -n %{fontname}-gungseo-fonts
-%common_desc_ko
-
-이 패키지에는 은궁서글꼴이 포함되어 있습니다.
-
-%description -n %{fontname}-pilgi-fonts
-%common_desc
+%global fontfamily6       Un Core Pilgi
+%global fontsummary6      Un Core fonts - UnPilgi
+%global fontpkgheader6    %{expand:
+Obsoletes:       %{name}-common < 1.0.2-0.43.080608
+Provides:        %{name}-common = %{version}-%{release}
+}
+%global fonts6            UnPilgi.ttf UnPilgiBold.ttf
+%global fontconfs6        %{SOURCE16}
+%global fontdescription6  %{expand:
+%{common_description}
 
 This package includes UnPilgi, a script font.
-
-%description -l ko -n %{fontname}-pilgi-fonts
-%common_desc_ko
-
-이 패키지에는 은필기글꼴이 포함되어 있습니다.
+}
 
 
-%_font_pkg -n batang -f %{fontconf}-batang.conf UnBatang.ttf UnBatangBold.ttf
-%{_metainfodir}/%{fontname}-batang.metainfo.xml
-%_font_pkg -n dinaru -f %{fontconf}-dinaru.conf UnDinaru.ttf UnDinaruLight.ttf UnDinaruBold.ttf
-%{_metainfodir}/%{fontname}-dinaru.metainfo.xml
-%_font_pkg -n dotum -f %{fontconf}-dotum.conf UnDotum.ttf UnDotumBold.ttf
-%{_metainfodir}/%{fontname}-dotum.metainfo.xml
-%_font_pkg -n graphic -f %{fontconf}-graphic.conf UnGraphic.ttf UnGraphicBold.ttf
-%{_metainfodir}/%{fontname}-graphic.metainfo.xml
-%_font_pkg -n gungseo -f %{fontconf}-gungseo.conf UnGungseo.ttf
-%{_metainfodir}/%{fontname}-gungseo.metainfo.xml
-%_font_pkg -n pilgi -f %{fontconf}-pilgi.conf UnPilgi.ttf UnPilgiBold.ttf
-%{_metainfodir}/%{fontname}-pilgi.metainfo.xml
+Source0:  http://kldp.net/frs/download.php/4695/%{archivename}.tar.gz
+Source11: 67-un-core-batang-fonts.conf
+Source12: 67-un-core-dinaru-fonts.conf
+Source13: 67-un-core-dotum-fonts.conf
+Source14: 67-un-core-graphic-fonts.conf
+Source15: 67-un-core-gungseo-fonts.conf
+Source16: 67-un-core-pilgi-fonts.conf
+
+Name:     %{fontname}-fonts
+Summary:  Un Core family of Korean TrueType fonts
+%description
+%wordwrap -v common_description
+
+%fontpkg -a
+
+%fontmetapkg
 
 %prep
 %setup -q -n un-fonts
-
+%linuxtext COPYING README
 
 %build
-
+%fontbuild -a
 
 %install
-install -m 0755 -d %{buildroot}%{_fontdir}
-install -m 0644 -p *.ttf %{buildroot}%{_fontdir}
-
-install -m 0755 -d %{buildroot}%{_fontconfig_templatedir} \
-                   %{buildroot}%{_fontconfig_confdir}
-
-install -m 0644 -p %{SOURCE1}\
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}-batang.conf
-install -m 0644 -p %{SOURCE2}\
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}-dinaru.conf
-install -m 0644 -p %{SOURCE3}\
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}-dotum.conf
-install -m 0644 -p %{SOURCE4}\
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}-graphic.conf
-install -m 0644 -p %{SOURCE5}\
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}-gungseo.conf
-install -m 0644 -p %{SOURCE6}\
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}-pilgi.conf
-
-for fconf in %{fontconf}-batang.conf \
-    %{fontconf}-dinaru.conf \
-    %{fontconf}-dotum.conf \
-    %{fontconf}-graphic.conf \
-    %{fontconf}-gungseo.conf \
-    %{fontconf}-pilgi.conf ; do
-  ln -s %{_fontconfig_templatedir}/$fconf \
-        %{buildroot}%{_fontconfig_confdir}/$fconf
-done
-
-# Add AppStream metadata
-install -Dm 0644 -p %{SOURCE7} \
-        %{buildroot}%{_metainfodir}/%{fontname}-batang.metainfo.xml
-install -Dm 0644 -p %{SOURCE8} \
-        %{buildroot}%{_metainfodir}/%{fontname}-dinaru.metainfo.xml
-install -Dm 0644 -p %{SOURCE9} \
-        %{buildroot}%{_metainfodir}/%{fontname}-dotum.metainfo.xml
-install -Dm 0644 -p %{SOURCE10} \
-        %{buildroot}%{_metainfodir}/%{fontname}-graphic.metainfo.xml
-install -Dm 0644 -p %{SOURCE11} \
-        %{buildroot}%{_metainfodir}/%{fontname}.metainfo.xml
-install -Dm 0644 -p %{SOURCE12} \
-        %{buildroot}%{_metainfodir}/%{fontname}-gungseo.metainfo.xml
-install -Dm 0644 -p %{SOURCE13} \
-        %{buildroot}%{_metainfodir}/%{fontname}-pilgi.metainfo.xml
+%fontinstall -a
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
+%fontcheck -a
 
-%files common
-%doc README
-%license COPYING
-%{_metainfodir}/%{fontname}.metainfo.xml
+%fontfiles -a
+
 
 %changelog
+* Mon Apr 10 2023 Peng Wu <pwu@redhat.com> - 1.0.2-0.43.080608
+- Update to follow New Fonts Packaging Guidelines
+- Migrate to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-0.42.080608
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

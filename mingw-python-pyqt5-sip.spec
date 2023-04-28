@@ -5,7 +5,7 @@
 
 Name:           mingw-python-%{mod_name}
 Summary:        MinGW Python %{pypi_name} library
-Version:        12.11.1
+Version:        12.12.1
 Release:        1%{?dist}
 BuildArch:      noarch
 
@@ -78,6 +78,9 @@ MinGW Python 3 %{pypi_name} library.
 
 
 %changelog
+* Wed Apr 26 2023 Sandro Mani <manisandro@gmail.com> - 12.12.1-1
+- Update to 12.12.1
+
 * Thu Feb 02 2023 Sandro Mani <manisandro@gmail.com> - 12.11.1-1
 - Update to 12.11.1
 

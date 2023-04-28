@@ -1,6 +1,6 @@
 # spec file for php-pear-Mail-Mime
 #
-# Copyright (c) 2009-2021 Remi Collet
+# Copyright (c) 2009-2023 Remi Collet
 # Copyright (c) 2006-2008 Brandon Holbrook
 #
 # License: MIT
@@ -13,10 +13,10 @@
 
 Name:           php-pear-Mail-Mime
 Version:        1.10.11
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Classes to create MIME messages
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            http://pear.php.net/package/Mail_Mime
 Source0:        http://pear.php.net/get/Mail_Mime-%{version}.tgz
 
@@ -99,6 +99,9 @@ fi
 
 
 %changelog
+* Wed Apr 26 2023 Remi Collet <remi@remirepo.net> - 1.10.11-5
+- use SPDX license ID
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.11-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           shellinabox
 Version:        2.20
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Web based AJAX terminal emulator
 License:        GPLv2
 URL:            https://github.com/%{name}/%{name}
@@ -14,6 +14,7 @@ Source3:        shellinaboxd.init
 
 Patch0:         %{name}-ssh-options.patch
 Patch1:         %{name}-gcc11.patch
+Patch2: shellinabox-configure-c99.patch
 
 BuildRequires: make
 BuildRequires:  autoconf
@@ -49,6 +50,7 @@ browser plugins.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 autoreconf -vif
@@ -133,6 +135,9 @@ fi
 %attr(750,%{username},%{username}) %{_sharedstatedir}/%{name}
 
 %changelog
+* Wed Apr 26 2023 Florian Weimer <fweimer@redhat.com> - 2.20-20
+- Port configure script to C99
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.20-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

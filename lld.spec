@@ -12,7 +12,7 @@
 %global cmake_srcdir cmake-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:rc%{rc_ver}}.src
 %global maj_ver 16
 %global min_ver 0
-%global patch_ver 1
+%global patch_ver 2
 
 %if %{with compat_build}
 %global pkg_name lld%{maj_ver}
@@ -192,6 +192,9 @@ fi
 %{install_libdir}/liblld*.so.*
 
 %changelog
+* Wed Apr 26 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.2-1
+- Update to LLVM 16.0.2
+
 * Thu Apr 13 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.1-1
 - Update to LLVM 16.0.1
 

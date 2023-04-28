@@ -22,7 +22,7 @@
 
 Name:           polymake
 Version:        %(tr r . <<< %{upver})
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 # GPL-2.0-or-later: the project as a whole
 # MIT: external/js/three.js
@@ -319,6 +319,9 @@ sed -i 's@ -Wl,-dT,[^[:blank:]]*\.ld@@' %{buildroot}%{_libdir}/%{name}/config.ni
 %doc doc/*
 
 %changelog
+* Wed Apr 26 2023 Jerry James <loganjerry@gmail.com> - 4.9-2
+- Rebuild for perl 5.36.1
+
 * Wed Feb  1 2023 Jerry James <loganjerry@gmail.com> - 4.9-1
 - Version 4.9
 - Recommend plantri

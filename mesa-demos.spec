@@ -4,7 +4,7 @@
 Summary: Mesa demos
 Name: mesa-demos
 Version: 9.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: MIT
 URL: http://www.mesa3d.org
 Source0: https://archive.mesa3d.org/demos/%{name}-%{version}.tar.xz
@@ -13,6 +13,8 @@ Source2: mesad-git-snapshot.sh
 # Patch pointblast/spriteblast/dinoshade out for legal reasons
 # (not in public domain)
 Patch0: mesa-demos-8.5.0-legal.patch
+# Install glsl demos data
+Patch1: mesa-demos-system-data.patch
 # Fix xdriinfo not working with libglvnd
 Patch2: xdriinfo-1.0.4-glvnd.patch
 BuildRequires: meson
@@ -58,6 +60,7 @@ The egl-utils package provides the eglinfo and es2_info utilities.
 %prep
 %setup -q -n %{name}-%{version} -b1
 %patch0 -p1 -b .legal
+%patch1 -p1 -b .systemdata
 pushd ../%{xdriinfo}
 %patch2 -p1
 popd
@@ -118,6 +121,9 @@ install -m 0755 %{_vpath_builddir}/src/egl/opengles2/es2_info %{buildroot}%{_bin
 %{_bindir}/es2_info
 
 %changelog
+* Tue Apr 25 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 9.0.0-2
+- Install all necessary shader files (#1373299)
+
 * Mon Mar 27 2023 Erico Nunes <ernunes@redhat.com> - 9.0.0-1
 - Update to 9.0.0
 - Enable vulkan demos

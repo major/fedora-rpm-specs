@@ -1,10 +1,10 @@
-%global candidate rc0
+#global candidate rc0
 # Currently fails
 %define with_tests 0
 
 Name:      python-can
 Version:   4.2.0
-Release:   0.1%{?candidate:.%{candidate}}%{?dist}
+Release:   1%{?candidate:.%{candidate}}%{?dist}
 Summary:   Controller Area Network (CAN) support for Python
 License:   LGPLv3
 URL:       https://github.com/hardbyte/python-can
@@ -64,6 +64,9 @@ rm -rf %{buildroot}/%{python3_sitelib}/test/
 %{python3_sitelib}/*
 
 %changelog
+* Wed Apr 26 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 4.2.0-1
+- Update to 4.2.0
+
 * Mon Apr 10 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 4.2.0-0.1.rc0
 - Update to 4.2.0rc0
 

@@ -9,7 +9,7 @@ Summary: A library for managing OS information for virtualization
 Name: libosinfo
 Version: 1.10.0
 Release: 6%{?dist}
-License: LGPLv2+
+License: LGPL-2.1-or-later
 Source: https://releases.pagure.org/%{name}/%{name}-%{version}.tar.xz
 URL: https://libosinfo.org/
 BuildRequires: meson

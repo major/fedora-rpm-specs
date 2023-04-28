@@ -2,7 +2,7 @@ Name:           perl-Log-Dispatch-FileRotate
 Version:        1.38
 Release:        6%{?dist}
 Summary:        Log to files that archive/rotate themselves
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Log-Dispatch-FileRotate
 Source0:        https://cpan.metacpan.org/modules/by-module/Log/Log-Dispatch-FileRotate-%{version}.tar.gz
 BuildArch:      noarch

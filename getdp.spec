@@ -1,12 +1,6 @@
-%if 0%{?fedora} >= 33
-%global blaslib flexiblas
-%else
-%global blaslib openblas
-%endif
-
 Name:           getdp
 Version:        3.5.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        General Environment for the Treatment of Discrete Problems
 
 License:        GPL-2.0-or-later
@@ -18,7 +12,7 @@ BuildRequires:  gcc-c++ gcc-gfortran
 BuildRequires:  arpack-devel
 BuildRequires:  gmsh-devel
 BuildRequires:  gsl-devel
-BuildRequires:  %{blaslib}-devel
+BuildRequires:  flexiblas-devel
 BuildRequires:  python3-devel
 BuildRequires:  petsc-devel
 BuildRequires:  SuperLU-devel
@@ -56,12 +50,12 @@ find contrib/ -mindepth 1 -maxdepth 1 -type d -not \( -name pewe \) -prune -exec
 sed -i 's|${ENV_PETSC_ARCH}/lib|${ENV_PETSC_ARCH}/%_lib|g' CMakeLists.txt
 
 # set blas in bundled lib
-sed -i 's|-llapack -lblas|-l%{blaslib}|' contrib/pewe/fortran/Makefile
+sed -i 's|-llapack -lblas|-lflexiblas|' contrib/pewe/fortran/Makefile
 
 
 %build
 %cmake \
-    -DBLAS_LAPACK_LIBRARIES="-l%{blaslib}" \
+    -DBLAS_LAPACK_LIBRARIES="-lflexiblas" \
     -DENABLE_MULTIHARMONIC=ON \
     -DENABLE_NX=OFF           \
     -DENABLE_OPENMP=ON        \
@@ -83,9 +77,6 @@ rm -rf %{buildroot}%{_datadir}/doc/%{name}
 %ctest
 
 
-%ldconfig_scriptlets
-
-
 %files
 %license LICENSE.txt CREDITS.txt
 %{_bindir}/%{name}
@@ -98,6 +89,11 @@ rm -rf %{buildroot}%{_datadir}/doc/%{name}
 %{_libdir}/libgetdp.so
 
 %changelog
+* Wed Apr 26 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 3.5.0-6
+- Drop conditionals for end-of-life Fedora releases
+- Drop obsolete ldconfig_scriptlets macro
+- Rebuild for PETSc-3.18.5 (fix RHBZ#2189695)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

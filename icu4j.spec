@@ -2,8 +2,8 @@
 %global srctgz %(v=%{version}; echo "icu4j-$v" | sed 's/\\./_/')
 
 Name:           icu4j
-Version:        72.1
-Release:        2%{?dist}
+Version:        73.1
+Release:        1%{?dist}
 Epoch:          1
 Summary:        International Components for Unicode for Java
 # ICU itself is covered by the Unicode-DFS-2016 license.  Other licenses:
@@ -117,6 +117,9 @@ install -m 644 icu4j-localespi.jar %{buildroot}%{_javadir}/icu4j/
 %license main/shared/licenses/*
 
 %changelog
+* Wed Apr 26 2023 Jerry James <loganjerry@gmail.com> - 1:73.1-1
+- Version 73.1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:72.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

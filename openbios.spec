@@ -14,7 +14,7 @@ Release:        6.git%{hash}%{?dist}
 Epoch:          1
 Summary:        OpenBIOS implementation of IEEE 1275-1994
 
-License:        GPLv2
+License:        GPL-2.0-only
 URL:            http://www.openfirmware.info/OpenBIOS
 BuildArch:      noarch
 
