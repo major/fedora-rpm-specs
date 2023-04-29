@@ -18,7 +18,7 @@
 
 Name:           certbot
 Version:        2.5.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A free, automated certificate authority client
 
 License:        Apache-2.0
@@ -251,7 +251,7 @@ install -Dm 0644 --preserve-timestamps %{SOURCE10} %{buildroot}%{_unitdir}/certb
 install -Dm 0644 --preserve-timestamps %{SOURCE11} %{buildroot}%{_unitdir}/certbot-renew.timer
 install -Dm 0644 --preserve-timestamps %{SOURCE12} %{buildroot}%{_sysconfdir}/sysconfig/certbot
 install -Dm 0644 --preserve-timestamps %{SOURCE13} %{buildroot}%{_sysconfdir}/letsencrypt/cli.ini
-install -Dm 0644 --preserve-timestamps %{SOURCE14} %{buildroot}%{_sysconfdir}/logrotate.d/certbot
+install -Dm 0644 --preserve-timestamps %{SOURCE15} %{buildroot}%{_sysconfdir}/logrotate.d/certbot
 cp -a %{SOURCE14} %{_builddir}/%{name}-%{version}/README.fedora
 
 # project uses old letsencrypt dir for compatibility
@@ -374,6 +374,9 @@ fi
 
 
 %changelog
+* Thu Apr 27 2023 rob thijssen <rthijssen@gmail.com> - 2.5.0-3
+- Correct typo in logrotate configuration rhbz#2187543
+
 * Thu Apr 13 2023 Jonathan Wright <jonathan@almalinux.org> - 2.5.0-2
 - Include logrotate configuration rhbz#2102070
 

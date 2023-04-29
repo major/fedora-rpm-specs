@@ -2,7 +2,7 @@ Summary:	High speed arbitrary size integer math
 Name:		perl-Math-GMP
 Version:	2.25
 Release:	4%{?dist}
-License:	LGPLv2+
+License:	LGPL-2.0-or-later
 URL:		https://metacpan.org/release/Math-GMP
 Source0:	https://cpan.metacpan.org/modules/by-module/Math/Math-GMP-%{version}.tar.gz
 Patch0:		Math-GMP-2.18-no-Alien::GMP.patch
@@ -35,7 +35,8 @@ BuildRequires:	perl(IO::Handle)
 BuildRequires:	perl(IPC::Open3)
 BuildRequires:	perl(Scalar::Util)
 BuildRequires:	perl(Test::More)
-# Runtime
+# Dependencies
+# (none)
 
 # Don't "provide" private Perl libs
 %{?perl_default_filter}
@@ -50,7 +51,7 @@ This can result in speed improvements.
 %setup -q -n Math-GMP-%{version}
 
 # Avoid need for Alien::GMP; our build environment doesn't need it
-%patch0
+%patch -P 0
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}"

@@ -2,7 +2,7 @@ Name:           perl-Math-Round
 Version:        0.07
 Release:        25%{?dist}
 Summary:        Perl extension for rounding numbers
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Math-Round
 Source0:        https://cpan.metacpan.org/modules/by-module/Math/Math-Round-%{version}.tar.gz
 Patch0:         Math-Round-0.06-utf8.patch
@@ -22,7 +22,7 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
 # Test Suite
 # (no additional dependencies)
-# Runtime
+# Dependencies
 Requires:       perl(AutoLoader)
 
 %description
@@ -34,7 +34,7 @@ described below. "use ... qw(:all)" exports all functions.
 %setup -q -n Math-Round-%{version}
 
 # Recode docs as UTF-8
-%patch0 -p1
+%patch -P 0 -p1
 
 # Remove errant execute bits
 find . -type f -exec chmod -c -x {} ';'

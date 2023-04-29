@@ -6,8 +6,8 @@
 %bcond_with tests
 
 Name:           python-%{modname}
-Version:        3.2.0
-Release:        3%{?dist}
+Version:        4.0.1
+Release:        1%{?dist}
 Summary:        Python wrapper for the GitHub API
 
 License:        BSD
@@ -28,16 +28,8 @@ Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{srcname}}
 %{?python_provide:%python_provide python3-%{altname}}
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-%if %{with tests}
-BuildRequires:  python3-pytest
-BuildRequires:  python3-betamax
-BuildRequires:  python3-betamax-matchers
-BuildRequires:  python3-jwcrypto
-BuildRequires:  python3-mock
-BuildRequires:  python3-requests
-BuildRequires:  python3-uritemplate
-%endif
+BuildRequires: pyproject-rpm-macros
+BuildRequires: python3dist(hatchling)
 
 %description -n python3-%{modname} %{_description}
 
@@ -46,24 +38,31 @@ Python 3 version.
 %prep
 %autosetup -n %{srcname}-%{version}%{?rctag:%{rctag}}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{altname}
 
 %if %{with tests}
 %check
-py.test-%{python3_version} -v
+%tox
 %endif
 
-%files -n python3-%{modname}
+%files -n python3-%{modname} -f %{pyproject_files}
 %license LICENSE
 %doc AUTHORS.rst README.rst
-%{python3_sitelib}/%{srcname}-*.egg-info/
-%{python3_sitelib}/%{altname}/
 
 %changelog
+* Thu Apr 27 2023 Alexander Bokovoy <abokovoy@redhat.com> - 4.0.1
+- Upstream release 4.0.1
+- Switch to pyproject.toml for builds
+- Resolves: rhbz#2188990
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

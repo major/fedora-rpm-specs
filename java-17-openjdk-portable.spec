@@ -333,7 +333,7 @@
 # New Version-String scheme-style defines
 %global featurever 17
 %global interimver 0
-%global updatever 6
+%global updatever 7
 %global patchver 0
 # buildjdkver is usually same as %%{featurever},
 # but in time of bootstrap of next jdk, it is featurever-1,
@@ -383,15 +383,15 @@
 # Define IcedTea version used for SystemTap tapsets and desktop file
 %global icedteaver      6.0.0pre00-c848b93a8598
 # Define current Git revision for the FIPS support patches
-%global fipsver 257d544b594
+%global fipsver bf363eecce3
 
 # Standard JPackage naming and versioning defines
 %global origin          openjdk
 %global origin_nice     OpenJDK
 %global top_level_dir_name   %{origin}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
-%global buildver        10
-%global rpmrelease      3
+%global buildver        7
+%global rpmrelease      1
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -661,7 +661,7 @@ Patch6: rh1684077-openjdk_should_depend_on_pcsc-lite-libs_instead_of_pcsc-lite-d
 
 # Crypto policy and FIPS support patches
 # Patch is generated from the fips-17u tree at https://github.com/rh-openjdk/jdk/tree/fips-17u
-# as follows: git diff %%{vcstag} src make > fips-17u-$(git show -s --format=%h HEAD).patch
+# as follows: git diff %%{vcstag} src make test > fips-17u-$(git show -s --format=%h HEAD).patch
 # Diff is limited to src and make subdirectories to exclude .github changes
 # Fixes currently included:
 # PR3183, RH1340845: Follow system wide crypto policy
@@ -691,6 +691,10 @@ Patch6: rh1684077-openjdk_should_depend_on_pcsc-lite-libs_instead_of_pcsc-lite-d
 # RH2117972: Extend the support for NSS DBs (PKCS11) in FIPS mode
 # Remove forgotten dead code from RH2020290 and RH2104724
 # OJ1357: Fix issue on FIPS with a SecurityManager in place
+# RH2134669: Add missing attributes when registering services in FIPS mode.
+# test/jdk/sun/security/pkcs11/fips/VerifyMissingAttributes.java: fixed jtreg main class
+# RH1940064: Enable XML Signature provider in FIPS mode
+# RH2173781: Avoid calling C_GetInfo() too early, before cryptoki is initialized
 Patch1001: fips-17u-%{fipsver}.patch
 
 #############################################
@@ -701,10 +705,13 @@ Patch1001: fips-17u-%{fipsver}.patch
 
 #############################################
 #
-# OpenJDK patches which missed last update
+# OpenJDK patches appearing in 17.0.8
 #
 #############################################
-#empty now
+# JDK-8274864: Remove Amman/Cairo hacks in ZoneInfoFile
+Patch2001: jdk8274864-remove_amman_cairo_hacks.patch
+# JDK-8305113: (tz) Update Timezone Data to 2023c
+Patch2002: jdk8305113-tzdata2023c.patch
 
 BuildRequires: autoconf
 BuildRequires: automake
@@ -760,8 +767,8 @@ BuildRequires: java-%{buildjdkver}-openjdk-devel
 %ifarch %{zero_arches}
 BuildRequires: libffi-devel
 %endif
-# 2022g required as of JDK-8297804
-BuildRequires: tzdata-java >= 2022g
+# 2023c required as of JDK-8305113
+BuildRequires: tzdata-java >= 2023c
 
 # cacerts build requirement in portable mode
 BuildRequires: ca-certificates
@@ -979,6 +986,9 @@ pushd %{top_level_dir_name}
 %patch1001 -p1
 # nss.cfg PKCS11 support; must come last as it also alters java.security
 %patch1000 -p1
+# tzdata update
+%patch2001 -p1
+%patch2002 -p1
 popd # openjdk
 
 %patch600
@@ -1621,6 +1631,17 @@ done
 %license %{unpacked_licenses}/%{jdkportablesourcesarchive -- %%{nil}}
 
 %changelog
+* Wed Apr 26 2023 Andrew Hughes <gnu.andrew@redhat.com> - 1:17.0.7.0.7
+- Update to jdk-17.0.7.0+7
+- Update release notes to 17.0.7.0+7
+- Require tzdata 2023c due to local inclusion of JDK-8274864 & JDK-8305113
+- Sync whitespace in generate_source_tarball.sh with RHEL version
+- Update FIPS support against 17.0.7+6 and bring in latest changes:
+- * RH2134669: Add missing attributes when registering services in FIPS mode.
+- * test/jdk/sun/security/pkcs11/fips/VerifyMissingAttributes.java: fixed jtreg main class
+- * RH1940064: Enable XML Signature provider in FIPS mode
+- * RH2173781: Avoid calling C_GetInfo() too early, before cryptoki is initialized
+
 * Tue Apr 18  2023 Jiri Vanek <jvanek@redhat.com> - 1:17.0.6.0.10-3
 - introduced archfull src archive
 - replaced nasty handling of icons.

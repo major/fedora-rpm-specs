@@ -2,12 +2,13 @@
 
 Name:           libcuefile
 Version:        0
-Release:        0.1.20110810svn%{svn_release}%{?dist}
+Release:        0.2.20110810svn%{svn_release}%{?dist}
 Summary:        CUE file library from Musepack
 
 License:        GPL-2.0-only WITH Bison-exception-2.2
 URL:            https://www.musepack.net/index.php
 Source0:        http://files.musepack.net/source/%{name}_r%{svn_release}.tar.gz
+Patch99:	libcuefile-fedora-c99.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -28,6 +29,7 @@ developing applications that use %{name}.
 
 %prep
 %setup -q -n %{name}_r%{svn_release}
+%patch 99 -p1
 
 # Correct permissions and end of line
 find -type f -exec chmod 0644 '{}' +
@@ -58,4 +60,7 @@ install -D -t %{buildroot}%{_includedir}/cuetools/ include/cuetools/*.h
 
 
 %changelog
+* Thu Apr 27 2023 DJ Delorie <dj@redhat.com> - 0-0.2.20110810svn475
+- Fix C99 compatibility issue
+
 %autochangelog

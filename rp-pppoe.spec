@@ -1,24 +1,11 @@
 Name: rp-pppoe
-Version: 3.15
-Release: 5%{?dist}
+Version: 4.0
+Release: 1%{?dist}
 Summary: A PPP over Ethernet client (for xDSL support).
-License: GPLv2+
+License: GPL-2.0-or-later
 Url: https://dianne.skoll.ca/projects/rp-pppoe/
 
 Source: https://dianne.skoll.ca/projects/rp-pppoe/download/rp-pppoe-%{version}.tar.gz
-Source1: pppoe-connect
-Source2: pppoe-setup
-Source3: pppoe-start
-Source4: pppoe-status
-Source5: pppoe-stop
-Source6: pppoe-server.service
-
-Patch0: rp-pppoe-3.14-man.patch
-Patch1: rp-pppoe-3.14-ip-allocation.patch
-Patch2: rp-pppoe-3.12-doc.patch
-Patch3: rp-pppoe-3.12-plugin.patch
-Patch4: rp-pppoe-3.12-pluginpath.patch
-Patch5: rp-pppoe-manpages.patch
 
 BuildRequires: make
 BuildRequires: libtool
@@ -44,62 +31,29 @@ require any kernel modifications. It is fully compliant with RFC 2516,
 the official PPPoE specification.
 
 %prep
-%setup -q
-%patch0 -p1 -b .config
-%patch1 -p1 -b .ip-allocation
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1 -b .pluginpath
-%patch5 -p1 -b .manpages
+%autosetup -p1
 
 %build
 cd src
-autoconf
-export CFLAGS="%{optflags} -D_GNU_SOURCE -fno-strict-aliasing"
-%configure --docdir=%{_pkgdocdir} --enable-plugin
+%configure #--docdir=%{_pkgdocdir}
 make
 
 %install
 mkdir -p %{buildroot}%{_sbindir} %{buildroot}%{_unitdir}
 
 make -C src install DESTDIR=%{buildroot}
-
-install -m 0755 %{SOURCE1} %{buildroot}%{_sbindir}
-install -m 0755 %{SOURCE2} %{buildroot}%{_sbindir}
-install -m 0755 %{SOURCE3} %{buildroot}%{_sbindir}
-install -m 0755 %{SOURCE4} %{buildroot}%{_sbindir}
-install -m 0755 %{SOURCE5} %{buildroot}%{_sbindir}
-install -m 0644 %{SOURCE6} %{buildroot}%{_unitdir}/pppoe-server.service
-
-ln -sf pppoe-stop %{buildroot}%{_sbindir}/adsl-stop
-ln -sf pppoe-start %{buildroot}%{_sbindir}/adsl-start
-ln -fs pppoe-start.8 %{buildroot}%{_mandir}/man8/adsl-start.8
-ln -fs pppoe-stop.8 %{buildroot}%{_mandir}/man8/adsl-stop.8
-
-rm -rf %{buildroot}/etc/ppp/pppoe.conf \
-       %{buildroot}/etc/rc.d/init.d/pppoe \
-       %{buildroot}/%{_sysconfdir}/ppp/plugins
-
-%post
-%systemd_post pppoe-server.service
-
-%preun
-%systemd_preun pppoe-server.service
-
-%postun
-%systemd_postun_with_restart pppoe-server.service
+rm -rf %{buildroot}/etc/ppp/plugins
 
 %files
-%doc scripts/pppoe-connect scripts/pppoe-setup scripts/pppoe-init
-%doc scripts/pppoe-start scripts/pppoe-status scripts/pppoe-stop
-%doc SERVPOET README configs doc
 %config(noreplace) %{_sysconfdir}/ppp/pppoe-server-options
-%config(noreplace) %{_sysconfdir}/ppp/firewall*
-%{_unitdir}/pppoe-server.service
 %{_sbindir}/*
 %{_mandir}/man?/*
+%doc %{_docdir}/*
 
 %changelog
+* Thu Apr 27 2023 Than Ngo <than@redhat.com> - 4.0-1
+- fix #2190023, update to 4.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.15-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

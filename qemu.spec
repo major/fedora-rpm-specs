@@ -163,7 +163,7 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=1952483
 %global _lto_cflags %{nil}
 
-%global firmwaredirs "%{_datadir}/qemu-firmware:%{_datadir}/ipxe/qemu:%{_datadir}/seavgabios:%{_datadir}/seabios:%{_datadir}/sgabios"
+%global firmwaredirs "%{_datadir}/qemu-firmware:%{_datadir}/ipxe/qemu:%{_datadir}/seavgabios:%{_datadir}/seabios"
 
 %global qemudocdir %{_docdir}/%{name}
 %define evr %{epoch}:%{version}-%{release}
@@ -319,7 +319,8 @@ Obsoletes: %{name}-system-lm32-core <= %{epoch}:%{version}-%{release} \
 Obsoletes: %{name}-system-moxie <= %{epoch}:%{version}-%{release} \
 Obsoletes: %{name}-system-moxie-core <= %{epoch}:%{version}-%{release} \
 Obsoletes: %{name}-system-unicore32 <= %{epoch}:%{version}-%{release} \
-Obsoletes: %{name}-system-unicore32-core <= %{epoch}:%{version}-%{release}
+Obsoletes: %{name}-system-unicore32-core <= %{epoch}:%{version}-%{release} \
+Obsoletes: sgabios-bin <= 1:0.20180715git-10.fc38
 
 # Release candidate version tracking
 # global rcver rc4
@@ -329,14 +330,14 @@ Obsoletes: %{name}-system-unicore32-core <= %{epoch}:%{version}-%{release}
 %endif
 
 # To prevent rpmdev-bumpspec breakage
-%global baserelease 2
+%global baserelease 3
 
 Summary: QEMU is a FAST! processor emulator
 Name: qemu
 Version: 8.0.0
 Release: %{baserelease}%{?rcrel}%{?dist}
 Epoch: 2
-License: GPLv2 and BSD and MIT and CC-BY
+License: Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND FSFAP AND GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-2.0-or-later with GCC-exception-2.0 exception AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only and LGPL-2.1-or-later AND MIT and public-domain and CC-BY-3.0
 URL: http://www.qemu.org/
 
 Source0: http://wiki.qemu-project.org/download/%{name}-%{version}%{?rcstr}.tar.xz
@@ -1399,7 +1400,6 @@ platform.
 Summary: QEMU system emulator for x86
 Requires: %{name}-common = %{epoch}:%{version}-%{release}
 Requires: seabios-bin
-Requires: sgabios-bin
 Requires: seavgabios-bin
 %if %{have_edk2}
 Requires: edk2-ovmf
@@ -1934,8 +1934,6 @@ rm -rf %{buildroot}%{_datadir}/%{name}/efi*rom
 rm -rf %{buildroot}%{_datadir}/%{name}/vgabios*bin
 # Provided by package seabios
 rm -rf %{buildroot}%{_datadir}/%{name}/bios*.bin
-# Provided by package sgabios
-rm -rf %{buildroot}%{_datadir}/%{name}/sgabios.bin
 # Provided by edk2
 rm -rf %{buildroot}%{_datadir}/%{name}/edk2*
 rm -rf %{buildroot}%{_datadir}/%{name}/firmware
@@ -2785,6 +2783,9 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 
 
 %changelog
+* Thu Apr 27 2023 Daniel P. Berrangé <berrange@redhat.com> - 8.0.0-3
+- Drop sgabios-bin requirement and related baggage
+
 * Tue Apr 25 2023 Daniel P. Berrangé <berrange@redhat.com> - 8.0.0-2
 - Obsolete qemu-virtiofsd on i686 (rhbz #2189368)
 

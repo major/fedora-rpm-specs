@@ -1,8 +1,8 @@
 Name:           perl-MIME-Lite
 Version:        3.033
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        MIME::Lite - low-calorie MIME generator
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MIME-Lite
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/MIME-Lite-%{version}.tar.gz
 BuildArch:      noarch
@@ -62,6 +62,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Thu Apr 27 2023 Michal Josef Špaček <mspacek@redhat.com> - 3.033-7
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.033-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

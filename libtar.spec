@@ -1,7 +1,7 @@
 Summary:        Tar file manipulation API
 Name:           libtar
 Version:        1.2.20
-Release:        27%{?dist}
+Release:        28%{?dist}
 License:        MIT
 URL:            http://repo.or.cz/libtar.git
 Source:         http://repo.or.cz/libtar.git/snapshot/refs/tags/v1.2.20.tar.gz#/libtar-v1.2.20.tar.gz
@@ -19,6 +19,7 @@ Patch9:         libtar-1.2.20-CVE-2021-33643-CVE-2021-33644.patch
 
 # fix memory leaks through gnu_long{name,link} (CVE-2021-33645 CVE-2021-33646)
 Patch10:        libtar-1.2.20-CVE-2021-33645-CVE-2021-33646.patch
+Patch11: libtar-configure-c99.patch
 
 BuildRequires:  libtool
 BuildRequires:  make
@@ -78,6 +79,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.la
 
 
 %changelog
+* Thu Apr 27 2023 Florian Weimer <fweimer@redhat.com> - 1.2.20-28
+- Port configure script to C99 (#2190238)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.20-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 %global __requires_exclude pkg-config
 
 # rpmdev-bumpspec and releng automation compatible variable
-%global baserelease 5
+%global baserelease 6
 
 Name: dracut
 Version: 059
@@ -57,6 +57,10 @@ Patch6: 2134-revert-avoid-restarting-NetworkManager.patch
 # https://fedoraproject.org/wiki/Changes/MAC_Address_Policy_none
 # https://github.com/dracutdevs/dracut/pull/2224
 Patch7: 2224-network-include-default-mac-none-link.patch
+
+# fix(multipath): remove dependency on multipathd.socket
+# https://github.com/dracutdevs/dracut/pull/2290
+Patch8: 2290-remove-dependency-on-multipathd-socket.patch
 
 BuildRequires: bash
 BuildRequires: git-core
@@ -464,6 +468,9 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{_prefix}/lib/kernel/install.d/51-dracut-rescue.install
 
 %changelog
+* Thu Apr 27 2023 Michael Hofmann <mhofmann@redhat.com> - 059-6
+- Backport fix to remove dependency on multipathd.socket
+
 * Tue Mar 14 2023 Dusty Mabe <dusty@dustymabe.com> - 059-5
 - feat(network): include 98-default-mac-none.link if it exists
 

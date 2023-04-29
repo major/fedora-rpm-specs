@@ -2,7 +2,7 @@ Name:           perl-Math-Random-MT-Auto
 Version:        6.23
 Release:        14%{?dist}
 Summary:        Auto-seeded Mersenne Twister PRNGs
-License:        BSD 
+License:        BSD-3-Clause
 URL:            https://metacpan.org/release/Math-Random-MT-Auto
 Source0:        https://cpan.metacpan.org/modules/by-module/Math/Math-Random-MT-Auto-%{version}.tar.gz
 # Build:

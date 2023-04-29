@@ -2,7 +2,7 @@
 %global desc %{pypi_name} is a library of bindings to use the RESTful API for Podman.
 
 %global pypi_dist 4
-%global built_tag v4.4.1
+%global built_tag v4.5.0
 %global built_tag_strip %(b=%{built_tag}; echo ${b:1})
 %global gen_version %(b=%{built_tag_strip}; echo ${b/-/"~"})
 

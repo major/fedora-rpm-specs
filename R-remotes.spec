@@ -7,7 +7,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          R Package Installation from Remote Repositories
 
 License:          MIT
@@ -72,9 +72,9 @@ install -p %{packname}/{README,NEWS}.md %{buildroot}%{rlibdir}/%{packname}/
 
 %check
 %if %{with network}
-%{_bindir}/R CMD check %{packname}
+%{_bindir}/R CMD check --ignore-vignettes %{packname}
 %else
-%{_bindir}/R CMD check %{packname} --no-tests --no-examples
+%{_bindir}/R CMD check --ignore-vignettes %{packname} --no-tests --no-examples
 %endif
 
 
@@ -96,6 +96,9 @@ install -p %{packname}/{README,NEWS}.md %{buildroot}%{rlibdir}/%{packname}/
 
 
 %changelog
+* Thu Apr 27 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2.4.2-4
+- Ignore vignettes
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2.4.2-3
 - R-maint-sig mass rebuild
 

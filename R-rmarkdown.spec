@@ -217,9 +217,9 @@ popd
 
 %check
 %if %{with_suggests}
-%{_bindir}/R CMD check %{packname}
+%{_bindir}/R CMD check --ignore-vignettes %{packname}
 %else
-_R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-tests
+_R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check --ignore-vignettes %{packname} --no-tests
 %endif
 
 

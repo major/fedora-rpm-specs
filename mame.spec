@@ -1,7 +1,7 @@
 #The debug build is disabled by default, please use # --with debug to override
 %bcond_with debug
 
-%global baseversion 253
+%global baseversion 254
 
 %undefine _auto_set_build_flags
 
@@ -22,7 +22,6 @@ Source0:        https://github.com/mamedev/%{name}/archive/%{name}0%{baseversion
 Source1:        https://mamedev.org/releases/whatsnew_0%{baseversion}.txt
 Patch0:         %{name}-fortify.patch
 Patch1:         0001-Hack-allowing-bgfx-to-initialise-in-absence-of-dx9-s.patch
-Patch2:         ppc64le-validation-failure-fix.patch
 Patch3:         0001-If-combination-of-wayland-videodriver-and-bgfx-video.patch
 
 # %%{arm}:
@@ -30,12 +29,6 @@ Patch3:         0001-If-combination-of-wayland-videodriver-and-bgfx-video.patch
 # %%{ix86}
 # https://bugzilla.redhat.com/show_bug.cgi?id=1884122
 ExcludeArch:    %{arm} %{ix86}
-# %%{power64}:
-# https://github.com/mamedev/mame/issues/3157
-# https://bugzilla.redhat.com/show_bug.cgi?id=1541613
-%if 0%{?fedora} <= 35
-ExcludeArch:    %{power64}
-%endif
 
 %if 0%{?fedora} >= 37
 BuildRequires:  asio-devel

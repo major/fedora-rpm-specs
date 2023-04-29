@@ -4,12 +4,13 @@
 
 Name:           lib%{libname}
 Version:        %{current}.1.2
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Repack of the common code base of fido and siege as shared library
 
 License:        GPLv2+ and LGPLv2+
 URL:            http://www.%{libname}.org/
 Source0:        https://github.com/rmohr/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Patch0: libjoedog-c99.patch
 
 %{?el5:BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)}
 BuildRequires:  libtool
@@ -30,7 +31,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %prep
-%setup -q
+%autosetup -p1
 # old autotools want m4-dir to be present
 mkdir -p m4
 autoreconf -fi
@@ -72,6 +73,9 @@ rm -f %{buildroot}%{_libdir}/%{name}.la
 
 
 %changelog
+* Thu Apr 27 2023 Florian Weimer <fweimer@redhat.com> - 0.1.2-21
+- Port to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,16 +2,13 @@
 #%%global prerelease b1
 
 Name:               python-robosignatory
-Version:            0.7.0
-Release:            9%{?prerelease}%{?dist}
+Version:            0.8.1
+Release:            1%{?prerelease}%{?dist}
 Summary:            A Fedora Messaging consumer that automatically signs artifacts
 
 License:            GPLv2+
 URL:                https://pagure.io/robosignatory/
 Source0:            https://pagure.io/releases/robosignatory/robosignatory-%{version}%{?prerelease}.tar.gz
-
-# Upstream patch at 
-Patch:              robosignatory-0_7_0-fix-tests-for-fedora-messaging-3_2.patch
 
 BuildArch:          noarch
 
@@ -20,13 +17,11 @@ BuildRequires:      python3-setuptools
 BuildRequires:      python3-fedora-messaging
 BuildRequires:      python3-psutil
 BuildRequires:      python3-boto3
-BuildRequires:      python3-six
 BuildRequires:      python3-click
 BuildRequires:      python3-koji
 # Tests
 BuildRequires:      python3-pytest
 BuildRequires:      python3-pytest-cov
-BuildRequires:      python3-mock
 
 # https://bodhi.fedoraproject.org/updates/python-robosignatory-0.2.0-1.el7#comment-552652
 #Requires:           sigul
@@ -79,6 +74,13 @@ rm -rf %{modname}.egg-info
 
 
 %changelog
+* Thu Apr 27 2023 Aurelien Bompard <abompard@fedoraproject.org> - 0.8.1-1
+- Version 0.8.1
+
+* Thu Apr 27 2023 Aurelien Bompard <abompard@fedoraproject.org> - 0.8.0-1
+- Version 0.8.0
+- Drop patch (upstreamed)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

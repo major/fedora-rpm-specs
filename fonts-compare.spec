@@ -1,6 +1,6 @@
 Name:           fonts-compare
-Version:        1.3.1
-Release:        3%{?dist}
+Version:        1.3.2
+Release:        1%{?dist}
 Summary:        Tool to compare fonts for a language
 
 License:        GPL-2.0-or-later
@@ -16,6 +16,7 @@ Requires: python3-langtable
 Requires: python3-langdetect
 Requires: fontconfig
 Requires: hicolor-icon-theme
+Requires: gtk4
 
 %description
 Fonts-Compare is a tool that enables individuals
@@ -73,6 +74,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.github.sudipshil9
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
 
 %changelog
+* Thu Apr 27 2023 Sudip Shil <sshil@redhat.com> - 1.3.2-1
+- gtk4 dependency added
+- --help text added
+
 * Tue Apr 11 2023 Sudip Shil <sshil@redhat.com> - 1.3.1-3
 - changelog fixing
 

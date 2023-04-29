@@ -11,7 +11,7 @@
 Name:    kdegames3
 Summary: KDE 3 Games not ported to KDE 4
 Version: 3.5.10
-Release: 44%{?dist}
+Release: 45%{?dist}
 
 License: GPL-2.0-only
 Url:     http://www.kde.org
@@ -28,6 +28,7 @@ Patch301: kde3-automake-version.patch
 # fix build failure with automake 1.13: add the --add-missing --copy flags
 # also add --force-missing to get aarch64 support (#925029/#925627)
 Patch302: kde3-automake-add-missing.patch
+Patch303: kdegames-configure-c99.patch
 
 Requires: kdelibs3 >= %{version}
 # directory ownership
@@ -74,6 +75,7 @@ export DO_NOT_COMPILE="%{donotcompilelist}"
 %patch300 -p1 -b .acinclude
 %patch301 -p1 -b .automake-version
 %patch302 -p1 -b .automake-add-missing
+%patch303 -p1
 make -f admin/Makefile.common cvs
 
 
@@ -178,6 +180,9 @@ export QA_RPATHS=0x0001
 
 
 %changelog
+* Thu Apr 27 2023 Florian Weimer <fweimer@redhat.com> - 3.5.10-45
+- Port configure script to C99 (#2190286)
+
 * Tue Feb 21 2023 Than Ngo <than@redhat.com> - 3.5.10-44
 - migrated to SPDX license
 

@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          2.0.3
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          Finding Files in Project Subdirectories
 
 License:          MIT
@@ -58,9 +58,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 %check
 %if %{without bootstrap}
 export NOT_CRAN=true
-%{_bindir}/R CMD check %{packname}
+%{_bindir}/R CMD check --ignore-vignettes %{packname}
 %else
-_R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-tests
+_R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check --ignore-vignettes %{packname} --no-tests
 %endif
 
 
@@ -80,6 +80,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-tests
 
 
 %changelog
+* Thu Apr 27 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2.0.3-4
+- Ignore vignettes
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2.0.3-3
 - R-maint-sig mass rebuild
 

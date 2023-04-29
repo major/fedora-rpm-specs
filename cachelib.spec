@@ -30,6 +30,9 @@ Source0:        %{url}/archive/v%{tag}/%{name}-%{tag}.tar.gz
 Patch0:         %{name}-add_missing_includes.diff
 # needed on EL8; its gtest does not come with cmake files
 Patch100:       %{name}-find-gtest.patch
+# Workaround for gcc issue (still needed on epel9 x86_64)
+# https://bugzilla.redhat.com/show_bug.cgi?id=2108665
+Patch200:         %{name}-workaround-gcc-epel9-x86_64-bz2108665.patch
 
 ExclusiveArch:  x86_64 aarch64 ppc64le
 
@@ -81,6 +84,11 @@ applications that use %{name}.
 %autopatch -p1 -M 99
 %if 0%{?el8}
 %autopatch -p1 -m 100 -M 199
+%endif
+%ifarch x86_64
+%if 0%{?el9}
+%autopatch -p1 -m 200 -M 209
+%endif
 %endif
 
 

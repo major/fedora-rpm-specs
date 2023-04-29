@@ -1,6 +1,6 @@
 Name:           mlpack
-Version:        4.0.1
-Release:        4%{?dist}
+Version:        4.1.0
+Release:        1%{?dist}
 Summary:        Fast, header-only C++ machine learning library
 
 # The source in src/mlpack/core/std_backport/ is available under 
@@ -96,16 +96,16 @@ methods and related documentation.
 
 # Development headers.
 %package devel
-Summary:    Development headers for mlpack (C++ machine learning library)
-Requires:   %{name}-licenses
-Requires:   armadillo-devel >= 9.800.0
-Requires:	ensmallen-devel >= 2.10.0
-Requires:	cereal-devel
-Requires:   lapack-devel
-Requires:	pkg-config
-Requires:   stb_image-devel%{?_isa} >= %{min_stb_image}
-Requires:   stb_image_write-devel%{?_isa}
-Provides:   %{name}-static = %{version}-%{release}
+Summary:   Development headers for mlpack (C++ machine learning library)
+Requires:  %{name}-licenses
+Requires:  armadillo-devel >= 9.800.0
+Requires:  ensmallen-devel >= 2.10.0
+Requires:  cereal-devel
+Requires:  lapack-devel
+Requires:  pkg-config
+Requires:  stb_image-devel%{?_isa} >= %{min_stb_image}
+Requires:  stb_image_write-devel%{?_isa}
+Provides:  %{name}-static = %{version}-%{release}
 
 %description devel
 mlpack is a C++ machine learning library with emphasis on scalability, speed,
@@ -119,12 +119,12 @@ mlpack.
 
 
 %package python3
-Summary:	Python 3 bindings for mlpack (C++ machine learning library)
-Requires:   %{name}-licenses
-Requires:	python3
-Requires:	python3-numpy
-Requires:	python3-pandas
-Requires:	python3-Cython
+Summary:   Python 3 bindings for mlpack (C++ machine learning library)
+Requires:  %{name}-licenses
+Requires:  python3
+Requires:  python3-numpy
+Requires:  python3-pandas
+Requires:  python3-Cython
 
 %description python3
 mlpack is a C++ machine learning library with emphasis on scalability, speed,
@@ -297,6 +297,9 @@ cd ..;
 %{python3_sitearch}/mlpack-*.egg-info
 
 %changelog
+* Thu Apr 27 2023 Benson Muite <benson_muite@emailplus.org> - 4.1.0-1
+- Update to new version
+
 * Sat Feb 25 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 4.0.1-4
 - Update min. stb_image versions for nullptr deref. bug
 - Add stb license to the License field

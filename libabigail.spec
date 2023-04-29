@@ -2,8 +2,8 @@
 %global tarball_name %{name}-%{version}
 
 Name: libabigail
-Version: 2.2
-Release: 2%{?dist}
+Version: 2.3
+Release: 1%{?dist}
 Summary: Set of ABI analysis tools
 
 License: ASL 2.0
@@ -19,7 +19,6 @@ BuildRequires: libxml2-devel
 BuildRequires: doxygen
 BuildRequires: python3-sphinx
 BuildRequires: texinfo
-BuildRequires: dos2unix
 %if 0%{?fedora}
 BuildRequires: dpkg
 BuildRequires: koji
@@ -113,7 +112,6 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 # Install man and texinfo files as they are not installed by the
 # default 'install' target of the makefile.
 make -C doc/manuals install-man-and-info-doc DESTDIR=%{buildroot}
-dos2unix doc/manuals/html/_static/jquery.js
 
 %if 0%{?fedora}
 # Explicitly use Python 3 as the interpreter
@@ -136,8 +134,8 @@ fi
 %{_bindir}/abilint
 %{_bindir}/abipkgdiff
 %{_bindir}/kmidiff
-%{_libdir}/libabigail.so.1
-%{_libdir}/libabigail.so.1.0.0
+%{_libdir}/libabigail.so.2
+%{_libdir}/libabigail.so.2.0.0
 %{_libdir}/libabigail/default.abignore
 %doc README AUTHORS ChangeLog
 %license LICENSE.txt license-change-2020.txt
@@ -161,6 +159,13 @@ fi
 %endif
 
 %changelog
+* Thu Apr 27 2023 Dodji Seketeli <dodji@redhat.com> - 2.3-1
+- Update to upstream 2.3 release
+- Don't do "dos2unix doc/manuals/html/_static/jquery.js"
+  The file doc/manuals/html/_static/jquery.js is no more.
+  Hence, don't BuildRequires: dos2unix anymore.
+- The libaigail binary is now libabigail.so.2.0.0.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

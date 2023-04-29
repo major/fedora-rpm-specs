@@ -22,7 +22,7 @@ dogpile.cache in a more efficient and succinct manner, and all the cruft\
 heap.
 
 Name:               python-dogpile-cache
-Version:            1.1.8
+Version:            1.2.0
 Release:            2%{?dist}
 Summary:            %{sum}
 
@@ -35,7 +35,6 @@ BuildArch:          noarch
 BuildRequires:      python3-decorator >= 4.0.0
 BuildRequires:      python3-devel
 BuildRequires:      python3-mako
-BuildRequires:      python3-mock
 BuildRequires:      python3-pytest-cov
 BuildRequires:      python3-setuptools
 BuildRequires:      python3-stevedore
@@ -87,6 +86,12 @@ rm -rf %{modname}.egg-info
 %{python3_sitelib}/%{modname}-%{version}-*
 
 %changelog
+* Thu Apr 27 2023 Jonathan Wright <jonathan@almalinux.org> - 1.2.0-2
+- remove unnecessary BR on python3-mock
+
+* Thu Apr 27 2023 Jonathan Wright <jonathan@almalinux.org> - 1.2.0-1
+- Update to 1.2.0 rhbz#2189978
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

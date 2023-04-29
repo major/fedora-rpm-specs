@@ -2,7 +2,7 @@ Name:		perl-Mail-Message
 Version:	3.012
 Release:	5%{?dist}
 Summary:	MIME message handling
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Mail-Message
 Source0:	https://cpan.metacpan.org/modules/by-module/Mail/Mail-Message-%{version}.tar.gz
 BuildArch:	noarch

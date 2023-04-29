@@ -1,198 +1,141 @@
-Summary: Chdir for DOS and Unix
-Name: wcd
-Version: 6.0.4
-Release: 4%{?dist}
-License: GPLv2
-Source: http://waterlan.home.xs4all.nl/wcd/%{name}-%{version}.tar.gz
-URL: http://waterlan.home.xs4all.nl/
-BuildRequires: make
-BuildRequires: gcc
-BuildRequires: gettext
-BuildRequires: ncurses-devel
-BuildRequires: libunistring-devel
+Summary:        Wherever Change Directory: chdir for DOS and Unix
+Name:           wcd
+Version:        6.0.5
+Release:        %autorelease
+
+License:        GPL-2.0-or-later
+URL:            https://waterlan.home.xs4all.nl/wcd.html
+Source:         https://waterlan.home.xs4all.nl/wcd/wcd-%{version}.tar.gz
+
+BuildRequires:  make
+BuildRequires:  gcc
+
+# For NLS (translations) in the program
+BuildRequires:  gettext
+# For rebuilding and translating documentation
+BuildRequires:  po4a
+BuildRequires:  /usr/bin/pod2html
+BuildRequires:  /usr/bin/pod2man
+BuildRequires:  /usr/bin/podchecker
+
+BuildRequires:  ncurses-devel
+BuildRequires:  libunistring-devel
+
+%global wcd_d1 prefix='%{_prefix}' bindir='%{_bindir}' datadir='%{_datadir}'
+%global wcd_d2 docdir='%{_pkgdocdir}' sysconfdir='%{_sysconfdir}'
+%global wcd_d3 mandir='%{_mandir}'
+%global wcd_dirs %{wcd_d1} %{wcd_d2} %{wcd_d3}
+# Paraphrased from doc/UNIX.txt:
+#   UCS= Enable Unicode (UTF8) support.
+#   UNINORM= Enable Unicode normalization. Requires libunistring. This takes at
+#            least partial effect by being defined *to any value*, so do not
+#            define it unless we want to enable it (we do).
+#   ENABLE_NLS= Enable native language support. That is, use locale files. This
+#               option takes effect by being defined *to any value*, so do not
+#               define it unless we want to enable it (we do).
+#   STATIC= Enable static linking. Make a standalone wcd binary. This option
+#           takes effect by being defined *to any value*, so do not define it
+#           unless we want to enable it.
+#   DEBUG= Add -g to CFLAGS; the distro flags handle this.
+#   DEBUGMSG= Makes wcd print verbose messages about accessing the file system.
+#   LFS= Large File Support (LFS). This option cannot be effectively disabled
+#        due to questionable logic in the Makefile, but that is fine because we
+#        certainly want it to be enabled.
+#   CURSES= Select curses library. Default is ncurses. There is some magic
+#           behind the scenes, so we leave this alone.
+#   NCURSES_DEBUG= Link with ncurses debug enabled library.
+#   ASCII_TREE= Draw graphical tree with ASCII characters (instead of
+#               line-drawing characters). This option takes effect by being
+#               defined *to any value*, so do not define it unless we want to
+#               enable it.
+#   EXT= Set executable extension.
+#   HMTLEXT= Set HTML manual file extension.
+%global wcd_f1 UCS=1 UNINORM=1 ENABLE_NLS=1
+%global wcd_f2 DEBUG=0 DEBUGMSG=0 LFS=1 NCURSES_DEBUG=0
+%global wcd_f3 EXT= HTMLEXT=html
+%global wcd_flags %{wcd_f1} %{wcd_f2} %{wcd_f3}
+%global wcd_opts %{wcd_dirs} %{wcd_flags}
 
 %description
-Wcd.   Directory changer for DOS and Unix.  Another Norton
-Change Directory (NCD) clone.
+Wcd is a command-line program to change directory fast. It saves time typing at
+the keyboard. One needs to type only a part of a directory name and wcd will
+jump to it. Wcd has a fast selection method in case of multiple matches and
+allows aliasing and banning of directories. Wcd also includes a full screen
+interactive directory tree browser with speed search.
 
-Wcd is a command-line program to change directory fast. It
-saves time typing at the keyboard.  One needs to type only
-a part of a directory  name and wcd  will jump to it.  Wcd
-has a fast selection  method  in  case of multiple matches
-and allows aliasing and  banning of directories.  Wcd also
-includes a full-screen interactive  directory tree browser
-with speed search.
+Wcd was modeled after Norton Change Directory (NCD). NCD appeared first in The
+Norton Utilities, Release 4, for DOS in 1987, published by Peter Norton. NCD
+was written by Brad Kingsbury.
+
+
+%package doc
+Summary:        Documentation for wcs
+
+BuildArch:      noarch
+
+%description doc
+%{summary}.
+
+Man pages are included with the base package. This package provides the same
+documentation in other forms, like plain text and HTML, as well as ancillary
+plain-text documentation files, changelogs, and so on.
+
 
 %prep
-%setup -q
+%autosetup
+
 
 %build
-make -C src %{?_smp_mflags} prefix=%{_prefix} UCS=1 UNINORM=1
+%set_build_flags
+%make_build -C src %{wcd_opts}
+
 
 %install
-make -C src install DESTDIR=${RPM_BUILD_ROOT} prefix=%{_prefix} mandir=%{_mandir}
-make -C src install-profile DESTDIR=${RPM_BUILD_ROOT} prefix=%{_prefix} sysconfdir=%{_sysconfdir}
+%make_install install-profile -C src %{wcd_opts}
+%find_lang wcd --with-man
 
-%find_lang %{name} --with-man
+%if 0%{?fedora} && 0%{?fedora} < 39
+# Historically, this package accepted the upstream default of building the
+# binary as wcd.exe, and the spec file contained claims that the name of the
+# binary might change periodically and that this was not important.
+#
+# We feel that this was misguided: the name of the command that users type is
+# *very* important, and it should match system conventions. We maintain the old
+# name as a symbolic link for compatibility.
+ln -s wcd '%{buildroot}%{_bindir}/wcd.exe'
+%endif
 
-%files -f %{name}.lang
+
+%files -f wcd.lang
+%license %{_pkgdocdir}/copying.txt
+
+%{_bindir}/wcd
+%if 0%{?fedora} && 0%{?fedora} < 39
+# See the comment in %%install.
 %{_bindir}/wcd.exe
-# Overwrite the old config files. Old config files may break a new
-# installation when the name of the binary changes.
-%config %{_sysconfdir}/profile.d/wcd.*
-# https://fedoraproject.org/wiki/Packaging_tricks#As_part_of_the_staged_install
-%{_defaultdocdir}/%{name}-%{version}/
-%{_mandir}/man1/wcd.*
-# The name of the manual page is 'wcd', equal to the name of the package and
-# defined alias (csh) and function (sh) in the config files, and not equal to
-# the name of the binary. The name of the binary may vary and is in fact not
-# important.
+%endif
+%{_mandir}/man1/wcd.1*
+
+%config(noreplace) %{_sysconfdir}/profile.d/wcd.sh
+%config(noreplace) %{_sysconfdir}/profile.d/wcd.csh
+
+
+%files doc
+%license %{_pkgdocdir}/copying.txt
+%doc %{_pkgdocdir}/INSTALL.txt
+%doc %{_pkgdocdir}/README.txt
+%doc %{_pkgdocdir}/UNIX.txt
+%doc %{_pkgdocdir}/faq.txt
+%doc %{_pkgdocdir}/problems.txt
+%doc %{_pkgdocdir}/todo.txt
+%doc %{_pkgdocdir}/wcd.html
+%doc %{_pkgdocdir}/wcd.txt
+%doc %{_pkgdocdir}/whatsnew.txt
+# Localized HTML and plain-text documentation
+%doc %dir %{_pkgdocdir}/*/
+%doc %{_pkgdocdir}/*/wcd.html
+%doc %{_pkgdocdir}/*/wcd.txt
 
 
 %changelog
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Nov 2 2021 Erwin Waterlander <waterlan@xs4all.nl> - 6.0.4-1
-- New upstream version 6.0.4.
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.3-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.3-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Fri Jan 31 2020 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Wed Aug 14 2019 Erwin Waterlander <waterlan@xs4all.nl> - 6.0.3-1
-- New upstream version 6.0.3.
-
-* Sat Jul 27 2019 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.2-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sun Feb 03 2019 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Tue Jul 31 2018 Erwin Waterlander <waterlan@xs4all.nl> - 6.0.2-3
-- Build requires gcc (bug #1606664).
-
-* Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Fri May 11 2018 Erwin Waterlander <waterlan@xs4all.nl> - 6.0.2-1
-- New upstream version 6.0.2.
-
-* Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Sat Sep 16 2017 Erwin Waterlander <waterlan@xs4all.nl> - 6.0.1-1
-- New upstream version 6.0.1.
-
-* Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Wed Feb 22 2017 Erwin Waterlander <waterlan@xs4all.nl> - 6.0.0-1
-- New upstream version 6.0.0.
-
-* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Wed Jan 4 2017 Erwin Waterlander <waterlan@xs4all.nl> - 5.3.4-1
-- New upstream version 5.3.4.
-
-* Thu Nov 3 2016 Erwin Waterlander <waterlan@xs4all.nl> - 5.3.3-1
-- New upstream version 5.3.3.
-
-* Fri Feb 19 2016 Erwin Waterlander <waterlan@xs4all.nl> - 5.3.2-1
-- New upstream version 5.3.2.
-
-* Fri Feb 05 2016 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
-
-* Thu Dec 3 2015 Erwin Waterlander <waterlan@xs4all.nl> - 5.3.1-1
-- New upstream version 5.3.1.
-
-* Thu Sep 24 2015 Erwin Waterlander <waterlan@xs4all.nl> - 5.3.0-1
-- New upstream version 5.3.0.
-
-* Fri Jun 19 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 5.2.7-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
-
-* Sun Apr 19 2015 Erwin Waterlander <waterlan@xs4all.nl> - 5.2.7-1
-- New upstream version 5.2.7.
-
-* Fri Jan 30 2015 Erwin Waterlander <waterlan@xs4all.nl> - 5.2.6-2
-- Fixed Source.
-
-* Mon Jan 19 2015 Erwin Waterlander <waterlan@xs4all.nl> - 5.2.6-1
-- New upstream version 5.2.6.
-
-* Tue Sep 02 2014 Pádraig Brady <pbrady@redhat.com> - 5.2.5-4
-- rebuild for libunistring soname bump
-
-* Mon Aug 18 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 5.2.5-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
-
-* Wed Jun 11 2014 Erwin Waterlander <waterlan@xs4all.nl> - 5.2.5-2
-- Fixed packaging new manual translations.
-
-* Wed Jun 11 2014 Erwin Waterlander <waterlan@xs4all.nl> - 5.2.5-1
-- New upstream version 5.2.5.
-
-* Sun Jun 08 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 5.2.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
-
-* Thu Aug 29 2013 Erwin Waterlander <waterlan@xs4all.nl> - 5.2.4-1
-- New upstream version 5.2.4.
-
-* Mon Aug  5 2013 Tim Waugh <twaugh@redhat.com> - 5.2.3-4
-- Fixed doc-related build problem (bug #992868).
-
-* Fri Feb 22 2013 Erwin Waterlander <waterlan@xs4all.nl> - 5.2.3-3
-- Build requires perl-Pod-Checker.
-
-* Fri Feb 15 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 5.2.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
-
-* Mon Oct 29 2012 Erwin Waterlander <waterlan@xs4all.nl> - 5.2.3-1
-- New upstream version 5.2.3.
-- Set _sysconfdir while installing profile (the makefile supports
-  it now).
-
-* Tue Oct 09 2012 Erwin Waterlander <waterlan@xs4all.nl> - 5.2.2-6
-- Use _sysconfdir for config files.
-
-* Thu Sep 27 2012 Erwin Waterlander <waterlan@xs4all.nl> - 5.2.2-5
-- Added comment to explain why configs are overwritten and the name
-  of the manual is not equal to the name of the binary.
-
-* Mon Sep 24 2012 Erwin Waterlander <waterlan@xs4all.nl> - 5.2.2-4
-- Summary starts with capital letter C.
-- Config files marked with config.
-- Removed clean section (needed only if supporting EPEL5).
-- Moved man-pages under doc.
-
-* Sun Sep 23 2012 Erwin Waterlander <waterlan@xs4all.nl> - 5.2.2-3
-- Increment release version.
-
-* Sun Sep 23 2012 Erwin Waterlander <waterlan@xs4all.nl> - 5.2.2-2
-- Removed tag Packager.
-- Removed Buildrequires sed.
-- Changed License tag from GPL to GPLv2
-
-* Sun Sep 23 2012 Erwin Waterlander <waterlan@xs4all.nl> - 5.2.2-1
-- Initial version for Fedora.
-
+%autochangelog

@@ -6,7 +6,7 @@
 
 %global maj_ver 16
 %global min_ver 0
-%global patch_ver 1
+%global patch_ver 2
 #global rc_ver 4
 %global libunwind_version %{maj_ver}.%{min_ver}.%{patch_ver}
 
@@ -82,6 +82,7 @@ export ASMFLAGS=$CFLAGS
 %cmake -GNinja \
     -DCMAKE_MODULE_PATH=%{_libdir}/cmake/llvm \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
     -DLLVM_BUILD_DOCS=ON \
     -DLLVM_ENABLE_SPHINX=ON \
     -DLIBUNWIND_INCLUDE_DOCS=ON \
@@ -151,6 +152,12 @@ rm %{buildroot}%{_pkgdocdir}/html/.buildinfo
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Thu Apr 27 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.2-1
+- Update to LLVM 16.0.2
+
+* Thu Apr 27 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.1-2
+- Enable PIC even for static libraries (rhbz#2186531)
+
 * Thu Apr 13 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.1-1
 - Update to LLVM 16.0.1
 

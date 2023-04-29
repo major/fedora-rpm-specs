@@ -2,7 +2,7 @@ Name:		perl-Math-Calc-Units
 Version:	1.07
 Release:	39%{?dist}
 Summary:	Human-readable unit-aware calculator
-License:	GPLv2 or Artistic
+License:	GPL-2.0-only OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Math-Calc-Units
 Source0:	https://cpan.metacpan.org/modules/by-module/Math/Math-Calc-Units-%{version}.tar.gz
 BuildArch:	noarch
@@ -30,8 +30,9 @@ BuildRequires:	perl(Test::More)
 # Optional Tests
 BuildRequires:	perl(Test::Pod) >= 1.00
 # Dependencies
+# (none)
 
-# Remove unwanted provide if we have rpm 4.9 or later
+# Remove unwanted provide
 %global __provides_exclude ^perl\\(Parse::Yapp::Driver\\)
 
 %description

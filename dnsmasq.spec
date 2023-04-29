@@ -23,7 +23,7 @@
 
 Name:           dnsmasq
 Version:        2.89
-Release:        3%{?extraversion:.%{extraversion}}%{?dist}
+Release:        5%{?extraversion:.%{extraversion}}%{?dist}
 Summary:        A lightweight DHCP/caching DNS server
 
 # SPDX identifiers already
@@ -47,6 +47,8 @@ Patch2:         dnsmasq-2.81-configuration.patch
 Patch3:         dnsmasq-2.78-fips.patch
 # https://thekelleys.org.uk/gitweb/?p=dnsmasq.git;h=eb92fb32b746f2104b0f370b5b295bb8dd4bd5e5
 Patch4:         dnsmasq-2.89-edns0-size.patch
+# http://thekelleys.org.uk/gitweb/?p=dnsmasq.git;a=commit;h=33635d8564f96cedcef9bf9826cbbca76f28aa81
+Patch5:         dnsmasq-2.90-dbus-watchers-bz2186468.patch
 
 
 Requires:       nettle
@@ -136,11 +138,13 @@ sed -i "s|\(#\s*define RUNFILE\) \"/var/run/dnsmasq.pid\"|\1 \"%{_rundir}/dnsmas
 sed -i 's|^COPTS[[:space:]]*=|\0 -DHAVE_DBUS -DHAVE_LIBIDN2 -DHAVE_DNSSEC -DHAVE_CONNTRACK|' Makefile
 
 %build
-%make_build CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS"
-%make_build -C contrib/lease-tools CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS"
+%make_build CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS" \
 %if %{with i18n}
-%make_build CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS" all-i18n
+  all-i18n
+%else
+  all
 %endif
+%make_build -C contrib/lease-tools CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS"
 
 %install
 # normally i'd do 'make install'...it's a bit messy, though
@@ -215,6 +219,12 @@ install -Dpm 644 %{SOURCE2} %{buildroot}%{_sysusersdir}/%{name}.conf
 %endif
 
 %changelog
+* Thu Apr 27 2023 Petr Menšík <pemensik@redhat.com> - 2.89-5
+- Prevent crash on dbus reconnection (#2186468)
+
+* Thu Apr 27 2023 Petr Menšík <pemensik@redhat.com> - 2.89-4
+- Actually enable localization support in dnsmasq (#2131681)
+
 * Wed Apr 05 2023 Petr Menšík <pemensik@redhat.com> - 2.89-3
 - Add separate SPDX licenses also to translations
 - Include localized man pages simpler way, make them noarch

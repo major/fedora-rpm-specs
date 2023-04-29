@@ -1,6 +1,6 @@
 Name:           racket
 Version:        7.4
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        General purpose programming language
 
 License:        GPLv3 and LGPLv3 and MIT
@@ -16,6 +16,7 @@ Source0:        https://mirror.racket-lang.org/installers/%{version}/%{name}-%{v
 # Note: SRFI 5 was replaced with a FOSS implementation.  Only
 #       nonfree docs need to be removed by this patch now.
 Patch0:         racket-7.4-remove-nonfree.patch
+Patch1: racket-configure-c99.patch
 
 # Issue Building for armv7hl in koji
 ExcludeArch: %{arm} s390x
@@ -249,6 +250,9 @@ A local installation of the Racket documentation system.
 %{_datadir}/doc/racket
 
 %changelog
+* Wed Apr 26 2023 Florian Weimer <fweimer@redhat.com> - 7.4-10
+- Port configure script to C99
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

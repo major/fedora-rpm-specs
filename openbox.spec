@@ -1,6 +1,6 @@
 Name:		openbox
 Version:	3.6.1
-Release:	21%{?dist}
+Release:	22%{?dist}
 Summary:	A highly configurable and standards-compliant X11 window manager
 
 License:	GPLv2+
@@ -12,6 +12,7 @@ Source3:	menu.xml
 Source4:	terminals.menu
 Patch1:		openbox-python3.patch
 Patch2:		openbox-kf5menu.patch
+Patch3:		openbox-calc-layer.patch
 
 Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
 
@@ -91,6 +92,7 @@ KDE session.
 %setup -q
 %patch1 -p1 -b .python3
 %patch2 -p1 -b .kf5menu
+%patch3 -p1 -b .calc-layer
 
 
 %build
@@ -171,6 +173,9 @@ rm -rf %{buildroot}%{_datadir}/doc/%{name}
 %ldconfig_scriptlets libs
 
 %changelog
+* Thu Apr 27 2023 Miroslav Lichvar <mlichvar@redhat.com> - 3.6.1-22
+- fix crash with new glib (#2178299)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.1-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,7 +1,7 @@
-%global version 0.11.2
+%global version 0.12.0
 %global reponame WasmEdge
 %global capi_soname 0
-%global capi_version 0.0.1
+%global capi_version 0.0.2
 
 Name:    wasmedge
 Version: %{version}
@@ -73,13 +73,9 @@ mv %{buildroot}%{_bindir}/wasmedge{,.rt}
 mv %{buildroot}%{_libdir}/lib%{name}.so.%{capi_version}{,.rt}
 mv %{buildroot}%{_libdir}/lib%{name}.so.%{capi_soname}{,.rt}
 mv %{buildroot}%{_libdir}/lib%{name}.so{,.rt}
-mv %{buildroot}%{_libdir}/%{name}/lib%{name}Plugin%{reponame}Process.so %{buildroot}%{_libdir}/%{name}/lib%{name}Plugin%{reponame}Process.so.%{version}.rt
-ln -s lib%{name}Plugin%{reponame}Process.so.%{version} %{buildroot}%{_libdir}/%{name}/lib%{name}Plugin%{reponame}Process.so.rt
 rm -rf %{buildroot}%{_includedir}
 cd ..
 %cmake_install
-mv %{buildroot}%{_libdir}/%{name}/lib%{name}Plugin%{reponame}Process.so %{buildroot}%{_libdir}/%{name}/lib%{name}Plugin%{reponame}Process.so.%{version}
-ln -s lib%{name}Plugin%{reponame}Process.so.%{version} %{buildroot}%{_libdir}/%{name}/lib%{name}Plugin%{reponame}Process.so
 
 %files
 %license LICENSE LICENSE.spdx
@@ -88,8 +84,6 @@ ln -s lib%{name}Plugin%{reponame}Process.so.%{version} %{buildroot}%{_libdir}/%{
 %{_bindir}/wasmedgec
 %{_libdir}/lib%{name}.so.%{capi_version}
 %{_libdir}/lib%{name}.so.%{capi_soname}
-%dir %{_libdir}/%{name}
-%{_libdir}/%{name}/lib%{name}Plugin%{reponame}Process.so.%{version}
 
 %files rt
 %license LICENSE LICENSE.spdx
@@ -98,9 +92,6 @@ ln -s lib%{name}Plugin%{reponame}Process.so.%{version} %{buildroot}%{_libdir}/%{
 %{_libdir}/lib%{name}.so.%{capi_version}.rt
 %{_libdir}/lib%{name}.so.%{capi_soname}.rt
 %{_libdir}/lib%{name}.so.rt
-%dir %{_libdir}/%{name}
-%{_libdir}/%{name}/lib%{name}Plugin%{reponame}Process.so.rt
-%{_libdir}/%{name}/lib%{name}Plugin%{reponame}Process.so.%{version}.rt
 
 %files devel
 %dir %{_includedir}/%{name}
@@ -112,8 +103,6 @@ ln -s lib%{name}Plugin%{reponame}Process.so.%{version} %{buildroot}%{_libdir}/%{
 %{_includedir}/%{name}/version.h
 %{_includedir}/%{name}/wasmedge.h
 %{_libdir}/lib%{name}.so
-%dir %{_libdir}/%{name}
-%{_libdir}/%{name}/lib%{name}Plugin%{reponame}Process.so
 
 %changelog
 %autochangelog

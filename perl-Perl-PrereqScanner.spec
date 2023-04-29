@@ -1,6 +1,6 @@
 Name:           perl-Perl-PrereqScanner
-Version:        1.025
-Release:        2%{?dist}
+Version:        1.100
+Release:        1%{?dist}
 Summary:        Tool to scan your Perl code for its prerequisites
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Perl-PrereqScanner
@@ -15,6 +15,7 @@ BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.78
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Runtime
+BuildRequires:  perl(Carp)
 BuildRequires:  perl(CPAN::Meta::Requirements) >= 2.124
 BuildRequires:  perl(File::Find)
 BuildRequires:  perl(File::Spec::Functions)
@@ -24,13 +25,14 @@ BuildRequires:  perl(Getopt::Long)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(List::Util) >= 1.33
 BuildRequires:  perl(Module::Path)
-BuildRequires:  perl(Moose)
-BuildRequires:  perl(Moose::Role)
+BuildRequires:  perl(Moo) >= 2.000000
+BuildRequires:  perl(Moo::Role)
 BuildRequires:  perl(namespace::autoclean)
 BuildRequires:  perl(Params::Util)
 BuildRequires:  perl(PPI) >= 1.215
 # Scalar::Util not used at tests
 BuildRequires:  perl(String::RewritePrefix) >= 0.005
+BuildRequires:  perl(Types::Standard)
 # Tests only
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(File::Temp)
@@ -101,6 +103,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Apr 27 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.100-1
+- 1.100 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.025-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

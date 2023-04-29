@@ -1,13 +1,14 @@
 Summary:	High-level API (toolkit) to construct and inject network packets
 Name:		libnet10
 Version:	1.0.2a
-Release:	41%{?dist}
+Release:	42%{?dist}
 License:	BSD
 URL:		http://www.packetfactory.net/libnet/
 Source0:	http://www.packetfactory.net/libnet/dist/deprecated/libnet-%{version}.tar.gz
 Source1:	libnet10-config.1
 Patch0:		libnet10-1.0.2a-fedora.patch
 Patch1:		libnet10-1.0.2a-gcc33.patch
+Patch2:		libnet10-1.0.2a-c99.patch
 BuildRequires:	gcc, libpcap-devel, libtool, autoconf, automake
 BuildRequires: make
 
@@ -44,6 +45,7 @@ version and the newer API.
 %setup -q -n Libnet-%{version}
 %patch0 -p1 -b .fedora
 %patch1 -p1 -b .gcc33
+%patch2 -p1 -b .c99
 
 # Required to apply changes from Patch0
 autoreconf -i -f
@@ -83,6 +85,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}.{a,la}
 %{_includedir}/%{name}/
 
 %changelog
+* Thu Apr 27 2023 Arjun Shankar <arjun@redhat.com> - 1.0.2a-42
+- Port to C99 (#2190051)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2a-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

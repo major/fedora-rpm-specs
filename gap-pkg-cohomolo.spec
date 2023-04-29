@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.6.11
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Cohomology groups of finite groups on finite modules
 
 License:        GPL-2.0-or-later
@@ -60,6 +60,12 @@ sed -i 's,\.\./\.\./\.\./,%{gap_libdir}/,' doc/make_doc
 %build
 export LC_ALL=C.UTF-8
 
+# There are lot of type safety violations in the C code.  It also
+# relies on implicit function declarations, a C89-only language
+# feature.
+%set_build_flags
+export CC="gcc -std=gnu89"
+
 # This is NOT an autoconf-generated script.  Do NOT use %%configure.
 ./configure %{gap_archdir}
 
@@ -98,6 +104,9 @@ gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
 %{gap_archdir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Thu Apr 27 2023 Florian Weimer <fweimer@redhat.com> - 1.6.11-4
+- Build in C89 mode due to type errors (#2190297)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.11-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@ Summary:	Various ancient mail-related perl modules
 Name:		perl-MailTools
 Version:	2.21
 Release:	13%{?dist}
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/MailTools
 Source0:	https://cpan.metacpan.org/authors/id/M/MA/MARKOV/MailTools-%{version}.tar.gz
 BuildArch:	noarch
@@ -34,7 +34,7 @@ BuildRequires:	perl(Test::More)
 BuildRequires:	perl(warnings)
 # Extra Tests
 BuildRequires:	perl(Test::Pod)
-# Runtime
+# Dependencies
 Requires:	perl(Net::Domain) >= 1.05
 Requires:	perl(Net::NNTP)
 

@@ -1,7 +1,7 @@
 %undefine _package_note_flags
 Name:           ocaml-ocamlnet
 Version:        4.1.9
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Network protocols for OCaml
 License:        BSD
 
@@ -10,6 +10,7 @@ Source0:        http://download.camlcity.org/download/ocamlnet-%{version}.tar.gz
 
 # Build ocamlrpcgen as native code.  Sent upstream 2021-01-14.
 Patch1:         0001-Build-ocamlrpcgen-as-native-code.patch
+Patch2: ocaml-ocamlnet-configure-c99.patch
 
 BuildRequires:  make
 BuildRequires:  ocaml >= 4.00.0
@@ -108,6 +109,7 @@ files for developing applications that use %{name}-nethttpd.
 %prep
 %setup -q -n ocamlnet-%{version}
 %patch1 -p2
+%patch2 -p1
 
 
 %build
@@ -218,6 +220,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/ocaml/rpc-generator/dummy.mli
 
 
 %changelog
+* Thu Apr 27 2023 Florian Weimer <fweimer@redhat.com> - 4.1.9-11
+- Port non-autoconf configure script to C99
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 4.1.9-10
 - Rebuild OCaml packages for F38
 

@@ -1,6 +1,6 @@
 Name:    pinfo
 Version: 0.6.13
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: An info file viewer
 License: GPL-2.0-only
 
@@ -14,6 +14,7 @@ Patch4: pinfo-0.6.13-fnocommon.patch
 Patch5: pinfo-0.6.13-gccwarn.patch
 Patch6: pinfo-0.6.13-nogroup.patch
 Patch7: pinfo-0.6.13-stringop-overflow.patch
+Patch8: pinfo-configure-c99.patch
 
 BuildRequires: automake
 BuildRequires: gcc
@@ -55,6 +56,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %{_mandir}/man1/pinfo.1*
 
 %changelog
+* Thu Apr 27 2023 Florian Weimer <fweimer@redhat.com> - 0.6.13-3
+- Port configure script to C99
+
 * Tue Mar 14 2023 Lukáš Zaoral <lzaoral@redhat.com> - 0.6.13-2
 - migrated to SPDX license
 - cleaned-up the specfile

@@ -1258,7 +1258,7 @@ build/linux/unbundle/replace_gn_files.py --system-libraries \
 	flac
 
 # Check that there is no system 'google' module, shadowing bundled ones:
-if python3 -c 'import google ; print google.__path__' 2> /dev/null ; then \
+if python3 -c 'import google ; print(google.__path__)' 2> /dev/null ; then \
     echo "Python 3 'google' module is defined, this will shadow modules of this build"; \
     exit 1 ; \
 fi

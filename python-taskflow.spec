@@ -1,5 +1,5 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0xa63ea142678138d1bb15f2e303bdfd64dd164087
+%global sources_gpg_sign 0xa7475c5f2122fec3f90343223fe3bf5aad1080e4
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 %global pypi_name taskflow
@@ -11,8 +11,8 @@ A library to do [jobs, tasks, flows] in a HA manner using \
 different backends to be used with OpenStack projects.
 
 Name:           python-%{pypi_name}
-Version:        5.0.0
-Release:        2%{?dist}
+Version:        5.1.0
+Release:        1%{?dist}
 Summary:        Taskflow structured state management library
 
 License:        ASL 2.0
@@ -23,6 +23,7 @@ Source0:        https://tarballs.openstack.org/%{pypi_name}/%{pypi_name}-%{upstr
 Source101:        https://tarballs.openstack.org/%{pypi_name}/%{pypi_name}-%{upstream_version}.tar.gz.asc
 Source102:        https://releases.openstack.org/_static/%{sources_gpg_sign}.txt
 %endif
+Patch1 :        0001-Fix-doc-building-with-Sphinx-6.0.patch
 BuildArch:      noarch
 
 # Required for tarball sources verification
@@ -128,6 +129,10 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Thu Apr 27 2023 RDO <kkula@redhat.com> 5.1.0-1
+- Update to 5.1.0
+- Introduce patch to fix doc building with Sphinx 6.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

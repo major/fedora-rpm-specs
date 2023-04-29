@@ -10,7 +10,7 @@ License:        MIT
 #   Increment Y and reset Z when new macros or features are added
 #   Increment Z when this is a bugfix or a cosmetic change
 # Dropping support for EOL Fedoras is *not* considered a breaking change
-Version:        1.7.0
+Version:        1.8.0
 Release:        1%{?dist}
 
 # Macro files
@@ -147,6 +147,10 @@ export HOSTNAME="rpmbuild"  # to speedup tox in network-less mock, see rhbz#1856
 
 
 %changelog
+* Tue Apr 18 2023 Miro Hrončok <mhroncok@redhat.com> - 1.8.0-1
+- Deprecate the provisional %%{pyproject_build_lib} macro
+- See https://lists.fedoraproject.org/archives/list/python-devel@lists.fedoraproject.org/thread/HMLOPAU3RZLXD4BOJHTIPKI3I4U6U7OE/
+
 * Fri Mar 31 2023 Miro Hrončok <mhroncok@redhat.com> - 1.7.0-1
 - %%pyproject_buildrequires: Redirect stdout to stderr via Shell
 - Dependencies are recorded to a text file that is catted at the end

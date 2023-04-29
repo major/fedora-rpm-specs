@@ -2,7 +2,7 @@
 %bcond_without perl_Test2_Suite_enables_unicode
 
 Name:           perl-Test2-Suite
-Version:        0.000150
+Version:        0.000152
 Release:        1%{?dist}
 Summary:        Set of tools built upon the Test2 framework
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -25,13 +25,11 @@ BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(File::Temp)
-BuildRequires:  perl(Importer) >= 0.024
 BuildRequires:  perl(List::Util)
+# XXX Not needed, but issue with optional in 0.000152
 BuildRequires:  perl(Module::Pluggable) >= 2.7
 BuildRequires:  perl(overload)
 BuildRequires:  perl(Scalar::Util)
-BuildRequires:  perl(Scope::Guard)
-BuildRequires:  perl(Sub::Info) >= 0.002
 BuildRequires:  perl(Term::Table) >= 0.013
 BuildRequires:  perl(Term::Table::Cell)
 BuildRequires:  perl(Term::Table::LineBreak)
@@ -59,7 +57,7 @@ BuildRequires:  perl(Time::HiRes)
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(vars)
 # Optional run-time:
-# Sub::Util or Sub::Name
+# Sub::Util
 BuildRequires:  perl(Sub::Util)
 %if %{with perl_Test2_Suite_enables_unicode}
 BuildRequires:  perl(Unicode::GCString)
@@ -70,10 +68,7 @@ BuildRequires:  perl(PerlIO)
 BuildRequires:  perl(Test2::EventFacet::Assert)
 BuildRequires:  perl(Test2::Formatter::TAP)
 Requires:       perl(Data::Dumper)
-Requires:       perl(Importer) >= 0.024
-Requires:       perl(Module::Pluggable) >= 2.7
-Requires:       perl(Sub::Info) >= 0.002
-# Sub::Util or Sub::Name
+# Sub::Util
 Suggests:       perl(Sub::Util)
 Requires:       perl(Term::Table) >= 0.013
 Requires:       perl(Test2::API) >= 1.302176
@@ -85,6 +80,7 @@ Requires:       perl(Test2::Event::Skip)
 Requires:       perl(Test2::EventFacet)
 Requires:       perl(threads)
 Requires:       perl(utf8)
+Recommends:     perl(Module::Pluggable) >= 2.7
 %if %{with perl_Test2_Suite_enables_unicode}
 # Unicode::GCString for formating double-width strings
 Recommends:     perl(Unicode::GCString)
@@ -97,7 +93,7 @@ Provides:       perl-Test2-Workflow = %{version}-%{release}
 Obsoletes:      perl-Test2-Workflow < 0.000018-5
 
 # Remove under-specified dependencies
-%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Importer|Module::Pluggable|Sub::Info|Term::Table|Test2::API)\\)$
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Term::Table|Test2::API)\\)$
 # Remove private modules
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(MyTest::Target\\)$
 %global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}^%{_libexecdir}
@@ -112,6 +108,8 @@ Summary:        Tests for %{name}
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
 Requires:       perl(Test::Compile) >= 1.1.0
+# XXX Not needed, but issue with optional in 0.000152
+Requires:       perl(Module::Pluggable) >= 2.7
 
 %description tests
 Tests from %{name}. Execute them
@@ -156,6 +154,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Apr 27 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.000152-1
+- 0.000152 bump
+
 * Thu Mar 23 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.000150-1
 - 0.000150 bump
 

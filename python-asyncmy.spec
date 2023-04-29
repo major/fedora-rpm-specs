@@ -20,7 +20,7 @@ Patch:          0001-Do-not-install-text-files-in-site-packages.patch
 # Test failures and errors on 32-bit platforms
 # https://github.com/long2ice/asyncmy/issues/34
 # https://bugzilla.redhat.com/show_bug.cgi?id=2060899
-ExcludeArch:    %{ix86} %{arm32}
+ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel

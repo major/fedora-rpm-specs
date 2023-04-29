@@ -1,55 +1,97 @@
 Name:           perl-LWP-Protocol-connect
 Version:        6.09
-Release:        25%{?dist}
-Summary:        Provides HTTP/CONNECT proxy support for LWP::UserAgent
-License:        GPL+ or Artistic
+Release:        26%{?dist}
+Summary:        Provides HTTP CONNECT proxy support for LWP::UserAgent
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/LWP-Protocol-connect
 Source0:        https://cpan.metacpan.org/authors/id/B/BE/BENNING/LWP-Protocol-connect-%{version}.tar.gz
+# Normalize shebangs, not suitable for upstream
+Patch0:         LWP-Protocol-connect-6.09-Do-not-use-bin-env-in-shebangs.patch
 BuildArch:      noarch
-BuildRequires:  findutils
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.30
-BuildRequires:  perl(HTTP::Request)
-BuildRequires:  perl(IO::Socket::SSL)
-BuildRequires:  perl(LWP::Protocol)
-BuildRequires:  perl(LWP::Protocol::https)
-BuildRequires:  perl(LWP::UserAgent)
-BuildRequires:  perl(URI::http)
-BuildRequires:  perl(Test::More)
-BuildRequires:  perl(base)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
-
+# Run-time:
+# base not use at tests
+# HTTP::Request not used at tests
+# IO::Socket::SSL not used at tests
+BuildRequires:  perl(LWP::Protocol)
+# LWP::Protocol::http not used at tests
+# LWP::Protocol::https not used at tests
+# LWP::UserAgent not used at tests
+# URI::http not used at tests
+# Tests
+BuildRequires:  perl(Test::More)
 
 %description
-The LWP::Protocol::connect module provides support for using https over a proxy
-via the HTTP/CONNECT method.
+The LWP::Protocol::connect module provides support for using HTTP and HTTPS
+over a proxy via the HTTP CONNECT method.
+
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n LWP-Protocol-connect-%{version}
+%autosetup -p 1 -n LWP-Protocol-connect-%{version}
+# Remove author and release tests which are always skipped
+rm t/author-*.t t/release-*.t t/empty-ca-bundle.crt
+perl -i -ne 'print $_ unless m{^t/(?:(?:author|release)-.*\.t|empty-ca-bundle\.crt)}' MANIFEST
+chmod +x t/*.t
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -delete
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
-%doc LICENSE
-%doc CHANGES
-%doc README
+%license LICENSE
+%doc CHANGES README
+%dir %{perl_vendorlib}/LWP
+%dir %{perl_vendorlib}/LWP/Protocol
+%{perl_vendorlib}/LWP/Protocol/connect
+%{perl_vendorlib}/LWP/Protocol/connect.pm
+%dir %{perl_vendorlib}/LWP/Protocol/http
+%{perl_vendorlib}/LWP/Protocol/http/connect
+%{perl_vendorlib}/LWP/Protocol/http/connect.pm
+%dir %{perl_vendorlib}/LWP/Protocol/https
+%{perl_vendorlib}/LWP/Protocol/https/connect
+%{perl_vendorlib}/LWP/Protocol/https/connect.pm
+%dir %{perl_vendorlib}/URI
+%{perl_vendorlib}/URI/connect.pm
+%{_mandir}/man3/LWP::Protocol::connect.*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Thu Apr 27 2023 Petr Pisar <ppisar@redhat.com> - 6.09-26
+- Modernize a spec file
+- Package the tests
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.09-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

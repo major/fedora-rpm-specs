@@ -1,17 +1,20 @@
 Name:           perl-Excel-Writer-XLSX
 Version:        1.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Create a new file in the Excel 2007+ XLSX format
-# lib/Excel/Writer/XLSX.pm: Artistic-1.0-Perl AND (GPL-1.0-or-later OR Artistic-1.0-Perl)
-#                           (The Artistic-1.0-Perl only part looks like
-#                           a mistake
+# lib/Excel/Writer/XLSX.pm: GPL-1.0-or-later OR Artistic-1.0-Perl
+#                           (An Artistic-1.0-Perl only part in LICENSE POD
+#                           section was a mistake corrected after 1.11
 #                           <https://github.com/jmcnamara/excel-writer-xlsx/issues/285>)
 # LICENSE:      Artistic-1.0-Perl text
 # other files which declares a license: GPL-1.0-or-later OR Artistic-1.0-Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Excel-Writer-XLSX
 Source0:        https://cpan.metacpan.org/authors/id/J/JM/JMCNAMARA/Excel-Writer-XLSX-%{version}.tar.gz
-# Fix regenerating a documentation with examples, proposed to the upstream,
+# Grant a license for lib/Excel/Writer/XLSX.pm
+# <https://github.com/jmcnamara/excel-writer-xlsx/issues/285>
+Source1:        license_clarification
+# Fix regenerating a documentation with examples, in upstream after 1.11,
 # <https://github.com/jmcnamara/excel-writer-xlsx/pull/286>.
 Patch0:         Excel-Writer-XLSX-1.11-Adjust-make-mydocs-invocation-to-Perl-without-dot-in.patch
 BuildArch:      noarch
@@ -82,6 +85,7 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %autosetup -p1 -n Excel-Writer-XLSX-%{version}
+install -m 0644 %{SOURCE1} ./
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -113,7 +117,7 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 make test
 
 %files
-%license LICENSE
+%license LICENSE license_clarification
 # ./examples is compiled and packaged as Excel::Writer::XLSX::Examples
 %doc Changes CONTRIBUTING.md README
 %dir %{perl_vendorlib}/Excel
@@ -129,6 +133,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Apr 27 2023 Petr Pisar <ppisar@redhat.com> - 1.11-2
+- Package a license grant for Excel::Writer::XLSX
+
 * Wed Apr 26 2023 Petr Pisar <ppisar@redhat.com> - 1.11-1
 - 1.11 bump
 - Package the tests

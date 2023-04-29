@@ -1,6 +1,6 @@
 %global _cups_serverbin %{_prefix}/lib/cups
 
-%global upstream_version 2.0b4
+%global upstream_version 2.0rc1
 
 %if 0%{?fedora}
 %bcond_without mdns
@@ -11,7 +11,7 @@
 
 Name: cups-browsed
 Epoch: 1
-Version: 2.0~b4
+Version: 2.0~rc1
 Release: 1%{?dist}
 Summary: Daemon for local auto-installation of remote printers
 # the CUPS exception text is the same as LLVM exception, so using that name with
@@ -176,6 +176,9 @@ done
 
 
 %changelog
+* Thu Apr 27 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0~rc1-1
+- 2.0rc1
+
 * Mon Apr 03 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0~b4-1
 - 2179346 - cups-browsed-2.0b4 is available
 

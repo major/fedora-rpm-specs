@@ -2,9 +2,9 @@
 %global basen rinutils
 
 Name: %{basen}
-Version: 0.10.1
+Version: 0.10.2
 %global basenver %{basen}-%{version}
-Release: 3%{dist}
+Release: 1%{dist}
 License: MIT
 Source:  https://github.com/shlomif/rinutils/releases/download/%{version}/%{basenver}.tar.xz
 URL: https://github.com/shlomif/rinutils/
@@ -48,6 +48,9 @@ of limited general interest, but nevertheless free and open source software
 %{_libdir}/cmake/Rinutils/*.cmake
 
 %changelog
+* Thu Apr 27 2023 Shlomi Fish <shlomif@shlomifish.org> 0.10.2-1
+- New upstream version
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

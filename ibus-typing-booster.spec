@@ -60,10 +60,8 @@ BuildRequires:   glibc-gconv-extra
 BuildRequires:  python3-libvoikko
 BuildRequires:  voikko-fi
 %endif
-%if 0%{?fedora}
-BuildRequires:  appstream
+#BuildRequires:  appstream
 BuildRequires:  libappstream-glib
-%endif
 BuildRequires:  desktop-file-utils
 BuildRequires:  python3-gobject
 BuildRequires:  python3-gobject-base

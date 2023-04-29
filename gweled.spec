@@ -1,6 +1,6 @@
 Name:           gweled
 Version:        0.9.1
-Release:        30.20130730git819bed%{?dist}
+Release:        31.20130730git819bed%{?dist}
 
 Summary:        Swapping gem game
 
@@ -11,6 +11,7 @@ URL:            http://launchpad.net/gweled
 #https://github.com/Marisa-Chan/gweled-sdl_mixer.git
 Source0:	gweled-sdl_mixer-819bed.tar.gz
 Patch0:		gweled-fix-librsvg-segfault-v2.patch
+Patch1: gweled-c99.patch
 
 BuildRequires:  libgnomeui-devel >= 2.0.0
 BuildRequires:  librsvg2-devel >= 2.0.0
@@ -30,6 +31,7 @@ ends when there are no possible moves left.
 %prep
 %setup -qn gweled-sdl_mixer-819bed
 %patch0 -p0
+%patch1 -p1
 
 %build
 
@@ -102,6 +104,9 @@ EOF
 %{_datadir}/sounds/%{name}/
 
 %changelog
+* Thu Apr 27 2023 Florian Weimer <fweimer@redhat.com> - 0.9.1-31.20130730git819bed
+- Apply upstream patch to fix C99 compatibility issue
+
 * Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.9.1-30.20130730git819bed
 - migrated to SPDX license
 

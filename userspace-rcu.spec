@@ -1,6 +1,6 @@
 Name:           userspace-rcu
-Version:        0.13.2
-Release:        2%{?dist}
+Version:        0.14.0
+Release:        1%{?dist}
 Summary:        RCU (read-copy-update) implementation in user-space
 License:        LGPLv2+
 URL:            http://liburcu.org
@@ -10,11 +10,14 @@ Source1:        http://lttng.org/files/urcu/%{name}-%{version}.tar.bz2.asc
 # gpg2 --export --export-options export-minimal 2A0B4ED915F2D3FA45F5B16217280A9781186ACF > gpgkey-2A0B4ED915F2D3FA45F5B16217280A9781186ACF.gpg
 Source2:        gpgkey-2A0B4ED915F2D3FA45F5B16217280A9781186ACF.gpg
 Patch0:         regtest-without-bench.patch
+BuildRequires:  autoconf
+BuildRequires:  automake
+BuildRequires:  gcc
+BuildRequires:  gcc-c++
+BuildRequires:  libtool
 BuildRequires:  make
-BuildRequires:  pkgconfig
-BuildRequires:  perl-Test-Harness
-BuildRequires:  autoconf automake libtool
 BuildRequires:  multilib-rpm-config
+BuildRequires:  pkgconfig
 
 %description
 This data synchronization library provides read-side access which scales
@@ -90,6 +93,9 @@ make regtest
 
 
 %changelog
+* Thu Apr 27 2023 Michael Jeanson <mjeanson@efficios.com> - 0.14.0-1
+- New upstream release
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

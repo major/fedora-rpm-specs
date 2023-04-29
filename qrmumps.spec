@@ -1,13 +1,9 @@
 # Testing needs to be online
 %global with_check 0
 
-%if 0%{?el7}
-%global dts devtoolset-9-
-%endif
-
 Name: qrmumps
 Version: 3.0.2
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: A multithreaded multifrontal QR solver
 License: LGPLv3+
 URL: http://buttari.perso.enseeiht.fr/qr_mumps/
@@ -15,13 +11,13 @@ URL: http://buttari.perso.enseeiht.fr/qr_mumps/
 # This is a private source link provided by upstream directly
 Source0: http://buttari.perso.enseeiht.fr/qr_mumps/releases/qr_mumps-%{version}.tgz
 
-BuildRequires: %{?dts}gcc-gfortran, %{?dts}gcc-c++, %{?dts}gcc
+BuildRequires: gcc-gfortran, gcc-c++, gcc
 BuildRequires: cmake3 >= 3.11.4
 BuildRequires: metis-devel >= 5.1.0-12
 BuildRequires: scotch-devel
 BuildRequires: suitesparse-devel
 BuildRequires: perl-devel
-%if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
+%if 0%{?fedora} || 0%{?rhel} >= 9
 BuildRequires: perl-generators
 BuildRequires: flexiblas-devel
 %global blaslib flexiblas
@@ -85,9 +81,6 @@ PDF documentation files of %{name}.
 rm -f aux/find/Find{BLAS,LAPACK}.cmake
 
 %build
-%if 0%{?el7}
-%{?dts:source /opt/rh/devtoolset-9/enable}
-%endif
 %cmake3 -Wno-dev -S . -DQRM_VERSION:STRING=%{version} \
  -DARITH="d;s;z;c" -DCMAKE_BUILD_TYPE:STRING=Release \
  -DQRM_ORDERING_AMD:BOOL=ON -DQRM_ORDERING_METIS:BOOL=ON \
@@ -129,6 +122,9 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %doc doc/*
 
 %changelog
+* Thu Apr 27 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.0.2-7
+- Rebuild for scotch-7.0.3
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

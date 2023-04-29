@@ -1,6 +1,6 @@
 Name:           python-retask
-Version:        0.4
-Release:        28%{?dist}
+Version:        1.1.0
+Release:        1%{?dist}
 Summary:        Python module to create and manage distributed task queues
 
 License:        MIT
@@ -12,7 +12,7 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-redis
-BuildRequires:  python3-six
+BuildRequires:  pyproject-rpm-macros
 
 
 %global _description\
@@ -20,12 +20,13 @@ Python module to create and manage distributed task queues using redis.
 
 %description %_description
 
+%generate_buildrequires
+%pyproject_buildrequires
 
 %package -n python3-retask
 Summary:        %{summary}
 %{?python_provide:%python_provide python3-retask}
 Requires:       python3-redis
-Requires:       python3-six
 
 %description -n python3-retask %_description
 
@@ -35,11 +36,11 @@ Requires:       python3-six
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
 
 
 %files -n python3-retask
@@ -48,6 +49,9 @@ Requires:       python3-six
 
 
 %changelog
+* Thu Apr 27 2023 Kushal Das <kushal@fedoraproject.org> - 1.1.0-1
+- Updating to latest release, only python3 code, no API change.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          GitHub API
 
 License:          MIT
@@ -56,7 +56,7 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %check
-%{_bindir}/R CMD check %{packname}
+%{_bindir}/R CMD check --ignore-vignettes %{packname}
 
 
 %files
@@ -75,6 +75,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Thu Apr 27 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.3.1-4
+- Ignore vignettes
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.3.1-3
 - R-maint-sig mass rebuild
 

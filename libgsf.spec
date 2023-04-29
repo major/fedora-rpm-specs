@@ -1,9 +1,10 @@
 Summary: GNOME Structured File library
 Name: libgsf
 Version: 1.14.50
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPL-2.1-only
 Source: https://download.gnome.org/sources/%{name}/1.14/%{name}-%{version}.tar.xz
+Patch0: libgsf-configure-c99.patch
 URL: http://www.gnome.org/projects/libgsf/
 
 BuildRequires: bzip2-devel
@@ -33,7 +34,7 @@ Libraries, headers, and support files necessary to compile applications using
 libgsf.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %configure --disable-gtk-doc --disable-static --enable-introspection=yes \
@@ -79,6 +80,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_mandir}/man1/gsf-vba-dump.1*
 
 %changelog
+* Thu Apr 27 2023 Florian Weimer <fweimer@redhat.com> - 1.14.50-2
+- Port configure script to C99
+
 * Thu Mar 23 2023 Caolán McNamara <caolanm@redhat.com> 1.14.50-1
 - latest version
 

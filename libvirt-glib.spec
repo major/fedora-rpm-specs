@@ -9,7 +9,7 @@ Name: libvirt-glib
 Version: 4.0.0
 Release: 8%{?dist}
 Summary: libvirt glib integration for events
-License: LGPLv2+
+License: LGPL-2.1-or-later
 URL: https://libvirt.org/
 Source0: https://libvirt.org/sources/glib/%{name}-%{version}.tar.xz
 Patch: %{name}-%{version}-cast-align.patch

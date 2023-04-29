@@ -1,7 +1,7 @@
-%global commit 280aac5a0ee09c45b17ec4be0681397f7c34c12e
+%global commit 9a55c402aa803fb10e39ab4fd18a709d0cd06fd4
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
-#global gitdate 20210201
+#global gitdate 20230426
 %global pkgname %{?gitdate:xserver}%{!?gitdate:xwayland}
 
 %global default_font_path "catalogue:/etc/X11/fontpath.d,built-ins"
@@ -9,7 +9,7 @@
 Summary:   Xwayland
 Name:      xorg-x11-server-Xwayland
 Version:   23.1.1
-Release:   1%{?gitdate:.%{gitdate}git%{shortcommit}}%{?dist}
+Release:   2%{?gitdate:.%{gitdate}git%{shortcommit}}%{?dist}
 
 URL:       http://www.x.org
 %if 0%{?gitdate}
@@ -99,6 +99,7 @@ necessary for developing Wayland compositors using Xwayland.
 
 %build
 %meson \
+	%{?gitdate:-Dxwayland=true -D{xorg,xnest,xvfb,udev}=false} \
         -Dxwayland_eglstream=true \
         -Ddefault_font_path=%{default_font_path} \
         -Dbuilder_string="Build ID: %{name} %{version}-%{release}" \
@@ -131,6 +132,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/pkgconfig/xwayland.pc
 
 %changelog
+* Thu Apr 27 2023 Olivier Fourdan <ofourdan@redhat.com> - 23.1.1-2
+- Fix spec file to build from git upstream - (#2190211)
+
 * Wed Mar 29 2023 Olivier Fourdan <ofourdan@redhat.com> - 23.1.1-1
 - xwayland 23.1.1 - (#2182734)
   CVE fix for: CVE-2023-1393

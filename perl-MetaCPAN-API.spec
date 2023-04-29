@@ -2,7 +2,7 @@ Name:           perl-MetaCPAN-API
 Version:        0.51
 Release:        18%{?dist}
 Summary:        A comprehensive, DWIM-featured API to MetaCPAN
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MetaCPAN-API
 Source0:        https://cpan.metacpan.org/authors/id/H/HA/HAARG/MetaCPAN-API-%{version}.tar.gz
 BuildArch:      noarch
@@ -10,8 +10,8 @@ BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker)
 # Module
 BuildRequires:  perl(Carp)
@@ -32,7 +32,7 @@ BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::RequiresInternet)
 BuildRequires:  perl(Test::TinyMocker)
-# Runtime
+# Dependencies
 Requires:       perl(IO::Socket::SSL)
 
 %description

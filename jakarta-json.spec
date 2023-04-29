@@ -1,6 +1,6 @@
 Name:           jakarta-json
-Version:        2.1.1
-Release:        3%{?dist}
+Version:        2.1.2
+Release:        1%{?dist}
 Summary:        Jakarta JSON Processing
 
 License:        EPL-2.0 OR GPL-2.0-only WITH Classpath-exception-2.0
@@ -69,6 +69,9 @@ ln -s api/.mfiles-javadoc .
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Thu Apr 27 2023 Jerry James <loganjerry@gmail.com> - 2.1.2-1
+- Version 2.1.2
+
 * Tue Jan 31 2023 Jerry James <loganjerry@gmail.com> - 2.1.1-3
 - Remove dependency on buildnumber-maven-plugin
 

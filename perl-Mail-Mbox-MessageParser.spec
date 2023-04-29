@@ -2,7 +2,7 @@ Summary:	A fast and simple mbox folder reader
 Name:		perl-Mail-Mbox-MessageParser
 Version:	1.5111
 Release:	16%{?dist}
-License:	GPLv2
+License:	GPL-2.0-only
 URL:		https://metacpan.org/release/Mail-Mbox-MessageParser
 Source0:	https://cpan.metacpan.org/modules/by-module/Mail/Mail-Mbox-MessageParser-%{version}.tar.gz
 Source1:	perl-module-version-filter
@@ -49,7 +49,7 @@ BuildRequires:	perl(UNIVERSAL::require)
 # Optional Tests
 BuildRequires:	perl(Test::Pod)
 BuildRequires:	perl(Test::Pod::Coverage)
-# Runtime
+# Dependencies
 Requires:	grep, gzip, bzip2, lzip >= 1.3, xz, /usr/bin/diff
 Requires:	perl(Storable)
 
@@ -62,7 +62,7 @@ information, GNU grep, or highly optimized Perl.
 %setup -q -n Mail-Mbox-MessageParser-%{version}
 
 # Workaround for Test::Compile ≥ 2.0.0
-%patch0 -p0
+%patch -P 0 -p0
 
 # Auto provides aren't clever enough for what Mail::Mbox::MessageParser does
 %if 0%{?__perllib_provides:1}
@@ -95,11 +95,7 @@ find %{buildroot} -type f -name .packlist -delete
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
 %doc anonymize_mailbox CHANGES README TODO
 %{perl_vendorlib}/Mail/
 %{_mandir}/man3/Mail::Mbox::MessageParser.3*

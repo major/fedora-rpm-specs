@@ -1,6 +1,6 @@
 %global maj_ver 16
 %global min_ver 0
-%global patch_ver 1
+%global patch_ver 2
 #global rc_ver 4
 %global flang_version %{maj_ver}.%{min_ver}.%{patch_ver}
 %global flang_srcdir flang-%{flang_version}%{?rc_ver:rc%{rc_ver}}.src
@@ -275,6 +275,9 @@ export LD_LIBRARY_PATH=%{_builddir}/%{flang_srcdir}/%{_build}/lib
 %doc %{_pkgdocdir}/html/
 
 %changelog
+* Thu Apr 27 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.2-1
+- Update to LLVM 16.0.2
+
 * Thu Apr 13 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.1-1
 - Update to LLVM 16.0.1
 

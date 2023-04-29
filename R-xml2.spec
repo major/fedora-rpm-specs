@@ -1,12 +1,12 @@
 %global packname xml2
-%global packver  1.3.3
+%global packver  1.3.4
 %global rlibdir  %{_libdir}/R/library
 
 %global with_suggests 0
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          3%{?dist}
+Release:          1%{?dist}
 Summary:          Parse XML
 
 License:          GPLv2+
@@ -95,6 +95,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --ignore-vignettes
 
 
 %changelog
+* Thu Apr 27 2023 Tom Callaway <spot@fedoraproject.org> - 1.3.4-1
+- update to 1.3.4
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.3.3-3
 - R-maint-sig mass rebuild
 

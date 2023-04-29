@@ -1,8 +1,8 @@
 Name:           perl-SNMP-Info
-Version:        3.89
-Release:        2%{?dist}
+Version:        3.92
+Release:        1%{?dist}
 Summary:        Object Oriented Perl5 Interface to Network devices and MIBs through SNMP
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://metacpan.org/release/SNMP-Info
 Source0:        https://cpan.metacpan.org/authors/id/O/OL/OLIVER/SNMP-Info-%{version}.tar.gz
 BuildArch:      noarch
@@ -28,6 +28,7 @@ BuildRequires:  perl(NetAddr::IP) >= 4.068
 BuildRequires:  perl(NetAddr::IP::Lite)
 # PPI not used at tests
 BuildRequires:  perl(Regexp::Common)
+BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(SNMP)
 BuildRequires:  perl(Socket)
 # Tests:
@@ -65,6 +66,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Thu Apr 27 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.92-1
+- 3.92 bump; Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.89-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

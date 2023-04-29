@@ -1,7 +1,7 @@
 
 Name:		console-setup
-Version:	1.218
-Release:	2%{?dist}
+Version:	1.219
+Release:	1%{?dist}
 Summary:	Tools for configuring the console using X Window System key maps
 
 # For a breakdown of the licensing, see COPYRIGHT, copyright, copyright.fonts and copyright.xkb
@@ -46,10 +46,8 @@ not wasted but used for another symbol.
 
 
 %prep
-%setup -q -n %{name}-%{version}
-%patch0 -p1 -b .paths
-%patch1 -p1 -b .fsf-address
-%patch2 -p1 -b .ctrll-lock
+%setup -q -n %{name}
+%autopatch -p1
 
 cp -a --remove-destination debian/copyright COPYRIGHT
 cp -a --remove-destination debian/changelog CHANGES
@@ -96,6 +94,10 @@ cp -a Fonts/fontsets Fonts/*.equivalents Fonts/*.set \
 
 
 %changelog
+* Thu Apr 27 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.219-1
+- Update to latest upstream version
+  Resolves: #2189733
+
 * Tue Mar 28 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.218-2
 - SPDX migration
 

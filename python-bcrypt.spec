@@ -1,72 +1,72 @@
-%{!?_licensedir: %global license %%doc}
-
-
 %global modname bcrypt
 %global sum     Modern password hashing for your software and your servers
 
 Name:               python-bcrypt
-Version:            3.2.2
-Release:            5%{?dist}
+Version:            4.0.1
+Release:            1%{?dist}
 Summary:            %{sum}
 
 #crypt_blowfish code is in Public domain and all other code in ASL 2.0
-License:            ASL 2.0 and Public Domain and BSD
+License:            Apache-2.0 AND LicenseRef-Fedora-Public-Domain
 URL:                http://pypi.python.org/pypi/bcrypt
 Source0:            %pypi_source bcrypt
 
-BuildRequires:  gcc
-
-BuildRequires:      python%{python3_pkgversion}-devel
-BuildRequires:      python%{python3_pkgversion}-setuptools
-BuildRequires:      python%{python3_pkgversion}-cffi
-BuildRequires:      python%{python3_pkgversion}-six
-BuildRequires:      python%{python3_pkgversion}-pytest
 
 %description
 %{sum}.
 
 
-%package -n python%{python3_pkgversion}-%{modname}
+%package -n python3-%{modname}
 Summary:            %{sum}
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{modname}}
+# LICENSE.dependencies contains a full license breakdown
+License:            Apache-2.0 AND LicenseRef-Fedora-Public-Domain AND BSD-3-Clause AND MIT AND (Apache-2.0 OR MIT)
+BuildRequires:      python3-devel
+BuildRequires:      rust-packaging
 
-Requires:           python%{python3_pkgversion}-six
-Requires:           python%{python3_pkgversion}-cffi
-Conflicts:          python3-py-bcritp
-Provides:           python3-py-bcrypt = 0.4-35
-Obsoletes:          python3-py-bcrypt < 0.4-35
-
-%description -n python%{python3_pkgversion}-%{modname}
+%description -n python3-%{modname}
 %{sum}.
 
 
 %prep
-%autosetup -n %{modname}-%{version}
+%autosetup -n %{modname}-%{version} -p1
+%cargo_prep
+rm src/_bcrypt/Cargo.lock
+
+%generate_buildrequires
+%pyproject_buildrequires -t
+(cd src/_bcrypt
+%cargo_generate_buildrequires
+)
+
 
 %build
-%py3_build
+export RUSTFLAGS="%build_rustflags"
+%pyproject_wheel
+
+(cd src/_bcrypt
+%cargo_license_summary
+%{cargo_license} > ../../LICENSE.dependencies
+)
+
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files bcrypt
 
-# Better safe than sorry
-find %{buildroot}%{python3_sitearch} -name '*.so' -exec chmod 755 {} ';'
 
 %check
-# Tests can't run on epel7 due to an old pytest
-%if 0%{?rhel} > 7 || 0%{?fedora}
-%{__python3} setup.py test
-%endif
+%tox
 
 
-%files -n python%{python3_pkgversion}-%{modname}
+%files -n python%{python3_pkgversion}-%{modname} -f %{pyproject_files}
 %doc README.rst
-%license LICENSE
-%{python3_sitearch}/%{modname}/
-%{python3_sitearch}/%{modname}-%{version}*
+%license LICENSE LICENSE.dependencies
 
 
 %changelog
+* Wed Feb 08 2023 Sandro Mani <manisandro@gmail.com> - 4.0.1-1
+- Update to 4.0.1
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name:           ocaml-ancient
 Version:        0.9.0
-Release:        67%{?dist}
+Release:        68%{?dist}
 Summary:        OCaml library for large memory structures and sharing
 License:        LGPLv2+ with exceptions
 
@@ -18,6 +18,7 @@ Source0:        ancient-%{version}.tar.gz
 Patch1:         ancient-0.9.0-use-ocamlopt-g.patch
 # Use header_t with OCaml 4.04.0.
 Patch2:         ancient-0.9.0-use-header_t.patch
+Patch3: ocaml-ancient-configure-c99.patch
 
 BuildRequires: make
 BuildRequires:  ocaml >= 3.10.0
@@ -61,6 +62,7 @@ developing applications that use %{name}.
 
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 
 %build
@@ -120,6 +122,9 @@ chrpath --delete $OCAMLFIND_DESTDIR/stublibs/dll*.so
 
 
 %changelog
+* Thu Apr 27 2023 Florian Weimer <fweimer@redhat.com> - 0.9.0-68
+- Port configure script to C99
+
 * Mon Jan 23 2023 Richard W.M. Jones <rjones@redhat.com> - 0.9.0-67
 - Rebuild OCaml packages for F38
 

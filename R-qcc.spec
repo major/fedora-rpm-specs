@@ -12,7 +12,7 @@ The qcc package for the R statistical environment provides:
 
 Name:             R-%{packname}
 Version:          2.7
-Release:          11%{?dist}
+Release:          12%{?dist}
 Source0:          http://cran.r-project.org/src/contrib/qcc_%{version}.tar.gz
 License:          GPLv2+
 URL:              http://cran.r-project.org/web/packages/qcc/index.html
@@ -45,7 +45,7 @@ test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)
 rm -rf $RPM_BUILD_ROOT%{_datadir}/R/library/R.css
 
 %check
-%{_bindir}/R CMD check %{packname}
+%{_bindir}/R CMD check --ignore-vignettes %{packname}
 
 %files
 %dir %{_datadir}/R/library/%{packname}
@@ -62,6 +62,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/R/library/R.css
 %{_datadir}/R/library/%{packname}/help
 
 %changelog
+* Thu Apr 27 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2.7-12
+- Ignore vignettes
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2.7-11
 - R-maint-sig mass rebuild
 

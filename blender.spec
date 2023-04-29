@@ -34,7 +34,7 @@
 
 Name:           blender
 Epoch:          1
-Version:        3.5.0
+Version:        3.5.1
 Release:        %autorelease
 
 
@@ -45,10 +45,8 @@ URL:            https://www.blender.org
 Source0:        https://download.%{name}.org/source/%{name}-%{version}.tar.xz
 # Upstream separated addons from the main source
 Source1:        https://projects.%{name}.org/%{name}/%{name}-addons/archive/v%{version}.tar.gz#/%{name}-addons-%{version}.tar.gz
+# Rename macros extension to avoid clashing with upstream version
 Source3:        macros.%{name}-rpm
-
-# https://projects.blender.org/blender/blender/pulls/106575
-Patch:		106575.patch
 
 # Development stuff
 BuildRequires:  boost-devel
@@ -216,11 +214,11 @@ packages to extend Blender.
 %autosetup -p1 -a1
 
 # integrate addons in source tree
-mkdir scripts/addons
 for d in addons; do
-    mv %{name}-$d/* scripts/addons
     # wipe .gitea and .github
-    rm -r %{name}-$d
+    rm -r %{name}-$d/{.gitea,.github}
+    cp -pr %{name}-$d/* scripts/addons
+    rm -fr %{name}-$d
 done
 
 # Delete the bundled FindOpenJPEG to make find_package use the system version
@@ -261,7 +259,6 @@ sed -i "s/date_time/date_time python%{python3_version_nodots}/" \
     -DPYTHON_VERSION=%{python3_version} \
     -DWITH_COMPILER_CCACHE=ON \
     -DWITH_CYCLES=%{cyclesflag} \
-    -DWITH_CYCLES_HIP_BINARIES=ON \
 %ifnarch x86_64
     -DWITH_CYCLES_EMBREE=OFF \
 %endif
@@ -282,8 +279,8 @@ sed -i "s/date_time/date_time python%{python3_version_nodots}/" \
 %if %{with system_eigen3}
     -DWITH_SYSTEM_EIGEN3=ON \
 %endif
-%if %{without usd}
-    -DUSD_LIBRARY=%{_libdir}/libusd_usd_ms.so \
+%if %{with usd}
+    -DUSD_LIBRARY=%{_libdir}/libusd_ms.so \
 %else
     -DWITH_USD=OFF \
 %endif

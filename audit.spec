@@ -1,8 +1,8 @@
 
 Summary: User space tools for kernel auditing
 Name: audit
-Version: 3.1
-Release: 2%{?dist}
+Version: 3.1.1
+Release: 1%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: http://people.redhat.com/sgrubb/audit/
 Source0: http://people.redhat.com/sgrubb/audit/%{name}-%{version}.tar.gz
@@ -191,7 +191,6 @@ fi
 %{!?_licensedir:%global license %%doc}
 %license COPYING
 %attr(755,root,root) %{_datadir}/%{name}
-%attr(644,root,root) %{_datadir}/%{name}/sample-rules/*
 %attr(644,root,root) %{_mandir}/man8/auditctl.8.gz
 %attr(644,root,root) %{_mandir}/man8/auditd.8.gz
 %attr(644,root,root) %{_mandir}/man8/aureport.8.gz
@@ -245,11 +244,13 @@ fi
 %config(noreplace) %attr(640,root,root) /etc/audit/plugins.d/au-statsd.conf
 %attr(750,root,root) %{_sbindir}/audisp-remote
 %attr(750,root,root) %{_sbindir}/audisp-syslog
+%attr(750,root,root) %{_sbindir}/audisp-af_unix
 %attr(750,root,root) %{_sbindir}/audisp-statsd
 %attr(700,root,root) %dir %{_var}/spool/audit
 %attr(644,root,root) %{_mandir}/man5/audisp-remote.conf.5.gz
 %attr(644,root,root) %{_mandir}/man8/audisp-remote.8.gz
 %attr(644,root,root) %{_mandir}/man8/audisp-syslog.8.gz
+%attr(644,root,root) %{_mandir}/man8/audisp-af_unix.8.gz
 %attr(644,root,root) %{_mandir}/man8/audisp-statsd.8.gz
 
 %files -n audispd-plugins-zos
@@ -260,6 +261,9 @@ fi
 %attr(750,root,root) %{_sbindir}/audispd-zos-remote
 
 %changelog
+* Thu Apr 27 2023 Steve Grubb <sgrubb@redhat.com> 3.1.1-1
+- New upstream release
+
 * Thu Feb 09 2023 Steve Grubb <sgrubb@redhat.com> 3.1-2
 - New upstream feature release
 

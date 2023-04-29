@@ -1,14 +1,14 @@
 %global _hardened_build 1
 
-%global upstream_version 2.0b4
+%global upstream_version 2.0rc1
 
 # don't build libppd-tools until CUPS 3.x drops them
 %bcond_with tools
 
 Name:           libppd
 Epoch:          1
-Version:        2.0~b4
-Release:        2%{?dist}
+Version:        2.0~rc1
+Release:        1%{?dist}
 Summary:        Library for retro-fitting legacy printer drivers
 
 # the CUPS exception text is the same as LLVM exception, so using that name with
@@ -20,8 +20,8 @@ Source0:        %{URL}/releases/download/%{upstream_version}/%{name}-%{upstream_
 
 
 # Patches
-# https://github.com/OpenPrinting/libppd/pull/15
-Patch0001: 0001-ppd-filter.c-Generate-media-col-if-media-col-default.patch
+# https://github.com/OpenPrinting/libppd/pull/18
+Patch0001: libppd-disable-testppdfile.patch
 
 
 # for autogen.sh
@@ -116,8 +116,10 @@ PPD files from *.drv files.
   --disable-static\
 %if %{with tools}
   --enable-ppdc-utils\
+  --enable-testppdfile\
 %else
   --disable-ppdc-utils\
+  --disable-testppdfile\
 %endif
   --with-pdftops=hybrid
 
@@ -181,6 +183,7 @@ rm -rf %{buildroot}%{_datadir}/ppdc
 %{_bindir}/ppdi
 %{_bindir}/ppdmerge
 %{_bindir}/ppdpo
+%{_bindir}/testppdfile
 %dir %{_datadir}/ppdc/
 %{_datadir}/ppdc/epson.h
 %{_datadir}/ppdc/font.defs
@@ -191,6 +194,9 @@ rm -rf %{buildroot}%{_datadir}/ppdc
 %endif
 
 %changelog
+* Thu Apr 27 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0~rc1-1
+- 2.0rc1
+
 * Wed Mar 15 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0~b4-2
 - fix printing images to Postscript printers
 

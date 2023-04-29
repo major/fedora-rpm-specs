@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        83
+Version:        84
 
 %forgemeta
 
@@ -252,6 +252,21 @@ fi
 
 
 %changelog
+* Thu Apr 27 2023 Packit <hello@packit.dev> - 84-1
+Changes with 84
+----------------
+  * CI tests cleanup and maintenance (#1282)
+  * Remove SSH keys of people who left the team (#1290)
+  * Test: skip test cases if the tested filesystem is not supported on the platform (#1287)
+  * lint: provide bandit configuration (#1265)
+  * mockbuild.sh: use dnf to install local package, not rpm (#1292)
+  * stages/lorax-script: minor schema adjustments (#1257)
+
+Contributions from: Ondřej Budai, Simon de Vlieger, Tomáš Hozza
+
+— Somewhere on the Internet, 2023-04-26
+
+
 * Wed Apr 12 2023 Packit <hello@packit.dev> - 83-1
 Changes with 83
 ----------------

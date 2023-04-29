@@ -2,7 +2,7 @@ Name:		perl-Mail-Transport
 Version:	3.005
 Release:	8%{?dist}
 Summary:	Email message exchange
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Mail-Transport
 Source0:	https://cpan.metacpan.org/modules/by-module/Mail/Mail-Transport-%{version}.tar.gz
 BuildArch:	noarch

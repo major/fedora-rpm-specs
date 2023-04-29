@@ -1,6 +1,6 @@
 Name:           ftnchek
 Version:        3.3.1
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Static analyzer for Fortran 77 programs
 
 License:        MIT
@@ -10,6 +10,7 @@ Patch0:         ftnchek-3.3.1-datadir.patch
 Patch1:         http://www.dsm.fordham.edu/~ftnchek/download/ftnchek-3.3.1-varfmt.patch
 # Patch to support bison 2.6
 Patch2:         ftnchek-3.3.1-bison26.patch
+Patch3: ftnchek-configure-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  bison
@@ -43,6 +44,7 @@ compiles correctly.
 %patch0 -p1 -b .datadir
 %patch1 -p1 -b .varfmt
 %patch2 -p1 -b .bison26
+%patch3 -p1
 #Stop configure from overriding CFLAGS
 sed -i -e 's/CFLAGS="-DUNIX.*"//' configure
 
@@ -73,6 +75,9 @@ mkdir -p $RPM_BUILD_ROOT%{_datadir}/emacs/site-lisp/ftnchek
 
 
 %changelog
+* Thu Apr 27 2023 Florian Weimer <fweimer@redhat.com> - 3.3.1-38
+- Port configure script to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.1-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

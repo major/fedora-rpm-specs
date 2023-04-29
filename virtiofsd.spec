@@ -1,6 +1,6 @@
 Name:           virtiofsd
 Version:        1.5.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Virtio-fs vhost-user device daemon (Rust version)
 
 # Upstream license specification: Apache-2.0 AND BSD-3-Clause
@@ -19,6 +19,8 @@ BuildRequires:  libseccomp-devel
 Requires:       qemu-common
 Provides:       vhostuser-backend(fs)
 Conflicts:      qemu-virtiofsd
+Obsoletes:      qemu-virtiofsd <= 2:8.0.0-1
+Provides:       qemu-virtiofsd = 2:7.2.1-1
 
 %description
 %{summary}.
@@ -45,6 +47,9 @@ install -D -p -m 0644 50-qemu-virtiofsd.json %{buildroot}%{_datadir}/qemu/vhost-
 %{_datadir}/qemu/vhost-user/50-qemu-virtiofsd.json
 
 %changelog
+* Wed Apr 26 2023 Daniel P. Berrangé <berrange@redhat.com> - 1.5.1-2
+- Add Obsoletes/Provides for qemu-virtiofsd to get an upgrade path (rhbz #2189368)
+
 * Thu Feb 09 2023 Sergio Lopez <slp@redhat.com> - 1.5.1-1
 - Update to version 1.5.1
 

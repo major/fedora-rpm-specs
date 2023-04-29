@@ -135,6 +135,7 @@ Source2: btest402.js
 Source3: https://github.com/unicode-org/icu/releases/download/release-%{icu_major}-%{icu_minor}/icu4c-%{icu_major}_%{icu_minor}-data-bin-b.zip
 Source4: https://github.com/unicode-org/icu/releases/download/release-%{icu_major}-%{icu_minor}/icu4c-%{icu_major}_%{icu_minor}-data-bin-l.zip
 Source200: nodejs-sources.sh
+Source201: npmrc.builtin.in
 Source202: nodejs.pc.in
 Source203: v8.pc.in
 
@@ -686,16 +687,14 @@ find %{buildroot}%{nodejs_private_sitelib}/npm \
 chmod 0755 %{buildroot}%{nodejs_private_sitelib}/npm/node_modules/@npmcli/run-script/lib/node-gyp-bin/node-gyp
 chmod 0755 %{buildroot}%{nodejs_private_sitelib}/npm/node_modules/node-gyp/bin/node-gyp.js
 
+# Drop the NPM builtin configuration in place
+sed -e 's#@SYSCONFDIR@#%{_sysconfdir}#g' \
+    %{SOURCE201} > %{buildroot}%{nodejs_private_sitelib}/npm/npmrc
+
 # Drop the NPM default configuration in place
 %if 0%{?nodejs_default}
 mkdir -p %{buildroot}%{_sysconfdir}
 cp %{SOURCE1} %{buildroot}%{_sysconfdir}/npmrc
-
-# NPM upstream expects it to be in /usr/etc/npmrc, so we'll put a symlink here
-# This is done in the interests of keeping /usr read-only.
-mkdir -p %{buildroot}%{_prefix}/etc
-ln -rsf %{buildroot}%{_sysconfdir}/npmrc \
-        %{buildroot}%{_prefix}/etc/npmrc
 %endif
 
 # Install the full-icu data files
@@ -829,7 +828,6 @@ end
 %if 0%{?nodejs_default}
 %{_bindir}/npm
 %{_bindir}/npx
-%{_prefix}/etc/npmrc
 %config(noreplace) %{_sysconfdir}/npmrc
 %ghost %{_sysconfdir}/npmignore
 

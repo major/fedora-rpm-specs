@@ -4,13 +4,14 @@
 
 Name:		obconf
 Version:	2.0.4
-Release:	22.%{git_date}git%{git_rev}%{?dist}
+Release:	23.%{git_date}git%{git_rev}%{?dist}
 Summary:	A graphical configuration editor for the Openbox window manager
 
 License:	GPLv2+
 URL:		http://icculus.org/openbox/index.php/ObConf:About
 #Source0:	http://icculus.org/openbox/obconf/%{name}-%{version}.tar.gz
 Source0:	https://github.com/danakj/obconf/archive/%{git_rev}/obconf-%{git_rev}.tar.gz
+Patch0: obconf-c99.patch
 
 BuildRequires: make
 BuildRequires:	openbox-devel >= 3.5.2
@@ -27,7 +28,7 @@ ObConf is a graphical configuration editor for the Openbox window manager.
 
 
 %prep
-%setup -q -n %{name}-%{git_rev_full}
+%autosetup -p1 -n %{name}-%{git_rev_full}
 
 
 %build
@@ -57,6 +58,9 @@ desktop-file-install \
 
 
 %changelog
+* Thu Apr 27 2023 Florian Weimer <fweimer@redhat.com> - 2.0.4-23.20150213git63ec47
+- Port to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-22.20150213git63ec47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
