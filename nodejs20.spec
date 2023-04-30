@@ -573,11 +573,21 @@ mv %{buildroot}%{_bindir}/node %{buildroot}%{_bindir}/node-%{nodejs_pkg_major}
 # Move the npm binary to npm-NODEJS_MAJOR
 rm -f %{buildroot}%{_bindir}/npm
 
+# Set the hashbang to use the matching Node.js interpreter
+sed --in-place --regexp-extended \
+    's;^#!/usr/bin/env node($|\ |\t)+;#!/usr/bin/node-%{nodejs_pkg_major};g' \
+    %{buildroot}%{nodejs_private_sitelib}/npm/bin/npm-cli.js
+
 ln -srf %{buildroot}%{nodejs_private_sitelib}/npm/bin/npm-cli.js \
         %{buildroot}%{_bindir}/npm-%{nodejs_pkg_major}
 
-# Move the npx binary to npm-NODEJS_MAJOR
+# Move the npx binary to npx-NODEJS_MAJOR
 rm -f %{buildroot}%{_bindir}/npx
+
+# Set the hashbang to use the matching Node.js interpreter
+sed --in-place --regexp-extended \
+    's;^#!/usr/bin/env node($|\ |\t)+;#!/usr/bin/node-%{nodejs_pkg_major};g' \
+    %{buildroot}%{nodejs_private_sitelib}/npm/bin/npx-cli.js
 
 ln -srf %{buildroot}%{nodejs_private_sitelib}/npm/bin/npx-cli.js \
         %{buildroot}%{_bindir}/npx-%{nodejs_pkg_major}
@@ -686,6 +696,11 @@ find %{buildroot}%{nodejs_private_sitelib}/npm \
 # The above command is a little overzealous. Add a few permissions back.
 chmod 0755 %{buildroot}%{nodejs_private_sitelib}/npm/node_modules/@npmcli/run-script/lib/node-gyp-bin/node-gyp
 chmod 0755 %{buildroot}%{nodejs_private_sitelib}/npm/node_modules/node-gyp/bin/node-gyp.js
+
+# Set the hashbang to use the matching Node.js interpreter
+sed --in-place --regexp-extended \
+    's;^#!/usr/bin/env node($|\ |\t)+;#!/usr/bin/node-%{nodejs_pkg_major};g' \
+    %{buildroot}%{nodejs_private_sitelib}/npm/node_modules/node-gyp/bin/node-gyp.js
 
 # Drop the NPM builtin configuration in place
 sed -e 's#@SYSCONFDIR@#%{_sysconfdir}#g' \

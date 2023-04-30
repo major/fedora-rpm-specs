@@ -36,7 +36,7 @@ Summary:        Python library providing high-performance data analysis tools
 # - pandas/_libs/window/aggregations.pyx is (BSD-3-Clause AND BSD-2-Clause):
 #   see “Bottleneck license” in LICENSES/OTHER
 #
-# In the python3-pandas+tests subpackage:
+# In the python3-pandas+test subpackage:
 #
 # - pandas/tests/io/data/spss/*.sav are MIT: see LICENSES/HAVEN_LICENSE and
 #   LICENSES/HAVEN_MIT

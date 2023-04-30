@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          0.2.1
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Mocking in R
 
 License:          GPLv3
@@ -56,9 +56,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 %check
 %if %{with bootstrap}
-_R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-vignettes --no-tests
+_R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --ignore-vignettes --no-tests
 %else
-%{_bindir}/R CMD check %{packname} --no-tests
+%{_bindir}/R CMD check --ignore-vignettes %{packname} --no-tests
 %endif
 
 %files
@@ -74,6 +74,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-vignettes --n
 %{rlibdir}/%{packname}/doc
 
 %changelog
+* Fri Apr 28 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.2.1-3
+- Ignore vignettes
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.2.1-2
 - R-maint-sig mass rebuild
 

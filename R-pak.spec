@@ -1,57 +1,55 @@
 %global packname pak
-%global packver  0.1.2.1
+%global packver  0.5.1
 %global rlibdir  %{_datadir}/R/library
+%bcond_with suggests
 
 Name:             R-%{packname}
-Version:          0.1.2.1
-Release:          9%{?dist}
+Version:          0.5.1
+Release:          1%{?dist}
 Summary:          Another Approach to Package Installation
 
 License:          GPLv3
 URL:              https://CRAN.R-project.org/package=%{packname}
 Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.tar.gz
-# Upstream master has removed these files, so won't go upstream.
-Patch0001:        0001-Skip-more-tests-if-offline.patch
-# https://github.com/r-lib/pak/pull/203
-Patch0002:        0002-Fix-version-of-rprojroot-dependency.patch
 
 # Here's the R view of the dependencies world:
 # Depends:
-# Imports:   R-assertthat, R-base64enc, R-callr >= 3.0.0.9002, R-cli >= 1.0.0, R-cliapp >= 0.0.0.9002, R-crayon >= 1.3.4, R-curl >= 3.2, R-desc >= 1.2.0, R-filelock >= 1.0.2, R-glue >= 1.3.0, R-jsonlite, R-lpSolve, R-pkgbuild >= 1.0.2, R-pkgcache >= 1.0.3, R-prettyunits, R-processx >= 3.2.1, R-ps >= 1.3.0, R-R6, R-rematch2, R-rprojroot >= 1.3.2, R-tibble, R-utils
-# Suggests:  R-covr, R-mockery, R-pingr, R-testthat, R-withr
+# Imports:   R-tools, R-utils
+# Suggests:  R-callr >= 3.7.0, R-cli >= 3.2.0, R-covr, R-curl >= 4.3.2, R-desc >= 1.4.1, R-digest, R-distro, R-filelock >= 1.0.2, R-gitcreds, R-glue >= 1.6.2, R-jsonlite, R-mockery, R-pingr, R-pkgcache >= 2.0.4, R-pkgdepends >= 0.4.0, R-pkgsearch >= 3.1.0, R-prettyunits, R-processx >= 3.8.1, R-ps >= 1.6.0, R-rprojroot >= 2.0.2, R-rstudioapi, R-testthat, R-withr
 # LinkingTo:
 # Enhances:
 
 BuildArch:        noarch
 BuildRequires:    R-devel
 BuildRequires:    tex(latex)
-BuildRequires:    R-assertthat
-BuildRequires:    R-base64enc
-BuildRequires:    R-callr >= 3.0.0.9002
-BuildRequires:    R-cli >= 1.0.0
-BuildRequires:    R-cliapp >= 0.0.0.9002
-BuildRequires:    R-crayon >= 1.3.4
-BuildRequires:    R-curl >= 3.2
-BuildRequires:    R-desc >= 1.2.0
-BuildRequires:    R-filelock >= 1.0.2
-BuildRequires:    R-glue >= 1.3.0
-BuildRequires:    R-jsonlite
-BuildRequires:    R-lpSolve
-BuildRequires:    R-pkgbuild >= 1.0.2
-BuildRequires:    R-pkgcache >= 1.0.3
-BuildRequires:    R-prettyunits
-BuildRequires:    R-processx >= 3.2.1
-BuildRequires:    R-ps >= 1.3.0
-BuildRequires:    R-R6
-BuildRequires:    R-rematch2
-BuildRequires:    R-rprojroot >= 1.3.2
-BuildRequires:    R-tibble
+BuildRequires:    tex(inconsolata.sty)
+BuildRequires:    R-tools
 BuildRequires:    R-utils
+BuildRequires:    R-testthat
+%if %{with suggests}
+BuildRequires:    R-callr >= 3.7.0
+BuildRequires:    R-cli >= 3.2.0
 BuildRequires:    R-covr
+BuildRequires:    R-curl >= 4.3.2
+BuildRequires:    R-desc >= 1.4.1
+BuildRequires:    R-digest
+BuildRequires:    R-distro
+BuildRequires:    R-filelock >= 1.0.2
+BuildRequires:    R-gitcreds
+BuildRequires:    R-glue >= 1.6.2
+BuildRequires:    R-jsonlite
 BuildRequires:    R-mockery
 BuildRequires:    R-pingr
-BuildRequires:    R-testthat
+BuildRequires:    R-pkgcache >= 2.0.4
+BuildRequires:    R-pkgdepends >= 0.4.0
+BuildRequires:    R-pkgsearch >= 3.1.0
+BuildRequires:    R-prettyunits
+BuildRequires:    R-processx >= 3.8.1
+BuildRequires:    R-ps >= 1.6.0
+BuildRequires:    R-rprojroot >= 2.0.2
+BuildRequires:    R-rstudioapi
 BuildRequires:    R-withr
+%endif
 
 %description
 The goal of 'pak' is to make package installation faster and more reliable.
@@ -65,11 +63,6 @@ finds version conflicts before performing the installation. This version of
 %prep
 %setup -q -c -n %{packname}
 
-pushd %{packname}
-%patch0001 -p1
-%patch0002 -p1
-popd
-
 
 %build
 
@@ -82,8 +75,11 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %check
+%if %{with suggests}
 %{_bindir}/R CMD check %{packname}
-
+%else
+_R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --ignore-vignettes
+%endif
 
 %files
 %dir %{rlibdir}/%{packname}
@@ -94,12 +90,18 @@ rm -f %{buildroot}%{rlibdir}/R.css
 %{rlibdir}/%{packname}/NAMESPACE
 %{rlibdir}/%{packname}/Meta
 %{rlibdir}/%{packname}/R
+%{rlibdir}/%{packname}/data
+%{rlibdir}/%{packname}/header.md
 %{rlibdir}/%{packname}/help
+%{rlibdir}/%{packname}/library
 %{rlibdir}/%{packname}/tools
 %{rlibdir}/%{packname}/WORDLIST
 
-
 %changelog
+* Thu Apr 27 2023 Tom Callaway <spot@fedoraproject.org> - 0.5.1-1
+- update to 0.5.1
+- conditionalize suggests entirely
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.1.2.1-9
 - R-maint-sig mass rebuild
 

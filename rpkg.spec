@@ -1,6 +1,6 @@
 Name:           rpkg
 Version:        1.66
-Release:        6%{?dist}
+Release:        7%{?dist}
 
 Summary:        Python library for interacting with rpm+git
 License:        GPLv2+ and LGPLv2
@@ -53,6 +53,8 @@ Patch16:        0016-Check-remote-file-with-correct-hash.patch
 Patch17:        0017-Allow-empty-commits-when-uses_rpmautospec.patch
 Patch18:        0018-Config-file-option-to-skip-the-hook-script-creation.patch
 Patch19:        0019-Pre-push-hook-won-t-check-private-branches.patch
+Patch20:        0020-Use-release-s-rpmdefines-in-unused-sources-check.patch
+Patch21:        0021-Do-not-require-sources-file-for-all-namespaces.patch
 
 %description
 Python library for interacting with rpm+git
@@ -269,6 +271,10 @@ example_cli_dir=$RPM_BUILD_ROOT%{_datadir}/%{name}/examples/cli
 
 
 %changelog
+* Fri Apr 28 2023 Ondřej Nosek <onosek@redhat.com> - 1.66-7
+- Patch: Do not require 'sources' file for all namespaces
+- Use release's rpmdefines in unused sources check
+
 * Tue Apr 18 2023 Ondřej Nosek <onosek@redhat.com> - 1.66-6
 - Patch: Pre-push hook won't check private branches
 - Patch: Config file option to skip the hook script creation

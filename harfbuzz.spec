@@ -1,5 +1,5 @@
 Name:           harfbuzz
-Version:        7.1.0
+Version:        7.2.0
 Release:        1%{?dist}
 Summary:        Text shaping library
 
@@ -92,6 +92,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/libharfbuzz-icu.so.*
 
 %changelog
+* Fri Apr 28 2023 Parag Nemade <pnemade AT redhat DOT com> - 7.2.0-1
+- Update to 7.2.0 version (#2190067)
+
 * Fri Mar 03 2023 Parag Nemade <pnemade AT redhat DOT com> - 7.1.0-1
 - Update to 7.1.0 version (#2175109)
 

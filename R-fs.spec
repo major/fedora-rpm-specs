@@ -1,15 +1,18 @@
 %bcond_with check
 
 %global packname fs
-%global packver  1.5.2
+%global packver  1.6.2
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
-Version:          1.5.2
-Release:          3%{?dist}
+Version:          %{packver}
+Release:          1%{?dist}
 Summary:          Cross-Platform File System Operations Based on 'libuv'
-
-License:          GPLv3
+# Wasn't this so much nicer when it was just GPLv3?
+#
+# SPDX is currently missing this one:
+# https://scancode-licensedb.aboutcode.org/bsd-credit.html
+License:          GPL-3.0-only AND libutil-David-Nugent AND BSD-3-Clause AND BSD-2-Clause AND ISC AND MIT AND LicenseRef-Fedora-Public-Domain AND Beerware
 URL:              https://CRAN.R-project.org/package=%{packname}
 Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.tar.gz
 # Fedora-specific.
@@ -18,7 +21,7 @@ Patch0001:        0001-Use-system-libuv.patch
 # Here's the R view of the dependencies world:
 # Depends:
 # Imports:   R-methods
-# Suggests:  R-testthat, R-covr, R-pillar >= 1.0.0, R-tibble >= 1.1.0, R-crayon, R-rmarkdown, R-knitr, R-withr, R-spelling, R-vctrs >= 0.3.0
+# Suggests:  R-testthat >= 3.0.0, R-covr, R-pillar >= 1.0.0, R-tibble >= 1.1.0, R-crayon, R-rmarkdown, R-knitr, R-withr, R-spelling, R-vctrs >= 0.3.0
 # LinkingTo:
 # Enhances:
 
@@ -27,7 +30,7 @@ BuildRequires:    R-devel
 BuildRequires:    tex(latex)
 BuildRequires:    R-methods
 %if %{with check}
-BuildRequires:    R-testthat
+BuildRequires:    R-testthat >= 3.0.0
 BuildRequires:    R-pillar >= 1.0.0
 BuildRequires:    R-tibble >= 1.1.0
 BuildRequires:    R-crayon
@@ -50,7 +53,7 @@ A cross-platform interface to file system operations, built on top of the
 
 pushd %{packname}
 # Remove bundled libuv.
-%patch0001 -p1
+%patch -P0001 -p1
 rm -rf src/libuv-*
 sed -i -e '/libuv/d' MD5
 
@@ -99,6 +102,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 
 
 %changelog
+* Fri Apr 28 2023 Tom Callaway <spot@fedoraproject.org> - 1.6.2-1
+- update to 1.6.2
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.5.2-3
 - R-maint-sig mass rebuild
 

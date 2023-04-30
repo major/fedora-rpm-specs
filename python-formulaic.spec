@@ -23,14 +23,25 @@ Version:        0.5.2
 Release:        %{autorelease}
 Summary:        A high-performance implementation of Wilkinson formulas
 
+# SPDX
 License:        MIT
 URL:            https://github.com/matthewwardrop/formulaic
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Backports https://github.com/matthewwardrop/formulaic/commit/e5dedcb0feed39f5ff6e2326d727ca65d247f26d to v0.5.2
 # fork lives at https://github.com/sanjayankur31/formulaic/tree/fedora-0.5.2
-Patch0:         0001-fix-correct-pytest-usage.patch
+Patch:          0001-fix-correct-pytest-usage.patch
+
+# Remove pin on sympy given that 1.10.1 fixes the regression that broke
+# formulaic.
+# https://github.com/matthewwardrop/formulaic/commit/8eb58e85f9f9b4e0dacf8b6478b6a1fb01074daf
+Patch:          %{url}/commit/8eb58e85f9f9b4e0dacf8b6478b6a1fb01074daf.patch
 
 BuildArch:      noarch
+
+# The dependency libarrow is ExcludeArch on 32-bit platforms, and is the sole
+# dependent package, python-pybids, plus:
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 %description %_description
 
@@ -43,12 +54,14 @@ BuildRequires:  git-core
 
 %description -n python3-formulaic %_description
 
+%pyproject_extras_subpkg -n python3-formulaic arrow calculus
+
 %prep
 %autosetup -n formulaic-%{version} -S git
 
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
-%pyproject_buildrequires
+%pyproject_buildrequires -x arrow,calculus
 
 %build
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}

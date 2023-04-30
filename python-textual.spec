@@ -1,5 +1,5 @@
 Name:           python-textual
-Version:        0.10.0
+Version:        0.22.3
 Release:        1%{?dist}
 Summary:        TUI (Text User Interface) framework for Python
 License:        MIT
@@ -39,8 +39,6 @@ Summary:        Docs and examples for python3-textual
 
 %prep
 %autosetup -n textual-%{version}
-sed -i \
-  -e 's/importlib-metadata = "^4.11.3"/importlib-metadata = ">4.11.3"/g' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires -r -x dev
@@ -69,6 +67,12 @@ sed -i \
 
 
 %changelog
+* Fri Apr 28 2023 Jonathan Wright <jonathan@almalinux.org> - 0.22.3-1
+- Update to 0.22.3 rhbz#2170877
+
+* Sat Mar 25 2023 Jonathan Wright <jonathan@almalinux.org> - 0.16.0-1
+- Update to 0.16.0 rhbz#2170877
+
 * Wed Feb 15 2023 Jonathan Wright <jonathan@almalinux.org> - 0.10.0-1
 - Update to 0.10.0 rhbz#2162484
 

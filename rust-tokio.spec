@@ -5,7 +5,7 @@
 %global crate tokio
 
 Name:           rust-tokio
-Version:        1.27.0
+Version:        1.28.0
 Release:        %autorelease
 Summary:        Event-driven, non-blocking I/O platform
 
@@ -319,6 +319,7 @@ use the "tokio-macros" feature of the "%{crate}" crate.
 # skip some integration tests that don't compile with --all-features
 rm tests/io_copy_bidirectional.rs
 rm tests/io_read_line.rs
+rm tests/io_read_to_end.rs
 rm tests/io_read_to_string.rs
 rm tests/io_read_until.rs
 %cargo_prep

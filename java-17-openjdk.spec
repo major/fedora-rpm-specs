@@ -274,7 +274,7 @@
 # New Version-String scheme-style defines
 %global featurever 17
 %global interimver 0
-%global updatever 6
+%global updatever 7
 %global patchver 0
 
 # We don't add any LTS designator for STS packages (Fedora and EPEL).
@@ -316,8 +316,8 @@
 %global origin_nice     OpenJDK
 %global top_level_dir_name   %{origin}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
-%global buildver        10
-%global rpmrelease      5
+%global buildver        7
+%global rpmrelease      1
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -1687,26 +1687,26 @@ if [ $prioritylength -ne 8 ] ; then
  exit 14
 fi
 
-tar -xf %{_jvmdir}/%{compatiblename}*portable.sources.noarch.tar.xz
+tar -xf %{_jvmdir}/%{compatiblename}*%{version}*portable.sources.noarch.tar.xz
 %if %{include_normal_build}
-tar -xf %{_jvmdir}/%{compatiblename}*portable.jdk.%{_arch}.tar.xz
-#tar -xf %{_jvmdir}/%{compatiblename}*portable.jre.%{_arch}.tar.xz
+tar -xf %{_jvmdir}/%{compatiblename}*%{version}*portable.jdk.%{_arch}.tar.xz
+#tar -xf %{_jvmdir}/%{compatiblename}*%{version}*portable.jre.%{_arch}.tar.xz
 %if %{include_staticlibs}
-tar -xf %{_jvmdir}/%{compatiblename}*portable.static-libs.%{_arch}.tar.xz
+tar -xf %{_jvmdir}/%{compatiblename}*%{version}*portable.static-libs.%{_arch}.tar.xz
 %endif
 %endif
 %if %{include_fastdebug_build}
-tar -xf %{_jvmdir}/%{compatiblename}*portable.fastdebug.jdk.%{_arch}.tar.xz
-#tar -xf %{_jvmdir}/%{compatiblename}*portable.fastdebug.jre.%{_arch}.tar.xz
+tar -xf %{_jvmdir}/%{compatiblename}*%{version}*portable.fastdebug.jdk.%{_arch}.tar.xz
+#tar -xf %{_jvmdir}/%{compatiblename}*%{version}*portable.fastdebug.jre.%{_arch}.tar.xz
 %if %{include_staticlibs}
-tar -xf %{_jvmdir}/%{compatiblename}*portable.fastdebug.static-libs.%{_arch}.tar.xz
+tar -xf %{_jvmdir}/%{compatiblename}*%{version}*portable.fastdebug.static-libs.%{_arch}.tar.xz
 %endif
 %endif
 %if %{include_debug_build}
-tar -xf %{_jvmdir}/%{compatiblename}*portable.slowdebug.jdk.%{_arch}.tar.xz
-#tar -xf %{_jvmdir}/%{compatiblename}*portable.slowdebug.jre.%{_arch}.tar.xz
+tar -xf %{_jvmdir}/%{compatiblename}*%{version}*portable.slowdebug.jdk.%{_arch}.tar.xz
+#tar -xf %{_jvmdir}/%{compatiblename}*%{version}*portable.slowdebug.jre.%{_arch}.tar.xz
 %if %{include_staticlibs}
-tar -xf %{_jvmdir}/%{compatiblename}*portable.slowdebug.static-libs.%{_arch}.tar.xz
+tar -xf %{_jvmdir}/%{compatiblename}*%{version}*portable.slowdebug.static-libs.%{_arch}.tar.xz
 %endif
 %endif
 
@@ -2350,6 +2350,10 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
+* Fri Apr 28 2028 Jiri Vanek <jvanek@redhat.com> - 1:17.0.7.0.7-1
+- updated to 17.0.7.0.7 underlying portables
+- now untarring enforced version
+
 * Wed Apr 19 2023 Jiri Vanek <jvanek@redhat.com> - 1:17.0.6.0.10-5
 - using icons from source package
 - providing full sources via src package

@@ -1,11 +1,11 @@
 Name:           cloud-init
-Version:        23.1.1
-Release:        1%{?dist}
+Version:        23.1.2
+Release:        2%{?dist}
 Summary:        Cloud instance init scripts
 License:        ASL 2.0 or GPLv3
-URL:            http://launchpad.net/cloud-init
+URL:            https://github.com/canonical/cloud-init
 
-Source0:        https://launchpad.net/cloud-init/trunk/%{version}/+download/%{name}-%{version}.tar.gz
+Source0:        https://github.com/canonical/%{name}/archive/refs/tags/%{version}.tar.gz
 Source1:        cloud-init-tmpfiles.conf
 
 # https://github.com/canonical/cloud-init/pull/2073
@@ -183,6 +183,13 @@ python3 -m pytest tests/unittests
 
 
 %changelog
+* Fri Apr 28 2023 Major Hayden <major@redhat.com> - 23.1.2-2
+- Switch to GitHub source since upstream uses that officially now.
+
+* Thu Apr 27 2023 Major Hayden <major@redhat.com> - 23.1.2-1
+- Update to 23.1.2
+- Includes fix for CVE-2023-1786
+
 * Wed Mar 22 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 23.1.1-1
 - Rebase to 23.1.1
 

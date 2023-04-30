@@ -121,8 +121,9 @@ m     stapdev  stapdev
 
 
 Name: systemtap
-Version: 4.8
-Release: 5%{?release_override}%{?dist}
+# PRERELEASE
+Version: 4.9
+Release: 1%{?release_override}%{?dist}
 # for version, see also configure.ac
 
 
@@ -141,6 +142,7 @@ Release: 5%{?release_override}%{?dist}
 # systemtap-runtime-virtguest udev rules, init scripts/systemd service, req:-runtime
 # systemtap-runtime-python2 HelperSDT python2 module, req:-runtime
 # systemtap-runtime-python3 HelperSDT python3 module, req:-runtime
+# systemtap-jupyter      /usr/bin/stap-jupyter-* interactive-notebook req:systemtap
 #
 # Typical scenarios:
 #
@@ -157,14 +159,6 @@ Summary: Programmable system-wide instrumentation system
 License: GPLv2+
 URL: http://sourceware.org/systemtap/
 Source: ftp://sourceware.org/pub/systemtap/releases/systemtap-%{version}.tar.gz
-
-Patch1: rhbz1997192.patch
-Patch2: rhbz2145242.patch
-Patch3: rhbz2149223.patch
-Patch4: rhbz2149666.patch
-Patch5: rhbz2154430.patch
-
-
 
 # Build*
 BuildRequires: make
@@ -578,16 +572,22 @@ This package installs the services necessary on a virtual machine for a
 systemtap-runtime-virthost machine to execute systemtap scripts.
 %endif
 
+%if %{with_python3} && %{with_monitor}
+%package jupyter
+Summary: ISystemtap jupyter kernel and examples
+License: GPLv2+
+URL: http://sourceware.org/systemtap/
+Requires: systemtap = %{version}-%{release}
+
+%description jupyter
+This package includes files needed to build and run
+the interactive systemtap Jupyter kernel, either locally
+or within a container.
+%endif
 # ------------------------------------------------------------------------
 
 %prep
 %setup -q
-
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
 
 %build
 
@@ -1289,6 +1289,15 @@ exit 0
 %{_sbindir}/stap-exporter
 %endif
 
+%if %{with_python3} && %{with_monitor}
+%files jupyter
+%{_bindir}/stap-jupyter-container
+%{_bindir}/stap-jupyter-install
+%{_mandir}/man1/stap-jupyter.1*
+%dir %{_datadir}/systemtap
+%{_datadir}/systemtap/interactive-notebook
+%endif
+
 # ------------------------------------------------------------------------
 
 # Future new-release entries should be of the form
@@ -1298,22 +1307,14 @@ exit 0
 
 # PRERELEASE
 %changelog
-* Thu Feb 23 2023 Frank Ch. Eigler <fche@redhat.com> - 4.8-5
-- Rebuilt for Dyninst update
-
-* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 4.8-4
-- Rebuilt for Boost 1.81
-
-* Wed Feb 08 2023 Frank Ch. Eigler <fche@redhat.com> - 4.8-3
-- backport several RHEL/upstream patches
-
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.8-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+* Fri Apr 28 2023 Frank Ch. Eigler <fche@redhat.com> - 4.9-1
+- Upstream release, see wiki page below for detailed notes.
+  https://sourceware.org/systemtap/wiki/SystemTapReleases
 
 * Thu Nov 03 2022 Serhei Makarov <serhei@serhei.io> - 4.8-1
 - Upstream release, see wiki page below for detailed notes.
   https://sourceware.org/systemtap/wiki/SystemTapReleases
-
+  
 * Mon May 02 2022 Frank Ch. Eigler <fche@redhat.com> - 4.7-1
 - Upstream release, see wiki page below for detailed notes.
   https://sourceware.org/systemtap/wiki/SystemTapReleases

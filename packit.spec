@@ -1,50 +1,28 @@
-%global pypi_name packitos
-%global real_name packit
+# Testing dependencies: deepdiff, flexmock are missing on EPEL 9. Cannot use testing environment
+%if 0%{?el9}
+%bcond_with tests
+%else
+%bcond_without tests
+%endif
 
-Name:           %{real_name}
-Version:        0.74.0
+Name:           packit
+Version:        0.75.0
 Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
 License:        MIT
 URL:            https://github.com/packit/packit
-Source0:        %pypi_source
+Source0:        %{pypi_source packitos}
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-click-man
-BuildRequires:  python3-GitPython
-BuildRequires:  python3-gnupg
-BuildRequires:  python3-ogr
-BuildRequires:  python3-packaging
-BuildRequires:  python3-pyyaml
-BuildRequires:  python3-specfile
-BuildRequires:  python3-tabulate
-BuildRequires:  python3-cccolutils
-BuildRequires:  python3-copr
-BuildRequires:  python3-koji
-BuildRequires:  python3-rpkg
-BuildRequires:  python3-lazy-object-proxy
-BuildRequires:  python3-marshmallow
-BuildRequires:  python3-marshmallow-enum
-BuildRequires:  python3-requests
-BuildRequires:  python3-requests-kerberos
-BuildRequires:  python3dist(setuptools)
-BuildRequires:  python3dist(setuptools-scm)
-BuildRequires:  python3dist(setuptools-scm-git-archive)
-BuildRequires:  python3-bodhi-client >= 7.0.0
-BuildRequires:  python3-cachetools
-BuildRequires:  python3-fedora
-%if 0%{?rhel}
-# epel-8 requires typing-extensions due to old python version
-BuildRequires:  python3-typing-extensions
-%endif
-Requires:       python3-%{real_name} = %{version}-%{release}
+BuildRequires:  python3dist(click-man)
+Requires:       python3-packit = %{version}-%{release}
 
 %description
 This project provides tooling and automation to integrate upstream open source
 projects into Fedora operating system.
 
-%package -n     python3-%{real_name}
+%package -n     python3-packit
 Summary:        %{summary}
 # new-sources
 Requires:       fedpkg
@@ -57,50 +35,57 @@ Requires:       rpm-build
 Requires:       rpmdevtools
 # Copying files between repositories
 Requires:       rsync
-%if 0%{?rhel}
-# rhbz#1968618 still not fixed for epel-8
-Requires:       python3-koji
-%endif
-%{?python_provide:%python_provide python3-%{real_name}}
 
-%description -n python3-%{real_name}
+%description -n python3-packit
 Python library for Packit,
 check out packit package for the executable.
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+%autosetup -n packitos-%{version}
 
-%if 0%{?rhel}
-# rhbz#1968618 still not fixed for epel-8
-sed -i -e 's|koji|# koji|' setup.cfg
-%endif
+
+%generate_buildrequires
+# The -w flag is required for EPEL 9's older hatchling
+%pyproject_buildrequires %{?with_tests:-x testing} %{?el9:-w}
+
 
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
-python3 setup.py --command-packages=click_man.commands man_pages --target %{buildroot}%{_mandir}/man1
+%pyproject_install
+%pyproject_save_files packit
+PYTHONPATH="%{buildroot}%{python3_sitelib}" click-man packit --target %{buildroot}%{_mandir}/man1
 
-install -d -m 755 %{buildroot}%{_datadir}/bash-completion/completions
-cp files/bash-completion/packit %{buildroot}%{_datadir}/bash-completion/completions/packit
+install -d -m 755 %{buildroot}%{bash_completions_dir}
+cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
+
 
 %files
 %license LICENSE
 %{_bindir}/packit
 %{_mandir}/man1/packit*.1*
-%dir %{_datadir}/bash-completion/completions
-%{_datadir}/bash-completion/completions/%{real_name}
+%{bash_completions_dir}/packit
 
-%files -n python3-%{real_name}
+%files -n python3-packit -f %{pyproject_files}
+# Epel9 does not tag the license file in pyproject_files as a license. Manually install it in this case
+%if 0%{?el9}
 %license LICENSE
+%endif
 %doc README.md
-%{python3_sitelib}/*
 
 %changelog
+* Fri Apr 28 2023 Packit <hello@packit.dev> - 0.75.0-1
+- Detection of `%%autorelease` usage in dist-git spec file during `propose-downstream` and `pull-from-upstream` has been improved and Packit will always preserve it. (#1949)
+- Changed build tool to hatchling and moved metadata to `pyproject.toml`. (PEP621) (#1913)
+- Respect `upstream_ref` for tags that start with "a", "b", "c", "e", "n", "r", "s". This was caused by an issue with a `branches` prefix being treated as a set of letters to remove. (#1943)
+- Reset `Release` field in dist-git spec file to `1` when the version in upstream spec file is not up-to-date with the release that triggered `propose_downstream`. (#1940)
+- Correctly catch the logs, if any of the user actions fail during the propose-downstream. (#1939)
+- `packit source-git` related commands can skip dist-git repos, where the git trailer is not found, when looking for the right dist-git dir where to work. (#1938)
+- More monorepo related fixes. (#1946, #1947, #1948)
+
 * Sun Apr 16 2023 Packit <hello@packit.dev> - 0.74.0-1
 - Allow configuring tmt tests with fmf root outside of git root. (#1936)
 - Removed adding the "Signed-off-by" tag to commits created by Packit. (#1934)

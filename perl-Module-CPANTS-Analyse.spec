@@ -2,7 +2,7 @@ Name:           perl-Module-CPANTS-Analyse
 Version:        1.01
 Release:        11%{?dist}
 Summary:        Generate Kwalitee ratings for a distribution
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-CPANTS-Analyse
 Source0:        https://cpan.metacpan.org/modules/by-module/Module/Module-CPANTS-Analyse-%{version}.tar.gz
 BuildArch:      noarch
@@ -55,7 +55,7 @@ BuildRequires:  perl(FindBin)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::FailWarnings)
 BuildRequires:  perl(Test::More) >= 0.88
-# Runtime
+# Dependencies
 Requires:       perl(Archive::Any::Lite) >= 0.06
 Requires:       perl(Archive::Tar) >= 1.76
 Requires:       perl(Array::Diff) >= 0.04

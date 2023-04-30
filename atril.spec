@@ -13,9 +13,9 @@
 %{!?rel_build:%global git_tar %{name}-%{version}-%{git_ver}.tar.xz}
 
 Name:          atril
-Version:       %{branch}.0
+Version:       %{branch}.1
 %if 0%{?rel_build}
-Release:       4%{?dist}
+Release:       1%{?dist}
 %else
 Release:       0.18%{?git_rel}%{?dist}
 %endif
@@ -194,6 +194,9 @@ desktop-file-validate ${RPM_BUILD_ROOT}%{_datadir}/applications/atril.desktop
 
 
 %changelog
+* Fri Apr 28 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-1
+- update to 1.26.1 release
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

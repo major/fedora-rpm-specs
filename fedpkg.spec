@@ -5,7 +5,7 @@
 
 Name:           fedpkg
 Version:        1.44
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Fedora utility for working with dist-git
 
 License:        GPLv2+
@@ -26,6 +26,7 @@ Patch2:         0002-Remove-pytest-coverage-execution.patch
 Patch3:         0003-Remove-Environment-Markers-syntax.patch
 %endif
 Patch4:         0004-Fix-unittests-after-path-argument-is-validated.patch
+Patch5:         0005-Improve-invalid-branch-name-error-message.patch
 
 BuildRequires:  pkgconfig
 BuildRequires:  bash-completion
@@ -40,7 +41,7 @@ Requires:       redhat-rpm-config
 
 BuildRequires:  python2-devel
 # We br these things for man page generation due to imports
-BuildRequires:  python2-rpkg >= 1.66-5
+BuildRequires:  python2-rpkg >= 1.66-7
 BuildRequires:  python2-distro
 BuildRequires:  python2-fedora
 # For testing
@@ -54,7 +55,7 @@ BuildRequires:  python-bugzilla
 
 Requires:       bodhi-client >= 2.0
 Requires:       python-bugzilla
-Requires:       python2-rpkg >= 1.66-5
+Requires:       python2-rpkg >= 1.66-7
 Requires:       python2-distro
 Requires:       python2-fedora
 Requires:       python2-openidc-client >= 0.6.0
@@ -66,7 +67,7 @@ Requires:       fedora-packager
 %global __python %{__python3}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-rpkg >= 1.66-5
+BuildRequires:  python3-rpkg >= 1.66-7
 BuildRequires:  python3-distro
 BuildRequires:  python3-fedora
 # For testing
@@ -78,7 +79,7 @@ BuildRequires:  python3-bodhi-client
 
 
 Requires:       python3-bugzilla
-Requires:       python3-rpkg >= 1.66-5
+Requires:       python3-rpkg >= 1.66-7
 Requires:       python3-distro
 Requires:       python3-fedora
 Requires:       python3-openidc-client >= 0.6.0
@@ -148,6 +149,9 @@ mv %{buildroot}%{compdir}/fedpkg.bash %{buildroot}%{compdir}/fedpkg
 
 
 %changelog
+* Fri Apr 28 2023 Ondřej Nosek <onosek@redhat.com> - 1.44-4
+- Patch: Improve invalid branch name error message
+
 * Mon Apr 3 2023 Ondřej Nosek <onosek@redhat.com> - 1.44-3
 - Patch: Fix unittests after '--path' argument is validated
 

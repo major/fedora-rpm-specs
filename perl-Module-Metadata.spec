@@ -1,8 +1,8 @@
 Name:		perl-Module-Metadata
-Version:	1.000037
-Release:	490%{?dist}
+Version:	1.000038
+Release:	1%{?dist}
 Summary:	Gather package and POD information from perl module files
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Module-Metadata
 Source0:	https://cpan.metacpan.org/modules/by-module/Module/Module-Metadata-%{version}.tar.gz
 BuildArch:	noarch
@@ -37,7 +37,7 @@ BuildRequires:	perl(Test::More) >= 0.88
 BuildRequires:	perl(vars)
 # Optional test requirements
 BuildRequires:	perl(CPAN::Meta) >= 2.120900
-# Runtime
+# Dependencies
 Requires:	perl(Encode)
 Requires:	perl(Fcntl)
 
@@ -67,6 +67,11 @@ make test
 %{_mandir}/man3/Module::Metadata.3*
 
 %changelog
+* Fri Apr 28 2023 Paul Howarth <paul@city-fan.org> - 1.000038-1
+- Update to 1.000038
+  - Detects "class" syntax
+- Use SPDX-format license tag
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.000037-490
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

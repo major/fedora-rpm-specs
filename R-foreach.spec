@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          Provides Foreach Looping Construct
 
 License:          ASL 2.0
@@ -61,7 +61,7 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 %check
 %if %{without bootstrap}
-%{_bindir}/R CMD check %{packname}
+%{_bindir}/R CMD check --ignore-vignettes %{packname}
 %else
 _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --ignore-vignettes --no-tests
 %endif
@@ -83,6 +83,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --ignore-vignettes
 
 
 %changelog
+* Fri Apr 28 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.5.2-4
+- Ignore vignettes
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.5.2-3
 - R-maint-sig mass rebuild
 

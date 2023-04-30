@@ -3,8 +3,8 @@
 Summary: The client for the Trivial File Transfer Protocol (TFTP)
 Name: tftp
 Version: 5.2
-Release: 39%{?dist}
-License: BSD
+Release: 40%{?dist}
+License: BSD-4-Clause-UC
 URL: http://www.kernel.org/pub/software/network/tftp/
 Source0: http://www.kernel.org/pub/software/network/tftp/tftp-hpa/tftp-hpa-%{version}.tar.bz2
 Source1: tftp.socket
@@ -107,6 +107,9 @@ install -p -m 644 %SOURCE2 ${RPM_BUILD_ROOT}%{_unitdir}
 %{_unitdir}/*
 
 %changelog
+* Mon Apr 24 2023 Lukáš Zaoral <lzaoral@redhat.com> - 5.2-40
+- migrate to SPDX license format
+
 * Sun Feb 05 2023 Florian Weimer <fweimer@redhat.com> - 5.2-39
 - Fix C99 compatibility issue (#2148911)
 

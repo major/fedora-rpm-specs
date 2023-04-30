@@ -9,25 +9,22 @@
 
 Summary: Device-mapper Persistent Data Tools
 Name: device-mapper-persistent-data
-Version: 1.0.2
+Version: 1.0.4
 Release: 1%{?dist}%{?release_suffix}
 License: GPLv3+
+#ExcludeArch: %%{ix86}
 URL: https://github.com/jthornber/thin-provisioning-tools
 #Source0: https://github.com/jthornber/thin-provisioning-tools/archive/thin-provisioning-tools-%%{version}.tar.gz
 Source0: https://github.com/jthornber/thin-provisioning-tools/archive/v%{version}%{?version_suffix}.tar.gz
-Source1: dmpd102-vendor.tar.gz
-#Patch0: device-mapper-persistent-data-avoid-strip.patch
+Source1: dmpd104-vendor.tar.gz
 Patch1: 0001-Tweak-cargo.toml-to-work-with-vendor-directory.patch
-Patch2: 0002-Fix-paths.patch
 
-BuildRequires: expat-devel, libaio-devel, libstdc++-devel, boost-devel, gcc-c++
-Requires: expat
-%ifarch %{rust_arches}
 BuildRequires: rust-packaging
 BuildRequires: rust >= 1.35
 BuildRequires: cargo
-%endif
 BuildRequires: make
+# FIXME: Remove this!
+BuildRequires: rust-gdb
 
 %description
 thin-provisioning-tools contains check,dump,restore,repair,rmap
@@ -38,9 +35,7 @@ are included and era check, dump, restore and invalidate to manage
 snapshot eras
 
 %prep
-%setup -q -n thin-provisioning-tools-%{version}%{?version_suffix}
-%ifarch %{rust_arches}
-%patch1 -p1 -b .toml_update
+%autosetup -p1 -n thin-provisioning-tools-%{version}%{?version_suffix}
 #%%cargo_prep
 #%%cargo_generate_buildrequires
 tar xf %{SOURCE1}
@@ -53,10 +48,6 @@ replace-with = "vendored-sources"
 directory = "vendor"
 
 END
-%endif
-#%%patch0 -p1 -b .avoid_strip
-%patch2 -p1 -b .backup2
-# NOTE: patch 15 is above at the rust setup
 echo %{version}-%{release} > VERSION
 
 %generate_buildrequires
@@ -67,7 +58,9 @@ echo %{version}-%{release} > VERSION
 
 %if %{with check}
 %check
+# FIXME: Reenable testing!
 %cargo_test
+#cargo test --test thin_shrink -- --nocapture --test-threads=1
 %endif
 
 %install
@@ -94,10 +87,8 @@ make DESTDIR=%{buildroot} MANDIR=%{_mandir} install
 %{_mandir}/man8/thin_restore.8.gz
 %{_mandir}/man8/thin_rmap.8.gz
 %{_mandir}/man8/thin_trim.8.gz
-%ifarch %{rust_arches}
 %{_mandir}/man8/thin_metadata_pack.8.gz
 %{_mandir}/man8/thin_metadata_unpack.8.gz
-%endif
 %{_sbindir}/pdata_tools
 %{_sbindir}/cache_check
 %{_sbindir}/cache_dump
@@ -118,16 +109,16 @@ make DESTDIR=%{buildroot} MANDIR=%{_mandir} install
 %{_sbindir}/thin_restore
 %{_sbindir}/thin_rmap
 %{_sbindir}/thin_trim
-%ifarch %{rust_arches}
 %{_sbindir}/thin_metadata_pack
 %{_sbindir}/thin_metadata_unpack
-%endif
 #% {_sbindir}/thin_show_duplicates
 
 %changelog
-* Wed Feb 22 2023 Marian Csontos <mcsontos@redhat.com> - 1.0.2-1
-- Update to latest upstream release 1.0.2.
-- Complete rewrite in rust.
+* Fri Apr 28 2023 Marian Csontos <mcsontos@redhat.com> - 1.0.4-1
+- Update to latest upstream release 1.0.4.
+
+* Wed Mar 22 2023 Marian Csontos <mcsontos@redhat.com> - 1.0.3-1
+- Update to latest upstream release 1.0.3.
 
 * Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 0.9.0-10
 - Rebuild for fixed frame pointer compiler flags in Rust RPM macros.

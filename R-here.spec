@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          9%{?dist}
+Release:          10%{?dist}
 Summary:          A Simpler Way to Find Your Files
 
 License:          MIT
@@ -60,7 +60,7 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %check
-%{_bindir}/R CMD check %{packname}
+%{_bindir}/R CMD check --ignore-vignettes %{packname}
 
 
 %files
@@ -80,6 +80,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Apr 28 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.0.1-10
+- Ignore vignettes
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.0.1-9
 - R-maint-sig mass rebuild
 

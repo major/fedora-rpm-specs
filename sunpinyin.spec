@@ -6,9 +6,9 @@
 
 Name:		sunpinyin
 Version:	3.0.0
-Release:	0.9.%{gitdate}git%{?dist}
+Release:	0.10.%{gitdate}git%{?dist}
 Summary:	A statistical language model based Chinese input method engine
-License:	LGPLv2 or CDDL
+License:	LGPL-2.1-only OR CDDL-1.0
 URL:		http://code.google.com/p/sunpinyin/
 Source0:	%{name}-%{gitdate}.tar.xz
 Source2:	http://downloads.sourceforge.net/project/open-gram/lm_sc.3gm.arpa-20140820.tar.bz2
@@ -49,9 +49,7 @@ The %{name}-data package contains necessary lexicon data and its index data
 files needed by the sunpinyin input methods.
 
 %prep
-%setup -q -n %{name}-%{gitdate}
-%patch0 -p1 -b .python3
-%patch1 -p1 -b .scons
+%autosetup -p1 -n %{name}-%{gitdate}
 
 mkdir -p raw
 cp %SOURCE2 raw
@@ -83,8 +81,6 @@ popd
 install -m0644 AUTHORS TODO %{buildroot}%{_docdir}/%{name}
 
 
-%ldconfig_scriptlets
-
 %files
 %license COPYING *.LICENSE
 %{_libdir}/libsunpinyin*.so.*
@@ -104,6 +100,9 @@ install -m0644 AUTHORS TODO %{buildroot}%{_docdir}/%{name}
 %{_docdir}/%{name}/SLM-*.mk
 
 %changelog
+* Fri Apr 28 2023 Peng Wu <pwu@redhat.com> - 3.0.0-0.10.20190805git
+- Migrate to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-0.9.20190805git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

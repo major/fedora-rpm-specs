@@ -44,10 +44,7 @@
 %else
 %if %{with hadrian}
 %bcond_without haddock
-# https://gitlab.haskell.org/ghc/ghc/-/issues/23286
-%if 0%{?fedora} < 39
 %bcond_without manual
-%endif
 %else
 %ifarch s390x
 %if %{defined fedora}
@@ -121,6 +118,8 @@ Patch3: ghc-gen_contents_index-nodocs.patch
 Patch5: https://gitlab.haskell.org/ghc/ghc/-/commit/6e12e3c178fe9ad16131eb3c089bd6578976f5d6.patch
 Patch7: ghc-compiler-enable-build-id.patch
 Patch8: ghc-configure-c99.patch
+# https://gitlab.haskell.org/ghc/ghc/-/issues/23286
+Patch9: https://gitlab.haskell.org/ghc/ghc/-/commit/00dc51060881df81258ba3b3bdf447294618a4de.patch
 
 # arm patches
 Patch12: ghc-armv7-VFPv3D16--NEON.patch
@@ -428,6 +427,7 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %patch -P7 -p1 -b .orig
 %endif
 %patch -P8 -p1 -b .orig
+%patch -P9 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
 

@@ -1,5 +1,5 @@
 %global cpan_version_major 0.42
-%global cpan_version_minor 32
+%global cpan_version_minor 34
 %global cpan_version %{cpan_version_major}%{?cpan_version_minor}
 
 # Run optional tests
@@ -12,15 +12,11 @@
 Name:           perl-Module-Build
 Epoch:          2
 Version:        %{cpan_version_major}%{?cpan_version_minor:.%cpan_version_minor}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Build and install Perl modules
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Build
-Source0:        https://cpan.metacpan.org/authors/id/L/LE/LEONT/Module-Build-%{cpan_version}.tar.gz
-# Do not require a compiler if c_source is an empty list, bug #1547165,
-# CPAN RT#124625,
-# <https://lists.fedoraproject.org/archives/list/perl-devel@lists.fedoraproject.org/message/UWQ6SDRKNTX6SM6RBJ35CDBGRCV3ZSKP/>
-Patch0:         Module-Build-0.4224-Do-not-need-a-compiler-if-c_source-is-an-empty-list.patch
+Source0:        https://cpan.metacpan.org/modules/by-module/Module/Module-Build-%{cpan_version}.tar.gz
 # Handle missing ExtUtils::CBuilder as a missing compiler, bug #1547165.
 Patch1:         Module-Build-0.4231-Do-not-die-on-missing-ExtUtils-CBuilder-in-have_c_co.patch
 BuildArch:      noarch
@@ -140,12 +136,12 @@ works fine on perl 5.005 if you can install a few additional modules.
 %autosetup -p1 -n Module-Build-%{cpan_version}
 
 %build
-perl Build.PL installdirs=vendor
+perl Build.PL --installdirs=vendor
 ./Build
 
 %install
-./Build install destdir=%{buildroot} create_packlist=0
-%{_fixperms} %{buildroot}/*
+./Build install --destdir=%{buildroot} --create_packlist=0
+%{_fixperms} -c %{buildroot}
 
 %check
 rm t/signature.t
@@ -153,13 +149,19 @@ LANG=C TEST_SIGNATURE=1 MB_TEST_EXPERIMENTAL=1 ./Build test
 
 %files
 %license LICENSE
-%doc Changes contrib README
+%doc Changes contrib/ README
 %{_bindir}/config_data
-%{perl_vendorlib}/*
-%{_mandir}/man1/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Module/
+%{_mandir}/man1/config_data.1*
+%{_mandir}/man3/Module::Build*.3*
 
 %changelog
+* Fri Apr 28 2023 Paul Howarth <paul@city-fan.org> - 2:0.42.34-1
+- 0.4234 bump
+- Use author-independent source URL
+- Fix permissions verbosely
+- Make %%files list more explicit
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:0.42.32-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -19,7 +19,7 @@ Name:           protobuf
 # “patch” updates of protobuf.
 Version:        3.19.6
 %global so_version 30
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 # The entire source is BSD-3-Clause, except the following files, which belong
 # to the build system; are unpackaged maintainer utility scripts; or are used
@@ -139,16 +139,11 @@ Requires:       protobuf = %{version}-%{release}
 Requires:       protobuf-compiler = %{version}-%{release}
 Requires:       zlib-devel
 
+Obsoletes:      protobuf-static < 3.19.6-4
+
 %description devel
 This package contains Protocol Buffers compiler for all languages and
 C++ headers and libraries
-
-%package static
-Summary:        Static development files for protobuf
-Requires:       protobuf-devel = %{version}-%{release}
-
-%description static
-Static libraries for Protocol Buffers
 
 %package lite
 Summary:        Protocol Buffers LITE_RUNTIME libraries
@@ -165,20 +160,10 @@ Summary:        Protocol Buffers LITE_RUNTIME development libraries
 Requires:       protobuf-devel = %{version}-%{release}
 Requires:       protobuf-lite = %{version}-%{release}
 
+Obsoletes:      protobuf-lite-static < 3.19.6-4
+
 %description lite-devel
 This package contains development libraries built with
-optimize_for = LITE_RUNTIME.
-
-The "optimize_for = LITE_RUNTIME" option causes the compiler to generate code
-which only depends libprotobuf-lite, which is much smaller than libprotobuf but
-lacks descriptors, reflection, and some other features.
-
-%package lite-static
-Summary:        Static development files for protobuf-lite
-Requires:       protobuf-devel = %{version}-%{release}
-
-%description lite-static
-This package contains static development libraries built with
 optimize_for = LITE_RUNTIME.
 
 The "optimize_for = LITE_RUNTIME" option causes the compiler to generate code
@@ -292,12 +277,12 @@ descriptions in the Emacs editor.
 %ifarch %{ix86}
 # IoTest.LargeOutput fails on 32bit arches
 # https://github.com/protocolbuffers/protobuf/issues/8082
-%patch1 -p1
+%patch 1 -p1
 # Need to disable more tests that fail on 32bit arches only
-%patch2 -p0
+%patch 2 -p0
 %endif
-%patch3 -p1 -b .jre17
-%patch4 -p1 -b .python311
+%patch 3 -p1 -b .jre17
+%patch 4 -p1 -b .python311
 
 # Copy in the needed gtest/gmock implementations.
 %setup -q -T -D -b 3 -n protobuf-%{version}%{?rcver}
@@ -334,7 +319,7 @@ iconv -f iso8859-1 -t utf-8 CONTRIBUTORS.txt > CONTRIBUTORS.txt.utf8
 mv CONTRIBUTORS.txt.utf8 CONTRIBUTORS.txt
 export PTHREAD_LIBS="-lpthread"
 ./autogen.sh
-%configure
+%configure --disable-static
 
 # -Wno-error=type-limits:
 #     https://bugzilla.redhat.com/show_bug.cgi?id=1838470
@@ -418,10 +403,6 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_emacs_sitestartdir}
 %{_emacs_sitelispdir}/protobuf/
 %{_emacs_sitestartdir}/protobuf-init.el
 
-%files static
-%{_libdir}/libprotobuf.a
-%{_libdir}/libprotoc.a
-
 %files lite
 %license LICENSE
 %{_libdir}/libprotobuf-lite.so.%{so_version}{,.*}
@@ -429,9 +410,6 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_emacs_sitestartdir}
 %files lite-devel
 %{_libdir}/libprotobuf-lite.so
 %{_libdir}/pkgconfig/protobuf-lite.pc
-
-%files lite-static
-%{_libdir}/libprotobuf-lite.a
 
 %if %{with python}
 %files -n python3-protobuf
@@ -480,6 +458,10 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_emacs_sitestartdir}
 
 
 %changelog
+* Wed Apr 26 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 3.19.6-4
+- Stop packaging static libraries
+- Stop using deprecated %%patchN syntax
+
 * Tue Apr 25 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 3.19.6-3
 - Remove unnecessary explicit pkgconfig dependencies
 - Remove an obsolete workaround for failing Java tests

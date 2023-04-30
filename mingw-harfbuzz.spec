@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 Name:           mingw-harfbuzz
-Version:        7.1.0
+Version:        7.2.0
 Release:        1%{?dist}
 Summary:        MinGW Windows Harfbuzz library
 
@@ -20,14 +20,14 @@ BuildRequires:  make
 BuildRequires:  python3
 
 BuildRequires:  mingw32-filesystem >= 95
-BuildRequires:  mingw32-gcc
+BuildRequires:  mingw32-gcc-c++
 BuildRequires:  mingw32-glib2
 BuildRequires:  mingw32-freetype
 BuildRequires:  mingw32-cairo
 BuildRequires:  mingw32-icu
 
 BuildRequires:  mingw64-filesystem >= 95
-BuildRequires:  mingw64-gcc
+BuildRequires:  mingw64-gcc-c++
 BuildRequires:  mingw64-glib2
 BuildRequires:  mingw64-freetype
 BuildRequires:  mingw64-cairo
@@ -155,6 +155,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Fri Apr 28 2023 Sandro Mani <manisandro@gmail.com> - 7.2.0-1
+- Update to 7.2.0
+
 * Fri Mar 03 2023 Sandro Mani <manisandro@gmail.com> - 7.1.0-1
 - Update to 7.1.0
 

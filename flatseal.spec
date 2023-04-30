@@ -1,8 +1,8 @@
 %global app_id  com.github.tchx84.Flatseal
 
 Name:           flatseal
-Version:        1.8.1
-Release:        1%{?dist}
+Version:        2.0.0
+Release:        %autorelease
 Summary:        Manage Flatpak permissions
 
 License:        GPL-3.0-or-later
@@ -11,16 +11,17 @@ Source0:        %{url}/archive/v%{version}/Flatseal-%{version}.tar.gz
 
 BuildRequires:  gettext
 BuildRequires:  gjs
-BuildRequires:  libhandy-devel >= 1.5
+BuildRequires:  pkgconfig(libadwaita-1) >= 1.0
+BuildRequires:  pkgconfig(webkitgtk-6.0) >= 2.40
 BuildRequires:  meson >= 0.59.0
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 
 # loaded by imports.gi
-Requires:       gtk3
+Requires:       gtk4
+Requires:       libadwaita >= 1.0
 Requires:       libappstream-glib
-Requires:       libhandy
-Requires:       webkit2gtk4.1
+Requires:       webkitgtk6.0 >= 2.40
 
 BuildArch:      noarch
 
@@ -31,8 +32,6 @@ Flatpak applications.
 
 %prep
 %autosetup -n Flatseal-%{version}
-# disable gnome.post_install steps
-sed -i -e 's/true/false/' meson.build
 
 
 %build
@@ -63,5 +62,4 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{app_id}.
 
 
 %changelog
-* Sun Jan 22 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.8.1-1
-- Initial build
+%autochangelog

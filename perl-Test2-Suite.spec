@@ -2,7 +2,7 @@
 %bcond_without perl_Test2_Suite_enables_unicode
 
 Name:           perl-Test2-Suite
-Version:        0.000152
+Version:        0.000153
 Release:        1%{?dist}
 Summary:        Set of tools built upon the Test2 framework
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -26,8 +26,6 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(List::Util)
-# XXX Not needed, but issue with optional in 0.000152
-BuildRequires:  perl(Module::Pluggable) >= 2.7
 BuildRequires:  perl(overload)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Term::Table) >= 0.013
@@ -108,8 +106,8 @@ Summary:        Tests for %{name}
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
 Requires:       perl(Test::Compile) >= 1.1.0
-# XXX Not needed, but issue with optional in 0.000152
-Requires:       perl(Module::Pluggable) >= 2.7
+Recommends:     perl(Module::Pluggable) >= 2.7
+Recommends:     perl(Unicode::GCString)
 
 %description tests
 Tests from %{name}. Execute them
@@ -154,6 +152,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Apr 28 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.000153-1
+- Add some recommends to tests package
+- 0.000153 bump
+
 * Thu Apr 27 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.000152-1
 - 0.000152 bump
 

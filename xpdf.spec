@@ -3,7 +3,7 @@
 Summary: A PDF file viewer for the X Window System
 Name: xpdf
 Version: 4.04
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: (GPL-2.0-only OR GPL-3.0-only) AND BSD-3-Clause
 Epoch: 1
 Url: http://www.xpdfreader.com/
@@ -53,6 +53,7 @@ Patch15: xpdf-3.04-nocmap.patch
 Patch25: xpdf-4.00-versionedlib.patch
 Patch26: xpdf-4.02-urw-base35-fonts.patch
 Patch28: xpdf-4.04-GlobalParams-null-fix.patch
+# https://forum.xpdfreader.com/viewtopic.php?t=42521
 Patch29: xpdf-4.04-shared-xpdf-lib.patch
 
 # Security patches
@@ -91,6 +92,7 @@ Obsoletes: %{name}-korean
 Provides:  %{name}-japanese = %{version}-%{release}
 Obsoletes: %{name}-japanese
 
+Requires: %{name}-libs%{_isa} = %{epoch}:%{version}-%{release}
 
 %description
 Xpdf is an X Window System based viewer for Portable Document Format
@@ -107,23 +109,29 @@ Summary: Development files for xpdf libraries
 %description devel
 Development files for xpdf libraries.
 
+%package libs
+Summary: Libraries from xpdf
+
+%description libs
+Libraries from xpdf.
+
 %prep
 %setup -q -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 12 -a 13 -a 14 -a 15 -a 16
-%patch3 -p1 -b .ext
-%patch9 -p1 -b .papersize
-%patch11 -p1 -b .crash
-%patch12 -p1 -b .alloc
-%patch25 -p1 -b .versionedlib
-%patch26 -p1 -b .urw-font-fix
-%patch28 -p1 -b .GlobalParams-null-fix
-%patch29 -p1 -b .shared-xpdf-lib
+%patch -P3 -p1 -b .ext
+%patch -P9 -p1 -b .papersize
+%patch -P11 -p1 -b .crash
+%patch -P12 -p1 -b .alloc
+%patch -P25 -p1 -b .versionedlib
+%patch -P26 -p1 -b .urw-font-fix
+%patch -P28 -p1 -b .GlobalParams-null-fix
+%patch -P29 -p1 -b .shared-xpdf-lib
 
 # security patches
-%patch101 -p1 -b .CVE-2019-12360
+%patch -P101 -p1 -b .CVE-2019-12360
 
 # debian patches
-%patch200 -p1 -b .permissions
-%patch203 -p1 -b .64bit-stream
+%patch -P200 -p1 -b .permissions
+%patch -P203 -p1 -b .64bit-stream
 
 # Comment out unused urlCommand option
 sed -i 's|urlCommand|#urlCommand|g' doc/sample-xpdfrc
@@ -297,7 +305,13 @@ sed -i -e 's:/usr/local/share/:%{_datadir}/:g' $RPM_BUILD_ROOT%{_sysconfdir}/xpd
 %{_includedir}/xpdf/
 %{_libdir}/lib*.so
 
+%files libs
+%{_libdir}/lib*.so.*
+
 %changelog
+* Fri Apr 28 2023 Tom Callaway <spot@fedoraproject.org> 1:4.04-8
+- move libs to -libs subpackage to minimize dep footprint of texlive-pdftex (bz2188328)
+
 * Tue Feb 21 2023 Than Ngo <than@redhat.com> - 4.04-7
 - migrated to SPDX license
 

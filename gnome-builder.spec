@@ -17,7 +17,7 @@
 %global template_glib_version 3.36.1
 
 Name:           gnome-builder
-Version:        44.1
+Version:        44.2
 Release:        %autorelease
 Summary:        IDE for writing GNOME-based software
 
@@ -100,6 +100,7 @@ Recommends:     gnome-code-assistance
 Recommends:     meson
 Recommends:     python3-jedi
 Recommends:     sysprof-agent
+Recommends:     clang-tools-extra
 
 %description
 Builder attempts to be an IDE for writing software for GNOME. It does not try

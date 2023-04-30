@@ -2,7 +2,7 @@ Name:		perl-Module-Extract-Namespaces
 Version:	1.023
 Release:	4%{?dist}
 Summary:	Extract the package declarations from a module
-License:	Artistic 2.0
+License:	Artistic-2.0
 URL:		https://metacpan.org/release/Module-Extract-Namespaces
 Source0:	https://cpan.metacpan.org/modules/by-module/Module/Module-Extract-Namespaces-%{version}.tar.gz
 BuildArch:	noarch
@@ -25,7 +25,8 @@ BuildRequires:	perl(File::Spec)
 BuildRequires:	perl(Test::More) >= 1
 BuildRequires:	perl(Test::Pod) >= 1.00
 BuildRequires:	perl(Test::Pod::Coverage) >= 1.00
-# Runtime
+# Dependencies
+# (none)
 
 %description
 This module extracts package declarations from Perl code without running the

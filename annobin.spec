@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.09
+Version: 12.10
 Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
@@ -525,6 +525,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Apr 28 2023 Nick Clifton  <nickc@redhat.com> - 12.10-1
+- Annocheck: Suppress more tests for Rust binaries.
+
 * Tue Apr 25 2023 Nick Clifton  <nickc@redhat.com> - 12.09-1
 - Annocheck: Fix detection of missing plugin options.  (#2189492)
 

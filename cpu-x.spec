@@ -18,10 +18,10 @@ BuildRequires:  nasm
 BuildRequires:  pkgconfig(glfw3)
 BuildRequires:  pkgconfig(gtk+-3.0) >= 3.12.0
 BuildRequires:  pkgconfig(json-c)
-BuildRequires:  pkgconfig(libcpuid) >= 0.6.3
+BuildRequires:  pkgconfig(libcpuid) >= 0.6.2  %dnl # Upstream recommends 0.6.3
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(libpci)
-BuildRequires:  pkgconfig(libproc2)
+BuildRequires:  pkgconfig(libprocps)
 BuildRequires:  pkgconfig(libstatgrab)
 BuildRequires:  pkgconfig(ncursesw)
 BuildRequires:  pkgconfig(OpenCL)

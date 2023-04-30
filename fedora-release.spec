@@ -466,6 +466,7 @@ Provides:       system-release
 Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
 Requires:       fedora-release-common = %{version}-%{release}
+Requires(meta): fedora-iot-config
 
 # fedora-release-common Requires: fedora-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
@@ -1447,6 +1448,8 @@ cp -p os-release %{buildroot}%{_prefix}/lib/os-release.sericea
 echo "VARIANT=\"Sericea\"" >> %{buildroot}%{_prefix}/lib/os-release.sericea
 echo "VARIANT_ID=sericea" >> %{buildroot}%{_prefix}/lib/os-release.sericea
 sed -i -e "s|(%{release_name}%{?prerelease})|(Sericea%{?prerelease})|g" %{buildroot}%{_prefix}/lib/os-release.sericea
+sed -i -e 's|DOCUMENTATION_URL=.*|DOCUMENTATION_URL="https://docs.fedoraproject.org/en-US/fedora-sericea/"|' %{buildroot}%{_prefix}/lib/os-release.sericea
+sed -i -e 's|HOME_URL=.*|HOME_URL="https://fedoraproject.org/sericea/"|' %{buildroot}/%{_prefix}/lib/os-release.sericea
 sed -i -e 's|BUG_REPORT_URL=.*|BUG_REPORT_URL="https://gitlab.com/fedora/sigs/sway/SIG/-/issues"|' %{buildroot}/%{_prefix}/lib/os-release.sericea
 sed -e "s#\$version#%{bug_version}#g" -e 's/$edition/Sericea/;s/<!--.*-->//;/^$/d' %{SOURCE20} > %{buildroot}%{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.sericea
 %endif

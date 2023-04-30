@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Select from a Set of Strings
 
 License:          MIT
@@ -64,9 +64,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 %check
 %if %{with bootstrap}
-_R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-tests
+_R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check --ignore-vignettes %{packname} --no-tests
 %else
-%{_bindir}/R CMD check %{packname}
+%{_bindir}/R CMD check --ignore-vignettes %{packname}
 %endif
 
 %files
@@ -84,6 +84,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-tests
 
 
 %changelog
+* Fri Apr 28 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.2.0-3
+- Ignore vignettes
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.2.0-2
 - R-maint-sig mass rebuild
 

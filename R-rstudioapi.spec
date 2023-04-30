@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          0.13
-Release:          10%{?dist}
+Release:          11%{?dist}
 Summary:          Safely Access the RStudio API
 
 License:          MIT
@@ -51,7 +51,7 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 %check
 %if %{without bootstrap}
-%{_bindir}/R CMD check %{packname}
+%{_bindir}/R CMD check --ignore-vignettes %{packname}
 %endif
 
 
@@ -71,6 +71,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Apr 28 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.13-11
+- Ignore vignettes
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.13-10
 - R-maint-sig mass rebuild
 

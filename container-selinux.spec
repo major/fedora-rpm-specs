@@ -3,10 +3,6 @@
 # container-selinux
 %global git0 https://github.com/containers/container-selinux
 
-%global built_tag v2.211.0
-%global built_tag_strip %(b=%{built_tag}; echo ${b:1})
-%global gen_version %(b=%{built_tag_strip}; echo ${b/-/"~"})
-
 # container-selinux stuff (prefix with ds_ for version/release etc.)
 # Some bits borrowed from the openstack-selinux package
 %global selinuxtype targeted
@@ -18,19 +14,14 @@
 # Format must contain '$x' somewhere to do anything useful
 %global _format() export %1=""; for x in %{modulenames}; do %1+=%2; %1+=" "; done;
 
-%if 0%{?centos} == 8
-%global _selinux_policy_version 3.14.3-111.el8
-%endif
-
-# Hooked up to autobuilder, please check with @lsm5 before updating
 Name: container-selinux
 Epoch: 2
-Version: %{gen_version}
+Version: 2.211.0
 Release: %autorelease
 License: GPL-2.0-only
 URL: %{git0}
 Summary: SELinux policies for container runtimes
-Source0: %{git0}/archive/v%{built_tag_strip}.tar.gz
+Source0: %{git0}/archive/v%{version}.tar.gz
 BuildArch: noarch
 BuildRequires: make
 BuildRequires: git-core
@@ -56,14 +47,9 @@ SELinux policy modules for use with container runtimes.
 %prep
 %autosetup -Sgit %{name}-%{built_tag_strip}
 # https://github.com/containers/container-selinux/issues/203
-%if 0%{?fedora} <= 37 || 0%{?centos}
+%if 0%{?fedora} <= 37
 sed -i '/user_namespace/d' container.te
 %endif
-
-%if 0%{?centos} == 8
-sed -i '/systemd_chat_resolved/d' container.te
-%endif
-
 
 %build
 make
@@ -127,9 +113,4 @@ if %{_sbindir}/selinuxenabled ; then
 fi
 
 %changelog
-%if 0%{?centos} == 8
-* Fri Feb 10 2023 Lokesh Mandvekar <lsm5@fedoraproject.org>
-- Dummy changelog to make packit centos 8 copr builds happy
-%else
 %autochangelog
-%endif

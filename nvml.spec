@@ -1,6 +1,5 @@
 
 # rpmbuild options:
-#   --with | --without fabric
 #   --with | --without ndctl
 
 # do not terminate build if files in the $RPM_BUILD_ROOT
@@ -11,12 +10,6 @@
 %if %{defined suse_version}
 	%define _skip_check 1
 	%define dist .suse%{suse_version}
-%endif
-
-%if (0%{?suse_version} > 1315) || (0%{?fedora} >= 27) || (0%{?rhel} >= 7)
-%bcond_without fabric
-%else
-%bcond_with fabric
 %endif
 
 # by default build with ndctl, unless explicitly disabled
@@ -32,13 +25,12 @@
 %bcond_without pandoc
 %endif
 
-%define min_libfabric_ver 1.4.2
 %define min_ndctl_ver 60.1
-%define upstreamversion 1.12.1
+%define upstreamversion 1.13.0
 
 Name:		nvml
 Version:	%{upstreamversion}
-Release:	3%{?dist}
+Release:	1%{?dist}
 Summary:	Persistent Memory Development Kit (formerly NVML)
 License:	BSD
 URL:		http://pmem.io/pmdk
@@ -61,10 +53,6 @@ BuildRequires:  cmake
 BuildRequires:	ndctl-devel >= %{min_ndctl_ver}
 BuildRequires:	daxctl-devel >= %{min_ndctl_ver}
 BuildRequires:  ndctl
-%endif
-
-%if %{with fabric}
-BuildRequires:	libfabric-devel >= %{min_libfabric_ver}
 %endif
 
 %if %{with pandoc}
@@ -462,80 +450,6 @@ debug version is to set the environment variable LD_LIBRARY_PATH to
 %doc ChangeLog CONTRIBUTING.md README.md
 
 
-%if %{with fabric}
-
-%package -n librpmem
-Summary: Remote Access to Persistent Memory library
-Requires: libfabric >= %{min_libfabric_ver}
-Requires: openssh-clients
-%description -n librpmem
-The librpmem library provides low-level support for remote access
-to persistent memory utilizing RDMA-capable NICs. It can be used
-to replicate persistent memory regions over RDMA protocol.
-
-%files -n librpmem
-%{_libdir}/librpmem.so.*
-%license LICENSE
-%doc ChangeLog CONTRIBUTING.md README.md
-
-
-%package -n librpmem-devel
-Summary: Development files for the Remote Access to Persistent Memory library
-Requires: librpmem = %{version}-%{release}
-%description -n librpmem-devel
-The librpmem library provides low-level support for remote access
-to persistent memory utilizing RDMA-capable NICs. It can be used
-to replicate persistent memory regions over RDMA protocol.
-
-This sub-package contains libraries and header files for developing
-applications that want to specifically make use of librpmem.
-
-%files -n librpmem-devel
-%{_libdir}/librpmem.so
-%{_libdir}/pkgconfig/librpmem.pc
-%{_includedir}/librpmem.h
-%{_mandir}/man7/librpmem.7.gz
-%{_mandir}/man3/rpmem_*.3.gz
-%license LICENSE
-%doc ChangeLog CONTRIBUTING.md README.md
-
-
-%package -n librpmem-debug
-Summary: Debug variant of the Remote Access to Persistent Memory library
-Requires: librpmem = %{version}-%{release}
-%description -n librpmem-debug
-The librpmem library provides low-level support for remote access
-to persistent memory utilizing RDMA-capable NICs. It can be used
-to replicate persistent memory regions over RDMA protocol.
-
-This sub-package contains debug variant of the library, providing
-run-time assertions and trace points. The typical way to access the
-debug version is to set the environment variable LD_LIBRARY_PATH to
-/usr/lib64/pmdk_debug.
-
-%files -n librpmem-debug
-%dir %{_libdir}/pmdk_debug
-%{_libdir}/pmdk_debug/librpmem.so
-%{_libdir}/pmdk_debug/librpmem.so.*
-%license LICENSE
-%doc ChangeLog CONTRIBUTING.md README.md
-
-
-%package -n rpmemd
-Summary: Target node process executed by librpmem
-Requires: libfabric >= %{min_libfabric_ver}
-%description -n rpmemd
-The rpmemd process is executed on a target node by librpmem library
-and facilitates access to persistent memory over RDMA.
-
-%files -n rpmemd
-%{_bindir}/rpmemd
-%{_mandir}/man1/rpmemd.1.gz
-
-# _with_fabric
-%endif
-
-
 %package -n pmempool
 Summary: Utilities for Persistent Memory
 Requires: libpmem >= %{version}-%{release}
@@ -687,16 +601,16 @@ cp utils/pmdk.magic %{buildroot}%{_datadir}/pmdk/
 %ldconfig_scriptlets   -n libpmemobj
 %ldconfig_scriptlets   -n libpmempool
 
-%if %{with fabric}
-%ldconfig_scriptlets   -n librpmem
-%endif
-
 %if 0%{?__debug_package} == 0
 %debug_package
 %endif
 
 
 %changelog
+* Fri Apr 28 2023 Adam Borowski <kilobyte@angband.pl> - 1.13.0-1
+- PMDK 1.13.0
+- Drop librpmem.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary:	Model to synchronize multiple instances over DBus
 Name:		dee
 Version:	1.2.7
-Release:	45%{?dist}
+Release:	46%{?dist}
 # GPLv3-licensed tests and examples are in the tarball, but not installed
 License:	LGPLv3
 URL:		https://launchpad.net/dee
@@ -12,7 +12,8 @@ Patch1:		dee-1.2.7-deprecated-g_type_class_add_private.patch
 Patch2:		vapi-skip-properties.patch
 # Skip duplicates flagged by vala 0.5X
 Patch3:		dee-1.2.7-fix-duplicates-vala-0.5X.patch
-
+# Fix issue where g_string_free was not storing the return value
+Patch4:		dee-1.2.7-fix-g_string_free-usage.patch
 BuildRequires:	vala
 BuildRequires:	gtk-doc
 BuildRequires:	dbus-glib-devel
@@ -41,10 +42,11 @@ developing applications that use %{name}.
 
 %prep
 %setup -q
-%patch0 -p1 -b .gcc6
-%patch1 -p1 -b .dep
-%patch2 -p1
-%patch3 -p1 -b .dupes
+%patch -P0 -p1 -b .gcc6
+%patch -P1 -p1 -b .dep
+%patch -P2 -p1
+%patch -P3 -p1 -b .dupes
+%patch -P4 -p1 -b .freefix
 autoupdate
 autoreconf -ifv .
 
@@ -78,6 +80,9 @@ find %{buildroot} -regex ".*\.la$" | xargs rm -f --
 %{_datadir}/vala/vapi/*.deps
 
 %changelog
+* Fri Apr 28 2023 Tom Callaway <spot@fedoraproject.org> - 1.2.7-46
+- fix FTBFS caused by g_string_free() calls not storing return value
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.7-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

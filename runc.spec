@@ -16,7 +16,7 @@
 %global import_path %{provider_prefix}
 %global git0 https://github.com/opencontainers/runc
 
-%global built_tag v1.1.6
+%global built_tag v1.1.7
 %global built_tag_strip %(b=%{built_tag}; echo ${b:1})
 %global gen_version %(b=%{built_tag_strip}; echo ${b/-/"~"})
 
