@@ -1,11 +1,15 @@
 Name:           foot
 Version:        1.14.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast, lightweight and minimalistic Wayland terminal emulator
 
 License:        MIT
 URL:            https://codeberg.org/dnkl/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+
+# https://codeberg.org/dnkl/foot/pulls/1318
+# https://codeberg.org/dnkl/foot/pulls/1334
+Patch0:         foot-1.14.0-.desktop-add-StartupWMClass-foot.patch
 
 BuildRequires:  gcc
 BuildRequires:  meson >= 0.58.0
@@ -128,6 +132,9 @@ desktop-file-validate \
 
 
 %changelog
+* Sat Apr 29 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.14.0-2
+- Use correct dock and window switcher icons in GNOME
+
 * Tue Apr 04 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.14.0-1
 - Update to 1.14.0 (#2184129)
 - Install AppStream metadata

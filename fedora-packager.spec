@@ -4,7 +4,7 @@
 
 Name:           fedora-packager
 Version:        0.6.0.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tools for setting up a fedora maintainer environment
 
 License:        GPLv2+
@@ -21,24 +21,13 @@ Requires:       mock curl openssh-clients
 Requires:       redhat-rpm-config
 Requires:       fedpkg >= 1.0
 Obsoletes:      fedora-cert < 0.6.0.3-4
-Recommends:     fedora-packager-yubikey
+Obsoletes:      fedora-packager-yubikey < 0.6.0.7-3
 Recommends:     fedora-packager-kerberos
 
 BuildArch:      noarch
 
 %description
 Set of utilities useful for a fedora packager in setting up their environment.
-
-%package yubikey
-Summary:        tool for setting up a yubikey for use in Fedora
-# For fedora-burn-yubikey.py
-Requires:       python3-yubico
-Recommends:     ykpers
-
-BuildArch:      noarch
-
-%description yubikey
-A tool for setting up a yubikey for use in fedora
 
 %package kerberos
 Summary:        files for connecting via kerberos to Fedora
@@ -71,6 +60,8 @@ Files for connecting via kerberos to Fedora
 %install
 %make_install
 sed -i -r 's|#!/usr/bin/python$|#!%{__python3}|' %{buildroot}/usr/*bin/*
+# The fedora-burn-yubikey utility only worked with fas2, which is now retired.
+rm -f %{buildroot}/usr/sbin/fedora-burn-yubikey
 
 %files
 %license COPYING
@@ -86,11 +77,6 @@ sed -i -r 's|#!/usr/bin/python$|#!%{__python3}|' %{buildroot}/usr/*bin/*
 %config(noreplace) %{_sysconfdir}/koji.conf.d/*
 
 
-
-%files yubikey
-%license COPYING
-%{_sbindir}/*
-
 %files kerberos
 %license COPYING
 %{_bindir}/fkinit
@@ -98,6 +84,9 @@ sed -i -r 's|#!/usr/bin/python$|#!%{__python3}|' %{buildroot}/usr/*bin/*
 %{_sysconfdir}/pki/ipa/*
 
 %changelog
+* Sat Apr 29 2023 Kevin Fenzi <kevin@scrye.com> - 0.6.0.7-3
+- Drop the fedora-packager-yubikey subpackage as fas2 is retired. Fixes rhbz#2165100
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

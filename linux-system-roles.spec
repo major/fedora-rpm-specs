@@ -26,8 +26,8 @@ Name: linux-system-roles
 %endif
 Url: https://github.com/linux-system-roles
 Summary: Set of interfaces for unified system management
-Version: 1.37.0
-Release: 2%{?dist}
+Version: 1.38.0
+Release: 1%{?dist}
 
 License: GPLv3+ and MIT and BSD and Python
 %global _pkglicensedir %{_licensedir}/%{name}
@@ -103,7 +103,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 4 1.2.9
 
 %global rolename5 network
-%deftag 5 1.11.3
+%deftag 5 1.11.4
 
 %global rolename6 storage
 %deftag 6 1.9.8
@@ -135,7 +135,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %global forgeorg15 https://github.com/willshersystems
 %global repo15 ansible-sshd
 %global rolename15 sshd
-%deftag 15 v0.18.2
+%deftag 15 v0.19.0
 
 %global rolename16 ssh
 %deftag 16 1.1.15
@@ -755,6 +755,9 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Sat Apr 29 2023 Packit <hello@packit.dev> - 1.38.0-1
+- Update to upstream version 1.38.0
+
 * Fri Apr 28 2023 Rich Megginson <rmeggins@redhat.com> - 1.37.0-2
 - We need to change the sshd fingerprint string before doing any other `sed` changes.
 - Ensure the sshd meta version numbers are quoted.

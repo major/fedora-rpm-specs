@@ -32,7 +32,7 @@ Patch0:         kitty-do-not-build-kitten.patch
 
 
 # some golang deps aren't available
-ExcludeArch:    s390x %{ix86}
+ExcludeArch:    %{ix86}
 
 BuildRequires:  golang >= 1.20.0
 BuildRequires:  go-rpm-macros

@@ -1,12 +1,12 @@
-%bcond_with bootstrap
+%bcond_with suggests
 
 %global packname  microbenchmark
-%global packvers  1.4.9
+%global packvers  1.4.10
 %global rlibdir   %{_libdir}/R/library
 
 Name:             R-%{packname}
 Version:          %{packvers}
-Release:          3%{?dist}
+Release:          1%{?dist}
 Summary:          Accurate Timing Functions
 
 License:          BSD
@@ -24,7 +24,7 @@ BuildRequires:    R-devel
 BuildRequires:    tex(latex)
 BuildRequires:    R-graphics
 BuildRequires:    R-stats
-%if %{without bootstrap}
+%if %{with suggests}
 BuildRequires:    R-ggplot2
 BuildRequires:    R-multcomp
 BuildRequires:    R-RUnit
@@ -50,8 +50,10 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %check
-%if %{without bootstrap}
+%if %{with suggests}
 %{_bindir}/R CMD check %{packname}
+%else
+_R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --ignore-vignettes
 %endif
 
 
@@ -71,6 +73,10 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Sat Apr 29 2023 Tom Callaway <spot@fedoraproject.org> - 1.4.10-1
+- update to 1.4.10
+- switch from "bootstrap" to "suggests conditionalized off by default"
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.4.9-3
 - R-maint-sig mass rebuild
 

@@ -322,7 +322,7 @@
 %global top_level_dir_name   %{origin}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        9
-%global rpmrelease      4
+%global rpmrelease      5
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -793,6 +793,7 @@ exit 0
 %define files_jre_headless() %{expand:
 %license %{_jvmdir}/%{sdkdir -- %{?1}}/legal
 %doc %{_defaultdocdir}/%{uniquejavadocdir -- %{?1}}/NEWS
+%{_jvmdir}/%{sdkdir -- %{?1}}/NEWS
 %dir %{_sysconfdir}/.java/.systemPrefs
 %dir %{_sysconfdir}/.java
 %dir %{_jvmdir}/%{sdkdir -- %{?1}}
@@ -1328,6 +1329,7 @@ BuildRequires: %{portable_name}-devel-slowdebug >= %{portable_version}
 BuildRequires: %{portable_name}-static-libs-slowdebug >= %{portable_version}
 %endif
 %endif
+
 BuildRequires: desktop-file-utils
 # elfutils only are OK for build without AOT
 BuildRequires: elfutils-devel
@@ -1338,6 +1340,7 @@ BuildRequires: nss-devel
 BuildRequires: crypto-policies
 BuildRequires: pkgconfig
 BuildRequires: zip
+BuildRequires: unzip
 BuildRequires: javapackages-filesystem
 # ?
 BuildRequires: tzdata-java >= 2022g
@@ -1472,7 +1475,7 @@ Group:   Development/Tools
 %{java_devel_rpo -- %{fastdebug_suffix_unquoted}}
 
 %description devel-fastdebug
-The %{origin_nice} %{featurever} development tools              .
+The %{origin_nice} %{featurever} development tools.
 %{fastdebug_warning}
 %endif
 
@@ -1805,7 +1808,7 @@ function installjdk() {
         ln -sv /etc/pki/java/cacerts ${imagepath}/lib/security
 
         # add alt-java man page
-		#  alt-java man and bianry are here from portables. Or not?
+	#  alt-java man and bianry are here from portables. Or not?
     fi
 }
 
@@ -2032,8 +2035,6 @@ find $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/ -name "*.so" -exec chmod 7
 find $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/ -type d -exec chmod 755 {} \; ;
 find $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/legal -type f -exec chmod 644 {} \; ;
 
-#TODO conslut this clean up
-rm $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/NEWS #is in commondocdir. Ok ot go, or also pack
 if [ "x$suffix" = "x" ] ; then
   rm $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/javadocs.zip #is in subpackages, 1 renamed, 2nd unpacked
 fi
@@ -2363,6 +2364,9 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
+* Fri Apr 28 2023 Jiri Vanek <jvanek@redhat.com> - 1:20.0.1.0.9-5.rolling
+- returned news
+
 * Fri Apr 28 2023 Jiri Vanek <jvanek@redhat.com> - 1:20.0.1.0.9-4.rolling
 - now expecting the exact version in portbale filename
 

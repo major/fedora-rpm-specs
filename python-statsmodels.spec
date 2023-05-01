@@ -4,8 +4,8 @@
 %global srcname statsmodels
 
 Name: python-%{srcname}
-Version: 0.13.2
-Release: 4%{?dist}
+Version: 0.13.5
+Release: 1%{?dist}
 Summary: Statistics in Python
 
 # Package is licensed under BSD (3 clauses)
@@ -43,6 +43,7 @@ against existing statistical packages to ensure that they are correct.
 Summary: %{summary}
 
 BuildRequires: %{py3_dist setuptools}
+BuildRequires: %{py3_dist setuptools_scm}
 BuildRequires: %{py3_dist Cython}
 BuildRequires: %{py3_dist scipy} >= 1.1
 %if %{with check}
@@ -122,6 +123,9 @@ popd
 ## %doc build/sphinx/html
 
 %changelog
+* Sun Apr 30 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 0.13.5-1
+- New upstream source (0.13.5)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

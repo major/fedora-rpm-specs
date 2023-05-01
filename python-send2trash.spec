@@ -1,11 +1,11 @@
 %global pypiname Send2Trash
 
 Name:           python-send2trash
-Version:        1.8.0
-Release:        5%{?dist}
+Version:        1.8.2
+Release:        1%{?dist}
 Summary:        Python library to natively send files to Trash
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/hsoft/send2trash
 
 # PyPI sdist lacks tests
@@ -14,7 +14,6 @@ Source0:        %url/archive/%{version}/%{pypiname}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-pytest
 
 %description
@@ -41,26 +40,30 @@ On other platforms, if PyGObject and GIO are available, it will use this.
 Otherwise, it will fallback to its own implementation of the trash specifications
 from freedesktop.org.
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %prep
 %setup -q -n send2trash-%{version}
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files send2trash
 
 %check
 %pytest
 
-%files -n python3-send2trash
-%license LICENSE
+%files -n python3-send2trash -f %{pyproject_files}
 %doc README.rst CHANGES.rst
 %{_bindir}/send2trash
-%{python3_sitelib}/send2trash/
-%{python3_sitelib}/%{pypiname}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Apr 28 2023 Lumír Balhar <lbalhar@redhat.com> - 1.8.2-1
+- Update to 1.8.2 (rhbz#1996282)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

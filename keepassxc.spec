@@ -3,10 +3,10 @@
 
 Name:           keepassxc
 Version:        2.7.4
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Cross-platform password manager
 License:        Boost and BSD and CC0 and GPLv3 and LGPLv2 and LGPLv2+ and LGPLv3+ and Public Domain
-URL:            http://www.keepassxc.org/
+URL:            https://keepassxc.org/
 Source0:        https://github.com/keepassxreboot/keepassxc/releases/download/%{version}/keepassxc-%{version}-src.tar.xz
 Source1:        https://github.com/keepassxreboot/keepassxc/releases/download/%{version}/keepassxc-%{version}-src.tar.xz.sig
 Source2:        https://keepassxc.org/keepassxc_master_signing_key.asc
@@ -205,6 +205,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.%{nam
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Apr 29 2023 Michael J Gruber <mjg@fedoraproject.org> - 2.7.4-10
+- adjust URL to current working one
+
 * Sun Apr 16 2023 Germano Massullo <germano.massullo@gmail.com> - 2.7.4-9
 - Rebuild (qt5)
 

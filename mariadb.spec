@@ -11,7 +11,7 @@
 # The last version on which the full testsuite has been run
 # In case of further rebuilds of that version, don't require full testsuite to be run
 # run only "main" suite
-%global last_tested_version 10.5.18
+%global last_tested_version 10.5.19
 # Set to 1 to force run the testsuite even if it was already tested in current version
 %global force_run_testsuite 0
 
@@ -149,8 +149,8 @@
 %global sameevr   %{epoch}:%{version}-%{release}
 
 Name:             mariadb
-Version:          10.5.18
-Release:          3%{?with_debug:.debug}%{?dist}
+Version:          10.5.19
+Release:          2%{?with_debug:.debug}%{?dist}
 Epoch:            3
 
 Summary:          A very fast and robust SQL database server
@@ -735,19 +735,19 @@ rm -r storage/rocksdb/
 
 
 
-%patch4 -p1
-%patch7 -p1
-%patch9 -p1
+%patch -P4 -p1
+%patch -P7 -p1
+%patch -P9 -p1
 # The test in Patch 10 has been recently updated by upstream
 # and the test was disabled in the testuite run
 #   main.ssl_cipher     [ disabled ]  MDEV-17184 - Failures with OpenSSL 1.1.1
 # Keeping the patch commented out, need to revisit
 #  once the test is re-enabled by upstream  in some future release
-#%patch10 -p1
-%patch11 -p1
+#%patch -P10 -p1
+%patch -P11 -p1
 %if %{with rocksdb}
-%patch12 -p1 -d storage/rocksdb/rocksdb/
-%patch13 -p1
+%patch -P12 -p1 -d storage/rocksdb/rocksdb/
+%patch -P13 -p1
 %endif
 
 # generate a list of tests that fail, but are not disabled by upstream
@@ -884,10 +884,10 @@ CFLAGS="$CFLAGS -fPIC"
 %if %{with debug}
 # Override all optimization flags when making a debug build
 # -D_FORTIFY_SOURCE requires optimizations enabled. Disable the fortify.
-CFLAGS=`echo "$CFLAGS" | sed -r 's/-D_FORTIFY_SOURCE=[012]/-D_FORTIFY_SOURCE=0/'`
+%undefine _fortify_level
 CFLAGS=`echo "$CFLAGS" | sed -r 's/-O[0123]//'`
 
-CFLAGS="$CFLAGS -O0 -g -D_FORTIFY_SOURCE=0"
+CFLAGS="$CFLAGS -O0 -g"
 
 # Fixes for Fedora 32 & Rawhide (GCC 10.0):
 %if 0%{?fedora} >= 32
@@ -1648,6 +1648,12 @@ fi
 %endif
 
 %changelog
+* Fri Apr 28 2023 Siddhesh Poyarekar <siddhesh@redhat.com> - 3:10.5.19-2
+- Use _fortify_level to disable fortification in debug builds.
+
+* Fri Apr 28 2023 Michal Schorm <mschorm@redhat.com> - 3:10.5.19-1
+- Rebase to 10.5.19
+
 * Tue Apr 11 2023 Florian Weimer <fweimer@redhat.com> - 3:10.5.18-3
 - Port to C99
 

@@ -13,7 +13,7 @@
 # The last version on which the full testsuite has been run
 # In case of further rebuilds of that version, don't require full testsuite to be run
 # run only "main" suite
-%global last_tested_version 8.0.32
+%global last_tested_version 8.0.33
 # Set to 1 to force run the testsuite even if it was already tested in current version
 %global force_run_testsuite 0
 
@@ -75,8 +75,8 @@
 %global sameevr   %{?epoch:%{epoch}:}%{version}-%{release}
 
 Name:             community-mysql
-Version:          8.0.32
-Release:          1%{?with_debug:.debug}%{?dist}
+Version:          8.0.33
+Release:          2%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
 
@@ -118,7 +118,6 @@ Patch51:          %{pkgnamepatch}-sharedir.patch
 Patch52:          %{pkgnamepatch}-rpath.patch
 Patch53:          %{pkgnamepatch}-mtr.patch
 Patch54:          %{pkgnamepatch}-arm32-timer.patch
-Patch55:          %{pkgnamepatch}-gcc13.patch
 
 # Patches taken from boost 1.59
 Patch111:         boost-1.58.0-pool.patch
@@ -381,24 +380,20 @@ the MySQL sources.
 
 %prep
 %setup -q -n mysql-%{version}
-%patch1 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch51 -p1
-%patch52 -p1
-%patch53 -p1
-%patch54 -p1
-# The GCC 13 has been first introdced in the Fedora 38
-%if 0%{?fedora} >= 38 || 0%{?rhel} > 9
-%patch55 -p1
-%endif
+%patch -P1 -p1
+%patch -P3 -p1
+%patch -P4 -p1
+%patch -P5 -p1
+%patch -P51 -p1
+%patch -P52 -p1
+%patch -P53 -p1
+%patch -P54 -p1
 
 # Patch Boost
 pushd boost/boost_$(echo %{boost_bundled_version}| tr . _)
-%patch111 -p0
-%patch112 -p1
-%patch113 -p2
+%patch -P111 -p0
+%patch -P112 -p1
+%patch -P113 -p2
 popd
 
 
@@ -545,7 +540,6 @@ install -p -m 755 %{_vpath_builddir}/scripts/mysql-check-socket %{buildroot}%{_l
 install -p -m 644 %{_vpath_builddir}/scripts/mysql-scripts-common %{buildroot}%{_libexecdir}/mysql-scripts-common
 install -D -p -m 0644 %{_vpath_builddir}/scripts/server.cnf %{buildroot}%{_sysconfdir}/my.cnf.d/%{pkg_name}-server.cnf
 
-rm %{buildroot}%{_infodir}/mysql.info*
 rm %{buildroot}%{_libdir}/mysql/*.a
 rm %{buildroot}%{_mandir}/man1/comp_err.1*
 
@@ -919,9 +913,11 @@ fi
 %{_libdir}/mysql/plugin/component_test_mysql_current_thread_reader.so
 %{_libdir}/mysql/plugin/component_test_mysql_runtime_error.so
 %{_libdir}/mysql/plugin/component_test_mysql_system_variable_set.so
+%{_libdir}/mysql/plugin/component_test_mysql_thd_store_service.so
 %{_libdir}/mysql/plugin/component_test_pfs_notification.so
 %{_libdir}/mysql/plugin/component_test_pfs_resource_group.so
 %{_libdir}/mysql/plugin/component_test_sensitive_system_variables.so
+%{_libdir}/mysql/plugin/component_test_server_telemetry_traces.so
 %{_libdir}/mysql/plugin/component_test_status_var_reader.so
 %{_libdir}/mysql/plugin/component_test_status_var_service_int.so
 %{_libdir}/mysql/plugin/component_test_status_var_service_reg_only.so
@@ -988,6 +984,9 @@ fi
 %endif
 
 %changelog
+* Wed Apr 12 2023 Lars Tangvald <lars.tangvald@oracle.com> - 8.0.33-1
+- Update to MySQL 8.0.33
+
 * Thu Jan 26 2023 Lars Tangvald <lars.tangvald@oracle.com> - 8.0.32-1
 - Update to MySQL 8.0.32
 

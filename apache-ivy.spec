@@ -7,9 +7,9 @@
 
 Name:           apache-%{jarname}
 Version:        2.5.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Java-based dependency manager
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://ant.apache.org/ivy
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -233,6 +233,9 @@ echo "apache-ivy/ivy" > %{buildroot}%{_sysconfdir}/ant.d/%{name}
 %{_sysconfdir}/ant.d/%{name}
 
 %changelog
+* Sat Apr 29 2023 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 2.5.1-2
+- migrated to SPDX license
+
 * Wed Feb 22 2023 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 2.5.1-1
 - Update to version 2.5.1
 - Remove alias for jayasoft:ivy

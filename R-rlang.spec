@@ -1,13 +1,12 @@
-# When we are bootstrapping, we drop some dependencies, and/or build time tests.
-%bcond_with bootstrap
+%bcond_with suggests
 
 %global packname rlang
-%global packver  1.1.0
+%global packver  1.1.1
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          1%{?dist}
 Summary:          Functions for Base Types and Core R and 'Tidyverse' Features
 
 License:          MIT
@@ -27,7 +26,8 @@ BuildRequires:    pkgconfig(libxxhash)
 BuildRequires:    R-devel
 BuildRequires:    tex(latex)
 BuildRequires:    R-utils
-%if %{without bootstrap}
+BuildRequires:    R-testthat >= 3.0.0
+%if %{with suggests}
 BuildRequires:    R-cli >= 3.1.0
 BuildRequires:    R-crayon
 BuildRequires:    R-fs
@@ -38,7 +38,6 @@ BuildRequires:    R-methods
 BuildRequires:    R-pillar
 BuildRequires:    R-rmarkdown
 BuildRequires:    R-stats
-BuildRequires:    R-testthat >= 3.0.0
 BuildRequires:    R-tibble
 BuildRequires:    R-usethis
 BuildRequires:    R-vctrs >= 0.2.3
@@ -54,7 +53,7 @@ system, and core 'Tidyverse' features like tidy evaluation.
 %setup -q -c -n %{packname}
 
 pushd %{packname}
-%patch0001 -p1
+%patch -P0001 -p1
 
 # Don't need coverage; it's not packaged either.
 sed -i 's/covr, //g' DESCRIPTION
@@ -73,8 +72,10 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 %check
 export LANG=C.UTF-8
-%if %{without bootstrap}
+%if %{with suggests}
 %{_bindir}/R CMD check %{packname}
+%else
+_R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --ignore-vignettes
 %endif
 
 
@@ -95,6 +96,9 @@ export LANG=C.UTF-8
 
 
 %changelog
+* Sat Apr 29 2023 Tom Callaway <spot@fedoraproject.org> - 1.1.1-1
+- update to 1.1.1
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.1.0-2
 - R-maint-sig mass rebuild
 

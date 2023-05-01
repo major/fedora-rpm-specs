@@ -3,7 +3,7 @@
 
 Name:           rkhunter
 Version:        1.4.6
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        A host-based tool to scan for rootkits, backdoors and local exploits
 
 License:        GPLv2+
@@ -100,6 +100,9 @@ EOF
 %{_mandir}/man8/*
 
 %changelog
+* Sat Apr 29 2023 Kevin Fenzi <kevin@scrye.com> - 1.4.6-21
+- More complete fix for egrep changes.
+
 * Mon Apr 10 2023 Kevin Fenzi <kevin@scrye.com> - 1.4.6-20
 - Patch grep/egrep changes to avoid warnings in F38+
 

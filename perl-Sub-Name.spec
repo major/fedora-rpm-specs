@@ -3,8 +3,8 @@
 %bcond_without perl_Sub_Name_enables_optional_test
 
 Name:		perl-Sub-Name
-Version:	0.26
-Release:	12%{?dist}
+Version:	0.27
+Release:	1%{?dist}
 Summary:	Name - or rename - a sub
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Sub-Name
@@ -36,7 +36,8 @@ BuildRequires:	perl(Test::More)
 BuildRequires:	perl(CPAN::Meta) >= 2.120900
 BuildRequires:	perl(Devel::CheckBin)
 %endif
-# Runtime
+# Dependencies
+# (none)
 
 # Don't "provide" private perl objects
 %{?perl_default_filter}
@@ -65,17 +66,18 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENCE
-%else
-%doc LICENCE
-%endif
 %doc Changes CONTRIBUTING README
 %{perl_vendorarch}/auto/Sub/
 %{perl_vendorarch}/Sub/
 %{_mandir}/man3/Sub::Name.3*
 
 %changelog
+* Sat Apr 29 2023 Paul Howarth <paul@city-fan.org> - 0.27-1
+- Update to 0.27
+  - Skip quote-separator tests on newer perls that deprecate this behavior
+- Use %%license unconditionally
+
 * Mon Mar 06 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.26-12
 - Update license to SPDX format
 

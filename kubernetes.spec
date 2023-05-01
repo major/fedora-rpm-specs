@@ -14,7 +14,7 @@
 # https://github.com/kubernetes/kubernetes
 
 %global provider_prefix         %{provider}.%{provider_tld}/%{project}/%{repo}
-%global import_path             k8s.io/kubernetes
+%global import_path             kubernetes.io/
 %global commit                  4c9411232e10168d7b050c49a1b59f6df9d7ea4b
 %global shortcommit              %(c=%{commit}; echo ${c:0:7})
 
@@ -26,7 +26,7 @@
 Name:           kubernetes
 Version:        1.27.1
 Release:        %autorelease
-Summary:        Container cluster management
+Summary:        Open Source Production-Grade Container Scheduling And Managemnt
 License:        ASL 2.0
 URL:            https://%{import_path}
 ExclusiveArch:  x86_64 aarch64 ppc64le s390x %{arm}

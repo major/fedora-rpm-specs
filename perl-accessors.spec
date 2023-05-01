@@ -1,15 +1,31 @@
 Name:           perl-accessors
 Version:        1.01
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Create accessor methods in caller's package
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/accessors
 Source0:        https://cpan.metacpan.org/authors/id/S/SP/SPURKIS/accessors-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires:  perl-interpreter >= 1:5.6.0
+# Build
+BuildRequires:  coreutils
+BuildRequires:  findutils
 BuildRequires:  perl-generators
-BuildRequires:  perl(Module::Build)
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(Module::Build) >= 0.20
+BuildRequires:  perl(warnings)
+# Runtime
+BuildRequires:  perl(base)
+BuildRequires:  perl(constant)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings::register)
+# Test Suite
+BuildRequires:  perl(Carp)
+BuildRequires:  perl(Benchmark)
+BuildRequires:  perl(Exporter)
 BuildRequires:  perl(Test::More) >= 0.01
+# Dependencies
+# (none)
 
 %description
 The accessors pragma lets you create simple accessors at compile-time.
@@ -17,30 +33,40 @@ The accessors pragma lets you create simple accessors at compile-time.
 %prep
 %setup -q -n accessors-%{version}
 
+# A few of the .pm modules have bogus execute permission
+find . -name '*.pm' | xargs chmod -c a-x
+
 %build
-%{__perl} Build.PL installdirs=vendor
+perl Build.PL --installdirs=vendor
 ./Build
 
 %install
-rm -rf $RPM_BUILD_ROOT
-
-./Build install destdir=$RPM_BUILD_ROOT create_packlist=0
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
-
-%{_fixperms} $RPM_BUILD_ROOT/*
-
-# A few of the .pm modules have bogus execute permission
-find $RPM_BUILD_ROOT%{perl_vendorlib} -name *.pm | xargs chmod a-x
+./Build install --destdir=%{buildroot} --create_packlist=0
+%{_fixperms} -c %{buildroot}
 
 %check
 ./Build test
 
 %files
 %doc Changes README TODO
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/accessors.pm
+%{perl_vendorlib}/accessors/
+%{_mandir}/man3/accessors.3*
+%{_mandir}/man3/accessors::chained.3*
+%{_mandir}/man3/accessors::classic.3*
+%{_mandir}/man3/accessors::ro.3*
+%{_mandir}/man3/accessors::rw.3*
 
 %changelog
+* Sat Apr 29 2023 Paul Howarth <paul@city-fan.org> - 1.01-40
+- Modernize spec
+  - Use SPDX-format license tag
+  - Classify buildreqs by usage
+  - Fix permissions in %%prep rather than %%install
+  - Drop redundant buildroot cleaning in %%install section
+  - Fix permissions verbosely
+  - Make %%files list more explicit
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

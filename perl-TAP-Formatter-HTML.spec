@@ -1,54 +1,99 @@
 Name:           perl-TAP-Formatter-HTML
 Version:        0.11
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        TAP Test Harness output delegate for html output
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/TAP-Formatter-HTML
-Source0:        https://cpan.metacpan.org/authors/id/S/SP/SPURKIS/TAP-Formatter-HTML-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/modules/by-module/TAP/TAP-Formatter-HTML-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires:  perl-interpreter >= 1:5.6.0
+# Build
+BuildRequires:  coreutils
 BuildRequires:  perl-generators
-BuildRequires:  perl(accessors) >= 0.02
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(Module::Build)
-BuildRequires:  perl(TAP::Parser) >= 3.10
+# Runtime
+BuildRequires:  perl(accessors) >= 0.02
+BuildRequires:  perl(base)
+BuildRequires:  perl(constant)
+BuildRequires:  perl(File::Spec::Functions)
+BuildRequires:  perl(File::Temp) >= 0.17
+BuildRequires:  perl(IO::File)
+BuildRequires:  perl(POSIX)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(TAP::Base)
+# Test Suite
+BuildRequires:  perl(App::Prove)
+BuildRequires:  perl(Fcntl)
+BuildRequires:  perl(File::Basename)
+BuildRequires:  perl(lib)
+BuildRequires:  perl(TAP::Harness) >= 3.17
+BuildRequires:  perl(TAP::Parser::Aggregator) >= 3.10
 BuildRequires:  perl(Template) >= 2.14
 BuildRequires:  perl(Test::More) >= 0.01
 BuildRequires:  perl(URI) >= 1.35
+BuildRequires:  perl(URI::file)
+BuildRequires:  perl(warnings)
+# Optional Tests
+BuildRequires:  perl(Test::Pod) >= 1.00
+# Dependencies
 Requires:       perl(accessors) >= 0.02
-Requires:       perl(TAP::Parser) >= 3.10
+Requires:       perl(File::Temp) >= 0.17
+Requires:       perl(TAP::Parser::Aggregator) >= 3.10
 Requires:       perl(Template) >= 2.14
 Requires:       perl(URI) >= 1.35
 
+# Remove underspecified dependencies
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(accessors\\)$
+%global __requires_exclude %{__requires_exclude}|^perl\\(File::Temp\\)$
+%global __requires_exclude %{__requires_exclude}|^perl\\(TAP::Parser::Aggregator\\)$
+%global __requires_exclude %{__requires_exclude}|^perl\\(Template\\)$
+%global __requires_exclude %{__requires_exclude}|^perl\\(URI\\)$
+
 %description
 This module provides HTML output formatting for TAP::Harness (a replacement
-for Test::Harness. It is largely based on ideas from TAP::Test::HTMLMatrix
+for Test::Harness). It is largely based on ideas from TAP::Test::HTMLMatrix
 (which was built on Test::Harness and thus had a few limitations - hence
-this module). For sample output, see:
+this module).
+
+This module is targeted at all users of automated test suites. It's meant to
+make reading test results easier, giving you a visual summary of your test
+suite and letting you drill down into individual failures (which will hopefully
+make testing more likely to happen at your organization!).
 
 %prep
 %setup -q -n TAP-Formatter-HTML-%{version}
 
 %build
-%{__perl} Build.PL installdirs=vendor
+perl Build.PL --installdirs=vendor
 ./Build
 
 %install
-rm -rf $RPM_BUILD_ROOT
-
-./Build install destdir=$RPM_BUILD_ROOT create_packlist=0
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
-
-%{_fixperms} $RPM_BUILD_ROOT/*
+./Build install --destdir=%{buildroot} --create_packlist=0
+%{_fixperms} -c %{buildroot}
 
 %check
 ./Build test
 
 %files
 %doc Changes README Todo
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/App/
+%{perl_vendorlib}/TAP/
+%{_mandir}/man3/App::Prove::Plugin::HTML.3*
+%{_mandir}/man3/TAP::Formatter::HTML.3*
+%{_mandir}/man3/TAP::Formatter::HTML::Session.3*
 
 %changelog
+* Sat Apr 29 2023 Paul Howarth <paul@city-fan.org> - 0.11-30
+- Modernize spec
+  - Use SPDX-format license tag
+  - Use author-independent source URL
+  - Classify buildreqs by usage
+  - Filter underspecified dependencies
+  - Improve %%description
+  - Drop redundant buildroot cleaning in %%install section
+  - Fix permissions verbosely
+  - Make %%files list more explicit
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

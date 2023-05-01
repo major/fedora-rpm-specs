@@ -276,7 +276,6 @@
 %global interimver 0
 %global updatever 7
 %global patchver 0
-
 # We don't add any LTS designator for STS packages (Fedora and EPEL).
 # We need to explicitly exclude EPEL as it would have the %%{rhel} macro defined.
 %if 0%{?rhel} && !0%{?epel}
@@ -317,7 +316,7 @@
 %global top_level_dir_name   %{origin}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        7
-%global rpmrelease      1
+%global rpmrelease      2
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -785,6 +784,7 @@ exit 0
 %define files_jre_headless() %{expand:
 %license %{_jvmdir}/%{sdkdir -- %{?1}}/legal
 %doc %{_defaultdocdir}/%{uniquejavadocdir -- %{?1}}/NEWS
+%{_jvmdir}/%{sdkdir -- %{?1}}/NEWS
 %dir %{_sysconfdir}/.java/.systemPrefs
 %dir %{_sysconfdir}/.java
 %dir %{_jvmdir}/%{sdkdir -- %{?1}}
@@ -1028,6 +1028,7 @@ exit 0
 %define files_demo() %{expand:
 %license %{_jvmdir}/%{sdkdir -- %{?1}}/legal
 %{_jvmdir}/%{sdkdir -- %{?1}}/demo
+%{_jvmdir}/%{sdkdir -- %{?1}}/sample
 }
 
 %define files_src() %{expand:
@@ -1232,7 +1233,7 @@ Provides: java-%{origin}-src%{?1} = %{epoch}:%{version}-%{release}
 # the version must match, but sometmes we need to more precise, so including release
 %global portable_version %{version}-3
 
-Name:    java-17-%{origin}
+Name:    java-%{javaver}-%{origin}
 Version: %{newjavaver}.%{buildver}
 Release: %{?eaprefix}%{rpmrelease}%{?extraver}%{?dist}
 # java-1.5.0-ibm from jpackage.org set Epoch to 1 for unknown reasons
@@ -1315,6 +1316,7 @@ BuildRequires: %{portable_name}-devel-slowdebug >= %{portable_version}
 BuildRequires: %{portable_name}-static-libs-slowdebug >= %{portable_version}
 %endif
 %endif
+
 BuildRequires: desktop-file-utils
 # elfutils only are OK for build without AOT
 BuildRequires: elfutils-devel
@@ -1325,6 +1327,7 @@ BuildRequires: nss-devel
 BuildRequires: crypto-policies
 BuildRequires: pkgconfig
 BuildRequires: zip
+BuildRequires: unzip
 BuildRequires: javapackages-filesystem
 # ?
 BuildRequires: tzdata-java >= 2022g
@@ -1459,7 +1462,7 @@ Group:   Development/Tools
 %{java_devel_rpo -- %{fastdebug_suffix_unquoted}}
 
 %description devel-fastdebug
-The %{origin_nice} %{featurever} development tools              .
+The %{origin_nice} %{featurever} development tools.
 %{fastdebug_warning}
 %endif
 
@@ -1792,7 +1795,7 @@ function installjdk() {
         ln -sv /etc/pki/java/cacerts ${imagepath}/lib/security
 
         # add alt-java man page
-		#  alt-java man and bianry are here from portables. Or not?
+	#  alt-java man and bianry are here from portables. Or not?
     fi
 }
 
@@ -2000,6 +2003,9 @@ done
 # See https://bugzilla.redhat.com/show_bug.cgi?id=741821
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/.java/.systemPrefs
 
+# copy samples next to demos; samples are mostly js files
+cp -r ${src_image}/%{top_level_dir_name}/src/sample  $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/
+
 # moving config files to /etc
 mkdir -p $RPM_BUILD_ROOT/%{etcjavadir -- $suffix}
 mkdir -p $RPM_BUILD_ROOT/%{etcjavadir -- $suffix}/lib
@@ -2019,8 +2025,6 @@ find $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/ -name "*.so" -exec chmod 7
 find $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/ -type d -exec chmod 755 {} \; ;
 find $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/legal -type f -exec chmod 644 {} \; ;
 
-#TODO conslut this clean up
-rm $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/NEWS #is in commondocdir. Ok ot go, or also pack
 if [ "x$suffix" = "x" ] ; then
   rm $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/javadocs.zip #is in subpackages, 1 renamed, 2nd unpacked
 fi
@@ -2038,7 +2042,7 @@ export JAVA_HOME=${RPM_BUILD_ROOT}%{_jvmdir}/%{sdkdir -- $suffix}
 
 #check Shenandoah is enabled
 %if %{use_shenandoah_hotspot}
-$JAVA_HOME/bin/java -XX:+UnlockExperimentalVMOptions -XX:+UseShenandoahGC -version
+$JAVA_HOME/bin/java -XX:+UseShenandoahGC -version
 %endif
 
 # Check unlimited policy has been used
@@ -2350,6 +2354,9 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
+* Fri Apr 28 2023 Jiri Vanek <jvanek@redhat.com> - 1:17.0.7.0.7-2
+- returned news and samples
+
 * Fri Apr 28 2028 Jiri Vanek <jvanek@redhat.com> - 1:17.0.7.0.7-1
 - updated to 17.0.7.0.7 underlying portables
 - now untarring enforced version
