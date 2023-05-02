@@ -9,7 +9,7 @@ Name:           perl-MooseX-Getopt
 Summary:        Moose role for processing command line options
 Version:        0.75
 Release:        9%{?dist}
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MooseX-Getopt
 Source0:        https://cpan.metacpan.org/modules/by-module/MooseX/MooseX-Getopt-%{version}.tar.gz
 BuildArch:      noarch
@@ -61,7 +61,8 @@ BuildRequires:  perl(MooseX::SimpleConfig) >= 0.07
 BuildRequires:  perl(MooseX::StrictConstructor)
 %endif
 BuildRequires:  perl(YAML)
-# Runtime
+# Dependencies
+# (none)
 
 # Make sure we don't get doc-file dependencies from the tests
 %{?perl_default_filter}

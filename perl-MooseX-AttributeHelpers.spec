@@ -2,7 +2,7 @@ Name:           perl-MooseX-AttributeHelpers
 Version:        0.25
 Release:        23%{?dist}
 Summary:        Extended Moose attribute interfaces (deprecated)
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MooseX-AttributeHelpers
 Source0:        https://cpan.metacpan.org/modules/by-module/MooseX/MooseX-AttributeHelpers-%{version}.tar.gz
 BuildArch:      noarch

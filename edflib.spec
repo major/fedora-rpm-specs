@@ -1,13 +1,6 @@
 Name:           edflib
-Version:        1.23
-# Upstream has been encouraged to provide a shared library with proper ABI
-# versioning (https://gitlab.com/Teuniz/EDFlib/-/issues/6#note_732772193).
-#
-# For now, we must make do with downstream .so name versioning
-# (https://docs.fedoraproject.org/en-US/packaging-guidelines/#_downstream_so_name_versioning).
-# Make sure to increment the following integer each time there is an ABI change
-# upstream.
-%global downstream_so_number 2
+Version:        1.24
+%global so_version 1
 Release:        %autorelease
 Summary:        C/C++ library to read/write EDF+ and BDF+ files
 
@@ -22,13 +15,11 @@ Summary:        C/C++ library to read/write EDF+ and BDF+ files
 License:        BSD-3-Clause
 URL:            https://gitlab.com/Teuniz/EDFlib/
 %global tar_version %(echo '%{version}' | tr -d .)
-Source0:        https://www.teuniz.net/edflib/edflib_%{tar_version}.tar.gz
-# Upstream intends this library primarily as a copylib. The following is based
-# on a sample Makefile from
-# https://gitlab.com/Teuniz/EDFlib/-/issues/6#note_628056608, with
-# modifications to pass LDFLAGS and to implement downstream .so name
-# versioning.
-Source1:        Makefile
+Source0:       https://www.teuniz.net/edflib/edflib_%{tar_version}.tar.gz
+
+# Library makefile: make more amenable to distribution packaging
+# https://gitlab.com/Teuniz/EDFlib/-/merge_requests/7.patch
+Patch:         %{url}/-/merge_requests/7.patch
 
 # Big-endian support was proposed upstream, but a patch was declined, and
 # beginning with version 1.23, “non-support” of big-endian architectures is
@@ -66,23 +57,22 @@ applications that use edflib.
 
 
 %prep
-%setup -n edflib_%{tar_version} -q
-cp -p '%{SOURCE1}' Makefile.shared
+%autosetup -n edflib_%{tar_version} -p1
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_compiler_flags
+sed -r -i 's/-O[23]//' lib/makefile
 
 
 %build
 %set_build_flags
-%make_build -f Makefile.shared DOWNSTREAM_SO_NUMBER='%{downstream_so_number}'
+%make_build -C lib CC="${CC-gcc}" LDCONFIG='/bin/true' MYUID='0' \
+    EXTRA_CFLAGS="${CFLAGS}" LDLIBS="${LDFLAGS-}"
 %make_build -C unittest CC="${CC-gcc}" \
-    CFLAGS="${CFLAGS} -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE ${LDFLAGS}"
+    CFLAGS="${CFLAGS-} -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE ${LDFLAGS-}"
 
 
 %install
-%make_install -f Makefile.shared \
-    DOWNSTREAM_SO_NUMBER='%{downstream_so_number}' \
-    PREFIX='%{_prefix}' \
-    INCLUDEDIR='%{_includedir}' \
-    LIBDIR='%{_libdir}'
+%make_install -C lib PREFIX='%{_prefix}' MYUID=0 LDCONFIG=/bin/true
+
 
 %check
 ./unittest/edflib_test
@@ -91,7 +81,7 @@ cp -p '%{SOURCE1}' Makefile.shared
 %files
 %license LICENSE
 %doc README.md
-%{_libdir}/libedf.so.0.%{downstream_so_number}
+%{_libdir}/libedf.so.%{so_version}{,.*}
 
 
 %files devel

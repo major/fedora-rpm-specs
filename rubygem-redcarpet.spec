@@ -1,36 +1,41 @@
 %global gem_name redcarpet
 
-Name: rubygem-%{gem_name}
-Version: 3.3.2
-Release: 25%{?dist}
-Summary: A fast, safe and extensible Markdown to (X)HTML parser
-# https://github.com/vmg/redcarpet/issues/502
-License: MIT and ISC
-URL: http://github.com/vmg/redcarpet
-Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
-BuildRequires:  gcc
-BuildRequires: ruby(release)
-BuildRequires: rubygems-devel
-BuildRequires: ruby-devel
-BuildRequires: rubygem(test-unit)
+Name:		rubygem-%{gem_name}
+Version:	3.6.0
+Release:	2%{?dist}
+
+Summary:	A fast, safe and extensible Markdown to (X)HTML parser
+# SPDX confirmed
+License:	MIT
+URL:		http://github.com/vmg/redcarpet
+Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
+Source1:	%{gem_name}-%{version}-test-missing-files.tar.gz
+# Source1 is created by $ bash %%SOURCE2 %%version
+Source2:	%{gem_name}-create-missing-test-files.sh
+
+BuildRequires:	gcc
+BuildRequires:	ruby(release)
+BuildRequires:	rubygems-devel
+BuildRequires:	ruby-devel
+BuildRequires:	rubygem(test-unit)
 
 %description
 A fast, safe and extensible Markdown to (X)HTML parser.
 
+%package	doc
+Summary:	Documentation for %{name}
+Requires:	%{name} = %{version}-%{release}
+BuildArch:	noarch
 
-%package doc
-Summary: Documentation for %{name}
-Requires: %{name} = %{version}-%{release}
-BuildArch: noarch
-
-%description doc
+%description	doc
 Documentation for %{name}.
 
 %prep
-%setup -q -n %{gem_name}-%{version}
+%setup -q -n %{gem_name}-%{version} -b1
+cp -p ../%{gem_name}-%{version}.gemspec .
 
 %build
-gem build ../%{gem_name}-%{version}.gemspec
+gem build ./%{gem_name}-%{version}.gemspec
 %gem_install
 
 # https://github.com/vmg/redcarpet/pull/503
@@ -45,36 +50,55 @@ cp -a ./%{_bindir}/* %{buildroot}%{_bindir}
 chmod 755 %{buildroot}%{_bindir}/redcarpet
 
 mkdir -p %{buildroot}%{gem_extdir_mri}
-cp -a .%{gem_extdir_mri}/{gem.build_complete,*.so} %{buildroot}%{gem_extdir_mri}/
+cp -a .%{gem_extdir_mri}/{gem.build_complete,*.so} \
+	%{buildroot}%{gem_extdir_mri}/
 
+# cleanups
+pushd %{buildroot}%{gem_instdir}
 # Prevent dangling symlink in -debuginfo.
-rm -rf %{buildroot}%{gem_instdir}/ext
+rm -rf \
+	Gemfile \
+	Rakefile \
+	ext/ \
+	test/ \
+	%{gem_name}.gemspec \
+	%{nil}
+popd
+rm -f %{buildroot}%{gem_cache}
 
 %check
+cp -a test/ .%{gem_instdir}/
+
 pushd .%{gem_instdir}
-RUBYOPT=-Ilib:$(dirs +1)%{gem_extdir_mri}:test ruby -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
+env \
+	RUBYOPT=-Ilib:$(dirs +1)%{gem_extdir_mri}:test \
+	ruby -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
 popd
 
 %files
-%dir %{gem_instdir}
+%dir	%{gem_instdir}
+%license	%{gem_instdir}/COPYING
+%doc	%{gem_instdir}/README.markdown
+
 %{_bindir}/redcarpet
+
 %{gem_instdir}/bin
 %{gem_libdir}
 %{gem_extdir_mri}
-%exclude %{gem_cache}
+
 %{gem_spec}
-%license %{gem_instdir}/COPYING
-%doc %{gem_instdir}/README.markdown
 
 %files doc
-%{gem_instdir}/Gemfile
-%{gem_instdir}/Rakefile
-%{gem_instdir}/test
-%{gem_instdir}/%{gem_name}.gemspec
 %doc %{gem_docdir}
-
+%{gem_instdir}/CHANGELOG.md
+%{gem_instdir}/CONTRIBUTING.md
 
 %changelog
+* Sun Apr 30 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.6.0-2
+- 3.6.0
+- License changed to MIT (SPDX confimred)
+- CVE-2020-26298 is fixed in this version
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.2-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

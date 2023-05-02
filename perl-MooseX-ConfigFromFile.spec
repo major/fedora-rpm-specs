@@ -1,7 +1,7 @@
 Name:           perl-MooseX-ConfigFromFile
 Version:        0.14
 Release:        27%{?dist}
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:        An abstract Moose role for setting attributes from a configfile
 URL:            https://metacpan.org/release/MooseX-ConfigFromFile
 Source:         https://cpan.metacpan.org/modules/by-module/MooseX/MooseX-ConfigFromFile-%{version}.tar.gz
@@ -36,6 +36,7 @@ BuildRequires:  perl(CPAN::Meta)
 BuildRequires:  perl(CPAN::Meta::Prereqs) >= 2.120900
 BuildRequires:  perl(MooseX::Getopt)
 # Dependencies
+# (none)
 
 # Avoid doc-file dependencies from tests
 %{?perl_default_filter}

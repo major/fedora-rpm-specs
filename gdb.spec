@@ -1249,6 +1249,12 @@ fi
 %endif
 
 %changelog
+* Sat Apr 29 2023 Kevin Buettner <kevinb@redhat.com>
+- Remove gdb-6.7-charsign-test.patch. This patch originally contained
+  some changes to GDB which were rejected by upstream maintainers.  All
+  that remained was a testcase which had a number of failures due to
+  the rest of the work not being present in GDB.
+
 * Tue Apr 25 2023 Bruno Larsen <blarsen@redhat.com>
 - Remove gdb-6.5-bz109921-DW_AT_decl_file-test.patch. That patch was
   only a test for basic DWARF-2 support, ensuring that GDB found a

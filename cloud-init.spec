@@ -1,11 +1,11 @@
 Name:           cloud-init
 Version:        23.1.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Cloud instance init scripts
-License:        ASL 2.0 or GPLv3
+License:        Apache-2.0 or GPL-3.0-only
 URL:            https://github.com/canonical/cloud-init
 
-Source0:        https://github.com/canonical/%{name}/archive/refs/tags/%{version}.tar.gz
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:        cloud-init-tmpfiles.conf
 
 # https://github.com/canonical/cloud-init/pull/2073
@@ -183,6 +183,10 @@ python3 -m pytest tests/unittests
 
 
 %changelog
+* Sun Apr 30 2023 Neal Gompa <ngompa@fedoraproject.org> - 23.1.2-3
+- Use the correct SourceURL format for the upstream sources
+- Switch to SPDX identifiers for the license field
+
 * Fri Apr 28 2023 Major Hayden <major@redhat.com> - 23.1.2-2
 - Switch to GitHub source since upstream uses that officially now.
 

@@ -1,6 +1,6 @@
 Name:           4ti2
-Version:        1.6.9
-Release:        15%{?dist}
+Version:        1.6.10
+Release:        1%{?dist}
 Summary:        Algebraic, geometric and combinatorial problems on linear spaces
 
 %global relver %(tr . _ <<< %{version})
@@ -16,11 +16,6 @@ Source0:        https://github.com/4ti2/4ti2/releases/download/Release_%{relver}
 Source1:        4ti2.module.in
 # Deal with a boolean variable that can somehow hold the value 2
 Patch0:         %{name}-maxnorm.patch
-# Add missing #include for gcc 13
-Patch1:         %{name}-missing-include.patch
-# Fix a memory leak
-# See https://github.com/4ti2/4ti2/pull/36
-Patch2:         %{name}-memleak.patch
 
 BuildRequires:  environment(modules)
 BuildRequires:  gcc
@@ -82,6 +77,12 @@ for f in $(grep -Frl egrep src/groebner test); do
 done
 
 %build
+# Do not override Fedora compiler flags
+sed -e 's|-O3 -fomit-frame-pointer|%{build_cflags}|' \
+    -e 's/-march=\$arch -mcpu=\$arch -m\$arch//' \
+    -e 's/-mtune=\$arch//' \
+    -i configure
+
 %configure --enable-shared --disable-static
 
 # Get rid of undesirable hardcoded rpaths; workaround libtool reordering
@@ -98,8 +99,8 @@ export LD_LIBRARY_PATH=$PWD/src/4ti2/.libs:$PWD/src/fiber/.libs:$PWD/src/groebne
 pushd doc
 make update-manual
 bibtex 4ti2_manual
-pdflatex -interaction=batchmode 4ti2_manual
-pdflatex -interaction=batchmode 4ti2_manual
+pdflatex 4ti2_manual
+pdflatex 4ti2_manual
 popd
 
 %install
@@ -147,13 +148,17 @@ make check
 %{_libdir}/libzsolve*.so.0*
 
 %changelog
+* Sat Apr 29 2023 Jerry James <loganjerry@gmail.com> - 1.6.10-1
+- Version 1.6.10
+- Drop upstreamed memleak & missing-include patches
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.9-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
 * Tue Jan 10 2023 Jerry James <loganjerry@gmail.com> - 1.6.9-14
 - Add patch to fix a memory leak
 
-* Wed Dec 29 2022 Jeff Law <jlaw@ventanamicro.com> - 1.6.9-13
+* Thu Dec 29 2022 Jeff Law <jlaw@ventanamicro.com> - 1.6.9-13
 - Add missing #include for gcc-13
 
 * Wed Nov 16 2022 Jerry James <loganjerry@gmail.com> - 1.6.9-12

@@ -5,7 +5,7 @@
 %global crate matrixmultiply
 
 Name:           rust-matrixmultiply
-Version:        0.3.3
+Version:        0.3.5
 Release:        %autorelease
 Summary:        General matrix multiplication for f32 and f64 matrices
 
@@ -13,6 +13,9 @@ Summary:        General matrix multiplication for f32 and f64 matrices
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/matrixmultiply
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * exclude extraneous unused source files
+Patch:          matrixmultiply-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
@@ -139,7 +142,6 @@ use the "threading" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
-rm -vrf "spare kernels"
 %cargo_prep
 
 %generate_buildrequires

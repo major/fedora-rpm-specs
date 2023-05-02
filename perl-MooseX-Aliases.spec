@@ -2,7 +2,7 @@ Name:           perl-MooseX-Aliases
 Version:        0.11
 Release:        27%{?dist}
 Summary:        Easy aliasing of methods and attributes in Moose
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MooseX-Aliases
 Source0:        https://cpan.metacpan.org/modules/by-module/MooseX/MooseX-Aliases-%{version}.tar.gz
 BuildArch:      noarch
@@ -31,6 +31,7 @@ BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Test::Output)
 BuildRequires:  perl(Test::Script) >= 1.05
 # Dependencies
+# (none)
 
 %description
 The MooseX::Aliases module will allow you to quickly alias methods in

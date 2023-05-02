@@ -1,6 +1,6 @@
 Summary:            Advanced IP routing and network device configuration tools
 Name:               iproute
-Version:            6.2.0
+Version:            6.3.0
 Release:            %autorelease
 %if 0%{?rhel}
 Group:              Applications/System

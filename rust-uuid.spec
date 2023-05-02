@@ -5,7 +5,7 @@
 %global crate uuid
 
 Name:           rust-uuid
-Version:        1.3.1
+Version:        1.3.2
 Release:        %autorelease
 Summary:        Library to generate and parse UUIDs
 
@@ -42,6 +42,7 @@ use the "%{crate}" crate.
 %doc %{crate_instdir}/CODE_OF_CONDUCT.md
 %doc %{crate_instdir}/CONTRIBUTING.md
 %doc %{crate_instdir}/README.md
+%doc %{crate_instdir}/SECURITY.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

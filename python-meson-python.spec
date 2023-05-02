@@ -34,6 +34,12 @@ documentation for more details.}
 %package -n     python3-meson-python
 Summary:        %{summary}
 
+# When patchelf is not in the PATH, mesonpy.get_requires_for_build_wheel() adds
+# https://pypi.org/project/patchelf/ to the dependencies. We always want to use
+# the system patchelf.
+BuildRequires:  /usr/bin/patchelf
+Requires:       /usr/bin/patchelf
+
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_provides_for_importable_modules
 %py_provides    python3-mesonpy
 

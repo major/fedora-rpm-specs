@@ -11,6 +11,7 @@ Summary:        HEIF and AVIF file format decoder and encoder
 License:        LGPL-3.0-or-later and MIT
 URL:            https://github.com/strukturag/%{name}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch0:         https://patch-diff.githubusercontent.com/raw/strukturag/libheif/pull/815.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -134,6 +135,9 @@ rm -rf third-party/
 
 
 %changelog
+* Sun Apr 30 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.15.2-2
+- backport fix for issue#590
+
 * Tue Apr 11 2023 Sandro <devel@penguinpee.nl> - 1.15.2-1
 - Update to 1.15.2 (RHBZ#2183664)
 - Drop patch

@@ -3,7 +3,7 @@
 %global commit_hx3compat f1f18201e5c0479cb5adf5f6028788b37f37b730
 
 Name:           haxe
-Version:        4.3.0
+Version:        4.3.1
 Release:        1%{?dist}
 Summary:        Multi-target universal programming language
 
@@ -36,7 +36,7 @@ BuildRequires:  ocaml-xml-light-devel
 BuildRequires:  ocaml-extlib-devel >= 1.7.8
 BuildRequires:  ocaml-ptmap-devel
 BuildRequires:  ocaml-sha-devel
-BuildRequires:  ocaml-luv-devel
+BuildRequires:  ocaml-luv-devel >= 0.5.12
 BuildRequires:  zlib-devel
 BuildRequires:  pcre2-devel
 BuildRequires:  pkgconfig(libuv)
@@ -111,8 +111,8 @@ popd
 %{_datadir}/%{name}/
 
 %changelog
-* Wed Apr 12 2023 Andy Li <andy@onthewings.net> - 4.3.0-1
-- New upstream version 4.3.0. (RHBZ#2185083, RHBZ#2128307)
+* Sun Apr 30 2023 Andy Li <andy@onthewings.net> - 4.3.1-1
+- New upstream version 4.3.1. (RHBZ#2185083, RHBZ#2128307)
 - Update haxelib to 4.1.0.
 
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 4.2.5-5

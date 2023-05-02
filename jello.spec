@@ -1,5 +1,5 @@
 Name:           jello
-Version:        1.5.5
+Version:        1.6.0
 Release:        %autorelease
 Summary:        Query JSON at the command line with Python syntax
 

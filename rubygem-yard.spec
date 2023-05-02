@@ -17,9 +17,6 @@ License:	MIT AND (MIT OR Ruby) AND BSD-2-Clause AND (GPL-2.0-only OR Ruby)
 
 URL:		http://yardoc.org
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
-# The test suite is not shipped with the gem. You may check it out like so:
-# git clone http://github.com/lsegal/yard
-# cd yard && git archive -v -o yard-0.9.28-spec.txz v0.9.28 spec/
 Source1:	%{gem_name}-%{version}-test-missing-files.tar.gz
 # Source1 is created by $ bash %%SOURCE2 %%version
 Source2:	yard-create-missing-test-files.sh

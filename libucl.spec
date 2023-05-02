@@ -1,20 +1,21 @@
 Name:           libucl
-Version:        0.8.1
-Release:        13%{?dist}
+Version:        0.8.2
+Release:        1%{?dist}
 Summary:        Universal configuration library parser
 
 License:        BSD and MIT
 URL:            https://github.com/vstakhov/libucl
 Source0:        %{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  make
+BuildRequires:  autoconf
+BuildRequires:  curl-devel
 BuildRequires:  gcc
 BuildRequires:  libtool
-BuildRequires:  autoconf
 BuildRequires:  libtree-devel
+BuildRequires:  make
 BuildRequires:  mum-hash-devel
+BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 
 # Partial http://troydhanson.github.io/uthash (BSD) - 2.x is shipped in Fedora.
 Provides: bundled(uthash) = 1.9.8
@@ -96,6 +97,9 @@ rm %{buildroot}%{_libdir}/%{name}.la
 %{python3_sitearch}/ucl*
 
 %changelog
+* Sun Apr 30 2023 Peter Lemenkov <lemenkov@gmail.com> - 0.8.2-1
+- Ver. 0.8.2
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

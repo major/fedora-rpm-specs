@@ -1,7 +1,7 @@
 # About:
 #   https://dev.mysql.com/doc/connectors/en/connector-odbc-installation-source-unix.html
 Name:           mysql-connector-odbc
-Version:        8.0.32
+Version:        8.0.33
 Release:        1%{?dist}
 Summary:        ODBC driver for MySQL
 License:        GPLv2 with exceptions
@@ -29,8 +29,8 @@ An ODBC (rev 3) driver for MySQL, for use with unixODBC.
 
 %prep
 %setup -q -n %{name}-%{version}-src
-%patch0 -p1
-%patch1 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 
 %build
 %cmake \
@@ -79,6 +79,9 @@ rm -rf %{buildroot}/usr/test
 %endif
 
 %changelog
+* Sun Apr 30 2023 Michal Schorm <mschorm@redhat.com> - 8.0.33-1
+- Rebase to version 8.0.33
+
 * Tue Feb 07 2023 Michal Schorm <mschorm@redhat.com> - 8.0.32-1
 - Rebase to verion 8.0.32
 

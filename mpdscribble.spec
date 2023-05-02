@@ -1,42 +1,45 @@
 Name:           mpdscribble
-Version:        0.22
-Release:        26%{?dist}
+Version:        0.24
+Release:        1%{?dist}
 Summary:        A mpd client which submits information about tracks being played to Last.fm
 License:        GPLv2+
-URL:            http://mpd.wikia.com/wiki/Client:Mpdscribble
-Source0:        http://downloads.sourceforge.net/musicpd/%{name}-%{version}.tar.bz2
+URL:            https://www.musicpd.org/clients/mpdscribble/
+Source0:        https://www.musicpd.org/download/mpdscribble/%{version}/mpdscribble-%{version}.tar.xz
 Source1:        %{name}.service
 Source2:        %{name}.tmpfiles.conf
-BuildRequires: make
-BuildRequires:  glib2-devel libsoup-devel
-BuildRequires:  libmpdclient-devel >= 2.2
-BuildRequires:	autoconf
-BuildRequires:	automake
-BuildRequires:	libtool
-BuildRequires:  systemd-units
+
+Patch1: 0001-Fix-build-with-GCC-12-missing-time.h-include.patch
+
+BuildRequires: cmake
+BuildRequires: gcc-g++
+BuildRequires: git
+BuildRequires: libcurl-devel
+BuildRequires: libgcrypt-devel
+BuildRequires: libmpdclient-devel >= 2.2
+BuildRequires: meson
+BuildRequires: systemd-devel
+
 Requires(pre): shadow-utils
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
 
-
 %description
 mpdscribble is a music player daemon (mpd) client which submits information
 about tracks being played to Last.fm (formerly audioscrobbler)
 
-
 %prep
-%setup -q
-
+%autosetup -S git_am
 
 %build
-autoreconf -ivf
-%configure
-make %{?_smp_mflags}
+%meson
+%meson_build
 
+%check
+%meson_test
 
 %install
-make install DESTDIR=%{buildroot}
+%meson_install
 
 install -D -m 0644 -p %{SOURCE1} %{buildroot}%{_unitdir}/%{name}.service
 install -D -m 0644 -p %{SOURCE2} %{buildroot}%{_tmpfilesdir}/%{name}.conf
@@ -48,34 +51,33 @@ install -d %{buildroot}%{_localstatedir}/cache/%{name}
 # Remove installed docs (this will mess with versione/unversioned docdirs)
 rm -rf %{buildroot}%{_defaultdocdir}
 
-
 %pre
 getent group %{name} >/dev/null || groupadd -r %{name}
 getent passwd %{name} >/dev/null || \
 useradd -r -g %{name} -d %{_localstatedir}/cache/%{name} -s /sbin/nologin \
 -c "Mpdscribble" %{name} 2>/dev/null || :
 
-
 %post
 %systemd_post %{name}.service
-
 
 %preun
 %systemd_preun %{name}.service
 
-
 %files
-%doc AUTHORS COPYING NEWS README
+%doc AUTHORS COPYING NEWS README.rst
 %attr(0644,%{name},%{name}) %config(noreplace) %{_sysconfdir}/mpdscribble.conf
 %{_bindir}/mpdscribble
 %{_mandir}/man1/mpdscribble.1.gz
 %{_unitdir}/%{name}.service
+%{_userunitdir}/%{name}.service
 %{_tmpfilesdir}/%{name}.conf
 %attr(0755,%{name},%{name}) %dir %{_localstatedir}/run/%{name}
 %attr(0755,%{name},%{name}) %dir %{_localstatedir}/cache/%{name}
 
-
 %changelog
+* Sun Apr 30 2023 Robbie Harwood <rharwood@pm.me> - 0.24-1
+- Under new management (update to 0.24)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

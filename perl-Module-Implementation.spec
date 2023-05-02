@@ -12,9 +12,9 @@ Name:		perl-Module-Implementation
 Version:	0.09
 Release:	36%{?dist}
 Summary:	Loads one of several alternate underlying implementations for a module
-License:	Artistic 2.0
+License:	Artistic-2.0
 URL:		https://metacpan.org/release/perl-Module-Implementation
-Source0:	https://cpan.metacpan.org/authors/id/D/DR/DROLSKY/Module-Implementation-%{version}.tar.gz
+Source0:	https://cpan.metacpan.org/modules/by-module/Module/Module-Implementation-%{version}.tar.gz
 BuildArch:	noarch
 # ===================================================================
 # Build requirements
@@ -22,8 +22,8 @@ BuildArch:	noarch
 BuildRequires:	coreutils
 BuildRequires:	findutils
 BuildRequires:	make
-BuildRequires:	perl-interpreter
 BuildRequires:	perl-generators
+BuildRequires:	perl-interpreter
 BuildRequires:	perl(ExtUtils::MakeMaker)
 # ===================================================================
 # Module requirements
@@ -70,7 +70,7 @@ BuildRequires:	perl(Test::Pod::Coverage) >= 1.08
 BuildRequires:	perl(Test::Portability::Files)
 # Can't use EPEL packages as BR: for RHEL package
 %if ! 0%{?rhel}
-BuildRequires:	aspell-en
+BuildRequires:	hunspell-en
 BuildRequires:	perl(Pod::Wordlist)
 BuildRequires:	perl(Test::Pod::LinkCheck)
 BuildRequires:	perl(Test::Pod::No404s)
@@ -79,7 +79,7 @@ BuildRequires:	perl(Test::Spelling) >= 0.12
 %endif
 %endif
 # ===================================================================
-# Runtime requirements
+# Dependencies
 # ===================================================================
 Requires:	perl(Carp)
 
@@ -104,7 +104,7 @@ make %{?_smp_mflags}
 %install
 make pure_install DESTDIR=%{buildroot}
 find %{buildroot} -type f -name .packlist -delete
-%{_fixperms} %{buildroot}
+%{_fixperms} -c %{buildroot}
 
 %check
 %if %{defined perl_bootstrap}

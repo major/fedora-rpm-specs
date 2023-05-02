@@ -1,14 +1,18 @@
+%global srcname latex-rubber
+
 Name: rubber
-Version: 1.5.1
-Release: 12%{?dist}
+Version: 1.6.1
+Release: 1%{?dist}
 Summary: An automated system for building LaTeX documents
 
 License: GPL+
 
-URL: https://launchpad.net/%{name}
-Source0: https://launchpad.net/%{name}/trunk/%{version}/+download/%{name}-%{version}.tar.gz
+URL: https://gitlab.com/latex-rubber/rubber
+Source0: %{pypi_source}
 BuildArch: noarch
-BuildRequires: python3-devel texinfo-tex
+BuildRequires: python3-devel 
+BuildRequires: %{py3_dist setuptools}
+
 Requires: tex(latex)
 
 %description
@@ -22,31 +26,30 @@ graphics/graphicx (with automatic conversion between various formats and
 Metapost compilation).
 
 %prep
-%setup -q
-for file in doc/man-fr/*; do
-  iconv -f ISO88591 -t utf8 $file -o $file
-done
+%autosetup -n %{srcname}-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%{py3_build}
+%pyproject_wheel
 
 %install
-%{py3_install}
-mkdir -p %{buildroot}/%{_infodir}
-mkdir -p %{buildroot}/%{_mandir}
-mv %{buildroot}/usr/info/ %{buildroot}/%{_infodir}
-mv %{buildroot}/usr/man/* %{buildroot}/%{_mandir}
+%pyproject_install
 
-%files
-%doc COPYING NEWS README
-%{_bindir}/*
-%{_defaultdocdir}/%{name}/*
-%{_infodir}/*
-%{python3_sitelib}/*
-%{_mandir}/man1/*.gz
-%{_mandir}/fr/man1/*.gz
+%pyproject_save_files rubber
+
+%files -f %{pyproject_files}
+%doc COPYING
+%{_bindir}/rubber
+%{_bindir}/rubber-info
+%{_bindir}/rubber-lsmod
+%{_bindir}/rubber-pipe
 
 %changelog
+* Sun Apr 30 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 1.6.1-1
+- New upstream version 1.6.1
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

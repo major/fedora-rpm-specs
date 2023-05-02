@@ -4,35 +4,19 @@
 # We can generate PDF documentation as a substitute.
 %bcond_without doc_pdf
 
-# Upstream has vendored six in 33f5dd4f4ddc6d1f1b138c5358b4f4ed6eab125c; see:
-#   https://github.com/nose-devs/nose2/commit/33f5dd4f4ddc6d1f1b138c5358b4f4ed6eab125c
-# We have de-vendored six downstream.
-%bcond_with vendored_six
-
 Name:           python-nose2
-Version:        0.12.0
+Version:        0.13.0
 Release:        %autorelease
 Summary:        The successor to nose, based on unittest2
 
 # The entire source is BSD-2-Clause, except that unspecified portions are
-# derived from unittest2:
-#   Portions derived from unittest2. unittest2 is Copyright (c) 2001-2012
-#   Python Software Foundation; All Rights Reserved. See:
-#   http://docs.python.org/license.html
-# Research indicates unittest2 was distributed under a BSD-3-Clause license,
-# the text of which is included for the time being as an additional source
-# file. Upstream has been asked to clarify the situation and include the actual
-# license text:
-#   https://github.com/nose-devs/nose2/issues/553
+# derived from unittest2 under a BSD-3-Clause. See LICENSE.
 License:        BSD-2-Clause AND BSD-3-Clause
 URL:            https://nose2.io/
 %global forgeurl https://github.com/nose-devs/nose2
 Source0:        %{forgeurl}/archive/%{version}/nose2-%{version}.tar.gz
 # Man page written for Fedora in groff_man(7) format based on --help output
 Source1:        nose2.1
-# We believe this to be the correct license text for unittest2; see the comment
-# above the License field.
-Source2:        LICENSE-unittest2
 
 # Keep the tox config from pulling in the dev extra. This makes sense upstream
 # (so the patch is not offered there), but for us it brings in unwanted
@@ -41,22 +25,11 @@ Source2:        LICENSE-unittest2
 # deprecated PyPI “mock” package (which is not actually needed for the tests on
 # modern Python versions).
 Patch:          nose2-0.11.0-tox-no-dev-extra.patch
-# Minor fixes regarding __version__ move
-#
-# Docs in conf.py and the CI build used `_version.py`, and just need
-# minor updates.
-#
-# https://github.com/nose-devs/nose2/commit/fc3d69290462930bc0fa81cb69bc4c6e15f8ae66
-Patch:          %{forgeurl}/commit/fc3d69290462930bc0fa81cb69bc4c6e15f8ae66.patch
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  hardlink
-
-%if %{without vendored_six}
-BuildRequires:  python3dist(six)
-%endif
 
 %if %{with doc_pdf}
 BuildRequires:  make
@@ -84,13 +57,6 @@ understand.}
 %package -n python3-nose2
 Summary:        Next generation of nicer testing for Python
 
-%if %{without vendored_six}
-# We have de-vendored six downstream.
-Requires:       python3dist(six)
-%else
-Provides:       bundled(python3dist(six)) = 1.16
-%endif
-
 %description -n python3-nose2 %{common_description}
 
 
@@ -105,19 +71,10 @@ Summary:        Documentation for %{name}
 
 %prep
 %autosetup -n nose2-%{version} -p1
-cp -p '%{SOURCE2}' .
 
 # Patch out unnecessary documentation dependency on sphinx-issues, used
 # upstream for changelog generation.
 sed -r -i '/"sphinx_issues",/d' docs/conf.py
-
-%if %{without vendored_six}
-cat > nose2/_vendor/six.py <<'EOF'
-# This vendored copy of https://pypi.org/project/six/ has been replaced with a
-# trivial wrapper around the system copy.
-from six import *
-EOF
-%endif
 
 
 %generate_buildrequires
@@ -145,7 +102,6 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
 
 
 %files -n python3-nose2 -f %{pyproject_files}
-%license license.txt LICENSE-unittest2
 %doc AUTHORS
 %doc README.rst
 
@@ -154,7 +110,7 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
 
 
 %files doc
-%license license.txt LICENSE-unittest2
+%license LICENSE
 %doc AUTHORS
 %doc README.rst
 %doc docs/changelog.rst
