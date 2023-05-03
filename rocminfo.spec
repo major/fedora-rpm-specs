@@ -1,6 +1,6 @@
 Name:		rocminfo
-Version:	5.4.1
-Release:	2%{?dist}
+Version:	5.5.0
+Release:	1%{?dist}
 Summary:	ROCm system info utility
 
 License:	NCSA
@@ -49,6 +49,9 @@ chmod 755 %{buildroot}%{_bindir}/*
 
 
 %changelog
+* Mon May 01 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.5.0-1
+- Update to 5.5
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

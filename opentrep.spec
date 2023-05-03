@@ -3,8 +3,8 @@
 
 #
 Name:           opentrep
-Version:        0.07.11
-Release:        6%{?dist}
+Version:        0.07.13
+Release:        1%{?dist}
 
 Summary:        C++ library providing a clean API for parsing travel-focused requests
 
@@ -115,7 +115,7 @@ package is usually corrupted: it depends on the building conditions,
 and it is therefore not reliable.
 
 %prep
-%setup -q -n %{name}-%{version}
+%setup -q -n %{name}-%{name}-%{version}
 
 %build
 %cmake
@@ -197,19 +197,11 @@ rm -f %{_bindir}/py%{name}
 %endif
 
 %changelog
+* Mon May 01 2023 Denis Arnaud <denis.arnaud_fedora@m4x.org> - 0.07.13-1
+- Upstream upgrade
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 0.07.11-6
 - Rebuilt for Boost 1.81
 
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.07.11-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 0.07.11-4
-- Rebuild for ICU 72
-
-* Mon Aug 01 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 0.07.11-3
-- Rebuilt for ICU 71.1
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.07.11-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
 %autochangelog
+

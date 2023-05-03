@@ -1,6 +1,6 @@
 Summary:	A tiny replacement for Module::Build
 Name:		perl-Module-Build-Tiny
-Version:	0.044
+Version:	0.045
 Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Module-Build-Tiny
@@ -83,6 +83,10 @@ AUTHOR_TESTING=1 RELEASE_TESTING=1 ./Build test
 %{_mandir}/man3/Module::Build::Tiny.3*
 
 %changelog
+* Mon May  1 2023 Paul Howarth <paul@city-fan.org> - 0.045-1
+- Update to 0.045
+  - Fix compilation issue on Windows
+
 * Fri Apr 28 2023 Paul Howarth <paul@city-fan.org> - 0.044-1
 - Update to 0.044
   - Add module sharedirs

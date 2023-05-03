@@ -1,5 +1,5 @@
 Name:           python-typer
-Version:        0.7.0
+Version:        0.8.0
 Release:        %autorelease
 Summary:        Build great CLIs; easy to code; based on Python type hints
 
@@ -8,10 +8,10 @@ License:        MIT
 URL:            https://typer.tiangolo.com/
 Source0:        https://github.com/tiangolo/typer/archive/%{version}/typer-%{version}.tar.gz
 
-# Allow rich 13.x
-# https://github.com/tiangolo/typer/pull/524
-# https://bugzilla.redhat.com/show_bug.cgi?id=2157866
-Patch:          https://github.com/tiangolo/typer/pull/524.patch
+# Downstream-only:
+# Patch out linting/coverage from tests
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+Patch:          0001-Patch-out-linting-coverage-from-tests.patch
 
 BuildArch:      noarch
 
@@ -54,15 +54,10 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n typer-%{version}
+%autosetup -n typer-%{version} -p1
 cp -p pyproject.toml pyproject.toml.bak
 # We have flit 3.x in Fedora 34 and later, so we must try to use it.
 sed -r -i 's/(flit_core[[:blank:]]*>=2[^,]*),<3\b/\1/' pyproject.toml
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-sed -r -i '/\b(mypy|black|isort|pytest-cov|coverage) /d' pyproject.toml
-find tests -type f -exec \
-    gawk '/"coverage", "run"/ { print FILENAME; nextfile }' '{}' '+' |
-  xargs -r -t sed -r -i 's@"coverage", "run"@"%{python3}"@g'
 # Loosen certain strict maximum versions; we must work with what we have
 sed -r -i 's/\b(pytest(-xdist)?)([[:blank:]]*>=[^,]*),[^"]+/\1\3/' pyproject.toml
 
@@ -88,7 +83,9 @@ rm -rvf docs/js docs/css
 # mypy/black/isort).
 export TERMINAL_WIDTH=3000
 export _TYPER_FORCE_DISABLE_TERMINAL=1
+
 ./scripts/test-files.sh
+
 # Shell completion tests need us to be running under a supported shell, i.e.
 # bash rather than sh. Unfortunately, shell detection with shellingham is so
 # thorough we cannot fool it by any combination of:
@@ -96,8 +93,13 @@ export _TYPER_FORCE_DISABLE_TERMINAL=1
 #  - bash -c '%%pytest'
 #  - %%check -p /bin/bash
 # so we must simply skip the affected tests.
-k="${k-}${k+ and }not test_show_completion and not test_install_completion"
-%pytest -k "${k-}" -n auto -v
+k="${k-}${k+ and }not test_show_completion"
+k="${k-}${k+ and }not test_install_completion"
+# These cannot find the typer package because the tests override PYTHONPATH.
+ignore="${ignore-} --ignore=tests/test_tutorial/test_subcommands/test_tutorial001.py"
+ignore="${ignore-} --ignore=tests/test_tutorial/test_subcommands/test_tutorial003.py"
+
+%pytest -k "${k-}" ${ignore-} -n auto -v
 
 
 %files -n python3-typer -f %{pyproject_files}

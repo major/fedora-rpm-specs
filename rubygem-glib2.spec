@@ -8,10 +8,11 @@
 
 Summary:	Ruby binding of GLib-2.x
 Name:		rubygem-%{gem_name}
-Version:	4.1.2
+Version:	4.1.3
 Release:	1%{?dist}
-# from README
-License:	LGPLv2
+# SPDX confirmed
+# LGPL-2.1-or-later: gemspec
+License:	LGPL-2.1-or-later
 URL:		http://ruby-gnome2.sourceforge.jp/
 Source0:	http://rubygems.org/gems/%{gem_name}-%{version}.gem
 # F-19 %%_bindir/ruby wrapper pollutes environ, which makes
@@ -226,6 +227,9 @@ popd
 
 
 %changelog
+* Mon May 01 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.3-1
+- 4.1.3
+
 * Fri Feb 24 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.2-1
 - 4.1.2
 

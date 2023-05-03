@@ -2,8 +2,8 @@
 # lacks sphinx_book_theme.
 
 Name:           python-linkify-it-py
-Version:        2.0.0
-Release:        2%{?dist}
+Version:        2.0.1
+Release:        1%{?dist}
 Summary:        Link recognition library with full Unicode support
 
 License:        MIT
@@ -13,7 +13,6 @@ Source0:        %{url}/archive/v%{version}/linkify-it-py-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist pytest}
 
 %global _description %{expand:
 This is a Python port of linkify-it [1], a link recognition library with
@@ -35,7 +34,7 @@ Summary:        Link recognition library with full Unicode support
 %autosetup -n linkify-it-py-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -x test
 
 %build
 %pyproject_wheel
@@ -51,6 +50,9 @@ Summary:        Link recognition library with full Unicode support
 %doc CHANGELOG.md README.md
 
 %changelog
+* Mon May  1 2023 Jerry James <loganjerry@gmail.com> - 2.0.1-1
+- Version 2.0.1
+
 * Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 2.0.0-2
 - Dynamically generate BuildRequires
 

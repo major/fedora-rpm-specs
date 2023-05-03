@@ -4,14 +4,16 @@
 
 Name: ansible-core
 Summary: A radically simple IT automation system
-Version: 2.14.4
+Version: 2.15.0~rc1
 %global uversion %{version_no_tilde %{quote:%nil}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 # The main license is GPLv3+. Many of the files in lib/ansible/module_utils
 # are BSD licensed. There are various files scattered throughout the codebase
 # containing code under different licenses.
 License: GPL-3.0-or-later AND BSD-2-Clause AND PSF-2.0 AND MIT AND Apache-2.0
-Source: https://github.com/ansible/ansible/archive/v%{uversion}/%{name}-%{uversion}.tar.gz
+Source0: https://github.com/ansible/ansible/archive/v%{uversion}/%{name}-%{uversion}.tar.gz
+Source1: build_manpages.py
+Patch: https://github.com/ansible/ansible/commit/734f38b2594692707d1fd3cbcfc8dc8a677f4ee3.patch#/GALAXY_COLLECTIONS_PATH_WARNINGS.patch
 Url: https://ansible.com
 BuildArch: noarch
 
@@ -48,7 +50,6 @@ Obsoletes: ansible-base < 2.10.6-1
 BuildRequires: make
 BuildRequires: python%{python3_pkgversion}-devel
 # Needed to build manpages from source.
-BuildRequires: python%{python3_pkgversion}-straight-plugin
 BuildRequires: python%{python3_pkgversion}-docutils
 # Shell completions
 BuildRequires: python%{python3_pkgversion}-argcomplete
@@ -95,7 +96,6 @@ This package installs extensive documentation for ansible-core
 %autosetup -p1 -n ansible-%{uversion}
 find \( -name '.git_keep' -o -name '.rstcheck.cfg' \) -delete
 
-# ansible-test is executed directly by the Makefile, so we need to fix the shebang.
 sed -i -s 's|/usr/bin/env python|%{python3}|' \
     bin/ansible-test \
     test/lib/ansible_test/_util/target/cli/ansible_test_cli_stub.py
@@ -116,7 +116,13 @@ sed '/^mock$/d' test/lib/ansible_test/_data/requirements/units.txt > _requiremen
 %pyproject_wheel
 
 # Build manpages
-make PYTHON=%{python3} docs
+
+# XXX: This should be removed once upstream provides a proper way to build
+# manpages from source.
+# See https://github.com/ansible/ansible/issues/80368
+# and the discussion in https://github.com/ansible/ansible/pull/80372
+# for more details.
+PYTHONPATH="$(pwd)/packaging" %{python3} %{S:1}
 
 # Build shell completions
 (
@@ -215,8 +221,8 @@ install -Dpm 0644 licenses/* -t %{buildroot}%{_pkglicensedir}
 
 %check
 %if %{with tests}
-ln -s /usr/bin/pytest-3 bin/pytest
-make PYTHON=%{python3} tests-py3
+%{python3} bin/ansible-test \
+    units --local --python-interpreter %{python3}
 %endif
 
 
@@ -240,6 +246,13 @@ make PYTHON=%{python3} tests-py3
 
 
 %changelog
+* Thu Apr 27 2023 Maxwell G <maxwell@gtmx.me> - 2.15.0~rc1-1
+- Update to 2.15.0~rc1.
+
+* Mon Apr 24 2023 Maxwell G <maxwell@gtmx.me> - 2.15.0~b3-1
+- Update to 2.15.0~b3.
+- Account for the removed Makefile
+
 * Mon Apr 24 2023 Maxwell G <maxwell@gtmx.me> - 2.14.4-2
 - Add gating
 

@@ -6,18 +6,13 @@
 
 Summary:   NetworkManager VPN plugin for L2TP and L2TP/IPsec
 Name:      NetworkManager-l2tp
-Version:   1.20.8
-Release:   3%{?dist}
+Version:   1.20.10
+Release:   1%{?dist}
 License:   GPLv2+
 URL:       https://github.com/nm-l2tp/NetworkManager-l2tp
 Source:    https://github.com/nm-l2tp/NetworkManager-l2tp/releases/download/%{version}/%{name}-%{version}.tar.xz
-# Backports from upstream main branch: fix build with ppp 2.5.0
-# No, these are not the same patch twice, they just have the same
-# commit message
-Patch0:    0001-Adding-support-for-compiling-against-pppd-2.5.0-curr.patch
-Patch1:    0002-Adding-support-for-compiling-against-pppd-2.5.0-curr.patch
 
-%global ppp_version %(pkg-config --modversion pppd 2>/dev/null || echo bad)
+%global ppp_version %(pkg-config --modversion pppd 2>/dev/null || sed -n 's/^#define\\s*VERSION\\s*"\\([^\\s]*\\)"$/\\1/p' %{_includedir}/pppd/patchlevel.h 2>/dev/null | grep . || echo bad)
 
 BuildRequires: make
 BuildRequires: gcc
@@ -26,10 +21,8 @@ BuildRequires: gtk3-devel
 BuildRequires: NetworkManager-libnm-devel >= 1:1.20.0
 BuildRequires: libnma-devel >= 1.8.0
 BuildRequires: pkgconfig
-BuildRequires: ppp-devel >= 2.5.0
-# ppp 2.5.0 patches require autoreconf, drop this when a new version
-# is released and those patches are dropped
-BuildRequires: autoconf automake gettext-devel
+BuildRequires: ppp-devel >= 2.4.5
+BuildRequires: autoconf automake
 BuildRequires: libtool gettext
 BuildRequires: libsecret-devel
 BuildRequires: openssl-devel >= 1:1.1.0
@@ -64,11 +57,9 @@ IPsec VPN support with the NetworkManager (GNOME files).
 %autosetup -p1
 
 %build
-#if [ ! -f configure ]; then
-#  autoreconf -fi
-#fi
-# for ppp 2.5.0 patches
-autoreconf -fi
+if [ ! -f configure ]; then
+  autoreconf -fi
+fi
 %configure \
     --disable-static \
     --runstatedir=/run \
@@ -127,6 +118,11 @@ exit 0
 %endif
 
 %changelog
+* Mon May 01 2023 Douglas Kosovic <doug@uq.edu.au> - 1.20.10-1
+- Updated to 1.20.10 release
+- Remove redundant ppp related patches
+- Use ppp_version macro from NetworkManager
+
 * Tue Apr 18 2023 Adam Williamson <awilliam@redhat.com> - 1.20.8-3
 - Rebuild for new ppp
 

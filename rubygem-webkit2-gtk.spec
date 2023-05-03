@@ -3,11 +3,13 @@
 %undefine        _changelog_trimtime
 
 Name:		rubygem-%{gem_name}
-Version:	4.1.2
+Version:	4.1.3
 Release:	1%{?dist}
 
 Summary:	Ruby binding of WebKit2GTK+
-License:	LGPLv2+
+# SPDX confirmed
+# LGPL-2.1-or-later: gemspec
+License:	LGPL-2.1-or-later
 URL:		http://ruby-gnome2.osdn.jp/
 
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -50,7 +52,7 @@ Documentation for %{name}.
 mv ../%{gem_name}-%{version}.gemspec .
 
 # Adjust rubygems-gnome2 requirement to be more flexible
-sed -i -e 's|= 4\.1\.2|>= 4.1.2|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.1\.3|>= 4.1.3|' %{gem_name}-%{version}.gemspec
 # pkgconfig dependency is actually not needed (when using rpm
 # dependency solver)
 sed -i dependency-check/Rakefile \
@@ -122,6 +124,9 @@ popd
 %doc	%{gem_instdir}/sample
 
 %changelog
+* Mon May 01 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.3-1
+- 4.1.3
+
 * Fri Feb 24 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.2-1
 - 4.1.2
 

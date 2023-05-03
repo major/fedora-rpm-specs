@@ -30,8 +30,8 @@
 %bcond_without have_utf8proc
 
 Name:		libarrow
-Version:	11.0.0
-Release:	2%{?dist}
+Version:	12.0.0
+Release:	1%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
@@ -205,6 +205,35 @@ Libraries and header files for Apache Arrow dataset.
 %{_libdir}/cmake/ArrowDataset/*.cmake
 %{_libdir}/libarrow_dataset.so
 %{_libdir}/pkgconfig/arrow-dataset.pc
+
+#--------------------------------------------------------------------
+
+%package acero-libs
+Summary:	C++ library for fast data transport
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+Requires:	%{name}-doc = %{version}-%{release}
+Requires:	openssl
+
+%description acero-libs
+This package contains the libraries for Apache Arrow Acero.
+
+%files acero-libs
+%{_libdir}/libarrow_acero.so.*
+
+#--------------------------------------------------------------------
+
+%package acero-devel
+Summary:	Libraries for Apache Arrow Acero
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+Requires:	%{name}-flight-libs%{?_isa} = %{version}-%{release}
+
+%description acero-devel
+Libraries and header files for Apache Arrow Acero.
+
+%files acero-devel
+%{_libdir}/cmake/ArrowAcero/*.cmake
+%{_libdir}/libarrow_acero.so
+%{_libdir}/pkgconfig/arrow-acero.pc
 
 #--------------------------------------------------------------------
 
@@ -685,7 +714,6 @@ Summary: Python library for Apache Arrow
 Python library for Apache Arrow
 
 %files -n python3-pyarrow -f %{pyproject_files}
-%{_bindir}/plasma_store
 %exclude %{python3_sitearch}/pyarrow/lib_api.h
 %exclude %{python3_sitearch}/pyarrow/include
 
@@ -836,6 +864,9 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
+* Mon May 1 2023  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 12.0.0-1
+- Arrow 12.0.0 GA
+
 * Wed Mar 22 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 11.0.0-2
 - Arrow 11.0.0, rebuild with abseil-cpp 20230125.1
 

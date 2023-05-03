@@ -7,11 +7,11 @@ used to run NeuroML2 (http://neuroml.org/neuroml2.php) models.
 
 
 Name:           python-PyLEMS
-Version:        0.5.9
+Version:        0.6.0
 Release:        %autorelease
 Summary:        LEMS interpreter implemented in Python
 
-License:        LGPLv3
+License:        LGPL-3.0-only
 
 # Use github source. Pypi source does not include license and examples.
 URL:            https://github.com/LEMS/pylems/

@@ -105,7 +105,7 @@
 
 Name: dmlite
 Version: 1.15.2
-Release: 14%{?dist}%{?_with_asan:.asan}
+Release: 15%{?dist}%{?_with_asan:.asan}
 Summary: Lcgdm grid data management and storage framework
 Group: Applications/Internet
 License: ASL 2.0
@@ -130,6 +130,7 @@ Patch17: dmlite-improve-migration-options.patch
 Patch18: dmlite-fix-bdii-ldap3-ldif.patch
 Patch19: dmlite-improve-migration-dcache-config.patch
 Patch20: dmlite-fix-dcache82-migration.patch
+Patch21: dmlite-drop-edg-gridmap-dependency.patch
 
 BuildRequires: boost-devel
 
@@ -276,7 +277,6 @@ Requires: dmlite-plugins-domeadapter = %{version}-%{release}
 Requires: dmlite-dome = %{version}-%{release}
 Requires: dmlite-shell = %{version}-%{release}
 Requires: dmlite-plugins-mysql = %{version}-%{release}
-Requires: edg-mkgridmap
 Requires: fetch-crl
 Requires: dmlite-apache-httpd = %{version}-%{release}
 Requires: davix >= 0.6.7
@@ -311,7 +311,6 @@ Requires: dmlite-dpm-dsi = %{version}-%{release}
 %endif
 Requires: dmlite-plugins-domeadapter = %{version}-%{release}
 Requires: dmlite-dome = %{version}-%{release}
-Requires: edg-mkgridmap
 Requires: fetch-crl
 Requires: dmlite-apache-httpd = %{version}-%{release}
 Requires: davix >= 0.6.7
@@ -344,7 +343,6 @@ Requires: dmlite-plugins-domeadapter = %{version}-%{release}
 Requires: dmlite-dome = %{version}-%{release}
 Requires: dmlite-shell = %{version}-%{release}
 Requires: dmlite-plugins-mysql = %{version}-%{release}
-Requires: edg-mkgridmap
 Requires: fetch-crl
 Requires: dmlite-apache-httpd = %{version}-%{release}
 Requires: davix >= 0.6.7
@@ -383,7 +381,6 @@ Requires: dmlite-dpm-dsi = %{version}-%{release}
 %endif
 Requires: dmlite-plugins-domeadapter = %{version}-%{release}
 Requires: dmlite-dome = %{version}-%{release}
-Requires: edg-mkgridmap
 Requires: fetch-crl
 Requires: dmlite-apache-httpd = %{version}-%{release}
 
@@ -879,6 +876,7 @@ This package provides the modules for the DPM configuration via puppet
 %patch18 -p1
 %patch19 -p1
 %patch20 -p1
+%patch21 -p1
 
 %build
 %global build_flags -DCMAKE_INSTALL_PREFIX=/ -DRUN_ONLY_STANDALONE_TESTS=ON -DOVERWRITE_CONFIGFILES=ON -DINSTALL_PFX_DOC=%{_pkgdocdir}
@@ -1096,6 +1094,9 @@ install -p -d -m 755 %{buildroot}%{_localstatedir}/log/dpm-gsiftp
 
 
 %changelog
+* Tue May 02 2023 Petr Vokac <petr.vokac@cern.ch> - 1.15.2-15
+- Drop dependency on legacy and deprecated edg-mkgridmap
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 1.15.2-14
 - Rebuilt for Boost 1.81
 

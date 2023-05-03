@@ -1,5 +1,5 @@
 Name:           pygame
-Version:        2.3.0
+Version:        2.4.0
 Release:        1%{?dist}
 Summary:        Python modules for writing games
 
@@ -99,6 +99,9 @@ PYTHONPATH="$RPM_BUILD_ROOT%{python3_sitearch}" %{__python3} test/rect_test.py
 %{_includedir}/python*/%{name}/
 
 %changelog
+* Mon May 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.4.0-1
+- 2.4.0
+
 * Tue Mar 14 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.3.0-1
 - 2.3.0
 

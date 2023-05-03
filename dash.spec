@@ -1,12 +1,11 @@
 Name:           dash
 Version:        0.5.11.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Small and fast POSIX-compliant shell
-# BSD: DASH in general
-# GPLv2+: From src/mksignames.c
-# Public Domain: From src/bltin/test.c
-# Copyright only: From src/hetio.h
-License:        BSD and GPLv2+ and Public Domain and Copyright only
+# BSD-3-Clause: DASH in general
+# GPL-2.0-or-later: From src/mksignames.c
+# LicenseRef-Fedora-Public-Domain: From src/bltin/test.c
+License:        BSD-3-Clause AND GPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain
 URL:            http://gondor.apana.org.au/~herbert/%{name}/
 Source0:        http://gondor.apana.org.au/~herbert/%{name}/files/%{name}-%{version}.tar.gz
 Provides:   /bin/dash
@@ -43,6 +42,9 @@ fi
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Mon May 01 2023 David Cantrell <dcantrell@redhat.com> - 0.5.11.5-4
+- Update License tag to use SPDX license expression
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.11.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

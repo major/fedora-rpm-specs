@@ -3,11 +3,11 @@
 
 Name:           gnome-tweaks
 Version:        42~beta
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Customize advanced GNOME 3 options
 
-# Software is GPLv3, Appdata file is CC0-1.0
-License:        GPLv3 and CC0
+# Software is GPL-3.0+, Appdata file is CC0-1.0
+License:        GPL-3.0+ AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/Tweaks
 Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
 
@@ -18,18 +18,18 @@ BuildRequires:  meson
 BuildRequires:  pkgconfig(libhandy-1)
 BuildRequires:  python3-devel
 Requires:       gnome-desktop3
-Requires:       gnome-settings-daemon
-Requires:       gnome-shell
-Requires:       gnome-themes-extra
 Requires:       gobject-introspection
 Requires:       gsettings-desktop-schemas
 Requires:       gtk3
 Requires:       libhandy1
 Requires:       libnotify
-Requires:       mutter
 Requires:       pango
 Requires:       %{py3_dist pygobject}
-Requires:       sound-theme-freedesktop
+Recommends:     gnome-settings-daemon
+Recommends:     gnome-shell
+Recommends:     gnome-themes-extra
+Recommends:     mutter
+Recommends:     sound-theme-freedesktop
 Suggests:       gnome-shell-extension-user-theme
 Provides:       gnome-tweak-tool = %{version}-%{release}
 BuildArch:      noarch
@@ -76,6 +76,10 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT/%{_datadir}/metainfo/*.app
 
 
 %changelog
+* Mon May 01 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 42~beta-6
+- Switch to SPDX license identifiers
+- Separate app and host requirements (https://src.fedoraproject.org/rpms/gnome-tweaks/pull-request/2)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 42~beta-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

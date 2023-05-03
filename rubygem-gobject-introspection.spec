@@ -9,11 +9,13 @@
 
 Summary:	Ruby binding of GObjectIntrospection
 Name:		rubygem-%{gem_name}
-Version:	4.1.2
+Version:	4.1.3
 Release:	1%{?dist}
 
-# lib/gobject-introspection.rb and so on
-License:	LGPLv2+
+# SPDX confirmed
+# LGPL-2.1-or-later: gemspec
+# spike/ directory is not used
+License:	LGPL-2.1-or-later
 URL:		http://ruby-gnome2.sourceforge.jp/
 Source0:	http://rubygems.org/gems/%{gem_name}-%{version}.gem
 # Upstream patch
@@ -63,7 +65,7 @@ mv ../%{gem_name}-%{version}.gemspec .
 find . -name \*.rb -print0 | xargs --null chmod 0644
 
 # Allow ruby-gnome2 no less than ones
-sed -i -e 's|= 4\.1\.2|>= 4.1.2|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.1\.3|>= 4.1.3|' %{gem_name}-%{version}.gemspec
 
 %build
 export CONFIGURE_ARGS="--with-cflags='%{optflags} -Werror-implicit-function-declaration'"
@@ -141,6 +143,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Mon May 01 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.3-1
+- 4.1.3
+
 * Fri Feb 24 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.2-1
 - 4.1.2
 

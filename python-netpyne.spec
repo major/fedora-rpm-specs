@@ -27,7 +27,7 @@ This package is developed and maintained by the Neurosim lab
 (www.neurosimlab.org) }
 
 Name:           python-netpyne
-Version:        1.0.3.1
+Version:        1.0.4.1
 Release:        %autorelease
 Summary:        Develop, simulate and analyse biological neuronal networks in NEURON
 
@@ -143,9 +143,9 @@ pushd examples/rxd_buffering
 %{python3} buffering.py -nogui || true
 popd
 
-pushd examples/rxd_net
+pushd examples/rxd_net/
 nrnivmodl mod
-%{python3} init.py -nogui || true
+%{python3} src/init.py -nogui || true
 popd
 
 %if %{with pyneuroml}

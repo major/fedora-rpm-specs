@@ -20,7 +20,7 @@ BuildRequires:  python%{python3_pkgversion}-rpm-macros
 
 Name:           ansible
 Summary:        Curated set of Ansible collections included in addition to ansible-core
-Version:        7.4.0
+Version:        8.0.0~a2
 %global uversion %(tr -d '~' <<< %{version})
 Release:        1%{?dist}
 
@@ -110,7 +110,6 @@ rm -rv ansible_collections/cyberark/conjur/ci/
 rm -rv ansible_collections/cyberark/conjur/dev/
 rm -rv ansible_collections/cyberark/conjur/roles/conjur_host_identity/tests/
 rm -rv ansible_collections/netbox/netbox/hacking/
-rm -rv ansible_collections/ovirt/ovirt/automation/
 rm -rv ansible_collections/sensu/sensu_go/docker/
 rm -v ansible_collections/community/dns/update-psl.sh
 rm -v ansible_collections/cyberark/conjur/Jenkinsfile
@@ -221,6 +220,12 @@ hardlink -v %{buildroot}%{ansible_licensedir}
 %{python3_sitelib}/ansible-%{uversion}-py%{python3_version}.egg-info/
 
 %changelog
+* Thu Apr 27 2023 Maxwell G <maxwell@gtmx.me> - 8.0.0~a2-1
+- Update to 8.0.0~a2.
+
+* Thu Apr 20 2023 Maxwell G <maxwell@gtmx.me> - 8.0.0~a1-1
+- Update to 8.0.0~a1.
+
 * Wed Mar 29 2023 Maxwell G <maxwell@gtmx.me> - 7.4.0-1
 - Update to 7.4.0.
 

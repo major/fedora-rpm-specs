@@ -9,10 +9,11 @@ Name:           perl-MooseX-NonMoose
 Version:        0.26
 Release:        26%{?dist}
 Summary:        Easy subclassing of non-Moose classes
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MooseX-NonMoose
-Source0:        https://cpan.metacpan.org/authors/id/D/DO/DOY/MooseX-NonMoose-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/modules/by-module/MooseX/MooseX-NonMoose-%{version}.tar.gz
 BuildArch:      noarch
+# Build
 BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
@@ -36,16 +37,15 @@ BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(Moose) >= 1.15
 BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::Moose)
-BuildRequires:  perl(Test::More)
+BuildRequires:  perl(Test::More) >= 0.88
 # Extra tests
 %if %{with perl_MooseX_NonMoose_enables_extra_test}
 BuildRequires:  perl(IO::File)
 BuildRequires:  perl(MooseX::GlobRef)
 BuildRequires:  perl(MooseX::InsideOut) >= 0.100
 %endif
+# Dependencies
 Requires:       perl(Moose) >= 1.15
-
-%{?perl_default_filter}
 
 %description
 MooseX::NonMoose allows for easily subclassing non-Moose classes with
@@ -69,16 +69,19 @@ make %{?_smp_mflags}
 
 %install
 make pure_install DESTDIR=%{buildroot}
-%{_fixperms} %{buildroot}/*
+%{_fixperms} -c %{buildroot}
 
 %check
 make test
 
 %files
-%doc Changes README
 %license LICENSE
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%doc Changes README
+%{perl_vendorlib}/MooseX/
+%{_mandir}/man3/MooseX::NonMoose.3*
+%{_mandir}/man3/MooseX::NonMoose::InsideOut.3*
+%{_mandir}/man3/MooseX::NonMoose::Meta::Role::Class.3*
+%{_mandir}/man3/MooseX::NonMoose::Meta::Role::Constructor.3*
 
 %changelog
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-26

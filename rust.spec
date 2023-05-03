@@ -85,7 +85,7 @@
 
 Name:           rust
 Version:        1.69.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The Rust Programming Language
 License:        (ASL 2.0 or MIT) and (BSD and MIT)
 # ^ written as: (rust itself) and (bundled libraries)
@@ -222,6 +222,12 @@ BuildRequires:  ninja-build
 Provides:       bundled(llvm) = %{bundled_llvm_version}
 %else
 BuildRequires:  cmake >= 2.8.11
+# LLVM 16 is breaking firefox with "error: Cannot represent a difference across sections"
+# https://bugzilla.redhat.com/show_bug.cgi?id=2189964
+# https://github.com/llvm/llvm-project/issues/61932
+%if 0%{?fedora} >= 38
+%global llvm llvm15
+%endif
 %if 0%{?epel} == 7
 %global llvm llvm14
 %endif
@@ -1053,6 +1059,9 @@ end}
 
 
 %changelog
+* Mon May 01 2023 Josh Stone <jistone@redhat.com> - 1.69.0-2
+- Build with LLVM 15 on Fedora 38+
+
 * Thu Apr 20 2023 Josh Stone <jistone@redhat.com> - 1.69.0-1
 - Update to 1.69.0.
 - Obsolete rust-analysis.

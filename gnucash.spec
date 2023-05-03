@@ -1,13 +1,13 @@
 Name: gnucash
 Summary: Finance management application
-Version: 5.0
+Version: 5.1
 URL: https://gnucash.org/
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: https://downloads.sourceforge.net/sourceforge/gnucash/gnucash-%{version}.tar.bz2
 
 Patch0: rpath.patch
-Patch1: 8b25832ba086c6e18627c5fc04e3f09b71970f11.patch
+
 # https://bugzilla.redhat.com/show_bug.cgi?id=1563466
 ExcludeArch: ppc64 s390x
 
@@ -59,6 +59,7 @@ balanced books.
 %build
 # thanks gcc8
 %global optflags %{optflags} -Wno-parentheses
+sed -i s/3.6/%{python3_version}/g CMakeLists.txt
 %cmake -D WITH_PYTHON=ON -D COMPILE_GSCHEMAS=OFF
 %cmake_build
 
@@ -106,6 +107,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/gnucas
 %config(noreplace) %{_sysconfdir}/gnucash/*
 
 %changelog
+* Mon May 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 5.1-1
+- 5.1
+
 * Thu Apr 27 2023 Gwyn Ciesla <gwync@protonmail.com> - 5.0-1
 - 5.0
 

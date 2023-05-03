@@ -14,6 +14,7 @@ Patch1:         librealsense.realsense-file-shared-library.patch
 Patch2:         librealsense.use-system-pybind11.patch
 Patch3:         librealsense.remove-invalid-unused-code.patch
 Patch4:         librealsense.iostream-include.patch
+Patch5:         librealsense-include-cstdint.patch
 
 BuildRequires:  cmake
 BuildRequires:  cmake(glfw3)

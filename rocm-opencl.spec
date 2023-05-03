@@ -3,8 +3,8 @@
 %global comgr_maj_api_ver 2
 
 %global upstreamname ROCm-OpenCL-Runtime
-%global rocm_release 5.4
-%global rocm_patch 3
+%global rocm_release 5.5
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 #Set enable_ocltst to enable HW OCL test suite
@@ -15,7 +15,7 @@
 
 Name:           rocm-opencl
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm OpenCL Runtime
 
 Url:            https://github.com/RadeonOpenCompute/ROCm-OpenCL-Runtime
@@ -175,6 +175,9 @@ mv %{buildroot}%{_bindir}/clinfo %{buildroot}%{_bindir}/rocm-clinfo
 %{_bindir}/rocm-clinfo
 
 %changelog
+* Mon May 01 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.5.0-1
+- Update to 5.5
+
 * Tue Apr 11 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.4.3-2
 - Fix comgr requires (should be major api version of comgr), for RHBZ#2185838
 

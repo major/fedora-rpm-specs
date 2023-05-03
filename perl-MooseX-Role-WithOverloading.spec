@@ -1,7 +1,7 @@
 Name:           perl-MooseX-Role-WithOverloading
 Version:        0.17
 Release:        25%{?dist}
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:        Roles that support overloading
 URL:            https://metacpan.org/release/MooseX-Role-WithOverloading
 Source0:        https://cpan.metacpan.org/modules/by-module/MooseX/MooseX-Role-WithOverloading-%{version}.tar.gz

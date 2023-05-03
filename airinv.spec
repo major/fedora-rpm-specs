@@ -3,8 +3,8 @@
 
 #
 Name:           airinv
-Version:        1.00.7
-Release:        4%{?dist}
+Version:        1.00.8
+Release:        1%{?dist}
 
 Summary:        C++ Simulated Airline Inventory Management System library
 License:        LGPLv2+
@@ -114,13 +114,11 @@ rm -f %{buildroot}%{_docdir}/%{name}/{NEWS,README,AUTHORS}
 
 
 %changelog
+* Mon May 01 2023 Denis Arnaud <denis.arnaud_fedora@m4x.org> - 1.00.8-1
+- Upstream upgrade
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 1.00.7-4
 - Rebuilt for Boost 1.81
 
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.00.7-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.00.7-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
 %autochangelog
+

@@ -1,9 +1,9 @@
 Name:           python-mpd2
-Version:        3.0.5
+Version:        3.1.0
 Release:        %autorelease
 Summary:        Python library providing a client interface for MPD
 
-License:        LGPLv3+
+License:        LGPL-3.0-or-later
 URL:            https://github.com/Mic92/python-mpd2
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 

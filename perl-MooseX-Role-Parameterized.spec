@@ -2,7 +2,7 @@ Name:           perl-MooseX-Role-Parameterized
 Summary:        Make your roles flexible through parameterization
 Version:        1.11
 Release:        12%{?dist}
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MooseX-Role-Parameterized
 Source0:        https://cpan.metacpan.org/modules/by-module/MooseX/MooseX-Role-Parameterized-%{version}.tar.gz
 BuildArch:      noarch
@@ -12,7 +12,6 @@ BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
-BuildRequires:  perl(Module::Build::Tiny) >= 0.034
 BuildRequires:  sed
 # Module Runtime
 BuildRequires:  perl(Carp)
@@ -43,10 +42,8 @@ BuildRequires:  perl(Test::Needs)
 # Optional Test Dependencies
 BuildRequires:  perl(CPAN::Meta) >= 2.120900
 BuildRequires:  perl(MooseX::Role::WithOverloading)
-# Runtime
+# Dependencies
 Requires:       perl(Moose) >= 2.0300
-
-%{?perl_default_filter}
 
 %description
 Roles are composable units of behavior. They are useful for factoring out

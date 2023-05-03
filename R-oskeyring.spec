@@ -1,10 +1,10 @@
 %global packname oskeyring
-%global packver  0.1.5
+%global packver  0.1.6
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          3%{?dist}
+Release:          1%{?dist}
 Summary:          Raw System Credential Store Access from R
 
 License:          MIT
@@ -65,6 +65,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Mon May  1 2023 Tom Callaway <spot@fedoraproject.org> - 0.1.6-1
+- update to 0.1.6
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.1.5-3
 - R-maint-sig mass rebuild
 

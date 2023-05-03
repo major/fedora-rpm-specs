@@ -1,6 +1,6 @@
 Name:               python-slackclient
-Version:            3.21.2
-Release:            2%{?dist}
+Version:            3.21.3
+Release:            1%{?dist}
 Summary:            Slack Developer Kit for Python
 
 # SPDX
@@ -72,6 +72,9 @@ k="${k-}${k+ and }not test_start_raises_an_error_if_rtm_ws_url_is_not_returned"
 %doc README.md
 
 %changelog
+* Mon May 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.21.3-1
+- 3.21.3
+
 * Wed Apr 26 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.21.2-2
 - Unpin websockets ceiling
 

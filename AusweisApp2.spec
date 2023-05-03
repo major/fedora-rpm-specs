@@ -36,7 +36,7 @@ fi                                               \
 
 
 Name:             AusweisApp2
-Version:          1.26.3
+Version:          1.26.4
 Release:          1%{?dist}
 Summary:          %{pkg_sum}
 
@@ -322,6 +322,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Mon May 01 2023 Björn Esser <besser82@fedoraproject.org> - 1.26.4-1
+- New upstream release
+
 * Thu Mar 23 2023 Björn Esser <besser82@fedoraproject.org> - 1.26.3-1
 - New upstream release
 - Enable use of Brainpool ECC

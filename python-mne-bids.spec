@@ -10,10 +10,10 @@ MNE-BIDS: Organizing MEG, EEG, and iEEG data according to the BIDS
 specification and facilitating their analysis with MNE-Python}
 
 Name:           python-mne-bids
-Version:        0.10
+Version:        0.12
 Release:        %autorelease
 Summary:        Experimental code for BIDS using MNE
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/mne-tools/mne-bids
 Source0:        %{url}/archive/v%{version}/mne-bids-%{version}.tar.gz
 BuildArch:      noarch

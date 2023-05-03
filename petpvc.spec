@@ -1,9 +1,9 @@
 Name:           petpvc
-Version:        1.2.10
+Version:        1.2.11
 Release:        %autorelease
 Summary:        Tools for partial volume correction (PVC) in positron emission tomography (PET)
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/UCL/PETPVC
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 

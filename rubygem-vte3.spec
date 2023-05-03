@@ -5,10 +5,12 @@
 
 Summary:	Ruby binding of VTE
 Name:		rubygem-%{gem_name}
-Version:	4.1.2
+Version:	4.1.3
 Release:	1%{?dist}
 
-License:	LGPLv2+
+# SPDX confirmed
+# LGPL-2.1-or-later: gemspec
+License:	LGPL-2.1-or-later
 URL:		http://ruby-gnome2.sourceforge.jp/
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # https://raw.github.com/ruby-gnome2/ruby-gnome2/master/vte3/COPYING.LIB
@@ -56,7 +58,7 @@ mv ../%{gem_name}-%{version}.gemspec .
 # patches
 
 # Relax the version dependency
-sed -i -e 's|= 4\.1\.2|>= 4.1.2|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.1\.3|>= 4.1.3|' %{gem_name}-%{version}.gemspec
 
 # Add license text
 install -cpm 644 %{SOURCE1} ./COPYING.LIB
@@ -137,6 +139,9 @@ popd
 %exclude	%{gem_instdir}/test
 
 %changelog
+* Mon May 01 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.3-1
+- 4.1.3
+
 * Fri Feb 24 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.2-1
 - 4.1.2
 

@@ -30,6 +30,13 @@ A utility library for mocking out the requests Python library.
 %prep
 %autosetup -n %{pypi_name}-%{version} -p1
 
+# Remove unnecessary dependencies
+sed -i '/coverage/d' setup.py
+sed -i '/pytest-cov/d' setup.py
+sed -i '/flake8/d' setup.py
+sed -i '/types-requests/d' setup.py
+sed -i '/mypy/d' setup.py
+
 %generate_buildrequires
 %pyproject_buildrequires -r -x tests
 

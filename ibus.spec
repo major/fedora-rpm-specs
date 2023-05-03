@@ -50,7 +50,7 @@
 
 Name:           ibus
 Version:        1.5.28
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.0-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -322,6 +322,7 @@ fi
 #make -C ui/gtk3 maintainer-clean-generic
 #make -C tools maintainer-clean-generic
 #make -C src/compose maintainer-clean-generic
+autoreconf -f -i -v
 %configure \
     --disable-static \
 %if %{with gtk2}
@@ -559,6 +560,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Tue May 02 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.28-4
+- Migrate some upstream patches
+
 * Fri Mar 17 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.28-3
 - Resolves: #2178178 Fix emoji lookup table only but emojier GUI left
 

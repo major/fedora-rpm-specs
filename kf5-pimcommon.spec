@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 23.04.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: PIM common libraries
 
 License: GPLv2+
@@ -94,6 +94,9 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       cmake(KF5Config)
+# This dependency should probably be fixed upstrea
+# https://invent.kde.org/pim/pimcommon/-/issues/2
+Requires:       cmake(KF5TextAutoCorrection)
 # akonadi
 Requires:       %{name}-akonadi%{?_isa} = %{version}-%{release}
 Requires:       cmake(KF5Akonadi)
@@ -148,6 +151,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Mon May 01 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.0-2
+- Add Requires to fix upstream issue (see comment in spec file)
+
 * Fri Apr 14 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.0-1
 - 23.04.0
 

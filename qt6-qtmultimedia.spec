@@ -8,6 +8,12 @@
 %global gst 1.0
 %endif
 
+%if 0%{?rhel} && ! 0%{?epel}
+%bcond_with ffmpeg
+%else
+%bcond_without ffmpeg
+%endif
+
 #global unstable 1
 %if 0%{?unstable}
 %global prerelease rc2
@@ -55,12 +61,15 @@ BuildRequires: pkgconfig(gstreamer-pbutils-%{gst})
 BuildRequires: pkgconfig(gstreamer-plugins-bad-%{gst})
 BuildRequires: pkgconfig(gstreamer-video-%{gst})
 BuildRequires: pkgconfig(libpulse) pkgconfig(libpulse-mainloop-glib)
+%if %{with ffmpeg}
 BuildRequires: ffmpeg-free-devel
 BuildRequires: libavcodec-free-devel
 BuildRequires: libavutil-free-devel
 BuildRequires: libavformat-free-devel
 BuildRequires: libswscale-free-devel
 BuildRequires: libswresample-free-devel
+BuildRequires: pkgconfig(libva) pkgconfig(libva-drm)
+%endif
 %if 0%{?openal}
 BuildRequires: pkgconfig(openal)
 %endif
@@ -135,7 +144,9 @@ popd
 %{_qt6_archdatadir}/qml/QtMultimedia/
 %dir %{_qt6_plugindir}/multimedia
 %{_qt6_plugindir}/multimedia/libgstreamermediaplugin.so
+%if %{with ffmpeg}
 %{_qt6_plugindir}/multimedia/libffmpegmediaplugin.so
+%endif
 
 %files devel
 %{_qt6_headerdir}/QtMultimedia/

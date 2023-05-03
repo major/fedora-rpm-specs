@@ -1,13 +1,16 @@
 %global	gem_name	clutter
 
 Name:		rubygem-%{gem_name}
-Version:	4.1.2
+Version:	4.1.3
 Release:	1%{?dist}
 Summary:	Ruby binding of Clutter
 
 %undefine        _changelog_trimtime
 
-License:	LGPLv2+
+# SPDX confirmed
+# LGPL-2.1-or-later: gemspec
+# LGPL-2.1-only:	sample/box-layout.rb sample/grid-layout.rb
+License:	LGPL-2.1-or-later
 URL:		http://ruby-gnome2.sourceforge.jp/
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # https://raw.github.com/ruby-gnome2/ruby-gnome2/master/COPYING.LIB
@@ -37,6 +40,7 @@ Ruby/Clutter is a Ruby binding of Clutter.
 
 %package	doc
 Summary:	Documentation for %{name}
+License:	LGPL-2.1-or-later AND LGPL-2.1-only
 Requires:	%{name} = %{version}-%{release}
 BuildArch:	noarch
 
@@ -47,7 +51,7 @@ Documentation for %{name}
 %setup -q -n %{gem_name}-%{version}
 mv ../%{gem_name}-%{version}.gemspec .
 
-sed -i -e 's|= 4\.1\.2|>= 4.1.2|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.1\.3|>= 4.1.3|' %{gem_name}-%{version}.gemspec
 # clutter should be okay, pkgconfig(clutter-1.0) not strictly needed.
 # hacking
 sed -i dependency-check/Rakefile \
@@ -140,6 +144,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Mon May 01 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.3-1
+- 4.1.3
+
 * Fri Feb 24 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.2-1
 - 4.1.2
 

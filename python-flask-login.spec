@@ -7,59 +7,60 @@ Summary:        User session management for Flask
 
 License:        MIT
 URL:            https://github.com/maxcountryman/flask-login
-Source0:        https://files.pythonhosted.org/packages/source/F/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
+Source0:        %{pypi_source %pypi_name}
 BuildArch:      noarch
 
-BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
-
-# Test dependencies
-BuildRequires:  python%{python3_pkgversion}-asgiref
-BuildRequires:  python%{python3_pkgversion}-blinker
-BuildRequires:  python%{python3_pkgversion}-flask
-BuildRequires:  python%{python3_pkgversion}-semantic_version
-BuildRequires:  pytest
-
-%global _description\
+%description
 Flask-Login provides user session management for Flask. It handles the common\
 tasks of logging in, logging out, and remembering your users' sessions over\
 extended periods of time.
 
-%description %_description
 
-%package -n     python%{python3_pkgversion}-flask-login
+%package -n     python3-flask-login
 Summary:        User session management for Flask
-Requires:       python%{python3_pkgversion}-flask
-%{?python_provide:%python_provide python%{python3_pkgversion}-flask-login}
-%description -n python%{python3_pkgversion}-flask-login
+BuildRequires:  python3-devel
+# Test deps
+BuildRequires:  python3-pytest
+BuildRequires:  python3-asgiref
+BuildRequires:  python3-blinker
+BuildRequires:  python3-flask
+BuildRequires:  python3-semantic_version
+
+%description -n python3-flask-login
 Flask-Login provides user session management for Flask. It handles the common
 tasks of logging in, logging out, and remembering your users' sessions over
 extended periods of time.
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %prep
-%setup -q -n %{pypi_name}-%{version}
+%autosetup -p1 -n %{pypi_name}-%{version}
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files flask_login
 
 
 %check
 %pytest
 
 
-%files -n python%{python3_pkgversion}-flask-login
+%files -n python3-flask-login -f %{pyproject_files}
 %doc README.md
 %license LICENSE
-%{python3_sitelib}/flask_login/
-%{python3_sitelib}/Flask_Login-*.egg-info/
 
 %changelog
+* Mon May 01 2023 Sandro Mani <manisandro@gmail.com> - 0.6.2-3
+- Switch to pyproject macros
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

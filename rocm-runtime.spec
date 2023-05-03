@@ -2,13 +2,13 @@
 %ifarch x86_64
 %global enableimage 1
 %endif
-%global rocm_release 5.4
-%global rocm_patch 1
+%global rocm_release 5.5
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 Name:       rocm-runtime
 Version:    %{rocm_version}
-Release:    5%{?dist}
+Release:    1%{?dist}
 Summary:    ROCm Runtime Library
 
 License:    NCSA
@@ -71,7 +71,7 @@ sed -i "s|\({CLANG_ARG_LIST}\)|\1 --hip-device-lib-path=%{_libdir}/amdgcn/bitcod
 %doc README.md
 %license LICENSE.txt
 %{_libdir}/libhsa-runtime64.so.1
-%{_libdir}/libhsa-runtime64.so.1.7.0
+%{_libdir}/libhsa-runtime64.so.1.8.0
 %exclude %{_docdir}/hsa-runtime64/LICENSE.md
 
 %files devel
@@ -80,6 +80,9 @@ sed -i "s|\({CLANG_ARG_LIST}\)|\1 --hip-device-lib-path=%{_libdir}/amdgcn/bitcod
 %{_libdir}/cmake/hsa-runtime64/
 
 %changelog
+* Mon May 01 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.5.0-1
+- Update to 5.5
+
 * Wed Apr 19 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.4.1-5
 - Rebuild against 16.1 rocm-device-libs
 

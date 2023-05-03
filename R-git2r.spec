@@ -1,13 +1,13 @@
 %global packname git2r
-%global packver  0.30.1
+%global packver  0.32.0
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          6%{?dist}
+Release:          1%{?dist}
 Summary:          Provides Access to Git Repositories
 
-License:          GPLv2
+License:          GPL-2.0-only
 URL:              https://CRAN.R-project.org/package=%{packname}
 Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.tar.gz
 
@@ -60,7 +60,6 @@ rm -f %{buildroot}%{rlibdir}/R.css
 %doc %{rlibdir}/%{packname}/html
 %{rlibdir}/%{packname}/DESCRIPTION
 %doc %{rlibdir}/%{packname}/AUTHORS
-%doc %{rlibdir}/%{packname}/CITATION
 %license %{rlibdir}/%{packname}/COPYING
 %license %{rlibdir}/%{packname}/COPYRIGHTS
 %doc %{rlibdir}/%{packname}/NEWS.md
@@ -74,6 +73,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Mon May  1 2023 Tom Callaway <spot@fedoraproject.org> - 0.32.0-1
+- update to 0.32.0
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.30.1-6
 - R-maint-sig mass rebuild
 

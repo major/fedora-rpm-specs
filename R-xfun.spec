@@ -1,12 +1,12 @@
-%bcond_with check
+%bcond_with suggests
 
 %global packname xfun
-%global packver  0.36
+%global packver  0.39
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          3%{?dist}
+Release:          1%{?dist}
 Summary:          Miscellaneous Functions to Support Packages Maintained by 'Yihui Xie'
 
 License:          MIT
@@ -16,7 +16,7 @@ Source0:          %{url}&version=%{version}#/%{packname}_%{version}.tar.gz
 # Here's the R view of the dependencies world:
 # Depends:
 # Imports:   R-stats, R-tools
-# Suggests:  R-testit, R-parallel, R-codetools, R-rstudioapi, R-tinytex >= 0.30, R-mime, R-markdown, R-knitr, R-htmltools, R-remotes, R-pak, R-rhub, R-renv, R-curl, R-jsonlite, R-magick, R-rmarkdown
+# Suggests:  R-testit, R-parallel, R-codetools, R-rstudioapi, R-tinytex >= 0.30, R-mime, R-markdown >= 1.5, R-knitr >= 1.42, R-htmltools, R-remotes, R-pak, R-rhub, R-renv, R-curl, R-jsonlite, R-magick, R-yaml, R-rmarkdown
 # LinkingTo:
 # Enhances:
 
@@ -24,15 +24,15 @@ BuildRequires:    R-devel
 BuildRequires:    tex(latex)
 BuildRequires:    R-stats
 BuildRequires:    R-tools
-%if %{with check}
 BuildRequires:    R-testit
+%if %{with suggests}
 BuildRequires:    R-parallel
 BuildRequires:    R-codetools
 BuildRequires:    R-rstudioapi
 BuildRequires:    R-tinytex >= 0.30
 BuildRequires:    R-mime
-BuildRequires:    R-markdown
-BuildRequires:    R-knitr
+BuildRequires:    R-markdown >= 1.5
+BuildRequires:    R-knitr >= 1.42
 BuildRequires:    R-htmltools
 BuildRequires:    R-remotes
 BuildRequires:    R-pak
@@ -41,6 +41,7 @@ BuildRequires:    R-rhub
 BuildRequires:    R-curl
 BuildRequires:    R-jsonlite
 BuildRequires:    R-magick
+BuildRequires:    R-yaml
 BuildRequires:    R-rmarkdown
 %endif
 
@@ -64,8 +65,10 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %check
-%if %{with check}
+%if %{with suggests}
 %{_bindir}/R CMD check %{packname}
+%else
+_R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-vignettes --no-examples
 %endif
 
 
@@ -87,6 +90,10 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Mon May  1 2023 Tom Callaway <spot@fedoraproject.org> - 0.39-1
+- update to 0.39
+- conditionalize suggests
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.36-3
 - R-maint-sig mass rebuild
 

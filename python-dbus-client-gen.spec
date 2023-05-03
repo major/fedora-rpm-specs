@@ -1,11 +1,11 @@
 %global srcname dbus-client-gen
 
 Name:           python-%{srcname}
-Version:        0.5
-Release:        10%{?dist}
+Version:        0.5.1
+Release:        2%{?dist}
 Summary:        Library for Generating D-Bus Client Code
 
-License:        MPLv2.0
+License:        MPL-2.0
 URL:            https://github.com/stratis-storage/dbus-client-gen
 Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
@@ -46,6 +46,12 @@ Python 3 version.
 %{python3_sitelib}/dbus_client_gen-*.egg-info/
 
 %changelog
+* Mon May 1 2023 mulhern <amulhern@redhat.com> - 0.5.1-2
+- SPDX license format
+
+* Mon May 1 2023 mulhern <amulhern@redhat.com> - 0.5.1-1
+- Update to 0.5.1
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

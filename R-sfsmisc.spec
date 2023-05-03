@@ -1,24 +1,23 @@
 %global packname sfsmisc
 %global packver  1.1
-%global packrev  13
+%global packrev  15
 %global rlibdir  %{_datadir}/R/library
 
-# lokern requires this package.
-%bcond_with bootstrap
+%bcond_with suggests
 
 Name:             R-%{packname}
 Version:          %{packver}.%{packrev}
-Release:          3%{?dist}
+Release:          1%{?dist}
 Summary:          Utilities from 'Seminar fuer Statistik' ETH Zurich
 
-License:          GPLv2+
+License:          GPL-2.0-or-later
 URL:              https://CRAN.R-project.org/package=%{packname}
 Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}-%{packrev}.tar.gz
 
 # Here's the R view of the dependencies world:
 # Depends:
-# Imports:   R-grDevices, R-methods, R-utils, R-stats, R-tools
-# Suggests:  R-datasets, R-tcltk, R-cluster, R-lattice, R-MASS, R-Matrix, R-nlme, R-lokern
+# Imports:   R-grDevices, R-utils, R-stats, R-tools
+# Suggests:  R-datasets, R-tcltk, R-cluster, R-lattice, R-MASS, R-Matrix, R-nlme, R-lokern, R-Rmpfr, R-gmp
 # LinkingTo:
 # Enhances:
 
@@ -31,6 +30,7 @@ BuildRequires:    R-grDevices
 BuildRequires:    R-utils
 BuildRequires:    R-stats
 BuildRequires:    R-tools
+%if %{with suggests}
 BuildRequires:    R-datasets
 BuildRequires:    R-tcltk
 BuildRequires:    R-cluster
@@ -38,8 +38,9 @@ BuildRequires:    R-lattice
 BuildRequires:    R-MASS
 BuildRequires:    R-Matrix
 BuildRequires:    R-nlme
-%if %{without bootstrap}
 BuildRequires:    R-lokern
+BuildRequires:    R-Rmpfr
+BuildRequires:    R-gmp
 %endif
 
 %description
@@ -70,10 +71,10 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 %check
 export LANG=C.UTF-8
-%if %{without bootstrap}
+%if %{with suggests}
 %{_bindir}/R CMD check --no-examples %{packname}
 %else
-_R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check --no-examples %{packname}
+_R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check --no-examples --no-vignettes %{packname}
 %endif
 
 
@@ -93,6 +94,10 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check --no-examples %{packname}
 
 
 %changelog
+* Mon May  1 2023 Tom Callaway <spot@fedoraproject.org> - 1.1.15-1
+- update to 1.1-15
+- make suggests conditional
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.1.13-3
 - R-maint-sig mass rebuild
 

@@ -2,7 +2,7 @@
 ExcludeArch: %{ix86}
 
 # Git submodules
-%global qmarkdowntextedit_commit        467b114cc3c45e903147d4592e0f32b01384a802
+%global qmarkdowntextedit_commit        55986630db66faa9223cfa5c661407341bfd7316
 %global qmarkdowntextedit_shortcommit   %(c=%{qmarkdowntextedit_commit}; echo ${c:0:7})
 
 %global qttoolbareditor_commit          ca0728c9924c6464234f7e477aa9509293d0a324
@@ -28,7 +28,7 @@ ExcludeArch: %{ix86}
 %global url1    https://github.com/pbek
 
 Name:           qownnotes
-Version:        23.3.0
+Version:        23.5.0
 Release:        %autorelease
 Summary:        Plain-text file markdown note taking with Nextcloud integration
 

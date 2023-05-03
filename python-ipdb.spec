@@ -6,7 +6,7 @@ better introspection) right in pdb.
 
 Name:           python-ipdb
 Version:        0.13.13
-Release:        1%{?dist}
+Release:        2%{?dist}
 BuildArch:      noarch
 
 License:        BSD-3-Clause
@@ -15,9 +15,6 @@ URL:            https://github.com/gotcha/%{srcname}/
 Source0:        https://github.com/gotcha/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-ipython
-BuildRequires:  python3-mock
-BuildRequires:  python3-setuptools
 
 
 %description
@@ -39,28 +36,33 @@ Requires:       python3-ipython
 %setup -q -n %{srcname}-%{version}
 find -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
 
+%generate_buildrequires
+%pyproject_buildrequires -r
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files ipdb
 
 
 %check
+# ipdb doesn't support using tox nor pytest
 %{__python3} setup.py test
 
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc HISTORY.txt README.rst
 %license COPYING.txt
-%{python3_sitelib}/ipdb/
-%{python3_sitelib}/ipdb-%{version}*.egg-info/
 %{_bindir}/ipdb3
 
 
 %changelog
+* Mon May 01 2023 Troy Curtis, Jr <troy@troycurtisjr.com> - 0.13.13-2
+- Update to the newer Python macros to allow for easy EPEL9 support (#2185811)
+
 * Sat Mar 18 2023 Troy Curtis, Jr <troy@troycurtisjr.com> - 0.13.13-1
 - Update to 0.13.13
 

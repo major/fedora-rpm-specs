@@ -5,7 +5,7 @@
 %global crate syslog
 
 Name:           rust-syslog
-Version:        6.0.1
+Version:        6.1.0
 Release:        %autorelease
 Summary:        Send log messages to syslog
 

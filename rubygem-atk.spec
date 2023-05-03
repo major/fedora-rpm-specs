@@ -9,10 +9,11 @@
 
 Summary:	Ruby binding of ATK-1.0.x
 Name:		rubygem-%{gem_name}
-Version:	4.1.2
+Version:	4.1.3
 Release:	1%{?dist}
-# from README
-License:	LGPLv2
+# SPDX confirmed
+# LGPL-2.1-or-later: gemspec
+License:	LGPL-2.1-or-later
 URL:		http://ruby-gnome2.sourceforge.jp/
 Source0:	http://rubygems.org/gems/%{gem_name}-%{version}.gem
 
@@ -70,7 +71,7 @@ rubygem-%{gem_name}
 mv ../%{gem_name}-%{version}.gemspec .
 
 # Allow ruby-gnome2 no less than ones
-sed -i -e 's|= 4\.1\.2|>= 4.1.2|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.1\.3|>= 4.1.3|' %{gem_name}-%{version}.gemspec
 sed -i -e '\@s\.extensions@d'  %{gem_name}-%{version}.gemspec
 
 # Fix up Rakefile for "gnome2-raketask" requirement
@@ -132,6 +133,9 @@ popd
 %exclude %{gem_instdir}/test/
 
 %changelog
+* Mon May 01 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.3-1
+- 4.1.3
+
 * Fri Feb 24 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.2-1
 - 4.1.2
 

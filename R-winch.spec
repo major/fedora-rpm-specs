@@ -1,27 +1,31 @@
 %global packname winch
-%global packver  0.0.9
+%global packver  0.1.0
 %global rlibdir  %{_libdir}/R/library
+%bcond_with suggests
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          3%{?dist}
+Release:          1%{?dist}
 Summary:          Portable Native and Joint Stack Traces
 
-License:          GPLv3
+License:          GPL-3.0-only
 URL:              https://CRAN.R-project.org/package=%{packname}
 Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.tar.gz
 Patch0: %{name}-gcc11.patch
 
 # Here's the R view of the dependencies world:
 # Depends:
-# Imports:   R-procmaps >= 0.0.2
+# Imports:   R-lifecycle, R-procmaps >= 0.0.2
 # Suggests:  R-DBI, R-knitr, R-magrittr, R-purrr, R-rlang >= 0.4.8, R-rmarkdown, R-RSQLite, R-testthat >= 3.0.0, R-vctrs
 # LinkingTo:
 # Enhances:
 
 BuildRequires:    R-devel
 BuildRequires:    tex(latex)
+BuildRequires:    R-lifecycle
 BuildRequires:    R-procmaps >= 0.0.2
+BuildRequires:    R-testthat >= 3.0.0
+%if %{with suggests}
 BuildRequires:    R-DBI
 BuildRequires:    R-knitr
 BuildRequires:    R-magrittr
@@ -29,8 +33,8 @@ BuildRequires:    R-purrr
 BuildRequires:    R-rlang >= 0.4.8
 BuildRequires:    R-rmarkdown
 BuildRequires:    R-RSQLite
-BuildRequires:    R-testthat >= 3.0.0
 BuildRequires:    R-vctrs
+%endif
 
 # libbacktrace has never made any other releases, so it may or may not be 1.0.
 Provides: bundled(libbacktrace) = 1.0
@@ -42,7 +46,7 @@ debugging of R packages with native code.
 
 %prep
 %setup -q -c -n %{packname}
-%patch0 -p1
+%patch -P0 -p1
 
 
 %build
@@ -57,8 +61,11 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 %check
 export LANG=C.UTF-8
-%{_bindir}/R CMD check --ignore-vignettes %{packname}
-
+%if %{with suggests}
+%{_bindir}/R CMD check --no-vignettes %{packname}
+%else
+_R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check --no-vignettes %{packname}
+%endif
 
 %files
 %dir %{rlibdir}/%{packname}
@@ -77,6 +84,10 @@ export LANG=C.UTF-8
 
 
 %changelog
+* Mon May  1 2023 Tom Callaway <spot@fedoraproject.org> - 0.1.0-1
+- update to 0.1.0
+- conditionalize suggests
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.0.9-3
 - R-maint-sig mass rebuild
 

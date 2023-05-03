@@ -122,7 +122,7 @@ on Java Native Interface (JNI) applications using ZBar.
 %patch1 -p0
 
 %build
-%configure --with-python=python3 --with-gtk=auto --docdir=%{_docdir}/%{name}-%{version} --with-graphicsmagick --without-xshm --without-xv --enable-codes=ean,databar,code128,code93,code39,codabar,i25,qrcode,sqcode,pdf417
+%configure --with-python=python3 --with-gtk=auto --with-dbusconfdir=%{_sysconfdir} --docdir=%{_docdir}/%{name}-%{version} --with-graphicsmagick --without-xshm --without-xv --enable-codes=ean,databar,code128,code93,code39,codabar,i25,qrcode,sqcode,pdf417
 
 # rpath
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
@@ -143,7 +143,7 @@ cp test/test_python.py %{buildroot}%{_docdir}
 find ${RPM_BUILD_ROOT} -name '*.la' -or -name '*.a' | xargs rm -f
 
 # Remove installed doc
-rm -rf $RPM_BUILD_ROOT/usr/share/doc/zbar-%{version}/
+rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}/
 
 %ldconfig_scriptlets
 

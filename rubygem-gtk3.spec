@@ -7,11 +7,13 @@
 # Planned for F-20+ only
 Summary:	Ruby/GTK3 is a Ruby binding of GTK+-3.x
 Name:		rubygem-%{gem_name}
-Version:	4.1.2
+Version:	4.1.3
 Release:	1%{?dist}
 
-# Various files in gem
-License:	LGPLv2+
+# SPDX confirmed
+# LGPL-2.1-or-later: gemspec
+# GFDL-1.3-no-invariants-or-later:	sample/misc/flowbox.rb
+License:	LGPL-2.1-or-later
 URL:		http://ruby-gnome2.sourceforge.jp/
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # https://raw.github.com/ruby-gnome2/ruby-gnome2/master/gtk3/COPYING.LIB
@@ -67,6 +69,7 @@ rubygem-%{gem_name}
 
 %package	doc
 Summary:	Documentation for %{name}
+License:	LGPL-2.1-or-later AND GFDL-1.3-no-invariants-or-later
 Requires:	%{name} = %{version}-%{release}
 BuildArch:	noarch
 
@@ -81,7 +84,7 @@ mv ../%{gem_name}-%{version}.gemspec .
 find . -name \*.rb -print0 | xargs --null chmod 0644
 
 # Allow ruby-gnome2 no less than ones
-sed -i -e 's|= 4\.1\.2|>= 4.1.2|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.1\.3|>= 4.1.3|' %{gem_name}-%{version}.gemspec
 
 # Add license text
 install -cpm 644 %{SOURCE1} ./COPYING.LIB
@@ -188,6 +191,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Mon May 01 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.3-1
+- 4.1.3
+
 * Fri Feb 24 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.2-1
 - 4.1.2
 

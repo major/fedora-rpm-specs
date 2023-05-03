@@ -18,7 +18,7 @@ Eickenberg, C. F. Gorgolewski, D. Bzdok, L. Esteve and B. Cipollini.
 Detailed documentation is available at http://nilearn.github.io/.}
 
 Name:           python-nilearn
-Version:        0.10.0
+Version:        0.10.1
 Release:        %autorelease
 Summary:        Python module for fast and easy statistical learning on NeuroImaging data
 
@@ -26,13 +26,6 @@ License:        BSD
 URL:            https://pypi.python.org/pypi/nilearn
 # Use GitHub tar: pypi does not include all test data
 Source0:        https://github.com/nilearn/nilearn/archive/%{version}/%{name}-%{version}.tar.gz
-
-# Fix for nibabel 5.x
-Patch:          https://patch-diff.githubusercontent.com/raw/nilearn/nilearn/pull/3458.patch
-# [FIX] Fix failing test due to use of deprecated Nibabel method
-# https://github.com/nilearn/nilearn/pull/3508
-Patch:          https://github.com/nilearn/nilearn/pull/3508.patch
-
 
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist pytest}
@@ -52,6 +45,8 @@ BuildArch:      noarch
 
 %prep
 %autosetup -n nilearn-%{version} -S git
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
+
 # Remove shebangs
 find . -name "*py" -exec sed -i '/#!\/usr\/bin\/env python/ d' '{}' \;
 # Remove pre-compiled files
@@ -65,12 +60,14 @@ sed -i 's/python/python3/' nilearn/plotting/html_document.py
 %pyproject_buildrequires -r
 
 %build
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 %pyproject_wheel
 
 # Documentation also fetches imaging data set from online sources, so we cannot
 # generate it. We include the link to the documentation in the description.
 
 %install
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 %pyproject_install
 %pyproject_save_files nilearn
 

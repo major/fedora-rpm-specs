@@ -13,7 +13,7 @@
 Name:    plasma-discover
 Summary: KDE and Plasma resources management GUI
 Version: 5.27.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 License: GPLv2 or GPLv3
@@ -125,6 +125,11 @@ Recommends: fedora-appstream-metadata
 Recommends: %{name}-offline-updates = %{version}-%{release}
 %endif
 
+# Require fedora-third-party on Fedora
+%if 0%{?fedora}
+Requires: fedora-third-party
+%endif
+
 # handle upgrade path
 %if ! 0%{?snap}
 Obsoletes: plasma-discover-snap < %{version}-%{release}
@@ -143,6 +148,10 @@ Requires: qt5-qtquickcontrols2%{?_isa}
 Summary: Plasma Discover PackageKit support
 Requires: %{name} = %{version}-%{release}
 Requires: PackageKit
+%if 0%{?fedora}
+# Pull in the workstation repositories package
+Recommends: fedora-workstation-repositories
+%endif
 %description packagekit
 %{summary}.
 
@@ -166,6 +175,10 @@ Requires: flatpak >= %{flatpak_version}
 Requires: flatpak-libs%{?_isa} >= %{flatpak_version}
 Requires: (flatpak-kcm if plasma-systemsettings)
 Supplements: (%{name} and flatpak)
+%if 0%{?fedora}
+# Pull in the flathub remote package
+Recommends: fedora-flathub-remote
+%endif
 %description flatpak
 %{summary}.
 
@@ -308,6 +321,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.di
 
 
 %changelog
+* Mon May 01 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.27.4-3
+- Add dependencies for fedora-third-party components
+
 * Sun Apr 09 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.4-2
 - Backport patch to fix fwupd updates
 

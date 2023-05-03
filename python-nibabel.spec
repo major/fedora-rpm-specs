@@ -13,7 +13,7 @@ information and access to the image data is made available via NumPy arrays.
 }
 
 Name:           python-nibabel
-Version:        5.0.1
+Version:        5.1.0
 Release:        %autorelease
 Summary:        Python package to access a cacophony of neuro-imaging file formats
 
@@ -32,6 +32,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-httpserver
+BuildRequires:  help2man
 Recommends:     python3-scipy
 Recommends:     python3-pydicom
 # Bundles their own version of netcdf reader
@@ -65,6 +66,13 @@ rm -fv nibabel/{tests/data/,}.gitignore
 %pyproject_install
 %pyproject_save_files nibabel nisext
 
+for binary in "parrec2nii" "nib-conform" "nib-convert" "nib-diff" "nib-dicomfs" "nib-ls" "nib-nifti-dx" "nib-roi" "nib-stats" "nib-tck2trk" "nib-trk2tck"
+do
+    echo "Generating man page for ${binary}"
+    PATH="$PATH:%{buildroot}/%{_bindir}/" help2man --no-info --no-discard-stderr --output="${binary}.1" "${binary}"
+    install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D "${binary}.1"
+done
+
 %check
 # TestCifti2ImageAPI.test_filenames fails due to setuptools-bundled distutils'
 # LooseVersion issue: https://github.com/pypa/distutils/issues/122
@@ -88,6 +96,8 @@ export SETUPTOOLS_USE_DISTUTILS=stdlib
 %{_bindir}/nib-stats
 %{_bindir}/nib-tck2trk
 %{_bindir}/nib-trk2tck
+%{_mandir}/man1/nib*
+%{_mandir}/man1/parrec2nii.*
 
 %changelog
 %autochangelog

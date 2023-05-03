@@ -5,13 +5,13 @@
 %global pypi_name pystemd
 
 Name:           python-%{pypi_name}
-Version:        0.11.0
-Release:        4%{?dist}
+Version:        0.13.0
+Release:        1%{?dist}
 Summary:        A thin Cython-based wrapper on top of libsystemd
 
 License:        LGPL-2.1-or-later
 URL:            https://github.com/systemd/pystemd
-Source0:        %{url}/releases/download/v.%{version}/%{pypi_name}-%{version}.tar.gz
+Source0:        %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(libsystemd)
@@ -78,6 +78,9 @@ popd
 %{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon May 01 2023 Michel Alexandre Salim <salimma@fedoraproject.org> - 0.13.0-1
+- Update to 0.13.0
+
 * Fri Feb 10 2023 Davide Cavalca <dcavalca@fedoraproject.org> - 0.11.0-4
 - Gate out unsupported test on el8
 

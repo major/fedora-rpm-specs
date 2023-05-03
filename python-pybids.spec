@@ -1,90 +1,165 @@
 %bcond_without tests
 
-%global _description %{expand:
-PyBIDS is a Python module to interface with datasets conforming BIDS.
-
-Documentation can be found online at https://bids-standard.github.io/pybids/
-}
-
 Name:       python-pybids
-Version:    0.15.5
+Version:    0.15.6
 Release:    %autorelease
 Summary:    Interface with datasets conforming to BIDS
 
-License:    MIT
-URL:        https://bids.neuroimaging.io
-Source0:    https://github.com/bids-standard/pybids/archive/%{version}/pybids-%{version}.tar.gz
+# The entire source is MIT, except:
+#   - The Versioneer-generated bids/_version.py 0.28, is Unlicense. (It simply
+#     says “This file is released into the public domain,” but the full
+#     Versioneer documentation makes it clear that it is actually under the
+#     same Unlicense terms as Versioneer (Fedora: python-versioneer) itself.
+#     https://github.com/python-versioneer/python-versioneer/tree/0.28#license)
+#   - We presume other test datasets (bids/tests/data/*/) are under the overall
+#     MIT license, unless evidence to the contrary comes to light.
+#
+# In the python3-pybids+test subpackage:
 
-# included as a git-submodule upstream
-%global examples_version 1.8.0
-Source1:    https://github.com/bids-standard/bids-examples/archive/%{examples_version}/bids-examples.tar.gz
+#   - The following test datasets (content) are PDDL-1.0:
+#       bids/tests/data/ds005/
+#       bids/tests/data/ds005_conflict/
+#
+# We refrain from including the bids-examples/ submodule
+# (https://github.com/bids-standard/bids-examples/) because many of the
+# datasets therein have unspecified licenses. A small number of tests are
+# skipped as a result.
+License:        MIT AND Unlicense
+URL:            https://bids.neuroimaging.io
+Source0:        https://github.com/bids-standard/pybids/archive/%{version}/pybids-%{version}.tar.gz
+
+# FIX: Adapt to SQLAlchemy 1.4+
+# https://github.com/bids-standard/pybids/pull/985
+# Backported to 0.15.6.
+Patch:          pybids-0.15.6-sqlalchemy-1.4.patch
 
 BuildArch:      noarch
 
-# tests fail on 32 bit systems, so let's just drop i686
+# tests fail on 32 bit systems, plus:
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
+
+BuildRequires:  hardlink
+
+%global _description %{expand:
+PyBIDS is a Python library to centralize interactions with datasets conforming
+BIDS (Brain Imaging Data Structure) format. For more information about BIDS
+visit https://bids.neuroimaging.io.}
 
 %description %{_description}
 
+
+%pyproject_extras_subpkg -n python3-pybids plotting
+
+
 %package -n python3-pybids
 Summary:    Interface with datasets conforming to BIDS
+
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist pytest}
+
+Obsoletes:      python-pybids-doc < 0.15.5-13
+
 # unbundled
 BuildRequires:  %{py3_dist inflect}
 Requires:  %{py3_dist inflect}
 
+# Allows running tests in parallel:
+BuildRequires:  %{py3_dist pytest-xdist}
+
 %description -n python3-pybids %{_description}
 
-%package doc
-Summary:    Examples for pybids
 
-%description doc
-Description for %{name}.
+%package -n python3-pybids+test
+%global test_summary Tests and test extras for PyBIDS
+Summary:        %{test_summary}
+
+# See comment above base package License tag for licensing breakdown.
+#
+# The CC0-1.0 file _version.py does not appear in this subpackage.
+License:        MIT AND PDDL-1.0
+
+Requires:       python3-pybids = %{version}-%{release}
+
+%global test_description %{expand: \
+These are the tests for python3-pybids. This package:
+
+• Provides the “bids.tests” package
+• Makes sure the “test” extra dependencies are installed}
+
+%description -n python3-pybids+test %{test_description}
+
+
+# Upstream duplicates all extras with singular and plural names.
+# Based loosely on: rpm -E '%%pyproject_extras_subpkg -n python3-pybids tests'
+%package -n python3-pybids+tests
+Summary:        %{test_summary}
+
+# This has no files of its own, so none of the non-MIT licenses apply.
+License:        MIT
+
+# This metapackage is basically an alias for python3-pybids+test. We build it
+# as a separate subpackage rather than adding a virtual Provides so that we can
+# benefit from generators to add Provides like python3dist(pybids[tests]).
+Requires:       python3-pybids+test = %{version}-%{release}
+
+%description -n python3-pybids+tests %{test_description}
+
 
 %prep
-%autosetup -n pybids-%{version}
+%autosetup -n pybids-%{version} -p1
 
 # Remove bundled inflect
 rm -rf bids/external
+sed -r -i.backup 's/from.*external (import)/\1/' bids/layout/layout.py
 
-pushd bids
-    sed -ibackup 's/from.*external import/import/' layout/layout.py
-popd
+# Not yet packaged: python-bsmschema
+# https://bugzilla.redhat.com/show_bug.cgi?id=2191661
+sed -r -i 's/^([[:blank:]]*)("bsmschema")/\1# \2/' pyproject.toml
 
-# unpin formulaic requirement
-# https://github.com/bids-standard/pybids/issues/915
-# https://github.com/bids-standard/pybids/pull/916
-sed -i 's/formulaic.*/formulaic/' setup.cfg
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+sed -r -i 's/^([[:blank:]]*)("coverage\b)/\1# \2/' pyproject.toml
 
-%{__tar} -xf %{SOURCE1}
-mv bids-examples-%{examples_version} bids-examples
+# Remove bogus executable bits for non-script files
+find bids doc -type f -perm /0111 -execdir chmod -v a-x '{}' '+'
+
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -x test,plotting
 
 
 %build
 %pyproject_wheel
 
+
 %install
 %pyproject_install
 %pyproject_save_files bids
+# Save space by hardlinking duplicate test data files (of nonzero size).
+hardlink -c -v '%{buildroot}%{python3_sitelib}/bids/tests/data/'
+
 
 %check
 %if %{with tests}
-PYTHONPATH=. %{pytest} -s -v .
+%pytest -n auto -v
 %else
 %pyproject_check_import
 %endif
 
+
 %files -n python3-pybids -f %{pyproject_files}
 %doc README.md
 %{_bindir}/pybids
+%exclude %{python3_sitelib}/bids/tests/
 
-%files doc
-%doc bids-examples/
-%license LICENSE
+
+%files -n python3-pybids+test
+%{python3_sitelib}/bids/tests/
+%ghost %{python3_sitelib}/*.dist-info
+
+
+%files -n python3-pybids+tests
+%ghost %{python3_sitelib}/*.dist-info
+
 
 %changelog
 %autochangelog
