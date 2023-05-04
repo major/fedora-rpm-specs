@@ -1,5 +1,5 @@
 Name:           nativefiledialog-extended
-Version:        1.0.2
+Version:        1.0.3
 Release:        1%{?dist}
 Summary:        Native file dialog library with C and C++ bindings
 
@@ -66,6 +66,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Tue May 02 2023 Jonathan Wright <jonathan@almalinux.org> - 1.0.3-1
+- Update to 1.0.3 rhbz#2192332
+
 * Mon Mar 27 2023 Jonathan Wright <jonathan@almalinux.org> - 1.0.2-1
 - Update to 1.0.2 rhbz#2181792
 

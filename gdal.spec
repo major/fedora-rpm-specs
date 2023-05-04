@@ -51,7 +51,7 @@
 
 Name:          gdal
 Version:       3.6.4
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -95,7 +95,6 @@ BuildRequires: libkml-devel
 BuildRequires: liblerc-devel
 BuildRequires: libpng-devel
 BuildRequires: libpq-devel
-BuildRequires: librx-devel
 %if %{with_spatialite}
 BuildRequires: libspatialite-devel
 %endif
@@ -566,6 +565,9 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 
 
 %changelog
+* Tue May 02 2023 Sandro Mani <manisandro@gmail.com> - 3.6.4-2
+- Drop unused librx BR
+
 * Sat Apr 22 2023 Sandro Mani <manisandro@gmail.com> - 3.6.4-1
 - Update to 3.6.4
 

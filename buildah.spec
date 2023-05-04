@@ -7,6 +7,12 @@
 %global debug_package   %{nil}
 %endif
 
+%if 0%{?rhel}
+%bcond_with btrfs
+%else
+%bcond_without btrfs
+%endif
+
 %global provider github
 %global provider_tld com
 %global project containers
@@ -39,7 +45,9 @@ BuildRequires: gpgme-devel
 BuildRequires: libassuan-devel
 BuildRequires: make
 BuildRequires: ostree-devel
+%if %{with btrfs}
 BuildRequires: btrfs-progs-devel
+%endif
 BuildRequires: shadow-utils-subid-devel
 %if 0%{?fedora} > 37
 Requires: containers-common-extra >= 4:1-78
@@ -226,6 +234,9 @@ export LDFLAGS="-X main.buildInfo=`date +%s` -X main.cniVersion=${CNI_VERSION}"
 
 export BUILDTAGS='seccomp exclude_graphdriver_devicemapper'
 export BUILDTAGS+=' libsubid selinux'
+%if %{without btrfs}
+export BUILDTAGS+=' btrfs_noversion exclude_graphdriver_btrfs'
+%endif
 %gobuild -o bin/%{name} %{import_path}/cmd/%{name}
 %gobuild -o bin/imgtype %{import_path}/tests/imgtype
 %gobuild -o bin/copy %{import_path}/tests/copy

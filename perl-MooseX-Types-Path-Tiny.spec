@@ -2,7 +2,7 @@ Name:		perl-MooseX-Types-Path-Tiny
 Summary:	Path::Tiny types and coercions for Moose
 Version:	0.012
 Release:	20%{?dist}
-License:	ASL 2.0
+License:	Apache-2.0
 URL:		https://metacpan.org/release/MooseX-Types-Path-Tiny
 Source0:	https://cpan.metacpan.org/modules/by-module/MooseX/MooseX-Types-Path-Tiny-%{version}.tar.gz
 BuildArch:	noarch

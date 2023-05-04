@@ -1,11 +1,14 @@
 Name:           ckb-next
 Version:        0.5.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Unofficial driver for Corsair RGB keyboards
 
-# ckb-next is GPLv2
-# The kissfft library (src/libs/kissfft) is BSD
-License:        GPLv2 and BSD
+# ckb-next is GPLv2.
+#
+# The kissfft library (src/libs/kissfft) is BSD.
+# This library is un-bundled by Patch1, but since it's statically linked,
+# its license is still included here.
+License:        GPL-2.0-only and BSD-3-Clause
 
 URL:            https://github.com/ckb-next/ckb-next
 Source0:        %{URL}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -15,6 +18,17 @@ Source1:        ckb-next.appdata.xml
 Source2:        ckb-next.1
 Source3:        99-ckb-next.preset
 
+# Fix the program aborting at launch because of a detected buffer overflow.
+# Backport of upstream commit:
+#   https://github.com/ckb-next/ckb-next/commit/c29a9f5e314ddb987b75cb05793ae1bf2bb9ae0c
+# See bug reports at:
+#   - https://bugzilla.redhat.com/show_bug.cgi?id=2192159
+#   - https://github.com/ckb-next/ckb-next/issues/940
+Patch0: 0000-fix-buffer-overflow-abort-on-launch.patch
+
+# CMakeLists need to be adjusted to compile properly with un-bundled kissfft
+Patch1: 0001-unbundle-kissfft.patch
+
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
@@ -23,6 +37,7 @@ BuildRequires:  libappstream-glib
 BuildRequires:  qt5-linguist
 
 BuildRequires:  dbusmenu-qt5-devel
+BuildRequires:  kiss-fft-devel
 BuildRequires:  libappindicator-devel
 BuildRequires:  libgudev-devel
 BuildRequires:  libxcb-devel
@@ -40,8 +55,6 @@ BuildRequires:  systemd-devel
 Requires:       qt5-qtbase >= 5.2.0
 Requires:       qt5ct
 
-Provides:       bundled(kissfft)
-
 # ckb-next, as the name suggests, is a re-activation and continuation of "ckb".
 # The last released version of the original "ckb" was 0.2.7.
 Obsoletes:      ckb < 0.2.8-0
@@ -55,9 +68,10 @@ supports much of the same functionality, including full RGB animations.
 
 
 %prep
-%setup -q
+%autosetup -p1
 
-# Remove the bundled quazip library
+# Remove the bundled libraries
+rm -rf src/libs/kissfft
 rm -rf src/libs/quazip
 
 # Fedora uses /usr/libexec for daemons
@@ -135,6 +149,11 @@ udevadm control --reload-rules 2>&1 > /dev/null || :
 
 
 %changelog
+* Tue May 02 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.5.0-4
+- Add a patch to fix program aborting on launch
+- Un-bundle kissfft
+- Convert License tag to SPDX
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

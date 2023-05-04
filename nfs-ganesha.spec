@@ -117,8 +117,8 @@ Requires: openSUSE-release
 #%%global dev rc6
 
 Name:		nfs-ganesha
-Version:	5.0
-Release:	2%{?dev:%{dev}}%{?dist}
+Version:	5.1
+Release:	1%{?dev:%{dev}}%{?dist}
 Summary:	NFS-Ganesha is a NFS Server running in user space
 License:	LGPL-3.0-or-later
 Url:		https://github.com/nfs-ganesha/nfs-ganesha/wiki
@@ -126,6 +126,7 @@ Url:		https://github.com/nfs-ganesha/nfs-ganesha/wiki
 Source0:	https://github.com/%{name}/%{name}/archive/V%{version}%{?dev:-%{dev}}/%{name}-%{version}%{?dev:%{dev}}.tar.gz
 Patch0001:	0001-config_samples-log_rotate.patch
 Patch0002:	0002-CMakeLists.txt.patch
+Patch0003:	0003-monitoring.patch
 
 BuildRequires:	cmake
 BuildRequires:	make
@@ -528,8 +529,9 @@ Development headers and auxiliary files for developing with %{name}.
 
 %prep
 %setup -q
-%patch0001 -p1
-%patch0002 -p1
+%patch 0001 -p1
+%patch 0002 -p1
+%patch 0003 -p1
 
 %build
 export VERBOSE=1
@@ -795,6 +797,7 @@ exit 0
 %if %{with gpfs}
 %files gpfs
 %{_libdir}/ganesha/libfsalgpfs*
+%{_libexecdir}/ganesha/gpfs-epoch
 %config(noreplace) %{_sysconfdir}/ganesha/gpfs.conf
 %config(noreplace) %{_sysconfdir}/ganesha/gpfs.ganesha.nfsd.conf
 %config(noreplace) %{_sysconfdir}/ganesha/gpfs.ganesha.main.conf
@@ -905,6 +908,9 @@ exit 0
 %endif
 
 %changelog
+* Tue May 2 2023 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 5.1-1
+- NFS-Ganesha 5.1 GA
+
 * Wed Apr 26 2023 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 5.0-2
 - NFS-Ganesha 5.0, fix GANESHA_MINOR_VERSION everywhere
 

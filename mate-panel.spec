@@ -13,9 +13,9 @@
 %{!?rel_build:%global git_tar %{name}-%{version}-%{git_ver}.tar.xz}
 
 Name:           mate-panel
-Version:        %{branch}.2
+Version:        %{branch}.3
 %if 0%{?rel_build}
-Release:        4%{?dist}
+Release:        1%{?dist}
 %else
 Release:        0.17%{?git_rel}%{?dist}
 %endif
@@ -32,14 +32,6 @@ URL:            http://mate-desktop.org
 
 Source1:        mate-panel_fedora-30.layout
 Source2:        mate-panel_rhel.layout
-
-# from upstream 1.26 branch
-Patch1:         mate-panel_0001-wncklet-do-not-exceed-workspace-number-when-setting-.patch
-Patch2:         mate-panel_0002-Register-SNI-host-only-if-SNI-is-enabled.patch
-Patch3:         mate-panel_0003-notification_area-Reduce-lifetime-of-the-settings-lo.patch
-Patch4:         mate-panel_0004-wncklet-Fix-crash-thumbnailing-dying-or-otherwise-in.patch
-Patch5:         mate-panel_0005-clock-Fix-memory-leak.patch
-Patch6:         mate-panel_0006-panel-applet-Fix-leak-in-no-background-code-path.patch
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 #for fish
@@ -165,6 +157,9 @@ install -D -m 0644 %{SOURCE2} %{buildroot}%{_datadir}/mate-panel/layouts/rhel.la
 
 
 %changelog
+* Tue May 2 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.3-1
+- update to 1.26.3
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

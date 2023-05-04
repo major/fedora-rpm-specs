@@ -1,11 +1,12 @@
 Name:		open-amp
-Version:	2020.10.0
-Release:	6%{?dist}
+Version:	2023.04.0
+Release:	1%{?dist}
 Summary:	Open Asymmetric Multi Processing (OpenAMP) framework project
 
 License:	BSD
 URL:		https://github.com/OpenAMP/open-amp/
 Source0:	https://github.com/OpenAMP/open-amp/archive/v%{version}/%{name}-%{version}.tar.gz
+Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
 
 BuildRequires:	cmake
 BuildRequires:	gcc
@@ -17,9 +18,15 @@ BuildRequires:	libsysfs-devel
 The OpenAMP framework provides software components that enable development of
 software applications for Asymmetric Multiprocessing (AMP) systems.
 
+%package libs
+Summary:	Libaries for OpenAMP
+%description libs
+Libaries for OpenAMP baremetal, and RTOS environments.
+
 %package devel
 Summary:	Development files for OpenAMP
 Requires:	%{name}%{?_isa} = %{version}-%{release}
+Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
 %description devel
 Development file for OpenAMP
 baremetal, and RTOS environments.
@@ -46,19 +53,26 @@ baremetal, and RTOS environments.
 %files
 %license LICENSE.md
 %doc README.md
+%{_bindir}/linux_rpc_demo-shared
+%{_bindir}/linux_rpc_demod-shared
 %{_bindir}/matrix_multiply-shared
 %{_bindir}/matrix_multiplyd-shared
 %{_bindir}/msg-test-rpmsg-flood-ping-shared
+%{_bindir}/msg-test-rpmsg-nocopy-echo-shared
+%{_bindir}/msg-test-rpmsg-nocopy-ping-shared
 %{_bindir}/msg-test-rpmsg-ping-shared
 %{_bindir}/msg-test-rpmsg-update-shared
 %{_bindir}/rpc_demod-shared
 %{_bindir}/rpmsg-echo-ping-shared
 %{_bindir}/rpmsg-echo-shared
+%{_bindir}/rpmsg-nocopy-echo-shared
+%{_bindir}/rpmsg-nocopy-ping-shared
 %{_bindir}/rpmsg-sample-echo-shared
 %{_bindir}/rpmsg-sample-ping-shared
-%{_libdir}/libopen_amp.so.0
-%{_libdir}/libopen_amp.so.0.1.0
 
+%files libs
+%{_libdir}/libopen_amp.so.1
+%{_libdir}/libopen_amp.so.1.4.0
 
 %files devel
 %{_includedir}/openamp/
@@ -66,6 +80,10 @@ baremetal, and RTOS environments.
 
 
 %changelog
+* Tue May 02 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 2023.04.0-1
+- Update to 2023.04.0
+- Split libraries out to sub package
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2020.10.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

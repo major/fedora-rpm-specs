@@ -9,14 +9,14 @@
 # needed for this package
 %global extension_id \{73a6fe31-595d-460b-a920-fcc0f8843232\}
 
-%global nscl_commit 475f1a22fbd8cef9bbf2e08fa13def27435f13ef
+%global nscl_commit f84e94cdcf576ecc25da02d10b6db660c4199dce
 
 Name:           mozilla-noscript
-Version:        11.4.18
+Version:        11.4.21
 Release:        1%{?dist}
 Summary:        JavaScript white list extension for Mozilla Firefox
 
-License:        GPLv3+
+License:        GPL-3.0-or-later AND MIT AND MPL-2.0 AND CC-BY-SA-3.0
 URL:            http://noscript.net/
 Source0:        https://github.com/hackademix/noscript/archive/%{version}/noscript-%{version}.tar.gz
 # https://bugzilla.redhat.com/show_bug.cgi?id=1364409
@@ -78,6 +78,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.m
 %{_datadir}/metainfo/%{name}.metainfo.xml
 
 %changelog
+* Thu Apr 06 2023 Dominik Mierzejewski <dominik@greysector.net> - 11.4.21-1
+- update to 11.4.21 (#2180051)
+- switch to SPDX license identifiers
+
 * Mon Mar 13 2023 Dominik Mierzejewski <dominik@greysector.net> - 11.4.18-1
 - update to 11.4.18 (#2173530)
 

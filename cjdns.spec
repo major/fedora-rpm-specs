@@ -72,7 +72,7 @@
 Name:           cjdns
 # major version is cjdns protocol version:
 Version:        21.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        The privacy-friendly network without borders
 # cjdns is all GPLv3 except libuv which is MIT and BSD and ISC
 # cnacl is unused except when use_embedded is true
@@ -175,7 +175,7 @@ Provides: bundled(nacl) = 20110221
 # build system requires nodejs, unfortunately
 ExclusiveArch: %{nodejs_arches}
 # Seccomp_test is too slow on koji for this arch
-ExcludeArch: s390x
+#ExcludeArch: s390x
 
 %description
 Cjdns implements an encrypted IPv6 network using public-key cryptography for
@@ -413,7 +413,6 @@ export Seccomp_NO=1
 export SUBNODE=1
 %endif
 (IFS='='; env -0 | while read -d $'\0' KEY VALUE; do printf 'export %s=%q\n' "$KEY" "$VALUE"; done) >rpm.env
-unset CFLAGS LDFLAGS
 NO_TEST=1 CJDNS_RELEASE_VERSION="%{name}-%{version}-%{release}" ./do 
 
 # FIXME: use system libuv on compatible systems
@@ -724,6 +723,9 @@ fi
 %{_bindir}/graphStats
 
 %changelog
+* Tue May 02 2023 Stuart D. Gathman <stuart@gathman.org> - 21.1-9
+- Patch make.js and restore Fedora standard CFLAGS, LDFLAGS
+
 * Mon Feb 06 2023 Stuart D. Gathman <stuart@gathman.org> - 21.1-8
 - Very helpful when one gets RTNETLINK answers: File exists running one ...
 - Unset CFLAGS, LDFLAGS to work around incompatibility with current nodejs

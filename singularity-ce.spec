@@ -3,7 +3,7 @@
 %undefine _debugsource_packages
 
 Name: singularity-ce
-Version: 3.11.1
+Version: 3.11.2
 Release: 1%{?dist}
 Summary: Application and environment virtualization
 
@@ -272,6 +272,10 @@ container platform designed to be simple, fast, and secure.
 %doc CONTRIBUTING.md
 
 %changelog
+* Tue May 2 2023 David Trudgian <dtrudg@sylabs.io> - 3.11.2-1
+- Upgrade to 3.11.2 upstream version.
+- This is a compatible upgrade to a new upstream patch version.
+
 * Tue Mar 14 2023 David Trudgian <dtrudg@sylabs.io> - 3.11.1-1
 - Upgrade to 3.11.1 upstream version.
 - This is a compatible upgrade to a new upstream patch version.

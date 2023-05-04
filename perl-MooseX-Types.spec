@@ -1,13 +1,13 @@
 Name:           perl-MooseX-Types
 Version:        0.50
 Release:        19%{?dist}
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:        Organize your Moose types in libraries
 URL:            https://metacpan.org/release/MooseX-Types
 Source0:        https://cpan.metacpan.org/modules/by-module/MooseX/MooseX-Types-%{version}.tar.gz
 BuildArch:      noarch
 # Module Build
-BuildRequires:  findutils
+BuildRequires:  coreutils
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(Module::Build::Tiny) >= 0.034
@@ -42,9 +42,8 @@ BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Test::Requires)
 BuildRequires:  perl(Test::Moose)
-# Runtime
-
-%{?perl_default_filter}
+# Dependencies
+# (none)
 
 %description
 The types provided with the Moose man page are by design global. This

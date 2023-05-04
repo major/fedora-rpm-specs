@@ -16,7 +16,7 @@
 
 Name: container-selinux
 Epoch: 2
-Version: 2.211.0
+Version: 2.211.1
 Release: %autorelease
 License: GPL-2.0-only
 URL: %{git0}

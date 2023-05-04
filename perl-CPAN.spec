@@ -9,8 +9,8 @@
 %endif
 
 Name:           perl-CPAN
-Version:        2.34
-Release:        5%{?dist}
+Version:        2.35
+Release:        1%{?dist}
 Summary:        Query, download and build perl modules from CPAN sites
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN
@@ -256,8 +256,8 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n CPAN-%{version}
-%patch0 -p1
-%patch1 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 # Change configuration name
 find -type f -exec perl -i -pe 's/XCPANCONFIGNAMEX/cpan/g' {} \;
 # Remove bundled modules
@@ -318,15 +318,20 @@ make test
 
 %files
 %doc Changes PAUSE*.pub README Todo
-%{_bindir}/*
-%{perl_vendorlib}/*
-%{_mandir}/man1/*
-%{_mandir}/man3/*
+%{_bindir}/cpan*
+%{perl_vendorlib}/App*
+%{perl_vendorlib}/CPAN*
+%{_mandir}/man1/cpan*
+%{_mandir}/man3/App*
+%{_mandir}/man3/CPAN*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue May 02 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.35-1
+- 2.35 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.34-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name: pam_radius
 Summary: PAM Module for RADIUS Authentication
 Version: 2.0.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPL-2.0-or-later
 URL: http://www.freeradius.org/pam_radius_auth/
 
@@ -29,6 +29,8 @@ Patch3: pam_radius_auth-conf-inlinedoc.patch
 Patch4: INSTALL-doc.patch
 # https://github.com/FreeRADIUS/pam_radius/commit/d0eda229d93494202c407bdb176679425affad0b
 Patch5: pam_radius_auth-stop-printing-password.patch
+# https://github.com/FreeRADIUS/pam_radius/commit/8d373539bb9f13b0abfe8bcae0095a930a00fad0
+Patch6: pam-radius-auth-ip-conf.patch
 
 %description
 pam_radius is a PAM module which allows user authentication using 
@@ -36,11 +38,12 @@ a radius server.
 
 %prep
 %setup -q -n pam_radius-release_2_0_0
-%patch1
-%patch2
-%patch3
-%patch4
-%patch5 -p1 -b .stop-printing-password
+%patch 1
+%patch 2
+%patch 3
+%patch 4
+%patch 5 -p1 -b .stop-printing-password
+%patch 6 -p1 -b .auth-ip-conf
 
 %build
 %configure --enable-werror
@@ -59,6 +62,9 @@ install -p pam_radius_auth.conf %{buildroot}%{_sysconfdir}/pam_radius.conf
 /%{_lib}/security/pam_radius_auth.so
 
 %changelog
+* Tue May  2 2023 Iker Pedrosa <ipedrosa@redhat.com> - 2.0.0-6
+- pam_radius_auth: allow "ipv4=no" and "ipv6=no" in the PAM file. Resolves: #2192547
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

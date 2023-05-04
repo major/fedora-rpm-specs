@@ -512,7 +512,7 @@ extra_cflags=(
     -D_FILE_OFFSET_BITS=64
     -DZLIB_CONST
     -fno-delete-null-pointer-checks
-    -O3
+    -O1
 )
 export CFLAGS="%{optflags} ${extra_cflags[*]}" CXXFLAGS="%{optflags} ${extra_cflags[*]}"
 export LDFLAGS="%{build_ldflags}"

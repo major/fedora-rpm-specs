@@ -1,5 +1,5 @@
 Name:           mmapper
-Version:        23.03.0
+Version:        23.05.0
 Release:        1%{?dist}
 Summary:        Graphical MUME mapper
 
@@ -64,6 +64,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.mume.MMapper.d
 
 
 %changelog
+* Tue May 02 2023 Kalev Lember <klember@redhat.com> - 23.05.0-1
+- Update to 23.05.0
+
 * Sun Mar 19 2023 Kalev Lember <klember@redhat.com> - 23.03.0-1
 - Update to 23.03.0
 

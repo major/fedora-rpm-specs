@@ -1,11 +1,16 @@
 Summary: X.Org X11 libXft runtime library
 Name: libXft
 Version: 2.3.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: MIT
 URL: http://www.x.org
 
 Source0: https://www.x.org/pub/individual/lib/%{name}-%{version}.tar.xz
+
+# Bug report: https://bugzilla.redhat.com/show_bug.cgi?id=2154735
+# Upstream issue: https://gitlab.freedesktop.org/xorg/lib/libxft/-/issues/19
+# Upstream fix: https://gitlab.freedesktop.org/xorg/lib/libxft/-/merge_requests/26
+Patch:   fix_font_loading.patch
 
 BuildRequires: make
 BuildRequires: xorg-x11-util-macros
@@ -27,7 +32,7 @@ Requires: %{name} = %{version}-%{release}
 X.Org X11 libXft development package
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 autoreconf -v --install --force
@@ -59,6 +64,10 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_mandir}/man3/Xft*.3*
 
 %changelog
+* Tue May 02 2023 Lumír Balhar <lbalhar@redhat.com> - 2.3.8-2
+- Fix font loading
+Resolves: rhbz#2154735
+
 * Mon Apr 24 2023 Benjamin Tissoires <benjamin.tissoires@redhat.com> - 2.3.8-1
 - libXft 2.3.8-1
 

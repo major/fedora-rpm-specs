@@ -10,7 +10,7 @@
 Name:           psi4
 Epoch:          1
 Version:        1.3.2
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        An ab initio quantum chemistry package
 License:        LGPLv3 and MIT
 URL:            http://www.psicode.org/
@@ -30,6 +30,8 @@ Patch4:         psi4-1.3.2-flexiblas.patch
 Patch5:         psi4-1.3.2-include.patch
 # Fix problem with Python 3.11 (https://github.com/psi4/psi4/issues/2656)
 Patch6:         psi4-1.3.2-python311.patch
+# np.int deprecated in favor of int (BZ#2192326)
+Patch7:         psi4-1.3.2-npint.patch
 
 BuildRequires:  cmake
 BuildRequires:  bison-devel
@@ -107,15 +109,16 @@ This package contains static libraries and development headers for psi.
 
 %prep
 %setup -q
-%patch0 -p1 -b .fedora
-%patch1 -p1 -b .python3
+%patch 0 -p1 -b .fedora
+%patch 1 -p1 -b .python3
 %if 0%{?fedora} > 32
-%patch2 -p1 -b .libxc5
+%patch 2 -p1 -b .libxc5
 %endif
-%patch3 -p1 -b .rpath
-%patch4 -p1 -b .flexiblas
-%patch5 -p1 -b .include
-%patch6 -p1 -b .python311
+%patch 3 -p1 -b .rpath
+%patch 4 -p1 -b .flexiblas
+%patch 5 -p1 -b .include
+%patch 6 -p1 -b .python311
+%patch 7 -p1 -b .npint
 
 %build
 export F77=gfortran
@@ -171,6 +174,9 @@ ctest -L smoketests
 %{_includedir}/psi4/
 
 %changelog
+* Tue May 02 2023 Susi Lehtola <jussilehtola@fedoraproject.org> - 1:1.3.2-19
+- Address deprecated np.int (BZ #2192326).
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.3.2-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

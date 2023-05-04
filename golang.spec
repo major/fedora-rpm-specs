@@ -111,7 +111,7 @@
 %global go_source %{go_api}%{?go_patch:.%{go_patch}}%{?go_prerelease}
  
 # For rpmdev-bumpspec and releng automation
-%global baserelease 1
+%global baserelease 2
  
 Name:           golang
 Version:        %{go_version}
@@ -170,6 +170,10 @@ Obsoletes:      %{name}-data < 1.1.1-4
 # go1.4 deprecates a few packages
 Obsoletes:      %{name}-vim < 1.4
 Obsoletes:      emacs-%{name} < 1.4
+
+# We stopped building the golang-race subpackage, so we need to to maintain the
+# update path.
+Obsoletes:      golang-race < 1.20~rc3-2
 
 # These are the only RHEL/Fedora architectures that we compile this package for
 ExclusiveArch:  %{golang_arches}
@@ -535,6 +539,9 @@ fi
 %endif
 
 %changelog
+* Sat Apr 15 2023 Maxwell G <maxwell@gtmx.me> - 1.20.3-2
+- Fix broken golang-race update path
+
 * Tue Apr 04 2023 Alejandro Sáez <asm@redhat.com> - 1.20.3-1
 - Update to go1.20.3
 

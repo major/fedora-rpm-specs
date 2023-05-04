@@ -18,15 +18,12 @@
 
 Summary:      Extension to work with the Memcached caching daemon
 Name:         php-pecl-memcache
-Version:      8.0
-Release:      7%{?dist}
+Version:      8.2
+Release:      1%{?dist}
 Source0:      https://pecl.php.net/get/%{pecl_name}-%{version}%{?prever}.tgz
 License:      PHP-3.01
 Group:        Development/Languages
 URL:          https://pecl.php.net/package/%{pecl_name}
-
-Patch0:       %{pecl_name}-php81.patch
-Patch1:       %{pecl_name}-php82.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -67,12 +64,6 @@ sed -e 's/role="test"/role="src"/' \
     -i package.xml
 
 pushd NTS
-%patch0 -p1
-%patch1 -p1
-
-# Check version as upstream often forget to update this
-sed -e '/PHP_MEMCACHE_VERSION/s/4.0.5.2/%{version}/' -i src/php_memcache.h
-
 extver=$(sed -n '/#define PHP_MEMCACHE_VERSION/{s/.* "//;s/".*$//;p}' src/php_memcache.h)
 if test "x${extver}" != "x%{version}%{?prever:-%{prever}}"; then
    : Error: Upstream version is now ${extver}, expecting %{version}%{?prever:-%{prever}}
@@ -235,6 +226,10 @@ exit $ret
 
 
 %changelog
+* Tue May  2 2023 Remi Collet <remi@remirepo.net> - 8.2-1
+- update to 8.2
+- drop patches merged upstream
+
 * Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 8.0-7
 - use SPDX license ID
 

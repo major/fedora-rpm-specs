@@ -4,58 +4,19 @@ renderspec is a tool to convert a .spec.j2 Jinja2 template to a rpm .spec file\
 which is usable for different distributions and follow their policies and\
 processes.
 
-%if 0%{?fedora} || 0%{?rhel} > 7
-%bcond_with    python2
-%bcond_without python3
-%else
-%bcond_without python2
-%bcond_with    python3
-%endif
-
 Name:           python-%{pypi_name}
-Version:        1.12.0
-Release:        13%{?dist}
+Version:        2.2.0
+Release:        1%{?dist}
 Summary:        Jinja2 template renderer for generating .spec files
 
 License:        ASL 2.0
 URL:            http://docs.openstack.org/developer/renderspec/
-Source0:        https://files.pythonhosted.org/packages/source/r/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
+Source0:        %{pypi_source}
 BuildArch:      noarch
  
 %description
 %{common_desc}
 
-%if %{with python2}
-%package -n     python2-%{pypi_name}
-Summary:        %{summary}
-%{?python_provide:%python_provide python2-%{pypi_name}}
-BuildRequires:  python2-devel
-BuildRequires:  %{py2_dist pbr}
-BuildRequires:  %{py2_dist testrepository}
-BuildRequires:  %{py2_dist testresources}
-BuildRequires:  %{py2_dist testtools}
-BuildRequires:  %{py2_dist ddt}
-BuildRequires:  %{py2_dist mock}
-BuildRequires:  %{py2_dist Sphinx}
-BuildRequires:  %{py2_dist openstackdocstheme}
-BuildRequires:  %{py2_dist setuptools}
-# Required for tests
-BuildRequires:  %{py2_dist packaging}
-BuildRequires:  %{py2_dist pymod2pkg}
-BuildRequires:  %{py2_dist PyYAML}
-
-Requires:       %{py2_dist Jinja2} >= 2.8
-Requires:       %{py2_dist pymod2pkg} >= 0.7
-Requires:       %{py2_dist PyYAML} >= 3.10
-Requires:       %{py2_dist packaging} >= 16.5
-Requires:       %{py2_dist six} >= 1.9
-Requires:       %{py2_dist setuptools}
-
-%description -n python2-%{pypi_name}
-%{common_desc}
-%endif
-
-%if %{with python3}
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{pypi_name}}
@@ -65,11 +26,11 @@ BuildRequires:  %{py3_dist testrepository}
 BuildRequires:  %{py3_dist testresources}
 BuildRequires:  %{py3_dist testtools}
 BuildRequires:  %{py3_dist ddt}
-BuildRequires:  %{py3_dist mock}
 BuildRequires:  %{py3_dist Sphinx}
 BuildRequires:  %{py3_dist openstackdocstheme}
 BuildRequires:  %{py3_dist setuptools}
 # Required for tests
+BuildRequires:  %{py3_dist stestr}
 BuildRequires:  %{py3_dist packaging}
 BuildRequires:  %{py3_dist pymod2pkg}
 BuildRequires:  %{py3_dist PyYAML}
@@ -78,12 +39,10 @@ Requires:       %{py3_dist Jinja2} >= 2.8
 Requires:       %{py3_dist pymod2pkg} >= 0.7
 Requires:       %{py3_dist PyYAML} >= 3.10
 Requires:       %{py3_dist packaging} >= 16.5
-Requires:       %{py3_dist six} >= 1.9
 Requires:       %{py3_dist setuptools}
 
 %description -n python3-%{pypi_name}
 %{common_desc}
-%endif
 
 
 %package -n python-%{pypi_name}-doc
@@ -102,57 +61,21 @@ find -type f -a \( -name '*.py' -o -name 'py.*' \) \
    -exec sed -i '1{/^#!/d}' {} \; \
 
 %build
-%if %{with python2}
-%py2_build
-%endif
-%if %{with python3}
 %py3_build
-%endif
 
 # generate html docs
-%if %{with python2}
-sphinx-build doc/source html
-%endif
-%if %{with python3}
 sphinx-build-3 doc/source html
-%endif
-
 # remove the sphinx-build leftovers
 rm -rf html/.{doctrees,buildinfo}
 
 %install
-%if %{with python3}
 %py3_install
 cp %{buildroot}/%{_bindir}/renderspec %{buildroot}/%{_bindir}/renderspec-%{python3_version}
 ln -s %{_bindir}/renderspec-%{python3_version} %{buildroot}/%{_bindir}/renderspec-3
-%endif
-
-%if %{with python2}
-%py2_install
-cp %{buildroot}/%{_bindir}/renderspec %{buildroot}/%{_bindir}/renderspec-%{python2_version}
-ln -s %{_bindir}/renderspec-%{python2_version} %{buildroot}/%{_bindir}/renderspec-2
-%endif
 
 %check
-%if %{with python2}
-PYTHON=python2 %{__python2} setup.py test
-%endif
-%if %{with python3}
-PYTHON=python3 %{__python3} setup.py test
-%endif
+stestr run
 
-%if %{with python2}
-%files -n python2-%{pypi_name}
-%license LICENSE
-%doc README.rst
-%{_bindir}/renderspec
-%{_bindir}/renderspec-2
-%{_bindir}/renderspec-%{python2_version}
-%{python2_sitelib}/%{pypi_name}
-%{python2_sitelib}/%{pypi_name}-%{version}-py?.?.egg-info
-%endif
-
-%if %{with python3}
 %files -n python3-%{pypi_name}
 %license LICENSE
 %doc README.rst
@@ -161,13 +84,16 @@ PYTHON=python3 %{__python3} setup.py test
 %{_bindir}/renderspec-%{python3_version}
 %{python3_sitelib}/%{pypi_name}
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
-%endif
 
 %files -n python-%{pypi_name}-doc
 %license LICENSE
 %doc html
 
 %changelog
+* Tue May 02 2023 Joel Capitao <jcapitao@redhat.com> - 2.2.0-1
+- Update to 2.2.0
+- Remove py2 bits
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

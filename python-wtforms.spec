@@ -2,7 +2,7 @@
 
 Name:           python-wtforms
 Version:        3.0.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Forms validation and rendering library for python
 
 License:        BSD
@@ -58,6 +58,9 @@ and keep those messy parameters out of your python code.
 
 
 %changelog
+* Tue May 02 2023 Jonathan Wright <jonathan@almalinux.org> - 3.0.1-7
+- fix epel9 git to track with rawhide
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

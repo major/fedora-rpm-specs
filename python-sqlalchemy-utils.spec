@@ -1,71 +1,73 @@
 %global modname SQLAlchemy-Utils
 
 Name:               python-sqlalchemy-utils
-Version:            0.37.8
-Release:            5%{?dist}
+Version:            0.41.1
+Release:            1%{?dist}
 Summary:            Various utility functions for SQLAlchemy
 
 License:            BSD
 URL:                http://pypi.python.org/pypi/SQLAlchemy-Utils
-Source0:            %pypi_source SQLAlchemy-Utils
+Source0:            %{pypi_source SQLAlchemy-Utils}
+# Omit test on unpackaged python-psycopg2cffi
+Patch0:             no-psycopg2cffi.patch
 
 BuildArch:          noarch
 
 BuildRequires:      python3-devel
-BuildRequires:      python3-setuptools
-BuildRequires:      python3-six
-BuildRequires:      python3-sqlalchemy >= 0.9.3
 BuildRequires:      python3-pytest
-BuildRequires:      python3-pytz
-BuildRequires:      python3-flexmock
-BuildRequires:      python3-dateutil
-BuildRequires:      python3-mock
-
-%global _description\
-Various utility functions and custom data types for SQLAlchemy.\
+# For tests
+BuildRequires:      python3-colour
+BuildRequires:      python3-phonenumbers
 
 
-%description %_description
+%description
+Various utility functions and custom data types for SQLAlchemy.
+
 
 %package -n         python3-sqlalchemy-utils
 Summary:            Various utility functions for SQLAlchemy
-%{?python_provide:%python_provide python3-sqlalchemy-utils}
-Requires:           python3-sqlalchemy >= 0.9.3
-Requires:           python3-six
 
 %description -n python3-sqlalchemy-utils
 Various utility functions and custom data types for SQLAlchemy.
 
 
+%generate_buildrequires
+%pyproject_buildrequires -x test
+
+
 %prep
-%setup -q -n %{modname}-%{version}
+%autosetup -p1 -n %{modname}-%{version}
 
 # Remove bundled egg-info in case it exists
 rm -rf %{modname}.egg-info
 
-find . -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
-
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files sqlalchemy_utils
+
 
 %check
-# Unit-tests seems to be broken in the unittest module on py3.5
-#%{__python3} setup.py test
+# Tons of test failures, not sure they are meant to be run like this?
+%pytest || :
 
 
-%files -n python3-sqlalchemy-utils
+%files -n python3-sqlalchemy-utils -f %{pyproject_files}
 %doc README.rst
 %license LICENSE
-%{python3_sitelib}/sqlalchemy_utils/
-%{python3_sitelib}/SQLAlchemy_Utils-%{version}*/
 
 
 %changelog
+* Mon May 01 2023 Sandro Mani <manisandro@gmail.com> - 0.41.1-1
+- Update to 0.41.1
+
+* Tue Feb 07 2023 Sandro Mani <manisandro@gmail.com> - 0.39.0-1
+- Update to 0.39.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.37.8-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

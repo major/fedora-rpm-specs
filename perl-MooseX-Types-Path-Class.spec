@@ -1,34 +1,36 @@
 Name:           perl-MooseX-Types-Path-Class 
 Summary:        A Path::Class type library for Moose 
 Version:        0.09
-Release:        20%{?dist}
-License:        GPL+ or Artistic
-
-Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/MooseX-Types-Path-Class-%{version}.tar.gz 
+Release:        21%{?dist}
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MooseX-Types-Path-Class
+Source0:        https://cpan.metacpan.org/modules/by-module/MooseX/MooseX-Types-Path-Class-%{version}.tar.gz
 BuildArch:      noarch
-
+# Build
+BuildRequires:  coreutils
 BuildRequires:  perl-generators
-BuildRequires:  perl(Class::MOP)
-BuildRequires:  perl(Module::Build::Tiny)
-BuildRequires:  perl(Moose) >= 0.39
-BuildRequires:  perl(MooseX::Getopt) >= 0.05
-BuildRequires:  perl(MooseX::Types) >= 0.04
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(Module::Build::Tiny) >= 0.034
+# Module
+BuildRequires:  perl(if)
+BuildRequires:  perl(MooseX::Types)
+BuildRequires:  perl(MooseX::Types::Moose)
+BuildRequires:  perl(namespace::autoclean)
 BuildRequires:  perl(Path::Class) >= 0.16
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+# Test Suite
+BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(Module::Metadata)
+BuildRequires:  perl(Moose) >= 0.39
+BuildRequires:  perl(Moose::Util::TypeConstraints)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Test::Needs)
-BuildRequires:  perl(Pod::Coverage)
-
-Requires:       perl(Class::MOP)
+# Optional Tests
+BuildRequires:  perl(MooseX::Getopt) >= 0.05
+# Dependencies
 Requires:       perl(Moose) >= 0.39
-Requires:       perl(MooseX::Types) >= 0.04
-Requires:       perl(Path::Class) >= 0.16
-
-# obsolete/provide old tests subpackage
-Obsoletes:      %{name}-tests < 0.06-1
-Provides:       %{name}-tests = %{version}-%{release}
-
-%{?perl_default_filter}
+Suggests:       perl(Moose::Getopt) >= 0.05
 
 %description
 MooseX::Types::Path::Class creates common Moose types, coercions and option
@@ -42,26 +44,35 @@ for both Path::Class::Dir and Path::Class::File.
 %prep
 %setup -q -n MooseX-Types-Path-Class-%{version}
 
+# Fix shellbangs in tests
 sed -i '1s:^#!.*perl:#!%{__perl}:' t/*.t
 
 %build
-%{__perl} Build.PL --installdirs=vendor
+perl Build.PL --installdirs=vendor
 ./Build
 
 %install
 ./Build install --destdir=%{buildroot} --create_packlist=0
-%{_fixperms} %{buildroot}/*
+%{_fixperms} -c %{buildroot}
 
 %check
 ./Build test
 
 %files
-%doc Changes README t/
 %license LICENSE
-%{perl_vendorlib}/MooseX*
-%{_mandir}/man3/MooseX*.3*
+%doc Changes README t/
+%{perl_vendorlib}/MooseX/
+%{_mandir}/man3/MooseX::Types::Path::Class.3*
 
 %changelog
+* Tue May  2 2023 Paul Howarth <paul@city-fan.org> - 0.09-21
+- Spec tidy-up
+  - Use author-independent source URL
+  - Use SPDX-format license tag
+  - Classify buildreqs by usage
+  - Fix permissions verbosely
+  - Make %%files list more explicit
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

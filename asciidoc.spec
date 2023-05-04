@@ -1,9 +1,9 @@
 Name:           asciidoc
 Version:        10.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Text based document generation
 
-License:        GPL+ and GPLv2+
+License:        GPL-2.0-only
 URL:            http://asciidoc.org
 Source0:        https://github.com/asciidoc-py/asciidoc-py/archive/%{version}/%{name}-py-%{version}.tar.gz
 
@@ -98,6 +98,9 @@ rm  %{buildroot}/share/doc/{BUGS.adoc,CHANGELOG.adoc,INSTALL.adoc,README.md,dbla
 %dir %{python3_sitelib}/asciidoc/resources/filters/latex
 
 %changelog
+* Tue May 02 2023 Josef Ridky <jridky@redhat.com> - 10.2.0-2
+- move to SPDX license format
+
 * Sat Feb 11 2023 Fabian Affolter <mail@fabian-affolter.ch> - 10.2.0-1
 - Update to latest upstream release 10.2.0
 

@@ -2,7 +2,7 @@
 Summary: A GNU collection of binary utilities
 Name: binutils%{?_with_debug:-debug}
 Version: 2.40
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/binutils
 
@@ -274,6 +274,10 @@ Patch20: binutils-reloc-symtab.patch
 #            a file with corrupt symbol version information.
 # Lifetime: Fixed in 2.41
 Patch21: binutils-CVE-2023-1972.patch
+
+# Purpose:  Stop an abort when using dwp to process a file with no dwo links.
+# Lifetime: Fixed in 2.41 (maybe)
+Patch22: binutils-gold-empty-dwp.patch
 
 #----------------------------------------------------------------------------
 
@@ -909,7 +913,7 @@ install_binutils()
     local native="$2"
     local shared="$3"
 
-    local local_root=%{buildroot}/usr
+    local local_root=%{buildroot}/%{_prefix}
     local local_bindir=$local_root/bin
     local local_libdir=%{buildroot}%{_libdir}
     local local_mandir=$local_root/share/man/man1
@@ -1241,6 +1245,10 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Tue May 02 2023 Nick Clifton  <nickc@redhat.com> - 2.40-8
+- GOLD: Stop an abort triggered by running dwp on a file with no dwo links.  (#2192226)
+- Spec File: Use _prefix.  (#2192118)
+
 * Mon Apr 17 2023 Nick Clifton  <nickc@redhat.com> - 2.40-7
 - Spec File: Fix typo.  (#2186396)
 - BFD library: Fix illegal memory access when loading corrupt symbol version info.  (#2186579)

@@ -10,6 +10,9 @@ URL:            https://github.com/wolever/parameterized
 # Source:         %%{pypi_source parameterized}
 Source:         %{url}/archive/v%{version}/parameterized-%{version}.tar.gz
 
+# Remove the usage of assertRaisesRegexp unit test alias removed in Python 3.12
+Patch:          https://github.com/wolever/parameterized/pull/169.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

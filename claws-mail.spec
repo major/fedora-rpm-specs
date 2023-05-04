@@ -21,14 +21,17 @@ Obsoletes: claws-mail-plugins-dillo < 4.0.0-1
 
 Name:           claws-mail
 Version:        4.1.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Email client and news reader based on GTK+
 License:        GPLv3+
 URL:            http://claws-mail.org
 Source0:        http://downloads.sourceforge.net/sylpheed-claws/%{name}-%{version}.tar.xz
 
-# missing cstdint for GCC 13 
+# missing cstdint for GCC 13 / fixed upstream
 Patch1: claws-mail-4.1.1-litehtml.patch
+
+# rhbz#2192644 / fixed upstream
+Patch2: claws-mail-4.1.1-escape-fix.patch
 
 # rhbz#1179279
 Patch11:        claws-mail-system-crypto-policies.patch
@@ -425,10 +428,11 @@ exporting of your meetings or all your calendars.
 %prep
 %setup -q
 
-%patch1 -p1 -b .litehtml
+%patch 1 -p1 -b .litehtml
+%patch 2 -p1 -b .escape-fix
 
 %if 0%{?fedora} > 20
-%patch11 -p1 -b.syscrypto
+%patch 11 -p1 -b.syscrypto
 %endif
 
 # guard for pluginapi
@@ -658,6 +662,10 @@ touch -r NEWS %{buildroot}%{_includedir}/%{name}/config.h
 
 
 %changelog
+* Tue May  2 2023 Michael Schwendt <mschwendt@fedoraproject.org> - 4.1.1-5
+- Merge upstream fix for bug 4670,
+  'To/CC incorrectly escaped with a trailing backslash'
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

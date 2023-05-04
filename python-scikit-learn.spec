@@ -11,8 +11,8 @@ simple and efficient, accessible to everybody, and reusable
 in various contexts.}
 
 Name: python-scikit-learn
-Version: 1.1.2
-Release: 2%{?dist}
+Version: 1.2.2
+Release: 1%{?dist}
 Summary: Machine learning in Python
 # sklearn/externals/_arff.py is MIT
 # sklearn/src/liblinear is BSD
@@ -64,15 +64,11 @@ BuildRequires: python3-threadpoolctl >= 2.0.0
 export PYTHONDONTWRITEBYTECODE=1
 export PYTEST_ADDOPTS='-p no:cacheprovider'
 pushd %{buildroot}%{python3_sitearch}
-  pytest \
-  --deselect "metrics/tests/test_common.py::test_not_symmetric_metric[precision_recall_curve]" \
-  --deselect "metrics/tests/test_common.py::test_binary_sample_weight_invariance[precision_recall_curve]" \
-  --deselect "datasets/tests/test_openml.py::test_fetch_openml_verify_checksum[True]" \
-  --deselect "datasets/tests/test_openml.py::test_fetch_openml_verify_checksum[False]" \
-  --deselect "cross_decomposition/tests/test_pls.py::test_loadings_converges" \
-  --deselect "covariance/tests/test_graphical_lasso.py::test_graphical_lasso" \
-  --deselect "gaussian_process/tests/test_gpr.py::test_lml_precomputed[kernel3]" \
-  --deselect "gaussian_process/tests/test_gpr.py::test_lml_precomputed[kernel4]" \
+  pytest -v -x \
+  --deselect "sklearn/datasets/tests/test_openml.py::test_fetch_openml_verify_checksum[True-liac-arff]" \
+  --deselect "sklearn/datasets/tests/test_openml.py::test_fetch_openml_verify_checksum[False-liac-arff]" \
+  --deselect "sklearn/datasets/tests/test_openml.py::test_fetch_openml_verify_checksum[True-pandas]" \
+  --deselect "sklearn/datasets/tests/test_openml.py::test_fetch_openml_verify_checksum[False-pandas]" \
 %ifarch ppc64le
   --deselect "neural_network/tests/test_mlp.py::test_mlp_regressor_dtypes_casting" \
 %endif
@@ -89,6 +85,9 @@ popd
 %{python3_sitearch}/scikit_learn-*.egg-info
 
 %changelog
+* Tue May 02 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 1.2.2-1
+- New upstream source (1.2.2)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

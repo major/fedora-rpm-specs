@@ -1,5 +1,5 @@
 Name:           python-sentry-sdk
-Version:        1.17.0
+Version:        1.21.1
 Release:        1%{?dist}
 Summary:        The new Python SDK for Sentry.io
 
@@ -64,7 +64,7 @@ Summary:        %{summary}
 %description -n python3-sentry-sdk %_description
 
 
-# Dependencies for quart, sanic, beam, pyspark, chalice, starlite, huey, arq extras are not yet in Fedora
+# Dependencies for quart, sanic, beam, pyspark, chalice, starlite, huey, arq, grpcio extras are not yet in Fedora
 # falcon version >= 3.0 is not yet supported => skipping this extra as well
 %global _extras %{expand:
   flask
@@ -107,6 +107,9 @@ Summary:        %{summary}
   -e sentry_sdk.integrations.arq
   -e sentry_sdk.integrations.chalice
   -e sentry_sdk.integrations.falcon
+  -e sentry_sdk.integrations.grpc
+  -e sentry_sdk.integrations.grpc.client
+  -e sentry_sdk.integrations.grpc.server
   -e sentry_sdk.integrations.huey
   -e sentry_sdk.integrations.quart
   -e sentry_sdk.integrations.sanic
@@ -123,6 +126,9 @@ sed -i '/def test_active_thread_id/i@pytest.mark.xfail' tests/integrations/fasta
 sed -i '/content_type=/D' tests/integrations/starlette/test_starlette.py
 # Fix aiohttp tests.
 sed -i 's/loop/event_loop/g' tests/integrations/aiohttp/test_aiohttp.py
+# Remove extra sys.argv.
+sed -i '/assert event\["_meta"\]/i\ \ \ \ event["_meta"]["extra"].pop("sys.argv")' tests/test_scrubber.py
+sed -i '/assert event\["_meta"\]/i\ \ \ \ if not event["_meta"]["extra"]: event["_meta"].pop("extra")' tests/test_scrubber.py
 
 # Deselect/ignore:
 # 1. Network-dependent tests
@@ -155,6 +161,7 @@ sed -i 's/loop/event_loop/g' tests/integrations/aiohttp/test_aiohttp.py
   --ignore tests/integrations/pyramid \
   --ignore tests/integrations/redis \
   --ignore tests/integrations/rq \
+  --ignore tests/integrations/socket \
   --ignore tests/integrations/wsgi
 
 
@@ -163,6 +170,9 @@ sed -i 's/loop/event_loop/g' tests/integrations/aiohttp/test_aiohttp.py
 
 
 %changelog
+* Tue May 02 2023 Roman Inflianskas <rominf@aiven.io> - 1.21.1-1
+- Update to 1.21.1 (resolve rhbz#2182365)
+
 * Mon Mar 27 2023 Roman Inflianskas <rominf@aiven.io> - 1.17.0-1
 - Update to 1.17.0 (resolve rhbz#2179098)
 

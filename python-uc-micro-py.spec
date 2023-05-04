@@ -1,6 +1,6 @@
 Name:           python-uc-micro-py
-Version:        1.0.1
-Release:        2%{?dist}
+Version:        1.0.2
+Release:        1%{?dist}
 Summary:        Micro subset of Unicode data files for linkify-it.py projects
 
 License:        MIT
@@ -41,6 +41,9 @@ Summary:        Micro subset of Unicode data files for linkify-it.py projects
 %doc CHANGELOG.md README.md
 
 %changelog
+* Tue May  2 2023 Jerry James <loganjerry@gmail.com> - 1.0.2-1
+- Version 1.0.2
+
 * Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 1.0.1-2
 - Dynamically generate BuildRequires
 

@@ -16,13 +16,11 @@
 
 Summary:       Zstandard extension
 Name:          php-%{pecl_name}
-Version:       0.12.2
+Version:       0.12.3
 Release:       1%{?dist}
 License:       MIT
 URL:           https://pecl.php.net/package/%{pecl_name}
 Source0:       https://pecl.php.net/get/%{pecl_name}-%{version}%{?prever}.tgz
-
-Patch0:        %{pecl_name}-pr57.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -61,8 +59,6 @@ sed -e '/LICENSE/s/role="doc"/role="src"/' -i package.xml
 sed -e '\:"zstd/:d' -i package.xml
 
 cd NTS
-%patch -P0 -p1 -b .pr57
-
 # Use the system library
 rm -r zstd
 
@@ -199,6 +195,10 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Tue May  2 2023 Remi Collet <remi@remirepo.net> - 0.12.3-1
+- update to 0.12.3
+- drop patch merged upstream
+
 * Fri Apr 28 2023 Remi Collet <remi@remirepo.net> - 0.12.2-1
 - update to 0.12.2
 - fix extension version and build warnings, using patch from

@@ -16,7 +16,7 @@
 Summary:       A network-capable tape backup solution
 Name:          amanda
 Version:       3.5.3
-Release:       2%{?dist}
+Release:       3%{?dist}
 Source:        https://github.com/zmanda/amanda/archive/tag-community-%{version}/amanda-%{version}.tar.gz
 Source1:       amanda.crontab
 Source4:       disklist
@@ -42,7 +42,7 @@ Patch5:        patch-tirpc
 Patch6:        patch-xfsrestore-housekeeping
 Patch7: amanda-configure-c99.patch
 
-License:       BSD and GPLv3+ and GPLv2+ and GPLv2
+License:       BSD-3-Clause AND GPL-3.0-or-later AND GPL-2.0-or-later AND GPL-2.0-only
 URL:           http://www.amanda.org
 BuildRequires: automake autoconf libtool
 BuildRequires: xfsdump
@@ -452,6 +452,9 @@ make check
 
 
 %changelog
+* Tue May 02 2023 Josef Ridky <jridky@redhat.com> - 3.5.3-3
+- move to SPDX license format
+
 * Fri Apr 14 2023 Florian Weimer <fweimer@redhat.com> - 3.5.3-2
 - Port configure script to C99
 

@@ -1,6 +1,6 @@
 Name:     lldpd
 Version:  1.0.16
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  ISC-licensed implementation of LLDP
 
 License:  ISC
@@ -43,8 +43,8 @@ Summary: %{summary}
 %build
 %configure --disable-static --with-snmp --disable-silent-rules \
   --with-privsep-user=%{name} --with-privsep-group=%{name} \
-  --with-privsep-chroot=%{_rundir}%{name}/chroot \
-  --with-lldpd-ctl-socket=%{_rundir}%{name}/%{name}.socket \
+  --with-privsep-chroot=%{_rundir}/%{name}/chroot \
+  --with-lldpd-ctl-socket=%{_rundir}/%{name}/%{name}.socket \
   --with-systemdsystemunitdir=%{_unitdir} --with-sysusersdir=no
 
 %make_build
@@ -56,8 +56,9 @@ Summary: %{summary}
 install -p -D -m644 %{SOURCE1} %{buildroot}%{_unitdir}/%{name}.service
 install -p -D -m644 %{SOURCE2} %{buildroot}%{_tmpfilesdir}/%{name}.conf
 install -p -D -m644 %{SOURCE3} %{buildroot}/etc/sysconfig/%{name}
+install -p -D -m644 %{SOURCE4} %{buildroot}%{_sysusersdir}/%{name}.conf
 
-install -d -D -m 0755 %{buildroot}%{_rundir}%{name}/chroot
+install -d -D -m 0755 %{buildroot}%{_rundir}/%{name}/chroot
 install -d -m 0755 %{buildroot}%{_sharedstatedir}/%{name}
 # remove the docs from buildroot
 rm -rf %{buildroot}/usr/share/doc/%{name}
@@ -97,10 +98,11 @@ exit 0
 %{_mandir}/man8/lldpctl.8*
 %{_mandir}/man8/%{name}.8*
 %{_libdir}/liblldpctl.so.4*
-%dir %{_rundir}%{name}
-%dir %{_rundir}%{name}/chroot
+%dir %{_rundir}/%{name}
+%dir %{_rundir}/%{name}/chroot
 %{_unitdir}/%{name}.service
 %{_tmpfilesdir}/%{name}.conf
+%{_sysusersdir}/%{name}.conf
 %dir %attr(-,lldpd,lldpd) %{_sharedstatedir}/%{name}
 
 %files devel
@@ -111,6 +113,10 @@ exit 0
 
 
 %changelog
+* Tue May  2 2023 Peter Hjalmarsson <kanelxake@gmail.com> - 1.0.16-2
+- Correcting usage of rundir macro
+- Fix creation of sysuser
+
 * Tue Apr 11 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 1.0.16-1
 - Update to 1.0.16
 - Modernise spec file

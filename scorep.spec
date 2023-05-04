@@ -14,21 +14,23 @@
 %{?el7:%global oshm 0}
 %endif
 
-%global libuwcommit 5646a9b520c51bf6aaa86ae4c25289e30b7c3a41
+# libunwind modified for score-p
+%bcond_without libunwind
+%global libuwcommit 1c578fb7210318efd6aae35d5c2794ab742fcb44
 %global libuwshort %(c=%{libuwcommit}; echo ${c:0:7})
+%global libunwindver 1.7
 
 # Needed to get scorep-score built (depending on use of cube C++ lib)
 %{?el7:%global dts devtoolset-9}
 
 Name:           scorep
 Version:        8.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Scalable Performance Measurement Infrastructure for Parallel Codes
 License:        BSD-3-Clause
 URL:            http://www.vi-hps.org/projects/score-p/
 Source0:        http://perftools.pages.jsc.fz-juelich.de/cicd/scorep/tags/scorep-%{version}/scorep-%{version}.tar.gz
-# No longer recommended?
-%{?unwind:Source1:        https://github.com/score-p/libunwind/archive/%{libuwcommit}/libunwind-%{libuwshort}.tar.gz}
+%{?with_libunwind:Source1:        https://github.com/score-p/libunwind/archive/%{libuwcommit}/libunwind-%{libuwshort}.tar.gz}
 Patch1:         scorep-rpath.patch
 BuildRequires: make
 BuildRequires:  gcc-gfortran
@@ -60,7 +62,6 @@ Requires:       opari2%{?_isa} >= 2.0
 # s390 is missing papi and libunwind; 32-bit fails with configure
 # "cannot determine instruction set" in v7.0.
 ExcludeArch: s390 s390x armv7hl i686
-%{?unwind:Provides:       bundled(libunwind) = 1.3}
 
 %global with_mpich 1
 %global with_openmpi 1
@@ -141,7 +142,7 @@ This package was compiled with mpich.
 %package mpich-libs
 Summary:        Score-P mpich runtime libraries
 Requires:       %{name}-mpich-config%{?_isa} = %{version}-%{release}
-%{?unwind:Provides:       bundled(libunwind) = 1.3}
+%{?with_libunwind:Provides:       bundled(libunwind) = %libunwindver}
 
 %description mpich-libs
 Score-P mpich runtime libraries.
@@ -162,7 +163,7 @@ Requires:       %{name}-openmpi-libs%{?_isa} = %{version}-%{release}
 Requires:       cube-devel%{?_isa} >= 4.5
 Requires:       otf2-devel%{?_isa} >= 2.3
 Requires:       papi-devel%{?_isa}
-%{?unwind:Provides:       bundled(libunwind) = 1.3}
+%{?with_libunwind:Provides:       bundled(libunwind) = %libunwindver}
 
 %description openmpi
 %desc
@@ -172,7 +173,7 @@ This package was compiled with openmpi.
 %package openmpi-libs
 Summary:        Score-P openmpi runtime libraries
 Requires:       %{name}-openmpi-config%{?_isa} = %{version}-%{release}
-%{?unwind:Provides:       bundled(libunwind) = 1.3}
+%{?with_libunwind:Provides:       bundled(libunwind) = %libunwindver}
 
 %description openmpi-libs
 Score-P openmpi runtime libraries.
@@ -200,7 +201,7 @@ This package was compiled with openmpi3.
 
 %package openmpi3-libs
 Summary:        Score-P openmpi3 runtime libraries
-%{?unwind:Provides:       bundled(libunwind) = 1.3}
+%{?with_libunwind:Provides:       bundled(libunwind) = %libunwindver}
 
 %description openmpi3-libs
 Score-P openmpi3 runtime libraries.
@@ -222,7 +223,7 @@ mkdir bin
 # configure expects llvm-config
 ln -s %_bindir/llvm-config-%__isa_bits bin/llvm-config
 %patch -P 1 -p1 -b .rpath
-%{?unwind:tar fx %SOURCE1}
+%{?with_libunwind:tar fx %SOURCE1}
 
 
 %build
@@ -234,23 +235,23 @@ ln -s %_bindir/llvm-config-%__isa_bits bin/llvm-config
 %{?dts:. /opt/rh/%dts/enable}
 %global _configure ../configure
 # It doesn't build on aarch64 due to missing ELF definitions
-%if 0%{?unwind}
+%if 0%{?with_libunwind}
 %ifarch x86_64
 pushd libunwind*
 # Per Fedora packaging
 sed -i 's/= UNW_ARM_METHOD_ALL/= UNW_ARM_METHOD_EXIDX/' src/arm/Gglobal.c
 ./autogen.sh
 CFLAGS="%build_cflags -fcommon" LDFLAGS="%build_ldflags" \
-  ./configure --prefix=$(pwd)/unwind --enable-static --disable-dynamic
-%make_build -k
-%make_install
+  ./configure --prefix=$(pwd)/../unwind --enable-static --disable-shared
+%make_build
+make install
 popd
 # See above
 PATH=$(pwd)/bin:$PATH
 %endif
 %endif
 # Fixme: --disable-silent-rules or V=1 doesn't work in all parts of the build
-%global configure_opts --enable-shared --disable-static --disable-silent-rules %{?unwind:--with-unwind=$(pwd)/unwind}
+%global configure_opts --enable-shared --disable-static --disable-silent-rules %{?with_libunwind:--with-libunwind=$(pwd)/../unwind}
 
 cp /usr/lib/rpm/redhat/config.{sub,guess} build-config/
 
@@ -470,6 +471,9 @@ make -C serial check V=1
 
 
 %changelog
+* Tue May  2 2023  <vagrant@rhel8.localdomain> - 8.1-2
+- Reinstate bundled libunwind and update it
+
 * Tue Apr 11 2023  <vagrant@rhel8.localdomain> - 8.1-1
 - New version
 

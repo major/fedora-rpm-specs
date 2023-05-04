@@ -1,7 +1,7 @@
 Name:      elinks
 Summary:   A text-mode Web browser
-Version:   0.16.0
-Release:   5%{?dist}
+Version:   0.16.1.1
+Release:   1%{?dist}
 License:   GPL-2.0-only
 URL:       https://github.com/rkd77/elinks
 Source:    https://github.com/rkd77/elinks/releases/download/v%{version}/elinks-%{version}.tar.xz
@@ -49,7 +49,6 @@ Patch6: 0006-elinks-0.16.0-libidn2.patch
 
 # let list_is_singleton() return false for an empty list (#1075415)
 Patch15: elinks-0.12pre6-list_is_singleton.patch
-Patch16: elinks-configure-c99.patch
 
 %description
 Elinks is a text-based Web browser. Elinks does not display any images,
@@ -130,6 +129,9 @@ exit 0
 %{_mandir}/man5/*
 
 %changelog
+* Tue May 02 2023 Lukáš Zaoral <lzaoral@redhat.com> - 0.16.1.1-1
+- new upstream release (rhbz#2192272)
+
 * Tue Apr 11 2023 Lukáš Zaoral <lzaoral@redhat.com> - 0.16.0-5
 - migrate to SPDX license format
 

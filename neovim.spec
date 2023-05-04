@@ -40,7 +40,7 @@
 
 Name:           neovim
 Version:        0.9.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 License:        Apache-2.0 AND Vim
 Summary:        Vim-fork focused on extensibility and agility
@@ -52,6 +52,7 @@ Source2:        spec-template
 
 Patch0:         https://github.com/neovim/neovim/pull/23246.patch
 Patch1:         https://github.com/neovim/neovim/pull/23245.patch
+Patch2:         https://github.com/neovim/neovim/pull/23375.patch
 
 Patch1000:      neovim-lua-bit32.patch
 
@@ -113,6 +114,9 @@ parts of Vim, without compromise, and more.
 
 %prep
 %setup -q
+%patch -P 0 -p1
+%patch -P 1 -p1
+%patch -P 2 -p1
 
 %if %{without luajit}
 %patch -P 1000 -p1
@@ -1956,6 +1960,10 @@ find %{buildroot}%{_datadir} \( -name "*.bat" -o -name "*.awk" \) \
 %{_datadir}/nvim/runtime/tutor/en/vim-01-beginner.tutor.json
 
 %changelog
+* Tue May 02 2023 Andreas Schneider <asn@redhat.com> - 0.9.0-3
+- Improve semantic token performance
+- related: rhbz#2188229 - Fix applying patches
+
 * Fri Apr 21 2023 Andreas Schneider <asn@redhat.com> - 0.9.0-2
 - resolves: rhbz#2188229 - Fix buffer overflow for user command
 

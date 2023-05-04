@@ -7,11 +7,11 @@ License:        GPLv3
 URL:            https://launchpad.net/timezonemap
 Source0:        https://github.com/dashea/timezonemap/archive/%{version}.tar.gz
 
+BuildRequires:  autoconf automake libtool
 BuildRequires:  glib2-devel >= 2.26
 BuildRequires:  gtk3-devel >= 3.1.4
 BuildRequires:  json-glib-devel
 BuildRequires:  gobject-introspection-devel
-BuildRequires:  gnome-common
 BuildRequires:  libsoup-devel >= 2.42.0
 BuildRequires:  librsvg2-devel
 BuildRequires: make
@@ -36,7 +36,7 @@ files used for building applications that use %{name}.
 %autosetup -n timezonemap-%{version}
 
 %build
-./autogen.sh
+autoreconf -fiv
 %configure
 make %{?_smp_mflags}
 

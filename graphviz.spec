@@ -99,7 +99,7 @@
 
 Name:			graphviz
 Summary:		Graph Visualization Tools
-Version:		8.0.4
+Version:		8.0.5
 Release:		1%{?dist}
 License:		EPL-1.0
 URL:			http://www.graphviz.org/
@@ -773,6 +773,10 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Tue May  2 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 8.0.5-1
+- New version
+  Resolves: rhbz#2192232
+
 * Wed Apr 26 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 8.0.4-1
 - New version
   Related: rhbz#2187116

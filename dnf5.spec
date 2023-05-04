@@ -4,7 +4,7 @@
 
 Name:           dnf5
 Version:        %{project_version_major}.%{project_version_minor}.%{project_version_patch}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
@@ -51,7 +51,13 @@ Obsoletes:      microdnf < 4
 
 %bcond_with    clang
 %bcond_with    sanitizers
+%ifnarch riscv64
 %bcond_without tests
+%else
+# Tests fail on RISC-V:
+# https://github.com/rpm-software-management/dnf5/issues/503
+%bcond_with    tests
+%endif
 %bcond_with    performance_tests
 %bcond_with    dnf5daemon_tests
 
@@ -629,6 +635,9 @@ ln -sr %{buildroot}%{_bindir}/dnf5 %{buildroot}%{_bindir}/microdnf
 
 
 %changelog
+* Tue May 02 2023 Richard W.M. Jones <rjones@redhat.com> - 5.0.9-3
+- Default tests off (temporarily, hopefully) on riscv64 arch.
+
 * Wed Apr 26 2023 Nicola Sella <nsella@redhat.com> - 5.0.9-2
 - Release 5.0.9 (Nicola Sella)
 - Add `--userinstalled` to `repoquery` man page

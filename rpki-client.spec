@@ -8,7 +8,7 @@
 
 Summary:        OpenBSD RPKI validator to support BGP Origin Validation
 Name:           rpki-client
-Version:        8.3
+Version:        8.4
 Release:        1%{?with_snapshot:.git%{gitdate}}%{?dist}
 # rpki-client itself is ISC but uses other source codes, breakdown:
 # BSD-2-Clause: include/sys/tree.h and src/{http,output}.c
@@ -99,6 +99,9 @@ install -D -p -m 0644 %{SOURCE4} $RPM_BUILD_ROOT%{_sysusersdir}/%{name}.conf
 %dir %attr(0755,%{name},%{name}) %{_localstatedir}/lib/%{name}/
 
 %changelog
+* Tue May 02 2023 Robert Scheck <robert@fedoraproject.org> 8.4-1
+- Upgrade to 8.4
+
 * Sun Mar 19 2023 Robert Scheck <robert@fedoraproject.org> 8.3-1
 - Upgrade to 8.3 (#2179641)
 

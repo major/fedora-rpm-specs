@@ -2,7 +2,7 @@ Name:		perl-MooseX-Types-Stringlike
 Summary:	Moose type constraints for strings or string-like objects
 Version:	0.003
 Release:	27%{?dist}
-License:	ASL 2.0
+License:	Apache-2.0
 URL:		https://metacpan.org/release/MooseX-Types-Stringlike
 Source0:	https://cpan.metacpan.org/modules/by-module/MooseX/MooseX-Types-Stringlike-%{version}.tar.gz
 BuildArch:	noarch
@@ -29,6 +29,7 @@ BuildRequires:	perl(version)
 BuildRequires:	perl(CPAN::Meta)
 BuildRequires:	perl(CPAN::Meta::Requirements) >= 2.120900
 # Dependencies
+# (none)
 
 %description
 This module provides a more general version of the Str type. If coercions are

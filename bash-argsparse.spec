@@ -1,16 +1,21 @@
 Summary: An high level argument parsing library for bash
 Name: bash-argsparse
-Version: 1.7
-Release: 16%{?dist}
+Version: 1.8
+Release: 1%{?dist}
 License: WTFPL
 URL: https://github.com/Anvil/bash-argsparse
 Source0: http://argsparse.livna.org/%{name}-%{version}.tar.gz
 BuildArch: noarch
 # Binaries are required for unittest to perform cleanly.
-BuildRequires: doxygen glibc-common util-linux /usr/bin/host
+BuildRequires: doxygen
+BuildRequires: glibc-common
+BuildRequires: util-linux
+BuildRequires: /usr/bin/host
 
 Requires: bash >= 4.1
-Requires: util-linux glibc-common /usr/bin/host
+Requires: util-linux
+Requires: glibc-common
+Requires: /usr/bin/host
 
 %description
 An high level argument parsing library for bash.
@@ -21,20 +26,25 @@ functions commonly rewritten in all scripts.
 This library is implemented for bash version 4. Prior versions of bash
 will fail at interpreting that code.
 
+
 %prep
-%setup -q
+%autosetup -n %{name}-%{name}-%{version}
+
 
 %build
 # Nothing to build, except the documentation.
 doxygen
 
+
 %install
-mkdir -p $RPM_BUILD_ROOT/%{_bindir}
-install -m 0755 argsparse.sh $RPM_BUILD_ROOT/%{_bindir}
-ln -s argsparse.sh $RPM_BUILD_ROOT/%{_bindir}/argsparse
+mkdir -p %{buildroot}/%{_bindir}
+install -p -m 0755 argsparse.sh %{buildroot}/%{_bindir}
+ln -s argsparse.sh %{buildroot}/%{_bindir}/argsparse
+
 
 %check
 ./unittest
+
 
 %files
 %doc tutorial README.md html COPYING
@@ -43,6 +53,10 @@ ln -s argsparse.sh $RPM_BUILD_ROOT/%{_bindir}/argsparse
 
 
 %changelog
+* Tue May 02 2023 Jonathan Wright <jonathan@almalinux.org> - 1.8-1
+- Update to 1.8 rhbz#1488681
+- Preserve source modification timestamps
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

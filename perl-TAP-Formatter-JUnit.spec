@@ -1,6 +1,6 @@
 Name:           perl-TAP-Formatter-JUnit
 Version:        0.16
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Harness output delegate for JUnit output
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/TAP-Formatter-JUnit
@@ -44,6 +44,8 @@ BuildRequires:  perl(Test::DiagINC)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::XML)
 BuildRequires:  perl(version)
+# Optional Tests
+BuildRequires:  perl(CPAN::Meta) >= 2.120900
 # Runtime
 Requires:       perl(TAP::Formatter::Console)
 Requires:       perl(TAP::Formatter::Console::Session)
@@ -61,7 +63,7 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
-%{_fixperms} %{buildroot}/*
+%{_fixperms} -c %{buildroot}
 
 %check
 make test
@@ -70,11 +72,17 @@ make test
 %license LICENSE
 %doc Changes README
 %{_bindir}/tap2junit
-%{perl_vendorlib}/*
-%{_mandir}/man1/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/TAP/
+%{_mandir}/man1/tap2junit.1*
+%{_mandir}/man3/TAP::Formatter::JUnit.3*
+%{_mandir}/man3/TAP::Formatter::JUnit::Result.3*
+%{_mandir}/man3/TAP::Formatter::JUnit::Session.3*
 
 %changelog
+* Tue May  2 2023 Paul Howarth <paul@city-fan.org> - 0.16-3
+- Fix permissions verbosely
+- Make %%files list more explicit
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

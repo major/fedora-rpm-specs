@@ -1,21 +1,22 @@
 Name: python-beaker
-Version: 1.10.0
-Release: 16%{?dist}
+Version: 1.12.1
+Release: 1%{?dist}
 Summary: WSGI middleware layer to provide sessions
 License: BSD and MIT
 URL: http://beaker.readthedocs.io
 Source0: https://github.com/bbangert/beaker/archive/%{version}/beaker-%{version}.tar.gz
-Patch0: beaker-use-system-paste.patch
 BuildArch: noarch
 
 BuildRequires:  %{_bindir}/redis-server
-BuildRequires:  %{_bindir}/pkill
 BuildRequires:  %{_bindir}/netstat
 
 %global _description\
 Beaker is a caching library that includes Session and Cache objects built on\
 Myghty's Container API used in MyghtyUtils. WSGI middleware is also included to\
 manage Session objects and signed cookies.
+
+Patch:          beaker-use-system-paste.patch
+Patch:          unittest.mock.patch
 
 %description %_description
 
@@ -24,14 +25,16 @@ Summary: %summary
 BuildRequires: python3-devel
 BuildRequires: python3dist(cryptography)
 BuildRequires: python3dist(funcsigs)
-BuildRequires: python3dist(mock)
-BuildRequires: python3dist(nose)
 BuildRequires: python3dist(paste)
 BuildRequires: python3dist(pycrypto)
 BuildRequires: python3dist(redis)
 BuildRequires: python3dist(setuptools)
 BuildRequires: python3dist(sqlalchemy)
 BuildRequires: python3dist(webtest)
+# for tests
+BuildRequires: python3dist(pytest)
+BuildRequires: glibc-langpack-it
+
 Requires: python3dist(paste)
 Recommends: python3dist(cryptography)
 Recommends: python3dist(pycrypto)
@@ -56,13 +59,12 @@ Recommends: python3dist(pycryptopp)
 
 
 %check
+# we can't test mongo
+rm -f tests/test_managers/test_ext_mongodb.py
+
 redis-server &
 
-rm -rf /tmp/beaker-tests
-PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} -m nose -v --exclude test_ext_mongodb
-
-kill %1
-
+%pytest
 
 %files -n python3-beaker
 %license LICENSE
@@ -72,6 +74,9 @@ kill %1
 
 
 %changelog
+* Tue May 02 2023 Jonathan Wright <jonathan@almalinux.org> - 1.12.1-1
+- Update to 1.12.1 rhbz#1679788
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

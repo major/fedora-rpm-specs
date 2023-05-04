@@ -1,6 +1,6 @@
 Name:       hirte
-Version:    0.1.1
-Release:    3%{?dist}
+Version:    0.2.0
+Release:    1%{?dist}
 Summary:    A systemd service controller for multi-nodes environments
 License:    GPL-2.0-or-later
 URL:        https://github.com/containers/hirte
@@ -13,6 +13,7 @@ BuildRequires:  systemd-rpm-macros
 BuildRequires:  golang-github-cpuguy83-md2man
 
 Requires:   systemd
+Recommends: hirte-selinux
 
 %description
 Hirte is a systemd service controller for multi-nodes environements with a
@@ -40,10 +41,11 @@ This package contains the controller and command line tool.
 %{_datadir}/dbus-1/interfaces/org.containers.hirte.Manager.xml
 %{_datadir}/dbus-1/interfaces/org.containers.hirte.Monitor.xml
 %{_datadir}/dbus-1/interfaces/org.containers.hirte.Node.xml
+%{_datadir}/dbus-1/system.d/org.containers.hirte.conf
 %{_datadir}/hirte/config/hirte-default.conf
 %{_mandir}/man1/hirte.*
 %{_mandir}/man5/hirte.conf.*
-%{_datadir}/dbus-1/system.d/org.containers.hirte.conf
+%{_sysconfdir}/hirte/hirte.conf.d/README.md
 %{_unitdir}/hirte.service
 %{_unitdir}/hirte.socket
 
@@ -74,12 +76,59 @@ This package contains the node agent.
 %doc README.md
 %license LICENSE
 %{_bindir}/hirte-agent
+%{_bindir}/hirte-proxy
 %{_datadir}/dbus-1/system.d/org.containers.hirte.Agent.conf
 %{_datadir}/hirte-agent/config/hirte-default.conf
+%{_datadir}/dbus-1/interfaces/org.containers.hirte.Agent.xml
 %{_mandir}/man1/hirte-agent.*
+%{_mandir}/man1/hirte-proxy.*
 %{_mandir}/man5/hirte-agent.conf.*
+%{_sysconfdir}/hirte/agent.conf.d/README.md
 %{_unitdir}/hirte-agent.service
 %{_userunitdir}/hirte-agent.service
+%{_unitdir}/hirte-proxy@.service
+%{_userunitdir}/hirte-proxy@.service
+%{_unitdir}/hirte-dep@.service
+%{_userunitdir}/hirte-dep@.service
+
+#--------------------------------------------------
+
+%package selinux
+Summary:  Hirte SELinux policy
+BuildRequires: checkpolicy
+BuildRequires: selinux-policy-devel
+
+%if "%{_selinux_policy_version}" != ""
+Requires: selinux-policy >= %{_selinux_policy_version}
+%endif
+
+Requires(post): policycoreutils
+Requires(post): policycoreutils-python-utils
+Requires(postun): policycoreutils-python-utils
+
+%global selinuxtype	targeted
+
+%description selinux
+SELinux policy associated with the hirte and hirte-agent daemons
+
+%files selinux
+%{_datadir}/selinux/devel/include/services/hirte.if
+%{_datadir}/selinux/packages/hirte.pp.bz2
+%{_mandir}/man8/hirte*selinux.*
+
+%post selinux
+%selinux_modules_install -s %{selinuxtype} %{_datadir}/selinux/packages/hirte.pp.bz2
+restorecon -R %{_bindir}/hirte* &> /dev/null || :
+semanage port -a -t hirte_port_t -p udp 842 || true
+semanage port -a -t hirte_port_t -p tcp 842 || true
+
+%postun selinux
+if [ $1 -eq 0 ]; then
+   %selinux_modules_uninstall -s %{selinuxtype} hirte
+   semanage port -d -p udp 842 || true
+   semanage port -d -p tcp 842 || true
+   restorecon -R %{_bindir}/hirte* &> /dev/null || :
+fi
 
 #--------------------------------------------------
 
@@ -117,6 +166,10 @@ This package contains the service controller command line tool.
 
 
 %changelog
+* Tue May 02 2023 Pierre-Yves Chibon <pingou@pingoured.fr> - 0.2.0-1
+- Update to 0.2.0
+- Introduce the hirte-selinux sub-package
+
 * Tue Mar 28 2023 Pierre-Yves Chibon <pingou@pingoured.fr> - 0.1.1-3
 - Drop the man page for hirtectl from the main hirte package
 

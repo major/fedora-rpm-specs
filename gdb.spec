@@ -1249,6 +1249,13 @@ fi
 %endif
 
 %changelog
+* Tue May 2 2023 Andrew Burgess <aburgess@redhat.com>
+- Remove gdb-opcodes-clflushopt-test.patch.  This patch tests that GDB
+  can disassemble the clflushopt instruction correctly.  Such
+  disassembly is a feature of libopcode and is covered by the gas
+  tests i386/x86-64-clflushopt.s and i386/clflushopt.s.  Lets remove
+  this test from GDB and just rely on the gas tests instead.
+
 * Sat Apr 29 2023 Kevin Buettner <kevinb@redhat.com>
 - Remove gdb-6.7-charsign-test.patch. This patch originally contained
   some changes to GDB which were rejected by upstream maintainers.  All

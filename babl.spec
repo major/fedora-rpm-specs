@@ -19,7 +19,7 @@
 Summary:	A dynamic, any to any, pixel format conversion library
 Name:		babl
 Version:	0.1.102
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 # Compute some version related macros
 # Ugly hack, you need to get your quoting backslashes/percent signs straight
@@ -29,7 +29,7 @@ Release:	1%{?dist}
 %global apiver %major.%minor
 
 # The gggl codes contained in this package are under the GPL, with exceptions allowing their use under libraries covered under the LGPL
-License:	LGPLv3+ and GPLv3+
+License:	LGPL-3.0-or-later AND GPL-3.0-or-later
 URL:		https://www.gegl.org/babl/
 Source0:	https://download.gimp.org/pub/babl/%{apiver}/%{name}-%{version}.tar.xz
 
@@ -124,6 +124,9 @@ popd
 %doc %{develdocdir}
 
 %changelog
+* Tue May 02 2023 Josef Ridky <jridky@redhat.com> - 0.1.102-2
+- move to SPDX license format
+
 * Tue Mar 07 2023 David King <amigadave@amigadave.com> - 0.1.102-1
 - Update to 0.1.102
 

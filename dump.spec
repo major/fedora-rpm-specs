@@ -12,8 +12,8 @@ Name:          dump
 %endif
 Epoch:         1
 Version:       0.4
-Release:       0.51.%{PREVER}%{?dist}
-License:       BSD
+Release:       0.52.%{PREVER}%{?dist}
+License:       BSD-3-Clause
 URL:           https://sourceforge.net/projects/dump/
 Source:        http://downloads.sourceforge.net/dump/dump-%{DUMP_VERSION}.tar.gz
 BuildRequires: e2fsprogs-devel >= 1.18, readline-devel >= 4.2
@@ -63,13 +63,13 @@ restoring filesystems after backups.
 %prep
 %setup -q -n dump-%{DUMP_VERSION}
 
-%patch0 -p1 -b .buildfix
-%patch1 -p1 -b .remove-lzo
-%patch2 -p1 -b .apath
+%patch 0 -p1 -b .buildfix
+%patch 1 -p1 -b .remove-lzo
+%patch 2 -p1 -b .apath
 
 %if 0%{?rhel}
 rm -rf dump
-%patch101 -p1
+%patch 101 -p1
 %endif
 
 %build
@@ -131,6 +131,9 @@ popd
 %{_mandir}/man8/rrestore.8*
 
 %changelog
+* Tue May 02 2023 Josef Ridky <jridky@redhat.com> - 1:0.4-0.52.b47
+- move to SPDX license format
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.4-0.51.b47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -143,7 +146,7 @@ popd
 * Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.4-0.48.b47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
 
-* Mon Feb 10 2021 Josef Ridky <jridky@redhat.com> - 1:0.4-0.47.b47
+* Wed Feb 10 2021 Josef Ridky <jridky@redhat.com> - 1:0.4-0.47.b47
 - remove dump from RHEL environment
 
 * Mon Feb 08 2021 Jeff Makey <jeff@makey.net> - 1:0.4-0.46.b47

@@ -1,5 +1,5 @@
 Name:           python-typer
-Version:        0.8.0
+Version:        0.9.0
 Release:        %autorelease
 Summary:        Build great CLIs; easy to code; based on Python type hints
 

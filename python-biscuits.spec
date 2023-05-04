@@ -1,8 +1,8 @@
 %global pypi_name biscuits
 
 Name:           python-%{pypi_name}
-Version:        0.2.1
-Release:        13%{?dist}
+Version:        0.3.0
+Release:        1%{?dist}
 Summary:        Fast and tasty cookies handling
 
 License:        MIT
@@ -13,19 +13,22 @@ Source0:        https://github.com/pyrates/%{pypi_name}/archive/%{version}/%{nam
 # in a particular interpreter
 Patch0:         0000-makefile-python-param.patch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  python3-Cython
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 BuildRequires:  python3dist(setuptools)
 
+
 %description
 Low level API for handling cookies.
+
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{pypi_name}}
+
 
 %description -n python3-%{pypi_name}
 Low level API for handling cookies.
@@ -34,22 +37,30 @@ Low level API for handling cookies.
 %prep
 %autosetup -n %{pypi_name}-%{version}
 
+
 %build
 make compile PYTHON=%{__python3}
 %py3_build
 
+
 %install
 %py3_install
 
+
 %check
-%{__python3} -m pytest -v
+%pytest
+
 
 %files -n python3-%{pypi_name}
 %doc README.md
 %{python3_sitearch}/biscuits.cpython-%{python3_version_nodots}*.so
 %{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
+
 %changelog
+* Tue May 02 2023 Jonathan Wright <jonathan@almalinux.org> - 0.3.0-1
+- Update to 0.3.0 rhbz#1899380
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

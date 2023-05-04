@@ -1,6 +1,6 @@
 Name:           langtable
-Version:        0.0.61
-Release:        3%{?dist}
+Version:        0.0.62
+Release:        1%{?dist}
 Summary:        Guessing reasonable defaults for locale, keyboard layout, territory, and language.
 # the translations in languages.xml and territories.xml are (mostly)
 # imported from CLDR and are thus under the Unicode license, the
@@ -75,6 +75,14 @@ xmllint --noout --relaxng \
 %{python3_sitelib}/langtable-*.egg-info/*
 
 %changelog
+* Tue May 02 2023 Mike FABIAN <mfabian@redhat.com> - 0.0.62-1
+- Update to 0.0.62
+- Get translation changes from CLDR
+- Add more translations from CLDR
+- Add Norwegian keyboard layout to keyboards.xml
+  (Resolves: https://github.com/mike-fabian/langtable/issues/16)
+- Add Hang script to Southern Aymara
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.61-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate imagequant
 
 Name:           rust-imagequant
-Version:        4.1.1
+Version:        4.2.0
 Release:        %autorelease
 Summary:        Convert 24/32-bit images to 8-bit palette with alpha channel
 
@@ -60,6 +60,18 @@ This package contains library source intended for building other packages which
 use the "_internal_c_ffi" feature of the "%{crate}" crate.
 
 %files       -n %{name}+_internal_c_ffi-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+large_palettes-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+large_palettes-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "large_palettes" feature of the "%{crate}" crate.
+
+%files       -n %{name}+large_palettes-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+threads-devel

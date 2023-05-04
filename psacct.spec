@@ -4,7 +4,7 @@
 Summary: Utilities for monitoring process activities
 Name: psacct
 Version: 6.6.4
-Release: 16%{?dist}
+Release: 18%{?dist}
 License: GPL-3.0-or-later
 URL: http://www.gnu.org/software/acct/
 
@@ -16,6 +16,8 @@ Source3: accton-create
 Patch1: psacct-6.6.2-unnumberedsubsubsec.patch
 Patch2: psacct-6.6.1-SEGV-when-record-incomplete.patch
 Patch3: psacct-6.6.4-lastcomm-manpage-pid-twice.patch
+Patch4: psacct-6.6.4-sprintf-buffer-overflow.patch
+Patch5: psacct-6.6.4-specfile-tweaks-file-locs.patch
 
 Conflicts: filesystem < 3
 Requires: coreutils
@@ -27,6 +29,7 @@ BuildRequires: make
 BuildRequires: autoconf
 BuildRequires: systemd
 BuildRequires: gcc
+BuildRequires: git
 
 
 %description
@@ -40,20 +43,7 @@ commands.
 
 
 %prep
-%setup -q -n acct-%{version}
-
-%patch1 -p1 -b .subsubsec
-%patch2 -p1
-%patch3 -p1
-
-# fixing 'gets' undeclared
-sed -i 's|.*(gets,.*||g' lib/stdio.in.h
-
-# workaround for broken autotools stuff
-sed -i 's|@ACCT_FILE_LOC@|/var/account/pacct|g'      files.h.in
-sed -i 's|@SAVACCT_FILE_LOC@|/var/account/savacct|g' files.h.in
-sed -i 's|@USRACCT_FILE_LOC@|/var/account/usracct|g' files.h.in
-
+%autosetup -S git -n acct-%{version}
 
 %build
 %configure --enable-linux-multiformat
@@ -134,6 +124,14 @@ touch /var/account/pacct && chmod 0600 /var/account/pacct
 
 
 %changelog
+* Tue May 02 2023 Jan Rybar <jrybar@redhat.com> - 6.6.4-18
+- forgot to add the second patch... again
+
+* Tue May 02 2023 Jan Rybar <jrybar@redhat.com> - 6.6.4-17
+- migrate to autosetup; convert specfile script to a patch
+- FORTIFY_SOURCE_3 detected a buffer overflow
+- Resolves: bz#2190057
+
 * Mon Apr 24 2023 Lukáš Zaoral <lzaoral@redhat.com> - 6.6.4-16
 - migrate to SPDX license format
 

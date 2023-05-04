@@ -1,13 +1,13 @@
 %global libcall_ui_commit 6798b38d4d66d069751151b3e9a202c6de8d7f3c
 
 Name:		calls
-Version:	44.1
+Version:	45~alpha.0
 Release:	1%{?dist}
 Summary:	A phone dialer and call handler
 
 License:	GPLv3+ and MIT
 URL:		https://gitlab.gnome.org/GNOME/calls
-Source0:	https://gitlab.gnome.org/GNOME/calls/-/archive/v%{version}/%{name}-v%{version}.tar.gz
+Source0:	https://gitlab.gnome.org/GNOME/calls/-/archive/v45_alpha.0/%{name}-v45_alpha.0.tar.gz
 Source1:	https://gitlab.gnome.org/World/Phosh/libcall-ui/-/archive/%{libcall_ui_commit}/libcall-ui-%{libcall_ui_commit}.tar.gz
 
 BuildRequires:	gcc
@@ -44,7 +44,7 @@ Requires: hicolor-icon-theme
 A phone dialer and call handler.
 
 %prep
-%setup -a1 -q -n %{name}-v%{version}
+%setup -a1 -q -n %{name}-v45_alpha.0
 
 mv libcall-ui-%{libcall_ui_commit}/* subprojects/libcall-ui/
 

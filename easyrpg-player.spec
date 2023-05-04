@@ -3,6 +3,7 @@ Summary: Game interpreter for RPG Maker 2000/2003 and EasyRPG games
 URL: https://easyrpg.org
 
 # EasyRPG Player itself is GPLv3+.
+# The program's logos are CC-BY-SA 4.0.
 # --
 # The program bundles several 3rd-party libraries.
 #
@@ -22,7 +23,6 @@ URL: https://easyrpg.org
 # - src/external/rang.hpp
 #
 # PicoJSON is used only for Emscripten builds (and unbundled before build).
-# Dirent is used only for MS Windows builds (and unbundled before build).
 # --
 # The program also uses a couple of 3rd-party fonts. Since those are not
 # loaded at runtime, but rather baked into the executable at compile time,
@@ -44,27 +44,26 @@ URL: https://easyrpg.org
 #
 # The upstream tarball contains also "Teenyicons", under the MIT license,
 # but those are used only for Emscripten builds.
-License: GPLv3+ and BSD and Unlicense and (Unlicense or MIT-0) and Baekmuk and Public Domain and MIT and GPLv2+ with exceptions
+License: GPL-3.0-or-later AND CC-BY-SA-4.0 AND BSD-3-Clause AND (Unlicense OR MIT-0) AND Unlicense AND Baekmuk AND LicenseRef-Fedora-Public-Domain AND MIT AND GPL-2.0-or-later WITH Font-exception-2.0
 
-Version: 0.7.0
-Release: 6%{?dist}
+Version: 0.8
+Release: 1%{?dist}
 
 %global repo_owner EasyRPG
 %global repo_name Player
 Source0: https://github.com/%{repo_owner}/%{repo_name}/archive/%{version}/%{repo_name}-%{version}.tar.gz
 
 # Unbundle libraries
-Patch0: 0000-unbundle-dirent.patch
 Patch1: 0001-unbundle-picojson.patch
 Patch2: 0002-unbundle-dr_wav.patch
 
-# Fix build failures with GCC13
-Patch3: 0003-fix-gcc13-build-failures.patch
-
-BuildRequires: asciidoc
-BuildRequires: cmake >= 3.7
+BuildRequires: cmake >= 3.13
+BuildRequires: desktop-file-utils
+BuildRequires: fluidsynth
 BuildRequires: gcc-c++
 BuildRequires: make
+BuildRequires: libappstream-glib
+BuildRequires: rubygem-asciidoctor
 
 # This library doesn't have pkgconfig info
 BuildRequires: dr_wav-devel
@@ -74,7 +73,7 @@ BuildRequires: pkgconfig(fmt)
 BuildRequires: pkgconfig(freetype2)
 BuildRequires: pkgconfig(harfbuzz)
 BuildRequires: pkgconfig(ibus-1.0)
-BuildRequires: pkgconfig(liblcf) >= 0.7.0
+BuildRequires: pkgconfig(liblcf) >= 0.8
 BuildRequires: pkgconfig(libmpg123)
 BuildRequires: pkgconfig(libpng)
 BuildRequires: pkgconfig(libxmp)
@@ -86,6 +85,8 @@ BuildRequires: pkgconfig(speexdsp)
 BuildRequires: pkgconfig(vorbis)
 BuildRequires: pkgconfig(wildmidi)
 BuildRequires: pkgconfig(zlib)
+
+Requires: hicolor-icon-theme
 
 
 %description
@@ -109,7 +110,9 @@ rm src/external/dr_wav.h src/external/picojson.h
 	-DPLAYER_ENABLE_TESTS=ON \
 	-DPLAYER_TARGET_PLATFORM=SDL2 \
 	-DCMAKE_BUILD_TYPE=Release
+
 %cmake_build
+%cmake_build --target man
 
 
 %install
@@ -117,6 +120,9 @@ rm src/external/dr_wav.h src/external/picojson.h
 
 
 %check
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
+
 %cmake_build --target check
 
 
@@ -124,10 +130,21 @@ rm src/external/dr_wav.h src/external/picojson.h
 %license COPYING
 %{_bindir}/%{name}
 %{_mandir}/man6/%{name}.6*
+%{_datadir}/applications/%{name}.desktop
 %{_datadir}/bash-completion/completions/%{name}
+%{_datadir}/icons/hicolor/*/apps/%{name}.png
+%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
+%{_datadir}/pixmaps/%{name}.png
+%{_metainfodir}/%{name}.metainfo.xml
 
 
 %changelog
+* Tue May 02 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.8-1
+- Update to v0.8
+- Drop Patch0 (unbundle dirent - dependency removed upstream)
+- Drop Patch3 (fix GCC13 build errors - merged upstream)
+- Convert License tag to SPDX
+
 * Thu Jan 19 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.7.0-6
 - Add a patch to fix build failures under GCC13
 

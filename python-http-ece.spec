@@ -2,13 +2,15 @@
 
 Name:               python-http-ece
 Version:            1.1.0
-Release:            12%{?dist}
+Release:            13%{?dist}
 Summary:            A simple implementation of the encrypted content-encoding
 
 License:            MIT
 URL:                https://github.com/web-push-libs/encrypted-content-encoding
 Source0:            %{url}/archive/v%{version}/encrypted-content-encoding-%{version}.tar.gz
 BuildArch:          noarch
+
+Patch0:             66.patch
 
 %description
 %{summary}.
@@ -30,7 +32,7 @@ BuildRequires:      python%{python3_pkgversion}-cryptography
 Python %{python3_version} version.
 
 %prep
-%autosetup -n encrypted-content-encoding-%{version}
+%autosetup -n encrypted-content-encoding-%{version} -p1
 
 %build
 cd python
@@ -51,6 +53,9 @@ nosetests-%{python3_version} -v
 %{python3_sitelib}/http_ece-*.egg-info/
 
 %changelog
+* Tue May 02 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.1.0-13
+- Patch for test failure.
+
 * Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.1.0-12
 - migrated to SPDX license
 

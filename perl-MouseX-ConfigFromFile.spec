@@ -2,7 +2,7 @@ Name:		perl-MouseX-ConfigFromFile
 Summary:	An abstract Mouse role for setting attributes from a config file
 Version:	0.05
 Release:	29%{?dist}
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/MouseX-ConfigFromFile
 Source0:	https://cpan.metacpan.org/modules/by-module/MouseX/MouseX-ConfigFromFile-%{version}.tar.gz
 BuildArch:	noarch
@@ -31,7 +31,7 @@ BuildRequires:	perl(Test::UseAllModules)
 BuildRequires:	perl(Test::Pod) >= 1.00
 BuildRequires:	perl(Test::Pod::Coverage) >= 1.04
 BuildRequires:	perl(Test::Spelling), aspell-en
-# Runtime
+# Dependencies
 Requires:	perl(Mouse) >= 0.39
 
 %description

@@ -7,6 +7,12 @@
 %global debug_package %{nil}
 %endif
 
+%if 0%{?rhel}
+%bcond_with btrfs
+%else
+%bcond_without btrfs
+%endif
+
 %if 0%{?fedora} && ! 0%{?rhel}
 %define conditional_epoch 1
 %else
@@ -36,7 +42,9 @@ URL: %{git0}
 # Tarball fetched from upstream
 Source0: %{url}/archive/%{built_tag}.tar.gz
 BuildRequires: go-md2man
+%if %{with btrfs}
 BuildRequires: btrfs-progs-devel
+%endif
 BuildRequires: git-core
 BuildRequires: golang >= 1.16.6
 BuildRequires: go-rpm-macros
@@ -109,6 +117,10 @@ export CGO_CFLAGS="$CGO_CFLAGS -m64 -mtune=generic -fcf-protection=full"
 
 export GOPATH=$(pwd)/_build:$(pwd)
 export CGO_CFLAGS=$CFLAGS
+
+%if %{without btrfs}
+export BUILDTAGS="exclude_graphdriver_btrfs btrfs_noversion"
+%endif
 
 # unset LDFLAGS earlier set from set_build_flags
 LDFLAGS=''

@@ -1,6 +1,6 @@
 Name:           noggin
 Version:        1.7.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Self-service user portal for FreeIPA for communities
 
 License:        MIT
@@ -17,6 +17,13 @@ BuildRequires:  pyproject-rpm-macros >= 0-14
 BuildRequires:  systemd-rpm-macros
 Requires:       nginx-filesystem
 Requires:       (python3dist(gunicorn) with /usr/bin/gunicorn-3)
+
+%if 0%{?rhel}
+# https://github.com/fedora-infra/noggin/pull/1153
+# also loosens a few version requirements for rhel
+Patch:          poetry-core.patch
+%endif
+
 
 %description
 Noggin is a self-service portal for FreeIPA.
@@ -51,6 +58,7 @@ Provides a theme for Noggin used for openSUSE Accounts.
 
 # Install README.Fedora file
 install -pm 0644 %{SOURCE10} README.Fedora
+
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -115,6 +123,9 @@ touch %{buildroot}%{_localstatedir}/log/nginx/noggin.error.log
 
 
 %changelog
+* Tue May 02 2023 Jonathan Wright <jonathan@almalinux.org> - 1.7.1-2
+- Add patch for building in epel9
+
 * Sat Feb 18 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.7.1-1
 - Rebase to 1.7.1
 - Add quick start documentation as README.Fedora

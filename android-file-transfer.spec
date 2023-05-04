@@ -3,12 +3,14 @@
 
 Name:           android-file-transfer
 Version:        4.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Reliable Android MTP client with minimalist UI
 
 License:        LGPL-2.1-only
 URL:            https://github.com/whoozle/android-file-transfer-linux
 Source0:        %{url}/archive/v%{version}/%{name}-linux-%{version}.tar.gz
+
+Patch0001:      0001-Fix-build-with-GCC-13-330.patch
 
 Requires:       hicolor-icon-theme
 BuildRequires:  cmake
@@ -70,6 +72,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %{_datadir}/metainfo/%{name}.appdata.xml
 
 %changelog
+* Tue May 2 2023 Marek Blaha <mblaha@redhat.com> - 4.2-8
+- Backport fix to build with GCC 13
+
 * Thu Mar 30 2023 Marek Blaha <mblaha@redhat.com> - 4.2-7
 - migrated to SPDX license
 

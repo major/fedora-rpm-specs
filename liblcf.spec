@@ -1,7 +1,7 @@
 Name: liblcf
 Summary: Library to handle RPG Maker 2000/2003 game data
 
-# liblcf itself if MIT, but it uses some example code
+# liblcf itself is MIT, but it uses some example code
 # from the BSD-licensed "inih" library, as well as
 # some header-only C++ libraries, which are subject
 # to the Boost License.
@@ -13,14 +13,12 @@ Summary: Library to handle RPG Maker 2000/2003 game data
 # - src/inireader.h
 #
 # Boost:
-# - src/lcf/span.h
-# - src/lcf/string_view.h
 # - src/lcf/third_party/span.h
 # - src/lcf/third_party/string_view.h
-License: MIT and BSD and Boost
+License: MIT AND BSD-2-Clause AND BSL-1.0
 
-Version: 0.7.0
-Release: 7%{?dist}
+Version: 0.8
+Release: 1%{?dist}
 
 URL: https://github.com/EasyRPG/liblcf
 Source0: %{URL}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -72,8 +70,10 @@ This package contains documentation (in HTML format) for %{name}.
 
 
 %prep
-%setup -q
-%patch0 -p1
+%autosetup -p1
+
+# Remove bundled inih library
+rm src/ini.cpp src/lcf/ini.h
 
 
 %build
@@ -120,6 +120,10 @@ ln -s %{_includedir}/ini.h %{buildroot}%{_includedir}/lcf/ini.h
 
 
 %changelog
+* Tue May 02 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.8-1
+- Update to v0.8
+- Convert License tag to SPDX
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

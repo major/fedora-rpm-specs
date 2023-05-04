@@ -75,7 +75,7 @@ Release:        %autorelease
 
 # poppler is "GPLv2 or GPLv3" which makes plug-ins linking to libpoppler such
 # as file-pdf-load GPLv3-only
-License:        GPLv3+ and GPLv3
+License:        GPL-3.0-or-later AND GPL-2.0-only AND GPL-3.0-only AND BSD-3-Clause
 URL:            http://www.gimp.org/
 %if %{with aalib}
 BuildRequires:  aalib-devel

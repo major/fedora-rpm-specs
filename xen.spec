@@ -54,8 +54,8 @@
 
 Summary: Xen is a virtual machine monitor
 Name:    xen
-Version: 4.17.0
-Release: 9%{?dist}
+Version: 4.17.1
+Release: 1%{?dist}
 License: GPLv2+ and LGPLv2+ and BSD
 URL:     http://xen.org/
 Source0: https://downloads.xenproject.org/release/xen/%{version}/xen-%{version}.tar.gz
@@ -110,13 +110,6 @@ Patch43: xen.gcc11.fixes.patch
 Patch45: xen.gcc12.fixes.patch
 Patch46: xen.efi.build.patch
 Patch47: xen.gcc13.fixes.patch
-Patch48: xsa425.patch
-Patch49: xsa426.patch
-Patch50: xsa427.patch
-Patch51: xsa428-4.17-1.patch
-Patch52: xsa428-4.17-2.patch
-Patch53: xsa429.patch
-Patch54: xsa430.patch
 
 
 %if %build_qemutrad
@@ -298,56 +291,49 @@ manage Xen virtual machines.
 
 %prep
 %setup -q
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1
-%patch10 -p1
-%patch11 -p1
-%patch12 -p1
-%patch13 -p1
-%patch14 -p1
-%patch15 -p1
-%patch16 -p1
-%patch17 -p1
-%patch18 -p1
-%patch19 -p1
-%patch20 -p1
-%patch21 -p1
-%patch22 -p1
-%patch23 -p1
-%patch24 -p1
-%patch25 -p1
-%patch33 -p1
-%patch34 -p1
-%patch37 -p1
-%patch40 -p1
-%patch41 -p1
-%patch43 -p1
-%patch45 -p1
-%patch46 -p1
-%patch47 -p1
-%patch48 -p1
-%patch49 -p1
-%patch50 -p1
-%patch51 -p1
-%patch52 -p1
-%patch53 -p1
-%patch54 -p1
+%patch 4 -p1
+%patch 5 -p1
+%patch 6 -p1
+%patch 7 -p1
+%patch 8 -p1
+%patch 9 -p1
+%patch 10 -p1
+%patch 11 -p1
+%patch 12 -p1
+%patch 13 -p1
+%patch 14 -p1
+%patch 15 -p1
+%patch 16 -p1
+%patch 17 -p1
+%patch 18 -p1
+%patch 19 -p1
+%patch 20 -p1
+%patch 21 -p1
+%patch 22 -p1
+%patch 23 -p1
+%patch 24 -p1
+%patch 25 -p1
+%patch 33 -p1
+%patch 34 -p1
+%patch 37 -p1
+%patch 40 -p1
+%patch 41 -p1
+%patch 43 -p1
+%patch 45 -p1
+%patch 46 -p1
+%patch 47 -p1
 
 # qemu-xen-traditional patches
 pushd tools/qemu-xen-traditional
-%patch27 -p1
-%patch29 -p1
-%patch30 -p1
-%patch31 -p1
-%patch32 -p1
-%patch35 -p1
-%patch36 -p1
-%patch38 -p1
-%patch39 -p1
+%patch 27 -p1
+%patch 29 -p1
+%patch 30 -p1
+%patch 31 -p1
+%patch 32 -p1
+%patch 35 -p1
+%patch 36 -p1
+%patch 38 -p1
+%patch 39 -p1
 popd
 
 # qemu-xen patches
@@ -943,6 +929,11 @@ fi
 %endif
 
 %changelog
+* Tue May 02 2023 Michael Young <m.a.young@durham.ac.uk> - 4.17.1-1
+- update to xen-4.17.1
+  remove patches now included upstream
+  switch from patchN to patch N format for applying patches
+
 * Tue Apr 25 2023 Michael Young <m.a.young@durham.ac.uk> - 4.17.0-9
 - x86 shadow paging arbitrary pointer dereference [XSA-430, CVE-2022-42335]
 

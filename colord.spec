@@ -10,35 +10,35 @@
 Summary:   Color daemon
 Name:      colord
 Version:   1.4.6
-Release:   3%{?dist}
+Release:   4%{?dist}
 License:   GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:       https://www.freedesktop.org/software/colord/
 Source0:   https://www.freedesktop.org/software/colord/releases/%{name}-%{version}.tar.xz
 
-BuildRequires: dbus-devel
-BuildRequires: libxslt
-BuildRequires: docbook5-style-xsl
-BuildRequires: gettext
-BuildRequires: glib2-devel
-BuildRequires: systemd-devel
-BuildRequires: lcms2-devel >= 2.6
-BuildRequires: libgudev1-devel
-BuildRequires: polkit-devel >= 0.103
-BuildRequires: sqlite-devel
-BuildRequires: gobject-introspection-devel
-BuildRequires: vala
-BuildRequires: libgusb-devel >= 0.2.2
-BuildRequires: gtk-doc
-BuildRequires: color-filesystem
-BuildRequires: meson
 %if !0%{?rhel}
 BuildRequires: bash-completion
 %endif
+BuildRequires: color-filesystem
+BuildRequires: docbook5-style-xsl
+BuildRequires: gettext
+BuildRequires: gtk-doc
+BuildRequires: gobject-introspection-devel
+BuildRequires: libxslt
+BuildRequires: meson
+BuildRequires: vala
+BuildRequires: pkgconfig(gio-unix-2.0)
+BuildRequires: pkgconfig(gudev-1.0)
+BuildRequires: pkgconfig(gusb) >= 0.2.7
+BuildRequires: pkgconfig(lcms2) >= 2.6
+BuildRequires: pkgconfig(libsystemd)
+BuildRequires: pkgconfig(polkit-gobject-1) >= 0.103
+BuildRequires: pkgconfig(sqlite3)
+BuildRequires: pkgconfig(systemd)
 
 # for SANE support
 %if 0%{?enable_sane}
-BuildRequires: sane-backends-devel
-BuildRequires: dbus-devel
+BuildRequires: pkgconfig(dbus-1)
+BuildRequires: pkgconfig(sane-backends)
 %endif
 
 Requires: color-filesystem
@@ -102,7 +102,7 @@ Summary: Data files for installed tests
 Data files for installed tests.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 # Set ~2 GiB limit so that colprof is forced to work in chunks when
@@ -156,7 +156,8 @@ exit 0
 %ldconfig_scriptlets libs
 
 %files -f %{name}.lang
-%doc README.md AUTHORS NEWS COPYING
+%doc README.md AUTHORS NEWS
+%license COPYING
 %{_libexecdir}/colord
 %attr(755,colord,colord) %dir %{_localstatedir}/lib/colord
 %attr(755,colord,colord) %dir %{_localstatedir}/lib/colord/icc
@@ -166,7 +167,7 @@ exit 0
 %{_datadir}/dbus-1/interfaces/org.freedesktop.ColorManager*.xml
 %{_datadir}/polkit-1/actions/org.freedesktop.color.policy
 %{_datadir}/dbus-1/system-services/org.freedesktop.ColorManager.service
-%{_datadir}/man/man1/*.1.gz
+%{_mandir}/man1/*.1*
 %{_datadir}/colord
 %if !0%{?rhel}
 %{_datadir}/bash-completion/completions/colormgr
@@ -256,6 +257,9 @@ exit 0
 %{_datadir}/installed-tests/colord/*
 
 %changelog
+* Tue May 02 2023 David King <amigadave@amigadave.com> - 1.4.6-4
+- Use pkgconfig for BuildRequires
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

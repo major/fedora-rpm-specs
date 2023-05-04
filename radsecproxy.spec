@@ -1,6 +1,6 @@
 Summary:        Generic RADIUS proxy with RadSec support
 Name:           radsecproxy
-Version:        1.9.2
+Version:        1.9.3
 Release:        1%{?dist}
 License:        BSD-3-Clause
 URL:            https://radsecproxy.github.io/
@@ -59,6 +59,9 @@ install -D -p -m 0644 %{SOURCE6} $RPM_BUILD_ROOT%{_tmpfilesdir}/%{name}.conf
 install -D -p -m 0644 %{SOURCE7} $RPM_BUILD_ROOT%{_sysusersdir}/%{name}.conf
 chmod 644 tools/*.sh
 
+%check
+make check
+
 %pre
 %sysusers_create_compat %{SOURCE7}
 
@@ -91,6 +94,9 @@ chmod 644 tools/*.sh
 %dir %attr(0750,%{name},%{name}) %{_localstatedir}/log/%{name}/
 
 %changelog
+* Tue May 02 2023 Robert Scheck <robert@fedoraproject.org> 1.9.3-1
+- Upgrade to 1.9.3
+
 * Tue Jan 24 2023 Robert Scheck <robert@fedoraproject.org> 1.9.2-1
 - Upgrade to 1.9.2 (#2163576)
 

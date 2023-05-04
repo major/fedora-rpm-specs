@@ -18,19 +18,21 @@ Summary:        Miscellaneous tools for data analysis and scientific computing
 License:        BSD-3-Clause AND MIT AND Python-2.0.1
 URL:            https://github.com/has2k1/scikit-misc
 Source0:        %{pypi_source %{archive_name}}
+# Add meson build options to pyproject.toml
+# Passing this through one of the macros appears unsupported
+Patch0:         use_flexiblas.patch
 
 %description %_description
 
 %package -n python3-%{pypi_name}
 Summary:        %{summary}
-BuildRequires:  python, python3-devel
-BuildRequires:  python3-numpy
-BuildRequires:  python3-Cython
+BuildRequires:  python3-devel
+BuildRequires:  git-core
 # For optimized performance
 BuildRequires:  flexiblas-devel
 BuildRequires:  gcc, gcc-gfortran
-BuildRequires:  meson
-BuildRequires:  git-core
+BuildRequires:  cmake
+BuildRequires:  patchelf
 %if %{with tests}
 BuildRequires:  python3-pytest
 %endif
@@ -40,19 +42,29 @@ BuildRequires:  python3-pytest
 
 
 %prep
-%autosetup -p1 -n %{archive_name}-%{version}
+%autosetup -p1 -n %{archive_name}-%{version} -S git
+
+%py3_shebang_fix spin skmisc/_build_utils/
 
 # Disable coverage
 sed -i -e 's/--cov=skmisc --cov-report=xml//' pyproject.toml
 
+# Do not attempt to build with an old version of numpy; this makes 
+# sense for PyPI distribution (oldest-supported-numpy) but not here.
+sed -r -i 's/(numpy)==/\1>=/' pyproject.toml
+
+
+%generate_buildrequires
+%pyproject_buildrequires -w
+
 
 %build
-%meson -Dblas=flexiblas -Dlapack=flexiblas
-%meson_build
+%pyproject_wheel
 
 
 %install
-%meson_install
+%pyproject_install
+%pyproject_save_files %{module_name}
 
 
 %check
@@ -63,12 +75,7 @@ sed -i -e 's/--cov=skmisc --cov-report=xml//' pyproject.toml
 %endif
 
 
-# %check
-# Testing not implemented in Meson (yet?)
-
-
-%files -n python3-%{pypi_name}
-%{python3_sitearch}/%{module_name}/
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst
 %license LICENSE
 

@@ -1,6 +1,6 @@
 Name:           python-installer
-Version:        0.5.1
-Release:        2%{?dist}
+Version:        0.7.0
+Release:        1%{?dist}
 Summary:        A library for installing Python wheels
 
 License:        MIT
@@ -54,6 +54,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Wed Mar 22 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 0.7.0-1
+- Update to 0.7.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
