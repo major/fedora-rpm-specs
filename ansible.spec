@@ -20,7 +20,7 @@ BuildRequires:  python%{python3_pkgversion}-rpm-macros
 
 Name:           ansible
 Summary:        Curated set of Ansible collections included in addition to ansible-core
-Version:        8.0.0~a2
+Version:        8.0.0~a3
 %global uversion %(tr -d '~' <<< %{version})
 Release:        1%{?dist}
 
@@ -220,6 +220,9 @@ hardlink -v %{buildroot}%{ansible_licensedir}
 %{python3_sitelib}/ansible-%{uversion}-py%{python3_version}.egg-info/
 
 %changelog
+* Wed May 03 2023 Maxwell G <maxwell@gtmx.me> - 8.0.0~a3-1
+- Update to 8.0.0~a3.
+
 * Thu Apr 27 2023 Maxwell G <maxwell@gtmx.me> - 8.0.0~a2-1
 - Update to 8.0.0~a2.
 

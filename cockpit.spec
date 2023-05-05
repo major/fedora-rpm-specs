@@ -49,9 +49,14 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        290
+Version:        291
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
+
+# Experimental Python support
+%if !%{defined cockpit_enable_python}
+%define cockpit_enable_python 0
+%endif
 
 # in RHEL 8 the source package is duplicated: cockpit (building basic packages like cockpit-{bridge,system})
 # and cockpit-appstream (building optional packages like cockpit-{pcp})
@@ -162,6 +167,22 @@ Suggests: cockpit-selinux
 Requires: subscription-manager-cockpit
 %endif
 
+%if %{cockpit_enable_python}
+BuildRequires:  python3-devel
+BuildRequires:  python3-pip
+BuildRequires:  python3-setuptools
+BuildRequires:  python3-wheel
+%if 0%{?rhel} == 0
+# All of these are only required for running pytest (which we only do on Fedora)
+BuildRequires:  procps-ng
+BuildRequires:  pyproject-rpm-macros
+BuildRequires:  python3-pytest-asyncio
+BuildRequires:  python3-pytest-cov
+BuildRequires:  python3-pytest-timeout
+BuildRequires:  python3-tox-current-env
+%endif
+%endif
+
 %prep
 %setup -q -n cockpit-%{version}
 
@@ -174,6 +195,9 @@ Requires: subscription-manager-cockpit
     --docdir=%_defaultdocdir/%{name} \
 %endif
     --with-pamdir='%{pamdir}' \
+%if %{cockpit_enable_python}
+    --enable-pybridge \
+%endif
 %if 0%{?build_basic} == 0
     --disable-ssh \
 %endif
@@ -182,6 +206,10 @@ Requires: subscription-manager-cockpit
 
 %check
 make -j$(nproc) check
+
+%if %{cockpit_enable_python} && 0%{?rhel} == 0
+%tox
+%endif
 
 %install
 %make_install
@@ -257,13 +285,15 @@ done
 rm -r %{buildroot}/%{_prefix}/%{__lib}/tmpfiles.d
 find %{buildroot}/%{_unitdir}/ -type f ! -name 'cockpit-session*' -delete
 for libexec in cockpit-askpass cockpit-session cockpit-ws cockpit-tls cockpit-wsinstance-factory cockpit-client cockpit-client.ui cockpit-desktop cockpit-certificate-helper cockpit-certificate-ensure; do
-    rm %{buildroot}/%{_libexecdir}/$libexec
+    rm -f %{buildroot}/%{_libexecdir}/$libexec
 done
 rm -r %{buildroot}/%{_sysconfdir}/pam.d %{buildroot}/%{_sysconfdir}/motd.d %{buildroot}/%{_sysconfdir}/issue.d
 rm -f %{buildroot}/%{_libdir}/security/pam_*
-rm %{buildroot}/usr/bin/cockpit-bridge
+rm -f %{buildroot}/usr/bin/cockpit-bridge
 rm -f %{buildroot}%{_libexecdir}/cockpit-ssh
 rm -f %{buildroot}%{_datadir}/metainfo/cockpit.appdata.xml
+rm -rf %{buildroot}%{python3_sitelib}/cockpit/
+rm -rf %{buildroot}%{python3_sitelib}/cockpit-%{version}.dist-info/
 %endif
 
 # when not building optional packages, remove their files
@@ -344,6 +374,10 @@ system on behalf of the web based user interface.
 %doc %{_mandir}/man1/cockpit-bridge.1.gz
 %{_bindir}/cockpit-bridge
 %{_libexecdir}/cockpit-askpass
+%if %{cockpit_enable_python}
+%{python3_sitelib}/%{name}/
+%{python3_sitelib}/%{name}-%{version}.dist-info/
+%endif
 
 %package doc
 Summary: Cockpit deployment and developer guide
@@ -392,23 +426,22 @@ Provides: cockpit-sosreport = %{version}-%{release}
 Recommends: (reportd if abrt)
 %endif
 
-Provides: bundled(npm(@patternfly/patternfly)) = 4.224.4
-Provides: bundled(npm(@patternfly/react-core)) = 4.276.9
-Provides: bundled(npm(@patternfly/react-icons)) = 4.93.6
-Provides: bundled(npm(@patternfly/react-styles)) = 4.92.7
-Provides: bundled(npm(@patternfly/react-table)) = 4.113.1
-Provides: bundled(npm(@patternfly/react-tokens)) = 4.94.6
+Provides: bundled(npm(@patternfly/patternfly)) = 5.0.0-alpha.40
+Provides: bundled(npm(@patternfly/react-core)) = 5.0.0-alpha.72
+Provides: bundled(npm(@patternfly/react-icons)) = 5.0.0-alpha.10
+Provides: bundled(npm(@patternfly/react-styles)) = 5.0.0-alpha.7
+Provides: bundled(npm(@patternfly/react-table)) = 5.0.0-alpha.74
+Provides: bundled(npm(@patternfly/react-tokens)) = 5.0.0-alpha.7
 Provides: bundled(npm(argparse)) = 1.0.10
-Provides: bundled(npm(attr-accept)) = 1.1.3
+Provides: bundled(npm(attr-accept)) = 2.2.2
 Provides: bundled(npm(autolinker)) = 3.16.2
 Provides: bundled(npm(available-typed-arrays)) = 1.0.5
 Provides: bundled(npm(call-bind)) = 1.0.2
-Provides: bundled(npm(core-js)) = 2.6.12
 Provides: bundled(npm(deep-equal)) = 2.0.5
 Provides: bundled(npm(define-properties)) = 1.2.0
 Provides: bundled(npm(es-get-iterator)) = 1.1.3
-Provides: bundled(npm(file-selector)) = 0.1.19
-Provides: bundled(npm(focus-trap)) = 6.9.2
+Provides: bundled(npm(file-selector)) = 0.6.0
+Provides: bundled(npm(focus-trap)) = 7.4.0
 Provides: bundled(npm(for-each)) = 0.3.3
 Provides: bundled(npm(function-bind)) = 1.1.1
 Provides: bundled(npm(functions-have-names)) = 1.2.3
@@ -446,25 +479,21 @@ Provides: bundled(npm(object-inspect)) = 1.12.3
 Provides: bundled(npm(object-is)) = 1.1.5
 Provides: bundled(npm(object-keys)) = 1.1.1
 Provides: bundled(npm(object.assign)) = 4.1.4
-Provides: bundled(npm(popper.js)) = 1.16.1
-Provides: bundled(npm(prop-types-extra)) = 1.1.1
 Provides: bundled(npm(prop-types)) = 15.8.1
 Provides: bundled(npm(react-dom)) = 18.2.0
-Provides: bundled(npm(react-dropzone)) = 9.0.0
+Provides: bundled(npm(react-dropzone)) = 14.2.3
 Provides: bundled(npm(react-is)) = 16.13.1
 Provides: bundled(npm(react)) = 18.2.0
-Provides: bundled(npm(regexp.prototype.flags)) = 1.4.3
+Provides: bundled(npm(regexp.prototype.flags)) = 1.5.0
 Provides: bundled(npm(remarkable)) = 2.0.1
 Provides: bundled(npm(scheduler)) = 0.23.0
 Provides: bundled(npm(side-channel)) = 1.0.4
 Provides: bundled(npm(sprintf-js)) = 1.0.3
 Provides: bundled(npm(stop-iteration-iterator)) = 1.0.0
-Provides: bundled(npm(tabbable)) = 5.3.3
+Provides: bundled(npm(tabbable)) = 6.1.1
 Provides: bundled(npm(throttle-debounce)) = 2.3.0
-Provides: bundled(npm(tippy.js)) = 5.1.2
 Provides: bundled(npm(tslib)) = 2.5.0
 Provides: bundled(npm(uuid)) = 7.0.3
-Provides: bundled(npm(warning)) = 4.0.3
 Provides: bundled(npm(which-boxed-primitive)) = 1.0.2
 Provides: bundled(npm(which-collection)) = 1.0.1
 Provides: bundled(npm(which-typed-array)) = 1.1.9
@@ -753,6 +782,9 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed May 03 2023 Packit <hello@packit.dev> - 291-1
+- Update to PatternFly 5 Alpha
+
 * Wed Apr 19 2023 Packit <hello@packit.dev> - 290-1
 - Login page: Add autocomplete tags
 - webserver: Disallow direct URL logins with LoginTo=false

@@ -8,7 +8,7 @@
 %global forgeurl https://github.com/rfc1036/whois
 
 Name:       whois       
-Version:    5.5.16
+Version:    5.5.17
 Release:    1%{?dist}
 Summary:    Improved WHOIS client
 License:    GPLv2+
@@ -18,7 +18,6 @@ Source0:    https://ftp.debian.org/debian/pool/main/w/%{name}/%{name}_%{version}
 Source1:    https://ftp.debian.org/debian/pool/main/w/%{name}/%{name}_%{version}.dsc
 # This keyring needs to be processed at prep time, dscverify is not able to use it as it is
 Source2:    https://www.linux.it/~md/md-pgp.asc
-%dnl Source0:    %{forgeurl}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  coreutils
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -150,6 +149,9 @@ fi
 %endif
 
 %changelog
+* Wed May 03 2023 Petr Menšík <pemensik@redhat.com> - 5.5.17-1
+- Update to 5.5.17 (#2192932)
+
 * Fri Apr 14 2023 Petr Menšík <pemensik@redhat.com> - 5.5.16-1
 - Update to 5.5.16 (#2173826)
 

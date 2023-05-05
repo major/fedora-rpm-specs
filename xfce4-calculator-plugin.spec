@@ -3,8 +3,8 @@
 %global gen_name calculator
 
 Name:		xfce4-calculator-plugin
-Version:	0.7.1
-Release:	11%{?dist}
+Version:	0.7.2
+Release:	1%{?dist}
 Summary:	A calculator plugin for the Xfce4 panel
 
 License:	GPLv2+
@@ -47,13 +47,15 @@ rm -f NEWS
 
 %files -f %{name}.lang
 %license COPYING
-%doc TODO ChangeLog AUTHORS
+%doc ChangeLog AUTHORS
 %{_libdir}/xfce4/panel/plugins/libcalculator.so
-%{_libdir}/xfce4/panel/plugins/libcalculator.la
 %{_datadir}/xfce4/panel/plugins/%{gen_name}.desktop
 %{_datadir}/icons/hicolor/*/*/*calculator*
 
 %changelog
+* Wed May 03 2023 Mukundan Ragavan <nonamedotc@fedoraproject.org> - 0.7.2-1
+- Update to v0.7.2 (fixes bz#2113764 and bz#2188086)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

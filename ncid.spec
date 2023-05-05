@@ -1,8 +1,8 @@
 Name:       ncid
 Version:    1.13
-Release:    7%{?dist}
+Release:    8%{?dist}
 Summary:    Network Caller ID server, client and gateways
-Requires:   perl-interpreter, perl-Config-Simple, perl-Data-HexDump, logrotate
+Requires:   logrotate
 Provides:   /usr/lib64/ncid/libcarrier.so.8(), /usr/lib/ncid/libcarrier.so.8()
 License:    GPLv3+
 Url:        http://ncid.sourceforge.net
@@ -31,7 +31,7 @@ The client and default modules are in the ncid-client package.
 
 %package gateways
 Summary:    NCID (Network Caller ID) gateways
-Requires:   libpcap%{?_isa} >= 1.5.0, perl, perl-Config-Simple, perl-Data-HexDump, perl-Switch, perl-Device-SerialPort, perl-Time-HiRes, perl-Net-Pcap, nc
+Requires:   libpcap%{?_isa} >= 1.5.0, nc
 
 %description gateways
 NCID is Caller ID (CID) distributed over a network to a variety of
@@ -455,6 +455,9 @@ touch --no-create %{_datadir}/icons/hicolor &>/dev/null
 gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 %changelog
+* Thu Apr 13 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.13-8
+- Remove redundant perl dependencies
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

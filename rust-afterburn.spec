@@ -8,7 +8,7 @@
 
 Name:           rust-%{crate}
 Version:        5.4.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Simple cloud provider agent
 
 # Upstream license specification: Apache-2.0
@@ -153,6 +153,9 @@ cp -a dracut/* %{buildroot}%{dracutmodulesdir}
 %endif
 
 %changelog
+* Wed May 03 2023 Fabio Valentini <decathorpe@gmail.com> - 5.4.0-3
+- Rebuild for tokio, h2, and openssl crate security updates
+
 * Mon Mar 20 2023 Benjamin Gilbert <bgilbert@redhat.com> - 5.4.0-2
 - Update for Mockito 1.0 API
 

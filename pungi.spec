@@ -2,12 +2,13 @@
 
 Name:           pungi
 Version:        4.3.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Distribution compose tool
 
 License:        GPL-2.0-only
 URL:            https://pagure.io/pungi
 Source0:        https://pagure.io/releases/%{name}/%{name}-%{version}.tar.bz2
+Patch0:         https://pagure.io/pungi/pull-request/1671.patch
 
 BuildRequires:  make
 BuildRequires:  python3-pytest
@@ -138,6 +139,9 @@ rm %{buildroot}%{_bindir}/pungi
 %{_bindir}/%{name}-wait-for-signed-ostree-handler
 
 %changelog
+* Wed May 03 2023 Lubomír Sedlář <lsedlar@redhat.com> - 4.3.8-1
+- Set priority for Fedora messages
+
 * Thu Mar 30 2023 Haibo Lin <hlin@redhat.com> - 4.3.8-1
 - createiso: Update possibly changed file on DVD (lsedlar)
 - pkgset: Stop reuse if configuration changed (lsedlar)

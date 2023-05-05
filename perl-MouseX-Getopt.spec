@@ -1,13 +1,14 @@
 Name:		perl-MouseX-Getopt
 Summary:	Mouse role for processing command line options
 Version:	0.38
-Release:	20%{?dist}
-License:	GPL+ or Artistic
+Release:	21%{?dist}
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/MouseX-Getopt
 Source0:	https://cpan.metacpan.org/modules/by-module/MouseX/MouseX-Getopt-%{version}.tar.gz
 Patch0:		MouseX-Getopt-0.38-GLD-0.107.patch
 BuildArch:	noarch
 # Module Build
+BuildRequires:	coreutils
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
 BuildRequires:	perl(Module::Build::Tiny) >= 0.035
@@ -34,7 +35,7 @@ BuildRequires:	perl(Test::Warn) >= 0.21
 BuildRequires:	perl(MouseX::ConfigFromFile)
 BuildRequires:	perl(MouseX::SimpleConfig) >= 0.07
 %endif
-# Runtime
+# Dependencies
 Requires:	perl(Mouse) >= 0.64
 Requires:	perl(Mouse::Meta::Attribute)
 
@@ -49,7 +50,7 @@ objects using parameters passed in from the command line.
 %setup -q -n MouseX-Getopt-%{version}
 
 # Fix compatibility with GLD 0.107
-%patch0
+%patch -P 0
 
 %build
 perl Build.PL --installdirs=vendor
@@ -57,6 +58,7 @@ perl Build.PL --installdirs=vendor
 
 %install
 ./Build install --destdir=%{buildroot} --create_packlist=0
+%{_fixperms} -c %{buildroot}
 
 %check
 ./Build test
@@ -78,6 +80,12 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/MouseX::Getopt::Strict.3*
 
 %changelog
+* Wed May  3 2023 Paul Howarth <paul@city-fan.org> - 0.38-21
+- Spec tidy-up
+  - Use SPDX-format license tag
+  - Avoid use of deprecated patch syntax
+  - Fix permissions of installed files
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.38-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

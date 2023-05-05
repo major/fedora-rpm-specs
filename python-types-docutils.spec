@@ -5,12 +5,10 @@ docutils. The source for this package can be found at
 https://github.com/python/typeshed/tree/master/stubs/docutils. All fixes for
 types and metadata should be contributed there.
 
-See https://github.com/python/typeshed/blob/master/README.md for more details.
-This package was generated from typeshed commit
-ce4668a1328cfbdccc0137cdf9b9bd5c64120a6c.}
+See https://github.com/python/typeshed/blob/master/README.md for more details.}
 
 Name:           python-types-docutils
-Version:        0.19.1.7
+Version:        0.19.1.8
 Release:        %{autorelease}
 Summary:        Typing stubs for docutils
 

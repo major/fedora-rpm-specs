@@ -64,10 +64,10 @@ compile c++ code for the %{target} platform, instead of for the native
 %prep
 %setup -q -c
 pushd gcc-%{gcc_ver}
-%patch1 -p0 -b .hack
-%patch2 -p0 -b .wnosecerr
-%patch3 -p1
-%patch4 -p1
+%patch -P1 -p0 -b .hack
+%patch -P2 -p0 -b .wnosecerr
+%patch -P3 -p1
+%patch -P4 -p1
 popd
 pushd gcc-%{gcc_ver}/libiberty
 #autoconf -f

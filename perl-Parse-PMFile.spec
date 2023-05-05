@@ -2,8 +2,8 @@
 %bcond_without perl_Parse_PMFile_enables_optional_test
 
 Name:           perl-Parse-PMFile
-Version:        0.43
-Release:        8%{?dist}
+Version:        0.44
+Release:        1%{?dist}
 Summary:        Parses .pm file as PAUSE does
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Parse-PMFile
@@ -15,6 +15,7 @@ BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
@@ -49,9 +50,22 @@ stable. However, I made it not to use pipe ("-|") as well as I stripped
 database-related code. If you encounter any issue, that's most probably
 because of my modification.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Parse-PMFile-%{version}
-%patch0 -p1
+%patch -P0 -p1
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -59,18 +73,38 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+rm -f %{buildroot}%{_libexecdir}/%{name}/t/99_pod*
+for F in 10_self_check.t 80_version_overload.t 81_version_overload_with_explicit_vpp.t; do
+    perl -i -pe 's{\$FindBin::Bin/../lib/}{%{perl_vendorlib}/}' %{buildroot}%{_libexecdir}/%{name}/t/$F
+done
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
 unset TEST_POD
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Parse*
+%{_mandir}/man3/Parse::PMFile*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Wed May 03 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.44-1
+- 0.44 bump
+- Package tests
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.43-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

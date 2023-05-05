@@ -3,17 +3,18 @@ Version:        0.5.3
 Release:        %autorelease
 Summary:        Dynamically allocate resources to the active user
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://gitlab.freedesktop.org/benzea/uresourced
-Source0:        https://gitlab.freedesktop.org/benzea/uresourced/-/archive/v%{version}/%{name}-v%{version}.tar.bz2
+Source0:        %{url}/-/archive/v%{version}/%{name}-v%{version}.tar.bz2
+Patch0:         %{url}/-/commit/af9cac5b78507c58f72ab6e389583755f50cdc5f.patch#/uresourced-remove-unneeded-directive.patch
 
-BuildRequires:  git
-BuildRequires:  pipewire-devel
-BuildRequires:  systemd-devel
-BuildRequires:  systemd-rpm-macros
-BuildRequires:  meson
 BuildRequires:  gcc
+BuildRequires:  meson
 BuildRequires:  pkgconfig(gio-2.0)
+BuildRequires:  pkgconfig(libpipewire-0.3)
+BuildRequires:  pkgconfig(libsystemd)
+BuildRequires:  pkgconfig(systemd)
+BuildRequires:  systemd-rpm-macros
 
 %description
 This daemon dynamically assigns a resource allocation to the active
@@ -22,7 +23,7 @@ using systemd (e.g. GNOME), then the memory allocation will be used
 to protect the sessions core processes (session.slice).
 
 %prep
-%autosetup -S git -n %{name}-v%{version}
+%autosetup -n %{name}-v%{version} -p1
 
 %build
 %meson -Dappmanagement=true

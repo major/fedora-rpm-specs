@@ -1,11 +1,15 @@
-%global devrel dev.10
+%global devrel dev.12
 
 Summary: A text-based Web browser
 Name: lynx
 Version: 2.9.0
-Release: %{devrel}.2%{?dist}.4
+Release: %{devrel}.1%{?dist}
 License: GPL-2.0-only
-Source: https://invisible-mirror.net/archives/lynx/tarballs/lynx%{version}%{devrel}.tar.bz2
+
+Source0: https://invisible-mirror.net/archives/lynx/tarballs/lynx%{version}%{devrel}.tar.bz2
+Source1: https://invisible-mirror.net/archives/lynx/tarballs/lynx%{version}%{devrel}.tar.bz2.asc
+Source2: https://invisible-island.net/public/dickey@invisible-island.net-rsa3072.asc
+
 URL: https://lynx.invisible-island.net/
 
 # RH specific tweaks - directory layout, utf-8 by default, misc. configuration
@@ -20,16 +24,15 @@ Patch1: lynx-2.8.9-build.patch
 # [CVE-2008-4690]
 Patch2: lynx-CVE-2008-4690.patch
 
-# add presentation type for xhtml
-Patch3: lynx-2.9.0dev.10-xhtml.patch
-
-Patch4: lynx-configure-c99.patch
+# lynx: memcpy(): lynx killed by SIGABRT
+Patch3: lynx-2.9.0dev.10-sigabrt-after-start.patch
 
 Provides: webclient
 Provides: text-www-browser
 BuildRequires: dos2unix
 BuildRequires: gcc
 BuildRequires: gettext
+BuildRequires: gnupg2
 BuildRequires: libidn2-devel
 BuildRequires: make
 BuildRequires: ncurses-devel
@@ -51,13 +54,8 @@ advantage Lynx has over graphical browsers is speed; Lynx starts and
 exits quickly and swiftly displays web pages.
 
 %prep
-%setup -q -n lynx%{version}%{devrel}
-
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%autosetup -p1 -n lynx%{version}%{devrel}
 
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
 sed -e "s,^HELPFILE:.*,HELPFILE:file://localhost%{_pkgdocdir}/lynx_help/lynx_help_main.html,g" -i lynx.cfg
@@ -77,6 +75,7 @@ sed -e 's,^STARTFILE:.*,STARTFILE:file:/usr/share/doc/HTML/en-US/index.html,' -i
     --enable-default-colors         \
     --enable-externs                \
     --enable-file-upload            \
+    --enable-gzip-help              \
     --enable-internal-links         \
     --enable-ipv6                   \
     --enable-japanese-utf8          \
@@ -129,12 +128,21 @@ EOF
 %doc docs README INSTALLATION samples
 %doc test lynx.hlp lynx_help
 %{_bindir}/lynx
-%{_mandir}/*/*
+%{_mandir}/man1/lynx.1.*
 %config(noreplace) %{_sysconfdir}/lynx.cfg
 %config(noreplace) %{_sysconfdir}/lynx.lss
 %config(noreplace,missingok) %{_sysconfdir}/lynx-site.cfg
 
 %changelog
+* Wed May 03 2023 Lukáš Zaoral <lzaoral@redhat.com> - 2.9.0-dev.12.1
+- %%{gpgverify} sources
+- remove upstreamed patches
+- update to new upstream release
+- use compressed man pages
+
+* Wed May 03 2023 Lukáš Zaoral <lzaoral@redhat.com> - 2.9.0-dev.10.2.5
+- fix SIGABRT after start (rhbz#2185402)
+
 * Tue Apr 11 2023 Lukáš Zaoral <lzaoral@redhat.com> - 2.9.0-dev.10.2.4
 - migrate to SPDX license format
 

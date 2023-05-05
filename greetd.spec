@@ -7,7 +7,7 @@
 
 Name:           greetd
 Version:        0.9.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A generic greeter daemon
 
 # Apache-2.0
@@ -206,6 +206,9 @@ fi
 %endif
 
 %changelog
+* Wed May 03 2023 Fabio Valentini <decathorpe@gmail.com> - 0.9.0-4
+- Rebuild for tokio crate >= v1.24.2 (RUSTSEC-2023-0005)
+
 * Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 0.9.0-3
 - Rebuild for fixed frame pointer compiler flags in Rust RPM macros.
 

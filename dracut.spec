@@ -18,9 +18,9 @@ Summary: Initramfs generator using udev
 # The entire source code is GPLv2+
 # except install/* which is LGPLv2+
 # except util/* which is GPLv2
-License: GPLv2+ and LGPLv2+ and GPLv2
+License: GPL-2.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-only
 
-URL: https://dracut.wiki.kernel.org/
+URL: https://github.com/dracutdevs/dracut/wiki/
 
 Source0: https://github.com/dracutdevs/dracut/archive/refs/tags/%{version}.tar.gz
 
@@ -468,6 +468,9 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{_prefix}/lib/kernel/install.d/51-dracut-rescue.install
 
 %changelog
+* Thu Apr 27 2023 Lukáš Zaoral <lzaoral@redhat.com> - 059-6
+- migrate to SPDX license format
+
 * Thu Apr 27 2023 Michael Hofmann <mhofmann@redhat.com> - 059-6
 - Backport fix to remove dependency on multipathd.socket
 

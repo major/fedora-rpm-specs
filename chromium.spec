@@ -241,8 +241,8 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 112.0.5615.165
-Release: 2%{?dist}
+Version: 113.0.5672.63
+Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -260,17 +260,10 @@ Patch2: chromium-107.0.5304.110-gn-system.patch
 Patch5: chromium-77.0.3865.75-no-zlib-mangle.patch
 
 # Do not use unrar code, it is non-free
-Patch6: chromium-112-norar.patch
-
-# Use Gentoo's Widevine hack
-# https://gitweb.gentoo.org/repo/gentoo.git/tree/www-client/chromium/files/chromium-widevine-r3.patch
-Patch7: chromium-71.0.3578.98-widevine-r3.patch
+Patch6: chromium-113-norar.patch
 
 # Try to load widevine from other places
 Patch8: chromium-108-widevine-other-locations.patch
-
-# Do not download proprietary widevine module in the background (thanks Debian)
-Patch9: chromium-99.0.4844.51-widevine-no-download.patch
 
 # Tell bootstrap.py to always use the version of Python we specify
 Patch11: chromium-93.0.4577.63-py3-bootstrap.patch
@@ -314,7 +307,7 @@ Patch89: chromium-108-system-brotli.patch
 
 # disable GlobalMediaControlsCastStartStop to avoid crash
 # when using the address bar media player button
-Patch90: chromium-109-disable-GlobalMediaControlsCastStartStop.patch
+Patch90: chromium-113-disable-GlobalMediaControlsCastStartStop.patch
 
 # patch for using system opus
 Patch91: chromium-108-system-opus.patch
@@ -351,12 +344,12 @@ Patch107: chromium-99.0.4844.51-el7-extra-operator==.patch
 Patch114: chromium-107-ffmpeg-duration.patch
 Patch115: chromium-107-proprietary-codecs.patch
 # drop av_stream_get_first_dts from internal ffmpeg
-Patch116: chromium-108-ffmpeg-first_dts.patch
+Patch116: chromium-112-ffmpeg-first_dts.patch
 # revert new-channel-layout-api on f36, old ffmpeg-free
 Patch117: chromium-108-ffmpeg-revert-new-channel-layout-api.patch
 
 # gcc13
-Patch122: chromium-109-gcc13.patch
+Patch122: chromium-113-gcc13.patch
 
 # Patches by Stephan Hartmann, https://github.com/stha09/chromium-patches
 Patch130: chromium-103-VirtualCursor-std-layout.patch
@@ -364,20 +357,15 @@ Patch130: chromium-103-VirtualCursor-std-layout.patch
 # Pagesize > 4kb
 Patch146: chromium-110-LargerThan4k.patch
 
-# VAAPI
-# Upstream turned VAAPI on in Linux in 86
-Patch202: chromium-104.0.5112.101-enable-hardware-accelerated-mjpeg.patch
-Patch203: chromium-112-check-passthrough-command-decoder.patch
-Patch204: chromium-112-invert_of_GLImageNativePixmap_NativePixmapEGLBinding.patch
-Patch205: chromium-86.0.4240.75-fix-vaapi-on-intel.patch
-Patch206: chromium-112-ozone-wayland-vaapi-support.patch
-Patch207: chromium-112-enable-vaapi-ozone-wayland.patch
-
 # Apply these patches to work around EPEL8 issues
-Patch300: chromium-99.0.4844.51-rhel8-force-disable-use_gnome_keyring.patch
+Patch300: chromium-113-rhel8-force-disable-use_gnome_keyring.patch
 
 # workaround for bug in clang 14 with c++20 on rhel9, linker errors std::u16string
 Patch301: chromium-112-workaround-llvm14-c++20-epel8.patch
+# workaround for clang bug, https://github.com/llvm/llvm-project/issues/57826
+Patch302: chromium-113-workaround_clang_bug-structured_binding.patch
+# declare iterators as subtypes
+Patch303: chromium-113-typename.patch
 
 # Use chromium-latest.py to generate clean tarball from released build tarballs, found here:
 # http://build.chromium.org/buildbot/official/
@@ -896,9 +884,7 @@ udev.
 %patch -P2 -p1 -b .gnsystem
 %patch -P5 -p1 -b .nozlibmangle
 %patch -P6 -p1 -b .nounrar
-%patch -P7 -p1 -b .widevine-hack
 %patch -P8 -p1 -b .widevine-other-locations
-%patch -P9 -p1 -b .widevine-no-download
 %patch -P11 -p1 -b .py3
 
 %patch -P20 -p1 -b .disable-font-test
@@ -963,23 +949,20 @@ udev.
 
 %patch -P122 -p1 -b .gcc13
 
-# Feature specific patches
-%if %{use_vaapi}
-%patch -P202 -p1 -b .accel-mjpeg
-%patch -P203 -p1 -R -b .revert
-%patch -P204 -p1 -R -b .revert
-%patch -P205 -p1 -b .vaapi-intel-fix
-%patch -P206 -p1 -b .wayland-vaapi
-%patch -P207 -p1 -b .enable-wayland-vaapi
-%endif
-
 %if 0%{?rhel} >= 8
 %patch -P300 -p1 -b .disblegnomekeyring
 %endif
 
-%if %{clang} && 0%{?rhel} == 8
+%if %{clang}
+%if 0%{?rhel} == 8
 %patch -P301 -p1 -b .clang14_c++20
 %endif
+%if 0%{?rhel} || 0%{?fedora} < 38
+%patch -P302 -p1 -b .workaround_clang_bug-structured_binding
+%endif
+%endif
+
+%patch -P303 -p1 -b .typename
 
 # Change shebang in all relevant files in this directory and all subdirectories
 # See `man find` for how the `-exec command {} +` syntax works
@@ -1040,7 +1023,7 @@ export LANG=en_US.UTF-8
 %if %{clang}
 FLAGS=' -Wno-deprecated-declarations -Wno-unknown-warning-option -Wno-unused-command-line-argument'
 FLAGS+=' -Wno-unused-but-set-variable -Wno-unused-result -Wno-unused-function -Wno-unused-variable'
-FLAGS+=' -Wno-unused-const-variable -Wno-unneeded-internal-declaration'
+FLAGS+=' -Wno-unused-const-variable -Wno-unneeded-internal-declaration -Wno-unknown-attributes'
 %endif
 
 %if %{system_build_flags}
@@ -1258,7 +1241,7 @@ build/linux/unbundle/replace_gn_files.py --system-libraries \
 	flac
 
 # Check that there is no system 'google' module, shadowing bundled ones:
-if python3 -c 'import google ; print(google.__path__)' 2> /dev/null ; then \
+if python3 -c 'import google ; print google.__path__' 2> /dev/null ; then \
     echo "Python 3 'google' module is defined, this will shadow modules of this build"; \
     exit 1 ; \
 fi
@@ -1655,6 +1638,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Wed May 03 2023 Than Ngo <than@redhat.com> - 113.0.5672.63-1
+- update to 113.0.5672.63
+
 * Sun Apr 23 2023 Than Ngo <than@redhat.com> - 112.0.5615.165-2
 - make --use-gl=egl default for x11/wayland
 - enable WebUIDarkMode

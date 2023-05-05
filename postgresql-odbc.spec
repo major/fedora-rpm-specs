@@ -6,7 +6,7 @@ Name: postgresql-odbc
 Summary: PostgreSQL ODBC driver
 Version: 13.01.0000
 Release: 4%{?dist}
-License: LGPLv2+
+License: LGPL-2.0-or-later
 URL: https://odbc.postgresql.org/
 
 Source0: http://ftp.postgresql.org/pub/odbc/versions/src/%{upstream_name}-%{version}.tar.gz

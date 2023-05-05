@@ -7,21 +7,24 @@ License:	GPLv2+
 URL:		http://www.xm1math.net/texmaker/
 Source:		http://www.xm1math.net/texmaker/texmaker-%{version}.tar.bz2
 
-BuildRequires: make
+BuildRequires:  make
+BuildRequires:	desktop-file-utils
+BuildRequires:  freetype-devel
+BuildRequires:	gettext
+BuildRequires:	hunspell-devel
 BuildRequires:	qt5-qtbase-devel
 BuildRequires:  qt5-qtbase-private-devel
 #libQt5Core.so.5(Qt_5_PRIVATE_API)(64bit)
-
 BuildRequires:	qt5-qtwebkit-devel
 BuildRequires:	qt5-qtscript-devel
 BuildRequires:	qt5-qtwebengine-devel
 BuildRequires:	qtsingleapplication-qt5-devel
-BuildRequires:	poppler-qt5-devel
-BuildRequires:	hunspell-devel
-BuildRequires:	zlib-devel
-BuildRequires:	desktop-file-utils
-BuildRequires:	gettext
+BuildRequires:	lcms2-devel
 BuildRequires:	libappstream-glib
+BuildRequires:	libjpeg-turbo-devel
+BuildRequires:	libpng-devel
+BuildRequires:	poppler-qt5-devel
+BuildRequires:	zlib-devel
 
 Requires:	tetex-latex
 
@@ -34,10 +37,24 @@ Patch1:		%{name}-%{version}-unbundle-hunspell.patch
 
 # use system pdf viewers instead of hardcoded evince
 Patch2:		%{name}-%{version}-viewfiles.patch
-Patch3: texmaker-c99.patch
+
+# Use system libraries
+Patch3: texmaker-zlib.patch
+Patch4: texmaker-lcms.patch
+Patch5: texmaker-libpng.patch
 
 # Excldue arches where qtwebengine-devel is missing
 ExcludeArch: ppc64 ppc64le s390x
+
+# Bundled libraries
+Provides: bundled(pdfium)
+#  pdfium/third_party
+#   Not packaged
+Provides: bundled(agg23)
+Provides: bundled(base)
+Provides: bundled(bigint)
+#   Fedora has openjpeg 2.5
+Provides: bundled(libopenjpeg) = 2.0
 
 
 %description
@@ -48,25 +65,27 @@ license
 
 %prep
 %setup -q
-%patch0 -p0
-%patch1 -p0
-%patch2 -p0
-%patch3 -p1
+%patch -P0 -p0
+%patch -P1 -p0
+%patch -P2 -p0
+%patch -P3 -p1 -b .zlib
+%patch -P4 -p1 -b .lcms
+%patch -P5 -p1 -b .libpng
 
 # get rid of zero-length space
 sed -i 's/\xe2\x80\x8b//g' utilities/%{name}.metainfo.xml
 
 # remove bundled stuff (hunspell and qtsingleapplication)
-rm -fr hunspell singleapp
+# libtiff, pymock appear to be unused by anything
+rm -fr hunspell singleapp pdfium/third_party/{lcms,libjpeg,libpng,libtiff,pymock,zlib}*
+# pdfium needs an internal freetype header pstables.h
+find pdfium/third_party/freetype -name pstables.h -o -type f -delete
+# Use system libraries
+sed -i -e '1iPKGCONFIG += freetype2 lcms2 libjpeg libpng zlib' -e '/third_party\/\(freetype\|lcms\|libjpeg\|libpng\)/d' texmaker.pro
 
 
 %build
-# Disable LTO for now
-# /usr/bin/ld: .obj/gzlib.o (symbol from plugin): undefined reference to symbol 'gzbuffer@@ZLIB_1.2.3.5'
-# /usr/bin/ld: /usr/lib64/libz.so.1: error adding symbols: DSO missing from command line
-# collect2: error: ld returned 1 exit status
-# https://koji.fedoraproject.org/koji/buildinfo?buildID=1644664
-%define _lto_cflags %{nil}
+export CXXFLAGS="%{optflags} -DUSE_SYSTEM_LIBJPEG"
 %{qmake_qt5} texmaker.pro
 %make_build
 

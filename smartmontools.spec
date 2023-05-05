@@ -58,7 +58,7 @@ Custom SELinux policy module for smartmontools
 
 %prep
 %setup -q 
-%patch1 -p1 -b .defaultconf
+%patch -P1 -p1 -b .defaultconf
 cp %{SOURCE5} .
 %if 0%{?with_selinux}
 mkdir selinux

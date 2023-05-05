@@ -8,7 +8,7 @@ Name:		perl-MouseX-SimpleConfig
 Summary:	A Mouse role for setting attributes from a simple configfile
 Version:	0.11
 Release:	31%{?dist}
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/MouseX-SimpleConfig
 Source0:	https://cpan.metacpan.org/modules/by-module/MouseX/MouseX-SimpleConfig-%{version}.tar.gz
 BuildArch:	noarch
@@ -57,7 +57,8 @@ BuildRequires:	perl(Test::Pod) >= 1.41
 BuildRequires:	perl(Test::Pod::Coverage) >= 1.08
 BuildRequires:	perl(Test::Portability::Files)
 BuildRequires:	perl(Test::Vars)
-# Runtime
+# Dependencies
+# (none)
 
 %description
 This role loads simple configfiles to set object attributes. It is based on the

@@ -1,8 +1,8 @@
-%global rc -rc.1
+%global rc -rc.2
 
 Name:           srt
 Version:        1.5.2
-Release:        0.rc1%{?dist}
+Release:        0.rc2%{?dist}
 Summary:        Secure Reliable Transport protocol tools
 
 License:        MPLv2.0
@@ -59,12 +59,9 @@ rm -f %{buildroot}/%{_libdir}/pkgconfig/haisrt.pc
 
 
 %check
-# - test are broken on s390x for some slowness/timing reason
 # - TestIPv6 are known broken due to v4_v6 mapping differnces between platforms
 #   https://github.com/Haivision/srt/issues/1972#
-%ifnarch s390x
 %ctest -E TestIPv6
-%endif
 
 
 %ldconfig_scriptlets libs
@@ -90,6 +87,9 @@ rm -f %{buildroot}/%{_libdir}/pkgconfig/haisrt.pc
 
 
 %changelog
+* Wed May  3 2023 Yanko Kaneti <yaneti@declera.com> - 1.5.2-0.rc2
+- Update to 1.5.2-rc2. Reenable running tests on s390x
+
 * Mon Feb 20 2023 Yanko Kaneti <yaneti@declera.com> - 1.5.2-0.rc1
 - Update to 1.5.2-rc1
 

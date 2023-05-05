@@ -137,20 +137,20 @@ This package provides the development files for dovecot.
 
 %prep
 %setup -q -n %{name}-%{version}%{?prever} -a 8
-%patch1 -p1 -b .default-settings
-%patch2 -p1 -b .mkcert-permissions
-%patch3 -p1 -b .mkcert-paths
-%patch6 -p1 -b .waitonline
-%patch8 -p1 -b .initbysystemd
-%patch9 -p1 -b .systemd_w_protectsystem
-%patch15 -p1 -b .bigkey
-%patch16 -p1 -b .opensslhmac
-%patch17 -p1 -b .fixvalcond
-%patch18 -p1 -b .valbasherr
-%patch20 -p1 -b .opensslv3
-%patch21 -p1 -b .7bad6a24
-%patch22 -p1 -b .c99
-%patch23 -p1 -b .nolibotp
+%patch -P1 -p1 -b .default-settings
+%patch -P2 -p1 -b .mkcert-permissions
+%patch -P3 -p1 -b .mkcert-paths
+%patch -P6 -p1 -b .waitonline
+%patch -P8 -p1 -b .initbysystemd
+%patch -P9 -p1 -b .systemd_w_protectsystem
+%patch -P15 -p1 -b .bigkey
+%patch -P16 -p1 -b .opensslhmac
+%patch -P17 -p1 -b .fixvalcond
+%patch -P18 -p1 -b .valbasherr
+%patch -P20 -p1 -b .opensslv3
+%patch -P21 -p1 -b .7bad6a24
+%patch -P22 -p1 -b .c99
+%patch -P23 -p1 -b .nolibotp
 cp run-test-valgrind.supp dovecot-2.3-pigeonhole-%{pigeonholever}/
 # valgrind would fail with shell wrapper
 echo "testsuite" >dovecot-2.3-pigeonhole-%{pigeonholever}/run-test-valgrind.exclude

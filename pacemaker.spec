@@ -41,10 +41,10 @@
 ## can be incremented to build packages reliably considered "newer"
 ## than previously built packages with the same pcmkversion)
 %global pcmkversion 2.1.6
-%global specversion 1.rc1
+%global specversion 2.rc2
 
 ## Upstream commit (full commit ID, abbreviated commit ID, or tag) to build
-%global commit 095c09eee68f65ae3a3e0348fe868da43f47bab2
+%global commit 802a72226be8f90747e9c897c626b060512d6fe6
 
 ## Since git v2.11, the extent of abbreviation is autoscaled by default
 ## (used to be constant of 7), so we need to convey it for non-tags, too.
@@ -216,8 +216,6 @@ Source0:       https://codeload.github.com/%{github_owner}/%{name}/tar.gz/%{arch
 Source1:       https://codeload.github.com/%{github_owner}/%{nagios_name}/tar.gz/%{nagios_archive_github_url}
 
 # upstream commits
-Patch0:        0001-Build-rpm-convert-licenses-to-SPDX.patch
-Patch1:        0002-Build-rpm-avoid-bare-wildcards-under-shared-director.patch
 
 Requires:      resource-agents
 Requires:      %{pkgname_pcmk_libs}%{?_isa} = %{version}-%{release}
@@ -857,6 +855,11 @@ exit 0
 %license %{nagios_name}-%{nagios_hash}/COPYING
 
 %changelog
+* Wed May 3 2023 Klaus Wenninger <kwenning@redhat.com> - 2.1.6-0.2.rc2
+- Update for new upstream tarball for release candidate: Pacemaker-2.1.6-rc2,
+  for full details, see included ChangeLog file or
+  https://github.com/ClusterLabs/pacemaker/releases/tag/Pacemaker-2.1.6-rc2
+
 * Wed Apr 19 2023 Klaus Wenninger <kwenning@redhat.com> - 2.1.6-0.1.rc1
 - Update for new upstream tarball for release candidate: Pacemaker-2.1.6-rc1,
   for full details, see included ChangeLog file or

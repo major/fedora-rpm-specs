@@ -106,14 +106,14 @@ DCE development headers and libraries for OSSP uuid.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1 -b .php54
-%patch3 -p1 -b .hwaddr
-%patch4 -p1 -b .nostrip
-%patch5 -p1 -b .manfix
-%patch6 -p1 -b .aarch64
-%patch7 -p1 -b .ldflags
+%patch -P0 -p1
+%patch -P1 -p1
+%patch -P2 -p1 -b .php54
+%patch -P3 -p1 -b .hwaddr
+%patch -P4 -p1 -b .nostrip
+%patch -P5 -p1 -b .manfix
+%patch -P6 -p1 -b .aarch64
+%patch -P7 -p1 -b .ldflags
 
 %build
 # Build the library.

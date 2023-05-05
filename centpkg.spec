@@ -12,7 +12,7 @@
 
 
 Name:           centpkg
-Version:        0.7.2
+Version:        0.7.3
 Release:        1%{?dist}
 Summary:        CentOS utility for working with dist-git
 License:        GPLv2+
@@ -94,6 +94,11 @@ install -D -p -m 0644 centpkg.1            %{buildroot}%{_mandir}/man1/centpkg.1
 
 
 %changelog
+* Wed May 03 2023 Troy Dawson <tdawson@redhat.com> - 0.7.1-3
+- Fix determine_active_y_version bug
+- Better user output when determine_active_y_version fails
+- Skip rhel-target when doing scratch builds
+
 * Wed Mar 01 2023 Troy Dawson <tdawson@redhat.com> - 0.7.1-2
 - Latest upstream (Fixes confusing output)
 

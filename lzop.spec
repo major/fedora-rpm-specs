@@ -1,8 +1,8 @@
 Summary:        Real-time file compressor
 Name:           lzop
 Version:        1.04
-Release:        10%{?dist}
-License:        GPLv2+
+Release:        11%{?dist}
+License:        GPL-2.0-or-later
 URL:            https://www.lzop.org/
 Source0:        https://www.lzop.org/download/%{name}-%{version}.tar.gz
 BuildRequires:  gcc
@@ -35,6 +35,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}
 %{_mandir}/man?/%{name}.*
 
 %changelog
+* Thu Apr 13 2023 Lukáš Zaoral <lzaoral@redhat.com> - 1.04-11
+- migrate to SPDX license format
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

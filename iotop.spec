@@ -36,10 +36,10 @@ show of behalf of which process is the I/O going on.
 
 %prep
 %setup -n %{name}-%{version}
-%patch3 -p1 -b .batchprintutf8
-%patch4 -p1 -b .git9c49d59
-%patch5 -p1 -b .delayacctmsg
-%patch6 -p1 -b .usesetuptools
+%patch -P3 -p1 -b .batchprintutf8
+%patch -P4 -p1 -b .git9c49d59
+%patch -P5 -p1 -b .delayacctmsg
+%patch -P6 -p1 -b .usesetuptools
 
 %build
 %py3_build

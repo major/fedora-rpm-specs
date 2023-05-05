@@ -2,14 +2,14 @@
 
 %global	gem_name	goocanvas
 
-%global	glibminver	2.1.0
-%global	gtkminver	2.1.0
+%global	glibminver	4.1.2
+%global	gtkminver	4.1.2
 %global	obsoleteevr	0.90.7-1.999
 
 Summary:	Ruby binding of GooCanvas
 Name:		rubygem-%{gem_name}
 Version:	2.2.0
-Release:	28%{?dist}
+Release:	29%{?dist}
 # from README
 License:	LGPLv2
 URL:		http://ruby-gnome2.sourceforge.jp/
@@ -19,6 +19,8 @@ Source0:	http://rubygems.org/gems/%{gem_name}-%{version}.gem
 Source1:	COPYING.LIB.rubygem-goocanvas
 # http://www.gnu.org/licenses/gpl-2.0.txt
 Source2:	COPYING.GPL.rubygem-goocanvas
+# Fix for sample with ruby-gi 4.1.2
+Patch0:	goocanvas-2.2.0-sample-gi412.patch
 
 Requires:	ruby(release)
 BuildRequires:	ruby(release)
@@ -26,9 +28,6 @@ BuildRequires:	ruby(release)
 BuildRequires:	rubygems-devel
 BuildRequires:	rubygem-cairo-devel
 BuildRequires:	rubygem-glib2-devel >= %{glibminver}
-%if 0%{?fedora} < 25
-BuildRequires:	rubygem-gdk_pixbuf2-devel >= %{gtkminver}
-%endif
 BuildRequires:	rubygem-gobject-introspection-devel >= %{gtkminver}
 BuildRequires:	rubygem-gtk3-devel >= %{gtkminver}
 BuildRequires:	ruby-devel
@@ -65,34 +64,22 @@ BuildArch:	noarch
 This package contains documentation for %{name}.
 
 %prep
-%setup -q -c -T
+%setup -q -n %{gem_name}-%{version}
+mv ../%{gem_name}-%{version}.gemspec .
 
-TOPDIR=$(pwd)
-mkdir tmpunpackdir
-pushd tmpunpackdir
-
-gem unpack %{SOURCE0}
-cd %{gem_name}-%{version}
+%patch -P0 -p1
 
 # Permission
 find . -name \*.rb -print0 | xargs --null chmod 0644
 
-gem specification -l --ruby %{SOURCE0} > %{gem_name}.gemspec
-
 # Allow ruby-gnome2 no less than ones
-sed -i -e 's|= 2\.2\.0|>= 2.2.0|' %{gem_name}.gemspec
-
-gem build %{gem_name}.gemspec
-mv %{gem_name}-%{version}.gem $TOPDIR
-
-popd
-rm -rf tmpunpackdir
+sed -i -e 's|= 2\.2\.0|>= 2.2.0|' %{gem_name}-%{version}.gemspec
 
 %build
-mkdir -p .%{gem_dir}
-
 export CONFIGURE_ARGS="--with-cflags='%{optflags} -Werror-implicit-function-declaration'"
 export CONFIGURE_ARGS="$CONFIGURE_ARGS --with-pkg-config-dir=$(pwd)%{_libdir}/pkgconfig"
+
+gem build %{gem_name}-%{version}.gemspec
 %gem_install
 
 %install
@@ -154,6 +141,9 @@ done
 %{gem_instdir}/sample/
 
 %changelog
+* Wed May  3 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.2.0-29
+- Adjust sample script for ruby-gi 4.1.2
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

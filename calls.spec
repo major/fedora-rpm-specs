@@ -2,13 +2,14 @@
 
 Name:		calls
 Version:	45~alpha.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A phone dialer and call handler
 
 License:	GPLv3+ and MIT
 URL:		https://gitlab.gnome.org/GNOME/calls
 Source0:	https://gitlab.gnome.org/GNOME/calls/-/archive/v45_alpha.0/%{name}-v45_alpha.0.tar.gz
 Source1:	https://gitlab.gnome.org/World/Phosh/libcall-ui/-/archive/%{libcall_ui_commit}/libcall-ui-%{libcall_ui_commit}.tar.gz
+Patch0:		calls-c99.patch
 
 BuildRequires:	gcc
 BuildRequires:	meson
@@ -45,6 +46,7 @@ A phone dialer and call handler.
 
 %prep
 %setup -a1 -q -n %{name}-v45_alpha.0
+%patch -P 0 -p1
 
 mv libcall-ui-%{libcall_ui_commit}/* subprojects/libcall-ui/
 
@@ -133,4 +135,7 @@ SH
 %license COPYING
 
 %changelog
+* Wed May 03 2023 Florian Weimer <fweimer@redhat.com> - 45~alpha.0-2
+- Port to C99
+
 %autochangelog

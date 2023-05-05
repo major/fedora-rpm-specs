@@ -2,7 +2,7 @@
 %bcond_without perl_Test2_Suite_enables_unicode
 
 Name:           perl-Test2-Suite
-Version:        0.000153
+Version:        0.000155
 Release:        1%{?dist}
 Summary:        Set of tools built upon the Test2 framework
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -62,6 +62,7 @@ BuildRequires:  perl(Unicode::GCString)
 %endif
 # Tests:
 BuildRequires:  perl(IO::Handle)
+BuildRequires:  perl(JSON::MaybeXS)
 BuildRequires:  perl(PerlIO)
 BuildRequires:  perl(Test2::EventFacet::Assert)
 BuildRequires:  perl(Test2::Formatter::TAP)
@@ -89,6 +90,10 @@ Obsoletes:      perl-Test2-AsyncSubtest < 0.000020-2
 # perl-Test2-Workflow-0:0.000018-4.fc27 merged
 Provides:       perl-Test2-Workflow = %{version}-%{release}
 Obsoletes:      perl-Test2-Workflow < 0.000018-5
+# 3 inlined modules for future Perl Core
+Provides:       bundled(Importer) = 0.026
+Provides:       bundled(Scope::Guard) = 0.21
+Provides:       bundled(Sub::Info) = 0.002
 
 # Remove under-specified dependencies
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Term::Table|Test2::API)\\)$
@@ -105,6 +110,7 @@ for you.
 Summary:        Tests for %{name}
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
+Requires:       perl(JSON::MaybeXS)
 Requires:       perl(Test::Compile) >= 1.1.0
 Recommends:     perl(Module::Pluggable) >= 2.7
 Recommends:     perl(Unicode::GCString)
@@ -152,6 +158,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue May 02 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.000155-1
+- Add information about inlined modules
+- 0.000155 bump
+
 * Fri Apr 28 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.000153-1
 - Add some recommends to tests package
 - 0.000153 bump

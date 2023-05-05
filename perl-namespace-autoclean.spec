@@ -7,8 +7,8 @@
 
 Name:           perl-namespace-autoclean
 Version:        0.29
-Release:        14%{?dist}
-License:        GPL+ or Artistic
+Release:        15%{?dist}
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:        Keep imports out of your namespace
 URL:            https://metacpan.org/release/namespace-autoclean
 Source0:        https://cpan.metacpan.org/modules/by-module/namespace/namespace-autoclean-%{version}.tar.gz
@@ -17,8 +17,8 @@ BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker)
 # Module
 BuildRequires:  perl(B::Hooks::EndOfScope) >= 0.12
@@ -56,7 +56,7 @@ BuildRequires:  perl(Mouse)
 BuildRequires:  perl(Sub::Install)
 BuildRequires:  perl(Sub::Name)
 %endif
-# Runtime
+# Dependencies
 Requires:       perl(Sub::Identify)
 
 %description
@@ -91,6 +91,9 @@ make test
 %{_mandir}/man3/namespace::autoclean.3*
 
 %changelog
+* Wed May 03 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.29-15
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.29-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

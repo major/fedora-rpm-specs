@@ -1,7 +1,7 @@
 Name:           python-rpm-generators
 Summary:        Dependency generators for Python RPMs
 Version:        14
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 # Originally all those files were part of RPM, so license is kept here
 License:        GPLv2+
@@ -47,6 +47,9 @@ install -Dpm0755 -t %{buildroot}%{_rpmconfigdir} *.py
 %{_rpmconfigdir}/pythonbundles.py
 
 %changelog
+* Mon Apr 17 2023 Kalev Lember <klember@redhat.com> - 14-4
+- Generate provides for /app-installed flatpak builds
+
 * Tue Mar 07 2023 Miro Hrončok <mhroncok@redhat.com> - 14-3
 - Avoid needless pkg_resources import in pythonbundles.py
 - Ignore environment markers in pythonbundles.py

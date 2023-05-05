@@ -29,8 +29,8 @@ native %{_arch} platform.
 %prep
 %setup -q -c
 pushd binutils-%{version}
-%patch1 -p2 -b .avr-size
-%patch2 -p1 -b .config
+%patch -P1 -p2 -b .avr-size
+%patch -P2 -p1 -b .config
 
 # We call configure directly rather than via macros, thus if
 # we are using LTO, we have to manually fix the broken configure

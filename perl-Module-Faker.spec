@@ -1,6 +1,6 @@
 Name:           perl-Module-Faker
-Version:        0.023
-Release:        2%{?dist}
+Version:        0.025
+Release:        1%{?dist}
 Summary:        Build fake dists for testing CPAN tools
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Faker
@@ -10,6 +10,12 @@ BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.14
+BuildRequires:  perl(Config)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.78
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+# Run-time
 BuildRequires:  perl(Archive::Any::Create)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(CPAN::DistnameInfo)
@@ -17,25 +23,24 @@ BuildRequires:  perl(CPAN::Meta) >= 2.130880
 BuildRequires:  perl(CPAN::Meta::Converter)
 BuildRequires:  perl(CPAN::Meta::Merge)
 BuildRequires:  perl(CPAN::Meta::Requirements)
-BuildRequires:  perl(Cwd)
 BuildRequires:  perl(Data::OptList)
 BuildRequires:  perl(Encode)
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.78
 BuildRequires:  perl(File::Next)
 BuildRequires:  perl(File::Path)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Getopt::Long::Descriptive)
-BuildRequires:  perl(JSON::PP)
 BuildRequires:  perl(Moose) >= 0.33
 BuildRequires:  perl(Moose::Role)
 BuildRequires:  perl(Moose::Util::TypeConstraints)
 BuildRequires:  perl(Parse::CPAN::Meta) >= 1.4401
 BuildRequires:  perl(Path::Class) >= 0.06
 BuildRequires:  perl(Storable)
-BuildRequires:  perl(strict)
-BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Text::Template)
-BuildRequires:  perl(warnings)
+# Tests
+BuildRequires:  perl(Cwd)
+BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(JSON::PP)
+BuildRequires:  perl(Test::More) >= 0.96
 Requires:       perl(Path::Class) >= 0.06
 
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Path::Class\\)\s*$
@@ -47,8 +52,22 @@ that operate against CPAN distributions without having to use real CPAN
 distributions. This is much more useful when testing an entire CPAN
 instance, rather than a single distribution, for which see CPAN::Faker.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Module-Faker-%{version}
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -56,20 +75,36 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t eg %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %license LICENSE
 %doc Changes eg README
 %{_bindir}/module-faker
-%{perl_vendorlib}/*
-%{_mandir}/man1/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Module*
+%{_mandir}/man1/module-faker*
+%{_mandir}/man3/Module::Faker*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Wed May 03 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.025-1
+- 0.025 bump
+- Package tests
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.023-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

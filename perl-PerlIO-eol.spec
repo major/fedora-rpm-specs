@@ -1,16 +1,21 @@
 Name:           perl-PerlIO-eol
-Version:        0.17
-Release:        17%{?dist}
+Version:        0.18
+Release:        1%{?dist}
 Summary:        PerlIO layer for normalizing line endings
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/PerlIO-eol
 Source0:        https://cpan.metacpan.org/modules/by-module/PerlIO/PerlIO-eol-%{version}.tar.gz
+# Fix tests to run from a read-only location, proposed to an upstream,
+# <https://github.com/shlomif/PerlIO-eol/pull/1>
+Patch0:         PerlIO-eol-0.18-Create-test-files-in-a-temporary-directory.patch
 BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.7.3
+BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
@@ -29,29 +34,62 @@ BuildRequires:  perl(Test::More)
 This layer normalizes any of CR, LF, CRLF and Native into the designated
 line ending. It works for both input and output handles.
 
+%package tests
+Summary:        Tests for %{name}
+BuildArch:      noarch
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
-%setup -q -n PerlIO-eol-%{version}
+%autosetup -p1 -n PerlIO-eol-%{version}
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 OPTIMIZE="$RPM_OPT_FLAGS"
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="$RPM_OPT_FLAGS"
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+find %{buildroot} -type f -name '*.bs' -size 0 -delete
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/PerlIO*
-%{_mandir}/man3/*
+%dir %{perl_vendorarch}/auto/PerlIO
+%{perl_vendorarch}/auto/PerlIO/eol
+%dir %{perl_vendorarch}/PerlIO
+%{perl_vendorarch}/PerlIO/eol.pm
+%{_mandir}/man3/PerlIO::eol.*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Wed May 03 2023 Petr Pisar <ppisar@redhat.com> - 0.18-1
+- 0.18 bump
+- Package the tests
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

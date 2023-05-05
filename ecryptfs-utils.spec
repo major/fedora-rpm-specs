@@ -141,29 +141,29 @@ Obsoletes:  %{name}-python < %{version}-%{release}
 %prep
 %setup -q
 
-%patch1 -p0 -b .openssl11
+%patch -P1 -p0 -b .openssl11
 
-%patch92 -p1 -b .nocryptdisks
-%patch93 -p1 -b .fixsalt
-%patch94 -p1 -b .splitnss
-%patch95 -p1 -b .fixsigness
-%patch98 -p1 -b .manfix
-%patch99 -p1 -b .autoload
-%patch911 -p1 -b .authconfig
-%patch914 -p1 -b .fixpamfork
-%patch915 -p1 -b .fixexecgid
-%patch916 -p1 -b .nozombies
-%patch917 -p1 -b .pamdata
-%patch918 -p1 -b .fixconst
-%patch919 -p1 -b .syslog
-%patch921 -p1 -b .groupcheck
-%patch922 -p1 -b .selinux
-%patch923 -p1 -b .sudokeyring
-%patch924 -p1 -b .cve_2016_5224
-%patch925 -p1 -b .nopasswd
-%patch926 -p1 -b .authselect
+%patch -P92 -p1 -b .nocryptdisks
+%patch -P93 -p1 -b .fixsalt
+%patch -P94 -p1 -b .splitnss
+%patch -P95 -p1 -b .fixsigness
+%patch -P98 -p1 -b .manfix
+%patch -P99 -p1 -b .autoload
+%patch -P911 -p1 -b .authconfig
+%patch -P914 -p1 -b .fixpamfork
+%patch -P915 -p1 -b .fixexecgid
+%patch -P916 -p1 -b .nozombies
+%patch -P917 -p1 -b .pamdata
+%patch -P918 -p1 -b .fixconst
+%patch -P919 -p1 -b .syslog
+%patch -P921 -p1 -b .groupcheck
+%patch -P922 -p1 -b .selinux
+%patch -P923 -p1 -b .sudokeyring
+%patch -P924 -p1 -b .cve_2016_5224
+%patch -P925 -p1 -b .nopasswd
+%patch -P926 -p1 -b .authselect
 
-%patch999 -p1 -b .werror
+%patch -P999 -p1 -b .werror
 
 sed -i -r 's:^_syslog\(LOG:ecryptfs_\0:' src/pam_ecryptfs/pam_ecryptfs.c
 

@@ -24,7 +24,7 @@
 Summary: PDE solving tool
 Name: freefem++
 Version: %{expand:%(echo %tarvers | tr - .)}
-Release: 2%{?dist}
+Release: 5%{?dist}
 URL: https://freefem.org
 Source0: https://github.com/FreeFem/FreeFem-sources/archive/v%{tarvers}.tar.gz#/%{tarname}-%{tarvers}.tar.gz
 
@@ -55,42 +55,39 @@ Patch21: 0021-Modernize-autotools.patch
 # Bundle hpddm.zip to prevent downloading during builds.
 # cf. hpddm in 3rdparty/getall
 %if "%{tarvers}" == "4.12"
+%if 0%{fedora} > 38
+# petsc-3.18.5 compatible
+# hpddm-20221104gitff61cf3
+%global hpddm_gitcommit ff61cf3
+%global hpddm_gitdate 20221104
+%else
+# petsc-3.17.4 compatible
+# hpddm-20210919git7113b9a
 %global hpddm_gitcommit 7113b9a
 %global hpddm_gitdate 20210919
+%endif
 
 %global htool_gitcommit b6e9169
 %global htool_gitdate 20220218
 
-%global bemtool_gitcommit 6042818
-%global bemtool_gitdate 20221012
+%global bemtool_gitcommit 61aa37b
+%global bemtool_gitdate 20230327
 
 %global ffvers 4.12
-%endif
-%if "%{tarvers}" == "4.11"
-%global hpddm_gitcommit 7113b9a
-%global hpddm_gitdate 20210919
-
-%global htool_gitcommit 7113b9a
-%global htool_gitdate 20210921
-
-%global bemtool_gitcommit 11a6545
-%global bemtool_gitdate 20210921
-
-%global ffvers 4.11
 %endif
 Source1: https://github.com/hpddm/hpddm/archive/%{hpddm_gitcommit}/master.zip#/hpddm-%{hpddm_gitdate}git%{hpddm_gitcommit}.zip
 
 # FreeFEM doesn't build docs anymore.
 # Use pre-build binary, d/l'ed from
 # https://doc.freefem.org/pdf/FreeFEM-documentation.pdf
-Source2: https://raw.githubusercontent.com/FreeFem/FreeFem-doc/pdf/FreeFEM-documentation.pdf#/FreeFEM-documentation-4.8-20221107.pdf
+Source2: https://raw.githubusercontent.com/FreeFem/FreeFem-doc/pdf/FreeFEM-documentation.pdf#/FreeFEM-documentation-4.12-20230414.pdf
 
 # Bundled libraries
 Source3: https://www.ljll.math.upmc.fr/frey/ftp/archives/freeyams.2012.02.05.tgz
 Source4: https://github.com/htool-ddm/htool/archive/%{htool_gitcommit}/master.zip#/htool-%{htool_gitdate}git%{htool_gitcommit}.zip
 Source5: https://github.com/PierreMarchand20/BemTool/archive/%{bemtool_gitcommit}/master.zip#/bemtool-%{bemtool_gitdate}git%{bemtool_gitcommit}.zip
 Source6: https://www.ljll.math.upmc.fr/frey/ftp/archives/mshmet.2012.04.25.tgz
-Source7: http://mumps.enseeiht.fr/MUMPS_5.4.0.tar.gz
+Source7: http://mumps.enseeiht.fr/MUMPS_5.5.1.tar.gz
 
 License: LGPL-3.0-or-later
 
@@ -208,27 +205,48 @@ This package contains the MPICH version of FreeFem++.
 
 mv %{tarname}-%{tarvers} serial
 pushd serial
-%patch01 -p1
-%patch02 -p1
-%patch03 -p1
-%patch04 -p1
-%patch05 -p1
-%patch06 -p1
-%patch07 -p1
-%patch08 -p1
-%patch09 -p1
-%patch10 -p1
-%patch11 -p1
-%patch12 -p1
-%patch13 -p1
-%patch14 -p1
-%patch15 -p1
-%patch16 -p1
-%patch17 -p1
-%patch18 -p1
-%patch19 -p1
-%patch20 -p1
-%patch21 -p1
+%patch -P 01 -p1
+%patch -P 02 -p1
+%patch -P 03 -p1
+%patch -P 04 -p1
+%patch -P 05 -p1
+%patch -P 06 -p1
+%patch -P 07 -p1
+%patch -P 08 -p1
+%patch -P 09 -p1
+%patch -P 10 -p1
+%patch -P 11 -p1
+%patch -P 12 -p1
+%patch -P 13 -p1
+%patch -P 14 -p1
+%patch -P 15 -p1
+%patch -P 16 -p1
+%patch -P 17 -p1
+%patch -P 18 -p1
+%patch -P 19 -p1
+%patch -P 20 -p1
+%patch -P 21 -p1
+
+%if 0%{fedora} > 38
+sed -i \
+  -e 's,/hpddm/zip/7113b9a6b77fceee3f52490cb27941a87b96542f,/hpddm/zip/ff61cf3ced922c2f896ebe1fff1a42f1f2805a3a,' \
+  -e "s,'6910b7b974f0b60d9c247c666e7f3862','872bf9c2bf1de6c6943a0f7712f89c5c'," \
+  3rdparty/getall
+
+sed -i -e 's,XFAIL_TESTS = ,XFAIL_TESTS = Pinocchio.edp ,' examples/3dSurf/Makefile.am
+%endif
+
+sed -i \
+  -e 's,BemTool/archive/6042818bd7585a1ba01c1fc8889dc27f9e608a3f,BemTool/archive/61aa37bcea9eeba23308489de9d32c16b9232484,' \
+  -e "s,'1ee3a9eea2451314dcbb0a3ebd6c6be3','7774bb2369128e4c4068e348d5ca45bf'," \
+  3rdparty/getall
+
+sed -i \
+  -e 's,MUMPS_5.4.0.tar.gz,MUMPS_5.5.1.tar.gz,' \
+  -e "s,'808178997dc571c748e9cf0cabf9a26e','da26c4b43d53a9a6096775245cee847f'," \
+  3rdparty/getall
+sed -i -e 's,5.4.0,5.5.1,' 3rdparty/mumps-seq/Makefile
+sed -e 's,5.4.0,5.5.1,' < 3rdparty/mumps-seq/Makefile-mumps-5.4.0.inc > 3rdparty/mumps-seq/Makefile-mumps-5.5.1.inc
 
 # Bogus permissions
 find . -type f -perm 755 \( -name "*.c*" -o -name "*.h*" -o -name "*.edp" -o -name "*.idp" \) | xargs chmod 644
@@ -274,7 +292,11 @@ pushd serial
 	--without-cadna \
 	--with-mpi=no \
 	--docdir=%{_pkgdocdir} \
+%if 0%{fedora} > 38
+	CPPFLAGS="-I$(pwd) -I/usr/include/scotch" \
+%else
 	CPPFLAGS="-I$(pwd)" \
+%endif
 	CFLAGS="%{optflags} -fPIC" \
 	CXXFLAGS="%{optflags} -fPIC"
 make %{?_smp_mflags}
@@ -307,7 +329,11 @@ for mpi in %{?with_mpich:mpich} %{?with_openmpi:openmpi} ; do
 	--without-cadna \
 	--with-mpi=yes \
 	--docdir=%{_pkgdocdir} \
+%if 0%{fedora} > 38
+	CPPFLAGS="-I$(pwd) -I/usr/include/scotch" \
+%else
 	CPPFLAGS="-I$(pwd)" \
+%endif
 	CFLAGS="%{optflags} -fPIC" \
 	CXXFLAGS="%{optflags} -fPIC"
   make %{?_smp_mflags}
@@ -394,6 +420,19 @@ done
 %endif
 
 %changelog
+* Wed May 03 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 4.12-5
+- Update FreeFEM-documentation.pdf.
+
+* Wed May 03 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 4.12-4
+- Reflect update to scotch-7.*.
+- Reflect update to petsc-3.18.*.
+- Drop support for freefem++-4.11.
+
+* Wed May 03 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 4.12-3
+- Use %%patch -PN instead of %%patchN.
+- Update bundled MUMPS to MUMPS_5.5.1.tar.gz.
+- Update bundled bemtool to bemtool-20230327git61aa37b.zip.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.12-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

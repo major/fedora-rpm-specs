@@ -8,7 +8,7 @@
 #
 %global bootstrap    0
 # github
-%global gh_commit    ed7cf98f6562831dbc3c962406b5e49dc8179c8c
+%global gh_commit    3cb4d163b58589e47b35103e8e5e6a6a475b47be
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     Nyholm
 %global gh_project   psr7
@@ -31,7 +31,7 @@
 %global http_factory_tests_short      %(c=%{http_factory_tests_commit}; echo ${c:0:7})
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        1.7.0
+Version:        1.8.0
 Release:        1%{?dist}
 Summary:        A fast PHP7 implementation of PSR-7
 
@@ -54,8 +54,9 @@ BuildRequires: (php-composer(php-http/message-factory)  >= 1.0 with php-composer
 BuildRequires: (php-composer(psr/http-factory)          >= 1.0 with php-composer(psr/http-factory)         < 2)
 BuildRequires: (php-composer(symfony/error-handler)     >= 4.4 with php-composer(symfony/error-handler)    < 5)
 # from composer.json, "require-dev": {
-#        "phpunit/phpunit": "^7.5 || 8.5 || 9.4",
-#        "php-http/psr7-integration-tests": "^1.0@dev",
+#        "phpunit/phpunit": "^7.5 || ^8.5 || ^9.4",
+#        "php-http/message-factory": "^1.0",
+#        "php-http/psr7-integration-tests": "^1.0",
 #        "http-interop/http-factory-tests": "^0.9",
 #        "symfony/error-handler": "^4.4"
 %global phpunit %{_bindir}/phpunit9
@@ -67,11 +68,9 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 # from composer.json, "require": {
 #        "php": ">=7.2",
 #        "psr/http-message": "^1.1 ||  || ^2.0",
-#        "php-http/message-factory": "^1.0",
 #        "psr/http-factory": "^1.0"
 Requires:       php(language) >= 7.2
 Requires:      (php-composer(psr/http-message)          >= 1.1 with php-composer(psr/http-message)         < 3)
-Requires:      (php-composer(php-http/message-factory)  >= 1.0 with php-composer(php-http/message-factory) < 2)
 Requires:      (php-composer(psr/http-factory)          >= 1.0 with php-composer(psr/http-factory)         < 2)
 # from phpcompatinfo report for version 1.1.0
 Requires:       php-pcre
@@ -105,7 +104,6 @@ cat << 'EOF' | tee -a src/autoload.php
         '%{_datadir}/php/Psr/Http/Message/autoload.php',
     ],
     '%{_datadir}/php/Http/Message/autoload.php',
-    '%{_datadir}/php/Psr/Http/Message/http-factory-autoload.php',
 ]);
 EOF
 
@@ -127,6 +125,7 @@ cat <<EOF | tee vendor/autoload.php
 <?php
 require_once '%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php';
 require_once '%{php_home}/Symfony4/Component/ErrorHandler/autoload.php';
+require_once '%{_datadir}/php/Psr/Http/Message/http-factory-autoload.php';
 require_once dirname(__DIR__) . '/test-autoload.php';
 EOF
 
@@ -161,6 +160,10 @@ exit $ret
 
 
 %changelog
+* Wed May  3 2023 Remi Collet <remi@remirepo.net> - 1.8.0-1
+- update to 1.8.0
+- drop dependency on php-http/message-factory
+
 * Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 1.7.0-1
 - update to 1.7.0
 - raise dependency on psr/http-message 1.1 and allow 2.0

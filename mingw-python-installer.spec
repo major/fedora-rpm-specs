@@ -9,8 +9,8 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       0.5.1
-Release:       3%{?dist}
+Version:       0.7.0
+Release:       1%{?dist}
 BuildArch:     noarch
 
 License:       MIT
@@ -59,7 +59,7 @@ mkdir %{distinfo}
 cat > %{distinfo}/METADATA << EOF
 Metadata-Version: 2.2
 Name: %{pypi_name}
-Version: %{version}+rpmbootstrap
+Version: 0.7.0
 EOF
 %else
 %global distinfo %{pypi_name}-%{version}.dist-info
@@ -104,6 +104,9 @@ cp -a src/installer %{distinfo} %{buildroot}%{mingw64_python3_hostsitearch}/
 
 
 %changelog
+* Wed May 03 2023 Sandro Mani <manisandro@gmail.com> - 0.7.0-1
+- Update to 0.7.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

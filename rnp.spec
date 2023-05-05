@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for rnp
 #
 # Copyright (c) 2022-2023 Remi Collet
-# License: CC-BY-SA
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -23,21 +23,23 @@
 
 Name:          rnp
 Summary:       OpenPGP (RFC4880) tools
-Version:       0.16.3
+Version:       0.17.0
 Release:       1%{?dist}
 # See rnp-files-by-license.txt and upstream LICENSE* files
 License:       BSD-2-Clause AND BSD-3-Clause AND Apache-2.0 AND MIT
 
 URL:           https://github.com/rnpgp/rnp
-Source0:       %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-Source1:       %{url}/releases/download/v%{version}/v%{version}.tar.gz.asc
+Source0:       %{url}/releases/download/v%{version}/rnp-v%{version}.tar.gz
+Source1:       %{url}/releases/download/v%{version}/rnp-v%{version}.tar.gz.asc
 # See https://www.rnpgp.org/openpgp_keys/
 Source2:       %{name}-keyring.gpg
 # Use --with licensecheck to generate
 Source3:       %{name}-files-by-license.txt
 
-# License clarification
-Patch0:        %{name}-upstream.patch
+# Don't install static libraries
+Patch0:         %{name}-static.patch
+# Upstream libsexp patch
+Patch1:         %{name}-gcc13.patch
 
 BuildRequires:  cmake >= 3.14
 BuildRequires:  gcc
@@ -69,6 +71,9 @@ RNP is a set of OpenPGP (RFC4880) tools.
 
 %package -n %{libname}
 Summary:    Library for all OpenPGP functions
+%global libsexp_version 0.8.2
+Provides:   bundled(libsexp) = %{libsexp_version}
+
 
 %description -n %{libname}
 %{libname} is the library used by RNP for all OpenPGP functions,
@@ -85,9 +90,18 @@ for %{libname}.
 
 
 %prep
-%setup -q
+%setup -q -n %{name}-v%{version}
 %{?gpgverify:%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'}
-%patch0 -p1
+
+%patch -P0 -p1
+
+pushd src/libsexp
+%patch -P1 -p1
+# retrieve LICENSE
+cp LICENSE.md ../../LICENSE-libsexp.md
+# check bundled version
+grep -q %{libsexp_version} version.txt
+popd
 
 %if %{with licensecheck}
 LST=$(mktemp)
@@ -104,6 +118,7 @@ rm $LST
 
 %build
 %cmake . \
+   -DINSTALL_STATIC_LIBS:BOOL=OFF \
 %if %{with openssl}
    -DCRYPTO_BACKEND:STRING=openssl \
 %else
@@ -154,6 +169,13 @@ FILTER="$FILTER|cli_tests-Encryption|cli_tests-Misc"
 
 
 %changelog
+* Tue May  2 2023 Remi Collet <remi@remirepo.net> - 0.17.0-1
+- update to 0.17.0
+- use bundled libsexp
+- add patch to not install static libraries from
+  https://github.com/rnpgp/rnp/pull/2071
+- use upstream patch to fix build with GCC 13
+
 * Thu Apr 13 2023 Remi Collet <remi@remirepo.net> - 0.16.3-1
 - update to 0.16.3
 

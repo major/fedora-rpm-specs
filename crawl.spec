@@ -5,8 +5,8 @@
 
 Name:          crawl
 Summary:       Roguelike dungeon exploration game
-Version:       0.29.1
-Release:       3%{?dist}
+Version:       0.30
+Release:       0.1.beta1%{?dist}
 # Main license : GPLv2+
 # 2-clause BSD: all contributions by Steve Noonan and Jesse Luehrs
 # Public Domain|CC0: most of tiles, perlin.cc, perlin.h
@@ -17,7 +17,7 @@ Release:       3%{?dist}
 ## This program can be redistribute under GPLv2+ license; MIT and BSD are GPL compatible.
 License:       GPLv2+ and ASL 2.0
 URL:           https://crawl.develz.org/
-Source0:       https://github.com/%{name}/%{name}/archive/%{name}/%{name}-%{version}.tar.gz
+Source0:       https://github.com/%{name}/%{name}/archive/%{name}/%{name}-%{version}-b1.tar.gz
 
 ## These patches fix installation paths
 Patch0:        %{name}_bin.patch
@@ -101,7 +101,7 @@ run from, making each game unique and challenging.
 ####################
 
 %prep
-%autosetup -n %{name}-%{version} -N
+%autosetup -n %{name}-%{version}-b1 -N
 
 cat > crawl-ref/source/util/release_ver <<EOF
 %{version}
@@ -113,15 +113,15 @@ rm -rf webserver
 
 find crawl-ref/source -name '*.py' | xargs %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i %{__python3} -pn
 
-#%%patch4 -p1 -b .use_lua5
-%patch3 -p1 -b .add_iswalnum_reference
+#%%patch 4 -p1 -b .use_lua5
+%patch 3 -p1 -b .add_iswalnum_reference
 
 cp -a crawl-ref/source crawl-ref/crawl-tiles
 
 %if %{without debug}
-%patch0 -p1 -b .crawl_bin
-%patch1 -p1 -b .crawl_tiles
-%patch2 -p1 -b .rltiles_cflags
+%patch 0 -p1 -b .crawl_bin
+%patch 1 -p1 -b .crawl_tiles
+%patch 2 -p1 -b .rltiles_cflags
 %endif
 
 %build
@@ -240,6 +240,9 @@ mv %{buildroot}%{_metainfodir}/org.develz.Crawl_tiles.appdata.xml %{buildroot}%{
 %{_metainfodir}/%{name}-tiles.appdata.xml
 
 %changelog
+* Wed May 03 2023 Antonio Trande <sagitter@fedoraproject.org> - 0.30-0.1.beta1
+- Pre-release 0.30 beta1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.29.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

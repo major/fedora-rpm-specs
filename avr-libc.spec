@@ -54,7 +54,7 @@ mv libc delete-libc
 mv delete-libc/avr-libc/* .
 rmdir delete-libc/avr-libc
 tar -joxf %SOURCE1
-%patch0 -p1 -b .nolatexbatch
+%patch -P0 -p1 -b .nolatexbatch
 
 I=0
 unzip %{SOURCE5} -d avr8-headers

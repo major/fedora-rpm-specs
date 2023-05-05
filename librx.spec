@@ -1,7 +1,7 @@
 Summary: POSIX regexp functions
 Name: librx
 Version: 1.5
-Release: 41%{?dist}
+Release: 42%{?dist}
 License: GPLv2+
 URL: http://www.gnu.org/software/rx/rx.html
 # Originally downloaded from ftp://ftp.gnu.org/gnu/rx/rx-1.5.tar.bz2
@@ -42,6 +42,11 @@ This package contains files needed for development with librx.
 %patch3 -p1 -b .libtoolmode
 
 %build
+# The package has many C99 compatibility issues.  It relies on
+# implicit function declarations.  It may not work on 64-bit
+# architectures because some pointers are truncated to 32 bits.
+%set_build_flags
+CC="$CC -std=gnu89"
 %configure
 make %{?_smp_mflags}
 make doc/rx.info
@@ -69,6 +74,9 @@ chmod -x ${RPM_BUILD_ROOT}%{_includedir}/rxposix.h
 %{_libdir}/*.so
 
 %changelog
+* Wed May 03 2023 Florian Weimer <fweimer@redhat.com> - 1.5-42
+- Build in C89 mode (#2192889)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

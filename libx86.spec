@@ -1,6 +1,6 @@
 Name:           libx86
 Version:        1.1
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Library for making real-mode x86 calls
 
 License:        MIT
@@ -17,6 +17,7 @@ Patch1: libx86-mmap-offset.patch
 Patch2: libx86-libc-test.patch
 Patch3: libx86-fix_processor_flags.patch
 Patch4: libx86-ld_flags.patch
+Patch5: libx86-1.1-24-fix-invalid-hlt-opcode.patch
 
 BuildRequires:  gcc
 BuildRequires: make
@@ -57,6 +58,9 @@ rm $RPM_BUILD_ROOT/%{_libdir}/*.a
 %{_libdir}/pkgconfig/x86.pc
 
 %changelog
+* Wed May 3 2023 Pat Riehecky <riehecky@fnal.gov> 1.1-39
+- Try to address invalid opcode crash
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

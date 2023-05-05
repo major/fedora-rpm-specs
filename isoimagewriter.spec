@@ -1,11 +1,11 @@
 Name:           isoimagewriter
-Version:        0.8
-Release:        11%{?dist}
+Version:        1.0.0
+Release:        1%{?dist}
 Summary:        KDE ISO Image Writer, a tool to write a .iso file to a USB disk
 
 License:        GPLv3+
 URL:            https://community.kde.org/ISOImageWriter
-Source0:        https://download.kde.org/unstable/%{name}/%{version}/%{name}-%{version}.tar.xz
+Source0:        https://download.kde.org/stable/%{name}/%{version}/%{name}-%{version}.tar.xz
 
 # General build time stuff
 BuildRequires:  cmake
@@ -25,9 +25,12 @@ BuildRequires:  pkgconfig(libudev)
 BuildRequires:  kf5-rpm-macros
 BuildRequires:  extra-cmake-modules
 BuildRequires:  cmake(KF5Auth)
+BuildRequires:  cmake(KF5Archive)
 BuildRequires:  cmake(KF5CoreAddons)
+BuildRequires:  cmake(KF5Crash)
 BuildRequires:  cmake(KF5I18n)
 BuildRequires:  cmake(KF5IconThemes)
+BuildRequires:  cmake(KF5Solid)
 BuildRequires:  cmake(KF5WidgetsAddons)
 
 
@@ -58,7 +61,7 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %files -f %{name}.lang
-%license COPYING
+%license LICENSES/*
 %{_bindir}/%{name}
 %{_kf5_datadir}/applications/org.kde.%{name}.desktop
 %{_kf5_datadir}/dbus-1/system.d/org.kde.isoimagewriter.conf
@@ -70,6 +73,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Thu May 04 2023 Justin Zobel <justin@1707.io> - 1.0.0-1
+- Update to 1.0.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

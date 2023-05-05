@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-podman
-Version:        67
+Version:        68
 Release:        1%{?dist}
 Summary:        Cockpit component for Podman containers
 License:        LGPL-2.1-or-later
@@ -38,35 +38,30 @@ Requires:       podman >= 2.0.4
 Requires:       criu-libs
 %endif
 
-Provides: bundled(npm(@patternfly/patternfly)) = 4.224.4
-Provides: bundled(npm(@patternfly/react-core)) = 4.276.9
-Provides: bundled(npm(@patternfly/react-icons)) = 4.93.6
-Provides: bundled(npm(@patternfly/react-styles)) = 4.92.7
-Provides: bundled(npm(@patternfly/react-table)) = 4.113.1
-Provides: bundled(npm(@patternfly/react-tokens)) = 4.94.6
-Provides: bundled(npm(attr-accept)) = 1.1.3
-Provides: bundled(npm(core-js)) = 2.6.12
+Provides: bundled(npm(@patternfly/patternfly)) = 5.0.0-alpha.40
+Provides: bundled(npm(@patternfly/react-core)) = 5.0.0-alpha.72
+Provides: bundled(npm(@patternfly/react-icons)) = 5.0.0-alpha.10
+Provides: bundled(npm(@patternfly/react-styles)) = 5.0.0-alpha.7
+Provides: bundled(npm(@patternfly/react-table)) = 5.0.0-alpha.74
+Provides: bundled(npm(@patternfly/react-tokens)) = 5.0.0-alpha.7
+Provides: bundled(npm(attr-accept)) = 2.2.2
 Provides: bundled(npm(date-fns)) = 2.28.0
 Provides: bundled(npm(docker-names)) = 1.2.1
-Provides: bundled(npm(file-selector)) = 0.1.19
-Provides: bundled(npm(focus-trap)) = 6.9.2
+Provides: bundled(npm(file-selector)) = 0.6.0
+Provides: bundled(npm(focus-trap)) = 7.4.0
 Provides: bundled(npm(js-tokens)) = 4.0.0
 Provides: bundled(npm(lodash)) = 4.17.21
 Provides: bundled(npm(loose-envify)) = 1.4.0
 Provides: bundled(npm(object-assign)) = 4.1.1
-Provides: bundled(npm(popper.js)) = 1.16.1
-Provides: bundled(npm(prop-types-extra)) = 1.1.1
 Provides: bundled(npm(prop-types)) = 15.8.1
 Provides: bundled(npm(react-dom)) = 18.2.0
-Provides: bundled(npm(react-dropzone)) = 9.0.0
+Provides: bundled(npm(react-dropzone)) = 14.2.3
 Provides: bundled(npm(react-is)) = 16.13.1
 Provides: bundled(npm(react)) = 18.2.0
 Provides: bundled(npm(scheduler)) = 0.23.0
-Provides: bundled(npm(tabbable)) = 5.3.3
+Provides: bundled(npm(tabbable)) = 6.1.1
 Provides: bundled(npm(throttle-debounce)) = 2.3.0
-Provides: bundled(npm(tippy.js)) = 5.1.2
 Provides: bundled(npm(tslib)) = 2.5.0
-Provides: bundled(npm(warning)) = 4.0.3
 Provides: bundled(npm(xterm)) = 4.18.0
 
 %description
@@ -89,6 +84,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed May 03 2023 Packit <hello@packit.dev> - 68-1
+- Update to PatternFly 5 Alpha
+
 * Wed Apr 19 2023 Packit <hello@packit.dev> - 67-1
 - Fix building on non-x86_64 machines with esbuild-wasm
 - Translation updates

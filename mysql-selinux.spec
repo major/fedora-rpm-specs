@@ -7,7 +7,7 @@ Name:           mysql-selinux
 Version:        1.0.5
 Release:        3%{?dist}
 
-License:        GPLv3
+License:        GPL-3.0-only
 URL:            https://github.com/devexp-db/mysql-selinux
 Summary:        SELinux policy modules for MySQL and MariaDB packages
 

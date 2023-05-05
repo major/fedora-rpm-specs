@@ -1,12 +1,12 @@
 # remirepo/fedora spec file for php-tecnickcom-tc-lib-barcode
 #
-# Copyright (c) 2015-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2015-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    8dbed267c44cb95a903d1149b81752ec4401dab1
+%global gh_commit    d96e0798f831dc0d334c73bb4c237a302ca2003c
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global c_vendor     tecnickcom
 %global gh_owner     tecnickcom
@@ -15,8 +15,8 @@
 %bcond_without       tests
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        1.17.19
-Release:        2%{?dist}
+Version:        1.17.20
+Release:        1%{?dist}
 Summary:        PHP library to generate linear and bidimensional barcodes
 
 License:        LGPL-3.0-or-later
@@ -145,6 +145,9 @@ exit $ret
 
 
 %changelog
+* Wed May  3 2023 Remi Collet <remi@remirepo.net> - 1.17.20-1
+- update to 1.17.20 (no change)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.19-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

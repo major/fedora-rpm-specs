@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    c430e0b8a8847935a72bc5fcc334d1e4d029e23b
+%global gh_commit    cd048cf7c7e6d02c1f108b90d9978a1ae102ff2b
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global c_vendor     tecnickcom
 %global gh_owner     tecnickcom
@@ -15,8 +15,8 @@
 %global with_tests   0%{!?_without_tests:1}
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        1.14.18
-Release:        2%{?dist}
+Version:        1.14.19
+Release:        1%{?dist}
 Summary:        PHP library to manipulate various color representations
 
 License:        LGPL-3.0-or-later
@@ -27,7 +27,7 @@ BuildArch:      noarch
 %if %{with_tests}
 # For tests
 %global phpunit %{_bindir}/phpunit9
-BuildRequires:  phpunit9 >= 9.5.0
+BuildRequires:  phpunit9 >= 9.5.27
 BuildRequires:  php(language) >= 5.3
 BuildRequires:  php-pcre
 %endif
@@ -109,6 +109,9 @@ exit $ret
 
 
 %changelog
+* Wed May  3 2023 Remi Collet <remi@remirepo.net> - 1.14.19-1
+- update to 1.14.19 (no change)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.18-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

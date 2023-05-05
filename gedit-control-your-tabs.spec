@@ -2,8 +2,8 @@
 %global uuid    com.thingsthemselves.gedit.plugins.%{pname}
 
 Name:           gedit-control-your-tabs
-Version:        0.3.4
-Release:        6%{?dist}
+Version:        0.3.5
+Release:        %autorelease
 Summary:        Gedit plugin to switch between document tabs using
 
 License:        GPLv3+
@@ -60,41 +60,4 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.4-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.4-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Oct 26 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 0.3.4-1
-- build(update): 0.3.4
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed May 13 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 0.3.3-1
-- Update to 0.3.3
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-9.20190807git3064a92
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Wed Oct 23 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 0.3.2-8.20190807git3064a92
-- Add AppData manifest file
-
-* Mon Jul 29 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 0.3.2-7.20190225gitd594f75
-- Remove 'noarch'
-
-* Mon Jul 29 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 0.3.2-6.20190225gitd594f75
-- py_byte_compile path fix
-
-* Thu Jul 25 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 0.3.2-5.20190225gitd594f75
-- Initial package
+%autochangelog

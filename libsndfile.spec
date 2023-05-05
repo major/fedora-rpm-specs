@@ -57,8 +57,8 @@ This package contains command line utilities for libsndfile.
 
 %prep
 %setup -q
-%patch0 -p1 -b .system-gsm
-%patch1 -p1 -b .cefd7b59
+%patch -P0 -p1 -b .system-gsm
+%patch -P1 -p1 -b .cefd7b59
 rm -r src/GSM610
 
 %build

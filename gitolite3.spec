@@ -9,7 +9,7 @@
 Name:           gitolite3
 Epoch:          1
 Version:        3.6.12
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Highly flexible server for git directory version tracker
 
 License:        GPL-2.0-only AND CC-BY-SA-1.0
@@ -26,7 +26,7 @@ Provides:       perl(%{name}) = %{version}-%{release}
 Requires:       git
 Requires:       openssh-clients
 Requires(pre):  shadow-utils
-Requires:       subversion
+Recommends:       subversion
 
 %description
 Gitolite allows a server to host many git repositories and provide access
@@ -92,6 +92,9 @@ exit 0
 
 
 %changelog
+* Wed May 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 1:3.6.12-10
+- Loosened subversion dependency.
+
 * Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 1:3.6.12-9
 - migrated to SPDX license
 

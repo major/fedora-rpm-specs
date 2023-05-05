@@ -5,6 +5,11 @@ Summary:    A systemd service controller for multi-nodes environments
 License:    GPL-2.0-or-later
 URL:        https://github.com/containers/hirte
 Source0:    %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+# Patch source: https://github.com/containers/hirte/pull/267
+# merged in 0.2.0, will be in >0.2.0
+Patch:      267.patch
+# Required to apply the patch
+BuildRequires:  git
 
 BuildRequires:  gcc
 BuildRequires:  meson
@@ -152,7 +157,7 @@ This package contains the service controller command line tool.
 #--------------------------------------------------
 
 %prep
-%autosetup
+%autosetup -S git
 
 %build
 %meson -Dapi_bus=system

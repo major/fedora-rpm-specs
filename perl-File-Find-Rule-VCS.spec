@@ -1,57 +1,85 @@
 Name:           perl-File-Find-Rule-VCS
-Version:        1.08
-Release:        35%{?dist}
+Version:        1.09
+Release:        1%{?dist}
 Summary:        Exclude files/directories for Version Control Systems
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-Find-Rule-VCS
-Source0:        https://cpan.metacpan.org/authors/id/A/AD/ADAMK/File-Find-Rule-VCS-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/File-Find-Rule-VCS-%{version}.tar.gz
 BuildArch:      noarch
+BuildRequires:  coreutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
-BuildRequires:  perl(inc::Module::Install::DSL) >= 1.00
-BuildRequires:  perl(Module::Install::Metadata)
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.6
+BuildRequires:  perl(Config)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
 # Run-time
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(File::Find::Rule) >= 0.20
-BuildRequires:  perl(strict)
 BuildRequires:  perl(Text::Glob) >= 0.08
-BuildRequires:  perl(vars)
 # Tests
+BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::More) >= 0.47
 
 %description
 Many tools need to be equally useful both on ordinary files, and on code
 that has been checked out from revision control systems.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n File-Find-Rule-VCS-%{version}
-
-# Remove bundled libraries
-rm -r inc
-sed -i -e '/^inc\// d' MANIFEST
-find -type f -exec chmod -x {} +
+# Help generators to recognize Perl scripts
+for F in `find t -name *.t`; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -delete
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+%{_fixperms} %{buildroot}/*
+
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %license LICENSE
-%doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%doc Changes CONTRIBUTING README
+%{perl_vendorlib}/File*
+%{_mandir}/man3/File::Find::Rule::VCS*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Tue May 02 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.09-1
+- 1.09 bump
+- Package tests
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.08-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

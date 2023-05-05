@@ -138,18 +138,18 @@ necessary to develop NUT client applications.
 %prep
 %setup -q
 #patch0 -p1 -b .openssl
-%patch1 -p1 -b .tmpfiles
-%patch2 -p1 -b .piddir-owner
+%patch -P1 -p1 -b .tmpfiles
+%patch -P2 -p1 -b .piddir-owner
 #patch5 -p1 -b .dlfix
 #%patch7 -p1 -b .foreground
-%patch8 -p1 -b .unreachable
-%patch9 -p1 -b .rmpidf
+%patch -P8 -p1 -b .unreachable
+%patch -P9 -p1 -b .rmpidf
 #%patch10 -p1 -b .cloexec
 #%patch11 -p1 -b .nutscanner-FTBFS
 #%patch12 -p1 -b .scratchdes
-%patch13 -p1
-%patch14 -p1
-%patch15 -p1
+%patch -P13 -p1
+%patch -P14 -p1
+%patch -P15 -p1
 
 sed -i 's|=NUT-Monitor|=nut-monitor|'  scripts/python/app/nut-monitor-py3qt5.desktop
 sed -i "s|sys.argv\[0\]|'%{_datadir}/%{name}/nut-monitor/nut-monitor'|" scripts/python/app/NUT-Monitor-py3qt5.in

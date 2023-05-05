@@ -5,7 +5,7 @@
 
 Name:           mirrorlist-server
 Version:        3.0.6
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Mirrorlist Server
 
 # Upstream license specification: MIT
@@ -78,6 +78,9 @@ than the Python version.}
 %endif
 
 %changelog
+* Wed May 03 2023 Fabio Valentini <decathorpe@gmail.com> - 3.0.6-6
+- Rebuild with h2 >= v0.3.18 and tokio >= v1.24.2 (RUSTSEC-2023-{0005,0034})
+
 * Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 3.0.6-5
 - Rebuild for fixed frame pointer compiler flags in Rust RPM macros.
 

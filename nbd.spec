@@ -1,10 +1,11 @@
 Name:           nbd
-Version:        3.24
+Version:        3.25
 Release:        %autorelease
 Summary:        Network Block Device user-space tools (TCP version)
-License:        GPLv2
-URL:            http://nbd.sourceforge.net
-Source0:        http://downloads.sourceforge.net/project/nbd/%{name}/%{version}/%{name}-%{version}.tar.xz
+# SPDX migration
+License:        GPL-2.0-only
+URL:            https://github.com/NetworkBlockDevice/nbd
+Source0:        https://github.com/NetworkBlockDevice/nbd/releases/download/nbd-%{version}/nbd-%{version}.tar.xz
 Source1:        nbd-server.service
 Source2:        nbd-server.sysconfig
 
@@ -29,7 +30,7 @@ remote block devices over a TCP/IP network.
 sed -i 's/tv_sec = 5/tv_sec = 30/' tests/run/nbd-tester-client.c
 
 %build
-%configure --enable-syslog --enable-lfs --enable-gznbd
+%configure --enable-syslog --enable-lfs
 %make_build
 
 %install
@@ -63,7 +64,6 @@ DELAY=10 make check
 %{_bindir}/nbd-server
 %{_bindir}/nbd-trdump
 %{_bindir}/nbd-trplay
-%{_bindir}/gznbd
 %{_mandir}/man*/nbd*
 %{_sbindir}/nbd-client
 %{_sbindir}/min-nbd-client

@@ -1,6 +1,6 @@
 Name:           python-ovh
-Version:        1.0.0
-Release:        3%{?dist}
+Version:        1.1.0
+Release:        1%{?dist}
 Summary:        Lightweight wrapper around OVHcloud's APIs
 
 License:        BSD
@@ -12,6 +12,7 @@ BuildRequires:  python3-devel
 # For building man pages
 BuildRequires:  make
 BuildRequires:  python3dist(sphinx)
+BuildRequires:  python3dist(pytest)
 
 %global _description %{expand:
 Lightweight wrapper around OVHcloud's APIs. Handles all the hard work
@@ -48,11 +49,8 @@ install -m 0644 docs/_build/man/python-ovh.1* %{buildroot}/%{_mandir}/man1/
 
 
 %check
-# Manual testing (see: https://github.com/ovh/python-ovh/issues/111):
-# 1. Install the package
-# 2. cd to [sources]/tests
-# 3. Install pytest and mock using pip
-# 4. Run: pytest .
+# Deselect network-dependent tests
+%pytest --deselect tests/test_client.py::TestClient::test_endpoints
 
 
 %files -n python3-ovh -f %{pyproject_files}
@@ -61,6 +59,9 @@ install -m 0644 docs/_build/man/python-ovh.1* %{buildroot}/%{_mandir}/man1/
 
 
 %changelog
+* Wed May 03 2023 Roman Inflianskas <rominf@aiven.io> - 1.1.0-1
+- Update to 1.1.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

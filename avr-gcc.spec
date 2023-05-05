@@ -47,10 +47,10 @@ platform.
 [ -d gcc-%{version} ] || mv gcc-4.7-* gcc-%{version}
 
 pushd gcc-%{version}
-%patch0 -p2 -b .mint8
-#patch1 -p2 -b .config
-%patch2 -p1
-%patch3 -p1
+%patch -P0 -p2 -b .mint8
+#patch -P1 -p2 -b .config
+%patch -P2 -p1
+%patch -P3 -p1
 
 pushd libiberty
 #autoconf -f

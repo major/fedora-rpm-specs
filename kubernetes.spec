@@ -26,7 +26,7 @@
 Name:           kubernetes
 Version:        1.27.1
 Release:        %autorelease
-Summary:        Open Source Production-Grade Container Scheduling And Managemnt
+Summary:        Open Source Production-Grade Container Scheduling And Management Platform
 License:        ASL 2.0
 URL:            https://%{import_path}
 ExclusiveArch:  x86_64 aarch64 ppc64le s390x %{arm}

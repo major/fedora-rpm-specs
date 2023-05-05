@@ -1,5 +1,5 @@
 %global relver 2.3.1
-%global prever b2
+%global prever b4
 %global gitver %{relver}%{?prever:%{prever}}
 
 Name:           mininet

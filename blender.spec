@@ -297,7 +297,7 @@ rm -rf %{buildroot}%{_docdir}/%{name}/*
 
 # rpm macros
 mkdir -p %{buildroot}%{macrosdir}
-sed -e 's/@VERSION@/%{blender_api}/g' %{SOURCE1} > %{buildroot}%{macrosdir}/macros.%{name}-rpm
+sed -e 's/@VERSION@/%{blender_api}/g' %{SOURCE3} > %{buildroot}%{macrosdir}/macros.%{name}-rpm
 
 # AppData
 install -p -m 644 -D release/freedesktop/org.%{name}.Blender.appdata.xml \

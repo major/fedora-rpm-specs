@@ -2,7 +2,7 @@ Name:		perl-MouseX-Types-Path-Class
 Summary:	A Path::Class type library for Mouse
 Version:	0.07
 Release:	28%{?dist}
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/MouseX-Types-Path-Class
 Source0:	https://cpan.metacpan.org/modules/by-module/MouseX/MouseX-Types-Path-Class-%{version}.tar.gz
 BuildArch:	noarch
@@ -34,7 +34,7 @@ BuildRequires:	perl(Test::UseAllModules)
 BuildRequires:	perl(Test::Pod) >= 1.00
 BuildRequires:	perl(Test::Pod::Coverage) >= 1.04
 BuildRequires:	perl(Test::Spelling), aspell-en
-# Runtime
+# Dependencies
 Requires:	perl(Mouse) >= 0.39
 Requires:	perl(MouseX::Getopt) >= 0.22
 Requires:	perl(MouseX::Types) >= 0.02

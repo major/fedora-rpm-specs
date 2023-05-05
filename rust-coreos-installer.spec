@@ -12,7 +12,7 @@
 
 Name:           rust-%{crate}
 Version:        0.17.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Installer for Fedora CoreOS and RHEL CoreOS
 
 # Upstream license specification: Apache-2.0
@@ -180,6 +180,9 @@ from the initramfs in IoT/Edge and is supported by the community.
 %endif
 
 %changelog
+* Wed May 03 2023 Fabio Valentini <decathorpe@gmail.com> - 0.17.0-3
+- Rebuild for tokio, h2, and openssl crate security updates
+
 * Tue Apr 11 2023 Irene Diez <idiez@redhat.com> - 0.17.0-2
 - Update dracut/scripts: no need to mount the filesystem
   https://github.com/coreos/coreos-installer-dracut/pull/30

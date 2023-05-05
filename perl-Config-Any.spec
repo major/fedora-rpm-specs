@@ -1,7 +1,7 @@
 Name:           perl-Config-Any
 Summary:        Load configuration from different file formats, transparently
-Version:        0.32
-Release:        20%{?dist}
+Version:        0.33
+Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Config-Any
 Source0:        https://cpan.metacpan.org/modules/by-module/Config/Config-Any-%{version}.tar.gz
@@ -21,7 +21,7 @@ BuildRequires:  perl(Module::Pluggable::Object) >= 3.6
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Optional Functionality
-BuildRequires:  perl(Config::General) >= 2.47
+BuildRequires:  perl(Config::General) >= 2.48
 BuildRequires:  perl(Config::Tiny)
 BuildRequires:  perl(Cpanel::JSON::XS)
 BuildRequires:  perl(XML::NamespaceSupport)
@@ -36,7 +36,7 @@ BuildRequires:  perl(Test::More)
 # Optional Tests
 BuildRequires:  perl(XML::LibXML) >= 1.59
 # Dependencies
-Requires:       perl(Config::General) >= 2.47
+Requires:       perl(Config::General) >= 2.48
 Requires:       perl(Config::Tiny)
 Requires:       perl(Cpanel::JSON::XS)
 Requires:       perl(XML::NamespaceSupport)
@@ -65,6 +65,7 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 make test
 
 %files
+%license LICENSE
 # conf/ for examples of different config types
 %doc Changes README t/conf/
 %{perl_vendorlib}/Config/
@@ -78,6 +79,16 @@ make test
 %{_mandir}/man3/Config::Any::YAML.3*
 
 %changelog
+* Wed May  3 2023 Paul Howarth <paul@city-fan.org> - 0.33-1
+- Update to 0.33
+  - Update docs to describe which modules are needed for which formats
+  - Update Config::General requirement for conf files to a non-broken version
+    (2.48)
+  - Don't try to upgrade old Config::General versions
+  - Fix is_supported method verifying the version of required modules
+  - Documentation clean-ups
+- Package LICENSE file
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.32-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

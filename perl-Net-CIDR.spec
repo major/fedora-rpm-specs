@@ -2,7 +2,7 @@ Name:           perl-Net-CIDR
 Version:        0.21
 Release:        7%{?dist}
 Summary:        Manipulate IPv4/IPv6 netblocks in CIDR notation
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-CIDR
 Source0:        https://cpan.metacpan.org/modules/by-module/Net/Net-CIDR-%{version}.tar.gz
 BuildArch:      noarch
@@ -18,7 +18,8 @@ BuildRequires:  perl(Carp)
 BuildRequires:  perl(Exporter)
 # Test Suite
 # (no additional dependencies)
-# Runtime
+# Dependencies
+# (no additional dependencies)
 
 %description
 The Net::CIDR package contains functions that manipulate lists of IP netblocks

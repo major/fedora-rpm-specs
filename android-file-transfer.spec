@@ -3,7 +3,7 @@
 
 Name:           android-file-transfer
 Version:        4.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Reliable Android MTP client with minimalist UI
 
 License:        LGPL-2.1-only
@@ -14,15 +14,18 @@ Patch0001:      0001-Fix-build-with-GCC-13-330.patch
 
 Requires:       hicolor-icon-theme
 BuildRequires:  cmake
-BuildRequires:  gcc-c++
-BuildRequires:  ninja-build
-BuildRequires:  pkgconfig(Qt5)
-BuildRequires:  cmake(Qt5LinguistTools)
 BuildRequires:  cmake(pybind11)
-BuildRequires:  pkgconfig(fuse)
-BuildRequires:  pkgconfig(readline)
+BuildRequires:  cmake(Qt5LinguistTools)
 BuildRequires:  desktop-file-utils
+BuildRequires:  gcc-c++
 BuildRequires:  libappstream-glib
+BuildRequires:  ninja-build
+BuildRequires:  pkgconfig(fuse)
+BuildRequires:  pkgconfig(libmagic)
+BuildRequires:  pkgconfig(openssl)
+BuildRequires:  pkgconfig(Qt5)
+BuildRequires:  pkgconfig(readline)
+BuildRequires:  pkgconfig(taglib)
 
 %description
 Android File Transfer for Linux — reliable MTP client with minimalist UI
@@ -72,6 +75,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %{_datadir}/metainfo/%{name}.appdata.xml
 
 %changelog
+* Wed May 3 2023 Marek Blaha <mblaha@redhat.com> - 4.2-9
+- Add missing build dependencies (OpenSSL, taglib, libmagic)
+
 * Tue May 2 2023 Marek Blaha <mblaha@redhat.com> - 4.2-8
 - Backport fix to build with GCC 13
 
