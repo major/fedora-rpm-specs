@@ -39,9 +39,9 @@
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
 
 Name:		openconnect
-Version:	9.01
-Release:	4%{?relsuffix}%{?dist}
-Summary:	Open client for Cisco AnyConnect VPN, Juniper Network Connect/Pulse, PAN GlobalProtect
+Version:	9.10
+Release:	1%{?relsuffix}%{?dist}
+Summary:	Open multi-protocol SSL VPN client
 
 License:	LGPLv2+
 URL:		http://www.infradead.org/openconnect.html
@@ -89,9 +89,9 @@ BuildRequires: pkgconfig(tss2-esys) libgcrypt-devel
 %endif
 
 %description
-This package provides a multiprotocol VPN client for Cisco AnyConnect,
-Juniper SSL VPN / Pulse Connect Secure, and Palo Alto Networks GlobalProtect
-SSL VPN.
+This package provides a multi-protocol VPN client for Cisco AnyConnect,
+Juniper SSL VPN, Pulse/Ivanti Pulse Connect Secure, F5 BIG-IP, Fortinet
+Palo Alto Networks GlobalProtect SSL VPN, Array Networks SSL VPN.
 
 %package devel
 Summary: Development package for OpenConnect VPN authentication tools
@@ -159,6 +159,9 @@ make VERBOSE=1 check
 %{_libdir}/pkgconfig/openconnect.pc
 
 %changelog
+* Thu May 04 2023 David Woodhouse <dwmw2@infradead.org> - 9.10-1
+- Update to 9.10 release
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.01-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

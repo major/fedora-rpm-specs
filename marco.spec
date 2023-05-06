@@ -13,9 +13,9 @@
 %{!?rel_build:%global git_tar %{name}-%{version}-%{git_ver}.tar.xz}
 
 Name:          marco
-Version:       %{branch}.1
+Version:       %{branch}.2
 %if 0%{?rel_build}
-Release:       2%{?dist}
+Release:       1%{?dist}
 %else
 Release:       0.18%{?git_rel}%{?dist}
 %endif
@@ -28,6 +28,9 @@ URL:           http://mate-desktop.org
 %{?rel_build:Source0:     http://pub.mate-desktop.org/releases/%{branch}/%{name}-%{version}.tar.xz}
 # Source for snapshot-builds.
 %{!?rel_build:Source0:    http://git.mate-desktop.org/%{name}/snapshot/%{name}-%{commit}.tar.xz#/%{git_tar}}
+
+# https://github.com/mate-desktop/marco/commit/d83cb24
+Patch1:        marco_0001-Add-setting-to-raise-windows-on-alt-tab-popup_1.26.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: gtk3-devel
@@ -152,6 +155,11 @@ desktop-file-install                                \
 
 
 %changelog
+* Thu May 04 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.2-1
+- update to 1.26.2
+- Add setting to raise windows on alt+tab popup
+- add https://github.com/mate-desktop/marco/commit/d83cb24
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

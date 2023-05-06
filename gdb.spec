@@ -1249,6 +1249,17 @@ fi
 %endif
 
 %changelog
+* Thu May 4 2023 Kevin Buettner <kevinb@redhat.com>
+- Fix C89-isms in gdb-6.6-buildid-locate-rpm.patch.  (Florian Weimer,
+  RHBZ 2143992)'.  This change merely restores changes introduced by
+  Keith's Nov 30 2022 commit, but which were inadvertently lost during
+  the GDB 13.1 backport.
+
+* Thu May 4 2023 Andrew Burgess <aburgess@redhat.com>
+- Rewrite the changes to gdb-add-index.sh.  If the user has set the
+  GDB environment variable then use that value, otherwise find a
+  suitable GDB executable by looking in various places.
+
 * Wed May 3 2023 Kevin Buettner <kevinb@redhat.com> 13.1-5
 - Backport "Pass const frame_info_ptr reference for
   skip_[language_]trampoline". (Mark Wielaard, RHBZ 2192105, build/30413)

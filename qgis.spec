@@ -165,6 +165,8 @@ install -pm0644 %{SOURCE4} .
 
 gzip ChangeLog
 
+sed -i 's/"node": "8 || 9 || 10 || 11 || 12 || 13 || 14 || 15 || 16 || 17 || 18 || 19"/"node": "8 || 9 || 10 || 11 || 12 || 13 || 14 || 15 || 16 || 17 || 18 || 19 || 20"/' $(find "$PWD/.package-cache" | grep 'node_modules/@achrinza/node-ipc/package.json')
+sed -i 's/"node": "8 || 9 || 10 || 11 || 12 || 13 || 14 || 15 || 16 || 17 || 18 || 19"/"node": "8 || 9 || 10 || 11 || 12 || 13 || 14 || 15 || 16 || 17 || 18 || 19 || 20"/' $(find "$PWD/.package-cache" | grep 'node_modules/@achrinza/node-ipc/.yarn-metadata.json')
 
 %build
 %cmake \

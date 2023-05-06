@@ -12,7 +12,8 @@ License:        MIT
 URL:            https://www.intenct.nl/projects/django-allauth/
 # PyPI source has no tests
 # Source0:        %%{pypi_source %%{srcname}}
-Source0:        %{forgeurl}/archive/%{version}/%{srcname}-%{version}.tar.gz
+Source:         %{forgeurl}/archive/%{version}/%{srcname}-%{version}.tar.gz
+Patch:          %{srcname}-fix_for_coverage_7.diff
 
 BuildArch:      noarch
 

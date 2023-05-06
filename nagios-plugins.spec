@@ -20,11 +20,11 @@
 %endif
 
 Name: nagios-plugins
-Version: 2.4.3
+Version: 2.4.4
 %if 0%{?fromgit}
-Release: 2.%{?commdate}git%{?shortcommit}%{?dist}
+Release: 1.%{?commdate}git%{?shortcommit}%{?dist}
 %else
-Release: 2%{?dist}
+Release: 1%{?dist}
 %endif
 
 Summary: Host/service/network monitoring program plugins for Nagios
@@ -47,9 +47,10 @@ Patch1: %{name}-ntpsec-support.patch
 Patch2: nagios-plugins-0002-Remove-assignment-of-not-parsed-to-jitter.patch
 # Patch sent upstream https://github.com/nagios-plugins/nagios-plugins/pull/637
 Patch3: %{name}-uninitialized-warnings.patch
+# Patch backported from upstream
+Patch4: %{name}-dns-buffer-overflow.patch
 Patch7: nagios-plugins-0007-Fix-the-use-lib-statement-and-the-external-ntp-comma.patch
 Patch12: nagios-plugins-0012-fix-perl-ntp-ipv6.patch
-Patch13: nagios-plugins-c99.patch
 
 BuildRequires: make
 BuildRequires: %{_bindir}/mailq
@@ -607,11 +608,11 @@ Provides check_wave support for Nagios.
 %patch -P 1 -p1 -b .ntpsec-support.patch
 %patch -P 2 -p1 -b .remove_ntp_jitter
 %patch -P 3 -p1 -b .uninitialized-warnings.patch
+%patch -P 4 -p1 -b .dns-buffer-overflow.patch
 %patch -P 7 -p1 -b .fix_ntpcommands
 %if 0%{?bootstrap} == 0
 %patch -P 12 -p1 -b .fix_perl_ntp
 %endif
-%patch -P 13 -p1 -b .c99
 
 %build
 
@@ -883,6 +884,9 @@ chmod 644 %{buildroot}/%{_libdir}/nagios/plugins/utils.pm
 %{_libdir}/nagios/plugins/check_wave
 
 %changelog
+* Wed May 03 2023 Guido Aulisi <guido.aulisi@gmail.com> - 2.4.4-1
+- Update to 2.4.4
+
 * Thu Apr 27 2023 Florian Weimer <fweimer@redhat.com> - 2.4.3-2
 - Backport part of upstream patch to fix C99 compatibility issue
 

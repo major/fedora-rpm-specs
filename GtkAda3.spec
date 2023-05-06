@@ -1,48 +1,62 @@
+# Upstream source information.
+%global upstream_owner    AdaCore
+%global upstream_name     gtkada
+%global upstream_version  23.0.0
+%global upstream_gittag   v%{upstream_version}
+
 Name:           GtkAda3
-Version:        2020
-Release:        9%{?dist}
-Summary:        GTKada 3, an Ada binding to GTK+ 3
-Summary(sv):    GTKada 3, en adabindning till GTK+ 3
+Epoch:          2
+Version:        %{upstream_version}
+Release:        1%{?dist}
+Summary:        GTKada, an Ada binding to GTK+ 3
+Summary(sv):    GTKada, en adabindning till GTK+ 3
 
-# Pass "--without opengl" to RPMbuild to disable the -gl subpackage.
-%bcond_without opengl
-
-# The GPS plug-in is excluded because GPS isn't packaged.
+# The GNAT Studio plug-in is excluded because GNAT Studio isn't packaged.
 # Pass "--with gps" to RPMbuild to include it.
 %bcond_with gps
 
-License:        GPLv3+ with exceptions
-URL:            https://github.com/AdaCore/gtkada
-Source:         https://community.download.adacore.com/v1/35a07c29543ba779a96e690ea10db866fa1e92e3?filename=gtkada-2020-20200814-19A6C-src.tar.gz#/gtkada-2020-20200814-19A6C-src.tar.gz
-# The long hexadecimal number is what identifies the file on the server.
-# Don't forget to update it!
-# The latest known address of the download page is:
-# https://www.adacore.com/download/more
+License:        GPL-3.0-or-later WITH GCC-exception-3.1 AND GPL-2.0-or-later WITH GNAT-exception
+# The license is GPLv3+ with the GCC runtime exception, except for:
+# - src/misc.c          : GPLv2+ with GNAT runtime exception
+# - src/misc_osx.h      : GPLv2+ with GNAT runtime exception
+# - src/misc_osx.m      : GPLv2+ with GNAT runtime exception
+# - src/gtkada-intl.gpb : GPLv2+ with GNAT runtime exception
+
+URL:            https://github.com/%{upstream_owner}/%{upstream_name}
+Source:         %{url}/archive/%{upstream_gittag}/%{upstream_name}-%{upstream_version}.tar.gz
+
 Source2:        testgtk_Makefile
 Source3:        testgtk.gpr
-Source4:        gtkada.gpr
-Source5:        gtkada_gl.gpr
+Source4:        gtkada.gpr.in
 
-# GNU-specific patch to avoid link bloat:
-Patch1:         gtkada-3.14.2-libs.patch
-# Workaround for name collisions with stuff that was added to GTK+:
-Patch3:         gtkada-2017-namespace.patch
-# Port the binding generator to Python 3:
-# https://github.com/AdaCore/gtkada/pull/23
-Patch4:         gtkada-2020-python3.patch
+# [Fedora-specific] Don't rebuild the library when building gtkada-dialog.
+Patch:          %{name}-enable-a-staged-build.patch
+# [Fedora-specific] GNAT Studio plugin: remove shortcut to the GtkAda RM.
+Patch:          %{name}-gps-plugin-remove-gtkada-rm.patch
+# Fix a small typo in the documentation: A closing bracket seems to be missing.
+# See also: https://github.com/AdaCore/gtkada/issues/48
+Patch:          %{name}-fix-link-to-github-repo-in-doc.patch
 
-BuildRequires:  gcc-gnat gprbuild fedora-gnat-project-common
+BuildRequires:  gcc-gnat gprbuild make
+# A fedora-gnat-project-common that contains GPRbuild_flags is needed.
+BuildRequires:  fedora-gnat-project-common >= 3.17
+
+BuildRequires:  python3-sphinx
+BuildRequires:  python3-sphinx_rtd_theme
+BuildRequires:  python3-sphinx-latex
+BuildRequires:  latexmk
+
 BuildRequires:  python3
 BuildRequires:  gtk3-devel
-%if %{with opengl}
-BuildRequires:  libGL-devel libGLU-devel
-%endif
-BuildRequires:  make diffutils recode
-%if %{with gps}
+BuildRequires:  diffutils
 BuildRequires:  sed
-%endif
+
 # Build only on architectures where GPRbuild is available:
 ExclusiveArch:  %{GPRbuild_arches}
+
+# GTK.GLarea is now included in the main library so GtkAda3-gl is gone. Let
+# upgrades remove the subpackage:
+Obsoletes:      GtkAda3-gl < 2:23
 
 %global common_description_en \
 GTKada is an Ada binding to the graphical toolkit GTK+. It allows you to \
@@ -54,17 +68,22 @@ kan du utveckla grafiska användargränssnitt i ada baserade på GTK+.
 
 %description %{common_description_en}
 
+This version of GTKada binds to GTK+ 3.x.
+
 %description -l sv %{common_description_sv}
 
+Denna versionen av GTKada binder till GTK+ 3.x.
+
+
+#################
+## Subpackages ##
+#################
 
 %package devel
-Summary:        Development files for GTKada 3
-Summary(sv):    Filer för programmering med GTKada 3
+Summary:        Development files for GTKada for GTK+ 3
+Summary(sv):    Filer för programmering med GTKada för GTK+ 3
 Requires:       fedora-gnat-project-common
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-%if %{with opengl}
-Requires:       %{name}-gl%{?_isa} = %{version}-%{release}
-%endif
+Requires:       %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 Recommends:     %{name}-doc
 Conflicts:      GtkAda-devel < 3
 
@@ -84,71 +103,113 @@ Conflicts:      GtkAda-devel < 3
 %description devel %{common_description_en}
 
 The %{name}-devel package contains source code and linking information for
-developing applications that use GTKada 3.x.
+developing applications that use GTKada to bind to GTK+ 3.x.
 
 %description devel -l sv %{common_description_sv}
 
 Paketet %{name}-devel innehåller källkod och länkningsinformation som behövs
-för att utveckla program som använder GTKada 3.x.
-
-
-%package gl
-Summary:        GTKada 3 binding to OpenGL
-Summary(sv):    GTKada 3:s bindning till OpenGL
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-
-%description gl %{common_description_en}
-
-The %{name}-gl package contains the GTKada binding to the OpenGL interface.
-
-%description gl -l sv %{common_description_sv}
-
-Paketet %{name}-gl innehåller GTKadas bindning till OpenGL-gränssnittet.
+för att utveckla program som använder GTKada för att binda till GTK+ 3.x.
 
 
 %package doc
-Summary:        Documentation for GTKada 3
-Summary(sv):    Dokumentation till GTKada 3
+Summary:        Documentation for GTKada for GTK+ 3
+Summary(sv):    Dokumentation till GTKada för GTK+ 3
 BuildArch:      noarch
+License:        GFDL-1.1-no-invariants-or-later AND MIT AND BSD-2-Clause AND GPL-3.0-or-later WITH GCC-exception-3.1
+# The documents have a GFDL 1.1 license with no invariants. Some Javascript and
+# CSS files that Sphinx includes with the documentation are BSD 2-Clause and MIT
+# licensed. The example code is licensed under GPLv3+ with the GCC runtime
+# exception.
 
 %description doc %{common_description_en}
 
-The %{name}-doc package contains the documentation for GTKada 3.x.
+The %{name}-doc package contains the documentation for GTKada for GTK+ 3.x.
 
 %description doc -l sv %{common_description_sv}
 
-Paketet %{name}-doc innehåller dokumentationen till GTKada 3.x.
+Paketet %{name}-doc innehåller dokumentationen till GTKada för GTK+ 3.x.
 
 
-# The hardening hack needs to be disabled because of gtkada-dialog and the demo
-# programs, until someone figures out how to make it work for Ada.
-# https://bugzilla.redhat.com/show_bug.cgi?id=1197501
-%undefine _hardened_build
-
+#############
+## Prepare ##
+#############
 
 %prep
-%autosetup -n gtkada-2020-20200814-19A6C-src -p0
+%autosetup -n %{upstream_name}-%{upstream_version} -p1
 
-# Transcode the author's name in comments in some source files.
-recode ISO-8859-1..UTF-8 src/opengl/{gdkgl,gtkglarea}.[hc] testgtk/opengl/lw.[hc]
+# The substitutions below are scoped to specific lines to increase the chance of
+# detecting code changes at this point. Sed should exit with exit code 0 if the
+# substitution succeeded (using `t`, jump to end of script) or exit with a non-
+# zero exit code if the substitution failed (using `q1`, quit with exit code 1).
+
+# Change the name of the target directory of the documentation to avoid a
+# conflict between GtkAda3-doc and GtkAda-doc.
+sed --in-place \
+    --expression='83 { s,share/doc/gtkada,share/doc/GtkAda3, ; t; q1 }' \
+    --expression='86 { s,share/doc/gtkada,share/doc/GtkAda3, ; t; q1 }' \
+    src/gtkada.gpr
+
+# Adjust the documentation directory in the GPS plug-in as-well.
+sed --in-place \
+    --expression='4 { s,share/doc/gtkada,share/doc/GtkAda3, ; t; q1 }' \
+    xml/gtkada.xml
+
+# Set the target directory of the artifacts of the `testgtk` application to be
+# relative to the prefix argument of GPRinstall, and don't treat the Ada source
+# code as artifacts.
+sed --in-place \
+    --expression='45 { s,share/examples/gtkada/testgtk,\./, ; t; q1 }' \
+    --expression='46 { s|"\*\.ad\*", ||                     ; t; q1 }' \
+    testgtk/testgtk.gpr
+
+# Update the package version (also in configure.ac, as this is the source for
+# the version shown in the documentation; see also `docs/gtkada_ug/conf.py`).
+sed --in-place \
+    --expression='1   { s,18.0w,%{version}, ; t; q1 }' \
+    ./configure.ac
+sed --in-place \
+    --expression='582 { s,18.0w,%{version}, ; t; q1 }' \
+    --expression='583 { s,18.0w,%{version}, ; t; q1 }' \
+    ./configure
+
+# Remove VCS files. Some interfere with the code generation check at the
+# beginning of the build section.
+find -name ".cvsignore" -type f -delete
+find -name ".gitignore" -type f -delete
 
 # Remove bogus executable bits.
 chmod a-x testgtk/*.ad[sb]
 
 
+###########
+## Build ##
+###########
+
 %build
 # This package triggers a GCC failure when building with LTO.  Disable
-# LTO for now.  fld_incomplete_type_of, at tree.c:5371
+# LTO for now.  fld_incomplete_type_of, at ipa-free-lang-data.cc:257
 %define _lto_cflags %{nil}
 
-%{configure} --disable-static --disable-static-pic %{!?with_opengl:--with-GL=no}
+%{configure} --disable-static --disable-static-pic
+
+# NOTE FOR v23.0.0: The re-generated code does not match the pre-generated code
+# in the tarball: upstream made manual changes to the pre-generated code:
+#
+#    gtk-list_store.adb : upstream commit 99dafa9, near line 536
+#    gtk-list_store.adb : upstream commit e9c0e98, near line 536
+#    gtk-tree_model.adb : upstream commit 6ae5622, near line 1110
+#
+# We'll disable the regeneration for now and continue to use the pre-generated
+# code with the manual changes.
+
+%if 0
 
 # Regenerate the generated Ada packages to verify that they can be regenerated.
 # Use the included GIR files, because binding.py is only expected to work with
 # those specific files.
 mv src/generated src/pre-generated
 mkdir src/generated
-make generate PYTHON=python3
+make generate PYTHON='%{python3}'
 
 # Compare the generated packages to the pre-generated ones to verify that the
 # code being compiled is the same as what the developers upstream have reviewed
@@ -156,80 +217,103 @@ make generate PYTHON=python3
 rm src/generated/tmp.ada
 diff --recursive --ignore-matching-lines='^-- ' src/pre-generated src/generated >&2
 
-# Build the library, and also perform configuration of the demo source code.
-# Allow it to also build the demo programs. It has some value as a smoke test.
-make GPRBUILD_FULL="gprbuild %{GPRbuild_optflags}"
+%endif
 
-# The documentation is not regenerated because that requires GPS and would
-# cause a dependency loop.
+# In order to build gtkada-dialog with hardening switches and dynamically link
+# it with the GTKada library, we need to build the library first and then stage
+# it.
+mkdir stage  # without --parents to avoid clobbering any existing directory
 
+# Build the library.
+%{make_build} relocatable GPRBUILD_OPTIONS='%{GPRbuild_flags} -largs -lm -gargs'
+
+# Build the documentation (user's guide only as the reference guide requires
+# Gnatdoc; a tool that has not been packaged yet). We build the documentation
+# now as it's installed with gtkada.gpr (see `Artifacts` package in gtkada.gpr).
+make -C docs/gtkada_ug html latexpdf
+
+# Stage the library and documentation. Use GPRinstall directly instead of the
+# Makefile rule to have full control over what is installed where.
+gprinstall --create-missing-dirs --no-manifest --no-build-var \
+           --prefix=${PWD}/stage%{_prefix} \
+           --sources-subdir=${PWD}/stage%{_includedir}/gtkada \
+           --project-subdir=${PWD}/stage%{_GNAT_project_dir} \
+           --ali-subdir=${PWD}/stage%{_libdir}/gtkada \
+           --lib-subdir=${PWD}/stage%{_libdir} \
+           --no-lib-link \
+           -P src/gtkada.gpr
+
+# Create the library link.
+ln --symbolic --force libgtkada.so.%{version} stage%{_libdir}/libgtkada.so
+
+# Additional flags to link the executable (gtkada-dialog) dynamically with the
+# GNAT runtime and make it position-independent.
+%global GPRbuild_flags_pie -cargs -fPIC -largs -pie -bargs -shared -gargs
+
+# Build gtkada-dialog.
+%{make_build} tools GPRBUILD_OPTIONS='%{GPRbuild_flags} %{GPRbuild_flags_pie} -largs -lm -gargs -aP stage%{_GNAT_project_dir}'
+
+# Stage gtkada-dialog.
+gprinstall --create-missing-dirs --no-manifest --no-build-var \
+           --mode=usage \
+           --prefix=${PWD}/stage%{_prefix} \
+           --exec-subdir=${PWD}/stage%{_bindir} \
+           -aP stage%{_GNAT_project_dir} \
+           -P src/tools/tools.gpr
+
+
+#############
+## Install ##
+#############
 
 %install
 %global demodir %{_pkgdocdir}/examples/testgtk
 %global inst install --mode=u=rw,go=r,a-s --preserve-timestamps
 
-%{make_install} PRJDIR=%{buildroot}%{_GNAT_project_dir} exampledir=%{demodir}
+# The library, gtkada-dialog and the documention have already been staged, so
+# just move them to the "buildroot" staging directory.
+mv stage/* --target-directory=%{buildroot}
 
-# Move the binary libraries into place and fix the links.
-if test lib != '%{_lib}' ; then
-    mv %{buildroot}%{_prefix}/lib %{buildroot}%{_libdir}
-fi
-pushd %{buildroot}%{_libdir}
-mv gtkada/*/gtkada/libgtkada*.so.* .
-rm libgtkada*.so gtkada/*/gtkada/libgtkada*.so
-ln -s libgtkada.so.* libgtkada.so
-ln -s libgtkada_gl.so.* libgtkada_gl.so
-popd
+# Install the examples (testgtk plus related).
+gprinstall --create-missing-dirs --no-manifest --no-build-var \
+           --prefix=%{buildroot}%{demodir} \
+           --sources-subdir=%{buildroot}%{demodir} \
+           --project-subdir=%{buildroot}%{demodir} \
+           --sources-only \
+           -P testgtk/testgtk.gpr
 
-# It's much easier to install our own multilib-compatible usage project files
-# than to patch the ones that GPRinstall generated.
-%{inst} %{SOURCE4} %{SOURCE5} --target-directory=%{buildroot}%{_GNAT_project_dir}
+gprinstall --create-missing-dirs --no-manifest --no-build-var \
+           --prefix=%{buildroot}%{demodir}/task_project \
+           --sources-subdir=%{buildroot}%{demodir}/task_project/src \
+           --project-subdir=%{buildroot}%{demodir}/task_project/ \
+           --sources-only \
+           -P testgtk/task_project/task_project.gpr
 
-# GPRinstall's manifest files are architecture-specific because they contain
-# what seems to be checksums of architecture-specific files, so they must not
-# be under _datadir. Their function is apparently undocumented, but my crystal
-# ball tells me that they're used when GPRinstall uninstalls or upgrades
-# packages. The manifest file is therefore irrelevant in this RPM package, so
-# delete it.
-rm -rf %{buildroot}%{_GNAT_project_dir}/manifests
-
-# Exclude the compiled demo programs from the documentation directory.
-rm %{buildroot}%{demodir}/test{gtk,_rtree}
-
-# Move the manuals and demo source code into place.
-mv %{buildroot}%{_prefix}/share/doc/gtkada/* --target-directory=%{buildroot}%{_pkgdocdir}
-mv %{buildroot}%{_prefix}/share/examples/gtkada/testgtk/* --target-directory=%{buildroot}%{demodir}
-
-# Add missing TestGTK sources.
-mkdir --parents %{buildroot}%{demodir}/opengl %{buildroot}%{demodir}/task_project/src
-%{inst} testgtk/opengl/*.{h,c,ads,adb,gpb} --target-directory=%{buildroot}%{demodir}/opengl
-%{inst} testgtk/task_project/src/*.ad? --target-directory=%{buildroot}%{demodir}/task_project/src
+# It's much easier to install our own multilib-compatible usage project file
+# than to patch the one that GPRinstall generated.
+# It needs the version string inserted though.
+sed --expression='22 { s,@VERSION@,%{version}, ; t; q1 }' \
+    %{SOURCE4} \
+    >%{buildroot}%{_GNAT_project_dir}/gtkada.gpr
 
 # Add a standalone build system for the demo programs so that users can build
 # them and link them to the packaged libraries.
 %{inst} --no-target-directory %{SOURCE2} %{buildroot}%{demodir}/Makefile
 %{inst} %{SOURCE3} --target-directory=%{buildroot}%{demodir}
 
-%if %{with gps}
-# Adjust the documentation directory in the GPS plug-in, and change its
-# filename to avoid a conflict between GtkAda3-doc and GtkAda-doc.
-sed --in-place --expression=s:share/doc/gtkada:share/doc/GtkAda3:g %{buildroot}%{_datadir}/gps/plug-ins/gtkada.xml
-mv %{buildroot}%{_datadir}/gps/plug-ins/gtkada.xml %{buildroot}%{_datadir}/gps/plug-ins/gtkada3.xml
-%else
-rm -rf %{buildroot}%{_datadir}/gps
-%endif
-
-# These files that Sphinx generates aren't needed in the package.
-rm %{buildroot}%{_pkgdocdir}/gtkada_ug/{.buildinfo,objects.inv}
-
-# This preprocessor input file isn't needed in the package.
-rm %{buildroot}%{_pkgdocdir}/gtkada_rm/index.html.in
+# Rename the GNAT Studio plugin.
+mv %{buildroot}%{_datadir}/gps/plug-ins/gtkada.xml \
+   %{buildroot}%{_datadir}/gps/plug-ins/gtkada3.xml
 
 # Include these license and documentation files.
 mkdir --parents %{buildroot}%{_licensedir}/%{name}
 %{inst} COPYING* --target-directory=%{buildroot}%{_licensedir}/%{name}
 %{inst} AUTHORS README.md features* known-problems* --target-directory=%{buildroot}%{_pkgdocdir}
 
+
+###########
+## Files ##
+###########
 
 %files
 %{_libdir}/libgtkada.so.*
@@ -239,18 +323,15 @@ mkdir --parents %{buildroot}%{_licensedir}/%{name}
 %{_pkgdocdir}/README.md
 
 
-%if %{with opengl}
-%files gl
-%{_libdir}/libgtkada_gl.so.*
-%endif
-
-
 %files devel
-%{_bindir}/*
 %{_includedir}/gtkada
-%{_libdir}/gtkada
+%dir %{_libdir}/gtkada
+%attr(444,-,-) %{_libdir}/gtkada/*.ali
 %{_GNAT_project_dir}/*
 %{_libdir}/lib*.so
+# There's little reason to make a separate subpackage for gtkada-dialog, so
+# it's included in the -devel package:
+%{_bindir}/*
 
 
 %files doc
@@ -263,14 +344,55 @@ mkdir --parents %{buildroot}%{_licensedir}/%{name}
 %{_pkgdocdir}/features*
 %{_pkgdocdir}/known-problems*
 %{_pkgdocdir}/gtkada_ug
-%{_pkgdocdir}/gtkada_rm
 %{_pkgdocdir}/examples
+# Exclude Sphinx-generated files that aren't needed in the package:
+%exclude %{_pkgdocdir}/gtkada_ug/.buildinfo
+%exclude %{_pkgdocdir}/gtkada_ug/objects.inv
+
 %if %{with gps}
 %{_datadir}/gps
+%else
+%exclude %{_datadir}/gps
 %endif
 
 
+###############
+## Changelog ##
+###############
+
 %changelog
+* Tue Feb 14 2023 Dennis van Raaij <dvraaij@fedoraproject.org> - 2:23.0.0-1
+- Updated to v23.0.0, using the archive available on GitHub.
+- The subpackage GtkAda3-gl and the library libgtkada_gl.so are gone because
+  GTK.GLarea is now included in libgtkada.so.
+- Removed patch GtkAda3-3.14.2-libs.patch; the unused direct dependencies are no
+  longer there.
+- Added a new build dependency: Sphinx theme from readthedocs.org
+  (commit 7b446c4).
+- The version string in 'gtkada.gpr' (SOURCE4) is now updated automatically.
+
+* Sun Feb 12 2023 Dennis van Raaij <dvraaij@fedoraproject.org> - 2:22.0.0-1
+- Updated to v22.0.0, using the archive available on GitHub.
+- Changed the epoch, to mark the new upstream version scheme.
+- Removed year/version from the patch filenames; version control should suffice.
+- Added a build step to make the GtkAda User's Guide (in HTML and PDF).
+- Removed the GtkAda Reference Manual; build requires Gnatdoc which is not
+  available yet on Fedora.
+- License fields now contain SPDX license expressions.
+- Use 'gprinstall' instead of 'make_install' to have better control of what goes
+  where.
+- The file 'testgtk.gpr' is now updated during prep to handle the artifacts
+  properly.
+- Fixed the package version and so-version.
+- The build is now staged to allow gtkada-dialog to be a position-independent
+  executable.
+- Now using the python3 macro to reference the python3 interpreter (option to
+  make generate).
+- Updated the doc package license.
+- Removed a reference to the GtkAda Reference Manual from the GNAT Studio
+  plugin.
+- Improved spec file readability.
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2020-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

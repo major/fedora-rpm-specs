@@ -46,11 +46,15 @@
 
 Name:		nordugrid-arc
 Version:	6.17.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Advanced Resource Connector Middleware
 License:	ASL 2.0
 URL:		http://www.nordugrid.org/
 Source:		http://download.nordugrid.org/packages/%{name}/releases/%{version}/src/%{name}-%{version}.tar.gz
+#		Adapt to xmlsec1 1.3.0
+#		https://source.coderefinery.org/nordugrid/arc/-/merge_requests/1602
+Patch0:		0001-Fix-compilation-with-xmlsec-1.3.patch
+Patch1:		0002-Fix-test-failure-with-xmlsec-1.3.patch
 
 #		Packages dropped without replacements
 Obsoletes:	%{name}-chelonia < 2.0.0
@@ -796,6 +800,8 @@ management features on the worker nodes (WN).
 
 %prep
 %setup -q
+%patch0 -p1
+%patch1 -p1
 
 %build
 if pkg-config --atleast-version 2.6 sigc++-2.0 ; then
@@ -1753,6 +1759,9 @@ fi
 %attr(4755,root,root) %{_bindir}/arc-job-cgroup
 
 %changelog
+* Thu May  4 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.17.0-3
+- Adapt to xmlsec1 1.3.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.17.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

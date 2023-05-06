@@ -8,8 +8,8 @@
 Name:		perl-common-sense
 Summary:	"Common sense" Perl defaults 
 Version:	%{rpmversion}
-Release:	11%{?dist}
-License:	GPL+ or Artistic
+Release:	12%{?dist}
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/common-sense
 Source0:	https://cpan.metacpan.org/authors/id/M/ML/MLEHMANN/common-sense-%{cpanversion}.tar.gz
 Patch1:		common-sense-3.71-podenc.patch
@@ -85,6 +85,9 @@ make test
 %{_mandir}/man3/common::sense.3*
 
 %changelog
+* Thu May 04 2023 Michal Josef Špaček <mspacek@redhat.com> - 3.7.5-12
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.5-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

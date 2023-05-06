@@ -1,11 +1,11 @@
 %global srcname into-dbus-python
 
 Name:           python-%{srcname}
-Version:        0.08
-Release:        9%{?dist}
+Version:        0.8.2
+Release:        1%{?dist}
 Summary:        Transformer to dbus-python types
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/stratis-storage/into-dbus-python
 Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
@@ -45,6 +45,9 @@ Python 3 version.
 %{python3_sitelib}/into_dbus_python-*.egg-info/
 
 %changelog
+* Thu May 4 2023 mulhern <amulhern@redhat.com> - 0.8.2-1
+- Upgrade to new release; fix license field; use TMT format tests
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

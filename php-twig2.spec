@@ -14,7 +14,7 @@
 
 %global github_owner     twigphp
 %global github_name      Twig
-%global github_commit    3e059001d6d597dd50ea7c74dd2464b4adea48d3
+%global github_commit    fc02a6af3eeb97c4bf5650debc76c2eda85ac22e
 %global github_short     %(c=%{github_commit}; echo ${c:0:7})
 
 %global composer_vendor  twig
@@ -25,8 +25,8 @@
 %global phpdir      %{_datadir}/php
 
 Name:          php-%{composer_project}2
-Version:       2.15.4
-Release:       2%{?dist}
+Version:       2.15.5
+Release:       1%{?dist}
 Summary:       The flexible, fast, and secure template engine for PHP
 
 License:       BSD-3-Clause
@@ -164,6 +164,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Thu May  4 2023 Remi Collet <remi@remirepo.net> - 2.15.5-1
+- update to 2.15.5
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

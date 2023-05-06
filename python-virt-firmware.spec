@@ -1,8 +1,8 @@
-%global pypi_version 23.4
+%global pypi_version 23.5
 
 Name:           python-virt-firmware
 Version:        %{pypi_version}
-Release:        1%{?dist}
+Release:        %autorelease
 Summary:        Tools for virtual machine firmware volumes
 
 License:        GPLv2
@@ -85,62 +85,4 @@ cp -ar tests %{buildroot}%{_datadir}/%{name}
 %{_datadir}/%{name}/tests
 
 %changelog
-* Fri Apr 14 2023 Gerd Hoffmann <kraxel@redhat.com> - 23.4-1
-- update to version 23.4
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Mon Jan 16 2023 Gerd Hoffmann <kraxel@redhat.com> - 1.8-1
-- update to version 1.8
-
-* Fri Dec 02 2022 Gerd Hoffmann <kraxel@redhat.com> - 1.7-1
-- update to version 1.7
-
-* Thu Nov 10 2022 Gerd Hoffmann <kraxel@redhat.com> - 1.6-2
-- add conflict declaration
-
-* Thu Nov 10 2022 Gerd Hoffmann <kraxel@redhat.com> - 1.6-1
-- update to version 1.6
-- split peutils to subpackage
-
-* Wed Oct 05 2022 Gerd Hoffmann <kraxel@redhat.com> - 1.5-1
-- update to version 1.5
-
-* Wed Oct 05 2022 Gerd Hoffmann <kraxel@redhat.com> - 1.4-5
-- turn on gating
-
-* Wed Oct 05 2022 Gerd Hoffmann <kraxel@redhat.com> - 1.4-4
-- more test dependency tweaks
-
-* Wed Oct 05 2022 Gerd Hoffmann <kraxel@redhat.com> - 1.4-3
-- tweak test dependencies
-
-* Wed Oct 05 2022 Gerd Hoffmann <kraxel@redhat.com> - 1.4-2
-- add tests
-
-* Tue Sep 27 2022 Gerd Hoffmann <kraxel@redhat.com> - 1.4-1
-- update to version 1.4
-- add man-pages
-- add tests sub-package
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jul 18 2022 Gerd Hoffmann <kraxel@redhat.com> - 1.2-1
-- update to version 1.2
-
-* Fri Jul 01 2022 Gerd Hoffmann <kraxel@redhat.com> - 1.1-1
-- update to version 1.1
-
-* Wed Jun 22 2022 Gerd Hoffmann <kraxel@redhat.com> - 1.0-1
-- update to version 1.0
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 0.98-2
-- Rebuilt for Python 3.11
-
-* Tue May 24 2022 Gerd Hoffmann <kraxel@redhat.com> - 0.98-1
-- update to version 0.98
-
-* Mon Apr 11 2022 Gerd Hoffmann <kraxel@redhat.com> - 0.95-1
-- Initial package.
+%autochangelog

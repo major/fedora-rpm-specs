@@ -3,7 +3,7 @@
 
 Name:		perl-Compress-Raw-Lzma
 Version:	2.204
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Low-level interface to lzma compression library
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Compress-Raw-Lzma
@@ -87,6 +87,9 @@ make test
 %{_mandir}/man3/Compress::Raw::Lzma.3*
 
 %changelog
+* Thu May 04 2023 Richard W.M. Jones <rjones@redhat.com> - 2.204-6
+- Rebuild against xz-5.4.3-1.fc39
+
 * Thu Apr 27 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2.204-5
 - Rebuild against the new xz in ELN
 

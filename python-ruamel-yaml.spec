@@ -1,66 +1,87 @@
-%global pypi_name ruamel.yaml
-%global pname ruamel-yaml
-%global commit c887dfe19e2f01b770a2b4b04163a01e00a33f85
-%global debug_package %{nil}
+# Breaks the circular dependency with ruamel.yaml.clib.
+%bcond_with bootstrap
 
-Name:           python-%{pname}
-Version:        0.17.21
-Release:        4%{?dist}
+%global commit 56b3e2666fb275deab3eec99193c103e4edf93bb
+
+Name:           python-ruamel-yaml
+Version:        0.17.22
+Release:        2%{?dist}
 Summary:        YAML 1.2 loader/dumper package for Python
 
+# SPDX
 License:        MIT
 URL:            https://sourceforge.net/projects/ruamel-yaml
-# Use bitbucket sources so we can run the tests
-# https://sourceforge.net/code-snapshots/hg/r/ru/ruamel-yaml/code/ruamel-yaml-code-58889c2d944d5d0b22948a15d6fcb97c68d599de.zip
-Source0:        https://sourceforge.net/code-snapshots/hg/r/ru/ruamel-yaml/code/%{pname}-code-%{commit}.zip
+# The PyPI sdist does not contain tests, so we use a snapshot from SourceForge
+Source:         https://sourceforge.net/code-snapshots/hg/r/ru/ruamel-yaml/code/ruamel-yaml-code-%{commit}.zip
 
-%description
-ruamel.yaml is a YAML 1.2 loader/dumper package for Python.
-It is a derivative of Kirill Simonov’s PyYAML 3.11
+BuildArch:      noarch
 
-%package -n     python%{python3_pkgversion}-%{pname}
+%global _description %{expand:
+ruamel.yaml is a YAML parser/emitter that supports roundtrip preservation of
+comments, seq/map flow style, and map key order.}
+
+%description %{_description}
+
+%package -n     python3-ruamel-yaml
 Summary:        YAML 1.2 loader/dumper package for Python
-BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
-# For tests
-BuildRequires:  python%{python3_pkgversion}-pytest
-# typing was added in Python 3.5
-%if %{python3_pkgversion} == 34
-BuildRequires:  python%{python3_pkgversion}-typing
-%endif
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
 
-Requires:       python%{python3_pkgversion}-ruamel-yaml-clib
-Requires:       python%{python3_pkgversion}-setuptools
-%if %{python3_pkgversion} == 34
-Requires:       python%{python3_pkgversion}-typing
-%endif
+BuildRequires:  python3-devel
 
-%description -n python%{python3_pkgversion}-%{pname}
-ruamel.yaml is a YAML 1.2 loader/dumper package for Python.
-It is a derivative of Kirill Simonov’s PyYAML 3.11
+%py_provides python3-ruamel.yaml
+
+%description -n python3-ruamel-yaml %{_description}
 
 %prep
-%autosetup -n %{pname}-code-%{commit} -p1
-rm -rf %{pypi_name}.egg-info
+%autosetup -n ruamel-yaml-code-%{commit}
+# Upstream upper-bounds the Python interpeter versions with which the C
+# implementation (ruamel.yaml.clib dependency) may be used. Patch this out.
+sed -r -i 's/( and python_version<"[^"]+")(.*ruamel\.yaml\.clib)/\2/' \
+    __init__.py
+%if %{with bootstrap}
+sed -r -i 's/^([[:blank:]]*)(.*ruamel\.yaml\.clib)/\1# \2/' __init__.py
+%endif
+
+%generate_buildrequires
+%pyproject_buildrequires -t
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%{__python3} setup.py install --single-version-externally-managed --skip-build --root $RPM_BUILD_ROOT
+%pyproject_install
+# RFE: Add option for namespace packages to %%pyproject_save_files
+# https://bugzilla.redhat.com/show_bug.cgi?id=1935266
+%pyproject_save_files ruamel
 
 %check
-%pytest _test/test_*.py
+%if %{with bootstrap}
+k="${k-}${k+ and }not test_load_cyaml"
+k="${k-}${k+ and }not test_load_cyaml_1_2"
+k="${k-}${k+ and }not test_dump_cyaml_1_2"
+%endif
+%pytest -k "${k-}" _test/test_*.py
 
-%files -n python%{python3_pkgversion}-%{pname}
-%license LICENSE
+%files -n python3-ruamel-yaml -f %{pyproject_files}
+# pyproject_files handles LICENSE; verify with “rpm -qL -p …”
 %doc README.rst
-%{python3_sitelib}/ruamel
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}-*.pth
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Thu May 04 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.17.22-2
+- Confirm License is SPDX MIT
+- Reduce macro indirection and drop ancient constructs and conditionals
+- Update description from upstream
+- Make the package noarch (python-ruamel-yaml-clib contains the compiled code)
+- Fix upper-bounded Python interpreter version for ruamel.yaml.clib dependency
+- Drop unused manual runtime dependency on setuptools
+- Port to pyproject-rpm-macros (“new Python guidelines”)
+- Stop numbering the source archive
+- Add a bootstrap conditional to break the circular dependency with
+  ruamel.yaml.clib
+- Fix an obsolete comment referring to bitbucket
+
+* Wed May 03 2023 Maxwell G <maxwell@gtmx.me> - 0.17.22-1
+- Update to 0.17.22. Fixes rhbz#2192464.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.21-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,8 +4,8 @@
 
 Summary: X.Org X11 libXi runtime library
 Name: libXi
-Version: 1.8
-Release: 4%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Version: 1.8.1
+Release: 1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 License: MIT
 URL: http://www.x.org
 
@@ -13,7 +13,7 @@ URL: http://www.x.org
 Source0:    %{tarball}-%{gitdate}.tar.bz2
 Source1:    make-git-snapshot.sh
 %else
-Source0: https://www.x.org/pub/individual/lib/%{name}-%{version}.tar.bz2
+Source0: https://www.x.org/pub/individual/lib/%{name}-%{version}.tar.xz
 %endif
 
 BuildRequires: make
@@ -74,6 +74,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_mandir}/man3/*.3*
 
 %changelog
+* Thu May 04 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.8.1-1
+- libXi 1.8.1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

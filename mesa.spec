@@ -14,6 +14,9 @@
 %ifarch %{ix86} x86_64
 %global with_crocus 1
 %global with_i915   1
+%if !0%{?rhel}
+%global with_intel_clc 1
+%endif
 %global with_iris   1
 %global with_xa     1
 %global platform_vulkan ,intel,intel_hasvk
@@ -131,7 +134,7 @@ BuildRequires:  pkgconfig(valgrind)
 %endif
 BuildRequires:  python3-devel
 BuildRequires:  python3-mako
-%ifarch %{ix86} x86_64
+%if 0%{?with_intel_clc}
 BuildRequires:  python3-ply
 %endif
 BuildRequires:  vulkan-headers
@@ -374,7 +377,9 @@ export RUSTFLAGS="%build_rustflags"
   -Dglx=dri \
   -Degl=enabled \
   -Dglvnd=true \
+%if 0%{?with_intel_clc}
   -Dintel-clc=enabled \
+%endif
   -Dmicrosoft-clc=disabled \
   -Dllvm=enabled \
   -Dshared-llvm=enabled \

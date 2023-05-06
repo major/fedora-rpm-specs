@@ -2,7 +2,7 @@
 %global username bacula
 
 Name:               bacula
-Version:            13.0.2
+Version:            13.0.3
 Release:            1%{?dist}
 Summary:            Cross platform network backup for Linux, Unix, Mac and Windows
 # See LICENSE for details
@@ -642,6 +642,10 @@ exit 0
 %{_libdir}/nagios/plugins/check_bacula
 
 %changelog
+* Thu May 04 2023 Simone Caronni <negativo17@gmail.com> - 13.0.3-1
+- Update to 13.0.3.
+- Trim changelog.
+
 * Wed Mar 29 2023 Simone Caronni <negativo17@gmail.com> - 13.0.2-1
 - Update to 13.0.2.
 
@@ -727,71 +731,3 @@ exit 0
 - Update to 9.6.7.
 - Drop support for building on CentOS/RHEL 6 and upgrades from version 2.4.
 - Trim changelog.
-
-* Wed Oct 07 2020 Simone Caronni <negativo17@gmail.com> - 9.6.6-1
-- Update to 9.6.6.
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 9.6.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Fri Jul 24 2020 Simone Caronni <negativo17@gmail.com> - 9.6.5-1
-- Update to 9.6.5.
-
-* Tue Mar 17 2020 Simone Caronni <negativo17@gmail.com> - 9.6.3-1
-- Update to 9.6.3.
-
-* Thu Mar 05 2020 Simone Caronni <negativo17@gmail.com> - 9.6.2-2
-- Fix RHEL/CentOS 6 builds.
-
-* Sat Feb 29 2020 Simone Caronni <negativo17@gmail.com> - 9.6.2-1
-- Update to 9.6.2.
-
-* Mon Feb 10 2020 Václav Doležal <vdolezal@redhat.com> - 9.4.4-4
-- Fix FTBFS (#1799185)
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 9.4.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 9.4.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Wed May 29 2019 Simone Caronni <negativo17@gmail.com> - 9.4.4-1
-- Update to 9.4.4.
-
-* Sat May 18 2019 Simone Caronni <negativo17@gmail.com> - 9.4.3-2
-- SPEC file cleanups.
-
-* Wed May 15 2019 Simone Caronni <negativo17@gmail.com> - 9.4.3-1
-- Update to 9.4.3.
-
-* Thu Apr 18 2019 Simone Caronni <negativo17@gmail.com> - 9.4.2-1
-- Update to 9.4.2.
-
-* Sun Feb 17 2019 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 9.4.1-6
-- Rebuild for readline 8.0
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 9.4.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Mon Jan 14 2019 Björn Esser <besser82@fedoraproject.org> - 9.4.1-4
-- Rebuilt for libcrypt.so.2 (#1666033)
-
-* Sun Jan 13 2019 Simone Caronni <negativo17@gmail.com> - 9.4.1-3
-- Build QT programs with QT 5 on RHEL/CentOS 7. Also, reduce the number of
-  required QT packages for building.
-
-* Sun Jan 13 2019 Simone Caronni <negativo17@gmail.com> - 9.4.1-2
-- Add Debian patch to enable/disable S3 support at configure time.
-- Disable S3 as it does not currently build:
-  http://bugs.bacula.org/view.php?id=2446
-- Update RPM macros.
-
-* Sat Jan 12 2019 Simone Caronni <negativo17@gmail.com> - 9.4.1-1
-- Update to 9.4.1.
-
-* Sat Jan 12 2019 Simone Caronni <negativo17@gmail.com> - 9.4.0-1
-- Update to 9.4.0.
-
-* Sat Jan 12 2019 Simone Caronni <negativo17@gmail.com> - 9.2.1-2
-- Make the build succeed also on supported RHEL and Fedora releases.
-- Remove Fedora 27 references.

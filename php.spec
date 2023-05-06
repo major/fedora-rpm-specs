@@ -70,7 +70,7 @@
 Summary: PHP scripting language for creating dynamic web sites
 Name: php
 Version: %{upver}%{?rcver:~%{rcver}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
 # TSRM is licensed under BSD
@@ -78,7 +78,7 @@ Release: 1%{?dist}
 # ext/date/lib is MIT
 # Zend/zend_sort is NCSA
 # Zend/asm is Boost
-License: PHP and Zend and BSD and MIT and ASL 1.0 and NCSA and Boost
+License: PHP-3.01 AND Zend-2.0 AND BSD-2-Clause AND MIT AND Apache-1.0 AND NCSA AND BSL-1.0
 URL: http://www.php.net/
 
 Source0: https://www.php.net/distributions/php-%{upver}%{?rcver}.tar.xz
@@ -213,7 +213,7 @@ running in prefork mode. This module is deprecated.
 %package cli
 Summary: Command-line interface for PHP
 # sapi/cli/ps_title.c is PostgreSQL
-License: PHP and Zend and BSD and MIT and ASL 1.0 and NCSA and PostgreSQL
+License: PHP-3.01 AND Zend-2.0 AND BSD-2-Clause AND MIT AND Apache-1.0 AND NCSA AND PostgreSQL
 Requires: php-common%{?_isa} = %{version}-%{release}
 Provides: php-cgi = %{version}-%{release}, php-cgi%{?_isa} = %{version}-%{release}
 Provides: php-pcntl, php-pcntl%{?_isa}
@@ -259,7 +259,7 @@ Summary: Common files for PHP
 # All files licensed under PHP version 3.01, except
 # fileinfo is licensed under PHP version 3.0
 # regex, libmagic are licensed under BSD
-License: PHP and BSD
+License: PHP-3.01 AND BSD-2-Clause
 # ABI/API check - Arch specific
 Provides: php(api) = %{apiver}-%{__isa_bits}
 Provides: php(zend-abi) = %{zendver}-%{__isa_bits}
@@ -330,7 +330,7 @@ need to install this package.
 
 %package opcache
 Summary:   The Zend OPcache
-License:   PHP
+License:   PHP-3.01
 Requires:  php-common%{?_isa} = %{version}-%{release}
 Provides:  php-pecl-zendopcache = %{version}
 Provides:  php-pecl-zendopcache%{?_isa} = %{version}
@@ -348,7 +348,7 @@ bytecode optimization patterns that make code execution faster.
 %package imap
 Summary: A module for PHP applications that use IMAP
 # All files licensed under PHP version 3.01
-License: PHP
+License:  PHP-3.01
 Requires: php-common%{?_isa} = %{version}-%{release}
 BuildRequires: pkgconfig(krb5)
 BuildRequires: pkgconfig(krb5-gssapi)
@@ -364,7 +364,7 @@ messages on mail servers. PHP is an HTML-embedded scripting language.
 %package ldap
 Summary: A module for PHP applications that use LDAP
 # All files licensed under PHP version 3.01
-License: PHP
+License:  PHP-3.01
 Requires: php-common%{?_isa} = %{version}-%{release}
 BuildRequires: pkgconfig(libsasl2)
 BuildRequires: openldap-devel
@@ -379,7 +379,7 @@ language.
 %package pdo
 Summary: A database access abstraction module for PHP applications
 # All files licensed under PHP version 3.01
-License: PHP
+License:  PHP-3.01
 Requires: php-common%{?_isa} = %{version}-%{release}
 # ABI/API check - Arch specific
 Provides: php-pdo-abi  = %{pdover}-%{__isa_bits}
@@ -396,7 +396,7 @@ databases.
 %package mysqlnd
 Summary: A module for PHP applications that use MySQL databases
 # All files licensed under PHP version 3.01
-License: PHP
+License:  PHP-3.01
 Requires: php-pdo%{?_isa} = %{version}-%{release}
 Provides: php_database
 Provides: php-mysqli = %{version}-%{release}
@@ -415,7 +415,7 @@ This package use the MySQL Native Driver
 %package pgsql
 Summary: A PostgreSQL database module for PHP
 # All files licensed under PHP version 3.01
-License: PHP
+License:  PHP-3.01
 Requires: php-pdo%{?_isa} = %{version}-%{release}
 Provides: php_database
 Provides: php-pdo_pgsql, php-pdo_pgsql%{?_isa}
@@ -434,7 +434,7 @@ php package.
 %package process
 Summary: Modules for PHP script using system process interfaces
 # All files licensed under PHP version 3.01
-License: PHP
+License:  PHP-3.01
 Requires: php-common%{?_isa} = %{version}-%{release}
 Provides: php-posix, php-posix%{?_isa}
 Provides: php-shmop, php-shmop%{?_isa}
@@ -451,7 +451,7 @@ communication.
 Summary: A module for PHP applications that use ODBC databases
 # All files licensed under PHP version 3.01, except
 # pdo_odbc is licensed under PHP version 3.0
-License: PHP
+License:  PHP-3.01
 Requires: php-pdo%{?_isa} = %{version}-%{release}
 Provides: php_database
 Provides: php-pdo_odbc, php-pdo_odbc%{?_isa}
@@ -469,7 +469,7 @@ package.
 %package soap
 Summary: A module for PHP applications that use the SOAP protocol
 # All files licensed under PHP version 3.01
-License: PHP
+License:  PHP-3.01
 Requires: php-common%{?_isa} = %{version}-%{release}
 BuildRequires: pkgconfig(libxml-2.0)
 
@@ -481,7 +481,7 @@ support to PHP for using the SOAP web services protocol.
 %package pdo-firebird
 Summary: PDO driver for Interbase/Firebird databases
 # All files licensed under PHP version 3.01
-License: PHP
+License:  PHP-3.01
 # for fb_config command
 BuildRequires:  firebird-devel
 Requires: php-pdo%{?_isa} = %{version}-%{release}
@@ -496,7 +496,7 @@ Interbase/Firebird databases.
 %package snmp
 Summary: A module for PHP applications that query SNMP-managed devices
 # All files licensed under PHP version 3.01
-License: PHP
+License:  PHP-3.01
 Requires: php-common%{?_isa} = %{version}-%{release}, net-snmp
 BuildRequires: net-snmp-devel
 
@@ -509,7 +509,7 @@ will need to install this package and the php package.
 %package xml
 Summary: A module for PHP applications which use XML
 # All files licensed under PHP version 3.01
-License: PHP
+License:  PHP-3.01
 Requires: php-common%{?_isa} = %{version}-%{release}
 Provides: php-dom, php-dom%{?_isa}
 Provides: php-domxml, php-domxml%{?_isa}
@@ -531,7 +531,7 @@ Summary: A module for PHP applications which need multi-byte string handling
 # All files licensed under PHP version 3.01, except
 # libmbfl is licensed under LGPLv2
 # ucgendat is licensed under OpenLDAP
-License: PHP and LGPLv2 and OpenLDAP
+License: PHP-3.01 AND LGPL-2.1-only AND OLDAP-2.8
 BuildRequires: pkgconfig(oniguruma) >= 6.8
 Provides: bundled(libmbfl) = 1.3.2
 Requires: php-common%{?_isa} = %{version}-%{release}
@@ -543,7 +543,7 @@ support for multi-byte string handling to PHP.
 %package gd
 Summary: A module for PHP applications for using the gd graphics library
 # All files licensed under PHP version 3.01
-License: PHP
+License:  PHP-3.01
 Requires: php-common%{?_isa} = %{version}-%{release}
 BuildRequires: pkgconfig(gdlib) >= 2.1.1
 
@@ -555,7 +555,7 @@ support for using the gd graphics library to PHP.
 Summary: A module for PHP applications for using the bcmath library
 # All files licensed under PHP version 3.01, except
 # libbcmath is licensed under LGPLv2+
-License: PHP and LGPLv2+
+License:  PHP-3.01 AND LGPL-2.1-or-later
 Requires: php-common%{?_isa} = %{version}-%{release}
 
 %description bcmath
@@ -565,7 +565,7 @@ support for using the bcmath library to PHP.
 %package gmp
 Summary: A module for PHP applications for using the GNU MP library
 # All files licensed under PHP version 3.01
-License: PHP
+License:  PHP-3.01
 BuildRequires: gmp-devel
 Requires: php-common%{?_isa} = %{version}-%{release}
 
@@ -576,7 +576,7 @@ using the GNU MP library.
 %package dba
 Summary: A database abstraction layer module for PHP applications
 # All files licensed under PHP version 3.01
-License: PHP
+License:  PHP-3.01
 %if %{with db4}
 BuildRequires: libdb-devel
 %endif
@@ -597,7 +597,7 @@ support for using the DBA database abstraction layer to PHP.
 %package tidy
 Summary: Standard PHP module provides tidy library support
 # All files licensed under PHP version 3.01
-License: PHP
+License:  PHP-3.01
 Requires: php-common%{?_isa} = %{version}-%{release}
 BuildRequires: libtidy-devel
 
@@ -610,7 +610,7 @@ support for using the tidy library to PHP.
 %package pdo-dblib
 Summary: PDO driver for Microsoft SQL Server and Sybase databases
 # All files licensed under PHP version 3.01
-License: PHP
+License:  PHP-3.01
 Requires: php-pdo%{?_isa} = %{version}-%{release}
 BuildRequires: freetds-devel
 Provides: php-pdo_dblib, php-pdo_dblib%{?_isa}
@@ -636,7 +636,7 @@ into applications to provide PHP scripting language support.
 %package pspell
 Summary: A module for PHP applications for using pspell interfaces
 # All files licensed under PHP version 3.01
-License: PHP
+License:  PHP-3.01
 Requires: php-common%{?_isa} = %{version}-%{release}
 BuildRequires: aspell-devel >= 0.50.0
 
@@ -648,7 +648,7 @@ support for using the pspell library to PHP.
 %package intl
 Summary: Internationalization extension for PHP applications
 # All files licensed under PHP version 3.01
-License: PHP
+License:  PHP-3.01
 Requires: php-common%{?_isa} = %{version}-%{release}
 BuildRequires: pkgconfig(icu-i18n) >= 50.1
 BuildRequires: pkgconfig(icu-io)   >= 50.1
@@ -661,7 +661,7 @@ support for using the ICU library to PHP.
 %package enchant
 Summary: Enchant spelling extension for PHP applications
 # All files licensed under PHP version 3.0
-License: PHP
+License:  PHP-3.01
 Requires: php-common%{?_isa} = %{version}-%{release}
 BuildRequires: pkgconfig(enchant-2)
 
@@ -673,7 +673,7 @@ support for using the enchant library to PHP.
 %package sodium
 Summary: Wrapper for the Sodium cryptographic library
 # All files licensed under PHP version 3.0.1
-License: PHP
+License:  PHP-3.01
 BuildRequires:  pkgconfig(libsodium) >= 1.0.9
 
 Requires: php-common%{?_isa} = %{version}-%{release}
@@ -690,8 +690,7 @@ low-level PHP extension for the libsodium cryptographic library.
 %package ffi
 Summary: Foreign Function Interface
 # All files licensed under PHP version 3.0.1
-License: PHP
-Group: System Environment/Libraries
+License:  PHP-3.01
 BuildRequires:  pkgconfig(libffi)
 Requires: php-common%{?_isa} = %{version}-%{release}
 
@@ -709,25 +708,23 @@ in pure PHP.
 
 %setup -q -n php-%{upver}%{?rcver}
 
-%patch1 -p1 -b .mpmcheck
-%patch5 -p1 -b .includedir
-%patch6 -p1 -b .embed
-%patch8 -p1 -b .libdb
+%patch -P1 -p1 -b .mpmcheck
+%patch -P5 -p1 -b .includedir
+%patch -P6 -p1 -b .embed
+%patch -P8 -p1 -b .libdb
 
-%patch41 -p1 -b .syslib
-%patch42 -p1 -b .systzdata
-%patch43 -p1 -b .headers
-%if 0%{?fedora} >= 18 || 0%{?rhel} >= 7
-%patch45 -p1 -b .ldap_r
-%endif
-%patch47 -p1 -b .phpinfo
+%patch -P41 -p1 -b .syslib
+%patch -P42 -p1 -b .systzdata
+%patch -P43 -p1 -b .headers
+%patch -P45 -p1 -b .ldap_r
+%patch -P47 -p1 -b .phpinfo
 
 # upstream patches
 
 # security patches
 
 # Fixes for tests
-%patch300 -p1 -b .datetests
+%patch -P300 -p1 -b .datetests
 
 
 # Prevent %%doc confusion over LICENSE files
@@ -1543,6 +1540,9 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Thu May  4 2023 Remi Collet <remi@remirepo.net> - 8.2.6~RC1-2
+- use SPDX license IDs
+
 * Wed Apr 26 2023 Remi Collet <remi@remirepo.net> - 8.2.6~RC1-1
 - update to 8.2.6RC1
 

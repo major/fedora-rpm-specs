@@ -1,8 +1,8 @@
 %global __provides_exclude %{python3_sitearch}/.*\.so$
 
 Name:           libfreenect
-Version:        0.6.4
-Release:        3%{?dist}
+Version:        0.7.0
+Release:        1%{?dist}
 Summary:        Device driver for the Kinect
 # Core libfreenect is available as ASL 2.0 OR GPLv2
 # OpenNI driver is available as ASL 2.0
@@ -96,11 +96,11 @@ It was originally a separate project but is now distributed with libfreenect.
 %setup -qn %{name}-%{version}
 rm -rf platform/windows
 
-%patch0 -p0 -b .videogroup
-%patch1 -p1 -b .openni2
-%patch3 -p0 -b .libdir
-%patch4 -p1 -b .secarch
-%patch5 -p1 -b .py3
+%patch -P 0 -p0 -b .videogroup
+%patch -P 1 -p1 -b .openni2
+%patch -P 3 -p0 -b .libdir
+%patch -P 4 -p1 -b .secarch
+%patch -P 5 -p1 -b .py3
 
 %build
 %cmake3 \
@@ -179,6 +179,9 @@ mv %{buildroot}%{_libdir}/OpenNI2-FreenectDriver %{buildroot}%{_libdir}/openni2/
 %{_libdir}/openni2
 
 %changelog
+* Thu May 04 2023 Nicolas Chauvet <kwizart@gmail.com> - 0.7.0-1
+- Update to 0.7.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,15 +1,10 @@
 # Only these have llvm/clang >= 6.  x86_64 el7 has llvm7.0, but not
 # clang7.0; it has llvm-toolset-7, but not available in koji.
-%global dowrap 0%{?fedora}%{?el8}
+%global dowrap 0%{!?el7:1}
 
 # OMPI4 oshcc is now not on all arches (depending on UCX)
 %global oshm 1
 # Fixme: There's something odd here, since aarch64 has the oshm compilers
-%if 0%{?fedora} == 32 || 0%{?fedora} == 33
-%ifnarch ppc64le x86_64
-%global oshm 0
-%endif
-%endif
 %ifarch aarch64
 %{?el7:%global oshm 0}
 %endif
@@ -25,7 +20,7 @@
 
 Name:           scorep
 Version:        8.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Scalable Performance Measurement Infrastructure for Parallel Codes
 License:        BSD-3-Clause
 URL:            http://www.vi-hps.org/projects/score-p/
@@ -236,11 +231,10 @@ ln -s %_bindir/llvm-config-%__isa_bits bin/llvm-config
 %global _configure ../configure
 # It doesn't build on aarch64 due to missing ELF definitions
 %if 0%{?with_libunwind}
-%ifarch x86_64
 pushd libunwind*
 # Per Fedora packaging
 sed -i 's/= UNW_ARM_METHOD_ALL/= UNW_ARM_METHOD_EXIDX/' src/arm/Gglobal.c
-./autogen.sh
+autoreconf -fiv
 CFLAGS="%build_cflags -fcommon" LDFLAGS="%build_ldflags" \
   ./configure --prefix=$(pwd)/../unwind --enable-static --disable-shared
 %make_build
@@ -248,7 +242,6 @@ make install
 popd
 # See above
 PATH=$(pwd)/bin:$PATH
-%endif
 %endif
 # Fixme: --disable-silent-rules or V=1 doesn't work in all parts of the build
 %global configure_opts --enable-shared --disable-static --disable-silent-rules %{?with_libunwind:--with-libunwind=$(pwd)/../unwind}
@@ -471,6 +464,10 @@ make -C serial check V=1
 
 
 %changelog
+* Wed May  3 2023  <vagrant@rhel8.localdomain> - 8.1-3
+- Build the bundled libunwind on all archs
+- Only exclude el7 from the library wrapper build
+
 * Tue May  2 2023  <vagrant@rhel8.localdomain> - 8.1-2
 - Reinstate bundled libunwind and update it
 

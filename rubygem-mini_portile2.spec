@@ -1,10 +1,11 @@
 %global	gem_name	mini_portile2
 
 Name:		rubygem-%{gem_name}
-Version:	2.8.1
-Release:	2%{?dist}
+Version:	2.8.2
+Release:	1%{?dist}
 
 Summary:	Simplistic port-like solution for developers
+# SPDX confirmed
 License:	MIT
 URL:		http://github.com/flavorjones/mini_portile
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -86,6 +87,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Thu May  4 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.8.2-1
+- 2.8.2
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

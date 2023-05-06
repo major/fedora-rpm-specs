@@ -1,5 +1,5 @@
 Name:           python-glymur
-Version:        0.12.4
+Version:        0.12.5
 Release:        %autorelease
 Summary:        Interface to the OpenJPEG library for working with JPEG 2000 files
 
@@ -72,28 +72,7 @@ install -m 0644 -p -D -t %{buildroot}%{_mandir}/man1 %{SOURCE1} %{SOURCE2}
 
 
 %check
-%ifarch s390x
-# New s390x test failures on Fedora in 0.12.2
-# https://github.com/quintusdias/glymur/issues/604
-#
-# See also:
-#
-# glymur autopkgtests regressed on s390x
-# https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1032291
-#
-# Note that it has been…
-#
-#   “verified that the tests from 0.12.1 pass with either the 0.12.1 or 0.12.2
-#   code, and the tests from 0.12.2 fail with either the 0.12.1 or 0.12.2 code”
-#
-# That is, new tests revealed existing problems, and there is no evidence that
-# there are regressions.
-k="${k-}${k+ and }not (TestSuite and test_rgb_tiled_bigtiff)"
-k="${k-}${k+ and }not (TestSuite and test_ycbcr_jpeg_single_tile)"
-k="${k-}${k+ and }not (TestSuite and test_ycbcr_jpeg_tiff)"
-k="${k-}${k+ and }not (TestSuite and test_ycbcr_jpeg_unevenly_tiled)"
-%endif
-%pytest -v -k "${k-}"
+%pytest -v
 
 
 %files -n python3-glymur -f %{pyproject_files}

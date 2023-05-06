@@ -1,8 +1,8 @@
 Name:           perl-Spellunker
 Version:        0.4.0
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Pure perl spelling checker implementation
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Spellunker
 Source0:        https://cpan.metacpan.org/modules/by-module/Test/Spellunker-v0.4.0.tar.gz
 Patch10:        Spellunker-v0.4.0-Remove-usr-bin-env-from-shebang.patch
@@ -36,6 +36,7 @@ BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(open)
 BuildRequires:  perl(Test::More) >= 0.96
 # Dependencies
+# (none)
 
 %global __requires_exclude %{?__requires_exclude:__requires_exclude|}^perl\\(Win32::Console::ANSI\\)$
 
@@ -46,7 +47,7 @@ BuildRequires:  perl(Test::More) >= 0.96
 %setup -q -n Spellunker-v%{version}
 
 # Fix shellbangs in shipped scripts
-%patch10 -p1
+%patch -P 10 -p1
 
 %build
 perl Build.PL --installdirs=vendor
@@ -74,6 +75,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Test::Spellunker.3*
 
 %changelog
+* Thu May 04 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.4.0-27
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

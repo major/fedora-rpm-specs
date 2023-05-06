@@ -1,8 +1,8 @@
 %global libzen_version  0.4.41
 
 Name:           mediainfo
-Version:        23.03
-Release:        2%{?dist}
+Version:        23.04
+Release:        1%{?dist}
 Summary:        Supplies technical and tag information about a video or audio file (CLI)
 
 License:        BSD-2-Clause
@@ -209,6 +209,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 
 
 %changelog
+* Fri Apr 28 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 23.04-1
+- Update to 23.04
+
 * Mon Apr 24 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 23.03-2
 - Rebuild for new libzen
 

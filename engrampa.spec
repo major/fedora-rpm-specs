@@ -13,9 +13,9 @@
 %{!?rel_build:%global git_tar %{name}-%{version}-%{git_ver}.tar.xz}
 
 Name:          engrampa
-Version:       %{branch}.0
+Version:       %{branch}.1
 %if 0%{?rel_build}
-Release:       6%{?dist}
+Release:       1%{?dist}
 %else
 Release:       0.18%{?git_rel}%{?dist}
 %endif
@@ -29,11 +29,7 @@ URL:           http://mate-desktop.org
 # Source for snapshot-builds.
 %{!?rel_build:Source0:    http://git.mate-desktop.org/%{name}/snapshot/%{name}-%{commit}.tar.xz#/%{git_tar}}
 
-# from upstream 1.26 branch
-Patch1:        engrampa_0001-dlg-package-installer-fix-memory-leak.patch
-Patch2:        engrampa_0002-fr-window-fix-memory-leak.patch
-Patch3:        engrampa_0003-file-data-fix-memory-leak.patch
-Patch4: engrampa-c99.patch
+Patch1:        engrampa-c99.patch
 
 BuildRequires: make
 BuildRequires: mate-common
@@ -106,6 +102,9 @@ find %{buildroot} -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Thu May 04 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-1
+- update to 1.26.1
+
 * Fri Apr 14 2023 Florian Weimer <fweimer@redhat.com> - 1.26.0-6
 - Port to C99
 

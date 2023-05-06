@@ -24,7 +24,7 @@
 
 Name:           obs-studio
 Version:        29.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Open Broadcaster Software Studio
 
 # OBS itself is GPL-2.0-or-later, while various plugin dependencies are of various other licenses
@@ -50,6 +50,8 @@ Patch0103:      0003-UI-Add-support-for-OpenH264-as-the-worst-case-fallba.patch
 # Downstream Fedora patches
 ## Use system qrcodegencpp
 Patch1001:      obs-studio-websocket-use-system-qrcodegencpp.patch
+## Use fdk-aac by default
+Patch1002:      obs-studio-UI-use-fdk-aac-by-default.patch
 ## Add license declarations for bundled deps
 Patch9001:      obs-studio-deps-Add-license-declaration-files.patch
 ## Add license declaration for obs-qsv11
@@ -296,6 +298,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Thu May 04 2023 Neal Gompa <ngompa@fedoraproject.org> - 29.1.0-2
+- Add patch to use FDK-AAC by default
+
 * Tue May 02 2023 Neal Gompa <ngompa@fedoraproject.org> - 29.1.0-1
 - Update to 29.1.0 final
 

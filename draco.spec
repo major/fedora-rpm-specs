@@ -33,6 +33,14 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %description	devel
 %{summary}.
 
+%package	static
+Summary:	Static library for %{name}
+Requires:	%{name}-devel%{?_isa} = %{version}-%{release}
+
+%description    static
+This package contains the static library for statically
+linking applications to use %{name}.
+
 %prep
 %autosetup -p1 -n %{name}-%{version}
 
@@ -48,9 +56,6 @@ rm -fr {javascript,maya,docs/assets}
 
 %install
 %cmake_install
-
-# remove static file
-rm -f %{buildroot}/%{_libdir}/libdraco.a
 
 # Create missing man files downstream
 mkdir -p %{buildroot}%{_mandir}/man1
@@ -86,6 +91,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} help2man -N --version-string=%{version} \
 %{_datadir}/cmake/%{name}/
 %{_libdir}/lib%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc
+
+%files static
+%{_libdir}/lib%{name}.a
 
 %changelog
 %autochangelog

@@ -339,6 +339,10 @@ Patch106: chromium-98.0.4758.80-epel7-erase-fix.patch
 
 # Add additional operator== to make el7 happy.
 Patch107: chromium-99.0.4844.51-el7-extra-operator==.patch
+# workaround for clang bug on el7
+Patch108: chromium-113-constexpr-el7.patch
+# fix FTBFS on el7, old kernel
+Patch109: chromium-113-v4l2-revert-el7.patch
 
 # system ffmpeg
 Patch114: chromium-107-ffmpeg-duration.patch
@@ -941,6 +945,8 @@ udev.
 %patch -P105 -p1 -b .el7-old-libdrm
 %patch -P106 -p1 -b .el7-erase-fix
 %patch -P107 -p1 -b .el7-extra-operator-equalequal
+%patch -P108 -p1 -R -b .constexpr-el7
+%patch -P109 -p1 -b .v4l2-revert-el7
 %endif
 
 %patch -P130 -p1 -b .VirtualCursor-std-layout

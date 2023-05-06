@@ -2,8 +2,8 @@
 %bcond_without perl_Test2_Harness_enables_coverage
 
 Name:           perl-Test2-Harness
-%global cpan_version 1.000151
-Version:        1.0.151
+%global cpan_version 1.000152
+Version:        1.0.152
 Release:        1%{?dist}
 Summary:        Test2 Harness designed for the Test2 event system
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -193,7 +193,7 @@ for T in t/integration/coverage{,2,3,4}.t; do
 done
 %endif
 # Help generators to recognize a Perl code
-%patch99 -p1
+%patch -P 99 -p 1
 for F in test.pl $(find t t2 -name '*.t' -o -name '*.tx') t/unit/App/Yath/Plugin/Git.script; do
     perl -i -MConfig -pe 'print qq{$Config{startperl}\n} if $. == 1 && !s{\A#!.*\bperl}{$Config{startperl}}' "$F"
     chmod +x "$F"
@@ -263,7 +263,7 @@ make test
 
 %files
 %license LICENSE
-%doc Changes README TODO
+%doc Changes README
 %{_bindir}/yath
 %dir %{perl_vendorlib}/App
 %{perl_vendorlib}/App/Yath
@@ -286,6 +286,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu May 04 2023 Petr Pisar <ppisar@redhat.com> - 1.0.152-1
+- 1.000152 bump
+
 * Thu Mar 09 2023 Petr Pisar <ppisar@redhat.com> - 1.0.151-1
 - 1.000151 bump
 

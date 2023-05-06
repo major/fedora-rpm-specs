@@ -1,12 +1,12 @@
 # remirepo/fedora spec file for php-tecnickcom-tc-lib-color
 #
-# Copyright (c) 2015-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2015-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    cd048cf7c7e6d02c1f108b90d9978a1ae102ff2b
+%global gh_commit    385362eb9056e4180098569ad6a3cebbf6d37e47
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global c_vendor     tecnickcom
 %global gh_owner     tecnickcom
@@ -15,7 +15,7 @@
 %global with_tests   0%{!?_without_tests:1}
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        1.14.19
+Version:        1.14.21
 Release:        1%{?dist}
 Summary:        PHP library to manipulate various color representations
 
@@ -86,10 +86,10 @@ require '%{buildroot}%{php_project}/autoload.php';
 EOF
 
 ret=0
-for cmdarg in "php %{phpunit}" php80 php81 php82; do
+for cmdarg in "php %{phpunit}" "php80 %{phpunit}" php81 php82; do
    if which $cmdarg; then
       set $cmdarg
-      $1 ${2:-%{_bindir}/phpunit9} --no-coverage --verbose || ret=1
+      $1 ${2:-%{_bindir}/phpunit10} --no-coverage || ret=1
    fi
 done
 exit $ret
@@ -109,6 +109,9 @@ exit $ret
 
 
 %changelog
+* Thu May  4 2023 Remi Collet <remi@remirepo.net> - 1.14.21-1
+- update to 1.14.21 (no change)
+
 * Wed May  3 2023 Remi Collet <remi@remirepo.net> - 1.14.19-1
 - update to 1.14.19 (no change)
 

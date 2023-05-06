@@ -68,7 +68,11 @@ kan du utveckla grafiska användargränssnitt i ada baserade på GTK+.
 
 %description %{common_description_en}
 
+This is a compatibility package of GTKada 2. See also the GtkAda3 package.
+
 %description -l sv %{common_description_sv}
+
+Detta är ett kompatibilitetspaket med GTKada 2. Se även paketet GtkAda3.
 
 
 %package devel
@@ -101,12 +105,14 @@ Conflicts:      GtkAda3-devel
 %description devel %{common_description_en}
 
 The %{name}-devel package contains source code and linking information for
-developing applications that use GTKada 2.x. See also GtkAda3-devel.
+developing applications that use GTKada 2 to bind to GTK+ 2.x. See also
+GtkAda3-devel.
 
 %description devel -l sv %{common_description_sv}
 
 Paketet %{name}-devel innehåller källkod och länkningsinformation som behövs
-för att utveckla program som använder GTKada 2.x. Se även GtkAda3-devel.
+för att utveckla program som använder GTKada 2 för att binda till GTK+ 2.x. Se
+även GtkAda3-devel.
 
 
 %package gnome
@@ -116,12 +122,12 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description gnome %{common_description_en}
 
-The %{name}-gnome package contains the GTKada binding to Gnome's graphical
+The %{name}-gnome package contains the GTKada 2 binding to Gnome's graphical
 user interface libraries.
 
 %description gnome -l sv %{common_description_sv}
 
-Paketet %{name}-gnome innehåller GTKadas bindning till Gnomes bibliotek för
+Paketet %{name}-gnome innehåller GTKada 2:s bindning till Gnomes bibliotek för
 grafiska användargränssnitt.
 
 
@@ -132,11 +138,11 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description gl %{common_description_en}
 
-The %{name}-gl package contains the GTKada binding to the OpenGL interface.
+The %{name}-gl package contains the GTKada 2 binding to the OpenGL interface.
 
 %description gl -l sv %{common_description_sv}
 
-Paketet %{name}-gl innehåller GTKadas bindning till OpenGL-gränssnittet.
+Paketet %{name}-gl innehåller GTKada 2:s bindning till OpenGL-gränssnittet.
 
 
 %package doc
@@ -146,11 +152,11 @@ BuildArch:      noarch
 
 %description doc %{common_description_en}
 
-The %{name}-doc package contains the documentation for GTKada 2.x.
+The %{name}-doc package contains the documentation for GTKada 2.
 
 %description doc -l sv %{common_description_sv}
 
-Paketet %{name}-doc innehåller dokumentationen till GTKada 2.x.
+Paketet %{name}-doc innehåller dokumentationen till GTKada 2.
 
 
 %prep

@@ -1,10 +1,13 @@
 Name:           perl-Test-Smoke
-Version:        1.79
-Release:        4%{?dist}
+Version:        1.80
+Release:        2%{?dist}
 Summary:        Perl core test smoke suite
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Smoke
 Source0:        https://cpan.metacpan.org/authors/id/A/AB/ABELTJE/Test-Smoke-%{version}.tar.gz
+# reporter.t fails due to different value of MHz
+# got - AuthenticAMD 3598MHz, expected - AuthenticAMD 3593MHz
+Patch0:         Test-Smoke-1.80-Prevent-false-negatives-MHz.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -19,13 +22,13 @@ BuildRequires:  perl(File::Path)
 BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(JSON::XS)
 BuildRequires:  perl(strict)
+BuildRequires:  perl(Text::ParseWords)
 # Run-time
 BuildRequires:  perl(Archive::Tar)
 BuildRequires:  perl(autodie)
 BuildRequires:  perl(base)
 BuildRequires:  perl(Capture::Tiny)
 BuildRequires:  perl(Carp)
-BuildRequires:  perl(CGI::Util)
 BuildRequires:  perl(Compress::Zlib)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(Data::Dumper)
@@ -34,6 +37,7 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(File::Copy)
 BuildRequires:  perl(File::Find)
 BuildRequires:  perl(File::Spec) >= 0.82
+BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Getopt::Long)
 # HTTP::Tiny is not needed for tests
 # LWP::Simple is not needed for tests
@@ -45,8 +49,8 @@ BuildRequires:  perl(overload)
 # Pod::Usage is not needed for tests
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(System::Info)
-BuildRequires:  perl(Text::ParseWords)
 BuildRequires:  perl(Time::Local)
+BuildRequires:  perl(URI::Escape)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 # Tests:
@@ -91,9 +95,13 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Test-Smoke-%{version}
+%patch -P0 -p1
 
 # Ignore output files from find-debuginfo.sh to fix the test 00-manifest.t
 echo '.+\.list' >> MANIFEST.SKIP
+
+# Fix shebang for the script
+perl -MConfig -i -pe 's{^#!.*perl}{$Config{startperl}}' bin/tsrepostjsn.pl
 
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
@@ -109,8 +117,8 @@ perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" NO_PACKLIST=1 NO_PERL
 %{make_install}
 find %{buildroot} -type f -name '*.bs' -size 0 -delete
 %{_fixperms} %{buildroot}/*
-rm -rf %{buildroot}/%{_bindir}/W32Configure.pl
-rm -rf %{buildroot}/%{_mandir}/man1/W32Configure*
+rm -rf %{buildroot}/%{_bindir}/tsw32configure.pl
+rm -rf %{buildroot}/%{_mandir}/man1/tsw32configure*
 rm -rf %{buildroot}/%{perl_vendorlib}/inc/JSON.pm
 rm -rf %{buildroot}/%{perl_vendorlib}/inc/Mail/Sendmail.pm
 
@@ -140,19 +148,15 @@ make test
 
 %files
 %doc Changes README ReleaseNotes
-%{_bindir}/archiverpt.pl
 %{_bindir}/chkbcfg.pl
 %{_bindir}/configsmoke.pl
-%{_bindir}/mailrpt.pl
-%{_bindir}/patchtree.pl
-%{_bindir}/runsmoke.pl
-%{_bindir}/sendrpt.pl
-%{_bindir}/smokeperl.pl
+#%%{_bindir}/patchtree.pl
 %{_bindir}/smokestatus.pl
-%{_bindir}/synctree.pl
 %{_bindir}/sysinfo.pl
 %{_bindir}/tsarchive.pl
+%{_bindir}/tsconfigsmoke.pl
 %{_bindir}/tsreport.pl
+%{_bindir}/tsrepostjsn.pl
 %{_bindir}/tsrunsmoke.pl
 %{_bindir}/tssendrpt.pl
 %{_bindir}/tssmokeperl.pl
@@ -165,6 +169,12 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu May 04 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.80-2
+- Fix false negatives in reporter.t
+
+* Wed May 03 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.80-1
+- 1.80 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.79-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

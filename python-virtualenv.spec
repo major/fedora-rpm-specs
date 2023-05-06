@@ -1,5 +1,5 @@
 Name:           python-virtualenv
-Version:        20.21.0
+Version:        20.21.1
 Release:        1%{?dist}
 Summary:        Tool to create isolated Python environments
 
@@ -9,6 +9,18 @@ Source0:        %{pypi_source virtualenv}
 
 # Add /usr/share/python-wheels to extra_search_dir
 Patch1:         rpm-wheels.patch
+
+## Backports from virtualenv 20.22+
+## We cannot update yet as we want to preserve support for Python 2.7 and 3.6 environments
+## Patches in https://github.com/fedora-python/virtualenv/commits/20.21.x
+# (20.23.0) prevent PermissionError when using venv creator on some systems
+# https://github.com/pypa/virtualenv/pull/2543
+Patch2:         prevent-PermissionError-when-using-venv-creator-on-s.patch
+# (20.23.0) 3.12 support and no setuptools/wheel on 3.12+
+# freezgun and typing changes stripped
+# files missing in sdist removed from the path file
+# https://github.com/pypa/virtualenv/pull/2558
+Patch3:         3.12-support-and-no-setuptools-wheel-on-3.12-2558.patch
 
 BuildArch:      noarch
 
@@ -109,6 +121,7 @@ sed -i "s|/usr/share/python-wheels|%{python_wheel_dir}|" src/virtualenv/util/pat
 # Skip tests which requires internet or some extra dependencies
 # Requires internet:
 # - test_download_*
+# - test_can_build_c_extensions (on Python 3.12+)
 # Uses disabled functionalities around bundled wheels:
 # - test_wheel_*
 # - test_seed_link_via_app_data
@@ -125,6 +138,9 @@ PIP_CERT=/etc/pki/tls/certs/ca-bundle.crt \
                 not test_periodic_update and \
                 not test_wheel_ and \
                 not test_download_ and \
+%if v"%{python3_version}" >= v"3.12"
+                not test_can_build_c_extensions and \
+%endif
                 not test_base_bootstrap_via_pip_invoke and \
                 not test_seed_link_via_app_data and \
                 not test_py_pyc_missing"
@@ -135,6 +151,10 @@ PIP_CERT=/etc/pki/tls/certs/ca-bundle.crt \
 %{_bindir}/virtualenv
 
 %changelog
+* Fri Apr 28 2023 Miro Hrončok <mhroncok@redhat.com> - 20.21.1-1
+- Update to 20.21.1
+- Backport from 20.23.0: Don't install setuptools and wheel to Python 3.12+ environments
+
 * Mon Mar 13 2023 Lumír Balhar <lbalhar@redhat.com> - 20.21.0-1
 - Update to 20.21.0 (rhbz#2177543)
 

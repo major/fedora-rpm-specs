@@ -7,7 +7,7 @@ any other DB-API 2.0 database adapter, but allows to use more modern PostgreSQL
 and Python features.}
 
 Name:		python-%{src_name}
-Version:	3.1.8
+Version:	3.1.9
 Release:	1%{?dist}
 Summary:	Psycopg 3 is a modern implementation of a PostgreSQL adapter for Python
 
@@ -38,6 +38,9 @@ Summary:	%{SUMMARY}
 sed -r -i 's/("(black|flake8|pytest-cov)\b.*",)/# \1/' setup.py
 # remove pproxy dep, only used for tests
 sed -r -i 's/("(pproxy)\b.*",)/# \1/' setup.py
+
+# remove version for anyio
+sed -i 's/\(anyio\).*$/\1",/' setup.py 
 
 %generate_buildrequires
 %pyproject_buildrequires -x test
@@ -71,6 +74,10 @@ export PSYCOPG_TEST_DSN="host=$PGHOST port=$PGPORT dbname=${PGTESTS_DATABASES##*
 
 
 %changelog
+* Fri May 05 2023 Ondrej Sloup <osloup@redhat.com> -  3.1.9-1
+- Rebase to the latest upstream version (rhbz#2192620)
+- Remove the version for anyio from setup.py
+
 * Fri Jan 20 2023 Ondrej Sloup <osloup@redhat.com>  - 3.1.8-1
 - Rebase to the latest upstream version (rhbz#2161450)
 

@@ -1,6 +1,6 @@
 Name:           onednn
-Version:        3.0.1
-Release:        2%{?dist}
+Version:        3.1
+Release:        1%{?dist}
 Summary:        oneAPI Deep Neural Network Library
 
 License:        Apache-2.0 and BSD-2-Clause and BSD-3-Clause and BSL-1.0 and MIT
@@ -93,6 +93,9 @@ rm -rf %{buildroot}%{_docdir}/dnnl
 
 
 %changelog
+* Thu May 04 2023 Nicolas Chauvet <kwizart@gmail.com> - 3.1-1
+- Update to 3.1
+
 * Mon Mar 06 2023 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 3.0.1-2
 - oneDNN did not migrate the latest fujitsu/xbyak_aarch64 yet
 

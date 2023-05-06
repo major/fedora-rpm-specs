@@ -6,8 +6,8 @@
 Name:           rpmconf
 Summary:        Tool to handle rpmnew and rpmsave files
 License:        GPL-3.0-only
-Version:        1.1.8
-Release:        2%{?dist}
+Version:        1.1.9
+Release:        1%{?dist}
 URL:            https://github.com/xsuchy/rpmconf
 # source is created by:
 # git clone https://github.com/xsuchy/rpmconf.git
@@ -17,6 +17,9 @@ BuildArch:      noarch
 BuildRequires:  make
 BuildRequires:  docbook-utils
 BuildRequires:  docbook-dtd31-sgml
+%if 0%{?rhel} > 9 || 0%{?fedora} > 38
+BuildRequires:  python%{python3_pkgversion}-setuptools
+%endif
 BuildRequires:  python%{python3_pkgversion}-sphinx
 BuildRequires:  python%{python3_pkgversion}-devel
 Requires:       %{name}-base
@@ -119,8 +122,9 @@ pylint-3 rpmconf bin/rpmconf || :
 %dir %{_datadir}/rpmconf
 
 %changelog
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.8-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+* Thu May 04 2023 Miroslav Suchý <msuchy@redhat.com> 1.1.9-1
+- Add BuildRequire on setuptools to fix distutils error on Python 3.12
+- when package config does not exists use /dev/null instead
 
 * Wed Nov 30 2022 Miroslav Suchý <msuchy@redhat.com> 1.1.8-1
 - use spdx license

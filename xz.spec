@@ -5,7 +5,7 @@ Summary:	LZMA compression utilities
 Name:		xz
 # **PLEASE NOTE**: when bumping xz version, please rebuild
 # perl-Compress-Raw-Lzma, it has a strict xz version dep
-Version:	5.4.2
+Version:	5.4.3
 Release:	1%{?dist}
 
 # Scripts xz{grep,diff,less,more} and symlinks (copied from gzip) are
@@ -15,8 +15,8 @@ License:	GPLv2+ and Public Domain
 # official upstream release
 Source0:	https://tukaani.org/%{name}/%{name}-%{version}.tar.xz
 Source1:	https://tukaani.org/%{name}/%{name}-%{version}.tar.xz.sig
-# https://tukaani.org/misc/lasse_collin_pubkey.txt
-Source2:        gpgkey-3690C240CE51B4670D30AD1C38EE757D69184620.asc
+# https://tukaani.org/misc/jia_tan_pubkey.txt
+Source2:        jia_tan_pubkey.txt
 
 Source100:	colorxzgrep.sh
 Source101:	colorxzgrep.csh
@@ -171,6 +171,10 @@ LD_LIBRARY_PATH=$PWD/src/liblzma/.libs make check
 
 
 %changelog
+* Thu May 04 2023 Richard W.M. Jones <rjones@redhat.com> - 5.4.3-1
+- Rebase to version 5.4.3 (RHBZ#2179570)
+- Update the pubkey which appears to have changed.
+
 * Mon Apr 17 2023 Matej Mužila <mmuzila@redhat.com> - 5.4.2-1
 - Rebase to version 5.4.2 (#2179570)
 

@@ -13,8 +13,8 @@
 %{bcond_without perl_PDL_enables_optional_test}
 
 Name:           perl-PDL
-%global cpan_version 2.082
-Version:        2.82.0
+%global cpan_version 2.083
+Version:        2.83.0
 Release:        1%{?dist}
 Summary:        The Perl Data Language
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -189,15 +189,15 @@ with "%{_libexecdir}/%{name}/test".
 %prep
 %setup -q -n PDL-%{cpan_version}
 # Uncomment to enable PDL::IO::Browser
-# %%patch0 -p1 -b .settings
+# %%patch -P0 -p1 -b .settings
 %if %{without perl_PDL_enables_proj}
-%patch1 -p1 -b .proj
+%patch -P1 -p1 -b .proj
 %endif
-%patch2 -p1 -b .slatecpic
+%patch -P2 -p1 -b .slatecpic
 %if %{without perl_PDL_enables_slatec}
-%patch3 -p1 -b .slatec
+%patch -P3 -p1 -b .slatec
 %endif
-%patch4 -p1
+%patch -P4 -p1
 
 # Fix shellbang
 perl -MConfig -pi -e 's|^#!/usr/bin/env perl|$Config{startperl}|' Perldl2/pdl2
@@ -268,6 +268,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu May 04 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.83.0-1
+- 2.083 bump
+
 * Thu Mar 23 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.82.0-1
 - 2.082 bump
 

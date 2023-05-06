@@ -7,7 +7,7 @@
 %global __requires_exclude pkg-config
 
 # rpmdev-bumpspec and releng automation compatible variable
-%global baserelease 6
+%global baserelease 7
 
 Name: dracut
 Version: 059
@@ -468,7 +468,7 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{_prefix}/lib/kernel/install.d/51-dracut-rescue.install
 
 %changelog
-* Thu Apr 27 2023 Lukáš Zaoral <lzaoral@redhat.com> - 059-6
+* Thu Apr 27 2023 Lukáš Zaoral <lzaoral@redhat.com> - 059-7
 - migrate to SPDX license format
 
 * Thu Apr 27 2023 Michael Hofmann <mhofmann@redhat.com> - 059-6

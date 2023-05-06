@@ -9,8 +9,8 @@
 
 Summary:	Ruby binding of GObjectIntrospection
 Name:		rubygem-%{gem_name}
-Version:	4.1.3
-Release:	2%{?dist}
+Version:	4.1.4
+Release:	1%{?dist}
 
 # SPDX confirmed
 # LGPL-2.1-or-later: gemspec
@@ -18,10 +18,6 @@ Release:	2%{?dist}
 License:	LGPL-2.1-or-later
 URL:		http://ruby-gnome2.sourceforge.jp/
 Source0:	http://rubygems.org/gems/%{gem_name}-%{version}.gem
-# Upstream patch
-# For https://github.com/ruby-gnome/ruby-gnome/issues/1561
-Patch2:	0002-gi-make-INVOKERS-private.patch
-Patch3:	0003-gi-follow-INVOKERS-visibility-change-in-load_struct_.patch
 
 Requires:	ruby(release)
 BuildRequires:	ruby(release)
@@ -63,14 +59,12 @@ Documentation for %{name}
 mv ../%{gem_name}-%{version}.gemspec .
 
 # Patches
-%patch -P2 -p2
-%patch -P3 -p2
 
 # Permission
 find . -name \*.rb -print0 | xargs --null chmod 0644
 
 # Allow ruby-gnome2 no less than ones
-sed -i -e 's|= 4\.1\.3|>= 4.1.3|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.1\.4|>= 4.1.4|' %{gem_name}-%{version}.gemspec
 
 %build
 export CONFIGURE_ARGS="--with-cflags='%{optflags} -Werror-implicit-function-declaration'"
@@ -148,6 +142,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Thu May 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.4-1
+- 4.1.4
+
 * Wed May  3 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.3-2
 - Apply upstream patch for INVOKERS visibility bug (github bug 1561)
 

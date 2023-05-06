@@ -12,6 +12,9 @@ URL:            https://opensource.mindmaze.com/projects/mmlib
 %global forgeurl https://github.com/mmlabs-mindmaze/mmlib
 Source0:        %{forgeurl}/archive/%{version}/mmlib-%{version}.tar.gz
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  meson
 BuildRequires:  gcc
 # This is not a Python package, but uses Python scripts in the build process.

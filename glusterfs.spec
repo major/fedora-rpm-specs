@@ -196,7 +196,7 @@ Summary:          Distributed File System
 %if ( 0%{_for_fedora_koji_builds} )
 Name:             glusterfs
 Version:          11.0
-Release:          1%{?prereltag:%{prereltag}}%{?dist}
+Release:          2%{?prereltag:%{prereltag}}%{?dist}
 %else
 Name:             @PACKAGE_NAME@
 Version:          @PACKAGE_VERSION@
@@ -226,8 +226,6 @@ Requires:         libglusterfs0%{?_isa} = %{version}-%{release}
 Requires:         libgfrpc0%{?_isa} = %{version}-%{release}
 Requires:         libgfxdr0%{?_isa} = %{version}-%{release}
 %{?systemd_requires}
-Requires(post):   /sbin/ldconfig
-Requires(postun): /sbin/ldconfig
 %if 0%{?_with_asan:1} && !( 0%{?rhel} && 0%{?rhel} < 7 )
 BuildRequires:    libasan
 %endif
@@ -516,8 +514,6 @@ This package provides the glusterfs legacy gNFS server xlator
 
 %package -n libglusterfs0
 Summary:          GlusterFS libglusterfs library
-Requires(post):   /sbin/ldconfig
-Requires(postun): /sbin/ldconfig
 Requires:         libgfrpc0%{?_isa} = %{version}-%{release}
 Requires:         libgfxdr0%{?_isa} = %{version}-%{release}
 Obsoletes:        %{name}-libs <= %{version}-%{release}
@@ -755,8 +751,6 @@ Requires:         %{name}-client-xlators = %{version}-%{release}
 Requires:         psmisc
 Requires:         lvm2
 %{?systemd_requires}
-Requires(post):   /sbin/ldconfig
-Requires(postun): /sbin/ldconfig
 %if (0%{?_with_firewalld:1})
 # we install firewalld rules, so we need to have the directory owned
 %if ( 0%{!?rhel} )
@@ -1629,6 +1623,10 @@ exit 0
 %{_unitdir}/gluster-ta-volume.service
 
 %changelog
+* Thu May 4 2023  Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 11.0-2
+- glusterfs 11, remove unnecessary BR for ldconfig, i.e. glibc, also
+  rhbz#1731689
+
 * Fri Feb 10 2023 Adam Williamson <awilliam@redhat.com> - 11.0-1
 - Fix a mistake in the libglusterd0 obsolete
 

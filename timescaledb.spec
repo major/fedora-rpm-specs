@@ -1,7 +1,7 @@
 %global core_name timescale
 
 Name:           %{core_name}db
-Version:        2.10.2
+Version:        2.10.3
 Release:        1%{?dist}
 Summary:        Open-source time-series database powered by PostgreSQL
 
@@ -53,6 +53,9 @@ rm -rf tsl
 
 
 %changelog
+* Fri May 05 2023 Ondrej Sloup <osloup@redhat.com> -  2.10.3-1
+- Rebase to the latest upstream version (rhbz#2190345)
+
 * Mon Apr 24 2023 Ondrej Sloup <osloup@redhat.com> -  2.10.2-1
 - Rebase to the latest upstream version (rhbz#2188478)
 

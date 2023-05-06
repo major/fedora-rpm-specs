@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-machines
-Version:        288
+Version:        289
 Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
@@ -63,29 +63,28 @@ Requires: libvirt-dbus >= 1.2.0
 Recommends: virt-install >= 3.0.0
 Recommends: libosinfo
 Recommends: python3-gobject-base
-Suggests: qemu-virtiofsd
+Suggests: (qemu-virtiofsd or virtiofsd)
 
 Provides: bundled(npm(@babel/runtime)) = 7.21.0
 Provides: bundled(npm(@novnc/novnc)) = 1.4.0
-Provides: bundled(npm(@patternfly/patternfly)) = 4.224.4
-Provides: bundled(npm(@patternfly/react-console)) = 4.95.5
-Provides: bundled(npm(@patternfly/react-core)) = 4.276.9
-Provides: bundled(npm(@patternfly/react-icons)) = 4.93.6
-Provides: bundled(npm(@patternfly/react-styles)) = 4.92.7
-Provides: bundled(npm(@patternfly/react-table)) = 4.113.1
-Provides: bundled(npm(@patternfly/react-tokens)) = 4.94.6
+Provides: bundled(npm(@patternfly/patternfly)) = 5.0.0-alpha.40
+Provides: bundled(npm(@patternfly/react-console)) = 5.0.0-alpha.1
+Provides: bundled(npm(@patternfly/react-core)) = 5.0.0-alpha.72
+Provides: bundled(npm(@patternfly/react-icons)) = 5.0.0-alpha.10
+Provides: bundled(npm(@patternfly/react-styles)) = 5.0.0-alpha.7
+Provides: bundled(npm(@patternfly/react-table)) = 5.0.0-alpha.74
+Provides: bundled(npm(@patternfly/react-tokens)) = 5.0.0-alpha.7
 Provides: bundled(npm(@spice-project/spice-html5)) = 0.2.1
-Provides: bundled(npm(attr-accept)) = 1.1.3
+Provides: bundled(npm(attr-accept)) = 2.2.2
 Provides: bundled(npm(available-typed-arrays)) = 1.0.5
 Provides: bundled(npm(call-bind)) = 1.0.2
-Provides: bundled(npm(core-js)) = 2.6.12
 Provides: bundled(npm(date-fns)) = 2.28.0
 Provides: bundled(npm(deep-equal)) = 2.0.5
 Provides: bundled(npm(define-properties)) = 1.2.0
 Provides: bundled(npm(es-get-iterator)) = 1.1.3
 Provides: bundled(npm(file-saver)) = 1.3.8
-Provides: bundled(npm(file-selector)) = 0.1.19
-Provides: bundled(npm(focus-trap)) = 6.9.2
+Provides: bundled(npm(file-selector)) = 0.6.0
+Provides: bundled(npm(focus-trap)) = 7.4.0
 Provides: bundled(npm(for-each)) = 0.3.3
 Provides: bundled(npm(function-bind)) = 1.1.1
 Provides: bundled(npm(functions-have-names)) = 1.2.3
@@ -120,25 +119,21 @@ Provides: bundled(npm(object-inspect)) = 1.12.3
 Provides: bundled(npm(object-is)) = 1.1.5
 Provides: bundled(npm(object-keys)) = 1.1.1
 Provides: bundled(npm(object.assign)) = 4.1.4
-Provides: bundled(npm(popper.js)) = 1.16.1
-Provides: bundled(npm(prop-types-extra)) = 1.1.1
 Provides: bundled(npm(prop-types)) = 15.8.1
 Provides: bundled(npm(react-dom)) = 18.2.0
-Provides: bundled(npm(react-dropzone)) = 9.0.0
+Provides: bundled(npm(react-dropzone)) = 14.2.3
 Provides: bundled(npm(react-is)) = 16.13.1
 Provides: bundled(npm(react)) = 18.2.0
 Provides: bundled(npm(redux-thunk)) = 2.4.2
 Provides: bundled(npm(redux)) = 4.1.2
 Provides: bundled(npm(regenerator-runtime)) = 0.13.11
-Provides: bundled(npm(regexp.prototype.flags)) = 1.4.3
+Provides: bundled(npm(regexp.prototype.flags)) = 1.5.0
 Provides: bundled(npm(scheduler)) = 0.23.0
 Provides: bundled(npm(side-channel)) = 1.0.4
 Provides: bundled(npm(stop-iteration-iterator)) = 1.0.0
-Provides: bundled(npm(tabbable)) = 5.3.3
+Provides: bundled(npm(tabbable)) = 6.1.1
 Provides: bundled(npm(throttle-debounce)) = 3.0.1
-Provides: bundled(npm(tippy.js)) = 5.1.2
 Provides: bundled(npm(tslib)) = 2.5.0
-Provides: bundled(npm(warning)) = 4.0.3
 Provides: bundled(npm(which-boxed-primitive)) = 1.0.2
 Provides: bundled(npm(which-collection)) = 1.0.1
 Provides: bundled(npm(which-typed-array)) = 1.1.9
@@ -170,6 +165,11 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu May 04 2023 Packit <hello@packit.dev> - 289-1
+- Update to PatternFly 5 Alpha
+- Option to use RAW volume during VM creation
+- Redesign VM’s CPU configuration
+
 * Wed Apr 19 2023 Packit <hello@packit.dev> - 288-1
 - Indicate need for shutdown
 - Delete storage file upon disk detachment

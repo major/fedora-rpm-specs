@@ -133,7 +133,8 @@ BuildRequires: /usr/bin/grub2-mkfont
 
 %package console
 Requires:   kbd
-Requires:   %{kbddir}
+# For /usr/lib/kbd
+Requires:   kbd-misc
 Summary:    Clean fixed width font (console version)
 License:    OFL
 

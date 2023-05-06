@@ -76,6 +76,7 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/org.xfce*%{name}-
 %doc AUTHORS
 %{_bindir}/%{name}
 %{_bindir}/%{name}-settings
+%dir %{_datadir}/%{name}
 %{_datadir}/%{name}/bindings.xml
 %{_datadir}/%{name}/preferences.ui
 %{_metainfodir}/*%{name}*metainfo.xml
@@ -83,7 +84,9 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/org.xfce*%{name}-
 %{_datadir}/applications/org.xfce*%{name}-settings.desktop
 %{_sysconfdir}/xdg/autostart/org.xfce*%{name}-autostart.desktop
 %{_datadir}/icons/hicolor/*/*/org.xfce.%{name}.*
+%dir %{_datadir}/themes/%{name}
 %{_datadir}/themes/%{name}/*
+%dir %{_libdir}/%{name}
 %{_libdir}/lib%{name}.so.0
 %{_libdir}/lib%{name}.so.%{libversion}
 %{_libdir}/%{name}/plugins/clock-view.so

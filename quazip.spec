@@ -14,10 +14,10 @@
 
 # see top-ldevel CMakeLists.txt for variables of same name
 %global QUAZIP_LIB_VERSION %{version} 
-%global QUAZIP_LIB_SOVERSION 1.3.0
+%global QUAZIP_LIB_SOVERSION 1.4.0
 
 Name:		quazip
-Version:	1.3
+Version:	1.4
 Release:	%autorelease
 Summary:	Qt/C++ wrapper for the minizip library
 License:	GPLv2+ or LGPLv2+

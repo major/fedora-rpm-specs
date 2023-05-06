@@ -32,6 +32,9 @@ Patch:          e00compr-1.0.1-strncpy-null-term.patch
 # http://bugzilla.maptools.org/; patch sent upstream by email 2022-01-05.
 Patch:          e00compr-1.0.1-nDigits-unused.patch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc
 BuildRequires:  make
 

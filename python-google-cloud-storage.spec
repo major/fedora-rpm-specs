@@ -1,18 +1,15 @@
 %bcond_without  tests
 
 %global         srcname     google-cloud-storage
-%global         forgeurl    https://github.com/googleapis/python-storage
-Version:        2.8.0
-%global         tag         v%{version}
-%forgemeta
 
 Name:           python-%{srcname}
+Version:        2.9.0
 Release:        %autorelease
 Summary:        Python Client for Google Cloud Storage
 
 License:        Apache-2.0
-URL:            %forgeurl
-Source0:        %forgesource
+URL:            https://github.com/googleapis/python-storage
+Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -37,7 +34,7 @@ Summary:        %{summary}
 
 
 %prep
-%forgeautosetup -p1
+%autosetup -n python-storage-%{version} -p1
 
 # Replace mock imports with unittest.mock.
 grep -rl "^[[:space:]]*import mock" tests | \
@@ -45,7 +42,7 @@ grep -rl "^[[:space:]]*import mock" tests | \
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 
 %build

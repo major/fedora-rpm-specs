@@ -3,8 +3,9 @@
 
 Summary:    	Hoe is a simple rake/rubygems helper for project Rakefiles
 Name:       	rubygem-%{gem_name}
-Version:    	4.0.2
+Version:    	4.0.3
 Release:    	1%{?dist}
+# SPDX confirmed
 License:    	MIT
 URL:        	http://rubyforge.org/projects/seattlerb/
 Source0:    	http://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -57,8 +58,8 @@ This package contains documentation for %{name}.
 mv ../%{gem_name}-%{version}.gemspec .
 
 # Patches
-%patch0 -p0
-%patch1 -p1
+%patch -P0 -p0
+%patch -P1 -p1
 
 # Allow RubyInline 3.8.4
 sed -i -e '/RubyInline/s|~> 3\.9|>= 3.8.4|' \
@@ -130,6 +131,9 @@ popd
 %{gem_docdir}
 
 %changelog
+* Thu May  4 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.3-1
+- 4.0.3
+
 * Sun Jan 29 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.2-1
 - 4.0.2
 

@@ -23,7 +23,7 @@ Version: 3.7.1
 
 #%%global prerelease .b2
 # prerelease, if defined, should be something like .a1, .b1, .b2.dev1, or .c2
-Release: 1%{?prerelease}%{?dist}
+Release: 2%{?prerelease}%{?dist}
 Epoch: 1
 License: LGPL-2.1-or-later
 %global realname blivet
@@ -34,6 +34,8 @@ Source1: http://github.com/storaged-project/blivet/archive/%{realname}-%{realver
 %if 0%{?rhel} >= 9
 Patch0: 0001-remove-btrfs-plugin.patch
 %endif
+
+Patch1: 0002-Add-support-for-specifying-stripe-size-for-RAID-LVs.patch
 
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
@@ -196,6 +198,9 @@ configuration.
 %endif
 
 %changelog
+* Thu May 04 2023 Vojtech Trefny <vtrefny@redhat.com> - 3.7.1-2
+- Add support for specifying stripe size for RAID LVs
+
 * Thu Mar 16 2023 Vojtech Trefny <vtrefny@redhat.com> - 3.7.1-1
 - Fix the get_mount_device function (vponcova)
 - Prefer using UUID for the kickstart --onpart argument (vtrefny)

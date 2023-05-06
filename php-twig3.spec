@@ -14,7 +14,7 @@
 
 %global github_owner     twigphp
 %global github_name      Twig
-%global github_commit    a6e0510cc793912b451fd40ab983a1d28f611c15
+%global github_commit    106c170d08e8415d78be2d16c3d057d0d108262b
 %global github_short     %(c=%{github_commit}; echo ${c:0:7})
 
 %global composer_vendor  twig
@@ -27,7 +27,7 @@
 %global phpdir      %{_datadir}/php
 
 Name:          php-%{composer_project}%{major}
-Version:       3.5.1
+Version:       3.6.0
 Release:       1%{?dist}
 Summary:       The flexible, fast, and secure template engine for PHP
 
@@ -43,7 +43,7 @@ BuildRequires: php-fedora-autoloader-devel
 # For tests
 # as we use phpunit9 (for assertFileDoesNotExist)
 BuildRequires: php(language) >= 7.3
-BuildRequires: (php-composer(psr/container) >= 1.0    with php-composer(psr/container) < 2)
+BuildRequires: (php-composer(psr/container) >= 1.0    with php-composer(psr/container) < 3)
 %global phpunit %{_bindir}/phpunit9
 BuildRequires: %{phpunit}
 ## phpcompatinfo (computed from version 3.0.0)
@@ -126,7 +126,10 @@ cat << 'EOF' | tee -a vendor/autoload.php
 require_once '%{buildroot}%{phpdir}/Twig%{major}/autoload.php';
 // Dependencies (require-dev)
 \Fedora\Autoloader\Dependencies::required([
-    '%{phpdir}/Psr/Container/autoload.php',
+    [
+        '%{phpdir}/Psr/Container2/autoload.php',
+        '%{phpdir}/Psr/Container/autoload.php',
+    ],
 ]);
 EOF
 
@@ -155,6 +158,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Thu May  4 2023 Remi Collet <remi@remirepo.net> - 3.6.0-1
+- update to 3.6.0
+
 * Wed Feb  8 2023 Remi Collet <remi@remirepo.net> - 3.5.1-1
 - update to 3.5.1
 

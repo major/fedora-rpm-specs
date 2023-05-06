@@ -1,7 +1,7 @@
 %global forgeurl https://github.com/npwoods/bletchmame
 
 Name:           bletchmame
-Version:        2.15
+Version:        2.16
 Release:        %autorelease
 Summary:        MAME emulator frontend
 
@@ -25,6 +25,7 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  expat-devel
 BuildRequires:  libappstream-glib
 BuildRequires:  libxkbcommon-devel
+BuildRequires:  lzma-sdk-devel
 BuildRequires:  observable-devel
 BuildRequires:  perl
 BuildRequires:  qt6-qttools-devel
@@ -48,12 +49,12 @@ emulation.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
+%patch -P 0 -p1
+%patch -P 1 -p1
+%patch -P 2 -p1
 # Disable broken tests on 32 bit architectures
 %ifarch armv7hl i686 s390x
-%patch3 -p1
+%patch -P 3 -p1
 %endif
 
 cp -p %{SOURCE1} .

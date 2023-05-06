@@ -64,11 +64,7 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 %license LICENSES/*
 %{_bindir}/%{name}
 %{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_datadir}/dbus-1/system.d/org.kde.isoimagewriter.conf
-%{_kf5_datadir}/dbus-1/system-services/org.kde.isoimagewriter.service
-%{_kf5_datadir}/polkit-1/actions/org.kde.isoimagewriter.policy
 %{_kf5_datadir}/%{name}
-%{_kf5_libexecdir}/kauth/%{name}_helper
 %{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
 
 

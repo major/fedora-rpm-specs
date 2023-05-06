@@ -1,6 +1,6 @@
 Name:           libevdev
-Version:        1.13.0
-Release:        2%{?dist}
+Version:        1.13.1
+Release:        1%{?dist}
 Summary:        Kernel Evdev Device Wrapper Library
 
 License:        MIT
@@ -65,6 +65,9 @@ pathfix.py -i %{__python3} -p -n $(git grep -l '#!/usr/bin/.*python.*')
 %{_mandir}/man1/mouse-dpi-tool.1*
 
 %changelog
+* Fri May 05 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.13.1-1
+- libevdev 1.13.1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

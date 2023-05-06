@@ -17,6 +17,9 @@ License:        GPL-3.0-only
 URL:            https://opensource.mindmaze.com/projects/eegview/
 Source0:        https://github.com/mmlabs-mindmaze/eegview/archive/%{commit}/eegview-%{commit}.tar.gz
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc
 BuildRequires:  meson
 

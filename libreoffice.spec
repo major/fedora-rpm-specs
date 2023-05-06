@@ -1,5 +1,5 @@
 # download path contains version without the last (fourth) digit
-%global libo_version 7.5.2
+%global libo_version 7.5.3
 # Should contain .alphaX / .betaX, if this is pre-release (actually
 # pre-RC) version. The pre-release string is part of tarball file names,
 # so we need a way to define it easily at one place.
@@ -265,13 +265,10 @@ Patch1: 0001-disble-tip-of-the-day-dialog-by-default.patch
 Patch2: 0001-Resolves-rhbz-1432468-disable-opencl-by-default.patch
 # backported
 Patch3: 0001-Revert-tdf-101630-gdrive-support-w-oAuth-and-Drive-A.patch
-Patch4: 0001-Use-sifr-and-sifr_dark-for-gnome.patch
-Patch5: 0001-rhbz-2171265-Report-fatal-InitApplicationServiceMana.patch
-Patch6: 0001-rhbz-2171265-Filter-out-all-non-.rdb-files.patch
-Patch7: 0001-Backport-fix-for-test-that-started-to-fail-with-libx.patch
+Patch4: 0001-default-to-sifr-for-gnome-light-mode.patch
 # TODO investigate these
-Patch8: 0001-aarch64-failing-here.patch
-Patch9: 0001-include-filename-if-the-test-fails.patch
+Patch5: 0001-aarch64-failing-here.patch
+Patch6: 0001-include-filename-if-the-test-fails.patch
 # not upstreamed
 Patch500: 0001-disable-libe-book-support.patch
 
@@ -2252,6 +2249,9 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor &>/dev/null || :
 %{_includedir}/LibreOfficeKit
 
 %changelog
+* Thu May 04 2023 Caolán McNamara <caolanm@redhat.com> - 1:7.5.3.2-1
+- latest version
+
 * Fri Mar 31 2023 Caolán McNamara <caolanm@redhat.com> - 1:7.5.2.2-1
 - latest version
 
