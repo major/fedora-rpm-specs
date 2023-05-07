@@ -2,7 +2,7 @@
 
 Name:           openjfx8
 Version:        8.0.202
-Release:        34.b07%{?dist}
+Release:        35.b07%{?dist}
 Summary:        Rich client application platform for Java
 
 #fxpackager is BSD
@@ -49,6 +49,7 @@ Patch0:         0000-Fix-wait-call-in-PosixPlatform.patch
 Patch1:         0003-fix-cast-between-incompatible-function-types.patch
 Patch2:         0004-Fix-Compilation-Flags.patch
 Patch3:         0005-fxpackager-extract-jre-accept-symlink.patch
+Patch4:         openjfx8-c99.patch
 
 ExclusiveArch:  x86_64
 
@@ -112,6 +113,7 @@ Summary: OpenJFX Source Bundle
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
  
 cp %{SOURCE1} .
 
@@ -230,6 +232,9 @@ ln -s %{openjfxdir}/bin/javapackager %{buildroot}%{_bindir}
 %{openjfxdir}/javafx-src.zip
 
 %changelog
+* Fri May 05 2023 Florian Weimer <fweimer@redhat.com> - 8.0.202-35.b07
+- C99 compatibility fix
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.202-34.b07
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

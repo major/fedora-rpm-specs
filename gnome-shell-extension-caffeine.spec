@@ -6,7 +6,7 @@
 %global gschemadir	%{_datadir}/glib-2.0/schemas
 
 Name:		gnome-shell-extension-caffeine
-Version:	47
+Version:	48
 Release:	1%{?fgittag:.%{fgittag}}%{?dist}
 Summary:	Disable the screen saver and auto suspend in gnome shell
 
@@ -59,6 +59,9 @@ fi
 %{_datadir}/gnome-shell/extensions/%{extdir}
 
 %changelog
+* Fri May 05 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 48-1
+- Update to v48
+
 * Fri Apr 21 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 47-1
 - Update to v47
 

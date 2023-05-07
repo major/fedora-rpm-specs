@@ -1,6 +1,6 @@
 
 Name: rarian
-Version: 0.8.2
+Version: 0.8.4
 Release: %{autorelease}
 License: LGPL-2.1-or-later AND Zlib
 Summary: Documentation meta-data library
@@ -24,6 +24,7 @@ Requires: coreutils, util-linux, gawk
 BuildRequires: make
 BuildRequires: gcc-c++
 BuildRequires: check-devel
+BuildRequires: tinyxml-devel
 # Used by the tests
 BuildRequires: man-db
 BuildRequires: info

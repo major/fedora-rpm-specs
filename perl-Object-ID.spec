@@ -2,7 +2,7 @@ Name:		perl-Object-ID
 Version:	0.1.2
 Release:	28%{?dist}
 Summary:	A unique identifier for any object
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Object-ID
 Source0:	https://cpan.metacpan.org/modules/by-module/Object/Object-ID-v%{version}.tar.gz
 BuildArch:	noarch

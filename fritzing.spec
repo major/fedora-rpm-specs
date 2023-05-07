@@ -6,7 +6,7 @@ License:        GPLv3+
 URL:            http://fritzing.org/
 
 Version:        0.9.10
-%global baserelease 3
+%global baserelease 4
 
 # The fritzing-app repo does not contain a tag for v0.9.10.
 %global app_date 20220514
@@ -97,15 +97,15 @@ rm -rf .github || true
 rm -rf parts/.github || true
 
 # We don't want the autoupdater.
-%patch0 -p1 -b .disable-updates
+%patch -P 0 -p1 -b .disable-updates
 
 # We use the unbundled version of quazip.
-%patch1 -p1 -b .unbundle-quazip
+%patch -P 1 -p1 -b .unbundle-quazip
 rm -rf src/lib/quazip
 
 # The TwitterSaurus examples use (a bundled) twitter4j library, whose license
 # is incompatible with Fedora.
-%patch2 -p1 -b .remove-twitter4j
+%patch -P 2 -p1 -b .remove-twitter4j
 rm -f sketches/core/Fritzing\ Creator\ Kit\ DE+EN/creator-kit-*/Fritzing/TwitterSaurus.fzz
 rm -f sketches/core/Fritzing\ Creator\ Kit\ DE+EN/creator-kit-*/Processing/twitter4j-core-2.2.5.jar
 rm -rf sketches/core/Fritzing\ Creator\ Kit\ DE+EN/creator-kit-*/Processing/TwitterSaurus*
@@ -158,6 +158,9 @@ fi
 
 
 %changelog
+* Fri May 05 2023 Nicolas Chauvet <kwizart@gmail.com> - 0.9.10-4.20220514
+- Rebuilt for quazip 1.4
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.10-3.20220514
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

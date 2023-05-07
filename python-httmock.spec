@@ -1,61 +1,67 @@
-%{?python_enable_dependency_generator}
-# Created by pyp2rpm-3.3.0
-%global pypi_name httmock
-
-Name:           python-%{pypi_name}
+Name:           python-httmock
 Version:        1.4.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A mocking library for requests
-
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/patrys/httmock
+
+# Switch to github at next release to avoid the extra Source1
 Source0:        https://files.pythonhosted.org/packages/source/h/httmock/httmock-%{version}.tar.gz
 Source1:        https://raw.githubusercontent.com/patrys/httmock/%{version}/tests.py
+
 # Add a tox file.
 # https://bugzilla.redhat.com/show_bug.cgi?id=2019409
 Patch0:         https://patch-diff.githubusercontent.com/raw/patrys/httmock/pull/64.diff
 BuildArch:      noarch
  
-%description
+%global _description %{expand:
 A mocking library for requests for Python.
 You can use it to mock third-party APIs and test libraries 
-that use requests internally. 
+that use requests internally}
 
-%package -n     python3-%{pypi_name}
+
+%description %_description
+
+%package -n     python3-httmock
 Summary:        %{summary}
 BuildRequires:  python3-devel
+
+%description -n python3-httmock %_description
+
+
+%prep
+%autosetup -p1 -n httmock-%{version}
+cp %{SOURCE1} .
 
 %generate_buildrequires
 %pyproject_buildrequires -t
 
-%description -n python3-%{pypi_name}
-A mocking library for requests for Python.
-You can use it to mock third-party APIs and test libraries 
-that use requests internally. 
-
-%prep
-%autosetup -p1 -n %{pypi_name}-%{version}
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
-cp %{SOURCE1} .
 
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+
+%pyproject_save_files httmock
+
 
 %check
 %{tox}
 
-%files -n python3-%{pypi_name}
+
+%files -n python3-httmock -f %{pyproject_files}
 %license LICENSE
 %doc README.md
-%{python3_sitelib}/__pycache__/*
-%{python3_sitelib}/%{pypi_name}.py
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
+
 
 %changelog
+* Fri May 05 2023 Steve Traylen <steve.traylen@cern.ch> 1.4.0-9
+- Complete migration to pyproject macros
+- Switch SPDX license field
+- Use tests.py matching released version of module (rhbz#2175195)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

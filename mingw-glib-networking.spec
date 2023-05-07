@@ -8,27 +8,31 @@ Version:        2.76.0
 Release:        1%{?dist}
 Summary:        MinGW Windows glib-networking library
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            http://www.gnome.org/
 Source0:        http://ftp.gnome.org/pub/GNOME/sources/glib-networking/%{release_version}/glib-networking-%{version}.tar.xz
 
 BuildArch:      noarch
 
-BuildRequires:  mingw32-filesystem
-BuildRequires:  mingw64-filesystem
-BuildRequires:  mingw32-gcc
-BuildRequires:  mingw64-gcc
-BuildRequires:  mingw32-binutils
-BuildRequires:  mingw64-binutils
-BuildRequires:  mingw32-glib2
-BuildRequires:  mingw64-glib2
-BuildRequires:  mingw32-gnutls >= 2.10
-BuildRequires:  mingw64-gnutls >= 2.10
 BuildRequires:  gcc
 BuildRequires:  glib2-devel
-BuildRequires:  pkgconfig
+BuildRequires:  gsettings-desktop-schemas-devel
 BuildRequires:  intltool
 BuildRequires:  meson
+BuildRequires:  pkgconfig
+
+BuildRequires:  mingw32-filesystem
+BuildRequires:  mingw32-gcc
+BuildRequires:  mingw32-glib2
+BuildRequires:  mingw32-gnutls >= 2.10
+BuildRequires:  mingw32-gsettings-desktop-schemas
+
+BuildRequires:  mingw64-filesystem
+BuildRequires:  mingw64-gcc
+BuildRequires:  mingw64-glib2
+BuildRequires:  mingw64-gnutls >= 2.10
+BuildRequires:  mingw64-gsettings-desktop-schemas
+
 
 %description
 This package contains modules that extend the networking support in GIO.
@@ -56,7 +60,7 @@ This package contains modules that extend the networking support in GIO.
 
 
 %build
-%mingw_meson -Dlibproxy=disabled
+%mingw_meson -Dlibproxy=disabled -Denvironment_proxy=enabled
 %mingw_ninja
 
 
@@ -75,11 +79,13 @@ rm -f %{buildroot}%{mingw64_libdir}/gio/modules/*.la
 %license COPYING
 %{mingw32_libdir}/gio/modules/libgiognutls.dll
 %{mingw32_libdir}/gio/modules/libgioenvironmentproxy.dll
+%{mingw32_libdir}/gio/modules/libgiognomeproxy.dll
 
 %files -n mingw64-glib-networking -f mingw64-glib-networking.lang
 %license COPYING
 %{mingw64_libdir}/gio/modules/libgiognutls.dll
 %{mingw64_libdir}/gio/modules/libgioenvironmentproxy.dll
+%{mingw64_libdir}/gio/modules/libgiognomeproxy.dll
 
 
 %changelog

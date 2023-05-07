@@ -2,16 +2,9 @@
 
 %global pkgname quazip
 
-# Enable qt6 support (or not)
-# FIXME: qt6-qtdeclarative doesn't build on S390x
-# BUG: https://bugreports.qt.io/browse/QTBUG-93101
-%ifnarch s390x
-%global qt6 1
-%endif
-
 Name:          mingw-%{pkgname}
-Version:       1.3
-Release:       3%{?dist}
+Version:       1.4
+Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 BuildArch:     noarch
@@ -29,19 +22,17 @@ BuildRequires: make
 BuildRequires: cmake
 
 BuildRequires: mingw32-filesystem >= 95
+BuildRequires: mingw32-gcc-c++
 BuildRequires: mingw32-qt5-qtbase
-%if 0%{?qt6}
 BuildRequires: mingw32-qt6-qtbase
 BuildRequires: mingw32-qt6-qt5compat
-%endif
 BuildRequires: mingw32-libzip
 
 BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-gcc-c++
 BuildRequires: mingw64-qt5-qtbase
-%if 0%{?qt6}
 BuildRequires: mingw64-qt6-qtbase
 BuildRequires: mingw64-qt6-qt5compat
-%endif
 BuildRequires: mingw64-libzip
 
 %description
@@ -55,13 +46,11 @@ Obsoletes:     mingw32-%{pkgname}-qt5-static
 %description -n mingw32-%{pkgname}-qt5
 MinGW Windows Qt5 %{pkgname} library.
 
-%if 0%{?qt6}
 %package -n mingw32-%{pkgname}-qt6
 Summary:       MinGW Windows Qt6 %{pkgname} library
 
 %description -n mingw32-%{pkgname}-qt6
 MinGW Windows Qt6 %{pkgname} library.
-%endif
 
 
 %package -n mingw64-%{pkgname}-qt5
@@ -72,13 +61,11 @@ Obsoletes:     mingw64-%{pkgname}-qt5-static
 MinGW Windows Qt5 %{pkgname} library.
 
 
-%if 0%{?qt6}
 %package -n mingw64-%{pkgname}-qt6
 Summary:       MinGW Windows Qt6 %{pkgname} library
 
 %description -n mingw64-%{pkgname}-qt6
 MinGW Windows Qt6 %{pkgname} library.
-%endif
 
 
 %{?mingw_debug_package}
@@ -95,13 +82,11 @@ pushd build_qt5
 %mingw_make_build
 popd
 
-%if 0%{?qt6}
 mkdir build_qt6
 pushd build_qt6
 %mingw_cmake -DQUAZIP_QT_MAJOR_VERSION=6 -DQT_INCLUDE_DIRS_NO_SYSTEM=ON ../..
 %mingw_make_build
 popd
-%endif
 
 
 %install
@@ -109,11 +94,9 @@ pushd build_qt5
 %mingw_make_install
 popd
 
-%if 0%{?qt6}
 pushd build_qt6
 %mingw_make_install
 popd
-%endif
 
 
 %files -n mingw32-%{pkgname}-qt5
@@ -124,7 +107,6 @@ popd
 %{mingw32_libdir}/pkgconfig/quazip1-qt5.pc
 %{mingw32_libdir}/cmake/QuaZip-Qt5-%{version}/
 
-%if 0%{?qt6}
 %files -n mingw32-%{pkgname}-qt6
 %license COPYING
 %{mingw32_bindir}/libquazip1-qt6.dll
@@ -132,7 +114,6 @@ popd
 %{mingw32_libdir}/libquazip1-qt6.dll.a
 %{mingw32_libdir}/pkgconfig/quazip1-qt6.pc
 %{mingw32_libdir}/cmake/QuaZip-Qt6-%{version}/
-%endif
 
 %files -n mingw64-%{pkgname}-qt5
 %license COPYING
@@ -142,7 +123,6 @@ popd
 %{mingw64_libdir}/pkgconfig/quazip1-qt5.pc
 %{mingw64_libdir}/cmake/QuaZip-Qt5-%{version}/
 
-%if 0%{?qt6}
 %files -n mingw64-%{pkgname}-qt6
 %license COPYING
 %{mingw64_bindir}/libquazip1-qt6.dll
@@ -150,10 +130,12 @@ popd
 %{mingw64_libdir}/libquazip1-qt6.dll.a
 %{mingw64_libdir}/pkgconfig/quazip1-qt6.pc
 %{mingw64_libdir}/cmake/QuaZip-Qt6-%{version}/
-%endif
 
 
 %changelog
+* Fri May 05 2023 Sandro Mani <manisandro@gmail.com> - 1.4-1
+- Update to 1.4
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

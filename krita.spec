@@ -10,7 +10,7 @@
 
 Name:           krita
 Version:        5.1.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        Krita is a sketching and painting program
 License:        GPL-2.0-or-later
@@ -173,6 +173,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.krita.des
 
 
 %changelog
+* Fri May 05 2023 Nicolas Chauvet <kwizart@gmail.com> - 5.1.5-2
+- Rebuilt for quazip 1.4
+
 * Thu Apr 13 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 5.1.5-1
 - Updated to version 5.1.5.
 - Enabled libheif support.

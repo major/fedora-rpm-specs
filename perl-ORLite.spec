@@ -1,7 +1,7 @@
 Name:           perl-ORLite
 Summary:        Extremely light weight SQLite-specific ORM
 Version:        1.98
-Release:        31%{?dist}
+Release:        32%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/A/AD/ADAMK/ORLite-%{version}.tar.gz 
 URL:            https://metacpan.org/release/ORLite
@@ -9,13 +9,18 @@ URL:            https://metacpan.org/release/ORLite
 Patch0:         ORLite-1.98-sqlite-vacuum.patch
 # Update tests to work for SQLite 3.38 and later CPAN RT#140748
 Patch1:         ORLite-1.98-sqlite-case-insensitive.patch
+# Update Makefile.PL to not use Module::Install::DSL CPAN RT#148290
+Patch2:         ORLite-1.98-Remove-using-of-MI-DSL.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(inc::Module::Install::DSL) >= 1.06
+BuildRequires:  perl(inc::Module::Install)
+BuildRequires:  perl(Module::Install::Metadata)
+BuildRequires:  perl(Module::Install::With)
+BuildRequires:  perl(Module::Install::WriteAll)
 # Run-time
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(DBD::SQLite) >= 1.27
@@ -63,8 +68,9 @@ of SQLite.
 
 %prep
 %setup -q -n ORLite-%{version}
-%patch0 -p1
-%patch1 -p1
+%patch -P0 -p1
+%patch -P1 -p1
+%patch -P2 -p1
 # Remove bundled installation scripts
 rm -rf inc
 perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
@@ -88,6 +94,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri May 05 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.98-32
+- Update Makefile.PL to not use Module::Install::DSL
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.98-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

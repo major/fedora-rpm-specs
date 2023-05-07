@@ -24,7 +24,7 @@
 
 Name:           obs-studio
 Version:        29.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Open Broadcaster Software Studio
 
 # OBS itself is GPL-2.0-or-later, while various plugin dependencies are of various other licenses
@@ -298,6 +298,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Fri May 05 2023 Neal Gompa <ngompa@fedoraproject.org> - 29.1.0-3
+- Rebuild for Qt 6.5.0
+
 * Thu May 04 2023 Neal Gompa <ngompa@fedoraproject.org> - 29.1.0-2
 - Add patch to use FDK-AAC by default
 

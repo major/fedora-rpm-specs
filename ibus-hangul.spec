@@ -2,16 +2,15 @@
 %global require_libhangul_version 0.1.0
 
 Name:       ibus-hangul
-Version:    1.5.4
-Release:    15%{?dist}
+Version:    1.5.5
+Release:    1%{?dist}
 Summary:    The Hangul engine for IBus input platform
 License:    GPLv2+
 URL:        https://github.com/libhangul/ibus-hangul
-Source0:    https://github.com/libhangul/ibus-hangul/releases/download/%{version}/%{name}-%{version}.tar.gz
+Source0:    https://github.com/libhangul/ibus-hangul/releases/download/%{version}/%{name}-%{version}.tar.xz
 
 # not upstreamed patches
 Patch1:     ibus-hangul-setup-abspath.patch
-Patch2:     ibus-hangul-gtk4-sync.patch
 
 BuildRequires:  gettext-devel, automake, libtool
 BuildRequires:  libhangul-devel >= %{require_libhangul_version}
@@ -40,9 +39,7 @@ The %{name}-tests package contains tests that can be used to verify
 the functionality of the installed %{name} package.
 
 %prep
-%setup -q
-%patch1 -p1 -b .setup-abspath
-%patch2 -p1 -b .gtk4-sync
+%autosetup -p1
 
 %build
 ./autogen.sh
@@ -90,6 +87,9 @@ make check \
 %{_datadir}/installed-tests/ibus-hangul
 
 %changelog
+* Thu May  4 2023 Peng Wu <pwu@redhat.com> - 1.5.5-1
+- Update to 1.5.5
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

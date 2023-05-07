@@ -8,18 +8,26 @@
 
 # Use bundled deps as we don't ship the exact right versions for all the
 # required rust libraries
+%if 0%{?rhel}
+%global bundled_rust_deps 1
+%else
 %global bundled_rust_deps 0
+%endif
 
 %global cairo_version 1.16.0
 
 Name:           librsvg2
 Summary:        An SVG library based on cairo
 Version:        2.56.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        LGPLv2+
 URL:            https://wiki.gnome.org/Projects/LibRsvg
 Source0:        https://download.gnome.org/sources/librsvg/2.56/librsvg-%{version}.tar.xz
+# upstream dropped vendoring since 2.55.0 (GNOME/librsvg#718), to create:
+#   tar xf librsvg-%%{version}.tar.xz ; pushd librsvg-%%{version} ; \
+#   cargo vendor && tar Jcvf ../librsvg-%%{version}-vendor.tar.xz vendor/ ; popd
+Source1:        librsvg-%{version}-vendor.tar.xz
 
 %if ! 0%{?bundled_rust_deps}
 # Patches to build with Fedora-packaged rust crates
@@ -47,8 +55,7 @@ BuildRequires:  pkgconfig(pangoft2)
 BuildRequires:  vala
 BuildRequires:  /usr/bin/rst2man
 %if 0%{?bundled_rust_deps}
-BuildRequires:  cargo
-BuildRequires:  rust
+BuildRequires:  rust-toolset
 %else
 BuildRequires:  rust-packaging
 %endif
@@ -80,6 +87,7 @@ This package provides extra utilities based on the librsvg library.
 %autosetup -n librsvg-%{version} -p1
 %if 0%{?bundled_rust_deps}
 # Use the bundled deps
+%cargo_prep -V 1
 %else
 # No bundled deps
 rm -vrf vendor .cargo Cargo.lock
@@ -138,6 +146,9 @@ rm -f %{buildroot}%{_pkgdocdir}/COMPILING.md
 %{_mandir}/man1/rsvg-convert.1*
 
 %changelog
+* Thu Apr 27 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2.56.0-2
+- Use bundled dependencies in RHEL builds
+
 * Wed Mar 29 2023 Kalev Lember <klember@redhat.com> - 2.56.0-1
 - Update to 2.56.0
 

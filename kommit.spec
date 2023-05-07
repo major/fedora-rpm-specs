@@ -1,5 +1,5 @@
 Name:           kommit
-Version:        1.0.1
+Version:        1.0.2
 Release:        1%{?dist}
 Summary:        Git gui client for KDE
 
@@ -77,5 +77,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 
 
 %changelog
+* Fri May 05 2023 Vasiliy Glazov <vascom2@gmail.com> 1.0.2-1
+- Update to 1.0.2
+
 * Thu Mar 30 2023 Vasiliy Glazov <vascom2@gmail.com> 1.0.1-1
 - renaming of gitklient

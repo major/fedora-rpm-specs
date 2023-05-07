@@ -2,8 +2,8 @@
 %define _warning_options -Wall -Werror=format-security -Wno-deprecated-declarations -Wno-maybe-uninitialized
 
 Name:          sbsigntools
-Version:       0.9.4
-Release:       11%{?dist}
+Version:       0.9.5
+Release:       1%{?dist}
 Summary:       Signing utility for UEFI secure boot
 License:       GPLv3+
 URL:           https://build.opensuse.org/package/show/home:jejb1:UEFI/sbsigntools
@@ -15,10 +15,6 @@ Source1:       %{name}-mktarball.sh
 Patch0:        %{name}-no-git.patch
 # add Fedora gnu-efi path and link statically against libefi.a/libgnuefi.a
 Patch1:        %{name}-gnuefi.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=1955828
-Patch2:        https://git.kernel.org/pub/scm/linux/kernel/git/jejb/sbsigntools.git/patch/?id=f12484869c9590682ac3253d583bf59b890bb826#/f12484869c9590682ac3253d583bf59b890bb826.patch
-# https://groups.io/g/sbsigntools/message/54
-Patch3:        %{name}-openssl3.patch
 # same as gnu-efi
 ExclusiveArch: x86_64 aarch64 %{arm} %{ix86}
 BuildRequires: make
@@ -86,6 +82,10 @@ make check
 %{_mandir}/man1/sbverify.1.*
 
 %changelog
+* Fri May 05 2023 Dominik Mierzejewski <dominik@greysector.net> - 0.9.5-1
+- update to 0.9.5 (#2179697)
+- drop obsolete patches
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    8759aea06e4dd19f1c4e6846ffaf37d4f88d3fac
+%global gh_commit    73e64cad6df33cfd05ca5009773975fcb0d9b960
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global c_vendor     tecnickcom
 %global gh_owner     tecnickcom
@@ -15,7 +15,7 @@
 %bcond_without       tests
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        1.17.22
+Version:        1.17.24
 Release:        1%{?dist}
 Summary:        PHP library to generate linear and bidimensional barcodes
 
@@ -126,6 +126,7 @@ ret=0
 for cmdarg in "php %{phpunit}" "php80 %{phpunit}" php81 php82; do
    if which $cmdarg; then
       set $cmdarg
+      $1 ${2:-%{_bindir}/phpunit10} --migrate-configuration || :
       $1 ${2:-%{_bindir}/phpunit10} \
         --no-coverage --stderr || ret=1
    fi
@@ -145,6 +146,9 @@ exit $ret
 
 
 %changelog
+* Fri May  5 2023 Remi Collet <remi@remirepo.net> - 1.17.24-1
+- update to 1.17.24 (no change)
+
 * Thu May  4 2023 Remi Collet <remi@remirepo.net> - 1.17.22-1
 - update to 1.17.22 (no change)
 

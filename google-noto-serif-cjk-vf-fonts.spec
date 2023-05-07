@@ -2,7 +2,7 @@
 
 Epoch:   1
 Version: 2.001
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL:     https://github.com/googlefonts/noto-cjk
 
 BuildRequires:            python3
@@ -37,8 +37,8 @@ Provides:       %{subpkgname} = %{epoch}:%{version}-%{release}\
 
 %global obsoletes_serif()\
 %define langname %1\
-%obsoletes_pkg google-noto-sans-cjk-%{langname}-fonts\
-%obsoletes_pkg google-noto-sans-%{langname}-fonts\
+%obsoletes_pkg google-noto-serif-cjk-%{langname}-fonts\
+%obsoletes_pkg google-noto-serif-%{langname}-fonts\
 
 %global fontpkgheader     %{expand:
 # The Noto Serif CJK fonts have both Variable and non-Variable fonts.
@@ -84,6 +84,9 @@ python3 genfontconf.py "ja" "serif" "Noto Serif CJK JP" \
 %fontfiles
 
 %changelog
+* Thu May  4 2023 Peng Wu <pwu@redhat.com> - 1:2.001-2
+- Fix obsoletes_serif macro (rhbz #2190290)
+
 * Fri Feb  3 2023 Peng Wu <pwu@redhat.com> - 1:2.001-1
 - Initial Packaging
 - Migrate to SPDX license

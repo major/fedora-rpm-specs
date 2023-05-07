@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 39.12
+Version: 39.13
 Release: 1%{?dist}
 License: GPLv2+ and MIT
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -469,6 +469,11 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu May 04 2023 Packit <hello@packit.dev> - 39.13-1
+- WebUI: fix eslint error (jvanderwaa)
+- WebUI: run eslint in CI (jvanderwaa)
+- Update translations from Weblate
+
 * Tue Apr 25 2023 Packit <hello@packit.dev> - 39.12-1
 - WebUI: [pixel tests]  Hide progress stepper after finishing (rvykydal)
 - WebUI: allow webui_testvm to pick up development files (jvanderwaa)

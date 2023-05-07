@@ -1911,7 +1911,11 @@ for suffix in %{build_loop} ; do
     # it may happen, that some library - in original case libjsvml build identically for two jdks
     # it is becasue of our ld/gcc flags - otherwise rpm build enhances each binarry by full path to it
     # if it is hit then this library needs to have build-id repalced - note, that it do not affect dbugability
-    for lib in lib/libjsvml.so ; do
+    clashinglibs=""
+%ifarch %{svml_arches}
+    clashinglibs="$clashinglibs lib/libjsvml.so"
+%endif
+    for lib in $clashinglibs ; do
       libjsvmlgcchackdir=`mktemp -d`
       pushd $libjsvmlgcchackdir
         libjsvml=${top_dir_abs_main_build_path}/$lib

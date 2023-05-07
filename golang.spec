@@ -105,13 +105,13 @@
 # Comment out go_prerelease and go_patch as needed
 %global go_api 1.20
 #global go_prerelease rc3
-%global go_patch 3
+%global go_patch 4
 
 %global go_version %{go_api}%{?go_patch:.%{go_patch}}%{?go_prerelease:~%{go_prerelease}}
 %global go_source %{go_api}%{?go_patch:.%{go_patch}}%{?go_prerelease}
  
 # For rpmdev-bumpspec and releng automation
-%global baserelease 2
+%global baserelease 1
  
 Name:           golang
 Version:        %{go_version}
@@ -539,6 +539,10 @@ fi
 %endif
 
 %changelog
+* Tue May 02 2023 Alejandro Sáez <asm@redhat.com> - 1.20.4-1
+- Update to go1.20.4
+- Resolves: rhbz#2184454
+
 * Sat Apr 15 2023 Maxwell G <maxwell@gtmx.me> - 1.20.3-2
 - Fix broken golang-race update path
 

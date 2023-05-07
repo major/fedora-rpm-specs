@@ -57,7 +57,7 @@
 Name:    qt5-qtbase
 Summary: Qt5 - QtBase components
 Version: 5.15.9
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -148,6 +148,9 @@ Patch101: qtbase-5.15.8-fix-missing-qtsan-include.patch
 # https://bugreports.qt.io/browse/QTBUG-112136
 Patch102: qtbase-QTBUG-111994.patch
 Patch103: qtbase-QTBUG-112136.patch
+# IBus input method cannot set panel position correctly with DPI scaling
+# https://bugreports.qt.io/browse/QTBUG-103393
+Patch104: qtbase-QTBUG-103393.patch
 
 # Do not check any files in %%{_qt5_plugindir}/platformthemes/ for requires.
 # Those themes are there for platform integration. If the required libraries are
@@ -396,7 +399,7 @@ Qt5 libraries used for drawing widgets and OpenGL items.
 
 ## upstream fixes
 
-%patch50 -p1 -b .QT_VERSION_CHECK
+%patch -P50 -p1 -b .QT_VERSION_CHECK
 # FIXME/TODO : rebase or drop -- rdieter
 #patch -P51 -p1 -b .hidpi_scale_at_192
 %patch -P52 -p1 -b .moc_macros
@@ -425,6 +428,7 @@ Qt5 libraries used for drawing widgets and OpenGL items.
 %patch -P101 -p1
 %patch -P102 -p1
 %patch -P103 -p1
+%patch -P104 -p1
 
 # move some bundled libs to ensure they're not accidentally used
 pushd src/3rdparty
@@ -1104,6 +1108,9 @@ fi
 
 
 %changelog
+* Fri May 05 2023 Than Ngo <than@redhat.com> - 5.15.9-2
+- backport, IBus input method cannot set panel position correctly with DPI scaling
+
 * Tue Apr 11 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.9-1
 - 5.15.9
 

@@ -1,12 +1,12 @@
 %global packname lintr
-%global packver  3.0.1
+%global packver  3.0.2
 %global rlibdir  %{_datadir}/R/library
 
 %global with_suggests 0
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          3%{?dist}
+Release:          1%{?dist}
 Summary:          A 'Linter' for R Code
 
 License:          MIT
@@ -97,6 +97,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-tests --no-ex
 
 
 %changelog
+* Fri May 5 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 3.0.2-1
+- Update to 3.0.2
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 3.0.1-3
 - R-maint-sig mass rebuild
 

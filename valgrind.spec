@@ -3,7 +3,7 @@
 Summary: Dynamic analysis tools to detect memory or thread bugs and profile
 Name: %{?scl_prefix}valgrind
 Version: 3.21.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 1
 License: GPLv2+
 URL: https://www.valgrind.org/
@@ -82,6 +82,10 @@ Patch3: valgrind-3.16.0-some-stack-protector.patch
 
 # Add some -Wl,z,now.
 Patch4: valgrind-3.16.0-some-Wl-z-now.patch
+
+# Workaround https://bugs.kde.org/show_bug.cgi?id=402833
+# by disabling overlap checking for memcpy
+Patch5: valgrind-3.21.0-no-memcpy-replace-check.patch
 
 BuildRequires: make
 BuildRequires: glibc-devel
@@ -219,6 +223,8 @@ Valgrind User Manual for details.
 %patch3 -p1
 %patch4 -p1
 %endif
+
+%patch5 -p1
 
 %build
 # LTO triggers undefined symbols in valgrind.  Valgrind has a --enable-lto
@@ -448,6 +454,9 @@ fi
 %endif
 
 %changelog
+* Fri May  5 2023 Mark Wielaard <mjw@fedoraproject.org> - 3.21.0-2
+- Add valgrind-3.21.0-no-memcpy-replace-check.patch
+
 * Fri Apr 28 2023 Mark Wielaard <mjw@fedoraproject.org> - 3.21.0-1
 - Upstream 3.21.0 final
 

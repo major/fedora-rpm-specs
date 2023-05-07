@@ -12,7 +12,7 @@
 
 Name:		libpfm
 Version:	4.13.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 Summary:	Library to encode performance events for use by perf tool
 
@@ -71,6 +71,10 @@ Python bindings for libpfm4 and perf_event_open system call.
 %prep
 %setup -q
 %patch2 -p1 -b .python3
+# to prevent setuptools from installing an .egg, we need to pass --root to setup.py install
+# see https://github.com/pypa/setuptools/issues/3143
+# and https://github.com/pypa/pip/issues/11501
+sed -i 's/--prefix=$(DESTDIR)$(PYTHON_PREFIX)/--root=$(DESTDIR) --prefix=$(PYTHON_PREFIX)/' python/Makefile
 
 %build
 %if %{with python}
@@ -86,14 +90,15 @@ Python bindings for libpfm4 and perf_event_open system call.
 rm -rf $RPM_BUILD_ROOT
 
 %if %{with python}
-%global python_config CONFIG_PFMLIB_NOPYTHON=n PYTHON_PREFIX=$RPM_BUILD_ROOT/%{python_prefix}
+%global python_config CONFIG_PFMLIB_NOPYTHON=n PYTHON_PREFIX=%{python_prefix}
 %else
 %global python_config CONFIG_PFMLIB_NOPYTHON=y
 %endif
 
 make \
-    PREFIX=$RPM_BUILD_ROOT%{_prefix} \
-    LIBDIR=$RPM_BUILD_ROOT%{_libdir} \
+    DESTDIR=$RPM_BUILD_ROOT \
+    PREFIX=%{_prefix} \
+    LIBDIR=%{_libdir} \
     %{python_config} \
     LDCONFIG=/bin/true \
     install
@@ -120,10 +125,14 @@ rm $RPM_BUILD_ROOT%{_libdir}/lib*.a
 
 %if %{with python}
 %files -n python3-libpfm
-%{python3_sitearch}/*
+%{python3_sitearch}/perfmon-*.egg-info/
+%{python3_sitearch}/perfmon/
 %endif
 
 %changelog
+* Tue Apr 25 2023 Miro Hrončok <mhroncok@redhat.com> - 4.13.0-2
+- Don't install a Python .egg
+
 * Tue Mar 28 2023 William Cohen <wcohen@redhat.com> - 4.13.0-1
 - Rebase on libpfm-4.13.0.
 

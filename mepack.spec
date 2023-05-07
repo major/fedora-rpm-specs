@@ -1,6 +1,6 @@
 %global major 1
 %global minor 0
-%global patch 3
+%global patch 4
 
 Name:           mepack
 Version:        %{major}.%{minor}.%{patch}
@@ -12,7 +12,7 @@ Summary:        A Fortran software library for solving dense Sylvester-like matr
 # everything else is GPL-3.0-or-later
 License:        GPL-3.0-or-later and LGPL-2.1-or-later and BSD-3-Clause
 URL:            https://www.mpi-magdeburg.mpg.de/projects/%{name}
-Source0:        https://gitlab.mpi-magdeburg.mpg.de/software/%{name}-release/-/archive/v%{version}/%{name}-release-v%{version}.tar.gz
+Source0:        https://github.com/mpimd-csc/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  make, cmake
 BuildRequires:  gcc, gcc-fortran
@@ -52,7 +52,7 @@ Requires:       %{name}64%{?_isa} = %{version}-%{release}
 This package contains the development headers and libraries.
 
 %prep
-%autosetup -p1 -n %{name}-release-v%{version}
+%autosetup -p1
 sed -i 's/GENERATE_HTML[ \t]*= YES/GENERATE_HTML = NO/g' doc/Doxyfile.in
 sed -i 's/GENERATE_MAN [ \t]*= NO/GENERATE_MAN  = YES/g' doc/Doxyfile.in
 
@@ -80,7 +80,7 @@ cp -R build/doc/man/man3 %{buildroot}%{_mandir}
 %if 0%{?__isa_bits} == 64
 %make_install -C build64
 %endif
-# fix moduledir path (reported upstream)
+# https://github.com/mpimd-csc/mepack/issues/1
 sed -i 's|moduledir=${prefix}/|moduledir=|' %{buildroot}%{_libdir}/pkgconfig/%{name}.pc
 %if 0%{?__isa_bits} == 64
 sed -i 's|moduledir=${prefix}/|moduledir=|' %{buildroot}%{_libdir}/pkgconfig/%{name}64.pc

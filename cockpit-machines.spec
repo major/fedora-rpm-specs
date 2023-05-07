@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-machines
-Version:        289
+Version:        289.1
 Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
@@ -165,6 +165,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Fri May 05 2023 Packit <hello@packit.dev> - 289.1-1
+- Fix alignment of icons in main view
+
 * Thu May 04 2023 Packit <hello@packit.dev> - 289-1
 - Update to PatternFly 5 Alpha
 - Option to use RAW volume during VM creation

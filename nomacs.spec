@@ -5,7 +5,7 @@
 Name:		nomacs
 Summary:	Lightweight image viewer
 Version:	3.16
-Release:	14%{?dist}
+Release:	15%{?dist}
 License:	GPLv3+ and CC-BY
 Url:		http://nomacs.org
 Source0:	https://github.com/%{github_owner}/%{name}/archive/%{version}.%{git_build}/%{name}-%{version}.%{git_build}.tar.gz
@@ -63,8 +63,8 @@ Some usefull plugins for nomacs:
 
 %prep
 %setup -n %{name}-%{version}.%{git_build}
-%patch0
-%patch1
+%patch -P 0
+%patch -P 1
 %setup -T -D -a 1 -n %{name}-%{version}.%{git_build}
 # plug them in
 mv nomacs-plugins-%{version}/* ImageLounge/plugins/
@@ -117,6 +117,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Fri May 05 2023 Nicolas Chauvet <kwizart@gmail.com> - 3.16-15
+- Rebuilt for quazip 1.4
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.16-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

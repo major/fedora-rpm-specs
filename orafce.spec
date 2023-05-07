@@ -1,8 +1,8 @@
-%global githubversion 3_21_1
+%global githubversion 4_2_6
 
 Name:		orafce
-Version:	3.21.1
-Release:	4%{?dist}
+Version:	4.2.6
+Release:	1%{?dist}
 Summary:	Implementation of some Oracle functions into PostgreSQL
 License:	BSD
 URL:		http://github.com/orafce/orafce
@@ -44,6 +44,9 @@ for production work.
 
 
 %changelog
+* Fri May 05 2023 Ondrej Sloup <osloup@redhat.com> -  4.2.6-1
+- Rebase to the latest upstream version
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.21.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

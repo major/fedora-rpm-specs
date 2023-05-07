@@ -5,9 +5,9 @@ Version:        1.26
 Release:        30%{?dist}
 Summary:        Perl module for manipulation of IPv4 and IPv6 addresses
 # Some ambiguity here, see http://rt.cpan.org/Ticket/Display.html?id=28689
-# MIT-like for the IP.pm itself, and "like Perl itself" for all the other
+# HPND (MIT-like) for the IP.pm itself, and "like Perl itself" for all the other
 # scripts included.
-License:        MIT and (GPL+ or Artistic)
+License:        HPND AND (GPL-1.0-or-later OR Artistic-1.0-Perl)
 URL:            https://metacpan.org/release/Net-IP
 Source:         https://cpan.metacpan.org/modules/by-module/Net/Net-IP-%{version}.tar.gz
 Patch0:         Net-IP-1.26-rt60439.patch
@@ -49,10 +49,10 @@ handy IP "cheat sheet".
 %setup -q -n Net-IP-%{version}
 
 # Apply fix for zero networks (#197425, CPAN RT#20265, CPAN RT#60439)
-%patch0
+%patch -P 0
 
 # Fix shellbangs in shipped scripts
-%patch1
+%patch -P 1
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor
@@ -73,10 +73,10 @@ PERL5LIB=%{buildroot}%{perl_vendorlib} ./iptab
 %files
 %license COPYING
 %doc Changes README
-# GPL+ or Artistic
+# GPL-1.0-or-later OR Artistic-1.0-Perl
 %{_bindir}/ipcount
 %{_bindir}/iptab
-# MIT
+# HPND
 %{perl_vendorlib}/Net/
 %{_mandir}/man3/Net::IP.3*
 

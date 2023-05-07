@@ -1,6 +1,6 @@
 Name:           ckb-next
 Version:        0.5.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Unofficial driver for Corsair RGB keyboards
 
 # ckb-next is GPLv2.
@@ -149,6 +149,9 @@ udevadm control --reload-rules 2>&1 > /dev/null || :
 
 
 %changelog
+* Fri May 05 2023 Nicolas Chauvet <kwizart@gmail.com> - 0.5.0-5
+- Rebuilt for quazip 1.4
+
 * Tue May 02 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.5.0-4
 - Add a patch to fix program aborting on launch
 - Un-bundle kissfft

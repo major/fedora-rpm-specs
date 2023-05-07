@@ -4,14 +4,13 @@
 %bcond_with hevc
 
 Name:           libheif
-Version:        1.15.2
+Version:        1.16.1
 Release:        1%{?dist}
 Summary:        HEIF and AVIF file format decoder and encoder
 
 License:        LGPL-3.0-or-later and MIT
 URL:            https://github.com/strukturag/%{name}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0:         https://patch-diff.githubusercontent.com/raw/strukturag/libheif/pull/815.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -21,6 +20,7 @@ BuildRequires:  pkgconfig(dav1d)
 BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libpng)
 %if ! (0%{?rhel} && 0%{?rhel} <= 9)
+BuildRequires:  pkgconfig(libsharpyuv)
 BuildRequires:  pkgconfig(rav1e)
 %endif
 %if ! ((0%{?rhel} && 0%{?rhel} <= 9) || (0%{?fedora} && 0%{?fedora} < 38))
@@ -135,6 +135,9 @@ rm -rf third-party/
 
 
 %changelog
+* Fri May 05 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.16.1-1
+- Update to 1.16.1
+
 * Sun Apr 30 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.15.2-2
 - backport fix for issue#590
 

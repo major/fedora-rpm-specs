@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 12.10
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
 # Maintainer: nickc@redhat.com
@@ -67,7 +67,7 @@ Source: https://nickc.fedorapeople.org/%{annobin_sources}
 %global annobin_source_dir %{_usrsrc}/annobin
 
 # Insert patches here, if needed.  Eg:
-# Patch01: annobin-foo.patch
+Patch01: annobin-plugin-default-string-notes.patch
 
 #---------------------------------------------------------------------------------
 
@@ -525,6 +525,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri May 05 2023 Nick Clifton  <nickc@redhat.com> - 12.10-2
+- GCC Plugin: Default to generating string format notes.  (Experimental)
+
 * Fri Apr 28 2023 Nick Clifton  <nickc@redhat.com> - 12.10-1
 - Annocheck: Suppress more tests for Rust binaries.
 

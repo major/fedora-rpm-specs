@@ -1,5 +1,5 @@
 Name:           hcxtools
-Version:        6.2.9
+Version:        6.3.0
 Release:        %autorelease
 Summary:        Portable solution for conversion WiFi dump files to hashcat formats
 

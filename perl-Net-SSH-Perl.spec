@@ -1,23 +1,10 @@
-# We have an older version of CryptX with ECC support stripped out
-# so that we can unbundle libtomcrypt; as such, we need to remove the
-# parts of Net-SSH-Perl that use this functionality
-# https://bugzilla.redhat.com/show_bug.cgi?id=1545816
-#
-# However, it has been un-hobbled since F-36 and in EPEL
-%if 0%{?fedora} > 35 || 0%{?rhel:1}
-%global hobbled_cryptx 0
-%else
-%global hobbled_cryptx 1
-%endif
-
 Summary:	SSH (Secure Shell) client
 Name:		perl-Net-SSH-Perl
 Version:	2.14
-Release:	19%{?dist}
-License:	GPL+ or Artistic
+Release:	20%{?dist}
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Net-SSH-Perl
 Source0:	https://cpan.metacpan.org/authors/id/S/SC/SCHWIGON/Net-SSH-Perl-%{version}.tar.gz
-Patch0:		Net-SSH-Perl-2.14-hobbled.patch
 # Module Build
 BuildRequires:	coreutils
 BuildRequires:	findutils
@@ -36,9 +23,7 @@ BuildRequires:	perl(constant)
 BuildRequires:	perl(Crypt::Cipher::AES)
 BuildRequires:	perl(Crypt::Cipher::Blowfish)
 BuildRequires:	perl(Crypt::Cipher::DES)
-%if ! %{hobbled_cryptx}
 BuildRequires:	perl(Crypt::Curve25519)		>= 0.05
-%endif
 BuildRequires:	perl(Crypt::Digest::MD5)
 BuildRequires:	perl(Crypt::Digest::SHA1)
 BuildRequires:	perl(Crypt::Digest::SHA256)
@@ -49,9 +34,7 @@ BuildRequires:	perl(Crypt::Mac::HMAC)
 BuildRequires:	perl(Crypt::Misc)
 BuildRequires:	perl(Crypt::PK::DH)
 BuildRequires:	perl(Crypt::PK::DSA)
-%if ! %{hobbled_cryptx}
 BuildRequires:	perl(Crypt::PK::ECC)
-%endif
 BuildRequires:	perl(Crypt::PK::RSA)
 BuildRequires:	perl(Crypt::PRNG)
 BuildRequires:	perl(CryptX)			>= 0.032
@@ -88,7 +71,7 @@ BuildRequires:	perl(Data::Dumper)
 BuildRequires:	perl(lib)
 BuildRequires:	perl(Test)
 BuildRequires:	perl(Test::More)		>= 0.61
-# Runtime
+# Dependencies
 Requires:	perl(Digest::BubbleBabble)
 Requires:	perl(File::Basename)
 Requires:	perl(File::Path)
@@ -100,16 +83,6 @@ client. It is compatible with both the SSH-1 and SSH-2 protocols.
 
 %prep
 %setup -q -n Net-SSH-Perl-%{version}
-
-# If we have a hobbled CryptX without ECC support, we have to remove some functionality
-%if %{hobbled_cryptx}
-rm lib/Net/SSH/Perl/Kex/C25519.pm
-rm lib/Net/SSH/Perl/Key/ECDSA.pm
-rm lib/Net/SSH/Perl/Key/ECDSA256.pm
-rm lib/Net/SSH/Perl/Key/ECDSA384.pm
-rm lib/Net/SSH/Perl/Key/ECDSA521.pm
-%patch0
-%endif
 
 %build
 # Protocol support (select one)
@@ -133,6 +106,10 @@ make test
 %{_mandir}/man3/Net::SSH::Perl*.3*
 
 %changelog
+* Fri May  5 2023 Paul Howarth <paul@city-fan.org> - 2.14-20
+- Use SPDX-format license tag
+- Drop support for using hobbled CryptX without ECC support
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.14-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

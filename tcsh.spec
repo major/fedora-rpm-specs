@@ -12,8 +12,8 @@
 
 Name:             tcsh
 Summary:          An enhanced version of csh, the C shell
-Version:          6.24.07
-Release:          3%{?dist}
+Version:          6.24.10
+Release:          1%{?dist}
 License:          BSD-3-Clause
 
 URL:              http://www.tcsh.org/
@@ -177,6 +177,9 @@ fi
 # =============================================================================
 
 %changelog
+* Fri May 05 2023 Jan Macku <jamacku@redhat.com> - 6.24.10-1
+- Update to tcsh-6.24.10 (#2185572)
+
 * Mon Apr 24 2023 Lukáš Zaoral <lzaoral@redhat.com> - 6.24.07-3
 - migrate to SPDX license format
 

@@ -1,7 +1,7 @@
 %global forgeurl https://github.com/npwoods/bletchmame
 
 Name:           bletchmame
-Version:        2.16
+Version:        2.15
 Release:        %autorelease
 Summary:        MAME emulator frontend
 
@@ -25,7 +25,6 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  expat-devel
 BuildRequires:  libappstream-glib
 BuildRequires:  libxkbcommon-devel
-BuildRequires:  lzma-sdk-devel
 BuildRequires:  observable-devel
 BuildRequires:  perl
 BuildRequires:  qt6-qttools-devel

@@ -5,7 +5,7 @@
 %bcond_without doc_pdf
 
 Name:           python-ZConfig
-Version:        3.6.1
+Version:        4.0
 Release:        %autorelease
 Summary:        Structured Configuration Library
 

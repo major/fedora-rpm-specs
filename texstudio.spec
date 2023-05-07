@@ -1,6 +1,6 @@
 Name:           texstudio
 Version:        4.5.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary:        A feature-rich editor for LaTeX documents
 # texstudio binary: GPLv3 due to static linkage of bundled qcodeedit
@@ -118,6 +118,9 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE1}
 %doc utilities/AUTHORS utilities/COPYING utilities/manual/source/CHANGELOG.md
 
 %changelog
+* Fri May 05 2023 Nicolas Chauvet <kwizart@gmail.com> - 4.5.2-3
+- Rebuilt for quazip 1.4
+
 * Sat Apr 15 2023 Johannes Lips <hannes@fedoraproject.org> 4.5.2-2
 - fixed patch macro
 - minor fixes

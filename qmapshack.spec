@@ -3,7 +3,7 @@
 
 Name: qmapshack
 Version: 1.16.1
-Release: 11%{?commit:.git%shortcommit}%{?dist}
+Release: 12%{?commit:.git%shortcommit}%{?dist}
 Summary: GPS mapping and management tool
 
 License: GPLv3+ and BSD
@@ -110,6 +110,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/qmaptool.desktop
 
 
 %changelog
+* Fri May 05 2023 Nicolas Chauvet <kwizart@gmail.com> - 1.16.1-12
+- Rebuilt for quazip 1.4
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

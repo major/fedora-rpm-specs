@@ -16,7 +16,7 @@
 Summary: Qt6 - QtDeclarative component
 Name:    qt6-%{qt_module}
 Version: 6.5.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -49,6 +49,7 @@ BuildRequires: ninja-build
 BuildRequires: qt6-rpm-macros
 BuildRequires: qt6-qtbase-devel >= %{version}
 BuildRequires: qt6-qtbase-private-devel
+BuildRequires: qt6-qtlanguageserver-devel >= %{version}
 BuildRequires: qt6-qtshadertools-devel >= %{version}
 %{?_qt6:Requires: %{_qt6}%{?_isa} = %{_qt6_version}}
 BuildRequires: python%{python3_pkgversion}
@@ -329,6 +330,9 @@ make check -k -C tests ||:
 %endif
 
 %changelog
+* Mon Apr 03 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 6.5.0-2
+- Enable qmlls
+
 * Mon Apr 03 2023 Jan Grulich <jgrulich@redhat.com> - 6.5.0-1
 - 6.5.0
 

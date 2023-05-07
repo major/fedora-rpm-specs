@@ -1,6 +1,6 @@
 Name:           perl-DBIx-QueryLog
 Version:        0.42
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Logging queries for DBI
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/DBIx-QueryLog
@@ -65,11 +65,13 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %license LICENSE
 %doc Changes README.md script/
 %{perl_vendorlib}/*
-%{_mandir}/man1/*
 %{_mandir}/man3/*
 
 
 %changelog
+* Thu May 04 2023 Denis Fateyev <denis@fateyev.com> - 0.42-14
+- Removed missing man files from spec
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.42-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

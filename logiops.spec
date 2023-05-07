@@ -1,15 +1,12 @@
-%global commitshakey dbe2b28
-%global commitshakeylong dbe2b28a5307dfc25e7b4858b94bded9acc5ea5c
-
 Name:    logiops
-Version: 0.2.3^1.git%{commitshakey}
-Release: 12%{?dist}
+Version: 0.3.1
+Release: 1%{?dist}
 Summary: Unofficial driver for Logitech mice and keyboard
 
 License: GPLv3
 URL:     https://github.com/PixlOne/logiops
 
-Source0: https://github.com/PixlOne/logiops/archive/%{name}-%{commitshakeylong}.tar.gz
+Source0: https://github.com/PixlOne/logiops/releases/download/v0.3.1/%{name}-v%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  systemd-devel
@@ -19,6 +16,7 @@ BuildRequires:  libconfig-devel
 BuildRequires:  libevdev-devel
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
+BuildRequires:  glib2-devel
 
 %description
 This is an unofficial driver for Logitech mice and keyboard.
@@ -26,7 +24,7 @@ This is an unofficial driver for Logitech mice and keyboard.
 This is currently only compatible with HID++ >2.0 devices.
 
 %prep
-%setup -q -n %{name}-%{commitshakeylong}
+%setup -q -n %{name}-v%{version}
 
 %build
 %{cmake}
@@ -53,6 +51,9 @@ This is currently only compatible with HID++ >2.0 devices.
 %doc logid.example.cfg
 
 %changelog
+* Fri May 05 2023 Nicolas De Amicis <deamicis@bluewin.ch> - 0.3.1-1
+- New version 0.3.1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3^1.gitdbe2b28-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

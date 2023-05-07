@@ -2,7 +2,7 @@
 #
 # To build and run the tests use:
 #
-# fedpkg local --with testsuite
+# fedpkg mockbuild --with testsuite
 # or
 # rpmbuild --rebuild --with testsuite samba.src.rpm
 #
@@ -10,11 +10,14 @@
 
 # Build with internal talloc, tevent, tdb and ldb.
 #
-# fedpkg local --with=testsuite --with=includelibs
+# fedpkg mockbuild --with=testsuite --with=includelibs
 # or
 # rpmbuild --rebuild --with=testsuite --with=includelibs samba.src.rpm
 #
 %bcond_with includelibs
+
+# fedpkg mockbuild --with=ccache
+%bcond_with ccache
 
 # ctdb is enabled by default, you can disable it with: --without clustering
 %bcond_without clustering
@@ -1263,11 +1266,13 @@ export python_LDFLAGS="$(echo %{__global_ldflags} | sed -e 's/-Wl,-z,defs//g')"
 %endif
 
 # Add support for mock ccache plugin
+%if %{with ccache}
 CCACHE="$(command -v ccache)"
 if [ -n "${CCACHE}" ]; then
     ${CCACHE} -s
     export CC="${CCACHE} gcc"
 fi
+%endif
 
 %configure \
         --enable-fhs \

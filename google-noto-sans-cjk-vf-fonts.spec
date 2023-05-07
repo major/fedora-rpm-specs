@@ -2,7 +2,7 @@
 
 Epoch:   1
 Version: 2.004
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL:     https://github.com/googlefonts/noto-cjk
 
 BuildRequires:            python3
@@ -39,7 +39,6 @@ Provides:       %{subpkgname} = %{epoch}:%{version}-%{release}\
 %global obsoletes_sans()\
 %define langname %1\
 %obsoletes_pkg google-noto-sans-cjk-%{langname}-fonts\
-%obsoletes_pkg google-noto-sans-%{langname}-fonts\
 %obsoletes_pkg google-noto-sans-mono-cjk-%{langname}-fonts\
 
 %global fontpkgheader     %{expand:
@@ -97,6 +96,9 @@ python3 genfontconf.py "ja" "monospace" "Noto Sans Mono CJK JP" \
 %fontfiles
 
 %changelog
+* Thu May  4 2023 Peng Wu <pwu@redhat.com> - 1:2.004-2
+- Fix obsoletes_sans macro
+
 * Fri Feb  3 2023 Peng Wu <pwu@redhat.com> - 1:2.004-1
 - Initial Packaging
 - Migrate to SPDX license

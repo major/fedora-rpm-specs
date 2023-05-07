@@ -40,7 +40,7 @@
 %undefine _strict_symbol_defs_build
 
 #global prever rc4
-%global baserelease 4
+%global baserelease 5
 %global mod_vroot_version 0.9.11
 
 Summary:		Flexible, stable and highly-configurable FTP server
@@ -66,6 +66,7 @@ Patch3:			proftpd-1.3.4rc1-mod_vroot-test.patch
 Patch4:			proftpd-1.3.6-no-mod-wrap.patch
 Patch5:			proftpd-1.3.6-no-mod-geoip.patch
 Patch6:			https://patch-diff.githubusercontent.com/raw/proftpd/proftpd/pull/1592.patch
+Patch7:			proftpd-1.3.8-configure-c99.patch
 
 BuildRequires:		coreutils
 BuildRequires:		gcc
@@ -266,6 +267,9 @@ mv contrib/README contrib/README.contrib
 # https://bugzilla.redhat.com/show_bug.cgi?id=2166454
 # https://github.com/proftpd/proftpd/issues/1590
 %patch6 -p1 -b .libidn2
+
+# Port configure script to C99: https://github.com/proftpd/proftpd/pull/1665
+%patch7 -p1 -b .c99
 
 # OpenSSL Cipher Profiles introduced in Fedora 21
 # Elsewhere, we use the default of DEFAULT:!ADH:!EXPORT:!DES
@@ -504,6 +508,9 @@ fi
 %{_mandir}/man1/ftpwho.1*
 
 %changelog
+* Fri May 05 2023 Arjun Shankar <arjun@redhat.com> - 1.3.8-5
+- Port configure script to C99
+
 * Fri Feb  3 2023 Paul Howarth <paul@city-fan.org> - 1.3.8-4
 - Ensure mod_rewrite is linked against libidn2 so that it loads properly
   (rhbz#2166454, https://github.com/proftpd/proftpd/issues/1590)

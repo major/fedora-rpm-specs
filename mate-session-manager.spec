@@ -15,9 +15,9 @@
 Name:           mate-session-manager
 Summary:        MATE Desktop session manager
 License:        GPLv2+
-Version:        %{branch}.0
+Version:        %{branch}.1
 %if 0%{?rel_build}
-Release:        4%{?dist}
+Release:        1%{?dist}
 %else
 Release:        0.20%{?git_rel}%{?dist}
 %endif
@@ -116,6 +116,9 @@ desktop-file-install                               \
 
 
 %changelog
+* Fri May 05 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-1
+- update to 1.26.1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

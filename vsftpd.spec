@@ -2,11 +2,11 @@
 
 Name:    vsftpd
 Version: 3.0.5
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Very Secure Ftp Daemon
 
 # OpenSSL link exception
-License:  GPLv2 with exceptions
+License:  GPL-2.0-only WITH vsftpd-openssl-exception
 URL:      https://security.appspot.com/vsftpd.html
 Source0:  https://security.appspot.com/downloads/%{name}-%{version}.tar.gz
 Source1:  vsftpd.xinetd
@@ -99,6 +99,8 @@ Patch70: fix-str_open.patch
 Patch71: vsftpd-3.0.5-enable_wc_logs-replace_unprintable_with_hex.patch
 Patch72: vsftpd-3.0.5-replace-old-network-addr-functions.patch
 Patch73: vsftpd-3.0.5-replace-deprecated-openssl-functions.patch
+Patch74: vsftpd-3.0.5-add-option-for-tlsv1.3-ciphersuites.patch
+Patch75: vsftpd-3.0.5-use-old-tlsv-options.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
@@ -168,6 +170,10 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Thu May 04 2023 Richard Lescak <rlescak@redhat.com> - 3.0.5-4
+- add option for TLSv1.3 ciphersuites
+- SPDX migration
+
 * Fri Feb 17 2023 Richard Lescak <rlescak@redhat.com> - 3.0.5-3
 - make vsftpd compatible with Openssl 3.0+
 - replace old network functions

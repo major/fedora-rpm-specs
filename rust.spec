@@ -85,7 +85,7 @@
 
 Name:           rust
 Version:        1.69.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        The Rust Programming Language
 License:        (ASL 2.0 or MIT) and (BSD and MIT)
 # ^ written as: (rust itself) and (bundled libraries)
@@ -106,6 +106,9 @@ Patch1:         0001-Use-lld-provided-by-system-for-wasm.patch
 
 # Set a substitute-path in rust-gdb for standard library sources.
 Patch2:         rustc-1.61.0-rust-gdb-substitute-path.patch
+
+# https://github.com/rust-lang/rust/pull/111167
+Patch3:         0001-debuginfo-split-method-declaration-and-definition.patch
 
 ### RHEL-specific patches below ###
 
@@ -222,12 +225,6 @@ BuildRequires:  ninja-build
 Provides:       bundled(llvm) = %{bundled_llvm_version}
 %else
 BuildRequires:  cmake >= 2.8.11
-# LLVM 16 is breaking firefox with "error: Cannot represent a difference across sections"
-# https://bugzilla.redhat.com/show_bug.cgi?id=2189964
-# https://github.com/llvm/llvm-project/issues/61932
-%if 0%{?fedora} >= 38
-%global llvm llvm15
-%endif
 %if 0%{?epel} == 7
 %global llvm llvm14
 %endif
@@ -586,6 +583,7 @@ test -f '%{local_rust_root}/bin/rustc'
 
 %patch -P1 -p1
 %patch -P2 -p1
+%patch -P3 -p1
 
 %if %with disabled_libssh2
 %patch -P100 -p1
@@ -1059,6 +1057,9 @@ end}
 
 
 %changelog
+* Fri May 05 2023 Josh Stone <jistone@redhat.com> - 1.69.0-3
+- Fix debuginfo with LLVM 16
+
 * Mon May 01 2023 Josh Stone <jistone@redhat.com> - 1.69.0-2
 - Build with LLVM 15 on Fedora 38+
 

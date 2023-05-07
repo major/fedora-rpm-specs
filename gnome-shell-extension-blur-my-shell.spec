@@ -2,10 +2,10 @@
 %global uuid        %{extension}@aunetx
 
 Name:           gnome-shell-extension-%{extension}
-Version:        45
+Version:        46
 Release:        %autorelease
 Summary:        Adds a blur look to different parts of the GNOME Shell
-License:        GPL-3.0-only
+License:        GPL-3.0-or-later
 URL:            https://github.com/aunetx/blur-my-shell
 Source:         %{url}/archive/v%{version}/%{extension}-%{version}.tar.gz
 

@@ -7,7 +7,7 @@
 
 Name:           perl-YAML-LibYAML
 Epoch:          1
-Version:        0.86
+Version:        0.87
 Release:        1%{?dist}
 Summary:        Perl YAML Serialization using XS and libyaml
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -93,7 +93,7 @@ with "%{_libexecdir}/%{name}/test".
 # Unbundled libyaml, the source files are the same as in libyaml-0.2.4
 # It was determined by comparing commits in upstream repo:
 # https://github.com/yaml/libyaml/
-%patch0 -p1 -b .orig
+%patch -P 0 -p1 -b .orig
 for file in api.c dumper.c emitter.c loader.c parser.c reader.c scanner.c \
     writer.c yaml.h yaml_private.h; do
     rm LibYAML/$file
@@ -155,6 +155,11 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri May  5 2023 Paul Howarth <paul@city-fan.org> - 1:0.87-1
+- Update to 0.87
+  - Turn off internal POK flag for number scalars
+- Avoid use of deprecated patch syntax
+
 * Thu Jan 26 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:0.86-1
 - 0.86 bump
 - Package tests

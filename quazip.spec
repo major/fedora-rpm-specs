@@ -25,6 +25,7 @@ URL:		https://github.com/stachenov/quazip
 Source0:	%{url}/archive/v%{version}/%{name}-v%{version}.tar.gz
 # pre-1.0 compat CMake module
 Source1:	FindQuaZip.cmake
+BuildRequires:	bzip2-devel
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
 BuildRequires:	zlib-devel
@@ -57,6 +58,7 @@ from and writing to ZIP archives.
 %package devel
 Summary:	Development files for %{name}
 Requires:	%{name}%{?_isa} = %{version}-%{release}
+Requires:	bzip2-devel%{?_isa}
 Requires:	qt4-devel%{?_isa}
 Requires:	zlib-devel%{?_isa}
 
@@ -82,6 +84,7 @@ from and writing to ZIP archives.
 %package qt5-devel
 Summary:	Development files for %{name}-qt5
 Requires:	%{name}-qt5%{?_isa} = %{version}-%{release}
+Requires:	bzip2-devel%{?_isa}
 Requires:	qt5-qtbase-devel%{?_isa}
 Requires:	zlib-devel%{?_isa}
 
@@ -107,6 +110,7 @@ from and writing to ZIP archives.
 %package qt6-devel
 Summary:	Development files for %{name}-qt6
 Requires:	%{name}-qt6%{?_isa} = %{version}-%{release}
+Requires:	bzip2-devel%{?_isa}
 Requires:	qt6-qtbase-devel%{?_isa}
 Requires:	qt6-qt5compat-devel%{?_isa}
 Requires:	zlib-devel%{?_isa}
