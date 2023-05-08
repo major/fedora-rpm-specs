@@ -6,7 +6,7 @@
 %bcond tests 1
 
 Name:           python-orjson
-Version:        3.8.10
+Version:        3.8.11
 Release:        1%{?dist}
 Summary:        Fast, correct Python JSON library
 
@@ -17,8 +17,6 @@ Source:         %{pypi_source orjson}
 Patch:          Use-setuptools-rust-instead-of-maturin.patch
 # Ineligble for upstreaming
 Patch:          Remove-unstable-simd-feature.patch
-# https://github.com/ijl/orjson/issues/373
-Patch:          don-t-use-vendored-pyo3-build-config-and-pyo3-ffi.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  rust-packaging
@@ -117,5 +115,8 @@ export RUSTFLAGS='%{build_rustflags}'
 
 
 %changelog
+* Fri May 5 2023 Maxwell G <maxwell@gtmx.me> - 3.8.11-1
+- Update to 3.8.11. Fixes rhbz#2193468.
+
 * Wed Apr 12 2023 Maxwell G <maxwell@gtmx.me> - 3.8.10-1
 - Initial package (rhbz#2184237).

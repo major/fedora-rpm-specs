@@ -2,16 +2,11 @@ Name: cpufetch
 Summary: Simple tool for determining CPU architecture
 License: GPL-2.0-only
 
-Version: 1.03
-Release: 2%{?dist}
+Version: 1.04
+Release: 1%{?dist}
 
 URL: https://github.com/Dr-Noob/cpufetch
 Source0: %{URL}/archive/v%{version}/%{name}-v%{version}.tar.gz
-
-# Large parts of the code are conditionally compiled based on architecture.
-# Upstream code contains a bug where on PowerPC, some code depends on stuff
-# that's disabled for said architecture.
-Patch0: 0000-fix-powerpc-build-errors.patch
 
 BuildRequires: gcc
 BuildRequires: make
@@ -55,6 +50,10 @@ mv %{buildroot}%{_mandir}/man1/%{name}.1{.gz,}
 
 
 %changelog
+* Sat May 06 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.04-1
+- Update to v1.04
+- Drop Patch0 (build failure on PowerPC - fixed upstream)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.03-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

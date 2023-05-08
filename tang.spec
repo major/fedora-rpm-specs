@@ -1,14 +1,12 @@
 Name:           tang
-Version:        11
-Release:        6%{?dist}
+Version:        13
+Release:        1%{?dist}
 Summary:        Network Presence Binding Daemon
 
 License:        GPLv3+
 URL:            https://github.com/latchset/%{name}
 Source0:        https://github.com/latchset/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
 Source1:        tang.sysusers
-
-Patch: 0001-When-json_load_file-fails-report-the-error-details-i.patch
 
 BuildRequires:  gcc
 BuildRequires:  meson
@@ -31,6 +29,7 @@ BuildRequires:  coreutils
 BuildRequires:  grep
 BuildRequires:  socat
 BuildRequires:  sed
+BuildRequires:  iproute
 
 %{?systemd_requires}
 Requires:       coreutils
@@ -100,6 +99,9 @@ fi
 %{_sysusersdir}/tang.conf
 
 %changelog
+* Fri Feb 10 2023 Sergio Arroutbi <sarroutb@redhat.com> - 13-1
+- New upstream release - v13
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

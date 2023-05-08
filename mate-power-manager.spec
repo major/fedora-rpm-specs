@@ -13,9 +13,9 @@
 %{!?rel_build:%global git_tar %{name}-%{version}-%{git_ver}.tar.xz}
 
 Name:          mate-power-manager
-Version:       %{branch}.0
+Version:       %{branch}.1
 %if 0%{?rel_build}
-Release:       5%{?dist}
+Release:       1%{?dist}
 %else
 Release:       0.16%{?git_rel}%{?dist}
 %endif
@@ -28,10 +28,6 @@ URL:           http://pub.mate-desktop.org
 %{?rel_build:Source0:     http://pub.mate-desktop.org/releases/%{branch}/%{name}-%{version}.tar.xz}
 # Source for snapshot-builds.
 %{!?rel_build:Source0:    http://git.mate-desktop.org/%{name}/snapshot/%{name}-%{commit}.tar.xz#/%{git_tar}}
-
-# upstream commits from 1.26 branch
-Patch1:        mate-power-manager_0001-gpm-statistics-fix-memory-leak.patch
-Patch2:        mate-power-manager_0002-gpm-prefs-fix-memory-leak.patch
 
 BuildRequires: cairo-devel
 BuildRequires: dbus-glib-devel
@@ -110,6 +106,9 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/mate-power-manage
 
 
 %changelog
+* Sat May 06 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-1
+- update to 1.26.1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -6,16 +6,14 @@
 %endif
 
 Name:           m17n-lib
-Version:        1.8.0
-Release:        16%{?dist}
+Version:        1.8.1
+Release:        11%{?dist}
 Summary:        Multilingual text library
 
 License:        LGPL-2.1-or-later
 URL:            http://www.nongnu.org/m17n/
 Source0:        http://download.savannah.gnu.org/releases/m17n/%{name}-%{version}.tar.gz
 Patch0:         %{name}-1.8.0-multilib.patch
-Patch1:         Fix-segmentation-fault-when-using-ibus-m17n-with-vi-telex-in-gedit-in-wayland.patch
-Patch2: m17n-lib-c99.patch
 
 BuildRequires: make
 BuildRequires:  m17n-db-devel libthai-devel
@@ -128,6 +126,12 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_libdir}/libm17n-gui.so.*
 
 %changelog
+* Fri May 05 2023 Mike FABIAN <mfabian@redhat.com> - 1.8.1-1
+- Update to 1.8.1
+- Remove m17n-lib-c99.patch (included upstream)
+- Remove Fix-segmentation-fault-when-using-ibus-m17n-with-vi-telex-in-gedit-in-wayland.patch
+  (included upstream)
+
 * Tue Apr 25 2023 Florian Weimer <fweimer@redhat.com> - 1.8.0-16
 - Fix C99 compatibility issue in example code
 

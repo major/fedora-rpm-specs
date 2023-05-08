@@ -1,13 +1,11 @@
 Name:       m17n-db
 Summary:    Multilingualization datafiles for m17n-lib
-Version:    1.8.0
-Release:    29%{?dist}
+Version:    1.8.1
+Release:    1%{?dist}
 License:    LGPL-2.1-or-later
 URL:        http://www.nongnu.org/m17n
 
 Source0:    http://download-mirror.savannah.gnu.org/releases/m17n/%{name}-%{version}.tar.gz
-## Till the Inscript2 gets upstreamed in m17n-db, use this source
-Source1:    https://releases.pagure.org/inscript2/inscript2-20210820.tar.gz
 # Following is awaiting for upstream commit
 Source2:    https://raw.githubusercontent.com/gnuman/m17n-inglish-mims/master/minglish/minglish.mim
 Source3:    https://github.com/mike-fabian/m17n-db-sayura/archive/1.0.0.tar.gz#/m17n-db-sayura-1.0.0.tar.gz
@@ -15,9 +13,6 @@ Source4:    https://raw.githubusercontent.com/shantanuo/gamabhana/main/usr/share
 Source5:    https://github.com/shantanuo/gamabhana/blob/main/usr/share/m17n/icons/mr-gamabhana.png
 Source6:    https://raw.githubusercontent.com/mike-fabian/m17n-db-bn-national-jatiya/main/bn-national-jatiya.mim
 Source7:    https://raw.githubusercontent.com/mike-fabian/m17n-db-bn-national-jatiya/main/icons/bn-national-jatiya.png
-# Improved unicode.mim, see:
-# https://lists.nongnu.org/archive/html/m17n-list/2022-06/msg00009.html
-Source8:    unicode.mim
 
 BuildArch:  noarch
 BuildRequires: make
@@ -34,8 +29,6 @@ Patch1:     %{name}-1.6.5-kn-itrans_key-summary_bug228806.patch
 Patch2:     %{name}-1.6.5-kn-inscript-ZWNJ-bug440007.patch
 Patch3:     %{name}-1.6.5-number_pad_itrans-222634.patch
 Patch4:     %{name}-1.7.0-fix-e-o-mappings.patch
-# https://savannah.nongnu.org/bugs/?59681
-Patch6:     %{name}-1.8.0-ml-mozhi-savannah-bug-59681.patch
 
 %description
 This package contains multilingualization (m17n) datafiles for m17n-lib
@@ -63,8 +56,6 @@ m17n-db development files
 %prep
 %autosetup -N
 
-##extract inscript2 maps
-tar xzf %{SOURCE1}
 ##extract m17n-db-sayura
 tar xzf %{SOURCE3}
 
@@ -83,10 +74,6 @@ sed -i 's/ ("ld" "སྡ")/ ("ld" "ལྡ")/g' MIM/bo-ewts.mim
 #removing ispell.mim for rh#587927
 rm %{buildroot}%{_datadir}/m17n/ispell.mim
 
-#install inscript2 keymaps
-cp -p inscript2/IM/* %{buildroot}%{_datadir}/m17n/
-cp -p inscript2/icons/* %{buildroot}%{_datadir}/m17n/icons
-
 # install minglish keymap
 /usr/bin/install -m 644 %{SOURCE2} %{buildroot}%{_datadir}/m17n
 
@@ -101,9 +88,6 @@ cp -p m17n-db-sayura-1.0.0/icons/si-sayura.png %{buildroot}%{_datadir}/m17n/icon
 # install bn-national-jatiya
 /usr/bin/install -m 644 %{SOURCE6} %{buildroot}%{_datadir}/m17n
 /usr/bin/install -m 644 %{SOURCE7} %{buildroot}%{_datadir}/m17n/icons
-
-# install improved unicode.mim
-/usr/bin/install -m 644 %{SOURCE8} %{buildroot}%{_datadir}/m17n
 
 # For installing the translation files
 %find_lang %name
@@ -161,6 +145,12 @@ cp -p m17n-db-sayura-1.0.0/icons/si-sayura.png %{buildroot}%{_datadir}/m17n/icon
 %{_datadir}/pkgconfig/m17n-db.pc
 
 %changelog
+* Wed May 03 2023 Mike FABIAN <mfabian@redhat.com> - 1.8.1-1
+- Update to 1.8.1
+- Remove inscript2-20210820.tar.gz because it is now included upstream
+- Remove m17n-db-1.8.0-ml-mozhi-savannah-bug-59681.patch because it is included upstream
+- Remove unicode.mim because the improvement is included upstream
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

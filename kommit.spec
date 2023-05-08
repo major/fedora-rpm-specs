@@ -61,11 +61,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 %{_bindir}/%{name}merge
 %{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
 %{_libdir}/lib%{name}.so.0
-%{_libdir}/lib%{name}.so.0.4.0
+%{_libdir}/lib%{name}.so.1.0.2
 %{_libdir}/lib%{name}diff.so.0
-%{_libdir}/lib%{name}diff.so.0.4.0
+%{_libdir}/lib%{name}diff.so.1.0.2
 %{_libdir}/lib%{name}gui.so.0
-%{_libdir}/lib%{name}gui.so.0.4.0
+%{_libdir}/lib%{name}gui.so.1.0.2
 %{_libdir}/qt5/plugins/kf5/kfileitemaction/%{name}itemaction.so
 %{_libdir}/qt5/plugins/kf5/overlayicon/%{name}overlayplugin.so
 %{_datadir}/applications/*.desktop

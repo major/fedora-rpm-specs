@@ -3,7 +3,7 @@
 %global _python_bytecompile_extra 0
 
 Name:           calibre
-Version:        5.43.0
+Version:        6.17.0
 Release:        %autorelease
 Summary:        E-book converter and library manager
 License:        GPLv3
@@ -18,24 +18,12 @@ Patch1:         calibre-no-update.patch
 # This is so gnome-software only 'sees' calibre once.
 Patch3:         calibre-nodisplay.patch
 
-# Switch from cchardet to uchardet
-# cchardet is not maintained anymore:
-#   https://github.com/PyYoshi/cChardet/issues/77
-#   https://bugzilla.redhat.com/show_bug.cgi?id=2021804
-# Backported from upstream:
-#   https://github.com/kovidgoyal/calibre/commit/5c3385476f
-Patch4:         calibre-replace-cchcardet-with-uchardet.patch
-
-ExclusiveArch:  %{qt5_qtwebengine_arches}
-
-# https://fedoraproject.org/wiki/Changes/RetireARMv7
-# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
+ExclusiveArch: aarch64 x86_64
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
-BuildRequires:  python3-qt5-devel
-BuildRequires:  python3-qt5
+BuildRequires:  python3-pyqt6-devel
+BuildRequires:  python3-pyqt6
 BuildRequires:  podofo-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  xdg-utils
@@ -44,9 +32,9 @@ BuildRequires:  sqlite-devel
 BuildRequires:  libicu-devel
 BuildRequires:  libpng-devel
 BuildRequires:  libmtp-devel
-BuildRequires:  qt5-qtbase-devel
+BuildRequires:  qt6-qtbase-devel
 BuildRequires:  web-assets-devel
-BuildRequires:  qt5-qtbase-static
+BuildRequires:  qt6-qtbase-static
 BuildRequires:  libXrender-devel
 BuildRequires:  openssl-devel
 # calibre installer is so smart that it check for the presence of the
@@ -84,40 +72,46 @@ BuildRequires:  python3dist(sgmllib3k)
 BuildRequires:  python3-speechd
 BuildRequires:  python3-jeepney
 BuildRequires:  hunspell-devel
-BuildRequires:  qt5-qtwebengine-devel
-BuildRequires:  python-qt5-webengine
+BuildRequires:  qt6-qtwebengine-devel
 BuildRequires:  hyphen-devel
-BuildRequires:  qt5-qtimageformats
+BuildRequires:  qt6-qtimageformats
+BuildRequires:  qt6-qtwebview-devel
 BuildRequires:  libstemmer-devel
 BuildRequires:  uchardet-devel
-# using the bundled mathjax until Fedora updates to 3.0.0
-#BuildRequires:  mathjax
+BuildRequires:  mathjax3
+BuildRequires:  libwebp-tools
+BuildRequires:  poppler-utils
 # Those are only used for tests. Do not add to runtime deps.
 BuildRequires:  /usr/bin/jpegtran
 BuildRequires:  /usr/bin/JxrDecApp
+BuildRequires:  python3-pyqt6-webengine-devel
+BuildRequires:  python3-fonttools
+BuildRequires:  python3-zstd
 
-%{?pyqt5_requires}
+%{?pyqt6_requires}
 # once ^^ %%pyqt5_requires is everywhere, can drop python-qt5 dep below -- rex
 
 # Add hard dep to specific qtbase pkg, see build message below -- rex
 # Project MESSAGE: This project is using private headers and will therefore be tied to this specific Qt module build version.
 # Project MESSAGE: Running this project against other versions of the Qt modules may crash at any arbitrary point.
 # Project MESSAGE: This is not a bug, but a result of using Qt internals. You have been warned!
-BuildRequires:  qt5-qtbase-private-devel
+BuildRequires:  qt6-qtbase-private-devel
 
 
-Requires:       python3-qt5
-Requires:       python-qt5-webengine
-Requires:       qt5-qtwebengine
-Requires:       qt5-qtsvg
-Requires:       qt5-qtsensors
-Requires:       qt5-qtimageformats
+Requires:       libwebp-tools
+Requires:       poppler-utils
+Requires:       python3-pyqt6
+Requires:       qt6-qtwebengine
+Requires:       python3-pyqt6-webengine
+Requires:       qt6-qtsvg
+Requires:       qt6-qtsensors
+Requires:       qt6-qtimageformats
+Requires:       qt6-qtwebview
 Requires:       poppler-utils
 Requires:       liberation-sans-fonts
 Requires:       liberation-serif-fonts
 Requires:       liberation-mono-fonts
-# using the bundled mathjax until Fedora updates to 3.0.0
-#Requires:       mathjax
+Requires:       mathjax3
 Requires:       optipng
 Requires:       python3dist(odfpy)
 Requires:       python3dist(lxml)
@@ -139,7 +133,7 @@ Requires:       python3dist(html5-parser) >= 0.4.8
 Requires:       python3dist(html2text)
 Requires:       python3dist(markdown) >= 3.0
 Requires:       python3dist(pychm)
-Requires:       python3dist(pyqt5-sip) >= 12.8, python3dist(pyqt5-sip) < 13
+Requires:       python3dist(pyqt6-sip)
 Requires:       udisks2
 Requires:       /usr/bin/jpegtran
 Requires:       /usr/bin/JxrDecApp
@@ -181,21 +175,14 @@ chmod -x src/calibre/*/*/*/*.py \
     src/calibre/*/*.py \
     src/calibre/*.py
 
-# Using bundled mathjax until fedora goes to 3.0.0
 # remove bundled MathJax
-#rm -rvf resources/mathjax
+rm -rvf resources/mathjax
 
 %build
 # unbundle MathJax
-# using the bundled mathjax until Fedora updates to 3.0.0
-#CALIBRE_PY3_PORT=1 \
-#%%__python3 setup.py mathjax \
-#    --system-mathjax \
-#    --path-to-mathjax %%{_jsdir}/mathjax/
-
-OVERRIDE_CFLAGS="%{optflags}" \
-CALIBRE_PY3_PORT=1 \
-%__python3 setup.py build
+%{__python3} setup.py mathjax \
+    --system-mathjax \
+    --path-to-mathjax %{_jsdir}/mathjax@3/
 
 %install
 mkdir -p %{buildroot}%{_datadir}
@@ -303,10 +290,6 @@ ln --symbolic --relative \
 rm -f %{buildroot}/%{_datadir}/metainfo/calibre-ebook-edit.appdata.xml
 rm -f %{buildroot}/%{_datadir}/metainfo/calibre-ebook-viewer.appdata.xml
  
-# rename MathJax folder to allow upgrade from 4.8.0-1 and earlier, which
-# relied on a symlink handled by the %%preun and %%posttrans scriptlets
-#mv %%{buildroot}%%{_datadir}/calibre/mathjax %%{buildroot}%%{_datadir}/calibre/mathjax-fedora
-
 %check
 TEST_ARGS=(
     # skip failing tests:
@@ -314,10 +297,7 @@ TEST_ARGS=(
     --exclude-test-name bonjour            # problems in mock
     --exclude-test-name 7z                 # missing dependencies
     --exclude-test-name test_searching     # python3 porting issue?
-%ifarch %{ix86} armv7hl
-    --exclude-test-name qt                 # fails on 32-bit architectures only
-    --exclude-test-name test_dom_load
-%endif
+    --exclude-test-name test_zstd          # pyzstd not packaged yet
 )
 
 CALIBRE_PY3_PORT=1 \
@@ -330,8 +310,8 @@ if [ -L %{_datadir}/calibre/mathjax ]; then
     rm -f %{_datadir}/calibre/mathjax
 fi
 
-#posttrans
-#ln -s -r %{_datadir}/calibre/mathjax-fedora %{_datadir}/calibre/mathjax
+%posttrans
+ln -s -r %{_datadir}/calibre/mathjax-fedora %{_datadir}/calibre/mathjax3
 
 %files
 %license LICENSE

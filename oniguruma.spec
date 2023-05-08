@@ -9,11 +9,11 @@
 %endif
 
 %if 0%{?git_snapshot}
-%global         gitdate       20220919
-%global         gitcommit     b041f6dd9967531cf396a684194d67dc2e7480f7
+%global         gitdate       20230501
+%global         gitcommit     41a3b802af2155eef6d648aa3608e39605110642
 %global         shortcommit   %(c=%{gitcommit}; echo ${c:0:7})
 
-%global         gitversion    D%{gitdate}git%{shortcommit}
+%global         gitversion    %{gitdate}git%{shortcommit}
 %endif
 
 %global	mainver	6.9.8
@@ -21,11 +21,11 @@
 #%%global	betaver	rc4
 #%%define	prerelease	1
 
-%global	baserelease	2
+%global	baserelease	1
 
 Name:		oniguruma
-Version:	%{mainver}%{?postver:.%postver}
-Release:	%{?prerelease:0.}%{baserelease}%{?betaver:.%betaver}%{?gitversion:.%{?gitversion}}%{?dist}.1
+Version:	%{mainver}%{?postver:.%postver}%{?gitversion:^%{?gitversion}}
+Release:	%{?prerelease:0.}%{baserelease}%{?dist}
 Summary:	Regular expressions library
 
 # SPDX confirmed
@@ -80,7 +80,6 @@ autoreconf -fi
 	--with-rubydir=%{_bindir}
 %make_build
 
-
 %install
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
@@ -128,6 +127,9 @@ find $RPM_BUILD_ROOT -name '*.la' \
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sat May  6 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 6.9.8^20230501git41a3b80-1
+- Update to the latest git
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.9.8-2.D20220919gitb041f6d.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

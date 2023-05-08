@@ -5,7 +5,7 @@
 %bcond_without doc_pdf
 
 Name:           python-fastavro
-Version:        1.7.3
+Version:        1.7.4
 Release:        %autorelease
 Summary:        Fast Avro for Python
 
@@ -103,7 +103,7 @@ echo 'intersphinx_mapping.clear()' >> docs/conf.py
 
 # Do not generate dependencies on linters, formatters, typecheckers, etc.:
 sed -r -e '/^(black|check-manifest|flake8|mypy|twine)\b/d' \
-    -e '/^(codecov|coverage|pytest-cov)\b/d' \
+    -e '/^(coverage|pytest-cov)\b/d' \
     developer_requirements.txt | tee developer_requirements-filtered.txt
 
 
@@ -119,9 +119,11 @@ sed -r -e '/^(black|check-manifest|flake8|mypy|twine)\b/d' \
 %pyproject_wheel
 
 BLIB="${PWD}/build/lib.%{python3_platform}-cpython-%{python3_version_nodots}"
-PYTHONPATH="${BLIB}" %make_build -C docs man SPHINXOPTS='-n %{?_smp_mflags}'
+PYTHONPATH="${BLIB}" %make_build -C docs man \
+    SPHINXOPTS='-n -j%{?_smp_build_ncpus}'
 %if %{with doc_pdf}
-PYTHONPATH="${BLIB}" %make_build -C docs latex SPHINXOPTS='-n %{?_smp_mflags}'
+PYTHONPATH="${BLIB}" %make_build -C docs latex \
+    SPHINXOPTS='-n -j%{?_smp_build_ncpus}'
 %make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
 %endif
 

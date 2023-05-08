@@ -1,11 +1,12 @@
 Name:          muffin
 Version:       5.6.4
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Window and compositing manager based on Clutter
 
 License:       GPLv2+
 URL:           https://github.com/linuxmint/%{name}
 Source0:       %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0:        zenity_fix.patch
 
 ExcludeArch:   %{ix86}
 
@@ -50,7 +51,10 @@ Header files and libraries for developing Muffin plugins. Also includes
 utilities for testing Metacity/Muffin themes.
 
 %prep
-%autosetup -p1
+%setup -q
+%if 0%{?fedora} && 0%{?fedora} >= 38
+%patch -P 0 -p1
+%endif
 
 %build
 %meson \
@@ -91,6 +95,9 @@ rm -rf %{buildroot}%{_datadir}/applications/
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Sat May 06 2023 Leigh Scott <leigh123linux@gmail.com> - 5.6.4-2
+- Patch to fix issue with new zenity on f38+
+
 * Fri Mar 17 2023 Leigh Scott <leigh123linux@gmail.com> - 5.6.4-1
 - Update to 5.6.4 release
 

@@ -1,29 +1,16 @@
 %global	gem_name	test-unit-rr
-%if 0%{?fedora} < 19
-%global	rubyabi	1.9.1
-%endif
 
 Summary:	Test::Unit::RR - RR adapter for Test::Unit
 Name:		rubygem-%{gem_name}
 Version:	1.0.5
-Release:	15%{?dist}
-# https://github.com/test-unit/test-unit-rr/issues/1
-License:	LGPLv2+
+Release:	16%{?dist}
+# SPDX confirmed
+License:	LGPL-2.1-or-later
 URL:		http://rubyforge.org/projects/test-unit/
 Source0:	http://rubygems.org/gems/%{gem_name}-%{version}.gem
 
-%if 0%{?fedora}  || 0%{?rhel} >= 9
 Requires:	ruby(release)
 BuildRequires:	ruby(release)
-%else
-Requires:	ruby(abi) = %{rubyabi}
-Requires:	ruby 
-BuildRequires:	ruby(abi) = %{rubyabi}
-BuildRequires:	ruby 
-%endif
-Requires:	ruby(rubygems) 
-Requires:	rubygem(test-unit)
-Requires:	rubygem(rr)
 BuildRequires:	rubygems-devel 
 BuildRequires:	rubygem(test-unit)
 BuildRequires:	rubygem(rr)
@@ -32,7 +19,6 @@ Provides:	rubygem(%{gem_name}) = %{version}-%{release}
 
 %description
 Test::Unit::RR - RR adapter for Test::Unit.
-
 
 %package	doc
 Summary:	Documentation for %{name}
@@ -43,37 +29,11 @@ BuildArch:	noarch
 Documentation for %{name}
 
 %prep
-%setup -q -c -T
-# Gem repack
-TOPDIR=$(pwd)
-mkdir tmpunpackdir
-pushd tmpunpackdir
-
-gem unpack %{SOURCE0}
-cd %{gem_name}-%{version}
-
-gem specification -l --ruby %{SOURCE0} > %{gem_name}.gemspec
-
-# Allow current test-unit version for now
-sed -i \
-	-e '/add_.*dependency.*test-unit/s|2.5.2|2.1.2|' \
-	test-unit-rr.gemspec
-
-# And for now change test-unit to test/unit
-sed -i \
-	-e '/require.*test-unit/s|^.*$|gem "test-unit"\nrequire "test/unit"|' \
-	test/run-test.rb
-sed -i \
-	-e '/require/s|test-unit|test/unit|' \
-	lib/test/unit/rr.rb 
-
-gem build %{gem_name}.gemspec
-mv %{gem_name}-%{version}.gem $TOPDIR
-
-popd
-rm -rf tmpunpackdir
+%autosetup -n %{gem_name}-%{version} -p1
+mv ../%{gem_name}-%{version}.gemspec .
 
 %build
+gem build ./%{gem_name}-%{version}.gemspec
 %gem_install
 
 # Permission
@@ -84,26 +44,41 @@ mkdir -p %{buildroot}%{gem_dir}
 cp -a .%{gem_dir}/* \
 	%{buildroot}%{gem_dir}/
 
-rm -f %{buildroot}%{gem_instdir}/{Gemfile,Manifest.txt,Rakefile,*.gemspec}
+rm -f %{buildroot}%{gem_cache}
+pushd %{buildroot}%{gem_instdir}
+rm -rf \
+	Gemfile \
+	Manifest.txt \
+	Rakefile \
+	*.gemspec \
+	test/ \
+	%{nil}
+popd
 
 %check
 pushd .%{gem_instdir}
 ruby -Ilib test/run-test.rb
+popd
 
 %files
 %dir	%{gem_instdir}
 %{gem_libdir}/
-%exclude	%{gem_cache}
 %{gem_spec}
 
 %doc	%{gem_instdir}/[A-Z]*
-%doc	%{gem_instdir}/doc/
+%dir	%{gem_instdir}/doc/
+%dir	%{gem_instdir}/doc/text/
+%license	%{gem_instdir}/doc/text/lgpl-2.1.txt
+%doc	%{gem_instdir}/doc/text/news.md
 
 %files doc
 %doc	%{gem_docdir}/
-%exclude	%{gem_instdir}/test/
 
 %changelog
+* Sat May  6 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.5-16
+- Migrate to the recent packaging style
+- Migrate to SPDX
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

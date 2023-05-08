@@ -1,61 +1,24 @@
-# Upstream SCM:
-# https://github.com/ruby-gettext/locale.git
-%global	githash	bc30e1b7f820c458d825a43c2066ada339e99ffe
-%global	shorthash	%(c=%{githash}; echo ${c:0:10})
-%global	gitdate	Sat Oct 12 19:47:16 2013 +0900
-%global	gitdate_num	20131012
-
-%undefine	usegit
-%global	baserelease	1
-
-# Generated from locale-2.0.0.gem by gem2rpm -*- rpm-spec -*-
-%if %{?fedora:0%{fedora} < 17}%{?rhel:0%{rhel} < 7}
-%global	ruby_sitelib	%(ruby -rrbconfig -e "puts Config::CONFIG['sitelibdir']")
-%global	rubyabi	1.8
-%global	ruby19	0
-%else
-%if 0%{?fedora} < 19
-%global	rubyabi	1.9.1
-%endif
-%global	ruby19	1
-%endif
-
 %global	gem_name	locale
-
-%if 0%{?usegit} >= 1
-%global	fedorarel	%{baserelease}.D%{gitdate_num}git%{shorthash}
-%else
-%global	fedorarel	%{baserelease}
-%endif
 
 Summary:	Pure ruby library which provides basic APIs for localization
 Name:		rubygem-%{gem_name}
 Version:	2.1.3
-Release:	%{fedorarel}%{?dist}
-License:	GPLv2 or Ruby
-URL:		http://locale.rubyforge.org/
-%if	0%{?usegit} >= 1
-Source0:	%{name}-%{version}-D%{gitdate_num}git%{shorthash}.tar.gz
-%else
+Release:	2%{?dist}
+
+# SPDX confirmed
+# Ruby:	lib/locale.rb
+# Ruby OR LGPL-3.0-or-later:	lib/locale/driver.rb (and others)
+License:	(Ruby OR LGPL-3.0-or-later) AND Ruby
+URL:		http://ruby-gettext.github.io/
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
-%endif
 
 BuildArch:	noarch
 BuildRequires:	ruby
 Requires:	ruby
 
 BuildRequires:	rubygems-devel
-#BuildRequires:	rubygem(rake)
-#BuildRequires:	rubygem(minitest)
 BuildRequires:	rubygem(test-unit)
 BuildRequires:	rubygem(test-unit-rr)
-Requires:	ruby(rubygems)
-Provides:	rubygem(%{gem_name}) = %{version}-%{release}
-Conflicts:	rubygem-gettext < 2.0.0
-%if 0%{?ruby19} < 1
-Obsoletes:	ruby-%{gem_name} = %{version}-%{release}
-Provides:	ruby-%{gem_name} = %{version}-%{release}
-%endif
 
 %description
 Ruby-Locale is the pure ruby library which provides basic and general purpose
@@ -71,108 +34,29 @@ Requires:	%{name} = %{version}-%{release}
 %description	doc
 This package contains documentation for %{name}.
 
-%package	-n ruby-%{gem_name}
-Summary:	Non-Gem support package for %{gem_name}
-Requires:	%{name} = %{version}-%{release}
-Provides:	ruby(%{gem_name}) = %{version}-%{release}
-
-%description	-n ruby-%{gem_name}
-This package provides non-Gem support for %{gem_name}.
-
 %prep
-%setup -q -c -T
-
-TOPDIR=$(pwd)
-mkdir tmpunpackdir
-pushd tmpunpackdir
-
-%if 0%{?usegit} >= 1
-tar xf %{SOURCE0}
-cd %{gem_name}
-find . -print0 | xargs -0 chmod go+rX
-
-# Fixup version
-sed -i -e 's|VERSION = "[0-9\.][0-9\.]*"|VERSION = "%{version}"|' \
-	lib/locale/version.rb
-%else
-gem unpack %{SOURCE0}
-cd %{gem_name}-%{version}
-gem specification -l --ruby %{SOURCE0} > %{gem_name}.gemspec
-%endif
-
-gem build %{gem_name}.gemspec
-mv %{gem_name}-%{version}.gem $TOPDIR
-
-popd
-rm -rf tmpunpackdir
+%setup -q -n %{gem_name}-%{version}
+mv ../%{gem_name}-%{version}.gemspec .
 
 %build
+gem build %{gem_name}-%{version}.gemspec
 %gem_install
 
 %install
-rm -rf %{buildroot}
-
 mkdir -p %{buildroot}%{gem_dir}
 cp -a .%{gem_dir}/* %{buildroot}%{gem_dir}/
 
-# The following method is completely copied from rubygem-gettext
-# spec file
-#
-# Create symlinks
-
-create_symlink_rec(){
-
-ORIGBASEDIR=$1
-TARGETBASEDIR=$2
-
-## First calculate relative path of ORIGBASEDIR 
-## from TARGETBASEDIR
-TMPDIR=$TARGETBASEDIR
-BACKDIR=
-DOWNDIR=
-num=0
-nnum=0
-while true
-do
-	num=$((num+1))
-	TMPDIR=$(echo $TMPDIR | sed -e 's|/[^/][^/]*$||')
-	DOWNDIR=$(echo $ORIGBASEDIR | sed -e "s|^$TMPDIR||")
-	if [ x$DOWNDIR != x$ORIGBASEDIR ]
-	then
-		nnum=0
-		while [ $nnum -lt $num ]
-		do
-			BACKDIR="../$BACKDIR"
-			nnum=$((nnum+1))
-		done
-		break
-	fi
-done
-
-RELBASEDIR=$( echo $BACKDIR/$DOWNDIR | sed -e 's|//*|/|g' )
-
-## Next actually create symlink
-pushd %{buildroot}/$ORIGBASEDIR
-find . -type f | while read f
-do
-	DIRNAME=$(dirname $f)
-	BACK2DIR=$(echo $DIRNAME | sed -e 's|/[^/][^/]*|/..|g')
-	mkdir -p %{buildroot}${TARGETBASEDIR}/$DIRNAME
-	LNNAME=$(echo $BACK2DIR/$RELBASEDIR/$f | \
-		sed -e 's|^\./||' | sed -e 's|//|/|g' | \
-		sed -e 's|/\./|/|' )
-	ln -s -f $LNNAME %{buildroot}${TARGETBASEDIR}/$f
-done
-popd
-
-}
-
-%if 0%{?ruby19} < 1
-create_symlink_rec %{gem_instdir}/lib %{ruby_sitelib}
-%endif
-
 # Clean up unneeded files
-rm -f %{buildroot}%{gem_instdir}/.yardopts
+rm -f %{buildroot}%{gem_cache}
+pushd %{buildroot}%{gem_instdir}
+rm -rf \
+	.yardopts \
+	Gemfile \
+	Rakefile \
+	%{gem_name}.gemspec \
+	test/ \
+	%{nil}
+popd
 
 %check
 pushd .%{gem_instdir}
@@ -183,28 +67,24 @@ popd
 
 %files
 %dir %{gem_instdir}/
-%doc %{gem_instdir}/[A-Z]*
-%doc %{gem_instdir}/doc/
-%exclude %{gem_instdir}/Rakefile
-%{gem_instdir}/lib/
-#%%{gem_instdir}/*.rb
 
-%{gem_cache}
+%license	%{gem_instdir}/COPYING
+%doc	%{gem_instdir}/ChangeLog
+%doc	%{gem_instdir}/[D-Z]*
+%doc %{gem_instdir}/doc/
+
+%{gem_instdir}/lib/
 %{gem_spec}
 
 %files doc
 %{gem_docdir}/
 %{gem_instdir}/samples/
-%{gem_instdir}/test/
-%{gem_instdir}/*.gemspec
-
-%if 0%{?ruby19} < 1
-%files -n ruby-%{gem_name}
-%{ruby_sitelib}/%{gem_name}.rb
-%{ruby_sitelib}/%{gem_name}/
-%endif
 
 %changelog
+* Sat May  6 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.1.3-2
+- Migrate to modern style packaging
+- Migrate to SPDX
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.3-1.6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

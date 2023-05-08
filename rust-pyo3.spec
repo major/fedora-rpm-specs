@@ -5,7 +5,7 @@
 %global crate pyo3
 
 Name:           rust-pyo3
-Version:        0.18.2
+Version:        0.18.3
 Release:        %autorelease
 Summary:        Bindings to Python interpreter
 
@@ -20,11 +20,6 @@ Source:         %{crates_source}
 Patch:          pyo3-fix-metadata.diff
 # * skip the single doctest that depends on send_wrapper
 Patch:          0001-ignore-doctest-with-missing-send_wrapper-dependency.patch
-# * skip a little-endian-specific test on big-endian arches
-Patch:          0002-Ensure-to-skip-tests-for-little-endian-things-on-big.patch
-# * backport upstreamed patch make PyASCIIObject available on big-endian arches
-#   https://github.com/PyO3/pyo3/commit/40d6d47
-Patch:          0003-add-PyASCIIObject-state-bitfield-access-wrappers.patch
 
 BuildRequires:  rust-packaging >= 21
 

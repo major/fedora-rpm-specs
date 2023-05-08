@@ -25,7 +25,7 @@
 
 Name:           mingw-qt5-qtbase
 Version:        5.15.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Qt5 for Windows - QtBase component
 
 # See LGPL_EXCEPTIONS.txt, for exception details
@@ -235,7 +235,8 @@ Requires:      mingw32-angleproject-static
 Requires:      mingw32-libjpeg-turbo-static
 Requires:      mingw32-libpng-static
 Requires:      mingw32-harfbuzz-static
-Requires:      mingw32-pcre-static
+Requires:      mingw32-pcre2-static
+Requires:      mingw32-win-iconv-static
 Requires:      mingw32-winpthreads-static
 Requires:      mingw32-zlib-static
 BuildArch:     noarch
@@ -285,7 +286,8 @@ Requires:      mingw64-angleproject-static
 Requires:      mingw64-libjpeg-turbo-static
 Requires:      mingw64-libpng-static
 Requires:      mingw64-harfbuzz-static
-Requires:      mingw64-pcre-static
+Requires:      mingw64-pcre2-static
+Requires:      mingw64-win-iconv-static
 Requires:      mingw64-winpthreads-static
 Requires:      mingw64-zlib-static
 BuildArch:     noarch
@@ -811,6 +813,9 @@ ln -s %{mingw64_target}-qmake-qt5 %{buildroot}%{_bindir}/mingw64-qmake-qt5
 
 
 %changelog
+* Fri May 05 2023 Orion Poplawski <orion@nwra.com> - 5.15.9-2
+- Fixup static requires
+
 * Wed Apr 12 2023 Sandro Mani <manisandro@gmail.com> - 5.15.9-1
 - Update to 5.15.9
 

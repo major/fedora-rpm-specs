@@ -1,8 +1,8 @@
 Name:       ibus-handwrite
 Version:    3.0.0
-Release:    20%{?dist}
+Release:    21%{?dist}
 Summary:    IBus handwrite project
-License:    GPLv2+
+License:    GPL-2.0-or-later
 URL:        http://code.google.com/p/ibus-handwrite/
 Source0:    https://github.com/microcai/ibus-handwrite/releases/download/3.0/%{name}-%{version}.tar.bz2
 Patch0:     fixes-blink-issue.patch
@@ -35,14 +35,11 @@ Requires:       zinnia-tomoe-zh_CN
 The %{name}-zh_CN package provide Simplified Chinese handwrite input method.
 
 %prep
-%setup -q
-%patch0 -p1 -b .blink
+%autosetup -p1
 
 %build
-#./autogen.sh
 autoconf
 %configure --disable-static --enable-zinnia --with-zinnia-tomoe=%{_datadir}/zinnia/model/tomoe/
-# make -C po update-gmo
 make %{?_smp_mflags}
 
 %install
@@ -119,6 +116,9 @@ EOF
 %{_datadir}/ibus/component/handwrite-zh.xml
 
 %changelog
+* Sat May  6 2023 Peng Wu <pwu@redhat.com> - 3.0.0-21
+- Migrate to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

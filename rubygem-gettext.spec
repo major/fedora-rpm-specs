@@ -5,10 +5,13 @@
 
 Name:		rubygem-%{gem_name}
 Version:	3.4.3
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	RubyGem of Localization Library and Tools for Ruby
 
-License:	Ruby
+# Ruby OR LGPL-3.0-or-later:	gemspec
+# Ruby:	lib/gettext/mo.rb
+# SPDX confirmed
+License:	(Ruby OR AND LGPL-3.0-or-later) AND Ruby
 URL:		http://www.yotabanana.com/hiki/ruby-gettext.html?ruby-gettext
 Source0:	http://gems.rubyforge.org/gems/%{gem_name}-%{version}.gem
 
@@ -18,9 +21,7 @@ BuildRequires:	rubygems-devel
 # For %%check
 BuildRequires:	rubygem(erubi)
 BuildRequires:	rubygem(locale) >= %{locale_ver}
-%if 0%{?fedora} >= 36
 BuildRequires:	rubygem(prime)
-%endif
 BuildRequires:	rubygem(test-unit)
 BuildRequires:	rubygem(test-unit-notify)
 BuildRequires:	rubygem(test-unit-rr)
@@ -60,10 +61,6 @@ This package contains documentation for %{name}.
 mv ../%{gem_name}-%{version}.gemspec .
 
 %build
-# prime is in default gem, removing
-%if 0%{?fedora} < 36
-sed -i %{gem_name}-%{version}.gemspec -e '\@dependency.*prime@d'
-%endif
 gem build %{gem_name}-%{version}.gemspec
 %gem_install
 
@@ -113,7 +110,15 @@ do
 done
 
 # clean up
-rm -f %{buildroot}%{gem_instdir}/.yardopts
+rm -f %{buildroot}%{gem_cache}
+pushd %{buildroot}%{gem_instdir}
+rm -rf \
+	Rakefile \
+	.yardopts \
+	src/ \
+	test/ \
+	%{nil}
+popd
 
 %check
 pushd .%{gem_instdir}
@@ -137,21 +142,24 @@ popd
 
 %dir %{gem_instdir}/
 %doc %{gem_instdir}/[A-Z]*
-%doc %{gem_instdir}/doc/
-%exclude %{gem_instdir}/Rakefile
+%dir %{gem_instdir}/doc/
+%dir	%{gem_instdir}/doc/text/
+%license	%{gem_instdir}/doc/text/*txt
+%doc	%{gem_instdir}/doc/text/news.md
+
 %{gem_instdir}/bin/
 %{gem_instdir}/lib/
 
-%exclude	%{gem_cache}
 %{gem_spec}
 
 %files		doc
 %{gem_docdir}/
 %{gem_instdir}/samples/
-%exclude	%{gem_instdir}/test/
-%exclude	%{gem_instdir}/src/
 
 %changelog
+* Sat May  6 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.3-4
+- SPDX migration
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,10 +3,10 @@
 
 Name:           tomoe
 Version:        0.6.0
-Release:        51%{?dist}
+Release:        53%{?dist}
 Summary:        Handwritten input system for Japanese and Chinese
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            http://tomoe.sourceforge.jp/
 ## stripped tarball is generated as follows:
 # $ wget http://downloads.sourceforge.net/sourceforge/tomoe/%{name}-%{version}.tar.gz
@@ -17,9 +17,9 @@ Patch0:         tomoe-0.6.0-multiarch-conflict.patch
 Patch1:         tomoe-0.6.0-bz502662.patch
 Patch2:         tomoe-0.6.0-fixes-glib-includes.patch
 Patch3:         tomoe-0.6.0-fixes-set-parse-error.patch
-Patch4:		tomoe-strerror.patch
+Patch4:         tomoe-strerror.patch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  glib2-devel, gettext, gtk-doc, libtool, intltool
 BuildRequires:  perl(XML::Parser), python3
 %if %{python_binding}
@@ -46,11 +46,11 @@ Install this package if you want to develop programs which use tomoe.
 
 %prep
 %setup -q
-%patch0 -p0 -b .multiarch-conflict
-%patch1 -p0 -b .bz502662
-%patch2 -p1 -b .glib
-%patch3 -p1 -b .compile
-%patch4 -p1 -b .strerror
+%patch -P0 -p0 -b .multiarch-conflict
+%patch -P1 -p0 -b .bz502662
+%patch -P2 -p1 -b .glib
+%patch -P3 -p1 -b .compile
+%patch -P4 -p1 -b .strerror
 
 %build
 ./autogen.sh
@@ -70,10 +70,6 @@ chmod 755 $RPM_BUILD_ROOT%{_datadir}/%{name}/xml2est.rb
 find ${RPM_BUILD_ROOT}%{_libdir} -name '*.la' | xargs rm
 
 %find_lang %{name}
-
-
-
-%ldconfig_scriptlets
 
 
 %files -f %{name}.lang
@@ -102,6 +98,12 @@ find ${RPM_BUILD_ROOT}%{_libdir} -name '*.la' | xargs rm
 %endif
 
 %changelog
+* Sat May  6 2023 Peng Wu <pwu@redhat.com> - 0.6.0-53
+- Rebuild the package
+
+* Sat May  6 2023 Peng Wu <pwu@redhat.com> - 0.6.0-52
+- Migrate to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-51
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

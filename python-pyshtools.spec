@@ -7,7 +7,7 @@
 %endif
 
 Name:           python-%{srcname}
-Version:        4.10.1
+Version:        4.10.2
 Release:        %autorelease
 Summary:        Tools for working with spherical harmonics
 
@@ -18,8 +18,6 @@ Source0:        %pypi_source
 Patch:          0001-Add-default-include-path-for-FFTW.patch
 # We don't need these requirements as Cartopy is already built.
 Patch:          0002-Remove-cartopy-build-time-dependencies.patch
-# Fix build with latest setuptools
-Patch:          https://github.com/shtools/SHTOOLS/pull/375.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}

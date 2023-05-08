@@ -11,18 +11,20 @@ and cloud systems like Xen, KVM, VMware, EC2 and more.
 
 
 Name:           kiwi
-Version:        9.24.52
-Release:        2%{?dist}
+Version:        9.24.59
+Release:        1%{?dist}
 URL:            http://osinside.github.io/kiwi/
 Summary:        Flexible operating system image builder
 License:        GPLv3+
 # We must use the version uploaded to pypi, as it contains all the required files.
 Source0:        https://files.pythonhosted.org/packages/source/k/%{name}/%{name}-%{version}.tar.gz
 
+Patch0001:      https://github.com/OSInside/kiwi/commit/85b8655f81f646b973553500ba0f4620ec32f80b.patch#/0001-Use-cross-arch-macros-to-interpret-uint64_t.patch
+
 # Fedora-specific patches
 ## Use buildah instead of umoci by default for OCI image builds
 ## TODO: Consider getting umoci into Fedora?
-Patch1001:      kiwi-9.18.31-use-buildah.patch
+Patch1001:      0001-Use-buildah-by-default-for-OCI-image-builds.patch
 
 BuildRequires:  bash-completion
 BuildRequires:  dracut
@@ -110,7 +112,7 @@ Requires:       appx-util
 
 %description systemdeps-containers
 Host setup helper to pull in all packages required/useful on
-the build host to build container images e.g docker, wsl
+the build host to build container images e.g docker, wsl.
 %endif
 
 %package systemdeps-iso-media
@@ -376,7 +378,7 @@ modules which is used to install an oem image onto a target disk.
 It implements a simple installer which allows for user selected
 target disk or unattended installation to target. The source of
 the image to install could be either from media(CD/DVD/USB) or
-from remote
+from remote.
 
 %package -n dracut-kiwi-live
 Summary:        KIWI - Dracut module for iso(live) image type
@@ -394,7 +396,7 @@ BuildArch:      noarch
 
 %description -n dracut-kiwi-live
 This package contains the kiwi-live dracut module which is used
-for booting iso(live) images built with KIWI
+for booting iso(live) images built with KIWI.
 
 %package -n dracut-kiwi-overlay
 Summary:        KIWI - Dracut module for vmx(+overlay) image type
@@ -406,7 +408,18 @@ BuildArch:      noarch
 %description -n dracut-kiwi-overlay
 This package contains the kiwi-overlay dracut module which is used
 for booting vmx images built with KIWI and configured to use an
-overlay root filesystem
+overlay root filesystem.
+
+%package -n dracut-kiwi-verity
+Summary:        KIWI - Dracut module for disk with embedded verity metadata
+Requires:       dracut-kiwi-lib = %{version}-%{release}
+Requires:       dracut
+
+%description -n dracut-kiwi-verity
+This package contains the kiwi-verity dracut module which is used
+for booting oem images built with KIWI and configured to use an
+embedded verity metadata block via the embed_verity_metadata
+type attribute.
 
 %package cli
 Summary:        Flexible operating system appliance image builder
@@ -511,6 +524,10 @@ done
 %license LICENSE
 %{_prefix}/lib/dracut/modules.d/90kiwi-overlay/
 
+%files -n dracut-kiwi-verity
+%{_usr}/lib/dracut/modules.d/80kiwi-verity
+%{_bindir}/kiwi-parse-verity
+
 %files systemdeps-core
 # Empty metapackage
 
@@ -538,6 +555,9 @@ done
 # Empty metapackage
 
 %changelog
+* Sat May 06 2023 Igor Raits <igor.raits@gmail.com> - 9.24.59-1
+- Update to 9.24.59
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.24.52-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

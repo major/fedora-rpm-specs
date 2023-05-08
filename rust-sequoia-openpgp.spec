@@ -5,7 +5,7 @@
 %global crate sequoia-openpgp
 
 Name:           rust-sequoia-openpgp
-Version:        1.14.0
+Version:        1.15.0
 Release:        %autorelease
 Summary:        OpenPGP data types and associated machinery
 
@@ -17,7 +17,7 @@ Patch:          sequoia-openpgp-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * drop feature for Windows-specific crypto backend
 # * drop unused, benchmark-only criterion dev-dependency to speed up builds
-# * drop example-only rpassword dev-dependency (currently too old in Fedora)
+# * bump rpassword dev-dependency from 6 to 7
 Patch:          sequoia-openpgp-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
@@ -173,18 +173,6 @@ use the "flate2" feature of the "%{crate}" crate.
 %files       -n %{name}+flate2-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+foreign-types-shared-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+foreign-types-shared-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "foreign-types-shared" feature of the "%{crate}" crate.
-
-%files       -n %{name}+foreign-types-shared-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+nettle-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -223,8 +211,6 @@ use the "openssl-sys" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
-# remove examples which depend on rpassword
-rm examples/{notarize.rs,sign.rs,sign-detached.rs}
 %cargo_prep
 
 %generate_buildrequires
@@ -242,9 +228,7 @@ rm examples/{notarize.rs,sign.rs,sign-detached.rs}
 # * run tests with nettle crypto backend (default)
 %cargo_test -n -f crypto-nettle,compression
 # * run tests with openssl crypto backend
-# * skip test that fails with OpenSSL < 3.0.7 due to missing RIPEMD160 algorithm:
-#   https://gitlab.com/sequoia-pgp/sequoia/-/issues/979
-%cargo_test -n -f crypto-openssl,compression -- -- --skip packet::one_pass_sig::tests::roundtrip
+%cargo_test -n -f crypto-openssl,compression
 %endif
 
 %changelog

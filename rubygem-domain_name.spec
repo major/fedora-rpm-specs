@@ -6,8 +6,12 @@ Version:	0.5.20190701
 Release:	9%{?dist}
 
 # See LICENSE.txt
+# BSD-2-Clause: overall
+# BSD-3-Clause:	lib/domain_name/punycode.rb
+# MPL-2.0:	lib/domain_name/etld_data.rb
 # data/effective_tld_names.dat is not included in binary rpm
-License:	BSD and (MPLv1.1 or GPLv2+ or LGPLv2+)
+# SPDX confirmed
+License:	BSD-2-Clause AND BSD-3-Clause and MPL-2.0
 URL:		https://github.com/knu/ruby-domain_name
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
 
@@ -51,7 +55,20 @@ cp -a .%{gem_dir}/* \
 	%{buildroot}%{gem_dir}/
 
 # Clean up
-rm -f %{buildroot}%{gem_instdir}/{.document,.gitignore}
+rm -f %{buildroot}%{gem_cache}
+pushd %{buildroot}%{gem_instdir}
+rm -rf \
+	.document \
+	.gitignore \
+	.travis.yml \
+	Gemfile \
+	Rakefile \
+	%{gem_name}.gemspec \
+	data/ \
+	test/ \
+	tool/ \
+	%{nil}
+popd
 
 %check
 pushd .%{gem_instdir}
@@ -69,23 +86,19 @@ popd
 
 %files
 %dir	%{gem_instdir}
-%doc	%{gem_instdir}/[A-Z]*
-%exclude	%{gem_instdir}/Gemfile*
-%exclude	%{gem_instdir}/Rakefile
-%exclude	%{gem_instdir}/*.gemspec
-%exclude	%{gem_instdir}/.travis.yml
+%doc	%{gem_instdir}/[A-KM-Z]*
+%license	%{gem_instdir}/LICENSE.txt
 
 %{gem_libdir}
-%exclude	%{gem_cache}
 %{gem_spec}
 
 %files doc
 %doc	%{gem_docdir}
-%exclude	%{gem_instdir}/test/
-%exclude	%{gem_instdir}/tool/
-%exclude	%{gem_instdir}/data/
 
 %changelog
+* Sat May  6 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.20190701-6
+- SPDX migration
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.20190701-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

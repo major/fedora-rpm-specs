@@ -11,15 +11,15 @@ ExcludeArch: %{ix86}
 %global shortcommit2    %(c=%{commit2}; echo ${c:0:7})
 
 #   * settings
-%global commit3         04792d853c7f83c9d7ab4df00279442a658d3be3
+%global commit3         f168c0997fb85789bbc54513fce8bbc212dda2ff
 %global shortcommit3    %(c=%{commit3}; echo ${c:0:7})
 
 #   * signals
-%global commit4         25e4ec3b8d6ea94a5e65a26e7cfcbbce3b87c5d6
+%global commit4         6561aa559ff47cbad4058b8144d4a72fd14edc29
 %global shortcommit4    %(c=%{commit4}; echo ${c:0:7})
 
 #   * serialize
-%global commit5         1f99aa808eda5e717245254032c6bf58b0fc088a
+%global commit5         bbf0a34260a3e8d6e6c48be57653840ac3fa8c30
 %global shortcommit5    %(c=%{commit5}; echo ${c:0:7})
 
 #   * qtkeychain
@@ -35,7 +35,7 @@ ExcludeArch: %{ix86}
 %global shortcommit10   %(c=%{commit10}; echo ${c:0:7})
 
 #   * miniaudio
-%global commit11        c153a947919808419b0bf3f56b6f2ee606d6c5f4
+%global commit11        9a7663496fc06f7a9439c752fd7666ca93328c20
 %global shortcommit11   %(c=%{commit10}; echo ${c:0:7})
 
 #   * websocketpp
@@ -44,7 +44,7 @@ ExcludeArch: %{ix86}
 
 
 Name:           chatterino2
-Version:        2.4.2
+Version:        2.4.3
 Release:        %autorelease
 Summary:        Chat client for https://twitch.tv
 

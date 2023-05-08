@@ -1249,6 +1249,11 @@ fi
 %endif
 
 %changelog
+* Sat May 6 2023 Alexandra Hájková <ahajkova@redhat.com>
+- Remove gdb-rhel5.9-testcase-xlf-var-inside-mod.patch, the patch adds
+  gdb.fortran/xlf-variable.exp test, the test can only be run on
+  PPC64 machines which are not supported anymore.
+
 * Thu May 4 2023 Kevin Buettner <kevinb@redhat.com>
 - Fix C89-isms in gdb-6.6-buildid-locate-rpm.patch.  (Florian Weimer,
   RHBZ 2143992)'.  This change merely restores changes introduced by

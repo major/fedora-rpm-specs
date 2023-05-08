@@ -2,21 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate pyo3-macros-backend
+%global crate zvariant_utils
 
-Name:           rust-pyo3-macros-backend
-Version:        0.18.3
+Name:           rust-zvariant_utils
+Version:        1.0.0
 Release:        %autorelease
-Summary:        Code generation for PyO3 package
+Summary:        Various utilities used internally by the zvariant crate
 
-License:        Apache-2.0
-URL:            https://crates.io/crates/pyo3-macros-backend
+License:        MIT
+URL:            https://crates.io/crates/zvariant_utils
 Source:         %{crates_source}
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Code generation for PyO3 package.}
+Various utilities used internally by the zvariant crate.}
 
 %description %{_description}
 
@@ -31,6 +31,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -43,18 +44,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+abi3-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+abi3-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "abi3" feature of the "%{crate}" crate.
-
-%files       -n %{name}+abi3-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

@@ -5,7 +5,7 @@
 %global crate pyo3-ffi
 
 Name:           rust-pyo3-ffi
-Version:        0.18.2
+Version:        0.18.3
 Release:        %autorelease
 Summary:        Python-API bindings for the PyO3 ecosystem
 
@@ -15,9 +15,6 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop MSVC- and MinGW-only features
 Patch:          pyo3-ffi-fix-metadata.diff
-# * backport upstreamed patch make PyASCIIObject available on big-endian arches
-#   https://github.com/PyO3/pyo3/commit/40d6d47
-Patch:          0001-add-PyASCIIObject-state-bitfield-access-wrappers.patch
 
 BuildRequires:  rust-packaging >= 21
 

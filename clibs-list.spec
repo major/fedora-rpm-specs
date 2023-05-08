@@ -1,5 +1,7 @@
 Name:           clibs-list
-Version:        0.4.0
+Version:        0.4.1
+# While this is just the major version number, we write it separately as a
+# reminder to follow the process in the Updates Policy if it changes.
 %global so_version 0
 Release:        %autorelease
 Summary:        C doubly linked list implementation
@@ -35,7 +37,7 @@ applications that use clibs-list.
 
 
 %prep
-%autosetup -n list-%{version} -p1
+%autosetup -n list-%{version}
 
 
 %build
@@ -58,7 +60,8 @@ rm -vf '%{buildroot}%{_libdir}/libclibs_list.a'
 
 %files
 %license LICENSE
-%{_libdir}/libclibs_list.so.%{so_version}{,.*}
+%{_libdir}/libclibs_list.so.%{so_version}
+%{_libdir}/libclibs_list.so.%{version}
 
 
 %files devel

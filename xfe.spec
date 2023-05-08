@@ -5,7 +5,7 @@
 
 Name:		xfe
 Version:	1.45
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	X File Explorer File Manager
 
 # GPL-2.0-or-later:	README
@@ -21,6 +21,10 @@ Patch0:	xfe-1.44-use-system-libsn.patch
 # https://sourceforge.net/p/xfe/bugs/274/
 # xfe 1.45 segfaults with Ctrl-L
 Patch1:	xfe-1.45-ctrl-l-bug274.patch
+# https://sourceforge.net/p/xfe/bugs/275/
+# https://bugzilla.redhat.com/show_bug.cgi?id=2190356
+# xfw 1.45 window disappears after opening from recent files
+Patch2:	xfe-1.45-xfw-recent-files-bug275.patch
 
 BuildRequires:	make
 BuildRequires:	gcc-c++
@@ -64,6 +68,7 @@ This package contains extra theme files for %{name}.
 %setup -q
 %patch -P0 -p1 -b .syssn
 %patch -P1 -p1 -b .ctrl-l
+%patch -P2 -p1 -b .window_delete
 
 for f in \
 	ChangeLog
@@ -179,6 +184,10 @@ ln -sf %{_sysconfdir}/xferc %{buildroot}%{_datadir}/%{name}/xferc
 %exclude	%{_datadir}/%{name}/icons/gnome*-theme/
 
 %changelog
+* Sat May  6 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.45-4
+- Fix window disappearance after opening recent file (upstream bug 275)
+  (bug 2190356)
+
 * Wed Apr 26 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.45-3
 - SPDX migration
 - Fix crash with Ctrl-L (upstream bug 274)
