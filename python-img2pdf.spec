@@ -9,7 +9,7 @@ The img2pdf command complements the pdfimages command.
 
 Name:           python-%{srcname}
 Version:        0.4.4
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Lossless images to PDF conversion library and command
 
 License:        LGPLv3+
@@ -23,9 +23,6 @@ BuildArch:      noarch
 # cf. Bug 1851638 - img2pdf fails to build on s390x because of issues in the ImageMagick dependency
 # https://bugzilla.redhat.com/show_bug.cgi?id=1851638
 ExcludeArch:    s390x
-# cf. img2pdf testsuite fails on PPC64LE
-# https://bugzilla.redhat.com/show_bug.cgi?id=2162999
-ExcludeArch:    ppc64le
 
 # Disable tests on EPEL8 for now, since some of the dependencies aren't available
 %if 0%{?epel} == 0
@@ -98,6 +95,12 @@ sed -i '1{/^#!\//d}' src/*.py
 # (file is already installed at this point)
 sed -i '1i#!'%{__python3} src/img2pdf.py
 
+# cf. https://bugzilla.redhat.com/show_bug.cgi?id=2195906
+#     https://github.com/ImageMagick/ImageMagick/issues/6300
+# should also be fixed in img2pdf upstream, since even when this is fixed
+# for aarch64 the tiff byte-order would MSB on big-endian architectures
+sed -i -e 's/in \["Undefined", "LSB",\]/ in \["Undefined", "LSB", "MSB"\]/' -e 's/("tiff:endian") == "lsb"/("tiff:endian") in ("lsb", "msb",)/' src/img2pdf_test.py
+
 # cf. https://gitlab.mister-muffin.de/josch/img2pdf/issues/152
 #     https://gitlab.mister-muffin.de/josch/img2pdf/issues/161
 # XXX TODO enable again after issue is resolved
@@ -116,6 +119,9 @@ PYTHONPATH=src %{__python3} -m pytest src/img2pdf_test.py -v -k 'not jpg_cmyk an
 
 
 %changelog
+* Sun May 07 2023 Georg Sauthoff <mail@gms.tf> - 0.4.4-8
+- Work-around tiff byte-order assumptions in test cases (fixes fedora#2162999)
+
 * Sun Apr 16 2023 Georg Sauthoff <mail@gms.tf> - 0.4.4-7
 - Exclude fragile test case.
 

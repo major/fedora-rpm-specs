@@ -3,7 +3,7 @@ Summary(de):       Ein winziger, in Perl geschriebener, SIP Redirekt-Server
 Name:              sip-redirect
 Version:           0.2.0
 Release:           19%{?dist}
-License:           GPLv2+
+License:           GPL-2.0-or-later
 URL:               https://ftp.robert-scheck.de/linux/%{name}/
 Source0:           https://ftp.robert-scheck.de/linux/%{name}/%{name}-%{version}.tar.gz
 Source1:           sip-redirect.sysusersd

@@ -3,10 +3,10 @@
 
 Name:           python-%{modname}
 Version:        0.3.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Python bindings for util-linux libsmartcols-library
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://github.com/ignatenkobrain/python-smartcols
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # git clone https://github.com/karelzak/util-linux.git
@@ -26,12 +26,10 @@ BuildRequires:  pkgconfig(smartcols) >= %{libsmartcols_version}
 
 %package -n python3-%{modname}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{modname}}
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-Cython
 BuildRequires:  python3-pytest
-BuildRequires:  python3-pytest-runner
 
 %description -n python3-%{modname}
 %{summary}.
@@ -49,6 +47,9 @@ BuildRequires:  python3-sphinx
 %prep
 %autosetup -a1 -p1
 
+# Remove deprecated and problematic pytest-runner
+sed 's|, "pytest-runner"\],|],|' -i setup.py
+
 %build
 %py3_build
 
@@ -61,7 +62,7 @@ rm -f doc/_build/html/.buildinfo
 %py3_install
 
 %check
-%{__python3} setup.py ptr
+%pytest
 
 %files -n python3-%{modname}
 %license COPYING
@@ -73,6 +74,9 @@ rm -f doc/_build/html/.buildinfo
 %doc examples doc/_build/html
 
 %changelog
+* Sun May 07 2023 Maxwell G <maxwell@gtmx.me> - 0.3.0-19
+- Remove buildtime dependency on deprecated pytest-runner
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

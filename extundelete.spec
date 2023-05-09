@@ -3,7 +3,7 @@ Version:        0.2.4
 Release:        22%{?dist}
 Summary:        Utility to recover deleted files from ext3 and ext4 filesystem
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://extundelete.sourceforge.net
 Source0:        https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
 Patch0:         extundelete-0.2.4-i_size_high.patch

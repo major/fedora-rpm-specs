@@ -2,7 +2,7 @@ Summary:        Scan for mDNS/DNS-SD services published on the local network
 Name:           mdns-scan
 Version:        0.5
 Release:        7%{?dist}
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/alteholz/mdns-scan/
 Source0:        https://github.com/alteholz/mdns-scan/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:         mdns-scan-0.5-typo.patch

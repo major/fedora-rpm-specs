@@ -4,7 +4,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	4.1.4
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 Summary:	Ruby binding of WebKit2GTK+
 # SPDX confirmed
@@ -21,18 +21,20 @@ Source1:	COPYING.LIB.webkit2-gtk
 BuildRequires:	ruby
 BuildRequires:	rubygems-devel
 # glib-test-init.rb
+BuildRequires:	%{_bindir}/xvfb-run
 BuildRequires:	rubygem-glib2-devel
 BuildRequires:	rubygem(gobject-introspection)
 BuildRequires:	rubygem(gtk3)
 BuildRequires:	rubygem(test-unit)
 BuildRequires:	rubygem(webrick)
+# https://fedoraproject.org/wiki/Changes/Remove_webkit2gtk-4.0_API_Version
+# Use webkit2gtk-4.1 for F-39+
+%if 0%{?fedora} >= 39
+BuildRequires:	webkit2gtk4.1
+Requires:		webkit2gtk4.1
+%else
 BuildRequires:	webkit2gtk4.0
-BuildRequires:	%{_bindir}/xvfb-run
 Requires:		webkit2gtk4.0
-# webkit-gtk requires webkitgtk3, which will be removed from
-# F-27, let's obsolete this (but not provide it)
-%if 0%{?fedora} >= 27
-Obsoletes:		rubygem-webkit-gtk < %{version}-999
 %endif
 
 BuildArch:		noarch
@@ -124,6 +126,11 @@ popd
 %doc	%{gem_instdir}/sample
 
 %changelog
+* Sun May 07 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.4-2
+- Use webkit2gtk-4.1 for F-39+
+  https://fedoraproject.org/wiki/Changes/Remove_webkit2gtk-4.0_API_Version
+- Remove pretty old Obsoletes entry
+
 * Thu May 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.4-1
 - 4.1.4
 

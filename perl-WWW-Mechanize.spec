@@ -1,5 +1,5 @@
 Name:           perl-WWW-Mechanize
-Version:        2.16
+Version:        2.17
 Release:        1%{?dist}
 Summary:        Automates web page form & link interaction
 License:        GPL+ or Artistic
@@ -86,6 +86,9 @@ queried and revisited.
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Sun May 07 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 2.17-1
+- Update to 2.17
+
 * Sun Feb 12 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 2.16-1
 - Update to 2.16
 

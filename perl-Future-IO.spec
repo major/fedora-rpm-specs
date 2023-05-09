@@ -1,5 +1,5 @@
 Name:           perl-Future-IO
-Version:        0.13
+Version:        0.14
 Release:        1%{?dist}
 Summary:        Future-returning IO core methods
 License:        GPL+ or Artistic
@@ -24,6 +24,7 @@ BuildRequires:  perl(warnings)
 # test requirements
 BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(Test2::V0)
+BuildRequires:  perl(Test::Future::IO::Impl)
 BuildRequires:  perl(Test::Pod) >= 1.00
 
 %{?perl_default_filter}
@@ -51,11 +52,12 @@ their results asynchronously via Future instances.
 %doc Changes README
 %license LICENSE
 %{perl_vendorlib}/Future*
-%{perl_vendorlib}/Test/Future*
 %{_mandir}/man3/Future*
-%{_mandir}/man3/Test::Future*
 
 %changelog
+* Sun May 07 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.14-1
+- Update to 0.14
+
 * Sun Feb 19 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.13-1
 - Update to 0.13
 

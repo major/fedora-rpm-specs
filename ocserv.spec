@@ -1,5 +1,5 @@
-Version:	1.1.6
-Release: 3%{?dist}
+Version:	1.1.7
+Release: 1%{?dist}
 %global _hardened_build 1
 
 %if 0%{?fedora} || 0%{?rhel} >= 7
@@ -250,7 +250,7 @@ install -D -m 0755 %{SOURCE11} %{buildroot}/%{_initrddir}/%{name}
 %config(noreplace) %{_sysconfdir}/pam.d/ocserv
 %config(noreplace) %{_localstatedir}/lib/ocserv/profile.xml
 
-%doc AUTHORS ChangeLog NEWS COPYING LICENSE README.md PACKAGE-LICENSING
+%doc AUTHORS ChangeLog NEWS COPYING COPYING README.md PACKAGE-LICENSING
 %doc src/ccan/licenses/CC0 src/ccan/licenses/LGPL-2.1 src/ccan/licenses/BSD-MIT
 
 %{_mandir}/man8/ocserv.8*
@@ -272,6 +272,9 @@ install -D -m 0755 %{SOURCE11} %{buildroot}/%{_initrddir}/%{name}
 %endif
 
 %changelog
+* Sun May 07 2023 Nikos Mavrogiannopoulos <n.mavrogiannopoulos@gmail.com> - 1.1.7-1
+- Updated to 1.1.7
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

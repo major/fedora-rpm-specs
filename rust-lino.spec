@@ -11,8 +11,9 @@ Summary:        Command line text editor with notepad like key bindings
 License:        MIT
 URL:            https://crates.io/crates/lino
 Source:         %{crates_source}
-
-ExclusiveArch:  %{rust_arches}
+# Manually created patch for downstream crate metadata changes
+#  * update copypasta to 0.8.x
+Patch:          lino-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 

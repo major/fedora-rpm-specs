@@ -4,20 +4,7 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %global commitdate 20191215
 
-Name:           pdf-stapler
-Version:        1.0.0
-Release:        0.13.%{commitdate}git%{shortcommit}%{?dist}
-Summary:        Tool for manipulating PDF documents from the command line
-License:        BSD
-URL:            https://github.com/hellerbarde/stapler
-Source0:        https://github.com/hellerbarde/stapler/archive/stapler-%{commit}.tar.gz
-BuildArch:      noarch
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-Requires:       python3-more-itertools
-Requires:       python3-staplelib = %{version}-%{release}
-
-%description
+%global _description %{expand:
 pdf-stapler is the Fedora package for stapler, the opensource python
 project which provides a commandline tool that staples, deletes,
 concatenates and shuffles documents in the Portable Document Format
@@ -30,48 +17,75 @@ couldn't find a tool which actually used the library, so he started
 writing his own.
 
 This version of stapler is Fred Wenzel's fork of the project, with
-a completely refactored source code, tests, and added functionality.
+a completely refactored source code, tests, and added functionality.}
+
+
+Name:           pdf-stapler
+Version:        1.0.0
+Release:        0.15.%{commitdate}git%{shortcommit}%{?dist}
+Summary:        Tool for manipulating PDF documents from the command line
+License:        BSD-3-Clause
+URL:            https://github.com/hellerbarde/stapler
+Source0:        https://github.com/hellerbarde/stapler/archive/stapler-%{commit}.tar.gz
+BuildArch:      noarch
+BuildRequires:  python3-devel
+Requires:       python3-staplelib = %{version}-%{release}
+
+%description %_description
+
 
 %package -n python3-staplelib
 Summary:        Module staplelib of pdf-stapler
 Requires:       python3-PyPDF2
-%{?python_provide:%python_provide python3-staplelib}
 
-%description -n python3-staplelib
-%{summary}.
+%description -n python3-staplelib %_description
+
 
 %prep
-%setup -q -n  stapler-%{commit}
+%autosetup -n stapler-%{commit}
 sed -i 's|"PyPDF2>=1.24"||' setup.py
 # Remove upper limit from more-itertools
 # https://github.com/hellerbarde/stapler/issues/71
 sed -i 's|"more-itertools>=2.2,<6.0.0"|"more-itertools>=2.2"|' setup.py
+# Remove shebangs from modules
+sed -i -e '/^#!/d' staplelib/*.py
+
+
+%generate_buildrequires
+%pyproject_buildrequires -t
+
 
 %build
-%py3_build 
+%pyproject_wheel
 
-#%check
-#%{__python3} setup.py test
 
 %install
-%{py3_install}
-
-#mv $RPM_BUILD_ROOT/%{_bindir}/stapler-%{commit} $RPM_BUILD_ROOT/%{_bindir}/%{name}
-rm %{buildroot}%{_bindir}/stapler
+%pyproject_install
 # Fedora already has a stapler package so this "stapler" package is renamed
 # pdf-stapler
+rm %{buildroot}%{_bindir}/stapler
+%pyproject_save_files staplelib
 
-%files
-%{_bindir}/%{name}
+
+%check
+%tox
+
+
+%files -n %{name}
+%{_bindir}/pdf-stapler
+
+%files -n python3-staplelib -f %{pyproject_files}
 %doc README.rst
 %license LICENSE
 
-%files -n python3-staplelib
-%{python3_sitelib}/stapler-%{version}*.egg-info
-%{python3_sitelib}/staplelib/
-%license LICENSE
 
 %changelog
+* Sat May 06 2023 Sandro <devel@penguinpee.nl> - 1.0.0-0.15.20191215git8753251
+- Migrate to SPDX license
+
+* Sat May 06 2023 Sandro <devel@penguinpee.nl> - 1.0.0-0.14.20191215git8753251
+- Use Python macros in spec file
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-0.13.20191215git8753251
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -159,6 +173,3 @@ Fixes: rhbz#1812845
 
 * Thu Sep 24 2015 aarem AT fedoraproject DOT org - 0.3.3-1
 - initial packaging of 0.3.3 version
-
-
-

@@ -6,7 +6,7 @@
 
 Name:           rust-config
 Version:        0.13.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Layered configuration system for Rust applications
 
 # Upstream license specification: MIT/Apache-2.0
@@ -16,7 +16,10 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * bump temp-env dev-dependency from 0.2 to 0.3
 # * relax exact warp dev-dependency from =0.3.1 to ^0.3.1
+# * bump notify dev-dependency from ^4.0.0 to ^5.0.0
 Patch:          config-fix-metadata.diff
+# https://github.com/mehcode/config-rs/pull/373
+Patch:          config-0.13.3-Adapt-example-to-new-notify-interface.patch
 
 BuildRequires:  rust-packaging >= 21
 
@@ -216,6 +219,9 @@ use the "yaml-rust" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Sat May 06 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.13.3-3
+- Bump rust-notify dependency to 5.x
+
 * Mon Mar 20 2023 Fabio Valentini <decathorpe@gmail.com> - 0.13.3-2
 - Regenerate with rust2rpm v24.
 

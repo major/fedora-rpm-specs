@@ -5,18 +5,19 @@
 %global crate notify
 
 Name:           rust-notify
-Version:        4.0.17
+Version:        5.1.0
 Release:        %autorelease
 Summary:        Cross-platform filesystem notification library
 
-# License file is in upstream, but not in released version yet
-License:        CC0-1.0
+# Upstream license specification: CC0-1.0 OR Artistic-2.0
+License:        Artistic-2.0
 URL:            https://crates.io/crates/notify
 Source:         %{crates_source}
 # Automatically generated patch to strip foreign dependencies
 Patch:          notify-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * Update inotify to 0.8, https://github.com/notify-rs/notify/pull/234
+# * Downgrade inotify to 0.8
+# * Remove unwanted features
 Patch:          notify-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
@@ -36,8 +37,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%doc %{crate_instdir}/CHANGELOG.md
-%doc %{crate_instdir}/CODE_OF_CONDUCT.md
+%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE.ARTISTIC
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -53,6 +54,18 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+crossbeam-channel-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+crossbeam-channel-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "crossbeam-channel" feature of the "%{crate}" crate.
+
+%files       -n %{name}+crossbeam-channel-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+manual_tests-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -63,6 +76,18 @@ This package contains library source intended for building other packages which
 use the "manual_tests" feature of the "%{crate}" crate.
 
 %files       -n %{name}+manual_tests-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+serde-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+serde-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "serde" feature of the "%{crate}" crate.
+
+%files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+timing_tests-devel

@@ -1,6 +1,6 @@
 Name:           libssh
-Version:        0.10.4
-Release:        4%{?dist}
+Version:        0.10.5
+Release:        1%{?dist}
 Summary:        A library implementing the SSH protocol
 License:        LGPL-2.1-or-later
 URL:            http://www.libssh.org
@@ -40,8 +40,6 @@ Provides: libssh_threads.so.4()(64bit)
 Provides: libssh_threads.so.4
 %endif
 
-Patch1: pkcs11_test_fix.patch
-
 %description
 The ssh library was designed to be used by programmers needing a working SSH
 implementation by the mean of a library. The complete control of the client is
@@ -53,6 +51,7 @@ third-party programs others than libcrypto (from openssl).
 %package devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       cmake-filesystem
 
 %description devel
 The %{name}-devel package contains libraries and header files for developing
@@ -120,8 +119,6 @@ popd
 
 %files devel
 %{_includedir}/libssh/
-# own this to avoid dep on cmake -- rex
-%dir  %{_libdir}/cmake/
 %{_libdir}/cmake/libssh/
 %{_libdir}/pkgconfig/libssh.pc
 %{_libdir}/libssh.so
@@ -133,6 +130,10 @@ popd
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/libssh/libssh_server.config
 
 %changelog
+* Fri May 05 2023 Orion Poplawski <orion@nwra.com> - 0.10.5-1
+- Update to 0.10.5 (CVE-2023-1667 CVE-2023-2283)
+- Have libssh-devel require cmake-filesystem
+
 * Sun Mar 05 2023 Andreas Schneider <asn@redhat.com> - 0.10.4-4
 - Update License to SPDX expression
 

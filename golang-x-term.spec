@@ -4,7 +4,7 @@
 # https://github.com/golang/term
 %global goipath         golang.org/x/term
 %global forgeurl        https://github.com/golang/term
-Version:                0.5.0
+Version:                0.8.0
 
 %gometa
 
@@ -23,7 +23,7 @@ License:        BSD
 URL:            %{gourl}
 Source0:        %{gosource}
 
-BuildRequires:  golang(golang.org/x/sys/unix)
+BuildRequires:  golang(golang.org/x/sys/unix) >= 0.8
 
 %description
 %{common_description}

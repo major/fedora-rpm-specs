@@ -87,7 +87,8 @@ echo 'intersphinx_mapping.clear()' >> docs/conf.py
 %pyproject_wheel
 
 %if %{with doc_pdf}
-%make_build -C docs latex SPHINXOPTS='-j%{?_smp_build_ncpus}'
+PYTHONPATH="${PWD}/src" %make_build -C docs latex \
+    SPHINXOPTS='-j%{?_smp_build_ncpus}'
 %make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
 %endif
 

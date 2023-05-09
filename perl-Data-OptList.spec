@@ -9,8 +9,8 @@
 %endif
 
 Name:           perl-Data-OptList
-Version:        0.113
-Release:        2%{?dist}
+Version:        0.114
+Release:        1%{?dist}
 Summary:        Parse and validate simple name/value option pairs
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-OptList
@@ -22,6 +22,7 @@ BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.12
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.78
 # Module Runtime
 BuildRequires:  perl(List::Util)
@@ -43,6 +44,7 @@ BuildRequires:  perl(Encode)
 BuildRequires:  perl(Test::Pod) >= 1.41
 %endif
 # Dependencies
+# (none)
 
 %description
 Hashes are great for storing named data, but if you want more than one entry
@@ -96,6 +98,11 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/Data::OptList.3*
 
 %changelog
+* Sun May  7 2023 Paul Howarth <paul@city-fan.org> - 0.114-1
+- Update to 0.114
+  - Data::OptList now requires perl v5.12.0
+  - Tests no longer add "-T" to shebang, so do not invoke taint mode
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.113-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

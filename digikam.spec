@@ -6,7 +6,7 @@
 Name:    digikam
 Summary: A digital camera accessing & photo management application
 Version: 8.0.0
-Release: 2%{?beta}%{?dist}
+Release: 3%{?beta}%{?dist}
 
 License: GPL-2.0-or-later
 URL:     http://www.digikam.org/
@@ -26,6 +26,8 @@ Source10: digikam-import.desktop
 ## upstream patches
 # fix ffmpeg5-related mediaplayer crash https://bugs.kde.org/show_bug.cgi?id=468480
 Patch0: digikam-8.0.0-ffmpeg5.patch
+# fix thumbbar scrolls to 100th image https://bugs.kde.org/show_bug.cgi?id=468593
+Patch1: digikam-8.0.0-disable-QListView-Batched-optimization-for-the-thumb.patch
 
 ## upstreamable patches
 
@@ -54,7 +56,6 @@ BuildRequires: pkgconfig(jasper)
 BuildRequires: pkgconfig(lcms2)
 BuildRequires: pkgconfig(libgphoto2_port) pkgconfig(libusb-1.0) pkgconfig(libusb)
 BuildRequires: pkgconfig(libpng) >= 1.2.7
-BuildRequires: pkgconfig(phonon4qt5)
 BuildRequires: pkgconfig(glu)
 BuildRequires: pkgconfig(Qt5NetworkAuth)
 BuildRequires: pkgconfig(Qt5OpenGL)
@@ -128,7 +129,6 @@ BuildRequires: pkgconfig(libpgf) >= 6.12.24
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 
-Recommends: %{name}-doc = %{version}-%{release}
 # expoblending assistant
 Recommends: hugin-base
 #Recommends: kf5-kipi-plugins
@@ -138,7 +138,13 @@ Recommends: qt5-qtbase-mysql%{?_isa}
 Recommends: qt5-qtimageformats%{?_isa}
 
 # core/libs/rawengine/libraw/
-Provides: bundled(LibRaw) = 0.18.5
+Provides: bundled(LibRaw) = 0.21.1
+
+# no more DocBook documentation
+# Sphinx documentation is published in a dedicated web site
+# https://docs.digikam.org/en/index.html
+Provides: %{name}-doc = %{version}-%{release}
+Obsoletes: %{name}-doc < 8.0.0-3
 
 %description
 digiKam is an easy to use and powerful digital photo management application,
@@ -162,13 +168,6 @@ Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 %description devel
 This package contains the libraries, include files and other resources
 needed to develop applications using %{name}.
-
-%package doc
-Summary: Application handbooks
-Requires:  %{name} = %{version}-%{release}
-BuildArch: noarch
-%description doc
-%{summary}.
 
 
 %prep
@@ -196,14 +195,7 @@ desktop-file-install --vendor="" \
   --dir=%{buildroot}%{_datadir}/applications/ \
   %{SOURCE10}
 
-%find_lang all --all-name --with-html || touch all.lang
-
-grep digikam.mo all.lang > digikam.lang ||:
-grep HTML all.lang > digikam-doc.lang ||:
-grep kipiplugin all.lang > kipiplugin.lang ||:
-
-## unpackaged files
-rm -fv %{buildroot}%{_datadir}/locale/*/LC_MESSAGES/libkvkontakte.mo
+%find_lang %{name}
 
 
 %check
@@ -227,7 +219,7 @@ gtk-update-icon-cache %{_kf5_datadir}/icons/hicolor &> /dev/null || :
 update-desktop-database -q &> /dev/null
 %endif
 
-%files -f digikam.lang
+%files -f %{name}.lang
 %doc AUTHORS ChangeLog
 %doc NEWS README.md
 %license LICENSES/GPL-2.0-or-later.txt
@@ -250,9 +242,6 @@ update-desktop-database -q &> /dev/null
 %{_mandir}/man1/cleanup_digikamdb.1*
 %{_kf5_datadir}/icons/hicolor/*/*/*
 
-%files doc
-#-f digikam-doc.lang
-
 %ldconfig_scriptlets libs
 
 %files libs
@@ -270,6 +259,12 @@ update-desktop-database -q &> /dev/null
 
 
 %changelog
+* Sun May  7 2023 Alexey Kurov <nucleo@fedoraproject.org> - 8.0.0-3
+- backport thumbbar fix (kde#468593)
+- removed BR phonon4qt5
+- obsoleted -doc subpackage
+- simplify find_lang (only digikam.mo installed)
+
 * Sat Apr 15 2023 Alexey Kurov <nucleo@fedoraproject.org> - 8.0.0-2
 - fixed crash in MediaPlayer
 

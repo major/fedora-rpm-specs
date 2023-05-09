@@ -14,7 +14,7 @@
 %global	mainver	2.0.2
 #%%define	minorver	-b1
 
-%global	baserelease	17
+%global	baserelease	18
 
 %global	rpmminorver	%(echo "%minorver" | sed -e 's|^-||' | sed -e 's|\\\.||')
 %global	fedorarel	%{?minorver:0.}%{baserelease}%{?minorver:.%rpmminorver}%{?hghash:.hg%hghash}
@@ -26,7 +26,7 @@
 
 Name:		gphotoframe
 Version:	%{mainver}
-Release:	%{fedorarel}%{?dist}.1
+Release:	%{fedorarel}%{?dist}
 Summary:	Photo Frame Gadget for the GNOME Desktop
 
 # GPLv3 seems safer than GPLv3+
@@ -109,7 +109,13 @@ Requires:	python3-pyxdg
 
 # girepository
 Requires:	gtk3
-Requires:	webkit2gtk3
+# https://fedoraproject.org/wiki/Changes/Remove_webkit2gtk-4.0_API_Version
+# Use webkit2gtk-4.1 for F-39+
+%if 0%{?fedora} >= 39
+Requires:		webkit2gtk4.1
+%else
+Requires:		webkit2gtk4.0
+%endif
 # Optional
 # see bug 1296817
 # Requires:	libproxy-python
@@ -144,11 +150,11 @@ for gnome-screensaver compatibility.
 %prep
 %setup -q -n %{name}-%{mainver}%{?minorver}%{?hghash:-hg%hghash}
 
-%patch2 -p2 -b .zeroden -Z
-%patch3 -p1 -b .zeroden2 -Z
-%patch4 -p1 -b .pixbuf_23102 -Z
-%patch5 -p1 -b .libproxy_disable -Z
-%patch6 -p1 -b .wk2 -Z
+%patch -P2 -p2 -b .zeroden -Z
+%patch -P3 -p1 -b .zeroden2 -Z
+%patch -P4 -p1 -b .pixbuf_23102 -Z
+%patch -P5 -p1 -b .libproxy_disable -Z
+%patch -P6 -p1 -b .wk2 -Z
 
 # Remove unneeded shebangs
 grep -rl '^#![ \t]*%{_bindir}' lib/ | \
@@ -176,15 +182,15 @@ ln -sf %{python_sitelib}/EXIF.py lib/utils/EXIF.py
 # Once doing this
 grep -rlZ "/usr/bin/python$" . | xargs --null sed -i -e 's|/usr/bin/python$|/usr/bin/python2|'
 # Then patch
-%patch100 -p1 -b .py3 -Z
-%patch101 -p1 -b .feedparser6 -Z
-%patch102 -p1 -b .bunchfix -Z
-%patch103 -p1 -b .idle -Z
-%patch104 -p1 -b .urlget_py3 -Z
-%patch105 -p1 -b .helpurl -Z
-%patch106 -p1 -b .py3_config -Z
-%patch107 -p1 -b .open_startup -Z
-%patch108 -p1
+%patch -P100 -p1 -b .py3 -Z
+%patch -P101 -p1 -b .feedparser6 -Z
+%patch -P102 -p1 -b .bunchfix -Z
+%patch -P103 -p1 -b .idle -Z
+%patch -P104 -p1 -b .urlget_py3 -Z
+%patch -P105 -p1 -b .helpurl -Z
+%patch -P106 -p1 -b .py3_config -Z
+%patch -P107 -p1 -b .open_startup -Z
+%patch -P108 -p1
 
 %build
 # Do nothing
@@ -311,6 +317,10 @@ find %{buildroot}%{_prefix} -name \*.py3 -delete
 %endif
 
 %changelog
+* Sun May 07 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.0.2-18.hg2084299dffb6
+- Use webkit2gtk-4.1 for F-39+
+  https://fedoraproject.org/wiki/Changes/Remove_webkit2gtk-4.0_API_Version
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-17.hg2084299dffb6.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

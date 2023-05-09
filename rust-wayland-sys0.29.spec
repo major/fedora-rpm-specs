@@ -2,33 +2,30 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate glutin
+%global crate wayland-sys
 
-Name:           rust-glutin
-Version:        0.30.7
+Name:           rust-wayland-sys0.29
+Version:        0.29.5
 Release:        %autorelease
-Summary:        Cross-platform OpenGL context provider
+Summary:        FFI bindings to the various libwayland-*.so libraries
 
-License:        Apache-2.0
-URL:            https://crates.io/crates/glutin
+License:        MIT
+URL:            https://crates.io/crates/wayland-sys
 Source:         %{crates_source}
-# Automatically generated patch to strip foreign dependencies
-Patch:          glutin-fix-metadata-auto.diff
-# Manually created patch for downstream crate metadata changes
-#  * rust2rpm is too eager in stripping foreign deps.
-#    glutin_egl_sys is still required on unix
-Patch:          glutin-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Cross-platform OpenGL context provider.}
+FFI bindings to the various libwayland-*.so libraries. You should only
+need this crate if you are working on custom wayland protocol
+extensions. Look at the crate wayland-client for usable bindings.}
 
 %description %{_description}
 
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
+Requires:       wayland-devel
 
 %description    devel %{_description}
 
@@ -36,7 +33,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE.txt
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -52,9 +49,60 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+client-devel
+Summary:        %{summary}
+BuildArch:      noarch
+Requires:       pkgconfig(wayland-client)
+
+%description -n %{name}+client-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "client" feature of the "%{crate}" crate.
+
+%files       -n %{name}+client-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+cursor-devel
+Summary:        %{summary}
+BuildArch:      noarch
+Requires:       pkgconfig(wayland-cursor)
+
+%description -n %{name}+cursor-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "cursor" feature of the "%{crate}" crate.
+
+%files       -n %{name}+cursor-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+dlib-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+dlib-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "dlib" feature of the "%{crate}" crate.
+
+%files       -n %{name}+dlib-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+dlopen-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+dlopen-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "dlopen" feature of the "%{crate}" crate.
+
+%files       -n %{name}+dlopen-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+egl-devel
 Summary:        %{summary}
 BuildArch:      noarch
+Requires:       pkgconfig(wayland-egl)
 
 %description -n %{name}+egl-devel %{_description}
 
@@ -64,112 +112,53 @@ use the "egl" feature of the "%{crate}" crate.
 %files       -n %{name}+egl-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+glutin_egl_sys-devel
+%package     -n %{name}+lazy_static-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+glutin_egl_sys-devel %{_description}
+%description -n %{name}+lazy_static-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "glutin_egl_sys" feature of the "%{crate}" crate.
+use the "lazy_static" feature of the "%{crate}" crate.
 
-%files       -n %{name}+glutin_egl_sys-devel
+%files       -n %{name}+lazy_static-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+glutin_glx_sys-devel
+%package     -n %{name}+libc-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+glutin_glx_sys-devel %{_description}
+%description -n %{name}+libc-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "glutin_glx_sys" feature of the "%{crate}" crate.
+use the "libc" feature of the "%{crate}" crate.
 
-%files       -n %{name}+glutin_glx_sys-devel
+%files       -n %{name}+libc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+glx-devel
+%package     -n %{name}+memoffset-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+glx-devel %{_description}
+%description -n %{name}+memoffset-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "glx" feature of the "%{crate}" crate.
+use the "memoffset" feature of the "%{crate}" crate.
 
-%files       -n %{name}+glx-devel
+%files       -n %{name}+memoffset-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+libloading-devel
+%package     -n %{name}+server-devel
 Summary:        %{summary}
 BuildArch:      noarch
+Requires:       pkgconfig(wayland-server)
 
-%description -n %{name}+libloading-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "libloading" feature of the "%{crate}" crate.
-
-%files       -n %{name}+libloading-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+wayland-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+wayland-devel %{_description}
+%description -n %{name}+server-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "wayland" feature of the "%{crate}" crate.
+use the "server" feature of the "%{crate}" crate.
 
-%files       -n %{name}+wayland-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+wayland-sys-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+wayland-sys-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "wayland-sys" feature of the "%{crate}" crate.
-
-%files       -n %{name}+wayland-sys-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+wgl-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+wgl-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "wgl" feature of the "%{crate}" crate.
-
-%files       -n %{name}+wgl-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+x11-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+x11-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "x11" feature of the "%{crate}" crate.
-
-%files       -n %{name}+x11-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+x11-dl-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+x11-dl-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "x11-dl" feature of the "%{crate}" crate.
-
-%files       -n %{name}+x11-dl-devel
+%files       -n %{name}+server-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

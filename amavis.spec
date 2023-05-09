@@ -4,7 +4,7 @@
 Summary:        Email filter with virus scanner and spamassassin support
 Name:           amavis
 Version:        2.13.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 # LDAP schema is GFDL, some helpers are BSD, core is GPLv2+
 License:        GPLv2+ and BSD and GFDL
 URL:            https://gitlab.com/amavis/amavis
@@ -16,6 +16,7 @@ Source8:        amavisd-tmpfiles.conf
 Source9:        amavisd.service
 Source10:       amavisd-snmp.service
 Source11:       amavis.sysusers
+Source12:       amavisd.sysconfig
 Patch0:         amavis-conf.patch
 BuildArch:      noarch
 %if 0%{?fedora}
@@ -170,6 +171,8 @@ install -D -m 644 %{SOURCE8} %{buildroot}%{_tmpfilesdir}/amavisd.conf
 
 install -p -D -m 0644 %{SOURCE11} %{buildroot}%{_sysusersdir}/amavis.conf
 
+install -p -D -m 0644 %{SOURCE12} %{buildroot}%{_sysconfdir}/sysconfig/amavisd
+
 %pre
 %sysusers_create_compat %{SOURCE11}
 
@@ -218,6 +221,7 @@ install -p -D -m 0644 %{SOURCE11} %{buildroot}%{_sysusersdir}/amavis.conf
 %{_sysusersdir}/amavis.conf
 %dir %attr(755,amavis,amavis) %{_rundir}/amavisd
 %dir %attr(770,amavis,clamupdate) %{_rundir}/clamd.amavisd
+%attr(0644,root,root) %config(noreplace) %{_sysconfdir}/sysconfig/amavisd
 
 %files -n perl-Amavis
 %license LICENSE
@@ -236,6 +240,9 @@ install -p -D -m 0644 %{SOURCE11} %{buildroot}%{_sysusersdir}/amavis.conf
 %doc README_FILES conf/amavisd.conf-* conf/amavisd-custom.conf
 
 %changelog
+* Sat May 06 2023 Chris Adams <linux@cmadams.net> - 2.13.0-4
+- Add a syconfig file to be able to add arguments
+
 * Thu Feb 23 2023 Juan Orti Alcaine <jortialc@redhat.com> - 2.13.0-3
 - Update configuration to use clamdscan
 

@@ -6,11 +6,18 @@
 Summary: powerful, easy to use console email client
 Name: alpine
 Version: 2.26
-Release: 4%{?dist}
+Release: 5%{?dist}
 
-License: ASL 2.0
-URL:     http://alpine.x10host.com/
-Source0: http://alpine.x10host.com/alpine/patches/alpine-%{version}/alpine-%{version}.tar.xz
+License: Apache-2.0
+URL:     https://alpineapp.email/
+
+# alpine-2.26_new_upstream.tar.xz was generated from the new upstream location
+# wget https://alpineapp.email/alpine/release/src/alpine-2.26.tar.xz
+# mv alpine-2.26.tar.xz alpine_upstream-2.26.tar.xz
+# alpine-2.26.tar.xz is slightly different between what Fedora has cached and
+# what is at the new upstream. The old location no longer exists
+# Clearly this shuffle should be removed as soon as a new release appears.
+Source0: alpine-2.26_new_upstream.tar.xz
 Source1: README.fedora
 
 Patch1: alpine-2.24-useragent.patch
@@ -73,9 +80,9 @@ GNU Build System's autotools.
 
 %prep
 %setup -q -n alpine-%{version}
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+%patch -P1 -p1
+%patch -P2 -p1
+%patch -P3 -p1
 
 install -m644 -p %{SOURCE1} .
 
@@ -95,6 +102,9 @@ touch imap/ip6
   --with-system-pinerc=%{_sysconfdir}/pine.conf \
   --with-system-fixed-pinerc=%{_sysconfdir}/pine.conf.fixed
 
+
+# Build single threaded, make is not creating directories in time.
+export RPM_BUILD_NCPUS=1
 %make_build EXTRACFLAGS="$RPM_OPT_FLAGS"
 
 
@@ -126,6 +136,12 @@ touch $RPM_BUILD_ROOT%{_sysconfdir}/pine.conf.fixed
 
 
 %changelog
+* Fri May 5 2023 Steve Traylen <steve.traylen@cern.ch> - 2.26-5
+- Switch to SPDX License field
+- Switch to new alineapp.email upstream (rhbz#2187297)
+- Build with one CPU thread
+- Use modern patch macros
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.26-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

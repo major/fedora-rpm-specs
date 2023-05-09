@@ -2,8 +2,8 @@ Summary:        Utility to test Pluggable Authentication Modules (PAM)
 Name:           pamtester
 Version:        0.1.2
 Release:        23%{?dist}
-License:        BSD
-URL:            http://pamtester.sourceforge.net/
+License:        BSD-3-Clause
+URL:            https://pamtester.sourceforge.net/
 Source0:        https://downloads.sourceforge.net/sourceforge/%{name}/%{name}-%{version}.tar.gz
 Patch0:         pamtester-configure-c99.patch
 BuildRequires:  gcc-c++

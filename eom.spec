@@ -13,9 +13,9 @@
 %{!?rel_build:%global git_tar %{name}-%{version}-%{git_ver}.tar.xz}
 
 Name:          eom
-Version:       %{branch}.0
+Version:       %{branch}.1
 %if 0%{?rel_build}
-Release:       10%{?dist}
+Release:       1%{?dist}
 %else
 Release:       0.17%{?git_rel}%{?dist}
 %endif
@@ -28,16 +28,6 @@ URL:           http://mate-desktop.org
 %{?rel_build:Source0:     http://pub.mate-desktop.org/releases/%{branch}/%{name}-%{version}.tar.xz}
 # Source for snapshot-builds.
 %{!?rel_build:Source0:    http://git.mate-desktop.org/%{name}/snapshot/%{name}-%{commit}.tar.xz#/%{git_tar}}
-
-# from upstream 1.26 branch
-# https://github.com/mate-desktop/eom/commit/535afce
-Patch1:        eom_0001-Add-support-for-libexif-0.6.14.patch
-# https://github.com/mate-desktop/eom/commit/d04cab0
-Patch2:        eom_0002-Accessibility-add-proper-mnemonic-relations-and-labe.patch
-# https://github.com/mate-desktop/eom/commit/8b7333e
-Patch3:        eom_0003-eom-window-fix-warning-incompatible-pointer-types.patch
-# https://github.com/mate-desktop/eom/pull/340
-Patch4:        eom_0004-Fix-building-with-ImageMagick-7.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: exempi-devel
@@ -86,9 +76,6 @@ Development files for eom
 # needed for git snapshots
 NOCONFIGURE=1 ./autogen.sh
 %endif # 0%{?rel_build}
-
-# Patch1
-NOCONFIGURE=1 ./autogen.sh
 
 %build
 %configure \
@@ -141,6 +128,9 @@ find ${RPM_BUILD_ROOT} -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Sun May 07 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-1
+- update to 1.26.1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

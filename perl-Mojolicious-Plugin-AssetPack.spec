@@ -1,6 +1,6 @@
 Name:           perl-Mojolicious-Plugin-AssetPack
 Version:        2.14
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Compress and convert CSS, Less, Sass, JavaScript and CoffeeScript files
 License:        Artistic 2.0
 
@@ -8,7 +8,6 @@ URL:            https://metacpan.org/release/Mojolicious-Plugin-AssetPack
 Source0:        https://cpan.metacpan.org/authors/id/S/SR/SRI/Mojolicious-Plugin-AssetPack-%{version}.tar.gz
 
 BuildArch:      noarch
-BuildRequires:  coffee-script
 BuildRequires:  make
 BuildRequires:  sed
 BuildRequires:  perl-interpreter
@@ -82,6 +81,9 @@ done
 %{_mandir}/man3/Mojolicious*
 
 %changelog
+* Sun May 07 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 2.14-2
+- Remove BuildRequire on coffee-script (#2186425)
+
 * Sun Feb 05 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 2.14-1
 - Update to 2.14
 

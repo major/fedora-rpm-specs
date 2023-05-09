@@ -1,15 +1,14 @@
 # RPM version needs 4 digits after the decimal to preserve upgrade path
-%global module_version 1.54
+%global module_version 1.5402
 %global RPM_version %(printf "%.4f" %{module_version})
 
 Name:           perl-Finance-Quote
 Version:        %{RPM_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        A Perl module that retrieves stock and mutual fund quotes
 License:        GPL-2.0-or-later
 URL:            https://metacpan.org/release/Finance-Quote
 Source0:        https://cpan.metacpan.org/modules/by-module/Finance/Finance-Quote-%{module_version}.tar.gz
-Patch0:         Finance-Quote-1.54-FTfunds.patch
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
@@ -79,10 +78,6 @@ using various source.
 
 %prep
 %setup -q -n Finance-Quote-%{module_version}
-
-# Tweak regex to fix FTfunds.pm
-# https://github.com/finance-quote/finance-quote/pull/262
-%patch -P 0 -p 1
 
 # Remove redundant exec permissions
 find lib/ -type f -name '*.pm' -exec chmod -c -x {} \;
@@ -160,6 +155,11 @@ make test
 %{_mandir}/man3/Finance::Quote::ZA.3*
 
 %changelog
+* Sun May  7 2023 Paul Howarth <paul@city-fan.org> - 1.5402-1
+- Update to 1.5402
+  - URL Change for MorningstarJP (GH#261)
+  - Regex fix in FTfunds.pm and changed test cases ftfunds.t (GH#262)
+
 * Sat Apr  8 2023 Paul Howarth <paul@city-fan.org> - 1.5400-3
 - Tweak regex to fix FTfunds.pm
   https://github.com/finance-quote/finance-quote/pull/262

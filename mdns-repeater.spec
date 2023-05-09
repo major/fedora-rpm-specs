@@ -2,7 +2,7 @@ Summary:        Multicast DNS repeater
 Name:           mdns-repeater
 Version:        1.11
 Release:        8%{?dist}
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/kennylevinsen/mdns-repeater
 Source0:        https://github.com/kennylevinsen/mdns-repeater/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:        %{name}.service

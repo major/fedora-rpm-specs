@@ -2,7 +2,8 @@ Summary:        Sendmail milter for amavisd-new using the AM.PDP protocol
 Name:           amavisd-milter
 Version:        1.7.2
 Release:        4%{?dist}
-License:        BSD
+# ISC (compat/strlcpy.c) and BSD-3-Clause (the rest)
+License:        BSD-3-Clause AND ISC
 URL:            https://github.com/prehor/amavisd-milter
 Source0:        https://github.com/prehor/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz
 Source1:        amavisd-milter.service

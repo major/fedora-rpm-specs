@@ -2,7 +2,7 @@ Summary:        Dallas Semiconductor 1-wire device reading console application
 Name:           digitemp
 Version:        3.7.2
 Release:        9%{?dist}
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://www.digitemp.com/
 Source0:        https://github.com/bcl/digitemp/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        dthowto.txt

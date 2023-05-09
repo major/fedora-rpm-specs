@@ -2,7 +2,7 @@ Summary:        Archiver for .arj files
 Name:           arj
 Version:        3.10.22
 Release:        38%{?dist}
-License:        GPL+
+License:        GPL-2.0-or-later
 URL:            http://arj.sourceforge.net/
 Source0:        https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 # unarj.* from Debian

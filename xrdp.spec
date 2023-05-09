@@ -16,8 +16,8 @@
 Summary:   Open source remote desktop protocol (RDP) server
 Name:      xrdp
 Epoch:     1
-Version:   0.9.21
-Release:   2%{?dist}
+Version:   0.9.22
+Release:   3%{?dist}
 License:   ASL 2.0 and GPLv2+ and MIT
 URL:       http://www.xrdp.org/
 Source0:   https://github.com/neutrinolabs/xrdp/releases/download/v%{version}/xrdp-%{version}.tar.gz
@@ -254,40 +254,43 @@ fi
 %{_mandir}/man5/*
 %{_mandir}/man8/*
 %{_mandir}/man1/*
-%{_libdir}/lib*.so.*
-%exclude %{_libdir}/librfxencode.so
 %{_libdir}/xrdp/lib*.so.*
-%exclude %{_libdir}/xrdp/libcommon.so
-%{_libdir}/xrdp/libmc.so
-%exclude %{_libdir}/xrdp/libscp.so
-%{_libdir}/xrdp/libvnc.so
-%exclude %{_libdir}/xrdp/libxrdp.so
-%{_libdir}/xrdp/libxup.so
-%exclude %{_libdir}/xrdp/libxrdpapi.so
+%exclude %{_libdir}/xrdp/lib*.so
 %{_unitdir}/xrdp-sesman.service
 %{_unitdir}/xrdp.service
 %exclude %{_includedir}/painter.h
 %exclude %{_libdir}/libpainter.*
 %exclude %{_libdir}/pkgconfig/libpainter.pc
 %exclude %{_libdir}/*.a
-%exclude %{_libdir}/*.la
 %exclude %{_libdir}/xrdp/*.a
+%if 0%{?rhel}
+%exclude %{_libdir}/*.la
 %exclude %{_libdir}/xrdp/*.la
+%endif
 %ghost %{_localstatedir}/log/xrdp.log
 %ghost %{_localstatedir}/log/xrdp-sesman.log
+%exclude %{_libdir}/pkgconfig/rfxcodec.pc
 
 %files devel
 %{_includedir}/ms-*
 %{_includedir}/xrdp*
 %{_includedir}/rfxcodec_*.h
 %{_libdir}/pkgconfig/xrdp.pc
-%{_libdir}/pkgconfig/rfxcodec.pc
 
 %files selinux
 %doc SELinux/%{name}.te
 %{_datadir}/selinux/*/%{name}.pp
 
 %changelog
+* Mon May  8 2023 Bojan Smojver <bojan@rexurive.com> - 1:0.9.22-3
+- Exclude rfxcodec.pc - shared library no longer created
+
+* Sun May  7 2023 Bojan Smojver <bojan@rexurive.com> - 1:0.9.22-2
+- Explicitly exclude .la files on RHEL
+
+* Sun May  7 2023 Bojan Smojver <bojan@rexurive.com> - 1:0.9.22-1
+- Bump up to 0.9.22
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.9.21-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

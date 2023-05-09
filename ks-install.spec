@@ -1,11 +1,13 @@
 %global forgeurl https://github.com/cmadamsgit/ks-install
-%global commit 06d4402e9bbc21a79f651b58786415600635ff2d
+%global commit 72db7819e3ed40c7f00bd6cd709335970a5ba9c5
+# forgemeta getting a date mismatch at 20230506 vs 07
+%global date 20230507
 %forgemeta
 
 Name:		ks-install
 Summary:	Take a Fedora/CentOS/RHEL kickstart file and make a VM
 Version:	0
-Release:	0.3%{?dist}
+Release:	0.4%{?dist}
 URL:		%{forgeurl}
 Source:		%{forgesource}
 License:	GPLv3
@@ -35,6 +37,10 @@ install -D -m0644 ks-libvirt.1 %{buildroot}%{_mandir}/man1/ks-libvirt.1
 %{_mandir}/man*/*
 
 %changelog
+* Sat May 06 2023 Chris Adams <linux@cmadams.net> 0-0.4
+- Add --arch and --machine options
+- recognize "$basearch" in URLs (such as Alma mirror lists)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

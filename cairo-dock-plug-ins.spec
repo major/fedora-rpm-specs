@@ -9,22 +9,14 @@
 %global	shorthash	%(c=%{githash} ; echo ${c:0:7})
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
-%global	baserelease	42
+%global	baserelease	43
 
 
 %global	ruby_vendorlib	%(ruby -rrbconfig -e "puts RbConfig::CONFIG['vendorlibdir']")
 
 %global	build_unstable	1
 
-%global	use_webkit2	0
-%if 0%{?fedora} >= 26
-%global	use_webkit2	1
-%endif
-
 %undefine _strict_symbol_defs_build
-%if 0%{?fedora} < 31
-%undefine __brp_mangle_shebangs
-%endif
 
 Name:			cairo-dock-plug-ins
 Version:		%{mainver}
@@ -42,6 +34,9 @@ Source1:		cairo-dock-plug-ins-create-fedora-tarball.sh
 Patch11:		cairo-dock-plugins-3.4.1-port-WebKit2.patch
 # PEP632: switch from distutils to setuptools
 Patch12:		cairo-dock-plugins-3.4.1-python-pep632-distutils-port.patch
+# https://fedoraproject.org/wiki/Changes/Remove_webkit2gtk-4.0_API_Version
+# Use webkit2gtk-4.1 for F-39+
+Patch13:		cairo-dock-plugins-3.4.1-port-WebKit2_gtk41.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:	cmake
@@ -68,7 +63,13 @@ BuildRequires:	pkgconfig(openssl) >= 1.1
 # BuildRequires:	pkgconfig(thunar-vfs-1)
 BuildRequires:	pkgconfig(upower-glib)
 BuildRequires:	pkgconfig(vte-2.91)
+# https://fedoraproject.org/wiki/Changes/Remove_webkit2gtk-4.0_API_Version
+# Use webkit2gtk-4.1 for F-39+
+%if 0%{?fedora} >= 39
+BuildRequires:	pkgconfig(webkit2gtk-4.1)
+%else
 BuildRequires:	pkgconfig(webkit2gtk-4.0)
+%endif
 BuildRequires:	pkgconfig(xxf86vm)
 BuildRequires:	pkgconfig(zeitgeist-2.0)
 
@@ -198,10 +199,9 @@ binding for Cairo-Dock.
 
 %prep
 %setup -q -n cairo-dock-plugins-%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
-%if 0%{?use_webkit2}
-%patch11 -p1 -b .wk2
-%endif
-%patch12 -p1 -b .pep632
+%patch -P11 -p1 -b .wk2
+%patch -P12 -p1 -b .pep632
+%patch -P13 -p1 -b .wk2_gtk41
 
 ## permission
 # %%_fixperms cannot fix permissions completely here
@@ -414,6 +414,10 @@ popd
 %{_datadir}/cairo-dock/plug-ins/Dbus/CDApplet.h
 
 %changelog
+* Sun May 07 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.1-43.20210730gitf24f769
+- Use webkit2gtk-4.1 for F-39+
+  https://fedoraproject.org/wiki/Changes/Remove_webkit2gtk-4.0_API_Version
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-42.20210730gitf24f769.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

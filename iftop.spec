@@ -2,7 +2,8 @@ Summary:        Command line tool that displays bandwidth usage on an interface
 Name:           iftop
 Version:        1.0
 Release:        0.30.pre4%{?dist}
-License:        GPLv2+
+# {ip,sll,tcp}.h are BSD-4-Clause-UC, rest is GPL-2.0-or-later
+License:        GPL-2.0-or-later AND BSD-4-Clause-UC
 URL:            http://www.ex-parrot.com/~pdw/%{name}/
 Source0:        http://www.ex-parrot.com/~pdw/%{name}/download/%{name}-%{version}pre4.tar.gz
 Patch0:         iftop-1.0-ncursesw.patch

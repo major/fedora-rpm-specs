@@ -1,16 +1,10 @@
 Name:          mate-menus
-Version:       1.26.0
-Release:       6%{?dist}
+Version:       1.26.1
+Release:       1%{?dist}
 Summary:       Displays menus for MATE Desktop
 License:       GPLv2+ and LGPLv2+
 URL:           http://mate-desktop.org
 Source0:       http://pub.mate-desktop.org/releases/1.26/%{name}-%{version}.tar.xz
-
-# add commits from 1.26 branch
-# https://github.com/mate-desktop/mate-menus/commit/d9059fb
-Patch1:        mate-menus_0001-Let-user-disable-collection-menu-entry-disable-colle.patch
-# https://github.com/mate-desktop/mate-menus/commit/6207251
-Patch2:        mate-menus_0002-fix-build-error-invalid-operands-to-binary-expressio.patch
 
 BuildRequires: make
 BuildRequires: gobject-introspection-devel
@@ -50,9 +44,6 @@ Development files for mate-menus
 sed -i -e '/<!-- End Other -->/ a\  <MergeFile>applications-merged/multimedia-categories.menu</MergeFile>' layout/mate-applications.menu
 sed -i -e '/<MergeFile>applications-merged\/multimedia-categories.menu<\/MergeFile>/ a\  <MergeFile>applications-merged/games-categories.menu</MergeFile>' layout/mate-applications.menu
 sed -i -e '/<MergeFile>applications-merged\/games-categories.menu<\/MergeFile>/ a\  <MergeFile>applications-merged/wine.menu</MergeFile>' layout/mate-applications.menu
-
-# Patch1
-NOCONFIGURE=1 ./autogen.sh
 
 %build
 %configure \
@@ -95,6 +86,9 @@ find %{buildroot} -name '*.a' -exec rm -f {} ';'
 
 
 %changelog
+* Sun May 07 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-1
+- update to 1.26.1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

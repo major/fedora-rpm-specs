@@ -5,7 +5,7 @@ Summary: Bug tracking system
 URL: https://www.bugzilla.org/
 Name: bugzilla
 Version: 5.0.6
-Release: 17%{?dist}
+Release: 18%{?dist}
 License: MPLv1.1
 Source0: https://github.com/bugzilla/bugzilla/archive/release-%{version}.tar.gz
 Source1: bugzilla-httpd-conf
@@ -16,6 +16,7 @@ Patch1: bugzilla-dnf.patch
 Patch2: bugzilla-1438957-concatenate-assets.patch
 # https://bug1657496.bmoattachments.org/attachment.cgi?id=9169528
 Patch3: bugzilla-1855962-non-html-mail.patch
+Patch4: bugzilla-2180465-sphinx-build.patch
 
 BuildArch: noarch
 Requires: patchutils
@@ -171,10 +172,11 @@ Contributed scripts and functions for Bugzilla
 
 %prep
 %setup -q -n %{name}-release-%{version}
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+%patch -P 0 -p1
+%patch -P 1 -p1
+%patch -P 2 -p1
+%patch -P 3 -p1
+%patch -P 4 -p1
 
 # Deal with changing /usr/local paths here instead of via patches
 /usr/bin/perl -pi -e 's|/usr/local/bin/python\b|%{__python3}|' contrib/*.py
@@ -290,6 +292,10 @@ popd > /dev/null)
 %{bzinstallprefix}/bugzilla/contrib/Bugzilla.pm
 
 %changelog
+* Sun May 07 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 5.0.6-18
+- Patch to build against Sphinx 6.1.3 (#2180465)
+- Use new patch syntax
+
 * Sun Feb 12 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 5.0.6-17
 - Add missing buildrequirement on tgtermes.sty (#2160038)
 

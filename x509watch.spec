@@ -2,7 +2,7 @@ Summary:          Simple tool to list expiring or expired X.509 certificates
 Name:             x509watch
 Version:          0.6.1
 Release:          14%{?dist}
-License:          GPLv2+
+License:          GPL-2.0-or-later
 URL:              https://ftp.robert-scheck.de/linux/%{name}/
 Source:           https://ftp.robert-scheck.de/linux/%{name}/%{name}-%{version}.tar.gz
 Requires:         %{_bindir}/openssl

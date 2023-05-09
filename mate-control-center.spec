@@ -13,9 +13,9 @@
 %{!?rel_build:%global git_tar %{name}-%{version}-%{git_ver}.tar.xz}
 
 Name:          mate-control-center
-Version:       %{branch}.0
+Version:       %{branch}.1
 %if 0%{?rel_build}
-Release:       6%{?dist}
+Release:       1%{?dist}
 %else
 Release:       0.20%{?git_rel}%{?dist}
 %endif
@@ -28,14 +28,6 @@ URL:           http://mate-desktop.org
 %{?rel_build:Source0:     http://pub.mate-desktop.org/releases/%{branch}/%{name}-%{version}.tar.xz}
 # Source for snapshot-builds.
 %{!?rel_build:Source0:    http://git.mate-desktop.org/%{name}/snapshot/%{name}-%{commit}.tar.xz#/%{git_tar}}
-
-# from 1.26 branch
-Patch1:        mate-control-center_0001-Maintain-compatibility-with-Glibc-versions-older-tha.patch
-Patch2:        mate-control-center_0002-Remove-redundant-i18n-functions.patch
-Patch3:        mate-control-center_0003-Change-capplets-about-me-mate-about-me-password.c-fo.patch
-Patch4:        mate-control-center_0004-mouse-fix-memory-leak.patch
-Patch5:        mate-control-center_0005-keyboard-fix-memory-leak.patch
-Patch6:        mate-control-center_0006-mate-da-capplet-fix-memory-leak.patch
 
 BuildRequires: accountsservice-devel
 BuildRequires: dconf-devel
@@ -165,6 +157,9 @@ rm %{buildroot}%{_datadir}/applications/mimeinfo.cache
 
 
 %changelog
+* Sun May 07 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-1
+- update to 1.26.1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -8,8 +8,8 @@
 #   fatal: UNKNOWN INSTRUCTION: 0x00 -- something is wrong
 %bcond ragel 0
 
-%global gitdate 20220904
-%global commit0 5295175f234c73c2df03eb59d571c239c2d19e58
+%global gitdate 20230430
+%global commit0 d1e1b4a69e934d1fed930634b4a6a637bea273a8
 %global srcurl  https://github.com/KDE/%{name}
 
 Name:           trojita
@@ -148,7 +148,7 @@ Summary:   Documentation files for %{name}
 
 %prep
 %setup -qn%{name}-%{commit0} -a10
-%patch11 -p1 -b .disable-gpg-tests
+%patch 11 -p1 -b .disable-gpg-tests
 
 %build
 %if %{without testsqtwebkit}
@@ -206,6 +206,9 @@ xvfb-run -a %ctest
 
 
 %changelog
+* Sun Apr 30 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 0.7.0.1-0.18.20230430gitd1e1b4a
+- Update to commit d1e1b4a69e934d1fed930634b4a6a637bea273a8
+
 * Wed Mar 22 2023 Jan Grulich <jgrulich@redhat.com> - 0.7.0.1-0.18.20220904git5295175
 - Rebuild (grantlee-qt5)
 

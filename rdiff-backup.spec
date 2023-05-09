@@ -1,4 +1,4 @@
-%global gittag 2.2.4
+%global gittag 2.2.5
 
 Version: %{gittag}
 Summary: Convenient and transparent local/remote incremental mirror/backup
@@ -59,6 +59,12 @@ rm -rf $RPM_BUILD_ROOT/usr/share/doc/*
 %license COPYING
 
 %changelog
+* Sun May 07 2023 Frank Crawford <frank@crawford.emu.id.au> - 2.2.5-2
+- Minor Fix release v2.2.5 - Fedora/EPEL Release
+
+* Sat May 06 2023 Frank Crawford <frank@crawford.emu.id.au> - 2.2.5-1
+- Minor Fix release v2.2.5 - COPR Release
+
 * Wed Mar 08 2023 Frank Crawford <frank@crawford.emu.id.au> - 2.2.4-2
 - Small Fix Release v2.2.4 - Fedora/EPEL Release
 

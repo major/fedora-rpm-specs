@@ -1,14 +1,19 @@
 Name:           stlsplit
 Version:        1.2
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Split STL file to more files - one shell each
-License:        AGPLv3+
-URL:            http://github.com/admesh/stlsplit/
-Source0:        https://github.com/admesh/stlsplit/archive/v%{version}.tar.gz
-BuildRequires: make
+License:        AGPL-3.0-or-later
+URL:            https://github.com/admesh/stlsplit/
+Source:         https://github.com/admesh/stlsplit/archive/v%{version}.tar.gz
 BuildRequires:  admesh-devel >= 0.98
 BuildRequires:  gcc-c++
-BuildRequires:  premake
+BuildRequires:  make
+BuildRequires:  premake >= 5
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+%if 0%{?fedora} >= 39 || 0%{?rhel} >= 10
+ExcludeArch:    %{ix86}
+%endif
 
 %description
 stlsplit receives one STL file and splits it to several files -
@@ -26,12 +31,12 @@ This package contains the development files needed for building new
 applications that utilize the %{name} library.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
-premake4 gmake
+premake5 gmake
 sed -i -e 's! -shared ! -Wl,--as-needed\0!g' lib.make
-CFLAGS="%{optflags} -fPIC" LDFLAGS="%{?__global_ldflags}" make %{?_smp_mflags}
+CFLAGS="%{optflags} -fPIC" LDFLAGS="%{?__global_ldflags}" %make_build
 
 %install
 install -Dpm 755 build/%{name} %{buildroot}%{_bindir}/%{name}
@@ -50,6 +55,11 @@ install -Dpm 644 %{name}.h %{buildroot}%{_includedir}/%{name}.h
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Sun May 07 2023 Miro Hrončok <mhroncok@redhat.com> - 1.2-18
+- Switch the License tag to SPDX
+- Build with premake 5
+- Stop building on i686 (for Fedora 39+)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

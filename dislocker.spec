@@ -2,7 +2,7 @@ Summary:         Utility to access BitLocker encrypted volumes
 Name:            dislocker
 Version:         0.7.3
 Release:         10%{?dist}
-License:         GPLv2+
+License:         GPL-2.0-or-later
 URL:             https://github.com/Aorimn/dislocker
 Source0:         https://github.com/Aorimn/dislocker/archive/v%{version}/%{name}-%{version}.tar.gz
 # ruby header redefines "true"

@@ -5,22 +5,19 @@
 
 %global crate x11-clipboard
 
-Name:           rust-%{crate}
-Version:        0.5.3
+Name:           rust-x11-clipboard
+Version:        0.7.1
 Release:        %autorelease
 Summary:        X11 clipboard support for Rust
 
-# Upstream license specification: MIT
 License:        MIT
 URL:            https://crates.io/crates/x11-clipboard
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+#  - Bump "x11rb" to 0.11.x
+Patch:          x11-clipboard-fix-metadata.diff
 
-ExclusiveArch:  %{rust_arches}
-%if %{__cargo_skip_build}
-BuildArch:      noarch
-%endif
-
-BuildRequires:  rust-packaging
+BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
 X11 clipboard support for Rust.}
@@ -33,13 +30,13 @@ BuildArch:      noarch
 
 %description    devel %{_description}
 
-This package contains library source intended for building other packages
-which use "%{crate}" crate.
+This package contains library source intended for building other packages which
+use the "%{crate}" crate.
 
 %files          devel
-%license LICENSE
-%doc README.md
-%{cargo_registry}/%{crate}-%{version_no_tilde}/
+%license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/README.md
+%{crate_instdir}/
 
 %package     -n %{name}+default-devel
 Summary:        %{summary}
@@ -47,11 +44,11 @@ BuildArch:      noarch
 
 %description -n %{name}+default-devel %{_description}
 
-This package contains library source intended for building other packages
-which use "default" feature of "%{crate}" crate.
+This package contains library source intended for building other packages which
+use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{cargo_registry}/%{crate}-%{version_no_tilde}/Cargo.toml
+%ghost %{crate_instdir}/Cargo.toml
 
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1

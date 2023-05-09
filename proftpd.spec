@@ -248,28 +248,28 @@ sed -e 's|@RUNDIR@|/run|' %{SOURCE6} > anonftp.conf
 mv contrib/README contrib/README.contrib
 
 # Change shellbangs /usr/bin/env perl ⇒ /usr/bin/perl
-%patch1
+%patch -P 1
 
 # If we're running the full test suite, include the mod_vroot test
-%patch3 -p1 -b .test_vroot
+%patch -P 3 -p1 -b .test_vroot
 
 # Remove references to mod_wrap from the configuration file if necessary
 %if 0%{!?libwrap_support:1}
-%patch4 -b .nowrappers
+%patch -P 4 -b .nowrappers
 %endif
 
 # Remove references to mod_geoip from the configuration file if necessary
 %if 0%{!?geoip_support:1}
-%patch5 -b .nogeoip
+%patch -P 5 -b .nogeoip
 %endif
 
 # Hack to ensure that dynamic modules are linked against libidn2
 # https://bugzilla.redhat.com/show_bug.cgi?id=2166454
 # https://github.com/proftpd/proftpd/issues/1590
-%patch6 -p1 -b .libidn2
+%patch -P 6 -p1 -b .libidn2
 
 # Port configure script to C99: https://github.com/proftpd/proftpd/pull/1665
-%patch7 -p1 -b .c99
+%patch -P 7 -p1 -b .c99
 
 # OpenSSL Cipher Profiles introduced in Fedora 21
 # Elsewhere, we use the default of DEFAULT:!ADH:!EXPORT:!DES

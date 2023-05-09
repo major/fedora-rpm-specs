@@ -6,7 +6,7 @@
 %bcond_without tests
 
 Name:           python-%{srcname}
-Version:        0.12.2
+Version:        0.13.0
 Release:        %autorelease
 Summary:        Geographic Pandas extensions
 
@@ -39,7 +39,7 @@ BuildRequires:  python3dist(fsspec)
 BuildRequires:  python3dist(psycopg2)
 BuildRequires:  python3dist(rtree) >= 0.8
 BuildRequires:  python3dist(sqlalchemy)
-BuildRequires:  python3dist(matplotlib) >= 2.0.1
+BuildRequires:  python3dist(matplotlib) >= 3.3.4
 BuildRequires:  python3dist(mapclassify)
 # See:
 # Depend on pandas[test] for testing
@@ -53,7 +53,7 @@ BuildRequires:  python3dist(pandas[test])
 %autosetup -n %{srcname}-%{version} -p1
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
