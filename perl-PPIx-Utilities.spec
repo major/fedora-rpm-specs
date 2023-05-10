@@ -9,7 +9,7 @@ Name:		perl-PPIx-Utilities
 Version:	1.001000
 Release:	48%{?dist}
 Summary:	Extensions to PPI
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/PPIx-Utilities
 Source0:	https://cpan.metacpan.org/authors/id/E/EL/ELLIOTJS/PPIx-Utilities-%{version}.tar.gz
 BuildArch:	noarch
@@ -41,7 +41,6 @@ BuildRequires:	perl(Test::More)
 # Extra tests:
 # PPI needed by Perl::Critic, so don't run extra tests when bootstrapping
 %if 0%{!?perl_bootstrap:1} && %{with perl_PPIx_Utilities_enables_extra_test}
-BuildRequires:	aspell-en
 BuildRequires:	perl(File::Find)
 BuildRequires:	perl(File::Slurp)
 BuildRequires:	perl(Perl::Critic::Policy::Miscellanea::RequireRcsKeywords)
@@ -51,7 +50,8 @@ BuildRequires:	perl(Test::Kwalitee)
 BuildRequires:	perl(Test::Pod)
 BuildRequires:	perl(Test::Pod::Coverage)
 %endif
-# Run-time:
+# Dependencies:
+# (none)
 
 %description
 This is a collection of functions for dealing with PPI objects, many of
@@ -84,11 +84,7 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %endif
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
 %doc Changes README
 %{perl_vendorlib}/PPIx/
 %{_mandir}/man3/PPIx::Utilities.3*

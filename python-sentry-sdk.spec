@@ -1,5 +1,5 @@
 Name:           python-sentry-sdk
-Version:        1.21.1
+Version:        1.22.1
 Release:        1%{?dist}
 Summary:        The new Python SDK for Sentry.io
 
@@ -170,6 +170,9 @@ sed -i '/assert event\["_meta"\]/i\ \ \ \ if not event["_meta"]["extra"]: event[
 
 
 %changelog
+* Mon May 08 2023 Roman Inflianskas <rominf@aiven.io> - 1.22.1-1
+- Update to 1.22.1 (resolve rhbz#2193365)
+
 * Tue May 02 2023 Roman Inflianskas <rominf@aiven.io> - 1.21.1-1
 - Update to 1.21.1 (resolve rhbz#2182365)
 

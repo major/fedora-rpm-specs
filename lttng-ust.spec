@@ -14,9 +14,9 @@
 
 Name:           lttng-ust
 Version:        2.13.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 
-License:        LGPLv2.1, MIT and GPLv2
+License:        LGPL-2.1-only AND MIT AND GPL-2.0-only AND BSD-3-Clause AND BSD-2-Clause
 Summary:        LTTng Userspace Tracer library
 URL:            https://lttng.org
 Source0:        https://lttng.org/files/lttng-ust/%{name}-%{version}.tar.bz2
@@ -136,6 +136,9 @@ make check
 %{python3_sitelib}/lttngust-*.egg-info
 
 %changelog
+* Mon May 08 2023 Michael Jeanson <mjeanson@efficios.com> - 2.13.5-3
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

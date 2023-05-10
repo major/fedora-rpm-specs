@@ -1,6 +1,6 @@
 Name:          ktextaddons
 Version:       1.1.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Various text handling addons
 
 License:       CC0-1.0 AND LGPL-2.0-or-later AND GPL-2.0-or-later AND BSD-3-Clause
@@ -16,6 +16,7 @@ BuildRequires: extra-cmake-modules
 
 BuildRequires: cmake(Qt5Core)
 BuildRequires: cmake(Qt5Keychain)
+BuildRequires: cmake(Qt5TextToSpeech)
 BuildRequires: cmake(Qt5UiPlugin)
 
 BuildRequires: cmake(KF5Archive)
@@ -54,11 +55,14 @@ Summary:        Development files for %{name}
 %doc README.md
 %{_kf5_libdir}/libKF5TextAutoCorrection.so.1
 %{_kf5_libdir}/libKF5TextAutoCorrection.so.%{version}
+%{_kf5_libdir}/libKF5TextEditTextToSpeech.so.1
+%{_kf5_libdir}/libKF5TextEditTextToSpeech.so.%{version}
 %{_kf5_libdir}/libKF5TextGrammarCheck.so.1
 %{_kf5_libdir}/libKF5TextGrammarCheck.so.%{version}
 %{_kf5_libdir}/libKF5TextTranslator.so.1
 %{_kf5_libdir}/libKF5TextTranslator.so.%{version}
 %{_kf5_libdir}/qt5/mkspecs/modules/qt_TextAutoCorrection.pri
+%{_kf5_libdir}/qt5/mkspecs/modules/qt_TextEditTextToSpeech.pri
 %{_kf5_libdir}/qt5/mkspecs/modules/qt_TextGrammarCheck.pri
 %{_kf5_libdir}/qt5/mkspecs/modules/qt_TextTranslator.pri
 %{_kf5_qtplugindir}/designer/texttranslatorwidgets5.so
@@ -72,17 +76,23 @@ Summary:        Development files for %{name}
 
 %files devel
 %{_kf5_includedir}/TextAutoCorrection/
+%{_kf5_includedir}/TextEditTextToSpeech/
 %{_kf5_includedir}/TextGrammarCheck/
 %{_kf5_includedir}/TextTranslator/
 %{_kf5_libdir}/libKF5TextAutoCorrection.so
-%{_kf5_libdir}/libKF5TextTranslator.so
+%{_kf5_libdir}/libKF5TextEditTextToSpeech.so
 %{_kf5_libdir}/libKF5TextGrammarCheck.so
+%{_kf5_libdir}/libKF5TextTranslator.so
 %{_kf5_libdir}/cmake/KF5TextAutoCorrection/
+%{_kf5_libdir}/cmake/KF5TextEditTextToSpeech/
 %{_kf5_libdir}/cmake/KF5TextGrammarCheck/
 %{_kf5_libdir}/cmake/KF5TextTranslator/
 
 
 %changelog
+* Mon May 08 2023 Kevin Kofler <Kevin@tigcc.ticalc.org> - 1.1.1-2
+- Add missing BuildRequires: cmake(Qt5TextToSpeech)
+
 * Fri Mar 24 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1.1.1-1
 - Update to version 1.1.1
 

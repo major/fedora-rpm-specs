@@ -5,7 +5,7 @@
 %global crate sop
 
 Name:           rust-sop
-Version:        0.4.2
+Version:        0.5.0
 Release:        %autorelease
 Summary:        Rust Interface for the Stateless OpenPGP Protocol
 
@@ -70,6 +70,30 @@ use the "chrono" feature of the "%{crate}" crate.
 %files       -n %{name}+chrono-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+clap-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+clap-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "clap" feature of the "%{crate}" crate.
+
+%files       -n %{name}+clap-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+clap_complete-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+clap_complete-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "clap_complete" feature of the "%{crate}" crate.
+
+%files       -n %{name}+clap_complete-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+cli-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -80,18 +104,6 @@ This package contains library source intended for building other packages which
 use the "cli" feature of the "%{crate}" crate.
 
 %files       -n %{name}+cli-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+structopt-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+structopt-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "structopt" feature of the "%{crate}" crate.
-
-%files       -n %{name}+structopt-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

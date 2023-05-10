@@ -1,6 +1,6 @@
 Summary: Tracks and displays system calls associated with a running process
 Name: strace
-Version: 6.2
+Version: 6.3
 Release: 1%{?dist}
 # The test suite is GPLv2+, all the rest is LGPLv2.1+.
 %if 0%{?fedora} >= 35 || 0%{?centos} >= 9 || 0%{?rhel} >= 9
@@ -69,7 +69,7 @@ received by a process.
 %setup -q
 echo -n %version-%release > .tarball-version
 echo -n 2023 > .year
-echo -n 2022-10-16 > doc/.strace.1.in.date
+echo -n 2023-05-06 > doc/.strace.1.in.date
 echo -n 2022-01-01 > doc/.strace-log-merge.1.in.date
 
 %build
@@ -81,7 +81,7 @@ file -L /bin/sh
 gcc --version |head -1
 ld --version |head -1
 kver="$(printf '%%s\n%%s\n' '#include <linux/version.h>' 'LINUX_VERSION_CODE' | gcc -E -P -)"
-printf 'kernel-headers %%s.%%s.%%s\n' $(($kver/65536)) $(($kver/256%%256)) $(($kver%%256))
+printf 'kernel-headers %%s.%%s.%%s\n' $((kver/65536)) $((kver/256%%256)) $((kver%%256))
 echo 'END OF BUILD ENVIRONMENT INFORMATION'
 
 CFLAGS_FOR_BUILD="$RPM_OPT_FLAGS"; export CFLAGS_FOR_BUILD
@@ -122,6 +122,9 @@ fi
 %{_mandir}/man1/*
 
 %changelog
+* Mon May 08 2023 Dmitry V. Levin <ldv@strace.io> - 6.3-1
+- v6.2 -> v6.3.
+
 * Sun Feb 26 2023 Dmitry V. Levin <ldv@strace.io> - 6.2-1
 - v6.1 -> v6.2.
 

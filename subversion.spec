@@ -59,7 +59,7 @@
 Summary: A Modern Concurrent Version Control System
 Name: subversion
 Version: 1.14.2
-Release: 14%{?dist}
+Release: 15%{?dist}
 License: Apache-2.0
 URL: https://subversion.apache.org/
 Source0: https://downloads.apache.org/subversion/subversion-%{version}.tar.bz2
@@ -79,6 +79,7 @@ Patch6: subversion-1.14.1-testnomagic.patch
 Patch8: subversion-1.14.1-python-3.11-build.patch
 Patch9: subversion-1.14.2-swig-py-Fix-conditionals-by-SWIG-version-and-by-Pyth.patch
 Patch10: subversion-1.14.2-ruby32-remove-deprecated-api.patch
+Patch11: subversion-ruby-c99.patch
 
 BuildRequires: make
 BuildRequires: autoconf, libtool, texinfo, which, gcc, gcc-c++
@@ -245,6 +246,7 @@ This package includes supplementary tools for use with Subversion.
 %patch8 -p1 -b .pythonbuild
 %patch9 -p1 -b .swigfix
 %patch10 -p0 -b .ruby32
+%patch11 -p1
 
 :
 : === Building:
@@ -585,6 +587,9 @@ make check-javahl
 %endif
 
 %changelog
+* Mon May 08 2023 Florian Weimer <fweimer@redhat.com> - 1.14.2-15
+- Port to C99
+
 * Thu Feb 16 2023 Richard Lescak <rlescak@redhat.com> - 1.14.2-14
 - SPDX migration
 

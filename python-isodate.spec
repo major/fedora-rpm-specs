@@ -7,7 +7,7 @@ Name:           python-%{srcname}
 Version:        0.6.1
 Release:        %autorelease
 Summary:        An ISO 8601 date/time/duration parser and formatter
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://pypi.org/project/isodate/
 Source0:        %pypi_source
 BuildArch:      noarch

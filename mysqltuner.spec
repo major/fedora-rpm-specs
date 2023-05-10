@@ -3,11 +3,11 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           mysqltuner
-Version:        1.8.3
-Release:        4%{?shortcommit:.git.%{shortcommit}}%{?dist}
+Version:        1.9.9
+Release:        2%{?dist}
 Summary:        MySQL configuration assistant
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://github.com/major/MySQLTuner-perl
 Source0:        https://github.com/major/MySQLTuner-perl/archive/%{commit}.tar.gz#/MySQLTuner-perl-%{shortcommit}.tar.gz
 
@@ -48,6 +48,12 @@ install -Dpm 755 mysqltuner.pl $RPM_BUILD_ROOT%{_bindir}/mysqltuner
 
 
 %changelog
+* Mon May 08 2023 Major Hayden <major@redhat.com> - 1.9.9-2
+- Migrated to SPDX license
+
+* Tue Mar 28 2023 Major Hayden <major@redhat.com> - 1.9.9-1
+- new version
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.3-4.git.1333ea9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

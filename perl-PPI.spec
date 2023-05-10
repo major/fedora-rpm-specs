@@ -9,7 +9,7 @@ Name:           perl-PPI
 Version:        1.276
 Release:        3%{?dist}
 Summary:        Parse, Analyze and Manipulate Perl
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/PPI
 Source0:        https://cpan.metacpan.org/modules/by-module/PPI/PPI-%{version}.tar.gz
 BuildArch:      noarch
@@ -37,6 +37,10 @@ BuildRequires:  perl(Params::Util) >= 1.00
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Storable) >= 2.17
 BuildRequires:  perl(strict)
+# =============== Optional Functionality ============
+%if %{with XSAccessor}
+BuildRequires:  perl(Class::XSAccessor)
+%endif
 # =============== Test Suite ========================
 BuildRequires:  perl(B)
 BuildRequires:  perl(Class::Inspector) >= 1.22
@@ -53,10 +57,7 @@ BuildRequires:  perl(Test::SubCalls) >= 1.07
 BuildRequires:  perl(Test::Warnings)
 BuildRequires:  perl(Time::HiRes)
 BuildRequires:  perl(utf8)
-# =============== Module Runtime ====================
-%if %{with XSAccessor}
-BuildRequires:  perl(Class::XSAccessor)
-%endif
+# =============== Dependencies ======================
 # Run-require Task::Weaken, see Changes for more details.
 Requires:       perl(Task::Weaken)
 

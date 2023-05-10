@@ -7,8 +7,8 @@
         HWINFO_VERSION=%{version}
 
 Name:           hwinfo
-Version:        21.80
-Release:        3%{?dist}
+Version:        22.2
+Release:        1%{?dist}
 Summary:        Hardware information tool
 
 License:        GPL+
@@ -22,7 +22,7 @@ BuildRequires:  flex
 BuildRequires:  perl-interpreter
 BuildRequires: make
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
-Obsoletes:      %{name} < 21.80-1
+Obsoletes:      %{name} < 22.2-1
 
 
 %description
@@ -32,7 +32,7 @@ generate a system overview log which can be later used for support.
 
 %package libs
 Summary:        Libraries for hwinfo
-Obsoletes:      %{name} < 21.80-1
+Obsoletes:      %{name} < 22.2-1
 
 
 %description libs
@@ -88,6 +88,9 @@ make %{make_flags}
 
 
 %changelog
+* Mon May 08 2023 Andrey Ponomarenko <andrewponomarenko@yandex.ru> - 22.2-1
+- Update to 22.2
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 21.80-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

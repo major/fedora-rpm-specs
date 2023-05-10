@@ -2,20 +2,20 @@ Name:		perl-Package-Anon
 Version:	0.05
 Release:	34%{?dist}
 Summary:	Anonymous packages
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Package-Anon
-Source0:	https://cpan.metacpan.org/authors/id/A/AU/AUGGY/Package-Anon-%{version}.tar.gz
+Source0:	https://cpan.metacpan.org/modules/by-module/Package/Package-Anon-%{version}.tar.gz
 # Build
 BuildRequires:	coreutils
 BuildRequires:	findutils
 BuildRequires:	gcc
 BuildRequires:	make
-BuildRequires:	perl-interpreter
 BuildRequires:	perl-devel
 BuildRequires:	perl-generators
+BuildRequires:	perl-interpreter
+BuildRequires:	perl(:VERSION) >= 5.14
 BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.30
 # Module
-BuildRequires:	perl-interpreter >= 4:5.14
 BuildRequires:	perl(Scalar::Util)
 BuildRequires:	perl(strict)
 BuildRequires:	perl(warnings)
@@ -51,7 +51,7 @@ make %{?_smp_mflags}
 make pure_install DESTDIR=%{buildroot}
 find %{buildroot} -type f -name .packlist -delete
 find %{buildroot} -type f -name '*.bs' -empty -delete
-%{_fixperms} %{buildroot}
+%{_fixperms} -c %{buildroot}
 
 %check
 make test RELEASE_TESTING=1

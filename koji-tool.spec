@@ -5,7 +5,7 @@
 %bcond_with tests
 
 Name:           koji-tool
-Version:        1.0
+Version:        1.0.1
 Release:        1%{?dist}
 Summary:        Koji CLI tool for querying tasks and installing builds
 
@@ -81,6 +81,10 @@ mkdir -p %{buildroot}%{_datadir}/bash-completion/completions/
 
 
 %changelog
+* Mon May 08 2023 Jens Petersen <petersen@redhat.com> - 1.0.1-1
+- 'install' now supports multiple arch options (#4)
+- 'find': interpret small number as a limit (default still 10 results)
+
 * Mon Apr 24 2023 Jens Petersen <petersen@redhat.com> - 1.0-1
 - https://hackage.haskell.org/package/koji-tool-1.0/changelog
 

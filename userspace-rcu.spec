@@ -1,8 +1,8 @@
 Name:           userspace-rcu
 Version:        0.14.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        RCU (read-copy-update) implementation in user-space
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            http://liburcu.org
 
 Source0:        http://lttng.org/files/urcu/%{name}-%{version}.tar.bz2
@@ -93,6 +93,9 @@ make regtest
 
 
 %changelog
+* Mon May 08 2023 Michael Jeanson <mjeanson@efficios.com> - 0.14.0-2
+- migrated to SPDX license
+
 * Thu Apr 27 2023 Michael Jeanson <mjeanson@efficios.com> - 0.14.0-1
 - New upstream release
 

@@ -1,5 +1,5 @@
 Name:           python-system-calls
-Version:        5.19.0
+Version:        6.4.0
 Release:        %{autorelease}
 Summary:        System calls
 

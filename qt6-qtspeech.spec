@@ -22,7 +22,9 @@ BuildRequires: qt6-qtbase-devel >= %{version}
 BuildRequires: qt6-qtmultimedia-devel >= %{version}
 BuildRequires: qt6-qtdeclarative-devel >= %{version}
 BuildRequires: speech-dispatcher-devel >= 0.8
+%if 0%{?fedora} || 0%{?rhel} < 10
 BuildRequires: flite-devel
+%endif
 
 BuildRequires: qt6-qtbase-private-devel
 %{?_qt6:Requires: %{_qt6}%{?_isa} = %{_qt6_version}}

@@ -9,7 +9,7 @@ Name:		perl-Package-Stash-XS
 Version:	0.30
 Release:	3%{?dist}
 Summary:	Faster and more correct implementation of the Package::Stash API
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Package-Stash-XS
 Source0:	https://cpan.metacpan.org/modules/by-module/Package/Package-Stash-XS-%{version}.tar.gz
 # Module Build
@@ -40,12 +40,11 @@ BuildRequires:	perl(Test::Needs)
 %if %{with perl_Package_Stash_XS_enables_optional_test}
 # Optional Tests
 BuildRequires:	perl(CPAN::Meta) >= 2.120900
-%if 0%{?fedora} > 15 || 0%{?rhel} > 6
 BuildRequires:	perl(Package::Anon)
-%endif
 BuildRequires:	perl(Variable::Magic)
 %endif
 # Dependencies
+# (none)
 
 # Don't "provide" private Perl libs
 %{?perl_default_filter}

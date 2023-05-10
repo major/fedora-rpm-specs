@@ -7,9 +7,9 @@
 
 Name:           python-%{srcname}
 Version:        %{short_version}~git.4.%{shortcommit}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Specific tools for Azure SDK for Python testing
-License:        MIT and ASL 2.0
+License:        MIT and Apache-2.0
 URL:            https://github.com/Azure/azure-sdk-for-python/
 # The azure-sdk-for-python repository is huge at > 160MB, but we only need ~
 # 100KB of source for this package. Use this script to generate a tarball of the
@@ -72,6 +72,9 @@ rm -f %{buildroot}/%{_bindir}/{auto_codegen,auto_package,generate_package,genera
 %{python3_sitelib}/testutils
 
 %changelog
+* Mon May 08 2023 Major Hayden <major@redhat.com> - 0.0.0~git.4.67d46b9-5
+- Migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.0~git.4.67d46b9-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

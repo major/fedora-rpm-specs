@@ -4,7 +4,7 @@
 # For a stable, released kernel, released_kernel should be 1. For rawhide
 # and/or a kernel built from an rc or git snapshot, released_kernel should
 # be 0.
-%global released_kernel 1
+%global released_kernel 0
 %global baserelease 1
 %global fedora_build %{baserelease}
 
@@ -34,7 +34,7 @@
 %global upstream_major 6
 
 # The rc snapshot level
-%global rcrev 0
+%global rcrev 1
 # Set rpm version accordingly
 %global rpmversion %{upstream_major}.%{upstream_sublevel}.0
 %endif
@@ -596,6 +596,9 @@ popd
 %{_mandir}/man1/rv.1.gz
 
 %changelog
+* Mon May 08 2023 Justin M. Forbes <jforbes@fedoraproject.org> - 6.4.0-0.rc1.git0.1
+- Linux v6.4-rc1
+
 * Mon Apr 24 2023 Justin M. Forbes <jforbes@fedoraproject.org> - 6.3.0-1
 - Linux v6.3
 - Add rv subpackage

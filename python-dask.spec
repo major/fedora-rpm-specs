@@ -10,8 +10,8 @@
 %global debug_package %{nil}
 
 Name:           python-%{srcname}
-Version:        2023.4.0
-%global tag     2023.4.0
+Version:        2023.4.1
+%global tag     2023.4.1
 Release:        %autorelease
 Summary:        Parallel PyData with Task Scheduling
 
@@ -20,6 +20,8 @@ URL:            https://github.com/dask/dask
 Source0:        %{pypi_source %{srcname}}
 # https://github.com/dask/dask/issues/6725
 Patch:          0001-Skip-test_encoding_gh601-on-big-endian-machines.patch
+# Fedora-specific patch.
+Patch:          0002-Skip-coverage-testing.patch
 
 %description
 Dask is a flexible parallel computing library for analytics.

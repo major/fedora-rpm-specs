@@ -9,7 +9,7 @@
 
 Name:    kf5-%{framework}
 Version: 23.04.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The KPimTextEdit Library
 
 License: LGPLv2+
@@ -53,8 +53,8 @@ BuildRequires:  qt5-qtbase-devel
 
 %if !0%{?bootstrap}
 BuildRequires:  cmake(KF5DesignerPlugin)
+BuildRequires:  cmake(KF5TextEditTextToSpeech)
 BuildRequires:  cmake(Qt5Designer)
-BuildRequires:  cmake(Qt5TextToSpeech)
 BuildRequires:  cmake(Qt5UiPlugin)
 BuildRequires:  cmake(Qt5Xml)
 %endif
@@ -131,6 +131,9 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 
 
 %changelog
+* Mon May 08 2023 Kevin Kofler <Kevin@tigcc.ticalc.org> - 23.04.0-2
+- BuildRequires: cmake(KF5TextEditTextToSpeech) instead of Qt5TextToSpeech
+
 * Fri Apr 14 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.0-1
 - 23.04.0
 

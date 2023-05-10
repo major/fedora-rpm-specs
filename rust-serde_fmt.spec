@@ -5,7 +5,7 @@
 %global crate serde_fmt
 
 Name:           rust-serde_fmt
-Version:        1.0.2
+Version:        1.0.3
 Release:        %autorelease
 Summary:        Write any serde::Serialize using the standard formatting APIs
 

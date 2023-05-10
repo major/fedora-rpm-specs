@@ -1,13 +1,15 @@
 %global upname Bottleneck
 
 Name:		python-%{upname}
-Version:	1.3.2
-Release:	6%{?dist}
+Version:	1.3.7
+Release:	1%{?dist}
 Summary:	Collection of fast NumPy array functions written in Cython
 
 License:	BSD
 URL:		https://pypi.org/project/Bottleneck/
 Source0:	https://files.pythonhosted.org/packages/source/B/%{upname}/%{upname}-%{version}.tar.gz
+# https://github.com/pydata/bottleneck/pull/432
+Patch0001:	0001-Fix-doc-build-with-Sphinx-6.patch
 
 BuildRequires:	gcc
 
@@ -68,8 +70,7 @@ sed -i /contributors/d doc/source/conf.py
 %py3_install
 
 # clean unneeded stuff
-rm -rf %{buildroot}%{python3_sitearch}/bottleneck/src		\
-	%{buildroot}%{python3_sitearch}/bottleneck/LICENSE
+rm -rf %{buildroot}%{python3_sitearch}/bottleneck/LICENSE
 
 %{_fixperms} %{buildroot}/*
 
@@ -101,6 +102,11 @@ rm -rf %{buildroot}%{python3_sitearch}/.pytest_cache
 
 
 %changelog
+* Tue Apr 04 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.3.7-1
+- Update to 1.3.7
+Fixes: rhbz#2056294
+Fixes: rhbz#2137289
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -8,11 +8,11 @@ Version:        0.28.1
 Release:        %autorelease
 Summary:        Cross-platform, fast, feature full, GPU based terminal emulator
 
+# GPL-3.0-only: kitty
 # Zlib: glfw
 # LGPL-2.1-or-later: kitty/iqsort.h
 # BSD-1-Clause: kitty/uthash.h
-# MIT: docs/_static/custom.css
-# MIT: shell-integration/ssh/bootstrap-utils.sh
+# MIT: docs/_static/custom.css, shell-integration/ssh/bootstrap-utils.sh
 License:        GPL-3.0-only AND LGPL-2.1-or-later AND Zlib AND BSD-1-Clause AND MIT
 URL:            https://sw.kovidgoyal.net/kitty
 Source0:        https://github.com/kovidgoyal/kitty/releases/download/v%{version}/%{name}-%{version}.tar.xz
@@ -23,15 +23,12 @@ Source5:        https://calibre-ebook.com/signatures/kovid.gpg
 # * https://github.com/kovidgoyal/kitty/pull/2088
 Source1:        https://raw.githubusercontent.com/kovidgoyal/kitty/46c0951751444e4f4994008f0d2dcb41e49389f4/kitty/data/%{name}.appdata.xml
 
-Source2:        kitty.sh
-Source3:        kitty.fish
-
 # Don't build kitten inside setup.py, use gobuild macro in the spec instead to build with fedora flags
 Patch0:         kitty-do-not-build-kitten.patch
 ## upstream patches
 
 
-# some golang deps aren't available
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
 BuildRequires:  golang >= 1.20.0
@@ -97,8 +94,8 @@ BuildRequires:  python3dist(pillow)
 Requires:       python3%{?_isa}
 Requires:       hicolor-icon-theme
 
-Suggests:       %{name}-bash-integration
-Suggests:       %{name}-fish-integration
+Obsoletes:      %{name}-bash-integration < 0.28.1-3
+Obsoletes:      %{name}-fish-integration < 0.28.1-3
 
 # Terminfo file has been split from the main program and is required for use
 # without errors. It has been separated to support SSH into remote machines using
@@ -108,7 +105,8 @@ Requires:       %{name}-terminfo = %{version}-%{release}
 
 # Very weak dependencies, these are required to enable all features of kitty's
 # "kittens" functions install separately
-Recommends:     python3-pygments
+# For the "Hyperlinked grep" feature
+Recommends:     ripgrep
 
 Suggests:       ImageMagick%{?_isa}
 
@@ -141,28 +139,6 @@ Suggests:       ImageMagick%{?_isa}
   in a pager or editor.
 
 - Has multiple copy/paste buffers, like vim.
-
-
-# bash integration package
-%package        bash-integration
-Summary:        Automatic Bash integration for Kitty Terminal
-BuildArch:      noarch
-
-%description    bash-integration
-Cross-platform, fast, feature full, GPU based terminal emulator.
-
-Bash integration for Kitty Terminal.
-
-
-# fish integration package
-%package        fish-integration
-Summary:        Automatic Fish integration for Kitty Terminal
-BuildArch:      noarch
-
-%description    fish-integration
-Cross-platform, fast, feature full, GPU based terminal emulator.
-
-Fish integration for Kitty Terminal.
 
 
 # terminfo package
@@ -220,7 +196,6 @@ ln -s ../../kittens src/kitty/kittens
     --libdir-name=%{_lib}           \
     --update-check-interval=0       \
     --verbose                       \
-    --shell-integration "disabled"  \
     %{nil}
 
 export GOPATH=$(pwd):%{gopath}
@@ -237,14 +212,6 @@ cp -r linux-package %{buildroot}%{_prefix}
 install -m0755 -Dp _build/bin/kitten %{buildroot}%{_bindir}/kitten
 
 install -m0644 -Dp %{SOURCE1} %{buildroot}%{_metainfodir}/%{name}.appdata.xml
-
-install -m0644 -Dp %{SOURCE2} %{buildroot}%{_sysconfdir}/profile.d/%{name}.sh
-install -m0644 -Dp %{SOURCE3} %{buildroot}%{_sysconfdir}/fish/conf.d/%{name}.fish
-
-sed 's|KITTY_INSTALLATION_DIR=.*|KITTY_INSTALLATION_DIR="%{_libdir}/%{name}"|' \
- -i %{buildroot}%{_sysconfdir}/profile.d/%{name}.sh
-sed 's|set -l KITTY_INSTALLATION_DIR .*|set -l KITTY_INSTALLATION_DIR "%{_libdir}/%{name}"|' \
- -i %{buildroot}%{_sysconfdir}/fish/conf.d/%{name}.fish
 
 %if %{with doc}
 # rpmlint fixes
@@ -264,8 +231,7 @@ ln -s %{buildroot}%{_bindir}/%{name} kitty/launcher/
 export PATH=%{buildroot}%{_bindir}:$PATH
 export PYTHONPATH=$(pwd)
 %{__python3} setup.py test          \
-    --prefix=%{buildroot}%{_prefix} \
-    ||:
+    --prefix=%{buildroot}%{_prefix}
 %endif
 
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.xml
@@ -283,14 +249,6 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 %{_mandir}/man{1,5}/*.{1,5}*
 %endif
 %{_metainfodir}/*.xml
-
-%files bash-integration
-%{_sysconfdir}/profile.d/%{name}.sh
-
-%files fish-integration
-%dir %{_sysconfdir}/fish
-%dir %{_sysconfdir}/fish/conf.d
-%{_sysconfdir}/fish/conf.d/%{name}.fish
 
 %files terminfo
 %license LICENSE

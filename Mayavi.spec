@@ -2,12 +2,14 @@
 
 Name:           Mayavi
 Version:        4.8.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Scientific data 3-dimensional visualizer
 License:        BSD and EPL and LGPLv2+ and LGPLv2 and LGPLv3
 URL:            http://code.enthought.com/projects/mayavi/
 Source0:        https://github.com/enthought/mayavi/archive/%{version}/mayavi-%{version}.tar.gz
 Source1:        mayavi2.desktop
+# Upstream support for Python 3.11
+Patch:          https://patch-diff.githubusercontent.com/raw/enthought/mayavi/pull/1199.patch
 BuildRequires:  gcc
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-Cython
@@ -162,6 +164,9 @@ PYTHONPATH=${libdir} mayavi/scripts/mayavi2 -t || :
 
 
 %changelog
+* Mon May 08 2023 Orion Poplawski <orion@nwra.com> - 4.8.1-3
+- Add upstream patch to fix build with Python 3.11 (FTBFS bz#2171427)
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

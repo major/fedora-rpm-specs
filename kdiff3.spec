@@ -56,7 +56,7 @@ sed -i 's|#include <QtGlobal>|#include <QtGlobal>\n#include <limits>|' src/TypeU
 %install
 %cmake_install
 
-%find_lang %{name} --with-html --all-name
+%find_lang %{name} --with-html --with-man --all-name
 chmod -x %{buildroot}%{_datadir}/applications/org.kde.%{name}.desktop
 
 
@@ -78,8 +78,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 # %%{_datadir}/kservices5/kdiff3part.desktop
 %{_datadir}/kxmlgui5/%{name}
 %{_datadir}/kxmlgui5/kdiff3part/kdiff3_part.rc
-%{_mandir}/man1/%{name}.1.gz
-%{_mandir}/*/man1/%{name}.1.gz
+%{_mandir}/man1/%{name}.1*
 
 
 %changelog

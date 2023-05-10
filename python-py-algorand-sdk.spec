@@ -1,6 +1,6 @@
 %global pypi_name py-algorand-sdk
 Name:           python-%{pypi_name}
-Version:        2.1.2
+Version:        2.2.0
 Release:        1%{?dist}
 Summary:        Algorand Python SDK
 License:        MIT
@@ -46,6 +46,9 @@ cp %{SOURCE1} .
 %{python3_sitelib}/py_algorand_sdk-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon May 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.2.0-1
+- 2.2.0
+
 * Thu Mar 23 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.1.2-1
 - 2.1.2
 

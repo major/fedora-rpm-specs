@@ -3,19 +3,14 @@
 # https://github.com/bitprophet/pytest-relaxed/issues/12 is resolved:
 %bcond_with     tests
 
-%global         srcname     fabric
-%global         forgeurl    https://github.com/fabric/%{srcname}
-Version:        3.0.0
-%global         tag         %{version}
-%forgemeta
-
-Name:           python-%{srcname}
+Name:           python-fabric
+Version:        3.0.1
 Release:        %autorelease
 Summary:        High level SSH command execution
 
-License:        BSD
-URL:            %forgeurl
-Source0:        %forgesource
+License:        BSD-3-Clause
+URL:            https://github.com/fabric/fabric
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -45,14 +40,14 @@ another and provide additional functionality.}
 %description %{_description}
 
 
-%package -n python3-%{srcname}
+%package -n python3-fabric
 Summary:        %{summary}
 
-%description -n python3-%{srcname} %{_description}
+%description -n python3-fabric %{_description}
 
 
 %prep
-%forgeautosetup -p1
+%autosetup -p1
 
 # Allow a slightly older invoke version.
 sed -i 's/invoke>=2.0/invoke>=1.7/' setup.py
@@ -76,7 +71,7 @@ sed -i 's/invoke>=2.0/invoke>=1.7/' setup.py
 %endif
 
 
-%files -n python3-%{srcname} -f %{pyproject_files}
+%files -n python3-fabric -f %{pyproject_files}
 %license LICENSE
 %doc README.rst
 %{_bindir}/fab

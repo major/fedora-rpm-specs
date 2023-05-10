@@ -6,7 +6,7 @@
 %endif
 
 Name:           fedora-license-data
-Version:        1.19
+Version:        1.20
 Release:        1%{?dist}
 Summary:        Fedora Linux license data
 
@@ -26,7 +26,7 @@ BuildRequires:  (python%{python3_pkgversion}-tomli if python%{python3_pkgversion
 BuildRequires:  python%{python3_pkgversion}-tomli
 %endif
 # grammar
-%if 0%{?fedora} || 0%{?rhel} >= 8
+%if 0%{?fedora} || 0%{?rhel} > 8
 BuildRequires:  python3dist(lark-parser)
 %endif
 
@@ -77,7 +77,7 @@ The Fedora Legal team is responsible for the content.
 make DESTDIR=%{buildroot} install-json install-grammar %{?with_rpmlint:install-rpmlint}
 
 %check
-%if 0%{?fedora} || 0%{?rhel} >= 8
+%if 0%{?fedora} || 0%{?rhel} > 8
 # the grammar cannot be parsed on rhel8 and older
 make check-grammar
 %endif
@@ -97,6 +97,16 @@ make check-grammar
 
 
 %changelog
+* Mon May 08 2023 Miroslav Suchý <msuchy@redhat.com> 1.20-1
+- Add HP-1986
+- Add public domain notices from the tzdata data files
+- Add man-pages public domain notices
+- Add new file: SGP4
+- Add new file: metamail
+- Add automake to public-domain-text.txt
+- Add public-domain text for words
+- Add man-pages ultra permissive licenses
+
 * Thu Apr 20 2023 Miroslav Suchý <msuchy@redhat.com> 1.19-1
 - fix el7 build failure
 

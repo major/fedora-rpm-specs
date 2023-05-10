@@ -16,7 +16,7 @@
 # Run git tests
 %bcond_without git_test
 
-# Set to bcond_with or use --without gui to disable qt4 gui build
+# Set to bcond_with or use --without gui to disable qt gui build
 %bcond_without gui
 
 # Use ncurses for colorful output
@@ -76,7 +76,7 @@
 %endif
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 1
+%global baserelease 3
 
 # Uncomment if building for EPEL
 #global name_suffix %%{major_version}
@@ -178,7 +178,9 @@ BuildRequires:  python2-devel
 %endif
 %endif
 %if %{with gui}
-%if 0%{?fedora} || 0%{?rhel} > 7
+%if 0%{?fedora} || 0%{?rhel} > 9
+BuildRequires: pkgconfig(Qt6Widgets)
+%elif 0%{?rhel} > 7
 BuildRequires: pkgconfig(Qt5Widgets)
 %else
 BuildRequires: pkgconfig(QtGui)
@@ -457,6 +459,10 @@ NO_TEST="$NO_TEST|CustomCommand|RunCMake.PositionIndependentCode"
 %if %{with bootstrap}
 NO_TEST="$NO_TEST|curl"
 %endif
+%ifarch riscv64
+# These three tests timeout on riscv64, skip them.
+NO_TEST="$NO_TEST|Qt5Autogen.ManySources|Qt5Autogen.MocInclude|Qt5Autogen.MocIncludeSymlink"
+%endif
 bin/ctest%{?name_suffix} %{?_smp_mflags} -V -E "$NO_TEST" --output-on-failure
 ## do this only periodically, not for every build -- besser82 20221102
 # Keep an eye on failing tests
@@ -529,6 +535,12 @@ popd
 
 
 %changelog
+* Mon May 08 2023 Björn Esser <besser82@fedoraproject.org> - 3.26.3-3
+- Build cmake-gui with Qt6
+
+* Fri May 05 2023 Nianqing Yao <imbearchild@outlook.com> - 3.26.3-2
+- Fix build on riscv64
+
 * Wed Apr 05 2023 Björn Esser <besser82@fedoraproject.org> - 3.26.3-1
 - cmake-3.26.3
   Fixes rhbz#2184478

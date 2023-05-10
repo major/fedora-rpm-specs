@@ -6,11 +6,11 @@
 Summary:  Input method for entering unicode symbols and emoji by name
 Name: ibus-uniemoji
 Version: 0.6.0
-Release: 18%{?dist}
+Release: 20%{?dist}
 # emojione.json is in MIT
 # UnicodeData.txt is in Unicode
 # uniemoji is in GPLv3+
-License: Unicode and MIT and GPLv3+
+License: Unicode-DFS-2015 AND MIT AND GPL-3.0-or-later
 Source0: https://github.com/salty-horse/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 URL: https://github.com/salty-horse/ibus-uniemoji
 
@@ -42,6 +42,12 @@ make install DESTDIR=%{buildroot}
 %config(noreplace) %{_sysconfdir}/xdg/uniemoji/custom.json
 
 %changelog
+* Mon May  8 2023 Peng Wu <pwu@redhat.com> - 0.6.0-20
+- Rebuild the package
+
+* Mon May  8 2023 Peng Wu <pwu@redhat.com> - 0.6.0-19
+- Migrate to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

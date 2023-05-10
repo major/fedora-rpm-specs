@@ -1,14 +1,17 @@
 %bcond_with bootstrap
 
 Name:           ragel
-Version:        7.0.0.12
-Release:        9%{?dist}
+Version:        7.0.4
+Release:        1%{?dist}
 Summary:        Finite state machine compiler
 
 # aapl/ is the LGPLv2+
 License:        MIT and LGPLv2+
 URL:            http://www.colm.net/open-source/%{name}/
 Source0:        https://www.colm.net/files/%{name}/%{name}-%{version}.tar.gz
+# allow building without *.la for libcolm and libfsm
+Patch:          https://github.com/adrian-thurston/ragel/commit/463f4914057b0193c6ca025e9233c17035bc0448.patch#/ragel-fallback-no-la.diff
+Patch:          ragel-use-libdir.diff
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -16,14 +19,22 @@ BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  libtool
 BuildRequires:  make
+# for manual
+BuildRequires:  asciidoc
+BuildRequires:  dblatex
+BuildRequires:  texlive-latex
+BuildRequires:  texlive-upquote
+BuildRequires:  transfig
 %if %{with bootstrap}
 BuildRequires:  kelbt
 BuildRequires:  ragel
 %endif
-BuildRequires:  colm-devel = 0.13.0.7
+BuildRequires:  colm-devel = 0.14.7
 
 # Unfortunately, upstream doesn't exist and not possible to find version
 Provides:       bundled(aapl)
+# ragel no longer ships include files since libfsm is moved to colm
+Obsoletes:      ragel-devel < 7.0.4-1
 
 %description
 Ragel compiles executable finite state machines from regular languages.
@@ -32,13 +43,6 @@ byte sequences as regular expression machines do, but can also execute code
 at arbitrary points in the recognition of a regular language. Code embedding
 is done using inline operators that do not disrupt the regular language syntax.
 
-%package devel
-Summary:        Development libraries header files for %{name}
-Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-
-%description devel
-%{summary}.
-
 %prep
 %autosetup
 # Do not pollute with docs
@@ -46,7 +50,7 @@ sed -i -e "/dist_doc_DATA/d" Makefile.am
 
 %build
 autoreconf -vfi
-%configure --disable-static
+%configure --disable-static --with-colm=%{_prefix}
 %make_build
 
 %install
@@ -58,24 +62,23 @@ install -p -m 0644 -D %{name}.vim %{buildroot}%{_datadir}/vim/vimfiles/syntax/%{
 
 %files
 %license COPYING
-%doc CREDITS ChangeLog
+%doc ragel-guide.html ragel-guide.pdf
 %{_bindir}/%{name}
 %{_bindir}/%{name}-*
 %{_mandir}/man1/%{name}.1*
-%{_libdir}/libfsm.so.*
+%exclude %{_libdir}/libragel.so
 %{_libdir}/libragel.so.*
 %{_datarootdir}/%{name}.lm
+%{_datarootdir}/out-go.lm
 %dir %{_datadir}/vim
 %dir %{_datadir}/vim/vimfiles
 %dir %{_datadir}/vim/vimfiles/syntax
 %{_datadir}/vim/vimfiles/syntax/%{name}.vim
 
-%files devel
-%{_libdir}/libfsm.so
-%{_libdir}/libragel.so
-%{_includedir}/%{name}/
-
 %changelog
+* Tue Apr 25 2023 Michel Alexandre Salim <salimma@fedoraproject.org> - 7.0.4-1
+- Update to 7.0.4 for colm 0.14.7
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.0.12-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@ Name:           perl-Object-InsideOut
 Version:        4.05
 Release:        18%{?dist}
 Summary:        Comprehensive inside-out object support module
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Object-InsideOut
 Source0:        https://cpan.metacpan.org/modules/by-module/Object/Object-InsideOut-%{version}.tar.gz
 BuildArch:      noarch
@@ -75,8 +75,11 @@ make test
 
 %files
 %doc examples/ Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*.3*
+%{perl_vendorlib}/Bundle/
+%{perl_vendorlib}/Object/
+%{_mandir}/man3/Bundle::Object::InsideOut.3*
+%{_mandir}/man3/Object::InsideOut.3*
+%{_mandir}/man3/Object::InsideOut::Metadata.3*
 
 %changelog
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.05-18

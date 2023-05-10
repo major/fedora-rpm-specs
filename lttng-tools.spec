@@ -9,8 +9,8 @@
 
 Name:           lttng-tools
 Version:        2.13.9
-Release:        2%{?dist}
-License:        GPLv2 and LGPLv2
+Release:        3%{?dist}
+License:        GPL-2.0-only AND LGPL-2.1-only
 URL:            http://lttng.org
 Summary:        LTTng control and utility programs
 Source0:        http://lttng.org/files/lttng-tools/%{name}-%{version}.tar.bz2
@@ -181,6 +181,9 @@ exit 0
 %endif
 
 %changelog
+* Mon May 08 2023 Michael Jeanson <mjeanson@efficios.com> - 2.13.9-3
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -10,7 +10,7 @@
 Name:           qbs
 # qbs was previously packaged as part of qt-creator, using the qt-creator version, hence the epoch bump
 Epoch:          1
-Version:        2.0.0
+Version:        2.0.1
 Release:        1%{?dist}
 Summary:        Cross platform build tool
 # Fails to build on i686
@@ -148,6 +148,9 @@ rm %{buildroot}%{_bindir}/tst_*
 
 
 %changelog
+* Mon May 08 2023 Sandro Mani <manisandro@gmail.com> - 1:2.0.1-1
+- Update to 2.0.1
+
 * Mon Apr 03 2023 Sandro Mani <manisandro@gmail.com> - 1:2.0.0-1
 - Update to 2.0.0
 

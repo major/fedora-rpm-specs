@@ -1,8 +1,8 @@
 %global srcname dbus-signature-pyparsing
 
 Name:           python-%{srcname}
-Version:        0.04
-Release:        15%{?dist}
+Version:        0.4.1
+Release:        3%{?dist}
 Summary:        Parser for a D-Bus Signature
 
 License:        Apache-2.0
@@ -42,6 +42,15 @@ Python 3 version.
 %{python3_sitelib}/dbus_signature_pyparsing-*.egg-info/
 
 %changelog
+* Sun May 7 2023 mulhern<amulhern@redhat.com> - 0.4.3
+- Fix up testing plan tag
+
+* Sun May 7 2023 mulhern<amulhern@redhat.com> - 0.4.2
+- Fix up testing plan
+
+* Sun May 7 2023 mulhern<amulhern@redhat.com> - 0.4.1
+- Update to 0.4.1
+
 * Wed Apr 26 2023 mulhern<amulhern@redhat.com> - 0.04-15
 - Checkout tests from HEAD revision
 

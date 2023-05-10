@@ -6,7 +6,7 @@
 %global crate portable-atomic
 
 Name:           rust-portable-atomic
-Version:        1.2.0
+Version:        1.3.1
 Release:        %autorelease
 Summary:        Portable atomic types including support for 128-bit atomics, atomic float, etc
 
@@ -85,6 +85,18 @@ This package contains library source intended for building other packages which
 use the "float" feature of the "%{crate}" crate.
 
 %files       -n %{name}+float-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+require-cas-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+require-cas-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "require-cas" feature of the "%{crate}" crate.
+
+%files       -n %{name}+require-cas-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde-devel

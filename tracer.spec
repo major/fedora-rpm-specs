@@ -102,6 +102,7 @@ BuildRequires:  python3-six
 BuildRequires:  python3-dbus
 BuildRequires:  python3-rpm
 BuildRequires:  python3-distro
+BuildRequires:  python3-setuptools
 Requires:       python3-rpm
 Requires:       python3-psutil
 Requires:       python3-setuptools

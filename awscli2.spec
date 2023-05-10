@@ -20,9 +20,6 @@ Patch0:             ruamel-yaml-0.17.22.patch
 BuildArch:          noarch
 
 BuildRequires:      python%{python3_pkgversion}-devel
-BuildRequires:      python%{python3_pkgversion}-pytest
-BuildRequires:      python%{python3_pkgversion}-pytest-xdist
-BuildRequires:      python%{python3_pkgversion}-jsonschema
 BuildRequires:      python-unversioned-command
 BuildRequires:      procps-ng
 
@@ -57,9 +54,20 @@ find -type f -name '*.py' -exec sed \
     -e 's/^\( *\)from mock import/\1from unittest.mock import/' \
     -i '{}' +
 
+# Fedora does not run coverage tests.
+# mock is deprecated in Fedora. We use unittest.mock.
+# pip-tools is used directly by the unit tests.
+sed \
+    -e 's|==.*||' \
+    -e '/coverage/d' \
+    -e '/mock/d' \
+    -e '/pip-tools/d' \
+    -e '/pytest-cov/d' \
+    requirements-test.txt > _requirements-test.txt
+
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires _requirements-test.txt
 
 
 %build
@@ -75,9 +83,9 @@ rm -vf %{buildroot}%{_bindir}/{aws_bash_completer,aws_zsh_completer.sh,aws.cmd}
 
 # install shell completion
 install -Dpm0644 bin/aws_bash_completer \
-  %{buildroot}%{_datadir}/bash-completion/completions/aws
+  %{buildroot}%{bash_completions_dir}/aws
 install -Dpm0644 bin/aws_zsh_completer.sh \
-  %{buildroot}%{_datadir}/zsh/site-functions/_awscli
+  %{buildroot}%{zsh_completions_dir}/_awscli
 
 
 %check
@@ -95,12 +103,8 @@ export TESTS_REMOVE_REPO_ROOT_FROM_PATH=1 TZ=UTC
 %doc README.rst
 %{_bindir}/aws
 %{_bindir}/aws_completer
-%dir %{_datadir}/bash-completion
-%dir %{_datadir}/bash-completion/completions
-%{_datadir}/bash-completion/completions/aws
-%dir %{_datadir}/zsh
-%dir %{_datadir}/zsh/site-functions
-%{_datadir}/zsh/site-functions/_awscli
+%{bash_completions_dir}/aws
+%{zsh_completions_dir}/_awscli
 
 
 %changelog

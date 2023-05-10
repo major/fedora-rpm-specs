@@ -1,4 +1,4 @@
-%global vergit  20221107
+%global vergit  20230507
 
 Name:           gnome-shell-theme-flat-remix
 Version:        0.0.%{vergit}

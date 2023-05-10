@@ -1,8 +1,8 @@
 Name:		libhangul
 Version:	0.1.0
-Release:	27%{?dist}
+Release:	28%{?dist}
 
-License:	LGPLv2+
+License:	LGPL-2.1-or-later
 URL:		https://github.com/libhangul/libhangul
 # Change Source URL when upstream released tar ball
 # Source0:	https://github.com/libhangul/libhangul/archive/libhangul-%{version}.tar.gz
@@ -10,7 +10,7 @@ Source0:	https://libhangul.googlecode.com/files/libhangul-%{version}.tar.gz
 
 Summary:	Hangul input library
 BuildRequires:	  gettext-devel, automake, libtool
-BuildRequires: make
+BuildRequires:	  make
 
 
 %description
@@ -59,6 +59,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/%{name}.la
 
 
 %changelog
+* Mon May  8 2023 Peng Wu <pwu@redhat.com> - 0.1.0-28
+- Migrate to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

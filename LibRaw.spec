@@ -7,7 +7,7 @@
 Summary: Library for reading RAW files obtained from digital photo cameras
 Name: LibRaw
 Version: 0.21.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: BSD-3-Clause and (CDDL-1.0 or  LGPL-2.1-only)
 URL: http://www.libraw.org
 
@@ -20,6 +20,7 @@ BuildRequires: make
 
 Source0: http://github.com/LibRaw/LibRaw/archive/%{version}.tar.gz
 Patch0: LibRaw-pkgconfig.patch
+Patch1: 9ab70f6dca19229cb5caad7cc31af4e7501bac93.patch
 Provides: bundled(dcraw) = 9.25
 
 %description
@@ -114,6 +115,9 @@ rm -fv %{buildroot}%{_libdir}/lib*.la
 
 
 %changelog
+* Mon May 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.21.1-4
+- Patch for CVE-2023-1729
+
 * Mon Mar 13 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.21.1-3
 - migrate to SPDX license
 

@@ -3,8 +3,10 @@
 
 %global crate sequoia-sop
 
+%global enabled_features cli,compression,compression-bzip2,compression-deflate,crypto-nettle
+
 Name:           rust-sequoia-sop
-Version:        0.27.3
+Version:        0.28.0
 Release:        %autorelease
 Summary:        Stateless OpenPGP Interface using Sequoia
 
@@ -13,9 +15,10 @@ URL:            https://crates.io/crates/sequoia-sop
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * exclude files that are only useful for upstream development
+# * remove features for unavailable crypto backends
 Patch:          sequoia-sop-fix-metadata.diff
 
-BuildRequires:  rust-packaging >= 21
+BuildRequires:  rust-packaging >= 23
 
 %global _description %{expand:
 An implementation of the Stateless OpenPGP Interface using Sequoia.}
@@ -37,7 +40,7 @@ Summary:        %{summary}
 # MIT OR Zlib OR Apache-2.0
 # Unlicense OR MIT
 # Zlib OR Apache-2.0 OR MIT
-License:        GPL-2.0-or-later AND BSL-1.0 AND MIT AND Unicode-DFS-2016
+License:        GPL-2.0-or-later AND BSL-1.0 AND LGPL-2.0-or-later AND MIT AND Unicode-DFS-2016 AND (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR MIT) AND (LGPL-3.0 OR GPL-2.0 OR GPL-3.0) AND (MIT OR Apache-2.0 OR Zlib) AND (Unlicense OR MIT)
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}
@@ -48,6 +51,9 @@ License:        GPL-2.0-or-later AND BSL-1.0 AND MIT AND Unicode-DFS-2016
 %doc README.md
 %{_bindir}/sqop
 %{_mandir}/man1/sqop*
+%{bash_completions_dir}/sqop.bash
+%{fish_completions_dir}/sqop.fish
+%{zsh_completions_dir}/_sqop
 
 %package        devel
 Summary:        %{summary}
@@ -135,27 +141,51 @@ use the "crypto-nettle" feature of the "%{crate}" crate.
 %files       -n %{name}+crypto-nettle-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+crypto-openssl-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+crypto-openssl-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "crypto-openssl" feature of the "%{crate}" crate.
+
+%files       -n %{name}+crypto-openssl-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
 %cargo_prep
 
 %generate_buildrequires
+# ensure all dependencies are available for building tests
 %cargo_generate_buildrequires -a
 
 %build
-%cargo_build -a
-%cargo_license_summary -a
-%{cargo_license -a} > LICENSE.dependencies
+# build binary with the Nettle crypto backend and support for compression
+%cargo_build -f %{enabled_features}
+%cargo_license_summary -f %{enabled_features}
+%{cargo_license -f %{enabled_features}} > LICENSE.dependencies
 
 %install
-%cargo_install -a
+%cargo_install -f %{enabled_features}
 # install manual pages
 mkdir -p %{buildroot}/%{_mandir}/man1
 cp -pav man-sqop/* %{buildroot}/%{_mandir}/man1/
+# install shell completions
+install -Dpm 0644 target/release/build/%{crate}-*/out/sqop.bash \
+    %{buildroot}/%{bash_completions_dir}/sqop.bash
+install -Dpm 0644 target/release/build/%{crate}-*/out/sqop.fish \
+    %{buildroot}/%{fish_completions_dir}/sqop.fish
+install -Dpm 0644 target/release/build/%{crate}-*/out/_sqop \
+    %{buildroot}/%{zsh_completions_dir}/_sqop
 
 %if %{with check}
 %check
-%cargo_test -a
+# run tests with Nettle crypto backend (default)
+%cargo_test -n -f cli,compression,compression-bzip2,compression-deflate,crypto-nettle
+# run tests with OpenSSL crypto backend
+%cargo_test -n -f cli,compression,compression-bzip2,compression-deflate,crypto-openssl
 %endif
 
 %changelog

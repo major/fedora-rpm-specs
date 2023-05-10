@@ -26,7 +26,7 @@ Version:	2.49.93
 # - src/socket.d and modules/clx/mit-clx/doc.lisp are HPND
 # - src/xthread.d and modules/asdf/asdf.lisp are X11
 License:	GPL-2.0-or-later AND (GPL-2.0-or-later OR GFDL-1.2-or-later) AND LGPL-2.1-or-later AND HPND AND X11
-Release:	30%{?dist}
+Release:	31%{?dist}
 URL:		http://www.clisp.org/
 Source0:	%{forgesource}
 # Upstream dropped this file from the distribution
@@ -45,9 +45,11 @@ Patch2:		%{name}-register-volatile.patch
 # Perhaps we are racing with something else that allocates a pty.  Disable
 # the test for now.
 Patch3:         %{name}-pts-access.patch
+Patch4:         clisp-c99.patch
+
 # Work around a problem inlining a function on ppc64le
 # See https://bugzilla.redhat.com/show_bug.cgi?id=2049371
-Patch4:         %{name}-no-inline.patch
+Patch100:         %{name}-no-inline.patch
 
 BuildRequires:	dbus-devel
 BuildRequires:	diffutils
@@ -123,9 +125,9 @@ Files necessary for linking CLISP programs.
 
 %prep
 %forgesetup
-%autopatch -M4 -p0
+%autopatch -M99 -p0
 %ifarch %{power64}
-%autopatch 5 -p0
+%autopatch 100 -p0
 %endif
 cp -p %{SOURCE1} emacs
 cp -p %{SOURCE2} %{SOURCE3} src/po
@@ -454,6 +456,9 @@ make -C build base-mod-check
 
 
 %changelog
+* Mon May 08 2023 Florian Weimer <fweimer@redhat.com> - 2.49.93-31
+- Port to C99
+
 * Tue Apr  4 2023 Jerry James <loganjerry@gmail.com> - 2.49.93-30
 - Update to allow non-simple strings in FORMAT and FORMATTER
 - Drop upstreamed ensure-6x patch

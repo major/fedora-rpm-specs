@@ -3,41 +3,47 @@ Version:        2.24.2
 Release:        43%{?dist}
 Summary:        GTKada 2, an Ada binding to GTK+ 2
 Summary(sv):    GTKada 2, en adabindning till GTK+ 2
-License:        GPLv2+
-URL:            http://libre.adacore.com/libre/tools/GtkAda/
-# Adacore don't understand how to publish files for downloading, but the source
-# is available from here:
-# http://libre.adacore.com/libre/download2
+License:        GPL-2.0-or-later AND LGPL-2.0-or-later
+# Adacore released this version with the GNAT exception removed from the Ada
+# files, but the C files kept the LGPL. Thus only GPL-compatible code may link
+# to this version of GTKada, but if somebody wanted to extract the C files and
+# link only those into their program, then they wouldn't be required to apply
+# the GPL to that program.
+
+URL:            https://github.com/AdaCore/gtkada
+# The release tarball is no longer available for downloading, but the source
+# code should be possible to find at Github as the version history has been
+# imported there.
 Source:         gtkada-gpl-%{version}-src.tgz
-# Patch to make project files use fedora-gnat-project-common:
-Patch1:         GtkAda-2.14.1-multilib_gpr.patch
-# Fedora-specific patch to make gtkada-config use uname:
-Patch2:         GtkAda-2.14.1-multilib_gtkada-config.patch
-# Patch to fix implicit DSO linking, proposed upstream 2010-02-16:
-# http://lists.adacore.com/pipermail/gtkada/2010-February/003871.html
-Patch3:         GtkAda-2.18.0-lm.patch
 # Patch for a more flexible build system, proposed upstream 2011-02-14:
 # http://lists.adacore.com/pipermail/gtkada/2011-February/003969.html
-Patch5:         GtkAda-2.24.2-configuration-5.patch
+Patch:          GtkAda-2.24.2-configuration-5.patch
+# Patch to make project files use fedora-gnat-project-common:
+Patch:          GtkAda-2.14.1-multilib_gpr.patch
+# Fedora-specific patch to make gtkada-config use uname:
+Patch:          GtkAda-2.14.1-multilib_gtkada-config.patch
+# Patch to fix implicit DSO linking, proposed upstream 2010-02-16:
+# http://lists.adacore.com/pipermail/gtkada/2010-February/003871.html
+Patch:          GtkAda-2.18.0-lm.patch
 # Hack to get libgtkada_gl in the right place:
-Patch7:         GtkAda-2.18.0-gl_placement.patch
+Patch:          GtkAda-2.18.0-gl_placement.patch
 # GNU-specific patch to avoid link bloat:
-Patch8:         GtkAda-2.18.0-link_as_needed.patch
+Patch:          GtkAda-2.18.0-link_as_needed.patch
 # Patch to avoid conflicts where two project files claim the same source files,
 # fixed upstream 2012-08-07:
 # http://lists.adacore.com/pipermail/gtkada/2012-August/004175.html
-Patch11:        GtkAda-2.24.2-source_dir.patch
+Patch:          GtkAda-2.24.2-source_dir.patch
 # "Only <glib.h> can be included directly." (said to be fixed upstream):
-Patch12:        GtkAda-2.18.0-no_include_gmain.patch
+Patch:          GtkAda-2.18.0-no_include_gmain.patch
 # Patch to remove obsolete manpage cross-references, proposed upstream 2012-07-27:
 # http://lists.adacore.com/pipermail/gtkada/2012-July/004160.html
-Patch13:        GtkAda-2.24.2-man_xref.patch
+Patch:          GtkAda-2.24.2-man_xref.patch
 # Fix abuse of printf-style format strings:
-Patch14:        GtkAda-2.24.2-format_security.patch
+Patch:          GtkAda-2.24.2-format_security.patch
 # "extern inline" doesn't seem to work in GCC 5:
-Patch15:        GtkAda-2.24.2-no_extern_inline.patch
+Patch:          GtkAda-2.24.2-no_extern_inline.patch
 # Build with GPRbuild:
-Patch16:        GtkAda-2.24.2-gprbuild.patch
+Patch:          GtkAda-2.24.2-gprbuild.patch
 BuildRequires:  gcc-gnat
 BuildRequires:  gprbuild
 BuildRequires:  gtk2-devel >= 2.21
@@ -117,6 +123,8 @@ för att utveckla program som använder GTKada 2 för att binda till GTK+ 2.x. S
 %package gnome
 Summary:        GTKada 2 binding to Gnome's GUI libraries
 Summary(sv):    GTKada 2:s bindning till Gnomes GUI-bibliotek
+License:        GPL-2.0-or-later
+# None of the LGPL-licensed C files are in the subdirectory "gnome".
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description gnome %{common_description_en}
@@ -148,6 +156,11 @@ Paketet %{name}-gl innehåller GTKada 2:s bindning till OpenGL-gränssnittet.
 Summary:        Documentation for GTKada 2
 Summary(sv):    Dokumentation till GTKada 2
 BuildArch:      noarch
+License:        GFDL-1.1-invariants-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later
+# GFDL 1.1 applies to the User's Guide.
+# The reference manual has been generated from the source code, and presumably
+# inherits its license.
+# The example code files are licensed like the library itself.
 
 %description doc %{common_description_en}
 
@@ -159,19 +172,7 @@ Paketet %{name}-doc innehåller dokumentationen till GTKada 2.
 
 
 %prep
-%setup -q -n gtkada-%{version}-src
-%patch5
-%patch1
-%patch2
-%patch3
-%patch7
-%patch8
-%patch11
-%patch12
-%patch13
-%patch14
-%patch15
-%patch16
+%autosetup -p 0 -n gtkada-%{version}-src
 find -name .cvsignore | xargs rm -fr
 
 # Transcode the author's name in comments in two source files.
@@ -257,6 +258,7 @@ install --mode=u=rw,go=r,a-s --preserve-timestamps COPYING %{buildroot}%{_licens
 %changelog
 * Fri May 05 2023 Björn Persson <Bjorn@Rombobjörn.se> - 2.24.2-43
 - Adapted to backward compatibility breakage in uname.
+- Adapted the License tags to Fedora's new license policy.
 
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.24.2-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild

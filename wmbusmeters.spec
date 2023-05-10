@@ -4,7 +4,7 @@ Name:                  wmbusmeters
 %global forgeurl       https://github.com/weetmuts/%{name}
 
 %if %{with_tag}
-%global tag            1.12.0
+%global tag            1.13.0
 Version:               %{tag}
 %else
 %global date           20210813
@@ -85,7 +85,6 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_unitdir}/%{name}.service
 %config(noreplace) %{_sysconfdir}/%{name}.conf
 %{_sbindir}/wmbusmetersd
 %{_bindir}/%{name}
-%{_bindir}/%{name}-admin
 %{_unitdir}/%{name}.service
 %{_mandir}/man1/%{name}*
 %ghost %{_rundir}/%{name}/
@@ -102,6 +101,9 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_unitdir}/%{name}.service
 
 
 %changelog
+* Mon May 08 2023 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 1.13.0-1
+- Update to 1.13.0 (rhbz#2196040)
+
 * Mon Mar 13 2023 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 1.12.0-1
 - Update to 1.12.0 (rhbz#2177567)
 

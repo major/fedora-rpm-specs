@@ -1,17 +1,21 @@
 Name:           perl-Devel-Dumpvar
 Version:        1.06
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Pure-OO reimplementation of dumpvar.pl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-Dumpvar
 Source0:        https://cpan.metacpan.org/authors/id/A/AD/ADAMK/Devel-Dumpvar-%{version}.tar.gz
+# Update Makefile.PL to not use Module::Install::DSL CPAN RT#148289
+Patch0:         Devel-Dumpvar-1.06-Remove-using-of-MI-DSL.patch
 BuildArch:      noarch
+BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
-BuildRequires:  perl(inc::Module::Install::DSL) >= 0.91
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(inc::Module::Install)
 BuildRequires:  perl(Module::Install::Metadata)
+BuildRequires:  perl(Module::Install::WriteAll)
 # Run-time
 BuildRequires:  perl(Scalar::Util) >= 1.18
 BuildRequires:  perl(strict)
@@ -29,19 +33,19 @@ the dumped data.
 
 %prep
 %setup -q -n Devel-Dumpvar-%{version}
+%patch -P0 -p1
 
 # Remove bundled libraries
 rm -r inc
-sed -i -e '/^inc\// d' MANIFEST
+perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
 find -type f -exec chmod -x {} +
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -54,6 +58,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri May 05 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.06-37
+- Update Makefile.PL to not use Module::Install::DSL
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.06-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

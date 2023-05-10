@@ -1,15 +1,15 @@
 Name:       pyzy
 Version:    0.1.0
-Release:    29%{?dist}
+Release:    30%{?dist}
 Summary:    The Chinese PinYin and Bopomofo conversion library
-License:    LGPLv2+
+License:    LGPL-2.1-or-later
 URL:        http://code.google.com/p/pyzy
 Source0:    http://pyzy.googlecode.com/files/%{name}-%{version}.tar.gz
 Source1:    http://pyzy.googlecode.com/files/pyzy-database-1.0.0.tar.bz2
 Patch0:     pyzy-0.1.0-fixes-compile.patch
 Patch1:     pyzy-0.1.0-port-to-python3.patch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  glib2-devel
 BuildRequires:  libtool
@@ -53,10 +53,8 @@ Provides:   pyzy-db
 The phrase database for pyzy from android project.
 
 %prep
-%setup -q
+%autosetup -p1
 cp -p %{SOURCE1} data/db/open-phrase
-%patch0 -p1 -b .compile
-%patch1 -p1 -b .python3
 
 %build
 %configure --disable-static --enable-db-open-phrase
@@ -89,6 +87,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_datadir}/pyzy/db/android.db
 
 %changelog
+* Mon May  8 2023 Peng Wu <pwu@redhat.com> - 0.1.0-30
+- Migrate to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

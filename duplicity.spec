@@ -69,7 +69,6 @@ BuildRequires:  python3dist(fasteners)
 BuildRequires:  python3dist(future)
 BuildRequires:  python3dist(pexpect)
 BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(pytest-runner)
 
 %description
 Duplicity incrementally backs up files and directory by encrypting

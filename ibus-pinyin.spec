@@ -2,13 +2,14 @@
 
 Name:       ibus-pinyin
 Version:    1.5.0
-Release:    27%{?dist}
+Release:    28%{?dist}
 Summary:    The Chinese Pinyin and Bopomofo engines for IBus input platform
-License:    GPLv2+
+License:    GPL-2.0-or-later
 URL:        http://code.google.com/p/ibus
 Source0:    http://ibus.googlecode.com/files/%{name}-%{version}.tar.gz
 Patch0:     ibus-pinyin-fixes-lua-compile.patch
 Patch1:     ibus-pinyin-support-set-content-type-method.patch
+Patch2:     ibus-pinyin-fixes-english-db-build.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  gnome-common
@@ -34,10 +35,7 @@ Requires:   ibus >= 1.5.4
 The Chinese Pinyin and Bopomofo input methods for IBus platform.
 
 %prep
-%setup -q
-%patch0 -p1 -b .lua
-%patch1 -p1 -b .CVE
-
+%autosetup -p1
 
 %build
 ./autogen.sh
@@ -73,6 +71,10 @@ make DESTDIR=${RPM_BUILD_ROOT} install
 
 
 %changelog
+* Mon May  8 2023 Peng Wu <pwu@redhat.com> - 1.5.0-28
+- Migrate to SPDX license
+- Fix compile
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

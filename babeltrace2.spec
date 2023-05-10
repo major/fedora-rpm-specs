@@ -1,9 +1,8 @@
 Name:           babeltrace2
 Version:        2.0.4
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A trace manipulation toolkit
-# # For a breakdown of the licensing, see LICENSE
-License:        MIT and GPLv2
+License:        MIT AND GPL-2.0-only
 URL:            https://www.efficios.com/babeltrace
 Source0:        https://www.efficios.com/files/babeltrace/babeltrace2-%{version}.tar.bz2
 Source1:        https://www.efficios.com/files/babeltrace/babeltrace2-%{version}.tar.bz2.asc
@@ -123,6 +122,9 @@ rm -f %{buildroot}/%{_pkgdocdir}/std-ext-lib.txt
 
 
 %changelog
+* Mon May 08 2023 Michael Jeanson <mjeanson@efficios.com> - 2.0.4-9
+- migrated to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

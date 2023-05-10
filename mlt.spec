@@ -12,8 +12,8 @@
 %bcond_with  ndi
 
 Name:           mlt
-Version:        7.14.0
-Release:        2%{?dist}
+Version:        7.16.0
+Release:        1%{?dist}
 Summary:        Toolkit for broadcasters, video editors, media players, transcoders
 
 # mlt/src/win32/fnmatch.{c,h} are BSD-licensed.
@@ -189,7 +189,7 @@ test "$(pkg-config --modversion mlt++-7)" = "%{version}"
 
 %files
 %doc AUTHORS NEWS README*
-%doc docs/*txt demo/
+%doc demo/
 %license COPYING GPL
 %{_bindir}/mlt-melt
 %{_bindir}/melt-7
@@ -234,6 +234,9 @@ test "$(pkg-config --modversion mlt++-7)" = "%{version}"
 
 
 %changelog
+* Mon May 08 2023 Sérgio Basto <sergio@serjux.com> - 7.16.0-1
+- Update mlt to 7.16.0 (#2196232)
+
 * Mon Mar 13 2023 Sérgio Basto <sergio@serjux.com> - 7.14.0-2
 - Effectively enables xine module
 

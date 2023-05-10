@@ -1,8 +1,8 @@
 %global srcname colcon-core
 
 Name:           python-%{srcname}
-Version:        0.11.0
-Release:        2%{?dist}
+Version:        0.12.1
+Release:        1%{?dist}
 Summary:        Command line tool to build sets of software packages
 
 License:        ASL 2.0
@@ -12,9 +12,7 @@ Source0:        https://github.com/colcon/%{srcname}/archive/%{version}/%{srcnam
 # Not submitted upstream - make pytest dependency weak
 Patch0:         %{name}-0.5.3-remove-pytest.patch
 # Not submitted upstream - compatibility with pytest 2.9.X
-Patch1:         %{name}-0.3.17-pytest-2.9.patch
-# Not submitted upstream - compatibility with newer pytest
-Patch2:         %{name}-0.7.1-pytest-fixture.patch
+Patch1:         %{name}-0.12.1-pytest-compat.patch
 
 BuildArch:      noarch
 
@@ -93,6 +91,9 @@ and sets up the environment to use the packages.
 
 
 %changelog
+* Mon May 08 2023 Scott K Logan <logans@cottsay.net> - 0.12.1-1
+- Update to 0.12.1 (rhbz#2166742)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

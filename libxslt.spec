@@ -1,7 +1,7 @@
 Name:           libxslt
 Summary:        Library providing the Gnome XSLT engine
-Version:        1.1.37
-Release:        3%{?dist}
+Version:        1.1.38
+Release:        1%{?dist}
 
 License:        MIT
 URL:            https://gitlab.gnome.org/GNOME/libxslt
@@ -85,7 +85,7 @@ rm -vrf %{buildroot}%{_docdir}
 
 %files
 %license Copyright
-%doc AUTHORS NEWS README FEATURES
+%doc AUTHORS NEWS README.md FEATURES
 %{_bindir}/xsltproc
 %{_libdir}/libxslt.so.*
 %{_libdir}/libexslt.so.*
@@ -94,9 +94,7 @@ rm -vrf %{buildroot}%{_docdir}
 
 %files devel
 %doc doc/libxslt-api.xml
-%doc doc/libxslt-refs.xml
 %doc doc/EXSLT/libexslt-api.xml
-%doc doc/EXSLT/libexslt-refs.xml
 %doc %{_mandir}/man3/libxslt.3*
 %doc %{_mandir}/man3/libexslt.3*
 #%doc doc/*.html doc/html doc/*.gif doc/*.png
@@ -128,6 +126,9 @@ rm -vrf %{buildroot}%{_docdir}
 %endif
 
 %changelog
+* Mon May 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.1.38-1
+- 1.1.38
+
 * Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.1.37-3
 - migrated to SPDX license
 

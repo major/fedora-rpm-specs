@@ -1,6 +1,6 @@
 Name:           colm
 Version:        0.14.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Programming language designed for the analysis of computer languages
 
 # aapl/ and some headers from src/ are the LGPLv2+
@@ -8,6 +8,8 @@ License:        MIT and LGPLv2+
 URL:            https://www.colm.net/open-source/colm/
 Source0:        https://www.colm.net/files/%{name}/%{name}-%{version}.tar.gz
 Patch0:		fc61ecb3a22b89864916ec538eaf04840e7dd6b5.diff
+# backport commit that allows AC_CHECK_LIB to detect libfsm
+Patch1:         https://github.com/adrian-thurston/colm/commit/28b6e0a01157049b4cb279b0ef25ea9dcf3b46ed.patch#/%{name}-libfsm-ac_check_lib.diff
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  autoconf
@@ -70,6 +72,9 @@ install -p -m 0644 -D %{name}.vim %{buildroot}%{_datadir}/vim/vimfiles/syntax/%{
 
 
 %changelog
+* Mon May 08 2023 Michel Alexandre Salim <salimma@fedoraproject.org> - 0.14.7-2
+- Backport commit that allows AC_CHECK_LIB to detect libfsm
+
 * Tue Apr 25 2023 Filipe Rosset <rosset.filipe@gmail.com> - 0.14.7-1
 - Update to 0.14.7 fixes rhbz#1825150
 

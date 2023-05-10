@@ -6,7 +6,7 @@
 %global crate time-core
 
 Name:           rust-time-core
-Version:        0.1.0
+Version:        0.1.1
 Release:        %autorelease
 Summary:        Internal implementation details of the 'time' crate
 

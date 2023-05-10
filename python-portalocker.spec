@@ -19,7 +19,7 @@ Name:           python-%{srcname}
 Release:        %autorelease
 Summary:        Library to provide an easy API to file locking
 
-License:        Python
+License:        PSF-2.0
 URL:            %forgeurl
 Source:         %forgesource
 

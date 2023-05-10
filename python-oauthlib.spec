@@ -1,9 +1,9 @@
 Name:               python-oauthlib
 Version:            3.2.1
-Release:            3%{?dist}
+Release:            4%{?dist}
 Summary:            An implementation of the OAuth request-signing logic
 
-License:            BSD
+License:            BSD-3-Clause
 URL:                https://github.com/oauthlib/oauthlib
 
 Source0:            https://github.com/oauthlib/oauthlib/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -57,6 +57,9 @@ export OPENSSL_ENABLE_SHA1_SIGNATURES=yes
 %doc README.rst
 
 %changelog
+* Mon May 08 2023 Major Hayden <major@redhat.com> - 3.2.1-4
+- Migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

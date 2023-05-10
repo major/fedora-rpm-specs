@@ -9,7 +9,7 @@ Name:		perl-Package-Stash
 Version:	0.40
 Release:	4%{?dist}
 Summary:	Routines for manipulating stashes
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Package-Stash
 Source0:	https://cpan.metacpan.org/modules/by-module/Package/Package-Stash-%{version}.tar.gz
 BuildArch:	noarch
@@ -58,7 +58,7 @@ BuildRequires:	perl(Module::Runtime::Conflicts)
 BuildRequires:	perl(Package::Anon)
 BuildRequires:	perl(Variable::Magic)
 %endif
-# Runtime
+# Dependencies
 # For performance and consistency
 Requires:	perl(Package::Stash::XS) >= 0.26
 # Not found by rpm auto-provides

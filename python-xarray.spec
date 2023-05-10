@@ -1,10 +1,10 @@
 %global srcname xarray
-%global data_commit 86974d54ce83a130303fe8caa629e60deb3cb6e5
+%global data_commit 7d8290e0be9d2a8f4b4381641f20a97db6eaea3d
 
 %bcond_with docs
 
 Name:           python-%{srcname}
-Version:        2023.1.0
+Version:        2023.4.2
 Release:        %autorelease
 Summary:        N-D labeled arrays and datasets in Python
 
@@ -13,11 +13,9 @@ URL:            https://github.com/pydata/xarray
 Source0:        %pypi_source %{srcname}
 # Data for examples only.
 Source1:        https://github.com/pydata/xarray-data/archive/%{data_commit}/xarray-data-%{data_commit}.tar.gz
-Source2:        https://github.com/rasterio/rasterio/raw/1.2.10/tests/data/RGB.byte.tif
 # All Fedora specific.
-Patch0001:      0001-DOC-Don-t-download-RGB.byte.tif-during-build.patch
-Patch0002:      0002-DOC-Skip-examples-using-unpackaged-dependencies.patch
-Patch0003:      0003-DOC-Don-t-print-out-conda-pip-environment.patch
+Patch0001:      0001-DOC-Skip-examples-using-unpackaged-dependencies.patch
+Patch0002:      0002-DOC-Don-t-print-out-conda-pip-environment.patch
 
 BuildArch:      noarch
 
@@ -84,7 +82,6 @@ Documentation for xarray
 %if %{with docs}
 # Provide example datasets for building docs.
 tar xf %SOURCE1 --transform='s~^\(%{srcname}-data-%{data_commit}/\)~\1.xarray_tutorial_data/~'
-cp -p %SOURCE2 ./doc/gallery/
 %endif
 
 
@@ -116,8 +113,8 @@ rm -rf xarray
 pytest_args=(
   -n auto
   -m "not network"
-  # https://bugzilla.redhat.com/show_bug.cgi?id=2113663
-  -k 'not test_open_nczarr'
+  # https://github.com/pydata/xarray/issues/7513
+  -k 'not test_open_mfdataset_manyfiles'
 )
 
 %{pytest} -ra "${pytest_args[@]}" --pyargs xarray

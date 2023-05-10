@@ -4,11 +4,11 @@
 # is not a valid python file, only for the IDE
 %global _python_bytecompile_errors_terminate_build 0
 
-%global clangver 16.0.0
+%global clangver 16.0.2
 
 Name:           qt-creator
-Version:        10.0.0
-Release:        3%{?dist}
+Version:        10.0.1
+Release:        1%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPLv3 with exceptions
@@ -216,6 +216,9 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
+* Sun May 07 2023 Sandro Mani <manisandro@gmail.com>
+- Update to 10.0.1
+
 * Thu Apr 06 2023 Sandro Mani <manisandro@gmail.com> - 10.0.0-3
 - Switch to clang-16
 

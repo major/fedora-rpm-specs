@@ -2,8 +2,8 @@
 %global altname requests_toolbelt
 
 Name:           python-%{srcname}
-Version:        0.10.1
-Release:        3%{?dist}
+Version:        1.0.0
+Release:        1%{?dist}
 Summary:        Utility belt for advanced users of python-requests
 
 License:        Apache-2.0
@@ -62,6 +62,9 @@ py.test-%{python3_version} -v --ignore=tests/test_x509_adapter.py -k "not test_s
 %{python3_sitelib}/%{altname}-*.egg-info/
 
 %changelog
+* Mon May 08 2023 Parag Nemade <pnemade AT redhat DOT com> - 1.0.0-1
+- Update to 1.0.0 version (#2192400)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

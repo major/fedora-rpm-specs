@@ -1,11 +1,18 @@
 Name:          zenity
 Version:       3.92.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Display dialog boxes from shell scripts
 
 License:       LGPL-2.1-or-later
 URL:           https://wiki.gnome.org/Projects/Zenity
 Source:        https://download.gnome.org/sources/%{name}/3.92/%{name}-%{version}.tar.xz
+
+# https://gitlab.gnome.org/GNOME/zenity/-/merge_requests/25#note_1740317
+# https://bugzilla.redhat.com/show_bug.cgi?id=2177287
+# Hoping these two will finally fix the zenity crashes people are
+# seeing when launch Steam etc. Backports from upstream master
+Patch0:        0001-util-remove-fatal-assert-on-exit-if-window-invalid-G.patch
+Patch1:        0002-progress-Cleanup-unnecessary-static-objects-and-remo.patch
 
 BuildRequires: pkgconfig(libadwaita-1) >= 1.2
 BuildRequires: /usr/bin/help2man
@@ -54,6 +61,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Zenity.desk
 
 
 %changelog
+* Mon May 08 2023 Adam Williamson <awilliam@redhat.com> - 3.92.0-2
+- Backport two patches from upstream to hopefully really fix crashes (#2177287)
+
 * Tue May 02 2023 David King <amigadave@amigadave.com> - 3.92.0-1
 - Update to 3.92.0
 

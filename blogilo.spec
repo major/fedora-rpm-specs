@@ -55,6 +55,7 @@ BuildRequires: cmake(KF5DBusAddons)
 BuildRequires: cmake(KF5DocTools)
 BuildRequires: cmake(KF5SyntaxHighlighting)
 BuildRequires: cmake(KF5TextEditor)
+BuildRequires: cmake(KF5TextEditTextToSpeech)
 BuildRequires: cmake(KF5Wallet)
 BuildRequires: cmake(KF5XmlGui)
 

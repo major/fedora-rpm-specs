@@ -1,6 +1,6 @@
 Name:       barman
-Version:    3.0.1
-Release:    3%{?dist}
+Version:    3.5.0
+Release:    1%{?dist}
 Summary:    Backup and Recovery Manager for PostgreSQL
 License:    GPLv3
 URL:        http://www.pgbarman.org/
@@ -88,6 +88,7 @@ sed -i 's|/etc/%{name}.d|/etc/%{name}/conf.d|g' %{buildroot}%{_sysconfdir}/%{nam
 %{_bindir}/%{name}-cloud-backup-delete
 %{_bindir}/%{name}-cloud-backup-keep
 %{_bindir}/%{name}-cloud-backup-list
+%{_bindir}/%{name}-cloud-backup-show
 %{_bindir}/%{name}-cloud-check-wal-archive
 %{_bindir}/%{name}-cloud-restore
 %{_bindir}/%{name}-cloud-wal-archive
@@ -119,6 +120,9 @@ getent passwd %{name} >/dev/null || \
 exit 0
 
 %changelog
+* Mon May 08 2023 Simone Caronni <negativo17@gmail.com> - 3.5.0-1
+- Update to 3.5.0.
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

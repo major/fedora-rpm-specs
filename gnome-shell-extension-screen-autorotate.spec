@@ -12,7 +12,7 @@ URL:            https://github.com/shyzus/gnome-shell-extension-%{srcname}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
-Requires:       gnome-shell >= 42
+Requires:       gnome-shell >= 40
 Requires:       iio-sensor-proxy
 Provides:       %{extension} = %{version}-%{release}
 
