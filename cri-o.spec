@@ -1,8 +1,8 @@
 # https://github.com/cri-o/cri-o
 %global goipath         github.com/cri-o/cri-o
-Version:                1.26.1
+Version:                1.27.0
 
-%if 0%{?rhel} && 0%{?rhel} <= 8
+%if 0%{?rhel} && 0%{?rhel} <= 9
 %define gobuild(o:) %{expand:
   # https://bugzilla.redhat.com/show_bug.cgi?id=995136#c12
   %global _dwz_low_mem_die_limit 0
@@ -33,7 +33,7 @@ Version:                1.26.1
 %global service_name crio
 
 # Commit for the builds
-%global commit0 69945ab622a70ab01f4b0df10b107bc48e38dc9e
+%global commit0 11d8079ee81fb928b37fdef01882bd6977d68d3d
 
 Name:           cri-o
 Epoch:          0
@@ -96,7 +96,7 @@ Open Container Initiative-based implementation of Kubernetes Container Runtime
 Interface.
 
 %prep
-%if 0%{?rhel} && 0%{?rhel} <= 8
+%if 0%{?rhel} && 0%{?rhel} <= 9
 %autosetup -p1 -n %{name}-%{version}
 %else
 %goprep -k
@@ -119,6 +119,10 @@ $(hack/btrfs_tag.sh) $(hack/libdm_installed.sh)
 $(hack/libdm_no_deferred_remove_tag.sh)
 $(hack/seccomp_tag.sh)
 $(hack/selinux_tag.sh)"
+
+%if 0%{?rhel}  && 0%{?rhel} <= 8
+BUILDTAGS="$BUILDTAGS containers_image_openpgp"
+%endif
 
 export BASE_LDFLAGS="-X %{goipath}/internal/pkg/criocli.DefaultsPath=%{criocli_path}
 -X  %{goipath}/internal/version.buildDate=%{build_timestamp}
@@ -226,8 +230,11 @@ sed -i -e 's/,metacopy=on//g' /etc/containers/storage.conf
 %endif
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0:1.26.1-1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+* Tue Apr 25 2023 Peter Hunt <pehunt@redhat.com> - 0:1.27.0-1
+- bump to v1.27.0
+
+* Wed Jan 25 2023 Peter Hunt~ <pehunt@redhat.com> - 0:1.26.1-2
+- update for obs
 
 * Tue Jan 10 2023 Peter Hunt~ <pehunt@redhat.com> - 0:1.26.1-1
 - bump to v1.26.1

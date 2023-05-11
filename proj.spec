@@ -13,7 +13,7 @@
 Name:           proj
 # Also check whether there is a new proj-data release when upgrading!
 Version:        9.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cartographic projection software (PROJ)
 
 License:        MIT
@@ -146,7 +146,7 @@ Please do not depend on this package, it will get removed!
 %files data-world
 
 
-
+# TODO: why the \ cruft in this section?
 %define data_subpkg(c:n:e:s:) \
 %define countrycode %{-c:%{-c*}}%{!-c:%{error:Country code not defined}} \
 %define countryname %{-n:%{-n*}}%{!-n:%{error:Country name not defined}} \
@@ -332,6 +332,9 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 
 %changelog
+* Tue May 09 2023 Markus Neteler <neteler@mundialis.de> - 9.2.0-2
+- SPDX migration
+
 * Sat Mar 04 2023 Sandro Mani <manisandro@gmail.com> - 9.2.0-1
 - Update to 9.2.0
 

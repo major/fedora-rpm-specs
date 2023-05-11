@@ -1,5 +1,5 @@
 Name:       ibus-typing-booster
-Version:    2.22.4
+Version:    2.22.5
 Release:    1%{?dist}
 Summary:    A completion input method
 License:    GPL-3.0-or-later AND Apache-2.0
@@ -60,7 +60,7 @@ BuildRequires:   glibc-gconv-extra
 BuildRequires:  python3-libvoikko
 BuildRequires:  voikko-fi
 %endif
-#BuildRequires:  appstream
+BuildRequires:  appstream
 BuildRequires:  libappstream-glib
 BuildRequires:  desktop-file-utils
 BuildRequires:  python3-gobject
@@ -153,8 +153,11 @@ export PYTHON=%{__python3}
 
 %check
 export LC_ALL=C.UTF-8
-# now broken on f36, f37, f38 and f39, see: https://bugzilla.redhat.com/show_bug.cgi?id=2171887
-# appstreamcli validate --pedantic --no-net %{buildroot}/%{_datadir}/metainfo/*.appdata.xml
+appstreamcli validate --pedantic --no-net %{buildroot}/%{_datadir}/metainfo/*.appdata.xml
+# According to the appstream developers, appstream-util is unmaintained:
+# https://github.com/ximion/appstream/issues/494#issuecomment-1521419742
+# But I keep it here for the time being because the Fedora packaging guidelines ask for it:
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/AppData/#_app_data_validate_usage
 appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdata.xml
 desktop-file-validate \
     $RPM_BUILD_ROOT%{_datadir}/applications/ibus-setup-typing-booster.desktop
@@ -247,6 +250,22 @@ fi
 %{_datadir}/applications/emoji-picker.desktop
 
 %changelog
+* Tue May 09 2023 Mike FABIAN <mfabian@redhat.com> - 2.22.5-1
+- Update to 2.22.5
+- Remove `xml:lang="en"` from the screenshots in appdata.xml
+  (See: https://github.com/ximion/appstream/issues/494)
+- Improve regexp for parsing description out of of .mim files
+  (Resolves: https://github.com/mike-fabian/ibus-typing-booster/issues/440)
+- Setup tool: scale input method icons correctly
+  (Resolves: https://github.com/mike-fabian/ibus-typing-booster/issues/441)
+- Update emoji annotations from CLDR
+- Get version information of m17n-db
+  (Needed for test cases depending on the version of m17n-db)
+- Skip m17n_translit test cases when m17n-db is too old
+
+* Thu Apr 27 2023 Mike FABIAN <mfabian@redhat.com> - 2.22.4-2
+- Use both appstreamcli and appstream-util for validation of the metainfo files
+
 * Mon Apr 24 2023 Mike FABIAN <mfabian@redhat.com> - 2.22.4-1
 - Update to 2.22.4
 - Return empty program_name and window_title in get_active_window_xprop()

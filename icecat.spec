@@ -22,7 +22,7 @@ ExcludeArch: s390x
 
 ### Optimization ###
 # Builds for debugging
-%global debug_build   1
+%global debug_build   0
 
 # Downgrade optimization
 %global less_optbuild 0
@@ -104,7 +104,7 @@ ExcludeArch: s390x
 
 Name:    icecat
 Epoch:   1
-Version: 102.10.0
+Version: 102.11.0
 Release: %autorelease -e %{redhat_ver}
 Summary: GNU version of Firefox browser
 

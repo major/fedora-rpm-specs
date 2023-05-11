@@ -13,9 +13,9 @@
 %{!?rel_build:%global git_tar %{name}-%{version}-%{git_ver}.tar.xz}
 
 Name:           mate-utils
-Version:        %{branch}.0
+Version:        %{branch}.1
 %if 0%{?rel_build}
-Release:        5%{?dist}
+Release:        1%{?dist}
 %else
 Release:        0.17%{?git_rel}%{?dist}
 %endif
@@ -28,14 +28,6 @@ URL:            http://mate-desktop.org
 %{?rel_build:Source0:     http://pub.mate-desktop.org/releases/%{branch}/%{name}-%{version}.tar.xz}
 # Source for snapshot-builds.
 %{!?rel_build:Source0:    http://git.mate-desktop.org/%{name}/snapshot/%{name}-%{commit}.tar.xz#/%{git_tar}}
-
-# commits from upstream 1.26 branch
-Patch1:        mate-utils_0001-mate-screenshot-fix-memory-leak.patch
-Patch2:        mate-utils_0002-mate-disk-image-mounter-fix-memory-leak.patch
-Patch3:        mate-utils_0003-mate-dictionary-fix-memory-leak.patch
-Patch4:        mate-utils_0004-gsearchtool-fix-memory-leak.patch
-Patch5:        mate-utils_0005-mate-dictionary-fix-memory-leak.patch
-Patch6:        mate-utils_0006-mate-dictionary-fix-memory-leak.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: e2fsprogs-devel
@@ -133,11 +125,6 @@ An application to help analyze disk usage.
 # needed for git snapshots
 NOCONFIGURE=1 ./autogen.sh
 %endif # 0%{?rel_build}
-
-# disable pt language for help in search tool
-sed -i s/"IGNORE_HELP_LINGUAS ="/"IGNORE_HELP_LINGUAS = pt"/g gsearchtool/help/Makefile.am
-# pt translation fix
-NOCONFIGURE=1 ./autogen.sh
 
 %build
 %configure \
@@ -265,6 +252,9 @@ desktop-file-install                          \
 
 
 %changelog
+* Tue May 09 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-1
+- update to 1.26.1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

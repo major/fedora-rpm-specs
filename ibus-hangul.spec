@@ -3,9 +3,9 @@
 
 Name:       ibus-hangul
 Version:    1.5.5
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    The Hangul engine for IBus input platform
-License:    GPLv2+
+License:    GPL-2.0-or-later
 URL:        https://github.com/libhangul/ibus-hangul
 Source0:    https://github.com/libhangul/ibus-hangul/releases/download/%{version}/%{name}-%{version}.tar.xz
 
@@ -87,6 +87,9 @@ make check \
 %{_datadir}/installed-tests/ibus-hangul
 
 %changelog
+* Tue May  9 2023 Peng Wu <pwu@redhat.com> - 1.5.5-2
+- Migrate to SPDX license
+
 * Thu May  4 2023 Peng Wu <pwu@redhat.com> - 1.5.5-1
 - Update to 1.5.5
 

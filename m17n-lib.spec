@@ -6,8 +6,8 @@
 %endif
 
 Name:           m17n-lib
-Version:        1.8.1
-Release:        11%{?dist}
+Version:        1.8.2
+Release:        1%{?dist}
 Summary:        Multilingual text library
 
 License:        LGPL-2.1-or-later
@@ -75,8 +75,7 @@ Tools to test M17n GUI widget library.
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 
-# parallel make usage with make command fails build on koji
-make
+%{make_build}
 
 %install
 make install DESTDIR=%{buildroot} INSTALL="install -p"
@@ -126,7 +125,12 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_libdir}/libm17n-gui.so.*
 
 %changelog
-* Fri May 05 2023 Mike FABIAN <mfabian@redhat.com> - 1.8.1-1
+* Tue May 09 2023 Mike FABIAN <mfabian@redhat.com> - 1.8.2-1
+- Update to 1.8.2
+- Fix parallel builds by switching from absolute to relative paths
+  (Resolves: https://savannah.nongnu.org/bugs/index.php?61377)
+- enable parallel builds in the spec file
+
 - Update to 1.8.1
 - Remove m17n-lib-c99.patch (included upstream)
 - Remove Fix-segmentation-fault-when-using-ibus-m17n-with-vi-telex-in-gedit-in-wayland.patch

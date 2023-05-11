@@ -1,12 +1,16 @@
-%global glib2_version 2.58.0
-%global gobject_introspection_version 1.61.2
+%global commit 1ef69340afc918e662a1d7ad94784ef5360bb6c2
+%global commitdate 20230508
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+
+%global glib2_version 2.66.0
+%global gobject_introspection_version 1.66.0
 %global gtk3_version 3.20
-%global mozjs78_version 78.12.0-1
+%global mozjs78_version 102.9.0-1
 
 Name:          cjs
 Epoch:         1
-Version:       5.6.1
-Release:       1%{?dist}
+Version:       5.7.0
+Release:       0.1%{?commitdate:^git%{commitdate}.%{shortcommit}}%{?dist}
 Summary:       Javascript Bindings for Cinnamon
 
 License:       MIT and (MPLv1.1 or GPLv2+ or LGPLv2+)
@@ -15,7 +19,11 @@ License:       MIT and (MPLv1.1 or GPLv2+ or LGPLv2+)
 # The console module (modules/console.c)
 # Stack printer (gjs/stack.c)
 URL:           https://github.com/linuxmint/%{name}
-Source0:       %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+%if 0%{?commitdate}
+Source0:        %{url}/archive/%{commit}/%{name}-%{commit}.tar.gz
+%else
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+%endif
 
 ExcludeArch:   %{ix86}
 
@@ -27,7 +35,7 @@ BuildRequires: pkgconfig(dbus-glib-1)
 BuildRequires: pkgconfig(glib-2.0) >= %{glib2_version}
 BuildRequires: pkgconfig(gobject-introspection-1.0) >= %{gobject_introspection_version}
 BuildRequires: pkgconfig(gtk+-3.0) >= %{gtk3_version}
-BuildRequires: pkgconfig(mozjs-78) >= %{mozjs78_version}
+BuildRequires: pkgconfig(mozjs-102) >= %{mozjs78_version}
 BuildRequires: pkgconfig(readline)
 BuildRequires: pkgconfig(sysprof-capture-4)
 # Required for checks
@@ -39,7 +47,7 @@ BuildRequires: xorg-x11-server-Xvfb
 Requires: glib2%{?_isa} >= %{glib2_version}
 Requires: gobject-introspection%{?_isa} >= %{gobject_introspection_version}
 Requires: gtk3%{?_isa} >= %{gtk3_version}
-Requires: mozjs78%{?_isa} >= %{mozjs78_version}
+Requires: mozjs102%{?_isa} >= %{mozjs78_version}
 
 %description
 Cjs allows using Cinnamon libraries from Javascript. It's based on the
@@ -65,11 +73,13 @@ the functionality of the installed cjs package.
 
 
 %prep
-%autosetup -p1
+%autosetup -p1 %{?commitdate:-n %{name}-%{commit}}
 
 
 %build
-%meson --libexecdir=%{_libexecdir}/cjs/ 
+%meson \
+ --libexecdir=%{_libexecdir}/cjs/ \
+ -D installed_tests=true
 %meson_build
 
 
@@ -78,11 +88,9 @@ the functionality of the installed cjs package.
 
 
 %check
-%if 0%{?fedora} && 0%{?fedora} < 39
 %ifnarch s390 s390x
 xvfb-run -a /usr/bin/meson test -C %{_vpath_builddir} \
  --num-processes %{_smp_build_ncpus} --print-errorlogs
-%endif
 %endif
 
 %files
@@ -109,6 +117,9 @@ xvfb-run -a /usr/bin/meson test -C %{_vpath_builddir} \
 
 
 %changelog
+* Tue May 09 2023 Leigh Scott <leigh123linux@gmail.com> - 1:5.7.0-0.1^git20230508.1ef6934
+- Update to 5.7.0 git snapshot
+
 * Fri May 05 2023 Leigh Scott <leigh123linux@gmail.com> - 1:5.6.1-1
 - Update to 5.6.1 release
 

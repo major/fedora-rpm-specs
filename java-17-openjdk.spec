@@ -316,7 +316,7 @@
 %global top_level_dir_name   %{origin}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        7
-%global rpmrelease      2
+%global rpmrelease      3
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -1321,6 +1321,10 @@ BuildRequires: desktop-file-utils
 # elfutils only are OK for build without AOT
 BuildRequires: elfutils-devel
 BuildRequires: gdb
+# for modyfying build-id in clashing binaries
+BuildRequires: /usr/bin/gcc
+BuildRequires: /usr/bin/objcopy
+BuildRequires: /usr/bin/readelf
 # Requirement for setting up nss.cfg and nss.fips.cfg
 BuildRequires: nss-devel
 # Requirement for system security property test
@@ -1891,6 +1895,29 @@ for suffix in %{build_loop} ; do
     buildoutputdir=`ls -d %{compatiblename}*portable${debugbuild}.${jdkjre}*`
     top_dir_abs_main_build_path=$(pwd)/${buildoutputdir}
     installjdk ${top_dir_abs_main_build_path}
+    # it may happen, that some library - in original case libjsvml build identically for two jdks
+    # it is becasue of our ld/gcc flags - otherwise rpm build enhances each binarry by full path to it
+    # if it is hit then this library needs to have build-id repalced - note, that it do not affect dbugability
+    clashinglibs=""
+%ifarch %{svml_arches}
+    clashinglibs="$clashinglibs lib/libjsvml.so"
+%endif
+    for lib in $clashinglibs ; do
+      libjsvmlgcchackdir=`mktemp -d`
+      pushd $libjsvmlgcchackdir
+        libjsvml=${top_dir_abs_main_build_path}/$lib
+        ls -l $libjsvml
+        echo "#include <stdio.h>" > a.c
+        echo "int main(void) {  printf(\"$libjsvml\"); }" >> a.c
+        gcc a.c -o exe
+        readelf -n  exe | grep "Build ID"
+        readelf -n  $libjsvml | grep "Build ID"
+        objcopy --dump-section .note.gnu.build-id=id exe
+        objcopy --update-section  .note.gnu.build-id=id $libjsvml
+        readelf -n $libjsvml | grep -i "Build ID"
+      popd
+      rm -rf $libjsvmlgcchackdir
+    done
     # Check debug symbols were built into the dynamic libraries
     if [ $jdkjre == jdk ] ; then
       #jdk only?
@@ -2354,6 +2381,9 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
+* Tue May 09 2023 Jiri Vanek <jvanek@redhat.com> - 1:17.0.7.0.7-3
+- faking build-id in libjsvml.so
+
 * Fri Apr 28 2023 Jiri Vanek <jvanek@redhat.com> - 1:17.0.7.0.7-2
 - returned news and samples
 

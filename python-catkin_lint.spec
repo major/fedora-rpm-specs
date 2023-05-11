@@ -1,16 +1,13 @@
 %global srcname catkin_lint
 
 Name:           python-%{srcname}
-Version:        1.6.17
-Release:        5%{?dist}
+Version:        1.6.22
+Release:        1%{?dist}
 Summary:        Check catkin packages for common errors
 
 License:        BSD
 URL:            https://pypi.python.org/pypi/%{srcname}
 Source0:        https://github.com/fkie/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
-
-# Taken from upstream pending release
-Patch0:         %{srcname}-1.6.17-patch-call-sites.patch
 
 BuildArch:      noarch
 
@@ -23,18 +20,13 @@ package, and it will detect and report a number of common problems.
 %package -n python%{python3_pkgversion}-%{srcname}
 Summary:        %{summary}
 BuildRequires:  python%{python3_pkgversion}-catkin_pkg
-BuildRequires:  python%{python3_pkgversion}-coverage
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-lxml
-BuildRequires:  python%{python3_pkgversion}-mock
-BuildRequires:  python%{python3_pkgversion}-nose
 BuildRequires:  python%{python3_pkgversion}-nose2
-BuildRequires:  python%{python3_pkgversion}-pip
-BuildRequires:  python%{python3_pkgversion}-rosdep
 BuildRequires:  python%{python3_pkgversion}-rosdistro
 BuildRequires:  python%{python3_pkgversion}-rospkg
 BuildRequires:  python%{python3_pkgversion}-setuptools
-BuildRequires:  python%{python3_pkgversion}-wheel
+BuildRequires:  python%{python3_pkgversion}-setuptools_scm
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
 
 %if %{undefined __pythondist_requires}
@@ -59,20 +51,22 @@ package, and it will detect and report a number of common problems.
 
 
 %build
-%py3_build
+SETUPTOOLS_SCM_PRETEND_VERSION=%{version} \
+  %py3_build
 mv build/scripts-%{python3_version}/%{srcname} build/scripts-%{python3_version}/%{srcname}-%{python3_version}
 ln -s %{srcname}-%{python3_version} build/scripts-%{python3_version}/%{srcname}-3
 ln -s %{srcname}-%{python3_version} build/scripts-%{python3_version}/%{srcname}
 
 
 %install
-%py3_install
+SETUPTOOLS_SCM_PRETEND_VERSION=%{version} \
+  %py3_install
 
-install -p -D -m0644 bash/%{srcname} %{buildroot}%{_sysconfdir}/bash_completion.d/%{srcname}
+install -p -D -m0644 shell/bash/%{srcname} %{buildroot}%{_sysconfdir}/bash_completion.d/%{srcname}
 
 
 %check
-%{__python3} setup.py test
+%{__python3} -m nose2 test
 
 
 %files -n python%{python3_pkgversion}-%{srcname}
@@ -84,10 +78,14 @@ install -p -D -m0644 bash/%{srcname} %{buildroot}%{_sysconfdir}/bash_completion.
 %{_bindir}/%{srcname}-3
 %{_bindir}/%{srcname}-%{python3_version}
 %{_datadir}/bash-completion/completions/%{srcname}
+%{_datadir}/fish/vendor_completions.d/%{srcname}.fish
 %{_sysconfdir}/bash_completion.d/%{srcname}
 
 
 %changelog
+* Tue May 09 2023 Scott K Logan <logans@cottsay.net> - 1.6.22-1
+- Update to 1.6.22 (rhbz#2115320)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.17-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

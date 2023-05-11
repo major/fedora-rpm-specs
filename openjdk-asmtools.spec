@@ -8,8 +8,8 @@
 
 Name:           openjdk-asmtools
 Version:        %{major}.%{minor}
-Release:        0.3.%{commitdate}.git%{shortcommit}%{?dist}
-Summary:        To develop tools create proper & improper Java '.class' files
+Release:        0.4.%{commitdate}.git%{shortcommit}%{?dist}
+Summary:        Set of tools used to assemble / disassemble proper and improper Java .class files
 
 License:        GPLv2+
 URL:            https://github.com/openjdk/asmtools
@@ -33,14 +33,14 @@ BuildRequires:  junit5
 Requires:  (java-17-headless or java-latest-openjdk-headless)
 
 %description
-AsmTools helps develop tools to create proper and improper Java '.class' files.
+AsmTools helps develop tools to create proper and improper Java .class files.
 Aids various Java .class based testing and OpenJDK development applications.
 Asmtools supports latest class file formats, in lock-step with JDK development.
 AsmTools consist of a set of (Java class file) assembler/dis-assemblers:
-Jasm/Jdis:
+* Jasm/Jdis:
 An assembler language to provide Java-like declaration of member signatures,
 providing Java VM specification compliant mnemonics for byte-code instructions.
-JCod/JDec:
+* JCod/JDec:
 An assembler language to provide byte-code containers of class-file constructs.
 
 %package        javadoc
@@ -94,6 +94,9 @@ install -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_mandir}/man1/
 %{_mandir}/man1/openjdk-asmtools.1*
 
 %changelog
+* Tue May 09 2023 Marian Koncek <mkoncek@redhat.com> - 8.0.b02.ea-0.4.20230113.gitc0e14f4
+- Improve summary and description
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.b02.ea-0.3.20230113.gitc0e14f4
 - bumped to next RC
 - enabled tests

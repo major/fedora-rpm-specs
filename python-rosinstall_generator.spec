@@ -1,17 +1,13 @@
 %global srcname rosinstall_generator
 
 Name:           python-%{srcname}
-Version:        0.1.22
-Release:        9%{?dist}
+Version:        0.1.23
+Release:        1%{?dist}
 Summary:        Generates rosinstall files
 
 License:        BSD
 URL:            http://wiki.ros.org/%{srcname}
 Source0:        https://github.com/ros-infrastructure/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
-
-# Upstream patch to use the yaml safe loader
-# https://github.com/ros-infrastructure/rosinstall_generator/commit/53109e5b092a5172ee74119be32225b45ec1e737.patch
-Patch0:         53109e5b092a5172ee74119be32225b45ec1e737.patch
 
 BuildArch:      noarch
 
@@ -24,7 +20,7 @@ about repositories with ROS packages/stacks.
 Summary:        %{summary}
 BuildRequires:  python%{python3_pkgversion}-catkin_pkg >= 0.1.28
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-nose
+BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-rosdistro >= 0.7.3
 BuildRequires:  python%{python3_pkgversion}-rospkg
 BuildRequires:  python%{python3_pkgversion}-setuptools
@@ -59,7 +55,7 @@ ln -s %{srcname}-%{python3_version} %{buildroot}%{_bindir}/%{srcname}
 
 
 %check
-PYTHONPATH=%{buildroot}%{python3_sitelib} nosetests-%{python3_version} test
+%pytest test
 
 
 %files -n python%{python3_pkgversion}-%{srcname}
@@ -72,6 +68,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} nosetests-%{python3_version} test
 
 
 %changelog
+* Tue May 09 2023 Scott K Logan <logans@cottsay.net> - 0.1.23-1
+- Update to 0.1.23 (rhbz#2174298)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.22-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

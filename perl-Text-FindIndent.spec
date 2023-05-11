@@ -1,6 +1,6 @@
 Name:           perl-Text-FindIndent
 Version:        0.11
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Heuristically determine the indent style
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Text-FindIndent
@@ -8,14 +8,16 @@ Source0:        https://cpan.metacpan.org/authors/id/C/CH/CHORNY/Text-FindIndent
 # Remove using of use_ptar from Makefile. It is used to create correct
 # archive on Windows
 Patch0:         Text-FindIndent-0.11-Remove-use_ptar-from-Makefile.patch
+# Update Makefile.PL to not use Module::Install::DSL CPAN RT#148296
+Patch1:         Text-FindIndent-0.11-Remove-using-of-MI-DSL.patch
 BuildArch:      noarch
-BuildRequires:  findutils
+BuildRequires:  coreutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
-BuildRequires:  perl(inc::Module::Install::DSL) >= 1.10
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(inc::Module::Install)
 BuildRequires:  perl(Module::Install::Metadata)
-BuildRequires:  sed
+BuildRequires:  perl(Module::Install::WriteAll)
 # Run-time:
 BuildRequires:  perl(constant)
 BuildRequires:  perl(strict)
@@ -30,18 +32,18 @@ indent "policy" for a text file (most likely a source code file).
 
 %prep
 %setup -q -n Text-FindIndent-%{version}
-%patch0 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 # Remove bundled modules
 rm -rf ./inc
-sed -i -e '/^inc\//d' MANIFEST
+perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -49,10 +51,13 @@ make test
 
 %files
 %doc Changes
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Text*
+%{_mandir}/man3/Text*
 
 %changelog
+* Tue May 09 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.11-23
+- Update Makefile.PL to not use Module::Install::DSL
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

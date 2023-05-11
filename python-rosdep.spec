@@ -4,8 +4,8 @@
 %global srcname rosdep
 
 Name:           python-%{srcname}
-Version:        0.22.1
-Release:        3%{?dist}
+Version:        0.22.2
+Release:        1%{?dist}
 Summary:        ROS System Dependency Installer
 
 License:        BSD
@@ -215,6 +215,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} -m pytest test \
 
 
 %changelog
+* Tue May 09 2023 Scott K Logan <logans@cottsay.net> - 0.22.2-1
+- Update to 0.22.2 (rhbz#2180331)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

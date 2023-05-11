@@ -2,7 +2,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           grilo
-Version:        0.3.15
+Version:        0.3.16
 Release:        %autorelease
 Summary:        Content discovery framework
 

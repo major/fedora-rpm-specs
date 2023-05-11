@@ -1,8 +1,8 @@
 Name:           perl-Net-IDN-Encode
 Summary:        Internationalizing Domain Names in Applications (IDNA)
 Version:        2.500
-Release:        15%{?dist}
-License:        GPL+ or Artistic
+Release:        16%{?dist}
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-IDN-Encode
 Source0:        https://cpan.metacpan.org/authors/id/C/CF/CFAERBER/Net-IDN-Encode-%{version}.tar.gz
 # Make Unicode property generator compatible with perl 5.30-RC1,
@@ -47,7 +47,7 @@ Internationalized Domain Names (IDNs).
 
 %prep
 %setup -q -n Net-IDN-Encode-%{version}
-%patch0 -p1
+%patch -P 0 -p1
 
 # Remove incorrect executable bits
 chmod -x lib/Net/IDN/Encode.pm \
@@ -85,6 +85,10 @@ find %{buildroot} -type f -name '*.bs' -size 0 -exec rm -f {} \;
 
 
 %changelog
+* Tue May 09 2023 Michal Josef Špaček <mspacek@redhat.com> - 2.500-16
+- Fix patch warning
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.500-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

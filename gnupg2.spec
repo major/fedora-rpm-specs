@@ -1,14 +1,9 @@
 %bcond_with bootstrap
 
-# Releases are occasionally signed with a brainpool key, which we cannot
-# (currently) use.  In such cases, set skip_verify to 1 and manually verify
-# the upstream source.
-%global skip_verify 0
-
 Summary: Utility for secure communication and data storage
 Name:    gnupg2
-Version: 2.4.0
-Release: 3%{?dist}
+Version: 2.4.1
+Release: 1%{?dist}
 
 License: GPLv3+
 Source0: https://gnupg.org/ftp/gcrypt/%{?pre:alpha/}gnupg/gnupg-%{version}%{?pre}.tar.bz2
@@ -18,7 +13,7 @@ Source2: https://gnupg.org/signature_key.asc
 Patch3:  gnupg-2.1.10-secmem.patch
 # non-upstreamable patch adding file-is-digest option needed for Copr
 # https://dev.gnupg.org/T1646
-Patch4:  gnupg-2.2.20-file-is-digest.patch
+Patch4:  gnupg-2.4.1-file-is-digest.patch
 Patch6:  gnupg-2.1.1-fips-algo.patch
 # allow 8192 bit RSA keys in keygen UI with large RSA
 Patch9:  gnupg-2.2.23-large-rsa.patch
@@ -29,11 +24,8 @@ Patch21: gnupg-2.4.0-gpg-allow-import-of-previously-known-keys-even-without-UI.p
 Patch22: gnupg-2.2.18-gpg-accept-subkeys-with-a-good-revocation-but-no-self-sig.patch
 # Fixes for issues found in Coverity scan - reported upstream
 Patch30: gnupg-2.2.21-coverity.patch
-# fix gpgme tests fail for in-source-tree builds (https://dev.gnupg.org/T6313)
-# (edited to patch Makefile.in instead of Makefile.am to avoid autoreconf)
-Patch31: gnupg-2.4.0-tests-Fix-tests-gpgme-for-in-source-tree-builds.patch
 # Revert the introduction of the RFC4880bis draft into defaults
-Patch32: gnupg2-revert-rfc4880bis.patch
+Patch31: gnupg2-revert-rfc4880bis.patch
 
 
 URL:     https://www.gnupg.org/
@@ -62,7 +54,6 @@ BuildRequires: gnutls-devel
 BuildRequires: sqlite-devel
 BuildRequires: fuse
 BuildRequires: make
-BuildRequires: systemd-rpm-macros
 # for tests
 BuildRequires: openssh-clients
 
@@ -110,7 +101,7 @@ package adds support for smart cards and S/MIME encryption and signing
 to the base GnuPG package
 
 %prep
-%if %{without bootstrap} && ! 0%{?skip_verify}
+%if ! %{with bootstrap}
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %endif
 %setup -q -n gnupg-%{version}
@@ -125,8 +116,7 @@ to the base GnuPG package
 %patch22 -p1 -b .good_revoc
 
 %patch30 -p1 -b .coverity
-%patch31 -p1 -b .tests_gpgme
-%patch32 -p1 -b .revert-rfc4880bis
+%patch31 -p1 -b .revert-rfc4880bis
 
 # pcsc-lite library major: 0 in 1.2.0, 1 in 1.2.9+ (dlopen()'d in pcsc-wrapper)
 # Note: this is just the name of the default shared lib to load in scdaemon,
@@ -178,11 +168,6 @@ rm -f %{buildroot}%{_infodir}/dir
 # drop the gpg scheme interpreter
 rm -f %{buildroot}%{_bindir}/gpgscm
 
-# Move the systemd user units to appropriate directory
-install -d -m755 %{buildroot}%{_userunitdir}
-mv %{buildroot}%{_pkgdocdir}/examples/systemd-user/*.socket %{buildroot}%{_userunitdir}
-mv %{buildroot}%{_pkgdocdir}/examples/systemd-user/*.service %{buildroot}%{_userunitdir}
-
 %check
 # need scratch gpg database for tests
 mkdir -p $HOME/.gnupg
@@ -218,7 +203,6 @@ make -k check
 %{_libexecdir}/*
 %{_infodir}/*.info*
 %{_mandir}/man?/*
-%{_userunitdir}/*
 %exclude %{_mandir}/man?/gpgsm*
 
 %files smime
@@ -228,6 +212,12 @@ make -k check
 
 
 %changelog
+* Fri Apr 28 2023 Todd Zullinger <tmz@pobox.com> - 2.4.1-1
+- update to 2.4.1 (#2193503)
+
+* Fri Apr 28 2023 Todd Zullinger <tmz@pobox.com> - 2.4.0-4
+- remove %%skip_verify, brainpool signatures are supported now
+
 * Fri Mar 03 2023 Jakub Jelen <jjelen@redhat.com> - 2.4.0-3
 - Revert introduction of the RFC4880bis draft into defaults
 

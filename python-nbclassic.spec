@@ -1,5 +1,5 @@
 Name:           python-nbclassic
-Version:        0.5.5
+Version:        0.5.6
 Release:        %autorelease
 Summary:        Jupyter Notebook as a Jupyter Server Extension
 
@@ -40,10 +40,6 @@ Source:         %{pypi_source nbclassic}
 # Patch to use the TeX fonts from the MathJax package rather than STIXWeb
 # See BZ: 1581899, 1580129
 Patch:          Use-MathJax-TeX-fonts-rather-than-STIXWeb.patch
-# Backport the changes in the desktop file to get the correct app title in
-# the graphical menu in Fedora
-Patch:          https://github.com/jupyter/nbclassic/pull/244.patch
-Patch:          https://github.com/jupyter/nbclassic/pull/245.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -139,6 +135,26 @@ rm -rv $(find %{buildroot}%{python3_sitelib}/nbclassic -type d -name tests)
 
 desktop-file-validate %{buildroot}%{_datadir}/applications/jupyter-nbclassic.desktop
 
+# Directory /nbclassic/static/components/font-awesome/css has been symlinked
+# to Fedora resources in python3-nbclassic 0.5.4-2.fc39
+# causing file conflict when upgrading the package
+%if "%{python3_version}" == "3.11"
+%pretrans -n python3-nbclassic -p <lua>
+path = "%{python3_sitelib}/nbclassic/static/components/font-awesome/css"
+st = posix.stat(path)
+if st and st.type == "directory" then
+  status = os.rename(path, path .. ".rpmmoved")
+  if not status then
+    suffix = 0
+    while not status do
+      suffix = suffix + 1
+      status = os.rename(path .. ".rpmmoved", path .. ".rpmmoved." .. suffix)
+    end
+    os.rename(path, path .. ".rpmmoved")
+  end
+end
+%endif
+
 
 %files -n python3-nbclassic
 %doc README.md
@@ -164,6 +180,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/jupyter-nbclassic.des
 %{_datadir}/applications/jupyter-nbclassic.desktop
 %{_datadir}/icons/hicolor/scalable/apps/nbclassic.svg
 
+# A backed-up directory from an older version may be present:
+%if "%{python3_version}" == "3.11"
+%ghost %{python3_sitelib}/nbclassic/static/components/font-awesome/css.rpmmoved/
+%ghost %{python3_sitelib}/nbclassic/static/components/font-awesome/css.rpmmoved/font-awesome.css
+%ghost %{python3_sitelib}/nbclassic/static/components/font-awesome/css.rpmmoved/font-awesome.min.css
+%endif
 
 %changelog
 %autochangelog

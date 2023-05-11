@@ -1,8 +1,8 @@
 Name:           perl-String-ShellQuote
 Version:        1.04
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Perl module for quoting strings for passing through the shell
-License:        (GPL+ or Artistic) and GPLv2+
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND GPL-2.0-or-later
 URL:            https://metacpan.org/release/String-ShellQuote
 Source0:        https://cpan.metacpan.org/authors/id/R/RO/ROSCH/String-ShellQuote-%{version}.tar.gz
 BuildArch:      noarch
@@ -48,6 +48,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue May 09 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.04-39
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,19 +1,21 @@
 Name:           perl-ORLite-Statistics
 Version:        0.03
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Statistics enhancement package for ORLite
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ORLite-Statistics
 Source0:        https://cpan.metacpan.org/authors/id/A/AD/ADAMK/ORLite-Statistics-%{version}.tar.gz
+# Update Makefile.PL to not use Module::Install::DSL CPAN RT#148300
+Patch0:         ORLite-Statistics-0.03-Remove-using-of-MI-DSL.patch
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(inc::Module::Install::DSL) >= 0.91
+BuildRequires:  perl(inc::Module::Install)
 BuildRequires:  perl(Module::Install::Metadata)
-BuildRequires:  sed
+BuildRequires:  perl(Module::Install::WriteAll)
 # Runtime
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(ORLite) >= 1.25
@@ -29,9 +31,10 @@ easy integration with the Statistics::Base module.
 
 %prep
 %setup -q -n ORLite-Statistics-%{version}
+%patch -P0 -p1
 # Remove bundled modules
 rm -r ./inc/*
-sed -i -e '/^inc\//d' MANIFEST
+perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -42,15 +45,19 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{_fixperms} %{buildroot}/*
 
 %check
+unset AUTOMATED_TESTING RELEASE_TESTING
 make test
 
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/ORLite*
+%{_mandir}/man3/ORLite*
 
 %changelog
+* Tue May 09 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.03-36
+- Update Makefile.PL to not use Module::Install::DSL
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 # https://github.com/hetznercloud/cli
 %global goipath         github.com/hetznercloud/cli
-Version:                1.33.1
+Version:                1.33.2
 
 %gometa
 
@@ -61,7 +61,7 @@ install -Dp %{name}.zsh %{buildroot}%{_datadir}/zsh/site-functions/_%{name}
 
 %files
 %license LICENSE
-%doc examples CHANGES.md README.md
+%doc examples README.md
 %{_bindir}/*
 %{_datadir}/bash-completion/completions/%{name}
 %dir %{_datadir}/bash-completion

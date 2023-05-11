@@ -1,5 +1,5 @@
 Name:             python-alembic
-Version:          1.9.3
+Version:          1.10.4
 Release:          1%{?dist}
 Summary:          Database migration tool for SQLAlchemy
 
@@ -96,6 +96,9 @@ ln -s alembic-%{python3_version}.1 %{buildroot}%{_mandir}/man1/alembic.1
 
 
 %changelog
+* Tue May 09 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.10.4-1
+- Update to 1.10.4 (closes RHBZ#2170561 )
+
 * Fri Feb 10 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.9.3-1
 - Update to 1.9.3 (close RHBZ#2153880)
 

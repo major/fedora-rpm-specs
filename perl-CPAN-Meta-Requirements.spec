@@ -2,12 +2,12 @@
 %bcond_without perl_CPAN_Meta_Requirements_enables_optional_test
 
 Name:           perl-CPAN-Meta-Requirements
-Version:        2.140
-Release:        491%{?dist}
+Version:        2.142
+Release:        1%{?dist}
 Summary:        Set of version requirements for a CPAN dist
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN-Meta-Requirements
-Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/CPAN-Meta-Requirements-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/modules/by-module/CPAN/CPAN-Meta-Requirements-%{version}.tar.gz
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
@@ -15,6 +15,7 @@ BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.10
 BuildRequires:  perl(ExtUtils::MakeMaker)
 # Module
 BuildRequires:  perl(B)
@@ -32,7 +33,6 @@ BuildRequires:  glibc-langpack-en
 %endif
 BuildRequires:  perl(blib)
 BuildRequires:  perl(CPAN::Meta) >= 2.120900
-BuildRequires:  perl(English)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(IPC::Open3)
@@ -94,8 +94,16 @@ LANG=en_US make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %doc Changes CONTRIBUTING.mkdn perlcritic.rc README
 %{perl_vendorlib}/CPAN/
 %{_mandir}/man3/CPAN::Meta::Requirements.3*
+%{_mandir}/man3/CPAN::Meta::Requirements::Range.3*
 
 %changelog
+* Tue May  9 2023 Paul Howarth <paul@city-fan.org> - 2.142-1
+- Update to 2.142
+  - confess() replaced with croak(): fewer stack traces
+  - Broke the version range handling into the Range class
+  - Note: this version now requires perl v5.10 rather than v5.6
+- Use author-independent source URL
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.140-491
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

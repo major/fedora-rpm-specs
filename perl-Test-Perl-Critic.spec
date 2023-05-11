@@ -1,8 +1,8 @@
 Name:		perl-Test-Perl-Critic
 Summary:	Use Perl::Critic in test programs
 Version:	1.04
-Release:	18%{?dist}
-License:	GPL+ or Artistic
+Release:	19%{?dist}
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-Perl-Critic
 Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-Perl-Critic-%{version}.tar.gz
 BuildArch:	noarch
@@ -68,6 +68,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Test::Perl::Critic.3*
 
 %changelog
+* Tue May 09 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.04-19
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,18 +3,21 @@
 
 Name:           perl-LWP-Online
 Version:        1.08
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Check whether your process has an access to the web
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/LWP-Online
 Source0:        https://cpan.metacpan.org/authors/id/A/AD/ADAMK/LWP-Online-%{version}.tar.gz
+# Update Makefile.PL to not use Module::Install::DSL CPAN RT#148297
+Patch0:         LWP-Online-1.08-Remove-using-of-MI-DSL.patch
 BuildArch:      noarch
-BuildRequires:  findutils
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(inc::Module::Install::DSL) >= 1.01
+BuildRequires:  perl(inc::Module::Install)
 BuildRequires:  perl(Module::Install::Metadata)
+BuildRequires:  perl(Module::Install::WriteAll)
 # Run-time:
 BuildRequires:  perl(:VERSION) >= 5.5
 BuildRequires:  perl(Carp)
@@ -33,6 +36,7 @@ nastiest technical questions there is: Am I on the internet?
 
 %prep
 %setup -q -n LWP-Online-%{version}
+%patch -P0 -p1
 # Remove bundled libraries
 rm -r inc/*
 perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
@@ -56,10 +60,13 @@ make test
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/LWP*
+%{_mandir}/man3/LWP*
 
 %changelog
+* Tue May 09 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.08-37
+- Update Makefile.PL to not use Module::Install::DSL
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.08-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

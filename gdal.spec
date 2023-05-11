@@ -51,7 +51,7 @@
 
 Name:          gdal
 Version:       3.6.4
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -565,6 +565,9 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 
 
 %changelog
+* Tue May 09 2023 Markus Neteler <neteler@mundialis.de> - 3.6.4-3
+- SPDX migration
+
 * Tue May 02 2023 Sandro Mani <manisandro@gmail.com> - 3.6.4-2
 - Drop unused librx BR
 
@@ -1489,7 +1492,7 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 - Added jnis
 - Patches updated with proper version info
 - Added suggestions from Ralph Apel <r.apel@r-apel.de>
-	+ Versionless symlink for gdal.jar
-	+ Maven2 pom
-	+ JPP-style depmap
-	+ Use -f XX.files for ruby and python
+  + Versionless symlink for gdal.jar
+  + Maven2 pom
+  + JPP-style depmap
+  + Use -f XX.files for ruby and python

@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.37.9000-320-g904b94c07a
+%global glibcsrcdir glibc-2.37.9000-381-gd1417176a3
 %global glibcversion 2.37.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 8
+%global baserelease 9
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -2195,6 +2195,71 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Tue May 09 2023 Arjun Shankar <arjun@redhat.com> - 2.37.9000-9
+- Auto-sync with upstream branch master,
+  commit d1417176a35d27ffb8da0ffb1e33154163b6eeb2:
+- aligned_alloc: conform to C17
+- testsuite: stdlib/isomac.c: fix REQUIREMENTS
+- manual: Remove unsupported line breaks in waiting-with-clock section
+- Enable new device_open_new RPC in libmachuser.
+- Revert "riscv: Resolve symbols directly for symbols with STO_RISCV_VARIANT_CC."
+- Update hurd/hurdselect.c to be more portable.
+- hurd: Fix ld.so name
+- hurd: Add ioperm symbol on x86_64
+- time: Remove alloca() from getdate
+- aarch64: More configure checks for libmvec
+- aarch64: SVE ACLE configure test cleanups
+- hppa: Fix 'concurrency' typo in comment
+- Update hurd/intr-msg.c to be more portable
+- Update sysdeps/mach/hurd/ioctl.c to make it more portable
+- aarch64: fix SVE ACLE check for bootstrap glibc builds
+- Enable libmvec support for AArch64
+- hurd: Enable x86_64 build script
+- hurd 64bit: Make dev_t word type
+- malloc: Really fix tst-memalign-3 link against threads
+- malloc: Fix tst-memalign-3 link against threads
+- Use GCC 13 branch, Linux 6.3 in build-many-glibcs.py
+- Mark various cold functions as __COLD
+- Fix regex type usage
+- hurd 64bit: Fix struct msqid_ds and shmid_ds fields
+- hurd 64bit: Fix ipc_perm fields types
+- hurd 64bit: Fix flock fields types
+- hurd 64bit: Add data for check-c++-types
+- hurd 64bit: Fix pthread_t/thread_t type to long
+- socket: Fix tst-cmsghdr-skeleton.c use of cmsg_len
+- hurd 64bit: Add missing data file for check-localplt test
+- hurd 64bit: Add missing libanl
+- hurd: Also XFAIL missing SA_NOCLDWAIT on 64bit
+- hurd: Fix tst-writev test
+- nptl: move tst-x86-64-tls-1 to nptl-only tests
+- hurd: Add expected abilist files for x86_64
+- hurd: Replace reply port with a dead name on failed interruption
+- Define __mig_strlen to support dynamically sized strings in hurd RPCs
+- mach: Disable 32bit compatibility mode
+- hurd: Make it possible to call memcpy very early
+- hurd: Implement longjmp for x86_64
+- hurd: Implement sigreturn for x86_64
+- Make __mach_msg_destroy portable for x86_64
+- hurd: Mark error functions as __COLD
+- cdefs.h: Define __COLD
+- hurd: Fix FS_RETRY_MAGICAL "machtype" handling
+- hurd: Respect existing FD_CLOEXEC in S_msg_set_fd
+- hurd: Don't leak the auth port in msg* RPCs
+- hurd: Make _exit work during early boot-up
+- hurd: Mark various conditions as unlikely
+- hurd: Move libc_hidden_def's around
+- hurd: Simplify _hurd_critical_section_lock a bit
+- __check_pf: Add a cancellation cleanup handler [BZ #20975]
+- Remap __GLIBC_FLT_EVAL_METHOD to 0 if __FLT_EVAL_METHOD__ is -1
+- riscv: Resolve symbols directly for symbols with STO_RISCV_VARIANT_CC.
+- elf.h: add PT_GNU_SFRAME
+- Fix Hurd getcwd build with GCC >= 13
+- Regenerate sysdeps/mach/hurd/bits/errno.h
+- locale/programs/locarchive.c: Remove unnecessary check in add_locale_archive
+- manual: document posix_openpt (bug 17010)
+- if_index: Remove unneeded alloca.h include
+- gethostid: Do not include alloca.h
+
 * Tue Apr 25 2023 Patsy Griffin <patsy@redhat.com> - 2.37.9000-8
 - Auto-sync with upstream branch master,
   commit 904b94c07af84b7e4c98de3bbb822ccffcaf8c40.

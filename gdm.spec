@@ -10,7 +10,7 @@
 
 Name:    gdm
 Epoch:   1
-Version: 44.0
+Version: 44.1
 Release: 1%{?dist}
 Summary: The GNOME Display Manager
 
@@ -30,26 +30,21 @@ Patch70001: 0001-udev-Stick-with-wayland-on-hybrid-nvidia-with-vendor.patch
 Patch80001: 0001-Honor-initial-setup-being-disabled-by-distro-install.patch
 Patch90001: 0001-data-add-system-dconf-databases-to-gdm-profile.patch
 
-BuildRequires: accountsservice-devel
-BuildRequires: audit-libs-devel >= %{libauditver}
 BuildRequires: dconf
 BuildRequires: desktop-file-utils >= %{desktop_file_utils_version}
 BuildRequires: gettext-devel
-BuildRequires: git
-BuildRequires: keyutils-libs-devel
 BuildRequires: libXdmcp-devel
-BuildRequires: libattr-devel
-BuildRequires: libdmx-devel
 BuildRequires: meson
-BuildRequires: nss-devel >= %{nss_version}
 BuildRequires: pam-devel >= 0:%{pam_version}
 BuildRequires: pkgconfig(accountsservice) >= 0.6.3
+BuildRequires: pkgconfig(audit) >= %{libauditver}
 BuildRequires: pkgconfig(check)
 BuildRequires: pkgconfig(gobject-introspection-1.0)
 BuildRequires: pkgconfig(gtk+-3.0) >= %{gtk3_version}
 BuildRequires: pkgconfig(gudev-1.0)
 BuildRequires: pkgconfig(iso-codes)
 BuildRequires: pkgconfig(libcanberra-gtk3)
+BuildRequires: pkgconfig(libkeyutils)
 BuildRequires: pkgconfig(libselinux)
 BuildRequires: pkgconfig(libsystemd)
 BuildRequires: pkgconfig(ply-boot-client)
@@ -57,11 +52,9 @@ BuildRequires: pkgconfig(systemd)
 BuildRequires: pkgconfig(x11)
 BuildRequires: pkgconfig(xau)
 BuildRequires: pkgconfig(xorg-server)
-BuildRequires: plymouth-devel
 BuildRequires: systemd-rpm-macros
 BuildRequires: which
 BuildRequires: xorg-x11-server-Xorg
-BuildRequires: xorg-x11-server-devel
 BuildRequires: yelp-devel
 BuildRequires: yelp-tools
 
@@ -124,7 +117,7 @@ files that are helpful to PAM modules wishing to support
 GDM specific authentication features.
 
 %prep
-%autosetup -S git -n gdm-%{tarball_version}
+%autosetup -p1 -n gdm-%{tarball_version}
 
 %build
 %meson -Dpam-prefix=%{_sysconfdir} \
@@ -302,6 +295,9 @@ fi
 %{_libdir}/pkgconfig/gdm-pam-extensions.pc
 
 %changelog
+* Tue May 09 2023 David King <amigadave@amigadave.com> - 1:44.1-1
+- Update to 44.1
+
 * Fri Mar 31 2023 David King <amigadave@amigadave.com> - 44.0-1
 - Update to 44.0
 

@@ -1,9 +1,10 @@
 # Don't bother building debug packages as koji bitches about n-v-r from nemo package
-%global         debug_package %{nil}
+%global debug_package %{nil}
+%global cjs_version 5.7.0
 
 Name:           nemo-extensions
 Version:        5.6.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Extensions for Nemo
 
 License:        GPLv2+ and LGPLv2
@@ -27,7 +28,7 @@ BuildRequires:  intltool
 BuildRequires:  meson
 BuildRequires:  pkgconfig(gtk-doc)
 BuildRequires:  pkgconfig(libnotify)
-BuildRequires:  pkgconfig(cjs-1.0) >= 5.6.0
+BuildRequires:  pkgconfig(cjs-1.0) >= %{cjs_version}
 BuildRequires:  pkgconfig(xreader-view-1.5)
 BuildRequires:  pkgconfig(libmusicbrainz5)
 BuildRequires:  pkgconfig(gstreamer-plugins-base-1.0)
@@ -105,6 +106,7 @@ Embedded terminal window for Nemo
 Summary:     A quick previewer for Nemo
 License:     GPLv2+
 Requires:    nemo
+Requires:    cjs >= %{cjs_version}
 
 %description -n nemo-preview
 Nemo Preview is a GtkClutter and Javascript-based quick previewer
@@ -331,6 +333,9 @@ desktop-file-install                                    \
 %{_mandir}/man1/nemo-seahorse-tool.1.* 
 
 %changelog
+* Tue May 09 2023 Leigh Scott <leigh123linux@gmail.com> - 5.6.0-3
+- Rebuild for cjs-5.7.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

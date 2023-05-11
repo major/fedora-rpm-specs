@@ -1,13 +1,8 @@
 Name:          perl-Net-DNS
 Version:       1.36
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       DNS resolver modules for Perl
-# Other files:          MIT
-# demo/mresolv:         GPL+ or Artistic
-## Not in a binary package
-# contrib/find_zonecut: GPL+ or Artistic
-# contrib/check_soa:    GPL+ or Artistic
-License:       (GPL+ or Artistic) and MIT
+License:       MIT
 URL:           https://www.net-dns.org
 Source0:       https://www.net-dns.org/download/Net-DNS-%{version}.tar.gz
 Source1:       https://www.net-dns.org/download/Net-DNS-%{version}.tar.gz.asc
@@ -189,6 +184,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue May 09 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.36-3
+- Fix license, there is MIT only
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.36-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

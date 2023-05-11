@@ -2,7 +2,7 @@
 
 Name: deal
 Version: 3.1.11
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Bridge Hand Generator
 URL: https://github.com/gtwilliams/%{name}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -14,7 +14,7 @@ Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # compiler errors.  It was also modified to find certain files in the
 # installation directory instead of looking in the current directory.
 
-License: GPL-2.0-or-later and GPL-1.0-or-later and BSD-3-Clause-Attribution
+License: GPL-2.0-or-later AND GPL-1.0-or-later AND BSD-3-Clause-Attribution
 # GPL-1.0-or-later applies only to ansidecl.h.
 # BSD-3-Clause-Attribution applies only to random.c.  GPL-2.0-or-later
 # applies to all other files.  Some are marked explicitly but others
@@ -87,6 +87,9 @@ done
 %license GPL LICENSE
 
 %changelog
+* Mon May 08 2023 Garry T. Williams <gtwilliams@gmail.com> 3.1.11-10
+- corrected SPDX syntax
+
 * Sun Mar 05 2023 Garry T. Williams <gtwilliams@gmail.com> 3.1.11-9
 - migrated to SPDX license
 

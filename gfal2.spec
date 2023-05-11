@@ -6,7 +6,7 @@
 
 Name:               gfal2
 Version:            2.21.4
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Grid file access library 2.0
 License:            ASL 2.0
 URL:                https://dmc-docs.web.cern.ch/dmc-docs/gfal2/gfal2.html
@@ -16,6 +16,11 @@ URL:                https://dmc-docs.web.cern.ch/dmc-docs/gfal2/gfal2.html
 # popd
 # tar czf gfal2-2.21.4.tar.gz --exclude-vcs gfal2-2.21.4
 Source0:            %{name}-%{version}.tar.gz
+
+# Allow compiling on 32-bit architectures by correctly finding
+# the cryptopp library and header files.
+# (change ported from upstream)
+Patch0:             0001_FindCryptopp_32bit_architectures.patch
 
 #main lib dependencies
 BuildRequires:      gcc-c++
@@ -216,7 +221,7 @@ gfal2 tests
 %cmake3_build --target clean
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 # Make sure the version in the spec file and the version used
@@ -341,6 +346,9 @@ fi
 
 
 %changelog
+* Tue May 09 2023 Mihai Patrascoiu <mihai.patrascoiu@cern.ch> - 2.21.4-2
+- Patch to correctly find cryptopp dependency on 32-bit architectures
+
 * Mon May 08 2023 Mihai Patrascoiu <mihai.patrascoiu@cern.ch> - 2.21.4-1
 - Upgrade to upstream release 2.21.4
 

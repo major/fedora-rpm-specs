@@ -1,9 +1,9 @@
 Name:           perl-Exporter-Tidy
 Version:        0.08
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Another way of exporting symbols
 # Generated with licenses.pl
-License:        0BSD or AAL or AFL-3.0 or AGPL-3.0-only or APSL-2.0 or Apache-1.1 or Apache-2.0 or Artistic-2.0 or BSD-1-Clause or BSD-2-Clause or BSD-3-Clause or BSD-3-Clause-LBNL or BSL-1.0 or CATOSL-1.1 or CDDL-1.0 or CNRI-Python or CPAL-1.0 or CPL-1.0 or CUA-OPL-1.0 or ECL-1.0 or ECL-2.0 or EFL-2.0 or EPL-1.0 or EPL-2.0 or EUDatagrid or EUPL-1.1 or EUPL-1.2 or Entessa or Fair or GPL-1.0-only or GPL-2.0-only or GPL-3.0-only or HPND or IPL-1.0 or ISC or Jam or LGPL-2.0-only or LGPL-2.1-only or LGPL-3.0-only or LPL-1.02 or MIT or MIT-0 or MPL-1.0 or MPL-1.1 or MPL-2.0 or MS-PL or MS-RL or MirOS or Motosoto or NCSA or NGPL or NTP or Naumen or Nokia or OLDAP-2.8 or OSL-1.0 or OSL-2.1 or OSL-3.0 or PHP-3.01 or PostgreSQL or QPL-1.0 or RPSL-1.0 or SISSL or SPL-1.0 or Sleepycat or UPL-1.0 or Unicode-DFS-2016 or Unlicense or VSL-1.0 or W3C or ZPL-2.0 or ZPL-2.1 or Zlib
+License:        0BSD OR AAL OR AFL-3.0 OR AGPL-3.0-only OR APSL-2.0 OR Apache-1.1 OR Apache-2.0 OR Artistic-2.0 OR BSD-1-Clause OR BSD-2-Clause OR BSD-3-Clause OR BSD-3-Clause-LBNL OR BSL-1.0 OR CATOSL-1.1 OR CDDL-1.0 OR CNRI-Python OR CPAL-1.0 OR CPL-1.0 OR CUA-OPL-1.0 OR ECL-1.0 OR ECL-2.0 OR EFL-2.0 OR EPL-1.0 OR EPL-2.0 OR EUDatagrid OR EUPL-1.1 OR EUPL-1.2 OR Entessa OR Fair OR GPL-1.0-only OR GPL-2.0-only OR GPL-3.0-only OR HPND OR IPL-1.0 OR ISC OR LGPL-2.0-only OR LGPL-2.1-only OR LGPL-3.0-only OR LPL-1.02 OR MIT OR MIT-0 OR MPL-1.0 OR MPL-1.1 OR MPL-2.0 OR MS-PL OR MS-RL OR MirOS OR Motosoto OR NCSA OR NGPL OR NTP OR Naumen OR Nokia OR OLDAP-2.8 OR OSL-1.0 OR OSL-2.1 OR OSL-3.0 OR PHP-3.01 OR PostgreSQL OR QPL-1.0 OR RPSL-1.0 OR SISSL OR SPL-1.0 OR Sleepycat OR UPL-1.0 OR Unicode-DFS-2016 OR Unlicense OR VSL-1.0 OR W3C OR ZPL-2.0 OR ZPL-2.1 OR Zlib
 URL:            https://metacpan.org/release/Exporter-Tidy
 Source0:        https://cpan.metacpan.org/authors/id/J/JU/JUERD/Exporter-Tidy-%{version}.tar.gz
 BuildArch:      noarch
@@ -50,6 +50,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue May 09 2023 Petr Pisar <ppisar@redhat.com> - 0.08-28
+- Correct SPDX license syntax
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

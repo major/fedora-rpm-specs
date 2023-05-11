@@ -1,41 +1,49 @@
 Name:           perl-ORLite-Mirror
 Version:        1.24
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Extend ORLite to support remote SQLite databases
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ORLite-Mirror
 Source0:        https://cpan.metacpan.org/authors/id/A/AD/ADAMK/ORLite-Mirror-%{version}.tar.gz
+# Update Makefile.PL to not use Module::Install::DSL CPAN RT#148299
+Patch0:         ORLite-Mirror-1.24-Remove-using-of-MI-DSL.patch
 BuildArch:      noarch
-BuildRequires:  make
-BuildRequires:  perl-interpreter
-BuildRequires:  perl-generators
 
+BuildRequires:  coreutils
+BuildRequires:  make
+BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(inc::Module::Install)
+BuildRequires:  perl(Module::Install::Metadata)
+BuildRequires:  perl(Module::Install::Share)
+BuildRequires:  perl(Module::Install::With)
+BuildRequires:  perl(Module::Install::WriteAll)
+# Run-time
 BuildRequires:  perl(Carp)
-BuildRequires:  perl(Exporter)
 BuildRequires:  perl(File::Copy)
 BuildRequires:  perl(File::HomeDir) >= 0.69
 BuildRequires:  perl(File::Path) >= 2.04
 BuildRequires:  perl(File::Remove) >= 1.42
 BuildRequires:  perl(File::ShareDir) >= 1.00
 BuildRequires:  perl(File::Spec) >= 0.80
-BuildRequires:  perl(File::Spec::Functions)
-BuildRequires:  perl(IO::Compress::Bzip2) >= 2.008
-BuildRequires:  perl(IO::Compress::Gzip) >= 2.008
 BuildRequires:  perl(IO::Uncompress::Bunzip2) >= 2.008
 BuildRequires:  perl(IO::Uncompress::Gunzip) >= 2.008
-BuildRequires:  perl(inc::Module::Install::DSL) >= 1.06
 BuildRequires:  perl(LWP::Online) >= 1.07
 BuildRequires:  perl(LWP::UserAgent) >= 5.806
-BuildRequires:  perl(Module::Install::Metadata)
-BuildRequires:  perl(Module::Install::Share)
-BuildRequires:  perl(Module::Install::With)
 BuildRequires:  perl(ORLite) >= 1.37
 BuildRequires:  perl(Params::Util) >= 0.33
 BuildRequires:  perl(strict)
+BuildRequires:  perl(vars)
+# Tests
+BuildRequires:  perl(Exporter)
+BuildRequires:  perl(File::Spec::Functions)
+BuildRequires:  perl(IO::Compress::Bzip2) >= 2.008
+BuildRequires:  perl(IO::Compress::Gzip) >= 2.008
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(URI) >= 1.35
 BuildRequires:  perl(URI::file)
-BuildRequires:  perl(vars)
+Requires:       perl(IO::Uncompress::Bunzip2) >= 2.008
+Requires:       perl(IO::Uncompress::Gunzip) >= 2.008
 
 %{?perl_default_filter}
 
@@ -47,20 +55,18 @@ arbitrary URI in read-only form as well.
 
 %prep
 %setup -q -n ORLite-Mirror-%{version}
+%patch -P0 -p1
 # Remove bundled libraries
 rm -r inc
-sed -i -e '/^inc\// d' MANIFEST
+perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-
-find $RPM_BUILD_ROOT -type f -name .packlist -delete
+%{make_install}
 find $RPM_BUILD_ROOT -type f -name stub.db -delete
-
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -69,10 +75,14 @@ make test
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/auto*
+%{perl_vendorlib}/ORLite*
+%{_mandir}/man3/ORLite*
 
 %changelog
+* Tue May 09 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.24-31
+- Update Makefile.PL to not use Module::Install::DSL
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.24-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

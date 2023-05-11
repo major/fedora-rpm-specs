@@ -7,7 +7,7 @@
 %define desktop_file_utils_version 0.2.90
 
 Name:    gnome-terminal
-Version: 3.48.0
+Version: 3.48.1
 Release: 1%{?dist}
 Summary: Terminal emulator for GNOME
 
@@ -112,6 +112,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Terminal.de
 %{_metainfodir}/org.gnome.Terminal.Nautilus.metainfo.xml
 
 %changelog
+* Tue May 09 2023 David King <amigadave@amigadave.com> - 3.48.1-1
+- Update to 3.48.1
+
 * Mon Mar 20 2023 David King <amigadave@amigadave.com> - 3.48.0-1
 - Update to 3.48.0
 

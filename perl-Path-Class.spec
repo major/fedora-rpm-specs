@@ -2,7 +2,7 @@ Name:		perl-Path-Class
 Version:	0.37
 Release:	24%{?dist}
 Summary:	Cross-platform path specification manipulation
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Path-Class
 Source0:	https://cpan.metacpan.org/authors/id/K/KW/KWILLIAMS/Path-Class-%{version}.tar.gz
 BuildArch:	noarch
@@ -11,7 +11,7 @@ BuildRequires:	coreutils
 BuildRequires:	make
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 7.32
 # Module Runtime
 BuildRequires:	perl(Carp)
 BuildRequires:	perl(Cwd)
@@ -58,11 +58,7 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
 %doc Changes README
 %{perl_vendorlib}/Path/
 %{_mandir}/man3/Path::Class.3*

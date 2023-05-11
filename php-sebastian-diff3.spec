@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    14f72dd46eaf2f2293cbe79c93cc0bc43161a211
+%global gh_commit    6296a0c086dd0117c1b78b059374d7fcbe7545ae
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   diff
@@ -27,8 +27,8 @@
 %endif
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        3.0.3
-Release:        8%{?dist}
+Version:        3.0.4
+Release:        1%{?dist}
 Summary:        Diff implementation, version %{major}
 
 License:        BSD-3-Clause
@@ -75,7 +75,7 @@ Autoloader: %{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php
 
 %prep
 %setup -q -n %{gh_project}-%{gh_commit} -a 2
-%patch0 -p0
+%patch -P0 -p0
 
 
 %build
@@ -117,6 +117,9 @@ exit $ret
 
 
 %changelog
+* Tue May  9 2023 Remi Collet <remi@remirepo.net> - 3.0.4-1
+- update to 3.0.4
+
 * Fri Apr 21 2023 Remi Collet <remi@remirepo.net> - 3.0.3-8
 - use SPDX license ID
 - use bundled symfony/process for test

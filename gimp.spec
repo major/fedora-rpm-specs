@@ -73,9 +73,9 @@ Release:        %autorelease
 %global lib_minor %(echo $[%minor * 100])
 %global lib_micro %micro
 
-# poppler is "GPLv2 or GPLv3" which makes plug-ins linking to libpoppler such
-# as file-pdf-load GPLv3-only
-License:        GPL-3.0-or-later AND GPL-2.0-only AND GPL-3.0-only AND BSD-3-Clause
+# gimp core app is GPL-3.0-only, libgimp and other libraries are LGPL-3.0-only
+# plugin file-dds is GPL-2.0-only and plugins script-fu/{ftx,tinyscheme} are BSD-3-Clause
+License:        LGPL-3.0-only AND GPL-2.0-only AND GPL-3.0-only AND BSD-3-Clause
 URL:            http://www.gimp.org/
 %if %{with aalib}
 BuildRequires:  aalib-devel

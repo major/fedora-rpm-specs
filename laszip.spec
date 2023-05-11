@@ -1,8 +1,8 @@
 Name:           laszip
 Version:        3.4.3
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Quickly turns bulky LAS files into compant LAZ files
-License:        LGPLv2
+License:        Apache-2.0
 Source0:        https://github.com/LASzip/LASzip/releases/download/%{version}/%{name}-src-%{version}.tar.gz
 URL:            http://www.laszip.org/
 
@@ -54,6 +54,10 @@ Development headers and libraries for laszip
 
 
 %changelog
+* Tue May 09 2023 Markus Neteler <neteler@mundialis.de> - 3.4.3-10
+- SPDX migration
+- laszip has been relicenced to Apache Public License 2.0 in https://github.com/LASzip/LASzip/pull/80
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

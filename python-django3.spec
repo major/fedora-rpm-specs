@@ -9,7 +9,7 @@
 
 Name:           python-django3
 %global         pkgname Django
-%global         ver 3.2.18
+%global         ver 3.2.19
 #global         pre ...
 %global         real_version %{ver}%{?pre:%{pre}}
 Version:        %{ver}%{?pre:~%{pre}}
@@ -20,6 +20,9 @@ License:        BSD-3-Clause
 URL:            https://www.djangoproject.com/
 Source0:        %{pypi_source %{pkgname} %{real_version}}
 
+# test_uuid_unsupported - exception message changed
+# https://github.com/django/django/commit/f55bcff9dcac1d0cb1f927f9fd543cfd567400c4
+Patch:          Django-fix-for-py3113.diff
 # skip tests requiring network connectivity
 Patch:          Django-skip-net-tests.patch
 # tag failing tests
@@ -72,6 +75,7 @@ Provides:       bundled(jquery) = 2.2.3
 Provides:       bundled(xregexp) = 2.0.0
 
 Conflicts:      python3-django
+Provides:       python3-django = %{version}-%{release}
 
 %description -n python3-django3 %_description
 

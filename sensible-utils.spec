@@ -1,5 +1,5 @@
 Name:           sensible-utils
-Version:        0.0.18
+Version:        0.0.19
 Release:        1%{?dist}
 Summary:        Utilities for sensible alternative selection
 
@@ -24,7 +24,7 @@ sensibly select and spawn an appropriate browser, editor, or pager.
 
 
 %prep
-%autosetup -p1 -n %{name}
+%autosetup -p1 -n %{name}-%{version}
 
 
 %build
@@ -49,6 +49,9 @@ autoreconf -ifv
 
 
 %changelog
+* Tue May 09 2023 Sandro Mani <manisandro@gmail.com> - 0.0.19-1
+- Update to 0.0.19
+
 * Sun Mar 19 2023 Sandro Mani <manisandro@gmail.com> - 0.0.18-1
 - Update to 0.0.18
 

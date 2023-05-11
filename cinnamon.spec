@@ -5,7 +5,7 @@
 
 %global __requires_exclude ^lib%{name}.so|^lib%{name}-js.so
 
-%global cjs_version 5.6.0
+%global cjs_version 5.7.0
 %global cinnamon_desktop_version 5.6.0
 %global cinnamon_translations_version 5.6.0
 %global gobject_introspection_version 1.38.0
@@ -16,7 +16,7 @@
 
 Name:           cinnamon
 Version:        5.6.8
-Release:        2%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
+Release:        3%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 Summary:        Window management and application launching for GNOME
 License:        GPLv2+ and LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
@@ -330,6 +330,9 @@ EOF
 %endif
 
 %changelog
+* Tue May 09 2023 Leigh Scott <leigh123linux@gmail.com> - 5.6.8-3
+- Rebuild for cjs-5.7.0
+
 * Thu Apr 13 2023 Leigh Scott <leigh123linux@gmail.com> - 5.6.8-2
 - Fix settings on aarch64
 

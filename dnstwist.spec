@@ -2,8 +2,8 @@ Name: dnstwist
 Summary: Domain name permutation engine
 License: Apache-2.0
 
-Version: 20230413
-Release: 2%{?dist}
+Version: 20230509
+Release: 1%{?dist}
 
 URL:     https://github.com/elceef/%{name}/
 Source0: %{url}archive/%{version}/%{name}-%{version}.tar.gz
@@ -79,6 +79,9 @@ install -m 644 -p docs/%{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Tue May 09 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 20230509-1
+- Update to v20230509
+
 * Mon Apr 17 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 20230413-2
 - Add dependency on legacy GeoIP (for fallback purposes)
 - Fix unsatisfiable dependency on tlsh

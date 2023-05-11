@@ -65,6 +65,7 @@ Source6: 10-qt6-check-opengl2.sh
 # macros
 Source10: macros.qt6-qtbase
 
+Patch1: qtbase-tell-the-truth-about-private-API.patch
 Patch2: qtbase-use-qgnomeplatform-as-default-platform-theme-on-gnome.patch
 
 # upstreamable patches

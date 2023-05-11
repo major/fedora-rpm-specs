@@ -2,23 +2,24 @@
 %define _vpath_srcdir toonz/sources
 
 Name:    opentoonz
-Version: 1.6.0
-Release: 11%{?dist}
+Version: 1.7.0
+Release: 1%{?dist}
 Summary: 2D animation software
 
 License: BSD
 URL:     https://opentoonz.github.io/
 Source0: https://github.com/opentoonz/opentoonz/archive/refs/tags/v%{version}.tar.gz
-Patch0: opentoonz-1.5.0-install-path-fix.patch
-Patch1: opentoonz-1.6.0-kissfft-fix.patch
-Patch2: opentoonz-1.5.0-lzo-fix.patch
+
+Patch0: opentoonz-1.5.0-lzo-fix.patch
 # https://github.com/opentoonz/opentoonz/issues/4199
-Patch3: opentoonz-1.5.0-tiff-fix.patch
+Patch1: opentoonz-1.5.0-tiff-fix.patch
+Patch2: opentoonz-1.6.0-exr-fix.patch
 # https://github.com/opentoonz/opentoonz/pull/4239
-Patch4: opentoonz-1.6.0-gethostbyname.patch
-Patch5: opentoonz-1.6.0-exr-fix.patch
-# https://github.com/opentoonz/opentoonz/pull/4739
-Patch6: opentoonz-1.6.0-size_t-fix.patch
+Patch3: opentoonz-1.7.0-gethostbyname.patch
+Patch4: opentoonz-1.7.0-install-path-fix.patch
+Patch5: opentoonz-1.7.0-kissfft-fix.patch       
+Patch6: opentoonz-1.7.0-toonzrle-rm.patch
+Patch7: opentoonz-1.7.0-tzp-tiffiop-fix.patch
 
 BuildRequires: flexiblas-devel
 BuildRequires: boost-devel
@@ -50,6 +51,7 @@ BuildRequires: tinyexr-devel
 BuildRequires: turbojpeg-devel
 BuildRequires: xz-devel
 
+BuildRequires: qt5-qttools-static
 BuildRequires: kiss-fft-static
 
 Requires: opencv
@@ -93,7 +95,9 @@ sed -i 's/OPENBLAS_LIB NAMES/& flexiblas/' toonz/sources/CMakeLists.txt
 %build
 %cmake \
     -DWITH_SYSTEM_LZO:BOOL=ON \
-    -DCMAKE_SKIP_RPATH:BOOL=YES 
+    -DCMAKE_SKIP_RPATH:BOOL=YES \
+    -DWITH_TRANSLATION:BOOL=OFF
+    
 %cmake_build
 
 
@@ -131,6 +135,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Mon May 10 2023 Diego Herrera <dherrera@redhat.com> 1.7.0-1
+- Updated to 1.7.0
+
 * Mon Feb 6 2023 Diego Herrera <dherrera@redhat.com> 1.6.0-11
 - Fix size_t redefinition issue on tgc::hash class.
 

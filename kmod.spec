@@ -16,7 +16,7 @@
 
 Name:		kmod
 Version:	30
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Linux kernel module management utilities
 
 License:	GPLv2+
@@ -150,6 +150,9 @@ install -m 0644 %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/depmod.d/dist.conf
 %{_libdir}/libkmod.so
 
 %changelog
+* Tue May 09 2023 Eugene Syromiatnikov <esyr@redhat.com> - 30-5
+- Add symvers.xz support to weak-modules
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 30-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,11 +1,11 @@
 # Breaks the circular dependency with ruamel.yaml.clib.
 %bcond_with bootstrap
 
-%global commit 56b3e2666fb275deab3eec99193c103e4edf93bb
+%global commit 4309006902d2453399588f4ddccfb3fc460e1eba
 
 Name:           python-ruamel-yaml
-Version:        0.17.22
-Release:        2%{?dist}
+Version:        0.17.24
+Release:        1%{?dist}
 Summary:        YAML 1.2 loader/dumper package for Python
 
 # SPDX
@@ -66,6 +66,9 @@ k="${k-}${k+ and }not test_dump_cyaml_1_2"
 %doc README.rst
 
 %changelog
+* Sun May 07 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.17.24-1
+- Update to 0.17.24 (close RHBZ#2193478)
+
 * Thu May 04 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.17.22-2
 - Confirm License is SPDX MIT
 - Reduce macro indirection and drop ancient constructs and conditionals

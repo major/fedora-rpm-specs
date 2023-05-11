@@ -20,7 +20,7 @@
 #global rc_ver 4
 %global maj_ver 16
 %global min_ver 0
-%global patch_ver 2
+%global patch_ver 3
 %global llvm_srcdir llvm-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:rc%{rc_ver}}.src
 %global cmake_srcdir cmake-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:rc%{rc_ver}}.src
 %global third_party_srcdir third-party-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:rc%{rc_ver}}.src
@@ -559,6 +559,9 @@ fi
 %endif
 
 %changelog
+* Tue May 09 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.3-1
+- Update to LLVM 16.0.3
+
 * Tue Apr 25 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.2-1
 - Update to LLVM 16.0.2
 

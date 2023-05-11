@@ -2,7 +2,7 @@ Name:		perl-Parse-Distname
 Version:	0.05
 Release:	5%{?dist}
 Summary:	Parse a distribution name
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/dist/Parse-Distname
 Source0:	https://cpan.metacpan.org/modules/by-module/Parse/Parse-Distname-%{version}.tar.gz
 BuildArch:	noarch
@@ -24,6 +24,7 @@ BuildRequires:	perl(Test::Differences)
 BuildRequires:	perl(Test::More) >= 0.88
 BuildRequires:	perl(Test::UseAllModules) >= 0.17
 # Dependencies
+# (none)
 
 %description
 Parse::Distname is yet another distribution name parser. It works almost the

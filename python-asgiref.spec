@@ -13,11 +13,12 @@ package includes ASGI base libraries, such as:
 
 
 Name:           python-%{srcname}
-Version:        3.5.2
+Version:        3.6.0
 Release:        %autorelease
 Summary:        ASGI specs, helper code, and adapters
-# This is BSD + bundled async-timeout ASL 2.0
-License:        BSD and ASL 2.0
+# main source code is BSD-3-Clause
+# bundled async-timeout is Apache-2.0
+License:        BSD-3-Clause AND Apache-2.0
 URL:            https://github.com/django/asgiref
 # PyPI tarball doesn't have tests
 Source0:        %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz

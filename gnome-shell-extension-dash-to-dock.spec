@@ -7,7 +7,7 @@
 #%%global commit_date 20220428
 
 Name:           gnome-shell-extension-dash-to-dock
-Version:        79
+Version:        80
 Release:        1%{?dist}
 #Release:        5.%%{commit_date}git%%{commit_short}%%{?dist}
 Summary:        Dock for the Gnome Shell by micxgx@gmail.com
@@ -83,6 +83,9 @@ fi
 
 
 %changelog
+* Tue May 09 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 80-1
+- dash-to-dock 80
+
 * Fri Mar 10 2023 Pablo Greco <pgreco@centosproject.org> - 79-1
 - dash-to-dock 79
 

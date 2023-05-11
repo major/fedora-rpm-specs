@@ -6,7 +6,7 @@
 
 Name:           koji-tool
 Version:        1.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Koji CLI tool for querying tasks and installing builds
 
 License:        BSD-3-Clause
@@ -14,6 +14,7 @@ Url:            https://hackage.haskell.org/package/%{name}
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{name}-%{version}/%{name}-%{version}.tar.gz
 # End cabal-rpm sources
+Patch0:         https://github.com/juhp/koji-tool/commit/cc718978053dad85ea79a99cc10f0368a1fa1ac3.patch
 
 # Begin cabal-rpm deps:
 BuildRequires:  ghc-Cabal-devel
@@ -47,7 +48,7 @@ Koji is the RPM-based buildsystem of Fedora Linux and CentOS.
 
 %prep
 # Begin cabal-rpm setup:
-%setup -q
+%autosetup -p1
 # End cabal-rpm setup
 
 
@@ -81,6 +82,9 @@ mkdir -p %{buildroot}%{_datadir}/bash-completion/completions/
 
 
 %changelog
+* Tue May  9 2023 Jens Petersen <petersen@redhat.com> - 1.0.1-2
+- 'install': correctly handle arch for installed packages (#2172386)
+
 * Mon May 08 2023 Jens Petersen <petersen@redhat.com> - 1.0.1-1
 - 'install' now supports multiple arch options (#4)
 - 'find': interpret small number as a limit (default still 10 results)

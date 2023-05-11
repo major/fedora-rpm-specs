@@ -14,8 +14,8 @@ Source0:        https://download.gnome.org/sources/%{name}/1.3/%{name}-%{tarball
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
+BuildRequires:  gettext
 BuildRequires:  gi-docgen
-BuildRequires:  intltool
 BuildRequires:  libappstream-glib
 BuildRequires:  meson >= 0.59.0
 BuildRequires:  sassc

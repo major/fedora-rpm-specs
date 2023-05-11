@@ -1,5 +1,5 @@
 Name:		wult
-Version:	1.11.5
+Version:	1.11.16
 Release:	%autorelease
 Summary:	A tool for measuring C-state latency in Linux
 
@@ -21,9 +21,11 @@ BuildRequires:	kernel-devel
 BuildRequires:	libbpf-devel
 BuildRequires:	python3-devel
 BuildRequires:	python3-pytest
-Requires:		pciutils
-Requires:		pepc
-Requires:		python3-%{name} = %{version}-%{release}
+BuildRequires:	web-assets-devel
+Requires:	pciutils
+Requires:	pepc
+Requires:	python3-%{name} = %{version}-%{release}
+Requires:	web-assets-filesystem
 
 %description
 The name Wult comes from "Wake Up Latency Tracer". Wult measures C-state
@@ -81,6 +83,7 @@ install -pDm644 docs/man1/wult.1 %{buildroot}/%{_mandir}/man1/wult.1
 %{_bindir}/wult-tdt-helper
 %{_datadir}/wult
 %{_datadir}/stats-collect
+%{_jsdir}/stats-collect
 %{_mandir}/man1/exercise-sut.1*
 %{_mandir}/man1/ndl.1*
 %{_mandir}/man1/wult.1*

@@ -2,16 +2,12 @@
 %bcond_without perl_POE_Component_Server_SimpleHTTP_enables_optional_test
 
 Name:           perl-POE-Component-Server-SimpleHTTP
-Version:        2.28
-Release:        15%{?dist}
+Version:        2.30
+Release:        1%{?dist}
 Summary:        Serve HTTP requests in POE
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/POE-Component-Server-SimpleHTTP
 Source0:        https://cpan.metacpan.org/authors/id/B/BI/BINGOS/POE-Component-Server-SimpleHTTP-%{version}.tar.gz
-# Fix checking a failure after posting to a POE kernel, bug #2109851,
-# <https://github.com/bingos/poe-component-server-simplehttp/pull/5>, proposed
-# to the upstream.
-Patch0:         POE-Component-Server-SimpleHTTP-2.22-post-fails-if-it-returns-false-check-that-not.patch
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
@@ -141,6 +137,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue May 09 2023 Petr Pisar <ppisar@redhat.com> - 2.30-1
+- 2.30 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.28-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

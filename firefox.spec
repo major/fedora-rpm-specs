@@ -175,13 +175,13 @@ ExcludeArch: i686
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        112.0.2
+Version:        113.0
 Release:        1%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20230427.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20230509.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source10:       firefox-mozconfig
@@ -229,9 +229,6 @@ Patch61:        firefox-glibc-dynstack.patch
 Patch71:        0001-GLIBCXX-fix-for-GCC-12.patch
 Patch78:        firefox-i686-build.patch
 Patch79:        firefox-gcc-13-build.patch
-#Patch80:        D172126.diff
-#Patch81:        D172864.diff
-Patch83:        D173814.diff
 
 # Test patches
 # Generate without context by
@@ -253,10 +250,8 @@ Patch230:        firefox-enable-vaapi.patch
 # Upstream patches
 Patch402:        mozilla-1196777.patch
 Patch407:        mozilla-1667096.patch
-Patch408:        mozilla-1663844.patch
-Patch415:        mozilla-1670333.patch
-# https://phabricator.services.mozilla.com/D173021
-Patch416:        libwebrtc-pipewire-capturer-import-dmabuf-directly-into-desktop-frame.patch
+# TODO: do we need it?
+#Patch415:        mozilla-1670333.patch
 
 # PGO/LTO patches
 Patch600:        pgo.patch
@@ -516,9 +511,6 @@ This package contains results of tests executed during build.
 %patch71 -p1 -b .0001-GLIBCXX-fix-for-GCC-12
 %patch78 -p1 -b .firefox-i686
 %patch79 -p1 -b .firefox-gcc-13-build
-#%patch80 -p1 -b .D172126
-#%patch81 -p1 -b .D172864
-%patch83 -p1 -b .D173814
 
 # Test patches
 #%patch100 -p1 -b .firefox-tests-xpcshell
@@ -538,9 +530,8 @@ This package contains results of tests executed during build.
 
 %patch402 -p1 -b .1196777
 %patch407 -p1 -b .1667096
-%patch408 -p1 -b .1663844
-%patch415 -p1 -b .1670333
-%patch416 -p1 -b .libwebrtc-pipewire-capturer-import-dmabuf-directly-into-desktop-frame
+# TODO: do we need it?
+#%patch415 -p1 -b .1670333
 
 # PGO patches
 %if %{build_with_pgo}
@@ -1091,6 +1082,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Tue May 9 2023 Martin Stransky <stransky@redhat.com>- 113.0-1
+- Updated to 113.0
+
 * Thu Apr 27 2023 Martin Stransky <stransky@redhat.com>- 112.0.2-1
 - Updated to 112.0.2
 

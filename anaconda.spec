@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 39.13
+Version: 39.14
 Release: 1%{?dist}
 License: GPLv2+ and MIT
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -426,8 +426,9 @@ rm -rf \
 
 %files webui
 %dir %{_datadir}/cockpit/anaconda-webui
-%{_datadir}/cockpit/anaconda-webui/index.js.LICENSE.txt.gz
-%{_datadir}/cockpit/anaconda-webui/index.html.gz
+%{_datadir}/cockpit/anaconda-webui/index.js.LEGAL.txt
+%{_datadir}/cockpit/anaconda-webui/index.css.LEGAL.txt
+%{_datadir}/cockpit/anaconda-webui/index.html
 %{_datadir}/cockpit/anaconda-webui/index.js.gz
 %{_datadir}/cockpit/anaconda-webui/index.css.gz
 %{_datadir}/cockpit/anaconda-webui/manifest.json
@@ -469,6 +470,18 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue May 09 2023 Packit <hello@packit.dev> - 39.14-1
+- webui: better source maps (kkoukiou)
+- conf: Missing geolocation provider URL disables it (vslavik)
+- webui: [pixel tests] update review screen for v1 of autopartiotioning
+  (rvykydal)
+- webui: update review screen for v1 of autopartiotioning (rvykydal)
+- webui: reset partitioning on going Back from review screen (rvykydal)
+- webui: don't use global scope for translated strings (kkoukiou)
+- Move from webpack to esbuild bundler (kkoukiou)
+- webui: some invalid code fixes (kkoukiou)
+- Update translations from Weblate
+
 * Thu May 04 2023 Packit <hello@packit.dev> - 39.13-1
 - WebUI: fix eslint error (jvanderwaa)
 - WebUI: run eslint in CI (jvanderwaa)

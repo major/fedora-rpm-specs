@@ -1,18 +1,13 @@
 Name:       m17n-db
 Summary:    Multilingualization datafiles for m17n-lib
-Version:    1.8.1
+Version:    1.8.2
 Release:    1%{?dist}
 License:    LGPL-2.1-or-later
 URL:        http://www.nongnu.org/m17n
 
 Source0:    http://download-mirror.savannah.gnu.org/releases/m17n/%{name}-%{version}.tar.gz
 # Following is awaiting for upstream commit
-Source2:    https://raw.githubusercontent.com/gnuman/m17n-inglish-mims/master/minglish/minglish.mim
-Source3:    https://github.com/mike-fabian/m17n-db-sayura/archive/1.0.0.tar.gz#/m17n-db-sayura-1.0.0.tar.gz
-Source4:    https://raw.githubusercontent.com/shantanuo/gamabhana/main/usr/share/m17n/mr-gamabhana.mim
-Source5:    https://github.com/shantanuo/gamabhana/blob/main/usr/share/m17n/icons/mr-gamabhana.png
-Source6:    https://raw.githubusercontent.com/mike-fabian/m17n-db-bn-national-jatiya/main/bn-national-jatiya.mim
-Source7:    https://raw.githubusercontent.com/mike-fabian/m17n-db-bn-national-jatiya/main/icons/bn-national-jatiya.png
+Source1:    https://raw.githubusercontent.com/gnuman/m17n-inglish-mims/master/minglish/minglish.mim
 
 BuildArch:  noarch
 BuildRequires: make
@@ -22,13 +17,6 @@ BuildRequires: gcc
 
 Obsoletes:  m17n-contrib < 1.1.14-4.fc20
 Provides:   m17n-contrib = 1.1.14-4.fc20
-
-# Fedora specific patches
-Patch0:     %{name}-1.6.5-bn-itrans-bug182227.patch
-Patch1:     %{name}-1.6.5-kn-itrans_key-summary_bug228806.patch
-Patch2:     %{name}-1.6.5-kn-inscript-ZWNJ-bug440007.patch
-Patch3:     %{name}-1.6.5-number_pad_itrans-222634.patch
-Patch4:     %{name}-1.7.0-fix-e-o-mappings.patch
 
 %description
 This package contains multilingualization (m17n) datafiles for m17n-lib
@@ -56,13 +44,7 @@ m17n-db development files
 %prep
 %autosetup -N
 
-##extract m17n-db-sayura
-tar xzf %{SOURCE3}
-
 %autopatch -p0
-
-# Following fixes https://bugzilla.redhat.com/show_bug.cgi?id=1487512
-sed -i 's/ ("ld" "སྡ")/ ("ld" "ལྡ")/g' MIM/bo-ewts.mim
 
 %build
 %configure
@@ -75,19 +57,7 @@ sed -i 's/ ("ld" "སྡ")/ ("ld" "ལྡ")/g' MIM/bo-ewts.mim
 rm %{buildroot}%{_datadir}/m17n/ispell.mim
 
 # install minglish keymap
-/usr/bin/install -m 644 %{SOURCE2} %{buildroot}%{_datadir}/m17n
-
-# install si-sayura
-cp -p m17n-db-sayura-1.0.0/si-sayura.mim %{buildroot}%{_datadir}/m17n
-cp -p m17n-db-sayura-1.0.0/icons/si-sayura.png %{buildroot}%{_datadir}/m17n/icons
-
-# install mr-gamabhana
-/usr/bin/install -m 644 %{SOURCE4} %{buildroot}%{_datadir}/m17n
-/usr/bin/install -m 644 %{SOURCE5} %{buildroot}%{_datadir}/m17n/icons
-
-# install bn-national-jatiya
-/usr/bin/install -m 644 %{SOURCE6} %{buildroot}%{_datadir}/m17n
-/usr/bin/install -m 644 %{SOURCE7} %{buildroot}%{_datadir}/m17n/icons
+/usr/bin/install -m 644 %{SOURCE1} %{buildroot}%{_datadir}/m17n
 
 # For installing the translation files
 %find_lang %name
@@ -145,6 +115,31 @@ cp -p m17n-db-sayura-1.0.0/icons/si-sayura.png %{buildroot}%{_datadir}/m17n/icon
 %{_datadir}/pkgconfig/m17n-db.pc
 
 %changelog
+* Mon May 08 2023 Mike FABIAN <mfabian@redhat.com> - 1.8.2-1
+- Update to 1.8.2
+- Remove bn-national-jatiya input method (included upstream)
+- Remove si-sayura input method (included upstream)
+- Remove mr-gamabhana input method (included upstream)
+- Update German translations (100%)
+- Remove m17n-db-1.8.0-inscript2-mni-sat.patch (included upstream)
+- Remove m17n-db-1.6.5-number_pad_itrans-222634.patch
+  This patch is not needed, numbers are typed in language representation
+  when using the number pad with numlock on even without this patch.
+  (I.e. the problem reported in https://bugzilla.redhat.com/show_bug.cgi?id=222634
+   is still fixed)
+- Add icon for hu-rovas-post input method
+- Remove m17n-db-1.6.5-kn-itrans_key-summary_bug228806.patch
+  (See: https://git.savannah.nongnu.org/cgit/m17n/m17n-db.git/commit/?id=f10cfe21d49afbef40bdc681ff70563b6154eac0
+  after these upstream changes to kn-itrans, the summary added by the patch is wrong)
+- Remove m17n-db-1.6.5-bn-itrans-bug182227.patch
+  (This patch removed mappings which are "not in ITRANS Bengali table", nevertheless
+   these mappings might be useful to some users, better keep them for the time being)
+- Remove m17n-db-1.6.5-kn-inscript-ZWNJ-bug440007.patch (included upstream)
+- Remove m17n-db-1.7.0-fix-e-o-mappings.patch (included upstream)
+- Remvove fix for ld mapping in MIM/bo-ewts.mim (include upstream)
+  (See: https://bugzilla.redhat.com/show_bug.cgi?id=1487512)
+- MIM/bo-ewts.mim: remove whitespace in rn and brn mapping
+
 * Wed May 03 2023 Mike FABIAN <mfabian@redhat.com> - 1.8.1-1
 - Update to 1.8.1
 - Remove inscript2-20210820.tar.gz because it is now included upstream

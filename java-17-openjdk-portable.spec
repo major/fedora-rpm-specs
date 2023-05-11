@@ -391,7 +391,7 @@
 %global top_level_dir_name   %{origin}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        7
-%global rpmrelease      1
+%global rpmrelease      2
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -712,6 +712,7 @@ Patch1001: fips-17u-%{fipsver}.patch
 Patch2001: jdk8274864-remove_amman_cairo_hacks.patch
 # JDK-8305113: (tz) Update Timezone Data to 2023c
 Patch2002: jdk8305113-tzdata2023c.patch
+Patch2003: jdk8305995-footprint_regression_from_jdk_8224957
 
 BuildRequires: autoconf
 BuildRequires: automake
@@ -989,6 +990,7 @@ pushd %{top_level_dir_name}
 # tzdata update
 %patch2001 -p1
 %patch2002 -p1
+%patch2003 -p1
 popd # openjdk
 
 %patch600
@@ -1631,6 +1633,9 @@ done
 %license %{unpacked_licenses}/%{jdkportablesourcesarchive -- %%{nil}}
 
 %changelog
+* Tue Mar 09 2023 Jiri Vanek <jvanekw@redhat.com> - 1:17.0.7.0.7-2
+- added and applied, on demand, patch2003 jdk8305995-footprint_regression_from_jdk_8224957
+
 * Wed Apr 26 2023 Andrew Hughes <gnu.andrew@redhat.com> - 1:17.0.7.0.7
 - Update to jdk-17.0.7.0+7
 - Update release notes to 17.0.7.0+7

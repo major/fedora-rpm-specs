@@ -1,19 +1,20 @@
 Name:           perl-ORLite-Migrate
 Version:        1.10
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Light weight SQLite-specific schema migration
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ORLite-Migrate
 Source0:        https://cpan.metacpan.org/authors/id/A/AD/ADAMK/ORLite-Migrate-%{version}.tar.gz
 Patch0:         perl-ORLite-Migrate-req.patch
+# Update Makefile.PL to not use Module::Install::DSL CPAN RT#148298
+Patch1:         ORLite-Migrate-1.10-Remove-using-of-MI-DSL.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(inc::Module::Install::DSL) >= 1.04
+BuildRequires:  perl(inc::Module::Install)
 BuildRequires:  perl(Module::Install::Metadata)
-BuildRequires:  sed
 # Run-time:
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(DBD::SQLite) >= 1.21
@@ -44,10 +45,8 @@ Requires:       perl(DBD::SQLite) >= 1.21
 Requires:       perl(DBI) >= 1.58
 Requires:       perl(File::Path) >= 2.04
 Requires:       perl(File::Spec) >= 3.28
-Requires:       perl(ORLite) >= 1.28
-Requires:       perl(Params::Util) >= 0.37
 
-%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(DBD::SQLite|DBI|File::Path|File::Spec|ORLite|Params::Util\\)$
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(DBD::SQLite|DBI|File::Path|File::Spec\\)$
 
 %description
 SQLite is a light weight single file SQL database that provides an excellent 
@@ -58,10 +57,11 @@ weight single class Database Schema Migration enhancement for ORLite.
 
 %prep
 %setup -q -n ORLite-Migrate-%{version}
-%patch0 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 # Remove bundled modules
 rm -r ./inc/*
-sed -i -e '/^inc\//d' MANIFEST
+perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -77,10 +77,13 @@ make test
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/ORLite*
+%{_mandir}/man3/ORLite*
 
 %changelog
+* Tue May 09 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.10-33
+- Update Makefile.PL to not use Module::Install::DSL
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

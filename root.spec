@@ -44,9 +44,9 @@
 %global __provides_exclude_from ^%{python3_sitearch}/lib.*\\.so$
 
 Name:		root
-Version:	6.28.02
+Version:	6.28.04
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	3%{?dist}
+Release:	1%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -98,14 +98,11 @@ Patch9:		%{name}-testRooAbsL-test-compares-two-doubles-and-fails.patch
 Patch10:	%{name}-stressvector-test-fails-on-ix86.patch
 #		https://github.com/root-project/root/pull/12423
 Patch11:	%{name}-dont-install-roofit-files-fix.patch
-#		https://github.com/root-project/root/issues/12430
-#		https://github.com/root-project/root/pull/12447
-Patch12:	%{name}-RF-Rewrite-RooProdPdf.TestGetPartIntList-unit-test.patch
 #		https://github.com/root-project/root/issues/12427
 #		https://github.com/root-project/root/pull/12468
-Patch13:	%{name}-fixes-for-32bit-builds.patch
+Patch12:	%{name}-fixes-for-32bit-builds.patch
 #		https://github.com/root-project/root/pull/12476
-Patch14:	%{name}-do-not-remove-Wp-before-D-and-U.patch
+Patch13:	%{name}-do-not-remove-Wp-before-D-and-U.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	gcc-gfortran
@@ -182,6 +179,9 @@ BuildRequires:	liburing-devel
 %endif
 %if %{tmvasofieparser}
 BuildRequires:	protobuf-devel >= 3.0
+%endif
+%ifnarch %{ix86} %{arm}
+BuildRequires:	libarrow-devel
 %endif
 %if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} == 8
 BuildRequires:	python%{python3_pkgversion}-pandas
@@ -1971,7 +1971,6 @@ This package contains extra tools for RooFit projects.
 %patch11 -p1
 %patch12 -p1
 %patch13 -p1
-%patch14 -p1
 
 # Remove bundled sources in order to be sure they are not used
 #  * afterimage
@@ -2079,7 +2078,11 @@ LDFLAGS="-Wl,--as-needed %{?__global_ldflags}"
        -Dbuiltin_zlib:BOOL=OFF \
        -Dbuiltin_zstd:BOOL=OFF \
        -Dalien:BOOL=OFF \
+%ifnarch %{ix86} %{arm}
+       -Darrow:BOOL=ON \
+%else
        -Darrow:BOOL=OFF \
+%endif
        -Dasimage:BOOL=ON \
        -Dccache:BOOL=OFF \
        -Ddistcc:BOOL=OFF \
@@ -2574,23 +2577,6 @@ tutorial-legacy-rootenv"
 excluded="${excluded}|\
 pyunittests-pyroot-roofit-roodataset-numpy"
 %endif
-%endif
-
-%ifarch %{arm}
-# 32 bit arm specific failures
-# - gtest-tree-tree-test-testBulkApi
-# - gtest-tree-tree-test-testBulkApiSillyStruct
-# - gtest-tree-dataframe-test-dataframe-snapshot
-# - gtest-tree-dataframe-test-dataframe-vary
-# - pyunittests-dataframe-merge-results
-# - pyunittests-distrdf-unit-test-headnode
-excluded="${excluded}|\
-gtest-tree-tree-test-testBulkApi\$\$|\
-gtest-tree-tree-test-testBulkApiSillyStruct|\
-gtest-tree-dataframe-test-dataframe-snapshot|\
-gtest-tree-dataframe-test-dataframe-vary|\
-pyunittests-dataframe-merge-results|\
-pyunittests-distrdf-unit-test-headnode"
 %endif
 
 %ifarch %{power64} aarch64
@@ -3741,6 +3727,12 @@ fi
 %endif
 
 %changelog
+* Mon May 08 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.28.04-1
+- Update to 6.28.04
+- Drop patch root-RF-Rewrite-RooProdPdf.TestGetPartIntList-unit-test.patch
+  (previously backported)
+- Enable Apache Arrow support (64 bit architectures only)
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 6.28.02-3
 - R-maint-sig mass rebuild
 

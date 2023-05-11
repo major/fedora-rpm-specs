@@ -9,7 +9,7 @@
 
 %bcond_without       tests
 
-%global gh_commit    3461e3fccc7cfdfc2720be910d3bd73c69be590d
+%global gh_commit    74be17022044ebaaecfdf0c5cd504fc9cd5a7131
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   diff
@@ -24,8 +24,8 @@
 %global php_home     %{_datadir}/php
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        4.0.4
-Release:        7%{?dist}
+Version:        4.0.5
+Release:        1%{?dist}
 Summary:        Diff implementation, version %{major}
 
 License:        BSD-3-Clause
@@ -111,6 +111,9 @@ exit $ret
 
 
 %changelog
+* Tue May  9 2023 Remi Collet <remi@remirepo.net> - 4.0.5-1
+- update to 4.0.5
+
 * Fri Apr 21 2023 Remi Collet <remi@remirepo.net> - 4.0.4-7
 - use SPDX license ID
 - use bundled symfony/process for test

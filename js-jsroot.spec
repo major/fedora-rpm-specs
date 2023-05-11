@@ -1,7 +1,7 @@
 %global jsname jsroot
 
 Name:		js-%{jsname}
-Version:	7.3.0
+Version:	7.3.1
 Release:	1%{?dist}
 Summary:	JavaScript ROOT - Interactive numerical data analysis graphics
 
@@ -11,9 +11,6 @@ URL:		https://jsroot.gsi.de/
 Source0:	https://github.com/root-project/%{jsname}/archive/%{version}/%{jsname}-%{version}.tar.gz
 #		Use locally installed mathjax instead of remote installation.
 Patch0:		%{name}-mathjax.patch
-#		Backport some fixes from upstream git
-#		Matches bundled version in root 6.28.00
-Patch1:		%{name}-backport.patch
 
 BuildArch:	noarch
 BuildRequires:	web-assets-devel
@@ -27,7 +24,6 @@ Data can be read and displayed from binary and JSON ROOT files.
 %prep
 %setup -q -n %{jsname}-%{version}
 %patch0 -p1
-%patch1 -p1
 
 %build
 # nothing to do
@@ -87,10 +83,13 @@ end
 %files
 %{_jsdir}/%{jsname}
 %license LICENSE libs/*.LICENSE
-%doc %{_pkgdocdir}
+%doc %{_pkgdocdir}/*
 %doc changes.md demo docs/* index.htm readme.md
 
 %changelog
+* Tue Mar 28 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 7.3.1-1
+- Update to version 7.3.1
+
 * Wed Mar 15 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 7.3.0-1
 - Update to version 7.3.0
 

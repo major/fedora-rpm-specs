@@ -2,7 +2,7 @@
 
 Name:       ibus-pinyin
 Version:    1.5.0
-Release:    28%{?dist}
+Release:    29%{?dist}
 Summary:    The Chinese Pinyin and Bopomofo engines for IBus input platform
 License:    GPL-2.0-or-later
 URL:        http://code.google.com/p/ibus
@@ -71,6 +71,9 @@ make DESTDIR=${RPM_BUILD_ROOT} install
 
 
 %changelog
+* Tue May  9 2023 Peng Wu <pwu@redhat.com> - 1.5.0-29
+- Update ibus-pinyin-fixes-english-db-build.patch
+
 * Mon May  8 2023 Peng Wu <pwu@redhat.com> - 1.5.0-28
 - Migrate to SPDX license
 - Fix compile

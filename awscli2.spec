@@ -56,7 +56,7 @@ find -type f -name '*.py' -exec sed \
 
 # Fedora does not run coverage tests.
 # mock is deprecated in Fedora. We use unittest.mock.
-# pip-tools is used directly by the unit tests.
+# pip-tools is not used directly by the unit tests.
 sed \
     -e 's|==.*||' \
     -e '/coverage/d' \
