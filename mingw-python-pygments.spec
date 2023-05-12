@@ -5,7 +5,7 @@
 
 Name:          mingw-python-%{mod_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       2.14.0
+Version:       2.15.1
 Release:       1%{?dist}
 BuildArch:     noarch
 
@@ -68,6 +68,9 @@ MinGW Windows Python3 %{pypi_name} library.
 
 
 %changelog
+* Wed May 10 2023 Sandro Mani <manisandro@gmail.com> - 2.15.1-1
+- Update to 2.15.1
+
 * Fri Feb 17 2023 Sandro Mani <manisandro@gmail.com> - 2.14.0-1
 - Update to 2.14.0
 

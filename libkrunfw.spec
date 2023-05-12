@@ -2,10 +2,10 @@
 # the VM's memory, so no useful debug info can be generated from it.
 %global debug_package %{nil}
 
-%global kernel linux-6.2.9
+%global kernel linux-6.2.14
 
 Name:           libkrunfw
-Version:        3.11.0
+Version:        3.12.0
 Release:        1%{?dist}
 Summary:        A dynamic library bundling the guest payload consumed by libkrun
 License:        LGPLv2 and GPLv2
@@ -113,6 +113,9 @@ cp %{SOURCE1} tarballs/
 %endif
 
 %changelog
+* Wed May 10 2023 Sergio Lopez <slp@redhat.com> - 3.12.0-1
+- Update to 3.12.0 which bundles a 6.2.14 kernel
+
 * Tue Apr 04 2023 Sergio Lopez <slp@redhat.com> - 3.11.0-1
 - Update to 3.11.0 which bundles a 6.2.9 kernel
 

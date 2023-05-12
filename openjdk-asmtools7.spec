@@ -10,8 +10,8 @@
 
 Name:           %{project_name}7
 Version:        %{major}.%{minor}
-Release:        0.6.%{commitdate}.git%{shortcommit}%{?dist}
-Summary:        To develop tools create proper & improper Java '.class' files for jdk11 and down
+Release:        0.7.%{commitdate}.git%{shortcommit}%{?dist}
+Summary:        Set of tools used to assemble / disassemble proper and improper Java .class files for JDK version 11 and lesser
 
 License:        GPLv2+
 URL:            https://github.com/openjdk/asmtools
@@ -33,15 +33,17 @@ BuildRequires:  maven-jar-plugin
 Requires:  java-headless
 
 %description
-AsmTools helps develop tools to create proper and improper Java '.class' files. for jdk11 and down
+AsmTools helps develop tools to create proper and improper Java .class files.
 Aids various Java .class based testing and OpenJDK development applications.
 Asmtools supports latest class file formats, in lock-step with JDK development.
 AsmTools consist of a set of (Java class file) assembler/dis-assemblers:
-Jasm/Jdis:
+* Jasm/Jdis:
 An assembler language to provide Java-like declaration of member signatures,
 providing Java VM specification compliant mnemonics for byte-code instructions.
-JCod/JDec:
+* JCod/JDec:
 An assembler language to provide byte-code containers of class-file constructs.
+
+This version works with JDK version 11 and lesser.
 
 %package        javadoc
 Summary:        Javadoc for %{name}
@@ -93,6 +95,9 @@ install -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_mandir}/man1/
 %files javadoc -f maven/.mfiles-javadoc
 
 %changelog
+* Tue May 09 2023 Marian Koncek <mkoncek@redhat.com> - 7.0.b10-0.7.20210610.gitf40a2c0
+- Improve summary and description
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.b10-0.6.20210610.gitf40a2c0
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

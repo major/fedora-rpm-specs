@@ -4,8 +4,8 @@
 %bcond tests 1
 
 Name:           python-pygments
-Version:        2.14.0
-Release:        2%{?dist}
+Version:        2.15.1
+Release:        1%{?dist}
 Summary:        Syntax highlighting engine written in Python
 
 License:        BSD-2-Clause
@@ -98,6 +98,10 @@ chmod -x %{buildroot}%{_mandir}/man1/*.1
 
 
 %changelog
+* Tue May 02 2023 Karolina Surma <ksurma@redhat.com> - 2.15.1-1
+- Update to 2.15.1
+- Fixes: rhbz#2185608
+
 * Thu Feb 16 2023 Miro Hrončok <mhroncok@redhat.com> - 2.14.0-2
 - Don't build the documentation (and drop undesired dependencies) in Fedora ELN
 

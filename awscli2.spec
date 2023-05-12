@@ -1,7 +1,7 @@
 %global pkgname aws-cli
 
 Name:               awscli2
-Version:            2.11.17
+Version:            2.11.18
 Release:            %autorelease
 
 Summary:            Universal Command Line Environment for AWS, version 2
@@ -25,6 +25,9 @@ BuildRequires:      procps-ng
 
 Recommends:         groff
 
+Provides:           bundled(python3dist(botocore)) = 2.0.0
+Provides:           bundled(python3dist(s3transfer)) = 0.5.1
+
 Provides:           awscli = %{version}-%{release}
 Obsoletes:          awscli < 2
 
@@ -46,6 +49,9 @@ interface to Amazon Web Services.
 
 # fix permissions
 find awscli/examples/ -type f -name '*.rst' -executable -exec chmod -x '{}' +
+
+# remove version caps on dependencies
+sed -i 's/,<=\?[^"]*"/"/' pyproject.toml
 
 # use unittest.mock
 find -type f -name '*.py' -exec sed \

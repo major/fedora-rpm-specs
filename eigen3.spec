@@ -24,7 +24,7 @@ Version:        3.4.0
 Release:        9%{?dist}
 Summary:        A lightweight C++ template library for vector and matrix math
 
-License:        MPLv2.0 and LGPLv2+ and BSD and Minpack
+License:        MPL-2.0 AND LGPL-2.0-or-later AND BSD-3-Clause AND Minpack
 URL:            http://eigen.tuxfamily.org/index.php?title=Main_Page
 Source0:        https://gitlab.com/libeigen/eigen/-/archive/%{version}/eigen-%{version}.tar.bz2
 # For mingw, read the comment in the file for details

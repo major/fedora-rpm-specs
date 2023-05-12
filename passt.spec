@@ -7,14 +7,14 @@
 # Copyright (c) 2022 Red Hat GmbH
 # Author: Stefano Brivio <sbrivio@redhat.com>
 
-%global git_hash b10b983fbd00634e275083c37446a538dbff0dbe
+%global git_hash 96f8d55c4f5093fa59c168361c0428b53b6d2d06
 %global selinuxtype targeted
 
 Name:		passt
-Version:	0^20230329.gb10b983
+Version:	0^20230509.g96f8d55
 Release:	1%{?dist}
 Summary:	User-mode networking daemons for virtual machines and namespaces
-License:	AGPLv3+ and BSD
+License:	GPLv2+ and BSD
 Group:		System Environment/Daemons
 URL:		https://passt.top/
 Source:		https://passt.top/passt/snapshot/passt-%{git_hash}.tar.xz
@@ -84,7 +84,7 @@ fi
 %selinux_relabel_post -s %{selinuxtype}
 
 %files
-%license LICENSES/{AGPL-3.0-or-later.txt,BSD-3-Clause.txt}
+%license LICENSES/{GPL-2.0-or-later.txt,BSD-3-Clause.txt}
 %dir %{_docdir}/%{name}
 %doc %{_docdir}/%{name}/README.md
 %doc %{_docdir}/%{name}/demo.sh
@@ -107,6 +107,10 @@ fi
 %{_datadir}/selinux/packages/%{selinuxtype}/pasta.pp
 
 %changelog
+* Tue May  9 2023 Stefano Brivio <sbrivio@redhat.com> - 0^20230509.g96f8d55-1
+- Relicense to GPL 2.0, or any later version
+- Upstream changes: https://passt.top/passt/log/?qt=range&q=2023_03_29.b10b983..2023_05_09.96f8d55
+
 * Wed Mar 29 2023 Stefano Brivio <sbrivio@redhat.com> - 0^20230329.gb10b983-1
 - Adjust path for SELinux policy and interface file to latest guidelines
 - Don't install useless SELinux interface file for pasta

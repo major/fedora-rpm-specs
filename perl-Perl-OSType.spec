@@ -5,7 +5,7 @@ Name:		perl-Perl-OSType
 Version:	1.010
 Release:	491%{?dist}
 Summary:	Map Perl operating system names to generic types
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Perl-OSType
 Source0:	https://cpan.metacpan.org/modules/by-module/Perl/Perl-OSType-%{version}.tar.gz
 Patch2:		Perl-OSType-1.010-stopwords.patch
@@ -47,7 +47,8 @@ BuildRequires:	perl(Test::Portability::Files)
 BuildRequires:	perl(Test::Spelling), hunspell-en
 BuildRequires:	perl(Test::Version)
 %endif
-# Runtime
+# Dependencies
+# (none)
 
 %description
 Modules that provide OS-specific behaviors often need to know if the current
@@ -63,7 +64,7 @@ systems are given the type 'Windows' rather than 'Win32').
 %setup -q -n Perl-OSType-%{version}
 
 # More stopwords for the spell checker
-%patch2
+%patch -P 2
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor
@@ -81,11 +82,7 @@ LANG=en_US make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %endif
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
 %doc Changes CONTRIBUTING.mkdn README
 %{perl_vendorlib}/Perl/
 %{_mandir}/man3/Perl::OSType.3*

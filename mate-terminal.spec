@@ -14,9 +14,9 @@
 
 Summary:        Terminal emulator for MATE
 Name:           mate-terminal
-Version:        %{branch}.0
+Version:        %{branch}.1
 %if 0%{?rel_build}
-Release:        5%{?dist}
+Release:        1%{?dist}
 %else
 Release:        0.16%{?git_rel}%{?dist}
 %endif
@@ -31,8 +31,6 @@ URL:            http://mate-desktop.org
 
 #Default to black bg white fg, unlimited scrollback, turn off use theme default
 Patch1:        mate-terminal_better_defaults-1.26.0.patch
-# https://github.com/mate-desktop/mate-terminal/commit/3864ae2
-Patch2:        mate-terminal_0001-Add-GTK-Style-Class-to-context-menu.patch
 
 BuildRequires: dconf-devel
 BuildRequires: desktop-file-utils
@@ -96,6 +94,9 @@ desktop-file-install                                                    \
 
 
 %changelog
+* Wed May 10 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-1
+- update to 1.26.1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

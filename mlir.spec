@@ -1,7 +1,7 @@
 %global toolchain clang
 %global maj_ver 16
 %global min_ver 0
-%global patch_ver 2
+%global patch_ver 3
 #global rc_ver 4
 %global mlir_version %{maj_ver}.%{min_ver}.%{patch_ver}
 %global mlir_srcdir mlir-%{mlir_version}%{?rc_ver:rc%{rc_ver}}.src
@@ -200,6 +200,9 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %{_libdir}/cmake/mlir
 
 %changelog
+* Wed May 10 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.3-1
+- Update to LLVM 16.0.3
+
 * Thu Apr 27 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.2-1
 - Update to LLVM 16.0.2
 

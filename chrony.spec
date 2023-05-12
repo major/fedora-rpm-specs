@@ -1,5 +1,6 @@
 %global _hardened_build 1
-%global clknetsim_ver f00531
+%global clknetsim_ver 13b0a5
+%global prerelease -pre1
 %bcond_without debug
 %bcond_without nts
 
@@ -8,8 +9,8 @@
 %endif
 
 Name:           chrony
-Version:        4.3
-Release:        3%{?dist}
+Version:        4.4
+Release:        0.1.pre1%{?dist}
 Summary:        An NTP client/server
 
 License:        GPL-2.0-only
@@ -25,10 +26,6 @@ Source10:       https://github.com/mlichvar/clknetsim/archive/%{clknetsim_ver}/c
 
 # add distribution-specific bits to DHCP dispatcher
 Patch1:         chrony-nm-dispatcher-dhcp.patch
-# add chronyd-restricted service
-Patch2:         chrony-restricted.patch
-# warn if keys are world-accessible or chronyd doesn't have read-only access
-Patch3:         chrony-keyaccess.patch
 
 BuildRequires:  libcap-devel libedit-devel nettle-devel pps-tools-devel
 BuildRequires:  gcc gcc-c++ make bison systemd gnupg2
@@ -58,10 +55,8 @@ service to other computers in the network.
 %prep
 %{gpgverify} --keyring=%{SOURCE2} --signature=%{SOURCE1} --data=%{SOURCE0}
 %setup -q -n %{name}-%{version}%{?prerelease} -a 10
-%{?gitpatch:%patch0 -p1}
-%patch1 -p1 -b .nm-dispatcher-dhcp
-%patch2 -p1 -b .restricted
-%patch3 -p1 -b .keyaccess
+%{?gitpatch:%patch -P 0 -p1}
+%patch -P 1 -p1 -b .nm-dispatcher-dhcp
 
 %{?gitpatch: echo %{version}-%{gitpatch} > version.txt}
 
@@ -71,7 +66,7 @@ md5sum -c <<-EOF | (! grep -v 'OK$')
         2d01b94bc1a7b7fb70cbee831488d121  examples/chrony.conf.example2
         6a3178c4670de7de393d9365e2793740  examples/chrony.logrotate
         c3992e2f985550739cd1cd95f98c9548  examples/chrony.nm-dispatcher.dhcp
-        2b81c60c020626165ac655b2633608eb  examples/chrony.nm-dispatcher.onoffline
+        4e85d36595727318535af3387411070c  examples/chrony.nm-dispatcher.onoffline
         677ad16d6439daa369da44a1b75d1772  examples/chronyd.service
         f092f965dc61f691ca838958eeeb3377  examples/chronyd-restricted.service
 EOF
@@ -204,6 +199,10 @@ fi
 %dir %attr(750,chrony,chrony) %{_localstatedir}/log/chrony
 
 %changelog
+* Wed May 10 2023 Miroslav Lichvar <mlichvar@redhat.com> 4.4-0.1.pre1
+- update to 4.4-pre1
+- switch from patchX to patch -P X
+
 * Wed Jan 25 2023 Miroslav Lichvar <mlichvar@redhat.com> 4.3-3
 - drop default chrony.keys config (#2104918)
 - add chronyd-restricted service for minimal NTP client configurations

@@ -1,5 +1,5 @@
 Name:    kde-cli-tools
-Version: 5.27.4
+Version: 5.27.5
 Release: 1%{?dist}
 Summary: Tools based on KDE Frameworks 5 to better interact with the system
 
@@ -94,6 +94,7 @@ ln -s %{_kf5_libexecdir}/kdesu %{buildroot}%{_bindir}/kdesu
 %{_bindir}/kde-open5
 %{_bindir}/keditfiletype
 %{_bindir}/keditfiletype5
+%{_bindir}/kinfo
 %{_bindir}/kioclient
 %{_bindir}/kioclient5
 %{_bindir}/kmimetypefinder
@@ -121,6 +122,9 @@ ln -s %{_kf5_libexecdir}/kdesu %{buildroot}%{_bindir}/kdesu
 
 
 %changelog
+* Wed May 10 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.5-1
+- 5.27.5
+
 * Tue Apr 04 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.4-1
 - 5.27.4
 

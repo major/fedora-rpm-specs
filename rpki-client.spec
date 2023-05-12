@@ -9,7 +9,7 @@
 Summary:        OpenBSD RPKI validator to support BGP Origin Validation
 Name:           rpki-client
 Version:        8.4
-Release:        1%{?with_snapshot:.git%{gitdate}}%{?dist}
+Release:        2%{?with_snapshot:.git%{gitdate}}%{?dist}
 # rpki-client itself is ISC but uses other source codes, breakdown:
 # BSD-2-Clause: include/sys/tree.h and src/{http,output}.c
 # BSD-3-Clause: compat/{setproctitle,vis}.c and include/{sha2_openbsd,vis,sys/queue}.h and src/mkdir.c
@@ -28,6 +28,10 @@ Source1:        https://github.com/rpki-client/rpki-client-openbsd/archive/%{ope
 %endif
 Source3:        TALs.md
 Source4:        %{name}.sysusersd
+Source5:        %{name}.service
+Source6:        %{name}.timer
+Source7:        %{name}.service.el7
+Source8:        %{name}.service.el8
 %if !0%{?with_snapshot}
 BuildRequires:  gnupg2
 %else
@@ -47,6 +51,7 @@ BuildRequires:  expat-devel
 BuildRequires:  rsync
 BuildRequires:  systemd-rpm-macros
 Requires:       rsync
+%{?systemd_requires}
 %{?sysusers_requires_compat}
 
 %description
@@ -79,26 +84,44 @@ cp -pf %{SOURCE3} .
   --with-tal-dir=%{_sysconfdir}/pki/tals \
   --with-base-dir=%{_localstatedir}/cache/%{name} \
   --with-output-dir=%{_localstatedir}/lib/%{name}
-%make_build ACLOCAL=true AUTOMAKE=true
+%make_build
 
 %install
-%make_install ACLOCAL=true AUTOMAKE=true
+%make_install
 install -D -p -m 0644 %{SOURCE4} $RPM_BUILD_ROOT%{_sysusersdir}/%{name}.conf
+install -D -p -m 0644 %{SOURCE5} $RPM_BUILD_ROOT%{_unitdir}/%{name}.service
+install -D -p -m 0644 %{SOURCE6} $RPM_BUILD_ROOT%{_unitdir}/%{name}.timer
+%{?el7:install -D -p -m 0644 %{SOURCE7} $RPM_BUILD_ROOT%{_unitdir}/%{name}.service}
+%{?el8:install -D -p -m 0644 %{SOURCE8} $RPM_BUILD_ROOT%{_unitdir}/%{name}.service}
 
 %pre
 %sysusers_create_compat %{SOURCE4}
+
+%post
+%systemd_post %{name}.timer
+
+%preun
+%systemd_preun %{name}.timer
+
+%postun
+%systemd_postun %{name}.timer
 
 %files
 %license LICENSE
 %doc AUTHORS README.md TALs.md
 %{_sbindir}/%{name}
 %{_sysconfdir}/pki/tals/
+%{_unitdir}/%{name}.service
+%{_unitdir}/%{name}.timer
 %{_sysusersdir}/%{name}.conf
 %{_mandir}/man8/%{name}.8*
-%dir %attr(0750,%{name},%{name}) %{_localstatedir}/cache/%{name}/
+%dir %attr(0755,%{name},%{name}) %{_localstatedir}/cache/%{name}/
 %dir %attr(0755,%{name},%{name}) %{_localstatedir}/lib/%{name}/
 
 %changelog
+* Wed May 10 2023 Robert Scheck <robert@fedoraproject.org> 8.4-2
+- Added systemd unit and timer
+
 * Tue May 02 2023 Robert Scheck <robert@fedoraproject.org> 8.4-1
 - Upgrade to 8.4
 

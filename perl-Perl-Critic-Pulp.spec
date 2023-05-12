@@ -2,7 +2,7 @@ Name:           perl-Perl-Critic-Pulp
 Version:        99
 Release:        7%{?dist}
 Summary:        Some add-on perlcritic policies
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://metacpan.org/release/Perl-Critic-Pulp
 Source0:        https://cpan.metacpan.org/authors/id/K/KR/KRYDE/Perl-Critic-Pulp-%{version}.tar.gz
 BuildArch:      noarch

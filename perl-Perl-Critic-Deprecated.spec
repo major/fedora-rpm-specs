@@ -2,9 +2,9 @@ Name:           perl-Perl-Critic-Deprecated
 Version:        1.119
 Release:        27%{?dist}
 Summary:        Perl::Critic policies that have been superseded by others
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Perl-Critic-Deprecated
-Source0:        https://cpan.metacpan.org/authors/id/T/TH/THALJEF/Perl-Critic-Deprecated-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/modules/by-module/Perl/Perl-Critic-Deprecated-%{version}.tar.gz
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
@@ -32,9 +32,6 @@ BuildRequires:  perl(Test::More)
 # Dependencies
 Requires:       perl(Perl::Critic::Policy) >= 1.094
 Requires:       perl(Perl::Critic::Utils) >= 1.094
-# Perl::Critic::Policy::Miscellanea::RequireRcsKeywords moved from
-# perl-Perl-Critic-More here. Bugs #839815, 1023708.
-Conflicts:      perl-Perl-Critic-More <= 1.000-11
 
 # Filter underspecified dependecies
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\((Perl::Critic::Policy|Perl::Critic::Utils)\\)$

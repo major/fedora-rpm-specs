@@ -51,9 +51,7 @@ code, tracebacks, and more — out of the box.
 # add below to make sure initial build will catch runtime import errors
 %pyproject_check_import
 
-# some tests are skipped so python-rich builds during Python 3.11 mass rebuild
-# downstream report: https://bugzilla.redhat.com/show_bug.cgi?id=2049619
-%pytest -vv -k "not test_inspect_text and not test_inspect_integer_with_methods and not test_log and not test_attrs_broken and not test_inspect_builtin_function"
+%pytest -vv
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE

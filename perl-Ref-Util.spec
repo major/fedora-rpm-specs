@@ -7,11 +7,11 @@
 
 Name:		perl-Ref-Util
 Version:	0.204
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	Utility functions for checking references
 License:	MIT
 URL:		https://metacpan.org/release/Ref-Util
-Source0:	https://cpan.metacpan.org/authors/id/A/AR/ARC/Ref-Util-%{version}.tar.gz
+Source0:	https://cpan.metacpan.org/modules/by-module/Ref/Ref-Util-%{version}.tar.gz
 BuildArch:	noarch
 # Build
 BuildRequires:	coreutils
@@ -50,7 +50,7 @@ BuildRequires:	perl(B::Concise)
 BuildRequires:	perl(CPAN::Meta) >= 2.120900
 BuildRequires:	perl(Readonly)
 %endif
-# Runtime
+# Dependencies
 Requires:	perl(Ref::Util::XS)
 
 %description
@@ -73,17 +73,18 @@ find %{buildroot} -type f -name .packlist -delete
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
 %doc Changes README
 %{perl_vendorlib}/Ref/
 %{_mandir}/man3/Ref::Util.3*
 %{_mandir}/man3/Ref::Util::PP.3*
 
 %changelog
+* Wed May 10 2023 Paul Howarth <paul@city-fan.org> - 0.204-17
+- SPDX migration
+- Use %%license unconditionally
+- Use author-independent source URL
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.204-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

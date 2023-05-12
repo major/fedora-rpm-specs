@@ -23,14 +23,14 @@
 %endif
 
 Name:           %{upstream_name}%{?v2_suffix}
-Version:        2.14.0
-Release:        5%{?dist}
+Version:        2.15.0
+Release:        1%{?dist}
 Summary:        Module metadata manipulation library
 
 # COPYING:      MIT
 ## not in any binary package
-# contrib/coverity-modeling.c:  GPLv2+
-# contrib/release-tools/semver: GPLv3
+# contrib/coverity-modeling.c:  GPL-2.0-or-later
+# contrib/release-tools/semver: GPL-3.0-only
 License:        MIT
 URL:            https://github.com/fedora-modularity/libmodulemd
 Source0:        %{url}/releases/download/%{version}/modulemd-%{version}.tar.xz
@@ -49,7 +49,6 @@ BuildRequires:  pkgconfig(yaml-0.1)
 BuildRequires:  pkgconfig(gtk-doc)
 BuildRequires:  glib2-doc
 BuildRequires:  rpm-devel
-BuildRequires:  file-devel
 %if %{build_python2}
 BuildRequires:  python2-devel
 BuildRequires:  python-gobject-base
@@ -116,7 +115,6 @@ Development files for %{name}.
 %build
 %meson \
     %{meson_accept_overflowed_buildorder_flag} \
-    -Dlibmagic=enabled \
     -Drpmio=enabled \
     -Dskip_introspection=false \
     -Dtest_installed_lib=false \
@@ -183,6 +181,9 @@ mv %{buildroot}%{_mandir}/man1/modulemd-validator.1 \
 
 
 %changelog
+* Wed May 10 2023 Petr Pisar <ppisar@redhat.com> - 2.15.0-1
+- 2.15.0 bump
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

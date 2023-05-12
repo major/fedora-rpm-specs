@@ -2,7 +2,7 @@
 %bcond_with check
 
 Name:           nispor
-Version:        1.2.10
+Version:        1.2.11
 Release:        %autorelease
 Summary:        Unified interface for Linux network state querying
 License:        ASL 2.0
@@ -16,9 +16,9 @@ BuildRequires:  rust-packaging
 BuildRequires:  systemd-devel
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  patchelf
-BuildRequires:  (crate(clap/cargo) >= 3.1.0 with crate(clap/cargo) < 4.0)
-BuildRequires:  (crate(clap/default) >= 3.1.0 with crate(clap/default) < 4.0)
-BuildRequires:  (crate(env_logger/default) >= 0.9 with crate(env_logger/default) < 0.10)
+BuildRequires:  (crate(clap/cargo) >= 4.2.0 with crate(clap/cargo) < 5.0)
+BuildRequires:  (crate(clap/default) >= 4.2.0 with crate(clap/default) < 5.0)
+BuildRequires:  (crate(env_logger/default) >= 0.10 with crate(env_logger/default) < 0.11)
 BuildRequires:  (crate(ethtool/default) >= 0.2.4 with crate(ethtool/default) < 0.3)
 BuildRequires:  (crate(futures/default) >= 0.3 with crate(futures/default) < 0.4)
 BuildRequires:  (crate(libc/default) >= 0.2.126 with crate(libc/default) < 0.3)

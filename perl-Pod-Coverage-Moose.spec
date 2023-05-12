@@ -2,14 +2,13 @@ Name:           perl-Pod-Coverage-Moose
 Version:        0.07
 Release:        23%{?dist}
 Summary:        Pod::Coverage extension for Moose
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Pod-Coverage-Moose
 Source0:        https://cpan.metacpan.org/modules/by-module/Pod/Pod-Coverage-Moose-%{version}.tar.gz
 BuildArch:      noarch
 # Build:
 BuildRequires:  coreutils
 BuildRequires:  findutils
-BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(Module::Build::Tiny) >= 0.034
@@ -34,6 +33,7 @@ BuildRequires:  perl(Test::Requires)
 BuildRequires:  perl(MooseX::AttributeHelpers)
 BuildRequires:  perl(MooseX::Role::WithOverloading)
 # Dependencies
+# (none)
 
 %description
 When using Pod::Coverage in combination with Moose, it will report any

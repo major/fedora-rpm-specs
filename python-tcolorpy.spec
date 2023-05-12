@@ -1,23 +1,17 @@
 Name:          python-tcolorpy
-Version:       0.1.1
-Release:       4%{?dist}
+Version:       0.1.3
+Release:       1%{?dist}
 Summary:       Python library to apply true color for terminal text
 
 License:       MIT
 URL:           https://github.com/thombashi/tcolorpy
 Source0:       %{pypi_source tcolorpy}
 
-# Remove shebang from __main__.py. It makes no sense there
-# Reported upstream https://github.com/thombashi/tcolorpy/issues/2
-Patch0:        https://patch-diff.githubusercontent.com/raw/thombashi/tcolorpy/pull/3.patch
-
 BuildArch:     noarch
 BuildRequires: python3-devel
 
-# tox.ini uses the [test] extra, see also https://github.com/thombashi/tcolorpy/pull/1
-# the [test] extra brings in just pytest and pytest-md-report and we don't need the latter
-# hence, manually specifying pytest instead:
-BuildRequires: python3-pytest
+# Missing pytest-md-report, hence manually specifying pytest instead
+BuildRequires: python3dist(pytest)
 
 %description
 %{summary}.
@@ -30,7 +24,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -p1 -n tcolorpy-%{version}
+%autosetup -n tcolorpy-%{version}
 
 
 %generate_buildrequires
@@ -56,6 +50,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Wed May 10 2023 Jonny Heggheim <hegjon@gmail.com> - 0.1.3-1
+- Updated to version 0.1.3
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

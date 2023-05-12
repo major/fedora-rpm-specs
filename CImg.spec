@@ -6,7 +6,7 @@
 
 Name:           CImg
 Epoch:          1
-Version:        3.2.2
+Version:        3.2.3
 Release:        1%{?dist}
 Summary:        C++ Template Image Processing Toolkit
 # CImg.h: Dual licensed
@@ -35,7 +35,7 @@ BuildRequires:  libXrandr-devel
 BuildRequires:  opencv-devel
 BuildRequires:  OpenEXR-devel
 BuildRequires:  zlib-devel
-BuildRequires: make
+BuildRequires:  make
 
 %description
 The CImg Library is an open-source C++ toolkit for image processing. 
@@ -74,11 +74,15 @@ install -pm644 plugins/*.h %{buildroot}%{_includedir}/%{name}/plugins/
 make -C examples linux %{?_smp_mflags}
 
 %files devel
-%doc *.txt resources/CImg_reference.pdf
+%doc *.txt
 %{_includedir}/CImg.h
 %{_includedir}/%{name}/
 
 %changelog
+* Wed May 10 2023 josef radinger <cheese@nosuchhost.net> - 1:3.2.3-1
+- bump version
+- remove resources/CImg_reference.pdf
+
 * Wed Mar 22 2023 josef radinger <cheese@nosuchhost.net> - 1:3.2.2-1
 - bump version
 

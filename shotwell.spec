@@ -1,5 +1,5 @@
 Name:           shotwell
-Version:        0.32.0
+Version:        0.32.1
 Release:        1%{?dist}
 Summary:        A photo organizer for the GNOME desktop
 
@@ -93,14 +93,14 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Shotwell-Vi
 %license COPYING
 %doc README.md NEWS THANKS AUTHORS
 %{_bindir}/shotwell
-%{_libdir}/shotwell
+%{_libdir}/shotwell/
 %{_libdir}/libshotwell-authenticator.so.*
 %exclude %{_libdir}/libshotwell-authenticator.so
 %{_libdir}/libshotwell-plugin-common.so.*
 %exclude %{_libdir}/libshotwell-plugin-common.so
 %{_libdir}/libshotwell-plugin-dev-1.0.so.*
 %exclude %{_libdir}/libshotwell-plugin-dev-1.0.so
-%{_libexecdir}/shotwell
+%{_libexecdir}/shotwell/
 %{_datadir}/applications/org.gnome.Shotwell.desktop
 %{_datadir}/applications/org.gnome.Shotwell-Profile-Browser.desktop
 %{_datadir}/applications/org.gnome.Shotwell-Viewer.desktop
@@ -108,10 +108,13 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Shotwell-Vi
 %{_datadir}/icons/hicolor/*/apps/org.gnome.Shotwell.png
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.Shotwell-symbolic.svg
 %{_metainfodir}/org.gnome.Shotwell.appdata.xml
-%{_mandir}/man1/*
+%{_mandir}/man1/shotwell.1*
 
 
 %changelog
+* Wed May 10 2023 David King <amigadave@amigadave.com> - 0.32.1-1
+- Update to 0.32.1
+
 * Mon Apr 24 2023 David King <amigadave@amigadave.com> - 0.32.0-1
 - Update to 0.32.0
 

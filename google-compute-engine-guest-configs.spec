@@ -1,16 +1,12 @@
 %global         srcname     guest-configs
 
-%global         forgeurl    https://github.com/GoogleCloudPlatform/%{srcname}
-Version:        20230403.00
-%global         tag         %{version}
-%forgemeta
-
 Name:           google-compute-engine-guest-configs
+Version:        20230403.00
 Release:        %autorelease
 Summary:        Google Compute Engine guest environment tools
-License:        ASL 2.0
-URL:            %forgeurl
-Source0:        %forgesource
+License:        Apache-2.0
+URL:            https://github.com/GoogleCloudPlatform/%{srcname}
+Source0:        %{url}/archive/refs/tags/%{version}.tar.gz
 
 ExcludeArch:    %{ix86}
 BuildArch:      noarch
@@ -24,6 +20,9 @@ Obsoletes:      google-compute-engine-tools < 2.8.12-11
 Provides:       google-compute-engine-tools = 2.8.12-11
 Provides:       google-compute-engine = %{version}-%{release}
 
+Requires:       %name-rsyslog = %version-%release
+Requires:       %name-udev = %version-%release
+
 %description
 This package contains scripts, configuration, and init files for features
 specific to the Google Compute Engine cloud environment.
@@ -31,7 +30,6 @@ specific to the Google Compute Engine cloud environment.
 
 %package rsyslog
 Summary:        rsyslog configuration for %{name}
-Requires:       %{name} = %{version}-%{release}
 Requires:       rsyslog
 
 %description rsyslog
@@ -41,9 +39,7 @@ rsyslog configuration which are specific to the Google Cloud Platform.
 
 %package udev
 Summary:        udev rules for %{name}
-Requires:       %{name} = %{version}-%{release}
 Requires:       nvme-cli
-Requires:       systemd-udev
 
 %description udev
 The %{name}-udev package contains udev rules
@@ -51,7 +47,7 @@ which are specific to the Google Cloud Platform.
 
 
 %prep
-%forgeautosetup
+%autosetup -p1 -n %{srcname}-%{version}
 
 # Remove APT configs (for Debian and Ubuntu).
 rm -rf src/etc/apt

@@ -67,6 +67,7 @@
 # the proto compilers in this package; the consequence is that we cannot build
 # the python3-grpcio-admin or python3-grpcio-csds subpackages until after
 # bootstrapping.
+# NOTE: these are always disabled in RHEL builds to avoid the xds-protos dep.
 %bcond_with bootstrap
 
 # This must be enabled to get grpc_cli, which is apparently considered part of
@@ -284,7 +285,7 @@ BuildRequires:  python3dist(protobuf) >= 3.12.0
 # grpcio_status (src/python/grpcio_status/setup.py) install_requires:
 BuildRequires:  python3dist(googleapis-common-protos) >= 1.5.5
 
-%if %{without bootstrap}
+%if %{without bootstrap} && %{undefined rhel}
 # grpcio_csds (src/python/grpcio_csds/setup.py) install_requires
 BuildRequires:  python3dist(xds-protos) >= 0.0.7
 %endif
@@ -607,7 +608,7 @@ Provides:       bundled(utf8_range)
 Package for gRPC Python tools.
 
 
-%if %{without bootstrap}
+%if %{without bootstrap} && %{undefined rhel}
 %package -n python3-grpcio-admin
 Summary:        A collection of admin services
 License:        Apache-2.0
@@ -640,7 +641,7 @@ https://github.com/grpc/grpc/issues.
 %endif
 
 
-%if %{without bootstrap}
+%if %{without bootstrap} && %{undefined rhel}
 %package -n python3-grpcio-csds
 Summary:        xDS configuration dump library
 License:        Apache-2.0
@@ -972,7 +973,7 @@ find . -type f -name protoc.py -execdir sed -r -i '1{/^#!/d}' '{}' '+'
 popd >/dev/null
 
 echo '===== Building pure-Python packages =====' 1>&2
-for suffix in channelz %{?!with_bootstrap:csds admin} health_checking \
+for suffix in channelz %{?!with_bootstrap:%{?!rhel:csds admin}} health_checking \
     reflection status testing tests
 do
   echo "----> grpcio_${suffix} <----" 1>&2
@@ -1043,7 +1044,7 @@ pushd "tools/distrib/python/grpcio_tools/" >/dev/null
 popd >/dev/null
 
 # ~~ pure-python modules grpcio-* ~~
-for suffix in channelz %{?!with_bootstrap:csds admin} health_checking \
+for suffix in channelz %{?!with_bootstrap:%{?!rhel:csds admin}} health_checking \
     reflection status testing
 do
   pushd "src/python/grpcio_${suffix}/" >/dev/null
@@ -1668,7 +1669,7 @@ fi
 %{python3_sitearch}/grpcio_tools-%{pyversion}-py%{python3_version}.egg-info
 
 
-%if %{without bootstrap}
+%if %{without bootstrap} && %{undefined rhel}
 %files -n python3-grpcio-admin
 %{python3_sitelib}/grpc_admin
 %{python3_sitelib}/grpcio_admin-%{pyversion}-py%{python3_version}.egg-info
@@ -1680,7 +1681,7 @@ fi
 %{python3_sitelib}/grpcio_channelz-%{pyversion}-py%{python3_version}.egg-info
 
 
-%if %{without bootstrap}
+%if %{without bootstrap} && %{undefined rhel}
 %files -n python3-grpcio-csds
 %{python3_sitelib}/grpc_csds
 %{python3_sitelib}/grpcio_csds-%{pyversion}-py%{python3_version}.egg-info

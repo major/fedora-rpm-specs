@@ -1,14 +1,10 @@
-%global srcname waitress
-
-%global _docdir_fmt %{name}
-
-Name:           python-%{srcname}
+Name:           python-waitress
 Version:        2.1.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Waitress WSGI server
 
-License:        ZPLv2.1
-URL:            https://github.com/Pylons/%{srcname}
+License:        ZPL-2.1
+URL:            https://github.com/Pylons/waitress
 Source0:        v%{version}-nodocs.tar.gz
 # Upstream ships non free docs files.
 # We do not even want them in our src.rpms
@@ -22,47 +18,52 @@ Source1: generate-tarball.sh
 
 BuildArch:      noarch
 
-# No docs as we don't have packaged pylons theme for sphinx
-
-%global _description \
-Waitress is meant to be a production-quality pure-Python WSGI server with\
-very acceptable performance. It has no dependencies except ones which live\
-in the Python standard library. It runs on CPython on Unix and Windows under\
-Python 2.6+ and Python 3.3+. It is also known to run on PyPy 1.6.0+ on UNIX.\
-It supports HTTP/1.0 and HTTP/1.1.
+%global _description %{expand:
+Waitress is a production-quality pure-Python WSGI server with very acceptable
+performance. It has no dependencies except ones which live in the Python
+standard library. It runs on CPython on Unix and Windows under Python 3.7+. It
+is also known to run on PyPy 3 (version 3.7 compatible python) on UNIX. It
+supports HTTP/1.0 and HTTP/1.1.}
 
 %description %{_description}
 
-%package -n python3-%{srcname}
-Summary:        Waitress WSGI server
+%package -n python3-waitress
+Summary:        %{summary}
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
-%description -n python3-%{srcname} %{_description}
-
-Python 3 version.
+%description -n python3-waitress %{_description}
 
 %prep
-%autosetup -n %{srcname}-%{version}-nodocs
+%autosetup -n waitress-%{version}-nodocs
+sed -e '/pytest-cover/d' \
+    -e '/coverage/d' \
+    -e '/addopts/d' \
+    -i setup.cfg
+
+%generate_buildrequires
+%pyproject_buildrequires -x testing
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files waitress
 
-#check
-# disable checks for now as they fail trying to lookup localhost in koji.
-#
+%check
+%pytest
 
-%files -n python3-%{srcname}
+%files -n python3-waitress -f %{pyproject_files}
 %license COPYRIGHT.txt LICENSE.txt
 %doc README.rst CHANGES.txt
 %{_bindir}/waitress-serve
-%{python3_sitelib}/%{srcname}/
-%{python3_sitelib}/%{srcname}-*.egg-info/
 
 %changelog
+* Wed May 10 2023 Carl George <carl@george.computer> - 2.1.2-3
+- Convert to pyproject macros
+- Run test suite
+- Switch to SPDX license identifier
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

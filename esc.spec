@@ -1,6 +1,6 @@
 Name: esc 
 Version: 1.1.2
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: Enterprise Security Client Smart Card Client
 License: GPL+
 URL: http://directory.fedora.redhat.com/wiki/CoolKey 
@@ -17,7 +17,7 @@ BuildRequires: desktop-file-utils
 %if ! 0%{?rhel} >= 9
 BuildRequires: pkgconfig(gconf-2.0)
 %endif
-BuildRequires: dbus-glib-devel
+BuildRequires: dbus-devel
 BuildRequires: glib2-devel
 BuildRequires: opensc
 BuildRequires: gobject-introspection-devel
@@ -125,6 +125,10 @@ cp %{SOURCE2} $RPM_BUILD_ROOT/%{_datadir}/%{appdir}
 %{_datadir}/%{appdir}/esc.desktop
 
 %changelog
+* Wed May 10 2023 Tomas Popela <tpopela@redhat.com> - 1.1.2-15
+- Drop BR on dbus-glib as the project is not using it at all. Explicitly add the
+  dbus-devel to BR as that's what the project is using.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

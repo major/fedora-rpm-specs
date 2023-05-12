@@ -26,7 +26,8 @@ Source1:        https://raw.githubusercontent.com/kovidgoyal/kitty/46c0951751444
 # Don't build kitten inside setup.py, use gobuild macro in the spec instead to build with fedora flags
 Patch0:         kitty-do-not-build-kitten.patch
 ## upstream patches
-
+# https://github.com/kovidgoyal/kitty/commit/537cabca710f64b838d3b8b1dc986db596fb29d4
+Patch1:         kitty-ask-perm-before-executing.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

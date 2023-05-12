@@ -113,10 +113,7 @@
 %global aot_arches      x86_64 %{aarch64}
 # Set of architectures which support the serviceability agent
 %global sa_arches       %{ix86} x86_64 sparcv9 sparc64 %{aarch64} %{power64} %{arm}
-# Set of architectures which support class data sharing
-# See https://bugzilla.redhat.com/show_bug.cgi?id=513605
-# MetaspaceShared::generate_vtable_methods is not implemented for the PPC JIT
-%global share_arches    %{ix86} x86_64 sparcv9 sparc64 %{aarch64} %{arm} s390x
+%global share_arches    %{ix86} %{power64} x86_64 sparcv9 sparc64 %{aarch64} %{arm} s390x
 # Set of architectures for which we build the Shenandoah garbage collector
 %global shenandoah_arches x86_64 %{aarch64}
 # Set of architectures for which we build the Z garbage collector
@@ -316,7 +313,7 @@
 %global top_level_dir_name   %{origin}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        7
-%global rpmrelease      3
+%global rpmrelease      4
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -533,10 +530,6 @@ alternatives --install %{_jvmdir}/jre-%{javaver}-%{origin} $key %{_jvmdir}/%{jre
 }
 
 %define post_headless() %{expand:
-%ifarch %{share_arches}
-%{jrebindir -- %{?1}}/java -Xshare:dump >/dev/null 2>/dev/null
-%endif
-
 update-desktop-database %{_datadir}/applications &> /dev/null || :
 /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
 
@@ -796,7 +789,7 @@ exit 0
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/keytool
 %{_jvmdir}/%{sdkdir -- %{?1}}/bin/rmiregistry
 %dir %{_jvmdir}/%{sdkdir -- %{?1}}/lib
-%ifarch %{jit_arches}
+%ifarch %{share_arches}
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/classlist
 %endif
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/jexec
@@ -859,7 +852,8 @@ exit 0
 %{_mandir}/man1/rmiregistry-%{uniquesuffix -- %{?1}}.1*
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/%{vm_variant}/
 %ifarch %{share_arches}
-%attr(444, root, root) %ghost %{_jvmdir}/%{sdkdir -- %{?1}}/lib/%{vm_variant}/classes.jsa
+%attr(444, root, root) %{_jvmdir}/%{sdkdir -- %{?1}}/lib/%{vm_variant}/classes.jsa
+%attr(444, root, root) %{_jvmdir}/%{sdkdir -- %{?1}}/lib/%{vm_variant}/classes_nocoops.jsa
 %endif
 %dir %{etcjavasubdir}
 %dir %{etcjavadir -- %{?1}}
@@ -2381,13 +2375,16 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
+* Wed May 10 2023 Severin Gehwolf <sgehwolf@redhat.com> - 1:17.0.7.0.7-4
+- Fix packaging of CDS archives
+
 * Tue May 09 2023 Jiri Vanek <jvanek@redhat.com> - 1:17.0.7.0.7-3
 - faking build-id in libjsvml.so
 
 * Fri Apr 28 2023 Jiri Vanek <jvanek@redhat.com> - 1:17.0.7.0.7-2
 - returned news and samples
 
-* Fri Apr 28 2028 Jiri Vanek <jvanek@redhat.com> - 1:17.0.7.0.7-1
+* Fri Apr 28 2023 Jiri Vanek <jvanek@redhat.com> - 1:17.0.7.0.7-1
 - updated to 17.0.7.0.7 underlying portables
 - now untarring enforced version
 

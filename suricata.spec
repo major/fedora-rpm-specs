@@ -1,6 +1,6 @@
 Summary: Intrusion Detection System
 Name: suricata
-Version: 6.0.11
+Version: 6.0.12
 Release: 1%{?dist}
 License: GPL-2.0-only
 URL: https://suricata-ids.org/
@@ -13,18 +13,12 @@ Source3: suricata-tmpfiles.conf
 Patch1: suricata-2.0.9-docs.patch
 # Suricata service file needs some options supplied
 Patch2: suricata-4.1.1-service.patch
-# Linux 5.2 headers moved SIOCGSTAMP to linux/sockios.h. Glibc will
-# include it via sys/socket.h in a future release. This is temporary
-# and should not be needed on other kernel/glibc combos.
-Patch3: suricata-4.1.4-socket.patch
 # The default path needs to be fixed up to where Fedora keeps it
-Patch4: suricata-5.0.4-geolite-path-fixup.patch
+Patch3: suricata-5.0.4-geolite-path-fixup.patch
 # The log path has an extra '/' at the end
-Patch5: suricata-6.0.3-log-path-fixup.patch
+Patch4: suricata-6.0.3-log-path-fixup.patch
 # Build fails with ambiguous python shebang
-Patch6: suricata-6.0.9-python.patch
-# Build has a warning that this fixes
-Patch7: suricata-6.0.11-maxint.patch
+Patch5: suricata-6.0.9-python.patch
 
 BuildRequires: make
 BuildRequires: gcc gcc-c++
@@ -84,8 +78,6 @@ install -m 644 %{SOURCE2} doc/
 %patch -P3 -p1
 %patch -P4 -p1
 %patch -P5 -p1
-%patch -P6 -p1
-%patch -P7 -p1
 sed -i 's/(datadir)/(sysconfdir)/' etc/Makefile.am
 %ifarch x86_64
 sed -i 's/-D__KERNEL__/-D__KERNEL__ -D__x86_64__/' ebpf/Makefile.am
@@ -197,6 +189,9 @@ fi
 %{_datadir}/%{name}/rules
 
 %changelog
+* Wed May 10 2023 Steve Grubb <sgrubb@redhat.com> 6.0.12-1
+- New bugfix release
+
 * Thu Apr 13 2023 Steve Grubb <sgrubb@redhat.com> 6.0.11-1
 - New security and bugfix release
 

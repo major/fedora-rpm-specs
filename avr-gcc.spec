@@ -3,19 +3,17 @@
 Name:           %{target}-gcc
 #FIXME:11.2 fails with Werror-format-security https://gcc.gnu.org/bugzilla/show_bug.cgi?id=100431
 #revert -Wno-format-security once fix is available
-Version:        12.2.0
-Release:        3%{?dist}
+Version:        12.3.0
+Release:        6%{?dist}
 Epoch:          1
 Summary:        Cross Compiling GNU GCC targeted at %{target}
-License:        GPLv2+
+License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND MIT AND BSD-2-Clause
 URL:            http://gcc.gnu.org/
 Source0:        http://ftp.gnu.org/gnu/gcc/gcc-%{version}/gcc-%{version}.tar.xz
 Source2:        README.fedora
 
 Patch0:         avr-gcc-4.5.3-mint8.patch
 Patch1:		avr-gcc-config.patch
-Patch2:		avr-gcc-configure-c99-1.patch
-Patch3:		avr-gcc-configure-c99-2.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  %{target}-binutils >= 1:2.23, zlib-devel gawk gmp-devel mpfr-devel libmpc-devel, flex
@@ -49,8 +47,6 @@ platform.
 pushd gcc-%{version}
 %patch -P0 -p2 -b .mint8
 #patch -P1 -p2 -b .config
-%patch -P2 -p1
-%patch -P3 -p1
 
 pushd libiberty
 #autoconf -f
@@ -150,6 +146,12 @@ rm -r $RPM_BUILD_ROOT%{_libexecdir}/gcc/%{target}/%{version}/install-tools ||:
 
 
 %changelog
+* Wed May 10 2023 Michal Hlavinka <mhlavink@redhat.com> - 1:12.3.0-6
+- update license tag format (SPDX migration) for https://fedoraproject.org/wiki/Changes/SPDX_Licenses_Phase_1
+
+* Wed May 10 2023 Michal Hlavinka <mhlavink@redhat.com> - 1:12.3.0-1
+- updated to 12.3.0
+
 * Mon Apr 24 2023 Florian Weimer <fweimer@redhat.com> - 1:12.2.0-3
 - Backport upstream patches to fix C99 compatibility issues
 

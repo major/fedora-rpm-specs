@@ -10,6 +10,8 @@ Summary:        Audio time-stretching and pitch-shifting library
 License:        GPLv2+
 URL:            http://www.breakfastquay.com/rubberband/
 Source0:        https://breakfastquay.com/files/releases/%{name}-%{version}.tar.bz2
+# Two tests fail on ppc64le: https://todo.sr.ht/~breakfastquay/rubberband/29
+Patch:          %{name}-disable-failed-ppc64le-tests.diff
 
 BuildRequires:  meson
 BuildRequires:  gcc-c++

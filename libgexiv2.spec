@@ -1,13 +1,13 @@
 Name:           libgexiv2
-Version:        0.14.0
-Release:        5%{?dist}
+Version:        0.14.1
+Release:        1%{?dist}
 Summary:        Gexiv2 is a GObject-based wrapper around the Exiv2 library
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Projects/gexiv2
 Source0:        https://download.gnome.org/sources/gexiv2/0.14/gexiv2-%{version}.tar.xz
 
-BuildRequires:  exiv2-devel
+BuildRequires:  pkgconfig(exiv2)
 BuildRequires:  gcc-c++
 BuildRequires:  gtk-doc
 BuildRequires:  gobject-introspection-devel
@@ -30,19 +30,20 @@ developing applications that use %{name}.
 
 %package -n     python3-gexiv2
 Summary:        Python3 bindings for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       python3-gobject-base%{?_isa}
+BuildArch:      noarch
+Requires:       %{name} = %{version}-%{release}
+Requires:       python3-gobject-base-noarch
 
 %description -n python3-gexiv2
 This package contains the python3 bindings for %{name}
 
 %prep
-%setup -q -n gexiv2-%{version}
+%autosetup -p1 -n gexiv2-%{version}
 
 %build
 %meson \
   -Dgtk_doc=true \
-  -Dpython3_girdir=%{python3_sitearch}/gi/overrides \
+  -Dtests=true \
   %{nil}
 %meson_build
 
@@ -54,7 +55,7 @@ This package contains the python3 bindings for %{name}
 
 %files
 %license COPYING
-%doc AUTHORS THANKS README
+%doc AUTHORS NEWS README THANKS
 %{_libdir}/libgexiv2.so.2*
 %dir %{_libdir}/girepository-1.0
 %{_libdir}/girepository-1.0/GExiv2-0.10.typelib
@@ -74,10 +75,12 @@ This package contains the python3 bindings for %{name}
 %{_datadir}/vala/vapi/gexiv2.vapi
 
 %files -n python3-gexiv2
-%{python3_sitearch}/gi/overrides/GExiv2.py
-%{python3_sitearch}/gi/overrides/__pycache__/GExiv2*
+%pycached %{python3_sitelib}/gi/overrides/GExiv2.py
 
 %changelog
+* Tue May 09 2023 David King <amigadave@amigadave.com> - 0.14.1-1
+- Update to 0.14.1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

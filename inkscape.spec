@@ -10,7 +10,7 @@
 
 Name:           inkscape
 Version:        1.2.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Vector-based drawing program using SVG
 
 # Inkscape tags their releases with underscores and in ALLCAPS
@@ -69,7 +69,6 @@ BuildRequires:  libtool
 BuildRequires:  potrace-devel
 BuildRequires:  cmake
 BuildRequires:	libwpd-devel
-BuildRequires:	dbus-glib-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libsigc++20-devel
 BuildRequires:  libsoup-devel
@@ -228,6 +227,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.inkscape.Inksc
 
 
 %changelog
+* Wed May 10 2023 Tomas Popela <tpopela@redhat.com> - 1.2.2-9
+- Drop BR on dbus-glib as the project is not using it
+
 * Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.2.2-8
 - migrated to SPDX license
 

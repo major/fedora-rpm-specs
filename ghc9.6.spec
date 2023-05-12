@@ -25,11 +25,7 @@
 
 # bootstrap needs 9.2+
 %global ghcboot_major 9.2
-%if 0%{?fedora} >= 38
-%global ghcboot ghc
-%else
 %global ghcboot ghc%{ghcboot_major}
-%endif
 
 # build profiling libraries
 # build haddock
@@ -422,30 +418,30 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %prep
 %setup -q -n ghc-%{version} %{?with_testsuite:-b1}
 
-%patch1 -p1 -b .orig
-%patch3 -p1 -b .orig
+%patch -P1 -p1 -b .orig
+%patch -P3 -p1 -b .orig
 
-%patch2 -p1 -b .orig
-%patch8 -p1 -b .orig
-#%%patch9 -p1 -b .orig
+%patch -P2 -p1 -b .orig
+%patch -P8 -p1 -b .orig
+#%%patch -P9 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
 
 %ifarch armv7hl
-%patch12 -p1 -b .orig
+%patch -P12 -p1 -b .orig
 %endif
 %ifarch aarch64 armv7hl
-%patch13 -p1 -b .orig
+%patch -P13 -p1 -b .orig
 %endif
 
 %ifarch s390x
-%patch16 -p1 -b .orig
+%patch -P16 -p1 -b .orig
 %endif
 
 #debian
-#%%patch24 -p1 -b .orig
-%patch26 -p1 -b .orig
-%patch27 -p1 -b .orig
+#%%patch -P24 -p1 -b .orig
+%patch -P26 -p1 -b .orig
+%patch -P27 -p1 -b .orig
 
 %if %{with haddock} && %{without hadrian}
 %global gen_contents_index gen_contents_index.orig

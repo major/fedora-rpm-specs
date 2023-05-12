@@ -11,7 +11,7 @@
 %global source_directory 1.16-stable
 
 Name:           libnbd
-Version:        1.16.0
+Version:        1.16.1
 Release:        1%{?dist}
 Summary:        NBD client library in userspace
 
@@ -359,6 +359,9 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Wed May 10 2023 Richard W.M. Jones <rjones@redhat.com> - 1.16.1-1
+- New upstream stable version 1.16.1
+
 * Tue Apr 18 2023 Richard W.M. Jones <rjones@redhat.com> - 1.16.0-1
 - New upstream stable version 1.16.0
 

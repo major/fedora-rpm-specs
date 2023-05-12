@@ -10,22 +10,10 @@
 Name:           %{target}-gcc-cs
 Epoch:          1
 Version:        12.2.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        GNU GCC for cross-compilation for %{target} target
-
-# Most of the sources are licensed under GPLv3+ with these exceptions:
-# LGPLv2+ libquadmath/ libjava/libltdl/ gcc/testsuite/objc.dg/gnu-encoding/generate-random 
-#         libgcc/soft-fp/ libffi/msvcc.sh
-# LGPLv3+ gcc/prefix.c
-# BSD libgo/go/regexp/testdata/testregex.cz zlib/example.c libffi/ 
-#     libjava/classpath/external/relaxngDatatype/org/relaxng/datatype/helpers/DatatypeLibraryLoader.java
-# GPLv2+ libitm/testsuite/libitm.c/memset-1.c libjava/
-# Public Domain libjava/classpath/external/sax/org/xml/sax/ext/EntityResolver2.java
-#               libjava/classpath/external/sax/org/xml/sax/ext/DeclHandler.java
-# BSL zlib/contrib/dotzlib/DotZLib/GZipStream.cs
-License:        GPLv2+ and GPLv3+ and LGPLv2+ and BSD
+License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND MIT AND BSD-2-Clause
 URL:            https://gcc.gnu.org/
-
 Source0:        http://ftp.gnu.org/gnu/gcc/gcc-%{version}/gcc-%{version}.tar.xz
 
 Source1:        README.fedora
@@ -307,6 +295,9 @@ popd
 %endif
 
 %changelog
+* Wed May 10 2023 Michal Hlavinka <mhlavink@redhat.com> - 1:12.2.0-5
+- update license tag format (SPDX migration) for https://fedoraproject.org/wiki/Changes/SPDX_Licenses_Phase_1
+
 * Wed Apr 12 2023 Michal Hlavinka <mhlavink@redhat.com> - 1:12.2.0-4
 - rebuild for updated newlib package
 

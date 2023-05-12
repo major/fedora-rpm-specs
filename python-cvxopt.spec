@@ -1,9 +1,10 @@
 %global _docdir_fmt %{name}
 
 Name:           python-cvxopt
-Version:        1.3.0
-Release:        6%{?dist}
+Version:        1.3.1
+Release:        1%{?dist}
 Summary:        A Python Package for Convex Optimization
+
 License:        GPL-3.0-or-later
 URL:            https://cvxopt.org/
 Source0:        https://github.com/cvxopt/cvxopt/archive/%{version}/cvxopt-%{version}.tar.gz
@@ -46,6 +47,7 @@ on the strengths of Python as a high-level programming language.}
 %package -n     python3-cvxopt
 Summary:        A Python3 Package for Convex Optimization
 Provides:       bundled(js-jquery)
+Provides:       bundled(js-underscore)
 
 %description -n python3-cvxopt %_desc
 
@@ -97,10 +99,12 @@ sed -i 's,bin/env python,bin/python3,' examples/filterdemo/filterdemo_{cli,gui}
 find examples -name \*.py -perm /0111 -exec chmod a-x {} +
 
 %generate_buildrequires
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 %pyproject_buildrequires
 
 %build
-export LDSHARED="gcc -shared %{build_ldflags}"
+export LDSHARED='gcc -shared %{build_ldflags}'
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 %pyproject_wheel
 
 # Rebuild the documentation
@@ -117,6 +121,7 @@ rm -f doc/build/html/.buildinfo
 
 %files -n python3-cvxopt -f %{pyproject_files}
 %license LICENSE
+%doc README.md
 
 %files doc
 %doc doc/build/html/
@@ -125,6 +130,9 @@ rm -f doc/build/html/.buildinfo
 %doc examples/
 
 %changelog
+* Wed May 10 2023 Jerry James <loganjerry@gmail.com> - 1.3.1-1
+- Version 1.3.1
+
 * Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 1.3.0-6
 - Dynamically generate BuildRequires
 

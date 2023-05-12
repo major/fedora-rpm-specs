@@ -2,7 +2,7 @@
 %global lib_version 2301.0.0
 
 Name:           abseil-cpp
-Version:        20230125.2
+Version:        20230125.3
 Release:        1%{?dist}
 Summary:        C++ Common Libraries
 
@@ -66,9 +66,19 @@ Abseil is not meant to be a competitor to the standard library; we've just
 found that many of these utilities serve a purpose within our code base,
 and we now want to provide those resources to the C++ community as a whole.
 
+%package testing
+Summary:        Libraries needed for running tests on the installed %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+Provides:       bundled(cctz)
+
+%description testing
+%{summary}.
+
 %package devel
-Summary: Development files for %{name}
-Requires: %{name}%{?_isa} = %{version}-%{release}
+Summary:        Development files for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-testing%{?_isa} = %{version}-%{release}
 
 # Some of the headers from CCTZ are part of the -devel subpackage. See the
 # corresponding virtual Provides in the base package for full details.
@@ -81,12 +91,16 @@ Development headers for %{name}
 %autosetup -p1 -S gendiff
 
 %build
+# ABSL_BUILD_TEST_HELPERS is needed to build libraries for the -testing
+# subpackage when tests are not enabled. It is therefore redundant here, but we
+# still supply it to be more explicit.
 %cmake \
   -GNinja \
   -DABSL_USE_EXTERNAL_GOOGLETEST:BOOL=ON \
   -DABSL_FIND_GOOGLETEST:BOOL=ON \
   -DABSL_ENABLE_INSTALL:BOOL=ON \
   -DABSL_BUILD_TESTING:BOOL=ON \
+  -DABSL_BUILD_TEST_HELPERS:BOOL=ON \
   -DCMAKE_BUILD_TYPE:STRING=None \
   -DCMAKE_CXX_STANDARD:STRING=17
 %cmake_build
@@ -101,15 +115,128 @@ Development headers for %{name}
 %files
 %license LICENSE
 %doc FAQ.md README.md UPGRADES.md
-%{_libdir}/libabsl_*.so.%{lib_version}
+# All shared libraries except installed TESTONLY libraries; see the %%files
+# list for the -testing subpackage for those.
+%{_libdir}/libabsl_bad_any_cast_impl.so.%{lib_version}
+%{_libdir}/libabsl_bad_optional_access.so.%{lib_version}
+%{_libdir}/libabsl_bad_variant_access.so.%{lib_version}
+%{_libdir}/libabsl_base.so.%{lib_version}
+%{_libdir}/libabsl_city.so.%{lib_version}
+%{_libdir}/libabsl_civil_time.so.%{lib_version}
+%{_libdir}/libabsl_cord.so.%{lib_version}
+%{_libdir}/libabsl_cord_internal.so.%{lib_version}
+%{_libdir}/libabsl_cordz_functions.so.%{lib_version}
+%{_libdir}/libabsl_cordz_handle.so.%{lib_version}
+%{_libdir}/libabsl_cordz_info.so.%{lib_version}
+%{_libdir}/libabsl_cordz_sample_token.so.%{lib_version}
+%{_libdir}/libabsl_crc32c.so.%{lib_version}
+%{_libdir}/libabsl_crc_cord_state.so.%{lib_version}
+%{_libdir}/libabsl_crc_cpu_detect.so.%{lib_version}
+%{_libdir}/libabsl_crc_internal.so.%{lib_version}
+%{_libdir}/libabsl_debugging_internal.so.%{lib_version}
+%{_libdir}/libabsl_demangle_internal.so.%{lib_version}
+%{_libdir}/libabsl_die_if_null.so.%{lib_version}
+%{_libdir}/libabsl_examine_stack.so.%{lib_version}
+%{_libdir}/libabsl_exponential_biased.so.%{lib_version}
+%{_libdir}/libabsl_failure_signal_handler.so.%{lib_version}
+%{_libdir}/libabsl_flags.so.%{lib_version}
+%{_libdir}/libabsl_flags_commandlineflag.so.%{lib_version}
+%{_libdir}/libabsl_flags_commandlineflag_internal.so.%{lib_version}
+%{_libdir}/libabsl_flags_config.so.%{lib_version}
+%{_libdir}/libabsl_flags_internal.so.%{lib_version}
+%{_libdir}/libabsl_flags_marshalling.so.%{lib_version}
+%{_libdir}/libabsl_flags_parse.so.%{lib_version}
+%{_libdir}/libabsl_flags_private_handle_accessor.so.%{lib_version}
+%{_libdir}/libabsl_flags_program_name.so.%{lib_version}
+%{_libdir}/libabsl_flags_reflection.so.%{lib_version}
+%{_libdir}/libabsl_flags_usage.so.%{lib_version}
+%{_libdir}/libabsl_flags_usage_internal.so.%{lib_version}
+%{_libdir}/libabsl_graphcycles_internal.so.%{lib_version}
+%{_libdir}/libabsl_hash.so.%{lib_version}
+%{_libdir}/libabsl_hashtablez_sampler.so.%{lib_version}
+%{_libdir}/libabsl_int128.so.%{lib_version}
+%{_libdir}/libabsl_leak_check.so.%{lib_version}
+%{_libdir}/libabsl_log_entry.so.%{lib_version}
+%{_libdir}/libabsl_log_flags.so.%{lib_version}
+%{_libdir}/libabsl_log_globals.so.%{lib_version}
+%{_libdir}/libabsl_log_initialize.so.%{lib_version}
+%{_libdir}/libabsl_log_internal_check_op.so.%{lib_version}
+%{_libdir}/libabsl_log_internal_conditions.so.%{lib_version}
+%{_libdir}/libabsl_log_internal_format.so.%{lib_version}
+%{_libdir}/libabsl_log_internal_globals.so.%{lib_version}
+%{_libdir}/libabsl_log_internal_log_sink_set.so.%{lib_version}
+%{_libdir}/libabsl_log_internal_message.so.%{lib_version}
+%{_libdir}/libabsl_log_internal_nullguard.so.%{lib_version}
+%{_libdir}/libabsl_log_internal_proto.so.%{lib_version}
+%{_libdir}/libabsl_log_severity.so.%{lib_version}
+%{_libdir}/libabsl_log_sink.so.%{lib_version}
+%{_libdir}/libabsl_low_level_hash.so.%{lib_version}
+%{_libdir}/libabsl_malloc_internal.so.%{lib_version}
+%{_libdir}/libabsl_periodic_sampler.so.%{lib_version}
+%{_libdir}/libabsl_random_distributions.so.%{lib_version}
+%{_libdir}/libabsl_random_internal_distribution_test_util.so.%{lib_version}
+%{_libdir}/libabsl_random_internal_platform.so.%{lib_version}
+%{_libdir}/libabsl_random_internal_pool_urbg.so.%{lib_version}
+%{_libdir}/libabsl_random_internal_randen.so.%{lib_version}
+%{_libdir}/libabsl_random_internal_randen_hwaes.so.%{lib_version}
+%{_libdir}/libabsl_random_internal_randen_hwaes_impl.so.%{lib_version}
+%{_libdir}/libabsl_random_internal_randen_slow.so.%{lib_version}
+%{_libdir}/libabsl_random_internal_seed_material.so.%{lib_version}
+%{_libdir}/libabsl_random_seed_gen_exception.so.%{lib_version}
+%{_libdir}/libabsl_random_seed_sequences.so.%{lib_version}
+%{_libdir}/libabsl_raw_hash_set.so.%{lib_version}
+%{_libdir}/libabsl_raw_logging_internal.so.%{lib_version}
+%{_libdir}/libabsl_scoped_set_env.so.%{lib_version}
+%{_libdir}/libabsl_spinlock_wait.so.%{lib_version}
+%{_libdir}/libabsl_stacktrace.so.%{lib_version}
+%{_libdir}/libabsl_status.so.%{lib_version}
+%{_libdir}/libabsl_statusor.so.%{lib_version}
+%{_libdir}/libabsl_str_format_internal.so.%{lib_version}
+%{_libdir}/libabsl_strerror.so.%{lib_version}
+%{_libdir}/libabsl_strings.so.%{lib_version}
+%{_libdir}/libabsl_strings_internal.so.%{lib_version}
+%{_libdir}/libabsl_symbolize.so.%{lib_version}
+%{_libdir}/libabsl_synchronization.so.%{lib_version}
+%{_libdir}/libabsl_throw_delegate.so.%{lib_version}
+%{_libdir}/libabsl_time.so.%{lib_version}
+%{_libdir}/libabsl_time_zone.so.%{lib_version}
+
+%files testing
+# TESTONLY libraries (that are actually installed):
+# absl/base/CMakeLists.txt
+%{_libdir}/libabsl_exception_safety_testing.so.%{lib_version}
+%{_libdir}/libabsl_atomic_hook_test_helper.so.%{lib_version}
+%{_libdir}/libabsl_spinlock_test_common.so.%{lib_version}
+# absl/container/CMakeLists.txt
+%{_libdir}/libabsl_test_instance_tracker.so.%{lib_version}
+%{_libdir}/libabsl_hash_generator_testing.so.%{lib_version}
+# absl/debugging/CMakeLists.txt
+%{_libdir}/libabsl_stack_consumption.so.%{lib_version}
+# absl/log/CMakeLists.txt
+%{_libdir}/libabsl_log_internal_test_actions.so.%{lib_version}
+%{_libdir}/libabsl_log_internal_test_helpers.so.%{lib_version}
+%{_libdir}/libabsl_log_internal_test_matchers.so.%{lib_version}
+%{_libdir}/libabsl_scoped_mock_log.so.%{lib_version}
+# absl/strings/CMakeLists.txt
+%{_libdir}/libabsl_pow10_helper.so.%{lib_version}
+# absl/synchronization/CMakeLists.txt
+%{_libdir}/libabsl_per_thread_sem_test_common.so.%{lib_version}
+# absl/time/CMakeLists.txt
+%{_libdir}/libabsl_time_internal_test_util.so.%{lib_version}
 
 %files devel
 %{_includedir}/absl
 %{_libdir}/libabsl_*.so
 %{_libdir}/cmake/absl
-%{_libdir}/pkgconfig/*.pc
+%{_libdir}/pkgconfig/absl_*.pc
 
 %changelog
+* Tue May 09 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 20230125.3-1
+- Update to 20230125.3 (close RHBZ#2193306)
+- Split installed TESTONLY libraries into a -testing subpackage; explicitly
+  list all installed shared libraries
+- Explicitly enable the ABSL_BUILD_TEST_HELPERS CMake option
+
 * Thu Mar 30 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 20230125.2-1
 - Update to 20230125.2 (close RHBZ#2182229)
 

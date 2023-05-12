@@ -80,6 +80,9 @@ Patch7: 7689.patch
 # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9394
 Patch8: ghc-configure-c99.patch
 
+# https://gitlab.haskell.org/ghc/ghc/-/issues/23286
+Patch9: https://gitlab.haskell.org/ghc/ghc/-/commit/00dc51060881df81258ba3b3bdf447294618a4de.patch
+
 # Arch dependent patches
 # arm
 Patch12: ghc-armv7-VFPv3D16--NEON.patch
@@ -343,35 +346,36 @@ Installing this package causes %{name}-*-prof packages corresponding to
 # ghc-9.0.2 release anomaly
 rm -r libraries/containers/containers/dist-install
 
-%patch1 -p1 -b .orig
-%patch3 -p1 -b .orig
+%patch -P1 -p1 -b .orig
+%patch -P3 -p1 -b .orig
 
-%patch2 -p1 -b .orig
-%patch6 -p1 -b .orig
-%patch7 -p1 -b .orig
-%patch8 -p1
+%patch -P2 -p1 -b .orig
+%patch -P6 -p1 -b .orig
+%patch -P7 -p1 -b .orig
+%patch -P8 -p1
+%patch -P9 -p1
 
 rm -r libffi-tarballs
 
 %ifarch armv7hl
-%patch12 -p1 -b .orig12
+%patch -P12 -p1 -b .orig12
 %endif
 
 # remove s390x after complete switching to llvm
 %ifarch %{ghc_unregisterized_arches} s390x
-%patch15 -p1 -b .orig
+%patch -P15 -p1 -b .orig
 %endif
 
 # bigendian
 %ifarch ppc64 s390x
-%patch18 -p1 -b .orig
+%patch -P18 -p1 -b .orig
 %endif
 
 #debian
-%patch24 -p1 -b .orig
-%patch25 -p1 -b .orig
-%patch26 -p1 -b .orig
-%patch27 -p1 -b .orig
+%patch -P24 -p1 -b .orig
+%patch -P25 -p1 -b .orig
+%patch -P26 -p1 -b .orig
+%patch -P27 -p1 -b .orig
 
 %if %{with haddock}
 %global gen_contents_index gen_contents_index.orig

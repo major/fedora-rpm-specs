@@ -135,7 +135,7 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
-* Mon May 10 2023 Diego Herrera <dherrera@redhat.com> 1.7.0-1
+* Wed May 10 2023 Diego Herrera <dherrera@redhat.com> 1.7.0-1
 - Updated to 1.7.0
 
 * Mon Feb 6 2023 Diego Herrera <dherrera@redhat.com> 1.6.0-11

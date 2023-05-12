@@ -1,6 +1,6 @@
 Name:           plasma-mobile
 Version:        5.27.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        CC0 and GPLv2 and GPLv2+ and GPLv3 and GPLv3+ and LGPLv2+ and LGPLv2.1 and LGPLv2.1+ and LGPLv3 and LGPLv3 and MIT
 Summary:        General UI components for Plasma Phone including shell, containment and applets
 Url:            https://invent.kde.org/plasma/plasma-mobile
@@ -54,6 +54,8 @@ Requires: kf5-bluez-qt
 Requires: kf5-kactivities
 Requires: kf5-kdeclarative
 Requires: kf5-kirigami2
+# Plasma Mobile uses kscreen to automatically set a logical scaling factor based on hardware
+Requires: kscreen
 Requires: kwin
 Requires: plasma-milou
 Requires: plasma-nano

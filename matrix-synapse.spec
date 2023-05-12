@@ -1,23 +1,21 @@
 %bcond_without check
 
-%global srcname synapse
-
-Name:       matrix-%{srcname}
-Version:    1.80.0
+Name:       matrix-synapse
+Version:    1.83.0
 Release:    %autorelease
 Summary:    A Matrix reference homeserver written in Python using Twisted
 License:    Apache-2.0
-URL:        https://github.com/matrix-org/%{srcname}
+URL:        https://github.com/matrix-org/synapse
 
 %global upstream_tag v%{lua:return(rpm.expand("%{version}"):gsub("~",""))}
 %global archive_tag %{lua:return(rpm.expand("%{version}"):gsub("~",""))}
 
-Source0:    %{url}/archive/%{upstream_tag}/%{srcname}-%{version}.tar.gz
+Source0:    %{url}/archive/%{upstream_tag}/synapse-%{version}.tar.gz
 Source1:    synapse.sysconfig
 Source2:    synapse.service
 Source3:    matrix-synapse.sysusers
 Patch1:     0001-Build-RustExtension-with-debug-enabled.patch
-Patch2:     0002-Adapt-Rust-dependencies-to-Fedora-versions.patch
+Patch2:     0002-Adapt-dependencies-to-Fedora-versions.patch
 ExclusiveArch:  %{rust_arches}
 
 Recommends:     %{name}+postgres
@@ -41,7 +39,7 @@ the ecosystem.
 
 
 %prep
-%autosetup -p1 -n %{srcname}-%{archive_tag}
+%autosetup -p1 -n synapse-%{archive_tag}
 
 # We don't support the built-in client so remove all the bundled JS.
 rm -rf synapse/static
@@ -63,8 +61,8 @@ cd ..
 
 %install
 %pyproject_install
-%py3_shebang_fix %{buildroot}%{python3_sitearch}/%{srcname}/_scripts
-%pyproject_save_files %{srcname}
+%py3_shebang_fix %{buildroot}%{python3_sitearch}/synapse/_scripts
+%pyproject_save_files synapse
 
 install -p -D -T -m 0644 contrib/systemd/log_config.yaml %{buildroot}%{_sysconfdir}/synapse/log_config.yaml
 install -p -D -T -m 0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/sysconfig/synapse
@@ -76,7 +74,7 @@ install -p -D -m 0644 %{SOURCE3} %{buildroot}%{_sysusersdir}/%{name}.conf
 %if %{with check}
 %check
 set -o pipefail
-PYTHONPATH=%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib}:$PWD trial-3 tests | tee trial.stdout
+PYTHONPATH=%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib}:$PWD trial-3 %_smp_mflags tests | tee trial.stdout
 
 # Guard against new types of tests being skipped.
 WHITELIST="Requires hiredis

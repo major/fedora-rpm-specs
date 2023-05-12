@@ -1,6 +1,6 @@
 Name:           qmlkonsole
 Version:        23.04.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPLv2+
 Summary:        Terminal app for Plasma Mobile
 Url:            https://invent.kde.org/plasma-mobile/qmlkonsole
@@ -30,6 +30,7 @@ BuildRequires:  cmake(KF5KirigamiAddons)
 BuildRequires:  cmake(KF5WindowSystem)
 
 Requires:       kf5-kirigami2
+Requires:       kf5-kirigami2-addons
 Requires:       qmltermwidget
 Recommends:     dejavu-fonts-all
 

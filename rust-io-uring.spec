@@ -5,7 +5,7 @@
 %global crate io-uring
 
 Name:           rust-io-uring
-Version:        0.5.13
+Version:        0.6.0
 Release:        %autorelease
 Summary:        Low-level io_uring userspace interface for Rust
 
@@ -14,12 +14,10 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/io-uring
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * bump bindgen build-dependency from 0.61 to 0.63
-# * make bindgen build-dependency non-optional
 # * drop feature for making syscalls directly (not available on all arches)
+# * drop feature for regenerating bindings at build-time;
+#   otherwise kernel header changes frequently break builds of this crate
 Patch:          io-uring-fix-metadata.diff
-# * patch build.rs to unconditionally regenerate bindings
-Patch:          0001-unconditionally-regenerate-bindings-with-bindgen.patch
 
 BuildRequires:  rust-packaging >= 21
 
@@ -55,18 +53,6 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+bindgen-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+bindgen-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "bindgen" feature of the "%{crate}" crate.
-
-%files       -n %{name}+bindgen-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+io_safety-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -77,30 +63,6 @@ This package contains library source intended for building other packages which
 use the "io_safety" feature of the "%{crate}" crate.
 
 %files       -n %{name}+io_safety-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+overwrite-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+overwrite-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "overwrite" feature of the "%{crate}" crate.
-
-%files       -n %{name}+overwrite-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+unstable-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+unstable-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "unstable" feature of the "%{crate}" crate.
-
-%files       -n %{name}+unstable-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

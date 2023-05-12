@@ -114,6 +114,9 @@ ExcludeArch: armv7hl
 Patch1: ghc-gen_contents_index-haddock-path.patch
 Patch2: ghc-Cabal-install-PATH-warning.patch
 Patch3: ghc-gen_contents_index-nodocs.patch
+# https://gitlab.haskell.org/ghc/ghc/-/issues/23286
+Patch9: https://gitlab.haskell.org/ghc/ghc/-/commit/00dc51060881df81258ba3b3bdf447294618a4de.patch
+
 # https://phabricator.haskell.org/rGHC4eebc8016f68719e1ccdf460754a97d1f4d6ef05
 # https://gitlab.haskell.org/ghc/ghc/-/issues/19684
 # DerivedConstants.h not produced atomically
@@ -437,37 +440,38 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %endif
 %setup -q -n ghc-%{version} %{?with_testsuite:-b1}
 
-%patch1 -p1 -b .orig
-%patch3 -p1 -b .orig
+%patch -P1 -p1 -b .orig
+%patch -P3 -p1 -b .orig
 
-%patch2 -p1 -b .orig
-%patch10 -p1 -b .orig
-%patch11 -p1 -b .orig11
+%patch -P2 -p1 -b .orig
+%patch -P9 -p1 -b .orig
+%patch -P10 -p1 -b .orig
+%patch -P11 -p1 -b .orig11
 
 rm libffi-tarballs/libffi-*.tar.gz
 
 %ifarch armv7hl
-%patch12 -p1 -b .orig
+%patch -P12 -p1 -b .orig
 %endif
 
 # remove s390x after complete switching to llvm
 %ifarch %{ghc_unregisterized_arches} s390x
-%patch15 -p1 -b .orig
-%patch16 -p1 -b .orig
+%patch -P15 -p1 -b .orig
+%patch -P16 -p1 -b .orig
 %endif
 
 # bigendian
 %ifarch s390x
-%patch18 -p1 -b .orig
+%patch -P18 -p1 -b .orig
 %endif
 
 # ppc64le
-%patch20 -p1 -b .orig
+%patch -P20 -p1 -b .orig
 
 # debian
-%patch24 -p1 -b .orig
-%patch26 -p1 -b .orig
-%patch27 -p1 -b .orig
+%patch -P24 -p1 -b .orig
+%patch -P26 -p1 -b .orig
+%patch -P27 -p1 -b .orig
 
 %if %{with haddock} && %{without hadrian}
 %global gen_contents_index gen_contents_index.orig

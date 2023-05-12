@@ -5,14 +5,10 @@
 # We can generate PDF documentation as a substitute.
 %bcond_without doc_pdf
 
-%global forgeurl     https://github.com/numba/llvmlite
-
 Name:           python-llvmlite
-Version:        0.39.1
+Version:        0.40.0
 Release:        %{autorelease}
 Summary:        Lightweight LLVM Python binding for writing JIT compilers
-
-%forgemeta
 
 # The entire source is BSD-2-Clause, except:
 #   - The bundled versioneer.py, and the _version.py it generates (which is
@@ -31,51 +27,24 @@ Summary:        Lightweight LLVM Python binding for writing JIT compilers
 License:        BSD-2-Clause AND LicenseRef-Fedora-Public-Domain
 
 URL:            http://llvmlite.pydata.org/
-Source0:        %{forgesource}
-
-# Backport upstream commit:
-#   Remove maximum Python version limit
-#
-#   Allow any new version of Python for llvmlite. Closes #912
-#   https://github.com/numba/llvmlite/commit/9ea5668fff6d0e4099d7907aafae40df5b4c8655
-# Fixes:
-#   “Escape hatch” for maximum Python version check
-#   https://github.com/numba/llvmlite/issues/912
-# See also:
-#   python 3.10 support
-#   https://github.com/numba/llvmlite/issues/740
-# To be released in 0.40.0 and 0.41.0. Cherry-picked onto tag v0.39.1:
-Patch:          0001-Remove-maximum-Python-version-limit.patch
+%global forgeurl https://github.com/numba/llvmlite
+Source0:        %{forgeurl}/archive/v%{version}/llvmlite-%{version}.tar.gz
 
 BuildRequires:  python3-devel
 
-# 0.39.1 only supports llvm11
-BuildRequires:  llvm11-devel
+# 0.40.0 only supports llvm14
+BuildRequires:  llvm14-devel
 BuildRequires:  gcc-c++
 
 %global _description %{expand:
-llvmlite provides a Python binding to LLVM for use in Numba.
+llvmlite is a project originally tailored for Numba‘s needs, using the
+following approach:
 
-Numba previously relied on llvmpy.  While llvmpy exposed large parts of the
-LLVM C++ API for direct calls into the LLVM library, llvmlite takes an entirely
-different approach. Llvmlite starts from the needs of a JIT compiler and splits
-them into two decoupled tasks:
-
-- Construction of a Module, function by function, Instruction by instruction.
-- Compilation and optimization of the module into machine code.
-
-The construction of an LLVM module does not call the LLVM C++ API. Rather, it
-constructs the LLVM intermediate representation (IR) in pure Python. This is
-the role of the IR layer.
-
-The compilation of an LLVM module takes the IR in textual form and feeds it
-into LLVM's parsing API. It then returns a thin wrapper around LLVM's C++
-module object. This is the role of the binding layer.
-
-Once parsed, the module's source code cannot be modified, which loses the
-flexibility of the direct mapping of C++ APIs into Python that was provided by
-llvmpy but saves a great deal of maintenance.}
-
+  • A small C wrapper around the parts of the LLVM C++ API we need that are not
+    already exposed by the LLVM C API.
+  • A ctypes Python wrapper around the C API.
+  • A pure Python implementation of the subset of the LLVM IR builder that we
+    need for Numba.}
 
 %description %_description
 
@@ -100,7 +69,7 @@ BuildRequires:  python3dist(sphinx-rtd-theme)
 Documentation for %{name}.
 
 %prep
-%forgeautosetup -p1
+%autosetup -n llvmlite-%{version} -p1
 
 # increase verbosity of tests to 2
 sed -i 's/\(def run_tests.*verbosity=\)1/\12/' llvmlite/tests/__init__.py
@@ -112,11 +81,22 @@ sed -i 's/\(def run_tests.*verbosity=\)1/\12/' llvmlite/tests/__init__.py
 # No network access
 echo 'intersphinx_mapping.clear()' >> docs/source/conf.py
 
+%ifarch ppc64le
+# Test failure in 0.40.0 on 64-bit PowerPC: test_get_process_triple
+# https://github.com/numba/llvmlite/issues/941
+#
+# We can skip this failure because upstream considers the discrepancy harmless.
+# https://github.com/numba/llvmlite/issues/941#issuecomment-1542381275
+sed -r -i \
+    's/^([[:blank:]]*)(def test_get_process_triple\()/\1@unittest.skip("Issue #941")\n&/' \
+    llvmlite/tests/test_binding.py
+%endif
+
 %generate_buildrequires
 %pyproject_buildrequires
 
 %build
-export LLVM_CONFIG="%{_libdir}/llvm11/bin/llvm-config"
+export LLVM_CONFIG="%{_libdir}/llvm14/bin/llvm-config"
 %pyproject_wheel
 
 %if %{with doc_pdf}
