@@ -1,6 +1,6 @@
 Name:           merkaartor
 Version:        0.18.4
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Qt-Based OpenStreetMap editor
 
 License:        GPLv2
@@ -86,6 +86,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.%{name}.%{name}.d
 %doc AUTHORS CHANGELOG HACKING.md LICENSE
 
 %changelog
+* Thu May 11 2023 Sandro Mani <manisandro@gmail.com> - 0.18.4-19
+- Rebuild (gdal)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.4-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Test-Dependencies
-Version:        0.30
-Release:        8%{?dist}
+Version:        0.32
+Release:        1%{?dist}
 # see lib/Test/Dependencies.pm
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:        Ensure that your Makefile.PL specifies all module dependencies
@@ -54,10 +54,13 @@ make test
 %files
 %license LICENSE
 %doc README README.md Changes
-%{perl_vendorlib}/*
-%{_mandir}/man3/*.3*
+%{perl_vendorlib}/Test*
+%{_mandir}/man3/Test*.3*
 
 %changelog
+* Thu May 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.32-1
+- 0.32 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.30-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,17 +1,17 @@
 Name:           perl-Perl6-Slurp
 Version:        0.051005
-Release:        27%{?dist}
-Summary:        Implemention of the Perl 6 'slurp' built-in
-License:        GPL+ or Artistic
+Release:        28%{?dist}
+Summary:        Implementation of the Perl 6 'slurp' built-in
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Perl6-Slurp
-Source0:        https://cpan.metacpan.org/authors/id/D/DC/DCONWAY/Perl6-Slurp-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/modules/by-module/Perl6/Perl6-Slurp-%{version}.tar.gz
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker)
 # Module Runtime
 BuildRequires:  perl(Carp)
@@ -25,6 +25,7 @@ BuildRequires:  perl(IO::File)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(utf8)
 # Dependencies
+# (none)
 
 %description
 slurp takes:
@@ -48,8 +49,8 @@ make %{?_smp_mflags}
 
 %install
 make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -exec rm -f {} \;
-%{_fixperms} %{buildroot}
+find %{buildroot} -type f -name .packlist -delete
+%{_fixperms} -c %{buildroot}
 
 %check
 make test
@@ -60,6 +61,13 @@ make test
 %{_mandir}/man3/Perl6::Slurp.3*
 
 %changelog
+* Thu May 11 2023 Paul Howarth <paul@city-fan.org> - 0.051005-28
+- Use SPDX-format license tag
+- Fix typo in summary
+- Use author-independent source URL
+- Simplify find command using -delete
+- Fix permissions verbosely
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.051005-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

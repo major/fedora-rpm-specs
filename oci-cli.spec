@@ -1,0 +1,76 @@
+# 22 of the 23 provided unit tests require a valid configuration file and certificate.
+# The remaining dependency fails due to the dependency adjustments in %%prep
+%bcond_with     tests
+
+Name:           oci-cli
+Version:        3.27.0
+Release:        %autorelease
+Summary:        Command Line Interface for Oracle Cloud Infrastructure 
+
+License:        UPL-1.0
+URL:            https://github.com/oracle/oci-cli
+Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+BuildArch:      noarch
+
+BuildRequires:  python3-devel
+
+%if %{with tests}
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(vcrpy)
+%endif
+
+%global _description %{expand:
+This is the command line interface for Oracle Cloud Infrastructure.}
+
+%description %{_description}
+
+%pyproject_extras_subpkg -n %{name} db
+
+
+%prep
+%autosetup -n %{name}-%{version}
+
+# Allow newer version of pinned dependencies.
+sed -i 's/click==8.0.4/click>=8.0.4/' setup.py
+sed -i 's/jmespath==0.10.0/jmespath>=0.10.0/' setup.py
+sed -i 's/prompt-toolkit==3.0.29/prompt-toolkit>=3.0.29/' setup.py
+sed -i 's/terminaltables==3.1.0/terminaltables>=3.1.0/' setup.py
+
+# Remove upper version limit for PyYAML.
+sed -i 's/PyYAML>=5.4,<6/PyYAML>=5.4/' setup.py
+
+
+%generate_buildrequires
+%pyproject_buildrequires
+
+
+%build
+%pyproject_wheel
+
+
+%install
+%pyproject_install
+
+# Remove extra script that isn't needed.
+rm -f %{buildroot}/%{_bindir}/create_backup_from_onprem
+
+%pyproject_save_files common_util interactive oci_cli services
+
+
+%check
+%pyproject_check_import -e 'oci_cli.scripts.database.dbaas' -e 'services.*'
+
+%if %{with tests}
+%pytest
+%endif
+
+
+%files -n %{name} -f %{pyproject_files}
+%license LICENSE.txt THIRD_PARTY_LICENSES.txt
+%doc CHANGELOG.rst COMMON_ISSUES.rst CONTRIBUTING.rst README.rst
+%{_bindir}/oci
+
+
+%changelog
+%autochangelog

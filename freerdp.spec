@@ -1,9 +1,6 @@
-# Can be rebuilt with FFmpeg/H264 support enabled by passing "--with=ffmpeg",
-# "--with=x264" or "--with=openh264" to mock/rpmbuild; or by globally setting
-# these variables:
+# Can be rebuilt with OpenH264 support enabled by passing # "--with=openh264"
+# to mock/rpmbuild; or by globally setting the following variable:
 
-#global _with_ffmpeg 1
-#global _with_x264 1
 #global _with_openh264 1
 
 # Momentarily disable GSS support
@@ -21,16 +18,22 @@
 %if 0%{?fedora} || 0%{?rhel} >= 8
 %global _with_lame 1
 %endif
+%if 0%{?fedora} >= 39
+%global _with_ffmpeg 1
+%endif
 
 Name:           freerdp
 Version:        2.10.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          2
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 License:        ASL 2.0
 URL:            http://www.freerdp.com/
 
 Source0:        https://github.com/FreeRDP/FreeRDP/archive/%{version}/FreeRDP-%{version}.tar.gz
+
+# https://github.com/FreeRDP/FreeRDP/issues/8686
+Patch0:         7f55c97d60453738323e0ecafe6d357019528227.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -59,16 +62,6 @@ BuildRequires:  zlib-devel
 BuildRequires:  multilib-rpm-config
 
 BuildRequires:  pkgconfig(cairo)
-BuildRequires:  pkgconfig(dbus-1)
-BuildRequires:  pkgconfig(dbus-glib-1)
-BuildRequires:  pkgconfig(glib-2.0)
-BuildRequires:  pkgconfig(gstreamer-1.0)
-BuildRequires:  pkgconfig(gstreamer-base-1.0)
-BuildRequires:  pkgconfig(gstreamer-app-1.0)
-BuildRequires:  pkgconfig(gstreamer-audio-1.0)
-BuildRequires:  pkgconfig(gstreamer-fft-1.0)
-BuildRequires:  pkgconfig(gstreamer-pbutils-1.0)
-BuildRequires:  pkgconfig(gstreamer-video-1.0)
 %{?_with_gss:BuildRequires:  pkgconfig(krb5) >= 1.13}
 BuildRequires:  pkgconfig(libpcsclite)
 BuildRequires:  pkgconfig(libpulse)
@@ -166,10 +159,10 @@ find . -name "*.c" -exec chmod 664 {} \;
     -DWITH_CHANNELS=ON -DBUILTIN_CHANNELS=OFF \
     -DWITH_CLIENT=ON \
     -DWITH_DIRECTFB=OFF \
+    -DWITH_DSP_FFMPEG=%{?_with_ffmpeg:ON}%{?!_with_ffmpeg:OFF} \
     -DWITH_FFMPEG=%{?_with_ffmpeg:ON}%{?!_with_ffmpeg:OFF} \
     -DWITH_GSM=ON \
     -DWITH_GSSAPI=%{?_with_gss:ON}%{?!_with_gss:OFF} \
-    -DWITH_GSTREAMER_1_0=ON -DWITH_GSTREAMER_0_10=OFF \
     -DWITH_ICU=ON \
     -DWITH_IPP=OFF \
     -DWITH_JPEG=ON \
@@ -186,7 +179,6 @@ find . -name "*.c" -exec chmod 664 {} \;
     -DWITH_SOXR=%{?_with_soxr:ON}%{?!_with_soxr:OFF} \
     -DWITH_WAYLAND=ON \
     -DWITH_X11=ON \
-    -DWITH_X264=%{?_with_x264:ON}%{?!_with_x264:OFF} \
     -DWITH_XCURSOR=ON \
     -DWITH_XEXT=ON \
     -DWITH_XKBFILE=ON \
@@ -297,6 +289,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/winpr-tools2.pc
 
 %changelog
+* Thu May 11 2023 Ondrej Holy <oholy@redhat.com> - 2:2.10.0-2
+- Enable recommended FFmpeg support.
+
 * Tue Feb 21 2023 Ondrej Holy <oholy@redhat.com> - 2:2.10.0-1
 - Update to 2.10.0.
 

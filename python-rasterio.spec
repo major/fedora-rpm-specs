@@ -12,6 +12,10 @@ Source0:        https://github.com/rasterio/rasterio/archive/%{version}/%{srcnam
 Patch:          0001-Loosen-up-build-requirements.patch
 # Backport test fix for GDAL 3.6.1
 Patch:          https://github.com/rasterio/rasterio/pull/2680.patch
+# Backport test fixes for GDL 3.7.0
+Patch:          https://github.com/rasterio/rasterio/commit/9059c3ac005afadb3a08e744096a4bb3fcc87cba.patch
+Patch:          https://github.com/rasterio/rasterio/commit/74c4a7c93ab3298a79b4d9aced8e6acab4507be5.patch
+Patch:          https://github.com/rasterio/rasterio/commit/acef4a8f550ad5b3fca045734e0aa4307074d2d8.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  gdal >= 1.11

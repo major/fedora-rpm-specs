@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 Name:           mingw-harfbuzz
-Version:        7.2.0
+Version:        7.3.0
 Release:        1%{?dist}
 Summary:        MinGW Windows Harfbuzz library
 
@@ -155,6 +155,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Thu May 11 2023 Sandro Mani <manisandro@gmail.com> - 7.3.0-1
+- Update to 7.3.0
+
 * Fri Apr 28 2023 Sandro Mani <manisandro@gmail.com> - 7.2.0-1
 - Update to 7.2.0
 

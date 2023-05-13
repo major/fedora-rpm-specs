@@ -3,7 +3,7 @@
 
 Name:           cvc4
 Version:        1.8
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Automatic theorem prover for SMT problems
 
 %global jar_version %{version}.0
@@ -85,6 +85,8 @@ its use for research or commercial purposes.
 %package devel
 Summary:        Headers and other files for developing with %{name}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+Requires:       gmp-devel%{?_isa}
+Requires:       symfpu-devel%{?_isa}
 
 %description devel
 Header files and library links for developing applications that use %{name}.
@@ -256,6 +258,9 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %{python3_sitearch}/pycvc4*
 
 %changelog
+* Thu May 11 2023 Jerry James <loganjerry@gmail.com> - 1.8-16
+- Add missing Requires to the devel subpackage (rhbz#2203174)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

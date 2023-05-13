@@ -62,14 +62,6 @@
 
 # =====
 
-# Bootstrapping breaks the circular dependency on python3dist(xds-protos),
-# which is packaged separately but ultimately generated from grpc sources using
-# the proto compilers in this package; the consequence is that we cannot build
-# the python3-grpcio-admin or python3-grpcio-csds subpackages until after
-# bootstrapping.
-# NOTE: these are always disabled in RHEL builds to avoid the xds-protos dep.
-%bcond_with bootstrap
-
 # This must be enabled to get grpc_cli, which is apparently considered part of
 # the tests by upstream. This is mentioned in
 # https://github.com/grpc/grpc/issues/23432.
@@ -285,11 +277,6 @@ BuildRequires:  python3dist(protobuf) >= 3.12.0
 # grpcio_status (src/python/grpcio_status/setup.py) install_requires:
 BuildRequires:  python3dist(googleapis-common-protos) >= 1.5.5
 
-%if %{without bootstrap} && %{undefined rhel}
-# grpcio_csds (src/python/grpcio_csds/setup.py) install_requires
-BuildRequires:  python3dist(xds-protos) >= 0.0.7
-%endif
-
 # Several packages have dependencies on grpcio or grpcio_tools—and grpcio-tests
 # depends on all of the other Python packages—which are satisfied within this
 # package.
@@ -327,6 +314,8 @@ BuildRequires:  curl
 BuildRequires:  ca-certificates
 # For converting absolute symlinks in the buildroot to relative ones
 BuildRequires:  symlinks
+# For hardlinking duplicate files in the examples
+BuildRequires:  hardlink
 
 # Apply Fedora system crypto policies. Since this is Fedora-specific, the patch
 # is not suitable for upstream.
@@ -589,6 +578,22 @@ Requires:       grpc-data = %{version}-%{release}
 Provides:       bundled(upb)
 Provides:       bundled(utf8_range)
 
+# We no longer package these because they require python3dist(xds-protos),
+# which has some issues:
+#   - It provides files that overlap with several other packages, including
+#     python-googleapis-common-protos, python-opencensus-proto, and
+#     python-opentelemetry
+#   - The PyPI release is not updated regularly, and version skew only makes
+#     the above-mentioned problem of overlapping files worse.
+#   - The “validate” package conflicts with one belonging to python-configobj
+#     (in F38+), and it is the latter package that owns
+#     https://pypi.org/project/validate/.
+Obsoletes:      python3-grpcio-admin < 1.48.4-7
+Obsoletes:      python3-grpcio-csds < 1.48.4-7
+
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_provides_for_importable_modules
+%py_provides python3-grpc
+
 %description -n python3-grpcio
 Python language bindings for gRPC (HTTP/2-based RPC framework).
 
@@ -604,68 +609,21 @@ Summary:       Package for gRPC Python tools
 Provides:       bundled(upb)
 Provides:       bundled(utf8_range)
 
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_provides_for_importable_modules
+%py_provides python3-grpc-tools
+
 %description -n python3-grpcio-tools
 Package for gRPC Python tools.
-
-
-%if %{without bootstrap} && %{undefined rhel}
-%package -n python3-grpcio-admin
-Summary:        A collection of admin services
-License:        Apache-2.0
-BuildArch:      noarch
-
-%description -n python3-grpcio-admin
-gRPC Python Admin Interface Package
-===================================
-
-Debugging gRPC library can be a complex task. There are many configurations and
-internal states, which will affect the behavior of the library. This Python
-package will be the collection of admin services that are exposing debug
-information. Currently, it includes:
-
-* Channel tracing metrics (grpcio-channelz)
-* Client Status Discovery Service (grpcio-csds)
-
-Here is a snippet to create an admin server on "localhost:50051":
-
-    server = grpc.server(ThreadPoolExecutor())
-    port = server.add_insecure_port('localhost:50051')
-    grpc_admin.add_admin_servicers(self._server)
-    server.start()
-
-Welcome to explore the admin services with CLI tool "grpcdebug":
-https://github.com/grpc-ecosystem/grpcdebug.
-
-For any issues or suggestions, please send to
-https://github.com/grpc/grpc/issues.
-%endif
-
-
-%if %{without bootstrap} && %{undefined rhel}
-%package -n python3-grpcio-csds
-Summary:        xDS configuration dump library
-License:        Apache-2.0
-BuildArch:      noarch
-
-%description -n python3-grpcio-csds
-gRPC Python Client Status Discovery Service package
-===================================================
-
-CSDS is part of the Envoy xDS protocol:
-https://www.envoyproxy.io/docs/envoy/latest/api-v3/service/status/v3/csds.proto.
-It allows the gRPC application to programmatically expose the received traffic
-configuration (xDS resources). Welcome to explore with CLI tool "grpcdebug":
-https://github.com/grpc-ecosystem/grpcdebug.
-
-For any issues or suggestions, please send to
-https://github.com/grpc/grpc/issues.
-%endif
 
 
 %package -n python3-grpcio-channelz
 Summary:        Channel Level Live Debug Information Service for gRPC
 License:        Apache-2.0
+
 BuildArch:      noarch
+
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_provides_for_importable_modules
+%py_provides python3-grpc-channelz
 
 %description -n python3-grpcio-channelz
 gRPC Python Channelz package
@@ -677,7 +635,11 @@ Channelz is a live debug tool in gRPC Python.
 %package -n python3-grpcio-health-checking
 Summary:        Standard Health Checking Service for gRPC
 License:        Apache-2.0
+
 BuildArch:      noarch
+
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_provides_for_importable_modules
+%py_provides python3-grpc-health
 
 %description -n python3-grpcio-health-checking
 gRPC Python Health Checking
@@ -689,7 +651,11 @@ Reference package for GRPC Python health checking.
 %package -n python3-grpcio-reflection
 Summary:        Standard Protobuf Reflection Service for gRPC
 License:        Apache-2.0
+
 BuildArch:      noarch
+
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_provides_for_importable_modules
+%py_provides python3-grpc-reflection
 
 %description -n python3-grpcio-reflection
 gRPC Python Reflection package
@@ -701,7 +667,11 @@ Reference package for reflection in GRPC Python.
 %package -n python3-grpcio-status
 Summary:        Status proto mapping for gRPC
 License:        Apache-2.0
+
 BuildArch:      noarch
+
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_provides_for_importable_modules
+%py_provides python3-grpc-status
 
 %description -n python3-grpcio-status
 gRPC Python Status Proto
@@ -713,7 +683,11 @@ Reference package for GRPC Python status proto mapping.
 %package -n python3-grpcio-testing
 Summary:        Testing utilities for gRPC Python
 License:        Apache-2.0
+
 BuildArch:      noarch
+
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_provides_for_importable_modules
+%py_provides python3-grpc-testing
 
 %description -n python3-grpcio-testing
 gRPC Python Testing Package
@@ -973,8 +947,7 @@ find . -type f -name protoc.py -execdir sed -r -i '1{/^#!/d}' '{}' '+'
 popd >/dev/null
 
 echo '===== Building pure-Python packages =====' 1>&2
-for suffix in channelz %{?!with_bootstrap:%{?!rhel:csds admin}} health_checking \
-    reflection status testing tests
+for suffix in channelz health_checking reflection status testing tests
 do
   echo "----> grpcio_${suffix} <----" 1>&2
   pushd "src/python/grpcio_${suffix}/" >/dev/null
@@ -1044,8 +1017,7 @@ pushd "tools/distrib/python/grpcio_tools/" >/dev/null
 popd >/dev/null
 
 # ~~ pure-python modules grpcio-* ~~
-for suffix in channelz %{?!with_bootstrap:%{?!rhel:csds admin}} health_checking \
-    reflection status testing
+for suffix in channelz health_checking reflection status testing
 do
   pushd "src/python/grpcio_${suffix}/" >/dev/null
   %py3_install
@@ -1077,8 +1049,16 @@ rm -rvf "%{buildroot}$(dirname '%{sysbundle}')"
 
 # ~~ documentation and examples ~~
 
-install -D -t '%{buildroot}%{_pkgdocdir}' -m 0644 -p AUTHORS *.md
+install -D -t '%{buildroot}%{_pkgdocdir}' -m 0644 -p \
+    AUTHORS \
+    CONCEPTS.md \
+    MAINTAINERS.md \
+    README.md \
+    SECURITY.md \
+    TROUBLESHOOTING.md
 cp -rvp doc examples '%{buildroot}%{_pkgdocdir}'
+# Hardlink duplicate files in the examples
+hardlink -v '%{buildroot}%{_pkgdocdir}/examples/'
 
 
 %check
@@ -1586,33 +1566,43 @@ fi
 
 %files
 %license LICENSE NOTICE.txt LICENSE-utf8_range
-%{_libdir}/libaddress_sorting.so.%{c_so_version}*
-%{_libdir}/libgpr.so.%{c_so_version}*
-%{_libdir}/libgrpc.so.%{c_so_version}*
-%{_libdir}/libgrpc_unsecure.so.%{c_so_version}*
-%{_libdir}/libupb.so.%{c_so_version}*
+%{_libdir}/libaddress_sorting.so.%{c_so_version}{,.*}
+%{_libdir}/libgpr.so.%{c_so_version}{,.*}
+%{_libdir}/libgrpc.so.%{c_so_version}{,.*}
+%{_libdir}/libgrpc_unsecure.so.%{c_so_version}{,.*}
+%{_libdir}/libupb.so.%{c_so_version}{,.*}
 
 
 %files data
 %license LICENSE NOTICE.txt
-%dir %{_datadir}/grpc
+%dir %{_datadir}/grpc/
 %{_datadir}/grpc/roots.pem
 
 
 %files doc
 %license LICENSE NOTICE.txt
-%{_pkgdocdir}
+
+%doc %{_pkgdocdir}/AUTHORS
+%doc %{_pkgdocdir}/CONCEPTS.md
+%doc %{_pkgdocdir}/MAINTAINERS.md
+%doc %{_pkgdocdir}/README.md
+%doc %{_pkgdocdir}/SECURITY.md
+%doc %{_pkgdocdir}/TROUBLESHOOTING.md
+
+%doc %{_pkgdocdir}/doc/
+%doc %{_pkgdocdir}/examples/
+
 
 
 %files cpp
-%{_libdir}/libgrpc++.so.%{cpp_so_version}*
-%{_libdir}/libgrpc++_alts.so.%{cpp_so_version}*
-%{_libdir}/libgrpc++_error_details.so.%{cpp_so_version}*
-%{_libdir}/libgrpc++_reflection.so.%{cpp_so_version}*
-%{_libdir}/libgrpc++_unsecure.so.%{cpp_so_version}*
-%{_libdir}/libgrpc_plugin_support.so.%{cpp_so_version}*
+%{_libdir}/libgrpc++.so.%{cpp_so_version}{,.*}
+%{_libdir}/libgrpc++_alts.so.%{cpp_so_version}{,.*}
+%{_libdir}/libgrpc++_error_details.so.%{cpp_so_version}{,.*}
+%{_libdir}/libgrpc++_reflection.so.%{cpp_so_version}{,.*}
+%{_libdir}/libgrpc++_unsecure.so.%{cpp_so_version}{,.*}
+%{_libdir}/libgrpc_plugin_support.so.%{cpp_so_version}{,.*}
 
-%{_libdir}/libgrpcpp_channelz.so.%{cpp_so_version}*
+%{_libdir}/libgrpcpp_channelz.so.%{cpp_so_version}{,.*}
 
 
 %if %{with core_tests}
@@ -1637,11 +1627,11 @@ fi
 %{_libdir}/libgrpc.so
 %{_libdir}/libgrpc_unsecure.so
 %{_libdir}/libupb.so
-%{_includedir}/grpc
+%{_includedir}/grpc/
 %{_libdir}/pkgconfig/gpr.pc
 %{_libdir}/pkgconfig/grpc.pc
 %{_libdir}/pkgconfig/grpc_unsecure.pc
-%{_libdir}/cmake/grpc
+%{_libdir}/cmake/grpc/
 
 %{_libdir}/libgrpc++.so
 %{_libdir}/libgrpc++_alts.so
@@ -1654,58 +1644,44 @@ fi
 %{_libdir}/pkgconfig/grpc++_unsecure.pc
 
 %{_libdir}/libgrpcpp_channelz.so
-%{_includedir}/grpcpp
+%{_includedir}/grpcpp/
 
 
 %files -n python3-grpcio
 %license LICENSE NOTICE.txt LICENSE-utf8_range
-%{python3_sitearch}/grpc
-%{python3_sitearch}/grpcio-%{pyversion}-py%{python3_version}.egg-info
+%{python3_sitearch}/grpc/
+%{python3_sitearch}/grpcio-%{pyversion}-py%{python3_version}.egg-info/
 
 
 %files -n python3-grpcio-tools
 %license LICENSE NOTICE.txt LICENSE-utf8_range
-%{python3_sitearch}/grpc_tools
-%{python3_sitearch}/grpcio_tools-%{pyversion}-py%{python3_version}.egg-info
-
-
-%if %{without bootstrap} && %{undefined rhel}
-%files -n python3-grpcio-admin
-%{python3_sitelib}/grpc_admin
-%{python3_sitelib}/grpcio_admin-%{pyversion}-py%{python3_version}.egg-info
-%endif
+%{python3_sitearch}/grpc_tools/
+%{python3_sitearch}/grpcio_tools-%{pyversion}-py%{python3_version}.egg-info/
 
 
 %files -n python3-grpcio-channelz
-%{python3_sitelib}/grpc_channelz
-%{python3_sitelib}/grpcio_channelz-%{pyversion}-py%{python3_version}.egg-info
-
-
-%if %{without bootstrap} && %{undefined rhel}
-%files -n python3-grpcio-csds
-%{python3_sitelib}/grpc_csds
-%{python3_sitelib}/grpcio_csds-%{pyversion}-py%{python3_version}.egg-info
-%endif
+%{python3_sitelib}/grpc_channelz/
+%{python3_sitelib}/grpcio_channelz-%{pyversion}-py%{python3_version}.egg-info/
 
 
 %files -n python3-grpcio-health-checking
-%{python3_sitelib}/grpc_health
-%{python3_sitelib}/grpcio_health_checking-%{pyversion}-py%{python3_version}.egg-info
+%{python3_sitelib}/grpc_health/
+%{python3_sitelib}/grpcio_health_checking-%{pyversion}-py%{python3_version}.egg-info/
 
 
 %files -n python3-grpcio-reflection
-%{python3_sitelib}/grpc_reflection
-%{python3_sitelib}/grpcio_reflection-%{pyversion}-py%{python3_version}.egg-info
+%{python3_sitelib}/grpc_reflection/
+%{python3_sitelib}/grpcio_reflection-%{pyversion}-py%{python3_version}.egg-info/
 
 
 %files -n python3-grpcio-status
-%{python3_sitelib}/grpc_status
-%{python3_sitelib}/grpcio_status-%{pyversion}-py%{python3_version}.egg-info
+%{python3_sitelib}/grpc_status/
+%{python3_sitelib}/grpcio_status-%{pyversion}-py%{python3_version}.egg-info/
 
 
 %files -n python3-grpcio-testing
-%{python3_sitelib}/grpc_testing
-%{python3_sitelib}/grpcio_testing-%{pyversion}-py%{python3_version}.egg-info
+%{python3_sitelib}/grpc_testing/
+%{python3_sitelib}/grpcio_testing-%{pyversion}-py%{python3_version}.egg-info/
 
 
 %changelog

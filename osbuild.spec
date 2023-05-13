@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        84
+Version:        85
 
 %forgemeta
 
@@ -252,6 +252,23 @@ fi
 
 
 %changelog
+* Wed May 10 2023 Packit <hello@packit.dev> - 85-1
+Changes with 85
+----------------
+  * COMPOSER-1959: Start building osbuild on RHEL 8.9 and 9.3 nightly (#1300)
+  * Python 3.6 compatibility fixes (#1294)
+  * Update terraform SHA (#1299)
+  * Update test runners for 8.8 & 9.2 nightly (#1162)
+  * Various fixes (#1295)
+  * loop: use LOOP_CONFIGURE when available (#1253)
+  * stages/org.osbuild.ovf: support older python3 versions (#1306)
+  * stages/yum.repo: add `sslverify` field (#1298)
+
+Contributions from: Alexander Todorov, Gianluca Zuccarelli, Jakub Rusz, Sanne Raymaekers, Thomas Lavocat, Tomáš Hozza
+
+— Somewhere on the Internet, 2023-05-10
+
+
 * Thu Apr 27 2023 Packit <hello@packit.dev> - 84-1
 Changes with 84
 ----------------

@@ -2,15 +2,13 @@
 %global srcname weasyprint
 
 Name:           weasyprint
-Version:        58.1
-Release:        2%{?dist}
+Version:        59.0
+Release:        1%{?dist}
 Summary:        Utility to render HTML and CSS to PDF
 
 License:        BSD-3-Clause
 URL:            https://weasyprint.org/
 Source0:        %pypi_source
-# commit present in upstream git for WeasyPrint 59+
-Patch0:         %{name}-make-tests-pass-with-pydyf-06.patch
 
 BuildArch:      noarch
 
@@ -76,6 +74,9 @@ rm -rf %{buildroot}%{python3_sitelib}/%{modname}/tests
 %{python3_sitelib}/%{modname}/
 
 %changelog
+* Thu May 11 2023 Felix Schwarz <fschwarz@fedoraproject.org> - 59.0-1
+- update to 59.0
+
 * Sat Apr 15 2023 Felix Schwarz <fschwarz@fedoraproject.org> - 58.1-2
 - SPDX migration
 - make tests pass with pydyf 0.6

@@ -8,7 +8,7 @@ Epoch:                  1
 
 Name:           eclipse-swt
 Version:        %{major_version}.%{minor_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Eclipse SWT: The Standard Widget Toolkit for GTK+
 
 License:        EPL-2.0
@@ -26,14 +26,14 @@ Patch2:         eclipse-swt-fedora-build-native.patch
 ExclusiveArch:  %{java_arches} 
 
 Requires:       java-11-openjdk
-Requires:       webkit2gtk3
+Requires:       webkit2gtk4.1
 
 BuildRequires:  java-11-openjdk-devel
 BuildRequires:  javapackages-local
 BuildRequires:  ant
 BuildRequires:  gcc
 BuildRequires:  make
-BuildRequires:  webkit2gtk3-devel
+BuildRequires:  webkit2gtk4.1-devel
 BuildRequires:  cairo-devel
 BuildRequires:  gtk3-devel
 BuildRequires:  mesa-libGLU-devel
@@ -111,6 +111,9 @@ cp -a %{swtsrcdir}/*.so %{buildroot}/%{_libdir}/%{name}
 %license NOTICE
 
 %changelog
+* Thu May 11 2023 Nicolas De Amicis <deamicis@bluewin.ch> - 1:4.27-2
+- Change dependency to webkit2gtk-4.1 due to removal of webkit2gtk-3
+
 * Tue Apr 04 2023 Nicolas De Amicis <deamicis@bluewin.ch> - 1:4.27-1
 - Bump to 4.27
 

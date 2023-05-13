@@ -4,12 +4,13 @@
 
 Name:           nemo-extensions
 Version:        5.6.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Extensions for Nemo
 
 License:        GPLv2+ and LGPLv2
 URL:            https://github.com/linuxmint/%{name}
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0:         webkit2gtk-41.patch
 
 ExcludeArch:    %{ix86}
 
@@ -32,7 +33,7 @@ BuildRequires:  pkgconfig(cjs-1.0) >= %{cjs_version}
 BuildRequires:  pkgconfig(xreader-view-1.5)
 BuildRequires:  pkgconfig(libmusicbrainz5)
 BuildRequires:  pkgconfig(gstreamer-plugins-base-1.0)
-BuildRequires:  pkgconfig(webkit2gtk-4.0)
+BuildRequires:  pkgconfig(webkit2gtk-4.1)
 BuildRequires:  pkgconfig(clutter-gtk-1.0)
 BuildRequires:  pkgconfig(clutter-gst-3.0)
 BuildRequires:  pkgconfig(gtksourceview-4)
@@ -333,6 +334,9 @@ desktop-file-install                                    \
 %{_mandir}/man1/nemo-seahorse-tool.1.* 
 
 %changelog
+* Thu May 11 2023 Leigh Scott <leigh123linux@gmail.com> - 5.6.0-4
+- Switch to webkit2gtk-4.1
+
 * Tue May 09 2023 Leigh Scott <leigh123linux@gmail.com> - 5.6.0-3
 - Rebuild for cjs-5.7.0
 

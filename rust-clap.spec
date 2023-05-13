@@ -6,7 +6,7 @@
 %global crate clap
 
 Name:           rust-clap
-Version:        4.2.1
+Version:        4.2.7
 Release:        %autorelease
 Summary:        Simple to use, efficient, and full-featured Command Line Argument Parser
 
@@ -206,6 +206,18 @@ This package contains library source intended for building other packages which
 use the "unstable-doc" feature of the "%{crate}" crate.
 
 %files       -n %{name}+unstable-doc-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+unstable-styles-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+unstable-styles-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "unstable-styles" feature of the "%{crate}" crate.
+
+%files       -n %{name}+unstable-styles-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+unstable-v5-devel

@@ -2,14 +2,14 @@
 %bcond_without perl_Crypt_URandom_enables_optional_test
 
 Name:           perl-Crypt-URandom
-Version:        0.36
-Release:        25%{?dist}
+Version:        0.38
+Release:        1%{?dist}
 Summary:        Non-blocking randomness for Perl
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-URandom
 Source0:        https://cpan.metacpan.org/authors/id/D/DD/DDICK/Crypt-URandom-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires:  findutils
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -25,6 +25,8 @@ BuildRequires:  perl(FileHandle)
 # Win32::API not used
 # Win32::API::Type not used
 # Tests:
+BuildRequires:  perl(:VERSION) >= 5.6
+BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Test::More)
 %if %{with perl_Crypt_URandom_enables_optional_test}
 # Optional tests:
@@ -44,6 +46,7 @@ Requires:       perl-Test-Harness
 %if %{with perl_Crypt_URandom_enables_optional_test}
 Requires:       perl(Encode)
 %endif
+Requires:       perl(POSIX)
 
 %description tests
 Tests from %{name}. Execute them
@@ -55,6 +58,11 @@ with "%{_libexecdir}/%{name}/test".
 rm t/pod.t
 perl -i -ne 'print $_ unless m{^t/pod.t}' MANIFEST
 %endif
+# Delete always skipped release tests
+rm t/manifest.t
+perl -i -ne 'print $_ unless m{^t/manifest.t}' MANIFEST
+# Make scripts with shebangs executable
+chmod a+x t/core_read.t t/core_sysopen.t
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -66,6 +74,8 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
+# t/boilerplate.t expects files in source archive localtions.
+rm %{buildroot}%{_libexecdir}/%{name}/t/boilerplate.t
 %if %{with perl_Crypt_URandom_enables_optional_test}
 rm %{buildroot}%{_libexecdir}/%{name}/t/pod.t
 %endif
@@ -80,14 +90,19 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 make test
 
 %files
+# README.md is identical to README.
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Crypt
+%{perl_vendorlib}/Crypt/URandom.pm
+%{_mandir}/man3/Crypt::URandom.*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu May 11 2023 Petr Pisar <ppisar@redhat.com> - 0.38-1
+- 0.38 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.36-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

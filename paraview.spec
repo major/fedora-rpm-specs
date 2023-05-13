@@ -82,7 +82,7 @@
 
 Name:           paraview
 Version:        5.11.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Parallel visualization application
 
 License:        BSD
@@ -764,6 +764,9 @@ update-mime-database %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Thu May 11 2023 Sandro Mani <manisandro@gmail.com> - 5.11.1-2
+- Rebuild (gdal)
+
 * Sat Apr 01 2023 Orion Poplawski <orion@nwra.com> - 5.11.1-1
 - Update to 5.11.1
 

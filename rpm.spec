@@ -30,10 +30,11 @@
 
 %define rpmhome /usr/lib/rpm
 
-%global rpmver 4.18.1
+%global rpmver 4.18.90
 #global snapver rc1
-%global baserelease 3
-%global sover 9
+%global baserelease 2
+%global sover 10
+%global oldsover 9
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
 %global srcdir %{?snapver:testing}%{!?snapver:rpm-%(echo %{rpmver} | cut -d'.' -f1-2).x}
@@ -69,6 +70,7 @@ BuildRequires: debugedit >= 0.3
 BuildRequires: redhat-rpm-config >= 94
 BuildRequires: systemd-rpm-macros
 BuildRequires: gcc make
+BuildRequires: cmake >= 3.18
 BuildRequires: gawk
 BuildRequires: elfutils-devel >= 0.112
 BuildRequires: elfutils-libelf-devel
@@ -94,6 +96,15 @@ BuildRequires: libzstd-devel
 %if %{with sqlite}
 BuildRequires: sqlite-devel
 %endif
+
+# Needed for re-building the documentation and man pages
+# normally those are shipped in the tarball pre-build
+# but need re-building if sources are patched
+%if 0
+BuildRequires: pandoc
+BuildRequires: doxygen
+%endif
+
 
 %if %{with sequoia}
 %global crypto sequoia
@@ -132,17 +143,22 @@ rpm-4.17.x-rpm_dbpath.patch
 rpm-4.18.x-siteconfig.patch
 # In current Fedora, man-pages pkg owns all the localized man directories
 rpm-4.9.90-no-man-dirs.patch
+# Disable new user/group handling
 
+rpm-4.18.90-disable-sysusers.patch
+rpm-4.18.90-weak-user-group.patch
 # Patches already upstream:
+# ...
+0001-Remove-second-share-dir-from-infodir-and-mandir.patch
 0001-Add-pgpVerifySignature2-and-pgpPrtParams2.patch
 
 # These are not yet upstream
 rpm-4.7.1-geode-i686.patch
 # Probably to be upstreamed in slightly different form
 rpm-4.18.x-ldflags.patch
-# We either need pandoc in buildroot or this patch in order for man pages to
-# actually be installed, choose the latter
-rpm-4.18.x-revert-pandoc-cond.patch
+
+# Needed until dnf catches up
+0001-Forward-port-obsoleted-crypto-needed-by-current-libd.patch
 
 %description
 The RPM Package Manager (RPM) is a powerful command line driven
@@ -158,6 +174,17 @@ Requires(meta): %{name} = %{version}-%{release}
 %if %{with sequoia}
 # >= 1.4.0 required for pgpVerifySignature2() and pgpPrtParams2()
 Requires: rpm-sequoia%{_isa} >= 1.4.0
+%endif
+
+
+# XXX dirty temporary hack to "bootstrap" new .so version
+# XXX isa bits isn't quite right for multilib but suffices for this purpose
+%if "%{__isa_bits}bit" == "64bit"
+Provides: librpmio.so.%{oldsover}()(64bit)
+Provides: librpm.so.%{oldsover}()(64bit)
+%else
+Provides: librpmio.so.%{oldsover}
+Provides: librpm.so.%{oldsover}
 %endif
 
 %description libs
@@ -288,12 +315,14 @@ Requires: rpm-libs%{_isa} = %{version}-%{release}
 This plugin blocks systemd from entering idle, sleep or shutdown while an rpm
 transaction is running using the systemd-inhibit mechanism.
 
+%if %{with libimaevm}
 %package plugin-ima
 Summary: Rpm plugin ima file signatures
 Requires: rpm-libs%{_isa} = %{version}-%{release}
 
 %description plugin-ima
 %{summary}.
+%endif
 
 %package plugin-prioreset
 Summary: Rpm plugin for resetting scriptlet priorities for SysV init
@@ -351,43 +380,38 @@ change.
 %build
 %set_build_flags
 
-autoreconf -i -f
-
-# Hardening hack taken from macro %%configure defined in redhat-rpm-config
-for i in $(find . -name ltmain.sh) ; do
-     %{__sed} -i.backup -e 's~compiler_flags=$~compiler_flags="%{_hardened_ldflags}"~' $i
-done;
-
-# Using configure macro has some unwanted side-effects on rpm platform
-# setup, use the old-fashioned way for now only defining minimal paths.
-./configure \
-    --prefix=%{_usr} \
-    --sysconfdir=%{_sysconfdir} \
-    --localstatedir=%{_var} \
-    --sharedstatedir=%{_var}/lib \
-    --libdir=%{_libdir} \
-    --build=%{_target_platform} \
-    --host=%{_target_platform} \
-    --with-vendor=redhat \
-    %{!?with_plugins: --disable-plugins} \
-    --with-lua \
-    --with-selinux \
-    --with-cap \
-    --with-acl \
-    --with-fapolicyd \
-    %{?with_ndb: --enable-ndb} \
-    %{?with_libimaevm: --with-imaevm} \
-    %{?with_fsverity: --with-fsverity} \
-    %{?with_zstd: --enable-zstd} \
-    %{?with_sqlite: --enable-sqlite} \
-    %{?with_bdb_ro: --enable-bdb-ro} \
-    --enable-python \
-    --with-crypto=%{crypto}
+mkdir _build
+cd _build
+cmake \
+      -DCMAKE_INSTALL_PREFIX=%{_usr} \
+      %{?with_bdb_ro:-DENABLE_BDB_RO=ON} \
+      %{!?with_ndb:-DENABLE_NDB=OFF} \
+      %{!?with_sqlite:-DENABLE_SQLITE=OFF} \
+      %{!?with_plugins:-DENABLE_PLUGINS=OFF} \
+      %{?with_fsverity:-DWITH_FSVERITY=ON} \
+      %{?with_libimaevm:-DWITH_IMAEVM=ON} \
+      %{!?with_libarchive:-DWITH_ARCHIVE=OFF} \
+      %{!?with_check:-DENABLE_TESTSUITE=OFF} \
+      %{!?with_sequoia:-DWITH_INTERNAL_OPENPGP=ON} \
+      %{!?with_sequoia:-DWITH_OPENSSL=ON } \
+      -DRPM_VENDOR=redhat \
+  ..
 
 %make_build
 
 %install
+cd _build
 %make_install
+
+# temporarily remove useser handling fileattr
+# as it is currently in systemd-rpm-macros
+rm $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/sysusers.attr
+
+# XXX dirty temporary hack to "bootstrap" new .so version
+ln -s librpmio.so.%{sover} $RPM_BUILD_ROOT/%{_libdir}/librpmio.so.%{oldsover}
+ln -s librpm.so.%{sover} $RPM_BUILD_ROOT/%{_libdir}/librpm.so.%{oldsover}
+
+cd ..
 
 mkdir -p $RPM_BUILD_ROOT%{_unitdir}
 install -m 644 %{SOURCE10} $RPM_BUILD_ROOT/%{_unitdir}
@@ -406,10 +430,12 @@ install -m 644 scripts/rpm.log ${RPM_BUILD_ROOT}%{_sysconfdir}/logrotate.d/rpm
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/rpm
 mkdir -p $RPM_BUILD_ROOT%{rpmhome}/macros.d
 mkdir -p $RPM_BUILD_ROOT/usr/lib/sysimage/rpm
+cd _build
 
 # init an empty database for %ghost'ing for all supported backends
 for be in %{?with_ndb:ndb} %{?with_sqlite:sqlite}; do
-    ./rpmdb --define "_db_backend ${be}" --dbpath=${PWD}/${be} --initdb
+    mkdir ${be}
+    ./rpmdb --rcfile rpmrc --define "_db_backend ${be}" --dbpath=${PWD}/${be} --initdb
     cp -va ${be}/. $RPM_BUILD_ROOT/usr/lib/sysimage/rpm/
 done
 
@@ -427,6 +453,7 @@ rm -rf $RPM_BUILD_ROOT/var/tmp
 
 %if %{with check}
 %check
+cd _build
 make check TESTSUITEFLAGS=-j%{_smp_build_ncpus} || (cat tests/rpmtests.log; exit 1)
 # rpm >= 4.16.0 testsuite leaves a read-only tree behind, clean it up
 make clean
@@ -457,9 +484,13 @@ if [ ! -d /var/lib/rpm ] && [ -d /usr/lib/sysimage/rpm ] && [ ! -f /usr/lib/sysi
     touch /usr/lib/sysimage/rpm/.rpmdbdirsymlink_created
 fi
 
-%files -f rpm.lang
+%files -f _build/rpm.lang
 %license COPYING
 %doc CREDITS docs/manual/[a-z]*
+%doc %{_defaultdocdir}/rpm/CONTRIBUTING.md
+%doc %{_defaultdocdir}/rpm/COPYING
+%doc %{_defaultdocdir}/rpm/INSTALL
+%doc %{_defaultdocdir}/rpm/README
 
 %{_unitdir}/rpmdb-rebuild.service
 %{_unitdir}/rpmdb-migrate.service
@@ -477,6 +508,7 @@ fi
 %{_bindir}/rpmkeys
 %{_bindir}/rpmquery
 %{_bindir}/rpmverify
+%{_bindir}/rpmsort
 
 %{_mandir}/man8/rpm.8*
 %{_mandir}/man8/rpmdb.8*
@@ -484,15 +516,8 @@ fi
 %{_mandir}/man8/rpm2archive.8*
 %{_mandir}/man8/rpm2cpio.8*
 %{_mandir}/man8/rpm-misc.8*
+%{_mandir}/man8/rpmsort.8*
 %{_mandir}/man8/rpm-plugins.8*
-
-# XXX this places translated manuals to wrong package wrt eg rpmbuild
-%lang(fr) %{_mandir}/fr/man[18]/*.[18]*
-%lang(ko) %{_mandir}/ko/man[18]/*.[18]*
-%lang(ja) %{_mandir}/ja/man[18]/*.[18]*
-%lang(pl) %{_mandir}/pl/man[18]/*.[18]*
-%lang(ru) %{_mandir}/ru/man[18]/*.[18]*
-%lang(sk) %{_mandir}/sk/man[18]/*.[18]*
 
 %attr(0755, root, root) %dir %{rpmhome}
 %{rpmhome}/macros
@@ -517,6 +542,8 @@ fi
 %{_libdir}/librpm.so.%{sover}
 %{_libdir}/librpmio.so.%{sover}.*
 %{_libdir}/librpm.so.%{sover}.*
+%{_libdir}/librpmio.so.%{oldsover}
+%{_libdir}/librpm.so.%{oldsover}
 %if %{with plugins}
 %dir %{_libdir}/rpm-plugins
 
@@ -532,9 +559,11 @@ fi
 %{_libdir}/rpm-plugins/systemd_inhibit.so
 %{_mandir}/man8/rpm-plugin-systemd-inhibit.8*
 
+%if %{with libimaevm}
 %files plugin-ima
 %{_libdir}/rpm-plugins/ima.so
 %{_mandir}/man8/rpm-plugin-ima.8*
+%endif
 
 %files plugin-fsverity
 %{_libdir}/rpm-plugins/fsverity.so
@@ -586,7 +615,6 @@ fi
 %{rpmhome}/*deps*
 %{rpmhome}/*.prov
 %{rpmhome}/*.req
-%{rpmhome}/mkinstalldirs
 %{rpmhome}/fileattrs/*
 %{rpmhome}/find-debuginfo.sh
 %{rpmhome}/rpmuncompress
@@ -615,9 +643,15 @@ fi
 
 %files apidocs
 %license COPYING
-%doc docs/librpm/html/*
+%doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Thu May 11 2023 Florian Festi <ffesti@redhat.com> - 4.18.90-2
+- Add compat links for building dnf and friends
+
+* Thu May 04 2023 Florian Festi <ffesti@redhat.com> - 4.18.90-1
+- Update to 4.19 alpha
+
 * Tue Apr 25 2023 Miro Hrončok <mhroncok@redhat.com> - 4.18.1-3
 - Explicitly require rpm-sequoia >= 1.4.0 on runtime to avoid
   rpm: symbol lookup error: /lib64/librpmio.so.9: undefined symbol: _pgpVerifySignature2

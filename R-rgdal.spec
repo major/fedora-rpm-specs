@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}.%{packrev}
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Bindings for the 'Geospatial' Data Abstraction Library
 
 License:          GPLv2+
@@ -110,6 +110,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --ignore-vignettes
 
 
 %changelog
+* Thu May 11 2023 Sandro Mani <manisandro@gmail.com> - 1.6.6-3
+- Rebuild (gdal)
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.6.6-2
 - R-maint-sig mass rebuild
 

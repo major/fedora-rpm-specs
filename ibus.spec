@@ -50,7 +50,7 @@
 
 Name:           ibus
 Version:        1.5.28
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.0-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -65,8 +65,8 @@ Patch1:         %{name}-1385349-segv-bus-proxy.patch
 # Use mutter window manager in RHEL CI
 Patch2:         %{name}-xx-desktop-testing-mutter.patch
 %endif
-# Half fix of #2178178
-Patch3:         %{name}-2178178-launch-emojier.patch
+# https://github.com/ibus/ibus/issues/2479
+Patch3:         %{name}-xx-cross-compile.patch
 
 # autoreconf requires autopoint but not po.m4
 BuildRequires:  gettext-devel
@@ -80,7 +80,6 @@ BuildRequires:  gtk3-devel
 %if %{with gtk4}
 BuildRequires:  gtk4-devel
 %endif
-BuildRequires:  dbus-glib-devel
 BuildRequires:  dbus-python-devel >= %{dbus_python_version}
 BuildRequires:  desktop-file-utils
 BuildRequires:  gtk-doc
@@ -560,6 +559,12 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Fri May 12 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.28-5
+- Fix cross compiling with gen-internal-compose-table
+
+* Wed May 10 2023 Tomas Popela <tpopela@redhat.com> - 1.5.28-5
+- Drop BR on dbus-glib as the project is using already GDBus
+
 * Tue May 02 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.28-4
 - Migrate some upstream patches
 

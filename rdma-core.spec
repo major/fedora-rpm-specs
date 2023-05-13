@@ -1,5 +1,5 @@
 Name: rdma-core
-Version: 44.0
+Version: 45.0
 Release: %autorelease
 Summary: RDMA core userspace libraries and daemons
 
@@ -10,10 +10,6 @@ Summary: RDMA core userspace libraries and daemons
 License: GPLv2 or BSD
 Url: https://github.com/linux-rdma/rdma-core
 Source: https://github.com/linux-rdma/rdma-core/releases/download/v%{version}/%{name}-%{version}.tar.gz
-# 0001-0003: https://github.com/linux-rdma/rdma-core/pull/1308
-Patch1: 0001-util-fix-overflow-in-remap_node_name.patch
-Patch2: 0002-infiniband-diags-drop-unnecessary-nodedesc-local-cop.patch
-Patch3: 0003-libibnetdisc-fix-printing-a-possibly-non-NUL-termina.patch
 Patch9998: 9998-kernel-boot-Do-not-perform-device-rename-on-OPA-devi.patch
 Patch9999: 9999-udev-keep-NAME_KERNEL-as-default-interface-naming-co.patch
 # Do not build static libs by default.
@@ -277,14 +273,11 @@ easy, object-oriented access to IB verbs.
 
 %prep
 %setup -q
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
 %if 0%{?fedora}
-%patch9998 -p1
+%patch 9998 -p1
 %endif
 %if 0%{?rhel}
-%patch9999 -p1
+%patch 9999 -p1
 %endif
 
 %build

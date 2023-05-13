@@ -4,7 +4,7 @@
 
 # https://github.com/mdlayher/socket
 %global goipath         github.com/mdlayher/socket
-Version:                0.2.3
+Version:                0.4.1
 
 %gometa -f
 

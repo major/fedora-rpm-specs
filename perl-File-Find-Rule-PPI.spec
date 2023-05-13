@@ -1,29 +1,26 @@
 Name:           perl-File-Find-Rule-PPI
-Version:        1.06
-Release:        29%{?dist}
+Version:        1.07
+Release:        1%{?dist}
 Summary:        Add support for PPI queries to File::Find::Rule
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-Find-Rule-PPI
-Source0:        https://cpan.metacpan.org/authors/id/A/AD/ADAMK/File-Find-Rule-PPI-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/modules/by-module/File/File-Find-Rule-PPI-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(File::Find::Rule) >= 0.20
 BuildRequires:  perl(File::Spec) >= 0.80
 BuildRequires:  perl(File::Spec::Functions)
-BuildRequires:  perl(inc::Module::Install::DSL) >= 1.00
-BuildRequires:  perl(Module::Install::Metadata)
 BuildRequires:  perl(Params::Util) >= 0.10
 BuildRequires:  perl(PPI) >= 1.000
 BuildRequires:  perl(PPI::Find)
 BuildRequires:  perl(strict)
-BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::More) >= 0.47
 BuildRequires:  perl(vars)
-BuildRequires:  sed
+BuildRequires:  perl(warnings)
 
 %description
 File::Find::Rule::PPI allows you to integrate PPI content queries into
@@ -31,31 +28,31 @@ your File::Find::Rule searches.
 
 %prep
 %setup -q -n File-Find-Rule-PPI-%{version}
-# Remove bundled libraries
-rm -r inc
-sed -i -e '/^inc\// d' MANIFEST
-
-%{__sed} -i  's|\r||' Changes
+perl -pi -e 's/\r//' Changes
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -delete
-find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
-chmod -R u+w $RPM_BUILD_ROOT/*
+%{make_install}
+%{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
 make test
 
 %files
-%doc Changes LICENSE README
+%license LICENSE
+%doc Changes README
 %{perl_vendorlib}/File/
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Thu May 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.07-1
+- 1.07 bump
+- Update license to SPDX format
+- Modernize and clean up spec file
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.06-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

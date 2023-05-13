@@ -1,10 +1,12 @@
 Summary: Experimental HTTP/2 client, server and proxy
 Name: nghttp2
-Version: 1.52.0
+Version: 1.53.0
 Release: 1%{?dist}
 License: MIT
 URL: https://nghttp2.org/
 Source0: https://github.com/tatsuhiro-t/nghttp2/releases/download/v%{version}/nghttp2-%{version}.tar.xz
+Source1: https://curl.se/download/%{name}-%{version}.tar.xz.asc
+Source2: tatsuhiro-t.pgp
 
 BuildRequires: CUnit-devel
 BuildRequires: c-ares-devel
@@ -16,6 +18,9 @@ BuildRequires: openssl-devel
 BuildRequires: python3-devel
 BuildRequires: systemd-rpm-macros
 BuildRequires: zlib-devel
+
+# For gpg verification of source tarball
+BuildRequires: gnupg2
 
 Requires: libnghttp2%{?_isa} = %{version}-%{release}
 %{?systemd_requires}
@@ -43,6 +48,7 @@ for building applications with libnghttp2.
 
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q
 
 # make fetch-ocsp-response use Python 3
@@ -114,6 +120,10 @@ export "LD_LIBRARY_PATH=$RPM_BUILD_ROOT%{_libdir}:$LD_LIBRARY_PATH"
 
 
 %changelog
+* Thu May 11 2023 Kamil Dudka <kdudka@redhat.com> 1.53.0-1
+- verify GPG signature of upstream tarball
+- update to the latest upstream release
+
 * Tue Feb 14 2023 Kamil Dudka <kdudka@redhat.com> 1.52.0-1
 - update to the latest upstream release
 

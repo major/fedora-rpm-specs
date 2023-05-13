@@ -5,7 +5,7 @@
 %global crate bumpalo
 
 Name:           rust-bumpalo
-Version:        3.12.1
+Version:        3.12.2
 Release:        %autorelease
 Summary:        Fast bump allocation arena for Rust
 

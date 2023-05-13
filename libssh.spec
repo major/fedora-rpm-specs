@@ -23,6 +23,7 @@ BuildRequires:  pam_wrapper
 BuildRequires:  socket_wrapper
 BuildRequires:  nss_wrapper
 BuildRequires:  uid_wrapper
+BuildRequires:  priv_wrapper
 BuildRequires:  openssh-clients
 BuildRequires:  openssh-server
 BuildRequires:  nmap-ncat
@@ -109,7 +110,8 @@ popd
 %check
 # Tests are randomly failing when run in parallel
 %global _smp_build_ncpus 1
-%ctest
+# the torture rekey tests with different than initial kex is now failing in rawhide because of OpenSSH bug #2203241
+%ctest -E torture_rekey
 
 %files
 %doc AUTHORS BSD CHANGELOG README

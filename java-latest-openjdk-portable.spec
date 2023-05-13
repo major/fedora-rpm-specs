@@ -391,7 +391,7 @@
 %global top_level_dir_name   %{origin}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        9
-%global rpmrelease      1
+%global rpmrelease      2
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -1627,6 +1627,9 @@ done
 %license %{unpacked_licenses}/%{jdkportablesourcesarchive -- %%{nil}}
 
 %changelog
+* Wed May 10 2023 Jiri Vanek <gnu.andrew@redhat.com> - 1:20.0.1.0.9-2.rolling
+- enabled all crypto
+
 * Wed Apr 26 2023 Andrew Hughes <gnu.andrew@redhat.com> - 1:20.0.1.0.9-1.rolling
 - Update to jdk-20.0.1+9
 - Update release notes to 20.0.1+9

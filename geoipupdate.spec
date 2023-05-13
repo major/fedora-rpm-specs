@@ -2,7 +2,7 @@
 
 # https://github.com/maxmind/geoipupdate
 %global goipath	github.com/maxmind/geoipupdate
-Version:	5.0.4
+Version:	5.1.1
 
 %gometa
 
@@ -105,6 +105,14 @@ install -p -m 0644 _build/GeoIP.conf.5 %{buildroot}%{_mandir}/man5/GeoIP.conf.5
 %config(noreplace) %{_sysconfdir}/cron.weekly/geoipupdate
 
 %changelog
+* Thu May 11 2023 Paul Howarth <paul@city-fan.org> - 5.1.1-1
+- Update to 5.1.1
+  - Fixed the Docker health-check script to use the correct time of the last
+    update attempt (GH#225)
+  - Added new '--output' flag to print JSON to standard output describing the
+    result of the run
+  - Compilation with Go versions before 1.19 is no longer supported
+
 * Wed Apr 19 2023 Paul Howarth <paul@city-fan.org> - 5.0.4-1
 - Update to 5.0.4
   - The 5.0.0 release mistakenly set the file permissions on downloaded

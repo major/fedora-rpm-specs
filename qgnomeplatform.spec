@@ -1,6 +1,6 @@
 Name:           qgnomeplatform
-Version:        0.9.0
-Release:        13%{?dist}
+Version:        0.9.1
+Release:        1%{?dist}
 Summary:        Qt Platform Theme aimed to accommodate Gnome settings
 
 License:        LGPL-2.0-or-later
@@ -8,11 +8,6 @@ URL:            https://github.com/FedoraQt/QGnomePlatform
 Source0:        https://github.com/FedoraQt/QGnomePlatform/archive/%{version}/QGnomePlatform-%{version}.tar.gz
 
 # Upstream patches
-Patch0:         qgnomeplatform-fix-window-content-geometry-for-qt5-when-shadows-are-enabled.patch
-Patch1:         qgnomeplatform-add-support-for-kcolorscheme-using-adwaita-like-color-schemes.patch
-Patch3:         qgnomeplatform-fix-qt6-build.patch
-
-Patch50:        qgnomeplatform-use-more-updated-window-states-value.patch
 
 BuildRequires:  make
 BuildRequires:  pkgconfig(gio-2.0)
@@ -32,6 +27,7 @@ modifying them - making them fit into the environment as well as possible.
 Summary:        Qt5 Platform Theme aimed to accommodate Gnome settings
 BuildRequires:  qt5-qtbase-devel >= 5.15.2
 BuildRequires:  qt5-qtbase-static >= 5.15.2
+BuildRequires:  qt5-qtquickcontrols2-devel >= 5.15.2
 BuildRequires:  qt5-qtwayland-devel >= 5.15.2
 BuildRequires:  qt5-qtbase-private-devel >= 5.15.2
 %{?_qt5:Requires: %{_qt5}%{?_isa} = %{_qt5_version}}
@@ -58,6 +54,7 @@ modifying them - making them fit into the environment as well as possible.
 Summary:        Qt6 Platform Theme aimed to accommodate Gnome settings
 BuildRequires:  qt6-qtbase-devel >= 6.2.0
 BuildRequires:  qt6-qtbase-static >= 6.2.0
+BuildRequires:  qt6-qtquickcontrols2-devel >= 6.2.0
 BuildRequires:  qt6-qtwayland-devel >= 6.2.0
 BuildRequires:  qt6-qtbase-private-devel >= 6.2.0
 
@@ -109,6 +106,9 @@ modifying them - making them fit into the environment as well as possible.
 %{_qt6_plugindir}/wayland-decoration-client/libqgnomeplatformdecoration.so
 
 %changelog
+* Thu May 11 2023 Jan Grulich <jgrulich@redhat.com> - 0.9.1-1
+- 0.9.1
+
 * Wed Apr 12 2023 Jan Grulich <jgrulich@redhat.com> - 0.9.0-13
 - Rebuild (qt5)
 

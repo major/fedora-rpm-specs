@@ -1,7 +1,7 @@
 %{!?javabuild:%global javabuild 0}
 %{!?utils:%global utils 1}
 %{!?gcj_support:%global gcj_support 0}
-%{!?upgrade:%global upgrade 1}
+%{!?upgrade:%global upgrade 0}
 %{!?runselftest:%global runselftest 1}
 
 %global        majorversion 3.3
@@ -15,7 +15,7 @@
 
 Name:          postgis
 Version:       3.3.2
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       Geographic Information Systems Extensions to PostgreSQL
 License:       GPLv2+
 
@@ -409,6 +409,9 @@ fi
 
 
 %changelog
+* Thu May 11 2023 Sandro Mani <manisandro@gmail.com> - 3.3.2-5
+- Rebuild (gdal)
+
 * Sun Apr 09 2023 Florian Weimer <fweimer@redhat.com> - 3.3.2-4
 - C99 compatibility fixes
 

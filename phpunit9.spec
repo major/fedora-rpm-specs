@@ -11,7 +11,7 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    c993f0d3b0489ffc42ee2fe0bd645af1538a63b2
+%global gh_commit    17d621b3aff84d0c8b62539e269e87d8d5baa76e
 #global gh_date      20150927
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
@@ -25,7 +25,7 @@
 %global ver_major    9
 %global ver_minor    6
 
-%global upstream_version 9.6.7
+%global upstream_version 9.6.8
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -160,7 +160,7 @@ Documentation: https://phpunit.readthedocs.io/
 
 %prep
 %setup -q -n %{gh_project}-%{gh_commit}
-%patch0 -p0 -b .rpm
+%patch -P0 -p0 -b .rpm
 
 find . -name \*.rpm -delete -print
 
@@ -254,6 +254,9 @@ exit $ret
 
 
 %changelog
+* Thu May 11 2023 Remi Collet <remi@remirepo.net> - 9.6.8-1
+- update to 9.6.8
+
 * Fri Apr 14 2023 Remi Collet <remi@remirepo.net> - 9.6.7-1
 - update to 9.6.7
 

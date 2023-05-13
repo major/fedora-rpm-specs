@@ -24,7 +24,7 @@
 
 Name:           %{upstream_name}%{?v2_suffix}
 Version:        2.15.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Module metadata manipulation library
 
 # COPYING:      MIT
@@ -181,6 +181,12 @@ mv %{buildroot}%{_mandir}/man1/modulemd-validator.1 \
 
 
 %changelog
+* Wed May 10 2023 Florian Festi <ffesti@redhat.com>  - 2.15.0-3
+- Rebuild for rpm-4.18.90
+
+* Wed May 10 2023 Petr Pisar <ppisar@redhat.com> - 2.15.0-2
+- Adapt STI tests to current meson
+
 * Wed May 10 2023 Petr Pisar <ppisar@redhat.com> - 2.15.0-1
 - 2.15.0 bump
 

@@ -7,11 +7,11 @@
 
 Name:		perl-Ref-Util-XS
 Version:	0.117
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	Utility functions for checking references
 License:	MIT
 URL:		https://metacpan.org/release/Ref-Util-XS
-Source0:	https://cpan.metacpan.org/authors/id/X/XS/XSAWYERX/Ref-Util-XS-%{version}.tar.gz
+Source0:	https://cpan.metacpan.org/modules/by-module/Ref/Ref-Util-XS-%{version}.tar.gz
 # Build
 BuildRequires:	coreutils
 BuildRequires:	findutils
@@ -36,7 +36,8 @@ BuildRequires:	perl(B::Concise)
 BuildRequires:	perl(CPAN::Meta) >= 2.120900
 BuildRequires:	perl(Readonly)
 %endif
-# Runtime
+# Dependencies
+# (none)
 
 # Avoid provides for private objects
 %{?perl_default_filter}
@@ -69,6 +70,10 @@ make test
 %{_mandir}/man3/Ref::Util::XS.3*
 
 %changelog
+* Thu May 11 2023 Paul Howarth <paul@city-fan.org> - 0.117-18
+- SPDX migration
+- Use author-independent source URL
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.117-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

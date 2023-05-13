@@ -2,7 +2,7 @@ Name:           perl-Role-Tiny
 Version:        2.002004
 Release:        8%{?dist}
 Summary:        A nouvelle cuisine portion size slice of Moose
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Role-Tiny
 Source0:        https://cpan.metacpan.org/authors/id/H/HA/HAARG/Role-Tiny-%{version}.tar.gz
 BuildArch:      noarch
@@ -29,9 +29,6 @@ BuildRequires:  perl(Test::More) >= 0.88
 Requires:       perl(Carp)
 Requires:       perl(Class::Method::Modifiers) >= 1.05
 Requires:       perl(mro)
-
-# perl-Role-Tiny was split from perl-Moo
-Conflicts:      perl-Moo < 0.009014
 
 %description
 Role::Tiny is a minimalist role composition tool.

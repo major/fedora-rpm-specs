@@ -4,7 +4,7 @@
 
 Name:               python-boxsdk
 Version:            3.7.1
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Python wrapper for the Box API
 
 
@@ -12,6 +12,8 @@ License:            Apache-2.0
 URL:                https://github.com/box/box-python-sdk
 Source0:            %{url}/archive/v%{version}/%{modname}-%{version}.tar.gz
 BuildArch:          noarch
+
+Patch0:             unpin.patch
 
 %description
 %{summary}.
@@ -46,7 +48,7 @@ BuildRequires:      python%{python3_pkgversion}-jwt
 Python %{python3_version} version.
 
 %prep
-%autosetup -n box-python-sdk-%{version}
+%autosetup -n box-python-sdk-%{version} -p0
 
 %build
 %py3_build
@@ -66,6 +68,9 @@ pytest-3
 %{python3_sitelib}/%{modname}-*.egg-info/
 
 %changelog
+* Thu May 11 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.7.1-2
+- Unpin python-requests-toolbelt.
+
 * Tue Apr 18 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.7.1-1
 - 3.7.1
 

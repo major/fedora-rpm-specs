@@ -5,7 +5,7 @@
 %global crate predicates
 
 Name:           rust-predicates
-Version:        3.0.2
+Version:        3.0.3
 Release:        %autorelease
 Summary:        Implementation of boolean-valued predicate functions
 

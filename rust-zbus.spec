@@ -6,7 +6,7 @@
 %global crate zbus
 
 Name:           rust-zbus
-Version:        3.10.0
+Version:        3.12.0
 Release:        %autorelease
 Summary:        API for D-Bus communication
 
@@ -16,7 +16,6 @@ Source:         %{crates_source}
 # Automatically generated patch to strip foreign dependencies
 Patch:          zbus-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * bump nix dependency from 0.25 to 0.26
 # * drop unstable-only tracing feature from tokio
 # * remove features and dependencies for unused vsock support
 # * remove Windows-only windows-gdbus feature
@@ -65,6 +64,18 @@ This package contains library source intended for building other packages which
 use the "async-executor" feature of the "%{crate}" crate.
 
 %files       -n %{name}+async-executor-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+async-fs-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+async-fs-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "async-fs" feature of the "%{crate}" crate.
+
+%files       -n %{name}+async-fs-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+async-io-devel
@@ -125,18 +136,6 @@ This package contains library source intended for building other packages which
 use the "gvariant" feature of the "%{crate}" crate.
 
 %files       -n %{name}+gvariant-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+lazy_static-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+lazy_static-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "lazy_static" feature of the "%{crate}" crate.
-
-%files       -n %{name}+lazy_static-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+quick-xml-devel

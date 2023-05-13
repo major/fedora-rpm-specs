@@ -9,7 +9,7 @@
 
 Name:           ncl
 Version:        6.6.2
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        NCAR Command Language and NCAR Graphics
 
 License:        BSD
@@ -360,6 +360,9 @@ done
 
 
 %changelog
+* Thu May 11 2023 Sandro Mani <manisandro@gmail.com> - 6.6.2-35
+- Rebuild (gdal)
+
 * Thu Mar 30 2023 Orion Poplawski <orion@nwra.com> - 6.6.2-34
 - Drop i686 builds
 

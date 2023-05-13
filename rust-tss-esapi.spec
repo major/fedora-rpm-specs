@@ -7,7 +7,7 @@
 
 Name:           rust-tss-esapi
 Version:        7.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Rust-native wrapper around TSS 2.0 Enhanced System API
 
 License:        Apache-2.0
@@ -85,6 +85,9 @@ echo 'pkgconfig(tss2-tctildr) >= 4.0.0'
 %endif
 
 %changelog
+* Thu May 11 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 7.2.0-2
+- Rebuild for tss-esapi-sys bindings regen
+
 * Tue Feb 07 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 7.2.0-1
 - Update to 7.2.0
 

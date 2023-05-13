@@ -12,6 +12,9 @@ URL:            https://wiki.gnome.org/Projects/GnomeFlashback
 Source0:        https://download.gnome.org/sources/%{name}/3.46/%{name}-%{version}.tar.xz
 Source1:        %{name}.pamd
 
+# https://gitlab.gnome.org/GNOME/gnome-flashback/-/merge_requests/48
+Patch0:         0001-gnome-bluetooth-optional.patch
+
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  gettext-devel
@@ -23,7 +26,9 @@ BuildRequires:  systemd-rpm-macros
 BuildRequires:  pkgconfig(gdk-pixbuf-2.0) >= 2.32.2
 BuildRequires:  pkgconfig(gdm)
 BuildRequires:  pkgconfig(glib-2.0) >= 2.67.3
+%ifnarch s390x
 BuildRequires:  pkgconfig(gnome-bluetooth-3.0)
+%endif
 BuildRequires:  pkgconfig(gnome-desktop-3.0) >= 43
 BuildRequires:  pkgconfig(gsettings-desktop-schemas) >= 3.31.0
 BuildRequires:  pkgconfig(gtk+-3.0) >= 3.22.0
@@ -78,7 +83,8 @@ has been made and most importantly many open bugs have been fixed.
 
 
 %prep
-%autosetup
+%autosetup -p1
+NOCONFIGURE=1 gnome-autogen.sh
 
 
 %build

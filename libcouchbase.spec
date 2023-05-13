@@ -1,7 +1,7 @@
 Summary: Client and protocol library for the Couchbase project
 Name: libcouchbase
-Version: 3.3.6
-Release: 1%{?dist}
+Version: 3.3.7
+Release: 2%{?dist}
 License: ASL 2.0
 BuildRequires: gcc, gcc-c++
 BuildRequires: cmake >= 3.5.1
@@ -9,7 +9,7 @@ BuildRequires: pkgconfig(libevent) >= 2
 BuildRequires: pkgconfig(libuv) >= 1
 BuildRequires: libev-devel >= 3
 BuildRequires: openssl-devel
-%ifnarch aarch64
+%ifnarch aarch64 ppc64le
 BuildRequires: systemtap-sdt-devel, systemtap-devel
 %endif
 BuildRequires: make
@@ -87,7 +87,7 @@ export CTEST_OUTPUT_ON_FAILURE=1
 %doc README.markdown RELEASE_NOTES.markdown
 %license LICENSE
 %dir %{_libdir}/%{name}
-%ifnarch aarch64
+%ifnarch aarch64 ppc64le
 %{_datadir}/systemtap/tapset/libcouchbase.so*
 %endif
 
@@ -111,6 +111,12 @@ export CTEST_OUTPUT_ON_FAILURE=1
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu May 11 2023 Sergey Avseyev <sergey.avseyev@gmail.com> - 3.3.7-2
+- Fix systemtap exception for ppc64le
+
+* Thu May 11 2023 Sergey Avseyev <sergey.avseyev@gmail.com> - 3.3.7-1
+- Update to 3.3.7
+
 * Wed Apr 26 2023 Sergey Avseyev <sergey.avseyev@gmail.com> - 3.3.6-1
 - Update to 3.3.6
 

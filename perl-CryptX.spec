@@ -4,17 +4,16 @@
 %bcond_without perl_CryptX_enables_optional_test
 
 Name:           perl-CryptX
-Version:        0.076
-Release:        5%{?dist}
+Version:        0.078
+Release:        1%{?dist}
 Summary:        Cryptographic toolkit
 # src/ltc/*:    Unlicense
 # src/ltm/*:    Unlicense
-# Other files:  GPL+ or Artistic
-License:        (GPL+ or Artistic) and Unlicense
+# Other files:  GPL-1.0-or-later OR Artistic-1.0-Perl
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Unlicense
 URL:            https://metacpan.org/release/CryptX
 Source0:        https://cpan.metacpan.org/authors/id/M/MI/MIK/CryptX-%{version}.tar.gz
-# Upstream issue: https://github.com/DCIT/perl-CryptX/issues/82
-Patch0:         0001-fix-82-issues-in-tests-by-Math-BigInt-1.999831.patch
+
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -85,8 +84,6 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n CryptX-%{version}
-# Fix issues with new Math::BigInt
-%patch0 -p1
 # Fix permissions
 chmod -x t/data/openssl_rsa-x509.pem
 # Remove unsed tests
@@ -155,6 +152,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu May 11 2023 Xavier Bachelot <xavier@bachelot.org> - 0.078-1
+- Update to 0.076 (RHBZ#2120043)
+- Convert license to SPDX
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.076-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

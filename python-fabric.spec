@@ -3,7 +3,9 @@
 # https://github.com/bitprophet/pytest-relaxed/issues/12 is resolved:
 %bcond_with     tests
 
-Name:           python-fabric
+%global         srcname     fabric
+
+Name:           python-%{srcname}
 Version:        3.0.1
 Release:        %autorelease
 Summary:        High level SSH command execution
@@ -40,14 +42,14 @@ another and provide additional functionality.}
 %description %{_description}
 
 
-%package -n python3-fabric
+%package -n python3-%{srcname}
 Summary:        %{summary}
 
-%description -n python3-fabric %{_description}
+%description -n python3-%{srcname} %{_description}
 
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{srcname}-%{version}
 
 # Allow a slightly older invoke version.
 sed -i 's/invoke>=2.0/invoke>=1.7/' setup.py
@@ -62,7 +64,7 @@ sed -i 's/invoke>=2.0/invoke>=1.7/' setup.py
 
 %install
 %pyproject_install
-%pyproject_save_files fabric
+%pyproject_save_files %{srcname}
 
 
 %check
@@ -71,7 +73,7 @@ sed -i 's/invoke>=2.0/invoke>=1.7/' setup.py
 %endif
 
 
-%files -n python3-fabric -f %{pyproject_files}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
 %doc README.rst
 %{_bindir}/fab

@@ -1,10 +1,10 @@
-%global DATE 20230426
-%global gitrev 99aa4c60d1f6a96b09f65b669d44bbab206f0a75
+%global DATE 20230511
+%global gitrev 55ca611b161ce96d568ea82ff0e6ea395dc76957
 %global gcc_version 13.1.1
 %global gcc_major 13
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
-%global gcc_release 1
+%global gcc_release 2
 %global nvptx_tools_gitrev 93e00909ceb9cbbc104f0fcba56c0361ffb3ca4b
 %global newlib_cygwin_gitrev 9e09d6ed83cce4777a5950412647ccc603040409
 %global _unpackaged_files_terminate_build 0
@@ -3459,6 +3459,16 @@ end
 %endif
 
 %changelog
+* Thu May 11 2023 Jakub Jelinek <jakub@redhat.com> 13.1.1-2
+- update from releases/gcc-13 branch
+  - PRs c++/91618, c++/96604, c++/109506, c++/109640, c++/109642, c++/109666,
+	c++/109671, c++/109756, c/107682, c/109409, c/109412, debug/109676,
+	fortran/109622, libffi/109447, libgomp/108098, libstdc++/40380,
+	libstdc++/109694, libstdc++/109703, rtl-optimization/109585,
+	target/108758, target/109069, target/109535, target/109661,
+	target/109762, tree-optimization/109573, tree-optimization/109609,
+	tree-optimization/109724, tree-optimization/109778
+
 * Wed Apr 26 2023 Jakub Jelinek <jakub@redhat.com> 13.1.1-1
 - update from releases/gcc-13 branch
   - GCC 13.1 release

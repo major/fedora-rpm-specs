@@ -2,8 +2,8 @@
 
 
 Name:           python-%{pkg_name}
-Version:        4.1.5
-Release:        3%{?dist}
+Version:        5.1.2
+Release:        1%{?dist}
 Summary:        Simple security for Flask apps
 License:        MIT
 
@@ -12,8 +12,13 @@ URL:            https://github.com/Flask-Middleware/flask-security
 Source0:        %{pypi_source Flask-Security-Too}
 # Drop missing test deps
 Patch0:         python-flask-security-too_testdeps.patch
+# Remove dependence on pkg_resources
+Patch1:         https://github.com/Flask-Middleware/flask-security/commit/4f5eefdcc583176dd1c8e98636f047062ba7ac08.patch
+# Use phonenumbers instead of phonenumberslite
+Patch2:         python-flask-security-too_phonenumbers.patch
 
 BuildRequires:  python3-devel
+# Explicit BR since
 
 %description
 Flask-Security quickly adds security features to your Flask application.
@@ -22,24 +27,22 @@ Flask-Security quickly adds security features to your Flask application.
 %package -n python3-%{pkg_name}
 Summary:        Simple security for Flask apps
 
-# flask_security/utils.py imports pkg_resources
-# Upstream PR: https://github.com/Flask-Middleware/flask-security/pull/763
-Requires:       python%{python3_version}dist(setuptools)
-
 %description -n python3-%{pkg_name}
 Flask-Security quickly adds security features to your Flask application.
 
-# Skipping mfa extra, pyqrcode and phonenumberslite are not packaged
+# Skip mfa extra, webauthn is not packaged
 %pyproject_extras_subpkg -n python3-%{pkg_name} babel fsqla common
 
 
 %prep
 %autosetup -p1 -n Flask-Security-Too-%{version}
-# Disable tests for unavailable test dependencies
-sed -r -i '/\b(two_factor|unified_signin)\b/d' tests/conftest.py
+
+# Remove bundled egg-info
+rm -rf Flask_Security_Too.egg-info
+
 
 %generate_buildrequires
-# Skipping mfa extra, pyqrcode and phonenumberslite are not packaged
+# Skip mfa extra, webauthn is not packaged
 %pyproject_buildrequires -x babel,fsqla,common -r requirements/tests.txt
 
 
@@ -51,29 +54,35 @@ sed -r -i '/\b(two_factor|unified_signin)\b/d' tests/conftest.py
 %pyproject_install
 %pyproject_save_files flask_security
 
-# Work around neither %%pyproject_save_files nor %%find_lang supporting
-# language files that are not in a directory named “locale”:
-sed -r '/\/translations\/.*\.mo/d' '%{pyproject_files}'
-cp -rp '%{buildroot}/%{python3_sitelib}/flask_security/translations' \
-    '%{buildroot}/%{python3_sitelib}/flask_security/locale'
-find '%{buildroot}/%{python3_sitelib}/flask_security/locale' \
-    -type f ! -name '*.mo' -delete
-%find_lang flask_security
-rm -rf '%{buildroot}/%{python3_sitelib}/flask_security/locale'
-sed -r -i 's@/locale/@/translations/@' flask_security.lang
-
 
 %check
-# Disable tests for unavailable test dependencies
-%pytest -m 'not two_factor and not unified_signin'
+%pytest
 
 
-%files -n python3-%{pkg_name} -f %{pyproject_files} -f flask_security.lang
+%files -n python3-%{pkg_name} -f %{pyproject_files}
 %license LICENSE
 %doc README.rst AUTHORS
 
 
 %changelog
+* Mon May 01 2023 Sandro Mani <manisandro@gmail.com> - 5.1.2-1
+- Update to 5.1.2
+
+* Sat Mar 04 2023 Sandro Mani <manisandro@gmail.com> - 5.1.1-1
+- Update to 5.1.1
+
+* Tue Jan 24 2023 Sandro Mani <manisandro@gmail.com> - 5.1.0-1
+- Update to 5.1.0
+
+* Tue Jan 03 2023 Sandro Mani <manisandro@gmail.com> - 5.0.2-1
+- Update to 5.0.2
+
+* Tue Sep 13 2022 Sandro Mani <manisandro@gmail.com> - 5.0.1-1
+- Update to 5.0.1
+
+* Tue Aug 30 2022 Sandro Mani <manisandro@gmail.com> - 5.0.0-1
+- Update to 5.0.0
+
 * Wed Mar 01 2023 Miro Hrončok <mhroncok@redhat.com> - 4.1.5-3
 - Declare a runtime dependency on setuptools (for pkg_resources)
 

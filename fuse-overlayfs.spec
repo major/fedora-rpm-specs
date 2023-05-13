@@ -1,6 +1,6 @@
 %global git0 https://github.com/containers/%{name}
 
-%global built_tag v1.11
+%global built_tag v1.12
 %global built_tag_strip %(b=%{built_tag}; echo ${b:1})
 %global gen_version %(b=%{built_tag_strip}; echo ${b/-/"~"})
 

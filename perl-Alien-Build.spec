@@ -7,7 +7,7 @@
 %endif
 
 Name:           perl-Alien-Build
-Version:        2.78
+Version:        2.79
 Release:        1%{?dist}
 Summary:        Build external dependencies for use in CPAN
 # lib/Alien/Build/Plugin/Test/Mock.pm contains Base64-encoded files for tests
@@ -292,13 +292,13 @@ with "%{_libexecdir}/%{name}/test".
 # Remove redundant pkgconfig implementations, keep
 # Alien::Build::Plugin::PkgConfig::LibPkgConf,
 # MANIFEST is updated by Remove-redundant-pkgconfig-implementations.patch.
-%patch0 -p1
+%patch -p1 -P 0
 rm lib/Alien/Build/Plugin/PkgConfig/{CommandLine,PP}.pm 
 rm t/alien_build_plugin_pkgconfig_{commandline,pp}.t
 # Remove redundant SHA digest imlementations, keep
 # Alien::Build::Plugin::Digest::SHA, MANIFEST is updated by
 # Alien-Build-2.59-Remove-redundant-SHA-implementations.patch.
-%patch1 -p1
+%patch -p1 -P 1
 rm lib/Alien/Build/Plugin/Digest/SHAPP.pm
 rm t/alien_build_plugin_digest_shapp.t
 # Remove unused tests
@@ -391,20 +391,29 @@ make test
 %files
 %doc Changes.Alien-Base-Wrapper Changes.Test-Alien
 %doc example
-%{perl_vendorlib}/*
-%exclude %dir %{perl_vendorlib}/Alien
-%exclude %{perl_vendorlib}/Alien/Base.pm
-%exclude %dir %{perl_vendorlib}/Alien/Base
-%exclude %{perl_vendorlib}/Alien/Base/PkgConfig.pm
+%{perl_vendorlib}/Alien/Base/Authoring.pod
+%{perl_vendorlib}/Alien/Base/FAQ.pod
+%{perl_vendorlib}/Alien/Base/Wrapper.pm
+%{perl_vendorlib}/Alien/Build.pm
+%{perl_vendorlib}/Alien/Build
 %exclude %{perl_vendorlib}/Alien/Build/Plugin/Decode/HTML.pm
 %exclude %{perl_vendorlib}/Alien/Build/Plugin/Decode/Mojo.pm
-%exclude %{perl_vendorlib}/Alien/Util.pm
-%{_mandir}/man3/*
-%exclude %{_mandir}/man3/Alien::Base.3pm.*
-%exclude %{_mandir}/man3/Alien::Base::PkgConfig.3pm.*
+%{perl_vendorlib}/Alien/Role.pm
+%{perl_vendorlib}/alienfile.pm
+%dir %{perl_vendorlib}/Test
+%{perl_vendorlib}/Test/Alien
+%{perl_vendorlib}/Test/Alien.pm
+%{_mandir}/man3/Alien::Base::Authoring.*
+%{_mandir}/man3/Alien::Base::FAQ.*
+%{_mandir}/man3/Alien::Base::Wrapper.*
+%{_mandir}/man3/Alien::Build.*
+%{_mandir}/man3/Alien::Build::*
 %exclude %{_mandir}/man3/Alien::Build::Plugin::Decode::HTML.3pm.*
 %exclude %{_mandir}/man3/Alien::Build::Plugin::Decode::Mojo.3pm.*
-%exclude %{_mandir}/man3/Alien::Util.3pm.*
+%{_mandir}/man3/Alien::Role.*
+%{_mandir}/man3/alienfile.*
+%{_mandir}/man3/Test::Alien.*
+%{_mandir}/man3/Test::Alien::*
 
 %files -n perl-Alien-Base
 %license LICENSE
@@ -432,6 +441,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu May 11 2023 Petr Pisar <ppisar@redhat.com> - 2.79-1
+- 2.79 bump
+
 * Wed Mar 08 2023 Petr Pisar <ppisar@redhat.com> - 2.78-1
 - 2.78 bump
 

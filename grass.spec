@@ -3,7 +3,7 @@
 
 Name:		grass
 Version:	8.2.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	GRASS GIS - Geographic Resources Analysis Support System
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
@@ -368,6 +368,9 @@ fi
 %{_libdir}/%{name}%{shortver}/include
 
 %changelog
+* Thu May 11 2023 Sandro Mani <manisandro@gmail.com> - 8.2.1-2
+- Rebuild (gdal)
+
 * Sat Jan 21 2023 Markus Neteler <neteler@mundialis.de> 8.2.1-1
 - New upstream version GRASS GIS 8.2.1
 

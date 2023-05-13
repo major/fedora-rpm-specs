@@ -2,7 +2,7 @@ Name:           perl-Perl6-Caller
 Version:        0.100
 Release:        28%{?dist}
 Summary:        OO caller() interface
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Perl6-Caller
 Source0:        https://cpan.metacpan.org/modules/by-module/Perl6/Perl6-Caller-%{version}.tar.gz
 BuildArch:      noarch
@@ -22,6 +22,7 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod) >= 1.14
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
 # Dependencies
+# (none)
 
 %description
 By default, this module exports the caller function. This automatically

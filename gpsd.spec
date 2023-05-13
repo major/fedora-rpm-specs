@@ -1,15 +1,13 @@
-%global _hardened_build 1
-
 %global with_qt 1
 
 Name:           gpsd
 Version:        3.25
-Release:        3%{?dist}
+Release:        4%{?dist}
 Epoch:          1
 Summary:        Service daemon for mediating access to a GPS
 
 License:        BSD-2-Clause
-URL:            http://catb.org/gpsd/
+URL:            https://gpsd.gitlab.io/gpsd/index.html
 Source0:        https://download-mirror.savannah.gnu.org/releases/gpsd/%{name}-%{version}.tar.gz
 Source11:       gpsd.sysconfig
 
@@ -19,19 +17,19 @@ Patch1:         gpsd-apistatus.patch
 BuildRequires:  dbus-devel            
 BuildRequires:  dbus-glib-devel            
 BuildRequires:  ncurses-devel            
-BuildRequires:  xmlto            
-BuildRequires:  python3-devel            
+BuildRequires:  xmlto
+BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
-BuildRequires:  gtk3-devel            
-BuildRequires:  python3-scons            
-BuildRequires:  python3-gobject            
-BuildRequires:  python3-cairo            
-BuildRequires:  python3-pyserial            
-BuildRequires:  desktop-file-utils            
-BuildRequires:  bluez-libs-devel            
-BuildRequires:  pps-tools-devel            
-BuildRequires:  /usr/bin/c++            
-BuildRequires:  systemd            
+BuildRequires:  gtk3-devel
+BuildRequires:  python3-scons
+BuildRequires:  python3-gobject
+BuildRequires:  python3-cairo
+BuildRequires:  python3-pyserial
+BuildRequires:  desktop-file-utils
+BuildRequires:  bluez-libs-devel
+BuildRequires:  pps-tools-devel
+BuildRequires:  /usr/bin/c++
+BuildRequires:  systemd
 %if %{with_qt}
 BuildRequires:  qt-devel
 %endif
@@ -39,8 +37,8 @@ BuildRequires:  qt-devel
 BuildRequires:  libusb1-devel
 %endif
 
-Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
-Requires:        udev
+Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
+Requires:       udev
 %{?systemd_requires}
 
 %description 
@@ -107,43 +105,47 @@ This package contains various clients using gpsd.
 
 %prep
 %setup -q
-%patch1 -p1 -b .apistatus
+%patch -P 1 -p1 -b .apistatus
 
 # don't try reloading systemd when installing in the build root
 sed -i 's|systemctl daemon-reload|true|' SConscript
 
+iconv -f iso8859-1 -t utf8 NEWS > NEWS_ && mv NEWS_ NEWS
+
 %build
 export CCFLAGS="%{optflags}"
+# scons ignores LDFLAGS. LINKFLAGS partially work (some flags like
+# -spec=... are filtered)
 export LINKFLAGS="%{__global_ldflags}"
 
-# breaks with %{_smp_mflags}
+# breaks with %%{_smp_mflags}
 scons \
-	dbus_export=yes \
-	systemd=yes \
-	%if %{with_qt}
-	libQgpsmm=yes \
-	%else
-	libQgpsmm=no \
-	%endif
-	debug=yes \
-	leapfetch=no \
-	prefix="" \
-	sysconfdif=%{_sysconfdir} \
-	bindir=%{_bindir} \
-	includedir=%{_includedir} \
-	libdir=%{_libdir} \
-	sbindir=%{_sbindir} \
-	mandir=%{_mandir} \
-	mibdir=%{_docdir}/gpsd \
-	docdir=%{_docdir}/gpsd \
-	pkgconfigdir=%{_libdir}/pkgconfig \
-	icondir=%{_datadir}/gpsd \
-	udevdir=$(dirname %{_udevrulesdir}) \
-	unitdir=%{_unitdir} \
-	target_python=python3 \
-	python_shebang=%{python3} \
-	python_libdir=%{python3_sitearch} \
-	build
+    dbus_export=yes \
+    systemd=yes \
+%if %{with_qt}
+    libQgpsmm=yes \
+%else
+    libQgpsmm=no \
+%endif
+    debug=yes \
+    leapfetch=no \
+    prefix="" \
+    sysconfdif=%{_sysconfdir} \
+    bindir=%{_bindir} \
+    includedir=%{_includedir} \
+    libdir=%{_libdir} \
+    sbindir=%{_sbindir} \
+    mandir=%{_mandir} \
+    mibdir=%{_docdir}/gpsd \
+    docdir=%{_docdir}/gpsd \
+    pkgconfigdir=%{_libdir}/pkgconfig \
+    icondir=%{_datadir}/gpsd \
+    udevdir=$(dirname %{_udevrulesdir}) \
+    unitdir=%{_unitdir} \
+    target_python=python3 \
+    python_shebang=%{python3} \
+    python_libdir=%{python3_sitearch} \
+    build
 
 %install
 # avoid rebuilding
@@ -155,8 +157,8 @@ DESTDIR=%{buildroot} scons install systemd_install udev-install
 # use the old name for udev rules
 mv %{buildroot}%{_udevrulesdir}/{25,99}-gpsd.rules
 
-%{__install} -d -m 0755 %{buildroot}%{_sysconfdir}/sysconfig
-%{__install} -p -m 0644 %{SOURCE11} \
+install -d -m 0755 %{buildroot}%{_sysconfdir}/sysconfig
+install -p -m 0644 %{SOURCE11} \
     %{buildroot}%{_sysconfdir}/sysconfig/gpsd
 
 # Install the .desktop files
@@ -168,12 +170,18 @@ desktop-file-install \
     packaging/X11/xgpsspeed.desktop
 
 # Missed in scons install 
-%{__install} -p -m 0755 gpsinit %{buildroot}%{_sbindir}
+install -p -m 0755 gpsinit %{buildroot}%{_sbindir}
+
+# Remove shebang and fix permissions
+sed -i '/^#!.*python/d' %{buildroot}%{python3_sitearch}/gps/{aio,}gps.py
+chmod 644 %{buildroot}%{python3_sitearch}/gps/gps.py
+
+rm -f %{buildroot}%{_libdir}/libgpsdpacket.so
 
 # If qt build was disabled, clean up the files that may have been installed
 # anyway
 %if !%{with_qt}
-%{__rm} -f %{buildroot}%{_libdir}/libQgpsmm* \
+rm -f %{buildroot}%{_libdir}/libQgpsmm* \
     %{buildroot}%{_libdir}/pkgconfig/Qgpsmm* \
     %{buildroot}%{_mandir}/man3/libQgpsmm.3*
 %endif
@@ -294,6 +302,12 @@ rm -rf %{buildroot}%{_docdir}/gpsd
 %{_datadir}/gpsd/gpsd-logo.png
 
 %changelog
+* Thu May 11 2023 Miroslav Lichvar <mlichvar@redhat.com> - 1:3.25-4
+- convert NEWS to UTF-8
+- remove shebang in python module files and fix permissions
+- remove unnecessary .so symlink
+- update URL
+
 * Sun Mar 12 2023 Tim Orling <ticotimo@gmail.com> - 1:3.25-3
 - migrated to SPDX license
 

@@ -1,16 +1,17 @@
 Name:           perl-Devel-CallParser
 Version:        0.002
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Custom parsing attached to subroutines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-CallParser
 Source0:        https://cpan.metacpan.org/modules/by-module/Devel/Devel-CallParser-%{version}.tar.gz
 # Build
+BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
-BuildRequires:  perl-interpreter >= 0:5.011002
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >= 5.11.2
 BuildRequires:  perl(ExtUtils::CBuilder) >= 0.15
 BuildRequires:  perl(Module::Build)
@@ -28,10 +29,10 @@ BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(IO::File) >= 1.03
 BuildRequires:  perl(Test::More)
 # Optional Tests
-#BuildRequires: perl(Data::Alias) >= 1.13          # Broken with systemtap-enabled perl, retired in Fedora since Fedora 25
+#BuildRequires: perl(Data::Alias) >= 1.13          # Retired in Fedora since Fedora 25, could be revived if desired
 BuildRequires:  perl(Devel::Declare) >= 0.006004
 BuildRequires:  perl(indirect) >= 0.27
-BuildRequires:  perl(Lexical::Sub) >= 0.004
+#BuildRequires: perl(Lexical::Sub) >= 0.004        # Test fails with Lexical::Sub 0.010 (CPAN RT#147376, rhbz#2182352)
 #BuildRequires: perl(Sub::StrictDecl) >= 0.001     # Not yet packaged
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage)
@@ -74,6 +75,10 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_mandir}/man3/Devel::CallParser.3*
 
 %changelog
+* Thu May 11 2023 Paul Howarth <paul@city-fan.org> - 0.002-31
+- Drop optional test dependency Lexical::Sub for now; t/leximport.t fails with
+  Lexical::Sub 0.010 (CPAN RT#147376, rhbz#2182352)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.002-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

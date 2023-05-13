@@ -17,9 +17,9 @@
 %{!?rel_build:%global git_tar %{name}-%{version}-%{git_ver}.tar.xz}
 
 Name:           mate-settings-daemon
-Version:        %{branch}.0
+Version:        %{branch}.1
 %if 0%{?rel_build}
-Release:        8%{?dist}
+Release:        1%{?dist}
 %else
 Release:        0.16%{?git_rel}%{?dist}
 %endif
@@ -38,14 +38,9 @@ URL:            http://mate-desktop.org
 Patch0:         mate-settings-daemon_fix-xrdb-plugin-for-rhel.patch
 %endif
 
-# from upstream 1.26 branch
-Patch1:         mate-settings-daemon_0001-datetime-fix-memory-leak.patch
-Patch2:         mate-settings-daemon_0002-mate-settings-manager-fix-memory-leak.patch
 # from upstream
 # https://github.com/mate-desktop/mate-settings-daemon/commit/babfbd3
 Patch3:        mate-settings-daemon_0001-Add-setting-for-adjustment-of-audio-volume-above-100.patch
-# https://github.com/mate-desktop/mate-settings-daemon/commit/d48e5bc
-Patch4:        mate-settings-daemon_0001-Relax-High-DPI-limits.patch
 
 BuildRequires: dbus-glib-devel
 BuildRequires: dconf-devel
@@ -152,6 +147,9 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/mate-settings-dae
 
 
 %changelog
+* Thu May 11 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-1
+- update to 1.26.1
+
 * Wed Mar 15 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.0-8
 - Allow adjustment of audio-volume above 100 percent
 - Relax High DPI limits

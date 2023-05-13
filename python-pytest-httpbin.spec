@@ -15,8 +15,8 @@ provides your test with the URL in the fixture.
 %global t_requires python3-httpbin python3-six python3-pytest
 
 Name:           python-%{github_name}
-Version:        2.0.0~rc1
-Release:        2%{?dist}
+Version:        2.0.0
+Release:        1%{?dist}
 Summary:        %{sum}
 
 # License is included in-line in README.md
@@ -71,7 +71,7 @@ This package provides the Python 3 implementation.
 #################################################################################
 %check
 # this test is broken: see https://github.com/kevin1024/pytest-httpbin/issues/64
-PYTHONPATH=./ py.test-3 -k "not test_redirect_location_is_https_for_secure_server" -p "no:unraisableexception"
+PYTHONPATH=./ py.test-3 -p "no:unraisableexception"
 
 #################################################################################
 %files -n python3-%{github_name}
@@ -80,6 +80,9 @@ PYTHONPATH=./ py.test-3 -k "not test_redirect_location_is_https_for_secure_serve
 
 #################################################################################
 %changelog
+* Thu May 11 2023 Adam Williamson <awilliam@redhat.com> - 2.0.0-1
+- Update to 2.0.0 final, re-enable fixed test
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0~rc1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

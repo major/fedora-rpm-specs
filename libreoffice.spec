@@ -147,7 +147,6 @@ BuildRequires: lpsolve-devel
 BuildRequires: openldap-devel
 BuildRequires: pam-devel
 BuildRequires: pkgconfig(bluez)
-BuildRequires: pkgconfig(dbus-glib-1)
 BuildRequires: pkgconfig(dconf)
 BuildRequires: pkgconfig(epoxy)
 BuildRequires: pkgconfig(evolution-data-server-1.2)

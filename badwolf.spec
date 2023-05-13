@@ -17,7 +17,7 @@ BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  desktop-file-utils
 
-BuildRequires:  webkit2gtk3-devel
+BuildRequires:  webkit2gtk4.1-devel
 
 Requires:       hicolor-icon-theme
 

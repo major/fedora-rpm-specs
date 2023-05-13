@@ -1,13 +1,12 @@
 Name:           nox
-Version:        2022.11.21
-Release:        4%{?dist}
+Version:        2023.04.22
+Release:        1%{?dist}
 Summary:        Flexible test automation
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/wntrblm/nox
 # Using github source files since PyPI doesn't contain "tests" folder anymore
 Source0:        %{url}/archive/refs/tags/%{version}.tar.gz
-Patch0:         %{url}/commit/53c8d7c2a06bd460bb0377b06c316431516d5744.patch
 # Slightly modified patch to apply here. Proposed upstream.
 Patch1:         %{url}/pull/687.patch
 BuildArch:      noarch
@@ -24,8 +23,8 @@ file for configuration.
 %prep
 %autosetup -p1 -n nox-%{version}
 
-# Backport from https://github.com/wntrblm/nox/commit/da3651953cb1016adf42f2e38a8a66835cdb1a73
-sed -i "/py._path.local.LocalPath/d" tests/test_virtualenv.py
+# Use the newest tox 4
+sed -i 's/"tox<4"/"tox"/' pyproject.toml
 
 # Use current Python version instead of Python 2 in tests
 sed -i "s/2\.7/%python3_version/;s/27/%python3_version_nodots/" tests/test_tox_to_nox.py
@@ -56,6 +55,10 @@ sed -i "s/2\.7/%python3_version/;s/27/%python3_version_nodots/" tests/test_tox_t
 %{_bindir}/tox-to-nox
 
 %changelog
+* Tue May 02 2023 Lumír Balhar <lbalhar@redhat.com> - 2023.04.22-1
+- Update to 2023.04.22 (rhbz#2188881)
+- Use SPDX license identifier
+
 * Thu Feb 16 2023 Lumír Balhar <lbalhar@redhat.com> - 2022.11.21-4
 - Fix tox_to_nox for tox 4
 

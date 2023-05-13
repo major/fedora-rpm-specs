@@ -4,10 +4,14 @@
 # compared to the pure-Python implementation.
 %bcond_without python_cpp
 # Build -java subpackage
+%if %{defined rhel}
+%bcond_with java
+%else
 %ifarch %{java_arches}
 %bcond_without java
 %else
 %bcond_with java
+%endif
 %endif
 
 #global rcver rc2

@@ -1,6 +1,6 @@
 Name:           cloud-init
 Version:        23.1.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Cloud instance init scripts
 License:        Apache-2.0 or GPL-3.0-only
 URL:            https://github.com/canonical/cloud-init
@@ -13,6 +13,11 @@ Patch1:         2073.patch
 # Cherry pick of https://github.com/canonical/cloud-init/pull/2086
 # and part of https://github.com/canonical/cloud-init/pull/2036
 Patch2:         Fedora-Enable-CA-handling.patch
+
+# Allow > 3 nameservers to be written to /etc/resolv.conf.
+# https://github.com/canonical/cloud-init/pull/2152
+# https://bugzilla.redhat.com/show_bug.cgi?id=2068529
+Patch3:         multiple-nameservers.patch
 
 BuildArch:      noarch
 
@@ -183,6 +188,9 @@ python3 -m pytest tests/unittests
 
 
 %changelog
+* Thu May 11 2023 Major Hayden <major@redhat.com> - 23.1.2-4
+- Add patch to allow > 3 nameservers to be applied
+
 * Sun Apr 30 2023 Neal Gompa <ngompa@fedoraproject.org> - 23.1.2-3
 - Use the correct SourceURL format for the upstream sources
 - Switch to SPDX identifiers for the license field

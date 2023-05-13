@@ -2,7 +2,7 @@
 Name:           kdevelop
 Summary:        Integrated Development Environment for C++/C
 Epoch:          9
-Version:        23.04.0
+Version:        23.04.1
 Release:        1%{?dist}
 License:        GPL-2.0-only
 URL:            http://www.kdevelop.org/
@@ -137,8 +137,7 @@ Obsoletes: kdevplatform-libs < 5.1.80-1
 
 
 %prep
-%setup -q -n kdevelop-%{version}
-%patch0 -p1 -b .qmake
+%autosetup -p1
 
 %build
 %{cmake_kf5}
@@ -222,6 +221,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kdevelop.desk
 %{rpm_macros_dir}/macros.kdevelop
 
 %changelog
+* Thu May 11 2023 Than Ngo <than@redhat.com> - 23.04.1-1
+- update to 23.04.1
+
 * Fri Apr 14 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 9:23.04.0-1
 - 23.04.0
 

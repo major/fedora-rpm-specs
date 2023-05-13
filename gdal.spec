@@ -50,8 +50,8 @@
 
 
 Name:          gdal
-Version:       3.6.4
-Release:       3%{?dist}
+Version:       3.7.0
+Release:       1%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -84,6 +84,7 @@ BuildRequires: expat-devel
 BuildRequires: freexl-devel
 BuildRequires: geos-devel
 BuildRequires: giflib-devel
+BuildRequires: gtest-devel
 BuildRequires: hdf-devel
 BuildRequires: hdf5-devel
 BuildRequires: json-c-devel
@@ -380,13 +381,16 @@ cp -a %{SOURCE4} .
 %cmake \
   -DCMAKE_INSTALL_INCLUDEDIR=include/gdal \
   -DGDAL_JAVA_INSTALL_DIR=%{_jnidir}/%{name} \
-  -DGDAL_USE_JPEG12_INTERNAL=OFF
+  -DGDAL_USE_JPEG12_INTERNAL=OFF \
+  -DENABLE_DEFLATE64=OFF
 %cmake_build
 
 %if %{with mingw}
 %mingw_cmake \
+  -DBUILD_TESTING=OFF \
   -DCMAKE_INSTALL_INCLUDEDIR=include/gdal \
-  -DGDAL_USE_JPEG12_INTERNAL=OFF
+  -DGDAL_USE_JPEG12_INTERNAL=OFF \
+  -DENABLE_DEFLATE64=OFF
 %mingw_make_build
 %endif
 
@@ -458,6 +462,7 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 %{_bindir}/ogrlineref
 %{_bindir}/ogrtindex
 %{_bindir}/s57dump
+%{_bindir}/sozip
 %{_datadir}/bash-completion/completions/*
 %exclude %{_datadir}/bash-completion/completions/*.py
 %{_mandir}/man1/*
@@ -467,8 +472,8 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 %files libs
 %license LICENSE.TXT
 %doc NEWS.md PROVENANCE.TXT COMMITTERS PROVENANCE.TXT-fedora
-%{_libdir}/libgdal.so.32
-%{_libdir}/libgdal.so.32.*
+%{_libdir}/libgdal.so.33
+%{_libdir}/libgdal.so.33.*
 %{_datadir}/%{name}/
 %{_libdir}/gdalplugins/
 
@@ -484,7 +489,7 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 %if %{with mingw}
 %files -n mingw32-%{name}
 %license LICENSE.TXT
-%{mingw32_bindir}/libgdal-32.dll
+%{mingw32_bindir}/libgdal-33.dll
 %{mingw32_bindir}/gdal-config
 %{mingw32_libdir}/libgdal.dll.a
 %{mingw32_libdir}/cmake/gdal/
@@ -497,7 +502,7 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 
 %files -n mingw64-%{name}
 %license LICENSE.TXT
-%{mingw64_bindir}/libgdal-32.dll
+%{mingw64_bindir}/libgdal-33.dll
 %{mingw64_bindir}/gdal-config
 %{mingw64_libdir}/libgdal.dll.a
 %{mingw64_libdir}/cmake/gdal/
@@ -565,6 +570,9 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 
 
 %changelog
+* Thu May 11 2023 Sandro Mani <manisandro@gmail.com> - 3.7.0-1
+- Update to 3.7.0
+
 * Tue May 09 2023 Markus Neteler <neteler@mundialis.de> - 3.6.4-3
 - SPDX migration
 

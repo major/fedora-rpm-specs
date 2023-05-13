@@ -14,7 +14,7 @@
 
 Summary: Generic library for reporting various problems
 Name: libreport
-Version: 2.17.9
+Version: 2.17.10
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL: https://abrt.readthedocs.org/
@@ -667,6 +667,12 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %endif
 
 %changelog
+* Thu May 11 2023 Packit <hello@packit.dev> - 2.17.10-1
+- Release version 2.17.10 (Matěj Grabovský)
+- reporter-upload: Fix a use-after-free error in string handling (Matěj Grabovský)
+- Update translations (mgrabovsky)
+- Update translations (mgrabovsky)
+
 * Fri Mar 24 2023 Packit <hello@packit.dev> - 2.17.9-1
 - Release version 2.17.9 (Michal Srb)
 - reporter-bugzilla: Fix string interpolation (Matěj Grabovský)

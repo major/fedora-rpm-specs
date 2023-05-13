@@ -17,7 +17,7 @@
 
 Name:           mapserver
 Version:        8.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Environment for building spatially-enabled internet applications
 %global dashver %(echo %version | sed 's|\\.|-|g')
 
@@ -310,6 +310,9 @@ rm %{buildroot}%{_sysconfdir}/mapserver-sample.conf
 
 
 %changelog
+* Thu May 11 2023 Sandro Mani <manisandro@gmail.com> - 8.0.1-2
+- Rebuild (gdal)
+
 * Mon Apr 24 2023 Sandro Mani <manisandro@gmail.com> - 8.0.1-1
 - Update to 8.0.1
 

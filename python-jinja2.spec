@@ -1,15 +1,12 @@
 %global srcname Jinja2
 
 Name:           python-jinja2
-Version:        3.0.3
-Release:        7%{?dist}
+Version:        3.1.2
+Release:        1%{?dist}
 Summary:        General purpose template engine
 License:        BSD
 URL:            https://palletsprojects.com/p/jinja/
-Source0:        %{pypi_source}
-
-# Tests: Make "Traceback did not match" an actual f-string
-Patch1:         https://github.com/pallets/jinja/pull/1525.patch
+Source0:        %{pypi_source %srcname}
 
 # Enable building without docs to avoid a circular dependency between this
 # and python-sphinx:
@@ -85,6 +82,9 @@ rm -rvf docs/_build/html/.buildinfo
 
 
 %changelog
+* Mon May 01 2023 Sandro Mani <manisandro@gmail.com> - 3.1.2-1
+- Update to 3.1.2
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

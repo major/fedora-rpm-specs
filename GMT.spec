@@ -23,7 +23,7 @@
 
 Name:           GMT
 Version:        6.4.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Generic Mapping Tools
 
 License:        LGPLv3+
@@ -224,6 +224,9 @@ find $RPM_BUILD_ROOT -name \*.bat -delete
 
 
 %changelog
+* Thu May 11 2023 Sandro Mani <manisandro@gmail.com> - 6.4.0-8
+- Rebuild (gdal)
+
 * Mon Apr 24 2023 Florian Weimer <fweimer@redhat.com> - 6.4.0-7
 - Switch to upstream version of GMT-c99.patch
 

@@ -11,7 +11,7 @@
 Summary: SELinux policy core utilities
 Name:    policycoreutils
 Version: 3.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 # https://github.com/SELinuxProject/selinux/wiki/Releases
 Source0: https://github.com/SELinuxProject/selinux/releases/download/3.5/selinux-3.5.tar.gz
@@ -47,7 +47,7 @@ Provides: /sbin/restorecon
 
 BuildRequires: gcc make
 BuildRequires: pam-devel libsepol-static >= %{libsepolver} libsemanage-devel >= %{libsemanagever} libselinux-devel >= %{libselinuxver}  libcap-devel audit-libs-devel >=  %{libauditver} gettext
-BuildRequires: desktop-file-utils dbus-devel dbus-glib-devel
+BuildRequires: desktop-file-utils dbus-devel glib2-devel
 BuildRequires: python3-devel python3-setuptools python3-pip
 BuildRequires: systemd
 BuildRequires: git-core
@@ -443,6 +443,9 @@ The policycoreutils-restorecond package contains the restorecond service.
 %systemd_postun_with_restart restorecond.service
 
 %changelog
+* Wed May 10 2023 Tomas Popela <tpopela@redhat.com> - 3.5-2
+- Drop unused BR on dbus-glib and explicitly BR glib2
+
 * Fri Feb 24 2023 Petr Lautrbach <lautrbach@redhat.com> - 3.5-1
 - SELinux userspace 3.5 release
 

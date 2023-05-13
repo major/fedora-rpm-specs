@@ -13,7 +13,7 @@
 
 Name:    okular
 Summary: A document viewer
-Version: 23.04.0
+Version: 23.04.1
 Release: 1%{?dist}
 
 License: GPL-2.0-only
@@ -228,6 +228,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.ok
 
 
 %changelog
+* Thu May 11 2023 Than Ngo <than@redhat.com> - 23.04.1-1
+- update to 23.04.1
+
 * Fri Apr 14 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.0-1
 - 23.04.0
 

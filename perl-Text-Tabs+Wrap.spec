@@ -1,6 +1,6 @@
 Name:           perl-Text-Tabs+Wrap
-Version:        2021.0814
-Release:        490%{?dist}
+Version:        2023.0511
+Release:        1%{?dist}
 Summary:        Expand tabs and do simple line wrapping
 License:        TTWL
 URL:            https://metacpan.org/release/Text-Tabs%2BWrap
@@ -82,6 +82,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu May 11 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2023.0511-1
+- 2023.0511 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2021.0814-490
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

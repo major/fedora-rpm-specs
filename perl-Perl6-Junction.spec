@@ -2,9 +2,9 @@ Name:           perl-Perl6-Junction
 Version:        1.60000
 Release:        28%{?dist}
 Summary:        Perl6 style Junction operators in Perl5
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Perl6-Junction
-Source0:        https://cpan.metacpan.org/authors/id/C/CF/CFRANKS/Perl6-Junction-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/modules/by-module/Perl6/Perl6-Junction-%{version}.tar.gz
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
@@ -22,6 +22,7 @@ BuildRequires:  perl(strict)
 # Test Suite
 BuildRequires:  perl(Test::More)
 # Dependencies
+# (none)
 
 %description
 Perl6 style Junction operators in Perl5.

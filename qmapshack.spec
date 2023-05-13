@@ -3,7 +3,7 @@
 
 Name: qmapshack
 Version: 1.16.1
-Release: 12%{?commit:.git%shortcommit}%{?dist}
+Release: 13%{?commit:.git%shortcommit}%{?dist}
 Summary: GPS mapping and management tool
 
 License: GPLv3+ and BSD
@@ -110,6 +110,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/qmaptool.desktop
 
 
 %changelog
+* Thu May 11 2023 Sandro Mani <manisandro@gmail.com> - 1.16.1-13
+- Rebuild (gdal)
+
 * Fri May 05 2023 Nicolas Chauvet <kwizart@gmail.com> - 1.16.1-12
 - Rebuilt for quazip 1.4
 

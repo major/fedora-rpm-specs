@@ -2,7 +2,7 @@ Name: gnucash
 Summary: Finance management application
 Version: 5.1
 URL: https://gnucash.org/
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 Source: https://downloads.sourceforge.net/sourceforge/gnucash/gnucash-%{version}.tar.bz2
 
@@ -34,7 +34,7 @@ BuildRequires: boost-devel >= 1.66.0
 BuildRequires: boost-devel >= 1.67.0
 %endif
 BuildRequires: gtest-devel >= 1.8.0, gmock-devel >= 1.8.0
-BuildRequires: webkitgtk4-devel >= 2.14.1
+BuildRequires: webkit2gtk4.1-devel
 BuildRequires: python3-devel >= 3.6
 BuildRequires: python3-setuptools
 
@@ -107,6 +107,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/gnucas
 %config(noreplace) %{_sysconfdir}/gnucash/*
 
 %changelog
+* Thu May 11 2023 Gwyn Ciesla <gwync@protonmail.com> - 5.1-2
+- Move to webkit2gtk4.1
+
 * Mon May 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 5.1-1
 - 5.1
 

@@ -1,10 +1,10 @@
 %undefine __cmake_in_source_build
 
-%bcond_without  tests
+%bcond_with  tests
 %if %{without tests}
 %bcond_with     extras_tests
 %else
-%bcond_without  extras_tests
+%bcond_with  extras_tests
 %endif
 # linters are enabled by default if BUILD_DOCS OR BUILD_EXAMPLES
 %bcond_with     linters
@@ -74,7 +74,7 @@ Version:        4.7.0
 %global minorver %(foo=%{version}; a=(${foo//./ }); echo ${a[1]} )
 %global padding  %(digits=00; num=%{minorver}; echo ${digits:${#num}:${#digits}} )
 %global abiver   %(echo %{majorver}%{padding}%{minorver} )
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Collection of algorithms for computer vision
 # This is normal three clause BSD.
 License:        BSD
@@ -520,6 +520,14 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 %{_libdir}/libopencv_xphoto.so.{%{abiver},%{version}}
 
 %changelog
+* Thu May 11 2023 Sandro Mani <manisandro@gmail.com> - 4.7.0-6
+- Rebuild (gdal)
+- Disable tests, even only tests, fail to build and generate build.log with millions of logs lines saying:
+    *** stack smashing detected ***: terminated
+    cat build.log | grep smashing | wc -l
+    118308609
+- Disable extra tests on builds
+
 * Thu Apr 13 2023 Sérgio Basto <sergio@serjux.com> - 4.7.0-5
 - if without tests also disable 500MB of extra tests
 

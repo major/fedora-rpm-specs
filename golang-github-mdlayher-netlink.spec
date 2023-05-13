@@ -10,7 +10,7 @@
 
 # https://github.com/mdlayher/netlink
 %global goipath         github.com/mdlayher/netlink
-Version:                1.6.2
+Version:                1.7.2
 
 %gometa -f
 
