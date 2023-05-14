@@ -2,7 +2,7 @@ Name:           perl-PerlIO-via-Timeout
 Version:        0.32
 Release:        24%{?dist}
 Summary:        PerlIO layer that adds read & write timeout to a handle
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/PerlIO-via-Timeout
 Source0:        https://cpan.metacpan.org/modules/by-module/PerlIO/PerlIO-via-Timeout-%{version}.tar.gz
 BuildArch:      noarch

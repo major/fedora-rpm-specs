@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          Run Code 'With' Temporarily Modified Global State
 
 License:          MIT
@@ -65,7 +65,7 @@ rm -f %{buildroot}%{rlibdir}/R.css
 %check
 %if %{without bootstrap}
 export LANG=C.UTF-8
-%{_bindir}/R CMD check %{packname}
+%{_bindir}/R CMD check --ignore-vignettes %{packname}
 %endif
 
 
@@ -84,6 +84,9 @@ export LANG=C.UTF-8
 
 
 %changelog
+* Fri May 12 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2.5.0-4
+- Ignore vignettes
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2.5.0-3
 - R-maint-sig mass rebuild
 

@@ -14,7 +14,9 @@ URL:            https://github.com/libbpf/veristat
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        %{libbpf_url}/archive/v%{libbpf_version}/libbpf-%{libbpf_version}.tar.gz
 # makefile: fix EXTRA_CFLAGS and actually use it
-Patch:          https://github.com/libbpf/veristat/pull/3.patch
+Patch0:         %{url}/commit/6e5fd96ec49d9c6e51357ea69be8b648edff2c33.patch
+# Makefile: Fix INCLUDES variable
+Patch1:         %{url}/commit/5ce2b25a356b3ecc0abe81ae2ca459c41bf2104c.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -44,7 +46,7 @@ mv libbpf/LICENSE.LGPL-2.1 libbpf-LICENSE.LGPL-2.1
 %build
 export EXTRA_CFLAGS="%{optflags}"
 export EXTRA_LDFLAGS="%{build_ldflags}"
-%make_build -C src
+%make_build -C src V=1
 
 %install
 %make_install -C src prefix="%{_prefix}"

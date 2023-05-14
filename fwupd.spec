@@ -48,7 +48,7 @@
 
 Summary:   Firmware update daemon
 Name:      fwupd
-Version:   1.8.14
+Version:   1.8.15
 Release:   %autorelease
 License:   LGPL-2.1-or-later
 URL:       https://github.com/fwupd/fwupd
@@ -393,7 +393,9 @@ done
 %endif
 %{_datadir}/installed-tests/fwupd/chassis_type
 %{_datadir}/installed-tests/fwupd/sys_vendor
+%if 0%{?fedora} >= 37
 %{_datadir}/fwupd/device-tests/*.json
+%endif
 %{_libexecdir}/installed-tests/fwupd/*
 %dir %{_sysconfdir}/fwupd/remotes.d
 %config(noreplace)%{_sysconfdir}/fwupd/remotes.d/fwupd-tests.conf

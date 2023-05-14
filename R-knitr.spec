@@ -1,7 +1,7 @@
 %bcond_with check
 
 %global packname knitr
-%global packver  1.39
+%global packver  1.42
 %global rlibdir  %{_datadir}/R/library
 
 %global __suggests_exclude ^R\\((JuliaCall|gifski|magick|rgl|sass|webshot)\\)
@@ -12,7 +12,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          3%{?dist}
+Release:          1%{?dist}
 Summary:          A General-Purpose Package for Dynamic Report Generation in R
 
 License:          GPLv2+
@@ -34,9 +34,8 @@ BuildRequires:    tex(latex)
 BuildRequires:    R-evaluate >= 0.15
 BuildRequires:    R-highr
 BuildRequires:    R-methods
-BuildRequires:    R-stringr >= 0.6
 BuildRequires:    R-yaml >= 2.1.19
-BuildRequires:    R-xfun >= 0.29
+BuildRequires:    R-xfun >= 0.34
 BuildRequires:    R-tools
 %if %{with check}
 BuildRequires:    R-markdown
@@ -142,6 +141,9 @@ ARGS=--no-examples
 
 
 %changelog
+* Fri May 12 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.42-1
+- Update to 1.42
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.39-3
 - R-maint-sig mass rebuild
 

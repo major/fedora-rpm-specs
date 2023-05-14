@@ -1,5 +1,5 @@
 Name:           python-pykeepass
-Version:        4.0.3
+Version:        4.0.4
 Release:        %autorelease
 Epoch:          1
 Summary:        Python library to interact with keepass databases
@@ -11,13 +11,18 @@ Summary:        Python library to interact with keepass databases
 License:        GPL-3.0-only AND MIT
 URL:            https://github.com/libkeepass/pykeepass
 # The GitHub archive has tests; the PyPI sdist does not.
-Source0:        %{url}/archive/v%{version}/pykeepass-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/pykeepass-%{version}.tar.gz
+
+# Remove excessive byte-swapping in pytwofish.py
+# https://github.com/libkeepass/pykeepass/pull/336
+#
+# Fixes:
+#
+# Tests fail on big-endian platform (s390x)
+# https://github.com/libkeepass/pykeepass/issues/332
+Patch:          %{url}/pull/336.patch
 
 BuildArch:      noarch
-# Tests fail on big-endian platform (s390x)
-# https://bugzilla.redhat.com/show_bug.cgi?id=2156942
-# https://github.com/libkeepass/pykeepass/issues/332
-ExcludeArch:    s390x
  
 BuildRequires:  python3-devel
 
@@ -34,7 +39,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n pykeepass-%{version}
+%autosetup -n pykeepass-%{version} -p1
 
 # Convert exact-version pins, which we cannot respect, to lower bounds.
 sed -r -i 's/==/>=/' requirements.txt

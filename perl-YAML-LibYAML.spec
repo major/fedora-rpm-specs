@@ -7,7 +7,7 @@
 
 Name:           perl-YAML-LibYAML
 Epoch:          1
-Version:        0.87
+Version:        0.88
 Release:        1%{?dist}
 Summary:        Perl YAML Serialization using XS and libyaml
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -155,6 +155,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri May 12 2023 Paul Howarth <paul@city-fan.org> - 1:0.88-1
+- Update to 0.88
+  - REVERT "Turn off internal POK flag for number scalars"
+
 * Fri May  5 2023 Paul Howarth <paul@city-fan.org> - 1:0.87-1
 - Update to 0.87
   - Turn off internal POK flag for number scalars

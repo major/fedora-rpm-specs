@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          2.24.0
-Release:          7%{dist}
+Release:          8%{dist}
 Summary:          Q-value estimation for false discovery rate control
 License:          LGPLv2+
 URL:              http://bioconductor.org/packages/release/bioc/html/qvalue.html
@@ -43,7 +43,7 @@ rm -rf %{buildroot}%{_datadir}/R/library/R.css
 chmod -x %{buildroot}%{_datadir}/R/library/%{packname}/doc/*
 
 %check
-%{_bindir}/R CMD check %{packname}
+%{_bindir}/R CMD check --ignore-vignettes %{packname}
 
 %files
 %dir %{_datadir}/R/library/%{packname}
@@ -60,6 +60,9 @@ chmod -x %{buildroot}%{_datadir}/R/library/%{packname}/doc/*
 
 
 %changelog
+* Fri May 12 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2.24.0-8
+- Ignore vignettes
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2.24.0-7
 - R-maint-sig mass rebuild
 

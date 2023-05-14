@@ -15,7 +15,7 @@ Name:           perl-Scalar-Properties
 Version:        1.100860
 Release:        34%{?dist}
 Summary:        Run-time properties on scalar variables
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Scalar-Properties
 Source0:        https://cpan.metacpan.org/authors/id/M/MA/MARCEL/Scalar-Properties-%{version}.tar.gz
 Patch0:         Scalar-Properties-1.100860-English-is-for-author-tests.patch
@@ -68,8 +68,9 @@ BuildRequires:  perl(Test::Portability::Files)
 BuildRequires:  perl(Test::Synopsis)
 %endif
 # ===================================================================
-# Runtime requirements
+# Runtime dependencies
 # ===================================================================
+# (none)
 
 %description
 Scalar::Properties attempts to make Perl more object-oriented by taking an idea
@@ -81,11 +82,11 @@ manipulations are objects themselves.
 
 # Delist English from run-time dependencies, otherise t/000-report-versions.t
 # may fail if build without extra tests, CPAN RT#134158
-%patch0 -p1
+%patch -P 0 -p1
 
 # MANIFEST.SKIP should include MYMETA.yml; otherwise, t/release-dist-manifest.t
 # may fail due to it appearing unexpectedly
-%patch3 -p1
+%patch -P 3 -p1
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor

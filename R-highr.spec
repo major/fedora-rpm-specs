@@ -7,7 +7,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          Syntax Highlighting for R Source Code
 
 License:          GPLv2+
@@ -54,7 +54,7 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 %check
 %if %{without bootstrap}
-%{_bindir}/R CMD check %{packname}
+%{_bindir}/R CMD check --ignore-vignettes %{packname}
 %else
 _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --ignore-vignettes
 %endif
@@ -74,6 +74,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --ignore-vignettes
 
 
 %changelog
+* Fri May 12 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.10-4
+- Ignore vignettes
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.10-3
 - R-maint-sig mass rebuild
 

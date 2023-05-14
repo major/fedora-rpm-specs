@@ -1,5 +1,5 @@
 Name:           tldr
-Version:        3.1.0
+Version:        3.2.0
 Release:        %autorelease
 Summary:        Simplified and community-driven man pages
 
@@ -11,15 +11,12 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
 
+# dependencies for make man
 BuildRequires:  make
-BuildRequires:  python3dist(colorama)
-BuildRequires:  python3dist(shtab)
 BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3dist(sphinx-argparse)
-BuildRequires:  python3dist(termcolor)
 # dependencies for %%check
 BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(pytest-runner)
 
 
 %description
@@ -44,8 +41,8 @@ popd
 %pyproject_install
 %pyproject_save_files tldr
 
-install -Dp --mode=0644 %{name}.bash %{buildroot}%{_datadir}/bash-completion/completions/%{name}
-install -Dp --mode=0644 %{name}.zsh  %{buildroot}%{_datadir}/zsh/site-functions/_%{name}
+install -Dp --mode=0644 %{name}.bash %{buildroot}%{bash_completions_dir}/%{name}
+install -Dp --mode=0644 %{name}.zsh  %{buildroot}%{zsh_completions_dir}/_%{name}
 
 
 %check
@@ -56,12 +53,8 @@ install -Dp --mode=0644 %{name}.zsh  %{buildroot}%{_datadir}/zsh/site-functions/
 %doc CHANGELOG.md README.md
 %{_bindir}/%{name}
 %{_mandir}/man1/tldr.1*
-%dir %{_datadir}/bash-completion
-%dir %{_datadir}/bash-completion/completions
-%{_datadir}/bash-completion/completions/%{name}
-%dir %{_datadir}/zsh
-%dir %{_datadir}/zsh/site-functions
-%{_datadir}/zsh/site-functions/_%{name}
+%{bash_completions_dir}/%{name}
+%{zsh_completions_dir}/_%{name}
 
 %changelog
 %autochangelog

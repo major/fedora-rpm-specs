@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          1.0.1
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          Access the Gmail RESTful API
 
 License:          MIT
@@ -61,7 +61,7 @@ rm %{buildroot}%{rlibdir}/%{packname}/secret/rpkgtester@gmail.com
 
 
 %check
-%{_bindir}/R CMD check %{packname}
+%{_bindir}/R CMD check --ignore-vignettes %{packname}
 
 
 %files
@@ -79,6 +79,9 @@ rm %{buildroot}%{rlibdir}/%{packname}/secret/rpkgtester@gmail.com
 
 
 %changelog
+* Fri May 12 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.0.1-4
+- Ignore vignettes
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.0.1-3
 - R-maint-sig mass rebuild
 

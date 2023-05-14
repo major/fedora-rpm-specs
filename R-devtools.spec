@@ -11,7 +11,7 @@
 
 Name:             R-%{packname}
 Version:          2.4.2
-Release:          7%{?dist}
+Release:          8%{?dist}
 Summary:          Tools to Make Developing R Packages Easier
 
 License:          GPLv2+
@@ -92,9 +92,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 %check
 %if %{with suggests}
-%{_bindir}/R CMD check %{packname}
+%{_bindir}/R CMD check --ignore-vignettes%{packname}
 %else
-_R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
+_R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check --ignore-vignettes %{packname}
 %endif
 
 
@@ -115,6 +115,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 
 
 %changelog
+* Fri May 12 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2.4.2-8
+- Ignore vignettes
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2.4.2-7
 - R-maint-sig mass rebuild
 

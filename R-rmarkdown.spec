@@ -1,5 +1,5 @@
 %global packname rmarkdown
-%global packver  2.16
+%global packver  2.21
 %global rlibdir  %{_datadir}/R/library
 
 %global __suggests_exclude ^R\\((dygraphs)\\)
@@ -41,6 +41,7 @@ BuildRequires:    pandoc >= 1.14
 BuildRequires:    golang-github-tdewolff-minify
 BuildRequires:    R-bslib >= 0.2.5.1
 BuildRequires:    R-evaluate >= 0.13
+BuildRequires:    R-fontawesome >= 0.5.0
 BuildRequires:    R-htmltools >= 0.5.1
 BuildRequires:    R-jquerylib
 BuildRequires:    R-jsonlite
@@ -50,7 +51,7 @@ BuildRequires:    R-stringr >= 1.2.0
 BuildRequires:    R-tinytex >= 0.31
 BuildRequires:    R-tools
 BuildRequires:    R-utils
-BuildRequires:    R-xfun >= 0.30
+BuildRequires:    R-xfun >= 0.36
 BuildRequires:    R-yaml >= 2.1.19
 %if %{with_suggests}
 BuildRequires:    R-digest
@@ -67,13 +68,6 @@ BuildRequires:    R-tufte
 BuildRequires:    R-vctrs
 BuildRequires:    R-withr >= 2.4.2
 %endif
-
-#BuildRequires:    fontawesome-fonts = 4.7.0
-#BuildRequires:    fontawesome-fonts-web = 4.7.0
-#Recommends:       fontawesome-fonts = 4.7.0
-#Recommends:       fontawesome-fonts-web = 4.7.0
-Provides:         bundled(fontawesome-fonts) = 5.1.0
-Provides:         bundled(fontawesome-fonts-web) = 5.1.0
 
 # These are not all packaged, but should *probably* be the names if they are.
 
@@ -187,10 +181,6 @@ for f in OpenSans-Regular OpenSans-Italic OpenSans-Semibold OpenSans-SemiboldIta
     ln -s /usr/share/fonts/open-sans/${f}.ttf rmd/ioslides/ioslides-13.5.1/fonts/${f}.ttf
 done
 ln -sf /usr/share/fonts/adobe-source-code-pro/SourceCodePro-Regular.otf rmd/ioslides/ioslides-13.5.1/fonts/SourceCodePro-Regular.otf
-# Remove bundled FontAwesome. (too new to remove)
-#rm -r rmd/h/fontawesome/*
-#ln -s /usr/share/font-awesome-web/css rmd/h/fontawesome/css
-#ln -s /usr/share/fonts/fontawesome rmd/h/fontawesome/fonts
 # Remove bundled fonts from bootstrap.
 ln -sf /usr/share/fonts/lato/Lato-Regular.ttf rmd/h/bootstrap/css/fonts/Lato.ttf
 ln -sf /usr/share/fonts/lato/Lato-Bold.ttf rmd/h/bootstrap/css/fonts/LatoBold.ttf
@@ -246,7 +236,6 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check --ignore-vignettes %{packname}
 %{rlibdir}/%{packname}/rmd/h/anchor-sections
 %{rlibdir}/%{packname}/rmd/h/default.html
 %{rlibdir}/%{packname}/rmd/h/bootstrap
-%{rlibdir}/%{packname}/rmd/h/fontawesome
 %{rlibdir}/%{packname}/rmd/h/highlightjs
 %{rlibdir}/%{packname}/rmd/h/ionicons
 %{rlibdir}/%{packname}/rmd/h/jqueryui

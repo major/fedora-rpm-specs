@@ -1,6 +1,6 @@
 %global with_snapshot 1
-%global gitdate 20230306
-%global commit e71fbbfed95ea084533c28aa1af3afc900838436
+%global gitdate 20230507
+%global commit 23615f6605887fcf6c8a9a4f12916c6f1016295a
 %global shortcommit %(c=%{commit}; echo ${c:0:8})
 
 Name:			input-leap
@@ -15,10 +15,6 @@ Source0:		%{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 %else
 Source0:		%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 %endif
-Source1:		about.png
-
-# https://github.com/input-leap/input-leap/pull/1621
-Patch0:			appdata-xml.patch
 
 BuildRequires:	avahi-compat-libdns_sd-devel
 BuildRequires:	cmake3
@@ -61,10 +57,6 @@ sed -i -e "s|release|snapshot|" cmake/Version.cmake
 %else
 %autosetup -p1
 %endif
-
-# lets change the logo :)
-# https://github.com/input-leap/input-leap/pull/1620
-cp %{SOURCE1} src/gui/res/image/
 
 %build
 %cmake \

@@ -26,9 +26,9 @@
 %global rstudio_visual_editor       panmirror-0.0.0
 %global rstudio_version_major       2023
 %global rstudio_version_minor       03
-%global rstudio_version_patch       0
-%global rstudio_version_suffix      386
-%global rstudio_git_revision_hash   3c53477afb13ab959aeb5b34df1f10c237b256c3
+%global rstudio_version_patch       1
+%global rstudio_version_suffix      446
+%global rstudio_git_revision_hash   6e31ffc3ef2a1f81d377eeccab71ddc11cfbd29e
 %global rstudio_version             %{rstudio_version_major}.%{rstudio_version_minor}.%{rstudio_version_patch}
 %global rstudio_codename            cherry-blossom
 %global rstudio_flags \
@@ -46,7 +46,7 @@
 
 Name:           rstudio
 Version:        %{rstudio_version}+%{rstudio_version_suffix}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        RStudio base package
 ExclusiveArch:  %{java_arches}
 
@@ -350,6 +350,9 @@ chown -R %{name}-server:%{name}-server %{_sharedstatedir}/%{name}-server
 %config(noreplace) %{_sysconfdir}/pam.d/%{name}
 
 %changelog
+* Fri May 12 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2023.03.1+446-1
+- Update to 2023.03.1+446
+
 * Mon Apr 24 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2023.03.0+386-4
 - Fix visual editor mode bz#2189205
 

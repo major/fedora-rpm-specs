@@ -2,7 +2,7 @@ Name:           perl-Pod-Readme
 Version:        1.2.3
 Release:        14%{?dist}
 Summary:        Intelligently generate a README file from POD
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Pod-Readme
 Source0:        https://cpan.metacpan.org/modules/by-module/Pod/Pod-Readme-v%{version}.tar.gz
 BuildArch:      noarch
@@ -58,7 +58,7 @@ BuildRequires:  perl(Test::Exception)
 # Pod::Readme::Test::Kit not actually used
 #BuildRequires: perl(Test::Kit)
 BuildRequires:  perl(Test::More) >= 0.88
-# Runtime
+# Dependencies
 Requires:       perl(Role::Tiny)
 
 %description
@@ -79,9 +79,6 @@ make %{?_smp_mflags}
 make pure_install DESTDIR=%{buildroot}
 find %{buildroot} -type f -name .packlist -delete
 %{_fixperms} -c %{buildroot}
-
-# Remove spurious Pod::README files, which are the same as Pod::Readme
-rm -vf %{buildroot}%{_mandir}/man3/Pod::README.3*
 
 %check
 make test

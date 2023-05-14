@@ -1,5 +1,5 @@
 Name:           python-fisx
-Version:        1.2.1
+Version:        1.3.1
 Release:        %autorelease
 Summary:        Calculate X-ray fluorescence intensities
 
@@ -36,7 +36,7 @@ Summary: %summary
 %py3_install
 
 %check
-PYTHONPATH=%{buildroot}%{python3_sitearch} %__python3 -m fisx.tests.testAll
+PYTHONPATH=%{buildroot}%{python3_sitearch} %python3 -m fisx.tests.testAll
 
 %files -n python3-fisx
 %license LICENSE

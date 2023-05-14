@@ -2,8 +2,8 @@
 %global rlibdir  %{_datadir}/R/library
 
 Name:             R-%{packname}
-Version:          0.3.0
-Release:          4%{?dist}
+Version:          0.5.1
+Release:          1%{?dist}
 Summary:          Easily work with 'Font Awesome' Icons
 %if 0%{?fedora} > 38
 License:          MIT
@@ -28,11 +28,11 @@ Requires:         R-core
 Requires:         fontawesome-fonts-web
 %else
 # This package has a copy of the fontawesome free fonts v6
-Provides:         bundled(fontawesome-fonts-web) = 6.1.1
+Provides:         bundled(fontawesome-fonts-web) = 6.4.0
 %endif
 BuildRequires:    R-devel
 BuildRequires:    tex(latex)
-BuildRequires:    R-rlang >= 0.4.10
+BuildRequires:    R-rlang >= 1.0.6
 BuildRequires:    R-htmltools >= 0.5.1.1
 # Suggests
 BuildRequires:    R-dplyr >= 1.0.8
@@ -89,6 +89,9 @@ ln -s ../../../fontawesome %{buildroot}%{rlibdir}/%{packname}
 %{rlibdir}/%{packname}/fontawesome
 
 %changelog
+* Fri May 12 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.5.1-1
+- Update to 0.5.1
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 0.3.0-4
 - R-maint-sig mass rebuild
 

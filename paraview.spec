@@ -82,7 +82,7 @@
 
 Name:           paraview
 Version:        5.11.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Parallel visualization application
 
 License:        BSD
@@ -93,6 +93,8 @@ Source2:        FindPEGTL.cmake
 # Fix cmake files install location
 # https://gitlab.kitware.com/paraview/paraview/issues/19724
 Patch0:         paraview-cmakedir.patch
+# Fix doc build with Sphinx 6
+Patch1:         paraview-sphinx6.patch
 # Fix build with newer freetype
 # https://gitlab.kitware.com/vtk/vtk/-/issues/18033
 Patch3:         paraview-freetype.patch
@@ -764,6 +766,9 @@ update-mime-database %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Thu May 11 2023 Orion Poplawski <orion@nwra.com> - 5.11.1-3
+- Add patch to fix build with Sphinx 6
+
 * Thu May 11 2023 Sandro Mani <manisandro@gmail.com> - 5.11.1-2
 - Rebuild (gdal)
 

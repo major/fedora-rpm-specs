@@ -13,6 +13,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(six)
+BuildRequires:  python3dist(setuptools)
 
 %global _description %{expand:
 PySnooper is a replacement for debug print statements in code. After decorating
@@ -37,7 +38,7 @@ Summary:        %{summary}
 %py3_install
 
 %check
-PYTHONPATH=%{buildroot}%{python3_sitelib} %__python3 -m pytest -v tests/
+PYTHONPATH=%{buildroot}%{python3_sitelib} %python3 -m pytest -v tests/
 
 %files -n python3-pysnooper
 %license LICENSE

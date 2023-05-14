@@ -7,7 +7,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          10%{?dist}
+Release:          11%{?dist}
 Summary:          Font Files for the 'showtext' Package
 
 License:          ASL 2.0
@@ -41,7 +41,7 @@ Providing font files that can be used by the 'showtext' package.
 # Remove bundled font references.
 pushd %{packname}
 rm inst/AUTHORS inst/COPYRIGHTS
-%patch0001 -p1
+%patch -P0001 -p1
 popd
 
 
@@ -58,7 +58,11 @@ rm -f %{buildroot}%{rlibdir}/R.css
 # R CMD INSTALL copies symlink targets.)
 pushd %{buildroot}%{rlibdir}/%{packname}
 rm fonts/*
+%if 0%{?fedora} >= 39
+ln -s /usr/share/fonts/wqy-microhei-fonts/wqy-microhei.ttc fonts/wqy-microhei.ttc
+%else
 ln -s /usr/share/fonts/wqy-microhei/wqy-microhei.ttc fonts/wqy-microhei.ttc
+%endif
 popd
 
 
@@ -84,6 +88,9 @@ popd
 
 
 %changelog
+* Fri May 12 2023 Iñaki Úcar <iucar@fedoraproject.org> - 3.0-11
+- Fix font path
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 3.0-10
 - R-maint-sig mass rebuild
 

@@ -391,7 +391,7 @@
 %global top_level_dir_name   %{origin}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        7
-%global rpmrelease      2
+%global rpmrelease      4
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -627,6 +627,9 @@ Source15: TestSecurityProperties.java
 
 # Ensure vendor settings are correct
 Source16: CheckVendor.java
+
+# nss fips configuration file
+Source17: nss.fips.cfg.in
 
 # Ensure translations are available for new timezones
 Source18: TestTranslations.java
@@ -1050,6 +1053,9 @@ done
 # Setup nss.cfg
 sed -e "s:@NSS_LIBDIR@:%{NSS_LIBDIR}:g" %{SOURCE11} > nss.cfg
 
+# Setup nss.fips.cfg
+sed -e "s:@NSS_LIBDIR@:%{NSS_LIBDIR}:g" %{SOURCE17} > nss.fips.cfg
+
 %build
 %if (0%{?rhel} > 0 && 0%{?rhel} < 8)
 mkdir bootjdk
@@ -1211,6 +1217,9 @@ function installjdk() {
 
         # Install nss.cfg right away as we will be using the JRE above
         install -m 644 nss.cfg ${imagepath}/conf/security/
+
+        # Install nss.fips.cfg: NSS configuration for global FIPS mode (crypto-policies)
+        install -m 644 nss.fips.cfg ${imagepath}/conf/security/
 
         # Create fake alt-java as a placeholder for future alt-java
         if [ -d man/man1 ] ; then
@@ -1633,7 +1642,13 @@ done
 %license %{unpacked_licenses}/%{jdkportablesourcesarchive -- %%{nil}}
 
 %changelog
-* Tue Mar 09 2023 Jiri Vanek <jvanekw@redhat.com> - 1:17.0.7.0.7-2
+* Wed May 10 2023 Jiri Vanek <gnu.andrew@redhat.com> - 1:17.0.7.0.7-4
+- returned lost nss.fips.cfg
+
+* Wed May 10 2023 Jiri Vanek <gnu.andrew@redhat.com> - 1:17.0.7.0.7-3
+- enabled all crypto
+
+* Tue May 09 2023 Jiri Vanek <jvanekw@redhat.com> - 1:17.0.7.0.7-2
 - added and applied, on demand, patch2003 jdk8305995-footprint_regression_from_jdk_8224957
 
 * Wed Apr 26 2023 Andrew Hughes <gnu.andrew@redhat.com> - 1:17.0.7.0.7

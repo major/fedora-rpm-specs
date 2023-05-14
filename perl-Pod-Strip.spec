@@ -2,7 +2,7 @@ Name:           perl-Pod-Strip
 Version:        1.100
 Release:        8%{?dist}
 Summary:        Remove POD from Perl code
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Pod-Strip
 Source0:        https://cpan.metacpan.org/modules/by-module/Pod/Pod-Strip-%{version}.tar.gz
 BuildArch:      noarch

@@ -4,7 +4,7 @@
 # https://gitlab.com/gitlab-org/cli
 %global goipath         gitlab.com/gitlab-org/cli
 %global forgeurl        https://gitlab.com/gitlab-org/cli
-Version:                1.28.1
+Version:                1.29.4
 
 %global repo            cli
 %global archivename     %{repo}-%{version}
@@ -72,9 +72,9 @@ install -Dpm 0755 %{gobuilddir}/bin/%{name} -t %{buildroot}%{_bindir}/
 install -Dpm 0644 ./share/man/man1/%{name}*.1 -t %{buildroot}%{_mandir}/man1/
 
 # Install shell completions
-install -Dpm 0644 %{name}.bash %{buildroot}%{_datadir}/bash-completion/completions/%{name}
-install -Dpm 0644 %{name}.fish %{buildroot}%{_datadir}/fish/vendor_completions.d/%{name}.fish
-install -Dpm 0644 %{name}.zsh  %{buildroot}%{_datadir}/zsh/site-functions/_%{name}
+install -Dpm 0644 %{name}.bash %{buildroot}%{bash_completions_dir}/%{name}
+install -Dpm 0644 %{name}.fish %{buildroot}%{fish_completions_dir}/%{name}.fish
+install -Dpm 0644 %{name}.zsh  %{buildroot}%{zsh_completions_dir}/_%{name}
 
 %if %{with check}
 %check
@@ -87,6 +87,7 @@ for test in "Test_printError" "TestAliasDelete" "Test_statusRun" \
 awk -i inplace '/^func.*'"$test"'\(/ { print; print "\tt.Skip(\"disabled failing test\")"; next}1' $(grep -rl $test)
 done
 %gocheck -d gitlab.com/gitlab-org/cli/commands \
+         -d gitlab.com/gitlab-org/cli/commands/ask/git \
          -d gitlab.com/gitlab-org/cli/commands/api \
          -d gitlab.com/gitlab-org/cli/commands/alias/set \
          -d gitlab.com/gitlab-org/cli/commands/auth/login \
@@ -120,15 +121,9 @@ done
 %doc README.md
 %{_bindir}/*
 %{_mandir}/man1/%{name}*1*
-%dir %{_datadir}/bash-completion
-%dir %{_datadir}/bash-completion/completions
-%{_datadir}/bash-completion/completions/%{name}
-%dir %{_datadir}/fish
-%dir %{_datadir}/fish/vendor_completions.d
-%{_datadir}/fish/vendor_completions.d/%{name}.fish
-%dir %{_datadir}/zsh
-%dir %{_datadir}/zsh/site-functions
-%{_datadir}/zsh/site-functions/_%{name}
+%{bash_completions_dir}/%{name}
+%{fish_completions_dir}/%{name}.fish
+%{zsh_completions_dir}/_%{name}
 
 %gopkgfiles
 

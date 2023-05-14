@@ -7,7 +7,7 @@
 %bcond_without	ispc
 
 Name:		embree
-Version:	4.0.1
+Version:	4.1.0
 Release:	%autorelease
 Summary:	Collection of high-performance ray tracing kernels
 
@@ -18,9 +18,6 @@ Source:		https://github.com/%{name}/%{name}/archive/%{commit}/%{name}-%{commit}.
 %else
 Source:		https://github.com/%{name}/%{name}/archive/v%{version}%{?prerelease:%{-prerelease}.0}.tar.gz#/%{name}-%{version}%{?prerelease:-%{prerelease}.0}.tar.gz
 %endif
-
-# https://github.com/embree/embree/pull/438
-Patch0:		imgui_disable_sse-arm64.patch
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++

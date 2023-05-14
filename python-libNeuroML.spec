@@ -8,7 +8,7 @@ http://readthedocs.org/docs/libneuroml/en/latest/
 
 
 Name:           python-libNeuroML
-Version:        0.4.1
+Version:        0.5.1
 Release:        %autorelease
 Summary:        Python libNeuroML for working with neuronal models specified in NeuroML
 
@@ -34,8 +34,11 @@ Summary:    Documentation for libNeuroML
 %prep
 %autosetup -n libNeuroML-%{version}
 
-# remove shebang
-sed -i '1d' neuroml/nml/nml.py
+# remove shebangs
+for f in "neuroml/nml/nml.py" "neuroml/neuro_lex_ids.py" "neuroml/nml/annotate_nml.py" "neuroml/nml/generatedscollector.py" "neuroml/nml/generatedssupersuper.py" "neuroml/test/test_nml.py" "neuroml/test/test_utils.py"
+do
+    sed -i '1d'  "${f}"
+done
 
 # correct end of line encoding
 sed -i 's/\r$//' neuroml/examples/test_files/tmp2.swc

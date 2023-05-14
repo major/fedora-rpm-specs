@@ -7,7 +7,7 @@
 %global forgeurl https://github.com/pysb/pysb
 
 Name:           python-pysb
-Version:        1.14.0
+Version:        1.15.0
 Release:        %autorelease
 Summary:        Rule-based modeling of biochemical systems as Python programs
 License:        BSD
@@ -40,11 +40,10 @@ other biomolecules into a simple and intuitive domain specific
 programming language, which is internally translated into BioNetGen or
 Kappa rules and from there into systems of equations. PySB makes it
 straightforward to divide models into modules and to call libraries of
-reusable elements (macros) that encode standard biochemical
-actions. These features promote model transparency, reuse and
-accuracy. PySB also interoperates with standard scientific Python
-libraries such as NumPy, SciPy and SymPy enabling model simulation and
-analysis.}
+reusable elements (macros) that encode standard biochemical actions.
+These features promote model transparency, reuse and accuracy. PySB
+also interoperates with standard scientific Python libraries such as
+NumPy, SciPy and SymPy enabling model simulation and analysis.}
 
 %description %_description
 
@@ -80,7 +79,7 @@ This package contains HTML documentation for %{name}.
 sed -i -e "s|/usr/local/share/BioNetGen|%{perl_vendorlib}/BioNetGen|" \
        -e "s|'c:/Program Files/BioNetGen',||" \
     pysb/bng.py
-sed -i -s "1 s|/usr/bin/env python|%{__python3}|" pysb/examples/*.py pysb/tools/*.py
+sed -i -s "1 s|/usr/bin/env python|%{python3}|" pysb/examples/*.py pysb/tools/*.py
 
 %build
 %py3_build

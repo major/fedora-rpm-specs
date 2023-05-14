@@ -3,7 +3,7 @@
 
 Name:           gazebo
 Version:        10.1.0
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        3D multi-robot simulator with dynamics
 
 # gazebo/gui/qgv is LGPLv3+
@@ -326,6 +326,9 @@ export GAZEBO_IP=127.0.0.1
 %{_libdir}/cmake/*
 
 %changelog
+* Fri May 12 2023 Sandro Mani <manisandro@gmail.com> - 10.1.0-38
+- Rebuild (gdal)
+
 * Sun Feb 26 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 10.1.0-37
 - Backport upstream patch for additional include needed for g++13
 

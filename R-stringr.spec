@@ -66,7 +66,7 @@ rm -f %{buildroot}%{rlibdir}/R.css
 %check
 %if %{without bootstrap}
 export LANG=C.UTF-8
-%{_bindir}/R CMD check %{packname}
+%{_bindir}/R CMD check --ignore-vignettes %{packname}
 %endif
 
 %files

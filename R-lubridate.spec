@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Make dealing with dates a little easier
 License:          GPL-2.0-or-later-version
 URL:              https://CRAN.R-project.org/package=%{packname}
@@ -56,11 +56,7 @@ rm %{buildroot}%{rlibdir}/%{packname}/cctz.sh
 
 
 %check
-%ifarch ppc64le
-%{_bindir}/R CMD check %{packname} --no-vignettes
-%else
-%{_bindir}/R CMD check %{packname}
-%endif
+%{_bindir}/R CMD check --ignore-vignettes %{packname}
 
 %files
 %dir %{rlibdir}/%{packname}
@@ -81,6 +77,9 @@ rm %{buildroot}%{rlibdir}/%{packname}/cctz.sh
 
 
 %changelog
+* Fri May 12 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.9.2-3
+- Ignore vignettes
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.9.2-2
 - R-maint-sig mass rebuild
 

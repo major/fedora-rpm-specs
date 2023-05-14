@@ -1,12 +1,12 @@
-%global commit0 51dd0290241c521f5498f71f4fd4fb0598d83a76
+%global commit0 d82bae32bee63d4a521e5cb081359aa5a35213f1
 %global shortcommit0 %%(c=%%{commit0}; echo ${c:0:7})
 
-%global snapdate 20230423
+%global snapdate 20230511
 
 %global __python %{__python3}
 
 Name:           yosys
-Version:        0.28
+Version:        0.29
 Release:        1.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        Yosys Open SYnthesis Suite, including Verilog synthesizer
 License:        ISC and MIT
@@ -89,8 +89,8 @@ Development files to build Yosys synthesizer plugins.
 %prep
 %setup -q -n %{name}-%{commit0}
 
-%patch1 -p1 -b .cfginc
-%patch2 -p1 -b .mancfginc
+%patch 1 -p1 -b .cfginc
+%patch 2 -p1 -b .mancfginc
 
 # Ensure that Makefile doesn't wget viz.js
 cp %{SOURCE1} .
@@ -172,6 +172,9 @@ make test ABCEXTERNAL=%{_bindir}/abc SEED=314159265359
 
 
 %changelog
+* Thu May 11 2023 Gabriel Somlo <gsomlo@gmail.com> - 0.29.1.20230511gitd82bae3
+- update to 0.29 snapshot
+
 * Sun Apr 23 2023 Gabriel Somlo <gsomlo@gmail.com> - 0.28.1.20230423git51dd029
 - update to 0.28 snapshot
 

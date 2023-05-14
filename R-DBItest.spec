@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          1.7.0
-Release:          10%{?dist}
+Release:          11%{?dist}
 Summary:          Testing DBI Backends
 
 License:          LGPLv2+
@@ -58,7 +58,7 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %check
-%{_bindir}/R CMD check %{packname}
+%{_bindir}/R CMD check --ignore-vignettes %{packname}
 
 
 %files
@@ -75,6 +75,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri May 12 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.7.0-11
+- Ignore vignettes
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.7.0-10
 - R-maint-sig mass rebuild
 

@@ -29,7 +29,9 @@ BuildRequires:  expect
 BuildRequires:  net-tools
 BuildRequires:  openssl-devel
 BuildRequires:  socat
+%if %{undefined rhel}
 BuildRequires:  trousers >= 0.3.9
+%endif
 BuildRequires:  softhsm
 BuildRequires:  json-glib-devel
 %if %{with gnutls}
@@ -73,8 +75,8 @@ Include files for the TPM emulator's CUSE interface.
 Summary:        Tools for the TPM emulator
 License:        BSD
 Requires:       swtpm = %{version}-%{release}
-# trousers: for tss account
-Requires:       trousers >= 0.3.9 bash gnutls-utils
+# trousers: for tss account (unsupported in RHEL)
+Requires:       %{!?rhel:trousers >= 0.3.9} bash gnutls-utils
 
 %description    tools
 Tools for the TPM emulator from the swtpm package
@@ -84,7 +86,7 @@ Summary:        Tools for creating a local CA based on a TPM pkcs11 device
 License:        BSD
 Requires:       swtpm-tools = %{version}-%{release}
 Requires:       tpm2-pkcs11 tpm2-pkcs11-tools tpm2-tools tpm2-abrmd
-Requires:       expect gnutls-utils trousers >= 0.3.9
+Requires:       expect gnutls-utils %{!?rhel:trousers >= 0.3.9}
 
 %description   tools-pkcs11
 Tools for creating a local CA based on a pkcs11 device

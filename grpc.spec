@@ -1639,7 +1639,7 @@ fi
 %{_libdir}/libgrpc++_reflection.so
 %{_libdir}/libgrpc++_unsecure.so
 %{_libdir}/libgrpc_plugin_support.so
-%{_includedir}/grpc++
+%{_includedir}/grpc++/
 %{_libdir}/pkgconfig/grpc++.pc
 %{_libdir}/pkgconfig/grpc++_unsecure.pc
 

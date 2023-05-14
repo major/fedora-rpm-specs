@@ -14,7 +14,7 @@ ExclusiveArch: x86_64 aarch64
 %define TOOLCHAIN      GCC5
 %define OPENSSL_VER    1.1.1k
 
-%define DBXDATE        20230314
+%define DBXDATE        20230509
 
 %if %{defined rhel}
 %define build_ovmf 0
@@ -67,12 +67,15 @@ Source30: 30-edk2-ovmf-ia32-sb-enrolled.json
 Source31: 40-edk2-ovmf-ia32-sb.json
 Source32: 50-edk2-ovmf-ia32-nosb.json
 
-Source40: 30-edk2-ovmf-x64-sb-enrolled.json
-Source41: 40-edk2-ovmf-x64-sb.json
-Source42: 50-edk2-ovmf-x64-microvm.json
-Source43: 50-edk2-ovmf-x64-nosb.json
-Source44: 60-edk2-ovmf-x64-amdsev.json
-Source45: 60-edk2-ovmf-x64-inteltdx.json
+Source40: 30-edk2-ovmf-4m-qcow2-x64-sb-enrolled.json
+Source41: 31-edk2-ovmf-2m-raw-x64-sb-enrolled.json
+Source42: 40-edk2-ovmf-4m-qcow2-x64-sb.json
+Source43: 41-edk2-ovmf-2m-raw-x64-sb.json
+Source44: 50-edk2-ovmf-x64-microvm.json
+Source45: 50-edk2-ovmf-4m-qcow2-x64-nosb.json
+Source46: 51-edk2-ovmf-2m-raw-x64-nosb.json
+Source47: 60-edk2-ovmf-x64-amdsev.json
+Source48: 60-edk2-ovmf-x64-inteltdx.json
 
 # https://gitlab.com/kraxel/edk2-build-config
 Source80: edk2-build.py
@@ -98,7 +101,8 @@ Patch0012: 0012-OvmfPkg-QemuKernelLoaderFsDxe-suppress-error-on-no-k.patch
 Patch0013: 0013-SecurityPkg-Tcg2Dxe-suppress-error-on-no-swtpm-in-si.patch
 Patch0014: 0014-SecurityPkg-add-TIS-sanity-check-tpm2.patch
 Patch0015: 0015-SecurityPkg-add-TIS-sanity-check-tpm12.patch
-Patch0016: 0016-OvmfPkg-NestedInterruptTplLib-replace-ASSERT-with-a-.patch
+Patch0016: 0016-OvmfPkg-Clarify-invariants-for-NestedInterruptTplLib.patch
+Patch0017: 0017-OvmfPkg-Relax-assertion-that-interrupts-do-not-occur.patch
 
 
 # python3-devel and libuuid-devel are required for building tools.
@@ -122,7 +126,7 @@ BuildRequires:  xorriso
 
 # For generating the variable store template with the default certificates
 # enrolled.
-BuildRequires:  python3-virt-firmware >= 1.7
+BuildRequires:  python3-virt-firmware >= 23.5
 
 # endif build_ovmf
 %endif
@@ -292,7 +296,8 @@ cp -a -- \
    %{SOURCE10} %{SOURCE11} %{SOURCE12} %{SOURCE13} \
    %{SOURCE20} \
    %{SOURCE30} %{SOURCE31} %{SOURCE32} \
-   %{SOURCE40} %{SOURCE41} %{SOURCE42} %{SOURCE43} %{SOURCE44} %{SOURCE45} \
+   %{SOURCE40} %{SOURCE41} %{SOURCE42} %{SOURCE43} %{SOURCE44} \
+   %{SOURCE45} %{SOURCE46} %{SOURCE47} %{SOURCE48} \
    %{SOURCE80} %{SOURCE81} %{SOURCE82} %{SOURCE83} \
    %{SOURCE90} %{SOURCE91} \
    .
@@ -368,6 +373,12 @@ virt-fw-vars --input   Fedora/ovmf-ia32/OVMF_VARS.fd \
 build_iso Fedora/ovmf
 build_iso Fedora/ovmf-ia32
 
+for raw in */ovmf-4m/*.fd; do
+    qcow2="${raw%.fd}.qcow2"
+    qemu-img convert -f raw -O qcow2 -o cluster_size=4096 -S 4096 "$raw" "$qcow2"
+    rm -f "$raw"
+done
+
 # experimental stateless builds
 virt-fw-vars --input   Fedora/experimental/OVMF.stateless.fd \
              --output  Fedora/experimental/OVMF.stateless.secboot.fd \
@@ -376,7 +387,7 @@ virt-fw-vars --input   Fedora/experimental/OVMF.stateless.fd \
 
 for image in \
 	Fedora/ovmf/OVMF_CODE.secboot.fd \
-	Fedora/ovmf-4m/OVMF_CODE.secboot.fd \
+	Fedora/ovmf-4m/OVMF_CODE.secboot.qcow2 \
 	Fedora/experimental/OVMF.stateless.secboot.fd \
 ; do
 	pcr="${image%.fd}.pcr"
@@ -452,9 +463,12 @@ ln -s OVMF_CODE.fd %{buildroot}%{_datadir}/%{name}/ovmf/OVMF_CODE.cc.fd
 # json description files
 mkdir -p %{buildroot}%{_datadir}/qemu/firmware
 install -m 0644 \
-        30-edk2-ovmf-x64-sb-enrolled.json \
-        40-edk2-ovmf-x64-sb.json \
-        50-edk2-ovmf-x64-nosb.json \
+        30-edk2-ovmf-4m-qcow2-x64-sb-enrolled.json \
+        31-edk2-ovmf-2m-raw-x64-sb-enrolled.json \
+        40-edk2-ovmf-4m-qcow2-x64-sb.json \
+        41-edk2-ovmf-2m-raw-x64-sb.json \
+        50-edk2-ovmf-4m-qcow2-x64-nosb.json \
+        51-edk2-ovmf-2m-raw-x64-nosb.json \
         60-edk2-ovmf-x64-amdsev.json \
         60-edk2-ovmf-x64-inteltdx.json \
         %{buildroot}%{_datadir}/qemu/firmware
@@ -553,19 +567,22 @@ done
 %{_datadir}/%{name}/ovmf/UefiShell.iso
 %{_datadir}/%{name}/ovmf/Shell.efi
 %{_datadir}/%{name}/ovmf/EnrollDefaultKeys.efi
-%{_datadir}/qemu/firmware/30-edk2-ovmf-x64-sb-enrolled.json
-%{_datadir}/qemu/firmware/40-edk2-ovmf-x64-sb.json
-%{_datadir}/qemu/firmware/50-edk2-ovmf-x64-nosb.json
+%{_datadir}/qemu/firmware/30-edk2-ovmf-4m-qcow2-x64-sb-enrolled.json
+%{_datadir}/qemu/firmware/31-edk2-ovmf-2m-raw-x64-sb-enrolled.json
+%{_datadir}/qemu/firmware/40-edk2-ovmf-4m-qcow2-x64-sb.json
+%{_datadir}/qemu/firmware/41-edk2-ovmf-2m-raw-x64-sb.json
+%{_datadir}/qemu/firmware/50-edk2-ovmf-4m-qcow2-x64-nosb.json
+%{_datadir}/qemu/firmware/51-edk2-ovmf-2m-raw-x64-nosb.json
 %{_datadir}/qemu/firmware/60-edk2-ovmf-x64-amdsev.json
 %{_datadir}/qemu/firmware/60-edk2-ovmf-x64-inteltdx.json
 %if %{defined fedora}
 %{_datadir}/%{name}/ovmf/MICROVM.fd
 %{_datadir}/qemu/firmware/50-edk2-ovmf-x64-microvm.json
 %dir %{_datadir}/%{name}/ovmf-4m/
-%{_datadir}/%{name}/ovmf-4m/OVMF_CODE.fd
-%{_datadir}/%{name}/ovmf-4m/OVMF_CODE.secboot.fd
-%{_datadir}/%{name}/ovmf-4m/OVMF_VARS.fd
-%{_datadir}/%{name}/ovmf-4m/OVMF_VARS.secboot.fd
+%{_datadir}/%{name}/ovmf-4m/OVMF_CODE.qcow2
+%{_datadir}/%{name}/ovmf-4m/OVMF_CODE.secboot.qcow2
+%{_datadir}/%{name}/ovmf-4m/OVMF_VARS.qcow2
+%{_datadir}/%{name}/ovmf-4m/OVMF_VARS.secboot.qcow2
 %{_datadir}/%{name}/ovmf/*.pcr
 %{_datadir}/%{name}/ovmf-4m/*.pcr
 %endif

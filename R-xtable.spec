@@ -9,7 +9,7 @@
 
 Name:             R-%{packname}
 Version:          1.8.4
-Release:          14%{?dist}
+Release:          15%{?dist}
 Summary:          Export Tables to LaTeX or HTML
 
 License:          GPLv2+
@@ -61,9 +61,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 %check
 %if %{with_suggests}
-%{_bindir}/R CMD check %{packname}
+%{_bindir}/R CMD check --ignore-vignettes %{packname}
 %else
-_R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
+_R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check --ignore-vignettes %{packname}
 %endif
 
 
@@ -82,6 +82,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 
 
 %changelog
+* Fri May 12 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.8.4-15
+- Ignore vignettes
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.8.4-14
 - R-maint-sig mass rebuild
 

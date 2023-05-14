@@ -14,6 +14,8 @@ BuildRequires:  python3-devel
 
 # Comment out failing test
 Patch0:         qrcode_test.patch
+# Fix failure with Python3.12
+Patch1:         qrcode_assert-has-calls.patch
 
 %description
 This module uses the Python Imaging Library (PIL) to allow for the\

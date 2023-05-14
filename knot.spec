@@ -8,7 +8,7 @@
 Summary:	High-performance authoritative DNS server
 Name:		knot
 Version:	3.2.6
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPL-3.0-or-later
 URL:		https://www.knot-dns.cz
 Source0:	https://secure.nic.cz/files/knot-dns/%{name}-%{version}.tar.xz
@@ -63,7 +63,7 @@ BuildRequires:	pkgconfig(libxdp)
 %if 0%{?fedora} || 0%{?rhel}
 BuildRequires:	python3-sphinx
 BuildRequires:	pkgconfig(lmdb)
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 9
 BuildRequires:	pkgconfig(libxdp)
 %endif
 %endif
@@ -323,6 +323,9 @@ getent passwd knot >/dev/null || \
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Fri May 12 2023 Michel Alexandre Salim <salimma@fedoraproject.org> - 3.2.6-2
+- Add BR on libxdp on RHEL >= 9 to use with libbpf-1.x
+
 * Thu Apr 06 2023 Jakub Ružička <jakub.ruzicka@nic.cz> - 3.2.6-1
 - Update to 3.2.6
 - Sync upstream packaging improvements

@@ -1,4 +1,4 @@
-%global	mainver		1.14.3
+%global	mainver		1.14.4
 #%%global	prever		.rc4
 
 %global	baserelease		1
@@ -271,6 +271,11 @@ popd
 %doc	%{gem_dir}/doc/%{gem_name}-%{mainver}%{?prever}/
 
 %changelog
+* Fri May 12 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.14.4-1
+- 1.14.4
+- Note that CVE-2022-34169 is for vendored xalan-j, not affecting Fedora
+  nokogiri
+
 * Wed Apr 12 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.14.3-1
 - 1.14.3
 - SPDX confirmed

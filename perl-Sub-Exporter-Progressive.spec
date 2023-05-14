@@ -1,21 +1,17 @@
-# We need to patch the test suite if we have old versions of Test::More
-%global old_test_more %(perl -MTest::More -e 'print (($Test::More::VERSION < 0.88) ? 1 : 0);' 2>/dev/null || echo 0)
-
 Name:		perl-Sub-Exporter-Progressive
 Version:	0.001013
-Release:	20%{?dist}
+Release:	21%{?dist}
 Summary:	Only use Sub::Exporter if you need it
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Sub-Exporter-Progressive
-Source0:	https://cpan.metacpan.org/authors/id/F/FR/FREW/Sub-Exporter-Progressive-%{version}.tar.gz
-Patch1:		Sub-Exporter-Progressive-0.001013-old-Test::More.patch
+Source0:	https://cpan.metacpan.org/modules/by-module/Sub/Sub-Exporter-Progressive-%{version}.tar.gz
 BuildArch:	noarch
 # =============== Module Build ======================
 BuildRequires:	coreutils
 BuildRequires:	findutils
 BuildRequires:	make
-BuildRequires:	perl-interpreter
 BuildRequires:	perl-generators
+BuildRequires:	perl-interpreter
 BuildRequires:	perl(ExtUtils::MakeMaker)
 # =============== Module Runtime ====================
 BuildRequires:	perl(Carp)
@@ -26,8 +22,8 @@ BuildRequires:	perl(warnings)
 # =============== Test Suite ========================
 BuildRequires:	perl(constant)
 BuildRequires:	perl(lib)
-BuildRequires:	perl(Test::More)
-# =============== Module Runtime ====================
+BuildRequires:	perl(Test::More) >= 0.88
+# =============== Module Dependencies ===============
 Requires:	perl(Carp)
 Requires:	perl(Exporter) >= 5.58
 Requires:	perl(Sub::Exporter)
@@ -48,17 +44,11 @@ might as well use it directly.
 %prep
 %setup -q -n Sub-Exporter-Progressive-%{version}
 
-# We need to patch the test suite if we have old versions of Test::More
-%if %{old_test_more}
-%patch1
-%endif
-
 %build
 perl Makefile.PL INSTALLDIRS=vendor
 make %{?_smp_mflags}
 
 %install
-rm -rf %{buildroot}
 make pure_install DESTDIR=%{buildroot}
 find %{buildroot} -type f -name .packlist -delete
 %{_fixperms} -c %{buildroot}
@@ -67,16 +57,20 @@ find %{buildroot} -type f -name .packlist -delete
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
 %doc Changes README
 %{perl_vendorlib}/Sub/
 %{_mandir}/man3/Sub::Exporter::Progressive.3*
 
 %changelog
+* Fri May 12 2023 Paul Howarth <paul@city-fan.org> - 0.001013-21
+- Spec tidy-up
+  - Use SPDX-format license tag
+  - Use author-independent source URL
+  - Drop support for building with Test::More < 0.88
+  - Drop redundant buildroot cleaning in %%install section
+  - Use %%license unconditionally
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.001013-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

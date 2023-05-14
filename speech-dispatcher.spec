@@ -1,6 +1,6 @@
 Name:          speech-dispatcher
 Version:       0.11.4
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       To provide a high-level device independent layer for speech synthesis
 
 # Almost all files are under GPL-2.0-or-later, however
@@ -17,7 +17,9 @@ BuildRequires: alsa-lib-devel
 BuildRequires: desktop-file-utils
 BuildRequires: dotconf-devel
 BuildRequires: espeak-ng-devel
+%if 0%{?fedora} || 0%{?rhel} < 10
 BuildRequires: flite-devel >= 2.0
+%endif
 BuildRequires: gcc
 BuildRequires: gcc-c++
 Buildrequires: glib2-devel
@@ -97,6 +99,7 @@ Requires:       festival-freebsoft-utils
 %description festival
 This package contains the festival output module for Speech Dispatcher.
 
+%if 0%{?fedora} || 0%{?rhel} < 10
 %package flite
 Summary:        Speech Dispatcher flite module
 Requires:       %{name}%{_isa} = %{version}-%{release}
@@ -104,6 +107,7 @@ Requires:       flite%{?_isa} >= 2.0
 
 %description flite
 This package contains the flite output module for Speech Dispatcher.
+%endif
 
 %package -n python3-speechd
 Summary:        Python 3 Client API for speech-dispatcher
@@ -121,7 +125,10 @@ tar xf %{SOURCE1}
 %build
 %configure --disable-static \
 	--with-alsa --with-pulse --with-libao \
-	--with-flite --with-espeak-ng \
+	--with-espeak-ng \
+%if 0%{?fedora} || 0%{?rhel} < 10
+	--with-flite \
+%endif
 	--without-oss --without-nas --without-espeak \
 	--with-kali=no --with-baratinoo=no --with-ibmtts=no --with-voxin=no \
 	--sysconfdir=%{_sysconfdir} --with-default-audio-method=pulse \
@@ -217,14 +224,19 @@ sed 's/# AudioOutputMethod "pulse,alsa"/AudioOutputMethod "pulse,alsa"/' %{build
 %config(noreplace) %{_sysconfdir}/speech-dispatcher/modules/festival.conf
 %{_libdir}/speech-dispatcher-modules/sd_festival
 
+%if 0%{?fedora} || 0%{?rhel} < 10
 %files flite
 %config(noreplace) %{_sysconfdir}/speech-dispatcher/modules/flite.conf
 %{_libdir}/speech-dispatcher-modules/sd_flite
+%endif
 
 %files -n python3-speechd
 %{python3_sitearch}/speechd*
 
 %changelog
+* Fri May 12 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.11.4-4
+- Disable flite in RHEL 10+ builds
+
 * Tue Feb 28 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.11.4-3
 - migrated to SPDX license
 

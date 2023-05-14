@@ -79,8 +79,8 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %check
-export LANG=C.UTF-8 NOT_CRAN=true
-%{_bindir}/R CMD check %{packname}
+export LANG=C.UTF-8
+%{_bindir}/R CMD check --ignore-vignettes %{packname}
 
 
 %files

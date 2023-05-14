@@ -1,5 +1,5 @@
 Name:		python-makefun
-Version:	1.14.0
+Version:	1.15.1
 Release:	%autorelease
 Summary:	Dynamically create python functions with a proper signature
 
@@ -43,7 +43,8 @@ sed -r -i "s/'pandoc', //" setup.py
 
 %check
 # Tests require pytest-cases, which requires this package. Yay!
-%{__python3} -m pytest -v || :
+PYTHONPATH=%{buildroot}/%{python3_sitelib} \
+    %python3 -m pytest -v
 
 %files -n python3-makefun
 %license LICENSE

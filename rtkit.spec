@@ -4,8 +4,9 @@ Version:          0.11
 # Remove if the version is ever bumped (or rpmautospec fixed).
 Release:          %autorelease -b17
 Summary:          Realtime Policy and Watchdog Daemon
-# The daemon itself is GPLv3+, the reference implementation for the client BSD
-License:          GPLv3+ and BSD
+# The daemon itself is GPLv3+, the reference implementation for the client MIT
+# The LICENSE file incorrectly states that the client is under BSD.
+License:          GPL-3.0-or-later AND MIT
 URL:              http://git.0pointer.net/rtkit.git/
 Requires:         dbus
 Requires:         polkit
