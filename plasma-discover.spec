@@ -13,7 +13,7 @@
 Name:    plasma-discover
 Summary: KDE and Plasma resources management GUI
 Version: 5.27.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 License: GPLv2 or GPLv3
@@ -32,6 +32,9 @@ Source0: http://download.kde.org/%{stable}/plasma/%{verdir}/%{base_name}-%{versi
 Source10: discoverrc
 
 ## upstream patches
+# https://invent.kde.org/plasma/discover/-/merge_requests/548
+# Fix an error appearing on start with fwupd 1.9.1
+Patch100: 0001-fwupd-don-t-refresh-directory-type-remotes-on-setup.patch
 
 ## downstream patches
 # workaround PK metadata refresh issues (always force refresh)
@@ -320,6 +323,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.di
 
 
 %changelog
+* Sat May 13 2023 Adam Williamson <awilliam@redhat.com> - 5.27.5-2
+- Backport MR #548 to fix error message on start with fwupd 1.9.1
+
 * Wed May 10 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.5-1
 - 5.27.5
 

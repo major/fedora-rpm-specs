@@ -9,7 +9,7 @@ projects, ensuring you have the right stack everywhere.}
 Name:           poetry
 Summary:        Python dependency management and packaging made easy
 Version:        1.3.2
-Release:        3%{?dist}
+Release:        5%{?dist}
 
 License:        MIT
 
@@ -60,9 +60,8 @@ Conflicts:      python3-virtualenv < 20.19.0-2
 rm -r src/poetry/_vendor
 
 # Allow newer requests-toolbelt version
-# https://bugzilla.redhat.com/show_bug.cgi?id=2138636
-# Merged upstream: https://github.com/python-poetry/poetry/pull/6924
-sed -i 's/requests-toolbelt = "^0.9.1"/requests-toolbelt = ">=0.9.1,<0.11.0"/' pyproject.toml
+# https://bugzilla.redhat.com/show_bug.cgi?id=2196879
+sed -i 's/requests-toolbelt = ">=0.9.1,<0.11.0"/requests-toolbelt = ">=0.9.1,<=1.0.0"/' pyproject.toml
 # Allow newer dulwich
 # Upstream bumped it via https://github.com/python-poetry/poetry/pull/7390
 sed -i 's/dulwich = "^0.20.46"/dulwich = ">=0.20.46,<0.22"/' pyproject.toml
@@ -129,6 +128,13 @@ not editable_builder" \
 
 
 %changelog
+* Thu May 11 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.3.2-5
+- Allow newer requests-toolbelt version - without bootstrap
+
+* Thu May 11 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.3.2-4
+- Allow newer requests-toolbelt version
+- Fixes: rhbz#2196879
+
 * Wed Mar 01 2023 Miro Hrončok <mhroncok@redhat.com> - 1.3.2-3
 - Update our wheel patch to match the virtualenv patch
 

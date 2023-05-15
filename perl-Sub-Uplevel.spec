@@ -3,16 +3,16 @@ Summary:        Apparently run a function in a higher stack frame
 Epoch:          1
 Version:        0.2800
 Release:        19%{?dist}
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Sub-Uplevel
-Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/Sub-Uplevel-%{version}.tar.gz 
+Source0:        https://cpan.metacpan.org/modules/by-module/Sub/Sub-Uplevel-%{version}.tar.gz
 BuildArch:      noarch
 # Build:
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.17
 # Run-time:
 BuildRequires:  perl(Carp)
@@ -21,7 +21,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(Exporter)
-BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More) >= 0.88

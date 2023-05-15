@@ -1,5 +1,5 @@
 Name:           python-hatchling
-Version:        1.16.1
+Version:        1.17.0
 Release:        %autorelease
 Summary:        The build backend used by Hatch
 
@@ -18,8 +18,6 @@ Source500:      hatchling-version.1
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-# RHBZ#1985340, RHBZ#2076994
-BuildRequires:  pyproject-rpm-macros >= 1.2.0
 
 %global common_description %{expand:
 This is the extensible, standards compliant build backend used by Hatch.}

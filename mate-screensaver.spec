@@ -13,9 +13,9 @@
 %{!?rel_build:%global git_tar %{name}-%{version}-%{git_ver}.tar.xz}
 
 Name:           mate-screensaver
-Version:        %{branch}.1
+Version:        %{branch}.2
 %if 0%{?rel_build}
-Release:        3%{?dist}
+Release:        1%{?dist}
 %else
 Release:        0.18%{?git_rel}%{?dist}
 %endif
@@ -28,10 +28,6 @@ URL:            http://pub.mate-desktop.org
 %{?rel_build:Source0:     http://pub.mate-desktop.org/releases/%{branch}/%{name}-%{version}.tar.xz}
 # Source for snapshot-builds.
 %{!?rel_build:Source0:    http://git.mate-desktop.org/%{name}/snapshot/%{name}-%{commit}.tar.xz#/%{git_tar}}
-
-# upstream 1.26 branch
-Patch1:        mate-screensaver_0001-mate-screensaver-preferences-fix-memory-leak.patch
-Patch2:        mate-screensaver_0002-mate-screensaver-preferences-fix-memory-leak.patch
 
 Requires:      redhat-menus
 Requires:      system-logos
@@ -148,6 +144,9 @@ mv %{buildroot}%{_docdir}/mate-screensaver-%{version}/mate-screensaver.html %{bu
 
 
 %changelog
+* Sat May 13 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.2-1
+- update to 1.26.2
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

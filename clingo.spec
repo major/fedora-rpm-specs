@@ -12,6 +12,7 @@ Patch0:     clingo.clasp-disable-class-memaccess-warning.patch
 BuildRequires: bison
 BuildRequires: cmake
 BuildRequires: gcc-c++
+BuildRequires: python3-setuptools
 BuildRequires: re2c
 
 %description

@@ -6,8 +6,8 @@
 Summary:	Improved version of Test::Unit bundled in Ruby 1.8.x
 Name:		rubygem-%{gem_name}
 # 3.3.8 and above is for ruby 3.0+ only
-Version:	3.5.7
-Release:	201%{?dist}
+Version:	3.5.8
+Release:	200%{?dist}
 # SPDX confirmed
 # lib/test/unit/diff.rb is under (BSD-2-Clause OR Ruby) AND Python-2.0.1
 # lib/test-unit.rb changed to BSD-2-Clause or Ruby (from 3.3.7)
@@ -19,6 +19,9 @@ Source0:	http://rubygems.org/gems/%{gem_name}-%{version}.gem
 Source1:	%{gem_name}-%{version}-tests.tar.gz
 # Source1 is created by bash %%SOURCE2
 Source2:	test-unit-create-missing-files.sh
+# 3.5.8 changes progress style to in-place. Change it to mark as before
+# on F-38 and below
+Patch0:	test-unit-3.5.8-progress_style-default-mark.patch
 
 BuildRequires:	ruby(release)
 BuildRequires:	rubygems
@@ -50,6 +53,9 @@ This package contains documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -a 1
+%if 0%{?fedora} <= 38
+%patch -P0 -p1 -b .default
+%endif
 
 mv ../%{gem_name}-%{version}.gemspec .
 
@@ -99,6 +105,11 @@ popd
 %{gem_docdir}/
 
 %changelog
+* Sat May 13 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.8-200
+- 3.5.8
+- F-38 and below: Keep progress style as mark as before instead of upstream-chosen
+  inplace style
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.7-201
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

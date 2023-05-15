@@ -1,6 +1,6 @@
 Name:     primesieve
-Version:  11.0
-Release:  2%{?dist}
+Version:  11.1
+Release:  3%{?dist}
 Summary:  Fast prime number generator
 License:  BSD
 URL:      https://github.com/kimwalisch/primesieve
@@ -71,6 +71,19 @@ It also contains the API documentation of the library.
 %{_libdir}/pkgconfig/primesieve.pc
 
 %changelog
+* Sat May 13 2023 Kim Walisch <walki@fedoraproject.org> - 11.1-3
+- Update to latest primesieve release archive from GitHub
+- Fix incorrect date of version 11.1-1 in changelog
+
+* Sat May 13 2023 Kim Walisch <walki@fedoraproject.org> - 11.1-2
+- Fix incorrect date in changelog
+
+* Sat May 13 2023 Kim Walisch <walki@fedoraproject.org> - 11.1-1
+- Update to primesieve-11.1
+- Vectorized pre-sieving algorithm using x64 SSE2 and ARM NEON
+- Added POPCNT algorithm for x64 & AArch64
+- Fix -Wstrict-prototypes warnings
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

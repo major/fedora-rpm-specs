@@ -64,10 +64,8 @@ Patch:          %{url}/commit/1b10663e645efd6f37d616c5de34451dc2e015c0.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-# RHBZ#1985340, RHBZ#2076994
-BuildRequires:  pyproject-rpm-macros >= 1.2.0
-BuildRequires:  git-core
 
+BuildRequires:  git-core
 Requires:       git-core
 
 %description

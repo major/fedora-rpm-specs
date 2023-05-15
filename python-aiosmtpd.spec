@@ -9,23 +9,13 @@ on asyncio for Python 3.
 
 
 Name:           python-%{pkgname}
-Version:        1.4.2
-Release:        10%{?dist}
+Version:        1.4.4.post2
+Release:        1%{?dist}
 Summary:        %{summary}
 
 License:        ASL 2.0
 URL:            https://github.com/aio-libs/aiosmtpd
 Source0:        %{url}/archive/%{version}/%{pkgname}-%{version}.tar.gz
-
-# Backports from upstream
-Patch0001:      0001-Implement-Unthreaded-Controller-256.patch
-Patch0002:      0002-Code-Hygiene-259.patch
-Patch0003:      0003-URGENT-Fix-RTD-docs-gen.patch
-Patch0004:      0004-Make-Sphinx-RTD-deps-SSOT.patch
-
-# Avoid SSLError: Cannot create a client socket with a PROTOCOL_TLS_SERVER context
-# Not merged yet when introduced here
-Patch0005:      %{url}/pull/284.patch
 
 BuildArch:      noarch
 
@@ -33,6 +23,7 @@ BuildRequires:  python%{python3_pkgversion}-devel >= 3.4
 BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python%{python3_pkgversion}-atpublic
 BuildRequires:  python%{python3_pkgversion}-flufl-testing
+BuildRequires:  python%{python3_pkgversion}-attrs
 BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-pytest-mock
 # Required for tests
@@ -47,6 +38,7 @@ BuildRequires:  python%{python3_pkgversion}-sphinx
 %package -n python%{python3_pkgversion}-%{pkgname}
 Summary:        %{summary}
 Requires:       python%{python3_pkgversion}-atpublic
+Requires:       python%{python3_pkgversion}-attrs
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{pkgname}}
 
 %description -n python%{python3_pkgversion}-%{pkgname} %{_description}
@@ -68,9 +60,7 @@ rm -f  %{buildroot}%{python3_sitelib}/aiosmtpd/docs/.gitignore
 
 
 %check
-# Tests don't seem to work properly in the build environment
-# Cf. https://github.com/aio-libs/aiosmtpd/issues/277
-%{__python3} -m pytest -v || :
+%{__python3} -m pytest -v
 
 
 %files -n python%{python3_pkgversion}-%{pkgname}
@@ -79,10 +69,14 @@ rm -f  %{buildroot}%{python3_sitelib}/aiosmtpd/docs/.gitignore
 %doc build/sphinx/html
 %endif
 %{_bindir}/aiosmtpd
-%{python3_sitelib}/*
+%{python3_sitelib}/aiosmtpd/
+%{python3_sitelib}/aiosmtpd-*.egg-info/
 
 
 %changelog
+* Sat May 13 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.4.4.post2-1
+- Update to 1.4.4.post2
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

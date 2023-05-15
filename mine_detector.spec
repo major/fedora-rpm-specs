@@ -4,7 +4,7 @@ Release:        45%{?dist}
 Summary:        Mine Detector, a mine-finding game
 Summary(sv):    Mine Detector, ett minröjningsspel
 
-License:        GPLv2
+License:        GPL-2.0-only
 URL:            http://pragmada.x10hosting.com/mindet.html
 Source1:        http://pragmada.x10hosting.com/mine_detector_6.0_src.zip
 Source2:        mine_detector.gpr
@@ -19,7 +19,7 @@ Source7:        mine_detector.1.en
 Source8:        mine_detector.1.sv
 # Patch to adapt to GTKada 2.24.2 without breaking compatibility with 2.18.0,
 # proposed upstream by email 2012-07-06:
-Patch1:         mine_detector-6.0-gtkada-2.24.2.patch
+Patch:          mine_detector-6.0-gtkada-2.24.2.patch
 
 BuildRequires:  gcc-gnat PragmARC-devel GtkAda-devel desktop-file-utils unzip
 BuildRequires:  gprbuild
@@ -52,7 +52,7 @@ cp -p %{SOURCE2} .
 cp -p %{SOURCE4} license.txt
 cp -p %{SOURCE5} README.Fedora
 cp -p %{SOURCE6} license_clarification.mbox
-%patch1
+%autopatch
 
 
 %build
