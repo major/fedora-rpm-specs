@@ -9,7 +9,7 @@
 
 Name:           rust-%{crate}
 Version:        0.13.5
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Library for running child processes
 
 # Upstream license specification: MIT
@@ -61,6 +61,9 @@ which use "default" feature of "%{crate}" crate.
 
 %generate_buildrequires
 %cargo_generate_buildrequires
+%if %{with check}
+echo '/usr/bin/python3'
+%endif
 
 %build
 %cargo_build
@@ -74,6 +77,9 @@ which use "default" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Sun May 14 2023 Fabio Valentini <decathorpe@gmail.com> - 0.13.5-6
+- Make dependency on /usr/bin/python3 for running tests explicit.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

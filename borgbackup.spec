@@ -2,9 +2,12 @@
 
 Name:           %{srcname}
 Version:        1.2.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A deduplicating backup program with compression and authenticated encryption
-License:        BSD and zlib
+# zlib:         src/borg/algorithms/{crc32_clmul.c, crc32_slice_by_8.c}
+# Apache-2.0:   src/borg/cache_sync/{sysdep.h, unpack.h, unpack_template.h, unpack_define.h}
+# PSF-2.0:      src/borg/shellpattern.py
+License:        BSD-3-clause AND zlib AND Apache-2.0 AND PSF-2.0
 
 URL:            https://borgbackup.readthedocs.org
 Source0:        %pypi_source
@@ -23,13 +26,9 @@ BuildRequires:  python3-Cython
 BuildRequires:  python3-devel
 BuildRequires:  python3-pkgconfig
 
-# upstream requires: msgpack >=0.5.6, <=1.0.4, !=1.0.1
-BuildRequires:  python3-msgpack >= 0.5.6
-BuildRequires:  python3-msgpack <= 1.0.4
-
 # test
-BuildRequires:  python3-dateutil
-BuildRequires:  python3-pytest
+BuildRequires:  python3dist(python-dateutil)
+BuildRequires:  python3dist(pytest)
 
 # doc
 BuildRequires:  python3-sphinx
@@ -115,7 +114,7 @@ cd $PYTHONPATH
 # test_readonly_mount: needs fuse mount
 # exclude benchmark: not relevant for package build
 TEST_SELECTOR="not test_fuse and not test_readonly_mount and not benchmark"
-py.test-3 -x -vk "$TEST_SELECTOR" borg/testsuite/*.py
+%pytest -x -vk "$TEST_SELECTOR" borg/testsuite/*.py
 
 
 %files
@@ -141,6 +140,10 @@ py.test-3 -x -vk "$TEST_SELECTOR" borg/testsuite/*.py
 
 
 %changelog
+* Sun May 14 2023 Felix Schwarz <fschwarz@fedoraproject.org> - 1.2.4-2
+- SPDX migration
+- rely on auto-generated version requirement for msgpack
+
 * Fri Mar 24 2023 Felix Schwarz <fschwarz@fedoraproject.org> - 1.2.4-1
 - update to 1.2.4
 

@@ -172,10 +172,11 @@ sed -i -e 's, \"external/CL/\*\.h\" , ,' src/CMakeLists.txt
 # 
 #
 #%%if %%{defined rhel}
-%if %{defined rhel} && 0%{?rhel} > 8
+%if %{defined rhel}
 . /opt/rh/gcc-toolset-12/enable
-
-mkdir %{_target_platform} 
+%endif
+%if (%{defined rhel} && 0%{?rhel} == 8)
+mkdir %{_target_platform}
 pushd %{_target_platform}
 %cmake \
         -DCMAKE_LIBRARY_PATH:PATH=%{_libdir} \

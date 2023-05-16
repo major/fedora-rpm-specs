@@ -10,8 +10,8 @@
 %global _kf5_iconsdir %{_datadir}/icons
 
 Name:       smb4k
-Version:    3.1.6
-Release:    2%{?dist}
+Version:    3.2.1
+Release:    1%{?dist}
 Summary:    The SMB/CIFS Share Browser for KDE
 
 License:    GPLv2+
@@ -103,8 +103,8 @@ appstream-util validate-relax --nonet %{buildroot}/%{_kf5_metainfodir}/*.appdata
 %ldconfig_scriptlets
 
 %files -f %{name}.lang
-%doc AUTHORS BUGS ChangeLog README
-%license COPYING
+%doc AUTHORS BUGS ChangeLog README.md
+%license LICENSES/*
 %{_kf5_bindir}/%{name}*
 %{_kf5_libdir}/libsmb4kcore.so
 %{_kf5_datadir}/kconf_update/*
@@ -125,6 +125,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_kf5_metainfodir}/*.appdata
 %{_kf5_qmldir}/org/kde/smb4k/
 
 %changelog
+* Sat Apr 08 2023 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 3.2.1-1
+- Update to 3.2.1 (#2138614)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

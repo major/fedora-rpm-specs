@@ -8,8 +8,8 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 23.04.0
-Release: 2%{?dist}
+Version: 23.04.1
+Release: 1%{?dist}
 Summary: The KPimTextEdit Library
 
 License: LGPLv2+
@@ -131,6 +131,9 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 
 
 %changelog
+* Sat May 13 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.1-1
+- 23.04.1
+
 * Mon May 08 2023 Kevin Kofler <Kevin@tigcc.ticalc.org> - 23.04.0-2
 - BuildRequires: cmake(KF5TextEditTextToSpeech) instead of Qt5TextToSpeech
 

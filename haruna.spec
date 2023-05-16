@@ -1,5 +1,5 @@
 Name:    haruna
-Version: 0.10.3
+Version: 0.11.0
 Release: %autorelease
 Summary: Open source video player built with Qt/QML and libmpv
 
@@ -84,7 +84,7 @@ Features:
 for i in 44 150 310; do
   rm -rf %{buildroot}%{_kf5_datadir}/icons/hicolor/"${i}x${i}"
 done
-%find_lang %{name}
+%find_lang %{name} --with-html
 
 
 %check
@@ -96,7 +96,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 %doc README.md
 %license LICENSES/*.txt
 %{_kf5_bindir}/haruna
-%{_kf5_datadir}/doc/HTML/en/%{name}
 %{_kf5_datadir}/applications/org.kde.%{name}.desktop
 %{_kf5_datadir}/icons/hicolor/*/apps/haruna.{svg,png}
 %{_kf5_metainfodir}/org.kde.%{name}.metainfo.xml

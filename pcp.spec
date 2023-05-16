@@ -1,5 +1,5 @@
 Name:    pcp
-Version: 6.0.3
+Version: 6.0.4
 Release: 1%{?dist}
 Summary: System-level performance monitoring and performance management
 License: GPLv2+ and LGPLv2+ and CC-BY
@@ -94,7 +94,7 @@ Source0: %{artifactory}/pcp-source-release/pcp-%{version}.src.tar.gz
 
 # support for pmdabpf, check bcc.spec for supported architectures of libbpf-tools
 %if 0%{?fedora} >= 37 || 0%{?rhel} > 8
-%ifarch x86_64 ppc64 ppc64le aarch64
+%ifarch x86_64 %{power64} aarch64
 %global disable_bpf 0
 %else
 %global disable_bpf 1
@@ -2705,7 +2705,6 @@ chown -R pcpqa:pcpqa %{_testsdir} 2>/dev/null
 %if !%{disable_systemd}
     systemctl restart pmcd pmlogger >/dev/null 2>&1
     systemctl enable pmcd pmlogger >/dev/null 2>&1
-    systemctl enable pmlogger_daily_report.timer >/dev/null 2>&1
 %else
     /sbin/chkconfig --add pmcd >/dev/null 2>&1
     /sbin/chkconfig --add pmlogger >/dev/null 2>&1
@@ -2976,14 +2975,6 @@ exit 0
 
 %preun pmda-weblog
 %{pmda_remove "$1" "weblog"}
-
-%if !%{disable_systemd}
-%preun zeroconf
-if [ "$1" -eq 0 ]
-then
-    %systemd_preun pmlogger_daily_report.timer pmlogger_daily_report.service
-fi
-%endif
 
 %preun
 if [ "$1" -eq 0 ]
@@ -3371,6 +3362,9 @@ fi
 %files zeroconf -f pcp-zeroconf-files.rpm
 
 %changelog
+* Mon May 15 2023 Nathan Scott <nathans@redhat.com> - 6.0.4-1
+- Rework LOCALHOSTNAME handling in control files (BZ 2172892)
+
 * Thu Feb 23 2023 Nathan Scott <nathans@redhat.com> - 6.0.3-1
 - Update to latest PCP sources.
 

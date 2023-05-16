@@ -27,7 +27,7 @@ There is a limited support for (deprecated) optparse objects, too.
 
 
 Name:           argparse-manpage
-Version:        4.1
+Version:        4.2
 Release:        1%{?dist}
 Summary:        %{sum Python}
 BuildArch:      noarch
@@ -38,6 +38,8 @@ Source0:        https://github.com/praiskup/%name/releases/download/v%version/%n
 
 %if %{with python2}
 BuildRequires: python2-setuptools python2-devel
+BuildRequires: python2-packaging
+BuildRequires: python2-toml
 %if %{with check}
 %if 0%{?rhel} && 0%{?rhel} == 7
 BuildRequires: pytest
@@ -49,6 +51,8 @@ BuildRequires: python2-pytest
 
 %if %{with python3}
 BuildRequires: python3-setuptools python3-devel
+BuildRequires: python3-packaging
+BuildRequires: python3-toml
 %if %{with check}
 BuildRequires: python3-pytest
 %endif
@@ -180,6 +184,9 @@ PYTHONPATH=%buildroot%python3_sitearch %__python3 -m pytest -vv
 
 
 %changelog
+* Sun May 14 2023 Pavel Raiskup <praiskup@redhat.com> - 4.2-1
+- new upstream release, upport for pyproject.toml specs, and --manfile option
+
 * Sat Apr 15 2023 Pavel Raiskup <praiskup@redhat.com> - 4.1-1
 - new `--include` feature, inspired by `help2man --include`
 - allow overriding build date with SOURCE_DATE_EPOCH environment variable

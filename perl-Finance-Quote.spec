@@ -1,5 +1,5 @@
 # RPM version needs 4 digits after the decimal to preserve upgrade path
-%global module_version 1.5402
+%global module_version 1.55
 %global RPM_version %(printf "%.4f" %{module_version})
 
 Name:           perl-Finance-Quote
@@ -43,7 +43,7 @@ BuildRequires:  perl(JSON)
 BuildRequires:  perl(LWP::Protocol::https)
 BuildRequires:  perl(LWP::Simple)
 BuildRequires:  perl(LWP::UserAgent) >= 6.48
-BuildRequires:  perl(Module::Load)
+BuildRequires:  perl(Module::Load) >= 0.36
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Readonly)
 BuildRequires:  perl(Scalar::Util)
@@ -118,6 +118,7 @@ make test
 %{_mandir}/man3/Finance::Quote::CurrencyRates::ECB.3*
 %{_mandir}/man3/Finance::Quote::CurrencyRates::Fixer.3*
 %{_mandir}/man3/Finance::Quote::CurrencyRates::OpenExchange.3*
+%{_mandir}/man3/Finance::Quote::CurrencyRates::YahooJSON.3*
 %{_mandir}/man3/Finance::Quote::DWS.3*
 %{_mandir}/man3/Finance::Quote::Deka.3*
 %{_mandir}/man3/Finance::Quote::FTfunds.3*
@@ -155,6 +156,13 @@ make test
 %{_mandir}/man3/Finance::Quote::ZA.3*
 
 %changelog
+* Sun May 14 2023 Paul Howarth <paul@city-fan.org> - 1.5500-1
+- Update to 1.55
+  - Added YahooJSON currency rate module (GH#270)
+  - Added TRV => CAD in AlphaVantage.pm (GH#265, GH#267)
+  - Quick fix for YahooJSON.pm API
+  - URL Change for MorningstarJP (GH#261)
+
 * Sun May  7 2023 Paul Howarth <paul@city-fan.org> - 1.5402-1
 - Update to 1.5402
   - URL Change for MorningstarJP (GH#261)

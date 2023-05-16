@@ -1,7 +1,7 @@
 
 Name:    artikulate
 Summary: Improve your pronunciation by listening to native speakers
-Version: 23.04.0
+Version: 23.04.1
 Release: 1%{?dist}
 
 # artwork: LGPL3
@@ -95,6 +95,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Sat May 13 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.1-1
+- 23.04.1
+
 * Fri Apr 14 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.0-1
 - 23.04.0
 

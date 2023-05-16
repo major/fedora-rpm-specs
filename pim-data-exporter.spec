@@ -9,7 +9,7 @@
 
 Name:    pim-data-exporter
 Summary: Pim Data Exporter
-Version: 23.04.0
+Version: 23.04.1
 Release: 1%{?dist}
 
 # code (generally) GPLv2, docs GFDL
@@ -125,6 +125,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Sat May 13 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.1-1
+- 23.04.1
+
 * Fri Apr 14 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.0-1
 - 23.04.0
 

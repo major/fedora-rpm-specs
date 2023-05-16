@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 Name:    ktp-text-ui
 Summary: Telepathy text chat handler
-Version: 23.04.0
+Version: 23.04.1
 Release: 1%{?dist}
 
 # GPLv2+: most code
@@ -131,6 +131,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.ktplogviewer.
 
 
 %changelog
+* Sat May 13 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.1-1
+- 23.04.1
+
 * Fri Apr 14 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.0-1
 - 23.04.0
 

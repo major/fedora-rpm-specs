@@ -1,7 +1,7 @@
 %global framework eventviews
 
 Name:    kf5-%{framework}
-Version: 23.04.0
+Version: 23.04.1
 Release: 1%{?dist}
 Summary: KDE PIM library for displaying events and calendars
 
@@ -40,6 +40,7 @@ BuildRequires:  cmake(KF5I18n)
 BuildRequires:  cmake(KF5IdentityManagement)
 BuildRequires:  cmake(KF5Libkdepim)
 BuildRequires:  cmake(KF5Mime)
+BuildRequires:  cmake(KF5TextEditTextToSpeech)
 
 #global majmin_ver %(echo %{version} | cut -d. -f1,2)
 %global majmin_ver %{version}
@@ -102,6 +103,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sat May 13 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.1-1
+- 23.04.1
+
 * Fri Apr 14 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.0-1
 - 23.04.0
 

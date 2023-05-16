@@ -7,7 +7,7 @@
 
 Name:    akonadiconsole
 Summary: Akonadi developer tool
-Version: 23.04.0
+Version: 23.04.1
 Release: 1%{?dist}
 
 # code (generally) GPLv2, docs GFDL
@@ -51,6 +51,7 @@ BuildRequires: cmake(KF5TextAutoCorrection)
 BuildRequires: cmake(KF5TextWidgets)
 BuildRequires: cmake(KF5WidgetsAddons)
 BuildRequires: cmake(KF5XmlGui)
+BuildRequires: cmake(KPim5MessageViewer)
 
 %global majmin_ver %(echo %{version} | cut -d. -f1,2)
 BuildRequires:  kf5-akonadi-contacts-devel >= %{majmin_ver}
@@ -125,6 +126,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Sat May 13 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.1-1
+- 23.04.1
+
 * Fri Apr 14 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.0-1
 - 23.04.0
 

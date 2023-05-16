@@ -11,7 +11,7 @@
 %endif
 
 Name:           zanshin
-Version:        23.04.0
+Version:        23.04.1
 Release:        1%{?dist}
 Summary:        Todo/action management software
 
@@ -120,6 +120,9 @@ time \
 %{_kf5_plugindir}/krunner/org.kde.%{name}.so
 
 %changelog
+* Sat May 13 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.1-1
+- 23.04.1
+
 * Fri Apr 14 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.0-1
 - 23.04.0
 

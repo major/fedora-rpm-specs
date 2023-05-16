@@ -42,7 +42,7 @@ ExcludeArch: s390x
 %global  _hardened_build 1
 
 # Build release candidate
-%global upver        1.37.1
+%global upver        1.39.0
 #global rcver        rc0
 
 # Last python 2 support (el7 only)
@@ -50,9 +50,14 @@ ExcludeArch: s390x
 # el8 only
 %global judy_ver 1.0.5-netdata2
 
+# 
+%global plugin_go_ver 0.52.2
+
+%global netdata_conf_stock %{_prefix}/lib/%{name}
+
 Name:           netdata
 Version:        %{upver}%{?rcver:~%{rcver}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Real-time performance monitoring
 # For a breakdown of the licensing, see LICENSE-REDISTRIBUTED.md
 License:        GPLv3 and GPLv3+ and ASL 2.0 and CC-BY and MIT and WTFPL 
@@ -63,14 +68,16 @@ Source2:        netdata.init
 Source3:        netdata.conf
 Source4:        netdata.profile
 Source5:        README-packager.md
+Source20:       https://github.com/netdata/go.d.plugin/releases/download/v%{plugin_go_ver}/config.tar.gz
+Source21:       netdata-install-go-plugins.sh
 # Only for el7
 Source10:       https://github.com/protocolbuffers/protobuf/releases/download/v%{protobuf_cpp_ver}/protobuf-cpp-%{protobuf_cpp_ver}.tar.gz
 # Only for el8
 Source11:       https://github.com/netdata/libjudy/archive/v%{judy_ver}/libjudy-%{judy_ver}.tar.gz
-Patch0:         netdata-fix-shebang-1.37.0.patch
+Patch0:         netdata-fix-shebang-1.39.0.patch
 %if 0%{?fedora}
 # Remove embedded font
-Patch10:        netdata-remove-fonts-1.37.0.patch
+Patch10:        netdata-remove-fonts-1.38.0.patch
 %endif
 
 BuildRequires:  zlib-devel
@@ -97,6 +104,7 @@ BuildRequires:  libcurl-devel
 BuildRequires:  systemd
 BuildRequires:  openssl-devel
 BuildRequires:  libpfm-devel
+BuildRequires:  libyaml-devel
 ### TODO Remove condition when autogen become available in el9
 %if 0%{?rhel} && 0%{?rhel} == 9
 %else
@@ -258,6 +266,10 @@ autoreconf -ivf
     
 %make_build
 
+# Integrate go plugins
+mkdir conf.d
+tar -xf %{SOURCE20} -C conf.d/
+
 %install
 %make_install
 find %{buildroot} -name '.keep' -delete
@@ -265,19 +277,24 @@ find %{buildroot} -name '.keep' -delete
 mkdir -p %{buildroot}%{_unitdir}
 mkdir -p %{buildroot}%{_tmpfilesdir}
 mkdir -p %{buildroot}%{_sysconfdir}/logrotate.d
-install -Dp -m 0644 system/netdata.service %{buildroot}%{_unitdir}/%{name}.service
+install -Dp -m 0644 system/systemd/netdata.service %{buildroot}%{_unitdir}/%{name}.service
 install -p -m 0644 %{SOURCE1} %{buildroot}%{_tmpfilesdir}/%{name}.conf
-install -Dp -m 0644 system/netdata.logrotate %{buildroot}%{_sysconfdir}/logrotate.d/netdata
+install -Dp -m 0644 system/logrotate/netdata %{buildroot}%{_sysconfdir}/logrotate.d/netdata
 
 mkdir -p %{buildroot}%{_localstatedir}/lib/%{name}
 mkdir -p %{buildroot}%{_localstatedir}/log/%{name}
 mkdir -p %{buildroot}%{_localstatedir}/cache/%{name}
 
-mkdir -p %{buildroot}%{_sysconfdir}/logrotate.d
 install -p -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/%{name}/
-install -p -m 0644 system/netdata.logrotate %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
-# Conf files must be in /etc, dixit FHS and it's better in a noarch pkg 
-mv %{buildroot}%{_libdir}/%{name}/conf.d %{buildroot}%{_sysconfdir}/%{name}/
+# it's better to put stock config file in a noarch pkg (like systemd)
+%ifnarch i686
+mkdir -p %{buildroot}%{netdata_conf_stock}/conf.d
+mv %{buildroot}%{_libdir}/%{name}/conf.d/* %{buildroot}%{netdata_conf_stock}/conf.d/
+sed -i -e '/NETDATA_STOCK_CONFIG_DIR/ s/lib64/lib/' %{buildroot}%{_sysconfdir}/%{name}/edit-config
+%endif
+sed -i -e '/^script_dir/s;=.*;="\$\{NETDATA_USER_CONFIG_DIR:-%{_sysconfdir}/netdata\}";' \
+    %{buildroot}%{_sysconfdir}/%{name}/edit-config
+
 # Scripts must not be in /etc, /usr/libexec is a better place
 mv %{buildroot}%{_sysconfdir}/%{name}/edit-config %{buildroot}%{_libexecdir}/%{name}/edit-config
 # Fix EOL
@@ -295,6 +312,18 @@ done
 
 mkdir -p %{buildroot}%{_sysconfdir}/profile.d
 install -p -m 0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/profile.d/netdata.sh
+sed -i -e '/NETDATA_STOCK_CONFIG_DIR/s;@STOCK_CONFIG_DIR@;%{netdata_conf_stock};' %{buildroot}%{_sysconfdir}/profile.d/netdata.sh
+
+# Integrate go plugins
+install -p conf.d/go.d.conf %{buildroot}%{netdata_conf_stock}/conf.d/go.d.conf
+cp -rp conf.d/go.d %{buildroot}%{netdata_conf_stock}/conf.d/go.d
+install -p -m 0644 packaging/go.d.checksums %{buildroot}%{_datadir}/%{name}/go.d.checksums
+install -p -m 0750 %{SOURCE21} %{buildroot}%{_sbindir}/netdata-install-go-plugins.sh
+sed -i \
+    -e 's;@PLUGIN_GO_VERSION@;%{plugin_go_ver};' \
+    -e 's;@DATADIR@;%{_datadir};' \
+    -e 's;@LIBEXEC@;%{_libexecdir};' \
+    %{buildroot}%{_sbindir}/netdata-install-go-plugins.sh
 
 %check
 make tests
@@ -305,10 +334,10 @@ getent passwd netdata > /dev/null || useradd -r -g netdata -c "NetData User" -s 
 
 %post
 sed -i -e '/web files group/ s/root/netdata/' /etc/netdata/netdata.conf ||:
+sed -i -e '/stock config directory/ s;/etc/netdata/conf.d;/usr/lib/netdata/conf.d;' /etc/netdata/netdata.conf ||:
+sed -i -e '/stock health configuration directory/ s;/etc/netdata/conf.d/health.d;/usr/lib/netdata/conf.d/health.d;' /etc/netdata/netdata.conf ||:
 %systemd_post %{name}.service
-echo "The current config file can be downloaded with the following command"
-echo "curl -o /etc/netdata/netdata.conf http://localhost:19999/netdata.conf"
-echo "Config should be edited with %{_libexecdir}/%{name}/edit-config"
+echo "Netdata config should be edited with %{_libexecdir}/%{name}/edit-config"
 
 %preun
 %systemd_preun %{name}.service
@@ -339,6 +368,7 @@ echo "Config should be edited with %{_libexecdir}/%{name}/edit-config"
 %attr(0755, netdata, netdata) %dir %{_localstatedir}/cache/%{name}
 %attr(0755, netdata, netdata) %dir %{_localstatedir}/log/%{name}
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
+%attr(0750,root,netdata)%{_sbindir}/netdata-install-go-plugins.sh
 
 %files conf
 %doc README.md
@@ -348,19 +378,9 @@ echo "Config should be edited with %{_libexecdir}/%{name}/edit-config"
 %dir %{_sysconfdir}/%{name}/health.d
 %dir %{_sysconfdir}/%{name}/python.d
 %dir %{_sysconfdir}/%{name}/statsd.d
-%dir %{_sysconfdir}/%{name}/conf.d
-%dir %{_sysconfdir}/%{name}/conf.d/charts.d
-%dir %{_sysconfdir}/%{name}/conf.d/health.d
-%dir %{_sysconfdir}/%{name}/conf.d/python.d
-%dir %{_sysconfdir}/%{name}/conf.d/statsd.d
-%dir %{_sysconfdir}/%{name}/conf.d/ebpf.d
 %config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf
-%config %{_sysconfdir}/%{name}/conf.d/*.conf
-%config %{_sysconfdir}/%{name}/conf.d/charts.d/*.conf
-%config %{_sysconfdir}/%{name}/conf.d/health.d/*.conf
-%config %{_sysconfdir}/%{name}/conf.d/python.d/*.conf
-%config %{_sysconfdir}/%{name}/conf.d/statsd.d/*.conf
-%config %{_sysconfdir}/%{name}/conf.d/ebpf.d/*.conf
+%dir %{netdata_conf_stock}/conf.d
+%{netdata_conf_stock}/conf.d/*
 %config %{_sysconfdir}/logrotate.d/netdata
 %config %{_sysconfdir}/profile.d/netdata.sh
 %dir %{_libexecdir}/%{name}
@@ -372,7 +392,7 @@ echo "Config should be edited with %{_libexecdir}/%{name}/edit-config"
 %license LICENSE REDISTRIBUTED.md
 %dir %{_datadir}/%{name}
 %attr(-, root, netdata) %{_datadir}/%{name}/web
-
+%{_datadir}/%{name}/go.d.checksums
 
 %files freeipmi
 %doc README.md
@@ -380,6 +400,9 @@ echo "Config should be edited with %{_libexecdir}/%{name}/edit-config"
 %caps(cap_setuid=ep) %attr(4750,root,netdata) %{_libexecdir}/%{name}/plugins.d/freeipmi.plugin
 
 %changelog
+* Sun May 14 2023 Didier Fabert <didier.fabert@gmail.com> 1.39.0-1
+- Update from upstream
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.37.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

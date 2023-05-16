@@ -1,7 +1,7 @@
 %global srcname ocrmypdf
 
 Name:           %{srcname}
-Version:        14.1.0
+Version:        14.2.0
 Release:        %autorelease
 Summary:        Add an OCR text layer to scanned PDF files
 
@@ -9,7 +9,7 @@ Summary:        Add an OCR text layer to scanned PDF files
 # No docs or tests are included in RPM.
 License:        MPL-2.0 and Zlib
 URL:            https://github.com/ocrmypdf/OCRmyPDF
-Source0:        %pypi_source
+Source0:        %pypi_source %{srcname}
 # Fedora specific.
 Patch0001:      0001-Remove-unnecessary-dependencies.patch
 
@@ -52,7 +52,7 @@ Documentation for ocrmypdf
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r -x docs -x test
+%pyproject_buildrequires -x docs -x test
 
 
 %prep

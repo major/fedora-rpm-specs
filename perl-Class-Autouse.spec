@@ -1,10 +1,12 @@
 Name:		perl-Class-Autouse
 Version:	2.01
-Release:	34%{?dist}
+Release:	36%{?dist}
 Summary:	Run-time class loading on first method call
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Class-Autouse
 Source0:	https://cpan.metacpan.org/authors/id/A/AD/ADAMK/Class-Autouse-%{version}.tar.gz
+# Update Makefile.PL to not use Module::Install::DSL CPAN RT#148302
+Patch0:         Class-Autouse-2.01-Remove-using-of-MI-DSL.patch
 
 # Upstream does its very best to prevent us from running them.
 %bcond_with	xt_tests
@@ -49,7 +51,9 @@ large amounts of memory, and decrease the script load time.
 
 %prep
 %setup -q -n Class-Autouse-%{version}
+%patch -P0 -p1
 rm -r inc/
+sed -i -e '/^inc\//d' MANIFEST
 
 %build
 AUTOMATED_TESTING=1 %{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -74,6 +78,12 @@ AUTOMATED_TESTING=1 PERL_DL_NONLAZY=1 %{__perl} "-MExtUtils::Command::MM" "-e" "
 %{_mandir}/man3/*
 
 %changelog
+* Sun May 14 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 2.01-36
+- Remove inc/ from MANIFEST.
+
+* Wed May 10 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.01-35
+- Update Makefile.PL to not use Module::Install::DSL
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.01-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

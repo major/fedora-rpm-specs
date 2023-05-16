@@ -1,20 +1,18 @@
 
 Name: phpldapadmin
 Summary: Web-based tool for managing LDAP servers
-Version: 1.2.6.3
-Release: 4%{?dist}
+Version: 1.2.6.6
+Release: 1%{?dist}
 License: GPLv2+
-URL: http://phpldapadmin.sourceforge.net
+URL: https://www.phpldapadmin.org
 
-#  wget -O phpldapadmin-%{version}.tar.gz  https://github.com/leenooks/phpLDAPadmin/archive/%{version}.tar.gz
-Source: phpldapadmin-%{version}.tar.gz
+Source: https://github.com/leenooks/phpLDAPadmin/refs/tags/%{version}.tar.gz
 
 Patch0: phpldapadmin-1.2.6-config.patch
-Patch1: phpldapadmin-1.2.6.3-php8.patch
 
 BuildArch: noarch
 
-Requires: httpd, php(httpd), php-ldap
+Requires: httpd-filesystem, php(httpd), php-ldap
 Requires: php-xml, php-gd, php-mbstring
 
 # These ones are normally provided by the main php
@@ -45,8 +43,7 @@ access by remote web-clients.
 
 cp config/config.php.example config/config.php
 
-%patch0 -p1
-%patch1 -p1
+%patch 0 -p1
 
 
 %build
@@ -128,6 +125,10 @@ fi
 
 
 %changelog
+* Sun May 14 2023 Dmitry Butskoy <Dmitry@Butskoy.name> - 1.2.6.6-1
+- update to 1.2.6.6
+- fix #2203293
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.6.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

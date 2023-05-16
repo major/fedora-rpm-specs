@@ -2,7 +2,7 @@ Name:		perl-Test-CPAN-Meta-JSON
 Version:	0.16
 Release:	25%{?dist}
 Summary:	Validate a META.json file within a CPAN distribution
-License:	Artistic 2.0
+License:	Artistic-2.0
 URL:		https://metacpan.org/release/Test-CPAN-Meta-YAML
 Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-CPAN-Meta-JSON-%{version}.tar.gz
 Patch0:		Test-CPAN-Meta-JSON-0.16-utf8.patch
@@ -28,7 +28,8 @@ BuildRequires:	perl(Test::More)
 BuildRequires:	perl(Test::CPAN::Meta)
 BuildRequires:	perl(Test::Pod) >= 1.00
 BuildRequires:	perl(Test::Pod::Coverage) >= 0.08
-# Runtime
+# Dependencies
+# (none)
 
 %description
 This module was written to ensure that a META.json file, provided with a
@@ -42,7 +43,7 @@ See CPAN::Meta for further details of the CPAN Meta Specification.
 %setup -q -n Test-CPAN-Meta-JSON-%{version}
 
 # Recode LICENSE as UTF-8
-%patch0
+%patch -P 0
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor
@@ -57,11 +58,7 @@ find %{buildroot} -type f -name .packlist -delete
 make test AUTOMATED_TESTING=1
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
 %doc Changes README examples/
 %{perl_vendorlib}/Test/
 %{_mandir}/man3/Test::CPAN::Meta::JSON.3*

@@ -9,7 +9,7 @@
 
 Name:    konsole5
 Summary: KDE Terminal emulator
-Version: 23.04.0
+Version: 23.04.1
 Release: 1%{?dist}
 
 # sources: MIT and LGPLv2 and LGPLv2+ and GPLv2+
@@ -144,6 +144,7 @@ make test -C %{_target_platform} ARGS="--output-on-failure --timeout 30" ||:
 %{_kf5_bindir}/konsole
 %{_kf5_bindir}/konsoleprofile
 %{_kf5_datadir}/applications/org.kde.konsole.desktop
+%{_kf5_datadir}/kglobalaccel/org.kde.konsole.desktop
 %{_kf5_datadir}/kconf_update/konsole.upd
 %{_kf5_datadir}/kconf_update/konsole_add_hamburgermenu_to_toolbar.sh
 %{_kf5_datadir}/kio/servicemenus/konsolerun.desktop
@@ -169,6 +170,9 @@ make test -C %{_target_platform} ARGS="--output-on-failure --timeout 30" ||:
 
 
 %changelog
+* Sat May 13 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.1-1
+- 23.04.1
+
 * Fri Apr 14 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.0-1
 - 23.04.0
 

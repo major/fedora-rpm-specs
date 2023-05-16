@@ -14,7 +14,7 @@ Summary: A DomainKeys Identified Mail (DKIM) milter to sign and/or verify mail
 Name: opendkim
 Version: 2.11.0
 Release: 0.34%{?dist}
-License: BSD and Sendmail
+License: BSD-3-Clause AND Sendmail
 URL: http://%{name}.org/
 Source0: https://github.com/trusteddomainproject/OpenDKIM/archive/%{full_version}.tar.gz
 Source1: opendkim.conf

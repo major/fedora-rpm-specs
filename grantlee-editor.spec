@@ -9,7 +9,7 @@
 
 Name:    grantlee-editor
 Summary: KMail Theme Editor
-Version: 23.04.0
+Version: 23.04.1
 Release: 1%{?dist}
 
 # code (generally) GPLv2, docs GFDL
@@ -61,6 +61,7 @@ BuildRequires: kf5-libkdepim-devel >= %{majmin_ver}
 BuildRequires: kf5-libkleo-devel >= %{majmin_ver}
 BuildRequires: kf5-messagelib-devel >= %{majmin_ver}
 BuildRequires: kf5-pimcommon-devel >= %{majmin_ver}
+BuildRequires: cmake(KPim5MessageViewer)
 
 %if 0%{?tests}
 BuildRequires: dbus-x11
@@ -131,6 +132,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Sat May 13 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.1-1
+- 23.04.1
+
 * Fri Apr 14 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.0-1
 - 23.04.0
 

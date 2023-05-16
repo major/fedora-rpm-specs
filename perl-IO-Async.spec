@@ -1,6 +1,6 @@
 Name:           perl-IO-Async
 Version:        0.802
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A collection of modules that implement asynchronous filehandle IO
 
 License:        GPL+ or Artistic
@@ -42,6 +42,7 @@ BuildRequires:  perl(Storable)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Struct::Dumb)
 BuildRequires:  perl(Test::Fatal)
+BuildRequires:  perl(Test::Future::IO::Impl)
 BuildRequires:  perl(Test::Identity)
 BuildRequires:  perl(Test::Metrics::Any)
 BuildRequires:  perl(Test::More)
@@ -91,6 +92,9 @@ A collection of modules that implement asynchronous filehandle IO
 
 
 %changelog
+* Sun May 14 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.802-3
+- Add perl(Test::Future::IO::Impl) as a BR (#2196755)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.802-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

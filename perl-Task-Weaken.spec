@@ -2,9 +2,9 @@ Name:           perl-Task-Weaken
 Version:        1.06
 Release:        16%{?dist}
 Summary:        Ensure that a platform has weaken support
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Task-Weaken
-Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/Task-Weaken-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/modules/by-module/Task/Task-Weaken-%{version}.tar.gz
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
@@ -13,7 +13,7 @@ BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >= 5.6
 BuildRequires:  perl(Config)
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)

@@ -4,7 +4,7 @@
 %global base_name kdeconnect-kde
 
 Name:    kde-connect
-Version: 23.04.0
+Version: 23.04.1
 Release: 1%{?dist}
 License: GPLv2+
 Summary: KDE Connect client for communication with smartphones
@@ -197,6 +197,9 @@ done
 
 
 %changelog
+* Sat May 13 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.1-1
+- 23.04.1
+
 * Fri Apr 14 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.0-1
 - 23.04.0
 

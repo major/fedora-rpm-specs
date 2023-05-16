@@ -1,8 +1,8 @@
 %global framework pimcommon
 
 Name:    kf5-%{framework}
-Version: 23.04.0
-Release: 2%{?dist}
+Version: 23.04.1
+Release: 1%{?dist}
 Summary: PIM common libraries
 
 License: GPLv2+
@@ -151,6 +151,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sat May 13 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.1-1
+- 23.04.1
+
 * Mon May 01 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.0-2
 - Add Requires to fix upstream issue (see comment in spec file)
 

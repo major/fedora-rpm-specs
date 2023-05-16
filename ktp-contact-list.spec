@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 Name:    ktp-contact-list
 Summary: Telepathy contact list application
-Version: 23.04.0
+Version: 23.04.1
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -75,6 +75,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.ktpcontactlis
 
 
 %changelog
+* Sat May 13 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.1-1
+- 23.04.1
+
 * Fri Apr 14 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.0-1
 - 23.04.0
 

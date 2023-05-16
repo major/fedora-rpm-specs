@@ -9,7 +9,7 @@
 %endif
 
 Name:    kf5-kcalendarutils
-Version: 23.04.0
+Version: 23.04.1
 Release: 1%{?dist}
 Summary: The KCalendarUtils Library
 
@@ -31,6 +31,7 @@ ExclusiveArch: x86_64 ppc64le aarch64 %{arm}
 
 BuildRequires: make
 BuildRequires:  extra-cmake-modules
+BuildRequires:  cmake(KF5TextEditTextToSpeech)
 # when macros.grantlee5 was introduced
 BuildRequires:  grantlee-qt5-devel >= 5.1.0-2
 %{?grantlee5_requires}
@@ -112,6 +113,9 @@ make test ARGS="--output-on-failure --timeout 60" -C %{_target_platform} ||:
 
 
 %changelog
+* Sat May 13 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.1-1
+- 23.04.1
+
 * Fri Apr 14 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.0-1
 - 23.04.0
 

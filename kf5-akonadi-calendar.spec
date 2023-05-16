@@ -8,7 +8,7 @@
 %endif
 
 Name:    kf5-%{base_name}
-Version: 23.04.0
+Version: 23.04.1
 Release: 1%{?dist}
 Summary: The Akonadi Calendar Library
 
@@ -28,6 +28,7 @@ Source0:        http://download.kde.org/%{stable}/release-service/%{version}/src
 
 BuildRequires:  cyrus-sasl-devel
 BuildRequires:  extra-cmake-modules
+BuildRequires:  cmake(KF5TextEditTextToSpeech)
 BuildRequires:  grantlee-qt5-devel
 BuildRequires:  kf5-rpm-macros
 %global kf5_ver 5.87.0
@@ -121,6 +122,9 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 
 
 %changelog
+* Sat May 13 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.1-1
+- 23.04.1
+
 * Fri Apr 14 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.0-1
 - 23.04.0
 

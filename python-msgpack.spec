@@ -1,8 +1,8 @@
 %global srcname msgpack
 
 Name:           python-%{srcname}
-Version:        1.0.4
-Release:        4%{?dist}
+Version:        1.0.5
+Release:        1%{?dist}
 Summary:        Python MessagePack (de)serializer
 
 License:        ASL 2.0
@@ -55,6 +55,9 @@ rm -rf test/test_timestamp.py
 %{python3_sitearch}/%{srcname}*.egg-info
 
 %changelog
+* Fri May 12 2023 Denis Fateyev <denis@fateyev.com> - 1.0.5-1
+- Update to 1.0.5 version
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

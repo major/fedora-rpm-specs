@@ -4,7 +4,7 @@
 # This is needed, because src-url contains branched part of versioning-scheme.
 %global branch 3.22
 
-%global rel_ver 3.22.23
+%global rel_ver 3.22.24
 
 # Settings used for build from snapshots.
 %{!?rel_build:%global commit 59b3286ac467f19e9bce39783e71836ced239b7b}
@@ -17,7 +17,7 @@
 Name:           mate-themes
 Version:        %{rel_ver}
 %if 0%{?rel_build}
-Release:        4%{?dist}
+Release:        1%{?dist}
 %else
 Release:        0.14%{?git_rel}%{?dist}
 %endif
@@ -98,6 +98,9 @@ find %{buildroot} -name '*.a' -exec rm -rf {} ';'
 
 
 %changelog
+* Sun May 14 2023 Wolfgang Ulbrich <fedora@raveit.de> - 3.22.24-1
+- update to 3.22.24
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.22.23-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

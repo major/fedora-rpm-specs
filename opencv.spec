@@ -74,7 +74,7 @@ Version:        4.7.0
 %global minorver %(foo=%{version}; a=(${foo//./ }); echo ${a[1]} )
 %global padding  %(digits=00; num=%{minorver}; echo ${digits:${#num}:${#digits}} )
 %global abiver   %(echo %{majorver}%{padding}%{minorver} )
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Collection of algorithms for computer vision
 # This is normal three clause BSD.
 License:        BSD
@@ -94,6 +94,7 @@ Source3:        face_landmark_model.dat.xz
 # from https://github.com/opencv/ade/archive/v0.1.2a.zip
 # mv v0.1.2a.zip $(md5sum v0.1.2a.zip | cut -d' ' -f1)-v0.1.2a.zip
 Source4:        fa4b3e25167319cb0fa9432ef8281945-v0.1.2a.zip
+Source5:        xorg.conf
 
 Patch0:         opencv-4.1.0-install_3rdparty_licenses.patch
 Patch3:         opencv.python.patch
@@ -383,7 +384,7 @@ install -pm 0644 %{SOURCE4} .cache/ade/
 %install
 %cmake_install
 cd %{__cmake_builddir}/python_loader/
-%py3_install
+%py3_install -- --install-lib %{python3_sitearch}
 
 rm -rf %{buildroot}%{_datadir}/OpenCV/licenses/
 %if %{with java}
@@ -400,19 +401,19 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 %check
 #ifnarch ppc64
 %if %{with tests}
-    export LD_LIBRARY_PATH=%{_builddir}/%{name}-%{version}/%{__cmake_builddir}/lib:$LD_LIBARY_PATH
-    xvfb-run --server-args=5120x3200x24 &
+    cp %SOURCE5 %{__cmake_builddir}
+    if [ -x /usr/libexec/Xorg ]; then
+       Xorg=/usr/libexec/Xorg
+    else
+       Xorg=/usr/libexec/Xorg.bin
+    fi
+    $Xorg -noreset +extension GLX +extension RANDR +extension RENDER -logfile ./xorg.log -config ./xorg.conf -configdir . :99 &
     export DISPLAY=:99
+    export LD_LIBRARY_PATH=%{_builddir}/%{name}-%{version}/%{__cmake_builddir}/lib:$LD_LIBARY_PATH
     %ctest || :
 %endif
 #endif
 
-
-%ldconfig_scriptlets core
-
-%ldconfig_scriptlets contrib
-
-%ldconfig_scriptlets java
 
 %files
 %doc README.md
@@ -457,7 +458,7 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 
 %files -n python3-opencv
 %{python3_sitearch}/cv2
-%{python3_sitelib}/opencv-*.egg-info
+%{python3_sitearch}/opencv-*.egg-info
 
 %if %{with java}
 %files java
@@ -517,6 +518,11 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 %{_libdir}/libopencv_xphoto.so.{%{abiver},%{version}}
 
 %changelog
+* Sat May 13 2023 Sérgio Basto <sergio@serjux.com> - 4.7.0-8
+- The %%ldconfig_scriptlets macro can be removed on all Fedoras. Possibly also on
+  EPEL 8. But it is required on EPEL 7.
+- Install egg-info in python3_sitearch to stay in same location as the rest of python
+
 * Sat May 13 2023 Sérgio Basto <sergio@serjux.com> - 4.7.0-7
 - Install python egg-info
 - Fix patch warning

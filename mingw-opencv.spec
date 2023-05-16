@@ -23,8 +23,6 @@ Source2:       %{pkgname}-clean.sh
 Patch0:        opencv_unbundle.patch
 # Pass -mbig-obj to linker when linking python module, to prevent "too many sections" failure
 Patch1:        opencv_bigobj.patch
-# Fix missing -lgst_audio, -lopengl32
-#Patch2:        opencv_mingw.patch
 
 
 BuildRequires: make
@@ -183,7 +181,8 @@ MINGW64_CMAKE_ARGS="\
  -DBUILD_TESTS=OFF \
  -DBUILD_PROTOBUF=OFF \
  -DPROTOBUF_UPDATE_FILES=ON \
- -DBUILD_opencv_rgbd=OFF
+ -DBUILD_opencv_rgbd=OFF \
+ -DWITH_OBSENSOR=OFF
 
 %mingw_make_build
 

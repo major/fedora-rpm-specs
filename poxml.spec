@@ -1,6 +1,6 @@
 Name:    poxml
 Summary: Text utilities from kdesdk
-Version: 23.04.0
+Version: 23.04.1
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -65,6 +65,9 @@ xml2pot
 
 
 %changelog
+* Sat May 13 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.1-1
+- 23.04.1
+
 * Fri Apr 14 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.0-1
 - 23.04.0
 

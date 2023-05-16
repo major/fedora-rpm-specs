@@ -1,7 +1,7 @@
 %global kf5_min_version 5.88.0
 
 Name:           kalk
-Version:        23.04.0
+Version:        23.04.1
 Release:        1%{?dist}
 License:        GPLv3+
 Summary:        %{name} is a convergent calculator for Plasma.
@@ -60,6 +60,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 %license LICENSES/*
 
 %changelog
+* Sat May 13 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.1-1
+- 23.04.1
+
 * Thu Apr 20 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.0-1
 - 23.04.0
 

@@ -9,7 +9,7 @@ Name:		perl-Test-CleanNamespaces
 Summary:	Check for uncleaned imports
 Version:	0.24
 Release:	19%{?dist}
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-CleanNamespaces
 Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-CleanNamespaces-%{version}.tar.gz
 BuildArch:	noarch
@@ -67,7 +67,7 @@ BuildRequires:	perl(MooseX::Role::Parameterized)
 BuildRequires:	perl(Mouse)
 BuildRequires:	perl(Mouse::Role)
 %endif
-# Runtime
+# Dependencies
 Recommends:	perl(Role::Tiny) >= 1.003000
 
 %description
