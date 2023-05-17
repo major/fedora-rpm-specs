@@ -2,7 +2,7 @@
 
 Name:           mediainfo
 Version:        23.04
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Supplies technical and tag information about a video or audio file (CLI)
 
 License:        BSD-2-Clause
@@ -21,6 +21,7 @@ BuildRequires:  automake
 BuildRequires:  autoconf
 BuildRequires:  desktop-file-utils
 BuildRequires:  ImageMagick
+BuildRequires:  perl(Pod::Man)
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Gui)
 BuildRequires:  pkgconfig(Qt5Network)
@@ -107,7 +108,7 @@ What format (container) does MediaInfo support?
 %prep
 %autosetup -n MediaInfo
 
-sed -i 's/.$//' *.txt *.html Release/*.txt
+sed -i 's/\r$//' *.txt *.html Release/*.txt
 
 find Source -type f -exec chmod 644 {} ';'
 chmod 644 *.html *.txt Release/*.txt
@@ -147,6 +148,14 @@ pushd Project/QMake/GUI
     %make_build
 popd
 
+# generate manpages
+pushd debian
+    for i in *.pod; do
+        pod2man --center "User Commands" --release="MediaInfo %{version}" \
+            $i >../${i/%pod/1}
+    done
+popd
+
 %install
 pushd Project/GNU/CLI
     %make_install
@@ -179,6 +188,10 @@ mkdir %{buildroot}%{_datadir}/appdata
 mv %{buildroot}%{_datadir}/metainfo/%{name}-gui.metainfo.xml %{buildroot}%{_datadir}/appdata/%{name}-gui.appdata.xml
 rm -rf %{buildroot}%{_datadir}/metainfo
 
+# manpages
+install -dm 755 %{buildroot}%{_mandir}/man1
+install -m 644 -p %{name}*.1 %{buildroot}%{_mandir}/man1/
+
 %check
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.xml
 
@@ -186,6 +199,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 %doc Release/ReadMe_CLI_Linux.txt History_CLI.txt
 %license License.html
 %{_bindir}/%{name}
+%{_mandir}/man1/%{name}.1*
 
 %files gui
 %doc Release/ReadMe_GUI_Linux.txt History_GUI.txt
@@ -197,6 +211,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 %{_datadir}/pixmaps/%{name}.xpm
 %{_datadir}/apps/konqueror/servicemenus/%{name}-gui.desktop
 %{_datadir}/appdata/%{name}-gui.appdata.xml
+%{_mandir}/man1/%{name}-gui.1*
 
 %files qt
 %doc Release/ReadMe_GUI_Linux.txt History_GUI.txt
@@ -209,6 +224,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 
 
 %changelog
+* Sun May 14 2023 Todd Zullinger <tmz@pobox.com> - 23.04-2
+- don't unconditionally strip last character from *.html/*.txt in %%prep
+- generate manpages
+
 * Fri Apr 28 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 23.04-1
 - Update to 23.04
 

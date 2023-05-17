@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.14.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Interact with GitLab API
 
 License:        LGPLv3
@@ -35,7 +35,8 @@ Documentation for gitlab
 %autosetup -p1 -n python-%{pypi_name}-%{version}
 
 # Relax some dependencies
-sed -i 's/requests==.*/requests/'   requirements.txt
+sed -i 's/requests==.*/requests/'                    requirements.txt
+sed -i 's/requests-toolbelt==.*/requests-toolbelt/'  requirements.txt
 sed -i 's/pytest==.*/pytest/'       requirements-lint.txt requirements-test.txt
 sed -i 's/PyYaml==.*/PyYaml/'       requirements-lint.txt requirements-test.txt
 sed -i 's/responses==.*/responses/' requirements-lint.txt requirements-test.txt
@@ -65,6 +66,9 @@ sed -i 's/pytest-github-actions-annotate-failures.*//' requirements-test.txt
 %doc README.rst
 
 %changelog
+* Mon May 15 2023 Steve Traylen <steve.traylen@cern.ch> - 3.14.0-2
+- Rebuild for new python-requests-toolbelt (rhbz#2203755)
+
 * Thu Apr 13 2023 Steve Traylen <steve.traylen@cern.ch> - 3.14.0-1
 - New 3.14.0 version
 

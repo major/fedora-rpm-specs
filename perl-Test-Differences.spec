@@ -8,7 +8,7 @@ Name:           perl-Test-Differences
 Version:        %{RPM_version}
 Release:        5%{?dist}
 Summary:        Test strings and data structures and show differences if not OK
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Differences
 Source0:        https://cpan.metacpan.org/modules/by-module/Test/Test-Differences-%{module_version}.tar.gz
 BuildArch:      noarch

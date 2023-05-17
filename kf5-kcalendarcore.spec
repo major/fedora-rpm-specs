@@ -9,7 +9,7 @@
 
 Name:    kf5-kcalendarcore
 Epoch:   1
-Version: 5.105.0
+Version: 5.106.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 1 KCalendarCore Library
 
@@ -99,6 +99,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Mon May 15 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:5.106.0-1
+- 5.106.0
+
 * Sun Apr 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:5.105.0-1
 - 5.105.0
 

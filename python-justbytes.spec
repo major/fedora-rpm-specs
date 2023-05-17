@@ -1,11 +1,11 @@
 %global srcname justbytes
 
 Name:           python-%{srcname}
-Version:        0.15
-Release:        11%{?dist}
+Version:        0.15.2
+Release:        1%{?dist}
 Summary:        Library for handling computation with address ranges in bytes
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            http://pypi.python.org/pypi/justbytes
 Source0:        https://pypi.io/packages/source/j/%{srcname}/%{srcname}-%{version}.tar.gz
 
@@ -44,6 +44,15 @@ rm -rf justbytes.egg-info
 %{python3_sitelib}/justbytes-%{version}-*.egg-info/
 
 %changelog
+* Mon May 15 2023 mulhern <amulhern@redhat.com> - 0.15.2-1
+- Update to 0.15.2
+
+* Mon May 15 2023 mulhern <amulhern@redhat.com> - 0.15.1-2
+- Add .fmf/version file
+
+* Mon May 15 2023 mulhern <amulhern@redhat.com> - 0.15.1-1
+- Update to 0.15.1; use SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

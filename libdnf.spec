@@ -5,7 +5,7 @@
 %global swig_version 3.0.12
 %global libdnf_major_version 0
 %global libdnf_minor_version 70
-%global libdnf_micro_version 0
+%global libdnf_micro_version 1
 
 %define __cmake_in_source_build 1
 
@@ -58,7 +58,7 @@ Name:           libdnf
 Version:        %{libdnf_major_version}.%{libdnf_minor_version}.%{libdnf_micro_version}
 Release:        1%{?dist}
 Summary:        Library providing simplified C and Python API to libsolv
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://github.com/rpm-software-management/libdnf
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -304,6 +304,12 @@ popd
 %endif
 
 %changelog
+* Mon May 15 2023 Jan Kolarik <jkolarik@redhat.com> - 0.70.1-1
+- Update to 0.70.1
+- Add repoid to solver errors for RPMs (RhBug:2179413)
+- Avoid using obsolete RPM API and drop redundant calls
+- Remove DNF from list of protected packages
+
 * Fri Mar 03 2023 Jan Kolarik <jkolarik@redhat.com> - 0.70.0-1
 - Update to 0.70.0
 - Allow change of architecture for packages during security updates with noarch involved (RhBug:2124483)

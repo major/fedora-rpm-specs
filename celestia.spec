@@ -1,7 +1,7 @@
 #%%global gittag 1.6.2
-%global commit ebfcdb1248a9f35e5efdbf24e56e9f07418e55ff
+%global commit 7cf93d9a8cb193ee11aec0f0f0cd86be022190be
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20230305
+%global date 20230515
 
 Name:           celestia
 %if "%{?gittag}"
@@ -17,9 +17,8 @@ URL:            https://celestia.space/
 %if "%{?gittag}"
 Source0:        https://github.com/CelestiaProject/Celestia/archive/%{gittag}/Celestia-%{version}.tar.gz
 %else
-Source0:        https://github.com/CelestiaProject/Celestia/archive/%{commit}/Celestia-%{commit}.tar.gz
+Source0:        https://github.com/CelestiaProject/Celestia/archive/%{commit}/Celestia-%{shortcommit}.tar.gz
 %endif
-Patch:          celestia-r128.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -125,11 +124,11 @@ sed -i 's|# LeapSecondsFile "|LeapSecondsFile "|g' celestia.cfg
 
 %build
 %cmake -DENABLE_DATA=ON \
-       -DENABLE_QT=ON \
+       -DENABLE_QT5=OFF \
+       -DENABLE_QT6=ON \
        -DENABLE_GTK=ON \
        -DENABLE_FFMPEG=ON \
        -DENABLE_LIBAVIF=ON \
-       -DUSE_QT6=ON \
        -DUSE_WAYLAND=ON \
        -DGIT_COMMIT="%{shortcommit}"
 #       -DENABLE_GLES=ON \ Disabled due to missing support on QT
@@ -154,7 +153,7 @@ done
 
 %find_lang %{name} --all-name
 
-rm %{buildroot}%{_datadir}/celestia/{controls.txt,COPYING}
+rm %{buildroot}%{_datadir}/celestia/COPYING
 
 # Use system provided fonts
 rm -Rf %{buildroot}%{_datadir}/%{name}/fonts
@@ -181,10 +180,10 @@ end
 
 %check
 # Menu entry
-desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}-{gtk,qt}.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}-{gtk,qt6}.desktop
 
 # Appdata file check
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/space.%{name}.%{name}_{gtk,qt}.metainfo.xml
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/space.%{name}.%{name}_{gtk,qt6}.metainfo.xml
 
 
 # No file in the main celestia package
@@ -192,7 +191,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/space.%{n
 # requiring by default celestia-gtk
 
 %files common -f %{name}.lang
-%doc AUTHORS ChangeLog README controls.txt coding-standards.html
+%doc AUTHORS ChangeLog README coding-standards.html
 %doc CONTRIBUTING.md devguide.txt
 %license COPYING
 %{_libdir}/lib%{name}.so.1.7*
@@ -203,10 +202,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/space.%{n
 %ghost %{_datadir}/%{name}/fonts.rpmmoved
 
 %files qt
-%{_bindir}/%{name}-qt
-%{_mandir}/man1/%{name}-qt.1*
-%{_datadir}/metainfo/space.%{name}.%{name}_qt.metainfo.xml
-%{_datadir}/applications/%{name}-qt.desktop
+%{_bindir}/%{name}-qt6
+%{_mandir}/man1/%{name}-qt6.1*
+%{_datadir}/metainfo/space.%{name}.%{name}_qt6.metainfo.xml
+%{_datadir}/applications/%{name}-qt6.desktop
 
 %files gtk
 %{_bindir}/%{name}-gtk

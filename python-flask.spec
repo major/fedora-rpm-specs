@@ -2,7 +2,7 @@
 %global srcname Flask
 
 Name:           python-%{modname}
-Version:        2.2.3
+Version:        2.2.5
 Release:        1%{?dist}
 Epoch:          1
 Summary:        A micro-framework for Python based on Werkzeug, Jinja 2 and good intentions
@@ -79,6 +79,9 @@ ln -sf %{modname}-3 %{buildroot}%{_bindir}/%{modname}
 %doc examples
 
 %changelog
+* Tue May 09 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 2.2.5-1
+- Update to 2.2.5 (fixes RHBZ#2196644)
+
 * Mon Feb 20 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 2.2.3-1
 - Update to 2.2.3 (fixes RHBZ#2170230)
 

@@ -12,7 +12,7 @@ HDMF can be found at Release. Documentation of HDMF can be found at
 https://hdmf.readthedocs.io}
 
 Name:           python-hdmf
-Version:        3.5.5
+Version:        3.6.0
 Release:        %autorelease
 Summary:        A package for standardizing hierarchical object data
 
@@ -22,11 +22,17 @@ Source0:        %{url}/releases/download/%{version}/hdmf-%{version}.tar.gz
 # Man page hand-written for Fedora in groff_man(7) format based on help output
 Source1:        validate_hdmf_spec.1
 
+# Downstream-only: Patch out coverage from pytest invocation
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+Patch:          0001-Patch-out-coverage-from-pytest-invocation.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
 %if %{with tests}
 BuildRequires:  python3dist(pytest)
+# Enables an optional integration test with this library:
+BuildRequires:  python3dist(tqdm)
 %endif
 
 %description %{desc}
@@ -34,13 +40,29 @@ BuildRequires:  python3dist(pytest)
 %package -n python3-hdmf
 Summary:        %{summary}
 
+# The source directory src/hdmf/common/hdmf-common-schema (installed as
+# %%{python3_sitelib}/hdmf/common/hdmf-common-schema) is a git submodule
+# corresponding to https://github.com/hdmf-dev/hdmf-common-schema, which
+# contains no script or configuration for installing it separately system-wide.
+# Nonetheless, as it is separately versioned, it may be a candidate for
+# unbundling.
+#
+# The version number can be read from
+# src/hdmf/common/hdmf-common-schema/common/namespace.yaml, in
+# ['namespaces'][0]['version'].
+#
+# It is released under the same BSD-3-Clause-LBNL as python-hdmf.
+Provides:       bundled(hdmf-common-schema) = 1.6.0
+
 %description -n python3-hdmf %{desc}
 
+%pyproject_extras_subpkg -n python3-hdmf zarr
+
 %prep
-%autosetup -n hdmf-%{version}
+%autosetup -n hdmf-%{version} -p1
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -x zarr
 
 %build
 %pyproject_wheel

@@ -1,8 +1,8 @@
 %define _hardened_build 1
 
 Name:           atop
-Version:        2.8.1
-Release:        3%{?dist}
+Version:        2.9.0
+Release:        1%{?dist}
 Summary:        An advanced interactive monitor to view the load on system and process level
 
 License:        GPL-2.0-or-later
@@ -12,6 +12,7 @@ Source1:        atop.d
 
 Patch0:         atop-sysconfig.patch
 Patch1:         atop-2.3.0-newer-gcc.patch
+Patch2:         format.patch
 
 BuildRequires:  gcc
 BuildRequires:  zlib-devel
@@ -43,8 +44,9 @@ performance-monitors:
  
 %prep
 %setup -q
-%patch0 -p0 -b .sysconfig
-%patch1 -p1 -b .newer-gcc
+%patch -P 0 -p0 -b .sysconfig
+%patch -P 1 -p1 -b .newer-gcc
+%patch -P 2 -p0 -b .format
 
 # Correct unit file path
 sed -i "s|/etc/default/atop|/etc/sysconfig/atop|g" atop.service
@@ -116,6 +118,9 @@ install -Dp -m 0644 atop-rotate.* $RPM_BUILD_ROOT%{_unitdir}/
 #%%endif
 
 %changelog
+* Mon May 15 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.9.0-1
+- 2.9.0
+
 * Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.8.1-3
 - migrated to SPDX license
 

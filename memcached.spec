@@ -11,8 +11,8 @@
 %global selinuxmoduledir	%{selinuxmodulename}-selinux-%{selinuxmodulever}
 
 Name:           memcached
-Version:        1.6.19
-Release:        2%{?dist}
+Version:        1.6.20
+Release:        1%{?dist}
 Epoch:          0
 Summary:        High Performance, Distributed Memory Object Cache
 
@@ -70,7 +70,7 @@ optimised for use with this version of memcached.
 # Unpack memcached sources into memcached-X.X.X directory
 # and SELinux policy sources into memcached-selinux-X.X
 %setup -q -b 2
-%patch1 -p1 -b .unit
+%patch 1 -p1 -b .unit
 
 %build
 %configure \
@@ -174,6 +174,10 @@ fi
 %license ../%{selinuxmoduledir}/COPYING
 
 %changelog
+* Mon May 15 2023 Tomas Korbar <tkorbar@redhat.com> - 0:1.6.20-1
+- Update to 1.6.20
+- Resolves: rhbz#2203537
+
 * Sat Mar 11 2023 Tomas Korbar <tkorbar@redhat.com> - 0:1.6.19-2
 - Change the License tag to the SPDX format
 

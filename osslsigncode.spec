@@ -20,7 +20,7 @@ URL:        https://github.com/mtrojnar/osslsigncode
 Source0:    %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 # To prevent network access during tests
-%dnl Patch0:     %{name}-preventnetwork-access-during-tests.patch
+# Patch0:     %{name}-preventnetwork-access-during-tests.patch
 
 BuildRequires: coreutils
 BuildRequires: gcc

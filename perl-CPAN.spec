@@ -9,7 +9,7 @@
 %endif
 
 Name:           perl-CPAN
-Version:        2.35
+Version:        2.36
 Release:        1%{?dist}
 Summary:        Query, download and build perl modules from CPAN sites
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -329,6 +329,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon May 15 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.36-1
+- 2.36 bump
+
 * Tue May 02 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.35-1
 - 2.35 bump
 

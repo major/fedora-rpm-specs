@@ -1,7 +1,7 @@
 Summary: Lightweight C++ API library for Lua
 Name: lutok
 Version: 0.4
-Release: 22%{?dist}
+Release: 23%{?dist}
 License: BSD
 URL: http://code.google.com/p/lutok/
 Source0: http://lutok.googlecode.com/files/lutok-%{version}.tar.gz
@@ -109,6 +109,9 @@ details on how to run the installed tests.
 %{_testsdir}
 
 %changelog
+* Mon May 15 2023 Sérgio Basto <sergio@serjux.com> - 0.4-23
+- Rebuild for ATF soname bump
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

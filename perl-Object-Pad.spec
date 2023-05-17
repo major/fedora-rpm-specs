@@ -4,8 +4,8 @@
 %bcond_without perl_Object_Pad_enables_optional_test
 
 Name:           perl-Object-Pad
-Version:        0.78
-Release:        2%{dist}
+Version:        0.79
+Release:        1%{dist}
 Summary:        Simple syntax for lexical slot-based objects
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Object-Pad
@@ -52,10 +52,9 @@ BuildRequires:  perl(constant)
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Scalar::Util)
-BuildRequires:  perl(Test::Fatal)
-%define test_more_min_ver 0.88
-BuildRequires:  perl(Test::More) >= %{test_more_min_ver}
-BuildRequires:  perl(Test::Refcount)
+BuildRequires:  perl(Test2::V0) >= 0.000148
+BuildRequires:  perl(Test2::IPC)
+BuildRequires:  perl(threads)
 BuildRequires:  perl(utf8)
 %if %{with perl_Object_Pad_enables_optional_test} && !%{defined perl_bootstrap}
 # A cycle: perl-Future-AsyncAwait → perl-Object-Pad
@@ -94,8 +93,6 @@ Provides:       perl(:Object_Pad_ABI) = 0.76
 
 # Filter private modules
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((91rt141483Role|ARole|BaseClass)\\)
-# Filter under-specified dependencies
-%global __requires_exclude %{__requires_exclude}|^perl\\(Test::More\\)$
 
 %description
 This Perl module provides a simple syntax for creating object classes, which
@@ -108,9 +105,8 @@ BuildArch:      noarch
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       %{name}-ExtensionBuilder = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
-Requires:       perl(Object::Pad::ExtensionBuilder)
+Requires:       perl(Config)
 Requires:       perl(strict)
-Requires:       perl(Test::More) >= %{test_more_min_ver}
 %if %{with perl_Object_Pad_enables_optional_test} && !%{defined perl_bootstrap}
 Requires:       perl(Future) >= %{future_min_ver}
 Requires:       perl(Future::AsyncAwait) >= %{future_asyncawait_min_ver}
@@ -203,6 +199,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon May 15 2023 Petr Pisar <ppisar@redhat.com> - 0.79-1
+- 0.79 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.78-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:		perl-Test-Regexp
 Version:	2017040101
-Release:	20%{?dist}
+Release:	21%{?dist}
 Summary:	Test your regular expressions
 License:	MIT
 URL:		https://metacpan.org/release/Test-Regexp
@@ -11,7 +11,8 @@ BuildRequires:	coreutils
 BuildRequires:	findutils
 BuildRequires:	make
 BuildRequires:	perl-generators
-BuildRequires:	perl-interpreter >= 4:5.10.0
+BuildRequires:	perl-interpreter
+BuildRequires:	perl(:VERSION) >= 5.10
 BuildRequires:	perl(ExtUtils::MakeMaker)
 # Module Runtime
 BuildRequires:	perl(charnames)
@@ -26,7 +27,8 @@ BuildRequires:	perl(Test::Tester)
 # Optional Tests
 BuildRequires:	perl(Test::Pod) >= 1.00
 BuildRequires:	perl(Test::Pod::Coverage) >= 1.00
-# Runtime
+# Dependencies
+# (none)
 
 %description
 This module is intended to test your regular expressions. Given a subject
@@ -58,6 +60,9 @@ make test
 %{_mandir}/man3/Test::Regexp.3*
 
 %changelog
+* Mon May 15 2023 Paul Howarth <paul@city-fan.org> - 2017040101-21
+- SPDX migration
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2017040101-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

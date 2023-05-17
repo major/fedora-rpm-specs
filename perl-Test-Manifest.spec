@@ -2,7 +2,7 @@ Summary:        Test case module for Perl
 Name:           perl-Test-Manifest
 Version:        2.023
 Release:        5%{?dist}
-License:        Artistic 2.0
+License:        Artistic-2.0
 URL:            https://metacpan.org/release/Test-Manifest
 Source0:        https://cpan.metacpan.org/modules/by-module/Test/Test-Manifest-%{version}.tar.gz
 BuildArch:      noarch

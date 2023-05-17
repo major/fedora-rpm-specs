@@ -15,7 +15,7 @@ integrates with the Poetry CLI to trigger the versioning in commands like
 poetry build.}
 
 Name:           python-poetry-dynamic-versioning
-Version:        0.21.3
+Version:        0.21.5
 Release:        %{autorelease}
 Summary:        Plugin for Poetry to enable dynamic versioning based on VCS tags
 
@@ -24,9 +24,6 @@ License:        MIT
 URL:            https://github.com/mtkennerly/poetry-dynamic-versioning
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-# Man pages hand-written for Fedora in groff_man(7) format based on --help
-Source1:        poetry-dynamic-versioning.1
-
 BuildArch:      noarch
 
 %description %_description
@@ -34,6 +31,8 @@ BuildArch:      noarch
 %package -n python3-poetry-dynamic-versioning
 Summary:        %{summary}
 BuildRequires:  python3-devel
+BuildRequires:  help2man
+
 %if %{with tests}
 BuildRequires:  python3-pytest
 BuildRequires:  /usr/bin/git
@@ -61,7 +60,15 @@ BuildRequires:  /usr/bin/poetry
 %install
 %pyproject_install
 %pyproject_save_files poetry_dynamic_versioning
-install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D '%{SOURCE1}'
+
+# generate man pages
+for binary in "poetry-dynamic-versioning"
+do
+    echo "Generating man page for ${binary}"
+    PYTHONPATH="$PYTHONPATH:%{buildroot}/%{python3_sitelib}/" PATH="$PATH:%{buildroot}/%{_bindir}/" help2man --no-info --no-discard-stderr --name="${binary}" --version-string="${binary} %{version}" --output="${binary}.1" "${binary}"
+    cat "${binary}.1"
+    install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D "${binary}.1"
+done
 
 %check
 %if %{with tests}

@@ -35,7 +35,7 @@
 Summary: Enhanced system logging and kernel message trapping daemon
 Name: rsyslog
 Version: 8.2210.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: (GPLv3+ and ASL 2.0)
 URL: http://www.rsyslog.com/
 Source0: http://www.rsyslog.com/files/download/rsyslog/%{name}-%{version}.tar.gz
@@ -757,6 +757,9 @@ done
 
 
 %changelog
+* Wed May 10 2023 Todd Zullinger <tmz@pobox.com> - 8.2210.0-5
+- Use 'systemctl reload' in logrotate script
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.2210.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

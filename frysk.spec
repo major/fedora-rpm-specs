@@ -1,7 +1,7 @@
 Summary:	Execution analysis and debugging tool-suite
 Name:		frysk
 Version:	0.4
-Release:	89%{?dist}
+Release:	90%{?dist}
 
 # Fedora 17+ is still waiting for vte et.al. bindings.
 %define enable_gnome %{fedora}0 < 170
@@ -311,9 +311,6 @@ echo '#!/bin/sh -x'			>> configure
 echo 'exec ../$(basename $0) "$@"'	>> configure
 chmod a+x configure
 
-# FIXME: Warnings should be fixed, not suppressed:
-export RPM_OPT_FLAGS=${RPM_OPT_FLAGS/-Wp,-D_FORTIFY_SOURCE=2 /}
-
 %configure \
 	CFLAGS="$RPM_OPT_FLAGS" \
 	CXXFLAGS="$RPM_OPT_FLAGS"
@@ -468,7 +465,10 @@ rm $RPM_BUILD_ROOT%{_libdir}/%{name}/funit-*-nodebug
 %endif
 
 %changelog
-* Mon Apr 9 2023 Andrew Cagney <cagney@fedoraproject.org> - 0.4-89
+* Mon May 15 2023 Andrew Cagney <cagney@fedoraproject.org> - 0.4-90
+- drop hack mangling _FORTIFY_SOURCE; fix 2161322
+
+* Mon Apr 3 2023 Andrew Cagney <cagney@fedoraproject.org> - 0.4-89
 - update frysk licence
 
 * Thu Mar 9 2023 Andrew Cagney <cagney@fedoraproject.org> - 0.4-88

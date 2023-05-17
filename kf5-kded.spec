@@ -2,7 +2,7 @@
 %global framework kded
 
 Name:    kf5-%{framework}
-Version: 5.105.0
+Version: 5.106.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 3 addon with extensible daemon for system-level services
 
@@ -86,6 +86,9 @@ mkdir -p %{buildroot}%{_kf5_plugindir}/kded
 
 
 %changelog
+* Mon May 15 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.106.0-1
+- 5.106.0
+
 * Sun Apr 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.105.0-1
 - 5.105.0
 

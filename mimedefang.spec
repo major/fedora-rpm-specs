@@ -1,6 +1,6 @@
 Summary:        E-mail filtering framework using Sendmail's Milter interface
 Name:           mimedefang
-Version:        3.4
+Version:        3.4.1
 Release:        1%{?dist}
 # {event{,_tcp}.{c,h},eventpriv.h} are GPL-2.0-or-later, rest is GPL-2.0-only
 License:        GPL-2.0-only AND GPL-2.0-or-later
@@ -14,7 +14,6 @@ Source5:        mimedefang-multiplexor.service
 Source6:        mimedefang-wrapper
 Source7:        mimedefang.tmpfilesd
 Source8:        mimedefang.sysusersd
-Source9:        https://raw.githubusercontent.com/The-McGrail-Foundation/MIMEDefang/master/t/data/arc-wrong.eml#/mimedefang-3.4-arc-wrong.eml
 BuildRequires:  gnupg2
 BuildRequires:  gcc
 BuildRequires:  make
@@ -73,7 +72,6 @@ could cause problems, for example, with encrypted or signed messages.
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q
-cp -pf %{SOURCE9} t/data/arc-wrong.eml
 cp -pf %{SOURCE3} .
 
 %build
@@ -146,7 +144,7 @@ fi
 %{_bindir}/%{name}
 %{_bindir}/%{name}.pl
 %{_bindir}/%{name}-multiplexor
-%{_bindir}/%{name}-release.pl
+%{_bindir}/%{name}-release
 %{_bindir}/%{name}-util
 %{_bindir}/watch-%{name}
 %{_bindir}/watch-multiple-%{name}s.tcl
@@ -174,6 +172,9 @@ fi
 %dir %attr(0750,defang,defang) %{_localstatedir}/spool/MD-Quarantine/
 
 %changelog
+* Mon May 15 2023 Robert Scheck <robert@fedoraproject.org> 3.4.1-1
+- Upgrade to 3.4.1 (#2203877)
+
 * Thu Apr 27 2023 Robert Scheck <robert@fedoraproject.org> 3.4-1
 - Upgrade to 3.4 (#2189708)
 

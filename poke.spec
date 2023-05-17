@@ -1,6 +1,6 @@
 Summary:	Extensible editor for structured binary data
 Name:		poke
-Version:	3.1
+Version:	3.2
 Release:	%autorelease
 
 # Documentation under GFDL

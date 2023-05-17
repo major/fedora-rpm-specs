@@ -1,7 +1,7 @@
 %global _license COPYING COPYING.LGPL-2.1 COPYING.LGPL-3.0 LICENSE_CCBYSA
 
 Name:       yaru-theme
-Version:    23.04.2
+Version:    23.04.4
 Release:    %autorelease
 Summary:    Ubuntu community theme "yaru"
 BuildArch:  noarch

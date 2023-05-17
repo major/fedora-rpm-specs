@@ -1,8 +1,8 @@
 %global framework kconfigwidgets
 
 Name:    kf5-%{framework}
-Version: 5.105.0
-Release: 2%{?dist}
+Version: 5.106.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 3 addon for creating configuration dialogs
 
 License: GPLv2+ and LGPLv2+ and MIT
@@ -85,6 +85,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Mon May 15 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.106.0-1
+- 5.106.0
+
 * Fri Apr 07 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.105.0-2
 - Re-spin from upstream
 

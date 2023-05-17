@@ -1,18 +1,27 @@
 Name:           python-rpm-generators
 Summary:        Dependency generators for Python RPMs
 Version:        14
-Release:        4%{?dist}
+Release:        5%{?dist}
 
-# Originally all those files were part of RPM, so license is kept here
-License:        GPLv2+
 Url:            https://src.fedoraproject.org/python-rpm-generators
-# Commit is the last change in following files
+
+# Originally the following files were part of RPM, so the license is inherited: GPL-2.0-or-later
+# The COPYING file is grabbed from the last commit that changed the files
 Source0:        https://raw.githubusercontent.com/rpm-software-management/rpm/102eab50b3d0d6546dfe082eac0ade21e6b3dbf1/COPYING
 Source1:        python.attr
 Source2:        pythondist.attr
+# This was crafted in-place as a fork of python.attr, hence also GPL-2.0-or-later
 Source3:        pythonname.attr
+# This one is also originally from RPM, but it has its own license declaration: LGPL-2.1-or-later
 Source4:        pythondistdeps.py
+# This was crafted in-place with the following license declaration:
+#  LicenseRef-Fedora-Public-Domain OR CC0-1.0 OR LGPL-2.1-or-later OR GPL-2.0-or-later
+# Note that CC0-1.0 is not allowed for code in Fedora, so we skip it in the package License tag
 Source5:        pythonbundles.py
+
+# See individual licenses above Source declarations
+# Originally, this was simplified to GPL-2.0-or-later, but "effective license" analysis is no longer allowed
+License:        GPL-2.0-or-later AND LGPL-2.1-or-later AND (LicenseRef-Fedora-Public-Domain OR LGPL-2.1-or-later OR GPL-2.0-or-later)
 
 BuildArch:      noarch
 
@@ -47,6 +56,9 @@ install -Dpm0755 -t %{buildroot}%{_rpmconfigdir} *.py
 %{_rpmconfigdir}/pythonbundles.py
 
 %changelog
+* Fri May 05 2023 Miro Hrončok <mhroncok@redhat.com> - 14-5
+- Declare the license via a complex SPDX expression rather than "effective license"
+
 * Mon Apr 17 2023 Kalev Lember <klember@redhat.com> - 14-4
 - Generate provides for /app-installed flatpak builds
 

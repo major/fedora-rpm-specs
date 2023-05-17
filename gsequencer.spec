@@ -1,11 +1,10 @@
 Name:     gsequencer
-Version:  4.5.5
+Version:  5.1.4
 Release:  0%{?dist}
 Summary:  Audio processing engine
 License:  GPLv3+ and AGPLv3+ and GFDL
 URL:      http://nongnu.org/gsequencer
-Source:   http://download.savannah.gnu.org/releases/gsequencer/4.5.x/%{name}-%{version}.tar.gz
-Patch0:   http://download.gsequencer.org/gsequencer-ldflags-stdc++.patch
+Source:   http://download.savannah.gnu.org/releases/gsequencer/5.1.x/%{name}-%{version}.tar.gz
 ExcludeArch:        i686
 BuildRequires:      make
 BuildRequires:      libtool
@@ -58,7 +57,6 @@ automate ports.
 
 %prep
 %autosetup -N
-%patch0 -p0
 
 %build
 %undefine _strict_symbol_defs_build
@@ -152,6 +150,10 @@ Advanced Gtk+ Sequencer library development documentation.
 %{_datadir}/doc/libags-audio-doc/
 
 %changelog
+* Mon May 15 2023 Joël Krähemann <jkraehemann@gmail.com> 5.1.4-0
+- updated Source to point to new major version directory
+- removed patch
+
 * Tue Apr 11 2023 Joël Krähemann <jkraehemann@gmail.com> 4.5.4-0
 - updated Source to point to new minor version directory
 

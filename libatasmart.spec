@@ -1,10 +1,10 @@
 Name: libatasmart
 Version: 0.19
-Release: 24%{?dist}
+Release: 25%{?dist}
 Summary: ATA S.M.A.R.T. Disk Health Monitoring Library
 Source0: http://0pointer.de/public/libatasmart-%{version}.tar.xz
 Patch0: libatasmart-0.19-wd-fix.patch
-License: LGPLv2+
+License: LGPL-2.1-or-later
 Url: http://git.0pointer.de/?p=libatasmart.git;a=summary
 BuildRequires:  gcc
 BuildRequires: systemd-devel
@@ -51,6 +51,9 @@ rm $RPM_BUILD_ROOT%{_docdir}/libatasmart/README
 %doc blob-examples/SAMSUNG* blob-examples/ST* blob-examples/Maxtor* blob-examples/WDC* blob-examples/FUJITSU* blob-examples/INTEL* blob-examples/TOSHIBA* blob-examples/MCC*
 
 %changelog
+* Thu Apr 13 2023 Lukáš Zaoral <lzaoral@redhat.com> - 0.19-25
+- migrate to SPDX license format
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

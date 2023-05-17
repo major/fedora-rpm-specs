@@ -25,7 +25,7 @@ Version:        20220623.3
                   m=${v:4:2};
                   y=${v:0:4};
                   echo $([[ -z $patch ]] && echo patch || echo stable)_${d#0}${months[${m#0}]}${y}$([[ -n $patch ]] && echo _update${patch}))
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Molecular Dynamics Simulator
 License:        GPLv2
 Url:            https://www.lammps.org/
@@ -62,7 +62,10 @@ BuildRequires:  ocl-icd-devel
 BuildRequires:  opencl-headers
 BuildRequires:  tbb-devel
 BuildRequires:  readline-devel
-%if 0%{?fedora} >= 33
+# before F33 there was no kokkos package
+# F39 has kokkos-4, which will be supported in
+# the next release
+%if 0%{?fedora} >= 33 && 0%{?fedora} <= 38
 %ifnarch i686 armv7hl
 %global         with_kokkos 1
 # kokkos needs a lot of memory
@@ -347,6 +350,9 @@ done
 %config %{_sysconfdir}/profile.d/lammps.*
 
 %changelog
+* Mon May 15 2023 Christoph Junghans <junghans@votca.org> - 20220623.3-2
+- disable kokkos on rawhide for now
+
 * Mon Feb 20 2023 Richard Berger <richard.berger@outlook.com> - 20220623.3-1`
 - Version bump to 20220623.3
 

@@ -3,13 +3,15 @@
 Summary: Qt5 - Support for rendering and displaying SVG
 Name:    qt5-%{qt_module}
 Version: 5.15.9
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
 %global majmin %(echo %{version} | cut -d. -f1-2)
 Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submodules/%{qt_module}-everywhere-opensource-src-%{version}.tar.xz
+
+Patch0:  qtsvg-CVE-2023-32573.patch
 
 BuildRequires: make
 BuildRequires: qt5-qtbase-devel >= %{version}
@@ -86,6 +88,10 @@ popd
 
 
 %changelog
+* Mon May 15 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.9-2
+- QSvgFont: initialize used member, remove unused
+  Fixes: CVE-2023-32573
+
 * Tue Apr 11 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.9-1
 - 5.15.9
 

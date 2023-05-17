@@ -10,7 +10,7 @@
 
 Name:           micropython
 Version:        1.19.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Implementation of Python 3 with very low memory footprint
 
 # micorpython itself is MIT
@@ -30,6 +30,10 @@ Patch0:        micropython-c99.patch
 # Fix compilation with GCC 13
 # Resolved upstream: https://github.com/micropython/micropython/commit/32572439984e5640c6af46fbe7c27400c30112ce
 Patch1:        micropython-gcc13.patch
+
+# Fix dangling pointer issue with GCC 13
+# Resolved upstream: https://github.com/micropython/micropython/commit/f1c6cb7725960487195daa5c5c196fd8d3563811
+Patch2:        micropython-dangling-pointer-gcc13.patch
 
 # Other arches need active porting
 %if 0%{?fedora} >= 37 || 0%{?rhel} >= 10
@@ -113,6 +117,10 @@ install -pm 755 ports/unix/micropython %{buildroot}%{_bindir}
 %{_bindir}/micropython
 
 %changelog
+* Thu May 11 2023 Charalampos Stratakis <cstratak@redhat.com> - 1.19.1-6
+- Fix dangling pointer issue with GCC 13
+- Fixes: rhbz#2189916
+
 * Tue Mar 07 2023 Charalampos Stratakis <cstratak@redhat.com> - 1.19.1-5
 - Fix FTBFS with GCC 13
 - Fixes: rhbz#2171608

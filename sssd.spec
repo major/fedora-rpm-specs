@@ -42,14 +42,15 @@
 %global samba_package_version %(rpm -q samba-devel --queryformat %{version}-%{release})
 
 Name: sssd
-Version: 2.8.2
-Release: 4%{?dist}
+Version: 2.9.0
+Release: 1%{?dist}
 Summary: System Security Services Daemon
-License: GPLv3+
+License: GPL-3.0-or-later
 URL: https://github.com/SSSD/sssd/
-Source0: https://github.com/SSSD/sssd/releases/download/2.8.2/sssd-2.8.2.tar.gz
+Source0: https://github.com/SSSD/sssd/releases/download/2.9.0/sssd-2.9.0.tar.gz
 
 ### Patches ###
+Patch0001:  0001-FILE-WATCH-Callback-not-executed-on-link-or-relative.patch
 
 ### Dependencies ###
 
@@ -98,6 +99,7 @@ BuildRequires: keyutils-libs-devel
 BuildRequires: krb5-devel
 BuildRequires: libcmocka-devel >= 1.0.0
 BuildRequires: libdhash-devel >= 0.4.2
+BuildRequires: libfido2-devel
 BuildRequires: libini_config-devel >= 1.1
 BuildRequires: libldb-devel >= %{ldb_version}
 BuildRequires: libnfsidmap-devel
@@ -160,7 +162,10 @@ the existing back ends.
 
 %package common
 Summary: Common files for the SSSD
-License: GPLv3+
+License: GPL-3.0-or-later
+# libsss_simpleifp is removed starting 2.9.0
+Obsoletes: libsss_simpleifp < 2.9.0
+Obsoletes: libsss_simpleifp-debuginfo < 2.9.0
 # Requires
 # due to ABI changes in 1.1.30/1.2.0
 Requires: libldb >= %{ldb_version}
@@ -187,7 +192,7 @@ subpackages such as sssd-ldap.
 
 %package client
 Summary: SSSD Client libraries for NSS and PAM
-License: LGPLv3+
+License: LGPL-3.0-or-later
 Requires: libsss_nss_idmap = %{version}-%{release}
 Requires: libsss_idmap = %{version}-%{release}
 Requires(post):  /usr/sbin/alternatives
@@ -199,7 +204,7 @@ service.
 
 %package -n libsss_sudo
 Summary: A library to allow communication between SUDO and SSSD
-License: LGPLv3+
+License: LGPL-3.0-or-later
 Conflicts: sssd-common < %{version}-%{release}
 
 %description -n libsss_sudo
@@ -207,7 +212,7 @@ A utility library to allow communication between SUDO and SSSD
 
 %package -n libsss_autofs
 Summary: A library to allow communication between Autofs and SSSD
-License: LGPLv3+
+License: LGPL-3.0-or-later
 Conflicts: sssd-common < %{version}-%{release}
 
 %description -n libsss_autofs
@@ -215,7 +220,7 @@ A utility library to allow communication between Autofs and SSSD
 
 %package tools
 Summary: Userspace tools for use with the SSSD
-License: GPLv3+
+License: GPL-3.0-or-later
 Requires: sssd-common = %{version}-%{release}
 # required by sss_obfuscate
 Requires: python3-sss = %{version}-%{release}
@@ -234,7 +239,7 @@ Provides several administrative tools:
 
 %package -n python3-sssdconfig
 Summary: SSSD and IPA configuration file manipulation classes and functions
-License: GPLv3+
+License: GPL-3.0-or-later
 BuildArch: noarch
 %{?python_provide:%python_provide python3-sssdconfig}
 
@@ -243,7 +248,7 @@ Provides python3 files for manipulation SSSD and IPA configuration files.
 
 %package -n python3-sss
 Summary: Python3 bindings for sssd
-License: LGPLv3+
+License: LGPL-3.0-or-later
 Requires: sssd-common = %{version}-%{release}
 %{?python_provide:%python_provide python3-sss}
 
@@ -254,7 +259,7 @@ Provides python3 bindings:
 
 %package -n python3-sss-murmur
 Summary: Python3 bindings for murmur hash function
-License: LGPLv3+
+License: LGPL-3.0-or-later
 %{?python_provide:%python_provide python3-sss-murmur}
 
 %description -n python3-sss-murmur
@@ -262,7 +267,7 @@ Provides python3 module for calculating the murmur hash version 3
 
 %package ldap
 Summary: The LDAP back end of the SSSD
-License: GPLv3+
+License: GPL-3.0-or-later
 Requires: sssd-common = %{version}-%{release}
 Requires: sssd-krb5-common = %{version}-%{release}
 Requires: libsss_idmap = %{version}-%{release}
@@ -274,7 +279,7 @@ from and authenticate against an LDAP server.
 
 %package krb5-common
 Summary: SSSD helpers needed for Kerberos and GSSAPI authentication
-License: GPLv3+
+License: GPL-3.0-or-later
 Requires: cyrus-sasl-gssapi%{?_isa}
 Requires: sssd-common = %{version}-%{release}
 
@@ -284,7 +289,7 @@ Kerberos user or host authentication.
 
 %package krb5
 Summary: The Kerberos authentication back end for the SSSD
-License: GPLv3+
+License: GPL-3.0-or-later
 Requires: sssd-common = %{version}-%{release}
 Requires: sssd-krb5-common = %{version}-%{release}
 
@@ -294,7 +299,7 @@ against a Kerberos server.
 
 %package common-pac
 Summary: Common files needed for supporting PAC processing
-License: GPLv3+
+License: GPL-3.0-or-later
 Requires: sssd-common = %{version}-%{release}
 Requires: libsss_idmap = %{version}-%{release}
 
@@ -304,7 +309,7 @@ for handling Kerberos PACs.
 
 %package ipa
 Summary: The IPA back end of the SSSD
-License: GPLv3+
+License: GPL-3.0-or-later
 Requires: samba-client-libs >= %{samba_package_version}
 Requires: sssd-common = %{version}-%{release}
 Requires: sssd-krb5-common = %{version}-%{release}
@@ -320,7 +325,7 @@ from and authenticate against an IPA server.
 
 %package ad
 Summary: The AD back end of the SSSD
-License: GPLv3+
+License: GPL-3.0-or-later
 Requires: samba-client-libs >= %{samba_package_version}
 Requires: sssd-common = %{version}-%{release}
 Requires: sssd-krb5-common = %{version}-%{release}
@@ -337,7 +342,7 @@ identity data from and authenticate against an Active Directory server.
 
 %package proxy
 Summary: The proxy back end of the SSSD
-License: GPLv3+
+License: GPL-3.0-or-later
 Requires: sssd-common = %{version}-%{release}
 
 %description proxy
@@ -346,14 +351,14 @@ PAM modules to leverage SSSD caching.
 
 %package -n libsss_idmap
 Summary: FreeIPA Idmap library
-License: LGPLv3+
+License: LGPL-3.0-or-later
 
 %description -n libsss_idmap
 Utility library to convert SIDs to Unix uids and gids
 
 %package -n libsss_idmap-devel
 Summary: FreeIPA Idmap library
-License: LGPLv3+
+License: LGPL-3.0-or-later
 Requires: libsss_idmap = %{version}-%{release}
 
 %description -n libsss_idmap-devel
@@ -361,14 +366,14 @@ Utility library to SIDs to Unix uids and gids
 
 %package -n libipa_hbac
 Summary: FreeIPA HBAC Evaluator library
-License: LGPLv3+
+License: LGPL-3.0-or-later
 
 %description -n libipa_hbac
 Utility library to validate FreeIPA HBAC rules for authorization requests
 
 %package -n libipa_hbac-devel
 Summary: FreeIPA HBAC Evaluator library
-License: LGPLv3+
+License: LGPL-3.0-or-later
 Requires: libipa_hbac = %{version}-%{release}
 
 %description -n libipa_hbac-devel
@@ -376,7 +381,7 @@ Utility library to validate FreeIPA HBAC rules for authorization requests
 
 %package -n python3-libipa_hbac
 Summary: Python3 bindings for the FreeIPA HBAC Evaluator library
-License: LGPLv3+
+License: LGPL-3.0-or-later
 Requires: libipa_hbac = %{version}-%{release}
 %{?python_provide:%python_provide python3-libipa_hbac}
 
@@ -386,14 +391,14 @@ used by Python applications.
 
 %package -n libsss_nss_idmap
 Summary: Library for SID and certificate based lookups
-License: LGPLv3+
+License: LGPL-3.0-or-later
 
 %description -n libsss_nss_idmap
 Utility library for SID and certificate based lookups
 
 %package -n libsss_nss_idmap-devel
 Summary: Library for SID and certificate based lookups
-License: LGPLv3+
+License: LGPL-3.0-or-later
 Requires: libsss_nss_idmap = %{version}-%{release}
 
 %description -n libsss_nss_idmap-devel
@@ -401,7 +406,7 @@ Utility library for SID and certificate based lookups
 
 %package -n python3-libsss_nss_idmap
 Summary: Python3 bindings for libsss_nss_idmap
-License: LGPLv3+
+License: LGPL-3.0-or-later
 Requires: libsss_nss_idmap = %{version}-%{release}
 %{?python_provide:%python_provide python3-libsss_nss_idmap}
 
@@ -411,7 +416,7 @@ be used by Python applications.
 
 %package dbus
 Summary: The D-Bus responder of the SSSD
-License: GPLv3+
+License: GPL-3.0-or-later
 Requires: sssd-common = %{version}-%{release}
 %{?systemd_requires}
 
@@ -423,7 +428,7 @@ the information from the SSSD to be transmitted over the system bus.
 %package polkit-rules
 Summary: Rules for polkit integration for SSSD
 Group: Applications/System
-License: GPLv3+
+License: GPL-3.0-or-later
 Requires: polkit >= 0.106
 Requires: sssd-common = %{version}-%{release}
 
@@ -432,26 +437,9 @@ Provides rules for polkit integration with SSSD. This is required
 for smartcard support.
 %endif
 
-%package -n libsss_simpleifp
-Summary: The SSSD D-Bus responder helper library
-License: GPLv3+
-Requires: sssd-dbus = %{version}-%{release}
-
-%description -n libsss_simpleifp
-Provides library that simplifies D-Bus API for the SSSD InfoPipe responder.
-
-%package -n libsss_simpleifp-devel
-Summary: The SSSD D-Bus responder helper library
-License: GPLv3+
-Requires: dbus-devel
-Requires: libsss_simpleifp = %{version}-%{release}
-
-%description -n libsss_simpleifp-devel
-Provides library that simplifies D-Bus API for the SSSD InfoPipe responder.
-
 %package winbind-idmap
 Summary: SSSD's idmap_sss Backend for Winbind
-License: GPLv3+ and LGPLv3+
+License: GPL-3.0-or-later AND LGPL-3.0-or-later
 Requires: libsss_nss_idmap = %{version}-%{release}
 Requires: libsss_idmap = %{version}-%{release}
 Conflicts: sssd-common < %{version}-%{release}
@@ -462,7 +450,7 @@ and SIDs.
 
 %package nfs-idmap
 Summary: SSSD plug-in for NFSv4 rpc.idmapd
-License: GPLv3+
+License: GPL-3.0-or-later
 Conflicts: sssd-common < %{version}-%{release}
 
 %description nfs-idmap
@@ -472,7 +460,7 @@ UIDs/GIDs to names and vice versa. It can be also used for mapping principal
 
 %package -n libsss_certmap
 Summary: SSSD Certificate Mapping Library
-License: LGPLv3+
+License: LGPL-3.0-or-later
 Conflicts: sssd-common < %{version}-%{release}
 
 %description -n libsss_certmap
@@ -480,7 +468,7 @@ Library to map certificates to users based on rules
 
 %package -n libsss_certmap-devel
 Summary: SSSD Certificate Mapping Library
-License: LGPLv3+
+License: LGPL-3.0-or-later
 Requires: libsss_certmap = %{version}-%{release}
 
 %description -n libsss_certmap-devel
@@ -488,7 +476,7 @@ Library to map certificates to users based on rules
 
 %package kcm
 Summary: An implementation of a Kerberos KCM server
-License: GPLv3+
+License: GPL-3.0-or-later
 Requires: sssd-common = %{version}-%{release}
 %if %{build_kcm_renewals}
 Requires: krb5-libs >= %{krb5_version}
@@ -501,13 +489,23 @@ use the KCM: Kerberos credentials cache.
 
 %package idp
 Summary: Kerberos plugins and OIDC helper for external identity providers.
-License: GPLv3+
+License: GPL-3.0-or-later
 Requires: sssd-common = %{version}-%{release}
 
 %description idp
 This package provides Kerberos plugins that are required to enable
 authentication against external identity providers. Additionally a helper
 program to handle the OAuth 2.0 Device Authorization Grant is provided.
+
+%package passkey
+Summary: SSSD helpers and plugins needed for authentication with passkey token
+License: GPL-3.0-or-later
+Requires: sssd-common = %{version}-%{release}
+Requires: libfido2
+
+%description passkey
+This package provides helper processes and Kerberos plugins that are required to
+enable authentication with passkey token.
 
 %prep
 %autosetup -p1
@@ -537,12 +535,14 @@ autoreconf -ivf
     --with-sssd-user=%{sssd_user} \
     --with-syslog=journald \
     --with-test-dir=/dev/shm \
+    --with-files-provider \
 %if %{build_subid}
     --with-subid \
 %endif
 %if 0%{?fedora}
     --disable-polkit-rules-path \
 %endif
+    --with-passkey \
     %{nil}
 
 %make_build all docs runstatedir=%{_rundir}
@@ -578,6 +578,10 @@ cp $RPM_BUILD_ROOT/%{_datadir}/sssd-kcm/kcm_default_ccache \
 # Enable krb5 idp plugins by default (when sssd-idp package is installed)
 cp $RPM_BUILD_ROOT/%{_datadir}/sssd/krb5-snippets/sssd_enable_idp \
    $RPM_BUILD_ROOT/%{_sysconfdir}/krb5.conf.d/sssd_enable_idp
+
+# Enable krb5 passkey plugins by default (when sssd-passkey package is installed)
+cp $RPM_BUILD_ROOT/%{_datadir}/sssd/krb5-snippets/sssd_enable_passkey \
+   $RPM_BUILD_ROOT/%{_sysconfdir}/krb5.conf.d/sssd_enable_passkey
 
 # krb5 configuration snippet
 cp $RPM_BUILD_ROOT/%{_datadir}/sssd/krb5-snippets/enable_sssd_conf_dir \
@@ -714,7 +718,6 @@ done
 %{_libexecdir}/%{servicename}/sssd_check_socket_activated_responders
 
 %dir %{_libdir}/%{name}
-# The files provider is intentionally packaged in -common
 %{_libdir}/%{name}/libsss_files.so
 %{_libdir}/%{name}/libsss_simple.so
 
@@ -841,18 +844,8 @@ done
 %{_mandir}/man5/sssd-ifp.5*
 %{_unitdir}/sssd-ifp.service
 # InfoPipe DBus plumbing
-%{_sysconfdir}/dbus-1/system.d/org.freedesktop.sssd.infopipe.conf
+%{_datadir}/dbus-1/system.d/org.freedesktop.sssd.infopipe.conf
 %{_datadir}/dbus-1/system-services/org.freedesktop.sssd.infopipe.service
-
-%files -n libsss_simpleifp
-%{_libdir}/libsss_simpleifp.so.*
-
-%files -n libsss_simpleifp-devel
-%doc sss_simpleifp_doc/html
-%{_includedir}/sss_sifp.h
-%{_includedir}/sss_sifp_dbus.h
-%{_libdir}/libsss_simpleifp.so
-%{_libdir}/pkgconfig/sss_simpleifp.pc
 
 %files client -f sssd_client.lang
 %license src/sss_client/COPYING src/sss_client/COPYING.LESSER
@@ -986,6 +979,12 @@ done
 %{_datadir}/sssd/krb5-snippets/sssd_enable_idp
 %config(noreplace) %{_sysconfdir}/krb5.conf.d/sssd_enable_idp
 
+%files passkey
+%attr(755,%{sssd_user},%{sssd_user}) %{_libexecdir}/%{servicename}/passkey_child
+%{_libdir}/%{name}/modules/sssd_krb5_passkey_plugin.so
+%{_datadir}/sssd/krb5-snippets/sssd_enable_passkey
+%config(noreplace) %{_sysconfdir}/krb5.conf.d/sssd_enable_passkey
+
 %if 0%{?rhel}
 %pre common
 getent group sssd >/dev/null || groupadd -r sssd
@@ -1060,6 +1059,10 @@ fi
 %systemd_postun_with_restart sssd.service
 
 %changelog
+* Fri May 5 2023 Pavel Březina <pbrezina@redhat.com> - 2.9.0-1
+- Rebase to SSSD 2.9.0
+- SPDX migration
+
 * Thu Jan 26 2023 Stephen Gallagher <sgallagh@redhat.com> - 2.8.2-4
 - Rebuild against libunistring 1.1
 

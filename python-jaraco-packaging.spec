@@ -6,8 +6,8 @@
 %bcond_with docs 
 
 Name:           python-%{pkg_name}
-Version:        9.1.2
-Release:        2%{?dist}
+Version:        9.2.0
+Release:        1%{?dist}
 Summary:        Tools to supplement packaging Python releases
 
 License:        MIT
@@ -60,6 +60,8 @@ Documentation for jaraco.packaging
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
+# We don't actually need jaraco.context
+sed -i '/jaraco.context/d' setup.cfg
 
 %build
 %pyproject_wheel
@@ -93,6 +95,9 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Mon May 15 2023 Dan Radez <dradez@redhat.com> - 9.2.0-1
+- update to 9.2.0 rhbz#2203493
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.1.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

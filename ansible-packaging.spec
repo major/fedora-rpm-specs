@@ -1,6 +1,8 @@
+%global _docdir_fmt ansible-packaging
+
 Name:           ansible-packaging
 Version:        1
-Release:        9.1%{?dist}
+Release:        10%{?dist}
 Summary:        RPM packaging macros and generators for Ansible collections
 
 License:        GPL-3.0-or-later
@@ -48,7 +50,7 @@ Requires:       /usr/bin/ansible-test
 Requires:       %{py3_dist pytest}
 Requires:       %{py3_dist pytest-mock}
 Requires:       %{py3_dist pytest-xdist}
-Requires:       %{py3_dist pytest-forked}
+Requires:       (%{py3_dist pytest-forked} if ansible-core < 2.16~~)
 Requires:       %{py3_dist pyyaml}
 # mock is included in the list upstream, but is deprecated in Fedora.
 # Maintainers should work with upstream to add compat code to support
@@ -114,23 +116,22 @@ errors rpm_eval -E '%%ansible_collection_url'
 echo
 echo
 echo "Ensure macro works when both arguments are passed and no control macros are set"
-[[ $(rpm_eval -E '%%ansible_collection_url community general') == \
-    "https://galaxy.ansible.com/community/general" ]]
+[ "$(rpm_eval -E '%%ansible_collection_url community general')" = \
+    "https://galaxy.ansible.com/community/general" ]
 
 echo
 echo "Ensure macro works with the control macros"
-[[ $(rpm_eval -D 'collection_namespace ansible' -D 'collection_name posix' \
-    -E '%%ansible_collection_url') == "https://galaxy.ansible.com/ansible/posix" ]]
+[ "$(rpm_eval -D 'collection_namespace ansible' -D 'collection_name posix' \
+    -E '%%ansible_collection_url')" = "https://galaxy.ansible.com/ansible/posix" ]
 
 echo
 echo "Ensure macro prefers the collection namespace and name passed as an argument over the control macros"
-[[ $(rpm_eval -D 'collection_namespace ansible' -D 'collection_name posix' \
-    -E '%%ansible_collection_url community general') == "https://galaxy.ansible.com/community/general" ]]
+[ "$(rpm_eval -D 'collection_namespace ansible' -D 'collection_name posix' \
+    -E '%%ansible_collection_url community general')" = "https://galaxy.ansible.com/community/general" ]
 
 
 
 %files
-%license COPYING
 %{_fileattrsdir}/ansible.attr
 %{_rpmmacrodir}/macros.ansible
 %{_rpmconfigdir}/ansible-generator
@@ -138,6 +139,7 @@ echo "Ensure macro prefers the collection namespace and name passed as an argume
 
 
 %files -n ansible-srpm-macros
+%license COPYING
 %{_rpmmacrodir}/macros.ansible-srpm
 
 # ansible-core in RHEL 8.6 is built against python38. In c8s and the next RHEL
@@ -149,6 +151,11 @@ echo "Ensure macro prefers the collection namespace and name passed as an argume
 
 
 %changelog
+* Thu May 11 2023 Maxwell G <maxwell@gtmx.me> - 1-10
+- %%ansible_collection_install - disable spurious collections path warnings
+- ansible-packaging-tests - don't depend on pytest-forked with ansible-core 2.16
+- ansible-srpm-macros - include license file in the package
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1-9.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

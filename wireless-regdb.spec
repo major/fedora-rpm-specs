@@ -1,7 +1,7 @@
 %global         _firmwarepath    /usr/lib/firmware
 
 Name:           wireless-regdb
-Version:        2023.02.13
+Version:        2023.05.03
 Release:        1%{?dist}
 Summary:        Regulatory database for 802.11 wireless networking
 
@@ -62,6 +62,9 @@ rm -rf %{buildroot}/usr/lib/crda
 
 
 %changelog
+* Mon May 15 2023 John W. Linville <linville@redhat.com> - 2023.05.03-1
+- Update to version 2023.05.03 from upstream
+
 * Mon Feb 13 2023 John W. Linville <linville@redhat.com> - 2023.02.13-1
 - Update to version 2023.02.13 from upstream
 

@@ -213,7 +213,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        4%{?rc_version:.%rc_version}%{?dist}
+Release:        5%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -223,6 +223,9 @@ Source0:        https://releases.pagure.org/freeipa/freeipa-%{version}%{?rc_vers
 %if %{NON_DEVELOPER_BUILD}
 Source1:        https://releases.pagure.org/freeipa/freeipa-%{version}%{?rc_version}.tar.gz.asc
 %endif
+
+# python-cryptography 40.0+ support
+Patch0:         freeipa-issue-9355.patch
 
 # RHEL spec file only: START: Change branding to IPA and Identity Management
 # Moved branding logos and background to redhat-logos-ipa-80.4:
@@ -1741,6 +1744,9 @@ fi
 %endif
 
 %changelog
+* Mon May 15 2023 Alexander Bokovoy <abokovoy@redhat.com> - 4.10.1-5
+- Support python-cryptography 40.0
+
 * Thu Mar 30 2023 Jerry James <loganjerry@gmail.com> - 4.10.1-4
 - Change fontawesome-fonts R to match fontawesome 4.x
 

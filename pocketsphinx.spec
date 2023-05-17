@@ -1,30 +1,24 @@
-%global extraver prealpha
-
 Name:           pocketsphinx
-Version:        5
-Release:        0.13.%{extraver}%{?dist}
-Epoch:          1
+Epoch:          2
+Version:        5.0.0
+Release:        4%{?dist}
 Summary:        Real-time speech recognition
 
 License:        BSD
-URL:            http://cmusphinx.sourceforge.net/
-Source0:        http://downloads.sourceforge.net/cmusphinx/%{name}-%{version}%{extraver}.tar.gz
+URL:            https://cmusphinx.github.io/
+Source0:        https://github.com/cmusphinx/pocketsphinx/archive/v%{version}/%{name}-%{version}.tar.gz
 
-# See https://github.com/cmusphinx/pocketsphinx/pull/244.
-Patch0:         pocketsphinx-5prealpha-stdbool.patch
+# See https://github.com/cmusphinx/pocketsphinx/issues/343
+Patch0:         pocketsphinx-5.0.0-s390x.patch
 
-BuildRequires: make
-BuildRequires:  autoconf-archive
-BuildRequires:  doxygen
+BuildRequires:  cmake
 BuildRequires:  gcc
-BuildRequires:  libtool
 BuildRequires:  pkgconfig(gstreamer-1.0)
 BuildRequires:  pkgconfig(gstreamer-plugins-base-1.0)
-BuildRequires:  pkgconfig(sphinxbase)
 BuildRequires:  python3-Cython
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
-BuildRequires:  swig
+BuildRequires:  python3-scikit-build
 
 Requires:       %{name}-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       %{name}-models
@@ -38,7 +32,6 @@ enough to run on handheld and embedded devices.
 %package devel
 Summary:        Header files for developing with pocketsphinx
 Requires:       %{name}-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       pkgconfig(sphinxbase)
 Provides:       bundled(jquery)
 
 %description devel
@@ -69,48 +62,43 @@ A gstreamer plugin for pocketsphinx.
 %{?python_provide:%python_provide python3-pocketsphinx}
 Summary:        Python interface to pocketsphinx
 Requires:       %{name}-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       python3-sphinxbase%{?_isa}
 
 %description -n python3-pocketsphinx
 Python interface to pocketsphinx.
 
 %prep
-%autosetup -p1 -n %{name}-%{version}%{extraver}
-
-# Force code generation with a newer version of Cython
-rm -f python/pocketsphinx.c
-
-# Use system-provided ax_python_devel.m4
-rm -f m4/ax_python_devel.m4
-
-# Regenerate files due to m4 change
-autoreconf -fi
+%autosetup -p1
 
 %build
-export PYTHON="python3"
-%configure --disable-static --with-python=%{__python3}
-
-# Get rid of undesirable hardcoded rpaths; workaround libtool reordering
-# -Wl,--as-needed after all the libraries.
-sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
-    -e 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' \
-    -e 's|CC="\(g..\)"|CC="\1 -Wl,--as-needed"|' \
-    -i libtool
-
-make %{?_smp_mflags}
+# Build twice for Python and C (also below in install section).
+# See https://github.com/cmusphinx/pocketsphinx/issues/342.
+# CMAKE_MODULE_PATH is to find FindPythonExtensions.cmake from python3-scikit-build.
+%cmake \
+	-DCMAKE_BUILD_TYPE="Release" \
+	-DCMAKE_MODULE_PATH="%{python3_sitelib}/skbuild/resources/cmake" \
+	-DSKBUILD="on" \
+%cmake_build
+mv redhat-linux-build redhat-linux-build-python
+%cmake \
+	-DCMAKE_BUILD_TYPE="Release" \
+	-DBUILD_GSTREAMER="on"
+%cmake_build
 
 %install
-export PYTHONPATH=$RPM_BUILD_ROOT%{python3_sitearch}
+# Install twice for Python and C.
+# See https://github.com/cmusphinx/pocketsphinx/issues/342.
+%cmake_install
+rm -rf redhat-linux-build
+mv redhat-linux-build-python redhat-linux-build
+%cmake_install
+
+# Fix misuse (?) of INCLUDE_INSTALL_DIR by pocketsphinx build.
+mv $RPM_BUILD_ROOT%{_includedir}/include/* $RPM_BUILD_ROOT%{_includedir}
+rmdir $RPM_BUILD_ROOT%{_includedir}/include/
+
+# See https://github.com/cmusphinx/pocketsphinx/issues/341
 mkdir -p $RPM_BUILD_ROOT%{python3_sitearch}
-%make_install
-
-# Install the man pages
-mkdir -p $RPM_BUILD_ROOT%{_mandir}/man1
-cp -p doc/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
-
-# Get rid of files we don't want packaged
-find $RPM_BUILD_ROOT%{_libdir} -name \*.la | xargs rm -f
-rm -f doc/html/installdox
+mv $RPM_BUILD_ROOT/%{_prefix}/cython/* $RPM_BUILD_ROOT%{python3_sitearch}
 
 %ldconfig_scriptlets libs
 
@@ -119,13 +107,13 @@ rm -f doc/html/installdox
 %{_mandir}/man1/*
 
 %files devel
-%doc doc/html
 %{_includedir}/%{name}/
+%{_includedir}/%{name}.h
 %{_libdir}/lib%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc
 
 %files libs
-%doc AUTHORS NEWS README
+%doc AUTHORS NEWS README.md
 %license LICENSE
 %{_libdir}/lib%{name}.so.*
 
@@ -139,6 +127,19 @@ rm -f doc/html/installdox
 %{python3_sitearch}/*
 
 %changelog
+* Mon May 15 2023 W. Michael Petullo <mike@flyn.org> - 5.0.0-3
+- Backport upstream s390x patch
+
+* Mon May 15 2023 W. Michael Petullo <mike@flyn.org> - 5.0.0-3
+- Replace use of patches after talking to upstream
+
+* Mon May 15 2023 W. Michael Petullo <mike@flyn.org> - 5.0.0-2
+- Exclude s390x
+- Add commentary for patches
+
+* Mon May 15 2023 W. Michael Petullo <mike@flyn.org> - 5.0.0-1
+- Update to 5.0.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:5-0.13.prealpha
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

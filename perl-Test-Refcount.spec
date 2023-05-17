@@ -3,7 +3,7 @@ Version:        0.10
 Release:        13%{?dist}
 Summary:        Assert reference counts on objects
 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Refcount
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PEVANS/Test-Refcount-%{version}.tar.gz
 

@@ -1,13 +1,11 @@
 Name:		dokuwiki
 Summary:	Standards compliant simple to use wiki
+License:	GPL-2.0-only
 
-# DokuWiki is GPL v2. bundled(splitbrain/php-jsstrip) is BSD.
-License:	GPL-2.0-only AND BSD-3-Clause
-
-%global		releasenum 2023-04-04
+%global		releasenum 2023-04-04a
 %global		releasetag %(rel="%{releasenum}"; echo "${rel//-/}")
 Version:	%{releasetag}
-Release:	2%{?dist}
+Release:	1%{?dist}
 
 URL:		https://www.dokuwiki.org/dokuwiki
 Source0:	https://download.dokuwiki.org/src/%{name}/%{name}-%{releasenum}.tgz
@@ -234,6 +232,9 @@ fi
 %doc DOKUWIKI-SELINUX.README
 
 %changelog
+* Mon May 15 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 20230404a-1
+- Update to version 2023-04-04a (hotfix update)
+
 * Sat Apr 15 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 20230404-2
 - Unbundle php-splitbrain-php-jsstrip
 

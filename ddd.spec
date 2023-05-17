@@ -2,16 +2,15 @@
 Summary: GUI for several command-line debuggers
 Name: ddd
 Version: 3.4.0
-Release: 0.rc3%{?dist}
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL: http://www.gnu.org/software/ddd/
-#Source0: http://dl.sf.net/ddd/ddd-%%{version}.tar.gz
+Source0: https://ftp.gnu.org/gnu/ddd/ddd-%{version}.tar.gz
 #For rc:
-Source0: https://alpha.gnu.org/gnu/ddd/ddd-%{version}-rc3.tar.gz
+#Source0: https://alpha.gnu.org/gnu/ddd/ddd-%%{version}.tar.gz
 #Source1: ddd.desktop
 Source2: ddd.png
 Patch0: ddd-3.3.12-debuginfo.patch
-Patch1: ddd-lto.patch
 
 Requires: gdb, xterm, gnuplot, xdg-utils, xorg-x11-fonts-ISO8859-1-75dpi, xorg-x11-fonts-ISO8859-1-100dpi, xclipboard, xfontsel
 BuildRequires:  gcc-c++
@@ -37,9 +36,8 @@ manual, extensive help on the Motif user interface, and a command-line
 interface with full editing, history and completion capabilities.
 
 %prep
-%setup -qn ddd-%{version}-rc3
+%setup -q
 %patch -P 0 -p1
-%patch -P 1 -p0
 
 %build
 export CXXFLAGS="${RPM_OPT_FLAGS} -fpermissive"
@@ -62,19 +60,22 @@ install -D -m 0644 %{SOURCE2} \
 %files
 %license COPYING*
 %doc AUTHORS CREDITS
-%doc INSTALL NEWS PROBLEMS README TIPS
+%doc INSTALL NEWS README TIPS
 %{_bindir}/ddd
 %{_datadir}/applications/*.desktop
-%{_datadir}/%{name}-%{version}-rc3/COPYING
-%{_datadir}/%{name}-%{version}-rc3/NEWS
-%config(noreplace) %{_datadir}/%{name}-%{version}-rc3/ddd/Ddd
-%{_datadir}/%{name}-%{version}-rc3/themes/
-%{_datadir}/%{name}-%{version}-rc3/vsllib/
+%{_datadir}/%{name}-%{version}/COPYING
+%{_datadir}/%{name}-%{version}/NEWS
+%config(noreplace) %{_datadir}/%{name}-%{version}/ddd/Ddd
+%{_datadir}/%{name}-%{version}/themes/
+%{_datadir}/%{name}-%{version}/vsllib/
 %{_datadir}/icons/hicolor/48x48/apps/ddd.png
 %{_infodir}/ddd*
 %{_mandir}/man1/ddd.1*
 
 %changelog
+* Mon May 15 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.4.0-1
+- 3.4.0 final
+
 * Mon Apr 17 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.4.0-0.rc3
 - 3.4.0 rc3
 

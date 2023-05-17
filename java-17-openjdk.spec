@@ -313,7 +313,7 @@
 %global top_level_dir_name   %{origin}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        7
-%global rpmrelease      4
+%global rpmrelease      5
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -853,7 +853,9 @@ exit 0
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/%{vm_variant}/
 %ifarch %{share_arches}
 %attr(444, root, root) %{_jvmdir}/%{sdkdir -- %{?1}}/lib/%{vm_variant}/classes.jsa
+%ifnarch %{ix86} %{arm32}
 %attr(444, root, root) %{_jvmdir}/%{sdkdir -- %{?1}}/lib/%{vm_variant}/classes_nocoops.jsa
+%endif
 %endif
 %dir %{etcjavasubdir}
 %dir %{etcjavadir -- %{?1}}
@@ -2375,6 +2377,12 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
+* Thu May 11 2023 Jiri Vanek <jvanek@redhat.com> - 1:17.0.7.0.7-5
+- rebuilding aginst new portables:
+- - returned lost nss.fips.cfg
+- - enabled all crypto
+- - added and applied, on demand, patch2003 jdk8305995-footprint_regression_from_jdk_8224957
+
 * Wed May 10 2023 Severin Gehwolf <sgehwolf@redhat.com> - 1:17.0.7.0.7-4
 - Fix packaging of CDS archives
 

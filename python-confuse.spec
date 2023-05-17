@@ -1,55 +1,60 @@
-%global pypi_name confuse
-
-Name:           python-%{pypi_name}
-Version:        1.0.0
-Release:        14%{?dist}
+Name:           python-confuse
+Version:        2.0.1
+Release:        1%{?dist}
 Summary:        A Python module for handling YAML configuration files
 
+# SPDX
 License:        MIT
 URL:            https://github.com/beetbox/confuse
-Source0:        https://github.com/beetbox/confuse/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
+Source0:        %{url}/archive/v%{version}/confuse-%{version}.tar.gz
 BuildArch:      noarch  
 
-%description
-Confuse is a configuration library for Python that uses YAML. It takes
-care of defaults, overrides, type checking, command-line integration, human-
-readable errors, and standard OS-specific locations.
+BuildRequires:  python3-devel
 
-%package -n python3-%{pypi_name}
+# Upstream uses nose2 as the test runner via tox. We would have to patch out
+# coverage and linting from tox.ini in order to use tox; we find it easier just
+# to use pytest, although nose2 would certainly work.
+BuildRequires:  %{py3_dist pytest}
+
+%global _description %{expand:
+Confuse is a configuration library for Python that uses YAML. It takes care of
+defaults, overrides, type checking, command-line integration, environment
+variable support, human-readable errors, and standard OS-specific locations.}
+
+%description %{_description}
+
+%package -n python3-confuse
 Summary:        %{summary}
 
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-#BuildRequires:  python3-PyYAML
-#BuildRequires:  python3-tox
-%{?python_provide:%python_provide python3-%{pypi_name}}
-
-%description -n python3-%{pypi_name}
-Confuse is a configuration library for Python that uses YAML. It takes
-care of defaults, overrides, type checking, command-line integration, human-
-readable errors, and standard OS-specific locations.
+%description -n python3-confuse %{_description}
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n confuse-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files confuse
 
-# Python 3.7 is not yet support by upstream
-#%check
-#tox -e py%{python3_version_nodots} 
+%check
+%pytest
 
-%files -n python3-%{pypi_name}
-%doc README.rst
+%files -n python3-confuse -f %{pyproject_files}
 %license LICENSE
-%{python3_sitelib}/%{pypi_name}.py
-%{python3_sitelib}/__pycache__/*
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
+%doc README.rst
 
 %changelog
+* Wed May 03 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 2.0.1-1
+- Update to 2.0.1 (close RHBZ#2192074)
+
+* Wed May 03 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.0.0-15
+- Use pyproject-rpm-macros; run tests; confirm License is SPDX
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

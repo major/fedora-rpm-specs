@@ -2,8 +2,8 @@
 # EPEL7 not possible because libgcrypt version is 1.5
 
 Name:           keepassxc
-Version:        2.7.4
-Release:        10%{?dist}
+Version:        2.7.5
+Release:        1%{?dist}
 Summary:        Cross-platform password manager
 License:        Boost and BSD and CC0 and GPLv3 and LGPLv2 and LGPLv2+ and LGPLv3+ and Public Domain
 URL:            https://keepassxc.org/
@@ -41,7 +41,6 @@ Source2:        https://keepassxc.org/keepassxc_master_signing_key.asc
 %if (%{defined rhel} || (%{defined fedora} && 0%{?fedora} < 38))
 Patch0:         xcb.patch
 %endif
-Patch1:         appdata.patch
 
 BuildRequires:  botan2-devel
 BuildRequires:  cmake >= 3.1
@@ -106,7 +105,7 @@ Provides: bundled(ykcore)
 # filled https://bugzilla.redhat.com/show_bug.cgi?id=2144863
 # to be compliant to "Architecture Build Failures" paragraph of Fedora Packaging Guidelines 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_architecture_build_failures
-%if 0%{?el8}
+%if %{defined rhel} && 0%{?rhel} == 8
 ExcludeArch: s390x
 %endif
 
@@ -134,19 +133,26 @@ information can be considered as quite safe.
 %autosetup -p1
 
 # Older version of appstream-util can't parse some url types
-%if (%{defined fedora} && 0%{?fedora} < 36) || (%{defined rhel} && 0%{?rhel} <= 9)
+%if (%{defined rhel} && 0%{?rhel} <= 9)
 sed -i '/type="vcs-browser"/d' ./share/linux/org.keepassxc.KeePassXC.appdata.xml
 sed -i '/type="contribute"/d' ./share/linux/org.keepassxc.KeePassXC.appdata.xml
 %endif
 
-%build
-%if %{defined rhel}
-. /opt/rh/gcc-toolset-12/enable
+# Older version of desktop-file-utils before 0.26 don't know about some fields
+# Remove when desktop-file-utils 0.26 is available in EPEL8
+%if (%{defined rhel} && 0%{?rhel} <= 9)
+sed -i 's/Version=1.5/Version=1.0/' ./share/linux/org.keepassxc.KeePassXC.desktop.in
+sed -i '/^SingleMainWindow=true/d' ./share/linux/org.keepassxc.KeePassXC.desktop.in
 %endif
-# -DWITH_XC_DOCS=OFF is needed on EL due missing rubygem-asciidoctor
-# For EL8 missing rubygem-asciidoctor read
-# https://bugzilla.redhat.com/show_bug.cgi?id=1859390
-# https://bugzilla.redhat.com/show_bug.cgi?id=1820896
+
+%build
+%if %{defined rhel} && 0%{?rhel} == 8
+%enable_devtoolset12
+# disable -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1, as gcc-toolset-{10,11,12}-annobin
+# do not provide gcc-annobin.so anymore, despite that they provide annobin.so. but
+# redhat-rpm-config still passes -fplugin=gcc-annobin to the compiler.
+%undefine _annotated_build
+%endif
 %cmake \
     -DWITH_XC_ALL=ON \
     -DWITH_XC_KEESHARE_SECURE=ON \
@@ -164,21 +170,6 @@ desktop-file-install \
     --add-mime-type application/x-keepassxc \
     %{buildroot}%{_datadir}/applications/org.%{name}.KeePassXC.desktop
  
-# Associate KDB* files
-cat > x-keepassxc.desktop << EOF
-[Desktop Entry]
-Comment=
-Hidden=false
-Icon=keepassxc.png
-MimeType=application/x-keepassxc
-Patterns=*.kdb;*.KDB;*.kdbx;*.KDBX*
-Type=MimeType
-EOF
-install -D -m 644 -p x-keepassxc.desktop \
-    %{buildroot}%{_datadir}/mimelnk/application/x-keepassxc.desktop
-
-
-
 %find_lang %{name} --with-qt
 
 %check
@@ -197,7 +188,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.%{nam
 %{_datadir}/keepassxc/wordlists
 %{_datadir}/applications/org.%{name}.KeePassXC.desktop
 %{_datadir}/metainfo/org.%{name}.KeePassXC.appdata.xml
-%{_datadir}/mimelnk
 %{_datadir}/mime/packages/*.xml
 %{_datadir}/icons/hicolor/*/*/*keepassxc*
 %{_libdir}/%{name}
@@ -205,6 +195,13 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.%{nam
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Mon May 15 2023 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 2.7.5-1
+- Update to 2.7.5
+- Use enable_devtoolset12 macro for EPEL8
+- Undefined _annotated_build for EPEL8
+- Remove unneeded comment about DOCS
+- Remove custom mimetype desktop file as this method is deprecated
+
 * Sat Apr 29 2023 Michael J Gruber <mjg@fedoraproject.org> - 2.7.4-10
 - adjust URL to current working one
 

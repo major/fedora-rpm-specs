@@ -1,5 +1,5 @@
 Name:           perl-Dist-Zilla-Plugin-ModuleBuildTiny
-Version:        0.016
+Version:        0.017
 Release:        1%{?dist}
 Summary:        Build a Build.PL that uses Module::Build::Tiny
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -116,6 +116,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon May 15 2023 Petr Pisar <ppisar@redhat.com> - 0.017-1
+- 0.017 bump
+
 * Tue May 02 2023 Petr Pisar <ppisar@redhat.com> - 0.016-1
 - 0.016 bump
 - Package the tests

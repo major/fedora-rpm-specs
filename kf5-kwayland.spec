@@ -13,8 +13,8 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 5.105.0
-Release: 3%{?dist}
+Version: 5.106.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 5 library that wraps Client and Server Wayland libraries
 
 License: GPLv2+
@@ -109,6 +109,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Mon May 15 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.106.0-1
+- 5.106.0
+
 * Sat Apr 22 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.105.0-3
 - Rebuild (sync builds in rawhide,f38 and f37)
 

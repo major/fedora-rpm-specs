@@ -22,11 +22,11 @@
 %define __cmake_switch(b:) %[%{expand:%%{?with_%{-b*}}} ? "ON" : "OFF"]
 
 Name:           lib%{libname}
-Version:        0.7.22
+Version:        0.7.24
 Release:        %autorelease
 Summary:        Package dependency solver
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/openSUSE/libsolv
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -123,6 +123,13 @@ Python bindings for the %{name} library.
 
 Python 3 version.
 %endif
+
+%patchlist
+0001-Treat-condition-both-as-positive-and-negative-litera.patch
+0002-Add-testcase-for-last-commit.patch
+0003-Add-feature-complex_deps-to-ifelse_rec.t-testcase.patch
+0004-Allow-to-break-arch-lock-step-on-erase-operations.patch
+0005-Only-disable-infarch-rules-on-erase-if-the-package-w.patch
 
 %prep
 %autosetup -p1

@@ -1,9 +1,9 @@
 Summary: GNU data compression program
 Name: gzip
 Version: 1.12
-Release: 3%{?dist}
+Release: 4%{?dist}
 # info pages are under GFDL license
-License: GPLv3+ and GFDL
+License: GPL-3.0-or-later AND GFDL-1.3-only
 Source0: https://ftp.gnu.org/gnu/gzip/gzip-%{version}.tar.xz
 Source1: https://www.gnu.org/licenses/fdl-1.3.txt
 
@@ -80,6 +80,9 @@ install -p -m 644 %{SOURCE101} %{buildroot}%{profiledir}
 %{profiledir}/*
 
 %changelog
+* Thu Apr 13 2023 Lukáš Zaoral <lzaoral@redhat.com> - 1.12-4
+- migrate to SPDX license format
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

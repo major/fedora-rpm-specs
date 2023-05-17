@@ -1,6 +1,6 @@
 Name:           libdigidocpp
 
-Version:        3.14.12
+Version:        3.15.0
 Release:        1%{?dist}
 
 Summary:        Library offers creating, signing and verification of digitally signed documents
@@ -125,6 +125,9 @@ rm -rf src/minizip
 
 
 %changelog
+* Mon May 15 2023 Dmitri Smirnov <dmitri@smirnov.ee> - 3.15.0-1
+- 3.15.0 release
+
 * Fri Feb 10 2023 Dmitri Smirnov <dmitri@smirnov.ee> - 3.14.12-1
 - 3.14.12 release
 

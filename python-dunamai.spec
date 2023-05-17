@@ -6,7 +6,7 @@ continuous integration and releasing new versions of your software simply by
 creating a tag.}
 
 Name:           python-dunamai
-Version:        1.15.0
+Version:        1.16.1
 Release:        %{autorelease}
 Summary:        Dynamic version generation
 
@@ -16,17 +16,6 @@ URL:            https://pypi.org/pypi/dunamai
 Source0:        https://github.com/mtkennerly/dunamai/archive/v%{version}/%{name}-%{version}.tar.gz
 
 # Man pages hand-written for Fedora in groff_man(7) format based on --help
-Source100:      dunamai.1
-Source200:      dunamai-check.1
-Source300:      dunamai-from.1
-Source301:      dunamai-from-any.1
-Source302:      dunamai-from-bazaar.1
-Source303:      dunamai-from-darcs.1
-Source304:      dunamai-from-fossil.1
-Source305:      dunamai-from-git.1
-Source306:      dunamai-from-mercurial.1
-Source307:      dunamai-from-pijul.1
-Source308:      dunamai-from-subversion.1
 
 BuildArch:      noarch
 
@@ -46,6 +35,7 @@ BuildRequires:  /usr/bin/darcs
 BuildRequires:  /usr/bin/svn
 BuildRequires:  /usr/bin/bzr
 BuildRequires:  /usr/bin/fossil
+BuildRequires:  help2man
 # pijul is not in Fedora yet
 #BuildRequires:  /usr/bin/pijul
 
@@ -68,10 +58,16 @@ BuildRequires:  /usr/bin/fossil
 %install
 %pyproject_install
 %pyproject_save_files dunamai
-install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D \
-    '%{SOURCE100}' '%{SOURCE200}' '%{SOURCE300}' '%{SOURCE301}' \
-    '%{SOURCE302}' '%{SOURCE303}' '%{SOURCE304}' '%{SOURCE305}' \
-    '%{SOURCE306}' '%{SOURCE307}' '%{SOURCE308}'
+
+# generate man pages
+for binary in "dunamai" "dunamai check" "dunamai from" "dunamai from any" "dunamai from bazaar" "dunamai from darcs" "dunamai from fossil" "dunamai from git" "dunamai from mercurial" "dunamai from pijul" "dunamai from subversion"
+do
+    echo "Generating man page for ${binary// /-/}"
+    PYTHONPATH="$PYTHONPATH:%{buildroot}/%{python3_sitelib}/" PATH="$PATH:%{buildroot}/%{_bindir}/" help2man --no-info --no-discard-stderr --name="${binary}" --version-string="${binary} %{version}" --output="${binary// /-}.1" "${binary}"
+    cat "${binary// /-}.1"
+    install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D "${binary// /-}.1"
+done
+
 
 %check
 # set up git

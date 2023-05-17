@@ -10,13 +10,12 @@ Name:           fcitx5-mozc
 
 Version:        2.17.2102.102.1
 # upstream don't tag release, build git snapshot here
-# git snaoshot should have s snapshot date will be taken care
+# git snapshot should have snapshot date will be taken care
 # of by forgemeta after importing to dist-git
 Release:        %autorelease
 Summary:        A wrapper of mozc for fcitx5
 # fcitx5-mozc is a fork of mozc, difference can be seen at 
 # https://github.com/google/mozc/compare/master...fcitx:fcitx
-# src/third_party/abseil-cpp : Apache License
 # src/third_party/breakpad : BSD License
 # src/third_party/japanese_usage_dictionary: BSD license
 # src/third_party/wtl: MS-PL
@@ -29,19 +28,17 @@ Summary:        A wrapper of mozc for fcitx5
 #   See http://code.google.com/p/mozc/issues/detail?id=20
 #   also data/installer/credits_en.html
 # src/data/test/dictionary/: same as data/dictionary_oss
-License:        BSD and ASL 2.0 and UCD and Public Domain and mecab-ipadic and LGPLv2+ and MS-PL
+License:        BSD and UCD and Public Domain and mecab-ipadic and LGPLv2+ and MS-PL
 URL:            %{forgeurl}
 
 # The source of this package was pulled from upstreams's vcs.
 # Use the following command to generate the tar ball:
-# with gtest gyp jsoncpp protobuf unbundled 
-# abseil-cpp is left here due to hardcoded build scripts from
-# upstream code.
+# with gtest gyp jsoncpp protobuf abseil-cpp unbundled
 # -----
 # git clone --recursive https://github.com/fcitx/mozc.git --depth 1
 # cd mozc
 # git checkout %%{commit}
-# for i in gtest gyp jsoncpp protobuf ; do rm -rf src/third_party/$i; done
+# for i in gtest gyp jsoncpp protobuf abseil-cpp; do rm -rf src/third_party/$i; done
 # cd ..
 # tar --exclude-vcs -czf %%{name}-%%{commit}.tar.gz mozc/
 # -----

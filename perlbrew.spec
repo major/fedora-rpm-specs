@@ -1,6 +1,6 @@
 Name:           perlbrew
-Version:        0.96
-Release:        2%{?dist}
+Version:        0.97
+Release:        1%{?dist}
 Summary:        Manage perl installations in your $HOME
 License:        MIT
 URL:            https://metacpan.org/release/App-perlbrew
@@ -9,11 +9,11 @@ BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(Module::Build::Tiny) >= 0.034
+BuildRequires:  perl(Module::Build::Tiny) >= 0.039
 # Run-time
 BuildRequires:  perl(Capture::Tiny) >= 0.48
 BuildRequires:  perl(Config)
-BuildRequires:  perl(CPAN::Perl::Releases) >= 5.20220720
+BuildRequires:  perl(CPAN::Perl::Releases) >= 5.20230423
 BuildRequires:  perl(Cwd)
 BuildRequires:  perl(Devel::PatchPerl) >= 2.08
 BuildRequires:  perl(Exporter)
@@ -30,8 +30,7 @@ BuildRequires:  perl(JSON::PP)
 BuildRequires:  perl(local::lib) >= 2.000014
 BuildRequires:  perl(overload)
 #BuildRequires:  perl(Pod::Markdown) >= 2.002
-#BuildRequires:  perl(Pod::Parser) >= 1.63
-BuildRequires:  perl(Pod::Usage) >= 1.68
+BuildRequires:  perl(Pod::Usage) >= 1.69
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Tests
@@ -133,6 +132,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon May 15 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.97-1
+- 0.97 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.96-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

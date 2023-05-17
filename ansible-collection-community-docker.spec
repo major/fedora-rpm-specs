@@ -1,14 +1,6 @@
-# ansible-core in RHEL 8.6 is built against python38. In c8s and the next RHEL
-# 8 minor release, it will be built against python39. The testing dependencies
-# are not yet packaged for either python version in EPEL 8.
-#
-# ansible-test in RHEL 9.0 still needs python3-mock, but this
-# requirement has been removed in c9s.
-# The conditional should be replaced with the line below once RHEL 9.1 is
-# released.
-# %%if (%%{defined fedora} || 0%%{?rhel} >= 9)
-
-%if %{defined fedora} || 0%{?rhel} >= 9
+# ansible-core is built for alternative Python stacks in RHEL which do not have
+# the necessary test deps packaged.
+%if %{defined fedora}
 %bcond_without tests
 %else
 %bcond_with tests

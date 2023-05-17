@@ -4,7 +4,7 @@
 Summary: Helps troubleshoot SELinux problems
 Name: setroubleshoot
 Version: 3.3.32
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 URL: https://gitlab.com/setroubleshoot/setroubleshoot
 Source0: https://gitlab.com/setroubleshoot/setroubleshoot/-/archive/%{version}/setroubleshoot-%{version}.tar.gz
@@ -16,7 +16,7 @@ BuildRequires: gcc
 BuildRequires: make
 BuildRequires: libcap-ng-devel
 BuildRequires: intltool gettext python3 python3-devel python3-setuptools python3-pip
-BuildRequires: desktop-file-utils dbus-glib-devel libnotify-devel libselinux-devel polkit-devel
+BuildRequires: desktop-file-utils libnotify-devel libselinux-devel polkit-devel
 BuildRequires: audit-libs-devel >= 3.0.1
 BuildRequires: python3-libselinux python3-dasbus python3-gobject gtk3-devel
 # for the _tmpfilesdir macro
@@ -191,6 +191,9 @@ to user preference. The same tools can be run on existing log files.
 %doc AUTHORS COPYING ChangeLog DBUS.md NEWS README TODO
 
 %changelog
+* Mon May 15 2023 Tomas Popela <tpopela@redhat.com> - 3.3.32-2
+- Remove dbus-glib-devel BR as it's only needed when compiled with seappletlegacy
+
 * Wed Feb 15 2023 Petr Lautrbach <lautrbach@redhat.com> - 3.3.32-1
 - Rename session bus name to org.fedoraproject.sealert
 - seapplet: wrap SEApplet() to try except

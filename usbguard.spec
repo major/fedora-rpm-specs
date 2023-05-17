@@ -4,7 +4,7 @@
 
 Name:           usbguard
 Version:        1.1.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A tool for implementing USB device usage policy
 License:        GPLv2+
 ## Not installed
@@ -73,7 +73,6 @@ software framework.
 %package        dbus
 Summary:        USBGuard D-Bus Service
 Requires:       %{name} = %{version}-%{release}
-BuildRequires:	dbus-glib-devel
 BuildRequires:	dbus-devel
 BuildRequires:	glib2-devel
 BuildRequires:	polkit-devel
@@ -233,6 +232,9 @@ fi
 
 
 %changelog
+* Wed May 10 2023 Tomas Popela <tpopela@redhat.com> - 1.1.0-7
+- Drop BR on dbus-glib as the requirement was dropped in 0.7.7
+
 * Mon Feb 20 2023 Attila Lakatos <alakatos@redhat.com> - 1.1.0-6
 - Rebuild
 Resolves: rhbz#2171749

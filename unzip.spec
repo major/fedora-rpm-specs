@@ -6,8 +6,8 @@
 Summary: A utility for unpacking zip files
 Name: unzip
 Version: 6.0
-Release: 60%{?dist}
-License: BSD
+Release: 61%{?dist}
+License: Info-ZIP
 Source: http://downloads.sourceforge.net/infozip/unzip60.tar.gz
 
 # Not sent to upstream.
@@ -145,6 +145,9 @@ make -f unix/Makefile prefix=$RPM_BUILD_ROOT%{_prefix} MANDIR=$RPM_BUILD_ROOT%{_
 %{_mandir}/*/*
 
 %changelog
+* Thu Apr 13 2023 Lukáš Zaoral <lzaoral@redhat.com> - 6.0-61
+- migrate to SPDX license format
+
 * Wed Jan 25 2023 Siddhesh Poyarekar <siddhesh@redhat.com> - 6.0-60
 - Fix length passed to wcstombs call (#2164068)
 

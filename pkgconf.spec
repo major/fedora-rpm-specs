@@ -27,7 +27,7 @@
 
 Name:           pkgconf
 Version:        1.9.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Package compiler and linker metadata toolkit
 
 License:        ISC
@@ -226,6 +226,9 @@ rm -rf %{buildroot}%{_datadir}/aclocal
 
 
 %changelog
+* Mon May 15 2023 Sérgio Basto <sergio@serjux.com> - 1.9.4-2
+- Rebuild for ATF soname bump
+
 * Wed Feb 22 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.9.4-1
 - Rebase to 1.9.4
 

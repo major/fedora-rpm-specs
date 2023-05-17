@@ -1,6 +1,6 @@
 Name: tmt
 Version: 1.23.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 Summary: Test Management Tool
 License: MIT
@@ -61,6 +61,8 @@ BuildRequires: python%{python3_pkgversion}-importlib-metadata
 # Required for tests
 BuildRequires: rsync
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{name}}
+# Necessary until tmt-1.24 is released
+Requires: python%{python3_pkgversion}-setuptools
 
 %description -n python%{python3_pkgversion}-%{name}
 The tmt Python module and command line tool implement the test
@@ -250,6 +252,9 @@ install -pm 644 %{name}/steps/provision/mrack/mrack* %{buildroot}/etc/%{name}/
 
 
 %changelog
+* Thu May 15 2023 Lukáš Zachar <lzachar@redhat.com> - 1.23.0-2
+- Require python3-setuptools
+
 * Thu May 11 2023 Lukáš Zachar <lzachar@redhat.com> - 1.23.0-1
 - Add `Artemis` to the `provision` documentation
 - Add artemis's user defined watchdog specification

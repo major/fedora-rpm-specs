@@ -1,22 +1,22 @@
 Name:			rkcommon
 Version:		1.11.0
 Release:		%autorelease
-Summary:		Intel RenderKit common C++/CMake infrastructure
+Summary:		Intel renderKit common C++/CMake infrastructure
 
 License:		Apache-2.0
 URL:			https://github.com/ospray/rkcommon
 Source0:		%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-# This package only supports x86 and ARM 64bit arches for now
+# Upstream only supports x86-64 and ARM64 architectures
 ExclusiveArch:	x86_64 aarch64
 
-BuildRequires:	cmake3
+BuildRequires:	cmake >= 3.1
 BuildRequires:	gcc-c++
 BuildRequires:	tbb-devel
 
 %description
 This project represents a common set of C++ infrastructure and CMake utilities
-used by various components of Intel® oneAPI Rendering Toolkit.
+used by various components of Intel oneAPI rendering toolkit.
 
 %package		devel
 Summary:		Development files for %{name}
@@ -43,10 +43,11 @@ applications that use %{name}.
 %license LICENSE.txt
 %doc README.md
 %{_bindir}/rkcommon_test_suite
-%{_libdir}/lib%{name}.so.*
+%{_libdir}/lib%{name}.so.1
+%{_libdir}/lib%{name}.so.%{version}
 
 %files devel
-%{_includedir}/rkcommon
+%{_includedir}/%{name}
 %{_libdir}/lib%{name}.so
 %{_libdir}/cmake/%{name}-%{version}/
 

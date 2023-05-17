@@ -15,7 +15,7 @@
 Name:          atril
 Version:       %{branch}.1
 %if 0%{?rel_build}
-Release:       1%{?dist}
+Release:       2%{?dist}
 %else
 Release:       0.18%{?git_rel}%{?dist}
 %endif
@@ -28,6 +28,10 @@ URL:           http://mate-desktop.org
 %{?rel_build:Source0:     http://pub.mate-desktop.org/releases/%{branch}/%{name}-%{version}.tar.xz}
 # Source for snapshot-builds.
 %{!?rel_build:Source0:    http://git.mate-desktop.org/%{name}/snapshot/%{name}-%{commit}.tar.xz#/%{git_tar}}
+
+# from upstream
+Patch1:        atril_0001-use-webkit2gtk-4.1.patch
+Patch2:        atril_0002-support-webkit2-4.0-and-4.1.patch
 
 BuildRequires: gcc-c++
 BuildRequires: gtk3-devel
@@ -53,7 +57,7 @@ BuildRequires: texlive-lib-devel
 # for the djvu back-end
 BuildRequires: djvulibre-devel
 # for epub back-end
-BuildRequires: webkit2gtk3-devel
+BuildRequires: webkit2gtk4.1-devel
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 #  fix (#974791)
@@ -118,6 +122,9 @@ caja file manager.
 # needed for git snapshots
 NOCONFIGURE=1 ./autogen.sh
 %endif # 0%{?rel_build}
+
+# Patch1+2
+NOCONFIGURE=1 ./autogen.sh
 
 %build
 %configure \
@@ -194,6 +201,9 @@ desktop-file-validate ${RPM_BUILD_ROOT}%{_datadir}/applications/atril.desktop
 
 
 %changelog
+* Mon May 15 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-2
+- switch to webkit2gtk4.1
+
 * Fri Apr 28 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-1
 - update to 1.26.1 release
 

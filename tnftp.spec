@@ -1,12 +1,9 @@
 Name:          tnftp
-Version:       20230409
+Version:       20230507
 Release:       1%{?dist}
 Summary:       FTP (File Transfer Protocol) client from NetBSD
 
-# Awaiting fedora-legal review on BSD-2-Clause-NetBSD before I can change this expression
-#     -dcantrell
-#License:       0BSD AND BSD-2-Clause AND BSD-2-Clause-NetBSD AND BSD-3-Clause AND ISC
-License:       BSD and ISC
+License:       0BSD AND BSD-2-Clause AND BSD-3-Clause AND ISC
 
 # From the README:
 # `tnftp' is a `port' of the NetBSD FTP client to other systems.
@@ -14,6 +11,7 @@ License:       BSD and ISC
 URL:           http://www.NetBSD.org/
 Source0:       http://ftp.netbsd.org/pub/NetBSD/misc/%{name}/%{name}-%{version}.tar.gz
 Source1:       http://ftp.netbsd.org/pub/NetBSD/misc/%{name}/%{name}-%{version}.tar.gz.asc
+Source2:       gpgkey-2A8E22EDB07B5414548D8507A4186D9A7F332472.gpg
 
 BuildRequires: make
 BuildRequires: libedit-devel
@@ -21,6 +19,7 @@ BuildRequires: openssl-devel
 BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: libtool
+BuildRequires: gnupg2
 
 %description
 %{name} is the FTP (File Transfer Protocol) client from NetBSD.  FTP
@@ -30,6 +29,7 @@ the Linux netkit ftp client, but maintains a similar user interface to
 the traditional ftp client.  It was formerly called lukemftp.
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q
 
 %build
@@ -50,6 +50,11 @@ export CFLAGS="%{optflags}"
 %{_mandir}/man1/%{name}.1.gz
 
 %changelog
+* Mon May 15 2023 David Cantrell <dcantrell@redhat.com> - 20230507-1
+- Upgrade to tnftp-20230507 (#2203899)
+- Change License tag to SPDX expression
+- Add signature verification before unpacking source archive
+
 * Mon Apr 10 2023 David Cantrell <dcantrell@redhat.com> - 20230409-1
 - Upgrade to tnftp-20230409
 

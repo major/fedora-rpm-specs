@@ -1,14 +1,14 @@
 %global uvcommit 2723e256e952be0b015b3c0086f717c3d365d97e
 %global uvversion 1.44.2
 
-%global llvmversion 14.0.5
-%global llvmcommit julia-14.0.6-2
+%global llvmversion 14.0.6
+%global llvmcommit julia-14.0.6-3
 
 %global libwhichversion 1.1.0
 %global libwhichcommit 81e9723c0273d78493dc8c8ed570f68d9ce7e89e
 
-%global blastrampolineversion 5.4.0
-%global blastrampolinecommit d00e6ca235bb747faae4c9f3a297016cae6959ed
+%global blastrampolineversion 5.7.0
+%global blastrampolinecommit 2272604bfb10b9e8a3ae5f1a4569899b99251a65
 
 # Bundled until Julia supports libunwind 1.6
 # https://bugzilla.redhat.com/show_bug.cgi?id=2045732
@@ -30,14 +30,14 @@
 
 Name:           julia
 Version:        1.9.0
-Release:        2.rc2%{?dist}
+Release:        3%{?dist}
 Summary:        High-level, high-performance dynamic language for technical computing
 # Julia itself is MIT
 # libuv, libwhich, libblastrampoline and libunwind are MIT
 # LLVM is Apache-2.0 WITH LLVM-exception
 License:        MIT and Apache-2.0-WITH-LLVM-exception
 URL:            http://julialang.org/
-Source0:        https://github.com/JuliaLang/julia/releases/download/v1.9.0-rc2/julia-1.9.0-rc2.tar.gz
+Source0:        https://github.com/JuliaLang/julia/releases/download/v%{version}/julia-%{version}.tar.gz
 # Julia currently uses a custom version of libuv, patches are not yet upstream
 Source1:        https://api.github.com/repos/JuliaLang/libuv/tarball/%{uvcommit}#/libuv-%{uvcommit}.tar.gz
 Source2:        https://api.github.com/repos/JuliaLang/llvm-project/tarball/%{llvmcommit}#/llvm-%{llvmcommit}.tar.gz
@@ -154,7 +154,7 @@ needed when programming in the Julia language, but rather for embedding
 Julia into external programs or debugging Julia itself.
 
 %prep
-%setup -q -n julia-1.9.0-rc2
+%setup -q -n julia-%{version}
 
 mkdir -p deps/srccache stdlib/srccache
 
@@ -481,6 +481,9 @@ desktop-file-validate %{buildroot}%{_datarootdir}/applications/%{name}.desktop
 exit 0
 
 %changelog
+* Mon May 15 2023 Milan Bouchet-Valat <nalimilan@club.fr> - 1.9.0-3
+- New upstream release.
+
 * Wed Apr 26 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.9.0-2.rc2
 - Re-fix dependency on OpenBLAS
 

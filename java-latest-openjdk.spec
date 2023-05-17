@@ -864,7 +864,9 @@ exit 0
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/%{vm_variant}/
 %ifarch %{share_arches}
 %attr(444, root, root) %{_jvmdir}/%{sdkdir -- %{?1}}/lib/%{vm_variant}/classes.jsa
+%ifnarch %{ix86} %{arm32}
 %attr(444, root, root) %{_jvmdir}/%{sdkdir -- %{?1}}/lib/%{vm_variant}/classes_nocoops.jsa
+%endif
 %endif
 %dir %{etcjavasubdir}
 %dir %{etcjavadir -- %{?1}}
@@ -2387,7 +2389,6 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
-  %changelog
 * Thu May 11 2023 Andrew Hughes <gnu.andrew@redhat.com> - 1:20.0.1.0.9-8.rolling
 - Following JDK-8005165, class data sharing can be enabled on all JIT architectures
 

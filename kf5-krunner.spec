@@ -1,7 +1,7 @@
 %global framework krunner
 
 Name:    kf5-%{framework}
-Version: 5.105.0
+Version: 5.106.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 3 solution with parallelized query system
 
@@ -82,6 +82,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Mon May 15 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.106.0-1
+- 5.106.0
+
 * Sun Apr 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.105.0-1
 - 5.105.0
 

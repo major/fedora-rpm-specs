@@ -3,13 +3,14 @@
 
 Name:           python-%{srcname}
 Version:        1.7.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        %{sum}
 
 License:        MIT
 URL:            https://pypi.python.org/pypi/%{srcname}
 Source0:        https://files.pythonhosted.org/packages/source/p/%{srcname}/%{srcname}-%{version}.tar.gz
 Patch1:         https://github.com/manahl/pytest-plugins/pull/144.patch
+Patch2:         https://github.com/manahl/pytest-plugins/pull/217.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -67,6 +68,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} -m pytest
 %{python3_sitelib}/*
 
 %changelog
+* Sun May 13 2023 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 1.7.0-19
+- Add patch for new termcolor
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

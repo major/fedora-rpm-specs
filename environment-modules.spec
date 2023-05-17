@@ -2,8 +2,8 @@
 %global vimdatadir %{_datadir}/vim/vimfiles
 
 Name:           environment-modules
-Version:        5.2.0
-Release:        3%{?dist}
+Version:        5.3.0
+Release:        1%{?dist}
 Summary:        Provides dynamic modification of a user's environment
 
 License:        GPL-2.0-or-later
@@ -181,6 +181,9 @@ fi
 
 
 %changelog
+* Mon May 15 2023 Xavier Delaruelle <xavier.delaruelle@cea.fr> - 5.3.0-1
+- Update to 5.3.0 (#2203629)
+
 * Tue Apr 11 2023 Lukáš Zaoral <lzaoral@redhat.com> - 5.2.0-3
 - migrate to SPDX license format
 

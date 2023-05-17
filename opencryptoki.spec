@@ -5,8 +5,8 @@
 
 Name:			opencryptoki
 Summary:		Implementation of the PKCS#11 (Cryptoki) specification v3.0
-Version:		3.20.0
-Release:		2%{?dist}
+Version:		3.21.0
+Release:		1%{?dist}
 License:		CPL-1.0
 URL:			https://github.com/opencryptoki/opencryptoki
 Source0:		https://github.com/opencryptoki/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -14,7 +14,7 @@ Source1:		opencryptoki.module
 # bz#1373833, change tmpfiles snippets from /var/lock/* to /run/lock/*
 Patch1:		opencryptoki-3.11.0-lockdir.patch
 # fix install problem in buildroot
-Patch2:		opencryptoki-3.20.0-p11sak.patch
+Patch2:		opencryptoki-3.21.0-p11sak.patch
 # upstream patches
 
 Requires(pre):		coreutils
@@ -28,7 +28,7 @@ BuildRequires:		trousers-devel
 BuildRequires:		openldap-devel
 BuildRequires:		autoconf automake libtool
 BuildRequires:		bison flex
-BuildRequires:		libitm-devel
+BuildRequires:		libcap-devel
 BuildRequires:		expect
 BuildRequires:		make
 BuildRequires:		systemd-rpm-macros
@@ -188,6 +188,7 @@ configured with Enterprise PKCS#11 (EP11) firmware.
 ./bootstrap.sh
 
 %configure --with-systemd=%{_unitdir} --enable-testcases	\
+    --with-pkcsslotd-user=pkcsslotd --with-pkcs-group=pkcs11 \
 %if 0%{?tpmtok}
     --enable-tpmtok \
 %else
@@ -220,6 +221,7 @@ fi
 
 %pre libs
 getent group pkcs11 >/dev/null || groupadd -r pkcs11
+getent passwd pkcsslotd >/dev/null || useradd -r -g pkcs11 -d /run/opencryptoki -s /sbin/nologin -c "Opencryptoki pkcsslotd user" pkcsslotd
 exit 0
 
 %post
@@ -259,10 +261,12 @@ fi
 %{_sbindir}/pkcsconf
 %{_sbindir}/pkcsslotd
 %{_sbindir}/pkcsstats
+%{_sbindir}/pkcshsm_mk_change
 %{_mandir}/man1/p11sak.1*
 %{_mandir}/man1/pkcstok_migrate.1*
 %{_mandir}/man1/pkcsconf.1*
 %{_mandir}/man1/pkcsstats.1*
+%{_mandir}/man1/pkcshsm_mk_change.1*
 %{_mandir}/man5/policy.conf.5*
 %{_mandir}/man5/strength.conf.5*
 %{_mandir}/man5/%{name}.conf.5*
@@ -274,6 +278,7 @@ fi
 %dir %attr(770,root,pkcs11) %{_sharedstatedir}/%{name}
 %ghost %dir %attr(770,root,pkcs11) %{_rundir}/lock/%{name}
 %ghost %dir %attr(770,root,pkcs11) %{_rundir}/lock/%{name}/*
+%dir %attr(710,pkcsslotd,pkcs11) /run/%{name}
 %dir %attr(770,root,pkcs11) %{_localstatedir}/log/opencryptoki
 
 %files libs
@@ -356,6 +361,9 @@ fi
 
 
 %changelog
+* Mon May 15 2023 Than Ngo <than@redhat.com> - 3.21.0-1
+- update to 3.21.0
+
 * Tue Feb 14 2023 Than Ngo <than@redhat.com> - 3.20.0-2
 - migrated to SPDX license
 

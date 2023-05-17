@@ -2,7 +2,7 @@ Name:           perl-Regexp-Assemble
 Version:        0.38
 Release:        18%{?dist}
 Summary:        Assemble multiple Regular Expressions into a single RE
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Regexp-Assemble
 Source0:        https://cpan.metacpan.org/modules/by-module/Regexp/Regexp-Assemble-%{version}.tgz
 BuildArch:      noarch
@@ -28,7 +28,7 @@ BuildRequires:  perl(Test::More)
 # Optional Tests
 BuildRequires:  perl(Test::File::Contents)
 BuildRequires:  perl(Test::Warn)
-# Runtime
+# Dependencies
 Requires:       perl(Carp)
 Requires:       perl(Storable)
 Requires:       perl(Time::HiRes)
@@ -58,11 +58,7 @@ find %{buildroot} -type f -name .packlist -delete
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
 %doc Changes examples/ README TODO
 %{perl_vendorlib}/Regexp/
 %{_mandir}/man3/Regexp::Assemble.3*

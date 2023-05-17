@@ -34,6 +34,7 @@ BuildRequires: cmake(Qt5Widgets)
 BuildRequires: extra-cmake-modules
 BuildRequires: kf5-rpm-macros
 BuildRequires: cmake(KF5DocTools)
+BuildRequires: cmake(KF5TextEditTextToSpeech)
 
 %global majmin_ver %(echo %{version} | cut -d. -f1,2)
 BuildRequires:  kf5-akonadi-calendar-devel >= %{majmin_ver}

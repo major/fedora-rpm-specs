@@ -8,7 +8,7 @@
 %endif
 
 Name:   kf5-attica
-Version: 5.105.0
+Version: 5.106.0
 Release: 1%{?dist}
 Summary: KDE Frameworks Tier 1 Addon with Open Collaboration Services API
 
@@ -91,6 +91,9 @@ BuildArch: noarch
 
 
 %changelog
+* Mon May 15 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.106.0-1
+- 5.106.0
+
 * Sun Apr 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.105.0-1
 - 5.105.0
 

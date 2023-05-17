@@ -1,8 +1,8 @@
 %global framework plasma-framework
 
 Name:    kf5-plasma
-Version: 5.105.0
-Release: 2%{?dist}
+Version: 5.106.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 3 framework is foundation to build a primary user interface
 
 License: GPLv2+ and LGPLv2+ and BSD
@@ -159,6 +159,9 @@ sed -e "s|@@VERSION@@|%{version}|g" fedora-plasma-cache.sh.in > \
 
 
 %changelog
+* Mon May 15 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.106.0-1
+- 5.106.0
+
 * Tue Apr 25 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.105.0-2
 - Restore kf5-kwayland BR to RHEL builds
 

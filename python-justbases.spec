@@ -1,11 +1,11 @@
 %{?python_enable_dependency_generator}
 %global srcname justbases
 Name:       python-%{srcname}
-Version:    0.15
-Release:    10%{?dist}
+Version:    0.15.2
+Release:    3%{?dist}
 Summary:    A small library for precise conversion between arbitrary bases
 
-License:    LGPLv2+
+License:    LGPL-2.1-or-later
 URL:        http://pypi.python.org/pypi/justbases
 Source0:    https://pypi.io/packages/source/j/%{srcname}/%{srcname}-%{version}.tar.gz
 
@@ -43,6 +43,15 @@ rm -rf justbases.egg-info
 %{python3_sitelib}/justbases-%{version}-*.egg-info
 
 %changelog
+* Mon May 15 2023 mulhern <amulhern@redhat.com> - 0.15.2-3
+- Fix package name
+
+* Mon May 15 2023 mulhern <amulhern@redhat.com> - 0.15.2-2
+- Update tag for tests
+
+* Sun May 14 2023 mulhern <amulhern@redhat.com> - 0.15.2-1
+- Update to 0.15.2; use SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

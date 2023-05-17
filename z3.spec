@@ -15,8 +15,8 @@
 %bcond_with test
 
 Name:           z3
-Version:        4.12.1
-Release:        2%{?dist}
+Version:        4.12.2
+Release:        1%{?dist}
 Summary:        Satisfiability Modulo Theories (SMT) solver
 
 License:        MIT
@@ -24,6 +24,9 @@ URL:            https://github.com/Z3Prover/z3
 Source0:        https://github.com/Z3Prover/z3/archive/%{name}-%{version}.tar.gz
 # Change the way python finds the shared object; see bz 1910923
 Patch0:         %{name}-python.patch
+# Add a missing include of cstdint
+# https://github.com/Z3Prover/z3/pull/6720
+Patch1:         %{name}-stdint.patch
 
 BuildRequires:  cmake
 BuildRequires:  doxygen
@@ -290,6 +293,9 @@ cd -
 %{python3_sitelib}/z3/
 
 %changelog
+* Mon May 15 2023 Jerry James <loganjerry@gmail.com> - 4.12.2-1
+- Version 4.12.2
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 4.12.1-2
 - Rebuild OCaml packages for F38
 

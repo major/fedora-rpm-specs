@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.0.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Pure-Python MySQL client library
 
 License:        MIT
@@ -24,8 +24,10 @@ BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
 # rsa extra
 BuildRequires:  python%{python3_pkgversion}-cryptography
+%if ! 0%{?rhel}
 # ed25519 extra
 BuildRequires:  python%{python3_pkgversion}-pynacl
+%endif
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
 
 %description -n python%{python3_pkgversion}-%{pypi_name}
@@ -34,7 +36,7 @@ to be a drop-in replacement for MySQLdb and work on CPython, PyPy, IronPython
 and Jython.
 
 
-%{?python_extras_subpkg:%python_extras_subpkg -n python3-%{pypi_name} -i %{python3_sitelib}/*.egg-info rsa ed25519}
+%{?python_extras_subpkg:%python_extras_subpkg -n python3-%{pypi_name} -i %{python3_sitelib}/*.egg-info rsa %{?!rhel:ed25519}}
 
 
 %prep
@@ -55,6 +57,7 @@ cp %{SOURCE1} .
 
 %check
 # Tests cannot be launch on koji, they require a mysqldb running.
+%py3_check_import pymysql
 
 
 %files -n python%{python3_pkgversion}-%{pypi_name}
@@ -64,6 +67,9 @@ cp %{SOURCE1} .
 %{python3_sitelib}/pymysql/
 
 %changelog
+* Thu May 11 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.0.3-2
+- Disable ed25519 in RHEL builds
+
 * Tue Apr 25 2023 Julien Enselme <jujens@jujens.eu> - 1.0.3-1
 - Update to 1.0.3
 

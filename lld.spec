@@ -28,7 +28,7 @@
 
 Name:		%{pkg_name}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	The LLVM Linker
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -154,6 +154,8 @@ rm %{buildroot}%{install_includedir}/mach-o/compact_unwind_encoding.h
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Alternatives/
 touch %{buildroot}%{_bindir}/ld
 
+install -D -m 644 -t  %{buildroot}%{_mandir}/man1/ docs/ld.lld.1
+
 %post
 %{_sbindir}/update-alternatives --install %{_bindir}/ld ld %{_bindir}/ld.lld 1
 
@@ -181,6 +183,7 @@ fi
 %{_bindir}/ld.lld
 %{_bindir}/ld64.lld
 %{_bindir}/wasm-ld
+%{_mandir}/man1/ld.lld.1*
 %endif
 
 %files devel
@@ -192,6 +195,9 @@ fi
 %{install_libdir}/liblld*.so.*
 
 %changelog
+* Thu May 11 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.3-2
+- Distribute the manpage. Fix rhbz#2203231
+
 * Wed May 10 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.3-1
 - Update to LLVM 16.0.3
 
