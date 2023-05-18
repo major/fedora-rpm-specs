@@ -1,5 +1,9 @@
 # Allow conditionally building without the reflections library
+%if %{defined rhel}
+%bcond_with reflections
+%else
 %bcond_without reflections
+%endif
 
 Name:           jna
 Version:        5.13.0

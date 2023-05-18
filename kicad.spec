@@ -37,15 +37,8 @@ BuildRequires:  python3-wxpython4
 BuildRequires:  shared-mime-info
 BuildRequires:  swig
 BuildRequires:  unixODBC-devel
-BuildRequires:  zlib-devel
-
-# For F37 and up, use wxGTK-devel instead of wxGTK3-devel.  Once F36 becomes
-# obsolete, we can remove the conditional.
-%if 0%{?fedora} >= 37
 BuildRequires:  wxGTK-devel
-%else
-BuildRequires:  wxGTK3-devel
-%endif
+BuildRequires:  zlib-devel
 
 # Documentation
 BuildRequires:  po4a

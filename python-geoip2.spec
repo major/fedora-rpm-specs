@@ -5,11 +5,11 @@
 %global test_data_rls 2b37923df61aa3b5fb6c7edfbf4dc5fafa10258a
 
 Name:           python-%{pypi_name}
-Version:        4.6.0
-Release:        3%{?dist}
+Version:        4.7.0
+Release:        1%{?dist}
 Summary:        MaxMind GeoIP2 API
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://www.maxmind.com/
 Source0:        https://github.com/maxmind/%{srcname}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 Source1:        https://github.com/maxmind/%{test_data}/archive/%{test_data_rls}/%{test_data}-%{test_data_rls}.tar.gz
@@ -64,6 +64,10 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} -m unittest tests/databas
 %license LICENSE
 
 %changelog
+* Mon May 15 2023 Lumír Balhar <lbalhar@redhat.com> - 4.7.0-1
+- Update to 4.7.0 (rhbz#2198523)
+- SPDX License
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

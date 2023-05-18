@@ -1,14 +1,17 @@
 %global base_version 1.50
 Name:           perl-Carp
-Version:        1.52
-Release:        490%{?dist}
+Version:        1.54
+Release:        1%{?dist}
 Summary:        Alternative warn and die for modules
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Carp
 Source0:        https://cpan.metacpan.org/authors/id/X/XS/XSAWYERX/Carp-%{base_version}.tar.gz
 # Unbundled from perl 5.34.0
 Patch0:         Carp-1.50-Upgrade-to-1.52.patch
+# Unbundled from perl 5.37.11
+Patch1:         Carp-1.52-Upgrade-to-1.54.patch
 BuildArch:      noarch
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -53,7 +56,8 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Carp-%{base_version}
-%patch0 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 
 # Help file to recognise the Perl scripts
 for F in t/*.t; do
@@ -91,6 +95,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue May 16 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.54-1
+- Upgrade to 1.54 as provided in perl-5.37.11
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.52-490
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

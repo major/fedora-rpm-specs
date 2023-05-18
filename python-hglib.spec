@@ -5,10 +5,11 @@
 Summary:        Mercurial Python library
 Name:           python-hglib
 Version:        2.6.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 License:        MIT
 URL:            http://selenic.com/repo/python-hglib
 Source0:        https://files.pythonhosted.org/packages/source/p/%{name}/%{name}-%{version}.tar.gz
+Patch0:         python-hglib-2.6.2-py-312.patch
 BuildArch:      noarch
 BuildRequires:  mercurial
 %if 0%{?with_python2}
@@ -41,7 +42,7 @@ Mercurial. It uses Mercurials command server for communication with
 hg.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 %if 0%{?with_python2}
@@ -74,6 +75,9 @@ hg.
 %{python3_sitelib}/python_hglib-*-py*egg-info
 
 %changelog
+* Wed May 03 2023 Terje Rosten <terje.rosten@ntnu.no> - 2.6.2-9
+- Add patch to pass tests with Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

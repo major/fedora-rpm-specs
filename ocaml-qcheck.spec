@@ -1,8 +1,8 @@
 %undefine _package_note_flags
 
 Name:           ocaml-qcheck
-Version:        0.20
-Release:        4%{?dist}
+Version:        0.21
+Release:        1%{?dist}
 Summary:        QuickCheck inspired property-based testing for OCaml
 
 License:        BSD-2-Clause
@@ -193,6 +193,9 @@ asciidoc README.adoc
 %files -n ocaml-ppx-deriving-qcheck-devel -f .ofiles-ppx_deriving_qcheck-devel
 
 %changelog
+* Tue May 16 2023 Jerry James <loganjerry@gmail.com> - 0.21-1
+- Version 0.21
+
 * Tue Mar 21 2023 Jerry James <loganjerry@gmail.com> - 0.20-4
 - Rebuild for ocaml-alcotest 1.7.0
 

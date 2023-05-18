@@ -2,7 +2,7 @@ Name:		perl-Test-RequiresInternet
 Version:	0.05
 Release:	25%{?dist}
 Summary:	Easily test network connectivity
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-RequiresInternet
 Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-RequiresInternet-%{version}.tar.gz
 BuildArch:	noarch
@@ -19,7 +19,8 @@ BuildRequires:	perl(strict)
 BuildRequires:	perl(warnings)
 # Test Suite
 BuildRequires:	perl(Test::More)
-# Runtime
+# Dependencies
+# (none)
 
 %description
 This module is intended to easily test network connectivity before functional
@@ -54,11 +55,7 @@ find %{buildroot} -type f -name .packlist -delete
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
 %doc Changes README
 %{perl_vendorlib}/Test/
 %{_mandir}/man3/Test::RequiresInternet.3*

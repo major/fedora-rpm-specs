@@ -12,16 +12,17 @@
 # Format must contain '$x' somewhere to do anything useful
 %global _format() export %1=""; for x in %{modulenames}; do %1+=%2; %%1+=" "; done;
 
-# Built only for Fedora 38+ and EL 9+.
-# user_namespace token not available on el9 yet.
-%if 0%{?rhel} <= 9
-%bcond_without no_user_namespace
+%if 0%{?fedora}
+%global podman_epoch 5
 %else
-%bcond_with no_user_namespace
+%global podman_epoch 2
 %endif
 
 Name: qm
-Version: 0.1.0
+# Keep Version in upstream specfile at 0. It will be automatically set
+# to the correct value by Packit for copr and koji builds.
+# IGNORE this comment if you're looking at it in dist-git.
+Version: 0.2.0
 Release: %autorelease
 License: GPL-2.0-only
 URL: https://github.com/containers/qm
@@ -40,7 +41,7 @@ Requires(post): selinux-policy-base >= %_selinux_policy_version
 Requires(post): selinux-policy-targeted >= %_selinux_policy_version
 Requires(post): policycoreutils
 Requires(post): libselinux-utils
-Requires: podman >= 5:4.5
+Requires: podman >= %{podman_epoch}:4.5
 Requires: hirte-agent
 
 %description
@@ -60,11 +61,6 @@ use container tools like Podman.
 %prep
 %autosetup -Sgit -n %{name}-%{version}
 sed -i 's/^install: man all/install:/' Makefile
-
-# Remove unavailable tokens
-%if %{with no_user_namespace}
-sed -i '/user_namespace/d' qm.if
-%endif
 
 %build
 %{__make} all

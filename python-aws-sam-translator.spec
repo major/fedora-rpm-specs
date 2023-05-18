@@ -1,6 +1,6 @@
 Name:           python-aws-sam-translator
 Summary:        Transform SAM templates into AWS CloudFormation templates
-Version:        1.65.0
+Version:        1.66.0
 Release:        %autorelease
 
 License:        Apache-2.0
@@ -14,6 +14,63 @@ BuildArch:      noarch
 ExcludeArch:    %{ix86}
 
 BuildRequires:  python3-devel
+
+# Because most of the dependencies in the “dev” extra (from
+# requirements/dev.txt) are unwanted or have version bounds that need to be
+# loosened, we list them manually rather than generating BuildRequires from the
+# “dev” extra.
+# ----------
+# Omitted dependencies in the following group are due to:
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+#
+# coverage>=5.3,<8
+# pytest-cov>=2.10,<5
+# pytest-xdist>=2.5,<4
+BuildRequires:  %{py3_dist pytest-xdist} >= 2.5
+# pytest-env>=0.6,<1
+BuildRequires:  %{py3_dist pytest-env} >= 0.6
+# pytest-rerunfailures>=9.1,<12
+BuildRequires:  %{py3_dist pytest-rerunfailures} >= 9.1
+# pyyaml~=6.0
+BuildRequires:  %{py3_dist pyyaml} >= 6
+# ruff==0.0.261
+# ----------
+# Test requirements
+# pytest>=6.2,<8
+BuildRequires:  %{py3_dist pytest} >= 6.2
+# parameterized~=0.7
+BuildRequires:  %{py3_dist parameterized} >= 0.7
+# ----------
+# We cannot run the integration tests because they interact with AWS.
+#
+# Integration tests
+# dateparser~=1.1
+# boto3>=1.23,<2
+# tenacity~=8.0
+# ----------
+# The description in requirements/dev.txt is not quite correct; requests is
+# actually another integration test dependency (see above).
+#
+# Requirements for examples
+# requests~=2.28
+# ----------
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+#
+# formatter
+# black==23.1.0
+# ruamel.yaml==0.17.21  # It can parse yaml while perserving comments
+# ----------
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+#
+# type check
+# mypy~=1.1.0
+# ----------
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+#
+# types
+# boto3-stubs[appconfig,serverlessrepo]>=1.19.5,==1.*
+# types-PyYAML~=6.0
+# types-jsonschema~=3.2
 
 %global common_description %{expand:
 %{summary}.
@@ -52,34 +109,11 @@ Obsoletes:      python-aws-sam-translator-doc < 1.54.0-1
 
 %prep
 %autosetup -n serverless-application-model-%{version} -p1
-
-# Comment out a few dev dependencies that we will not use. Then, loosen
-# selected semver-pinned dev dependencies, allowing newer versions.
-sed -r -i \
-    -e 's/^(black|flake8|pylint|ruff)\b/#\1/' \
-    -e 's/^(coverage|pytest-cov|tox)\b/#\1/' \
-    -e 's/^(mypy|boto3-stubs|types-.*)\b/#\1/' \
-    -e 's/^(click|parameterized|pytest(-(rerunfailures|xdist))?)~=/\1>=/' \
-    -e 's/^(pyyaml|requests|tenacity)~=/\1>=/' \
-    requirements/dev.txt
-# Finish patching out coverage
 sed -r -i '/^addopts[[:blank:]]*=/d' pytest.ini
-# The dateparser packages is badly out of date; see:
-#   Updating python-dateparser to 1.1.4
-#   https://bugzilla.redhat.com/show_bug.cgi?id=2115204
-# and:
-#   Update to 1.1.7 (close RHBZ#2115204)
-#   https://src.fedoraproject.org/rpms/python-dateparser/pull-request/1
-# This is used only for:
-#   integration/helpers/deployer/utils/time_util.py
-# which belongs to the integration tests, which require network interaction
-# with real AWS resources, so of course we cannot run the integration tests and
-# therefore patching out the dateparser dependency is no loss.
-sed -r -i 's/^dateparser\b/# &/' requirements/dev.txt
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x dev
+%pyproject_buildrequires
 
 
 %build
@@ -95,7 +129,7 @@ rm -rvf '%{buildroot}%{python3_sitelib}/bin'
 
 
 %check
-# See Makefile target “test”. We cannot run the interaction tests because they
+# See Makefile target “test”. We cannot run the integration tests because they
 # interact with AWS.
 AWS_DEFAULT_REGION=us-east-1 %pytest -k "${k-}" -n auto
 

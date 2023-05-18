@@ -2,7 +2,7 @@ Name:           perl-Return-MultiLevel
 Version:        0.08
 Release:        5%{?dist}
 Summary:        Return across multiple call levels
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Return-MultiLevel
 Source0:        https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/Return-MultiLevel-%{version}.tar.gz
 BuildArch:      noarch
@@ -23,12 +23,10 @@ BuildRequires:  perl(Config)
 BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More)
 # Dependencies
+# (none)
 # Optional Functionality
 BuildRequires:  perl(Scope::Upper) >= 0.29
 Requires:       perl(Scope::Upper) >= 0.29
-
-# Filter under-specified dependencies
-%global __requires_exclude %{?__requires_exclude:__requires_exclude|}^perl\\(Data::Munge\\)$
 
 %description
 This module provides a way to return immediately from a deeply nested call

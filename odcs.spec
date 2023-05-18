@@ -1,6 +1,6 @@
 Name:       odcs
 Version:    0.5.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    The On Demand Compose Service
 
 
@@ -40,8 +40,6 @@ BuildRequires:    python3-sqlalchemy
 BuildRequires:    python3-ldap
 BuildRequires:    python3-gobject-base
 BuildRequires:    python3-flask-login
-BuildRequires:    python3-munch
-BuildRequires:    python3-moksha-hub
 BuildRequires:    python3-psutil
 BuildRequires:    python3-flufl-lock
 BuildRequires:    python3-celery
@@ -61,7 +59,6 @@ Requires:    python3-productmd
 Requires:    hardlink
 Requires:    python3-libmodulemd
 Requires:    gobject-introspection
-Requires:    python3-moksha-hub
 Requires:    python3-psutil
 Requires:    python3-flufl-lock
 Requires:    python3-celery
@@ -201,6 +198,9 @@ nosetests-%{python3_version} -v
 
 
 %changelog
+* Tue May 16 2023 Lubomír Sedlář <lsedlar@redhat.com> - 0.5.0-2
+- Remove obsolete dependencies
+
 * Wed Mar 01 2023 Haibo Lin <hlin@redhat.com> - 0.5.0-1
 - backend: Handle raw config file in subdirectory implicitly
 - backend: pulp: Always include explicitly mentioned repos

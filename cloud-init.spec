@@ -1,6 +1,12 @@
+%if 0%{?rhel}
+%bcond_with tests
+%else
+%bcond_without tests
+%endif
+
 Name:           cloud-init
 Version:        23.1.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Cloud instance init scripts
 License:        Apache-2.0 or GPL-3.0-only
 URL:            https://github.com/canonical/cloud-init
@@ -28,30 +34,32 @@ BuildRequires:  python3-setuptools
 BuildRequires:  systemd
 
 # For tests
-BuildRequires:  python3-pytest
-BuildRequires:  python3-pytest-mock
-BuildRequires:  iproute
-BuildRequires:  passwd
 BuildRequires:  python3-configobj
 # https://bugzilla.redhat.com/show_bug.cgi?id=1695953
 BuildRequires:  python3-distro
 # https://bugzilla.redhat.com/show_bug.cgi?id=1417029
-BuildRequires:  python3-httpretty >= 0.8.14-2
 BuildRequires:  python3-jinja2
 BuildRequires:  python3-jsonpatch
 BuildRequires:  python3-jsonschema
-BuildRequires:  python3-tox
 BuildRequires:  python3-oauthlib
 BuildRequires:  python3-prettytable
 BuildRequires:  python3-pyserial
 BuildRequires:  python3-PyYAML
 BuildRequires:  python3-requests
-BuildRequires:  python3-responses
 BuildRequires:  python3-six
 BuildRequires:  python3-netifaces
+%if %{with tests}
+BuildRequires:  iproute
+BuildRequires:  passwd
+BuildRequires:  python3-httpretty >= 0.8.14-2
+BuildRequires:  python3-pytest
+BuildRequires:  python3-pytest-mock
+BuildRequires:  python3-responses
+BuildRequires:  python3-tox
 # dnf is needed to make cc_ntp unit tests work
 # https://bugs.launchpad.net/cloud-init/+bug/1721573
 BuildRequires:  /usr/bin/dnf
+%endif
 
 Requires:       dhcp-client
 Requires:       hostname
@@ -136,7 +144,11 @@ cp -a %{buildroot}/etc/systemd %{buildroot}/usr/lib
 rm -rf %{buildroot}/etc/systemd
 
 %check
+%if %{with tests}
 python3 -m pytest tests/unittests
+%else
+%py3_check_import cloudinit
+%endif
 
 %post
 %systemd_post cloud-config.service cloud-config.target cloud-final.service cloud-init.service cloud-init.target cloud-init-local.service
@@ -188,6 +200,9 @@ python3 -m pytest tests/unittests
 
 
 %changelog
+* Tue May 16 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 23.1.2-5
+- Disable tests by default in RHEL builds
+
 * Thu May 11 2023 Major Hayden <major@redhat.com> - 23.1.2-4
 - Add patch to allow > 3 nameservers to be applied
 

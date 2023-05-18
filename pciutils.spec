@@ -1,21 +1,19 @@
 Name:		pciutils
-Version:	3.9.0
-Release:	4%{?dist}
+Version:	3.10.0
+Release:	1%{?dist}
 Summary:	PCI bus related utilities
 License:	GPL-2.0-or-later
 URL:		https://mj.ucw.cz/sw/pciutils/
 
 Source0:	https://www.kernel.org/pub/software/utils/pciutils/%{name}-%{version}.tar.xz
 Source1:	multilibconfigh
+Source2:	libpci_symbols.lst
 
 #change pci.ids directory to hwdata, fedora/rhel specific
 Patch1:		pciutils-2.2.1-idpath.patch
 
 #add support for directory with another pci.ids, rejected by upstream, rhbz#195327
 Patch2:		pciutils-dir-d.patch
-
-#gcc optimizes-out some symbols when -flto is used ttps://gcc.gnu.org/bugzilla/show_bug.cgi?id=48200
-Patch3:		pciutils-3.9.0-extvisible.patch
 
 Requires:	hwdata
 Requires:	%{name}-libs = %{version}-%{release}
@@ -80,6 +78,10 @@ install -p -m 644 lib/libpci.pc $RPM_BUILD_ROOT%{_libdir}/pkgconfig
 
 %ldconfig_scriptlets libs
 
+%check
+nm -gDC $RPM_BUILD_ROOT/%{_libdir}/libpci.so.%{version} | sed -n -e 's/@@/@/g' -e 's/^.* \([^ ]*@LIBPCI_.*\)$/\1/p' | sort | uniq >libpci_symbols_new.lst
+diff -u %{SOURCE2} libpci_symbols_new.lst
+
 %files
 %doc README ChangeLog pciutils.lsm
 %{_sbindir}/lspci
@@ -101,6 +103,9 @@ install -p -m 644 lib/libpci.pc $RPM_BUILD_ROOT%{_libdir}/pkgconfig
 %{_mandir}/man7/*
 
 %changelog
+* Tue May 16 2023 Michal Hlavinka <mhlavink@redhat.com> - 3.10.0-1
+- updated to 3.10.0
+
 * Tue Mar 14 2023 Michal Hlavinka <mhlavink@redhat.com> - 3.9.0-4
 - update license tag format (SPDX migration) for https://fedoraproject.org/wiki/Changes/SPDX_Licenses_Phase_1
 

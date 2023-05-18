@@ -15,18 +15,18 @@
 
 # Commit IDs for the (unversioned) redis-doc repository
 # https://fedoraproject.org/wiki/Packaging:SourceURL "Commit Revision"
-%global doc_commit 80258ecc251e8f7209d480cad77128ba5a43f968
+%global doc_commit d1cde3472ea50fb22a0b7b9eb74691b4aefb8dcf
 %global short_doc_commit %(c=%{doc_commit}; echo ${c:0:7})
 
 # %%{rpmmacrodir} not usable on EL-6
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
 %global upstream_ver 7.2
-%global upstream_pre rc1
+%global upstream_pre rc2
 
 Name:              redis
 Version:           %{upstream_ver}%{?upstream_pre:~%{upstream_pre}}
-Release:           3%{?dist}
+Release:           1%{?dist}
 Summary:           A persistent key-value database
 # redis, hiredis: BSD-3-Clause
 # hdrhistogram, jemalloc, lzf, linenoise: BSD-2-Clause
@@ -71,7 +71,7 @@ Requires(postun):  systemd
 # from deps/hiredis/hiredis.h
 Provides:          bundled(hiredis) = 1.0.3
 # from deps/jemalloc/VERSION
-Provides:          bundled(jemalloc) = 5.2.1
+Provides:          bundled(jemalloc) = 5.3.0
 # from deps/lua/src/lua.h
 Provides:          bundled(lua-libs) = 5.1.5
 # from deps/linenoise/linenoise.h
@@ -136,7 +136,7 @@ administration and development.
 %prep
 %setup -q -n %{name}-%{upstream_ver}%{?upstream_pre:-%{upstream_pre}} -b 10
 mv ../%{name}-doc-%{doc_commit} doc
-%patch0001 -p1
+%patch -P0001 -p1
 
 mv deps/lua/COPYRIGHT             COPYRIGHT-lua
 mv deps/jemalloc/COPYING          COPYING-jemalloc
@@ -307,6 +307,9 @@ fi
 
 
 %changelog
+* Tue May 16 2023 Remi Collet <remi@remirepo.net> - 7.2~rc2-1
+- Upstream 7.2-rc2 release candidate.
+
 * Thu Mar 30 2023 Remi Collet <remi@remirepo.net> - 7.2~rc1-3
 - fix modules directory ownership and permissions #2176173
 

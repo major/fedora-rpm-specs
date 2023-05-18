@@ -1,12 +1,11 @@
 %global debug_package %{nil}
-%global firmware_release 149
 
 %global _firmwarepath	/usr/lib/firmware
 %define _binaries_in_noarch_packages_terminate_build 0
 
 Name:		linux-firmware
-Version:	20230404
-Release:	%{firmware_release}%{?dist}
+Version:	20230515
+Release:	150%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL+ and GPLv2+ and MIT and Redistributable, no modification permitted
 URL:		http://www.kernel.org/
@@ -93,8 +92,6 @@ Firmware for Broadcom/Cypress brcmfmac WiFi/Bluetooth adapters.
 %package -n iwl100-firmware
 Summary:	Firmware for Intel(R) Wireless WiFi Link 100 Series Adapters
 License:	Redistributable, no modification permitted
-Version:	39.31.5.1
-Release:	%{firmware_release}%{?dist}
 Requires:	linux-firmware-whence
 %description -n iwl100-firmware
 This package contains the firmware required by the Intel wireless drivers
@@ -105,8 +102,6 @@ LICENSE file. Please read it carefully.
 %package -n iwl105-firmware
 Summary:	Firmware for Intel(R) Centrino Wireless-N 105 Series Adapters
 License:	Redistributable, no modification permitted
-Version:	18.168.6.1
-Release:	%{firmware_release}%{?dist}
 Requires:	linux-firmware-whence
 %description -n iwl105-firmware
 This package contains the firmware required by the Intel wireless drivers
@@ -117,8 +112,6 @@ LICENSE file. Please read it carefully.
 %package -n iwl135-firmware
 Summary:	Firmware for Intel(R) Centrino Wireless-N 135 Series Adapters
 License:	Redistributable, no modification permitted
-Version:	18.168.6.1
-Release:	%{firmware_release}%{?dist}
 Requires:	linux-firmware-whence
 %description -n iwl135-firmware
 This package contains the firmware required by the Intel wireless drivers
@@ -129,9 +122,7 @@ LICENSE file. Please read it carefully.
 %package -n iwl1000-firmware
 Summary:	Firmware for Intel® PRO/Wireless 1000 B/G/N network adaptors
 License:	Redistributable, no modification permitted
-Version:	39.31.5.1
 Epoch:		1
-Release:	%{firmware_release}%{?dist}
 Requires:	linux-firmware-whence
 %description -n iwl1000-firmware
 This package contains the firmware required by the Intel wireless drivers
@@ -142,8 +133,6 @@ LICENSE file. Please read it carefully.
 %package -n iwl2000-firmware
 Summary:	Firmware for Intel(R) Centrino Wireless-N 2000 Series Adapters
 License:	Redistributable, no modification permitted
-Version:	18.168.6.1
-Release:	%{firmware_release}%{?dist}
 Requires:	linux-firmware-whence
 %description -n iwl2000-firmware
 This package contains the firmware required by the Intel wireless drivers
@@ -154,8 +143,6 @@ LICENSE file. Please read it carefully.
 %package -n iwl2030-firmware
 Summary:	Firmware for Intel(R) Centrino Wireless-N 2030 Series Adapters
 License:	Redistributable, no modification permitted
-Version:	18.168.6.1
-Release:	%{firmware_release}%{?dist}
 Requires:	linux-firmware-whence
 %description -n iwl2030-firmware
 This package contains the firmware required by the Intel wireless drivers
@@ -167,8 +154,6 @@ LICENSE file. Please read it carefully.
 Summary:	Firmware for Intel(R) Wireless WiFi Link 3160 Series Adapters
 License:	Redistributable, no modification permitted
 Epoch:		1
-Version:	25.30.13.0
-Release:	%{firmware_release}%{?dist}
 Requires:	linux-firmware-whence
 %description -n iwl3160-firmware
 This package contains the firmware required by the Intel wireless drivers
@@ -178,8 +163,6 @@ contained inside the provided LICENSE file. Please read it carefully.
 %package -n iwl3945-firmware
 Summary:	Firmware for Intel® PRO/Wireless 3945 A/B/G network adaptors
 License:	Redistributable, no modification permitted
-Version:	15.32.2.9
-Release:	%{firmware_release}%{?dist}
 Requires:	linux-firmware-whence
 %description -n iwl3945-firmware
 This package contains the firmware required by the iwl3945 driver
@@ -189,8 +172,6 @@ contained inside the provided LICENSE file. Please read it carefully.
 %package -n iwl4965-firmware
 Summary:	Firmware for Intel® PRO/Wireless 4965 A/G/N network adaptors
 License:	Redistributable, no modification permitted
-Version:	228.61.2.24
-Release:	%{firmware_release}%{?dist}
 Requires:	linux-firmware-whence
 %description -n iwl4965-firmware
 This package contains the firmware required by the iwl4965 driver
@@ -200,8 +181,6 @@ contained inside the provided LICENSE file. Please read it carefully.
 %package -n iwl5000-firmware
 Summary:	Firmware for Intel® PRO/Wireless 5000 A/G/N network adaptors
 License:	Redistributable, no modification permitted
-Version:	8.83.5.1_1
-Release:	%{firmware_release}%{?dist}
 Requires:	linux-firmware-whence
 %description -n iwl5000-firmware
 This package contains the firmware required by the iwl5000 driver
@@ -211,8 +190,6 @@ contained inside the provided LICENSE file. Please read it carefully.
 %package -n iwl5150-firmware
 Summary:	Firmware for Intel® PRO/Wireless 5150 A/G/N network adaptors
 License:	Redistributable, no modification permitted
-Version:	8.24.2.2
-Release:	%{firmware_release}%{?dist}
 Requires:	linux-firmware-whence
 %description -n iwl5150-firmware
 This package contains the firmware required by the iwl5150 driver
@@ -222,8 +199,6 @@ contained inside the provided LICENSE file. Please read it carefully.
 %package -n iwl6000-firmware
 Summary:	Firmware for Intel(R) Wireless WiFi Link 6000 AGN Adapter
 License:	Redistributable, no modification permitted
-Version:	9.221.4.1
-Release:	%{firmware_release}%{?dist}
 Requires:	linux-firmware-whence
 %description -n iwl6000-firmware
 This package contains the firmware required by the Intel wireless drivers
@@ -233,8 +208,6 @@ contained inside the provided LICENSE file. Please read it carefully.
 %package -n iwl6000g2a-firmware
 Summary:	Firmware for Intel(R) Wireless WiFi Link 6005 Series Adapters
 License:	Redistributable, no modification permitted
-Version:	18.168.6.1
-Release:	%{firmware_release}%{?dist}
 Requires:	linux-firmware-whence
 %description -n iwl6000g2a-firmware
 This package contains the firmware required by the Intel wireless drivers
@@ -244,8 +217,6 @@ contained inside the provided LICENSE file. Please read it carefully.
 %package -n iwl6000g2b-firmware
 Summary:	Firmware for Intel(R) Wireless WiFi Link 6030 Series Adapters
 License:	Redistributable, no modification permitted
-Version:	18.168.6.1
-Release:	%{firmware_release}%{?dist}
 Requires:	linux-firmware-whence
 %description -n iwl6000g2b-firmware
 This package contains the firmware required by the Intel wireless drivers
@@ -255,8 +226,6 @@ contained inside the provided LICENSE file. Please read it carefully.
 %package -n iwl6050-firmware
 Summary:	Firmware for Intel(R) Wireless WiFi Link 6050 Series Adapters
 License:	Redistributable, no modification permitted
-Version:	41.28.5.1
-Release:	%{firmware_release}%{?dist}
 Requires:	linux-firmware-whence
 %description -n iwl6050-firmware
 This package contains the firmware required by the Intel wireless drivers
@@ -267,8 +236,6 @@ contained inside the provided LICENSE file. Please read it carefully.
 Summary:	Firmware for Intel(R) Wireless WiFi Link 726x/8000/9000 Series Adapters
 License:	Redistributable, no modification permitted
 Epoch:		1
-Version:	25.30.13.0
-Release:	%{firmware_release}%{?dist}
 Requires:	linux-firmware-whence
 Recommends:     iwlax2xx-firmware
 %description -n iwl7260-firmware
@@ -359,6 +326,17 @@ Requires:	linux-firmware-whence
 %description -n netronome-firmware
 Firmware for Netronome Smart NICs
 
+# Random other hardware
+%package -n dvb-firmware
+Summary:	Firmware for various DVB broadcast receivers
+License:	Redistributable, no modification permitted
+Requires:	linux-firmware-whence
+%description -n dvb-firmware
+Firmware for various DVB broadcast receivers. These include the
+Siano DTV devices, devices based on Conexant chipsets (cx18,
+cx23885, cx23840, cx231xx), Xceive xc4000/xc5000, DiBcom dib0700,
+Terratec H5 DRX-K, ITEtech IT9135 Ax and Bx, and av7110.
+
 %prep
 %autosetup -p1
 
@@ -416,12 +394,17 @@ sed \
 	-i -e '/^ath9k_htc/d' \
 	-i -e '/^ath10k/d' \
 	-i -e '/^ath11k/d' \
+	-i -e '/^av7110/d' \
 	-i -e '/^brcm/d' \
+	-i -e '/^cmmb/d' \
 	-i -e '/^cypress/d' \
+	-i -e '/^dvb/d' \
 	-i -e '/^i915/d' \
+	-i -e '/^isdbt/d' \
 	-i -e '/^iwlwifi/d' \
 	-i -e '/^nvidia\/g/d' \
 	-i -e '/^nvidia\/tu/d' \
+	-i -e '/^lgs8g75/d' \
 	-i -e '/^libertas\/sd8686/d' \
 	-i -e '/^libertas\/usb8388/d' \
 	-i -e '/^liquidio/d' \
@@ -439,6 +422,9 @@ sed \
 	-i -e '/^rtlwifi/d' \
 	-i -e '/^rtw88/d' \
 	-i -e '/^rtw89/d' \
+	-i -e '/^sms1xxx/d' \
+	-i -e '/^tdmb/d' \
+	-i -e '/^v4l-cx2/d' \
 	linux-firmware.files
 sed -i -e 's!^!/usr/lib/firmware/!' linux-firmware.{files,dirs}
 sed -i -e 's/^/"/;s/$/"/' linux-firmware.files
@@ -455,15 +441,19 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 # GPU firmwares
 %files -n amd-gpu-firmware
 %license LICENSE.radeon LICENSE.amdgpu
+%dir %{_firmwarepath}/amdgpu
+%dir %{_firmwarepath}/radeon
 %{_firmwarepath}/amdgpu/
 %{_firmwarepath}/radeon/
 
 %files -n intel-gpu-firmware
 %license LICENSE.i915
+%dir %{_firmwarepath}/i915
 %{_firmwarepath}/i915/
 
 %files -n nvidia-gpu-firmware
 %license LICENCE.nvidia
+%dir %{_firmwarepath}/nvidia
 %{_firmwarepath}/nvidia/g*/
 %{_firmwarepath}/nvidia/tu*/
 
@@ -474,6 +464,12 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %license LICENSE.QualcommAtheros_ath10k
 %license LICENCE.open-ath9k-htc-firmware
 %license qca/NOTICE.txt
+%dir %{_firmwarepath}/ar3k
+%dir %{_firmwarepath}/ath6k
+%dir %{_firmwarepath}/ath9k_htc
+%dir %{_firmwarepath}/ath10k
+%dir %{_firmwarepath}/ath11k
+%dir %{_firmwarepath}/qca
 %{_firmwarepath}/ar3k/
 %{_firmwarepath}/ath6k/
 %{_firmwarepath}/ath9k_htc/
@@ -484,6 +480,8 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %files -n brcmfmac-firmware
 %license LICENCE.broadcom_bcm43xx
 %license LICENCE.cypress
+%dir %{_firmwarepath}/brcm
+%dir %{_firmwarepath}/cypress
 %{_firmwarepath}/brcm/
 %{_firmwarepath}/cypress/
 
@@ -588,6 +586,7 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %files -n mt7xxx-firmware
 %license LICENCE.mediatek
 %license LICENCE.ralink_a_mediatek_company_firmware
+%dir %{_firmwarepath}/mediatek
 %{_firmwarepath}/mediatek/mt76*
 %{_firmwarepath}/mediatek/mt79*
 %{_firmwarepath}/mediatek/BT*
@@ -595,6 +594,10 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 
 %files -n realtek-firmware
 %license LICENCE.rtlwifi_firmware.txt
+%dir %{_firmwarepath}/rtl_bt
+%dir %{_firmwarepath}/rtlwifi
+%dir %{_firmwarepath}/rtw88
+%dir %{_firmwarepath}/rtw89
 %{_firmwarepath}/rtl_bt/
 %{_firmwarepath}/rtlwifi/
 %{_firmwarepath}/rtw88/
@@ -620,7 +623,63 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %dir %{_firmwarepath}/netronome
 %{_firmwarepath}/netronome/*
 
+# Random other hardware
+%files -n dvb-firmware
+%license LICENSE.dib0700 LICENCE.it913x LICENCE.siano
+%license LICENCE.xc4000 LICENCE.xc5000 LICENCE.xc5000c
+%dir %{_firmwarepath}/av7110/
+%{_firmwarepath}/av7110/*
+%{_firmwarepath}/cmmb*
+%{_firmwarepath}/dvb*
+%{_firmwarepath}/isdbt*
+%{_firmwarepath}/lgs8g75*
+%{_firmwarepath}/sms1xxx*
+%{_firmwarepath}/tdmb*
+%{_firmwarepath}/v4l-cx2*
+
 %changelog
+* Tue May 16 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 20230515-150
+- Update to upstream 20230515 release
+- Drop ancient iwlwifi versioning and use upstream date format version
+- cirrus: Add firmware and tuning files for HP G10 series laptops
+- update firmware for mediatek bluetooth chip (MT7922)
+- WHENCE: Cleanup Realtek BT firmware provenance
+- update firmware for MT7922 WiFi device
+- cnm: update chips&media wave521c firmware.
+- cirrus: Add firmware and tuning files for Lenovo ThinkPad P1 Gen 6
+- i915: Add GuC v70.6.6 for MTL
+- amdgpu: update DCN 3.1.6 DMCUB firmware
+- rtl_bt: Update RTL8852B BT USB firmware to 0xDBC6_B20F
+- rtl_bt: Update RTL8761B BT USB firmware to 0xDFC6_D922
+- rtl_bt: Update RTL8761B BT UART firmware to 0x9DC6_D922
+- rtl_nic: update firmware of USB devices
+- Update firmware file for Intel Bluetooth AX20x/AX21x
+- update firmware for MT7981
+- qca: Update firmware files for BT chip WCN6750
+- mt76xx: Move the old Mediatek WiFi firmware to mediatek
+- rtl_bt: Add firmware and config files for RTL8851B
+- Update AMD cpu microcode
+- add firmware for MT7981
+- update firmware for MT7921 WiFi device
+- update firmware for mediatek bluetooth chip (MT7921)
+- update Intel qat firmware
+- Add firmware for Cirrus CS35L41 on Lenovo Laptops
+- update firmware for MT7916
+- rtw89: 8852b: update format-1 fw to v0.29.29.1
+- rtw89: 8852c: update fw to v0.27.56.13
+- ath11k: WCN6855 hw2.0: update board-2.bin
+- ath11k: WCN6750 hw1.0: update to WLAN.MSL.1.0.1-01160-QCAMSLSWPLZ-1
+- ath11k: QCN9074 hw1.0: update to WLAN.HK.2.7.0.1-01744-QCAHKSWPL_SILICONZ-1
+- ath11k: IPQ8074 hw2.0: update to WLAN.HK.2.7.0.1-01744-QCAHKSWPL_SILICONZ-1
+- ath11k: IPQ8074 hw2.0: update board-2.bin
+- ath11k: IPQ6018 hw1.0: update to WLAN.HK.2.7.0.1-01744-QCAHKSWPL_SILICONZ-1
+- ath11k: IPQ6018 hw1.0: update board-2.bin
+- ath10k: QCA99X0 hw2.0: update board-2.bin
+- ath10k: QCA9984 hw1.0: update board-2.bin
+- ath10k: QCA9888 hw2.0: update board-2.bin
+- ath10k: QCA6174 hw3.0: update board-2.bin
+- ath10k: QCA4019 hw1.0: update board-2.bin
+
 * Sun Apr 09 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 20230404-149
 - Split Realtek, Qcom Atheros, Mediatek, brcmfmac WiFi/BT firmwares to subpackages
 - Update to upstream 20230404 release

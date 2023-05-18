@@ -5,7 +5,8 @@
 
 # Tests are enabled by default, unless we bootstrap.
 # Disable them to avoid a circular build dependency on requests-download and testpath.
-%bcond tests %{without bootstrap}
+# RHEL does not have all the test dependencies
+%bcond tests %[%{without bootstrap} && ! %[%{defined rhel} && %{undefined epel}]]
 
 
 %global srcname flit

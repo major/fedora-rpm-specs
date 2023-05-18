@@ -13,7 +13,7 @@
 
 Name:           python-pandas
 Version:        1.5.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python library providing high-performance data analysis tools
 
 # The entire source is BSD-3-Clause and covered by LICENSE, except:
@@ -128,8 +128,25 @@ Patch:          https://github.com/pandas-dev/pandas/pull/52150.patch
 #
 # ----
 #
+# CI: Test pyarrow nightly instead of intermediate versions
+# https://github.com/pandas-dev/pandas/pull/52211
+#
+# Merged upstream as 4a2c06c8a5e4b12f7850b834eb10f1fa1f302f92:
+#   CI: Test pyarrow nightly instead of intermediate versions
+#   * Change format
+#   * Pin, remove hardcoded channel
+#   * Try pip
+#   * Fix some tests
+#   * Address more tests
+#   * Fix test condition
+#   * Fix another condidition
+#   * Cleanup name
+#   * Remove boto3
+#
+# ----
+#
 # All commits cherry-picked to tag v1.5.3 and combined into a single patch.
-Patch:          pandas-1.5.3-pyarrow-10-11.patch
+Patch:          pandas-1.5.3-pyarrow-10-11-12.patch
 
 %global _description %{expand:
 pandas is an open source, BSD-licensed library providing
@@ -742,6 +759,9 @@ export PYTHONHASHSEED="$(
 
 
 %changelog
+* Tue May 16 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.5.3-4
+- Extend pyarrow 10/11 patch for pyarrow 12 (fix RHBZ#2207628)
+
 * Wed Apr 19 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.5.3-3
 - Drop unnecessary weak dependency on python-pandas-datareader
 - Backport proper pyarrow 10 and 11 support

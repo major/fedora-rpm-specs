@@ -3,8 +3,18 @@
 
 Name:		newsx
 Version:	1.6
-Release:	40%{?dist}
-License:	GPLv2+
+Release:	41%{?dist}
+# public domain:
+# dbz/dbz-v3.c
+# dbz/dbz-v6.c
+# dbz/endian.c
+# src/hash.c
+# src/mkcrc.c
+# src/mkcrc.rc
+#
+# dbz/md5.{c,h} are RSA Message-Digest licensed
+# lib/setenv.c is BSD-4-Clause-UC but not compiled into binary
+License:	GPL-2.0-or-later AND RSA-MD AND LicenseRef-Fedora-Public-Domain
 Summary:	NNTP news exchange utility
 Summary(pl):	Narzędzie do wymiany newsów po NNTP
 Source0:	ftp://ftp.tin.org/pub/news/utils/newsx/%{name}-%{version}.tar.gz
@@ -19,8 +29,6 @@ BuildRequires:  gcc
 BuildRequires:	inn-devel
 BuildRequires:	automake
 BuildRequires:	autoconf
-# work around https://bugzilla.redhat.com/show_bug.cgi?id=927170
-BuildRequires:	perl-Carp
 Requires:	inn
 
 %description
@@ -35,10 +43,10 @@ pobiera przychodzące artykuły.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1 -b .stack
-%patch2 -p1 -b .quotes
-%patch3 -p1 -b .am-1.12
+%patch 0 -p1
+%patch 1 -p1 -b .stack
+%patch 2 -p1 -b .quotes
+%patch 3 -p1 -b .am-1.12
 
 %build
 autoreconf -f -i
@@ -47,13 +55,10 @@ autoreconf -f -i
 	--with-newsconfig=/usr/lib/news/lib/innshellvars \
 	--with-newslib=%{_libdir}/news/lib \
 
-%{__make} %{?_smp_mflags}
+%make_build
 
 %install
-rm -rf $RPM_BUILD_ROOT
-
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+%make_install
 
 # avoid conflict with leafnode
 pushd $RPM_BUILD_ROOT
@@ -62,12 +67,18 @@ mv .%{_mandir}/man1/newsq.1 .%{_mandir}/man1/newsx-newsq.1
 popd
 
 %files
-%doc AUTHORS ChangeLog COPYING FAQ NEWS README TODO
+%doc AUTHORS ChangeLog FAQ NEWS README TODO
+%license COPYING
 %attr(755,root,root) %{_bindir}/*
 %attr(770,root,news) %dir /var/spool/news/inhosts
 %{_mandir}/man[158]/*
 
 %changelog
+* Tue May 16 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.6-41
+- rebuild for INN 2.7.1
+- modernize spec
+- use SPDX license identifiers
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2005-2022, Ralf Corsepius, Ulm, Germany.
+# Copyright (c) 2005-2023, Ralf Corsepius, Ulm, Germany.
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
 #
@@ -51,8 +51,8 @@ Requires: mod_fcgid
 %global RT_STATICDIR		%{_datadir}/%{name}/static
 
 Name:		rt
-Version:	5.0.3
-Release:	4%{?dist}
+Version:	5.0.4
+Release:	1%{?dist}
 Summary:	Request tracker
 
 License:	GPL-2.0-or-later
@@ -75,6 +75,10 @@ Patch3: 0003-Remove-fixperms-font-install.patch
 Patch4: 0004-Fix-permissions.patch
 Patch5: 0005-Do-not-install-cpanfile.patch
 Patch6: 0006-Add-fcgid.patch
+Patch7: 0007-Install-rt-clean-shorteners.patch
+Patch8: 0008-Apply-RT-StaticPath-to-pickup-scripts.patch
+# Misc. dirty hacks to let testsuite pickup files from installed testsuite tree
+Patch9: 0009-Fedora-testsuite-hacks.patch
 
 BuildArch:	noarch
 
@@ -83,10 +87,13 @@ BuildRequires: make
 BuildRequires: perl-generators
 BuildRequires: perl(Apache::Session) >= 1.53
 BuildRequires: perl(Business::Hours)
+BuildRequires: perl(CGI) >= 4.00
 BuildRequires: perl(CGI::Cookie) >= 1.20
-BuildRequires: perl(CGI::PSGI)
+BuildRequires: perl(CGI::PSGI) >= 0.12
 BuildRequires: perl(CGI::Emulate::PSGI)
+BuildRequires: perl(Class::Accessor::Fast)
 BuildRequires: perl(Class::ReturnValue) >= 0.40
+BuildRequires: perl(Clone)
 BuildRequires: perl(Convert::Color)
 BuildRequires: perl(CPAN)
 BuildRequires: perl(Crypt::Eksblowfish)
@@ -95,9 +102,17 @@ BuildRequires: perl(CSS::Minifier::XS)
 BuildRequires: perl(CSS::Squish) >= 0.06
 BuildRequires: perl(Data::GUID)
 BuildRequires: perl(Data::ICal)
+%if "%{version}" >= "5.0.4"
+BuildRequires: perl(Data::Page)
+%else
 BuildRequires: perl(Data::Page::Pageset)
+%endif
 # In rt-test-dependencies, but seemingly unused
+%if "%{version}" >= "5.0.4"
+BuildRequires: perl(Date::Extract) >= 0.07
+%else
 BuildRequires: perl(Date::Extract) >= 0.02
+%endif
 # In rt-test-dependencies, but seemingly unused
 BuildRequires: perl(Date::Manip)
 BuildRequires: perl(DateTime::Format::Natural) >= 0.67
@@ -107,14 +122,18 @@ BuildRequires: perl(DateTime::Locale) >= 0.40
 %{?with_mysql:BuildRequires: perl(DBD::mysql) >= 2.1018}
 %{?with_pg:BuildRequires: perl(DBD::Pg) >= 1.43}
 BuildRequires: perl(DBI) >= 1.37
-BuildRequires: perl(DBIx::SearchBuilder) >= 1.59
-BuildRequires: perl(Devel::StackTrace) >= 1.19
+%if "%{version}" >= "5.0.4"
+BuildRequires: perl(DBIx::SearchBuilder) >= 1.76
+%else
+BuildRequires: perl(DBIx::SearchBuilder) >= 1.71
+%endif
+BuildRequires: perl(Devel::StackTrace) >= 2.00
 BuildRequires: perl(Devel::GlobalDestruction)
 # In rt-test-dependencies, but seemingly unused
 BuildRequires: perl(Digest::base)
 BuildRequires: perl(Digest::MD5) >= 2.27
-BuildRequires: perl(Email::Address) >= 1.908
-BuildRequires: perl(Email::Address::List) >= 0.02
+BuildRequires: perl(Email::Address) >= 1.912
+BuildRequires: perl(Email::Address::List) >= 0.06
 BuildRequires: perl(Encode) >= 2.64
 BuildRequires: perl(Encode::Detect::Detector)
 BuildRequires: perl(Encode::HanExtra)
@@ -127,10 +146,15 @@ BuildRequires: perl(File::Spec) >= 0.8
 BuildRequires: perl(File::Temp) >= 0.19
 BuildRequires: perl(File::Which)
 BuildRequires: perl(GD)
+%if "%{version}" >= "5.0.4"
 BuildRequires: perl(GD::Graph) >= 1.47
+%else
+BuildRequires: perl(GD::Graph) >= 1.56
+%endif
 BuildRequires: perl(GD::Text)
 BuildRequires: perl(GnuPG::Interface) >= 1.02
 BuildRequires: perl(GraphViz)
+BuildRequires: perl(GraphViz2)
 BuildRequires: perl(Getopt::Long) >= 2.24
 BuildRequires: perl(HTML::Entities)
 BuildRequires: perl(HTML::FormatExternal)
@@ -138,15 +162,13 @@ BuildRequires: perl(HTML::FormatText::WithLinks) >= 0.14
 BuildRequires: perl(HTML::FormatText::WithLinks::AndTables) >= 0.06
 BuildRequires: perl(HTML::Gumbo)
 BuildRequires: perl(HTML::Mason) >= 1.43
-BuildRequires: perl(HTML::Mason::PSGIHandler)
+BuildRequires: perl(HTML::Mason::PSGIHandler) >= 0.52
 BuildRequires: perl(HTML::Quoted)
-BuildRequires: perl(HTML::RewriteAttributes) >= 0.02
+BuildRequires: perl(HTML::RewriteAttributes) >= 0.05
 BuildRequires: perl(HTML::Scrubber) >= 0.08
 BuildRequires: perl(HTML::TreeBuilder)
 BuildRequires: perl(HTTP::Request::Common)
 BuildRequires: perl(HTTP::Status)
-# In rt-test-dependencies, but seemingly unused
-BuildRequires: perl(IPC::Run)
 BuildRequires: perl(IPC::Run3)
 BuildRequires: perl(JSON)
 BuildRequires: perl(JavaScript::Minifier::XS)
@@ -155,18 +177,23 @@ BuildRequires: perl(Locale::Maketext) >= 1.06
 BuildRequires: perl(Locale::Maketext::Fuzzy) >= 0.11
 BuildRequires: perl(Locale::Maketext::Lexicon) >= 0.32
 BuildRequires: perl(Locale::PO)
-BuildRequires: perl(Log::Dispatch) >= 2.23
+BuildRequires: perl(Log::Dispatch) >= 2.30
 BuildRequires: perl(Net::LDAP::Server::Test)
 %{?with_devel_mode:BuildRequires: perl(Log::Dispatch::Perl)}
-BuildRequires: perl(LWP)
-BuildRequires: perl(LWP::UserAgent)
+BuildRequires: perl(LWP) >= 6.02
+BuildRequires: perl(LWP::Simple)
+BuildRequires: perl(LWP::UserAgent) >= 6.02
 # In rt-test-dependencies, but seemingly unused
 BuildRequires: perl(LWP::Protocol::https)
+BuildRequires: perl(Mail::Header) >= 2.12
 BuildRequires: perl(Mail::Mailer) >= 1.57
-BuildRequires: perl(MIME::Entity) >= 5.425
+BuildRequires: perl(MIME::Entity) >= 5.504
 BuildRequires: perl(MIME::Types)
 BuildRequires: perl(Module::Path)
 %{?with_devel_mode:BuildRequires: perl(Module::Refresh) >= 0.03}
+%if "%{version}" >= "5.0.4"
+BuildRequires: perl(Module::Runtime)
+%endif
 BuildRequires: perl(Module::Versions::Report) >= 1.05
 BuildRequires: perl(Moose)
 BuildRequires: perl(MooseX::NonMoose)
@@ -174,6 +201,7 @@ BuildRequires: perl(MooseX::Role::Parameterized)
 # In rt-test-dependencies, but seemingly unused
 BuildRequires: perl(Mozilla::CA)
 BuildRequires: perl(Mojo::DOM)
+BuildRequires: perl(Mojolicious) >= 8.54
 BuildRequires: perl(Net::CIDR)
 BuildRequires: perl(Net::IP)
 # In rt-test-dependencies, but seemingly unused
@@ -183,8 +211,11 @@ BuildRequires: perl(Path::Dispatcher) >= 1.07
 # In rt-test-dependencies, but seemingly unused
 BuildRequires: perl(PerlIO::eol)
 BuildRequires: perl(Pod::Usage)
+%if "%{version}" >= "5.0.4"
+%else
 BuildRequires: perl(Pod::Select)
-BuildRequires: perl(Plack)
+%endif
+BuildRequires: perl(Plack) >= 1.0002
 # In rt-test-dependencies, but seemingly unused
 BuildRequires: perl(Plack::Handler::Starlet)
 %{?with_devel_mode:BuildRequires: perl(Plack::Middleware::Test::StashWarnings) >= 0.06}
@@ -197,7 +228,7 @@ BuildRequires: perl(Scope::Upper)
 BuildRequires: perl(Set::Tiny)
 BuildRequires: perl(Storable) >= 2.08
 %{?with_devel_mode:BuildRequires: perl(String::ShellQuote)}
-BuildRequires: perl(Symbol::Global::Name) >= 0.04
+BuildRequires: perl(Symbol::Global::Name) >= 0.05
 BuildRequires: perl(Term::ReadKey)
 BuildRequires: perl(Term::ReadLine)
 %{?with_devel_mode:BuildRequires: perl(Test::Builder) >= 0.77}
@@ -206,25 +237,29 @@ BuildRequires: perl(Term::ReadLine)
 %{?with_devel_mode:BuildRequires: perl(Email::Abstract)}
 %{?with_devel_mode:BuildRequires: perl(Test::Expect) >= 0.31}
 %{?with_devel_mode:BuildRequires: perl(Test::MockTime)}
+%{?with_devel_mode:BuildRequires: perl(Test::MockTime::HiRes)}
 %{?with_devel_mode:BuildRequires: perl(Test::NoWarnings)}
 %{?with_devel_mode:BuildRequires: perl(Test::Pod) >= 1.14}
 %{?with_devel_mode:BuildRequires: perl(Test::Warn)}
-%{?with_devel_mode:BuildRequires: perl(Test::WWW::Mechanize)}
+%{?with_devel_mode:BuildRequires: perl(Test::WWW::Mechanize) > 1.56 }
 %{?with_devel_mode:BuildRequires: perl(Test::WWW::Mechanize::PSGI)}
 BuildRequires: perl(Text::ParseWords)
 BuildRequires: perl(Text::Password::Pronounceable)
-BuildRequires: perl(Text::Quoted) >= 2.02
-BuildRequires: perl(Text::Template)
+BuildRequires: perl(Text::Quoted) >= 2.07
+BuildRequires: perl(Text::Template) >= 1.44
 BuildRequires: perl(Text::WikiFormat) >= 0.76
 BuildRequires: perl(Text::WordDiff)
 BuildRequires: perl(Text::Wrapper)
 BuildRequires: perl(Time::HiRes)
 BuildRequires: perl(Time::ParseDate)
 BuildRequires: perl(Tree::Simple) >= 1.04
+%if "%{version}" >= "5.0.4"
+%else
 BuildRequires: perl(UNIVERSAL::require)
+%endif
 BuildRequires: perl(URI::QueryParam)
 BuildRequires: perl(Web::Machine) >= 0.12
-%{?with_devel_mode:BuildRequires: perl(WWW::Mechanize)}
+%{?with_devel_mode:BuildRequires: perl(WWW::Mechanize) >= 1.80}
 BuildRequires: perl(XML::RSS) >= 1.05
 %{?with_devel_mode:BuildRequires: perl(XML::Simple)}
 
@@ -233,6 +268,7 @@ BuildRequires: perl(XML::RSS) >= 1.05
 %{?with_runtests:BuildRequires: perl(Test::MockTime)}
 %{?with_runtests:BuildRequires: perl(String::ShellQuote)}
 %{?with_runtests:BuildRequires: perl(Test::Expect)}
+BuildRequires: perl(namespace::autoclean)
 
 BuildRequires:	/usr/bin/pod2man
 BuildRequires:	/usr/sbin/apachectl
@@ -333,7 +369,11 @@ Requires:	perl(DBD::SQLite)
 Requires:       perl(Encode::HanExtra)
 Requires:	perl(GnuPG::Interface)
 # Bug: The testsuite unconditionally depends upon perl(GraphViz)
+%if "%{version}" >= "5.0.4"
+Requires:       perl(GraphViz2)
+%else
 Requires:	perl(GraphViz)
+%endif
 Requires:	perl(Net::LDAP::Server::Test)
 Requires:	perl(Plack::Handler::Apache2)
 Requires:	perl(Set::Tiny)
@@ -341,6 +381,7 @@ Requires:	perl(String::ShellQuote)
 Requires:	perl(Test::Deep)
 Requires:	perl(Test::Expect)
 Requires:	perl(Test::MockTime)
+Requires:	perl(Test::MockTime::HiRes)
 Requires:	perl(Test::Warn)
 
 
@@ -371,10 +412,6 @@ Requires:	perl(Mojo::DOM)
 %prep
 %setup -q -n rt-%{version}
 
-# Remove check for Test-WWW-Mechanize != 1.58, because
-# Fedora ships a fixed version of 1.58
-sed -i -e 's|, != 1.58||' etc/cpanfile
-
 sed -e 's,@RT_CACHEDIR@,%{RT_CACHEDIR},' %{SOURCE3} \
   > README.fedora
 sed -e 's,@RT_LOGDIR@,%{RT_LOGDIR},' %{SOURCE4} \
@@ -384,12 +421,15 @@ sed -e 's,@RT_LOGDIR@,%{RT_LOGDIR},' %{SOURCE4} \
 find -name '*.in' | \
 while read a; do b=$(echo "$a" | sed -e 's,\.in$,,'); rm "$b"; done
 
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
+%patch -P 1 -p1
+%patch -P 2 -p1
+%patch -P 3 -p1
+%patch -P 4 -p1
+%patch -P 5 -p1
+%patch -P 6 -p1
+%patch -P 7 -p1
+%patch -P 8 -p1
+%patch -P 9 -p1
 
 # Propagate rpm's directories to config.layout
 cat << \EOF >> config.layout
@@ -460,6 +500,7 @@ bin/rt-crontool \
 bin/rt-mailgate \
 sbin/rt-attributes-viewer \
 sbin/rt-clean-sessions \
+sbin/rt-clean-shorteners \
 sbin/rt-dump-metadata \
 sbin/rt-email-dashboards \
 sbin/rt-email-digest \
@@ -535,17 +576,8 @@ cp -R t ${RPM_BUILD_ROOT}%{perl_testdir}/%{name}
 install -d -m755 ${RPM_BUILD_ROOT}%{perl_testdir}/%{name}/devel
 cp -R devel/tools ${RPM_BUILD_ROOT}%{perl_testdir}/%{name}/devel
 cp -R devel/docs ${RPM_BUILD_ROOT}%{perl_testdir}/%{name}/devel
-# Some parts of the testsuite want relative paths
-cp %{SOURCE1} ${RPM_BUILD_ROOT}%{perl_testdir}/%{name}
-install -d -m755 ${RPM_BUILD_ROOT}%{perl_testdir}/%{name}/share
-ln -s %{RT_WWWDIR} ${RPM_BUILD_ROOT}%{perl_testdir}/%{name}/share/html
-ln -s %{RT_STATICDIR} ${RPM_BUILD_ROOT}%{perl_testdir}/%{name}/share/static
-ln -s %{_bindir} ${RPM_BUILD_ROOT}%{perl_testdir}/%{name}/bin
-ln -s %{_sbindir} ${RPM_BUILD_ROOT}%{perl_testdir}/%{name}/sbin
-ln -s %{_sysconfdir}/%{name} ${RPM_BUILD_ROOT}%{perl_testdir}/%{name}/etc
-ln -s %{RT_LIBDIR} ${RPM_BUILD_ROOT}%{perl_testdir}/%{name}/lib
-ln -s %{_pkgdocdir}/docs ${RPM_BUILD_ROOT}%{perl_testdir}/%{name}/docs
 
+cp %{SOURCE1} ${RPM_BUILD_ROOT}%{perl_testdir}/%{name}
 
 # These files should not be installed
 rm ${RPM_BUILD_ROOT}%{RT_LEXDIR}/*.pot
@@ -648,6 +680,11 @@ fi
 %endif
 
 %changelog
+* Tue May 16 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 5.0.4-1
+- Update to rt-5.0.4.
+- Update package deps.
+- Eliminate rt-tests symlinked dirs.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.18.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Manipulate and transform HTML/XML documents and fragments
 License: MIT
 URL: https://github.com/flavorjones/loofah
@@ -10,6 +10,10 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/flavorjones/loofah.git && cd loofah
 # git archive -v -o loofah-2.18.0-test.tar.gz v2.18.0 test/
 Source1: %{gem_name}-%{version}-test.tar.gz
+# https://github.com/flavorjones/loofah/commit/d7efe5ef5535e64b42e58be4585c38c4b196170a
+# test: support libxml 2.10.4 behavior around namespaces
+# modified for current Fedora loofah
+Patch0:  loofah-d7efe5ef-test-support-libxml2-2_10_4-backported.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -38,6 +42,10 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b1
+(
+cd %{_builddir}
+%patch -P0 -p1
+)
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -71,6 +79,9 @@ popd
 %doc %{gem_instdir}/SECURITY.md
 
 %changelog
+* Tue May 16 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.18.0-3
+- Backport upstream patch to support libxml2 2.10.4
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

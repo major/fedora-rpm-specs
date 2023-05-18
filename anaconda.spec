@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 39.14
+Version: 39.15
 Release: 1%{?dist}
 License: GPLv2+ and MIT
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -470,6 +470,22 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue May 16 2023 Packit <hello@packit.dev> - 39.15-1
+- tests: Remove eslint unit test (vslavik)
+- docs: Add WebUI integration tests badge to CI status (vslavik)
+- Add new integration test cases: Storage encryption and Wizard navigation
+  (zveleba)
+- webui: commonLanguages can contains codes that are not in the locales the API
+  returns (kkoukiou)
+- webui: migrate to async syntax for promises in review screen (rvykydal)
+- localization: add Localization section and use_geolocation to configuration
+  (rvykydal)
+- WebUI: fix spelling of encrypted (jvanderwaa)
+- webui: create disk images for VirtInstallMachine in advance (rvykydal)
+- Add new post_install_step function to IntegrationTest class (zveleba)
+- Add missing log_step decorators to storage helper functions (zveleba)
+- Update translations from Weblate
+
 * Tue May 09 2023 Packit <hello@packit.dev> - 39.14-1
 - webui: better source maps (kkoukiou)
 - conf: Missing geolocation provider URL disables it (vslavik)

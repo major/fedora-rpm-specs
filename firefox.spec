@@ -176,7 +176,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        113.0.1
-Release:        1%{?pre_tag}%{?dist}
+Release:        2%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
@@ -250,6 +250,7 @@ Patch230:        firefox-enable-vaapi.patch
 # Upstream patches
 Patch402:        mozilla-1196777.patch
 Patch407:        mozilla-1667096.patch
+Patch408:        mozilla-1832770.patch
 # TODO: do we need it?
 #Patch415:        mozilla-1670333.patch
 
@@ -530,6 +531,7 @@ This package contains results of tests executed during build.
 
 %patch402 -p1 -b .1196777
 %patch407 -p1 -b .1667096
+%patch408 -p1 -b .1832770
 # TODO: do we need it?
 #%patch415 -p1 -b .1670333
 
@@ -1082,6 +1084,10 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Tue May 16 2023 Jan Grulich <jgrulich@redhat.com> - 113.0.1-2
+- Backport libwebrtc commit 7b0d7f48fb
+  Fix fcntl call when duplicating a file descriptor
+
 * Mon May 15 2023 Martin Stransky <stransky@redhat.com>- 113.0.1-1
 - Updated to 113.0.1
 

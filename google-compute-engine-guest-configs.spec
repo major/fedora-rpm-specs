@@ -1,16 +1,12 @@
 %global         srcname     guest-configs
 
 Name:           google-compute-engine-guest-configs
-Version:        20230403.00
+Version:        20230515.00
 Release:        %autorelease
 Summary:        Google Compute Engine guest environment tools
 License:        Apache-2.0
 URL:            https://github.com/GoogleCloudPlatform/%{srcname}
 Source0:        %{url}/archive/refs/tags/%{version}.tar.gz
-
-# Remove xxd, replace with cut
-# https://github.com/GoogleCloudPlatform/guest-configs/pull/49
-Patch0:         xxd-to-cut.patch
 
 ExcludeArch:    %{ix86}
 BuildArch:      noarch

@@ -147,9 +147,11 @@ export HOSTNAME="rpmbuild"  # to speedup tox in network-less mock, see rhbz#1856
 
 
 %changelog
-* Tue Apr 18 2023 Miro Hrončok <mhroncok@redhat.com> - 1.8.0-1
+* Thu Apr 27 2023 Miro Hrončok <mhroncok@redhat.com> - 1.8.0-1
+- %%pyproject_buildrequires: Add support for self-referential extras requirements
+  Fixes: rhbz#2171343
 - Deprecate the provisional %%{pyproject_build_lib} macro
-- See https://lists.fedoraproject.org/archives/list/python-devel@lists.fedoraproject.org/thread/HMLOPAU3RZLXD4BOJHTIPKI3I4U6U7OE/
+  See https://lists.fedoraproject.org/archives/list/python-devel@lists.fedoraproject.org/thread/HMLOPAU3RZLXD4BOJHTIPKI3I4U6U7OE/
 
 * Fri Mar 31 2023 Miro Hrončok <mhroncok@redhat.com> - 1.7.0-1
 - %%pyproject_buildrequires: Redirect stdout to stderr via Shell

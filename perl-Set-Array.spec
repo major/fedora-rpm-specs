@@ -1,16 +1,16 @@
 Name:           perl-Set-Array
 Version:        0.30
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Arrays as objects with lots of handy methods
-License:        Artistic 2.0
+License:        Artistic-2.0
 URL:            https://metacpan.org/release/Set-Array
-Source0:        https://cpan.metacpan.org/authors/id/R/RS/RSAVAGE/Set-Array-%{version}.tgz
+Source0:        https://cpan.metacpan.org/modules/by-module/Set/Set-Array-%{version}.tgz
 Patch0:         Set-Array-0.30-utf8.patch
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(Module::Build)
 # Module Runtime
 BuildRequires:  perl(attributes)
@@ -25,6 +25,7 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(Test::Deep)
 BuildRequires:  perl(Test::More)
 # Dependencies
+# (none)
 
 %description
 Set::Array allows you to create arrays as objects and use OO-style methods
@@ -37,7 +38,7 @@ purpose of Set comparison, i.e. +, ==, etc.
 %setup -qn Set-Array-%{version}
 
 # Fix documentation character encoding
-%patch0
+%patch -P 0
 
 %build
 perl Build.PL --installdirs=vendor
@@ -45,7 +46,7 @@ perl Build.PL --installdirs=vendor
 
 %install
 ./Build install --destdir=%{buildroot} --create_packlist=0
-%{_fixperms} %{buildroot}
+%{_fixperms} -c %{buildroot}
 
 %check
 ./Build test
@@ -56,6 +57,13 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Set::Array.3*
 
 %changelog
+* Tue May 16 2023 Paul Howarth <paul@city-fan.org> - 0.30-28
+- Spec tidy-up
+  - Use SPDX-format license tag
+  - Use author-independent source URL
+  - Avoid use of deprecated patch syntax
+  - Fix permissions verbosely
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.30-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

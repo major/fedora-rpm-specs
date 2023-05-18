@@ -1,15 +1,19 @@
+%global base_version 0.280236
+
 Name:           perl-ExtUtils-CBuilder
 # Compete with perl.spec
 Epoch:          1
 # Mimic perl.spec
-Version:        0.280236
-Release:        491%{?dist}
+Version:        0.280238
+Release:        1%{?dist}
 Summary:        Compile and link C code for Perl modules
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ExtUtils-CBuilder
-Source0:        https://cpan.metacpan.org/authors/id/A/AM/AMBS/ExtUtils-CBuilder-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/A/AM/AMBS/ExtUtils-CBuilder-%{base_version}.tar.gz
 # Link XS modules to libperl.so with EU::CBuilder on Linux, bug #960048
 Patch0:         ExtUtils-CBuilder-0.280230-Link-XS-modules-to-libperl.so-with-EU-CBuilder-on-Li.patch
+# Unbundled from perl 5.37.11
+Patch1:         ExtUtils-CBuilder-0.280236-Upgrade-to-0.280238.patch
 BuildArch:      noarch
 BuildRequires:  make
 BuildRequires:  perl-generators
@@ -69,12 +73,13 @@ Tests from %{name}-%{version}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n ExtUtils-CBuilder-%{version}
-%patch0 -p1
+%setup -q -n ExtUtils-CBuilder-%{base_version}
+%patch -P0 -p1
+%patch -P1 -p1
 
 # Normalize shebangs
 for F in t/*.t; do
-    perl -MConfig -i -pe 's/\A#!.*perl/$Config{startperl}/' "$F"
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
     chmod +x "$F"
 done
 
@@ -84,17 +89,24 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
+%{_fixperms} %{buildroot}/*
 
 # Install tests
 mkdir -p %{buildroot}/%{_libexecdir}/%{name}
 cp -a t %{buildroot}/%{_libexecdir}/%{name}
 cat > %{buildroot}/%{_libexecdir}/%{name}/test << 'EOF'
-#!/bin/sh
-cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+#!/bin/bash
+set -e
+# Tests write into temporary files/directories. The solution is to copy the
+# tests into a writable directory and execute them from there.
+DIR=$(mktemp -d)
+pushd "$DIR"
+cp -a %{_libexecdir}/%{name}/* ./
+prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+popd
+rm -rf "$DIR"
 EOF
 chmod +x %{buildroot}/%{_libexecdir}/%{name}/test
-
-%{_fixperms} %{buildroot}/*
 
 %check
 make test
@@ -109,6 +121,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue May 16 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:0.280238-1
+- Upgrade to 0.280238 as provided in perl-5.37.11
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.280236-491
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

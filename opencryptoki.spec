@@ -6,7 +6,7 @@
 Name:			opencryptoki
 Summary:		Implementation of the PKCS#11 (Cryptoki) specification v3.0
 Version:		3.21.0
-Release:		1%{?dist}
+Release:		2%{?dist}
 License:		CPL-1.0
 URL:			https://github.com/opencryptoki/opencryptoki
 Source0:		https://github.com/opencryptoki/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -276,10 +276,10 @@ fi
 %{_libdir}/opencryptoki/methods
 %{_libdir}/pkcs11/methods
 %dir %attr(770,root,pkcs11) %{_sharedstatedir}/%{name}
+%dir %attr(770,root,pkcs11) %{_sharedstatedir}/%{name}/HSM_MK_CHANGE
 %ghost %dir %attr(770,root,pkcs11) %{_rundir}/lock/%{name}
 %ghost %dir %attr(770,root,pkcs11) %{_rundir}/lock/%{name}/*
 %dir %attr(710,pkcsslotd,pkcs11) /run/%{name}
-%dir %attr(770,root,pkcs11) %{_localstatedir}/log/opencryptoki
 
 %files libs
 %license LICENSE
@@ -295,6 +295,7 @@ fi
 %{_libdir}/pkcs11/libopencryptoki.so
 %{_libdir}/pkcs11/PKCS11_API.so
 %{_libdir}/pkcs11/stdll
+%dir %attr(770,root,pkcs11) %{_localstatedir}/log/opencryptoki
 %if 0%{?p11_kit_support}
 # Co-owned with p11-kit
 %dir %{_datadir}/p11-kit/
@@ -361,6 +362,9 @@ fi
 
 
 %changelog
+* Tue May 16 2023 Than Ngo <than@redhat.com> - 3.21.0-2
+- add missing /var/lib/opencryptoki/HSM_MK_CHANGE 
+
 * Mon May 15 2023 Than Ngo <than@redhat.com> - 3.21.0-1
 - update to 3.21.0
 

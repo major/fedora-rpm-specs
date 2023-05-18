@@ -2,9 +2,12 @@ Name:           duktape
 Version:        2.7.0
 Release:        %autorelease
 Summary:        Embeddable Javascript engine
+
 License:        MIT
 Url:            http://duktape.org/
 Source0:        http://duktape.org/%{name}-%{version}.tar.xz
+Patch0:         duktape-2.7.0-link-against-libm.patch
+
 BuildRequires:  gcc
 BuildRequires:  pkgconfig
 BuildRequires:  make
@@ -24,7 +27,7 @@ This package contains header files and libraries needed to develop
 application that use %{name}.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %make_build -f Makefile.sharedlibrary INSTALL_PREFIX=%{_prefix} LIBDIR=/%{_lib}

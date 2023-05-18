@@ -2,7 +2,7 @@
 
 Name:       ibus-pinyin
 Version:    1.5.0
-Release:    29%{?dist}
+Release:    30%{?dist}
 Summary:    The Chinese Pinyin and Bopomofo engines for IBus input platform
 License:    GPL-2.0-or-later
 URL:        http://code.google.com/p/ibus
@@ -10,6 +10,7 @@ Source0:    http://ibus.googlecode.com/files/%{name}-%{version}.tar.gz
 Patch0:     ibus-pinyin-fixes-lua-compile.patch
 Patch1:     ibus-pinyin-support-set-content-type-method.patch
 Patch2:     ibus-pinyin-fixes-english-db-build.patch
+Patch3:     ibus-pinyin-fixes-preference-dialog.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  gnome-common
@@ -71,6 +72,9 @@ make DESTDIR=${RPM_BUILD_ROOT} install
 
 
 %changelog
+* Tue May 16 2023 Peng Wu <pwu@redhat.com> - 1.5.0-30
+- Add ibus-pinyin-fixes-preference-dialog.patch
+
 * Tue May  9 2023 Peng Wu <pwu@redhat.com> - 1.5.0-29
 - Update ibus-pinyin-fixes-english-db-build.patch
 

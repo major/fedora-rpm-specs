@@ -49,7 +49,7 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        291
+Version:        292
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
@@ -170,8 +170,6 @@ Requires: subscription-manager-cockpit
 %if %{cockpit_enable_python}
 BuildRequires:  python3-devel
 BuildRequires:  python3-pip
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-wheel
 %if 0%{?rhel} == 0
 # All of these are only required for running pytest (which we only do on Fedora)
 BuildRequires:  procps-ng
@@ -426,12 +424,12 @@ Provides: cockpit-sosreport = %{version}-%{release}
 Recommends: (reportd if abrt)
 %endif
 
-Provides: bundled(npm(@patternfly/patternfly)) = 5.0.0-alpha.40
-Provides: bundled(npm(@patternfly/react-core)) = 5.0.0-alpha.72
-Provides: bundled(npm(@patternfly/react-icons)) = 5.0.0-alpha.10
-Provides: bundled(npm(@patternfly/react-styles)) = 5.0.0-alpha.7
-Provides: bundled(npm(@patternfly/react-table)) = 5.0.0-alpha.74
-Provides: bundled(npm(@patternfly/react-tokens)) = 5.0.0-alpha.7
+Provides: bundled(npm(@patternfly/patternfly)) = 5.0.0-alpha.43
+Provides: bundled(npm(@patternfly/react-core)) = 5.0.0-alpha.83
+Provides: bundled(npm(@patternfly/react-icons)) = 5.0.0-alpha.12
+Provides: bundled(npm(@patternfly/react-styles)) = 5.0.0-alpha.8
+Provides: bundled(npm(@patternfly/react-table)) = 5.0.0-alpha.85
+Provides: bundled(npm(@patternfly/react-tokens)) = 5.0.0-alpha.9
 Provides: bundled(npm(argparse)) = 1.0.10
 Provides: bundled(npm(attr-accept)) = 2.2.2
 Provides: bundled(npm(autolinker)) = 3.16.2
@@ -490,7 +488,7 @@ Provides: bundled(npm(scheduler)) = 0.23.0
 Provides: bundled(npm(side-channel)) = 1.0.4
 Provides: bundled(npm(sprintf-js)) = 1.0.3
 Provides: bundled(npm(stop-iteration-iterator)) = 1.0.0
-Provides: bundled(npm(tabbable)) = 6.1.1
+Provides: bundled(npm(tabbable)) = 6.1.2
 Provides: bundled(npm(throttle-debounce)) = 2.3.0
 Provides: bundled(npm(tslib)) = 2.5.0
 Provides: bundled(npm(uuid)) = 7.0.3
@@ -782,6 +780,10 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Tue May 16 2023 Packit <hello@packit.dev> - 292-1
+- Metrics: Add disk IO per service
+- Several right-to-left language fixes
+
 * Wed May 03 2023 Packit <hello@packit.dev> - 291-1
 - Update to PatternFly 5 Alpha
 

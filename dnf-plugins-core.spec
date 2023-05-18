@@ -34,7 +34,7 @@
 
 Name:           dnf-plugins-core
 Version:        4.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Core Plugins for DNF
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf-plugins-core
@@ -813,6 +813,9 @@ ln -sf %{_mandir}/man1/%{yum_utils_subpackage_name}.1.gz %{buildroot}%{_mandir}/
 %endif
 
 %changelog
+* Tue May 16 2023 Jan Kolarik <jkolarik@redhat.com> - 4.4.1-2
+- Rebuild for rpm-4.18.90
+
 * Mon May 15 2023 Jan Kolarik <jkolarik@redhat.com> - 4.4.1-1
 - Update to 4.4.1
 - reposync: Implement --safe-write-path option (RhBug:1898089)

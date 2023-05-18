@@ -12,7 +12,7 @@
 
 Name: flang
 Version: %{flang_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: a Fortran language front-end designed for integration with LLVM
 
 License: Apache-2.0 WITH LLVM-exception
@@ -39,9 +39,6 @@ Patch4: remove-clangBasic-dependency.diff
 
 # Fedora uses CLANG_DEFAULT_PIE_ON_LINUX=OFF.
 Patch5: 0001-Match-Fedora-s-value-for-CLANG_DEFAULT_PIE_ON_LINUX.patch
-
-# Fedora and RHEL use a different triple for ppc64le
-Patch6: 0001-PowerPC-Flang-Fix-triple.patch
 
 %{lua:
 
@@ -275,6 +272,9 @@ export LD_LIBRARY_PATH=%{_builddir}/%{flang_srcdir}/%{_build}/lib
 %doc %{_pkgdocdir}/html/
 
 %changelog
+* Mon May 15 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.3-2
+- Remove patch for ppc64le triple in favor of https://reviews.llvm.org/D149746
+
 * Thu May 11 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.3-1
 - Update to LLVM 16.0.3
 

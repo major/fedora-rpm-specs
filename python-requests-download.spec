@@ -1,12 +1,16 @@
 %global pypi_name requests_download
 Name:           python-requests-download
 Version:        0.1.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Download files using requests and save them to a target path
 
 License:        MIT
 URL:            https://www.github.com/takluyver/requests_download
 Source0:        %{pypi_source}
+
+# Switch build-backend to flit_core , proposed upstream
+Patch:          https://github.com/takluyver/requests_download/pull/3.patch#/switch-build-backend-to-flit_core.patch
+
 BuildArch:      noarch
 BuildRequires:  pyproject-rpm-macros
 
@@ -31,7 +35,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version} -p1
 
 %generate_buildrequires
 %pyproject_buildrequires -r
@@ -55,6 +59,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitelib}
 
 
 %changelog
+* Mon May 15 2023 Miro Hrončok <mhroncok@redhat.com> - 0.1.2-12
+- Use flit-core to build this package, instead of flit
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

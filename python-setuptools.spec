@@ -19,7 +19,7 @@
 Name:           python-setuptools
 # When updating, update the bundled libraries versions bellow!
 Version:        67.7.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Easily build and distribute Python packages
 # setuptools is MIT
 # platformdirs is MIT
@@ -40,6 +40,10 @@ Source0:        %{pypi_source %{srcname} %{version}}
 
 # Some test deps are optional and either not desired or not available in Fedora, thus this patch removes them.
 Patch:          Remove-optional-or-unpackaged-test-deps.patch
+
+# The `setup.py install` deprecation notice might be confusing for RPM packagers
+# adjust it, but only when $RPM_BUILD_ROOT is set
+Patch:          Adjust-the-setup.py-install-deprecation-message.patch
 
 BuildArch:      noarch
 
@@ -226,6 +230,9 @@ PYTHONPATH=$(pwd) %pytest \
 
 
 %changelog
+* Fri May 05 2023 Miro Hrončok <mhroncok@redhat.com> - 67.7.2-2
+- Adjust the `setup.py install` deprecation notice when building RPM packages
+
 * Fri Apr 21 2023 Charalampos Stratakis <cstratak@redhat.com> - 67.7.2-1
 - Update to 67.7.2
 - Fixes: rhbz#2144132

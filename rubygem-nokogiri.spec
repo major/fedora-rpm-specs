@@ -1,4 +1,4 @@
-%global	mainver		1.14.4
+%global	mainver		1.15.0
 #%%global	prever		.rc4
 
 %global	baserelease		1
@@ -271,6 +271,9 @@ popd
 %doc	%{gem_dir}/doc/%{gem_name}-%{mainver}%{?prever}/
 
 %changelog
+* Tue May 16 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.15.0-1
+- 1.15.0
+
 * Fri May 12 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.14.4-1
 - 1.14.4
 - Note that CVE-2022-34169 is for vendored xalan-j, not affecting Fedora

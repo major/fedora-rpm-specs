@@ -17,7 +17,7 @@ Name:		perl-Software-License-CCpack
 Version:	1.11
 Release:	34%{?dist}
 Summary:	Software::License pack for Creative Commons' licenses
-License:	LGPLv3
+License:	LGPL-3.0-only
 URL:		https://metacpan.org/release/Software-License-CCpack
 Source0:	https://cpan.metacpan.org/authors/id/B/BB/BBYRD/Software-License-CCpack-%{version}.tar.gz
 BuildArch:	noarch
@@ -58,7 +58,8 @@ BuildRequires:	perl(Test::Portability::Files)
 BuildRequires:	perl(Test::Synopsis)
 BuildRequires:	perl(Test::Vars)
 %endif
-# Runtime
+# Dependencies
+# (none)
 
 %description
 This "license pack" contains all of the licenses from Creative Commons, except

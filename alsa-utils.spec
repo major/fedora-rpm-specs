@@ -5,7 +5,7 @@
 Summary: Advanced Linux Sound Architecture (ALSA) utilities
 Name:    alsa-utils
 Version: %{baseversion}%{?fixversion}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+
 URL:     http://www.alsa-project.org/
 Source:  ftp://ftp.alsa-project.org/pub/utils/alsa-utils-%{version}.tar.bz2
@@ -17,7 +17,8 @@ Source11: alsactl.conf
 Source20: alsa-restore.service
 Source22: alsa-state.service
 
-BuildRequires:  gcc
+BuildRequires: gcc
+BuildRequires: autoconf automake libtool
 BuildRequires: alsa-lib-devel >= %{baseversion}
 BuildRequires: libsamplerate-devel
 BuildRequires: ncurses-devel
@@ -65,6 +66,7 @@ Architecture (ALSA) framework and Fast Fourier Transform library.
 %patch1 -p1 -b .alsa-git
 
 %build
+autoreconf -vif
 %configure CFLAGS="$RPM_OPT_FLAGS -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64" --disable-alsaconf \
    --with-udev-rules-dir=%{_prefix}/lib/udev/rules.d \
    --with-systemdsystemunitdir=%{_unitdir}
@@ -128,6 +130,7 @@ find %{buildroot} -name "*.la" -exec rm {} \;
 %{_bindir}/axfer
 %{_bindir}/iecset
 %{_bindir}/speaker-test
+%{_bindir}/nhlt-dmic-info
 %{_sbindir}/*
 %exclude %{_sbindir}/alsabat-test.sh
 %{_datadir}/alsa/
@@ -152,6 +155,7 @@ find %{buildroot} -name "*.la" -exec rm {} \;
 %{_mandir}/man1/speaker-test.1.gz
 %{_mandir}/man1/aconnect.1.gz
 %{_mandir}/man1/alsa-info.sh.1.gz
+%{_mandir}/man1/nhlt-dmic-info.1.gz
 
 %dir /etc/alsa/
 %dir %{alsacfgdir}/
@@ -195,6 +199,9 @@ fi
 %systemd_postun_with_restart alsa-state.service
 
 %changelog
+* Tue May 16 2023 Jaroslav Kysela <perex@perex.cz> - 1.2.9-2
+* Add nhlt-dmic-info utility
+
 * Thu May  4 2023 Jaroslav Kysela <perex@perex.cz> - 1.2.9-1
 * Updated to 1.2.9
 

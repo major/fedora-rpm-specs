@@ -5,18 +5,18 @@ a pure Python reader and an optional C extension. MaxMind DB is a binary file\
 format that stores data indexed by IP address subnets (IPv4 or IPv6).
 
 Name:           python-%{pypi_name}
-Version:        2.2.0
-Release:        5%{?dist}
+Version:        2.3.0
+Release:        1%{?dist}
 Summary:        Reader for the MaxMind DB format
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://www.maxmind.com/
 Source0:        %{pypi_source}
 
 BuildRequires:  gcc
 BuildRequires:  libmaxminddb-devel
 BuildRequires:  python3-devel
-BuildRequires:  pyproject-rpm-macros
+BuildRequires:  python3-pytest
 
 %description %{desc}
 
@@ -34,13 +34,9 @@ Summary:        %{summary}
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
-# Mocket is not available in Fedora
-sed -i "/mocket/d" setup.cfg
 
 %generate_buildrequires
-%pyproject_buildrequires -r -t
+%pyproject_buildrequires -r
 
 %build
 %pyproject_wheel
@@ -61,6 +57,10 @@ sed -i "/mocket/d" setup.cfg
 %license LICENSE
 
 %changelog
+* Mon May 15 2023 Lumír Balhar <lbalhar@redhat.com> - 2.3.0-1
+- Update to 2.3.0 (rhbz#2196686)
+- SPDX License
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

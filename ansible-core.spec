@@ -4,7 +4,7 @@
 
 Name: ansible-core
 Summary: A radically simple IT automation system
-Version: 2.15.0~rc2
+Version: 2.15.0
 %global uversion %{version_no_tilde %{quote:%nil}}
 Release: 1%{?dist}
 # The main license is GPLv3+. Many of the files in lib/ansible/module_utils
@@ -94,7 +94,6 @@ This package installs extensive documentation for ansible-core
 
 %prep
 %autosetup -p1 -n ansible-%{uversion}
-find \( -name '.git_keep' -o -name '.rstcheck.cfg' \) -delete
 
 sed -i -s 's|/usr/bin/env python|%{python3}|' \
     bin/ansible-test \
@@ -208,9 +207,6 @@ cp examples/ansible.cfg %{buildroot}/etc/ansible/
 mkdir -p %{buildroot}/%{_mandir}/man1
 cp -v docs/man/man1/*.1 %{buildroot}/%{_mandir}/man1/
 
-# These files are needed for the unit tests, so we don't remove them in %%prep
-find %{buildroot}/%{python3_sitelib} -name .travis.yml -type f -delete
-
 # We install licenses in this manner so we don't miss new licenses:
   # 1. Copy all files in licenses to %%{_pkglicensedir}.
   # 2. List the files explicitly in %%files.
@@ -246,6 +242,10 @@ install -Dpm 0644 licenses/* -t %{buildroot}%{_pkglicensedir}
 
 
 %changelog
+* Tue May 16 2023 Maxwell G <maxwell@gtmx.me> - 2.15.0-1
+- Update to 2.15.0.
+- Don't remove dotfiles and empty files. ansible-core actually needs these.
+
 * Wed May 03 2023 Maxwell G <maxwell@gtmx.me> - 2.15.0~rc2-1
 - Update to 2.15.0~rc2.
 

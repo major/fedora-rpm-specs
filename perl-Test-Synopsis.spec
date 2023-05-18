@@ -8,7 +8,7 @@ Name:		perl-Test-Synopsis
 Version:	0.17
 Release:	7%{?dist}
 Summary:	Test your SYNOPSIS code
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-Synopsis
 Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-Synopsis-%{version}.tar.gz
 BuildArch:	noarch
@@ -52,10 +52,10 @@ BuildRequires:	perl(Test::NoTabs)
 BuildRequires:	perl(Test::Pod) >= 1.41
 BuildRequires:	perl(Test::Pod::Coverage) >= 1.08
 BuildRequires:	perl(Test::Portability::Files)
-BuildRequires:	perl(Test::Spelling) >= 0.23, hunspell-en
+BuildRequires:	perl(Test::Spelling) >= 0.12, hunspell-en
 BuildRequires:	perl(Test::Version)
 %endif
-# Runtime
+# Dependencies
 Requires:	perl(Test::Builder::Module)
 
 %description

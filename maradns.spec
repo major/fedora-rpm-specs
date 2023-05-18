@@ -1,6 +1,6 @@
 Name:		maradns
-Version:	3.5.0030
-Release:	2%{?dist}
+Version:	3.5.0036
+Release:	1%{?dist}
 Summary:	Authoritative and recursive DNS server made with security in mind
 
 Source0:	http://www.maradns.org/download/3.5/%{version}/%{name}-%{version}.tar.xz
@@ -80,6 +80,8 @@ install -p -D -m 0644 -t %{buildroot}%{_mandir}/man8/ \
 	doc/en/man/zoneserver.8 \
 
 # systemd units
+# NOTE: upstream ships slightly different named units
+# migration to upstream units in Fedora will be done sometime in the future
 mkdir -p %{buildroot}%{_unitdir}
 install -p -D -m 0644 -t %{buildroot}%{_unitdir}/ \
 	build/maradns.service \
@@ -146,6 +148,10 @@ fi
 
 
 %changelog
+* Tue May 16 2023 Tomasz Torcz <ttorcz@fedoraproject.org> - 3.5.0036-1
+- new version 3.5.0036 (rhbz#2149110, rhbz#2180267)
+- fixes CVE-2023-31137 (rhbz#2207551)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0030-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

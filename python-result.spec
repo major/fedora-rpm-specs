@@ -1,7 +1,7 @@
 %global srcname result
 
 Name:           python-%{srcname}
-Version:        0.9.0
+Version:        0.10.0
 Release:        %autorelease
 Summary:        A Rust-like result type for Python
 

@@ -4,7 +4,7 @@
 %bcond_with perl_libwww_perl_enables_internet_test
 
 Name:           perl-libwww-perl
-Version:        6.68
+Version:        6.70
 Release:        1%{?dist}
 Summary:        A Perl interface to the World-Wide Web
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -55,6 +55,7 @@ BuildRequires:  perl(IO::Socket)
 BuildRequires:  perl(LWP::MediaTypes) >= 6
 # Mail::Internet not needed
 BuildRequires:  perl(MIME::Base64) >= 2.1
+BuildRequires:  perl(Module::Load)
 # Net::FTP 2.58 not used at tests
 BuildRequires:  perl(Net::HTTP) >= 6.18
 # Net::NNTP not used at tests
@@ -73,6 +74,7 @@ BuildRequires:  perl(WWW::RobotRules) >= 6
 BuildRequires:  perl(Config)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(FindBin)
+BuildRequires:  perl(HTTP::CookieJar::LWP)
 BuildRequires:  perl(HTTP::Daemon) >= 6.01
 BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More) >= 0.96
@@ -114,6 +116,7 @@ Requires:       perl(HTTP::Status) >= 6.18
 Requires:       perl(LWP::MediaTypes) >= 6
 Suggests:       perl(LWP::Protocol::https) >= 6.02
 Requires:       perl(MIME::Base64) >= 2.1
+Requires:       perl(Module::Load)
 Requires:       perl(Net::FTP) >= 2.58
 Requires:       perl(Net::HTTP) >= 6.18
 Requires:       perl(URI) >= 1.10
@@ -139,6 +142,7 @@ Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       coreutils
 Requires:       perl-Test-Harness
 Requires:       perl(HTTP::Cookies) >= 6
+Requires:       perl(HTTP::CookieJar::LWP)
 Requires:       perl(HTTP::Daemon) >= 6.01
 Requires:       perl(HTTP::Request) >= 6.18
 Requires:       perl(HTTP::Response) >= 6.18
@@ -156,7 +160,7 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n libwww-perl-%{version} 
-%patch0 -p1
+%patch -P 0 -p1
 %if !%{with perl_libwww_perl_enables_internet_test}
 rm t/base/protocols/nntp.t t/leak/no_leak.t t/redirect.t
 perl -i -ne 'print $_ unless m{^(?:t/base/protocols/nntp\.t|t/leak/no_leak\.t|t/redirect\.t)}' MANIFEST
@@ -208,6 +212,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue May 16 2023 Michal Josef Špaček <mspacek@redhat.com> - 6.70-1
+- 6.70 bump
+- Fix %patch macro
+
 * Wed Mar 01 2023 Michal Josef Špaček <mspacek@redhat.com> - 6.68-1
 - 6.68 bump
 

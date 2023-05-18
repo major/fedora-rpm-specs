@@ -1,11 +1,8 @@
-# Perform optional tests
-%bcond_without perl_Pod_Simple_enables_optional_test
-
 Name:           perl-Pod-Simple
 # Epoch to compete with perl.spec
 Epoch:          1
-Version:        3.43
-Release:        491%{?dist}
+Version:        3.45
+Release:        2%{?dist}
 Summary:        Framework for parsing POD documentation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Pod-Simple
@@ -31,7 +28,6 @@ BuildRequires:  perl(overload)
 BuildRequires:  perl(Pod::Escapes) >= 1.04
 BuildRequires:  perl(Symbol)
 BuildRequires:  perl(Text::Wrap) >= 98.112902
-BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(base)
@@ -39,22 +35,21 @@ BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(File::Find)
 BuildRequires:  perl(File::Path)
 BuildRequires:  perl(FindBin)
-BuildRequires:  perl(lib)
+BuildRequires:  perl(parent)
 BuildRequires:  perl(Test) >= 1.25
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(utf8)
-%if %{with perl_Pod_Simple_enables_optional_test} && !%{defined perl_bootstrap}
+BuildRequires:  perl(vars)
 # Optional tests:
 # Text::Diff not helpful, used only in case of a failure
-BuildRequires:  perl(parent)
-BuildRequires:  perl(Test::Deep)
-%endif
 
 # Filter under-specified dependencies
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Text::Wrap\\)$
 
 # Filter modules bundled for tests
 %global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}^%{_libexecdir}
+%global __requires_exclude %{__requires_exclude}|^perl\\(helpers\\)$
+
 
 %description
 Pod::Simple is a Perl library for parsing text in the POD (plain old
@@ -119,6 +114,12 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue May 16 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:3.45-2
+- Add filter for private test module perl(helpers)
+
+* Tue May 16 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:3.45-1
+- 3.45 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.43-491
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

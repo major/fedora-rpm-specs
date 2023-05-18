@@ -3,7 +3,7 @@
 Summary: Dynamic analysis tools to detect memory or thread bugs and profile
 Name: %{?scl_prefix}valgrind
 Version: 3.21.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 1
 License: GPLv2+
 URL: https://www.valgrind.org/
@@ -86,6 +86,10 @@ Patch4: valgrind-3.16.0-some-Wl-z-now.patch
 # Workaround https://bugs.kde.org/show_bug.cgi?id=402833
 # by disabling overlap checking for memcpy
 Patch5: valgrind-3.21.0-no-memcpy-replace-check.patch
+
+# Add --with-gdbscripts-dir=PATH configure option
+# https://bugs.kde.org/show_bug.cgi?id=469768
+Patch6: valgrind-3.21.0-Add-with-gdbscripts-dir.patch
 
 BuildRequires: make
 BuildRequires: glibc-devel
@@ -226,6 +230,8 @@ Valgrind User Manual for details.
 
 %patch5 -p1
 
+%patch6 -p1
+
 %build
 # LTO triggers undefined symbols in valgrind.  Valgrind has a --enable-lto
 # configure time option, but that doesn't seem to help.
@@ -294,7 +300,8 @@ export LDFLAGS
 %configure \
   --with-mpicc=%{mpiccpath} \
   %{only_arch} \
-  GDB=%{_bindir}/gdb
+  GDB=%{_bindir}/gdb \
+  --with-gdbscripts-dir=%{_datadir}/gdb/auto-load
 
 %make_build
 
@@ -412,6 +419,8 @@ echo ===============END TESTING===============
 # Was disabled in %%install to prevent debuginfo stripping.
 %attr(0755,root,root) %{_libexecdir}/valgrind/vgpreload*-%{valarch}-*so
 %{_mandir}/man1/*
+%{_datadir}/gdb/auto-load/valgrind-monitor.py
+%{_datadir}/gdb/auto-load/valgrind-monitor-def.py
 
 %files devel
 %dir %{_includedir}/valgrind
@@ -454,6 +463,9 @@ fi
 %endif
 
 %changelog
+* Tue May 16 2023 Alexandra Hájková <ahajkova@redhat.com> - 3.21.0-3
+- Add valgrind-3.21.0-Add-with-gdbscripts-dir.patch
+
 * Fri May  5 2023 Mark Wielaard <mjw@fedoraproject.org> - 3.21.0-2
 - Add valgrind-3.21.0-no-memcpy-replace-check.patch
 

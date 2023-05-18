@@ -55,7 +55,7 @@
 Summary: Xen is a virtual machine monitor
 Name:    xen
 Version: 4.17.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+ and LGPLv2+ and BSD
 URL:     http://xen.org/
 Source0: https://downloads.xenproject.org/release/xen/%{version}/xen-%{version}.tar.gz
@@ -110,6 +110,7 @@ Patch43: xen.gcc11.fixes.patch
 Patch45: xen.gcc12.fixes.patch
 Patch46: xen.efi.build.patch
 Patch47: xen.gcc13.fixes.patch
+Patch48: xsa431.patch
 
 
 %if %build_qemutrad
@@ -322,6 +323,7 @@ manage Xen virtual machines.
 %patch 45 -p1
 %patch 46 -p1
 %patch 47 -p1
+%patch 48 -p1
 
 # qemu-xen-traditional patches
 pushd tools/qemu-xen-traditional
@@ -929,6 +931,10 @@ fi
 %endif
 
 %changelog
+* Tue May 16 2023 Michael Young <m.a.young@durham.ac.uk> - 4.17.1-2
+- Mishandling of guest SSBD selection on AMD hardware
+	[XSA-431, CVE-2022-42336]
+
 * Tue May 02 2023 Michael Young <m.a.young@durham.ac.uk> - 4.17.1-1
 - update to xen-4.17.1
   remove patches now included upstream

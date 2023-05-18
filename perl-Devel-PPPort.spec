@@ -1,13 +1,18 @@
+%global base_version 3.68
+
 # Perform optional tests
 %bcond_without perl_Devel_PPPort_enables_optional_test
 
 Name:           perl-Devel-PPPort
-Version:        3.68
-Release:        491%{?dist}
+Version:        3.71
+Release:        1%{?dist}
 Summary:        Perl Pollution Portability header generator
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-PPPort
-Source0:        https://cpan.metacpan.org/authors/id/A/AT/ATOOMIC/Devel-PPPort-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/A/AT/ATOOMIC/Devel-PPPort-%{base_version}.tar.gz
+# Upgrade to 3.71 based on perl-5.37.11
+Patch0:         Devel-PPPort-3.68-Upgrade-to-3.71.patch
+Patch1:         Devel-PPPort-3.68-Add-shebang-to-tests.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -63,10 +68,12 @@ with "%{_libexecdir}/%{name}/test".
 %{?perl_default_filter}
 
 %prep
-%setup -q -n Devel-PPPort-%{version}
+%setup -q -n Devel-PPPort-%{base_version}
+%patch -P0 -p1
+%patch -P1 -p1
 
 # Help generators to recognize Perl scripts
-for F in t/*.t t/*.pl parts/*.pl; do
+for F in t/*.pl parts/*.pl; do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
     chmod +x "$F"
 done
@@ -83,6 +90,7 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t parts %{buildroot}%{_libexecdir}/%{name}
+chmod +x %{buildroot}%{_libexecdir}/%{name}/t/*.t
 perl -i -pe 's{(ppptmp)}{/tmp/$1}' %{buildroot}%{_libexecdir}/%{name}/t/ppphtest.t
 rm %{buildroot}%{_libexecdir}/%{name}/t/podtest.t
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
@@ -108,6 +116,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue May 16 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.71-1
+- Upgrade to 3.71 based on perl-5.37.11
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.68-491
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

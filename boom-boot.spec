@@ -2,18 +2,17 @@
 %global sphinx_docs 1
 
 Name:		boom-boot
-Version:	1.4
-Release:	3%{?dist}
+Version:	1.5.1
+Release:	1%{?dist}
 Summary:	%{summary}
 
 License:	GPLv2
 URL:		https://github.com/snapshotmanager/boom
 Source0:	https://github.com/snapshotmanager/boom/archive/%{version}/boom-%{version}.tar.gz
 Patch1:		0001-man-Fix-line-starting-with.patch
-Patch2:         0002-boom.bootloader-initialise-_last_path-before-parsing.patch
-Patch3:         0003-boom.bootloader-improve-warning-for-entries-with-no-.patch
-Patch4:         0004-boom.bootloader-do-not-allow-deletion-of-read-only-b.patch
-Patch5:         0005-boom.command-add-new-os-release-values-to-Red-Hat-op.patch
+Patch2:         0001-Fix-typos-across-tree.patch
+Patch3:         0002-Fix-system-vs.-project-import-ordering.patch
+Patch4:         0003-boom-fix-unclosed-file-warning-for-proc-cmdline.patch
 
 BuildArch:	noarch
 
@@ -77,13 +76,7 @@ include this support in both Red Hat Enterprise Linux 7 and Fedora).
 This package provides configuration files for boom.
 
 %prep
-%setup -n boom-%{version}
-# NOTE: Do not use backup extension - MANIFEST.in is picking them
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
+%autosetup -p1 -n boom-%{version}
 
 %build
 %if 0%{?sphinx_docs}
@@ -145,6 +138,9 @@ rm doc/conf.py
 
 
 %changelog
+* Tue May 16 2023 Marian Csontos <mcsontos@redhat.com> - 1.5.1-1
+- Update to release 1.5.1.
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,7 +3,7 @@ BuildArch: noarch
 
 # No sane versionning upstream, use git clone timestamp
 Version: 20200215
-Release: 14%{?dist}
+Release: 15%{?dist}
 License: ASL 2.0
 URL:     https://android.googlesource.com/
 
@@ -31,7 +31,7 @@ Suggests: font(notosans)
 }
 %global fonts1            DroidSans*ttf DroidKufi*ttf
 %global fontsex1          DroidSansMono*ttf DroidSansFallback.ttf DroidSansHebrew.ttf
-%global fontconfngs1      %{SOURCE11}
+%global fontconfs1      %{SOURCE11} %{SOURCE14} %{SOURCE16} %{SOURCE17} %{SOURCE18} %{SOURCE19} %{SOURCE20} %{SOURCE21} %{SOURCE22} %{SOURCE23} %{SOURCE24}
 %global fontdescription1  %{expand:
 %{common_description}
 
@@ -47,7 +47,7 @@ finalize the font family.}
 Suggests: font(notosansmono)
 }
 %global fonts2            DroidSansMono*ttf
-%global fontconfngs2      %{SOURCE12}
+%global fontconfs2      %{SOURCE12}
 %global fontdescription2  %{expand:
 %{common_description}
 
@@ -61,7 +61,7 @@ Suggests: font(notoserif)
 }
 %global fonts3            DroidSerif*ttf DroidNaskh*ttf
 %global fontsex3          DroidNaskhUI-Regular.ttf DroidNaskh-Regular-Shift.ttf
-%global fontconfngs3      %{SOURCE13}
+%global fontconfs3      %{SOURCE13} %{SOURCE15}
 %global fontdescription3  %{expand:
 %{common_description}
 
@@ -75,15 +75,28 @@ The Arabic block was designed by Pascal Zoghbi of 29ArabicLetters under the
 Droid Naskh name.}
 
 %global archivename google-droid-fonts-%{version}
+%global googledroid google-droid
+%global googledroidsans %{googledroid}-sans
 
 
 Source0:  %{archivename}.tar.xz
 # Brutal script used to pull sources from upstream git
 # Needs at least 2 Gib of space in /var/tmp
 Source1:  getdroid.sh
-Source11: 66-%{fontpkgname1}.xml
-Source12: 60-%{fontpkgname2}.xml
-Source13: 66-%{fontpkgname3}.xml
+Source11: 66-%{fontpkgname1}.conf
+Source12: 60-%{fontpkgname2}.conf
+Source13: 66-%{fontpkgname3}.conf
+Source14: 69-%{googledroid}-arabic-kufi-fonts.conf
+Source15: 69-%{googledroid}-arabic-naskh-fonts.conf
+Source16: 69-%{googledroidsans}-armenian-fonts.conf
+Source17: 69-%{googledroidsans}-devanagari-fonts.conf
+Source18: 69-%{googledroidsans}-ethiopic-fonts.conf
+Source19: 69-%{googledroidsans}-georgian-fonts.conf
+Source20: 69-%{googledroidsans}-hebrew-fonts.conf
+Source21: 69-%{googledroidsans}-japanese-fonts.conf
+Source22: 69-%{googledroidsans}-tamil-fonts.conf
+Source23: 69-%{googledroidsans}-thai-fonts.conf
+Source24: 69-%{googledroidsans}-fallback-fonts.conf
 
 Name:     google-droid-fonts
 Summary:  A set of general-purpose font families released by Google as part of Android
@@ -109,6 +122,10 @@ Summary:  A set of general-purpose font families released by Google as part of A
 %fontfiles -a
 
 %changelog
+* Wed May 10 2023 Akira TAGOH <tagoh@redhat.com> - 20200215-15
+- Drop the font unification which causes a lot of problems.
+  Resolves: rhbz#2186711, rhbz#2144373, rhbz#2096153, rhbz#517789
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20200215-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

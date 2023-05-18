@@ -3,8 +3,8 @@
 %global __suggests_exclude ^R\\(testthat\\)
 
 Name:		R-%{packname}
-Version:	1.58
-Release:	2%{?dist}
+Version:	1.60
+Release:	1%{?dist}
 Source0:	https://rqtl.org/download/%{packname}_%{version}.tar.gz
 License:	GPLv3
 URL:		https://rqtl.org/
@@ -13,8 +13,10 @@ Summary:	Tools for analyzing QTL experiments
 #		to fail on 64 bit big endian architectures (ppc64, s390x)
 BuildRequires:	make
 BuildRequires:	gcc-c++
-BuildRequires:	R-devel >= 3.1.1
+BuildRequires:	R-core-devel >= 3.1.1
 BuildRequires:	tex(latex)
+BuildRequires:	tex(fancyhdr.sty)
+BuildRequires:	tex(fullpage.sty)
 BuildRequires:	R-parallel, R-graphics, R-stats, R-utils, R-grDevices
 %if %{?fedora}%{!?fedora:0}
 #		R-testthat is not available in EPEL
@@ -65,28 +67,7 @@ rm -rf %{buildroot}%{_libdir}/R/library/R.css
 rm -rf %{buildroot}%{_libdir}/R/library/%{packname}/contrib
 
 %check
-%ifarch aarch64
-%if %{?rhel}%{!?rhel:0} == 9
-# OpenBLAS is broken for aarch64 on RHEL 9.
-# https://bugzilla.redhat.com/show_bug.cgi?id=2142110
-# Use the NETLIB flexiblas backend instead of the default OPENBLAS-OPENMP
-# flexiblas backend to avoid test failures.
-echo Using NETLIB flexiblas backend due to broken openblas in RHEL 9 aarch64
-FLEXIBLAS=NETLIB _R_CHECK_FORCE_SUGGESTS_=0 R CMD check %{packname}
-%else
-%if %{?rhel}%{!?rhel:0} == 8
-# OpenBLAS is broken for aarch64 on RHEL 8.
-# https://bugzilla.redhat.com/show_bug.cgi?id=2142109
-# Flexiblas is not available. R is linked to openblas-openmp directly.
-# Don't run the tests.
-echo Tests disabled due to broken openblas in RHEL 8 aarch64
-%else
 _R_CHECK_FORCE_SUGGESTS_=0 R CMD check %{packname}
-%endif
-%endif
-%else
-_R_CHECK_FORCE_SUGGESTS_=0 R CMD check %{packname}
-%endif
 
 %files
 %dir %{_libdir}/R/library/%{packname}
@@ -108,6 +89,11 @@ _R_CHECK_FORCE_SUGGESTS_=0 R CMD check %{packname}
 %{_libdir}/R/library/%{packname}/sampledata
 
 %changelog
+* Tue May 16 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 1.60-1
+- Update to 1.60
+- Drop workaround for broken openblas on aarch64 in RHEL 8 and 9
+  Fixed in RHEL 8.8 and 9.2 respectively
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.58-2
 - R-maint-sig mass rebuild
 

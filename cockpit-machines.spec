@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-machines
-Version:        289.1
+Version:        290
 Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
@@ -65,15 +65,15 @@ Recommends: libosinfo
 Recommends: python3-gobject-base
 Suggests: (qemu-virtiofsd or virtiofsd)
 
-Provides: bundled(npm(@babel/runtime)) = 7.21.0
+Provides: bundled(npm(@babel/runtime)) = 7.21.5
 Provides: bundled(npm(@novnc/novnc)) = 1.4.0
-Provides: bundled(npm(@patternfly/patternfly)) = 5.0.0-alpha.40
+Provides: bundled(npm(@patternfly/patternfly)) = 5.0.0-alpha.43
 Provides: bundled(npm(@patternfly/react-console)) = 5.0.0-alpha.1
-Provides: bundled(npm(@patternfly/react-core)) = 5.0.0-alpha.72
-Provides: bundled(npm(@patternfly/react-icons)) = 5.0.0-alpha.10
-Provides: bundled(npm(@patternfly/react-styles)) = 5.0.0-alpha.7
-Provides: bundled(npm(@patternfly/react-table)) = 5.0.0-alpha.74
-Provides: bundled(npm(@patternfly/react-tokens)) = 5.0.0-alpha.7
+Provides: bundled(npm(@patternfly/react-core)) = 5.0.0-alpha.83
+Provides: bundled(npm(@patternfly/react-icons)) = 5.0.0-alpha.12
+Provides: bundled(npm(@patternfly/react-styles)) = 5.0.0-alpha.8
+Provides: bundled(npm(@patternfly/react-table)) = 5.0.0-alpha.85
+Provides: bundled(npm(@patternfly/react-tokens)) = 5.0.0-alpha.9
 Provides: bundled(npm(@spice-project/spice-html5)) = 0.2.1
 Provides: bundled(npm(attr-accept)) = 2.2.2
 Provides: bundled(npm(available-typed-arrays)) = 1.0.5
@@ -131,7 +131,7 @@ Provides: bundled(npm(regexp.prototype.flags)) = 1.5.0
 Provides: bundled(npm(scheduler)) = 0.23.0
 Provides: bundled(npm(side-channel)) = 1.0.4
 Provides: bundled(npm(stop-iteration-iterator)) = 1.0.0
-Provides: bundled(npm(tabbable)) = 6.1.1
+Provides: bundled(npm(tabbable)) = 6.1.2
 Provides: bundled(npm(throttle-debounce)) = 3.0.1
 Provides: bundled(npm(tslib)) = 2.5.0
 Provides: bundled(npm(which-boxed-primitive)) = 1.0.2
@@ -165,6 +165,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Tue May 16 2023 Packit <hello@packit.dev> - 290-1
+- Apply watchdog changes on next boot if hotplug fails
+
 * Fri May 05 2023 Packit <hello@packit.dev> - 289.1-1
 - Fix alignment of icons in main view
 

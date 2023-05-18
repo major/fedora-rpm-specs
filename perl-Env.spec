@@ -1,7 +1,7 @@
 %global base_version 1.04
 Name:           perl-Env
-Version:        1.05
-Release:        490%{?dist}
+Version:        1.06
+Release:        1%{?dist}
 Summary:        Perl module that imports environment variables as scalars or arrays
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Env
@@ -9,6 +9,8 @@ Source0:        https://cpan.metacpan.org/authors/id/F/FL/FLORA/Env-%{base_versi
 BuildArch:      noarch
 # Unbundled from perl 5.34.0
 Patch0:         Env-1.04-Upgrade-to-1.05.patch
+# Unbundled from perl 5.37.11
+Patch1:         Env-1.05-Upgrade-to-1.06.patch
 BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
@@ -28,9 +30,25 @@ Perl maintains environment variables in a special hash named %%ENV. For when
 this access method is inconvenient, the Perl module Env allows environment
 variables to be treated as scalar or array variables.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Env-%{base_version}
-%patch0 -p1
+%patch -P0 -p1
+%patch -P1 -p1
+
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -40,16 +58,32 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
+
 %check
 make test
 
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Env*
+%{_mandir}/man3/Env*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Tue May 16 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.06-1
+- Upgrade to 1.06 as provided in perl-5.37.11
+- Package tests
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-490
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

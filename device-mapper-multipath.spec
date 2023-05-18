@@ -1,42 +1,27 @@
 Name:    device-mapper-multipath
-Version: 0.9.4
-Release: 2%{?dist}
+Version: 0.9.5
+Release: 1%{?dist}
 Summary: Tools to manage multipath devices using device-mapper
 License: GPLv2
 URL:     http://christophe.varoqui.free.fr/
 
 # The source for this package was pulled from upstream's git repo.  Use the
 # following command to generate the tarball
-# curl -L https://github.com/opensvc/multipath-tools/archive/0.9.4.tar.gz -o multipath-tools-0.9.4.tgz
-Source0: multipath-tools-0.9.4.tgz
+# curl -L https://github.com/opensvc/multipath-tools/archive/0.9.5.tar.gz -o multipath-tools-0.9.5.tgz
+Source0: multipath-tools-0.9.5.tgz
 Source1: multipath.conf
-Patch0001: 0001-multipathd-make-pr-registration-consistent.patch
-Patch0002: 0002-libmultipath-make-prflag-an-enum.patch
-Patch0003: 0003-multipathd-handle-no-active-paths-in-update_map_pr.patch
-Patch0004: 0004-multipathd-add-missing-newline-to-cli_del_map-reply.patch
-Patch0005: 0005-libmultipath-skip-extra-vector-work-in-remove_maps.patch
-Patch0006: 0006-libmultipath-orphan-paths-if-coalesce_paths-frees-ne.patch
-Patch0007: 0007-libmultipath-is_path_valid-check-if-device-is-in-use.patch
-Patch0008: 0008-libmpathpersist-use-conf-timeout-for-updating-persis.patch
-Patch0009: 0009-libmultipath-pathinfo-don-t-fail-for-devices-lacking.patch
-Patch0010: 0010-libmultipath-bump-ABI-version-to-18.0.0.patch
-Patch0011: 0011-libmultipath-use-select_reload_action-in-select_acti.patch
-Patch0012: 0012-libmultipath-select-resize-action-even-if-reload-is-.patch
-Patch0013: 0013-libmultipath-cleanup-ACT_CREATE-code-in-select_actio.patch
-Patch0014: 0014-libmultipath-keep-renames-from-stopping-other-multip.patch
-Patch0015: 0015-libmpathpersist-fix-resource-leak-in-update_map_pr.patch
-Patch0016: 0016-RH-fixup-udev-rules-for-redhat.patch
-Patch0017: 0017-RH-Remove-the-property-blacklist-exception-builtin.patch
-Patch0018: 0018-RH-don-t-start-without-a-config-file.patch
-Patch0019: 0019-RH-Fix-nvme-function-missing-argument.patch
-Patch0020: 0020-RH-use-rpm-optflags-if-present.patch
-Patch0021: 0021-RH-add-mpathconf.patch
-Patch0022: 0022-RH-add-wwids-from-kernel-cmdline-mpath.wwids-with-A.patch
-Patch0023: 0023-RH-reset-default-find_mutipaths-value-to-off.patch
-Patch0024: 0024-RH-attempt-to-get-ANA-info-via-sysfs-first.patch
-Patch0025: 0025-RH-make-parse_vpd_pg83-match-scsi_id-output.patch
-Patch0026: 0026-RH-add-scsi-device-handlers-to-modules-load.d.patch
-Patch0027: 0027-RH-compile-with-libreadline-support.patch
+Patch0001: 0001-RH-fixup-udev-rules-for-redhat.patch
+Patch0002: 0002-RH-Remove-the-property-blacklist-exception-builtin.patch
+Patch0003: 0003-RH-don-t-start-without-a-config-file.patch
+Patch0004: 0004-RH-Fix-nvme-function-missing-argument.patch
+Patch0005: 0005-RH-use-rpm-optflags-if-present.patch
+Patch0006: 0006-RH-add-mpathconf.patch
+Patch0007: 0007-RH-add-wwids-from-kernel-cmdline-mpath.wwids-with-A.patch
+Patch0008: 0008-RH-reset-default-find_mutipaths-value-to-off.patch
+Patch0009: 0009-RH-attempt-to-get-ANA-info-via-sysfs-first.patch
+Patch0010: 0010-RH-make-parse_vpd_pg83-match-scsi_id-output.patch
+Patch0011: 0011-RH-add-scsi-device-handlers-to-modules-load.d.patch
+Patch0012: 0012-RH-compile-with-libreadline-support.patch
 
 # runtime
 Requires: %{name}-libs = %{version}-%{release}
@@ -123,7 +108,7 @@ This package contains the files needed to develop applications that use
 device-mapper-multipath's libdmmp C API library
 
 %prep
-%autosetup -n multipath-tools-0.9.4 -p1
+%autosetup -n multipath-tools-0.9.5 -p1
 cp %{SOURCE1} .
 
 %build
@@ -245,6 +230,12 @@ fi
 %{_pkgconfdir}/libdmmp.pc
 
 %changelog
+* Tue May 16 2023 Benjamin Marzinski <bmarzins@redhat.com> - 0.9.5-1
+- Update to the latest upstream release
+  * Previous patches 0001-0015 are included in the source tarball
+- Rename redhat patches
+  * Previous patches 0016-0027 are now patches 0001-0012
+
 * Thu Feb  2 2023 Benjamin Marzinski <bmarzins@redhat.com> - 0.9.4-2
 - Update to the head of the upstream staging branch
   * Patches 0011-0015 are from the upstream staging branch

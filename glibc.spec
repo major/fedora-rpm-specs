@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.37.9000-381-gd1417176a3
+%global glibcsrcdir glibc-2.37.9000-398-g40b68e8cc0
 %global glibcversion 2.37.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 9
+%global baserelease 10
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -2195,6 +2195,27 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Tue May 16 2023 Carlos O'Donell <carlos@redhat.com> - 2.37.9000-10
+- Auto-sync with upstream branch master,
+  commit 40b68e8cc00ca40348bc084b651c0561d31feb46:
+- wcsmbs: Reformat Makefile.
+- linux: Reformat Makefile.
+- stdlib: Reformat Makefile.
+- stdio-common: Reformat Makefile.
+- socket: Reformat Makefile.
+- misc: Reformat Makefile.
+- debug: Reformat Makefile.
+- elf: Reformat Makefile.
+- libio: Add __nonnull for FILE * arguments of fclose and freopen
+- nss: Reconcile conditional declaration and use of `is_nscd'
+- Update syscall lists for Linux 6.3
+- hurd: rule out some mach headers when generating errno.h
+- Stop checking if MiG supports retcode.
+- Added Redirects to longdouble error functions [BZ #29033]
+- nptl: Reformat Makefile.
+- scripts: Add sort-makefile-lines.py to sort Makefile variables.
+- dlopen: skip debugger notification for DSO loaded from sprof (bug 30258)
+
 * Tue May 09 2023 Arjun Shankar <arjun@redhat.com> - 2.37.9000-9
 - Auto-sync with upstream branch master,
   commit d1417176a35d27ffb8da0ffb1e33154163b6eeb2:

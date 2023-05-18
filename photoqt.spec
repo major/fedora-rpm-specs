@@ -1,5 +1,5 @@
 Name:		photoqt
-Version:	3.0
+Version:	3.2
 Release:	1%{?dist}
 Summary:	A fast Qt image viewer
 
@@ -49,7 +49,9 @@ PhotoQt is a fast and highly configurable image viewer with a simple and
 %autosetup -n %{name}-%{version} -p1
 
 %build
-%cmake
+%cmake  -DVIDEO_MPV=OFF\
+	-DGRAPHICSMAGICK=ON\
+	-DIMAGEMAGICK=OFF	
 
 %cmake_build
 
@@ -71,6 +73,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.%{nam
 %{_datadir}/metainfo/org.%{name}.PhotoQt.metainfo.xml
 
 %changelog
+* Tue May 16 2023 Jiri Eischmann <eischmann@redhat.com> - 3.2-1
+- Update to 3.2 (#2176715)
+- Disable libmpv and ImageMagick as required dependecies
+
 * Mon Feb 06 2023 Jiri Eischmann <eischmann@redhat.com> - 3.0-1
 - Update to 3.0
 - Removed libraw patch

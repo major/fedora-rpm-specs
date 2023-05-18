@@ -5,12 +5,17 @@
 
 Name:           python-%{srcname}
 Version:        1.26.12
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python HTTP library with thread-safe connection pooling and file post
 
 License:        MIT
 URL:            https://github.com/urllib3/urllib3
 Source0:        %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
+
+# Accomodate the test to the changed behavior of SSLContext.shared_ciphers() in CPython
+# See: https://github.com/python/cpython/issues/96931
+Patch:          https://github.com/urllib3/urllib3/commit/4855d71.patch
+
 BuildArch:      noarch
 
 %description
@@ -113,6 +118,10 @@ ln -s %{python3_sitelib}/__pycache__/six.cpython-%{python3_version_nodots}.pyc \
 
 
 %changelog
+* Tue May 16 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.26.12-3
+- Accomodate the test to the changed behavior of SSLContext.shared_ciphers() in CPython
+- Fixes: rhbz#2203773
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.12-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

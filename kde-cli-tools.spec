@@ -1,5 +1,5 @@
 Name:    kde-cli-tools
-Version: 5.27.5
+Version: 5.27.5.1
 Release: 1%{?dist}
 Summary: Tools based on KDE Frameworks 5 to better interact with the system
 
@@ -37,8 +37,11 @@ BuildRequires:  kf5-kactivities-devel
 BuildRequires:  kf5-kdeclarative-devel
 BuildRequires:  kf5-kparts-devel
 # todo: consider adjusting things to allow majmin
-BuildRequires:  plasma-workspace-devel >= %{version}
-Requires: libkworkspace5%{?_isa} >= %{version}
+# fix the following lines. Only commented out due to 5.27.5.1 release
+#BuildRequires:  plasma-workspace-devel >= %{version}
+#Requires: libkworkspace5%{?_isa} >= %{version}
+BuildRequires:  plasma-workspace-devel
+Requires: libkworkspace5%{?_isa}
 
 # upgrade path, from when this wasn't split out
 Requires:       kdesu = 1:%{version}-%{release}
@@ -122,6 +125,9 @@ ln -s %{_kf5_libexecdir}/kdesu %{buildroot}%{_bindir}/kdesu
 
 
 %changelog
+* Tue May 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.5.1-1
+- 5.27.5.1
+
 * Wed May 10 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.5-1
 - 5.27.5
 

@@ -1,10 +1,9 @@
 %global _hardened_build 1
-%global _smp_mflags -j1
 
 Summary: The InterNetNews system, an Usenet news server
 Name: inn
-Version: 2.7.0
-Release: 4%{?dist}
+Version: 2.7.1
+Release: 1%{?dist}
 #see LICENSE file for details
 License: GPLv2+ and BSD and MIT and Public Domain
 URL: https://www.eyrie.org/~eagle/software/inn/
@@ -229,6 +228,7 @@ chmod u+w \
           nntpget \
           ovdb_{init,monitor,server,stat} \
           ovsqlite-server \
+          ovsqlite-util \
           rnews{,.libexec/{de,en}code} \
           shlock \
           shrinkfile \
@@ -405,6 +405,7 @@ fi
 %{_libexecdir}/news/actmerge
 %{_libexecdir}/news/ovdb_server
 %{_libexecdir}/news/ovsqlite-server
+%{_libexecdir}/news/ovsqlite-util
 %{_libexecdir}/news/gencancel
 %{_libexecdir}/news/ninpaths
 %{_libexecdir}/news/mod-active
@@ -541,7 +542,7 @@ fi
 %dir %{_sharedstatedir}/news/tmp
 
 %files libs
-%{_libdir}/libinn.so.8{,.*}
+%{_libdir}/libinn.so.9{,.*}
 %{_libdir}/libinnhist.so.3{,.*}
 %{_libdir}/libinnstorage.so.3{,.*}
 
@@ -563,6 +564,10 @@ fi
 %{_mandir}/man1/inews*
 
 %changelog
+* Tue May 16 2023 Dominik Mierzejewski <dominik@greysector.net> - 2.7.1-1
+- update to 2.7.1 (#2203869)
+- re-enable parallel build
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

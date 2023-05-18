@@ -1,14 +1,16 @@
 %global base_version 2.183
 
 Name:           perl-Data-Dumper
-Version:        2.184
-Release:        491%{?dist}
+Version:        2.188
+Release:        1%{?dist}
 Summary:        Stringify perl data structures, suitable for printing and eval
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-Dumper
 Source0:        https://cpan.metacpan.org/authors/id/N/NW/NWCLARK/Data-Dumper-%{base_version}.tar.gz
 # Upgrade to 2.184 based on perl-5.35.11
 Patch0:         Data-Dumper-2.183-Upgrade-to-2.184.patch
+# Upgrade to 2.188 based on perl-5.37.11
+Patch1:         Data-Dumper-2.184-Upgrade-to-2.188.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -70,7 +72,8 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Data-Dumper-%{base_version}
-%patch0 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 
 # Help file to recognise the Perl scripts
 for F in t/*.t; do
@@ -112,6 +115,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue May 16 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.188-1
+- Upgrade to 2.188 based on perl-5.37.11
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.184-491
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

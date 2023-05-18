@@ -1,9 +1,9 @@
 %global gvc_commit ae1a34aafce7026b8c0f65a43c9192d756fe1057
 %global libcall_ui_commit 7e2f9e2db6515fb9c4650010c2a9ecb9796957e3
-%global libgmobile_commit v0.0.1
+%global libgmobile_commit 6504fa124438b79a2ad5687ac3ebef6d7a2c0823
 
 Name:		phosh
-Version:	0.26.0
+Version:	0.27.0
 Release:	1%{?dist}
 Summary:	Graphical shell for mobile devices
 License:	GPLv3+

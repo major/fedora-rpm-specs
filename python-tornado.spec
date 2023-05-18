@@ -10,8 +10,8 @@ handle thousands of simultaneous standing connections, which means it is
 ideal for real-time web services.}
 
 Name:           python-%{srcname}
-Version:        6.2.0
-Release:        4%{?dist}
+Version:        6.3.2
+Release:        1%{?dist}
 Summary:        Scalable, non-blocking web server and tools
 
 License:        Apache-2.0 
@@ -21,9 +21,6 @@ Source0:        https://github.com/tornadoweb/tornado/archive/v%{version}/%{srcn
 # Do not turn DeprecationWarning in tornado module into Exception
 # fixes FTBFS with Python 3.8
 Patch1:         Do-not-turn-DeprecationWarning-into-Exception.patch
-
-# Skip undecorated coroutine test in py312
-Patch:          https://github.com/tornadoweb/tornado/commit/802196b.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
@@ -69,6 +66,9 @@ export TRAVIS=true
 %doc demos
 
 %changelog
+* Tue May 16 2023 Orion Poplawski <orion@nwra.com> - 6.3.2-1
+- Update to 6.3.2
+
 * Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 6.2.0-4
 - migrated to SPDX license
 

@@ -1,87 +1,76 @@
-Name:           belle-sip
-Version:        1.4.2
-Release:        17%{?dist}
-Summary:        Linphone SIP stack
-License:        GPLv2+ and BSD and BSD with advertising and MIT
-URL:            http://www.linphone.org/technical-corner/belle-sip/overview
-Source0:        http://www.linphone.org/releases/sources/belle-sip/%{name}-%{version}.tar.gz
-# Patch0 generated with commands running in src/grammars
-# /usr/bin/java -Xmx256m -jar antlr-3.4-complete.jar  -make -Xmultithreaded -Xconversiontimeout 10000 -fo  . ./belle_sip_message.g
-# /usr/bin/java -Xmx256m -jar antlr-3.4-complete.jar  -make -Xmultithreaded -Xconversiontimeout 10000 -fo .  belle_sdp.g
-# antlr-3.4-complete.jar downloaded from https://github.com/antlr/website-antlr3/blob/gh-pages/download/antlr-3.4-complete.jar
-Patch0:         belle-sip-1.4.2-antlr34.patch
-Patch1:         belle-sip-1.4.2-fix-typo.patch
-# readdir_r is deprecated, other compiler warning fixes
-Patch2:		belle-sip-1.4.2-warn.patch
-Patch3: belle-sip-sockaddr-bounds.patch
-Patch4: belle-sip-realloc.patch
-BuildRequires:  gcc-c++
-BuildRequires:  antlr3-tool
-BuildRequires:  antlr3-C-devel
-BuildRequires:  mbedtls-devel
-BuildRequires:  libtool
-BuildRequires: make
-# The version is used from src/md5.c line:
-# /* $Id: md5.c,v 1.6 2002/04/13 19:20:28 lpd Exp $ */
-Provides: bundled(md5-deutsch) = 1.6
+# Use old cmake macro behaviour.
+%define __cmake_in_source_build 1
 
-# antlr3-tool is a Java application, and the JDK is no longer available on i686
-# https://fedoraproject.org/wiki/Changes/Drop_i686_JDKs
-ExclusiveArch:  %{java_arches}
+Name: belle-sip
+Version: 5.2.45
+Release: 1%{?dist}
+Summary: Linphone SIP stack
+License: GPL-3.0-or-later
+
+URL: https://gitlab.linphone.org/BC/public/belle-sip/
+
+Source0: https://gitlab.linphone.org/BC/public/belle-sip/-/archive/%{version}/%{name}-%{version}.tar.bz2
+
+# Patches.
+Patch00: 0001_belle_sip_set_current_version.patch
+
+BuildRequires: antlr3-tool
+BuildRequires: antlr3-C-devel
+BuildRequires: cmake >= 3.2
+BuildRequires: gcc-c++
+BuildRequires: mbedtls-devel
+BuildRequires: pkgconfig(bctoolbox)
+BuildRequires: pkgconfig(belr)
+BuildRequires: pkgconfig(zlib)
+
+# Only build on arches with java.
+ExclusiveArch: %{java_arches}
 
 %description
 Belle-sip is an object oriented C written SIP stack used by Linphone.
 
 %package devel
-Summary:       Development libraries for belle-sip
-Requires:      %{name}%{?_isa} = %{version}-%{release}
+Summary: Development libraries for belle-sip
+Requires: %{name}%{?_isa} = %{version}-%{release}
 
-%description    devel
+%description devel
 Libraries and headers required to develop software with belle-sip.
 
 %prep
-%setup -q
-%patch0 -p1 -b .antlr34
-%patch1 -p1 -b .typo
-%patch2 -p1 -b .warn
-%patch3 -p1
-%patch4 -p1
-
-autoreconf -ifv
-
+%autosetup -p1
 
 %build
-%configure --disable-tests \
-           --disable-silent-rules \
-           --disable-static \
-%if 0%{?fedora} > 22
-           --disable-tls
-%endif
-
-%make_build
-
+cmake . \
+  -DCMAKE_INSTALL_PREFIX:PATH=/usr \
+  -DCMAKE_SKIP_INSTALL_RPATH=ON \
+  -DENABLE_STATIC=OFF
+%cmake_build
 
 %install
-%make_install
-find %{buildroot} -name '*.la' -delete
-
-
-%post -p /sbin/ldconfig
-
-%postun -p /sbin/ldconfig
-
+%cmake_install
 
 %files
-%license COPYING
-%doc README
-%{_libdir}/libbellesip.so.0*
+%license LICENSE.txt
+%{_libdir}/libbellesip.so.1*
 
 %files devel
-%{_includedir}/belle-sip
+%doc AUTHORS.md CHANGELOG.md README.md
+%{_bindir}/belle_sip_tester
+%{_datadir}/belr/grammars/sdp_grammar
+%{_datadir}/belle_sip_tester/
+%{_includedir}/belle-sip/
+%{_libdir}/cmake/BelleSIP/
 %{_libdir}/libbellesip.so
 %{_libdir}/pkgconfig/belle-sip.pc
 
 %changelog
+* Sun Apr 02 2023 Phil Wyett <philip.wyett@kathenas.org> - 5.2.45-1
+- New upstream version 5.2.45.
+- Use cmake build system.
+- Update license to GPL-3.0-or-later.
+- Use upstream tar.bz2 compressed archive.
+- Rework spec file.
+
 * Wed Jan 18 2023 Florian Weimer <fweimer@redhat.com> - 1.4.2-17
 - Fix new GCC 13 warnings
 

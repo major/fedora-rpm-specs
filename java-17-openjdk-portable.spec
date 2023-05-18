@@ -391,7 +391,7 @@
 %global top_level_dir_name   %{origin}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        7
-%global rpmrelease      4
+%global rpmrelease      5
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -1154,7 +1154,6 @@ function buildjdk() {
 %ifarch %{ppc64le}
     --with-jobs=1 \
 %endif
-    --with-cacerts-file=`readlink -f %{_sysconfdir}/pki/java/cacerts`  \
     --with-version-build=%{buildver} \
     --with-version-pre="%{ea_designator}" \
     --with-version-opt=%{lts_designator} \
@@ -1642,6 +1641,10 @@ done
 %license %{unpacked_licenses}/%{jdkportablesourcesarchive -- %%{nil}}
 
 %changelog
+* Mon May 15 2023 Jiri Vanek <jvanek@redhat.com> - 1:17.0.7.0.7-5
+- no longer using system cacerts during build
+- they are already mv-ed as .upstream in rpms
+
 * Wed May 10 2023 Jiri Vanek <gnu.andrew@redhat.com> - 1:17.0.7.0.7-4
 - returned lost nss.fips.cfg
 

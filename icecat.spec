@@ -590,10 +590,18 @@ echo "ac_add_options --enable-linker=gold" >> .mozconfig
 %endif
 %ifarch %{arm} %{ix86} s390x
 export RUSTFLAGS="-Cdebuginfo=0"
-%else
-# Otherwise since https://src.fedoraproject.org/rpms/redhat-rpm-config/pull-request/243 breaks build.
-unset RUSTFLAGS
 %endif
+
+%ifarch %{arm}
+# disable hard-coded LTO due to RAM constraints
+sed -i '/cargo_rustc_flags += -Clto/d' config/makefiles/rust.mk
+sed -i '/RUSTFLAGS += -Cembed-bitcode=yes/d' config/makefiles/rust.mk
+sed -i 's/codegen-units=1/codegen-units=16/' config/makefiles/rust.mk
+
+# make sure "-g0" is the last flag so there's no debug info
+MOZ_OPT_FLAGS="$MOZ_OPT_FLAGS -g0"
+%endif
+
 export CFLAGS=$MOZ_OPT_FLAGS
 export CXXFLAGS="$MOZ_OPT_FLAGS -fpermissive"
 export LDFLAGS=$MOZ_LINK_FLAGS

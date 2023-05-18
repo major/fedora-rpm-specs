@@ -1,7 +1,7 @@
 %global libgmobile_commit f4d4e5740c3e4b2de40864ab8a9e7b7f957d6aec
 
 Name:		phoc
-Version:	0.26.0
+Version:	0.27.0
 Release:	1%{?dist}
 Summary:	Display compositor designed for phones
 
@@ -53,6 +53,9 @@ mv gmobile-%{libgmobile_commit} subprojects/gmobile
 %files
 %{_bindir}/phoc
 %{_datadir}/glib-2.0/schemas/sm.puri.phoc.gschema.xml
+%{_datadir}/applications/sm.puri.Phoc.desktop
+%{_datadir}/icons/hicolor/symbolic/apps/sm.puri.Phoc.svg
+
 %doc README.md
 %license COPYING
 

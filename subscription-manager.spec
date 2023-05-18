@@ -95,7 +95,7 @@
 %global exclude_packages %{exclude_packages}"
 
 Name: subscription-manager
-Version: 1.29.34
+Version: 1.29.35
 Release: 1%{?dist}
 Summary: Tools and libraries for subscription and repository management
 %if 0%{?suse_version}
@@ -736,6 +736,30 @@ rmdir %{python_sitearch}/subscription_manager-*-*.egg-info --ignore-fail-on-non-
 rm -f /var/lib/rhsm/cache/rhsm_icon.json
 
 %changelog
+* Tue May 16 2023 Packit <hello@packit.dev> - 1.29.35-1
+- Automatic commit of package [subscription-manager] release [1.29.35-1]. (Pino Toscano)
+- Translated using Weblate (Italian) (Pino Toscano)
+- Clean up tests using Cloud What detectors properly (Matyas Horky)
+- spec: Obsolete subscription-manager-migration (Pino Toscano)
+- Translated using Weblate (Chinese (Simplified) (zh_CN)) (Ludek Janda)
+- Translated using Weblate (Korean) (김인수)
+- Translated using Weblate (Georgian) (Temuri Doghonadze)
+- Translated using Weblate (Italian) (Pino Toscano)
+- Update translation files (Weblate)
+- New extraction for translatable strings (Pino Toscano)
+- Translated using Weblate (Italian) (Pino Toscano)
+- Typo fixes (Pino Toscano)
+- Avoid string puzzle (Pino Toscano)
+- Properly use ungettext for plural forms (Pino Toscano)
+- 2189664: cache: fix SyspurposeComplianceStatusCache on failed load (Pino Toscano)
+- dbus: don't catch exceptions in DomainSocketServer.run() (Pino Toscano)
+- cli: directly exit on InvalidCLIOptionError (Pino Toscano)
+- Revert "ENT-5549: Fix return code handling of CLI" (Pino Toscano)
+- ci: add dependabot config for GitHub Actions (Pino Toscano)
+- Update .git-blame-ignore-revs (Matyas Horky)
+- Format code with black==23.3.0 (Matyas Horky)
+- ENT-5535: Update black to version 23.3.0 (Matyas Horky)
+
 * Tue Apr 18 2023 Packit <hello@packit.dev> - 1.29.34-1
 - Automatic commit of package [subscription-manager] release [1.29.34-1]. (Pino Toscano)
 - Update TESTING.md (Matyas Horky)

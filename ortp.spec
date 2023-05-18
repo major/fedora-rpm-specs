@@ -15,9 +15,8 @@ Patch00: 0001_ortp_set_current_version.patch
 Patch01: 0002_ortp_pkgconfig_add_bctoolbox_requires_and_fix_libdir_location.patch
 Patch02: 0003_ortp_doxygen_remove_obsolete_elements.patch
 
-BuildRequires: cmake
+BuildRequires: cmake >= 3.2
 BuildRequires: gcc-c++
-BuildRequires: make
 BuildRequires: doxygen
 BuildRequires: graphviz
 BuildRequires: libsrtp-devel

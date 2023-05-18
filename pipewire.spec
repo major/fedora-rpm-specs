@@ -215,6 +215,8 @@ Supplements:    %{name} = %{version}-%{release}
 # Replace JACK with PipeWire-JACK
 ## N.B.: If jack gets updated in F33, this will need to be bumped
 Obsoletes:      jack-audio-connection-kit < 1.9.16-2
+# Fix upgrade path to f38, see #2203789
+Obsoletes:      jack-audio-connection-kit-example-clients < 1.9.22
 %endif
 
 %description jack-audio-connection-kit

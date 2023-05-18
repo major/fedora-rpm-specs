@@ -2,7 +2,7 @@
 Summary: User space tools for kernel auditing
 Name: audit
 Version: 3.1.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: http://people.redhat.com/sgrubb/audit/
 Source0: http://people.redhat.com/sgrubb/audit/%{name}-%{version}.tar.gz
@@ -142,9 +142,14 @@ rm -f rules/Makefile*
 # Copy default rules into place on new installation
 files=`ls /etc/audit/rules.d/ 2>/dev/null | wc -w`
 if [ "$files" -eq 0 ] ; then
-# FESCO asked for audit to be off by default. #1117953
+%if 0%{?rhel}
+	if [ -e %{_datadir}/%{name}/sample-rules/10-base-config.rules ] ; then
+		cp %{_datadir}/%{name}/sample-rules/10-base-config.rules /etc/audit/rules.d/audit.rules
+%else
+	# FESCO asked for audit to be off by default. #1117953
 	if [ -e %{_datadir}/%{name}/sample-rules/10-no-audit.rules ] ; then
 	        cp %{_datadir}/%{name}/sample-rules/10-no-audit.rules /etc/audit/rules.d/audit.rules
+%endif
 	else
 		touch /etc/audit/rules.d/audit.rules
 	fi
@@ -261,6 +266,9 @@ fi
 %attr(750,root,root) %{_sbindir}/audispd-zos-remote
 
 %changelog
+* Tue May 09 2023 Davide Cavalca <dcavalca@fedoraproject.org> 3.1.1-2
+- Install the base ruleset on RHEL
+
 * Thu Apr 27 2023 Steve Grubb <sgrubb@redhat.com> 3.1.1-1
 - New upstream release
 

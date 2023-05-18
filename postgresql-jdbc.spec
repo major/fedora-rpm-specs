@@ -49,7 +49,7 @@
 Summary:	JDBC driver for PostgreSQL
 Name:		postgresql-jdbc
 Version:	42.6.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	BSD-2-Clause
 URL:		http://jdbc.postgresql.org/
 
@@ -65,7 +65,6 @@ BuildRequires:	maven-plugin-bundle
 BuildRequires:	classloader-leak-test-framework
 
 BuildRequires:	mvn(com.ongres.scram:client)
-BuildRequires:	mvn(org.apache.maven.plugins:maven-clean-plugin)
 BuildRequires:	mvn(org.apache.maven.surefire:surefire-junit-platform)
 BuildRequires:	mvn(org.junit.jupiter:junit-jupiter-api)
 BuildRequires:	mvn(org.junit.jupiter:junit-jupiter-engine)
@@ -174,6 +173,9 @@ opts="-f"
 
 
 %changelog
+* Tue May 16 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 42.6.0-2
+- Remove unused BR: maven-clean-plugin
+
 * Mon Mar 20 2023 Zuzana Miklankova <zmiklank@redhat.com> - 42.6.0-1
 - rebase to version 42.6.0 (bz#2167110)
 

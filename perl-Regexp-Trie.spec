@@ -1,8 +1,8 @@
 Name:		perl-Regexp-Trie
 Version:	0.02
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	Build trie-ized regexp
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Regexp-Trie
 Source0:	https://cpan.metacpan.org/modules/by-module/Regexp/Regexp-Trie-%{version}.tar.gz
 Patch0:		Regexp-Trie-0.02-test.patch
@@ -20,13 +20,10 @@ BuildRequires:	perl(warnings)
 # Test Suite
 BuildRequires:	perl(Test::More)
 BuildRequires:	perl(Time::HiRes)
-%if 0%{?fedora} < 18 && 0%{?rhel} < 7
-BuildRequires:	procps
-%else
 BuildRequires:	procps-ng
-%endif
 BuildRequires:	words
 # Dependencies
+# (none)
 
 %description
 This module is a faster but simpler version of Regexp::Assemble or
@@ -38,7 +35,7 @@ a+b is treated as a\+b, not "more than one a's followed by b".
 %setup -q -n Regexp-Trie-%{version}
 
 # Fix issues in t/01-dict.t
-%patch0
+%patch -P 0
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor
@@ -59,6 +56,11 @@ prove --lib %{buildroot}%{perl_vendorlib} t/01-dict.t :: /usr/share/dict/words
 %{_mandir}/man3/Regexp::Trie.3*
 
 %changelog
+* Tue May 16 2023 Paul Howarth <paul@city-fan.org> - 0.02-15
+- Use SPDX-format license tag
+- Drop support for building with ancient distributions prior to EL-7
+- Avoid use of deprecated patch syntax
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
