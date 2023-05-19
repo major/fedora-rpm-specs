@@ -7,7 +7,7 @@
 
 Name:           drpm
 Version:        0.5.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A library for making, reading and applying deltarpm packages
 # the entire source code is LGPLv2+, except src/drpm_diff.c and src/drpm_search.c which are BSD
 License:        LGPLv2+ and BSD
@@ -85,6 +85,9 @@ The drpm-devel package provides a C interface (drpm.h) for the drpm library.
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue May 16 2023 Jan Kolarik <jkolarik@redhat.com> - 0.5.2-2
+- Rebuild for rpm-4.18.90
+
 * Mon May 15 2023 Jan Kolarik <jkolarik@redhat.com> - 0.5.2-1
 - Update to 0.5.2
 - Avoid using obsolete RPM API

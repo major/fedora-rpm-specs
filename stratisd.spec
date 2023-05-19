@@ -4,20 +4,11 @@
 %global dracutdir %(pkg-config --variable=dracutdir dracut)
 
 Name:           stratisd
-Version:        3.5.4
-Release:        3%{?dist}
+Version:        3.5.5
+Release:        1%{?dist}
 Summary:        Daemon that manages block devices to create filesystems
 
-# ASL 2.0
-# ASL 2.0 or Boost
-# ASL 2.0 or MIT
-# BSD
-# ISC
-# MIT
-# MIT or ASL 2.0
-# MPLv2.0
-# Unlicense or MIT
-License:        MPLv2.0 and ASL 2.0 and BSD and MIT
+License:        (MIT OR Apache-2.0) AND Unicode-DFS-2016 AND Apache-2.0 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND MIT AND MPL-2.0 AND (Unlicense OR MIT)
 URL:            https://github.com/stratis-storage/stratisd
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        %{url}/releases/download/v%{version}/%{name}-%{version}-vendor.tar.gz
@@ -102,7 +93,7 @@ tar --strip-components=1 --extract --verbose --file %{SOURCE2}
 %else
 %cargo_prep
 %generate_buildrequires
-%cargo_generate_buildrequires -f engine,dbus_enabled,min,systemd_compat,extras
+%cargo_generate_buildrequires -f engine,dbus_enabled,min,systemd_compat,extras,udev_scripts
 %endif
 
 %build
@@ -113,6 +104,8 @@ tar --strip-components=1 --extract --verbose --file %{SOURCE2}
 %{__cargo} rustc %{?_smp_mflags} --release --bin=stratis-base32-decode --no-default-features --features udev_scripts -- -Ctarget-feature=+crt-static
 %{__cargo} build %{?_smp_mflags} --release --bin=stratis-dumpmetadata --no-default-features --features engine,extras,min
 %else
+%cargo_license_summary -f engine,dbus_enabled,min,systemd_compat,extras,udev_scripts
+%{cargo_license -f engine,dbus_enabled,min,systemd_compat,extras,udev_scripts} > LICENSE.dependencies
 %{__cargo} build %{?__cargo_common_opts} --release --bin=stratisd
 %{__cargo} build %{?__cargo_common_opts} --release --bin=stratis-min --bin=stratisd-min --bin=stratis-utils --no-default-features --features engine,min,systemd_compat
 %{__cargo} rustc %{?__cargo_common_opts} --release --bin=stratis-str-cmp --no-default-features --features udev_scripts -- -Ctarget-feature=+crt-static
@@ -148,6 +141,10 @@ a2x -f manpage docs/stratis-dumpmetadata.txt
 
 %files
 %license LICENSE
+%if 0%{?rhel}
+%else
+%license LICENSE.dependencies
+%endif
 %doc README.md
 %{_libexecdir}/stratisd
 %dir %{_datadir}/dbus-1
@@ -183,6 +180,9 @@ a2x -f manpage docs/stratis-dumpmetadata.txt
 %{_mandir}/man8/stratis-dumpmetadata.8*
 
 %changelog
+* Wed May 17 2023 Bryan Gurney <bgurney@redhat.com> - 3.5.5-1
+- Update to 3.5.5
+
 * Wed Apr 26 2023 Bryan Gurney <bgurney@redhat.com> - 3.5.4-3
 - Fix up ExclusiveArch directives
 

@@ -13,7 +13,7 @@
 %else
 %global with_nginx 0
 %endif
-%global upstream_version 6.2
+%global upstream_version 6.2.1
 #global upstream_prever  RC5
 #global upstream_lower   rc5
 
@@ -138,12 +138,12 @@ rm -rf wp-includes/random_compat
 # only for PHP < 7.2 without sodium_crypto_box
 rm -rf wp-includes/sodium_compat
 
-%patch0 -p1 -b .dolly
-%patch2 -p1
-%patch3 -p1
+%patch -P0 -p1 -b .dolly
+%patch -P2 -p1
+%patch -P3 -p1
 # Adjust mediaelement not to use its SWF
-%patch4 -p1
-%patch8 -p1
+%patch -P4 -p1
+%patch -P8 -p1
 
 # We patch .js files, so minify them
 php %{SOURCE5} \
@@ -177,8 +177,8 @@ fi
 
 # Create RPM configuration
 sed -e 's/\r//' wp-config-sample.php >wp-config.php
-%patch5 -p1
-%patch6 -p1
+%patch -P5 -p1
+%patch -P6 -p1
 
 # fix file encoding
 sed -i -e 's/\r//' license.txt
@@ -266,6 +266,9 @@ end
 
 
 %changelog
+* Wed May 17 2023 Remi Collet <remi@remirepo.net> - 6.2.1-1
+- WordPress 6.2.1 Maintenance & Security Release
+
 * Thu Mar 30 2023 Remi Collet <remi@remirepo.net> - 6.2-1
 - WordPress 6.2 “Dolphy”
 - use SPDX license IDs

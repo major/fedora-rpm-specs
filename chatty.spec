@@ -5,7 +5,7 @@
 
 Name: chatty
 Version: 0.7.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A libpurple messaging client
 
 License: GPLv3+

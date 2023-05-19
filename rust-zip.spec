@@ -5,7 +5,7 @@
 %global crate zip
 
 Name:           rust-zip
-Version:        0.6.4
+Version:        0.6.6
 Release:        %autorelease
 Summary:        Library to support the reading and writing of zip files
 
@@ -225,17 +225,17 @@ use the "zstd" feature of the "%{crate}" crate.
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires
+%cargo_generate_buildrequires -a
 
 %build
-%cargo_build
+%cargo_build -a
 
 %install
-%cargo_install
+%cargo_install -a
 
 %if %{with check}
 %check
-%cargo_test
+%cargo_test -a
 %endif
 
 %changelog

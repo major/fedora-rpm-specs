@@ -1,7 +1,7 @@
 %global pkgname smallgrp
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.5.2
+Version:        1.5.3
 Release:        1%{?dist}
 Summary:        Small groups library
 
@@ -70,6 +70,9 @@ gap -l "%{buildroot}%{gap_libdir};" --bare tst/testall.g
 %{gap_libdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Wed May 17 2023 Jerry James <loganjerry@gmail.com> - 1.5.3-1
+- Version 1.5.3
+
 * Sat Feb 11 2023 Jerry James <loganjerry@gmail.com> - 1.5.2-1
 - Version 1.5.2
 

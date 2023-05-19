@@ -5,7 +5,7 @@
 %global crate remoteprocess
 
 Name:           rust-remoteprocess
-Version:        0.4.10
+Version:        0.4.11
 Release:        %autorelease
 Summary:        Cross platform api for getting information on a running processes
 
@@ -15,9 +15,8 @@ Source:         %{crates_source}
 # Automatically generated patch to strip foreign dependencies
 Patch:          remoteprocess-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * bump addr2line dependency from 0.18 to 0.19,
-#   bump object dependency from 0.29 to 0.30:
-#   https://github.com/benfred/remoteprocess/commit/9d52e45
+# * Update nix requirement from 0.25 to 0.26
+# https://github.com/benfred/remoteprocess/commit/e0d1e6f1b9b6d40ca05b5b6e508637ff4939a234
 Patch:          remoteprocess-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21

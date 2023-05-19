@@ -4,7 +4,7 @@
 %global glib2_version %(pkg-config --modversion glib-2.0 2>/dev/null || echo bad)
 
 %global epoch_version 1
-%global real_version 1.43.7
+%global real_version 1.43.8
 %global rpm_version %{real_version}
 %global release_version 1
 %global snapshot %{nil}
@@ -1245,6 +1245,9 @@ fi
 
 
 %changelog
+* Wed May 17 2023 Beniamino Galvani <bgalvani@redhat.com> - 1:1.43.8-1
+- Update to 1.43.8 release (development)
+
 * Thu May  4 2023 Thomas Haller <thaller@redhat.com> - 1:1.43.7-1
 - Update to 1.43.7 release (development)
 

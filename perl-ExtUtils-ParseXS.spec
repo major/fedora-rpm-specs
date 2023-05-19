@@ -2,16 +2,16 @@
 Name:           perl-ExtUtils-ParseXS
 # Epoch to compete with perl.spec
 Epoch:          1
-Version:        3.45
-Release:        490%{?dist}
+Version:        3.50
+Release:        1%{?dist}
 Summary:        Module and a script for converting Perl XS code into C code
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ExtUtils-ParseXS
 Source0:        https://cpan.metacpan.org/authors/id/X/XS/XSAWYERX/ExtUtils-ParseXS-%{base_version}.tar.gz
 # Added man page perlxs* which are missing in tarball
 Patch0:         ExtUtils-ParseXS-3.44-Add-perlxs-man-pages.patch
-# Unbundled from perl 5.35.11
-Patch1:         ExtUtils-ParseXS-3.44-Upgrade-to-3.45.patch
+# Unbundled from perl 5.37.11
+Patch1:         ExtUtils-ParseXS-3.44-Upgrade-to-3.50.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -45,14 +45,35 @@ Requires:       perl(Exporter) >= 5.57
 # Remove under-specified dependencies
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Exporter\\)$
 
+# Filter modules bundled for tests
+%global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}^%{_libexecdir}
+%global __requires_exclude %{__requires_exclude}|^perl\\(ExtUtils::Typemaps::Test\\)
+%global __requires_exclude %{__requires_exclude}|^perl\\(TypemapTest::Foo\|IncludeTester\|PrimitiveCapture\\)
+
 %description
 ExtUtils::ParseXS will compile XS code into C code by embedding the
 constructs necessary to let C functions manipulate Perl values and creates
 the glue necessary to let Perl access those functions.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n ExtUtils-ParseXS-%{base_version}
-%patch0 -p1
+%patch -P0 -p1
+%patch -P1 -p1
+
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -65,17 +86,44 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 rm $RPM_BUILD_ROOT%{perl_vendorlib}/ExtUtils/xsubpp
 ln -s ../../../../bin/xsubpp $RPM_BUILD_ROOT%{perl_vendorlib}/ExtUtils/
 
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/bash
+set -e
+# Some tests write into temporary files/directories. The easiest solution
+# is to copy the tests into a writable directory and execute them from there.
+DIR=$(mktemp -d)
+pushd "$DIR"
+cp -a %{_libexecdir}/%{name}/* ./
+prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+popd
+rm -rf "$DIR"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
+
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %doc Changes
-%{_bindir}/*
-%{perl_vendorlib}/*
-%{_mandir}/man1/*
-%{_mandir}/man3/*
+%{_bindir}/xsubpp
+%{perl_vendorlib}/ExtUtils*
+%{perl_vendorlib}/perlxs*
+%{_mandir}/man1/xsubpp*
+%{_mandir}/man3/ExtUtils*
+%{_mandir}/man3/perlxs*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Wed May 17 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:3.50-1
+- Upgrade to 3.50 as provided in perl-5.37.11
+- Package tests
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.45-490
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

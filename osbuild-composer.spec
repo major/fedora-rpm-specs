@@ -9,7 +9,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        80
+Version:        82
 
 %gometa
 
@@ -96,7 +96,7 @@ Provides: bundled(golang(github.com/go_openapi/jsonpointer)) = v0.19.5
 Provides: bundled(golang(github.com/go_openapi/swag)) = v0.21.1
 Provides: bundled(golang(github.com/gobwas/glob)) = v0.2.3
 Provides: bundled(golang(github.com/golang_jwt/jwt)) = v3.2.2+incompatible
-Provides: bundled(golang(github.com/golang_jwt/jwt/v4)) = v4.4.2
+Provides: bundled(golang(github.com/golang_jwt/jwt/v4)) = v4.5.0
 Provides: bundled(golang(github.com/golang/glog)) = v1.0.0
 Provides: bundled(golang(github.com/golang/groupcache)) = v0.0.0_20210331224755_41bb18bfe9da
 Provides: bundled(golang(github.com/golang/protobuf)) = v1.5.2
@@ -166,7 +166,7 @@ Provides: bundled(golang(github.com/sony/gobreaker)) = v0.4.2_0.20210216022020_d
 Provides: bundled(golang(github.com/spf13/cobra)) = v1.6.1
 Provides: bundled(golang(github.com/spf13/pflag)) = v1.0.5
 Provides: bundled(golang(github.com/stefanberger/go_pkcs11uri)) = v0.0.0_20201008174630_78d3cae3a980
-Provides: bundled(golang(github.com/stretchr/testify)) = v1.8.1
+Provides: bundled(golang(github.com/stretchr/testify)) = v1.8.2
 Provides: bundled(golang(github.com/syndtr/gocapability)) = v0.0.0_20200815063812_42c35b437635
 Provides: bundled(golang(github.com/theupdateframework/go_tuf)) = v0.3.2
 Provides: bundled(golang(github.com/titanous/rocacheck)) = v0.0.0_20171023193734_afe73141d399
@@ -187,7 +187,7 @@ Provides: bundled(golang(golang.org/x/mod)) = v0.6.0
 Provides: bundled(golang(golang.org/x/net)) = v0.4.0
 Provides: bundled(golang(golang.org/x/oauth2)) = v0.0.0_20220909003341_f21342109be1
 Provides: bundled(golang(golang.org/x/sync)) = v0.0.0_20220722155255_886fb9371eb4
-Provides: bundled(golang(golang.org/x/sys)) = v0.3.0
+Provides: bundled(golang(golang.org/x/sys)) = v0.8.0
 Provides: bundled(golang(golang.org/x/term)) = v0.3.0
 Provides: bundled(golang(golang.org/x/text)) = v0.5.0
 Provides: bundled(golang(golang.org/x/time)) = v0.2.0
@@ -573,6 +573,20 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed May 17 2023 Packit <hello@packit.dev> - 82-1
+Changes with 82
+----------------
+  * Adjust packer build to work with the amazon plugin 1.2.3 (#3402)
+  * Disable firewalld for RHEL 8 Azure EAP (#3421)
+  * Update terraform SHA (#3420)
+  * cloudapi: custom repos add missing fields (#3418)
+  * internal/manifest: install rhc-worker-playbook when using rhc (#3432)
+
+Contributions from: Achilleas Koutsou, Gianluca Zuccarelli, Jakub Rusz, Ondřej Budai, Sanne Raymaekers, dependabot[bot], jabia99
+
+— Somewhere on the Internet, 2023-05-17
+
+
 * Wed Apr 19 2023 Packit <hello@packit.dev> - 80-1
 Changes with 80
 ----------------

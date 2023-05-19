@@ -1,6 +1,6 @@
 Name:       mmsd-tng
 Version:    2.2.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Multimedia Messaging Service
 
 License:    GPLv2

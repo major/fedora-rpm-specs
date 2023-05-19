@@ -1,17 +1,11 @@
 Name:           vfrnav
-Version:        20201231
-Release:        40%{?dist}
+Version:        20230429
+Release:        1%{?dist}
 Summary:        VFR/IFR Navigation
 
 License:        GPLv2+
 URL:            https://gitlab.com/tsailer/vfrnav/
 Source0:        https://gitlab.com/tsailer/vfrnav/-/archive/%{version}/%{name}-%{version}.tar.bz2
-Patch0:         vfrnav-gpsd10.patch
-Patch1:         vfrnav-pqxx.patch
-# Enclose gnome-bluetooth.h include in extern "C", otherwise undefined references occur
-Patch2:         vfrnav_externc.patch
-# Fix invocation of inksacape v1.x.
-Patch3:         vfrnav-20201231-fix_inkscape_usage.patch
 
 %bcond_without webservice
 %bcond_with wetterdl
@@ -53,7 +47,7 @@ BuildRequires:  libXScrnSaver-devel
 BuildRequires:  evince-devel
 BuildRequires:  libusb1-devel
 BuildRequires:  libcurl-devel
-BuildRequires:  webkitgtk4-devel
+BuildRequires:  webkit2gtk4.1-devel
 BuildRequires:  openjpeg2-devel
 BuildRequires:  libsoup-devel
 BuildRequires:  librsvg2-devel
@@ -479,6 +473,9 @@ fi
 %endif
 
 %changelog
+* Wed May 17 2023 Thomas Sailer <fedora@tsailer.ch> - 20230429-1
+- update to 20230429
+
 * Thu May 11 2023 Sandro Mani <manisandro@gmail.com> - 20201231-40
 - Rebuild (gdal)
 

@@ -1,6 +1,6 @@
 %global majorversion 0
 %global minorversion 3
-%global microversion 70
+%global microversion 71
 
 %global apiversion   0.3
 %global spaversion   0.2
@@ -449,6 +449,8 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-echo-cancel.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-fallback-sink.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-filter-chain.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-jack-tunnel.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-jackdbus-detect.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-link-factory.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-loopback.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-metadata.so
@@ -609,6 +611,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-x11-bell.so
 
 %changelog
+* Wed May 17 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.71-1
+- Update version to 0.3.71
+
 * Thu Apr 20 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.70-1
 - Update version to 0.3.70
 

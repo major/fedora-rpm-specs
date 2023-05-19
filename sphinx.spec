@@ -11,7 +11,7 @@
 %endif
 %endif
 
-%if 0%{?fedora} >= 37
+%if 0%{?fedora} >= 37 || 0%{?rhel} >= 10
 %bcond_with java
 %else
 %bcond_without java

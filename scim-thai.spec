@@ -1,14 +1,14 @@
 Name:           scim-thai
 Version:        0.1.3
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Thai Input Method Engine for SCIM
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://linux.thai.net/projects/scim-thai
 Source0:        ftp://linux.thai.net/pub/thailinux/software/libthai/%{name}-%{version}.tar.gz
 Patch0:         scim-thai-fixes-setup-dialog.patch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  scim-devel, libthai-devel
 %ifarch aarch64
@@ -27,8 +27,7 @@ it also corrects invalid input sequences.
 
 
 %prep
-%setup -q
-%patch0 -p1 -b .gtk2
+%autosetup -p1
 
 
 %build
@@ -56,6 +55,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/scim-1.0/*/{IMEngine,SetupUI}/thai*.la
 
 
 %changelog
+* Wed May 17 2023 Peng Wu <pwu@redhat.com> - 0.1.3-18
+- Migrate to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

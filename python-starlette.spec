@@ -1,5 +1,5 @@
 Name:           python-starlette
-Version:        0.26.1
+Version:        0.27.0
 Release:        %autorelease
 Summary:        The little ASGI library that shines
 
@@ -69,7 +69,7 @@ $1 == "#" {
 }
 o {
   # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-  if ($1 ~ /^(black|coverage|(auto)?flake8?|isort|mypy|types-)/) { next }
+  if ($1 ~ /^(black|coverage|mypy|ruff|types-)/) { next }
   # Drop version pins
   sub(/[>=]=.*$/, "", $0)
   print $0

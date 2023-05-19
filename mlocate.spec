@@ -4,7 +4,7 @@ Summary: An utility for finding files by name
 Name: mlocate
 Version: 0.26
 Release: %autorelease -b 253
-License: GPLv2
+License: GPL-2.0-only
 URL: https://fedorahosted.org/mlocate/
 Source0: https://fedorahosted.org/releases/m/l/mlocate/mlocate-%{version}.tar.xz
 Source1: updatedb.conf

@@ -1,7 +1,7 @@
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
-Version: 8.0.1
-Release: 3%{?dist}
+Version: 8.1.0
+Release: 1%{?dist}
 License: curl
 Source0: https://curl.se/download/%{name}-%{version}.tar.xz
 Source1: https://curl.se/download/%{name}-%{version}.tar.xz.asc
@@ -16,14 +16,8 @@ Patch101: 0101-curl-7.32.0-multilib.patch
 # test3026: disable valgrind
 Patch102: 0102-curl-7.84.0-test3026.patch
 
-# test3012: temporarily disable valgrind (#2143040)
-Patch103: 0103-curl-7.87.0-test3012.patch
-
 # do not fail on warnings in the upstream test driver
 Patch104: 0104-curl-7.88.0-tests-warnings.patch
-
-# tests: attempt to fix a conflict on port numbers
-Patch105: 0105-curl-8.0.1-tests-stunnel-port.patch
 
 Provides: curl-full = %{version}-%{release}
 Provides: webclient
@@ -76,6 +70,9 @@ BuildRequires: hostname
 BuildRequires: nghttp2
 
 # perl modules used in the test suite
+BuildRequires: perl(B)
+BuildRequires: perl(base)
+BuildRequires: perl(constant)
 BuildRequires: perl(Cwd)
 BuildRequires: perl(Digest::MD5)
 BuildRequires: perl(Digest::SHA)
@@ -84,9 +81,13 @@ BuildRequires: perl(File::Basename)
 BuildRequires: perl(File::Copy)
 BuildRequires: perl(File::Spec)
 BuildRequires: perl(IPC::Open2)
+BuildRequires: perl(List::Util)
+BuildRequires: perl(Memoize)
 BuildRequires: perl(MIME::Base64)
-BuildRequires: perl(Time::Local)
+BuildRequires: perl(POSIX)
+BuildRequires: perl(Storable)
 BuildRequires: perl(Time::HiRes)
+BuildRequires: perl(Time::Local)
 BuildRequires: perl(vars)
 
 %if 0%{?fedora}
@@ -407,6 +408,11 @@ rm -f ${RPM_BUILD_ROOT}%{_libdir}/libcurl.la
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Wed May 17 2023 Kamil Dudka <kdudka@redhat.com> - 8.1.0-1
+- new upstream release, which fixes the following vulnerabilities
+    CVE-2023-28321 - IDN wildcard match
+    CVE-2023-28322 - more POST-after-PUT confusion
+
 * Fri Apr 21 2023 Kamil Dudka <kdudka@redhat.com> - 8.0.1-3
 - tests: re-enable temporarily disabled test-cases
 - tests: attempt to fix a conflict on port numbers

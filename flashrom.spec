@@ -11,8 +11,10 @@ BuildRequires:	gnupg2
 BuildRequires:	gcc
 BuildRequires:	meson
 BuildRequires:	pciutils-devel
+%if ! 0%{?rhel}
 BuildRequires:	libjaylink-devel
 BuildRequires:	libftdi-devel
+%endif
 %if 0%{?fedora} >= 37 || 0%{?rhel} > 9
 BuildRequires:	libusb-compat-0.1-devel
 %else

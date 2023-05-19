@@ -125,11 +125,12 @@
 
 Name:        libblockdev
 Version:     2.28
-Release:     5%{?dist}
+Release:     6%{?dist}
 Summary:     A library for low-level manipulation with block devices
 License:     LGPL-2.1-or-later
 URL:         https://github.com/storaged-project/libblockdev
 Source0:     https://github.com/storaged-project/libblockdev/releases/download/%{version}-%{release}/%{name}-%{version}.tar.gz
+Patch0:      0001-Allow-resizing-of-inactive-LVs-with-latest-LVM.patch
 
 BuildRequires: make
 BuildRequires: glib2-devel
@@ -673,7 +674,7 @@ A meta-package that pulls all the libblockdev plugins as dependencies.
 
 
 %prep
-%setup -q -n %{name}-%{version}
+%autosetup -n %{name}-%{version} -p1
 
 %build
 autoreconf -ivf
@@ -977,6 +978,9 @@ find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 %files plugins-all
 
 %changelog
+* Wed May 17 2023 Vojtech Trefny <vtrefny@redhat.com> - 2.28-6
+- Allow resizing of inactive LVs with latest LVM (#2188830)
+
 * Fri Mar 17 2023 Vojtech Trefny <vtrefny@redhat.com> - 2.28-5
 - Stop building dm plugin with dmraid support on Fedora >= 38
 

@@ -5,7 +5,7 @@
 %global crate sha3
 
 Name:           rust-sha3
-Version:        0.10.7
+Version:        0.10.8
 Release:        %autorelease
 Summary:        SHA-3 (Keccak) hash function
 

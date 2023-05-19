@@ -1,6 +1,6 @@
 Name:       ncid
 Version:    1.13
-Release:    8%{?dist}
+Release:    9%{?dist}
 Summary:    Network Caller ID server, client and gateways
 Requires:   logrotate
 Provides:   /usr/lib64/ncid/libcarrier.so.8(), /usr/lib/ncid/libcarrier.so.8()
@@ -455,6 +455,9 @@ touch --no-create %{_datadir}/icons/hicolor &>/dev/null
 gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 %changelog
+* Wed May 17 2023 Sérgio Basto <sergio@serjux.com> - 1.13-9
+- Rebuild for libphonenumber-8.13.x
+
 * Thu Apr 13 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.13-8
 - Remove redundant perl dependencies
 

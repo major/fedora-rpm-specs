@@ -1,5 +1,5 @@
 Name:           libwacom
-Version:        2.6.0
+Version:        2.7.0
 Release:        1%{?dist}
 Summary:        Tablet Information Client Library
 Requires:       %{name}-data
@@ -93,6 +93,9 @@ install -d ${RPM_BUILD_ROOT}/%{_udevrulesdir}
 %{_mandir}/man1/libwacom-list-devices.1*
 
 %changelog
+* Wed May 17 2023 Peter Hutterer <peter.hutterer@redhat.com> - 2.7.0-1
+- libwacom 2.7.0
+
 * Mon Jan 23 2023 Peter Hutterer <peter.hutterer@redhat.com> - 2.6.0-1
 - libwacom 2.6.0
 

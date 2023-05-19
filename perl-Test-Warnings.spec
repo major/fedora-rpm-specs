@@ -9,7 +9,7 @@ Name:		perl-Test-Warnings
 Version:	0.031
 Release:	6%{?dist}
 Summary:	Test for warnings and the lack of them
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-Warnings
 Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-Warnings-%{version}.tar.gz
 BuildArch:	noarch
@@ -44,7 +44,7 @@ BuildRequires:	perl(CPAN::Meta::Requirements)
 BuildRequires:	perl(PadWalker)
 BuildRequires:	perl(Test::Tester) >= 0.108
 %endif
-# Runtime
+# Dependencies
 Requires:	perl(Carp)
 
 %description

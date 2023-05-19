@@ -1,14 +1,11 @@
 Name:           touchcal
-Version:        1.10
-Release:        2%{?dist}
+Version:        1.30
+Release:        1%{?dist}
 Summary:        Calibration utility for touch screens
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://touchcal.sourceforge.net/
-Source0:        http://downloads.sourceforge.net/%{name}/%{name}_%{version}.orig.tar.gz
-# fix some warnings/errors in the build
-Patch0:         %{name}-1.00-string-format.patch
-Patch1:         %{name}-1.00-string-copy.patch
+Source:         http://downloads.sourceforge.net/%{name}/%{name}_%{version}.orig.tar.gz
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -30,11 +27,11 @@ for use under Xorg.
 
 %build
 %configure
-make %{?_smp_mflags}
+%make_build
 
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
+%make_install
 
 
 %files
@@ -44,6 +41,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Wed May 17 2023 Dan Horák <dan@danny.cz> - 1.30-1
+- update to upstream version 1.30 (rhbz#2187943)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

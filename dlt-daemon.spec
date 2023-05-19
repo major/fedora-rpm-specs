@@ -1,14 +1,11 @@
-%global commit 0a06fcb4a3e4fdc6a844247fe2344e3b296e2c4d
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-
 Name: dlt-daemon
-Version: 2.18.8
-Release: 6.20230306git%{shortcommit}%{?dist}
+Version: 2.18.9
+Release: 1%{?dist}
 Summary: DLT - Diagnostic Log and Trace
 Group: System Environment/Base
 License: MPL-2.0
 URL: https://github.com/COVESA/dlt-daemon
-Source0: %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0: dlt-daemon-config.patch
 
 BuildRequires: cmake
@@ -53,7 +50,7 @@ Requires:       %{name} = %{version}-%{release}
 %{summary}.
 
 %prep
-%autosetup -n %{name}-%{commit} -p1
+%autosetup -n %{name}-%{version} -p1
 
 %build
 mkdir -p build
@@ -161,6 +158,10 @@ exit 0
 %{_libdir}/cmake/automotive-dlt/*.cmake
 
 %changelog
+* Wed May 17 2023 Stephen Smoogen <smooge@fedoraproject.org> - 2.18.9-1
+- Update to final 2.18.9 version
+
+
 * Mon Mar  6 2023 Stephen Smoogen <smooge@fedoraproject.org> - 2.18.8-6.20230306git0a06fcb
 - Update code to latest upstream git commit
 - migrated to SPDX license

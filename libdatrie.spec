@@ -1,14 +1,14 @@
 Name:           libdatrie
 Version:        0.2.13
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Implementation of Double-Array structure for representing trie
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            http://linux.thai.net/projects/datrie
 Source0:        http://linux.thai.net/pub/thailinux/software/libthai/%{name}-%{version}.tar.xz
 BuildRequires:  autoconf, automake, libtool
 BuildRequires:  autoconf-archive
 BuildRequires:  doxygen
-BuildRequires: make
+BuildRequires:  make
 
 %description
 datrie is an implementation of double-array structure for representing trie.
@@ -48,8 +48,6 @@ find %{buildroot} -name '*.*a' -delete -print
 %check
 LD_LIBRARY_PATH=../datrie/.libs %make_build check
 
-%ldconfig_scriptlets
-
 %files
 %license COPYING
 %{_libdir}/libdatrie.so.*
@@ -64,6 +62,9 @@ LD_LIBRARY_PATH=../datrie/.libs %make_build check
 %{_pkgdocdir}-devel/*.{html,css,png,js,svg}
 
 %changelog
+* Wed May 17 2023 Peng Wu <pwu@redhat.com> - 0.2.13-6
+- Migrate to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.13-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

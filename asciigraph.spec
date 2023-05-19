@@ -19,7 +19,7 @@ Release:        %autorelease
 Summary:        Makes lightweight ASCII line graphs
 
 # Upstream license specification: BSD-3-Clause
-License:        BSD
+License:        BSD-3-Clause
 URL:            %{gourl}
 Source0:        %{gosource}
 

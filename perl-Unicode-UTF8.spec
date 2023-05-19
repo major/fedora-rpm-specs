@@ -1,9 +1,3 @@
-# Rebuild build script using Module::Install::ReadmeFromPod
-%if "%{?rhel}" != "6"
-%bcond_without perl_Unicode_UTF8_enables_Module_Install_ReadmeFromPod
-%else
-%bcond_with perl_Unicode_UTF8_enables_Module_Install_ReadmeFromPod
-%endif
 # Run optional test
 %if ! (0%{?rhel})
 %bcond_without perl_Unicode_UTF8_enables_optional_test
@@ -15,32 +9,19 @@ Summary:	Encoding and decoding of UTF-8 encoding form
 Name:		perl-Unicode-UTF8
 Version:	0.62
 Release:	20%{?dist}
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Unicode-UTF8
-Source0:	https://cpan.metacpan.org/authors/id/C/CH/CHANSEN/Unicode-UTF8-%{version}.tar.gz
+Source0:	https://cpan.metacpan.org/modules/by-module/Unicode/Unicode-UTF8-%{version}.tar.gz
 # Module Build
 BuildRequires:	coreutils
 BuildRequires:	findutils
 BuildRequires:	gcc
 BuildRequires:	make
-BuildRequires:	perl-interpreter
 BuildRequires:	perl-devel
 BuildRequires:	perl-generators
-%if %{with perl_Unicode_UTF8_enables_Module_Install_ReadmeFromPod}
+BuildRequires:	perl-interpreter
 BuildRequires:	perl(inc::Module::Install)
 BuildRequires:	perl(Module::Install::ReadmeFromPod)
-%else
-BuildRequires:	perl(base)
-BuildRequires:	perl(Config)
-BuildRequires:	perl(Cwd)
-BuildRequires:	perl(ExtUtils::MakeMaker)
-BuildRequires:	perl(Fcntl)
-BuildRequires:	perl(File::Basename)
-BuildRequires:	perl(File::Find)
-BuildRequires:	perl(File::Path)
-BuildRequires:	perl(Pod::Text)
-BuildRequires:	perl(vars)
-%endif
 # Module Runtime
 BuildRequires:	perl(Carp)
 BuildRequires:	perl(Exporter)
@@ -62,7 +43,7 @@ BuildRequires:	perl(Test::LeakTrace) >= 0.10
 BuildRequires:	perl(Test::Pod) >= 1.00
 BuildRequires:	perl(Variable::Magic)
 %endif
-# Runtime
+# Dependencies
 Requires:	perl(Exporter)
 Requires:	perl(XSLoader)
 
@@ -77,10 +58,8 @@ specified by Unicode and ISO/IEC 10646:2011.
 %setup -q -n Unicode-UTF8-%{version}
 
 # Unbundle inc::Module::Install, we'll use system version instead
-# unless we're on EL-6, where there's no Module::Install::ReadmeFromPod
-%if %{with perl_Unicode_UTF8_enables_Module_Install_ReadmeFromPod}
-rm -rf inc/
-%endif
+rm -rvf inc/
+perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}"

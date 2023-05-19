@@ -9,7 +9,7 @@
 
 Name:    kf5-%{framework}
 Version: 23.04.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A library containing itinerary data model and itinerary extraction code
 
 License: LGPLv2+
@@ -129,6 +129,9 @@ make test/fast ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||
 
 
 %changelog
+* Wed May 17 2023 Sérgio Basto <sergio@serjux.com> - 23.04.1-2
+- Rebuild for libphonenumber-8.13.x
+
 * Sat May 13 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.1-1
 - 23.04.1
 

@@ -1,5 +1,5 @@
 Name:           python-zopeundo
-Version:        5.0
+Version:        6.0
 Release:        1%{?dist}
 Summary:        ZODB undo support for Zope
 License:        ZPL-2.1
@@ -45,14 +45,16 @@ rst2html --no-datestamp README.rst README.html
 %pyproject_save_files ZopeUndo
 
 %check
-export PYTHONPATH=%{buildroot}%{python3_sitelib}
-zope-testrunner --test-path=src
+%{py3_test_envvars} zope-testrunner --test-path=src
 
 %files -n python3-zopeundo -f %{pyproject_files}
 %doc CHANGES.html README.html
 %license COPYRIGHT.txt LICENSE.txt
 
 %changelog
+* Wed May 17 2023 Jerry James <loganjerry@gmail.com> - 6.0-1
+- Version 6.0
+
 * Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 5.0-1
 - Dynamically generate BuildRequires
 

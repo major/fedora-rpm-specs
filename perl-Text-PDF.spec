@@ -1,8 +1,8 @@
 Name:       perl-Text-PDF
 Version:    0.31
-Release:    20%{?dist}
+Release:    21%{?dist}
 # lib/Text/PDF.pm -> GPL+ or Artistic
-License:    GPL+ or Artistic
+License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Module for manipulating PDF files
 Source:     https://cpan.metacpan.org/authors/id/B/BH/BHALLISSY/Text-PDF-%{version}.tar.gz
 Patch0:     Text-PDF-0.29-formats.patch
@@ -28,7 +28,7 @@ includes various tools:
     pdfstamp  - stamp text on each page of a PDF file
 
 %package -n pdf-tools
-License:    GPL+ or Artistic
+License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Manipulate PDF files
 Requires:   %{name} = %{version}-%{release}
 
@@ -44,7 +44,7 @@ tools:
 %setup -q -n Text-PDF-%{version}
 find . -type f -exec chmod -c -x     {} ';'
 sed -i 's/\r//' examples/CD.CFG
-%patch0 -p1
+%patch -P 0 -p1
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
@@ -68,6 +68,10 @@ make test
 %{_bindir}/*
 
 %changelog
+* Wed May 17 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.31-21
+- Update to new %patch macro
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.31-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

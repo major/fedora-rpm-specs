@@ -1,6 +1,6 @@
 Name:           spacebar
 Version:        23.01.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        GPLv2+ and GPLv3 and GPLv2
 Summary:        Messaging app for Plasma Mobile
 Url:            https://invent.kde.org/plasma-mobile/spacebar
@@ -83,6 +83,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_sysconfdir}/xdg/autostart/org.kde.%{name}.daemon.desktop
 
 %changelog
+* Wed May 17 2023 Sérgio Basto <sergio@serjux.com> - 23.01.0-3
+- Rebuild for libphonenumber-8.13.x
+
 * Mon Mar 27 2023 Rich Mattes <richmattes@gmail.com> - 23.01.0-2
 - Rebuild for abseil-cpp-20230125.1
 

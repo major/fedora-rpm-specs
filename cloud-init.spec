@@ -6,7 +6,7 @@
 
 Name:           cloud-init
 Version:        23.1.2
-Release:        5%{?dist}
+Release:        7%{?dist}
 Summary:        Cloud instance init scripts
 License:        Apache-2.0 or GPL-3.0-only
 URL:            https://github.com/canonical/cloud-init
@@ -25,40 +25,25 @@ Patch2:         Fedora-Enable-CA-handling.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2068529
 Patch3:         multiple-nameservers.patch
 
+# Enabling dhcp6 on EC2 causes a broken IPv6 configuration.
+# See RHBZ 2092459.
+Patch4:         Do-not-enable-dhcp6-on-EC2.patch
+
 BuildArch:      noarch
 
-BuildRequires:  pkgconfig(systemd)
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  systemd
+BuildRequires:  pkgconfig(systemd)
 
-# For tests
-BuildRequires:  python3-configobj
-# https://bugzilla.redhat.com/show_bug.cgi?id=1695953
-BuildRequires:  python3-distro
-# https://bugzilla.redhat.com/show_bug.cgi?id=1417029
-BuildRequires:  python3-jinja2
-BuildRequires:  python3-jsonpatch
-BuildRequires:  python3-jsonschema
-BuildRequires:  python3-oauthlib
-BuildRequires:  python3-prettytable
-BuildRequires:  python3-pyserial
-BuildRequires:  python3-PyYAML
-BuildRequires:  python3-requests
-BuildRequires:  python3-six
-BuildRequires:  python3-netifaces
 %if %{with tests}
 BuildRequires:  iproute
 BuildRequires:  passwd
-BuildRequires:  python3-httpretty >= 0.8.14-2
-BuildRequires:  python3-pytest
-BuildRequires:  python3-pytest-mock
-BuildRequires:  python3-responses
-BuildRequires:  python3-tox
 # dnf is needed to make cc_ntp unit tests work
 # https://bugs.launchpad.net/cloud-init/+bug/1721573
 BuildRequires:  /usr/bin/dnf
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-mock)
+BuildRequires:  python3dist(responses)
 %endif
 
 Requires:       dhcp-client
@@ -69,18 +54,6 @@ Requires:       python3-libselinux
 Requires:       net-tools
 Requires:       policycoreutils-python3
 Requires:       procps
-Requires:       python3-configobj
-# https://bugzilla.redhat.com/show_bug.cgi?id=1695953
-Requires:       python3-distro
-Requires:       python3-jinja2
-Requires:       python3-jsonpatch
-Requires:       python3-jsonschema
-Requires:       python3-oauthlib
-Requires:       python3-prettytable
-Requires:       python3-pyserial
-Requires:       python3-PyYAML
-Requires:       python3-requests
-Requires:       python3-six
 Requires:       shadow-utils
 Requires:       util-linux
 Requires:       xfsprogs
@@ -112,6 +85,11 @@ sed -i -e 's|#!/usr/bin/python||' cloudinit/cmd/main.py
 find tests/ -type f | xargs sed -i s/unittest2/unittest/
 find tests/ -type f | xargs sed -i s/assertItemsEqual/assertCountEqual/
 
+
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
 %py3_build
 
@@ -142,6 +120,7 @@ done
 # Put files in /etc/systemd/system in the right place
 cp -a %{buildroot}/etc/systemd %{buildroot}/usr/lib
 rm -rf %{buildroot}/etc/systemd
+
 
 %check
 %if %{with tests}
@@ -200,6 +179,12 @@ python3 -m pytest tests/unittests
 
 
 %changelog
+* Tue May 16 2023 Major Hayden <major@redhat.com> - 23.1.2-7
+- Migrate to pyproject-rpm-macros for build requirements
+
+* Tue May 16 2023 Major Hayden <major@redhat.com> - 23.1.2-6
+- Add patch to disable DHCPv6 on EC2 to fix BZ 2092459.
+
 * Tue May 16 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 23.1.2-5
 - Disable tests by default in RHEL builds
 

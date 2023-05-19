@@ -1,8 +1,8 @@
 %global octpkg signal
 
 Name:           octave-%{octpkg}
-Version:        1.4.3
-Release:        3%{?dist}
+Version:        1.4.4
+Release:        1%{?dist}
 Summary:        Signal processing tools for Octave
 License:        GPLv3+
 URL:            http://octave.sourceforge.net/signal/
@@ -63,6 +63,9 @@ done;
 
 
 %changelog
+* Wed May 17 2023 Thomas Sailer <fedora@tsailer.ch> - 1.4.4-1
+- update to 1.4.4
+
 * Sat Apr 08 2023 Orion Poplawski <orion@nwra.com> - 1.4.3-3
 - Rebuild with octave 8.1.0
 

@@ -3,7 +3,7 @@ Version: 4.22.1
 Release: 1%{?dist}
 Summary: A free graphical interface for Czech Databox (Datové schránky)
 
-License: GPLv3+ with exceptions
+License: GPL-3.0-or-later WITH cryptsetup-OpenSSL-exception
 URL: https://www.datovka.cz/
 Source0: https://secure.nic.cz/files/datove_schranky/%{version}/datovka-%{version}.tar.xz
 BuildRequires: qt5-qtbase-devel

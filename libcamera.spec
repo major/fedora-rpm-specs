@@ -1,6 +1,6 @@
 Name:    libcamera
-Version: 0.0.4
-Release: 1%{?dist}
+Version: 0.0.5
+Release: 3%{?dist}
 Summary: A library to support complex camera ISPs
 # Library is LGPLv2.1+ and the cam tool is GPLv2
 License: LGPLv2+ and GPLv2
@@ -19,7 +19,7 @@ Source0: %{name}-%{version}.tar.xz
 Source1: qcam.desktop
 Source2: qcam.metainfo.xml
 
-Patch0001:	0001-cam-fix-compilation-with-gcc-13.patch
+Patch01: v4l2-Move-the-v4l2-compat-layer-to-libexec-libcamera.patch
 
 BuildRequires: doxygen
 BuildRequires: gcc-c++
@@ -32,7 +32,6 @@ BuildRequires: python3-jinja2
 BuildRequires: python3-ply
 BuildRequires: python3-pyyaml
 BuildRequires: python3-sphinx
-BuildRequires: boost-devel
 BuildRequires: pkgconfig(glib-2.0)
 BuildRequires: gnutls-devel
 BuildRequires: libatomic
@@ -99,6 +98,13 @@ Requires:    %{name}%{?_isa} = %{version}-%{release}
 %description gstreamer
 GSTreamer plugins for %{name}
 
+%package     v4l2
+Summary:     V4L2 compatibility layer for %{name}
+Requires:    %{name}%{?_isa} = %{version}-%{release}
+
+%description v4l2
+V4L2 compatibility layer for %{name}
+
 %prep
 %autosetup -p1 -n %{name}-%{version}
 
@@ -118,8 +124,17 @@ export CFLAGS="${CFLAGS} -mabi=ieeelongdouble"
 export CXXFLAGS="${CXXFLAGS} -mabi=ieeelongdouble"
 %endif
 
-%meson
+%meson -Dv4l2=true
 %meson_build
+
+# Stripping requires the re-signing of IPA libraries, manually
+# copy standard definition of __spec_install_post and re-sign.
+%define __spec_install_post \
+    %{?__debug_package:%{__debug_install_post}} \
+    %{__arch_install_post} \
+    %{__os_install_post} \
+    %{_builddir}/%{name}-%{version}/src/ipa/ipa-sign-install.sh %{_builddir}/%{name}-%{version}/%{_vpath_builddir}/src/ipa-priv-key.pem %{buildroot}/%{_libdir}/libcamera/ipa_*.so \
+%{nil}
 
 %install
 %meson_install
@@ -138,7 +153,7 @@ rm -rf ${RPM_BUILD_ROOT}/%{_docdir}/%{name}-*/html/.doctrees
 
 %files
 %license COPYING.rst LICENSES/LGPL-2.1-or-later.txt
-%{_libdir}/libcamera*.so.0.0.4
+%{_libdir}/libcamera*.so.0.0.5
 
 %files devel
 %{_includedir}/%{name}/
@@ -167,7 +182,25 @@ rm -rf ${RPM_BUILD_ROOT}/%{_docdir}/%{name}-*/html/.doctrees
 %{_bindir}/cam
 %{_bindir}/lc-compliance
 
+%files v4l2
+%{_bindir}/libcamerify
+%{_libexecdir}/libcamera/v4l2-compat.so
+
 %changelog
+* Wed May 17 2023 Javier Martinez Canillas <javierm@redhat.com> - 0.0.5-3
+- Fix path of key for IPA modules re-sign and drop unused env var
+
+* Wed May 17 2023 Javier Martinez Canillas <javierm@redhat.com> - 0.0.5-2
+- Re-sign IPA modules for real now
+
+* Wed May 17 2023 Javier Martinez Canillas <javierm@redhat.com> - 0.0.5-1
+- Update to version 0.0.5
+- Build again for s390x and ppc64le
+- Drop boost-devel build requires
+- Drop workaround patch to fix a GCC13 build issue
+- Add a libcamera-v4l2-devel sub-package for the V4L2 compatibility layer
+- Re-sign IPA modules after debug symbol stripping
+
 * Wed Feb 01 2023 Javier Martinez Canillas <javierm@redhat.com> - 0.0.4-1
 - Update to version 0.0.4
 - Add ExcludeArch tag to avoid building libcamera for s390x and ppc64le.

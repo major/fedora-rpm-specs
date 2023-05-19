@@ -1,6 +1,6 @@
 Name:		SDL_mixer
 Version:	1.2.12
-Release: 	28%{?dist}
+Release:	29%{?dist}
 Summary:	Simple DirectMedia Layer - Sample Mixer Library
 
 License:	LGPL-2.0-only
@@ -11,9 +11,9 @@ Source0:	http://www.libsdl.org/projects/%{name}/release/%{name}-%{version}.tar.g
 Patch0:         SDL_mixer-MikMod-1.patch
 Patch1:         SDL_mixer-MikMod-2.patch
 Patch2:         SDL_mixer-c99.patch
+Patch3:         SDL_mixer-fix-double-free.patch
 
-BuildRequires: make
-BuildRequires:  gcc
+BuildRequires:	gcc make
 BuildRequires:	SDL-devel >= 1.2.10 
 BuildRequires:	libvorbis-devel
 BuildRequires:	flac-devel
@@ -43,10 +43,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
+%autosetup -p1
 
 %build
 %configure --disable-dependency-tracking	\
@@ -62,7 +59,6 @@ make %{?_smp_mflags} LDFLAGS=-lm
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
 %makeinstall install-bin
 
 find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
@@ -70,7 +66,8 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %ldconfig_scriptlets
 
 %files
-%doc README CHANGES COPYING
+%doc README CHANGES
+%license COPYING
 %{_bindir}/playmus
 %{_bindir}/playwave
 %{_libdir}/lib*.so.*
@@ -81,6 +78,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_includedir}/SDL
 
 %changelog
+* Wed May 17 2023 Hans de Goede <hdegoede@redhat.com> - 1.2.12-29
+- Fix double free on wav file load failure (rhbz#2031642)
+
 * Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.2.12-28
 - migrated to SPDX license
 

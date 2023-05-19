@@ -12,7 +12,7 @@ system. It is based on an open architecture where developers can add new
 plugins or exports modules.}
 
 Name:		glances	
-Version:	3.3.1
+Version:	3.4.0
 Release:	%autorelease
 Summary:	A cross-platform system monitoring tool
 
@@ -27,10 +27,8 @@ BuildArch:	noarch
 
 BuildRequires:	python3-devel
 BuildRequires:	python3-dateutil
-BuildRequires:	python3-ujson
 BuildRequires:	systemd-units
 Requires:	python3-bottle
-Requires:	python3-ujson
 
 %description
 %{desc}
@@ -38,15 +36,10 @@ Requires:	python3-ujson
 %prep
 %autosetup -p1 -n %{name}-%{version}
 
-# update disabled, no need for packaging dep
+# disable PyPI update check + no need to have packaging dep
+sed -i -e 's/check_update=true/check_update=false/' conf/glances.conf
 sed -i "s/, 'packaging'//" setup.py
 sed -i '/packaging/d' requirements.txt
-
-# https://github.com/nicolargo/glances/pull/2248
-sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' glances/__main__.py
-
-# remove gitigore
-find -name .gitignore -exec rm -f {} \;
 
 %generate_buildrequires
 %pyproject_buildrequires -t

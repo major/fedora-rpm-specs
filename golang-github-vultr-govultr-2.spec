@@ -8,7 +8,7 @@
 # https://github.com/vultr/govultr
 %global goipath         github.com/vultr/govultr/v2
 %global forgeurl        https://github.com/vultr/govultr
-Version:                2.17.2
+Version:                3.0.2
 
 %gometa
 

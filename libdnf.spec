@@ -56,7 +56,7 @@
 
 Name:           libdnf
 Version:        %{libdnf_major_version}.%{libdnf_minor_version}.%{libdnf_micro_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Library providing simplified C and Python API to libsolv
 License:        LGPL-2.1-or-later
 URL:            https://github.com/rpm-software-management/libdnf
@@ -304,6 +304,9 @@ popd
 %endif
 
 %changelog
+* Wed May 17 2023 Jan Kolarik <jkolarik@redhat.com> - 0.70.1-3
+- Rebuild for rpm-4.18.90-4
+
 * Tue May 16 2023 Jan Kolarik <jkolarik@redhat.com> - 0.70.1-2
 - Rebuild for rpm-4.18.90
 

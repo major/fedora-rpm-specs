@@ -1,3 +1,5 @@
+%global base_version 1.32
+
 # Run optional test
 %if ! (0%{?rhel})
 %bcond_without perl_Locale_Maketext_enables_optional_test
@@ -6,12 +8,14 @@
 %endif
 
 Name:           perl-Locale-Maketext
-Version:        1.32
-Release:        2%{?dist}
+Version:        1.33
+Release:        1%{?dist}
 Summary:        Framework for localization
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Locale-Maketext
-Source0:        https://cpan.metacpan.org/authors/id/T/TO/TODDR/Locale-Maketext-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/T/TO/TODDR/Locale-Maketext-%{base_version}.tar.gz
+# Unbundled from perl 5.37.11
+Patch0:         Locale-Maketext-1.32-Upgrade-to-1.33.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -64,7 +68,10 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n Locale-Maketext-%{version}
+%setup -q -n Locale-Maketext-%{base_version}
+%patch -P0 -p1
+perl -i -ne 'print $_ unless m{^t/00_load.t}' MANIFEST
+perl -i -ne 'print $_ unless m{^t/pod.t}' MANIFEST
 
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
@@ -83,10 +90,9 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
-rm %{buildroot}%{_libexecdir}/%{name}/t/pod.t
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
-cd %{_libexecdir}/%{name} && exec prove -I . -r -j "$(getconf _NPROCESSORS_ONLN)"
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
 EOF
 chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
@@ -103,6 +109,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed May 17 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.33-1
+- Upgrade to 1.33 as provided in perl-5.37.11
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.32-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

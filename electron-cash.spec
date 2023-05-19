@@ -1,6 +1,6 @@
 Name:           electron-cash
-Version:        4.2.14
-Release:        1%{?dist}
+Version:        4.3.0
+Release:        2%{?dist}
 Summary:        A lightweight Bitcoin Cash client
 
 License:        MIT
@@ -10,6 +10,8 @@ Source1:        https://github.com/Electron-Cash/keys-n-hashes/raw/master/sigs-a
 #Sun 15 Dec 2019, exported the upstream gpg key using the command:
 #gpg2 --armor --export --export-options export-minimal D56C110F4555F371AEEFCB254FD06489EFF1DDE1 D465135F97D0047E18E99DC321810A542031C02C > gpgkey-electron-cash.gpg
 Source2:        gpgkey-electron-cash.gpg
+
+Patch0:         relax-protobuf-version.patch
 
 BuildArch:      noarch
 
@@ -34,9 +36,7 @@ Requires:       tor
 
 Provides:       bundled(google-noto-emoji-color-fonts)
 
-Suggests:       python3-trezor >= 0.11.2
-
-Conflicts:      python3-trezor < 0.11.2
+Suggests:       python3-trezor >= 0.12
 
 %description
 Electron Cash is an easy to use Bitcoin Cash client. It protects you from losing
@@ -99,6 +99,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.elect
 %{python3_sitelib}/Electron_Cash-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed May 17 2023 Jonny Heggheim <hegjon@gmail.com> - 4.3.0-2
+- Relaxed version for python3-protobuf
+
+* Wed May 17 2023 Jonny Heggheim <hegjon@gmail.com> - 4.3.0-1
+- Updated to version 4.3.0
+
 * Tue Jan 24 2023 Jonny Heggheim <hegjon@gmail.com> - 4.2.14-1
 - Updated to version 4.2.14
 

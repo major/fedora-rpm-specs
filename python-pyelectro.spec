@@ -7,7 +7,7 @@ development of pyelectro and Neurotune for use in OpenWorm, Open Source Brain
 and other projects.}
 
 Name:           python-pyelectro
-Version:        0.2.4
+Version:        0.2.5
 Release:        %autorelease
 Summary:        A library for analysis of electrophysiological data
 

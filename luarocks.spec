@@ -1,11 +1,14 @@
 Name:           luarocks
-Version:        3.9.1
-Release:        2%{?dist}
+Version:        3.9.2
+Release:        1%{?dist}
 Summary:        A deployment and management system for Lua modules
 
 License:        MIT
 URL:            http://luarocks.org
 Source0:        http://luarocks.org/releases/luarocks-%{version}.tar.gz
+
+# Use /usr/lib64 as default LUA_LIBDIR
+Patch0:         luarocks-3.9.1-dynamic_libdir.patch
 
 BuildArch:      noarch
 # this package was previously arched, and needs to be obsoleted
@@ -75,6 +78,10 @@ mkdir -p %{buildroot}%{_prefix}/lib/luarocks/rocks-%{lua_version}
 
 
 %changelog
+* Sat Apr 29 2023 FeRD (Frank Dana) <ferdnyc@gmail.com> - 3.9.2-1
+- New upstream release
+- Restore mistakenly-dropped libdir patch & refresh for 3.9.1 sources
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

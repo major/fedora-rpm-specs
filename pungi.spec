@@ -2,7 +2,7 @@
 
 Name:           pungi
 Version:        4.3.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Distribution compose tool
 
 License:        GPL-2.0-only
@@ -72,7 +72,7 @@ A tool to create anaconda based installation trees/isos of a set of rpms.
 %package utils
 Summary:    Utilities for working with finished composes
 Requires:   pungi = %{version}-%{release}
-Requires:   python3-fedmsg
+Requires:   python3-fedora-messaging
 
 %description utils
 These utilities work with finished composes produced by Pungi. They can be used
@@ -139,6 +139,9 @@ rm %{buildroot}%{_bindir}/pungi
 %{_bindir}/%{name}-wait-for-signed-ostree-handler
 
 %changelog
+* Wed May 17 2023 Lubomír Sedlář <lsedlar@redhat.com> - 4.3.8-3
+- Rebuild without fedmsg dependency
+
 * Wed May 03 2023 Lubomír Sedlář <lsedlar@redhat.com> - 4.3.8-1
 - Set priority for Fedora messages
 

@@ -1,8 +1,8 @@
 %global modname docker-squash
 
 Name:           python-%{modname}
-Version:        1.0.9
-Release:        5%{?dist}
+Version:        1.1.0
+Release:        1%{?dist}
 Summary:        Docker layer squashing tool
 License:        MIT
 URL:            https://github.com/goldmann/docker-squash
@@ -55,6 +55,9 @@ py.test-%{python3_version} -v tests/test_unit*.py
 %{python3_sitelib}/docker_squash-*.egg-info/
 
 %changelog
+* Wed May 17 2023 Marek Goldmann <mgoldman@redhat.com> - 1.1.0-1
+- Release 1.1.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

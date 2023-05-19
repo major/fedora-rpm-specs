@@ -11,14 +11,20 @@
 %bcond_without gtk4
 %endif
 
+%if 0%{?fedora} < 37 && 0%{?rhel} < 10
+%bcond_with webkit41
+%else
+%bcond_without webkit41
+%endif
+
 %global nm_version          1.2.0
 %global gtk3_version        3.4.0
 %global openconnect_version 9.01
 
 Summary:   NetworkManager VPN plugin for openconnect
 Name:      NetworkManager-openconnect
-Version:   1.2.8
-Release:   4%{?dist}
+Version:   1.2.10
+Release:   1%{?dist}
 License:   GPLv2+ and LGPLv2
 URL:       http://www.gnome.org/projects/NetworkManager/
 Source:    https://download.gnome.org/sources/NetworkManager-openconnect/1.2/%{name}-%{version}.tar.xz
@@ -42,6 +48,11 @@ BuildRequires: pkgconfig(libnm-glib-vpn) >= %{nm_version}
 %if %with gtk4
 BuildRequires: pkgconfig(gtk4) >= 4.0
 BuildRequires: pkgconfig(libnma-gtk4) >= 1.8.33
+%endif
+%if %with webkit41
+BuildRequires: pkgconfig(webkit2gtk-4.1)
+%else
+BuildRequires: pkgconfig(webkit2gtk-4.0)
 %endif
 
 Requires: NetworkManager   >= %{nm_version}
@@ -91,8 +102,6 @@ make install DESTDIR=%{buildroot}
 
 rm -f %{buildroot}%{_libdir}/NetworkManager/lib*.la
 
-mv %{buildroot}%{_sysconfdir}/dbus-1 %{buildroot}%{_datadir}/
-
 %find_lang %{name}
 
 %pre
@@ -129,7 +138,7 @@ fi
 %files gnome
 %{_libexecdir}/nm-openconnect-auth-dialog
 %{_libdir}/NetworkManager/libnm-vpn-plugin-openconnect-editor.so
-%{_datadir}/appdata/network-manager-openconnect.metainfo.xml
+%{_datadir}/metainfo/network-manager-openconnect.metainfo.xml
 
 %if %with gtk4
 %{_libdir}/NetworkManager/libnm-gtk4-vpn-plugin-openconnect-editor.so
@@ -142,6 +151,9 @@ fi
 
 
 %changelog
+* Wed May 17 2023 David Woodhouse <dwmw2@infradead.org> - 1.2.10-1
+- Update to 1.2.10 release
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

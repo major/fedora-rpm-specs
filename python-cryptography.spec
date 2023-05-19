@@ -5,8 +5,8 @@
 %global srcname cryptography
 
 Name:           python-%{srcname}
-Version:        39.0.2
-Release:        2%{?dist}
+Version:        40.0.2
+Release:        1%{?dist}
 Summary:        PyCA's cryptography library
 
 # cryptography is dual licensed under the Apache-2.0 and BSD-3-Clause,
@@ -34,6 +34,8 @@ BuildRequires:  python%{python3_pkgversion}-cffi >= 1.12
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python%{python3_pkgversion}-setuptools-rust >= 0.11.4
+# test_load_with_other_sections in 40.0 fails with pem 1.1.0
+BuildRequires:  rust-pem-devel >= 1.1.1
 
 %if %{with tests}
 %if 0%{?fedora}
@@ -45,7 +47,7 @@ BuildRequires:  python%{python3_pkgversion}-pytz
 %endif
 BuildRequires:  python%{python3_pkgversion}-pytest >= 6.2.0
 BuildRequires:  python%{python3_pkgversion}-pytest-benchmark
-BuildRequires:  python%{python3_pkgversion}-pytest-subtests >= 0.3.2
+BuildRequires:  python%{python3_pkgversion}-pytest-subtests >= 0.5.0
 %endif
 
 %description
@@ -84,8 +86,12 @@ cd src/rust
 cd ../..
 %endif
 
+# Remove cosmetical pytest-subtests 0.10.0 option
+sed -i 's,--no-subtests-shortletter,,' pyproject.toml
+
 %build
 export RUSTFLAGS="%build_rustflags"
+export OPENSSL_NO_VENDOR=1
 %py3_build
 
 %install
@@ -125,6 +131,9 @@ PYTHONPATH=${PWD}/vectors:%{buildroot}%{python3_sitearch} \
 %{python3_sitearch}/%{srcname}-%{version}-py*.egg-info
 
 %changelog
+* Tue Apr 18 2023 Christian Heimes <cheimes@redhat.com> - 40.0.2-1
+- Update to 40.0.2, resolves rhbz#2181430
+
 * Thu Mar 09 2023 Miro Hrončok <mhroncok@redhat.com> - 39.0.2-2
 - Don't run tests requiring pytz on RHEL
 - Don't try to run tests of vendored dependencies in %%check

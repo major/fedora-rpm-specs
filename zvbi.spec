@@ -3,16 +3,15 @@
 
 Name:               zvbi
 Version:            0.2.35
-Release:            19%{?dist}
+Release:            20%{?dist}
 Summary:            Raw VBI, Teletext and Closed Caption decoding library
-# See NEWS for a full breakdown of licensing.
-License:            LGPLv2+ and GPLv2+ and BSD
+License:            GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND BSD-2-Clause AND MIT
 URL:                http://zapping.sourceforge.net/ZVBI/index.html
 Source0:            http://downloads.sourceforge.net/zapping/%{name}-%{version}.tar.bz2
 Patch0:             %{name}-0.2.24-tvfonts.patch
 Patch1:             %{name}-0.2.25-openfix.patch
 
-BuildRequires: make
+BuildRequires:      make
 BuildRequires:      gcc-c++
 BuildRequires:      doxygen
 BuildRequires:      fontconfig
@@ -54,8 +53,8 @@ Fonts from zvbi converted for use with X11
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
+%patch -P 0 -p1
+%patch -P 1 -p1
 
 # Fix character encodings
 iconv -f iso8859-1 README -t utf8 > README.conv && /bin/mv -f README.conv README
@@ -158,6 +157,10 @@ ln -sf %{fontdir} %{buildroot}%{catalogue}/%{name}
 
 
 %changelog
+* Wed May 17 2023 David Cantrell <dcantrell@redhat.com> - 0.2.35-20
+- Update License tag to use SPDX identifiers
+- Change deprecated %%patchN macros to %%patch -P N
+
 * Sun Feb 05 2023 Kalev Lember <klember@redhat.com> - 0.2.35-19
 - Avoid requiring systemd for systemd rpm scriptlets
 

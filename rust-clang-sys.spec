@@ -5,16 +5,13 @@
 %global crate clang-sys
 
 Name:           rust-clang-sys
-Version:        1.6.0
+Version:        1.6.1
 Release:        %autorelease
 Summary:        Rust bindings for libclang
 
 License:        Apache-2.0
 URL:            https://crates.io/crates/clang-sys
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * exclude files that are only useful for upstream development
-Patch:          clang-sys-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
@@ -127,6 +124,19 @@ This package contains library source intended for building other packages which
 use the "clang_15_0" feature of the "%{crate}" crate.
 
 %files       -n %{name}+clang_15_0-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+clang_16_0-devel
+Summary:        %{summary}
+BuildArch:      noarch
+Requires:       clang-devel >= 16.0
+
+%description -n %{name}+clang_16_0-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "clang_16_0" feature of the "%{crate}" crate.
+
+%files       -n %{name}+clang_16_0-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+clang_3_5-devel

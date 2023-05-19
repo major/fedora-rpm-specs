@@ -1,7 +1,7 @@
 #
 # Fedora spec file for php-jsonlint
 #
-# Copyright (c) 2013-2022 Shawn Iwinski <shawn.iwinski@gmail.com>
+# Copyright (c) 2013-2023 Shawn Iwinski <shawn.iwinski@gmail.com>
 #                         Remi Collet <remi@fedoraproject.org>
 #
 # License: MIT
@@ -12,8 +12,8 @@
 
 %global github_owner   Seldaek
 %global github_name    jsonlint
-%global github_version 1.9.0
-%global github_commit  4211420d25eba80712bff236a98960ef68b866b7
+%global github_version 1.10.0
+%global github_commit  594fd6462aad8ecee0b45ca5045acea4776667f1
 
 # "php": "^5.3 || ^7.0 || ^8.0"
 %global php_min_ver    5.3
@@ -23,7 +23,7 @@
 
 Name:          php-%{github_name}
 Version:       %{github_version}
-Release:       3%{?dist}
+Release:       1%{?dist}
 Summary:       JSON Lint for PHP
 
 License:       MIT
@@ -75,7 +75,7 @@ Autoloader: %{_datadir}/php/Seld/JsonLint/autoload.php
 %prep
 %setup -q -n %{github_name}-%{github_commit}
 
-%patch0 -p1 -b .rpm
+%patch -P0 -p1 -b .rpm
 
 
 %build
@@ -100,7 +100,7 @@ install -pm 0755 bin/jsonlint %{buildroot}%{_bindir}/jsonlint-php
 %if %{with tests}
 
 ret=0
-for cmd in "php %{phpunit}" php74 php80 php81; do
+for cmd in "php %{phpunit}" php80 php81 php82; do
   if which $cmd; then
     set $cmd
     $1 ${2:-%{_bindir}/phpunit8} \
@@ -125,6 +125,9 @@ exit $ret
 
 
 %changelog
+* Wed May 17 2023 Remi Collet <remi@remirepo.net> - 1.10.0-1
+- update to 1.10.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

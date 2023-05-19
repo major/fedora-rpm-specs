@@ -241,7 +241,7 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 113.0.5672.92
+Version: 113.0.5672.126
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -341,8 +341,6 @@ Patch106: chromium-98.0.4758.80-epel7-erase-fix.patch
 Patch107: chromium-99.0.4844.51-el7-extra-operator==.patch
 # workaround for clang bug on el7
 Patch108: chromium-113-constexpr-el7.patch
-# fix FTBFS on el7, old kernel
-Patch109: chromium-113-v4l2-revert-el7.patch
 
 # system ffmpeg
 Patch114: chromium-107-ffmpeg-duration.patch
@@ -363,9 +361,6 @@ Patch146: chromium-110-LargerThan4k.patch
 
 # Apply these patches to work around EPEL8 issues
 Patch300: chromium-113-rhel8-force-disable-use_gnome_keyring.patch
-
-# workaround for bug in clang 14 with c++20 on rhel9, linker errors std::u16string
-Patch301: chromium-112-workaround-llvm14-c++20-epel8.patch
 # workaround for clang bug, https://github.com/llvm/llvm-project/issues/57826
 Patch302: chromium-113-workaround_clang_bug-structured_binding.patch
 # declare iterators as subtypes
@@ -945,8 +940,7 @@ udev.
 %patch -P105 -p1 -b .el7-old-libdrm
 %patch -P106 -p1 -b .el7-erase-fix
 %patch -P107 -p1 -b .el7-extra-operator-equalequal
-%patch -P108 -p1 -R -b .constexpr-el7
-%patch -P109 -p1 -b .v4l2-revert-el7
+%patch -P108 -p1 -b .constexpr-el7
 %endif
 
 %patch -P130 -p1 -b .VirtualCursor-std-layout
@@ -960,9 +954,6 @@ udev.
 %endif
 
 %if %{clang}
-%if 0%{?rhel} == 8
-%patch -P301 -p1 -b .clang14_c++20
-%endif
 %if 0%{?rhel} || 0%{?fedora} < 38
 %patch -P302 -p1 -b .workaround_clang_bug-structured_binding
 %endif
@@ -1644,6 +1635,10 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Wed May 17 2023 Than Ngo <than@redhat.com> - 113.0.5672.126-1
+- drop clang workaround for el8
+- update to 113.0.5672.126
+
 * Tue May 09 2023 Than Ngo <than@redhat.com> - 113.0.5672.92-1
 - update to 113.0.5672.92
 

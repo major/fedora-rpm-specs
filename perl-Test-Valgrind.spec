@@ -8,7 +8,7 @@ Name:		perl-Test-Valgrind
 Summary:	Generate suppressions, analyze and test any command with valgrind
 Version:	1.19
 Release:	22%{?dist}
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-Valgrind
 Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-Valgrind-%{version}.tar.gz
 %if !%{with debug_valgrind}
@@ -24,6 +24,7 @@ BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
 BuildRequires:	perl(ExtUtils::Install) >= 1.38
 BuildRequires:	perl(ExtUtils::MakeMaker)
+BuildRequires:	sed
 # Module Runtime
 BuildRequires:	perl(base)
 BuildRequires:	perl(Carp)

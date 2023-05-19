@@ -1,17 +1,16 @@
-#global candidate rc0
+%global candidate rc0
 
 # Binaries not used in standard manner so debuginfo is useless
 %global debug_package %{nil}
 
 Name:    arm-trusted-firmware
-Version: 2.8
-Release: 2%{?candidate:.%{candidate}}%{?dist}
+Version: 2.9
+Release: 0.1%{?candidate:.%{candidate}}%{?dist}
 Summary: ARM Trusted Firmware
 License: BSD
 URL:     https://github.com/ARM-software/arm-trusted-firmware/wiki
 Source0: https://github.com/ARM-software/arm-trusted-firmware/archive/v%{version}%{?candidate:-%{candidate}}.tar.gz#/%{name}-%{version}%{?candidate:-%{candidate}}.tar.gz
 Source1: aarch64-bl31
-Patch0:  atf-2.8-fix-linking.patch
 
 # At the moment we're only building on aarch64
 ExclusiveArch: aarch64
@@ -100,6 +99,9 @@ done
 %endif
 
 %changelog
+* Wed May 17 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 2.9-0.1.rc0
+- Update to 2.9 RC0
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -22,7 +22,7 @@ Release:        %autorelease
 Summary:        Console progress bar for Golang
 
 # Upstream license specification: BSD-3-Clause
-License:        BSD
+License:        BSD-3-Clause
 URL:            %{gourl}
 Source0:        %{gosource}
 

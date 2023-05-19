@@ -1,6 +1,6 @@
 Name:           rizin
 Summary:        UNIX-like reverse engineering framework and command-line tool-set
-Version:        0.5.1
+Version:        0.5.2
 URL:            https://rizin.re/
 VCS:            https://github.com/rizinorg/rizin
 
@@ -175,6 +175,9 @@ information
 
 
 %changelog
+* Wed May 17 2023 Riccardo Schirone <rschirone91@gmail.com> - 0.5.2-1
+- Rebase to upstream version 0.5.2
+
 * Tue Mar 14 2023 Riccardo Schirone <rschirone91@gmail.com> - 0.5.1-1
 - Rebase to upstream version 0.5.1
 

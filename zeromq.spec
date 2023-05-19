@@ -3,14 +3,14 @@
 
 Name:           zeromq
 Version:        4.3.4
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Software library for fast, message-based applications
 
-License:        LGPLv3+
+License:        LGPL-3.0-or-later AND BSD-3-Clause AND MIT
 URL:            https://zeromq.org
 Source0:        https://github.com/%{name}/libzmq/archive/v%{version}/libzmq-%{version}.tar.gz
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  gcc-c++
@@ -107,6 +107,9 @@ make check V=1 || ( cat test-suite.log && exit 1 )
 
 
 %changelog
+* Wed May 17 2023 David Cantrell <dcantrell@redhat.com> - 4.3.4-7
+- Convert License tag to SPDX identifiers
+
 * Tue Mar 7 2023 Ben Woodard <woodard@redhat.com> - 4.3.4-6
 - disable building with libunwind to fix C++ exceptions when a C applicaion loads
   a module written in C++ #2175966

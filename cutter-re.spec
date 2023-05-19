@@ -1,5 +1,5 @@
 Name:           cutter-re
-Version:        2.2.0
+Version:        2.2.1
 Release:        1%{?dist}
 Summary:        GUI for Rizin reverse engineering framework
 
@@ -12,7 +12,7 @@ Source0:        https://github.com/rizinorg/cutter/releases/download/v%{version}
 Source1:        cutter-re.desktop
 Source2:        cutter-re.appdata.xml
 
-BuildRequires:  rizin-devel >= 0.5.0
+BuildRequires:  rizin-devel >= 0.5.2
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -95,6 +95,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Wed May 17 2023 Riccardo Schirone <rschirone91@gmail.com> - 2.2.1-1
+- Rebase to version 2.2.1
+
 * Tue Mar 14 2023 Riccardo Schirone <rschirone91@gmail.com> - 2.2.0-1
 - Rebase to version 2.2.0
 

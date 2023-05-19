@@ -5,7 +5,7 @@
 %global pypi_name pystemd
 
 Name:           python-%{pypi_name}
-Version:        0.13.0
+Version:        0.13.1
 Release:        1%{?dist}
 Summary:        A thin Cython-based wrapper on top of libsystemd
 
@@ -31,7 +31,6 @@ and then parsing the output to know the result.
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
 This library allows you to talk to systemd over D-Bus from Python,
@@ -43,14 +42,6 @@ and then parsing the output to know the result.
 
 %prep
 %autosetup -n %{pypi_name}-%{version} -p1
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
-
-# Remove unneeded shebang
-sed -e "\|#!/usr/bin/env python3|d" -i %{pypi_name}/*.py* %{pypi_name}/*/*.py*
-
-# Remove pregenerated Cython bindings
-find . -name \*.c -exec rm '{}' \;
 
 %build
 %py3_build
@@ -78,6 +69,10 @@ popd
 %{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed May 17 2023 Davide Cavalca <dcavalca@fedoraproject.org> - 0.13.1-1
+- Update to 0.13.1; Fixes: RHBZ#2207826
+- Drop some unnecessary logic from the spec
+
 * Mon May 01 2023 Michel Alexandre Salim <salimma@fedoraproject.org> - 0.13.0-1
 - Update to 0.13.0
 

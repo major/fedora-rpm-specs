@@ -10,7 +10,7 @@
 
 Name:    qca
 Summary: Qt Cryptographic Architecture
-Version: 2.3.5
+Version: 2.3.6
 Release: 1%{?dist}
 
 License: LGPLv2+
@@ -420,6 +420,9 @@ test "$(pkg-config --modversion qca2-qt6)" = "%{version}"
 %endif
 
 %changelog
+* Wed May 03 2023 Marie Loise Nolden <loise@kde.org> - 2.3.6-1
+- 2.3.6
+
 * Fri Mar 03 2023 Jan Grulich <jgrulich@redhat.com> - 2.3.5-1
 - 2.3.5
 

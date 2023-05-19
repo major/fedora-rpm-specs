@@ -2,8 +2,6 @@
 %bcond_without docs
 %else
 # rubygem dependencies not in EPEL yet
-# F34: prawn-svg not Ruby 3.0 compatible
-# https://bugzilla.redhat.com/show_bug.cgi?id=1923630
 %bcond_with docs
 %endif
 

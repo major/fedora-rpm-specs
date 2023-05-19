@@ -2,7 +2,7 @@ Name:		perl-Types-Serialiser
 Summary:	Simple data types for common serialization formats
 Version:	1.01
 Release:	8%{?dist}
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Types-Serialiser
 Source0:	https://cpan.metacpan.org/authors/id/M/ML/MLEHMANN/Types-Serialiser-%{version}.tar.gz
 Patch0:		Types-Serialiser-1.01-provides.patch
@@ -20,7 +20,7 @@ BuildRequires:	perl(common::sense)
 BuildRequires:	perl(overload)
 # Test Suite
 # (no dependencies)
-# Runtime
+# Dependencies
 Requires:	perl(Carp)
 
 %description
@@ -33,7 +33,7 @@ implementations so they become inter-operable between each other.
 %setup -q -n Types-Serialiser-%{version}
 
 # Hide package declaration of JSON::PP::Boolean from rpm
-%patch0
+%patch -P 0
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor
@@ -48,11 +48,7 @@ find %{buildroot} -type f -name .packlist -delete
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license COPYING
-%else
-%doc COPYING
-%endif
 %doc Changes README
 %{perl_vendorlib}/Types/
 %{_mandir}/man3/Types::Serialiser.3*

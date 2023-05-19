@@ -1,8 +1,8 @@
 Summary:  Thai language support routines
 Name: libthai
 Version: 0.1.29
-Release: 4%{?dist}
-License: LGPLv2+
+Release: 5%{?dist}
+License: LGPL-2.1-or-later
 Source: http://linux.thai.net/pub/thailinux/software/libthai/libthai-%{version}.tar.xz
 Patch0: libthai-0.1.9-multilib.patch
 URL: http://linux.thai.net
@@ -31,8 +31,7 @@ Install libthai-devel if you want to develop programs which will use
 libthai.
 
 %prep
-%setup -q
-%patch0 -p1 -b .multilib
+%autosetup -p1
 
 %build
 %configure --disable-static
@@ -65,6 +64,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Wed May 17 2023 Peng Wu <pwu@redhat.com> - 0.1.29-5
+- Migrate to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.29-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

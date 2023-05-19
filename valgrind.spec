@@ -3,7 +3,7 @@
 Summary: Dynamic analysis tools to detect memory or thread bugs and profile
 Name: %{?scl_prefix}valgrind
 Version: 3.21.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Epoch: 1
 License: GPLv2+
 URL: https://www.valgrind.org/
@@ -90,6 +90,10 @@ Patch5: valgrind-3.21.0-no-memcpy-replace-check.patch
 # Add --with-gdbscripts-dir=PATH configure option
 # https://bugs.kde.org/show_bug.cgi?id=469768
 Patch6: valgrind-3.21.0-Add-with-gdbscripts-dir.patch
+
+# Add epoll_pwait2
+# https://bugs.kde.org/show_bug.cgi?id=460192
+Patch7: valgrind-3.21.0-epoll_pwait2.patch
 
 BuildRequires: make
 BuildRequires: glibc-devel
@@ -229,8 +233,9 @@ Valgrind User Manual for details.
 %endif
 
 %patch5 -p1
-
 %patch6 -p1
+%patch7 -p1
+
 
 %build
 # LTO triggers undefined symbols in valgrind.  Valgrind has a --enable-lto
@@ -463,6 +468,9 @@ fi
 %endif
 
 %changelog
+* Wed May 17 2023 Mark Wielaard <mjw@fedoraproject.org> - 3.21.0-4
+- Add valgrind-3.21.0-epoll_pwait2.patch
+
 * Tue May 16 2023 Alexandra Hájková <ahajkova@redhat.com> - 3.21.0-3
 - Add valgrind-3.21.0-Add-with-gdbscripts-dir.patch
 
