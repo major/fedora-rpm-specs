@@ -43,7 +43,7 @@ Summary: Qt toolkit
 Name:    qt
 Epoch:   1
 Version: 4.8.7
-Release: 71%{?dist}
+Release: 72%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: (LGPLv2 with exceptions or GPLv3 with exceptions) and ASL 2.0 and BSD and FTL and MIT
@@ -242,6 +242,9 @@ Patch502: qt-everywhere-opensource-src-4.8.7-clamp-parsed-doubles-to-float-repre
 
 # CVE-2020-24741 qt: QLibrary loads libraries relative to CWD which could result in arbitrary code execution
 Patch503: qt-everywhere-opensource-src-4.8.5-CVE-2020-24741.patch
+
+# CVE-2023-32573 qt: Uninitialized variable usage in m_unitsPerEm
+Patch504: qt-CVE-2023-32573.patch
 
 # desktop files
 Source20: assistant.desktop
@@ -614,83 +617,84 @@ and invoke methods on those objects.
 %prep
 %setup -q -n qt-everywhere-opensource-src-%{version} 
 
-%patch4 -p1 -b .uic_multilib
-%patch5 -p1 -b .webcore_debuginfo
+%patch -P4 -p1 -b .uic_multilib
+%patch -P5 -p1 -b .webcore_debuginfo
 # ie, where cups-1.6+ is present
 %if 0%{?fedora} || 0%{?rhel} > 7
 #patch6 -p1 -b .cupsEnumDests
 %endif
-%patch10 -p0 -b .prefer_adwaita_on_gnome
-%patch15 -p1 -b .enable_ft_lcdfilter
-%patch23 -p1 -b .glib_eventloop_nullcheck
-%patch25 -p1 -b .qdbusconnection_no_debug
-%patch26 -p1 -b .linguist_qtmake-qt4
-%patch27 -p1 -b .qt3support_debuginfo
-%patch28 -p1 -b .qt_plugin_path
-%patch50 -p1 -b .qmake_pkgconfig_requires_private
-%patch51 -p1 -b .firebird
-%patch52 -p1 -b .QT_VERSION_CHECK
+%patch -P10 -p0 -b .prefer_adwaita_on_gnome
+%patch -P15 -p1 -b .enable_ft_lcdfilter
+%patch -P23 -p1 -b .glib_eventloop_nullcheck
+%patch -P25 -p1 -b .qdbusconnection_no_debug
+%patch -P26 -p1 -b .linguist_qtmake-qt4
+%patch -P27 -p1 -b .qt3support_debuginfo
+%patch -P28 -p1 -b .qt_plugin_path
+%patch -P50 -p1 -b .qmake_pkgconfig_requires_private
+%patch -P51 -p1 -b .firebird
+%patch -P52 -p1 -b .QT_VERSION_CHECK
 ## TODO: still worth carrying?  if so, upstream it.
-%patch53 -p1 -b .qatomic-inline-asm
+%patch -P53 -p1 -b .qatomic-inline-asm
 ## TODO: upstream me
-%patch54 -p1 -b .mysql_config
-%patch55 -p1 -b .cups-1
-%patch56 -p1 -b .mariadb
-%patch57 -p1 -b .qmake_LFLAGS
-%patch64 -p1 -b .QTBUG-14467
-%patch65 -p1 -b .qtreeview-kpackagekit-crash
-%patch67 -p1 -b .s390
-%patch68 -p1 -b .no_Werror
-%patch69 -p1 -b .QTBUG-22037
-%patch71 -p1 -b .QTBUG-21900
-%patch74 -p1 -b .tds_no_strict_aliasing
-%patch76 -p1 -b .s390-atomic
-%patch77 -p1 -b .icu_no_debug
-%patch81 -p1 -b .assistant-crash
-%patch82 -p1 -b .QTBUG-4862
-%patch83 -p1 -b .poll
-%patch87 -p1 -b .QTBUG-37380
-%patch88 -p0 -b .QTBUG-34614
-%patch89 -p0 -b .QTBUG-38585
+%patch -P54 -p1 -b .mysql_config
+%patch -P55 -p1 -b .cups-1
+%patch -P56 -p1 -b .mariadb
+%patch -P57 -p1 -b .qmake_LFLAGS
+%patch -P64 -p1 -b .QTBUG-14467
+%patch -P65 -p1 -b .qtreeview-kpackagekit-crash
+%patch -P67 -p1 -b .s390
+%patch -P68 -p1 -b .no_Werror
+%patch -P69 -p1 -b .QTBUG-22037
+%patch -P71 -p1 -b .QTBUG-21900
+%patch -P74 -p1 -b .tds_no_strict_aliasing
+%patch -P76 -p1 -b .s390-atomic
+%patch -P77 -p1 -b .icu_no_debug
+%patch -P81 -p1 -b .assistant-crash
+%patch -P82 -p1 -b .QTBUG-4862
+%patch -P83 -p1 -b .poll
+%patch -P87 -p1 -b .QTBUG-37380
+%patch -P88 -p0 -b .QTBUG-34614
+%patch -P89 -p0 -b .QTBUG-38585
 
 %if 0%{?system_clucene}
-%patch90 -p1 -b .system_clucene
+%patch -P90 -p1 -b .system_clucene
 # delete bundled copy
 rm -rf src/3rdparty/clucene
 %endif
-%patch91 -p1 -b .mips64
-%patch92 -p1 -b .gcc6
-%patch93 -p1 -b .alsa1.1
+%patch -P91 -p1 -b .mips64
+%patch -P92 -p1 -b .gcc6
+%patch -P93 -p1 -b .alsa1.1
 %if 0%{?fedora} > 27 || 0%{?rhel} > 7
-%patch94 -p1 -b .openssl1.1
+%patch -P94 -p1 -b .openssl1.1
 %endif
-%patch95 -p1 -b .icu59
+%patch -P95 -p1 -b .icu59
 %if 0%{?fedora} > 27
-%patch96 -p1 -b .gcc8_qtscript
+%patch -P96 -p1 -b .gcc8_qtscript
 %endif
-%patch97 -p1 -b .gcc11
-%patch98 -p1 -b .hardcode-buildkey
-%patch99 -p1 -b .ssl3
+%patch -P97 -p1 -b .gcc11
+%patch -P98 -p1 -b .hardcode-buildkey
+%patch -P99 -p1 -b .ssl3
 
 # upstream patches
-%patch102 -p1 -b .qgtkstyle_disable_gtk_theme_check
-%patch113 -p1 -b .QTBUG-22829
+%patch -P102 -p1 -b .qgtkstyle_disable_gtk_theme_check
+%patch -P113 -p1 -b .QTBUG-22829
 
-%patch180 -p1 -b .aarch64
-%patch181 -p1 -b .qforeach
+%patch -P180 -p1 -b .aarch64
+%patch -P181 -p1 -b .qforeach
 
 # upstream git
 
 # security fixes
-%patch500 -p1 -b .malformed-ppb-image-causing-crash
-%patch501 -p1 -b .buffer-over-read-in-read_xbm_body
-%patch502 -p1 -b .clamp-parsed-doubles-to-float-representtable-values
-%patch503 -p1 -b .CVE-2020-24741
+%patch -P500 -p1 -b .malformed-ppb-image-causing-crash
+%patch -P501 -p1 -b .buffer-over-read-in-read_xbm_body
+%patch -P502 -p1 -b .clamp-parsed-doubles-to-float-representtable-values
+%patch -P503 -p1 -b .CVE-2020-24741
+%patch -P504 -p1 -b .CVE-2023-32573
 
 # regression fixes for the security fixes
-%patch84 -p1 -b .QTBUG-35459
+%patch -P84 -p1 -b .QTBUG-35459
 
-%patch86 -p1 -b .systemtrayicon
+%patch -P86 -p1 -b .systemtrayicon
 
 %define platform linux-g++
 
@@ -705,7 +709,7 @@ rm -rf src/3rdparty/clucene
 %endif
 
 %if 0%{?inject_optflags}
-%patch2 -p1 -b .multilib-optflags
+%patch -P2 -p1 -b .multilib-optflags
 # drop backup file(s), else they get installed too, http://bugzilla.redhat.com/639463
 rm -fv mkspecs/linux-g++*/qmake.conf.multilib-optflags
 
@@ -1408,6 +1412,9 @@ fi
 
 
 %changelog
+* Thu May 18 2023 Than Ngo <than@redhat.com> - 4.8.7-72
+- fix #2208136, CVE-2023-32573 Uninitialized variable usage in m_unitsPerEm 
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.8.7-71
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

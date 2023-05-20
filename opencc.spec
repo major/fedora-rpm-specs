@@ -1,8 +1,8 @@
 Name:       opencc
 Version:    1.1.4
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Libraries for Simplified-Traditional Chinese Conversion
-License:    ASL 2.0
+License:    Apache-2.0
 URL:        https://github.com/BYVoid/OpenCC
 Source0:    https://github.com/BYVoid/OpenCC/archive/ver.%{version}.tar.gz#/OpenCC-ver.%{version}.tar.gz
 
@@ -57,8 +57,6 @@ developing applications that use %{name}.
 
 #%find_lang %{name}
 
-%ldconfig_scriptlets
-
 %files
 %doc AUTHORS LICENSE README.md
 %{_libdir}/lib*.so.*
@@ -77,6 +75,9 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Thu May 18 2023 Peng Wu <pwu@redhat.com> - 1.1.4-3
+- Migrate to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

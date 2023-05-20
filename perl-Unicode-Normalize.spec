@@ -1,13 +1,13 @@
 %global base_version 1.26
 Name:           perl-Unicode-Normalize
-Version:        1.31
-Release:        490%{?dist}
+Version:        1.32
+Release:        1%{?dist}
 Summary:        Unicode Normalization Forms
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Unicode-Normalize
 Source0:        https://cpan.metacpan.org/authors/id/K/KH/KHW/Unicode-Normalize-%{base_version}.tar.gz
-# Unbundled from perl 5.35.11
-Patch0:         Unicode-Normalize-1.26-Upgrade-to-1.31.patch
+# Unbundled from perl 5.37.11
+Patch0:         Unicode-Normalize-1.26-Upgrade-to-1.32.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -35,13 +35,28 @@ Conflicts:      perl < 4:5.22.0-347
 This package provides Perl functions that can convert strings into various
 Unicode normalization forms as defined in Unicode Standard Annex #15.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Unicode-Normalize-%{base_version}
-%patch0 -p1
+%patch -P0 -p1
 
-# Generate ppport.h which is used since 1.31
+# Generate ppport.h which is used since 1.32
 perl -MDevel::PPPort \
     -e 'Devel::PPPort::WriteFile() or die "Could not generate ppport.h: $!"'
+
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="%{optflags}"
@@ -49,8 +64,17 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="%{opt
 
 %install
 %{make_install}
-find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
-%{_fixperms} $RPM_BUILD_ROOT/*
+find %{buildroot} -type f -name '*.bs' -size 0 -delete
+%{_fixperms} %{buildroot}/*
+
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
 make test
@@ -60,9 +84,16 @@ make test
 %doc Changes README
 %{perl_vendorarch}/auto/*
 %{perl_vendorarch}/Unicode
-%{_mandir}/man3/*
+%{_mandir}/man3/Unicode::Normalize*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Thu May 18 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.32-1
+- Upgrade to 1.32 as provided in perl-5.37.11
+- Package tests
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.31-490
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

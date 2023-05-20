@@ -1,11 +1,16 @@
 %global srcname urllib3
 
 # When bootstrapping Python, we cannot test this yet
+# RHEL does not include the test dependencies
+%if 0%{?rhel}
+%bcond_with tests
+%else
 %bcond_without tests
+%endif
 
 Name:           python-%{srcname}
 Version:        1.26.12
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python HTTP library with thread-safe connection pooling and file post
 
 License:        MIT
@@ -118,6 +123,9 @@ ln -s %{python3_sitelib}/__pycache__/six.cpython-%{python3_version_nodots}.pyc \
 
 
 %changelog
+* Tue May 16 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.26.12-4
+- Disable tests by default in RHEL builds
+
 * Tue May 16 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.26.12-3
 - Accomodate the test to the changed behavior of SSLContext.shared_ciphers() in CPython
 - Fixes: rhbz#2203773

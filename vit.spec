@@ -1,5 +1,5 @@
 Name:           vit
-Version:        2.2.0
+Version:        2.3.0
 Release:        %autorelease
 Summary:        Visual Interactive Taskwarrior full-screen terminal interface
 
@@ -10,6 +10,7 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildRequires:  help2man
 BuildRequires:  task
 Requires:       task
 
@@ -49,6 +50,14 @@ find vit/ -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 
 # Install bashcompletion
 install -m 0644 -p -D -t  $RPM_BUILD_ROOT/%{_datadir}/bash-completion/completions/vit/ scripts/bash/%{name}.bash_completion
 
+# generate man pages
+for binary in "vit"
+do
+    echo "Generating man page for ${binary// /-/}"
+    PYTHONPATH="$PYTHONPATH:%{buildroot}/%{python3_sitelib}/" PATH="$PATH:%{buildroot}/%{_bindir}/" help2man --no-info --no-discard-stderr --name="${binary}" --version-string="${binary} %{version}" --output="${binary// /-}.1" "${binary}"
+    cat "${binary// /-}.1"
+    install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D "${binary// /-}.1"
+done
 %check
 LC_ALL=C PYTHONPATH=. %{__python3} -m unittest
 
@@ -56,6 +65,7 @@ LC_ALL=C PYTHONPATH=. %{__python3} -m unittest
 %doc README.md CUSTOMIZE.md COLOR.md DEVELOPMENT.md UPGRADE.md
 %{_bindir}/%{name}
 %{_datadir}/bash-completion/completions/%{name}
+%{_mandir}/man1/vit*
 
 %changelog
 %autochangelog

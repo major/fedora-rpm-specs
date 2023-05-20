@@ -1,23 +1,23 @@
 Summary: A library that hides the complexity of using the SIP protocol
 Name: libeXosip2
-Version: 3.6.0
-Release: 29%{?dist}
-License: GPLv2+
-URL: http://savannah.nongnu.org/projects/eXosip
-Source0: http://download.savannah.nongnu.org/releases/exosip/libeXosip2-%{version}.tar.gz
-Patch0:  libeXosip2-aarch64.patch
-Patch1:  libeXosip2-3.6.0-openssl_110.patch
+Version: 5.3.0
+Release: 2%{?dist}
+License: GPL-2.0-or-later
+
+URL: https://savannah.nongnu.org/projects/eXosip
+
+Source0: https://download.savannah.nongnu.org/releases/exosip/libexosip2-%{version}.tar.gz
 
 BuildRequires: autoconf
 BuildRequires: automake
-BuildRequires: gcc
 BuildRequires: c-ares-devel
-BuildRequires: libtool
-BuildRequires: ortp-devel >= 0.14.2
-BuildRequires: libosip2-devel >= 3.6.0
-BuildRequires: openssl-devel
 BuildRequires: doxygen
+BuildRequires: gcc
+BuildRequires: libosip2-devel >= 5.3.1
+BuildRequires: libtool
 BuildRequires: make
+BuildRequires: openssl-devel
+BuildRequires: ortp-devel >= 5.2.45
 
 %description
 A library that hides the complexity of using the SIP protocol for
@@ -28,48 +28,62 @@ sessions like multiplayer games.
 
 %package devel
 Summary: Development files for libeXosip2
-Requires: %{name} = %{version}-%{release}
+Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: libosip2-devel
 
 %description devel
 Development files for libeXosip2.
 
 %prep
-%setup -q
-%patch0 -p1 -b .aarch64
-%patch1 -p1 -b .openssl_110
-
+# Upstream renamed release archive, so need to name for succesful building.
+%autosetup -p1 -n libexosip2-%{version}
 
 %build
 autoreconf -fi -I scripts
 %configure --disable-static
-make %{_smp_mflags}
+%make_build
+# Generate html docs and manpage.
 make doxygen
 
 %install
-make install DESTDIR=%{buildroot}
-rm %{buildroot}%{_libdir}/%{name}.la
+%make_install
 
+# Remove .la files on EL.
+%if 0%{?rhel}
+rm %{buildroot}%{_libdir}/*.la
+%endif
+
+# Move manpage to correct install location.
 mkdir -p %{buildroot}%{_mandir}/man3
 cp help/doxygen/doc/man/man3/*.3* %{buildroot}%{_mandir}/man3
 
-
-%ldconfig_scriptlets
+# Move html docs to correct install location.
+mkdir -p %{buildroot}%{_docdir}/libeXosip2-devel/html
+cp help/doxygen/doc/html/* %{buildroot}%{_docdir}/libeXosip2-devel/html
 
 %files
-%doc AUTHORS ChangeLog COPYING NEWS README
-
+%license COPYING
 %{_bindir}/sip_reg
-%{_libdir}/libeXosip2.so.7*
+%{_bindir}/sip_monitor
+%{_bindir}/sip_storm
+%{_libdir}/libeXosip2.so.15*
 
 %files devel
-%doc help/doxygen/doc/html help/doxygen/doc/latex
-
+%doc AUTHORS ChangeLog NEWS README
+%doc %{_docdir}/libeXosip2-devel/html/
 %{_includedir}/eXosip2
 %{_libdir}/libeXosip2.so
 %{_mandir}/man3/*.3*
 
 %changelog
+* Thu May 18 2023 Phil Wyett <philip.wyett@kathenas.org> - 5.3.0-2
+- Remove .la files on EL.
+
+* Sat Apr 01 2023 Phil Wyett <philip.wyett@kathenas.org> - 5.3.0-1
+- New upstream version 5.3.0.
+- Use SPDX license identifier.
+- Rework of spec file.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

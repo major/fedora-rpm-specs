@@ -11,7 +11,7 @@ Version: 0.8
 %if 0%{?usesnapshot}
 Release: 0.2%{?snapshottag}%{?dist}
 %else
-Release: 1%{?dist}
+Release: 2%{?dist}
 %endif
 Summary: Qt6 - Configuration Tool
 
@@ -83,6 +83,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/libqt6ct-common.so.%{version}*
 
 %changelog
+* Thu May 18 2023 Martin Gansser <martinkg@fedoraproject.org> - 0.8-2
+- Rebuilt against new qt6 version
+
 * Mon Mar 13 2023 Martin Gansser <martinkg@fedoraproject.org> - 0.8-1
 - Update to 0.8-1
 

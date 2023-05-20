@@ -1,11 +1,11 @@
 %global pypi_name shtab
 
 Name:           python-shtab
-Version:        1.5.8
+Version:        1.6.1
 Release:        %autorelease
 Summary:        Automagic shell tab completion for Python CLI applications
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/iterative/shtab
 Source0:        %{pypi_source}
 BuildArch:      noarch

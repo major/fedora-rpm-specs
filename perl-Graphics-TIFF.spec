@@ -3,11 +3,14 @@
 
 Name:           perl-Graphics-TIFF
 Version:        19
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Perl extension for the LibTIFF library
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Graphics-TIFF
 Source0:        https://cpan.metacpan.org/authors/id/R/RA/RATCLIFFE/Graphics-TIFF-%{version}.tar.gz
+# Handle position tags and adapt tests to changes in ImageMagick-7.1.1.8,
+# bug #2208278, CPAN RT#148337, proposed to an upstream.
+Patch0:         Graphics-TIFF-19-Handle-TIFFTAG_XPOSITION-and-TIFFTAG_YPOSITION.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -132,6 +135,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu May 18 2023 Petr Pisar <ppisar@redhat.com> - 19-5
+- Handle position tags and adapt tests to changes in ImageMagick-7.1.1.8
+  (bug #2208278)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 19-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -76,7 +76,7 @@ License:  MPL-2.0 AND ISC AND MIT AND BSD-3-Clause AND BSD-2-Clause
 # ./lib/isc/string.c BSD-3-clause and/or MPL-2.0
 # ./lib/isc/tm.c BSD-2-clause and/or MPL-2.0
 # ./lib/isccfg/parser.c BSD-2-clause and/or MPL-2.0
-Version:  9.18.14
+Version:  9.18.15
 Release:  1%{?dist}
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
@@ -962,6 +962,9 @@ fi;
 %endif
 
 %changelog
+* Wed May 17 2023 Petr Menšík <pemensik@redhat.com> - 32:9.18.15-1
+- Update to 9.18.15 (#2207908)
+
 * Fri Apr 21 2023 Petr Menšík <pemensik@redhat.com> - 32:9.18.14-1
 - Update to 9.18.14 (#2187996)
 

@@ -1,8 +1,8 @@
 %global base_version 3.25
 Name:           perl-Storable
 Epoch:          1
-Version:        3.26
-Release:        490%{?dist}
+Version:        3.31
+Release:        1%{?dist}
 Summary:        Persistence for Perl data structures
 # Storable.pm:  GPL+ or Artistic
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -10,6 +10,8 @@ URL:            https://metacpan.org/release/Storable
 Source0:        https://cpan.metacpan.org/authors/id/N/NW/NWCLARK/Storable-%{base_version}.tar.gz
 # Unbundled from perl 5.35.11
 Patch0:         Storable-3.25-Upgrade-to-3.26.patch
+# Unbundled from perl 5.37.11
+Patch1:         Storable-3.26-Upgrade-to-3.31.patch
 BuildRequires:  coreutils
 BuildRequires:  gcc
 BuildRequires:  make
@@ -36,6 +38,7 @@ BuildRequires:  perl(XSLoader)
 # Tests:
 BuildRequires:  perl(base)
 BuildRequires:  perl(bytes)
+BuildRequires:  perl(constant)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(integer)
 BuildRequires:  perl(overload)
@@ -44,6 +47,7 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(threads)
 BuildRequires:  perl(Safe)
 BuildRequires:  perl(Scalar::Util)
+BuildRequires:  perl(Symbol)
 BuildRequires:  perl(Tie::Array)
 # Optional tests:
 # gzip not used
@@ -78,7 +82,6 @@ Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
 Requires:       perl(B::Deparse) >= 0.61
 Requires:       perl(Digest::MD5)
-Requires:       perl(Hash::Util)
 
 %description tests
 Tests from %{name}. Execute them
@@ -86,7 +89,8 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Storable-%{base_version}
-%patch0 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 
 # Help generators to recognize Perl scripts
 for F in t/*.t t/*.pl; do
@@ -130,12 +134,15 @@ make test
 %doc ChangeLog README
 %{perl_vendorarch}/auto/*
 %{perl_vendorarch}/Storable*
-%{_mandir}/man3/*
+%{_mandir}/man3/Storable*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu May 18 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:3.31-1
+- Upgrade to 3.31 as provided in perl-5.37.11
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.26-490
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -10,6 +10,9 @@ Summary:        Desktop-neutral metadata database and search tool
 License:        GPL-2.0-or-later
 URL:            https://gnome.pages.gitlab.gnome.org/tracker/
 Source0:        https://download.gnome.org/sources/tracker/3.5/tracker-%{tarball_version}.tar.xz
+# https://gitlab.gnome.org/GNOME/tracker/-/merge_requests/596
+# https://gitlab.gnome.org/GNOME/tracker/-/merge_requests/598
+Patch0:         tracker-3.5.2-fix-time_t_check-32bit.patch
 
 BuildRequires:  asciidoc
 BuildRequires:  gettext

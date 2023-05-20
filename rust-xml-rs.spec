@@ -5,7 +5,7 @@
 %global crate xml-rs
 
 Name:           rust-xml-rs
-Version:        0.8.7
+Version:        0.8.11
 Release:        %autorelease
 Summary:        XML library in pure Rust
 
@@ -34,9 +34,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/Changelog.md
 %doc %{crate_instdir}/README.md
-%doc %{crate_instdir}/design.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -66,7 +64,8 @@ use the "default" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test
+# * skip test for the exact size of an enum that fails on various architectures
+%cargo_test -- -- --skip reader::error::err_size
 %endif
 
 %changelog

@@ -1,17 +1,11 @@
-# Upstream has only made 1 release tarball, so we build from git
-%global gittag   b2f9251e794567992b1f5ba189576be4d85c24db
-%global shorttag %(cut -b -7 <<< %{gittag})
-
 Name:           tlx
-Version:        0.5.20210401
-Release:        2%{?dist}
+Version:        0.6.0
+Release:        1%{?dist}
 Summary:        Sophisticated C++ data structures, algorithms, and helpers
 
 License:        BSL-1.0
 URL:            https://panthema.net/tlx
-Source0:        https://github.com/tlx/tlx/archive/%{gittag}/%{name}-%{shorttag}.tar.gz
-# Add missing #include <cstdint> directives
-Patch0:         tlx-cstdint.patch
+Source0:        https://github.com/tlx/tlx/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  doxygen
@@ -56,7 +50,7 @@ BuildArch:     noarch
 Doxygen documentation for tlx.
 
 %prep
-%autosetup -n tlx-%{gittag} -p1
+%autosetup
 
 %build
 %cmake \
@@ -64,6 +58,7 @@ Doxygen documentation for tlx.
   -DTLX_BUILD_STATIC_LIBS:BOOL=OFF \
   -DTLX_BUILD_STRING_SORTING:BOOL=ON \
   -DTLX_BUILD_TESTS:BOOL=ON \
+  -DTLX_SOVERSION:STRING=0 \
   %{nil}
 %cmake_build
 doxygen
@@ -90,6 +85,11 @@ doxygen
 %doc doxygen-html
 
 %changelog
+* Wed May 17 2023 Jerry James <loganjerry@gmail.com> - 0.6.0-1
+- Version 0.6.0
+- Drop upstreamed cstdint patch
+- Upstream fails to set the SOVERSION, so we do it for them for now
+
 * Sat Jan 21 2023 Jerry James <loganjerry@gmail.com> - 0.5.20210401-2
 - Add cstdint patch to fix FTBFS
 

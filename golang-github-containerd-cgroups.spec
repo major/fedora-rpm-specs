@@ -17,7 +17,7 @@ Go package for creating, managing, inspecting, and destroying cgroups.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        5
+Release:        %autorelease -b 5
 Summary:        Cgroups package for Go
 
 License:        Apache-2.0

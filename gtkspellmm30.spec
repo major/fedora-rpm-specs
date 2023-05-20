@@ -1,6 +1,6 @@
 Name:          gtkspellmm30
 Version:       3.0.5
-Release:       20%{?dist}
+Release:       21%{?dist}
 License:       GPL-2.0-or-later
 Summary:       On-the-fly spell checking for GtkTextView widgets - C++ bindings
 URL:           http://gtkspell.sourceforge.net/
@@ -13,13 +13,13 @@ BuildRequires: gtkmm30-doc
 BuildRequires: make
 
 BuildRequires: mingw32-filesystem >= 95
-BuildRequires: mingw32-gcc
+BuildRequires: mingw32-gcc-c++
 BuildRequires: mingw32-glibmm24
 BuildRequires: mingw32-gtkmm30
 BuildRequires: mingw32-gtkspell3
 
 BuildRequires: mingw64-filesystem >= 95
-BuildRequires: mingw64-gcc
+BuildRequires: mingw64-gcc-c++
 BuildRequires: mingw64-glibmm24
 BuildRequires: mingw64-gtkmm30
 BuildRequires: mingw64-gtkspell3
@@ -129,6 +129,9 @@ find %{buildroot} -name "*.la" -exec rm {} \;
 
 
 %changelog
+* Thu May 18 2023 Orion Poplawski <orion@nwra.com> - 3.0.5-21
+- Change BR to mingw*-gcc-c++
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.5-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

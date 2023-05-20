@@ -2,8 +2,8 @@
 
 Name:           perl-Time-HiRes
 Epoch:          4
-Version:        1.9770
-Release:        490%{?dist}
+Version:        1.9774
+Release:        1%{?dist}
 Summary:        High resolution alarm, sleep, gettimeofday, interval timers
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Time-HiRes
@@ -12,6 +12,8 @@ Source0:        https://cpan.metacpan.org/authors/id/A/AT/ATOOMIC/Time-HiRes-%{b
 Patch0:         Time-HiRes-1.9764-Upgrade-to-1.9767.patch
 # Unbundled from perl 5.35.11
 Patch1:         Time-HiRes-1.9767-Upgrade-to-1.9770.patch
+# Unbundled from perl 5.37.11
+Patch2:         Time-HiRes-1.9770-Upgrade-to-1.9774.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -38,25 +40,62 @@ Requires:       perl(Carp)
 
 %{?perl_default_filter}
 
+# Filter modules bundled for tests
+%global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}^%{_libexecdir}
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(t::Watchdog\\)
+
 %description
 The Time::HiRes module implements a Perl interface to the usleep, nanosleep,
 ualarm, gettimeofday, and setitimer/getitimer system calls, in other words,
 high resolution time and timers.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Time-HiRes-%{base_version}
-%patch0 -p1
-%patch1 -p1
+%patch -P0 -p1
+%patch -P1 -p1
+%patch -P2 -p1
+
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 unset PERL_CORE
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="$RPM_OPT_FLAGS"
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="%{optflags}"
 %{make_build}
 
 %install
 %{make_install}
-find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
-%{_fixperms} $RPM_BUILD_ROOT/*
+find %{buildroot} -type f -name '*.bs' -size 0 -delete
+%{_fixperms} %{buildroot}/*
+
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/bash
+set -e
+# utime.t needs to write into temporary files. The solution is to copy the
+# tests into a writable directory and execute them from there.
+DIR=$(mktemp -d)
+pushd "$DIR"
+cp -a %{_libexecdir}/%{name}/* ./
+prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+popd
+rm -rf "$DIR"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
 make test
@@ -65,9 +104,16 @@ make test
 %doc Changes README TODO
 %{perl_vendorarch}/auto/*
 %{perl_vendorarch}/Time*
-%{_mandir}/man3/*
+%{_mandir}/man3/Time::HiRes*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Thu May 18 2023 Jitka Plesnikova <jplesnik@redhat.com> - 4:1.9774-1
+- Upgrade to 1.9774 as provided in perl-5.37.11
+- Package tests
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4:1.9770-490
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

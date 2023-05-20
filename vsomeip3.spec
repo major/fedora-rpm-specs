@@ -1,11 +1,11 @@
 Name:    vsomeip3
-Version: 3.1.20.3
-Release: 12%{?dist}
+Version: 3.3.0
+Release: 2%{?dist}
 Summary: COVESA implementation of SOME/IP protocol
 
 License: MPL-2.0 AND BSL-1.0
 URL:     https://github.com/COVESA/vsomeip
-Source0: %{URL}/archive/3.1.20.4/vsomeip-3.1.20.3.tar.gz
+Source0: %{URL}/archive/%{VERSION}/vsomeip-%{VERSION}.tar.gz
 Source1: routingmanagerd.service
 Source2: routingmanagerd.socket
 Source3: tmpfiles-vsomeip.conf
@@ -16,20 +16,19 @@ Source7: vsomeip.te
 
 # Install libs, etc into /usr
 Patch0: vsomeip-install-dirs.patch
+# Use -fPIC, not -fPIE
+Patch1: vsomeip-compiler-flags.patch
 # Build/Install tools and examples
-Patch1: vsomeip-build-extra.patch
-# Drop -O and use -fPIC, not -fPIE
-Patch2: vsomeip-compiler-flags.patch
+Patch2: vsomeip-build-extra.patch
 
-Patch3: vsomeip-Update-to-git-17cc55f24.patch
-Patch4: vsomeip-Support-boost-1.78.patch
-Patch5: vsomeip-fix_c20_warnings.patch
+Patch3: vsomeip-big-endian.patch
 
 BuildRequires: boost-devel
 BuildRequires: cmake
 BuildRequires: dlt-libs-devel
 BuildRequires: systemd-devel
 BuildRequires: gcc-c++
+BuildRequires: gtest-devel
 
 # Fedora has extra tools for secondary items
 %if 0%{?fedora}
@@ -101,7 +100,7 @@ Requires: %{name}-compat%{?_isa} = %{version}-%{release}
 %{summary}.
 
 %prep
-%autosetup -n vsomeip-%{version} -p1
+%autosetup -n vsomeip-%{version} -p1 
 mkdir vsomeip-selinux
 cp %{SOURCE5} %{SOURCE6} %{SOURCE7} vsomeip-selinux/
 
@@ -119,7 +118,8 @@ find -name "*.[ch]pp" | xargs chmod a-x
        -DENABLE_CONFIGURATION_OVERLAYS=ON \
        -DENABLE_COMPAT=ON \
        -DVSOMEIP_INSTALL_ROUTINGMANAGERD=ON \
-       -DBASE_PATH=/run/vsomeip
+       -DBASE_PATH=/run/vsomeip \
+       --trace-expand --log-level=TRACE
 %cmake_build --target all --target vsomeip_ctrl --target examples --target hello_world_client --target hello_world_service
 
 (cd vsomeip-selinux &&
@@ -130,7 +130,9 @@ find -name "*.[ch]pp" | xargs chmod a-x
 %install
 %cmake_install
 # Install samples
+DESTDIR="%{buildroot}" %__cmake --install "%{__cmake_builddir}/tools"
 DESTDIR="%{buildroot}" %__cmake --install "%{__cmake_builddir}/examples"
+DESTDIR="%{buildroot}" %__cmake --install "%{__cmake_builddir}/examples/hello_world"
 
 mkdir -p %{buildroot}%{_datadir}/vsomeip
 # Move sample config
@@ -238,7 +240,17 @@ exit 0
 %{_libdir}/pkgconfig/vsomeip3.pc
 
 %changelog
-* Tue Mar  7 2023 Stephen Smoogen <smooge@fedoraproject.org> - 3.1.20.3-12
+* Thu May 18 2023 Stephen Smoogen <smooge@fedoraproject.org> - 3.3.0-2
+- Readded endian patch for s390x build
+
+* Thu May 18 2023 Stephen Smoogen <smooge@fedoraproject.org> - 3.3.0-1
+- Updated to 3.3.0
+- Removed un-needed patches to code to fix C20 problems
+- Removed endian patches
+- Changed CMakefileLists.txt patch to remove -Werror for gcc-13
+- Opened upstream on that.
+
+* Tue Mar  7 2023 Stephen Smoogen <smooge@fedoraproject.org> - 3.1.20.3-11
 - migrated to SPDX license
 
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 3.1.20.3-11

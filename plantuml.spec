@@ -1,5 +1,5 @@
 Name:           plantuml
-Version:        1.2023.1
+Version:        1.2023.7
 Release:        1%{?dist}
 Epoch:          1
 Summary:        Program to generate UML diagram from a text description
@@ -76,6 +76,10 @@ export CLASSPATH=$(build-classpath ant):plantuml.jar
 %license COPYING
 
 %changelog
+* Thu May 18 2023 Sandipan Roy <bytehackr@fedoraproject.org> - 1:1.2023.7-1
+- Updated version to 1.2023.7
+- rhbz#2173392
+
 * Wed Feb 22 2023 Sandipan Roy <bytehackr@fedoraproject.org> - 1:1.2023.1-1
 - Updated version to 1.2023.1
 - (bug #2151362)

@@ -19,7 +19,7 @@ clean Py3-style codebase, module by module.
 Name: future
 Summary: Easy, clean, reliable Python 2/3 compatibility
 Version: 0.18.3
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: MIT
 URL: http://python-future.org/
 Source0: https://github.com/PythonCharmers/python-future/archive/refs/tags/v%{version}/python-%{name}-%{version}.tar.gz
@@ -32,6 +32,9 @@ Patch1: %{name}-fix_tests.patch
 
 # https://docs.python.org/3.11/whatsnew/3.11.html
 Patch2: %{name}-python311.patch
+
+# https://github.com/PythonCharmers/python-future/pull/619
+Patch3: %{name}-python312.patch
 
 %description
 %{_description}
@@ -57,10 +60,11 @@ Obsoletes: python34-%{name} < 0:%{version}-%{release}
 %prep
 %setup -q -n python-future-%{version}
 
-%patch0 -p1 -b .backup
-%patch1 -p1 -b .backup
+%patch 0 -p1 -b .backup
+%patch 1 -p1 -b .backup
 %if 0%{?python3_version_nodots} >= 311
-%patch2 -p1 -b .backup
+%patch 2 -p1 -b .backup
+%patch 3 -p1 -b .backup
 %endif
 
 %if 0%{?fedora}
@@ -110,6 +114,9 @@ PYTHONPATH=$PWD/build/lib py.test-%{python3_version}
 %{python3_sitelib}/*.egg-info
 
 %changelog
+* Wed May 17 2023 Antonio Trande <sagitter@fedoraproject.org> - 0.18.3-5
+- Patched for Python-3.12 (rhbz#2176017)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

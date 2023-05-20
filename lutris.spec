@@ -1,12 +1,12 @@
 %define debug_package %{nil}
 Name:           lutris
-Version:        0.5.12
-Release:        4%{?dist}
+Version:        0.5.13
+Release:        1%{?dist}
 Summary:        Install and play any video game easily
 
 License:        GPLv3
 URL:            http://%{name}.net
-Source0:        %{URL}/releases/%{name}_%{version}.tar.gz
+Source0:        https://github.com/%{name}/%{name}/archive/refs/tags/v%{version}.tar.gz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  python3-devel
@@ -93,6 +93,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications share/applicatio
 %{_datadir}/locale/
 
 %changelog
+* Tue May 16 2023 Steve Cossette <farchord@gmail.com> 0.5.13-1
+- Update to 0.5.13
+
 * Sun Apr 16 2023 Steve Cossette <farchord@gmail.com> 0.5.12-4
 - Added gamescope as a recommendation (Helps with game compatibility, and is supported by lutris)
 

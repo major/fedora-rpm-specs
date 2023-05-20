@@ -2,7 +2,7 @@ Name:		perl-XString
 Version:	0.005
 Release:	8%{?dist}
 Summary:	Isolated String helpers from B
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/XString
 Source0:	https://cpan.metacpan.org/authors/id/A/AT/ATOOMIC/XString-%{version}.tar.gz
 # Build
@@ -26,7 +26,7 @@ BuildRequires:	perl(Test::More) >= 0.88
 # Optional Tests
 BuildRequires:	perl(CPAN::Meta) >= 2.120900
 BuildRequires:	perl(CPAN::Meta::Prereqs)
-# Runtime
+# Dependencies
 Requires:	perl(XSLoader)
 
 %description

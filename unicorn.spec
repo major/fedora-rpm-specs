@@ -1,6 +1,6 @@
 Name:           unicorn
-Version:        1.0.3
-Release:        6%{?dist}
+Version:        2.0.1
+Release:        %autorelease
 Summary:        Lightweight multi-platform, multi-architecture CPU emulator framework
 
 # GPLv2:        Most of unicorn is licensed under the GPLv2, with exception
@@ -11,8 +11,11 @@ Summary:        Lightweight multi-platform, multi-architecture CPU emulator fram
 License:        GPLv2 and LGPLv2+ and MIT and BSD
 URL:            https://www.unicorn-engine.org/
 Source0:        https://github.com/unicorn-engine/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0:         unicorn-1.0.3-libunicorn.patch
-BuildRequires:  make
+Source1:        https://raw.githubusercontent.com/unicorn-engine/%{name}/2.0.1/AUTHORS.TXT
+Source2:        https://raw.githubusercontent.com/unicorn-engine/%{name}/2.0.1/ChangeLog
+Source3:        https://raw.githubusercontent.com/unicorn-engine/%{name}/2.0.1/COPYING
+Source4:        https://raw.githubusercontent.com/unicorn-engine/%{name}/2.0.1/CREDITS.TXT
+BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -48,30 +51,38 @@ The unicorn-python3 package contains python3 bindings for unicorn.
 
 %prep
 %autosetup -n %{name}-%{version} -p1
+cp -p %SOURCE1 .
+cp -p %SOURCE2 .
+cp -p %SOURCE3 .
+cp -p %SOURCE4 .
 
 %build
-%make_build
-pushd bindings/python
 %py3_build
-popd
 
 %install
-%make_install LIBDIRARCH=%{_lib} UNICORN_STATIC=no
-pushd bindings/python
 %py3_install
-popd
-rm -rf %{buildroot}%{python3_sitelib}/unicorn/include
-rm -rf %{buildroot}%{python3_sitelib}/unicorn/lib
+
+mkdir -p $RPM_BUILD_ROOT%{_includedir}
+mv $RPM_BUILD_ROOT%{python3_sitelib}/%{name}/include/unicorn $RPM_BUILD_ROOT%{_includedir}
+
+mkdir -p $RPM_BUILD_ROOT%{_libdir}
+mv $RPM_BUILD_ROOT%{python3_sitelib}/%{name}/lib/* $RPM_BUILD_ROOT%{_libdir}
+
+ln -s libunicorn.so.2 $RPM_BUILD_ROOT%{_libdir}/libunicorn.so
+
+install -D -m 0644 src/build_python/unicorn.pc $RPM_BUILD_ROOT%{_libdir}/pkgconfig/unicorn.pc
+
+rm $RPM_BUILD_ROOT%{_libdir}/libunicorn.a
 
 %ldconfig_scriptlets
 
 %files
-%doc AUTHORS.TXT ChangeLog CREDITS.TXT README.md
+%doc AUTHORS.TXT ChangeLog CREDITS.TXT README.TXT
 %license COPYING
-%{_libdir}/lib*.so.*
+%{_libdir}/libunicorn.so.2
 
 %files devel
-%{_libdir}/lib*.so
+%{_libdir}/libunicorn.so
 %{_libdir}/pkgconfig/unicorn.pc
 %{_includedir}/unicorn/
 
@@ -80,77 +91,4 @@ rm -rf %{buildroot}%{python3_sitelib}/unicorn/lib
 %{python3_sitelib}/%{name}/
 
 %changelog
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 1.0.3-4
-- Rebuilt for Python 3.11
-
-* Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Sat Jan 08 2022 W. Michael Petullo <mike@flyn.org> - 1.0.3-2
-- Patch to use libunicorn.so.1, not libunicorn.so (Red Hat Bugzilla #2004320)
-- Require python3-setuptools at runtime (Red Hat Bugzilla #2004320)
-
-* Thu Aug 26 2021 Fabian Affolter <mail@fabian-affolter.ch> - 1.0.3-1
-- Update to latest upstream release 1.0.3 (rhbz#1965152)
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 1.0.2-3
-- Rebuilt for Python 3.10
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Fri Nov 06 2020 W. Michael Petullo <mike@flyn.org> - 1.0.2-1
-- New upstream version
-
-* Thu Aug 06 2020 W. Michael Petullo <mike@flyn.org> - 1.0.2-0.5.rc4
-- Revert source name, as I had made use of wrong source tarball
-
-* Thu Aug 06 2020 W. Michael Petullo <mike@flyn.org> - 1.0.2-0.4.rc4
-- Fix source name
-
-* Thu Aug 06 2020 W. Michael Petullo <mike@flyn.org> - 1.0.2-0.3.rc4
-- Update to 1.0.2-rc4 to satisfy python-angr (Red Hat Bugzilla #1858455 and #1865272)
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-0.3.rc3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 1.0.2-0.2.rc3
-- Rebuilt for Python 3.9
-
-* Mon May 18 2020 W. Michael Petullo <mike@flyn.org> - 1.0.2-0.1.rc3
-- Update to 1.0.2-rc3 to satisfy pwntools (Red Hat Bugzilla #1836767 and #1833654)
-- Removed obsolete patch to use python2
-
-* Fri Jan 31 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Sep 05 2019 Miro Hrončok <mhroncok@redhat.com> - 1.0.1-7
-- Subpackage python2-unicorn has been removed
-  See https://fedoraproject.org/wiki/Changes/Mass_Python_2_Package_Removal
-
-* Mon Aug 19 2019 Miro Hrončok <mhroncok@redhat.com> - 1.0.1-6
-- Rebuilt for Python 3.8
-
-* Sat Jul 27 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sun Feb 03 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Sun Jul 22 2018 W. Michael Petullo <mike@flyn.org> - 1.0.1-3
-- Add patch to use python2 rather than python when building
-
-* Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Sat Jun 16 2018 W. Michael Petullo <mike@flyn.org> - 1.0.1-1
-- Initial package
+%autochangelog

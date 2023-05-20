@@ -4,7 +4,7 @@
 
 # https://github.com/prometheus/node_exporter
 %global goipath         github.com/prometheus/node_exporter
-Version:                1.3.1
+Version:                1.5.0
 
 %gometa
 
@@ -30,12 +30,11 @@ Source3:        %{shortname}.conf
 Source4:        %{shortname}.logrotate
 # Replace defaults paths for config files
 Patch0:         defaults-paths.patch
-# https://github.com/prometheus/node_exporter/pull/2190
-Patch1:         0001-Refactor-perf-collector.patch
 
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  golang(github.com/beevik/ntp)
 BuildRequires:  golang(github.com/coreos/go-systemd/dbus)
+BuildRequires:  golang(github.com/dennwc/btrfs)
 BuildRequires:  golang(github.com/ema/qdisc)
 BuildRequires:  golang(github.com/go-kit/log)
 BuildRequires:  golang(github.com/go-kit/log/level)
@@ -44,6 +43,7 @@ BuildRequires:  golang(github.com/hashicorp/go-envparse)
 BuildRequires:  golang(github.com/hodgesds/perf-utils)
 BuildRequires:  golang(github.com/jsimonetti/rtnetlink)
 BuildRequires:  golang(github.com/mattn/go-xmlrpc)
+BuildRequires:  golang(github.com/mdlayher/ethtool)
 BuildRequires:  golang(github.com/mdlayher/wifi)
 BuildRequires:  golang(github.com/prometheus/client_golang/prometheus)
 BuildRequires:  golang(github.com/prometheus/client_golang/prometheus/collectors)
@@ -80,8 +80,7 @@ Requires(pre): shadow-utils
 
 %prep
 %goprep
-%patch0 -p1
-%patch1 -p1
+%patch 0 -p1
 
 %build
 export BUILDTAGS="netgo osusergo static_build"

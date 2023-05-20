@@ -4,18 +4,20 @@
 #
 # 2020-09: Fails on power64 because qemu TCG does not support all the
 #   features required to boot Fedora.
-#
-# 2020-09: armv7 failed with:
-# ./qemu-sanity-check: cannot find a Linux kernel in /boot
 %global test_arches aarch64 %{s390x} x86_64
 
 Name:           qemu-sanity-check
 Version:        1.1.6
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Simple qemu and Linux kernel sanity checker
 License:        GPLv2+
 
 ExclusiveArch:  %{kernel_arches}
+
+%if 0%{?rhel} >= 9
+# No KVM on POWER in RHEL 9
+ExcludeArch:    %{power64}
+%endif
 
 URL:            http://people.redhat.com/~rjones/qemu-sanity-check
 Source0:        http://people.redhat.com/~rjones/qemu-sanity-check/files/%{name}-%{version}.tar.gz
@@ -43,7 +45,11 @@ BuildRequires:  cpio
 BuildRequires:  glibc-static
 
 # For testing.
+%if !0%{?rhel}
 BuildRequires:  qemu
+%else
+BuildRequires:  qemu-kvm
+%endif
 BuildRequires:  kernel
 
 # For complicated reasons, this is required so that
@@ -52,6 +58,7 @@ BuildRequires:  kernel
 # kernel-install script to understand why.
 BuildRequires:  grubby
 
+%if !0%{?rhel}
 %ifarch %{ix86} x86_64
 Requires:       qemu-system-x86
 %global qemu    %{_bindir}/qemu-system-x86_64
@@ -71,6 +78,11 @@ Requires:       qemu-system-ppc
 %ifarch %{s390x}
 Requires:       qemu-system-s390x
 %global qemu    %{_bindir}/qemu-system-s390x
+%endif
+%else
+# RHEL, any arch
+Requires:       qemu-kvm
+%global qemu    %{_libexecdir}/qemu-kvm
 %endif
 
 Requires:       kernel
@@ -147,6 +159,11 @@ make DESTDIR=$RPM_BUILD_ROOT install
 
 
 %changelog
+* Thu May 18 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1.6-9
+- Add package to EPEL 9, keep it synched with Fedora Rawhide.
+- Use qemu-kvm package on EPEL.
+- Remove comment about armv7, no longer applicable on Fedora.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.6-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

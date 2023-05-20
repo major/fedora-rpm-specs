@@ -27,7 +27,7 @@ There is a limited support for (deprecated) optparse objects, too.
 
 
 Name:           argparse-manpage
-Version:        4.2
+Version:        4.3
 Release:        1%{?dist}
 Summary:        %{sum Python}
 BuildArch:      noarch
@@ -52,7 +52,7 @@ BuildRequires: python2-pytest
 %if %{with python3}
 BuildRequires: python3-setuptools python3-devel
 BuildRequires: python3-packaging
-BuildRequires: python3-toml
+BuildRequires: python3-tomli
 %if %{with check}
 BuildRequires: python3-pytest
 %endif
@@ -184,6 +184,10 @@ PYTHONPATH=%buildroot%python3_sitearch %__python3 -m pytest -vv
 
 
 %changelog
+* Thu May 18 2023 Pavel Raiskup <praiskup@redhat.com> - 4.3-1
+- new upstream release, tomli dep instead of toml
+  https://github.com/praiskup/argparse-manpage/releases/tag/v4.3
+
 * Sun May 14 2023 Pavel Raiskup <praiskup@redhat.com> - 4.2-1
 - new upstream release, upport for pyproject.toml specs, and --manfile option
 

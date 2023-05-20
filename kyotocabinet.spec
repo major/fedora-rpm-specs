@@ -1,8 +1,8 @@
 Summary:        A straightforward implementation of DBM
 Name:           kyotocabinet
 Version:        1.2.80
-Release:        1%{?dist}
-License:        GPLv3
+Release:        2%{?dist}
+License:        GPL-3.0-only
 URL:            https://dbmx.net/%{name}/
 Source:         https://dbmx.net/%{name}/pkg/%{name}-%{version}.tar.gz
 Patch0:         kyotocabinet-1.2.76-cflags.patch
@@ -48,9 +48,7 @@ The kyotocabinet-apidocs package contains API documentation for developing
 applications that use Kyoto Cabinet.
 
 %prep
-%setup -q
-%patch0 -p1 -b .cflags
-%patch1 -p1 -b .8-byte-atomics
+%autosetup -p1
 
 %build
 %configure --disable-opt --enable-lzo --enable-lzma
@@ -140,6 +138,9 @@ make check
 %doc COPYING doc/api/* kyotocabinet.idl
 
 %changelog
+* Thu May 18 2023 Peng Wu <pwu@redhat.com> - 1.2.80-2
+- Migrate to SPDX license
+
 * Mon Apr 17 2023 Peng Wu <pwu@redhat.com> - 1.2.80-1
 - Update to 1.2.80
 - Resolves: RHBZ#2186606

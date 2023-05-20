@@ -2,25 +2,23 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.5.0
-Release: 19%{?dist}
+Release: 20%{?dist}
 Summary: Lightweight markup language
-# README.creole says "the same license as Ruby" and "Copyright (c) 2008", so we
-# assume "GPLv2 or Ruby". It was Ruby 1.9.3 that made the transition to "Ruby
-# or BSD".
-License: GPLv2 or Ruby
+# The license was never really clear, but based on the upstream license
+# content, we might assune the code is "Ruby OR BSD-2-Cluase" licensed.
+# https://github.com/minad/creole/blob/master/LICENSE
+# https://github.com/minad/creole/issues/7
+License: Ruby OR BSD-2-Clause
 URL: https://github.com/minad/creole
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
-# Since we assume GPLv2 above, we'll include the full text here.
-# http://www.gnu.org/licenses/gpl-2.0.txt
-Source1: rubygem-creole-gpl-2.0.txt
+# Include the upstream LICENSE file.
+Source1: https://raw.githubusercontent.com/minad/creole/d0b49a67465ed70eacd4d88790f9462beb9ed068/LICENSE
 Requires: ruby(release)
 Requires: ruby(rubygems)
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
-BuildRequires: rubygem(minitest)
 BuildRequires: rubygem(bacon)
 BuildArch: noarch
-Provides: rubygem(%{gem_name}) = %{version}
 
 %description
 Creole is a lightweight markup language (http://wikicreole.org/).
@@ -32,46 +30,34 @@ Requires: %{name} = %{version}-%{release}
 BuildArch: noarch
 
 %description doc
-Documentation for %{name}
+Documentation for %{name}.
 
 %prep
-gem unpack %{SOURCE0}
+%setup -q -n %{gem_name}-%{version}
 
-%setup -q -D -T -n  %{gem_name}-%{version}
-
-gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
-
-# Remove developer-only files.
-for f in Gemfile Rakefile .gitignore .travis.yml; do
-  rm $f
-  sed -i "s|\"$f\"\(\.freeze\)\?,||g" %{gem_name}.gemspec
-done
+install -p -m 0644 %{SOURCE1} .
 
 %build
 # Create the gem as gem install only works on a gem file
-gem build %{gem_name}.gemspec
+gem build ../%{gem_name}-%{version}.gemspec
 
 %gem_install
 
-# Remove unnecessary gemspec
-rm -rf .%{gem_instdir}/%{gem_name}.gemspec
-
 %install
 mkdir -p %{buildroot}%{gem_dir}
-cp -pa .%{gem_dir}/* \
+cp -a .%{gem_dir}/* \
         %{buildroot}%{gem_dir}/
 
-install -p -m 0644 %{SOURCE1} %{buildroot}%{gem_instdir}/gpl-2.0.txt
 
 %check
 pushd .%{gem_instdir}
-  bacon -q -Ilib:test test/*_test.rb
+bacon -Ilib test/*_test.rb
 popd
 
-
 %files
+%license LICENSE
 %dir %{gem_instdir}
-%doc %{gem_instdir}/gpl-2.0.txt
+%exclude %{gem_instdir}/.*
 %doc %{gem_instdir}/README.creole
 %{gem_libdir}
 %exclude %{gem_cache}
@@ -80,9 +66,16 @@ popd
 %files doc
 %doc %{gem_docdir}
 %doc %{gem_instdir}/CHANGES
-%exclude %{gem_instdir}/test
+%{gem_instdir}/Gemfile
+%{gem_instdir}/Rakefile
+%{gem_instdir}/creole.gemspec
+%{gem_instdir}/test
 
 %changelog
+* Thu May 18 2023 Vít Ondruch <vondruch@redhat.com> - 0.5.0-20
+- Refresh of spec file.
+- Review license + use SPDX identifiers.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,4 +1,4 @@
-%global lit_version 16.0.3
+%global lit_version 16.0.4
 #global rc_ver 4
 #global post_ver 0
 
@@ -6,7 +6,7 @@
 
 Name: python-lit
 Version: %{lit_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 BuildArch: noarch
 
 License: NCSA
@@ -62,6 +62,9 @@ sed -i -e '1{\@^#!/usr/bin/env python@d}' %{buildroot}%{python3_sitelib}/lit/*.p
 %{_bindir}/lit
 
 %changelog
+* Thu May 18 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.4-1
+- Update to LLVM 16.0.4
+
 * Mon May 15 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.3-2
 - Add a patch that accepts ppc64le as a valid triple
 

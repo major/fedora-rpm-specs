@@ -19,7 +19,7 @@
 
 # https://github.com/gohugoio/hugo
 %global goipath github.com/gohugoio/hugo
-Version:        0.109.0
+Version:        0.111.3
 
 %gometa -f
 
@@ -69,9 +69,9 @@ Recommends:     golang-bin
 %prep
 %goprep
 
-%patch0001 -p1
-%patch0002 -p1
-%patch0003 -p1
+%patch 0001 -p1
+%patch 0002 -p1
+%patch 0003 -p1
 
 # Replace blackfriday import path to avoid conflict with v2
 sed -i \
@@ -120,8 +120,9 @@ install -Dp man/* -t %{buildroot}%{_mandir}/man1
 # hugolib: We should run this one, but it presently fails.
 # langs/i18n: Patched gohugoio/go-i18n/ back to nicksnyder/go-i18n.
 # markup/goldmark/codeblocks: We should run this one, but it presently fails.
-# resources/resource_transformers/js: error message formats have changed.
-%gocheck -d releaser -d tpl/time -d common/herrors -d common/text -d deploy -d hugolib -d langs/i18n -d markup/goldmark/codeblocks -d resources/resource_transformers/js
+# resources/resource_transformers/js: Error message formats have changed.
+# resources/resource_factories/create: Now fails with latest Rawhide dependencies.
+%gocheck -d releaser -d tpl/time -d common/herrors -d common/text -d deploy -d hugolib -d langs/i18n -d markup/goldmark/codeblocks -d resources/resource_transformers/js -d resources/resource_factories/create
 %endif
 
 %files

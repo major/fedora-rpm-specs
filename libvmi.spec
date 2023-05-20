@@ -1,10 +1,10 @@
-%global commit 932a87aa9c8fb569b5e9d05987270ae6a07b5f07
+%global commit 79ace5c3844ec53c42e96995fd951683845e446c
 %global short_commit %(c=%{commit}; echo ${c:0:7})
-%global commit_date 20220512
+%global commit_date 20230517
 %global commit_release .%{commit_date}git%{short_commit}
 
 # To make rpmdev-bumpspec and similar tools happy
-%global baserelease 5
+%global baserelease 6
 
 Name:           libvmi
 Version:        0.14.0

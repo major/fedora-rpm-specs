@@ -2,12 +2,12 @@
 Summary: Collection of basic system utilities
 Name: util-linux
 Version: 2.39
-Release: 0.5%{?dist}
+Release: 2%{?dist}
 License: GPLv2 and GPLv2+ and LGPLv2+ and BSD with advertising and Public Domain
 URL: https://en.wikipedia.org/wiki/Util-linux
 
 ### Macros
-%global upstream_version %{version}-rc3
+%global upstream_version %{version}
 %global upstream_major %(eval echo %{version} | sed -e 's/\([[:digit:]]*\)\.\([[:digit:]]*\)\.[[:digit:]]*$/\1.\2/')
 
 %global compldir %{_datadir}/bash-completion/completions/
@@ -28,20 +28,20 @@ BuildRequires: popt-devel
 BuildRequires: libutempter-devel
 BuildRequires: systemd-devel
 BuildRequires: systemd
-BuildRequires: libuser-devel
 BuildRequires: libcap-ng-devel
 BuildRequires: %{pypkg}-devel
 BuildRequires: gcc
 BuildRequires: rubygem-asciidoctor
+BuildRequires: po4a
 %ifarch ppc64le
 BuildRequires: librtas-devel
 %endif
 
 # enable if make changes to build-system
-BuildRequires: autoconf
-BuildRequires: automake
-BuildRequires: libtool
-BuildRequires: bison
+#BuildRequires: autoconf
+#BuildRequires: automake
+#BuildRequires: libtool
+#BuildRequires: bison
 
 ### Sources
 Source0: https://www.kernel.org/pub/linux/utils/util-linux/v%{upstream_major}/util-linux-%{upstream_version}.tar.xz
@@ -75,6 +75,10 @@ Provides: util-linux-ng = %{version}-%{release}
 Conflicts: filesystem < 3
 Provides: /sbin/nologin
 Provides: /sbin/findfs
+# util-linux-user was dropped in 2.39-1 and its contents moved back
+# to util-linux
+Obsoletes: util-linux-user < 2.39-1
+Provides: util-linux-user = %{version}-%{release}
 
 Requires(post): coreutils
 Requires: pam >= 1.1.3-7, /etc/pam.d/system-auth
@@ -272,13 +276,14 @@ supplied by the libmount library to work with mount tables (fstab,
 mountinfo, etc) and mount filesystems.
 
 
-%package -n util-linux-user
-Summary: util-linux utilities based on libuser
+%package -n util-linux-i18n
+Summary: Internationalization pack for util-linux
 Requires: util-linux = %{version}-%{release}
 License: GPLv2
 
-%description -n util-linux-user
-chfn and chsh utilities with dependence on libuser.
+%description -n util-linux-i18n
+Internationalization pack with translated messages and manual pages for
+util-linux commands.
 
 
 %prep
@@ -298,6 +303,7 @@ export DAEMON_CFLAGS="$SUID_CFLAGS"
 export DAEMON_LDFLAGS="$SUID_LDFLAGS"
 %configure \
 	--with-systemdsystemunitdir=%{_unitdir} \
+	--without-user \
 	--disable-silent-rules \
 	--disable-bfs \
 	--disable-pg \
@@ -414,10 +420,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/lib{uuid,blkid,mount,smartcols,fdisk}.a
 rm -f $RPM_BUILD_ROOT%{compldir}/{mount,umount}
 
 # find MO files
-%find_lang %name
+%find_lang %{name} --all-name --with-man
 
-# the files section supports only one -f option...
-mv %{name}.lang %{name}.files
+touch %{name}.files
 
 # create list of setarch(8) symlinks
 find  $RPM_BUILD_ROOT%{_bindir}/ -regextype posix-egrep -type l \
@@ -471,12 +476,16 @@ fi
 %config(noreplace)	%{_sysconfdir}/pam.d/su-l
 %config(noreplace)	%{_sysconfdir}/pam.d/runuser
 %config(noreplace)	%{_sysconfdir}/pam.d/runuser-l
+%config(noreplace)	%{_sysconfdir}/pam.d/chfn
+%config(noreplace)	%{_sysconfdir}/pam.d/chsh
 
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/adjtime
 
 %attr(4755,root,root)	%{_bindir}/su
 %attr(755,root,root)	%{_bindir}/login
 %attr(2755,root,tty)	%{_bindir}/write
+%attr(4711,root,root)	%{_bindir}/chfn
+%attr(4711,root,root)	%{_bindir}/chsh
 
 %{_unitdir}/fstrim.*
 
@@ -530,7 +539,9 @@ fi
 %{_bindir}/wdctl
 %{_bindir}/whereis
 %{_mandir}/man1/cal.1*
+%{_mandir}/man1/chfn.1*
 %{_mandir}/man1/choom.1*
+%{_mandir}/man1/chsh.1*
 %{_mandir}/man1/col.1*
 %{_mandir}/man1/colcrt.1*
 %{_mandir}/man1/colrm.1*
@@ -645,7 +656,9 @@ fi
 %{compldir}/blkzone
 %{compldir}/cal
 %{compldir}/chcpu
+%{compldir}/chfn
 %{compldir}/chmem
+%{compldir}/chsh
 %{compldir}/col
 %{compldir}/colcrt
 %{compldir}/colrm
@@ -653,6 +666,7 @@ fi
 %{compldir}/ctrlaltdel
 %{compldir}/delpart
 %{compldir}/eject
+%{compldir}/fadvise
 %{compldir}/fallocate
 %{compldir}/fdisk
 %{compldir}/fincore
@@ -707,6 +721,7 @@ fi
 %{compldir}/uuidgen
 %{compldir}/uuidparse
 %{compldir}/wall
+%{compldir}/waitpid
 %{compldir}/wdctl
 %{compldir}/whereis
 %{compldir}/wipefs
@@ -828,17 +843,6 @@ fi
 /etc/mtab
 
 
-%files -n util-linux-user
-%config(noreplace)	%{_sysconfdir}/pam.d/chfn
-%config(noreplace)	%{_sysconfdir}/pam.d/chsh
-%attr(4711,root,root)	%{_bindir}/chfn
-%attr(4711,root,root)	%{_bindir}/chsh
-%{_mandir}/man1/chfn.1*
-%{_mandir}/man1/chsh.1*
-%{compldir}/chfn
-%{compldir}/chsh
-
-
 %files -n uuidd
 %license Documentation/licenses/COPYING.GPL-2.0-or-later
 %{_mandir}/man8/uuidd.8*
@@ -917,7 +921,20 @@ fi
 %license Documentation/licenses/COPYING.LGPL-2.1-or-later libmount/COPYING
 %{_libdir}/python*/site-packages/libmount/
 
+%files -n util-linux-i18n -f %{name}.lang
+
+
 %changelog
+* Thu May 18 2023 Adam Williamson <awilliam@redhat.com> - 2.39-2
+- Have util-linux obsolete and provide util-linux-user
+
+* Thu May 18 2023 Karel Zak <kzak@redhat.com> - 2.39-1
+- upgrade to v2.39
+- remove dependence on libuser
+- remove util-linux-user subpackage
+- enable translated man pages
+- add util-linux-i18n subpackage
+
 * Wed Apr 19 2023 Karel Zak <kzak@redhat.com> - 2.39-0.5
 - upgrade to v2.39-rc3 (fixes XFS and rw/ro issues)
 

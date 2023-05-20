@@ -9,7 +9,7 @@ between multiple scripts. Noto family supports almost all scripts available\
 in Unicode.\
 %{nil}
 
-%global srcver	23.2.1
+%global srcver	23.5.1
 %global hprio	56
 %global	vmprio	57
 %global mprio	58
@@ -20,7 +20,7 @@ in Unicode.\
 %global	nlat_lprio	67
 
 Name:           %{fontname}-fonts
-Version:        20230201
+Version:        20230501
 Release:        1%{?dist}
 Summary:        Hinted and Non Hinted OpenType fonts for Unicode scripts
 License:        OFL-1.1
@@ -175,7 +175,6 @@ local subpackages = {
     { alias="sans-serif", family="Sans Kannada", lang={ "kn" } },
     { alias="sans-serif", family="Sans Kannada UI", lang={ "kn" },
       priority=rpm.expand('%{lprio}'), nogroup=1,
-      obsoletes={ "sans-kannada-ui-vf" },
     },
     { alias="sans-serif", family="Sans Kayah Li" },
     { alias="sans-serif", family="Sans Kharoshthi" },
@@ -209,7 +208,6 @@ local subpackages = {
     { alias="sans-serif", family="Sans Malayalam", lang={ "ml" } },
     { alias="sans-serif", family="Sans Malayalam UI", lang={ "ml" },
       priority=rpm.expand('%{lprio}'), nogroup=1,
-      obsoletes={ "sans-malayalam-ui-vf" },
     },
     { alias="sans-serif", family="Sans Mandaic",
       obsoletes={ "sans-mandaic-vf" }
@@ -250,6 +248,7 @@ local subpackages = {
     { alias="sans-serif", family="Sans Nabataean",
       obsoletes={ "sans-nabataean-vf" }
     },
+    { alias="sans-serif", family="Sans Nag Mundari" },
     { alias="sans-serif", family="Sans Nandinagari" },
     { alias="sans-serif", family="Sans New Tai Lue", lang={ "khb" } },
     { alias="sans-serif", family="Sans Newa" },
@@ -334,7 +333,6 @@ local subpackages = {
     { alias="sans-serif", family="Sans Telugu", lang={ "te" } },
     { alias="sans-serif", family="Sans Telugu UI", lang={ "te" },
       priority=rpm.expand('%{lprio}'), nogroup=1,
-      obsoletes={ "sans-telugu-ui-vf" },
     },
     { alias="sans-serif", family="Sans Thaana", lang={ "dv" } },
     { alias="sans-serif", family="Sans Thai", lang={ "th" },
@@ -414,6 +412,7 @@ local subpackages = {
     },
     { alias="serif",      family="Serif Old Uyghur" },
     { alias="serif",      family="Serif Oriya", lang={ "or" } },
+    { alias="serif",      family="Serif Ottoman Siyaq" },
     { alias="serif",      family="Serif Sinhala", lang={ "si" } },
     { alias="serif",      family="Serif Tamil", lang={ "ta" },
       obsoletes={ "serif-tamil-slanted" },
@@ -470,6 +469,10 @@ local subpackages = {
     },
     { alias="sans-serif", variable=true, family="Sans Javanese" },
     { alias="sans-serif", variable=true, family="Sans Kannada", lang={ "kn" } },
+    { alias="sans-serif", variable=true, family="Sans Kannada UI", lang={ "kn" },
+      priority=rpm.expand('%{lprio}'), nogroup=1,
+      fontname="SansKannada-UI",
+    },
     { alias="sans-serif", variable=true, family="Sans Kayah Li" },
     { alias="sans-serif", variable=true, family="Sans Khmer", lang={ "km" },
       priority=rpm.expand('%{hprio}'),
@@ -482,7 +485,12 @@ local subpackages = {
       obsoletes={ "looped-lao-vf", "looped-lao-ui-vf" }, nogroup=1,
     },
     { alias="sans-serif", variable=true, family="Sans Lisu" },
+    { alias="sans-serif", variable=true, family="Sans Nag Mundari" },
     { alias="sans-serif", variable=true, family="Sans Malayalam", lang={ "ml" } },
+    { alias="sans-serif", variable=true, family="Sans Malayalam UI", lang={ "ml" },
+      priority=rpm.expand('%{lprio}'), nogroup=1,
+      fontname="SansMalayalam-UI",
+    },
     { alias="sans-serif", variable=true, family="Sans Medefaidrin" },
     { alias="sans-serif", variable=true, family="Sans MeeteiMayek" },
     { alias="monospace", variable=true, family="Sans Mono",
@@ -506,10 +514,18 @@ local subpackages = {
     { alias="sans-serif", variable=true, family="Sans Syriac Western", lang={ "syr" } },
     { alias="sans-serif", variable=true, family="Sans Tai Tham" },
     { alias="sans-serif", variable=true, family="Sans Tamil", lang={ "ta" },
-      obsoletes={ "sans-tamil-supplement-vf", "sans-tamil-ui-vf" },
+      obsoletes={ "sans-tamil-supplement-vf" },
+    },
+    { alias="sans-serif", variable=true, family="Sans Tamil UI", lang={ "ta" },
+      priority=rpm.expand('%{lprio}'), nogroup=1,
+      fontname="SansTamil-UI",
     },
     { alias="sans-serif", variable=true, family="Sans Tangsa" },
     { alias="sans-serif", variable=true, family="Sans Telugu", lang={ "te" } },
+    { alias="sans-serif", variable=true, family="Sans Telugu UI", lang={ "te" },
+      priority=rpm.expand('%{lprio}'), nogroup=1,
+      fontname="SansTelugu-UI",
+    },
     { alias="sans-serif", variable=true, family="Sans Thaana", lang={ "dv" } },
     { alias="sans-serif", variable=true, family="Sans Thai", lang={ "th" },
       priority=rpm.expand('%{hprio}'),
@@ -923,7 +939,7 @@ local function notopkg(table)
     prio = tostring(prio)
     local fcconf = prio .. '-' .. rpm.expand('%{fontconf}') .. '-' .. pname .. '.conf'
     local fontdir = rpm.expand('%{_fontbasedir}') .. '/google-noto' .. (table.variable and '-vf/' or '/')
-    local fontname = 'Noto' .. (table.fontname and table.fontname or string.gsub(table.family, ' ', '')) .. (table.variable and '\\\\(-[A-Za-z]*\\\\)?\\\\[.*\\\\].*tf' or '-[^\\\\[\\\\]]*.*tf')
+    local fontname = 'Noto' .. (table.fontname and table.fontname or string.gsub(table.family, ' ', '')) .. (table.variable and '\\\\(\\\\(-[A-Za-z]*\\\\)?\\\\[.*\\\\]\\\\|-VF\\\\).*tf' or '-\\\\([^\\\\[\\\\]]\\\\|[^-VF]\\\\)*.*tf')
     local metaname = rpm.expand('%{fontorg}.') .. pkgname .. '.metainfo.xml'
 
     table.fcconf = fcconf
@@ -1057,6 +1073,9 @@ done
 
 
 %changelog
+* Thu May 18 2023 Akira TAGOH <tagoh@redhat.com> - 20230501-1
+- Updates to monthly release of 23.5.1
+
 * Thu Feb  2 2023 Akira TAGOH <tagoh@redhat.com> - 20230201-1
 - Updates to monthly release of 23.2.1
 - Update priority for google-noto-{sans,serif}-{khmer,thai}-vf-fonts for

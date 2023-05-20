@@ -4,8 +4,7 @@
 
 # https://github.com/hairyhenderson/go-codeowners
 %global goipath         github.com/hairyhenderson/go-codeowners
-Version:                0.2.2
-%global commit          cdc7c075969005e7d8818c8d358fffeadfc0cad7
+Version:                0.3.0
 
 %gometa
 

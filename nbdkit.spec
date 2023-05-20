@@ -52,7 +52,7 @@ ExclusiveArch:  x86_64
 %global source_directory 1.35-development
 
 Name:           nbdkit
-Version:        1.35.2
+Version:        1.35.3
 Release:        1%{?dist}
 Summary:        NBD server
 
@@ -229,6 +229,8 @@ nbdkit-info-plugin          Serve client and server information.
 nbdkit-memory-plugin        A virtual memory plugin.
 
 nbdkit-ondemand-plugin      Create filesystems on demand.
+
+nbdkit-ones-plugin          Fill disk with repeated 0xff or other bytes.
 
 nbdkit-pattern-plugin       Fixed test pattern.
 
@@ -537,6 +539,8 @@ nbdkit-ddrescue-filter     Filter for serving from ddrescue dump.
 nbdkit-delay-filter        Inject read and write delays.
 
 nbdkit-error-filter        Inject errors.
+
+nbdkit-evil-filter         Add random data corruption to reads.
 
 nbdkit-exitlast-filter     Exit on last client connection.
 
@@ -875,6 +879,7 @@ export LIBGUESTFS_TRACE=1
 %{_libdir}/%{name}/plugins/nbdkit-info-plugin.so
 %{_libdir}/%{name}/plugins/nbdkit-memory-plugin.so
 %{_libdir}/%{name}/plugins/nbdkit-ondemand-plugin.so
+%{_libdir}/%{name}/plugins/nbdkit-ones-plugin.so
 %{_libdir}/%{name}/plugins/nbdkit-partitioning-plugin.so
 %{_libdir}/%{name}/plugins/nbdkit-pattern-plugin.so
 %{_libdir}/%{name}/plugins/nbdkit-random-plugin.so
@@ -890,6 +895,7 @@ export LIBGUESTFS_TRACE=1
 %{_mandir}/man1/nbdkit-info-plugin.1*
 %{_mandir}/man1/nbdkit-memory-plugin.1*
 %{_mandir}/man1/nbdkit-ondemand-plugin.1*
+%{_mandir}/man1/nbdkit-ones-plugin.1*
 %{_mandir}/man1/nbdkit-partitioning-plugin.1*
 %{_mandir}/man1/nbdkit-pattern-plugin.1*
 %{_mandir}/man1/nbdkit-random-plugin.1*
@@ -1094,6 +1100,7 @@ export LIBGUESTFS_TRACE=1
 %{_libdir}/%{name}/filters/nbdkit-ddrescue-filter.so
 %{_libdir}/%{name}/filters/nbdkit-delay-filter.so
 %{_libdir}/%{name}/filters/nbdkit-error-filter.so
+%{_libdir}/%{name}/filters/nbdkit-evil-filter.so
 %{_libdir}/%{name}/filters/nbdkit-exitlast-filter.so
 %{_libdir}/%{name}/filters/nbdkit-exitwhen-filter.so
 %{_libdir}/%{name}/filters/nbdkit-exportname-filter.so
@@ -1130,6 +1137,7 @@ export LIBGUESTFS_TRACE=1
 %{_mandir}/man1/nbdkit-ddrescue-filter.1*
 %{_mandir}/man1/nbdkit-delay-filter.1*
 %{_mandir}/man1/nbdkit-error-filter.1*
+%{_mandir}/man1/nbdkit-evil-filter.1*
 %{_mandir}/man1/nbdkit-exitlast-filter.1*
 %{_mandir}/man1/nbdkit-exitwhen-filter.1*
 %{_mandir}/man1/nbdkit-exportname-filter.1*
@@ -1243,6 +1251,11 @@ export LIBGUESTFS_TRACE=1
 
 
 %changelog
+* Thu May 18 2023 Richard W.M. Jones <rjones@redhat.com> - 1.35.3-1
+- New upstream development version 1.35.3
+- New plugin: ones
+- New filter: evil
+
 * Wed May 10 2023 Richard W.M. Jones <rjones@redhat.com> - 1.35.2-1
 - New upstream development version 1.35.2
 

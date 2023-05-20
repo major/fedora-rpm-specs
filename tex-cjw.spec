@@ -3,7 +3,7 @@
 %global texpkgdoc %{_texmf_main}/doc/latex/%{texpkg}
 
 Name:             tex-cjw
-Version:          20090907
+Version:          20120925
 Release:          %autorelease
 Summary:          LaTeX class for writing resumes and cover letters
 BuildArch:        noarch

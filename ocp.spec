@@ -5,7 +5,7 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:		ocp
-Version:	0.2.103%{?snapshot:^%{commitdate}git%{shortcommit}}
+Version:	0.2.105%{?snapshot:^%{commitdate}git%{shortcommit}}
 Release:	2%{?dist}
 Summary:	Open Cubic Player for MOD/S3M/XM/IT/MIDI music files
 
@@ -27,7 +27,7 @@ Source2:	ftp://ftp.cubic.org/pub/player/gfx/opencp25ani1.zip
 Source3:	ocp-git-snapshot.sh
 Source4:	ocp-bundled-versions.sh
 Patch0:		ocp-0.2.103-ini-optimize.patch
-Patch1:		ocp-0.2.103-ini-rompaths.patch
+Patch1:		ocp-0.2.105-ini-rompaths.patch
 
 BuildRequires:	alsa-lib-devel
 BuildRequires:	bzip2-devel
@@ -63,7 +63,7 @@ Requires:	unifont-fonts
 
 # Bundled code
 Provides:	bundled(timidity++) = 2.15.0
-Provides:	bundled(libsidplayfp) = 2.5.0a
+Provides:	bundled(libsidplayfp) = 2.5.0a2
 Provides:	bundled(adplug) = 2.3.4-beta
 Provides:	bundled(libbinio) = 1.5
 Provides:	bundled(reSID) = 1.0-pre2
@@ -103,7 +103,7 @@ mv license.txt license-videos.txt
 	   --with-mad \
 	   --with-libiconv=auto \
 	   --with-timidity-default-path=/etc \
-%if 0%{?fedora} < 39
+%if 0%{?fedora} < 38
 	   --with-unifontdir-ttf=/usr/share/fonts/unifont \
 	   --without-unifont-csur-ttf \
 %else
@@ -175,6 +175,12 @@ rm -f %{buildroot}%{_pkgdocdir}/COPYING
 
 
 %changelog
+* Thu May 18 2023 Charles R. Anderson <cra@alum.wpi.edu> - 0.2.105-2
+- Adjust .otf conditional to f38+
+
+* Thu May 18 2023 Charles R. Anderson <cra@alum.wpi.edu> - 0.2.105-1
+- update to 0.2.105
+
 * Tue Mar 14 2023 Charles R. Anderson <cra@alum.wpi.edu> - 0.2.103-2
 - Make .otf conditional on f39+
 

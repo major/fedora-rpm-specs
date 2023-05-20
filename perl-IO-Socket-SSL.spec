@@ -6,14 +6,14 @@
 %bcond_without perl_IO_Socket_SSL_test_IO_Socket_INET6
 
 Name:		perl-IO-Socket-SSL
-Version:	2.081
+Version:	2.083
 Release:	1%{?dist}
 Summary:	Perl library for transparent SSL
 License:	(GPL-1.0-or-later OR Artistic-1.0-Perl) AND MPL-2.0
 URL:		https://metacpan.org/release/IO-Socket-SSL
 Source0:	https://cpan.metacpan.org/modules/by-module/IO/IO-Socket-SSL-%{version}.tar.gz
-Patch0:		IO-Socket-SSL-2.081-use-system-default-cipher-list.patch
-Patch1:		IO-Socket-SSL-2.081-use-system-default-SSL-version.patch
+Patch0:		IO-Socket-SSL-2.082-use-system-default-cipher-list.patch
+Patch1:		IO-Socket-SSL-2.082-use-system-default-SSL-version.patch
 # A test for Enable-Post-Handshake-Authentication-TLSv1.3-feature.patch,
 # bug #1632660, requires openssl tool
 Patch2:		IO-Socket-SSL-2.080-Test-client-performs-Post-Handshake-Authentication.patch
@@ -85,13 +85,13 @@ mod_perl.
 # Use system-wide default cipher list to support use of system-wide
 # crypto policy (#1076390, #1127577, CPAN RT#97816)
 # https://fedoraproject.org/wiki/Changes/CryptoPolicy
-%patch0
+%patch -P 0
 
 # Use system-default SSL version too
-%patch1
+%patch -P 1
 
 # Add a test for PHA
-%patch2 -p1
+%patch -P 2 -p1
 
 %build
 NO_NETWORK_TESTING=1 perl Makefile.PL \
@@ -125,6 +125,22 @@ make test
 %{_mandir}/man3/IO::Socket::SSL::PublicSuffix.3*
 
 %changelog
+* Thu May 18 2023 Paul Howarth <paul@city-fan.org> - 2.083-1
+- Update to 2.083
+  - Fix t/protocol_version.t for OpenSSL versions that don't support SECLEVEL
+    (regression from GH#122)
+
+* Thu May 18 2023 Paul Howarth <paul@city-fan.org> - 2.082-1
+- Update to 2.082
+  - SSL_version default now TLS 1.2+ since TLS 1.1 and lower are deprecated
+    (GH#122)
+  - Fix output of alert string when debugging (GH#132)
+  - Improve regex for hostname validation (GH#130, (GH#126)
+  - Add can_ciphersuites subroutine for feature checking (GH#127)
+  - Utils::CERT_create - die if unexpected arguments are given instead of
+    ignoring these
+- Avoid use of deprecated patch syntax
+
 * Wed Jan 25 2023 Paul Howarth <paul@city-fan.org> - 2.081-1
 - Update to 2.081
   - New function set_msg_callback for user defined callback on each SSL message

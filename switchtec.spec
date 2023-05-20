@@ -1,7 +1,7 @@
 %global srcname switchtec-user
 
 Name:           switchtec
-Version:        3.1
+Version:        4.1
 Release:        %autorelease
 Summary:        Userspace code for the Microsemi PCIe switch
 
@@ -10,10 +10,8 @@ URL:            https://github.com/Microsemi/switchtec-user
 Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 # cli: Fix format security warning
 Patch0:         %{url}/pull/316.patch
-# build: Don't strip binary by default
-Patch1:         %{url}/commit/fcd111e2ddc65102224144bf5388b1454f560ad3.patch
-# Fixes related to the max number of ports
-Patch2:         %{url}/pull/320.patch
+# cli/progress: Fix int overflow with progress bar
+Patch1:         %{url}/pull/329.patch
 
 BuildRequires:  doxygen
 BuildRequires:  graphviz
@@ -53,21 +51,13 @@ This package contains additional documentation for %{name}.
 
 %build
 %configure
-# https://bugzilla.redhat.com/show_bug.cgi?id=2057636
-%ifarch s390x
-%make_build WINDRES=
-%else
 %make_build
-%endif
 %make_build -C doc
 
 %install
 %make_install \
   PREFIX="%{_prefix}" \
   LIBDIR="%{buildroot}%{_libdir}" \
-%ifarch s390x
-  WINDRES= \
-%endif
   LDCONFIG=/bin/true
 
 # Relocate bash completion config
@@ -88,7 +78,7 @@ rm %{buildroot}%{_libdir}/*.a
 
 %files libs
 %license LICENSE
-%{_libdir}/lib%{name}.so.3*
+%{_libdir}/lib%{name}.so.4*
 
 %files devel
 %{_includedir}/%{name}

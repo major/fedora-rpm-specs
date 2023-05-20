@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       3.18.0
-Release:       15%{?dist}
+Release:       16%{?dist}
 Summary:       MinGW Windows GtkSourceViewmm library
 License:       LGPLv2+
 BuildArch:     noarch
@@ -13,12 +13,12 @@ Source0:       http://download.gnome.org/sources/gtksourceviewmm/3.18/gtksourcev
 
 BuildRequires: make
 BuildRequires: mingw32-filesystem >= 95
-BuildRequires: mingw32-gcc
+BuildRequires: mingw32-gcc-c++
 BuildRequires: mingw32-gtkmm30
 BuildRequires: mingw32-gtksourceview3
 
 BuildRequires: mingw64-filesystem >= 95
-BuildRequires: mingw64-gcc
+BuildRequires: mingw64-gcc-c++
 BuildRequires: mingw64-gtkmm30
 BuildRequires: mingw64-gtksourceview3
 
@@ -78,6 +78,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Thu May 18 2023 Orion Poplawski <orion@nwra.com> - 3.18.0-16
+- Change BR to mingw*-gcc-c++
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.18.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

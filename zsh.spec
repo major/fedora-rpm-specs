@@ -1,8 +1,8 @@
 Summary: Powerful interactive shell
 Name: zsh
 Version: 5.9
-Release: 5%{?dist}
-License: MIT
+Release: 6%{?dist}
+License: MIT-Modern-Variant AND ISC AND GPL-2.0-only
 URL: http://zsh.sourceforge.net/
 Source0: https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
 Source1: zlogin.rhs
@@ -165,6 +165,9 @@ fi
 %doc Doc/*.html
 
 %changelog
+* Wed May 17 2023 David Cantrell <dcantrell@redhat.com> - 5.9-6
+- Update the License tag to use SPDX identifiers
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.9-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

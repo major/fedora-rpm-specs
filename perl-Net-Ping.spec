@@ -1,13 +1,16 @@
+%global base_version 2.75
 # Perform optional tests
 %bcond_without perl_Net_Ping_enables_optional_test
 
 Name:           perl-Net-Ping
-Version:        2.75
-Release:        3%{?dist}
+Version:        2.76
+Release:        1%{?dist}
 Summary:        Check a remote host for reachability
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-Ping/
-Source0:        https://cpan.metacpan.org/authors/id/R/RU/RURBAN/Net-Ping-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/R/RU/RURBAN/Net-Ping-%{base_version}.tar.gz
+# Unbundled from perl 5.37.11
+Patch0:         Net-Ping-2.75-Upgrade-to-2.76.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -71,7 +74,8 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n Net-Ping-%{version}
+%setup -q -n Net-Ping-%{base_version}
+%patch -P0 -p1
 # Remove author tests
 rm t/6*.t
 # Remove appveyor script
@@ -119,6 +123,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu May 18 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.76-1
+- Upgrade to 2.76 as provided in perl-5.37.11
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.75-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,14 +1,17 @@
 Name:       timew
-Version:    1.4.3
+Version:    1.5.0
 Release:    %autorelease
 Summary:    Timewarrior tracks and reports time
-
+# SPDX
 License:    MIT
 URL:        https://timewarrior.net/
 # Do not use github tag archives
 # They do not contain the libshared git submodule
 Source0:    https://github.com/GothenburgBitFactory/timewarrior/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:    README.Fedora
+
+# https://github.com/GothenburgBitFactory/timewarrior/pull/538
+Patch0:     https://github.com/GothenburgBitFactory/timewarrior/commit/4a4110de8e54c59859ada42930140fa82d18e1f2.patch
 
 BuildRequires:  cmake gcc-c++
 BuildRequires:  rubygem-asciidoctor
@@ -22,7 +25,7 @@ Please read the /usr/share/doc/timew/README.Fedora file on using the included
 extensions.
 
 %prep
-%autosetup
+%autosetup -p1
 cp -v %{SOURCE1} .
 chmod -x ext/*.py doc/holidays/*
 for lib in ext/* doc/holidays/*; do
@@ -31,15 +34,11 @@ for lib in ext/* doc/holidays/*; do
  mv $lib.new $lib
 done
 
-# Correct cmake file to make it correctly install man pages
-sed -i 's|^install.*|install (DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}|' doc/man1/CMakeLists.txt
-sed -i 's|^install.*|install (DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}|' doc/man7/CMakeLists.txt
-
 # Install themes in _datadir instead of _docdir
 sed -i 's|DESTINATION.*|DESTINATION ${SHARE_INSTALL_PREFIX}/timew/themes/)|' doc/themes/CMakeLists.txt
 
 %build
-%cmake -DTIMEW_BINDIR=%{_bindir} -DTIMEW_DOCDIR=%{_pkgdocdir} -DTIMEW_MAN1DIR=%{_mandir}/man1/ -DTIMEW_MAN7DIR=%{_mandir}/man7/ -DTIMEW_MAN5DIR=%{_mandir}/man5/
+%cmake -DTIMEW_BINDIR=%{_bindir} -DTIMEW_DOCDIR=%{_pkgdocdir} -DTIMEW_MAN1DIR=%{_mandir}/man1/ -DTIMEW_MAN7DIR=%{_mandir}/man7/
 %cmake_build
 
 %install

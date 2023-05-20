@@ -12,17 +12,31 @@
 # Format must contain '$x' somewhere to do anything useful
 %global _format() export %1=""; for x in %{modulenames}; do %1+=%2; %%1+=" "; done;
 
-%if 0%{?fedora}
-%global podman_epoch 5
+# copr_username is only set on copr environments, not on others like koji
+# Check if copr is owned by rhcontainerbot
+%if "%{?copr_username}" != "rhcontainerbot"
+%bcond_with copr
 %else
-%global podman_epoch 2
+%bcond_without copr
+%endif
+
+%if 0%{?rhel}
+%bcond_with podman_45
+%bcond_with hirte_agent
+%else
+%bcond_without podman_45
+%bcond_without hirte_agent
 %endif
 
 Name: qm
+# Set different Epochs for copr and koji
+%if %{with copr}
+Epoch: 101
+%endif
 # Keep Version in upstream specfile at 0. It will be automatically set
 # to the correct value by Packit for copr and koji builds.
 # IGNORE this comment if you're looking at it in dist-git.
-Version: 0.2.0
+Version: 0.4.1
 Release: %autorelease
 License: GPL-2.0-only
 URL: https://github.com/containers/qm
@@ -41,8 +55,12 @@ Requires(post): selinux-policy-base >= %_selinux_policy_version
 Requires(post): selinux-policy-targeted >= %_selinux_policy_version
 Requires(post): policycoreutils
 Requires(post): libselinux-utils
-Requires: podman >= %{podman_epoch}:4.5
+%if %{with podman_45}
+Requires: podman >= 5:4.5
+%endif
+%if %{with hirte_agent}
 Requires: hirte-agent
+%endif
 
 %description
 This package allow users to setup an environment which prevents applications
@@ -77,12 +95,14 @@ sed -i 's/^install: man all/install:/' Makefile
 
 # Set AllowedCPUs in quadlet file
 NPROC=$(nproc)
-if [[ $NPROC == 2 ]]; then
+if [[ $NPROC == 1 ]]; then
+    ALLOWED_CPUS=0
+elif [[ $NPROC == 2 ]]; then
     ALLOWED_CPUS=1
 else
     ALLOWED_CPUS=$(expr $NPROC / 2)"-"$(expr $NPROC - 1)
 fi
-sed -i "s/^AllowedCPUs=.*/AllowedCPUs=$ALLOWED_CPUS/" %{_datadir}/containers/systemd/qm.container
+sed "s/^AllowedCPUs=.*/AllowedCPUs=$ALLOWED_CPUS/" %{_datadir}/containers/systemd/%{name}.container > %{_sysconfdir}/containers/systemd/%{name}.container
 
 %postun
 if [ $1 -eq 0 ]; then

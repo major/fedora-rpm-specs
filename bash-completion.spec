@@ -5,11 +5,11 @@
 
 Name:           bash-completion
 Version:        2.11
-Release:        9%{?dist}
+Release:        10%{?dist}
 Epoch:          1
 Summary:        Programmable completion for Bash
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/scop/bash-completion
 Source0:        https://github.com/scop/bash-completion/releases/download/%{version}/%{name}-%{version}.tar.xz
 
@@ -78,6 +78,9 @@ make -C completions check
 
 
 %changelog
+* Tue Apr 11 2023 Lukáš Zaoral <lzaoral@redhat.com> - 1:2.11-10
+- migrate to SPDX license format
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.11-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

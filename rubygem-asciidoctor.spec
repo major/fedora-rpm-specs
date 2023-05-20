@@ -6,16 +6,11 @@
 
 Summary: A fast, open source AsciiDoc implementation in Ruby
 Name: rubygem-%{gem_name}
-Version: 2.0.18
-Release: 3%{?dist}
+Version: 2.0.20
+Release: 1%{?dist}
 License: MIT
 URL: https://asciidoctor.org
 Source0: https://github.com/asciidoctor/asciidoctor/archive/%{gittag}/%{gem_name}-%{version}%{pre}.tar.gz
-# https://bugzilla.redhat.com/2171711
-# https://github.com/asciidoctor/asciidoctor/issues/4390
-Patch0: 0001-resolves-4390-fix-call-order-so-use-of-an-include-fi.patch
-# https://github.com/asciidoctor/asciidoctor/issues/4406
-Patch1: 0001-backport-fix-for-4406-fix-test-assertion-for-fallbac.patch
 %if 0%{?el7}
 Requires: ruby(release)
 BuildRequires: ruby(release)
@@ -126,6 +121,12 @@ cp -a .%{gem_instdir}/man/*.1 \
 %doc %{gem_docdir}
 
 %changelog
+* Thu May 18 2023 Todd Zullinger <tmz@pobox.com> - 2.0.20-1
+- update to asciidoctor 2.0.20 (rhbz#2208089)
+
+* Wed May 17 2023 Todd Zullinger <tmz@pobox.com> - 2.0.19-1
+- update to asciidoctor 2.0.19 (rhbz#2208089)
+
 * Mon Feb 20 2023 Todd Zullinger <tmz@pobox.com> - 2.0.18-3
 - fixes for ruby-3.2.x and rouge-4.1.0 (rhbz#2171711)
 

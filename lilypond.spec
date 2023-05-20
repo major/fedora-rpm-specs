@@ -4,7 +4,7 @@
 
 Name:		lilypond
 Version:	2.25.4
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A typesetting system for music notation
 
 License:	GPL-3.0-only
@@ -12,6 +12,7 @@ URL:		https://lilypond.org
 Source0:	https://lilypond.org/download/sources/v2.25/lilypond-%{version}.tar.gz
 Source1:        century-schoolbook-l.metainfo.xml
 Patch0:		lilypond-2.21.2-gcc44-relocate.patch
+Patch1:         scheme.patch
 
 Requires:	ghostscript >= 8.15
 Obsoletes: 	lilypond-fonts <= 2.12.1-1
@@ -71,7 +72,8 @@ This contains the directory common to all lilypond fonts.
 %prep
 %setup -q
 
-%patch0 -p0
+%patch -P 0 -p0
+%patch -P 1 -p1
 
 %build
 PYTHON=/usr/bin/python3
@@ -118,6 +120,9 @@ ln -s %{_fontdir} $RPM_BUILD_ROOT%{_datadir}/lilypond/%{version}/fonts/otf
 %doc COPYING
 
 %changelog
+* Thu May 18 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.25.4-2
+- Patch for crash, BZ 2208024
+
 * Mon Apr 24 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.25.4-1
 - 2.25.4
 

@@ -14,13 +14,13 @@ including the google.com/get/noto website.
 
 Name:		nototools
 Version:	0.2.17
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Noto fonts support tools and scripts plus web site generation
 
 # In nototools source
 ## nototools code is in ASL 2.0 license
 ### third_party ucd code is in Unicode license
-License:	ASL 2.0
+License:	Apache-2.0
 URL:		https://github.com/googlefonts/nototools
 Source0:	%pypi_source
 
@@ -175,6 +175,9 @@ popd
 
 
 %changelog
+* Thu May 18 2023 Peng Wu <pwu@redhat.com> - 0.2.17-3
+- Migrate to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.17-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

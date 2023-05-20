@@ -5,9 +5,9 @@
 
 Name:           nss-pam-ldapd
 Version:        0.9.10
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        An nsswitch module which uses directory servers
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            http://arthurdejong.org/nss-pam-ldapd/
 Source0:        http://arthurdejong.org/nss-pam-ldapd/nss-pam-ldapd-%{version}.tar.gz
 Source1:        http://arthurdejong.org/nss-pam-ldapd/nss-pam-ldapd-%{version}.tar.gz.sig
@@ -40,6 +40,9 @@ Obsoletes:      nss_ldap < 265-11
 # Obsolete PADL's pam_ldap
 Provides:       pam_ldap = 185-15
 Obsoletes:      pam_ldap < 185-15
+
+# For user/group creation
+Requires(pre):  shadow-utils
 
 %description
 The nss-pam-ldapd daemon, nslcd, uses a directory server to look up name
@@ -107,6 +110,11 @@ getent passwd nslcd > /dev/null || \
 %systemd_postun_with_restart nslcd.service
 
 %changelog
+* Wed May 17 2023 Davide Cavalca <dcavalca@fedoraproject.org> - 0.9.10-13
+- Add missing Requires on shadow-utils for user creation in pre
+  Fixes: RHBZ#2208017
+- Convert license tag to SPDX
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.10-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

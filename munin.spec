@@ -1,5 +1,5 @@
 Name:           munin
-Version:        2.0.72
+Version:        2.0.73
 Release:        1%{?dist}
 Summary:        Network-wide resource monitoring tool
 License:        GPLv2
@@ -263,9 +263,9 @@ sed -i -e '
 
 sed -i -e 's,@@DBDIR@@,%{_sharedstatedir}/munin-node,g' node/_bin/munin-get.in
 
-%patch101 -p1
-%patch102 -p1
-%patch103 -p1
+%patch -P 101 -p1
+%patch -P 102 -p1
+%patch -P 103 -p1
 
 cp %SOURCE16 .
 cp %SOURCE17 .
@@ -407,6 +407,7 @@ exit 0
 
 %post
 # Create log files
+mkdir -p %{_localstatedir}/log/munin
 [ -f %{_localstatedir}/log/munin/munin-html.log ] || \
     /usr/bin/install -m 0640 -o munin -g adm /dev/null %{_localstatedir}/log/munin/munin-html.log
 [ -f %{_localstatedir}/log/munin/munin-limits.log ] || \
@@ -571,7 +572,6 @@ exit 0
 %{perl_vendorlib}/Munin/Master
 %attr(-, munin, munin) %dir %{_sharedstatedir}/munin
 %attr(0700, munin, munin) %dir %{_sharedstatedir}/munin/.ssh
-%attr(0750, munin, adm) %dir %{_localstatedir}/log/munin
 %attr(-, munin, munin) %dir %{_localstatedir}/www/html/munin
 %attr(-, munin, munin) %{_localstatedir}/www/html/munin/cgi
 %attr(0640, munin, adm) %ghost %{_localstatedir}/log/munin/munin-html.log
@@ -641,6 +641,7 @@ exit 0
 
 %files nginx
 %attr(0775, munin, munin) %dir %{_sharedstatedir}/munin/cgi-tmp
+%attr(0750, munin, adm) %dir %{_localstatedir}/log/munin
 %attr(0660, munin, munin) %ghost %{_localstatedir}/log/munin/munin-cgi-graph.log
 %attr(0660, munin, munin) %ghost %{_localstatedir}/log/munin/munin-cgi-html.log
 %attr(0660, munin, munin) %ghost %{_localstatedir}/log/munin/munin-graph.log
@@ -648,6 +649,7 @@ exit 0
 
 %files apache
 %attr(0775, munin, apache) %dir %{_sharedstatedir}/munin/cgi-tmp
+%attr(0750, munin, apache) %dir %{_localstatedir}/log/munin
 %attr(0660, munin, apache) %ghost %{_localstatedir}/log/munin/munin-cgi-graph.log
 %attr(0660, munin, apache) %ghost %{_localstatedir}/log/munin/munin-cgi-html.log
 %attr(0660, munin, apache) %ghost %{_localstatedir}/log/munin/munin-graph.log
@@ -661,6 +663,10 @@ exit 0
 
 
 %changelog
+* Wed May 17 2023 Kim B. Heino <b@bbbs.net> - 2.0.73-1
+- Upgrade to 2.0.73
+- rhbz 2183484: Permission denied for group apache on /var/log/munin
+
 * Tue Mar  7 2023 Kim B. Heino <b@bbbs.net> - 2.0.72-1
 - Upgrade to 2.0.72
 - Add munin-get plugin directory

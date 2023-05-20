@@ -10,6 +10,9 @@ License:    Python
 URL:        https://readthedocs.org/projects/distlib/
 Source0:    %pypi_source %{srcname} %{version}
 
+# Python 3.12: Check for cert_file attribute before accessing it
+Patch:      https://github.com/pypa/distlib/pull/198.patch
+
 BuildArch:  noarch
 
 BuildRequires:  python%{python3_pkgversion}-devel
@@ -38,7 +41,7 @@ time saved by not having to reinvent wheels, and improved interoperability
 between tools.
 
 %prep
-%setup -q -n %{srcname}-%{version}
+%autosetup -p1 -n %{srcname}-%{version}
 
 rm distlib/*.exe
 

@@ -3,7 +3,7 @@ Version: 1.7.5
 Release: %autorelease
 Summary: A framework for performing security analysis of Python source code
 
-License: ASL 2.0
+License: Apache-2.0
 URL: https://github.com/PyCQA/bandit
 Source0: https://files.pythonhosted.org/packages/source/b/%{name}/%{name}-%{version}.tar.gz
 BuildArch: noarch

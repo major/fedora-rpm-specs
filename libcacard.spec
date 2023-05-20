@@ -1,12 +1,15 @@
 Name:           libcacard
 Version:        2.8.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        CAC (Common Access Card) library
 License:        LGPLv2+
 URL:            https://gitlab.freedesktop.org/spice/libcacard
 Source0:        http://www.spice-space.org/download/libcacard/%{name}-%{version}.tar.xz
 Source1:        http://www.spice-space.org/download/libcacard/%{name}-%{version}.tar.xz.sig
 Source2:        gpgkey-A3DDE969.gpg
+Source3:        db2.crypt
+# https://gitlab.freedesktop.org/spice/libcacard/-/merge_requests/31
+Patch1:         libcacard-2.8.1-sort-certificates.patch
 Epoch:          3
 
 BuildRequires:  gcc
@@ -41,6 +44,8 @@ developing applications that use %{name}.
 %prep
 gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
 %setup -q
+%patch1 -p1
+cp %{SOURCE3} tests/
 
 %build
 %meson
@@ -68,6 +73,9 @@ gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
 %{_libdir}/pkgconfig/libcacard.pc
 
 %changelog
+* Thu May 18 2023 Jakub Jelen <jjelen@redhat.com> - 2.8.1-5
+- Sort certificates by ID
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3:2.8.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

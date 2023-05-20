@@ -1,7 +1,7 @@
 Summary: Text file format converters
 Name: dos2unix
-Version: 7.4.4
-Release: 2%{?dist}
+Version: 7.5.0
+Release: 1%{?dist}
 License: BSD-3-Clause
 URL: https://waterlan.home.xs4all.nl/dos2unix.html
 Source: https://waterlan.home.xs4all.nl/dos2unix/%{name}-%{version}.tar.gz
@@ -14,7 +14,7 @@ Provides: unix2dos = %{version}-%{release}
 Obsoletes: unix2dos < 5.1-1
 
 %description
-Convert text files with DOS or Mac line endings to Unix line endings and 
+Convert text files with DOS or Mac line endings to Unix line endings and
 vice versa.
 
 %prep
@@ -36,7 +36,7 @@ make test
 
 %files -f %{name}.lang
 %license COPYING.txt
-%doc man/man1/dos2unix.htm ChangeLog.txt 
+%doc man/man1/dos2unix.htm ChangeLog.txt
 %doc NEWS.txt README.txt TODO.txt
 %{_bindir}/dos2unix
 %{_bindir}/mac2unix
@@ -45,6 +45,9 @@ make test
 %{_mandir}/man1/*.1*
 
 %changelog
+* Thu May 18 2023 Tim Waugh <twaugh@redhat.com> - 7.5.0-1
+- Update to 7.5.0 (bug #2208091).
+
 * Tue Feb 21 2023 Than Ngo <than@redhat.com> - 7.4.4-2
 - migrated to SPDX license
 

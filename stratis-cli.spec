@@ -1,9 +1,9 @@
 Name:           stratis-cli
-Version:        3.5.1
+Version:        3.5.2
 Release:        1%{?dist}
 Summary:        Command-line tool for interacting with the Stratis daemon
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/stratis-storage/stratis-cli
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
@@ -62,6 +62,9 @@ a2x -f manpage docs/stratis.txt
 %{python3_sitelib}/stratis_cli-*.egg-info/
 
 %changelog
+* Wed May 17 2023 Bryan Gurney <bgurney@redhat.com> - 3.5.2-1
+- Update to 3.5.2
+
 * Fri Mar 31 2023 Bryan Gurney <bgurney@redhat.com> - 3.5.1-1
 - Update to 3.5.1
 

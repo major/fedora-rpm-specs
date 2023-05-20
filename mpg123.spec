@@ -7,7 +7,7 @@ Version: 1.31.3
 Release: 1%{?dist}
 
 Summary: Real time MPEG 1.0/2.0/2.5 audio player/decoder for layers 1, 2 and 3
-License: LGPLv2+
+License: GPL-2.0-or-later
 URL: https://mpg123.org
 
 Source0: %{url}/download/%{name}-%{version}.tar.bz2

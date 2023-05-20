@@ -4,7 +4,7 @@
 
 # https://github.com/bep/gowebp
 %global goipath         github.com/bep/gowebp
-Version:                0.1.0
+Version:                0.2.0
 
 %gometa
 
@@ -16,7 +16,7 @@ C bindings and an API for encoding Webp images.}
                         libwebp_src/ChangeLog libwebp_src/README.webp_js\\\
                         libwebp_src/README libwebp_src/README.mux\\\
                         libwebp_src/swig/README
-%global gosupfiles      libwebp_src/src/* libwebp_src/src/*/*
+%global gosupfiles      libwebp_src/src/* libwebp_src/src/*/* libwebp_src/sharpyuv/*
 
 Name:           %{goname}
 Release:        %autorelease

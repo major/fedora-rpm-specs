@@ -17,8 +17,8 @@
 %endif
 
 Name:       tracer
-Version:    0.7.8
-Release:    5%{?dist}
+Version:    0.7.9
+Release:    1%{?dist}
 Summary:    Finds outdated running applications in your system
 
 BuildArch:  noarch
@@ -74,7 +74,6 @@ BuildRequires:  dbus-python
 BuildRequires:  python2-distro
 Requires:       dbus-python
 Requires:       python2-psutil
-Requires:       python2-setuptools
 Requires:       python2-future
 Requires:       python2-six
 Requires:       python2-distro
@@ -105,7 +104,6 @@ BuildRequires:  python3-distro
 BuildRequires:  python3-setuptools
 Requires:       python3-rpm
 Requires:       python3-psutil
-Requires:       python3-setuptools
 Requires:       python3-dbus
 Requires:       python3-six
 Requires:       python3-distro
@@ -199,17 +197,18 @@ make DESTDIR=%{buildroot}%{_datadir} mo
 
 
 %changelog
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.8-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.8-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 0.7.8-3
-- Rebuilt for Python 3.11
-
-* Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.8-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+* Thu May 18 2023 Jakub Kadlcik <frostyx@email.cz> 0.7.9-1
+- Create /var/run/reboot-required file (frostyx@email.cz)
+- Recommend the correct command for restarting auditd (frostyx@email.cz)
+- Add python3-setuptools dependency (frostyx@email.cz)
+- Fix argument passed to print_helper() (ferdnyc@gmail.com)
+- Add similar software to the readme (frostyx@email.cz)
+- Update url references to point to tracer.readthedocs.io (dcampano@gmail.com)
+- Oracle Linux 8 uses dnf, too (suttner@atix.de)
+- Drop python-setuptools runtime dependency (frostyx@email.cz)
+- Fix Python DeprecationWarning: invalid escape sequence
+  (jvanderwaa@redhat.com)
+- Add readthedocs configuration file (frostyx@email.cz)
 
 * Mon Aug 23 2021 Jakub Kadlcik <frostyx@email.cz> 0.7.8-1
 - Release also for F35 (frostyx@email.cz)

@@ -45,7 +45,7 @@ ExcludeArch: i686
 
 Summary:          389 Directory Server (base)
 Name:             389-ds-base
-Version:          2.4.0
+Version:          2.4.1
 Release:          1%{?dist}
 License:          GPLv3+ and (ASL 2.0 or MIT) and MIT and (Unlicense or MIT) and MPLv2.0 and BSD and (ASL 2.0 with exceptions or ASL 2.0 or MIT) and ASL 2.0 and (ASL 2.0 or Boost) and ((MIT or ASL 2.0) and Unicode-DFS-2016)
 URL:              https://www.port389.org
@@ -91,10 +91,10 @@ Provides:  bundled(crate(instant)) = 0.1.12
 Provides:  bundled(crate(io-lifetimes)) = 1.0.10
 Provides:  bundled(crate(itoa)) = 1.0.6
 Provides:  bundled(crate(jobserver)) = 0.1.26
-Provides:  bundled(crate(libc)) = 0.2.142
+Provides:  bundled(crate(libc)) = 0.2.144
 Provides:  bundled(crate(librnsslapd)) = 0.1.0
 Provides:  bundled(crate(librslapd)) = 0.1.0
-Provides:  bundled(crate(linux-raw-sys)) = 0.3.4
+Provides:  bundled(crate(linux-raw-sys)) = 0.3.7
 Provides:  bundled(crate(lock_api)) = 0.4.9
 Provides:  bundled(crate(log)) = 0.4.17
 Provides:  bundled(crate(lru)) = 0.7.8
@@ -108,32 +108,32 @@ Provides:  bundled(crate(parking_lot_core)) = 0.8.6
 Provides:  bundled(crate(paste)) = 0.1.18
 Provides:  bundled(crate(paste-impl)) = 0.1.18
 Provides:  bundled(crate(pin-project-lite)) = 0.2.9
-Provides:  bundled(crate(pkg-config)) = 0.3.26
+Provides:  bundled(crate(pkg-config)) = 0.3.27
 Provides:  bundled(crate(ppv-lite86)) = 0.2.17
 Provides:  bundled(crate(proc-macro-hack)) = 0.5.20+deprecated
-Provides:  bundled(crate(proc-macro2)) = 1.0.56
+Provides:  bundled(crate(proc-macro2)) = 1.0.58
 Provides:  bundled(crate(pwdchan)) = 0.1.0
-Provides:  bundled(crate(quote)) = 1.0.26
+Provides:  bundled(crate(quote)) = 1.0.27
 Provides:  bundled(crate(rand)) = 0.8.5
 Provides:  bundled(crate(rand_chacha)) = 0.3.1
 Provides:  bundled(crate(rand_core)) = 0.6.4
 Provides:  bundled(crate(redox_syscall)) = 0.2.16
 Provides:  bundled(crate(redox_syscall)) = 0.3.5
-Provides:  bundled(crate(rustix)) = 0.37.14
+Provides:  bundled(crate(rustix)) = 0.37.19
 Provides:  bundled(crate(ryu)) = 1.0.13
 Provides:  bundled(crate(scopeguard)) = 1.1.0
-Provides:  bundled(crate(serde)) = 1.0.160
-Provides:  bundled(crate(serde_derive)) = 1.0.160
+Provides:  bundled(crate(serde)) = 1.0.163
+Provides:  bundled(crate(serde_derive)) = 1.0.163
 Provides:  bundled(crate(serde_json)) = 1.0.96
 Provides:  bundled(crate(slapd)) = 0.1.0
 Provides:  bundled(crate(slapi_r_plugin)) = 0.1.0
 Provides:  bundled(crate(smallvec)) = 1.10.0
 Provides:  bundled(crate(strsim)) = 0.8.0
 Provides:  bundled(crate(syn)) = 1.0.109
-Provides:  bundled(crate(syn)) = 2.0.15
+Provides:  bundled(crate(syn)) = 2.0.16
 Provides:  bundled(crate(tempfile)) = 3.5.0
 Provides:  bundled(crate(textwrap)) = 0.11.0
-Provides:  bundled(crate(tokio)) = 1.28.0
+Provides:  bundled(crate(tokio)) = 1.28.1
 Provides:  bundled(crate(tokio-macros)) = 2.1.0
 Provides:  bundled(crate(toml)) = 0.5.11
 Provides:  bundled(crate(unicode-ident)) = 1.0.8
@@ -726,6 +726,25 @@ exit 0
 %endif
 
 %changelog
+* Thu May 18 2023 Mark Reynolds <mreynolds@redhat.com> - 2.4.1-1
+- Bump version to 2.4.1
+- Issue 5770 - RFE - Extend Password Adminstrators to allow skipping password info updates
+- Issue 5768 - CLI/UI - cert checks are too strict, and other issues
+- Issue 5722 - fix compilation warnings (#5771)
+- Issue 5765 - Improve installer selinux handling
+- Issue 152  - RFE - Add support for LDAP alias entries
+- Issue 5052 - BUG - Custom filters prevented entry deletion (#5060)
+- Issue 5752 - RFE - Provide a history for LastLoginTime (#5753)
+- Issue 5722 - RFE When a filter contains 'nsrole', improve response time by rewriting the filter (#5723)
+- Issue 5704 - crash in sync_refresh_initial_content (#5720)
+- Issue 5738 - RFE - UI - Read/write replication monitor info to .dsrc file
+- Issue 5156 - build warnings (#5758)
+- Issue 5749 - RFE - Allow Account Policy Plugin to handle inactivity and expiration at the same time
+- Issue 5743 - Disabling replica crashes the server (#5746)
+- Issue 2562 - Copy config files into backup directory
+- Issue 5156 - fix build breakage from slapi-memberof commit
+- Issue 4758 - Add tests for WebUI
+
 * Tue Apr 25 2023 Mark Reynolds <mreynolds@redhat.com> - 2.4.0-1
 - Bump version to 2.4.0
 - Issue 5156 - RFE that implement slapi_memberof (#5694)

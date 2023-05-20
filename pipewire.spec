@@ -9,7 +9,7 @@
 %global ms_version   0.4.2
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 1
+%global baserelease 2
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -63,6 +63,7 @@ Source0:        https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/%{ver
 %endif
 
 ## upstream patches
+Patch0001:	0001-jack-update-bufsize-and-samplerate-when-skipping-not.patch
 
 ## upstreamable patches
 
@@ -611,6 +612,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-x11-bell.so
 
 %changelog
+* Thu May 18 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.71-2
+- Add patch to fix JACK buffersize updates
+
 * Wed May 17 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.71-1
 - Update version to 0.3.71
 

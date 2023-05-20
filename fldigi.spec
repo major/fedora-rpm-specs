@@ -2,11 +2,12 @@
 %global alpha 0
 
 Name:           fldigi
-Version:        4.1.25
-Release:        1%{?dist}
+Version:        4.1.26
+Release:        2%{?dist}
 Summary:        Digital modem program for Linux
 
-License:        GPLv3+  
+License:        GPL-3.0-or-later GPL-2.0-or-later LGPL-2.0-or-later LGPL-3.0-or-later GPL-3.0 LGPL-2.0 GPL-2.0 BSL-1.0 MIT-0 LGPL-3 GPL Apache-2.0
+
 URL:            http://www.w1hkj.com/Fldigi.html
 %if %{alpha}
 Source0:        http://www.w1hkj.com/alpha/%{name}/%{name}-%{version}.tar.gz
@@ -113,6 +114,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 
 
 %changelog
+* Thu May 18 2023 Richard Shaw <hobbes1069@gmail.com> - 4.1.26-2
+- Update licenses to SPDX identifiers.
+
+* Thu May 18 2023 Richard Shaw <hobbes1069@gmail.com> - 4.1.26-1
+- Update to 4.1.26.
+
 * Wed Feb 15 2023 Richard Shaw <hobbes1069@gmail.com> - 4.1.25-1
 - Update to 4.1.25.
 

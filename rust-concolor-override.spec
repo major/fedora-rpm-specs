@@ -5,7 +5,7 @@
 %global crate concolor-override
 
 Name:           rust-concolor-override
-Version:        1.0.0
+Version:        1.1.0
 Release:        %autorelease
 Summary:        Global override of color control
 

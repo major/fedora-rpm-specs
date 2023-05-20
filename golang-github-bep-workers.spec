@@ -3,7 +3,7 @@
 
 # https://github.com/bep/workers
 %global goipath         github.com/bep/workers
-Version:                1.0.0
+Version:                1.1.0
 
 %gometa
 

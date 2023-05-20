@@ -6,7 +6,7 @@
 
 Name:          libgeotiff
 Version:       1.7.1
-Release:       7%{?dist}
+Release:       8%{?dist}
 
 Summary:       GeoTIFF format library
 License:       MIT
@@ -28,14 +28,14 @@ BuildRequires: zlib-devel
 
 %if %{with mingw}
 BuildRequires: mingw32-filesystem >= 95
-BuildRequires: mingw32-gcc
+BuildRequires: mingw32-gcc-c++
 BuildRequires: mingw32-libtiff
 BuildRequires: mingw32-libjpeg
 BuildRequires: mingw32-proj
 BuildRequires: mingw32-zlib
 
 BuildRequires: mingw64-filesystem >= 95
-BuildRequires: mingw64-gcc
+BuildRequires: mingw64-gcc-c++
 BuildRequires: mingw64-libtiff
 BuildRequires: mingw64-libjpeg
 BuildRequires: mingw64-proj
@@ -221,6 +221,9 @@ EOF
 
 
 %changelog
+* Thu May 18 2023 Orion Poplawski <orion@nwra.com> - 1.7.1-8
+- Change BR to mingw*-gcc-c++
+
 * Sat Mar 04 2023 Sandro Mani <manisandro@gmail.com> - 1.7.1-7
 - Rebuild (proj)
 

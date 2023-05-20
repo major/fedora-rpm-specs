@@ -1,6 +1,6 @@
 Name:           wgrib2
-Version:        2.0.8
-Release:        13%{?dist}
+Version:        3.1.2
+Release:        1%{?dist}
 Summary:        Manipulate, inventory and decode GRIB2 files
 
 # most files are public domain, geo.c and Netcdf.c are GPL+, gribtab.c is GPLv2+
@@ -16,14 +16,12 @@ Patch1:         wgrib2-jasper-2.patch
 # c.f. https://github.com/jasper-software/jasper/commit/5fe57ac5829ec31396e7eaab59a688da014660af
 Patch2:         wgrib2-2.0.8-jasper3-use-wrapper-entry-point.patch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  g2clib-static
-%if 0%{?fedora} || 0%{?rhel} >= 8
+BuildRequires:  hdf5-devel
 BuildRequires:  mariadb-connector-c-devel
-%else
-BuildRequires:  mysql-devel
-%endif
 BuildRequires:  netcdf-devel
+BuildRequires:  proj-devel
 BuildRequires:  zlib-devel
 
 %description
@@ -37,20 +35,17 @@ extract data. You can do basic database operations and other nifty things.
 %patch1 -p1 -b .jasper2
 %patch2 -p1 -b .jasper3
 
-rm -r wgrib2/{fnlist,Gctpc,gctpc_ll2xy,new_grid_lambertc}.[ch]
+rm wgrib2/fnlist.c
+rm -r wgrib2/{Gctpc,gctpc_ll2xy,new_grid_lambertc}.[ch]
 cp %SOURCE1 wgrib2/config.h
 
 
 %build
 cd wgrib2
 export CFLAGS="-I.. -I%{_includedir}/netcdf -I%{_includedir}/mysql $RPM_OPT_FLAGS -fopenmp"
-%if 0%{?fedora} || 0%{?rhel} >= 8
 export LDFLAGS="-l%{g2clib} -ljasper -lnetcdf -lpng -lmysqlclient -lz -lm -fopenmp"
-%else
-export LDFLAGS="-l%{g2clib} -ljasper -lnetcdf -lpng -L%{_libdir}/mysql -lmysqlclient -lz -lm -fopenmp"
-%endif
-make fnlist.h fnlist.c
-make
+%make_build fnlist.c
+%make_build
 
 
 %install
@@ -64,6 +59,9 @@ install wgrib2/wgrib2 $RPM_BUILD_ROOT%{_bindir}/wgrib2
 
 
 %changelog
+* Thu May 18 2023 Orion Poplawski <orion@nwra.com> - 3.1.2-1
+- Update to 3.1.2
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

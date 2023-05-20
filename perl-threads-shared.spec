@@ -1,8 +1,8 @@
 %global base_version 1.59
 
 Name:           perl-threads-shared
-Version:        1.64
-Release:        490%{?dist}
+Version:        1.68
+Release:        1%{?dist}
 Summary:        Perl extension for sharing data structures between threads
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/threads-shared
@@ -18,6 +18,9 @@ Patch2:         threads-shared-1.59-Upgrade-to-1.61.patch
 Patch3:         threads-shared-1.61-Upgrade-to-1.62.patch
 # Unbundled from perl 5.35.11
 Patch4:         threads-shared-1.62-Upgrade-to-1.64.patch
+# Unbundled from perl 5.37.11
+Patch5:         threads-shared-1.64-Upgrade-to-1.68.patch
+BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  make
@@ -55,24 +58,52 @@ thread gets a private copy of each existing variable. This module allows
 you to share variables across different threads (and pseudo-forks on
 Win32). It is used together with the threads module.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+Requires:       perl(POSIX)
+Requires:       perl(Time::HiRes)
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n threads-shared-%{base_version}
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
+%patch -P0 -p1
+%patch -P1 -p1
+%patch -P2 -p1
+%patch -P3 -p1
+%patch -P4 -p1
+%patch -P5 -p1
+
+# Help generators to recognize Perl scripts
+for F in t/*.t t/*pl; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="$RPM_OPT_FLAGS"
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="%{optflags}"
 %{make_build}
 
 %install
 %{make_install}
-find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
-%{_fixperms} $RPM_BUILD_ROOT/*
+find %{buildroot} -type f -name '*.bs' -size 0 -delete
+%{_fixperms} %{buildroot}/*
+
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 unset GIT_DIR PERL_BUILD_PACKAGING PERL_CORE PERL_RUNPERL_DEBUG \
     RUN_MAINTAINER_TESTS
 make test
@@ -81,9 +112,16 @@ make test
 %doc Changes examples README
 %{perl_vendorarch}/auto/*
 %{perl_vendorarch}/threads*
-%{_mandir}/man3/*
+%{_mandir}/man3/threads::shared*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Thu May 18 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.68-1
+- Upgrade to 1.68 as provided in perl-5.37.11
+- Package tests
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.64-490
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -282,7 +320,7 @@ make test
 
 * Wed Aug 17 2011 Marcela Mašláňová <mmaslano@redhat.com> - 1.37-3
 - change path on vendor, so our debuginfo are not conflicting with
- perl core debuginfos
+  perl core debuginfos
 
 * Mon Jun 20 2011 Marcela Mašláňová <mmaslano@redhat.com> - 1.37-2
 - Perl mass rebuild

@@ -1,9 +1,9 @@
 %global major_version 1
-%global minor_version 1
+%global minor_version 2
 %global patch_version 0
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 7
+%global baserelease 1
 
 Name:           credentials-fetcher
 Version:        %{major_version}.%{minor_version}.%{patch_version}
@@ -12,18 +12,16 @@ Summary:        credentials-fetcher is a daemon that refreshes tickets or tokens
 
 License:        Apache-2.0
 URL:            https://github.com/aws/credentials-fetcher
-Source0:        https://github.com/aws/credentials-fetcher/archive/refs/tags/%{version}.tar.gz
-# https://github.com/aws/credentials-fetcher/pull/42
-Patch0:         credentials-fetcher-1.1.0-boost-use-std-fstream.patch
+Source0:        https://github.com/aws/credentials-fetcher/archive/refs/tags/v.%{version}.tar.gz
 
-BuildRequires:  cmake3 make chrpath openldap-clients grpc-devel gcc-c++ glib2-devel boost-devel 
+BuildRequires:  cmake3 make chrpath openldap-clients grpc-devel gcc-c++ glib2-devel boost-devel
 BuildRequires:  openssl-devel zlib-devel protobuf-devel re2-devel krb5-devel systemd-devel
-BuildRequires:  systemd-rpm-macros dotnet-sdk-7.0 grpc-plugins
+BuildRequires:  systemd-rpm-macros dotnet-sdk-6.0 grpc-plugins
 
-Requires: bind-utils openldap openldap-clients awscli
+Requires: bind-utils openldap openldap-clients awscli dotnet-runtime-6.0
 
 # No one likes you i686
-ExcludeArch:    i686 armv7hl
+ExclusiveArch: x86_64 aarch64 s390x
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/CMake/
 
@@ -37,15 +35,13 @@ The same method can be used to refresh other types of security tokens.
 This spec file is specific to Fedora, use this file to rpmbuild on Fedora.
 
 %prep
-%setup -q
-%patch -P0 -p1 -b .boost-fstream
+%setup -q -n credentials-fetcher-v.%{version}
 # abseil-cpp LTS 20230125 requires at least C++14; string_view requires C++17:
 sed -r -i 's/(std=c\+\+)11/\117/' CMakeLists.txt
 
 %build
 %cmake3
 %cmake_build
-
 %install
 
 %cmake_install
@@ -67,6 +63,9 @@ ctest3
 %attr(0700, -, -) %{_sbindir}/credentials_fetcher_utf16_private.runtimeconfig.json
 
 %changelog
+* Mon May 15 2023 Sai Kiran Akula <saakla@amazon.com> - 1.2.0
+- Create 1.2.0 release
+
 * Thu Mar 23 2023 Tom Callaway <spot@fedoraproject.org> - 1.1.0-7
 - rebuild for new abseil-cpp
 
