@@ -5,7 +5,7 @@
 %global crate wide
 
 Name:           rust-wide
-Version:        0.7.8
+Version:        0.7.9
 Release:        %autorelease
 Summary:        Crate to help you go wide
 

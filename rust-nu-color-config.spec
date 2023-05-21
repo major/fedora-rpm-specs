@@ -5,7 +5,7 @@
 %global crate nu-color-config
 
 Name:           rust-nu-color-config
-Version:        0.76.0
+Version:        0.80.0
 Release:        %autorelease
 Summary:        Color configuration code used by Nushell
 

@@ -20,19 +20,19 @@
 
 Name:           flexiblas
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A BLAS/LAPACK wrapper library with runtime exchangeable backends
 
-# GPLv3 with an exception for the BLAS/LAPACK interface
+# GPLv3+ with an exception for the BLAS/LAPACK interface
 # https://www.gnu.org/licenses/gpl-faq.en.html#LinkingOverControlledInterface
 # libcscutils/ is LGPLv2+
-# contributed/ and test/ are BSD
-License:        GPLv3 with exceptions and LGPLv2+ and BSD
+# contributed/ and test/ are BSD (Open MPI variant)
+License:        GPL-3.0-or-later WITH GPL-3.0-interface-exception and LGPL-2.0-or-later and BSD-3-Clause-Open-MPI
 URL:            https://www.mpi-magdeburg.mpg.de/projects/%{name}
 Source0:        https://github.com/mpimd-csc/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  make, cmake, python
-BuildRequires:  gcc-fortran, gcc-c++
+BuildRequires:  gcc, gcc-fortran
 BuildRequires:  multilib-rpm-config
 %if %{with system_lapack}
 BuildRequires:  blas-static, lapack-static
@@ -46,6 +46,7 @@ BuildRequires:  blis-devel
 %if %{with openblas}
 BuildRequires:  openblas-devel
 %endif
+Requires:       %{name}-netlib%{?_isa} = %{version}-%{release}
 
 %global _description %{expand:
 FlexiBLAS is a wrapper library that enables the exchange of the BLAS and
@@ -424,6 +425,11 @@ make -C build64 test
 %endif
 
 %changelog
+* Fri May 19 2023 Iñaki Úcar <iucar@fedoraproject.org> - 3.3.1-3
+- Require netlib from base package
+- Adapt license tag to SPDX
+- Add rpminspect.yaml file to skip tests with false positives
+
 * Tue Apr 04 2023 Iñaki Úcar <iucar@fedoraproject.org> - 3.3.1-2
 - Fix multilib config header conflict
 

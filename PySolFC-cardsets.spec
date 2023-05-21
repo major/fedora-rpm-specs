@@ -3,9 +3,9 @@
 
 Name:           PySolFC-cardsets
 Version:        2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Various cardsets for PySolFC
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://pysolfc.sourceforge.io/
 Source0:        https://github.com/shlomif/PySolFC-Cardsets/archive/%{version}/PySolFC-Cardsets-%{version}.tar.gz
 Source1:        https://github.com/shlomif/PySol-Extra-Mahjongg-Cardsets/archive/%{extra}/PySol-Extra-Mahjongg-Cardsets-%{extra}.tar.gz
@@ -23,11 +23,12 @@ This package contains extras cardsets for PySolFC.
 
 %install
 install -d -m755 $RPM_BUILD_ROOT%{_datadir}/PySolFC
-# remove cardsets included in PySolFC package
-rm -rf cardset-2000 cardset-crystal-mahjongg cardset-dashavatara-ganjifa \
-       cardset-dondorf cardset-gnome-mahjongg-1 cardset-hexadeck \
-       cardset-kintengu cardset-matrix cardset-mughal-ganjifa cardset-oxymoron \
-       cardset-standard cardset-tuxedo cardset-vienna-2k cardset-hanafuda-200-years
+# remove cardsets included in PySolFC package (PySolFC-Cardsets--Minimal-2.2.0)
+rm -rf cardset-2000 cardset-crystal-mahjongg cardset-dashavatara-ganjifa cardset-dashavatara-ganjifa-xl \
+       cardset-dondorf cardset-gnome-mahjongg-1 cardset-hanafuda-200-years cardset-hexadeck \
+       cardset-matrix cardset-mughal-ganjifa cardset-mughal-ganjifa-xl cardset-oxymoron \
+       cardset-standard cardset-tuxedo cardset-vienna-2k
+
 cp -a cardset-* $RPM_BUILD_ROOT%{_datadir}/PySolFC
 cp -a PySol-Extra-Mahjongg-Cardsets-0.2.0/Lost-Mahjongg-Cardsets/cardset-* $RPM_BUILD_ROOT%{_datadir}/PySolFC
 
@@ -38,6 +39,10 @@ find $RPM_BUILD_ROOT%{_datadir}/PySolFC -type f -name 'COPYRIGHT' -exec chmod 06
 %{_datadir}/PySolFC/cardset-*
 
 %changelog
+* Fri May 19 2023 Sérgio Basto <sergio@serjux.com> - 2.2-2
+- Updated the remove of cardsets already included in PySolFC package (PySolFC-Cardsets--Minimal-2.2.0)
+- Convert to SPDX License
+
 * Mon Feb 27 2023 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 2.2-1
 - Update to 2.2 (#2173477)
 

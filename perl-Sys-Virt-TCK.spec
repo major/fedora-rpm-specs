@@ -6,7 +6,7 @@ Summary: Sys::Virt::TCK - libvirt Technology Compatibility Kit
 Name: perl-%{appname}
 Version: 1.1.0
 Release: 14%{dist}
-License: GPLv2
+License: GPL-2.0-or-later
 Source: http://libvirt.org/sources/tck/%{appname}-v%{version}.tar.gz
 Url: http://libvirt.org/
 Requires: libvirt >= 4.4.0

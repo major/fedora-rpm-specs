@@ -13,8 +13,8 @@
 Summary: Numerical linear algebra package libraries
 Name: lapack
 Version: %{mediumver}.0
-Release: 2%{?dist}
-License: BSD
+Release: 3%{?dist}
+License: BSD-3-Clause-Open-MPI
 URL: http://www.netlib.org/lapack/
 Source0: https://github.com/Reference-LAPACK/lapack/archive/v%{mediumver}.tar.gz
 Source1: http://www.netlib.org/lapack/manpages.tgz
@@ -393,6 +393,9 @@ cp -f manpages/man/man3/* ${RPM_BUILD_ROOT}%{_mandir}/man3
 %endif
 
 %changelog
+* Fri May 19 2023 Iñaki Úcar <iucar@fedoraproject.org> - 3.11.0-3
+- Adapt license tag to SPDX
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

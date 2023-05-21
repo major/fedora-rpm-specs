@@ -5,16 +5,13 @@
 %global crate universal-hash
 
 Name:           rust-universal-hash
-Version:        0.5.0
+Version:        0.5.1
 Release:        %autorelease
 Summary:        Traits which describe the functionality of universal hash functions
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/universal-hash
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * relax stricter-than-SemVer subtle dependency
-Patch:          universal-hash-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 

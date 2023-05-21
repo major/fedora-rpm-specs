@@ -1,10 +1,10 @@
-%global DATE 20230511
-%global gitrev 55ca611b161ce96d568ea82ff0e6ea395dc76957
+%global DATE 20230519
+%global gitrev 75b6adf0fdb4d09b64cddfdce59a030f69071fc5
 %global gcc_version 13.1.1
 %global gcc_major 13
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
-%global gcc_release 2
+%global gcc_release 3
 %global nvptx_tools_gitrev 93e00909ceb9cbbc104f0fcba56c0361ffb3ca4b
 %global newlib_cygwin_gitrev 9e09d6ed83cce4777a5950412647ccc603040409
 %global _unpackaged_files_terminate_build 0
@@ -3459,6 +3459,13 @@ end
 %endif
 
 %changelog
+* Fri May 19 2023 Jakub Jelinek <jakub@redhat.com> 13.1.1-3
+- update from releases/gcc-13 branch
+  - PRs c++/80488, c++/83258, c++/97700, c++/103807, c++/109651, c++/109745,
+	c++/109761, c++/109774, c++/109868, c++/109884, fortran/109641,
+	fortran/109846, libstdc++/109816, libstdc++/109883, target/104338,
+	target/109697
+
 * Thu May 11 2023 Jakub Jelinek <jakub@redhat.com> 13.1.1-2
 - update from releases/gcc-13 branch
   - PRs c++/91618, c++/96604, c++/109506, c++/109640, c++/109642, c++/109666,

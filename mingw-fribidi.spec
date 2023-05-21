@@ -3,8 +3,8 @@
 %global pkgname fribidi
 
 Name:          mingw-%{pkgname}
-Version:       1.0.12
-Release:       3%{?dist}
+Version:       1.0.13
+Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 License:       LGPLv2+
@@ -100,6 +100,9 @@ Static version of the MinGW Windows %{pkgname} library.
 
 
 %changelog
+* Fri May 19 2023 Sandro Mani <manisandro@gmail.com> - 1.0.13-1
+- Update to 1.0.13
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

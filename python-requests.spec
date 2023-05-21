@@ -1,6 +1,7 @@
-%if 0%{?_module_build}
+%if 0%{?_module_build} || 0%{?rhel}
 # Don't run tests on module-build for now
 # See: https://bugzilla.redhat.com/show_bug.cgi?id=1450608
+# RHEL does not include the test dependencies
 %bcond_with tests
 %else
 # When bootstrapping Python, we cannot test this yet

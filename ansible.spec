@@ -1,9 +1,22 @@
+# SPDX-License-Identifier: MIT
+# Copyright (C) Fedora Project Authors
+# License Text: https://spdx.org/licenses/MIT.html
+
+# Compatibility                                                             #
+#############################################################################
+# This specfile should remain compatible with EPEL 9 and stable Fedoras.    #
+# The EPEL 8 specfile is separately maintained,                             #
+# but the ansible-prep.sh and ansible-install-license.sh scripts are shared #
+# across branches.                                                          #
+#############################################################################
+
 # TODO: Re-enable docs and tests once possible
-%bcond_with docs
-%bcond_with tests
-%global ansible_licensedir %{_defaultlicensedir}/ansible
-%global ansible_docdir %{_defaultdocdir}/ansible
-%global min_ansible_core 2.14.4
+%bcond docs 0
+%bcond tests 0
+
+# disable the python -s shbang flag as we want to be able to find non system modules
+# NB: We cannot use https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_py3_shebang_S on RHEL 9.
+%global py3_shebang_flags %(echo %{py3_shebang_flags} | sed 's|s||')
 
 # Roles' files and templates should not be mangled.
 # These files are installed on remote systems which may or may not have the
@@ -15,13 +28,12 @@
 # ansible-core package is built against Python 3.11 in RHEL 8 and RHEL 9 which
 # is not the default version.
 %global python3_pkgversion 3.11
-BuildRequires:  python%{python3_pkgversion}-rpm-macros
 %endif
 
 Name:           ansible
 Summary:        Curated set of Ansible collections included in addition to ansible-core
-Version:        8.0.0~a3
-%global uversion %(tr -d '~' <<< %{version})
+Version:        8.0.0~b1
+%global uversion %{version_no_tilde %{quote:%nil}}
 Release:        1%{?dist}
 
 # In addition to GPL-3.0-or-later, the following licenses apply.
@@ -43,6 +55,8 @@ Release:        1%{?dist}
 # PSF-license.txt
 License:        GPL-3.0-or-later AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND MIT AND MPL-2.0 AND PSF-2.0
 Source0:        %{pypi_source %{name} %{uversion}}
+Source1:        ansible-prep.sh
+Source2:        ansible-install-licenses.sh
 Url:            https://ansible.com
 BuildArch:      noarch
 
@@ -50,8 +64,6 @@ BuildRequires:  dos2unix
 BuildRequires:  findutils
 BuildRequires:  hardlink
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
-BuildRequires:  %{py3_dist ansible-core} >= %{min_ansible_core}
 
 %if %{with tests}
 # TODO build-requires
@@ -60,6 +72,7 @@ BuildRequires:  %{py3_dist ansible-core} >= %{min_ansible_core}
 %if %{with docs}
 # TODO build-requires
 %endif
+
 
 %description
 Ansible is a radically simple model-driven configuration management,
@@ -71,11 +84,11 @@ are transferred to managed machines automatically.
 This package provides a curated set of Ansible collections included in addition
 to ansible-core.
 
+
 %prep
 %autosetup -p1 -n %{name}-%{uversion}
 
-%if %{defined rhel}
-# Relax ansible-core dependency to avoid FTI bugs
+# Relax ansible-core dependency to avoid FTI bugs on EPEL
 #
 # This is necessary, because the EPEL ansible maintainers don't have control
 # over ansible-core in RHEL, and it's difficult to time updates across
@@ -84,132 +97,66 @@ to ansible-core.
 # to properly release and test new ansible major versions after RHEL rebases
 # ansible-core. The lower version constraints can stay in place.
 
-sed -i "s|'ansible-core ~= 2.14\..*',$|'ansible-core >= %{min_ansible_core}',|" setup.py
+sed "s|ansible-core ~=|ansible-core >=|" setup.py > setup.py.bak
 # Verify
 set -o pipefail
-grep -B1 "'ansible-core >= %{min_ansible_core}'," setup.py | grep -F 'install_requires=['
+grep -B1 "ansible-core >=" setup.py.bak | grep -F 'install_requires=['
+%if %{defined rhel}
+mv setup.py.bak setup.py
 %endif
 
-# Fix wrong-script-end-of-line-encoding in azure.azcollection
-find ansible_collections/azure/azcollection -type f -print -exec dos2unix -k '{}' \;
+# ansible-prep.sh
+%{S:1}
 
-# Remove unnecessary files and directories included in the Ansible collection release tarballs
-# Tracked upstream in part by: https://github.com/ansible-community/community-topics/issues/29
-echo "[START] Delete unnecessary files and directories"
+(
+mkdir licenses docs
+cd ansible_collections
+# ansible-license-install.sh
+%{S:2} \
+    "$(readlink -f ../licenses)" \
+    "$(readlink -f ../docs)" \
+)
 
-# Collection tarballs contain a lot of hidden files and directories
-hidden_pattern=".*\.(DS_Store|all-contributorsrc|ansible-lint|azure-pipelines|circleci|codeclimate.yml|flake8|galaxy_install_info|gitattributes|github|gitignore|gitkeep|gitlab-ci.yml|idea|keep|mypy_cache|nojekyll|orig|plugin-cache.yaml|pre-commit-config.yaml|project|pydevproject|pytest_cache|pytest_cache|readthedocs.yml|settings|swp|travis.yml|vscode|yamllint|yamllint.yaml|zuul.d|zuul.yaml|rstcheck.cfg|placeholder)$"
-find ansible_collections -depth -regextype posix-egrep -regex "${hidden_pattern}" -print -exec rm -r {} \;
 
-# Not needed for runtime
-rm -rv ansible_collections/cisco/meraki/scripts
-rm -rv ansible_collections/community/grafana/hacking
-rm -rv ansible_collections/community/okd/ci/
-rm -rv ansible_collections/community/vmware/tools
-rm -rv ansible_collections/cyberark/conjur/ci/
-rm -rv ansible_collections/cyberark/conjur/dev/
-rm -rv ansible_collections/cyberark/conjur/roles/conjur_host_identity/tests/
-rm -rv ansible_collections/netbox/netbox/hacking/
-rm -rv ansible_collections/sensu/sensu_go/docker/
-rm -v ansible_collections/community/dns/update-psl.sh
-rm -v ansible_collections/cyberark/conjur/Jenkinsfile
-rm -v ansible_collections/dellemc/enterprise_sonic/rebuild.sh
-rm -v ansible_collections/ovirt/ovirt/build.sh
-
-# rpmlint W: pem-certificate
-find ansible_collections/cyberark/conjur -type f -name "*.pem" -print -delete
-
-# rpmlint E: zero-length
-find -type f -name "*requirements.txt" -size 0 -print -delete
-rm -v ansible_collections/community/zabbix/roles/zabbix_agent/files/win_sample/doSomething.ps1
-rm -v ansible_collections/community/docker/meta/ee-bindep.txt
-rm -vr ansible_collections/ibm/spectrum_virtualize/roles/place_holder
-
-echo "[END] Delete unnecessary files and directories"
-
-###
-# Fix various shebang related issues to appease brp-managle-shebangs
-###
-find ansible_collections/community/mongodb/roles/*/{files,templates} -type f '!' -executable -name '*.sh*' \
-    -print -exec chmod a+x '{}' \;
-
-# ansible_collections/lowlydba/sqlserver thought it was a good idea to make
-# *every* single file, in its repository executable, including .md, .yml, and
-# .rst. :facepalm:
-#
-# TODO: File issue upstream
-find ansible_collections/lowlydba/sqlserver/ -executable -type f -print -exec chmod a-x '{}' \;
-
-# Remove shebangs instead of hardocding to %%__python3 to avoid unexpected issues
-# from https://github.com/ansible/ansible/commit/9142be2f6cabbe6597c9254c5bb9186d17036d55.
-# Upstream, ansible-core has also removed shebangs from its modules.
-#
-# XXX: Print out the files before they're replaced
-find -type f ! -executable -name '*.py' | tee non_exec
-# xargs is noticably faster than find -exec, because it spawns one sed process
-# instead of ~13 thousand!
-xargs -a non_exec -d'\n' sed -i -e '1{\@^#!.*@d}'
-
-# This ensures that %%ansible_core_requires is set properly, when %%pyproject_buildrequires is defined.
-# It also ensures that dependencies remain consistent.
-%if %{undefined el8}
 %generate_buildrequires
 %pyproject_buildrequires
-%endif
+
 
 %build
-# disable the python -s shbang flag as we want to be able to find non system modules
-%global py3_shbang_opts %{nil}
 %py3_shebang_fix ansible_collections
-%py3_build
+
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+# This adds over a minute to the build due to the size of the ansible package.
+# It's better to manually specify the paths in %%files...
+# %%pyproject_save_files ansible_collections
 
-%global filelist %{_builddir}/%{buildsubdir}/files.list
+mkdir -p %{buildroot}%{_licensedir}/ansible %{buildroot}%{_docdir}/ansible
+mv licenses %{buildroot}%{_licensedir}/ansible/ansible_collections
+mv docs %{buildroot}%{_pkgdocdir}/ansible_collections
 
-# Install docs and licenses
-(
-    mkdir -p "%{buildroot}%{ansible_docdir}" "%{buildroot}%{ansible_licensedir}"
-    cd %{buildroot}%{python3_sitelib}/ansible_collections
-    # This finds the license file for each collection, moves it to
-    # `%%{ansible_licensedir}/collection_namespace/collection_name`, and then adds
-    # `%%license /path/to/license` to the %%files list.
-    # `-printf '%%P\n'` removes the trailing `./`.
-    for f in $(find . -mindepth 3 -type f \( -iname '*LICENSE*' -o -iname '*COPYING*' \) -not -name '*.py' -not -name '*.pyc' -printf '%%P\n' | grep -v '\.license$'); do
-        dirname="$(dirname %{buildroot}%{ansible_licensedir}/${f})"
-        mkdir -p "${dirname}"
-        mv "${f}" "${dirname}"
-        tee -a %{filelist} << EOF
-%%license %%{ansible_licensedir}/${f}
-EOF
-    done
-    for f in $(find -mindepth 3 -iname 'LICENSES' -type d); do
-        cp -rfp --parents ${f} %{buildroot}%{ansible_licensedir}
-        echo "%%license %%{ansible_licensedir}/${f}" >> %{filelist}
-    done
-
-    # This does the same thing, but for READMEs.
-    for f in $(find . -mindepth 3 -type f -name 'README*' -printf '%%P\n'); do
-        dirname="$(dirname %{buildroot}%{ansible_docdir}/${f})"
-        mkdir -p "${dirname}"
-        mv "${f}" "${dirname}"
-        tee -a %{filelist} << EOF
-%%doc %%{ansible_docdir}/${f}
-EOF
-    done
-)
 hardlink -v %{buildroot}%{python3_sitelib}/ansible_collections
-hardlink -v %{buildroot}%{ansible_licensedir}
+hardlink -v %{buildroot}%{_licensedir}/ansible
+
+# XXX: One of the build steps is messing with the permission.
+# XXX: The file is 0755 in the source tarball.
+chmod 0755 %{buildroot}%{python3_sitelib}/ansible_collections/ngine_io/cloudstack/scripts/inventory/cloudstack.py
+
 
 %check
-%if 0%{?with_tests}
+%if %{with tests}
 # TODO: Run tests
 %endif
 
-%files -f files.list
+
+%files
 %license COPYING
+%license %{_licensedir}/ansible/ansible_collections/
 %doc README.rst PKG-INFO porting_guide_?.rst CHANGELOG-v?.rst
+%doc %{_pkgdocdir}/ansible_collections/
 %{_bindir}/ansible-community
 # Note (dmsimard): This ansible package installs collections to the python sitelib to mirror the UX
 # when installing the ansible package from PyPi.
@@ -217,9 +164,13 @@ hardlink -v %{buildroot}%{ansible_licensedir}
 # or via standalone distribution packages to datadir (/usr/share).
 # Both will have precedence over the collections installed in the python sitelib.
 %{python3_sitelib}/ansible_collections/
-%{python3_sitelib}/ansible-%{uversion}-py%{python3_version}.egg-info/
+%{python3_sitelib}/ansible-%{uversion}.dist-info/
+
 
 %changelog
+* Tue May 16 2023 Maxwell G <maxwell@gtmx.me> - 8.0.0~b1-1
+- Update to 8.0.0~b1.
+
 * Wed May 03 2023 Maxwell G <maxwell@gtmx.me> - 8.0.0~a3-1
 - Update to 8.0.0~a3.
 

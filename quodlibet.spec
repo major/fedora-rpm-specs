@@ -48,7 +48,6 @@ Requires:	python3-gobject >= 3.18
 Requires:	python3 >= 3.5
 Requires:	python3-mutagen >= 1.14
 Requires:	python3-feedparser
-Requires:	webkitgtk4
 
 # for musicbrainz plugin
 Requires:	python3-musicbrainzngs >= 0.6

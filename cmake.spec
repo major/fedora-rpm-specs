@@ -62,7 +62,7 @@
 
 %global major_version 3
 %global minor_version 26
-%global patch_version 3
+%global patch_version 4
 
 # Set to RC version if building RC, else comment out.
 #global rcsuf rc1
@@ -76,7 +76,7 @@
 %endif
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 3
+%global baserelease 2
 
 # Uncomment if building for EPEL
 #global name_suffix %%{major_version}
@@ -535,6 +535,13 @@ popd
 
 
 %changelog
+* Fri May 19 2023 Neal Gompa <ngompa@fedoraproject.org> - 3.26.4-2
+- macros: use the language build flag macros for compiler flags
+
+* Fri May 19 2023 Björn Esser <besser82@fedoraproject.org> - 3.26.4-1
+- cmake-3.26.4
+  Fixes rhbz#2208383
+
 * Mon May 08 2023 Björn Esser <besser82@fedoraproject.org> - 3.26.3-3
 - Build cmake-gui with Qt6
 

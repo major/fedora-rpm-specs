@@ -5,7 +5,7 @@ Version:        0.42
 Release:        %autorelease
 Summary:        A GTK+ widget for SPICE clients
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later AND MIT AND MIT-open-group and BSD-3-Clause
 URL:            https://www.spice-space.org/spice-gtk.html
 #VCS:           git:git://anongit.freedesktop.org/spice/spice-gtk
 Source0:        https://www.spice-space.org/download/gtk/%{name}-%{version}%{?_version_suffix}.tar.xz

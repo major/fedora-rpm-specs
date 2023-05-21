@@ -1,6 +1,6 @@
 Name:           wsmancli
-Version:        2.6.0
-Release:        21%{?dist}
+Version:        2.6.2
+Release:        1%{?dist}
 License:        BSD-3-Clause
 Url:            http://www.openwsman.org/
 # You can get this tarball here:
@@ -14,8 +14,6 @@ BuildRequires:  openwsman-devel >= 2.1.0 pkgconfig curl-devel
 BuildRequires:  autoconf automake libtool
 Requires:       openwsman curl
 Patch0:         missing-pthread-symbols.patch
-Patch1:         http-unauthorized-improve.patch
-Patch2:         replace-getpass.patch
 Summary:        WS-Management-Command line Interface
 
 %description
@@ -24,9 +22,7 @@ systems using Web Services Management protocol.
 
 %prep
 %setup -q 
-%patch0 -p1
-%patch1 -p1 -b .http-unauthorized-improve
-%patch2 -p1 -b .replace-getpass
+%autopatch -p1
 cp -fp %SOURCE1 %SOURCE2 %SOURCE3 .;
 
 %build
@@ -45,6 +41,9 @@ make DESTDIR=%{buildroot} install
 %doc COPYING README AUTHORS
 
 %changelog
+* Fri May 19 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.6.2-1
+- Update to wsmancli-2.6.2
+
 * Tue Apr 25 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.6.0-21
 - SPDX migration
 

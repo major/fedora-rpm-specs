@@ -2,9 +2,9 @@
 
 Name:       ibus-libzhuyin
 Version:    1.10.2
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    New Zhuyin engine based on libzhuyin for IBus
-License:    GPLv2+
+License:    GPL-2.0-or-later
 URL:        https://github.com/libzhuyin/ibus-libzhuyin
 Source0:    http://downloads.sourceforge.net/libzhuyin/ibus-libzhuyin/%{name}-%{version}.tar.gz
 %if %snapshot
@@ -71,6 +71,9 @@ based on libzhuyin for IBus.
 
 
 %changelog
+* Fri May 19 2023 Peng Wu <pwu@redhat.com> - 1.10.2-3
+- Migrate to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

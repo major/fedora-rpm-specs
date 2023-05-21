@@ -7,8 +7,7 @@ Name:           libgphoto2
 Version:        2.5.30
 Release:        4%{?dist}
 Summary:        Library for accessing digital cameras
-# GPLV2+ for the main lib (due to exif.c) and most plugins, some plugins GPLv2
-License:        GPLv2+ and GPLv2
+License:        GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later AND BSD-3-Clause AND IJG-short AND (MIT OR Unlicense)
 URL:            http://www.gphoto.org/
 
 Source0:        http://downloads.sourceforge.net/gphoto/%{name}-%{version}.tar.bz2

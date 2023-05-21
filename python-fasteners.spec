@@ -1,4 +1,8 @@
+%if 0%{?rhel}
+%bcond_with tests
+%else
 %bcond_without tests
+%endif
 
 # The python-diskcache package, used in some of the tests, has been retired.
 %bcond_with diskcache

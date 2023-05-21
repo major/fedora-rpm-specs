@@ -2,7 +2,7 @@ Name:           perl-autovivification
 Version:        0.18
 Release:        18%{?dist}
 Summary:        Lexically disable autovivification
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/autovivification
 Source0:        https://cpan.metacpan.org/authors/id/V/VP/VPIT/autovivification-%{version}.tar.gz
 # Build

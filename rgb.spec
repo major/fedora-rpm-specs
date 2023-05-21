@@ -3,7 +3,7 @@ Version:    1.0.6
 Release:    45%{?dist}
 Summary:    X color name database
 
-License:    MIT
+License:    MIT-open-group
 URL:        https://www.x.org
 Source0:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.bz2
 

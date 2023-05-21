@@ -12,10 +12,10 @@
 %endif
 
 Name:           perl-Software-License
-Version:        0.104002
-Release:        3%{?dist}
+Version:        0.104003
+Release:        1%{?dist}
 Summary:        Package that provides templated software licenses
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Software-License
 Source0:        https://cpan.metacpan.org/authors/id/L/LE/LEONT/Software-License-%{version}.tar.gz
 BuildArch:      noarch
@@ -51,7 +51,8 @@ BuildRequires:  perl(Software::License::CCpack)
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(Test::Pod)
 %endif
-# Runtime
+# Dependencies
+# (none)
 
 %description
 Software-License contains templates for common open source software licenses.
@@ -83,6 +84,12 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/Software::LicenseUtils.3*
 
 %changelog
+* Fri May 19 2023 Paul Howarth <paul@city-fan.org> - 0.104003-1
+- Update to 0.104003 (rhbz#2208530)
+  - Add Artistic 1.0 Perl license and make Perl license use it
+  - Remove extra "59" from LGPL-2.1
+- Use SPDX-format license tag
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.104002-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

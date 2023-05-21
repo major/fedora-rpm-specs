@@ -73,20 +73,23 @@
 # Define %%bash_completions_dir for EL <= 9
 %{?!bash_completions_dir:%global bash_completions_dir %{_datadir}/bash-completion/completions}
 
-# Define for release candidates
-#global rcrev   .rc0
+# Adjust Source URL path for release candidates
+%global rcpath  %(test "%{version}" = "%{real_version}" || echo testing/)
 
 # Set path to the package-notes linker script
-%global _package_note_file  %{_builddir}/%{name}-%{version}%{?rcrev}/.package_note-%{name}-%{version}-%{release}.%{_arch}.ld
+%global _package_note_file  %{_builddir}/%{name}-%{real_version}/.package_note-%{name}-%{version}-%{release}.%{_arch}.ld
 
 Name:           git
-Version:        2.40.1
-Release:        1%{?rcrev}%{?dist}
+Version:        2.41.0~rc1
+Release:        1%{?dist}
 Summary:        Fast Version Control System
 License:        BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:            https://git-scm.com/
-Source0:        https://www.kernel.org/pub/software/scm/git/%{?rcrev:testing/}%{name}-%{version}%{?rcrev}.tar.xz
-Source1:        https://www.kernel.org/pub/software/scm/git/%{?rcrev:testing/}%{name}-%{version}%{?rcrev}.tar.sign
+
+# Note: real_version must be defined _after_ Version
+%global real_version %(echo %{version} | tr '~' '.')
+Source0:        https://www.kernel.org/pub/software/scm/git/%{rcpath}%{name}-%{real_version}.tar.xz
+Source1:        https://www.kernel.org/pub/software/scm/git/%{rcpath}%{name}-%{real_version}.tar.sign
 
 # Junio C Hamano's key is used to sign git releases, it can be found in the
 # junio-gpg-pub tag within git.
@@ -516,7 +519,7 @@ Requires:       subversion
 # Verify GPG signatures
 xz -dc '%{SOURCE0}' | %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data=-
 
-%autosetup -p1 -n %{name}-%{version}%{?rcrev}
+%autosetup -p1 -n %{name}-%{real_version}
 
 # Install print-failed-test-output script
 install -p -m 755 %{SOURCE99} print-failed-test-output
@@ -1035,6 +1038,15 @@ rmdir --ignore-fail-on-non-empty "$testdir"
 %{?with_docs:%{_pkgdocdir}/git-svn.html}
 
 %changelog
+* Fri May 19 2023 Todd Zullinger <tmz@pobox.com> - 2.41.0~rc1-1
+- update to 2.41.0-rc1
+
+* Mon May 15 2023 Todd Zullinger <tmz@pobox.com> - 2.41.0~rc0-1
+- update to 2.41.0-rc0
+
+* Fri May 12 2023 Todd Zullinger <tmz@pobox.com> - 2.40.1-2
+- use tilde versioning for release candidates
+
 * Tue Apr 25 2023 Todd Zullinger <tmz@pobox.com> - 2.40.1-1
 - update to 2.40.1 (CVE-2023-25652, CVE-2023-25815, CVE-2023-29007)
 

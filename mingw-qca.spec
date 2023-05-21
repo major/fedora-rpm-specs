@@ -3,7 +3,7 @@
 %global pkgname qca
 
 Name:           mingw-%{pkgname}
-Version:        2.3.5
+Version:        2.3.6
 Release:        1%{?dist}
 Summary:        MinGW Windows Qt Cryptographic Architecture
 BuildArch:      noarch
@@ -136,6 +136,9 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 
 %changelog
+* Fri May 19 2023 Sandro Mani <manisandro@gmail.com> - 2.3.6-1
+- Update to 2.3.6
+
 * Fri Mar 03 2023 Sandro Mani <manisandro@gmail.com> - 2.3.5-1
 - Update to 2.3.5
 

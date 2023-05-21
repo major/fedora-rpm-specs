@@ -2,7 +2,7 @@
 
 Name:           python-jinja2
 Version:        3.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        General purpose template engine
 License:        BSD
 URL:            https://palletsprojects.com/p/jinja/
@@ -10,7 +10,11 @@ Source0:        %{pypi_source %srcname}
 
 # Enable building without docs to avoid a circular dependency between this
 # and python-sphinx:
+%if 0%{?rhel}
+%bcond_with docs
+%else
 %bcond_without docs
+%endif
 
 BuildArch:      noarch
 
@@ -82,6 +86,9 @@ rm -rvf docs/_build/html/.buildinfo
 
 
 %changelog
+* Fri May 19 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.1.2-2
+- Disable docs by default in RHEL builds
+
 * Mon May 01 2023 Sandro Mani <manisandro@gmail.com> - 3.1.2-1
 - Update to 3.1.2
 

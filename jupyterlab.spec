@@ -1,7 +1,5 @@
-%global prerel b2
-
 Name:           jupyterlab
-Version:        4.0.0~%{prerel}
+Version:        4.0.0
 Release:        %autorelease
 Summary:        JupyterLab computational environment
 # JupyterLab itself is BSD-3-Clause and
@@ -18,12 +16,9 @@ Summary:        JupyterLab computational environment
 # ISC
 # MIT
 # Unlicense
-#
-# + There is one bundled lib without a license in the JSON file
-# and it's MIT, see https://github.com/yjs/y-codemirror.next/issues/25
 License:        Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND (CC-BY-4.0 AND OFL-1.1 AND MIT) AND ISC AND MIT AND Unlicense
 URL:            https://jupyter.org
-Source0:        %{pypi_source jupyterlab 4.0.0%{prerel}}
+Source0:        %{pypi_source}
 # TODO: propose upstream
 Source1:        jupyterlab.metainfo.xml
 
@@ -69,95 +64,95 @@ Provides:        bundled(npm(@codemirror/state)) = 6.2.0
 Provides:        bundled(npm(@codemirror/view)) = 6.9.6
 Provides:        bundled(npm(@fortawesome/fontawesome-free)) = 5.15.4
 Provides:        bundled(npm(@jupyter/ydoc)) = 1.0.2
-Provides:        bundled(npm(@jupyterlab/application)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/application-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/apputils)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/apputils-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/attachments)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/cell-toolbar)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/cell-toolbar-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/cells)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/celltags-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/codeeditor)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/codemirror)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/codemirror-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/completer)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/completer-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/console)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/console-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/coreutils)) = 6.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/csvviewer)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/csvviewer-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/debugger)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/debugger-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/docmanager)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/docmanager-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/docregistry)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/documentsearch)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/documentsearch-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/extensionmanager)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/extensionmanager-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/filebrowser)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/filebrowser-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/fileeditor)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/fileeditor-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/help-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/htmlviewer)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/htmlviewer-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/hub-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/imageviewer)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/imageviewer-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/inspector)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/inspector-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/javascript-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/json-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/launcher)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/launcher-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/logconsole)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/logconsole-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/lsp)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/lsp-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/mainmenu)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/mainmenu-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/markdownviewer)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/markdownviewer-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/markedparser-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/mathjax-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/metadataform)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/metadataform-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/nbformat)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/notebook)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/notebook-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/observables)) = 5.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/outputarea)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/pdf-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/property-inspector)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/rendermime)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/rendermime-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/rendermime-interfaces)) = 3.8.0-beta.2
-Provides:        bundled(npm(@jupyterlab/running)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/running-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/services)) = 7.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/settingeditor)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/settingeditor-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/settingregistry)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/shortcuts-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/statedb)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/statusbar)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/statusbar-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/terminal)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/terminal-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/theme-dark-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/theme-light-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/toc)) = 6.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/toc-extension)) = 6.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/tooltip)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/tooltip-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/translation)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/translation-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/ui-components)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/ui-components-extension)) = 4.0.0-beta.2
-Provides:        bundled(npm(@jupyterlab/vega5-extension)) = 4.0.0-beta.2
+Provides:        bundled(npm(@jupyterlab/application)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/application-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/apputils)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/apputils-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/attachments)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/cell-toolbar)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/cell-toolbar-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/cells)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/celltags-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/codeeditor)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/codemirror)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/codemirror-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/completer)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/completer-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/console)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/console-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/coreutils)) = 6.0.0
+Provides:        bundled(npm(@jupyterlab/csvviewer)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/csvviewer-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/debugger)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/debugger-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/docmanager)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/docmanager-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/docregistry)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/documentsearch)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/documentsearch-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/extensionmanager)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/extensionmanager-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/filebrowser)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/filebrowser-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/fileeditor)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/fileeditor-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/help-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/htmlviewer)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/htmlviewer-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/hub-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/imageviewer)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/imageviewer-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/inspector)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/inspector-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/javascript-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/json-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/launcher)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/launcher-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/logconsole)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/logconsole-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/lsp)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/lsp-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/mainmenu)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/mainmenu-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/markdownviewer)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/markdownviewer-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/markedparser-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/mathjax-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/metadataform)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/metadataform-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/nbformat)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/notebook)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/notebook-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/observables)) = 5.0.0
+Provides:        bundled(npm(@jupyterlab/outputarea)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/pdf-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/property-inspector)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/rendermime)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/rendermime-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/rendermime-interfaces)) = 3.8.0
+Provides:        bundled(npm(@jupyterlab/running)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/running-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/services)) = 7.0.0
+Provides:        bundled(npm(@jupyterlab/settingeditor)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/settingeditor-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/settingregistry)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/shortcuts-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/statedb)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/statusbar)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/statusbar-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/terminal)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/terminal-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/theme-dark-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/theme-light-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/toc)) = 6.0.0
+Provides:        bundled(npm(@jupyterlab/toc-extension)) = 6.0.0
+Provides:        bundled(npm(@jupyterlab/tooltip)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/tooltip-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/translation)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/translation-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/ui-components)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/ui-components-extension)) = 4.0.0
+Provides:        bundled(npm(@jupyterlab/vega5-extension)) = 4.0.0
 Provides:        bundled(npm(@lezer/common)) = 1.0.2
 Provides:        bundled(npm(@lezer/cpp)) = 1.1.0
 Provides:        bundled(npm(@lezer/css)) = 1.1.1
@@ -174,21 +169,21 @@ Provides:        bundled(npm(@lezer/python)) = 1.1.2
 Provides:        bundled(npm(@lezer/rust)) = 1.0.0
 Provides:        bundled(npm(@lezer/xml)) = 1.0.1
 Provides:        bundled(npm(@lumino/algorithm)) = 2.0.0
-Provides:        bundled(npm(@lumino/application)) = 2.1.0
+Provides:        bundled(npm(@lumino/application)) = 2.1.1
 Provides:        bundled(npm(@lumino/collections)) = 2.0.0
-Provides:        bundled(npm(@lumino/commands)) = 2.1.0
-Provides:        bundled(npm(@lumino/coreutils)) = 2.1.0
-Provides:        bundled(npm(@lumino/datagrid)) = 2.1.0
-Provides:        bundled(npm(@lumino/disposable)) = 2.1.0
+Provides:        bundled(npm(@lumino/commands)) = 2.1.1
+Provides:        bundled(npm(@lumino/coreutils)) = 2.1.1
+Provides:        bundled(npm(@lumino/datagrid)) = 2.1.1
+Provides:        bundled(npm(@lumino/disposable)) = 2.1.1
 Provides:        bundled(npm(@lumino/domutils)) = 2.0.0
-Provides:        bundled(npm(@lumino/dragdrop)) = 2.1.0
+Provides:        bundled(npm(@lumino/dragdrop)) = 2.1.1
 Provides:        bundled(npm(@lumino/keyboard)) = 2.0.0
 Provides:        bundled(npm(@lumino/messaging)) = 2.0.0
-Provides:        bundled(npm(@lumino/polling)) = 2.1.0
+Provides:        bundled(npm(@lumino/polling)) = 2.1.1
 Provides:        bundled(npm(@lumino/properties)) = 2.0.0
-Provides:        bundled(npm(@lumino/signaling)) = 2.1.0
+Provides:        bundled(npm(@lumino/signaling)) = 2.1.1
 Provides:        bundled(npm(@lumino/virtualdom)) = 2.0.0
-Provides:        bundled(npm(@lumino/widgets)) = 2.1.0
+Provides:        bundled(npm(@lumino/widgets)) = 2.1.1
 Provides:        bundled(npm(@rjsf/core)) = 5.2.1
 Provides:        bundled(npm(@rjsf/utils)) = 5.2.1
 Provides:        bundled(npm(@rjsf/validator-ajv8)) = 5.2.1
@@ -254,7 +249,7 @@ Provides:        bundled(npm(lodash.escape)) = 4.0.1
 Provides:        bundled(npm(lodash.mergewith)) = 4.6.2
 Provides:        bundled(npm(lru-cache)) = 6.0.0
 Provides:        bundled(npm(markdown-to-jsx)) = 7.1.9
-Provides:        bundled(npm(marked)) = 4.2.12
+Provides:        bundled(npm(marked)) = 4.3.0
 Provides:        bundled(npm(mathjax-full)) = 3.2.2
 Provides:        bundled(npm(mhchemparser)) = 4.1.1
 Provides:        bundled(npm(minimist)) = 1.2.8
@@ -349,7 +344,7 @@ in a flexible and powerful user interface.
 
 
 %prep
-%autosetup -p1 -n jupyterlab-4.0.0%{prerel}
+%autosetup -p1 -n jupyterlab-%{version}
 
 # pytest-tornasync is not available in Fedora
 # and upstream will switch to pytest-jupyter soon

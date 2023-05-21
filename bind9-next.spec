@@ -34,7 +34,7 @@
 %global        bind_dir          /var/named
 %global        chroot_prefix     %{bind_dir}/chroot
 %global        chroot_create_directories /dev /run/named %{_localstatedir}/{log,named,tmp} \\\
-                                         %{_sysconfdir}/{crypto-policies/back-ends,pki/dnssec-keys,named} \\\
+                                         %{_sysconfdir}/{crypto-policies/back-ends,pki/dnssec-keys,pki/tls,named} \\\
                                          %{_libdir}/bind %{_libdir}/named %{_datadir}/GeoIP /proc/sys/net/ipv4
 
 %global forgeurl0 https://gitlab.isc.org/isc-projects/bind9
@@ -57,7 +57,7 @@ Summary:  The Berkeley Internet Name Domain (BIND) DNS (Domain Name System) serv
 Name:     bind9-next
 License:  MPL-2.0 AND ISC AND BSD-3-clause AND Expat AND BSD-2-clause
 #
-Version:  9.19.12
+Version:  9.19.13
 Release:  %autorelease
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
@@ -93,8 +93,6 @@ Source49: named-chroot.files
 # Common patches
 # Red Hat specific documentation is not relevant to upstream
 Patch1: bind-9.16-redhat_doc.patch
-# https://gitlab.isc.org/isc-projects/bind9/-/merge_requests/7877
-Patch2: bind-9.19-configure-c99.patch
 
 %{?systemd_ordering}
 Requires:       coreutils
@@ -913,6 +911,7 @@ fi;
 %dir %{chroot_prefix}%{_sysconfdir}/named
 %dir %{chroot_prefix}%{_sysconfdir}/pki
 %dir %{chroot_prefix}%{_sysconfdir}/pki/dnssec-keys
+%dir %{chroot_prefix}%{_sysconfdir}/pki/tls
 %dir %{chroot_prefix}%{_sysconfdir}/crypto-policies
 %dir %{chroot_prefix}%{_sysconfdir}/crypto-policies/back-ends
 %dir %{chroot_prefix}%{_localstatedir}

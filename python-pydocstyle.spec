@@ -1,61 +1,74 @@
 %global pypi_name pydocstyle
 
 Name: python-%{pypi_name}
-Version: 6.0.0
-Release: 7%{?dist}
+Version: 6.3.0
+Release: 1%{?dist}
 Summary: Python docstring style checker
 
 License: MIT
 URL: https://github.com/PyCQA/pydocstyle/
-# NOTE: Temporarily use GitHub archive download service until upstream includes
-# tests in the release tarballs.
-Source0: https://github.com/PyCQA/%{pypi_name}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
+Source0: %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
 
 BuildArch: noarch
 
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
 # Required for running tests.
-BuildRequires: python3dist(snowballstemmer)
+# NOTE: We don't use '%%pyproject_buildrequires -t' to automatically include
+# dependencies for the default Tox environment since that would bring unwanted
+# BuildRequires such as 'python3dist(black) = 22.3',
+# 'python3dist(isort) = 5.4.2' and 'python3dist(mypy) = 0.930'.
 BuildRequires: python3dist(pytest)
 
-%description
+%global _description %{expand:
 A static analysis tool for checking compliance with Python docstring
 conventions.
 
 It supports most of PEP 257 out of the box, but it should not be considered a
-reference implementation.
+reference implementation.}
+
+%description %_description
 
 
 %package -n python3-%{pypi_name}
 Summary: %{summary}
 
-%description -n python3-%{pypi_name}
-A static analysis tool for checking compliance with Python docstring
-conventions.
-
-It supports most of PEP 257 out of the box, but it should not be considered a
-reference implementation.
+%description -n python3-%{pypi_name} %_description
 
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
 
-
-%build
-%py3_build
+# Manually set the correct project version. Upstream does it dynamically when
+# building a release with GitHub Actions by executing:
+# 'poetry version ${{ github.event.release.tag_name }}'.
+sed -r -i 's/(version = ")0.0.0-dev/\1%{version}/' pyproject.toml
 
 # Remove (incorrect) Python shebang from package's __main__.py file.
-sed -i '\|/usr/bin/env|d' build/lib/pydocstyle/__main__.py
+sed -i '\|/usr/bin/env|d' src/pydocstyle/__main__.py
+
+
+%generate_buildrequires
+%pyproject_buildrequires
+
+
+%build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+
+%pyproject_save_files %{pypi_name}
 
 
 %check
-# Run main Pytest tests (skip linting with pep8 as discussed in
-# https://pagure.io/packaging-committee/issue/909).
+# NOTE: We are not running tests with Tox since upstream uses a single
+# environment where it runs the actual tests along with all code checking and
+# linting tools (mypy, black, isort).
+# FPC has recommened disabling code linting and test coverage metrics in %%check
+# in https://pagure.io/packaging-committee/issue/909.
+
+# Run Pytest tests.
 
 # Disable "install_package" fixure for integration tests since we want the
 # tests to be run against the system-installed version of the package.
@@ -69,14 +82,22 @@ sed -E -i 's|"python(2\|3)?( -m pydocstyle)|"%{__python3}\2|' \
 %pytest -v src/tests
 
 
-%files -n python3-%{pypi_name}
-%license LICENSE-MIT
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst
 %{_bindir}/pydocstyle
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
+
 
 %changelog
+* Fri May 19 2023 Tadej Janež <tadej.j@nez.si> - 6.3.0-1
+- Update to 6.3.0 release
+- Use %%{url} in %%{Source0} to avoid redundance
+- Introduce %%_description to avoid %%description duplication
+- Use the new automatic build-time dependency generator
+- Use new %%{pyproject_*} macros
+- Explain why tests are not run via Tox
+- Manually set the correct project version in pyproject.toml
+- Move incorrect shebang removal from %%build to %%prep
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

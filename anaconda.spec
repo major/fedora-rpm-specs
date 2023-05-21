@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
 Version: 39.15
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+ and MIT
 URL:     http://fedoraproject.org/wiki/Anaconda
 
@@ -470,6 +470,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri May 19 2023 Petr Pisar <ppisar@redhat.com> - 39.15-2
+- Rebuild against rpm-4.19 (https://fedoraproject.org/wiki/Changes/RPM-4.19)
+
 * Tue May 16 2023 Packit <hello@packit.dev> - 39.15-1
 - tests: Remove eslint unit test (vslavik)
 - docs: Add WebUI integration tests badge to CI status (vslavik)

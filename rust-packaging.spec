@@ -7,6 +7,11 @@ License:        MIT
 URL:            https://pagure.io/fedora-rust/rust-packaging
 Source:         %{url}/archive/%{version}/rust-packaging-%{version}.tar.gz
 
+# backported upstream patches for minor fixes
+Patch:          https://pagure.io/fedora-rust/rust-packaging/c/3df6ad1.patch
+Patch:          https://pagure.io/fedora-rust/rust-packaging/c/b9d6410.patch
+Patch:          https://pagure.io/fedora-rust/rust-packaging/c/8690145.patch
+
 BuildArch:      noarch
 
 %description

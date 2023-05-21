@@ -27,9 +27,15 @@ extensions.
 %prep
 %autosetup -p1
 cp -v %{SOURCE1} .
-chmod -x ext/*.py doc/holidays/*
-for lib in ext/* doc/holidays/*; do
+chmod -x doc/holidays/*
+for lib in doc/holidays/*; do
  sed '1{\@^#!/usr/bin/env python@d}' $lib > $lib.new &&
+ touch -r $lib $lib.new &&
+ mv $lib.new $lib
+done
+
+for lib in ext/*; do
+ sed "s@^#!/usr/bin/env python3@#!%{python3}@" $lib > $lib.new &&
  touch -r $lib $lib.new &&
  mv $lib.new $lib
 done
@@ -43,6 +49,11 @@ sed -i 's|DESTINATION.*|DESTINATION ${SHARE_INSTALL_PREFIX}/timew/themes/)|' doc
 
 %install
 %cmake_install
+
+# move extensions to datadir and keep shebang
+install -m 0755 -d $RPM_BUILD_ROOT/%{_libdir}/%{name}/
+mv $RPM_BUILD_ROOT/%{_pkgdocdir}/ext $RPM_BUILD_ROOT/%{_libdir}/%{name}/ -v
+chmod +x $RPM_BUILD_ROOT/%{_libdir}/%{name}/ext/*
 
 # Not needed
 rm -f $RPM_BUILD_ROOT/%{_docdir}/%{name}/INSTALL
@@ -63,6 +74,7 @@ make test %{_smp_mflags}
 %license LICENSE
 %{_bindir}/%{name}
 %{_datadir}/%{name}
+%{_libdir}/%{name}
 %{_mandir}/man1/%{name}*
 %{_mandir}/man7/%{name}*
 %{_pkgdocdir}/

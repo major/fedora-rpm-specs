@@ -31,7 +31,7 @@
 Summary:       Tool for creating supermin appliances
 Name:          supermin
 Version:       5.3.3
-Release:       4%{?dist}
+Release:       5%{?dist}
 License:       GPLv2+
 
 ExclusiveArch: %{kernel_arches}
@@ -190,6 +190,9 @@ make check || {
 
 
 %changelog
+* Fri May 19 2023 Richard W.M. Jones <rjones@redhat.com> - 5.3.3-5
+- Rebuild against librpm 10
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 5.3.3-4
 - Rebuild OCaml packages for F38
 

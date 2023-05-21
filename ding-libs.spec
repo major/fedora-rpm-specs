@@ -2,7 +2,7 @@ Name: ding-libs
 Version: 0.6.2
 Release: 53%{?dist}
 Summary: "Ding is not GLib" assorted utility libraries
-License: LGPLv3+
+License: LGPL-3.0-or-later
 URL: https://pagure.io/SSSD/ding-libs
 Source0: https://releases.pagure.org/SSSD/ding-libs/%{name}-%{version}.tar.gz
 
@@ -48,7 +48,7 @@ librefarray libbasicobjects, and libpath_utils.
 
 %package devel
 Summary: Development packages for ding-libs
-License: LGPLv3+
+License: LGPL-3.0-or-later
 
 # ding-libs is a meta-package that will pull in all of its own
 # sub-packages
@@ -69,7 +69,7 @@ libdhash, libini_config, librefarray and libpath_utils.
 
 %package -n libpath_utils
 Summary: Filesystem Path Utilities
-License: LGPLv3+
+License: LGPL-3.0-or-later
 Version: %{path_utils_version}
 
 %description -n libpath_utils
@@ -78,7 +78,7 @@ Utility functions to manipulate filesystem pathnames
 %package -n libpath_utils-devel
 Summary: Development files for libpath_utils
 Requires: libpath_utils = %{path_utils_version}-%{release}
-License: LGPLv3+
+License: LGPL-3.0-or-later
 Version: %{path_utils_version}
 
 %description -n libpath_utils-devel
@@ -105,7 +105,7 @@ Utility functions to manipulate filesystem pathnames
 
 %package -n libdhash
 Summary: Dynamic hash table
-License: LGPLv3+
+License: LGPL-3.0-or-later
 Version: %{dhash_version}
 
 %description -n libdhash
@@ -115,7 +115,7 @@ time properties
 %package -n libdhash-devel
 Summary: Development files for libdhash
 Requires: libdhash = %{dhash_version}-%{release}
-License: LGPLv3+
+License: LGPL-3.0-or-later
 Version: %{dhash_version}
 
 %description -n libdhash-devel
@@ -142,7 +142,7 @@ time properties
 ##############################################################################
 %package -n libcollection
 Summary: Collection data-type for C
-License: LGPLv3+
+License: LGPL-3.0-or-later
 Version: %{collection_version}
 
 %description -n libcollection
@@ -151,7 +151,7 @@ and serialization
 
 %package -n libcollection-devel
 Summary: Development files for libcollection
-License: LGPLv3+
+License: LGPL-3.0-or-later
 Requires: libcollection = %{collection_version}-%{release}
 Version: %{collection_version}
 
@@ -183,7 +183,7 @@ and serialization
 
 %package -n libref_array
 Summary: A refcounted array for C
-License: LGPLv3+
+License: LGPL-3.0-or-later
 Version: %{ref_array_version}
 
 %description -n libref_array
@@ -192,7 +192,7 @@ A dynamically-growing, reference-counted array
 %package -n libref_array-devel
 Summary: Development files for libref_array
 Requires: libref_array = %{ref_array_version}-%{release}
-License: LGPLv3+
+License: LGPL-3.0-or-later
 Version: %{ref_array_version}
 
 %description -n libref_array-devel
@@ -219,7 +219,7 @@ A dynamically-growing, reference-counted array
 
 %package -n libbasicobjects
 Summary: Basic object types for C
-License: GPLv3+
+License: GPL-3.0-or-later
 Version: %{basicobjects_version}
 
 %description -n libbasicobjects
@@ -227,7 +227,7 @@ Basic object types
 
 %package -n libbasicobjects-devel
 Summary: Development files for libbasicobjects
-License: GPLv3+
+License: GPL-3.0-or-later
 Version: %{basicobjects_version}
 Requires: libbasicobjects = %{basicobjects_version}-%{release}
 
@@ -253,7 +253,7 @@ Basic object types
 
 %package -n libini_config
 Summary: INI file parser for C
-License: LGPLv3+
+License: LGPL-3.0-or-later
 Requires: libcollection%{?_isa} = %{collection_version}-%{release}
 Requires: libref_array%{?_isa} = %{ref_array_version}-%{release}
 Requires: libbasicobjects%{?_isa} = %{basicobjects_version}-%{release}
@@ -266,7 +266,7 @@ structure
 
 %package -n libini_config-devel
 Summary: Development files for libini_config
-License: LGPLv3+
+License: LGPL-3.0-or-later
 Requires: libini_config = %{ini_config_version}-%{release}
 Requires: libcollection-devel = %{collection_version}-%{release}
 Requires: libref_array-devel = %{ref_array_version}-%{release}

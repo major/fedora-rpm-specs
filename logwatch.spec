@@ -2,7 +2,7 @@
 Summary: Analyzes and Reports on system logs
 Name: logwatch
 Version: 7.8
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: MIT
 URL: https://sourceforge.net/projects/logwatch/
 Source0: https://sourceforge.net/projects/logwatch/files/%{name}-%{version}/%{name}-%{version}.tar.gz
@@ -17,11 +17,15 @@ Requires: perl(diagnostics)
 Requires: perl(Errno)
 Requires: perl(File::Basename)
 Requires: perl(lib)
+Requires: perl(re)
 Requires: perl(Socket)
+Requires: perl(subs)
 Requires: perl(Sys::CPU)
 Requires: perl(Sys::MemInfo)
 Requires: perl(Time::Local)
 Requires: perl(URI::URL)
+Requires: perl(vars)
+Requires: perl(warnings)
 Requires: crontabs
 BuildArchitectures: noarch
 
@@ -32,9 +36,7 @@ that you wish with the detail that you wish.  Easy to use - works right out
 of the package on many systems.
 
 %prep
-%setup -q
-%patch0 -p1
-%patch1 -p1
+%autosetup -p1
 
 %build
 
@@ -133,6 +135,10 @@ echo "# Configuration overrides for specific logfiles/services may be placed her
 %{_unitdir}/logwatch.timer
 
 %changelog
+* Fri May 19 2023 Frank Crawford <frank@crawford.emu.id.au> - 7.8-3
+- Add missing dependencies to fix BZ2203367
+- Convert to autosetup macro
+
 * Sun May 07 2023 Frank Crawford <frank@crawford.emu.id.au> - 7.8-2
 - Add patch to mdadm to fix BZ2192995 for F38
 - Fix reports for named

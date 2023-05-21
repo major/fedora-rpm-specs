@@ -32,11 +32,10 @@ requests and replies, and much more.}
 %bcond_with        python2
 %endif
 
-# By default build the documentation
-%if 0%{?fedora} || ( 0%{?rhel} && 0%{?rhel} >= 8 )
+# By default build the documentation only on Fedora due to cc-by-nc-sa license
+%if 0%{?fedora}
 %bcond_without     doc
 %else
-# Documentation build fails on rhel7 due to version of sphinx
 %bcond_with        doc
 %endif
 
@@ -51,13 +50,17 @@ BuildRequires:  sed
 %if 0%{?with_python2}
 BuildRequires:  python2-devel
 BuildRequires:  python2-setuptools
+%if 0%{?with_doc}
 BuildRequires:  python2-tox
+%endif
 %endif
 
 %if 0%{?with_python3}
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
+%if 0%{?with_doc}
 BuildRequires:  python%{python3_pkgversion}-tox
+%endif
 %endif
 
 # Recommends only supported on fedora and rhel8+

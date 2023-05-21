@@ -1,8 +1,10 @@
+# Note: code is GPL-2.0-only OR Artistic-1.0-Perl, embedded data table is CC-BY-SA-3.0
+
 Name:		perl-Statistics-ChiSquare
 Version:	1.0000
 Release:	7%{?dist}
 Summary:	How well-distributed is your data?
-License:	(GPLv2 or Artistic) and CC-BY-SA
+License:	(GPL-2.0-only OR Artistic-1.0-Perl) AND CC-BY-SA-3.0
 URL:		https://metacpan.org/release/Statistics-ChiSquare
 Source0:	https://cpan.metacpan.org/modules/by-module/Statistics/Statistics-ChiSquare-%{version}.tar.gz
 BuildArch:	noarch
@@ -23,7 +25,8 @@ BuildRequires:	perl(warnings)
 # Optional Tests
 BuildRequires:	perl(Test::Pod) >= 1.00
 BuildRequires:	perl(Test::Pod::Coverage) >= 1.00
-# Runtime
+# Dependencies
+# (none)
 
 %description
 Suppose you flip a coin 100 times, and it turns up heads 70 times. Is the coin

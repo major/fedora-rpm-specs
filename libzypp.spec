@@ -11,7 +11,7 @@ Requires:       %{_bindir}/%{1}
 
 Name:           libzypp
 Version:        17.31.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A package management library
 
 License:        GPLv2+
@@ -236,6 +236,9 @@ end
 
 
 %changelog
+* Fri May 19 2023 Petr Pisar <ppisar@redhat.com> - 17.31.8-2
+- Rebuild against rpm-4.19 (https://fedoraproject.org/wiki/Changes/RPM-4.19)
+
 * Thu Mar 09 2023 Neal Gompa <ngompa@fedoraproject.org> - 17.31.8-1
 - Update to 17.31.8
 

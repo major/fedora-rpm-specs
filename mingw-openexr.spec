@@ -3,7 +3,7 @@
 %global pkgname openexr
 
 Name:          mingw-%{pkgname}
-Version:       3.1.6
+Version:       3.1.7
 Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
@@ -90,13 +90,12 @@ Obsoletes:     mingw64-ilmbase-tools < 2.5.3
 
 
 %build
-%mingw_cmake -DOPENEXR_INSTALL_PKG_CONFIG=ON
+%mingw_cmake -DOPENEXR_INSTALL_PKG_CONFIG=ON -DBUILD_TESTING=OFF
 %mingw_make_build
 
 
 %install
 %mingw_make_install
-
 
 # Don't install doc
 rm -rf %{buildroot}%{mingw32_docdir}/OpenEXR
@@ -161,6 +160,9 @@ rm -rf %{buildroot}%{mingw64_docdir}/OpenEXR
 
 
 %changelog
+* Fri May 19 2023 Sandro Mani <manisandro@gmail.com> - 3.1.7-1
+- Update to 3.1.7
+
 * Mon Mar 20 2023 Sandro Mani <manisandro@gmail.com> - 3.1.6-1
 - Update to 3.1.6
 

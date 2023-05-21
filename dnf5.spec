@@ -1,6 +1,6 @@
 %global project_version_major 5
 %global project_version_minor 0
-%global project_version_patch 9
+%global project_version_patch 11
 
 Name:           dnf5
 Version:        %{project_version_major}.%{project_version_minor}.%{project_version_patch}
@@ -9,7 +9,8 @@ Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
 Source0:        %{url}/archive/%{version}/dnf5-%{version}.tar.gz
-Patch1:         0001-Disable-tutorial-unit-tests.patch
+Patch0001:      0001-Disable-tutorial-unit-tests.patch
+Patch0002:      0002-Fix-build-for-arch-non-x86-64.patch
 
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
@@ -51,13 +52,7 @@ Obsoletes:      microdnf < 4
 
 %bcond_with    clang
 %bcond_with    sanitizers
-%ifnarch riscv64
 %bcond_without tests
-%else
-# Tests fail on RISC-V:
-# https://github.com/rpm-software-management/dnf5/issues/503
-%bcond_with    tests
-%endif
 %bcond_with    performance_tests
 %bcond_with    dnf5daemon_tests
 
@@ -209,6 +204,7 @@ It supports RPM packages, modulemd modules, and comps groups & environments.
 %license gpl-2.0.txt
 %{_mandir}/man8/dnf5.8.*
 %{_mandir}/man8/dnf5-advisory.8.*
+%{_mandir}/man8/dnf5-autoremove.8.*
 %{_mandir}/man8/dnf5-clean.8.*
 %{_mandir}/man8/dnf5-distro-sync.8.*
 %{_mandir}/man8/dnf5-downgrade.8.*
@@ -553,10 +549,11 @@ License:        LGPL-2.1-or-later
 Requires:       dnf5%{?_isa} = %{version}-%{release}
 
 %description -n dnf5-plugins
-Core DNF5 plugins that enhance dnf5 with builddep and changelog commands.
+Core DNF5 plugins that enhance dnf5 with builddep, changelog, copr, and repoclosure commands.
 
 %files -n dnf5-plugins
 %{_libdir}/dnf5/plugins/*.so
+%{_mandir}/man8/dnf5-repoclosure.8.*
 %endif
 
 
@@ -635,6 +632,47 @@ ln -sr %{buildroot}%{_bindir}/dnf5 %{buildroot}%{_bindir}/microdnf
 
 
 %changelog
+* Fri May 19 2023 Petr Pisar <ppisar@redhat.com> - 5.0.11-3
+- Rebuild against rpm-4.19 (https://fedoraproject.org/wiki/Changes/RPM-4.19)
+
+* Fri May 19 2023 Nicola Sella <nsella@redhat.com> - 5.0.11-2
+- Fix builds for arch non x86_64
+
+* Thu May 18 2023 Packit <hello@packit.dev> - 5.0.11-1
+- Release 5.0.11
+- Add --contains-pkgs option to group info
+- Add filter for containing package names
+- Fix parameter names in documentation
+- Document create parameter of RelDep::get_id method
+- Document RepoQuery::filter_local
+- Document repoclosure in man pages
+- Document repoclosure command
+- Implement repoclosure plugin
+- package_query: filter_provides accepts also Reldep
+- Fix download callbacks and many segfaults in dnf5daemon
+- Add allow-downgrade configuration option
+- Release 5.0.10
+- dnf5-plugins: implement 'dnf5 copr'
+- Add new configuration option exclude_from_weak_autodetect
+- Add new config option exclude_from_weak
+- Add repoquery --unneeded
+- Fix handling of incorrect argument (RhBug:2192854)
+- Add detect_release to public API
+- Add group --no-packages option
+- Add group upgrade command
+- Enable group upgrades in transaction table
+- Add --destdir option to download command
+- Filter latest per argument for download command
+- Add builddep --allowerasing
+- download command: filter by priority, latest
+- Remove --unneeded option from remove command
+- Document autoremove differences from dnf4
+- Add autoremove command
+- state: Add package_types attribute to GroupState
+- comps: Add conversion of PackageType to string(s)
+- Add check-update alias for check-upgrade
+- Add `check-upgrade --changelogs`
+
 * Tue May 02 2023 Richard W.M. Jones <rjones@redhat.com> - 5.0.9-3
 - Default tests off (temporarily, hopefully) on riscv64 arch.
 

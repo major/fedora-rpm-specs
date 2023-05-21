@@ -12,7 +12,7 @@ HDMF can be found at Release. Documentation of HDMF can be found at
 https://hdmf.readthedocs.io}
 
 Name:           python-hdmf
-Version:        3.6.0
+Version:        3.6.1
 Release:        %autorelease
 Summary:        A package for standardizing hierarchical object data
 

@@ -2,7 +2,7 @@
 
 Summary: Library for accessing ICA hardware crypto on IBM z Systems
 Name: libica
-Version: 4.2.1
+Version: 4.2.2
 Release: 1%{?dist}
 License: CPL
 URL: https://github.com/opencryptoki/
@@ -107,6 +107,9 @@ fi
 
 
 %changelog
+* Fri May 19 2023 Dan Horák <dan[at]danny.cz> - 4.2.2-1
+- updated to 4.2.2
+
 * Mon Feb 06 2023 Dan Horák <dan[at]danny.cz> - 4.2.1-1
 - updated to 4.2.1
 

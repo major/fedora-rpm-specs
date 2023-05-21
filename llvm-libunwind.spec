@@ -6,7 +6,7 @@
 
 %global maj_ver 16
 %global min_ver 0
-%global patch_ver 3
+%global patch_ver 4
 #global rc_ver 4
 %global libunwind_version %{maj_ver}.%{min_ver}.%{patch_ver}
 
@@ -152,6 +152,9 @@ rm %{buildroot}%{_pkgdocdir}/html/.buildinfo
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Fri May 19 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.4-1
+- Update to LLVM 16.0.4
+
 * Wed May 10 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.3-1
 - Update to LLVM 16.0.3
 

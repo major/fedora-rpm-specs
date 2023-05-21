@@ -5,7 +5,7 @@
 %global crate sys-locale
 
 Name:           rust-sys-locale
-Version:        0.2.4
+Version:        0.3.0
 Release:        %autorelease
 Summary:        Small and lightweight library to obtain the active system locale
 
@@ -48,6 +48,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+js-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+js-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "js" feature of the "%{crate}" crate.
+
+%files       -n %{name}+js-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

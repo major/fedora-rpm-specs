@@ -1,6 +1,6 @@
 Name:          perl-Net-DNS
-Version:       1.36
-Release:       3%{?dist}
+Version:       1.38
+Release:       1%{?dist}
 Summary:       DNS resolver modules for Perl
 License:       MIT
 URL:           https://www.net-dns.org
@@ -184,6 +184,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri May 19 2023 Paul Wouters <paul.wouters@aiven.io - 1.38-1
+- Resolves: rhbz#2177932 perl-Net-DNS-1.38 is available
+
 * Tue May 09 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.36-3
 - Fix license, there is MIT only
 

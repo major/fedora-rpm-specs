@@ -2,25 +2,18 @@
 
 Name:           gobject-introspection
 Version:        1.76.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Introspection system for GObject-based libraries
 
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND BSD-2-Clause
 URL:            https://wiki.gnome.org/Projects/GObjectIntrospection
-Source0:        https://download.gnome.org/sources/gobject-introspection/1.75/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/1.76/%{name}-%{version}.tar.xz
 
-BuildRequires:  gcc
 BuildRequires:  bison
 BuildRequires:  flex
-BuildRequires:  fontconfig-devel
-BuildRequires:  freetype-devel
+BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  gtk-doc
-BuildRequires:  libX11-devel
-BuildRequires:  libXfixes-devel
-BuildRequires:  libXft-devel
-BuildRequires:  libxml2-devel
-BuildRequires:  mesa-libGL-devel
 BuildRequires:  meson
 BuildRequires:  python3-devel
 BuildRequires:  python3-mako
@@ -65,6 +58,9 @@ Libraries and headers for gobject-introspection
 %install
 %meson_install
 
+%check
+%meson_test
+
 %files
 %doc NEWS README.rst
 %license COPYING COPYING.GPL COPYING.LGPL
@@ -75,10 +71,13 @@ Libraries and headers for gobject-introspection
 %files devel
 %{_libdir}/libgirepository-1.0.so
 %{_libdir}/gobject-introspection/
-%{_libdir}/pkgconfig/*
-%{_includedir}/*
+%{_libdir}/pkgconfig/gobject-introspection-1.0.pc
+%{_libdir}/pkgconfig/gobject-introspection-no-export-1.0.pc
+%{_includedir}/gobject-introspection-1.0/
 %{_bindir}/g-ir-*
-%{_datadir}/gir-1.0
+%dir %{_datadir}/gir-1.0
+%{_datadir}/gir-1.0/*.gir
+%{_datadir}/gir-1.0/gir-1.2.rnc
 %{_datadir}/gobject-introspection-1.0/
 %{_datadir}/aclocal/introspection.m4
 %dir %{_datadir}/gtk-doc
@@ -90,6 +89,9 @@ Libraries and headers for gobject-introspection
 %{_mandir}/man1/g-ir-scanner.1*
 
 %changelog
+* Fri May 19 2023 David King <amigadave@amigadave.com> - 1.76.1-2
+- Enable tests during check phase
+
 * Fri Mar 24 2023 David King <amigadave@amigadave.com> - 1.76.1-1
 - Update to 1.76.1
 

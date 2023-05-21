@@ -6,7 +6,7 @@
 Name:    digikam
 Summary: A digital camera accessing & photo management application
 Version: 8.0.0
-Release: 3%{?beta}%{?dist}
+Release: 4%{?beta}%{?dist}
 
 License: GPL-2.0-or-later
 URL:     http://www.digikam.org/
@@ -44,7 +44,6 @@ BuildRequires: gettext
 BuildRequires: gcc-c++
 BuildRequires: ImageMagick-devel
 BuildRequires: ImageMagick-c++-devel >= 6.7
-BuildRequires: libheif-devel
 BuildRequires: libjpeg-devel
 BuildRequires: libtiff-devel
 BuildRequires: marble-astro-devel
@@ -73,20 +72,6 @@ BuildRequires: pkgconfig(Qt5WebEngine)
 BuildRequires: pkgconfig(Qt5WebKit)
 %endif
 %endif
-# MediaPlayer support
-BuildRequires: pkgconfig(libavcodec)
-BuildRequires: pkgconfig(libavdevice)
-BuildRequires: pkgconfig(libavfilter)
-BuildRequires: pkgconfig(libavformat)
-BuildRequires: pkgconfig(libswscale)
-BuildRequires: pkgconfig(libass)
-BuildRequires: pkgconfig(openal)
-BuildRequires: pkgconfig(libpulse)
-BuildRequires: pkgconfig(libva)
-BuildRequires: pkgconfig(xext)
-BuildRequires: pkgconfig(xv)
-
-BuildRequires: ksanecore-devel
 BuildRequires: kf5-libksane-devel >= 16.03
 BuildRequires: kf5-kconfig-devel
 BuildRequires: kf5-kdoctools-devel
@@ -121,14 +106,29 @@ BuildRequires: pkgconfig(opencv) >= 3.3
 # Panorama plugin requires flex and bison
 BuildRequires: flex
 BuildRequires: bison
-%if 0%{?fedora}
-BuildRequires: pkgconfig(lensfun) >= 0.2.6
+%if 0%{?fedora} || 0%{?rhel} > 8
+BuildRequires: cmake(KSaneCore)
+BuildRequires: pkgconfig(libheif)
 BuildRequires: pkgconfig(lqr-1)
+# MediaPlayer dependencies
+BuildRequires: pkgconfig(libavcodec)
+BuildRequires: pkgconfig(libavdevice)
+BuildRequires: pkgconfig(libavfilter)
+BuildRequires: pkgconfig(libavformat)
+BuildRequires: pkgconfig(libswscale)
+BuildRequires: pkgconfig(libass)
+BuildRequires: pkgconfig(openal)
+BuildRequires: pkgconfig(libpulse)
+BuildRequires: pkgconfig(libva)
+BuildRequires: pkgconfig(xext)
+BuildRequires: pkgconfig(xv)
 %endif
+BuildRequires: pkgconfig(lensfun) >= 0.2.6
 BuildRequires: pkgconfig(libpgf) >= 6.12.24
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 
+Recommends: perl-Image-ExifTool
 # expoblending assistant
 Recommends: hugin-base
 #Recommends: kf5-kipi-plugins
@@ -180,7 +180,9 @@ needed to develop applications using %{name}.
   -DENABLE_AKONADICONTACTSUPPORT:BOOL=ON \
   -DENABLE_APPSTYLES:BOOL=ON \
   -DENABLE_KFILEMETADATASUPPORT:BOOL=ON \
-  -DENABLE_MEDIAPLAYER:BOOL=ON \
+%if 0%{?rhel} && 0%{?rhel} < 9
+  -DENABLE_MEDIAPLAYER:BOOL=OFF \
+%endif
   -DENABLE_MYSQLSUPPORT:BOOL=ON \
   -DENABLE_INTERNALMYSQL:BOOL=ON \
   -DENABLE_QWEBENGINE:BOOL=%{?qwebengine:ON}%{!?qwebengine:OFF}
@@ -259,6 +261,10 @@ update-desktop-database -q &> /dev/null
 
 
 %changelog
+* Fri May 19 2023 Alexey Kurov <nucleo@fedoraproject.org> - 8.0.0-4
+- updated rhel conditionals
+- Recommends: perl-Image-ExifTool
+
 * Sun May  7 2023 Alexey Kurov <nucleo@fedoraproject.org> - 8.0.0-3
 - backport thumbbar fix (kde#468593)
 - removed BR phonon4qt5

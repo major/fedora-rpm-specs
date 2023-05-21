@@ -2,12 +2,22 @@ Name:		fox
 # http://www.fox-toolkit.org/faq.html#VERSION
 # For now, use stable one
 Version:	1.6.57
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	C++ based Toolkit for developing Graphical User Interfaces
 
+# GPL-2.0-or-later:	adie
+# GPL-2.0-or-later:	calculator
+# GPL-2.0-or-later:	pathfinder
+# GPL-2.0-or-later:	shutterbug
+# GPL-2.0-or-later:	reswrap
+#
 # http://lists.fedoraproject.org/pipermail/legal/2010-October/001419.html
 # Note that 1.7.x has switched to LGPLv3+ with exceptions
-License:	LGPLv2+ with exceptions
+# LGPLv2+ with exceptions, for now remove "with exceptions"
+# for SPDX identifier
+#
+# SPDX confirmed (once)
+License:	LGPL-2.1-or-later
 URL:		http://www.fox-toolkit.org/   
 Source0:	http://fox-toolkit.org/ftp/%{name}-%{version}.tar.gz
 # Change Adie.stx path
@@ -63,7 +73,8 @@ developing applications that use %{name}.
 Summary:	Utility applications based on %{name}
 Requires:	%{name}%{?isa} = %{version}-%{release}
 # Note that 1.7.x has switched to GPLv3+
-License:	GPLv2+
+# SPDX confirmed
+License:	GPL-2.0-or-later
 
 %description	utils
 This package contains some utility applications based on
@@ -80,8 +91,8 @@ This package contains some documentation files for
 
 %prep
 %setup -q
-%patch0 -p1 -b .syspath
-%patch1 -p1 -b .format
+%patch -P0 -p1 -b .syspath
+%patch -P1 -p1 -b .format
 
 # Honor Fedora compilar flags
 touch -r configure.ac{,.timestamp}
@@ -179,7 +190,7 @@ exit 0
 %files
 %doc	AUTHORS
 %license	LICENSE*
-%doc	README
+%license	README
 %dir	%{_datadir}/%{name}
 %{_libdir}/libFOX-1.6.so.*
 %{_libdir}/libCHART-1.6.so.*
@@ -195,6 +206,8 @@ exit 0
 %{_includedir}/fox-1.6/
 
 %files	utils
+%license	adie/LICENSE
+
 %{_bindir}/fox-*
 %exclude	%{_bindir}/fox-config*
 %dir	%{_libexecdir}/%{name}
@@ -207,6 +220,9 @@ exit 0
 %doc	doc-files/html
 
 %changelog
+* Fri May 19 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.6.57-13
+- SPDX migration
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.57-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

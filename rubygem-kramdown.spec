@@ -16,6 +16,7 @@ BuildRequires:	rubygem(minitest) >= 5
 BuildRequires:	rubygem(rexml)
 BuildRequires:	rubygem(rouge) >= 3.26.0
 BuildRequires:	rubygem(test-unit)
+%if ! 0%{?rhel}
 BuildRequires:	rubygem(stringex)
 # Recommends:	rubygem(stringex)
 # Some additional dependency for check
@@ -28,6 +29,7 @@ BuildRequires:	tex(amsthm.sty)
 BuildRequires:	tex(amsfonts.sty)
 BuildRequires:	tex(utf8x.def)
 BuildRequires:	tex-ec
+%endif
 Requires:	ruby(release)
 Requires:	ruby(rubygems)
 BuildArch: noarch
@@ -79,6 +81,15 @@ rm -rf \
 LANG=C.UTF-8
 
 pushd .%{gem_instdir}
+
+%if 0%{?rhel}
+# Avoid unwanted stringex dependency
+sed -i test/testcases/block/04_header/with_auto_ids.options \
+       -e '\@transliterated_header_ids@s|true|false|'
+sed -i \
+       test/testcases/block/04_header/with_auto_ids.* \
+       -e '\@[Tr]ransliterated@d'
+%endif
 
 %if 0
 # This is a comment

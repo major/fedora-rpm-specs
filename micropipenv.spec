@@ -10,7 +10,7 @@ Version:        1.5.0
 Release:        %autorelease
 Summary:        A simple wrapper around pip to support Pipenv and Poetry files
 
-License:        LGPLv3+
+License:        LGPL-3.0-or-later
 URL:            https://github.com/thoth-station/%{name}
 Source0:        %{url}/archive/v%{version}.tar.gz
 BuildArch:      noarch

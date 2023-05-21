@@ -6,7 +6,7 @@
 %global crate toml_edit
 
 Name:           rust-toml_edit
-Version:        0.19.8
+Version:        0.19.9
 Release:        %autorelease
 Summary:        Yet another format-preserving TOML parser
 

@@ -17,7 +17,7 @@
 
 Name: satyr
 Version: 0.42
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Tools to create anonymous, machine-friendly problem reports
 License: GPL-2.0-or-later
 URL: https://github.com/abrt/satyr
@@ -129,6 +129,9 @@ make check|| {
 %endif
 
 %changelog
+* Fri May 19 2023 Petr Pisar <ppisar@redhat.com> - 0.42-2
+- Rebuild against rpm-4.19 (https://fedoraproject.org/wiki/Changes/RPM-4.19)
+
 * Wed Mar 01 2023 Michal Srb <michal@redhat.com> - 0.42-1
 - Update to 0.42
 - Resolves: rhbz#2168223

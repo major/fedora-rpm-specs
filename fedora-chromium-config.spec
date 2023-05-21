@@ -1,5 +1,5 @@
 Name:           fedora-chromium-config
-Version:        2.0
+Version:        3.0
 Release:        %autorelease
 Summary:        Fedora customizations for Chromium/Chrome
 License:        GPLv2+
@@ -24,9 +24,13 @@ BuildArch:      noarch
 BuildRequires:  systemd-rpm-macros
 
 Obsoletes:      fedora-user-agent-chrome < 1.0
+Obsoletes:      %{name} < 2.0-4
 
 # Starting with Chromium 83, the Kerberos support works properly
 Conflicts:      chromium < 83
+
+Conflicts:     %{name} < %{version}-%{release}
+Conflicts:     %{name} > %{version}-%{release}
 
 Recommends:     (%{name}-gnome if gnome-shell)
 Recommends:     (%{name}-kde if plasma-desktop)
@@ -36,12 +40,21 @@ Recommends:     (%{name}-kde if plasma-desktop)
 This package is used to install customizations for Chromium/Chrome that are
 recommended by Fedora.
 
-It includes a GSSAPI configuration that enables access to many Fedora Project
-services. To add support for other domains, replace the symlink
+%package gssapi
+Obsoletes: %{name} < 2.0-4
+Conflicts:     %{name} < %{version}-%{release}
+Conflicts:     %{name} > %{version}-%{release}
+Summary: GSSAPI support for Fedora Services
+
+%description gssapi
+This package provides a GSSAPI configuration that enables access to some Fedora
+Project services. To add support for other domains, replace the symlink
 /etc/chromium/policies/recommended/00_gssapi.json with your own content.
 
 
 %package gnome
+Conflicts:     %{name} < %{version}-%{release}
+Conflicts:     %{name} > %{version}-%{release}
 Summary: GNOME integration for Chrome
 URL: https://chrome.google.com/webstore/detail/gnome-shell-integration/gphhapmejobijbbhgpjhcjognlahblep
 
@@ -51,6 +64,8 @@ Chrome/Chromium extension to improve integration with the GNOME desktop.
 
 
 %package kde
+Conflicts:     %{name} < %{version}-%{release}
+Conflicts:     %{name} > %{version}-%{release}
 Summary: KDE Plasma integration for Chrome
 URL: https://chrome.google.com/webstore/detail/plasma-integration/cimiefiiaegbelhefglklhhakcgmhkai
 Requires: plasma-browser-integration >= 5.13
@@ -97,6 +112,9 @@ cp -a %{SOURCE100} %{SOURCE101} %{buildroot}%{_datadir}/chromium/extensions
 %files
 %license licenses/LICENSE
 
+%files gssapi
+%license licenses/LICENSE
+
 # GSSAPI default configuration for fedoraproject.org
 %{_datadir}/chromium/policies/recommended/00_gssapi.json
 
@@ -121,6 +139,8 @@ cp -a %{SOURCE100} %{SOURCE101} %{buildroot}%{_datadir}/chromium/extensions
 
 
 %files gnome
+%license licenses/LICENSE
+
 %dir %{_datadir}/google-chrome
 %dir %{_datadir}/google-chrome/extensions
 %dir %{_datadir}/chromium
@@ -129,6 +149,8 @@ cp -a %{SOURCE100} %{SOURCE101} %{buildroot}%{_datadir}/chromium/extensions
 %{_datadir}/chromium/extensions/gphhapmejobijbbhgpjhcjognlahblep.json
 
 %files kde
+%license licenses/LICENSE
+
 %dir %{_datadir}/google-chrome
 %dir %{_datadir}/google-chrome/extensions
 %dir %{_datadir}/chromium

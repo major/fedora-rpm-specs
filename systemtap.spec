@@ -123,7 +123,7 @@ m     stapdev  stapdev
 Name: systemtap
 # PRERELEASE
 Version: 4.9
-Release: 1%{?release_override}%{?dist}
+Release: 2%{?release_override}%{?dist}
 # for version, see also configure.ac
 
 
@@ -1307,6 +1307,9 @@ exit 0
 
 # PRERELEASE
 %changelog
+* Fri May 19 2023 Mark Wielaard <mjw@fedoraproject.org> - 4.9-2
+- rebuilt for f39-build-side-67564 target
+
 * Fri Apr 28 2023 Frank Ch. Eigler <fche@redhat.com> - 4.9-1
 - Upstream release, see wiki page below for detailed notes.
   https://sourceware.org/systemtap/wiki/SystemTapReleases

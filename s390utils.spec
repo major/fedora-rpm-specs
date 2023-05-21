@@ -10,7 +10,7 @@
 Name:           s390utils
 Summary:        Utilities and daemons for IBM z Systems
 Version:        2.26.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          2
 License:        MIT
 ExclusiveArch:  s390 s390x
@@ -38,7 +38,7 @@ Patch0:         s390-tools-zipl-invert-script-options.patch
 Patch1:         s390-tools-zipl-blscfg-rpm-nvr-sort.patch
 
 # upstream fixes/updates
-Patch100:       s390utils-%%{version}-fedora.patch
+Patch100:       s390utils-%{version}-fedora.patch
 
 Requires:       s390utils-core = %{epoch}:%{version}-%{release}
 Requires:       s390utils-base = %{epoch}:%{version}-%{release}
@@ -897,6 +897,9 @@ User-space development files for the s390/s390x architecture.
 
 
 %changelog
+* Fri May 19 2023 Petr Pisar <ppisar@redhat.com> - 2:2.26.0-2
+- Rebuild against rpm-4.19 (https://fedoraproject.org/wiki/Changes/RPM-4.19)
+
 * Fri Mar 03 2023 Dan Horák <dan[at]danny.cz> - 2:2.26.0-1
 - rebased to 2.26.0
 
