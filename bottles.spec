@@ -1,25 +1,32 @@
 %global uuid pm.mirko.%{name}
-%global suf brescia-3
+%global gh_name Bottles
+
+%global forgeurl https://github.com/bottlesdevs/%{gh_name}
+%global tag 51.6
 
 Name:       bottles
-Version:    2022.7.14
+Epoch:      1
+Version:    %{tag}
 Release:    %autorelease
 BuildArch:  noarch
 
-License:    GPLv3+
+%forgemeta
+
+License:    GPL-3.0-or-later
 Summary:    Easily manage Wine prefix in a new way
-URL:        https://github.com/bottlesdevs/Bottles
-Source0:    %{url}/archive/%{version}-%{suf}/%{name}-%{version}-%{suf}.tar.gz
+URL:        %{forgeurl}
+Source0:    %{forgesource}
 
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 BuildRequires: meson
 BuildRequires: python3
-BuildRequires: python3-gobject
 
 BuildRequires: pkgconfig(glib-2.0)
 BuildRequires: pkgconfig(gtk4)
 BuildRequires: pkgconfig(libadwaita-1) >= 1.1.99
+
+BuildRequires: blueprint-compiler
 
 Requires:   cabextract
 Requires:   glibc(x86-32)           %dnl # https://github.com/bottlesdevs/Bottles/issues/601#issuecomment-936772762
@@ -38,6 +45,9 @@ Requires:   python3-pyyaml
 Requires:   python3-requests        %dnl # needed by the download manager
 Requires:   python3-urllib3         %dnl # needed by the download manager
 Requires:   xdpyinfo                %dnl # needed by the display util
+Requires:   python3-pathvalidate
+Requires:   python3-fvs
+Requires:   python3-vkbasalt-cli
 
 %description
 Easily manage Wine prefix in a new way! (Run Windows software and games on
@@ -75,7 +85,7 @@ Features:
 
 
 %prep
-%autosetup -n Bottles-%{version}-%{suf}
+%autosetup -n %{gh_name}-%{version}
 
 
 %build
@@ -94,7 +104,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %files -f %{name}.lang
-%license LICENSE
+%license COPYING.md
 %doc README.md
 %{_bindir}/%{name}
 %{_bindir}/%{name}-cli

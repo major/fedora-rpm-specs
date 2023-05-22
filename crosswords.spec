@@ -42,6 +42,7 @@ BuildRequires:  pkgconfig(iso-codes)
 BuildRequires:  pkgconfig(json-glib-1.0)
 BuildRequires:  pkgconfig(libadwaita-1)
 BuildRequires:  pkgconfig(libipuz-0.4)
+BuildRequires:  pkgconfig(libpanel-1)
 BuildRequires:  pkgconfig(librsvg-2.0)
 
 Requires:       dbus-common
@@ -127,13 +128,6 @@ ipuz-convertor is a script to convert puzzle files from puz to ipuz.
 mkdir images
 cp -p data/images/{a-dogs-day,hero}.png images/
 sed -i 's:data/images/:images/:g' README.md
-
-# Per the commit message on 60cd07582aab9b6099a7e3434288958c0662b83a this
-# isn't _really_ required, so relax it on f36 to unbreak the build
-%if 0%{?fc36}
-sed -i "s:gtk4_req_version = '4.8':gtk4_req_version = '4.5':" meson.build
-sed -i '/gtk_event_controller_set_static_name/d' src/play-cell.c
-%endif
 
 %build
 %meson -Ddevelopment=false

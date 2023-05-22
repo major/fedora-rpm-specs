@@ -2,8 +2,8 @@
 %global _hardened_build 1
 
 Name:           spnavcfg
-Version:        1.0
-Release:        3%{?dist}
+Version:        1.1
+Release:        1%{?dist}
 Summary:        Spacenav daemon interactive configuration program
 
 License:        GPLv3+
@@ -61,6 +61,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sun May 21 2023 Richard Shaw <hobbes1069@gmail.com> - 1.1-1
+- Update to 1.1.
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

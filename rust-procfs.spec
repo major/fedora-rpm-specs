@@ -6,7 +6,7 @@
 %global crate procfs
 
 Name:           rust-procfs
-Version:        0.14.2
+Version:        0.15.1
 Release:        %autorelease
 Summary:        Interface to the linux procfs pseudo-filesystem
 
@@ -38,6 +38,7 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
+%doc %{crate_instdir}/msrv.md
 %doc %{crate_instdir}/support.md
 %{crate_instdir}/
 

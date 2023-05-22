@@ -20,7 +20,7 @@
 Summary:        RPM information
 Name:           php-pecl-%{pecl_name}
 Version:        0.6.0
-Release:        10%{?dist}
+Release:        9%{?dist}
 License:        PHP-3.01
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}.tgz
@@ -164,9 +164,6 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
-* Fri May 19 2023 Petr Pisar <ppisar@redhat.com> - 0.6.0-10
-- Rebuild against rpm-4.19 (https://fedoraproject.org/wiki/Changes/RPM-4.19)
-
 * Fri May 19 2023 Remi Collet <remi@remirepo.net> - 0.6.0-9
 - rebuild for librpm
 

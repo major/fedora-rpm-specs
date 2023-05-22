@@ -1,6 +1,6 @@
 Summary:        A high-performance implementation of MPI
 Name:           mpich
-Version:        4.0.3
+Version:        4.1.1
 Release:        %autorelease
 License:        MIT
 URL:            https://www.mpich.org/
@@ -14,8 +14,6 @@ Patch:          0002-pkgconf-also-drop-rpath-flags-from-pkgconf-file.patch
 Patch:          0003-Drop-build-flags-e.g.-specs.-and-lto-from-mpi-wrappe.patch
 Patch:          0004-Make-mpich.module-useful.patch
 # TODO: submit ^ upstream
-# https://github.com/pmodels/mpich/pull/6374
-Patch:          6374.patch
 
 Patch:          mpich-configure-max_align_t.patch
 Patch:          mpich-aclocal_cc-implicit-int.patch
@@ -29,7 +27,14 @@ BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  gcc-gfortran
 BuildRequires:  hwloc-devel >= 2.0
+%ifarch x86_64
+BuildRequires:  infinipath-psm-devel
+BuildRequires:  libpsm2-devel
+%endif
 BuildRequires:  libfabric-devel
+BuildRequires:  libnl3-devel
+BuildRequires:  libuuid-devel
+BuildRequires:  numactl-devel
 %ifarch aarch64 ppc64le x86_64
 BuildRequires:  ucx-devel
 %endif
@@ -127,9 +132,7 @@ CONFIGURE_OPTS=(
         --enable-lib-depend
         --disable-rpath
         --disable-silent-rules
-        --enable-fortran
         --with-gnu-ld
-        --with-device=ch3:nemesis
         --with-pm=hydra:gforker
         --includedir=%{_includedir}/%{name}-%{_arch}
         --bindir=%{_libdir}/%{name}/bin
@@ -138,10 +141,13 @@ CONFIGURE_OPTS=(
         --mandir=%{_mandir}/%{name}-%{_arch}
         --docdir=%{_datadir}/%{name}/doc
         --htmldir=%{_datadir}/%{name}/doc
-        --with-hwloc-prefix=system
-        --with-libfabric=system
-        --with-ucx=system
+        --with-hwloc
+        --with-libfabric
+%ifarch aarch64 ppc64le x86_64
+        --with-ucx
+%endif
 )
+#        --with-device=ch3:nemesis
 
 # Set -fallow-argument-mismatch for #1795817
 %configure "${CONFIGURE_OPTS[@]}"               \

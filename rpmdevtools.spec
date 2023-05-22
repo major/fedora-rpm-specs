@@ -7,10 +7,15 @@ Summary:        RPM Development Tools
 License:        GPLv2+ and GPLv2
 URL:            https://pagure.io/rpmdevtools
 Source0:        https://releases.pagure.org/rpmdevtools/%{name}-%{version}.tar.xz
+Source1:        progressbar.py
 
 # Fedora-specific downstream patches
 ## Force legacy datestamp by default until rhbz#1715412 is resolved
 Patch1001:      0001-Force-legacy-datestamp-while-RHBZ-1715412-is-still-a.patch
+
+# RHEL-specific downstream patches
+## Remove fakeroot dependency (rhbz#1905465)
+Patch2001:      rpmdevtools-9.5-no_qa_robot.patch
 
 BuildArch:      noarch
 # help2man, pod2man, *python for creating man pages
@@ -21,38 +26,37 @@ BuildRequires:  perl-generators
 # python dependencies for spectool
 # spectool is executed for creating man page
 BuildRequires:  python3-devel
+%if ! 0%{?rhel}
 BuildRequires:  python3dist(progressbar2)
+%endif
 BuildRequires:  python3dist(requests)
 BuildRequires:  python3dist(rpm)
 # emacs-common >= 1:22.3-3 for macros.emacs
 BuildRequires:  emacs-common >= 1:22.3-3
 BuildRequires:  bash-completion
-%if 0%{?fedora} && 0%{?fedora} < 36
-# xemacs-common >= 21.5.29-8 for macros.xemacs
-BuildRequires:  xemacs-common >= 21.5.29-8
-%endif
 Requires:       curl
 Requires:       diffutils
+%if ! 0%{?rhel}
 Requires:       fakeroot
+%endif
 Requires:       file
 Requires:       findutils
 Requires:       gawk
 Requires:       grep
 Requires:       rpm-build >= 4.4.2.3
 Requires:       python3dist(argcomplete)
+%if ! 0%{?rhel}
 Requires:       python3dist(progressbar2)
+%endif
 Requires:       python3dist(requests)
 Requires:       python3dist(rpm)
 Requires:       sed
 Requires:       emacs-filesystem
-%if 0%{?fedora} && 0%{?fedora} < 36
-Requires:       xemacs-filesystem
-%endif
 # Optionally support rpmautospec
 Recommends:     python%{python3_version}dist(rpmautospec)
 
 %description
-This package contains scripts and (X)Emacs support files to aid in
+This package contains scripts and Emacs support files to aid in
 development of RPM packages.
 rpmdev-setuptree    Create RPM build tree within user's home directory
 rpmdev-diff         Diff contents of two archives
@@ -70,9 +74,21 @@ rpmdev-bumpspec     Bump revision in specfile
 
 
 %prep
-%autosetup -p1
+%autosetup -N
+%autopatch -p1 %{!?rhel:-M2000}
 grep -lF "%{_bindir}/python " * \
 | xargs sed -i -e "s|%{_bindir}/python |%{_bindir}/python3 |"
+
+%if 0%{?rhel}
+# Let spectool find the bundled progressbar2 implementation
+cp %{SOURCE1} .
+sed -i \
+'s|^\(import progressbar\)$|'\
+'import sys\n'\
+'sys.path.insert(1, "%{_datadir}/rpmdevtools")\n'\
+'\1\nsys.path.pop(1)|' \
+rpmdev-spectool
+%endif
 
 
 %build
@@ -87,11 +103,7 @@ echo %%{_datadir}/bash-completion > %{name}.files
 [ -d %{buildroot}%{_sysconfdir}/bash_completion.d ] && \
 echo %%{_sysconfdir}/bash_completion.d > %{name}.files
 
-%if 0%{?fedora} && 0%{?fedora} < 36
-for dir in %{_emacs_sitestartdir} %{_xemacs_sitestartdir} ; do
-%else
 for dir in %{_emacs_sitestartdir} ; do
-%endif
   install -dm 755 %{buildroot}$dir
   ln -s %{_datadir}/rpmdevtools/rpmdev-init.el %{buildroot}$dir
   touch %{buildroot}$dir/rpmdev-init.elc
@@ -100,6 +112,11 @@ done
 # For backwards compatibility
 ln -sr %{buildroot}%{_bindir}/rpmdev-spectool %{buildroot}%{_bindir}/spectool
 echo ".so man1/rpmdev-spectool.1" > %{buildroot}%{_mandir}/man1/spectool.1
+
+%if 0%{?rhel}
+cp %{SOURCE1} %{buildroot}%{_datadir}/rpmdevtools/
+%py_byte_compile %{python3} %{buildroot}%{_datadir}/rpmdevtools/
+%endif
 
 
 %files -f %{name}.files
@@ -110,10 +127,6 @@ echo ".so man1/rpmdev-spectool.1" > %{buildroot}%{_mandir}/man1/spectool.1
 %{_bindir}/*
 %{_emacs_sitestartdir}/rpmdev-init.el
 %ghost %{_emacs_sitestartdir}/rpmdev-init.elc
-%if 0%{?fedora} && 0%{?fedora} < 36
-%{_xemacs_sitestartdir}/rpmdev-init.el
-%ghost %{_xemacs_sitestartdir}/rpmdev-init.elc
-%endif
 %{_mandir}/man[18]/*.[18]*
 
 

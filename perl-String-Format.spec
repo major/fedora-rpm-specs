@@ -3,9 +3,9 @@ Version:        1.18
 Release:        16%{?dist}
 Summary:        Sprintf-like string formatting capabilities with arbitrary format definitions
 
-License:        GPLv2
+License:        GPL-2.0-only
 URL:            https://metacpan.org/release/String-Format
-Source0:        https://cpan.metacpan.org/authors/id/S/SR/SREZIC/String-Format-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/modules/by-module/String/String-Format-%{version}.tar.gz
 
 BuildArch:      noarch
 # Build:
@@ -25,6 +25,7 @@ BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
 # Dependencies:
+# (none)
 
 %description
 String::Format lets you define arbitrary printf-like format sequences
@@ -53,11 +54,7 @@ make test
 
 
 %files
-%if 0%{?_licensedir:1}
 %license COPYING
-%else
-%doc COPYING
-%endif
 %doc Changes README
 %{perl_vendorlib}/String/
 %{_mandir}/man3/String::Format.3*

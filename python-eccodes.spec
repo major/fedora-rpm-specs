@@ -1,6 +1,6 @@
 Name:           python-eccodes
-Version:        1.5.0
-Release:        2%{?dist}
+Version:        1.5.2
+Release:        1%{?dist}
 Summary:        Python interface to the ecCodes GRIB and BUFR decoder/encoder
 License:        Apache-2.0
 # note: upstream has changed the name on pypi from eccodes-python to eccodes
@@ -89,11 +89,7 @@ rm build/sphinx/html/.buildinfo
 # due to a missing sample data file some tests fail, so deselect them.
 # see https://github.com/ecmwf/eccodes-python/issues/66
 
-%{__python3} -m pytest -v \
-    --deselect="tests/test_highlevel.py::test_message_iter" \
-    --deselect="tests/test_highlevel.py::test_message_copy" \
-    --deselect="tests/test_highlevel.py::test_write_message" \
-    --deselect="tests/test_eccodes.py::test_count_in_file"
+%{__python3} -m pytest -v
 
 %files -n python3-eccodes
 %doc README.rst
@@ -105,6 +101,9 @@ rm build/sphinx/html/.buildinfo
 
 
 %changelog
+* Sat May 20 2023 Jos de Kloe <josdekloe@gmail.com> 1.5.2-1
+- new upstream release 1.5.2
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

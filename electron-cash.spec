@@ -1,6 +1,6 @@
 Name:           electron-cash
-Version:        4.3.0
-Release:        2%{?dist}
+Version:        4.3.1
+Release:        1%{?dist}
 Summary:        A lightweight Bitcoin Cash client
 
 License:        MIT
@@ -99,6 +99,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.elect
 %{python3_sitelib}/Electron_Cash-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat May 20 2023 Jonny Heggheim <hegjon@gmail.com> - 4.3.1-1
+- Updated to version 4.3.1
+
 * Wed May 17 2023 Jonny Heggheim <hegjon@gmail.com> - 4.3.0-2
 - Relaxed version for python3-protobuf
 

@@ -39,7 +39,7 @@
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
 
 Name:		openconnect
-Version:	9.11
+Version:	9.12
 Release:	1%{?relsuffix}%{?dist}
 Summary:	Open multi-protocol SSL VPN client
 
@@ -159,6 +159,9 @@ make VERBOSE=1 check
 %{_libdir}/pkgconfig/openconnect.pc
 
 %changelog
+* Sat May 20 2023 David Woodhouse <dwmw2@infradead.org> - 9.12-1
+- Update to 9.12 release
+
 * Wed May 17 2023 David Woodhouse <dwmw2@infradead.org> - 9.11-1
 - Update to 9.11 release
 

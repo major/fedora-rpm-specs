@@ -8,47 +8,44 @@
 # RHEL does not have all the test dependencies
 %bcond tests %[%{without bootstrap} && ! %[%{defined rhel} && %{undefined epel}]]
 
+Name:           python-flit
+Version:        3.8.0
+Release:        2%{?dist}
+Summary:        Simplified packaging of Python modules
 
-%global srcname flit
+# ./flit/log.py: Apache-2.0
+# ./flit/upload.py: PSF-2.0
+License:        BSD-3-Clause AND Apache-2.0 AND PSF-2.0
 
-Name:		python-%{srcname}
-Version:	3.8.0
-Release:	2%{?dist}
-Summary:	Simplified packaging of Python modules
-
-# ./flit/log.py under ASL 2.0 license
-# ./flit/upload.py under PSF license
-License:	BSD and ASL 2.0 and Python
-
-URL:		https://flit.readthedocs.io/en/latest/
-Source0:	https://github.com/takluyver/flit/archive/%{version}/%{srcname}-%{version}.tar.gz
+URL:            https://flit.pypa.io/
+Source0:        https://github.com/pypa/flit/archive/%{version}/flit-%{version}.tar.gz
 
 # For the tests
-Source1:	https://pypi.org/pypi?%3Aaction=list_classifiers#/classifiers.lst
+Source1:        https://pypi.org/pypi?%3Aaction=list_classifiers#/classifiers.lst
 
-BuildArch:	noarch
-BuildRequires:	python3-devel
+BuildArch:      noarch
+BuildRequires:  python3-devel
 %if %{without bootstrap}
-BuildRequires:	pyproject-rpm-macros >= 0-40
-BuildRequires:	python3-pip
+BuildRequires:  pyproject-rpm-macros >= 0-40
+BuildRequires:  python3-pip
 %endif
 
 %if %{with tests}
 # Runtime deps, others
-BuildRequires:	python3-requests
-BuildRequires:	python3-docutils
-BuildRequires:	python3-pygments
-BuildRequires:	python3-tomli-w
+BuildRequires:  python3-requests
+BuildRequires:  python3-docutils
+BuildRequires:  python3-pygments
+BuildRequires:  python3-tomli-w
 
 # Test deps
-BuildRequires:	/usr/bin/python
-BuildRequires:	python3-pytest
-BuildRequires:	python3-responses
-BuildRequires:	git-core
+BuildRequires:  /usr/bin/python
+BuildRequires:  python3-pytest
+BuildRequires:  python3-responses
+BuildRequires:  git-core
 
 # Test deps that require flit to build:
-BuildRequires:	python3-testpath
-BuildRequires:	python3-requests-download
+BuildRequires:  python3-testpath
+BuildRequires:  python3-requests-download
 %endif
 
 %global _description %{expand:
@@ -68,24 +65,24 @@ so long as they can be imported on Python 3.}
 
 
 %if %{without bootstrap}
-%package -n python3-%{srcname}
-Summary:	%{summary}
-Requires:	python3-%{srcname}-core = %{version}-%{release}
+%package -n python3-flit
+Summary:        %{summary}
+Requires:       python3-flit-core = %{version}-%{release}
 
 # https://pypi.python.org/pypi/tornado
 # ./flit/log.py unknown version
-Provides:	bundled(python3dist(tornado))
+Provides:       bundled(python3dist(tornado))
 
 # soft dependency: (WARNING) Cannot analyze code. Pygments package not found.
-Recommends:	python3-pygments
+Recommends:     python3-pygments
 
-%description -n python3-%{srcname} %_description
+%description -n python3-flit %_description
 %endif
 
 
-%package -n python3-%{srcname}-core
-Summary:	PEP 517 build backend for packages using Flit
-Conflicts:	python3-%{srcname} < 2.1.0-2
+%package -n python3-flit-core
+Summary:        PEP 517 build backend for packages using Flit
+Conflicts:      python3-flit < 2.1.0-2
 
 # RPM generators are not yet available when we bootstrap
 %if %{with bootstrap}
@@ -94,14 +91,14 @@ Provides:       python%{python3_version}dist(flit-core) = %{version}
 Requires:       python(abi) = %{python3_version}
 %endif
 
-%description -n python3-%{srcname}-core
+%description -n python3-flit-core
 This provides a PEP 517 build backend for packages using Flit.
 The only public interface is the API specified by PEP 517,
 at flit_core.buildapi.
 
 
 %prep
-%autosetup -p1 -n %{srcname}-%{version}
+%autosetup -p1 -n flit-%{version}
 
 # Remove vendored tomli that flit_core includes to solve the circular dependency on older Pythons
 # (flit_core requires tomli, but flit_core is needed to build tomli).
@@ -152,7 +149,7 @@ export XDG_CACHE_HOME=$PWD/fake_cache
 
 
 %if %{without bootstrap}
-%files -n python3-%{srcname}
+%files -n python3-flit
 %license LICENSE
 %doc README.rst
 %{python3_sitelib}/flit-*.dist-info/
@@ -161,7 +158,7 @@ export XDG_CACHE_HOME=$PWD/fake_cache
 %endif
 
 
-%files -n python3-%{srcname}-core
+%files -n python3-flit-core
 %license LICENSE
 %doc flit_core/README.rst
 %{python3_sitelib}/flit_core-*.dist-info/

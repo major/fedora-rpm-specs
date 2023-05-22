@@ -1,16 +1,29 @@
 Name:           perl-Symbol-Util
 Version:        0.0203
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Additional utilities for Perl symbols manipulation
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Symbol-Util
-Source0:        https://cpan.metacpan.org/authors/id/D/DE/DEXTER/Symbol-Util-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/modules/by-module/Symbol/Symbol-Util-%{version}.tar.gz
 BuildArch:      noarch
+# Module Build
+BuildRequires:  coreutils
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(Module::Build)
-BuildRequires:  perl(Test::More)
-
-%{?perl_default_filter}
+# Module Runtime
+BuildRequires:  perl(Carp)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+# Test Suite
+BuildRequires:  perl(Cwd)
+BuildRequires:  perl(File::Basename)
+BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(Symbol)
+BuildRequires:  perl(Test::Harness)
+BuildRequires:  perl(Test::More) >= 0.88
+# Dependencies
+Requires:       perl(Carp)
 
 %description
 This module provides a set of additional functions useful for Perl symbols
@@ -18,28 +31,37 @@ manipulation.
 
 %prep
 %setup -q -n Symbol-Util-%{version}
-chmod -x xt/cover.pl
-chmod -x examples/delete_glob.pl
+chmod -c -x xt/cover.pl
+chmod -c -x examples/delete_glob.pl
 
 %build
-%{__perl} Build.PL installdirs=vendor
+perl Build.PL --installdirs=vendor
 ./Build
 
 %install
-./Build install destdir=$RPM_BUILD_ROOT create_packlist=0
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
-
-%{_fixperms} $RPM_BUILD_ROOT/*
+./Build install --destdir=%{buildroot} --create_packlist=0
+%{_fixperms} -c %{buildroot}
 
 %check
 ./Build test
 
 %files
-%doc Changes examples LICENSE README xt
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%license LICENSE
+%doc Changes examples/ README xt/
+%{perl_vendorlib}/Symbol/
+%{_mandir}/man3/Symbol::Util.3*
 
 %changelog
+* Sat May 20 2023 Paul Howarth <paul@city-fan.org> - 0.0203-32
+- Spec tidy-up
+  - Use SPDX-format license tag
+  - Use author-independent source URL
+  - Classify buildreqs by usage
+  - Drop redundant use of %%{?perl_default_filter}
+  - Fix permissions verbosely
+  - Make %%files list more explicit
+  - Use %%license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0203-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -8,6 +8,8 @@ Summary:        Introspection system for GObject-based libraries
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND BSD-2-Clause
 URL:            https://wiki.gnome.org/Projects/GObjectIntrospection
 Source0:        https://download.gnome.org/sources/%{name}/1.76/%{name}-%{version}.tar.xz
+# https://gitlab.gnome.org/GNOME/gobject-introspection/-/issues/458
+Patch0:         gobject-introspection-1.76.1-revert-failing-test.patch
 
 BuildRequires:  bison
 BuildRequires:  flex

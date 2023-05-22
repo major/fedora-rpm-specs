@@ -13,7 +13,7 @@
 Name: python-dmidecode
 Summary: Python module to access DMI data
 Version: 3.12.3
-Release: 2%{date}%{shortcommit}%{?dist}
+Release: 3%{date}%{shortcommit}%{?dist}
 License: GPLv2
 URL: https://github.com/nima/python-dmidecode
 Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -25,9 +25,8 @@ BuildRequires: gcc
 BuildRequires: libxml2-devel
 BuildRequires: python3-devel
 BuildRequires: libxml2-python3
-%if 0%{?python3_version_nodots} >= 312
 BuildRequires: python3-setuptools
-%endif
+BuildRequires: python-distutils-extra
 
 %global _description\
 python-dmidecode is a python extension module that uses the\
@@ -47,7 +46,7 @@ Requires: libxml2-python3
 
 %prep
 %autosetup -n %{name}-%{version} -N
-%patch0 -p1 -b .backup
+%patch 0 -p1 -b .backup
 
 %build
 # -std=gnu89 is there to avoid `undefined symbol: dmixml_GetContent`
@@ -77,6 +76,9 @@ make -C unit-tests
 %{_datadir}/%{name}/
 
 %changelog
+* Sat May 20 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.12.3-3
+- Fix BuildRequires packages for Python-3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

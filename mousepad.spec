@@ -1,7 +1,7 @@
 %global minorversion 0.6
 
 Name:           mousepad
-Version:        0.6.0
+Version:        0.6.1
 Release:        %autorelease
 Summary:        Simple text editor for Xfce desktop environment
 
@@ -20,6 +20,7 @@ BuildRequires:  dbus-glib-devel
 BuildRequires:  glib2-devel
 BuildRequires:  libappstream-glib
 BuildRequires:  gspell-devel
+BuildRequires:  polkit-devel
 
 %description
 Mousepad aims to be an easy-to-use and fast editor. It's target is an editor for

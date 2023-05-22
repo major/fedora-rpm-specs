@@ -1,6 +1,6 @@
 Name:      easy-rsa
-Version:   3.1.2
-Release:   3%{?dist}
+Version:   3.1.3
+Release:   1%{?dist}
 
 Summary:   Simple shell based CA utility
 License:   GPL-2.0-only
@@ -47,6 +47,9 @@ cp -rp x509-types %{buildroot}%{_datadir}/easy-rsa/%{version}/
 
 
 %changelog
+* Sat May 20 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.1.3-1
+- 3.1.3
+
 * Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.1.2-3
 - migrated to SPDX license
 
