@@ -5,7 +5,7 @@
 %bcond_without doc_pdf
 
 Name:           python-OWSLib
-Version:        0.29.1
+Version:        0.29.2
 Release:        %autorelease
 Summary:        Client library for OGC web services
 
@@ -65,10 +65,7 @@ sed -r -i 's/[-]-cov[^[:blank:]]*[[:blank:]][^[[:blank:]]+//g' tox.ini
 #
 # Don’t generate twine dependency, which is just for the upstream maintainer
 # uploading to PyPI.
-sed -r -e '/^(flake8|pytest-cov|pandoc|coverage|coveralls|twine)\b/d' \
-%if %{without doc_pdf}
-    -e '/^(ipykernel|nbconvert|.*sphinx)/d' \
-%endif
+sed -r -e '/^(flake8|pytest-cov|twine|coverage|coveralls)\b/d' \
     requirements-dev.txt | tee requirements-dev-filtered.txt
 
 # We don’t need shebangs in the examples. The pattern of selecting files
@@ -82,11 +79,13 @@ chmod -v a-x examples/*.py
 
 # Because at least one notebook requires Internet access, we must continue past
 # notebook errors when building documentation.
-echo 'nbsphinx_allow_errors = True' >> docs/conf.py
+echo 'nbsphinx_allow_errors = True' >> docs/source/conf.py
 
 
 %generate_buildrequires
-%pyproject_buildrequires requirements-dev-filtered.txt
+%{pyproject_buildrequires \
+    %{?with_doc_pdf:docs/requirements.txt} \
+    requirements-dev-filtered.txt}
 
 
 %build
@@ -95,7 +94,7 @@ echo 'nbsphinx_allow_errors = True' >> docs/conf.py
 %if %{with doc_pdf}
 PYTHONPATH="${PWD}" %make_build -C docs latex \
     SPHINXOPTS='-j%{?_smp_build_ncpus}'
-%make_build -C docs/build/latex/en LATEXMKOPTS='-quiet'
+%make_build -C docs/build/latex LATEXMKOPTS='-quiet'
 %endif
 
 
@@ -151,11 +150,10 @@ k="${k-}${k+ and } not (TestOffline and test_wms_130_remotemd_parse_single)"
 %files doc
 %license LICENSE
 %doc AUTHORS.rst
-%doc CHANGES.rst
-%doc README.rst
-%doc examples
+%doc README.md
+%doc examples/
 %if %{with doc_pdf}
-%doc docs/build/latex/en/OWSLib.pdf
+%doc docs/build/latex/OWSLib.pdf
 %endif
 
 

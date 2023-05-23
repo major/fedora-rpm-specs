@@ -2,15 +2,15 @@ Name:           perl-Sys-Hostname-Long
 Version:        1.5
 Release:        26%{?dist}
 Summary:        Try every conceivable way to get full hostname
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Sys-Hostname-Long
-Source0:        https://cpan.metacpan.org/authors/id/S/SC/SCOTT/Sys-Hostname-Long-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/modules/by-module/Sys/Sys-Hostname-Long-%{version}.tar.gz
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) > 6.75
 # Module Runtime
 BuildRequires:  hostname
@@ -24,7 +24,7 @@ BuildRequires:  perl(vars)
 # Test Suite
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test)
-# Runtime
+# Dependencies
 Requires:       hostname
 Requires:       perl(IO::Socket)
 

@@ -3,10 +3,13 @@
 # Copyright (c) 2023 Maxwell G <maxwell@gtmx.me>
 # Copyright (c) Fedora Project Authors
 
+# Specfile compatability: EPEL >= 9 or Fedora >= 37 and RPM >= 4.16
+
 %bcond tests 1
+%bcond maturin %[ 0%{?fedora} >= 39 ]
 
 Name:           python-orjson
-Version:        3.8.11
+Version:        3.8.12
 Release:        1%{?dist}
 Summary:        Fast, correct Python JSON library
 
@@ -14,9 +17,11 @@ License:        Apache-2.0 OR MIT
 URL:            https://github.com/ijl/orjson
 Source:         %{pypi_source orjson}
 # Ineligble for upstreaming
-Patch:          Use-setuptools-rust-instead-of-maturin.patch
-# Ineligble for upstreaming
 Patch:          Remove-unstable-simd-feature.patch
+
+# Ineligble for upstreaming
+# Used when maturin bcond is disabled
+Patch5000:      Use-setuptools-rust-instead-of-maturin.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  rust-packaging
@@ -35,8 +40,8 @@ Summary:        %{summary}
 # (Apache-2.0 OR MIT) AND BSD-3-Clause: encoding_rs v0.8.32
 # Apache-2.0 OR BSL-1.0: ryu v1.0.13
 # Apache-2.0 OR MIT: bytecount v0.6.3
-# Apache-2.0 OR MIT: orjson v3.8.9
-# Apache-2.0: pyo3-ffi v0.18.2
+# Apache-2.0 OR MIT: orjson v3.8.12
+# Apache-2.0: pyo3-ffi v0.18.3
 # MIT OR Apache-2.0: ahash v0.8.3
 # MIT OR Apache-2.0: arrayvec v0.7.2
 # MIT OR Apache-2.0: associative-cache v1.0.1
@@ -44,15 +49,18 @@ Summary:        %{summary}
 # MIT OR Apache-2.0: cfg-if v1.0.0
 # MIT OR Apache-2.0: chrono v0.4.24
 # MIT OR Apache-2.0: itoa v1.0.6
-# MIT OR Apache-2.0: libc v0.2.140
+# MIT OR Apache-2.0: libc v0.2.144
 # MIT OR Apache-2.0: num-integer v0.1.45
 # MIT OR Apache-2.0: num-traits v0.2.15
 # MIT OR Apache-2.0: once_cell v1.17.1
-# MIT OR Apache-2.0: serde v1.0.159
-# MIT OR Apache-2.0: serde_json v1.0.95
+# MIT OR Apache-2.0: serde v1.0.162
+# MIT OR Apache-2.0: serde_json v1.0.96
 # MIT OR Apache-2.0: simdutf8 v0.1.4
 # MIT OR Apache-2.0: smallvec v1.10.0
 # MIT OR Apache-2.0: static_assertions v1.1.0
+# MIT: castaway v0.2.2
+# MIT: compact_str v0.7.0
+# MIT: itoap v1.0.1
 License:        (Apache-2.0 OR MIT) AND (Apache-2.0 OR BSL-1.0) AND BSD-3-Clause AND Apache-2.0
 
 
@@ -60,24 +68,9 @@ License:        (Apache-2.0 OR MIT) AND (Apache-2.0 OR BSL-1.0) AND BSD-3-Clause
 
 
 %prep
-%autosetup -p1 -n orjson-%{version}
-
-# Replaces @@VERSION@@ placeholder in pyproject.toml with the value of %%version.
-%writevars -f pyproject.toml version
-
-%if 0%{?fedora} && 0%{?fedora} <= 36
-# Minimal setup.cfg for Fedora 36's old setuptools that doesn't support PEP 621
-# (i.e. it doesn't understand metadata in pyproject.toml's [project] table)
-cat <<EOF > setup.cfg
-[metadata]
-name = orjson
-version = %{version}
-
-[options]
-packages = orjson
-EOF
-sed -i 's|setuptools>=61.0|setuptools|' pyproject.toml
-%endif
+%autosetup -p1 -n orjson-%{version} -N
+%autopatch -M 4999
+%{!?with_maturin:%autopatch -m5000 -M5000 -p1}
 
 # Remove bundled yyjson.
 rm -rv include/yyjson/
@@ -115,6 +108,10 @@ export RUSTFLAGS='%{build_rustflags}'
 
 
 %changelog
+* Thu May 18 2023 Maxwell G <maxwell@gtmx.me> - 3.8.12-1
+- Update to 3.8.12.
+- Use maturin as a build system when available
+
 * Fri May 5 2023 Maxwell G <maxwell@gtmx.me> - 3.8.11-1
 - Update to 3.8.11. Fixes rhbz#2193468.
 

@@ -5,20 +5,18 @@
 %global crate json_to_table
 
 Name:           rust-json_to_table
-Version:        0.3.1
+Version:        0.5.0
 Release:        %autorelease
-Summary:        Libary for pretty print JSON as a table
+Summary:        Library for pretty print JSON as a table
 
 License:        MIT
 URL:            https://crates.io/crates/json_to_table
 Source:         %{crates_source}
-# License files added after 0.3.1 was released
-Source1:        https://raw.githubusercontent.com/zhiburt/tabled/9fcb1cd669cb73934d2c9fb81af4187897670a82/json_to_table/LICENSE-MIT
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-A libary for pretty print JSON as a table.}
+A library for pretty print JSON as a table.}
 
 %description %{_description}
 
@@ -62,7 +60,6 @@ use the "color" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
-cp -p %{SOURCE1} .
 %cargo_prep
 
 %generate_buildrequires

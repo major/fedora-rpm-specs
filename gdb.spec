@@ -1249,6 +1249,10 @@ fi
 %endif
 
 %changelog
+* Sat May 20 2023 Andrew Burgess <aburgess@redhat.com>
+- Remove gdb-lineno-makeup-test.patch.  An equivalent test has now
+  been merged to upstream binutils-gdb in commit ef56b006501.
+
 * Tue May 16 2023 Andrew Burgess <aburgess@redhat.com>
 - Remove gdb-ccache-workaround.patch.  This patch works around
   problems when using older versions of ccache, however, upstream GDB

@@ -1,11 +1,11 @@
 Name:           libspnav
-Version:        1.0
-Release:        3%{?dist}
+Version:        1.1
+Release:        1%{?dist}
 Summary:        Open source alternative to 3DConnextion drivers
 
 License:        BSD
 URL:            http://spacenav.sourceforge.net/
-Source:         http://downloads.sourceforge.net/spacenav/%{name}-%{version}.tar.gz
+Source:         https://github.com/FreeSpacenav/libspnav/archive/v%{version}/%{name}-%{version}.tar.gz 
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -65,6 +65,9 @@ rm -f %{buildroot}%{_libdir}/%{name}.a
 
 
 %changelog
+* Sun May 21 2023 Richard Shaw <hobbes1069@gmail.com> - 1.1-1
+- Update to 1.1.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

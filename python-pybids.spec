@@ -1,7 +1,7 @@
 %bcond_without tests
 
 Name:       python-pybids
-Version:    0.15.6
+Version:    0.16.1
 Release:    %autorelease
 Summary:    Interface with datasets conforming to BIDS
 
@@ -15,7 +15,7 @@ Summary:    Interface with datasets conforming to BIDS
 #     MIT license, unless evidence to the contrary comes to light.
 #
 # In the python3-pybids+test subpackage:
-
+#
 #   - The following test datasets (content) are PDDL-1.0:
 #       bids/tests/data/ds005/
 #       bids/tests/data/ds005_conflict/
@@ -27,11 +27,6 @@ Summary:    Interface with datasets conforming to BIDS
 License:        MIT AND Unlicense
 URL:            https://bids.neuroimaging.io
 Source0:        https://github.com/bids-standard/pybids/archive/%{version}/pybids-%{version}.tar.gz
-
-# FIX: Adapt to SQLAlchemy 1.4+
-# https://github.com/bids-standard/pybids/pull/985
-# Backported to 0.15.6.
-Patch:          pybids-0.15.6-sqlalchemy-1.4.patch
 
 BuildArch:      noarch
 
@@ -49,6 +44,8 @@ visit https://bids.neuroimaging.io.}
 %description %{_description}
 
 
+# We cannot package the “model_reports” extra because python-altair is not
+# packaged.
 %pyproject_extras_subpkg -n python3-pybids plotting
 
 
@@ -62,9 +59,6 @@ Obsoletes:      python-pybids-doc < 0.15.5-13
 # unbundled
 BuildRequires:  %{py3_dist inflect}
 Requires:  %{py3_dist inflect}
-
-# Allows running tests in parallel:
-BuildRequires:  %{py3_dist pytest-xdist}
 
 %description -n python3-pybids %{_description}
 
@@ -106,7 +100,7 @@ Requires:       python3-pybids+test = %{version}-%{release}
 
 
 %prep
-%autosetup -n pybids-%{version} -p1
+%autosetup -n pybids-%{version}
 
 # Remove bundled inflect
 rm -rf bids/external
@@ -117,7 +111,12 @@ sed -r -i.backup 's/from.*external (import)/\1/' bids/layout/layout.py
 sed -r -i 's/^([[:blank:]]*)("bsmschema")/\1# \2/' pyproject.toml
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-sed -r -i 's/^([[:blank:]]*)("coverage\b)/\1# \2/' pyproject.toml
+sed -r -i 's/^([[:blank:]]*)"(pytest-cov|coverage)\b/\1# "\2/' pyproject.toml
+
+# Not currently packaged: python-altair. This patches it out of *all* extras,
+# currently “test” and “model_reports”, but we neither package nor generate
+# BR’s from “model_reports” since we do not have altair.
+sed -r -i 's/^([[:blank:]]*)"(altair)\b/\1# "\2/' pyproject.toml
 
 # Remove bogus executable bits for non-script files
 find bids doc -type f -perm /0111 -execdir chmod -v a-x '{}' '+'
@@ -140,7 +139,7 @@ hardlink -c -v '%{buildroot}%{python3_sitelib}/bids/tests/data/'
 
 %check
 %if %{with tests}
-%pytest -n auto -v
+%pytest -v
 %else
 %pyproject_check_import
 %endif

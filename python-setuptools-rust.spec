@@ -21,7 +21,7 @@ BuildRequires:  python3dist(semantic-version) >= 2.8.2
 BuildRequires:  python3dist(typing-extensions) >= 3.7.4.4
 %if 0%{?fedora}
 BuildRequires:  python3dist(wheel)
-BuildRequires:  rust-packaging >= 1.45
+BuildRequires:  rust-packaging
 %else
 # RHEL has rust-toolset and neither setuptools-scm nor wheel
 BuildRequires:  rust-toolset >= 1.45
@@ -37,7 +37,7 @@ extensions written in Rust as easily as if they were written in C.
 %package -n     python3-setuptools-rust
 Summary:        %{summary}
 %if 0%{?fedora}
-Requires:       rust-packaging >= 1.45
+Requires:       rust-packaging
 %else
 Requires:       rust-toolset >= 1.45
 %endif

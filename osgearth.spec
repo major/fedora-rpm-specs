@@ -3,8 +3,8 @@
 %global with_docs 1
 
 Name:          osgearth
-Version:       3.3
-Release:       4%{?dist}
+Version:       3.4
+Release:       1%{?dist}
 Summary:       Dynamic map generation toolkit for OpenSceneGraph
 
 License:       LGPLv3 with exceptions
@@ -191,8 +191,8 @@ cp -a tests %{buildroot}%{_datadir}/%{name}/tests
 
 %files
 %license LICENSE.txt
-%{_libdir}/libosgEarth*.so.3.3.0
-%{_libdir}/libosgEarth*.so.135
+%{_libdir}/libosgEarth*.so.3.4.0
+%{_libdir}/libosgEarth*.so.148
 %{_libdir}/osgPlugins-%{osg_ver}/osgdb_*.so
 
 %files devel
@@ -203,6 +203,7 @@ cp -a tests %{buildroot}%{_datadir}/%{name}/tests
 
 %files tools
 %{_bindir}/osgearth_atlas
+%{_bindir}/osgearth_bakefeaturetiles
 %{_bindir}/osgearth_boundarygen
 %{_bindir}/osgearth_conv
 %{_bindir}/osgearth_tfs
@@ -279,6 +280,9 @@ cp -a tests %{buildroot}%{_datadir}/%{name}/tests
 
 
 %changelog
+* Fri May 19 2023 Sandro Mani <manisandro@gmail.com> - 3.4-1
+- Update to 3.4
+
 * Thu May 11 2023 Sandro Mani <manisandro@gmail.com> - 3.3-4
 - Rebuild (gdal)
 

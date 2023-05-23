@@ -1,25 +1,15 @@
-#global commit e7fa81d19b2f752f9f68b0494442f34a94e8f143
-#global shortcommit %(c=%{commit}; echo ${c:0:7})
-#global gitdate 20220107
-
 Name:           litehtml
-Version:        0.6
-Release:        4%{?commit:.%{gitdate}git%{shortcommit}}%{?dist}
+Version:        0.8
+Release:        1%{?dist}
 Summary:        Fast and lightweight HTML/CSS rendering engine
 
 License:        BSD
 URL:            https://github.com/litehtml/litehtml
-%if 0%{?commit:1}
-Source0:        https://github.com/litehtml/litehtml/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
-%else
 Source0:        https://github.com/litehtml/litehtml/archive/v%{version}/%{name}-%{version}.tar.gz
-%endif
 # Downstream patch
 # The Fedora gumbo-parser package does not contain a cmake module,
 # so don't look for it
 Patch0:         litehtml_gumbo.patch
-# Use system gtest
-Patch1:         litehtml_gtest.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -46,11 +36,7 @@ developing applications that use %{name}.
 
 
 %prep
-%if 0%{?commit:1}
-%autosetup -p1 -n %{name}-%{commit}
-%else
 %autosetup -p1 -n %{name}-%{version}
-%endif
 
 # Ensure no bundled gumbo and xxd are used
 rm -rf src/gumbo
@@ -59,8 +45,9 @@ rm -rf xxd
 # Since 1.13.0, gtest requires C++14 or later
 sed -r -i 's/(CXX_STANDARD[[:blank:]]+)11/\114/' CMakeLists.txt
 
+
 %build
-%cmake -DBUILD_TESTING=ON -DEXTERNAL_GUMBO=ON
+%cmake -DBUILD_TESTING=ON -DEXTERNAL_GUMBO=ON -DEXTERNAL_GTEST=ON
 %cmake_build
 
 
@@ -84,6 +71,9 @@ sed -r -i 's/(CXX_STANDARD[[:blank:]]+)11/\114/' CMakeLists.txt
 
 
 %changelog
+* Sun May 21 2023 Sandro Mani <manisandro@gmail.com> - 0.8-1
+- Update to 0.8
+
 * Mon Jan 30 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.6-4
 - Compile as C++14 instead of C++11 for gtest-0.13.0 compatibility
 

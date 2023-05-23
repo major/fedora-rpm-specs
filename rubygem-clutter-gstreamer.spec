@@ -3,7 +3,7 @@
 %undefine        _changelog_trimtime
 
 Name:		rubygem-%{gem_name}
-Version:	4.1.5
+Version:	4.1.6
 Release:	1%{?dist}
 
 Summary:	Ruby binding of Clutter-GStreamer
@@ -56,7 +56,7 @@ mv ../%{gem_name}-%{version}.gemspec .
 find . -name \*.rb -print0 | xargs --null chmod 0644
 
 # Adjust rubygems-gnome2 requirement to be more flexible
-sed -i -e 's|= 4\.1\.5|>= 4.1.5|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.1\.6|>= 4.1.6|' %{gem_name}-%{version}.gemspec
 sed -i dependency-check/Rakefile \
 	-e '\@PKGConfig\.check_version@s|clutter-gst-3.0|glib-2.0|'
 sed -i -e '\@s\.extensions@d'  %{gem_name}-%{version}.gemspec
@@ -129,6 +129,9 @@ popd
 %doc	%{gem_instdir}/sample/
 
 %changelog
+* Mon May 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.6-1
+- 4.1.6
+
 * Thu May 11 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.5-1
 - 4.1.5
 

@@ -14,13 +14,16 @@
 Name:		xrootd
 Epoch:		1
 Version:	5.5.5
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Extended ROOT file server
 License:	LGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND curl AND MIT AND Zlib
 URL:		https://xrootd.slac.stanford.edu/
 Source0:	https://xrootd.slac.stanford.edu/download/v%{version}/%{name}-%{version}.tar.gz
 #		Disable LTO for XrdPosix on 32 bit architectures
 Patch0:		0001-Disable-LTO-for-XrdPosix-on-32-bit-architectures.patch
+#		Fix build failure with latest glibc
+#		https://github.com/xrootd/xrootd/pull/2012
+Patch1:		0001-The-latest-updates-to-glibc-headers-adds-__nonnull-t.patch
 
 %if %{?rhel}%{!?rhel:0} == 7
 BuildRequires:	cmake3 >= 3.6
@@ -292,6 +295,7 @@ This package contains the API documentation of the xrootd libraries.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %if %{?rhel}%{!?rhel:0} == 7
@@ -686,6 +690,9 @@ fi
 %doc %{_pkgdocdir}
 
 %changelog
+* Sun May 21 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.5.5-2
+- Fix build failure with latest glibc
+
 * Tue May 09 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.5.5-1
 - Update to version 5.5.5
 

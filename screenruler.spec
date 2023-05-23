@@ -1,79 +1,82 @@
-Name:          screenruler
-Version:       0.96
-Release:       20%{?dist}
-Summary:       GNOME screen ruler
-License:       GPLv2+
-URL:           https://launchpad.net/screenruler/
-Source0:       http://launchpad.net/screenruler/trunk/0.9.6/+download/%{name}-0.9.6.tar.gz
-Source1:       %{name}.desktop
-Source2:       %{name}.appdata.xml
-Patch0:        screenruler-ruby19.patch
-# /usr/share/screenruler/utils/addons_ruby.rb:62:in `loop': wrong number of arguments (given 0, expected 2..3) (ArgumentError)
-Patch1:        screenruler-ruby25-loop.patch
-BuildRequires: desktop-file-utils
-Requires:      ruby
-Requires:      rubygem-gtk2 rubygem-cairo rubygem-gettext
-Obsoletes:     gruler < 0.85
-Provides:      gruler = %{version}-%{release}
+Name:		screenruler
+Version:	1.2
+Release:	1%{?dist}
 
-BuildArch: noarch
+Summary:	GNOME screen ruler
+# SPDX confirmed
+License:	GPL-2.0-or-later
+URL:		https://salsa.debian.org/georgesk/screenruler
+
+Source0:	https://salsa.debian.org/georgesk/screenruler/-/archive/upstream/%{version}/%{name}-upstream-%{version}.tar.bz2
+Source2:	%{name}.appdata.xml
+
+BuildRequires:	make
+BuildRequires:	desktop-file-utils
+BuildRequires:	/usr/bin/appstream-util
+BuildRequires:	/usr/bin/gettext
+BuildRequires:	/usr/bin/msgmerge
+BuildRequires:	/usr/bin/rxgettext
+
+Requires:		rubygem(cairo)
+Requires:		rubygem(gettext)
+Requires:		rubygem(gtk3)
+
+BuildArch:		noarch
 
 %description
-Screenruler is a small GNOME based utility that allows you to measure objects 
-on your desktop. It can be used to take both horizontal and vertical
-measurement in 6 different metrics: pixels, centimeters, inches, picas, points,
-and as a percentage of the ruler’s length.
+ScreenRuler lets you measure objects on your desktop
+using six different metrics.
+
+* Horizontal and vertical measurement in 6 different metrics: pixels,
+  centimeters, inches, picas, points, and as a percentage of the ruler’s
+  length.
+* Color and font are customizable.
+* Keyboard control for precise positioning.
+* Ruler can be set to stay always on top of other windows.
 
 %prep
-%setup -q -n %{name}
-%patch0 -p0 -b ruby19
-%patch1 -p1 -b .ruby25
+%setup -q -n %{name}-upstream-%{version}
 
 %build
+%make_build
 
 %install
-mkdir -p %{buildroot}
-
-cat << EOF > screenruler
-#!/bin/bash
-
-cd %{_datadir}/%{name}
-ruby ./screenruler.rb
-EOF
-
-chmod 0755 screenruler
-
-mkdir -p %{buildroot}%{_bindir}
-mkdir -p %{buildroot}%{_datadir}
-mkdir -p %{buildroot}%{_datadir}/%{name}
-mkdir -p %{buildroot}%{_datadir}/pixmaps/
-cp -p screenruler %{buildroot}%{_bindir}/
-cp -p screenruler-icon*.png %{buildroot}%{_datadir}/pixmaps/
-cp -pr utils *.rb screenruler*.* *.glade %{buildroot}%{_datadir}/%{name}/
-cd %{buildroot}%{_datadir}/pixmaps
-ln -s ./screenruler-icon-32x32.png screenruler-icon.png
-
-desktop-file-install \
-%if 0%{?fedora} && 0%{?fedora} < 19
- --vendor="fedora"    \
-%endif
- --dir=%{buildroot}%{_datadir}/applications  \
- %{SOURCE1}
+%make_install
 
 # Add AppStream metadata
-install -Dm 0644 -p %{SOURCE2} \
-        %{buildroot}%{_datadir}/appdata/%{name}.appdata.xml
+mkdir -p %{buildroot}%{_metainfodir}
+install -cpm 0644 %{SOURCE2} \
+	%{buildroot}%{_metainfodir}/%{name}.appdata.xml
+
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdata.xml
 
 %files
-%doc AUTHORS
-%license COPYING
-%{_bindir}/screenruler
-%{_datadir}/screenruler/
-%{_datadir}/pixmaps/screenruler-icon*.png
-%{_datadir}/applications/*.desktop
-%{_datadir}/appdata/%{name}.appdata.xml
+%license	COPYING
+%doc	AUTHORS
+%doc	README.md
+
+%{_datadir}/applications/%{name}.desktop
+%{_datadir}/pixmaps/%{name}.png
+%{_metainfodir}/%{name}.appdata.xml
+
+%{_bindir}/%{name}
+%dir	%{_datadir}/screenruler/
+%{_datadir}/screenruler/*.glade
+%{_datadir}/screenruler/*.png
+%{_datadir}/screenruler/*.rb
+%{_datadir}/screenruler/locale/
+%{_datadir}/screenruler/utils/
+
 
 %changelog
+* Sun May 21 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.2-1
+- 1.2 (bug 2203515)
+- upstream changed to salsa.debian.org
+- switch to GTK3
+- SPDX migration
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.96-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

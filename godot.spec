@@ -13,7 +13,7 @@
 %define rdnsname org.godotengine.Godot
 
 Name:           godot
-Version:        4.0.2
+Version:        4.0.3
 Release:        1%{?dist}
 Summary:        Multi-platform 2D and 3D game engine with a feature-rich editor
 %if 0%{?mageia}
@@ -174,7 +174,7 @@ export games from the source code), use the --headless flag.
 %{_datadir}/fish/vendor_completions.d/%{name}.fish
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 %{_datadir}/metainfo/%{rdnsname}.appdata.xml
-%{_datadir}/mime/application/%{rdnsname}.xml
+%{_datadir}/mime/packages/%{rdnsname}.xml
 %{_datadir}/zsh/site-functions/_%{name}
 %{_mandir}/man6/%{name}.6*
 
@@ -283,7 +283,7 @@ install -D -m644 misc/dist/linux/%{rdnsname}.desktop \
 install -D -m644 misc/dist/linux/%{rdnsname}.appdata.xml \
     %{buildroot}%{_datadir}/metainfo/%{rdnsname}.appdata.xml
 install -D -m644 misc/dist/linux/%{rdnsname}.xml \
-    %{buildroot}%{_datadir}/mime/application/%{rdnsname}.xml
+    %{buildroot}%{_datadir}/mime/packages/%{rdnsname}.xml
 install -D -m644 misc/dist/linux/%{name}.6 \
     %{buildroot}%{_mandir}/man6/%{name}.6
 install -D -m644 misc/dist/shell/%{name}.bash-completion \
@@ -299,6 +299,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnsname}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnsname}.appdata.xml
 
 %changelog
+* Sun May 21 2023 Rémi Verschelde <akien@fedoraproject.org> - 4.0.3-1
+- Version 4.0.3-stable
+- Fix MIME type definition file location
+
 * Tue Apr 04 2023 Rémi Verschelde <akien@fedoraproject.org> - 4.0.2-1
 - Version 4.0.2-stable
 

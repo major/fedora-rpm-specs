@@ -1,12 +1,9 @@
-# Use old cmake macro behaviour.
-%define __cmake_in_source_build 1
-
 # 0 for release build and 1 for test builds that enable examples for smoke testing.
 %define testing_build 0
 
 Name: bcunit
 Version: 5.2.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Provide C programmers basic testing functionality
 License: LGPL-2.0-or-later
 URL: https://gitlab.linphone.org/BC/public/bcunit/
@@ -77,5 +74,8 @@ This package installs the BCUnit development files.
 %{_mandir}/man3/BCUnit.3*
 
 %changelog
+* Sun May 21 2023 Phil Wyett <philip.wyett@kathenas.org> - 5.2.0-2
+- Remove cmake in source build define. No longer required.
+
 * Thu Mar 09 2023 Phil Wyett <philip.wyett@kathenas.org> - 5.2.0-1
 - Initial package.

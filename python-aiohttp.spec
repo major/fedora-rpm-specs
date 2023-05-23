@@ -2,7 +2,7 @@
 
 Name:           python-aiohttp
 Version:        3.8.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python HTTP client/server for asyncio
 
 License:        Apache-2.0
@@ -19,6 +19,16 @@ Patch:          0001-Unbundle-llhttp.patch
 # python-aiohttp: FTBFS in Fedora 36, 37, and 38/Rawhide
 # https://bugzilla.redhat.com/show_bug.cgi?id=2158175
 Patch:          %{url}/pull/7178.patch
+
+# Update update_query calls to work with latest yarl (1.9.2)
+# Patch was inspired by this upstream commit:
+# https://github.com/aio-libs/aiohttp/commit/2be9318
+Patch:          Update-update_query-calls-to-work-with-latest-yarl.patch
+
+# [3.12] Ignore DeprecationWarning: 'set_child_watcher' is deprecated as of Python 3.12
+# and will be removed in Python 3.14. 
+# Upstream report: https://github.com/aio-libs/aiohttp/issues/7291
+Patch:          ignore-DeprecationWarning-set_child_watcher-is-depre.patch
 
 BuildRequires:  gcc
 
@@ -140,6 +150,9 @@ k="${k-}${k+ and }not test_tcp_connector_fingerprint_fail[pyloop]"
 %doc README.rst
 
 %changelog
+* Mon May 15 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.8.4-2
+- Backport upstream patch to fix a test failing with python-yarl 1.9.2
+
 * Mon Feb 13 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 3.8.4-1
 - Update to 3.8.4 (close RHBZ#2169212)
 

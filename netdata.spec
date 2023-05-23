@@ -42,7 +42,7 @@ ExcludeArch: s390x
 %global  _hardened_build 1
 
 # Build release candidate
-%global upver        1.39.0
+%global upver        1.39.1
 #global rcver        rc0
 
 # Last python 2 support (el7 only)
@@ -315,6 +315,7 @@ install -p -m 0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/profile.d/netdata.sh
 sed -i -e '/NETDATA_STOCK_CONFIG_DIR/s;@STOCK_CONFIG_DIR@;%{netdata_conf_stock};' %{buildroot}%{_sysconfdir}/profile.d/netdata.sh
 
 # Integrate go plugins
+mkdir -p %{buildroot}%{_sysconfdir}/%{name}/go.d
 install -p conf.d/go.d.conf %{buildroot}%{netdata_conf_stock}/conf.d/go.d.conf
 cp -rp conf.d/go.d %{buildroot}%{netdata_conf_stock}/conf.d/go.d
 install -p -m 0644 packaging/go.d.checksums %{buildroot}%{_datadir}/%{name}/go.d.checksums
@@ -338,6 +339,7 @@ sed -i -e '/stock config directory/ s;/etc/netdata/conf.d;/usr/lib/netdata/conf.
 sed -i -e '/stock health configuration directory/ s;/etc/netdata/conf.d/health.d;/usr/lib/netdata/conf.d/health.d;' /etc/netdata/netdata.conf ||:
 %systemd_post %{name}.service
 echo "Netdata config should be edited with %{_libexecdir}/%{name}/edit-config"
+echo "Netdata go plugin can be easily installed with %{_sbindir}/netdata-install-go-plugins.sh script"
 
 %preun
 %systemd_preun %{name}.service
@@ -378,6 +380,7 @@ echo "Netdata config should be edited with %{_libexecdir}/%{name}/edit-config"
 %dir %{_sysconfdir}/%{name}/health.d
 %dir %{_sysconfdir}/%{name}/python.d
 %dir %{_sysconfdir}/%{name}/statsd.d
+%dir %{_sysconfdir}/%{name}/go.d
 %config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf
 %dir %{netdata_conf_stock}/conf.d
 %{netdata_conf_stock}/conf.d/*
@@ -400,6 +403,9 @@ echo "Netdata config should be edited with %{_libexecdir}/%{name}/edit-config"
 %caps(cap_setuid=ep) %attr(4750,root,netdata) %{_libexecdir}/%{name}/plugins.d/freeipmi.plugin
 
 %changelog
+* Sun May 21 2023 Didier Fabert <didier.fabert@gmail.com> 1.39.1-1
+- Update from upstream
+
 * Sun May 14 2023 Didier Fabert <didier.fabert@gmail.com> 1.39.0-1
 - Update from upstream
 

@@ -7,7 +7,7 @@
 # Planned for F-20+ only
 Summary:	Ruby/GTK3 is a Ruby binding of GTK+-3.x
 Name:		rubygem-%{gem_name}
-Version:	4.1.5
+Version:	4.1.6
 Release:	1%{?dist}
 
 # SPDX confirmed
@@ -84,7 +84,7 @@ mv ../%{gem_name}-%{version}.gemspec .
 find . -name \*.rb -print0 | xargs --null chmod 0644
 
 # Allow ruby-gnome2 no less than ones
-sed -i -e 's|= 4\.1\.5|>= 4.1.5|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.1\.6|>= 4.1.6|' %{gem_name}-%{version}.gemspec
 
 # Add license text
 install -cpm 644 %{SOURCE1} ./COPYING.LIB
@@ -191,6 +191,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Mon May 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.6-1
+- 4.1.6
+
 * Thu May 11 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.5-1
 - 4.1.5
 

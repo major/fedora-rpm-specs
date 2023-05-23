@@ -5,7 +5,7 @@
 
 Summary:	Ruby binding of VTE
 Name:		rubygem-%{gem_name}
-Version:	4.1.5
+Version:	4.1.6
 Release:	1%{?dist}
 
 # SPDX confirmed
@@ -58,7 +58,7 @@ mv ../%{gem_name}-%{version}.gemspec .
 # patches
 
 # Relax the version dependency
-sed -i -e 's|= 4\.1\.5|>= 4.1.5|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.1\.6|>= 4.1.6|' %{gem_name}-%{version}.gemspec
 
 # Add license text
 install -cpm 644 %{SOURCE1} ./COPYING.LIB
@@ -139,6 +139,9 @@ popd
 %exclude	%{gem_instdir}/test
 
 %changelog
+* Mon May 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.6-1
+- 4.1.6
+
 * Thu May 11 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.5-1
 - 4.1.5
 

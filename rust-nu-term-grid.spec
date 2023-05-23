@@ -5,7 +5,7 @@
 %global crate nu-term-grid
 
 Name:           rust-nu-term-grid
-Version:        0.76.0
+Version:        0.80.0
 Release:        %autorelease
 Summary:        Nushell grid printing
 

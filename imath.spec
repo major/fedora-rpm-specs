@@ -3,11 +3,11 @@
 %global pyver_under %(%{python3} -Esc "import sys; sys.stdout.write('{0.major}_{0.minor}'.format(sys.version_info))")
 
 Name:           imath
-Version:        3.1.6
-Release:        3%{?dist}
+Version:        3.1.7
+Release:        1%{?dist}
 Summary:        Library of 2D and 3D vector, matrix, and math operations for computer graphics
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/AcademySoftwareFoundation/Imath
 Source0:        https://github.com/AcademySoftwareFoundation/%{srcname}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
@@ -67,8 +67,8 @@ Requires:       python3-devel
 %cmake_install
 
 # Fixup documentation so it can get installed correctly in imath-devel
-rm -rf %{__cmake_builddir}/docs/sphinx/.{doctrees,buildinfo}
-mv %{__cmake_builddir}/docs/sphinx ./html
+#rm -rf %{__cmake_builddir}/docs/sphinx/.{doctrees,buildinfo}
+#mv %{__cmake_builddir}/docs/sphinx ./html
 
 
 %check
@@ -97,6 +97,10 @@ mv %{__cmake_builddir}/docs/sphinx ./html
 
 
 %changelog
+* Mon Mar 20 2023 Richard Shaw <hobbes1069@gmail.com> - 3.1.7-1
+- Update to 3.1.7.
+- Update license to SPDX identifier.
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 3.1.6-3
 - Rebuilt for Boost 1.81
 

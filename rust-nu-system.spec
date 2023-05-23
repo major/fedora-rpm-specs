@@ -5,7 +5,7 @@
 %global crate nu-system
 
 Name:           rust-nu-system
-Version:        0.76.0
+Version:        0.80.0
 Release:        %autorelease
 Summary:        Nushell system querying
 
@@ -14,12 +14,6 @@ URL:            https://crates.io/crates/nu-system
 Source:         %{crates_source}
 # Automatically generated patch to strip foreign dependencies
 Patch:          nu-system-fix-metadata-auto.diff
-# Manually created patch for downstream crate metadata changes
-# * bump nix from 0.25.0 to 0.26.0
-Patch:          nu-system-fix-metadata.diff
-
-# ensure that the broken nu-system package can never be installed
-Obsoletes:      nu-system < 0.65.0-3
 
 BuildRequires:  rust-packaging >= 21
 

@@ -12,7 +12,7 @@
 
 Summary:	Ruby binding of pango-1.x
 Name:		rubygem-%{gem_name}
-Version:	4.1.5
+Version:	4.1.6
 Release:	1%{?dist}
 # SPDX confirmed
 # LGPL-2.1-or-later: gemspec
@@ -80,7 +80,7 @@ rubygem-%{gem_name}
 mv ../%{gem_name}-%{version}.gemspec .
 
 # Allow ruby-gnome2 no less than ones
-sed -i -e 's|= 4\.1\.5|>= 4.1.5|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.1\.6|>= 4.1.6|' %{gem_name}-%{version}.gemspec
 
 # Fix wrong shebang
 
@@ -173,6 +173,9 @@ ruby -Ilib:test:%{buildroot}%{gem_extdir_mri} ./test/run-test.rb \
 %exclude	%{gem_instdir}/Rakefile
 
 %changelog
+* Mon May 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.6-1
+- 4.1.6
+
 * Thu May 11 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.5-1
 - 4.1.5
 

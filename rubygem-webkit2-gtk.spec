@@ -3,8 +3,8 @@
 %undefine        _changelog_trimtime
 
 Name:		rubygem-%{gem_name}
-Version:	4.1.5
-Release:	2%{?dist}
+Version:	4.1.6
+Release:	1%{?dist}
 
 Summary:	Ruby binding of WebKit2GTK+
 # SPDX confirmed
@@ -54,7 +54,7 @@ Documentation for %{name}.
 mv ../%{gem_name}-%{version}.gemspec .
 
 # Adjust rubygems-gnome2 requirement to be more flexible
-sed -i -e 's|= 4\.1\.5|>= 4.1.5|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.1\.6|>= 4.1.6|' %{gem_name}-%{version}.gemspec
 # pkgconfig dependency is actually not needed (when using rpm
 # dependency solver)
 sed -i dependency-check/Rakefile \
@@ -126,6 +126,9 @@ popd
 %doc	%{gem_instdir}/sample
 
 %changelog
+* Mon May 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.6-1
+- 4.1.6
+
 * Thu May 11 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.5-1
 - 4.1.5
 

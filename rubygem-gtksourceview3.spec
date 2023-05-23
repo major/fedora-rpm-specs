@@ -3,7 +3,7 @@
 %undefine        _changelog_trimtime
 
 Name:		rubygem-%{gem_name}
-Version:	4.1.5
+Version:	4.1.6
 Release:	1%{?dist}
 
 Summary:	Ruby binding of gtksourceview-3.x
@@ -48,7 +48,7 @@ mv ../%{gem_name}-%{version}.gemspec .
 find . -name \*.rb -print0 | xargs -0 chmod 0644
 
 # Relax ruby-gnome2 internal dependency
-sed -i -e 's|= 4\.1\.5|>= 4.1.5|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.1\.6|>= 4.1.6|' %{gem_name}-%{version}.gemspec
 sed -i dependency-check/Rakefile \
 	-e '\@PKGConfig\.check_version@s|gtksourceview-3.0|glib-2.0|'
 sed -i -e '\@s\.extensions@d'  %{gem_name}-%{version}.gemspec
@@ -113,6 +113,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Mon May 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.6-1
+- 4.1.6
+
 * Thu May 11 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.5-1
 - 4.1.5
 

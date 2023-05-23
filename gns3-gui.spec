@@ -5,7 +5,7 @@
 
 Name:           gns3-gui
 Version:        2.2.39
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GNS3 graphical user interface
 
 License:        GPLv3+
@@ -42,7 +42,7 @@ This package contains the client graphical user interface.
 # Relax strict reqs
 sed -i -r 's/==/>=/g' requirements.txt
 sed -i -r 's/sentry-sdk.*//g' requirements.txt
-sed -i -r '/setuptools/d' requirements.txt
+sed -i -r 's/setuptools>=60.8.1/setuptools>=59.6.0/' requirements.txt
 # Lower psutil>=5.8.0
 sed -i -r 's/psutil>=5.9.4/psutil>=5.8.0/' requirements.txt
 sed -i -r 's/distro>=1.8.*/distro>=1.6.0/' requirements.txt
@@ -96,6 +96,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/gns3*.desktop
 %{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
+* Sun May 21 2023 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.39-2
+- gns3/utils/get_resource.py requires setuptools(pkg_resources)
+
 * Mon May 15 2023 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.39-1
 - Update to 2.2.39
 
