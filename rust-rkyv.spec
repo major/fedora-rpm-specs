@@ -5,15 +5,18 @@
 %global crate rkyv
 
 Name:           rust-rkyv
-Version:        0.7.41
+Version:        0.7.42
 Release:        %autorelease
 Summary:        Zero-copy deserialization framework for Rust
 
 License:        MIT
 URL:            https://crates.io/crates/rkyv
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * relax bytecheck dependency from =0.6.11 to ^0.6.11
+Patch:          rkyv-fix-metadata.diff
 
-BuildRequires:  rust-packaging >= 21
+BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
 Zero-copy deserialization framework for Rust.}
@@ -117,18 +120,6 @@ This package contains library source intended for building other packages which
 use the "bitvec" feature of the "%{crate}" crate.
 
 %files       -n %{name}+bitvec-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+bitvec_alloc-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+bitvec_alloc-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "bitvec_alloc" feature of the "%{crate}" crate.
-
-%files       -n %{name}+bitvec_alloc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+bytecheck-devel
@@ -287,18 +278,6 @@ use the "tinyvec" feature of the "%{crate}" crate.
 %files       -n %{name}+tinyvec-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+tinyvec_alloc-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+tinyvec_alloc-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "tinyvec_alloc" feature of the "%{crate}" crate.
-
-%files       -n %{name}+tinyvec_alloc-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+uuid-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -309,18 +288,6 @@ This package contains library source intended for building other packages which
 use the "uuid" feature of the "%{crate}" crate.
 
 %files       -n %{name}+uuid-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+uuid_std-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+uuid_std-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "uuid_std" feature of the "%{crate}" crate.
-
-%files       -n %{name}+uuid_std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+validation-devel

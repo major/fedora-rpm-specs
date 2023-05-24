@@ -1,38 +1,39 @@
+%global amtk_version 5.6
 %global glib2_version 2.64
 %global gtk3_version 3.22
 %global gtksourceview_version 4.0.2
 %global libpeas_version 1.14.1
 %global gspell_version 1.0
 %global pygo_version 3.0.0
+%global tepl_version 6.4
 
 # Filter provides for plugin .so files
 %global __provides_exclude_from ^%{_libdir}/gedit/plugins/
 
-%global apiver 41
+%global apiver 44
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:		gedit
 Epoch:		2
-Version:	43~alpha
-Release:	3%{?dist}
+Version:	44.2
+Release:	1%{?dist}
 Summary:	Text editor for the GNOME desktop
 
 License:	GPLv2+ and GFDL
 URL:		https://wiki.gnome.org/Apps/Gedit
-Source0:	https://download.gnome.org/sources/%{name}/43/%{name}-%{tarball_version}.tar.xz
+Source0:	https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
 
+BuildRequires: pkgconfig(amtk-5) >= %{amtk_version}
 BuildRequires: pkgconfig(glib-2.0) >= %{glib2_version}
 BuildRequires: pkgconfig(gobject-introspection-1.0)
 BuildRequires: pkgconfig(gsettings-desktop-schemas)
 BuildRequires: pkgconfig(gspell-1) >= %{gspell_version}
 BuildRequires: pkgconfig(gtk+-3.0) >= %{gtk3_version}
 BuildRequires: pkgconfig(gtksourceview-4) >= %{gtksourceview_version}
-BuildRequires: pkgconfig(iso-codes)
 BuildRequires: pkgconfig(libpeas-gtk-1.0) >= %{libpeas_version}
-BuildRequires: pkgconfig(libsoup-2.4)
-BuildRequires: pkgconfig(libxml-2.0)
 BuildRequires: pkgconfig(pygobject-3.0)
+BuildRequires: pkgconfig(tepl-6) >= %{tepl_version}
 BuildRequires: desktop-file-utils
 BuildRequires: gettext
 BuildRequires: gtk-doc
@@ -58,6 +59,9 @@ Requires: gvfs-client
 
 Obsoletes: gedit-collaboration < 3.6.1-6
 Obsoletes: gedit-plugin-zeitgeist < 3.35.90
+Obsoletes: gedit-plugin-commander < 43.0
+Obsoletes: gedit-plugin-findinfiles < 43.0
+Obsoletes: gedit-plugin-translate < 43.0
 
 
 %description
@@ -121,8 +125,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.gedit.deskt
 %{_libdir}/gedit/plugins/libdocinfo.so
 %{_libdir}/gedit/plugins/filebrowser.plugin
 %{_libdir}/gedit/plugins/libfilebrowser.so
-%{_libdir}/gedit/plugins/openlinks.plugin
-%{_libdir}/gedit/plugins/libopenlinks.so
 %{_libdir}/gedit/plugins/modelines.plugin
 %{_libdir}/gedit/plugins/libmodelines.so
 %{_libdir}/gedit/plugins/externaltools.plugin
@@ -162,6 +164,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.gedit.deskt
 %{_datadir}/vala/
 
 %changelog
+* Wed May 17 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2:44.2-1
+- Update to 44.2
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:43~alpha-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

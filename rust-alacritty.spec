@@ -4,7 +4,7 @@
 %global crate alacritty
 
 Name:           rust-alacritty
-Version:        0.12.0
+Version:        0.12.1
 Release:        %autorelease
 Summary:        Fast, cross-platform, OpenGL terminal emulator
 
@@ -75,6 +75,7 @@ Requires:       libwayland-egl
 
 %build
 %cargo_build
+%cargo_license_summary
 %{?cargo_license} >LICENSE.dependencies
 
 %install

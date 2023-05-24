@@ -2,14 +2,14 @@ Name:           perl-TeX-Hyphen
 Version:        1.18
 Release:        20%{?dist}
 Summary:        Hyphenate words using TeX's patterns
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            http://www.adelton.com/perl/TeX-Hyphen/
 Source0:        https://cpan.metacpan.org/authors/id/J/JA/JANPAZ/TeX-Hyphen-%{version}.tar.gz
 BuildArch:      noarch
 # Build
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Runtime
 BuildRequires:  perl(strict)
@@ -30,7 +30,7 @@ make %{?_smp_mflags}
 
 %install
 make pure_install DESTDIR=%{buildroot}
-%{_fixperms} %{buildroot}
+%{_fixperms} -c %{buildroot}
 
 %check
 make test
@@ -38,10 +38,10 @@ make test
 %files
 %doc Changes README
 %{perl_vendorlib}/TeX/
-%{_mandir}/man3/TeX::Hyphen.3pm*
-%{_mandir}/man3/TeX::Hyphen::czech.3pm*
-%{_mandir}/man3/TeX::Hyphen::german.3pm*
-%{_mandir}/man3/TeX::Hyphen::utf8.3pm*
+%{_mandir}/man3/TeX::Hyphen.3*
+%{_mandir}/man3/TeX::Hyphen::czech.3*
+%{_mandir}/man3/TeX::Hyphen::german.3*
+%{_mandir}/man3/TeX::Hyphen::utf8.3*
 
 %changelog
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.18-20

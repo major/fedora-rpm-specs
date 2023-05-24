@@ -41,7 +41,7 @@
 ## can be incremented to build packages reliably considered "newer"
 ## than previously built packages with the same pcmkversion)
 %global pcmkversion 2.1.6
-%global specversion 2.rc2
+%global specversion 3.rc2
 
 ## Upstream commit (full commit ID, abbreviated commit ID, or tag) to build
 %global commit 802a72226be8f90747e9c897c626b060512d6fe6
@@ -134,7 +134,6 @@
 %global pkgname_procps procps-ng
 %global pkgname_glue_libs cluster-glue-libs
 %global pkgname_pcmk_libs %{name}-libs
-%global hacluster_id 189
 
 ## Distro-specific configuration choices
 
@@ -214,7 +213,7 @@ Url:           https://www.clusterlabs.org/
 # You can use "spectool -s 0 pacemaker.spec" (rpmdevtools) to show final URL.
 Source0:       https://codeload.github.com/%{github_owner}/%{name}/tar.gz/%{archive_github_url}
 Source1:       https://codeload.github.com/%{github_owner}/%{nagios_name}/tar.gz/%{nagios_archive_github_url}
-
+Source2:       pacemaker.sysusers
 # upstream commits
 
 Requires:      resource-agents
@@ -290,6 +289,10 @@ BuildRequires: asciidoc
 BuildRequires: inkscape
 BuildRequires: %{python_name}-sphinx
 %endif
+
+# Creation of Users / Groups
+BuildRequires:  systemd-rpm-macros
+%{?sysusers_requires_compat}
 
 # Booth requires this
 Provides:      pacemaker-ticket-support = 2.0
@@ -584,6 +587,8 @@ rm -f %{buildroot}/%{_mandir}/man8/fence_legacy.*
 %endif
 %endif
 
+install -p -D -m 0644 %{SOURCE2} %{buildroot}%{_sysusersdir}/pacemaker.conf
+
 %post
 %systemd_post pacemaker.service
 
@@ -645,10 +650,7 @@ fi
 %systemd_postun_with_restart crm_mon.service
 
 %pre -n %{pkgname_pcmk_libs}
-# @TODO Use sysusers.d:
-# https://fedoraproject.org/wiki/Changes/Adopting_sysusers.d_format
-getent group %{gname} >/dev/null || groupadd -r %{gname} -g %{hacluster_id}
-getent passwd %{uname} >/dev/null || useradd -r -g %{gname} -u %{hacluster_id} -s /sbin/nologin -c "cluster user" %{uname}
+%sysusers_create_compat %{SOURCE2}
 exit 0
 
 %ldconfig_scriptlets -n %{pkgname_pcmk_libs}
@@ -766,6 +768,7 @@ exit 0
 %dir %attr (770, %{uname}, %{gname}) %{_var}/log/pacemaker/bundles
 
 %files -n %{pkgname_pcmk_libs} %{?with_nls:-f %{name}.lang}
+%{_sysusersdir}/pacemaker.conf
 %{_libdir}/libcib.so.*
 %{_libdir}/liblrmd.so.*
 %{_libdir}/libcrmservice.so.*
@@ -855,6 +858,11 @@ exit 0
 %license %{nagios_name}-%{nagios_hash}/COPYING
 
 %changelog
+* Mon May 22 2023 Klaus Wenninger <kwenning@redhat.com> - 2.1.6-0.3.rc2
+- have users/groups created via sysusers(compat)
+  f37 and below seem not to support 189:haclient as ID needed to mimic
+  the user-group-configuration we had up to now
+
 * Wed May 3 2023 Klaus Wenninger <kwenning@redhat.com> - 2.1.6-0.2.rc2
 - Update for new upstream tarball for release candidate: Pacemaker-2.1.6-rc2,
   for full details, see included ChangeLog file or

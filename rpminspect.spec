@@ -1,6 +1,6 @@
 Name:           rpminspect
 Version:        1.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Build deviation compliance tool
 Group:          Development/Tools
 # librpminspect is licensed under the LGPLv3+, but 5 source files in
@@ -30,6 +30,7 @@ URL:            https://github.com/rpminspect/rpminspect
 Source0:        https://github.com/rpminspect/rpminspect/releases/download/v%{version}/%{name}-%{version}.tar.xz
 Source1:        https://github.com/rpminspect/rpminspect/releases/download/v%{version}/%{name}-%{version}.tar.xz.asc
 Source2:        gpgkey-62977BB9C841B965.gpg
+Patch0:         rpminspect-1.11-use-RPMTAG_NOT_FOUND-macro.patch
 Requires:       librpminspect%{?_isa} = %{version}-%{release}
 
 BuildRequires:  meson
@@ -160,7 +161,7 @@ control files.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup
+%autosetup -p1
 
 
 %build
@@ -197,6 +198,9 @@ control files.
 
 
 %changelog
+* Mon May 22 2023 Michal Domonkos <mdomonko@redhat.com> - 1.11-2
+- Use RPMTAG_NOT_FOUND macro instead of -1 (for RPM 4.19)
+
 * Fri Mar 03 2023 David Cantrell <dcantrell@redhat.com> - 1.11-1
 - Upgrade to rpminspect-1.11
 

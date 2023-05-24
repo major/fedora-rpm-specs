@@ -10,15 +10,15 @@
 
 %global         SPHINXBUILD sphinx-build-3
 
-%global MODULES %{expand:certbot-dns-cloudflare certbot-dns-dnsimple certbot-dns-dnsmadeeasy certbot-dns-gehirn certbot-dns-linode certbot-dns-luadns certbot-dns-nsone certbot-dns-ovh certbot-dns-rfc2136 certbot-dns-route53 certbot-dns-sakuracloud}
+%global MODULES %{expand:certbot-dns-cloudflare certbot-dns-digitalocean certbot-dns-dnsimple certbot-dns-dnsmadeeasy certbot-dns-gehirn certbot-dns-linode certbot-dns-luadns certbot-dns-nsone certbot-dns-ovh certbot-dns-rfc2136 certbot-dns-route53 certbot-dns-sakuracloud}
 %if 0%{?fedora} || 0%{?rhel} < 9
-  %global MODULES %{expand:%MODULES certbot-dns-digitalocean certbot-dns-google}
+  %global MODULES %{expand:%MODULES certbot-dns-google}
 %endif
 
 
 Name:           certbot
-Version:        2.5.0
-Release:        3%{?dist}
+Version:        2.6.0
+Release:        1%{?dist}
 Summary:        A free, automated certificate authority client
 
 License:        Apache-2.0
@@ -125,9 +125,9 @@ Recommends:    certbot >= %{version}
 %_package python3-certbot-dns-cloudflare certbot-dns-cloudflare
 %if 0%{?fedora} || 0%{?rhel} < 9
 # missing deps for el9
-%_package python3-certbot-dns-digitalocean certbot-dns-digitalocean
 %_package python3-certbot-dns-google certbot-dns-google
 %endif
+%_package python3-certbot-dns-digitalocean certbot-dns-digitalocean
 %_package python3-certbot-dns-dnsimple certbot-dns-dnsimple
 %_package python3-certbot-dns-dnsmadeeasy certbot-dns-dnsmadeeasy
 %_package python3-certbot-dns-gehirn certbot-dns-gehirn
@@ -172,9 +172,9 @@ Plugin for certbot that allows for automatic configuration of ngnix
 %_description python3-certbot-dns-cloudflare
 %if 0%{?fedora} || 0%{?rhel} < 9
 # missing el9 deps
-%_description python3-certbot-dns-digitalocean
 %_description python3-certbot-dns-google
 %endif
+%_description python3-certbot-dns-digitalocean
 %_description python3-certbot-dns-dnsimple
 %_description python3-certbot-dns-dnsmadeeasy
 %_description python3-certbot-dns-gehirn
@@ -341,9 +341,9 @@ fi
 %_files cloudflare
 %if 0%{?fedora} || 0%{?rhel} < 9
 # missing el9 deps
-%_files digitalocean
 %_files google
 %endif
+%_files digitalocean
 %_files dnsimple
 %_files dnsmadeeasy
 %_files gehirn
@@ -374,6 +374,10 @@ fi
 
 
 %changelog
+* Mon May 22 2023 Jonathan Wright <jonathan@almalinux.org> - 2.6.0-1
+- Update to 2.6.0 rhbz#2196870
+- Build python-certbot-dns-digitalocean on EPEL9
+
 * Thu Apr 27 2023 rob thijssen <rthijssen@gmail.com> - 2.5.0-3
 - Correct typo in logrotate configuration rhbz#2187543
 

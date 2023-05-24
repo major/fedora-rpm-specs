@@ -1,7 +1,7 @@
 %global pypi_name respx
 
 Name:           python-%{pypi_name}
-Version:        0.19.2
+Version:        0.20.1
 Release:        %autorelease
 Summary:        Utility for mocking out the HTTPX and HTTP Core libraries
 
@@ -10,9 +10,9 @@ URL:            https://lundberg.github.io/respx/
 Source0:        https://github.com/lundberg/respx/archive/%{version}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
 
-# Fix test failures with pytest-asyncio >= 0.19
-# Resolved upstream: https://github.com/lundberg/respx/pull/201
-Patch0:         fix-pytest-asyncio-ftbfs.patch
+# Fix test failures with httpx >= 0.24
+# Upstream: https://github.com/lundberg/respx/pull/231
+Patch0:         231.patch
 
 %description
 An utility for mocking out the Python HTTPX and HTTP Core libraries.
@@ -48,7 +48,7 @@ sed -i -e '/--cov-fail-under 100/d' setup.cfg
 %py3_install
 
 %check
-%pytest -v tests -k "not test_pass_through" --asyncio-mode=legacy
+%pytest -v tests -k "not test_pass_through" --asyncio-mode=auto
 
 %files -n python3-%{pypi_name}
 %license LICENSE.md

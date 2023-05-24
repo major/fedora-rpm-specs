@@ -5,7 +5,7 @@
 %global crate miette
 
 Name:           rust-miette
-Version:        5.8.0
+Version:        5.9.0
 Release:        %autorelease
 Summary:        Fancy diagnostic reporting library and protocol for us mere mortals
 
@@ -89,6 +89,18 @@ use the "is-terminal" feature of the "%{crate}" crate.
 %files       -n %{name}+is-terminal-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+no-format-args-capture-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+no-format-args-capture-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "no-format-args-capture" feature of the "%{crate}" crate.
+
+%files       -n %{name}+no-format-args-capture-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+owo-colors-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -99,6 +111,18 @@ This package contains library source intended for building other packages which
 use the "owo-colors" feature of the "%{crate}" crate.
 
 %files       -n %{name}+owo-colors-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+serde-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+serde-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "serde" feature of the "%{crate}" crate.
+
+%files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+supports-color-devel

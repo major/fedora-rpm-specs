@@ -25,11 +25,19 @@ This is the command line interface for Oracle Cloud Infrastructure.}
 
 %description %{_description}
 
-%pyproject_extras_subpkg -n %{name} db
+# Awaiting a fix for python-cx-oracle
+# https://src.fedoraproject.org/rpms/python-cx-oracle/pull-request/1
+# %%pyproject_extras_subpkg -n %{name} db
 
 
 %prep
 %autosetup -n %{name}-%{version}
+
+# Allow older versions of pinned dependencies in EPEL.
+%if 0%{?el9} || 0%{?centos} >= 9
+sed -i 's/click==8.0.4/click>=8.0.3/' setup.py
+sed -i 's/jmespath==0.10.0/jmespath>=0.9.4/' setup.py
+%endif
 
 # Allow newer version of pinned dependencies.
 sed -i 's/click==8.0.4/click>=8.0.4/' setup.py

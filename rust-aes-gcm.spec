@@ -5,7 +5,7 @@
 %global crate aes-gcm
 
 Name:           rust-aes-gcm
-Version:        0.10.1
+Version:        0.10.2
 Release:        %autorelease
 Summary:        Pure Rust implementation of the AES-GCM AEAD Cipher
 
@@ -74,6 +74,18 @@ use the "alloc" feature of the "%{crate}" crate.
 %files       -n %{name}+alloc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+arrayvec-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+arrayvec-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "arrayvec" feature of the "%{crate}" crate.
+
+%files       -n %{name}+arrayvec-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+getrandom-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -96,6 +108,18 @@ This package contains library source intended for building other packages which
 use the "heapless" feature of the "%{crate}" crate.
 
 %files       -n %{name}+heapless-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rand_core-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rand_core-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rand_core" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rand_core-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel

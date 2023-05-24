@@ -5,7 +5,7 @@
 %global crate sequoia-autocrypt
 
 Name:           rust-sequoia-autocrypt
-Version:        0.25.0
+Version:        0.25.1
 Release:        %autorelease
 Summary:        Autocrypt support
 

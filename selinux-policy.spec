@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit 61c90a7ada38cbbeaaef3b299b784721fe3c60c2
+%global commit 6b599716fa1b29325fd2f2cf9af3fc25dfe9336e
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 38.12
+Version: 38.13
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -813,6 +813,39 @@ exit 0
 %endif
 
 %changelog
+* Mon May 22 2023 Zdenek Pytela <zpytela@redhat.com> - 38.13-1
+- Add initial policy for cifs-helper
+- Label key.dns_resolver with keyutils_dns_resolver_exec_t
+- Allow unconfined_service_t to create .gnupg labeled as gpg_secret_t
+- Allow some systemd services write to cgroup files
+- Allow NetworkManager_dispatcher_dhclient_t to read the DHCP configuration files
+- Allow systemd resolved to bind to arbitrary nodes
+- Allow plymouthd_t bpf capability to run bpf programs
+- Allow cupsd to create samba_var_t files
+- Allow rhsmcert request the kernel to load a module
+- Allow virsh name_connect virt_port_t
+- Allow certmonger manage cluster library files
+- Allow plymouthd read init process state
+- Add chromium_sandbox_t setcap capability
+- Allow snmpd read raw disk data
+- Allow samba-rpcd work with passwords
+- Allow unconfined service inherit signal state from init
+- Allow cloud-init manage gpg admin home content
+- Allow cluster_t dbus chat with various services
+- Allow nfsidmapd work with systemd-userdbd and sssd
+- Allow unconfined_domain_type use IORING_OP_URING_CMD on all device nodes
+- Allow plymouthd map dri and framebuffer devices
+- Allow rpmdb_migrate execute rpmdb
+- Allow logrotate dbus chat with systemd-hostnamed
+- Allow icecast connect to kernel using a unix stream socket
+- Allow lldpad connect to systemd-userdbd over a unix socket
+- Allow journalctl open user domain ptys and ttys
+- Allow keepalived to manage its tmp files
+- Allow ftpd read network sysctls
+- Label /run/bgpd with zebra_var_run_t
+- Allow gssproxy read network sysctls
+- Add the cifsutils module
+
 * Tue Apr 25 2023 Zdenek Pytela <zpytela@redhat.com> - 38.12-1
 - Allow telnetd read network sysctls
 - Allow munin system plugin read generic SSL certificates

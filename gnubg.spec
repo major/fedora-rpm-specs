@@ -5,7 +5,7 @@ License:       GPL-3.0-only
 Summary:       A backgammon game and analyser
 Epoch:         1
 Version:       1.07.001
-Release:       3%{?dist}
+Release:       4%{?dist}
 Source0:       https://ftp.gnu.org/gnu/gnubg/gnubg-release-%{version}-sources.tar.gz
 Source1:       gnubg.desktop
 Source2:       gnubg.png
@@ -55,9 +55,9 @@ mkdir -p $RPM_BUILD_ROOT%{_prefix}
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/gnubg
 make install DESTDIR=$RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_ROOT%{_datadir}/gnubg/fonts/*.ttf
-ln -s ../../fonts/dejavu/DejaVuSans.ttf $RPM_BUILD_ROOT%{_datadir}/gnubg/fonts/Vera.ttf
-ln -s ../../fonts/dejavu/DejaVuSans-Bold.ttf $RPM_BUILD_ROOT%{_datadir}/gnubg/fonts/VeraBd.ttf 
-ln -s ../../fonts/dejavu/DejaVuSerif-Bold.ttf $RPM_BUILD_ROOT%{_datadir}/gnubg/fonts/VeraSeBd.ttf 
+ln -s ../../fonts/dejavu-sans-fonts/DejaVuSans.ttf $RPM_BUILD_ROOT%{_datadir}/gnubg/fonts/Vera.ttf
+ln -s ../../fonts/dejavu-sans-fonts/DejaVuSans-Bold.ttf $RPM_BUILD_ROOT%{_datadir}/gnubg/fonts/VeraBd.ttf 
+ln -s ../../fonts/dejavu-serif-fonts/DejaVuSerif-Bold.ttf $RPM_BUILD_ROOT%{_datadir}/gnubg/fonts/VeraSeBd.ttf 
 install -Dpm 644 gnubg.weights $RPM_BUILD_ROOT%{_datadir}/gnubg/gnubg.weights
 
 cp -rp textures* $RPM_BUILD_ROOT%{_datadir}/gnubg/
@@ -113,7 +113,11 @@ install -p -m 644 %{SOURCE2} \
 %{_datadir}/gnubg/gnubg_ts0.bd
 %{_datadir}/gnubg/gnubg.css
 %{_datadir}/gnubg/Shaders/
+
 %changelog
+* Mon May 22 2023 Gwyn Ciesla <gwync@protonmail.com> - 1:1.07.001-4
+- Fix font symlinks
+
 * Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 1:1.07.001-3
 - migrated to SPDX license
 

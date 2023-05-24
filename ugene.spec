@@ -2,10 +2,10 @@
 
 %if 0%{?use_release_branch} < 1
 # master
-%global	gitdate		20230214
-%global	gitcommit		15acb35b017bfa4c4c90dc14079bd52d7252c398
+%global	gitdate		20230520
+%global	gitcommit		9fde8b776ed6a19d12c5c0c4b2c3679627537047
 # New git commit with non-free part removed using "git filter-branch"
-%global	gitcommit_free		16ffa2676c45f566400d78162c62fa56c5f1a15d
+%global	gitcommit_free		87c61cc62a6c34f6e0b95c08e642321ab6cfa018
 %else
 # currently 41.0 branch
 %global	gitdate		20211117
@@ -16,10 +16,10 @@
 
 
 %global	shortcommit	%(c=%{gitcommit}; echo ${c:0:7})
-%global	git_version	D%{gitdate}git%{shortcommit}
+%global	git_version	%{gitdate}git%{shortcommit}
 
-%global	tarballdate	20230214
-%global	tarballtime	1421
+%global	tarballdate	20230521
+%global	tarballtime	1533
 
 %global	use_release	1
 %global	use_gitbare	0
@@ -35,22 +35,22 @@
 %global	GIT	git
 %endif
 
-%global	mainrel		1
+%global	mainver		47.0
 %undefine	prever
 
 %if		0%{?use_release} >= 1
-%global	baserelease		%{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}
+%global	fedoraver		%{mainver}%{?prever:~%{prerpmver}}
 %endif
 %if		0%{?use_gitbare} >= 1
-%global	baserelease		%{mainrel}.%{git_version}
+%global	fedoraver		%{mainver}%{?git_version:^%{git_version}}
 %endif
 
 
 Name:		ugene
 Summary:	Integrated bioinformatics toolkit
 
-Version:	46.0
-Release:	%{baserelease}%{?dist}
+Version:	%{fedoraver}
+Release:	1%{?dist}
 
 #The entire source code is GPLv2+ except:
 #file src/libs_3rdparty/qtbindings_core/src/qtscriptconcurrent.h which is GPLv2
@@ -58,10 +58,10 @@ Release:	%{baserelease}%{?dist}
 License:	GPLv2+ and GPLv2
 URL:		http://ugene.net
 %if	0%{?use_release} >= 1
-#Source0:	https://github.com/ugeneunipro/ugene/archive/%{version}.tar.gz/#/%{name}-%{version}.tar.gz
+#Source0:	https://github.com/ugeneunipro/ugene/archive/%{mainver}.tar.gz/#/%{name}-%{mainver}.tar.gz
 # Removing non-free part
-Source0:	%{name}-free-%{version}.tar.gz
-# Source0 is created by # env VERSION=%%{version} source ./%{SOURCE1}
+Source0:	%{name}-free-%{mainver}.tar.gz
+# Source0 is created by # env VERSION=%%{mainver} source ./%{SOURCE1}
 %endif
 %if	0%{?use_gitbare} >= 1
 Source0:	%{name}-free-%{tarballdate}T%{tarballtime}.tar.gz
@@ -74,7 +74,7 @@ Patch1:	ugene-45.1-gcc13-header-inclusion.patch
 # Currently distro-specific
 Patch102:	ugene-44.x-libs_3rdparty-breakpad-sys_mmap_use_system_mmap.patch
 Patch103:	ugene-40.1-libs_3rdparty-breakpad-unwind-nonsupported-arch.patch
-Patch104:	ugene-42.0-plugins_3rdparty-hmm2-nosse-arch.patch
+Patch104:	ugene-46.x-plugins_3rdparty-hmm2-nosse-arch.patch
 Patch105:	ugene-40.1-libs_3rdparty-breakpad-arch-port.patch
 Patch106:	ugene-43.0-git-plgins-smith_waterman-nonsse2-arch.patch
 Patch107:	ugene-40.1-qbswap-bigendian-workaround.patch
@@ -123,32 +123,32 @@ sed -i.desktop ugene.pri -e '\@desktop@s|etc/share/|etc/shared/|'
 %endif
 
 %if		0%{?use_gitbare} >= 1
-%setup -q -c -T -a 0
+%setup -q -c -n %{name}-%{mainver}%{?git_version:-%{git_version}} -T -a 0
 git clone ./%{name}.git/
 cd %{name}
 cp -a [A-Z]* ..
 
-git checkout -b %{version}-fedora %{gitcommit_free}
+git checkout -b %{mainver}-fedora %{gitcommit_free}
 git config user.name "%{name} Fedora maintainer"
 git config user.email "%{name}-maintainers@fedoraproject.org"
 %endif
 
-%patch1 -p1 -b .gcc13 -Z
+%patch -P1 -p1 -b .gcc13 -Z
 	%GIT commit -m "add missing header file" -a
 
-%patch102 -p1 -b .sys_mmap -Z
+%patch -P102 -p1 -b .sys_mmap -Z
 	%GIT commit -m "libs_3rdparty/breakpad: use C function instead of directly using syscall assemble code" -a
-%patch103 -p1 -b .unwind -Z
+%patch -P103 -p1 -b .unwind -Z
 	%GIT commit -m "libs_3rdparty/breakpad: workaround for arch not supporting unwind" -a
-%patch104 -p1 -b .sse -Z
+%patch -P104 -p1 -b .sse -Z
 	%GIT commit -m "plugins_3rdparty/hmm2: support architecture not supporting SSE2" -a
-%patch105 -p1 -b .port -Z
+%patch -P105 -p1 -b .port -Z
 	%GIT commit -m "libs_3rdparty/breakpad: workaround for arch not ported by the upstream" -a
-%patch106 -p1 -b .sse_2 -Z
+%patch -P106 -p1 -b .sse_2 -Z
 	%GIT	commit -m "plugins/smith_waterman: support architecture not supporting SSE2" -a
-%patch107 -p1 -b .char_bigen -Z
+%patch -P107 -p1 -b .char_bigen -Z
 	%GIT	commit -m "src/corelibs/U2Core et al.: Workaround for Qt qbswap issue on Q_BIG_ENDIAN" -a
-%patch108 -p1 -b .elif -Z
+%patch -P108 -p1 -b .elif -Z
 	%GIT commit -m "ugenem/src/SendReportDialog.cpp: fix wrong elif usage" -a
 
 sed -i.nonfree CMakeLists.txt -e '\@add_subdirectory.*plugins_3rdparty/psipred@d'
@@ -254,6 +254,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Tue May 23 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 47.0-1
+- 47.0
+
 * Fri Feb 24 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 46.0-1
 - 46.0
 

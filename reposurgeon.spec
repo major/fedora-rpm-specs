@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 Name:           reposurgeon
-Version:        4.35
+Version:        4.36
 Release:        1%{?dist}
 Summary:        SCM Repository Manipulation Tool
 License:        BSD
@@ -91,6 +91,9 @@ make check
 %{_mandir}/man1/repotool.1*
 
 %changelog
+* Mon May 22 2023 Denis Fateyev <denis@fateyev.com> - 4.36-1
+- Update to 4.36
+
 * Tue Mar 21 2023 Denis Fateyev <denis@fateyev.com> - 4.35-1
 - Update to 4.35
 

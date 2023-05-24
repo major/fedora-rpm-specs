@@ -13,9 +13,7 @@ BuildRequires:  maven-local
 BuildRequires:  mvn(commons-io:commons-io)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-shade-plugin)
-BuildRequires:  mvn(org.jacoco:jacoco-maven-plugin)
 BuildRequires:  mvn(org.ow2.asm:asm)
 BuildRequires:  mvn(org.ow2.asm:asm-analysis)
 BuildRequires:  mvn(org.ow2.asm:asm-commons)
@@ -34,6 +32,11 @@ Summary:        API documentation for %{name}
 
 %prep
 %setup -q -n %{name}-%{name}-%{version}
+
+# Remove plugins unnecessary for RPM builds
+%pom_remove_plugin :maven-enforcer-plugin
+%pom_remove_plugin "org.jacoco:jacoco-maven-plugin"
+
 %mvn_file : %{name}
 
 %build

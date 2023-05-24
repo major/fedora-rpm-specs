@@ -1,5 +1,5 @@
 Name:           kicad
-Version:        7.0.3
+Version:        7.0.4
 Release:        1%{?dist}
 Epoch:          1
 Summary:        EDA software suite for creation of schematic diagrams and PCBs
@@ -223,6 +223,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Mon May 22 2023 Steven A. Falco <stevenfalco@gmail.com> - 1:7.0.4-1
+- Update to 7.0.4
+
 * Sat May 13 2023 Steven A. Falco <stevenfalco@gmail.com> - 1:7.0.3-1
 - Update to 7.0.3
 

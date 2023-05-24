@@ -2,7 +2,7 @@
 
 # https://github.com/liamg/tml
 %global goipath         github.com/liamg/tml
-Version:                0.6.0
+Version:                0.6.1
 
 %gometa
 

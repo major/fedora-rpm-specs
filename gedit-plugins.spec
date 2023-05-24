@@ -4,22 +4,21 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gedit-plugins
-Version:        42.1
-Release:        3%{?dist}
+Version:        44.1
+Release:        1%{?dist}
 Summary:        Plugins for gedit
 
 License:        GPLv2+
 URL:            https://wiki.gnome.org/Apps/Gedit
-Source0:        https://download.gnome.org/sources/%{name}/42/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  gettext
-BuildRequires:  itstool
-BuildRequires:  libappstream-glib-devel
+BuildRequires:  libappstream-glib
 BuildRequires:  meson
 BuildRequires:  python3-devel
 BuildRequires:  vala
 BuildRequires:  yelp-tools
-BuildRequires:  pkgconfig(gedit)
+BuildRequires:  pkgconfig(gedit) >= 44.0
 BuildRequires:  pkgconfig(libpeas-1.0)
 
 # this is a metapackage dragging in all the plugins
@@ -31,9 +30,7 @@ Requires:       gedit-plugin-charmap
 Requires:       gedit-plugin-codecomment
 Requires:       gedit-plugin-colorpicker
 Requires:       gedit-plugin-colorschemer
-Requires:       gedit-plugin-commander
 Requires:       gedit-plugin-drawspaces
-Requires:       gedit-plugin-findinfiles
 %if !0%{?rhel}
 Requires:       gedit-plugin-git
 %endif
@@ -44,7 +41,6 @@ Requires:       gedit-plugin-smartspaces
 Requires:       gedit-plugin-synctex
 Requires:       gedit-plugin-terminal
 Requires:       gedit-plugin-textsize
-Requires:       gedit-plugin-translate
 Requires:       gedit-plugin-wordcompletion
 
 %description
@@ -101,24 +97,11 @@ Requires:       libpeas-loader-python3%{?_isa}
 %description -n gedit-plugin-colorschemer
 The gedit colorschemer plugin.
 
-%package -n     gedit-plugin-commander
-Summary:        gedit commander plugin
-Requires:       %{name}-data = %{version}-%{release}
-Requires:       libpeas-loader-python3%{?_isa}
-%description -n gedit-plugin-commander
-The gedit commander plugin.
-
 %package -n     gedit-plugin-drawspaces
 Summary:        gedit drawspaces plugin
 Requires:       %{name}-data = %{version}-%{release}
 %description -n gedit-plugin-drawspaces
 The gedit drawspaces plugin.
-
-%package -n     gedit-plugin-findinfiles
-Summary:        gedit findinfiles plugin
-Requires:       %{name}-data = %{version}-%{release}
-%description -n gedit-plugin-findinfiles
-The gedit findinfiles plugin.
 
 %if !0%{?rhel}
 %package -n     gedit-plugin-git
@@ -180,13 +163,6 @@ Requires:       libpeas-loader-python3%{?_isa}
 %description -n gedit-plugin-textsize
 The gedit textsize plugin.
 
-%package -n     gedit-plugin-translate
-Summary:        gedit translate plugin
-Requires:       %{name}-data = %{version}-%{release}
-Requires:       libpeas-loader-python3%{?_isa}
-%description -n gedit-plugin-translate
-The gedit translate plugin.
-
 %package -n     gedit-plugin-wordcompletion
 Summary:        gedit wordcompletion plugin
 Requires:       %{name}-data = %{version}-%{release}
@@ -221,7 +197,7 @@ The gedit wordcompletion plugin.
 
 %files data -f %{name}.lang -f gedit.lang
 %license COPYING
-%doc README.md NEWS AUTHORS
+%doc README.md NEWS
 %dir %{_libdir}/gedit/plugins/
 %dir %{_libdir}/gedit/plugins/__pycache__/
 %dir %{_datadir}/gedit/plugins/
@@ -261,22 +237,11 @@ The gedit wordcompletion plugin.
 %{_libdir}/gedit/plugins/colorschemer.plugin
 %{_metainfodir}/gedit-colorschemer.metainfo.xml
 
-%files -n gedit-plugin-commander
-%{_datadir}/gedit/plugins/commander
-%{_libdir}/gedit/plugins/commander
-%{_libdir}/gedit/plugins/commander.plugin
-%{_metainfodir}/gedit-commander.metainfo.xml
-
 %files -n gedit-plugin-drawspaces
 %{_datadir}/glib-2.0/schemas/org.gnome.gedit.plugins.drawspaces.gschema.xml
 %{_libdir}/gedit/plugins/drawspaces.plugin
 %{_libdir}/gedit/plugins/libdrawspaces.so
 %{_metainfodir}/gedit-drawspaces.metainfo.xml
-
-%files -n gedit-plugin-findinfiles
-%{_libdir}/gedit/plugins/findinfiles.plugin
-%{_libdir}/gedit/plugins/libfindinfiles.so
-%{_metainfodir}/gedit-findinfiles.metainfo.xml
 
 %if !0%{?rhel}
 %files -n gedit-plugin-git
@@ -321,13 +286,6 @@ The gedit wordcompletion plugin.
 %{_libdir}/gedit/plugins/textsize.plugin
 %{_metainfodir}/gedit-textsize.metainfo.xml
 
-%files -n gedit-plugin-translate
-%{_datadir}/glib-2.0/schemas/org.gnome.gedit.plugins.translate.gschema.xml
-%{_libdir}/gedit/plugins/translate/
-%{_libdir}/gedit/plugins/translate.plugin
-%{_metainfodir}/gedit-translate.metainfo.xml
-%{_datadir}/gedit/plugins/translate/
-
 %files -n gedit-plugin-wordcompletion
 %{_datadir}/glib-2.0/schemas/org.gnome.gedit.plugins.wordcompletion.gschema.xml
 %{_libdir}/gedit/plugins/libwordcompletion.so
@@ -335,6 +293,9 @@ The gedit wordcompletion plugin.
 %{_metainfodir}/gedit-wordcompletion.metainfo.xml
 
 %changelog
+* Wed May 17 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 44.1-1
+- Update to 44.1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 42.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,19 +1,15 @@
 %global maj 0
-%{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
 
 Name:       sratom
-Version:    0.6.10
-Release:    3%{?dist}
+Version:    0.6.14
+Release:    1%{?dist}
 Summary:    A C library for serializing LV2 plugins
 
 License:    MIT
-URL:        http://drobilla.net/software/%{name}/
-Source0:    http://download.drobilla.net/%{name}-%{version}.tar.bz2
+URL:        https://drobilla.net/software/%{name}/
+Source0:    https://download.drobilla.net/%{name}-%{version}.tar.xz
 
-# Patch sent upstream https://github.com/lv2/sratom/pull/4
-Patch0:     %{name}-doc-install-directory.patch
-
-BuildRequires:  python3
+BuildRequires:  meson
 BuildRequires:  doxygen
 BuildRequires:  graphviz
 BuildRequires:  sord-devel >= 0.14.0
@@ -46,44 +42,36 @@ This package contains the headers and development libraries for %{name}.
 %prep
 %autosetup -p1
 
-# for packagers sake, build the tests with debug symbols
-sed -i -e "s| '-ftest-coverage'\]|\
- '-ftest-coverage'\] + '%{optflags}'.split(' ')|" wscript
-
 %build
-%set_build_flags
-%{python3} waf configure -v \
-    --prefix=%{_prefix} \
-    --libdir=%{_libdir} \
-    --mandir=%{_mandir} \
-    --datadir=%{_datadir} \
-    --docdir=%{_pkgdocdir} \
-    --test \
-    --docs 
-%{python3} waf build -v %{?_smp_mflags}
+%meson
+%meson_build
 
 %install
-DESTDIR=%{buildroot} %{python3} waf install
-chmod +x %{buildroot}%{_libdir}/lib%{name}-0.so.*
-install -pm 644 COPYING NEWS README.md %{buildroot}%{_pkgdocdir}
+%meson_install
+# Delete sphinx buildinfo
+rm %{buildroot}%{_docdir}/%{name}-%{maj}/{html,singlehtml}/.buildinfo
+# Move devel docs to the right directory
+install -d %{buildroot}%{_docdir}/%{name}
+mv %{buildroot}%{_docdir}/%{name}-%{maj} %{buildroot}%{_docdir}/%{name}
 
 %check
-%{python3} waf test -v
+%meson_test
 
 %files
-%{_pkgdocdir}
-%exclude %{_pkgdocdir}/%{name}-%{maj}/
-%exclude %{_pkgdocdir}/COPYING
+%doc README.md
 %license COPYING
 %{_libdir}/lib%{name}-%{maj}.so.*
 
 %files devel
-%{_pkgdocdir}/%{name}-%{maj}/
+%doc %{_docdir}/%{name}/%{name}-%{maj}/
 %{_libdir}/lib%{name}-%{maj}.so
 %{_libdir}/pkgconfig/%{name}-%{maj}.pc
 %{_includedir}/%{name}-%{maj}/
 
 %changelog
+* Mon May 22 2023 Guido Aulisi <guido.aulisi@gmail.com> - 0.6.14-1
+- Update to 0.6.14
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.10-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

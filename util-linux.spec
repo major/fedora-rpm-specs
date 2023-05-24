@@ -2,7 +2,7 @@
 Summary: Collection of basic system utilities
 Name: util-linux
 Version: 2.39
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2 and GPLv2+ and LGPLv2+ and BSD with advertising and Public Domain
 URL: https://en.wikipedia.org/wiki/Util-linux
 
@@ -97,6 +97,9 @@ Patch0: login-lastlog-create.patch
 # Add `/run/motd.d` to the hardcoded MOTD_FILE
 # https://github.com/coreos/console-login-helper-messages/issues/60
 Patch1: login-default-motd-file.patch
+
+### Upstream patches
+Patch2: libmount-fix-options-prepend-insert-and-merging.patch
 
 %description
 The util-linux package contains a large variety of low-level system
@@ -925,6 +928,9 @@ fi
 
 
 %changelog
+* Mon May 22 2023 Karel Zak <kzak@redhat.com> - 2.39-3
+- fix mount options prepend/insert and merging (upstream)
+
 * Thu May 18 2023 Adam Williamson <awilliam@redhat.com> - 2.39-2
 - Have util-linux obsolete and provide util-linux-user
 

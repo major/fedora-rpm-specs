@@ -1,13 +1,13 @@
 %global pypi_name httpx
 
 Name:           python-%{pypi_name}
-Version:        0.23.0
+Version:        0.24.0
 Release:        %autorelease
 Summary:        Python HTTP client
 
 License:        BSD
 URL:            https://github.com/encode/httpx
-Source0:        %{pypi_source}
+Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
 
 %description
@@ -16,10 +16,8 @@ async APIs, and support for both HTTP/1.1 and HTTP/2.
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
-
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
 HTTPX is a fully featured HTTP client for Python, which provides sync and
@@ -27,19 +25,20 @@ async APIs, and support for both HTTP/1.1 and HTTP/2.
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
-rm -rf %{pypi_name}.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{pypi_name}
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE.md
 %doc README.md
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 %attr(755, root, root) %{_bindir}/httpx
 
 %changelog

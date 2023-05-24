@@ -1,8 +1,8 @@
 %global pypi_name box
 
 Name:           python-%{pypi_name}
-Version:        6.1.0
-Release:        2%{?dist}
+Version:        7.0.1
+Release:        1%{?dist}
 Summary:        Python dictionaries with advanced dot notation access
 
 License:        MIT
@@ -22,7 +22,6 @@ Summary:        %{summary}
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(pytest-runner)
 BuildRequires:  python3dist(pytest-cov)
 BuildRequires:  python3dist(msgpack)
 BuildRequires:  python3dist(ruamel-yaml)
@@ -58,6 +57,12 @@ added to a Box or BoxList object are converted automatically.
 %{python3_sitelib}/python_box-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Tue May 23 2023 Fabian Affolter <mail@fabian-affolter.ch> - 6.1.0-1
+- Update to latest upstream release 7.0.1 (closes rhbz#2165252)
+
+* Sun May 07 2023 Maxwell G <maxwell@gtmx.me> - 6.1.0-3
+- Remove buildtime dependency on deprecated pytest-runner
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

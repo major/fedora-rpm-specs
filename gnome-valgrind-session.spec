@@ -1,13 +1,13 @@
 Summary:	Run an entire GNOME session under valgrind
 Name:		gnome-valgrind-session
 Version:	1.1
-Release:	27%{?dist}
+Release:	29%{?dist}
 License:	Public Domain
 URL:		http://hp.cl.no/proj/gnome-valgrind-session/
 Source0:	http://hp.cl.no/proj/gnome-valgrind-session/src/%{name}-%{version}.tar.bz2
 Patch0:		%{name}-%{version}-desktop.patch
 Patch1:		%{name}-%{version}-use-gnome-session-suffix-pid-drop-alignment.patch
-Patch2:		%{name}-%{version}-use-gnome-session-drop-alignment.patch
+Patch2:		%{name}-%{version}-add-xorg-label.patch
 
 Requires:	gnome-session 
 Requires:	valgrind
@@ -24,12 +24,8 @@ directory.
 %prep
 %setup -q
 %patch0 -p1
-
-%if 0%{?fc8}
-%patch2 -p1
-%else
 %patch1 -p1
-%endif
+%patch2 -p1
 
 %build
 
@@ -62,6 +58,12 @@ install -p -m0644 gnome-valgrind-leaks.desktop \
 %{_datadir}/xsessions/gnome-valgrind-leaks.desktop
 
 %changelog
+* Mon May 22 2023 Debarshi Ray <rishi@fedoraproject.org> - 1.1-29
+- Drop support for Fedora 8
+
+* Wed May 10 2023 FeRD (Frank Dana) <ferdnyc@gmail.com> - 1.1-28
+- Add "on Xorg" to session names
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

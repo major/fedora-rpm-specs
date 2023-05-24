@@ -2,7 +2,7 @@
 %bcond_without perl_Crypt_URandom_enables_optional_test
 
 Name:           perl-Crypt-URandom
-Version:        0.38
+Version:        0.39
 Release:        1%{?dist}
 Summary:        Non-blocking randomness for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -62,7 +62,7 @@ perl -i -ne 'print $_ unless m{^t/pod.t}' MANIFEST
 rm t/manifest.t
 perl -i -ne 'print $_ unless m{^t/manifest.t}' MANIFEST
 # Make scripts with shebangs executable
-chmod a+x t/core_read.t t/core_sysopen.t
+chmod a+x t/core_read.t t/core_fork.t t/core_partial_read.t t/core_sysopen.t
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -100,6 +100,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon May 22 2023 Petr Pisar <ppisar@redhat.com> - 0.39-1
+- 0.39 bump
+
 * Thu May 11 2023 Petr Pisar <ppisar@redhat.com> - 0.38-1
 - 0.38 bump
 

@@ -49,7 +49,7 @@
 
 Summary: Automatic bug detection and reporting tool
 Name: abrt
-Version: 2.16.1
+Version: 2.17.0
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL: https://abrt.readthedocs.org/
@@ -59,7 +59,7 @@ BuildRequires: %{dbus_devel}
 BuildRequires: hostname
 BuildRequires: gtk3-devel
 BuildRequires: glib2-devel >= %{glib_ver}
-BuildRequires: rpm-devel >= 4.6
+BuildRequires: rpm-devel >= 4.18
 BuildRequires: desktop-file-utils
 BuildRequires: libnotify-devel
 #why? BuildRequires: file-devel
@@ -966,6 +966,10 @@ killall abrt-dbus >/dev/null 2>&1 || :
 %config(noreplace) %{_sysconfdir}/profile.d/abrt-console-notification.sh
 
 %changelog
+* Mon May 22 2023 Matěj Grabovský <mgrabovs@redhat.com> - 2.17.0-1
+- Update to upstream release 2.17.0
+- Bump rpm-devel dependency to 4.18
+
 * Thu Mar 30 2023 Michal Srb <michal@redhat.com> - 2.16.1-1
 - Update to upstream release 2.16.1
 

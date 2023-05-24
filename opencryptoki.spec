@@ -1,12 +1,7 @@
-# p11-kit needs pkcsslotd daemon starting by default
-# upstream does not recommend to enable the pkcsslotd service by default.
-# we disable it
-%global p11_kit_support 0
-
 Name:			opencryptoki
 Summary:		Implementation of the PKCS#11 (Cryptoki) specification v3.0
 Version:		3.21.0
-Release:		2%{?dist}
+Release:		3%{?dist}
 License:		CPL-1.0
 URL:			https://github.com/opencryptoki/opencryptoki
 Source0:		https://github.com/opencryptoki/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -16,6 +11,10 @@ Patch1:		opencryptoki-3.11.0-lockdir.patch
 # fix install problem in buildroot
 Patch2:		opencryptoki-3.21.0-p11sak.patch
 # upstream patches
+# pkcsstats: Fix handling of user name
+Patch100: opencryptoki-3.21.0-f4166214552a92d8d66de8011ab11c9c2c6bb0a4.patch
+# p11sak: Fix user confirmation prompt behavior when stdin is closed
+Patch101: opencryptoki-3.21.0-4ff774568e334a719fc8de16fe2309e2070f0da8.patch
 
 Requires(pre):		coreutils
 Requires:		(selinux-policy >= 34.9-1 if selinux-policy-targeted)
@@ -206,9 +205,6 @@ configured with Enterprise PKCS#11 (EP11) firmware.
 %install
 %make_install CHGRP=/bin/true
 
-%if 0%{?p11_kit_support}
-install -Dpm 644 %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/p11-kit/modules/opencryptoki.module
-%endif
 
 %pre
 # don't touch opencryptoki.conf even if it is unchanged due to new tokversion
@@ -296,12 +292,6 @@ fi
 %{_libdir}/pkcs11/PKCS11_API.so
 %{_libdir}/pkcs11/stdll
 %dir %attr(770,root,pkcs11) %{_localstatedir}/log/opencryptoki
-%if 0%{?p11_kit_support}
-# Co-owned with p11-kit
-%dir %{_datadir}/p11-kit/
-%dir %{_datadir}/p11-kit/modules/
-%{_datadir}/p11-kit/modules/opencryptoki.module
-%endif
 
 %files devel
 %{_includedir}/%{name}/
@@ -362,6 +352,11 @@ fi
 
 
 %changelog
+* Mon May 22 2023 Than Ngo <than@redhat.com> - 3.21.0-3
+- drop p11_kit_support
+- fix handling of user name
+- fix user confirmation prompt behavior when stdin is closed
+
 * Tue May 16 2023 Than Ngo <than@redhat.com> - 3.21.0-2
 - add missing /var/lib/opencryptoki/HSM_MK_CHANGE 
 

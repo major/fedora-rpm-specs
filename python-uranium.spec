@@ -1,10 +1,12 @@
 Name:           python-uranium
 Version:        5.3.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A Python framework for building desktop applications
 License:        LGPLv3+
 URL:            https://github.com/Ultimaker/Uranium
 Source0:        %{url}/archive/%{version}.tar.gz#/Uranium-%{version}.tar.gz
+Patch0:		Uranium-5.3.0-qt-6.5-hack.patch
+Patch1:		Uranium-5.3.0-qt-replace-gltrue-glfalse-with-bytes.patch
 
 # Cmake bits taken from 4.13.1, before upstream went nuts with conan
 Source2:        mod_bundled_packages_json.py
@@ -131,6 +133,9 @@ popd
 
 
 %changelog
+* Mon May 22 2023 Tom Callaway <spot@fedoraproject.org> - 5.3.0-3
+- try to hack qt6.5 support
+
 * Thu Mar  9 2023 Tom Callaway <spot@fedoraproject.org> - 5.3.0-2
 - make pyclipper an explicit Requires
 

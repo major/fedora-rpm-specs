@@ -1,5 +1,5 @@
 %global packname igraph
-%global packver  1.4.1
+%global packver  1.4.3
 %global rlibdir  %{_libdir}/R/library
 
 %global __suggests_exclude ^R\\((graph|igraphdata|rgl)\\)
@@ -14,7 +14,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          1%{?dist}
 Summary:          Network Analysis and Visualization
 
 # Main: GPLv2+; html_library.tcl: TCL
@@ -32,11 +32,13 @@ ExcludeArch: %{ix86}
 # Depends:   R-methods
 # Imports:   R-graphics, R-grDevices, R-magrittr, R-Matrix, R-pkgconfig >= 2.0.0, R-rlang, R-stats, R-utils
 # Suggests:  R-ape, R-digest, R-graph, R-igraphdata, R-rgl, R-scales, R-stats4, R-tcltk, R-testthat, R-withr, R-vdiffr, R-knitr, R-rmarkdown
-# LinkingTo:
+# LinkingTo: R-cpp11
 # Enhances:
 
 BuildRequires:    R-devel
 BuildRequires:    tex(latex)
+BuildRequires:    R-cpp11-devel
+BuildRequires:    gcc-c++
 BuildRequires:    R-methods
 BuildRequires:    R-graphics
 BuildRequires:    R-grDevices
@@ -55,6 +57,7 @@ BuildRequires:    R-knitr
 BuildRequires:    R-rmarkdown
 %if %{with_suggests}
 BuildRequires:    R-ape
+BuildRequires:    R-decor
 BuildRequires:    R-graph
 BuildRequires:    R-igraphdata
 BuildRequires:    R-rgl
@@ -88,9 +91,9 @@ graph visualization, centrality methods and much more.
 %setup -q -c -n %{packname}
 
 pushd %{packname}
-%patch0002 -p1
+%patch -P0002 -p1
 %if %{with sys_arpack}
-%patch0003 -p1
+%patch -P0003 -p1
 %endif
 
 # Fix executable files.
@@ -145,6 +148,9 @@ ARGS=--no-examples
 
 
 %changelog
+* Mon May 22 2023 Tom Callaway <spot@fedoraproject.org> - 1.4.3-1
+- update to 1.4.3
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.4.1-2
 - R-maint-sig mass rebuild
 

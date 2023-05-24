@@ -1,6 +1,6 @@
-%global debug_package   %{nil}
+%global debug_package %{nil}
 
-# container-selinux
+# container-selinux upstream
 %global git0 https://github.com/containers/container-selinux
 
 # container-selinux stuff (prefix with ds_ for version/release etc.)
@@ -14,9 +14,40 @@
 # Format must contain '$x' somewhere to do anything useful
 %global _format() export %1=""; for x in %{modulenames}; do %1+=%2; %1+=" "; done;
 
+# copr_username is only set on copr environments, not on others like koji
+%if "%{?copr_username}" != "rhcontainerbot"
+%bcond_with copr
+%else
+%bcond_without copr
+%endif
+
+# RHEL 8 doesn't allow watch and systemd_chat_resolved
+%if 0%{?rhel} == 8
+%bcond_without no_watch
+%bcond_without no_systemd_chat_resolved
+%else
+%bcond_with no_watch
+%bcond_with no_systemd_chat_resolved
+%endif
+
+# https://github.com/containers/container-selinux/issues/203
+%if 0%{?fedora} <= 37 || 0%{?rhel} <= 9
+%bcond_without no_user_namespace
+%else
+%bcond_with no_user_namespace
+%endif
+
 Name: container-selinux
+# Set different Epochs for copr and koji
+%if %{with copr}
+Epoch: 101
+%else
 Epoch: 2
-Version: 2.213.0
+%endif
+# Keep Version in upstream specfile at 0. It will be automatically set
+# to the correct value by Packit for copr and koji builds.
+# IGNORE this comment if you're looking at it in dist-git.
+Version: 2.215.0
 Release: %autorelease
 License: GPL-2.0-only
 URL: %{git0}
@@ -45,9 +76,22 @@ Conflicts: k3s-selinux <= 0.4-1
 SELinux policy modules for use with container runtimes.
 
 %prep
-%autosetup -Sgit %{name}-%{built_tag_strip}
-# https://github.com/containers/container-selinux/issues/203
-%if 0%{?fedora} <= 37
+%autosetup -Sgit %{name}-%{version}
+
+sed -i 's/^man: install-policy/man:/' Makefile
+sed -i 's/^install: man/install:/' Makefile
+
+%if %{with no_watch}
+sed -i 's/watch watch_reads//' container.if
+sed -i 's/watch watch_reads//' container.te
+sed -i '/sysfs_t:dir watch/d' container.te
+%endif
+
+%if %{with no_systemd_chat_resolved}
+sed -i '/^systemd_chat_resolved/d' container.te
+%endif
+
+%if %{with no_user_namespace}
 sed -i '/user_namespace/d' container.te
 %endif
 
@@ -57,16 +101,7 @@ make
 %install
 # install policy modules
 %_format MODULES $x.pp.bz2
-install -d %{buildroot}%{_datadir}/selinux/packages
-install -d -p %{buildroot}%{_datadir}/selinux/devel/include/services
-install -p -m 644 container.if %{buildroot}%{_datadir}/selinux/devel/include/services
-install -m 0644 $MODULES %{buildroot}%{_datadir}/selinux/packages
-install -d %{buildroot}/%{_datadir}/containers/selinux
-install -m 644 container_contexts %{buildroot}/%{_datadir}/containers/selinux/contexts
-install -d %{buildroot}%{_datadir}/udica/templates
-install -m 0644 udica-templates/*.cil %{buildroot}%{_datadir}/udica/templates
-
-%check
+%{__make} DATADIR=%{buildroot}%{_datadir} SYSCONFDIR=%{buildroot}%{_sysconfdir} install install.udica-templates install.selinux-user
 
 %pre
 %selinux_relabel_pre -s %{selinuxtype}
@@ -82,7 +117,7 @@ fi
 %{_sbindir}/semodule -n -s %{selinuxtype} -d gear 2> /dev/null
 %selinux_modules_install -s %{selinuxtype} $MODULES
 . %{_sysconfdir}/selinux/config
-sed -e "\|container_file_t|h; \${x;s|container_file_t||;{g;t};a\\" -e "container_file_t" -e "}" -i /etc/selinux/${SELINUXTYPE}/contexts/customizable_types 
+sed -e "\|container_file_t|h; \${x;s|container_file_t||;{g;t};a\\" -e "container_file_t" -e "}" -i /etc/selinux/${SELINUXTYPE}/contexts/customizable_types
 matchpathcon -qV %{_sharedstatedir}/containers || restorecon -R %{_sharedstatedir}/containers &> /dev/null || :
 
 %postun
@@ -103,8 +138,9 @@ fi
 %{_datadir}/containers/selinux/contexts
 %dir %{_datadir}/udica/templates/
 %{_datadir}/udica/templates/*
-# Currently shipped in selinux-policy-doc
-#%%{_datadir}/man/man8/container_selinux.8.gz
+%{_mandir}/man8/container_selinux.8.gz
+%{_sysconfdir}/selinux/targeted/contexts/users/*
+%ghost %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{modulenames}
 
 %triggerpostun -- container-selinux < 2:2.162.1-3
 if %{_sbindir}/selinuxenabled ; then

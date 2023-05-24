@@ -36,9 +36,11 @@ Summary:        %{summary}
 
 %description -n python3-%{srcname} %{_description}
 
-
 %prep
 %autosetup -n %{reponame}-%{version} -p1
+
+# Remove upper version limit on cryptography.
+sed -i 's/cryptography>=3.2.1,<40.0.0/cryptography>=3.2.1/' setup.py
 
 
 %generate_buildrequires

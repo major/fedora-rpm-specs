@@ -5,13 +5,13 @@
 %global api_key ABCDEFGH
 
 Name:           python-%{pypi_name}
-Version:        1.28.0
-Release:        2%{?dist}
+Version:        1.29.1
+Release:        1%{?dist}
 Summary:        Python library and command-line utility for Shodan.io
 
 License:        MIT
 URL:            https://github.com/achillean/shodan-python
-Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
+Source0:        %{pypi_source}
 BuildArch:      noarch
 
 BuildRequires:  dos2unix
@@ -59,7 +59,7 @@ Requires:       python3-%{pypi_name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Command-line tool to to access Shodan.io.
 
 %prep
-%autosetup -n %{pypi_name}-python-%{version}
+%autosetup -n %{pypi_name}-%{version}
 rm -rf %{pypi_name}.egg-info
 sed -i -e '/^#!\//, 1d' shodan/cli/worldmap.py
 dos2unix docs/{api.rst,tutorial.rst}
@@ -95,6 +95,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Tue May 23 2023 Fabian Affolter <mail@fabian-affolter.ch> - 1.29.1-1
+- Update to latest upstream release 1.29.1 (closes rhbz#2204485)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

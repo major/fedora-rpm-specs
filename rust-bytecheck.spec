@@ -5,7 +5,7 @@
 %global crate bytecheck
 
 Name:           rust-bytecheck
-Version:        0.6.10
+Version:        0.6.11
 Release:        %autorelease
 Summary:        Derive macro for bytecheck
 

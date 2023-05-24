@@ -75,6 +75,10 @@ Patch10:    fix-ieee128-cross.diff
 
 Patch11:    0001-Change-LLVM_COMMON_CMAKE_UTILS-usage.patch
 
+# RHEL specific patches
+# Avoid unwanted dependency on python-recommonmark
+Patch101:  0009-disable-recommonmark.patch
+
 %if %{without compat_build}
 # Patches for clang-tools-extra
 # See https://reviews.llvm.org/D120301
@@ -107,7 +111,9 @@ BuildRequires:	emacs
 BuildRequires:	python3-lit
 
 BuildRequires:	python3-sphinx
+%if %{undefined rhel}
 BuildRequires:	python3-recommonmark
+%endif
 BuildRequires:	libatomic
 
 # We need python3-devel for %%py3_shebang_fix
@@ -276,7 +282,7 @@ rm test/clang-tidy/checkers/altera/struct-pack-align.cpp
 	clang-include-fixer/find-all-symbols/tool/run-find-all-symbols.py
 
 %setup -q -n %{clang_srcdir}
-%autopatch -M200 -p2
+%autopatch -M%{?!rhel:100}%{?rhel:200} -p2
 
 # failing test case
 rm test/CodeGen/profile-filter.c

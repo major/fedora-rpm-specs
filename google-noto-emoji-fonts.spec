@@ -12,7 +12,7 @@
 
 Name:           %{fontname}-fonts
 Version:        20220916
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Google “Noto Emoji” Black-and-White emoji font
 
 # In noto-emoji-fonts source
@@ -23,7 +23,7 @@ Summary:        Google “Noto Emoji” Black-and-White emoji font
 # In nototools source
 ## nototools code is in ASL 2.0 license
 ### third_party ucd code is in Unicode license
-License:        OFL and ASL 2.0
+License:        OFL-1.1 AND Apache-2.0
 URL:            https://github.com/googlefonts/noto-emoji
 Source0:        https://github.com/googlefonts/noto-emoji/archive/%{commit0}.tar.gz#/noto-emoji-%{shortcommit0}.tar.gz
 Source2:        %{fontname}.metainfo.xml
@@ -68,10 +68,7 @@ Provides:       google-noto-color-emoji-fonts = 20150617
 This package provides the Google “Noto Color Emoji” colored emoji font.
 
 %prep
-%setup -a 4 -n noto-emoji-%{commit0}
-%patch0 -p1 -b .noto-emoji-build-all-flags
-%patch1 -p1 -b .noto-emoji-use-gm.patch
-%patch2 -p1 -b .noto-emoji-use-system-pngquant
+%autosetup -p1 -a 4 -n noto-emoji-%{commit0}
 
 rm -rf third_party/pngquant
 
@@ -113,6 +110,9 @@ install -m 0644 -p %{SOURCE3} %{buildroot}%{_metainfodir}
 
 
 %changelog
+* Mon May 22 2023 Peng Wu <pwu@redhat.com> - 20220916-5
+- Migrate to SPDX license
+
 * Thu Mar 16 2023 Peng Wu <pwu@redhat.com> - 20220916-4
 - Use metainfodir macro for metainfo files
 

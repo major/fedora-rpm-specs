@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 12.10
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
 # Maintainer: nickc@redhat.com
@@ -525,6 +525,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon May 22 2023 Petr Pisar <ppisar@redhat.com> - 12.10-3
+- Rebuild against rpm-4.19 (https://fedoraproject.org/wiki/Changes/RPM-4.19)
+
 * Fri May 05 2023 Nick Clifton  <nickc@redhat.com> - 12.10-2
 - GCC Plugin: Default to generating string format notes.  (Experimental)
 

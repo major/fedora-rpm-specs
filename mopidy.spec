@@ -2,8 +2,8 @@
 %global homedir %{_sharedstatedir}/%{name}
 
 Name:           mopidy
-Version:        3.3.0
-Release:        4%{?dist}
+Version:        3.4.1
+Release:        1%{?dist}
 Summary:        An extensible music server written in Python
 
 License:        ASL 2.0
@@ -11,8 +11,11 @@ URL:            https://mopidy.com/
 Source0:        %{pypi_source}
 Source1:        mopidy.conf
 
+Patch0:         mopidy341-fix-extlinks.patch
+Patch1:         mopidy341-fix-tests.patch
+
 BuildArch:      noarch
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-graphviz
@@ -115,6 +118,9 @@ exit 0
 
 
 %changelog
+* Mon May 22 2023 Tobias Girstmair <t-fedora@girst.at> - 3.4.1-1
+- Update to 3.4.1 (#2149151)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 %global major_version 5.4
 # Normally, this is the same as version, but... not always.
-%global test_version 5.4.4
+%global test_version 5.4.6
 # If you are incrementing major_version, enable bootstrapping and adjust accordingly.
 # Version should be the latest prior build. If you don't do this, RPM will break and
 # everything will grind to a halt.
@@ -13,8 +13,8 @@
 
 
 Name:           lua
-Version:        %{major_version}.4
-Release:        9%{?dist}
+Version:        %{major_version}.6
+Release:        1%{?dist}
 Summary:        Powerful light-weight programming language
 License:        MIT
 URL:            https://www.lua.org/
@@ -28,7 +28,7 @@ Source3:        https://www.lua.org/tests/lua-%{test_version}-tests.tar.gz
 # multilib
 Source4:        luaconf.h
 Patch0:         %{name}-5.4.0-beta-autotoolize.patch
-Patch1:         %{name}-5.3.0-idsize.patch
+Patch1:         %{name}-5.4.6-idsize.patch
 #Patch2:         %%{name}-5.3.0-luac-shared-link-fix.patch
 Patch3:         %{name}-5.2.2-configure-linux.patch
 Patch4:         %{name}-5.3.0-configure-compat-module.patch
@@ -37,27 +37,6 @@ Patch5:         %{name}-5.3.0-autotoolize.patch
 Patch6:		%{name}-5.3.5-luac-shared-link-fix.patch
 %endif
 # https://www.lua.org/bugs.html
-# 5.4.4 Bug 1
-Patch7:		https://github.com/lua/lua/commit/25b143dd34fb587d1e35290c4b25bc08954800e2.patch
-# 5.4.4 Bug 2
-Patch8:		https://github.com/lua/lua/commit/1f3c6f4534c6411313361697d98d1145a1f030fa.patch
-# 5.4.4 Bug 3
-Patch9:		https://github.com/lua/lua/commit/c764ca71a639f5585b5f466bea25dc42b855a4b0.patch
-# 5.4.4 Bug 4
-Patch10:	https://github.com/lua/lua/commit/42d40581dd919fb134c07027ca1ce0844c670daf.patch
-# 5.4.4 Bug 5
-Patch11:	https://github.com/lua/lua/commit/196bb94d66e727e0aec053a0276c3ad701500762.patch
-# 5.4.4 Bug 7
-Patch12:	https://github.com/lua/lua/commit/a1f77a234a053da46b06d5d4be00ffb30d3eb45b.patch
-# 5.4.4		http://lua-users.org/lists/lua-l/2022-02/msg00112.html
-Patch13:	%{name}-5.4.4-luac-doublefree.patch
-# 5.4.4 Bug 8
-# https://github.com/lua/lua/commit/a1089b415a3f5c753aa1b40758ffdaf28d5701b0
-Patch14:	lua-5.4.4-bug8.patch
-# 5.4.4 Bug 9
-# https://github.com/lua/lua/commit/1e64c1391f9a14115b5cc82066dbf545ae73ee27
-Patch15:	lua-5.4.4-bug9.patch
-
 
 BuildRequires:  automake autoconf libtool readline-devel ncurses-devel
 BuildRequires:  make
@@ -107,20 +86,10 @@ This package contains the static version of liblua for %{name}.
 %endif
 cp %{SOURCE1} .
 mv src/luaconf.h src/luaconf.h.template.in
-%patch0 -p1 -E -z .autoxxx
-%patch1 -p1 -z .idsize
-#%% patch2 -p1 -z .luac-shared
-%patch3 -p1 -z .configure-linux
-%patch4 -p1 -z .configure-compat-all
-%patch7 -p1 -b .5.4.4-bug1
-%patch8 -p1 -b .5.4.4-bug2
-%patch9 -p1 -b .5.4.4-bug3
-%patch10 -p1 -b .5.4.4-bug4
-%patch11 -p1 -b .5.4.4-bug5
-%patch12 -p1 -b .5.4.4-bug7
-%patch13 -p1 -b .5.4.4-doublefree
-%patch14 -p1 -b .5.4.4-bug8
-%patch15 -p1 -b .5.4.4-bug9
+%patch -P0 -p1 -E -z .autoxxx
+%patch -P1 -p1 -z .idsize
+#%% patch -P2 -p1 -z .luac-shared
+%patch -P3 -p1 -z .configure-linux
 # Put proper version in configure.ac, patch0 hardcodes 5.3.0
 sed -i 's|5.3.0|%{version}|g' configure.ac
 autoreconf -ifv
@@ -128,11 +97,11 @@ autoreconf -ifv
 %if 0%{?bootstrap}
 cd lua-%{bootstrap_version}/
 mv src/luaconf.h src/luaconf.h.template.in
-%patch5 -p1 -b .autoxxx
-%patch1 -p1 -b .idsize
-%patch3 -p1 -z .configure-linux
-%patch4 -p1 -z .configure-compat-all
-%patch6 -p1 -b .luac-shared-link-fix
+%patch -P5 -p1 -b .autoxxx
+%patch -P1 -p1 -b .idsize
+%patch -P3 -p1 -z .configure-linux
+%patch -P4 -p1 -z .configure-compat-all
+%patch -P6 -p1 -b .luac-shared-link-fix
 autoreconf -i
 cd ..
 %endif
@@ -237,6 +206,9 @@ popd
 %{_libdir}/*.a
 
 %changelog
+* Mon May 22 2023 Tom Callaway <spot@fedoraproject.org> - 5.4.6-1
+- update to 5.4.6
+
 * Tue Feb 14 2023 Tom Callaway <spot@fedoraproject.org> - 5.4.4-9
 - add upstream fixes for Bugs 8 and 9
 

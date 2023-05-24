@@ -13,8 +13,8 @@
 %{bcond_without perl_PDL_enables_optional_test}
 
 Name:           perl-PDL
-%global cpan_version 2.083
-Version:        2.83.0
+%global cpan_version 2.084
+Version:        2.84.0
 Release:        1%{?dist}
 Summary:        The Perl Data Language
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -257,17 +257,27 @@ make test
 %files
 %license COPYING
 %doc Changes INTERNATIONALIZATION README
-%{_bindir}/*
+%{_bindir}/pdl*
+%{_bindir}/perldl*
+%{_bindir}/pptemplate*
 %{perl_vendorarch}/Inline/*
 %{perl_vendorarch}/PDL*
 %{perl_vendorarch}/auto/PDL/
-%{_mandir}/man1/*.1*
-%{_mandir}/man3/*.3*
+%{_mandir}/man1/PDL*.1*
+%{_mandir}/man1/pdl*.1*
+%{_mandir}/man1/perldl*.1*
+%{_mandir}/man1/pptemplate*.1*
+%{_mandir}/man3/Bugs*.3*
+%{_mandir}/man3/PDL*.3*
+%{_mandir}/man3/Pdlpp*.3*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon May 22 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.84.0-1
+- 2.084 bump
+
 * Thu May 04 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.83.0-1
 - 2.083 bump
 

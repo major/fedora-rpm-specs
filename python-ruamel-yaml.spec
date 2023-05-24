@@ -4,7 +4,7 @@
 %global commit 4309006902d2453399588f4ddccfb3fc460e1eba
 
 Name:           python-ruamel-yaml
-Version:        0.17.24
+Version:        0.17.26
 Release:        1%{?dist}
 Summary:        YAML 1.2 loader/dumper package for Python
 
@@ -66,6 +66,9 @@ k="${k-}${k+ and }not test_dump_cyaml_1_2"
 %doc README.rst
 
 %changelog
+* Tue May 09 2023 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 0.17.26-1
+- Update to 0.17.26 (close RHBZ#2196655)
+
 * Sun May 07 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.17.24-1
 - Update to 0.17.24 (close RHBZ#2193478)
 

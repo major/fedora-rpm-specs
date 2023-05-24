@@ -4,8 +4,8 @@
 %bcond_with check
 
 Name:           python-%{local_name}
-Version:        7.3.0
-Release:        11%{?dist}
+Version:        8.3.0
+Release:        %autorelease
 Summary:        Python interface to Oracle
 
 License:        BSD
@@ -22,8 +22,6 @@ specification.
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-%{?python_provide:%python_provide python3-%{local_name}}
 
 %description -n python3-%{local_name}
 Python interface to Oracle Database conforming to the Python DB API 2.0
@@ -31,57 +29,26 @@ specification.
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
-rm -rf %{pypi_name}.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires -r
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files cx_Oracle
 rm -rf %{buildroot}%{_prefix}/cx_Oracle-doc
 
 %if %{with check}
 %check
-%{__python3} setup.py test
+%python3 setup.py test
 %endif
 
-%files -n python3-%{local_name}
+%files -n python3-%{local_name} -f %{pyproject_files}
 %license LICENSE.txt
 %doc README.txt
-%{python3_sitearch}/cx_Oracle.*.so
-%{python3_sitearch}/%{pypi_name}-%{version}-py*.egg-info/
 
 %changelog
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.3.0-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.3.0-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 7.3.0-9
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.3.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 7.3.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 7.3.0-6
-- Rebuilt for Python 3.10
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 7.3.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 7.3.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 7.3.0-3
-- Rebuilt for Python 3.9
-
-* Sat Apr 04 2020 Fabian Affolter <mail@fabian-affolter.ch> - 7.3.0-2
-- Update path
-- Add missing BR (rhbz#1816279)
-
-* Mon Mar 23 2020 Fabian Affolter <mail@fabian-affolter.ch> - 7.3.0-1
-- Initial package for Fedora
+%autochangelog

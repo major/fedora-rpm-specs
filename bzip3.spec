@@ -1,5 +1,5 @@
 Name:           bzip3
-Version:        1.3.0
+Version:        1.3.1
 Release:        1%{?dist}
 Summary:        Tools for compressing and decompressing bzip3 files
 # bz3grep:                  BSD-2-Clause
@@ -12,8 +12,8 @@ Summary:        Tools for compressing and decompressing bzip3 files
 # src/main.c:               LGPL-3.0-or-later
 ## Unbundled and not in any binary package
 # aclocal.m4:               FSFULLR AND GPL-2.0-or-later WITH Autoconf-exception-2.0
-# build-aux/ax_build_date_epoch.m4: GPL-3.0-or-later WITH Autoconf macro exception (?)
-# build-aux/ax_pthread.m4:  GPL-3.0-or-later WITH Autoconf macro exception (?)
+# build-aux/ax_build_date_epoch.m4: GPL-3.0-or-later WITH Autoconf-exception-macro
+# build-aux/ax_pthread.m4:  GPL-3.0-or-later WITH Autoconf-exception-macro
 # build-aux/ax_check_compile_flag.m4:   FSFAP
 # build-aux/compile:        GPL-2.0-or-later WITH Autoconf-exception-2.0
 # build-aux/config.guess:   GPL-3.0-or-later WITH Autoconf-exception-3.0
@@ -160,6 +160,9 @@ fi
 %{_libdir}/pkgconfig/bzip3.pc
 
 %changelog
+* Mon May 22 2023 Petr Pisar <ppisar@redhat.com> - 1.3.1-1
+- 1.3.1 bump
+
 * Wed Apr 05 2023 Petr Pisar <ppisar@redhat.com> - 1.3.0-1
 - 1.3.0 bump (CVE-2023-29415, CVE-2023-29416, CVE-2023-29417, CVE-2023-29418,
   CVE-2023-29419, CVE-2023-29420, CVE-2023-29421)

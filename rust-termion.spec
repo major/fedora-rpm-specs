@@ -6,7 +6,7 @@
 %global crate termion
 
 Name:           rust-termion
-Version:        1.5.6
+Version:        2.0.1
 Release:        %autorelease
 Summary:        Bindless library for manipulating terminals
 
@@ -53,6 +53,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+serde-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+serde-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "serde" feature of the "%{crate}" crate.
+
+%files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

@@ -1,6 +1,6 @@
 Name:           deja-dup
-Version:        44.1
-Release:        2%{?dist}
+Version:        44.2
+Release:        1%{?dist}
 Summary:        Simple backup tool and frontend for duplicity
 
 License:        GPL-3.0-or-later
@@ -75,6 +75,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.metain
 %{_datadir}/help/*
 
 %changelog
+* Mon May 22 2023 Gwyn Ciesla <gwync@protonmail.com> - 44.2-1
+- 44.2
+
 * Wed Apr 26 2023 Gwyn Ciesla <gwync@protonmail.com> - 44.1-2
 - Enable restic support.
 

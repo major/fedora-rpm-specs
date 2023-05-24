@@ -1,8 +1,8 @@
 Name:		perl-Test-API
 Version:	0.010
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	Test a list of subroutines provided by a module
-License:	ASL 2.0
+License:	Apache-2.0
 URL:		https://metacpan.org/release/Test-API
 Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-API-%{version}.tar.gz
 BuildArch:	noarch
@@ -25,12 +25,11 @@ BuildRequires:	perl(File::Spec)
 BuildRequires:	perl(lib)
 BuildRequires:	perl(Test::Builder::Tester) >= 1.18
 BuildRequires:	perl(Test::More)
-# Optional Test Requirements (not available in EPEL-6)
-%if "%{?rhel}" != "6"
+# Optional Test Requirements
 BuildRequires:	perl(CPAN::Meta)
 BuildRequires:	perl(CPAN::Meta::Requirements) >= 2.120900
-%endif
-# Runtime
+# Dependencies
+# (none)
 
 %description
 This simple test module checks the subroutines provided by a module. This is
@@ -53,16 +52,17 @@ find %{buildroot} -type f -name .packlist -delete
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
 %doc Changes CONTRIBUTING.mkdn README
 %{perl_vendorlib}/Test/
 %{_mandir}/man3/Test::API.3*
 
 %changelog
+* Mon May 22 2023 Paul Howarth <paul@city-fan.org> - 0.010-17
+- Use SPDX-format license tag
+- Drop support for building on EL-6
+- Use %%license unconditionally
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.010-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

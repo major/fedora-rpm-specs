@@ -14,7 +14,7 @@
 
 Name:           gstreamer1-plugins-bad-free
 Version:        1.22.2
-Release:        3%{?gitcommit:.git%{shortcommit}}%{?dist}
+Release:        4%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 License:        LGPLv2+ and LGPLv2
@@ -137,8 +137,6 @@ BuildRequires:  vo-amrwbenc-devel
 # libgstfdkaac.so used to be shipped in -nonfree
 Obsoletes: gstreamer1-plugins-bad-nonfree < 1.16.1-2
 %endif
-# voamrwbenc used to be shipped in -freeworld
-Obsoletes: gstreamer1-plugins-bad-freeworld < 1:1.22.2-2
 
 # Drop after f36
 Provides: gst-transcoder = 1.16.0-4
@@ -676,6 +674,10 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 
 
 %changelog
+* Sun May 21 2023 Sérgio Basto <sergio@serjux.com> - 1.22.2-4
+- Remove obsolete of plugins-bad-freeworld to workaround a dnf bug
+  https://bugzilla.redhat.com/show_bug.cgi?id=1867376#c9
+
 * Thu Apr 27 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.22.2-3
 - Fix migration of musepack and voamrwbenc to -bad-free-extras
 

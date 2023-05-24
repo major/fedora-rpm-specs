@@ -75,7 +75,7 @@
 
 Name:		%{pkg_name}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -90,6 +90,8 @@ Source6:	release-keys.asc
 
 # See https://reviews.llvm.org/D137890 for the next two patches
 Patch2:		0001-llvm-Add-install-targets-for-gtest.patch
+# RHEL-specific patch to avoid unwanted recommonmark dep
+Patch101:	0101-Deactivate-markdown-doc.patch
 # Patching third-party dir with a 200 offset in patch number
 Patch201:	0201-third-party-Add-install-targets-for-gtest.patch
 
@@ -103,7 +105,9 @@ BuildRequires:	libffi-devel
 BuildRequires:	ncurses-devel
 BuildRequires:	python3-psutil
 BuildRequires:	python3-sphinx
+%if %{undefined rhel}
 BuildRequires:	python3-recommonmark
+%endif
 BuildRequires:	multilib-rpm-config
 %if %{with gold}
 BuildRequires:	binutils-devel
@@ -218,7 +222,7 @@ cd ..
 mv %{third_party_srcdir} third-party
 
 %setup -T -q -b 0 -n %{llvm_srcdir}
-%autopatch -M200 -p2
+%autopatch -M%{?!rhel:100}%{?rhel:200} -p2
 
 %py3_shebang_fix \
 	test/BugPoint/compile-custom.ll.py \
@@ -559,6 +563,9 @@ fi
 %endif
 
 %changelog
+* Fri May 19 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 16.0.4-2
+- Avoid recommonmark dependency in RHEL builds
+
 * Thu May 18 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.4-1
 - Update to LLVM 16.0.4
 

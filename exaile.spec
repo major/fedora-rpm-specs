@@ -1,12 +1,14 @@
 Name:           exaile
 Version:        4.1.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Simple but powerful Amarok-style music player for GTK users
 License:        GPLv2+
 URL:            http://www.exaile.org
 Source0:        https://github.com/exaile/exaile/archive/%{version}/%{name}-%{version}.tar.gz
 # Install icons according to FreeDesktop specification (#845)
 Patch0:         83d111ba72fc4386a1073668099ccc7ad6e40b2a.patch
+# Update to webkit2gtk-4.1 (#875)
+Patch1:         0001-wikipedia-use-WebKit2-4.1.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-rpm-macros
@@ -66,7 +68,7 @@ Recommends:     python3-musicbrainzngs
 # Podcast plugin:
 Recommends:     python3-feedparser
 # Wikipedia info:
-Recommends:     webkit2gtk3
+Recommends:     webkit2gtk4.1
 # Xlib-based hotkeys:
 Recommends:     keybinder3
 # Scalable icons:
@@ -143,6 +145,9 @@ make test
 %{_mandir}/man1/exaile*.1*
 
 %changelog
+* Fri May 19 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 4.1.2-5
+- Use webkit2gtk-4.1 in wikipedia plugin
+
 * Fri Feb 24 2023 Graham White <graham_alton@hotmail.com> - 4.1.2-4
 - Enable the BPM Counter plugin
 

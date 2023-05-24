@@ -5,12 +5,12 @@ Chaospy is a numerical tool for performing uncertainty quantification using
 polynomial.}
 
 Name:           python-chaospy
-Version:        4.3.8
+Version:        4.3.12
 Release:        %autorelease
 Summary:        Numerical tool for performing uncertainty quantification using polynomial
 License:        MIT
 URL:            https://github.com/jonathf/chaospy
-Source0:        %{url}/archive/%{version}/chaospy-%{version}.tar.gz
+Source0:        %{url}/archive/v%{version}/chaospy-%{version}.tar.gz
 BuildArch:      noarch
 # python-chaospy FTBFS on 32-bit architectures
 # https://bugzilla.redhat.com/show_bug.cgi?id=2022855
@@ -27,6 +27,7 @@ BuildRequires: python3-devel
 %if %{with tests}
 BuildRequires:  %{py3_dist scikit-learn}
 BuildRequires:  %{py3_dist pytest}
+BuildRequires:  %{py3_dist importlib-metadata}
 %endif
 
 %description -n python3-chaospy

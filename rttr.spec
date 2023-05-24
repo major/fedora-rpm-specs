@@ -17,7 +17,11 @@ BuildRequires:  doxygen
 BuildRequires:  cmake3
 BuildRequires:  make
 
+%if 0%{?fedora} >= 38
+BuildRequires:  catch2-devel
+%else
 BuildRequires:  catch-devel
+%endif
 BuildRequires:  rapidjson-devel
 
 

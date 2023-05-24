@@ -4,7 +4,7 @@
 %global crate pulldown-cmark
 
 Name:           rust-pulldown-cmark
-Version:        0.9.2
+Version:        0.9.3
 Release:        %autorelease
 Summary:        Pull parser for CommonMark
 
@@ -13,8 +13,6 @@ URL:            https://crates.io/crates/pulldown-cmark
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop unused, benchmark-only criterion dev-dependency to speed up builds
-# * bump html5ever dev-dependency from 0.25 to 0.26
-# * bump markup5ever_rcdom dev-dependency from 0.1 to 0.2
 Patch:          pulldown-cmark-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 23
@@ -29,7 +27,7 @@ Summary:        %{summary}
 # MIT
 # MIT OR Apache-2.0
 # Unlicense OR MIT
-License:        MIT
+License:        MIT AND (MIT OR Apache-2.0) AND (Unlicense OR MIT)
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}

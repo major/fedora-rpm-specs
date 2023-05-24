@@ -5,8 +5,8 @@
 %bcond_with extended_tests
 
 Name:       bitcoin-core
-Version:    24.0.1
-Release:    3%{?dist}
+Version:    24.1
+Release:    1%{?dist}
 Summary:    Peer to Peer Cryptographic Currency
 License:    MIT
 URL:        https://bitcoincore.org/
@@ -15,8 +15,6 @@ URL:        https://bitcoincore.org/
 Source0:    https://bitcoincore.org/bin/bitcoin-core-%{version}/%{project_name}-%{version}.tar.gz
 Source1:    https://bitcoincore.org/bin/bitcoin-core-%{version}/SHA256SUMS.asc
 Source2:    https://bitcoincore.org/bin/bitcoin-core-%{version}/SHA256SUMS
-
-Patch0: bitcoin-24.0.1-gcc13.patch
 
 # Key verificaton process - why a script that generates a list of GPG keys in public ring format?
 # - Keys listed to sign the release are listed inside the tarball.
@@ -343,6 +341,9 @@ exit 0
 %{_userunitdir}/%{project_name}.service
 
 %changelog
+* Mon May 22 2023 Simone Caronni <negativo17@gmail.com> - 24.1-1
+- Update to 24.1.
+
 * Fri Mar 17 2023 Arjun Shankar <arjun@redhat.com> - 24.0.1-3
 - Port bundled Berkeley DB 4.8 configure script to C99 (#2179373)
 

@@ -1,8 +1,8 @@
-%global revision 20230114
+%global revision 20230520
 Summary: Ncurses support utilities
 Name: ncurses
 Version: 6.4
-Release: 3.%{revision}%{?dist}
+Release: 4.%{revision}%{?dist}
 License: MIT
 URL: https://invisible-island.net/ncurses/ncurses.html
 Source0: https://invisible-mirror.net/archives/ncurses/current/ncurses-%{version}-%{revision}.tgz
@@ -127,6 +127,8 @@ common_options="\
     --enable-overwrite \
     --enable-pc-files \
     --enable-xmc-glitch \
+    --disable-root-access \
+    --disable-root-environ \
     --disable-stripping \
     --disable-wattr-macros \
     --with-cxx-shared \
@@ -281,6 +283,10 @@ xz NEWS
 %{_libdir}/lib*.a
 
 %changelog
+* Mon May 22 2023 Miroslav Lichvar <mlichvar@redhat.com> 6.4-4.20230520
+- update to 6.4-20230520
+- build with options disabling root file access and environment
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.4-3.20230114
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

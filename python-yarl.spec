@@ -2,8 +2,8 @@
 %global pypi_name yarl
 
 Name:           python-%{pypi_name}
-Version:        1.8.2
-Release:        2%{?dist}
+Version:        1.9.2
+Release:        1%{?dist}
 Summary:        Python module to handle URLs
 
 License:        ASL 2.0
@@ -53,6 +53,11 @@ sed -e '/addopts/d' -i setup.cfg
 %{python3_sitearch}/%{pypi_name}-*.egg-info/
 
 %changelog
+* Mon May 15 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.9.2-1
+- Update to 1.9.2
+- Fixes: rhbz#2161299
+- Fixes: rhbz#2188511
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

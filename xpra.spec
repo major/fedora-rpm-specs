@@ -44,7 +44,7 @@
 
 Name:           xpra
 Version:        4.4.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Remote display server for applications and desktops
 License:        GPLv2+ and BSD and LGPLv3+ and MIT
 URL:            https://www.xpra.org/
@@ -115,7 +115,9 @@ Requires: python3-rencode
 Requires: python3-netifaces
 Requires: python3-dbus
 Requires: python3-numpy
+%if 0%{?fedora}
 Requires: python3-zeroconf
+%endif
 Requires: dbus-x11
 Requires: xmodmap
 Requires: xrandr
@@ -125,7 +127,7 @@ Requires: xorg-x11-server-Xorg%{?_isa}
 Requires: gstreamer1%{?_isa}
 Requires: gstreamer1-plugins-base%{?_isa}
 Requires: gstreamer1-plugins-good%{?_isa}
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 9
 Requires: pipewire%{?_isa}
 Requires: pipewire-utils%{?_isa}
 Requires: pipewire-pulseaudio%{?_isa}
@@ -300,12 +302,14 @@ getent group xpra >/dev/null || groupadd -r xpra
 %{_udevrulesdir}/71-xpra-virtual-pointer.rules
 
 %changelog
+* Mon May 22 2023 Sérgio Basto <sergio@serjux.com> - 4.4.4-2
+- Fix epel 8 and 9 builds , no python3-zeroconf on epel and use pipewire on el9
+
 * Mon Mar 13 2023 Sérgio Basto <sergio@serjux.com> - 4.4.4-1
 - Update xpra to 4.4.4 (#2177195)
 
 * Mon Mar 13 2023 Sérgio Basto <sergio@serjux.com> - 4.4.3-6
-- Add python3-zeroconf to requires, we need to see if it iwe choose be just
-  recommend
+- Add python3-zeroconf to the requires, we need to see if we choose to be recommend only
 - xpra-bug3693.patch already available in source code
 
 * Wed Feb 15 2023 Tom Callaway <spot@fedoraproject.org> - 4.4.3-5

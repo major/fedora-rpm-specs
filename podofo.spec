@@ -1,4 +1,4 @@
-%if 0%{?fedora}
+%if 0%{?fedora} && ! 0%{?flatpak}
 %bcond_without mingw
 %else
 %bcond_with mingw

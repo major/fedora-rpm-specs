@@ -18,11 +18,11 @@
 %global __provides_exclude_from ^%{_libdir}/gtk-3.0
 
 Name:    gtk3
-Version: 3.24.37
+Version: 3.24.38
 Release: 1%{?dist}
 Summary: GTK+ graphical user interface library
 
-License: LGPLv2+
+License: LGPL-2.0-or-later
 URL:     https://gtk.org
 Source0: https://download.gnome.org/sources/gtk+/3.24/gtk+-%{version}.tar.xz
 
@@ -297,6 +297,9 @@ gtk-query-immodules-3.0-%{__isa_bits} --update-cache &>/dev/null || :
 %{_datadir}/installed-tests/
 
 %changelog
+* Mon May 22 2023 David King <amigadave@amigadave.com> - 3.24.38-1
+- Update to 3.24.38
+
 * Fri Mar 03 2023 David King <amigadave@amigadave.com> - 3.24.37-1
 - Update to 3.24.37
 

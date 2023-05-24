@@ -1,7 +1,7 @@
 %global srcname xyzservices
 
 Name:           python-%{srcname}
-Version:        2023.2.0
+Version:        2023.5.0
 Release:        %autorelease
 Summary:        Source of XYZ tiles providers
 

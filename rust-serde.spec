@@ -6,7 +6,7 @@
 %global crate serde
 
 Name:           rust-serde
-Version:        1.0.162
+Version:        1.0.163
 Release:        %autorelease
 Summary:        Generic serialization/deserialization framework
 

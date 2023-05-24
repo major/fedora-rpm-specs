@@ -1,9 +1,9 @@
 %global pypi_name dtfabric
-%global date 20220213
+%global date 20230520
 
 Name:           python-%{pypi_name}
 Version:        0.0.%{date}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        Tool to manage data types and structures, as used by libyal
 
 License:        ASL 2.0
@@ -49,6 +49,9 @@ rm -rf %{buildroot}%{_defaultdocdir}/%{pypi_name}/*
 %{python3_sitelib}/%{pypi_name}/
 
 %changelog
+* Tue May 23 2023 Fabian Affolter <mail@fabian-affolter.ch> - 0.0.20230520-1
+- Update to latest upstream release 20230520 (closes rhbz#2154653)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.20220213-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

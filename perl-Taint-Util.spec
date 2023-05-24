@@ -2,7 +2,7 @@ Name:		perl-Taint-Util
 Version:	0.08
 Release:	32%{?dist}
 Summary:	Test for and flip the taint flag without regex matches or eval
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Taint-Util
 Source0:	https://cpan.metacpan.org/modules/by-module/Taint/Taint-Util-%{version}.tar.gz
 Patch0:		Taint-Util-0.08-utf8.patch
@@ -22,7 +22,8 @@ BuildRequires:	perl(strict)
 BuildRequires:	perl(XSLoader)
 # ============= Test Suite ======================
 BuildRequires:	perl(Test::More)
-# ============= Module Runtime ==================
+# ============= Dependencies ====================
+# (none)
 
 # Don't "provide" private Perl libs
 %{?perl_default_filter}
@@ -37,7 +38,7 @@ checks and flips a flag on the scalar in-place.
 %setup -q -n Taint-Util-%{version}
 
 # Re-code README as UTF-8
-%patch0
+%patch -P 0
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}"
@@ -53,11 +54,7 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
 %doc ChangeLog README
 %{perl_vendorarch}/auto/Taint/
 %{perl_vendorarch}/Taint/

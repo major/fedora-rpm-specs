@@ -1,7 +1,7 @@
 %global _hardened_build 1
 
 Name:           wesnoth
-Version:        1.17.16
+Version:        1.17.17
 Release:        1%{?dist}
 Summary:        Turn-based strategy game with a fantasy theme
 
@@ -176,6 +176,9 @@ done
 %{_mandir}/*/man6/wesnoth*.6*
 
 %changelog
+* Mon May 22 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.17.17-1
+- 1.17.17
+
 * Mon Apr 24 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.17.16-1
 - 1.17.16
 

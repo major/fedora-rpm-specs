@@ -16,8 +16,8 @@
 Summary:   Open source remote desktop protocol (RDP) server
 Name:      xrdp
 Epoch:     1
-Version:   0.9.22
-Release:   5%{?dist}
+Version:   0.9.22.1
+Release:   1%{?dist}
 License:   ASL 2.0 and GPLv2+ and MIT
 URL:       http://www.xrdp.org/
 Source0:   https://github.com/neutrinolabs/xrdp/releases/download/v%{version}/xrdp-%{version}.tar.gz
@@ -38,7 +38,6 @@ Patch6:    xrdp-0.9.18-vnc-uninit.patch
 %if 0%{?fedora} >= 32 || 0%{?rhel} >= 8
 Patch7:    xrdp-0.9.20-sesman-ini.patch
 %endif
-Patch8:    xrdp-0.9.22-chooser-segfault.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -255,7 +254,9 @@ fi
 %{_mandir}/man5/*
 %{_mandir}/man8/*
 %{_mandir}/man1/*
+%{_libdir}/librfxencode.so*
 %{_libdir}/xrdp/lib*.so*
+%exclude %{_libdir}/librfxencode.so
 %exclude %{_libdir}/xrdp/libcommon.so
 %exclude %{_libdir}/xrdp/libscp.so
 %exclude %{_libdir}/xrdp/libxrdp.so
@@ -279,10 +280,12 @@ fi
 %{_includedir}/ms-*
 %{_includedir}/xrdp*
 %{_includedir}/rfxcodec_*.h
+%{_libdir}/librfxencode.so
 %{_libdir}/xrdp/libcommon.so
 %{_libdir}/xrdp/libscp.so
 %{_libdir}/xrdp/libxrdp.so
 %{_libdir}/xrdp/libxrdpapi.so
+%{_libdir}/pkgconfig/rfxcodec.pc
 %{_libdir}/pkgconfig/xrdp.pc
 
 %files selinux
@@ -290,6 +293,9 @@ fi
 %{_datadir}/selinux/*/%{name}.pp
 
 %changelog
+* Tue May 23 2023 Bojan Smojver <bojan@rexursive.com> - 1:0.9.22.1-1
+- Update to 0.9.22.1
+
 * Fri May 19 2023 Bojan Smojver <bojan@rexursive.com> - 1:0.9.22-5
 - Patch session chooser segfault
 - Bugs #2208015 and #2208248

@@ -2,7 +2,7 @@ Summary:	Typical installation tasks for system administrators
 Name:		perl-Sysadm-Install
 Version:	0.48
 Release:	20%{?dist}
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Sysadm-Install
 Source0:	https://cpan.metacpan.org/authors/id/M/MS/MSCHILLI/Sysadm-Install-%{version}.tar.gz
 BuildArch:	noarch
@@ -10,10 +10,8 @@ BuildArch:	noarch
 BuildRequires:	coreutils
 BuildRequires:	findutils
 BuildRequires:	make
-BuildRequires:	perl-interpreter
-%if 0%{?fedora} > 20 || 0%{?rhel} > 7
 BuildRequires:	perl-generators
-%endif
+BuildRequires:	perl-interpreter
 BuildRequires:	perl(ExtUtils::MakeMaker)
 # Module Runtime
 BuildRequires:	perl(Archive::Tar)
@@ -39,7 +37,7 @@ BuildRequires:	perl(Carp)
 BuildRequires:	perl(File::Spec)
 BuildRequires:	perl(Test::More)
 BuildRequires:	perl(utf8)
-# Runtime
+# Dependencies
 Requires:	perl(Archive::Tar)
 Requires:	perl(Encode)
 Requires:	perl(Expect)

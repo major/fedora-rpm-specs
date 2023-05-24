@@ -1,41 +1,56 @@
-# When we are bootstrapping, we drop some dependencies.
-%bcond_with bootstrap
+%global _privatelibs libpxbackend-1.0[.]so.*
+%global __provides_exclude ^(%{_privatelibs})$
+%global __requires_exclude ^(%{_privatelibs})$
 
 Name:           libproxy
-Version:        0.4.18
-Release:        6%{?dist}
+Version:        0.5.0
+Release:        2%{?dist}
 Summary:        A library handling all the details of proxy configuration
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://libproxy.github.io/libproxy/
-Source0:        https://github.com/libproxy/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
-# Taken from the Debian package.
-Source1:        proxy.1
+Source0:        https://github.com/libproxy/%{name}/archive/refs/tags/%{name}-%{version}.tar.gz
+# https://github.com/libproxy/libproxy/issues/222 and others.
+Patch0:         libproxy-0.5.0-post-release-fixes.patch
 
-BuildRequires:  cmake >= 2.6.0
-BuildRequires:  gcc-c++
+BuildRequires:  gcc
+BuildRequires:  meson
+BuildRequires:  /usr/bin/gi-docgen
+BuildRequires:  /usr/bin/vapigen
 
-%if %{without bootstrap}
-# gnome
-BuildRequires:  pkgconfig(gio-2.0) >= 2.26
-# NetworkManager
-BuildRequires:  pkgconfig(libnm)
-# ConnMan's pacrunner (and NetworkManager)
-BuildRequires:  pkgconfig(dbus-1)
-# for libproxy's duktape pacrunner
 BuildRequires:  pkgconfig(duktape)
-# Python
+BuildRequires:  pkgconfig(gio-2.0) >= 2.71.3
+BuildRequires:  pkgconfig(gobject-introspection-1.0)
+BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  python3-devel
-%endif
+# For config-gnome
+BuildRequires:  pkgconfig(gsettings-desktop-schemas)
+
+# Folded into main package in 0.5.0. Remove in F41.
+Provides: python3-%{name} = %{version}-%{release}
+Provides: %{name}-pac = %{version}-%{release}
+
+# Obsoletes of subpackages prior to 0.5.0 rewrite. Remove in F41.
+Provides: %{name}-gnome = %{version}-%{release}
+Obsoletes: %{name}-gnome < %{version}-%{release}
+Provides: %{name}-kde = %{version}-%{release}
+Obsoletes: %{name}-kde < %{version}-%{release}
+Provides: %{name}-mozjs = %{version}-%{release}
+Obsoletes: %{name}-mozjs < %{version}-%{release}
+Provides: %{name}-pacrunner = %{version}-%{release}
+Obsoletes: %{name}-pacrunner < %{version}-%{release}
+Provides: %{name}-webkitgtk4 = %{version}-%{release}
+Obsoletes: %{name}-webkitgtk4 < %{version}-%{release}
+Provides: %{name}-duktape = %{version}-%{release}
+Obsoletes: %{name}-duktape < %{version}-%{release}
 
 
 %description
 libproxy offers the following features:
 
-    * extremely small core footprint (< 35K)
-    * no external dependencies within libproxy core
-      (libproxy plugins may have dependencies)
-    * only 4 functions in the stable external API
+    * extremely small core footprint
+    * minimal dependencies within libproxy core
+    * only 4 functions in the stable-ish external API
     * dynamic adjustment to changing network topology
     * a standard way of dealing with proxy settings across all scenarios
     * a sublime sense of joy and accomplishment
@@ -48,64 +63,6 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description    bin
 The %{name}-bin package contains the proxy binary for %{name}
 
-%if %{without bootstrap}
-%package -n     python3-%{name}
-Summary:        Binding for %{name} and python3
-Requires:       %{name} = %{version}-%{release}
-BuildArch:      noarch
-%{?python_provide:%python_provide python3-%{name}}
-
-%description -n python3-%{name}
-The python3 binding for %{name}
-
-%package        gnome
-Summary:        Plugin for %{name} and gnome
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-
-%description    gnome
-The %{name}-gnome package contains the %{name} plugin for gnome.
-
-%if 0%{?fedora}
-%package        kde
-Summary:        Plugin for %{name} and kde
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-Recommends:     /usr/bin/kreadconfig5
-
-%description    kde
-The %{name}-kde package contains the %{name} plugin for kde.
-%endif
-
-%package        networkmanager
-Summary:        Plugin for %{name} and networkmanager
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-
-%description    networkmanager
-The %{name}-networkmanager package contains the %{name} plugin
-for networkmanager.
-
-%package        duktape
-Summary:        Plugin for %{name} and duktape
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-Provides:       %{name}-pac = %{version}-%{release}
-Obsoletes:      %{name}-mozjs <= %{version}-%{release}
-Obsoletes:      %{name}-webkitgtk4 <= %{version}-%{release}
-
-%description    duktape
-The %{name}-duktape package contains the %{name} plugin for
-duktape.
-
-%package        pacrunner
-Summary:        Plugin for %{name} and PacRunner
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-Provides:       %{name}-pac = %{version}-%{release}
-Requires:       pacrunner
-
-%description    pacrunner
-The %{name}-pacrunner package contains the %{name} plugin for
-ConnMan's PacRunner.
-%endif
-
-
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
@@ -115,99 +72,64 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -p1
+# Unusual tarball directory name should be fixed in the next release.
+%autosetup -p1 -n libproxy-%{name}-%{version}
 
 
 %build
-export CXXFLAGS="-std=c++14 $RPM_OPT_FLAGS"
-%cmake \
-  -DMODULE_INSTALL_DIR=%{_libdir}/%{name}/%{version}/modules \
-  -DBIPR=OFF \
-  -DWITH_GNOME=OFF \
-  -DWITH_MOZJS=OFF \
-  -DWITH_PERL=OFF \
-  -DWITH_PYTHON2=OFF \
-  -DWITH_WEBKIT=OFF \
-  -DWITH_WEBKIT3=OFF \
-%if %{without bootstrap}
-  -DWITH_DUKTAPE=ON \
-  -DWITH_GNOME3=ON \
-  -DWITH_PYTHON3=ON \
-%if 0%{?fedora}
-  -DWITH_KDE=ON \
-%else
-  -DWITH_KDE=OFF \
-%endif
-%else
-  -DWITH_DUKTAPE=OFF \
-  -DWITH_KDE=OFF \
-  -DWITH_GNOME3=OFF \
-  -DWITH_PYTHON3=OFF \
-%endif
-  %{nil}
-%cmake_build
+%meson \
+  -Dconfig-gnome=true \
+  -Dconfig-kde=true \
+  -Dconfig-osx=false \
+  -Dconfig-windows=false \
+  -Dintrospection=true \
+  -Dtests=true \
+  -Dvapi=true
+%meson_build
 
 
 %install
-%cmake_install
-
-#In case all modules are disabled
-mkdir -p %{buildroot}%{_libdir}/%{name}/%{version}/modules
-
-# Man page.
-install -Dpm 0644 %{SOURCE1} %{buildroot}/%{_mandir}/man1/proxy.1
+%meson_install
 
 
 %check
-%ctest
+%meson_test
 
 %ldconfig_scriptlets
 
 
 %files
-%doc AUTHORS README
+%doc CHANGELOG.md README.md
 %license COPYING
-%{_libdir}/*.so.*
-%dir %{_libdir}/%{name}
-%dir %{_libdir}/%{name}/%{version}
-%dir %{_libdir}/%{name}/%{version}/modules
+%dir %{_libdir}/girepository-1.0
+%{_libdir}/girepository-1.0/Libproxy-1.0.typelib
+%{_libdir}/libproxy.so.*
+%dir %{_libdir}/libproxy
+%{_libdir}/libproxy/libpxbackend-1.0.so
 
 %files bin
 %{_bindir}/proxy
-%{_mandir}/man1/proxy.1*
-
-%if %{without bootstrap}
-%files -n python3-%{name}
-%{python3_sitelib}/__pycache__/*
-%{python3_sitelib}/%{name}.*
-
-%files duktape
-%{_libdir}/%{name}/%{version}/modules/pacrunner_duktape.so
-
-%files gnome
-%{_libdir}/%{name}/%{version}/modules/config_gnome3.so
-%{_libexecdir}/pxgsettings
-
-%if 0%{?fedora}
-%files kde
-%{_libdir}/%{name}/%{version}/modules/config_kde.so
-%endif
-
-%files networkmanager
-%{_libdir}/%{name}/%{version}/modules/network_networkmanager.so
-
-%files pacrunner
-%{_libdir}/%{name}/%{version}/modules/config_pacrunner.so
-%endif
+%{_mandir}/man8/proxy.8*
 
 %files devel
-%{_includedir}/proxy.h
-%{_libdir}/*.so
+%{_docdir}/libproxy-1.0/
+%{_includedir}/libproxy/
+%{_libdir}/libproxy.so
 %{_libdir}/pkgconfig/libproxy-1.0.pc
-%{_datadir}/cmake/Modules/Findlibproxy.cmake
+%dir %{_datadir}/gir-1.0
+%{_datadir}/gir-1.0/Libproxy-1.0.gir
+%dir %{_datadir}/vala/vapi/
+%{_datadir}/vala/vapi/libproxy-1.0.deps
+%{_datadir}/vala/vapi/libproxy-1.0.vapi
 
 
 %changelog
+* Mon May 22 2023 Adam Williamson <awilliam@redhat.com> - 0.5.0-2
+- Add missing obsolete/provide for libproxy-duktape
+
+* Tue May 16 2023 David King <amigadave@amigadave.com> - 0.5.0-1
+- Update to 0.5.0
+
 * Wed Feb 08 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.4.18-6
 - Soften KDE dependency
 

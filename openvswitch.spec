@@ -48,7 +48,7 @@ Name: openvswitch
 Summary: Open vSwitch daemon/database/utilities
 URL: https://www.openvswitch.org/
 Version: 3.1.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Nearly all of openvswitch is ASL 2.0.  The bugtool is LGPLv2+, and the
 # lib/sflow*.[ch] files are SISSL
@@ -419,6 +419,7 @@ done
 
 %pre
 %sysusers_create_compat %{SOURCE1}
+[ -L %{_sbindir}/ovs-vswitchd ] || rm -f %{_sbindir}/ovs-vswitchd
 
 %post
 %{_sbindir}/update-alternatives --install %{_sbindir}/ovs-vswitchd \
@@ -454,7 +455,7 @@ fi
 %if %{with dpdk}
 %ifarch %{dpdkarches}
 %post dpdk
-if fgrep -qw sse4_1 /proc/cpuinfo; then
+if grep -Fqw sse4_1 /proc/cpuinfo; then
     priority=20
 else
     echo "Warning: the CPU doesn't support SSE 4.1, dpdk support is not enabled." >&2
@@ -600,6 +601,10 @@ fi
 %{_sysusersdir}/openvswitch.conf
 
 %changelog
+* Mon May 22 2023 Timothy Redaelli <tredaelli@redhat.com> - 3.1.1-2
+- Replace fgrep with grep -F (#2203601)
+- Delete ovs-vswitchd, if it's not a link (#2188710)
+
 * Wed Apr 12 2023 Timothy Redaelli <tredaelli@redhat.com> - 3.1.1-1
 - Update for 3.1.1 (#2185071), includes fixes for CVE-2023-1668 (#2186245)
 

@@ -1,6 +1,6 @@
 Name:           calcurse
-Version:        4.8.0
-Release:        4%{?dist}
+Version:        4.8.1
+Release:        1%{?dist}
 Summary:        Text-based personal organizer
 
 License:        BSD-2-Clause
@@ -41,6 +41,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/doc/%{name}
 
 
 %changelog
+* Mon May 22 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.8.1-1
+- 4.8.1
+
 * Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.8.0-4
 - migrated to SPDX license
 

@@ -9,6 +9,18 @@ Version:                0.7.0
 
 %gometa
 
+# Remove in F40:
+%global godevelheader %{expand:
+# From older versions of golang-googlecode-net that should have been Obsoleted
+# by its renames, but weren't.
+Obsoletes:      golang-golangorg-net-devel < 0-0.41
+Obsoletes:      golang-googlecode-net-devel < 0-0.41
+# From latest version of golang-googlecode-net, which was previously Obsoleted
+# by this package, so shouldn't be necessary, but put it in to be explicit and
+# avoid issues with the above two.
+Obsoletes:      golang-golang-org-net-devel < 0-0.51
+}
+
 %global common_description %{expand:
 This package holds supplementary Go networking libraries.}
 

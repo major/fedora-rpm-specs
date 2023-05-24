@@ -11,6 +11,14 @@ storage backends, and representing data with Python object.Documentation of
 HDMF can be found at Release. Documentation of HDMF can be found at 
 https://hdmf.readthedocs.io}
 
+# We have unbundled hdmf-common-schema. It’s possible that some version skew
+# could be tolerated here, but it’s best if the unbundled version can match the
+# version that was bundled in the current python-hdmf release. That version
+# number can be read from
+# src/hdmf/common/hdmf-common-schema/common/namespace.yaml, in
+# ['namespaces'][0]['version'].
+%global schema_version 1.6.0
+
 Name:           python-hdmf
 Version:        3.6.1
 Release:        %autorelease
@@ -40,19 +48,9 @@ BuildRequires:  python3dist(tqdm)
 %package -n python3-hdmf
 Summary:        %{summary}
 
-# The source directory src/hdmf/common/hdmf-common-schema (installed as
-# %%{python3_sitelib}/hdmf/common/hdmf-common-schema) is a git submodule
-# corresponding to https://github.com/hdmf-dev/hdmf-common-schema, which
-# contains no script or configuration for installing it separately system-wide.
-# Nonetheless, as it is separately versioned, it may be a candidate for
-# unbundling.
-#
-# The version number can be read from
-# src/hdmf/common/hdmf-common-schema/common/namespace.yaml, in
-# ['namespaces'][0]['version'].
-#
-# It is released under the same BSD-3-Clause-LBNL as python-hdmf.
-Provides:       bundled(hdmf-common-schema) = 1.6.0
+# Unbundled
+BuildRequires:  hdmf-common-schema = %{schema_version}
+Requires:       hdmf-common-schema = %{schema_version}
 
 %description -n python3-hdmf %{desc}
 
@@ -60,6 +58,7 @@ Provides:       bundled(hdmf-common-schema) = 1.6.0
 
 %prep
 %autosetup -n hdmf-%{version} -p1
+rm -vrf src/hdmf/common/hdmf-common-schema/
 
 %generate_buildrequires
 %pyproject_buildrequires -x zarr
@@ -70,6 +69,10 @@ Provides:       bundled(hdmf-common-schema) = 1.6.0
 %install
 %pyproject_install
 %pyproject_save_files hdmf
+
+ln -s %{_datadir}/hdmf-common-schema/ \
+    %{buildroot}%{python3_sitelib}/hdmf/common/hdmf-common-schema
+
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
 
 %check
@@ -80,8 +83,12 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
 %files -n python3-hdmf -f %{pyproject_files}
 %license license.txt
 %doc README.rst Legal.txt
+
 %{_bindir}/validate_hdmf_spec
 %{_mandir}/man1/validate_hdmf_spec.1*
+
+# symbolic link
+%{python3_sitelib}/hdmf/common/hdmf-common-schema
 
 %changelog
 %autochangelog
