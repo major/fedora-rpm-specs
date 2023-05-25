@@ -1,15 +1,11 @@
 Name:           rpi-imager
-Version:        1.7.4
+Version:        1.7.5
 Release:        1%{?dist}
 Summary:        Graphical user-interface to write disk images and format SD cards
 
 License:        ASL 2.0
 URL:            https://github.com/raspberrypi/%{name}
 Source0:        %{URL}/archive/v%{version}/%{name}.tar.gz#/%{name}-%{version}.tar.gz
-
-# PR request https://github.com/raspberrypi/rpi-imager/pull/567
-# TODO remove patch in version (PR merged)
-Patch0:         0001-fix-header-import-cstdint.patch
 
 #https://github.com/raspberrypi/rpi-imager/blob/qml/src/CMakeLists.txt#L95
 ExcludeArch:    s390x
@@ -77,6 +73,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 %doc README.md
 
 %changelog
+* Tue May 23 2023 K. de Jong <keesdejong@fedoraproject.org> - 1.7.5-1
+- New upstream release
+
 * Sun Mar 19 2023 Onuralp SEZER <thunderbirdtr@fedoraproject.org> - 1.7.4-1
 - rpi-imager version 1.7.4
 - Telemery disabled

@@ -11,7 +11,7 @@
 
 Name:           python-requests
 Version:        2.28.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        HTTP library, written in Python, for human beings
 
 License:        ASL 2.0
@@ -20,6 +20,9 @@ Source0:        https://github.com/requests/requests/archive/v%{version}/request
 # Explicitly use the system certificates in ca-certificates.
 # https://bugzilla.redhat.com/show_bug.cgi?id=904614
 Patch0:         system-certs.patch
+
+# Security fix for CVE-2023-32681
+Patch1:         https://github.com/psf/requests/commit/74ea7cf7a6.patch#/CVE-2023-32681.patch
 
 BuildArch:      noarch
 
@@ -94,6 +97,10 @@ sed -i 's/ --doctest-modules//' pyproject.toml
 
 
 %changelog
+* Tue May 23 2023 Miro Hrončok <mhroncok@redhat.com> - 2.28.2-2
+- Security fix for CVE-2023-32681
+- https://github.com/psf/requests/security/advisories/GHSA-j8r2-6x86-q33q
+
 * Wed Feb 01 2023 Lumír Balhar <lbalhar@redhat.com> - 2.28.2-1
 - Update to 2.28.2 (rhbz#2160527)
 

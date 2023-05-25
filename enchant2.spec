@@ -5,8 +5,8 @@
 %endif
 
 Name:          enchant2
-Version:       2.3.4
-Release:       2%{?dist}
+Version:       2.4.0
+Release:       1%{?dist}
 Summary:       An Enchanting Spell Checking Library
 
 License:       LGPLv2+
@@ -240,6 +240,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Tue May 23 2023 Sandro Mani <manisandro@gmail.com> - 2.4.0-1
+- Update to 2.4.0
+
 * Mon Apr 24 2023 Sandro Mani <manisandro@gmail.com> - 2.3.4-2
 - Disable mingw by default in RHEL builds
 

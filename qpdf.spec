@@ -1,7 +1,7 @@
 Summary: Command-line tools and library for transforming PDF files
 Name:    qpdf
-Version: 11.3.0
-Release: 2%{?dist}
+Version: 11.4.0
+Release: 1%{?dist}
 # MIT: e.g. libqpdf/sha2.c
 # upstream uses ASL 2.0 now, but he allowed other to distribute qpdf under
 # old license (see README)
@@ -138,7 +138,7 @@ install -m 0644 completions/zsh/_qpdf %{buildroot}%{zsh_completions_dir}/_qpdf
 %doc README.md TODO ChangeLog
 %license Artistic-2.0
 %{_libdir}/libqpdf.so.29
-%{_libdir}/libqpdf.so.29.3.0
+%{_libdir}/libqpdf.so.29.4.0
 
 %files devel
 %doc examples/*.cc examples/*.c
@@ -151,6 +151,9 @@ install -m 0644 completions/zsh/_qpdf %{buildroot}%{zsh_completions_dir}/_qpdf
 
 
 %changelog
+* Mon May 22 2023 Zdenek Dohnal <zdohnal@redhat.com> - 11.4.0-1
+- 2208892 - qpdf-11.4.0 is available
+
 * Mon Mar 27 2023 Zdenek Dohnal <zdohnal@redhat.com> - 11.3.0-2
 - 2181519 - qpdf bash and zsh completion files are missing
 

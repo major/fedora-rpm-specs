@@ -1,5 +1,5 @@
 Name:           hidapi
-Version:        0.13.1
+Version:        0.14.0
 Release:        1%{?dist}
 Summary:        Library for communicating with USB and Bluetooth HID devices
 
@@ -100,6 +100,9 @@ Obsoletes:      mingw64-hidapi-static < 0.11.2-6
 %{mingw64_includedir}/hidapi
 
 %changelog
+* Tue May 23 2023 Scott Talbert <swt@techie.net> - 0.14.0-1
+- Update to new upstream release 0.14.0 (#2209190)
+
 * Thu Feb 02 2023 Scott Talbert <swt@techie.net> - 0.13.1-1
 - Update to new upstream release 0.13.1 (#2159139)
 

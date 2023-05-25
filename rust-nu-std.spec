@@ -2,22 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate sys-info
+%global crate nu-std
 
-Name:           rust-sys-info
-Version:        0.9.1
+Name:           rust-nu-std
+Version:        0.80.0
 Release:        %autorelease
-Summary:        Get system information in Rust
+Summary:        Standard library of Nushell
 
 License:        MIT
-URL:            https://crates.io/crates/sys-info
+URL:            https://crates.io/crates/nu-std
 Source:         %{crates_source}
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Get system information in Rust. For now it supports Linux, Mac OS X,
-illumos, Solaris, FreeBSD, OpenBSD, and Windows.}
+The standard library of Nushell.}
 
 %description %{_description}
 
@@ -32,7 +31,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/CHANGELOG.md
+%doc %{crate_instdir}/CONTRIBUTING.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

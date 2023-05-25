@@ -13,7 +13,9 @@ Patch0:         python-tpm2-pytss-1.2.0-openssl.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
+%if %{undefined rhel}
 BuildRequires:  python3-pytest-xdist
+%endif
 BuildRequires:  tpm2-tss-devel >= 2.0.0
 BuildRequires:  gcc
 # for tests
@@ -58,7 +60,7 @@ Summary:        %{summary}
 %pyproject_check_import
 # tests are very dependent on the python/openssl versions and fail at various places
 # The test test_tools_decode_tpms_nv_public fails on Fedora rawhide now
-%pytest --import-mode=append -k "not test_tools_decode_tpms_nv_public" -n %{_smp_build_ncpus}
+%pytest --import-mode=append -k "not test_tools_decode_tpms_nv_public" %{?!rhel:-n %{_smp_build_ncpus}}
 
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}

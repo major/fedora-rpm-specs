@@ -1,21 +1,22 @@
 %global pypi_name PyMuPDF
 
 Name:           python-%{pypi_name}
-Version:        1.21.1
-Release:        6%{?dist}
+Version:        1.22.3
+Release:        2%{?dist}
 Summary:        Python binding for MuPDF - a lightweight PDF and XPS viewer
 
 License:        AGPL-3.0-or-later
 URL:            https://github.com/pymupdf/PyMuPDF
 Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
-Patch0:         0001-fix-FTBFS-against-system-mupdf.patch
+Patch0:         0001-fix-test_-font.patch
+Patch1:         0001-test_pixmap-adjust-to-turbojpeg.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-fonttools
 BuildRequires:  python3-pillow
 BuildRequires:  python3-pytest
 BuildRequires:  python3-sphinx
-BuildRequires:  python3-sphinx_rtd_theme
+BuildRequires:  python3-furo
 BuildRequires:  rst2pdf
 BuildRequires:  gcc gcc-c++
 BuildRequires:  swig
@@ -69,8 +70,11 @@ rm -f %{buildroot}%{_prefix}/README.md
 
 %check
 # FIXME: Crashes with Aborted, corrupted double-linked list
+%ifarch s390 s390x
 %pytest || :
-
+%else
+%pytest
+%endif
 
 %files -n python3-%{pypi_name}
 %license COPYING
@@ -81,6 +85,24 @@ rm -f %{buildroot}%{_prefix}/README.md
 %doc docs_built/* README.md
 
 %changelog
+* Thu May 11 2023 Michael J Gruber <mjg@fedoraproject.org> - 1.22.3-2
+- Reenable test suite where possible
+
+* Thu May 11 2023 Michael J Gruber <mjg@fedoraproject.org> - 1.22.3-1
+- Update to new upstream release 1.22.3 (rhbz#2186919)
+
+* Fri Apr 28 2023 Michael J Gruber <mjg@fedoraproject.org> - 1.22.2-1
+- Update to new upstream release 1.22.2 (rhbz#2186919)
+
+* Mon Apr 24 2023 Michael J Gruber <mjg@fedoraproject.org> - 1.22.1-1
+- Update to new upstream release 1.22.1 (rhbz#2186919)
+- Minor bug fixes
+
+* Sat Apr 15 2023 Michael J Gruber <mjg@fedoraproject.org> - 1.22.0-1
+- Update to new upstream release 1.22.0 (rhbz#2186919)
+- Text extraction now includes glyphs that overlap with clip rect, not just those contained entirely.
+- Compatibility with mupdf 1.22.0, various bug fixes.
+
 * Thu Apr 06 2023 Sandro Mani <manisandro@gmail.com> - 1.21.1-6
 - Rebuild (tesseract)
 

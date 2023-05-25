@@ -3,11 +3,15 @@
 Name:           python-%{srcname}
 
 Version:        3.0.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Url:            https://github.com/openstack/ldappool
 Summary:        A connection pool for python-ldap
 License:        MPLv1.1 and GPLv2+ and LGPLv2+
 Source:         https://files.pythonhosted.org/packages/source/l/%{srcname}/%{srcname}-%{version}.tar.gz
+# TODO(jcapitao): remove the patches below once https://review.opendev.org/c/openstack/ldappool/+/805495
+# and https://review.opendev.org/c/openstack/ldappool/+/882455/ are merged and included in a new release
+Patch0001:      0001-Fix-pep8-gate.patch
+Patch0002:      0002-Remove-usage-of-six-library.patch
 BuildArch:      noarch
 
 %global _description\
@@ -37,7 +41,7 @@ BuildRequires:  python3-testresources
 %description -n python3-%{srcname} %_description
 
 %prep
-%setup -q -n %{srcname}-%{version}
+%autosetup -p1 -n %{srcname}-%{version}
 
 %build
 %py3_build
@@ -57,6 +61,9 @@ PYTHON=python3 stestr-3 run
 %{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue May 23 2023 Joel Capitao <jcapitao@redhat.com> - 3.0.0-5
+- Remove usage of six library
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

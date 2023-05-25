@@ -1,8 +1,8 @@
 Name:           perl-Struct-Dumb
 Version:        0.14
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Make simple lightweight record-like structures
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/Struct-Dumb
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PEVANS/Struct-Dumb-%{version}.tar.gz
@@ -12,12 +12,18 @@ BuildRequires:  coreutils
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
 BuildRequires:  perl(Carp)
+BuildRequires:  perl(constant)
 BuildRequires:  perl(Data::Dump)
+BuildRequires:  perl(experimental)
+BuildRequires:  perl(feature)
 BuildRequires:  perl(Module::Build)
+BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Test2::V0)
 BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(warnings)
+Requires:       perl(experimental)
+Requires:       perl(overload)
 
 %{?perl_default_filter}
 
@@ -51,6 +57,10 @@ that access or modify the values stored.
 
 
 %changelog
+* Tue May 23 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.14-2
+- Specify all dependencies
+- Update license to SPDX format
+
 * Sun Apr 16 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.14-1
 - Update to 0.14
 

@@ -1,6 +1,6 @@
 # See eachdist.ini:
-%global stable_version 1.17.0
-%global prerel_version 0.38~b0
+%global stable_version 1.18.0
+%global prerel_version 0.39~b0
 # WARNING: Because python-opentelemetry-contrib has some exact-version
 # dependencies on subpackages of this package, it must be updated
 # simultaneously with this package, preferably using a side tag, such that its
@@ -66,6 +66,7 @@ BuildRequires:  latexmk
       exporter/opentelemetry-exporter-zipkin
       exporter/opentelemetry-exporter-prometheus
       exporter/opentelemetry-exporter-otlp
+      exporter/opentelemetry-exporter-otlp-proto-common
       exporter/opentelemetry-exporter-otlp-proto-grpc
       exporter/opentelemetry-exporter-otlp-proto-http
       exporter/opentelemetry-exporter-jaeger-thrift
@@ -168,6 +169,21 @@ This library allows to export traces using OpenCensus.
 %endif
 
 
+%package -n python3-opentelemetry-exporter-otlp-proto-common
+Summary:        OpenTelemetry Protobuf Encoding
+Version:        %{stable_version}
+
+# Dependencies across subpackages should be fully-versioned.
+Requires:       python3-opentelemetry-proto = %{stable_version}-%{release}
+
+%description -n python3-opentelemetry-exporter-otlp-proto-common
+This library is provided as a convenience to encode to Protobuf. Currently used
+by:
+
+  • opentelemetry-exporter-otlp-proto-grpc
+  • opentelemetry-exporter-otlp-proto-http
+
+
 %package -n python3-opentelemetry-exporter-otlp-proto-grpc
 Summary:        OpenTelemetry Collector Protobuf over gRPC Exporter
 Version:        %{stable_version}
@@ -176,6 +192,7 @@ Version:        %{stable_version}
 Requires:       python3-opentelemetry-api = %{stable_version}-%{release}
 Requires:       python3-opentelemetry-sdk = %{stable_version}-%{release}
 Requires:       python3-opentelemetry-proto = %{stable_version}-%{release}
+Requires:       python3-opentelemetry-exporter-otlp-proto-common = %{stable_version}-%{release}
 
 %description -n python3-opentelemetry-exporter-otlp-proto-grpc
 This library allows to export data to the OpenTelemetry Collector using the
@@ -190,6 +207,7 @@ Version:        %{stable_version}
 Requires:       python3-opentelemetry-api = %{stable_version}-%{release}
 Requires:       python3-opentelemetry-sdk = %{stable_version}-%{release}
 Requires:       python3-opentelemetry-proto = %{stable_version}-%{release}
+Requires:       python3-opentelemetry-exporter-otlp-proto-common = %{stable_version}-%{release}
 
 %description -n python3-opentelemetry-exporter-otlp-proto-http
 This library allows to export data to the OpenTelemetry Collector using the
@@ -762,6 +780,23 @@ done
 %{python3_sitelib}/opentelemetry/exporter/opencensus/
 %{python3_sitelib}/opentelemetry_exporter_opencensus-%{prerel_distinfo}/
 %endif
+
+
+%files -n python3-opentelemetry-exporter-otlp-proto-common
+# Note that the contents are identical to the top-level LICENSE file.
+%license exporter/opentelemetry-exporter-otlp-proto-common/LICENSE
+%doc exporter/opentelemetry-exporter-otlp-proto-common/README.rst
+
+# Shared namespace directories
+%dir %{python3_sitelib}/opentelemetry/
+%{python3_sitelib}/opentelemetry/py.typed
+%dir %{python3_sitelib}/opentelemetry/exporter/
+%dir %{python3_sitelib}/opentelemetry/exporter/otlp/
+%{python3_sitelib}/opentelemetry/exporter/otlp/py.typed
+%dir %{python3_sitelib}/opentelemetry/exporter/otlp/proto/
+
+%{python3_sitelib}/opentelemetry/exporter/otlp/proto/common/
+%{python3_sitelib}/opentelemetry_exporter_otlp_proto_common-%{stable_distinfo}/
 
 
 %files -n python3-opentelemetry-exporter-otlp-proto-grpc

@@ -5,7 +5,7 @@
 %global crate warp-sessions
 
 Name:           rust-warp-sessions
-Version:        1.0.18
+Version:        1.0.19
 Release:        %autorelease
 Summary:        Generic session middleware for the warp HTTP framework
 

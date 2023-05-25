@@ -6,7 +6,7 @@
 %global crate i18n-embed
 
 Name:           rust-i18n-embed
-Version:        0.13.8
+Version:        0.13.9
 Release:        %autorelease
 Summary:        Conveniently embed localization assets
 

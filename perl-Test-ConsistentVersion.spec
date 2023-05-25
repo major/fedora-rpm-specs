@@ -1,20 +1,22 @@
 Name:           perl-Test-ConsistentVersion
 Version:        0.3.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Ensures a CPAN distribution has consistent versioning
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-ConsistentVersion
-Source0:        https://cpan.metacpan.org/authors/id/C/CE/CEBJYRE/Test-ConsistentVersion-v%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/modules/by-module/Test/Test-ConsistentVersion-v%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires:  perl-interpreter
+# Build:
+BuildRequires:  coreutils
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
 BuildRequires:  perl(autodie)
 BuildRequires:  perl(Carp)
-BuildRequires:  perl(Test::Builder)
+BuildRequires:  perl(Test::Builder) >= 0.94
 BuildRequires:  perl(Test::Pod::Content)
 BuildRequires:  perl(version)
 BuildRequires:  perl(:VERSION) >= 5.6.0
@@ -28,6 +30,7 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Perl::Critic)
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
 BuildRequires:  perl(Test::Pod) >= 1.14
+# Dependencies:
 Requires:       perl(Test::Pod::Content)
 
 %description
@@ -39,22 +42,29 @@ README file and Changelog) of the distribution.
 %setup -q -n Test-ConsistentVersion-v%{version}
 
 %build
-/usr/bin/perl Build.PL installdirs=vendor
+/usr/bin/perl Build.PL --installdirs=vendor
 ./Build
 
 %install
-./Build install destdir=$RPM_BUILD_ROOT create_packlist=0
-%{_fixperms} $RPM_BUILD_ROOT/*
+./Build install --destdir=$RPM_BUILD_ROOT --create_packlist=0
+%{_fixperms} -c $RPM_BUILD_ROOT
 
 %check
 TEST_AUTHOR=1 ./Build test
 
 %files
 %doc Changes README
-%{perl_vendorlib}/Test*
-%{_mandir}/man3/Test*
+%{perl_vendorlib}/Test/
+%{_mandir}/man3/Test::ConsistentVersion.3*
 
 %changelog
+* Tue May 23 2023 Paul Howarth <paul@city-fan.org> - 0.3.1-6
+- Spec tidy-up
+  - Use author-independent source URL
+  - Use SPDX-format license tag
+  - Fix permissions verbosely
+  - Make %%files list a little more explicit
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,64 +1,58 @@
 %global fontname lohit-devanagari
-%global fontconf 65-1-%{fontname}.conf
-%global fontconf1 59-%{fontname}.conf
-%global metainfo io.pagure.lohit.devanagari.font.metainfo
 
-Name:           %{fontname}-fonts
 Version:        2.95.5
-Release:        5%{?dist}
-Summary:        Free Devanagari Script Font
-License:        OFL
-URL:            https://pagure.io/lohit
-Source0:        https://github.com/lohit-fonts/%{name}/files/6454324/%{fontname}-%{version}.tar.gz
-BuildArch:      noarch
-BuildRequires: fontforge >= 20080429
-BuildRequires:  fontpackages-devel
-BuildRequires:  ttfautohint
-BuildRequires: python3-devel
-BuildRequires: make
-Requires:       fontpackages-filesystem
+Release:        7%{?dist}
+URL:            https://github.com/lohit-fonts/lohit-devanagari-fonts
 
-%description
+%global foundry           Lohit
+%global fontlicense       OFL-1.1
+%global fontlicenses      OFL.txt COPYRIGHT
+%global fontdocs          AUTHORS README.md ChangeLog test-devanagari.txt
+
+%global fontfamily        Lohit Devanagari
+%global fontsummary       Free Devanagari Script Font
+%global fonts             *.ttf
+%global fontconfs         %{SOURCE10} %{SOURCE11}
+
+%global fontdescription   %{expand:
 This package provides a free Devanagari Script TrueType/OpenType font.
+}
+
+BuildRequires:  make
+BuildRequires:  fontforge
+BuildRequires:  ttfautohint
+Source0:        https://github.com/lohit-fonts/%{name}/files/6454324/%{fontname}-%{version}.tar.gz
+Source10:       59-%{fontpkgname}.conf
+Source11:       65-1-%{fontpkgname}.conf
+
+%fontpkg
 
 %prep
 %setup -q -n %{fontname}-%{version} 
-mv 66-%{fontname}.conf 65-1-lohit-devanagari.conf
+%linuxtext OFL.txt AUTHORS README.md ChangeLog COPYRIGHT test-devanagari.txt
 
 %build
 make ttf %{?_smp_mflags}
+%fontbuild
 
 %install
+%fontinstall
 
-install -m 0755 -d %{buildroot}%{_fontdir}
-install -m 0644 -p *.ttf %{buildroot}%{_fontdir}
+%check
+%fontcheck
 
-install -m 0755 -d %{buildroot}%{_fontconfig_templatedir} \
-                   %{buildroot}%{_fontconfig_confdir}
-
-install -m 0644 -p %{fontconf} \
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}
-
-install -m 0644 -p %{fontconf1} \
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf1}
-
-ln -s %{_fontconfig_templatedir}/%{fontconf} \
-      %{buildroot}%{_fontconfig_confdir}/%{fontconf}
-
-ln -s %{_fontconfig_templatedir}/%{fontconf1} \
-      %{buildroot}%{_fontconfig_confdir}/%{fontconf1}
-
-# Add AppStream metadata
-install -Dm 0644 -p %{metainfo}.xml \
-       %{buildroot}%{_datadir}/metainfo/%{metainfo}.xml
-
-%_font_pkg -f *-%{fontname}.conf *.ttf
-
-%doc ChangeLog COPYRIGHT OFL.txt AUTHORS README.md test-devanagari.txt
-%{_datadir}/metainfo/%{metainfo}.xml
+%fontfiles
 
 
 %changelog
+* Mon May 15 2023 Sudip Shil <sshil@redhat.com> - 2.95.5-7
+- Included make ttf macro
+
+* Tue May 2 2023 Sudip Shil <sshil@redhat.com> - 2.95.5-6
+- Convert to new fonts packaging guidelines
+- Update the fonts package
+- https://fedoraproject.org/wiki/Changes/New_Fonts_Packaging
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.95.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

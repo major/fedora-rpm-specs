@@ -1,6 +1,6 @@
 Name:           gcompris-qt
 Version:        3.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Educational software suite for children aged 2 to 10
 
 License:        AGPLv3
@@ -31,6 +31,7 @@ Requires:       qt5-qtquickcontrols
 Requires:       qt5-qtquickcontrols2
 Requires:       qt5-qtgraphicaleffects
 Requires:       qt5-qtsvg
+Requires:       qt5-qtimageformats
 Requires:       qt5-qtcharts
 Requires:       hicolor-icon-theme
 Requires:       %{name}-activities = %{version}-%{release}
@@ -100,6 +101,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.gc
 
 
 %changelog
+* Tue May 23 2023 Andrea Musuruane <musuruan@gmail.com> - 3.2-2
+- Added missing qt5-qtimageformats dependency (BZ# 2209119)
+
 * Sat Apr 01 2023 Andrea Musuruane <musuruan@gmail.com> - 3.2-1
 - Updated to new upstream release
 

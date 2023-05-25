@@ -362,8 +362,8 @@ virt-fw-vars --input   Fedora/ovmf/OVMF_VARS.fd \
              --output  Fedora/ovmf/OVMF_VARS.secboot.fd \
              --set-dbx DBXUpdate-%{DBXDATE}.x64.bin \
              --enroll-redhat --secure-boot
-virt-fw-vars --input   Fedora/ovmf-4m/OVMF_VARS.fd \
-             --output  Fedora/ovmf-4m/OVMF_VARS.secboot.fd \
+virt-fw-vars --input   Fedora/ovmf/OVMF_VARS_4M.fd \
+             --output  Fedora/ovmf/OVMF_VARS_4M.secboot.fd \
              --set-dbx DBXUpdate-%{DBXDATE}.x64.bin \
              --enroll-redhat --secure-boot
 virt-fw-vars --input   Fedora/ovmf-ia32/OVMF_VARS.fd \
@@ -373,7 +373,7 @@ virt-fw-vars --input   Fedora/ovmf-ia32/OVMF_VARS.fd \
 build_iso Fedora/ovmf
 build_iso Fedora/ovmf-ia32
 
-for raw in */ovmf-4m/*.fd; do
+for raw in */ovmf/*_4M*.fd; do
     qcow2="${raw%.fd}.qcow2"
     qemu-img convert -f raw -O qcow2 -o cluster_size=4096 -S 4096 "$raw" "$qcow2"
     rm -f "$raw"
@@ -387,10 +387,13 @@ virt-fw-vars --input   Fedora/experimental/OVMF.stateless.fd \
 
 for image in \
 	Fedora/ovmf/OVMF_CODE.secboot.fd \
-	Fedora/ovmf-4m/OVMF_CODE.secboot.qcow2 \
+	Fedora/ovmf/OVMF_CODE_4M.secboot.qcow2 \
 	Fedora/experimental/OVMF.stateless.secboot.fd \
 ; do
-	pcr="${image%.fd}.pcr"
+	pcr="${image}"
+	pcr="${pcr%.fd}"
+	pcr="${pcr%.qcow2}"
+	pcr="${pcr}.pcr"
 	python3 /usr/share/doc/python3-virt-firmware/experimental/measure.py \
 		--image "$image" \
 		--version "%{name}-%{version}-%{release}" \
@@ -578,13 +581,11 @@ done
 %if %{defined fedora}
 %{_datadir}/%{name}/ovmf/MICROVM.fd
 %{_datadir}/qemu/firmware/50-edk2-ovmf-x64-microvm.json
-%dir %{_datadir}/%{name}/ovmf-4m/
-%{_datadir}/%{name}/ovmf-4m/OVMF_CODE.qcow2
-%{_datadir}/%{name}/ovmf-4m/OVMF_CODE.secboot.qcow2
-%{_datadir}/%{name}/ovmf-4m/OVMF_VARS.qcow2
-%{_datadir}/%{name}/ovmf-4m/OVMF_VARS.secboot.qcow2
+%{_datadir}/%{name}/ovmf/OVMF_CODE_4M.qcow2
+%{_datadir}/%{name}/ovmf/OVMF_CODE_4M.secboot.qcow2
+%{_datadir}/%{name}/ovmf/OVMF_VARS_4M.qcow2
+%{_datadir}/%{name}/ovmf/OVMF_VARS_4M.secboot.qcow2
 %{_datadir}/%{name}/ovmf/*.pcr
-%{_datadir}/%{name}/ovmf-4m/*.pcr
 %endif
 # endif build_ovmf
 %endif

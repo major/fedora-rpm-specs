@@ -1,5 +1,5 @@
 Name:           python-pytest-console-scripts
-Version:        1.3.1
+Version:        1.4.0
 Release:        %autorelease
 Summary:        Pytest plugin for testing console scripts
 License:        MIT

@@ -12,7 +12,7 @@ Finally, Snakemake workflows can entail a description of required software,
 which will be automatically deployed to any execution environment.}
 
 Name:           snakemake
-Version:        7.25.3
+Version:        7.26.0
 Release:        %autorelease 
 Summary:        Workflow management system to create reproducible and scalable data analyses
 
@@ -34,6 +34,13 @@ BuildArch:      noarch
 Patch:          snakemake-7.11.0-docs-no-animated-demo.patch
 
 BuildRequires:  python3-devel
+
+BuildRequires:  help2man
+
+BuildRequires:  vim-filesystem
+Requires:       vim-filesystem
+
+Provides:       vim-snakemake = %{version}-%{release}
 
 %if %{with tests}
 # See test-environment.yml for a listing of test dependencies, along with a lot
@@ -86,6 +93,12 @@ sed -r -i 's@"python"@"%{python3}"@g' tests/test_linting.py
 sed -r -i '/sphinxcontrib-napoleon/d' docs/requirements.txt
 # Since pdflatex cannot handle Unicode inputs in general:
 echo "latex_engine = 'xelatex'" >> docs/conf.py
+# Copy and rename nano and vim extensions readmes for use in the main
+# documentation directory.
+for editor in nano vim
+do
+  cp -vp "misc/${editor}/README.md" "README-${editor}.md"
+done
 
 %generate_buildrequires
 # Generate BR’s for all supported extras to ensure they do not FTI
@@ -111,6 +124,34 @@ PYTHONPATH="${PWD}" %make_build -C docs latexpdf SPHINXOPTS='%{?_smp_mflags}'
 %pyproject_install
 %pyproject_save_files snakemake
 
+# We wait until %%install to generate the man page so that we can use the
+# proper script entry point. The generated man page is not perfect, but it is
+# good enough to be useful.
+install -d %{buildroot}%{_mandir}/man1
+PATH="${PATH-}:%{buildroot}%{_bindir}" \
+    PYTHONPATH='%{buildroot}%{python3_sitelib}' \
+    help2man --no-info --name='%{summary}' snakemake \
+    > %{buildroot}%{_mandir}/man1/snakemake.1
+# No man page for snakemake-bash-completion since it is not intended for manual
+# invocation.
+
+# Generate and install shell completions.
+install -d %{buildroot}%{bash_completions_dir}
+PATH="${PATH-}:%{buildroot}%{_bindir}" \
+    PYTHONPATH='%{buildroot}%{python3_sitelib}' \
+    snakemake --bash-completion \
+    > %{buildroot}%{bash_completions_dir}/snakemake.bash
+
+# Install nano syntax highlighting
+install -t '%{buildroot}%{_datadir}/nano' -D -m 0644 -p \
+    misc/nano/syntax/snakemake.nanorc
+
+# Install vim syntax highlighting
+install -d '%{buildroot}%{_datadir}/vim/vimfiles'
+cp -vrp misc/vim/* '%{buildroot}%{_datadir}/vim/vimfiles'
+find '%{buildroot}%{_datadir}/vim/vimfiles' \
+    -type f -name 'README.*' -print -delete
+
 %check
 %if %{with tests}
 # Lint output “Migrate long run directives into scripts or notebooks …” is
@@ -129,13 +170,27 @@ k="${k-}${k+ and }not test_slurm_"
 
 %files -f %{pyproject_files}
 %{_bindir}/snakemake
+%{_mandir}/man1/snakemake.1*
+
 %{_bindir}/snakemake-bash-completion
+%{bash_completions_dir}/snakemake.bash
+
+# This is not owned by the filesystem package, and there is no nano-filesystem
+# subpackage, so we co-own the directory to avoid depending on nano.
+%dir %{_datadir}/nano/
+%{_datadir}/nano/snakemake.nanorc
+
+%{_datadir}/vim/vimfiles/ftdetect/snakemake.vim
+%{_datadir}/vim/vimfiles/ftplugin/snakemake/
+%{_datadir}/vim/vimfiles/syntax/snakemake.vim
 
 %files doc
 %license LICENSE.md
 %doc CHANGELOG.md
 %doc CODE_OF_CONDUCT.md
 %doc README.md
+%doc README-nano.md
+%doc README-vim.md
 %if %{with doc_pdf}
 %doc docs/_build/latex/Snakemake.pdf
 %endif

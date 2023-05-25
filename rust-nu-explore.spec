@@ -5,16 +5,13 @@
 %global crate nu-explore
 
 Name:           rust-nu-explore
-Version:        0.76.0
+Version:        0.80.0
 Release:        %autorelease
 Summary:        Nushell table printing
 
 License:        MIT
 URL:            https://crates.io/crates/nu-explore
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * bump ls-colors from 0.12.0 to 0.13.0
-Patch:          nu-explore-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 

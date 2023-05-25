@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 
-%global gh_commit   968fa662d31276be53139c1a7f0accaec38765dc
+%global gh_commit   7e993b4b0a7a7d084ac4aa01f560de005cbaa411
 %global gh_short    %(c=%{gh_commit}; echo ${c:0:7})
 #global gh_date     20211001
 %global gh_owner    dloebl
@@ -17,7 +17,7 @@
 
 Name:          %{libname}
 Summary:       A fast and lightweight GIF encoder
-Version:       0.3.1
+Version:       0.3.2
 Release:       1%{?dist}
 License:       MIT
 
@@ -90,6 +90,9 @@ for %{libname}.
 
 
 %changelog
+* Tue May 23 2023 Remi Collet <remi@remirepo.net> - 0.3.2-1
+- update to 0.3.2 (no change)
+
 * Thu Apr  6 2023 Remi Collet <remi@remirepo.net> - 0.3.1-1
 - update to 0.3.1
 

@@ -3,7 +3,7 @@
 Summary:	Domain Name manipulation library for Ruby
 Name:		rubygem-%{gem_name}
 Version:	0.5.20190701
-Release:	9%{?dist}
+Release:	10%{?dist}
 
 # See LICENSE.txt
 # BSD-2-Clause: overall
@@ -11,7 +11,7 @@ Release:	9%{?dist}
 # MPL-2.0:	lib/domain_name/etld_data.rb
 # data/effective_tld_names.dat is not included in binary rpm
 # SPDX confirmed
-License:	BSD-2-Clause AND BSD-3-Clause and MPL-2.0
+License:	BSD-2-Clause AND BSD-3-Clause AND MPL-2.0
 URL:		https://github.com/knu/ruby-domain_name
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
 
@@ -96,7 +96,7 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
-* Sat May  6 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.20190701-6
+* Tue May 23 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.20190701-10
 - SPDX migration
 
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.20190701-9

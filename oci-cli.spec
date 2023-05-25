@@ -3,7 +3,7 @@
 %bcond_with     tests
 
 Name:           oci-cli
-Version:        3.27.1
+Version:        3.28.0
 Release:        %autorelease
 Summary:        Command Line Interface for Oracle Cloud Infrastructure 
 
@@ -27,7 +27,7 @@ This is the command line interface for Oracle Cloud Infrastructure.}
 
 # Awaiting a fix for python-cx-oracle
 # https://src.fedoraproject.org/rpms/python-cx-oracle/pull-request/1
-# %%pyproject_extras_subpkg -n %{name} db
+# %%pyproject_extras_subpkg -n %%{name} db
 
 
 %prep
@@ -45,7 +45,8 @@ sed -i 's/jmespath==0.10.0/jmespath>=0.10.0/' setup.py
 sed -i 's/prompt-toolkit==3.0.29/prompt-toolkit>=3.0.29/' setup.py
 sed -i 's/terminaltables==3.1.0/terminaltables>=3.1.0/' setup.py
 
-# Remove upper version limit for PyYAML.
+# Remove upper version limits.
+sed -i 's/cryptography>=3.2.1,<40.0.0/cryptography>=3.2.1/' setup.py
 sed -i 's/PyYAML>=5.4,<6/PyYAML>=5.4/' setup.py
 
 

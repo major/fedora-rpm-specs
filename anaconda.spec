@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 39.15
-Release: 2%{?dist}
+Version: 39.16
+Release: 1%{?dist}
 License: GPLv2+ and MIT
 URL:     http://fedoraproject.org/wiki/Anaconda
 
@@ -470,6 +470,34 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue May 23 2023 Packit <hello@packit.dev> - 39.16-1
+- Change driver_updates exit info messages to debug (#2154904) (jkonecny)
+- Add readme for the conf.d drop dir (vslavik)
+- webui: use the reason in title of disabled partitioing warning (rvykydal)
+- WebUI: improve handling of removal of testvm's (jvanderwaa)
+- webui: [pixel-tests] update microcopy of "erase-all" storage scenario
+  (rvykydal)
+- webui: update microcopy of "erase-all" storage scenario (rvykydal)
+- Add a draft release note for the Runtime module (vslavik)
+- Add tests for the Runtime and Dracut modules (vslavik)
+- Add the dracut command module (vslavik)
+- Add the Runtime module (vslavik)
+- Add release notes packaging Web UI (jkonecny)
+- Fix release notes link consistency (jkonecny)
+- docs: Add other f38 release notes (vslavik)
+- docs: Add vponcova f38 release notes (vslavik)
+- docs: Add F38 release notes for vslavik PRs (vslavik)
+- Create Fedora 38 release notes (jkonecny)
+- Remove link to the release notes template.rst (jkonecny)
+- WebUI: close embedded panel when clicking prev/next (jvanderwaa)
+- WebUI: update ESLINT to LINT (jvanderwaa)
+- WebUI: use StorageScenarioId in all components (jvanderwaa)
+- WebUI: set default storage scenario based on scenarios constant (jvanderwaa)
+- webui: use the same naming for disk images created in machine_install
+  (rvykydal)
+- webui: consolidate creating images in machine_install (rvykydal)
+- Update translations from Weblate
+
 * Fri May 19 2023 Petr Pisar <ppisar@redhat.com> - 39.15-2
 - Rebuild against rpm-4.19 (https://fedoraproject.org/wiki/Changes/RPM-4.19)
 

@@ -11,6 +11,7 @@ Source0:        %{pypi_source qrcode}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+BuildRequires:  python3-pytest
 
 # Comment out failing test
 Patch0:         qrcode_test.patch
@@ -33,7 +34,8 @@ generation of QR Codes. Python 3 version.
 
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+# RHEL does not include the extra test dependencies (coverage, pillow)
+%pyproject_buildrequires %{?!rhel:-x test -x pil}
 
 
 %prep
@@ -60,7 +62,7 @@ ln -s qr %{buildroot}%{_bindir}/qrcode
 
 
 %check
-%tox
+%pytest
 
 
 %files -n python3-%{pkgname} -f %{pyproject_files}

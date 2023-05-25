@@ -2,7 +2,7 @@ Name:		perl-Test-CPAN-Meta-YAML
 Version:	0.25
 Release:	25%{?dist}
 Summary:	Validate a META.yml file within a CPAN distribution
-License:	Artistic 2.0
+License:	Artistic-2.0
 URL:		https://metacpan.org/release/Test-CPAN-Meta-YAML
 Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-CPAN-Meta-YAML-%{version}.tar.gz
 Patch0:		Test-CPAN-Meta-YAML-0.25-utf8.patch
@@ -29,7 +29,7 @@ BuildRequires:	perl(Test::More)
 BuildRequires:	perl(Test::CPAN::Meta::JSON)
 BuildRequires:	perl(Test::Pod) >= 1.00
 BuildRequires:	perl(Test::Pod::Coverage) >= 0.08
-# Runtime
+# Dependencies
 # Explicitly requests the YAML::Syck backend for Test::YAML::Valid
 Requires:	perl(YAML::Syck)
 
@@ -45,7 +45,7 @@ See CPAN::Meta for further details of the CPAN Meta Specification.
 %setup -q -n Test-CPAN-Meta-YAML-%{version}
 
 # Recode documentation as UTF-8
-%patch0
+%patch -P 0
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor

@@ -2,22 +2,24 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate sys-info
+%global crate nu-cmd-lang
 
-Name:           rust-sys-info
-Version:        0.9.1
+Name:           rust-nu-cmd-lang
+Version:        0.80.0
 Release:        %autorelease
-Summary:        Get system information in Rust
+Summary:        Nushell's core language commands
 
 License:        MIT
-URL:            https://crates.io/crates/sys-info
+URL:            https://crates.io/crates/nu-cmd-lang
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * downgrade shadow-rs to 0.8
+Patch:          nu-cmd-lang-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Get system information in Rust. For now it supports Linux, Mac OS X,
-illumos, Solaris, FreeBSD, OpenBSD, and Windows.}
+Nushell's core language commands.}
 
 %description %{_description}
 
@@ -32,8 +34,6 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/CHANGELOG.md
-%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

@@ -1,6 +1,6 @@
 Name:           thonny
 Version:        4.0.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python IDE for beginners
 
 # Code is MIT, toolbar icons are EPL-1.0
@@ -8,6 +8,11 @@ Summary:        Python IDE for beginners
 License:        MIT AND EPL-1.0
 URL:            https://thonny.org
 Source:         %{pypi_source}
+
+# zenity 3.91+ has removed some of the CLI options leading to failure in
+# opening and saving files in Gnome's thonny
+# Submitted upstream: https://github.com/thonny/thonny/pull/2786
+Patch:          Enable-thonny-to-open-and-save-files-with-zenity-3.91.patch
 
 BuildArch:      noarch
 
@@ -106,6 +111,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.thonn
 
 
 %changelog
+* Tue May 16 2023 Karolina Surma <ksurma@redhat.com> - 4.0.2-3
+- Enable openning and saving files with zenity 3.91+
+Resolves: rhbz#2186809
+
 * Fri Mar 17 2023 Karolina Surma <ksurma@redhat.com> - 4.0.2-2
 - Unbundle python-filelock
 

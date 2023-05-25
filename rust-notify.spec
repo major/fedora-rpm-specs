@@ -5,7 +5,7 @@
 %global crate notify
 
 Name:           rust-notify
-Version:        5.1.0
+Version:        5.2.0
 Release:        %autorelease
 Summary:        Cross-platform filesystem notification library
 
@@ -16,7 +16,6 @@ Source:         %{crates_source}
 # Automatically generated patch to strip foreign dependencies
 Patch:          notify-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * Downgrade inotify to 0.8
 # * Remove unwanted features
 Patch:          notify-fix-metadata.diff
 

@@ -1,11 +1,13 @@
 Name:           perl-DBM-Deep
 Version:        2.0016
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        A pure perl multi-level hash/array DBM
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DBM-Deep
 Source0:        https://cpan.metacpan.org/authors/id/S/SP/SPROUT/DBM-Deep-%{version}.tar.gz
 Patch0:         DBM-Deep-2.0016-Module-Build.patch
+# Remove using of ' as a package name separator (CPAN RT#148417)
+Patch1:         DBM-Deep-2.0016-Fix-for-perl-5.38.patch
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
@@ -66,7 +68,8 @@ C-based DBM. Out-of-the-box compatibility with Unix, Mac OS X and Windows.
 %setup -q -n DBM-Deep-%{version}
 
 # Relax Module::Build version requirement for EPEL7 build
-%patch0 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 
 %build
 perl Build.PL --installdirs=vendor
@@ -96,6 +99,9 @@ LONG_TESTS=1 TEST_SQLITE=1 ./Build test
 %{_mandir}/man3/DBM::Deep::Storage::File.3*
 
 %changelog
+* Tue May 23 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.0016-18
+- Fix test 01_basic.t to pass with Perl 5.38
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0016-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

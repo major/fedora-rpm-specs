@@ -5,13 +5,13 @@
 
 Name:		rubygem-%{gem_name}
 Version:	3.4.3
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	RubyGem of Localization Library and Tools for Ruby
 
 # Ruby OR LGPL-3.0-or-later:	gemspec
 # Ruby:	lib/gettext/mo.rb
 # SPDX confirmed
-License:	(Ruby OR AND LGPL-3.0-or-later) AND Ruby
+License:	(Ruby OR LGPL-3.0-or-later) AND Ruby
 URL:		http://www.yotabanana.com/hiki/ruby-gettext.html?ruby-gettext
 Source0:	http://gems.rubyforge.org/gems/%{gem_name}-%{version}.gem
 
@@ -157,6 +157,9 @@ popd
 %{gem_instdir}/samples/
 
 %changelog
+* Tue May 23 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.3-5
+- Fix license typo
+
 * Sat May  6 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.3-4
 - SPDX migration
 

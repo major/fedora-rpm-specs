@@ -1,7 +1,7 @@
 %global         srcname     guest-configs
 
 Name:           google-compute-engine-guest-configs
-Version:        20230515.00
+Version:        20230522.00
 Release:        %autorelease
 Summary:        Google Compute Engine guest environment tools
 License:        Apache-2.0

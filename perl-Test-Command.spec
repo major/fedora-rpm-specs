@@ -1,24 +1,29 @@
 Name:           perl-Test-Command
 Version:        0.11
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Test routines for external commands
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Command
-Source0:        https://cpan.metacpan.org/authors/id/D/DA/DANBOO/Test-Command-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/modules/by-module/Test/Test-Command-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires:  perl-interpreter
+# Build:
+BuildRequires:  coreutils
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(Module::Build)
+# Module:
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
-BuildRequires:  perl(Config)
-BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(File::Temp)
-BuildRequires:  perl(FindBin)
-BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::Builder::Module)
-BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
+# Tests:
+BuildRequires:  perl(Config)
+BuildRequires:  perl(FindBin)
+BuildRequires:  perl(Test::More) >= 0.62
+# Dependencies:
+# (none)
 
 %description
 Test::Command intends to bridge the gap between the well tested functions
@@ -30,22 +35,30 @@ determine if it is behaving as expected.
 %setup -q -n Test-Command-%{version}
 
 %build
-%{__perl} Build.PL installdirs=vendor
+perl Build.PL --installdirs=vendor
 ./Build
 
 %install
-./Build install destdir=$RPM_BUILD_ROOT create_packlist=0
-%{_fixperms} $RPM_BUILD_ROOT/*
+./Build install --destdir=%{buildroot} --create_packlist=0
+%{_fixperms} -c %{buildroot}
 
 %check
 ./Build test
 
 %files
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Test/
+%{_mandir}/man3/Test::Command.3*
 
 %changelog
+* Tue May 23 2023 Paul Howarth <paul@city-fan.org> - 0.11-23
+- Spec tidy-up
+  - Use SPDX-format license tag
+  - Classify buildreqs by usage
+  - Use author-independent source URL
+  - Fix permissions verbosely
+  - Make %%files list more explicit
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

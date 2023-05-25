@@ -1,6 +1,6 @@
 Name:           babeltrace2
-Version:        2.0.4
-Release:        9%{?dist}
+Version:        2.0.5
+Release:        1%{?dist}
 Summary:        A trace manipulation toolkit
 License:        MIT AND GPL-2.0-only
 URL:            https://www.efficios.com/babeltrace
@@ -122,6 +122,9 @@ rm -f %{buildroot}/%{_pkgdocdir}/std-ext-lib.txt
 
 
 %changelog
+* Tue May 23 2023 Michael Jeanson <mjeanson@efficios.com> - 2.0.5-1
+- New upstream release
+
 * Mon May 08 2023 Michael Jeanson <mjeanson@efficios.com> - 2.0.4-9
 - migrated to SPDX license
 

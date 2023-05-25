@@ -4,9 +4,10 @@ Name:           libfreenect
 Version:        0.7.0
 Release:        1%{?dist}
 Summary:        Device driver for the Kinect
-# Core libfreenect is available as ASL 2.0 OR GPLv2
-# OpenNI driver is available as ASL 2.0
-License:        ASL 2.0 and (GPLv2 or ASL 2.0)
+# Core libfreenect is available as Apache-2.0 OR GPL-2.0-only
+#
+# OpenNI driver is available as Apache-2.0
+License:        Apache-2.0 AND (GPL-2.0-only OR Apache-2.0)
 URL:            http://www.openkinect.org/
 
 Source0:        https://github.com/OpenKinect/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz

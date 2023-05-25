@@ -13,7 +13,7 @@
 %else
 %global with_nginx 0
 %endif
-%global upstream_version 6.2.1
+%global upstream_version 6.2.2
 #global upstream_prever  RC5
 #global upstream_lower   rc5
 
@@ -266,6 +266,9 @@ end
 
 
 %changelog
+* Sun May 21 2023 Remi Collet <remi@remirepo.net> - 6.2.2-1
+- WordPress 6.2.2 Security Release
+
 * Wed May 17 2023 Remi Collet <remi@remirepo.net> - 6.2.1-1
 - WordPress 6.2.1 Maintenance & Security Release
 

@@ -44,13 +44,14 @@ BuildRequires:  pandoc
 
 # For tests
 BuildRequires:  python3-pytest
-BuildRequires:  python3-pytest-xdist
 BuildRequires:  /usr/bin/python
 BuildRequires:  python3-scipy
 
-# ipython is not included in RHEL
-# this is only used to test integration with ipython
+# these packages are not included in RHEL
 %if %{undefined rhel}
+# this is used for supporting -n auto in %%pytest
+BuildRequires:  python3-pytest-xdist
+# this is only used to test integration with ipython
 BuildRequires:  /usr/bin/ipython
 %endif
 
@@ -139,7 +140,7 @@ k="$k and not test_setup_bdist_install3"
 # this test needs ipython
 k="$k and not test_loadext_and_run"
 %endif
-%pytest -n auto -k "$k"
+%pytest %{?!rhel:-n auto} -k "$k"
 
 
 %files -f %{pyproject_files}

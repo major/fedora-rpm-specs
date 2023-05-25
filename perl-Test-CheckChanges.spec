@@ -9,7 +9,7 @@ Name:		perl-Test-CheckChanges
 Summary:	Check that the Changes file matches the distribution
 Version:	0.14
 Release:	38%{?dist}
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-CheckChanges
 Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-CheckChanges-%{version}.tar.gz
 BuildArch:	noarch
@@ -40,7 +40,7 @@ BuildRequires:	perl(Test::Perl::Critic)
 BuildRequires:	perl(Test::Pod) >= 1.00
 BuildRequires:	perl(Test::Pod::Coverage) >= 1.00
 %endif
-# Runtime
+# Dependencies
 Requires:	perl(Module::Build::Version)
 
 %description

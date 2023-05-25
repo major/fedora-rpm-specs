@@ -5,7 +5,7 @@
 %global crate pyproject-toml
 
 Name:           rust-pyproject-toml
-Version:        0.5.2
+Version:        0.6.0
 Release:        %autorelease
 Summary:        Pyproject.toml parser in Rust
 
@@ -31,6 +31,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/Changelog.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

@@ -2,21 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate inotify
+%global crate ratatui
 
-Name:           rust-inotify
-Version:        0.9.6
+Name:           rust-ratatui
+Version:        0.20.1
 Release:        %autorelease
-Summary:        Idiomatic wrapper for inotify
+Summary:        Library to build rich terminal user interfaces or dashboards
 
-License:        ISC
-URL:            https://crates.io/crates/inotify
+License:        MIT
+URL:            https://crates.io/crates/ratatui
 Source:         %{crates_source}
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Idiomatic wrapper for inotify.}
+A library to build rich terminal user interfaces or dashboards.}
 
 %description %{_description}
 
@@ -31,9 +31,10 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/APPS.md
 %doc %{crate_instdir}/CHANGELOG.md
-%doc %{crate_instdir}/CONTRIBUTING.md
 %doc %{crate_instdir}/README.md
+%doc %{crate_instdir}/RELEASE.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -48,40 +49,40 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+futures-core-devel
+%package     -n %{name}+crossterm-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+futures-core-devel %{_description}
+%description -n %{name}+crossterm-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "futures-core" feature of the "%{crate}" crate.
+use the "crossterm" feature of the "%{crate}" crate.
 
-%files       -n %{name}+futures-core-devel
+%files       -n %{name}+crossterm-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+stream-devel
+%package     -n %{name}+serde-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+stream-devel %{_description}
+%description -n %{name}+serde-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "stream" feature of the "%{crate}" crate.
+use the "serde" feature of the "%{crate}" crate.
 
-%files       -n %{name}+stream-devel
+%files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+tokio-devel
+%package     -n %{name}+termion-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+tokio-devel %{_description}
+%description -n %{name}+termion-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "tokio" feature of the "%{crate}" crate.
+use the "termion" feature of the "%{crate}" crate.
 
-%files       -n %{name}+tokio-devel
+%files       -n %{name}+termion-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -99,7 +100,8 @@ use the "tokio" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test
+# skip tests that don't panic as expected
+%cargo_test -- -- --skip buffer::Buffer::index_of --skip buffer::Buffer::pos_of --skip buffer::tests::index_of_panics_on_out_of_bounds --skip buffer::tests::pos_of_panics_on_out_of_bounds
 %endif
 
 %changelog

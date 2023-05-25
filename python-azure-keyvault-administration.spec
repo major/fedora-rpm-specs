@@ -4,7 +4,7 @@
 %global         srcname     azure-keyvault-administration
 
 Name:           python-%{srcname}
-Version:        4.0.0b3
+Version:        4.3.0
 Release:        %autorelease
 Summary:        Microsoft Azure Key Vault Administration Client Library for Python
 License:        MIT

@@ -1,14 +1,16 @@
-#global rctag rc4
+%global rctag rc1
 
 Name:		wsjtx
-Version:	2.6.1
-Release:	2%{?dist}
+Version:	2.7.0
+Release:	1%{?dist}
 Summary:	Weak Signal communication by K1JT
 License:	GPLv3+
 
 URL:		http://physics.princeton.edu/pulsar/k1jt/wsjtx.html
 Source0:    https://sourceforge.net/projects/wsjt/files/%{name}-%{version}%{?rctag:-%{rctag}}/%{name}-%{version}%{?rctag:-%{rctag}}.tgz
 Source100:	wsjtx.appdata.xml
+
+Patch0:     wsjtx.patch
 
 BuildRequires:	cmake
 BuildRequires:	dos2unix
@@ -25,7 +27,7 @@ BuildRequires:	hamlib-devel
 BuildRequires:	fftw-devel
 BuildRequires:	libusbx-devel
 BuildRequires:	systemd-devel
-%if 0%{?rhel}
+%if 0%{?rhel} && 0%{?rhel} < 9
 BuildRequires:	boost169-devel
 %else
 BuildRequires:	boost-devel
@@ -46,7 +48,8 @@ from the Moon.
 
 
 %prep
-%setup -n %{name}-%{version}%{?rctag:-%{rctag}}
+%setup -n %{name}-%{version}
+#{?rctag:-%{rctag}}
 
 # remove bundled hamlib
 rm -f src/hamlib*.tgz* src/hamlib*.tar.gz*
@@ -56,6 +59,8 @@ tar -xzf src/%{name}.tgz
 rm -f src/wsjtx.tgz*
 
 cd %{name}
+
+%patch 0 -p2
 
 %if ! 0%{?rhel} < 8
 # remove bundled boost. EL 7 is not required version.
@@ -132,6 +137,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_bindir}/fmeasure
 %{_bindir}/fmtave
 %{_bindir}/fst4sim
+%{_bindir}/hash22calc
 %{_bindir}/jt4code
 %{_bindir}/jt65code
 %{_bindir}/jt9

@@ -4,7 +4,7 @@
 %global         srcname     azure-mgmt-imagebuilder
 
 Name:           python-%{srcname}
-Version:        1.1.0
+Version:        1.2.0
 Release:        %autorelease
 Summary:        Microsoft Azure Image Builder Client Library for Python
 License:        MIT

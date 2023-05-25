@@ -10,7 +10,7 @@
 
 Summary: Benchmarking authorative and recursing DNS servers
 Name: dnsperf
-Version: 2.11.2
+Version: 2.12.0
 Release: 1%{?dist}
 # New page was found, but on github is also project, that seems to be official.
 #
@@ -137,6 +137,9 @@ install -m 755 -p %{SOURCE2} %{buildroot}%{_bindir}/dnsperf-data
 %endif
 
 %changelog
+* Tue May 23 2023 Petr Menšík <pemensik@redhat.com> - 2.12.0-1
+- Update to 2.12.0
+
 * Fri Mar 17 2023 Petr Menšík <pemensik@redhat.com> - 2.11.2-1
 - Update to 2.11.2
 

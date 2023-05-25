@@ -262,6 +262,9 @@ Requires:       dbus
 # dbus-update-activation-environment
 Requires:       dbus-tools
 
+# Required for applications to show in kickoff and on task manager
+Requires:       redhat-menus
+
 # startkde (TODO: review, this is no longer a shell script)
 Requires:       coreutils
 Requires:       socat

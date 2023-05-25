@@ -1,6 +1,6 @@
 Name:           python-sentry-sdk
 Version:        1.22.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The new Python SDK for Sentry.io
 
 License:        MIT
@@ -25,10 +25,12 @@ BuildRequires:  python3dist(fastapi)
 BuildRequires:  python3dist(flask)
 BuildRequires:  python3dist(flask-login)
 BuildRequires:  python3dist(gevent)
+BuildRequires:  python3dist(grpcio)
 BuildRequires:  python3dist(httpx)
 BuildRequires:  python3dist(jsonschema)
 BuildRequires:  python3dist(mock)
 BuildRequires:  python3dist(opentelemetry-distro)
+BuildRequires:  python3dist(protobuf)
 BuildRequires:  python3dist(psycopg2)
 BuildRequires:  python3dist(pure-eval)
 BuildRequires:  python3dist(pymongo)
@@ -49,6 +51,8 @@ BuildRequires:  python3dist(starlette)
 BuildRequires:  python3dist(tornado)
 BuildRequires:  python3dist(werkzeug)
 
+# For re-generating protobuf bindings
+BuildRequires:  protobuf-compiler
 
 %global _description %{expand:
 Python Error and Performance Monitoring. Actionable insights to resolve Python
@@ -81,6 +85,7 @@ Summary:        %{summary}
   fastapi
   pymongo
   opentelemetry
+  grpcio
 }
 %pyproject_extras_subpkg -n python3-sentry-sdk %_extras
 
@@ -94,6 +99,12 @@ Summary:        %{summary}
 
 
 %build
+# Re-generate the protobuf bindings for compatibility with the packaged
+# protobuf version.
+pushd tests/integrations/grpc/
+protoc --python_out="${PWD}" grpc_test_service.proto
+popd
+
 %pyproject_wheel
 
 
@@ -170,6 +181,12 @@ sed -i '/assert event\["_meta"\]/i\ \ \ \ if not event["_meta"]["extra"]: event[
 
 
 %changelog
+* Mon May 22 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.22.1-2
+- Add grpcio extra metapackage and test dependency
+- Add an explicit protobuf dependency for testing
+- Re-generate integration grpc test proto bindings; fixes FTBFS with
+  python-opentelemetry 1.18.0/0.39~b0
+
 * Mon May 08 2023 Roman Inflianskas <rominf@aiven.io> - 1.22.1-1
 - Update to 1.22.1 (resolve rhbz#2193365)
 

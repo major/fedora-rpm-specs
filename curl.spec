@@ -1,6 +1,6 @@
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
-Version: 8.1.0
+Version: 8.1.1
 Release: 1%{?dist}
 License: curl
 Source0: https://curl.se/download/%{name}-%{version}.tar.xz
@@ -408,6 +408,9 @@ rm -f ${RPM_BUILD_ROOT}%{_libdir}/libcurl.la
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Tue May 23 2023 Jan Macku <jamacku@redhat.com> - 8.1.1-1
+- new upstream release, with small bugfixes and improvements
+
 * Wed May 17 2023 Kamil Dudka <kdudka@redhat.com> - 8.1.0-1
 - new upstream release, which fixes the following vulnerabilities
     CVE-2023-28321 - IDN wildcard match

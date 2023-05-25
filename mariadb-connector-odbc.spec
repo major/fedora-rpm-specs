@@ -8,7 +8,7 @@ Version:        3.1.18
 Release:        1%{?with_debug:.debug}%{?dist}
 Summary:        The MariaDB Native Client library (ODBC driver)
 License:        LGPL-2.1-or-later
-Source:         https://downloads.mariadb.org/f/connector-odbc-%{version}/%{name}-%{version}-src.tar.gz
+Source:         https://archive.mariadb.org/connector-odbc-%{version}/%{name}-%{version}-src.tar.gz
 Url:            https://mariadb.org/en/
 # Online documentation can be found at: https://mariadb.com/kb/en/library/mariadb-connector-odbc/
 

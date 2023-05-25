@@ -6,13 +6,16 @@
 %global crate zbus_macros
 
 Name:           rust-zbus_macros
-Version:        3.12.0
+Version:        3.13.1
 Release:        %autorelease
 Summary:        Proc-macros for zbus
 
 License:        MIT
 URL:            https://crates.io/crates/zbus_macros
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * relax winnow dependency from =0.4.1 to ^0.4.1
+Patch:          zbus_macros-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 

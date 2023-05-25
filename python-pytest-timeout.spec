@@ -14,7 +14,6 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist pexpect}
 BuildRequires:  %{py3_dist pytest} >= 3.6.0
-BuildRequires:  %{py3_dist pytest-cov}
 BuildRequires:  %{py3_dist setuptools}
 
 %global _description %{expand:

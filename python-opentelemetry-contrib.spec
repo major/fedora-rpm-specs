@@ -1,14 +1,14 @@
 # See eachdist.ini. Note that this package must have the same version as the
 # ”prerel_version” (pre-release version) and “stable_version” in the
 # python-opentelemetry package, and the two packages must be updated together.
-%global stable_version 1.17.0
-%global prerel_version 0.38~b0
+%global stable_version 1.18.0
+%global prerel_version 0.39~b0
 # There are a few subpackages that have their *own* versioning scheme!
 %global aws_propagator_version 1.0.1
 %global aws_sdk_version 2.0.1
 # Adjust this to ensure the release is monotonic, unless the base package
 # version and the above versions all change at the same time.
-%global baserel 9
+%global baserel 12
 
 # Older versions of subpackages that are disabled in these conditionals are
 # Obsoleted in python3-opentelemetry-contrib-instrumentations; if changing or
@@ -26,6 +26,9 @@
 
 # A subpackage needs falcon >= 1.4.1, < 4.0.0; F38 has 4.0.0
 %bcond_with falcon
+
+# A subpackage needs httpx >= 0.18.0, <= 0.23.0; F39 has 0.24.0
+%bcond_with httpx
 
 # Some tests need moto ~= 2.0; but python-moto is not packaged
 %bcond_with moto
@@ -84,6 +87,21 @@ Source0:        %{url}/archive/v%{srcversion}/opentelemetry-python-contrib-%{src
 Source10:       opentelemetry-bootstrap.1
 Source11:       opentelemetry-instrument.1
 
+# Add direct/explicit dependencies on yarl
+# https://github.com/open-telemetry/opentelemetry-python-contrib/pull/1821
+#
+# Rebased on v0.39b0 tag.
+Patch:          opentelemetry-python-contrib-0.39b0-yarl.patch
+
+# Revert “Fix expected URL in aiohttp instrumentation test”
+# https://github.com/open-telemetry/opentelemetry-python-contrib/pull/1772
+#
+# Upstream adjusted this when updating to yarl 1.9.1; maybe this changed back
+# from 1.9.1 to 1.9.2? The fact that I had to revert the commit was reported
+# upstream in:
+# https://github.com/open-telemetry/opentelemetry-python-contrib/pull/1821#issuecomment-1560136536
+Patch:          0001-Revert-Fix-expected-URL-in-aiohttp-instrumentation-t.patch
+
 BuildArch:      noarch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 # While this package is noarch, excluding i686 unblocks many dependent packages
@@ -91,6 +109,9 @@ BuildArch:      noarch
 ExcludeArch:    %{ix86}
 
 BuildRequires:  python3-devel
+
+# For yarl version check; see %%check section
+BuildRequires:  python3dist(packaging)
 
 %global stable_distinfo %(echo '%{stable_version}' | tr -d '~^').dist-info
 %global prerel_distinfo %(echo '%{prerel_version}' | tr -d '~^').dist-info
@@ -122,7 +143,7 @@ BuildRequires:  python3-devel
     instrumentation/opentelemetry-instrumentation-fastapi
     instrumentation/opentelemetry-instrumentation-flask
     instrumentation/opentelemetry-instrumentation-grpc
-    instrumentation/opentelemetry-instrumentation-httpx
+    %{?with_httpx:instrumentation/opentelemetry-instrumentation-httpx}
     instrumentation/opentelemetry-instrumentation-jinja2
     instrumentation/opentelemetry-instrumentation-kafka-python
     instrumentation/opentelemetry-instrumentation-logging
@@ -861,6 +882,7 @@ packages that are instrumented) are installed.
 %ghost %{python3_sitelib}/opentelemetry_instrumentation_grpc-%{prerel_distinfo}
 
 
+%if %{with httpx}
 %package -n python3-opentelemetry-instrumentation-httpx
 Summary:        OpenTelemetry HTTPX Instrumentation
 Version:        %{prerel_version}
@@ -893,6 +915,7 @@ python3-opentelemetry-instrumentation-httpx. It makes sure the dependencies
 
 %files -n python3-opentelemetry-instrumentation-httpx+instruments
 %ghost %{python3_sitelib}/opentelemetry_instrumentation_httpx-%{prerel_distinfo}
+%endif
 
 
 %package -n python3-opentelemetry-instrumentation-jinja2
@@ -1656,7 +1679,12 @@ Obsoletes:      python3-opentelemetry-instrumentation-falcon+instruments < 0.36~
 Requires:       python3-opentelemetry-instrumentation-fastapi = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
 Requires:       python3-opentelemetry-instrumentation-flask = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
 Requires:       python3-opentelemetry-instrumentation-grpc = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
+%if %{with httpx}
 Requires:       python3-opentelemetry-instrumentation-httpx = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
+%else
+Obsoletes:      python3-opentelemetry-instrumentation-httpx < 0.36~b0-11
+Obsoletes:      python3-opentelemetry-instrumentation-httpx+instruments < 0.36~b0-11
+%endif
 Requires:       python3-opentelemetry-instrumentation-jinja2 = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
 Requires:       python3-opentelemetry-instrumentation-kafka-python = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
 Requires:       python3-opentelemetry-instrumentation-logging = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
@@ -1708,7 +1736,7 @@ that could not be satisfied.
 
 
 %prep
-%autosetup -n opentelemetry-python-contrib-%{srcversion}
+%autosetup -n opentelemetry-python-contrib-%{srcversion} -p1
 
 # Un-pin test dependencies that were pinned to exact versions but perhaps
 # habitually rather than for some concrete reason.
@@ -1763,6 +1791,7 @@ for omit in \
     %{?!with_aio_pika:aio-pika} \
     %{?!with_confluent_kafka:confluent-kafka} \
     %{?!with_falcon:falcon} \
+    %{?!with_httpx:httpx} \
     %{?!with_remoulade:remoulade} \
     %{?!with_sklearn:sklearn} \
     %{?!with_starlette:starlette} \
@@ -1851,11 +1880,11 @@ for dep in cfg.get("testenv", "deps").splitlines():
     # We cannot test obsolete or future versions
     excludes.update({"django1", "django2", "django4"})
     excludes.update({"elasticsearch2", "elasticsearch5", "elasticsearch6"})
-    excludes.update({"falcon1", "falcon2", "falcon3"})
-    excludes.add("sqlalchemy11")
+    excludes.update({"falcon2", "falcon2", "falcon3"})
+    excludes.update({"sqlalchemy11", "sqlalchemy12"})
     excludes.add("pika0")
     excludes.update({"pymemcache135", "pymemcache200", "pymemcache300"})
-    excludes.update({"pymemcache342"})
+    excludes.update({"pymemcache342", "pymemcache400"})
     excludes.update({"httpx18", "httpx21"})
 %if %{without aio_pika}
     excludes.update({"aio-pika7", "aio-pika8", "aio-pika9"})
@@ -2366,6 +2395,7 @@ done
 %{python3_sitelib}/opentelemetry_instrumentation_grpc-%{prerel_distinfo}/
 
 
+%if %{with httpx}
 %files -n python3-opentelemetry-instrumentation-httpx
 %license instrumentation/opentelemetry-instrumentation-httpx/LICENSE
 %doc instrumentation/opentelemetry-instrumentation-httpx/README.rst
@@ -2375,6 +2405,7 @@ done
 
 %{python3_sitelib}/opentelemetry/instrumentation/httpx/
 %{python3_sitelib}/opentelemetry_instrumentation_httpx-%{prerel_distinfo}/
+%endif
 
 
 %files -n python3-opentelemetry-instrumentation-jinja2

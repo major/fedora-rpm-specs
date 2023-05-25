@@ -2,15 +2,14 @@ Name: plug
 Version: 1.4.3
 Release: 3%{?dist}
 Summary: Linux software for Fender Mustang amplifiers
-License: GPLv3+
+License: GPL-3.0-or-later
 Url: https://github.com/offa/plug
 
 Source0: https://github.com/offa/plug/archive/v%{version}/%{name}-%{version}.tar.gz
 
 Patch0: fix_gcc_13_ftbfs.patch
 
-#BuildRequires: make
-BuildRequires: cmake make
+BuildRequires: cmake
 BuildRequires: systemd-rpm-macros
 BuildRequires: pkgconfig(Qt5Gui)
 BuildRequires: pkgconfig(Qt5Widgets)

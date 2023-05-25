@@ -4,13 +4,12 @@
 %global         srcname     azure-mgmt-containerinstance
 
 Name:           python-%{srcname}
-Version:        10.1.0~b1
-%global         pypi_version 10.1.0b1
+Version:        10.1.0
 Release:        %autorelease
 Summary:        Microsoft Azure Container Instance Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{srcname} %{pypi_version} zip}
+Source0:        %{pypi_source %{srcname} %{version} zip}
 
 BuildArch:      noarch
 
@@ -45,7 +44,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{srcname}-%{pypi_version}
+%autosetup -n %{srcname}-%{version}
 
 
 %generate_buildrequires

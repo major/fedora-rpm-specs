@@ -4,7 +4,7 @@
 %global crate desed
 
 Name:           rust-desed
-Version:        1.2.0
+Version:        1.2.1
 Release:        %autorelease
 Summary:        Sed script debugger
 
@@ -13,6 +13,9 @@ URL:            https://crates.io/crates/desed
 Source:         %{crates_source}
 # Automatically generated patch to strip foreign dependencies
 Patch:          desed-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+#  * Downgrade inotify dependency to 0.9
+Patch:          desed-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
@@ -26,12 +29,12 @@ debugger.}
 Summary:        %{summary}
 
 # Apache-2.0 OR MIT
-# BSD-3-Clause
 # GPL-3.0-or-later
 # ISC
 # MIT
 # MIT OR Apache-2.0
-License:        GPL-3.0-or-later AND BSD-3-Clause AND ISC AND MIT AND (Apache-2.0 OR MIT)
+# Unlicense OR MIT
+License:        GPL-3.0-or-later AND ISC AND MIT AND (Apache-2.0 OR MIT) AND (Unlicense OR MIT)
 # LICENSE.dependencies contains a full license breakdown
 
 Requires:       sed >= 4.6

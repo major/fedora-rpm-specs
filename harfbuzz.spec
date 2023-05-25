@@ -4,7 +4,7 @@ Release:        1%{?dist}
 Summary:        Text shaping library
 
 License:        MIT
-URL:            https://harfbuzz.github.io/
+URL:            https://github.com/harfbuzz/harfbuzz/
 Source0:        https://github.com/harfbuzz/harfbuzz/releases/download/%{version}/harfbuzz-%{version}.tar.xz
 
 BuildRequires:  cairo-devel

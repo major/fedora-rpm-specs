@@ -1,6 +1,6 @@
 Name:           python-y-py
 Version:        0.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python bindings for the Y-CRDT built from yrs (Rust)
 License:        MIT
 URL:            https://github.com/y-crdt/ypy
@@ -51,47 +51,11 @@ License: MIT AND (MIT OR Apache-2.0) AND Apache-2.0
 
 %prep
 %autosetup -p1 -n y_py-%{version}
+# Fedora has maturin 1.0.0 which is pretty much compatible with 0.14;
+# we relax the upper bound entirely -- if it builds, it's probably OK.
+sed -i 's/maturin>=0.14,<0.15/maturin>=0.14/' pyproject.toml
 %cargo_prep
-# Porting from maturin to setuptools_rust
-# This is far from perfect but because maturin (a popular
-# build backend for Rust packages) is not yet available
-# in Fedora, we have to use setuptools-rust instead
-# which requires multiple changes in metadata.
 
-cat << EOF > MANIFEST.in
-include Cargo.toml
-recursive-include src *
-EOF
-
-cat << EOF > pyproject.toml
-[build-system]
-requires = ["setuptools", "wheel", "setuptools-rust"]
-EOF
-
-cat << EOF > setup.cfg
-[metadata]
-name = y-py
-version = %{version}
-license = MIT
-url = %{url}
-long_description = file: README.md
-long_description_content_type = text/markdown
-
-[options]
-zip_safe = False
-include_package_data = True
-EOF
-
-cat << EOF > setup.py
-import sys
-
-from setuptools import setup
-from setuptools_rust import RustExtension
-
-setup(
-    rust_extensions=[RustExtension("y_py", args=["--offline"])],
-)
-EOF
 
 %generate_buildrequires
 %cargo_generate_buildrequires
@@ -119,6 +83,9 @@ export RUSTFLAGS="%build_rustflags"
 
 
 %changelog
+* Mon May 22 2023 Miro Hrončok <mhroncok@redhat.com> - 0.6.0-2
+- Use maturin to build this package, as it is finally available in Fedora
+
 * Thu Feb 23 2023 Lumír Balhar <lbalhar@redhat.com> - 0.6.0-1
 - Update to 0.6.0 (rhbz#2171402)
 

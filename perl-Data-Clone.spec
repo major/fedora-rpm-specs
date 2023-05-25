@@ -1,11 +1,13 @@
 Name:           perl-Data-Clone
 Version:        0.004
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Polymorphic data cloning
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-Clone
 Source0:        https://cpan.metacpan.org/authors/id/G/GF/GFUJI/Data-Clone-%{version}.tar.gz
-BuildRequires: make
+# Remove using of ' as a package name separator (CPAN RT#148415)
+Patch0:         Data-Clone-0.004-Fix-for-perl-5.38.patch
+BuildRequires:  make
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl(constant)
@@ -38,6 +40,7 @@ polymorphic data cloning.
 
 %prep
 %setup -q -n Data-Clone-%{version}
+%patch -P0 -p1
 
 %build
 %{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}"
@@ -62,6 +65,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue May 23 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.004-28
+- Fix test 07_stack.t to pass with Perl 5.38
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.004-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

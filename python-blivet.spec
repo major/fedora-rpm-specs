@@ -23,7 +23,7 @@ Version: 3.7.1
 
 #%%global prerelease .b2
 # prerelease, if defined, should be something like .a1, .b1, .b2.dev1, or .c2
-Release: 2%{?prerelease}%{?dist}
+Release: 3%{?prerelease}%{?dist}
 Epoch: 1
 License: LGPL-2.1-or-later
 %global realname blivet
@@ -36,6 +36,7 @@ Patch0: 0001-remove-btrfs-plugin.patch
 %endif
 
 Patch1: 0002-Add-support-for-specifying-stripe-size-for-RAID-LVs.patch
+Patch2: 0003-Add-support-for-filesystem-online-resize.patch
 
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
@@ -198,6 +199,9 @@ configuration.
 %endif
 
 %changelog
+* Tue May 23 2023 Vojtech Trefny <vtrefny@redhat.com> - 3.7.1-3
+- Add support for filesystem online resize
+
 * Thu May 04 2023 Vojtech Trefny <vtrefny@redhat.com> - 3.7.1-2
 - Add support for specifying stripe size for RAID LVs
 

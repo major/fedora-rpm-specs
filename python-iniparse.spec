@@ -40,7 +40,7 @@ Summary:        %{summary}
 chmod -c -x html/index.html
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -51,7 +51,7 @@ rm -vfr %{buildroot}%{_docdir}/*
 %pyproject_save_files iniparse
 
 %check
-%tox
+%{py3_test_envvars} %{python3} ./runtests.py
 
 %files -n python3-iniparse -f %{pyproject_files}
 # pyproject_files handles both license files; verify with “rpm -qL -p …”

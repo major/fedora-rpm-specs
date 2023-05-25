@@ -1,6 +1,6 @@
 Name:           mailcap
-Version:        2.1.53
-Release:        6%{?dist}
+Version:        2.1.54
+Release:        1%{?dist}
 Summary:        Helper application and MIME type associations for file types
 
 License:        LicenseRef-Fedora-Public-Domain AND MIT
@@ -64,6 +64,9 @@ make check
 
 
 %changelog
+* Tue May 23 2023 Tomas Korbar <tkorbar@redhat.com> - 2.1.54-1
+- Rebase to 2.1.54
+
 * Fri Mar 10 2023 Tomas Korbar <tkorbar@redhat.com> - 2.1.53-6
 - Change the License tag to the SPDX format
 

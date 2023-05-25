@@ -18,7 +18,7 @@
 Summary:       The BOINC client
 Name:          boinc-client
 Version:       7.20.2
-Release:       4%{?dist}
+Release:       5%{?dist}
 License:       LGPLv2+
 URL:           http://boinc.berkeley.edu/
 
@@ -33,7 +33,6 @@ URL:           http://boinc.berkeley.edu/
 
 Source0:       https://github.com/BOINC/boinc/archive/%{gittag}/%{name}-%{version}.tar.gz
 SOURCE1:       boinc-client-logrotate-d
-SOURCE2:       boincmgr.desktop
 SOURCE3:       36x11-common_xhost-boinc
 SOURCE4:       config.properties
 %if 0%{?fedora} > 35
@@ -85,7 +84,6 @@ BuildRequires: curl-devel
 BuildRequires: devtoolset-7-toolchain
 BuildRequires: devtoolset-7-libatomic-devel
 %endif
-BuildRequires: desktop-file-utils
 BuildRequires: freeglut-devel
 BuildRequires: gcc-c++
 BuildRequires: gettext
@@ -259,10 +257,6 @@ install -p -m644 packages/generic/sea/boincmgr.16x16.png $RPM_BUILD_ROOT%{_datad
 install -p -m644 packages/generic/sea/boincmgr.32x32.png $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/32x32/apps/boincmgr.png
 install -p -m644 packages/generic/sea/boincmgr.48x48.png $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/48x48/apps/boincmgr.png
 
-desktop-file-install %{?_remove_encoding} \
-  --dir $RPM_BUILD_ROOT%{_datadir}/applications \
-  %{SOURCE2}
-
 %find_lang BOINC-Manager
 %find_lang BOINC-Client
 
@@ -326,7 +320,6 @@ fi
 %files -n boinc-manager -f BOINC-Manager.lang
 %{_bindir}/boincmgr
 %{_bindir}/boincscr
-%{_datadir}/applications/boincmgr.desktop
 %{_datadir}/applications/boinc.desktop
 %{_datadir}/boinc-manager/skins/*
 %{_datadir}/icons/hicolor/16x16/apps/boincmgr.png
@@ -353,6 +346,9 @@ fi
 %{_libdir}/pkgconfig/libboinc_opencl.pc
 
 %changelog
+* Wed Apr 05 2023 K. de Jong <keesdejong@fedoraproject.org> - 7.20.2-5
+- Removed custom boincmgr.desktop file
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.20.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

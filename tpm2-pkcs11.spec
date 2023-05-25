@@ -33,7 +33,10 @@ BuildRequires:	python3-tpm2-pytss
 # for tests
 BuildRequires:	libcmocka-devel
 BuildRequires:	dbus-daemon
+%if ! 0%{?rhel}
+# not available in RHEL
 BuildRequires:	python3-bcrypt
+%endif
 # for tarball signature verification
 BuildRequires:	gnupg2
 
@@ -57,6 +60,9 @@ The tools required to setup and configure TPM2 for PKCS#11.
 %prep
 gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
 %autosetup -p1 -n %{name}-%{version}%{?candidate:-%{candidate}}
+%if 0%{?rhel}
+sed -i -e "/'bcrypt',/d" tools/setup.py
+%endif
 
 
 %build

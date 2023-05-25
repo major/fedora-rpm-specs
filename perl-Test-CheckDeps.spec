@@ -2,7 +2,7 @@ Name:		perl-Test-CheckDeps
 Summary:	Check for presence of dependencies
 Version:	0.010
 Release:	37%{?dist}
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-CheckDeps
 Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-CheckDeps-%{version}.tar.gz
 BuildArch:	noarch
@@ -32,7 +32,8 @@ BuildRequires:	perl(Pod::Coverage::TrustPod)
 BuildRequires:	perl(Test::Pod) >= 1.41
 BuildRequires:	perl(Test::Pod::Coverage) >= 1.08
 %endif
-# Runtime
+# Dependencies
+# (none)
 
 %description
 This module adds a test that assures all dependencies have been installed

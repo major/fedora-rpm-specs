@@ -9,7 +9,7 @@
 %global ms_version   0.4.2
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 2
+%global baserelease 3
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -450,8 +450,6 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-echo-cancel.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-fallback-sink.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-filter-chain.so
-%{_libdir}/pipewire-%{apiversion}/libpipewire-module-jack-tunnel.so
-%{_libdir}/pipewire-%{apiversion}/libpipewire-module-jackdbus-detect.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-link-factory.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-loopback.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-metadata.so
@@ -585,6 +583,8 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 
 %if %{with jackserver_plugin}
 %files plugin-jack
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-jack-tunnel.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-jackdbus-detect.so
 %{_libdir}/spa-%{spaversion}/jack/
 %endif
 
@@ -612,6 +612,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-x11-bell.so
 
 %changelog
+* Tue May 23 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.3.71-3
+- Move JACK modules to plugin-jack subpackage
+
 * Thu May 18 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.71-2
 - Add patch to fix JACK buffersize updates
 

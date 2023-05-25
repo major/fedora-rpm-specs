@@ -5,7 +5,7 @@
 
 
 Name:           ristretto
-Version:        0.13.0
+Version:        0.13.1
 Release:        %autorelease
 Summary:        Image-viewer for the Xfce desktop environment
 Summary(de):    Bildbetrachter für die Xfce Desktop-Umgebung

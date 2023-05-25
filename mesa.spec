@@ -56,7 +56,7 @@
 
 Name:           mesa
 Summary:        Mesa graphics libraries
-%global ver 23.0.3
+%global ver 23.1.0
 Version:        %{lua:ver = string.gsub(rpm.expand("%{ver}"), "-", "~"); print(ver)}
 Release:        %autorelease
 License:        MIT
@@ -386,6 +386,9 @@ export RUSTFLAGS="%build_rustflags"
   -Dvalgrind=%{?with_valgrind:enabled}%{!?with_valgrind:disabled} \
   -Dbuild-tests=false \
   -Dselinux=true \
+  -Dlibunwind=disabled \
+  -Dlmsensors=disabled \
+  -Dandroid-libbacktrace=disabled \
   %{nil}
 %meson_build
 
@@ -602,9 +605,6 @@ popd
 %if 0%{?with_vdpau}
 %files vdpau-drivers
 %{_libdir}/vdpau/libvdpau_nouveau.so.1*
-%if 0%{?with_r300}
-%{_libdir}/vdpau/libvdpau_r300.so.1*
-%endif
 %if 0%{?with_r600}
 %{_libdir}/vdpau/libvdpau_r600.so.1*
 %endif

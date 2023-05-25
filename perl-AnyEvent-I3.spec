@@ -1,6 +1,6 @@
 Name:           perl-AnyEvent-I3
 Version:        0.17
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Communicate with the i3 window manager
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/anyevent-i3
@@ -8,29 +8,29 @@ Source0:        https://cpan.metacpan.org/authors/id/M/MS/MSTPLBG/AnyEvent-I3-%{
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(lib)
 BuildRequires:  perl(inc::Module::Install)
 BuildRequires:  perl(Module::Install::Metadata)
 BuildRequires:  perl(Module::Install::WriteAll)
-BuildRequires:  sed
 # Run-time
-#BuildRequires:  perl(AnyEvent)
-#BuildRequires:  perl(AnyEvent::Handle)
-#BuildRequires:  perl(AnyEvent::Socket)
-#BuildRequires:  perl(base)
-#BuildRequires:  perl(constant)
-#BuildRequires:  perl(Encode)
-#BuildRequires:  perl(Exporter)
-#BuildRequires:  perl(JSON::XS)
-#BuildRequires:  perl(Scalar::Util)
-#BuildRequires:  perl(strict)
-#BuildRequires:  perl(warnings)
+BuildRequires:  i3
+BuildRequires:  perl(AnyEvent)
+BuildRequires:  perl(AnyEvent::Handle)
+BuildRequires:  perl(AnyEvent::Socket)
+BuildRequires:  perl(base)
+BuildRequires:  perl(constant)
+BuildRequires:  perl(Encode)
+BuildRequires:  perl(Exporter)
+BuildRequires:  perl(JSON::XS)
+BuildRequires:  perl(Scalar::Util)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
 # Tests
-#BuildRequires:  perl(Test::More)
+BuildRequires:  perl(Test::More)
+Recommends:     i3
 
 %{?perl_default_filter}
 
@@ -42,19 +42,18 @@ then subscribe to events or send messages and receive their replies.
 %prep
 %setup -qn AnyEvent-I3-%{version}
 rm -rf inc
-sed -i -e '/^inc\//d' MANIFEST
+perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} %{buildroot}/*
 
-#%%check
-#make test
+%check
+make test
 
 %files
 %doc Changes README
@@ -62,6 +61,9 @@ find %{buildroot} -type f -name .packlist -delete
 %{_mandir}/man3/*.3*
 
 %changelog
+* Tue May 23 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.17-20
+- Modernize spec
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -69,7 +69,10 @@ sed -i '1,1s@^#!.*$@#!%{__python3}@' examples/*.py
 %py3_install
 
 %check
+# tests fail on el9: https://github.com/ronf/asyncssh/issues/566
+%if 0%{?fedora}
 %{__python3} -m unittest discover -s tests -t . -v
+%endif
 
 %files -n python3-%{srcname}
 %license LICENSE COPYRIGHT

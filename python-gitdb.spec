@@ -1,15 +1,13 @@
 %global srcname gitdb
 
 Name:           python-%{srcname}
-Version:        4.0.9
-Release:        5%{?dist}
+Version:        4.0.10
+Release:        1%{?dist}
 Summary:        Git Object Database
 
 License:        BSD-3-Clause
 URL:            https://github.com/gitpython-developers/gitdb
 Source0:        %pypi_source
-# https://github.com/gitpython-developers/gitdb/pull/79
-Patch0:         0001-Switch-from-nose-to-pytest.patch
 
 BuildArch:      noarch
 
@@ -62,6 +60,9 @@ export GITDB_TEST_GIT_REPO_BASE=testrepo/.git
 %doc AUTHORS
 
 %changelog
+* Tue May 23 2023 Lubomír Sedlář <lsedlar@redhat.com> - 4.0.10-1
+- New upstream release 4.0.10 (#2148339)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.9-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

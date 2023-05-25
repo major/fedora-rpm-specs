@@ -6,7 +6,7 @@
 
 Name:           mingw-gtk3
 # Drop Source2 on next update!
-Version:        3.24.37
+Version:        3.24.38
 Release:        1%{?dist}
 Summary:        MinGW Windows GTK+ library
 
@@ -315,6 +315,9 @@ fi
 
 
 %changelog
+* Tue May 23 2023 Sandro Mani <manisandro@gmail.com> - 3.24.38-1
+- Update to 3.24.38
+
 * Fri Mar 03 2023 Sandro Mani <manisandro@gmail.com> - 3.24.37-1
 - Update to 3.24.37
 

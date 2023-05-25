@@ -4,7 +4,7 @@ Name: gfbgraph
 Version: %{api}.5
 Release: 3%{?dist}
 Summary: GLib/GObject wrapper for the Facebook Graph API
-License: LGPLv2+
+License: LGPL-2.1-only
 URL: https://wiki.gnome.org/Projects/GFBGraph
 
 Source0: https://download.gnome.org/sources/%{name}/%{api}/%{name}-%{version}.tar.xz

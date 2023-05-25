@@ -1,4 +1,6 @@
-%bcond_without tests
+# several test dependencies are unwanted in RHEL
+%bcond tests %{undefined rhel}
+
 # disable the python -s shbang flag as we want to be able to find non system modules
 %undefine _py3_shebang_s
 
@@ -6,7 +8,7 @@ Name: ansible-core
 Summary: A radically simple IT automation system
 Version: 2.15.0
 %global uversion %{version_no_tilde %{quote:%nil}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 # The main license is GPLv3+. Many of the files in lib/ansible/module_utils
 # are BSD licensed. There are various files scattered throughout the codebase
 # containing code under different licenses.
@@ -242,6 +244,9 @@ install -Dpm 0644 licenses/* -t %{buildroot}%{_pkglicensedir}
 
 
 %changelog
+* Tue May 23 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2.15.0-2
+- Disable tests in RHEL builds
+
 * Tue May 16 2023 Maxwell G <maxwell@gtmx.me> - 2.15.0-1
 - Update to 2.15.0.
 - Don't remove dotfiles and empty files. ansible-core actually needs these.

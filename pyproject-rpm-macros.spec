@@ -2,7 +2,10 @@ Name:           pyproject-rpm-macros
 Summary:        RPM macros for PEP 517 Python packages
 License:        MIT
 
-%bcond_without tests
+%bcond tests 1
+# pytest-xdist and tox are not desired in RHEL
+%bcond pytest_xdist %{undefined rhel}
+%bcond tox_tests %{undefined rhel}
 
 # The idea is to follow the spirit of semver
 # Given version X.Y.Z:
@@ -11,7 +14,7 @@ License:        MIT
 #   Increment Z when this is a bugfix or a cosmetic change
 # Dropping support for EOL Fedoras is *not* considered a breaking change
 Version:        1.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 # Macro files
 Source001:      macros.pyproject
@@ -47,12 +50,16 @@ BuildArch:      noarch
 
 %if %{with tests}
 BuildRequires:  python3dist(pytest)
+%if %{with pytest_xdist}
 BuildRequires:  python3dist(pytest-xdist)
+%endif
 BuildRequires:  python3dist(pyyaml)
 BuildRequires:  python3dist(packaging)
 BuildRequires:  python3dist(pip)
 BuildRequires:  python3dist(setuptools)
+%if %{with tox_tests}
 BuildRequires:  python3dist(tox-current-env) >= 0.0.6
+%endif
 BuildRequires:  python3dist(wheel)
 BuildRequires:  (python3dist(toml) if python3-devel < 3.11)
 %endif
@@ -118,10 +125,17 @@ install -pm 644 pyproject_construct_toxenv.py %{buildroot}%{_rpmconfigdir}/redha
 install -pm 644 pyproject_requirements_txt.py %{buildroot}%{_rpmconfigdir}/redhat/
 install -pm 644 pyproject_wheel.py %{buildroot}%{_rpmconfigdir}/redhat/
 
-%if %{with tests}
 %check
+# assert the two signatures of %%pyproject_buildrequires match exactly
+signature1="$(grep '^%%pyproject_buildrequires' macros.pyproject | cut -d' ' -f1)"
+signature2="$(grep '^%%pyproject_buildrequires' macros.aaa-pyproject-srpm | cut -d' ' -f1)"
+test "$signature1" == "$signature2"
+# but also assert we are not comparing empty strings
+test "$signature1" != ""
+
+%if %{with tests}
 export HOSTNAME="rpmbuild"  # to speedup tox in network-less mock, see rhbz#1856356
-%pytest -vv --doctest-modules -n auto
+%pytest -vv --doctest-modules %{?with_pytest_xdist:-n auto} %{!?with_tox_tests:-k "not tox"}
 
 # brp-compress is provided as an argument to get the right directory macro expansion
 %{python3} compare_mandata.py -f %{_rpmconfigdir}/brp-compress
@@ -147,6 +161,9 @@ export HOSTNAME="rpmbuild"  # to speedup tox in network-less mock, see rhbz#1856
 
 
 %changelog
+* Tue May 23 2023 Miro Hrončok <mhroncok@redhat.com> - 1.8.0-2
+- Rebuilt for ELN dependency changes
+
 * Thu Apr 27 2023 Miro Hrončok <mhroncok@redhat.com> - 1.8.0-1
 - %%pyproject_buildrequires: Add support for self-referential extras requirements
   Fixes: rhbz#2171343
