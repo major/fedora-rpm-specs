@@ -12,7 +12,7 @@
 %endif
 
 Name:           perl-Software-License
-Version:        0.104003
+Version:        0.104004
 Release:        1%{?dist}
 Summary:        Package that provides templated software licenses
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -84,6 +84,10 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/Software::LicenseUtils.3*
 
 %changelog
+* Wed May 24 2023 Paul Howarth <paul@city-fan.org> - 0.104004-1
+- Update to 0.104004 (rhbz#2209461)
+  - Rename Perl Artistic License to avoid confusion in detecting license
+
 * Fri May 19 2023 Paul Howarth <paul@city-fan.org> - 0.104003-1
 - Update to 0.104003 (rhbz#2208530)
   - Add Artistic 1.0 Perl license and make Perl license use it

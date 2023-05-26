@@ -1,5 +1,5 @@
 Name:		fio
-Version:	3.34
+Version:	3.35
 Release:	1%{?dist}
 Summary:	Multithreaded IO generation tool
 
@@ -229,6 +229,9 @@ make install prefix=%{_prefix} mandir=%{_mandir} libdir=%{_libdir}/fio DESTDIR=$
 %endif
 
 %changelog
+* Wed May 24 2023 Pavel Reichl <preichl@redhat.com> - 3.35-1
+- New upstream version (RHBZ#2209407)
+
 * Fri Mar 24 2023 Pavel Reichl <preichl@redhat.com> - 3.34-1
 - New upstream version (RHBZ#2178183)
 - Drop support for pmeblk https://github.com/axboe/fio/commit/04c1cdc

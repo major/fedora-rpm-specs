@@ -1,12 +1,15 @@
-Summary: A dictionary of English words for the /usr/share/dict directory
+Summary: Dictionary of English words for the /usr/share/dict directory
 Name: words
 Version: 3.0
-Release: 41%{?dist}
-License: Public Domain
+Release: 43%{?dist}
+
+# https://gitlab.com/fedora/legal/fedora-license-data/-/commit/1fe1c5769b177e00749a324557f6631a964770b1
+License: LicenseRef-Fedora-Public-Domain
+
 # Note that Moby Project officially does not exist any more. The most complete
 # information about the project is in Wikipedia.
-URL: http://en.wikipedia.org/wiki/Moby_Project
-Source: http://web.archive.org/web/20060527013227/http://www.dcs.shef.ac.uk/research/ilash/Moby/mwords.tar.Z
+URL: https://en.wikipedia.org/wiki/Moby_Project
+Source: https://web.archive.org/web/20060527013227/http://www.dcs.shef.ac.uk/research/ilash/Moby/mwords.tar.Z
 
 BuildArch: noarch
 BuildRequires: dos2unix
@@ -64,17 +67,22 @@ daedal@myrealbox.com
 EOF
 
 %install
-rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_datadir}/dict
-install -m644 mwords/moby $RPM_BUILD_ROOT%{_datadir}/dict/linux.words
+install -D -m644 mwords/moby $RPM_BUILD_ROOT%{_datadir}/dict/linux.words
 ln -sf linux.words $RPM_BUILD_ROOT%{_datadir}/dict/words
 
 %files
-%doc mwords/readme.txt mwords/license.txt
+%license mwords/license.txt
+%doc mwords/readme.txt
 %{_datadir}/dict/linux.words
 %{_datadir}/dict/words
 
 %changelog
+* Wed May 24 2023 Karel Zak <kzak@redhat.com> - 3.0-43
+- spec file cleanup (based on PR from Robert Scheck)
+
+* Tue Apr 25 2023 Lukáš Zaoral <lzaoral@redhat.com> - 3.0-42
+- migrate to SPDX license format
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

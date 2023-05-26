@@ -10,8 +10,8 @@
 %global py3_shebang_flags %(echo %py3_shebang_flags | sed s/s//)
 
 Name:    salt
-Version: 3005.1%{?__rc_ver}
-Release: 3%{?dist}
+Version: 3006.1
+Release: 2%{?dist}
 Summary: A parallel remote execution system
 Group:   System Environment/Daemons
 License: ASL 2.0
@@ -38,6 +38,7 @@ Source18: %{name}-master.fish
 Source19: %{name}-minion.fish
 Source20: %{name}-run.fish
 Source21: %{name}-syndic.fish
+Source22: %{name}.sysusers
 
 Patch0: contextvars.patch
 BuildArch: noarch
@@ -53,7 +54,7 @@ Requires: logrotate
 
 BuildRequires: systemd-rpm-macros
 BuildRequires: python3-devel
-
+%{?sysusers_requires_compat}
 
 %description
 Salt is a distributed remote execution system used to execute commands and
@@ -167,6 +168,8 @@ install -d -m 0755 %{buildroot}%{_sysconfdir}/%{name}/proxy.d
 # Add the config files
 install -p -m 0640 conf/minion %{buildroot}%{_sysconfdir}/%{name}/minion
 install -p -m 0640 conf/master %{buildroot}%{_sysconfdir}/%{name}/master
+# Use salt user on nre master installations
+sed -i 's/#user: root/user: salt/g' %{buildroot}%{_sysconfdir}/%{name}/master
 install -p -m 0600 conf/cloud  %{buildroot}%{_sysconfdir}/%{name}/cloud
 install -p -m 0640 conf/roster %{buildroot}%{_sysconfdir}/%{name}/roster
 install -p -m 0640 conf/proxy  %{buildroot}%{_sysconfdir}/%{name}/proxy
@@ -202,8 +205,11 @@ install -p -m 0644  %{SOURCE21} %{buildroot}%{fish_dir}/%{name}-syndic.fish
 
 # ZSH completion
 mkdir -p %{buildroot}%{zsh_dir}
-install -p -m 0644 pkg/%{name}.zsh %{buildroot}%{zsh_dir}/_%{name}
+install -p -m 0644 pkg/common/%{name}.zsh %{buildroot}%{zsh_dir}/_%{name}
 
+# Salt user and group
+install -p -D -m 0644 %{SOURCE22} %{buildroot}%{_sysusersdir}/salt.conf
+mkdir -p %{buildroot}%{_sysconfdir}/%{name}/gpgkeys
 
 %check
 %pyproject_check_import -t
@@ -214,7 +220,7 @@ install -p -m 0644 pkg/%{name}.zsh %{buildroot}%{zsh_dir}/_%{name}
 %doc README.fedora
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
 %config(noreplace) %{_sysconfdir}/bash_completion.d/%{name}.bash
-%{_var}/cache/%{name}
+%dir %{_var}/cache/%{name}/
 %{_var}/log/%{name}
 %{_bindir}/spm
 %doc %{_mandir}/man1/spm.1*
@@ -223,6 +229,7 @@ install -p -m 0644 pkg/%{name}.zsh %{buildroot}%{zsh_dir}/_%{name}
 %dir %{_sysconfdir}/%{name}/pki/
 %{fish_dir}/%{name}*.fish
 %{zsh_dir}/_%{name}
+%{_bindir}/salt-pip
 
 %files master
 %doc %{_mandir}/man7/%{name}.7*
@@ -237,9 +244,11 @@ install -p -m 0644 pkg/%{name}.zsh %{buildroot}%{zsh_dir}/_%{name}
 %{_bindir}/%{name}-master
 %{_bindir}/%{name}-run
 %{_unitdir}/%{name}-master.service
-%config(noreplace) %{_sysconfdir}/%{name}/master
-%config(noreplace) %{_sysconfdir}/%{name}/master.d
-%config(noreplace) %{_sysconfdir}/%{name}/pki/master
+%{_sysusersdir}/salt.conf
+%config(noreplace) %attr(0750, salt, salt) %{_sysconfdir}/%{name}/master
+%config(noreplace) %attr(0750, salt, salt) %{_sysconfdir}/%{name}/master.d
+%config(noreplace) %attr(0750, salt, salt) %{_sysconfdir}/%{name}/pki/master
+%config(noreplace) %attr(0750, salt, salt) %{_sysconfdir}/%{name}/gpgkeys
 
 %files minion
 %doc %{_mandir}/man1/%{name}-call.1*
@@ -291,7 +300,11 @@ install -p -m 0644 pkg/%{name}.zsh %{buildroot}%{zsh_dir}/_%{name}
 %preun api
 %systemd_preun %{name}-api.service
 
+%pre master
+%sysusers_create_compat %{SOURCE22}
+
 %post master
+chown salt:salt %{_sysconfdir}/%{name}/gpgkeys -R
 %systemd_post %{name}-master.service
 
 %post syndic
@@ -317,6 +330,15 @@ install -p -m 0644 pkg/%{name}.zsh %{buildroot}%{zsh_dir}/_%{name}
 
 
 %changelog
+* Wed May 24 2023 Gwyn Ciesla <gwync@protonmail.com> - 3006.1-2
+- Add salt user for master per upstream.
+
+* Wed May 24 2023 Gwyn Ciesla <gwync@protonmail.com> - 3006.1-1
+- 3006.1
+
+* Mon May 22 2023 Jonathan Steffan <jsteffan@fedoraproject.org>- 3005.1-4
+- Add patch for py3.10 support (RHBZ#2189782)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3005.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

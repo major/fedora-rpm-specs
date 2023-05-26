@@ -1,6 +1,6 @@
 Name:       odcs
-Version:    0.5.0
-Release:    2%{?dist}
+Version:    0.6.0
+Release:    1%{?dist}
 Summary:    The On Demand Compose Service
 
 
@@ -198,6 +198,16 @@ nosetests-%{python3_version} -v
 
 
 %changelog
+* Wed May 24 2023 Haibo Lin <hlin@redhat.com> - 0.6.0-1
+- backend/client: Allow compose with no label
+- backend: Clean up ODCS backend code
+- backend: Switch to PKI authentication for pulp
+- backend: pulp: Correctly handle merged repos
+- backend: pulp: Stop stripping https
+- client: Remove dependency on pyopenssl from client
+- frontend: Add metrics of workers per queue
+- frontend: Only warn when openapi is missing
+
 * Tue May 16 2023 Lubomír Sedlář <lsedlar@redhat.com> - 0.5.0-2
 - Remove obsolete dependencies
 

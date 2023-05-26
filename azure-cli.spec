@@ -1,10 +1,6 @@
-# Temporarily disabling tests in rawhide until upstream has support for
-# Python 3.11.
-%if 0%{?fedora} >= 37
+# Upstream has lots of tests that work only in their CI.
+# This will require more investigation to fix.
 %bcond_with     tests
-%else
-%bcond_without  tests
-%endif
 
 # telemetry and testsdk don't follow azure-cli's versioning scheme.
 # They have their own versions in the main repository.
@@ -135,6 +131,23 @@ sed -i 's/^packaging>=.*$/packaging>=21.3/' src/azure-cli/requirements.py3.Linux
 sed -i 's/^paramiko>=.*$/paramiko>=2.12.0/' src/azure-cli/requirements.py3.Linux.txt
 sed -i 's/^pyOpenSSL>=.*$/pyOpenSSL>=21.0.0/' src/azure-cli/requirements.py3.Linux.txt
 sed -i 's/^PyNaCl>=.*$/PyNaCl>=1.4.0/' src/azure-cli/requirements.py3.Linux.txt
+
+# Allow older versions for EPEL 9.
+sed -i \
+    -e 's/^argcomplete>=.*$/argcomplete>=1.12.0/' \
+    -e 's/^cffi>=.*$/cffi>=1.12.0/' \
+    -e 's/^distro>=.*$/distro>=1.5.0/' \
+    -e 's/^Jinja2>=.*$/Jinja2>=2.11.3/' \
+    -e 's/^jmespath>=.*$/jmespath>=0.9.4/' \
+    -e 's/^MarkupSafe>=.*$/MarkupSafe>=1.1.1/' \
+    -e 's/^oauthlib>=.*$/oauthlib>=3.1.1/' \
+    -e 's/^packaging>=.*$/packaging>=20.9/' \
+    -e 's/^psutil>=.*$/psutil>=5.8.0/' \
+    -e 's/^requests\[socks\]>=.*$/requests[socks]>=2.25.1/' \
+    -e 's/^six>=.*$/six>=1.15.0/' \
+    -e 's/^urllib3>=.*$/urllib3>=1.26.5/' \
+    -e 's/^websocket-client>=.*$/websocket-client>=1.2.3/' \
+    src/azure-cli/requirements.py3.Linux.txt
 
 
 %generate_buildrequires

@@ -34,8 +34,6 @@ Patch0:         https://github.com/scidash/sciunit/commit/6116e3517b792889cfe514
 
 BuildArch:      noarch
 
-%{?python_enable_dependency_generator}
-
 %description %_description
 
 %package -n python3-sciunit
@@ -43,11 +41,19 @@ Summary:        %{summary}
 BuildRequires:  git-core
 BuildRequires:  python3-devel
 
+# Part of sciunit/utils.py (marked by a comment) was copied from cypy in
+# https://github.com/scidash/sciunit/commit/28612172bf23c25a9f81ffe5578265aa8849f813.
+# The version is assumed; there was only a single release on PyPI at the time.
+#
+# Upstream was asked to comment per packaging guidelines:
+# “Statement on bundling cypy?”
+# https://github.com/scidash/sciunit/issues/215
+Provides:       bundled(python3dist(cypy)) = 0.2
+
 %description -n python3-sciunit %_description
 
 %prep
 %autosetup -n sciunit-%{commit} -S git
-rm -rf sciunit.egg-info
 
 # Update requirements, our package does not provide bs4
 # Remove version pins
@@ -68,7 +74,7 @@ sed -i -e 's/backports.tempfile/tempfile/' sciunit/utils.py
 %check
 %if %{with tests}
 # https://github.com/scidash/sciunit/blob/master/test.sh
-%{__tar} -xf %{SOURCE1}
+tar -xf %{SOURCE1}
 mv scidash-%{scidash_commit} ../scidash
 # Disable test that requires it to be a git repo by adding the necessary decorator
 sed -i '/def test_Versioned/i  \ \ \ \ @unittest.skip' sciunit/unit_test/base_tests.py

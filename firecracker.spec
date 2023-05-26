@@ -14,7 +14,7 @@
 %endif
 
 Name:           firecracker
-Version:        1.3.2
+Version:        1.3.3
 Release:        1%{?dist}
 
 Summary:        Secure and fast microVMs for serverless computing
@@ -109,6 +109,9 @@ done
 
 
 %changelog
+* Wed May 24 2023 David Michael <fedora.dm0@gmail.com> - 1.3.3-1
+- Update to the 1.3.3 release.
+
 * Thu Apr 27 2023 David Michael <fedora.dm0@gmail.com> - 1.3.2-1
 - Update to the 1.3.2 release.
 

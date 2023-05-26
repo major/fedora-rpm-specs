@@ -1,18 +1,17 @@
 Name:       reprepro
-Version:    5.3.0
-Release:    4%{?dist}
+Version:    5.4.2
+Release:    1%{?dist}
 Summary:    Tool to handle local repositories of Debian packages
 # filecntl.c, md5.c, md5.h are Public Domain
 # dpkgversions.c is GPLv2+
 # docs/sftp.py is MIT
 # Rest is GPLv2
 License:    GPLv2 and GPLv2+ and MIT
-URL:        http://mirrorer.alioth.debian.org/
-# We use the Ubuntu URL here because upstream has not posted the latest release
-# to alioth, and it's not clear if they will ever do so.
-Source0:    https://launchpad.net/ubuntu/+archive/primary/+files/%{name}_%{version}.orig.tar.gz
+URL:        https://salsa.debian.org/debian/reprepro
+Source0:    https://salsa.debian.org/debian/reprepro/-/archive/%{name}-%{version}/%{name}-%{name}-%{version}.tar.gz
 BuildRequires: make
 BuildRequires:  gcc
+BuildRequires:  automake
 %if 0%{?el6}
 BuildRequires: db4-devel
 %else
@@ -23,6 +22,7 @@ BuildRequires: gpgme-devel
 BuildRequires: bzip2-devel
 BuildRequires: libarchive-devel
 BuildRequires: xz-devel
+BuildRequires: libzstd-devel
 
 %description
 reprepro is a tool to manage a repository of Debian packages (.deb).  It
@@ -33,7 +33,7 @@ Checking signatures of mirrored repositories and creating signatures of the
 generated Package indexes is supported.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{name}-%{version}
 
 # files in docs should not have executable permissions
 find docs -type f -exec chmod -x {} +
@@ -44,6 +44,7 @@ for f in docs/outstore.py docs/outsftphook.py; do
 done
 
 %build
+./autogen.sh
 %configure
 make %{?_smp_mflags}
 
@@ -82,6 +83,9 @@ rm Makefile{,.am,.in} changestool.1 rredtool.1 reprepro.1
 
 
 %changelog
+* Sun May 14 2023 Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com> - 5.4.2-1
+- Update to latest upstream release (rhbz#2108872)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

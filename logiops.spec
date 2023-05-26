@@ -1,12 +1,21 @@
+%global forgeurl0 https://github.com/PixlOne/logiops
+%global forgeurl1 https://github.com/PixlOne/ipcgull
+%global name1 ipcgull
+%global version1 0.1
+
 Name:    logiops
-Version: 0.3.1
+Version: 0.3.2
 Release: 1%{?dist}
 Summary: Unofficial driver for Logitech mice and keyboard
+%forgemeta -a
 
 License: GPLv3
-URL:     https://github.com/PixlOne/logiops
+URL:     %{forgeurl0}
 
-Source0: https://github.com/PixlOne/logiops/releases/download/v0.3.1/%{name}-v%{version}.tar.gz
+Source0: %{forgesource0}
+Source1: %{forgesource1}
+
+Patch0:         logiops-ipcgull-include-stdexcept.patch
 
 BuildRequires:  cmake
 BuildRequires:  systemd-devel
@@ -17,6 +26,7 @@ BuildRequires:  libevdev-devel
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  glib2-devel
+BuildRequires:  libstdc++-devel
 
 %description
 This is an unofficial driver for Logitech mice and keyboard.
@@ -24,7 +34,13 @@ This is an unofficial driver for Logitech mice and keyboard.
 This is currently only compatible with HID++ >2.0 devices.
 
 %prep
-%setup -q -n %{name}-v%{version}
+# Ipcgull archive
+%forgesetup -z 1
+%patch -p1 0
+# Logiops archive
+%forgesetup -z 0
+rmdir ./src/%{name1}
+mv ../%{name1}-%{version1} ./src/%{name1}/
 
 %build
 %{cmake}
@@ -45,12 +61,16 @@ This is currently only compatible with HID++ >2.0 devices.
 %files
 %{_bindir}/logid
 %{_unitdir}/logid.service
+%{_datadir}/dbus-1/system.d/pizza.pixl.LogiOps.conf
 %license LICENSE
 %doc README.md
 %doc TESTED.md
 %doc logid.example.cfg
 
 %changelog
+* Wed May 24 2023 Nicolas De Amicis <deamicis@bluewin.ch> - 0.3.2-1
+- Bump to 0.3.2 and build with ipcgull library
+
 * Fri May 05 2023 Nicolas De Amicis <deamicis@bluewin.ch> - 0.3.1-1
 - New version 0.3.1
 
@@ -78,7 +98,7 @@ This is currently only compatible with HID++ >2.0 devices.
 * Wed Mar 31 2021 Jonathan Wakely <jwakely@redhat.com> - 0.2.2-5
 - Rebuilt for removed libstdc++ symbols (#1937698)
 
-* Tue Mar 02 2021 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.2.2-4
+* Tue Mar 02 2021 Zbigniew JÄ™drzejewski-Szmek <zbyszek@in.waw.pl> - 0.2.2-4
 - Rebuilt for updated systemd-rpm-macros
   See https://pagure.io/fesco/issue/2583.
 

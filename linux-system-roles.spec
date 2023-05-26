@@ -26,8 +26,8 @@ Name: linux-system-roles
 %endif
 Url: https://github.com/linux-system-roles
 Summary: Set of interfaces for unified system management
-Version: 1.38.0
-Release: 5%{?dist}
+Version: 1.38.2
+Release: 1%{?dist}
 
 License: GPLv3+ and MIT and BSD and Python
 %global _pkglicensedir %{_licensedir}/%{name}
@@ -112,7 +112,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 7 1.8.4
 
 %global rolename8 tlog
-%deftag 8 1.2.14
+%deftag 8 1.2.15
 
 %global rolename9 kernel_settings
 %deftag 9 1.1.15
@@ -159,13 +159,13 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 22 1.1.0
 
 %global rolename23 rhc
-%deftag 23 1.1.2
+%deftag 23 1.1.3
 
 %global rolename24 journald
 %deftag 24 1.0.3
 
 %global rolename25 postgresql
-%deftag 25 1.0.2
+%deftag 25 1.0.4
 
 Source1: %{archiveurl1}
 Source2: %{archiveurl2}
@@ -654,6 +654,9 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Wed May  24 2023 Packit <hello@packit.dev> - 1.38.2-1
+- Update to upstream version 1.38.2
+
 * Tue May 16 2023 Rich Megginson <rmeggins@redhat.com> - 1.38.0-5
 - remove upstream only docs from README.md files
 

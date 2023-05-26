@@ -87,12 +87,6 @@ Source0:        %{url}/archive/v%{srcversion}/opentelemetry-python-contrib-%{src
 Source10:       opentelemetry-bootstrap.1
 Source11:       opentelemetry-instrument.1
 
-# Add direct/explicit dependencies on yarl
-# https://github.com/open-telemetry/opentelemetry-python-contrib/pull/1821
-#
-# Rebased on v0.39b0 tag.
-Patch:          opentelemetry-python-contrib-0.39b0-yarl.patch
-
 # Revert “Fix expected URL in aiohttp instrumentation test”
 # https://github.com/open-telemetry/opentelemetry-python-contrib/pull/1772
 #

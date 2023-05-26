@@ -21,7 +21,7 @@ Requires: %1 \
 %{expand: %%global latest_requires_packages %1 %%{?latest_requires_packages}}
 
 Name:    copr-rpmbuild
-Version: 0.66
+Version: 0.68
 Summary: Run COPR build tasks
 Release: 1%{?dist}
 URL: https://github.com/fedora-copr/copr
@@ -47,7 +47,7 @@ BuildRequires: %{python_pfx}-munch
 BuildRequires: %{python}-requests
 BuildRequires: %{python_pfx}-jinja2
 BuildRequires: %{python_pfx}-simplejson
-BuildRequires: %{python}-backoff
+BuildRequires: python3-backoff >= 1.9.0
 
 %if 0%{?fedora} || 0%{?rhel} > 7
 BuildRequires: argparse-manpage
@@ -66,7 +66,7 @@ Requires: %{python_pfx}-jinja2
 Requires: %{python_pfx}-munch
 Requires: %{python}-requests
 Requires: %{python_pfx}-simplejson
-Requires: %{python}-backoff
+Requires: python3-backoff >= 1.9.0
 
 Requires: mock >= 2.0
 Requires: git
@@ -336,6 +336,16 @@ install -p -m 644 copr_distgit_client.py %{buildroot}%{expand:%%%{python}_siteli
 
 
 %changelog
+* Tue May 23 2023 Jakub Kadlcik <frostyx@email.cz> 0.68-1
+- Fix python3-backoff dependency
+
+* Mon May 22 2023 Jakub Kadlcik <frostyx@email.cz> 0.67-1
+- Add loggs to python-backoff decorator
+- Set git.safe_directory as repo rootdir
+- Explain how to reproduce the build locally
+- Retry only git clone without checkouting
+- Use git checkout instead of switch but ignore files
+
 * Tue Apr 04 2023 Jiri Kyjovsky <j1.kyjovsky@gmail.com> 0.66-1
 - Ise 'git switch', not 'git checkout'
 

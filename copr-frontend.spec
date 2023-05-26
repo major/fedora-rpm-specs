@@ -48,7 +48,7 @@
 }
 
 Name:       copr-frontend
-Version:    1.199
+Version:    1.200
 Release:    1%{?dist}
 Summary:    Frontend for Copr
 
@@ -94,6 +94,7 @@ BuildRequires: python3-flask-openid
 BuildRequires: python3-flask-sqlalchemy
 BuildRequires: python3-flask-whooshee
 BuildRequires: python3-flask-wtf
+BuildRequires: python3-flask-restx
 BuildRequires: python3-gobject
 BuildRequires: python3-html2text
 BuildRequires: python3-html5-parser
@@ -116,9 +117,11 @@ BuildRequires: python3-whoosh
 BuildRequires: python3-wtforms >= 2.2.1
 BuildRequires: python3-ldap
 BuildRequires: python3-yaml
-BuildRequires: python3-backoff
+BuildRequires: python3-backoff >= 1.9.0
+BuildRequires: python3-pygal
 BuildRequires: redis
 BuildRequires: modulemd-tools >= 0.6
+BuildRequires: python3-authlib
 %endif
 
 Requires: crontabs
@@ -152,6 +155,7 @@ Requires: python3-flask-sqlalchemy
 Requires: python3-flask-whooshee
 Requires: python3-flask-wtf
 Requires: python3-flask-wtf
+Requires: python3-flask-restx
 Requires: python3-gobject
 Requires: python3-html2text
 Requires: python3-html5-parser
@@ -173,12 +177,14 @@ Requires: python3-templated-dictionary
 Requires: python3-wtforms >= 2.2.1
 Requires: python3-zmq
 Requires: python3-ldap
-Requires: python3-backoff
+Requires: python3-backoff >= 1.9.0
+Requires: python3-pygal
 Requires: xstatic-bootstrap-scss-common
 Requires: xstatic-datatables-common
 Requires: js-jquery-ui
 Requires: xstatic-patternfly-common
 Requires: modulemd-tools >= 0.6
+Requires: python3-authlib
 
 Provides: bundled(bootstrap-combobox) = 1.1.6
 Provides: bundled(bootstrap-select) = 1.5.4
@@ -386,6 +392,21 @@ usermod -L copr-fe
 
 
 %changelog
+* Tue May 23 2023 Jakub Kadlcik <frostyx@email.cz> 1.200-1
+- Send follow_fedora_branching value via API
+- Add support for OIDC
+- Allow submitting EPEL8 module builds
+- Show resalloc-webui link in the task queue
+- Accept the OpenID response as a POST request
+- OpenAPI first steps
+- Automatically create aliases for routes with trailing slash
+- Include the Amazon Linux logo for Amazon Linux chroots
+- General check if it makes sense to upload SRPM
+- Add command for generating usage treemap
+- Frontend: add loggs to python-backoff decorator
+- APIv3 rpmrepo: provide module_hotfixes opt
+- Show API config even for not logged users
+
 * Wed Apr 05 2023 Jiri Kyjovsky <j1.kyjovsky@gmail.com> 1.199-1
 - Bump version for release mess
 

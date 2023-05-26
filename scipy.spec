@@ -25,7 +25,7 @@
 Summary:    Scientific Tools for Python
 Name:       scipy
 Version:    1.10.1
-Release:    2%{?dist}
+Release:    3%{?dist}
 
 # BSD -- whole package except:
 # Boost -- scipy/special/cephes/scipy_iv.c
@@ -46,7 +46,9 @@ BuildRequires:  python3-pooch
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-Cython
 BuildRequires:  python3-pytest
+%if ! 0%{?rhel}
 BuildRequires:  python3-pytest-xdist
+%endif
 BuildRequires:  python3-pytest-timeout
 
 %if %{with pythran}
@@ -209,7 +211,7 @@ not test_resiliency_random[TestCSC-test_sum_dtype]'"
 %endif
 
 pushd %{buildroot}/%{python3_sitearch}
-%{pytest} --timeout=${TIMEOUT} scipy --numprocesses=auto
+%{pytest} --timeout=${TIMEOUT} scipy %{?!rhel:--numprocesses=auto}
 # Remove test remnants
 rm -rf gram{A,B}
 popd
@@ -226,6 +228,9 @@ popd
 %endif
 
 %changelog
+* Tue May 23 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.10.1-3
+- Avoid pytest-xdist dependency in RHEL builds
+
 * Wed Mar 15 2023 Pavel Šimovec <psimovec@redhat.com> - 1.10.1-2
 - Remove workaround for linking issue on x86_64
 - resolves: #2068530

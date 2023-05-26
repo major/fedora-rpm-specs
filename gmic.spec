@@ -173,8 +173,8 @@ chmod -x $RPM_BUILD_ROOT/%{_sysconfdir}/bash_completion.d/gmic
 
 # remove rpaths
 chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gmic
-chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libcgmic.so.316
-chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libgmic.so.316
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libcgmic.so.324
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libgmic.so.324
 
 %ldconfig_scriptlets libs
 
@@ -226,6 +226,7 @@ fi
 * Mon May 22 2023 josef radinger <cheese@nosuchhost.net> - 3.2.4-1
 - bump version
 - remove Patch3
+- adjust rpath removal
 
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild

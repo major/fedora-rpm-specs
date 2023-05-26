@@ -1,9 +1,9 @@
 %global use_x11_tests 1
 Name:           perl-Gtk3-WebKit
 Version:        0.06
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        WebKit bindings for Perl
-License:        LGPLv2 or Artistic 2.0
+License:        LGPL-2.1-only OR Artistic-2.0
 URL:            https://metacpan.org/release/Gtk3-WebKit
 Source0:        https://cpan.metacpan.org/authors/id/P/PO/POTYL/Gtk3-WebKit-%{version}.tar.gz
 # Use webkit2gtk3, bug #1373410, CPAN RT#122598
@@ -24,16 +24,16 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::NeedsDisplay)
 BuildRequires:  perl(warnings)
-# Typelib for WebKit2-4.0 is provided by webkit2gtk3
-BuildRequires:  webkit2gtk3
+# Typelib for WebKit2-4.1
+BuildRequires:  webkit2gtk4.1
 %if %{use_x11_tests}
 # X11 tests:
 BuildRequires:  xorg-x11-server-Xvfb
 BuildRequires:  xorg-x11-xinit
 BuildRequires:  font(:lang=en)
 %endif
-# Typelib for WebKit2-4.0 is provided by webkit2gtk3
-Requires:       webkit2gtk3
+# Typelib for WebKit2-4.1
+Requires:       webkit2gtk4.1
 
 # Do not scan documentation for dependencies
 %{?perl_default_filter}
@@ -43,7 +43,7 @@ This module provides the Perl bindings for the Gtk3 port of WebKit.
 
 %prep
 %setup -q -n Gtk3-WebKit-%{version}
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 %if %{use_x11_tests}
@@ -73,6 +73,10 @@ find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
 %{_mandir}/man3/*
 
 %changelog
+* Wed May 24 2023 Tom Callaway <spot@fedoraproject.org> - 0.06-28
+- move to webkit2gtk4.1
+- fix license tag
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

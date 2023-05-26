@@ -32,12 +32,6 @@ Patch2:        mutter-42.alpha-disable-tegra.patch
 # https://pagure.io/fedora-workstation/issue/79
 Patch3:        0001-place-Always-center-initial-setup-fedora-welcome.patch
 
-# https://bugzilla.redhat.com/show_bug.cgi?id=2187831
-# https://gitlab.gnome.org/GNOME/mutter/-/issues/2727
-# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/2954
-# Fix click-to-raise on X.org windows
-Patch4:        2954.patch
-
 BuildRequires: pkgconfig(gobject-introspection-1.0) >= 1.41.0
 BuildRequires: pkgconfig(sm)
 BuildRequires: pkgconfig(libwacom)

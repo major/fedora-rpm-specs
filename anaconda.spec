@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
 Version: 39.16
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+ and MIT
 URL:     http://fedoraproject.org/wiki/Anaconda
 
@@ -470,6 +470,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed May 24 2023 Petr Pisar <ppisar@redhat.com> - 39.16-2
+- Rebuild against rpm-4.19 (https://fedoraproject.org/wiki/Changes/RPM-4.19)
+
 * Tue May 23 2023 Packit <hello@packit.dev> - 39.16-1
 - Change driver_updates exit info messages to debug (#2154904) (jkonecny)
 - Add readme for the conf.d drop dir (vslavik)

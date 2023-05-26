@@ -2,7 +2,7 @@ Name:		perl-Test-Distribution
 Version:	2.00
 Release:	42%{?dist}
 Summary:	Perform tests on all modules of a distribution
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-Distribution
 Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-Distribution-%{version}.tar.gz
 Patch0:		Test-Distribution-2.00-utf8.patch
@@ -44,7 +44,7 @@ that they all define a $VERSION.
 %setup -q -n Test-Distribution-%{version}
 
 # Fix character encoding of documentation
-%patch0
+%patch -P 0
 
 %build
 perl Build.PL --installdirs=vendor

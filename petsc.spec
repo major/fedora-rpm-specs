@@ -8,13 +8,13 @@
 %global _lto_cflags %{nil}
 
 # Testing libpetsc ?
-%bcond_without check
+%bcond_with check
 #
 
 # Python binding and its testing
 %bcond_without python
 %ifnarch %{power64} %{arm}
-%bcond_without pycheck
+%bcond_with pycheck
 %endif
 %global pymodule_name petsc4py
 %global pymodule_version %{version}

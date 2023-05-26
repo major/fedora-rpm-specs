@@ -11,7 +11,7 @@ Name: iptables
 Summary: Tools for managing Linux kernel packet filtering capabilities
 URL: https://www.netfilter.org/projects/iptables
 Version: 1.8.9
-Release: 3%{?dist}
+Release: 4%{?dist}
 Source: %{url}/files/%{name}-%{version}.tar.xz
 Source1: iptables.init
 Source2: iptables-config
@@ -20,7 +20,23 @@ Source4: sysconfig_iptables
 Source5: sysconfig_ip6tables
 Source6: arptables-nft-helper
 
-Patch01: 0001-extensions-NAT-Fix-for-Werror-format-security.patch
+Patch001: 0001-extensions-NAT-Fix-for-Werror-format-security.patch
+Patch002: 0002-etc-Drop-xtables.conf.patch
+Patch003: 0003-Proper-fix-for-unknown-argument-error-message.patch
+Patch004: 0004-ebtables-Refuse-unselected-targets-options.patch
+Patch005: 0005-tests-xlate-Properly-split-input-in-replay-mode.patch
+Patch006: 0006-extensions-libebt_redirect-Fix-target-translation.patch
+Patch007: 0007-extensions-libebt_redirect-Fix-for-wrong-syntax-in-t.patch
+Patch008: 0008-extensions-libebt_ip-Do-not-use-ip-dscp-for-translat.patch
+Patch009: 0009-extensions-libebt_ip-Translation-has-to-match-on-eth.patch
+Patch010: 0010-xt_sctp-add-the-missing-chunk-types-in-sctp_help.patch
+Patch011: 0011-include-Add-missing-linux-netfilter-xt_LOG.h.patch
+Patch012: 0012-nft-restore-Fix-for-deletion-of-new-referenced-rule.patch
+Patch013: 0013-ip6tables-Fix-checking-existence-of-rule.patch
+Patch014: 0014-nft-shared-Drop-unused-include.patch
+Patch015: 0015-arptables-Fix-parsing-of-inverted-arp-operation-matc.patch
+Patch016: 0016-arptables-Don-t-omit-standard-matches-if-inverted.patch
+Patch017: 0017-xshared-Fix-parsing-of-option-arguments-in-same-word.patch
 
 # pf.os: ISC license
 # iptables-apply: Artistic Licence 2.0
@@ -431,6 +447,9 @@ fi
 
 
 %changelog
+* Wed May 24 2023 Phil Sutter <psutter@redhat.com> - 1.8.9-4
+- Backport fixes from upstream
+
 * Thu Apr 20 2023 Phil Sutter <psutter@redhat.com> - 1.8.9-3
 - Support %%_excludedocs macro in alternatives installation
 

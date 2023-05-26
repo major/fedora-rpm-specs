@@ -10,7 +10,7 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    c7cffaad16a60636a776017eac5bd8cd0095c32f
+%global gh_commit    d477018d3f2ebd76dede3d3988a0b1a7add4d81e
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_branch    2.0-dev
 %global gh_owner     composer
@@ -18,7 +18,7 @@
 %global api_version  2.3.0
 %global run_version  2.2.2
 
-%global upstream_version 2.5.5
+%global upstream_version 2.5.7
 #global upstream_prever  RC1
 #global upstream_lower   rc1
 
@@ -80,7 +80,6 @@ Requires:       php-cli
 Requires:       ca-certificates
 # Bundled libraries
 # License MIT
-Provides:       bundled(php-composer-ca-bundle) = 1.3.5
 Provides:       bundled(php-composer-class-map-generator) = 1.0.0
 Provides:       bundled(php-composer-metadata-minifier) = 1.0.0
 Provides:       bundled(php-composer-pcre) = 2.1.0
@@ -90,13 +89,13 @@ Provides:       bundled(php-composer-xdebug-handler) = 3.0.3
 Provides:       bundled(php-justinrainbow-json-schema) = 5.2.12
 Provides:       bundled(php-psr-container) = 1.1.1
 Provides:       bundled(php-psr-log) = 1.1.4
-Provides:       bundled(php-react-promise) = v2.9.0
-Provides:       bundled(php-seld-jsonlint) = 1.9.0
+Provides:       bundled(php-react-promise) = v2.10.0
+Provides:       bundled(php-seld-jsonlint) = 1.10.0
 Provides:       bundled(php-seld-phar-utils) = 1.2.1
 Provides:       bundled(php-seld-signal-handler) = 2.0.1
-Provides:       bundled(php-symfony-console) = v5.4.21
+Provides:       bundled(php-symfony-console) = v5.4.23
 Provides:       bundled(php-symfony-deprecation-contracts) = v2.5.2
-Provides:       bundled(php-symfony-filesystem) = v5.4.21
+Provides:       bundled(php-symfony-filesystem) = v5.4.23
 Provides:       bundled(php-symfony-finder) = v5.4.21
 Provides:       bundled(php-symfony-polyfill-ctype) = v1.27.0
 Provides:       bundled(php-symfony-polyfill-intl-grapheme) = v1.27.0
@@ -105,9 +104,9 @@ Provides:       bundled(php-symfony-polyfill-mbstring) = v1.27.0
 Provides:       bundled(php-symfony-polyfill-php73) = v1.27.0
 Provides:       bundled(php-symfony-polyfill-php80) = v1.27.0
 Provides:       bundled(php-symfony-polyfill-php81) = v1.27.0
-Provides:       bundled(php-symfony-process) = v5.4.21
+Provides:       bundled(php-symfony-process) = v5.4.23
 Provides:       bundled(php-symfony-service-contracts) = v2.5.2
-Provides:       bundled(php-symfony-string) = v5.4.21
+Provides:       bundled(php-symfony-string) = v5.4.22
 
 # From composer.json, suggest
 #        "ext-openssl": "Enabling the openssl extension allows you to access https URLs for repositories and packages",
@@ -155,8 +154,8 @@ Documentation: https://getcomposer.org/doc/
 %prep
 %setup -q -n %{gh_project}-%{gh_commit}
 
-%patch0 -p1 -b .rpm
-%patch1 -p1 -b .noxdg
+%patch -P0 -p1 -b .rpm
+%patch -P1 -p1 -b .noxdg
 find . \( -name \*.rpm -o -name \*noxdg \) -delete -print
 
 if grep -r '\.\./res'; then
@@ -249,6 +248,12 @@ install -Dpm 755 bin/%{name} %{buildroot}%{_bindir}/%{name}
 
 
 %changelog
+* Wed May 24 2023 Remi Collet <remi@remirepo.net> - 2.5.7-1
+- update to 2.5.7
+
+* Wed May 24 2023 Remi Collet <remi@remirepo.net> - 2.5.6-1
+- update to 2.5.6
+
 * Tue Mar 21 2023 Remi Collet <remi@remirepo.net> - 2.5.5-1
 - update to 2.5.5
 

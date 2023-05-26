@@ -7,7 +7,7 @@
 
 Name:           appeditor
 Summary:        Edit application menu
-Version:        1.1.4^%{snapdate}git%(echo '%{commit}' | cut -b -7)
+Version:        1.1.4^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")
 Release:        %autorelease
 # The entire source is GPL-3.0-only, except:
 #   - data/com.github.donadigo.appeditor.appdata.xml.in is CC0-1.0, which is

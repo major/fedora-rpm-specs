@@ -2,10 +2,11 @@
 
 Name:		rubygem-%{gem_name}
 Version:	1.1.5
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Native packages installation helper
 
-License:	LGPLv3+
+# SPDX confirmed
+License:	LGPL-3.0-or-later
 URL:		https://github.com/ruby-gnome/native-package-installer
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
 Source1:	%{gem_name}-%{version}-tests.tar.gz
@@ -77,6 +78,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Wed May 24 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.1.5-3
+- SPDX migration
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

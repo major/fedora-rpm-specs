@@ -1,12 +1,12 @@
 %bcond_without tests
 # Packaging unstable?
-%global prerel b2
+%global prerel rc1
 %global general_version 5.3.0
 %global upstream_version %{general_version}%{?prerel}
 
 Name:           python-celery
 Version:        %{general_version}%{?prerel:~%{prerel}}
-Release:        1%{?dist}
+Release:        %autorelease
 BuildArch:      noarch
 
 License:        BSD
@@ -82,6 +82,9 @@ BuildRequires:  python3-simplejson
 %prep
 %autosetup -p1 -n celery-%{upstream_version}
 
+# Drop python tzdata requirement which doesn't make sense on Fedora
+sed -i 's/tzdata>=2022.7//g' requirements/default.txt
+
 %build
 %py3_build
 
@@ -134,166 +137,4 @@ export TEST_BACKEND=rpc
 %{python3_sitelib}/celery
 
 %changelog
-* Sun Feb 19 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 5.3.0~b2-1
-- Celery 5.3.0b2 (closes RHBZ#2171242)
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0~b1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Aug 03 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 5.3.0~b1-1
-- Celery 5.3.0b1 (closes RHBZ#2091392)
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.6-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Jun 24 2022 Python Maint <python-maint@redhat.com> - 5.2.6-2
-- Rebuilt for Python 3.11
-
-* Sat Apr 09 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 5.2.6-1
-- Celery 5.2.6
-
-* Sun Apr 03 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 5.2.5-1
-- Celery 5.2.5
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jan 07 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 5.2.3-2
-- Lighten up some dependency ranges a bit
-
-* Thu Jan 06 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 5.2.3-1
-- Celery 5.2.3
-
-* Mon Nov 22 2021 Frantisek Zatloukal <fzatlouk@redhat.com> - 5.2.1-1
-- Celery 5.2.1
-
-* Wed Nov 10 2021 Frantisek Zatloukal <fzatlouk@redhat.com> - 5.2.0-1
-- Celery 5.2.0
-
-* Wed Nov 03 2021 Frantisek Zatloukal <fzatlouk@redhat.com> - 5.2.0~rc2-1
-- Celery 5.2.0rc2
-
-* Thu Oct 14 2021 Frantisek Zatloukal <fzatlouk@redhat.com> - 5.2.0~rc1-1
-- Celery 5.2.0rc1
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Thu Jul 01 2021 Frantisek Zatloukal <fzatlouk@redhat.com> - 5.1.2-1
-- Celery 5.1.2
-
-* Wed Jun 30 2021 Miro Hrončok <mhroncok@redhat.com> - 5.1.1-2
-- Work with click 8
-- Fixes rhbz#1977508
-
-* Wed Jun 23 2021 Frantisek Zatloukal <fzatlouk@redhat.com> - 5.1.1-1
-- Celery 5.1.1
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 5.1.0-2
-- Rebuilt for Python 3.10
-
-* Tue May 25 2021 Frantisek Zatloukal <fzatlouk@redhat.com> - 5.1.0-1
-- Celery 5.1.0
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Dec 21 2020 Frantisek Zatloukal <fzatlouk@redhat.com> - 5.0.5-1
-- Celery 5.0.5
-
-* Tue Dec 08 2020 Frantisek Zatloukal <fzatlouk@redhat.com> - 5.0.4-1
-- Celery 5.0.4
-- Remove requires from spec, let generators do their job :)
-
-* Sun Dec 06 2020 Frantisek Zatloukal <fzatlouk@redhat.com> - 5.0.3-1
-- Celery 5.0.3
-
-* Tue Nov 03 2020 Frantisek Zatloukal <fzatlouk@redhat.com> - 5.0.2-1
-- Celery 5.0.2
-
-* Mon Oct 19 2020 Frantisek Zatloukal <fzatlouk@redhat.com> - 5.0.1-1
-- Celery 5.0.1
-
-* Wed Sep 30 2020 Frantisek Zatloukal <fzatlouk@redhat.com> - 5.0.0-2
-- Enable more tests
-
-* Tue Sep 29 2020 Frantisek Zatloukal <fzatlouk@redhat.com> - 5.0.0-1
-- Celery 5.0.0
-
-* Mon Aug 03 2020 Frantisek Zatloukal <fzatlouk@redhat.com> - 4.4.7-1
-- Celery 4.4.7
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.6-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Thu Jun 25 2020 Frantisek Zatloukal <fzatlouk@redhat.com> - 4.4.6-1
-- Celery 4.4.6
-
-* Mon Jun 08 2020 Frantisek Zatloukal <fzatlouk@redhat.com> - 4.4.5-1
-- Celery 4.4.5
-
-* Mon Jun 01 2020 Frantisek Zatloukal <fzatlouk@redhat.com> - 4.4.4-1
-- Celery 4.4.4
-
-* Mon Jun 01 2020 Frantisek Zatloukal <fzatlouk@redhat.com> - 4.4.3-1
-- Celery 4.4.3
-- Run pytest during rpm build
-
-* Mon May 25 2020 Miro Hrončok <mhroncok@redhat.com> - 4.3.0-6
-- Rebuilt for Python 3.9
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Oct 03 2019 Miro Hrončok <mhroncok@redhat.com> - 4.3.0-4
-- Rebuilt for Python 3.8.0rc1 (#1748018)
-
-* Mon Aug 19 2019 Miro Hrončok <mhroncok@redhat.com> - 4.3.0-3
-- Rebuilt for Python 3.8
-
-* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Tue Jul 02 2019 Nils Philippsen <nils@redhat.com> - 4.3.0-1
-- Update to 4.3.0
-
-* Thu Jun 06 2019 Randy Barlow <bowlofeggs@fedoraproject.org> - 4.2.1-5
-- Drop python2-celery, as nothing was using it and it fails to install (#1716370).
-
-* Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Mon Jan 28 2019 Neal Gompa <ngompa13@gmail.com> - 4.2.1-3
-- Drop old, unused dependencies from Python 2 subpackage
-
-* Mon Jan 28 2019 Neal Gompa <ngompa13@gmail.com> - 4.2.1-2
-- Switch celery binary to Python 3 in F30+
-- Switch to bconds for controlling the build
-- Drop unused macro
-
-* Wed Sep 19 2018 Randy Barlow <bowlofeggs@fedoraproject.org> - 4.2.1-1
-- Update to 4.2.1 (#1602746).
-- https://github.com/celery/celery/blob/v4.2.1/Changelog
-- Correct documentation license to CC-BY-SA.
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Tue Jun 26 2018 Matthias Runge <mrunge@redhat.com> - 4.2.0-2
-- rebuild for python 3.7
-
-* Mon Jun 25 2018 Carl George <carl@george.computer> - 4.2.0-1
-- Latest upstream
-
-* Tue Jun 19 2018 Miro Hrončok <mhroncok@redhat.com> - 4.1.1-2
-- Rebuilt for Python 3.7
-
-* Tue May 22 2018 Matthias Runge <mrunge@redhat.com> - 4.1.1-1
-- update to 4.1.1 (rhbz#1474545)
-
-* Sun Feb 11 2018 Iryna Shcherbina <ishcherb@redhat.com> - 4.0.2-6
-- Update Python 2 dependency declarations to new packaging standards
-  (See https://fedoraproject.org/wiki/FinalizingFedoraSwitchtoPython3)
-
-* Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.2-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
+%autochangelog

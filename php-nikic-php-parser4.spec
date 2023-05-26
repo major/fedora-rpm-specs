@@ -17,7 +17,7 @@
 %bcond_with    tests
 %endif
 
-%global gh_commit    6bb5176bc4af8bcb7d926f88718db9b96a2d4290
+%global gh_commit    11e2663a5bc9db5d714eedb4277ee300403b4a9e
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     nikic
 %global gh_project   PHP-Parser
@@ -27,7 +27,7 @@
 %global major        4
 
 Name:           php-%{gh_owner}-%{pk_project}%{major}
-Version:        4.15.4
+Version:        4.15.5
 Release:        1%{?dist}
 Summary:        A PHP parser written in PHP - version %{major}
 
@@ -91,7 +91,7 @@ Autoloader: %{php_home}/%{ns_project}%{major}/autoload.php
 %prep
 %setup -q -n %{gh_project}-%{gh_commit}
 
-%patch0 -p1 -b .rpm
+%patch -P0 -p1 -b .rpm
 
 
 %build
@@ -151,6 +151,9 @@ exit $ret
 
 
 %changelog
+* Wed May 24 2023 Remi Collet <remi@remirepo.net> - 4.15.5-1
+- update to 4.15.5
+
 * Mon Mar  6 2023 Remi Collet <remi@remirepo.net> - 4.15.4-1
 - update to 4.15.4
 

@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    44dd214d6ccd6970b87ab54615b59015707fb888
+%global gh_commit    6207533413f6edc3fea373d0e54041661d2bd905
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global c_vendor     tecnickcom
 %global gh_owner     tecnickcom
@@ -15,7 +15,7 @@
 %global with_tests   0%{!?_without_tests:1}
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        1.14.23
+Version:        1.14.24
 Release:        1%{?dist}
 Summary:        PHP library to manipulate various color representations
 
@@ -89,6 +89,7 @@ ret=0
 for cmdarg in "php %{phpunit}" "php80 %{phpunit}" php81 php82; do
    if which $cmdarg; then
       set $cmdarg
+      $1 ${2:-%{_bindir}/phpunit10} --migrate-configuration || :
       $1 ${2:-%{_bindir}/phpunit10} --no-coverage || ret=1
    fi
 done
@@ -109,6 +110,9 @@ exit $ret
 
 
 %changelog
+* Wed May 24 2023 Remi Collet <remi@remirepo.net> - 1.14.24-1
+- update to 1.14.24 (no change)
+
 * Fri May  5 2023 Remi Collet <remi@remirepo.net> - 1.14.23-1
 - update to 1.14.23 (no change)
 

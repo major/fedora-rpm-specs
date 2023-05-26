@@ -18,6 +18,7 @@
 %global ghc_release %{version}
 
 %global base_ver 4.18.0.0
+%global ghc_bignum_ver 1.3
 %global ghc_compact_ver 0.1.0.0
 %global hpc_ver 0.6.2.0
 %global rts_ver 1.0.2
@@ -87,12 +88,12 @@
 %endif
 
 Name: %{ghc_name}
-Version: 9.6.1
+Version: 9.6.2
 # Since library subpackages are versioned:
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD and HaskellReport
@@ -360,7 +361,7 @@ This provides the hadrian tool which can be used to build ghc.
 %ghc_lib_subpackage -d -l BSD filepath-1.4.100.1
 # in ghc not ghc-libraries:
 %ghc_lib_subpackage -d -x ghc-%{ghc_version_override}
-# see below for ghc-bignum
+%ghc_lib_subpackage -d -x -l BSD ghc-bignum-%{ghc_bignum_ver}
 %ghc_lib_subpackage -d -x -l BSD ghc-boot-%{ghc_version_override}
 %ghc_lib_subpackage -d -l BSD ghc-boot-th-%{ghc_version_override}
 %ghc_lib_subpackage -d -x -l BSD ghc-compact-%{ghc_compact_ver}
@@ -606,6 +607,7 @@ done
 echo "%%dir %{ghclibdir}" >> %{name}-base%{?_ghcdynlibdir:-devel}.files
 
 %ghc_gen_filelists ghc %{ghc_version_override}
+%ghc_gen_filelists ghc-bignum %{ghc_bignum_ver}
 %ghc_gen_filelists ghc-boot %{ghc_version_override}
 %ghc_gen_filelists ghc-compact %{ghc_compact_ver}
 %ghc_gen_filelists ghc-heap %{ghc_version_override}
@@ -613,7 +615,6 @@ echo "%%dir %{ghclibdir}" >> %{name}-base%{?_ghcdynlibdir:-devel}.files
 %ghc_gen_filelists hpc %{hpc_ver}
 %ghc_gen_filelists libiserv %{ghc_version_override}
 
-%ghc_gen_filelists ghc-bignum 1.3
 %ghc_gen_filelists ghc-prim 0.10.0
 %ghc_gen_filelists integer-gmp 1.1
 %if %{with hadrian}
@@ -635,7 +636,6 @@ echo "%%license libraries/LICENSE.%1" >> %{name}-%2.files\
 fi\
 %{nil}
 
-%merge_filelist ghc-bignum base
 %merge_filelist ghc-prim base
 %merge_filelist integer-gmp base
 %if %{with hadrian}
@@ -987,6 +987,10 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Wed May 24 2023 Jens Petersen <petersen@redhat.com> - 9.6.2-6
+- https://downloads.haskell.org/ghc/9.6.2/docs/users_guide/9.6.2-notes.html
+- subpackage ghc-bignum
+
 * Mon Mar 13 2023 Jens Petersen <petersen@redhat.com> - 9.6.1-5
 - only add ghclibplatform dir to compiler
 

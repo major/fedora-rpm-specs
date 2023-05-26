@@ -19,12 +19,16 @@
     pl:    "Polish" \
     pt_BR: "Portuguese (Brazil)" \
     ro:    "Romanian" \
+    ru:    "Russian" \
     sr:    "Serbian" \
     sv:    "Swedish" \
     uk:    "Ukrainian" \
     vi:    "Vietnamese"
 
 Name:           man-pages-l10n
+# Bumping epoch as a consequence of replacing man-pages-ru standalone package that has higher version (Obsoletes/Provides not needed)
+# This is part of the Fedora 39 Change: https://fedoraproject.org/wiki/Changes/ManPagesRuRetirement
+Epoch:          1
 Version:        4.18.1
 Release:        %autorelease
 Summary:        Translated man pages from the Linux Documentation Project and other software projects
@@ -85,9 +89,6 @@ end}
 %make_install
 # prevent conflict with net-tools
 rm %{buildroot}%{_mandir}/de/man5/ethers.5*
-# Remove the Russian translations until the BZ#2163421 is resolved
-rm -rf %{buildroot}%{_mandir}/ru/
-
 
 # generate %files sections
 %{lua: for code in rpm.expand('%{translations}'):gmatch('(%S+):%s+%b""') do

@@ -24,7 +24,6 @@ BuildRequires:  cmake(KF5XmlGui)
 BuildRequires:  cmake(KSaneCore)
 
 Requires:       kde-filesystem
-Requires:       khotkeys
 
 
 %description
@@ -58,6 +57,7 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.kde.
 %{_kf5_datadir}/applications/org.kde.%{name}.desktop
 %{_kf5_datadir}/icons/hicolor/128x128/apps/%{name}.png
 %{_kf5_datadir}/icons/hicolor/48x48/apps/org.kde.skanlite.svg
+%dir %{_kf5_datadir}/khotkeys
 %{_kf5_datadir}/khotkeys/%{name}.khotkeys
 %{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
 

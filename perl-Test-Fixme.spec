@@ -2,7 +2,7 @@ Name:           perl-Test-Fixme
 Version:        0.16
 Release:        21%{?dist}
 Summary:        Check code for FIXMEs
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Fixme
 Source0:        https://cpan.metacpan.org/modules/by-module/Test/Test-Fixme-%{version}.tar.gz
 BuildArch:      noarch
@@ -28,6 +28,7 @@ BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(Test::More)
 # Dependencies
+# (none)
 
 %description
 When coding it is common to come up against problems that need to be

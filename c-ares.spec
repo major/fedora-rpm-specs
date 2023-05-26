@@ -2,7 +2,7 @@
 
 Summary: A library that performs asynchronous DNS operations
 Name: c-ares
-Version: 1.19.0
+Version: 1.19.1
 Release: 1%{?dist}
 License: MIT
 URL: http://c-ares.org/
@@ -83,6 +83,10 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libcares.la
 %{_mandir}/man3/ares_*
 
 %changelog
+* Wed May 24 2023 Tom Callaway <spot@fedoraproject.org> - 1.19.1-1
+- update to 1.19.1
+- fixes CVE-2023-32067
+
 * Fri Feb 17 2023 Tom Callaway <spot@fedoraproject.org> - 1.19.0-1
 - update to 1.19.0
 - fixes CVE-2022-4904

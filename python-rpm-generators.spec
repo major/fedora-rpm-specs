@@ -1,9 +1,9 @@
 Name:           python-rpm-generators
 Summary:        Dependency generators for Python RPMs
 Version:        14
-Release:        5%{?dist}
+Release:        6%{?dist}
 
-Url:            https://src.fedoraproject.org/python-rpm-generators
+Url:            https://src.fedoraproject.org/rpms/python-rpm-generators
 
 # Originally the following files were part of RPM, so the license is inherited: GPL-2.0-or-later
 # The COPYING file is grabbed from the last commit that changed the files
@@ -56,6 +56,9 @@ install -Dpm0755 -t %{buildroot}%{_rpmconfigdir} *.py
 %{_rpmconfigdir}/pythonbundles.py
 
 %changelog
+* Wed May 24 2023 Todd Zullinger <tmz@pobox.com> - 14-6
+- Fix URL tag
+
 * Fri May 05 2023 Miro Hrončok <mhroncok@redhat.com> - 14-5
 - Declare the license via a complex SPDX expression rather than "effective license"
 

@@ -5,7 +5,7 @@
 %global	gemver		1.17.8
 #%%global	gem_githash	af3e3fc059
 
-%global	need_test_bootstrap	1
+%global	need_test_bootstrap	0
 
 # Upstream GIT http://github.com/rcairo/
 
@@ -14,14 +14,13 @@
 Summary:	Ruby bindings for cairo
 Name:		rubygem-%{gem_name}
 Version:	%{gemver}
-Release:	4%{?dist}
-License:	GPLv2 or Ruby
+Release:	5%{?dist}
+# From gemspec
+# SPDX confirmed
+License:	GPL-2.0-or-later OR Ruby
+
 URL:		http://cairographics.org/rcairo/
-%if 1
 Source0:	http://rubygems.org/downloads/%{gem_name}-%{version}.gem
-%else
-Source0:	%{gem_name}-%{gemver}-%{gem_githash}.gem
-%endif
 # Git based gem is created by below
 Source1:	create-cairo-gem.sh
 # FIXME
@@ -76,11 +75,6 @@ Requires:	ruby-devel
 # Obsoletes / Provides
 # ruby(cairo-devel) Provides is for compatibility
 #
-# Actually ruby(cairo-devel) provides should not exist -
-# Remove on F-17 and above
-Obsoletes:	ruby-cairo-devel < 1.9
-Provides:	ruby-cairo-devel = %{version}-%{release}
-
 %description devel
 Header files and libraries for building a extension library for the
 ruby-cairo
@@ -126,12 +120,20 @@ rm -f .%{gem_extdir_mri}/{gem_make.out,mkmf.log}
 
 popd
 
-# cleanups
-rm -rf ./TMPINSTDIR/%{gem_instdir}/ext/
-rm -f ./TMPINSTDIR/%{gem_instdir}/{Makefile*,extconf.rb}
-
 %install
 cp -a ./TMPINSTDIR/* %{buildroot}/
+
+# cleanups
+rm -f %{buildroot}%{gem_cache}
+pushd %{buildroot}%{gem_instdir}
+rm -rf \
+	Gemfile \
+	Rakefile \
+	*.gemspec \
+	ext/ \
+	test/ \
+	%{nil}
+popd
 
 %check
 %if 0%{?need_test_bootstrap} >= 1
@@ -163,24 +165,25 @@ ruby ./test/run-test.rb
 %{gem_extdir_mri}/
 
 %dir	%{gem_instdir}/
-%doc	%{gem_instdir}/[A-Z]*
-%exclude %{gem_instdir}/Gemfile
-%exclude %{gem_instdir}/Rakefile
+%doc	%{gem_instdir}/[A-CN-Z]*
+%license	%{gem_instdir}/GPL
+
 %{gem_instdir}/lib/
-%exclude	%{gem_cache}
 %{gem_spec}
 
 %files	doc
-%{gem_instdir}/Gemfile
-%{gem_instdir}/Rakefile
 %{gem_instdir}/samples/
-%{gem_instdir}/test/
 %{gem_docdir}/
 
 %files	devel
 %{header_dir}/rb_cairo.h
 
 %changelog
+* Wed May 24 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.17.8-5
+- Enable test suite again
+- SPDX migration
+- spec file cleanup
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

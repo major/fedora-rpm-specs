@@ -8,7 +8,7 @@
 %bcond_with libsodium_crypt
 %endif
 
-%define patchlevel 1562
+%define patchlevel 1575
 
 %if %{?WITH_SELINUX:0}%{!?WITH_SELINUX:1}
 %define WITH_SELINUX 1
@@ -1030,6 +1030,9 @@ touch %{buildroot}/%{_datadir}/%{name}/vimfiles/doc/tags
 
 
 %changelog
+* Wed May 24 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.1575-1
+- patchlevel 1575
+
 * Thu May 18 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.1562-1
 - patchlevel 1562
 

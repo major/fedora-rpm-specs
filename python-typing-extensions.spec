@@ -1,5 +1,5 @@
 Name:      python-typing-extensions
-Version:   4.6.0
+Version:   4.6.1
 Release:   1%{?dist}
 Summary:   Python Typing Extensions
 
@@ -75,6 +75,9 @@ cd src
 %doc README.md
 
 %changelog
+* Wed May 24 2023 Jonny Heggheim <hegjon@gmail.com> - 4.6.1-1
+- Updated to version 4.6.1
+
 * Tue May 23 2023 Jonny Heggheim <hegjon@gmail.com> - 4.6.0-1
 - Updated to version 4.6.0
 

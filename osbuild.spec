@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        85
+Version:        86
 
 %forgemeta
 
@@ -252,6 +252,19 @@ fi
 
 
 %changelog
+* Wed May 24 2023 Packit <hello@packit.dev> - 86-1
+Changes with 86
+----------------
+  * org.osbuild.mkfs.ext4: Add verity option to (#1310)
+  * runners: add fedora-38 specific logic for SHA1 key support (#1307)
+  * schutzfile: update manifest-db ref 2023-05-20 (#1313)
+  * stages/isolinux: default list (#1309)
+
+Contributions from: Alexander Larsson, Michael Ho, SchutzBot, Simon de Vlieger, Thomas Lavocat
+
+— Somewhere on the Internet, 2023-05-24
+
+
 * Wed May 10 2023 Packit <hello@packit.dev> - 85-1
 Changes with 85
 ----------------

@@ -1,7 +1,7 @@
 %global processor_arch arm
 %global target         %{processor_arch}-none-eabi
-%global gcc_ver        12.2.0
-%global gcc_short_ver  12.2
+%global gcc_ver        12.3.0
+%global gcc_short_ver  12.3
 
 # we need newlib to compile complete gcc, but we need gcc to compile newlib,
 # so compile minimal gcc first
@@ -9,8 +9,8 @@
 
 Name:           %{target}-gcc-cs
 Epoch:          1
-Version:        12.2.0
-Release:        5%{?dist}
+Version:        12.3.0
+Release:        1%{?dist}
 Summary:        GNU GCC for cross-compilation for %{target} target
 License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND MIT AND BSD-2-Clause
 URL:            https://gcc.gnu.org/
@@ -21,8 +21,6 @@ Source2:        bootstrapexplain
 
 Patch1:  	gcc12-hack.patch
 Patch2:         gcc12-Wno-format-security.patch
-Patch3:         gcc12-configure-c99-1.patch
-Patch4:         gcc12-configure-c99-2.patch
 
 #BuildRequires:	autoconf = 2.69
 BuildRequires:  gcc-c++
@@ -54,8 +52,6 @@ compile c++ code for the %{target} platform, instead of for the native
 pushd gcc-%{gcc_ver}
 %patch -P1 -p0 -b .hack
 %patch -P2 -p0 -b .wnosecerr
-%patch -P3 -p1
-%patch -P4 -p1
 popd
 pushd gcc-%{gcc_ver}/libiberty
 #autoconf -f
@@ -295,6 +291,9 @@ popd
 %endif
 
 %changelog
+* Wed May 24 2023 Michal Hlavinka <mhlavink@redhat.com> - 1:12.3.0-1
+- updated to 12.3.0
+
 * Wed May 10 2023 Michal Hlavinka <mhlavink@redhat.com> - 1:12.2.0-5
 - update license tag format (SPDX migration) for https://fedoraproject.org/wiki/Changes/SPDX_Licenses_Phase_1
 

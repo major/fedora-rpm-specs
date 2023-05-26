@@ -5,7 +5,7 @@
 %endif
 
 Name:          enchant2
-Version:       2.4.0
+Version:       2.5.0
 Release:       1%{?dist}
 Summary:       An Enchanting Spell Checking Library
 
@@ -240,6 +240,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Wed May 24 2023 Sandro Mani <manisandro@gmail.com> - 2.5.0-1
+- Update to 2.5.0
+
 * Tue May 23 2023 Sandro Mani <manisandro@gmail.com> - 2.4.0-1
 - Update to 2.4.0
 

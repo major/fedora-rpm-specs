@@ -3,18 +3,13 @@
 %global __requires_exclude ^(%{_privatelibs})$
 
 Name:           libproxy
-Version:        0.5.0
-Release:        3%{?dist}
+Version:        0.5.1
+Release:        1%{?dist}
 Summary:        A library handling all the details of proxy configuration
 
 License:        LGPL-2.1-or-later
 URL:            https://libproxy.github.io/libproxy/
-Source0:        https://github.com/libproxy/%{name}/archive/refs/tags/%{name}-%{version}.tar.gz
-# https://github.com/libproxy/libproxy/issues/222 and others.
-Patch0:         libproxy-0.5.0-post-release-fixes.patch
-# https://github.com/libproxy/libproxy/pull/231
-# https://bugzilla.redhat.com/show_bug.cgi?id=2209173
-Patch1:         libproxy-0.5.0-fix-libproxy-rpath.patch
+Source0:        https://github.com/libproxy/%{name}/archive/refs/tags/%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  meson
@@ -75,8 +70,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-# Unusual tarball directory name should be fixed in the next release.
-%autosetup -p1 -n libproxy-%{name}-%{version}
+%autosetup -p1
 
 
 %build
@@ -127,6 +121,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Wed May 24 2023 David King <amigadave@amigadave.com> - 0.5.1-1
+- Update to 0.5.1
+
 * Tue May 23 2023 David King <amigadave@amigadave.com> - 0.5.0-3
 - Fix libproxy rpath (#2209173)
 

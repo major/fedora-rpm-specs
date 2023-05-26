@@ -45,7 +45,7 @@ Name: lvm2
 Epoch: %{rhel}
 %endif
 Version: 2.03.21
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2
 URL: https://sourceware.org/lvm2/
 Source0: https://sourceware.org/pub/lvm2/releases/LVM2.%{version}.tgz
@@ -502,7 +502,7 @@ Daemon for access to LVM2 functionality through a D-Bus interface.
 %{_datadir}/dbus-1/system-services/com.redhat.lvmdbus1.service
 %{_mandir}/man8/lvmdbusd.8.gz
 %{_unitdir}/lvm2-lvmdbusd.service
-%{python3_sitelib}/lvmdbusd/*
+%{python3_sitelib}/lvmdbusd
 
 %endif
 
@@ -658,6 +658,9 @@ An extensive functional testsuite for LVM2.
 %endif
 
 %changelog
+* Sat May 20 2023 Todd Zullinger <tmz@pobox.com> - 2.03.21-2
+- Avoid unowned %%{python3_sitelib}/lvmdbusd directory
+
 * Fri Apr 21 2023 Marian Csontos <mcsontos@redhat.com> - 2.03.21-1
 - Update to upstream version 2.03.21.
 - Allow (write)cache over raid+integrity LV.

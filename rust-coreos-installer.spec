@@ -23,8 +23,12 @@ Source0:        https://crates.io/api/v1/crates/%{crate}/%{version}/download#/%{
 Source1:        https://github.com/coreos/%{crate}/releases/download/v%{version}/%{crate}-%{version}-vendor.tar.gz
 Source2:        https://github.com/coreos/coreos-installer-dracut/archive/%{dracutcommit}/coreos-installer-dracut-%{dracutshortcommit}.tar.gz
 
+## RHEL specific patches
+# enable rdcore in default feature set (RHEL macros do not take -f)
+Patch1000:      enable-rdcore.patch
+
 ExclusiveArch:  %{rust_arches}
-%if 0%{?rhel} && !0%{?eln}
+%if 0%{?rhel}
 BuildRequires:  rust-toolset
 BuildRequires:  openssl-devel
 # To ensure we're not bundling system libraries
@@ -79,17 +83,10 @@ Obsoletes:      coreos-installer-dracut < 0.0.1
 %description -n %{crate} %{_description}
 
 %prep
-%autosetup -n %{crate}-%{version} -p1 -a 2
-%if 0%{?rhel} && !0%{?eln}
-tar xvf %{SOURCE1}
-mkdir -p .cargo
-cat >.cargo/config << EOF
-[source.crates-io]
-replace-with = "vendored-sources"
-
-[source.vendored-sources]
-directory = "vendor"
-EOF
+%autosetup -n %{crate}-%{version} -N -a 2
+%autopatch -p1 %{?!rhel:-M 999}
+%if 0%{?rhel}
+%cargo_prep -V 1
 %else
 %cargo_prep
 %endif
@@ -97,20 +94,20 @@ EOF
 # https://bugzilla.redhat.com/show_bug.cgi?id=1883457
 sed -i 's/"-Ccodegen-units=1",//' .cargo/config
 
-%if !0%{?rhel} || 0%{?eln}
+%if !0%{?rhel}
 %generate_buildrequires
 %cargo_generate_buildrequires -f rdcore
 %endif
 
 %build
-%if 0%{?rhel} && !0%{?eln}
+%if 0%{?rhel}
 %cargo_build
 %else
 %cargo_build -f rdcore
 %endif
 
 %install
-%if 0%{?rhel} && !0%{?eln}
+%if 0%{?rhel}
 %make_install RELEASE=1
 %else
 %cargo_install -f rdcore
@@ -172,7 +169,7 @@ from the initramfs in IoT/Edge and is supported by the community.
 
 %if %{with check}
 %check
-%if 0%{?rhel} && !0%{?eln}
+%if 0%{?rhel}
 %cargo_test
 %else
 %cargo_test -f rdcore

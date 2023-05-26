@@ -15,7 +15,6 @@ BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python%{python3_pkgversion}-six
 BuildRequires:  python%{python3_pkgversion}-pytest
-BuildRequires:  python%{python3_pkgversion}-pytest-cov
 %global _description \
 ConfigObj is a simple but powerful configuration file reader and writer: an ini\
 file round tripper. Its main feature is that it is very easy to use, with a\
@@ -41,7 +40,7 @@ Requires:       python%{python3_pkgversion}-six
 export PYTHONPATH=$(pwd)/build/lib
 %{__python3} src/tests/configobj_doctests.py
 %{__python3} -m configobj.validate
-py.test-%{python3_version} -c setup.cfg --color=yes --cov=configobj --cov-report=term --cov-report=html --cov-report=xml
+%pytest -c setup.cfg --color=yes
 
 %files -n python%{python3_pkgversion}-configobj
 %doc README.md

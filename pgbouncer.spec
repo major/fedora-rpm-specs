@@ -1,6 +1,6 @@
 Name:		pgbouncer
-Version:	1.16.1
-Release:	5%{?dist}
+Version:	1.19.0
+Release:	2%{?dist}
 Summary:	Lightweight connection pooler for PostgreSQL
 License:	MIT and BSD
 URL:		https://www.pgbouncer.org
@@ -35,7 +35,7 @@ for low-level socket handling.
 %prep
 %autosetup -p0
 
-sed -i -e 's|/usr/bin/env python|%__python3|g' etc/mkauth.py
+sed -i -e 's|/usr/bin/env python.*|%__python3|g' etc/mkauth.py
 
 %build
 # Building with systemd flag tries to enable notify support:
@@ -118,6 +118,12 @@ exit 0
 %{_unitdir}/%{name}.service
 
 %changelog
+* Wed May 24 2023 Simone Caronni <negativo17@gmail.com> - 1.19.0-2
+- Adjust python interpreter for mkauth.py.
+
+* Wed May 24 2023 Simone Caronni <negativo17@gmail.com> - 1.19.0-1
+- Update to 1.19.0.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -7,12 +7,15 @@ Summary: Routing Recognition and Generation Tools
 License: MIT
 URL: https://github.com/bbangert/routes
 Source0: https://pypi.io/packages/source/R/Routes/Routes-%{version}.tar.gz
+
+Patch0001: 0001-switch-from-nose-to-pytest.patch
+
 BuildArch: noarch
 
 BuildRequires: python3-devel
 BuildRequires: python3dist(setuptools)
 # nose removal in https://github.com/bbangert/routes/pull/107
-BuildRequires: python3dist(nose)
+BuildRequires: python3dist(pytest)
 BuildRequires: python3dist(webtest)
 BuildRequires: python3dist(webob)
 BuildRequires: python3dist(repoze-lru)
@@ -33,8 +36,7 @@ Summary: %{summary}
 %description -n python3-routes %_description
 
 %prep
-%setup -q -n Routes-%{version}
-
+%autosetup -p1 -n Routes-%{version}
 
 %build
 %py3_build
@@ -45,7 +47,7 @@ Summary: %{summary}
 
 
 %check
-PYTHONPATH=$(pwd) nosetests-%{python3_version}
+PYTHONPATH=$(pwd) python3 -m pytest
 
 
 %files -n python3-routes

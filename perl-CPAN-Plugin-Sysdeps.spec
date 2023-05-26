@@ -1,8 +1,8 @@
 Name:           perl-CPAN-Plugin-Sysdeps
 Version:        0.70
-Release:        5%{?dist}
+Release:        7%{?dist}
 Summary:        CPAN client plugin for installing system dependencies
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN-Plugin-Sysdeps
 Source0:        https://cpan.metacpan.org/authors/id/S/SR/SREZIC/CPAN-Plugin-Sysdeps-%{version}.tar.gz
 # Prevent a build script from accidental execution in an author mode
@@ -40,7 +40,7 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(vars)
 Requires:       dnf
 Requires:       perl(Data::Dumper)
-Suggests:       perl(Hash::Util)
+Recommends:     perl(Hash::Util)
 Requires:       perl(IPC::Open3)
 Requires:       perl(Symbol)
 Requires:       rpm
@@ -67,8 +67,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n CPAN-Plugin-Sysdeps-%{version}
-%patch0 -p1
+%autosetup -p1 -n CPAN-Plugin-Sysdeps-%{version}
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
@@ -101,14 +100,24 @@ make test
 %files
 %doc Changes README.md
 %{_bindir}/cpan-sysdeps
-%{perl_vendorlib}/*
+%dir %{perl_vendorlib}/CPAN
+%dir %{perl_vendorlib}/CPAN/Plugin
+%{perl_vendorlib}/CPAN/Plugin/Sysdeps
+%{perl_vendorlib}/CPAN/Plugin/Sysdeps.pm
 %{_mandir}/man1/cpan-sysdeps.1*
-%{_mandir}/man3/*
+%{_mandir}/man3/CPAN::Plugin::Sysdeps::*
+%{_mandir}/man3/CPAN::Plugin::Sysdeps.*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed May 24 2023 Petr Pisar <ppisar@redhat.com> - 0.70-7
+- Name packaged files explicitly
+
+* Wed May 24 2023 Petr Pisar <ppisar@redhat.com> - 0.70-6
+- Convert a license tag to an SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.70-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

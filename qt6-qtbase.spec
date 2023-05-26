@@ -37,8 +37,8 @@ BuildRequires: pkgconfig(libsystemd)
 
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
-Version: 6.5.0
-Release: 2%{?dist}
+Version: 6.5.1
+Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt-project.org/
@@ -403,7 +403,7 @@ translationdir=%{_qt6_translationdir}
 
 Name: Qt6
 Description: Qt6 Configuration
-Version: 6.5.0
+Version: 6.5.1
 EOF
 
 # rpm macros
@@ -465,6 +465,9 @@ rm %{buildroot}/%{_qt6_libexecdir}/qt-cmake-private-install.cmake
 
 # Use better location for some new scripts in qtbase-6.0.1
 mv %{buildroot}/%{_qt6_libexecdir}/ensure_pro_file.cmake %{buildroot}/%{_qt6_libdir}/cmake/Qt6/ensure_pro_file.cmake
+
+# FIXME why is this being installed?
+rm %{buildroot}/%{_qt6_libdir}/objects-RelWithDebInfo/ExampleIconsPrivate_resources_1/.rcc/qrc_example_icons.cpp.o
 
 %check
 # verify Qt6.pc
@@ -552,6 +555,7 @@ make check -k ||:
 %dir %{_qt6_libdir}/cmake/Qt6EglFSDeviceIntegrationPrivate
 %dir %{_qt6_libdir}/cmake/Qt6EglFsKmsGbmSupportPrivate
 %dir %{_qt6_libdir}/cmake/Qt6EglFsKmsSupportPrivate
+%dir %{_qt6_libdir}/cmake/Qt6ExampleIconsPrivate
 %dir %{_qt6_libdir}/cmake/Qt6FbSupportPrivate
 %dir %{_qt6_libdir}/cmake/Qt6Gui
 %dir %{_qt6_libdir}/cmake/Qt6GuiTools
@@ -611,6 +615,7 @@ make check -k ||:
 %{_qt6_headerdir}/QtCore/
 %{_qt6_headerdir}/QtDBus/
 %{_qt6_headerdir}/QtInputSupport
+%{_qt6_headerdir}/QtExampleIcons
 %{_qt6_headerdir}/QtGui/
 %{_qt6_headerdir}/QtNetwork/
 %{_qt6_headerdir}/QtOpenGL/
@@ -689,6 +694,7 @@ make check -k ||:
 %{_qt6_libdir}/cmake/Qt6EglFSDeviceIntegrationPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6EglFsKmsGbmSupportPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6EglFsKmsSupportPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6ExampleIconsPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6FbSupportPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6Gui/*.cmake
 %{_qt6_libdir}/cmake/Qt6GuiTools/*.cmake
@@ -723,6 +729,8 @@ make check -k ||:
 %{_qt6_headerdir}/QtDeviceDiscoverySupport
 %{_qt6_libdir}/libQt6DeviceDiscoverySupport.*a
 %{_qt6_libdir}/libQt6DeviceDiscoverySupport.prl
+%{_qt6_libdir}/libQt6ExampleIcons.a
+%{_qt6_libdir}/libQt6ExampleIcons.prl
 %{_qt6_headerdir}/QtFbSupport
 %{_qt6_libdir}/libQt6FbSupport.*a
 %{_qt6_libdir}/libQt6FbSupport.prl
@@ -810,6 +818,9 @@ make check -k ||:
 
 
 %changelog
+* Mon May 22 2023 Jan Grulich <jgrulich@redhat.com> - 6.5.1-1
+- 6.5.1
+
 * Fri Apr 7 2023 Marie Loise Nolden <loise@kde.org> - 6.5.0-2
 - fix xcb plugin with new dependency xcb-cursor instead of Xcursor
   introduction with qt 6.5, add firebird sql plugin cleanly, clean up spec file

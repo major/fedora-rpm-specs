@@ -21,13 +21,9 @@ ExcludeArch: i686
 # as the build is *very* slow.
 %global debug_build       0
 
-# See rhbz#2134527 - Use portal Gtk file dialog on Fedora 37+
+# See rhbz#2134527 - Use portal Gtk file dialog
 # Disabled due to various issues now.
-%if 0%{?fedora} >= 37
 %global use_xdg_file_portal 0
-%else
-%global use_xdg_file_portal 0
-%endif
 
 %global system_nss        1
 %global system_libevent   1
@@ -38,14 +34,6 @@ ExcludeArch: i686
 %global build_with_clang 1
 %else
 %global build_with_clang 0
-%endif
-
-%ifarch armv7hl
-%global create_debuginfo  0
-
-# always use clang for arm builds
-%global toolchain         clang
-%global build_with_clang  1
 %endif
 
 # Temporary disabled due to
@@ -67,11 +55,7 @@ ExcludeArch: i686
 %endif
 
 %global system_ffi        1
-%ifarch armv7hl
-%global system_libvpx     1
-%else
 %global system_libvpx     0
-%endif
 %global system_jpeg       1
 %global system_pixman     1
 %global use_bundled_cbindgen  1
@@ -140,19 +124,14 @@ ExcludeArch: i686
 %bcond_without langpacks
 
 %if %{with langpacks}
-%if 0%{?fedora} >= 37
 %bcond_without langpacks_subpkg
-%endif
 %endif
 
 %if !%{release_build}
 %global pre_tag .npgo
 %endif
-# Don't use 'clang' suffix on arm
-%ifnarch %{arm}
 %if %{build_with_clang}
 %global pre_tag .clang
-%endif
 %endif
 %if %{build_with_asan}
 %global pre_tag .asan
@@ -176,7 +155,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        113.0.1
-Release:        3%{?pre_tag}%{?dist}
+Release:        4%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
@@ -253,13 +232,13 @@ Patch407:        mozilla-1667096.patch
 Patch408:        mozilla-1832770.patch
 # TODO: do we need it?
 #Patch415:        mozilla-1670333.patch
+Patch410:        D177258.diff
+Patch411:        D177902.diff
+Patch412:        D178251.diff
 
 # PGO/LTO patches
 Patch600:        pgo.patch
 Patch602:        mozilla-1516803.patch
-
-# a patch for compiling with gcc on arm (from debian)
-Patch990:        work-around-GCC-ICE-on-arm.patch
 
 # Work around broken moz.build file on ppc64le (mozb#1779545, mozb#1775202)
 Patch1100:       mozilla-1775202.patch
@@ -534,6 +513,9 @@ This package contains results of tests executed during build.
 %patch408 -p1 -b .1832770
 # TODO: do we need it?
 #%patch415 -p1 -b .1670333
+%patch410 -p1 -b .D177258
+%patch411 -p1 -b .D177902
+%patch412 -p1 -b .D178251
 
 # PGO patches
 %if %{build_with_pgo}
@@ -543,7 +525,6 @@ This package contains results of tests executed during build.
 %endif
 %endif
 
-%patch990 -p1 -b .work-around-GCC-ICE-on-arm
 %patch1100 -p1 -b .ppc-mobzuild
 %patch1200 -p1 -b .rustflags-commasplit
 
@@ -576,7 +557,7 @@ echo "ac_add_options --with-system-libevent" >> .mozconfig
 echo "ac_add_options --enable-system-ffi" >> .mozconfig
 %endif
 
-%ifarch %{arm} aarch64
+%ifarch aarch64
 echo "ac_add_options --disable-elf-hack" >> .mozconfig
 %endif
 
@@ -697,7 +678,7 @@ MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | sed -e 's/-O2//')
 # If MOZ_DEBUG_FLAGS is empty, firefox's build will default it to "-g" which
 # overrides the -g1 from line above and breaks building on s390/arm
 # (OOM when linking, rhbz#1238225)
-%ifarch %{arm} %{ix86}
+%ifarch %{ix86}
 MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | sed -e 's/-g/-g0/')
 export MOZ_DEBUG_FLAGS=" "
 %endif
@@ -706,27 +687,13 @@ MOZ_LINK_FLAGS="%{build_ldflags}"
 %ifarch aarch64 %{ix86}
 MOZ_LINK_FLAGS="$MOZ_LINK_FLAGS -Wl,--no-keep-memory -Wl,--reduce-memory-overheads"
 %endif
-%ifarch %{arm}
-MOZ_LINK_FLAGS="$MOZ_LINK_FLAGS -Wl,--no-keep-memory -Wl,--strip-debug"
-echo "ac_add_options --enable-linker=gold" >> .mozconfig
 %endif
-%endif
-%ifarch %{arm} %{ix86} s390x
+%ifarch %{ix86} s390x
 export RUSTFLAGS="-Cdebuginfo=0"
 %endif
 %if %{build_with_asan}
 MOZ_OPT_FLAGS="$MOZ_OPT_FLAGS -fsanitize=address -Dxmalloc=myxmalloc"
 MOZ_LINK_FLAGS="$MOZ_LINK_FLAGS -fsanitize=address -ldl"
-%endif
-
-%ifarch %{arm}
-# disable hard-coded LTO due to RAM constraints
-sed -i '/cargo_rustc_flags += -Clto/d' config/makefiles/rust.mk
-sed -i '/RUSTFLAGS += -Cembed-bitcode=yes/d' config/makefiles/rust.mk
-sed -i 's/codegen-units=1/codegen-units=16/' config/makefiles/rust.mk
-
-# make sure "-g0" is the last flag so there's no debug info
-MOZ_OPT_FLAGS="$MOZ_OPT_FLAGS -g0"
 %endif
 
 # We don't wantfirefox to use CK_GCM_PARAMS_V3 in nss
@@ -1084,6 +1051,10 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Wed May 24 2023 Martin Stransky <stransky@redhat.com>- 113.0.1-4
+- Added patches from 113.0.2
+- Added Rust fix for Rawhide (mzbz#1831242).
+
 * Fri May 19 2023 Martin Stransky <stransky@redhat.com>- 113.0.1-3
 - Disabled libproxy support due to regressions (rhbz#2207469)
 

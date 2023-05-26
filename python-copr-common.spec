@@ -5,18 +5,18 @@
 %global _pkgdocdir %{_docdir}/%{name}-%{version}
 %endif
 
-%if 0%{?fedora} || 0%{?rhel} > 7
+%if 0%{?fedora} || 0%{?rhel} > 7 || 0%{?openEuler}
 %global with_python3 1
 %global __python %_bindir/python3
 %endif
 
-%if 0%{?fedora} < 28 || 0%{?rhel} && 0%{?rhel} <= 7
+%if 0%{?fedora} && 0%{?fedora} < 28 || 0%{?rhel} && 0%{?rhel} <= 7
 %global with_python2 1
 %global __python %_bindir/python2
 %endif
 
 Name:       python-copr-common
-Version:    0.18
+Version:    0.19
 Release:    1%{?dist}
 Summary:    Python code used by Copr
 
@@ -115,6 +115,9 @@ version=%version %py2_install
 
 
 %changelog
+* Tue May 23 2023 Jakub Kadlcik <frostyx@email.cz> 0.19-1
+- Specfile compatibility with OpenEuler
+
 * Tue Jan 24 2023 Jakub Kadlcik <frostyx@email.cz> 0.18-1
 - Periodically dump the priority queue to a JSON file
 - Use SPDX license

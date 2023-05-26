@@ -80,7 +80,7 @@
 %global _package_note_file  %{_builddir}/%{name}-%{real_version}/.package_note-%{name}-%{version}-%{release}.%{_arch}.ld
 
 Name:           git
-Version:        2.41.0~rc1
+Version:        2.41.0~rc2
 Release:        1%{?dist}
 Summary:        Fast Version Control System
 License:        BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
@@ -1038,6 +1038,9 @@ rmdir --ignore-fail-on-non-empty "$testdir"
 %{?with_docs:%{_pkgdocdir}/git-svn.html}
 
 %changelog
+* Wed May 24 2023 Todd Zullinger <tmz@pobox.com> - 2.41.0~rc2-1
+- update to 2.41.0-rc2
+
 * Fri May 19 2023 Todd Zullinger <tmz@pobox.com> - 2.41.0~rc1-1
 - update to 2.41.0-rc1
 

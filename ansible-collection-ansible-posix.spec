@@ -1,11 +1,11 @@
-%if %{undefined el8}
+%if %{undefined rhel}
 %bcond_without tests
 %else
 %bcond_with tests
 %endif
 
 Name:           ansible-collection-ansible-posix
-Version:        1.5.2
+Version:        1.5.4
 Release:        1%{?dist}
 Summary:        Ansible Collection targeting POSIX and POSIX-ish platforms
 
@@ -54,6 +54,9 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 
 
 %changelog
+* Fri May 19 2023 Maxwell G <maxwell@gtmx.me> - 1.5.4-1
+- Update to 1.5.4. Fixes rhbz#2207695.
+
 * Fri Apr 14 2023 Maxwell G <maxwell@gtmx.me> - 1.5.2-1
 - Update to 1.5.2. Fixes rhbz#2185694.
 

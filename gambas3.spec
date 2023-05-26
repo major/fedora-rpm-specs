@@ -17,7 +17,7 @@
 Name:		gambas3
 Summary:	IDE based on a basic interpreter with object extensions
 Version:	3.18.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPL+
 URL:		http://gambas.sourceforge.net/
 Source0:	https://gitlab.com/gambas/gambas/-/archive/%{version}/gambas-%{version}.tar.bz2
@@ -55,7 +55,7 @@ BuildRequires:	openssl-devel, gmp-devel, glew-devel
 BuildRequires:	gstreamer1-plugins-base-devel gstreamer1-devel
 BuildRequires:	openal-soft-devel, alure-devel
 BuildRequires:	pkgconfig(x11), pkgconfig(gl)
-BuildRequires:	pkgconfig(webkit2gtk-4.0), pkgconfig(libzstd)
+BuildRequires:	pkgconfig(webkit2gtk-4.1), pkgconfig(libzstd)
 # Something on arm is pulling this in...
 BuildRequires:	dumb-devel
 BuildRequires:	fluidsynth-devel
@@ -1795,6 +1795,9 @@ install -m 0644 -p main/mime/application-x-gambas3.xml %{buildroot}%{_datadir}/m
 %{_datadir}/%{name}/info/gb.xml.xslt.*
 
 %changelog
+* Wed May 24 2023 Tom Callaway <spot@fedoraproject.org> - 3.18.2-2
+- use webkit2gtk-4.1
+
 * Fri Apr 14 2023 Tom Callaway <spot@fedoraproject.org> - 3.18.2-1
 - update to 3.18.2
 

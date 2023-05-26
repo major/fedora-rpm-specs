@@ -2,7 +2,7 @@ Name:		perl-Test-EOL
 Version:	2.02
 Release:	8%{?dist}
 Summary:	Check the correct line endings in your project
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-EOL
 Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-EOL-%{version}.tar.gz
 BuildArch:	noarch
@@ -27,6 +27,7 @@ BuildRequires:	perl(Test::More) >= 0.88
 # Optional Tests
 BuildRequires:	perl(CPAN::Meta) >= 2.120900
 # Dependencies
+# (none)
 
 %description
 This module scans your project/distribution for any perl files (scripts,
