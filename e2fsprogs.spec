@@ -1,7 +1,7 @@
 Summary: Utilities for managing ext2, ext3, and ext4 file systems
 Name: e2fsprogs
-Version: 1.46.5
-Release: 4%{?dist}
+Version: 1.47.0
+Release: 1%{?dist}
 
 # License tags based on COPYING file distinctions for various components
 License: GPLv2
@@ -338,6 +338,9 @@ make PRINT_FAILED=yes fullcheck
 %{_udevdir}/96-e2scrub.rules
 
 %changelog
+* Wed May 24 2023 Eric Sandeen <sandeen@redhat.com> - 1.47.0-1
+- New upstream release
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.46.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -347,7 +350,7 @@ make PRINT_FAILED=yes fullcheck
 * Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.46.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 
-* Mon Jan 3 2021 Lukas Czerner <lczerner@redhat.com> - 1.46.5-1
+* Mon Jan 3 2022 Lukas Czerner <lczerner@redhat.com> - 1.46.5-1
 - New upstream release
 
 * Wed Jul 28 2021 Lukas Czerner <lczerner@redhat.com> - 1.46.3-1

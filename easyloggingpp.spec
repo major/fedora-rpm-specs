@@ -29,18 +29,15 @@
 # library with one strangely-named header.
 
 Name:           easyloggingpp
-Version:        9.97.0^%(echo '%{commit}' | cut -b -7)git%{snapdate}
+Version:        9.97.0^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")
 Release:        %autorelease
+Epoch:          1
 Summary:        C++ logging library
 
 # SPDX
 License:        MIT
 URL:            https://github.com/amrayn/easyloggingpp
-%{?commit:%global tag %{commit}}
-%{?commit:%global srcversion %{commit}}
-%{?!commit:%global tag v%{version}}
-%{?!commit:%global srcversion %{version}}
-Source0:        %{url}/archive/%{tag}/easyloggingpp-%{srcversion}.tar.gz
+Source:         %{url}/archive/%{commit}/easyloggingpp-%{commit}.tar.gz
 
 # No shebang = not executable
 # https://github.com/amrayn/easyloggingpp/pull/817
@@ -85,7 +82,7 @@ Summary:        Development files for Easylogging++
 BuildArch:      noarch
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_packaging_header_only_libraries
-Provides:       easyloggingpp-static = %{version}-%{release}
+Provides:       easyloggingpp-static = %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description    devel %{common_description}
 
@@ -97,7 +94,7 @@ developing applications that use Easylogging++.
 Summary:        Documentation and examples for Easylogging++
 
 BuildArch:      noarch
-Requires:       easyloggingpp-devel = %{version}-%{release}
+Requires:       easyloggingpp-devel = %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description    doc %{common_description}
 
@@ -106,7 +103,7 @@ developing applications that use Easylogging++.
 
 
 %prep
-%autosetup -n easyloggingpp-%{srcversion} -p1
+%autosetup -n easyloggingpp-%{commit} -p1
 # Remove .gitignore and similar files that might accidentally be packaged,
 # especially in the samples.
 find . -type f \( -name '.git*' -o -name '.travis*' \) -print -delete

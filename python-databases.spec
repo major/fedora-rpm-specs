@@ -5,22 +5,15 @@
 # to do this, but leave a build conditional in case it breaks.
 %bcond_without mysql_tests
 
-# Post-release snapshot
-# %%global commit xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-# %%global snapdate ########
-
 Name:           python-databases
 Summary:        Async database support for Python
-Version:        0.7.0%{?commit:^%{snapdate}git%(echo '%{commit}' | cut -b -7)}
+Version:        0.7.0
 Release:        %autorelease
-
-%{?!commit:%global srcversion %{version}}
-%{?commit:%global srcversion %{commit}}
 
 License:        BSD-3-Clause
 URL:            https://www.encode.io/databases/
 %global forgeurl https://github.com/encode/databases
-Source0:        %{forgeurl}/archive/%{srcversion}/databases-%{srcversion}.tar.gz
+Source0:        %{forgeurl}/archive/%{version}/databases-%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -186,7 +179,7 @@ Obsoletes:      python-databases-doc < 0.5.2-4
 
 
 %prep
-%autosetup -n databases-%{srcversion}
+%autosetup -n databases-%{version}
 
 
 %generate_buildrequires

@@ -2,7 +2,7 @@ Name:		perl-Test-Kwalitee
 Version:	1.28
 Release:	13%{?dist}
 Summary:	Test the Kwalitee of a distribution before you release it
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		http://metacpan.org/module/Test::Kwalitee
 Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-Kwalitee-%{version}.tar.gz
 BuildArch:	noarch
@@ -32,6 +32,7 @@ BuildRequires:	perl(Test::More) >= 0.96
 BuildRequires:	perl(Test::Tester) >= 0.108
 BuildRequires:	perl(Test::Warnings) >= 0.009
 # Dependencies
+# (none)
 
 %description
 Kwalitee is an automatically-measurable gauge of how good your software

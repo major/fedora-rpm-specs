@@ -1,105 +1,111 @@
-# Tests are enabled by default
-# RHEL does not have all the test dependencies
-%bcond tests %[! %[%{defined rhel} && %{undefined epel}]]
+# When bootstrapping new Python we need to build flit in bootstrap mode.
+# The Python RPM dependency generators and pip are not yet available.
+# When building in bootstrap mode, only flit-core is built.
+%bcond bootstrap 0
 
-Name:           python-flit
+# Tests are enabled by default, unless we bootstrap.
+# Disable them to avoid a circular build dependency on requests-download and testpath.
+%bcond tests %{without bootstrap}
+
+Name:           python-flit-core
 Version:        3.8.0
 Release:        3%{?dist}
-Summary:        Simplified packaging of Python modules
+Summary:        PEP 517 build backend for packages using Flit
 
-# ./flit/log.py: Apache-2.0
-# ./flit/upload.py: PSF-2.0
-License:        BSD-3-Clause AND Apache-2.0 AND PSF-2.0
+# flit-core is BSD-3-Clause
+# flit_core/versionno.py contains a regex that is from packaging, BSD-2-Clause
+License:        BSD-3-Clause AND BSD-2-Clause
 
 URL:            https://flit.pypa.io/
-Source0:        https://github.com/pypa/flit/archive/%{version}/flit-%{version}.tar.gz
-
-# For the tests
-Source1:        https://pypi.org/pypi?%3Aaction=list_classifiers#/classifiers.lst
+Source:         %{pypi_source flit_core}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
 
 %if %{with tests}
-BuildRequires:  /usr/bin/python
 BuildRequires:  python3-pytest
-BuildRequires:  python3-responses
+# Test deps that require flit-core to build:
 BuildRequires:  python3-testpath
-BuildRequires:  python3-requests-download
-BuildRequires:  git-core
 %endif
 
 %global _description %{expand:
-Flit is a simple way to put Python packages and modules on PyPI.
-
-Flit only creates packages in the new 'wheel' format. People using older
-versions of pip (<1.5) or easy_install will not be able to install them.
-
-Flit packages a single importable module or package at a time, using the import
-name as the name on PyPI. All sub-packages and data files within a package are
-included automatically.
-
-Flit requires Python 3, but you can use it to distribute modules for Python 2,
-so long as they can be imported on Python 3.}
+This provides a PEP 517 build backend for packages using Flit.
+The only public interface is the API specified by PEP 517,
+at flit_core.buildapi.}
 
 %description %_description
 
 
-%package -n python3-flit
+%package -n python3-flit-core
 Summary:        %{summary}
+Conflicts:      python3-flit < 2.1.0-2
 
-# https://pypi.python.org/pypi/tornado
-# ./flit/log.py unknown version
-Provides:       bundled(python3dist(tornado))
+# RPM generators are not yet available when we bootstrap
+%if %{with bootstrap}
+Provides:       python%{python3_pkgversion}dist(flit-core) = %{version}
+Provides:       python%{python3_version}dist(flit-core) = %{version}
+Requires:       python(abi) = %{python3_version}
+%endif
 
-# soft dependency: (WARNING) Cannot analyze code. Pygments package not found.
-Recommends:     python3-pygments
-
-%description -n python3-flit %_description
+%description -n python3-flit-core %_description
 
 
 %prep
-%autosetup -p1 -n flit-%{version}
+%autosetup -p1 -n flit_core-%{version}
+
+# Remove vendored tomli that flit_core includes to solve the circular dependency on older Pythons
+# (flit_core requires tomli, but flit_core is needed to build tomli).
+# We don't use this, as tomllib is a part of standard library since Python 3.11.
+rm -rf flit_core/vendor
 
 
+%if %{without bootstrap}
 %generate_buildrequires
 %pyproject_buildrequires
+%endif
 
 
 %build
+%if %{with bootstrap}
+%{python3} -m flit_core.wheel
+%else
 %pyproject_wheel
-
+%endif
 
 %install
+%if %{with bootstrap}
+%{python3} bootstrap_install.py --install-root %{buildroot} dist/flit_core-%{version}-py3-none-any.whl
+# for consistency with %%pyproject_install:
+rm %{buildroot}%{python3_sitelib}/flit_core-*.dist-info/RECORD
+%else
 %pyproject_install
-%pyproject_save_files flit
+%endif
 
+# don't ship tests in flit_core package
+# if upstream decides to change the installation, it can be removed:
+# https://github.com/takluyver/flit/issues/403
+rm -r %{buildroot}%{python3_sitelib}/flit_core/tests/
 
 %check
-%pyproject_check_import
-
+%py3_check_import flit_core flit_core.buildapi
 %if %{with tests}
-# flit attempts to download list of classifiers from PyPI, but not if it's cached
-# test_invalid_classifier fails without the list
-mkdir -p fake_cache/flit
-cp %{SOURCE1} fake_cache/flit
-export XDG_CACHE_HOME=$PWD/fake_cache
-
-# This also runs tests of flit_core but deselecting them breaks the flit tests,
-# so we run them anyway:
 %pytest
 %endif
 
 
-%files -n python3-flit -f %{pyproject_files}
+%files -n python3-flit-core
 %license LICENSE
-%doc README.rst
-%{_bindir}/flit
+# README.rst is missing from the sdist,
+# but it basically contains the %%description only,
+# so probably not worth adding anyway.
+%{python3_sitelib}/flit_core-*.dist-info/
+%{python3_sitelib}/flit_core/
 
 
 %changelog
 * Fri May 19 2023 Miro Hrončok <mhroncok@redhat.com> - 3.8.0-3
 - Fork python-flit-core from the python-flit package
+- Adjust the License tag to include flit_core/versionno.py's regex (BSD-2-Clause)
 
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild

@@ -33,7 +33,7 @@ process and its pty.
 %autosetup -n ptyprocess-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel

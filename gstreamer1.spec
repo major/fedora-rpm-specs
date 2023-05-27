@@ -16,7 +16,7 @@
 %endif
 
 Name:           gstreamer1
-Version:        1.22.2
+Version:        1.22.3
 Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
@@ -195,6 +195,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Thu May 25 2023 Wim Taymans <wtaymans@redhat.com> - 1.22.3-1
+- Update to 1.22.3
+
 * Thu Apr 13 2023 Wim Taymans <wtaymans@redhat.com> - 1.22.2-1
 - Update to 1.22.2
 

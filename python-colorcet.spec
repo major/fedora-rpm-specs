@@ -8,7 +8,7 @@
 %global commit 809e2919d86241948b743fea741501f31674805a
 %global snapdate 20221003
 
-%global shortcommit %(echo '%{commit}' | cut -b -7)
+%global shortcommit %(c='%{commit}'; echo "${c:0:7}")
 
 Name:           python-colorcet
 Version:        %{pypi_version}^%{snapdate}git%{shortcommit}
@@ -28,7 +28,7 @@ URL:            https://github.com/holoviz/colorcet
 #
 # It also lacks the baseline images for testing with pytest-mpl: that is enough
 # to convince us to switch to the GitHub archive.
-Source0:        %{url}/archive/%{commit}/colorcet-%{commit}.tar.gz
+Source:         %{url}/archive/%{commit}/colorcet-%{commit}.tar.gz
 
 BuildArch:      noarch
 

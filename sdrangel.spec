@@ -1,5 +1,5 @@
 Name:		sdrangel
-Version:	7.13.0
+Version:	7.14.1
 Release:	1%{?dist}
 Summary:	Software defined radio (SDR) and signal analyzer frontend to various hardware
 License:	GPLv3+
@@ -35,6 +35,7 @@ BuildRequires:	qt5-qtcharts-devel
 BuildRequires:	qt5-qtserialport-devel
 BuildRequires:	qt5-qtspeech-devel
 BuildRequires:	qt5-qtbase-private-devel
+BuildRequires:	qt5-qtgamepad-devel
 BuildRequires:	boost-devel
 BuildRequires:	gr-osmosdr-devel
 BuildRequires:	fftw-devel
@@ -99,6 +100,10 @@ appstream-util validate-relax \
 %{_metainfodir}/org.sdrangel.SDRangel.metainfo.xml
 
 %changelog
+* Thu May 25 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 7.14.1-1
+- New version
+  Resolves: rhbz#2209844
+
 * Thu Apr 13 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 7.13.0-1
 - New version
   Related: rhbz#2183851

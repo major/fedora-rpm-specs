@@ -67,8 +67,6 @@ BuildArch:      noarch
 # Header-only library
 Provides:       fast_float-static = %{version}-%{release}
 
-Requires:       cmake-filesystem
-
 %description devel %{common_description}
 
 

@@ -29,7 +29,7 @@ Name:           gn
 # See https://gn.googlesource.com/gn/+log for the latest changes.
 %global commit e9e83d9095d3234adf68f3e2866f25daf766d5c7
 %global access 20230521
-%global shortcommit %(echo '%{commit}' | cut -b -12)
+%global shortcommit %(c='%{commit}'; echo "${c:0:12}")
 %global position 2105
 Version:        %{position}^%{access}git%{shortcommit}
 Release:        %autorelease

@@ -1,58 +1,48 @@
-%global fontname navilu
-%global fontconf 67-%{fontname}.conf
-
-Name:           %{fontname}-fonts
-Version:        1.2
-Release:        21%{?dist}
-Summary:        Free Kannada opentype sans-serif font
-
-License:        OFL
-URL:            https://github.com/aravindavk/Navilu
-Source0:        https://github.com/aravindavk/Navilu/archive/v%{version}.tar.gz#/%{fontname}-%{version}.tar.gz
-BuildArch:      noarch
-BuildRequires: make
 BuildRequires:  fontforge
-BuildRequires:  fontpackages-devel
-Requires:       fontpackages-filesystem
-Source1:        67-navilu.conf
-Source2:        %{fontname}.metainfo.xml
+BuildRequires: make
 
+Version:        1.2
+Release:        22%{?dist}
+URL:            https://github.com/aravindavk/Navilu
 
-%description
-This package provides a free Kannada sans-serif opentype font.
+%global fontlicense       OFL-1.1
+%global fontlicenses      COPYING
 
+%global fontdocs          ChangeLog README
+%global fontdocsex        %{fontlicenses}
+
+%global fontfamily        Navilu
+%global fontsummary       Free Kannada opentype sans-serif font
+%global fonts             *.ttf
+%global fontconfs         %{SOURCE1}
+%global fontdescription   %{expand:
+This package provides a free Kannada opentype sans-serif font.}
+
+Source0:        https://github.com/aravindavk/Navilu/archive/v%{version}.tar.gz#/%{fontfamily}-%{version}.tar.gz
+Source1:        67-%{fontpkgname}.conf
+
+%fontpkg
 
 %prep
-%autosetup -n Navilu-%{version}
+%autosetup -n %{fontfamily}-%{version}
 
 %build
+%fontbuild
 make
 
 %install
+%fontinstall
 
-install -m 0755 -d %{buildroot}%{_fontdir}
-install -m 0644 -p *.ttf %{buildroot}%{_fontdir}
+%check
+%fontcheck
 
-install -m 0755 -d %{buildroot}%{_fontconfig_templatedir} \
-                   %{buildroot}%{_fontconfig_confdir}
-
-install -m 0644 -p %{SOURCE1} \
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}
-ln -s %{_fontconfig_templatedir}/%{fontconf} \
-      %{buildroot}%{_fontconfig_confdir}/%{fontconf}
-
-# Add AppStream metadata
-install -Dm 0644 -p %{SOURCE2} \
-       %{buildroot}%{_datadir}/appdata/%{fontname}.metainfo.xml
-
-
-%_font_pkg -f %{fontconf} *.ttf
-
-%doc ChangeLog README
-%license COPYING
-%{_datadir}/appdata/%{fontname}.metainfo.xml
+%fontfiles
 
 %changelog
+* Thu May 25 2023 Parag Nemade <pnemade AT fedoraproject DOT org> - 1.2-22
+- Convert to new fonts packaging guidelines
+- Migrate to SPDX license expression
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

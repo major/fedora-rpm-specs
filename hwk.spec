@@ -3,7 +3,7 @@
 
 Name:           hwk
 Version:        0.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Commandline text processing with Haskell functions
 
 License:        MIT
@@ -65,6 +65,9 @@ mkdir -p %{buildroot}%{_datadir}/bash-completion/completions/
 
 
 %changelog
+* Fri May 26 2023 Jens Petersen <petersen@redhat.com> - 0.6-5
+- rebuild with fixed ghc m32_allocator
+
 * Thu Feb 16 2023 Jens Petersen <petersen@redhat.com> - 0.6-4
 - refresh to cabal-rpm-2.1.0 with SPDX migration
 

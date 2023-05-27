@@ -2,7 +2,7 @@ Name:           perl-Test-HasVersion
 Version:        0.014
 Release:        22%{?dist}
 Summary:        Check Perl modules have version numbers
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-HasVersion
 Source0:        https://cpan.metacpan.org/modules/by-module/Test/Test-HasVersion-%{version}.tar.gz
 BuildArch:      noarch
@@ -24,7 +24,8 @@ BuildRequires:  perl(Test::More)
 # Optional Tests
 BuildRequires:  perl(Test::Pod) >= 1.18
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
-# Runtime
+# Dependencies
+# (none)
 
 %description
 Do you want to check that every one of your Perl modules in a distribution has

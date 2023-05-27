@@ -24,7 +24,7 @@
 %endif
 %endif
 
-%ifnarch %{ix86} x86_64 %{arm} ppc64 ppc64le aarch64 s390x
+%ifnarch %{ix86} x86_64 %{arm} ppc64 ppc64le aarch64 s390x riscv64
   %bcond_with context
 %else
   %bcond_without context
@@ -1275,6 +1275,10 @@ fi
 %{_mandir}/man1/b2.1*
 
 %changelog
+* Fri May 05 2023 Nianqing Yao <imbearchild@outlook.com> - 1.81.0-3
+- Fix build for riscv64
+  See https://github.com/fedora-riscv/boost/tree/f38-rv64
+
 * Wed Mar 15 2023 Jonathan Wakely <jwakely@fedoraproject.org> - 1.81.0-2
 - Change spec file to use autospec for applying patches
 

@@ -3,12 +3,12 @@
 
 Name:           lexertl14
 Summary:        C++14 version of lexertl
-Version:        0.1.0^%{snapdate}git%(echo '%{commit}' | cut -b -7)
+Version:        0.1.0^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")
 Release:        %autorelease
 
 License:        BSL-1.0
 URL:            https://github.com/BenHanson/lexertl14
-Source0:        %{url}/archive/%{commit}/lexertl14-%{commit}.tar.gz
+Source:         %{url}/archive/%{commit}/lexertl14-%{commit}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake

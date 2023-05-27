@@ -1,12 +1,11 @@
 Name: libmodbus
-Version: 3.1.6
-Release: 5%{?dist}
+Version: 3.1.7
+Release: 1%{?dist}
 Summary: A Modbus library
 License: LGPLv2+
 URL: http://www.libmodbus.org/
 
 Source0: http://libmodbus.org/site_media/build/libmodbus-%{version}.tar.gz
-Patch0:  0001-modbus_reply-fix-copy-paste-error-in-sanity-check-fi.patch
 
 BuildRequires:  gcc
 BuildRequires: xmlto
@@ -59,6 +58,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_mandir}/man3/*.3.*
 
 %changelog
+* Thu May 25 2023 Eric Sandeen <sandeen@sandeen.net> - 3.1.7-1
+- New upstream release
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

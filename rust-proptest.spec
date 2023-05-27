@@ -5,7 +5,7 @@
 %global crate proptest
 
 Name:           rust-proptest
-Version:        1.1.0
+Version:        1.2.0
 Release:        %autorelease
 Summary:        Hypothesis-like property-based testing and shrinking
 
@@ -134,18 +134,6 @@ This package contains library source intended for building other packages which
 use the "lazy_static" feature of the "%{crate}" crate.
 
 %files       -n %{name}+lazy_static-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+quick-error-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+quick-error-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "quick-error" feature of the "%{crate}" crate.
-
-%files       -n %{name}+quick-error-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+regex-syntax-devel

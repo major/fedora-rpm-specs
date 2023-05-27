@@ -1,26 +1,26 @@
 Name:           wgrib
-Version:        1.8.2
-Release:        10%{?dist}
+Version:        1.8.3
+Release:        1%{?dist}
 Summary:        Manipulate, inventory and decode GRIB files
 
 License:        Public Domain
-URL:            http://www.cpc.ncep.noaa.gov/products/wesley/wgrib.html
-Source0:        ftp://ftp.cpc.ncep.noaa.gov/wd51we/wgrib/wgrib.c.v%{version}
-Source1:        ftp://ftp.cpc.ncep.noaa.gov/wd51we/wgrib/Changes
-Source2:        ftp://ftp.cpc.ncep.noaa.gov/wd51we/wgrib/NOTICE
-Source3:        ftp://ftp.cpc.ncep.noaa.gov/wd51we/wgrib/double_prec.txt
-Source4:        ftp://ftp.cpc.ncep.noaa.gov/wd51we/wgrib/formats.txt
-Source5:        ftp://ftp.cpc.ncep.noaa.gov/wd51we/wgrib/formats_update.txt
-Source6:        ftp://ftp.cpc.ncep.noaa.gov/wd51we/wgrib/grib2ieee.txt
-Source7:        ftp://ftp.cpc.ncep.noaa.gov/wd51we/wgrib/misc.txt
-Source8:        ftp://ftp.cpc.ncep.noaa.gov/wd51we/wgrib/porting.txt
-Source9:        ftp://ftp.cpc.ncep.noaa.gov/wd51we/wgrib/usertables.txt
-Source10:       ftp://ftp.cpc.ncep.noaa.gov/wd51we/wgrib/tricks.wgrib
-Source11:       ftp://ftp.cpc.ncep.noaa.gov/wd51we/wgrib/land.grb
-Source12:       ftp://ftp.cpc.ncep.noaa.gov/wd51we/wgrib/testbin.c
-Source13:       ftp://ftp.cpc.ncep.noaa.gov/wd51we/wgrib/testbin.f
+URL:            https://www.cpc.ncep.noaa.gov/products/wesley/wgrib.html
+Source0:        https://ftp.cpc.ncep.noaa.gov/wd51we/wgrib/wgrib.c.v%{version}
+Source1:        https://ftp.cpc.ncep.noaa.gov/wd51we/wgrib/Changes
+Source2:        https://ftp.cpc.ncep.noaa.gov/wd51we/wgrib/NOTICE
+Source3:        https://ftp.cpc.ncep.noaa.gov/wd51we/wgrib/double_prec.txt
+Source4:        https://ftp.cpc.ncep.noaa.gov/wd51we/wgrib/formats.txt
+Source5:        https://ftp.cpc.ncep.noaa.gov/wd51we/wgrib/formats_update.txt
+Source6:        https://ftp.cpc.ncep.noaa.gov/wd51we/wgrib/grib2ieee.txt
+Source7:        https://ftp.cpc.ncep.noaa.gov/wd51we/wgrib/misc.txt
+Source8:        https://ftp.cpc.ncep.noaa.gov/wd51we/wgrib/porting.txt
+Source9:        https://ftp.cpc.ncep.noaa.gov/wd51we/wgrib/usertables.txt
+Source10:       https://ftp.cpc.ncep.noaa.gov/wd51we/wgrib/tricks.wgrib
+Source11:       https://ftp.cpc.ncep.noaa.gov/wd51we/wgrib/land.grb
+Source12:       https://ftp.cpc.ncep.noaa.gov/wd51we/wgrib/testbin.c
+Source13:       https://ftp.cpc.ncep.noaa.gov/wd51we/wgrib/testbin.f
 Source14:       testbin.out
-Patch1:         testbin.c.patch
+Patch0:         testbin.c.patch
 BuildRequires:  gcc
 
 
@@ -44,7 +44,7 @@ cp %SOURCE10 .
 cp %SOURCE11 .
 cp %SOURCE12 .
 cp %SOURCE13 .
-%patch1 -p0
+%patch -P0 -p0
 
 
 %build
@@ -52,7 +52,6 @@ gcc $RPM_OPT_FLAGS -o wgrib wgrib.c
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
 install -d -m 755 $RPM_BUILD_ROOT%{_bindir}
 install -m 755 wgrib $RPM_BUILD_ROOT%{_bindir}/
 
@@ -70,6 +69,9 @@ gcc $RPM_OPT_FLAGS -o testbin testbin.c -lm
 
 
 %changelog
+* Fri May 26 2023 Orion Poplawski <orion@nwra.com> - 1.8.3-1
+- Update to 1.8.3
+
 * Fri Feb 17 2023 Florian Weimer <fweimer@redhat.com> - 1.8.2-10
 - Add missing #include <stdlib.h> for C99 compatibility
 

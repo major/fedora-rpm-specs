@@ -41,10 +41,10 @@
 ## can be incremented to build packages reliably considered "newer"
 ## than previously built packages with the same pcmkversion)
 %global pcmkversion 2.1.6
-%global specversion 3.rc2
+%global specversion 4
 
 ## Upstream commit (full commit ID, abbreviated commit ID, or tag) to build
-%global commit 802a72226be8f90747e9c897c626b060512d6fe6
+%global commit 6fdc9deea294bbad629b003c6ae036aaed8e3ee0
 
 ## Since git v2.11, the extent of abbreviation is autoscaled by default
 ## (used to be constant of 7), so we need to convey it for non-tags, too.
@@ -88,7 +88,7 @@
 
 ## Add option to prefix package version with "0."
 ## (so later "official" packages will be considered updates)
-%bcond_without pre_release
+%bcond_with pre_release
 
 ## NOTE: skip --with upstart_job
 
@@ -858,6 +858,11 @@ exit 0
 %license %{nagios_name}-%{nagios_hash}/COPYING
 
 %changelog
+* Thu May 25 2023 Klaus Wenninger <kwenning@redhat.com> - 2.1.6-4
+- Update for new upstream release tarball: Pacemaker-2.1.6,
+  for full details, see included ChangeLog file or
+  https://github.com/ClusterLabs/pacemaker/releases/tag/Pacemaker-2.1.6
+
 * Mon May 22 2023 Klaus Wenninger <kwenning@redhat.com> - 2.1.6-0.3.rc2
 - have users/groups created via sysusers(compat)
   f37 and below seem not to support 189:haclient as ID needed to mimic

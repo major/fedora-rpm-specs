@@ -1,12 +1,16 @@
 Name:           perl-Test-Strict
 Version:        0.52
-Release:        12%{?dist}
+Release:        13%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:        Check syntax, presence of use strict/warnings, and test coverage
 Source:         https://cpan.metacpan.org/authors/id/M/MA/MANWAR/Test-Strict-%{version}.tar.gz
 Url:            https://metacpan.org/release/Test-Strict
 BuildArch:      noarch
+# Fix for failing test
+# https://github.com/manwar/Test-Strict/issues/32
+Patch0:         Test-Strict-0.52-Dont-simultaneously-test-c-and-v-switches.patch
 # Build
+BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
@@ -39,6 +43,7 @@ BuildRequires:  perl(Test::Pod::Coverage) >= 1.10
 
 %prep
 %setup -q -n Test-Strict-%{version}
+%patch -P0 -p1
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -59,6 +64,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu May 25 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.52-13
+- Fix tests failing with Perl 5.38
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.52-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

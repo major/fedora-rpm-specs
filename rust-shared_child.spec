@@ -5,7 +5,7 @@
 %global crate shared_child
 
 Name:           rust-shared_child
-Version:        0.3.4
+Version:        1.0.0
 Release:        %autorelease
 Summary:        Library for using child processes from multiple threads
 
@@ -14,9 +14,6 @@ URL:            https://crates.io/crates/shared_child
 Source:         %{crates_source}
 # Automatically generated patch to strip foreign dependencies
 Patch:          shared_child-fix-metadata-auto.diff
-# * replace usage of /usr/bin/python with simple /usr/bin/sleep:
-#   https://github.com/oconnor663/shared_child.rs/issues/16
-Patch:          0001-Avoid-using-python-in-the-tests.patch
 
 BuildRequires:  rust-packaging >= 21
 
@@ -66,7 +63,8 @@ use the "default" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test
+# * doctests try to run unversioned "python"
+%cargo_test -- --lib
 %endif
 
 %changelog

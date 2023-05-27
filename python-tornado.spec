@@ -11,7 +11,7 @@ ideal for real-time web services.}
 
 Name:           python-%{srcname}
 Version:        6.3.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Scalable, non-blocking web server and tools
 
 License:        Apache-2.0 
@@ -43,7 +43,7 @@ This package contains some example applications.
 %autosetup -p1 -n %{srcname}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -e py3
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -56,7 +56,7 @@ This package contains some example applications.
 # Skip the same timing-related tests that upstream skips when run in Travis CI.
 # https://github.com/tornadoweb/tornado/commit/abc5780a06a1edd0177a399a4dd4f39497cb0c57
 export TRAVIS=true
-%tox
+%{py3_test_envvars} %{python3} -m tornado.test
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
@@ -66,6 +66,9 @@ export TRAVIS=true
 %doc demos
 
 %changelog
+* Tue May 23 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 6.3.2-2
+- Avoid tox dependency
+
 * Tue May 16 2023 Orion Poplawski <orion@nwra.com> - 6.3.2-1
 - Update to 6.3.2
 

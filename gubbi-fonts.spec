@@ -1,55 +1,51 @@
-%global fontname gubbi
-%global fontconf 65-0-%{fontname}.conf
-
-Name:           %{fontname}-fonts
-Version:        1.3
-Release:        12%{?dist}
-Summary:        Free Kannada Opentype serif font
-
-License:        GPLv3+ with exceptions
-URL:            https://github.com/aravindavk/Gubbi
-Source0:        https://github.com/aravindavk/Gubbi/archive/v%{version}.tar.gz#/%{fontname}-%{version}.tar.gz
-BuildArch:      noarch
-BuildRequires: make
 BuildRequires:  fontforge
-BuildRequires:  fontpackages-devel
-Requires:       fontpackages-filesystem
-Source1:        65-0-gubbi.conf
-Source2:        %{fontname}.metainfo.xml
+BuildRequires:  make
 
-%description
-This package provides a free Kannada opentype serif font.
+Version:        1.3
+Release:        14%{?dist}
+URL:            https://github.com/aravindavk/Gubbi
 
+%global fontlicense       GPL-3.0-or-later WITH Font-exception-2.0
+%global fontlicenses      COPYING
+
+%global fontdocs          ChangeLog README
+%global fontdocsex        %{fontlicenses}
+
+%global fontfamily        Gubbi
+%global fontsummary       Free Kannada Opentype serif font
+%global fonts             *.ttf
+%global fontconfs         %{SOURCE1}
+%global fontdescription   %{expand:
+This package provides a free Kannada opentype serif font.}
+
+Source0:        https://github.com/aravindavk/Gubbi/archive/v%{version}.tar.gz#/%{fontfamily}-%{version}.tar.gz
+Source1:        65-0-%{fontpkgname}.conf
+
+%fontpkg
 
 %prep
-%autosetup -n Gubbi-%{version}
+%autosetup -n %{fontfamily}-%{version}
 
 %build
+%fontbuild
 make
 
 %install
-install -m 0755 -d %{buildroot}%{_fontdir}
-install -m 0644 -p *.ttf %{buildroot}%{_fontdir}
+%fontinstall
 
-install -m 0755 -d %{buildroot}%{_fontconfig_templatedir} \
-                   %{buildroot}%{_fontconfig_confdir}
+%check
+%fontcheck
 
-install -m 0644 -p %{SOURCE1} \
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}
-ln -s %{_fontconfig_templatedir}/%{fontconf} \
-      %{buildroot}%{_fontconfig_confdir}/%{fontconf}
-
-# Add AppStream metadata
-install -Dm 0644 -p %{SOURCE2} \
-       %{buildroot}%{_datadir}/appdata/%{fontname}.metainfo.xml
-
-%_font_pkg -f %{fontconf} *.ttf
-%doc ChangeLog README
-%license COPYING
-%{_datadir}/appdata/%{fontname}.metainfo.xml
-
+%fontfiles
 
 %changelog
+* Thu May 25 2023 Parag Nemade <pnemade AT fedoraproject DOT org> - 1.3-14
+- Correct the SPDX license expression
+
+* Wed May 24 2023 Parag Nemade <pnemade AT fedoraproject DOT org> - 1.3-13
+- Convert to new fonts packaging guidelines
+- Migrate to SPDX license expression
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

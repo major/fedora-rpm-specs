@@ -5,14 +5,14 @@
 %global snapdate 20170617
 
 Name:           python-pytest-env
-Version:        0.6.2^%{snapdate}git%(echo '%{commit}' | cut -b -7)
+Version:        0.6.2^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")
 Release:        %autorelease
 Summary:        Plugin for pytest that allows you to add environment variables
 
 # SPDX
 License:        MIT
 URL:            https://github.com/MobileDynasty/pytest-env
-Source0:        %{url}/archive/%{commit}/pytest-env-%{commit}.tar.gz
+Source:         %{url}/archive/%{commit}/pytest-env-%{commit}.tar.gz
 
 BuildArch:      noarch
 

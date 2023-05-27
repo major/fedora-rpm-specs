@@ -10,6 +10,7 @@ Source0:	http://sourceforge.net/projects/srcpd/files/srcpd/%{version}/srcpd-%{ve
 Source1:	srcpd.service
 
 Patch0:		srcpd-2.1.6-io-conditional.patch
+Patch1:		srcpd-2.1.6-udev.patch
 
 BuildRequires:		make
 BuildRequires:		gcc
@@ -31,6 +32,7 @@ support SRCP. IANA assigned TCP port 4303 to it.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 
 %build

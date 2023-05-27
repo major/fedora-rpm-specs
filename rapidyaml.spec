@@ -201,7 +201,12 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 %cmake_install
 
 # Fix wrong installation paths for multilib; it would be nontrivial to patch
-# the source to get this right in the first place.
+# the source to get this right in the first place. The installation path is
+# determined by the scripts in https://github.com/biojppm/cmake, packaged as
+# c4project.
+#
+# Installation directory on Linux 64bit OS
+# https://github.com/biojppm/rapidyaml/issues/256
 if [ '%{_libdir}' != '%{_prefix}/lib' ]
 then
   mkdir -p '%{buildroot}%{_libdir}'

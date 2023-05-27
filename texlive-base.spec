@@ -1,6 +1,8 @@
 %global shortname texlive
 %global source_date 20230311
-%global source_name texlive-%{source_date}-source
+%global source_svn svn66984
+# %%global source_name texlive-%%{source_date}-source
+%global source_name texlive-source-build-%{source_svn}
 %{!?_texdir: %global _texdir %{_datadir}/%{shortname}}
 %{!?_texmf_var: %global _texmf_var %{_var}/lib/texmf}
 
@@ -23,14 +25,17 @@
 
 Name: %{shortname}-base
 Version: %{source_date}
-Release: 72%{?dist}
+Release: 73%{?dist}
 Epoch: 11
 Summary: TeX formatting system
 # The only files in the base package are directories, cache, and license texts
 # So we'll just list the license texts. This is also a bit of a lie, since most of these license texts do not apply to themselves.
 License: Apache-2.0 AND Artistic-2.0 AND BSD AND GFDL-1.1-or-later AND GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND Knuth-CTAN AND LGPL-2.1-or-later AND LGPL-3.0-or-later AND LPPL-1.2 AND LPPL-1.3 AND LPPL-1.3c AND MIT AND OFL-1.1 AND LicenseRef-Fedora-Public-Domain
 URL: http://tug.org/texlive/
-Source0: https://ctan.math.illinois.edu/systems/texlive/Source/%{source_name}.tar.xz
+# Source0: https://ctan.math.illinois.edu/systems/texlive/Source/%%{source_name}.tar.xz
+# Using a specific tag to fix the LuaTeX CVE-2023-32700
+Source0: https://github.com/TeX-Live/texlive-source/archive/refs/tags/build-%{source_svn}.tar.gz
+
 Source1: macros.texlive
 Source2: http://tug.ctan.org/systems/texlive/tlnet/tlpkg/texlive.tlpdb
 Source3: texlive-licenses.tar.xz
@@ -513,6 +518,12 @@ Patch37: texlive-base-libpaperv2.patch
 
 # Fix issue where off_t could be set incorrectly on i686 due to order of header load
 Patch44: texlive-base-20220321-pdf-header-order-fix.patch
+
+# Fix texmfcnf.lua for Fedora layout (thanks to Preining Norbert)
+Patch45: texlive-fedora-texmfcnf.lua.patch
+
+# Fix interpreter on perl scripts (thanks again to Debian)
+Patch46: texlive-base-20230311-fix-scripts.patch
 
 # Can't do this because it causes everything else to be noarch
 # BuildArch: noarch
@@ -4219,7 +4230,7 @@ Requires: texlive-hyph-utf8
 LuaTeX with just-in-time (jit) compiler, with and without HarfBuzz.
 
 %package -n %{shortname}-luatex
-Version: svn66546
+Version: svn66967
 Provides: texlive-luatex = %{epoch}:%{source_date}-%{release}
 Provides: tex-luatex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-luatex-bin = %{epoch}:%{source_date}-%{release}
@@ -8235,7 +8246,8 @@ LaTeX file remains on the archive.)
 
 %prep
 %setup -q -c -T
-xz -dc %{SOURCE0} | tar x
+# xz -dc %%{SOURCE0} | tar x
+tar xf %{SOURCE0}
 [ -e %{source_name} ] && mv %{source_name} source
 %patch -P1 -p0
 %patch -P2 -p1 -b .format
@@ -8496,6 +8508,13 @@ pushd %{buildroot}%{_texdir}/texmf-dist
 
 # neuter tlmgr a bit
 patch -p1 < %{_sourcedir}/texlive-20190410-tlmgr-ignore-warning.patch
+
+# Fix texmfcnf.lua
+patch -p1 < %{_sourcedir}/texlive-fedora-texmfcnf.lua.patch
+
+# Fix interpreter on perl scripts
+patch -p1 < %{_sourcedir}/texlive-base-20230311-fix-scripts.patch
+
 popd
 
 # config files in /etc symlinked
@@ -8644,7 +8663,7 @@ ln -s /usr/share/texlive/texmf-dist/scripts/digestif/digestif.texlua digestif
 rm -f mtxrun
 cat > mtxrun << EOF
 #!/bin/sh
-env LUATEXDIR=/usr/shared/texlive/texmf-dist/scripts/context/lua luatex --luaonly mtxrun.lua "\$@"
+env LUATEXDIR=/usr/share/texlive/texmf-dist/scripts/context/lua luatex --luaonly mtxrun.lua "\$@"
 EOF
 chmod 0755 mtxrun
 
@@ -11084,6 +11103,12 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %doc %{_texdir}/texmf-dist/doc/latex/yplan/
 
 %changelog
+* Thu May 25 2023 Tom Callaway <spot@fedoraproject.org> - 11:20230311-73
+- update to svn66984 source tree to fix CVE-2023-32700
+- fix mtxrun stub
+- patch texmfcnf.lua
+- fix mptopdf.pl and thumbpdf.pl to have proper interpreter lines
+
 * Fri Apr 14 2023 Tom Callaway <spot@fedoraproject.org> - 11:20230311-72
 - fix Requires for texlive-fontools (bz 2185284)
 

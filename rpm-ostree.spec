@@ -4,12 +4,17 @@
 Summary: Hybrid image/package system
 Name: rpm-ostree
 Version: 2023.4
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: LGPLv2+
 URL: https://github.com/coreos/rpm-ostree
 # This tarball is generated via "cd packaging && make -f Makefile.dist-packaging dist-snapshot"
 # in the upstream git.  It also contains vendored Rust sources.
 Source0: https://github.com/coreos/rpm-ostree/releases/download/v%{version}/rpm-ostree-%{version}.tar.xz
+# These patches are for the bundled libdnf to work with RPM 4.19:
+# https://github.com/rpm-software-management/libdnf/commit/0d67f44198daa829d947436884e00f2030642136
+# https://github.com/rpm-software-management/libdnf/commit/4572ee7ff49d5ced4c53c5d789571adbdbd119bb
+Patch0: 0001-Eliminate-redundant-and-obsolete-cruft-from-dnf_keyr.patch
+Patch1: 0002-Remove-redundant-and-obsolete-cruft-in-dnf_keyring_c.patch
 
 ExclusiveArch: %{rust_arches}
 
@@ -160,7 +165,7 @@ Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 The %{name}-devel package includes the header files for %{name}-libs.
 
 %prep
-%autosetup -Sgit -n %{name}-%{version}
+%autosetup -Sgit -n %{name}-%{version} -p1
 %if 0%{?__isa_bits} == 32
 sed -ie 's,^lto = true,lto = false,' Cargo.toml
 %endif
@@ -241,6 +246,9 @@ $PYTHON autofiles.py > files.devel \
 %files devel -f files.devel
 
 %changelog
+* Thu May 25 2023 Adam Williamson <awilliam@redhat.com> - 2023.4-4
+- Backport libdnf patches to work with rpm-4.19
+
 * Fri May 19 2023 Petr Pisar <ppisar@redhat.com> - 2023.4-3
 - Rebuild against rpm-4.19 (https://fedoraproject.org/wiki/Changes/RPM-4.19)
 

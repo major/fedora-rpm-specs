@@ -1,7 +1,7 @@
 Name:			opencryptoki
 Summary:		Implementation of the PKCS#11 (Cryptoki) specification v3.0
 Version:		3.21.0
-Release:		3%{?dist}
+Release:		4%{?dist}
 License:		CPL-1.0
 URL:			https://github.com/opencryptoki/opencryptoki
 Source0:		https://github.com/opencryptoki/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -247,7 +247,7 @@ fi
 %doc doc/README.token_data
 %doc %{_docdir}/%{name}/*.conf
 %dir %{_sysconfdir}/%{name}
-%config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf
+%verify(not md5 size mtime) %config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf
 %attr(0640, root, pkcs11) %config(noreplace) %{_sysconfdir}/%{name}/p11sak_defined_attrs.conf
 %attr(0640, root, pkcs11) %config(noreplace) %{_sysconfdir}/%{name}/strength.conf
 %{_tmpfilesdir}/%{name}.conf
@@ -352,6 +352,10 @@ fi
 
 
 %changelog
+* Thu May 25 2023 Than Ngo <than@redhat.com> - 3.21.0-4
+- add verify attributes for opencryptoki.conf to ignore the
+  verification 
+
 * Mon May 22 2023 Than Ngo <than@redhat.com> - 3.21.0-3
 - drop p11_kit_support
 - fix handling of user name

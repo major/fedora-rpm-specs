@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.8.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Linux Distribution - a Linux OS platform information API
 
 License:        Apache-2.0
@@ -10,6 +10,7 @@ URL:            https://github.com/python-distro/distro
 Source0:        %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildRequires:  python3-pytest
  
 %global _description \
 The distro (for: Linux Distribution) package provides information about the\
@@ -39,7 +40,7 @@ Suggests:       /usr/bin/lsb_release
 %autosetup -n %{pypi_name}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -56,9 +57,12 @@ Suggests:       /usr/bin/lsb_release
 %{_bindir}/distro
 
 %check
-%tox
+%pytest
 
 %changelog
+* Tue May 23 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.8.0-4
+- Migrate from tox to pytest
+
 * Sat Feb 11 2023 msuchy <msuchy@redhat.com> - 1.8.0-3
 - migrate license to SPDX
 

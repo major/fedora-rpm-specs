@@ -1,18 +1,18 @@
-%global commit 0fb4dd1c36a12aefb93439b2aceb2643f95a8462
-%global snapdate 20230410
+%global commit ef46370c99776a1d307b2e0663ba30ee0e851609
+%global snapdate 20230512
 
 Name:           c4project
 Summary:        Useful CMake scripts
 # This project has never been assigned a version. The author really intends it
 # for use as a git submodule rather than for system-wide installation.
-Version:        0^%{snapdate}git%(echo '%{commit}' | cut -b -7)
+Version:        0^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")
 Release:        %autorelease
 
 URL:            https://github.com/biojppm/cmake
 # The entire source is MIT, except Toolchain-PS4.cmake and
 # Toolchain-XBoxOne.cmake, which are Apache-2.0.
 License:        MIT AND Apache-2.0
-Source0:        %{url}/archive/%{commit}/cmake-%{commit}.tar.gz
+Source:         %{url}/archive/%{commit}/cmake-%{commit}.tar.gz
 
 BuildArch:      noarch
 

@@ -2,7 +2,7 @@
 Summary: Collection of basic system utilities
 Name: util-linux
 Version: 2.39
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv2 and GPLv2+ and LGPLv2+ and BSD with advertising and Public Domain
 URL: https://en.wikipedia.org/wiki/Util-linux
 
@@ -100,6 +100,7 @@ Patch1: login-default-motd-file.patch
 
 ### Upstream patches
 Patch2: libmount-fix-options-prepend-insert-and-merging.patch
+Patch3: libmount-don-t-call-hooks-after-mount.-type-helper.patch
 
 %description
 The util-linux package contains a large variety of low-level system
@@ -928,6 +929,9 @@ fi
 
 
 %changelog
+* Thu May 25 2023 Karel Zak <kzak@redhat.com> - 2.39-4
+- fix mount when /sbin/mount.<type> executed
+
 * Mon May 22 2023 Karel Zak <kzak@redhat.com> - 2.39-3
 - fix mount options prepend/insert and merging (upstream)
 

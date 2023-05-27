@@ -1,13 +1,13 @@
 Summary:         A small, flexible, terminal-based text editor
 Name:            mle
-Version:         1.5.0
-Release:         3%{?dist}
+Version:         1.7.2
+Release:         1%{?dist}
 License:         ASL 2.0
 URL:             https://github.com/adsr/mle
 Source:          https://github.com/adsr/mle/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:   gcc
-BuildRequires:   pcre-devel
+BuildRequires:   pcre2-devel
 BuildRequires:   uthash-devel
 BuildRequires:   lua-devel
 BuildRequires:   glibc-langpack-en
@@ -44,6 +44,9 @@ install -D -p -v -m 644 mle.1 ${RPM_BUILD_ROOT}%{_mandir}/man1/mle.1
 %{_mandir}/man1/mle.1*
 
 %changelog
+* Wed May 24 2023 Adam Saponara <as@php.net> - 1.7.2-1
+- New upstream release
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

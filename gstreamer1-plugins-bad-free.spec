@@ -13,8 +13,8 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-bad-free
-Version:        1.22.2
-Release:        4%{?gitcommit:.git%{shortcommit}}%{?dist}
+Version:        1.22.3
+Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 License:        LGPLv2+ and LGPLv2
@@ -674,6 +674,9 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 
 
 %changelog
+* Thu May 25 2023 Wim Taymans <wtaymans@redhat.com> - 1.22.3-1
+- Update to 1.22.3
+
 * Sun May 21 2023 Sérgio Basto <sergio@serjux.com> - 1.22.2-4
 - Remove obsolete of plugins-bad-freeworld to workaround a dnf bug
   https://bugzilla.redhat.com/show_bug.cgi?id=1867376#c9

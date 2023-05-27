@@ -1,19 +1,34 @@
 Name:           perl-CSS-DOM
 Version:        0.17
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Document Object Model for Cascading Style Sheets
 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CSS-DOM
 Source0:        https://cpan.metacpan.org/authors/id/S/SP/SPROUT/CSS-DOM-%{version}.tar.gz
-
+# Remove apostrophe as package separator - it is deprecated in 5.37.9 and
+# will be removed by 5.40. CPAN RT#146661
+Patch0:         CSS-DOM-0.17-Dont-use-deprecated-code.patch
 BuildArch:      noarch
-BuildRequires: make
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
-BuildRequires:  perl(Clone) >= 0.09
-BuildRequires:  perl(Encode) >= 2.10
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(strict)
+# Run-time
+BuildRequires:  perl(Carp) >= 1.01
+BuildRequires:  perl(Clone) >= 0.09
+BuildRequires:  perl(constant)
+BuildRequires:  perl(Encode) >= 2.10
+BuildRequires:  perl(Exporter) >= 5.57
+BuildRequires:  perl(overload)
+BuildRequires:  perl(re)
+BuildRequires:  perl(Scalar::Util)
+BuildRequires:  perl(warnings)
+# Tests
 BuildRequires:  perl(Test::More)
+BuildRequires:  perl(utf8)
 # Dependencies not detected automatically:
 Requires:       perl(Clone) >= 0.09
 Requires:       perl(Encode) >= 2.10
@@ -27,10 +42,11 @@ the W3C DOM recommendation.
 
 %prep
 %setup -q -n CSS-DOM-%{version}
+%patch -P0 -p1
 
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
 make %{?_smp_mflags}
 
 
@@ -51,6 +67,11 @@ make test
 
 
 %changelog
+* Thu May 25 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.17-18
+- Removed apostrophe as package separator
+- Specify all dependencies
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

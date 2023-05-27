@@ -5,13 +5,13 @@
 
 Name:           python-junit_xml
 Summary:        Python module for creating JUnit XML test result documents
-Version:        1.9^%{snapdate}git%(echo '%{commit}' | cut -b -7)
+Version:        1.9^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")
 Release:        %autorelease
 
 # SPDX
 License:        MIT
 URL:            https://github.com/kyrus/python-junit-xml
-Source0:        %{url}/archive/%{commit}/python-junit-xml-%{commit}.tar.gz
+Source:         %{url}/archive/%{commit}/python-junit-xml-%{commit}.tar.gz
 
 BuildArch:      noarch
 
@@ -27,16 +27,32 @@ generate the XML test reports.}
 %description %{common_description}
 
 
-%package -n python3-junit_xml
+%package -n python3-junit-xml
 Summary:        %{summary}
 
-%py_provides python3-junit-xml
+# The source package is named python-junit_xml for historical reasons.  The
+# binary package, python3-junit-xml, is named using the canonical project
+# name[1]; see also [2].
+#
+# The %%py_provides macro is used to provide an upgrade path from
+# python3-junit_xml and to produce the appropriate Provides for the importable
+# module[3].
+#
+# [1] https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_canonical_project_name
+# [2] https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_library_naming
+# [3] https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_provides_for_importable_modules
 
-%description -n python3-junit_xml %{common_description}
+# Provide an upgrade path
+%py_provides python3-junit_xml
+Obsoletes:      python3-junit_xml < 1.9^20200222gitba89b41-8
+
+%description -n python3-junit-xml %{common_description}
 
 
 %prep
-%autosetup -n python-junit-xml-%{commit} -p1
+%autosetup -n python-junit-xml-%{commit}
+# Remove shebang line in non-script source
+sed -r -i '1{/^#!/d}' junit_xml/__init__.py
 
 
 %generate_buildrequires
@@ -56,7 +72,7 @@ Summary:        %{summary}
 %tox
 
 
-%files -n python3-junit_xml -f %{pyproject_files}
+%files -n python3-junit-xml -f %{pyproject_files}
 %doc README.rst
 
 

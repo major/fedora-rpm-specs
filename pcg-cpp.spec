@@ -6,7 +6,7 @@
 
 Name:           pcg-cpp
 Summary:        PCG Random Number Generation, C++ Edition
-Version:        0.98.1^%{snapdate}git%(echo '%{commit}' | cut -b -7)
+Version:        0.98.1^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")
 Release:        %autorelease
 
 # The entire package is (MIT OR Apache-2.0), except that any data files are
@@ -16,7 +16,7 @@ Release:        %autorelease
 # See: LICENSE.spdx
 License:        MIT OR Apache-2.0
 URL:            https://github.com/imneme/pcg-cpp
-Source0:        %{url}/archive/%{commit}/pcg-cpp-%{commit}.tar.gz
+Source:         %{url}/archive/%{commit}/pcg-cpp-%{commit}.tar.gz
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -104,7 +104,7 @@ cp -rp sample examples
 %license LICENSE-APACHE.txt LICENSE-MIT.txt LICENSE.spdx
 %doc CONTRIBUTING.md
 %doc README.md
-%doc examples
+%doc examples/
 
 
 %changelog

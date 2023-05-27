@@ -10,7 +10,7 @@
 
 Summary: Qt6 - Positioning component
 Name:    qt6-%{qt_module}
-Version: 6.5.0
+Version: 6.5.1
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -52,9 +52,6 @@ BuildRequires: pkgconfig(libssl)
 BuildRequires: pkgconfig(libcrypto)
 BuildRequires: pkgconfig(xkbcommon) >= 0.5.0
 
-# When the rename from qtlocation to qtpositioning happened
-Obsoletes: qt6-qtlocation < 6.2.2-1
-Provides:  qt6-qtlocation = %{version}-%{release}
 
 %description
 The Qt Positioning APIs gives developers the ability to
@@ -65,8 +62,6 @@ satellite, or wifi, or text file, and so on.
 Summary: Development files for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: qt6-qtbase-devel%{?_isa}
-Obsoletes: qt6-qtlocation-devel < 6.2.2-1
-Provides:  qt6-qtlocation-devel = %{version}-%{release}
 %description devel
 %{summary}.
 
@@ -74,8 +69,6 @@ Provides:  qt6-qtlocation-devel = %{version}-%{release}
 %package examples
 Summary: Programming examples for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Obsoletes: qt6-qtlocation-examples < 6.2.2-1
-Provides:  qt6-qtlocation-examples = %{version}-%{release}
 # BuildRequires: qt6-qtpositioning-devel >= %{version}
 %description examples
 %{summary}.
@@ -149,6 +142,9 @@ popd
 %endif
 
 %changelog
+* Mon May 22 2023 Jan Grulich <jgrulich@redhat.com> - 6.5.1-1
+- 6.5.1
+
 * Tue Apr 04 2023 Jan Grulich <jgrulich@redhat.com> - 6.5.0-1
 - 6.5.0
 

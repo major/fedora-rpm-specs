@@ -5,7 +5,7 @@
 
 Name:           python-ruamel-yaml
 Version:        0.17.26
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        YAML 1.2 loader/dumper package for Python
 
 # SPDX
@@ -26,6 +26,7 @@ comments, seq/map flow style, and map key order.}
 Summary:        YAML 1.2 loader/dumper package for Python
 
 BuildRequires:  python3-devel
+BuildRequires:  python3-pytest
 
 %py_provides python3-ruamel.yaml
 
@@ -42,7 +43,7 @@ sed -r -i 's/^([[:blank:]]*)(.*ruamel\.yaml\.clib)/\1# \2/' __init__.py
 %endif
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -66,6 +67,9 @@ k="${k-}${k+ and }not test_dump_cyaml_1_2"
 %doc README.rst
 
 %changelog
+* Wed May 24 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.17.26-2
+- Avoid tox dependency
+
 * Tue May 09 2023 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 0.17.26-1
 - Update to 0.17.26 (close RHBZ#2196655)
 

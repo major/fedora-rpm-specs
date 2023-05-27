@@ -1,6 +1,6 @@
 Name:           python-sentry-sdk
-Version:        1.22.1
-Release:        2%{?dist}
+Version:        1.24.0
+Release:        1%{?dist}
 Summary:        The new Python SDK for Sentry.io
 
 License:        MIT
@@ -68,7 +68,7 @@ Summary:        %{summary}
 %description -n python3-sentry-sdk %_description
 
 
-# Dependencies for quart, sanic, beam, pyspark, chalice, starlite, huey, arq, grpcio extras are not yet in Fedora
+# Dependencies for quart, sanic, beam, pyspark, chalice, starlite, huey, arq, loguru extras are not yet in Fedora
 # falcon version >= 3.0 is not yet supported => skipping this extra as well
 %global _extras %{expand:
   flask
@@ -122,6 +122,7 @@ popd
   -e sentry_sdk.integrations.grpc.client
   -e sentry_sdk.integrations.grpc.server
   -e sentry_sdk.integrations.huey
+  -e sentry_sdk.integrations.loguru
   -e sentry_sdk.integrations.quart
   -e sentry_sdk.integrations.sanic
   -e sentry_sdk.integrations.starlite
@@ -168,6 +169,7 @@ sed -i '/assert event\["_meta"\]/i\ \ \ \ if not event["_meta"]["extra"]: event[
   --ignore tests/integrations/flask \
   --ignore tests/integrations/gcp \
   --ignore tests/integrations/httpx \
+  --ignore tests/integrations/loguru \
   --ignore tests/integrations/pymongo \
   --ignore tests/integrations/pyramid \
   --ignore tests/integrations/redis \
@@ -181,6 +183,9 @@ sed -i '/assert event\["_meta"\]/i\ \ \ \ if not event["_meta"]["extra"]: event[
 
 
 %changelog
+* Thu May 25 2023 Roman Inflianskas <rominf@aiven.io> - 1.24.0-1
+- Update to 1.24.0 (resolve rhbz#2196238)
+
 * Mon May 22 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.22.1-2
 - Add grpcio extra metapackage and test dependency
 - Add an explicit protobuf dependency for testing

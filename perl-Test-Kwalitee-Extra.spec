@@ -4,7 +4,7 @@ Name:		perl-Test-Kwalitee-Extra
 Version:	0.4.0
 Release:	20%{?dist}
 Summary:	Run Kwalitee tests including optional indicators
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-Kwalitee-Extra
 Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-Kwalitee-Extra-v%{version}.tar.gz
 Patch0:		Test-Kwalitee-Extra-v0.4.0-CPAN128602.patch
@@ -46,7 +46,8 @@ BuildRequires:	perl(Pod::Coverage::TrustPod)
 BuildRequires:	perl(Test::Perl::Critic)
 BuildRequires:	perl(Test::Pod) >= 1.41
 BuildRequires:	perl(Test::Pod::Coverage) >= 1.08
-# Runtime
+# Dependencies
+# (none)
 
 %description
 CPANTS checks Kwalitee indicators, which is not quality but
@@ -63,7 +64,7 @@ prereq_matches_use by querying needed information from MetaCPAN.
 %setup -q -n Test-Kwalitee-Extra-v%{version}
 
 # Work around issues with M:C:A 1.00 (CPAN RT#128602)
-%patch0
+%patch -P 0
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1

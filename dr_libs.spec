@@ -1,5 +1,5 @@
-%global commit 4b3d07849537ce0b71b22180c0b1335eacc6e9be
-%global snapdate 20230324
+%global commit c2e2189043af9e1985d016eca59c4b39a832b83f
+%global snapdate 20230522
 
 Name:           dr_libs
 # While the individual header-only libraries are versioned, the overall
@@ -7,7 +7,7 @@ Name:           dr_libs
 # general practices of stb, so see also:
 #   https://github.com/nothings/stb/issues/359
 #   https://github.com/nothings/stb/issues/1101
-%global snapinfo ^%{snapdate}git%(echo '%{commit}' | cut -b -7)
+%global snapinfo ^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")
 Version:        0%{snapinfo}
 Release:        %autorelease -p
 Summary:        Single-file audio decoding libraries for C/C++
@@ -20,9 +20,9 @@ License:        Unlicense OR MIT-0
 #
 # - old/*.h are Unlicense (only)
 
-%global dr_flac_version 0.12.39
-%global dr_mp3_version 0.6.34
-%global dr_wav_version 0.13.8
+%global dr_flac_version 0.12.40
+%global dr_mp3_version 0.6.35
+%global dr_wav_version 0.13.9
 
 Source0:        %{url}/archive/%{commit}/dr_libs-%{commit}.tar.gz
 # Upstream does not provide a build system for the tests. We have written a
@@ -181,7 +181,7 @@ Documentation for dr_libs.
 
 
 %prep
-%autosetup -n dr_libs-%{commit} -p1
+%autosetup -n dr_libs-%{commit}
 
 cp -p '%{SOURCE1}' tests/
 

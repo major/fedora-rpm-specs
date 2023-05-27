@@ -2,7 +2,7 @@ Name:		perl-Test-Modern
 Version:	0.013
 Release:	25%{?dist}
 Summary:	Precision testing for modern perl
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-Modern
 Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-Modern-%{version}.tar.gz
 BuildArch:	noarch

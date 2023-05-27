@@ -5,7 +5,7 @@
 %global crate unic-locale-impl
 
 Name:           rust-unic-locale-impl
-Version:        0.9.0
+Version:        0.9.1
 Release:        %autorelease
 Summary:        API for managing Unicode Locale Identifiers
 
@@ -14,9 +14,10 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/unic-locale-impl
 Source0:        %{crates_source}
 # https://github.com/zbraniecki/unic-locale/issues/69
-Source1:        https://github.com/zbraniecki/unic-locale/raw/unic-locale@0.9.0/LICENSE-APACHE
-Source2:        https://github.com/zbraniecki/unic-locale/raw/unic-locale@0.9.0/LICENSE-MIT
+Source1:        https://github.com/zbraniecki/unic-locale/raw/52b3ed3/LICENSE-APACHE
+Source2:        https://github.com/zbraniecki/unic-locale/raw/52b3ed3/LICENSE-MIT
 # Manually created patch for downstream crate metadata changes
+# * add licenses to included files
 # * drop unused, benchmark-only criterion dev-dependency to speed up builds
 Patch:          unic-locale-impl-fix-metadata.diff
 
@@ -37,8 +38,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license LICENSE-APACHE
-%license LICENSE-MIT
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -68,8 +69,8 @@ use the "likelysubtags" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
-cp -pav %{SOURCE1} %{SOURCE2} .
 %cargo_prep
+cp -pav %{SOURCE1} %{SOURCE2} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires

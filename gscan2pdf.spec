@@ -4,7 +4,7 @@
 
 Name:           gscan2pdf
 Version:        2.13.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GUI for producing a multipage PDF from a scan
 # icons/180_degree.svg: GPL-3.0-only
 # icons/scanner.svg:    GPL-2.0-only
@@ -23,6 +23,12 @@ Source2:        gpgkey-463293E4AE33871846F30227B321F203110FCAF3.gpg
 Patch0:         gscan2pdf-2.9.0-Do-not-warn-about-missing-pdftk.patch
 # Replace copies of gscan2pdf.svg with links, not upstreamable
 Patch1:         gscan2pdf-2.12.7-Symlink-gscan2pdf.svg-files.patch
+# Adapt tests to ImageMagick-7.1.1.5, in upstream after 2.13.2,
+# <https://sourceforge.net/p/gscan2pdf/bugs/417/> 
+Patch2:         gscan2pdf-2.13.2-Fix-test-failure-in-t-131_save_tiff.t-due-to-changes.patch
+# Ignore options of scanners which report a range minimum greater than a range
+# maximum, in upstream after 2.13.2
+Patch3:         gscan2pdf-2.13.2-Skip-options-where-min-max.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  desktop-file-utils
@@ -324,6 +330,10 @@ fi
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu May 25 2023 Petr Pisar <ppisar@redhat.com> - 2.13.2-3
+- Adapt tests to ImageMagick-7.1.1.5 (upstream bug #417)
+- Ignore options of scanners which report a range minimum greater than a range maximum
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,14 +4,14 @@
 %global snapdate 20210806
 
 Name:           python-pytest-grpc
-Version:        0.8.0^%{snapdate}git%(echo '%{commit}' | cut -b -7)
+Version:        0.8.0^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")
 Release:        %autorelease
 Summary:        Allow testing gRPC with pytest
 
 # SPDX
 License:        MIT
 URL:            https://github.com/kataev/pytest-grpc
-Source0:        %{url}/archive/%{commit}/pytest-grpc-%{commit}.tar.gz
+Source:         %{url}/archive/%{commit}/pytest-grpc-%{commit}.tar.gz
 
 BuildArch:      noarch
  

@@ -1,12 +1,12 @@
 # The project contains a version number, but a release has never been tagged.
 # The project is normally used as a git submodule and referred to by commit
 # hash.
-%global commit 0130061b804ae2af0d6cd5919275d552eb1f2414
-%global snapdate 20221129
+%global commit 99eedfa6e02d67224bf91877a869eebcbc4de1e3
+%global snapdate 20230512
 
 Name:           c4fs
 Summary:        C++ file system utilities
-Version:        0.0.1^%{snapdate}git%(echo '%{commit}' | cut -b -7)
+Version:        0.0.1^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")
 # This is the same as the version number. To prevent undetected soversion
 # bumps, we nevertheless express it separately.
 %global so_version 0.0.1
@@ -15,7 +15,7 @@ Release:        %autorelease
 # SPDX
 License:        MIT
 URL:            https://github.com/biojppm/c4fs
-Source0:        %{url}/archive/%{commit}/c4fs-%{commit}.tar.gz
+Source:         %{url}/archive/%{commit}/c4fs-%{commit}.tar.gz
 
 # Upstream always wants to build with c4core as a git submodule, but we want to
 # unbundle it and build with an external library. We therefore maintain this
@@ -44,7 +44,6 @@ Summary:        Development files for c4fs
 
 Requires:       c4fs%{?_isa} = %{version}-%{release}
 Requires:       c4core-devel%{?_isa}
-Requires:       cmake-filesystem
 
 %description devel
 The c4fs-devel package contains libraries and header files for developing
@@ -81,7 +80,12 @@ sed -r -i \
 %install
 %cmake_install
 # Fix wrong installation paths for multilib; it would be nontrivial to patch
-# the source to get this right in the first place.
+# the source to get this right in the first place. The installation path is
+# determined by the scripts in https://github.com/biojppm/cmake, packaged as
+# c4project.
+#
+# Installation directory on Linux 64bit OS
+# https://github.com/biojppm/rapidyaml/issues/256
 if [ '%{_libdir}' != '%{_prefix}/lib' ]
 then
   mkdir -p '%{buildroot}%{_libdir}'

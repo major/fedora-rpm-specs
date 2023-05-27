@@ -1,12 +1,12 @@
 # The project contains a version number, but a release has never been tagged.
 # The project is normally used as a git submodule and referred to by commit
 # hash.
-%global commit 00066ad7f624556f066f3d60766a2c33aeb3c6f0
-%global snapdate 20221005
+%global commit db290dc9e65e07147a1cddff742be5e32d07a53d
+%global snapdate 20230505
 
 Name:           c4log
 Summary:        C++ type-safe logging, mean and lean
-Version:        0.0.1^%{snapdate}git%(echo '%{commit}' | cut -b -7)
+Version:        0.0.1^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")
 # This is the same as the version number. To prevent undetected soversion
 # bumps, we nevertheless express it separately.
 %global so_version 0.0.1
@@ -15,7 +15,7 @@ Release:        %autorelease
 # SPDX
 License:        MIT
 URL:            https://github.com/biojppm/c4log
-Source0:        %{url}/archive/%{commit}/c4log-%{commit}.tar.gz
+Source:         %{url}/archive/%{commit}/c4log-%{commit}.tar.gz
 
 # Upstream always wants to build with c4core as a git submodule, but we want to
 # unbundle it and build with an external library. We therefore maintain this
@@ -44,7 +44,6 @@ Summary:        Development files for c4log
 
 Requires:       c4log%{?_isa} = %{version}-%{release}
 Requires:       c4core-devel%{?_isa}
-Requires:       cmake-filesystem
 
 %description devel
 The c4log-devel package contains libraries and header files for developing
@@ -77,7 +76,12 @@ sed -r -i 's/\bdoctest\b//' test/CMakeLists.txt
 %install
 %cmake_install
 # Fix wrong installation paths for multilib; it would be nontrivial to patch
-# the source to get this right in the first place.
+# the source to get this right in the first place. The installation path is
+# determined by the scripts in https://github.com/biojppm/cmake, packaged as
+# c4project.
+#
+# Installation directory on Linux 64bit OS
+# https://github.com/biojppm/rapidyaml/issues/256
 if [ '%{_libdir}' != '%{_prefix}/lib' ]
 then
   mkdir -p '%{buildroot}%{_libdir}'
@@ -99,9 +103,9 @@ fi
 
 %files devel
 # %%{_includedir}/c4 is owned by c4core-devel
-%{_includedir}/c4/log
+%{_includedir}/c4/log/
 %{_libdir}/libc4log.so
-%{_libdir}/cmake/c4log
+%{_libdir}/cmake/c4log/
 
 
 %changelog

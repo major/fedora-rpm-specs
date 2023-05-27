@@ -1,4 +1,4 @@
-%global	mainver		1.15.1
+%global	mainver		1.15.2
 #%%global	prever		.rc4
 
 %global	baserelease		1
@@ -271,6 +271,9 @@ popd
 %doc	%{gem_dir}/doc/%{gem_name}-%{mainver}%{?prever}/
 
 %changelog
+* Thu May 25 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.15.2-1
+- 1.15.2
+
 * Sun May 21 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.15.1-1
 - 1.15.1
 

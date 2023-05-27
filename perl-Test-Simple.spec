@@ -13,11 +13,11 @@ Name:           perl-Test-Simple
 Summary:        Basic utilities for writing tests
 Epoch:          3
 Version:        1.302195
-Release:        1%{?dist}
-# CC0: lib/ok.pm
+Release:        2%{?dist}
+# CC0-1.0: lib/ok.pm
 # Public Domain: lib/Test/Tutorial.pod
-# GPL+ or Artistic: the rest of the distribution
-License:        (GPL+ or Artistic) and CC0 and Public Domain
+# GPL-1.0-or-later OR Artistic-1.0-Perl: the rest of the distribution
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND CC0-1.0 AND LicenseRef-Fedora-Public-Domain
 URL:            https://metacpan.org/release/Test-Simple
 Source0:        https://cpan.metacpan.org/modules/by-module/Test/Test-Simple-%{version}.tar.gz
 BuildArch:      noarch
@@ -78,7 +78,7 @@ BuildRequires:  perl(Test::Pod) >= 0.95
 BuildRequires:  perl(Test::Script)
 %endif
 %endif
-# Runtime
+# Dependencies
 Requires:       perl(Data::Dumper)
 Requires:       perl(JSON::PP)
 %if %{with perl_Test_Simple_enables_Module_Pluggable} && !%{defined perl_bootstrap}
@@ -201,6 +201,9 @@ make test %{!?perl_bootstrap:AUTHOR_TESTING=1}
 %{_mandir}/man3/Test2::Util::Trace.3*
 
 %changelog
+* Thu May 25 2023 Paul Howarth <paul@city-fan.org> - 3:1.302195-2
+- Use SPDX-format license tag
+
 * Fri Apr 28 2023 Paul Howarth <paul@city-fan.org> - 3:1.302195-1
 - Update to 1.302195
   - Fix done_testing(0) producing 2 plans and an incorrect message

@@ -15,8 +15,8 @@
 
 Summary: Qt6 - QtDeclarative component
 Name:    qt6-%{qt_module}
-Version: 6.5.0
-Release: 2%{?dist}
+Version: 6.5.1
+Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -34,9 +34,6 @@ Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submod
 Source5: qv4global_p-multilib.h
 
 ## upstream patches
-### From: https://codereview.qt-project.org/c/qt/qtdeclarative/+/466808
-### Cf. https://bugzilla.redhat.com/show_bug.cgi?id=2177696
-Patch0: qt-QTBUG-111935-fix-V4-jit.patch
 
 ## upstreamable patches
 
@@ -330,6 +327,9 @@ make check -k -C tests ||:
 %endif
 
 %changelog
+* Mon May 22 2023 Jan Grulich <jgrulich@redhat.com> - 6.5.1-1
+- 6.5.1
+
 * Mon Apr 03 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 6.5.0-2
 - Enable qmlls
 

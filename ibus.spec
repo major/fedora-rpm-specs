@@ -50,7 +50,7 @@
 
 Name:           ibus
 Version:        1.5.28
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.0-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -559,6 +559,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Fri May 26 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.28-6
+- Resolves: #2195895 ibus_input_context_set_cursor_location(): ibus-x11 SIGSEGV
+
 * Fri May 12 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.28-5
 - Fix cross compiling with gen-internal-compose-table
 

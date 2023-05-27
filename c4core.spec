@@ -1,9 +1,6 @@
-#global commit xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-#global snapdate YYYYMMDD
-
 Name:           c4core
 Summary:        C++ core utilities
-Version:        0.1.11%{?commit:^%{snapdate}git%(echo '%{commit}' | cut -b -7)}
+Version:        0.1.11
 # This is the same as the version number. To prevent undetected soversion
 # bumps, we nevertheless express it separately.
 %global so_version 0.1.11
@@ -24,11 +21,7 @@ URL:            https://github.com/biojppm/c4core
 # binary RPMs.
 License:        MIT AND BSL-1.0 AND BSD-2-Clause AND (Apache-2.0 OR MIT)
 
-%{?!commit:%global tag v%{version}}
-%{?!commit:%global extractdir c4core-%{version}}
-%{?commit:%global tag %{commit}}
-%{?commit:%global extractdir c4core-%{commit}}
-Source0:        %{url}/archive/%{tag}/%{extractdir}.tar.gz
+Source:         %{url}/archive/v%{version}/c4core-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -40,7 +33,7 @@ BuildRequires:  ninja-build
 # package for tracking.
 BuildRequires:  debugbreak-devel
 BuildRequires:  debugbreak-static
-BuildRequires:  fast_float-devel >= 3.0.0
+BuildRequires:  fast_float-devel
 BuildRequires:  fast_float-static
 BuildRequires:  doctest-devel
 BuildRequires:  doctest-static
@@ -91,7 +84,7 @@ Provides:       bundled(SG14) = 0^20190524git3a3b806
 
 
 %prep
-%autosetup -n %{extractdir}
+%autosetup -n c4core-%{version}
 
 # Remove/unbundle additional dependencies
 
@@ -144,7 +137,12 @@ ln -sv %{_includedir}/fast_float src/c4/ext/fast_float/include/
 %install
 %cmake_install
 # Fix wrong installation paths for multilib; it would be nontrivial to patch
-# the source to get this right in the first place.
+# the source to get this right in the first place. The installation path is
+# determined by the scripts in https://github.com/biojppm/cmake, packaged as
+# c4project.
+#
+# Installation directory on Linux 64bit OS
+# https://github.com/biojppm/rapidyaml/issues/256
 if [ '%{_libdir}' != '%{_prefix}/lib' ]
 then
   mkdir -p '%{buildroot}%{_libdir}'
@@ -164,7 +162,6 @@ ln -svf '%{_includedir}/debugbreak.h' \
 # fast_float
 # Replace amalgamated single-file header produced by build system with one that
 # trivially includes the main system fast_float header.
-# link to main system fast_float header.
 cat > '%{buildroot}%{_includedir}/c4/ext/fast_float_all.h' <<EOF
 #include <fast_float/fast_float.h>
 EOF

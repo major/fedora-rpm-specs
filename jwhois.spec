@@ -2,7 +2,7 @@
 
 Name: jwhois
 Version: 4.0
-Release: 73%{?dist}
+Release: 74%{?dist}
 URL: http://www.gnu.org/software/jwhois/
 Source0: ftp://ftp.gnu.org/gnu/jwhois/jwhois-%{version}.tar.gz
 Source1: https://raw.githubusercontent.com/robert-scheck/jwhois/2bd561e06ca37cf6c2ef9f0a2e957e09f58e6972/example/jwhois.conf
@@ -18,7 +18,7 @@ Patch8: jwhois-4.0-idnfail.patch
 Patch9: jwhois-4.0-ipv4_ipv6.patch
 Patch10: jwhois-configure-c99.patch
 Patch11: jwhois-c99.patch
-License: GPLv3
+License: GPL-3.0-only
 Summary: Internet whois/nicname client
 BuildRequires: gcc, libidn2-devel, autoconf, automake
 %if %{with_cache}
@@ -40,17 +40,7 @@ A whois client that accepts both traditional and finger-style queries.
 
 %prep
 %setup -q
-%patch0 -p1 -b .connect
-%patch1 -p1 -b .ipv6match
-%patch2 -p1 -b .fclose
-%patch3 -p1 -b .select
-%patch5 -p1 -b .multi-homed
-%patch6 -p1 -b .libidn2
-%patch7 -p1 -b .idna
-%patch8 -p1 -b .idnfail
-%patch9 -p1 -b .ipv4_ipv6
-%patch10 -p1
-%patch11 -p1
+%autopatch -p1
 
 iconv -f iso-8859-1 -t utf-8 < doc/sv/jwhois.1 > doc/sv/jwhois.1_
 mv doc/sv/jwhois.1_ doc/sv/jwhois.1
@@ -134,6 +124,9 @@ if [ $1 = 0 ]; then
 fi
 
 %changelog
+* Thu May 25 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 4.0-74
+- SPDX migration
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-73
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

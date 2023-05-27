@@ -2,7 +2,7 @@
 
 Name:           wesnoth
 Version:        1.17.17
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Turn-based strategy game with a fantasy theme
 
 License:        GPL-2.0-or-later
@@ -95,10 +95,14 @@ scons wesnoth wesnothd campaignd prefix=%{_prefix} \
           python_site_packages_dir=%{python3_sitelib}/wesnoth \
           extra_flags_release="$RPM_OPT_FLAGS $RPM_LD_FLAGS" \
           luadir=%{_includedir} \
+          fifodir=/run/wesnothd \
           %{?_smp_mflags}
 
 %install
 scons install install-pytools destdir=$RPM_BUILD_ROOT
+
+#Workaround for BZ 1981728
+sed -i "s|@FIFO_DIR@|\/run\/wesnothd|g" $RPM_BUILD_ROOT%{_prefix}/lib/tmpfiles.d/wesnothd.conf
 
 %if 0%{?flatpak}
 # Fix install paths for flatpak builds where systemd prefix differs from wesnoth prefix
@@ -113,7 +117,8 @@ install -Dpm 644 %{SOURCE1} $RPM_BUILD_ROOT%{_unitdir}/wesnothd.service
 install -Dpm 644 %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/wesnoth
 
 # create this so we can %ghost it
-touch ${RPM_BUILD_ROOT}/var/run/wesnothd/socket
+mkdir -p ${RPM_BUILD_ROOT}/run/wesnothd/
+touch ${RPM_BUILD_ROOT}/run/wesnothd/socket
 
 # move server stuff into sbindir
 mkdir -p $RPM_BUILD_ROOT/%{_sbindir}
@@ -131,7 +136,7 @@ done
 
 %pre server
 /usr/sbin/useradd -c "Wesnoth server" -s /sbin/nologin \
-          -r -d /var/run/wesnothd wesnothd 2> /dev/null || :
+          -r -d /run/wesnothd wesnothd 2> /dev/null || :
 
 
 %post server
@@ -161,8 +166,8 @@ done
 %config(noreplace) %{_sysconfdir}/sysconfig/wesnoth
 %{_sbindir}/wesnothd
 %{_sbindir}/campaignd
-%attr(0700,wesnothd,wesnothd) %dir /var/run/wesnothd/
-%ghost /var/run/wesnothd/socket
+%attr(0700,wesnothd,wesnothd) %dir /run/wesnothd/
+%ghost /run/wesnothd/socket
 %{_unitdir}/wesnothd.service
 %{_tmpfilesdir}/wesnothd.conf
 
@@ -176,6 +181,9 @@ done
 %{_mandir}/*/man6/wesnoth*.6*
 
 %changelog
+* Thu May 25 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.17.17-2
+- Workaround for BZ 1981728.
+
 * Mon May 22 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.17.17-1
 - 1.17.17
 

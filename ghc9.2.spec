@@ -3,7 +3,7 @@
 %bcond_with quickbuild
 
 # make sure ghc libraries' ABI hashes unchanged
-%bcond_with abicheck
+%bcond_without abicheck
 
 # bcond_without for production builds: use Hadrian buildsystem
 %bcond_without hadrian
@@ -72,10 +72,10 @@ Version: 9.2.7
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 16%{?dist}
+Release: 17%{?dist}
 Summary: Glasgow Haskell Compiler
 
-License: BSD and HaskellReport
+License: BSD-3-Clause and HaskellReport
 URL: https://haskell.org/ghc/
 Source0: https://downloads.haskell.org/ghc/%{ghc_release}/ghc-%{version}-src.tar.lz
 %if %{with testsuite}
@@ -88,11 +88,13 @@ Source7: runghc.man
 # https://bugzilla.redhat.com/show_bug.cgi?id=2142238
 ExcludeArch: armv7hl
 
+# https://gitlab.haskell.org/ghc/ghc/-/issues/19421 (m32_allocator_init)
+Patch0: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/10453.patch
 # absolute haddock path (was for html/libraries -> libraries)
 Patch1: ghc-gen_contents_index-haddock-path.patch
 Patch2: ghc-Cabal-install-PATH-warning.patch
 Patch3: ghc-gen_contents_index-nodocs.patch
-# https://gitlab.haskell.org/ghc/ghc/-/issues/23286
+# https://gitlab.haskell.org/ghc/ghc/-/issues/23286 (sphinx modern extlinks)
 Patch9: https://gitlab.haskell.org/ghc/ghc/-/commit/00dc51060881df81258ba3b3bdf447294618a4de.patch
 
 # https://phabricator.haskell.org/rGHC4eebc8016f68719e1ccdf460754a97d1f4d6ef05
@@ -128,8 +130,8 @@ Patch26: no-missing-haddock-file-warning.patch
 Patch27: haddock-remove-googleapis-fonts.patch
 
 # fedora ghc has been bootstrapped on
-# %%{ix86} x86_64 ppc ppc64 armv7hl s390 s390x ppc64le aarch64
-# and retired arches: alpha sparcv9 armv5tel
+# %%{ix86} x86_64 s390x ppc64le aarch64
+# and retired arches: alpha sparcv9 armv5tel ppc ppc64 s390 armv7hl
 # see also deprecated ghc_arches defined in ghc-srpm-macros
 # /usr/lib/rpm/macros.d/macros.ghc-srpm
 
@@ -238,7 +240,7 @@ for the functional language Haskell. Highlights:
 
 %package compiler
 Summary: GHC compiler and utilities
-License: BSD
+License: BSD-3-Clause
 Requires: gcc%{?_isa}
 Requires: %{name}-base-devel%{?_isa} = %{base_ver}-%{release}
 %if %{with haddock}
@@ -278,7 +280,7 @@ The package contains symlinks to make %{name} the default GHC compiler.
 %if %{with haddock} || (%{with hadrian} && %{with manual})
 %package doc
 Summary: Haskell library documentation meta package
-License: BSD
+License: BSD-3-Clause
 
 %description doc
 Installing this package causes %{name}-*-doc packages corresponding to
@@ -287,7 +289,7 @@ Installing this package causes %{name}-*-doc packages corresponding to
 
 %package doc-index
 Summary: GHC library documentation indexing
-License: BSD
+License: BSD-3-Clause
 Requires: %{name}-compiler = %{version}-%{release}
 BuildArch: noarch
 
@@ -308,7 +310,7 @@ Haskell libraries documentation.
 %if %{with manual}
 %package manual
 Summary: GHC manual
-License: BSD
+License: BSD-3-Clause
 BuildArch: noarch
 Requires: %{name}-filesystem = %{version}-%{release}
 
@@ -330,47 +332,46 @@ Version: 0.1.0.0
 This provides the hadrian tool which can be used to build ghc.
 %endif
 
-%global BSDHaskellReport %{quote:BSD and HaskellReport}
+%global BSDHaskellReport %{quote:BSD-3-Clause and HaskellReport}
 
 # use "./libraries-versions.sh" to check versions
 %if %{defined ghclibdir}
-%ghc_lib_subpackage -d -l BSD Cabal-3.6.3.0
+%ghc_lib_subpackage -d -l BSD-3-Clause Cabal-3.6.3.0
 %ghc_lib_subpackage -d -l %BSDHaskellReport array-0.5.4.0
 %ghc_lib_subpackage -d -l %BSDHaskellReport -c gmp-devel%{?_isa},libffi-devel%{?_isa} base-%{base_ver}
-%ghc_lib_subpackage -d -l BSD binary-0.8.9.0
-%ghc_lib_subpackage -d -l BSD bytestring-0.11.4.0
+%ghc_lib_subpackage -d -l BSD-3-Clause binary-0.8.9.0
+%ghc_lib_subpackage -d -l BSD-3-Clause bytestring-0.11.4.0
 %ghc_lib_subpackage -d -l %BSDHaskellReport containers-0.6.5.1
 %ghc_lib_subpackage -d -l %BSDHaskellReport deepseq-1.4.6.1
 %ghc_lib_subpackage -d -l %BSDHaskellReport directory-1.3.6.2
 %ghc_lib_subpackage -d -l %BSDHaskellReport exceptions-0.10.4
-%ghc_lib_subpackage -d -l BSD filepath-1.4.2.2
+%ghc_lib_subpackage -d -l BSD-3-Clause filepath-1.4.2.2
 # in ghc not ghc-libraries:
 %ghc_lib_subpackage -d -x ghc-%{ghc_version_override}
-%ghc_lib_subpackage -d -x -l BSD ghc-bignum-%{ghc_bignum_ver}
-%ghc_lib_subpackage -d -x -l BSD ghc-boot-%{ghc_version_override}
-%ghc_lib_subpackage -d -l BSD ghc-boot-th-%{ghc_version_override}
-%ghc_lib_subpackage -d -x -l BSD ghc-compact-%{ghc_compact_ver}
-%ghc_lib_subpackage -d -x -l BSD ghc-heap-%{ghc_version_override}
+%ghc_lib_subpackage -d -x -l BSD-3-Clause ghc-bignum-%{ghc_bignum_ver}
+%ghc_lib_subpackage -d -x -l BSD-3-Clause ghc-boot-%{ghc_version_override}
+%ghc_lib_subpackage -d -l BSD-3-Clause ghc-boot-th-%{ghc_version_override}
+%ghc_lib_subpackage -d -x -l BSD-3-Clause ghc-compact-%{ghc_compact_ver}
+%ghc_lib_subpackage -d -x -l BSD-3-Clause ghc-heap-%{ghc_version_override}
 # see below for ghc-prim
-%ghc_lib_subpackage -d -x -l BSD ghci-%{ghc_version_override}
-%ghc_lib_subpackage -d -l BSD haskeline-0.8.2
-%ghc_lib_subpackage -d -x -l BSD hpc-%{hpc_ver}
+%ghc_lib_subpackage -d -x -l BSD-3-Clause ghci-%{ghc_version_override}
+%ghc_lib_subpackage -d -l BSD-3-Clause haskeline-0.8.2
+%ghc_lib_subpackage -d -x -l BSD-3-Clause hpc-%{hpc_ver}
 # see below for integer-gmp
 %ghc_lib_subpackage -d -x -l %BSDHaskellReport libiserv-%{ghc_version_override}
-%ghc_lib_subpackage -d -l BSD mtl-2.2.2
-%ghc_lib_subpackage -d -l BSD parsec-3.1.15.0
-%ghc_lib_subpackage -d -l BSD pretty-1.1.3.6
+%ghc_lib_subpackage -d -l BSD-3-Clause mtl-2.2.2
+%ghc_lib_subpackage -d -l BSD-3-Clause parsec-3.1.15.0
+%ghc_lib_subpackage -d -l BSD-3-Clause pretty-1.1.3.6
 %ghc_lib_subpackage -d -l %BSDHaskellReport process-1.6.16.0
-# see below for rts
-%ghc_lib_subpackage -d -l BSD stm-2.5.0.2
-%ghc_lib_subpackage -d -l BSD template-haskell-2.18.0.0
-%ghc_lib_subpackage -d -l BSD -c ncurses-devel%{?_isa} terminfo-0.4.1.5
-%ghc_lib_subpackage -d -l BSD text-1.2.5.0
-%ghc_lib_subpackage -d -l BSD time-1.11.1.1
-%ghc_lib_subpackage -d -l BSD transformers-0.5.6.2
-%ghc_lib_subpackage -d -l BSD unix-2.7.2.2
+%ghc_lib_subpackage -d -l BSD-3-Clause stm-2.5.0.2
+%ghc_lib_subpackage -d -l BSD-3-Clause template-haskell-2.18.0.0
+%ghc_lib_subpackage -d -l BSD-3-Clause -c ncurses-devel%{?_isa} terminfo-0.4.1.5
+%ghc_lib_subpackage -d -l BSD-3-Clause text-1.2.5.0
+%ghc_lib_subpackage -d -l BSD-3-Clause time-1.11.1.1
+%ghc_lib_subpackage -d -l BSD-3-Clause transformers-0.5.6.2
+%ghc_lib_subpackage -d -l BSD-3-Clause unix-2.7.2.2
 %if %{with haddock} || %{with hadrian}
-%ghc_lib_subpackage -d -l BSD xhtml-%{xhtml_ver}
+%ghc_lib_subpackage -d -l BSD-3-Clause xhtml-%{xhtml_ver}
 %endif
 %endif
 
@@ -378,7 +379,7 @@ This provides the hadrian tool which can be used to build ghc.
 
 %package devel
 Summary: GHC development libraries meta package
-License: BSD and HaskellReport
+License: BSD-3-Clause and HaskellReport
 Requires: %{name}-compiler = %{version}-%{release}
 Obsoletes: %{name}-libraries < %{version}-%{release}
 Provides: %{name}-libraries = %{version}-%{release}
@@ -392,7 +393,7 @@ except the ghc library, which is installed by the toplevel ghc metapackage.
 %if %{with ghc_prof}
 %package prof
 Summary: GHC profiling libraries meta package
-License: BSD
+License: BSD-3-Clause
 Requires: %{name}-compiler = %{version}-%{release}
 
 %description prof
@@ -404,6 +405,7 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %prep
 %setup -q -n ghc-%{version} %{?with_testsuite:-b1}
 
+%patch -P0 -p1 -b .orig
 %patch -P1 -p1 -b .orig
 %patch -P3 -p1 -b .orig
 
@@ -971,6 +973,10 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Thu May 25 2023 Jens Petersen <petersen@redhat.com> - 9.2.7-17
+- include backport of 9.4 m32_allocator_init changes by Sylvain Henry (#2209162)
+- SPDX migration of license tags
+
 * Mon Mar 13 2023 Jens Petersen <petersen@redhat.com> - 9.2.7-16
 - https://downloads.haskell.org/~ghc/9.2.7/docs/html/users_guide/9.2.7-notes.html
 - bytestring-0.11.4.0

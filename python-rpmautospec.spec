@@ -1,5 +1,5 @@
 # when bootstrapping Python, pytest-xdist is not yet available
-%bcond_without xdist
+%bcond xdist %{undefined rhel}
 
 %global srcname rpmautospec
 
@@ -24,7 +24,6 @@ BuildRequires:  python%{python3_pkgversion}-babel
 BuildRequires:  python3-koji
 BuildRequires:  python3-pygit2
 BuildRequires:  python%{python3_pkgversion}-pytest
-BuildRequires:  python%{python3_pkgversion}-pytest-cov
 %if %{with xdist}
 BuildRequires:  python%{python3_pkgversion}-pytest-xdist
 %endif
@@ -123,8 +122,7 @@ mkdir -p %{buildroot}%{rpmmacrodir}
 install -m 644  rpm/macros.d/macros.rpmautospec %{buildroot}%{rpmmacrodir}/
 
 %check
-PYTHONPATH="%{buildroot}%{python3_sitelib}" \
-%{__python3} -m pytest \
+%pytest \
 %if %{with xdist}
 --numprocesses=auto
 %endif

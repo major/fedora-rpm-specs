@@ -65,7 +65,7 @@
 It supports RPMs, modules and comps groups & environments.
 
 Name:           dnf
-Version:        4.15.1
+Version:        4.16.0
 Release:        1%{?dist}
 Summary:        %{pkg_summary}
 # For a breakdown of the licensing, see PACKAGE-LICENSING
@@ -118,6 +118,7 @@ Conflicts:      python3-dnf-plugins-extras-common < %{conflicts_dnf_plugins_extr
 %package data
 Summary:        Common data and configuration files for DNF
 Requires:       libreport-filesystem
+Requires:       libdnf5
 Obsoletes:      %{name}-conf <= %{version}-%{release}
 Provides:       %{name}-conf = %{version}-%{release}
 
@@ -174,7 +175,7 @@ Python 3 interface to DNF.
 %package automatic
 Summary:        %{pkg_summary} - automated upgrades
 BuildRequires:  systemd
-Requires:       %{name} = %{version}-%{release}
+Requires:       python3-%{name} = %{version}-%{release}
 %{?systemd_requires}
 
 %description automatic
@@ -283,11 +284,8 @@ popd
 %dir %{confdir}/modules.d
 %dir %{confdir}/modules.defaults.d
 %dir %{pluginconfpath}
-%dir %{confdir}/protected.d
-%dir %{confdir}/vars
 %dir %{confdir}/aliases.d
 %exclude %{confdir}/aliases.d/zypper.conf
-%config(noreplace) %{confdir}/%{name}.conf
 # No longer using `noreplace` here. Older versions of DNF 4 marked `dnf` as a
 # protected package, but since Fedora 39, DNF needs to be able to update itself
 # to DNF 5, so we need to replace the old /etc/dnf/protected.d/dnf.conf.
@@ -367,6 +365,12 @@ popd
 %{python3_sitelib}/%{name}/automatic/
 
 %changelog
+* Thu May 25 2023 Jan Kolarik <jkolarik@redhat.com> - 4.16.0-1
+- Update to 4.16.0
+- Remove ownership of dnf.conf, protected.d, vars
+- Add requirement of libdnf5 to dnf-data
+- dnf-automatic: require python3-dnf, not dnf
+
 * Thu May 18 2023 Jan Kolarik <jkolarik@redhat.com> - 4.15.1-1
 - Update to 4.15.1
 - automatic: Fix online detection with proxy (RhBug:2022440)

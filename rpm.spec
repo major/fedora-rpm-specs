@@ -32,9 +32,8 @@
 
 %global rpmver 4.18.90
 #global snapver rc1
-%global baserelease 6
+%global baserelease 8
 %global sover 10
-%global oldsover 9
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
 %global srcdir %{?snapver:testing}%{!?snapver:rpm-%(echo %{rpmver} | cut -d'.' -f1-2).x}
@@ -161,9 +160,6 @@ rpm-4.7.1-geode-i686.patch
 # Probably to be upstreamed in slightly different form
 rpm-4.18.x-ldflags.patch
 
-# Needed until dnf catches up
-0001-Forward-port-obsoleted-crypto-needed-by-current-libd.patch
-
 %description
 The RPM Package Manager (RPM) is a powerful command line driven
 package management system capable of installing, uninstalling,
@@ -178,17 +174,6 @@ Requires(meta): %{name} = %{version}-%{release}
 %if %{with sequoia}
 # >= 1.4.0 required for pgpVerifySignature2() and pgpPrtParams2()
 Requires: rpm-sequoia%{_isa} >= 1.4.0
-%endif
-
-
-# XXX dirty temporary hack to "bootstrap" new .so version
-# XXX isa bits isn't quite right for multilib but suffices for this purpose
-%if "%{__isa_bits}bit" == "64bit"
-Provides: librpmio.so.%{oldsover}()(64bit)
-Provides: librpm.so.%{oldsover}()(64bit)
-%else
-Provides: librpmio.so.%{oldsover}
-Provides: librpm.so.%{oldsover}
 %endif
 
 %description libs
@@ -388,6 +373,7 @@ mkdir _build
 cd _build
 cmake \
       -DCMAKE_INSTALL_PREFIX=%{_usr} \
+      -DCMAKE_INSTALL_SHAREDSTATEDIR:PATH=%{_var}/lib \
       %{?with_bdb_ro:-DENABLE_BDB_RO=ON} \
       %{!?with_ndb:-DENABLE_NDB=OFF} \
       %{!?with_sqlite:-DENABLE_SQLITE=OFF} \
@@ -410,10 +396,6 @@ cd _build
 # temporarily remove useser handling fileattr
 # as it is currently in systemd-rpm-macros
 rm $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/sysusers.attr
-
-# XXX dirty temporary hack to "bootstrap" new .so version
-ln -s librpmio.so.%{sover} $RPM_BUILD_ROOT/%{_libdir}/librpmio.so.%{oldsover}
-ln -s librpm.so.%{sover} $RPM_BUILD_ROOT/%{_libdir}/librpm.so.%{oldsover}
 
 cd ..
 
@@ -546,8 +528,6 @@ fi
 %{_libdir}/librpm.so.%{sover}
 %{_libdir}/librpmio.so.%{sover}.*
 %{_libdir}/librpm.so.%{sover}.*
-%{_libdir}/librpmio.so.%{oldsover}
-%{_libdir}/librpm.so.%{oldsover}
 %if %{with plugins}
 %dir %{_libdir}/rpm-plugins
 
@@ -650,6 +630,13 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Thu May 25 2023 Florian Festi <ffesti@redhat.com> - 4.18.90-8
+- Set %_sharedstatedir to /var/lib (#2209989)
+
+* Thu May 25 2023 Florian Festi <ffesti@redhat.com> - 4.18.90-7
+- Remove compat links for old so name of the libraries
+- Remove compat forward ports for libdnf
+
 * Mon May 22 2023 Florian Festi <ffesti@redhat.com> - 4.18.90-6
 - Fix undefined symbols from plugins
 

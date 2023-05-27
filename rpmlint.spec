@@ -3,7 +3,7 @@
 
 Name:           rpmlint
 Version:        2.4.0
-Release:        4%{?dist}
+Release:        8%{?dist}
 Summary:        Tool for checking common errors in RPM packages
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/rpmlint
@@ -18,38 +18,60 @@ Source5:        warn-on-functions.toml
 # https://github.com/rpm-software-management/rpmlint/pull/943
 Patch0:         https://github.com/rpm-software-management/rpmlint/commit/393cde4e.patch#/0001-fix-broken-regex-for-no-manual-page-for-binary-check.patch
 
+# https://bugzilla.redhat.com/2175241
+Patch1:         https://github.com/rpm-software-management/rpmlint/commit/7d707f7f.patch#/0001-TagsCheck-handle-license-exception-in-grouping.patch
+Patch2:         https://github.com/rpm-software-management/rpmlint/commit/48aa148b.patch#/0001-TagsCheck-restore-space-exclusion-to-license_excepti.patch
+Patch3:         https://github.com/rpm-software-management/rpmlint/commit/65abdbd3.patch#/0002-TagsCheck-handle-license-exception-in-first-item-of-.patch
+
+# rpm-4.19.0 api fixes
+# https://github.com/rpm-software-management/rpmlint/pull/1066
+Patch4:         0001-DocCheck-adjust-for-rpm-4.19.0-API-changes.patch
+Patch5:         0002-rpmdiff-adjust-for-rpm-4.19.0-API-changes.patch
+
 BuildArch:      noarch
+
+# use git to apply patches; it handles binary diffs
+BuildRequires:  git-core
 BuildRequires:  python3-devel
 # tests
 %if %{with tests}
+%if ! 0%{?rhel}
 BuildRequires:  dash
 BuildRequires:  devscripts-checkbashisms
+%endif
 BuildRequires:  hunspell-cs
 BuildRequires:  hunspell-en-US
 BuildRequires:  python3dist(pytest)
+%if ! 0%{?rhel}
 BuildRequires:  python3dist(pytest-xdist)
+%endif
 BuildRequires:  /usr/bin/appstream-util
 BuildRequires:  /usr/bin/desktop-file-validate
 %endif
+%if ! 0%{?rhel}
 Requires:       dash
 Requires:       devscripts-checkbashisms
+%endif
 Requires:       rpm-build
 Requires:       /usr/bin/appstream-util
 Requires:       /usr/bin/desktop-file-validate
+%if 0%{?fedora}
 Requires:       rpmlint-fedora-license-data
+%endif
 
 %description
 rpmlint is a tool for checking common errors in RPM packages. Binary
 and source packages as well as spec files can be checked.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -Sgit
 
 # Replace python-magic dep with file-magic (rhbz#1899279)
 sed -i 's/python-magic/file-magic/g' setup.py
 
 # Don't lint the code or measure coverage in %%check
-sed -i -e 's/ --cov=rpmlint//' -e 's/ --flake8//' setup.cfg
+# On RHEL, also avoid xdist by disabling parallelism
+sed -i -e 's/ --cov=rpmlint//' -e 's/ --flake8//' %{?rhel:-e 's/ -n auto//'} setup.cfg
 
 # Avoid warnings about pytest.mark.no_cover marker
 sed -i '/^@pytest.mark.no_cover/d' test/test_lint.py
@@ -65,7 +87,9 @@ sed -i '/^@pytest.mark.no_cover/d' test/test_lint.py
 %pyproject_save_files %{name}
 
 mkdir -p %{buildroot}%{_sysconfdir}/xdg/rpmlint/
+%if 0%{?fedora}
 cp -a %{SOURCE1} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{buildroot}%{_sysconfdir}/xdg/rpmlint/
+%endif
 
 %check
 %if %{with tests}
@@ -75,11 +99,25 @@ cp -a %{SOURCE1} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{buildroot}%{_sysconfdir}/xdg
 %files -f %{pyproject_files}
 %doc README.md
 %dir %{_sysconfdir}/xdg/rpmlint
+%if 0%{?fedora}
 %config(noreplace) %{_sysconfdir}/xdg/rpmlint/*.toml
+%endif
 %{_bindir}/rpmdiff
 %{_bindir}/rpmlint
 
 %changelog
+* Thu May 25 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2.4.0-8
+- Limit deps and don't ship Fedora config in RHEL builds
+
+* Thu May 25 2023 Todd Zullinger <tmz@pobox.com> - 2.4.0-7
+- adjust for rpm-4.19.0 API changes
+
+* Mon Mar 20 2023 Todd Zullinger <tmz@pobox.com> - 2.4.0-6
+- handle license exception in grouping, better (rhbz#2175241)
+
+* Mon Mar 06 2023 Todd Zullinger <tmz@pobox.com> - 2.4.0-5
+- handle license exception in grouping (rhbz#2175241)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

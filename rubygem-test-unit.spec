@@ -6,7 +6,7 @@
 Summary:	Improved version of Test::Unit bundled in Ruby 1.8.x
 Name:		rubygem-%{gem_name}
 # 3.3.8 and above is for ruby 3.0+ only
-Version:	3.5.8
+Version:	3.5.9
 Release:	200%{?dist}
 # SPDX confirmed
 # lib/test/unit/diff.rb is under (BSD-2-Clause OR Ruby) AND Python-2.0.1
@@ -21,7 +21,7 @@ Source1:	%{gem_name}-%{version}-tests.tar.gz
 Source2:	test-unit-create-missing-files.sh
 # 3.5.8 changes progress style to in-place. Change it to mark as before
 # on F-38 and below
-Patch0:	test-unit-3.5.8-progress_style-default-mark.patch
+Patch0:	test-unit-3.5.9-progress_style-default-mark.patch
 
 BuildRequires:	ruby(release)
 BuildRequires:	rubygems
@@ -105,6 +105,9 @@ popd
 %{gem_docdir}/
 
 %changelog
+* Thu May 25 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.9-200
+- 3.5.9
+
 * Sat May 13 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.8-200
 - 3.5.8
 - F-38 and below: Keep progress style as mark as before instead of upstream-chosen
