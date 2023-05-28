@@ -48,11 +48,11 @@ Provides: ansible-collection(%{collection_namespace}.%{collection_name}) = %{col
 %define ansible_roles_dir %{_datadir}/ansible/roles
 %if %{without ansible}
 # Untar and copy everything instead of galaxy-installing the built artifact when ansible is not available
-%define ansible_collection_build() tar -cf %{_tmppath}/%{collection_namespace}-%{collection_name}-%{version}.tar.gz .
-%define ansible_collection_install() mkdir -p %{buildroot}%{ansible_collection_files}%{collection_name}; (cd %{buildroot}%{ansible_collection_files}%{collection_name}; tar -xf %{_tmppath}/%{collection_namespace}-%{collection_name}-%{version}.tar.gz)
+%define ansible_collection_build() tar -cf %{_tmppath}/%{collection_namespace}-%{collection_name}-%{collection_version}.tar.gz .
+%define ansible_collection_install() mkdir -p %{buildroot}%{ansible_collection_files}%{collection_name}; (cd %{buildroot}%{ansible_collection_files}%{collection_name}; tar -xf %{_tmppath}/%{collection_namespace}-%{collection_name}-%{collection_version}.tar.gz)
 %else
 %define ansible_collection_build() ansible-galaxy collection build
-%define ansible_collection_install() ansible-galaxy collection install -n -p %{buildroot}%{_datadir}/ansible/collections %{collection_namespace}-%{collection_name}-%{version}.tar.gz
+%define ansible_collection_install() ansible-galaxy collection install -n -p %{buildroot}%{_datadir}/ansible/collections %{collection_namespace}-%{collection_name}-%{collection_version}.tar.gz
 %endif
 %endif
 # be compatible with the usual Fedora Provides:
@@ -112,7 +112,7 @@ Summary: Collection artifact to import to Automation Hub / Ansible Galaxy
 
 %description collection-artifact
 Collection artifact for %{name}. This package contains
-%{collection_namespace}-%{collection_name}-%{version}.tar.gz
+%{collection_namespace}-%{collection_name}-%{collection_version}.tar.gz
 %endif
 
 %pretrans -p <lua>
@@ -149,7 +149,7 @@ cp %{rolename}/.collection/galaxy.yml ./
 
 %if 0%{?rhel}
 # Ensure the correct entries in galaxy.yml
-./galaxy_transform.py "%{collection_namespace}" "%{collection_name}" "%{version}" \
+./galaxy_transform.py "%{collection_namespace}" "%{collection_name}" "%{collection_version}" \
                       "Ansible collection for Microsoft SQL Server management" \
                       "https://github.com/linux-system-roles/mssql" \
                       "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/administration_and_configuration_tasks_using_system_roles_in_rhel/assembly_configuring-microsoft-sql-server-using-microsoft-sql-server-ansible-role_assembly_updating-packages-to-enable-automation-for-the-rhel-system-roles" \
@@ -157,7 +157,7 @@ cp %{rolename}/.collection/galaxy.yml ./
                       "https://bugzilla.redhat.com/enter_bug.cgi?product=Red%20Hat%20Enterprise%20Linux%208&component=ansible-collection-microsoft-sql" \
                       > galaxy.yml.tmp
 %else
-./galaxy_transform.py "%{collection_namespace}" "%{collection_name}" "%{version}" \
+./galaxy_transform.py "%{collection_namespace}" "%{collection_name}" "%{collection_version}" \
                       "Ansible collection for Microsoft SQL Server management" \
                       > galaxy.yml.tmp
 %endif
@@ -166,8 +166,8 @@ mv galaxy.yml.tmp galaxy.yml
 %if 0%{?rhel}
 # Replace "fedora.linux_system_roles" with "redhat.rhel_system_roles"
 # This is for the "roles calling other roles" case
-find %{rolename} -type f -exec \
-     sed -e "s/fedora[.]linux_system_roles[.]/redhat.rhel_system_roles./g" \
+find . -type f -exec \
+     sed -e "s/fedora\.linux_system_roles/redhat.rhel_system_roles/g" \
          -i {} \;
 %endif
 
@@ -263,8 +263,8 @@ sh md2html.sh -t %{buildroot}%{_pkgdocdir}/collection/roles/%{collection_rolenam
 %if %{with collection_artifact}
 # Copy collection artifact to /usr/share/ansible/collections/ for collection-artifact
 pushd .collections/ansible_collections/%{collection_namespace}/%{collection_name}/
-if [ -f %{collection_namespace}-%{collection_name}-%{version}.tar.gz ]; then
-    mv %{collection_namespace}-%{collection_name}-%{version}.tar.gz \
+if [ -f %{collection_namespace}-%{collection_name}-%{collection_version}.tar.gz ]; then
+    mv %{collection_namespace}-%{collection_name}-%{collection_version}.tar.gz \
        %{buildroot}%{_datadir}/ansible/collections/
 fi
 popd
@@ -346,7 +346,7 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 
 %if %{with collection_artifact}
 %files collection-artifact
-%{_datadir}/ansible/collections/%{collection_namespace}-%{collection_name}-%{version}.tar.gz
+%{_datadir}/ansible/collections/%{collection_namespace}-%{collection_name}-%{collection_version}.tar.gz
 %endif
 
 %changelog

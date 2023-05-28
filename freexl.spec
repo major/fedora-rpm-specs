@@ -26,7 +26,7 @@ Summary:        Library to extract data from within an Excel spreadsheet
 #   - m4/libtool.m4 is (FSFULLR AND GPL-2.0-or-later)
 License:        MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later
 URL:            http://www.gaia-gis.it/FreeXL
-Source0:        http://www.gaia-gis.it/gaia-sins/freexl-sources/freexl-%{version}.tar.gz
+Source:         http://www.gaia-gis.it/gaia-sins/freexl-sources/freexl-%{version}.tar.gz
 
 %if %{with autoreconf}
 BuildRequires:  autoconf
@@ -122,8 +122,7 @@ find '%{buildroot}' -type f -name '*.la' -print -delete
 %files
 %license COPYING
 
-%{_libdir}/libfreexl.so.%{so_version}
-%{_libdir}/libfreexl.so.%{so_version}.*
+%{_libdir}/libfreexl.so.%{so_version}{,.*}
 
 
 %files devel

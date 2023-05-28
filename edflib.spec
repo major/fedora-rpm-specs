@@ -15,7 +15,7 @@ Summary:        C/C++ library to read/write EDF+ and BDF+ files
 License:        BSD-3-Clause
 URL:            https://gitlab.com/Teuniz/EDFlib/
 %global tar_version %(echo '%{version}' | tr -d .)
-Source0:       https://www.teuniz.net/edflib/edflib_%{tar_version}.tar.gz
+Source:         https://www.teuniz.net/edflib/edflib_%{tar_version}.tar.gz
 
 # Library makefile: make more amenable to distribution packaging
 # https://gitlab.com/Teuniz/EDFlib/-/merge_requests/7.patch

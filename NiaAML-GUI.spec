@@ -8,7 +8,7 @@ License:        MIT
 URL:            https://github.com/lukapecnik/NiaAML-GUI
 # Also distributed via PyPI (https://pypi.org/project/niaaml-gui/) but without
 # tests and other auxiliary files.
-Source0:        %{url}/archive/%{version}/NiaAML-GUI-%{version}.tar.gz
+Source:         %{url}/archive/%{version}/NiaAML-GUI-%{version}.tar.gz
 
 BuildArch:      noarch
 

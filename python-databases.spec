@@ -13,7 +13,7 @@ Release:        %autorelease
 License:        BSD-3-Clause
 URL:            https://www.encode.io/databases/
 %global forgeurl https://github.com/encode/databases
-Source0:        %{forgeurl}/archive/%{version}/databases-%{version}.tar.gz
+Source:         %{forgeurl}/archive/%{version}/databases-%{version}.tar.gz
 
 BuildArch:      noarch
 

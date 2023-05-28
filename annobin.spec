@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.10
+Version: 12.11
 Release: 3%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
@@ -525,6 +525,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri May 26 2023 Petr Pisar <ppisar@redhat.com> - 12.11-1
+- Annocheck: Add support for el10 and rhel-10 profiles.  (RHEL-526)
+
 * Mon May 22 2023 Petr Pisar <ppisar@redhat.com> - 12.10-3
 - Rebuild against rpm-4.19 (https://fedoraproject.org/wiki/Changes/RPM-4.19)
 

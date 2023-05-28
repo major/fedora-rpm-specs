@@ -15,7 +15,7 @@ Release:        %autorelease
 License:        GPL-3.0-only AND CC0-1.0
 
 URL:            https://github.com/donadigo/appeditor
-Source0:        %{url}/archive/%{commit}/appeditor-%{commit}.tar.gz
+Source:         %{url}/archive/%{commit}/appeditor-%{commit}.tar.gz
 
 # https://github.com/donadigo/appeditor/issues/103#issuecomment-756924055
 Patch:          appeditor-1.1.3-fix-flickering-titlebar.patch

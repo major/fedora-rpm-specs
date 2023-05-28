@@ -21,7 +21,7 @@
 
 # This flag is so I can build things very fast on a giant system.
 # Enabling this in koji causes aarch64 builds to timeout indefinitely.
-%global use_all_cpus 0
+%global use_all_cpus 1
 
 %if %{use_all_cpus}
 %global numjobs %{_smp_build_ncpus}
@@ -184,7 +184,11 @@
 %global bundlelibaom 1
 %else
 # Chromium really wants to use its bundled harfbuzz. Sigh.
+%if 0%{?fedora} > 37
+%global bundleharfbuzz 0
+%else
 %global bundleharfbuzz 1
+%endif
 %global bundleopus 0
 %global bundlelibusbx 0
 %global bundlelibwebp 0
@@ -193,12 +197,7 @@
 %global bundlelibdrm 0
 %global bundlefontconfig 0
 %global bundleffmpegfree 0
-# f36 has old libaom
-%if 0%{?fedora} == 36
 %global bundlelibaom 1
-%else
-%global bundlelibaom 0
-%endif
 # system freetype on fedora > 36
 %if 0%{?fedora} > 36
 %global bundlefreetype 0
@@ -241,7 +240,7 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 113.0.5672.126
+Version: 114.0.5735.45
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -260,7 +259,7 @@ Patch2: chromium-107.0.5304.110-gn-system.patch
 Patch5: chromium-77.0.3865.75-no-zlib-mangle.patch
 
 # Do not use unrar code, it is non-free
-Patch6: chromium-113-norar.patch
+Patch6: chromium-114-norar.patch
 
 # Try to load widevine from other places
 Patch8: chromium-108-widevine-other-locations.patch
@@ -312,9 +311,6 @@ Patch90: chromium-113-disable-GlobalMediaControlsCastStartStop.patch
 # patch for using system opus
 Patch91: chromium-108-system-opus.patch
 
-# enable WebUIDarkMode
-Patch92: chromium-113-WebUIDarkMode.patch
-
 # need to explicitly include a kernel header on EL7 to support MFD_CLOEXEC, F_SEAL_SHRINK, F_ADD_SEALS, F_SEAL_SEAL
 Patch100: chromium-108-el7-include-fcntl-memfd.patch
 
@@ -340,7 +336,9 @@ Patch106: chromium-98.0.4758.80-epel7-erase-fix.patch
 # Add additional operator== to make el7 happy.
 Patch107: chromium-99.0.4844.51-el7-extra-operator==.patch
 # workaround for clang bug on el7
-Patch108: chromium-113-constexpr-el7.patch
+Patch108: chromium-114-constexpr-el7.patch
+Patch109: chromium-114-wireless-el7.patch
+Patch110: chromium-114-buildflag-el7.patch
 
 # system ffmpeg
 Patch114: chromium-107-ffmpeg-duration.patch
@@ -351,20 +349,17 @@ Patch116: chromium-112-ffmpeg-first_dts.patch
 Patch117: chromium-108-ffmpeg-revert-new-channel-layout-api.patch
 
 # gcc13
-Patch122: chromium-113-gcc13.patch
+Patch122: chromium-114-gcc13.patch
 
-# Patches by Stephan Hartmann, https://github.com/stha09/chromium-patches
-Patch130: chromium-103-VirtualCursor-std-layout.patch
-
-# Pagesize > 4kb
-Patch146: chromium-110-LargerThan4k.patch
+# revert AV1 VA-API video encode due to old libva on el9
+Patch130: chromium-114-revert-av1enc-el9.patch
 
 # Apply these patches to work around EPEL8 issues
 Patch300: chromium-113-rhel8-force-disable-use_gnome_keyring.patch
 # workaround for clang bug, https://github.com/llvm/llvm-project/issues/57826
-Patch302: chromium-113-workaround_clang_bug-structured_binding.patch
-# declare iterators as subtypes
-Patch303: chromium-113-typename.patch
+Patch302: chromium-114-workaround_clang_bug-structured_binding.patch
+# missing typename
+Patch303: chromium-114-typename.patch
 
 # Use chromium-latest.py to generate clean tarball from released build tarballs, found here:
 # http://build.chromium.org/buildbot/official/
@@ -648,6 +643,8 @@ BuildRequires: ninja-build
 BuildRequires:	java-1.8.0-openjdk-headless
 %endif
 
+BuildRequires: libevdev-devel
+
 # There is a hardcoded check for nss 3.26 in the chromium code (crypto/nss_util.cc)
 Requires: nss%{_isa} >= 3.26
 Requires: nss-mdns%{_isa}
@@ -915,8 +912,6 @@ udev.
 %patch -P91 -p1 -b .system-opus
 %endif
 
-%patch -P92 -p1 -b .WebUIDarkMod
-
 # Fedora branded user agent
 %if 0%{?fedora}
 %patch -P12 -p1 -b .fedora-user-agent
@@ -940,14 +935,16 @@ udev.
 %patch -P105 -p1 -b .el7-old-libdrm
 %patch -P106 -p1 -b .el7-erase-fix
 %patch -P107 -p1 -b .el7-extra-operator-equalequal
-%patch -P108 -p1 -b .constexpr-el7
+%patch -P108 -p1 -b .constexpr
+%patch -P109 -p1 -b .wireless
+%patch -P110 -p1 -b .buildflag-el7
 %endif
 
-%patch -P130 -p1 -b .VirtualCursor-std-layout
-
-%patch -P146 -p1 -b .LargerThan4k
-
 %patch -P122 -p1 -b .gcc13
+
+%if 0%{?rhel} == 9
+%patch -P130 -p1 -b .revert-av1enc
+%endif
 
 %if 0%{?rhel} >= 8
 %patch -P300 -p1 -b .disblegnomekeyring
@@ -1124,6 +1121,7 @@ CHROMIUM_CORE_GN_DEFINES+=' build_dawn_tests=false enable_perfetto_unittests=fal
 CHROMIUM_CORE_GN_DEFINES+=' disable_fieldtrial_testing_config=true'
 CHROMIUM_CORE_GN_DEFINES+=' blink_symbol_level=0 symbol_level=0 v8_symbol_level=0'
 CHROMIUM_CORE_GN_DEFINES+=' blink_enable_generated_code_formatting=false'
+CHROMIUM_CORE_GN_DEFINES+=' angle_has_histograms=false'
 export CHROMIUM_CORE_GN_DEFINES
 
 # browser gn defines
@@ -1635,6 +1633,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Fri May 26 2023 Than Ngo <than@redhat.com> - 114.0.5735.45-1
+- update to 114.0.5735.45
+
 * Wed May 17 2023 Than Ngo <than@redhat.com> - 113.0.5672.126-1
 - drop clang workaround for el8
 - update to 113.0.5672.126

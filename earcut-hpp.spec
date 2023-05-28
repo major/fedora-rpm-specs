@@ -17,7 +17,7 @@ License:        ISC
 # All of this is just as well, as libtess2 is unmaintained and we would rather
 # not have to package it separately.
 
-Source0:        %{url}/archive/v%{version}/earcut.hpp-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/earcut.hpp-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake

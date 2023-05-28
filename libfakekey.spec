@@ -13,7 +13,7 @@ Summary:        Library for converting characters to X key-presses
 
 License:        LGPL-2.0-or-later
 URL:            https://git.yoctoproject.org/cgit/cgit.cgi/libfakekey
-Source0:        %{url}/snapshot/libfakekey-%{version}.tar.bz2
+Source:         %{url}/snapshot/libfakekey-%{version}.tar.bz2
 
 BuildRequires:  gcc
 BuildRequires:  make

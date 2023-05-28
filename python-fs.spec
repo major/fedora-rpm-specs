@@ -1,8 +1,11 @@
 %global srcname fs
 
+# RHEL does not include the test dependencies
+%bcond tests %{undefined rhel}
+
 Name:           python-%{srcname}
 Version:        2.4.16
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python's Filesystem abstraction layer
 
 License:        MIT
@@ -15,10 +18,12 @@ BuildRequires:  python3-setuptools
 
 BuildRequires:  python3dist(appdirs)
 BuildRequires:  python3dist(six)
+%if %{with tests}
 # Required for running tests
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-randomly)
 BuildRequires:  python3dist(parameterized)
+%endif
 
 %global _description %{expand:
 Think of PyFilesystem's FS objects as the next logical step to Python's file
@@ -41,9 +46,11 @@ Summary:        %{summary}
 %install
 %py3_install
 
+%if %{with tests}
 %check
 # tests/test_ftpfs.py needs pyftpdlib (not packaged yet)
 %{python3} -m pytest --ignore tests/test_ftpfs.py
+%endif
 
 %files -n python3-%{srcname}
 %license LICENSE
@@ -52,6 +59,9 @@ Summary:        %{summary}
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Thu May 25 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2.4.16-2
+- Disable tests in RHEL builds
+
 * Thu Mar 16 2023 Parag Nemade <pnemade AT redhat DOT com> - 2.4.16-1
 - Update to 2.4.16 version
 

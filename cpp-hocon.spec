@@ -23,7 +23,7 @@ ExcludeArch:    %{ix86}
 
 License:        Apache-2.0
 URL:            https://github.com/puppetlabs/cpp-hocon
-Source0:        %{url}/archive/%{version}/cpp-hocon-%{version}.tar.gz
+Source:         %{url}/archive/%{version}/cpp-hocon-%{version}.tar.gz
 
 BuildRequires:  cmake >= %{min_cmake}
 BuildRequires:  gcc-c++

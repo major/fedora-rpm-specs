@@ -14,7 +14,7 @@ License:        MIT
 URL:            https://python-docx.readthedocs.io/en/latest/
 # We MUST use the PyPI tarball; the GitHub tarball includes material under ref/
 # (PDFs of ISO/IEC standards) for which redistribution may be prohibited.
-Source0:        %{pypi_source python-docx}
+Source:         %{pypi_source python-docx}
 
 BuildArch:      noarch
 

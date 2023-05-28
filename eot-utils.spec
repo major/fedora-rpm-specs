@@ -15,7 +15,7 @@ Summary:        Create or examine EOT font format files
 #   - install-sh is X11
 License:        W3C
 URL:            https://www.w3.org/Tools/eot-utils/
-Source0:        %{url}/eot-utilities-%{version}.tar.gz
+Source:         %{url}/eot-utilities-%{version}.tar.gz
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

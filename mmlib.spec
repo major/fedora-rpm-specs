@@ -10,7 +10,7 @@ URL:            https://opensource.mindmaze.com/projects/mmlib
 # The GitHub project https://github.com/mmlabs-mindmaze/mmlib is a mirror of
 # https://review.gerrithub.io/admin/repos/mmlabs-mindmaze/mmpack.
 %global forgeurl https://github.com/mmlabs-mindmaze/mmlib
-Source0:        %{forgeurl}/archive/%{version}/mmlib-%{version}.tar.gz
+Source:         %{forgeurl}/archive/%{version}/mmlib-%{version}.tar.gz
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

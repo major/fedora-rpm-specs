@@ -13,7 +13,7 @@ Summary:        Verifies the integrity of PNG, JNG and MNG files
 # subdirectory and packaged in the extras subpackage.
 License:        HPND
 URL:            http://www.libpng.org/pub/png/apps/pngcheck.html
-Source0:        http://www.libpng.org/pub/png/src/pngcheck-%{version}.tar.gz
+Source:         http://www.libpng.org/pub/png/src/pngcheck-%{version}.tar.gz
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

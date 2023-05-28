@@ -8,8 +8,8 @@
 %bcond tests %{without bootstrap}
 
 Name:           python-flit-core
-Version:        3.8.0
-Release:        3%{?dist}
+Version:        3.9.0
+Release:        1%{?dist}
 Summary:        PEP 517 build backend for packages using Flit
 
 # flit-core is BSD-3-Clause
@@ -95,14 +95,15 @@ rm -r %{buildroot}%{python3_sitelib}/flit_core/tests/
 
 %files -n python3-flit-core
 %license LICENSE
-# README.rst is missing from the sdist,
-# but it basically contains the %%description only,
-# so probably not worth adding anyway.
+%doc README.rst
 %{python3_sitelib}/flit_core-*.dist-info/
 %{python3_sitelib}/flit_core/
 
 
 %changelog
+* Fri May 26 2023 Miro Hrončok <mhroncok@redhat.com> - 3.9.0-1
+- Update to 3.9.0
+
 * Fri May 19 2023 Miro Hrončok <mhroncok@redhat.com> - 3.8.0-3
 - Fork python-flit-core from the python-flit package
 - Adjust the License tag to include flit_core/versionno.py's regex (BSD-2-Clause)

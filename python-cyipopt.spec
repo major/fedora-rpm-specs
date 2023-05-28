@@ -14,7 +14,7 @@ License:        EPL-1.0
 URL:            https://github.com/mechmotum/cyipopt
 # We prefer the GitHub source archive to the PyPI one because it contains
 # the examples.
-Source0:        %{url}/archive/v%{version}/cyipopt-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/cyipopt-%{version}.tar.gz
 
 # A little consistency in shebangs and execute bits
 # https://github.com/mechmotum/cyipopt/pull/136

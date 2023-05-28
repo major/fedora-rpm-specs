@@ -24,7 +24,7 @@ Summary:        C++ wrapper for GConf2
 License:        LGPL-2.1-or-later
 URL:            https://gtkmm.org/
 %global majmin %(echo %{version} | cut -d . -f -2)
-Source0:        https://download.gnome.org/sources/gconfmm/%{majmin}/gconfmm-%{version}.tar.xz
+Source:         https://download.gnome.org/sources/gconfmm/%{majmin}/gconfmm-%{version}.tar.xz
 
 # Do not wrap “#include <gconf/gconf-schema.h>” in “extern "C" {  }” to prevent
 # “error: template with C linkage”

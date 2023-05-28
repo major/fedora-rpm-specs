@@ -4,7 +4,7 @@
 
 %global upstreamname ROCm-OpenCL-Runtime
 %global rocm_release 5.5
-%global rocm_patch 0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 #Set enable_ocltst to enable HW OCL test suite
@@ -23,8 +23,14 @@ License:        MIT
 Source0:        https://github.com/RadeonOpenCompute/%{upstreamname}/archive/refs/tags/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 Source1:        https://github.com/ROCm-Developer-Tools/ROCclr/archive/refs/tags/rocm-%{version}.tar.gz#/ROCclr-%{version}.tar.gz
 
+#https://github.com/ROCm-Developer-Tools/ROCclr/commit/ca70cd7c3d63b1036e604116f3b269ca123e7904
 Patch0:         0001-device-Add-missing-include.patch
+#https://github.com/RadeonOpenCompute/ROCm-OpenCL-Runtime/commit/767241dca886bcd2469d91382afab9d032e1cfa6
 Patch100:       0001-cltrace-Add-missing-include.patch
+
+# This causes some issues with upstream LLVM 16 (RHBZ#2207599)
+#https://github.com/ROCm-Developer-Tools/ROCclr/commit/041c00465b7adcee78085dc42253d42d1bb1f250
+Patch1:         0001-Revert-SWDEV-325538-Enable-code-object-v5-by-default.patch
 
 BuildRequires:  cmake
 BuildRequires:  clang-devel
@@ -175,6 +181,10 @@ mv %{buildroot}%{_bindir}/clinfo %{buildroot}%{_bindir}/rocm-clinfo
 %{_bindir}/rocm-clinfo
 
 %changelog
+* Thu May 25 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.5.1-1
+- Update to 5.5.1
+- Workaround RHBZ#2207599
+
 * Mon May 01 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.5.0-1
 - Update to 5.5
 

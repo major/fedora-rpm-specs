@@ -10,7 +10,7 @@ Summary:        Setuptools extension to build and package CMake projects
 # BSD-3-Clause but does not contribute to any of the binary RPMs.
 License:        MIT AND BSD-3-Clause
 URL:            https://github.com/diegoferigo/cmake-build-extension
-Source0:        %{pypi_source cmake-build-extension}
+Source:         %{pypi_source cmake-build-extension}
 
 BuildArch:      noarch
 

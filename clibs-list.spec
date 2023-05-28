@@ -9,7 +9,7 @@ Summary:        C doubly linked list implementation
 # SPDX
 License:        MIT
 URL:            https://github.com/clibs/list
-Source0:        %{url}/archive/%{version}/list-%{version}.tar.gz
+Source:         %{url}/archive/%{version}/list-%{version}.tar.gz
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

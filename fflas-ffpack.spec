@@ -31,7 +31,8 @@ Summary:        Finite field linear algebra subroutines
 #     macros/lt~obsolete.m4 are FSFULLR
 License:        LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL:            https://linbox-team.github.io/fflas-ffpack/
-Source0:        https://github.com/linbox-team/fflas-ffpack/releases/download/%{version}/fflas_ffpack-%{version}.tar.bz2
+%global forgeurl https://github.com/linbox-team/fflas-ffpack
+Source0:        %{forgeurl}/releases/download/%{version}/fflas_ffpack-%{version}.tar.bz2
 # Man page written for Fedora in groff_man(7) format based on --help output
 Source1:        fflas-ffpack-config.1
 
@@ -97,7 +98,7 @@ API documentation for fflas-ffpack.
 # See https://github.com/linbox-team/fflas-ffpack/issues/282
 sed -i '/^[[:blank:]]*test-echelon/d' tests/Makefile.am
 
-# Do not use env
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_shebang_lines
 sed -i 's,%{_bindir}/env bash,%{_bindir}/bash,' fflas-ffpack-config.in
 
 # Remove parts of the configure script that select non-default architectures
@@ -151,6 +152,7 @@ install -t '%{buildroot}%{_mandir}/man1' -D -m 0644 -p '%{SOURCE1}'
 
 
 %check
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/BLAS_LAPACK/#_tests
 export FLEXIBLAS=netlib
 %make_build check
 

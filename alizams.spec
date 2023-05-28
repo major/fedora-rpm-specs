@@ -1,11 +1,11 @@
 %global forgeurl https://github.com/AlizaMedicalImaging/AlizaMS
 
 Name:    alizams
-Version: 1.8.3
+Version: 1.9.0
 
 %forgemeta
 
-Release: 2%{?dist}
+Release: %autorelease
 Summary: Aliza MS DICOM Viewer
 License: GPLv3
 URL:     %{forgeurl}
@@ -96,29 +96,4 @@ appstream-util validate-relax --nonet \
 %{_mandir}/man1/%{name}.1*
 
 %changelog
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Jul 27 2022 Alessio <alessio@fedoraproject.org> - 1.8.3-1
-- Update to 1.8.3
-- Fixed issue with unused bits and Pixel Representation 1 files
-- Fixed issues with some DICOM CP-246 datasets
-- Use embedded ICC color profile for RGB images
-- Improved support for Grayscale Presentation State
-- Improved metadata viewer
-- Encapsulated Uncompressed Explicit VR Little Endian transfer syntax support
-- Many other min. bug fixes and improvements
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Sun Dec 26 2021 Alessio <alessio@fedoraproject.org> - 1.7.4-1
-- Update to 1.7.4
-- Fixed issue with wrong padding in De-identification Method Code Sequence
-- Other min. bug fixes and improvements
-
-* Fri Nov 26 2021 Alessio <alessio@fedoraproject.org> - 1.7.2-1
-- Initial RPM version
+%autochangelog

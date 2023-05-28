@@ -5,7 +5,7 @@ Summary:        Abseil Python Common Libraries
 
 License:        Apache-2.0
 URL:            https://github.com/abseil/abseil-py/
-Source0:        %{url}/archive/v%{version}/abseil-py-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/abseil-py-%{version}.tar.gz
 
 BuildArch:      noarch
 

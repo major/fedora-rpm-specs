@@ -52,7 +52,7 @@ Summary:        C++ wrapper for libglade
 #       - scripts/install-sh
 License:        LGPL-2.0-or-later
 URL:            https://www.gtkmm.org/
-Source0:        https://ftp.gnome.org/pub/GNOME/sources/libglademm/2.6/libglademm-%{version}.tar.bz2
+Source:         https://ftp.gnome.org/pub/GNOME/sources/libglademm/2.6/libglademm-%{version}.tar.bz2
 
 BuildRequires:  gcc-c++
 BuildRequires:  make

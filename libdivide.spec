@@ -8,7 +8,8 @@ Summary:        Optimized integer division
 
 License:        Zlib OR BSL-1.0
 URL:            https://libdivide.com/
-Source0:        https://github.com/ridiculousfish/libdivide/archive/%{version}/libdivide-%{version}.tar.gz
+%global forgeurl https://github.com/ridiculousfish/libdivide
+Source:         %{forgeurl}/archive/%{version}/libdivide-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake

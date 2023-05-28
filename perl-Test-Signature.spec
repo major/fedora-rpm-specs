@@ -11,7 +11,7 @@ Name:           perl-Test-Signature
 Version:        1.11
 Release:        29%{?dist}
 Summary:        Automated SIGNATURE testing
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Signature
 Source0:        https://cpan.metacpan.org/modules/by-module/Test/Test-Signature-%{version}.tar.gz
 # Audrey Tang's public key (3C3501A0), from the Module::Signature 0.61 distribution
@@ -66,9 +66,9 @@ distribution's test suite.
 %setup -q -n Test-Signature-%{version}
 
 # Fix building on Perl without "." in @INC (CPAN RT#121760)
-%patch0 -p1
+%patch -P 0 -p1
 # Required to pass tests after patching
-%patch1 -p1
+%patch -P 1 -p1
 
 # Import upstream's GPG key so we don't need to fetch it from a keyserver
 # when running the signature test

@@ -13,7 +13,7 @@ in a minimal diff.}
 
 
 Name:           python-specfile
-Version:        0.17.0
+Version:        0.18.0
 Release:        1%{?dist}
 
 Summary:        A library for parsing and manipulating RPM spec files
@@ -71,6 +71,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri May 26 2023 Packit <hello@packit.dev> - 0.18.0-1
+- Specfile library now handles multiple `%%changelog` sections. (#230)
+
 * Thu May 11 2023 Packit <hello@packit.dev> - 0.17.0-1
 - Added a new `guess_packager()` function that uses similar heuristics as `rpmdev-packager`, meaning that the `Specfile.add_changelog_entry()` method no longer requires `rpmdev-packager` to guess the changelog entry author. (#220)
 - The `Specfile.add_changelog_entry()` method now uses dates based on UTC instead of the local timezone. (#223)

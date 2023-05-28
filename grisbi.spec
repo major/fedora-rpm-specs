@@ -1,11 +1,11 @@
 Name:		grisbi
-Version:	1.2.2
-Release:	9%{?dist}
+Version:	2.0.5
+Release:	1%{?dist}
 Summary:	Personal finances manager
 
 License:	GPLv2+
 URL:		http://www.grisbi.org
-Source0:	http://downloads.sourceforge.net/project/grisbi/grisbi%20stable/1.2.x/%{version}/%{name}-%{version}.tar.bz2
+Source0:	http://downloads.sourceforge.net/project/grisbi/grisbi%20stable/2.0.x/%{version}/%{name}-%{version}.tar.bz2
 Source1:	%{name}.appdata.xml
 
 BuildRequires:  gcc
@@ -70,6 +70,7 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/%{name}.a
 %{_datadir}/mime/packages/%{name}.xml
 %{_datadir}/pixmaps/*
 %{_datadir}/icons/hicolor/*/apps/grisbi.*
+%{_datadir}/icons/hicolor/*/mimetypes/application-x-grisbi.*
 %{_datadir}/%{name}
 %{_mandir}/man1/%{name}.1.*
 %{_datadir}/appdata/%{name}.appdata.xml
@@ -77,6 +78,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/%{name}.a
 
 
 %changelog
+* Fri May 26 2023 Aurelien Bompard <abompard@fedoraproject.org> - 2.0.5-1
+- Version 2.0.5
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

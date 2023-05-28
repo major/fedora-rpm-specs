@@ -6,7 +6,7 @@ Summary:        Infer properties from accessor methods
 # SPDX
 License:        MIT
 URL:            https://github.com/kalekundert/autoprop
-Source0:        %{pypi_source autoprop}
+Source:         %{pypi_source autoprop}
 
 BuildArch:      noarch
 

@@ -36,7 +36,7 @@ URL:            http://www.swamiproject.org/
 License:        LGPL-2.1-only AND LicenseRef-Fedora-Public-Domain
 
 %global forgeurl https://github.com/swami/%{name}/
-Source0:        %{forgeurl}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source:         %{forgeurl}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 # Fix warning from libinstpatch-scan.c (gtkdoc)
 # https://github.com/swami/libinstpatch/pull/71
@@ -136,7 +136,7 @@ find examples -type f -name '*.py' -print -delete
 #
 # For now, the workaround is fine on Fedora (although it does not work on
 # EPEL7–EPEL9).
-%constrain_build -c 1
+%global _smp_build_ncpus 1
 
 %cmake \
     -DGTKDOC_ENABLED:BOOL=ON \

@@ -22,7 +22,8 @@ Summary:        Recompression utilities for .png, .mng, .zip and .gz files
 # interpret this as an overall license of GPL-3.0-only.
 License:        GPL-3.0-only AND GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://www.advancemame.it/
-Source0:        https://github.com/amadvance/advancecomp/archive/v%{version}/advancecomp-%{version}.tar.gz
+%global forgeurl https://github.com/amadvance/advancecomp
+Source:         %{forgeurl}/archive/v%{version}/advancecomp-%{version}.tar.gz
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -38,7 +39,6 @@ BuildRequires:  zlib-devel
 
 # Unbundled downstream
 BuildRequires:  pkgconfig(libdeflate)
-
 BuildRequires:  zopfli-devel
 
 # From 7z/README:
@@ -75,7 +75,8 @@ This package contains:
 
 
 %prep
-%autosetup -p1
+%autosetup
+
 dos2unix -k doc/*.txt
 
 # Patch out bundled libdeflate

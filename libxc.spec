@@ -15,10 +15,10 @@
 
 Name:           libxc
 Summary:        Library of exchange and correlation functionals for density-functional theory
-Version:        6.1.0
-Release:        2%{?dist}
+Version:        6.2.0
+Release:        1%{?dist}
 License:        MPLv2.0
-Source0:        http://www.tddft.org/programs/libxc/down.php?file=%{version}/libxc-%{version}.tar.gz
+Source0:        https://gitlab.com/libxc/libxc/-/archive/%{version}/%{name}-%{version}.tar.gz
 # Don't rebuild libxc for pylibxc
 Patch0:         libxc-5.1.4-pylibxc.patch
 URL:            http://www.tddft.org/programs/octopus/wiki/index.php/Libxc
@@ -76,7 +76,7 @@ This package contains the Python3 interface library to libxc.
 
 %prep
 %setup -q
-%patch0 -p1 -b .pylibxc
+%patch 0 -p1 -b .pylibxc
 # Plug in library soversion
 sed -i "s|@SOVERSION@|%{soversion}|g;s|@LIBDIR@|%{_libdir}|g" pylibxc/core.py
 
@@ -128,6 +128,9 @@ rm -f %{buildroot}%{_includedir}/libxc.bib
 %{python3_sitearch}/pylibxc/
 
 %changelog
+* Fri May 26 2023 Susi Lehtola <jussilehtola@fedoraproject.org> - 6.2.0-1
+- Update to 6.2.0.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

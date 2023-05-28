@@ -6,7 +6,7 @@ Summary:        C++ lockless queue
 # SPDX
 License:        MIT
 URL:            https://github.com/max0x7ba/atomic_queue
-Source0:        %{url}/archive/v%{version}/atomic_queue-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/atomic_queue-%{version}.tar.gz
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

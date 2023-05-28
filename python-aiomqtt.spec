@@ -25,7 +25,8 @@ Summary:        An AsyncIO asynchronous wrapper around paho-mqtt
 # Therefore upstream’s “and” is our “or”.
 License:        EPL-1.0 OR BSD-3-Clause
 URL:            https://github.com/mossblaser/aiomqtt
-Source0:        %{url}/archive/v%{version}/aiomqtt-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/aiomqtt-%{version}.tar.gz
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

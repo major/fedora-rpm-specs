@@ -1,6 +1,6 @@
 Name:           python-django
 %global         pkgname Django
-%global         ver 4.1.7
+%global         ver 4.2.1
 #global         pre ...
 %global         real_version %{ver}%{?pre:%{pre}}
 Version:        %{ver}%{?pre:~%{pre}}
@@ -68,9 +68,17 @@ for file in conf/project_template/manage.py-tpl ; do
 done
 popd
 
+# Use non optimised psycopg for tests
+# Not available in Fedora
+sed -i 's/psycopg\[binary\]>=3\.1\.8/psycopg>=3.1.8/' tests/requirements/postgres.txt
+
 # Remove unnecessary test BRs
 sed -i '/^pywatchman\b/d' tests/requirements/py3.txt
 sed -i '/^tzdata$/d' tests/requirements/py3.txt
+
+# Remove deps on code checkers/linters
+sed -i '/^black\b/d' tests/requirements/py3.txt
+sed -i '/^blacken-docs\b/d' docs/requirements.txt
 
 %generate_buildrequires
 %pyproject_buildrequires -r tests/requirements/{py3,postgres,mysql,oracle}.txt docs/requirements.txt
@@ -136,6 +144,11 @@ cd tests
 
 
 %changelog
+* Fri May 5 2023 Steve Traylen <steve.traylen@cern.ch> - 4.2.1-1
+- Use non binary version of psycopg in tests
+- Remove build dependency on black code checker
+- update to 4.2.1 (rhbz#2059544)
+
 * Mon Feb 13 2023 Matthias Runge <mrunge@redhat.com> - 4.1.7-1
 - update to 4.1.7 (rhbz#2169312)
 

@@ -6,7 +6,7 @@ Summary:        A library to read and play back MIDI files
 
 License:        BSL-1.0
 URL:            https://github.com/jpcima/fmidi
-Source0:        %{url}/archive/v%{version}/fmidi-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/fmidi-%{version}.tar.gz
 
 # Accepted PR to add man pages: https://github.com/jpcima/fmidi/pull/4
 Patch:          https://github.com/jpcima/fmidi/pull/4.patch
@@ -101,17 +101,8 @@ sed -r -i \
 
 
 %files tools
-%{_bindir}/fmidi-convert
-%{_bindir}/fmidi-grep
-%{_bindir}/fmidi-play
-%{_bindir}/fmidi-read
-%{_bindir}/fmidi-seq
-
-%{_mandir}/man1/fmidi-convert.1*
-%{_mandir}/man1/fmidi-grep.1*
-%{_mandir}/man1/fmidi-play.1*
-%{_mandir}/man1/fmidi-read.1*
-%{_mandir}/man1/fmidi-seq.1*
+%{_bindir}/fmidi-{convert,grep,play,read,seq}
+%{_mandir}/man1/fmidi-{convert,grep,play,read,seq}.1*
 
 
 %files libs

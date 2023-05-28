@@ -2,7 +2,7 @@ Name:           perl-Test-Spelling
 Version:        0.25
 Release:        13%{?dist}
 Summary:        Check for spelling errors in POD files
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Spelling
 Source0:        https://cpan.metacpan.org/modules/by-module/Test/Test-Spelling-%{version}.tar.gz
 BuildArch:      noarch
@@ -32,7 +32,7 @@ BuildRequires:  perl(Test::Tester)
 BuildRequires:  perl(utf8)
 # Optional Tests
 BuildRequires:  perl(CPAN::Meta) >= 2.120900
-# Runtime
+# Dependencies
 Requires:       hunspell
 Requires:       perl(Carp)
 

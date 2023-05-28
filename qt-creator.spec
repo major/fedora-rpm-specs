@@ -8,7 +8,7 @@
 
 Name:           qt-creator
 Version:        10.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPLv3 with exceptions
@@ -34,6 +34,8 @@ Patch4:         qt-creator-clangformat.patch
 Patch5:         clangFormat.patch
 # Fix build against litehtml-0.8
 Patch6:         qt-creator-litehtml.patch
+# Fix build against qt-6.5.1
+Patch7:         https://github.com/qt-creator/qt-creator/commit/9817df63fb9eae342d5bf6f28f526aa09b17e8de.patch
 
 BuildRequires:  chrpath
 BuildRequires:  cmake
@@ -218,6 +220,9 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
+* Fri May 26 2023 Jan Grulich <jgrulich@redhat.com>
+- Rebuild (qt6)
+
 * Tue May 23 2023 Sandro Mani <manisandro@gmail.com> - 10.0.1-2
 - Rebuild (litehtml)
 

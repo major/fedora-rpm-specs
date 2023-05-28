@@ -10,7 +10,7 @@ URL:            http://aifftools.sourceforge.net/libaiff/
 # While the latest SourceForge release linked from the above URL is 5.0,
 # development by the original author, Marco Trillo, has continued at:
 %global forgeurl https://github.com/mtszb/libaiff
-Source0:        %{forgeurl}/archive/v%{version}/libaiff-%{version}.tar.gz
+Source:         %{forgeurl}/archive/v%{version}/libaiff-%{version}.tar.gz
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

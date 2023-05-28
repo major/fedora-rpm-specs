@@ -8,7 +8,7 @@
 Name:          python-argcomplete
 Summary:       Bash tab completion for argparse
 Version:       2.0.0
-Release:       6%{?dist}
+Release:       7%{?dist}
 License:       ASL 2.0
 URL:           https://github.com/kislyuk/argcomplete
 Source0:       %pypi_source argcomplete
@@ -25,6 +25,7 @@ BuildRequires: tcsh
 BuildRequires: fish
 BuildRequires: /usr/bin/pip
 BuildRequires: python3-pexpect
+BuildRequires: python3-wheel
 %endif
 
 BuildArch:     noarch
@@ -88,6 +89,10 @@ export INPUTRC=$PWD/.inputrc
 %{bash_completions_dir}/%{name}
 
 %changelog
+* Mon May 22 2023 Miro Hrončok <mhroncok@redhat.com> - 2.0.0-7
+- Fix build with pip 23.1.2+
+- Fixes: rhbz#2209020
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,8 +3,8 @@
 
 Summary: An extensible library which provides authentication for applications
 Name: pam
-Version: 1.5.2
-Release: 19%{?dist}
+Version: 1.5.3
+Release: 1%{?dist}
 # The library is BSD licensed with option to relicense as GPLv2+
 # - this option is redundant as the BSD license allows that anyway.
 # pam_timestamp and pam_loginuid modules are GPLv2+.
@@ -22,11 +22,9 @@ Source13: config-util.5
 Source15: pamtmp.conf
 Source17: postlogin.5
 Source18: https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
-Patch1:  pam-1.5.2-redhat-modules.patch
-Patch2:  pam-1.5.0-noflex.patch
-Patch3:  pam-1.3.0-unix-nomsg.patch
-Patch4:  pam-1.5.2-pwhistory-config.patch
-Patch5:  pam-1.5.2-configure-c99.patch
+Patch1:  pam-1.5.3-redhat-modules.patch
+Patch2:  pam-1.5.3-noflex.patch
+Patch3:  pam-1.5.3-unix-nomsg.patch
 
 %{load:%{SOURCE3}}
 
@@ -82,8 +80,8 @@ Requires: pam = %{version}-%{release}
 Obsoletes: pam-docs < 1.5.2-6
 Provides: pam-docs = %{version}-%{release}
 BuildArch: noarch
-BuildRequires: docbook-dtds
-BuildRequires: docbook-style-xsl
+BuildRequires: docbook5-schemas
+BuildRequires: docbook5-style-xsl
 BuildRequires: elinks
 BuildRequires: libxslt
 BuildRequires: linuxdoc-tools
@@ -120,8 +118,6 @@ cp %{SOURCE18} .
 %patch -P 1 -p1 -b .redhat-modules
 %patch -P 2 -p1 -b .noflex
 %patch -P 3 -p1 -b .nomsg
-%patch -P 4 -p1 -b .pwhistory-config
-%patch -P 5 -p1 -b .configure-c99
 
 autoreconf -i
 
@@ -135,7 +131,7 @@ autoreconf -i
   --enable-audit \
   --enable-openssl \
   --enable-selinux \
-  --enable-vendordir=%{_datadir}
+  --enable-lastlog
 %make_build -C po update-gmo
 %make_build
 
@@ -357,6 +353,16 @@ done
 %{_pam_libdir}/libpam_misc.so.%{so_ver}*
 
 %changelog
+* Fri May 19 2023 Björn Esser <besser82@fedoraproject.org> - 1.5.3-1
+- Rebase to release 1.5.3
+  Resolves: #2196709
+- Drop pam-1.5.2-pwhistory-config.patch and pam-1.5.2-configure-c99.patch,
+  as those patches are implemented upstream
+- Realign left-over patches
+- Update build requirements for documentation (docbook5)
+- Remove --enable-vendordir from configuration
+- Enable (deprecated) pam_lastlog module
+
 * Tue Apr 25 2023 Björn Esser <besser82@fedoraproject.org> - 1.5.2-19
 - Replace deprecated '%%patchN' with '%%patch -P N'
 

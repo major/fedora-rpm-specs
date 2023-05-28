@@ -1,5 +1,5 @@
 %global packname styler
-%global packver  1.9.1
+%global packver  1.10.0
 %global rlibdir  %{_datadir}/R/library
 
 %global __suggests_exclude ^R\\((data\\.tree)\\)
@@ -8,7 +8,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          3%{?dist}
+Release:          1%{?dist}
 Summary:          Non-Invasive Pretty Printing of R Code
 
 License:          GPLv3
@@ -17,7 +17,7 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 
 # Here's the R view of the dependencies world:
 # Depends:
-# Imports:   R-cli >= 3.1.1, R-magrittr >= 2.0.0, R-purrr >= 0.2.3, R-R.cache >= 0.15.0, R-rlang >= 0.1.1, R-rprojroot >= 1.1, R-tools, R-vctrs >= 0.4.1, R-withr >= 2.3.0
+# Imports:   R-cli >= 3.1.1, R-magrittr >= 2.0.0, R-purrr >= 0.2.3, R-R.cache >= 0.15.0, R-rlang >= 1.0.0, R-rprojroot >= 1.1, R-tools, R-vctrs >= 0.4.1, R-withr >= 2.3.0
 # Suggests:  R-data.tree >= 0.1.6, R-digest, R-dplyr, R-here, R-knitr, R-prettycode, R-rmarkdown, R-roxygen2, R-rstudioapi >= 0.7, R-tibble >= 1.4.2, R-testthat >= 3.0.0
 # LinkingTo:
 # Enhances:
@@ -25,11 +25,11 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 BuildArch:        noarch
 BuildRequires:    R-devel
 BuildRequires:    tex(latex)
-BuildRequires:    R-cli >= 1.1.0
+BuildRequires:    R-cli >= 3.1.1
 BuildRequires:    R-magrittr >= 2.0.0
 BuildRequires:    R-purrr >= 0.2.3
 BuildRequires:    R-R.cache >= 0.15.0
-BuildRequires:    R-rlang >= 0.1.1
+BuildRequires:    R-rlang >= 1.0.0
 BuildRequires:    R-rprojroot >= 1.1
 BuildRequires:    R-tools
 BuildRequires:    R-vctrs >= 0.4.1
@@ -91,6 +91,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check --ignore-vignettes %{packname}
 
 
 %changelog
+* Fri May 26 2023 Tom Callaway <spot@fedoraproject.org> - 1.10.0-1
+- update to 1.10.0
+
 * Fri May 12 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.9.1-3
 - Ignore vignettes
 

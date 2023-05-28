@@ -12,8 +12,7 @@ Release:        %autorelease
 
 URL:            https://github.com/ctlee/casc
 License:        LGPL-2.1-or-later
-
-Source0:        %{url}/archive/v%{version}/casc-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/casc-%{version}.tar.gz
 
 # This is a backport of commit 4c094080b7eaccf345dab8d78dde4d75ef51c516 from the
 # development branch to the 1.0.5 release.
@@ -28,19 +27,19 @@ Source0:        %{url}/archive/v%{version}/casc-%{version}.tar.gz
 #
 # https://github.com/ctlee/casc/pull/13
 # https://github.com/ctlee/casc/commit/4c094080b7eaccf345dab8d78dde4d75ef51c516
-Patch0:         casc-1.0.5-external-gtest.patch
+Patch:          casc-1.0.5-external-gtest.patch
 # This backports commit 52f105bf7407e90c8bef10cce2a41b7efcb21679, “fix:
 # initialize level_count memory”, from the development branch to release 1.0.5.
 #
 # https://github.com/ctlee/casc/pull/12
-Patch1:         casc-1.0.5-levelcount-memory.patch
+Patch:          casc-1.0.5-levelcount-memory.patch
 # This is a backport of commit 0ea03e39961312986b80eac2c9d259fc525e590e, “fix:
 # Stop InnerVisitor from reading past end of array”, from the development
 # branch to release 1.0.5.
 #
 # It fixes upstream issue #14, “Tests fail when libstdc++ assertions are
 # enabled” (https://github.com/ctlee/casc/issues/14).
-Patch2:         casc-1.0.5-innervisitor.patch
+Patch:          casc-1.0.5-innervisitor.patch
 # Update Free Software Foundation postal addresses
 #
 # Ref.: https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html#SEC4
@@ -53,7 +52,7 @@ Patch2:         casc-1.0.5-innervisitor.patch
 #  • Upstream has accepted the PR corresponding to this patch
 #
 # https://github.com/ctlee/casc/pull/16
-Patch3:         0001-Update-Free-Software-Foundation-postal-addresses.patch
+Patch:          0001-Update-Free-Software-Foundation-postal-addresses.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -149,7 +148,6 @@ cp -p %{_vpath_builddir}/latex/refman.pdf %{_vpath_builddir}/casc.pdf
 
 %files devel
 %license COPYING.md
-
 %{_includedir}/casc/
 
 

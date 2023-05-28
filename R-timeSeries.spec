@@ -1,5 +1,5 @@
 %global packname timeSeries
-%global packver  4021.105
+%global packver  4030.106
 %global rlibdir  %{_datadir}/R/library
 
 %global __suggests_exclude ^R\\((PerformanceAnalytics|fTrading|robustbase|xts)\\)
@@ -12,14 +12,14 @@ Version:          %{packver}
 Release:          1%{?dist}
 Summary:          Financial Time Series Objects (Rmetrics)
 
-License:          GPLv2+
+License:          GPL-2.0-or-later
 URL:              https://CRAN.R-project.org/package=%{packname}
 Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.tar.gz
 Patch0001:        fix-FSF-address.patch
 
 # Here's the R view of the dependencies world:
-# Depends:   R-graphics, R-grDevices, R-stats, R-methods, R-utils, R-timeDate >= 2150.95
-# Imports:
+# Depends:   R-timeDate >= 2150.95
+# Imports:   R-graphics, R-grDevices, R-stats, R-methods, R-utils
 # Suggests:  R-RUnit, R-robustbase, R-xts, R-PerformanceAnalytics, R-fTrading
 # LinkingTo:
 # Enhances:
@@ -27,14 +27,14 @@ Patch0001:        fix-FSF-address.patch
 BuildArch:        noarch
 BuildRequires:    R-devel
 BuildRequires:    tex(latex)
+BuildRequires:    R-timeDate >= 2150.95
 BuildRequires:    R-graphics
 BuildRequires:    R-grDevices
 BuildRequires:    R-stats
 BuildRequires:    R-methods
 BuildRequires:    R-utils
-BuildRequires:    R-timeDate >= 2150.95
-BuildRequires:    R-RUnit
 %if %{with_suggests}
+BuildRequires:    R-RUnit
 BuildRequires:    R-robustbase
 BuildRequires:    R-xts
 BuildRequires:    R-PerformanceAnalytics
@@ -51,7 +51,7 @@ functions.
 %setup -q -c -n %{packname}
 
 pushd %{packname}
-%patch0001 -p1
+%patch -P0001 -p1
 
 # Fix line endings.
 for file in inst/doc/timeSeriesPlot.R*; do
@@ -98,11 +98,13 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 %{rlibdir}/%{packname}/data
 %{rlibdir}/%{packname}/extensionsTests
 %{rlibdir}/%{packname}/unitTests
-%{rlibdir}/%{packname}/_pkgdown.yml
+%{rlibdir}/%{packname}/*pkgdown.yml
 %{rlibdir}/%{packname}/extdata
 
-
 %changelog
+* Fri May 26 2023 Tom Callaway <spot@fedoraproject.org> - 4030.106-1
+- update to 4030.106
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 4021.105-1
 - R-maint-sig mass rebuild
 - Update to latest version

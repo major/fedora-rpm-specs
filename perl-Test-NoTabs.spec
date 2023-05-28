@@ -2,7 +2,7 @@ Name:		perl-Test-NoTabs
 Version:	2.02
 Release:	17%{?dist}
 Summary:	Check the presence of tabs in your project
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-NoTabs
 Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-NoTabs-%{version}.tar.gz
 BuildArch:	noarch
@@ -24,10 +24,9 @@ BuildRequires:	perl(warnings)
 BuildRequires:	perl(File::Temp)
 BuildRequires:	perl(Test::More)
 # Optional Tests
-%if "%{?rhel}" != "6"
 BuildRequires:	perl(CPAN::Meta) >= 2.120900
-%endif
-# Runtime
+# Dependencies
+# (none)
 
 %description
 This module scans your project/distribution for any perl files (scripts,
@@ -49,11 +48,7 @@ find %{buildroot} -type f -name .packlist -delete
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
 %doc Changes README
 %{perl_vendorlib}/Test/
 %{_mandir}/man3/Test::NoTabs.3*

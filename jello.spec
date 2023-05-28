@@ -7,7 +7,7 @@ Summary:        Query JSON at the command line with Python syntax
 License:        MIT
 URL:            https://github.com/kellyjonbrazil/jello
 # GitHub archive contains tests; PyPI sdist does not.
-Source0:        %{url}/archive/v%{version}/jello-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/jello-%{version}.tar.gz
 
 BuildArch:      noarch
 

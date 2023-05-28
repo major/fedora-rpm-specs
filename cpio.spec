@@ -1,7 +1,7 @@
 Summary: A GNU archiving program
 Name: cpio
-Version: 2.13
-Release: 14%{?dist}
+Version: 2.14
+Release: 1%{?dist}
 License: GPL-3.0-or-later
 URL: https://www.gnu.org/software/cpio/
 Source: https://ftp.gnu.org/gnu/cpio/cpio-%{version}.tar.bz2
@@ -10,16 +10,16 @@ Source: https://ftp.gnu.org/gnu/cpio/cpio-%{version}.tar.bz2
 Source1: cpio.1
 
 # We use SVR4 portable format as default.
-Patch1: cpio-2.9-rh.patch
+Patch1: cpio-2.14-rh.patch
 
 # fix warn_if_file_changed() and set exit code to 1 when cpio fails to store
 # file > 4GB (#183224)
 # http://lists.gnu.org/archive/html/bug-cpio/2006-11/msg00000.html
-Patch2: cpio-2.13-exitCode.patch
+Patch2: cpio-2.14-exitCode.patch
 
 # Support major/minor device numbers over 127 (bz#450109)
 # http://lists.gnu.org/archive/html/bug-cpio/2008-07/msg00000.html
-Patch3: cpio-2.13-dev_number.patch
+Patch3: cpio-2.14-dev_number.patch
 
 # Define default remote shell as /usr/bin/ssh (#452904)
 Patch4: cpio-2.9.90-defaultremoteshell.patch
@@ -27,7 +27,7 @@ Patch4: cpio-2.9.90-defaultremoteshell.patch
 # Fix segfault with nonexisting file with patternnames (#567022)
 # http://savannah.gnu.org/bugs/index.php?28954
 # We have slightly different solution than upstream.
-Patch5: cpio-2.10-patternnamesigsegv.patch
+Patch5: cpio-2.14-patternnamesigsegv.patch
 
 # Fix bad file name splitting while creating ustar archive (#866467)
 # (fix backported from tar's source)
@@ -36,21 +36,10 @@ Patch7: cpio-2.10-longnames-split.patch
 # Cpio does Sum32 checksum, not CRC (downstream)
 Patch8: cpio-2.11-crc-fips-nit.patch
 
-# Fix multiple definition of `program_name'
-Patch9: cpio-2.13-mutiple-definition.patch
-
-# Revert fix for CVE-2015-1197 (#1797163)
-# reverts upstream commit 45b0ee2b4
-Patch10: cpio-2.13-revert-CVE-2015-1197-fix.patch
-
-# Extract: retain times for symlinks
-# downstream patch (#1486364)
+# Restore access and modification times of symlinks in copy-in and copy-pass modes
+# Upstream patch
 # https://www.mail-archive.com/bug-cpio@gnu.org/msg00605.html
-Patch11: cpio-2.11-retain-symlink-times.patch
-
-# Properly drop priviledges for remote command
-# http://git.savannah.gnu.org/cgit/paxutils.git/commit/?id=d247e3c2809a37b6d0c3067251d96bb7f12555e7
-Patch12: cpio-2.13-reset-gid-uid.patch
+Patch11: cpio-2.14-restore-access-and-modification-times-of-symlinks.patch
 
 Provides: bundled(gnulib)
 Provides: bundled(paxutils)

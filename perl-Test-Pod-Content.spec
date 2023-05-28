@@ -1,22 +1,36 @@
 Name:           perl-Test-Pod-Content
 Version:        0.0.6
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Test a Pod's content
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Pod-Content
-Source0:        https://cpan.metacpan.org/authors/id/M/MK/MKUTTER/Test-Pod-Content-v%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/modules/by-module/Test/Test-Pod-Content-v%{version}.tar.gz
 BuildArch:      noarch
+# Build
+BuildRequires:  coreutils
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(Module::Build)
+# Module
+BuildRequires:  perl(base)
+BuildRequires:  perl(Exporter)
 BuildRequires:  perl(Pod::Simple)
-BuildRequires:  perl(Test::Kwalitee)
-BuildRequires:  perl(Test::Perl::Critic)
-BuildRequires:  perl(Test::Pod)
-BuildRequires:  perl(Test::Pod::Coverage)
+BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(version)
-
-%{?perl_default_filter}
+BuildRequires:  perl(warnings)
+# Tests
+BuildRequires:  perl(English)
+BuildRequires:  perl(File::Find)
+BuildRequires:  perl(IO::File)
+BuildRequires:  perl(lib)
+# Release Tests
+BuildRequires:  perl(Test::Kwalitee)
+BuildRequires:  perl(Test::Perl::Critic)
+BuildRequires:  perl(Test::Pod) >= 1.00
+BuildRequires:  perl(Test::Pod::Coverage) >= 1.00
+# Dependencies
+# (none)
 
 %description
 This is a very simple module for testing a Pod's content. It is mainly intended
@@ -28,24 +42,32 @@ all files contain the same copyright notice.
 %setup -q -n Test-Pod-Content-v%{version}
 
 %build
-%{__perl} Build.PL installdirs=vendor
+perl Build.PL --installdirs=vendor
 ./Build
 
 %install
-./Build install destdir=$RPM_BUILD_ROOT create_packlist=0
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
-
-%{_fixperms} $RPM_BUILD_ROOT/*
+./Build install --destdir=%{buildroot} --create_packlist=0
+%{_fixperms} -c %{buildroot}
 
 %check
 RELEASE_TESTING=1 ./Build test
 
 %files
 %doc Changes HACKING README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Test/
+%{_mandir}/man3/Test::Pod::Content.3*
 
 %changelog
+* Fri May 26 2023 Paul Howarth <paul@city-fan.org> - 0.0.6-33
+- Spec tidy-up
+  - Use SPDX-format license tag
+  - Use author-independent source URL
+  - Classify buildreqs by usage
+  - Drop redundant use of %%{?perl_default_filter}
+  - Don't need to remove empty directories from the buildroot
+  - Fix permissions verbosely
+  - Make %%files list more explicit
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.6-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

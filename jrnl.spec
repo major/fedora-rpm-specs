@@ -6,7 +6,7 @@ Summary:        Collect your thoughts and notes without leaving the command line
 License:        GPL-3.0-only
 URL:            https://jrnl.sh
 %global forgeurl https://github.com/jrnl-org/jrnl/
-Source0:        %{forgeurl}/archive/v%{version}/jrnl-%{version}.tar.gz
+Source:         %{forgeurl}/archive/v%{version}/jrnl-%{version}.tar.gz
 
 # Revert “Lock ruamel.yaml version until bug is fixed (#1738)”,
 # 0b55c477e17fa7ac4d7d91bbda5d712f3ef8b67b

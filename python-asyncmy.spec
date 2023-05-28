@@ -11,7 +11,7 @@ Release:        %autorelease
 License:        Apache-2.0
 URL:            https://github.com/long2ice/asyncmy
 # The GitHub source includes tests and examples; the PyPI source lacks them.
-Source0:        %{url}/archive/v%{version}/asyncmy-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/asyncmy-%{version}.tar.gz
 
 # Doc/license files installed directly in site-packages
 # https://github.com/long2ice/asyncmy/issues/33

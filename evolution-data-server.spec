@@ -57,8 +57,8 @@
 ### Abstract ###
 
 Name: evolution-data-server
-Version: 3.48.1
-Release: 2%{?dist}
+Version: 3.48.2
+Release: 1%{?dist}
 Summary: Backend data server for Evolution
 License: LGPL-2.0-or-later
 URL: https://wiki.gnome.org/Apps/Evolution
@@ -488,6 +488,9 @@ find $RPM_BUILD_ROOT -name '*.so.*' -exec chmod +x {} \;
 %{_datadir}/installed-tests
 
 %changelog
+* Fri May 26 2023 Milan Crha <mcrha@redhat.com> - 3.48.2-1
+- Update to 3.48.2
+
 * Wed May 17 2023 Sérgio Basto <sergio@serjux.com> - 3.48.1-2
 - Rebuild for libphonenumber-8.13.x
 

@@ -12,7 +12,7 @@
 Summary: Library that implements an embeddable SQL database engine
 Name: sqlite
 Version: %{rpmver}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: blessing
 URL: http://www.sqlite.org/
 
@@ -165,10 +165,6 @@ export CFLAGS="$RPM_OPT_FLAGS $RPM_LD_FLAGS \
                -DSQLITE_ENABLE_DBPAGE_VTAB \
                -Wall -fno-strict-aliasing"
 
-%ifarch == aarch64
-export CFLAGS="$CFLAGS -mbranch-protection=standard"
-%endif
-
 %configure %{!?with_tcl:--disable-tcl} \
            --enable-rtree \
            --enable-fts3 \
@@ -275,6 +271,9 @@ make test
 %endif
 
 %changelog
+* Thu May 25 2023 Siddhesh Poyarekar <siddhesh@redhat.com> - 3.41.2-2
+- Drop duplicate -mbranch-protection.
+
 * Mon Mar 27 2023 Zuzana Miklankova <zmiklank@redhat.com> - 3.41.2-1
 - Updated to version 3.41.2 (https://sqlite.org/releaselog/3_41_2.html)
 - Migrated to SPDX license

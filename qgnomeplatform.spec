@@ -1,6 +1,6 @@
 Name:           qgnomeplatform
 Version:        0.9.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Qt Platform Theme aimed to accommodate Gnome settings
 
 License:        LGPL-2.0-or-later
@@ -107,6 +107,9 @@ modifying them - making them fit into the environment as well as possible.
 %{_qt6_plugindir}/wayland-decoration-client/libqgnomeplatformdecoration.so
 
 %changelog
+* Fri May 26 2023 Jan Grulich <jgrulich@redhat.com> - 0.9.1-3
+- Rebuild (qt6)
+
 * Mon May 15 2023 Jan Grulich <jgrulich@redhat.com> - 0.9.1-2
 - Only set the QtQuick Controls Style on Qt5
 

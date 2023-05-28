@@ -1,6 +1,6 @@
 Summary:        Generic RADIUS proxy with RadSec support
 Name:           radsecproxy
-Version:        1.9.3
+Version:        1.10.0
 Release:        1%{?dist}
 License:        BSD-3-Clause
 URL:            https://radsecproxy.github.io/
@@ -38,11 +38,7 @@ at the same time to be small, efficient and easy to configure.
 
 %build
 %if 0%{?rhel} == 7
-sed \
-  -e 's|include/openssl/|include/openssl11/openssl/|g' \
-  -e 's|-I$ssldir/include|-I%{_includedir}/openssl11|g' \
-  -e 's|-L$ssldir/lib|-L%{_libdir}/openssl11|g' \
-  -i configure
+sed -e 's/ openssl / openssl11 /g' -i configure
 %endif
 
 %configure
@@ -94,6 +90,9 @@ make check
 %dir %attr(0750,%{name},%{name}) %{_localstatedir}/log/%{name}/
 
 %changelog
+* Fri May 26 2023 Robert Scheck <robert@fedoraproject.org> 1.10.0-1
+- Upgrade to 1.10.0 (#2207652)
+
 * Tue May 02 2023 Robert Scheck <robert@fedoraproject.org> 1.9.3-1
 - Upgrade to 1.9.3
 

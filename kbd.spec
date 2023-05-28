@@ -5,9 +5,9 @@
 
 Name:           kbd
 Version:        2.5.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Tools for configuring the console (keyboard, virtual terminals, etc.)
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://www.kbd-project.org/
 
 Source0:        ftp://ftp.altlinux.org/pub/people/legion/kbd/kbd-%{version}.tar.xz
@@ -69,13 +69,7 @@ Please note that %{name}-legacy is not helpful without kbd.
 %setup -q -a 1 -a 2
 cp -fp %{SOURCE3} .
 cp -fp %{SOURCE6} .
-%patch0 -p1 -b .keycodes-man
-%patch1 -p1 -b .sparc
-%patch2 -p1 -b .unicode_start
-%patch3 -p1 -b .sg-decimal-separator
-%patch4 -p1 -b .loadkeys-search-path
-%patch5 -p1 -b .unicode-start-font
-%patch6 -p1 -b .covscan-fixes
+%autopatch -p1
 aclocal
 autoconf
 
@@ -189,6 +183,9 @@ make check
 %{kbd_datadir}/keymaps/legacy
 
 %changelog
+* Fri May 26 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.5.1-6
+- SPDX migration
+
 * Tue Feb 21 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.5.1-5
 - Update patch adding compose rules for converted cz layout
   Resolves: #2171583

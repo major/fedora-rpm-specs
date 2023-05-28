@@ -17,7 +17,7 @@ Summary:        A C++ library for reading and writing DXF files
 #     License of the -doc subpackage
 License:        GPL-2.0-or-later
 URL:            https://www.ribbonsoft.com/en/90-dxflib
-Source0:        https://qcad.org/archives/dxflib/dxflib-%{version}-src.tar.gz
+Source:         https://qcad.org/archives/dxflib/dxflib-%{version}-src.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  make

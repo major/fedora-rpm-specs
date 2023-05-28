@@ -1,8 +1,8 @@
 %global git_url https://github.com/arvidn/libtorrent
  
 Name:		rb_libtorrent
-Version:	2.0.8
-Release:	3%{?dist}
+Version:	2.0.9
+Release:	1%{?dist}
 Summary:	A C++ BitTorrent library aiming to be the best alternative
 
 License:	BSD
@@ -170,6 +170,9 @@ install -p -m 0644 %{SOURCE1} ./README-renames.Fedora
 %{python3_sitearch}/libtorrent.cpython-*.so
 
 %changelog
+* Fri May 26 2023 Leigh Scott <leigh123linux@gmail.com> - 2.0.9-1
+- Upgrade to 2.0.9
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 2.0.8-3
 - Rebuilt for Boost 1.81
 

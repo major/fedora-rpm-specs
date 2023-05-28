@@ -11,7 +11,7 @@
 
 Name:           rocm-compilersupport
 Version:        %{llvm_maj_ver}.%{bugfix_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Various AMD ROCm LLVM related services
 
 Url:            https://github.com/RadeonOpenCompute/ROCm-CompilerSupport
@@ -19,9 +19,6 @@ License:        NCSA
 # I fork upstream sources because they don't target stable LLVM, but rather the
 # bleeding edge LLVM branch. My fork is a snapshot with bugfixes backported:
 Source0:        https://github.com/Mystro256/%{upstreamname}/archive/refs/tags/%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-# Should fix RHBZ#2207599:
-# https://github.com/RadeonOpenCompute/ROCm-CompilerSupport/commit/79948e1807bca7108722982b9018d61dde9420f2
-Patch0:         0001-Update-default-code-object-device-lib-from-v4-to-v5.patch
 
 BuildRequires:  cmake
 BuildRequires:  clang-devel >= %{llvm_maj_ver}
@@ -95,6 +92,9 @@ sed -i 's/lib\(\/clang\)/%{_lib}\1/' lib/comgr/src/comgr-compiler.cpp
 %{_includedir}/amd_comgr.h
 
 %changelog
+* Thu May 25 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 16.1-4
+- Roll back last change, as it didn't work
+
 * Thu May 25 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 16.1-3
 - Add fix for RHBZ#2207599
 

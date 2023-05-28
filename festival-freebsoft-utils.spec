@@ -9,7 +9,7 @@ BuildArch:      noarch
 # -doc subpackage.
 License:        GPL-2.0-or-later
 URL:            https://www.freebsoft.org/festival-freebsoft-utils
-Source0:        https://freebsoft.org/pub/projects/%{name}/%{name}-%{version}.tar.gz
+Source:         https://freebsoft.org/pub/projects/%{name}/%{name}-%{version}.tar.gz
 
 # Fix a section level error in fdl.texi
 # https://github.com/brailcom/festival-freebsoft-utils/pull/1

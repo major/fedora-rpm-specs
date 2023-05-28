@@ -6,7 +6,7 @@ Summary:        Library for computations on braid groups
 
 License:        GPL-2.0-or-later
 URL:            https://github.com/miguelmarco/libbraiding
-Source0:        %{url}/archive/%{version}/libbraiding-%{version}.tar.gz
+Source:         %{url}/archive/%{version}/libbraiding-%{version}.tar.gz
 
 BuildRequires:  autoconf
 BuildRequires:  automake

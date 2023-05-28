@@ -36,7 +36,7 @@ Summary:        Create traditional hand-drawn animation using both bitmap and ve
 #   - tests/src/catch.hpp is BSL-1.0
 License:        GPL-2.0-only AND BSD-3-Clause
 URL:            https://github.com/pencil2d/pencil
-Source0:        %{url}/archive/v%{version}/pencil-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/pencil-%{version}.tar.gz
 
 # Add a LICENSE.QT.TXT file for BSD-3-Clause code from Qt
 # https://github.com/pencil2d/pencil/pull/1757

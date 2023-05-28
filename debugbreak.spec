@@ -6,7 +6,7 @@ Release:        %autorelease
 URL:            https://github.com/scottt/debugbreak
 License:        BSD-2-Clause
 
-Source0:        %{url}/archive/v%{version}/debugbreak-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/debugbreak-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++

@@ -1,5 +1,5 @@
 Name:           python-glymur
-Version:        0.12.5
+Version:        0.12.7
 Release:        %autorelease
 Summary:        Interface to the OpenJPEG library for working with JPEG 2000 files
 

@@ -4,7 +4,7 @@ Version:        1.9
 Release:        %autorelease
 
 URL:            https://github.com/jpmens/jo
-Source0:        %{url}/archive/%{version}/jo-%{version}.tar.gz
+Source:         %{url}/archive/%{version}/jo-%{version}.tar.gz
 # The entire source is GPL-2.0-or-later, except:
 #
 #   - json.c and json.h are MIT

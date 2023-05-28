@@ -22,7 +22,7 @@ Name:           stb
 # collection is not, and there are no releases. See:
 #   https://github.com/nothings/stb/issues/359
 #   https://github.com/nothings/stb/issues/1101
-%global snapinfo ^%{snapdate}git%(echo '%{commit}' | cut -b -7)
+%global snapinfo ^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")
 Version:        0%{snapinfo}
 Release:        %autorelease -p
 Summary:        Single-file public domain libraries for C/C++

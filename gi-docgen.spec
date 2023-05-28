@@ -29,8 +29,8 @@ Summary:        Documentation tool for GObject-based libraries
 # Note that CC0-1.0 is allowed for content only; these files may reasonably be
 # called content.
 #
-# Additionally, the following sources are under licenses other than (ASL 2.0 or
-# GPLv3+), but are not packaged in any of the binary RPMs:
+# Additionally, the following sources are under licenses other than (Apache-2.0
+# OR GPL-3.0-or-later), but are not packaged in any of the binary RPMs:
 #
 # CC0-1.0:
 #   - .editorconfig (not installed)
@@ -56,7 +56,7 @@ Summary:        Documentation tool for GObject-based libraries
 #   - test/gir/cairo-1.0.gir (not installed; test only)
 License:        (Apache-2.0 OR GPL-3.0-or-later) AND MIT AND CC0-1.0
 URL:            https://gitlab.gnome.org/GNOME/gi-docgen
-Source0:        %{url}/-/archive/%{version}/gi-docgen-%{version}.tar.bz2
+Source:         %{url}/-/archive/%{version}/gi-docgen-%{version}.tar.bz2
 
 # We are prohibited from bundling fonts, and we are prohibited from shipping
 # fonts in web font formats; see
@@ -212,7 +212,7 @@ cp -rp examples '%{buildroot}%{_pkgdocdir}/'
 
 %files doc
 %license LICENSES/*.txt .reuse/dep5
-%doc %{_pkgdocdir}
+%doc %{_pkgdocdir}/
 
 
 %changelog

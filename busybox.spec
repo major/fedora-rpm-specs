@@ -53,11 +53,11 @@
 %endif
 
 Name:		busybox
-Version:	1.36.0
-Release:	2%{?dist}
+Version:	1.36.1
+Release:	1%{?dist}
 Epoch:		1
 Summary:	Statically linked binary providing simplified versions of system commands
-License:	GPLv2
+License:	GPL-2.0-only
 URL:		http://www.busybox.net
 Source0:	http://www.busybox.net/downloads/%{name}-%{version}.tar.bz2
 Source2:	busybox-petitboot.config
@@ -118,7 +118,7 @@ package is build against shared libraries, most notably glibc.
 
 %prep
 %setup -q -a 10
-%patch0 -p1 -b .stime
+%patch -P0 -p1 -b .stime
 
 %build
 # Fix architecture name maps
@@ -321,6 +321,9 @@ install -m 644 docs/busybox.shared.1 %{buildroot}%{_mandir}/man1/busybox.shared.
 %{_mandir}/man1/busybox.shared.1.gz
 
 %changelog
+* Fri May 26 2023 Tom Callaway <spot@fedoraproject.org> - 1:1.36.1-1
+- update to 1.36.1
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.36.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

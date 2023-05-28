@@ -3,8 +3,8 @@
 Summary:        SBLIM nfsv3 instrumentation
 Name:           sblim-cmpi-nfsv3
 Version:        1.1.1
-Release:        29%{?dist}
-License:        EPL
+Release:        30%{?dist}
+License:        EPL-1.0
 URL:            http://sourceforge.net/projects/sblim/
 Source0:        http://downloads.sourceforge.net/project/sblim/providers/%{name}/%{version}/%{name}-%{version}.tar.bz2
 
@@ -44,10 +44,7 @@ SBLIM Base Fsvol Testcase Files for SBLIM Testsuite
 
 %prep
 %setup -q
-%patch0 -p1 -b .docdir
-%patch1 -p1 -b .pegasus-interop
-%patch2 -p1 -b .prov-reg-sfcb-systemd
-%patch3 -p1 -b .c99
+%autopatch -p1
 
 # Prevent regenerating the lexers/parsers.
 touch -r util/parser/lexer.l \
@@ -104,6 +101,9 @@ echo "%{_libdir}/cmpi" > $RPM_BUILD_ROOT/%{_sysconfdir}/ld.so.conf.d/%{name}-%{_
 %postun -p /sbin/ldconfig
 
 %changelog
+* Fri May 26 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.1.1-30
+- SPDX migration
+
 * Fri Feb 17 2023 Florian Weimer <fweimer@redhat.com> - 1.1.1-29
 - Port to C99
 

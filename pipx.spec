@@ -6,7 +6,8 @@ Summary:        Install and run Python applications in isolated environments
 # SPDX
 License:        MIT
 URL:            https://pypa.github.io/pipx
-Source0:        https://github.com/pypa/pipx/archive/%{version}/pipx-%{version}.tar.gz
+%global forgeurl https://github.com/pypa/pipx
+Source:         %{forgeurl}/archive/%{version}/pipx-%{version}.tar.gz
 
 BuildArch:      noarch
 

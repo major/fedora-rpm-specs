@@ -1,13 +1,13 @@
 Name:           python-aws-sam-translator
 Summary:        Transform SAM templates into AWS CloudFormation templates
-Version:        1.67.0
+Version:        1.68.0
 Release:        %autorelease
 
 License:        Apache-2.0
 URL:            https://github.com/aws/serverless-application-model
 # We use the GitHub tarball instead of the PyPI tarball to get documentation
 # and tests.
-Source0:        %{url}/archive/v%{version}/serverless-application-model-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/serverless-application-model-%{version}.tar.gz
 
 BuildArch:      noarch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -33,7 +33,7 @@ BuildRequires:  %{py3_dist pytest-env} >= 0.6
 BuildRequires:  %{py3_dist pytest-rerunfailures} >= 9.1
 # pyyaml~=6.0
 BuildRequires:  %{py3_dist pyyaml} >= 6
-# ruff==0.0.261
+# ruff==0.0.263
 # ----------
 # Test requirements
 # pytest>=6.2,<8

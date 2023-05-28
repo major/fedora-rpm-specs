@@ -5,7 +5,7 @@ Summary:        Desktop-wide extension service
 
 License:        GPL-3.0-or-later
 URL:            https://github.com/elementary/contractor
-Source0:        %{url}/archive/%{version}/contractor-%{version}.tar.gz
+Source:         %{url}/archive/%{version}/contractor-%{version}.tar.gz
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

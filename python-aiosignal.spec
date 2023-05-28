@@ -11,7 +11,7 @@ Summary:        List of registered asynchronous callbacks
 
 License:        Apache-2.0
 URL:            https://github.com/aio-libs/aiosignal
-Source0:        %{pypi_source aiosignal}
+Source:         %{pypi_source aiosignal}
 
 BuildArch:      noarch
 

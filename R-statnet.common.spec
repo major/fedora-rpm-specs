@@ -1,20 +1,20 @@
 %global packname statnet.common
-%global packver  4.7.0
+%global packver  4.9.0
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          3%{?dist}
+Release:          1%{?dist}
 Summary:          Common R Scripts and Utilities Used by the Statnet Project Software
 
-License:          GPLv3
+License:          GPL-3.0-only
 URL:              https://CRAN.R-project.org/package=%{packname}
 Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.tar.gz
 
 # Here's the R view of the dependencies world:
 # Depends:
 # Imports:   R-utils, R-methods, R-coda, R-parallel, R-tools
-# Suggests:  R-covr
+# Suggests:  R-covr, R-rlang >= 1.1.1, R-MASS, R-Matrix
 # LinkingTo:
 # Enhances:
 
@@ -25,6 +25,9 @@ BuildRequires:    R-methods
 BuildRequires:    R-coda
 BuildRequires:    R-parallel
 BuildRequires:    R-tools
+BuildRequires:    R-rlang >= 1.1.1
+BuildRequires:    R-MASS
+BuildRequires:    R-Matrix
 
 %description
 Non-statistical utilities used by the software developed by the Statnet
@@ -72,6 +75,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri May 26 2023 Tom Callaway <spot@fedoraproject.org> - 4.9.0-1
+- update to 4.9.0
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 4.7.0-3
 - R-maint-sig mass rebuild
 

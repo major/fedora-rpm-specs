@@ -13,7 +13,7 @@ Summary:        William Hart’s quadratic sieve
 #   - install-sh is X11
 License:        GPL-2.0-or-later
 URL:            https://github.com/sagemath/FlintQS
-Source0:        %{url}/archive/v%{version}/flintqs-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/flintqs-%{version}.tar.gz
 # Use of the register storage class is deprecated
 # https://github.com/sagemath/FlintQS/pull/2
 Patch:          flintqs-register.patch

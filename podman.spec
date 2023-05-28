@@ -79,7 +79,7 @@
 # https://github.com/containers/gvisor-tap-vsock
 %global import_path_gvproxy %{provider}.%{provider_tld}/%{project}/%{repo_gvproxy}
 %global git_gvproxy https://%{import_path_gvproxy}
-%global commit_gvproxy aab0ac9367fc5142f5857c36ac2352bcb3c60ab7
+%global commit_gvproxy 407efb5dcdb0f4445935f7360535800b60447544
 
 # podman
 %global git0 https://github.com/containers/%{name}
@@ -96,7 +96,7 @@ Epoch: 5
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 4.5.0
+Version: 4.5.1
 License: Apache-2.0 and BSD-2-Clause and BSD-3-Clause and ISC and MIT and MPL-2.0
 Release: %autorelease
 %if %{with golang_arches_future}
@@ -234,7 +234,6 @@ Provides: bundled(golang(github.com/containers/storage))
 Provides: bundled(golang(github.com/containers/storage/drivers/quota))
 Provides: bundled(golang(github.com/containers/storage/pkg/archive))
 Provides: bundled(golang(github.com/containers/storage/pkg/chrootarchive))
-Provides: bundled(golang(github.com/containers/storage/pkg/directory))
 Provides: bundled(golang(github.com/containers/storage/pkg/fileutils))
 Provides: bundled(golang(github.com/containers/storage/pkg/homedir))
 Provides: bundled(golang(github.com/containers/storage/pkg/idmap))
@@ -267,9 +266,9 @@ Provides: bundled(golang(github.com/docker/docker/api/types/swarm))
 Provides: bundled(golang(github.com/docker/docker/api/types/volume))
 Provides: bundled(golang(github.com/docker/docker/pkg/homedir))
 Provides: bundled(golang(github.com/docker/docker/pkg/jsonmessage))
-Provides: bundled(golang(github.com/docker/docker/pkg/meminfo))
 Provides: bundled(golang(github.com/docker/docker/pkg/namesgenerator))
 Provides: bundled(golang(github.com/docker/docker/pkg/parsers))
+Provides: bundled(golang(github.com/docker/docker/pkg/system))
 Provides: bundled(golang(github.com/docker/go-connections/nat))
 Provides: bundled(golang(github.com/docker/go-plugins-helpers/sdk))
 Provides: bundled(golang(github.com/docker/go-plugins-helpers/volume))
@@ -288,7 +287,7 @@ Provides: bundled(golang(github.com/mattn/go-sqlite3))
 Provides: bundled(golang(github.com/moby/term))
 Provides: bundled(golang(github.com/nxadm/tail))
 Provides: bundled(golang(github.com/nxadm/tail/watch))
-Provides: bundled(golang(github.com/onsi/ginkgo/v2))
+Provides: bundled(golang(github.com/onsi/ginkgo))
 Provides: bundled(golang(github.com/onsi/gomega))
 Provides: bundled(golang(github.com/onsi/gomega/format))
 Provides: bundled(golang(github.com/onsi/gomega/gexec))
@@ -484,6 +483,7 @@ cd ..
 ln -s vendor src
 export GOPATH=$(pwd)/_build:$(pwd)
 %gobuild -o bin/gvproxy %{import_path_gvproxy}/cmd/gvproxy
+%gobuild -o bin/gvforwarder %{import_path_gvproxy}/cmd/vm
 cd ..
 
 %{__make} docs docker-docs
@@ -513,6 +513,7 @@ cd ..
 cd %{repo_gvproxy}-%{commit_gvproxy}
 install -dp %{buildroot}%{_libexecdir}/%{name}
 install -p -m0755 bin/gvproxy %{buildroot}%{_libexecdir}/%{name}
+install -p -m0755 bin/gvforwarder %{buildroot}%{_libexecdir}/%{name}
 cd ..
 
 # do not include docker and podman-remote man pages in main package
@@ -581,6 +582,7 @@ cp -pav test/system %{buildroot}/%{_datadir}/%{name}/test/
 %doc %{repo_gvproxy}-%{commit_gvproxy}/README.md
 %dir %{_libexecdir}/%{name}
 %{_libexecdir}/%{name}/gvproxy
+%{_libexecdir}/%{name}/gvforwarder
 
 %changelog
 %if %{with changelog}

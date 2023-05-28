@@ -15,7 +15,7 @@ Release:        %autorelease
 # - asyncpg/protocol/record/recordobj.c is PSF-2.0
 License:        Apache-2.0 AND PSF-2.0
 URL:            https://github.com/MagicStack/asyncpg
-Source0:        %{pypi_source asyncpg}
+Source:         %{pypi_source asyncpg}
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel

@@ -14,22 +14,11 @@ URL: https://www.python.org/
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
 %global general_version %{pybasever}.0
-%global prerel a7
+%global prerel b1
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
 Release: 1%{?dist}
 License: Python-2.0.1
-
-# Getting this build in Koji on 32bit ARM is frustrating due to technical problems
-# https://pagure.io/releng/issue/11095
-# Fedora 37+ dropped that architecture
-# https://fedoraproject.org/wiki/Changes/RetireARMv7
-# Upstream does not support it anyway
-# https://peps.python.org/pep-0011/
-# Hence, we exclude it starting with Python 3.12
-# https://lists.fedoraproject.org/archives/list/python-devel@lists.fedoraproject.org/thread/4QWRWUYQOLCVC5D5YHXFXFOGPEIIPYSJ/
-# Once Fedora 36 goes EOL, this line can be dropped.
-ExcludeArch: %{arm}
 
 
 # ==================================
@@ -66,19 +55,18 @@ ExcludeArch: %{arm}
 #
 # Procedure: https://fedoraproject.org/wiki/SIGs/Python/UpgradingPython
 #
-#   IMPORTANT: When bootstrapping, it's very likely the wheels for pip and
-#   setuptools are not available. Turn off the rpmwheels bcond until
-#   the two packages are built with wheels to get around the issue.
+#   IMPORTANT: When bootstrapping, it's very likely python-pip-wheel is
+#   not available. Turn off the rpmwheels bcond until
+#   python-pip is built with a wheel to get around the issue.
 %bcond_with bootstrap
 
-# Whether to use RPM build wheels from the python-{pip,setuptools}-wheel package
+# Whether to use RPM build wheels from the python-pip-wheel package
 # Uses upstream bundled prebuilt wheels otherwise
-%bcond_without rpmwheels
+%bcond_with rpmwheels
 # If the rpmwheels condition is disabled, we use the bundled wheel packages
 # from Python with the versions below.
 # This needs to be manually updated when we update Python.
-%global pip_version 23.0.1
-%global setuptools_version 65.5.0
+%global pip_version 23.1.2
 
 # Expensive optimizations (mainly, profile-guided optimizations)
 %bcond_without optimizations
@@ -247,10 +235,9 @@ BuildRequires: /usr/bin/dtrace
 BuildRequires: /usr/sbin/ifconfig
 
 %if %{with rpmwheels}
-# Newer versions in Fedora 37 support Python 3.12
-# Versions in Fedora 36 were patched to add the support, in the versions listed bellow
-BuildRequires: %{python_wheel_pkg_prefix}-setuptools-wheel >= 59.6.0-3
-BuildRequires: %{python_wheel_pkg_prefix}-pip-wheel >= 21.3.1-4
+# Python 3.12 removed the deprecated imp module,
+# the first compatible version of pip is 23.1.2.
+BuildRequires: %{python_wheel_pkg_prefix}-pip-wheel >= 23.1.2
 %endif
 
 %if %{without bootstrap}
@@ -312,6 +299,10 @@ Patch251: 00251-change-user-install-location.patch
 # https://bodhi.fedoraproject.org/updates/FEDORA-2021-e152ce5f31
 # https://github.com/GrahamDumpleton/mod_wsgi/issues/730
 Patch371: 00371-revert-bpo-1596321-fix-threading-_shutdown-for-the-main-thread-gh-28549-gh-28589.patch
+
+# 00398 # 3a2e73c1542a7204628783cef2186e4b8a385f79
+# fix stack overwrite on 32-bit in perf map test harness (#104811)
+Patch398: 00398-fix-stack-overwrite-on-32-bit-in-perf-map-test-harness-gh-104811-104823.patch
 
 # (New patches go here ^^^)
 #
@@ -434,11 +425,9 @@ This package contains /usr/bin/python - the "python" command that runs Python 3.
 Summary:        Python runtime libraries
 
 %if %{with rpmwheels}
-Requires: %{python_wheel_pkg_prefix}-setuptools-wheel >= 59.6.0-3
-Requires: %{python_wheel_pkg_prefix}-pip-wheel >= 21.3.1-4
+Requires: %{python_wheel_pkg_prefix}-pip-wheel >= 23.1.2
 %else
 Provides: bundled(python3dist(pip)) = %{pip_version}
-Provides: bundled(python3dist(setuptools)) = %{setuptools_version}
 %endif
 
 %unversioned_obsoletes_of_python3_X_if_main libs
@@ -611,7 +600,6 @@ The debug runtime additionally supports debug builds of C-API extensions
 
 %if %{with rpmwheels}
 rm Lib/ensurepip/_bundled/pip-%{pip_version}-py3-none-any.whl
-rm Lib/ensurepip/_bundled/setuptools-%{setuptools_version}-py3-none-any.whl
 %endif
 
 # Remove all exe files to ensure we are not shipping prebuilt binaries
@@ -1151,7 +1139,6 @@ CheckPython optimized
 %else
 %dir %{pylibdir}/ensurepip/_bundled
 %{pylibdir}/ensurepip/_bundled/pip-%{pip_version}-py3-none-any.whl
-%{pylibdir}/ensurepip/_bundled/setuptools-%{setuptools_version}-py3-none-any.whl
 %endif
 
 %dir %{pylibdir}/concurrent/
@@ -1210,7 +1197,6 @@ CheckPython optimized
 %{dynload_dir}/_ssl.%{SOABI_optimized}.so
 %{dynload_dir}/_statistics.%{SOABI_optimized}.so
 %{dynload_dir}/_struct.%{SOABI_optimized}.so
-%{dynload_dir}/_typing.%{SOABI_optimized}.so
 %{dynload_dir}/array.%{SOABI_optimized}.so
 %{dynload_dir}/audioop.%{SOABI_optimized}.so
 %{dynload_dir}/binascii.%{SOABI_optimized}.so
@@ -1493,7 +1479,6 @@ CheckPython optimized
 %{dynload_dir}/_ssl.%{SOABI_debug}.so
 %{dynload_dir}/_statistics.%{SOABI_debug}.so
 %{dynload_dir}/_struct.%{SOABI_debug}.so
-%{dynload_dir}/_typing.%{SOABI_debug}.so
 %{dynload_dir}/array.%{SOABI_debug}.so
 %{dynload_dir}/audioop.%{SOABI_debug}.so
 %{dynload_dir}/binascii.%{SOABI_debug}.so
@@ -1583,6 +1568,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Tue May 23 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.12.0~b1-1
+- Update to 3.12.0b1
+
 * Wed Apr 05 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.12.0~a7-1
 - Update to 3.12.0a7
 

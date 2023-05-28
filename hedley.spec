@@ -3,8 +3,9 @@ Summary:        A C/C++ header to help move #ifdefs out of your code
 Version:        15
 Release:        %autorelease
 
-URL:            https://nemequ.github.io/%{name}/
-Source0:        https://github.com/nemequ/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+URL:            https://nemequ.github.io/hedley/
+%global forgeurl https://github.com/nemequ/hedley
+Source:         %{forgeurl}/archive/v%{version}/hedley-%{version}.tar.gz
 # The CC0-1.0 license is *not allowed* in Fedora for code, but this package
 # falls under the following blanket exception:
 #
@@ -34,7 +35,7 @@ any C or C++ compiler.}
 %package devel
 Summary:        %{summary}
 
-Provides:       %{name}-static = %{version}-%{release}
+Provides:       hedley-static = %{version}-%{release}
 
 %description devel %{common_description}
 
@@ -48,7 +49,7 @@ Provides:       %{name}-static = %{version}-%{release}
 
 %install
 install -d %{buildroot}%{_includedir}
-install -t %{buildroot}%{_includedir} -p -m 0644 %{name}.h
+install -t %{buildroot}%{_includedir} -p -m 0644 hedley.h
 
 
 %check
@@ -63,7 +64,7 @@ install -t %{buildroot}%{_includedir} -p -m 0644 %{name}.h
 %doc NEWS
 %doc README.md
 
-%{_includedir}/%{name}.h
+%{_includedir}/hedley.h
 
 
 %changelog

@@ -1,7 +1,7 @@
 %bcond_with check
 
 %global packname knitr
-%global packver  1.42
+%global packver  1.43
 %global rlibdir  %{_datadir}/R/library
 
 %global __suggests_exclude ^R\\((JuliaCall|gifski|magick|rgl|sass|webshot)\\)
@@ -21,8 +21,8 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 
 # Here's the R view of the dependencies world:
 # Depends:
-# Imports:   R-evaluate >= 0.10, R-highr, R-methods, R-markdown, R-stringr >= 0.6, R-yaml >= 2.1.19, R-xfun >= 0.21, R-tools
-# Suggests:  R-formatR, R-testit, R-digest, R-rgl >= 0.95.1201, R-codetools, R-rmarkdown, R-htmlwidgets >= 0.7, R-webshot, R-tikzDevice >= 0.10, R-tinytex, R-reticulate >= 1.4, R-JuliaCall >= 0.11.1, R-magick, R-png, R-jpeg, R-gifski, R-xml2 >= 1.2.0, R-httr, R-DBI >= 0.4-1, R-showtext, R-tibble, R-sass, R-bslib, R-ragg, R-styler >= 1.2.0
+# Imports:   R-evaluate >= 0.15, R-highr, R-methods, R-tools, R-yaml >= 2.1.19, R-xfun >= 0.39, R-tools
+# Suggests:  R-bslib, R-codetools, R-DBI>= 0.4-1, R-digest, R-formatR, R-gifski, R-gridSVG, R-htmlwidgets >= 0.7, R-curl, R-jpeg, R-JuliaCall >= 0.11.1, R-magick, R-markdown >= 1.3, R-png, R-ragg, R-reticulate >= 1.4, R-rgl >= 0.95.1201, R-rlang, R-rmarkdown, R-sass, R-showtext, R-styler >= 1.2.0, R-targets >= 0.6.0, R-testit, R-tibble, R-tikzDevice >= 0.10, R-tinytex, R-webshot, R-rstudioapi, R-xml2 >= 1.2.0
 # LinkingTo:
 # Enhances:
 
@@ -34,11 +34,12 @@ BuildRequires:    tex(latex)
 BuildRequires:    R-evaluate >= 0.15
 BuildRequires:    R-highr
 BuildRequires:    R-methods
-BuildRequires:    R-yaml >= 2.1.19
-BuildRequires:    R-xfun >= 0.34
 BuildRequires:    R-tools
+BuildRequires:    R-xfun >= 0.39
+BuildRequires:    R-yaml >= 2.1.19
 %if %{with check}
-BuildRequires:    R-markdown
+BuildRequires:    R-bslib
+BuildRequires:    R-markdown >= 1.3
 BuildRequires:    R-testit
 BuildRequires:    R-digest
 BuildRequires:    R-codetools
@@ -55,6 +56,10 @@ BuildRequires:    R-formatR
 BuildRequires:    R-rmarkdown
 %endif
 %if %{with_suggests}
+BuildRequires:    R-gridSVG
+BuildRequires:    R-curl
+BuildRequires:    R-rlang
+BuildRequires:    R-rstudioapi
 BuildRequires:    R-rgl >= 0.95.1201
 BuildRequires:    R-webshot
 BuildRequires:    R-reticulate >= 1.4
@@ -141,6 +146,9 @@ ARGS=--no-examples
 
 
 %changelog
+* Fri May 26 2023 Tom Callaway <spot@fedoraproject.org> - 1.43-1
+- update to 1.43
+
 * Fri May 12 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.42-1
 - Update to 1.42
 

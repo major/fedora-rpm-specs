@@ -9,7 +9,7 @@
 %bcond_without autoreconf
 
 Name:           libcsv
-Version:        3.0.3^%{snapdate}git%(echo '%{commit}' | cut -b -7)
+Version:        3.0.3^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")
 %global so_version 3
 Release:        %autorelease
 Summary:        Fast and flexible CSV library written in pure ANSI C
@@ -43,7 +43,7 @@ Summary:        Fast and flexible CSV library written in pure ANSI C
 #   - install-sh is X11
 License:        LGPL-2.1-or-later
 URL:            https://github.com/rgamble/libcsv
-Source0:        %{url}/archive/%{commit}/libcsv-%{commit}.tar.gz
+Source:         %{url}/archive/%{commit}/libcsv-%{commit}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  make

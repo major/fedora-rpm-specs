@@ -10,7 +10,7 @@ Release:        %autorelease
 License:        GPL-3.0-only AND CC0-1.0
 
 URL:            https://github.com/cassidyjames/%{name}
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

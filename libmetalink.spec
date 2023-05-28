@@ -7,7 +7,7 @@ Summary:        Metalink library written in C
 # SPDX
 License:        MIT
 URL:            https://github.com/metalink-dev/libmetalink
-Source0:        %{url}/archive/release-%{version}/libmetalink-release-%{version}.tar.gz
+Source:         %{url}/archive/release-%{version}/libmetalink-release-%{version}.tar.gz
 
 # NULL ptr deref in initial_state_start_fun
 # https://bugs.launchpad.net/libmetalink/+bug/1888672

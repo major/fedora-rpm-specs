@@ -33,7 +33,7 @@ Summary:        A pitch-correcting LADSPA plugin
 # documentation.
 License:        GPL-2.0-or-later AND BSD-3-Clause
 URL:            http://tombaran.info/autotalent.html
-Source0:        http://tombaran.info/autotalent-%{version}.tar.gz
+Source:         http://tombaran.info/autotalent-%{version}.tar.gz
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

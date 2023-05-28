@@ -16,8 +16,8 @@ Release:        %autorelease
 #   - test/TestCase.vala is LGPL-2.0-or-later
 License:        GPL-3.0-or-later AND GPL-2.0-or-later AND CC0-1.0
 
-URL:            https://github.com/dahenson/%{name}
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+URL:            https://github.com/dahenson/agenda
+Source:         %{url}/archive/%{version}/agenda-%{version}.tar.gz
 
 # Add <launchable/> tag to AppStream metadata
 #

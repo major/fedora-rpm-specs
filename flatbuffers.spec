@@ -27,7 +27,8 @@ Summary:        FlatBuffers: Memory Efficient Serialization Library
 # will.) See https://github.com/google/flatbuffers/pull/7073.
 License:        Apache-2.0
 URL:            https://google.github.io/flatbuffers
-Source0:        https://github.com/google/flatbuffers/archive/v%{version}/%{name}-%{version}.tar.gz
+%global forgeurl https://github.com/google/flatbuffers
+Source0:        %{forgeurl}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Hand-written for Fedora in groff_man(7) format based on --help output
 Source1:        flatc.1
 

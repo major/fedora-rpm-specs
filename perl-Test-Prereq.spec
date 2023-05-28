@@ -2,7 +2,7 @@ Name:           perl-Test-Prereq
 Version:        2.003
 Release:        11%{?dist}
 Summary:        Check if Makefile.PL has the right pre-requisites
-License:        Artistic 2.0
+License:        Artistic-2.0
 URL:            https://metacpan.org/release/Test-Prereq
 Source0:        https://cpan.metacpan.org/modules/by-module/Test/Test-Prereq-%{version}.tar.gz
 BuildArch:      noarch
@@ -34,6 +34,7 @@ BuildRequires:  perl(Test::Manifest) >= 1.21
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage)
 # Dependencies
+# (none)
 
 %description
 The prereq_ok() function examines the modules it finds in blib/lib/,

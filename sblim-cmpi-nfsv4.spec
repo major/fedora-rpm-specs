@@ -3,8 +3,8 @@
 Name:           sblim-cmpi-nfsv4
 Summary:        SBLIM nfsv4 instrumentation
 Version:        1.1.0
-Release:        30%{?dist}
-License:        EPL
+Release:        31%{?dist}
+License:        EPL-1.0
 URL:            http://sourceforge.net/projects/sblim/
 Source0:        http://downloads.sourceforge.net/project/sblim/providers/%{name}/%{version}/%{name}-%{version}.tar.bz2
 
@@ -44,9 +44,7 @@ SBLIM Base Fsvol Testcase Files for SBLIM Testsuite
 
 %prep
 %setup -q
-%patch0 -p1 -b .docdir
-%patch1 -p1 -b .pegasus-interop
-%patch2 -p1 -b .prov-reg-sfcb-systemd
+%autopatch -p1
 
 %build
 %ifarch s390 s390x ppc ppc64
@@ -98,6 +96,9 @@ mv $RPM_BUILD_ROOT/%{_libdir}/libLinux_NFSv4SystemConfigurationUtil.so $RPM_BUIL
 %postun -p /sbin/ldconfig
 
 %changelog
+* Fri May 26 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.1.0-31
+- SPDX migration
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

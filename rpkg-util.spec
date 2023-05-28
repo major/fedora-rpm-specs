@@ -93,11 +93,15 @@ as well as unpacked one.
 %prep
 %setup -T -b 0 -q -n rpkg-util
 
+version=%version
+version=${version//.${version#*.*.}/}
+sed -i 's/version=.*/version="'$version'",/' setup.py
+
 %check
 PYTHON=%{python} ./unittests
 
 %build
-version=%{version} %python_build
+%python_build
 %{python} man/rpkg_man_page.py > rpkg.1
 
 %install

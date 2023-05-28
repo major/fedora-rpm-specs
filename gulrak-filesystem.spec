@@ -6,7 +6,7 @@ Summary:        Implementation of C++17 std::filesystem for C++11/14/17/20
 # SPDX
 License:        MIT
 URL:            https://github.com/gulrak/filesystem
-Source0:        %{url}/archive/v%{version}/filesystem-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/filesystem-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -74,10 +74,10 @@ sed -r -i 's|[[:blank:]]+catch\.hpp||' test/CMakeLists.txt
 %files devel
 %license LICENSE
 %doc README.md
-%doc examples
+%doc examples/
 
-%{_includedir}/ghc
-%{_libdir}/cmake/ghc_filesystem
+%{_includedir}/ghc/
+%{_libdir}/cmake/ghc_filesystem/
 
 
 %changelog

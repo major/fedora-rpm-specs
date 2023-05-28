@@ -6,7 +6,7 @@ Tools and APIs to make working with AMQP in Fedora easier.
 %{?python_enable_dependency_generator}
 
 Name:           %{pkgname}
-Version:        3.3.0
+Version:        3.4.1
 Release:        1%{?dist}
 Summary:        Set of tools for using Fedora's messaging infrastructure
 
@@ -112,6 +112,13 @@ install -D -p -m 644 fm-consumer@.service $RPM_BUILD_ROOT%{_unitdir}/fm-consumer
 
 
 %changelog
+* Fri May 26 2023 Packit <hello@packit.dev> - 3.4.1-1
+- Version 3.4.1 (Aurélien Bompard)
+- Fix CI for python 3.6, again (Aurélien Bompard)
+- Fix CI for python 3.6, again (Aurélien Bompard)
+- Fix CI on python 3.6 (Aurélien Bompard)
+- Fix integration tests after eba336ba (Aurélien Bompard)
+
 * Fri Mar 31 2023 Packit <hello@packit.dev> - 3.3.0-1
 - Version 3.3.0 (Aurélien Bompard)
 - Add a Github action to update pre-commit linters (Aurélien Bompard)

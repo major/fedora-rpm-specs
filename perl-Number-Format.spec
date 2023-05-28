@@ -1,16 +1,16 @@
 Name:           perl-Number-Format
-Version:        1.75
-Release:        22%{?dist}
+Version:        1.76
+Release:        1%{?dist}
 Summary:        Perl extension for formatting numbers
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Number-Format
-Source0:        https://cpan.metacpan.org/authors/id/W/WR/WRW/Number-Format-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/modules/by-module/Number/Number-Format-%{version}.tar.gz
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
@@ -29,7 +29,6 @@ suitable for displaying to the user.
 
 %prep
 %setup -q -n Number-Format-%{version}
-chmod -c a-x CHANGES Format.pm
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -37,17 +36,23 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
-%{_fixperms} %{buildroot}/*
+%{_fixperms} -c %{buildroot}
 
 %check
 make test
 
 %files
 %doc CHANGES README TODO
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Number/
+%{_mandir}/man3/Number::Format.3*
 
 %changelog
+* Fri May 26 2023 Paul Howarth <paul@city-fan.org> - 1.76-1
+- Update to 1.76 (rhbz#2210154)
+- Use author-independent source URL
+- Fix permissions verbosely
+- Make %%files list more explicit
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.75-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -20,7 +20,8 @@ Source11:       https://ftp.cpc.ncep.noaa.gov/wd51we/wgrib/land.grb
 Source12:       https://ftp.cpc.ncep.noaa.gov/wd51we/wgrib/testbin.c
 Source13:       https://ftp.cpc.ncep.noaa.gov/wd51we/wgrib/testbin.f
 Source14:       testbin.out
-Patch0:         testbin.c.patch
+# Include <stdlib.h> and set int return for main() for C99 compliance
+Patch0:         wgrib-c99.patch
 BuildRequires:  gcc
 
 
@@ -44,7 +45,7 @@ cp %SOURCE10 .
 cp %SOURCE11 .
 cp %SOURCE12 .
 cp %SOURCE13 .
-%patch -P0 -p0
+%patch -P0 -p0 -b .c99
 
 
 %build

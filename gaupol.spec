@@ -10,7 +10,17 @@ Summary:        Editor for text-based subtitle files
 #     content only
 License:        GPL-3.0-or-later AND CC0-1.0
 URL:            https://otsaloma.io/gaupol/
-Source0:        https://github.com/otsaloma/gaupol/archive/%{version}/gaupol-%{version}.tar.gz
+%global forgeurl https://github.com/otsaloma/gaupol
+Source:         %{forgeurl}/archive/%{version}/gaupol-%{version}.tar.gz
+
+# Fix spelling of "parentheses"
+# https://github.com/otsaloma/gaupol/commit/a06b847201332725db5c6dc9505fedc23e7faebb
+#
+# Fixes:
+#
+# Maybe a typo in ui text
+# https://github.com/otsaloma/gaupol/issues/209
+Patch:          %{forgeurl}/commit/a06b847201332725db5c6dc9505fedc23e7faebb.patch
 
 # The package cannot be noarch because it has weak dependencies and BR’s
 # conditioned on architecture. There is still no compiled code, so there will

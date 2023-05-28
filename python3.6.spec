@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 17%{?dist}
+Release: 18%{?dist}
 # Python is Python
 # pip MIT is and bundles:
 #   appdirs: MIT
@@ -613,6 +613,18 @@ Patch392: 00392-cve-2022-37454-fix-buffer-overflows-in-_sha3-module.patch
 # There was an unnecessary quadratic loop in idna decoding. This restores
 # the behavior to linear.
 Patch394: 00394-cve-2022-45061-cpu-denial-of-service-via-inefficient-idna-decoder.patch
+
+# 00399 # dc0a803eea47d3b4f0657816b112b5a33491500f
+# CVE-2023-24329
+#
+# gh-102153: Start stripping C0 control and space chars in `urlsplit` (GH-102508)
+#
+# `urllib.parse.urlsplit` has already been respecting the WHATWG spec a bit GH-25595.
+#
+# This adds more sanitizing to respect the "Remove any leading C0 control or space from input" [rule](https://url.spec.whatwg.org/GH-url-parsing:~:text=Remove%%20any%%20leading%%20and%%20trailing%%20C0%%20control%%20or%%20space%%20from%%20input.) in response to [CVE-2023-24329](https://nvd.nist.gov/vuln/detail/CVE-2023-24329).
+#
+# Backported from Python 3.12
+Patch399: 00399-cve-2023-24329.patch
 
 # (New patches go here ^^^)
 #
@@ -1870,6 +1882,10 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Fri May 26 2023 Charalampos Stratakis <cstratak@redhat.com> - 3.6.15-18
+- Security fix for CVE-2023-24329
+- Resolves: rhbz#2174013
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.15-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -14,7 +14,7 @@ Release:        %autorelease
 License:        GPL-3.0-or-later AND GPL-2.0-or-later AND CC0-1.0
 
 URL:            https://github.com/lainsce/notejot
-Source0:        %{url}/archive/%{version}/notejot-%{version}.tar.gz
+Source:         %{url}/archive/%{version}/notejot-%{version}.tar.gz
 
 # Add <launchable/> tag to AppStream metadata
 #

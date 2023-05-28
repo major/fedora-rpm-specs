@@ -12,7 +12,7 @@ Release:        %autorelease
 License:        GPL-3.0-or-later AND CC0-1.0
 URL:            https://harmonyseq.wordpress.com/
 %global forgeurl https://github.com/rafalcieslak/harmonySEQ
-Source0:        %{forgeurl}/archive/v%{version}/harmonySEQ-%{version}.tar.gz
+Source:         %{forgeurl}/archive/v%{version}/harmonySEQ-%{version}.tar.gz
 
 # https://github.com/rafalcieslak/harmonySEQ/issues/7
 Patch:          harmonyseq-0.17-missing-include.patch

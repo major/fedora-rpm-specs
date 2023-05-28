@@ -8,7 +8,7 @@ Name:		perl-Test-Mojibake
 Version:	1.3
 Release:	27%{?dist}
 Summary:	Check your source for encoding misbehavior
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-Mojibake
 Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-Mojibake-%{version}.tar.gz
 BuildArch:	noarch
@@ -73,7 +73,7 @@ BuildRequires:	perl(Test::Pod::LinkCheck)
 %endif
 %endif
 # ===================================================================
-# Runtime requirements
+# Dependencies
 # ===================================================================
 # Unicode::CheckUTF8 is an optional requirement that significantly speeds up
 # this module
