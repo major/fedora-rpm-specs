@@ -4,7 +4,7 @@
 
 Name:           Lmod
 Version:        8.7.25
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Environmental Modules System in Lua
 
 # Lmod-5.3.2/tools/base64.lua is LGPLv2
@@ -75,10 +75,11 @@ sed -i -e '/^#!/d' init/*.in
 find %{buildroot}%{_datadir}/lmod/%{version}/init -type f -exec chmod -x {} +
 mkdir -p %{buildroot}%{_sysconfdir}/modulefiles
 mkdir -p %{buildroot}%{_datadir}/modulefiles
-mkdir -p %{buildroot}%{_sysconfdir}/profile.d
+mkdir -p %{buildroot}%{_sysconfdir}/profile.d %{buildroot}%{_datadir}/fish/vendor_conf.d
 %if 0%{?fedora} || 0%{?rhel} >= 8
 # Setup for alternatives on Fedora
-touch %{buildroot}%{_sysconfdir}/profile.d/modules.{csh,sh}
+touch %{buildroot}%{_sysconfdir}/profile.d/modules.{csh,sh} \
+      %{buildroot}%{_datadir}/fish/vendor_conf.d/modules.fish
 %endif
 
 # Fedora defaults
@@ -117,7 +118,9 @@ install -Dpm 644 %{SOURCE1} %{buildroot}/%{macrosdir}/macros.%{name}
 %{_sbindir}/update-alternatives --install %{_sysconfdir}/profile.d/modules.sh modules.sh \
                                           %{_datadir}/lmod/lmod/init/profile 20 \
                                 --slave %{_sysconfdir}/profile.d/modules.csh modules.csh \
-                                        %{_datadir}/lmod/lmod/init/cshrc
+                                        %{_datadir}/lmod/lmod/init/cshrc \
+                                --slave %{_datadir}/fish/vendor_conf.d/modules.fish modules.fish \
+                                        %{_datadir}/lmod/lmod/init/fish
 
 %postun
 if [ $1 -eq 0 ] ; then
@@ -134,6 +137,8 @@ fi
 %if 0%{?fedora} || 0%{?rhel} >= 8
 %ghost %{_sysconfdir}/profile.d/modules.csh
 %ghost %{_sysconfdir}/profile.d/modules.sh
+%dir %{_datadir}/fish/vendor_conf.d
+%ghost %{_datadir}/fish/vendor_conf.d/modules.fish
 %else
 %{_sysconfdir}/profile.d/z00_lmod.csh
 %{_sysconfdir}/profile.d/z00_lmod.sh
@@ -144,6 +149,9 @@ fi
 
 
 %changelog
+* Sat May 27 2023 Orion Poplawski <orion@nwra.com> - 8.7.25-2
+- Add fish integration (bz#2196379)
+
 * Thu May 25 2023 Orion Poplawski <orion@nwra.com> - 8.7.25-1
 - Update to 8.7.25
 

@@ -6,7 +6,7 @@ Release:        %autorelease
 # SPDX
 License:        MIT
 URL:            https://github.com/microsoft/jschema-to-python
-Source0:        %{pypi_source jschema_to_python}
+Source:         %{pypi_source jschema_to_python}
 
 BuildArch:      noarch
 

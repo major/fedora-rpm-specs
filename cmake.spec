@@ -76,7 +76,7 @@
 %endif
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 2
+%global baserelease 3
 
 # Uncomment if building for EPEL
 #global name_suffix %%{major_version}
@@ -96,7 +96,7 @@ License:        BSD and MIT and zlib
 URL:            http://www.cmake.org
 Source0:        http://www.cmake.org/files/v%{major_version}.%{minor_version}/%{orig_name}-%{tar_version}.tar.gz
 Source1:        %{name}-init.el
-Source2:        macros.%{name}
+Source2:        macros.%{name}.in
 # See https://bugzilla.redhat.com/show_bug.cgi?id=1202899
 Source3:        %{name}.attr
 Source4:        %{name}.prov
@@ -455,6 +455,10 @@ pushd %{_vpath_builddir}
 NO_TEST="CTestTestUpload"
 # Likely failing for hardening flags from system.
 NO_TEST="$NO_TEST|CustomCommand|RunCMake.PositionIndependentCode"
+# Failing for rpm 4.19
+NO_TEST="$NO_TEST|CPackComponentsForAll-RPM-default"
+NO_TEST="$NO_TEST|CPackComponentsForAll-RPM-OnePackPerGroup"
+NO_TEST="$NO_TEST|CPackComponentsForAll-RPM-AllInOne"
 # curl test may fail during bootstrap
 %if %{with bootstrap}
 NO_TEST="$NO_TEST|curl"
@@ -535,8 +539,14 @@ popd
 
 
 %changelog
+* Sat May 27 2023 Björn Esser <besser82@fedoraproject.org> - 3.26.4-3
+- Rename macros.cmake -> macros.cmake.in
+- macros: Fix formatting and indentation
+- macros: Directly use %%set_build_flags, as it is supported since EPEL 7
+- Exclude tests that are failing for rpm 4.19
+
 * Fri May 19 2023 Neal Gompa <ngompa@fedoraproject.org> - 3.26.4-2
-- macros: use the language build flag macros for compiler flags
+- macros: Use the language build flag macros for compiler flags
 
 * Fri May 19 2023 Björn Esser <besser82@fedoraproject.org> - 3.26.4-1
 - cmake-3.26.4

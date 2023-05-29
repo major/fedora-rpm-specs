@@ -1,6 +1,6 @@
 Name:           python-rapidfuzz
 Version:        2.13.7
-Release:        1%{?dist}
+Release:        %autorelease
 Summary:        Rapid fuzzy string matching in Python and C++ using the Levenshtein Distance
 
 License:        MIT
@@ -70,7 +70,7 @@ rm extern -r
 
 
 %check
-%pytest
+%pytest -v
 
 
 %files -n python3-rapidfuzz -f %{pyproject_files}
@@ -84,6 +84,4 @@ rm extern -r
 
 
 %changelog
-* Fri Feb 10 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 2.13.7-1
-- Initial package
-
+%autochangelog

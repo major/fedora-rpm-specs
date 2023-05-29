@@ -11,7 +11,7 @@ Summary:        List-like structure which can be made immutable
 
 License:        Apache-2.0
 URL:            https://github.com/aio-libs/frozenlist
-Source0:        %{pypi_source frozenlist}
+Source:         %{pypi_source frozenlist}
 
 BuildRequires:  python3-devel
 

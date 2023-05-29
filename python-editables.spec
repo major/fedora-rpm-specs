@@ -16,7 +16,7 @@ Summary:        Editable installations
 License:        MIT
 URL:            https://github.com/pfmoore/editables
 # PyPI source distributions lack tests; use the GitHub archive
-Source0:        %{url}/archive/%{version}/editables-%{version}.tar.gz
+Source:         %{url}/archive/%{version}/editables-%{version}.tar.gz
 
 BuildArch:      noarch
 

@@ -8,7 +8,7 @@ Summary:        Populate library namespace without incurring immediate import co
 License:        BSD-3-Clause
 URL:            https://github.com/scientific-python/lazy_loader
 # The PyPI sdist lacks tests, so we must use the GitHub archive.
-Source0:        %{pypi_source lazy_loader}
+Source:         %{pypi_source lazy_loader}
 
 BuildArch:      noarch
 

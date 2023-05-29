@@ -14,27 +14,19 @@
 
 Name:           fast_float
 Summary:        Fast & exact implementation of C++ from_chars for float/double
-Version:        4.0.0
+Version:        5.0.0
 Release:        %autorelease
 
 URL:            https://github.com/fastfloat/fast_float
 # README.md:
-#   Licensed under either of Apache License, Version 2.0 or MIT license at your
-#   option.
+#   Licensed under either of Apache License, Version 2.0 or MIT license or
+#   BOOST license.
 # Supplemental test files (Source1) are Apache-2.0 only (no MIT option); they
 # do not contribute to the binary RPMs.
-License:        Apache-2.0 OR MIT
+License:        Apache-2.0 OR MIT OR BSL-1.0
 
 Source0:        %{url}/archive/v%{version}/fast_float-%{version}.tar.gz
 Source1:        %{stf_url}/archive/%{stf_commit}/supplemental_test_files-%{stf_commit}.tar.gz
-
-# We need to update some of our exhaustive tests to the new API
-# https://github.com/fastfloat/fast_float/pull/193
-#   Fixes:
-# Some exhaustive tests fail since version 4.0.0 [Note: This is due to the API
-# change with respect to error reports.]
-# https://github.com/fastfloat/fast_float/issues/191
-Patch:          %{url}/pull/193.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -71,7 +63,7 @@ Provides:       fast_float-static = %{version}-%{release}
 
 
 %prep
-%autosetup -p1
+%autosetup
 %setup -q -T -D -b 1
 # Compiling with -Werror makes sense for upstream CI, but is excessively strict
 # for downstream builds across a variety of compiler versions.
@@ -105,6 +97,7 @@ ln -s "${PWD}/../supplemental_test_files-%{stf_commit}/" \
 %files devel
 %license LICENSE-APACHE
 %license LICENSE-MIT
+%license LICENSE-BOOST
 %doc AUTHORS
 %doc CONTRIBUTORS
 %doc README.md

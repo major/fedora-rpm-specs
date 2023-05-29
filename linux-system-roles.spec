@@ -26,7 +26,7 @@ Name: linux-system-roles
 %endif
 Url: https://github.com/linux-system-roles
 Summary: Set of interfaces for unified system management
-Version: 1.38.2
+Version: 1.38.3
 Release: 1%{?dist}
 
 License: GPLv3+ and MIT and BSD and Python
@@ -118,7 +118,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 9 1.1.15
 
 %global rolename10 logging
-%deftag 10 1.11.7
+%deftag 10 1.11.8
 
 %global rolename11 nbde_server
 %deftag 11 1.3.5
@@ -130,7 +130,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 13 1.1.11
 
 %global rolename14 crypto_policies
-%deftag 14 1.2.9
+%deftag 14 1.2.10
 
 %global forgeorg15 https://github.com/willshersystems
 %global repo15 ansible-sshd
@@ -141,7 +141,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 16 1.1.15
 
 %global rolename17 ha_cluster
-%deftag 17 1.9.2
+%deftag 17 1.9.3
 
 %global rolename18 vpn
 %deftag 18 1.5.6
@@ -654,6 +654,9 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Sat May  27 2023 Packit <hello@packit.dev> - 1.38.3-1
+- Update to upstream version 1.38.3
+
 * Wed May  24 2023 Packit <hello@packit.dev> - 1.38.2-1
 - Update to upstream version 1.38.2
 

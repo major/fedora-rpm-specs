@@ -2,16 +2,16 @@ Name:           perl-Test-SubCalls
 Version:        1.10
 Release:        17%{?dist}
 Summary:        Track the number of times subs are called
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-SubCalls
-Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/Test-SubCalls-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/modules/by-module/Test/Test-SubCalls-%{version}.tar.gz
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
-BuildRequires:  perl%{?fedora:-interpreter}
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(warnings)
 # Runtime
@@ -28,6 +28,7 @@ BuildRequires:  perl(Test::Builder::Tester)
 # Optional Tests
 BuildRequires:  perl(CPAN::Meta) >= 2.120900
 # Dependencies
+# (none)
 
 %description
 There are a number of different situations (like testing caching code) where
@@ -52,11 +53,7 @@ find %{buildroot} -type f -name .packlist -delete
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
 %doc Changes CONTRIBUTING README
 %{perl_vendorlib}/Test/
 %{_mandir}/man3/Test::SubCalls.3*

@@ -12,7 +12,8 @@ Summary:        A JOSE implementation in Python
 # SPDX
 License:        MIT
 URL:            https://github.com/mpdavis/python-jose
-Source0:        %{pypi_source python-jose}
+Source:         %{pypi_source python-jose}
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

@@ -1,7 +1,7 @@
 %global srcname paramiko
 
 Name:          python-%{srcname}
-Version:       3.1.0
+Version:       3.2.0
 Release:       1%{?dist}
 Summary:       SSH2 protocol library for python
 
@@ -16,6 +16,10 @@ Patch3:        0003-remove-pytest-relaxed-dep.patch
 
 # icecream not packaged in Fedora, nor needed for regular builds
 Patch4:        0004-remove-icecream-dep.patch
+
+# Avoid use of lexicon via invoke since we're avoiding invoke as a dependency;
+# instead, use lexicon directly
+Patch5:        0005-remove-invoke-dep.patch
 
 BuildArch:     noarch
 
@@ -37,6 +41,7 @@ Summary:       SSH2 protocol library for python
 BuildRequires: python%{python3_pkgversion}-devel >= 3.6
 BuildRequires: %{py3_dist bcrypt} >= 3.2
 BuildRequires: %{py3_dist cryptography} >= 3.3
+BuildRequires: %{py3_dist lexicon} >= 2.0.1
 BuildRequires: %{py3_dist pyasn1} >= 0.1.7
 BuildRequires: %{py3_dist pynacl} >= 1.5
 BuildRequires: %{py3_dist pytest}
@@ -86,6 +91,103 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version}
 %doc html/ demos/
 
 %changelog
+* Sat May 27 2023 Paul Howarth <paul@city-fan.org> - 3.2.0-1
+- Update to 3.2.0 (rhbz#2210398)
+  - Fixed a very sneaky bug found at the apparently rarely-traveled
+    intersection of RSA-SHA2 keys, certificates, SSH agents, and
+    stricter-than-OpenSSH server targets, which manifested as yet another
+    "well, if we turn off SHA2 at one end or another, everything works again"
+    problem, for example with version 12 of the Teleport server endpoint
+  - The 'server-sig-algs' and 'RSA-SHA2' features added around Paramiko 2.9 or
+    so, had the annoying side effect of not working with servers that don't
+    support *either* of those feature sets, requiring use of
+    'disabled_algorithms' to forcibly disable the SHA2 algorithms on Paramiko's
+    end (GH#1961, GH#2012 and countless others)
+    - The *experimental* '~paramiko.transport.ServiceRequestingTransport' (noted
+      in its own entry in this changelog) includes a fix for this issue,
+      specifically by falling back to the same algorithm as the in-use pubkey if
+      it's in the algorithm list (leaving the "first algorithm in said list" as
+      an absolute final fallback)
+  - Implement '_fields()' on '~paramiko.agent.AgentKey' so that it may be
+    compared (via '==') with other '~paramiko.pkey.PKey' instances
+  - Since its inception, Paramiko has (for reasons lost to time) implemented
+    authentication as a side effect of handling affirmative replies to
+    'MSG_SERVICE_REQUEST' protocol messages; what this means is Paramiko makes
+    one such request before every 'MSG_USERAUTH_REQUEST', i.e. every auth
+    attempt (GH#23)
+    - OpenSSH doesn't care if clients send multiple service requests, but other
+      server implementations are often stricter in what they accept after an
+      initial service request (due to the RFCs not being clear), which can
+      result in odd behavior when a user doesn't authenticate successfully on
+      the very first try (for example, when the right key for a target host is
+      the third in one's ssh-agent)
+    - This version of Paramiko now contains an opt-in
+      '~paramiko.transport.Transport' subclass,
+      '~paramiko.transport.ServiceRequestingTransport', which more-correctly
+      implements service request handling in the Transport, and uses an
+      auth-handler subclass internally that has been similarly adapted; users
+      wanting to try this new experimental code path may hand this class to
+      'SSHClient.connect` as its 'transport_factory' kwarg
+    - This feature is *EXPERIMENTAL* and its code may be subject to change
+    - Minor backwards incompatible changes exist in the new code paths, most
+      notably the removal of the (inconsistently applied and rarely used)
+      'event' arguments to the 'auth_xxx' methods
+    - GSSAPI support has only been partially implemented, and is untested
+    - Some minor backwards-*compatible* changes were made to the *existing*
+      Transport and AuthHandler classes to facilitate the new code; for
+      example, 'Transport._handler_table' and
+      'AuthHandler._client_handler_table' are now properties instead of raw
+      attributes
+  - Users of '~paramiko.client.SSHClient' can now configure the authentication
+    logic Paramiko uses when connecting to servers; this functionality is
+    intended for advanced users and higher-level libraries such as 'Fabric'
+    (https://fabfile.org/); see '~paramiko.auth_strategy' for details (GH#387)
+    - Fabric's co-temporal release includes a proof-of-concept use of this
+      feature, implementing an auth flow much closer to that of the OpenSSH
+      client (versus Paramiko's legacy behavior); it is *strongly recommended*
+      that if this interests you, investigate replacing any direct use of
+      'SSHClient' with Fabric's 'Connection'
+    - This feature is **EXPERIMENTAL**; please see its docs for details
+  - Enhanced '~paramiko.agent.AgentKey' with new attributes, such as:
+    - Added a 'comment' attribute (and constructor argument);
+      'Agent.get_keys()' now uses this kwarg to store any comment field sent
+      over by the agent; the original version of the agent feature inexplicably
+      did not store the comment anywhere
+    - Agent-derived keys now attempt to instantiate a copy of the appropriate
+      key class for access to other algorithm-specific members (e.g. key size);
+      this is available as the '.inner_key' attribute
+      - This functionality is now in use in Fabric's new '--list-agent-keys'
+        feature, as well as in Paramiko's debug logging
+  - '~paramiko.pkey.PKey' now offers convenience "meta-constructors", static
+    methods that simplify the process of instantiating the correct subclass for
+    a given key input
+    - For example, 'PKey.from_path' can load a file path without knowing
+      *a priori* what type of key it is (thanks to some handy methods within
+      our cryptography dependency); going forwards, we expect this to be the
+      primary method of loading keys by user code that runs on "human time"
+      (i.e. where some minor efficiencies are worth the convenience)
+    - In addition, 'PKey.from_type_string' now exists, and is being used in
+      some internals to load ssh-agent keys
+    - As part of these changes, '~paramiko.pkey.PKey' and friends grew a
+      '~paramiko.pkey.PKey.identifiers' classmethod; this is inspired by the
+      '~paramiko.ecdsakey.ECDSAKey.supported_key_format_identifiers' classmethod
+      (which now refers to the new method); this also includes adding a '.name'
+      attribute to most key classes (which will eventually replace
+      '.get_name()')
+  - '~paramiko.pkey.PKey' grew a new '.algorithm_name' property that displays
+    the key algorithm; this is typically derived from the value of
+    '~paramiko.pkey.PKey.get_name'; for example, ED25519 keys have a 'get_name'
+    of 'ssh-ed25519' (the SSH protocol key type field value), and now have a
+    'algorithm_name' of 'ED25519'
+  - '~paramiko.pkey.PKey' grew a new '.fingerprint' property that emits a
+    fingerprint string matching the SHA256+Base64 values printed by various
+    OpenSSH tooling (e.g. 'ssh-add -l', 'ssh -v'); this is intended to help
+    troubleshoot Paramiko-vs-OpenSSH behavior and will eventually replace the
+    venerable 'get_fingerprint' method
+  - '~paramiko.agent.AgentKey' had a dangling Python 3 incompatible '__str__'
+    method returning bytes; this method has been removed, allowing the
+    superclass' ('~paramiko.pkey.PKey') method to run instead
+
 * Sun Mar 12 2023 Paul Howarth <paul@city-fan.org> - 3.1.0-1
 - Update to 3.1.0 (rhbz#2177436)
   - Add an explicit 'channel_timeout' keyword argument to

@@ -21,7 +21,8 @@ Summary:        %{sum_en}
 # SPDX
 License:        MIT
 URL:            https://github.com/tiangolo/fastapi
-Source0:        %{url}/archive/%{version}/fastapi-%{version}.tar.gz
+Source:         %{url}/archive/%{version}/fastapi-%{version}.tar.gz
+
 BuildArch:      noarch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -35,6 +36,10 @@ Patch:          %{url}/pull/4409.patch
 # Upgrade databases and SQLAlchemy
 # https://github.com/tiangolo/fastapi/pull/5799
 Patch:          %{url}/pull/5799.patch
+# Allow httpx 0.24.x for testing
+# https://github.com/tiangolo/fastapi/pull/9578
+# Rebased on top of PR#5799
+Patch:          0001-Allow-httpx-0.24.x-for-testing.patch
 
 BuildRequires:  python3-devel
 

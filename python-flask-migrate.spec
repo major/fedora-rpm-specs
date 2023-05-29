@@ -12,7 +12,8 @@ Summary:            SQLAlchemy database migrations for Flask applications using 
 # SPDX
 License:            MIT
 URL:                https://github.com/miguelgrinberg/Flask-Migrate
-Source0:            %{url}/archive/v%{version}/Flask-Migrate-%{version}.tar.gz
+Source:             %{url}/archive/v%{version}/Flask-Migrate-%{version}.tar.gz
+
 BuildArch:          noarch
 
 BuildRequires:      python3-devel

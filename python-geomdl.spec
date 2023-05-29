@@ -24,7 +24,7 @@ License:        MIT
 URL:            https://onurraufbingol.com/NURBS-Python/
 # The GitHub tarball has documentation; the PyPI one does not.
 %global forgeurl https://github.com/orbingol/NURBS-Python
-Source0:        %{forgeurl}/archive/v%{version}/NURBS-Python-%{version}.tar.gz
+Source:         %{forgeurl}/archive/v%{version}/NURBS-Python-%{version}.tar.gz
 
 # Upstream uses something like “setup.py bdist_wheel --use-cython” to turn on
 # the optional Cython-generated extensions. This doesn’t fit well with the

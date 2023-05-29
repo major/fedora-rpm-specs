@@ -1,60 +1,58 @@
 %global fontname lohit-bengali
-%global fontconf 65-0-%{fontname}.conf
-%global metainfo io.pagure.lohit.bengali.font.metainfo
 
-Name:        %{fontname}-fonts
 Version:        2.91.5
-Release:        15%{?dist}
-Summary:        Free Bengali script font
-License:        OFL
-URL:            https://pagure.io/lohit
-Source0:        https://releases.pagure.org/lohit/%{fontname}-%{version}.tar.gz
-BuildArch:      noarch
-BuildRequires: fontforge >= 20080429
-BuildRequires:  fontpackages-devel
-BuildRequires: python3-devel
-BuildRequires: make
-Requires:       fontpackages-filesystem
-Patch1: bug-959994.patch
+Release:        17%{?dist}
+URL:            https://github.com/lohit-fonts/lohit-bengali-fonts
 
+%global foundry           Lohit
+%global fontlicense       OFL-1.1
+%global fontlicenses      OFL.txt COPYRIGHT
+%global fontdocs          AUTHORS README ChangeLog test-bengali.txt
 
-%description
+%global fontfamily        Lohit Bengali
+%global fontsummary       Free Bengali script font
+%global fonts             *.ttf
+%global fontconfs         %{SOURCE10}
+
+%global fontdescription   %{expand:
 This package provides a free Bengali TrueType/OpenType font.
+}
+
+BuildRequires: make
+BuildRequires: fontforge
+Source0:        https://releases.pagure.org/lohit/%{fontname}-%{version}.tar.gz
+Source10:       65-0-%{fontpkgname}.conf
+
+
+%fontpkg
 
 
 %prep
 %setup -q -n %{fontname}-%{version} 
-mv 66-%{fontname}.conf 65-0-lohit-bengali.conf
-%patch1 -p1 -b .1-removing-as-from-fc-cache
-
+%linuxtext OFL.txt ChangeLog COPYRIGHT OFL.txt AUTHORS README test-bengali.txt
 
 %build
 make ttf %{?_smp_mflags}
+%fontbuild
 
 %install
+%fontinstall
 
-install -m 0755 -d %{buildroot}%{_fontdir}
-install -m 0644 -p *.ttf %{buildroot}%{_fontdir}
+%check
+%fontcheck
 
-install -m 0755 -d %{buildroot}%{_fontconfig_templatedir} \
-                   %{buildroot}%{_fontconfig_confdir}
-
-install -m 0644 -p %{fontconf} \
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}
-ln -s %{_fontconfig_templatedir}/%{fontconf} \
-      %{buildroot}%{_fontconfig_confdir}/%{fontconf}
-
-# Add AppStream metadata
-install -Dm 0644 -p %{metainfo}.xml \
-       %{buildroot}%{_datadir}/metainfo/%{metainfo}.xml
-
-%_font_pkg -f %{fontconf} *.ttf
-
-%doc ChangeLog COPYRIGHT OFL.txt AUTHORS README test-bengali.txt
-%{_datadir}/metainfo/%{metainfo}.xml
+%fontfiles
 
 
 %changelog
+* Mon May 15 2023 Sudip Shil <sshil@redhat.com> - 2.91.5-17
+- Included make ttf macro
+
+* Fri Apr 28 2023 Sudip Shil <sshil@redhat.com> - 2.91.5-16
+- Convert to new fonts packaging guidelines
+- Update the fonts package
+- https://fedoraproject.org/wiki/Changes/New_Fonts_Packaging
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.91.5-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

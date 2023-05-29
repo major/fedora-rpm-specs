@@ -5,7 +5,7 @@ Summary:        Python SDK for interacting with neuroscience data via the Boss A
 
 License:        Apache-2.0
 URL:            https://github.com/jhuapl-boss/intern
-Source0:        %{pypi_source intern}
+Source:         %{pypi_source intern}
 
 # Drop dependency on PyPI mock package
 # https://github.com/jhuapl-boss/intern/pull/106

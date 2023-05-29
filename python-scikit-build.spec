@@ -12,6 +12,8 @@ License:        MIT AND BSD-2-Clause-Views AND Apache-2.0
 URL:            https://github.com/scikit-build/scikit-build
 Source0:        %{pypi_source %{pypi_name}}
 
+Patch:          0001-tests-fix-match-for-get_map-symbol.patch
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
 
@@ -25,12 +27,10 @@ BuildRequires:  ninja-build
 
 %global _description %{expand:
 Improved build system generator for CPython C/C++/Fortran/Cython extensions.
-Better support is available for additional compilers, build systems,
-cross compilation, and locating dependencies
-and determining their build requirements.
-The scikit-build package is fundamentally just glue between
-the setuptools Python module and CMake.
-}
+Better support is available for additional compilers, build systems, cross
+compilation, and locating dependencies and determining their build requirements.
+The scikit-build package is fundamentally just glue between the setuptools
+Python module and CMake.}
 
 %description %_description
 
@@ -75,9 +75,13 @@ Provides:       bundled(cmake(UsePythonExtensions))
 # so we clean them.
 export CFLAGS=' '
 export CXXFLAGS=' '
-# pep518 tests are disabled because they require internet
-%pytest -k "not pep518" \
-        -m "not deprecated and not nosetuptoolsscm"
+OPTIONS=(
+  # pep518 tests are disabled because they require internet
+  -k "not pep518"
+
+  -m "not deprecated and not nosetuptoolsscm"
+)
+%pytest -v "${OPTIONS[@]}"
 
 
 %files -n python3-scikit-build -f %{pyproject_files}

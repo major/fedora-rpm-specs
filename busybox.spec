@@ -54,7 +54,7 @@
 
 Name:		busybox
 Version:	1.36.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Epoch:		1
 Summary:	Statically linked binary providing simplified versions of system commands
 License:	GPL-2.0-only
@@ -85,6 +85,10 @@ BuildRequires:	make
 # This also seems of limited use on s390x, since it is missing the necessary kernel headers to support init
 ExcludeArch:    i686 s390x
 
+# Using header from Fedora, beacuse sabotage-linux/kernel-headers is not available for riscv64
+%ifarch riscv64
+BuildRequires:	kernel-headers
+%endif
 
 # libbb/hash_md5_sha.c
 # https://bugzilla.redhat.com/1024549
@@ -128,6 +132,11 @@ arch=`uname -m | sed -e 's/i.86/i386/' -e 's/armv7l/arm/' -e 's/armv5tel/arm/'`
 
 ## STATIC BUILDS
 
+%ifarch riscv64
+mkdir linux-header-stock
+rpm -ql kernel-headers | xargs -i cp -v --parents {} ./linux-header-stock || :
+%endif
+
 # 1. Musl
 %if 0%{?build_musl}
 # We use musl-libc. It has broader architecture support and is still small.
@@ -140,11 +149,17 @@ yes "" | make oldconfig && \
 %if 0%{?print_configs}
 cat .config && \
 %endif
+%ifarch riscv64
+make V=1 \
+CC="musl-gcc -static" \
+EXTRA_CFLAGS="-g -Ilinux-header-stock/usr/include %{?hcflags}" \
+CFLAGS_busybox="-L%{_prefix}/$arch-linux-musl %{?hldflags}"
+%else
 make V=1 \
 CC="musl-gcc -static" \
 EXTRA_CFLAGS="-g -Ikernel-headers-4.19.88-1/$arch/include %{?hcflags}" \
 CFLAGS_busybox="-L%{_prefix}/$arch-linux-musl %{?hldflags}"
-
+%endif
 cp busybox_unstripped busybox.musl.static
 cp docs/busybox.1 docs/busybox.musl.static.1
 %endif
@@ -214,10 +229,17 @@ yes "" | make oldconfig
 cat .config && \
 %endif
 sed -i -e "s/CONFIG_FEATURE_VI_REGEX_SEARCH=y/CONFIG_FEATURE_VI_REGEX_SEARCH=n/" -e "s/CONFIG_EXTRA_COMPAT=y/CONFIG_EXTRA_COMPAT=n/" -e "s/CONFIG_FEATURE_INETD_RPC=y/CONFIG_FEATURE_INETD_RPC=n/" -e "s/CONFIG_FEATURE_UTMP=y/CONFIG_FEATURE_UTMP=n/" .config && \
+%ifarch riscv64
+make V=1 \
+CC="musl-gcc -static" \
+EXTRA_CFLAGS="-g -Ilinux-header-stock/usr/include %{?hcflags}" \
+CFLAGS_busybox="-L%{_prefix}/$arch-linux-musl %{?hldflags}"
+%else
 make V=1 \
 CC="musl-gcc -static" \
 EXTRA_CFLAGS="-g -Ikernel-headers-4.19.88-1/$arch/include %{?hcflags}" \
 CFLAGS_busybox="-L%{_prefix}/$arch-linux-musl %{?hldflags}"
+%endif
 
 cp busybox_unstripped busybox.musl.petitboot
 cp docs/busybox.1 docs/busybox.musl.petitboot.1
@@ -321,6 +343,9 @@ install -m 644 docs/busybox.shared.1 %{buildroot}%{_mandir}/man1/busybox.shared.
 %{_mandir}/man1/busybox.shared.1.gz
 
 %changelog
+* Sat May 27 2023 Nianqing Yao <imbearchild@outlook.com> - 1:1.36.1-2
+- fix build on riscv64
+
 * Fri May 26 2023 Tom Callaway <spot@fedoraproject.org> - 1:1.36.1-1
 - update to 1.36.1
 

@@ -3,7 +3,7 @@
 
 Name:           environment-modules
 Version:        5.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Provides dynamic modification of a user's environment
 
 License:        GPL-2.0-or-later
@@ -92,10 +92,12 @@ have access to the module alias.
 mkdir -p %{buildroot}%{_sysconfdir}/modulefiles
 mkdir -p %{buildroot}%{_datadir}/modulefiles
 mkdir -p %{buildroot}%{_sysconfdir}/profile.d
+mkdir -p %{buildroot}%{_datadir}/fish/vendor_conf.d
 mkdir -p %{buildroot}%{_bindir}
 
 # setup for alternatives
 touch %{buildroot}%{_sysconfdir}/profile.d/modules.{csh,sh}
+touch %{buildroot}%{_datadir}/fish/vendor_conf.d/modules.fish
 touch %{buildroot}%{_bindir}/modulecmd
 # remove modulecmd wrapper as it will be handled by alternatives
 rm -f %{buildroot}%{_datadir}/Modules/bin/modulecmd
@@ -121,6 +123,7 @@ make test QUICKTEST=1
 # Cleanup from pre-alternatives
 [ ! -L %{_sysconfdir}/profile.d/modules.sh ] &&  rm -f %{_sysconfdir}/profile.d/modules.sh
 [ ! -L %{_sysconfdir}/profile.d/modules.csh ] &&  rm -f %{_sysconfdir}/profile.d/modules.csh
+[ ! -L %{_datadir}/fish/vendor_conf.d/modules.fish ] &&  rm -f %{_datadir}/fish/vendor_conf.d/modules.fish
 [ ! -L %{_bindir}/modulecmd ] &&  rm -f %{_bindir}/modulecmd
 
 # Migration from version 3.x to 4
@@ -131,6 +134,7 @@ fi
 %{_sbindir}/update-alternatives \
   --install %{_sysconfdir}/profile.d/modules.sh modules.sh %{_datadir}/Modules/init/profile.sh 40 \
   --slave %{_sysconfdir}/profile.d/modules.csh modules.csh %{_datadir}/Modules/init/profile.csh \
+  --slave %{_datadir}/fish/vendor_conf.d/modules.fish modules.fish %{_datadir}/Modules/init/fish \
   --slave %{_bindir}/modulecmd modulecmd %{_datadir}/Modules/libexec/modulecmd.tcl
 
 %postun
@@ -145,6 +149,7 @@ fi
 %{_sysconfdir}/modulefiles
 %ghost %{_sysconfdir}/profile.d/modules.csh
 %ghost %{_sysconfdir}/profile.d/modules.sh
+%ghost %{_datadir}/fish/vendor_conf.d/modules.fish
 %ghost %{_bindir}/modulecmd
 %{_bindir}/envml
 %dir %{_libdir}/%{name}
@@ -181,6 +186,10 @@ fi
 
 
 %changelog
+* Sat May 27 2023 Xavier Delaruelle <xavier.delaruelle@cea.fr> - 5.3.0-2
+- Install module initialization script for fish as configuration snippet for
+  this shell via alternatives (#2196379)
+
 * Mon May 15 2023 Xavier Delaruelle <xavier.delaruelle@cea.fr> - 5.3.0-1
 - Update to 5.3.0 (#2203629)
 

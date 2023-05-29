@@ -1,6 +1,6 @@
 Summary:	SIP test tool / traffic generator
 Name:		sipp
-Version:	3.7.0
+Version:	3.7.1
 Release:	%autorelease
 License:	GPLv2-or-later
 URL:		https://github.com/SIPp/sipp

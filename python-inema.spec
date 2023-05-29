@@ -7,11 +7,11 @@ international postal products like post cards and letters of all weight\
 classes and service classes (normal, registered, ...).
 
 Name:           python-%{srcname}
-Version:        0.8.7
+Version:        0.8.8
 Release:        1%{?dist}
 Summary:        A Python interface to the Deutsche Post Internetmarke Online Franking
 
-License:        AGPLv3+
+License:        LGPLv3+
 URL:            http://git.sysmocom.de/python-inema/
 Source0:        %pypi_source
 
@@ -57,6 +57,10 @@ sed -i '1,1s@^#!.*$@@' inema/frank.py inema/inema.py
 
 
 %changelog
+* Sat May 27 2023 Georg Sauthoff <mail@gms.tf> - 0.8.8-1
+- Update to latest upstream release because of product list and license changes
+  (fixes fedora#2210419).
+
 * Sun Jan 22 2023 Georg Sauthoff <mail@gms.tf> - 0.8.7-1
 - Update to latest upstream release (because of product list changes)
 

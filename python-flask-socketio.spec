@@ -12,7 +12,7 @@ Summary:        Socket.IO integration for Flask applications
 # SPDX
 License:        MIT
 URL:            https://github.com/miguelgrinberg/Flask-SocketIO/
-Source0:        %{url}/archive/v%{version}/Flask-SocketIO-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/Flask-SocketIO-%{version}.tar.gz
 
 BuildArch:      noarch
  

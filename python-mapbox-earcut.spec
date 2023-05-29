@@ -10,7 +10,7 @@ Summary:        Python bindings to the mapbox earcut C++ library
 License:        ISC AND BSD-3-Clause
 URL:            https://github.com/skogler/mapbox_earcut_python
 # The GitHub archive contains tests; the PyPI archive does not
-Source0:        %{url}/archive/v%{version}/mapbox_earcut_python-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/mapbox_earcut_python-%{version}.tar.gz
 
 BuildRequires:  python3-devel
 

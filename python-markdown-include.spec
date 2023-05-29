@@ -10,7 +10,8 @@ Summary:        A Python-Markdown extension which provides an 'include' function
 # header.
 License:        GPL-3.0-only AND GPL-2.0-or-later
 URL:            https://github.com/cmacmackin/markdown-include
-Source0:        %{pypi_source markdown-include}
+Source:         %{pypi_source markdown-include}
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

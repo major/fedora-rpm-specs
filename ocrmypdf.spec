@@ -1,7 +1,7 @@
 %global srcname ocrmypdf
 
 Name:           %{srcname}
-Version:        14.2.0
+Version:        14.2.1
 Release:        %autorelease
 Summary:        Add an OCR text layer to scanned PDF files
 
@@ -74,7 +74,7 @@ done
 %pyproject_wheel
 
 # generate html docs
-PYTHONPATH="%{pyproject_build_lib}" OCRMYPDF_VERSION="%{version}" sphinx-build-3 docs html
+PYTHONPATH="$PWD/build/lib" OCRMYPDF_VERSION="%{version}" sphinx-build-3 docs html
 # remove the sphinx-build leftovers
 rm -rf html/.{doctrees,buildinfo}
 

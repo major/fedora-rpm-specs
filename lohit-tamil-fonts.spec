@@ -1,58 +1,53 @@
 %global fontname lohit-tamil
-%global fontconf 65-0-%{fontname}.conf
-%global metainfo io.pagure.lohit.tamil.font.metainfo
 
-Name:           %{fontname}-fonts
-Version:        2.91.3
-Release:        15%{?dist}
-Summary:        Free truetype font for Tamil language
+Version:       2.91.3
+Release:       16%{?dist}
+URL:           https://github.com/lohit-fonts/lohit-tamil-fonts
 
-License:        OFL
-URL:            https://pagure.io/lohit/
-Source0:        https://pagure.io/lohit/%{fontname}-%{version}.tar.gz
-BuildArch:      noarch
-BuildRequires: fontforge >= 20080429
-BuildRequires:  fontpackages-devel
-BuildRequires: python3-devel
-BuildRequires: make
-Requires:       fontpackages-filesystem
+%global foundry           Lohit
+%global fontlicense       OFL-1.1
+%global fontlicenses      OFL.txt COPYRIGHT
+%global fontdocs          AUTHORS README ChangeLog test-tamil.txt 
 
-%description
+%global fontfamily        Lohit Tamil
+%global fontsummary       Free truetype font for Tamil language
+%global fonts             *.ttf
+%global fontconfs         %{SOURCE10}
+
+%global fontdescription   %{expand:
 This package provides a free Tamil truetype/opentype font.
+}
 
+BuildRequires: make
+BuildRequires: fontforge
+Source0:        https://releases.pagure.org/lohit/%{fontname}-%{version}.tar.gz
+Source10:       65-0-%{fontpkgname}.conf
+
+%fontpkg
 
 %prep
 %setup -q -n %{fontname}-%{version}
-mv 66-lohit-tamil.conf 65-0-lohit-tamil.conf
-
+%linuxtext OFL.txt AUTHORS README ChangeLog COPYRIGHT test-tamil.txt
 
 %build
 make ttf %{?_smp_mflags}
+%fontbuild
 
 %install
-rm -fr %{buildroot}
+%fontinstall
 
-install -m 0755 -d %{buildroot}%{_fontdir}
-install -m 0644 -p *.ttf %{buildroot}%{_fontdir}
+%check
+%fontcheck
 
-install -m 0755 -d %{buildroot}%{_fontconfig_templatedir} \
-                   %{buildroot}%{_fontconfig_confdir}
+%fontfiles
 
-install -m 0644 -p %{fontconf} \
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}
-ln -s %{_fontconfig_templatedir}/%{fontconf} \
-      %{buildroot}%{_fontconfig_confdir}/%{fontconf}
-
-# Add AppStream metadata
-install -Dm 0644 -p %{metainfo}.xml \
-       %{buildroot}%{_datadir}/metainfo/%{metainfo}.xml
-
-%_font_pkg -f %{fontconf} *.ttf
-
-%doc ChangeLog COPYRIGHT OFL.txt AUTHORS README test-tamil.txt
-%{_datadir}/metainfo/%{metainfo}.xml
 
 %changelog
+* Mon May 15 2023 Sudip Shil <sshil@redhat.com> - 2.91.3-16
+- Convert to new fonts packaging guidelines
+- Update the fonts package
+- https://fedoraproject.org/wiki/Changes/New_Fonts_Packaging
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.91.3-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,68 +1,54 @@
 %global fontname lohit-odia
-%global fontconf0 65-0-%{fontname}.conf
-%global fontconf1 30-%{fontname}.conf
-%global metainfo io.pagure.lohit.odia.font.metainfo
 
+Version:       2.91.2
+Release:       16%{?dist}
+URL:           https://github.com/lohit-fonts/lohit-odia-fonts
 
-Name:           %{fontname}-fonts
-Version:        2.91.2
-Release:        15%{?dist}
-Summary:        Free truetype font for Odia language
+%global foundry           Lohit
+%global fontlicense       OFL-1.1
+%global fontlicenses      OFL.txt COPYRIGHT
+%global fontdocs          AUTHORS README ChangeLog test-odia.txt
 
-License:        OFL
-URL:            https://pagure.io/lohit
-Source0:        https://releases.pagure.org/lohit/%{fontname}-%{version}.tar.gz
-Source1:        %{name}.conf
-BuildArch:      noarch
-BuildRequires:  fontforge >= 20080429
-BuildRequires:  fontpackages-devel
-BuildRequires: python3-devel
+%global fontfamily        Lohit Odia
+%global fontsummary       Free truetype font for Odia language
+%global fonts             *.ttf
+%global fontconfs         %{SOURCE10}
+
+%global fontdescription   %{expand:
+This package provides a free Odia truetype/opentype font.
+}
+
 BuildRequires: make
-Requires:       fontpackages-filesystem
-Provides:       lohit-oriya-fonts = %{version}-%{release}
-Obsoletes:      lohit-oriya-fonts < 2.5.4.1-4
+BuildRequires: fontforge
+Source0:        https://releases.pagure.org/lohit/%{fontname}-%{version}.tar.gz
+Source10:       65-0-%{fontpkgname}.conf
 
-%description
-This package provides a free truetype font for Odia language.
+%fontpkg
 
 %prep
-%setup -q -n %{fontname}-%{version} 
-# To make it default font for 'or' language.
-mv 66-%{fontname}.conf 65-0-lohit-odia.conf
-
+%setup -q -n %{fontname}-%{version}
+%linuxtext OFL.txt AUTHORS README ChangeLog COPYRIGHT test-odia.txt
 
 %build
 make ttf %{?_smp_mflags}
+%fontbuild
 
 %install
+%fontinstall
 
-install -m 0755 -d %{buildroot}%{_fontdir}
-install -m 0644 -p *.ttf %{buildroot}%{_fontdir}
+%check
+%fontcheck
 
-install -m 0755 -d %{buildroot}%{_fontconfig_templatedir} \
-                   %{buildroot}%{_fontconfig_confdir}
-
-install -m 0644 -p %{fontconf0} \
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf0}
-ln -s %{_fontconfig_templatedir}/%{fontconf0} \
-      %{buildroot}%{_fontconfig_confdir}/%{fontconf0}
-
-install -m 0644 -p %{SOURCE1} \
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf1}
-ln -s %{_fontconfig_templatedir}/%{fontconf1} \
-      %{buildroot}%{_fontconfig_confdir}/%{fontconf1}
+%fontfiles
 
 
-# Add AppStream metadata
-install -Dm 0644 -p %{metainfo}.xml \
-       %{buildroot}%{_datadir}/metainfo/%{metainfo}.xml
-
-%_font_pkg -f *.conf *.ttf
-
-%doc ChangeLog COPYRIGHT OFL.txt AUTHORS README
-%{_datadir}/metainfo/%{metainfo}.xml
 
 %changelog
+* Mon May 15 2023 Sudip Shil <sshil@redhat.com> - 2.91.2-16
+- Convert to new fonts packaging guidelines
+- Update the fonts package
+- https://fedoraproject.org/wiki/Changes/New_Fonts_Packaging
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.91.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

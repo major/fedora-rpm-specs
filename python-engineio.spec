@@ -12,7 +12,7 @@ Summary:        Python Engine.IO server and client
 # SPDX
 License:        MIT
 URL:            https://github.com/miguelgrinberg/python-engineio/
-Source0:        %{url}/archive/v%{version}/python-engineio-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/python-engineio-%{version}.tar.gz
 
 # Downstream-only: patch out test coverage analysis
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
@@ -107,7 +107,7 @@ PYTHONPATH="${PWD}/src" %make_build -C docs latex \
 %doc docs/_build/latex/python-engineio.pdf
 %endif
 # Bundled pre-compiled engine.io.js has been removed:
-%doc examples
+%doc examples/
 
 
 %changelog

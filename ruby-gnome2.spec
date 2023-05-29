@@ -5,18 +5,11 @@
 # When changing release number, please make it sure that
 # the new EVR won't be higher than the one of higher branch!!
 #
-# Until gem switch ends, we will use non-integer release
-%define         mainrel                11
-# Note
 # Currently this spec file does not support libgda module.
 # libgda-2 is needed, API change for libgda-3 needs investigation
 # - Mamoru Tasaka
 
-%if 0%{?fedora} >= 19
 %define ruby_base_req ruby(release)
-%else
-%define ruby_base_req ruby(abi) = 1.9.1
-%endif
 
 %undefine __brp_mangle_shebangs
 
@@ -26,7 +19,7 @@ Version:        0.90.4
 # When changing release number, please make it sure that
 # the new EVR won't be higher than the one of higher branch!!
 #
-Release:        %{mainrel}%{?dist}.2
+Release:        12%{?dist}
 Summary:        Ruby binding of libgnome/libgnomeui-2.x
 
 
@@ -206,7 +199,7 @@ This package provides libraries and header files for ruby-gconf2
 %package -n ruby-gdkpixbuf2
 Summary:        Ruby binding of GdkPixbuf-2.x
 
-BuildRequires:  ruby ruby-devel gtk2-devel ruby-cairo-devel
+BuildRequires:  ruby ruby-devel gtk2-devel rubygem-cairo-devel
 #BuildRequires:  ruby(glib2-devel) = %{version} ruby(gtk2-devel) = %{version}
 
 Requires:       %ruby_base_req
@@ -350,7 +343,7 @@ This package provides libraries and header files for ruby-gnomevfs
 %package -n ruby-gtk2
 Summary:        Ruby binding of GTK+-2.0.x
 
-BuildRequires:  ruby gtk2-devel ruby-cairo-devel
+BuildRequires:  ruby gtk2-devel rubygem-cairo-devel
 #BuildRequires:  ruby(glib2-devel) = %{version} ruby(pango-devel) = %{version}
 
 Requires:       %{_bindir}/env
@@ -486,7 +479,7 @@ This package provides libraries and header files for ruby-libglade2
 %package -n ruby-pango
 Summary:        Ruby binding of pango-1.x
 
-BuildRequires:  ruby ruby-devel glib2-devel pango-devel cairo-devel ruby-cairo-devel
+BuildRequires:  ruby ruby-devel glib2-devel pango-devel cairo-devel rubygem-cairo-devel
 #BuildRequires:  ruby(glib2-devel) = %{version}
 
 Requires:       %ruby_base_req
@@ -502,7 +495,7 @@ Summary:        Development libraries and header files for ruby-pango
 
 Requires:       ruby(pango) = %{version}-%{release} 
 Requires:       pango-devel ruby-devel ruby(glib2-devel) >= %{version}
-Requires:       ruby-cairo-devel
+Requires:       rubygem-cairo-devel
 Requires:       pkgconfig
 
 Provides:       ruby(pango-devel) = %{version}-%{release}
@@ -514,7 +507,7 @@ This package provides libraries and header files for ruby-pango
 %package -n ruby-poppler
 Summary:        Ruby binding of poppler-glib
 
-BuildRequires:  ruby ruby-devel poppler-devel cairo-devel ruby-cairo-devel
+BuildRequires:  ruby ruby-devel poppler-devel cairo-devel rubygem-cairo-devel
 %if 0%{?fedora} >= 9
 BuildRequires:  poppler-glib-devel
 %endif
@@ -544,7 +537,7 @@ This package provides libraries and header files for ruby-poppler
 %package -n ruby-rsvg
 Summary:        Ruby binding of librsvg
 
-BuildRequires:  ruby ruby-devel librsvg2-devel ruby-cairo-devel
+BuildRequires:  ruby ruby-devel librsvg2-devel rubygem-cairo-devel
 #BuildRequires:  ruby(glib2-devel) = %{version} ruby(gdkpixbuf2) = %{version}
 
 Requires:       %{_bindir}/env
@@ -858,6 +851,9 @@ done
 
 
 %changelog
+* Sun May 28 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.90.4-12
+- Change BR: ruby-cairo-devel to rubygem-cairo-devel
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.90.4-11.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
