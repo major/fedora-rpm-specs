@@ -1,10 +1,17 @@
 Name:           jsonnet
 Version:        0.20.0
-Release:        1%{?dist}
+%global so_version 0
+Release:        2%{?dist}
 Summary:        A data templating language based on JSON
 
-# The bundled MD5 library is RSA licenced
-License:        ASL 2.0 and RSA
+# The entire source is Apache-2.0, except:
+#   - doc/ (the HTML documentation) is doc/_layouts/base.html is CC-BY-2.5,
+#     which is reflected in the License of the -doc subpackage
+#   - The dependency “json” is a header-only library, so it must be treated as
+#     a static library. Its license “MIT AND CC0-1.0” (the latter from a
+#     bundled hedley) therefore contributes to the licenses of the binary RPMs
+#     that include compiled programs and libraries.
+License:        Apache-2.0 AND MIT AND CC0-1.0
 
 URL:            https://github.com/google/jsonnet
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -16,19 +23,19 @@ Source2:        jsonnetfmt.1
 # Upstream wants to build single source wheels
 # these benefit from static linking,
 # but we want to link to libjsonnet here so we are sharing the lib
-Patch0001:      0001-Dynamic-link-to-libjsonnet-rather-than-static.patch
+Patch:          0001-Dynamic-link-to-libjsonnet-rather-than-static.patch
 # Upstream hard codes compiler flags
-Patch0002:      0002-jsonnet-0.17.0-do-not-override-compiler-flags.patch
+Patch:          0002-jsonnet-0.17.0-do-not-override-compiler-flags.patch
 # Upstream ships rapidyaml inside this source repo
-Patch0003:      0003-jsonnet-0.19.1-Use-system-provided-rapidyaml.patch
+Patch:          0003-jsonnet-0.19.1-Use-system-provided-rapidyaml.patch
 
-
-# Bundled MD5 C++ class with very permissive license (RSA)
+# Bundled MD5 C++ class in third_party/md5/ with very permissive license (RSA)
+# Per current guidance, we don’t need to record this as an additional license:
+# https://docs.fedoraproject.org/en-US/legal/misc/#_licensing_of_rsa_implementations_of_md5
 # rpmlint must be notified of the unversioned provides
 Provides:       bundled(md5-thilo)
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 BuildRequires:  bash cmake gcc gcc-c++ gtest-devel make
 
@@ -60,6 +67,10 @@ Summary:        Shared Libraries for %{name}
 
 %package devel
 Summary:        Development Headers for %{name}
+# This contains nothing derived from json-static, so the (MIT AND CC0-1.0)
+# portion can be omitted and the license is simply:
+License:        Apache-2.0
+
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description devel %{_description}
@@ -67,7 +78,10 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 %package doc
 Summary:        Documentation for %{name}
-License:        CC-BY
+# This contains nothing derived from json-static, so the (MIT AND CC0-1.0)
+# portion can be omitted. HTML documentation from doc/ is CC-BY-2.5; examples/
+# are Apache-2.0.
+License:        Apache-2.0 AND CC-BY-2.5
 BuildArch:      noarch
 
 %description doc %{_description}
@@ -87,15 +101,19 @@ rm -rfv third_party/rapidyaml/*
 rm -rf doc/third_party
 rm -rf doc/.gitignore
 
+# The documentation and examples include a few executable shell scripts.
+# Because this is an unusual location to install scripts, we need to fix their
+# shebangs manually. See:
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_shebang_lines
+find doc examples -type f -perm /0111 -name '*.sh' -print0 |
+  xargs -r -0 -t sed -r -i '1{s@^#!/usr/bin/env[[:blank:]]+bash@#!/bin/bash@}'
+
+
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %build
-
-%if 0%{?rhel} == 8
-# required macro drop for EL8
-%undefine __cmake_in_source_build
-%endif
-
-
 # FIXME:
 # For reasons I'm not following, json-devel isn't added to include by cmake
 #
@@ -109,14 +127,15 @@ export CXXFLAGS="%{optflags} -fPIC -I%{_includedir}/nlohmann"
 %cmake_build
 
 # make python binding
-%{py3_build}
+%pyproject_wheel
 
 
 %install
 %{cmake_install}
 
 # install python binding
-%{py3_install}
+%pyproject_install
+%pyproject_save_files _jsonnet
 
 install -d '%{buildroot}%{_mandir}/man1'
 install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 '%{SOURCE1}' '%{SOURCE2}'
@@ -124,6 +143,10 @@ install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 '%{SOURCE1}' '%{SOURCE2}'
 
 %check
 %ctest
+
+LD_LIBRARY_PATH='%{buildroot}%{_libdir}' \
+    PYTHONPATH='%{buildroot}%{python3_sitearch}' \
+    %{python3} python/_jsonnet_test.py
 
 
 %files
@@ -135,16 +158,15 @@ install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 '%{SOURCE1}' '%{SOURCE2}'
 %files libs
 %license LICENSE
 %doc README.md
-%{_libdir}/lib%{name}*.so.*
+%{_libdir}/lib%{name}.so.%{so_version}{,.*}
+%{_libdir}/lib%{name}++.so.%{so_version}{,.*}
 
 %files devel
 %{_includedir}/lib%{name}*
-%{_libdir}/lib%{name}*.so
+%{_libdir}/lib%{name}.so
+%{_libdir}/lib%{name}++.so
 
-%files -n python3-%{name}
-# rpmlint must be notified this is not versioned on purpose
-%{python3_sitearch}/_%{name}*.so
-%{python3_sitearch}/%{name}-%{version}-py%{python3_version}.egg-info
+%files -n python3-%{name} -f %{pyproject_files}
 
 %files doc
 %license LICENSE
@@ -155,6 +177,15 @@ install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 '%{SOURCE1}' '%{SOURCE2}'
 
 
 %changelog
+* Thu May 25 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.20.0-2
+- Drop “RSA” license per current guidance on RSA MD5 implementations
+- Drop EPEL8 conditionals from spec file
+- Update License to SPDX
+- Build Python bindings with pyproject-rpm-macros (“new guidelines”)
+- Run the Python tests
+- Do not glob over the shared library SONAME version
+- Fix up shebangs in the docs and examples
+
 * Mon Apr 17 2023 Pat Riehecky <riehecky@fnal.gov> - 0.20.0
 - Update to 0.20.0
 

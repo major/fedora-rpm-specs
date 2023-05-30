@@ -9,7 +9,7 @@
 %global	shorthash	%(c=%{githash} ; echo ${c:0:7})
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
-%global	baserelease	18
+%global	baserelease	19
 
 
 %undefine _ld_strict_symbol_defs
@@ -125,7 +125,7 @@ files for developing applications that use %{name}.
 # %%_fixperms cannot fix permissions completely here
 for dir in */
 do
-	find $dir -type f | xargs chmod 0644
+	find $dir -type f | xargs -r chmod 0644
 done
 chmod 0644 [A-Z]*
 chmod 0755 */
@@ -248,6 +248,9 @@ popd
 %{_libdir}/pkgconfig/gldi.pc
 
 %changelog
+* Mon May 29 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.1-19.D20210327git6c569e6
+- Pass -r option to xargs because new rpm creates empty directory
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-18.D20210327git6c569e6.3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

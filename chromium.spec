@@ -21,7 +21,7 @@
 
 # This flag is so I can build things very fast on a giant system.
 # Enabling this in koji causes aarch64 builds to timeout indefinitely.
-%global use_all_cpus 1
+%global use_all_cpus 0
 
 %if %{use_all_cpus}
 %global numjobs %{_smp_build_ncpus}
@@ -360,6 +360,10 @@ Patch300: chromium-113-rhel8-force-disable-use_gnome_keyring.patch
 Patch302: chromium-114-workaround_clang_bug-structured_binding.patch
 # missing typename
 Patch303: chromium-114-typename.patch
+# Qt issue
+Patch320: chromium-114-add_qt6_linuxui_backend.patch
+Patch321: chromium-114-qt-handle_scale_factor_changes.patch
+Patch322: chromium-114-qt-fix_font_double_scaling.patch
 
 # Use chromium-latest.py to generate clean tarball from released build tarballs, found here:
 # http://build.chromium.org/buildbot/official/
@@ -957,6 +961,10 @@ udev.
 %endif
 
 %patch -P303 -p1 -b .typename
+
+%patch -P320 -p1 -b .add_qt6_linuxui_backend
+%patch -P321 -p1 -b .handle_scale_factor_changes
+%patch -P322 -p1 -b .fix_font_double_scaling
 
 # Change shebang in all relevant files in this directory and all subdirectories
 # See `man find` for how the `-exec command {} +` syntax works
@@ -1633,8 +1641,11 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
-* Fri May 26 2023 Than Ngo <than@redhat.com> - 114.0.5735.45-1
+* Sun May 28 2023 Than Ngo <than@redhat.com> - 114.0.5735.45-1
 - update to 114.0.5735.45
+- add qt6 linuxui backend
+- backport: handle scale factor changes
+- backport: fix font double_scaling
 
 * Wed May 17 2023 Than Ngo <than@redhat.com> - 113.0.5672.126-1
 - drop clang workaround for el8

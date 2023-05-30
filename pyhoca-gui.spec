@@ -1,6 +1,6 @@
 Name:           pyhoca-gui
 Version:        0.6.1.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Graphical X2Go client written in (wx)Python
 
 License:        AGPLv3+
@@ -66,7 +66,7 @@ notification area and allows multiple X2Go session handling.
 %build
 %if 0%{?fedora} || 0%{?rhel} >= 8
 # Fix shebang of pyhoca-gui executable.
-pathfix.py -i %{__python3} -pn %{name}
+%py3_shebang_fix %{name}
 %{__python3} setup.py build_i18n
 %py3_build
 %else
@@ -117,6 +117,9 @@ fi
 
 
 %changelog
+* Sun May 28 2023 Orion Poplawski <orion@nwra.com> - 0.6.1.1-12
+- Use %%py3_shebang_fix for Python 3.12 support (bz#2155192)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

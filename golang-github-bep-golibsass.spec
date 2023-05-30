@@ -3,7 +3,7 @@
 
 # https://github.com/bep/golibsass
 %global goipath         github.com/bep/golibsass
-Version:                1.1.0
+Version:                1.1.1
 
 %gometa
 

@@ -1,6 +1,9 @@
+%global commit 7303ada0a83b70863b1805452288919e8efdc235
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+
 Name:           pyhoca-cli
-Version:        0.6.1.2
-Release:        11%{?dist}
+Version:        0.6.1.3~20220916git%{shortcommit}
+Release:        2%{?dist}
 Summary:        Command line X2Go client written in Python
 
 License:        AGPLv3+
@@ -34,7 +37,7 @@ on desktops and thin clients.
 
 %build
 # Fix shebang of pyhoca-cli executable.
-pathfix.py -i %{__python3} -pn %{name}
+%py3_shebang_fix %{name}
 %py3_build
 
 
@@ -56,6 +59,12 @@ cp -rp man/* %{buildroot}/%{_mandir}/
 
 
 %changelog
+* Sun May 28 2023 Orion Poplawski <orion@nwra.com> - 0.6.1.3~20220916git7303ada-2
+- Use %%py3_shebang_fix for Python 3.12 support (bz#2155179)
+
+* Sun May 28 2023 Orion Poplawki <orion@nwra.com> - 0.6.1.3~20220916git7303ada-1
+* Package git snapshot for better remmina support (bz#2190275)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate mio
 
 Name:           rust-mio
-Version:        0.8.6
+Version:        0.8.7
 Release:        %autorelease
 Summary:        Lightweight non-blocking I/O
 
@@ -49,6 +49,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+log-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+log-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "log" feature of the "%{crate}" crate.
+
+%files       -n %{name}+log-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+net-devel

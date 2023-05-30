@@ -8,13 +8,13 @@
 %bcond_with tests
 
 Name:           lua-%{srcname}
-Version:        3.2
+Version:        3.3
 Release:        %autorelease
 Summary:        Lua interface to the readline and history libraries
 
 License:        MIT
-URL:            https://www.pjb.com.au/comp/lua/%{srcname}.html
-Source0:        https://www.pjb.com.au/comp/lua/%{srcname}-%{version}.tar.gz
+URL:            https://pjb.com.au/comp/lua/%{srcname}.html
+Source0:        https://pjb.com.au/comp/lua/%{srcname}-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  lua-devel >= 5.1

@@ -9,7 +9,7 @@
 %global	shorthash	%(c=%{githash} ; echo ${c:0:7})
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
-%global	baserelease	43
+%global	baserelease	44
 
 
 %global	ruby_vendorlib	%(ruby -rrbconfig -e "puts RbConfig::CONFIG['vendorlibdir']")
@@ -207,7 +207,7 @@ binding for Cairo-Dock.
 # %%_fixperms cannot fix permissions completely here
 for dir in */
 do
-	find $dir -type f | xargs chmod 0644
+	find $dir -type f | xargs -r chmod 0644
 done
 chmod 0644 [A-Z]* copyright
 chmod 0755 */
@@ -414,6 +414,9 @@ popd
 %{_datadir}/cairo-dock/plug-ins/Dbus/CDApplet.h
 
 %changelog
+* Mon May 29 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.1-44.20210730gitf24f769
+- Pass -r option to xargs because new rpm creates empty directory
+
 * Sun May 07 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.1-43.20210730gitf24f769
 - Use webkit2gtk-4.1 for F-39+
   https://fedoraproject.org/wiki/Changes/Remove_webkit2gtk-4.0_API_Version

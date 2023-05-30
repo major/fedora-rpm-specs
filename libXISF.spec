@@ -1,5 +1,5 @@
 Name:           libXISF
-Version:        0.2.3
+Version:        0.2.5
 Release:        %autorelease
 Summary:        Library to load and write XISF format
 License:        GPL-3.0-or-later
@@ -65,6 +65,7 @@ done
 %{_includedir}/%{name}_global.h
 %{_includedir}/libxisf.h
 %{_libdir}/%{name}.so
+%{_libdir}/pkgconfig/libxisf.pc
 
 
 %changelog

@@ -5,8 +5,8 @@
 %global srcname nbformat
 
 Name:           python-%{srcname}
-Version:        5.7.0
-Release:        2%{?dist}
+Version:        5.8.0
+Release:        1%{?dist}
 Summary:        The Jupyter Notebook format
 
 License:        BSD
@@ -14,8 +14,8 @@ URL:            https://pypi.python.org/pypi/%{srcname}
 Source0:        https://files.pythonhosted.org/packages/source/n/%{srcname}/%{srcname}-%{version}.tar.gz
 # File missing from tarball https://github.com/jupyter/nbformat/issues/213
 Source1:        https://raw.githubusercontent.com/jupyter/nbformat/master/nbformat/tests/test4.ipynb
-# Add pytest asyncio_mode=strict option
 # Removed dependency on hatch-nodejs-version
+# Ignore DeprecationWarnings
 Patch0:         nbformat-build-test.patch
 
 BuildArch:      noarch
@@ -69,11 +69,14 @@ sed -i "s/{VERSION}/%{version}/" pyproject.toml
 
  
 %files -n python%{python3_pkgversion}-%{srcname} -f %pyproject_files
-%doc README.md
-%license COPYING.md
+%doc CHANGELOG.md README.md
+%license LICENSE
 %{_bindir}/jupyter-trust
 
 %changelog
+* Sun May 28 2023 Orion Poplawski <orion@nwra.com> - 5.8.0-1
+- Update to 5.8.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

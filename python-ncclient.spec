@@ -29,7 +29,7 @@ Summary:        Python library for the NETCONF protocol
 #     Unlicense instead of CC0-1.0.
 License:        Apache-2.0 AND Unlicense
 URL:            https://github.com/ncclient/ncclient
-Source0:        %{url}/archive/v%{version}/ncclient-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/ncclient-%{version}.tar.gz
 
 BuildArch:      noarch
 

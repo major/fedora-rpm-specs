@@ -5,7 +5,7 @@
 %global crate enum-as-inner
 
 Name:           rust-enum-as-inner
-Version:        0.5.1
+Version:        0.5.2
 Release:        %autorelease
 Summary:        Proc-macro for deriving inner field accessor functions on enums
 
@@ -33,10 +33,10 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%license %{crate_instdir}/copyright.txt
 %doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/CODE_OF_CONDUCT.md
 %doc %{crate_instdir}/README.md
+%doc %{crate_instdir}/copyright.txt
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

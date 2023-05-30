@@ -5,7 +5,7 @@
 %global crate deser-hjson
 
 Name:           rust-deser-hjson
-Version:        1.1.1
+Version:        1.2.0
 Release:        %autorelease
 Summary:        Hjson deserializer for Serde
 

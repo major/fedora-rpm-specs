@@ -5,7 +5,7 @@ Summary: Modern audiobook player
 License: GPL-3.0-or-later
 
 Version: 1.2.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 URL: https://cozy.geigi.de
 Source0: https://github.com/geigi/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -161,6 +161,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rtld_name}.desktop
 
 
 %changelog
+* Sun May 28 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.2.1-4
+- Modify Patch2 to fix yet another crash at startup
+
 * Tue Mar 28 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.2.1-3
 - Move "actions" icons out of /usr/share/icons to avoid conflicts with other packages
 - Add a patch to fix crash at startup

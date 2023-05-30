@@ -5,7 +5,7 @@
 %endif
 
 Name:           ansible-collection-community-mysql
-Version:        3.7.0
+Version:        3.7.2
 Release:        1%{?dist}
 Summary:        MySQL collection for Ansible
 
@@ -51,6 +51,9 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 %doc README.md CHANGELOG.rst
 
 %changelog
+* Sun May 28 2023 Orion Poplawski <orion@nwra.com> - 3.7.2-1
+- Update to 3.7.2
+
 * Sat May 06 2023 Maxwell G <maxwell@gtmx.me> - 3.7.0-1
 - Update to 3.7.0. Fixes rhbz#2168430.
 

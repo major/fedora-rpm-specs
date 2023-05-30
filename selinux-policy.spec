@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit 6b599716fa1b29325fd2f2cf9af3fc25dfe9336e
+%global commit 2badf88d3115e9d3e63b51601eeaa75977f40d16
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 38.13
+Version: 38.14
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -813,6 +813,21 @@ exit 0
 %endif
 
 %changelog
+* Fri May 26 2023 Zdenek Pytela <zpytela@redhat.com> - 38.14-1
+- Remove permissive domain for cifs_helper_t
+- Update the cifs-helper policy
+- Replace cifsutils_helper_domtrans() with keyutils_request_domtrans_to()
+- Update pkcsslotd policy for sandboxing
+- Allow abrt_t read kernel persistent storage files
+- Dontaudit targetd search httpd config dirs
+- Allow init_t nnp domain transition to policykit_t
+- Allow rpcd_lsad setcap and use generic ptys
+- Allow samba-dcerpcd connect to systemd_machined over a unix socket
+- Allow wireguard to rw network sysctls
+- Add policy for boothd
+- Allow kernel to manage its own BPF objects
+- Label /usr/lib/systemd/system/proftpd.* & vsftpd.* with ftpd_unit_file_t
+
 * Mon May 22 2023 Zdenek Pytela <zpytela@redhat.com> - 38.13-1
 - Add initial policy for cifs-helper
 - Label key.dns_resolver with keyutils_dns_resolver_exec_t

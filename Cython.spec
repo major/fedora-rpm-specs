@@ -1,12 +1,15 @@
-%bcond_without tests
+%bcond tests 1
 
 # This bcond allows to ship a non-compiled version
 # Slower, but sometimes necessary with alpha Python versions
-%bcond_without cython_compile
+%bcond cython_compile 1
+
+# We don't ship emacs-cython-mode in EL.
+%bcond emacs %{undefined rhel}
 
 Name:           Cython
 Version:        0.29.34
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Language for writing Python extension modules
 
 License:        Apache-2.0
@@ -24,7 +27,14 @@ BuildRequires:  python3-setuptools
 %if %{with tests}
 BuildRequires:  gcc-c++
 BuildRequires:  python3-numpy
+# The tests requiring jedi are optional and skipped when jedi is not installed.
+# Note that the jedi tests were forcefully disabled a long time ago,
+# in https://github.com/cython/cython/issues/1845 far, far away.
+# We keep the dependency here so we don't forget to re-add it once the balance is restored.
+# We don't want to pull in jedi to RHEL just to potentially run more tests.
+%if %{undefined rhel}
 BuildRequires:  python3-jedi
+%endif
 %endif
 
 %if %{with cython_compile}
@@ -69,6 +79,7 @@ Provides:       bundled(python3dist(tempita))
 %description -n python3-Cython %{_description}
 
 
+%if %{with emacs}
 %package -n emacs-cython-mode
 Summary:        A major mode for editing Cython source files in Emacs
 BuildArch:      noarch
@@ -79,6 +90,7 @@ Requires:       emacs(bin) >= %{_emacs_version}
 
 %description -n emacs-cython-mode
 cython-mode is an Emacs major mode for editing Cython source files.
+%endif
 
 
 %prep
@@ -88,21 +100,25 @@ cython-mode is an Emacs major mode for editing Cython source files.
 %build
 %py3_build -- %{!?with_cython_compile:--no-cython-compile}
 
+%if %{with emacs}
 # emacs-cython-mode build
 echo ";;
 (require 'cython-mode)" > cython-mode-init.el
 cp -p Tools/cython-mode.el .
 %{_emacs_bytecompile} *.el
+%endif
 
 
 %install
 %py3_install -- %{!?with_cython_compile:--no-cython-compile}
 
+%if %{with emacs}
 # emacs-cython-mode install
 mkdir -p %{buildroot}%{_emacs_sitelispdir}/
 cp -p cython-mode.el cython-mode.elc %{buildroot}%{_emacs_sitelispdir}/
 mkdir -p %{buildroot}%{_emacs_sitestartdir}/
 cp -p cython-mode-init.el cython-mode-init.elc %{buildroot}%{_emacs_sitestartdir}/
+%endif
 
 
 %if %{with tests}
@@ -126,13 +142,19 @@ cp -p cython-mode-init.el cython-mode-init.elc %{buildroot}%{_emacs_sitestartdir
 %{python3_site}/pyximport/
 %pycached %{python3_site}/cython.py
 
+%if %{with emacs}
 %files -n emacs-cython-mode
 %license LICENSE.txt
 %{_emacs_sitelispdir}/cython*.el*
 %{_emacs_sitestartdir}/cython*.el*
+%endif
 
 
 %changelog
+* Wed May 24 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.29.34-2
+- Avoid python-jedi dependency in RHEL builds
+- Stop shipping emacs-cython-mode in RHEL builds
+
 * Mon Apr 03 2023 Miro Hrončok <mhroncok@redhat.com> - 0.29.34-1
 - Update to 0.29.34
 - Fixes: rhbz#1823181

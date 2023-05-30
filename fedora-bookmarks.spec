@@ -2,7 +2,7 @@ Name:           fedora-bookmarks
 Version:        28
 Release:        %autorelease
 Summary:        Fedora bookmarks
-License:        GFDL
+License:        GFDL-1.1-or-later
 URL:            http://fedoraproject.org/
 # I had to strip the embedded icons out of the bookmarks file, because they are not 
 # distributable under the GFDL. See https://bugzilla.redhat.com/show_bug.cgi?id=433471

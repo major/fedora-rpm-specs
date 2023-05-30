@@ -4,7 +4,7 @@
 
 # https://github.com/tdewolff/test
 %global goipath         github.com/tdewolff/test
-Version:                1.0.8
+Version:                1.0.9
 
 %gometa -f
 

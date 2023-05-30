@@ -67,13 +67,11 @@ BuildRequires: tex(tgtermes.sty)
 BuildRequires: tex(threeparttable.sty)
 BuildRequires: tex(titlesec.sty)
 BuildRequires: tex(wrapfig.sty)
-%if 0%{?fedora}
 BuildRequires: tex(capt-of.sty)
 BuildRequires: tex(eqparbox.sty)
 BuildRequires: tex(needspace.sty)
 BuildRequires: tex(tabulary.sty)
 BuildRequires: tex(upquote.sty)
-%endif
 
 %package doc
 Summary: Bugzilla documentation

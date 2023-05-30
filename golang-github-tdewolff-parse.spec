@@ -3,7 +3,7 @@
 
 # https://github.com/tdewolff/parse
 %global goipath         github.com/tdewolff/parse
-Version:                2.6.5
+Version:                2.6.6
 
 %gometa
 

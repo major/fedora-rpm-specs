@@ -12,7 +12,7 @@
 %global shorthash %(c=%{githash}; echo ${c:0:10})
 
 Name:           hamlib
-Version:        4.5.4
+Version:        4.5.5
 Release:        1%{?dist}
 Summary:        Run-time library to control radio transceivers and receivers
 
@@ -244,6 +244,9 @@ make V=1 check
 
 
 %changelog
+* Mon May 29 2023 Richard Shaw <hobbes1069@gmail.com> - 4.5.5-1
+- Update to 4.5.5.
+
 * Sun Jan 22 2023 Richard Shaw <hobbes1069@gmail.com> - 4.5.4-1
 - Update to 4.5.4.
 

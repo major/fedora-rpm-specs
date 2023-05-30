@@ -29,6 +29,7 @@ ExcludeArch:    %{ix86}
 BuildRequires:  gcc-c++
 BuildRequires:  gnupg2
 BuildRequires:  cmake
+BuildRequires:  pkgconf
 BuildRequires:  boost-devel
 BuildRequires:  eigen3-devel
 BuildRequires:  petsc-devel
@@ -66,6 +67,9 @@ FEniCS Problem Solving Environment.}
 %package devel
 Summary:        Development files for %{name}
 Requires:       %{name} = %{version}-%{release}%{?isa}
+# dolfin headers include headers from other projects
+Requires:       boost-devel
+Requires:       eigen3-devel
 
 %description devel
 %{summary}.
@@ -93,6 +97,9 @@ BuildArch:      noarch
 # Let's just specify an exact version of a dependency, yay!
 sed -i -r 's|pybind11==|pybind11>=|' python/setup.py
 
+# Drop obsolete bundled crap that doesn't support FlexiBLAS
+rm cmake/modules/FindBLAS.cmake
+
 cat >>python/CMakeLists.txt <<EOF
 set(CMAKE_CXX_FLAGS "\${CMAKE_CXX_FLAGS} -I$PWD")
 EOF
@@ -111,8 +118,18 @@ sed -r -i 's|boost/detail/endian.hpp|boost/endian/arithmetic.hpp|' \
 mkdir -p build && cd build
 CFLAGS="%{optflags} -Wno-unused-variable -DH5_USE_110_API" CXXFLAGS="%{optflags} -DH5_USE_110_API" %cmake .. \
   %{cmake_blas_flags} \
-  -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=off
+  -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=off \
+  -Wno-dev
 %make_build
+
+# The flags defined in the pkg-config file are used at runtime.
+# For some reason, the contents are not injected properly.
+# https://fenicsproject.discourse.group/t/cant-define-expression-through-c-returns-fatal-error-ufc-h-no-such-file-or-directory/5472/19
+# https://bugzilla.redhat.com/show_bug.cgi?id=2118536
+ffc_path="$(python3 -c 'import ffc; print(ffc.get_include_path())')"
+eigen_options="$(pkgconf --cflags eigen3)"
+sed -r -i "s|Cflags:.*|\\0 -I${ffc_path} ${eigen_options}|" \
+    dolfin.pc
 
 # "temporary install" so the python build can find the stuff it needs
 %make_install
@@ -128,9 +145,9 @@ cd ../python
 VERBOSE=1 CMAKE_PREFIX_PATH=%{buildroot}/usr/share/dolfin/cmake CMAKE_SKIP_INSTALL_RPATH=yes CMAKE_SKIP_RPATH=yes %py3_install
 
 sed -r -i '1 {s|#!/usr/bin/env python.*|#!%{__python3}|}' \
-    %{buildroot}/usr/bin/dolfin-order \
-    %{buildroot}/usr/bin/dolfin-plot \
-    %{buildroot}/usr/bin/dolfin-convert
+    %{buildroot}%{_bindir}/dolfin-order \
+    %{buildroot}%{_bindir}/dolfin-plot \
+    %{buildroot}%{_bindir}/dolfin-convert
 
 # this file is just pointless
 rm %{buildroot}/usr/share/dolfin/dolfin.conf
@@ -145,8 +162,8 @@ ctest -V %{?_smp_mflags}
 %files
 %license COPYING COPYING.LESSER AUTHORS
 %doc README.rst
-/usr/bin/dolfin-version
-/usr/bin/fenics-version
+%{_bindir}/dolfin-version
+%{_bindir}/fenics-version
 %{_libdir}/libdolfin.so.%{fenics_version}
 %{_libdir}/libdolfin.so.%{fenics_version}.*
 %dir /usr/share/dolfin
@@ -161,13 +178,13 @@ ctest -V %{?_smp_mflags}
 /usr/share/dolfin/cmake/
 
 %files doc
-/usr/bin/dolfin-get-demos
+%{_bindir}/dolfin-get-demos
 /usr/share/dolfin/demo/
 
 %files -n python3-dolfin
-/usr/bin/dolfin-convert
-/usr/bin/dolfin-order
-/usr/bin/dolfin-plot
+%{_bindir}/dolfin-convert
+%{_bindir}/dolfin-order
+%{_bindir}/dolfin-plot
 %{python3_sitearch}/dolfin/
 %{python3_sitearch}/dolfin_utils/
 %{python3_sitearch}/fenics/

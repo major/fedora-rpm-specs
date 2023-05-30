@@ -4,12 +4,13 @@
 Name:    kde-style-breeze 
 Epoch:   1
 Version: 5.18.5
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: KDE 4 version of Plasma 5 artwork, style and assets 
 
 License: GPLv2+
 URL:     https://invent.kde.org/plasma/breeze
 Source0: http://download.kde.org/stable/plasma/%{version}/breeze-%{version}.tar.xz
+Patch0:  breeze-5.18.5-cstdint.patch
 
 # filter plugin provides
 %global __provides_exclude_from ^(%{_kde4_libdir}/kde4/.*\\.so)$
@@ -32,7 +33,7 @@ Supplements: (kde-runtime and plasma-workspace)
 
 
 %prep
-%autosetup -n breeze-%{version}
+%autosetup -p1 -n breeze-%{version}
 
 
 %build
@@ -60,6 +61,9 @@ Supplements: (kde-runtime and plasma-workspace)
 
 
 %changelog
+* Sun May 28 2023 Robert Scheck <robert@fedoraproject.org> - 1:5.18.5-8
+- Add missing cstdint include in libbreezecommon (#2171584, #2188911)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.18.5-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

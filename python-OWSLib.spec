@@ -11,7 +11,8 @@ Summary:        Client library for OGC web services
 
 License:        BSD-3-Clause
 URL:            https://geopython.github.io/OWSLib
-Source0:        https://github.com/geopython/OWSLib/archive/%{version}/OWSLib-%{version}.tar.gz
+%global forgeurl https://github.com/geopython/OWSLib
+Source:         %{forgeurl}/archive/%{version}/OWSLib-%{version}.tar.gz
 
 BuildArch:      noarch
 
