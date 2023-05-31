@@ -14,6 +14,10 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/enum-as-inner
 Source:         %{crates_source}
 
+# * temporarily revert breaking changes between 0.5.1 and 0.5.2:
+#   https://github.com/bluejekyll/enum-as-inner/issues/98
+Patch:          0001-revert-breaking-changes-from-v0.5.2.patch
+
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:

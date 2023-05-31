@@ -17,7 +17,7 @@ than all other static analysis frameworks for Python.}
 
 Name:           python-jedi
 Version:        0.18.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An auto completion tool for Python that can be used for text editors
 
 # jedi is MIT
@@ -30,6 +30,9 @@ Source0:        https://github.com/davidhalter/jedi/archive/v%{version}/jedi-%{v
 Source1:        https://github.com/davidhalter/django-stubs/archive/%{django_stubs_commit}/django-stubs-%{django_stubs_commit}.tar.gz
 Source2:        https://github.com/davidhalter/typeshed/archive/%{typeshed_commit}/typeshed-%{typeshed_commit}.tar.gz
 BuildArch:      noarch
+
+# Fixes compatibility with attrs 23.1.0
+Patch:          https://github.com/davidhalter/jedi/pull/1935.patch
 
 %description %{common_description}
 
@@ -97,6 +100,9 @@ sed -e 's/pytest<7.0.0/pytest/' \
 
 
 %changelog
+* Mon May 29 2023 Lumír Balhar <lbalhar@redhat.com> - 0.18.2-3
+- Fix compatibility with attrs 23.1.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

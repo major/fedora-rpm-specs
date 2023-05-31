@@ -43,9 +43,15 @@ BuildRequires:  cmake(Qt5WebSockets)
 BuildRequires:  cmake(Qt5Widgets)
 
 Requires:       hicolor-icon-theme
-Requires:       kf5-kirigami2%{_isa} 
-Requires:       qt5-qtfeedback%{_isa} 
-Requires:       qt5-qtwayland%{_isa} 
+# QML module dependencies
+Requires:       kf5-kirigami2%{?_isa} 
+Requires:       kf5-kirigami2-addons%{?_isa}
+Requires:       kf5-purpose%{?_isa}
+Requires:       qt5-qtfeedback%{?_isa} 
+Requires:       qt5-qtgraphicaleffects%{?_isa}
+Requires:       qt5-qtquickcontrols2%{?_isa}
+Requires:       qt5-qtwayland%{?_isa} 
+Requires:       qt5-qtwebengine%{?_isa}
 
 %description
 Web browser for mobile devices with Plasma integration

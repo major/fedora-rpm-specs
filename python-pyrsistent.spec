@@ -12,7 +12,7 @@ Release:        %autorelease
 # The entire source is (SPDX) MIT, except pyrsistent/_toolz.py which is BSD-3-Clause.
 License:        MIT AND BSD-3-Clause
 URL:            https://github.com/tobgu/pyrsistent/
-Source0:        %{url}/archive/v%{version}/pyrsistent-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/pyrsistent-%{version}.tar.gz
 
 BuildRequires:  python3-devel
 BuildRequires:  gcc
@@ -24,9 +24,9 @@ BuildRequires:  python3-sphinx-latex
 BuildRequires:  latexmk
 %endif
 
-# ============================================================================
-# From setup_requires in setup.py, when tests are to be executed:
-BuildRequires:  python3dist(pytest-runner)
+# There is fancy machinery in setup.py to add pytest-runner to setup_requires
+# in setup.py when it looks like tests are to be executed. Since we will not use
+# “python3 setup.py test” to run tests, we can do without this dependency.
 
 # Note that pyrsistent/_toolz.py contains a bit of code ported from toolz, but
 # not enough to constitute a bundled dependency.

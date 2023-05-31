@@ -6,7 +6,7 @@ Summary:        Build great CLIs; easy to code; based on Python type hints
 # SPDX
 License:        MIT
 URL:            https://typer.tiangolo.com/
-Source0:        https://github.com/tiangolo/typer/archive/%{version}/typer-%{version}.tar.gz
+Source:         https://github.com/tiangolo/typer/archive/%{version}/typer-%{version}.tar.gz
 
 # Downstream-only:
 # Patch out linting/coverage from tests

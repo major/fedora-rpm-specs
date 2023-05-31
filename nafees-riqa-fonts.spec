@@ -4,16 +4,13 @@
 
 Name:           %{fontname}-fonts
 Version:        1.0
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Nafees riqa font for writing Urdu in the Riqa script
 
-License:        Bitstream Vera
-URL:            http://www.crulp.org/index.htm
-
-Source0:        http://www.crulp.org/Downloads/localization/fonts/NafeesRiqa/%{archivename}.zip
-
-Source1:        %{fontname}-update-preferred-family.pe
-Source2:        %{fontconf}
+License:        MIT
+URL:            https://www.urdufont.org/download.php?id=737849
+Source0:        https://www.urdufont.org/download/Nafees%20Riqa.ttf
+Source1:        %{fontconf}
 
 BuildArch:      noarch
 Requires:       fontpackages-filesystem
@@ -29,9 +26,7 @@ script based on Unicode standard.
 %setup -q -c
 
 %build
-# Fix RHBZ#490830 while not fixed upstream
-%{_bindir}/fontforge %{SOURCE1} Nafees\ Riqa\ v1.0.ttf
-rm  Nafees\ Riqa\ v1.0.ttf
+# nothing to build here
 
 %install
 
@@ -42,7 +37,7 @@ install -m 0644 -p *.ttf %{buildroot}%{_fontdir}
 install -m 0755 -d %{buildroot}%{_fontconfig_templatedir} \
                 %{buildroot}%{_fontconfig_confdir}
 
-install -m 0644 -p %{SOURCE2} \
+install -m 0644 -p %{SOURCE1} \
                 %{buildroot}%{_fontconfig_templatedir}/%{fontconf}
 
 ln -s %{_fontconfig_templatedir}/%{fontconf} \
@@ -51,10 +46,12 @@ ln -s %{_fontconfig_templatedir}/%{fontconf} \
 
 %_font_pkg -f %{fontconf} *.ttf
 
-%doc  *.pdf
-
 
 %changelog
+* Mon May 29 2023 Parag Nemade <pnemade AT redhat DOT com> - 1.02-24
+- Update to new upstream URL
+- Migrate to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

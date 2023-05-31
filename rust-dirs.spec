@@ -5,7 +5,7 @@
 %global crate dirs
 
 Name:           rust-dirs
-Version:        4.0.0
+Version:        5.0.1
 Release:        %autorelease
 Summary:        Platform abstractions for common directories
 

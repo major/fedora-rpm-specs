@@ -1,12 +1,11 @@
 Name:           perl-GD
-Version:        2.76
-Release:        4%{?dist}
+Version:        2.77
+Release:        1%{?dist}
 Summary:        Perl interface to the GD graphics library
 License:        GPL-1.0-or-later OR Artistic-2.0
 URL:            https://metacpan.org/release/GD
 Source0:        https://cpan.metacpan.org/modules/by-module/GD/GD-%{version}.tar.gz
-Patch0:         GD-2.74-utf8.patch
-Patch1:         GD-2.70-cflags.patch
+Patch1:         GD-2.77-cflags.patch
 # Module Build
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -54,9 +53,6 @@ create PNG images on the fly or modify existing files.
 %prep
 %setup -q -n GD-%{version}
 
-# Re-code documentation as UTF8
-%patch -P 0
-
 # Upstream wants -Wformat=1 but we don't
 %patch -P 1
 
@@ -93,6 +89,13 @@ make test TEST_VERBOSE=1
 %{_mandir}/man3/GD::Simple.3*
 
 %changelog
+* Mon May 29 2023 Paul Howarth <paul@city-fan.org> - 2.77-1
+- Update to 2.76
+  - Add BMP support with libgd 2.1.0 (GH#49J
+  - Don't link to -lXPM without XPM nor X11 (GH#45)
+  - Rename ANIMGIF feature to GIFANIM
+  - Fix unused variable failure in GH CI (CPAN RT#141125)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.76-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

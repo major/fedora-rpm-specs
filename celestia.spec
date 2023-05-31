@@ -66,7 +66,7 @@ object you want to visit.
 %package        common
 Summary:        Common files for %{name}
 Requires:       celestia-data
-Requires:       dejavu-sans-fonts
+Requires:       google-noto-sans-fonts
 
 Obsoletes:      %{name} < 1.6.3
 
@@ -120,6 +120,8 @@ The %{name}-doc package contains documentation for %{name}.
 
 # Change default config
 sed -i 's|# LeapSecondsFile "|LeapSecondsFile "|g' celestia.cfg
+sed -i 's|DejaVuSans.ttf,9"|%{_datadir}/fonts/google-noto/NotoSans-Regular.ttf,9"|g' celestia.cfg
+sed -i 's|DejaVuSans-Bold.ttf,15"|%{_datadir}/fonts/google-noto/NotoSans-Bold.ttf,15"|g' celestia.cfg
 
 
 %build
@@ -157,25 +159,6 @@ rm %{buildroot}%{_datadir}/celestia/COPYING
 
 # Use system provided fonts
 rm -Rf %{buildroot}%{_datadir}/%{name}/fonts
-pushd %{buildroot}%{_datadir}/%{name}
-ln -s %{_datadir}/fonts/dejavu-sans-fonts fonts
-popd
-
-
-%pretrans common -p <lua>
-path = "%{_datadir}/%{name}/fonts"
-st = posix.stat(path)
-if st and st.type == "directory" then
-  status = os.rename(path, path .. ".rpmmoved")
-  if not status then
-    suffix = 0
-    while not status do
-      suffix = suffix + 1
-      status = os.rename(path .. ".rpmmoved", path .. ".rpmmoved." .. suffix)
-    end
-    os.rename(path, path .. ".rpmmoved")
-  end
-end
 
 
 %check
@@ -199,7 +182,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/space.%{n
 %{_datadir}/pixmaps/%{name}-logo.png
 %{_datadir}/%{name}
 %exclude %{_datadir}/%{name}/help
-%ghost %{_datadir}/%{name}/fonts.rpmmoved
 
 %files qt
 %{_bindir}/%{name}-qt6

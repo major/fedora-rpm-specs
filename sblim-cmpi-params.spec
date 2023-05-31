@@ -2,10 +2,10 @@
 
 Name:           sblim-cmpi-params
 Version:        1.3.0
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        SBLIM params instrumentation
 
-License:        EPL
+License:        EPL-1.0
 URL:            http://sblim.wiki.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/sblim/%{name}-%{version}.tar.bz2
 Patch0:         sblim-cmpi-params-1.2.4-no-abi-params.patch
@@ -34,10 +34,7 @@ SBLIM Base Params Testcase Files for SBLIM Testsuite
 
 %prep
 %setup -q
-%patch0 -p1 -b .no-abi-params
-%patch1 -p1 -b .docdir
-%patch2 -p1 -b .pegasus-interop
-%patch3 -p1 -b .prov-reg-sfcb-systemd
+%autopatch -p1
 
 %build
 %configure \
@@ -73,6 +70,9 @@ rm -f $RPM_BUILD_ROOT/%{provider_dir}/*.la
 %sblim_preun
 
 %changelog
+* Mon May 29 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.3.0-30
+- SPDX migration
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

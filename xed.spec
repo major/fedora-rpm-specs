@@ -36,7 +36,7 @@ BuildRequires:	python%{python3_pkgversion}-devel
 Requires:	iso-codes
 Requires:	python%{python3_pkgversion}-gobject%{?_isa}
 Requires:	xapps%{?_isa}
-Suggests:	aspell-en
+Suggests:	hunspell-en
 
 %description
 Xed is a small, but powerful text editor.  It has most standard text

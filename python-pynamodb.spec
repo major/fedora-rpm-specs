@@ -14,7 +14,7 @@ License:        MIT
 URL:            https://github.com/pynamodb/PynamoDB
 # We use the GitHub tarball instead of the PyPI tarball to get documentation
 # and tests.
-Source0:        %{url}/archive/%{version}/PynamoDB-%{version}.tar.gz
+Source:         %{url}/archive/%{version}/PynamoDB-%{version}.tar.gz
 
 BuildArch:      noarch
 

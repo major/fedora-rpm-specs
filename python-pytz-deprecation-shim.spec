@@ -5,7 +5,7 @@ Summary:        Shims to help you safely remove pytz
 
 License:        Apache-2.0
 URL:            https://github.com/pganssle/pytz-deprecation-shim
-Source0:        %{pypi_source pytz_deprecation_shim}
+Source:         %{pypi_source pytz_deprecation_shim}
 
 BuildArch:      noarch
 

@@ -1,8 +1,8 @@
 Name:           perl-Devel-Cover
-Version:        1.36
-Release:        10%{?dist}
+Version:        1.40
+Release:        1%{?dist}
 Summary:        Code coverage metrics for Perl
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-Cover
 Source0:        https://cpan.metacpan.org/authors/id/P/PJ/PJCJ/Devel-Cover-%{version}.tar.gz
 BuildRequires:  coreutils
@@ -13,14 +13,13 @@ BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(Cwd)
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(File::Copy)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
 BuildRequires:  perl(B)
 BuildRequires:  perl(B::Concise)
-BuildRequires:  perl(B::Debug)
 BuildRequires:  perl(B::Deparse)
 BuildRequires:  perl(base)
 BuildRequires:	perl(Browser::Open)
@@ -29,6 +28,7 @@ BuildRequires:  perl(Class::XSAccessor)
 BuildRequires:  perl(Config)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(CPAN::DistnameInfo)
+BuildRequires:  perl(CPAN::Meta)
 # CPAN::Releases::Latest not used at tests
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Digest::MD5)
@@ -70,6 +70,7 @@ BuildRequires:  perl(Test::Differences)
 BuildRequires:  perl(blib)
 BuildRequires:  perl(DBM::Deep)
 BuildRequires:  perl(experimental)
+BuildRequires:  perl(feature)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Math::BigInt)
 BuildRequires:  perl(Moose)
@@ -77,6 +78,7 @@ BuildRequires:  perl(overload)
 BuildRequires:  perl(Readonly)
 BuildRequires:  perl(Test::More) >= 0.88
 Requires:       perl(CPAN::DistnameInfo)
+Requires:       perl(CPAN::Meta)
 # CPAN::Releases::Latest not yet packaged
 # JSON or JSON::PP by Devel::Cover::DB::IO::JSON
 Requires:       perl(JSON)
@@ -101,15 +103,13 @@ indirect measure of quality.
 find lib -type f -print0 | xargs -0 chmod 0644
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS"
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS" NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -delete
+%{make_install}
 find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -124,6 +124,11 @@ make test
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Fri May 26 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.40-1
+- 1.40 bump
+- Modernize spec
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.36-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

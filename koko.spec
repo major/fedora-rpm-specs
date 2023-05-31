@@ -34,8 +34,15 @@ BuildRequires: cmake(Qt5QuickControls2)
 BuildRequires: cmake(Qt5Svg)
 BuildRequires: cmake(Qt5X11Extras)
 
-Requires:      kf5-purpose
-Requires:      kquickimageeditor
+# QML module dependencies
+Requires:      kf5-kdeclarative%{?_isa}
+Requires:      kf5-kirigami2%{?_isa}
+Requires:      kf5-kirigami2-addons%{?_isa}
+Requires:      kf5-purpose%{?_isa}
+Requires:      kquickimageeditor%{?_isa}
+Requires:      qt5-qtgraphicaleffects%{?_isa}
+Requires:      qt5-qtmultimedia%{?_isa}
+Requires:      qt5-qtquickcontrols2%{?_isa}
 
 %description
 %{summary}.

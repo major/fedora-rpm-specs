@@ -18,6 +18,7 @@ Source0:        https://github.com/RemiArnaud/OpenCOLLADA/archive/v%{version}-ma
 Patch0:         OpenCOLLADA-cmake.patch
 Patch1:         OpenCOLLADA-pcre.patch
 Patch2:         openCOLLADA-daevalidator.patch
+Patch3:         openCOLLADA-pragma.patch
 
 BuildRequires:  cmake gcc-c++
 BuildRequires:  dos2unix
@@ -89,6 +90,7 @@ find htdocs/ -name *.css -exec dos2unix -f {} \;
 
 
 %build
+export CXXFLAGS="%{optflags} -Wno-error"
 %cmake -DUSE_STATIC=OFF \
        -DUSE_SHARED=ON \
        -Dsoversion=%{sover} \

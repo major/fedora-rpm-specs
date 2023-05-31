@@ -185,6 +185,15 @@ BuildRequires: fdupes
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 
+# QML module dependencies
+Requires: kf5-kirigami2%{?_isa}
+Requires: kf5-kirigami2-addons%{?_isa}
+Requires: kf5-kquickcharts%{?_isa}
+Requires: qt5-qtgraphicaleffects%{?_isa}
+Requires: qt5-qtquickcontrols2%{?_isa}
+Requires: qt5-qtwebchannel%{?_isa}
+Requires: qt5-qtwebengine%{?_isa}
+
 %if 0%{?fedora} || 0%{?epel} > 7
 # handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
 # Package doesn't build on arches that qtwebengine is not built on.
@@ -221,5 +230,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.ar
 %{_datadir}/qlogging-categories5/arianna.categories
 
 %changelog
+* Mon May 29 2023 Steve Cossette <farchord@gmail.com> - 1.0.1-2
+- Added more install dependancies
+
 * Sun May 21 2023 Steve Cossette <farchord@gmail.com> - 1.0.1-1
 - Initial release

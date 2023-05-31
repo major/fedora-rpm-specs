@@ -47,7 +47,7 @@
 
 # Do not forget to bump pam_ssh_agent_auth release if you rewind the main package release to 1
 %global openssh_ver 9.0p1
-%global openssh_rel 17
+%global openssh_rel 18
 %global pam_ssh_agent_ver 0.10.4
 %global pam_ssh_agent_rel 8
 
@@ -247,6 +247,10 @@ Patch1011: openssh-9.0p1-evp-fips-sign.patch
 Patch1012: openssh-9.0p1-evp-fips-dh.patch
 Patch1013: openssh-9.0p1-evp-fips-ecdh.patch
 Patch1014: openssh-8.7p1-nohostsha1proof.patch
+Patch1015: openssh-9.0p1-evp-pkcs11.patch
+
+# clarify rhbz#2068423 on the man page of ssh_config
+Patch1016: openssh-9.0p1-man-hostkeyalgos.patch
 
 License: BSD
 Requires: /sbin/nologin
@@ -460,6 +464,9 @@ popd
 %patch1012 -p1 -b .evp-fips-dh
 %patch1013 -p1 -b .evp-fips-ecdh
 %patch1014 -p1 -b .nosha1hostproof
+%patch1015 -p1 -b .evp-pkcs11
+
+%patch1016 -p1 -b .man-hostkeyalgos
 
 %patch100 -p1 -b .coverity
 
@@ -767,6 +774,11 @@ test -f %{sysconfig_anaconda} && \
 %endif
 
 %changelog
+* Wed May 24 2023 Norbert Pocs <npocs@redhat.com> - 9.0p1-18
+- Fix pkcs11 issue with the recent changes
+- Add support for 'serial' in PKCS#11 URI
+- Clarify HostKeyAlgorithms relation with crypto-policies
+
 * Fri Apr 14 2023 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.0p1-17
 - In case when sha1 signatures are not supported, fallback to sha2 in hostproof
 - Audit logging patch was not applied (rhbz#2177471)

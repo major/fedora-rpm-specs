@@ -67,12 +67,12 @@
 %endif
 
 Name: %{ghc_name}
-Version: 9.2.7
+Version: 9.2.8
 # Since library subpackages are versioned:
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 17%{?dist}
+Release: 18%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause and HaskellReport
@@ -88,8 +88,6 @@ Source7: runghc.man
 # https://bugzilla.redhat.com/show_bug.cgi?id=2142238
 ExcludeArch: armv7hl
 
-# https://gitlab.haskell.org/ghc/ghc/-/issues/19421 (m32_allocator_init)
-Patch0: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/10453.patch
 # absolute haddock path (was for html/libraries -> libraries)
 Patch1: ghc-gen_contents_index-haddock-path.patch
 Patch2: ghc-Cabal-install-PATH-warning.patch
@@ -405,7 +403,6 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %prep
 %setup -q -n ghc-%{version} %{?with_testsuite:-b1}
 
-%patch -P0 -p1 -b .orig
 %patch -P1 -p1 -b .orig
 %patch -P3 -p1 -b .orig
 
@@ -973,6 +970,10 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Mon May 29 2023 Jens Petersen <petersen@redhat.com> - 9.2.8-18
+- update to 9.2.8
+- https://downloads.haskell.org/~ghc/9.2.8/docs/html/users_guide/9.2.8-notes.html
+
 * Thu May 25 2023 Jens Petersen <petersen@redhat.com> - 9.2.7-17
 - include backport of 9.4 m32_allocator_init changes by Sylvain Henry (#2209162)
 - SPDX migration of license tags

@@ -31,6 +31,12 @@ BuildRequires: cmake(Qt5Feedback)
 BuildRequires: cmake(Qt5Quick)
 BuildRequires: cmake(Qt5QuickControls2)
 
+# QML module dependencies
+Requires:  kf5-kirigami2%{?_isa}
+Requires:  qt5-qtfeedback%{?_isa}
+Requires:  qt5-qtgraphicaleffects%{?_isa}
+Requires:  qt5-qtquickcontrols2%{?_isa}
+
 %description
 %{summary}.
 

@@ -1,17 +1,20 @@
+# noarch, but to avoid *.list files interfering with manifest test
+%global debug_package %{nil}
+
 Name:           perl-Test-TinyMocker
 Version:        0.05
 Release:        27%{?dist}
 Summary:        A very simple tool to mock external modules
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-TinyMocker
-Source0:        https://cpan.metacpan.org/authors/id/S/SU/SUKRIA/Test-TinyMocker-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/modules/by-module/Test/Test-TinyMocker-%{version}.tar.gz
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.30
 # Module
 BuildRequires:  perl(base)
@@ -22,11 +25,15 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 # Test Suite
 BuildRequires:  perl(Test::More) >= 0.88
-# Optional Tests
+# Release Tests
 BuildRequires:  perl(Pod::Coverage) >= 0.18
+BuildRequires:  perl(Pod::Coverage::TrustPod)
+BuildRequires:  perl(Test::CheckManifest) >= 0.9
 BuildRequires:  perl(Test::Pod) >= 1.22
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.08
+BuildRequires:  perl(Test::Vars)
 # Dependencies
+# (none)
 
 %description
 This module allows you to override methods with arbitrary code blocks. This lets
@@ -45,7 +52,7 @@ find %{buildroot} -type f -name .packlist -delete
 %{_fixperms} %{buildroot}
 
 %check
-make test
+make test RELEASE_TESTING=1
 
 %files
 %license LICENSE

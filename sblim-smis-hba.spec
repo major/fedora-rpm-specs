@@ -2,10 +2,10 @@
 
 Name:           sblim-smis-hba
 Version:        1.0.0
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        SBLIM SMIS HBA HDR Providers
 
-License:        EPL
+License:        EPL-1.0
 URL:            http://sblim.wiki.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/sblim/%{name}-%{version}.tar.bz2
 
@@ -40,15 +40,7 @@ SMI-S standards based HBA CMPI Providers.
 
 %prep
 %setup -q
-%patch0 -p1 -b .no-testsuite
-%patch1 -p2 -b .include
-%patch2 -p1 -b .registration-fix
-%patch3 -p0 -b .pegasus-registration
-%patch4 -p1 -b .doc-path
-%patch5 -p1 -b .prov-reg-sfcb-systemd
-%patch6 -p1 -b .pegasus-interop
-%patch7 -p1 -b .fix-multiple-definition
-%patch8 -p1
+%autopatch -p1
 autoreconf -if
 
 
@@ -92,6 +84,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/cmpi/*a
 %sblim_preun
 
 %changelog
+* Mon May 29 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.0.0-33
+- SPDX migration
+
 * Fri Apr 14 2023 Florian Weimer <fweimer@redhat.com> - 1.0.0-32
 - Port to C99
 

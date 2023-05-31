@@ -32,6 +32,12 @@ BuildRequires:  cmake(KF5Syndication)    >= %{kf5_min_version}
 BuildRequires:  cmake(KF5ThreadWeaver)   >= %{kf5_min_version}
 BuildRequires:  kf5-rpm-macros           >= %{kf5_min_version}
 
+# QML module dependencies
+Requires:  kf5-kirigami2%{?_isa}
+Requires:  kf5-kirigami2-addons%{?_isa}
+Requires:  qt5-qtgraphicaleffects%{?_isa}
+Requires:  qt5-qtquickcontrols2%{?_isa}
+
 %description
 %{summary}.
 

@@ -14,8 +14,8 @@ Summary:        Tool to list X11 core protocol fonts
 #   - FSFUL, or perhaps (FSFUL AND X11 AND HPND-sell-variant): configure
 License:        X11
 URL:            https://www.x.org
-Source0:        %{url}/pub/individual/app/%{name}-%{version}.tar.xz
-Source1:        %{url}/pub/individual/app/%{name}-%{version}.tar.xz.sig
+Source0:        %{url}/pub/individual/app/xfontsel-%{version}.tar.xz
+Source1:        %{url}/pub/individual/app/xfontsel-%{version}.tar.xz.sig
 # Keyring created on 2021-02-23 with:
 #   workdir="$(mktemp --directory)"
 #   gpg2 --with-fingerprint xfontsel-1.0.6.tar.bz2.sig 2>&1 |
@@ -30,7 +30,7 @@ Source1:        %{url}/pub/individual/app/%{name}-%{version}.tar.xz.sig
 # Since the SKS Keyserver Network is no longer online, you can reproduce by
 # substituting:
 #   --keyserver=hkps://keys.openpgp.org
-Source2:        %{name}.gpg
+Source2:        xfontsel.gpg
 
 BuildRequires:  gnupg2
 
@@ -49,7 +49,7 @@ BuildRequires:  pkgconfig(xorg-macros) >= 1.8
 Obsoletes:      xorg-x11-apps < 7.7-31
 
 %description
-The %{name} application provides a simple way to display the X11 core protocol
+The xfontsel application provides a simple way to display the X11 core protocol
 fonts known to your X server, examine samples of each, and retrieve the X
 Logical Font Description (“XLFD”) full name for a font.
 

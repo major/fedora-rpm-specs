@@ -1,6 +1,6 @@
 Name:           waybar
-Version:        0.9.17
-Release:        2%{?dist}
+Version:        0.9.18
+Release:        1%{?dist}
 Summary:        Highly customizable Wayland bar for Sway and Wlroots based compositors
 # Source files/overall project licensed as MIT, but
 # - BSL-1.0
@@ -15,14 +15,11 @@ Summary:        Highly customizable Wayland bar for Sway and Wlroots based compo
 #   * src/util/rfkill.cpp
 License:        MIT AND BSL-1.0 AND ISC
 URL:            https://github.com/Alexays/Waybar
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-# https://github.com/Alexays/Waybar/pull/1959
-Patch0:         waybar-0.9.17-test-fix-build-with-Catch2-v2.x.patch
-Patch1:         waybar-0.9.17-fix-sway-add-missing-includes-for-GCC-13.patch
+Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  meson >= 0.49.0
+BuildRequires:  meson >= 0.50.0
 BuildRequires:  scdoc
 BuildRequires:  systemd-rpm-macros
 
@@ -54,8 +51,7 @@ BuildRequires:  pkgconfig(wireplumber-0.4)
 BuildRequires:  pkgconfig(xkbregistry)
 
 Enhances:       sway
-Recommends:     (font(fontawesome5free) or font(fontawesome))
-Suggests:       font(fontawesome5free)
+Recommends:     (font(fontawesome6free) or font(fontawesome5free))
 
 %description
 %{summary}.
@@ -65,6 +61,7 @@ Suggests:       font(fontawesome5free)
 
 %build
 %meson \
+    -Dcava=disabled  \
     -Dsndio=disabled
 %meson_build
 
@@ -92,6 +89,10 @@ Suggests:       font(fontawesome5free)
 %{_userunitdir}/%{name}.service
 
 %changelog
+* Mon May 29 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.9.18-1
+- Update to 0.9.18
+- Recommend Font Awesome 6 for F39
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.17-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

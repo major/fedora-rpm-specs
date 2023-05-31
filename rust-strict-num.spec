@@ -5,7 +5,7 @@
 %global crate strict-num
 
 Name:           rust-strict-num
-Version:        0.1.0
+Version:        0.1.1
 Release:        %autorelease
 Summary:        Collection of bounded numeric types
 
@@ -31,6 +31,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

@@ -9,9 +9,9 @@
 Name:    qt6ct
 Version: 0.8
 %if 0%{?usesnapshot}
-Release: 0.2%{?snapshottag}%{?dist}
+Release: 0.3%{?snapshottag}%{?dist}
 %else
-Release: 2%{?dist}
+Release: 3%{?dist}
 %endif
 Summary: Qt6 - Configuration Tool
 
@@ -83,6 +83,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/libqt6ct-common.so.%{version}*
 
 %changelog
+* Mon May 29 2023 Jan Grulich <jgrulich@redhat.com> - 0.8-3
+- Rebuild (qt6)
+
 * Thu May 18 2023 Martin Gansser <martinkg@fedoraproject.org> - 0.8-2
 - Rebuilt against new qt6 version
 

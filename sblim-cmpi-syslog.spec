@@ -3,8 +3,8 @@
 Summary:        SBLIM syslog instrumentation
 Name:           sblim-cmpi-syslog
 Version:        0.9.0
-Release:        24%{?dist}
-License:        EPL
+Release:        25%{?dist}
+License:        EPL-1.0
 URL:            http://sourceforge.net/projects/sblim/
 # The source for this package was pulled from upstream's vcs.  Use the
 # following commands to generate the tarball:
@@ -55,12 +55,7 @@ SBLIM Base Syslog Testcase Files for SBLIM Testsuite
 
 %prep
 %setup -q
-%patch0 -p1 -b .interop
-%patch1 -p1 -b .docdir
-%patch2 -p1 -b .prov-reg-sfcb-systemd
-%patch3 -p1 -b .format-security
-%patch4 -p1 -b .buffer-overflow-remove-tmpnam
-%patch5 -p1
+%autopatch -p1
 # removing COPYING, because it's misleading
 rm -f COPYING
 # ./autoconfiscate.sh
@@ -130,6 +125,9 @@ $RPM_BUILD_ROOT/%{_datadir}/sblim-testsuite/system/linux/messagelog.sh
 %postun -p /sbin/ldconfig
 
 %changelog
+* Mon May 29 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 0.9.0-25
+- SPDX migration
+
 * Mon Apr 17 2023 Florian Weimer <fweimer@redhat.com> - 0.9.0-24
 - Port to C99
 

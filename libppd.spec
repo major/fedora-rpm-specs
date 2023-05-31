@@ -8,7 +8,7 @@
 Name:           libppd
 Epoch:          1
 Version:        2.0~rc1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library for retro-fitting legacy printer drivers
 
 # the CUPS exception text is the same as LLVM exception, so using that name with
@@ -22,6 +22,8 @@ Source0:        %{URL}/releases/download/%{upstream_version}/%{name}-%{upstream_
 # Patches
 # https://github.com/OpenPrinting/libppd/pull/18
 Patch0001: libppd-disable-testppdfile.patch
+# https://github.com/OpenPrinting/libppd/pull/21
+Patch0002: 0001-ppd-ppd-ipp.c-Use-make-when-constructing-printer-mak.patch
 
 
 # for autogen.sh
@@ -194,6 +196,9 @@ rm -rf %{buildroot}%{_datadir}/ppdc
 %endif
 
 %changelog
+* Mon May 29 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0~rc1-2
+- 2192912 - [Utax, Kyocera, Brother] pdftops hacks are not applied due missing manufacturer in printer-make-and-model
+
 * Thu Apr 27 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0~rc1-1
 - 2.0rc1
 

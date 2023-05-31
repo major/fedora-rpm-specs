@@ -5,7 +5,7 @@ Summary:        Python implementation of postgres meta (backslash) commands
 
 License:        BSD-3-Clause
 URL:            https://www.dbcli.com
-Source0:        %{pypi_source pgspecial}
+Source:         %{pypi_source pgspecial}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

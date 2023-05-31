@@ -11,7 +11,7 @@ Summary:        2D vector and rectangle library
 # SPDX
 License:        MIT
 URL:            https://github.com/kxgames/vecrec
-Source0:        %{pypi_source vecrec}
+Source:         %{pypi_source vecrec}
 
 BuildArch:      noarch
 

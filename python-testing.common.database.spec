@@ -5,7 +5,7 @@ Summary:        Utilities for testing.* packages
 
 License:        Apache-2.0
 URL:            https://github.com/tk0miya/testing.common.database
-Source0:        %{pypi_source testing.common.database}
+Source:         %{pypi_source testing.common.database}
 
 # Support Callable in collections.abc
 # https://github.com/tk0miya/testing.common.database/pull/25

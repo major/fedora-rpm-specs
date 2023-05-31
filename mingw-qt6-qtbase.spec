@@ -218,6 +218,10 @@ ln -s %{_prefix}/%{mingw64_target}/bin/qt6/qt-cmake %{buildroot}%{_bindir}/%{min
 sed -i "1i CROSS_COMPILE=%{mingw32_target}-" %{buildroot}%{mingw32_libdir}/qt6/mkspecs/win32-g++/qmake.conf
 sed -i "1i CROSS_COMPILE=%{mingw64_target}-" %{buildroot}%{mingw64_libdir}/qt6/mkspecs/win32-g++/qmake.conf
 
+# FIXME Remove files which should not get installed?
+rm -rf %{buildroot}/%{mingw32_libdir}/objects-RelWithDebInfo/
+rm -rf %{buildroot}/%{mingw64_libdir}/objects-RelWithDebInfo/
+
 
 # Win32
 %files -n mingw32-qt6-qtbase
@@ -238,6 +242,7 @@ sed -i "1i CROSS_COMPILE=%{mingw64_target}-" %{buildroot}%{mingw64_libdir}/qt6/m
 %{mingw32_libdir}/libQt6Concurrent.dll.a
 %{mingw32_libdir}/libQt6Core.dll.a
 %{mingw32_libdir}/libQt6DBus.dll.a
+%{mingw32_libdir}/libQt6ExampleIcons.a
 %{mingw32_libdir}/libQt6Gui.dll.a
 %{mingw32_libdir}/libQt6Network.dll.a
 %{mingw32_libdir}/libQt6OpenGL.dll.a
@@ -255,6 +260,7 @@ sed -i "1i CROSS_COMPILE=%{mingw64_target}-" %{buildroot}%{mingw64_libdir}/qt6/m
 %{mingw32_libdir}/Qt6DBus.prl
 %{mingw32_libdir}/Qt6DeviceDiscoverySupport.prl
 %{mingw32_libdir}/Qt6EntryPoint.prl
+%{mingw32_libdir}/Qt6ExampleIcons.prl
 %{mingw32_libdir}/Qt6FbSupport.prl
 %{mingw32_libdir}/Qt6Gui.prl
 %{mingw32_libdir}/Qt6Network.prl
@@ -277,6 +283,7 @@ sed -i "1i CROSS_COMPILE=%{mingw64_target}-" %{buildroot}%{mingw64_libdir}/qt6/m
 %{mingw32_libdir}/qt6/metatypes/qt6core_relwithdebinfo_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6dbus_relwithdebinfo_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6devicediscoverysupportprivate_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6exampleiconsprivate_relwithdebinfo_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6fbsupportprivate_relwithdebinfo_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6gui_relwithdebinfo_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6network_relwithdebinfo_metatypes.json
@@ -335,6 +342,7 @@ sed -i "1i CROSS_COMPILE=%{mingw64_target}-" %{buildroot}%{mingw64_libdir}/qt6/m
 %{mingw32_libdir}/cmake/Qt6DBus/
 %{mingw32_libdir}/cmake/Qt6DeviceDiscoverySupportPrivate/
 %{mingw32_libdir}/cmake/Qt6EntryPointPrivate/
+%{mingw32_libdir}/cmake/Qt6ExampleIconsPrivate/
 %{mingw32_libdir}/cmake/Qt6FbSupportPrivate/
 %{mingw32_libdir}/cmake/Qt6Gui/
 %{mingw32_libdir}/cmake/Qt6HostInfo/
@@ -391,6 +399,7 @@ sed -i "1i CROSS_COMPILE=%{mingw64_target}-" %{buildroot}%{mingw64_libdir}/qt6/m
 %{mingw64_libdir}/libQt6Concurrent.dll.a
 %{mingw64_libdir}/libQt6Core.dll.a
 %{mingw64_libdir}/libQt6DBus.dll.a
+%{mingw64_libdir}/libQt6ExampleIcons.a
 %{mingw64_libdir}/libQt6Gui.dll.a
 %{mingw64_libdir}/libQt6Network.dll.a
 %{mingw64_libdir}/libQt6OpenGL.dll.a
@@ -408,6 +417,7 @@ sed -i "1i CROSS_COMPILE=%{mingw64_target}-" %{buildroot}%{mingw64_libdir}/qt6/m
 %{mingw64_libdir}/Qt6DBus.prl
 %{mingw64_libdir}/Qt6DeviceDiscoverySupport.prl
 %{mingw64_libdir}/Qt6EntryPoint.prl
+%{mingw64_libdir}/Qt6ExampleIcons.prl
 %{mingw64_libdir}/Qt6FbSupport.prl
 %{mingw64_libdir}/Qt6Gui.prl
 %{mingw64_libdir}/Qt6Network.prl
@@ -430,6 +440,7 @@ sed -i "1i CROSS_COMPILE=%{mingw64_target}-" %{buildroot}%{mingw64_libdir}/qt6/m
 %{mingw64_libdir}/qt6/metatypes/qt6core_relwithdebinfo_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6dbus_relwithdebinfo_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6devicediscoverysupportprivate_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6exampleiconsprivate_relwithdebinfo_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6fbsupportprivate_relwithdebinfo_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6gui_relwithdebinfo_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6network_relwithdebinfo_metatypes.json
@@ -488,6 +499,7 @@ sed -i "1i CROSS_COMPILE=%{mingw64_target}-" %{buildroot}%{mingw64_libdir}/qt6/m
 %{mingw64_libdir}/cmake/Qt6DBus/
 %{mingw64_libdir}/cmake/Qt6DeviceDiscoverySupportPrivate/
 %{mingw64_libdir}/cmake/Qt6EntryPointPrivate/
+%{mingw64_libdir}/cmake/Qt6ExampleIconsPrivate/
 %{mingw64_libdir}/cmake/Qt6FbSupportPrivate/
 %{mingw64_libdir}/cmake/Qt6Gui/
 %{mingw64_libdir}/cmake/Qt6HostInfo/

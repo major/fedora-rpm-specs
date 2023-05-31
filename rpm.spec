@@ -32,7 +32,7 @@
 
 %global rpmver 4.18.90
 #global snapver rc1
-%global baserelease 8
+%global baserelease 9
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -154,6 +154,7 @@ rpm-4.18.90-weak-user-group.patch
 0001-Enable-large-file-support-on-32-bit-systems-again.patch
 0001-Use-mkdir-p-for-creating-SPECPARTS-dir.patch
 0001-Fix-undefined-symbols-from-plugins-in-some-circumsta.patch
+0001-Revert-_smp_build_ncpus-change-to-a-parametric-macro.patch
 
 # These are not yet upstream
 rpm-4.7.1-geode-i686.patch
@@ -630,6 +631,9 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Mon May 29 2023 Panu Matilainen <pmatilai@redhat.com> - 4.18.90-9
+- Revert %%_smp_build_ncpus macro changing to parametric (#2210347)
+
 * Thu May 25 2023 Florian Festi <ffesti@redhat.com> - 4.18.90-8
 - Set %_sharedstatedir to /var/lib (#2209989)
 

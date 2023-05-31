@@ -22,7 +22,6 @@ BuildRequires:  python3dist(sphinx)
 
 # Required for running tests
 BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(pytest-randomly)
 
 
 %global _description %{expand:

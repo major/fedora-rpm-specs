@@ -30,9 +30,9 @@
 %global github_owner    os-autoinst
 %global github_name     os-autoinst
 %global github_version  4.6
-%global github_commit   6802f4479120a2954adbfba6dbe2779842c5ac91
+%global github_commit   1946eb18d76980581d842e1e2569dee33e5a5b45
 # if set, will be a post-release snapshot build, otherwise a 'normal' build
-%global github_date     20230418
+%global github_date     20230527
 %global shortcommit     %(c=%{github_commit}; echo ${c:0:7})
 
 Name:           os-autoinst
@@ -42,9 +42,6 @@ Summary:        OS-level test automation
 License:        GPLv2+
 URL:            https://os-autoinst.github.io/openQA/
 Source0:        https://github.com/%{github_owner}/%{github_name}/archive/%{github_commit}/%{github_name}-%{github_commit}.tar.gz
-# https://github.com/os-autoinst/os-autoinst/pull/2303
-# Fix tests with Fedora tesseract data location
-Patch0:         0001-Drop-setting-of-TESSDATA_PREFIX-in-invoke-tests.patch
 
 # on SUSE this is conditional, for us it doesn't have to be but we
 # still use a macro just to keep build_requires similar for ease of
@@ -99,6 +96,8 @@ Recommends:     tesseract
 Recommends:     qemu >= 4.0.0
 Recommends:     qemu-kvm
 Recommends:     /usr/bin/qemu-img
+# For chattr, see SUSE 'qemu_requires'
+Recommends:     e2fsprogs
 # Optional dependency for Python test API support
 Recommends:     perl(Inline::Python)
 BuildRequires:  %test_requires %test_version_only_requires
@@ -244,6 +243,9 @@ rm tools/lib/perlcritic/Perl/Critic/Policy/*.pm
 %files devel
 
 %changelog
+* Fri May 26 2023 Adam Williamson <awilliam@redhat.com> - 4.6^20230527git1946eb1-1
+- Update to latest git, drop merged patch, sync spec
+
 * Wed Apr 19 2023 Adam Williamson <awilliam@redhat.com> - 4.6^20230418git6802f44-1
 - Update to latest git, re-enable OCR tests
 

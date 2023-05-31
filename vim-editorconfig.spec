@@ -1,6 +1,3 @@
-# Upstream project name:
-%global srcname editorconfig-vim
-
 # Currently, rubygem(vimrunner) is not packaged so we cannot run the plugin
 # tests. Some other work may be required to get them running. See also
 # https://github.com/editorconfig/editorconfig-vim/issues/150.
@@ -31,8 +28,8 @@ Release:        %autorelease
 #   - autoload/editorconfig_core/fnmatch.vim
 #   - autoload/editorconfig_core/ini.vim
 License:        BSD-2-Clause AND (BSD-2-Clause AND PSF-2.0)
-URL:            https://github.com/editorconfig/%{srcname}
-Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
+URL:            https://github.com/editorconfig/editorconfig-vim
+Source0:        %{url}/archive/v%{version}/editorconfig-vim-%{version}.tar.gz
 Source1:        %{core_tests_url}/archive/v%{core_tests_version}/editorconfig-core-test-%{core_tests_version}.tar.gz
 # Files in this source are licensed CC-BY; however, nothing derived from them
 # is installed, so this does not affect the License field.
@@ -63,16 +60,16 @@ This is an EditorConfig plugin for Vim.
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n editorconfig-vim-%{version}
 
 # Copy in the editorconfig core and plugin tests from the respective GitHub
 # tarballs.
 rm -rvf tests/core/tests
-%setup -q -T -D -b 1 -n %{srcname}-%{version}
+%setup -q -T -D -b 1 -n editorconfig-vim-%{version}
 cp -rp ../editorconfig-core-test-%{core_tests_version} tests/core/tests
 %if %{with plugin_tests}
 rm -rvf tests/plugin/spec/plugin_tests
-%setup -q -T -D -b 2 -n %{srcname}-%{version}
+%setup -q -T -D -b 2 -n editorconfig-vim-%{version}
 cp -rp ../editorconfig-plugin-tests-%{plugin_tests_commit} \
     tests/plugin/spec/plugin_tests
 %endif

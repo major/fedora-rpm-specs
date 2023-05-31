@@ -4,7 +4,7 @@
 %global crate yubibomb
 
 Name:           rust-yubibomb
-Version:        0.2.12
+Version:        0.2.13
 Release:        %autorelease
 Summary:        Rust command line tool that prints out a 6-digit random number
 

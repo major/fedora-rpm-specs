@@ -14,7 +14,7 @@ Summary:        Python wrapper for the OpenType Sanitizer
 
 License:        BSD-3-Clause
 URL:            https://github.com/googlefonts/ots-python
-Source0:        %{url}/archive/v%{version}/ots-python-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/ots-python-%{version}.tar.gz
 
 BuildArch:      noarch
 

@@ -5,7 +5,7 @@
 %global crate notify-rust
 
 Name:           rust-notify-rust
-Version:        4.7.0
+Version:        4.8.0
 Release:        %autorelease
 Summary:        Show desktop notifications
 
@@ -15,6 +15,9 @@ URL:            https://crates.io/crates/notify-rust
 Source:         %{crates_source}
 # Automatically generated patch to strip foreign dependencies
 Patch:          notify-rust-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+# * remove references to examples which are not included in published crates
+Patch:          notify-rust-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
@@ -53,6 +56,18 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+async-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+async-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "async" feature of the "%{crate}" crate.
+
+%files       -n %{name}+async-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+d-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -87,6 +102,18 @@ This package contains library source intended for building other packages which
 use the "debug_namespace" feature of the "%{crate}" crate.
 
 %files       -n %{name}+debug_namespace-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+env_logger-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+env_logger-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "env_logger" feature of the "%{crate}" crate.
+
+%files       -n %{name}+env_logger-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+image-devel

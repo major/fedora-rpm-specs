@@ -7,7 +7,7 @@ Summary:        Easy throttling with asyncio support
 License:        MIT
 URL:            https://github.com/uburuntu/throttler
 # GitHub archive contains tests and examples; PyPI sdist does not
-Source0:        %{url}/archive/v%{version}/throttler-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/throttler-%{version}.tar.gz
 
 BuildArch:      noarch
 

@@ -10,7 +10,7 @@ Release:        %autorelease
 # SPDX
 License:        MIT
 URL:            https://github.com/microsoft/sarif-python-om
-Source0:        %{pypi_source sarif_om}
+Source:         %{pypi_source sarif_om}
 
 BuildArch:      noarch
 

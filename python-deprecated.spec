@@ -2,48 +2,77 @@
 %global pkgname deprecated
 
 Name:           python-%{pkgname}
-Version:        1.2.13
-Release:        4%{?dist}
+Version:        1.2.14
+Release:        1%{?dist}
 Summary:        Python decorator to deprecate old python classes, functions or methods
 License:        MIT
 URL:            https://github.com/tantale/%{pkgname}
 Source0:        %{pypi_source}
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
-
-%global _description %{expand:
-Python @deprecated decorator to deprecate old python classes, functions or
-methods.}
-
-%description %{_description}
+%description
+Python @deprecated decorator to deprecate old python classes,
+functions or methods.
 
 %package -n python3-%{pkgname}
 Summary:        %{summary}
-%description -n python3-%{pkgname} %{_description}
+BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
+%{?python_provide:%python_provide python3-%{pkgname}}
+
+%description -n python3-%{pkgname}
+Python @deprecated decorator to deprecate old python classes,
+functions or methods.
 
 %prep
 %autosetup -n %{srcname}-%{version}
-
-%generate_buildrequires
-%pyproject_buildrequires -r
+rm -rf %{pkgname}.egg-info
 
 %build
-%pyproject_wheel
+%py3_build
 
 %install
-%pyproject_install
-%pyproject_save_files %{pkgname}
+%py3_install
 
-%check
-%pyproject_check_import
-
-%files -n python3-%{pkgname} -f %{pyproject_files}
+%files -n python3-%{pkgname}
 %license LICENSE.rst
 %doc README.md
+%{python3_sitelib}/%{pkgname}/
+%{python3_sitelib}/%{srcname}-*.egg-info/
 
 
 %changelog
+* Sat May 27 2023 Packit <hello@packit.dev> - 1.2.14-1
+- Drops seemingly unused importlib-metadata dev dep (Colin Dean)
+- Fixes comment on which version is development branch (Colin Dean)
+- Adds Pythons dropped notice to changelog (Colin Dean)
+- Drops limitation on tox < 4 since bug was fixed (Colin Dean)
+- Adds srpm_build_deps to Packit config (Colin Dean)
+- Try explicitly setting AppVeyor image to VS2022 (Colin Dean)
+- Exclude pypy3 on ppc64le on Travis builds (Colin Dean)
+- Drops old Pythons and adds newer ones for Appveyor build (Colin Dean)
+- Drop the .9 from pypy3 in tox.ini (Colin Dean)
+- Use specifically pypy3.9 v7.3.9 (Colin Dean)
+- Adds Python 3.12 config to tox (Colin Dean)
+- Limit tox to <4 on Travis because of outdatedness (Colin Dean)
+- Try installing importlib_metadata for tox run (Colin Dean)
+- Use newer Travis environment, Focal (Ubuntu 20.04) (Colin Dean)
+- Adds importlib-metadata to dev deps (Colin Dean)
+- Split and fix tox config for more better coverage (Colin Dean)
+- Dropping support for Python older than v3.7 in build systems like pytest and tox, while ensuring the library remains production-compatible. (Colin Dean)
+- Drops Python 2.7, 3.5, 3.6 builds from Travis; add 3.12 (Colin Dean)
+- Upgrades some actions versions in Actions python builds (Colin Dean)
+- Drops Actions builds for Python 2.7, 3.5, 3.6; condense 3.7+ (Colin Dean)
+- Bump checkout to v3 in CodeQL Analysis workflow (Colin Dean)
+- Add support for Python 3.11 (Hugo van Kemenade)
+- edit changelog (Pierrick Rambaud)
+- add test for D213 docstrings (Pierrick Rambaud)
+- work with empty docstring (Pierrick Rambaud)
+- fix: digest D212 and D213 docstring (Pierrick Rambaud)
+- Add support for Python 3.10 (Hugo van Kemenade)
+- Prepare next version 1.2.14 (unreleased) (Laurent LAPORTE)
+- Minor change in bumpversion  configuration to also bump the project version in "appveyor.xml". (Laurent LAPORTE)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.13-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

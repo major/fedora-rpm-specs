@@ -12,7 +12,7 @@ Summary:        Socket.IO server
 # SPDX
 License:        MIT
 URL:            https://github.com/miguelgrinberg/python-socketio
-Source0:        %{url}/archive/v%{version}/python-socketio-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/python-socketio-%{version}.tar.gz
 
 # Downstream-only: patch out test coverage analysis
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters

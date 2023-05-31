@@ -5,7 +5,7 @@
 %global crate pep440_rs
 
 Name:           rust-pep440_rs
-Version:        0.3.6
+Version:        0.3.9
 Release:        %autorelease
 Summary:        Library for python version numbers and specifiers, implementing PEP 440
 

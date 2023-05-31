@@ -1,9 +1,9 @@
 Name:           sblim-cmpi-rpm
 Version:        1.0.1
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        CIM access to installed software packages (currently RPMs)
 
-License:        CPL
+License:        CPL-1.0
 URL:            http://sblim.wiki.sourceforge.net/ProviderCmpiRpm
 Source0:        http://downloads.sourceforge.net/sblim/%{name}-%{version}.tar.bz2
 Patch0:         sblim_cmpi_rpm_ldl_library.patch
@@ -25,10 +25,7 @@ and provide some more details about them.
 %setup -q
 
 # Patch added to fix the missing definitions of dlopen, dlsym, dlerror.
-%patch0
-%patch1 -p1 -b .docdir
-%patch2 -p1 -b .page-size
-%patch3 -p1 -b .configure-c99
+%autopatch -p1
 
 
 %build
@@ -166,6 +163,9 @@ fi
 
 
 %changelog
+* Mon May 29 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.0.1-35
+- SPDX migration
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

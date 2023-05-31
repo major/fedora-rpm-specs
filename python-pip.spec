@@ -6,7 +6,7 @@
 %bcond doc %[%{defined fedora} || %{defined epel}]
 
 %global srcname pip
-%global base_version 23.0.1
+%global base_version 23.1.2
 %global upstream_version %{base_version}%{?prerel}
 %global python_wheel_name %{srcname}-%{upstream_version}-py3-none-any.whl
 
@@ -14,7 +14,7 @@
 
 Name:           python-%{srcname}
 Version:        %{base_version}%{?prerel:~%{prerel}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        A tool for installing and managing Python packages
 
 # We bundle a lot of libraries with pip, which itself is under MIT license.
@@ -83,10 +83,6 @@ Patch:          nowarn-pip._internal.main.patch
 # Upstream issue: https://github.com/pypa/packaging/issues/368
 Patch:          no-version-warning.patch
 
-# Fix compatibility with Sphinx 6+, merged upstream
-Patch:          https://github.com/pypa/pip/pull/11883.patch
-Patch:          https://github.com/pypa/pip/pull/11904.patch
-
 # Downstream only patch
 # Users might have local installations of pip from using
 # `pip install --user --upgrade pip` on older/newer versions.
@@ -129,21 +125,21 @@ Provides: bundled(python%{1}dist(colorama)) = 0.4.6
 Provides: bundled(python%{1}dist(distlib)) = 0.3.6
 Provides: bundled(python%{1}dist(distro)) = 1.8
 Provides: bundled(python%{1}dist(idna)) = 3.4
-Provides: bundled(python%{1}dist(msgpack)) = 1.0.4
+Provides: bundled(python%{1}dist(msgpack)) = 1.0.5
 Provides: bundled(python%{1}dist(packaging)) = 21.3
-Provides: bundled(python%{1}dist(platformdirs)) = 2.6.2
-Provides: bundled(python%{1}dist(pygments)) = 2.13
+Provides: bundled(python%{1}dist(platformdirs)) = 3.2
+Provides: bundled(python%{1}dist(pygments)) = 2.14
 Provides: bundled(python%{1}dist(pyparsing)) = 3.0.9
 Provides: bundled(python%{1}dist(pyproject-hooks)) = 1
 Provides: bundled(python%{1}dist(requests)) = 2.28.2
-Provides: bundled(python%{1}dist(resolvelib)) = 0.8.1
-Provides: bundled(python%{1}dist(rich)) = 12.6
-Provides: bundled(python%{1}dist(setuptools)) = 44
+Provides: bundled(python%{1}dist(resolvelib)) = 1.0.1
+Provides: bundled(python%{1}dist(rich)) = 13.3.3
+Provides: bundled(python%{1}dist(setuptools)) = 67.7.2
 Provides: bundled(python%{1}dist(six)) = 1.16
-Provides: bundled(python%{1}dist(tenacity)) = 8.1
+Provides: bundled(python%{1}dist(tenacity)) = 8.2.2
 Provides: bundled(python%{1}dist(tomli)) = 2.0.1
-Provides: bundled(python%{1}dist(typing-extensions)) = 4.4
-Provides: bundled(python%{1}dist(urllib3)) = 1.26.14
+Provides: bundled(python%{1}dist(typing-extensions)) = 4.5
+Provides: bundled(python%{1}dist(urllib3)) = 1.26.15
 Provides: bundled(python%{1}dist(webencodings)) = 0.5.1
 }
 
@@ -264,6 +260,10 @@ ln -s %{python_wheel_dir} tests/data/common_wheels
 # Remove windows executable binaries
 rm -v src/pip/_vendor/distlib/*.exe
 sed -i '/\.exe/d' setup.py
+
+# Remove RIGHT-TO-LEFT OVERRIDE from AUTHORS.txt
+# https://github.com/pypa/pip/pull/12046
+%{python3} -c 'from pathlib import Path; p = Path("AUTHORS.txt"); p.write_text("".join(c for c in p.read_text() if c != "\u202e"))'
 
 %build
 %py3_build_wheel
@@ -387,6 +387,10 @@ pytest_k='not completion'
 %{python_wheel_dir}/%{python_wheel_name}
 
 %changelog
+* Fri May 19 2023 Miro Hrončok <mhroncok@redhat.com> - 23.1.2-1
+- Update to 23.1.2
+Resolves: rhbz#2186979
+
 * Mon Mar 27 2023 Karolina Surma <ksurma@redhat.com> - 23.0.1-2
 - Fix compatibility with Sphinx 6+
 Resolves: rhbz#2180479

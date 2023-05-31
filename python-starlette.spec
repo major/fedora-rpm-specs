@@ -8,7 +8,8 @@ Summary:        The little ASGI library that shines
 # documentation, which is removed in %%prep anyway.
 License:        BSD-3-Clause
 URL:            https://www.starlette.io/
-Source0:        https://github.com/encode/starlette/archive/%{version}/starlette-%{version}.tar.gz
+Source:         https://github.com/encode/starlette/archive/%{version}/starlette-%{version}.tar.gz
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

@@ -2,7 +2,7 @@
 
 # https://github.com/junegunn/fzf
 %global goipath         github.com/junegunn/fzf
-Version:                0.40.0
+Version:                0.41.1
 %global tag             %{version}
 
 %gometa
@@ -15,6 +15,7 @@ License:        MIT
 URL:            %{gourl}
 Source0:        %{gosource}
 Source1:        README.Fedora
+Patch:          https://github.com/junegunn/fzf/commit/448d7e0c5a717128d499f6a09a978b7addd1d925.patch
 
 BuildRequires:  golang(github.com/gdamore/tcell/v2) >= 2.5.3
 BuildRequires:  golang(github.com/gdamore/tcell/v2/encoding)
@@ -36,6 +37,7 @@ etc.
 %prep
 %goprep
 cp %{SOURCE1} .
+%autopatch -p1
 
 
 %build

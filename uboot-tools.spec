@@ -1,4 +1,4 @@
-%global candidate rc2
+%global candidate rc3
 %if 0%{?rhel}
 %bcond_with toolsonly
 %else

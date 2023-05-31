@@ -5,7 +5,8 @@ Summary:        OpenSSH public key parser for Python
 
 License:        BSD-3-Clause
 URL:            https://github.com/ojarva/sshpubkeys
-Source0:        %{url}/archive/%{version}/sshpubkeys-%{version}.tar.gz
+Source:         %{url}/archive/%{version}/sshpubkeys-%{version}.tar.gz
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

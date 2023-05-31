@@ -9,7 +9,7 @@ Summary:        Python Binding for xxHash
 # %%prep.
 License:        BSD-2-Clause
 URL:            https://github.com/ifduyue/python-xxhash
-Source0:        %{pypi_source xxhash}
+Source:         %{pypi_source xxhash}
 
 BuildRequires:  python3-devel
 

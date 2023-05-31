@@ -10,7 +10,7 @@ Summary:        An API for virtualenv/pip
 License:        BSD-2-Clause
 URL:            https://github.com/sjkingo/virtualenv-api
 # The GitHub tarball contains tests and LICENSE absent from the PyPI sdist.
-Source0:        %{url}/archive/%{version}/virtualenv-api-%{version}.tar.gz
+Source:         %{url}/archive/%{version}/virtualenv-api-%{version}.tar.gz
 
 # Fix --system-site-packages tests
 # https://github.com/sjkingo/virtualenv-api/pull/52

@@ -1,7 +1,7 @@
 Summary: A set of tools to gather troubleshooting information from a system
 Name: sos
-Version: 4.5.3
-Release: 1%{?dist}
+Version: 4.5.4
+Release: 2%{?dist}
 Source0: https://github.com/sosreport/sos/archive/%{version}.tar.gz
 License: GPL-2.0-or-later
 BuildArch: noarch
@@ -9,14 +9,13 @@ Url: https://github.com/sosreport/sos
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
 Requires: python3-rpm
-Requires: tar
-Requires: xz
 Requires: python3-pexpect
+Requires: python3-setuptools
 Recommends: python3-magic
-Requires: python3-requests
+# Mandatory just for uploading to a SFTP server:
+Recommends: python3-requests
 Recommends: python3-pyyaml
 Obsoletes: sos-collector <= 1.9
-Requires: python3-setuptools
 # For the _tmpfilesdir macro.
 BuildRequires: systemd
 
@@ -40,8 +39,8 @@ install -d -m 700 %{buildroot}%{_sysconfdir}/%{name}/cleaner
 install -d -m 755 %{buildroot}%{_sysconfdir}/%{name}/presets.d
 install -d -m 755 %{buildroot}%{_sysconfdir}/%{name}/groups.d
 install -d -m 755 %{buildroot}%{_sysconfdir}/%{name}/extras.d
-install -m 644 %{name}.conf %{buildroot}%{_sysconfdir}/%{name}/%{name}.conf
 install -d -m 755 %{buildroot}%{_tmpfilesdir}
+install -m 644 %{name}.conf %{buildroot}%{_sysconfdir}/%{name}/%{name}.conf
 install -m 644 tmpfiles/tmpfilesd-sos-rh.conf %{buildroot}%{_tmpfilesdir}/%{name}.conf
 
 rm -rf %{buildroot}/usr/config/
@@ -67,6 +66,13 @@ rm -rf %{buildroot}/usr/config/
 %config(noreplace) %{_sysconfdir}/sos/sos.conf
 
 %changelog
+* Mon May 29 2023 Sandro Bonazzola <sbonazzo@redhat.com> - 4.5.4-2
+- Remove unneeded requirements
+
+* Mon May 29 2023 Sandro Bonazzola <sbonazzo@redhat.com> - 4.5.4-1
+- Update to 4.5.4
+- Resolves: rhbz#2210423
+
 * Tue May 02 2023 Sandro Bonazzola <sbonazzo@redhat.com> - 4.5.3-1
 - Update to 4.5.3
 - Resolves: rhbz#2192086

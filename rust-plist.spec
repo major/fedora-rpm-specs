@@ -5,7 +5,7 @@
 %global crate plist
 
 Name:           rust-plist
-Version:        1.4.2
+Version:        1.4.3
 Release:        %autorelease
 Summary:        Rusty plist parser
 

@@ -19,7 +19,7 @@ Summary:        Library to extract valid data from within an Open Street Map inp
 #   configure
 # • X11: install-sh
 License:        MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later
-Source0:        https://www.gaia-gis.it/gaia-sins/readosm-sources/readosm-%{version}.tar.gz
+Source:         https://www.gaia-gis.it/gaia-sins/readosm-sources/readosm-%{version}.tar.gz
 URL:            https://www.gaia-gis.it/fossil/readosm
 
 %if %{with autoreconf}

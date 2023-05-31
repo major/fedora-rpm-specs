@@ -74,7 +74,7 @@ Summary:        Wayland Conformance Test Suite
 #   and are not directly included in the binary RPMs.
 License:        GPL-3.0-only AND (LGPL-2.0-only OR LGPL-3.0-only)
 URL:            https://github.com/MirServer/wlcs
-Source0:        %{url}/archive/v%{version}/wlcs-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/wlcs-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++

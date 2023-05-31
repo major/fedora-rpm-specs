@@ -8,7 +8,7 @@ Summary:        Pure python RFC3339 validator
 # SPDX
 License:        MIT
 URL:            https://github.com/naimetti/rfc3339-validator
-Source0:        %{pypi_source rfc3339_validator}
+Source:         %{pypi_source rfc3339_validator}
 
 BuildArch:      noarch
 

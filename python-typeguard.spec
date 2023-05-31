@@ -12,7 +12,7 @@ Summary:        Run-time type checker for Python
 # SPDX
 License:        MIT
 URL:            https://github.com/agronholm/typeguard
-Source0:        %{pypi_source typeguard}
+Source:         %{pypi_source typeguard}
 
 BuildArch:      noarch
 

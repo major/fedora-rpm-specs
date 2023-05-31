@@ -5,7 +5,7 @@
 %global crate chrono
 
 Name:           rust-chrono
-Version:        0.4.24
+Version:        0.4.25
 Release:        %autorelease
 Summary:        Date and time library for Rust
 
@@ -16,7 +16,7 @@ Source:         %{crates_source}
 # Automatically generated patch to strip foreign dependencies
 Patch:          chrono-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * remove wasm-specific features
+# * remove WASM-specific features
 # * drop unused, benchmark-only criterion dev-dependency to speed up builds
 Patch:          chrono-fix-metadata.diff
 
@@ -38,7 +38,6 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE.txt
-%doc %{crate_instdir}/AUTHORS.txt
 %doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/

@@ -87,6 +87,22 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_unitdir}/%{name}.service
 %{_udevrulesdir}/99-%{name}.rules
 %{_datadir}/%{name}
+
+# deal with non-standard location of localization files
+%exclude %dir %{_datadir}/%{name}/lang
+%lang(fr) %{_datadir}/%{name}/lang/fr
+%lang(fr) %{_datadir}/%{name}/lang/fr_FR
+%lang(it) %{_datadir}/%{name}/lang/it
+%lang(it) %{_datadir}/%{name}/lang/it_IT
+%lang(ru) %{_datadir}/%{name}/lang/ru
+%lang(ru) %{_datadir}/%{name}/lang/ru_RU
+%lang(sk) %{_datadir}/%{name}/lang/sk
+%lang(sk) %{_datadir}/%{name}/lang/sk_SK
+%lang(uk) %{_datadir}/%{name}/lang/uk
+%lang(uk) %{_datadir}/%{name}/lang/uk_UA
+%lang(zh) %{_datadir}/%{name}/lang/zh
+%lang(zh) %{_datadir}/%{name}/lang/zh_CN
+
 %{_datadir}/applications/%{name}-gtk.desktop
 %{_datadir}/polkit-1/actions/%{name}.policy
 %{_metainfodir}/*.metainfo.xml

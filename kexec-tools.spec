@@ -5,7 +5,7 @@
 
 Name: kexec-tools
 Version: 2.0.26
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv2
 Summary: The kexec/kdump userspace component
 
@@ -260,21 +260,6 @@ chmod 755 $RPM_BUILD_ROOT/etc/kdump-adv-conf/kdump_dracut_modules/99zz-fadumpini
 mkdir -p $RPM_BUILD_ROOT/%{dracutlibdir}/modules.d/
 mv $RPM_BUILD_ROOT/etc/kdump-adv-conf/kdump_dracut_modules/* $RPM_BUILD_ROOT/%{dracutlibdir}/modules.d/
 
-%pre
-# Save the old default crashkernel values to /tmp/ when upgrading the package
-# so kdumpctl later can tell if it should update the kernel crashkernel
-# parameter in the posttrans scriptlet.  Note this feauture of auto-updating
-# the kernel crashkernel parameter currently doesn't support ostree, so skip it
-# for ostree.
-if [ ! -f /run/ostree-booted ] && [ $1 == 2 ] && grep -q get-default-crashkernel /usr/bin/kdumpctl; then
-  kdumpctl get-default-crashkernel kdump > /tmp/old_default_crashkernel 2>/dev/null
-%ifarch ppc64 ppc64le
-  kdumpctl get-default-crashkernel fadump > /tmp/old_default_crashkernel_fadump 2>/dev/null
-%endif
-fi
-# don't block package update
-:
-
 %post
 # Initial installation
 %systemd_post kdump.service
@@ -341,21 +326,15 @@ do
 done
 
 %posttrans
-# Try to reset kernel crashkernel value to new default value based on the old
-# default value or set up crasherkernel value for osbuild
+# Try to reset kernel crashkernel value to new default value or set up
+# crasherkernel value for new install
 #
 # Note
 #  1. Skip ostree systems as they are not supported.
-#  2. "[ $1 == 1 ]" in posttrans scriptlet means both install and upgrade. The
-#     former case is used to set up crashkernel for osbuild
-if [ ! -f /run/ostree-booted ] && [ $1 == 1 ]; then
+#  2. For Fedora 36 and RHEL9, "[ $1 == 1 ]" in posttrans scriptlet means both install and upgrade;
+#     For Fedora > 36, "[ $1 == 1 ]" only means install and "[ $1 == 2 ]" means upgrade
+if [ ! -f /run/ostree-booted ] && [ $1 == 1 -o $1 == 2 ]; then
   kdumpctl _reset-crashkernel-after-update
-  rm /tmp/old_default_crashkernel 2>/dev/null
-%ifarch ppc64 ppc64le
-  rm /tmp/old_default_crashkernel_fadump 2>/dev/null
-%endif
-  # dnf would complain about the exit code not being 0. To keep it happy,
-  # always return 0
   :
 fi
 
@@ -416,6 +395,12 @@ fi
 %endif
 
 %changelog
+* Mon May 29 2023 Coiby <coxu@redhat.com> - 2.0.26-5
+- Simplify the management of the kernel parameter crashkernel
+- Let _update_kernel_cmdline return the correct return code
+- mkdumprd: call dracut with --add-device to install the drivers needed by /boot partition automatically for FIPS
+- kdump-lib: fix the matching pattern for debug-kernel
+
 * Tue May 16 2023 Coiby <coxu@redhat.com> - 2.0.26-4
 - kdumpctl: Add support for systemd-boot paths
 - mkdumprd: add --aggressive-strip as default dracut args

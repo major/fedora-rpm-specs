@@ -12,6 +12,7 @@ Source0:        https://github.com/facelessuser/soupsieve/archive/%{version}/%{n
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+BuildRequires:  python3-pytest
 
 %global _description %{expand:
 Soup Sieve is a CSS selector library designed to be used with Beautiful Soup 4.
@@ -41,14 +42,10 @@ Summary:        %{summary}
 %autosetup -n soupsieve-%{version}
 
 # Do not run coverage report during check
-sed -Ei 's/ ?--cov(-[^ ]+)? +[^ ]+//g' tox.ini
-sed -i 's/coverage.*//' tox.ini
-
-# Support posargs in tox.ini
-sed -i 's/\(py\.test.*\)$/\1 \{posargs\}/' tox.ini
+sed -i -e '/coverage/d' -e '/pytest-cov/d' requirements/tests.txt
 
 %generate_buildrequires
-%pyproject_buildrequires -w %{?with_tests:-t}
+%pyproject_buildrequires -w %{?with_tests:-r requirements/tests.txt}
 
 %build
 %pyproject_wheel
@@ -61,7 +58,7 @@ sed -i 's/\(py\.test.*\)$/\1 \{posargs\}/' tox.ini
 %check
 # test_contains_cdata_html and test_contains_own_cdata_html are disabled to unblock Python 3.10 rebuild
 # downstream report: https://bugzilla.redhat.com/show_bug.cgi?id=1962458
-%tox -- -- -k 'not test_namespace_xml_with_namespace and not test_contains_cdata_html and not test_contains_own_cdata_html'
+%pytest -k 'not test_namespace_xml_with_namespace and not test_contains_cdata_html and not test_contains_own_cdata_html'
 %endif
 
 %files -n python3-soupsieve -f %{pyproject_files}

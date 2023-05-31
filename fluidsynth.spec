@@ -2,7 +2,7 @@
 Summary:      Real-time software synthesizer
 Name:         fluidsynth
 Version:      2.3.2
-Release:      1%{?dist}
+Release:      2%{?dist}
 URL:          http://www.fluidsynth.org/
 Source0:      https://github.com/Fluidsynth/fluidsynth/archive/v%{version}/fluidsynth-%{version}.tar.gz
 License:      LGPL-2.1-or-later
@@ -63,7 +63,7 @@ shared libraries.
 
 %package devel
 Summary:   Real-time software synthesizer development files
-Requires:  fluidsynth-libs%{?_isa} = %{version}-%{release}
+Requires:  fluidsynth%{?_isa} = %{version}-%{release}
 
 %description devel
 FluidSynth is a real-time software synthesizer based on the SoundFont 2 
@@ -131,6 +131,9 @@ install -m 644 fluidsynth.service.in $RPM_BUILD_ROOT/usr/lib/systemd/user/fluids
 
 
 %changelog
+* Mon May 29 2023 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 2.3.2-2
+- Change dependency for fluidsynth-devel
+
 * Mon Apr 03 2023 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 2.3.2-1
 - Update to 2.3.2
 

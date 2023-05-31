@@ -9,23 +9,16 @@
 %endif
 
 Name:           python-attrs
-Version:        22.2.0
-Release:        2%{?dist}
+Version:        23.1.0
+Release:        1%{?dist}
 Summary:        Python attributes without boilerplate
 
 License:        MIT
 URL:            http://www.attrs.org/
 BuildArch:      noarch
-Source0:        https://github.com/hynek/%{modname}/archive/%{version}/%{modname}-%{version}.tar.gz
+Source0:        https://github.com/python-attrs/%{modname}/archive/%{version}/%{modname}-%{version}.tar.gz
 
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
-%if %{with tests}
-BuildRequires:  python%{python3_pkgversion}-pytest
-BuildRequires:  python%{python3_pkgversion}-hypothesis
-BuildRequires:  python%{python3_pkgversion}-six
-BuildRequires:  python%{python3_pkgversion}-zope-interface
-%endif
 
 %description
 attrs is an MIT-licensed Python package with class decorators that
@@ -44,23 +37,29 @@ object protocols.
 %prep
 %setup -q -n %{modname}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires %{?with_tests:-x tests}
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files attr attrs
 
 %if %{with tests}
 %check
-PYTHONPATH=%{buildroot}/%{python3_sitelib} py.test-3 -v
+%pytest
 %endif
 
-%files -n python%{python3_pkgversion}-%{modname}
+%files -n python%{python3_pkgversion}-%{modname} -f %{pyproject_files}
 %license LICENSE
 %doc README.md
-%{python3_sitelib}/*
 
 %changelog
+* Wed May 17 2023 Lumír Balhar <lbalhar@redhat.com> - 23.1.0-1
+- Update to 23.1.0 (rhbz#2187066)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

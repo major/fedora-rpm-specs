@@ -1,14 +1,19 @@
 Summary:        C library for analyzing BGP related dump files
 Name:           libbgpdump
-Version:        1.6.0
-Release:        11%{?dist}
-License:        MIT and GPLv2+
-URL:            https://bitbucket.org/ripencc/bgpdump/wiki
-Source:         https://ris.ripe.net/source/bgpdump/%{name}-%{version}.tgz
-Patch0:         libbgpdump-1.6.0-buildsys.patch
-Patch1:         libbgpdump-1.6.0-soname-versioning.patch
-Patch2:         libbgpdump-1.6.0-ldshared.patch
-BuildRequires:  gcc, make, zlib-devel, bzip2-devel
+Version:        1.6.2
+Release:        1%{?dist}
+License:        MIT AND GPL-2.0-or-later
+URL:            https://github.com/RIPE-NCC/bgpdump/wiki
+Source0:        https://github.com/RIPE-NCC/bgpdump/releases/download/v%{version}/%{name}-%{version}.tgz
+# Upstream .so name versioning proposed at https://github.com/RIPE-NCC/bgpdump/issues/11
+Patch0:         https://github.com/RIPE-NCC/bgpdump/commit/2fc04a828fe35dc84654164157966b0823429c81.patch#/libbgpdump-1.6.2-soname-versioning.patch
+BuildRequires:  bzip2-devel
+%if 0%{?rhel} && 0%{?rhel} < 8
+BuildRequires:  devtoolset-8-toolchain
+%endif
+BuildRequires:  gcc
+BuildRequires:  make
+BuildRequires:  zlib-devel
 
 %description
 Libbgpdump is a C library designed to help with analyzing BGP related
@@ -26,6 +31,7 @@ for developing programs which use the bgpdump C library.
 
 %package -n bgpdump
 Summary:        MRT file reader for handling BGP related data
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description -n bgpdump
 Bgpdump translates (possibly compressed) binary MRT RIB dump files, e.g.
@@ -35,17 +41,23 @@ RIPE NCC routing information service (RIPE RIS).
 
 %prep
 %setup -q
-%patch0 -p1 -b .buildsys
-%patch1 -p1 -b .soname-versioning
-%patch2 -p1 -b .ldshared
+%patch0 -p1 -b .soname-versioning
 
 %build
+%if 0%{?rhel} && 0%{?rhel} < 8
+. /opt/rh/devtoolset-8/enable
+%endif
+
 %configure
 %make_build
 
 %install
 %make_install
 rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}.a
+
+%check
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$RPM_BUILD_ROOT%{_libdir}"
+$RPM_BUILD_ROOT%{_bindir}/bgpdump -T
 
 %ldconfig_scriptlets
 
@@ -65,6 +77,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}.a
 %{_bindir}/bgpdump
 
 %changelog
+* Mon May 29 2023 Robert Scheck <robert@fedoraproject.org> 1.6.2-1
+- Upgrade to 1.6.2 (#2210804)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

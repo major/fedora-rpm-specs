@@ -25,7 +25,7 @@ License:        BSD-3-Clause
 # https://github.com/holoviz/param/issues/219
 # https://github.com/holoviz/param/issues/103
 URL:            https://github.com/holoviz/param
-Source0:        %{url}/archive/v%{version}/param-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/param-%{version}.tar.gz
 
 BuildArch:      noarch
 

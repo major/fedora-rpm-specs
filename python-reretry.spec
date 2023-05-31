@@ -7,8 +7,8 @@ License:        Apache-2.0
 URL:            https://github.com/leshchenko1979/reretry
 # Missing release 0.11.2 on PyPI
 # https://github.com/leshchenko1979/reretry/issues/7
-# Source0:        %%{pypi_source reretry}
-Source0:        %{url}/archive/%{version}/reretry-%{version}.tar.gz
+# Source:         %%{pypi_source reretry}
+Source:         %{url}/archive/%{version}/reretry-%{version}.tar.gz
 
 BuildArch:      noarch
 

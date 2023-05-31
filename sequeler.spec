@@ -4,6 +4,7 @@ Name:           sequeler
 Summary:        Friendly SQL Client
 Version:        0.8.2
 Release:        %autorelease
+
 # The entire source is GPL-3.0-or-later (the LICENSE file is GPLv3, and both
 # data/com.github.alecaddd.sequeler.appdata.xml.in.in and debian/copyright
 # indicate GPL-3.0-or-later is intended), except:
@@ -13,9 +14,8 @@ Release:        %autorelease
 #   - data/com.github.alecaddd.sequeler.appdata.xml.in.in, which is CC0-1.0
 #     (which is approved for content, which this file is).
 License:        GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND CC0-1.0
-
 URL:            https://github.com/Alecaddd/%{name}
-Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

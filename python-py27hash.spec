@@ -10,7 +10,7 @@ Summary:        Python 2.7 hashing and iteration in Python 3+
 License:        MIT
 URL:            https://github.com/neuml/py27hash
 # The GitHub tarball contains tests; the PyPI sdist does not.
-Source0:        %{url}/archive/v%{version}/py27hash-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/py27hash-%{version}.tar.gz
 
 # Since the package previously had an arch-dependent failure, we build on all
 # platforms (the base package is not noarch) to flush out any similar issues.

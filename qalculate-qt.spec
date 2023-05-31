@@ -8,7 +8,7 @@ Release:        %autorelease
 #     allowed for content only
 License:        GPL-2.0-or-later AND CC0-1.0
 URL:            https://qalculate.github.io/
-Source0:        https://github.com/Qalculate/qalculate-qt/releases/download/v%{version}/qalculate-qt-%{version}.tar.gz
+Source:         https://github.com/Qalculate/qalculate-qt/releases/download/v%{version}/qalculate-qt-%{version}.tar.gz
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

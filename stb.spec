@@ -36,7 +36,7 @@ License:        MIT OR Unlicense
 #   tests/caveview/win32/SDL_windows_main.c are Public Domain
 # - tests/caveview/glext.h is MIT (only)
 URL:            https://github.com/nothings/stb
-Source0:        %{url}/archive/%{commit}/stb-%{commit}.tar.gz
+Source:         %{url}/archive/%{commit}/stb-%{commit}.tar.gz
 
 # Fix undefined behavior from array “shape-punning”
 # https://github.com/nothings/stb/pull/1194

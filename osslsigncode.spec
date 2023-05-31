@@ -11,7 +11,7 @@
 %endif
 
 Name:       osslsigncode
-Version:    2.5
+Version:    2.6
 Release:    %autorelease
 Summary:    OpenSSL based Authenticode signing for PE/MSI/Java CAB files
 

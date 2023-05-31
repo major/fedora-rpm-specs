@@ -19,7 +19,7 @@ Summary:        Create WOFF files with Zopfli compression
 # MPL/GPL/LGPL portions remain.
 License:        MPL-1.0 OR GPL-2.0-or-later OR LGPL-2.0-or-later
 URL:            https://github.com/bramstein/sfnt2woff-zopfli
-Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 # Fix a possible double free in woffEncode()
 # https://github.com/bramstein/sfnt2woff-zopfli/pull/18

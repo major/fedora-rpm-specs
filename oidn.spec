@@ -1,5 +1,5 @@
 Name:           oidn
-Version:        1.4.3
+Version:        2.0.0
 Release:        %autorelease
 Summary:        Library of denoising filters for images rendered with ray tracing
 License:        ASL 2.0
@@ -59,7 +59,8 @@ The %{name}-docs package contains documentation for %{name}.
 
 # Remove rpath
 chrpath --delete %{buildroot}%{_bindir}/%{name}{Denoise,Test,Benchmark}
-chrpath --delete %{buildroot}%{_libdir}/libOpenImageDenoise.so.*
+chrpath --delete %{buildroot}%{_libdir}/libOpenImageDenoise{,_core,_device_cpu}.so.*
+
 
 
 # Remove duplicated documentation
@@ -71,7 +72,7 @@ rm -rf %{buildroot}%{_docdir}/OpenImageDenoise
 %{_bindir}/%{name}{Denoise,Test,Benchmark}
 
 %files libs
-%{_libdir}/libOpenImageDenoise.so.*
+%{_libdir}/libOpenImageDenoise{,_core,_device_cpu}.so.*
 
 %files docs
 %doc README.md readme.pdf 

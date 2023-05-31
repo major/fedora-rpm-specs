@@ -9,6 +9,7 @@ Source0:        %{pypi_source hatch_fancy_pypi_readme}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildRequires:  python3-pytest
 
 %global common_description %{expand:
 This provides a Hatch metadata plugin for everyone who cares about the
@@ -34,7 +35,7 @@ Summary:        %{summary}
 sed -i 's/ \"pytest-icdiff\", \"coverage\[toml\]\", //g' pyproject.toml
 
 %generate_buildrequires
-%pyproject_buildrequires -x tests
+%pyproject_buildrequires %{?!rhel:-x tests}
 
 %build
 %pyproject_wheel

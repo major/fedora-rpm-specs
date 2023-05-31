@@ -3,7 +3,7 @@
 
 Name:      %{fontname}-fonts
 Version:   20120503
-Release:   29%{?dist}
+Release:   30%{?dist}
 Summary:   Free UCS Outline Fonts
 
 # Standard font exception
@@ -19,6 +19,7 @@ Source7:   %{fontname}-sans.metainfo.xml
 Source8:   %{fontname}-serif.metainfo.xml
 
 Patch0:    gnu-free-fonts-devanagari-rendering.patch
+Patch1:    gnu-free-sans-square-dot-glyph-fix.patch
 
 BuildArch: noarch
 BuildRequires: make
@@ -85,9 +86,7 @@ This package contains the GNU FreeFont serif font.
 
 
 %prep
-%setup -qn freefont-%{version}
-
-%patch0 -p1 -b .devanagari
+%autosetup -n freefont-%{version} -p1
 
 # move build scripts to python3 compatible code
 pushd tools
@@ -152,6 +151,9 @@ install -Dm 0644 -p %{SOURCE8} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Sat May 27 2023 Parag Nemade <pnemade AT redhat DOT com> - 20120503-30
+- Resolves:rh#1813728 - Square four dot Unicode character has incorrect glyph 
+
 * Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 20120503-29
 - migrated to SPDX license
 

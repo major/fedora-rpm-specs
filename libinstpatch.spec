@@ -134,9 +134,8 @@ find examples -type f -name '*.py' -print -delete
 # yet, which means we aren’t prepared to report the problem upstream.
 # Assistance is welcome.
 #
-# For now, the workaround is fine on Fedora (although it does not work on
-# EPEL7–EPEL9).
-%global _smp_build_ncpus 1
+# https://bugzilla.redhat.com/show_bug.cgi?id=2210347#c6
+%global _smp_ncpus_max 1
 
 %cmake \
     -DGTKDOC_ENABLED:BOOL=ON \

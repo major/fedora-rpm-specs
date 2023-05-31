@@ -29,9 +29,11 @@ BuildRequires:  cmake(KF5KirigamiAddons)
 BuildRequires:  cmake(KF5Notifications)
 BuildRequires:  cmake(KF5Syndication)
 
-Requires:       kf5-kirigami2
 Requires:       hicolor-icon-theme
-
+# QML module dependencies
+Requires:       kf5-kirigami2%{?_isa}
+Requires:       kf5-kirigami2-addons%{?_isa}
+Requires:       qt5-qtquickcontrols2%{?_isa}
 
 %description
 Alligator is a convergent RSS/Atom feed reader.

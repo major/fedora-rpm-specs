@@ -23,9 +23,9 @@
 %global github_owner    os-autoinst
 %global github_name     openQA
 %global github_version  4.6
-%global github_commit   f229f6d5c08963eb94886054c43d48a1d92c4d9a
+%global github_commit   0864455630bf2987681b56e57803a99bae73d742
 # if set, will be a post-release snapshot build, otherwise a 'normal' build
-%global github_date     20230424
+%global github_date     20230525
 %global shortcommit     %(c=%{github_commit}; echo ${c:0:7})
 
 # can't use linebreaks here!
@@ -39,7 +39,7 @@
 %endif
 
 # diff from SUSE: we have 'openqa-client', they have 'openQA-client'
-%define python_scripts_requires python3-requests python3-future openqa-client
+%define python_scripts_requires python3-requests openqa-client
 
 # The following line is generated from dependencies.yaml (upstream)
 %define assetpack_requires perl(CSS::Minifier::XS) >= 0.01 perl(JavaScript::Minifier::XS) >= 0.11 perl(Mojolicious::Plugin::AssetPack) >= 1.36
@@ -79,12 +79,13 @@
 %endif
 # diff from SUSE: perl(Devel::Cover::Report::Codecovbash) dropped because
 # it's not in Fedora (this means you can't run 'make coverage-codecov')
-# xorg-x11-fonts dropped because that binary package doesn't exist in
-# Fedora (it exists as a source package generating multiple binary
-# packages) and I can't find any particular reason for it
 # The following line is generated from dependencies.yaml (upstream)
-%define devel_requires %build_requires %qemu %test_requires curl perl(Devel::Cover) perl(Perl::Tidy) postgresql-devel rsync sudo tar
-%define devel_no_selenium_requires %build_requires %qemu %test_requires curl perl(Devel::Cover) perl(Perl::Tidy) postgresql-devel rsync sudo tar
+%define cover_requires perl(Devel::Cover)
+# diff from SUSE: # xorg-x11-fonts dropped because that binary package
+# doesn't exist in Fedora (it exists as a source package generating
+# multiple binary packages) and I can't find any reason for it
+# The following line is generated from dependencies.yaml (upstream)
+%define devel_no_selenium_requires %build_requires %cover_requires %qemu %test_requires curl perl(Perl::Tidy) postgresql-devel rsync sudo tar
 # diff from SUSE: chromedriver dropped as we don't package it
 # that makes this look fairly silly, but we want to follow the SUSE
 # spec as close as we can
@@ -122,13 +123,6 @@ Source4:        23-fedora-messaging.t
 # this is an ugly hack that should be removed if it becomes possible
 Source5:        geekotest.conf
 Source6:        openQA-worker.conf
-
-# Try and tweak parent restart behaviour to avoid orphaning
-# cockpit jobs when a FreeIPA child fails:
-# https://progress.opensuse.org/issues/112256
-# https://progress.opensuse.org/issues/110458
-# https://github.com/os-autoinst/openQA/pull/4962
-Patch0:         0001-Don-t-restart-scheduled-or-running-chained-parents.patch
 
 BuildRequires: make
 BuildRequires:  %{python_scripts_requires}
@@ -692,6 +686,9 @@ fi
 %{_datadir}/openqa/lib/OpenQA/WebAPI/Plugin/FedoraUpdateRestart.pm
 
 %changelog
+* Fri May 26 2023 Adam Williamson <awilliam@redhat.com> - 4.6^20230525git0864455-1
+- Update to latest git, drop merged patch, re-sync spec
+
 * Mon Apr 24 2023 Adam Williamson <awilliam@redhat.com> - 4.6^20230424gitf229f6d-1
 - Update to latest git, re-sync spec, rebase patch
 
