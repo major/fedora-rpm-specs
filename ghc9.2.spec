@@ -35,7 +35,7 @@
 %bcond_without ghc_prof
 # https://gitlab.haskell.org/ghc/ghc/-/issues/19754
 # https://github.com/haskell/haddock/issues/1384
-%ifarch armv7hl
+%ifarch armv7hl %{ix86}
 %undefine with_haddock
 %else
 %bcond_without haddock
@@ -289,7 +289,8 @@ Installing this package causes %{name}-*-doc packages corresponding to
 Summary: GHC library documentation indexing
 License: BSD-3-Clause
 Requires: %{name}-compiler = %{version}-%{release}
-BuildArch: noarch
+# due to disabled haddock archs
+#BuildArch: noarch
 
 %description doc-index
 The package enables re-indexing of installed library documention.
@@ -297,7 +298,8 @@ The package enables re-indexing of installed library documention.
 
 %package filesystem
 Summary: Shared directories for Haskell documentation
-BuildArch: noarch
+# due to disabled haddock archs
+#BuildArch: noarch
 
 %description filesystem
 This package provides some common directories used for

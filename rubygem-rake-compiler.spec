@@ -4,12 +4,15 @@
 
 Summary:	Rake-based Ruby C Extension task generator
 Name:		rubygem-%{gem_name}
-Version:	1.2.2
+Version:	1.2.3
 Release:	1%{?dist}
 # SPDX confirmed
 License:	MIT
-URL:		http://rake-compiler.rubyforge.org/
+URL:		https://github.com/rake-compiler/rake-compiler
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
+Source1:	%{gem_name}-%{version}-test-missing-files.tar.gz
+# Source1 is created by $ bash %%SOURCE2 %%version
+Source2:	%{gem_name}-create-missing-test-files.sh
 
 Requires:	ruby(release)
 BuildRequires:	ruby(release)
@@ -47,7 +50,7 @@ Requires:	%{name} = %{version}-%{release}
 This package contains documentation for %{name}.
 
 %prep
-%setup -q -n %{gem_name}-%{version}
+%setup -q -n %{gem_name}-%{version} -b1
 mv ../%{gem_name}-%{version}.gemspec .
 
 # rpmlint cosmetic
@@ -92,8 +95,12 @@ rm -rf \
 popd
 
 %check
+rm -rf .%{gem_instdir}/spec
+cp -a spec/ .%{gem_instdir}/
+
 pushd .%{gem_instdir}
 ruby -Ilib -S rspec spec/
+
 export CUCUMBER_PUBLISH_QUIET=true
 ruby -Ilib -S cucumber
 popd
@@ -117,6 +124,9 @@ popd
 
 
 %changelog
+* Tue May 30 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.2.3-1
+- 1.2.3
+
 * Thu May 25 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.2.2-1
 - 1.2.2
 

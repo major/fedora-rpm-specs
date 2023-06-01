@@ -5,7 +5,7 @@
 
 Name:           module-build-service
 Version:        3.9.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        The Module Build Service for Modularity
 
 License:        MIT
@@ -110,7 +110,6 @@ BuildRequires:  rpm-build
 %if 0%{?with_python3}
 Requires:       python3-click
 Requires:       python3-munch
-Requires:       python3-funcsigs
 Requires:       python3-openidc-client
 Requires:       python3-ldap3
 Requires:       python3-libmodulemd
@@ -276,6 +275,9 @@ done
 %endif
 
 %changelog
+* Tue May 30 2023 Diego Herrera <dherrera@redhat.com> - 3.9.2-3
+- Remove the python3-funcsigs runtime requirement
+
 * Mon Apr 24 2023 Diego Herrera <dherrera@redhat.com> - 3.9.2-2
 - Remove the python3-funcsigs requirement
 - EL8+ uses python3

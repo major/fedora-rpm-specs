@@ -1,3 +1,6 @@
+# RHEL does not include the test dependencies
+%bcond tests %{undefined rhel}
+
 %global distname requests-oauthlib
 %global modname requests_oauthlib
 
@@ -25,9 +28,11 @@ BuildRequires:      python3-setuptools
 BuildRequires:      python3-oauthlib >= 0.6.2
 BuildRequires:      python3-requests >= 2.0.0
 
+%if %{with tests}
 BuildRequires:      python3-pytest
 BuildRequires:      python3-pytest-mock
 BuildRequires:      python3-requests-mock
+%endif
 
 Requires:           python3-oauthlib
 Requires:           python3-requests
@@ -49,7 +54,11 @@ rm -rf %{distname}.egg-info
 %py3_install
 
 %check
+%if %{with tests}
 %pytest -k "not testCanPostBinaryData and not test_content_type_override and not test_url_is_native_str"
+%else
+%py3_check_import %{modname}
+%endif
 
 %files -n python3-%{distname}
 %doc README.rst HISTORY.rst requirements.txt AUTHORS.rst

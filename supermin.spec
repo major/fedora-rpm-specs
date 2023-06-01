@@ -31,7 +31,7 @@
 Summary:       Tool for creating supermin appliances
 Name:          supermin
 Version:       5.3.3
-Release:       5%{?dist}
+Release:       6%{?dist}
 License:       GPLv2+
 
 ExclusiveArch: %{kernel_arches}
@@ -47,7 +47,12 @@ Source1:       http://download.libguestfs.org/supermin/%{source_directory}/%{nam
 Source2:       libguestfs.keyring
 
 # https://fedoraproject.org/wiki/Changes/RelocateRPMToUsr
-Patch1:        0001-rpm-New-RPM-database-location-in-usr-lib-sysimage-rp.patch
+Patch:         0001-rpm-New-RPM-database-location-in-usr-lib-sysimage-rp.patch
+# OCaml 5 compatibility:
+Patch:         0002-Add-support-for-OCaml-5.0.patch
+Patch:         0003-Restore-compatibility-with-OCaml-4.07.patch
+# dnf5 (https://bugzilla.redhat.com/show_bug.cgi?id=2209412):
+Patch:         0004-rpm-Detect-dnf5-and-omit-missing-options.patch
 
 BuildRequires: gcc
 BuildRequires: make
@@ -56,8 +61,7 @@ BuildRequires: /usr/bin/pod2man
 BuildRequires: /usr/bin/pod2html
 BuildRequires: rpm
 BuildRequires: rpm-devel
-BuildRequires: dnf
-BuildRequires: dnf-plugins-core
+BuildRequires: dnf5
 BuildRequires: /usr/sbin/mke2fs
 BuildRequires: e2fsprogs-devel
 BuildRequires: findutils
@@ -124,8 +128,7 @@ Requires:      %{name} = %{version}-%{release}
 Requires:      rpm-build
 
 # Dependencies needed for supermin --prepare
-Requires:      dnf
-Requires:      dnf-plugins-core
+Requires:      dnf5
 Requires:      findutils
 
 
@@ -147,7 +150,11 @@ supermin appliances.
 
 %build
 autoreconf -fi
-%configure --disable-network-tests
+# Setting DNF is temporarily required for Rawhide.  We should be able
+# to remove this later.  See:
+# https://bugzilla.redhat.com/show_bug.cgi?id=2209412
+# https://fedoraproject.org/wiki/Changes/ReplaceDnfWithDnf5
+%configure DNF=%{_bindir}/dnf5 --disable-network-tests
 
 %if %{with dietlibc}
 make -C init CC="diet gcc"
@@ -190,6 +197,9 @@ make check || {
 
 
 %changelog
+* Tue May 30 2023 Richard W.M. Jones <rjones@redhat.com> - 5.3.3-6
+- Add support for dnf5 (RHBZ#2209412)
+
 * Fri May 19 2023 Richard W.M. Jones <rjones@redhat.com> - 5.3.3-5
 - Rebuild against librpm 10
 

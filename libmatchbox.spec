@@ -3,17 +3,17 @@ Name:           libmatchbox
 Version:        1.9
 Release:        33%{?dist}
 Url:            http://projects.o-hand.com/matchbox/
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 Source:         http://projects.o-hand.com/matchbox/sources/libmatchbox/%{version}/%{name}-%{version}.tar.bz2
 Patch0:         libmatchbox-1.9-add-needed.patch
-Patch1:		libmatchbox-1.9-libpng.patch
-Patch2: libmatchbox-c99.patch
+Patch1:         libmatchbox-1.9-libpng.patch
+Patch2:         libmatchbox-c99.patch
 BuildRequires:  pango-devel
 BuildRequires:  libpng-devel
 BuildRequires:  libjpeg-devel
 BuildRequires:  check-devel
 BuildRequires:  autoconf automake libtool
-BuildRequires: make
+BuildRequires:  make
 
 %description
 Matchbox is a base environment for the X Window System running on non-desktop
@@ -33,10 +33,7 @@ Requires:       pkgconfig
 Static libraries and header files from %{name}
 
 %prep
-%setup -q
-%patch0 -p1 -b .add-needed
-%patch1 -p1 -b .libpng
-%patch2 -p1
+%autosetup -p 1
 
 %build
 autoreconf -v --install

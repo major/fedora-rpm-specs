@@ -1,10 +1,11 @@
 Name:		perl-MouseX-Types-Path-Class
 Summary:	A Path::Class type library for Mouse
 Version:	0.07
-Release:	28%{?dist}
+Release:	29%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/MouseX-Types-Path-Class
 Source0:	https://cpan.metacpan.org/modules/by-module/MouseX/MouseX-Types-Path-Class-%{version}.tar.gz
+Patch0:		MouseX-Types-Path-Class-0.07-hunspell.patch
 BuildArch:	noarch
 # Module Build
 BuildRequires:	coreutils
@@ -33,7 +34,7 @@ BuildRequires:	perl(Test::UseAllModules)
 # Author Tests
 BuildRequires:	perl(Test::Pod) >= 1.00
 BuildRequires:	perl(Test::Pod::Coverage) >= 1.04
-BuildRequires:	perl(Test::Spelling), aspell-en
+BuildRequires:	perl(Test::Spelling), hunspell-en
 # Dependencies
 Requires:	perl(Mouse) >= 0.39
 Requires:	perl(MouseX::Getopt) >= 0.22
@@ -53,6 +54,9 @@ Path::Class::Dir and Path::Class::File.
 
 %prep
 %setup -q -n MouseX-Types-Path-Class-%{version}
+
+# Add support for hunspell speller
+%patch -P 0
 
 # Unbundle inc::Module::Install; we'll use the system version instead
 rm -rf inc/
@@ -75,7 +79,7 @@ find %{buildroot} -type f -name .packlist -delete
 %{_fixperms} -c %{buildroot}
 
 %check
-make test TEST_POD=1
+make test TEST_POD=1 TEST_VERBOSE=1
 
 %files
 %doc Changes README
@@ -83,6 +87,10 @@ make test TEST_POD=1
 %{_mandir}/man3/MouseX::Types::Path::Class.3*
 
 %changelog
+* Tue May 30 2023 Paul Howarth <paul@city-fan.org> - 0.07-29
+- Use hunspell rather than aspell
+- Run tests verbosely
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

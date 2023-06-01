@@ -5,6 +5,7 @@ Version:        1.0.0
 Release:        5%{?dist}
 Summary:        A Python library for writing TOML
 
+# SPDX
 License:        MIT
 URL:            https://github.com/hukkin/tomli-w
 Source0:        %{url}/archive/%{version}/tomli-w-%{version}.tar.gz
@@ -37,7 +38,10 @@ sed -i '/pytest-randomly/d' tests/requirements.txt
 
 
 %generate_buildrequires
-%pyproject_buildrequires %{?with_check:-t}
+# We intentionally don't use tox here to avoid a dependency on it in ELN/RHEL,
+# the tox deps only list -r tests/requirements.txt anyway and sometimes
+# did not run any tests at all.
+%pyproject_buildrequires %{?with_check:tests/requirements.txt}
 
 
 %build
@@ -52,7 +56,7 @@ sed -i '/pytest-randomly/d' tests/requirements.txt
 %check
 %pyproject_check_import tomli_w
 %if %{with check}
-%tox
+%pytest -v
 %endif
 
 

@@ -25,7 +25,7 @@ Name: ansible-collection-microsoft-sql
 Url: https://github.com/linux-system-roles/mssql
 Summary: The Ansible collection for Microsoft SQL Server management
 Version: 1.3.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: MIT
 
@@ -37,24 +37,6 @@ License: MIT
 %global legacy_rolename %{collection_namespace}.sql-server
 %global _pkglicensedir %{_licensedir}/%{name}
 
-# Helper macros originally from macros.ansible by Igor Raits <ignatenkobrain>
-# On RHEL, not available, so we must define those macros locally
-# On Fedora, provided by ansible-packager
-# Not used (yet). Could be made to point to AH in RHEL - but what about CentOS Stream?
-#%%{!?ansible_collection_url:%%define ansible_collection_url() https://galaxy.ansible.com/%%{collection_namespace}/%%{collection_name}}
-%if 0%{?rhel}
-Provides: ansible-collection(%{collection_namespace}.%{collection_name}) = %{collection_version}
-%global ansible_collection_files %{_datadir}/ansible/collections/ansible_collections/%{collection_namespace}/
-%define ansible_roles_dir %{_datadir}/ansible/roles
-%if %{without ansible}
-# Untar and copy everything instead of galaxy-installing the built artifact when ansible is not available
-%define ansible_collection_build() tar -cf %{_tmppath}/%{collection_namespace}-%{collection_name}-%{collection_version}.tar.gz .
-%define ansible_collection_install() mkdir -p %{buildroot}%{ansible_collection_files}%{collection_name}; (cd %{buildroot}%{ansible_collection_files}%{collection_name}; tar -xf %{_tmppath}/%{collection_namespace}-%{collection_name}-%{collection_version}.tar.gz)
-%else
-%define ansible_collection_build() ansible-galaxy collection build
-%define ansible_collection_install() ansible-galaxy collection install -n -p %{buildroot}%{_datadir}/ansible/collections %{collection_namespace}-%{collection_name}-%{collection_version}.tar.gz
-%endif
-%endif
 # be compatible with the usual Fedora Provides:
 Provides: ansible-collection-%{collection_namespace}-%{collection_name} = %{collection_version}-%{release}
 
@@ -82,6 +64,10 @@ Requires: linux-system-roles
 %global parenturl https://github.com/linux-system-roles
 Source: %{parenturl}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar.gz
 Source1: %{parenturl}/%{rolename}/archive/%{source1id}/%{rolename}-%{source1id}.tar.gz
+
+# Includes with ansible_collection_build/_install that differ between RHEL versions
+Source1002: ansible-packaging.inc
+%include %{SOURCE1002}
 
 BuildArch: noarch
 
@@ -350,6 +336,9 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Tue May 30 2023 Sergei Petrosian <spetrosi@redhat.com> - 1.3.0-4
+- Move RHEL related code into an include for spec readability
+
 * Mon Feb 27 2023 Sergei Petrosian <spetrosi@redhat.com> - 1.3.0-3
 - Spec: add functionality to build from a commit hash
 - Use latest 1.3.0 to add flexibility to AD integration functionality

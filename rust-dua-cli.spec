@@ -16,6 +16,7 @@ Source0:        %{crates_source}
 Source1:        LICENSE.dependencies
 # Initial patched metadata
 # * drop macos-specific dependencies
+# * bump open from 3.0 to 4.0
 Patch0:         dua-cli-fix-metadata.diff
 
 ExclusiveArch:  %{rust_arches}

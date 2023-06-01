@@ -1,6 +1,6 @@
 Name:          perl-Net-DNS
 Version:       1.38
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       DNS resolver modules for Perl
 License:       MIT
 URL:           https://www.net-dns.org
@@ -97,7 +97,8 @@ Suggests:      perl(Scalar::Util) >= 1.25
 %global __provides_exclude %{?__provides_exclude:%__provides_exclude|}^perl\\((Net::DNS::Text)\\)$
 %global __provides_exclude %{?__provides_exclude:%__provides_exclude|}^perl\\((Net::DNS::RR::OPT)\\)$
 # Remove private modules
-%global __provides_exclude %{?__provides_exclude:%__provides_exclude|}^perl\\(NonFatal\\)$
+%global __provides_exclude %{?__provides_exclude:%__provides_exclude|}^perl\\(TestToolkit\\)$
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(TestToolkit\\)$
 
 %description
 Net::DNS is a collection of Perl modules that act as a Domain Name System
@@ -156,8 +157,16 @@ find %{buildroot} -type f -name '*.bs' -a -size 0 -delete
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
-#!/bin/sh
-cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+#!/bin/bash
+set -e
+# Some tests write into temporary files/directories, so they will be copy
+# into a writable directory and execute them from there.
+DIR=$(mktemp -d)
+pushd "$DIR"
+cp -a %{_libexecdir}/%{name}/* ./
+prove -I . -I t -j "$(getconf _NPROCESSORS_ONLN)"
+popd
+rm -rf "$DIR"
 EOF
 chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
@@ -184,6 +193,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon May 29 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.38-2
+- Fix dependencies in *tests package
+
 * Fri May 19 2023 Paul Wouters <paul.wouters@aiven.io - 1.38-1
 - Resolves: rhbz#2177932 perl-Net-DNS-1.38 is available
 

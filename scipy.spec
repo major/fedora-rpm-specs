@@ -191,6 +191,9 @@ TIMEOUT=1000
 %ifarch x86_64
 # skip also failing test_sygst for now
 export PYTEST_ADDOPTS="-k '$SKIP_ALL and \
+%{?rhel:not TestPPoly and \
+not TestLinprogIPSparse and \
+not test_axis_nan_policy_full and} \
 not test_sygst'"
 %endif
 

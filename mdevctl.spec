@@ -10,8 +10,14 @@ Summary:        A mediated device management utility for Linux
 License:        LGPLv2
 URL:            https://crates.io/crates/mdevctl
 Source:         %{crates_source}
+Source1:        https://github.com/mdevctl/mdevctl/releases/download/v%{version}/mdevctl-%{version}-vendor.tar.gz
 
-BuildRequires: make systemd rust-packaging python3-docutils
+BuildRequires: make systemd python3-docutils
+%if 0%{?rhel}
+BuildRequires:  rust-toolset
+%else
+BuildRequires:  rust-packaging >= 21
+%endif
 Requires(post,postun): %{_sbindir}/udevadm
 
 %description
@@ -23,10 +29,14 @@ vfio-mdev for assignment to virtual machines.
 
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
+%if 0%{?rhel}
+%cargo_prep -V 1
+%else
 %cargo_prep
 
 %generate_buildrequires
 %cargo_generate_buildrequires
+%endif
 
 %build
 %cargo_build

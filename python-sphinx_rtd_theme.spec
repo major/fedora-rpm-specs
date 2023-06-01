@@ -4,7 +4,7 @@
 %bcond_with bootstrap
 
 Name:           python-%{srcname}
-Version:        1.2.0
+Version:        1.2.1
 Release:        1%{?dist}
 Summary:        Sphinx theme for readthedocs.org
 
@@ -194,6 +194,10 @@ grep 'format("woff2\?")' \
 %endif
 
 %changelog
+* Wed May 24 2023 Karolina Surma <ksurma@redhat.com> - 1.2.1-1
+- Update to 1.2.1
+Fixes rhbz#2209270
+
 * Tue Feb 21 2023 Karolina Surma <ksurma@redhat.com> - 1.2.0-1
 - Update to 1.2.0
 Fixes rhbz#2154374

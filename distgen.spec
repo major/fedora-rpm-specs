@@ -13,7 +13,7 @@
 
 Name:       distgen
 Summary:    Templating system/generator for distributions
-Version:    1.15
+Version:    1.16
 Release:    1%{?dist}
 License:    GPL-2.0-or-later AND Apache-2.0
 URL:        https://github.com/devexp-db/distgen
@@ -74,6 +74,9 @@ make PYTHON=%{pybin} check
 
 
 %changelog
+* Mon May 29 2023 Zuzana Miklankova <zmiklank@redhat.com> - 1.16-1
+- new upstream release, https://github.com/devexp-db/distgen/releases/tag/v1.16
+
 * Fri Apr 21 2023 Zuzana Miklankova <zmiklank@redhat.com> - 1.15-1
 - new upstream release, https://github.com/devexp-db/distgen/releases/tag/v1.15
 

@@ -58,7 +58,7 @@
 
 Name:             avahi
 Version:          0.8
-Release:          22%{?dist}
+Release:          23%{?dist}
 Summary:          Local network service discovery
 License:          LGPLv2+
 URL:              http://avahi.org
@@ -73,7 +73,6 @@ Requires:         %{name}-libs%{?_isa} = %{version}-%{release}
 BuildRequires:    automake
 BuildRequires:    libtool
 BuildRequires:    dbus-devel >= 0.90
-BuildRequires:    dbus-glib-devel >= 0.70
 BuildRequires:    desktop-file-utils
 %if %{WITH_GTK2}
 BuildRequires:    gtk2-devel
@@ -878,6 +877,9 @@ exit 0
 
 
 %changelog
+* Wed May 10 2023 Tomas Popela <tpopela@redhat.com> - 0.8-23
+- Drop BR on dbus-glib as the project is not using it at all
+
 * Sun Mar 19 2023 Petr Menšík <pemensik@redhat.com> - 0.8-22
 - Enable unit tests during check
 - Prevent crashes on some invalid DBus calls

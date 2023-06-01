@@ -28,12 +28,10 @@ BuildRequires: automake autoconf libtool
 BuildRequires: mingw32-filesystem >= 95
 BuildRequires: mingw32-gcc
 BuildRequires: mingw32-binutils
-BuildRequires: mingw32-readline
 
 BuildRequires: mingw64-filesystem >= 95
 BuildRequires: mingw64-gcc
 BuildRequires: mingw64-binutils
-BuildRequires: mingw64-readline
 
 
 %description
@@ -102,7 +100,6 @@ autoreconf -vif
     --disable-pcre2grep-libbz2 \
     --disable-pcre2grep-libz \
     --disable-pcre2test-libedit \
-    --enable-pcre2test-libreadline \
     --disable-rebuild-chartables \
     --enable-shared \
     --enable-stack-for-recursion \

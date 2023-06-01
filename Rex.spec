@@ -1,5 +1,5 @@
 Name:			Rex
-Version:		1.14.0
+Version:		1.14.2
 Release:		0%{?dist}
 Summary:		The friendly automation framework on basis of Perl
 
@@ -16,7 +16,7 @@ Requires:		perl(Net::OpenSSH)
 Requires:		perl(Net::SFTP::Foreign)
 Requires:		perl(Parallel::ForkManager)
 
-BuildRequires:  make
+BuildRequires:  git make rsync
 
 BuildRequires:	perl-generators perl-interpreter
 BuildRequires:	perl(attributes)
@@ -58,6 +58,7 @@ Buildrequires:	perl(List::Util)
 Buildrequires:	perl(LWP::UserAgent)
 Buildrequires:	perl(MIME::Base64)
 BuildRequires:	perl(Module::Metadata)
+BuildRequires:	perl(Module::Load::Conditional)
 Buildrequires:	perl(Net::OpenSSH::ShellQuoter)
 BuildRequires:	perl(Net::SFTP::Foreign)
 BuildRequires:	perl(overload)
@@ -78,6 +79,7 @@ BuildRequires:	perl(Test::More)
 BuildRequires:	perl(Test::Output)
 BuildRequires:	perl(Test::mysqld)
 BuildRequires:	perl(Test::UseAllModules)
+BuildRequires:	perl(Test::Warnings)
 Buildrequires:	perl(Text::Glob)
 Buildrequires:	perl(Text::Wrap)
 Buildrequires:	perl(Time::HiRes)
@@ -88,7 +90,6 @@ Buildrequires:	perl(warnings)
 BuildRequires:	perl(XML::LibXML)
 Buildrequires:	perl(XML::Simple)
 Buildrequires:	perl(YAML)
-
 
 %description
 (R)?ex(ify) is the friendly automation framework on basis of the Perl scripting
@@ -129,7 +130,6 @@ make test
 %install
 make pure_install DESTDIR=$RPM_BUILD_ROOT
 
-chmod 755 $RPM_BUILD_ROOT/%{perl_vendorlib}/%{name}/Commands/templates/append_if_no_such_line.tpl.pl
 sed -i "s|/usr/bin/env perl|/usr/bin/perl|" $RPM_BUILD_ROOT/%{_bindir}/rex
 
 %{_fixperms} -c $RPM_BUILD_ROOT
@@ -149,6 +149,12 @@ sed -i "s|/usr/bin/env perl|/usr/bin/perl|" $RPM_BUILD_ROOT/%{_bindir}/rex
 
 
 %changelog
+* Tue May 30 2023 Dominic Hopf <dmaphy@fedoraproject.org> - 1.14.2-1
+- Update to 1.14.2 (#2175551)
+
+* Mon Mar 06 2023 Dominic Hopf <dmaphy@fedoraproject.org> - 1.14.1-1
+- Update to 1.14.1 (#2175551)
+
 * Mon Feb 06 2023 Dominic Hopf <dmaphy@fedoraproject.org> - 1.14.0-1
 - Update to 1.14.0 (#2167207)
 

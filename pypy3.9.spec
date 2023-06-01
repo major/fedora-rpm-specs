@@ -10,7 +10,7 @@ Version:        %{basever}.%{micro}%{?pre:~%{pre}}
 # by Python version as well.
 # This potentially allows tags like Obsoletes: pypy3 < %%{version}-%%{release}.
 # https://bugzilla.redhat.com/2053880
-%global baserelease 3
+%global baserelease 4
 Release:        %{baserelease}.%{pyversion}%{?dist}
 Summary:        Python %{pyversion} implementation with a Just-In-Time compiler
 
@@ -119,6 +119,16 @@ Patch9: 009-add-libxcrypt-support.patch
 # /usr/share/python-wheels
 # We conditionally apply this, but we use autosetup, so we use Source here
 Source189: 189-use-rpm-wheels.patch
+
+# 00399 #
+# CVE-2023-24329
+#
+# gh-102153: Start stripping C0 control and space chars in `urlsplit` (GH-102508)
+#
+# `urllib.parse.urlsplit` has already been respecting the WHATWG spec a bit GH-25595.
+#
+# This adds more sanitizing to respect the "Remove any leading C0 control or space from input" [rule](https://url.spec.whatwg.org/GH-url-parsing:~:text=Remove%%20any%%20leading%%20and%%20trailing%%20C0%%20control%%20or%%20space%%20from%%20input.) in response to [CVE-2023-24329](https://nvd.nist.gov/vuln/detail/CVE-2023-24329).
+Patch399: 399-cve-2023-24329.patch
 
 # Build-time requirements:
 
@@ -850,6 +860,10 @@ CheckPyPy pypy%{pyversion}-c
 
 
 %changelog
+* Mon May 29 2023 Charalampos Stratakis <cstratak@redhat.com> - 7.3.11-4.3.9
+- Security fix for CVE-2023-24329
+Resolves: rhbz#2174020
+
 * Fri Feb 17 2023 Miro Hrončok <mhroncok@redhat.com> - 7.3.11-3.3.9
 - On Fedora 38+, obsolete the pypy3.8 package which is no longer available
 

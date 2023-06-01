@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit 2badf88d3115e9d3e63b51601eeaa75977f40d16
+%global commit 1c095937163faff5822b673b6771b700002ad3a6
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 38.14
+Version: 38.15
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -813,6 +813,18 @@ exit 0
 %endif
 
 %changelog
+* Tue May 30 2023 Zdenek Pytela <zpytela@redhat.com> - 38.15-1
+- Update policy for systemd-sleep
+- Remove permissive domain for rshim_t
+- Remove permissive domain for mptcpd_t
+- Allow systemd-bootchartd the sys_ptrace userns capability
+- Allow sysadm_t read nsfs files
+- Allow sysadm_t run kernel bpf programs
+- Update ssh_role_template for ssh-agent
+- Update ssh_role_template to allow read/write unallocated ttys
+- Add the booth module to modules.conf
+- Allow firewalld rw ica_tmpfs_t files
+
 * Fri May 26 2023 Zdenek Pytela <zpytela@redhat.com> - 38.14-1
 - Remove permissive domain for cifs_helper_t
 - Update the cifs-helper policy

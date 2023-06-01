@@ -1,10 +1,10 @@
 # RPM version needs 4 digits after the decimal to preserve upgrade path
-%global module_version 1.55
+%global module_version 1.56
 %global RPM_version %(printf "%.4f" %{module_version})
 
 Name:           perl-Finance-Quote
 Version:        %{RPM_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Perl module that retrieves stock and mutual fund quotes
 License:        GPL-2.0-or-later
 URL:            https://metacpan.org/release/Finance-Quote
@@ -15,7 +15,8 @@ BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
-BuildRequires:  perl-interpreter >= 4:5.10.0
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.10.0
 BuildRequires:  perl(ExtUtils::MakeMaker)
 # Module Runtime
 BuildRequires:  perl(base)
@@ -110,6 +111,7 @@ make test
 %{_mandir}/man3/Finance::Quote::Bloomberg.3*
 %{_mandir}/man3/Finance::Quote::Bourso.3*
 %{_mandir}/man3/Finance::Quote::BSEIndia.3*
+%{_mandir}/man3/Finance::Quote::BVB.3*
 %{_mandir}/man3/Finance::Quote::CSE.3*
 %{_mandir}/man3/Finance::Quote::Cdnfundlibrary.3*
 %{_mandir}/man3/Finance::Quote::Comdirect.3*
@@ -131,10 +133,10 @@ make test
 %{_mandir}/man3/Finance::Quote::HU.3*
 %{_mandir}/man3/Finance::Quote::IEXCloud.3*
 %{_mandir}/man3/Finance::Quote::IndiaMutual.3*
-%{_mandir}/man3/Finance::Quote::MStaruk.3*
 %{_mandir}/man3/Finance::Quote::MorningstarAU.3*
 %{_mandir}/man3/Finance::Quote::MorningstarCH.3*
 %{_mandir}/man3/Finance::Quote::MorningstarJP.3*
+%{_mandir}/man3/Finance::Quote::MorningstarUK.3*
 %{_mandir}/man3/Finance::Quote::NSEIndia.3*
 %{_mandir}/man3/Finance::Quote::NZX.3*
 %{_mandir}/man3/Finance::Quote::OnVista.3*
@@ -145,17 +147,30 @@ make test
 %{_mandir}/man3/Finance::Quote::TesouroDireto.3*
 %{_mandir}/man3/Finance::Quote::TMX.3*
 %{_mandir}/man3/Finance::Quote::Tradegate.3*
-%{_mandir}/man3/Finance::Quote::Tradeville.3*
 %{_mandir}/man3/Finance::Quote::TSP.3*
 %{_mandir}/man3/Finance::Quote::Tiaacref.3*
 %{_mandir}/man3/Finance::Quote::TreasuryDirect.3*
 %{_mandir}/man3/Finance::Quote::Troweprice.3*
+%{_mandir}/man3/Finance::Quote::TwelveData.3*
 %{_mandir}/man3/Finance::Quote::Union.3*
 %{_mandir}/man3/Finance::Quote::XETRA.3*
 %{_mandir}/man3/Finance::Quote::YahooJSON.3*
 %{_mandir}/man3/Finance::Quote::ZA.3*
 
 %changelog
+* Tue May 30 2023 Paul Howarth <paul@city-fan.org> - 1.5600-2
+- Rebuild
+
+* Tue May 30 2023 Paul Howarth <paul@city-fan.org> - 1.5600-1
+- Update to 1.56
+  - Replaced Tradeville.pm with BVB.pm (GH#269)
+  - Added new TwelveData module
+  - Updated YahooJSON.pm and CurrencyRates/YahooJSON.pm to use
+    https://query2.finance.yahoo.com/v11 (GH#284)
+  - Bourso.pm - Squash anything but numbers and period in quote values
+  - Renamed MStarUK.pm to MorningstarUK.pm
+  - Added get_features method (GH#260)
+
 * Sun May 14 2023 Paul Howarth <paul@city-fan.org> - 1.5500-1
 - Update to 1.55
   - Added YahooJSON currency rate module (GH#270)

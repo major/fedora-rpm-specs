@@ -4,10 +4,12 @@
 
 Name:           %{fontname}-fonts
 Version:        1.02
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Nafees nastaleeq font for writing Urdu in the Nastaleeq script
 
-License:        MIT
+# Upstream font embedding MIT license name is wrong
+# the correct license by its text is https://spdx.org/licenses/Bitstream-Vera.html
+License:        Bitstream-Vera
 URL:            https://www.cle.org.pk/software/localization/Fonts/nafeesNastaleeq.html
 Source0:        https://www.cle.org.pk/Downloads/localization/fonts/NafeesNastaleeq/%{archivename}.zip
 
@@ -60,6 +62,9 @@ install -Dm 0644 -p %{SOURCE2} \
 
 
 %changelog
+* Tue May 30 2023 Parag Nemade <pnemade AT redhat DOT com> - 1.02-26
+- license text matched to Bitstream-Vera
+
 * Mon May 29 2023 Parag Nemade <pnemade AT redhat DOT com> - 1.02-25
 - Migrate to SPDX license expression
 

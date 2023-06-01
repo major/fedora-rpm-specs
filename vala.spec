@@ -2,7 +2,7 @@
 %global priority 90
 
 Name:           vala
-Version:        0.56.7
+Version:        0.56.8
 Release:        1%{?dist}
 Summary:        A modern programming language for GNOME
 
@@ -62,6 +62,8 @@ This package contains the shared libvala library.
 %package -n     libvala-devel
 Summary:        Development files for libvala
 Requires:       libvala%{?_isa} = %{version}-%{release}
+# Renamed in F30
+Provides:       vala-devel = %{version}-%{release}
 
 %description -n libvala-devel
 Vala is a new programming language that aims to bring modern programming
@@ -190,6 +192,9 @@ export -n VALAFLAGS
 
 
 %changelog
+* Tue May 30 2023 Kalev Lember <klember@redhat.com> - 0.56.8-1
+- Update to 0.56.8
+
 * Wed Apr 19 2023 David King <amigadave@amigadave.com> - 0.56.7-1
 - Update to 0.56.7
 

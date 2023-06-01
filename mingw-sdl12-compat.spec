@@ -3,17 +3,14 @@
 %global origname sdl12-compat
 
 Name:           mingw-%{origname}
-Version:        1.2.60
-Release:        3%{?dist}
+Version:        1.2.64
+Release:        1%{?dist}
 Summary:        MinGW Windows port of SDL 1.2 runtime compatibility library using SDL 2.0
 # mp3 decoder code is MIT-0/PD
 # SDL_opengl.h is zlib and MIT
 License:        zlib and (Public Domain or MIT-0) and MIT
 URL:            https://github.com/libsdl-org/%{origname}
 Source0:        %{url}/archive/release-%{version}/%{origname}-%{version}.tar.gz
-
-## From: https://github.com/libsdl-org/sdl12-compat/commit/77892a1ef5260fe78e593c8337dbe98874ff336c
-Patch0001:      0001-fix-SDL12COMPAT_MAX_VIDMODE.patch
 
 BuildRequires:  cmake
 BuildRequires:  git-core
@@ -120,6 +117,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/aclocal
 
 
 %changelog
+* Tue May 30 2023 Sandro Mani <manisandro@gmail.com> - 1.2.64-1
+- Update to 1.2.64
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.60-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

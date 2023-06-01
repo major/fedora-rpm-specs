@@ -11,7 +11,7 @@
 Summary: SELinux policy core utilities
 Name:    policycoreutils
 Version: 3.5
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-or-later
 # https://github.com/SELinuxProject/selinux/wiki/Releases
 Source0: https://github.com/SELinuxProject/selinux/releases/download/3.5/selinux-3.5.tar.gz
@@ -48,7 +48,7 @@ Provides: /sbin/restorecon
 BuildRequires: gcc make
 BuildRequires: pam-devel libsepol-static >= %{libsepolver} libsemanage-devel >= %{libsemanagever} libselinux-devel >= %{libselinuxver}  libcap-devel audit-libs-devel >=  %{libauditver} gettext
 BuildRequires: desktop-file-utils dbus-devel glib2-devel
-BuildRequires: python3-devel python3-setuptools python3-pip
+BuildRequires: python3-devel python3-setuptools python3-wheel python3-pip
 BuildRequires: systemd
 BuildRequires: git-core
 Requires: util-linux grep gawk diffutils rpm sed
@@ -235,7 +235,7 @@ by python 3 in an SELinux environment.
 %{python3_sitelib}/sepolicy/network.py*
 %{python3_sitelib}/sepolicy/transition.py*
 %{python3_sitelib}/sepolicy/sedbus.py*
-%{python3_sitelib}/sepolicy*.egg-info
+%{python3_sitelib}/sepolicy*.dist-info/
 %{python3_sitelib}/sepolicy/__pycache__
 
 %package devel
@@ -443,6 +443,10 @@ The policycoreutils-restorecond package contains the restorecond service.
 %systemd_postun_with_restart restorecond.service
 
 %changelog
+* Fri May 26 2023 Miro Hrončok <mhroncok@redhat.com> - 3.5-3
+- Fix build with pip 23.1.2+
+- Fixes: rhbz#2209016
+
 * Wed May 10 2023 Tomas Popela <tpopela@redhat.com> - 3.5-2
 - Drop unused BR on dbus-glib and explicitly BR glib2
 

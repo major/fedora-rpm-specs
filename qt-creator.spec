@@ -8,7 +8,7 @@
 
 Name:           qt-creator
 Version:        10.0.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPLv3 with exceptions
@@ -220,7 +220,10 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
-* Fri May 26 2023 Jan Grulich <jgrulich@redhat.com>
+* Tue May 30 2023 Sandro Mani <manisandro@gmail.com> - 10.0.1-4
+- Rebuild (litehtml)
+
+* Fri May 26 2023 Jan Grulich <jgrulich@redhat.com> - 10.0.1-3
 - Rebuild (qt6)
 
 * Tue May 23 2023 Sandro Mani <manisandro@gmail.com> - 10.0.1-2

@@ -6,7 +6,7 @@ Version:        1.28.0
 Release:        %autorelease
 Summary:        A cross-platform C++ library for network programming
 
-License:        Boost
+License:        BSL-1.0
 URL:            https://think-async.com
 Source0:        https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
 

@@ -1,8 +1,8 @@
 Summary:	OO interface for spell-checking a block of text 
 Name:		perl-Text-SpellChecker
 Version:	0.14
-Release:	27%{?dist}
-License:	GPL+ or Artistic
+Release:	28%{?dist}
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Text-SpellChecker
 Source0:	https://cpan.metacpan.org/modules/by-module/Text/Text-SpellChecker-%{version}.tar.gz
 BuildArch:	noarch
@@ -29,10 +29,10 @@ BuildRequires:	perl(Test::More)
 BuildRequires:	perl(utf8)
 # Optional Tests
 BuildRequires:	perl(Test::Pod)
-%if 0%{?fedora:1}
+%if 0%{?fedora:1} && 0%{?fedora} < 39
 BuildRequires:	perl(Text::Aspell), aspell-en
 %endif
-# Runtime
+# Dependencies
 # hunspell is the preferred spell checking backend in Fedora
 Requires:	perl(Text::Hunspell)
 
@@ -64,6 +64,10 @@ LANG=en_US make test TEST_VERBOSE=1
 %{_mandir}/man3/Text::SpellChecker.3*
 
 %changelog
+* Tue May 30 2023 Paul Howarth <paul@city-fan.org> - 0.14-28
+- Use SPDX-format license tag
+- Drop build requirements for optional aspell test from Fedora 39 onwards
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

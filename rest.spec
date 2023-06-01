@@ -3,7 +3,7 @@ Version:       0.9.1
 Release:       6%{?dist}
 Summary:       A library for access to RESTful web services
 
-License:       LGPLv2
+License:       LGPL-2.1-only
 URL:           https://gitlab.gnome.org/GNOME/librest
 Source0:       https://download.gnome.org/sources/%{name}/0.9/%{name}-%{version}.tar.xz
 

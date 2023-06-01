@@ -11,13 +11,13 @@
 %global fedoradists fedora-dists-2.1.1
 %global pagure pagure-0.1.1
 %global pdc pdc-0.1.1
-%global simpleprompt simple-prompt-0.1.0
+%global simpleprompt simple-prompt-0.2.0.1
 %global subpkgs %{bodhi} %{coprapi} %{cachedjsonfile} %{pdc} %{fedoradists} %{pagure} %{simpleprompt}
 
 Name:           fbrnch
-Version:        1.3
+Version:        1.3.2
 # can only be reset when all subpkgs bumped
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Fedora packager tool to build package branches
 
 # bodhi-hs, pdc-hs: MIT
@@ -76,6 +76,13 @@ BuildRequires:  ghc-xdg-basedir-devel
 BuildRequires:  ghc-unordered-containers-devel
 %if %{with ghc_prof}
 BuildRequires:  ghc-unordered-containers-prof
+%endif
+# for missing dep 'simple-prompt':
+BuildRequires:  ghc-exceptions-devel
+BuildRequires:  ghc-haskeline-devel
+%if %{with ghc_prof}
+BuildRequires:  ghc-exceptions-prof
+BuildRequires:  ghc-haskeline-prof
 %endif
 # End cabal-rpm deps
 # for missing dep 'bodhi'/'copr-api'/'pagure'/'pdc'
@@ -179,6 +186,28 @@ install -pm 644 -D %{name}.man %{buildroot}%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Tue May 30 2023 Jens Petersen <petersen@redhat.com> - 1.3.2-11
+- https://hackage.haskell.org/package/fbrnch-1.3.2/changelog :
+- prompts now support line-editing thanks to simple-prompt-0.2 using haskeline
+- 'parallel', 'sort', 'graph': use getDynSourcesMacros
+- 'parallel': include no of layers in "more package layers" message
+- 'parallel': output sidetag
+- 'prep': default to --nodeps
+- 'request-branches': output owners (to ask) if no permission
+- 'request-branches': committers can also request branches
+- 'scratch': print target for srpm build (only)
+- 'src-deps': add --define 'MACRO DEF'
+- 'update-version': munch spectool patch filenames too
+- Bodhi only accepts update notes <= 10000 characters now
+- Git refPrompt: also accept y/yes
+- Koji targetMaybeSidetag dryrun: do not append "-dryrun" to buildtag
+- Merge: newline after local commits
+- Package cleanChangelog: append a newline
+- https://hackage.haskell.org/package/fbrnch-1.3.1/changelog :
+- check for autorelease more carefully
+- buildRequires: fix dynamic BRs with getSources and space after %_srcrpmdir
+  (reported by kiilerix)
+
 * Sat Apr  8 2023 Jens Petersen <petersen@redhat.com> - 1.3-10
 - new 'autospec' command converts packages to use rpmautospec
 - new 'move-artifacts' command moves rpmbuild artifacts into dirs (--delete)

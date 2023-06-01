@@ -34,8 +34,12 @@ Provides: container-network-stack = 2
 BuildRequires: make
 BuildRequires: protobuf-c
 BuildRequires: protobuf-compiler
+%if %{defined rhel}
+BuildRequires: rust-toolset
+%else
 BuildRequires: rust-packaging
 BuildRequires: rust-srpm-macros
+%endif
 BuildRequires: git-core
 BuildRequires: systemd
 BuildRequires: systemd-devel

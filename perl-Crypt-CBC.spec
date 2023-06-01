@@ -1,10 +1,10 @@
 Summary:        Encrypt Data with Cipher Block Chaining Mode
 Name:           perl-Crypt-CBC
 Version:        3.04
-Release:        10%{?dist}
+Release:        11%{?dist}
 # Upstream confirms that they're under the same license as perl.
 # Wording in CBC.pm is less than clear, but still.
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-CBC
 Source0:        https://cpan.metacpan.org/modules/by-module/Crypt/Crypt-CBC-%{version}.tar.gz
 Patch0:         Crypt-CBC-3.04-3.05.patch
@@ -66,7 +66,7 @@ compatible with the encryption format used by SSLeay.
 # Upstream tagged a 3.05 release but didn't upload it to PAUSE
 # This fixes an issue around the -literal_key option
 # https://github.com/lstein/Lib-Crypt-CBC/issues/4
-%patch0 -p1
+%patch -P 0 -p1
 
 chmod -c 644 eg/*.pl
 
@@ -88,6 +88,10 @@ make test
 %{_mandir}/man3/Crypt::CBC.3*
 
 %changelog
+* Tue May 30 2023 Michal Josef Špaček <mspacek@redhat.com> - 3.04-11
+- Fix %%patch macro
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.04-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

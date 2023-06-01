@@ -1,7 +1,7 @@
 %global srcname cachetools
 
 Name:           python-%{srcname}
-Version:        5.3.0
+Version:        5.3.1
 Release:        1%{?dist}
 Summary:        Extensible memoizing collections and decorators
 
@@ -52,6 +52,9 @@ BuildRequires:  python3-setuptools
 
 
 %changelog
+* Tue May 30 2023 John Eckersberg <jeckersb@redhat.com> - 5.3.1-1
+- New upstream release 5.3.1 (rhbz#2210490)
+
 * Mon Jan 23 2023 John Eckersberg <jeckersb@redhat.com> - 5.3.0-1
 - New upstream release 5.3.0 (rhbz#2163023)
 

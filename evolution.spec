@@ -44,7 +44,7 @@
 
 Name: evolution
 Version: 3.48.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Mail and calendar client for GNOME
 License: GPL-2.0-or-later AND GFDL-1.3-or-later
 URL: https://wiki.gnome.org/Apps/Evolution
@@ -54,6 +54,9 @@ Source2: flatpak-evolution-wrapper.sh.in
 
 # https://gitlab.gnome.org/GNOME/evolution/-/issues/2380
 Patch01: 0001-Mail-Preview-content-sometimes-grows-indefinitely.patch
+
+# https://gitlab.gnome.org/GNOME/evolution/-/issues/2382
+Patch02: 0002-I-2382-Mail-Workaround-recursion-in-iframe-height-co.patch
 
 # Approximate version number
 Provides: bundled(libgnomecanvas) = 2.30.0
@@ -581,6 +584,9 @@ grep -v "%{_datadir}/locale" evolution.lang > help.lang
 %endif
 
 %changelog
+* Tue May 30 2023 Milan Crha <mcrha@redhat.com> - 3.48.2-3
+- Add patch to workaround recursion in iframe height computation in mail preview
+
 * Mon May 29 2023 Milan Crha <mcrha@redhat.com> - 3.48.2-2
 - Add upstream fix for a regression on mail preview panel sometimes growing indefinitely
 

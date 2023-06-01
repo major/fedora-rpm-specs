@@ -47,7 +47,7 @@ Epoch: 2
 # Keep Version in upstream specfile at 0. It will be automatically set
 # to the correct value by Packit for copr and koji builds.
 # IGNORE this comment if you're looking at it in dist-git.
-Version: 2.215.0
+Version: 2.216.0
 Release: %autorelease
 License: GPL-2.0-only
 URL: %{git0}

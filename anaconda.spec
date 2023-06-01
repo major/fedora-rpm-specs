@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 39.16
-Release: 2%{?dist}
+Version: 39.17
+Release: 1%{?dist}
 License: GPLv2+ and MIT
 URL:     http://fedoraproject.org/wiki/Anaconda
 
@@ -470,6 +470,19 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue May 30 2023 Packit <hello@packit.dev> - 39.17-1
+- Remove unused parameter anaconda (vslavik)
+- Remove unused parameter opts (vslavik)
+- Remove unused parameter pass_to_boss (vslavik)
+- Rename parameters ks->ks_path (vslavik)
+- WebUI: move alert under header for review screen (jvanderwaa)
+- Reindent test file list (vslavik)
+- Fix ruff detections (vslavik)
+- Add ruff, a very fast linter (vslavik)
+- Move the User Interface module under Runtime (vslavik)
+- Increase the minimum EFI System Partition (ESP) size to 500MiB (richard)
+- Update translations from Weblate
+
 * Wed May 24 2023 Petr Pisar <ppisar@redhat.com> - 39.16-2
 - Rebuild against rpm-4.19 (https://fedoraproject.org/wiki/Changes/RPM-4.19)
 

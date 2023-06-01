@@ -2,9 +2,10 @@
 
 Name:           python-setuptools_scm
 Version:        7.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Blessed package to manage your versions by SCM tags
 
+# SPDX
 License:        MIT
 URL:            https://pypi.python.org/pypi/setuptools_scm
 Source0:        %{pypi_source setuptools_scm}
@@ -15,7 +16,14 @@ BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  pyproject-rpm-macros
 %if %{with tests}
 BuildRequires:  git-core
+# Don't pull mercurial into RHEL just to test this work with it
+%if %{undefined rhel}
 BuildRequires:  mercurial
+%endif
+# Manually listed test dependencies from tox.ini, to avoid pulling tox into RHEL
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(setuptools) >= 45
+BuildRequires:  python3dist(virtualenv) > 20
 %endif
 
 %description
@@ -43,7 +51,7 @@ It also handles file finders for the supported SCMs.
 
 
 %generate_buildrequires
-%pyproject_buildrequires %{?with_tests:-e %{toxenv}-test}
+%pyproject_buildrequires
 
 
 %build
@@ -58,7 +66,7 @@ It also handles file finders for the supported SCMs.
 %if %{with tests}
 %check
 # Both of the skipped tests try to download from the internet
-%tox -- -- -v -k 'not test_pip_download and not test_distlib_setuptools_works'
+%pytest -v -k 'not test_pip_download and not test_distlib_setuptools_works'
 %endif
 
 
@@ -68,6 +76,10 @@ It also handles file finders for the supported SCMs.
 
 
 %changelog
+* Wed May 24 2023 Miro Hrončok <mhroncok@redhat.com> - 7.1.0-3
+- Drop the build dependency on tox
+- Verify the license tag is SDPX
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

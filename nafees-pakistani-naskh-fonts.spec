@@ -4,17 +4,17 @@
 
 Name:           %{fontname}-fonts
 Version:        2.01
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Nafees pakistani naskh font for writing Urdu in the Naskh script
 
-License:        Bitstream Vera
+# the correct license by its text is https://spdx.org/licenses/Bitstream-Vera.html
+License:        Bitstream-Vera
 URL:            http://www.crulp.org/index.htm
 
 Source0:        http://www.crulp.org/Downloads/localization/fonts/NafeesPakistaniNaskh/%{archivename}.zip
 
-Source1:        %{fontname}-update-preferred-family.pe
-Source2:        %{fontconf}
-Source3:       %{fontname}.metainfo.xml
+Source1:        %{fontconf}
+Source2:        %{fontname}.metainfo.xml
 
 BuildArch:      noarch
 Requires:       fontpackages-filesystem
@@ -32,9 +32,7 @@ Sindhi and Saraiki in Naskh script.
 %setup -q -c
 
 %build
-# Fix RHBZ#490830 while not fixed upstream
-%{_bindir}/fontforge %{SOURCE1} Nafees\ Pakistani\ Naskh\ v2.01.ttf
-rm  Nafees\ Pakistani\ Naskh\ v2.01.ttf
+# nothing to build here
 
 %install
 
@@ -45,7 +43,7 @@ install -m 0644 -p *.ttf %{buildroot}%{_fontdir}
 install -m 0755 -d %{buildroot}%{_fontconfig_templatedir} \
                 %{buildroot}%{_fontconfig_confdir}
 
-install -m 0644 -p %{SOURCE2} \
+install -m 0644 -p %{SOURCE1} \
                 %{buildroot}%{_fontconfig_templatedir}/%{fontconf}
 
 ln -s %{_fontconfig_templatedir}/%{fontconf} \
@@ -53,7 +51,7 @@ ln -s %{_fontconfig_templatedir}/%{fontconf} \
 
 
 # Add AppStream metadata
-install -Dm 0644 -p %{SOURCE3} \
+install -Dm 0644 -p %{SOURCE2} \
        %{buildroot}%{_datadir}/appdata/%{fontname}.metainfo.xml
 
 
@@ -64,6 +62,9 @@ install -Dm 0644 -p %{SOURCE3} \
 
 
 %changelog
+* Tue May 30 2023 Parag Nemade <pnemade AT redhat DOT com> - 2.01-25
+- Migrate to SPDX license expression
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.01-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

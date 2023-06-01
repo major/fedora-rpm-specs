@@ -8,14 +8,18 @@ Summary:        Unified interface for Linux network state querying
 License:        ASL 2.0
 URL:            https://github.com/nispor/nispor
 Source:         https://github.com/nispor/nispor/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source1:        https://github.com/nispor/nispor/releases/download/v%{version}/nispor-vendor-%{version}.tar.xz
 BuildRequires:  make
 BuildRequires:  pkg-config
 BuildRequires:  python3-devel
 BuildRequires:  python-setuptools
-BuildRequires:  rust-packaging
 BuildRequires:  systemd-devel
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  patchelf
+%if 0%{?rhel}
+BuildRequires:  rust-toolset
+%else
+BuildRequires:  rust-packaging
 BuildRequires:  (crate(clap/cargo) >= 4.2.0 with crate(clap/cargo) < 5.0)
 BuildRequires:  (crate(clap/default) >= 4.2.0 with crate(clap/default) < 5.0)
 BuildRequires:  (crate(env_logger/default) >= 0.10 with crate(env_logger/default) < 0.11)
@@ -34,10 +38,12 @@ BuildRequires:  (crate(serde_json/default) >= 1.0 with crate(serde_json/default)
 BuildRequires:  (crate(serde_yaml/default) >= 0.9 with crate(serde_yaml/default) < 0.10)
 BuildRequires:  (crate(tokio/macros) >= 1.18 with crate(tokio/macros) < 2.0)
 BuildRequires:  (crate(tokio/rt) >= 1.18 with crate(tokio/rt) < 2.0)
+%endif
 
 %description
 Unified interface for Linux network state querying.
 
+%if ! 0%{?rhel}
 %package -n     rust-%{name}-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -55,6 +61,7 @@ BuildArch:      noarch
 
 This package contains library source intended for building other packages
 which use "%{name}" crate with default feature.
+%endif
 
 %package -n     python3-%{name}
 Summary:        %{summary}
@@ -79,7 +86,11 @@ This package contains C binding of %{name}.
 # we use patchelf to set the SONAME.
 rm .cargo/config.toml
 
+%if 0%{?rhel}
+%cargo_prep -V 1
+%else
 %cargo_prep
+%endif
 
 %build
 %cargo_build
@@ -89,6 +100,7 @@ pushd src/python
 popd
 
 %install
+%if ! 0%{?rhel}
 # cargo_install has problem on detecting library when running in workspace
 # due to bug https://pagure.io/fedora-rust/cargo2rpm/issue/5
 # Removing the workspace Cargo.toml will workaround this problem.
@@ -96,6 +108,7 @@ rm Cargo.toml
 pushd src/lib
 %cargo_install
 popd
+%endif
 
 env SKIP_PYTHON_INSTALL=1 PREFIX=%{_prefix} LIBDIR=%{_libdir} %make_install
 
@@ -127,12 +140,14 @@ patchelf --set-soname libnispor.so.1 \
 %{_includedir}/nispor.h
 %{_libdir}/pkgconfig/nispor.pc
 
+%if ! 0%{?rhel}
 %files -n       rust-%{name}-devel
 %license LICENSE
 %{cargo_registry}/%{name}-%{version_no_tilde}/
 
 %files -n       rust-%{name}+default-devel
 %ghost %{cargo_registry}/%{name}-%{version_no_tilde}/Cargo.toml
+%endif
 
 %changelog
 %autochangelog

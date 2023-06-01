@@ -8,7 +8,7 @@
 #
 
 %global bootstrap    0
-%global gh_commit    8bf8ab15960787f1a49d405f6eb8c787b4841119
+%global gh_commit    63fee8c33bef740db6730eb2a750cd3da6495603
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     doctrine
 %global gh_project   persistence
@@ -27,7 +27,7 @@
 %endif
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        3.1.4
+Version:        3.2.0
 Release:        1%{?dist}
 Summary:        Doctrine Persistence abstractions, version %{major}
 
@@ -169,6 +169,9 @@ exit $ret
 
 
 %changelog
+* Tue May 30 2023 Remi Collet <remi@remirepo.net> - 3.2.0-1
+- update to 3.2.0
+
 * Tue Feb  7 2023 Remi Collet <remi@remirepo.net> - 3.1.4-1
 - update to 3.1.4
 

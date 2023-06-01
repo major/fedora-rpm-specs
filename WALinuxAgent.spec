@@ -3,10 +3,10 @@
 
 Name:           WALinuxAgent
 Version:        2.9.0.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The Microsoft Azure Linux Agent
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/Azure/%{name}
 Source0:        https://github.com/Azure/%{name}/archive/v%{version}.tar.gz
 Source1:        module-setup.sh
@@ -123,6 +123,9 @@ install -m0755 -D -t %{buildroot}%{_prefix}/lib/dracut/modules.d/%{dracut_modnam
 %endif
 
 %changelog
+* Tue May 30 2023 Vitaly Kuznetsov <vkuznets@redhat.com> - 2.9.0.4-2
+- Switch to SPDX identifiers for the license field
+
 * Mon Mar 13 2023 Vitaly Kuznetsov <vkuznets@redhat.com> - 2.9.0.4-1
 - Update to 2.9.0.4 (#2177333)
 

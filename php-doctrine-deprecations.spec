@@ -9,7 +9,7 @@
 
 %bcond_without       tests
 
-%global gh_commit    0e2a4f1f8cdfc7a92ec3b01c9334898c806b30de
+%global gh_commit    8cffffb2218e01f3b370bf763e00e81697725259
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     doctrine
 %global gh_project   deprecations
@@ -21,16 +21,14 @@
 %global ns_project   Deprecations
 
 Name:           php-%{pk_vendor}-%{pk_project}
-Version:        1.0.0
-Release:        4%{?dist}
+Version:        1.1.0
+Release:        1%{?dist}
 Summary:        A small layer on top of triggeFr_error or PSR-3 logging
 
 License:        MIT
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        %{name}-%{version}-%{gh_short}.tgz
 Source1:        makesrc.sh
-
-Patch0:         %{name}-php82.patch
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 7.1
@@ -81,7 +79,6 @@ Autoloader: %{_datadir}/php/%{ns_vendor}/%{ns_project}/autoload.php
 
 %prep
 %setup -q -n %{gh_project}-%{gh_commit}
-%patch -P0 -p1
 
 
 %build
@@ -128,6 +125,7 @@ ret=0
 for cmd in php php80 php81 php82; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit9 \
+        --filter '^((?!(testDeprecationTrackByEnv)).)*$' \
         --verbose || ret=1
   fi
 done
@@ -146,6 +144,9 @@ exit $ret
 
 
 %changelog
+* Tue May 30 2023 Remi Collet <remi@remirepo.net> - 1.1.0-1
+- update to 1.1.0
+
 * Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 1.0.0-4
 - add upstream patch for test suite with PHP 8.2 #2171642
 

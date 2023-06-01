@@ -2,12 +2,9 @@
 
 Name:		accel-config
 Version:	4.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Configure accelerator subsystem devices
-# The entire source code is under GPLv2 except for accel-config
-# library which is mostly LGPLv2.1, ccan/list which is BSD-MIT and
-# the rest of ccan which is CC0.
-License:	GPLv2 and LGPLv2+ and MIT and CC0
+License:	GPL-2.0
 URL:		https://github.com/intel/%{project_name}
 Source0:	%{URL}/archive/%{name}-v%{version}.tar.gz
 
@@ -35,7 +32,7 @@ Utility library for configuring the accelerator subsystem.
 
 %package devel
 Summary:	Development files for libaccfg
-License:	LGPLv2+
+License:	LGPL-2.1-only
 Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
 
 %description devel
@@ -45,9 +42,7 @@ developing applications that use %{name}.
 
 %package libs
 Summary:	Configuration library for accelerator subsystem devices
-# All source code of configuration library is LGPLv2.1, except
-# ccan/list which is BSD-MIT and the rest of ccan/ which is CC0.
-License:	LGPLv2+ and MIT and CC0
+License:	LGPL-2.1-only
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description libs
@@ -89,6 +84,9 @@ make check
 %{_libdir}/pkgconfig/lib%{name}.pc
 
 %changelog
+* Tue May 30 2023 Jerry Snitselaar <jsnitsel@redhat.com> - 4.0-2
+- Update spec file to use SPDX identifiers
+
 * Sun Apr 23 2023 Jun Miao <jun.miao@intel.com> - 4.0-1
 - Update to v4.0 release
 

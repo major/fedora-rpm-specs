@@ -3,7 +3,7 @@
 Summary: Dynamic analysis tools to detect memory or thread bugs and profile
 Name: %{?scl_prefix}valgrind
 Version: 3.21.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Epoch: 1
 License: GPLv2+
 URL: https://www.valgrind.org/
@@ -468,6 +468,9 @@ fi
 %endif
 
 %changelog
+* Tue May 30 2023 Mark Wielaard <mjw@fedoraproject.org> - 3.21.0-5
+- Update valgrind-3.21.0-no-memcpy-replace-check.patch (memcpy_chk)
+
 * Wed May 17 2023 Mark Wielaard <mjw@fedoraproject.org> - 3.21.0-4
 - Add valgrind-3.21.0-epoll_pwait2.patch
 

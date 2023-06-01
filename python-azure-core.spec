@@ -8,7 +8,7 @@
 %global         srcname     azure-core
 
 Name:           python-%{srcname}
-Version:        1.25.1
+Version:        1.26.0
 Release:        %autorelease
 Summary:        Azure Core shared client library for Python
 License:        MIT
@@ -46,6 +46,8 @@ Azure Core shared client library for Python}
 Summary:        %{summary}
 %description -n python3-%{srcname} %{_description}
 
+
+%pyproject_extras_subpkg -n python3-%{srcname} aio
 
 %prep
 %autosetup -n %{srcname}-%{version} -p4

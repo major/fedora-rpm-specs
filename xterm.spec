@@ -3,7 +3,7 @@
 
 Summary: Terminal emulator for the X Window System
 Name: xterm
-Version: 380
+Version: 381
 Release: 1%{?dist}
 URL: https://invisible-island.net/xterm
 License: MIT
@@ -11,10 +11,13 @@ BuildRequires: make
 BuildRequires: gcc pkgconfig ncurses-devel libutempter-devel
 BuildRequires: libXft-devel libXaw-devel libXext-devel desktop-file-utils
 BuildRequires: libxkbfile-devel pcre2-devel pkgconfig(libpcre2-posix)
+BuildRequires: gnupg2
 Recommends: xorg-x11-fonts-misc
 
-Source0: ftp://ftp.invisible-island.net/xterm/%{name}-%{version}.tgz
-Source1: ftp://ftp.invisible-island.net/xterm/16colors.txt
+Source0: https://invisible-island.net/archives/xterm/%{name}-%{version}.tgz
+Source1: https://invisible-island.net/archives/xterm/%{name}-%{version}.tgz.asc
+Source2: https://invisible-island.net/public/dickey@invisible-island.net-rsa3072.asc
+Source3: https://invisible-island.net/archives/xterm/16colors.txt
 
 Patch1: xterm-defaults.patch
 Patch2: xterm-desktop.patch
@@ -35,11 +38,12 @@ Prints a shell command for setting the appropriate environment variables to
 indicate the current size of the window from which the command is run.
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q
 
-%patch1 -p1 -b .defaults
-%patch2 -p1 -b .desk
-%patch3 -p1 -b .man-paths
+%patch 1 -p1 -b .defaults
+%patch 2 -p1 -b .desk
+%patch 3 -p1 -b .man-paths
 
 for f in THANKS; do
 	iconv -f iso8859-1 -t utf8 -o ${f}{_,} &&
@@ -68,7 +72,7 @@ done
 %install
 %make_install
 
-cp -fp %{SOURCE1} 16colors.txt
+cp -fp %{SOURCE3} 16colors.txt
 
 desktop-file-install \
 %if 0%{?fedora} && 0%{?fedora} < 19
@@ -101,6 +105,10 @@ install -m644 -p xterm.appdata.xml $RPM_BUILD_ROOT%{_datadir}/appdata
 %{_mandir}/man1/resize.1*
 
 %changelog
+* Mon May 29 2023 Tomas Korbar <tkorbar@redhat.com> - 381-1
+- Rebase to version 381
+- Resolves:rhbz#2210609
+
 * Tue May 16 2023 Tomas Korbar <tkorbar@redhat.com> - 380-1
 - Rebase to version 380
 - Resolves: rhbz#2204459

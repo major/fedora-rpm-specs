@@ -1,6 +1,6 @@
 Name:           litehtml
 Version:        0.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fast and lightweight HTML/CSS rendering engine
 
 License:        BSD
@@ -12,6 +12,8 @@ Source0:        https://github.com/litehtml/litehtml/archive/v%{version}/%{name}
 Patch0:         litehtml_gumbo.patch
 # Add some stuff needed for qt-creator
 Patch1:         litehtml_qtcreator.patch
+# Fix undefined symbol
+Patch2:         litehtml_undefsym.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -73,6 +75,9 @@ sed -r -i 's/(CXX_STANDARD[[:blank:]]+)11/\114/' CMakeLists.txt
 
 
 %changelog
+* Tue May 30 2023 Sandro Mani <manisandro@gmail.com> - 0.8-3
+- Fix undefined symbol
+
 * Tue May 23 2023 Sandro Mani <manisandro@gmail.com> - 0.8-2
 - Add litehtml_qtcreator.patch
 

@@ -2,16 +2,22 @@ Name:               python-iniconfig
 Version:            1.1.1
 Release:            11%{?dist}
 Summary:            Brain-dead simple parsing of ini files
+# SDPX
 License:            MIT
 URL:                http://github.com/RonnyPfannschmidt/iniconfig
 BuildArch:          noarch
 BuildRequires:      python3-devel
 BuildRequires:      pyproject-rpm-macros
 
-Source0:            %{pypi_source iniconfig}
-
 # pytest 6+ needs this and this uses pytest for tests
 %bcond_without tests
+
+%if %{with tests}
+# We BR pytest manually to avoid a dependency on tox in ELN/RHEL
+BuildRequires:      python3-pytest
+%endif
+
+Source0:            %{pypi_source iniconfig}
 
 %global _description %{expand:
 iniconfig is a small and simple INI-file parser module
@@ -40,7 +46,7 @@ sed -i "s/py\.test/pytest/" testing/test_iniconfig.py
 
 
 %generate_buildrequires
-%pyproject_buildrequires %{?with_tests:-t}
+%pyproject_buildrequires
 
 
 %build
@@ -54,7 +60,7 @@ sed -i "s/py\.test/pytest/" testing/test_iniconfig.py
 
 %if %{with tests}
 %check
-%tox
+%pytest -v
 %endif
 
 

@@ -1,5 +1,5 @@
 Name:           asahi-scripts
-Version:        20221220
+Version:        20230530
 Release:        %autorelease
 Summary:        Miscellaneous admin scripts for Asahi Linux
 

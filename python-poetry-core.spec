@@ -1,6 +1,9 @@
+# RHEL does not include the test dependencies
+%bcond tests %{undefined rhel}
+
 Name:           python-poetry-core
 Version:        1.4.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Poetry PEP 517 Build Backend
 
 # We bundle a lot of libraries with poetry, which itself is under MIT license.
@@ -32,6 +35,7 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
 
+%if %{with tests}
 # for tests (only specified via poetry poetry.dev-dependencies with pre-commit etc.)
 BuildRequires:  python3-build
 BuildRequires:  python3-pytest
@@ -40,6 +44,7 @@ BuildRequires:  python3-setuptools
 BuildRequires:  python3-virtualenv
 BuildRequires:  gcc
 BuildRequires:  git-core
+%endif
 
 
 %global _description %{expand:
@@ -91,9 +96,13 @@ Provides:       bundled(python3dist(typing-extensions)) = 4.3.0
 
 
 %check
+%if %{with tests}
 # don't use %%tox here because tox.ini runs "poetry install"
 # TODO investigate failures in test_default_with_excluded_data, test_default_src_with_excluded_data
 %pytest -k "not with_excluded_data"
+%else
+%pyproject_check_import
+%endif
 
 
 %files -n python3-poetry-core -f %{pyproject_files}
@@ -102,6 +111,9 @@ Provides:       bundled(python3dist(typing-extensions)) = 4.3.0
 
 
 %changelog
+* Mon May 29 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.4.0-3
+- Disable tests in RHEL builds
+
 * Sat Feb 25 2023 Miro Hrončok <mhroncok@redhat.com> - 1.4.0-2
 - Remove unused build dependency on python3-pep517
 

@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-sanmai-phpunit-legacy-adapter
 #
-# Copyright (c) 2020 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2020-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -9,7 +9,7 @@
 
 %bcond_without       tests
 
-%global gh_commit    3db58a31847d803f76cab3da14e334a2d090c067
+%global gh_commit    aa08b49eac291a49f50e9a094f23b267cc5a9bec
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_date      20150618
 %global gh_owner     sanmai
@@ -17,11 +17,11 @@
 %global ns_project   LegacyPHPUnit
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        8.2.1
-Release:        5%{?dist}
+Version:        8.2.2
+Release:        1%{?dist}
 Summary:        PHPUnit Legacy Versions Adapter
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{gh_project}-%{version}-%{gh_short}.tar.gz
 
@@ -29,9 +29,7 @@ BuildArch:      noarch
 %if %{with tests}
 BuildRequires:  phpunit7
 BuildRequires:  phpunit8
-%if 0%{?fedora} >= 32 || 0%{?rhel} >= 9
 BuildRequires:  phpunit9
-%endif
 %endif
 BuildRequires:  php-fedora-autoloader-devel
 
@@ -49,7 +47,7 @@ Provides:       php-composer(%{gh_owner}/%{gh_project}) = %{version}
 %description
 PHPUnit Legacy Versions Adapter.
 
-This version is compatible with phpunit version 7, 8 and 9.
+This version is compatible with phpunit version 7, 8, 9 and 10.
 
 Autoloader: %{_datadir}/php/%{ns_project}/autoload.php
 
@@ -82,20 +80,26 @@ EOF
 
 : run upstream test suite with all php and phpunit versions
 ret=0
-for cmd in php php71 php72 php73 php74 php80
+for cmd in php80 php81 php82
 do
   if which $cmd; then
     $cmd %{_bindir}/phpunit7 --verbose || ret=1
   fi
 done
-for cmd in php php72 php73 php74 php80
+for cmd in php80 php81 php82
 do
   if which $cmd; then
     $cmd %{_bindir}/phpunit8 --verbose || ret=1
   fi
 done
-if [ -x %{_bindir}/phpunit9 ]; then
-  for cmd in php php73 php74 php80
+for cmd in php80 php81 php82
+do
+  if which $cmd; then
+    $cmd %{_bindir}/phpunit9 --verbose || ret=1
+  fi
+done
+if [ -x %{_bindir}/phpunit10 ]; then
+  for cmd in php80 php81 php82
   do
     if which $cmd; then
       $cmd %{_bindir}/phpunit9 --verbose || ret=1
@@ -116,6 +120,9 @@ exit $ret
 
 
 %changelog
+* Tue May 30 2023 Remi Collet <remi@remirepo.net> - 8.2.2-1
+- update to 8.2.2 (no change)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.2.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

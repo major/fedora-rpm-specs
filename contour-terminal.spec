@@ -1,7 +1,7 @@
 %bcond_without qt6
 
 Name:           contour-terminal
-Version:        0.3.11.258
+Version:        0.3.12.262
 Release:        %autorelease
 Summary:        Modern C++ Terminal Emulator
 License:        Apache-2.0
@@ -22,9 +22,14 @@ BuildRequires:  libxcb-devel
 BuildRequires:  fontconfig-devel
 BuildRequires:  freetype-devel
 BuildRequires:  harfbuzz-devel
+BuildRequires:  libxkbcommon-devel
 BuildRequires:  libunicode-devel
+BuildRequires:  libutempter-devel
+# provides tic
+BuildRequires:  ncurses
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
+
 %if %{?fedora} <= 37
 BuildRequires:  catch-devel
 %else
@@ -57,14 +62,14 @@ for everyday use. It is aiming for power users with a modern feature mindset.
 %cmake \
     -GNinja \
 %if %{with qt6}
-    -DCONTOUR_BUILD_WITH_QT6=ON
+    -DCONTOUR_QT_VERSION=6 \
 %else
-    -DCONTOUR_BUILD_WITH_QT6=OFF
+    -DCONTOUR_QT_VERSION=5 \
 %endif
-%ninja_build -C %{_vpath_builddir}
+%cmake_build
 
 %install
-%ninja_install -C %{_vpath_builddir}
+%cmake_install
 
 rm %{buildroot}%{_datadir}/terminfo/c/contour-latest
 ln -s contour %{buildroot}%{_datadir}/terminfo/c/contour-latest

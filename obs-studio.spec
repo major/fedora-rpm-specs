@@ -23,7 +23,7 @@
 #global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           obs-studio
-Version:        29.1.1
+Version:        29.1.2
 Release:        1%{?dist}
 Summary:        Open Broadcaster Software Studio
 
@@ -298,6 +298,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Tue May 30 2023 Neal Gompa <ngompa@fedoraproject.org> - 29.1.2-1
+- Update to 29.1.2
+
+* Tue May 30 2023 Jan Grulich <jgrulich@redhat.com> - 29.1.1-2
+- Rebuild (qt6)
+
 * Tue May 23 2023 Neal Gompa <ngompa@fedoraproject.org> - 29.1.1-1
 - Update to 29.1.1
 

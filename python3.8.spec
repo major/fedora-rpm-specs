@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: Python
 
 
@@ -365,6 +365,16 @@ Patch251: 00251-change-user-install-location.patch
 # Python/importlib_external.h to this patch but it'd make rebasing
 # a nightmare because it's basically a binary file.
 Patch353: 00353-architecture-names-upstream-downstream.patch
+
+# 00399 # 9456d094f93d9f7d415960945f5adfb11c935a5f
+# CVE-2023-24329
+#
+# gh-102153: Start stripping C0 control and space chars in `urlsplit` (GH-102508)
+#
+# `urllib.parse.urlsplit` has already been respecting the WHATWG spec a bit GH-25595.
+#
+# This adds more sanitizing to respect the "Remove any leading C0 control or space from input" [rule](https://url.spec.whatwg.org/GH-url-parsing:~:text=Remove%%20any%%20leading%%20and%%20trailing%%20C0%%20control%%20or%%20space%%20from%%20input.) in response to [CVE-2023-24329](https://nvd.nist.gov/vuln/detail/CVE-2023-24329).
+Patch399: 00399-cve-2023-24329.patch
 
 # (New patches go here ^^^)
 #
@@ -1705,6 +1715,10 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Mon May 29 2023 Charalampos Stratakis <cstratak@redhat.com> - 3.8.16-4
+- Fix for CVE-2023-24329
+Resolves: rhbz#2174015
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.16-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

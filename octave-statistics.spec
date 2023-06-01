@@ -1,10 +1,10 @@
 %global octpkg statistics
 
 Name:           octave-%{octpkg}
-Version:        1.5.4
-Release:        2%{?dist}
+Version:        1.6.0
+Release:        1%{?dist}
 Summary:        Additional statistics functions for Octave
-License:        GPLv3+ and Public Domain
+License:        GPL-3.0-or-later AND LicenseRef-Fedora-Public-Domain
 URL:            https://github.com/gnu-octave/%{octpkg}
 Source0:        https://github.com/gnu-octave/%{octpkg}/archive/refs/tags/release-%{version}/%{octpkg}-%{version}.tar.gz
 
@@ -52,8 +52,10 @@ chmod a-x %{buildroot}/%{octpkgdir}/*.m
 %{octpkgdir}/PKG_DEL
 %{octpkgdir}/*.m
 %{octpkgdir}/datasets/
+%{octpkgdir}/dist_fit/
+%{octpkgdir}/dist_fun/
+%{octpkgdir}/dist_stat/
 %{octpkgdir}/@cvpartition/
-%{octpkgdir}/distributions/
 %{octpkgdir}/private/*.m
 %{octpkgdir}/packinfo/
 %{octpkgdir}/shadow9/
@@ -61,6 +63,10 @@ chmod a-x %{buildroot}/%{octpkgdir}/*.m
 
 
 %changelog
+* Tue May 30 2023 Orion Poplawski <orion@nwra.com> - 1.6.0-1
+- Update to 1.6.0
+- SPDX License
+
 * Sat Apr 08 2023 Orion Poplawski <orion@nwra.com> - 1.5.4-2
 - Rebuild with octave 8.1.0
 

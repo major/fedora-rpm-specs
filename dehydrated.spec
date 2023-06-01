@@ -1,21 +1,24 @@
-Summary: A client for signing certificates with an ACME server
+Summary: Client for signing certificates with an ACME server
 Name: dehydrated
-Version: 0.7.0
-Release: 7%{?dist}
+Version: 0.7.1
+Release: 1%{?dist}
 License: MIT
 URL: https://github.com/dehydrated-io/dehydrated
 Source0: https://github.com/dehydrated-io/dehydrated/releases/download/v%{version}/dehydrated-%{version}.tar.gz
-Source1: dehydrated.tmpfiles
-Source2: dehydrated.timer
-Source3: dehydrated.service
-Source4: 50-dehydrated.preset
-Source5: dehydrated-cron
+Source1: https://github.com/dehydrated-io/dehydrated/releases/download/v%{version}/dehydrated-%{version}.tar.gz.asc
+Source2: https://keys.openpgp.org/vks/v1/by-fingerprint/3C2F2605E078A1E18F4793909C4DBE6CF438F333
+Source3: dehydrated.tmpfiles
+Source4: dehydrated.timer
+Source5: dehydrated.service
+Source6: 50-dehydrated.preset
+Source7: dehydrated-cron
 
 Patch0: dehydrated-autowash.patch
 Patch1: dehydrated-improve-trap-handling.patch
 Patch2: dehydrated-hook.sh-defaults.patch
 
 BuildArch: noarch
+BuildRequires: gnupg2
 BuildRequires: systemd
 %{?systemd_requires}
 Requires: coreutils
@@ -40,6 +43,7 @@ Current features:
 - Certificate revocation
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q
 %patch0 -p1 -b .autowash
 %patch1 -p1 -b .improve-trap-handling
@@ -55,12 +59,13 @@ mkdir -p %{buildroot}%{_sysconfdir}/dehydrated/accounts
 mkdir -p %{buildroot}%{_sysconfdir}/dehydrated/archive
 mkdir -p %{buildroot}%{_sysconfdir}/dehydrated/certs
 mkdir -p %{buildroot}%{_sysconfdir}/dehydrated/conf.d
+mkdir -p %{buildroot}%{_sysconfdir}/dehydrated/domains.txt.d
 mkdir -p %{buildroot}%{_sysconfdir}/dehydrated/hook.d
-install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_tmpfilesdir}/dehydrated.conf
-install -D -p -m 0644 %{SOURCE2} %{buildroot}%{_unitdir}/dehydrated.timer
-install -D -p -m 0644 %{SOURCE3} %{buildroot}%{_unitdir}/dehydrated.service
-install -D -p -m 0644 %{SOURCE4} %{buildroot}%{_presetdir}/50-dehydrated.preset
-install -D -p -m 0755 %{SOURCE5} %{buildroot}%{_libexecdir}/dehydrated-cron
+install -D -p -m 0644 %{SOURCE3} %{buildroot}%{_tmpfilesdir}/dehydrated.conf
+install -D -p -m 0644 %{SOURCE4} %{buildroot}%{_unitdir}/dehydrated.timer
+install -D -p -m 0644 %{SOURCE5} %{buildroot}%{_unitdir}/dehydrated.service
+install -D -p -m 0644 %{SOURCE6} %{buildroot}%{_presetdir}/50-dehydrated.preset
+install -D -p -m 0755 %{SOURCE7} %{buildroot}%{_libexecdir}/dehydrated-cron
 sed \
     -e 's|^#LOCKFILE="\${BASEDIR}/lock"|LOCKFILE="%{_rundir}/dehydrated/lock"|' \
     -e 's|^#CONFIG_D=|CONFIG_D="\${BASEDIR}/conf.d"|' \
@@ -131,12 +136,17 @@ systemctl start dehydrated.timer >/dev/null 2>&1 || :
 %attr(0750,root,root) %dir %{_sysconfdir}/dehydrated/conf.d
 %attr(0640,root,root) %ghost %{_sysconfdir}/dehydrated/conf.d/local.sh
 %attr(0640,root,root) %ghost %{_sysconfdir}/dehydrated/domains.txt
+%attr(0750,root,root) %dir %{_sysconfdir}/dehydrated/domains.txt.d
 %attr(0750,root,root) %dir %{_sysconfdir}/dehydrated/hook.d
 %attr(0750,root,root) %dir %{_rundir}/dehydrated
 %{_bindir}/dehydrated
 %{_mandir}/man1/dehydrated.1*
 
 %changelog
+* Wed May 31 2023 Robert Scheck <robert@fedoraproject.org> - 0.7.1-1
+- Resolved: rhbz#2139056 dehydrated-0.7.1 is available
+- Resolved: rhbz#2035549 genkey ecparam - ECDSA key, P-384 (secp384r1)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

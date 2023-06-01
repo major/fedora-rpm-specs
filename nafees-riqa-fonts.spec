@@ -4,12 +4,14 @@
 
 Name:           %{fontname}-fonts
 Version:        1.0
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Nafees riqa font for writing Urdu in the Riqa script
 
-License:        MIT
-URL:            https://www.urdufont.org/download.php?id=737849
-Source0:        https://www.urdufont.org/download/Nafees%20Riqa.ttf
+# Upstream font embedding MIT license name is wrong
+# the correct license by its text is https://spdx.org/licenses/Bitstream-Vera.html
+License:        Bitstream-Vera
+URL:            http://www.crulp.org/index.htm
+Source0:        http://www.crulp.org/Downloads/localization/fonts/NafeesRiqa/%{archivename}.zip
 Source1:        %{fontconf}
 
 BuildArch:      noarch
@@ -48,8 +50,10 @@ ln -s %{_fontconfig_templatedir}/%{fontconf} \
 
 
 %changelog
+* Tue May 30 2023 Parag Nemade <pnemade AT redhat DOT com> - 1.0-25
+- license text matched to Bitstream-Vera
+
 * Mon May 29 2023 Parag Nemade <pnemade AT redhat DOT com> - 1.02-24
-- Update to new upstream URL
 - Migrate to SPDX license
 
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-23

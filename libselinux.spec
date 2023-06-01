@@ -4,7 +4,7 @@
 Summary: SELinux library and simple utilities
 Name: libselinux
 Version: 3.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LicenseRef-Fedora-Public-Domain
 # https://github.com/SELinuxProject/selinux/wiki/Releases
 Source0: https://github.com/SELinuxProject/selinux/releases/download/3.5/libselinux-3.5.tar.gz
@@ -20,7 +20,7 @@ Patch0001: 0001-Use-SHA-2-instead-of-SHA-1.patch
 # Patch list end
 BuildRequires: gcc make
 BuildRequires: ruby-devel ruby libsepol-static >= %{libsepolver} swig pcre2-devel xz-devel
-BuildRequires: python3 python3-devel python3-setuptools python3-pip
+BuildRequires: python3 python3-devel python3-setuptools python3-wheel python3-pip
 BuildRequires: systemd
 Requires: libsepol%{?_isa} >= %{libsepolver} pcre2
 Conflicts: filesystem < 3, selinux-policy-base < 3.13.1-138
@@ -214,6 +214,10 @@ rm -f %{buildroot}%{_mandir}/man8/togglesebool*
 %{ruby_vendorarchdir}/selinux.so
 
 %changelog
+* Fri May 26 2023 Miro Hrončok <mhroncok@redhat.com> - 3.5-2
+- Fix build with pip 23.1.2+
+- Fixes: rhbz#2209019
+
 * Fri Feb 24 2023 Petr Lautrbach <lautrbach@redhat.com> - 3.5-1
 - SELinux userspace 3.5 release
 

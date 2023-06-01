@@ -121,6 +121,10 @@ sed -r -i '/\bfuro\b/d' docs/requirements.txt
 # Cannot install “all” extra for testing
 sed -r -i 's/^([[:blank:]]*)(all)\b/\1# \2/' tox.ini
 
+# Relax version constraint to allow newer platformdirs
+# https://github.com/pyscaffold/pyscaffold/pull/721
+sed -i -e 's/platformdirs>=2,<3/\platformdirs>=2,<4/' setup.cfg
+
 
 %generate_buildrequires
 # Missing dependencies for “all”, “md”, and “ds” extras

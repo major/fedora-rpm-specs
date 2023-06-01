@@ -2,31 +2,27 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate open
+%global crate is-wsl
 
-Name:           rust-open
-Version:        4.1.0
+Name:           rust-is-wsl
+Version:        0.4.0
 Release:        %autorelease
-Summary:        Open a path or URL using the program configured on the system
+Summary:        Checks if the process is running inside Windows Subsystem for Linux
 
 License:        MIT
-URL:            https://crates.io/crates/open
+URL:            https://crates.io/crates/is-wsl
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * drop useless /usr/bin/open binary
-Patch:          open-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Open a path or URL using the program configured on the system.}
+Checks if the process is running inside Windows Subsystem for Linux.}
 
 %description %{_description}
 
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       /usr/bin/xdg-open
 
 %description    devel %{_description}
 
@@ -34,9 +30,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE.md
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/README.md
-%doc %{crate_instdir}/changelog.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

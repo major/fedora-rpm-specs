@@ -2,7 +2,7 @@ Name:		perl-Test-Vars
 Version:	0.015
 Release:	9%{?dist}
 Summary:	Detects unused variables
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-Vars
 Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-Vars-%{version}.tar.gz
 BuildArch:	noarch
@@ -49,8 +49,9 @@ BuildRequires:	perl(Test::Pod::Coverage) >= 1.04
 BuildRequires:	perl(Test::Pod) >= 1.14
 BuildRequires:	perl(Test::Synopsis)
 # ===================================================================
-# Runtime requirements
+# Runtime dependencies
 # ===================================================================
+# (none)
 
 %description
 Test::Vars finds unused variables in order to keep the source code tidy.

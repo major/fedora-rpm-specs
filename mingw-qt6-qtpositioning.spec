@@ -16,8 +16,8 @@
 %global release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.5.0
-Release:        2%{?dist}
+Version:        6.5.1
+Release:        1%{?dist}
 Summary:        Qt6 for Windows - Qt Positioning component
 
 # Base license is LGPLv3 or GPLv2
@@ -172,6 +172,9 @@ cp -a src/3rdparty/clipper/LICENSE LICENSE.clipper
 
 
 %changelog
+* Tue May 30 2023 Sandro Mani <manisandro@gmail.com> - 6.5.1-1
+- Update to 6.5.1
+
 * Fri Apr 7 2023 Marie Loise Nolden <loise@kde.org> - 6.5.0-2
 - fix missing quick/serialport modules
 

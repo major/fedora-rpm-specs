@@ -81,6 +81,8 @@ Requires(posttrans): systemd
 %package devel
 Summary: Headers and pkg-config files needed to compile xrdp backends
 
+Requires: %{name} = %{epoch}:%{version}-%{release}
+
 %description
 xrdp provides a fully functional RDP server compatible with a wide range
 of RDP clients, including FreeRDP and Microsoft RDP client.

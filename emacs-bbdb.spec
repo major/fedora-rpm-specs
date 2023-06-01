@@ -28,6 +28,8 @@ Source0:	bbdb-20220729.tar.xz
 Source1:	emacs-bbdb.metainfo.xml
 Patch0:		bbdb-3.2-migrate-fix.patch
 Patch1:		bbdb-3.2-mh-folder-mode-fix.patch
+# https://lists.nongnu.org/archive/html/bbdb-user/2023-03/msg00000.html
+Patch2:         bbdb-compiler-warnings.patch
 
 BuildArch:      noarch
 BuildRequires:  autoconf automake emacs info texinfo texinfo-tex
@@ -56,9 +58,7 @@ och VM).  BBDB går att anpassa fullständigt.
 
 
 %prep 
-%setup -q -n bbdb
-%patch0 -p1
-%patch1 -p1
+%autosetup -n bbdb -p 1
 
 %build
 ./autogen.sh

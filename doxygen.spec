@@ -1,51 +1,31 @@
 %if 0%{?fedora}
 %global xapian_core_support ON
 %global clang_support ON
+%global build_wizard ON
 %else
 %global xapian_core_support OFF
 %global clang_support OFF
-%endif
-
-%global stable 1
-
-%if 0%{?stable}
-%global irelease 2
-%else
-%global commit e18f715eb55121a4219d00bc4d824cebf1fb504b
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20220217
-%global irelease 0.%{date}git%{shortcommit}
+%global build_wizard OFF
 %endif
 
 Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   2
 Version: 1.9.7
-%if 0%{?stable}
-Release: 1%{?dist}
-%else
-%global commit e18f715eb55121a4219d00bc4d824cebf1fb504b
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20220217
-Release: 0.%{date}git%{shortcommit}.1
-%endif
+Release: 2%{?dist}
 # No version is specified.
 License: GPL-1.0-or-later
 Url: https://github.com/doxygen
-%if 0%{?stable}
 Source0: https://sourceforge.net/projects/doxygen/files/rel-%{version}/%{name}-%{version}.src.tar.gz
-%else
-Source0: https://github.com/%{name}/%{name}/archive/%{commit}/%{name}-%{commit}.tar.gz
-%endif
 # this icon is part of kdesdk
 Source1: doxywizard.desktop
 # these icons are part of doxygen and converted from doxywizard.ico
 Source2: doxywizard-icons.tar.xz
 
 # upstream patches
+Patch0: doxygen-1.9.7-unicode-test.ptch
 
 BuildRequires: %{_bindir}/python3
-BuildRequires: gcc-c++ gcc
 BuildRequires: perl-interpreter, perl-open
 BuildRequires: texlive-bibtex
 
@@ -124,6 +104,8 @@ BuildRequires: xapian-core-devel
 %if "x%{?clang_support}" == "xON"
 BuildRequires: llvm-devel
 BuildRequires: clang-devel
+%else
+BuildRequires: gcc-c++ gcc
 %endif
 Requires: perl-interpreter
 Requires: graphviz
@@ -135,7 +117,7 @@ documentation is extracted directly from the sources. Doxygen can
 also be configured to extract the code structure from undocumented
 source files.
 
-%if ! 0%{?_module_build}
+%if  "x%{build_wizard}" == "xON"
 %package doxywizard
 Summary: A GUI for creating and editing configuration files
 Requires: %{name} = %{epoch}:%{version}-%{release}
@@ -144,7 +126,9 @@ BuildRequires: qt5-qtbase-devel
 %description doxywizard
 Doxywizard is a GUI for creating and editing configuration files that
 are used by doxygen.
+%endif
 
+%if ! 0%{?_module_build}
 %package latex
 Summary: Support for producing latex/pdf output from doxygen
 Requires: %{name} = %{epoch}:%{version}-%{release}
@@ -221,22 +205,15 @@ Requires: texlive-epstopdf
 
 
 %prep
-%if 0%{?stable}
 %autosetup -p1 -a2
-%else
-%autosetup -n %{name}-%{commit} -a2
-%endif
 
 # convert into utf-8
 iconv --from=ISO-8859-1 --to=UTF-8 LANGUAGE.HOWTO > LANGUAGE.HOWTO.new
 touch -r LANGUAGE.HOWTO LANGUAGE.HOWTO.new
 mv LANGUAGE.HOWTO.new LANGUAGE.HOWTO
 
-# disable unicode test temporary
-rm -rf testing/061*
-
 %build
-%if ! 0%{?_module_build}
+%if  "x%{build_wizard}" == "xON"
 %cmake \
       -DPYTHON_EXECUTABLE=%{_bindir}/python3 \
       -Duse_libclang=%{clang_support} \
@@ -265,6 +242,13 @@ rm -rf testing/061*
 %install
 %cmake_install
 
+# install man pages
+mkdir -p %{buildroot}/%{_mandir}/man1
+cp doc/*.1 %{buildroot}/%{_mandir}/man1/
+
+%if  "x%{build_wizard}" == "xOFF"
+rm -f %{buildroot}/%{_mandir}/man1/doxywizard.1*
+%else
 # install icons
 icondir=%{buildroot}%{_datadir}/icons/hicolor
 mkdir -m755 -p $icondir/{16x16,32x32,48x48,128x128}/apps
@@ -272,12 +256,7 @@ install -m644 -p -D doxywizard-6.png $icondir/16x16/apps/doxywizard.png
 install -m644 -p -D doxywizard-5.png $icondir/32x32/apps/doxywizard.png
 install -m644 -p -D doxywizard-4.png $icondir/48x48/apps/doxywizard.png
 install -m644 -p -D doxywizard-3.png $icondir/128x128/apps/doxywizard.png
-
-# install man pages
-mkdir -p %{buildroot}/%{_mandir}/man1
-cp doc/*.1 %{buildroot}/%{_mandir}/man1/
-%if 0%{?_module_build}
-rm -f %{buildroot}/%{_mandir}/man1/doxywizard.1*
+desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 %endif
 
 %if "x%{?xapian_core_support}" == "xOFF"
@@ -286,10 +265,6 @@ rm -f %{buildroot}/%{_mandir}/man1/doxyindexer.1* %{buildroot}/%{_mandir}/man1/d
 
 # remove duplicate
 rm -rf %{buildroot}/%{_docdir}/packages
-
-%if ! 0%{?_module_build}
-desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
-%endif
 
 %check
 %ctest
@@ -309,13 +284,13 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_mandir}/man1/doxyindexer.1*
 %{_mandir}/man1/doxysearch.1*
 %endif
-%if ! 0%{?_module_build}
+%if "x%{build_wizard}" == "xON" 
 %files doxywizard
 %{_bindir}/doxywizard
 %{_mandir}/man1/doxywizard*
 %{_datadir}/applications/doxywizard.desktop
-%endif
 %{_datadir}/icons/hicolor/*/apps/doxywizard.png
+%endif
 
 %if ! 0%{?_module_build}
 %files latex
@@ -323,6 +298,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 %endif
 
 %changelog
+* Tue May 30 2023 Than Ngo <than@redhat.com> - 2:1.9.7-2
+- disable build_wizard for eln
+- fixed broken unicode test
+
 * Fri May 19 2023 Than Ngo <than@redhat.com> - 2:1.9.7-1
 - fix #2208417, rebase to 1.9.7
 

@@ -1,9 +1,9 @@
 %global catalogue /etc/X11/fontpath.d
 
-%global majorver 4.2
+%global majorver 4.3
 Summary: An X Window System based IBM 3278/3279 terminal emulator
 Name: x3270
-Version: 4.2ga9
+Version: 4.3beta1
 Release: 1%{?dist}
 License: BSD
 URL: https://x3270.miraheze.org/wiki/Main_Page
@@ -88,6 +88,7 @@ desktop-file-install \
 %doc README.md
 %{_bindir}/s3270
 %{_bindir}/pr3287
+%{_bindir}/prtodir
 %{_bindir}/x3270if
 %{_bindir}/playback
 %{_mandir}/man1/s3270.1*
@@ -112,6 +113,9 @@ desktop-file-install \
 
 
 %changelog
+* Tue May 30 2023 Jakub Čajka <jcajka@redhat.com> 4.3beta1-1
+- updated to 4.3beta1(#2210893)
+
 * Thu Mar 09 2023 Jakub Čajka <jcajka@redhat.com> 4.2ga9-1
 - updated to 4.2ga9 (#2175581)
 

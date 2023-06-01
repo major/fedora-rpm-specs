@@ -4,7 +4,7 @@
 Summary: Helps troubleshoot SELinux problems
 Name: setroubleshoot
 Version: 3.3.32
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-or-later
 URL: https://gitlab.com/setroubleshoot/setroubleshoot
 Source0: https://gitlab.com/setroubleshoot/setroubleshoot/-/archive/%{version}/setroubleshoot-%{version}.tar.gz
@@ -15,7 +15,7 @@ Source2: %{name}.sysusers
 BuildRequires: gcc
 BuildRequires: make
 BuildRequires: libcap-ng-devel
-BuildRequires: intltool gettext python3 python3-devel python3-setuptools python3-pip
+BuildRequires: intltool gettext python3 python3-devel python3-setuptools python3-wheel python3-pip
 BuildRequires: desktop-file-utils libnotify-devel libselinux-devel polkit-devel
 BuildRequires: audit-libs-devel >= 3.0.1
 BuildRequires: python3-libselinux python3-dasbus python3-gobject gtk3-devel
@@ -125,7 +125,7 @@ to user preference. The same tools can be run on existing log files.
 %{_bindir}/sealert
 %{_sbindir}/sedispatch
 %{_sbindir}/setroubleshootd
-%{python3_sitelib}/setroubleshoot*.egg-info
+%{python3_sitelib}/setroubleshoot*.dist-info
 %dir %attr(0755,root,root) %{pkgconfigdir}
 %dir %{pkgpythondir}
 %dir %{pkgpythondir}/__pycache__
@@ -191,6 +191,10 @@ to user preference. The same tools can be run on existing log files.
 %doc AUTHORS COPYING ChangeLog DBUS.md NEWS README TODO
 
 %changelog
+* Fri May 26 2023 Miro Hrončok <mhroncok@redhat.com> - 3.3.32-3
+- Fix build with pip 23.1.2+
+- Fixes: rhbz#2209022
+
 * Mon May 15 2023 Tomas Popela <tpopela@redhat.com> - 3.3.32-2
 - Remove dbus-glib-devel BR as it's only needed when compiled with seappletlegacy
 

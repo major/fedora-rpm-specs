@@ -106,10 +106,6 @@ Requires:       python3-pybids+test = %{version}-%{release}
 rm -rf bids/external
 sed -r -i.backup 's/from.*external (import)/\1/' bids/layout/layout.py
 
-# Not yet packaged: python-bsmschema
-# https://bugzilla.redhat.com/show_bug.cgi?id=2191661
-sed -r -i 's/^([[:blank:]]*)("bsmschema")/\1# \2/' pyproject.toml
-
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 sed -r -i 's/^([[:blank:]]*)"(pytest-cov|coverage)\b/\1# "\2/' pyproject.toml
 

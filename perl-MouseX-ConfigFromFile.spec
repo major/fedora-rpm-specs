@@ -1,10 +1,11 @@
 Name:		perl-MouseX-ConfigFromFile
 Summary:	An abstract Mouse role for setting attributes from a config file
 Version:	0.05
-Release:	29%{?dist}
+Release:	30%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/MouseX-ConfigFromFile
 Source0:	https://cpan.metacpan.org/modules/by-module/MouseX/MouseX-ConfigFromFile-%{version}.tar.gz
+Patch0:		MouseX-ConfigFromFile-0.05-hunspell.patch
 BuildArch:	noarch
 # Module Build
 BuildRequires:	coreutils
@@ -30,7 +31,7 @@ BuildRequires:	perl(Test::UseAllModules)
 # Author Tests
 BuildRequires:	perl(Test::Pod) >= 1.00
 BuildRequires:	perl(Test::Pod::Coverage) >= 1.04
-BuildRequires:	perl(Test::Spelling), aspell-en
+BuildRequires:	perl(Test::Spelling), hunspell-en
 # Dependencies
 Requires:	perl(Mouse) >= 0.39
 
@@ -48,6 +49,9 @@ in the configfile.
 
 %prep
 %setup -q -n MouseX-ConfigFromFile-%{version}
+
+# Add support for hunspell speller
+%patch -P 0
 
 # Unbundle Module::Install stuff and Test::UseAllModules
 # to check for issues with current toolchain modules
@@ -68,7 +72,7 @@ find %{buildroot} -type f -name .packlist -delete
 %{_fixperms} -c %{buildroot}
 
 %check
-make test TEST_POD=1
+make test TEST_POD=1 TEST_VERBOSE=1
 
 %files
 %doc Changes README
@@ -76,6 +80,10 @@ make test TEST_POD=1
 %{_mandir}/man3/MouseX::ConfigFromFile.3*
 
 %changelog
+* Tue May 30 2023 Paul Howarth <paul@city-fan.org> - 0.05-30
+- Use hunspell rather than aspell
+- Run tests verbosely
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

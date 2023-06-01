@@ -1,11 +1,14 @@
 Name:           python-stack-data
 Version:        0.6.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Extract data from python stack frames and tracebacks for informative displays
 
 License:        MIT
 URL:            http://github.com/alexmojaki/stack_data
 Source0:        %{pypi_source stack_data}
+# don't run type checks, see
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+Patch:          no-typeguard.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -56,6 +59,9 @@ Summary:        %{summary}
 %doc README.md
 
 %changelog
+* Mon May 29 2023 Michel Alexandre Salim <salimma@fedoraproject.org> - 0.6.2-3
+- Skip running type checks via typeguard, per packaging guidelines
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

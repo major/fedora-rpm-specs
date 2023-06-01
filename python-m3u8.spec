@@ -3,8 +3,8 @@
 %bcond_without  tests
 
 Name:           python-%{srcname}
-Version:        3.4.0
-Release:        3%{?dist}
+Version:        3.5.0
+Release:        1%{?dist}
 Summary:        Python module %srcname parser
 License:        MIT
 Url:            https://github.com/globocom/m3u8
@@ -24,7 +24,6 @@ BuildRequires:  python3-iso8601
 BuildRequires:  python3-pytest
 BuildRequires:  python3-setuptools
 BuildRequires:  python3dist(wheel)
-Requires:       python(abi)
 Requires:       python3dist(iso8601)
 
 %description -n python3-%{srcname}
@@ -61,6 +60,12 @@ Python module %srcname parser
 %{python3_sitelib}/%{srcname}/*.py
 
 %changelog
+* Tue May 30 2023 Martin Gansser <martinkg@fedoraproject.org> 3.5.0-1
+- Update to 3.5.0
+
+* Mon May 29 2023 Miro Hrončok <mhroncok@redhat.com> - 3.4.0-4
+- Drop superfluous manual dependency on python(abi)
+
 * Wed Mar 29 2023 Martin Gansser <martinkg@fedoraproject.org> 3.4.0-3
 - Cleanup specfile
 

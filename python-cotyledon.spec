@@ -1,83 +1,22 @@
 %global pypi_name cotyledon
 
-%if 0%{?fedora} || 0%{?rhel} > 7
-%bcond_with    python2
-%bcond_without python3
-%else
-%bcond_without python2
-%bcond_with    python3
-%endif
-
 Name:           python-%{pypi_name}
 Version:        1.7.3
-Release:        14%{?dist}
+Release:        16%{?dist}
 Summary:        Cotyledon provides a framework for defining long-running services
 
 License:        ASL 2.0
 URL:            https://cotyledon.readthedocs.io
-Source0:        https://pypi.io/packages/source/c/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
+Source0:        %{pypi_source}
 BuildArch:      noarch
 
-%if %{with python2}
-%package -n python2-%{pypi_name}
-Summary:        Cotyledon provides a framework for defining long-running services
-%{?python_provide:%python_provide python2-cotyledon}
-
-BuildRequires:  python2-devel
-BuildRequires:  python2-setuptools
-BuildRequires:  python2-setuptools_scm
-BuildRequires:  python2-pbr
-# For building documentation
-BuildRequires:  python2-sphinx
-BuildRequires:  python-setproctitle
-
-Requires:  python-setproctitle
-
-%description -n python2-%{pypi_name}
-Cotyledon provides a framework for defining long-running services.
-
-
-%package -n python2-%{pypi_name}-tests
-Summary:          Cotyledon provides a framework for defining long-running services
-Requires:         python2-%{pypi_name} = %{version}-%{release}
-Requires:         python2-oslotest
-Requires:         python2-testrepository
-Requires:         python2-testscenarios
-Requires:         python2-testtools
-
-%description -n python2-%{pypi_name}-tests
-Cotyledon provides a framework for defining long-running services.
-%endif
-
-%if %{with python3}
 %package -n python3-%{pypi_name}
 Summary:        Cotyledon provides a framework for defining long-running services
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-setuptools_scm
-BuildRequires:  python3-pbr
-# For building documentation
-BuildRequires:  python3-sphinx
-BuildRequires:  python3-setproctitle
-
-Requires:  python3-setproctitle
+BuildRequires:  pyproject-rpm-macros
 
 %description -n python3-%{pypi_name}
 Cotyledon provides a framework for defining long-running services.
-
-%package -n python3-%{pypi_name}-tests
-Summary:    Tests for %{name}
-Requires:         python3-%{pypi_name} = %{version}-%{release}
-Requires:         python3-oslotest
-Requires:         python3-testrepository
-Requires:         python3-testscenarios
-Requires:         python3-testtools
-
-%description -n python3-%{pypi_name}-tests
-Cotyledon provides a framework for defining long-running services.
-
-This package contains test files
-%endif
 
 %package doc
 Summary:    Documentation for %{name}
@@ -91,86 +30,41 @@ This package contains documentation in HTML format.
 Cotyledon provides a framework for defining long-running services.
 
 %prep
-%setup -q -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version}
 
-%if %{with python3}
-rm -rf %{py3dir}
-cp -a . %{py3dir}
-%endif
-
-# Let RPM handle the requirements
-rm -f {,test-}requirements.txt
+%generate_buildrequires
+%pyproject_buildrequires -x test -x doc -x oslo
 
 %build
-%if %{with python2}
-%py2_build
-%endif
-%if %{with python3}
-pushd %{py3dir}
-%{__python3} setup.py build
-popd
-%endif
+%pyproject_wheel
 
-%if %{with python2}
-export PYTHONPATH="$( pwd ):$PYTHONPATH"
-sphinx-build -b html doc/source html
-%else
 export PYTHONPATH="$( pwd ):$PYTHONPATH"
 sphinx-build-3 -b html doc/source html
-%endif
-
 # Fix hidden-file-or-dir warnings
 rm -rf html/.doctrees html/.buildinfo
 
 %install
-%if %{with python2}
-%{__python2} setup.py install --skip-build --root %{buildroot}
-%endif
-
-%if %{with python3}
-pushd %{py3dir}
-%{__python3} setup.py install --skip-build --root %{buildroot}
-popd
-%endif
+%pyproject_install
+%pyproject_save_files %{pypi_name}
 
 %check
-%if %{with python3}
-%{__python3} setup.py test ||:
-rm -rf .testrepository
-%endif
-%if %{with python2}
-%{__python2} setup.py test ||:
-%endif
+%pytest ||:
 
-%if %{with python2}
-%files -n python2-%{pypi_name}
+
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst
-%license LICENSE
-%{python2_sitelib}/%{pypi_name}
-%{python2_sitelib}/%{pypi_name}-%{version}-py?.?.egg-info
-
-%files -n python2-%{pypi_name}-tests
-%license LICENSE
-%{python2_sitelib}/%{pypi_name}/tests/
-%endif
-
-%if %{with python3}
-%files -n python3-%{pypi_name}
-%doc README.rst
-%license LICENSE
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
-
-%files -n python3-%{pypi_name}-tests
-%license LICENSE
-%{python3_sitelib}/%{pypi_name}/tests
-
-%endif
 
 %files doc
 %doc html
 
 %changelog
+* Tue May 30 2023 Joel Capitao <jcapitao@redhat.com> - 1.7.3-16
+- Convert to pyproject macros
+- Remove py2 bits
+
+* Tue May 30 2023 Joel Capitao <jcapitao@redhat.com> - 1.7.3-15
+- Remove testrepository dep
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.3-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

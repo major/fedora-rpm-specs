@@ -1,12 +1,16 @@
 %global         srcname     guest-configs
 
 Name:           google-compute-engine-guest-configs
-Version:        20230522.00
+Version:        20230526.00
 Release:        %autorelease
 Summary:        Google Compute Engine guest environment tools
 License:        Apache-2.0
 URL:            https://github.com/GoogleCloudPlatform/%{srcname}
 Source0:        %{url}/archive/refs/tags/%{version}.tar.gz
+
+# Delete 64-gce-disk-removal.rules
+# https://github.com/GoogleCloudPlatform/guest-configs/pull/51
+Patch0:         0001-64-gce-disk-removal.rules-delete.patch
 
 ExcludeArch:    %{ix86}
 BuildArch:      noarch
@@ -96,7 +100,6 @@ cp -vp                      src/lib/udev/google_nvme_id     %{buildroot}%{_udevr
 %doc README.md
 %attr(0755,-,-) %{_udevrulesdir}/../google_nvme_id
 %{_udevrulesdir}/65-gce-disk-naming.rules
-%{_udevrulesdir}/64-gce-disk-removal.rules
 
 
 %changelog

@@ -2,7 +2,7 @@ Name:           perl-Test-UseAllModules
 Version:        0.17
 Release:        25%{?dist}
 Summary:        Do use_ok() for all the MANIFESTed modules
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-UseAllModules
 Source0:        https://cpan.metacpan.org/modules/by-module/Test/Test-UseAllModules-%{version}.tar.gz
 BuildArch:      noarch
@@ -44,13 +44,6 @@ update MANIFEST. You don't have to modify the test any more (hopefully).
 
 %prep
 %setup -q -n Test-UseAllModules-%{version}
-
-# Fix line endings without changing timestamps
-for F in Changes README; do
-    tr -d '\r' <"$F" >"$F.unix"
-    touch -r "$F"{,.unix}
-    mv "${F}"{.unix,}
-done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor

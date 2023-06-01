@@ -1,6 +1,6 @@
 Name:           python-lxml
 Version:        4.9.2
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        XML processing library combining libxml2/libxslt with the ElementTree API
 
 # The lxml project is licensed under BSD-3-Clause
@@ -10,6 +10,9 @@ Summary:        XML processing library combining libxml2/libxslt with the Elemen
 License:        BSD-3-Clause AND MIT-CMU AND MIT
 URL:            https://github.com/lxml/lxml
 Source:         %{pypi_source lxml}
+
+# Upstream issue: https://bugs.launchpad.net/lxml/+bug/2016939
+Patch:          Skip-failing-test-test_html_prefix_nsmap.patch
 
 BuildRequires:  gcc
 BuildRequires:  libxml2-devel
@@ -24,7 +27,8 @@ BuildRequires:  python3-devel
 # - [html5] Requires html5lib BuildRequires lxml
 # - [htmlsoup] Requires beautifulsoup4 Requires lxml
 # Hence we provide a bcond to disable this buildtime requirement.
-%bcond buildrequire_extras 1
+# These subpackages are disabled outright in RHEL builds.
+%bcond buildrequire_extras %{undefined rhel}
 
 %global _description \
 lxml is a Pythonic, mature binding for the libxml2 and libxslt libraries. It\
@@ -36,15 +40,19 @@ XML Schema, XSLT, C14N and much more.
 
 %package -n     python3-lxml
 Summary:        %{summary}
+%if %{undefined rhel}
 Suggests:       python3-lxml+cssselect
 Suggests:       python3-lxml+html5
 Suggests:       python3-lxml+htmlsoup
+%endif
 
 %description -n python3-lxml %{_description}
 
 Python 3 version.
 
+%if %{undefined rhel}
 %pyproject_extras_subpkg -n python3-lxml cssselect html5 htmlsoup
+%endif
 
 %prep
 %autosetup -n lxml-%{version} -p1
@@ -76,6 +84,12 @@ cp -a build/lib.%{python3_platform}-*/* src/
 %doc README.rst src/lxml/isoschematron/resources/xsl/iso-schematron-xslt1/readme.txt
 
 %changelog
+* Tue May 30 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 4.9.2-4
+- Disable extra subpackages in RHEL builds
+
+* Mon May 29 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 4.9.2-3
+- Skip failing test to avoid FTBFS
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

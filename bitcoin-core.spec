@@ -5,7 +5,7 @@
 %bcond_with extended_tests
 
 Name:       bitcoin-core
-Version:    24.1
+Version:    25.0
 Release:    1%{?dist}
 Summary:    Peer to Peer Cryptographic Currency
 License:    MIT
@@ -16,17 +16,15 @@ Source0:    https://bitcoincore.org/bin/bitcoin-core-%{version}/%{project_name}-
 Source1:    https://bitcoincore.org/bin/bitcoin-core-%{version}/SHA256SUMS.asc
 Source2:    https://bitcoincore.org/bin/bitcoin-core-%{version}/SHA256SUMS
 
-# Key verificaton process - why a script that generates a list of GPG keys in public ring format?
-# - Keys listed to sign the release are listed inside the tarball.
+# Key verificaton process - Make official verify method work offline
+# - Keys listed to sign the release are listed in SHA256SUMS.asc.
 # - Keys can be hosted on different key servers.
-# - A subset of the keys listed is actually used to sign.
 # - Keys used to sign the release might have been revoked or removed.
-# - One or more keys is enough to validate the release, but there is no preferred key.
+# - Three or more keys is enough to validate the release, but there is no preferred key.
 # - Verification needs to happen offline.
 # - We don't want to touch the original SHA256SUM.asc file.
-# - We clearly want to see in git which keys have changed across time.
 Source3:    %{project_name}-gpg.sh
-Source4:    %{project_name}-gpg.inc
+Source4:    %{project_name}-offline-pubring.gpg
 
 Source5:    %{project_name}-tmpfiles.conf
 Source6:    %{project_name}.sysconfig
@@ -41,7 +39,7 @@ Source12:   README.gui.redhat
 Source13:   README.utils.redhat
 Source14:   README.server.redhat
 
-# Berkeley DB non-strong cryptography variant (NC):
+# Berkeley DB non-strong cryptography variant (NC)
 Source15:   https://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz
 Source16:   db-4.8.30.NC-format-security.patch
 Source17:   db-4.8.30.NC-configure-c99.patch
@@ -49,8 +47,8 @@ Source17:   db-4.8.30.NC-configure-c99.patch
 # AppStream metadata
 Source18:   %{project_name}-qt.metainfo.xml
 
-# All valid GPG keys that have signed the release in pubring format:
-%include %{SOURCE4}
+# Patch verify script to use local keyring
+Patch0:     %{project_name}-verify-offline.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -152,20 +150,17 @@ If you use the graphical bitcoin-core client then you almost certainly do not
 need this package.
 
 %prep
-# Verify that each GPG key listed as source has signed the release:
-for filename in %{sources}; do
-  case "${filename}" in (*/bitcoin-*-pubring.gpg)
-    gpgv2 --keyring=${filename} %{SOURCE1} %{SOURCE2} 2>&1 | grep "Good signature"
-  esac
-done
+%autosetup -p1 -n %{project_name}-%{version}
+
+# Bundled script to verify release signatures using offline pubring:
+cp %{SOURCE4} .
+contrib/verify-binaries/verify.py bin %{SOURCE2}
 
 # Check the hash of the tarball, not in the same folder where we are now:
 grep -q $(sha256sum %{SOURCE0}) %{SOURCE2}
 
-%autosetup -p1 -n %{project_name}-%{version}
-
 # No publicly available hash file, check it against what bitcoin-core expects:
-export $(grep ^BDB_HASH contrib/install_db4.sh | sed -e "s/'//g")
+export BDB_HASH=$(grep sha256_hash depends/packages/bdb.mk | sed -e "s/.*=//g")
 echo $BDB_HASH %{SOURCE15} | sha256sum -c
 
 # Berkeley DB:
@@ -247,9 +242,9 @@ done
 rm -f %{buildroot}%{_datadir}/pixmaps/%{project_name}*
 
 # Bash completion
-install -D -m644 -p contrib/%{project_name}-cli.bash-completion %{buildroot}%{_compldir}/%{project_name}-cli
-install -D -m644 -p contrib/%{project_name}-tx.bash-completion %{buildroot}%{_compldir}/%{project_name}-tx
-install -D -m644 -p contrib/%{project_name}d.bash-completion %{buildroot}%{_compldir}/%{project_name}d
+install -D -m644 -p contrib/completions/bash/%{project_name}-cli.bash-completion %{buildroot}%{_compldir}/%{project_name}-cli
+install -D -m644 -p contrib/completions/bash/%{project_name}-tx.bash-completion %{buildroot}%{_compldir}/%{project_name}-tx
+install -D -m644 -p contrib/completions/bash/%{project_name}d.bash-completion %{buildroot}%{_compldir}/%{project_name}d
 
 # Server log directory
 mkdir -p %{buildroot}%{_localstatedir}/log/%{project_name}/
@@ -341,6 +336,10 @@ exit 0
 %{_userunitdir}/%{project_name}.service
 
 %changelog
+* Tue May 30 2023 Simone Caronni <negativo17@gmail.com> - 25.0-1
+- Update to 25.0.
+- Update verification of signatures to use the new bundled script.
+
 * Mon May 22 2023 Simone Caronni <negativo17@gmail.com> - 24.1-1
 - Update to 24.1.
 

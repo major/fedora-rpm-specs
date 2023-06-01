@@ -21,7 +21,7 @@ solved using the nature-inspired algorithms that come from the related
 framework called NiaPy.}
 
 Name:           python-%{pypi_name}
-Version:        0.3.1
+Version:        0.3.2
 Release:        1%{?dist}
 Summary:        A minimalistic framework for numerical association rule mining
 
@@ -100,6 +100,9 @@ toml-adapt -path pyproject.toml -a change -dep ALL -ver X
 %doc CODE_OF_CONDUCT.md CONTRIBUTING.md
 
 %changelog
+* Tue May 30 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.3.2-1
+- Update to 0.3.2
+
 * Wed Feb 15 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.3.1-1
 - Upgrade to 0.3.1
 

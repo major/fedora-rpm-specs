@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 Name:           mingw-curl
-Version:        8.1.1
+Version:        8.1.2
 Release:        1%{?dist}
 Summary:        MinGW Windows port of curl and libcurl
 
@@ -180,6 +180,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/aclocal
 
 
 %changelog
+* Tue May 30 2023 Sandro Mani <manisandro@gmail.com> - 8.1.2-1
+- Update to 8.1.2
+
 * Tue May 23 2023 Sandro Mani <manisandro@gmail.com> - 8.1.1-1
 - Update to 8.1.1
 

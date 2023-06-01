@@ -1,8 +1,8 @@
 #global commit 3a0d285b225207b3eccbb7b0ec3f27a2fbdc5be3
 
 Name:           x2goserver
-Version:        4.1.0.3
-Release:        20%{?dist}
+Version:        4.1.0.4
+Release:        1%{?dist}
 Summary:        X2Go Server
 
 License:        GPLv2+
@@ -14,8 +14,6 @@ Source0:        http://code.x2go.org/releases/source/%{name}/%{name}-%{version}.
 #Source0:        %{name}/%{name}-%{version}-%{commit}.tar.gz
 Source1:        x2gocleansessions.service
 Source2:        x2gocleansessions.init
-# Upstream patch to fix x2goversion output
-Patch0:         0001-x2goversion-Fix-situations-where-compfile-contains-a.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -277,7 +275,7 @@ This package contains the X2Go::Log Perl package.
 
 
 %package -n x2goagent
-Summary:        X2Go Server's X2Go Agent
+Summary:        X2Go Server's X2Go Agent Xserver
 Requires:       nxagent >= 3.5.99.17
 
 %description -n x2goagent
@@ -290,32 +288,53 @@ X2Go is a server based computing environment with
     - audio support
     - authentication by smartcard and USB stick
 
-X2Go Agent functionality has been completely incorporated into
-nxagent's code base. If the nxagent binary is executed under the name
-of "x2goagent", the X2Go functionalities get activated.
+X2Go agent functionality has been completely incorporated into NX
+agent's code base. If the nxagent binary is executed under the name of
+`x2goagent', the X2Go functionalities get activated.
 
-The x2goagent package is a wrapper that activates X2Go branding in
-nxagent. Please refer to the nxagent package's description for more
-information on NX.
+This package is a wrapper that activates X2Go branding in nxagent.
+Please refer to the nxagent package's description for more information
+on NX.
+
+
+%package x2gokdrive
+Summary:        X2Go Server's X2Go KDrive Xserver
+Requires:       xorg-x11-server-x2gokdrive
+
+%description x2gokdrive
+X2Go is a server based computing environment with
+    - session resuming
+    - low bandwidth support
+    - session brokerage support
+    - client side mass storage mounting support
+    - client side printing support
+    - audio support
+    - authentication by smartcard and USB stick
+
+X2Go KDrive technology implements a remote X11 Xserver backend for
+modern desktop environments, namely desktops derived from the GNOME
+desktop shell.
+
+X2Go KDrive does not require an XServer on the client-side, only the
+X11-independent x2gokdriveclient. esktop session data transfers from
+server to client use differential image compression and image data gets
+cached client-side.
 
 
 %prep
 %autosetup -p1
 
-# Set path
-find -type f | xargs sed -i -r -e '/^LIBDIR=/s,/lib/,/%{_lib}/,'
-sed -i -e 's,/lib/,/%{_lib}/,' x2goserver/bin/x2gopath
 # Don't try to be root
 sed -i -e 's/-o root -g root//' */Makefile
 
 
 %build
 export PATH=%{_qt4_bindir}:$PATH
-%make_build CFLAGS="%{optflags}" PERL_INSTALLDIRS=vendor PREFIX=%{_prefix} NXLIBDIR=%{_libdir}/nx
+%make_build CFLAGS="%{optflags}" PERL_INSTALLDIRS=vendor PREFIX=%{_prefix} NXLIBDIR=%{_libdir}/nx LIBDIR=%{_libdir}/x2go
 
 
 %install
-make install DESTDIR=%{buildroot} PREFIX=%{_prefix} NXLIBDIR=%{_libdir}/nx
+make install DESTDIR=%{buildroot} PREFIX=%{_prefix} NXLIBDIR=%{_libdir}/nx LIBDIR=%{_libdir}/x2go
 
 # Make sure the .packlist file is removed from %%{perl_vendorarch}...
 find %{buildroot}%{perl_vendorarch} -name .packlist -delete
@@ -445,6 +464,7 @@ exit 0
 %{_libdir}/x2go/x2goinsertport
 %{_libdir}/x2go/x2goinsertsession
 %{_libdir}/x2go/x2goinsertshadowsession
+%{_libdir}/x2go/x2goisint
 %{_libdir}/x2go/x2goistrue
 %{_libdir}/x2go/x2golistsessions_sql
 %{_libdir}/x2go/x2gologlevel
@@ -455,6 +475,7 @@ exit 0
 %{_libdir}/x2go/x2gosuspend-agent
 %{_libdir}/x2go/x2gosyslog
 %{_sbindir}/x2go*
+%{_mandir}/man1/x2gooptionsstring.1*
 %{_mandir}/man8/x2go*.8*
 %exclude %{_mandir}/man8/x2gofm.8*
 %exclude %{_mandir}/man8/x2goprint.8*
@@ -566,12 +587,21 @@ exit 0
 %{_datadir}/pixmaps/x2goagent.xpm
 %{_datadir}/x2go/x2gofeature.d/x2goserver-x2goagent.features
 %{_mandir}/man1/x2goagent.1*
-%config(noreplace) %{_sysconfdir}/x2go/x2goagent.keyboard
 %config(noreplace) %{_sysconfdir}/x2go/x2goagent.options
 %config(noreplace) %{_sysconfdir}/x2go/keystrokes.cfg
 
+%files x2gokdrive
+%license COPYING
+%doc ChangeLog
+%{_datadir}/x2go/versions/VERSION.x2goserver-x2gokdrive
+%{_datadir}/x2go/x2gofeature.d/x2goserver-x2gokdrive.features
+%config(noreplace) %{_sysconfdir}/x2go/x2gokdrive.options
+
 
 %changelog
+* Tue May 30 2023 Orion Poplawski <orion@nwra.com> - 4.1.0.4-1
+- Update to 4.1.0.4
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0.3-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

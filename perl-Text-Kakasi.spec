@@ -1,6 +1,6 @@
 Name:           perl-Text-Kakasi
 Version:        2.04
-Release:        51%{?dist}
+Release:        52%{?dist}
 Summary:        Kakasi library module for perl
 
 License:        GPL-2.0-or-later
@@ -26,8 +26,7 @@ More information about KAKASI is available at <http://kakasi.namazu.org/>.
 
 
 %prep
-%setup -n Text-Kakasi-%{version}
-%patch -p1 -b .perl580
+%autosetup -n Text-Kakasi-%{version}
 
 %build
 CFLAGS="$RPM_OPT_FLAGS" %{__perl} Makefile.PL INSTALLDIRS=vendor
@@ -57,6 +56,10 @@ make test
 
 
 %changelog
+* Tue May 30 2023 Akira TAGOH <tagoh@redhat.com> - 2.04-52
+- Fix %%patchN deprecation.
+  Resolves: rhbz#2210972
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.04-51
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

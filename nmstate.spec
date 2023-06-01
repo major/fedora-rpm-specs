@@ -10,6 +10,7 @@ URL:            https://github.com/%{srcname}/%{srcname}
 Source0:        %{url}/releases/download/v%{version}/%{srcname}-%{version}.tar.gz
 Source1:        %{url}/releases/download/v%{version}/%{srcname}-%{version}.tar.gz.asc
 Source2:        https://nmstate.io/nmstate.gpg
+Source3:        %{url}/releases/download/v%{version}/%{srcname}-vendor-%{version}.tar.xz
 # We use `dep: dep_name` to prevent rust packaging generate incorect dependency
 # https://bugzilla.redhat.com/show_bug.cgi?id=2161128
 # but list Requires manually
@@ -23,6 +24,9 @@ BuildRequires:  python3-setuptools
 BuildRequires:  gnupg2
 BuildRequires:  systemd-devel
 BuildRequires:  systemd-rpm-macros
+%if 0%{?rhel}
+BuildRequires:  rust-toolset
+%else
 BuildRequires:  rust-packaging
 BuildRequires:  (crate(clap/cargo) >= 3.1 with crate(clap/cargo) < 4.0)
 BuildRequires:  (crate(clap/default) >= 3.1 with crate(clap/default) < 4.0)
@@ -42,6 +46,7 @@ BuildRequires:  (crate(uuid/v5) >= 1.1 with crate(uuid/v5) < 2.0)
 BuildRequires:  (crate(zbus/default) >= 1.9 with crate(zbus/default) < 2.0)
 BuildRequires:  (crate(zvariant/default) >= 2.10 with crate(zvariant/default) < 3.0)
 BuildRequires:  (crate(nix/default) >= 0.26 with crate(nix/default) < 0.27)
+%endif
 
 %description
 Nmstate is a library with an accompanying command line tool that manages host
@@ -98,6 +103,7 @@ Obsoletes:      nmstate-plugin-ovsdb < 2.0-1
 %description -n python3-%{libname}
 This package contains the Python 3 library for Nmstate.
 
+%if ! 0%{?rhel}
 %package -n rust-%{name}-devel
 Summary:        Rust crate of nmstate
 BuildArch:      noarch
@@ -133,6 +139,7 @@ Requires:  (crate(zbus/default) >= 1.9 with crate(zbus/default) < 2.0)
 %description -n rust-%{name}+query_apply-devel
 This package contains library source intended for building other packages
 which use "%{name}" crate with query_apply feature.
+%endif
 
 %prep
 gpg2 --import --import-options import-export,import-minimal \
@@ -142,7 +149,11 @@ gpgv2 --keyring ./gpgkey-mantainers.gpg %{SOURCE1} %{SOURCE0}
 
 pushd rust
 rm .cargo/config.toml
+%if 0%{?rhel}
+%cargo_prep -V 3
+%else
 %cargo_prep
+%endif
 popd
 
 %build
@@ -167,6 +178,7 @@ pushd rust/src/python
 %py3_install
 popd
 
+%if ! 0%{?rhel}
 # cargo_install has problem on detecting library when running in workspace
 # due to bug https://pagure.io/fedora-rust/cargo2rpm/issue/5
 # Removing the workspace Cargo.toml will workaround this problem.
@@ -174,6 +186,7 @@ rm rust/Cargo.toml
 pushd rust/src/lib
 %cargo_install
 popd
+%endif
 
 %files
 %doc README.md
@@ -203,6 +216,7 @@ popd
 %files static
 %{_libdir}/libnmstate.a
 
+%if ! 0%{?rhel}
 %files -n rust-%{name}-devel
 %license LICENSE
 %{cargo_registry}/%{name}-%{version}/
@@ -215,6 +229,7 @@ popd
 
 %files -n rust-%{name}+query_apply-devel
 %ghost %{cargo_registry}/%{name}-%{version}/Cargo.toml
+%endif
 
 %changelog
 %autochangelog

@@ -2,7 +2,7 @@
 
 Name:           gts
 Version:        0.7.6
-Release:        44.20%{snapshot}%{?dist}
+Release:        45.20%{snapshot}%{?dist}
 Summary:        GNU Triangulated Surface Library
 License:        LGPL-2.0-or-later
 URL:            http://gts.sourceforge.net/index.html
@@ -34,8 +34,8 @@ This package contains the gts header files and libs.
 
 %prep
 %setup -q -n %{name}-snapshot-%{snapshot}
-%patch0 -p1
-%patch1 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 
 # Fix broken permissions
 chmod +x test/*/*.sh
@@ -59,8 +59,6 @@ mv -f $RPM_BUILD_ROOT%{_mandir}/man1/transform.1 $RPM_BUILD_ROOT%{_mandir}/man1/
 %check
 # Urgh, something is very broken with gts rsp. its testsuite
 make check ||:
-
-%ldconfig_scriptlets
 
 %files
 %license COPYING
@@ -97,6 +95,10 @@ make check ||:
 %{_mandir}/man1/gts-config.1*
 
 %changelog
+* Tue May 30 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.7.6-45.20121130
+- Use %%patch -P N instead of %%patchN
+- Spec file cosmetics.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.6-44.20121130
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

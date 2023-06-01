@@ -4,7 +4,7 @@
 %bcond_without tests
 
 Name:    %{pkgname}
-Version: 4.0.4
+Version: 4.1.1
 Release: %autorelease
 Summary: Ansible python helper functions
 
@@ -67,6 +67,7 @@ rm -rf html/.{doctrees,buildinfo}
         and not test_prerun_reqs_v1
         and not test_prerun_reqs_v2
         and not test_install_collection_from_disk
+        and not test_require_collection
         '
     }
 %endif
@@ -82,4 +83,15 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+%autochangelog
+
+%license LICENSE
+
+%if %{with doc}
+%files -n python-%{srcname}-doc
+%license LICENSE
+%doc *.rst
+%doc html/
+%endif
+
 %autochangelog

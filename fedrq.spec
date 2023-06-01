@@ -7,7 +7,7 @@
 %bcond libdnf5 %[0%{?fedora} >= 38]
 
 Name:           fedrq
-Version:        0.6.0
+Version:        0.7.0
 Release:        1%{?dist}
 Summary:        A tool to query the Fedora and EPEL repositories
 
@@ -24,10 +24,10 @@ Source2:        https://meta.sr.ht/~gotmax23.pgp
 
 BuildArch:      noarch
 
+BuildRequires:  tomcli+tomlkit
 BuildRequires:  python3-devel
 # Test deps
 BuildRequires:  createrepo_c
-BuildRequires:  fedora-repos-rawhide
 BuildRequires:  distribution-gpg-keys
 BuildRequires:  python3-argcomplete
 BuildRequires:  python3-dnf
@@ -56,6 +56,9 @@ fedrq is a tool to query the Fedora and EPEL repositories.
 %gpgverify -d0 -s1 -k2
 %autosetup -p1
 
+# See the comments in pyproject.toml
+tomcli-set pyproject.toml del tool.flit.external-data
+tomcli-set pyproject.toml list build-system.requires "flit_core >=3.2,<4"
 
 %generate_buildrequires
 %pyproject_buildrequires -x test
@@ -89,7 +92,7 @@ FEDRQ_BACKEND=libdnf5 %pytest -v -m "not no_rpm_mock"
 
 %files -f %{pyproject_files}
 # Licenses are included in the wheel
-%license %{_licensedir}/fedrq/
+%license LICENSES/*.txt
 %doc README.md CONTRIBUTING.md NEWS.md contrib/api_examples
 %{_bindir}/fedrq*
 %{bash_completions_dir}/fedrq
@@ -99,6 +102,9 @@ FEDRQ_BACKEND=libdnf5 %pytest -v -m "not no_rpm_mock"
 
 
 %changelog
+* Mon May 29 2023 Maxwell G <maxwell@gtmx.me> - 0.7.0-1
+- Update to 0.7.0.
+
 * Sat Apr 8 2023 Maxwell G <maxwell@gtmx.me> - 0.6.0-1
 - Update to 0.6.0.
 

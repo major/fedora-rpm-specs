@@ -8,7 +8,7 @@ Version: 2.74.3
 Release: 2%{?dist}
 Summary: Soup, an HTTP library implementation
 
-License: LGPLv2
+License: LGPL-2.0-only
 URL: https://wiki.gnome.org/Projects/libsoup
 Source0: https://download.gnome.org/sources/%{name}/2.74/%{name}-%{version}.tar.xz
 

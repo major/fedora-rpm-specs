@@ -13,7 +13,7 @@ Epoch:          1
 %else
 Epoch:          0
 %endif
-Version:        7.1.1.10
+Version:        7.1.1.11
 Release:        1%{?dist}
 Summary:        An X application for displaying and manipulating images
 
@@ -413,6 +413,9 @@ rm PerlMagick/demo/Generic.ttf
 %doc PerlMagick/demo/ PerlMagick/Changelog PerlMagick/README.txt
 
 %changelog
+* Mon May 29 2023 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 1:7.1.1.11-1
+- Update to 7.1.1.11 (#2210875)
+
 * Mon May 22 2023 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 1:7.1.1.10-1
 - Update to 7.1.1.10 (#2207788)
 

@@ -1,14 +1,14 @@
 Name:           python-gast
 Version:        0.5.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Python AST that abstracts the underlying Python version
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/serge-sans-paille/gast/
 Source0:        %{url}/archive/%{version}/gast-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  pyproject-rpm-macros
+BuildRequires:  python3-pytest
 
 
 %global _description %{expand:
@@ -29,7 +29,8 @@ Summary:        %{summary}
 
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+# Don't use tox options to avoid an unwanted dependency in RHEL
+%pyproject_buildrequires
 
 
 %build
@@ -42,15 +43,17 @@ Summary:        %{summary}
 
 
 %check
-%tox
+%pytest -v
 
 
 %files -n python3-gast -f %{pyproject_files}
-%license LICENSE
 %doc README.rst
 
 
 %changelog
+* Wed May 24 2023 Miro Hrončok <mhroncok@redhat.com> - 0.5.3-6
+- Update the license tag to SPDX
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

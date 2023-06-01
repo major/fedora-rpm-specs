@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: Python
 
 
@@ -378,6 +378,18 @@ Patch353: 00353-architecture-names-upstream-downstream.patch
 # https://bodhi.fedoraproject.org/updates/FEDORA-2021-e152ce5f31
 # https://github.com/GrahamDumpleton/mod_wsgi/issues/730
 Patch371: 00371-revert-bpo-1596321-fix-threading-_shutdown-for-the-main-thread-gh-28549-gh-28589.patch
+
+# 00399 # c32eff86eb80f6a6bdcbf4b1b6535fbc627b51a2
+# CVE-2023-24329
+#
+# * gh-102153: Start stripping C0 control and space chars in `urlsplit` (GH-102508)
+#
+# `urllib.parse.urlsplit` has already been respecting the WHATWG spec a bit GH-25595.
+#
+# This adds more sanitizing to respect the "Remove any leading C0 control or space from input" [rule](https://url.spec.whatwg.org/GH-url-parsing:~:text=Remove%%20any%%20leading%%20and%%20trailing%%20C0%%20control%%20or%%20space%%20from%%20input.) in response to [CVE-2023-24329](https://nvd.nist.gov/vuln/detail/CVE-2023-24329).
+#
+# ---------
+Patch399: 00399-cve-2023-24329.patch
 
 # (New patches go here ^^^)
 #
@@ -1804,6 +1816,10 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Mon May 29 2023 Lumír Balhar <lbalhar@redhat.com> - 3.9.16-4
+- Security fix for CVE-2023-24329
+- Resolves: rhbz#2174016
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.16-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
