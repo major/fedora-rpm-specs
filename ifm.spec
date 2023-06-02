@@ -3,7 +3,7 @@ Version:        5.4
 Release:        8%{?dist}
 Summary:        Interactive Fiction Mapper
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://www.sentex.net/~dchapes/ifm/
 Source0:        http://www.ifarchive.org/if-archive/mapping-tools/ifm-%{version}.tar.gz
 Source1:        ifm.sh

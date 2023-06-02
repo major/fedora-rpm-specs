@@ -2,9 +2,9 @@
 
 Name:		liblognorm
 Version:	2.0.6
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Fast samples-based log normalization library
-License:	LGPLv2+
+License:	LGPL-2.1-or-later AND Apache-2.0
 URL:		http://www.liblognorm.com
 Source0:	http://www.liblognorm.com/files/download/%{name}-%{version}.tar.gz
 
@@ -57,8 +57,8 @@ log files.
 %prep
 %setup -q
 
-%patch0 -p1 -b .sphinx5
-%patch1 -p1 -b .configure-glitch
+%patch -P 0 -p1 -b .sphinx5
+%patch -P 1 -p1 -b .configure-glitch
 
 %build
 # Prevent rebuild of the configure script.
@@ -97,6 +97,10 @@ rm %{buildroot}%{htmldir}/{objects.inv,.buildinfo}
 
 
 %changelog
+* Wed May 31 2023 Attila Lakatos <alakatos@redhat.com> - 2.0.6-8
+- Update License tag for SPDX
+- Apache 2.0 was missing according to upstream sources
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.6-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

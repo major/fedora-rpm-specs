@@ -1,5 +1,5 @@
 Name: conan
-Version: 2.0.4
+Version: 2.0.6
 Release: 1%{?dist}
 
 License: MIT
@@ -7,9 +7,6 @@ Summary: Open-source C/C++ package manager
 URL: https://github.com/%{name}-io/%{name}
 Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildArch: noarch
-
-# https://github.com/conan-io/conan/pull/13007
-Patch100: %{name}-2.0.0-gcc13.patch
 
 BuildRequires: python3-devel
 
@@ -65,6 +62,9 @@ find -name '*.py' \( \! -perm /u+x,g+x,o+x -exec sed -e '/^#!/Q 0' -e 'Q 1' {} \
 %{_bindir}/%{name}
 
 %changelog
+* Wed May 31 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2.0.6-1
+- Updated to version 2.0.6.
+
 * Wed Apr 12 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2.0.4-1
 - Updated to version 2.0.4.
 

@@ -1,9 +1,9 @@
 Name:           libestr
 Version:        0.1.11
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        String handling essentials library
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            http://libestr.adiscon.com/
 Source0:        http://libestr.adiscon.com/files/download/libestr-%{version}.tar.gz
 
@@ -47,6 +47,9 @@ rm -f %{buildroot}/%{_libdir}/*.{a,la}
 %{_libdir}/pkgconfig/libestr.pc
 
 %changelog
+* Wed May 31 2023 Attila Lakatos <alakatos@redhat.com> - 0.1.11-6
+- Update License tag for SPDX
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.11-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

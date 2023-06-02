@@ -3,7 +3,7 @@ Version:        2.54
 Release:        3%{?dist}
 Summary:        Interactive fiction interpreter for Z-Machine (Infocom) games
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://gitlab.com/DavidGriffith/frotz/
 Source0:        https://gitlab.com/DavidGriffith/frotz/-/archive/%{version}/frotz-%{version}.tar.bz2
 

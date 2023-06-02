@@ -1,5 +1,5 @@
 Name:           batctl
-Version:        2023.0
+Version:        2023.1
 Release:        0%{?dist}
 Summary:        B.A.T.M.A.N. advanced control and management tool
 
@@ -51,6 +51,9 @@ make %{?_smp_mflags} CFLAGS="%{optflags} -I%{_prefix}/include/libnl3" V=s
 
 
 %changelog
+* Wed May 31 2023 John W. Linville <linville@tuxdriver.com> - 2023.1-1
+- update to 2023.1
+
 * Thu Jan 26 2023 John W. Linville <linville@tuxdriver.com> - 2023.0-1
 - update to 2023.0
 

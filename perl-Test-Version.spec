@@ -2,7 +2,7 @@ Name:		perl-Test-Version
 Version:	2.09
 Release:	21%{?dist}
 Summary:	Check to see that versions in modules are sane
-License:	Artistic 2.0
+License:	Artistic-2.0
 URL:		https://metacpan.org/release/Test-Version
 Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-Version-%{version}.tar.gz
 BuildArch:	noarch
@@ -60,7 +60,7 @@ BuildRequires:	perl(Test::Pod::Coverage) >= 1.08
 BuildRequires:	perl(Test::Portability::Files)
 %endif
 # ===================================================================
-# Runtime requirements
+# Runtime dependencies
 # ===================================================================
 Requires:	perl(Test::More) >= 0.96
 

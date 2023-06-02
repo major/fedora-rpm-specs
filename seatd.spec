@@ -1,13 +1,11 @@
 %global libseat_sover   1
 %global _hardened_build 1
 
-# seatd server is not as useful on Fedora. Disable it by default,
-# but leave bcond for those who really wants to use it.
-%bcond_with     server
+%bcond_without  server
 
 Name:           seatd
 Version:        0.7.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Minimal seat management daemon
 
 License:        MIT
@@ -63,10 +61,9 @@ developing applications that use libseat.
 
 
 %build
-%global server_feature %{?with_server:enabled}%{!?with_server:disabled}
 %meson \
-    -Dlibseat-logind=systemd          \
-    -Dserver=%{server_feature}
+    -Dlibseat-logind=systemd \
+    -Dserver=%[%{with server}?"enabled":"disabled"]
 %meson_build
 
 
@@ -122,6 +119,9 @@ install -D -m 0644 -pv %{SOURCE1} \
 
 
 %changelog
+* Tue May 30 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.7.0-4
+- Build seatd server
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

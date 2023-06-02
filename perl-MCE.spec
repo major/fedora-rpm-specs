@@ -1,6 +1,6 @@
 Name:           perl-MCE
-Version:        1.884
-Release:        2%{?dist}
+Version:        1.885
+Release:        1%{?dist}
 Summary:        Many-core Engine for Perl providing parallel processing capabilities
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MCE
@@ -73,7 +73,7 @@ the Many-core Engine (MCE) Perl library.
 %setup -q -n MCE-%{version}
 
 # Fix sharp-bang line
-%patch0
+%patch -P 0
 
 %build
 MCE_INSTALL_TOOLS=1 perl Makefile.PL INSTALLDIRS=vendor
@@ -169,6 +169,11 @@ make test
 %{_bindir}/mce_zfgrep
 
 %changelog
+* Wed May 31 2023 Paul Howarth <paul@city-fan.org> - 1.885-1
+- Update to 1.885 (rhbz#2211269)
+  - Improved reliability on the Windows platform
+- Avoid use of deprecated patch syntax
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.884-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

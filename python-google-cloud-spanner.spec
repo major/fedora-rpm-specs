@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-spanner
 %global         forgeurl    https://github.com/googleapis/python-spanner
-Version:        3.33.0
+Version:        3.35.1
 %global         tag         v%{version}
 %forgemeta
 
@@ -40,6 +40,9 @@ Summary:        %{summary}
 
 # Allow a slightly older protobuf.
 sed -i 's/"protobuf.*",/"protobuf>=3.19.4",/' setup.py
+
+# Allow a slightly older sqlparse.
+sed -i 's/sqlparse >= 0.4.4/sqlparse >= 0.4.2/' setup.py
 
 # Replace mock imports with unittest.mock.
 grep -rl "^[[:space:]]*import mock" tests | \

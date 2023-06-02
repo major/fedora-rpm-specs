@@ -3,7 +3,7 @@ Version:        0.48
 Release:        1%{?dist}
 Summary:        A curses client for the Music Player Daemon (MPD)
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://www.musicpd.org/
 Source0:        http://www.musicpd.org/download/ncmpc/0/ncmpc-%{version}.tar.xz
 Source1:        http://www.musicpd.org/download/ncmpc/0/ncmpc-%{version}.tar.xz.sig

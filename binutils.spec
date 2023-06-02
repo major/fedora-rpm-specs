@@ -2,7 +2,7 @@
 Summary: A GNU collection of binary utilities
 Name: binutils%{?_with_debug:-debug}
 Version: 2.40
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/binutils
 
@@ -1160,6 +1160,8 @@ exit 0
 %exclude %{_bindir}/gprofng
 %endif
 
+%exclude %dir %{_exec_prefix}/lib/debug
+
 %if %{with docs}
 %{_mandir}/man1/
 %exclude %{_mandir}/man1/gp-*
@@ -1186,9 +1188,7 @@ exit 0
 %exclude %{_libdir}/libctf-nobfd.a
 
 %dir %{_libdir}/bfd-plugins
-# %%{_libdir}/bfd-plugins/libdep.a
 %{_libdir}/bfd-plugins/libdep.so
-%exclude %{_exec_prefix}/lib/debug/%{_libdir}/bfd-plugins/libdep.so-*
 %endif
 
 %files devel
@@ -1245,6 +1245,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Wed May 31 2023 Nick Clifton  <nickc@redhat.com> - 2.40-9
+- Spec File: Remove debug files from default package.  (#2208360)
+
 * Tue May 02 2023 Nick Clifton  <nickc@redhat.com> - 2.40-8
 - GOLD: Stop an abort triggered by running dwp on a file with no dwo links.  (#2192226)
 - Spec File: Use _prefix.  (#2192118)

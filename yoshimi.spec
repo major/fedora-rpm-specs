@@ -1,7 +1,7 @@
 %global _vpath_srcdir src
 
 Name:		yoshimi
-Version:	2.2.3
+Version:	2.3.0
 Release:	1%{?dist}
 Summary:	Rewrite of ZynAddSubFx aiming for better JACK support
 
@@ -41,7 +41,7 @@ effects like Reverb, Echo, Chorus, Phaser...
 
 %prep
 %setup -q
-%patch0 -p1
+%patch 0 -p1
 
 %build
 export CFLAGS="%{optflags}"
@@ -77,11 +77,15 @@ chmod 755 %{buildroot}%{_datadir}/%{name}/presets/*
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 %{_datadir}/icons/hicolor/scalable/apps/%{name}_alt.svg
 %{_datadir}/metainfo/%{name}.appdata.xml
+%{_datadir}/metainfo/%{name}.metainfo.xml
 %{_datadir}/%{name}/examples/
 %{_libdir}/lv2/%{name}.lv2/
 %{_mandir}/man1/yoshimi.1*
 
 %changelog
+* Wed May 31 2023 Adam Huffman <bloch@verdurin.com> - 2.3.0-1
+- Update to upstream feature release 2.3.0
+
 * Mon Feb 13 2023 Adam Huffman <bloch@verdurin.com> - 2.2.3-1
 - Update to latest bugfix release 2.2.3
 

@@ -9,7 +9,7 @@
 
 Summary:	Ruby binding of GObjectIntrospection
 Name:		rubygem-%{gem_name}
-Version:	4.1.6
+Version:	4.1.7
 Release:	1%{?dist}
 
 # SPDX confirmed
@@ -64,7 +64,7 @@ mv ../%{gem_name}-%{version}.gemspec .
 find . -name \*.rb -print0 | xargs --null chmod 0644
 
 # Allow ruby-gnome2 no less than ones
-sed -i -e 's|= 4\.1\.6|>= 4.1.6|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.1\.7|>= 4.1.7|' %{gem_name}-%{version}.gemspec
 
 %build
 export CONFIGURE_ARGS="--with-cflags='%{optflags} -Werror-implicit-function-declaration'"
@@ -142,6 +142,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Thu Jun  1 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.7-1
+- 4.1.7
+
 * Mon May 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.6-1
 - 4.1.6
 

@@ -2,7 +2,7 @@ Name:		perl-Text-Hunspell
 Version:	2.16
 Release:	3%{?dist}
 Summary:	Perl interface to the Hunspell library
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Text-Hunspell
 Source0:	https://cpan.metacpan.org/modules/by-module/Text/Text-Hunspell-%{version}.tar.gz
 Patch1:		Text-Hunspell-2.15-no-Alien.patch
@@ -31,7 +31,8 @@ BuildRequires:	perl(strict)
 BuildRequires:	perl(Test::More)
 BuildRequires:	perl(Test::Pod) >= 1.14
 BuildRequires:	perl(warnings)
-# Runtime
+# Dependencies
+# (none)
 
 # Don't "provide" private Perl libs
 %{?perl_default_filter}
@@ -45,7 +46,7 @@ session, such as spell-checking a document in memory.
 %setup -q -n Text-Hunspell-%{version}
 
 # We don't have (nor need) Alien::Hunspell, so revert to using ExtUtils::PkgConfig
-%patch1
+%patch -P 1
 
 # Fix up shellbang in example
 sed -i -e 's|^#!/usr/bin/env perl|#!/usr/bin/perl|' examples/basic.pl

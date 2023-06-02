@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+
 %global commit0 e8073ab740292f8d5f19b5de144087ac58044d06
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
@@ -9,32 +11,6 @@
 %global buildfont 0
 %endif
 
-
-Name:           %{fontname}-fonts
-Version:        20220916
-Release:        5%{?dist}
-Summary:        Google “Noto Emoji” Black-and-White emoji font
-
-# In noto-emoji-fonts source
-## noto-emoji code is in ASL 2.0 license
-## Emoji fonts are under OFL license
-### third_party color-emoji code is in BSD license
-### third_party region-flags code is in Public Domain license
-# In nototools source
-## nototools code is in ASL 2.0 license
-### third_party ucd code is in Unicode license
-License:        OFL-1.1 AND Apache-2.0
-URL:            https://github.com/googlefonts/noto-emoji
-Source0:        https://github.com/googlefonts/noto-emoji/archive/%{commit0}.tar.gz#/noto-emoji-%{shortcommit0}.tar.gz
-Source2:        %{fontname}.metainfo.xml
-Source3:        %{fontname}-color.metainfo.xml
-Source4:        Noto_Emoji.zip
-
-Patch0:         noto-emoji-build-all-flags.patch
-Patch1:         noto-emoji-use-gm.patch
-Patch2:         noto-emoji-use-system-pngquant.patch
-
-BuildArch:      noarch
 BuildRequires:  gcc
 BuildRequires:  fontpackages-devel
 %if %buildfont
@@ -48,68 +24,86 @@ BuildRequires:  pngquant
 BuildRequires:  zopfli
 BuildRequires:  cairo-devel
 %endif
-BuildRequires: make
+BuildRequires:  make
 
-Requires:       fontpackages-filesystem
+Version: 20220916
+Release: 6%{?dist}
+URL:     https://github.com/googlefonts/noto-emoji
 
-Obsoletes:      google-noto-color-emoji-fonts < 20150617
-Provides:       google-noto-color-emoji-fonts = 20150617
+%global foundry           Google
+# In noto-emoji-fonts source
+## noto-emoji code is in ASL 2.0 license
+## Emoji fonts are under OFL license
+### third_party color-emoji code is in BSD license
+### third_party region-flags code is in Public Domain license
+# In nototools source
+## nototools code is in ASL 2.0 license
+### third_party ucd code is in Unicode license
+%global fontlicense       OFL-1.1 AND Apache-2.0
+%global fontlicenses      LICENSE OFL.txt
+%global fontdocs          AUTHORS CONTRIBUTING.md CONTRIBUTORS README.md README.txt
 
-%description
+%global fontfamily0       Noto Emoji
+%global fontsummary0      Google “Noto Emoji” Black-and-White emoji font
+%global fonts0            NotoEmoji-Regular.ttf
+%global fontdescription0  %{expand:
 This package provides the Google “Noto Emoji” Black-and-White emoji font.
+}
 
-%package -n     %{fontname}-color-fonts
-Summary:        Google “Noto Color Emoji” colored emoji font
-Requires:       fontpackages-filesystem
-Obsoletes:      google-noto-color-emoji-fonts < 20150617
-Provides:       google-noto-color-emoji-fonts = 20150617
-
-%description -n %{fontname}-color-fonts
+%global fontfamily1       Noto Color Emoji
+%global fontsummary1      Google “Noto Color Emoji” colored emoji font
+%global fontpkgheader1    %{expand:
+Obsoletes:      google-noto-emoji-color-fonts < 20220916-6
+Provides:       google-noto-emoji-color-fonts = %{version}-%{release}
+}
+%global fonts1            NotoColorEmoji.ttf
+%global fontdescription1  %{expand:
 This package provides the Google “Noto Color Emoji” colored emoji font.
+}
+
+Source0:        https://github.com/googlefonts/noto-emoji/archive/%{commit0}.tar.gz#/noto-emoji-%{shortcommit0}.tar.gz
+Source4:        Noto_Emoji.zip
+
+Patch0:         noto-emoji-build-all-flags.patch
+Patch1:         noto-emoji-use-gm.patch
+Patch2:         noto-emoji-use-system-pngquant.patch
+
+%fontpkg -a
+
 
 %prep
 %autosetup -p1 -a 4 -n noto-emoji-%{commit0}
 
 rm -rf third_party/pngquant
 
+cp -p static/NotoEmoji-Regular.ttf .
+
 %build
+
 %if %buildfont
 # Work around UTF-8
 export LANG=C.UTF-8
 
 %make_build OPT_CFLAGS="$RPM_OPT_FLAGS" BYPASS_SEQUENCE_CHECK='True'
+%else
+cp -p fonts/NotoColorEmoji.ttf .
 %endif
+
+%fontbuild -a
 
 %install
-install -m 0755 -d %{buildroot}%{_fontdir}
+%fontinstall -a
 
-%if %buildfont
-# Built by us from the supplied pngs:
-install -m 0644 -p NotoColorEmoji.ttf %{buildroot}%{_fontdir}
-%else
-# Pre-built, and included with the source:
-install -m 0644 -p fonts/NotoColorEmoji.ttf %{buildroot}%{_fontdir}
-%endif
+%check
+%fontcheck -a
 
-# Pre-built, and included with the source:
-install -m 0644 -p static/NotoEmoji-Regular.ttf %{buildroot}%{_fontdir}
-
-mkdir -p %{buildroot}%{_metainfodir}
-install -m 0644 -p %{SOURCE2} %{buildroot}%{_metainfodir}
-install -m 0644 -p %{SOURCE3} %{buildroot}%{_metainfodir}
-
-%_font_pkg NotoEmoji-Regular.ttf
-%license LICENSE OFL.txt
-%doc AUTHORS CONTRIBUTING.md CONTRIBUTORS README.md README.txt
-%{_metainfodir}/google-noto-emoji.metainfo.xml
-
-%_font_pkg -n color NotoColorEmoji.ttf
-%license LICENSE OFL.txt
-%doc AUTHORS CONTRIBUTING.md CONTRIBUTORS README.md README.txt
-%{_metainfodir}/google-noto-emoji-color.metainfo.xml
+%fontfiles -a
 
 
 %changelog
+* Thu May 25 2023 Peng Wu <pwu@redhat.com> - 20220916-6
+- Update to follow New Fonts Packaging Guidelines
+
 * Mon May 22 2023 Peng Wu <pwu@redhat.com> - 20220916-5
 - Migrate to SPDX license
 

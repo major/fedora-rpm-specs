@@ -8,7 +8,7 @@
 Name:           libppd
 Epoch:          1
 Version:        2.0~rc1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Library for retro-fitting legacy printer drivers
 
 # the CUPS exception text is the same as LLVM exception, so using that name with
@@ -24,6 +24,10 @@ Source0:        %{URL}/releases/download/%{upstream_version}/%{name}-%{upstream_
 Patch0001: libppd-disable-testppdfile.patch
 # https://github.com/OpenPrinting/libppd/pull/21
 Patch0002: 0001-ppd-ppd-ipp.c-Use-make-when-constructing-printer-mak.patch
+# https://github.com/OpenPrinting/libppd/commit/2afb353e27b3930
+Patch0003: 0001-ppdFilterPSToPS-Fixed-reverse-output-order.patch
+# https://github.com/OpenPrinting/libppd/commit/e2190988ff6c11c
+Patch0004: 0001-Fixed-resolution-handling-when-converting-PPDs-to-pr.patch
 
 
 # for autogen.sh
@@ -196,6 +200,10 @@ rm -rf %{buildroot}%{_datadir}/ppdc
 %endif
 
 %changelog
+* Wed May 31 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0~rc1-3
+- fix printing for printers with reverse output order
+- fix printing resolutions
+
 * Mon May 29 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0~rc1-2
 - 2192912 - [Utax, Kyocera, Brother] pdftops hacks are not applied due missing manufacturer in printer-make-and-model
 

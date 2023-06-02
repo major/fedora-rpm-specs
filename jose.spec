@@ -3,7 +3,7 @@ Version:        11
 Release:        7%{?dist}
 Summary:        Tools for JSON Object Signing and Encryption (JOSE)
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/latchset/%{name}
 Source0:        https://github.com/latchset/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
 

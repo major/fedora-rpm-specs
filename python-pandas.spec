@@ -13,7 +13,7 @@
 
 Name:           python-pandas
 Version:        1.5.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python library providing high-performance data analysis tools
 
 # The entire source is BSD-3-Clause and covered by LICENSE, except:
@@ -712,21 +712,19 @@ export PYTHONHASHSEED="$(
 
 # Previously, we ran tests in parallel. Upstream seems to support this;
 # however, in practice, there were still some flaky test failures that seem to
-# be fixed by eschewing parallelism.
+# be fixed by eschewing parallelism (-n 1).
 #
 # If we start running tests in parallel again in the future, note that on
 # 32-bit platforms (%%if 0%%{?__isa_bits} == 32) it may be necessary to limit
 # the number of concurrent tests to e.g. 8 in order to prevent memory
 # exhaustion.
-%constrain_build -c 1
-
 %pytest -v '%{buildroot}%{python3_sitearch}/pandas' \
     %{?!with_slow_tests:--skip-slow} \
     --skip-network \
     --skip-db \
     -m "${m-}" \
     -k "${k-}" \
-    -n %{_smp_build_ncpus} \
+    -n 1 \
     -r sxX
 
 %else
@@ -759,6 +757,9 @@ export PYTHONHASHSEED="$(
 
 
 %changelog
+* Mon May 29 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.5.3-5
+- Simplify running tests serially
+
 * Tue May 16 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.5.3-4
 - Extend pyarrow 10/11 patch for pyarrow 12 (fix RHBZ#2207628)
 

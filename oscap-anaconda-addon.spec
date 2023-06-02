@@ -10,7 +10,7 @@ Version:        1.0
 Release:        13%{?dist}
 Summary:        Anaconda addon integrating OpenSCAP to the installation process
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/OpenSCAP/oscap-anaconda-addon
 
 # This is a Red Hat maintained package which is specific to

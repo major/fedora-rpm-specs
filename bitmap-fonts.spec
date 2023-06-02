@@ -1,32 +1,148 @@
+# SPDX-License-Identifier: MIT
+
+BuildArch: noarch
+BuildRequires: bdftopcf fonttosfnt
+BuildRequires: make
+
 %global fontname bitmap
 %global fontconf 66-%{fontname}
-%global common_desc \
+
+Version: 0.3
+Release: 43%{?dist}
+License: GPL-2.0-only AND MIT AND LicenseRef-Lucida
+
+%global foundry           Bitmap
+
+%global common_description %{expand:
 The bitmap-fonts package provides a number of bitmap fonts selected\
 from the xorg package designed for use locations such as\
 terminals.
+}
 
-Name: bitmap-fonts
-Version: 0.3
-Release: 42%{?dist}
-License: GPLv2 and MIT and Lucida
-Source0: bitmap-fonts-%{version}.tar.bz2
-Source1: fixfont-3.5.tar.bz2
-Source2: LICENSE
-Source3: 66-bitmap-console.conf
-Source4: 66-bitmap-fangsongti.conf
-Source5: 66-bitmap-fixed.conf
-Source6: 66-bitmap-lucida-typewriter.conf
-BuildArch: noarch
-Summary: Selected set of bitmap fonts
-BuildRequires: bdftopcf fonttosfnt
-BuildRequires: fontpackages-devel
-BuildRequires: python3
-BuildRequires: /usr/bin/ftdump
-BuildRequires: make
+%global fontfamily1       Lucida Typewriter
+%global fontsummary1      Selected CJK bitmap fonts for Anaconda
+%global fontlicense1      LicenseRef-Lucida
+%global fontlicenses1     LU_LEGALNOTICE
+%global fontpkgheader1    %{expand:
+Provides: %{name}-cjk = %{version}-%{release}
+Conflicts: bitmap-lucida-typewriter-opentype-fonts
+}
+%global fonts1            lut*.pcf.gz
+%global fontconfs1        %{SOURCE17}
+%global fontdescription1  %{expand:
+%{common_description}
+}
+
+%global fontfamily2       Lucida Typewriter OpenType
+%global fontsummary2      Selected CJK bitmap fonts for Anaconda (OpenType version)
+%global fontlicense2      LicenseRef-Lucida
+%global fontlicenses2     LU_LEGALNOTICE
+%global fontpkgheader2    %{expand:
+Conflicts: bitmap-lucida-typewriter-fonts
+}
+%global fonts2            lut*.otb
+%global fontconfs2        %{SOURCE18}
+%global fontdescription2  %{expand:
+%{common_description}
+}
+
+%global fontfamily3       Fangsongti
+%global fontsummary3      Selected CJK bitmap fonts for Anaconda
+%global fontlicense3      MIT
+%global fontlicenses3     LICENSE
+%global fontpkgheader3    %{expand:
+Provides: %{name}-cjk = %{version}-%{release}
+Conflicts: bitmap-fangsongti-opentype-fonts
+}
+%global fonts3            fangsongti*.pcf.gz
+%global fontconfs3        %{SOURCE13}
+%global fontdescription3  %{expand:
+%{common_description}
+}
+
+%global fontfamily4       Fangsongti OpenType
+%global fontsummary4      Selected CJK bitmap fonts for Anaconda (OpenType version)
+%global fontlicense4      MIT
+%global fontlicenses4     LICENSE
+%global fontpkgheader4    %{expand:
+Conflicts: bitmap-fangsongti-fonts
+}
+%global fonts4            fangsongti*.otb
+%global fontconfs4        %{SOURCE14}
+%global fontdescription4  %{expand:
+%{common_description}
+}
+
+%global fontfamily5       Console
+%global fontsummary5      Selected set of bitmap fonts
+%global fontlicense5      GPL-2.0-only
+%global fontlicenses5     COPYING
+%global fontpkgheader5    %{expand:
+Conflicts: bitmap-console-opentype-fonts
+}
+%global fonts5            fixfont-3.5/console8x16*.pcf.gz
+%global fontconfs5        %{SOURCE11}
+%global fontdescription5  %{expand:
+%{common_description}
+}
+
+%global fontfamily6       Console OpenType
+%global fontsummary6      Selected set of bitmap fonts (OpenType version)
+%global fontlicense6      GPL-2.0-only
+%global fontlicenses6     COPYING
+%global fontpkgheader6    %{expand:
+Conflicts: bitmap-console-fonts
+}
+%global fonts6            fixfont-3.5/console8x16*.otb
+%global fontconfs6        %{SOURCE12}
+%global fontdescription6  %{expand:
+%{common_description}
+}
+
+%global fontfamily7       Fixed
+%global fontsummary7      Selected set of bitmap fonts
+%global fontlicense7      GPL-2.0-only
+%global fontlicenses7     COPYING
+%global fontpkgheader7    %{expand:
+Conflicts: bitmap-fixed-opentype-fonts
+}
+%global fonts7            fixfont-3.5/console9*.pcf.gz
+%global fontconfs7        %{SOURCE15}
+%global fontdescription7  %{expand:
+%{common_description}
+}
+
+%global fontfamily8       Fixed OpenType
+%global fontsummary8      Selected set of bitmap fonts (OpenType version)
+%global fontlicense8      GPL-2.0-only
+%global fontlicenses8     COPYING
+%global fontpkgheader8    %{expand:
+Conflicts: bitmap-fixed-fonts
+}
+%global fonts8            fixfont-3.5/console9*.otb
+%global fontconfs8        %{SOURCE16}
+%global fontdescription8  %{expand:
+%{common_description}
+}
 
 
+Source0:  bitmap-fonts-%{version}.tar.bz2
+Source1:  fixfont-3.5.tar.bz2
+Source2:  LICENSE
+Source3:  COPYING
+Source11: 66-bitmap-console.conf
+Source12: 66-bitmap-console-opentype.conf
+Source13: 66-bitmap-fangsongti.conf
+Source14: 66-bitmap-fangsongti-opentype.conf
+Source15: 66-bitmap-fixed.conf
+Source16: 66-bitmap-fixed-opentype.conf
+Source17: 66-bitmap-lucida-typewriter.conf
+Source18: 66-bitmap-lucida-typewriter-opentype.conf
+
+Name:     bitmap-fonts
+Summary:  Selected set of bitmap fonts
 %description
-%common_desc
+%wordwrap -v common_description
 
 %package -n %{fontname}-fonts-compat
 Summary: Compatibility files of bitmap-font families
@@ -60,133 +176,26 @@ Meta-package for installing all font families of opentype bitmap.
 
 %files -n %{fontname}-opentype-fonts-compat
 
-%package -n bitmap-lucida-typewriter-fonts
-Summary: Selected CJK bitmap fonts for Anaconda
-Requires: fontpackages-filesystem
-Provides: %{name}-cjk = %{version}-%{release}
-License: Lucida
-Conflicts: bitmap-lucida-typewriter-opentype-fonts
 
-%description -n bitmap-lucida-typewriter-fonts
-%common_desc
-
-%_font_pkg -n lucida-typewriter -f %{fontconf}-lucida-typewriter.conf lut*.pcf.gz
-%doc LU_LEGALNOTICE
-
-%package -n bitmap-lucida-typewriter-opentype-fonts
-Summary: Selected CJK bitmap fonts for Anaconda (opentype version)
-Requires: fontpackages-filesystem
-License: Lucida
-Conflicts: bitmap-lucida-typewriter-fonts
-
-%description -n bitmap-lucida-typewriter-opentype-fonts
-%common_desc
-
-%_font_pkg -n lucida-typewriter-opentype -f %{fontconf}-lucida-typewriter.conf lut*.otb
-%doc LU_LEGALNOTICE
-
-%package -n bitmap-fangsongti-fonts
-Summary: Selected CJK bitmap fonts for Anaconda
-Requires: fontpackages-filesystem
-Provides: %{name}-cjk = %{version}-%{release}
-License: MIT
-Conflicts: bitmap-fangsongti-opentype-fonts
-
-%description -n %{fontname}-fangsongti-fonts
-bitmap-fonts-cjk package contains bitmap fonts used by Anaconda. They are
-selected from the xorg packages, and the font encoding are converted from 
-native encoding to ISO10646. They are only intended to be used in Anaconda.
-
-%_font_pkg -n fangsongti -f %{fontconf}-fangsongti.conf fangsongti*.pcf.gz
-%doc LICENSE
-
-%package -n bitmap-fangsongti-opentype-fonts
-Summary: Selected CJK bitmap fonts for Anaconda (opentype version)
-Requires: fontpackages-filesystem
-License: MIT
-Conflicts: bitmap-fangsongti-fonts
-
-%description -n %{fontname}-fangsongti-opentype-fonts
-%common_desc
-
-%_font_pkg -n fangsongti-opentype -f %{fontconf}-fangsongti.conf fangsongti*.otb
-%doc LICENSE
-
-%package -n bitmap-console-fonts
-Summary: Selected set of bitmap fonts
-Requires: fontpackages-filesystem
-License: GPLv2
-Conflicts: bitmap-console-opentype-fonts
-
-%description -n %{fontname}-console-fonts
-%common_desc
-
-%_font_pkg -n console -f %{fontconf}-console.conf console8x16*.pcf.gz
-
-%package -n bitmap-console-opentype-fonts
-Summary: Selected set of bitmap fonts (opentype version)
-Requires: fontpackages-filesystem
-License: GPLv2
-Conflicts: bitmap-console-fonts
-
-%description -n %{fontname}-console-opentype-fonts
-%common_desc
-
-%_font_pkg -n console-opentype -f %{fontconf}-console.conf console8x16*.otb
-
-%package -n bitmap-fixed-fonts
-Summary: Selected set of bitmap fonts
-Requires: fontpackages-filesystem
-License: GPLv2
-Conflicts: bitmap-fixed-opentype-fonts
-
-%description -n %{fontname}-fixed-fonts
-%common_desc
-
-%_font_pkg -n fixed -f %{fontconf}-fixed.conf  console9*.pcf.gz
-
-%package -n bitmap-fixed-opentype-fonts
-Summary: Selected set of bitmap fonts (opentype version)
-Requires: fontpackages-filesystem
-License: GPLv2
-Conflicts: bitmap-fixed-fonts
-
-%description -n %{fontname}-fixed-opentype-fonts
-%common_desc
-
-%_font_pkg -n fixed-opentype -f %{fontconf}-fixed.conf console9*.otb
-
+%fontpkg -a
 
 %prep
 %setup -q -a 1
-cp %{SOURCE2} .
+cp -p %{SOURCE2} .
+cp -p %{SOURCE3} .
 
 
 %build
-%{nil}
+make all
 
-%install
-rm -rf $RPM_BUILD_ROOT
-
-make install DESTDIR=$RPM_BUILD_ROOT
-
-pushd fixfont-3.5
-make install DESTDIR=$RPM_BUILD_ROOT
-popd
-
-mv $RPM_BUILD_ROOT/usr/share/fonts/bitmap-fonts %{buildroot}%{_fontdir}
-
-rm %{buildroot}%{_fontdir}/[0-9]*.pcf
-rm %{buildroot}%{_fontdir}/console8x8.pcf
-rm README
+make -C fixfont-3.5 all
 
 # Convert to OpenType Bitmap Font
-rm [0-9]*.bdf fixfont-3.5/[0-9]*.bdf
+# rm [0-9]*.bdf fixfont-3.5/[0-9]*.bdf
 
 for bdf in `ls *.bdf`;
 do fonttosfnt -b -c -g 2 -m 2 -o ${bdf%%bdf}otb  $bdf;
 done
-install -m 0644 -p *.otb %{buildroot}%{_fontdir}
 
 pushd fixfont-3.5
 for bdf in `ls *.bdf`;
@@ -194,39 +203,25 @@ do fonttosfnt -b -c -g 2 -m 2 -o ${bdf%%bdf}otb  $bdf;
 done
 # For console9x15.otb
 fonttosfnt -b -c -g 2 -m 2 -o console9x15.otb console9x15.pcf
-
-install -m 0644 -p *.otb %{buildroot}%{_fontdir}
 popd
 
-gzip %{buildroot}%{_fontdir}/*.pcf
+gzip *.pcf fixfont-3.5/*.pcf
 
-install -m 0755 -d %{buildroot}%{_fontconfig_templatedir} \
-                   %{buildroot}%{_fontconfig_confdir}
+%fontbuild -a
 
-# Repeat for every font family
-install -m 0644 -p %{SOURCE3} \
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}-console.conf
+%install
+%fontinstall -a
 
-install -m 0644 -p %{SOURCE4} \
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}-fangsongti.conf
+%check
+%fontcheck -a
 
-install -m 0644 -p %{SOURCE5} \
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}-fixed.conf
-
-install -m 0644 -p %{SOURCE6} \
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}-lucida-typewriter.conf
-
-
-for fconf in %{fontconf}-console.conf \
-             %{fontconf}-fangsongti.conf \
-             %{fontconf}-fixed.conf \
-             %{fontconf}-lucida-typewriter.conf ; do
-  ln -s %{_fontconfig_templatedir}/$fconf \
-        %{buildroot}%{_fontconfig_confdir}/$fconf
-done
-
+%fontfiles -a
 
 %changelog
+* Wed May 24 2023 Peng Wu <pwu@redhat.com> - 0.3-43
+- Update to follow New Fonts Packaging Guidelines
+- Migrate to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -7,6 +7,7 @@ Summary:        Modern C++17 Unicode library
 License:        Apache-2.0
 URL:            https://github.com/contour-terminal/libunicode
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+# fix to enable the customized defined ucd path
 Patch0:         fix-ucd.patch
 
 ExclusiveArch:  x86_64 aarch64
@@ -36,11 +37,11 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
-%package tools
-Summary:       Tools for %{name}
-Requires:      %{name}%{?_isa} = %{version}-%{release}
+%package        tools
+Summary:        Tools for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
-%description tools
+%description    tools
 The %{name}-tools package contains tools about %{name}.
 
 %prep

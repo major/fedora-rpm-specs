@@ -1,17 +1,15 @@
 Name:       ncid
-Version:    1.13
-Release:    9%{?dist}
+Version:    1.14
+Release:    2%{?dist}
 Summary:    Network Caller ID server, client and gateways
 Requires:   logrotate
-Provides:   /usr/lib64/ncid/libcarrier.so.8(), /usr/lib/ncid/libcarrier.so.8()
 License:    GPLv3+
 Url:        http://ncid.sourceforge.net
 Source0:    https://sourceforge.net/projects/ncid/files/%{name}/%{version}/%{name}-%{version}-src.tar.gz
-Patch0:     ncid-1.13.patch
 
 BuildRequires: make, gcc, gcc-c++
-BuildRequires: libpcap-devel, pcre-devel, libappstream-glib
-BuildRequires: libphonenumber-devel, libicu-devel, protobuf-devel
+BuildRequires: libpcap-devel, pcre2-devel, libappstream-glib
+BuildRequires: libphonenumber-devel, libicu-devel, protobuf-devel hidapi-devel
 BuildRequires: perl-generators, perl-podlators
 %{?systemd_requires}
 BuildRequires: systemd
@@ -31,7 +29,7 @@ The client and default modules are in the ncid-client package.
 
 %package gateways
 Summary:    NCID (Network Caller ID) gateways
-Requires:   libpcap%{?_isa} >= 1.5.0, nc
+Requires:   libpcap%{?_isa} >= 1.5.0, nc, hidapi
 
 %description gateways
 NCID is Caller ID (CID) distributed over a network to a variety of
@@ -104,7 +102,7 @@ the Festival text-to-speech voice synthesis system.
 
 %prep
 
-%autosetup -n %{name} -p1
+%autosetup -n %{name}
 
 %build
 make %{?_smp_mflags} EXTRA_CFLAGS="$RPM_OPT_FLAGS" libdir libcdir
@@ -144,6 +142,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/ncid.metainfo.
 %dir %{_datadir}/ncid/sys
 %dir %{_datadir}/ncid/recordings
 %dir %{_datadir}/ncid/extensions
+%dir %{_datadir}/ncid/plugins
 %{_libdir}/ncid/libcarrier.so.8.12
 %{_libdir}/ncid/libcarrier.so.8
 %{_libdir}/ncid/libcarrier.so
@@ -168,6 +167,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/ncid.metainfo.
 %{_datadir}/ncid/extensions/hangup-message-skel
 %{_datadir}/ncid/extensions/hangup-nohangup
 %{_datadir}/ncid/extensions/hangup-skel
+%{_datadir}/ncid/plugins/check_nanpa_number
+%{_datadir}/ncid/plugins/display_ncid_variables
 %dir %{_sysconfdir}/ncid
 %config(noreplace) %{_sysconfdir}/ncid/ncidd.blacklist
 %config(noreplace) %{_sysconfdir}/ncid/ncidd.whitelist
@@ -218,6 +219,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/ncid.metainfo.
 %files gateways
 %defattr(-,root,root)
 %doc README VERSION doc/GPL.md gateway/README-gateways
+%{_sbindir}/artech2ncid
+%{_sbindir}/cideasy2ncid
 %{_bindir}/email2ncid
 %{_bindir}/ncid2ncid
 %{_bindir}/obi2ncid
@@ -229,6 +232,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/ncid.metainfo.
 %{_sbindir}/sip2ncid
 %dir %{_datadir}/ncid/setup
 %{_datadir}/ncid/setup/ncid-email2ncid-setup
+%config(noreplace) %{_sysconfdir}/ncid/artech2ncid.conf
+%config(noreplace) %{_sysconfdir}/ncid/cideasy2ncid.conf
 %config(noreplace) %{_sysconfdir}/ncid/email2ncid.conf
 %config(noreplace) %{_sysconfdir}/ncid/ncid2ncid.conf
 %config(noreplace) %{_sysconfdir}/ncid/obi2ncid.conf
@@ -237,6 +242,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/ncid.metainfo.
 %config(noreplace) %{_sysconfdir}/ncid/wc2ncid.conf
 %config(noreplace) %{_sysconfdir}/ncid/xdmf2ncid.conf
 %config(noreplace) %{_sysconfdir}/ncid/yac2ncid.conf
+%{_unitdir}/artech2ncid.service
+%{_unitdir}/cideasy2ncid.service
 %{_unitdir}/ncid2ncid.service
 %{_unitdir}/obi2ncid.service
 %{_unitdir}/rn2ncid.service
@@ -244,6 +251,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/ncid.metainfo.
 %{_unitdir}/wc2ncid.service
 %{_unitdir}/xdmf2ncid.service
 %{_unitdir}/yac2ncid.service
+%{_mandir}/man1/artech2ncid.1*
+%{_mandir}/man1/cideasy2ncid.1*
 %{_mandir}/man1/email2ncid.1*
 %{_mandir}/man1/ncid2ncid.1*
 %{_mandir}/man1/obi2ncid.1*
@@ -253,6 +262,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/ncid.metainfo.
 %{_mandir}/man1/xdmf2ncid.1*
 %{_mandir}/man1/yac2ncid.1*
 %{_mandir}/man1/ncid-email2ncid-setup.1*
+%{_mandir}/man5/artech2ncid.conf.5*
+%{_mandir}/man5/cideasy2ncid.conf.5*
 %{_mandir}/man5/email2ncid.conf.5*
 %{_mandir}/man5/ncid2ncid.conf.5*
 %{_mandir}/man5/obi2ncid.conf.5*
@@ -285,7 +296,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/ncid.metainfo.
 %{_datadir}/ncid/modules/ncid-skel
 %{_datadir}/ncid/modules/ncid-wakeup
 %{_datadir}/ncid/modules/ncid-yac
-%{_datadir}/ncid/images/ncid.gif
+%{_datadir}/ncid/images/logo.png
 %{_datadir}/ncid/msgs/de_de.msg
 %{_datadir}/ncid/msgs/fr_fr.msg
 %{_datadir}/ncid/msgs/ja_jp.msg
@@ -369,7 +380,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/ncid.metainfo.
 %systemd_post ncidd.service
 
 %post gateways
-%systemd_post ncid2ncid.service obi2ncid.service rn2ncid.service sip2ncid.service wc2ncid.service xdmf2ncid.service yac2ncid.service
+%systemd_post artech2ncid.service cideasy2ncid ncid2ncid.service obi2ncid.service rn2ncid.service sip2ncid.service wc2ncid.service xdmf2ncid.service yac2ncid.service
 
 %post client
 %systemd_post ncid-initmodem.service ncid-notify.service ncid-page.service ncid-yac.service
@@ -455,6 +466,10 @@ touch --no-create %{_datadir}/icons/hicolor &>/dev/null
 gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 %changelog
+* Wed May 31 2023 John Chmielewski <jlc@users.sourceforge.net> 1.14-2
+- updated for upstream release
+- New upstream release
+
 * Wed May 17 2023 Sérgio Basto <sergio@serjux.com> - 1.13-9
 - Rebuild for libphonenumber-8.13.x
 

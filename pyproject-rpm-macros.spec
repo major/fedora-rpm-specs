@@ -13,8 +13,8 @@ License:        MIT
 #   Increment Y and reset Z when new macros or features are added
 #   Increment Z when this is a bugfix or a cosmetic change
 # Dropping support for EOL Fedoras is *not* considered a breaking change
-Version:        1.8.0
-Release:        2%{?dist}
+Version:        1.8.1
+Release:        1%{?dist}
 
 # Macro files
 Source001:      macros.pyproject
@@ -61,7 +61,7 @@ BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(tox-current-env) >= 0.0.6
 %endif
 BuildRequires:  python3dist(wheel)
-BuildRequires:  (python3dist(toml) if python3-devel < 3.11)
+BuildRequires:  (python3dist(tomli) if python3 < 3.11)
 %endif
 
 # We build on top of those:
@@ -161,6 +161,10 @@ export HOSTNAME="rpmbuild"  # to speedup tox in network-less mock, see rhbz#1856
 
 
 %changelog
+* Wed May 31 2023 Miro Hrončok <mhroncok@redhat.com> - 1.8.1-1
+- On Python older than 3.11, use tomli instead of deprecated toml
+- Fix literal %% handling in %%{pyproject_files} on RPM 4.19
+
 * Tue May 23 2023 Miro Hrončok <mhroncok@redhat.com> - 1.8.0-2
 - Rebuilt for ELN dependency changes
 

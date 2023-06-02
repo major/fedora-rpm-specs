@@ -2,7 +2,7 @@
 
 Name:           cheese
 Epoch:          2
-Version:        44.0
+Version:        44.0.1
 Release:        1%{?dist}
 Summary:        Application for taking pictures and movies from a webcam
 
@@ -113,6 +113,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Cheese.desk
 
 
 %changelog
+* Wed May 31 2023 Kalev Lember <klember@redhat.com> - 2:44.0.1-1
+- Update to 44.0.1
+
 * Mon Apr 10 2023 David King <amigadave@amigadave.com> - 44.0-1
 - Update to 44.0
 

@@ -3,7 +3,7 @@ Version:        19
 Release:        %autorelease
 Summary:        Automated decryption framework
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://github.com/latchset/%{name}
 Source0:        https://github.com/latchset/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
 Source1:        clevis.sysusers

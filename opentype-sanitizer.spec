@@ -4,7 +4,7 @@ Name:           opentype-sanitizer
 # multi-build update (i.e., using a side tag).
 #
 # - python-opentype-sanitizer
-Version:        9.0.0
+Version:        9.1.0
 Release:        %autorelease
 Summary:        Parses and serializes OpenType/WOFF/WOFF2 font files
 

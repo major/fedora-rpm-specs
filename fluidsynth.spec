@@ -2,7 +2,7 @@
 Summary:      Real-time software synthesizer
 Name:         fluidsynth
 Version:      2.3.2
-Release:      2%{?dist}
+Release:      3%{?dist}
 URL:          http://www.fluidsynth.org/
 Source0:      https://github.com/Fluidsynth/fluidsynth/archive/v%{version}/fluidsynth-%{version}.tar.gz
 License:      LGPL-2.1-or-later
@@ -63,6 +63,7 @@ shared libraries.
 
 %package devel
 Summary:   Real-time software synthesizer development files
+Requires:  fluidsynth-libs%{?_isa} = %{version}-%{release}
 Requires:  fluidsynth%{?_isa} = %{version}-%{release}
 
 %description devel
@@ -131,6 +132,9 @@ install -m 644 fluidsynth.service.in $RPM_BUILD_ROOT/usr/lib/systemd/user/fluids
 
 
 %changelog
+* Wed May 31 2023 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 2.3.2-3
+- Re-add dependency fluidsynth-libs
+
 * Mon May 29 2023 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 2.3.2-2
 - Change dependency for fluidsynth-devel
 

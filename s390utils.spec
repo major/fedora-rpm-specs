@@ -9,8 +9,8 @@
 
 Name:           s390utils
 Summary:        Utilities and daemons for IBM z Systems
-Version:        2.26.0
-Release:        2%{?dist}
+Version:        2.27.0
+Release:        1%{?dist}
 Epoch:          2
 License:        MIT
 ExclusiveArch:  s390 s390x
@@ -63,11 +63,11 @@ be used together with the zSeries (s390) Linux kernel and device drivers.
 %setup -q -n s390-tools-%{version}
 
 # Fedora/RHEL changes
-%patch0 -p1 -b .zipl-invert-script-options
-%patch1 -p1 -b .blscfg-rpm-nvr-sort
+%patch 0 -p1 -b .zipl-invert-script-options
+%patch 1 -p1 -b .blscfg-rpm-nvr-sort
 
 # upstream fixes/updates
-%patch100 -p1
+%patch 100 -p1
 
 # remove --strip from install
 find . -name Makefile | xargs sed -i 's/$(INSTALL) -s/$(INSTALL)/g'
@@ -212,6 +212,7 @@ This package provides minimal set of tools needed to system to boot.
 %{_unitdir}/cpi.service
 %config(noreplace) %{_sysconfdir}/sysconfig/cpi
 /usr/lib/dracut/modules.d/95zdev/
+/usr/lib/dracut/modules.d/95zdev-kdump/
 %{_mandir}/man5/zipl.conf.5*
 %{_mandir}/man8/chreipl.8*
 %{_mandir}/man8/chzdev.8*
@@ -897,6 +898,9 @@ User-space development files for the s390/s390x architecture.
 
 
 %changelog
+* Wed May 31 2023 Dan Horák <dan[at]danny.cz> - 2:2.27.0-1
+- rebased to 2.27.0
+
 * Fri May 19 2023 Petr Pisar <ppisar@redhat.com> - 2:2.26.0-2
 - Rebuild against rpm-4.19 (https://fedoraproject.org/wiki/Changes/RPM-4.19)
 

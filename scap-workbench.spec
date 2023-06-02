@@ -5,7 +5,7 @@ Version:    1.2.1
 Release:    13%{?dist}
 Summary:    Scanning, tailoring, editing and validation tool for SCAP content
 
-License:    GPLv3+
+License:    GPL-3.0-or-later
 URL:        http://www.open-scap.org/tools/scap-workbench
 Source0:    https://github.com/OpenSCAP/scap-workbench/releases/download/%{version}/scap-workbench-%{version}.tar.bz2
 Patch1: scap-workbench-1.2.2-fix-qt-deprecated-pr-259.patch

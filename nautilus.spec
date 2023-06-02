@@ -1,12 +1,12 @@
 %global glib2_version 2.72.1
 %global gnome_autoar_version 0.4.0
-%global gtk4_version 4.9.1
+%global gtk4_version 4.10.3
 %global libadwaita_version 1.3~alpha
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           nautilus
-Version:        44.1
+Version:        44.2
 Release:        1%{?dist}
 Summary:        File manager for GNOME
 
@@ -139,6 +139,12 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %doc %{_datadir}/doc/nautilus/
 
 %changelog
+* Wed May 31 2023 Kalev Lember <klember@redhat.com> - 44.2-1
+- Update to 44.2
+
+* Tue Apr 25 2023 David King <amigadave@amigadave.com> - 44.1-2
+- Raise requirement on gtk4
+
 * Mon Apr 24 2023 David King <amigadave@amigadave.com> - 44.1-1
 - Update to 44.1
 

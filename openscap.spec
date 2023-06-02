@@ -3,7 +3,7 @@ Version:        1.3.7
 Release:        3%{?dist}
 Epoch:          1
 Summary:        Set of open source libraries enabling integration of the SCAP line of standards
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            http://www.open-scap.org/
 VCS:            https://github.com/OpenSCAP/openscap
 Source0:        https://github.com/OpenSCAP/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz

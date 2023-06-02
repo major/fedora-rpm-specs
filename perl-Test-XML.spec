@@ -2,7 +2,7 @@ Name:		perl-Test-XML
 Version:	0.08
 Release:	26%{?dist}
 Summary:	Compare XML in perl tests
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-XML
 Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-XML-%{version}.tar.gz
 BuildArch:	noarch
@@ -30,7 +30,7 @@ BuildRequires:	perl(XML::XPath)
 # Test Suite
 BuildRequires:	perl(Test::Builder::Tester)
 BuildRequires:	perl(XML::SAX::Base)
-# Runtime
+# Dependencies
 # Only XML::LibXML is actually needed for Test::XML::XPath, but we require
 # XML::XPath too in case someone wants to use Test::XML::XPath::XML::XPath
 # directly for some reason

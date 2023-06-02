@@ -3,7 +3,7 @@ Version:        9
 Release:        15%{?dist}
 Summary:        Utility for storing small metadata in the LUKSv1 header
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://github.com/latchset/%{name}
 Source0:        https://github.com/latchset/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.bz2
 

@@ -12,7 +12,7 @@
 %endif
 
 Name:           gnome-remote-desktop
-Version:        44.1
+Version:        44.2
 Release:        1%{?dist}
 Summary:        GNOME Remote Desktop screen share service
 
@@ -113,6 +113,9 @@ GNOME desktop environment.
 
 
 %changelog
+* Wed May 31 2023 Kalev Lember <klember@redhat.com> - 44.2-1
+- Update to 44.2
+
 * Mon Apr 24 2023 David King <amigadave@amigadave.com> - 44.1-1
 - Update to 44.1
 

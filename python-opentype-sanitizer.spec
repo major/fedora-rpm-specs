@@ -8,7 +8,7 @@ Name:           python-opentype-sanitizer
 # See https://github.com/googlefonts/ots-python/issues/3 for the process to
 # update the source for a new opentype-sanitizer release; send upstream a PR if
 # they are lagging.
-Version:        9.0.0
+Version:        9.1.0
 Release:        %autorelease
 Summary:        Python wrapper for the OpenType Sanitizer
 

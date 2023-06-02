@@ -3,8 +3,8 @@
 Summary: Tools needed to create Texinfo format documentation files
 Name: texinfo
 Version: 7.0.3
-Release: 1%{?dist}
-License: GPLv3+
+Release: 2%{?dist}
+License: GPL-3.0-or-later
 Url: http://www.gnu.org/software/texinfo/
 Source0: ftp://ftp.gnu.org/gnu/texinfo/texinfo-%{version}.tar.xz
 Source1: ftp://ftp.gnu.org/gnu/texinfo/texinfo-%{version}.tar.xz.sig
@@ -152,6 +152,9 @@ export ALL_TESTS=yes
 %{_mandir}/man1/pdftexi2dvi.1*
 
 %changelog
+* Wed May 31 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 7.0.3-2
+- SPDX migration
+
 * Thu Mar 30 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 7.0.3-1
 - Update to texinfo-7.0.3
   Resolves: #2181837

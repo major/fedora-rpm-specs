@@ -5,7 +5,7 @@ Summary:       GNU Emacs text editor
 Name:          emacs
 Epoch:         1
 Version:       28.2
-Release:       6%{?dist}
+Release:       7%{?dist}
 License:       GPL-3.0-or-later AND CC0-1.0
 URL:           http://www.gnu.org/software/emacs/
 Source0:       https://ftp.gnu.org/gnu/emacs/emacs-%{version}.tar.xz
@@ -34,6 +34,9 @@ Patch7:        https://git.savannah.gnu.org/cgit/emacs.git/patch/?id=d48bb4874bc
 # backport of https://git.savannah.gnu.org/cgit/emacs.git/patch/?id=e59216d3be86918b995bd63273c851ebc6176a83
 Patch8:        native-compile-with_-Q.patch
 Patch9:        webkit2gtk-4.1.patch
+# Fix infinite loop error https://debbugs.gnu.org/cgi/bugreport.cgi?bug=58780
+# Can be removed on next release of Emacs rhbz#2187041
+Patch10:       fix-searching-for-end-of-string-in-python-nav-end-of.patch
 
 BuildRequires: gcc
 BuildRequires: atk-devel
@@ -222,6 +225,7 @@ cp -p %{SOURCE3} lib/
 %patch7 -p1 -b .ctags-local-execution-cve
 %patch8 -p1 -b .native-compile-Q
 %patch9 -p1 -b .webkit2gtk-4.1
+%patch10 -p1
 autoconf
 
 grep -v "tetris.elc" lisp/Makefile.in > lisp/Makefile.in.new \
@@ -546,6 +550,10 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 %{_includedir}/emacs-module.h
 
 %changelog
+* Wed May 31 2023 Benson Muite <benson_muite@emailplus.org> 1:28.2-7
+- Apply patch to prevent infinite loops when editing python files
+  fixes rhbz#2187041
+
 * Mon Apr 24 2023 Lukáš Zaoral <lzaoral@redhat.com> - 1:28.2-6
 - migrate to SPDX license format
 

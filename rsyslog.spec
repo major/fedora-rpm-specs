@@ -36,7 +36,7 @@ Summary: Enhanced system logging and kernel message trapping daemon
 Name: rsyslog
 Version: 8.2210.0
 Release: 5%{?dist}
-License: (GPLv3+ and ASL 2.0)
+License: GPL-3.0-or-later AND Apache-2.0
 URL: http://www.rsyslog.com/
 Source0: http://www.rsyslog.com/files/download/rsyslog/%{name}-%{version}.tar.gz
 Source1: http://www.rsyslog.com/files/download/rsyslog/%{name}-doc-%{version}.tar.gz
@@ -383,11 +383,11 @@ mv build doc
 # Unpack qpid-proton
 %setup -q -D -T -b 6
 pushd ..
-%patch0 -p1 -b .openssl-compatibility
+%patch -P 0 -p1 -b .openssl-compatibility
 popd
 %endif
 
-%patch1 -p1 -b .libcap-ng
+%patch -P 1 -p1 -b .libcap-ng
 
 %build
 %ifarch sparc64

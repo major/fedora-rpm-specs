@@ -1,9 +1,9 @@
 Name:           perl-pmtools
 Version:        2.2.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        A suite of small programs to help manage Perl modules
 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/pmtools
 Source:         https://cpan.metacpan.org/authors/id/M/ML/MLFISHER/pmtools-%{version}.tar.gz
 # Adapt to Perl 5.26.0 POD changes, bug #1465062, CPAN RT#122210
@@ -13,7 +13,6 @@ BuildArch:      noarch
 
 BuildRequires:  coreutils
 BuildRequires:  findutils
-BuildRequires:  less
 BuildRequires:  make
 BuildRequires:  perl-doc
 BuildRequires:  perl-generators
@@ -45,14 +44,14 @@ Tom Christiansen
 
 %prep
 %setup -q -n pmtools-%{version}
-find . -type f -perm 755 | xargs %{__perl} -pi -e 's{^#!/usr/bin/env perl}{#!%{__perl}}'
+%patch -P 0 -p1
+find . -type f -perm 755 | xargs perl -pi -MConfig -e 's{^#!/usr/bin/env perl}{$Config{startperl}}'
 chmod -c a-x Changes TODO lib/Devel/Loaded.pm
-%patch0 -p1
 
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
+%{make_build}
 
 
 %install
@@ -61,20 +60,49 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 
 
 %check
+# Default perl's pager less fails with /dev/null on stdin (bug #2208970)
+export PAGER=/usr/bin/cat
 make test
 
 
 %files
 %license LICENSE
 %doc Changes README TODO
-%{_bindir}/*
+%{_bindir}/basepods
+%{_bindir}/faqpods
+%{_bindir}/modpods
+%{_bindir}/pfcat
+%{_bindir}/plxload
+%{_bindir}/pm*
+%{_bindir}/podgrep
+%{_bindir}/podpath
+%{_bindir}/pods
+%{_bindir}/podtoc
+%{_bindir}/sitepods
+%{_bindir}/stdpods
 %{perl_vendorlib}/Devel/
 %{perl_vendorlib}/pmtools.pm
-%{_mandir}/man1/*.1*
-%{_mandir}/man3/*.3*
+%{_mandir}/man1/basepods.1*
+%{_mandir}/man1/faqpods.1*
+%{_mandir}/man1/modpods.1*
+%{_mandir}/man1/pfcat.1*
+%{_mandir}/man1/plxload.1*
+%{_mandir}/man1/pm*.1*
+%{_mandir}/man1/podgrep.1*
+%{_mandir}/man1/podpath.1*
+%{_mandir}/man1/pods.1*
+%{_mandir}/man1/podtoc.1*
+%{_mandir}/man1/sitepods.1*
+%{_mandir}/man1/stdpods.1*
+%{_mandir}/man3/Devel::Loaded.3*
+%{_mandir}/man3/pmtools.3*
 
 
 %changelog
+* Wed May 31 2023 Petr Pisar <ppisar@redhat.com> - 2.2.0-18
+- Convert a license tag to an SPDX syntax
+- Adapt tests to changes in less-633 (bug #2208970)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

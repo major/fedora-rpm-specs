@@ -2,7 +2,7 @@ Summary: Tools to manage the Linux NetLabel subsystem
 Name: netlabel_tools
 Version: 0.30.0
 Release: 15%{?dist}
-License: GPLv2
+License: GPL-2.0-only
 URL: https://github.com/netlabel/netlabel_tools
 Source: https://github.com/netlabel/netlabel_tools/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Patch0: rhbz1683434.patch
@@ -26,8 +26,7 @@ package provides the necessary user space tools to query and configure the
 kernel subsystem.
 
 %prep
-%setup -q
-%patch0 -p1
+%autosetup -p 1
 
 %build
 %configure

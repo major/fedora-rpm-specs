@@ -1,14 +1,11 @@
-%global commit 1064880450a648696dfabdf698fdbeec095604e1
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-
 Name: goldendict
-Version: 1.5
-Release: 0.36.RC2%{?dist}
+Version: 1.5.0
+Release: 1%{?dist}
 
 License: GPL-3.0-or-later
 Summary: A feature-rich dictionary lookup program
 URL: http://goldendict.org
-Source0: https://github.com/%{name}/%{name}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+Source0: https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires: cmake(Qt5Core)
 BuildRequires: cmake(Qt5DBus)
@@ -23,14 +20,21 @@ BuildRequires: cmake(Qt5X11Extras)
 BuildRequires: cmake(Qt5Xml)
 BuildRequires: cmake(Qt5XmlPatterns)
 
-BuildRequires: bzip2-devel
+BuildRequires: pkgconfig(ao)
+BuildRequires: pkgconfig(bzip2)
+BuildRequires: pkgconfig(hunspell)
+BuildRequires: pkgconfig(libavcodec)
+BuildRequires: pkgconfig(libavformat)
+BuildRequires: pkgconfig(libavutil)
+BuildRequires: pkgconfig(libswresample)
+BuildRequires: pkgconfig(libtiff-4)
+BuildRequires: pkgconfig(libzstd)
+BuildRequires: pkgconfig(lzo2)
+BuildRequires: pkgconfig(ogg)
+BuildRequires: pkgconfig(vorbis)
+BuildRequires: pkgconfig(xtst)
+
 BuildRequires: eb-devel
-BuildRequires: hunspell-devel
-BuildRequires: libXtst-devel
-BuildRequires: libtiff-devel
-BuildRequires: libvorbis-devel
-BuildRequires: libzstd-devel
-BuildRequires: lzo-devel
 BuildRequires: phonon-qt5-devel
 BuildRequires: qtsingleapplication-qt5-devel
 
@@ -60,13 +64,13 @@ BuildArch: noarch
 Contain doc files of %{name}.
 
 %prep
-%autosetup -n %{name}-%{commit} -p1
+%autosetup -p1
 rm -rf {qtsingleapplication,maclibs,winlibs}
 sed -e '/qtsingleapplication.pri/d' -i %{name}.pro
 
 %build
-%qmake_qt5 PREFIX=%{_prefix} CONFIG+=qtsingleapplication CONFIG+=no_ffmpeg_player %{name}.pro
-echo "1.5.0-RC2 (%{shortcommit})" > version.txt
+%qmake_qt5 PREFIX=%{_prefix} CONFIG+=qtsingleapplication %{name}.pro
+echo "%{version}" > version.txt
 %make_build
 
 %install
@@ -91,6 +95,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/%{name}/help
 
 %changelog
+* Wed May 31 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 1.5.0-1
+- Updated to version 1.5.0.
+- Enabled ffmpeg player.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-0.36.RC2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

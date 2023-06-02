@@ -54,7 +54,7 @@ Provides:       bundled(cmake(UsePythonExtensions))
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -p1 -n %{pypi_name}-%{version}
 
 
 %generate_buildrequires

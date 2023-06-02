@@ -14,18 +14,14 @@
 %global run_tests 0
 
 Name:           mingw-openssl
-Version:        3.0.7
-Release:        2%{?dist}
+Version:        3.0.9
+Release:        1%{?dist}
 Summary:        MinGW port of the OpenSSL toolkit
 
 License:        OpenSSL
 URL:            http://www.openssl.org/
 
-# We have to remove certain patented algorithms from the openssl source
-# tarball with the hobble-openssl script which is included below.
-# The original openssl upstream tarball cannot be shipped in the .src.rpm.
-Source: openssl-%{version}-hobbled.tar.xz
-Source1: hobble-openssl
+Source:  openssl-%{version}.tar.gz
 Source2: Makefile.certificate
 Source3: genpatches
 Source6: make-dummy-cert
@@ -164,10 +160,6 @@ Static version of the MinGW port of the OpenSSL toolkit.
 
 %prep
 %autosetup -p1 -n openssl-%{version}
-
-# The hobble_openssl is called here redundantly, just to be sure.
-# The tarball has already the sources removed.
-%{SOURCE1} > /dev/null
 
 cp %{SOURCE12} crypto/ec/
 cp %{SOURCE13} test/
@@ -376,8 +368,8 @@ mkdir -m700 %{buildroot}%{mingw64_sysconfdir}/pki/CA/private
 
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.7-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+* Wed May 31 2023 Sandro Mani <manisandro@gmail.com> - 3.0.9-1
+- Update to 3.0.9
 
 * Mon Nov 28 2022 Sandro Mani <manisandro@gmail.com> - 3.0.7-1
 - Update to 3.0.7

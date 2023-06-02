@@ -3,7 +3,7 @@ Version:        0.1.0
 Release:        2%{?dist}
 Summary:        A tool for detecting usbguard policy and device presence changes
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/Cropi/%{name}
 Source0:        https://github.com/Cropi/usbguard-notifier/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
 # https://github.com/Cropi/usbguard-notifier/pull/74
@@ -27,7 +27,7 @@ as well as device presence changes and displays them as pop-up notifications.
 
 %prep
 %setup -q
-%patch0 -p1
+%patch -P 0 -p1
 
 %build
 mkdir -p ./m4

@@ -2,9 +2,9 @@ Name:           perl-Test-YAML-Valid
 Version:        0.04
 Release:        39%{?dist}
 Summary:        Lets you test the validity of YAML files in unit tests
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-YAML-Valid
-Source0:        https://cpan.metacpan.org/authors/id/J/JR/JROCKWAY/Test-YAML-Valid-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/modules/by-module/Test/Test-YAML-Valid-%{version}.tar.gz
 Patch0:         Test-YAML-Valid-0.04-Fix-building-on-Perl-without-.-in-INC.patch
 BuildArch:      noarch
 # Module Build
@@ -55,7 +55,7 @@ Lets you test the validity of YAML files inside your
 %setup -q -n Test-YAML-Valid-%{version}
 
 # Fix building on Perl without "." in @INC (CPAN RT#120438)
-%patch0 -p1
+%patch -P 0 -p1
 
 %build
 perl Makefile.PL --skipdeps INSTALLDIRS=vendor

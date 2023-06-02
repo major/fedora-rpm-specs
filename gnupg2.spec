@@ -2,7 +2,7 @@
 
 Summary: Utility for secure communication and data storage
 Name:    gnupg2
-Version: 2.4.1
+Version: 2.4.2
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -54,6 +54,7 @@ BuildRequires: gnutls-devel
 BuildRequires: sqlite-devel
 BuildRequires: fuse
 BuildRequires: make
+BuildRequires: tpm2-tss-devel
 # for tests
 BuildRequires: openssh-clients
 
@@ -106,17 +107,17 @@ to the base GnuPG package
 %endif
 %setup -q -n gnupg-%{version}
 
-%patch3 -p1 -b .secmem
-%patch4 -p1 -b .file-is-digest
-%patch6 -p1 -b .fips
-%patch9 -p1 -b .large-rsa
+%patch 3 -p1 -b .secmem
+%patch 4 -p1 -b .file-is-digest
+%patch 6 -p1 -b .fips
+%patch 9 -p1 -b .large-rsa
 
-%patch20 -p1 -b .test_missing_uid
-%patch21 -p1 -b .prev_known_key
-%patch22 -p1 -b .good_revoc
+%patch 20 -p1 -b .test_missing_uid
+%patch 21 -p1 -b .prev_known_key
+%patch 22 -p1 -b .good_revoc
 
-%patch30 -p1 -b .coverity
-%patch31 -p1 -b .revert-rfc4880bis
+%patch 30 -p1 -b .coverity
+%patch 31 -p1 -b .revert-rfc4880bis
 
 # pcsc-lite library major: 0 in 1.2.0, 1 in 1.2.9+ (dlopen()'d in pcsc-wrapper)
 # Note: this is just the name of the default shared lib to load in scdaemon,
@@ -133,6 +134,7 @@ sed -i -e 's/"libpcsclite\.so"/"%{pcsclib}"/' scd/scdaemon.c
   --disable-rpath \
   --enable-g13 \
   --disable-ccid-driver \
+  --with-tss=intel \
   --enable-large-secmem
 
 # need scratch gpg database for tests
@@ -212,6 +214,10 @@ make -k check
 
 
 %changelog
+* Wed May 31 2023 Jakub Jelen <jjelen@redhat.com> - 2.4.2-1
+- New upstream release
+- Build with TPM2 support
+
 * Fri Apr 28 2023 Todd Zullinger <tmz@pobox.com> - 2.4.1-1
 - update to 2.4.1 (#2193503)
 

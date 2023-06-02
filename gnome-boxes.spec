@@ -35,7 +35,7 @@ ExclusiveArch: x86_64
 %global major_version %%(echo %%{tarball_version} | cut -d. -f1)
 
 Name:		gnome-boxes
-Version:	44.1
+Version:	44.2
 Release:	1%{?dist}
 Summary:	A simple GNOME 3 application to access remote or virtual systems
 
@@ -152,6 +152,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Boxes.deskt
 %{_metainfodir}/org.gnome.Boxes.appdata.xml
 
 %changelog
+* Wed May 31 2023 Kalev Lember <klember@redhat.com> - 44.2-1
+- Update to 44.2
+
 * Fri Mar 31 2023 Felipe Borges <felipeborges@gnome.org> - 44.1-1
 - Update to 44.1 fixing memory allocation issues
 

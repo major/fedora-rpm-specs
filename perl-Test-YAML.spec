@@ -5,9 +5,9 @@ Name:		perl-Test-YAML
 Version:	1.07
 Release:	16%{?dist}
 Summary:	Testing Module for YAML Implementations
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-YAML
-Source0:	https://cpan.metacpan.org/authors/id/T/TI/TINITA/Test-YAML-%{version}.tar.gz
+Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-YAML-%{version}.tar.gz
 BuildArch:	noarch
 # Module Build
 BuildRequires:	coreutils
@@ -27,7 +27,7 @@ BuildRequires:	perl(Test::More)
 %if %{with perl_Test_YAML_enables_extra_test}
 BuildRequires:	perl(Test::Pod) >= 1.41
 %endif
-# Runtime
+# Dependencies
 Requires:	perl(Data::Dumper)
 
 %description

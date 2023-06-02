@@ -1,11 +1,11 @@
 Name: eth-tools
-Version: 11.4.0.0
-Release: 204%{?dist}
+Version: 11.5.0.0
+Release: 125%{?dist}
 Summary: Intel Ethernet Fabric Suite basic tools and libraries for fabric management
 
 License: BSD
 Url: https://github.com/intel/eth-fast-fabric
-Source: %url/releases/download/v%{version_no_tilde}/eth-fast-fabric-%{version_no_tilde}.tar.gz
+Source: %url/releases/download/v11.5.0.0/eth-fast-fabric-11.5.0.0.tar.gz
 ExclusiveArch: x86_64
 # The Intel(R) Ethernet Fabric Suite product line is only available on x86_64 platforms at this time.
 
@@ -26,7 +26,6 @@ BuildRequires: gcc-c++
 BuildRequires: tcl-devel
 BuildRequires: rdma-core-devel
 BuildRequires: net-snmp-devel
-BuildRequires: perl-generators
 
 
 %description basic
@@ -34,22 +33,24 @@ Contains basic tools for fabric management necessary on all compute nodes.
 
 %package fastfabric
 Summary: Management level tools and scripts
+Requires: perl
 Requires: eth-tools-basic%{?_isa} >= %{version}-%{release}
 
 %description fastfabric
 Contains tools for managing fabric on a management node.
 
 %prep
-%autosetup -n eth-fast-fabric-%{version_no_tilde}
+%autosetup -cn eth-fast-fabric-11.5.0.0
 
 %build
 cd OpenIb_Host
-OPA_FEATURE_SET= CLOCAL='%build_cflags' CCLOCAL='%build_cxxflags' LDLOCAL='%build_ldflags' ./ff_build.sh %{_builddir}
+OPA_FEATURE_SET=opa10 CLOCAL='%build_cflags' CCLOCAL='%build_cxxflags' LDLOCAL='%build_ldflags' ./ff_build.sh %{_builddir}
 
 %install
-BUILDDIR=%{_builddir} DESTDIR=%{buildroot} LIBDIR=%{_prefix}/lib DSAP_LIBDIR=%{_libdir} ./OpenIb_Host/ff_install.sh
+BUILDDIR=%{_builddir} DESTDIR=%{buildroot} LIBDIR=%{_prefix}/lib DSAP_LIBDIR=%{_libdir} OpenIb_Host/ff_install.sh
 
 %files basic
+%dir %{_sysconfdir}/eth-tools/
 %{_sbindir}/ethbw
 %{_sbindir}/ethcapture
 %{_sbindir}/ethshmcleanup
@@ -61,8 +62,9 @@ BUILDDIR=%{_builddir} DESTDIR=%{buildroot} LIBDIR=%{_prefix}/lib DSAP_LIBDIR=%{_
 %{_mandir}/man1/ethbw.1*
 %{_mandir}/man1/ethcapture.1*
 %{_mandir}/man1/ethshmcleanup.1*
+%{_datadir}/eth-tools/samples/dsa_setup
+%{_datadir}/eth-tools/samples/dsa.service
 %{_datadir}/eth-tools/samples/mgt_config.xml-sample
-%dir %{_sysconfdir}/eth-tools/
 %config(noreplace) %{_sysconfdir}/eth-tools/mgt_config.xml
 
 %files fastfabric
@@ -77,28 +79,47 @@ BUILDDIR=%{_builddir} DESTDIR=%{buildroot} LIBDIR=%{_prefix}/lib DSAP_LIBDIR=%{_
 %exclude %{_prefix}/lib/eth-tools/stream
 %exclude %{_prefix}/lib/eth-tools/ethudstress
 %{_datadir}/eth-tools/*
+%exclude %{_datadir}/eth-tools/samples/dsa_setup
+%exclude %{_datadir}/eth-tools/samples/dsa.service
 %exclude %{_datadir}/eth-tools/samples/mgt_config.xml-sample
 %{_mandir}/man8/eth*.8*
 %{_usrsrc}/eth/*
-%{_sysconfdir}/eth-tools/ethmon.si.conf
-# Replace ethmon.si.conf, as it's a template config file.
 %config(noreplace) %{_sysconfdir}/eth-tools/ethfastfabric.conf
 %config(noreplace) %{_sysconfdir}/eth-tools/ethmon.conf
 %config(noreplace) %{_sysconfdir}/eth-tools/allhosts
 %config(noreplace) %{_sysconfdir}/eth-tools/hosts
 %config(noreplace) %{_sysconfdir}/eth-tools/switches
+%{_sysconfdir}/eth-tools/ethmon.si.conf
 %config(noreplace) /usr/lib/eth-tools/osid_wrapper
 
-
 %changelog
-* Thu Apr 13 2023 Jitka Plesnikova <jplesnik@redhat.com> - 11.4.0.0-204
-- Use perl-generators to get list of all perl dependencies
+* Wed May 31 2023 Jijun Wang <jijun.wang@intel.com> - 11.5.0.0-125
+- Added build support on OpenCloud and Oracle Linux OSes
+- Improved ethcapture to use journalctl if rsyslog not installed
+- Improved to support Basic-IB package
+- Refactoried package build scripts to better support different OSes
 
-* Fri Feb 3 2023 Jijun Wang <jijun.wang@intel.com> - 11.4.0.0-203
-- Updated source URL in spec file
+* Wed May 31 2023 Jijun Wang <jijun.wang@intel.com> - 11.5.0.0-89
+- Changed script shebang to use /bin/bash rather than /bin/sh
 
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:11.4.0.0-201
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+* Wed May 31 2023 Jijun Wang <jijun.wang@intel.com> - 11.5.0.0-86
+- Added tool dsa_setup to aid creation of DSA devices
+- Added Ubuntu support on building fastfabric package
+
+* Wed May 31 2023 Jijun Wang <jijun.wang@intel.com> - 11.5.0.0-73
+- Improved to support RHEL 9.1
+- Fixed RV rebuild issue under SLES 15.4 to support Intel GPU
+- Fixed installation issue under Ubuntu when there are conflict files
+- Improved stability on ethcabletest and ethfindgood
+
+* Wed May 31 2023 Jijun Wang <jijun.wang@intel.com> - 11.5.0.0-53
+- Improved to support RHEL 8.7
+- Added Ubuntu support on RV and mpiapps
+- Fixed minor bugs on nodeverify.sh, ethshowallports and ethfindgood
+- Improved below tools to support fabric plane
+-- ethcabletest.sh
+-- ethshowallports.sh
+-- ethhostadmin
 
 * Thu Dec 1 2022 Jijun Wang <jijun.wang@intel.com> - 11.4.0.0-198
 - Added Ubuntu support to INSTALL script
@@ -176,3 +197,4 @@ BUILDDIR=%{_builddir} DESTDIR=%{buildroot} LIBDIR=%{_prefix}/lib DSAP_LIBDIR=%{_
 
 * Fri Oct 10 2014 Erik E. Kahn <erik.kahn@intel.com> - 1.0.0-ifs-1
 - Initial version
+

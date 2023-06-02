@@ -1,6 +1,6 @@
 Name:           coturn
 Version:        4.6.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        TURN/STUN & ICE Server
 # MIT (src/{apps/relay/acme.c,server/ns_turn_khash.h} and BSD-3-Clause (the rest)
 License:        BSD-3-Clause AND MIT
@@ -19,6 +19,7 @@ BuildRequires:  mariadb-devel
 BuildRequires:  openssl-devel
 BuildRequires:  postgresql-devel
 BuildRequires:  sqlite-devel
+BuildRequires:  systemd-devel
 BuildRequires:  systemd-rpm-macros
 %if 0%{?fedora} || 0%{?rhel} >= 8
 Recommends:     perl-interpreter
@@ -168,7 +169,7 @@ rm %{buildroot}%{_docdir}/%{name}/etc/coturn.service
 %check
 make test
 
-# Check if turnserver is really linked against MariaDB and PostgreSQL,
+# Check if turnserver is really linked against MariaDB, PostgreSQL and systemd,
 # because ./configure unfortunately has no proper failure mechanism...
 %if 0%{?fedora} || 0%{?rhel} >= 8
 ldd %{buildroot}%{_bindir}/turnserver | grep -q libmariadb.so
@@ -176,6 +177,7 @@ ldd %{buildroot}%{_bindir}/turnserver | grep -q libmariadb.so
 ldd %{buildroot}%{_bindir}/turnserver | grep -q libmysqlclient.so
 %endif
 ldd %{buildroot}%{_bindir}/turnserver | grep -q libpq.so
+ldd %{buildroot}%{_bindir}/turnserver | grep -q libsystemd.so
 
 
 %pre
@@ -263,6 +265,9 @@ ldd %{buildroot}%{_bindir}/turnserver | grep -q libpq.so
 
 
 %changelog
+* Thu Jun 01 2023 Robert Scheck <robert@fedoraproject.org> - 4.6.2-2
+- Change systemd start-up type from forking to notify (#2207847)
+
 * Sat Apr 15 2023 Robert Scheck <robert@fedoraproject.org> - 4.6.2-1
 - Upgrade to 4.6.2 (#2186297)
 

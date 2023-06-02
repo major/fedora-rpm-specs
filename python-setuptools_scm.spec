@@ -2,7 +2,7 @@
 
 Name:           python-setuptools_scm
 Version:        7.1.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Blessed package to manage your versions by SCM tags
 
 # SPDX
@@ -21,9 +21,9 @@ BuildRequires:  git-core
 BuildRequires:  mercurial
 %endif
 # Manually listed test dependencies from tox.ini, to avoid pulling tox into RHEL
+# Omit virtualenv, used only for test_distlib_setuptools_works skipped below (requires internet)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(setuptools) >= 45
-BuildRequires:  python3dist(virtualenv) > 20
 %endif
 
 %description
@@ -76,6 +76,9 @@ It also handles file finders for the supported SCMs.
 
 
 %changelog
+* Tue May 30 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 7.1.0-4
+- Drop unused python-virtualenv test dependency
+
 * Wed May 24 2023 Miro Hrončok <mhroncok@redhat.com> - 7.1.0-3
 - Drop the build dependency on tox
 - Verify the license tag is SDPX

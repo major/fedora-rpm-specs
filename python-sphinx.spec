@@ -28,7 +28,7 @@ Name:       python-sphinx
 #global     prerel ...
 %global     upstream_version %{general_version}%{?prerel}
 Version:    %{general_version}%{?prerel:~%{prerel}}
-Release:    1%{?dist}
+Release:    2%{?dist}
 Epoch:      1
 Summary:    Python documentation generator
 
@@ -248,6 +248,10 @@ rm -r tests/roots/test-setup/
 rm tests/roots/test-theming/{MANIFEST.in,setup.py}
 rm tests/test_setup_command.py
 
+%if %{defined rhel}
+# unwanted dependency in RHEL, https://bugzilla.redhat.com/show_bug.cgi?id=1945182
+sed -i '/html5lib/d' pyproject.toml
+%endif
 
 %generate_buildrequires
 %pyproject_buildrequires -r %{?with_tests:-x test}
@@ -327,7 +331,15 @@ mkdir %{buildroot}%{python3_sitelib}/sphinxcontrib
 # Currently, all linkcheck tests and test_latex_images need internet
 # test_build_latex_doc needs internet to download pictures,
 # but fails also with it enabled, we decided to skip it entirely
+# In RHEL builds, skip tests which use html5lib (excluded above)
 %pytest \
+%if %{defined rhel}
+    --ignore tests/test_build_html.py \
+    --ignore tests/test_build_latex.py \
+    --ignore tests/test_build_texinfo.py \
+    --ignore tests/test_domain_std.py \
+    --ignore tests/test_smartquotes.py \
+%endif
 %if %{without internet}
     -k "not linkcheck and not test_latex_images and not test_build_latex_doc" \
 %endif
@@ -358,6 +370,9 @@ mkdir %{buildroot}%{python3_sitelib}/sphinxcontrib
 
 
 %changelog
+* Wed May 31 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1:6.1.3-2
+- Avoid html5lib test dependency in RHEL builds
+
 * Fri Mar 10 2023 Karolina Surma <ksurma@redhat.com> - 1:6.1.3-1
 - Update to 6.1.3
 - Fixes rhbz#2135122

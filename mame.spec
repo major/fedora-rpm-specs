@@ -1,7 +1,7 @@
 #The debug build is disabled by default, please use # --with debug to override
 %bcond_with debug
 
-%global baseversion 254
+%global baseversion 255
 
 %undefine _auto_set_build_flags
 
@@ -30,9 +30,7 @@ Patch3:         0001-If-combination-of-wayland-videodriver-and-bgfx-video.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=1884122
 ExcludeArch:    %{arm} %{ix86}
 
-%if 0%{?fedora} >= 37
 BuildRequires:  asio-devel
-%endif
 BuildRequires:  expat-devel
 BuildRequires:  flac-devel
 BuildRequires:  fontconfig-devel
@@ -58,9 +56,6 @@ BuildRequires:  utf8proc-devel
 BuildRequires:  zlib-devel
 Requires:       %{name}-data = %{version}-%{release}
 
-%if 0%{?fedora} < 37
-Provides:       bundled(asio) = 1.20.0
-%endif
 Provides:       bundled(asmjit)
 #bx and bgfx are not made to be linked to dynamically as per http://forums.bannister.org/ubbthreads.php?ubb=showflat&Number=104437
 Provides:       bundled(bgfx)
@@ -76,7 +71,7 @@ Provides:       bundled(luafilesystem)
 Provides:       bundled(lua-linenoise)
 Provides:       bundled(lua-zlib)
 #lzma is not made to be linked dynamically
-Provides:       bundled(lzma-sdk) = 16.04
+Provides:       bundled(lzma-sdk) = 22.01
 #minimp3 is just two header files
 Provides:       bundled(minimp3)
 #softfloat is not made to be linked dynamically
@@ -141,9 +136,7 @@ HTML documentation for MAME.
 #remove system libs or document themes to ensure system ones are used
 #remove 3rdparty code not needed on Linux
 rm -rf \
-%if 0%{?fedora} >= 37
     3rdparty/asio \
-%endif
     3rdparty/compat \
     3rdparty/dxsdk \
     3rdparty/expat \
@@ -154,8 +147,6 @@ rm -rf \
     3rdparty/portmidi \
     3rdparty/pugixml \
     3rdparty/rapidjson \
-    3rdparty/SDL2 \
-    3rdparty/SDL2-override \
     3rdparty/sqlite3 \
     3rdparty/tap-windows6 \
     3rdparty/utf8proc \

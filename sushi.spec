@@ -3,16 +3,13 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*\\.so.*$
 
 Name:           sushi
-Version:        43.0
-Release:        3%{?dist}
+Version:        44.2
+Release:        1%{?dist}
 Summary:        A quick previewer for Nautilus
 
 License:        GPLv2+ with exceptions
 URL:            https://gitlab.gnome.org/GNOME/sushi
 Source0:        https://download.gnome.org/sources/%{name}/%{url_ver}/%{name}-%{version}.tar.xz
-
-# Submitted upstream: https://gitlab.gnome.org/GNOME/sushi/-/merge_requests/39
-Patch0:         0001-Evince-Don-t-use-GFile-for-file-paths.patch
 
 BuildRequires:  gettext
 BuildRequires:  gjs-devel
@@ -59,6 +56,9 @@ file manager.
 
 
 %changelog
+* Wed May 31 2023 Kalev Lember <klember@redhat.com> - 44.2-1
+- Update to 44.2
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

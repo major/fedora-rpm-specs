@@ -4,10 +4,11 @@
 %global crate erdtree
 
 Name:           rust-erdtree
-Version:        2.0.0
+Version:        3.0.1
 Release:        %autorelease
-License:        MIT
 Summary:        Cross-platform multi-threaded filesystem and disk usage analysis tool
+
+License:        MIT
 URL:            https://crates.io/crates/erdtree
 Source:         %{crates_source}
 # Automatically generated patch to strip foreign dependencies
@@ -16,8 +17,9 @@ Patch:          erdtree-fix-metadata-auto.diff
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Erdtree (erd) is a cross-platform multi-threaded filesystem and disk
-usage analysis tool that respects gitignore and hidden file rules.}
+Erdtree (erd) is a cross-platform, multi-threaded, and general purpose
+filesystem and disk usage utility that is aware of .gitignore and hidden
+file rules.}
 
 %description %{_description}
 
@@ -29,8 +31,9 @@ Summary:        %{summary}
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # MIT
 # MIT OR Apache-2.0
+# MPL-2.0
 # Unlicense OR MIT
-License:        MIT AND Unicode-DFS-2016 AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (Unlicense OR MIT)
+License:        MIT AND Unicode-DFS-2016 AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND MPL-2.0 AND (Unlicense OR MIT)
 
 %description -n %{crate} %{_description}
 
@@ -53,6 +56,7 @@ License:        MIT AND Unicode-DFS-2016 AND (Apache-2.0 OR MIT) AND (Apache-2.0
 
 %build
 %cargo_build
+%cargo_license_summary
 %{cargo_license} > LICENSE.dependencies
 
 %install

@@ -2,7 +2,7 @@ Name:		perl-Test2-Tools-Explain
 Version:	0.02
 Release:	12%{?dist}
 Summary:	Explain tools for the Perl Test2 framework
-License:	Artistic 2.0
+License:	Artistic-2.0
 URL:		https://metacpan.org/release/Test2-Tools-Explain
 Source0:	https://cpan.metacpan.org/authors/id/P/PE/PETDANCE/Test2-Tools-Explain-%{version}.tar.gz
 BuildArch:	noarch

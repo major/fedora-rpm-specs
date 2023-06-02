@@ -8,10 +8,16 @@
 Summary: Tool for managing bootable, immutable filesystem trees
 Name: ostree
 Version: 2023.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source0: https://github.com/ostreedev/%{name}/releases/download/v%{version}/libostree-%{version}.tar.xz
 License: LGPLv2+
 URL: https://ostree.readthedocs.io/en/latest/
+
+Patch1: 0001-lib-deploy-Initialize-var-to-pacify-gcc-static-analy.patch
+Patch2: 0002-lib-deploy-Drop-unused-variable.patch
+Patch3: 0003-lib-deploy-Log-case-when-auto-pruning-is-hopeless.patch
+Patch4: 0004-lib-deploy-Rename-variable-for-clarity.patch
+Patch5: 0005-lib-deploy-Use-fallocate-for-early-prune-space-check.patch
 
 BuildRequires: make
 BuildRequires: git
@@ -169,6 +175,9 @@ find %{buildroot} -name '*.la' -delete
 %endif
 
 %changelog
+* Tue May 30 2023 Dusty Mabe <dusty@dustymabe.com> - 2023.3-2
+- Backport OSTree Autoprune fixes in https://github.com/ostreedev/ostree/pull/2866
+
 * Thu May 18 2023 Joseph Marrero <jmarrero@fedoraproject.org> - 2023.3-1
 - https://github.com/ostreedev/ostree/releases/tag/v2023.3
 

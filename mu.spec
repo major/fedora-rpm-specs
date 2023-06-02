@@ -1,6 +1,6 @@
 Name:           mu
 Version:        1.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A simple Python editor not only for micro:bit
 License:        GPL-3.0-only
 URL:            https://github.com/mu-editor/mu
@@ -75,6 +75,7 @@ sed -i -e 's/PyQt5==5.13.2"/PyQt5>=5.13.2",/' \
        -e 's/pyserial~=3.5/pyserial>=3.4/' \
        -e 's/click<=8.0.4/click/' \
        -e 's/black>=19.10b0,<22.1.0/black>=19.10b0/' \
+       -e 's/platformdirs>=2.0.0,<3.0.0/platformdirs>=2.0.0,<4.0.0/' \
        -e 's/python_requires=">=3.5,<3.9"/python_requires=">=3.5"/' \
        setup.py
 
@@ -136,6 +137,9 @@ cp -p conf/mu.appdata.xml %{buildroot}%{_metainfodir}/
 
 
 %changelog
+* Tue May 30 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.2.0-2
+- Relax version constraint to allow compatibility with the latest platformdirs
+
 * Thu Mar 23 2023 Miro Hrončok <mhroncok@redhat.com> - 1.2.0-1
 - Update to 1.2.0
 - Update the License identifier to SPDX

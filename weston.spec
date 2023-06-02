@@ -1,8 +1,8 @@
-%global apiver 11
+%global apiver 12
 
 Name:           weston
-Version:        %{apiver}.0.1
-Release:        2%{?dist}
+Version:        %{apiver}.0.0
+Release:        1%{?dist}
 Summary:        Reference compositor for Wayland
 
 License:        BSD and CC-BY-SA
@@ -41,6 +41,7 @@ BuildRequires:  pkgconfig(libva-drm) >= 0.34.0
 BuildRequires:  pkgconfig(libwebp)
 BuildRequires:  pkgconfig(libxml-2.0) >= 2.6
 BuildRequires:  pkgconfig(mtdev) >= 1.1.0
+BuildRequires:  pkgconfig(neatvnc)
 BuildRequires:  pkgconfig(pangocairo)
 BuildRequires:  pkgconfig(pixman-1) >= 0.25.2
 BuildRequires:  pkgconfig(wayland-client) >= 1.12.0
@@ -52,6 +53,7 @@ BuildRequires:  pkgconfig(wayland-server)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(x11-xcb)
 BuildRequires:  pkgconfig(xcb)
+BuildRequires:  pkgconfig(xcb-cursor)
 BuildRequires:  pkgconfig(xcb-composite)
 BuildRequires:  pkgconfig(xcb-shm)
 BuildRequires:  pkgconfig(xcb-xfixes)
@@ -112,11 +114,13 @@ export LDFLAGS="%{?build_ldflags} -Wl,-z,undefs"
 #%%meson_test
 
 %files
+%config %{_sysconfdir}/pam.d/weston-remote-access
 %license COPYING
 %doc README.md
 %{_bindir}/weston
 %{_bindir}/weston-debug
 %{_bindir}/weston-screenshooter
+%{_bindir}/weston-tablet
 %{_bindir}/weston-terminal
 %{_bindir}/wcap-decode
 %dir %{_libdir}/weston
@@ -144,9 +148,11 @@ export LDFLAGS="%{?build_ldflags} -Wl,-z,undefs"
 %{_libdir}/libweston-%{apiver}/drm-backend.so
 %{_libdir}/libweston-%{apiver}/gl-renderer.so
 %{_libdir}/libweston-%{apiver}/headless-backend.so
+%{_libdir}/libweston-%{apiver}/pipewire-backend.so
 %{_libdir}/libweston-%{apiver}/pipewire-plugin.so
 %{_libdir}/libweston-%{apiver}/remoting-plugin.so
 %{_libdir}/libweston-%{apiver}/rdp-backend.so
+%{_libdir}/libweston-%{apiver}/vnc-backend.so
 %{_libdir}/libweston-%{apiver}/wayland-backend.so
 %{_libdir}/libweston-%{apiver}/x11-backend.so
 %{_libdir}/libweston-%{apiver}/xwayland.so
@@ -186,13 +192,15 @@ export LDFLAGS="%{?build_ldflags} -Wl,-z,undefs"
 %{_includedir}/libweston-%{apiver}/
 %{_includedir}/weston/
 %{_libdir}/pkgconfig/libweston-%{apiver}.pc
-%{_libdir}/pkgconfig/libweston-desktop-%{apiver}.pc
 %{_libdir}/pkgconfig/weston.pc
 %{_libdir}/libweston-%{apiver}.so
 %{_datadir}/pkgconfig/libweston-%{apiver}-protocols.pc
 %{_datadir}/libweston-%{apiver}/protocols/
 
 %changelog
+* Wed May 31 2023 Erico Nunes <ernunes@redhat.com> - 12.0.0-1
+- Update to 12.0.0
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

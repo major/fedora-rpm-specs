@@ -6,7 +6,7 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*\\.so.*$
 
 Name:           gnome-maps
-Version:        44.1
+Version:        44.2
 Release:        1%{?dist}
 Summary:        Map application for GNOME
 
@@ -90,6 +90,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Maps.deskto
 
 
 %changelog
+* Wed May 31 2023 Kalev Lember <klember@redhat.com> - 44.2-1
+- Update to 44.2
+
 * Mon Apr 24 2023 David King <amigadave@amigadave.com> - 44.1-1
 - Update to 44.1
 

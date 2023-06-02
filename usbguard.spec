@@ -6,7 +6,7 @@ Name:           usbguard
 Version:        1.1.0
 Release:        7%{?dist}
 Summary:        A tool for implementing USB device usage policy
-License:        GPLv2+
+License:        GPL-2.0-or-later
 ## Not installed
 # src/ThirdParty/Catch: Boost Software License - Version 1.0
 URL:            https://usbguard.github.io/
@@ -106,10 +106,10 @@ daemon.
 # selinux
 %setup -q -D -T -a 1
 
-%patch1 -p1 -b .catch
-%patch2 -p1 -b .policykit
-%patch3 -p1 -b .access-contol-names
-%patch4 -p1 -b .gcc13
+%patch -P 1 -p1 -b .catch
+%patch -P 2 -p1 -b .policykit
+%patch -P 3 -p1 -b .access-contol-names
+%patch -P 4 -p1 -b .gcc13
 
 # Remove bundled library sources before build
 rm -rf src/ThirdParty/{Catch,PEGTL}

@@ -1,6 +1,6 @@
 Summary:        Modular SIP user-agent with audio and video support
 Name:           baresip
-Version:        3.1.0
+Version:        3.2.0
 Release:        1%{?dist}
 License:        BSD-3-Clause
 URL:            https://github.com/baresip/baresip
@@ -11,14 +11,13 @@ Source11:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/1e1d6921
 Source12:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/COPYING#/COPYING.adwaita-icon-theme
 Source13:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/COPYING_CCBYSA3#/COPYING_CCBYSA3.adwaita-icon-theme
 Source14:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/COPYING_LGPL#/COPYING_LGPL.adwaita-icon-theme
-Patch0:         https://patch-diff.githubusercontent.com/raw/baresip/baresip/pull/2439.patch#/baresip-3.0.0-pipewire.patch
 BuildRequires:  cmake
 %if 0%{?rhel} && 0%{?rhel} < 8
 BuildRequires:  cmake3
 %endif
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  libre-devel >= 3.1.0
+BuildRequires:  libre-devel >= 3.2.0
 %if 0%{?fedora} || 0%{?rhel} >= 8
 BuildRequires:  openssl-devel >= 1.1.0
 %else
@@ -367,7 +366,6 @@ This module provides the X11 video output driver.
 
 %prep
 %setup -q
-%patch0 -p1 -b .pipewire
 
 %build
 %if 0%{?rhel} && 0%{?rhel} < 8
@@ -446,7 +444,7 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %license LICENSE
 %doc CHANGELOG.md docs/THANKS docs/examples
 %{_bindir}/%{name}
-%{_libdir}/lib%{name}.so.6*
+%{_libdir}/lib%{name}.so.7*
 %dir %{_libdir}/%{name}/
 %dir %{_libdir}/%{name}/modules/
 %{_libdir}/%{name}/modules/account.so
@@ -586,6 +584,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %{_libdir}/%{name}/modules/x11.so
 
 %changelog
+* Wed May 31 2023 Robert Scheck <robert@fedoraproject.org> 3.2.0-1
+- Upgrade to 3.2.0 (#2211408)
+
 * Thu Apr 27 2023 Robert Scheck <robert@fedoraproject.org> 3.1.0-1
 - Upgrade to 3.1.0 (#2190310)
 

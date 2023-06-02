@@ -31,7 +31,7 @@
 Summary:       Tool for creating supermin appliances
 Name:          supermin
 Version:       5.3.3
-Release:       6%{?dist}
+Release:       7%{?dist}
 License:       GPLv2+
 
 ExclusiveArch: %{kernel_arches}
@@ -53,6 +53,8 @@ Patch:         0002-Add-support-for-OCaml-5.0.patch
 Patch:         0003-Restore-compatibility-with-OCaml-4.07.patch
 # dnf5 (https://bugzilla.redhat.com/show_bug.cgi?id=2209412):
 Patch:         0004-rpm-Detect-dnf5-and-omit-missing-options.patch
+# dnf5 (https://bugzilla.redhat.com/show_bug.cgi?id=2211386)
+Patch:         0005-rpm-Use-dnf-config-instead-of-c.patch
 
 BuildRequires: gcc
 BuildRequires: make
@@ -197,6 +199,9 @@ make check || {
 
 
 %changelog
+* Wed May 31 2023 Richard W.M. Jones <rjones@redhat.com> - 5.3.3-7
+- Further fix for dnf5 (RHBZ#2211386)
+
 * Tue May 30 2023 Richard W.M. Jones <rjones@redhat.com> - 5.3.3-6
 - Add support for dnf5 (RHBZ#2209412)
 
