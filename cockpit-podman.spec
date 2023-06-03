@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-podman
-Version:        69
+Version:        70
 Release:        1%{?dist}
 Summary:        Cockpit component for Podman containers
 License:        LGPL-2.1-or-later
@@ -74,7 +74,7 @@ The Cockpit user interface for Podman containers.
 # Nothing to build
 
 %install
-%make_install
+%make_install PREFIX=/usr
 appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 %files
@@ -84,6 +84,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Thu Jun 01 2023 Packit <hello@packit.dev> - 70-1
+- Add ability to prune unused containers
+
 * Tue May 16 2023 Packit <hello@packit.dev> - 69-1
 - PatternFly 5 fixes
 - Translation updates

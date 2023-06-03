@@ -2,7 +2,7 @@ Name:		perl-Time-y2038
 Version:	20100403
 Release:	31%{?dist}
 Summary:	Versions of Perl's time functions which work beyond 2038
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Time-y2038
 Source0:	https://cpan.metacpan.org/modules/by-module/Time/Time-y2038-%{version}.tar.gz
 # Module Build
@@ -27,6 +27,7 @@ BuildRequires:	perl(Test::Exception) >= 0.27
 BuildRequires:	perl(Test::More) >= 0.82
 BuildRequires:	perl(Test::Warn) >= 0.11
 # Dependencies
+# (none)
 
 # Don't "provide" private Perl libs
 %{?perl_default_filter}

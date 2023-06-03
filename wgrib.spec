@@ -1,6 +1,6 @@
 Name:           wgrib
 Version:        1.8.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Manipulate, inventory and decode GRIB files
 
 License:        Public Domain
@@ -49,7 +49,7 @@ cp %SOURCE13 .
 
 
 %build
-gcc $RPM_OPT_FLAGS -o wgrib wgrib.c
+gcc %{build_cflags} %{build_ldflags} -o wgrib wgrib.c
 
 
 %install
@@ -59,7 +59,7 @@ install -m 755 wgrib $RPM_BUILD_ROOT%{_bindir}/
 
 %check
 ./wgrib land.grb -d 1
-gcc $RPM_OPT_FLAGS -o testbin testbin.c -lm
+gcc %{build_cflags} %{build_ldflags} -o testbin testbin.c -lm
 ./testbin > testbin.out && diff %SOURCE14 testbin.out
 
 
@@ -70,6 +70,9 @@ gcc $RPM_OPT_FLAGS -o testbin testbin.c -lm
 
 
 %changelog
+* Fri Jun 02 2023 Orion Poplawski <orion@nwra.com> - 1.8.3-2
+- Add ldflags to build for proper hardening
+
 * Fri May 26 2023 Orion Poplawski <orion@nwra.com> - 1.8.3-1
 - Update to 1.8.3
 

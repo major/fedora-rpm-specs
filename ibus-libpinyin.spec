@@ -1,7 +1,7 @@
 %global snapshot 0
 
 Name:       ibus-libpinyin
-Version:    1.15.2
+Version:    1.15.3
 Release:    2%{?dist}
 Summary:    Intelligent Pinyin engine based on libpinyin for IBus
 License:    GPL-3.0-or-later
@@ -81,6 +81,13 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/ibus-setup-libbopo
 %{_datadir}/ibus/component/*
 
 %changelog
+* Thu Jun  1 2023 Peng Wu <pwu@redhat.com> - 1.15.3-2
+- Rebuild the package
+
+* Thu Jun  1 2023 Peng Wu <pwu@redhat.com> - 1.15.3-1
+- Update to 1.15.3
+- bug fixes
+
 * Fri May 19 2023 Peng Wu <pwu@redhat.com> - 1.15.2-2
 - Migrate to SPDX license
 

@@ -1,5 +1,5 @@
 Name:           python-jupyter-ydoc
-Version:        0.3.4
+Version:        1.0.2
 Release:        1%{?dist}
 Summary:        Document structures for collaborative editing using Ypy
 License:        BSD-3-Clause
@@ -54,6 +54,9 @@ sed -i "s/VERSION_PLACEHOLDER/%{version}/" pyproject.toml
 
 
 %changelog
+* Tue May 30 2023 Lumír Balhar <lbalhar@redhat.com> - 1.0.2-1
+- Update to 1.0.2 (rhbz#2182754)
+
 * Thu Feb 23 2023 Lumír Balhar <lbalhar@redhat.com> - 0.3.4-1
 - Update to 0.3.4 (rhbz#2171414)
 

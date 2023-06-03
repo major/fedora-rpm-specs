@@ -1,7 +1,9 @@
 %global pypi_name sphinxcontrib-htmlhelp
 
-# when bootstrapping sphinx, we cannot run tests yet
-%bcond_without check
+# when bootstrapping sphinx, we cannot even run an import check
+%bcond check 1
+# RHEL does not include html5lib, without which the tests fail
+%bcond tests %[%{with check} && %{undefined rhel}]
 
 Name:           python-%{pypi_name}
 Version:        2.0.0
@@ -20,9 +22,11 @@ BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
 
 %if %{with check}
-BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-sphinx >= 1:2
+%if %{with tests}
+BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-html5lib
+%endif
 %endif
 
 %description
@@ -70,7 +74,10 @@ popd
 
 %if %{with check}
 %check
+%py3_check_import sphinxcontrib.htmlhelp
+%if %{with tests}
 %{__python3} -m pytest
+%endif
 %endif
 
 

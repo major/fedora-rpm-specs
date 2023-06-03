@@ -2,7 +2,7 @@ Name:		perl-Tie-RefHash-Weak
 Version:	0.09
 Release:	41%{?dist}
 Summary:	Tie::RefHash subclass with weakened references in the keys
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Tie-RefHash-Weak
 Source0:	https://cpan.metacpan.org/modules/by-module/Tie/Tie-RefHash-Weak-%{version}.tar.gz
 BuildArch:	noarch
@@ -31,6 +31,7 @@ BuildRequires:	perl(Symbol)
 BuildRequires:	perl(Test::More)
 BuildRequires:	perl(threads)
 # Dependencies
+# (none)
 
 %description
 The Tie::RefHash module can be used to access hashes by reference. This is

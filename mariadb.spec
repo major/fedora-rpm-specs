@@ -109,7 +109,7 @@
 %bcond_without unbundled_pcre
 %else
 %bcond_with unbundled_pcre
-%global pcre_bundled_version 10.40
+%global pcre_bundled_version 10.42
 %endif
 
 # Use main python interpretter version
@@ -149,8 +149,8 @@
 %global sameevr   %{epoch}:%{version}-%{release}
 
 Name:             mariadb
-Version:          10.5.19
-Release:          2%{?with_debug:.debug}%{?dist}
+Version:          10.5.20
+Release:          1%{?with_debug:.debug}%{?dist}
 Epoch:            3
 
 Summary:          A very fast and robust SQL database server
@@ -209,10 +209,7 @@ Patch7:           %{pkgnamepatch}-scripts.patch
 Patch9:           %{pkgnamepatch}-ownsetup.patch
 #   Patch10: Fix cipher name in the SSL Cipher name test
 Patch10:          %{pkgnamepatch}-ssl-cipher-tests.patch
-#   https://gcc.gnu.org/gcc-13/porting_to.html
-Patch11:          mariadb-10.5-gcc13.patch
 Patch12:          rocksdb-6.8-gcc13.patch
-Patch13:          mariadb-c99.patch
 
 BuildRequires:    make
 BuildRequires:    cmake gcc-c++
@@ -744,10 +741,8 @@ rm -r storage/rocksdb/
 # Keeping the patch commented out, need to revisit
 #  once the test is re-enabled by upstream  in some future release
 #%patch -P10 -p1
-%patch -P11 -p1
 %if %{with rocksdb}
 %patch -P12 -p1 -d storage/rocksdb/rocksdb/
-%patch -P13 -p1
 %endif
 
 # generate a list of tests that fail, but are not disabled by upstream
@@ -777,7 +772,7 @@ sed 's/mariadb-server-galera/%{name}-server-galera/' %{SOURCE72} > selinux/%{nam
 
 
 # Get version of PCRE, that upstream use
-pcre_version=`grep -e "https://github.com/PhilipHazel/pcre2/releases/download" cmake/pcre.cmake | sed -r "s;.*pcre2-([[:digit:]]+\.[[:digit:]]+).*;\1;" `
+pcre_version=`grep -e "https://github.com/PCRE2Project/pcre2/releases/download" cmake/pcre.cmake | sed -r "s;.*pcre2-([[:digit:]]+\.[[:digit:]]+).*;\1;" `
 
 # Check if the PCRE version in macro 'pcre_bundled_version', used in Provides: bundled(...), is the same version as upstream actually bundles
 %if %{without unbundled_pcre}
@@ -1648,6 +1643,10 @@ fi
 %endif
 
 %changelog
+* Tue May 30 2023 Lukas Javorsky <ljavorsk@redhat.com> - 3:10.5.20-1
+- Rebase to version 10.5.20
+- Patches 11 and 13 were upstreamed
+
 * Fri Apr 28 2023 Siddhesh Poyarekar <siddhesh@redhat.com> - 3:10.5.19-2
 - Use _fortify_level to disable fortification in debug builds.
 

@@ -1,6 +1,6 @@
 Name:          perl-Net-DNS
-Version:       1.38
-Release:       2%{?dist}
+Version:       1.39
+Release:       1%{?dist}
 Summary:       DNS resolver modules for Perl
 License:       MIT
 URL:           https://www.net-dns.org
@@ -193,6 +193,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jun 01 2023 Paul Wouters <paul.wouters@aiven.io - 1.39-1
+- Updated to 1.39 - minor bugfix release
+
 * Mon May 29 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.38-2
 - Fix dependencies in *tests package
 

@@ -83,7 +83,7 @@ touch doc/man/*.1 doc/man/*.3 doc/man/*.8
 make %{?_smp_mflags} V=1
 
 %check
-#make check
+make check
 
 %install
 make DESTDIR=%{buildroot} install

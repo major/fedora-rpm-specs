@@ -1,4 +1,4 @@
-%global buildid    272
+%global buildid    278
 %global octpkg  COPASI
 
 %global with_python  1
@@ -27,7 +27,7 @@
 
 Name:  COPASI
 Summary: Biochemical network simulator
-Version: 4.39.%{buildid}
+Version: 4.40.%{buildid}
 Release: 1%{?dist}
 
 ## Artistic 2.0 is main license
@@ -261,32 +261,32 @@ for file in `find copasi -type f \( -name "*.cpp" \)`; do
     mv $file.new $file
 done
 
-%patch0 -p0 -b .fix_install_libpaths
-%patch4 -p0 -b .fix_exe_permissions
-%patch6 -p0 -b .libCombine_paths
-%patch7 -p0 -b .find_crossguid2
-%patch8 -p1 -b .use_c++17
-%patch9 -p0 -b .find_libsedml
-%patch10 -p0 -b .find_sbw
-%patch12 -p1 -b .find_raptor
-%patch13 -p1 -b .qwt
+%patch -P 0 -p0 -b .fix_install_libpaths
+%patch -P 4 -p0 -b .fix_exe_permissions
+%patch -P 6 -p0 -b .libCombine_paths
+%patch -P 7 -p0 -b .find_crossguid2
+%patch -P 8 -p1 -b .use_c++17
+%patch -P 9 -p0 -b .find_libsedml
+%patch -P 10 -p0 -b .find_sbw
+%patch -P 12 -p1 -b .find_raptor
+%patch -P 13 -p1 -b .qwt
 
 %if 0%{?with_python}
 %if 0%{?python3_version_nodots} > 39
-%patch11 -p1 -b .porting_to_python310
+%patch -P 11 -p1 -b .porting_to_python310
 %endif
 %endif
 
 %if 0%{?with_qwt6}
-%patch3 -p0
+%patch -P 3 -p0
 %else
-%patch1 -p0
+%patch -P 1 -p0
 %endif
 
 # Set Qwt libdir
 sed -e 's|@@libdir@@|%{_libdir}|g' -i CMakeModules/FindQWT.cmake
 
-%patch5 -p0 -b .QWTPLOT3D_QT5
+%patch -P 5 -p0 -b .QWTPLOT3D_QT5
 # Set QTPLOT3D-QT5 paths
 sed -e 's|@@qtplot3d_includedir@@|%{_qt5_headerdir}/qwtplot3d-qt5|g' -i CMakeModules/FindQWTPLOT3D.cmake
 sed -e 's|@@qtplot3d_libdir@@|%{_qt5_libdir}|g' -i CMakeModules/FindQWTPLOT3D.cmake
@@ -487,6 +487,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/*.appdata.x
 %{_datadir}/copasi/doc/
 
 %changelog
+* Thu Jun 01 2023 Antonio Trande <sagitter@fedoraproject.org> - 4.40.278-1
+- Release 4.40 build-278
+
 * Fri Feb 03 2023 Antonio Trande <sagitter@fedoraproject.org> - 4.39.272-1
 - Release 4.39 build-272
 

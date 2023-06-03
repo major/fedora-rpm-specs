@@ -2,7 +2,7 @@ Name:           perl-Time-Piece-MySQL
 Version:        0.06
 Release:        22%{?dist}
 Summary:        MySQL-specific methods for Time::Piece
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Time-Piece-MySQL
 Source0:        https://cpan.metacpan.org/modules/by-module/Time/Time-Piece-MySQL-%{version}.tar.gz
 BuildArch:      noarch

@@ -3,6 +3,7 @@ Version:        0.3.4
 Release:        %autorelease
 Summary:        Parser for Python internal Marshal format
 
+# SPDX
 License:        MIT
 URL:            https://github.com/fedora-python/%{name}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz

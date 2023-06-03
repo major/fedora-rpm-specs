@@ -1,7 +1,7 @@
 %global srcname oss-parent
 
 Name:          fasterxml-oss-parent
-Version:       53
+Version:       54
 Release:       1%{?dist}
 Summary:       FasterXML parent pom
 License:       Apache-2.0
@@ -51,6 +51,16 @@ This package contains the parent pom file for FasterXML.com projects.
 %license LICENSE NOTICE
 
 %changelog
+* Thu Jun 01 2023 Chris Kelley <ckelley@redhat.com> - 54-1
+- [maven-release-plugin] prepare release oss-parent-54 (Tatu Saloranta)
+- Release 54 (Tatu Saloranta)
+- ... (Tatu Saloranta)
+- Update release notes (Tatu Saloranta)
+- Bump maven-project-info-reports-plugin from 3.4.3 to 3.4.4 (dependabot[bot])
+- Bump maven-enforcer-plugin from 3.2.1 to 3.3.0 (dependabot[bot])
+- Bump maven-install-plugin from 3.1.0 to 3.1.1 (dependabot[bot])
+- [maven-release-plugin] prepare for next development iteration (Tatu Saloranta)
+
 * Tue May 23 2023 Chris Kelley <ckelley@redhat.com> - 53-1
 - Update to version 53
 

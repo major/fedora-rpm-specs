@@ -8,9 +8,9 @@
 # To bootstrap from scratch, set the channel and date from src/stage0.json
 # e.g. 1.59.0 wants rustc: 1.58.0-2022-01-13
 # or nightly wants some beta-YYYY-MM-DD
-%global bootstrap_version 1.68.2
-%global bootstrap_channel 1.68.2
-%global bootstrap_date 2023-03-28
+%global bootstrap_version 1.69.0
+%global bootstrap_channel 1.69.0
+%global bootstrap_date 2023-04-20
 
 # Only the specified arches will use bootstrap binaries.
 # NOTE: Those binaries used to be uploaded with every new release, but that was
@@ -35,8 +35,7 @@
 # src/ci/docker/host-x86_64/dist-various-2/build-wasi-toolchain.sh
 # (updated per https://github.com/rust-lang/rust/pull/96907)
 %global wasi_libc_url https://github.com/WebAssembly/wasi-libc
-#global wasi_libc_ref wasi-sdk-20
-%global wasi_libc_ref 1dfe5c302d1c5ab621f7abf04620fae92700fd22
+%global wasi_libc_ref wasi-sdk-20
 %global wasi_libc_name wasi-libc-%{wasi_libc_ref}
 %global wasi_libc_source %{wasi_libc_url}/archive/%{wasi_libc_ref}/%{wasi_libc_name}.tar.gz
 %global wasi_libc_dir %{_builddir}/%{wasi_libc_name}
@@ -47,14 +46,14 @@
 # We can also choose to just use Rust's bundled LLVM, in case the system LLVM
 # is insufficient.  Rust currently requires LLVM 14.0+.
 %global min_llvm_version 14.0.0
-%global bundled_llvm_version 15.0.7
+%global bundled_llvm_version 16.0.2
 %bcond_with bundled_llvm
 
-# Requires stable libgit2 1.5, and not the next minor soname change.
+# Requires stable libgit2 1.6, and not the next minor soname change.
 # This needs to be consistent with the bindings in vendor/libgit2-sys.
-%global min_libgit2_version 1.5.0
-%global next_libgit2_version 1.6.0~
-%global bundled_libgit2_version 1.5.0
+%global min_libgit2_version 1.6.0
+%global next_libgit2_version 1.7.0~
+%global bundled_libgit2_version 1.6.3
 %if 0%{?fedora} >= 38
 %bcond_with bundled_libgit2
 %else
@@ -84,8 +83,8 @@
 %endif
 
 Name:           rust
-Version:        1.69.0
-Release:        3%{?dist}
+Version:        1.70.0
+Release:        1%{?dist}
 Summary:        The Rust Programming Language
 License:        (ASL 2.0 or MIT) and (BSD and MIT)
 # ^ written as: (rust itself) and (bundled libraries)
@@ -105,10 +104,7 @@ Source1:        %{wasi_libc_source}
 Patch1:         0001-Use-lld-provided-by-system-for-wasm.patch
 
 # Set a substitute-path in rust-gdb for standard library sources.
-Patch2:         rustc-1.61.0-rust-gdb-substitute-path.patch
-
-# https://github.com/rust-lang/rust/pull/111167
-Patch3:         0001-debuginfo-split-method-declaration-and-definition.patch
+Patch2:         rustc-1.70.0-rust-gdb-substitute-path.patch
 
 ### RHEL-specific patches below ###
 
@@ -116,16 +112,11 @@ Patch3:         0001-debuginfo-split-method-declaration-and-definition.patch
 Source100:      macros.rust-toolset
 
 # Disable cargo->libgit2->libssh2 on RHEL, as it's not approved for FIPS (rhbz1732949)
-Patch100:       rustc-1.65.0-disable-libssh2.patch
+Patch100:       rustc-1.70.0-disable-libssh2.patch
 
 # libcurl on RHEL7 doesn't have http2, but since cargo requests it, curl-sys
 # will try to build it statically -- instead we turn off the feature.
-Patch101:       rustc-1.69.0-disable-http2.patch
-
-# kernel rh1410097 causes too-small stacks for PIE.
-# (affects RHEL6 kernels when building for RHEL7)
-Patch102:       rustc-1.65.0-no-default-pie.patch
-
+Patch101:       rustc-1.70.0-disable-http2.patch
 
 # Get the Rust triple for any arch.
 %{lua: function rust_triple(arch)
@@ -583,7 +574,6 @@ test -f '%{local_rust_root}/bin/rustc'
 
 %patch -P1 -p1
 %patch -P2 -p1
-%patch -P3 -p1
 
 %if %with disabled_libssh2
 %patch -P100 -p1
@@ -591,11 +581,7 @@ test -f '%{local_rust_root}/bin/rustc'
 
 %if %without curl_http2
 %patch -P101 -p1
-rm -rf vendor/libnghttp2-sys/
-%endif
-
-%if 0%{?rhel} && 0%{?rhel} < 8
-%patch -P102 -p1
+rm -rf vendor/libnghttp2-sys*/
 %endif
 
 # Use our explicit python3 first
@@ -610,21 +596,21 @@ mkdir -p src/llvm-project/libunwind/
 %endif
 
 # Remove other unused vendored libraries
-rm -rf vendor/curl-sys/curl/
+rm -rf vendor/curl-sys*/curl/
 rm -rf vendor/*jemalloc-sys*/jemalloc/
-rm -rf vendor/libmimalloc-sys/c_src/mimalloc/
-rm -rf vendor/libssh2-sys/libssh2/
-rm -rf vendor/libz-sys/src/zlib/
-rm -rf vendor/libz-sys/src/zlib-ng/
-rm -rf vendor/lzma-sys/xz-*/
-rm -rf vendor/openssl-src/openssl/
+rm -rf vendor/libffi-sys*/libffi/
+rm -rf vendor/libmimalloc-sys*/c_src/mimalloc/
+rm -rf vendor/libssh2-sys*/libssh2/
+rm -rf vendor/libz-sys*/src/zlib{,-ng}/
+rm -rf vendor/lzma-sys*/xz-*/
+rm -rf vendor/openssl-src*/openssl/
 
 %if %without bundled_libgit2
-rm -rf vendor/libgit2-sys/libgit2/
+rm -rf vendor/libgit2-sys*/libgit2/
 %endif
 
 %if %with disabled_libssh2
-rm -rf vendor/libssh2-sys/
+rm -rf vendor/libssh2-sys*/
 %endif
 
 # This only affects the transient rust-installer, but let it use our dynamic xz-libs
@@ -787,6 +773,9 @@ for triple in %{?mingw_targets} %{?wasm_targets}; do
 done
 
 %install
+%if 0%{?rhel} && 0%{?rhel} <= 9
+%{?set_build_flags}
+%endif
 %{export_rust_env}
 
 DESTDIR=%{buildroot} %{__python3} ./x.py install
@@ -874,6 +863,9 @@ rm -f %{buildroot}%{rustlibdir}/%{rust_triple}/bin/rust-ll*
 
 
 %check
+%if 0%{?rhel} && 0%{?rhel} <= 9
+%{?set_build_flags}
+%endif
 %{export_rust_env}
 
 # Sanity-check the installed binaries, debuginfo-stripped and all.
@@ -1057,6 +1049,9 @@ end}
 
 
 %changelog
+* Thu Jun 01 2023 Josh Stone <jistone@redhat.com> - 1.70.0-1
+- Update to 1.70.0.
+
 * Fri May 05 2023 Josh Stone <jistone@redhat.com> - 1.69.0-3
 - Fix debuginfo with LLVM 16
 

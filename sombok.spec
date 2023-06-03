@@ -1,8 +1,8 @@
 Name:           sombok
 Version:        2.4.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Unicode Text Segmentation Package
-License:        GPLv2+ or Artistic clarified
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND (GPL-2.0-or-later OR Artistic-1.0-Perl)
 URL:            http://sf.net/projects/linefold/
 Source0:        https://github.com/hatukanezumi/sombok/archive/%{name}-%{version}.tar.gz
 # A multilib-safe wrapper, bug #1853260
@@ -69,6 +69,9 @@ install -m 0644 %{SOURCE1} %{buildroot}/%{_includedir}/sombok.h
 
 
 %changelog
+* Thu Jun 01 2023 Michal Josef Špaček <mspacek@redhat.com> - 2.4.0-19
+- Update license to SPDX format and fix licenses
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

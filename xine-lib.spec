@@ -37,7 +37,7 @@
 Summary:        A multimedia engine
 Name:           xine-lib
 Version:        1.2.13
-Release:        4%{?snapshot:.%{date}hg%{revision}}%{?dist}
+Release:        5%{?snapshot:.%{date}hg%{revision}}%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://www.xine-project.org/
 %if ! 0%{?snapshot}
@@ -350,6 +350,9 @@ mkdir -p %{buildroot}%{codecdir}
 
 
 %changelog
+* Thu Jun 01 2023 Xavier Bachelot <xavier@bachelot.org> - 1.2.13-5
+- Rebuild for new libnfs
+
 * Sat Apr 15 2023 Florian Weimer <fweimer@redhat.com> - 1.2.13-4
 - Port configure script to C99
 

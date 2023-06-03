@@ -2,14 +2,13 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*$
 
 Name:		xreader
-Version:	3.6.3
-Release:	2%{?dist}
+Version:	3.8.0
+Release:	1%{?dist}
 Summary:	Simple document viewer
 
 License:	GPLv2+
 URL:		https://github.com/linuxmint/%{name}
 Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0:     webkit2gtk-41.patch
 
 ExcludeArch:    %{ix86}
 
@@ -168,6 +167,9 @@ This package adds configuration to use %{name} as a thumbnailer.
 %doc %{_datadir}/doc/%{name}*
 
 %changelog
+* Thu Jun 01 2023 Leigh Scott <leigh123linux@gmail.com> - 3.8.0-1
+- Update to 3.8.0 release
+
 * Thu May 11 2023 Leigh Scott <leigh123linux@gmail.com> - 3.6.3-2
 - Switch to webkit2gtk-4.1
 

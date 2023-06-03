@@ -2,7 +2,7 @@ Name:           perl-URI-Fetch
 Version:        0.15
 Release:        5%{?dist}
 Summary:        Smart URI fetching/caching
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/URI-Fetch
 Source0:        https://cpan.metacpan.org/authors/id/N/NE/NEILB/URI-Fetch-%{version}.tar.gz

@@ -1,5 +1,5 @@
 Name:           xapps
-Version:        2.4.3
+Version:        2.6.0
 Release:        1%{?dist}
 Summary:        Common files for XApp desktop apps
 
@@ -7,6 +7,7 @@ License:        LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:        http://packages.linuxmint.com/pool/main/f/flags/flags_1.0.2.tar.xz
+Patch0:         watcher_fix_libexec.patch
 
 ExcludeArch:    %{ix86}
 
@@ -30,6 +31,7 @@ Recommends:     inxi
 Requires:       python3-xapps-overrides%{?_isa} = %{version}-%{release}
 Requires:       xdg-utils
 Requires:       xorg-x11-xinit
+Suggests:       switcheroo-control
 Obsoletes:      python2-xapps-overrides < %{version}-%{release}
 
 %description
@@ -70,7 +72,9 @@ Python%{python3_version} files for XApp apps.
 %autosetup -p1 -n xapp-%{version}
 
 %build
-%meson -D deprecated_warnings=false
+%meson \
+ --buildtype=debugoptimized \
+ -D deprecated_warnings=false
 %meson_build
 
 %install
@@ -92,12 +96,13 @@ rm %{buildroot}%{_datadir}/format
 %{_sysconfdir}/X11/xinit/xinitrc.d/80xapp-gtk3-module.sh
 %{_bindir}/pastebin
 %{_bindir}/upload-system-info
+%{_bindir}/xapp-gpu-offload
 %{_bindir}/xfce4-set-wallpaper
 %{_libdir}/libxapp.so.*
 %{_libdir}/girepository-1.0/XApp-1.0.typelib
 %{_libdir}/gtk-3.0/modules/libxapp-gtk3-module.so
 %dir %{_libexecdir}/xapps/
-%{_libexecdir}/xapps/sn-watcher/
+%{_libexecdir}/xapps/xapp-sn-watcher
 %{_datadir}/dbus-1/services/org.x.StatusNotifierWatcher.service
 %{_datadir}/iso-flag-png/
 %{_datadir}/glib-2.0/schemas/org.x.apps.*.xml
@@ -122,6 +127,9 @@ rm %{buildroot}%{_datadir}/format
 %{python3_sitearch}/gi/overrides/__pycache__/XApp.cpython-%{python3_version_nodots}*.py*
 
 %changelog
+* Thu Jun 01 2023 Leigh Scott <leigh123linux@gmail.com> - 2.6.0-1
+- Update to 2.6.0 release
+
 * Wed Mar 29 2023 Leigh Scott <leigh123linux@gmail.com> - 2.4.3-1
 - Update to 2.4.3 release
 

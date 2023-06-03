@@ -49,7 +49,7 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        292
+Version:        293
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
@@ -424,11 +424,11 @@ Provides: cockpit-sosreport = %{version}-%{release}
 Recommends: (reportd if abrt)
 %endif
 
-Provides: bundled(npm(@patternfly/patternfly)) = 5.0.0-alpha.43
-Provides: bundled(npm(@patternfly/react-core)) = 5.0.0-alpha.83
-Provides: bundled(npm(@patternfly/react-icons)) = 5.0.0-alpha.12
-Provides: bundled(npm(@patternfly/react-styles)) = 5.0.0-alpha.8
-Provides: bundled(npm(@patternfly/react-table)) = 5.0.0-alpha.85
+Provides: bundled(npm(@patternfly/patternfly)) = 5.0.0-alpha.53
+Provides: bundled(npm(@patternfly/react-core)) = 5.0.0-alpha.98
+Provides: bundled(npm(@patternfly/react-icons)) = 5.0.0-alpha.14
+Provides: bundled(npm(@patternfly/react-styles)) = 5.0.0-alpha.10
+Provides: bundled(npm(@patternfly/react-table)) = 5.0.0-alpha.100
 Provides: bundled(npm(@patternfly/react-tokens)) = 5.0.0-alpha.9
 Provides: bundled(npm(argparse)) = 1.0.10
 Provides: bundled(npm(attr-accept)) = 2.2.2
@@ -439,14 +439,15 @@ Provides: bundled(npm(deep-equal)) = 2.0.5
 Provides: bundled(npm(define-properties)) = 1.2.0
 Provides: bundled(npm(es-get-iterator)) = 1.1.3
 Provides: bundled(npm(file-selector)) = 0.6.0
-Provides: bundled(npm(focus-trap)) = 7.4.0
+Provides: bundled(npm(focus-trap)) = 7.4.1
 Provides: bundled(npm(for-each)) = 0.3.3
 Provides: bundled(npm(function-bind)) = 1.1.1
 Provides: bundled(npm(functions-have-names)) = 1.2.3
-Provides: bundled(npm(get-intrinsic)) = 1.2.0
+Provides: bundled(npm(get-intrinsic)) = 1.2.1
 Provides: bundled(npm(gopd)) = 1.0.1
 Provides: bundled(npm(has-bigints)) = 1.0.2
 Provides: bundled(npm(has-property-descriptors)) = 1.0.0
+Provides: bundled(npm(has-proto)) = 1.0.1
 Provides: bundled(npm(has-symbols)) = 1.0.3
 Provides: bundled(npm(has-tostringtag)) = 1.0.0
 Provides: bundled(npm(has)) = 1.0.3
@@ -490,7 +491,7 @@ Provides: bundled(npm(sprintf-js)) = 1.0.3
 Provides: bundled(npm(stop-iteration-iterator)) = 1.0.0
 Provides: bundled(npm(tabbable)) = 6.1.2
 Provides: bundled(npm(throttle-debounce)) = 2.3.0
-Provides: bundled(npm(tslib)) = 2.5.0
+Provides: bundled(npm(tslib)) = 2.5.2
 Provides: bundled(npm(uuid)) = 7.0.3
 Provides: bundled(npm(which-boxed-primitive)) = 1.0.2
 Provides: bundled(npm(which-collection)) = 1.0.1
@@ -780,6 +781,9 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Jun 01 2023 Packit <hello@packit.dev> - 293-1
+- Tests and code quality improvements
+
 * Tue May 16 2023 Packit <hello@packit.dev> - 292-1
 - Metrics: Add disk IO per service
 - Several right-to-left language fixes

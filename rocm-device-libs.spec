@@ -5,7 +5,7 @@
 # If you bump LLVM, please reset bugfix_version to 0; I fork upstream sources,
 # but I prepare the initial *.0 tag long before Fedora/EL picks up new LLVM.
 # An LLVM update will require uploading new sources, contact mystro256 if FTBFS.
-%global bugfix_version 1
+%global bugfix_version 2
 %global upstreamname ROCm-Device-Libs
 
 Name:           rocm-device-libs
@@ -18,9 +18,6 @@ License:        NCSA
 # I fork upstream sources because they don't target stable LLVM, but rather the
 # bleeding edge LLVM branch. My fork is a snapshot with bugfixes backported:
 Source0:        https://github.com/mystro256/%{upstreamname}/archive/refs/tags/%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-# Upstream is working on a solution, patch is adapted from debian:
-#https://salsa.debian.org/rocm-team/rocm-device-libs/-/blob/master/debian/patches/cmake-amdgcn-bitcode.patch
-Patch0:         0001-Use-FHS-compliant-install.patch
 
 BuildRequires:  cmake
 BuildRequires:  clang-devel
@@ -28,6 +25,7 @@ BuildRequires:  clang(major) = %{llvm_maj_ver}
 BuildRequires:  llvm-devel(major) = %{llvm_maj_ver}
 BuildRequires:  zlib-devel
 Requires:       clang(major) = %{llvm_maj_ver}
+Requires:       clang-resource-filesystem
 
 #Only the following architectures are useful for ROCm packages:
 ExclusiveArch:  x86_64 aarch64 ppc64le
@@ -58,9 +56,12 @@ libraries in the form of bit code. Specifically:
 # No need to install this twice:
 %exclude %{_docdir}/ROCm-Device-Libs/LICENSE.TXT
 %{_libdir}/cmake/AMDDeviceLibs
-%{_libdir}/amdgcn
+%{_libdir}/clang/%{llvm_maj_ver}/amdgcn
 
 %changelog
+* Thu Jun 01 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 16.2-1
+- Update to 16.2
+
 * Wed Apr 19 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 16.1-1
 - Update to 16.1
 

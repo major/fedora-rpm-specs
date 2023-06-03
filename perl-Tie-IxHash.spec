@@ -7,10 +7,10 @@
 
 Name:           perl-Tie-IxHash
 Version:        1.23
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Ordered associative arrays for Perl
 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Tie-IxHash
 Source0:        https://cpan.metacpan.org/authors/id/C/CH/CHORNY/Tie-IxHash-%{version}.tar.gz
 
@@ -74,6 +74,9 @@ make test
 
 
 %changelog
+* Thu Jun 01 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.23-35
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.23-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

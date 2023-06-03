@@ -1,9 +1,11 @@
 Name:		libnfs
 Version:	5.0.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Client library for accessing NFS shares over a network
-# The library is licensed as LGPLv2+, the protocol definition is BSD
-License:	LGPLv2+ and BSD
+# The library is licensed as LGPL-2.1-or-later
+# The protocol definition is BSD-2-Clause
+# The utility and examples are GPL-3.0-or-later
+License:	LGPL-2.1-or-later AND BSD-2-Clause AND GPL-3.0-or-later
 URL:		https://github.com/sahlberg/libnfs
 Source0:	%{url}/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
 
@@ -24,7 +26,7 @@ functions.
 Summary:	Development files for libnfs
 # The library is licensed as LGPLv2+, the protocol definition is BSD
 # and the example source code is GPLv3+.
-License:	LGPLv2+ and BSD and GPLv3+
+License:	LGPL-2.1-or-later AND BSD-2-Clause AND GPL-3.0-or-later
 
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
@@ -35,7 +37,7 @@ developing applications that use libnfs.
 
 %package utils
 Summary:	Utilities for accessing NFS servers
-License:	GPLv3+
+License:	GPL-3.0-or-later
 
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
@@ -79,6 +81,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_mandir}/man1/nfs-*.1*
 
 %changelog
+* Thu Jun 01 2023 Xavier Bachelot <xavier@bachelot.org> - 5.0.2-2
+- Convert License: to SPDX
+
 * Mon Jan 30 2023 Xavier Bachelot <xavier@bachelot.org> - 5.0.2-1
 - Update to 5.0.2 (RHBZ#2047688)
 

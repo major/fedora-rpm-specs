@@ -2,10 +2,11 @@ Summary:	Hashes (and objects based on hashes) with encrypting fields
 Name:		perl-Tie-EncryptedHash
 Version:	1.24
 Release:	40%{?dist}
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Tie-EncryptedHash
 Source0:	https://cpan.metacpan.org/modules/by-module/Tie/Tie-EncryptedHash-%{version}.tar.gz
 BuildArch:	noarch
+# Build
 BuildRequires:	coreutils
 BuildRequires:	findutils
 BuildRequires:	make

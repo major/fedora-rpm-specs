@@ -73,14 +73,11 @@
 # Define %%bash_completions_dir for EL <= 9
 %{?!bash_completions_dir:%global bash_completions_dir %{_datadir}/bash-completion/completions}
 
-# Adjust Source URL path for release candidates
-%global rcpath  %(test "%{version}" = "%{real_version}" || echo testing/)
-
 # Set path to the package-notes linker script
 %global _package_note_file  %{_builddir}/%{name}-%{real_version}/.package_note-%{name}-%{version}-%{release}.%{_arch}.ld
 
 Name:           git
-Version:        2.41.0~rc2
+Version:        2.41.0
 Release:        1%{?dist}
 Summary:        Fast Version Control System
 License:        BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
@@ -88,6 +85,10 @@ URL:            https://git-scm.com/
 
 # Note: real_version must be defined _after_ Version
 %global real_version %(echo %{version} | tr '~' '.')
+
+# Adjust Source URL path for release candidates
+%global rcpath  %(test "%{version}" = "%{real_version}" || echo testing/)
+
 Source0:        https://www.kernel.org/pub/software/scm/git/%{rcpath}%{name}-%{real_version}.tar.xz
 Source1:        https://www.kernel.org/pub/software/scm/git/%{rcpath}%{name}-%{real_version}.tar.sign
 
@@ -1038,6 +1039,9 @@ rmdir --ignore-fail-on-non-empty "$testdir"
 %{?with_docs:%{_pkgdocdir}/git-svn.html}
 
 %changelog
+* Thu Jun 01 2023 Todd Zullinger <tmz@pobox.com> - 2.41.0-1
+- update to 2.41.0
+
 * Wed May 24 2023 Todd Zullinger <tmz@pobox.com> - 2.41.0~rc2-1
 - update to 2.41.0-rc2
 

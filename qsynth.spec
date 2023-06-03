@@ -1,6 +1,6 @@
 Summary:       Qt based Fluidsynth GUI front end
 Name:          qsynth
-Version:       0.9.10
+Version:       0.9.11
 Release:       1%{?dist}
 URL:           http://qsynth.sourceforge.net
 Source0:       http://downloads.sourceforge.net/qsynth/%{name}-%{version}.tar.gz
@@ -71,6 +71,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.rncbc
 
 
 %changelog
+* Thu Jun 01 2023 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 0.9.11-1
+- Update to version 0.9.11
+
 * Fri Mar 24 2023 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 0.9.10-1
 - Update to version 0.9.10
 

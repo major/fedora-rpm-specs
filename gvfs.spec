@@ -22,7 +22,7 @@
 
 Name:    gvfs
 Version: 1.50.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Backends for the gio framework in GLib
 
 License: GPLv3 and LGPLv2+ and BSD and MPLv2.0
@@ -421,6 +421,9 @@ killall -USR1 gvfsd >&/dev/null || :
 %{_datadir}/installed-tests
 
 %changelog
+* Thu Jun 01 2023 David King <amigadave@amigadave.com> - 1.50.4-2
+- Rebuilt against libnfs
+
 * Sat Mar 18 2023 David King <amigadave@amigadave.com> - 1.50.4-1
 - Update to 1.50.4
 

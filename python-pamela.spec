@@ -1,8 +1,8 @@
 %global srcname pamela
 
 Name:           python-%{srcname}
-Version:        0.3.0
-Release:        21%{?dist}
+Version:        1.1.0
+Release:        1%{?dist}
 Summary:        Python PAM interface
 
 License:        MIT
@@ -46,6 +46,9 @@ py.test-%{python3_version} -v
 
 
 %changelog
+* Fri Jun 02 2023 Orion Poplawski <orion@nwra.com> - 1.1.0-1
+- Update to 1.1.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -19,31 +19,29 @@
 
 # Bundled Fonts
 #
-# EL7 version (4.1.0) is missing some icons
-%global unbundle_fontawesome       0%{?fedora}
+# Fontawesome 6.4 is only available in F39+
+%global unbundle_fontawesome       0%{?fc39}
 # Not available for EL
-%global unbundle_raleway           0%{?fedora}
-#
-%global unbundle_foundation_icons  0%{?fedora}%{?el7}
+%global unbundle_raleway           0
 
 # Bundled javascripts
 #
 # Not available
 %global unbundle_foundation        0
 # Not available for EL
-%global unbundle_html5shiv         0%{?f32}
+%global unbundle_html5shiv         0
 # Not available for EL7
-%global unbundle_jquery            0%{?fedora}%{?el8}
+%global unbundle_jquery            0%{?fedora}%{?el8}%{?el9}
 # Available version is too old
 %global unbundle_jquery_migrate    0
 # Not available
 %global unbundle_jquery_minicolors 0
 #
-%global unbundle_jquery_ui         0%{?fedora}%{?el7}%{?el8}
+%global unbundle_jquery_ui         0%{?fedora}%{?el7}%{?el8}%{?el9}
 # Only available for Fedora
-%global unbundle_jqplot            0%{?f32}
+%global unbundle_jqplot            0
 #
-%global unbundle_respond           0%{?f32}%{?el7}
+%global unbundle_respond           0%{?el7}
 
 # Licenses
 # Sympa itself is GPLv2+.
@@ -64,19 +62,19 @@
 %global licenses_bundled     %{nil} 
 # OFL and MIT
 %if ! %{unbundle_fontawesome}
-%global licenses_bundled %{licenses_bundled} and (OFL and MIT)
+%global licenses_bundled %{licenses_bundled} AND (OFL-1.1-RFN AND MIT)
 %endif
 # OFL
 %if ! %{unbundle_raleway}
-%global licenses_bundled %{licenses_bundled} and OFL
+%global licenses_bundled %{licenses_bundled} AND OFL-1.1-RFN
 %endif
 # MIT
-%if ! %{unbundle_foundation_icons} || ! %{unbundle_foundation} || ! %{unbundle_jquery} || ! %{unbundle_jquery_migrate} || ! %{unbundle_jquery_minicolors} || ! %{unbundle_jquery_ui} || ! %{unbundle_respond}
-%global licenses_bundled %{licenses_bundled} and MIT
+%if ! %{unbundle_foundation} || ! %{unbundle_jquery} || ! %{unbundle_jquery_migrate} || ! %{unbundle_jquery_minicolors} || ! %{unbundle_jquery_ui} || ! %{unbundle_respond}
+%global licenses_bundled %{licenses_bundled} AND MIT
 %endif
 # MIT or GPLv2
 %if ! %{unbundle_html5shiv} || ! %{unbundle_jqplot}
-%global licenses_bundled %{licenses_bundled} and (MIT or GPLv2)
+%global licenses_bundled %{licenses_bundled} and (MIT OR GPL-2.0-only)
 %endif
 
 %global static_content %{_datadir}/sympa/static_content
@@ -84,13 +82,13 @@
 #global pre_rel b.2
 
 Name:        sympa
-Version:     6.2.70
-Release:     %{?pre_rel:0.}2%{?pre_rel:.%pre_rel}%{?dist}.1
+Version:     6.2.72
+Release:     %{?pre_rel:0.}2%{?pre_rel:.%pre_rel}%{?dist}
 Summary:     Powerful multilingual List Manager
 Summary(fr): Gestionnaire de listes électroniques
 Summary(ja): 高機能で多言語対応のメーリングリスト管理ソフトウェア
 # The License: tag depends on bundled code for a given distro/release
-License:     GPLv2+%{licenses_bundled}
+License:     GPL-2.0-or-later%{licenses_bundled}
 URL:         http://www.sympa.org
 Source0:     https://github.com/sympa-community/sympa/releases/download/%{version}%{?pre_rel}/%{name}-%{version}%{?pre_rel}.tar.gz
 
@@ -260,22 +258,16 @@ Requires:    perl(Unicode::UTF8)
 
 # Bundled fonts
 %if %{unbundle_fontawesome}
-BuildRequires: fontawesome-fonts-web >= 4.3.0
-Requires:      fontawesome-fonts-web >= 4.3.0
+BuildRequires: fontawesome-fonts-web >= 6.4.0
+Requires:      fontawesome-fonts-web >= 6.4.0
 %else
-Provides:      bundled(fontawesome-fonts) = 4.3.0
+Provides:      bundled(fontawesome-fonts) = 6.4.0
 %endif
 %if %{unbundle_raleway}
 BuildRequires: impallari-raleway-fonts >= 3.0
 Requires:      impallari-raleway-fonts >= 3.0
 %else
 Provides:      bundled(impallari-raleway-fonts) = 3.0
-%endif
-%if %{unbundle_foundation_icons}
-BuildRequires: foundation-icons-fonts >= 3.0
-Requires:      foundation-icons-fonts >= 3.0
-%else
-Provides:      bundled(foundation-icons-fonts) = 3.0
 %endif
 
 # Bundled javascript libs
@@ -316,10 +308,10 @@ Provides:      bundled(js-jquery-migrate) = 1.4.1
 %endif
 # jquery-minicolors
 %if %{unbundle_jquery_minicolors}
-BuildRequires: js-jquery-minicolors >= 2.3.1
-Requires:      js-jquery-minicolors >= 2.3.1
+BuildRequires: js-jquery-minicolors >= 2.3.6
+Requires:      js-jquery-minicolors >= 2.3.6
 %else
-Provides:      bundled(js-jquery-minicolors) = 2.3.1
+Provides:      bundled(js-jquery-minicolors) = 2.3.6
 %endif
 # jquery-ui
 %if %{unbundle_jquery_ui}
@@ -426,7 +418,7 @@ Sympa documentation for developers.
 
 %prep
 %setup -q -n %{name}-%{version}%{?pre_rel}
-%patch13 -p0 -b .confdef
+%patch -P13 -p0 -b .confdef
 
 
 %build
@@ -474,22 +466,14 @@ pushd po/web_help; rm -f stamp-po; make; popd
 # Unbundle fonts from static_content/fonts
 # font-awesome
 %if %{unbundle_fontawesome}
-%unbundle_from_with %{static_content}/fonts/font-awesome/fonts %{_datadir}/fonts/fontawesome
-%unbundle_from_with %{static_content}/fonts/font-awesome/css %{_datadir}/font-awesome-web/css
+%unbundle_from_with %{static_content}/fonts/font-awesome/webfonts %{_datadir}/fontawesome/webfonts
+%unbundle_from_with %{static_content}/fonts/font-awesome/css %{_datadir}/fontawesome/css
 %endif
 
 # Raleway
 %if %{unbundle_raleway}
 rm -f %{buildroot}%{static_content}/fonts/Raleway/OFL.txt
 %unbundle_from_with %{static_content}/fonts/Raleway %{_datadir}/fonts/impallari-raleway
-%endif
-
-# foundation-icons
-%if %{unbundle_foundation_icons}
-rm -f %{buildroot}%{_datadir}/fonts/foundation-icons/preview.html
-rm -f %{buildroot}%{_datadir}/fonts/foundation-icons/foundation-icons.{eot,svg,woff}
-rm -rf %{buildroot}%{_datadir}/fonts/foundation-icons/svgs
-%unbundle_from_with %{static_content}/fonts/foundation-icons %{_datadir}/fonts/foundation-icons
 %endif
 
 # Unbundle javascript libraries from static_content/js
@@ -877,6 +861,10 @@ fi
 
 
 %changelog
+* Thu Jun 01 2023 Xavier Bachelot <xavier@bachelot.org> 6.2.72-1
+- Update to 6.2.72 (fixes CVE-2021-4243)
+- Convert License: to SPDX
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.70-2.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

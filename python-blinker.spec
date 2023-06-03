@@ -1,18 +1,21 @@
 %global mod_name blinker
 
 Name:           python-blinker
-Version:        1.5
-Release:        2%{?dist}
+Version:        1.6.2
+Release:        1%{?dist}
 Summary:        Fast, simple object-to-object and broadcast signaling
 
 License:        MIT
-URL:            https://pythonhosted.org/blinker/
-Source0:        %{pypi_source blinker}
+URL:            https://github.com/pallets-eco/blinker
+Source0:        %{url}/archive/%{version}/%{mod_name}-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  pytest
+
+# Tests
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(tox)
+BuildRequires:  python3dist(tox-current-env)
 
 %global _description\
 Blinker provides a fast dispatching system that allows any number\
@@ -29,25 +32,31 @@ Blinker provides a fast dispatching system that allows any number
 of interested parties to subscribe to events, or "signals".
 
 %prep
-%setup -q -n %{mod_name}-%{version}
+%autosetup -n %{mod_name}-%{version}
 
+%generate_buildrequires
+# requirements in tests.txt are way too tight
+%pyproject_buildrequires requirements/tests.in
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{mod_name}
 
 %check
-%pytest
+%tox
 
-%files -n python3-blinker
-%doc docs/ CHANGES.rst LICENSE.rst README.rst PKG-INFO
-%{python3_sitelib}/*.egg-info
-%{python3_sitelib}/%{mod_name}
+%files -n python3-blinker -f %{pyproject_files}
+%doc CHANGES.rst LICENSE.rst README.rst
 
 
 %changelog
+* Wed May 10 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.6.2-1
+- Bump to blinker 1.6.2 (fixes RHBZ#2183824 )
+- Convert spec to pyproject
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

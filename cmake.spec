@@ -76,7 +76,7 @@
 %endif
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 3
+%global baserelease 4
 
 # Uncomment if building for EPEL
 #global name_suffix %%{major_version}
@@ -120,6 +120,13 @@ Patch102:       %{name}-mingw-dl.patch
 %if 0%{?name_suffix:1}
 Patch1:         %{name}-rename.patch
 %endif
+
+# Backported from upstream.
+Patch10001:     0001-Sphinx-Specify-encoding-when-opening-files-for-title.patch
+Patch10002:     0002-Sphinx-Modernize-UTF-8-encoding-handling-when-updati.patch
+Patch10003:     0003-Tests-Always-load-presets-schema-as-UTF-8.patch
+Patch10004:     0004-CMakeDetermineCompilerABI-Avoid-removing-the-flag-af.patch
+Patch10005:     0005-FindBoost-Add-support-for-Boost-1.82.patch
 
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -539,6 +546,9 @@ popd
 
 
 %changelog
+* Thu Jun 01 2023 Björn Esser <besser82@fedoraproject.org> - 3.26.4-4
+- Backport several bugfixes and support for Boost v1.82 from upstream
+
 * Sat May 27 2023 Björn Esser <besser82@fedoraproject.org> - 3.26.4-3
 - Rename macros.cmake -> macros.cmake.in
 - macros: Fix formatting and indentation

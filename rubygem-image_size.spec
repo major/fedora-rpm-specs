@@ -1,8 +1,8 @@
 %global	gem_name	image_size
 
 Name:		rubygem-%{gem_name}
-Version:	3.2.0
-Release:	2%{?dist}
+Version:	3.3.0
+Release:	1%{?dist}
 
 Summary:	Measure image size using pure Ruby
 # SPDX confirmed
@@ -19,7 +19,7 @@ BuildRequires:	rubygem(webrick)
 BuildArch:		noarch
 
 %description
-Measure following file dimensions: apng, bmp, cur, emf, gif, ico, j2c, jp2,
+Measure following file dimensions: apng, bmp, cur, emf, gif, heic, heif, ico, j2c, jp2,
 jpeg, jpx, mng, pam, pbm, pcx, pgm, png, ppm, psd, svg, swf, tiff, webp, xbm,
 xpm.
 
@@ -84,6 +84,9 @@ popd
 %doc	%{gem_instdir}/CHANGELOG.markdown
 
 %changelog
+* Thu Jun  1 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.3.0-1
+- 3.3.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

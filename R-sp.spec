@@ -1,5 +1,5 @@
 %global packname sp
-%global packver  1.5-0
+%global packver  1.6-1
 %global rlibdir  %{_libdir}/R/library
 
 %global __suggests_exclude ^R\\((gstat|maptools)\\)
@@ -10,18 +10,18 @@
 %global with_loop 0
 
 Name:             R-%{packname}
-Version:          1.5.0
-Release:          3%{?dist}
+Version:          1.6.1
+Release:          1%{?dist}
 Summary:          Classes and Methods for Spatial Data
 
-License:          GPLv2+
+License:          GPL-2.0-or-later
 URL:              https://CRAN.R-project.org/package=%{packname}
 Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.tar.gz
 
 # Here's the R view of the dependencies world:
 # Depends:   R-methods
 # Imports:   R-utils, R-stats, R-graphics, R-grDevices, R-lattice, R-grid
-# Suggests:  R-RColorBrewer, R-rgdal >= 1.2-3, R-rgeos >= 0.3-13, R-gstat, R-maptools, R-deldir
+# Suggests:  R-RColorBrewer, R-rgdal >= 1.2-3, R-rgeos >= 0.3-13, R-gstat, R-maptools, R-deldir, R-knitr, R-rmarkdown, R-sf, R-terra, R-raster
 # LinkingTo:
 # Enhances:
 
@@ -42,6 +42,8 @@ BuildRequires:    R-deldir
 BuildRequires:    R-knitr
 BuildRequires:    R-rmarkdown
 BuildRequires:    R-sf
+BuildRequires:    R-terra
+BuildRequires:    R-raster
 %if 0%{with_loop}
 BuildRequires:    R-rgeos >= 0.3.13
 %endif
@@ -114,6 +116,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 \
 
 
 %changelog
+* Thu Jun  1 2023 Tom Callaway <spot@fedoraproject.org> - 1.6.1-1
+- update to 1.6-1
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.5.0-3
 - R-maint-sig mass rebuild
 

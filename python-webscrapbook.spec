@@ -2,56 +2,77 @@
 %global pypi_name webscrapbook
 
 Name:           python-%{pypi_name}
-Version:        1.1.0
-Release:        5%{?dist}
+Version:        1.15.0
+Release:        1%{?dist}
 Summary:        A backend toolkit for management of WebScrapBook collection
 
 License:        MIT
 URL:            https://github.com/danny0838/PyWebScrapBook
 Source0:        https://github.com/danny0838/PyWebScrapBook/archive/%{version}.tar.gz#/PyWebScrapBook-%{version}.tar.gz
-BuildArch:      noarch
- 
-BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}dist(setuptools)
 
-%global _description\
-PyWebScrapBook is a command line toolkit and backend server for the\
-WebScrapBook browser extension.\
-\
-Features: Host any directory as a website; HTZ or MAFF archive file viewing;\
-Markdown file rendering; Directory listing; Create, view, edit, and/or delete\
-files via the web page or API; HTTP(S) authorization.
+# Failing tests; reported upstream:
+#  https://github.com/danny0838/PyWebScrapBook/issues/67
+#  https://github.com/danny0838/PyWebScrapBook/pull/68
+#  https://github.com/danny0838/PyWebScrapBook/issues/69
+Patch0:         python-webscrapbook-1.15-fix-tests.patch
+
+# Downstream Fedora patch to comply with packaging guidelines
+Patch100:       python-webscrapbook-1.15-disable-linters.patch
+
+BuildArch:      noarch
+BuildRequires:  python3-devel
+
+
+%global _description %{expand:
+PyWebScrapBook is a command line toolkit and backend server for the
+WebScrapBook browser extension.
+
+Features: Host any directory as a website; HTZ or MAFF archive file viewing;
+Markdown file rendering; Directory listing; Create, view, edit, and/or delete
+files via the web page or API; HTTP(S) authorization.}
 
 %description %_description
 
-%package -n     python%{python3_pkgversion}-%{pypi_name}
+%package -n     python3-%{pypi_name}
 Summary:        %{summary}
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
-Recommends:     python%{python3_pkgversion}dist(%{pypi_name}[adhoc_ssl])
+Recommends:     python3-%{pypi_name}+adhoc_ssl
  
-%description -n python%{python3_pkgversion}-%{pypi_name} %_description
+%description -n python3-%{pypi_name} %_description
 
-%{?python_extras_subpkg:%python_extras_subpkg -n python%{python3_pkgversion}-%{pypi_name} -i %{python3_sitelib}/*.egg-info adhoc_ssl}
+%pyproject_extras_subpkg -n python3-%{pypi_name} adhoc_ssl
+
 
 %prep
-%autosetup -n PyWebScrapBook-%{version}
+%autosetup -p1 -n PyWebScrapBook-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires -t
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
-%files -n python%{python3_pkgversion}-%{pypi_name}
-%license LICENSE.txt
+%pyproject_save_files webscrapbook
+
+%check
+%tox
+
+
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md
 %{_bindir}/webscrapbook
 %{_bindir}/wsb
 %{_bindir}/wsbview
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed May 31 2023 FeRD (Frank Dana) <ferdnyc@gmail.com> - 1.15.0-1
+- New upstream release
+- Convert spec file to pyproject_* RPM macros
+- Actually use automatic build dependency generator
+- Enable tests
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

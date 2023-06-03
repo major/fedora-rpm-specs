@@ -3,7 +3,7 @@
 Summary: Dynamic analysis tools to detect memory or thread bugs and profile
 Name: %{?scl_prefix}valgrind
 Version: 3.21.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Epoch: 1
 License: GPLv2+
 URL: https://www.valgrind.org/
@@ -94,6 +94,14 @@ Patch6: valgrind-3.21.0-Add-with-gdbscripts-dir.patch
 # Add epoll_pwait2
 # https://bugs.kde.org/show_bug.cgi?id=460192
 Patch7: valgrind-3.21.0-epoll_pwait2.patch
+
+# Can't run callgrind_control with valgrind 3.21.0 because of perl errors
+# https://bugs.kde.org/show_bug.cgi?id=470121
+Patch8: valgrind-3.21.0-callgrind_control-no-strict.patch
+
+# Multiple realloc zero errors crash in MC_(eq_Error)
+# https://bugs.kde.org/show_bug.cgi?id=470520
+Patch9: valgrind-3.21.0-realloc-again.patch
 
 BuildRequires: make
 BuildRequires: glibc-devel
@@ -235,6 +243,8 @@ Valgrind User Manual for details.
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
+%patch8 -p1
+%patch9 -p1
 
 
 %build
@@ -468,6 +478,10 @@ fi
 %endif
 
 %changelog
+* Thu Jun  1 2023 Mark Wielaard <mjw@fedoraproject.org> - 3.21.0-6
+- Add valgrind-3.21.0-callgrind_control-no-strict.patch
+- Add valgrind-3.21.0-realloc-again.patch
+
 * Tue May 30 2023 Mark Wielaard <mjw@fedoraproject.org> - 3.21.0-5
 - Update valgrind-3.21.0-no-memcpy-replace-check.patch (memcpy_chk)
 

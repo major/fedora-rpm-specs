@@ -2,10 +2,10 @@
 %{!?_httpd_mmn: %global _httpd_mmn %(cat %{_includedir}/httpd/.mmn 2>/dev/null || echo 0-0)}
 
 Name:		mod_http2
-Version:	2.0.14
+Version:	2.0.18
 Release:	1%{?dist}
 Summary:	module implementing HTTP/2 for Apache 2
-License:	ASL 2.0
+License:	Apache-2.0
 URL:		https://icing.github.io/mod_h2/
 Source0:	https://github.com/icing/mod_h2/releases/download/v%{version}/mod_http2-%{version}.tar.gz
 BuildRequires:  make
@@ -47,6 +47,10 @@ echo "LoadModule proxy_http2_module modules/mod_proxy_http2.so" > %{buildroot}%{
 %{_httpd_moddir}/mod_proxy_http2.so
 
 %changelog
+* Thu Jun 01 2023 Luboš Uhliarik <luhliari@redhat.com> - 2.0.18-1
+- new version 2.0.18
+- SPDX migration
+
 * Wed Apr 12 2023 Luboš Uhliarik <luhliari@redhat.com> - 2.0.14-1
 - new version 2.0.14
 

@@ -1,6 +1,6 @@
 Name: eth-tools
 Version: 11.5.0.0
-Release: 125%{?dist}
+Release: 173%{?dist}
 Summary: Intel Ethernet Fabric Suite basic tools and libraries for fabric management
 
 License: BSD
@@ -33,8 +33,9 @@ Contains basic tools for fabric management necessary on all compute nodes.
 
 %package fastfabric
 Summary: Management level tools and scripts
-Requires: perl
 Requires: eth-tools-basic%{?_isa} >= %{version}-%{release}
+
+BuildRequires: perl-generators
 
 %description fastfabric
 Contains tools for managing fabric on a management node.
@@ -93,6 +94,16 @@ BUILDDIR=%{_builddir} DESTDIR=%{buildroot} LIBDIR=%{_prefix}/lib DSAP_LIBDIR=%{_
 %config(noreplace) /usr/lib/eth-tools/osid_wrapper
 
 %changelog
+* Thu Jun 01 2023 Jijun Wang <jijun.wang@intel.com> - 11.5.0.0-173
+- Changed FastFabric package build to use dynamically generated
+  perl dependencies for RedHat family OSes
+- Fixed build issue caused by EXPORT_ALL_VARIABLES on Fedora 38
+
+* Wed May 31 2023 Jijun Wang <jijun.wang@intel.com> - 11.5.0.0-167
+- Improved to support RHEL 8.8 and 9.2
+- Improved dsa_setup to support shared workqueue
+- Cleaned OS detection code
+
 * Wed May 31 2023 Jijun Wang <jijun.wang@intel.com> - 11.5.0.0-125
 - Added build support on OpenCloud and Oracle Linux OSes
 - Improved ethcapture to use journalctl if rsyslog not installed

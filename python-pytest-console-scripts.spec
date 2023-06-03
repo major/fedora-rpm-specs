@@ -1,7 +1,8 @@
 Name:           python-pytest-console-scripts
-Version:        1.4.0
+Version:        1.4.1
 Release:        %autorelease
 Summary:        Pytest plugin for testing console scripts
+# SPDX
 License:        MIT
 URL:            https://github.com/kvas-it/pytest-console-scripts
 Source:         %{pypi_source pytest-console-scripts}

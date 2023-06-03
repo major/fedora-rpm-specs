@@ -4,14 +4,16 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2158587
 %undefine _include_frame_pointers
 
-%global libcxx_version 16.0.4
+%global maj_ver 16
+%global libcxx_version %{maj_ver}.0.4
 #global rc_ver 4
 %global libcxx_srcdir libcxx-%{libcxx_version}%{?rc_ver:rc%{rc_ver}}.src
 %global libcxxabi_srcdir libcxxabi-%{libcxx_version}%{?rc_ver:rc%{rc_ver}}.src
+%global libunwind_srcdir libunwind-%{libcxx_version}%{?rc_ver:rc%{rc_ver}}.src
 
 Name:		libcxx
 Version:	%{libcxx_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	C++ standard library targeting C++11
 License:	Apache-2.0 WITH LLVM-exception OR MIT OR NCSA
 URL:		http://libcxx.llvm.org/
@@ -19,12 +21,19 @@ Source0:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libcxx
 Source1:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libcxx_version}%{?rc_ver:-rc%{rc_ver}}/%{libcxx_srcdir}.tar.xz.sig
 Source2:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libcxx_version}%{?rc_ver:-rc%{rc_ver}}/%{libcxxabi_srcdir}.tar.xz
 Source3:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libcxx_version}%{?rc_ver:-rc%{rc_ver}}/%{libcxxabi_srcdir}.tar.xz.sig
-Source4:	release-keys.asc
-Source5:	CMakeLists.txt
+Source4:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libcxx_version}%{?rc_ver:-rc%{rc_ver}}/%{libunwind_srcdir}.tar.xz
+Source5:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libcxx_version}%{?rc_ver:-rc%{rc_ver}}/%{libunwind_srcdir}.tar.xz.sig
+Source6:	release-keys.asc
+Source7:	CMakeLists.txt
+
+Patch0: standalone.patch
 
 BuildRequires:	clang llvm-devel cmake ninja-build
 # We need python3-devel for %%py3_shebang_fix
 BuildRequires:  python3-devel
+
+# For documentation
+BuildRequires:  python3-sphinx
 
 # For origin certification
 BuildRequires:	gnupg2
@@ -74,22 +83,61 @@ Summary:	Static libraries for libcxxabi
 %description -n libcxxabi-static
 %{summary}.
 
+%package -n llvm-libunwind
+Summary:    LLVM libunwind
+
+%description -n llvm-libunwind
+
+LLVM libunwind is an implementation of the interface defined by the HP libunwind
+project. It was contributed Apple as a way to enable clang++ to port to
+platforms that do not have a system unwinder. It is intended to be a small and
+fast implementation of the ABI, leaving off some features of HP's libunwind
+that never materialized (e.g. remote unwinding).
+
+%package -n llvm-libunwind-devel
+Summary:    LLVM libunwind development files
+Provides:   libunwind(major) = %{maj_ver}
+Requires:   llvm-libunwind%{?_isa} = %{version}-%{release}
+
+%description -n llvm-libunwind-devel
+Unversioned shared library for LLVM libunwind
+
+%package -n llvm-libunwind-static
+Summary: Static library for LLVM libunwind
+
+%description -n llvm-libunwind-static
+%{summary}.
+
+%package -n llvm-libunwind-doc
+Summary:    libunwind documentation
+# jquery.js and langage_data.js are used in the HTML doc and under BSD License
+License:    BSD AND (Apache-2.0 WITH LLVM-exception OR NCSA OR MIT)
+
+%description -n llvm-libunwind-doc
+Documentation for LLVM libunwind
+
 %prep
-%{gpgverify} --keyring='%{SOURCE4}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%{gpgverify} --keyring='%{SOURCE4}' --signature='%{SOURCE3}' --data='%{SOURCE2}'
+%{gpgverify} --keyring='%{SOURCE6}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{gpgverify} --keyring='%{SOURCE6}' --signature='%{SOURCE3}' --data='%{SOURCE2}'
+%{gpgverify} --keyring='%{SOURCE6}' --signature='%{SOURCE5}' --data='%{SOURCE4}'
 
 %setup -T -q -b 0 -n %{libcxx_srcdir}
 %setup -T -q -b 2 -n %{libcxxabi_srcdir}
+%setup -T -q -b 4 -n %{libunwind_srcdir}
 %setup -T -c -n build
 
-cp %{SOURCE5} .
+cp %{SOURCE7} .
 mv ../%{libcxx_srcdir} libcxx
 mv ../%{libcxxabi_srcdir} libcxxabi
+mv ../%{libunwind_srcdir} libunwind
 %autopatch -p1
 
 %py3_shebang_fix libcxx/utils/
 
 %build
+
+# Copy CFLAGS into ASMFLAGS, so -fcf-protection is used when compiling assembly files.
+export ASMFLAGS=$CFLAGS
 
 %cmake -GNinja \
 	-DCMAKE_BUILD_TYPE=RelWithDebInfo \
@@ -98,16 +146,39 @@ mv ../%{libcxxabi_srcdir} libcxxabi
 %if 0%{?__isa_bits} == 64
 	-DLIBCXX_LIBDIR_SUFFIX:STRING=64 \
 	-DLIBCXXABI_LIBDIR_SUFFIX:STRING=64 \
+	-DLIBUNWIND_LIBDIR_SUFFIX:STRING=64 \
 %endif
 	-DLIBCXX_INCLUDE_BENCHMARKS=OFF \
 	-DLIBCXX_STATICALLY_LINK_ABI_IN_STATIC_LIBRARY=ON \
-	-DLIBCXX_ENABLE_ABI_LINKER_SCRIPT=ON
+	-DLIBCXX_ENABLE_ABI_LINKER_SCRIPT=ON \
+	-DLLVM_BUILD_DOCS=ON \
+	-DLLVM_ENABLE_SPHINX=ON \
+	-DLIBUNWIND_INCLUDE_DOCS=ON \
+	-DLIBUNWIND_INSTALL_INCLUDE_DIR=%{_includedir}/llvm-libunwind \
+	-DLIBUNWIND_INSTALL_SPHINX_HTML_DIR=%{_pkgdocdir}/html
 
 %cmake_build
 
 %install
 
 %cmake_install
+
+# We can't install the unversionned path on default location because that would conflict with
+# https://src.fedoraproject.org/rpms/libunwind
+#
+# The versionned path has a different soname (libunwind.so.1 compared to
+# libunwind.so.8) so they can live together in %{_libdir}
+#
+# ABI wise, even though llvm-libunwind's library is named libunwind, it doesn't
+# have the exact same ABI as gcc's libunwind (it actually provides a subset).
+rm %{buildroot}%{_libdir}/libunwind.so
+mkdir -p %{buildroot}/%{_libdir}/llvm-unwind/
+
+pushd %{buildroot}/%{_libdir}/llvm-unwind
+ln -s ../libunwind.so.1.0 libunwind.so
+popd
+
+rm %{buildroot}%{_pkgdocdir}/html/.buildinfo
 
 %ldconfig_scriptlets
 
@@ -140,7 +211,34 @@ mv ../%{libcxxabi_srcdir} libcxxabi
 %files -n libcxxabi-static
 %{_libdir}/libc++abi.a
 
+%files -n llvm-libunwind
+%license libunwind/LICENSE.TXT
+%{_libdir}/libunwind.so.1
+%{_libdir}/libunwind.so.1.0
+
+%files -n llvm-libunwind-devel
+%{_includedir}/llvm-libunwind/__libunwind_config.h
+%{_includedir}/llvm-libunwind/libunwind.h
+%{_includedir}/llvm-libunwind/libunwind.modulemap
+%{_includedir}/llvm-libunwind/mach-o/compact_unwind_encoding.h
+%{_includedir}/llvm-libunwind/mach-o/compact_unwind_encoding.modulemap
+%{_includedir}/llvm-libunwind/unwind.h
+%{_includedir}/llvm-libunwind/unwind_arm_ehabi.h
+%{_includedir}/llvm-libunwind/unwind_itanium.h
+%dir %{_libdir}/llvm-unwind
+%{_libdir}/llvm-unwind/libunwind.so
+
+%files -n llvm-libunwind-static
+%{_libdir}/libunwind.a
+
+%files -n llvm-libunwind-doc
+%license libunwind/LICENSE.TXT
+%doc %{_pkgdocdir}/html
+
 %changelog
+* Tue May 30 2023 Nikita Popov <npopov@redhat.com> - 16.0.4-2
+- Merge llvm-libunwind srpm into libcxx
+
 * Fri May 19 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.4-1
 - Update to LLVM 16.0.4
 

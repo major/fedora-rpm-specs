@@ -1,8 +1,8 @@
-%global ntp_version 4.2.8p15
+%global ntp_version 4.2.8p16
 
 Name:		ntp-refclock
-Version:	0.5
-Release:	6%{?dist}
+Version:	0.6
+Release:	1%{?dist}
 Summary:	Drivers for hardware reference clocks
 # MIT is the primary license of ntp and ntp-refclock, but some drivers
 # are licensed under BSD or BSD with advertising
@@ -10,7 +10,7 @@ License:	MIT and BSD and BSD with advertising
 URL:		https://github.com/mlichvar/ntp-refclock
 Source0:	https://github.com/mlichvar/ntp-refclock/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:	http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/ntp-%{ntp_version}.tar.gz
-Patch0:		ntp-reflock-configure-c99.patch
+Patch0:		ntp-refclock-configure-c99.patch
 
 BuildRequires:	gcc make systemd pps-tools-devel
 
@@ -40,9 +40,7 @@ preserve_timestamps="configure configure.ac sntp/configure sntp/m4/ntp_ipv6.m4"
 for p in $preserve_timestamps ; do
     touch -r $p $p.timestamp
 done
-popd
 %patch0 -p1 -b .c99
-pushd ntp
 for p in $preserve_timestamps ; do
     touch -r $p.timestamp $p
     rm $p.timestamp
@@ -69,8 +67,7 @@ pushd ntp
 # Build only objects that may be linked with ntp-refclock
 %make_build -C libntp
 %make_build -C libparse
-cd ntpd
-%make_build $(echo *refclock*.c | sed 's|\.c|\.o|g')
+%make_build -C ntpd
 
 popd
 
@@ -122,6 +119,9 @@ getent passwd %{name} >/dev/null || \
 %{_unitdir}/*.service
 
 %changelog
+* Thu Jun 01 2023 Miroslav Lichvar <mlichvar@redhat.com> 0.6-1
+- update ntp-refclock to 0.6 and ntp to 4.2.8p16
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

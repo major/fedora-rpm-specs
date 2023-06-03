@@ -2,7 +2,7 @@ Name:           perl-Tree-DAG_Node
 Version:        1.32
 Release:        7%{?dist}
 Summary:        Class for representing nodes in a tree
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Tree-DAG_Node
 Source0:        https://cpan.metacpan.org/modules/by-module/Tree/Tree-DAG_Node-%{version}.tgz
 BuildArch:      noarch
@@ -24,7 +24,8 @@ BuildRequires:  perl(File::Temp) >= 0.19
 BuildRequires:  perl(Test::More) >= 1.001002
 BuildRequires:  perl(Test::Pod) >= 1.48
 BuildRequires:  perl(utf8)
-# Runtime --------------------------------------------------------------------
+# Dependencies ---------------------------------------------------------------
+# (none)
 
 %description
 This class encapsulates/makes/manipulates objects that represent nodes in a

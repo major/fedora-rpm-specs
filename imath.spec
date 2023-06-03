@@ -3,7 +3,7 @@
 %global pyver_under %(%{python3} -Esc "import sys; sys.stdout.write('{0.major}_{0.minor}'.format(sys.version_info))")
 
 Name:           imath
-Version:        3.1.7
+Version:        3.1.9
 Release:        1%{?dist}
 Summary:        Library of 2D and 3D vector, matrix, and math operations for computer graphics
 
@@ -86,7 +86,7 @@ Requires:       python3-devel
 %{python3_sitearch}/imathnumpy.so
 
 %files devel
-%doc html/
+#doc html/
 %{_includedir}/Imath/
 %{_libdir}/pkgconfig/Imath.pc
 %{_libdir}/pkgconfig/PyImath.pc
@@ -97,6 +97,12 @@ Requires:       python3-devel
 
 
 %changelog
+* Thu Jun 01 2023 Richard Shaw <hobbes1069@gmail.com> - 3.1.9-1
+- Update to 3.1.9.
+
+* Mon May 29 2023 Richard Shaw <hobbes1069@gmail.com> - 3.1.8-1
+- Update to 3.1.8.
+
 * Mon Mar 20 2023 Richard Shaw <hobbes1069@gmail.com> - 3.1.7-1
 - Update to 3.1.7.
 - Update license to SPDX identifier.

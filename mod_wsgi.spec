@@ -16,9 +16,9 @@
 
 Name:           mod_wsgi
 Version:        4.9.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A WSGI interface for Python web applications in Apache
-License:        ASL 2.0
+License:        Apache-2.0 AND CC-BY-3.0
 URL:            https://modwsgi.readthedocs.io/
 Source0:        https://github.com/GrahamDumpleton/mod_wsgi/archive/%{version}.tar.gz#/mod_wsgi-%{version}.tar.gz
 Source1:        wsgi.conf
@@ -160,6 +160,9 @@ ln -s %{_bindir}/mod_wsgi-express-2 $RPM_BUILD_ROOT%{_bindir}/mod_wsgi-express
 %endif
 
 %changelog
+* Thu Jun 01 2023 Luboš Uhliarik <luhliari@redhat.com> - 4.9.4-3
+- SPDX migration
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

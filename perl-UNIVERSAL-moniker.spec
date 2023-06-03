@@ -2,7 +2,7 @@ Name:           perl-UNIVERSAL-moniker
 Version:        0.08
 Release:        48%{?dist}
 Summary:        Real world naming for classes
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/UNIVERSAL-moniker
 Source0:        https://cpan.metacpan.org/modules/by-module/UNIVERSAL/UNIVERSAL-moniker-%{version}.tar.gz
 BuildArch:      noarch
@@ -20,8 +20,9 @@ BuildRequires:  perl(Test::More)
 # Optional Tests
 BuildRequires:  perl(Lingua::EN::Inflect)
 # Dependencies
+# (nothing)
 
-# Filter bogus provide for perl(UNIVERSAL) (rpm 4.9 onwards)
+# Filter bogus provide for perl(UNIVERSAL)
 %global __provides_exclude ^perl\\(UNIVERSAL\\)
 
 %description

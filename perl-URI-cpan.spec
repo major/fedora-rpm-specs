@@ -2,7 +2,7 @@ Name:		perl-URI-cpan
 Version:	1.008
 Release:	4%{?dist}
 Summary:	URLs that refer to things on the CPAN
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/URI-cpan
 Source0:	https://cpan.metacpan.org/modules/by-module/URI/URI-cpan-%{version}.tar.gz
 BuildArch:	noarch
@@ -26,7 +26,8 @@ BuildRequires:	perl(URI)
 # Optional Tests
 BuildRequires:	perl(CPAN::Meta) >= 2.120900
 BuildRequires:	perl(CPAN::Meta::Prereqs)
-# Runtime
+# Dependencies
+# (none)
 
 %description
 This module is for handling URLs that refer to things on the CPAN.

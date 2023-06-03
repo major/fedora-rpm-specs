@@ -5,10 +5,10 @@
 
 Name:           perl-Tk
 Version:        804.036
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Perl Graphical User Interface ToolKit
 
-License:        (GPL+ or Artistic) and SWL
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND SWL
 URL:            https://metacpan.org/release/Tk
 Source0:        https://cpan.metacpan.org/authors/id/S/SR/SREZIC/Tk-%{version}.tar.gz
 Patch0:         perl-Tk-widget.patch
@@ -127,14 +127,14 @@ find . -type f -exec %{__perl} -pi -e \
 's,^(#!)(/usr/local)?/bin/perl\b,$1%{__perl}, if ($. == 1)' {} \;
 chmod -x pod/Popup.pod Tixish/lib/Tk/balArrow.xbm
 # fix for widget as docs
-%patch0
+%patch -P 0
 %{__perl} -pi -e \
 's,\@demopath\@,%{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}}/demos,g' demos/widget
 # debian patch
-#%%patch1 -p1
+#%%patch -P 1 -p1
 # patch to fix #235666 ... seems like caching code is broken
-%patch2 -p1 -b .seg
-%patch3 -p1 -b .c99
+%patch -P 2 -p1 -b .seg
+%patch -P 3 -p1 -b .c99
 
 %build
 %{__perl} Makefile.PL INSTALLDIRS=vendor X11LIB=%{_libdir} XFT=1
@@ -182,6 +182,10 @@ find __demos/ -type f -exec chmod -x {} \;
 
 
 %changelog
+* Thu Jun 01 2023 Michal Josef Špaček <mspacek@redhat.com> - 804.036-10
+- Fix %patch macro
+- Update license to SPDX format
+
 * Fri Feb 24 2023 Florian Weimer <fweimer@redhat.com> - 804.036-9
 - Port to C99
 

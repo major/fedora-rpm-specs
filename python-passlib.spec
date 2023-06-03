@@ -1,12 +1,10 @@
 Name:           python-passlib
 Version:        1.7.4
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Comprehensive password hashing framework supporting over 20 schemes
 
 # license breakdown is described in LICENSE file
-# passlib/crypto/des.py is MIT UnixCrypt Variant, which is not yet on the SPDX list
-# https://gitlab.com/fedora/legal/fedora-license-data/-/issues/87
-License:        BSD-3-Clause AND Beerware AND LicenseRef-Fedora-MIT AND ISC
+License:        BSD-3-Clause AND Beerware AND UnixCrypt AND ISC
 URL:            https://foss.heptapod.net/python-libs/passlib
 Source:         %pypi_source passlib
 
@@ -72,6 +70,9 @@ export PASSLIB_SETUP_TAG_RELEASE="no"
 
 
 %changelog
+* Thu Jun 01 2023 Carl George <carl@george.computer> - 1.7.4-11
+- Update license field with SPDX approved UnixCrypt identifier
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.4-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

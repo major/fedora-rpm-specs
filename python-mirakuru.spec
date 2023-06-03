@@ -1,11 +1,11 @@
 %global pypi_name mirakuru
 
 Name:           python-%{pypi_name}
-Version:        2.4.2
+Version:        2.5.1
 Release:        %autorelease
 Summary:        A process orchestration tool designed for functional and integration tests
 
-License:        LGPLv3+
+License:        LGPL-3.0-or-later
 URL:            https://github.com/ClearcodeHQ/mirakuru
 Source0:        https://github.com/ClearcodeHQ/mirakuru/archive/v%{version}.tar.gz
 BuildArch:      noarch
@@ -17,6 +17,8 @@ BuildRequires:  pyproject-rpm-macros
 BuildRequires:  netcat
 BuildRequires:  procps-ng
 BuildRequires:  python-unversioned-command
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(python-daemon)
 
 
 %description
@@ -44,7 +46,7 @@ integration tests
 %pyproject_save_files %{pypi_name}
 
 %check
-%pytest --no-cov
+%pytest
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE

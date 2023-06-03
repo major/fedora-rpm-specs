@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-machines
-Version:        290
+Version:        291
 Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
@@ -154,7 +154,7 @@ If "virt-install" is installed, you can also create new virtual machines.
 # Nothing to build
 
 %install
-%make_install
+%make_install PREFIX=/usr
 appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 %files
@@ -165,6 +165,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Jun 01 2023 Packit <hello@packit.dev> - 291-1
+- Maintenance and translation updates
+
 * Tue May 16 2023 Packit <hello@packit.dev> - 290-1
 - Apply watchdog changes on next boot if hotplug fails
 

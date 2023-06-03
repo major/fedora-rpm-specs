@@ -2,7 +2,7 @@
 %global backends %{nil}
 
 Name: pdns
-Version: 4.7.4
+Version: 4.8.0
 Release: 1%{?dist}
 Summary: A modern, advanced and high performance authoritative-only nameserver
 License: GPLv2
@@ -11,9 +11,9 @@ Source0: http://downloads.powerdns.com/releases/%{name}-%{version}.tar.bz2
 ExcludeArch: %{arm} %{ix86}
 
 Requires(pre): shadow-utils
-Requires(post): systemd-units
-Requires(preun): systemd-units
-Requires(postun): systemd-units
+Requires(post): systemd
+Requires(preun): systemd
+Requires(postun): systemd
 
 BuildRequires: make
 BuildRequires: bison
@@ -40,8 +40,8 @@ BuildRequires: perl
 BuildRequires: protobuf-compiler
 BuildRequires: protobuf-devel
 BuildRequires: libcurl-devel
+BuildRequires: systemd
 BuildRequires: systemd-devel
-BuildRequires: systemd-units
 Provides: powerdns = %{version}-%{release}
 %global backends %{backends} bind
 
@@ -154,11 +154,12 @@ export CPPFLAGS="-DLDAP_DEPRECATED"
 	--with-dynmodules='%{backends}' \
 	--enable-tools \
 	--with-libsodium \
+	--enable-ixfrdist \
 	--enable-unit-tests \
 	--enable-lua-records \
 	--enable-experimental-pkcs11 \
-	--enable-systemd \
-	--enable-ixfrdist
+	--enable-dns-over-tls \
+	--enable-systemd
 
 %make_build
 
@@ -320,6 +321,9 @@ exit 0
 %{_unitdir}/ixfrdist@.service
 
 %changelog
+* Thu Jun 01 2023 Morten Stevens <mstevens@fedoraproject.org> - 4.8.0-1
+- Update to 4.8.0
+
 * Mon Apr 17 2023 Morten Stevens <mstevens@fedoraproject.org> - 4.7.4-1
 - Update to 4.7.4
 

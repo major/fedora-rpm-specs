@@ -1,6 +1,9 @@
+# UMR is designed to be a static lib
+%undefine _cmake_shared_libs
+
 Summary: AMDGPU Userspace Register Debugger
 Name: umr
-Version: 1.0.7
+Version: 1.0.8
 Release: 1%{?dist}
 License: MIT
 URL: https://gitlab.freedesktop.org/tomstdenis/umr
@@ -51,16 +54,13 @@ AMDGPU Userspace Register Debugger header files and libraries
 
 %prep
 %autosetup -p1 -n %{name}-%{version}
-#Known issue, will be fixed upstream shortly:
-#https://gitlab.freedesktop.org/tomstdenis/umr/-/merge_requests/23
-sed -i "s/ImGui::Text(txt)/ImGui::TextUnformatted(txt)/" src/app/umr_gui.cpp
 
 %build
 %{!?cmake:%global cmake %%cmake3}
 %cmake %{?disablellvm:-DUMR_NO_LLVM=ON} \
-	%{?disablelibdrm:-DUMR_NO_DRM=ON} \
-	%{?enablert:-DUMR_NEED_RT=ON} \
-	-DCMAKE_BUILD_TYPE="RELEASE"
+        %{?disablelibdrm:-DUMR_NO_DRM=ON} \
+        %{?enablert:-DUMR_NEED_RT=ON} \
+        -DCMAKE_BUILD_TYPE="RELEASE"
 %cmake_build
 
 %install
@@ -80,6 +80,9 @@ sed -i "s/ImGui::Text(txt)/ImGui::TextUnformatted(txt)/" src/app/umr_gui.cpp
 %{_libdir}/*.a
 
 %changelog
+* Thu Jun 01 2023 Jeremy Newton <alexjnewt AT hotmail DOT com> - 1.0.8-1
+- Update to 1.0.8
+
 * Wed Mar 29 2023 Jeremy Newton <alexjnewt AT hotmail DOT com> - 1.0.7-1
 - Update to 1.0.7
 

@@ -78,6 +78,8 @@ volumetric applications typically encountered in feature film production.
 Summary:        Development files for %{name}
 BuildRequires:  texlive-latex
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+Requires:       pkgconfig(tbb) >= 3.0
+Requires:       pkgconfig(zlib) > 1.2.7
 Obsoletes:      %{name}-doc < 6.1.0-1
 Provides:       %{name}-doc = %{version}-%{release}
 

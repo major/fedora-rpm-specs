@@ -9,7 +9,7 @@ between multiple scripts. Noto family supports almost all scripts available\
 in Unicode.\
 %{nil}
 
-%global srcver	23.5.1
+%global srcver	23.6.1
 %global hprio	56
 %global	vmprio	57
 %global mprio	58
@@ -20,7 +20,7 @@ in Unicode.\
 %global	nlat_lprio	67
 
 Name:           %{fontname}-fonts
-Version:        20230501
+Version:        20230601
 Release:        1%{?dist}
 Summary:        Hinted and Non Hinted OpenType fonts for Unicode scripts
 License:        OFL-1.1
@@ -91,8 +91,8 @@ local subpackages = {
     { alias="sans-serif", family="Sans Bamum", lang={ "bax" } },
     { alias="sans-serif", family="Sans Bassa Vah" },
     { alias="sans-serif", family="Sans Batak", lang={ "bbc" } },
-    { alias="sans-serif", family="Sans Bengali", lang= { "bn" } },
-    { alias="sans-serif", family="Sans Bengali UI", lang= { "bn" },
+    { alias="sans-serif", family="Sans Bengali", lang= { "as", "bn" } },
+    { alias="sans-serif", family="Sans Bengali UI", lang= { "as", "bn" },
       priority=rpm.expand('%{lprio}'), nogroup=1,
       obsoletes={ "sans-bengali-ui-vf" },
     },
@@ -387,7 +387,7 @@ local subpackages = {
     { alias="serif",      family="Serif Balinese", lang={ "ban" },
       obsoletes={ "sans-balinese" }
     },
-    { alias="serif",      family="Serif Bengali", lang={ "bn" } },
+    { alias="serif",      family="Serif Bengali", lang={ "as", "bn" } },
     { alias="serif",      family="Serif Devanagari", lang={ "bh", "bho", "brx", "doi", "hi", "hne", "kok", "ks@devanagari", "mai", "mr", "ne", "sa", "sat", "sd@devanagari" } },
     { alias="serif",      family="Serif Dives Akuru" },
     { alias="serif",      family="Serif Dogra",
@@ -450,7 +450,7 @@ local subpackages = {
     { alias="sans-serif", variable=true, family="Sans Balinese", lang={ "ban" } },
     { alias="sans-serif", variable=true, family="Sans Bamum", lang={ "bax" } },
     { alias="sans-serif", variable=true, family="Sans Bassa Vah" },
-    { alias="sans-serif", variable=true, family="Sans Bengali", lang={ "bn" } },
+    { alias="sans-serif", variable=true, family="Sans Bengali", lang={ "as", "bn" } },
     { alias="sans-serif", variable=true, family="Sans Canadian Aboriginal", lang={ "iu" } },
     { alias="sans-serif", variable=true, family="Sans Cham", lang={ "cjm" } },
     { alias="sans-serif", variable=true, family="Sans Cherokee", lang={ "chr" } },
@@ -543,7 +543,7 @@ local subpackages = {
       priority=rpm.expand('%{hprio}')
     },
     { alias="serif",      variable=true, family="Serif Armenian", lang={ "hy" } },
-    { alias="serif",      variable=true, family="Serif Bengali", lang={ "bn" } },
+    { alias="serif",      variable=true, family="Serif Bengali", lang={ "as", "bn" } },
     { alias="serif",      variable=true, family="Serif Devanagari", lang={ "bh", "bho", "brx", "doi", "hi", "hne", "kok", "ks@devanagari", "mai", "mr", "ne", "sa", "sat", "sd@devanagari" } },
     { alias="serif",      variable=true, family="Serif Ethiopic", lang={ "am", "byn", "gez", "sid", "ti-er", "ti-et", "tig", "wal" } },
     { alias="serif",      variable=true, family="Serif Georgian", lang={ "ka" } },
@@ -1073,6 +1073,10 @@ done
 
 
 %changelog
+* Thu Jun  1 2023 Akira TAGOH <tagoh@redhat.com> - 20230601-1
+- Updates to monthly release of 23.6.1
+- Allow Assamese in Noto * Bengali.
+
 * Thu May 18 2023 Akira TAGOH <tagoh@redhat.com> - 20230501-1
 - Updates to monthly release of 23.5.1
 

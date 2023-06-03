@@ -2,7 +2,7 @@ Name:           perl-Unicode-Map
 Version:        0.112
 Release:        59%{?dist}
 Summary:        Perl module for mapping charsets from and to utf16 unicode
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Unicode-Map
 Source0:        https://cpan.metacpan.org/modules/by-module/Unicode/Unicode-Map-%{version}.tar.gz
 # Module Build
@@ -27,6 +27,7 @@ BuildRequires:  perl(LWP::Simple)
 # Test Suite
 # (no additional dependencies)
 # Dependencies
+# (no additional dependencies)
 
 %{?perl_default_filter}
 

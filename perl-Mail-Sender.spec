@@ -3,13 +3,13 @@ Version:        0.903
 # I really wish CPAN maintainers would stop fscking around with versions.
 # we went from 0.900003 to 0.901
 Epoch:          1
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Module for sending mails with attachments through an SMTP server
 
 # There is also a clause which says that it may not be used for SPAM.
 # However, since spamming is illegal in the US, this isn't really a use restriction.
 # Instead, its a friendly reminder of the law, so we won't list it here.
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Mail-Sender
 Source0:        https://cpan.metacpan.org/authors/id/C/CA/CAPOEIRAB/Mail-Sender-%{version}.tar.gz
 
@@ -78,6 +78,9 @@ make test
 
 
 %changelog
+* Wed May 31 2023 Michal Josef Špaček <mspacek@redhat.com> - 1:0.903-21
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.903-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

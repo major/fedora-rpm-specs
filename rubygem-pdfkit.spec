@@ -1,10 +1,11 @@
 %global	gem_name	pdfkit
 
 Name:		rubygem-%{gem_name}
-Version:	0.8.7.2
-Release:	3%{?dist}
+Version:	0.8.7.3
+Release:	1%{?dist}
 
 Summary:	HTML+CSS to PDF using wkhtmltopdf
+# SPDX confirmed
 License:	MIT
  
 URL:		https://github.com/pdfkit/pdfkit
@@ -106,6 +107,10 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Thu Jun  1 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.8.7.3-1
+- 0.8.7.3
+- SPDX confirmed
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.7.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
