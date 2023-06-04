@@ -13,7 +13,7 @@ License:        MIT
 #   Increment Y and reset Z when new macros or features are added
 #   Increment Z when this is a bugfix or a cosmetic change
 # Dropping support for EOL Fedoras is *not* considered a breaking change
-Version:        1.8.1
+Version:        1.9.0
 Release:        1%{?dist}
 
 # Macro files
@@ -161,6 +161,10 @@ export HOSTNAME="rpmbuild"  # to speedup tox in network-less mock, see rhbz#1856
 
 
 %changelog
+* Wed May 31 2023 Maxwell G <maxwell@gtmx.me> - 1.9.0-1
+- Allow passing config_settings to the build backend.
+- Resolves: rhbz#2192581
+
 * Wed May 31 2023 Miro Hrončok <mhroncok@redhat.com> - 1.8.1-1
 - On Python older than 3.11, use tomli instead of deprecated toml
 - Fix literal %% handling in %%{pyproject_files} on RPM 4.19

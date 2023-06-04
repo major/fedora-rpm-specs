@@ -1,6 +1,6 @@
 Name:          muffin
-Version:       5.6.4
-Release:       4%{?dist}
+Version:       5.8.0
+Release:       1%{?dist}
 Summary:       Window and compositing manager based on Clutter
 
 License:       GPLv2+
@@ -21,7 +21,7 @@ BuildRequires: pkgconfig(sm)
 BuildRequires: pkgconfig(libcanberra)
 BuildRequires: pkgconfig(libudev)
 BuildRequires: pkgconfig(libwacom)
-BuildRequires: pkgconfig(cinnamon-desktop) >= 5.6.0
+BuildRequires: pkgconfig(cinnamon-desktop) >= 5.8.0
 BuildRequires: pkgconfig(gobject-introspection-1.0)
 BuildRequires: pkgconfig(xkeyboard-config)
 BuildRequires: pkgconfig(xkbcommon-x11)
@@ -97,6 +97,9 @@ rm -rf %{buildroot}%{_datadir}/applications/
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Fri Jun 02 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.0-1
+- Update to 5.8.0 release
+
 * Thu May 18 2023 Leigh Scott <leigh123linux@gmail.com> - 5.6.4-4
 - Fix the last commit
 

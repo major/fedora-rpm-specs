@@ -1,14 +1,14 @@
 %global _artwork_version 5.7
 
-%global cinnamon_desktop_version 5.6.0
-%global csd_version 5.6.0
-%global cinnamon_menus_version 5.6.0
+%global cinnamon_desktop_version 5.8.0
+%global csd_version 5.8.0
+%global cinnamon_menus_version 5.8.0
 %global redhat_menus_version 1.8
 
 Summary: Utilities to configure the Cinnamon desktop
 Name:    cinnamon-control-center
-Version: 5.6.1
-Release: 2%{?dist}
+Version: 5.8.0
+Release: 1%{?dist}
 # The following files contain code from
 # ISC for panels/network/rfkill.h
 # And MIT for wacom/calibrator/calibrator.c
@@ -140,6 +140,9 @@ install -pm 0644 mint-artwork-cinnamon-%{_artwork_version}/%{_datadir}/mint-artw
 
 
 %changelog
+* Fri Jun 02 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.0-1
+- Update to 5.8.0 release
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -46,10 +46,10 @@
 %{?static_openssl:%global static_libcrypto 1}
 
 # Do not forget to bump pam_ssh_agent_auth release if you rewind the main package release to 1
-%global openssh_ver 9.0p1
-%global openssh_rel 18
+%global openssh_ver 9.3p1
+%global openssh_rel 2
 %global pam_ssh_agent_ver 0.10.4
-%global pam_ssh_agent_rel 8
+%global pam_ssh_agent_rel 9
 
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
@@ -134,8 +134,6 @@ Patch703: openssh-4.3p2-askpass-grab-info.patch
 Patch707: openssh-7.7p1-redhat.patch
 # warn users for unsupported UsePAM=no (#757545)
 Patch711: openssh-7.8p1-UsePAM-warning.patch
-# make aes-ctr ciphers use EVP engines such as AES-NI from OpenSSL
-Patch712: openssh-6.3p1-ctr-evp-fast.patch
 
 # GSSAPI Key Exchange (RFC 4462 + RFC 8732)
 # from https://github.com/openssh-gsskex/openssh-gsskex/tree/fedora/master
@@ -213,20 +211,10 @@ Patch983: openssh-8.7p1-evpgenkey.patch
 # From https://bugzilla.redhat.com/show_bug.cgi?id=1976202#c14
 Patch984: openssh-8.7p1-ibmca.patch
 
-# Fix for scp clearing file when src and dest are the same (#2056884)
-# upstream commits:
-# 7b1cbcb7599d9f6a3bbad79d412604aa1203b5ee
-Patch1001: openssh-8.7p1-scp-clears-file.patch
 # Add missing options from ssh_config into ssh manpage
 # upstream bug:
 # https://bugzilla.mindrot.org/show_bug.cgi?id=3455
 Patch1002: openssh-8.7p1-ssh-manpage.patch
-# Always return allocated strings from the kex filtering so that we can free them
-# upstream commits:
-# 486c4dc3b83b4b67d663fb0fa62bc24138ec3946
-# 6c31ba10e97b6953c4f325f526f3e846dfea647a
-# 322964f8f2e9c321e77ebae1e4d2cd0ccc5c5a0b
-Patch1003: openssh-8.7p1-mem-leak.patch
 # Reenable MONITOR_REQ_GSSCHECKMIC after gssapi-with-mic failures
 # upstream MR:
 # https://github.com/openssh-gsskex/openssh-gsskex/pull/21
@@ -236,12 +224,6 @@ Patch1004: openssh-8.7p1-gssapi-auth.patch
 # upstream MR:
 # https://github.com/openssh/openssh-portable/pull/323
 Patch1006: openssh-8.7p1-negotiate-supported-algs.patch
-
-Patch1007: openssh-configure-c99-1.patch
-Patch1008: openssh-configure-c99-2.patch
-Patch1009: openssh-configure-c99-3.patch
-
-Patch1010: openssh-8.7p1-CVE-2023-25136.patch
 
 Patch1011: openssh-9.0p1-evp-fips-sign.patch
 Patch1012: openssh-9.0p1-evp-fips-dh.patch
@@ -406,7 +388,6 @@ popd
 %patch703 -p1 -b .grab-info
 %patch707 -p1 -b .redhat
 %patch711 -p1 -b .log-usepam-no
-%patch712 -p1 -b .evp-ctr
 # 
 %patch800 -p1 -b .gsskex
 %patch801 -p1 -b .force_krb
@@ -448,17 +429,10 @@ popd
 %patch202 -p1 -b .audit-log
 %patch700 -p1 -b .fips
 
-%patch1001 -p1 -b .scp-clears-file
 %patch1002 -p1 -b .ssh-manpage
-%patch1003 -p1 -b .mem-leak
 %patch1004 -p1 -b .gssapi-auth
 
 %patch1006 -p1 -b .negotiate-supported-algs
-
-%patch1007 -p1 -b .configure-c99-1
-%patch1008 -p1 -b .configure-c99-2
-%patch1009 -p1 -b .configure-c99-3
-%patch1010 -p1 -b .cve-2023-25136
 
 %patch1011 -p1 -b .evp-fips-sign
 %patch1012 -p1 -b .evp-fips-dh
@@ -774,6 +748,12 @@ test -f %{sysconfig_anaconda} && \
 %endif
 
 %changelog
+* Fri Jun 02 2023 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.3p1-2
+- Remove unused patch
+
+* Thu Jun 01 2023 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.3p1-1 + 0.10.4-9
+- Rebase OpenSSH to 9.3p1
+
 * Wed May 24 2023 Norbert Pocs <npocs@redhat.com> - 9.0p1-18
 - Fix pkcs11 issue with the recent changes
 - Add support for 'serial' in PKCS#11 URI

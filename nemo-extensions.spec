@@ -1,16 +1,15 @@
 # Don't bother building debug packages as koji bitches about n-v-r from nemo package
 %global debug_package %{nil}
-%global cjs_version 5.7.0
+%global cjs_version 5.8.0
 
 Name:           nemo-extensions
-Version:        5.6.0
-Release:        4%{?dist}
+Version:        5.8.0
+Release:        1%{?dist}
 Summary:        Extensions for Nemo
 
 License:        GPLv2+ and LGPLv2
 URL:            https://github.com/linuxmint/%{name}
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0:         webkit2gtk-41.patch
 
 ExcludeArch:    %{ix86}
 
@@ -19,7 +18,7 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  gpgme-devel
 BuildRequires:  pkgconfig(cryptui-0.0) 
 BuildRequires:  pkgconfig(gcr-3)
-BuildRequires:  pkgconfig(libnemo-extension) >= 5.6.0
+BuildRequires:  pkgconfig(libnemo-extension) >= 5.8.0
 BuildRequires:  python3-distutils-extra
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -334,6 +333,9 @@ desktop-file-install                                    \
 %{_mandir}/man1/nemo-seahorse-tool.1.* 
 
 %changelog
+* Fri Jun 02 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.0-1
+- Update to 5.8.0 release
+
 * Thu May 11 2023 Leigh Scott <leigh123linux@gmail.com> - 5.6.0-4
 - Switch to webkit2gtk-4.1
 

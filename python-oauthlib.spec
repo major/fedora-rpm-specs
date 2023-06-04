@@ -1,3 +1,6 @@
+# RHEL does not include pyjwt, blinker needed for extras
+%bcond extras %{undefined rhel}
+
 Name:               python-oauthlib
 Version:            3.2.1
 Release:            4%{?dist}
@@ -32,13 +35,15 @@ onto your favourite web framework. If you're a maintainer of such a
 library, write a thin veneer on top of OAuthLib and get OAuth support for
 very little effort.
 
+%if %{with extras}
 %pyproject_extras_subpkg -n python3-oauthlib rsa,signedtoken,signals
+%endif
 
 %prep
 %autosetup -n oauthlib-%{version} -p1
 
 %generate_buildrequires
-%pyproject_buildrequires -x rsa,signedtoken,signals
+%pyproject_buildrequires %{?with_extras:-x rsa,signedtoken,signals}
 
 %build
 %pyproject_wheel
@@ -51,7 +56,19 @@ very little effort.
 # enable SHA-1 signatures for RSA tests
 # also see https://github.com/pyca/cryptography/pull/6931 and rhbz#2060343
 export OPENSSL_ENABLE_SHA1_SIGNATURES=yes
-%{pytest}
+%if %{without extras}
+echo 'import pytest; __getattr__ = lambda _: pytest.skip("this test needs jwt")' > jwt.py
+%endif
+%{pytest} \
+%if %{without extras}
+  --ignore tests/oauth2/rfc6749/clients/test_service_application.py \
+  --ignore tests/oauth2/rfc6749/clients/test_web_application.py \
+  --ignore tests/oauth2/rfc6749/clients/test_mobile_application.py \
+  --ignore tests/oauth2/rfc6749/clients/test_legacy_application.py \
+  --ignore tests/oauth2/rfc6749/clients/test_backend_application.py \
+  --ignore tests/oauth2/rfc6749/test_parameters.py \
+%endif
+  %{nil}
 
 %files -n python3-oauthlib -f %{pyproject_files}
 %doc README.rst

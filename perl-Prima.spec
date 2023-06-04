@@ -4,6 +4,8 @@
 %{bcond_without perl_Prima_enables_x11_test}
 # Support bidirectional text with FriBidi library
 %{bcond_without perl_Prima_enables_fribidi}
+# Support GIF image format
+%{bcond_without perl_Prima_enables_gif}
 # Use GTK2 file dialogs and fonts. GTK3 takes precedence.
 %{bcond_with perl_Prima_enables_gtk2}
 # Use GTK3 file dialogs and fonts
@@ -33,10 +35,8 @@
 
 
 Name:           perl-Prima
-# I believe upstream will continue with 1.69.
-%global upstream_version 1.68002
-Version:        1.68.2
-Release:        2%{?dist}
+Version:        1.69
+Release:        1%{?dist}
 Summary:        Perl graphic toolkit
 # Copying:              BSD-2-Clause text
 # examples/tiger.eps:   AGPL-3.0-or-later (bundled from GhostScript? CPAN RT#122271)
@@ -56,9 +56,11 @@ Summary:        Perl graphic toolkit
 # unix/render.c:        HPND-sell-variant
 License:        BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND MIT-open-group AND HPND AND HPND-sell-variant AND TCL AND ImageMagick AND LGPL-2.0-or-later AND AGPL-3.0-or-later
 URL:            https://metacpan.org/dist/Prima
-Source0:        https://cpan.metacpan.org/authors/id/K/KA/KARASIK/Prima-%{upstream_version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/K/KA/KARASIK/Prima-%{version}.tar.gz
 BuildRequires:  findutils
-BuildRequires:  giflib-devel
+%if %{with perl_Prima_enables_gtk3}
+BuildRequires:  giflib-devel >= 4
+%endif
 BuildRequires:  gcc
 BuildRequires:  libjpeg-devel
 BuildRequires:  make
@@ -218,7 +220,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%autosetup -p1 -n Prima-%{upstream_version}
+%autosetup -p1 -n Prima-%{version}
 %if !%{with perl_Prima_enables_optional_test}
 rm t/misc/pod.t
 perl -i -ne 'print $_ unless m{\A\Qt/misc/pod.t\E}' MANIFEST
@@ -252,6 +254,7 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 \
 %{make_install}
 find %{buildroot} -type f -name '*.bs' -size 0 -delete
 find %{buildroot} -type f -name '*.a' -size 0 -delete
+find %{buildroot}/%{_mandir} -type f -size 0 -delete
 %{_fixperms} %{buildroot}/*
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
@@ -331,6 +334,9 @@ unset DISPLAY XDG_SESSION_TYPE
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jun 02 2023 Petr Pisar <ppisar@redhat.com> - 1.69-1
+- 1.69 bump (default skin is flat)
+
 * Mon Mar 20 2023 Petr Pisar <ppisar@redhat.com> - 1.68.2-2
 - Enable support for HEIF images (bug #2178600)
 

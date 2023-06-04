@@ -7,7 +7,7 @@
 
 Name:           openCOLLADA
 Version:        1.6.70
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        MIT
 Summary:        Collada 3D import and export libraries
 URL:            https://github.com/RemiArnaud/OpenCOLLADA/
@@ -16,16 +16,18 @@ Source0:        https://github.com/RemiArnaud/OpenCOLLADA/archive/v%{version}-ma
 
 # Force a soversion.
 Patch0:         OpenCOLLADA-cmake.patch
-Patch1:         OpenCOLLADA-pcre.patch
+#Patch1:         OpenCOLLADA-pcre.patch
+Patch1:         openCOLLADA-bundled_pcre.patch
 Patch2:         openCOLLADA-daevalidator.patch
 Patch3:         openCOLLADA-pragma.patch
 
 BuildRequires:  cmake gcc-c++
 BuildRequires:  dos2unix
 BuildRequires:  fftw-devel
-BuildRequires:  pcre-devel
 BuildRequires:  zlib-devel
 BuildRequires:  libxml2-devel
+
+Provides:       bundled(pcre)
 
 %description 
 COLLADA is a royalty-free XML schema that enables digital asset
@@ -70,7 +72,7 @@ XML validator for COLLADA files, based on the COLLADASaxFrameworkLoader.
 %autosetup -p1 -n %{upname}-%{version}-maya
 
 # Remove unused bundled libraries
-rm -rf Externals/{Cg,expat,lib3ds,LibXML,MayaDataModel,pcre,zlib,zziplib}
+rm -rf Externals/{Cg,expat,lib3ds,LibXML,MayaDataModel,zlib,zziplib}
 
 # Add some docs, need to fix eol encoding with dos2unix in some files.
 find ./ -name .project -delete
@@ -133,6 +135,9 @@ cp -a Externals/MathMLSolver/include/* %{buildroot}%{_includedir}/MathMLSolver/
 
 
 %changelog
+* Sat Jun 03 2023 Richard Shaw <hobbes1069@gmail.com> - 1.6.70-4
+- Use bundled pcre as the Fedora library is deprecated.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.70-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

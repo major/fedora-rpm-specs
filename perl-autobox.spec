@@ -2,7 +2,7 @@ Name:           perl-autobox
 Version:        3.0.1
 Release:        18%{?dist}
 Summary:        Call methods on native types
-License:        Artistic 2.0
+License:        Artistic-2.0
 URL:            https://metacpan.org/release/autobox
 Source0:        https://cpan.metacpan.org/modules/by-module/autobox/autobox-v%{version}.tar.gz
 # Build:

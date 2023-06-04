@@ -4,7 +4,7 @@
 Name:       scl-utils
 Epoch:      1
 Version:    2.0.2
-Release:    22%{dist}
+Release:    23%{dist}
 Summary:    Utilities for alternative packaging
 
 License:    GPLv2+
@@ -20,6 +20,8 @@ Patch1:     0003-Scl-utils-layout-patch-from-fedora-famillecollet.com.patch
 
 # https://github.com/sclorg/scl-utils/pull/25
 Patch100:   scl-utils-2.0.2-rhbz-1728450.patch
+# https://github.com/sclorg/scl-utils/pull/43
+Patch101:   scl-utils-2.0.2-rhbz-2029959.patch
 
 %description
 Run-time utility for alternative packaging.
@@ -78,6 +80,10 @@ ln -s prefixes conf
 %{_rpmconfigdir}/brp-scl-python-bytecompile
 
 %changelog
+* Fri Jun 02 2023 Michal Nowak <mnowak@isc.org> - 2.0.2-23
+- Support F35+ "brp-python-hardlink" script location.
+  Resolves: rhbz#2029959
+
 * Mon May 29 2023 Petr Pisar <ppisar@redhat.com> - 1:2.0.2-22
 - Rebuild against rpm-4.19 (https://fedoraproject.org/wiki/Changes/RPM-4.19)
 

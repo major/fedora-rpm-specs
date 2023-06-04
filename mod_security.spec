@@ -10,8 +10,8 @@
 Summary: Security module for the Apache HTTP Server
 Name: mod_security
 Version: 2.9.7
-Release: 1%{?dist}
-License: ASL 2.0
+Release: 2%{?dist}
+License: Apache-2.0
 URL: http://www.modsecurity.org/
 Source: https://github.com/SpiderLabs/ModSecurity/releases/download/v%{version}/modsecurity-%{version}.tar.gz
 Source1: mod_security.conf
@@ -144,6 +144,9 @@ install -m0644 mlogc/mlogc-default.conf %{buildroot}%{_sysconfdir}/mlogc.conf
 %endif
 
 %changelog
+* Fri Jun 02 2023 Luboš Uhliarik <luhliari@redhat.com> - 2.9.7-2
+- SPDX migration
+
 * Thu Apr 13 2023 Luboš Uhliarik <luhliari@redhat.com> - 2.9.7-1
 - new version 2.9.7
 - use pcre2 instead of deprecated pcre (rhbz #2128330)

@@ -1,6 +1,6 @@
-%global commit 1ef69340afc918e662a1d7ad94784ef5360bb6c2
-%global commitdate 20230508
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
+#global commit 1ef69340afc918e662a1d7ad94784ef5360bb6c2
+#global commitdate 20230508
+#global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global glib2_version 2.66.0
 %global gobject_introspection_version 1.66.0
@@ -9,8 +9,8 @@
 
 Name:          cjs
 Epoch:         1
-Version:       5.7.0
-Release:       0.1%{?commitdate:^git%{commitdate}.%{shortcommit}}%{?dist}
+Version:       5.8.0
+Release:       1%{?commitdate:^git%{commitdate}.%{shortcommit}}%{?dist}
 Summary:       Javascript Bindings for Cinnamon
 
 License:       MIT and (MPLv1.1 or GPLv2+ or LGPLv2+)
@@ -117,6 +117,9 @@ xvfb-run -a /usr/bin/meson test -C %{_vpath_builddir} \
 
 
 %changelog
+* Fri Jun 02 2023 Leigh Scott <leigh123linux@gmail.com> - 1:5.8.0-1
+- Update to 5.8.0 release
+
 * Tue May 09 2023 Leigh Scott <leigh123linux@gmail.com> - 1:5.7.0-0.1^git20230508.1ef6934
 - Update to 5.7.0 git snapshot
 

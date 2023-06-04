@@ -2,7 +2,7 @@ Name:           perl-XML-RSS-LibXML
 Version:        0.3105
 Release:        25%{?dist}
 Summary:        XML::RSS with XML::LibXML
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/XML-RSS-LibXML
 Source0:        https://cpan.metacpan.org/authors/id/D/DM/DMAKI/XML-RSS-LibXML-%{version}.tar.gz

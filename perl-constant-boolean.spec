@@ -1,17 +1,30 @@
 Name:           perl-constant-boolean
 Version:        0.02
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Define TRUE and FALSE constants
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/constant-boolean
 Source0:        https://cpan.metacpan.org/authors/id/D/DE/DEXTER/constant-boolean-%{version}.tar.gz
 BuildArch:      noarch
+# Module Build
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
-BuildRequires:  perl(Module::Build)
-BuildRequires:  perl(Test::More)
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+# Module Runtime
+BuildRequires:  perl(strict)
 BuildRequires:  perl(Symbol::Util)
-
-%{?perl_default_filter}
+BuildRequires:  perl(warnings)
+# Test Suite
+BuildRequires:  perl(Carp)
+BuildRequires:  perl(Cwd)
+BuildRequires:  perl(File::Basename)
+BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(Test::Harness)
+BuildRequires:  perl(Test::More) >= 0.88
+# Dependencies
+Requires:       perl(Symbol::Util)
 
 %description
 Defines TRUE and FALSE constants in caller's namespace. You could use
@@ -23,24 +36,31 @@ descriptive.
 %setup -q -n constant-boolean-%{version}
 
 %build
-%{__perl} Build.PL installdirs=vendor
-./Build
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-./Build install destdir=$RPM_BUILD_ROOT create_packlist=0
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
-
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+%{_fixperms} -c %{buildroot}
 
 %check
-./Build test
+%{make_build} test
 
 %files
+%license LICENSE
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/constant/
+%{_mandir}/man3/constant::boolean.3*
 
 %changelog
+* Fri Jun  2 2023 Paul Howarth <paul@city-fan.org> - 0.02-37
+- Spec clean-up
+  - Use SPDX-format license tag
+  - Classify build requirements by usage
+  - Switch from Module::Build to ExtUtils::MakeMaker flow
+  - Package LICENSE file
+  - Make %%files list more explicit
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

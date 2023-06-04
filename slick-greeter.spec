@@ -1,7 +1,7 @@
 Summary:	A slick-looking LightDM greeter
 Name:		slick-greeter
-Version:	1.6.1
-Release:	2%{?dist}
+Version:	1.8.0
+Release:	1%{?dist}
 License:	GPLv3+
 URL:		https://github.com/linuxmint/%{name}
 Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -19,6 +19,7 @@ BuildRequires:	gnome-common
 BuildRequires:	pkgconfig(liblightdm-gobject-1)
 BuildRequires:	pkgconfig(gtk+-3.0)
 BuildRequires:	pkgconfig(libcanberra)
+BuildRequires:  pkgconfig(xapp)
 BuildRequires:	vala
 
 Provides:	lightdm-greeter = 1.2
@@ -116,6 +117,7 @@ NOCONFIGURE=1 ./autogen.sh
 %license debian/copyright COPYING
 %{_bindir}/%{name}-check-hidpi
 %{_bindir}/%{name}-set-keyboard-layout
+%{_bindir}/%{name}-enable-tap-to-click
 %{_sbindir}/%{name}
 %config(noreplace) %{_sysconfdir}/lightdm/%{name}.conf
 %{_datadir}/%{name}/
@@ -132,6 +134,9 @@ NOCONFIGURE=1 ./autogen.sh
 
 
 %changelog
+* Fri Jun 02 2023 Leigh Scott <leigh123linux@gmail.com> - 1.8.0-1
+- Update to 1.8.0 release
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

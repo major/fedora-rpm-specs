@@ -4,7 +4,7 @@ Version: 1.19
 Release: %autorelease
 
 # The entire source is GPLv2 except doc/ed.info and doc/ed.texi, which are GFDL
-License: GPLv2 and GFDL
+License: GPL-2.0-only AND GFDL-1.3-no-invariants-or-later
 URL:     https://www.gnu.org/software/ed/
 Source0: https://download.savannah.gnu.org/releases/ed/%{name}-%{version}.tar.lz
 Source1: https://download.savannah.gnu.org/releases/ed/%{name}-%{version}.tar.lz.sig

@@ -1,6 +1,6 @@
 Name:		lightdm-settings
-Version:	1.6.1
-Release:	2%{?dist}
+Version:	1.8.0
+Release:	1%{?dist}
 Summary:	Configuration tool for the LightDM display manager
 
 License:	GPLv3+
@@ -59,6 +59,9 @@ This tool currently lets users configure slick-greeter.
 
 
 %changelog
+* Fri Jun 02 2023 Leigh Scott <leigh123linux@gmail.com> - 1.8.0-1
+- Update to 1.8.0 release
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

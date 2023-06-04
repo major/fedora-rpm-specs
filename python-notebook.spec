@@ -1,7 +1,7 @@
 # Unset -s on python shebang - ensure that extensions installed with pip
 # to user locations are seen and properly loaded
 %global py3_shebang_flags %(echo %py3_shebang_flags | sed s/s//)
-%global prerel a18
+%global prerel b3
 
 Name:           python-notebook
 %global _docdir_fmt %{name}
@@ -9,7 +9,8 @@ Name:           python-notebook
 Version:        7.0.0%{prerel}
 Release:        %autorelease
 Summary:        A web-based notebook environment for interactive computing
-License:        BSD
+# SPDX
+License:        BSD-3-Clause
 URL:            https://jupyter.org
 Source:         %{pypi_source notebook}
 

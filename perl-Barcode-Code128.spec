@@ -2,6 +2,8 @@ name:           perl-Barcode-Code128
 Version:        2.21
 Release:        22%{?dist}
 Summary:        Generate CODE 128 bar codes
+# Waiting for an SPDX identifier
+# <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/227>.
 License:        Public Domain
 URL:            https://metacpan.org/release/Barcode-Code128
 Source0:        https://cpan.metacpan.org/authors/id/W/WR/WRW/Barcode-Code128-%{version}.tar.gz

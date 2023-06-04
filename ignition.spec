@@ -22,11 +22,11 @@ Version:                2.15.0
 %global dracutlibdir %{_prefix}/lib/dracut
 
 Name:           ignition
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        First boot installer and configuration tool
 
 # Upstream license specification: Apache-2.0
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %{gourl}
 Source0:        %{gosource}
 Source1:        https://github.com/fedora-iot/ignition-edge/archive/%{ignedgecommit}/ignition-edge-%{ignedgeshortcommit}.tar.gz
@@ -169,7 +169,7 @@ the configuration.
 %package validate
 
 Summary:  Validation tool for Ignition configs
-License:  ASL 2.0
+License:  Apache-2.0
 
 %description validate
 Ignition is a utility used to manipulate systems during the initramfs.
@@ -187,7 +187,7 @@ This package contains a tool for validating Ignition configurations.
 %package validate-redistributable
 
 Summary:   Statically linked validation tool for Ignition configs
-License:   ASL 2.0
+License:   Apache-2.0
 BuildArch: noarch
 
 # In case someone has this subpackage installed, obsolete the old name
@@ -206,7 +206,7 @@ engineering and uploaded to the Ignition GitHub releases page.
 %package edge
 
 Summary:  Enablement glue for Ignition on IoT/Edge systems
-License:  ASL 2.0
+License:  Apache-2.0
 
 %description edge
 This package contains dracut modules, services and binaries needed to enable
@@ -333,6 +333,9 @@ install -p -m 0755 ./ignition %{buildroot}/%{dracutlibdir}/modules.d/30ignition
 %{_libexecdir}/coreos-check-ssh-keys
 
 %changelog
+* Thu Jun 1 2023 Steven Presti <spresti@redhat.com> - 2.15.0-4
+- Switch License tags to SPDX
+
 * Thu Feb 23 2023 Benjamin Gilbert <bgilbert@redhat.com> - 2.15.0-3
 - Remove ignition-edge files from base package
 

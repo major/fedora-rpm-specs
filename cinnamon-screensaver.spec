@@ -1,7 +1,7 @@
 Summary: Cinnamon Screensaver
 Name:    cinnamon-screensaver
-Version: 5.6.3
-Release: 3%{?dist}
+Version: 5.8.0
+Release: 1%{?dist}
 License: GPLv2+ and LGPLv2+
 URL:     https://github.com/linuxmint/%{name}
 Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -20,8 +20,8 @@ BuildRequires: libXext-devel
 BuildRequires: libxdo-devel
 BuildRequires: desktop-file-utils
 
-Requires: cinnamon-desktop%{?_isa} >= 5.6.0
-Requires: cinnamon-translations >= 5.6.0
+Requires: cinnamon-desktop%{?_isa} >= 5.8.0
+Requires: cinnamon-translations >= 5.8.0
 Requires: accountsservice-libs%{?_isa}
 Requires: libgnomekbd%{?_isa}
 Requires: python3-gobject%{?_isa}
@@ -94,6 +94,9 @@ rm %{buildroot}%{_datadir}/gir-1.0/CScreensaver-1.0.gir
 %{_libdir}/girepository-1.0/CScreensaver-1.0.typelib
 
 %changelog
+* Fri Jun 02 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.0-1
+- Update to 5.8.0 release
+
 * Sun May 28 2023 Leigh Scott <leigh123linux@gmail.com> - 5.6.3-3
 - Add requires xprop
 

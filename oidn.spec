@@ -2,7 +2,7 @@ Name:           oidn
 Version:        2.0.0
 Release:        %autorelease
 Summary:        Library of denoising filters for images rendered with ray tracing
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://openimagedenoise.github.io/
 
 Source0:        https://github.com/OpenImageDenoise/%{name}/releases/download/v%{version}/%{name}-%{version}.src.tar.gz
@@ -20,8 +20,8 @@ BuildRequires:  pkgconfig(python3)
 BuildRequires:  pkgconfig(tbb)
 
 %description
-An open source library of high-performance, high-quality denoising filters for
-images rendered with ray tracing.
+Intel Open Image Denoise is an open source library of high-performance, 
+high-quality denoising filters for images rendered with ray tracing.
 
 %package        libs
 Summary:        Libraries for %{name}
@@ -50,8 +50,8 @@ The %{name}-docs package contains documentation for %{name}.
 
 %build
 %cmake \
-    -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE
-
+    -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE \
+    -DOIDN_DEVICE_SYCL_AOT=OFF
 %cmake_build
 
 %install
@@ -60,8 +60,6 @@ The %{name}-docs package contains documentation for %{name}.
 # Remove rpath
 chrpath --delete %{buildroot}%{_bindir}/%{name}{Denoise,Test,Benchmark}
 chrpath --delete %{buildroot}%{_libdir}/libOpenImageDenoise{,_core,_device_cpu}.so.*
-
-
 
 # Remove duplicated documentation
 rm -rf %{buildroot}%{_docdir}/OpenImageDenoise
@@ -72,7 +70,8 @@ rm -rf %{buildroot}%{_docdir}/OpenImageDenoise
 %{_bindir}/%{name}{Denoise,Test,Benchmark}
 
 %files libs
-%{_libdir}/libOpenImageDenoise{,_core,_device_cpu}.so.*
+%{_libdir}/libOpenImageDenoise{,_core,_device_cpu}.so.2
+%{_libdir}/libOpenImageDenoise{,_core,_device_cpu}.so.%{version}
 
 %files docs
 %doc README.md readme.pdf 

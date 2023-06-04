@@ -19,6 +19,7 @@
 %global nexdome_pkg indi-3rdparty-nexdome
 %global nightscape_pkg indi-3rdparty-nightscape
 %global orion_pkg indi-3rdparty-orionssg3
+%global rolloffino_pkg indi-3rdparty-rolloffino
 %global rtklib_pkg indi-3rdparty-rtklib
 %global shelyak_pkg indi-3rdparty-shelyak
 %global spectracyber_pkg indi-3rdparty-spectracyber
@@ -29,14 +30,14 @@
 %global webcam_pkg indi-3rdparty-webcam
 %global weewx_pkg indi-3rdparty-weewx-json
 
-%global indi_version 2.0.1
+%global indi_version 2.0.2
 
 # Define boolean to quickly set option and dependencies for
 # unit tests
 %global build_tests 1
 
 Name:           indi-3rdparty-drivers
-Version:        2.0.1
+Version:        2.0.2
 Release:        %autorelease
 Summary:        INDI 3rdparty drivers
 License:        LGPL-2.1-or-later
@@ -105,6 +106,7 @@ Recommends:     %{mgen_pkg}%{?_isa} = %{version}-%{release}
 Recommends:     %{nexdome_pkg}%{?_isa} = %{version}-%{release}
 Recommends:     %{nightscape_pkg}%{?_isa} = %{version}-%{release}
 Recommends:     %{orion_pkg}%{?_isa} = %{version}-%{release}
+Recommends:     %{rolloffino_pkg}%{?_isa} = %{version}-%{release}
 Recommends:     %{rtklib_pkg}%{?_isa} = %{version}-%{release}
 Recommends:     %{shelyak_pkg}%{?_isa} = %{version}-%{release}
 Recommends:     %{spectracyber_pkg}%{?_isa} = %{version}-%{release}
@@ -143,6 +145,7 @@ We currently ship the following drivers:
 - %{nexdome_pkg}
 - %{nightscape_pkg}
 - %{orion_pkg}
+- %{rolloffino_pkg}
 - %{rtklib_pkg}
 - %{shelyak_pkg}
 - %{spectracyber_pkg}
@@ -402,6 +405,17 @@ Requires:       udev
 
 %description -n %{orion_pkg}
 INDI driver for for the Orion StarShoot G3 cameras.
+
+
+%package -n %{rolloffino_pkg}
+License:        LGPL-2.1-or-later
+Summary:        INDI roll off roof driver
+
+Requires:       libindi = %{indi_version}
+
+%description -n %{rolloffino_pkg}
+An Observatory roll off roof driver to automate the opening
+and closing of a roll off roof in the INDI environment.
 
 
 %package -n %{rtklib_pkg}
@@ -715,6 +729,13 @@ find . -mindepth 2 -name CMakeLists.txt \
 %{_bindir}/indi_orion_ssg3_ccd
 %{_datadir}/indi/indi_orion_ssg3.xml
 %{_udevrulesdir}/99-orionssg3.rules
+
+
+%files -n %{rolloffino_pkg}
+%license LICENSE
+%doc indi-rolloffino/README.md indi-rolloffino/doc
+%{_bindir}/indi_rolloffino
+%{_datadir}/indi/indi_rolloffino.xml
 
 
 %files -n %{rtklib_pkg}

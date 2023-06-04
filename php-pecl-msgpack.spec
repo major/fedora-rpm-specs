@@ -11,8 +11,10 @@
 %undefine _strict_symbol_defs_build
 
 %global upstream_version 2.2.0
-%global upstream_prever  RC2
-%global upstream_lower   RC2
+#global upstream_prever  RC2
+#global upstream_lower   RC2
+%global sources          %{pecl_name}-%{upstream_version}%{?upstream_prever}
+%global _configure       ../%{sources}/configure
 
 %global pecl_name   msgpack
 %global with_zts    0%{?__ztsphp:1}
@@ -24,7 +26,7 @@
 Summary:       API for communicating with MessagePack serialization
 Name:          php-pecl-msgpack
 Version:       %{upstream_version}%{?upstream_lower:~%{upstream_lower}}
-Release:       2%{?dist}
+Release:       1%{?dist}
 Source:        https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
 License:       BSD-3-Clause
 URL:           https://pecl.php.net/package/msgpack
@@ -73,11 +75,10 @@ These are the files needed to compile programs using MessagePack serializer.
 
 %prep
 %setup -qc
-mv %{pecl_name}-%{upstream_version}%{?upstream_prever} NTS
 
 sed -e '/LICENSE/s/role="doc"/role="src"/' -i package.xml
 
-cd NTS
+cd %{sources}
 %if %{with_msgpack}
 # use system library
 rm -rf msgpack
@@ -94,9 +95,9 @@ if test "x${extver}" != "x%{upstream_version}%{?upstream_prever}%{?gh_date:-dev}
 fi
 cd ..
 
+mkdir NTS
 %if %{with_zts}
-# duplicate for ZTS build
-cp -pr NTS ZTS
+mkdir ZTS
 %endif
 
 # Drop in the bit of configuration
@@ -113,15 +114,16 @@ EOF
 
 
 %build
-cd NTS
-%{_bindir}/phpize
-%configure --with-php-config=%{_bindir}/php-config
+cd %{sources}
+%{__phpize}
+
+cd ../NTS
+%configure --with-php-config=%{__phpconfig}
 make %{?_smp_mflags}
 
 %if %{with_zts}
 cd ../ZTS
-%{_bindir}/zts-phpize
-%configure --with-php-config=%{_bindir}/zts-php-config
+%configure --with-php-config=%{__ztsphpconfig}
 make %{?_smp_mflags}
 %endif
 
@@ -141,7 +143,7 @@ install -D -m 644 %{ini_name} %{buildroot}%{php_ztsinidir}/%{ini_name}
 install -D -m 644 package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
 
 # Test & Documentation
-cd NTS
+cd %{sources}
 for i in $(grep 'role="test"' ../package.xml | sed -e 's/^.*name="//;s/".*$//')
 do [ -f tests/$i ] && install -Dpm 644 tests/$i %{buildroot}%{pecl_testdir}/%{pecl_name}/tests/$i
    [ -f $i ]       && install -Dpm 644 $i       %{buildroot}%{pecl_testdir}/%{pecl_name}/$i
@@ -157,7 +159,7 @@ rm */tests/034.phpt
 # too slow
 rm */tests/035.phpt
 
-cd NTS
+cd %{sources}
 : Minimal load test for NTS extension
 %{__php} --no-php-ini \
     --define extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
@@ -165,11 +167,10 @@ cd NTS
 
 : Upstream test suite  for NTS extension
 TEST_PHP_EXECUTABLE=%{_bindir}/php \
-TEST_PHP_ARGS="-n -d extension_dir=$PWD/modules -d extension=%{pecl_name}.so" \
-%{_bindir}/php -n run-tests.php -q --show-diff
+TEST_PHP_ARGS="-n -d extension_dir=$PWD/../NTS/modules -d extension=%{pecl_name}.so" \
+%{__php} -n run-tests.php -q --show-diff %{?_smp_mflags}
 
 %if %{with_zts}
-cd ../ZTS
 : Minimal load test for ZTS extension
 %{__ztsphp} --no-php-ini \
     --define extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so \
@@ -177,13 +178,13 @@ cd ../ZTS
 
 : Upstream test suite  for ZTS extension
 TEST_PHP_EXECUTABLE=%{__ztsphp} \
-TEST_PHP_ARGS="-n -d extension_dir=$PWD/modules -d extension=%{pecl_name}.so" \
-%{__ztsphp} -n run-tests.php -q --show-diff
+TEST_PHP_ARGS="-n -d extension_dir=$PWD/../ZTS/modules -d extension=%{pecl_name}.so" \
+%{__ztsphp} -n run-tests.php -q --show-diff %{?_smp_mflags}
 %endif
 
 
 %files
-%license NTS/LICENSE
+%license %{sources}/LICENSE
 %doc %{pecl_docdir}/%{pecl_name}
 %{pecl_xmldir}/%{name}.xml
 
@@ -206,6 +207,11 @@ TEST_PHP_ARGS="-n -d extension_dir=$PWD/modules -d extension=%{pecl_name}.so" \
 
 
 %changelog
+* Fri Jun  2 2023 Remi Collet <remi@remirepo.net> - 2.2.0-1
+- update to 2.2.0
+- build out of sources tree
+- use parallel execution for test suite
+
 * Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 2.2.0~RC2-2
 - use SPDX license ID
 

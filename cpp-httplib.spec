@@ -13,7 +13,7 @@
 %endif
 
 Name:           cpp-httplib
-Version:        0.12.3
+Version:        0.12.5
 %forgemeta
 Release:        %autorelease
 
@@ -84,9 +84,9 @@ Development files only.
 %if %{with tests}
 # multiple threads fails many tests
 %if %{with online}
-  %ctest -j1
+  %ctest --parallel 1
 %else
-  %ctest -j1 -E '_Online$'
+  %ctest --parallel 1 --exclude-regex '_Online$'
 %endif
 %endif
 

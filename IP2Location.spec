@@ -1,5 +1,5 @@
-%global upstream_tag    8.4.1
-%global rpm_version     8.4.1
+%global upstream_tag    8.6.0
+%global rpm_version     8.6.0
 %global soname 3
 
 # enable the following for intermediate builds
@@ -14,7 +14,7 @@
 Name:		IP2Location
 Summary:	Tools for mapping IP address to geolocation information
 Version:	%{rpm_version}
-Release:	4%{?gittag}%{?dist}
+Release:	5%{?gittag}%{?dist}
 License:	MIT
 URL:		http://www.ip2location.com/
 %if 0%{?gitcommit:1}
@@ -57,10 +57,10 @@ Recommends:	%{name}%{_isa} = %{version}-%{release}
 %description libs
 IP2Location C library enables the user to get the country, region, city,
 coordinates, ZIP code, time zone, ISP, domain name, connection type,
-area code, weather info, mobile carrier, elevation, usage type, address
-type and category from any IP address or hostname.
-This library has been optimized for speed and memory utilization. The library
-contains API to query all IP2Location LITE and commercial binary databases.
+area code, weather info, mobile carrier, elevation and usage type from any IP
+address or hostname. This library has been optimized for speed and memory
+utilization. The library contains API to query all IP2Location LITE and
+commercial binary databases.
 
 
 %package 	devel
@@ -74,10 +74,10 @@ Provides:	libip2location-devel = %{version}
 %description 	devel
 IP2Location C library enables the user to get the country, region, city,
 coordinates, ZIP code, time zone, ISP, domain name, connection type,
-area code, weather info, mobile carrier, elevation, usage type, address
-type and category from any IP address or hostname.
-This library has been optimized for speed and memory utilization. The library
-contains API to query all IP2Location LITE and commercial binary databases.
+area code, weather info, mobile carrier, elevation and usage type from any IP
+address or hostname. This library has been optimized for speed and memory
+utilization. The library contains API to query all IP2Location LITE and
+commercial binary databases.
 
 This package contains the development files for the IP2Location library.
 
@@ -166,9 +166,10 @@ install -p data/IPV6-COUNTRY.BIN %{buildroot}%{_datadir}/%{name}/IPV6-COUNTRY.SA
 
 
 %files devel
-%doc Developers_Guide.txt
 %{_includedir}/IP2Loc*.h
 %{_libdir}/libIP2Location.so
+
+%doc Developers_Guide.txt
 
 
 %files data-sample
@@ -176,6 +177,10 @@ install -p data/IPV6-COUNTRY.BIN %{buildroot}%{_datadir}/%{name}/IPV6-COUNTRY.SA
 
 
 %changelog
+* Fri Jun 02 2023 Peter Bieringer <pb@bieringer.de> - 8.6.0-5
+- update to 8.6.0
+- minor spec file alignment with upstream
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.4.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

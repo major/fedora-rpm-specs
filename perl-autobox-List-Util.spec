@@ -2,7 +2,7 @@ Name:           perl-autobox-List-Util
 Version:        20090629
 Release:        33%{?dist}
 Summary:        Bring the List::Util functions to autobox
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/autobox-List-Util
 Source0:        https://cpan.metacpan.org/modules/by-module/autobox/autobox-List-Util-%{version}.tar.gz
 BuildArch:      noarch

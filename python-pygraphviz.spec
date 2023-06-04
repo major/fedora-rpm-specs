@@ -1,5 +1,5 @@
 Name:           python-pygraphviz
-Version:        1.10
+Version:        1.11
 Release:        %autorelease
 Summary:        Create and Manipulate Graphs and Networks
 License:        BSD

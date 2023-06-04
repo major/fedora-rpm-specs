@@ -92,9 +92,15 @@ rm -f %{buildroot}%{gem_instdir}/{.document,.yardopts}
 exit 0
 %endif
 
+%if %{defined rhel}
+# avoid aruba dep on RHEL, but tests fail if files are removed entirely
+echo -n > spec/integration/rails_support_spec.rb
+echo -n > spec/support/aruba.rb
+%else
 # Don't call bundler
 sed -i spec/integration/rails_support_spec.rb \
 	-e 's|bundle exec rspec|rspec|'
+%endif
 
 # library_wide_checks.rb needs UTF-8
 LANG=C.UTF-8

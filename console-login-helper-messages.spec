@@ -3,9 +3,9 @@
 
 Name:           console-login-helper-messages
 Version:        0.21.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Combines motd, issue, profile features to show system information to the user before/on login
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{github_owner}/%{github_project}
 Source0:        https://github.com/%{github_owner}/%{github_project}/archive/v%{version}.tar.gz
 
@@ -139,6 +139,9 @@ rm %{buildroot}/%{_tmpfilesdir}/%{name}-motdgen.conf
 %ghost %{_sysconfdir}/profile.d/%{name}-profile.sh
 
 %changelog
+* Thu Jun 01 2023 Dusty Mabe <dusty@dustymabe.com> - 0.21.3-5
+- Switch License tags to SPDX
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

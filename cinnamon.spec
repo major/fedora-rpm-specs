@@ -1,22 +1,22 @@
-%global commit0 1fe1f5256d94e7ece0397e6237473ff8068dd4d6
-%global date 20220712
+%global commit0 93135ed3741cab016b75a91a03c1fc9b48ec70b4
+%global date 20230601
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global tag %{version}
+#global tag %{version}
 
 %global __requires_exclude ^lib%{name}.so|^lib%{name}-js.so
 
-%global cjs_version 5.7.0
-%global cinnamon_desktop_version 5.6.0
-%global cinnamon_translations_version 5.6.0
+%global cjs_version 5.8.0
+%global cinnamon_desktop_version 5.8.0
+%global cinnamon_translations_version 5.8.0
 %global gobject_introspection_version 1.38.0
-%global muffin_version 5.6.1
+%global muffin_version 5.8.0
 %global json_glib_version 0.13.2
 
 %global __python %{__python3}
 
 Name:           cinnamon
-Version:        5.6.8
-Release:        3%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
+Version:        5.8.0
+Release:        0.1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 Summary:        Window management and application launching for GNOME
 License:        GPLv2+ and LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
@@ -264,7 +264,8 @@ EOF
 
 # Provide symlink for the background-propeties.
 %{__ln_s} %{_datadir}/gnome-background-properties %{buildroot}%{_datadir}/%{name}-background-properties
-
+# Delete useless gir files
+%{__rm} -rf %{buildroot}%{_datadir}/gir-1.0/
 
 %check
 %{_bindir}/desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
@@ -330,6 +331,9 @@ EOF
 %endif
 
 %changelog
+* Fri Jun 02 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.0-0.1.20230601git93135ed
+- Update to git master snapshot
+
 * Tue May 09 2023 Leigh Scott <leigh123linux@gmail.com> - 5.6.8-3
 - Rebuild for cjs-5.7.0
 

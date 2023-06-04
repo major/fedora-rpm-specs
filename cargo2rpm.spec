@@ -12,6 +12,9 @@ Source:         %{url}/archive/%{version}/cargo2rpm-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+%if %{with check}
+BuildRequires:  %{py3_dist pytest}
+%endif
 
 Requires:       cargo
 
@@ -24,7 +27,7 @@ and a Python API (which rust2rpm is built upon).
 %autosetup -p1
 
 %generate_buildrequires
-%pyproject_buildrequires %{?with_check:-t}
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -36,7 +39,7 @@ and a Python API (which rust2rpm is built upon).
 %check
 %pyproject_check_import
 %if %{with check}
-%tox
+%pytest
 %endif
 
 %files -f %{pyproject_files}

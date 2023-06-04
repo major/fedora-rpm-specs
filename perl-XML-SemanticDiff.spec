@@ -2,7 +2,7 @@ Name:		perl-XML-SemanticDiff
 Summary:	Perl extension for comparing XML documents
 Version:	1.0007
 Release:	15%{?dist}
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/XML-SemanticDiff
 Source0:	https://cpan.metacpan.org/modules/by-module/XML/XML-SemanticDiff-%{version}.tar.gz
 BuildArch:	noarch
@@ -29,7 +29,8 @@ BuildRequires:	perl(vars)
 %if "%{?rhel}" != "6" && "%{?rhel}" != "8"
 BuildRequires:	perl(Test::TrailingSpace)
 %endif
-# Runtime
+# Dependencies
+# (none)
 
 %description
 XML::SemanticDiff provides a way to compare the contents and structure of two
@@ -51,11 +52,7 @@ perl Build.PL --installdirs=vendor
 ./Build test
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
 %doc Changes eg/ README
 %{perl_vendorlib}/XML/
 %{_mandir}/man3/XML::SemanticDiff.3*

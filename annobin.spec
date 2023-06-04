@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.11
-Release: 3%{?dist}
+Version: 12.12
+Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
 # Maintainer: nickc@redhat.com
@@ -525,6 +525,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Jun 01 2023 Nick Clifton  <nickc@redhat.com> - 12.12-1
+- Annocheck: Check for string notes in separate debug info files.  (#2211694)
+
 * Fri May 26 2023 Petr Pisar <ppisar@redhat.com> - 12.11-1
 - Annocheck: Add support for el10 and rhel-10 profiles.  (RHEL-526)
 

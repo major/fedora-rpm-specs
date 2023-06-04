@@ -11,7 +11,7 @@
 %global build_tests 1
 
 Name:       libindi
-Version:    2.0.1
+Version:    2.0.2
 Release:    %autorelease
 Summary:    Instrument Neutral Distributed Interface
 

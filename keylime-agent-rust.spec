@@ -15,7 +15,7 @@
 %endif
 
 Name:           keylime-agent-rust
-Version:        0.1.0
+Version:        0.2.1
 Release:        %{?autorelease}%{!?autorelease:1%{?dist}}
 Summary:        Rust agent for Keylime
 
@@ -54,19 +54,13 @@ Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz
 #   tar jcf rust-keylime-%%{version}-vendor.tar.xz vendor
 Source1:        rust-keylime-%{version}-vendor.tar.xz
 ## Patches for building from system Rust libraries (Fedora)
-# Fix version requirement for clap to avoid FTBFS in Fedora
+# Drop completely the legacy-python-actions feature
 Patch1:         rust-keylime-metadata.patch
-# Use API available on rust-config-0.12.0
-Patch2:         rust-keylime-config-separator.patch
-## Patches for building from bundled Rust libraries (RHEL)
-# Build tss-esapi extension from source (upstream commit)
-Patch100:       rust-keylime-metadata-bundled.patch
-# fix tss-esapi build with tpm2-tss v4
-Patch101:       rust-keylime-vendor-tpm-tss-v4.patch
 
 ExclusiveArch:  %{rust_arches}
 
 Requires: tpm2-tss
+Requires: util-linux-core
 
 # The keylime-base package provides the keylime user creation. It is available
 # from Fedora 36
@@ -78,9 +72,8 @@ BuildRequires:  systemd
 BuildRequires:  openssl-devel
 BuildRequires:  libarchive-devel
 BuildRequires:  tpm2-tss-devel
-%if 0%{?bundled_rust_deps}
 BuildRequires:  clang
-BuildRequires:  pkgconfig(libzmq) >= 4.1
+%if 0%{?bundled_rust_deps}
 BuildRequires:  rust-toolset
 %else
 BuildRequires:  rust-packaging >= 21-2
@@ -110,11 +103,9 @@ Rust agent for Keylime
 %cargo_build
 
 %install
-%cargo_install
 
 mkdir -p %{buildroot}/%{_sharedstatedir}/keylime
 mkdir -p --mode=0700 %{buildroot}/%{_rundir}/keylime
-mkdir -p --mode=0700 %{buildroot}/%{_localstatedir}/log/keylime
 mkdir -p --mode=0700 %{buildroot}/%{_libexecdir}/keylime
 mkdir -p --mode=0700  %{buildroot}/%{_sysconfdir}/keylime
 mkdir -p --mode=0700  %{buildroot}/%{_sysconfdir}/keylime/agent.conf.d
@@ -133,6 +124,13 @@ cat > %{buildroot}/%{_sysconfdir}/keylime/agent.conf.d/001-run_as.conf << EOF
 [agent]
 run_as = "keylime:keylime"
 EOF
+
+install -Dpm 0755 \
+    -t %{buildroot}%{_bindir} \
+    ./target/release/keylime_agent
+install -Dpm 0755 \
+    -t %{buildroot}%{_bindir} \
+    ./target/release/keylime_ima_emulator
 
 %posttrans
 chmod 500 %{_sysconfdir}/keylime/agent.conf.d
@@ -158,7 +156,6 @@ chown -R keylime:keylime %{_sysconfdir}/keylime
 %{_unitdir}/keylime_agent.service
 %{_unitdir}/var-lib-keylime-secure.mount
 %attr(700,keylime,keylime) %dir %{_rundir}/keylime
-%attr(700,keylime,keylime) %dir %{_localstatedir}/log/keylime
 %attr(700,keylime,keylime) %{_sharedstatedir}/keylime
 %attr(700,keylime,keylime) %{_libexecdir}/keylime
 %{_bindir}/keylime_agent

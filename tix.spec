@@ -8,7 +8,7 @@ Summary: A set of extension widgets for Tk
 Name: tix
 Epoch: 1
 Version: %{tixmajor}.3
-Release: 36%{?dist}
+Release: 37%{?dist}
 License: TCL
 URL: http://tix.sourceforge.net/
 Source0: http://downloads.sourceforge.net/project/%{name}/%{name}/%{version}/Tix%{version}-src.tar.gz
@@ -59,11 +59,7 @@ This package contains the tix documentation
 
 %prep
 %setup -q -n Tix%{version}
-%patch0 -p1 -b .link
-%patch1 -p1 -b .tcl86
-%patch2 -p1 -b .covscan-fixes
-%patch3 -p1 -b .implicit-int
-%patch4 -p1 -b .configure-c99
+%autopatch -p1
 
 # Remove executable permission of images in html documentation
 chmod ugo-x docs/html/gif/tix/*.png docs/html/gif/tix/*.gif \
@@ -132,6 +128,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/Tix%{tixmajor}/license.terms
 %doc %{tcl_sitelib}/Tix%{tixmajor}
 
 %changelog
+* Fri Jun 02 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 1:8.4.3-37
+- SPDX migration
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:8.4.3-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

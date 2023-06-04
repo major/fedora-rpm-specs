@@ -1,5 +1,5 @@
 Name: clamtk
-Version: 6.15
+Version: 6.16
 Release: 1%{dist}
 Summary: Easy to use graphical user interface for Clam anti virus
 License: GPL-1.0-or-later AND Artistic-2.0
@@ -75,6 +75,9 @@ done
 %{_datadir}/metainfo/com.github.davetheunsub.clamtk.appdata.xml
 
 %changelog
+* Fri Jun 2 2023 Dave M. <dave.nerd@gmail.com> - 6.16-1
+- Updated to release 6.16.
+
 * Sat Apr 22 2023 Dave M. <dave.nerd@gmail.com> - 6.15-1
 - Updated to release 6.15.
 

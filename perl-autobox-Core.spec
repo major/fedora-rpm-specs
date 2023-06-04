@@ -2,7 +2,7 @@ Name:           perl-autobox-Core
 Version:        1.33
 Release:        21%{?dist}
 Summary:        Core functions exposed as methods in primitive types
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/autobox-Core
 Source0:        https://cpan.metacpan.org/modules/by-module/autobox/autobox-Core-%{version}.tar.gz
 BuildArch:      noarch

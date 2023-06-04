@@ -45,8 +45,8 @@
 Name: ovn
 Summary: Open Virtual Network support
 URL: http://www.openvswitch.org/
-Version: 23.03.0
-Release: 16%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
+Version: 23.06.0
+Release: 0%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
 Obsoletes: openvswitch-ovn-common < %{?epoch_ovs:%{epoch_ovs}:}2.11.0-8
 Provides: openvswitch-ovn-common = %{?epoch:%{epoch}:}%{version}-%{release}
 
@@ -60,14 +60,14 @@ Source: https://github.com/openvswitch/ovs/archive/%{commit0}.tar.gz#/openvswitc
 Source: https://www.openvswitch.org/releases/ovn-%{version}.tar.gz
 %endif
 
-%define ovscommit 8986d4d5564401eeef3dea828b51fe8bae2cc8aa
-%define ovsshortcommit 8986d4d
+%define ovscommit 0187eadfce4505d502e57c0e688b830f0a1ec728
+%define ovsshortcommit 0187ead
 
 Source10: https://github.com/openvswitch/ovs/archive/%{ovscommit}.tar.gz#/openvswitch-%{ovsshortcommit}.tar.gz
 %define ovsdir ovs-%{ovscommit}
 
 # ovn-patches
-Patch:     ovn.patch
+# Patch:     ovn.patch
 
 # OpenvSwitch backports (400-) if required.
 # Address crpto policy for fedora
@@ -438,6 +438,9 @@ fi
 %{_unitdir}/ovn-controller-vtep.service
 
 %changelog
+* Fri Jun 02 2023 Numan Siddique <numans@ovn.org> - 23.06.0-0
+- Update to upstream OVN 23.06.0
+
 * Tue Mar 28 2023 Numan Siddique <numans@ovn.org> - 23.03.0-16
 - Sync to upstream OVN branch-23.03. Below are the commits
 since last update (23.03.0-4)

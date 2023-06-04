@@ -1,6 +1,6 @@
 Name:           xapps
 Version:        2.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Common files for XApp desktop apps
 
 License:        LGPLv2+
@@ -31,7 +31,7 @@ Recommends:     inxi
 Requires:       python3-xapps-overrides%{?_isa} = %{version}-%{release}
 Requires:       xdg-utils
 Requires:       xorg-x11-xinit
-Suggests:       switcheroo-control
+Recommends:     switcheroo-control
 Obsoletes:      python2-xapps-overrides < %{version}-%{release}
 
 %description
@@ -127,6 +127,9 @@ rm %{buildroot}%{_datadir}/format
 %{python3_sitearch}/gi/overrides/__pycache__/XApp.cpython-%{python3_version_nodots}*.py*
 
 %changelog
+* Fri Jun 02 2023 Leigh Scott <leigh123linux@gmail.com> - 2.6.0-2
+- Use recommends switcheroo-control
+
 * Thu Jun 01 2023 Leigh Scott <leigh123linux@gmail.com> - 2.6.0-1
 - Update to 2.6.0 release
 

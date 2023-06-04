@@ -34,6 +34,7 @@ BuildRequires:  cmake(KF5People)
 BuildRequires:  cmake(KF5PulseAudioQt) >= 1.3
 BuildRequires:  cmake(KF5WindowSystem)
 
+BuildRequires:  cmake(KWinEffects)
 BuildRequires:  cmake(PlasmaWaylandProtocols)
 
 BuildRequires:  cmake(Qt5Core)
@@ -54,7 +55,9 @@ BuildRequires:  libmpris-qt5-devel
 BuildRequires:  libphonenumber-devel
 BuildRequires:  protobuf-devel
 BuildRequires:  qt5-qtbase-private-devel
+%if 0%{?fedora}
 BuildRequires:  reuse
+%endif
 BuildRequires:  wayland-devel
 
 Requires:       kf5-kcontacts

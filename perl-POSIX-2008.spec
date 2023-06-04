@@ -1,12 +1,14 @@
 Name:           perl-POSIX-2008
-Version:        0.16
-Release:        14%{?dist}
+Version:        0.18
+Release:        1%{?dist}
 Summary:        Perl interface to POSIX.1-2008
+# COPYING:              WTFPL text
 # lib/POSIX/2008.pod:   WTFPL
-# ppport.h:             GPL+ or Artistic
-License:        (GPL+ or Artistic) and WTFPL
+# ppport.h:             GPL-1.0-or-later OR Artistic-1.0-Perl
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND WTFPL
 URL:            https://metacpan.org/release/POSIX-2008
 Source0:        https://cpan.metacpan.org/authors/id/C/CG/CGPAN/POSIX-2008-%{version}.tar.gz
+BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  make
@@ -16,52 +18,94 @@ BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >= 5.8.9
 BuildRequires:  perl(Config)
 BuildRequires:  perl(Devel::PPPort)
+BuildRequires:  perl(ExtUtils::Constant)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
-# Run-time:
+BuildRequires:  perl(lib)
+# Makefile.PL loads ./lib/POSIX/2008.pm without XSLoader
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
+# Run-time:
 BuildRequires:  perl(XSLoader)
 # Tests:
+BuildRequires:  perl(constant)
 BuildRequires:  perl(Fcntl)
 BuildRequires:  perl(File::Path)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(sigtrap)
 BuildRequires:  perl(Test::More)
+Requires:       perl(XSLoader)
 
 %description
 POSIX::2008 Perl module contains many of the interfaces specified by
 POSIX.1-2008 that the core POSIX Perl module withholds or implements
 differently.
 
+%package tests
+Summary:        Tests for %{name}
+BuildArch:      noarch
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       coreutils
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n POSIX-2008-%{version}
-# Regenerate out-dated ppport.h to fix a compiler warning with Perl 5.28.1,
-# CPAN RT#127900
+# Unbundle ppport.h
 perl -MDevel::PPPort \
     -e 'Devel::PPPort::WriteFile() or die "Could not generate ppport.h: $!"'
+# Correct file modes
+chmod a+x t/*.t
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 OPTIMIZE="$RPM_OPT_FLAGS"
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="$RPM_OPT_FLAGS"
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+find %{buildroot} -type f -name '*.bs' -size 0 -delete
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/bash
+set -e
+# t/02_at.t writes into CWD
+DIR=$(mktemp -d)
+cp -a %{_libexecdir}/%{name}/* "$DIR"
+pushd "$DIR"
+prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+popd
+rm -r "$DIR"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %license COPYING
 %doc Changes README
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/POSIX*
-%{_mandir}/man3/*
+%dir %{perl_vendorarch}/auto/POSIX
+%{perl_vendorarch}/auto/POSIX/2008
+%dir %{perl_vendorarch}/POSIX
+%{perl_vendorarch}/POSIX/2008.*
+%{_mandir}/man3/POSIX::2008.*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Fri Jun 02 2023 Petr Pisar <ppisar@redhat.com> - 0.18-1
+- 0.18 bump
+- Package the tests
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

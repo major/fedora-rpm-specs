@@ -1,13 +1,13 @@
 %global pypi_name djangorestframework
 
 Name:           python-django-rest-framework
-Version:        3.13.1
-Release:        5%{?dist}
+Version:        3.14.0
+Release:        1%{?dist}
 Summary:        Web APIs for Django, made easy
 
 License:        BSD
 URL:            http://www.django-rest-framework.org
-Source0:        https://github.com/encode/django-rest-framework/archive/django-rest-framework-%{version}.tar.gz
+Source0:        https://github.com/encode/django-rest-framework/archive/%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
 %description
@@ -87,6 +87,9 @@ find . -name *.po -exec rm -f '{}' \;
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jun 2 2023 Steve Traylen <steve.traylen@cern.ch> - 3.14.0-1
+- Update to 3.14.0 rhbz#2129090
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

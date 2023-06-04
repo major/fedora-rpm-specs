@@ -2,7 +2,7 @@ Name:           perl-Version-Requirements
 Version:        0.101023
 Release:        25%{?dist}
 Summary:        Set of version requirements for a CPAN dist (DEPRECATED)
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Version-Requirements
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/Version-Requirements-%{version}.tar.gz
 BuildArch:      noarch
@@ -25,7 +25,8 @@ BuildRequires:  perl(Test::More) >= 0.88
 # Optional Tests
 BuildRequires:  perl(CPAN::Meta) >= 2.120900
 BuildRequires:  perl(CPAN::Meta::Prereqs)
-# Runtime
+# Dependencies
+# (none)
 
 %description
 Version::Requirements is now DEPRECATED.

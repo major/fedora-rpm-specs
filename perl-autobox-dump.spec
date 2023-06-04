@@ -2,7 +2,7 @@ Name:           perl-autobox-dump
 Version:        20090426.1746
 Release:        33%{?dist}
 Summary:        Human/perl readable strings from the results of an EXPR
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/autobox-dump
 Source0:        https://cpan.metacpan.org/modules/by-module/autobox/autobox-dump-%{version}.tar.gz
 BuildArch:      noarch

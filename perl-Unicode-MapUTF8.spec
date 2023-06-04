@@ -1,6 +1,6 @@
 Name:           perl-Unicode-MapUTF8
 Version:        1.14
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Conversions to and from arbitrary character sets and UTF8
 License:        MIT
 URL:            https://metacpan.org/release/Unicode-MapUTF8
@@ -8,7 +8,6 @@ Source0:        https://cpan.metacpan.org/modules/by-module/Unicode/Unicode-MapU
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -25,14 +24,16 @@ BuildRequires:  perl(Unicode::Map)
 BuildRequires:  perl(Unicode::Map8)
 BuildRequires:  perl(Unicode::String)
 BuildRequires:  perl(vars)
+BuildRequires:  perl(warnings)
 # Test Suite
 BuildRequires:  perl(lib)
-BuildRequires:  perl(Test::More)
 # Optional Tests
 BuildRequires:  perl(Test::Distribution)
+BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.06
 # Dependencies
+# (none)
 
 %description
 Unicode::MapUTF8 Provides an adapter layer between core routines for
@@ -71,6 +72,9 @@ a standardized and simple API.
 
 
 %changelog
+* Fri Jun  2 2023 Paul Howarth <paul@city-fan.org> - 1.14-10
+- SPDX license migration
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

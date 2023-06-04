@@ -5,20 +5,20 @@
 
 Summary:           Flexible communications server for Jabber/XMPP
 Name:              prosody
-Version:           0.12.2
-Release:           3%{?dist}
+Version:           0.12.3
+Release:           1%{?dist}
 License:           MIT
 URL:               https://prosody.im/
 Source0:           https://prosody.im/downloads/source/%{name}-%{version}.tar.gz
 Source1:           https://prosody.im/downloads/source/%{name}-%{version}.tar.gz.asc
-Source2:           gpgkey-3E52119EF853C59678DBBF6BADED9A77B67AD329.gpg
+Source2:           gpgkey-32A9EDDE3609931EB98CEAC315907E8E7BDD6BFE.gpg
 Source3:           prosody.service
 Source4:           prosody.logrotate
 Source5:           prosody.tmpfilesd
 Source6:           prosody.sysusersd
 Source7:           prosody-localhost.cfg.lua
 Source8:           prosody-example.com.cfg.lua
-Patch0:            prosody-0.12.1-config.patch
+Patch0:            prosody-0.12.3-config.patch
 BuildRequires:     gnupg2
 BuildRequires:     gcc
 BuildRequires:     make
@@ -208,6 +208,9 @@ fi
 %{_mandir}/man1/%{name}ctl.1*
 
 %changelog
+* Fri Jun 02 2023 Robert Scheck <robert@fedoraproject.org> 0.12.3-1
+- Upgrade to 0.12.3 (#2172143)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

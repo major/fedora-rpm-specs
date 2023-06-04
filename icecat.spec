@@ -4,7 +4,7 @@
 
 # Set new source-code build version
 # This tag indicates a new rebuild for Fedora
-%global redhat_ver rh2
+%global redhat_ver rh1
 
 # Exclude ARM for the following error:
 #  terminate called after throwing an instance of 'std::bad_alloc'
@@ -104,7 +104,7 @@ ExcludeArch: s390x
 
 Name:    icecat
 Epoch:   1
-Version: 102.11.0
+Version: 102.12.0
 Release: %autorelease -e %{redhat_ver}
 Summary: GNU version of Firefox browser
 

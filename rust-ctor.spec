@@ -7,7 +7,7 @@
 %global crate ctor
 
 Name:           rust-ctor
-Version:        0.2.0
+Version:        0.2.2
 Release:        %autorelease
 Summary:        __attribute__((constructor)) for Rust
 
@@ -47,6 +47,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+used_linker-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+used_linker-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "used_linker" feature of the "%{crate}" crate.
+
+%files       -n %{name}+used_linker-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

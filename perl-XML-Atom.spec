@@ -2,15 +2,15 @@ Name:           perl-XML-Atom
 Version:        0.43
 Release:        7%{?dist}
 Summary:        Atom feed and API implementation
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/XML-Atom
 Source0:        https://cpan.metacpan.org/authors/id/M/MI/MIYAGAWA/XML-Atom-%{version}.tar.gz
 # enable unicode tests (we have LibXML)
 Patch0:         enable-unicode-tests.patch
 BuildArch:      noarch
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(Module::Build::Tiny)
 # Run-time:
 # Apache::Constants not used at tests
@@ -65,7 +65,7 @@ handler or as part of a CGI program.
 
 %prep
 %setup -q -n XML-Atom-%{version}
-%patch0 -p1
+%patch -P 0 -p1
 
 %build
 /usr/bin/perl Build.PL --installdirs=vendor

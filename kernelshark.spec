@@ -1,6 +1,6 @@
 Name: kernelshark
 Version: 2.2.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 1
 
 # As of 1.1, only kernelshark.cpp, kshark-record.cpp and examples are GPL-2.0. The rest of kernel-shark is LGPL-2.1.
@@ -40,6 +40,7 @@ BuildRequires: docbook-style-xsl
 BuildRequires: texlive-epstopdf
 BuildRequires: ghostscript
 Requires: polkit
+Requires: gnu-free-sans-fonts
 
 
 %description
@@ -91,6 +92,10 @@ chrpath --delete %{buildroot}/%{_bindir}/kshark-record
 %{_includedir}/%{name}
 
 %changelog
+* Fri Jun 02 2023 Zamir SUN <sztsian@gmail.com> - 1:2.2.0-2
+- Add gnu-free-sans-fonts to dependency
+- Fixes: RHBZ#2211613
+
 * Tue Apr 18 2023 Zamir SUN <sztsian@gmail.com> - 1:2.2.0-1
 - Update to 2.2.0
 

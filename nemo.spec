@@ -1,6 +1,6 @@
 Name:           nemo
 Summary:        File manager for Cinnamon
-Version:        5.6.4
+Version:        5.8.0
 Release:        1%{?dist}
 License:        GPLv2+ and LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
@@ -8,7 +8,6 @@ Source0:        %url/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:        nemo-fedora.gschema.override
 Patch0:         remove_desktop_search.patch
 Patch1:         Don-t-scale-text-size-when-zooming.patch
-Patch2:         %url/commit/2351260d487e73405c1844bbe58a20eafc9e2930.patch
 
 ExcludeArch:   %{ix86}
 
@@ -18,7 +17,7 @@ Requires:       gvfs-goa%{?_isa}
 Requires:       xapps%{?_isa} >= 2.2.0
 # required for for gtk-stock fallback
 Requires:       adwaita-icon-theme
-Requires:       cinnamon-translations >= 5.6.0
+Requires:       cinnamon-translations >= 5.8.0
 Recommends:     nemo-search-helpers
 
 BuildRequires:  meson
@@ -26,7 +25,7 @@ BuildRequires:  intltool
 BuildRequires:  python3-gobject-base
 BuildRequires:  desktop-file-utils
 BuildRequires:  pkgconfig(libxml-2.0)
-BuildRequires:  pkgconfig(cinnamon-desktop) >= 5.6.0
+BuildRequires:  pkgconfig(cinnamon-desktop) >= 5.8.0
 BuildRequires:  pkgconfig(sm)
 BuildRequires:  pkgconfig(libexif)
 BuildRequires:  pkgconfig(libgsf-1)
@@ -150,6 +149,9 @@ rm %{buildroot}%{_datadir}/nemo/search-helpers/pdf2txt.nemo_search_helper
 %{_datadir}/gir-1.0/*.gir
 
 %changelog
+* Fri Jun 02 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.0-1
+- Update to 5.8.0 release
+
 * Mon Mar 20 2023 Leigh Scott <leigh123linux@gmail.com> - 5.6.4-1
 - Update to 5.6.4 release
 

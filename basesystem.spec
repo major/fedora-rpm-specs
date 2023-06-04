@@ -3,8 +3,8 @@
 Summary: The skeleton package which defines a simple %{distroname} system
 Name: basesystem
 Version: 11
-Release: 15%{?dist}
-License: Public Domain
+Release: 17%{?dist}
+License: LicenseRef-Fedora-Public-Domain
 Requires(pre): setup filesystem
 BuildArch: noarch
 
@@ -12,7 +12,7 @@ BuildArch: noarch
 Basesystem defines the components of a basic %{distroname} system 
 (for example, the package installation order to use during bootstrapping).
 Basesystem should be in every installation of a system, and it
-should never be removed.
+should never be removed. As the package has no content, it is Public Domain.
 
 %prep
 
@@ -23,6 +23,9 @@ should never be removed.
 %files
 
 %changelog
+* Fri Jun 02 2023 Ondrej Vasik <ovasik@redhat.com> - 11-17
+- migrated to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,11 +1,11 @@
 %define _hardened_build 1
 Name:           chkrootkit
-Version:        0.55
-Release:        7%{?dist}
+Version:        0.57
+Release:        1%{?dist}
 Summary:        Tool to locally check for signs of a rootkit
 License:        BSD-2-Clause AND GPL-2.0-or-later
 URL:            http://www.chkrootkit.org
-Source0:        ftp://ftp.pangeia.com.br/pub/seg/pac/chkrootkit-%{version}.tar.gz
+Source0:        ftp://ftp.chkrootkit.org/pub/seg/pac/chkrootkit-%{version}.tar.gz
 Source2:        chkrootkit.png
 Source3:        chkrootkit.desktop
 Source4:        chkrootkit.console
@@ -42,12 +42,12 @@ It contains:
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch1 -p1 -b .getCMD
-%patch2 -p1 -b .inetd
-%patch3 -p1 -b .chklastlog
-%patch4 -p0 -b .chkproc-psver
-%patch5 -p1
-%patch6 -p0
+%patch -P 1 -p1 -b .getCMD
+%patch -P 2 -p1 -b .inetd
+%patch -P 3 -p1 -b .chklastlog
+%patch -P 4 -p0 -b .chkproc-psver
+%patch -P 5 -p1
+%patch -P 6 -p0
 sed -i -e 's!\s\+@strip.*!!g' Makefile
 
 
@@ -107,6 +107,9 @@ install -p -m0644 %{SOURCE6} .
 
 
 %changelog
+* Fri Jun 02 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.57-1
+- 0.57
+
 * Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.55-7
 - migrated to SPDX license
 

@@ -1,9 +1,9 @@
-%global upstreamid 20220716
+%global upstreamid 20230601
 
 Summary:        German thesaurus
 Name:           mythes-de
 Version:        0.%{upstreamid}
-Release:        4%{?dist}
+Release:        1%{?dist}
 License:        LGPL-2.1-or-later OR CC-BY-SA-4.0
 URL:            https://www.openthesaurus.de/
 Source0:        https://www.openthesaurus.de/export/Deutscher-Thesaurus.oxt
@@ -55,7 +55,10 @@ popd
 %{_datadir}/mythes/*
 
 %changelog
-* Wed Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 0.20220716-4
+* Fri Jun 02 2023 Robert Scheck <robert@fedoraproject.org> 0.20230601-1
+- Upgrade to latest daily snapshot release
+
+* Thu Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 0.20220716-4
 - migrated to SPDX license
 
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20220716-3
