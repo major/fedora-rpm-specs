@@ -2,23 +2,28 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate password-hash
+%global crate pem-rfc7468
 
-Name:           rust-password-hash
-Version:        0.5.0
+Name:           rust-pem-rfc7468_0.2
+Version:        0.2.4
 Release:        %autorelease
-Summary:        Traits which describe the functionality of password hashing algorithms
+Summary:        PEM Encoding (RFC 7468) for PKIX, PKCS, and CMS Structures
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/password-hash
+License:        Apache-2.0 OR MIT
+URL:            https://crates.io/crates/pem-rfc7468
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * relax base64ct dependency (MSRV is irrelevant in Fedora)
+Patch:          pem-rfc7468-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Traits which describe the functionality of password hashing algorithms,
-as well as a `no_std`-friendly implementation of the PHC string format
-(a well-defined subset of the Modular Crypt Format a.k.a. MCF).}
+PEM Encoding (RFC 7468) for PKIX, PKCS, and CMS Structures, implementing
+a strict subset of the original Privacy-Enhanced Mail encoding intended
+specifically for use with cryptographic keys, certificates, and other
+messages. Provides a no_std-friendly, constant-time implementation
+suitable for use with cryptographic private keys.}
 
 %description %{_description}
 
@@ -60,30 +65,6 @@ This package contains library source intended for building other packages which
 use the "alloc" feature of the "%{crate}" crate.
 
 %files       -n %{name}+alloc-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+getrandom-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+getrandom-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "getrandom" feature of the "%{crate}" crate.
-
-%files       -n %{name}+getrandom-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+rand_core-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+rand_core-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "rand_core" feature of the "%{crate}" crate.
-
-%files       -n %{name}+rand_core-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel

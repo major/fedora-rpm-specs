@@ -90,7 +90,6 @@ sed -r -i '/\b(flake8|coverage)\b/d' setup.py
 
 
 %build
-%set_build_flags
 %pyproject_wheel
 
 %if %{with doc_pdf}

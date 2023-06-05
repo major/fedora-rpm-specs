@@ -125,7 +125,6 @@ sed -r -i 's/(SOVER=[[:blank:]]*)1/\1%{downstream_soversion}/' Makefile.shared
 
 
 %build
-%set_build_flags
 %make_build \
     CC="${CC-gcc}" \
     CFLAGS="${CFLAGS}" \

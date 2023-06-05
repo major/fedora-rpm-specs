@@ -1,11 +1,3 @@
-# Makes sure an SONAME bump does not catch us by surprise. Currently, there is
-# no ABI stability even across patch releases, and the SONAME comes from the
-# complete version number.
-%global so_version 0.3.0
-
-%global min_boost 1.54
-%global min_cmake 3.2.2
-
 # Doxygen HTML help is not suitable for packaging due to a minified JavaScript
 # bundle inserted by Doxygen itself. See discussion at
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555.
@@ -15,6 +7,10 @@
 
 Name:           cpp-hocon
 Version:        0.3.0
+# Makes sure an SONAME bump does not catch us by surprise. Currently, there is
+# no ABI stability even across patch releases, and the SONAME comes from the
+# complete version number.
+%global so_version 0.3.0
 Release:        %autorelease
 Summary:        C++ support for the HOCON configuration file format
 
@@ -25,12 +21,12 @@ License:        Apache-2.0
 URL:            https://github.com/puppetlabs/cpp-hocon
 Source:         %{url}/archive/%{version}/cpp-hocon-%{version}.tar.gz
 
-BuildRequires:  cmake >= %{min_cmake}
+BuildRequires:  cmake
 BuildRequires:  gcc-c++
 # Our choice; the make backend would work fine too
 BuildRequires:  ninja-build
 
-BuildRequires:  boost-devel >= %{min_boost}
+BuildRequires:  boost-devel
 BuildRequires:  cmake(leatherman)
 BuildRequires:  gettext
 
@@ -57,7 +53,7 @@ The library provides C++ support for the HOCON configuration file format.
 %package devel
 Summary:        Development files for the cpp-hocon library
 Requires:       cpp-hocon%{?_isa} = %{version}-%{release}
-Requires:       boost-devel%{?_isa} >= %{min_boost}
+Requires:       boost-devel%{?_isa}
 Requires:       leatherman-devel%{?_isa}
 
 %description devel
@@ -97,8 +93,6 @@ PDF_HYPERLINKS)[[:blank:]]*=[[:blank:]]*)NO[[:blank:]]*/\1YES/" \
 
 
 %build
-%set_build_flags
-
 %cmake \
     -DLeatherman_DIR=%{_libdir}/cmake/leatherman \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \

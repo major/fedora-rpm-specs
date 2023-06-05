@@ -3,7 +3,7 @@
 
 # https://github.com/nats-io/nkeys
 %global goipath         github.com/nats-io/nkeys
-Version:                0.2.0
+Version:                0.4.4
 
 %gometa
 
@@ -15,7 +15,7 @@ A public-key signature system based on Ed25519 for the NATS ecosystem.}
                         README-nk.md
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        %autorelease
 Summary:        Public-key signature system based on Ed25519 for the NATS ecosystem
 
 # Upstream license specification: Apache-2.0
@@ -57,43 +57,4 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue Jul 19 2022 Maxwell G <gotmax@e.email> - 0.2.0-6
-- Rebuild for CVE-2022-{1705,32148,30631,30633,28131,30635,30632,30630,1962} in
-  golang
-
-* Sat Jun 18 2022 Robert-André Mauchin <zebob.m@gmail.com> - 0.2.0-5
-- Rebuilt for CVE-2022-1996, CVE-2022-24675, CVE-2022-28327, CVE-2022-27191,
-  CVE-2022-29526, CVE-2022-30629
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Thu Jul 30 07:09:39 CEST 2020 Robert-André Mauchin <zebob.m@gmail.com> - 0.2.0-1
-- Update to 0.2.0
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Wed Aug 07 21:01:43 CEST 2019 Robert-André Mauchin <zebob.m@gmail.com> - 0.1.0-1
-- Release 0.1.0 (#1733784)
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Tue May 14 00:44:21 CEST 2019 Robert-André Mauchin <zebob.m@gmail.com> - 0.0.2-1
-- Initial package
+%autochangelog

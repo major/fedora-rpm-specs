@@ -1,19 +1,9 @@
-%global proj_version 9.0.0
-%global data_version 1.13
-
-# The name is special so that rpmdev-bumpspec will bump this rather than adding .1 to the end
-%global baserelease 4
-
-# In order to avoid needing to keep incrementing the release version for the
-# main package forever, we will just construct one for proj that is guaranteed
-# to increment safely. Changing this can only be done during an update when the
-# base proj version number is increasing.
-%global data_release %{proj_version}.%{baserelease}%{?dist}
+%global data_version 1.14
 
 Name:           proj
 # Also check whether there is a new proj-data release when upgrading!
-Version:        9.2.0
-Release:        2%{?dist}
+Version:        9.2.1
+Release:        1%{?dist}
 Summary:        Cartographic projection software (PROJ)
 
 License:        MIT
@@ -174,7 +164,7 @@ Supplements:  proj\
 %data_subpkg -c be -n Belgium
 %data_subpkg -c br -n Brasil
 %data_subpkg -c ca -n Canada
-%data_subpkg -c ch -n Switzerland
+%data_subpkg -c ch -n Switzerland -e CH
 %data_subpkg -c de -n Germany
 %data_subpkg -c dk -n Denmark -e DK
 %data_subpkg -c es -n Spain
@@ -332,6 +322,9 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 
 %changelog
+* Fri Jun 02 2023 Sandro Mani <manisandro@gmail.com> - 9.2.1-1
+- Update to 9.2.1
+
 * Tue May 09 2023 Markus Neteler <neteler@mundialis.de> - 9.2.0-2
 - SPDX migration
 

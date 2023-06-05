@@ -63,7 +63,6 @@ sed -r -i 's/-O[23]//' lib/makefile
 
 
 %build
-%set_build_flags
 %make_build -C lib CC="${CC-gcc}" LDCONFIG='/bin/true' MYUID='0' \
     EXTRA_CFLAGS="${CFLAGS}" LDLIBS="${LDFLAGS-}"
 %make_build -C unittest CC="${CC-gcc}" \

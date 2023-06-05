@@ -86,7 +86,6 @@ plain-text documentation files, changelogs, and so on.
 
 
 %build
-%set_build_flags
 %make_build -C src %{wcd_opts}
 
 

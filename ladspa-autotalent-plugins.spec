@@ -69,7 +69,6 @@ sed -i 's|ladspa.h||' Makefile
 
 
 %build
-%set_build_flags
 # Upstream default CFLAGS:
 #   -I. -O3 -Wall -fomit-frame-pointer -fstrength-reduce -funroll-loops
 #   -ffast-math -c -fPIC -DPIC

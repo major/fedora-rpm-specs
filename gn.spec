@@ -127,7 +127,6 @@ cp -vp misc/vim/README.md README-vim.md
 
 %build
 AR='gcc-ar'; export AR
-%set_build_flags
 # Both --use-icf and --use-lto add compiler flags that only work with clang++,
 # not with g++. We do get LTO on Fedora anyway, since we respect the
 # distribution’s build flags.

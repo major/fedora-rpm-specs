@@ -1,9 +1,9 @@
 %global gvc_commit ae1a34aafce7026b8c0f65a43c9192d756fe1057
-%global libcall_ui_commit 7e2f9e2db6515fb9c4650010c2a9ecb9796957e3
+%global libcall_ui_commit 6798b38d4d66d069751151b3e9a202c6de8d7f3c
 %global libgmobile_commit 6504fa124438b79a2ad5687ac3ebef6d7a2c0823
 
 Name:		phosh
-Version:	0.27.0
+Version:	0.28.0
 Release:	1%{?dist}
 Summary:	Graphical shell for mobile devices
 License:	GPLv3+
@@ -32,7 +32,7 @@ BuildRequires:	meson
 BuildRequires:	cmake
 BuildRequires:	pam-devel
 BuildRequires:	callaudiod-devel
-BuildRequires:	feedbackd-devel >= 0.1.0
+BuildRequires:	feedbackd-devel >= 0.2.0
 BuildRequires:	dbus-daemon
 BuildRequires:	pkgconfig(alsa)
 BuildRequires:	pkgconfig(evince-document-3.0)
@@ -43,7 +43,8 @@ BuildRequires:	pkgconfig(glib-2.0) >= 2.72.0
 BuildRequires:	pkgconfig(gnome-desktop-3.0) >= 3.26
 BuildRequires:	pkgconfig(gobject-2.0) >= 2.50.0
 BuildRequires:	pkgconfig(gudev-1.0)
-BuildRequires:	pkgconfig(gtk+-3.0) >= 3.24.30
+BuildRequires:	pkgconfig(gtk+-3.0) >= 3.24.36
+BuildRequires:	pkgconfig(gtk4) >= 4.8.3
 BuildRequires:	pkgconfig(gtk+-wayland-3.0) >= 3.22
 BuildRequires:	pkgconfig(libadwaita-1)
 BuildRequires:	pkgconfig(libhandy-1) >= 1.1.90

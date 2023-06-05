@@ -2,23 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate password-hash
+%global crate scrypt
 
-Name:           rust-password-hash
-Version:        0.5.0
+Name:           rust-scrypt0.8
+Version:        0.8.1
 Release:        %autorelease
-Summary:        Traits which describe the functionality of password hashing algorithms
+Summary:        Scrypt password-based key derivation function
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/password-hash
+URL:            https://crates.io/crates/scrypt
 Source:         %{crates_source}
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Traits which describe the functionality of password hashing algorithms,
-as well as a `no_std`-friendly implementation of the PHC string format
-(a well-defined subset of the Modular Crypt Format a.k.a. MCF).}
+Scrypt password-based key derivation function.}
 
 %description %{_description}
 
@@ -50,40 +48,28 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+alloc-devel
+%package     -n %{name}+password-hash-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+alloc-devel %{_description}
+%description -n %{name}+password-hash-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "alloc" feature of the "%{crate}" crate.
+use the "password-hash" feature of the "%{crate}" crate.
 
-%files       -n %{name}+alloc-devel
+%files       -n %{name}+password-hash-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+getrandom-devel
+%package     -n %{name}+simple-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+getrandom-devel %{_description}
+%description -n %{name}+simple-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "getrandom" feature of the "%{crate}" crate.
+use the "simple" feature of the "%{crate}" crate.
 
-%files       -n %{name}+getrandom-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+rand_core-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+rand_core-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "rand_core" feature of the "%{crate}" crate.
-
-%files       -n %{name}+rand_core-devel
+%files       -n %{name}+simple-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel

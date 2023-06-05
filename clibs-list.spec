@@ -41,7 +41,6 @@ applications that use clibs-list.
 
 
 %build
-%set_build_flags
 %make_build \
     AR="${AR-gcc-ar}" CC="${CC-gcc}" STRIP=/bin/true \
     CFLAGS="${CFLAGS}" LDFLAGS="${LDFLAGS}" \
@@ -60,8 +59,7 @@ rm -vf '%{buildroot}%{_libdir}/libclibs_list.a'
 
 %files
 %license LICENSE
-%{_libdir}/libclibs_list.so.%{so_version}
-%{_libdir}/libclibs_list.so.%{version}
+%{_libdir}/libclibs_list.so.{%{so_version},%{version}}
 
 
 %files devel

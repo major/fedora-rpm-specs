@@ -48,7 +48,6 @@ developing applications that use libss7.
 
 
 %build
-%set_build_flags
 %make_build
 
 

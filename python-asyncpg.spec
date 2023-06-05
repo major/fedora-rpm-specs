@@ -102,7 +102,6 @@ sed -r -i '/(pycodestyle|flake8)/d' setup.py
 
 
 %build
-%set_build_flags
 %pyproject_wheel
 
 %if %{with doc_pdf}

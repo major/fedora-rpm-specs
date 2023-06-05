@@ -40,7 +40,6 @@ decoding Web Open Font Format (WOFF) files.
 
 
 %build
-%set_build_flags
 %make_build CFLAGS="${CFLAGS}"
 
 

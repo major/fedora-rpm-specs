@@ -55,7 +55,6 @@ Included with pngcheck (since version 2.1.0) are two helper utilities:
 
 
 %build
-%set_build_flags
 %make_build -f Makefile.unx \
     CFLAGS="${CFLAGS-} -DUSE_ZLIB $(pkg-config --cflags zlib)" \
     LIBS="${LDFLAGS-} $(pkg-config --libs zlib)"

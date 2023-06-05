@@ -2,7 +2,7 @@
 
 Summary:        Automate BGP filter generation based on routing database information
 Name:           bgpq4
-Version:        1.9
+Version:        1.10
 Release:        1%{?dist}
 # bgpq4 itself is BSD-2-Clause but uses other source codes, breakdown:
 # BSD-3-Clause: include/sys/queue.h
@@ -42,6 +42,9 @@ autoreconf --install
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+* Sun Jun 04 2023 Robert Scheck <robert@fedoraproject.org> 1.10-1
+- Upgrade to 1.10 (#2212107)
+
 * Sun Mar 05 2023 Robert Scheck <robert@fedoraproject.org> 1.9-1
 - Upgrade to 1.9 (#2175524)
 

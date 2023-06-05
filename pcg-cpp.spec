@@ -81,7 +81,6 @@ cp -rp sample examples
 
 
 %build
-%set_build_flags
 %make_build
 
 

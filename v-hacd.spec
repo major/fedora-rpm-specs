@@ -103,7 +103,6 @@ general utility beyond testing.
 
 
 %build
-%set_build_flags
 pushd app >/dev/null
 %cmake -GNinja
 %cmake_build

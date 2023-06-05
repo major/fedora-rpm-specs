@@ -41,7 +41,6 @@ done
 
 
 %build
-%set_build_flags
 # We must override the default CFLAGS/LIBS to respect distro flags (including
 # ignoring the hard-coded -O2).
 #

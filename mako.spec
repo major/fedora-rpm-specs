@@ -1,6 +1,6 @@
 Name:       mako
-Version:    1.7.1
-Release:    3%{?dist}
+Version:    1.8.0
+Release:    1%{?dist}
 Summary:    Lightweight Wayland notification daemon
 Provides:   desktop-notification-daemon
 
@@ -12,7 +12,6 @@ Source1:    %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz.sig
 Source2:    https://emersion.fr/.well-known/openpgpkey/hu/dj3498u4hyyarh35rkjfnghbjxug6b19#/gpgkey-0FDE7BE0E88F5E48.gpg
 
 Patch0: add-systemd-service-dbus.patch
-Patch1: meson-disable-werror.patch
 
 BuildRequires:  gcc
 BuildRequires:  gnupg2
@@ -45,6 +44,7 @@ the layer-shell protocol.
 
 %build
 %meson \
+    -Dwerror=false \
     -Dsd-bus-provider=libsystemd \
     -Dbash-completions=true \
     -Dfish-completions=true \
@@ -82,6 +82,9 @@ install -m0644 -Dt %{buildroot}%{_userunitdir}/ contrib/systemd/mako.service
 %{_datadir}/fish/vendor_completions.d/mako*.fish
 
 %changelog
+* Sat Jun 03 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.8.0-1
+- Update to 1.8.0 (#2211755)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

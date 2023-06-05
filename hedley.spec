@@ -48,14 +48,12 @@ Provides:       hedley-static = %{version}-%{release}
 
 
 %install
-install -d %{buildroot}%{_includedir}
-install -t %{buildroot}%{_includedir} -p -m 0644 hedley.h
+install -t %{buildroot}%{_includedir} -p -m 0644 -D hedley.h
 
 
 %check
 # As far as we can tell, the tests are intended to be used by compiling them,
 # not by running the result. See .travis.yml.
-%set_build_flags
 %make_build -C test
 
 

@@ -56,6 +56,22 @@ Requires:       hdmf-common-schema = %{schema_version}
 
 %pyproject_extras_subpkg -n python3-hdmf zarr
 
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Directory_Replacement/#_scriptlet_to_replace_a_directory
+%pretrans -p <lua> -n python3-hdmf
+path = "%{python3_sitelib}/hdmf/common/hdmf-common-schema"
+st = posix.stat(path)
+if st and st.type == "directory" then
+  status = os.rename(path, path .. ".rpmmoved")
+  if not status then
+    suffix = 0
+    while not status do
+      suffix = suffix + 1
+      status = os.rename(path .. ".rpmmoved", path .. ".rpmmoved." .. suffix)
+    end
+    os.rename(path, path .. ".rpmmoved")
+  end
+end
+
 %prep
 %autosetup -n hdmf-%{version} -p1
 rm -vrf src/hdmf/common/hdmf-common-schema/
@@ -89,6 +105,9 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
 
 # symbolic link
 %{python3_sitelib}/hdmf/common/hdmf-common-schema
+
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Directory_Replacement/#_scriptlet_to_replace_a_directory
+%ghost %{python3_sitelib}/hdmf/common/hdmf-common-schema.rpmmoved
 
 %changelog
 %autochangelog

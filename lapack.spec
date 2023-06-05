@@ -13,13 +13,14 @@
 Summary: Numerical linear algebra package libraries
 Name: lapack
 Version: %{mediumver}.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: BSD-3-Clause-Open-MPI
 URL: http://www.netlib.org/lapack/
 Source0: https://github.com/Reference-LAPACK/lapack/archive/v%{mediumver}.tar.gz
 Source1: http://www.netlib.org/lapack/manpages.tgz
 Source4: http://www.netlib.org/lapack/lapackqref.ps
 Source5: http://www.netlib.org/blas/blasqr.ps
+Patch0: https://patch-diff.githubusercontent.com/raw/Reference-LAPACK/lapack/pull/765.patch
 BuildRequires: gcc-gfortran, gawk
 BuildRequires: make, cmake
 Requires: blas%{?_isa} = %{version}-%{release}
@@ -110,6 +111,9 @@ This build has 64bit INTEGER support and a symbol name suffix.
 
 %prep
 %setup -q -n %{name}-%{mediumver}
+
+%patch -P0 -p1 -b .NaNfix
+
 %setup -q -n %{name}-%{mediumver} -D -T -a1
 
 mkdir manpages
@@ -393,6 +397,9 @@ cp -f manpages/man/man3/* ${RPM_BUILD_ROOT}%{_mandir}/man3
 %endif
 
 %changelog
+* Thu Jun  1 2023 Tom Callaway <spot@fedoraproject.org> - 3.11.0-4
+- apply upstream fix to https://github.com/Reference-LAPACK/lapack/issues/763
+
 * Fri May 19 2023 Iñaki Úcar <iucar@fedoraproject.org> - 3.11.0-3
 - Adapt license tag to SPDX
 

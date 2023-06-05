@@ -56,7 +56,6 @@ rm -rvf zopfli
 
 
 %build
-%set_build_flags
 %make_build \
     ZLIB_CFLAGS="$(pkg-config --cflags zlib)" \
     ZLIB_LIBS="$(pkg-config --libs zlib)" \

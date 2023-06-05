@@ -3,9 +3,9 @@ Summary:        Fast, header-only polygon triangulation
 Version:        2.2.4
 Release:        %autorelease
 
-URL:            https://github.com/mapbox/earcut.hpp
 # SPDX
 License:        ISC
+URL:            https://github.com/mapbox/earcut.hpp
 # A copy of libtess2 (https://github.com/memononen/libtess2) is bundled with
 # the tests as a reference implementation (test/comparison/libtess2/).
 #
@@ -82,7 +82,6 @@ sed -r -i 's/(setprecision\()6(\))/\116\2/' test/test.cpp
 # Since this library is header-only, dependent packages should be advised to
 # add this flag too if they want the behavior of the library to exactly match
 # upstream’s expectations.
-%set_build_flags
 export CXXFLAGS="${CXXFLAGS-} -ffp-contract=off"
 
 # We do want to build the tests, but we have no use for the benchmarks or the

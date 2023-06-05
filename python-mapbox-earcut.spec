@@ -74,8 +74,6 @@ dos2unix *.md
 
 
 %build
-%set_build_flags
-
 # See comments in the earcut-hpp spec file, as well as:
 # https://github.com/mapbox/earcut.hpp/issues/97
 # https://github.com/mapbox/earcut.hpp/issues/103

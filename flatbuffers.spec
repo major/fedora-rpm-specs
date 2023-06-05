@@ -177,7 +177,6 @@ popd >/dev/null
 %build
 # Needed for correct Python wheel version
 export VERSION='%{version}'
-%set_build_flags
 %cmake -GNinja \
     -DCMAKE_BUILD_TYPE=Release \
 %if %{with cpp_tests}

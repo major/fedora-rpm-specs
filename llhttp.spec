@@ -149,7 +149,6 @@ popd
 # code with license problems in the source RPM.
 %{python3} '%{SOURCE3}' --exceptions '%{SOURCE4}' --with dev node_modules_dev
 
-%set_build_flags
 # http-loose-request.c:7205:20: error: invalid conversion from 'void*' to
 #     'const unsigned char*' [-fpermissive]
 #  7205 |     start = state->_span_pos0;

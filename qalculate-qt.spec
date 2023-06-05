@@ -58,7 +58,6 @@ This package provides a Qt graphical interface for Qalculate!
 
 
 %build
-%set_build_flags
 %qmake_qt6 \
     PREFIX='%{_prefix}' \
     DESKTOP_DIR='%{_datadir}/applications' \

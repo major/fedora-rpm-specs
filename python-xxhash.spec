@@ -39,7 +39,6 @@ rm -rvf deps
 
 
 %build
-%set_build_flags
 # Normally, no extra flags are required to link the xxhash shared library, but
 # we are prepared:
 export CFLAGS="${CFLAGS} $(pkgconf --cflags libxxhash)"

@@ -126,7 +126,6 @@ echo '#include <nlohmann/json.hpp>' > fplll/io/json.hpp
 autoreconf --install --force --verbose
 
 # This is a formality; no extra flags are required in practice:
-%set_build_flags
 export CFLAGS="${CFLAGS-} $(pkgconf --cflags nlohmann_json)"
 export LDFLAGS="${LDFLAGS-} $(pkgconf --libs nlohmann_json)"
 

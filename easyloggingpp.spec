@@ -114,7 +114,6 @@ find samples/VC++ -type f -execdir dos2unix '{}' '+'
 
 
 %build
-%set_build_flags
 %cmake -GNinja -Dtest:BOOL=TRUE
 %cmake_build
 
@@ -168,7 +167,7 @@ hardlink '%{buildroot}%{_pkgdocdir}/samples'
 %license LICENSE
 %dir %{_pkgdocdir}
 %doc %{_pkgdocdir}/*.md
-%doc %{_pkgdocdir}/doc
+%doc %{_pkgdocdir}/doc/
 
 
 %changelog

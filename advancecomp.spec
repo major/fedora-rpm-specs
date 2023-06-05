@@ -104,7 +104,6 @@ find . -type f -exec gawk \
 
 
 %build
-%set_build_flags
 autoreconf --force --install --verbose
 
 # Link against system libdeflate

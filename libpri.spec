@@ -82,7 +82,6 @@ machines used in its implementation.
 
 
 %build
-%set_build_flags
 %make_build
 
 

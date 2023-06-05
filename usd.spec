@@ -340,8 +340,6 @@ chmod +x uic-wrapper
 
 
 %build
-%set_build_flags
-
 # Although upstream supports OpenEXR3 / Imath now, the necessary include path
 # is not set everywhere it’s needed. It’s not immediately clear exactly why
 # this is happening here or what should be changed upstream.

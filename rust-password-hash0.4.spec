@@ -4,8 +4,8 @@
 
 %global crate password-hash
 
-Name:           rust-password-hash
-Version:        0.5.0
+Name:           rust-password-hash0.4
+Version:        0.4.2
 Release:        %autorelease
 Summary:        Traits which describe the functionality of password hashing algorithms
 
@@ -60,18 +60,6 @@ This package contains library source intended for building other packages which
 use the "alloc" feature of the "%{crate}" crate.
 
 %files       -n %{name}+alloc-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+getrandom-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+getrandom-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "getrandom" feature of the "%{crate}" crate.
-
-%files       -n %{name}+getrandom-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+rand_core-devel

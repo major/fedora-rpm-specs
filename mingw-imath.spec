@@ -3,8 +3,8 @@
 %global pkgname imath
 
 Name:          mingw-%{pkgname}
-Version:       3.1.6
-Release:       2%{?dist}
+Version:       3.1.9
+Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 License:       BSD
@@ -74,6 +74,9 @@ Summary:       MinGW Windows %{pkgname} library
 
 
 %changelog
+* Sat Jun 03 2023 Sandro Mani <manisandro@gmail.com> - 3.1.9-1
+- Update to 3.1.9
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

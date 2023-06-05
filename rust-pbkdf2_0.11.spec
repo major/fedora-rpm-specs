@@ -2,21 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate scrypt
+%global crate pbkdf2
 
-Name:           rust-scrypt
+Name:           rust-pbkdf2_0.11
 Version:        0.11.0
 Release:        %autorelease
-Summary:        Scrypt password-based key derivation function
+Summary:        Generic implementation of PBKDF2
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/scrypt
+URL:            https://crates.io/crates/pbkdf2
 Source:         %{crates_source}
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Scrypt password-based key derivation function.}
+Generic implementation of PBKDF2.}
 
 %description %{_description}
 
@@ -48,6 +48,30 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+hmac-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+hmac-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "hmac" feature of the "%{crate}" crate.
+
+%files       -n %{name}+hmac-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+parallel-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+parallel-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "parallel" feature of the "%{crate}" crate.
+
+%files       -n %{name}+parallel-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+password-hash-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -58,6 +82,42 @@ This package contains library source intended for building other packages which
 use the "password-hash" feature of the "%{crate}" crate.
 
 %files       -n %{name}+password-hash-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rayon-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rayon-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rayon" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rayon-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+sha1-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+sha1-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "sha1" feature of the "%{crate}" crate.
+
+%files       -n %{name}+sha1-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+sha2-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+sha2-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "sha2" feature of the "%{crate}" crate.
+
+%files       -n %{name}+sha2-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+simple-devel

@@ -2,23 +2,24 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate password-hash
+%global crate salsa20
 
-Name:           rust-password-hash
-Version:        0.5.0
+Name:           rust-salsa20_0.9
+Version:        0.9.0
 Release:        %autorelease
-Summary:        Traits which describe the functionality of password hashing algorithms
+Summary:        Salsa20 Stream Cipher
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/password-hash
+URL:            https://crates.io/crates/salsa20
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * relax zeroize dependency (MSRV is irrelevant for Fedora)
+Patch:          salsa20-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Traits which describe the functionality of password hashing algorithms,
-as well as a `no_std`-friendly implementation of the PHC string format
-(a well-defined subset of the Modular Crypt Format a.k.a. MCF).}
+Salsa20 Stream Cipher.}
 
 %description %{_description}
 
@@ -50,56 +51,46 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+alloc-devel
+%package     -n %{name}+expose-core-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+alloc-devel %{_description}
+%description -n %{name}+expose-core-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "alloc" feature of the "%{crate}" crate.
+use the "expose-core" feature of the "%{crate}" crate.
 
-%files       -n %{name}+alloc-devel
+%files       -n %{name}+expose-core-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+getrandom-devel
+%package     -n %{name}+hsalsa20-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+getrandom-devel %{_description}
+%description -n %{name}+hsalsa20-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "getrandom" feature of the "%{crate}" crate.
+use the "hsalsa20" feature of the "%{crate}" crate.
 
-%files       -n %{name}+getrandom-devel
+%files       -n %{name}+hsalsa20-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+rand_core-devel
+%package     -n %{name}+zeroize-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+rand_core-devel %{_description}
+%description -n %{name}+zeroize-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "rand_core" feature of the "%{crate}" crate.
+use the "zeroize" feature of the "%{crate}" crate.
 
-%files       -n %{name}+rand_core-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+std-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+std-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
-
-%files       -n %{name}+std-devel
+%files       -n %{name}+zeroize-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
+# remove executable bit from non-executable source files
+find -name "*.rs" -executable -print -exec chmod -x {} +
 %cargo_prep
 
 %generate_buildrequires

@@ -1,21 +1,18 @@
 Name:           gnome-mahjongg
-Version:        3.38.3
-Release:        7%{?dist}
+Version:        3.40.0
+Release:        1%{?dist}
 Summary:        GNOME Mahjongg game
 
 License:        GPLv2+ and CC-BY-SA
 URL:            https://wiki.gnome.org/Apps/Mahjongg
-Source0:        https://download.gnome.org/sources/%{name}/3.38/%{name}-%{version}.tar.xz
-
-# Fix the build with meson 0.61
-# https://gitlab.gnome.org/GNOME/gnome-mahjongg/-/merge_requests/26
-Patch0:         meson-0.61.patch
+Source0:        https://download.gnome.org/sources/%{name}/3.40/%{name}-%{version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
 BuildRequires:  glib2-devel
-BuildRequires:  gtk3-devel
+BuildRequires:  gtk4-devel
+BuildRequires:  libadwaita-devel
 BuildRequires:  itstool
 BuildRequires:  librsvg2-devel
 BuildRequires:  meson
@@ -27,11 +24,11 @@ matching identical tiles.
 
 
 %prep
-%autosetup -p1
+%autosetup
 
 
 %build
-%meson -Dcompile-schemas=disabled -Dupdate-icon-cache=disabled
+%meson
 %meson_build
 
 
@@ -54,10 +51,15 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*/apps/org.gnome.Mahjongg.*
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.Mahjongg-symbolic.svg
 %{_datadir}/metainfo/org.gnome.Mahjongg.appdata.xml
+%{_datadir}/dbus-1/services/org.gnome.Mahjongg.service
 %{_mandir}/man6/gnome-mahjongg.6*
 
 
 %changelog
+* Sat Jun 03 2023 Justin Koh <j@ustink.org> - 3.40.0-1
+- Update to 3.40.0
+- Drop meson patch, it has been upstreamed
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.38.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

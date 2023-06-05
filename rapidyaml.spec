@@ -148,7 +148,6 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 
 
 %build
-%set_build_flags
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 
 %cmake -GNinja \

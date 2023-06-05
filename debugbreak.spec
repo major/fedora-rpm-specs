@@ -48,13 +48,11 @@ Provides:       debugbreak-static = %{version}-%{release}
 
 
 %build
-%set_build_flags
 %make_build -f GNUmakefile CFLAGS="${CFLAGS} -I." CXXFLAGS="${CXXFLAGS} -I."
 
 
 %install
 install -t '%{buildroot}%{_includedir}' -D -p -m 0644 debugbreak.h
-
 install -t '%{buildroot}%{_datadir}/debugbreak' -D -p -m 0644 debugbreak-gdb.py
 
 

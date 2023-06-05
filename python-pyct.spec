@@ -85,7 +85,6 @@ find pyct -type f -exec \
 
 
 %build
-%set_build_flags
 %pyproject_wheel
 
 # Sphinx-generated HTML documentation is not suitable for packaging; see

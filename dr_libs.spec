@@ -225,7 +225,6 @@ rm -rvf "${flacdir}/"*.md
 %build
 # There is no compiled code to install, since all dr_libs libraries are
 # header-only. We do need to build the tests.
-%set_build_flags
 %make_build -C tests
 
 

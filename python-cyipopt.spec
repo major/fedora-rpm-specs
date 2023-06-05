@@ -113,7 +113,6 @@ echo 'latex_elements["preamble"] = r"\usepackage{enumitem}\setlistdepth{99}"' \
 
 
 %build
-%set_build_flags
 %pyproject_wheel
 
 %if %{with doc_pdf}

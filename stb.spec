@@ -567,7 +567,6 @@ sed -r -i '/#include[[:blank:]]+"stb_include.h"/d' tests/test_c_compilation.c
 %build
 # There is no compiled code to install, since all stb libraries are
 # header-only. We do need to build the tests.
-%set_build_flags
 %make_build -C tests
 
 

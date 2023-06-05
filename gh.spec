@@ -10,7 +10,12 @@ Version:                2.30.0
 %global goname          gh
 
 %global common_description %{expand:
-GitHub’s official command line tool.}
+A command-line interface to GitHub for use in your terminal or your scripts.
+
+gh is a tool designed to enhance your workflow when working with GitHub. It
+provides a seamless way to interact with GitHub repositories and perform various
+actions right from the command line, eliminating the need to switch between your
+terminal and the GitHub website.}
 
 %global godevelheader   %{expand:
 Obsoletes:              golang-github-cli-devel < 2.4.0-3
@@ -20,7 +25,7 @@ Obsoletes:              golang-github-cli-devel < 2.4.0-3
 
 Name:           %{goname}
 Release:        %autorelease
-Summary:        GitHub’s official command line tool
+Summary:        GitHub's official command line tool
 
 License:        MIT
 URL:            %{gourl}
