@@ -1,5 +1,5 @@
 Name:           perl-String-License
-Version:        0.0.5
+Version:        0.0.6
 Release:        1%{?dist}
 Summary:        Detect source code license statements in a text string
 License:        AGPL-3.0-or-later
@@ -72,6 +72,9 @@ make test
 
 
 %changelog
+* Sun Jun 04 2023 Sandro Mani <manisandro@gmail.com> - 0.0.6-1
+- Update to 0.0.6
+
 * Tue May 30 2023 Sandro Mani <manisandro@gmail.com> - 0.0.5-1
 - Update to 0.0.5
 

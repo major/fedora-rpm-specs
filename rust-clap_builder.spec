@@ -6,7 +6,7 @@
 %global crate clap_builder
 
 Name:           rust-clap_builder
-Version:        4.2.7
+Version:        4.3.1
 Release:        %autorelease
 Summary:        Simple to use, efficient, and full-featured Command Line Argument Parser
 

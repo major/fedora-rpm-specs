@@ -14,7 +14,7 @@
 Name:		IP2Location
 Summary:	Tools for mapping IP address to geolocation information
 Version:	%{rpm_version}
-Release:	5%{?gittag}%{?dist}
+Release:	6%{?gittag}%{?dist}
 License:	MIT
 URL:		http://www.ip2location.com/
 %if 0%{?gitcommit:1}
@@ -177,9 +177,13 @@ install -p data/IPV6-COUNTRY.BIN %{buildroot}%{_datadir}/%{name}/IPV6-COUNTRY.SA
 
 
 %changelog
-* Fri Jun 02 2023 Peter Bieringer <pb@bieringer.de> - 8.6.0-5
+* Sun Jun 04 2023 Peter Bieringer <pb@bieringer.de>
+- reenable "make check" for arch s390x and wait for upstream fix
+
+* Sun Jun 04 2023 Peter Bieringer <pb@bieringer.de> - 8.6.0-6
 - update to 8.6.0
 - minor spec file alignment with upstream
+- exclude "make check" for arch s390x as it segfaults for unknown reason
 
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.4.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild

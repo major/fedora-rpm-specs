@@ -5,7 +5,7 @@
 %global crate libadwaita
 
 Name:           rust-libadwaita
-Version:        0.4.1
+Version:        0.4.3
 Release:        %autorelease
 Summary:        Rust bindings for libadwaita
 
@@ -58,6 +58,18 @@ use the "dox" feature of the "%{crate}" crate.
 %files       -n %{name}+dox-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+gtk_v4_10-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+gtk_v4_10-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "gtk_v4_10" feature of the "%{crate}" crate.
+
+%files       -n %{name}+gtk_v4_10-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+gtk_v4_2-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -92,6 +104,18 @@ This package contains library source intended for building other packages which
 use the "gtk_v4_6" feature of the "%{crate}" crate.
 
 %files       -n %{name}+gtk_v4_6-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+gtk_v4_8-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+gtk_v4_8-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "gtk_v4_8" feature of the "%{crate}" crate.
+
+%files       -n %{name}+gtk_v4_8-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+v1_1-devel

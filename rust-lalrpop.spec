@@ -5,7 +5,7 @@
 %global crate lalrpop
 
 Name:           rust-lalrpop
-Version:        0.19.9
+Version:        0.19.12
 Release:        %autorelease
 Summary:        Convenient LR(1) parser generator
 
@@ -16,7 +16,8 @@ Source0:        %{crates_source}
 Source1:        https://github.com/lalrpop/lalrpop/raw/%{version}/LICENSE-APACHE
 Source2:        https://github.com/lalrpop/lalrpop/raw/%{version}/LICENSE-MIT
 # Manually created patch for downstream crate metadata changes
-# * drop unused lalrpop binary
+# * add missing dependency on "regex/perf"
+# * prevent unused lalrpop binary from being built and shipped
 Patch:          lalrpop-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
@@ -62,18 +63,6 @@ This package contains library source intended for building other packages which
 use the "lexer" feature of the "%{crate}" crate.
 
 %files       -n %{name}+lexer-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+pico-args-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+pico-args-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "pico-args" feature of the "%{crate}" crate.
-
-%files       -n %{name}+pico-args-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+test-devel

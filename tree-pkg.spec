@@ -1,10 +1,11 @@
 Summary: File system tree viewer
 Name: tree-pkg
 Version: 2.1.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
-# The entire source code is GPLv2+ except strverscmp.c which is LGPLv2+
-License: GPLv2+ and LGPLv2+
+# The entire source code is LGPL-2.1-or-later except strverscmp.c
+# which is LGPL-2.1-or-later.
+License: GPL-2.0-or-later AND LGPL-2.1-or-later
 
 URL: https://mama.indstate.edu/users/ice/tree/
 Source: https://mama.indstate.edu/users/ice/tree/src/tree-%{version}.tgz
@@ -62,6 +63,9 @@ sed -e 's/LINUX/__linux__/' -i tree.c
 %doc README
 
 %changelog
+* Thu Jun 01 2023 Lukáš Zaoral <lzaoral@redhat.com> - 2.1.0-3
+- migrate to SPDX license format
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

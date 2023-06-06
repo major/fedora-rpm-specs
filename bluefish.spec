@@ -1,4 +1,4 @@
-%global pkgver 2.2.13
+%global pkgver 2.2.14
 #global prerel rc1
 %global baserelease 1
 
@@ -11,13 +11,12 @@ URL:		http://bluefish.openoffice.nl/
 Source0:	http://www.bennewitz.com/bluefish/stable/source/bluefish-%{version}%{?prerel:-%{prerel}}.tar.bz2
 Patch0:		bluefish-2.2.13-strict-aliasing.patch
 Patch1:		bluefish-2.2.12-shellbang.patch
-Patch4:		bluefish-2.2.12-python3.patch
 BuildRequires:	coreutils
 BuildRequires:	desktop-file-utils
 BuildRequires:	enchant-devel >= 1.4.2
 BuildRequires:	findutils
 BuildRequires:	gcc
-BuildRequires:	gettext
+BuildRequires:	gettext >= 0.19.7
 BuildRequires:	glib2-devel >= 2.24
 BuildRequires:	gtk3-devel >= 3.2
 BuildRequires:	gucharmap-devel >= 2.90
@@ -74,14 +73,11 @@ Files common to every architecture version of %{name}.
 %setup -q -n %{name}-%{version}%{?prerel:-%{prerel}}
 
 # Avoid potential aliasing issues in zencoding plugin
-%patch0
+%patch -P 0
 
 # Avoid use of /usr/bin/env in shipped scripts
 # Also change /usr/bin/python → /usr/bin/python3
-%patch1
-
-# Fix some broken syntax in zencoding plugin
-%patch4
+%patch -P 1
 
 %build
 %configure	--disable-dependency-tracking \
@@ -188,6 +184,21 @@ update-mime-database %{_datadir}/mime &> /dev/null || :
 %{_mandir}/man1/bluefish.1*
 
 %changelog
+* Sun Jun  4 2023 Paul Howarth <paul@city-fan.org> - 2.2.14-1
+- Update to 2.2.14 (rhbz#2212156)
+  - Fix three bugs that in certain situations could lead to a segfault
+    - When deleting backup files on close
+    - When closing some of the dialogs in a flatpak distributed version of
+      bluefish
+    - When the CSS language file was loaded on a 32bit system.
+  - Fix zencoding functionality with python3
+  - Add an option to store the scope of the search dialog to the session or
+    project (this was removed in 2.2.12 because of a bug report)
+  - Improve the speed of the bookmarks code
+  - The build infrastructure was also slightly modernized; intltool is no
+    longer used
+- Avoid use of deprecated patch syntax
+
 * Fri Feb 24 2023 Paul Howarth <paul@city-fan.org> - 2.2.13-1
 - Update to 2.2.13 (rhbz#2173097)
   - Bluefish 2.2.13 is a very minor maintenance release

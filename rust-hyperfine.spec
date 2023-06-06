@@ -4,7 +4,7 @@
 %global crate hyperfine
 
 Name:           rust-hyperfine
-Version:        1.16.1
+Version:        1.17.0
 Release:        %autorelease
 Summary:        Command-line benchmarking tool
 
@@ -14,6 +14,9 @@ URL:            https://crates.io/crates/hyperfine
 Source:         %{crates_source}
 # Automatically generated patch to strip foreign dependencies
 Patch:          hyperfine-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+# * drop incompatible "strip = true" cargo setting
+Patch:          hyperfine-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 23
 
@@ -31,7 +34,7 @@ Summary:        %{summary}
 # MIT OR Apache-2.0
 # MPL-2.0
 # Unlicense OR MIT
-License:        MIT AND MPL-2.0 AND (Apache-2.0 OR BSL-1.0)
+License:        MIT AND MPL-2.0 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (Unlicense OR MIT)
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}

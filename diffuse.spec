@@ -1,23 +1,25 @@
 Name:			diffuse
 Version:		0.8.2
-Release:		1%{?dist}
+Release:		2%{?dist}
 Summary:		Graphical tool for merging and comparing text files
-License:		GPLv2+
+License:		GPL-2.0-or-later
 URL:			https://mightycreak.github.io/diffuse/
-Source0:		https://codeload.github.com/MightyCreak/diffuse/tar.gz/v%{version}
+Source0:		https://github.com/MightyCreak/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+
 BuildArch:		noarch
+
 BuildRequires:		desktop-file-utils
 BuildRequires:		gettext
-BuildRequires:		autoconf
-BuildRequires:		meson
-BuildRequires:		python3-devel
-BuildRequires:		python3-gobject
-BuildRequires:		python3-cairo
-BuildRequires:		gtk-update-icon-cache
 BuildRequires:		glib2-devel
+BuildRequires:		meson
+BuildRequires:		libappstream-glib
+
+
 Requires:		hicolor-icon-theme
 Requires:		gnome-icon-theme
-Requires:		gnome-icon-theme-legacy
+Requires:		python3-gobject            
+Requires:		python3-cairo
+
 Provides:		mergetool
 Provides:		difftool
 
@@ -43,7 +45,7 @@ This is the Python 3 fork of Diffuse.
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.mightycreak.Diffuse.desktop
-%meson_test
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/io.github.mightycreak.Diffuse.appdata.xml
 
 %files -f %{name}.lang
 %license COPYING
@@ -51,18 +53,25 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.mightycreak
 %config(noreplace) %{_sysconfdir}/diffuserc
 %{_bindir}/%{name}
 %{_datadir}/%{name}
-%{_datadir}/applications/io.github.mightycreak*
-%{_datadir}/gnome/help/%{name}/*/%{name}.xml
-%{_datadir}/icons/hicolor/symbolic/apps/io.github.mightycreak*
-%{_datadir}/icons/hicolor/scalable/apps/io.github.mightycreak*
-%{_datadir}/appdata/io.github.mightycreak*
-%{_datadir}/omf/%{name}/%{name}-*.omf
+%{_datadir}/applications/io.github.mightycreak.Diffuse.desktop
+%{_datadir}/gnome/help/%{name}/
+%{_datadir}/icons/hicolor/*/apps/io.github.mightycreak*
+%{_datadir}/appdata/io.github.mightycreak.Diffuse.appdata.xml
+%{_datadir}/omf/%{name}/
 %{_mandir}/man*/*
 %{_mandir}/*/man*/*
-%{_datadir}/omf/%{name}
-%{_datadir}/gnome/help/%{name}
 
 %changelog
+* Sun Jun 04 2023 Leigh Scott <leigh123linux@gmail.com> - 0.8.2-2
+- Drop invalid tests on desktop and appdata files
+- Validate the appdata file
+- Drop unused build requires
+- Add requires python3-gobject and python3-cairo
+- Fix source url
+- Use SPDX licence
+- Fix files listed twice
+- Drop requires gnome-icon-theme-legacy
+
 * Sun Apr 16 2023 niohiani <notinsideofhereiamnotinside@gmail.com> 0.8.2-1
 - Release 0.8.2
 

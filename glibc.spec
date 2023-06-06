@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.37.9000-398-g40b68e8cc0
+%global glibcsrcdir glibc-2.37.9000-486-g6286cca2cb
 %global glibcversion 2.37.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 10
+%global baserelease 11
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -2195,6 +2195,98 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Thu Jun 01 2023 Patsy Griffin <patsy@redhat.com> - 2.37.9000-11
+- Auto-sync with upstream branch master,
+  commit 6286cca2cb8389dcffec39238a8bf15ffea96396.
+- support: Don't fail on fchown when spawning sgid processes
+- io: Fix F_GETLK, F_SETLK, and F_SETLKW for powerpc64
+- elf: Remove spurios SHARED conditional from elf/rtld.c
+- Fix misspellings in sysdeps/ -- BZ 25337
+- io: Fix record locking contants on 32 bit arch with 64 bit default time_t (BZ#30477)
+- io: Re-flow and sort multiline Makefile definitions
+- elf: Make more functions available for binding during dlclose (bug 30425)
+- LoongArch: Fix inconsistency in SHMLBA macro values between glibc and kernel
+- Fix misspellings in elf/ -- BZ 25337
+- riscv: Add the clone3 wrapper
+- posix: Add error message for EAI_OVERFLOW
+- setsourcefilter: Replace alloca with a scratch_buffer.
+- time: strftime_l: Avoid an unbounded alloca.
+- x86: Use 64MB as nt-store threshold if no cacheinfo [BZ #30429]
+- hurd: Fix setting up signal thread stack alignment
+- mach: Fix startup with stack protector
+- Fix misspellings in manual/ -- BZ 25337
+- Fix misspellings in iconv/ and iconvdata/ -- BZ 25337
+- Add MFD_NOEXEC_SEAL, MFD_EXEC from Linux 6.3 to bits/mman-shared.h
+- Add IP_LOCAL_PORT_RANGE from Linux 6.3 to bits/in.h
+- Add AT_RSEQ_* from Linux 6.3 to elf.h
+- setipv4sourcefilter: Avoid using alloca.
+- wchar: Define va_list for POSIX (BZ #30035)
+- elf: add test for dl-printf
+- elf: fix handling of negative numbers in dl-printf
+- elf: Update comment in open_path
+- elf: Add test for locating libraries in root dir (bug 30435)
+- io: Re-flow and sort multiline Makefile definitions
+- Fix special case for C2x strtol binary constant handling (BZ# 30371)
+- rtld: properly handle root directory in load path (bug 30435)
+- sysdeps/pthread/eintr.c: fix warn unused result
+- sunrpc/netname.c: fix warn unused result
+- locale/programs/locarchive.c: fix warn unused result
+- support: Reformat Makefile.
+- Regenerate configure fragment -- BZ 25337.
+- Fix misspellings in sysdeps/powerpc -- BZ 25337
+- Fix misspellings in sysdeps/unix -- BZ 25337
+- Fix misspellings in sysdeps/x86_64 -- BZ 25337.
+- mach: Fix accessing mach_i386.h
+- Fix misspellings in sysdeps/x86_64/fpu/multiarch -- BZ 25337.
+- mach: Fix installing mach_i386.h
+- hurd: Fix making ld.so run static binaries with retry
+- Add voice-admit DSCP code point from RFC-5865
+- mach: Fix mach_setup_thread_impl with NULL stack_base
+- Remove last remnants of have-protected
+- S390: Use compile-only instead of also link-tests in configure.
+- Fix build for hurd/thread-self.c for i386.
+- io: Fix a typo
+- htl: Use __hurd_fail () instead of assigning errno
+- hurd: Use __hurd_fail () instead of assigning errno
+- powerpc:GCC(<10) doesn't allow -mlong-double-64 after -mabi=ieeelongdouble
+- hurd: Fix using interposable hurd_thread_self
+- hurd 64bit: Re-introduce gai_suspend symbol
+- hurd: Fix __TIMESIZE on x86_64
+- posix: Reformat Makefile.
+- hurd: Fix expected c++ types
+- catgets: Reformat Makefile.
+- benchtests: Reformat Makefile.
+- assert: Reformat Makefile.
+- nptl: Reformat Makefile.
+- wcsmbs: Reformat Makefile.
+- misc: Reformat Makefile.
+- stdio-common: Adjust tests in Makefile
+- elf: Adjust tests in Makefile.
+- scripts: sort-makefile-lines.py
+- Add a SECURITY.md
+- Add HWCAP2_SME* from Linux 6.3 to AArch64 bits/hwcap.h
+- hurd: Also make it possible to call strlen very early
+- hurd: Fix setting up pthreads
+- hurd: Fix x86_64 _hurd_tls_fork
+- hurd: Make sure to not use tcb->self
+- hurd: Use __mach_setup_thread_call ()
+- mach: Add __mach_setup_thread_call ()
+- hurd: Use MACHINE_THREAD_STATE_SETUP_CALL
+- mach: Define MACHINE_THREAD_STATE_SETUP_CALL
+- Use TASK_THREAD_TIMES_INFO_COUNT when calling task_info with TASK_THREAD_TIMES_INFO
+- argp: Reformat Makefile.
+- stdlib: Avoid undefined behavior in stdlib/tst-labs
+- stdlib: Use long long int in stdlib/tst-llabs
+- Update kernel version to 6.3 in header constant tests
+- i386: Use pthread_barrier for synchronization on tst-bz21269
+- stdlib: Add testcases for llabs(). (BZ #30263)
+- stdlib: Add testcases for labs(). (BZ #30263)
+- stdlib: Add testcases for abs(). (BZ #30263)
+- hurd: Fix computing user stack pointer
+- hurd: Fix sc_i386_thread_state layout
+- hurd: Align signal stack pointer after allocating stackframe
+- hurd: Fix aligning signal stack pointer
+
 * Tue May 16 2023 Carlos O'Donell <carlos@redhat.com> - 2.37.9000-10
 - Auto-sync with upstream branch master,
   commit 40b68e8cc00ca40348bc084b651c0561d31feb46:

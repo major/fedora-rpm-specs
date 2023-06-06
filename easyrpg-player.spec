@@ -15,16 +15,15 @@ URL: https://easyrpg.org
 #
 # dr_wav files - licensed under (Unlicense or MIT-0):
 # - src/external/dr_wav.h
-# Note that this file is removed and replaced by dr_wav.h provided
-# by Fedora's "dr_wav-devel" package. Still, this is a header-only library,
-# which means it's statically linked into the resulting executable.
-#
 # rang files - licensed under the Unlicense:
 # - src/external/rang.hpp
+# Note that both dr_wav and rang are un-bundled and replaced with versions
+# provided by Fedora packages. However, since these are header-only libraries,
+# their licenses are still included in the License tag.
 #
 # PicoJSON is used only for Emscripten builds (and unbundled before build).
 # --
-# The program also uses a couple of 3rd-party fonts. Since those are not
+# The program also uses a couple of 3rd-party fonts. Since these are not
 # loaded at runtime, but rather baked into the executable at compile time,
 # their licenses are also added to the License tag.
 #
@@ -47,7 +46,7 @@ URL: https://easyrpg.org
 License: GPL-3.0-or-later AND CC-BY-SA-4.0 AND BSD-3-Clause AND (Unlicense OR MIT-0) AND Unlicense AND Baekmuk AND LicenseRef-Fedora-Public-Domain AND MIT AND GPL-2.0-or-later WITH Font-exception-2.0
 
 Version: 0.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 %global repo_owner EasyRPG
 %global repo_name Player
@@ -56,6 +55,7 @@ Source0: https://github.com/%{repo_owner}/%{repo_name}/archive/%{version}/%{repo
 # Unbundle libraries
 Patch1: 0001-unbundle-picojson.patch
 Patch2: 0002-unbundle-dr_wav.patch
+Patch3: 0003-unbundle-rang.patch
 
 BuildRequires: cmake >= 3.13
 BuildRequires: desktop-file-utils
@@ -79,6 +79,7 @@ BuildRequires: pkgconfig(libpng)
 BuildRequires: pkgconfig(libxmp)
 BuildRequires: pkgconfig(opusfile)
 BuildRequires: pkgconfig(pixman-1)
+BuildRequires: pkgconfig(rang)
 BuildRequires: pkgconfig(sdl2) >= 2.0.5
 BuildRequires: pkgconfig(sndfile)
 BuildRequires: pkgconfig(speexdsp)
@@ -100,7 +101,7 @@ a RPG Maker 2000/2003 game project folder (same place as RPG_RT.exe).
 %autosetup -n %{repo_name}-%{version} -p1
 
 # These are all un-bundled and can be removed
-rm src/external/dr_wav.h src/external/picojson.h
+rm src/external/dr_wav.h src/external/picojson.h src/external/rang.hpp
 
 
 %build
@@ -139,6 +140,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 
 
 %changelog
+* Sun Jun 04 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.8-2
+- Unbundle rang
+
 * Tue May 02 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.8-1
 - Update to v0.8
 - Drop Patch0 (unbundle dirent - dependency removed upstream)

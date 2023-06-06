@@ -1,5 +1,5 @@
 Name:           electrum
-Version:        4.4.4
+Version:        4.3.4
 Release:        1%{?dist}
 Summary:        A lightweight Bitcoin Client
 
@@ -89,9 +89,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_metainfodir}/%{name}.metainfo.xml
 
 %changelog
-* Thu Jun 01 2023 Jonathan Schleifer <js@nil.im> - 4.4.4-1
-- Updated to version 4.4.4.
-
 * Wed Mar 01 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 4.3.4-1
 - Updated to version 4.3.4.
 

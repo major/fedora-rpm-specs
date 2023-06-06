@@ -1,8 +1,8 @@
-%global git_version 1ba785612a79fe749aa1e478336e534743372639
+%global git_version a0d77f18516d2da7468a96b0de3b737266f23176
 
 Name:       onnx
-Version:    1.13.0
-Release:    3%{?dist}
+Version:    1.14.0
+Release:    1%{?dist}
 Summary:    Open standard for machine learning interoperability
 License:    Apache-2.0
 
@@ -12,10 +12,10 @@ Source0:    https://github.com/onnx/onnx/archive/v%{version}/%{name}-%{version}.
 Patch0:     onnx-install.patch
 # Add what is missing to run tox, disable tests that require network
 Patch1:     onnx-tox.patch
-# Use system protobuf
-Patch2:     onnx-protobuf.patch
+# Use system protobuf and require parameterized
+Patch2:     onnx-requirements.patch 
 
-# Architecture not supported: lots of "unsupported adapters" errors
+# https://bugzilla.redhat.com/show_bug.cgi?id=2212096
 ExcludeArch:    s390x
 
 BuildRequires:  cmake >= 3.13
@@ -105,6 +105,9 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %{python3_sitearch}/%{name}/
 
 %changelog
+* Sat Jun 03 2023 Alejandro Alvarez Ayllon <a.alvarezayllon@gmail.com> - 1.14.0-1
+- Release 1.14.0
+
 * Thu May 18 2023 Diego Herrera <dherrera@redhat.com> - 1.13.0-3
 - Fix License entry to comply with SPDX
 - Add onnx-libs as an explicit dependency to the python package

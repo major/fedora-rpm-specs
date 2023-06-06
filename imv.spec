@@ -1,14 +1,13 @@
-# dependency from rpmfusion; disabled by default
-%bcond_with     libheif
-
 Name:           imv
 Version:        4.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Image viewer for X11 and Wayland
 
 License:        MIT
 URL:            https://sr.ht/~exec64/imv/
-Source0:        https://git.sr.ht/~exec64/imv/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source:         https://git.sr.ht/~exec64/imv/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+# https://lists.sr.ht/~exec64/imv-devel/patches/41580
+Patch:          imv-4.4.0-libheif-support-fixes.patch
 
 BuildRequires:  asciidoc
 BuildRequires:  desktop-file-utils
@@ -31,9 +30,7 @@ BuildRequires:  pkgconfig(xcb)
 BuildRequires:  pkgconfig(xkbcommon-x11)
 # backends
 BuildRequires:  freeimage-devel
-%if %{with libheif}
 BuildRequires:  pkgconfig(libheif)
-%endif
 BuildRequires:  pkgconfig(librsvg-2.0) >= 2.44
 BuildRequires:  pkgconfig(libturbojpeg)
 
@@ -48,16 +45,16 @@ Features:
 
 
 %prep
-%autosetup -n %{name}-v%{version}
+%autosetup -p1 -n %{name}-v%{version}
 
 
 %build
 %meson \
-    -Dlibheif=%[%{with libheif}?"en":"dis"]abled \
     -Dlibnsgif=disabled \
     -Dlibpng=disabled  \
     -Dlibtiff=disabled
 %meson_build
+
 
 %install
 %meson_install
@@ -89,6 +86,9 @@ desktop-file-validate \
 %{_mandir}/man5/%{name}*
 
 %changelog
+* Fri Jun 02 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 4.4.0-2
+- Enable libheif backend
+
 * Wed Jan 18 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 4.4.0-1
 - Update to 4.4.0 (#2162162)
 - Convert License tag to SPDX

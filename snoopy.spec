@@ -1,17 +1,20 @@
 Name:           snoopy
-Version:        2.4.14
-Release:        4%{?dist}
+Version:        2.5.1
+Release:        1%{?dist}
 Summary:        A preload library to send shell commands to syslog
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/a2o/snoopy
 Source0:        %{url}/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
+Source1:        snoopy-disable
+Source2:        snoopy-enable
 
 # Upstream patches (0001~0500)
 
 # Proposed upstream patches (0501~1000)
 
 # Fedora-only patches (1001+)
-Patch1001:      1001-Add-exceptions-for-Fedora-and-RHEL-to-fix-filter-tests.patch
+# arch-specific (1101+)
+Patch1101:      %{name}-disable-utmp-tests.diff
 
 BuildRequires:  automake
 BuildRequires:  libtool
@@ -22,32 +25,61 @@ BuildRequires:  %{_bindir}/hostname
 BuildRequires:  %{_bindir}/socat
 BuildRequires:  %{_bindir}/ps
 
-%description
+%if 0%{?fedora} <= 38 || 0%{?el8}
+Recommends:     %{name}-compat = %{version}-%{release}
+%endif
+
+%global _description %{expand:
 Snoopy is designed to aid a sysadmin by providing a log of commands executed.
 Snoopy is completely transparent to the user and applications.
 It is linked into programs to provide a wrapper around calls to execve().
-Logging is done via syslog.
+Logging is done via syslog.}
+
+%description %{_description}
+
+%package        compat
+Summary:        Compatibility scripts for %{name}
+
+BuildArch:      noarch
+
+# this is only needed for the lifetime of Fedora and EPEL releases that
+# originally shipped snoopy <= 2.4.x (which has snoopy-disable and
+# snoopy-enable instead of snoopyctl)
+#
+# per policy we can't mark a package as deprecated on a released
+# Fedora branch
+%if 0%{?fedora} > 38 || 0%{?rhel}
+Provides:       deprecated()
+%endif
+Requires:       %{name} = %{version}-%{release}
+
+%description compat %{_description}
+
+This package contains compatibility scripts for Snoopy.
 
 
 %prep
-%autosetup -p1
+%autosetup -N
+%ifarch aarch64 s390x
+%autopatch -p1
+%else
+%autopatch -p1 -M 1100
+%endif
+# compat scripts
+cp -p %{SOURCE1} .
+cp -p %{SOURCE2} .
 
 
 %build
-%if 0%{?fc33}
-# Only for Fedora 33
-%ifarch s390x
-# Disable -Werror to prevent weirdness from the standard library on s390x
-export CFLAGS="%{build_cflags} -Wno-error"
-%endif
-%endif
-
 %configure
 %make_build
 
 
 %install
 %make_install
+for cmd in disable enable; do
+  install -p snoopy-${cmd} %{buildroot}%{_sbindir}/
+done
 
 # Get rid of libtool archive file
 rm %{buildroot}%{_libdir}/libsnoopy.la
@@ -58,16 +90,24 @@ rm %{buildroot}%{_libdir}/libsnoopy.la
 
 
 %files
-%doc COPYING README.md ChangeLog
 %license COPYING
+%doc README.md ChangeLog doc/FAQ.md doc/FILTER_exclude_spawns_of.md
 # Note, the plain .so file needs to be here since it's a preload library
 %{_libdir}/libsnoopy.so*
-%{_sbindir}/snoopy-enable
-%{_sbindir}/snoopy-disable
+%{_sbindir}/snoopyctl
 %config(noreplace) %{_sysconfdir}/snoopy.ini
+
+%files compat
+%{_sbindir}/snoopy-disable
+%{_sbindir}/snoopy-enable
 
 
 %changelog
+* Sat Jun 03 2023 Michel Alexandre Salim <salimma@fedoraproject.org> - 2.5.1-1
+- Update to 2.5.1
+- Convert to SPDX license identifier
+- Add compat subpackage for snoopy-disable and snoopy-enable
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.14-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

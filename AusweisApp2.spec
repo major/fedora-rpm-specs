@@ -37,7 +37,7 @@ fi                                               \
 
 Name:             AusweisApp2
 Version:          1.26.4
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          %{pkg_sum}
 
 License:          EUPL 1.2
@@ -322,6 +322,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Sun Jun 04 2023 Björn Esser <besser82@fedoraproject.org> - 1.26.4-3
+- Rebuild(Qt_6.5)
+
 * Sun May 07 2023 Björn Esser <besser82@fedoraproject.org> - 1.26.4-2
 - Rebuild(Qt_6.5)
 

@@ -5,7 +5,7 @@
 
 Name:           python-asyncmy
 Summary:        A fast asyncio MySQL/MariaDB driver
-Version:        0.2.7
+Version:        0.2.8
 Release:        %autorelease
 
 License:        Apache-2.0
@@ -30,7 +30,6 @@ BuildRequires:  mariadb-server
 
 # pyproject.toml: [tool.poetry.dev-dependencies]
 # aiomysql = "*" ← benchmarks only
-# bandit = "*" ← linter/analyzer
 # black = "*" ← linter/formatter
 # cryptography = "*"
 BuildRequires:  python3dist(cryptography)
