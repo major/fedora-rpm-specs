@@ -1,5 +1,5 @@
 %global packname jsonlite
-%global packver  1.8.0
+%global packver  1.8.5
 %global rlibdir  %{_libdir}/R/library
 
 # Several hard-require this package or are not yet available.
@@ -7,7 +7,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          3%{?dist}
+Release:          1%{?dist}
 Summary:          A Simple and Robust JSON Parser and Generator for R
 
 # Bundled yajl is ISC.
@@ -18,7 +18,7 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 # Here's the R view of the dependencies world:
 # Depends:   R-methods
 # Imports:
-# Suggests:  R-httr, R-curl, R-vctrs, R-testthat, R-knitr, R-rmarkdown, R-R.rsp, R-sf
+# Suggests:  R-httr, R-vctrs, R-testthat, R-knitr, R-rmarkdown, R-R.rsp, R-sf
 # LinkingTo:
 # Enhances:
 
@@ -27,7 +27,6 @@ BuildRequires:    tex(latex)
 BuildRequires:    R-methods
 %if %{with suggests}
 BuildRequires:    R-httr
-BuildRequires:    R-curl
 BuildRequires:    R-vctrs
 BuildRequires:    R-testthat
 BuildRequires:    R-knitr
@@ -89,6 +88,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --ignore-vignettes
 
 
 %changelog
+* Mon Jun  5 2023 Tom Callaway <spot@fedoraproject.org> - 1.8.5-1
+- update to 1.8.5
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 1.8.0-3
 - R-maint-sig mass rebuild
 

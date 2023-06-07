@@ -11,8 +11,8 @@
 
 Name: libtracefs
 Version: 1.6.4
-Release: 1%{?dist}
-License: LGPLv2+ and GPLv2+
+Release: 2%{?dist}
+License: LGPL-2.1-or-later AND GPL-2.0-or-later AND GPL-2.0-only
 Summary: Library for access kernel tracefs
 
 URL: https://git.kernel.org/pub/scm/libs/libtrace/libtracefs.git/
@@ -63,6 +63,9 @@ rm -rf %{buildroot}/%{_libdir}/libtracefs.a
 %{_libdir}/%{name}.so
 
 %changelog
+* Mon Jun 05 2023 Zamir SUN <sztsian@gmail.com> - 1.6.4-2
+- SPDX migration
+
 * Wed Apr 05 2023 Zamir SUN <sztsian@gmail.com> - 1.6.4-1
 - Update to 1.6.4
 

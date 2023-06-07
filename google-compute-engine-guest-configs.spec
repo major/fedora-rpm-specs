@@ -1,4 +1,5 @@
 %global         srcname     guest-configs
+%global         dracutlibdir %{_prefix}/lib/dracut
 
 Name:           google-compute-engine-guest-configs
 Version:        20230526.00
@@ -75,6 +76,9 @@ cp -vpR                     src/{etc,usr}                   %{buildroot}
 install -m 0755 -vdp        %{buildroot}%{_udevrulesdir}
 cp -vp                      src/lib/udev/rules.d/*          %{buildroot}%{_udevrulesdir}
 cp -vp                      src/lib/udev/google_nvme_id     %{buildroot}%{_udevrulesdir}/../
+# dracut module for udev package
+install -m 0755 -vdp %{buildroot}%{dracutlibdir}/modules.d/30gcp-udev-rules
+cp -vp  src/lib/dracut/modules.d/30gcp-udev-rules/module-setup.sh %{buildroot}%{dracutlibdir}/modules.d/30gcp-udev-rules/
 
 
 %files
@@ -100,6 +104,7 @@ cp -vp                      src/lib/udev/google_nvme_id     %{buildroot}%{_udevr
 %doc README.md
 %attr(0755,-,-) %{_udevrulesdir}/../google_nvme_id
 %{_udevrulesdir}/65-gce-disk-naming.rules
+%attr(0755,-,-) %{dracutlibdir}/modules.d/30gcp-udev-rules/module-setup.sh
 
 
 %changelog

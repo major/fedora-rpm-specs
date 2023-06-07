@@ -1,5 +1,5 @@
 Name:           imagej
-Version:        1.54d
+Version:        1.54e
 Release:        1%{?dist}
 Summary:        Image Processing and Analysis in Java
 

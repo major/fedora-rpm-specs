@@ -2,21 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate openssh-keys
+%global crate signature_derive
 
-Name:           rust-openssh-keys
-Version:        0.6.1
+Name:           rust-signature_derive1
+Version:        1.0.0~pre.7
 Release:        %autorelease
-Summary:        Read and write OpenSSH public keys
+Summary:        Custom derive support for the 'signature' crate
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/openssh-keys
+License:        Apache-2.0 OR MIT
+URL:            https://crates.io/crates/signature_derive
 Source:         %{crates_source}
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Read and write OpenSSH public keys.}
+Custom derive support for the 'signature' crate.}
 
 %description %{_description}
 
@@ -32,8 +32,8 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
-%doc %{crate_instdir}/code_of_conduct.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

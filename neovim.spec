@@ -124,10 +124,8 @@ USERNAME=koji
        -DLUA_PRG=%{lua_prg} \
        -DENABLE_JEMALLOC=%{?with_jemalloc:ON}%{!?with_jemalloc:OFF} \
        -DLIBLUV_INCLUDE_DIR:PATH=%{luv_include_dir} \
-       -DLIBLUV_LIBRARY:FILEPATH=%{luv_library}
+       -DLIBLUV_LIBRARY:STRING=-Wl,%{luv_library}
 
-# HACK: Replace -lluv with the correct path
-sed -i 's#-lluv#%{luv_library}#' %{__cmake_builddir}/src/nvim/CMakeFiles/nvim.dir/link.txt
 %cmake_build
 
 %install

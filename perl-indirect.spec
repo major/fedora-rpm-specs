@@ -9,7 +9,7 @@ Name:           perl-indirect
 Version:        0.39
 Release:        16%{?dist}
 Summary:        Lexically warn about using the indirect object syntax
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/indirect
 Source0:        https://cpan.metacpan.org/authors/id/V/VP/VPIT/indirect-%{version}.tar.gz
 # Module Build

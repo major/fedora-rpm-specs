@@ -9,7 +9,7 @@
 
 %bcond_without       tests
 
-%global gh_commit    8cffffb2218e01f3b370bf763e00e81697725259
+%global gh_commit    612a3ee5ab0d5dd97b7cf3874a6efe24325efac3
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     doctrine
 %global gh_project   deprecations
@@ -21,7 +21,7 @@
 %global ns_project   Deprecations
 
 Name:           php-%{pk_vendor}-%{pk_project}
-Version:        1.1.0
+Version:        1.1.1
 Release:        1%{?dist}
 Summary:        A small layer on top of triggeFr_error or PSR-3 logging
 
@@ -36,9 +36,13 @@ BuildRequires:  php-fedora-autoloader-devel
 %if %{with tests}
 # From composer.json
 #    "require-dev": {
-#        "phpunit/phpunit": "^7.5|^8.5|^9.5",
-#        "psr/log": "^1|^2|^3",
-#        "doctrine/coding-standard": "^9"
+#        "doctrine/coding-standard": "^9",
+#        "phpstan/phpstan": "1.4.10 || 1.10.15",
+#        "phpstan/phpstan-phpunit": "^1.0",
+#        "phpunit/phpunit": "^7.5 || ^8.5 || ^9.5",
+#        "psalm/plugin-phpunit": "0.18.4",
+#        "psr/log": "^1 || ^2 || ^3",
+#        "vimeo/psalm": "4.30.0 || 5.12.0"
 BuildRequires: (php-composer(psr/log) >= 1.0   with php-composer(psr/log) < 4)
 BuildRequires:  phpunit9 >= 9.5
 %endif
@@ -124,7 +128,8 @@ EOF
 ret=0
 for cmd in php php80 php81 php82; do
   if which $cmd; then
-    $cmd %{_bindir}/phpunit9 \
+    $cmd  -d auto_prepend_file=vendor/autoload.php \
+      %{_bindir}/phpunit9 \
         --filter '^((?!(testDeprecationTrackByEnv)).)*$' \
         --verbose || ret=1
   fi
@@ -144,6 +149,9 @@ exit $ret
 
 
 %changelog
+* Mon Jun  5 2023 Remi Collet <remi@remirepo.net> - 1.1.1-1
+- update to 1.1.1
+
 * Tue May 30 2023 Remi Collet <remi@remirepo.net> - 1.1.0-1
 - update to 1.1.0
 

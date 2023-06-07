@@ -1,11 +1,11 @@
 Name: kernelshark
 Version: 2.2.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 1
 
 # As of 1.1, only kernelshark.cpp, kshark-record.cpp and examples are GPL-2.0. The rest of kernel-shark is LGPL-2.1.
 # See SPDX identifier for most accurate info
-License: GPLv2 and LGPLv2
+License: GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1
 Summary: GUI analysis for Ftrace data captured by trace-cmd
 
 URL: https://kernelshark.org
@@ -92,6 +92,9 @@ chrpath --delete %{buildroot}/%{_bindir}/kshark-record
 %{_includedir}/%{name}
 
 %changelog
+* Mon Jun 05 2023 Zamir SUN <sztsian@gmail.com> - 1:2.2.0-3
+- SPDX migration
+
 * Fri Jun 02 2023 Zamir SUN <sztsian@gmail.com> - 1:2.2.0-2
 - Add gnu-free-sans-fonts to dependency
 - Fixes: RHBZ#2211613

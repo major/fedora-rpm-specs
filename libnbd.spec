@@ -12,10 +12,10 @@
 
 Name:           libnbd
 Version:        1.16.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NBD client library in userspace
 
-License:        LGPLv2+
+License:        LGPL-2.0-or-later AND BSD-3-Clause
 URL:            https://gitlab.com/nbdkit/libnbd
 
 Source0:        http://libguestfs.org/download/libnbd/%{source_directory}/%{name}-%{version}.tar.gz
@@ -117,7 +117,6 @@ The key features are:
 
 %package devel
 Summary:        Development headers for %{name}
-License:        LGPLv2+ and BSD
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
@@ -161,7 +160,6 @@ python3-%{name} contains Python 3 bindings for %{name}.
 
 %package -n nbdfuse
 Summary:        FUSE support for %{name}
-License:        LGPLv2+ and BSD
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Recommends:     fuse3
 
@@ -173,7 +171,6 @@ This package contains FUSE support for %{name}.
 %if !0%{?rhel}
 %package -n nbdublk
 Summary:        Userspace NBD block device
-License:        LGPLv2+
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Recommends:     kernel >= 6.0.0
 Recommends:     %{_sbindir}/ublk
@@ -359,6 +356,9 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Mon Jun 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1.16.1-2
+- Migrated to SPDX license
+
 * Wed May 10 2023 Richard W.M. Jones <rjones@redhat.com> - 1.16.1-1
 - New upstream stable version 1.16.1
 

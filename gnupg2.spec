@@ -5,7 +5,7 @@ Name:    gnupg2
 Version: 2.4.2
 Release: 1%{?dist}
 
-License: GPLv3+
+License: GPL-3.0-or-later
 Source0: https://gnupg.org/ftp/gcrypt/%{?pre:alpha/}gnupg/gnupg-%{version}%{?pre}.tar.bz2
 Source1: https://gnupg.org/ftp/gcrypt/%{?pre:alpha/}gnupg/gnupg-%{version}%{?pre}.tar.bz2.sig
 Source2: https://gnupg.org/signature_key.asc

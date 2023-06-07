@@ -1,5 +1,5 @@
 Name:           perl-Carp-Assert-More
-Version:        2.2.0
+Version:        2.3.0
 Release:        1%{?dist}
 Summary:        Convenience wrappers around Carp::Assert
 License:        Artistic-2.0
@@ -24,7 +24,7 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(IO::File)
 BuildRequires:  perl(Test::Exception)
-BuildRequires:  perl(Test::More)
+BuildRequires:  perl(Test::More) >= 0.18
 # Optional tests
 BuildRequires:  perl(DateTime)
 BuildRequires:  perl(Test::Pod) >= 1.14
@@ -55,6 +55,9 @@ make test
 %{_mandir}/man3/Carp*.3pm*
 
 %changelog
+* Mon Jun  5 2023 Tom Callaway <spot@fedoraproject.org> - 2.3.0-1
+- update to 2.3.0
+
 * Mon Feb 13 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.2.0-1
 - 2.2.0 bump
 - Update license to SPDX format

@@ -1,8 +1,8 @@
 Name:           perl-Compress-Stream-Zstd
-Version:        0.203
-Release:        4%{?dist}
+Version:        0.206
+Release:        1%{?dist}
 Summary:        Perl interface to the Zstd (Zstandard) (de)compressor
-License:        BSD
+License:        BSD-2-Clause AND BSD-3-Clause
 URL:            https://metacpan.org/release/Compress-Stream-Zstd/
 Source0:        https://cpan.metacpan.org/modules/by-module/Compress/Compress-Stream-Zstd-%{version}.tar.gz
 
@@ -29,7 +29,7 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(XSLoader)
 # Unbundling is not possible, because libzstd-devel doesn't not contains
 # 'compress/zstdmt_compress.h', which is used by lib/Compress/Stream/Zstd.xs 
-Provides:       bundled(zstd) = 1.4.3
+Provides:       bundled(zstd) = 1.5.5
 
 
 %description
@@ -65,6 +65,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -empty -delete
 
 
 %changelog
+* Mon Jun 05 2023 Xavier Bachelot <xavier@bachelot.org> 0.206-1
+- Update to 0.206 (RHBZ#2168705)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.203-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global framework kbookmarks
 
 Name:    kf5-%{framework}
-Version: 5.106.0
+Version: 5.107.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 3 addon for bookmarks manipulation
 
@@ -73,6 +73,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sat Jun 03 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.107.0-1
+- 5.107.0
+
 * Mon May 15 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.106.0-1
 - 5.106.0
 

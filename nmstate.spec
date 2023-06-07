@@ -2,7 +2,7 @@
 %define libname libnmstate
 
 Name:           nmstate
-Version:        2.2.10
+Version:        2.2.12
 Release:        %autorelease
 Summary:        Declarative network manager API
 License:        LGPLv2+
@@ -15,9 +15,6 @@ Source3:        %{url}/releases/download/v%{version}/%{srcname}-vendor-%{version
 # https://bugzilla.redhat.com/show_bug.cgi?id=2161128
 # but list Requires manually
 Patch1:         0001-Workaround-for-Fedora-rust-packaging.patch
-Patch2:         0002-fix_nix_deps.patch
-# https://github.com/coreos/fedora-coreos-tracker/issues/1480
-Patch3:         0003-Fix-error-when-DHCP-with-auto-IP-address-on-STP-e.patch
 BuildRequires:  patchelf
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools

@@ -1,8 +1,8 @@
 %global pypi_name django-filter
 
 Name:           python-%{pypi_name}
-Version:        22.1
-Release:        3%{?dist}
+Version:        23.2
+Release:        1%{?dist}
 Summary:        A Django application for allowing users to filter queryset dynamically
 
 License:        BSD
@@ -68,13 +68,16 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Mon Jun 05 2023 Luis Bazan <lbazan@fedoraproject.org> - 23.2-1
+- New upstream version
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 22.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
-- Mon Jun 27 2022 Luis Bazan <lbazan@fedoraproject.org> - 22.1-1
+* Mon Jun 27 2022 Luis Bazan <lbazan@fedoraproject.org> - 22.1-1
 - New upstream version
 
 * Tue Jun 14 2022 Python Maint <python-maint@redhat.com> - 21.1-3
@@ -83,7 +86,7 @@ rm -rf html/.{doctrees,buildinfo}
 * Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 21.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 
-- Mon Oct 18 2021 Luis Bazan <lbazan@fedoraproject.org> - 21.1-1
+* Mon Oct 18 2021 Luis Bazan <lbazan@fedoraproject.org> - 21.1-1
 - New upstream version
 - release version change to new format
 

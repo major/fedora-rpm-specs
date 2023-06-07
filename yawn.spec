@@ -5,12 +5,12 @@
 
 Name:           yawn
 Version:        0
-Release:        0.43.%{revdate}svn%{svnrev}%{?dist}
+Release:        0.44.%{revdate}svn%{svnrev}%{?dist}
 Summary:        Yet Another WBEM Navigator
 
 
-License:        GPLv2
-URL:            https://sourceforge.net/apps/mediawiki/pywbem/index.php?title=YAWN
+License:        LGPL-2.1-or-later
+URL:            http://pywbem.github.io/yawn/index.html
 # The source for this package was pulled from upstream svn repository.
 # Use the following commands to get the archive:
 #  svn export -r 632 https://svn.code.sf.net/p/pywbem/code/yawn/trunk/mod_wsgi yawn-20140318
@@ -37,9 +37,7 @@ Script to run yawn without Apache web server.
 
 %prep
 %setup -q -n %{name}-%{revdate}
-%patch0 -p1 -b .fix-shebang-lines
-%patch1 -p1 -b .python-3-support
-%patch2 -p1 -b .fix-requires
+%autopatch -p1
 
 %build
 %{__python3} setup.py build
@@ -64,6 +62,9 @@ install -m 0644 ./apache/yawn.conf ${RPM_BUILD_ROOT}/%{apacheconfdir}/conf.d/yaw
 %{_bindir}/yawn.py
 
 %changelog
+* Mon Jun 05 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 0-0.44.20140318svn632
+- SPDX migration, update project URL
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.43.20140318svn632
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

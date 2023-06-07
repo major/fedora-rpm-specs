@@ -1,6 +1,6 @@
 Name:           python-uranium
 Version:        5.3.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A Python framework for building desktop applications
 License:        LGPLv3+
 URL:            https://github.com/Ultimaker/Uranium
@@ -133,6 +133,9 @@ popd
 
 
 %changelog
+* Mon Jun  5 2023 Tom Callaway <spot@fedoraproject.org> - 5.3.0-5
+- fix issue where Logger was used but not imported (thanks to H. Peter Anvin)
+
 * Wed May 31 2023 Tom Callaway <spot@fedoraproject.org> - 5.3.0-4
 - try ints, then bytes for gl mask functions
 

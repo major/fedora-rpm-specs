@@ -2,7 +2,7 @@ Name:           babeltrace
 Version:        1.5.11
 Release:        3%{?dist}
 Summary:        Trace Viewer and Converter, mainly for the Common Trace Format
-License:        MIT AND GPL-2.0-only
+License:        MIT AND GPL-3.0-or-later WITH Bison-exception-2.2 AND LGPL-2.1-only AND BSD-4-Clause-UC
 URL:            https://www.efficios.com/babeltrace
 Source0:        https://www.efficios.com/files/%{name}/%{name}-%{version}.tar.bz2
 Source1:        https://www.efficios.com/files/%{name}/%{name}-%{version}.tar.bz2.asc
@@ -117,6 +117,9 @@ rm -f %{buildroot}/%{_pkgdocdir}/std-ext-lib.txt
 
 
 %changelog
+* Mon May 30 2023 Keith Seitz <keiths@redhat.com>
+- Update license expression.
+
 * Mon May 08 2023 Michael Jeanson <mjeanson@efficios.com> - 1.5.11-3
 - migrated to SPDX license
 

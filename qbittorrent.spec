@@ -8,11 +8,13 @@
 %else
 %global _qtver Qt5
 %endif
+# Use old cmake macro
+%global __cmake_in_source_build 1
 
 Name:    qbittorrent
 Summary: A Bittorrent Client
 Epoch:   1
-Version: 4.5.2
+Version: 4.5.3
 Release: 1%{?dist}
 License: GPLv2+
 URL:     https://www.qbittorrent.org
@@ -21,7 +23,6 @@ Source0: https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
 Source1: https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz.asc
 Source2: https://github.com/qbittorrent/qBittorrent/raw/master/5B7CC9A2.asc
 Source3: qbittorrent-nox.README
-Source4: qbittorrent-nox
 
 ExcludeArch:   %{ix86}
 
@@ -73,19 +74,11 @@ It aims to be as fast as possible and to provide multi-OS, unicode support.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%setup -q -c
-
-mv %{name}-%{version} build
-
-pushd build
-sed -i -e 's@Exec=qbittorrent %U@Exec=env TMPDIR=/var/tmp qbittorrent %U@g' dist/unix/org.qbittorrent.qBittorrent.desktop
-cp README.md AUTHORS Changelog COPYING ..
-popd
-
-cp -p %{SOURCE3} .
-cp -Rp build build-nox
+%autosetup
+cp %{SOURCE3} .
 
 %build
+mkdir build-nox
 pushd build-nox
 %cmake \
  -DSYSTEMD=ON \
@@ -94,18 +87,21 @@ pushd build-nox
 %if 0%{?_with_qt6}
  -DQT6=ON \
 %endif
- -DGUI=OFF
+ -DGUI=OFF \
+ ..
 %cmake_build
 popd
 
 # Build gui version
+mkdir build
 pushd build
 %cmake \
  -Wno-dev \
 %if 0%{?_with_qt6}
  -DQT6=ON \
 %endif
- -GNinja
+ -GNinja \
+ ..
 %cmake_build
 popd
 
@@ -119,10 +115,6 @@ popd
 pushd build
 %cmake_install
 popd
-
-mv %{buildroot}%{_bindir}/qbittorrent-nox %{buildroot}%{_bindir}/qbittorrent-nox-bin
-install -pm 0755 %{SOURCE4} %{buildroot}%{_bindir}/qbittorrent-nox
-
 
 desktop-file-install \
   --dir=%{buildroot}%{_datadir}/applications/ \
@@ -144,11 +136,13 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.qbittorren
 %license COPYING
 %doc qbittorrent-nox.README AUTHORS Changelog
 %{_bindir}/qbittorrent-nox
-%{_bindir}/qbittorrent-nox-bin
 %{_unitdir}/qbittorrent-nox@.service
 %{_mandir}/man1/qbittorrent-nox.1*
 
 %changelog
+* Mon Jun 05 2023 Leigh Scott <leigh123linux@gmail.com> - 1:4.5.3-1
+- Update to 4.5.3
+
 * Sat Mar 04 2023 Leigh Scott <leigh123linux@gmail.com> - 1:4.5.2-1
 - Update to 4.5.2
 

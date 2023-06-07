@@ -1,5 +1,5 @@
 Name:    kf5
-Version: 5.106.0
+Version: 5.107.0
 Release: 1%{?dist}
 Summary: Filesystem and RPM macros for KDE Frameworks 5
 License: BSD
@@ -87,6 +87,9 @@ sed -i \
 
 
 %changelog
+* Sat Jun 03 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.107.0-1
+- 5.107.0
+
 * Mon May 15 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.106.0-1
 - 5.106.0
 

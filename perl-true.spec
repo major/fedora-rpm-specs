@@ -2,7 +2,7 @@ Name:		perl-true
 Version:	1.0.2
 Release:	8%{?dist}
 Summary:	Automatically return a true value when a file is required
-License:	Artistic 2.0
+License:	Artistic-2.0
 URL:		https://metacpan.org/release/true
 Source0:	http://cpan.metacpan.org/authors/id/C/CH/CHOCOLATE/true-v%{version}.tar.gz
 # ============= Module Build ====================
@@ -33,7 +33,8 @@ BuildRequires:	perl(Function::Parameters) >= 2.001003
 BuildRequires:	perl(lib)
 BuildRequires:	perl(Moo) >= 2.003004
 BuildRequires:	perl(Test::More)
-# ============= Module Runtime ==================
+# ============= Module Dependencies =============
+# (none)
 
 # Don't "provide" private Perl libs
 %{?perl_default_filter}

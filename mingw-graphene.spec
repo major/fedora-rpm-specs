@@ -1,8 +1,8 @@
 %{?mingw_package_header}
 
 Name:           mingw-graphene
-Version:        1.10.6
-Release:        5%{?dist}
+Version:        1.10.8
+Release:        1%{?dist}
 Summary:        Thin layer of types for graphic libraries
 
 License:        MIT
@@ -85,6 +85,10 @@ rm -rf %{buildroot}%{mingw64_libexecdir}/installed-tests/
 
 
 %changelog
+* Mon Jun 05 2023 Marc-André Lureau <marcandre.lureau@redhat.com> - 1.10.8-1
+- Update to 1.10.8
+  https://bugzilla.redhat.com/show_bug.cgi?id=2065973
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name:    prunerepo
-Version: 1.21
+Version: 1.24
 Summary: Remove old packages from rpm-md repository
-Release: 7%{?dist}
+Release: 1%{?dist}
 Url: https://pagure.io/prunerepo
 
 # Source is created by:
@@ -9,7 +9,7 @@ Url: https://pagure.io/prunerepo
 # tito build --tgz --tag %%name-%%version-%%release
 Source0: %name-%version.tar.gz
 
-License: GPLv2+
+License: GPL-2.0-or-later
 BuildArch: noarch
 BuildRequires: bash
 BuildRequires: python3-devel
@@ -18,7 +18,7 @@ BuildRequires: python3-rpm
 BuildRequires: createrepo_c
 BuildRequires: asciidoc
 BuildRequires: findutils
-BuildRequires: dnf
+BuildRequires: python3-dnf
 BuildRequires: dnf-plugins-core
 BuildRequires: coreutils
 Requires: createrepo_c
@@ -65,23 +65,15 @@ install -p -m 644 man/prunerepo.1 %{buildroot}/%{_mandir}/man1/
 %{_mandir}/man1/prunerepo.1*
 
 %changelog
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.21-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+* Mon Jun 05 2023 Pavel Raiskup <praiskup@redhat.com> 1.24-1
+- tests: use --setopt=cachedir=<local-relative-dir>
 
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.21-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+* Mon Jun 05 2023 Pavel Raiskup <praiskup@redhat.com> 1.23-2
+- using a temporary DNF cache directory, Koji FTBFS and https://github.com/fedora-copr/copr/issues/2756
 
-* Wed Jun 15 2022 Python Maint <python-maint@redhat.com> - 1.21-5
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.21-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.21-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 1.21-2
-- Rebuilt for Python 3.10
+* Mon Jun 05 2023 Pavel Raiskup <praiskup@redhat.com> 1.22-1
+- ajust to the current/future DNF packaging
+- fix for new DNF that doesn't accept %%location in --queryformat
 
 * Fri Apr 30 2021 Pavel Raiskup <praiskup@redhat.com> 1.21-1
 - Don't leak descriptors in Python API call

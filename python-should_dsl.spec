@@ -1,52 +1,51 @@
 Summary:	Should assertions in Python in as clear and readable a way as possible
 Name:		python-should_dsl
 Version:	2.1.2
-Release:	11%{?dist}
+Release:	12%{?dist}
 License:	MIT
 URL:		https://github.com/nsi-iff/should-dsl
 Source0:	https://files.pythonhosted.org/packages/source/s/should_dsl/should_dsl-%{version}.tar.gz
 BuildArch:	noarch
-BuildRequires:	coreutils
 BuildRequires:	python3-devel
-BuildRequires:	python3-setuptools
 
-%description
+%global _description %{expand:
 The goal of Should-DSL is to write should expectations in Python in as clear
 and readable a way as possible, using "almost" natural language (limited -
-sometimes - by the Python language constraints).
+sometimes - by the Python language constraints).}
+
+%description %_description
 
 %package -n python3-should_dsl
 Summary:	Should assertions in Python in as clear and readable a way as possible
-%{?python_provide:%python_provide python3-should_dsl}
 
-%description -n python3-should_dsl
-The goal of Should-DSL is to write should expectations in Python in as clear
-and readable a way as possible, using "almost" natural language (limited -
-sometimes - by the Python language constraints).
+%description -n python3-should_dsl %_description
 
 %prep
 %setup -q -n should_dsl-%{version}
 
-# Remove bundled egg-info
-rm -rf should_dsl.egg-info
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files should_dsl
 
 %check
 # run_all_examples.py references non-existent files and hence fails
-PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} run_examples.py README.rst
+%{py3_test_envvars} %{python3} run_examples.py README.rst
 
-%files -n python3-should_dsl
+%files -n python3-should_dsl -f %{pyproject_files}
 %license LICENSE
 %doc CONTRIBUTORS README.rst
-%{python3_sitelib}/should_dsl/
-%{python3_sitelib}/should_dsl-%{version}-py3.*.egg-info/
 
 %changelog
+* Mon Jun  5 2023 Paul Howarth <paul@city-fan.org> - 2.1.2-12
+- SPDX license migration
+- Update to current Python packaging guidelines, as far as possible
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

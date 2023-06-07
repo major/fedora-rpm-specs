@@ -1,12 +1,12 @@
 Name:           perl-Crypt-OpenSSL-X509
-Version:        1.912
-Release:        4%{?dist}
+Version:        1.914
+Release:        1%{?dist}
 Summary:        Perl interface to OpenSSL for X509
-License:        GPL+ or Artistic 
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-OpenSSL-X509
 Source0:        https://cpan.metacpan.org/authors/id/J/JO/JONASBN/Crypt-OpenSSL-X509-%{version}.tar.gz
 # Respect distribution compiler flags
-Patch0:         Crypt-OpenSSL-X509-1.912-Do-not-hard-code-CFLAGS.patch
+Patch0:         Crypt-OpenSSL-X509-1.914-Do-not-hard-code-CFLAGS.patch
 BuildRequires:  make
 BuildRequires:  openssl-devel
 BuildRequires:  perl-devel
@@ -14,6 +14,7 @@ BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(Config)
 BuildRequires:  perl(Convert::ASN1)
+BuildRequires:  perl(Crypt::OpenSSL::Guess)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(inc::Module::Install)
 BuildRequires:  perl(lib)
@@ -44,13 +45,11 @@ Crypt::OpenSSL::X509 - Perl extension to OpenSSL's X509 API.
 
 %prep
 %setup -q -n Crypt-OpenSSL-X509-%{version}
-%patch0 -p1
-# Remove bundled modules
-rm -rf ./inc
+%patch -P 0 -p1
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+%make_build
 
 %install
 make pure_install DESTDIR=%{buildroot}
@@ -68,6 +67,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Mon Jun 05 2023 Xavier Bachelot <xavier@bachelot.org> - 1.914-1
+- Update to 1.914 (RHBZ#2058821)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.912-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

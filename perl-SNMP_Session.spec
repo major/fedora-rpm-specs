@@ -1,15 +1,17 @@
 Name:           perl-SNMP_Session
-Version:        1.13
-Release:        33%{?dist}
+Version:        1.15
+Release:        1%{?dist}
 Summary:        SNMP support for Perl 5
 
 License:        Artistic-2.0
-URL:            http://code.google.com/p/snmp-session/
-Source0:        http://snmp-session.googlecode.com/files/SNMP_Session-%{version}.tar.gz
+URL:            https://github.com/sleinen/snmp-session/
+Source0:        https://github.com/sleinen/snmp-session/archive/v%{version}/SNMP_Session-%{version}.tar.gz
+Patch0:         SNMP_Session-1.13-fix_ivp6.patch
 BuildArch:      noarch
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(Test::More)
 Requires:       perl(IO::Socket::INET6)
 Requires:       perl(Socket6)
 
@@ -21,7 +23,8 @@ and "set", as well as trap generation and reception.
 
 
 %prep
-%setup -q -n SNMP_Session-%{version}
+%setup -q -n snmp-session-%{version}
+%patch -P 0 -p1
 %{__perl} -pi -e 's{^#!/usr/local/bin/perl\b}{#!%{__perl}}' test/*
 chmod -c 644 test/*
 
@@ -44,9 +47,16 @@ make test
 %license Artistic
 %doc README README.SNMP_util index.html test/
 %{perl_vendorlib}/*
+%{_mandir}/man3/*
 
 
 %changelog
+* Mon Jun  5 2023 Tom Callaway <spot@fedoraproject.org> - 1.15-1
+- update to 1.15
+
+* Mon Jun 05 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.13-34
+- Fix IPv6 functionality of SNMP_Session
+
 * Tue Apr 04 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.13-33
 - Fix ipv6
 - Modernize spec file

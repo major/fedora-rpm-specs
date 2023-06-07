@@ -1,22 +1,19 @@
 Name:           virt-what
 Version:        1.25
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Detect if we are running in a virtual machine
-License:        GPLv2+
+License:        GPL-2.0-or-later
 
 URL:            http://people.redhat.com/~rjones/virt-what/
 Source0:        http://people.redhat.com/~rjones/virt-what/files/%{name}-%{version}.tar.gz
 
 # Maintainer script which helps with handling patches.
-Source1:       copy-patches.sh
+Source1:        copy-patches.sh
 
+BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  git
 BuildRequires:  autoconf, automake, libtool
-
-# This is provided by the build root, but we make it explicit
-# anyway in case this was dropped from the build root in future.
-BuildRequires:  gcc
 BuildRequires:  /usr/bin/pod2man
 
 # Required at build time in order to do 'make check' (for getopt).
@@ -115,6 +112,9 @@ fi
 
 
 %changelog
+* Mon Jun 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1.25-3
+- Migrated to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.25-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

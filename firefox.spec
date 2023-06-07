@@ -154,13 +154,13 @@ ExcludeArch: i686
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        113.0.1
-Release:        4%{?pre_tag}%{?dist}
+Version:        114.0
+Release:        1%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20230515.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20230605.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source10:       firefox-mozconfig
@@ -191,7 +191,7 @@ Source44:       print-error-reftest
 Source45:       run-wayland-compositor
 
 # Build patches
-Patch3:         mozilla-build-arm.patch
+#Patch3:         mozilla-build-arm.patch
 Patch32:        build-rust-ppc64le.patch
 Patch35:        build-ppc-jit.patch
 # Fixing missing cacheFlush when JS_CODEGEN_NONE is used (s390x)
@@ -229,19 +229,10 @@ Patch230:        firefox-enable-vaapi.patch
 # Upstream patches
 Patch402:        mozilla-1196777.patch
 Patch407:        mozilla-1667096.patch
-Patch408:        mozilla-1832770.patch
-# TODO: do we need it?
-#Patch415:        mozilla-1670333.patch
-Patch410:        D177258.diff
-Patch411:        D177902.diff
-Patch412:        D178251.diff
 
 # PGO/LTO patches
 Patch600:        pgo.patch
 Patch602:        mozilla-1516803.patch
-
-# Work around broken moz.build file on ppc64le (mozb#1779545, mozb#1775202)
-Patch1100:       mozilla-1775202.patch
 
 # tentative patch for RUSTFLAGS parsing issue:
 # https://bugzilla.redhat.com/show_bug.cgi?id=2184743
@@ -482,7 +473,6 @@ This package contains results of tests executed during build.
 # ignored during this compare.
 
 %patch40 -p1 -b .aarch64-skia
-%patch3  -p1 -b .arm
 %patch44 -p1 -b .build-arm-libopus
 %patch47 -p1 -b .fedora-shebang
 %patch49 -p1 -b .build-arm-libaom
@@ -510,12 +500,6 @@ This package contains results of tests executed during build.
 
 %patch402 -p1 -b .1196777
 %patch407 -p1 -b .1667096
-%patch408 -p1 -b .1832770
-# TODO: do we need it?
-#%patch415 -p1 -b .1670333
-%patch410 -p1 -b .D177258
-%patch411 -p1 -b .D177902
-%patch412 -p1 -b .D178251
 
 # PGO patches
 %if %{build_with_pgo}
@@ -525,7 +509,6 @@ This package contains results of tests executed during build.
 %endif
 %endif
 
-%patch1100 -p1 -b .ppc-mobzuild
 %patch1200 -p1 -b .rustflags-commasplit
 
 rm -f .mozconfig
@@ -559,6 +542,9 @@ echo "ac_add_options --enable-system-ffi" >> .mozconfig
 
 %ifarch aarch64
 echo "ac_add_options --disable-elf-hack" >> .mozconfig
+%endif
+%ifarch ppc64le
+echo "ac_add_options --disable-webrtc" >> .mozconfig
 %endif
 
 %if %{?debug_build}
@@ -988,6 +974,8 @@ fi
 %{_bindir}/firefox
 %{mozappdir}/firefox
 %{mozappdir}/firefox-bin
+%{mozappdir}/glxtest
+%{mozappdir}/vaapitest
 %doc %{_mandir}/man1/*
 %dir %{_sysconfdir}/%{name}
 %dir %{_sysconfdir}/%{name}/*
@@ -1051,6 +1039,10 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Mon Jun 05 2023 Martin Stransky <stransky@redhat.com>- 114.0-1
+- Updated to 114.0
+- Disable webrtc on ppc64le
+
 * Wed May 24 2023 Martin Stransky <stransky@redhat.com>- 113.0.1-4
 - Added patches from 113.0.2
 - Added Rust fix for Rawhide (mzbz#1831242).

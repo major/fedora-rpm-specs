@@ -10,8 +10,8 @@ Summary:       Convert a physical machine to run on KVM
 Name:          virt-p2v
 Epoch:         1
 Version:       1.42.3
-Release:       2%{?dist}
-License:       GPLv2+
+Release:       3%{?dist}
+License:       GPL-2.0-or-later AND LGPL-2.0-or-later
 
 # virt-p2v works only on x86_64 at the moment.  It requires porting
 # to properly detect the hardware on other architectures, and furthermore
@@ -119,6 +119,9 @@ rm $RPM_BUILD_ROOT%{_mandir}/man1/p2v-release-notes.1*
 
 
 %changelog
+* Mon Jun 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1:1.42.3-3
+- Migrated to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.42.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           objectweb-asm
-Version:        9.4
+Version:        9.5
 Release:        1%{?dist}
 Summary:        Java bytecode manipulation and analysis framework
 License:        BSD
@@ -87,6 +87,9 @@ done
 %license LICENSE.txt
 
 %changelog
+* Mon Jun 05 2023 Marian Koncek <mkoncek@redhat.com> - 9.5-1
+- Update to upstream  version 9.5
+
 * Thu Feb 23 2023 Marian Koncek <mkoncek@redhat.com> - 9.4-1
 - Update to upstream version 9.4
 

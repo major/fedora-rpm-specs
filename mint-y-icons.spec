@@ -1,6 +1,6 @@
 Name:           mint-y-icons
-Version:        1.6.5
-Release:        2%{?dist}
+Version:        1.6.6
+Release:        1%{?dist}
 Summary:        The Mint-Y icon theme
 
 License:        CC-BY-SA
@@ -48,9 +48,13 @@ done
 %doc debian/changelog
 %doc README.md
 %{_datadir}/icons/Mint-*/
+%{_datadir}/folder-color-switcher/
 
 
 %changelog
+* Mon Jun 05 2023 Leigh Scott <leigh123linux@gmail.com> - 1.6.6-1
+- New upstream release
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

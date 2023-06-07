@@ -1,21 +1,34 @@
 Name:           perl-SGML-Parser-OpenSP
 Version:        0.994
-Release:        44%{?dist}
+Release:        45%{?dist}
 Summary:        Perl interface to the OpenSP SGML and XML parser
 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/SGML-Parser-OpenSP
 Source0:        https://cpan.metacpan.org/authors/id/B/BJ/BJOERN/SGML-Parser-OpenSP-%{version}.tar.gz
+# Don't use deprecated uvuni_to_utf8_flags (CPAN RT#148488)
+Patch0:         SGML-Parser-OpenSP-0.994-Stop-using-deprecated-uvuni_to_utf8_flags.patch
 
-BuildRequires: make
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(base)
+BuildRequires:  perl(Carp)
 BuildRequires:  perl(Class::Accessor)
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(constant)
+BuildRequires:  perl(Encode)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(File::Temp)
+BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod)
+BuildRequires:  perl(warnings)
+BuildRequires:  perl(XSLoader)
 BuildRequires:  opensp-devel
 Requires:       perl(Class::Accessor)
 
@@ -28,22 +41,21 @@ and XS, to the OpenSP SGML and XML parser.
 
 %prep
 %setup -q -n SGML-Parser-OpenSP-%{version}
+%patch -P0 -p1
 # POD Coverage is interesting for upstream, not us.
-%{__perl} -pi -e 's|t/99podcov.t||' MANIFEST ; rm t/99podcov.t
+perl -pi -e 's|t/99podcov.t||' MANIFEST ; rm t/99podcov.t
 find . -type f -print0 | xargs -0 chmod -c -x
-%{__perl} -pi -e 's|\r||g' Changes README
+perl -pi -e 's|\r||g' Changes README
 
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS"
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS" NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} ';'
+%{make_install}
 find $RPM_BUILD_ROOT -type f -name '*.bs' -a -size 0 -exec rm -f {} ';'
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null ';'
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 
@@ -59,6 +71,12 @@ make test
 
 
 %changelog
+* Mon Jun 05 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.994-45
+- Don't use deprecated uvuni_to_utf8_flags remove in Perl 5.37.1
+- Update license to SPDX format
+- Modernize spec
+- Specify all dependencies
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.994-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -7,7 +7,7 @@ patterns of your system or workloads and make data access-aware memory
 management optimizations.}
 
 Name:           python-%{srcname}
-Version:        1.8.1
+Version:        1.8.3
 Release:        %autorelease
 Summary:        Data Access Monitoring Operator
 
@@ -16,8 +16,6 @@ URL:            https://github.com/awslabs/damo
 # PyPI source does not contain tests
 # Source:         %%pypi_source
 Source:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
-# remove shebangs
-Patch:         %{url}/pull/43.patch#/%{srcname}-remove_shebangs.diff
 
 BuildArch:      noarch
 # some tests assume 64-bit and fail on ix86
@@ -48,7 +46,10 @@ done
 mkdir -p src/damo
 cp -p *.py src/damo/
 cp -p damo src/damo/damo.py
-touch src/damo/__init__.py
+# remove shebang from the newly copied damo.py
+sed -i '1{\@^#!/usr/bin/env python@d}' src/damo/damo.py
+touch -r damo src/damo/damo.py
+touch -r damo src/damo/__init__.py
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -71,7 +72,7 @@ touch src/damo/__init__.py
 
 %files -n %{srcname} -f %{pyproject_files}
 %license COPYING
-%doc CONTRIBUTING README.md SECURITY.md USAGE.md
+%doc CONTRIBUTING README.md SECURITY.md USAGE.md release_note
 %{_bindir}/%{srcname}
 
 

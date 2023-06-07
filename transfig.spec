@@ -3,7 +3,7 @@ Version:	3.2.8b
 Release:	7%{?dist}
 Epoch:		1
 Summary:	Utility for converting FIG files (made by xfig) to other formats
-License:	MIT
+License:	Xfig
 URL:		https://sourceforge.net/projects/mcj/
 Source0:	http://downloads.sourceforge.net/mcj/fig2dev-%{version}.tar.xz
 Patch1:		0001-Correct-a-typo-causing-incorrect-eps-import-137.patch

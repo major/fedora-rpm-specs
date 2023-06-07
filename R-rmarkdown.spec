@@ -1,5 +1,5 @@
 %global packname rmarkdown
-%global packver  2.21
+%global packver  2.22
 %global rlibdir  %{_datadir}/R/library
 
 %global __suggests_exclude ^R\\((dygraphs)\\)
@@ -26,8 +26,8 @@ Patch0008:        0008-handle-updated-Raleway-fonts-in-f33.patch
 
 # Here's the R view of the dependencies world:
 # Depends:
-# Imports:   R-bslib >- 0.2.51, R-evaluate >= 0.13, R-htmltools >= 0.5.1, R-jquerylib, R-jsonlite, R-knitr >= 1.22, R-methods, R-stringr >= 1.2.0, R-tinytex >= 0.31, R-tools, R-utils, R-xfun >= 0.30, R-yaml >= 2.1.19
-# Suggests:  R-shiny >= 1.6.0, R-tufte, R-testthat >= 3.0.3, R-digest, R-dygraphs, R-vctrs, R-tibble, R-fs, R-rsconnect, R-withr >= 2.4.2, R-sass >= 0.4.0, R-downlit >= 0.4.0
+# Imports:   R-bslib >- 0.2.51, R-evaluate >= 0.13, R-fontawesome >= 0.5.0, R-htmltools >= 0.5.1, R-jquerylib, R-jsonlite, R-knitr >= 1.22, R-methods, R-stringr >= 1.2.0, R-tinytex >= 0.31, R-tools, R-utils, R-xfun >= 0.36, R-yaml >= 2.1.19
+# Suggests:  R-shiny >= 1.6.0, R-tufte, R-testthat >= 3.0.3, R-digest, R-dygraphs, R-vctrs, R-tibble, R-fs, R-rsconnect, R-withr >= 2.4.2, R-sass >= 0.4.0, R-downlit >= 0.4.0, R-katex >= 1.4.0
 # LinkingTo:
 # Enhances:
 
@@ -239,7 +239,7 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check --ignore-vignettes %{packname}
 %{rlibdir}/%{packname}/rmd/h/highlightjs
 %{rlibdir}/%{packname}/rmd/h/ionicons
 %{rlibdir}/%{packname}/rmd/h/jqueryui
-%{rlibdir}/%{packname}/rmd/h/jqueryui-AUTHORS.txt
+# %%{rlibdir}/%%{packname}/rmd/h/jqueryui-AUTHORS.txt
 %{rlibdir}/%{packname}/rmd/h/navigation-1.1
 %{rlibdir}/%{packname}/rmd/h/pagedtable-1.1
 %{rlibdir}/%{packname}/rmd/h/pandoc

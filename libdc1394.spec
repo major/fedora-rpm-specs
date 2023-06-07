@@ -1,7 +1,8 @@
+%global sover 26
 Name:       libdc1394
 Summary:    1394-based digital camera control library
-Version:    2.2.6
-Release:    9%{?dist}
+Version:    2.2.7
+Release:    %autorelease
 License:    LGPLv2+
 URL:        http://sourceforge.net/projects/%{name}/
 
@@ -78,8 +79,7 @@ find %{buildroot} -name "*.la" -delete
 %files
 %license COPYING
 %doc AUTHORS ChangeLog NEWS README
-%{_libdir}/%{name}.so.25
-%{_libdir}/%{name}.so.25.0.0
+%{_libdir}/%{name}.so.%{sover}*
 
 %files devel
 %doc examples/*.h examples/*.c
@@ -106,36 +106,4 @@ find %{buildroot} -name "*.la" -delete
 %{_mandir}/man1/dc1394_vloopback.*
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.6-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.6-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue May 31 2022 Simone Caronni <negativo17@gmail.com> - 2.2.6-7
-- SPEC file cleanup.
-- Use proper macros everywhere.
-- Fix permissions for binaries.
-- Fix rpmlint issues.
-- Trim changelog.
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.6-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.6-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.6-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.6-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Jul 27 2020 Till Hofmann <thofmann@fedoraproject.org> - 2.2.6-2
-- Do not glob soversion to avoid accidental bumps
-
-* Tue Jul 21 2020 Till Hofmann <thofmann@fedoraproject.org> - 2.2.6-1
-- Update to 2.2.6
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-14
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+%autochangelog

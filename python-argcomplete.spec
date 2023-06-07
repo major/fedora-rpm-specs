@@ -8,7 +8,7 @@
 Name:          python-argcomplete
 Summary:       Bash tab completion for argparse
 Version:       2.0.0
-Release:       7%{?dist}
+Release:       8%{?dist}
 License:       ASL 2.0
 URL:           https://github.com/kislyuk/argcomplete
 Source0:       %pypi_source argcomplete
@@ -65,7 +65,9 @@ sed -i -e "s|python |python3 |" test/test.py
 
 %install
 %py3_install
-install -Dp -m0644 argcomplete/bash_completion.d/%{name} %{buildroot}%{bash_completions_dir}/%{name}
+
+# do not attempt to install to %%bash_completions_dir, see https://bugzilla.redhat.com/2211862
+install -Dp -m0644 argcomplete/bash_completion.d/%{name} %{buildroot}%{_sysconfdir}/bash_completion.d/%{name}
 
 %if %{with check}
 %check
@@ -86,9 +88,12 @@ export INPUTRC=$PWD/.inputrc
 %{_bindir}/python-argcomplete-check-easy-install-script
 %{_bindir}/python-argcomplete-tcsh
 %{_bindir}/register-python-argcomplete
-%{bash_completions_dir}/%{name}
+%{_sysconfdir}/bash_completion.d/%{name}
 
 %changelog
+* Mon Jun 05 2023 Miro Hrončok <mhroncok@redhat.com> - 2.0.0-8
+- Move the Bash completion files to /etc/bash_completion.d to fix rhbz#2211862
+
 * Mon May 22 2023 Miro Hrončok <mhroncok@redhat.com> - 2.0.0-7
 - Fix build with pip 23.1.2+
 - Fixes: rhbz#2209020

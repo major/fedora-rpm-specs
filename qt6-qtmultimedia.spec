@@ -42,6 +42,9 @@ Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submod
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
+%if 0%{?rhel} && 0%{?rhel} < 10
+BuildRequires: gcc-toolset-12
+%endif
 BuildRequires: ninja-build
 BuildRequires: qt6-rpm-macros
 BuildRequires: qt6-qtbase-devel >= %{version}
@@ -112,6 +115,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %build
+%if 0%{?rhel} && 0%{?rhel} < 10
+. /opt/rh/gcc-toolset-12/enable
+%endif
 %cmake_qt6 -DQT_BUILD_EXAMPLES:BOOL=%{?examples:ON}%{!?examples:OFF}
 
 %cmake_build

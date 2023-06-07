@@ -1,25 +1,17 @@
 %global srcname cairocffi
 
 Name:           python-cairocffi
-Version:        1.3.0
-Release:        7%{?dist}
+Version:        1.5.1
+Release:        1%{?dist}
 Summary:        cffi-based cairo bindings for Python
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://pypi.python.org/pypi/cairocffi/
 Source0:        %{pypi_source}
-Patch0:         python-cairocffi-disable-linters.patch
-Patch1:         python-cairocffi-xfail.patch
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-cffi >= 1.1.0
-BuildRequires:  python3-pytest
-BuildRequires:  python3-xcffib >= 0.3.2
-BuildRequires:  cairo-devel
 # required to run the test suite
-BuildRequires:  python3-numpy
 BuildRequires:  gdk-pixbuf2
 BuildRequires:  gdk-pixbuf2-modules
 BuildRequires:  xorg-x11-server-Xvfb
@@ -34,30 +26,30 @@ image buffers, PNG, PostScript, PDF, and SVG file output.
 
 %package -n python3-cairocffi
 Summary:        cffi-based cairo bindings for Python
-Requires:       python3-cffi
 Requires:       cairo
 # required by cairocffi.pixbuf
-Requires:       python3-xcffib >= 0.3.2
 Requires:       gdk-pixbuf2
 Requires:       glib2
 Requires:       gtk3
-# Provide the cairocffi[xcb] extras, because there is no reasonable split
-# Be aware that %%version is not converted to the Pythonistic version here!
-Provides:       python%{python3_pkgversion}dist(cairocffi[xcb]) = %{version}
-Provides:       python%{python3_version}dist(cairocffi[xcb]) = %{version}
-%{?python_provide:%python_provide python3-cairocffi}
 
 %description -n python3-cairocffi %_description
 
+%pyproject_extras_subpkg -n python3-cairocffi xcb
+
 %prep
 %autosetup -n cairocffi-%{version} -p1
-rm -rf %{srcname}.egg-info
+sed -i -e 's/, "flake8"//' -e 's/, "isort"//' pyproject.toml
+rmdir SPECPARTS
+
+%generate_buildrequires
+%pyproject_buildrequires -x test
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files cairocffi
 
 %check
 # test_xcb.py needs a display
@@ -65,13 +57,14 @@ rm -rf %{srcname}.egg-info
 %pytest -v --pyargs cairocffi
 
 
-%files -n python3-cairocffi
-%license LICENSE
+%files -n python3-cairocffi -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/%{srcname}/
-%{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Sat Jun 03 2023 Orion Poplawski <orion@nwra.com> - 1.5.1-1
+- Update to 1.5.1 w/ pyproject
+- Use SPDX License
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

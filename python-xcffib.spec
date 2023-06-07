@@ -2,7 +2,7 @@
 
 Summary:   A drop in replacement for xpyb, an XCB python binding
 Name:      python-xcffib
-Version:   1.2.0
+Version:   1.4.0
 Release:   1%{?dist}
 Source0:   %{pypi_source}
 License:   Apache-2.0
@@ -58,6 +58,9 @@ the 29 (xprint and xkb are missing) X extensions in 1.10.
 
 
 %changelog
+* Sat Jun 03 2023 Orion Poplawski <orion@nwra.com> - 1.4.0-1
+- Update to 1.4.0
+
 * Fri Jan 20 2023 Orion Poplawski <orion@nwra.com> - 1.2.0-1
 - Update to 1.2.0
 - Use SPDX License tag

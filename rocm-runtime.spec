@@ -49,10 +49,6 @@ ROCm Runtime development files
 
 %prep
 %autosetup -n ROCR-Runtime-rocm-%{version} -p1
-#FIXME: rocm-device-libs cannot be found due to fedora changing install location
-sed -i "s|\({CLANG_ARG_LIST}\)|\1 --hip-device-lib-path=%{_libdir}/amdgcn/bitcode|" \
-	src/image/blit_src/CMakeLists.txt \
-	src/core/runtime/trap_handler/CMakeLists.txt
 
 %build
 %cmake -S src -DCMAKE_BUILD_TYPE=RelWithDebInfo \

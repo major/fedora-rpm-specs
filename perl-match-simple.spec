@@ -1,8 +1,8 @@
 Name:           perl-match-simple
-Version:        0.010
-Release:        15%{?dist}
+Version:        0.012
+Release:        1%{?dist}
 Summary:        Simplified clone of smartmatch operator
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            http://search.cpan.org/dist/match-simple/
 Source0:        https://cpan.metacpan.org/authors/id/T/TO/TOBYINK/match-simple-%{version}.tar.gz
 BuildArch:      noarch
@@ -35,7 +35,7 @@ BuildRequires:  perl(Tie::RefHash)
 Requires:       perl(Carp)
 Requires:       perl(Exporter::Tiny) >= 0.026
 %if 0%{?fedora} || 0%{?rhel} >= 8
-Recommends:     perl(match::simple::XS) >= 0.001
+Recommends:     perl(match::simple::XS) >= 0.002
 %endif
 Requires:       perl(overload)
 Requires:       perl(Sub::Infix) >= 0.004
@@ -75,6 +75,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Mon Jun 05 2023 Xavier Bachelot <xavier@bachelot.org> 0.012-1
+- Update to 0.012 (RHBZ#2154401)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.010-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

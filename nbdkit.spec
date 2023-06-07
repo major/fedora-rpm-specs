@@ -53,10 +53,10 @@ ExclusiveArch:  x86_64
 
 Name:           nbdkit
 Version:        1.35.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NBD server
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://gitlab.com/nbdkit/nbdkit
 
 %if 0%{?rhel} >= 8
@@ -194,7 +194,6 @@ reading the nbdkit(1) and nbdkit-plugin(3) manual pages.
 
 %package server
 Summary:        The %{name} server
-License:        BSD
 
 %description server
 This package contains the %{name} server with only the null plugin
@@ -205,7 +204,6 @@ the metapackage "nbdkit".
 
 %package basic-plugins
 Summary:        Basic plugins for %{name}
-License:        BSD
 Requires:       %{name}-server%{?_isa} = %{version}-%{release}
 
 
@@ -249,7 +247,6 @@ nbdkit-zero-plugin          Zero-length plugin for testing.
 
 %package example-plugins
 Summary:        Example plugins for %{name}
-License:        BSD
 Requires:       %{name}-server%{?_isa} = %{version}-%{release}
 %if !0%{?rhel}
 # example4 is written in Perl.
@@ -266,7 +263,6 @@ This package contains example plugins for %{name}.
 %if !0%{?rhel}
 %package blkio-plugin
 Summary:        libblkio NVMe, vhost-user, vDPA, VFIO plugin for %{name}
-License:        BSD
 Requires:       %{name}-server%{?_isa} = %{version}-%{release}
 
 %description blkio-plugin
@@ -278,7 +274,6 @@ for %{name}.
 %if !0%{?rhel}
 %package cc-plugin
 Summary:        Write small inline C plugins and scripts for %{name}
-License:        BSD
 Requires:       %{name}-server%{?_isa} = %{version}-%{release}
 Requires:       gcc
 Requires:       %{_bindir}/cat
@@ -293,7 +288,6 @@ in C, install %{name}-devel for that.
 %if !0%{?rhel}
 %package cdi-plugin
 Summary:        Containerized Data Import plugin for %{name}
-License:        BSD
 Requires:       %{name}-server%{?_isa} = %{version}-%{release}
 Requires:       jq
 Requires:       podman
@@ -305,7 +299,6 @@ This package contains Containerized Data Import support for %{name}.
 
 %package curl-plugin
 Summary:        HTTP/FTP (cURL) plugin for %{name}
-License:        BSD
 Requires:       %{name}-server%{?_isa} = %{version}-%{release}
 
 %description curl-plugin
@@ -315,7 +308,6 @@ This package contains cURL (HTTP/FTP) support for %{name}.
 %if !0%{?rhel} && 0%{?have_libguestfs}
 %package guestfs-plugin
 Summary:        libguestfs plugin for %{name}
-License:        BSD
 Requires:       %{name}-server%{?_isa} = %{version}-%{release}
 
 %description guestfs-plugin
@@ -326,7 +318,6 @@ This package is a libguestfs plugin for %{name}.
 %if !0%{?rhel}
 %package iso-plugin
 Summary:        Virtual ISO 9660 plugin for %{name}
-License:        BSD
 Requires:       %{name}-server%{?_isa} = %{version}-%{release}
 Requires:       xorriso
 
@@ -338,7 +329,6 @@ This package is a virtual ISO 9660 (CD-ROM) plugin for %{name}.
 %if !0%{?rhel}
 %package libvirt-plugin
 Summary:        Libvirt plugin for %{name}
-License:        BSD
 Requires:       %{name}-server%{?_isa} = %{version}-%{release}
 
 %description libvirt-plugin
@@ -350,7 +340,6 @@ virDomainBlockPeek API.
 
 %package linuxdisk-plugin
 Summary:        Virtual Linux disk plugin for %{name}
-License:        BSD
 Requires:       %{name}-server%{?_isa} = %{version}-%{release}
 # for mke2fs
 Requires:       e2fsprogs
@@ -362,7 +351,6 @@ This package is a virtual Linux disk plugin for %{name}.
 %if !0%{?rhel}
 %package lua-plugin
 Summary:        Lua plugin for %{name}
-License:        BSD
 Requires:       %{name}-server%{?_isa} = %{version}-%{release}
 
 %description lua-plugin
@@ -372,7 +360,6 @@ This package lets you write Lua plugins for %{name}.
 
 %package nbd-plugin
 Summary:        NBD proxy / forward plugin for %{name}
-License:        BSD
 Requires:       %{name}-server%{?_isa} = %{version}-%{release}
 
 %description nbd-plugin
@@ -383,7 +370,6 @@ to another NBD server.
 %if !0%{?rhel} && 0%{?have_ocaml}
 %package ocaml-plugin
 Summary:        OCaml plugin for %{name}
-License:        BSD
 Requires:       %{name}-server%{?_isa} = %{version}-%{release}
 
 %description ocaml-plugin
@@ -395,7 +381,6 @@ To compile OCaml plugins you will also need to install
 
 %package ocaml-plugin-devel
 Summary:        OCaml development environment for %{name}
-License:        BSD
 Requires:       %{name}-server%{?_isa} = %{version}-%{release}
 Requires:       %{name}-ocaml-plugin%{?_isa} = %{version}-%{release}
 
@@ -407,7 +392,6 @@ This package lets you write OCaml plugins for %{name}.
 %if !0%{?rhel}
 %package perl-plugin
 Summary:        Perl plugin for %{name}
-License:        BSD
 Requires:       %{name}-server%{?_isa} = %{version}-%{release}
 
 %description perl-plugin
@@ -417,7 +401,6 @@ This package lets you write Perl plugins for %{name}.
 
 %package python-plugin
 Summary:        Python 3 plugin for %{name}
-License:        BSD
 Requires:       %{name}-server%{?_isa} = %{version}-%{release}
 
 %description python-plugin
@@ -427,7 +410,6 @@ This package lets you write Python 3 plugins for %{name}.
 %if !0%{?rhel}
 %package ruby-plugin
 Summary:        Ruby plugin for %{name}
-License:        BSD
 Requires:       %{name}-server%{?_isa} = %{version}-%{release}
 
 %description ruby-plugin
@@ -440,7 +422,6 @@ This package lets you write Ruby plugins for %{name}.
 # which varies across architectures, RPM does not allow this.
 %package S3-plugin
 Summary:        Amazon S3 and Ceph plugin for %{name}
-License:        BSD
 Requires:       %{name}-python-plugin >= 1.22
 # XXX Should not need to add this.
 Requires:       python3-boto3
@@ -453,7 +434,6 @@ or Ceph using %{name}.
 
 %package ssh-plugin
 Summary:        SSH plugin for %{name}
-License:        BSD
 Requires:       %{name}-server%{?_isa} = %{version}-%{release}
 
 %description ssh-plugin
@@ -463,7 +443,6 @@ This package contains SSH support for %{name}.
 %if !0%{?rhel}
 %package tcl-plugin
 Summary:        Tcl plugin for %{name}
-License:        BSD
 Requires:       %{name}-server%{?_isa} = %{version}-%{release}
 
 %description tcl-plugin
@@ -473,7 +452,6 @@ This package lets you write Tcl plugins for %{name}.
 
 %package tmpdisk-plugin
 Summary:        Remote temporary filesystem disk plugin for %{name}
-License:        BSD
 Requires:       %{name}-server%{?_isa} = %{version}-%{release}
 # For mkfs and mke2fs (defaults).
 Requires:       util-linux, e2fsprogs
@@ -490,7 +468,6 @@ This package is a remote temporary filesystem disk plugin for %{name}.
 %if !0%{?rhel}
 %package torrent-plugin
 Summary:        BitTorrent plugin for %{name}
-License:        BSD
 Requires:       %{name}-server%{?_isa} = %{version}-%{release}
 
 %description torrent-plugin
@@ -501,7 +478,6 @@ This package is a BitTorrent plugin for %{name}.
 %ifarch x86_64
 %package vddk-plugin
 Summary:        VMware VDDK plugin for %{name}
-License:        BSD
 Requires:       %{name}-server%{?_isa} = %{version}-%{release}
 # https://bugzilla.redhat.com/show_bug.cgi?id=1931818
 Requires:       libxcrypt-compat
@@ -514,7 +490,6 @@ VMware VDDK for accessing VMware disks and servers.
 
 %package basic-filters
 Summary:        Basic filters for %{name}
-License:        BSD
 Requires:       %{name}-server%{?_isa} = %{version}-%{release}
 
 %description basic-filters
@@ -600,7 +575,6 @@ nbdkit-truncate-filter     Truncate, expand, round up or round down size.
 %if !0%{?rhel}
 %package ext2-filter
 Summary:        ext2, ext3 and ext4 filesystem support for %{name}
-License:        BSD
 Requires:       %{name}-server%{?_isa} = %{version}-%{release}
 
 %description ext2-filter
@@ -611,7 +585,6 @@ This package contains ext2, ext3 and ext4 filesystem support for
 
 %package gzip-filter
 Summary:        GZip filter for %{name}
-License:        BSD
 Requires:       %{name}-server%{?_isa} = %{version}-%{release}
 
 %description gzip-filter
@@ -620,7 +593,6 @@ This package is a gzip filter for %{name}.
 
 %package stats-filter
 Summary:        Statistics filter for %{name}
-License:        BSD
 Requires:       %{name}-server%{?_isa} = %{version}-%{release}
 
 %description stats-filter
@@ -629,7 +601,6 @@ Display statistics about operations.
 
 %package tar-filter
 Summary:        Tar archive filter for %{name}
-License:        BSD
 Requires:       %{name}-server%{?_isa} = %{version}-%{release}
 Requires:       tar
 Obsoletes:      %{name}-tar-plugin < 1.23.9-3
@@ -640,7 +611,6 @@ This package is a tar archive filter for %{name}.
 
 %package xz-filter
 Summary:        XZ filter for %{name}
-License:        BSD
 Requires:       %{name}-server%{?_isa} = %{version}-%{release}
 
 %description xz-filter
@@ -649,7 +619,6 @@ This package is the xz filter for %{name}.
 
 %package devel
 Summary:        Development files and documentation for %{name}
-License:        BSD
 Requires:       %{name}-server%{?_isa} = %{version}-%{release}
 Requires:       pkgconfig
 
@@ -661,7 +630,6 @@ plugins for %{name}.
 
 %package srpm-macros
 Summary:       RPM Provides rules for %{name} plugins and filters
-License:       BSD
 BuildArch:     noarch
 
 %description srpm-macros
@@ -671,7 +639,6 @@ for %{name} plugins and filters found in the plugins directory.
 
 %package bash-completion
 Summary:       Bash tab-completion for %{name}
-License:       BSD
 BuildArch:     noarch
 Requires:      bash-completion >= 2.0
 Requires:      %{name}-server = %{version}-%{release}
@@ -1251,7 +1218,10 @@ export LIBGUESTFS_TRACE=1
 
 
 %changelog
-* Sat May 28 2023 Richard W.M. Jones <rjones@redhat.com> - 1.35.4-1
+* Mon Jun 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1.35.4-2
+- Migrated to SPDX license
+
+* Sun May 28 2023 Richard W.M. Jones <rjones@redhat.com> - 1.35.4-1
 - New upstream development version 1.35.4
 
 * Thu May 18 2023 Richard W.M. Jones <rjones@redhat.com> - 1.35.3-1

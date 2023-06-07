@@ -1,3 +1,10 @@
+# Run optional test
+%if ! (0%{?rhel})
+%{bcond_without perl_Syntax_Keyword_Try_enables_extra_tests}
+%else
+%{bcond_with perl_Syntax_Keyword_Try_enables_extra_tests}
+%endif
+
 Name:           perl-Syntax-Keyword-Try
 Version:        0.28
 Release:        2%{?dist}
@@ -28,10 +35,12 @@ BuildRequires:  perl(XS::Parse::Keyword) >= 0.06
 BuildRequires:  perl(overload)
 BuildRequires:  perl(Test::More) >= 0.88
 # Optional
+%if %{with perl_Syntax_Keyword_Try_enables_extra_tests}
 BuildRequires:  perl(Future)
 BuildRequires:  perl(Future::AsyncAwait)
 BuildRequires:  perl(Syntax::Keyword::Defer)
 BuildRequires:  perl(Test::Pod) >= 1.00
+%endif
 BuildRequires:  perl(threads)
 
 Requires:       perl(XS::Parse::Keyword) >= 0.06
@@ -46,8 +55,10 @@ finally block.
 Summary:        Tests for %{name}
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
+%if %{with perl_Syntax_Keyword_Try_enables_extra_tests}
 Requires:       perl(Future)
 Requires:       perl(Future::AsyncAwait)
+%endif
 Requires:       perl(threads)
 
 %description tests
@@ -57,10 +68,16 @@ with "%{_libexecdir}/%{name}/test".
 %prep
 %setup -q -n Syntax-Keyword-Try-%{version}
 
+%if %{without perl_Syntax_Keyword_Try_enables_extra_tests}
+for F in t/80await+SKT.t t/80defer+SKT.t t/99pod.t; do
+    rm "$F"
+    perl -i -ne 'print $_ unless m{\A\Q'"$F"'\E\b}' MANIFEST
+done
+%endif
+
 # Help file to recognise the Perl scripts
 for F in t/*.t; do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
-
     chmod +x "$F"
 done
 
@@ -76,7 +93,6 @@ find %{buildroot} -type f -name '*.bs' -size 0 -delete
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
-rm %{buildroot}%{_libexecdir}/%{name}/t/99pod.t
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
 cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"

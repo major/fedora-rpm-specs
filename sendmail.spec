@@ -28,8 +28,8 @@
 
 Summary: A widely used Mail Transport Agent (MTA)
 Name: sendmail
-Version: 8.17.1
-Release: 8%{?dist}
+Version: 8.17.2
+Release: 1%{?dist}
 License: Sendmail
 URL: http://www.sendmail.org/
 
@@ -65,7 +65,7 @@ Source16: sendmail-etc-mail-trusted-users
 # default /etc/mail/virtusertable
 Source17: sendmail-etc-mail-virtusertable
 # fix man path and makemap man page
-Patch3: sendmail-8.14.4-makemapman.patch
+Patch3: sendmail-8.17.2-makemapman.patch
 # fix smrsh paths
 Patch4: sendmail-8.16.1-smrsh_paths.patch
 # fix sm-client.pid path
@@ -77,25 +77,23 @@ Patch11: sendmail-8.17.1-dynamic.patch
 # fix cyrus path
 Patch12: sendmail-8.13.0-cyrus.patch
 # fix aliases.db path
-Patch13: sendmail-8.17.1-aliases_dir.patch
+Patch13: sendmail-8.17.2-aliases_dir.patch
 # fix vacation Makefile
 Patch14: sendmail-8.14.9-vacation.patch
 # remove version information from sendmail helpfile
-Patch15: sendmail-8.14.9-noversion.patch
+Patch15: sendmail-8.17.2-noversion.patch
 # do not accept localhost.localdomain as valid address from SMTP
-Patch16: sendmail-8.17.1-localdomain.patch
+Patch16: sendmail-8.17.2-localdomain.patch
 # build libmilter as DSO
 Patch17: sendmail-8.14.3-sharedmilter.patch
 # skip colon separator when parsing service name in ServiceSwitchFile
 Patch18: sendmail-8.17.1-switchfile.patch
 # silence warning about missing sasl2 config in /usr/lib*, now in /etc/sasl2
-Patch23: sendmail-8.17.1-sasl2-in-etc.patch
+Patch23: sendmail-8.17.2-sasl2-in-etc.patch
 # add QoS support, patch from Philip Prindeville <philipp@fedoraproject.org>
 # upstream reserved option ID 0xe7 for testing of this new feature, #576643
-Patch25: sendmail-8.17.1-qos.patch
+Patch25: sendmail-8.17.2-qos.patch
 Patch26: sendmail-8.17.1-libmilter-socket-activation.patch
-# upstream patch
-Patch27: sendmail-8.17.1-cyrus-sasl-2.1.28-fix.patch
 
 BuildRequires: make
 BuildRequires: libdb-devel
@@ -206,7 +204,6 @@ cp devtools/M4/UNIX/{,shared}library.m4
 %patch23 -p1 -b .sasl2-in-etc
 %patch25 -p1 -b .qos
 %patch26 -p1 -b .libmilter-socket-activation
-%patch27 -p1 -b .cyrus-sasl-2.1.28-fix
 
 for f in RELEASE_NOTES contrib/etrn.0; do
 	iconv -f iso8859-1 -t utf8 -o ${f}{_,} &&
@@ -711,6 +708,10 @@ exit 0
 
 
 %changelog
+* Mon Jun  5 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 8.17.2-1
+- New version
+  Resolves: rhbz#2212083
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.17.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

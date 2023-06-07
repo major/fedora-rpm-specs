@@ -6,8 +6,8 @@
 
 Name: trace-cmd
 Version: %{srcversion}
-Release: 1%{?dist}
-License: GPLv2 and LGPLv2
+Release: 2%{?dist}
+License: LGPL-2.1-only AND LGPL-2.1-or-later AND GPL-2.0-only AND GPL-2.0-or-later
 Summary: A user interface to Ftrace
 
 ExcludeArch: %{ix86} %{arm}
@@ -108,6 +108,9 @@ rm -rf %{buildroot}/%{_mandir}/man3/*
 %{_libdir}/%{name}/python/
 
 %changelog
+* Mon Jun 05 2023 Zamir SUN <sztsian@gmail.com> - 3.1.6-2
+- SPDX migration
+
 * Tue Apr 18 2023 Zamir SUN <sztsian@gmail.com> - 3.1.6-1
 - Update to 3.1.6
 

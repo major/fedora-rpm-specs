@@ -1,9 +1,9 @@
 %undefine _package_note_flags
 Name:           virt-top
 Version:        1.1.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Utility like top(1) for displaying virtualization stats
-License:        GPLv2+
+License:        GPL-2.0-or-later
 
 %if 0%{?rhel}
 # No qemu-kvm on POWER (RHBZ#1946532).
@@ -116,6 +116,9 @@ install -m 0644 processcsv.py.1 $RPM_BUILD_ROOT%{_mandir}/man1/
 
 
 %changelog
+* Mon Jun 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1.1-10
+- Migrated to SPDX license
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1.1-9
 - Rebuild OCaml packages for F38
 

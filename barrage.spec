@@ -1,6 +1,6 @@
 Name:           barrage
-Version:        1.0.6
-Release:        3%{?dist}
+Version:        1.0.7
+Release:        1%{?dist}
 Summary:        Kill and destroy as many targets as possible within 3 minutes
 
 License:        GPL-2.0-or-later
@@ -103,6 +103,9 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/icons/barrage48.png
 
 
 %changelog
+* Mon Jun 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.0.7-1
+- 1.0.7
+
 * Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.0.6-3
 - migrated to SPDX license
 

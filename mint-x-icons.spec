@@ -2,8 +2,8 @@
 
 
 Name:           mint-x-icons
-Version:        1.6.4
-Release:        4%{?dist}
+Version:        1.6.5
+Release:        1%{?dist}
 Summary:        Icon theme for Linux Mint
 
 License:        GPLv3+
@@ -44,7 +44,6 @@ Requires:       hicolor-icon-theme
 %fdupes -s %{buildroot}
 
 
-%if 0%{?fedora} || 0%{?rhel} >= 8
 %transfiletriggerin -- %{_datadir}/icons/Mint-X
 for _dir in %{_datadir}/icons/Mint-X*/ ; do
   %{_bindir}/gtk-update-icon-cache --force ${_dir} &>/dev/null || :
@@ -55,35 +54,19 @@ done
 for _dir in %{_datadir}/icons/Mint-X*/ ; do
   %{_bindir}/gtk-update-icon-cache --force ${_dir} &>/dev/null || :
 done
-%else
-%post
-for _dir in %{_datadir}/icons/Mint-X*/ ; do
-  /bin/touch --no-create ${_dir} &>/dev/null || :
-done
-
-
-%postun
-if [ $1 -eq 0 ] ; then
-  for _dir in %{_datadir}/icons/Mint-X*/ ; do
-    %{_bindir}/gtk-update-icon-cache ${_dir} &>/dev/null || :
-  done
-fi
-
-
-%posttrans
-for _dir in %{_datadir}/icons/Mint-X*/ ; do
-  %{_bindir}/gtk-update-icon-cache ${_dir} &>/dev/null || :
-done
-%endif
 
 
 %files
 %license %{name}/debian/copyright
 %doc %{name}/debian/changelog
 %{_datadir}/icons/Mint-X*
+%{_datadir}/folder-color-switcher/
 
 
 %changelog
+* Mon Jun 05 2023 Leigh Scott <leigh123linux@gmail.com> - 1.6.5-1
+- New upstream release
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

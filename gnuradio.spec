@@ -25,8 +25,8 @@
 #%%global alphatag rc1
 
 Name:		gnuradio
-Version:	3.10.4.0
-Release:	7%{?alphatag:.%{alphatag}}%{?dist}
+Version:	3.10.6.0
+Release:	1%{?alphatag:.%{alphatag}}%{?dist}
 Summary:	Software defined radio framework
 
 License:	GPLv3
@@ -83,6 +83,8 @@ BuildRequires:	volk-devel
 BuildRequires:	libsndfile-devel
 BuildRequires:	SoapySDR-devel
 BuildRequires:	spdlog-devel
+# for pygccxml
+#BuildRequires:	castxml
 
 Requires:	python3-%{name} = %{version}-%{release}
 Requires:	python3-numpy
@@ -155,9 +157,22 @@ GNU Radio examples
 
 %install
 %cmake_install
-desktop-file-validate %{buildroot}%{_datadir}/applications/gnuradio-grc.desktop
-# Remove extraneous desktop/icon/mime files
-rm -r %{buildroot}%{_datadir}/%{name}/grc/freedesktop
+
+# desktop file
+desktop-file-install --dir=%{buildroot}%{_datadir}/applications \
+  grc/scripts/freedesktop/gnuradio-grc.desktop
+# mime
+install -Dp grc/scripts/freedesktop/gnuradio-grc.xml \
+  %{buildroot}%{_datadir}/mime/packages/gnuradio-grc.xml
+# metainfo
+install -Dp grc/scripts/freedesktop/org.gnuradio.grc.metainfo.xml \
+  %{buildroot}%{_datadir}/metainfo/org.gnuradio.grc.metainfo.xml
+# icons
+for i in 16 24 32 48 64 128 256
+do
+  install -Dp grc/scripts/freedesktop/grc-icon-${i}.png \
+    %{buildroot}%{_datadir}/icons/hicolor/${i}x${i}/apps/gnuradio-grc.png
+done
 
 %ldconfig_scriptlets
 
@@ -165,7 +180,6 @@ rm -r %{buildroot}%{_datadir}/%{name}/grc/freedesktop
 %license COPYING
 %{_bindir}/*
 %{_libdir}/lib*.so.*
-%{_libexecdir}/*
 %{_datadir}/gnuradio
 %{_datadir}/applications/gnuradio-grc.desktop
 %{_datadir}/mime/packages/gnuradio-grc.xml
@@ -196,6 +210,9 @@ rm -r %{buildroot}%{_datadir}/%{name}/grc/freedesktop
 %{_datadir}/gnuradio/examples
 
 %changelog
+* Mon Jun  5 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 3.10.6.0-1
+- New version
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 3.10.4.0-7
 - Rebuilt for Boost 1.81
 

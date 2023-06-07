@@ -25,7 +25,7 @@
 
 Name: %{shortname}-base
 Version: %{source_date}
-Release: 73%{?dist}
+Release: 75%{?dist}
 Epoch: 11
 Summary: TeX formatting system
 # The only files in the base package are directories, cache, and license texts
@@ -8522,7 +8522,7 @@ mkdir -p %{buildroot}%{_sysconfdir}/texlive/web2c
 mkdir -p %{buildroot}%{_sysconfdir}/texlive/dvips/config
 mkdir -p %{buildroot}%{_sysconfdir}/texlive/tex/generic/config
 
-for i in mktex.cnf texmf.cnf updmap.cfg; do
+for i in mktex.cnf texmfcnf.lua texmf.cnf updmap.cfg; do
         mv %{buildroot}%{_texdir}/texmf-dist/web2c/$i %{buildroot}%{_sysconfdir}/texlive/web2c/
         ln -s %{_sysconfdir}/texlive/web2c/$i %{buildroot}%{_texdir}/texmf-dist/web2c/$i
 done
@@ -9272,6 +9272,11 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %exclude %{_texdir}/texmf-dist/scripts/context/perl/mptopdf.pl
 %{_texdir}/texmf-dist/scripts/context/
 %{_texdir}/texmf-dist/tex/context/
+# these four are in mptopdf
+%exclude %{_texdir}/texmf-dist/tex/context/base/mkii/supp-mis.mkii
+%exclude %{_texdir}/texmf-dist/tex/context/base/mkii/supp-mpe.mkii
+%exclude %{_texdir}/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+%exclude %{_texdir}/texmf-dist/tex/context/base/mkii/syst-tex.mkii
 %exclude %{_texdir}/texmf-dist/tex/generic/context/mptopdf
 %{_texdir}/texmf-dist/tex/generic/context/
 %{_texdir}/texmf-dist/tex/latex/context/
@@ -10024,6 +10029,7 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_mandir}/man1/luatex.1*
 %{_mandir}/man1/texlua.1*
 %{_mandir}/man1/texluac.1*
+%{_sysconfdir}/texlive/web2c/texmfcnf.lua
 %{_texdir}/texmf-dist/tex/generic/config/luatex-unicode-letters.tex
 %{_texdir}/texmf-dist/tex/generic/config/luatexiniconfig.tex
 %{_texdir}/texmf-dist/web2c/texmfcnf.lua
@@ -11103,6 +11109,13 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %doc %{_texdir}/texmf-dist/doc/latex/yplan/
 
 %changelog
+* Mon Jun  5 2023 Tom Callaway <spot@fedoraproject.org> - 11:20230311-75
+- move texmfcnf.lua to /etc/texlive/web2c with a symlink back to its original home in /usr/share/texlive/texmf-dist/web2c
+- properly handle mkii files that should only be in texlive-mptopdf
+
+* Tue May 30 2023 Tom Callaway <spot@fedoraproject.org> - 11:20230311-74
+- fix double packaging of mptopdf files in context
+
 * Thu May 25 2023 Tom Callaway <spot@fedoraproject.org> - 11:20230311-73
 - update to svn66984 source tree to fix CVE-2023-32700
 - fix mtxrun stub

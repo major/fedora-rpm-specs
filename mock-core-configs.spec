@@ -1,5 +1,9 @@
+%if 0%{?el8}
+%global python3 /usr/libexec/platform-python
+%endif
+
 Name:       mock-core-configs
-Version:    38.5
+Version:    38.6
 Release:    1%{?dist}
 Summary:    Mock core config files basic chroots
 
@@ -98,7 +102,7 @@ fi
 if [ -s /etc/mageia-release ]; then
     mock_arch=$(sed -n '/^$/!{$ s/.* \(\w*\)$/\1/p}' /etc/mageia-release)
 else
-    mock_arch=$(python3 -c "import dnf.rpm; import hawkey; print(dnf.rpm.basearch(hawkey.detect_arch()))")
+    mock_arch=$(%{python3} -c "import dnf.rpm; import hawkey; print(dnf.rpm.basearch(hawkey.detect_arch()))")
 fi
 
 cfg=unknown-distro
@@ -140,6 +144,10 @@ fi
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
+* Mon Jun 05 2023 Pavel Raiskup <praiskup@redhat.com> 38.6-1
+- use python3 macro for post scriptlet (mroche@omenos.dev)
+- openEuler: use metalinks instead of baseurls (chenzeng2@huawei.com)
+
 * Mon May 22 2023 Pavel Raiskup <praiskup@redhat.com> 38.5-1
 - drop includepkgs=devtoolset* from centos-{6,7} (orion@nwra.com)
 - Fedora 35 and 36 is EOL

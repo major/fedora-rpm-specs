@@ -7,9 +7,9 @@
 Summary:	Cryptography library for Python
 Name:		python-crypto
 Version:	2.6.1
-Release:	44%{?dist}
-# Mostly Public Domain apart from parts of HMAC.py and setup.py, which are Python
-License:	Public Domain and Python
+Release:	45%{?dist}
+# Mostly LicenseRef-Fedora-Public-Domain apart from parts of HMAC.py and setup.py, which are PSF-2.0
+License:	LicenseRef-Fedora-Public-Domain AND PSF-2.0
 URL:		http://www.pycrypto.org/
 Source0:	http://ftp.dlitz.net/pub/dlitz/crypto/pycrypto/pycrypto-%{version}.tar.gz
 Patch0:		python-crypto-2.4-optflags.patch
@@ -139,6 +139,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} %{__python3} pct-speedtest.py
 %{python3_sitearch}/pycrypto-%{version}-py3.*.egg-info
 
 %changelog
+* Mon Jun  5 2023 Paul Howarth <paul@city-fan.org> - 2.6.1-45
+- Use SPDX-format license tag
+
 * Thu Apr 13 2023 Paul Howarth <paul@city-fan.org> - 2.6.1-44
 - More Python 3.12 compatibility fixes (rhbz#2186406)
 - Avoid deprecated patch syntax

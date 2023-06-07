@@ -1,8 +1,8 @@
 Name:           perl-match-simple-XS
-Version:        0.001
-Release:        15%{?dist}
+Version:        0.002
+Release:        1%{?dist}
 Summary:        XS backend for match::simple
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            http://search.cpan.org/dist/match-simple-XS/
 Source0:        https://cpan.metacpan.org/authors/id/T/TO/TOBYINK/match-simple-XS-%{version}.tar.gz
 BuildRequires: make
@@ -42,13 +42,16 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 make test
 
 %files
-%doc Changes CONTRIBUTING COPYRIGHT CREDITS README
+%doc Changes COPYRIGHT CREDITS README
 %license LICENSE
 %{perl_vendorarch}/auto/*
 %{perl_vendorarch}/match*
 %{_mandir}/man3/*
 
 %changelog
+* Mon Jun 05 2023 Xavier Bachelot <xavier@bachelot.org> 0.002-1
+- Update to 0.002 (RHBZ#2154402)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.001-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

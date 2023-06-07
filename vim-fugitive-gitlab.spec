@@ -6,17 +6,20 @@
 
 Name: vim-fugitive-gitlab
 Version: 0~%posttag
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: GitLab support for vim-fugitive plugin
 License: MIT
 BuildArch: noarch
 
 URL: https://github.com/shumphrey/%upstream_n.git
 Source0: https://github.com/shumphrey/%upstream_n/archive/%gitrevision/%upstream_n-%gitrevision.tar.gz
+Source1: vim-fugitive-gitlab.metainfo.xml
 
 Requires: vim-fugitive
 Requires: vim-filesystem
 
+# for appstream-util
+BuildRequires: libappstream-glib
 BuildRequires: vim-filesystem
 
 
@@ -32,6 +35,12 @@ can be omni-completed (<C-X><C-O>, see :help compl-omni).
 
 
 %install
+mkdir -p %{buildroot}/%{_metainfodir}
+
+install -p -m 0644 %{SOURCE1} %{buildroot}/%{_metainfodir}
+
+appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/*.metainfo.xml
+
 mkdir -p %{buildroot}%{vimfiles_root}/autoload/gitlab
 mkdir -p %{buildroot}%{vimfiles_root}/doc
 mkdir -p %{buildroot}%{vimfiles_root}/plugin
@@ -46,11 +55,16 @@ done
 %files
 %license LICENSE
 %doc %{vimfiles_root}/doc/*.txt
+%dir %{_metainfodir}
+%{_metainfodir}/vim-fugitive-gitlab.metainfo.xml
 %{vimfiles_root}/plugin/gitlab.vim
 %{vimfiles_root}/autoload/gitlab
 
 
 %changelog
+* Mon Jun 05 2023 Zdenek Dohnal <zdohnal@redhat.com> - 0~20220701gitb73a8e-3
+- add metainfo data for GNOME Software (rhbz#2124914)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0~20220701gitb73a8e-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

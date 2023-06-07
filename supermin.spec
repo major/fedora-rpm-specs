@@ -31,8 +31,8 @@
 Summary:       Tool for creating supermin appliances
 Name:          supermin
 Version:       5.3.3
-Release:       7%{?dist}
-License:       GPLv2+
+Release:       8%{?dist}
+License:       GPL-2.0-or-later
 
 ExclusiveArch: %{kernel_arches}
 %if 0%{?rhel}
@@ -199,6 +199,9 @@ make check || {
 
 
 %changelog
+* Mon Jun 05 2023 Richard W.M. Jones <rjones@redhat.com> - 5.3.3-8
+- Migrated to SPDX license
+
 * Wed May 31 2023 Richard W.M. Jones <rjones@redhat.com> - 5.3.3-7
 - Further fix for dnf5 (RHBZ#2211386)
 

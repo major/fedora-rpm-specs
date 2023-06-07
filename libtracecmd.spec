@@ -1,7 +1,7 @@
 Name: libtracecmd
 Version: 1.3.1
-Release: 1%{?dist}
-License: LGPLv2
+Release: 2%{?dist}
+License: LGPL-2.1-only AND LGPL-2.1-or-later AND GPL-2.0-only AND GPL-2.0-or-later
 Summary: A library for reading tracing instances stored in a trace file
 
 URL: https://git.kernel.org/pub/scm/utils/trace-cmd/trace-cmd.git/
@@ -69,6 +69,9 @@ chrpath --delete %{buildroot}/%{_libdir}/libtracecmd.so*
 %{_includedir}/trace-cmd
 
 %changelog
+* Mon Jun 05 2023 Zamir SUN <sztsian@gmail.com> - 1.3.1-2
+- SPDX migration
+
 * Tue Apr 18 2023 Zamir SUN <sztsian@gmail.com> - 1.3.1-1
 - Update to 1.3.1
 

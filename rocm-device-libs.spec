@@ -8,6 +8,11 @@
 %global bugfix_version 2
 %global upstreamname ROCm-Device-Libs
 
+# This might be needed because EL9 llvm is built with clang:
+%if 0%{?epel} > 8
+%global toolchain clang
+%endif
+
 Name:           rocm-device-libs
 Version:        %{llvm_maj_ver}.%{bugfix_version}
 Release:        1%{?dist}

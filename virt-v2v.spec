@@ -16,10 +16,10 @@
 Name:          virt-v2v
 Epoch:         1
 Version:       2.3.4
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
-License:       GPLv2+
+License:       GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:           https://github.com/libguestfs/virt-v2v
 
 Source0:       http://download.libguestfs.org/virt-v2v/%{source_directory}/%{name}-%{version}.tar.gz
@@ -319,6 +319,9 @@ done
 
 
 %changelog
+* Mon Jun 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1:2.3.4-2
+- Migrated to SPDX license
+
 * Wed Apr 19 2023 Richard W.M. Jones <rjones@redhat.com> - 1:2.3.4-1
 - New development branch version 2.3.4
 

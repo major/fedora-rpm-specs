@@ -11,10 +11,10 @@
 
 Name:           hivex
 Version:        1.3.23
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Read and write Windows Registry binary hive files
 
-License:        LGPLv2
+License:        LGPL-2.1 AND LGPL-2.0-or-later AND GPL-2.0-or-later
 URL:            http://libguestfs.org/
 
 Source0:        http://libguestfs.org/download/hivex/%{name}-%{version}.tar.gz
@@ -105,6 +105,7 @@ For Ruby bindings, see 'ruby-hivex'.
 
 %package libs
 Summary:        Library for %{name}
+License:        LGPL-2.1 AND LGPL-2.0-or-later
 Conflicts:      %{name} < 1.3.20-6
 Obsoletes:      %{name} < 1.3.20-6
 
@@ -127,6 +128,7 @@ for %{name}.
 %if !0%{?rhel}
 %package static
 Summary:        Statically linked library for %{name}
+License:        LGPL-2.1 AND LGPL-2.0-or-later
 Requires:       %{name}-devel = %{version}-%{release}
 
 
@@ -139,6 +141,7 @@ for %{name}.
 %if %{with ocaml}
 %package -n ocaml-%{name}
 Summary:       OCaml bindings for %{name}
+License:       LGPL-2.0-or-later
 Requires:      %{name}-libs = %{version}-%{release}
 
 
@@ -151,6 +154,7 @@ programs which use %{name} you will also need ocaml-%{name}-devel.
 
 %package -n ocaml-%{name}-devel
 Summary:       OCaml bindings for %{name}
+License:       LGPL-2.0-or-later
 Requires:      ocaml-%{name} = %{version}-%{release}
 Requires:      %{name}-devel = %{version}-%{release}
 
@@ -163,6 +167,7 @@ required to use the OCaml bindings for %{name}.
 
 %package -n perl-%{name}
 Summary:       Perl bindings for %{name}
+License:       LGPL-2.0-or-later AND GPL-2.0-or-later
 Requires:      %{name}-libs = %{version}-%{release}
 
 
@@ -172,6 +177,7 @@ perl-%{name} contains Perl bindings for %{name}.
 
 %package -n python3-%{name}
 Summary:       Python 3 bindings for %{name}
+License:       LGPL-2.0-or-later
 Requires:      %{name}-libs = %{version}-%{release}
 
 %description -n python3-%{name}
@@ -180,6 +186,7 @@ python3-%{name} contains Python 3 bindings for %{name}.
 
 %package -n ruby-%{name}
 Summary:       Ruby bindings for %{name}
+License:       LGPL-2.0-or-later
 Requires:      %{name}-libs = %{version}-%{release}
 Requires:      ruby(release)
 Requires:      ruby
@@ -312,6 +319,9 @@ fi
 
 
 %changelog
+* Mon Jun 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1.3.23-5
+- Migrated to SPDX license
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.3.23-4
 - Bump release and rebuild.
 

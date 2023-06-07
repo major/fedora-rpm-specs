@@ -1,10 +1,6 @@
-%if %{defined fedora} || (%{defined rhel} && 0%{?rhel} >= 8)
-%bcond_without docfiletriggers
-%endif
-
 Name: vim-fugitive
 Version: 3.7
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A Git wrapper so awesome, it should be illegal
 License: Vim
 URL: https://github.com/tpope/vim-fugitive
@@ -13,7 +9,7 @@ Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # https://github.com/tpope/vim-fugitive/pull/638
 Source1: vim-fugitive.metainfo.xml
 Requires: vim-common
-%if %{without filetriggers}
+%if %{defined el7}
 Requires(post): %{_bindir}/vim
 Requires(postun): %{_bindir}/vim
 %endif
@@ -51,7 +47,7 @@ install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_metainfodir}/vim-fugitive.metain
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
-%if %{without docfiletriggers}
+%if %{defined el7}
 %post
 vim -c ":helptags %{vimfiles_root}/doc" -c :q &> /dev/null
 
@@ -74,6 +70,9 @@ vim -c ":helptags %{vimfiles_root}/doc" -c :q &> /dev/null
 
 
 %changelog
+* Mon Jun 05 2023 Carl George <carl@george.computer> - 3.7-4
+- Fix doc trigger conditional to avoid extra dependency on /usr/bin/vim
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

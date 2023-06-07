@@ -1,6 +1,6 @@
 %bcond_without tests
 Name:             fossil
-Version:          2.20
+Version:          2.22
 Release:          %autorelease
 Summary:          A distributed SCM with bug tracking and wiki
 
@@ -80,13 +80,12 @@ tclsh test/tester.tcl %{buildroot}%{_bindir}/%name
 
 # create a fossil repository for documents with default settings
 %{buildroot}%{_bindir}/%name init --admin-user %name %name-doc.fossil
-%{buildroot}%{_bindir}/%name open --empty --force %name-doc.fossil
+%{buildroot}%{_bindir}/%name open --force %name-doc.fossil
 %{buildroot}%{_bindir}/%name configuration import %{SOURCE1}
 sqlite3 %name-doc.fossil "REPLACE INTO config(name,value,mtime) VALUES('doc-glob','*.wiki,*.html,*.md,*.txt',1608172730);"
 %{buildroot}%{_bindir}/%name add www
 %{buildroot}%{_bindir}/%name commit --user %name --force --comment '%name-doc initial commit'
 %{buildroot}%{_bindir}/%name fts-config enable d
-%{buildroot}%{_bindir}/%name fts-config stemmer on
 %{buildroot}%{_bindir}/%name fts-config index on
 
 install -m 0755 -p -D %{SOURCE2} %{buildroot}%{_bindir}

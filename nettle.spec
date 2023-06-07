@@ -14,8 +14,8 @@
 %bcond_without fips
 
 Name:           nettle
-Version:        3.8
-Release:        3%{?dist}
+Version:        3.9.1
+Release:        1%{?dist}
 Summary:        A low-level cryptographic library
 
 License:        LGPLv3+ or GPLv2+
@@ -26,7 +26,6 @@ Source0:	%{name}-%{version}-hobbled.tar.xz
 Source1:	%{name}-%{version_old}-hobbled.tar.xz
 Source2:	nettle-3.5-remove-ecc-testsuite.patch
 %endif
-Patch0:		nettle-3.4-annocheck.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -78,6 +77,8 @@ sed 's/ecc-secp224r1.c//g' -i Makefile.in
 
 %build
 autoreconf -ifv
+# For annocheck
+export ASM_FLAGS="-Wa,--generate-missing-build-notes=yes"
 %configure --enable-shared --enable-fat
 %make_build
 
@@ -170,6 +171,9 @@ make check
 
 
 %changelog
+* Mon Jun  5 2023 Daiki Ueno <dueno@redhat.com> - 3.9.1-1
+- Update to nettle 3.9.1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

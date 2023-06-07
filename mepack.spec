@@ -1,6 +1,6 @@
 %global major 1
 %global minor 0
-%global patch 4
+%global patch 5
 
 Name:           mepack
 Version:        %{major}.%{minor}.%{patch}
@@ -79,11 +79,6 @@ install -d -m 0755 %{buildroot}%{_mandir}
 cp -R build/doc/man/man3 %{buildroot}%{_mandir}
 %if 0%{?__isa_bits} == 64
 %make_install -C build64
-%endif
-# https://github.com/mpimd-csc/mepack/issues/1
-sed -i 's|moduledir=${prefix}/|moduledir=|' %{buildroot}%{_libdir}/pkgconfig/%{name}.pc
-%if 0%{?__isa_bits} == 64
-sed -i 's|moduledir=${prefix}/|moduledir=|' %{buildroot}%{_libdir}/pkgconfig/%{name}64.pc
 %endif
 
 %check

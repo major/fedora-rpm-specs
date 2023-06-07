@@ -26,8 +26,8 @@
 Summary:       Tools to access and modify virtual machine disk images
 Name:          guestfs-tools
 Version:       1.51.2
-Release:       1%{?dist}
-License:       GPLv2+
+Release:       2%{?dist}
+License:       GPL-2.0-or-later AND LGPL-2.0-or-later
 
 # Build only for architectures that have a kernel
 ExclusiveArch: %{kernel_arches}
@@ -199,7 +199,7 @@ Virt-tail follows (tails) a log file within a guest, like 'tail -f'.
 
 %package -n virt-win-reg
 Summary:       Access and modify the Windows Registry of a Windows VM
-License:       GPLv2+
+License:       GPL-2.0-or-later
 BuildArch:     noarch
 
 # This replaces the libguestfs-tools package.
@@ -405,6 +405,9 @@ end
 
 
 %changelog
+* Mon Jun 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1.51.2-2
+- Migrated to SPDX license
+
 * Thu Apr 06 2023 Richard W.M. Jones <rjones@redhat.com> - 1.51.2-1
 - New development version 1.51.2
 

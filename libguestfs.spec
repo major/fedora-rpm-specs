@@ -48,8 +48,8 @@ Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
 Version:       1.51.3
-Release:       2%{?dist}
-License:       LGPLv2+
+Release:       3%{?dist}
+License:       LGPL-2.1-or-later
 
 # Build only for architectures that have a kernel
 ExclusiveArch: %{kernel_arches}
@@ -399,6 +399,7 @@ Language bindings:
 
 %package appliance
 Summary:       Appliance for %{name}
+License:       GPL-2.0-or-later AND LGPL-2.1-or-later
 Requires:      supermin >= 5.1.18
 
 
@@ -420,7 +421,7 @@ for %{name}.
 %if !0%{?rhel}
 %package forensics
 Summary:       Filesystem forensics support for %{name}
-License:       LGPLv2+
+License:       GPL-2.0-or-later
 Requires:      %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description forensics
@@ -432,7 +433,7 @@ want to forensically analyze disk images using The Sleuth Kit.
 %if !0%{?rhel}
 %package gfs2
 Summary:       GFS2 support for %{name}
-License:       LGPLv2+
+License:       GPL-2.0-or-later
 Requires:      %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description gfs2
@@ -445,7 +446,7 @@ disk images containing GFS2.
 %ifnarch ppc
 %package hfsplus
 Summary:       HFS+ support for %{name}
-License:       LGPLv2+
+License:       GPL-2.0-or-later
 Requires:      %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description hfsplus
@@ -457,7 +458,7 @@ disk images containing HFS+ / Mac OS Extended filesystems.
 
 %package rescue
 Summary:       virt-rescue shell
-License:       LGPLv2+
+License:       GPL-2.0-or-later
 Requires:      %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description rescue
@@ -468,7 +469,7 @@ network utilities, editors and debugging utilities.
 
 %package rsync
 Summary:       rsync support for %{name}
-License:       LGPLv2+
+License:       GPL-2.0-or-later
 Requires:      %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description rsync
@@ -479,7 +480,7 @@ rsync to upload or download files into disk images.
 %if !0%{?rhel}
 %package ufs
 Summary:       UFS (BSD) support for %{name}
-License:       LGPLv2+
+License:       GPL-2.0-or-later
 Requires:      %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description ufs
@@ -490,7 +491,7 @@ disk images containing UFS (BSD filesystems).
 
 %package xfs
 Summary:       XFS support for %{name}
-License:       LGPLv2+
+License:       GPL-2.0-or-later
 Requires:      %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description xfs
@@ -502,7 +503,7 @@ disk images containing XFS.
 %ifnarch %{arm} aarch64 s390 s390x riscv64
 %package zfs
 Summary:       ZFS support for %{name}
-License:       LGPLv2+
+License:       GPL-2.0-or-later
 Requires:      %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description zfs
@@ -514,7 +515,7 @@ disk images containing ZFS.
 
 %package inspect-icons
 Summary:       Additional dependencies for inspecting guest icons
-License:       LGPLv2+
+License:       LGPL-2.1-or-later
 BuildArch:     noarch
 Requires:      %{name} = %{epoch}:%{version}-%{release}
 
@@ -534,6 +535,7 @@ having to depend on Perl.  See https://bugzilla.redhat.com/1194158
 
 %package bash-completion
 Summary:       Bash tab-completion scripts for %{name} tools
+License:       GPL-2.0-or-later
 BuildArch:     noarch
 Requires:      bash-completion >= 2.0
 
@@ -664,6 +666,7 @@ golang-%{name} contains Go language bindings for %{name}.
 
 %package man-pages-ja
 Summary:       Japanese (ja) man pages for %{name}
+License:       GPL-2.0-or-later
 BuildArch:     noarch
 Requires:      %{name} = %{epoch}:%{version}-%{release}
 
@@ -674,6 +677,7 @@ for %{name}.
 
 %package man-pages-uk
 Summary:       Ukrainian (uk) man pages for %{name}
+License:       GPL-2.0-or-later
 BuildArch:     noarch
 Requires:      %{name} = %{epoch}:%{version}-%{release}
 
@@ -1082,6 +1086,9 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Mon Jun 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1:1.51.3-3
+- Migrated to SPDX license
+
 * Fri May 19 2023 Richard W.M. Jones <rjones@redhat.com> - 1:1.51.3-2
 - Rebuild against librpm 10
 

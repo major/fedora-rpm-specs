@@ -1,5 +1,5 @@
 %global packname parallelly
-%global packver  1.34.0
+%global packver  1.36.0
 %global rlibdir  %{_datadir}/R/library
 
 Name:             R-%{packname}
@@ -7,7 +7,7 @@ Version:          %{packver}
 Release:          %autorelease
 Summary:          Enhancing the 'parallel' Package
 
-License:          LGPLv2+
+License:          LGPL-2.1-or-later
 URL:              https://CRAN.R-project.org/package=%{packname}
 Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.tar.gz
 

@@ -4,8 +4,8 @@
 
 %global crate signature
 
-Name:           rust-signature
-Version:        2.1.0
+Name:           rust-signature1
+Version:        1.6.4
 Release:        %autorelease
 Summary:        Traits for cryptographic signature algorithms (e.g. ECDSA, Ed25519)
 
@@ -48,28 +48,16 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+alloc-devel
+%package     -n %{name}+derive-preview-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+alloc-devel %{_description}
+%description -n %{name}+derive-preview-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "alloc" feature of the "%{crate}" crate.
+use the "derive-preview" feature of the "%{crate}" crate.
 
-%files       -n %{name}+alloc-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+derive-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+derive-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "derive" feature of the "%{crate}" crate.
-
-%files       -n %{name}+derive-devel
+%files       -n %{name}+derive-preview-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+digest-devel
@@ -84,6 +72,42 @@ use the "digest" feature of the "%{crate}" crate.
 %files       -n %{name}+digest-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+digest-preview-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+digest-preview-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "digest-preview" feature of the "%{crate}" crate.
+
+%files       -n %{name}+digest-preview-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+hazmat-preview-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+hazmat-preview-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "hazmat-preview" feature of the "%{crate}" crate.
+
+%files       -n %{name}+hazmat-preview-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rand-preview-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rand-preview-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rand-preview" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rand-preview-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+rand_core-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -94,6 +118,18 @@ This package contains library source intended for building other packages which
 use the "rand_core" feature of the "%{crate}" crate.
 
 %files       -n %{name}+rand_core-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+signature_derive-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+signature_derive-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "signature_derive" feature of the "%{crate}" crate.
+
+%files       -n %{name}+signature_derive-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel
