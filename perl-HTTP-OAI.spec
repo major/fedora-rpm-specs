@@ -1,13 +1,10 @@
 Name:           perl-HTTP-OAI
-Version:        4.12
+Version:        4.13
 Release:        1%{?dist}
 Summary:        API for OAI-PMH
 License:        BSD-3-Clause
 URL:            https://metacpan.org/release/HTTP-OAI
 Source0:        https://cpan.metacpan.org/authors/id/H/HO/HOCHSTEN/HTTP-OAI-%{version}.tar.gz
-# Remove dangerous "use lib", proposed to an upstream,
-# <https://github.com/LibreCat/perl-oai-lib/pull/8>
-Patch0:         HTTP-OAI-4.12-Do-not-use-lib-from-relative-paths.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  perl-generators
@@ -132,6 +129,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jun 06 2023 Petr Pisar <ppisar@redhat.com> - 4.13-1
+- 4.13 bump
+
 * Fri Jun 02 2023 Petr Pisar <ppisar@redhat.com> - 4.12-1
 - 4.12 bump
 - Package the tests

@@ -5,7 +5,7 @@
 %undefine _include_frame_pointers
 
 %global maj_ver 16
-%global libcxx_version %{maj_ver}.0.4
+%global libcxx_version %{maj_ver}.0.5
 #global rc_ver 4
 %global libcxx_srcdir libcxx-%{libcxx_version}%{?rc_ver:rc%{rc_ver}}.src
 %global libcxxabi_srcdir libcxxabi-%{libcxx_version}%{?rc_ver:rc%{rc_ver}}.src
@@ -13,7 +13,7 @@
 
 Name:		libcxx
 Version:	%{libcxx_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	2%{?dist}
+Release:	1%{?dist}
 Summary:	C++ standard library targeting C++11
 License:	Apache-2.0 WITH LLVM-exception OR MIT OR NCSA
 URL:		http://libcxx.llvm.org/
@@ -236,6 +236,9 @@ rm %{buildroot}%{_pkgdocdir}/html/.buildinfo
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Tue Jun 06 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.5-1
+- Update to LLVM 16.0.5
+
 * Tue May 30 2023 Nikita Popov <npopov@redhat.com> - 16.0.4-2
 - Merge llvm-libunwind srpm into libcxx
 

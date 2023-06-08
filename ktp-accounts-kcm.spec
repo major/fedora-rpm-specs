@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 Name:    ktp-accounts-kcm
 Summary: KDE Configuration Module for Telepathy Instant Messaging Accounts
-Version: 23.04.1
+Version: 23.04.2
 Release: 1%{?dist}
 
 License: LGPLv2+
@@ -112,6 +112,9 @@ rm -fv %{buildroot}%{_kf5_libdir}/libktpaccountskcminternal.so
 
 
 %changelog
+* Tue Jun 06 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.2-1
+- 23.04.2
+
 * Sat May 13 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.1-1
 - 23.04.1
 

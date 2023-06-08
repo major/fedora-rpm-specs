@@ -6,6 +6,9 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2129720
 ExcludeArch: i686
 
+# Excluded due to https://bugzilla.redhat.com/show_bug.cgi?id=2212748
+ExcludeArch: ppc64le
+
 # Run Mozilla test suite as a part of compile rpm section. Turn off when
 # building locally and don't want to spend 24 hours waiting for results.
 %global run_firefox_tests 0
@@ -1042,6 +1045,7 @@ fi
 * Mon Jun 05 2023 Martin Stransky <stransky@redhat.com>- 114.0-1
 - Updated to 114.0
 - Disable webrtc on ppc64le
+- Disabled ppc64le due t build issues (rhbz#2212748).
 
 * Wed May 24 2023 Martin Stransky <stransky@redhat.com>- 113.0.1-4
 - Added patches from 113.0.2

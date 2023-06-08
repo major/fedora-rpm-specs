@@ -5,11 +5,10 @@ Name:           python-configshell
 License:        ASL 2.0
 Summary:        A framework to implement simple but nice CLIs
 Epoch:          1
-Version:        1.1.29
-Release:        10%{?dist}
+Version:        1.1.30
+Release:        1%{?dist}
 URL:            https://github.com/open-iscsi/configshell-fb
 Source:         %{url}/archive/v%{version}/%{oname}-%{version}.tar.gz
-Patch0:         0001-replace-getargspec-with-getfullargspec.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel python3-setuptools
@@ -29,7 +28,6 @@ Requires:       python3-pyparsing python3-urwid
 
 %prep
 %setup -q -n %{oname}-%{version}
-%patch0 -p1
 
 sed -r -i "s/'pyparsing.*'/'pyparsing'/" setup.py
 
@@ -44,6 +42,9 @@ sed -r -i "s/'pyparsing.*'/'pyparsing'/" setup.py
 %doc COPYING README.md
 
 %changelog
+* Tue Jun 06 2023 Maurizio Lombardi <mlombard@redhat.com> - 1:1.1.30-1
+- Rebase to version v1.1.30
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.1.29-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

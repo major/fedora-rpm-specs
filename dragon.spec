@@ -1,6 +1,6 @@
 Name:    dragon
 Summary: Media player
-Version: 23.04.1
+Version: 23.04.2
 Release: 1%{?dist}
 
 # code: KDE e.V. may determine that future GPL versions are accepted
@@ -98,6 +98,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.dragonpla
 
 
 %changelog
+* Tue Jun 06 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.2-1
+- 23.04.2
+
 * Sat May 13 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.1-1
 - 23.04.1
 

@@ -19,16 +19,13 @@ BuildRequires:  libxml2-devel
 BuildRequires:  libxslt-devel
 BuildRequires:  python3-devel
 
-# It is a good idea to BuildRequire the runtime requirements of the [extras] we build.
-# That way, we ensure all the [extras] we build are installable,
-# and we possibly run tests that would otherwise be skipped.
-# However, some of the extras here create a dependency loop.
+# Some of the extras create a build dependency loop.
 # - [cssselect] Requires cssselect BuildRequires lxml
 # - [html5] Requires html5lib BuildRequires lxml
 # - [htmlsoup] Requires beautifulsoup4 Requires lxml
-# Hence we provide a bcond to disable this buildtime requirement.
-# These subpackages are disabled outright in RHEL builds.
-%bcond buildrequire_extras %{undefined rhel}
+# Hence we provide a bcond to disable the extras altogether.
+# By default, the extras are disabled in RHEL, to avoid dependencies.
+%bcond extras %{undefined rhel}
 
 %global _description \
 lxml is a Pythonic, mature binding for the libxml2 and libxslt libraries. It\
@@ -40,7 +37,7 @@ XML Schema, XSLT, C14N and much more.
 
 %package -n     python3-lxml
 Summary:        %{summary}
-%if %{undefined rhel}
+%if %{with extras}
 Suggests:       python3-lxml+cssselect
 Suggests:       python3-lxml+html5
 Suggests:       python3-lxml+htmlsoup
@@ -50,7 +47,7 @@ Suggests:       python3-lxml+htmlsoup
 
 Python 3 version.
 
-%if %{undefined rhel}
+%if %{with extras}
 %pyproject_extras_subpkg -n python3-lxml cssselect html5 htmlsoup
 %endif
 
@@ -58,7 +55,7 @@ Python 3 version.
 %autosetup -n lxml-%{version} -p1
 
 %generate_buildrequires
-%pyproject_buildrequires -x source%{?with_buildrequire_extras:,cssselect,html5,htmlsoup}
+%pyproject_buildrequires -x source%{?with_extras:,cssselect,html5,htmlsoup}
 # Remove pregenerated Cython C sources
 # We need to do this after %%pyproject_buildrequires because setup.py errors
 # without Cython and without the .c files.

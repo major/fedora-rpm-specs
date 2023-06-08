@@ -2,10 +2,10 @@
 %bcond_without perl_Syntax_Keyword_MultiSub_enables_optional_test
 
 Name:           perl-Syntax-Keyword-MultiSub
-Version:        0.02
-Release:        5%{?dist}
+Version:        0.03
+Release:        1%{?dist}
 Summary:        Multiple dispatch on subroutines
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Syntax-Keyword-MultiSub
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PEVANS/Syntax-Keyword-MultiSub-%{version}.tar.gz
 # Fix formatting a string, CPAN RT#140687
@@ -29,8 +29,7 @@ BuildRequires:  perl(XSLoader)
 # Tests:
 BuildRequires:  perl(:VERSION) >= 5.26
 BuildRequires:  perl(experimental)
-BuildRequires:  perl(Test::Fatal)
-BuildRequires:  perl(Test::More) >= 0.88
+BuildRequires:  perl(Test2::V0)
 BuildRequires:  perl(XS::Parse::Sublike) >= %{xs_parse_sublike_min_ver}
 %if %{with perl_Syntax_Keyword_MultiSub_enables_optional_test}
 # Optional tests:
@@ -50,9 +49,6 @@ Requires:       perl(XS::Parse::Sublike) >= %{xs_parse_sublike_min_ver}
 Requires:       %{perl_XS_Parse_Sublike_ABI}
 %endif
 
-# Remove under-specified dependencies
-%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Test::More\\)$
-
 %description
 This module provides a new keyword, multi, to put before subroutine
 declarations, which permits multiple distinct function bodies to be
@@ -64,7 +60,6 @@ Summary:        Tests for %{name}
 BuildArch:      noarch
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
-Requires:       perl(Test::More) >= 0.88
 %if %{with perl_Syntax_Keyword_MultiSub_enables_optional_test}
 # Optional tests:
 Requires:       perl(feature)
@@ -123,6 +118,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jun 06 2023 Petr Pisar <ppisar@redhat.com> - 0.03-1
+- 0.03 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

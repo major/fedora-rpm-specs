@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 39.17
+Version: 39.18
 Release: 1%{?dist}
 License: GPLv2+ and MIT
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -470,6 +470,22 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jun 06 2023 Packit <hello@packit.dev> - 39.18-1
+- webui: change the language direction when language changes (kkoukiou)
+- Fix webui-tests workflow waiving (zveleba)
+- Add github-pr and xunit reporting to webui-tests workflow (zveleba)
+- Simplify user and group name test (vslavik)
+- Clean up imports (vslavik)
+- Block more usernames as reserved (vslavik)
+- Remove unused/duplicate WebUI e2e testplan (zveleba)
+- If nano is the default editor, use it for bug reports (vslavik)
+- webui: Fix malformed XML (vslavik)
+- WebUI: re-design the review screen for custom mount point (jvanderwaa)
+- WebUI: explicitly specify GITHUB_BASE for pixel test commands (jvanderwaa)
+- Reload translations dynamically without a browser reload (jvanderwaa)
+- Re-render app when language changes (jvanderwaa)
+- Update translations from Weblate
+
 * Tue May 30 2023 Packit <hello@packit.dev> - 39.17-1
 - Remove unused parameter anaconda (vslavik)
 - Remove unused parameter opts (vslavik)

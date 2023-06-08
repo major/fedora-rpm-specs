@@ -1,11 +1,11 @@
-%global commit0 4c82e9cfaaad18c340f48af3cf5d09ff33e8c1b7
-%global date 20230201
+%global commit0 e049b16b5f157e2f28e7b5c301e71e1ccb3fe288
+%global date 20230509
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global cl_hpp_ver 2023.02.06
+%global cl_hpp_ver 2023.04.17
 
 Name:           opencl-headers
 Version:        3.0
-Release:        14%{?shortcommit0:.%{date}git%{shortcommit0}}%{?dist}
+Release:        15%{?shortcommit0:.%{date}git%{shortcommit0}}%{?dist}
 Summary:        OpenCL (Open Computing Language) header files
 
 License:        MIT
@@ -33,6 +33,10 @@ mkdir -p %{buildroot}%{_includedir}/CL/
 install -p -m 0644 *hpp CL/* -t %{buildroot}%{_includedir}/CL/
 # We're not interested in Direct3D things
 rm -vf %{buildroot}%{_includedir}/CL/cl_{dx9,d3d}*
+# Install pkgconfig files
+mkdir -p %{buildroot}%{_datadir}/pkgconfig
+sed -e 's|@CMAKE_INSTALL_PREFIX@|%{_prefix}|' -e 's|@OPENCL_INCLUDEDIR_PC@|%{_includedir}|' OpenCL-Headers.pc.in > %{buildroot}%{_datadir}/pkgconfig/OpenCL-Headers.pc
+sed -e 's|@CMAKE_INSTALL_PREFIX@|%{_prefix}|' -e 's|@OPENCLHPP_INCLUDEDIR_PC@|%{_includedir}|' OpenCL-CLHPP-%{cl_hpp_ver}/OpenCL-CLHPP.pc.in > %{buildroot}%{_datadir}/pkgconfig/OpenCL-CLHPP.pc
 
 %files
 %dir %{_includedir}/CL
@@ -40,6 +44,7 @@ rm -vf %{buildroot}%{_includedir}/CL/cl_{dx9,d3d}*
 %{_includedir}/CL/cl_egl.h
 %{_includedir}/CL/cl_ext.h
 %{_includedir}/CL/cl_ext_intel.h
+%{_includedir}/CL/cl_function_types.h
 %{_includedir}/CL/cl_gl_ext.h
 %{_includedir}/CL/cl_gl.h
 %{_includedir}/CL/cl.h
@@ -51,8 +56,14 @@ rm -vf %{buildroot}%{_includedir}/CL/cl_{dx9,d3d}*
 %{_includedir}/CL/cl_version.h
 %{_includedir}/CL/opencl.h
 %{_includedir}/CL/opencl.hpp
+%{_datadir}/pkgconfig/OpenCL-Headers.pc
+%{_datadir}/pkgconfig/OpenCL-CLHPP.pc
 
 %changelog
+* Mon Jun 05 2023 Orion Poplawski <orion@nwra.com> - 3.0-15.20230509gite049b16
+- Resync to 20230509
+- Skip pkgconfig files (bz#2212323)
+
 * Sat Mar 18 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 3.0-14.20230201git4c82e9c
 - Resync to 20230201
 - Drop cl.hpp (CL 1.4 is provided by opencl.h according to upstream)

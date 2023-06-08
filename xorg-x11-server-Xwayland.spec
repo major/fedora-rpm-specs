@@ -8,8 +8,8 @@
 
 Summary:   Xwayland
 Name:      xorg-x11-server-Xwayland
-Version:   23.1.1
-Release:   2%{?gitdate:.%{gitdate}git%{shortcommit}}%{?dist}
+Version:   23.1.2
+Release:   1%{?gitdate:.%{gitdate}git%{shortcommit}}%{?dist}
 
 URL:       http://www.x.org
 %if 0%{?gitdate}
@@ -132,6 +132,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/pkgconfig/xwayland.pc
 
 %changelog
+* Tue Jun  6 2023 Olivier Fourdan <ofourdan@redhat.com> - 23.1.2-1
+- xwayland 23.1.2
+
 * Thu Apr 27 2023 Olivier Fourdan <ofourdan@redhat.com> - 23.1.1-2
 - Fix spec file to build from git upstream - (#2190211)
 

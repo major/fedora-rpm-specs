@@ -21,7 +21,7 @@
 
 Name:    kf5-%{framework}
 Summary: PIM Storage Service
-Version: 23.04.1
+Version: 23.04.2
 Release: 1%{?dist}
 
 License: LGPLv2+
@@ -306,6 +306,9 @@ fi
 
 
 %changelog
+* Tue Jun 06 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.2-1
+- 23.04.2
+
 * Sat May 13 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.1-1
 - 23.04.1
 

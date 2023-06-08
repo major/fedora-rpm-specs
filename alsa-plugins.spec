@@ -8,11 +8,11 @@
 
 Name:           alsa-plugins
 Version:        1.2.7.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        The Advanced Linux Sound Architecture (ALSA) Plugins
-# All packages are LGPLv2+ with the exception of samplerate which is GPLv2+
-# pph plugin is BSD-like licensed
-License:        GPLv2+ and LGPLv2+ and BSD
+# All packages are LGPL-2.1-or-later with the exception of samplerate
+# which is GPL-2.0-or-later, pph plugin is BSD-3-Clause licensed
+License:        GPL-2.0-or-later and LGPL-2.1-or-later and BSD-3-Clause
 URL:            http://www.alsa-project.org/
 Source0:        ftp://ftp.alsa-project.org/pub/plugins/%{name}-%{version}.tar.bz2
 Patch0:         alsa-git.patch
@@ -32,7 +32,7 @@ This package includes plugins for ALSA.
 Recommends:     jack-audio-connection-kit
 BuildRequires:  jack-audio-connection-kit-devel
 Summary:        Jack PCM output plugin for ALSA
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 
 %description jack
 This plugin converts the ALSA API over JACK (Jack Audio Connection
@@ -43,7 +43,7 @@ This plugin provides the PCM type "jack"
 
 %package oss
 Summary:        Oss PCM output plugin for ALSA
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 
 %description oss
 This plugin converts the ALSA API over OSS API.  With this plugin,
@@ -55,7 +55,7 @@ This plugin provides the PCM type "oss".
 Recommends:     pulseaudio-daemon
 BuildRequires:  pulseaudio-libs-devel
 Summary:        Alsa to PulseAudio backend
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 
 %description pulseaudio
 This plugin allows any program that uses the ALSA API to access a PulseAudio
@@ -66,7 +66,7 @@ one for mixer control.
 %package samplerate
 BuildRequires:  libsamplerate-devel
 Summary:        External rate converter plugin for ALSA
-License:        GPLv2+
+License:        GPL-2.0-or-later
 
 %description samplerate
 This plugin is an external rate converter using libsamplerate by Erik de
@@ -75,7 +75,7 @@ Castro Lopo.
 %package upmix
 BuildRequires:  libsamplerate-devel
 Summary:        Upmixer channel expander plugin for ALSA
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 
 %description upmix
 The upmix plugin is an easy-to-use plugin for upmixing to 4 or
@@ -85,7 +85,7 @@ by the slave PCM or explicitly via channel option.
 %package vdownmix
 BuildRequires:  libsamplerate-devel
 Summary:        Downmixer to stereo plugin for ALSA
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 
 %description vdownmix
 The vdownmix plugin is a downmixer from 4-6 channels to 2-channel
@@ -95,7 +95,7 @@ surround".
 
 %package usbstream
 Summary:        USB stream plugin for ALSA
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 
 %description usbstream
 The usbstream plugin is for snd-usb-us122l driver. It converts PCM
@@ -103,7 +103,7 @@ stream to USB specific stream.
 
 %package arcamav
 Summary:        Arcam AV amplifier plugin for ALSA
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 
 %description arcamav
 This plugin exposes the controls for an Arcam AV amplifier
@@ -113,7 +113,7 @@ This plugin exposes the controls for an Arcam AV amplifier
 Requires:       speex speexdsp
 BuildRequires:  speex-devel speexdsp-devel
 Summary:        Rate Converter Plugin Using Speex Resampler
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 
 %description speex
 The rate plugin is an external rate converter using the Speex resampler
@@ -123,7 +123,7 @@ pre-processing of a mono stream like denoise using libspeex DSP API.
 %package maemo
 BuildRequires:  dbus-devel
 Summary:        Maemo plugin for ALSA
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 
 %description maemo
 This plugin converts the ALSA API over PCM task nodes protocol. In this way,
@@ -132,7 +132,7 @@ ALSA native applications can run over DSP Gateway and use DSP PCM task nodes.
 %package avtp
 BuildRequires:  libavtp-devel
 Summary:        Audio Video Transport Protocol (AVTP) plugin for ALSA
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 
 %description avtp
 This plugin supports Audio Video Transport Protocol (AVTP) as specified in
@@ -143,7 +143,7 @@ IEEE 1722-2016 spec. AVTP is part of the Audio/Video Broadcast using TSN.
 BuildRequires:  ffmpeg-free-devel
 Obsoletes:      alsa-plugins-freeworld-a52 <= %{version}-%{release}
 Summary:        A52 output plugin for ALSA using libavcodec
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 
 %description a52
 This plugin converts S16 linear format to A52 compressed stream and
@@ -154,7 +154,7 @@ audio stream.
 BuildRequires:  ffmpeg-free-devel
 Obsoletes:      alsa-plugins-freeworld-lavrate <= %{version}-%{release}
 Summary:        Rate converter plugin for ALSA using libavcodec
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 
 %description lavrate
 The plugin uses ffmpeg audio resample library to convert audio rates.
@@ -338,6 +338,9 @@ find %{buildroot} -name "*.la" -delete
 %endif
 
 %changelog
+* Tue Jun  6 2023 Jaroslav Kysela <perex@perex.cz> - 1.2.7.1-6
+- change to SPDX licenses
+
 * Sun Mar 12 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.2.7.1-5
 - Rebuild for ffmpeg 6.0
 

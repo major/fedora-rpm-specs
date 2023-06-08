@@ -7,7 +7,7 @@
 
 Name:    kalarm
 Summary: Personal Alarm Scheduler
-Version: 23.04.1
+Version: 23.04.2
 Release: 1%{?dist}
 
 # code (generally) GPLv2, docs GFDL
@@ -152,6 +152,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Tue Jun 06 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.2-1
+- 23.04.2
+
 * Sat May 13 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.1-1
 - 23.04.1
 

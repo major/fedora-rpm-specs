@@ -1,8 +1,8 @@
 Summary: 	Yerase's TNEF Stream Reader
 Name: 		ytnef
 Epoch: 		1
-Version: 	2.0
-Release: 	3%{?dist}
+Version: 	2.1.1
+Release: 	1%{?dist}
 License: 	GPLv2+
 URL: 		https://github.com/Yeraze/ytnef
 Source0: 	https://github.com/Yeraze/ytnef/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -35,7 +35,7 @@ developing applications that use libytnef.
 %prep
 %setup -q
 ./autogen.sh
-%patch0 -p1
+%patch 0 -p1
 
 %build
 %configure --disable-static
@@ -63,6 +63,10 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/libytnef.pc
 
 %changelog
+* Tue Jun 6 2023 Mathias Zavala <zvl.mathias@gmail.com> - 1:2.1.1-1
+- Update to version 2.1.1
+- Fix deprecated %patchN
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@ Summary:	A library of handy utility functions
 Name:		glib
 Epoch:		1
 Version:	1.2.10
-Release:	68%{?dist}
+Release:	69%{?dist}
 License:	LGPL-2.0-or-later
 URL:		http://www.gtk.org/
 Source0:	https://ftp.gnome.org/pub/gnome/sources/glib/1.2/glib-%{version}.tar.gz
@@ -40,9 +40,6 @@ Patch10: glib-1.2.10-gcc9.patch
 # C99 compiler support
 Patch11: glib-1.2.10-c99.patch
 
-# Fix EL-6 compatibility (%%make_build only defined from EL-7, F-21 onwards)
-%{!?make_build:%global make_build make %{_smp_mflags}}
-
 %description
 GLib is a handy library of utility functions. This C library is
 designed to solve some portability problems and provide other useful
@@ -59,17 +56,17 @@ Requires: pkgconfig
 %prep
 %setup -q 
 
-%patch1 -p1 -b .isowarning
-%patch2 -p1 -b .gcc34
-%patch3 -p1 -b .underquoted
-%patch4 -p1 -b .no_undefined
-%patch5 -p1 -b .multilib
-%patch6 -p1 -b .unused-dep
-%patch7 -b .autotools
-%patch8 -b .format
-%patch9 -b .gcc5
-%patch10 -b .gcc9
-%patch11 -p1 -b .c99
+%patch -P  1 -p1 -b .isowarning
+%patch -P  2 -p1 -b .gcc34
+%patch -P  3 -p1 -b .underquoted
+%patch -P  4 -p1 -b .no_undefined
+%patch -P  5 -p1 -b .multilib
+%patch -P  6 -p1 -b .unused-dep
+%patch -P  7 -p0 -b .autotools
+%patch -P  8 -p0 -b .format
+%patch -P  9 -p0 -b .gcc5
+%patch -P 10 -p0 -b .gcc9
+%patch -P 11 -p1 -b .c99
 
 # The original config.{guess,sub} do not work on x86_64, aarch64 etc.
 #
@@ -129,6 +126,10 @@ make check LIBTOOL=%{_bindir}/libtool
 %{_datadir}/aclocal/*
 
 %changelog
+* Tue Jun  6 2023 Paul Howarth <paul@city-fan.org> - 1:1.2.10-69
+- Avoid use of deprecated patch syntax
+- Drop workaround for unavailable make_build macro on EL-6
+
 * Mon Feb  6 2023 Paul Howarth <paul@city-fan.org> - 1:1.2.10-68
 - Tweak C89 setting to work for older releases without %%set_build_flags, or
   with %%set_build_flags that does not set $CC (e.g. EL-7)

@@ -5,7 +5,7 @@
 %global __requires_exclude_from ^%{python3_sitelib}/gns3server/compute/docker/resources/.*$
 
 Name:           gns3-server
-Version:        2.2.39
+Version:        2.2.40
 Release:        1%{?dist}
 Summary:        Graphical Network Simulator 3
 
@@ -133,6 +133,9 @@ cp -f %{_sbindir}/busybox %{python3_sitelib}/gns3server/compute/docker/resources
 %systemd_postun_with_restart gns3.service
 
 %changelog
+* Tue Jun 06 2023 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.40-1
+- Update to 2.2.40
+
 * Mon May 15 2023 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.39-1
 - Update to 2.2.39
 

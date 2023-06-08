@@ -7,7 +7,7 @@
 
 Name:		gnome-text-editor
 Version:	44.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A simple text editor for the GNOME desktop
 
 License:	GPL-3.0-or-later
@@ -21,7 +21,6 @@ BuildRequires:	pkgconfig(gtk4) >= %{gtk4_version}
 BuildRequires:	pkgconfig(gtksourceview-5) >= %{gtksourceview_version}
 BuildRequires:	pkgconfig(icu-uc)
 BuildRequires:	pkgconfig(libadwaita-1)
-BuildRequires:	pkgconfig(libpcre)
 BuildRequires:	desktop-file-utils
 BuildRequires:	gcc
 BuildRequires:	itstool
@@ -74,6 +73,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.TextEditor.
 
 
 %changelog
+* Tue Jun 06 2023 David King <amigadave@amigadave.com> - 44.0-2
+- Drop unnecessary libpcre BuildRequires (#2212743)
+
 * Sat Mar 18 2023 David King <amigadave@amigadave.com> - 44.0-1
 - Update to 44.0
 

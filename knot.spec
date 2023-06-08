@@ -7,8 +7,8 @@
 
 Summary:	High-performance authoritative DNS server
 Name:		knot
-Version:	3.2.6
-Release:	2%{?dist}
+Version:	3.2.7
+Release:	1%{?dist}
 License:	GPL-3.0-or-later
 URL:		https://www.knot-dns.cz
 Source0:	https://secure.nic.cz/files/knot-dns/%{name}-%{version}.tar.xz
@@ -22,9 +22,6 @@ Source100:	gpgkey-742FA4E95829B6C5EAC6B85710BB7AF6FEBBD6AB.gpg.asc
 BuildRequires:	gnupg2
 %endif
 
-# Test fails on F30+ aarch/s390x for unknown reason, but it is not neccassary for Knot DNS
-Patch1:		01-test_net-disable-udp-send-on-unconnected.patch
-
 # Required dependencies
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -32,7 +29,7 @@ BuildRequires:	libtool
 BuildRequires:	make
 BuildRequires:	gcc
 BuildRequires:	pkgconfig(liburcu)
-BuildRequires:	pkgconfig(gnutls) >= 3.3
+BuildRequires:	pkgconfig(gnutls)
 BuildRequires:	pkgconfig(libedit)
 
 # Optional dependencies
@@ -188,7 +185,7 @@ rm -f %{buildroot}%{_pkgdocdir}/html/.buildinfo
 rm %{buildroot}%{_sysconfdir}/%{name}/*
 install -p -m 0644 -D %{repodir}/samples/%{name}.sample.conf %{buildroot}%{_sysconfdir}/%{name}/%{name}.conf
 %if 0%{?fedora} || 0%{?rhel} > 7
-install -p -m 0644 -D %{repodir}/distro/common/cz.nic.knotd.conf %{buildroot}%{_sysconfdir}/dbus-1/system.d/cz.nic.knotd.conf
+install -p -m 0644 -D %{repodir}/distro/common/cz.nic.knotd.conf %{buildroot}%{_datadir}/dbus-1/system.d/cz.nic.knotd.conf
 %endif
 
 # install systemd files
@@ -251,7 +248,7 @@ getent passwd knot >/dev/null || \
 %attr(750,root,knot) %dir %{_sysconfdir}/knot
 %config(noreplace) %attr(640,root,knot) %{_sysconfdir}/knot/knot.conf
 %if 0%{?fedora} || 0%{?rhel} > 7
-%config(noreplace) %attr(644,root,root) %{_sysconfdir}/dbus-1/system.d/cz.nic.knotd.conf
+%config(noreplace) %attr(644,root,root) %{_datadir}/dbus-1/system.d/cz.nic.knotd.conf
 %endif
 %attr(770,root,knot) %dir %{_sharedstatedir}/knot
 %dir %{_libdir}/knot
@@ -323,6 +320,11 @@ getent passwd knot >/dev/null || \
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Tue Jun 06 2023 Jakub Ružička <jakub.ruzicka@nic.cz> - 3.2.7-1
+- Update to 3.2.7
+- Remove unneeded tests patch
+- Use _datadir for config
+
 * Fri May 12 2023 Michel Alexandre Salim <salimma@fedoraproject.org> - 3.2.6-2
 - Add BR on libxdp on RHEL >= 9 to use with libbpf-1.x
 

@@ -66,7 +66,7 @@ It supports RPMs, modules and comps groups & environments.
 
 Name:           dnf
 Version:        4.16.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{pkg_summary}
 # For a breakdown of the licensing, see PACKAGE-LICENSING
 License:        GPL-2.0-or-later AND GPL-1.0-only
@@ -96,7 +96,7 @@ Conflicts:      python3-dnf-plugins-extras-common < %{conflicts_dnf_plugins_extr
 Summary:        Common data and configuration files for DNF
 Requires:       libreport-filesystem
 %if 0%{?fedora} > 38
-Requires:       libdnf5
+Requires:       /etc/dnf/dnf.conf
 %endif
 Obsoletes:      %{name}-conf <= %{version}-%{release}
 Provides:       %{name}-conf = %{version}-%{release}
@@ -377,6 +377,9 @@ popd
 %{python3_sitelib}/%{name}/automatic/
 
 %changelog
+* Tue Jun 06 2023 Jan Kolarik <jkolarik@redhat.com> - 4.16.1-2
+- dnf-data: depend on /etc/dnf/dnf.conf, not libdnf5
+
 * Mon May 29 2023 Jan Kolarik <jkolarik@redhat.com> - 4.16.1-1
 - Update to 4.16.1
 - DNF5 should not deprecate DNF on Fedora 38

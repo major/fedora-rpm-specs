@@ -5,8 +5,8 @@
 Summary: Advanced Linux Sound Architecture (ALSA) utilities
 Name:    alsa-utils
 Version: %{baseversion}%{?fixversion}
-Release: 2%{?dist}
-License: GPLv2+
+Release: 3%{?dist}
+License: GPL-2.0-or-later
 URL:     http://www.alsa-project.org/
 Source:  ftp://ftp.alsa-project.org/pub/utils/alsa-utils-%{version}.tar.bz2
 Patch1:  alsa-utils-git.patch
@@ -199,6 +199,9 @@ fi
 %systemd_postun_with_restart alsa-state.service
 
 %changelog
+* Tue Jun  6 2023 Jaroslav Kysela <perex@perex.cz> - 1.2.9-3
+* SPDX license
+
 * Tue May 16 2023 Jaroslav Kysela <perex@perex.cz> - 1.2.9-2
 * Add nhlt-dmic-info utility
 

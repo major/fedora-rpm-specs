@@ -1,13 +1,11 @@
-%undefine __cmake_in_source_build
-
 Summary:	Open audio/video container format library
 Name:		libmatroska
 Version:	1.7.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	LGPLv2+
 URL:		https://www.matroska.org/
 Source0:	https://dl.matroska.org/downloads/%{name}/%{name}-%{version}.tar.xz
-BuildRequires:	cmake3
+BuildRequires:	cmake
 BuildRequires:	gcc-c++
 BuildRequires:	libebml-devel >= 1.4.4
 Requires:	libebml%{_isa} >= 1.4.4
@@ -22,8 +20,8 @@ is usually found as .mkv files (matroska video) and .mka files
 %package	devel
 Summary:	Matroska container format library development files
 Requires:	%{name}%{_isa} = %{version}-%{release}
-Requires:	%{_libdir}/cmake
-Requires:	libebml-devel >= 1.4.4
+Requires:	cmake-filesystem
+Requires:	libebml-devel%{_isa} >= 1.4.4
 Requires:	pkgconfig
 
 %description	devel
@@ -41,21 +39,18 @@ will use the Matroska container format.
 
 
 %build
-%cmake3
-%cmake3_build
+%cmake
+%cmake_build
 
 
 %install
-%cmake3_install
-
-
-%ldconfig_scriptlets
+%cmake_install
 
 
 %files
 %license LICENSE.LGPL
 %doc NEWS.md README.md
-%{_libdir}/%{name}.so.7*
+%{_libdir}/%{name}.so.7{,.*}
 
 %files devel
 %{_includedir}/matroska/
@@ -69,6 +64,12 @@ will use the Matroska container format.
 
 
 %changelog
+* Tue Jun 06 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.7.1-3
+- switch to plain cmake in dependencies and macros (resolves: rhbz#1731695)
+- use better glob for shared library
+- drop obsolete ldconfig_scriptlets macro
+- make libebml-devel dependency archful
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

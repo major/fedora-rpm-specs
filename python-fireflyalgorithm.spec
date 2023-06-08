@@ -6,7 +6,7 @@ Implementation of Firefly Algorithm (FA) for optimization.}
 
 Name:           python-%{new_name}
 Version:        0.3.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Implementation of Firefly Algorithm in Python
 
 License:        MIT
@@ -23,8 +23,8 @@ Obsoletes: python-FireflyAlgorithm < 0.0.4-2
 %package -n python3-%{new_name}
 Summary:        %{summary}
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist toml-adapt}
-BuildRequires:  %{py3_dist pytest}
+BuildRequires:  python3-toml-adapt
+BuildRequires:  python3-pytest
 
 Provides: python3-FireflyAlgorithm = %{version}-%{release}
 Obsoletes: python3-FireflyAlgorithm < 0.0.4-2
@@ -57,6 +57,9 @@ toml-adapt -path pyproject.toml -a change -dep ALL -ver X
 %doc README.md examples/
 
 %changelog
+* Tue Jun 6 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.3.4-3
+- Use standard format for dependencies
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

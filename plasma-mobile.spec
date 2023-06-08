@@ -17,7 +17,6 @@ BuildRequires: gcc-c++
 BuildRequires: kf5-kdbusaddons-devel
 BuildRequires: kwin-devel
 BuildRequires: qt5-qtdeclarative-devel
-BuildRequires: telepathy-qt5-devel
 
 BuildRequires: cmake(KF5Activities)
 BuildRequires: cmake(KF5Auth)
@@ -47,6 +46,7 @@ BuildRequires: cmake(KF5Wayland)
 BuildRequires: cmake(KF5WidgetsAddons)
 BuildRequires: cmake(KF5WindowSystem)
 BuildRequires: cmake(KF5XmlGui)
+BuildRequires: cmake(KPipeWire)
 BuildRequires: cmake(Qt5Svg)
 BuildRequires: cmake(libkworkspace)
 
@@ -54,6 +54,7 @@ Requires: kf5-bluez-qt
 Requires: kf5-kactivities
 Requires: kf5-kdeclarative
 Requires: kf5-kirigami2
+Requires: kpipewire
 # Plasma Mobile uses kscreen to automatically set a logical scaling factor based on hardware
 Requires: kscreen
 Requires: kwin

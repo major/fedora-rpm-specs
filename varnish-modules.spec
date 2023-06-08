@@ -10,10 +10,10 @@
 
 Name:    varnish-modules
 Version: 0.22.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A collection of modules ("vmods") extending Varnish VCL
 
-License: BSD
+License: BSD-2-Clause
 URL:     https://github.com/varnish/varnish-modules
 Source:  https://github.com/varnish/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz
 
@@ -81,6 +81,9 @@ sed -i 's,tests/xkey/test12.vtc,,' src/Makefile
 
 
 %changelog
+* Tue Jun 06 2023 Luboš Uhliarik <luhliari@redhat.com> - 0.22.0-2
+- SPDX migration
+
 * Sun Mar 19 2023 Ingvar Hagelund <ingvar@redpill-linpro.com> - 0.22.0-1
 - New upstream release
 - Built for varnish-7.3.0

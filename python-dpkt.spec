@@ -1,8 +1,8 @@
 %global sum Simple packet creation/parsing library
 
 Name:           python-dpkt
-Version:        1.9.7.2
-Release:        2%{?dist}
+Version:        1.9.8
+Release:        1%{?dist}
 Summary:        %{sum}
 
 License:        BSD
@@ -57,6 +57,9 @@ with definitions for the basic TCP/IP protocols.
 %{python3_sitelib}/dpkt*.egg-info
 
 %changelog
+* Tue Jun 6 2023 Michele Baldessari <michele@acksyn.org> - 1.9.8-1
+- New upstream
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.7.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

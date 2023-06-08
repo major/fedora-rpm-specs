@@ -15,7 +15,7 @@ http://readthedocs.org/docs/cliff/en/latest/
 
 Name:             python-%{modname}
 Version:          4.2.0
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Command Line Interface Formulation Framework
 
 Group:            Development/Libraries
@@ -52,24 +52,20 @@ Summary:          Command Line Interface Formulation Framework
 %{?python_provide:%python_provide python3-%{modname}-tests}
 
 # Required for the test suite
-BuildRequires:    python3-mock
 BuildRequires:    bash
 BuildRequires:    which
 BuildRequires:    python3-subunit
 BuildRequires:    python3-testtools
 BuildRequires:    python3-testscenarios
-BuildRequires:    python3-testrepository
 BuildRequires:    python3-docutils
 BuildRequires:    python3-PyYAML
 
 Requires:         python3-%{modname} = %{version}-%{release}
-Requires:         python3-mock
 Requires:         bash
 Requires:         which
 Requires:         python3-subunit
 Requires:         python3-testtools
 Requires:         python3-testscenarios
-Requires:         python3-testrepository
 Requires:         python3-PyYAML
 
 %description -n python3-%{modname}-tests
@@ -105,6 +101,9 @@ PYTHON=python3 python3 setup.py test
 %{python3_sitelib}/%{modname}/tests
 
 %changelog
+* Tue Jun 06 2023 Joel Capitao <jcapitao@redhat.com> 4.2.0-2
+- Remove mock and testrepository BR
+
 * Fri Apr 21 2023 Karolina Kula <kkula@redhat.com> 4.2.0-1
 - Update to upstream version 4.2.0
 

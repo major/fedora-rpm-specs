@@ -25,9 +25,9 @@
 
 Name:           bcc
 Version:        0.27.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        BPF Compiler Collection (BCC)
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/iovisor/bcc
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:         Updating-Powerpc-vmlinux-headers-from-Linux-kernel-6.patch
@@ -240,6 +240,9 @@ cp -a libbpf-tools/tmp-install/bin/* %{buildroot}/%{_sbindir}/
 %endif
 
 %changelog
+* Tue Jun 06 2023 Jerome Marchand <jmarchan@redhat.com> - 0.27.0-2
+- migrated to SPDX license
+
 * Fri Apr 21 2023 Jerome Marchand <jmarchan@redhat.com> - 0.27.0-1
 - Rebase to the latest release version (#2117708)
 

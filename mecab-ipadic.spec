@@ -13,10 +13,11 @@
 
 Name:		mecab-ipadic
 Version:	%{majorver}.%{date}
-Release:	26%{?dist}
+Release:	27%{?dist}
 Summary:	IPA dictionary for MeCab
 
-License:	mecab-ipadic
+# SPDX confirmed
+License:	NAIST-2003
 URL:		http://mecab.sourceforge.net/
 Source0:	http://downloads.sourceforge.net/mecab/%{name}-%{majorver}-%{date}.tar.gz
 #Source2:	http://www.icot.or.jp/ARCHIVE/terms-and-conditions-for-IFS-J.html
@@ -97,15 +98,23 @@ if test -f %{_sysconfdir}/mecabrc ; then
 fi
 
 %files
-%doc COPYING LICENSE.* README
+%license COPYING
+%license LICENSE.*
+%doc README
 %{_libdir}/mecab/dic/ipadic/
 
 %files EUCJP
-%doc COPYING LICENSE.* README
+%license COPYING
+%license LICENSE.*
+%doc README
 %{_libdir}/mecab/dic/ipadic-EUCJP/
 
 
 %changelog
+* Tue Jun  6 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.7.0.20070801-27
+- SPDX migration (ljavorsk)
+- Use %%license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0.20070801-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

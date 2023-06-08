@@ -7,7 +7,7 @@ Name:           workflow
 # src/kernel/rbtree.h available under GPL-2.0-or-later
 License:        Apache-2.0 AND BSD-2-Clause AND Zlib AND GPL-2.0-or-later
 
-Version:        0.10.6
+Version:        0.10.7
 Release:        1%{?dist}
 
 URL:            https://github.com/sogou/workflow
@@ -115,6 +115,9 @@ make check
 
 
 %changelog
+* Tue Jun  6 2023 Benson Muite <benson_muite@emailplus.org> - 0.10.7-1
+- Update to new release
+
 * Sat Feb 25 2023 Benson Muite <benson_muite@emailplus.org> - 0.10.6-1
 - Update to new release
 

@@ -5,7 +5,7 @@
 %global crate gix-date
 
 Name:           rust-gix-date
-Version:        0.5.0
+Version:        0.5.1
 Release:        %autorelease
 Summary:        Parse dates the way git does
 
@@ -13,9 +13,6 @@ Summary:        Parse dates the way git does
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gix-date
 Source:         %{crates_source}
-# This will not be required in the next release --> https://github.com/Byron/gitoxide/pull/863
-Source1:        https://raw.githubusercontent.com/Byron/gitoxide/%{crate}-v%{version}/LICENSE-APACHE
-Source2:        https://raw.githubusercontent.com/Byron/gitoxide/%{crate}-v%{version}/LICENSE-MIT
 # Manually created patch for downstream crate metadata changes
 # * Disable feature that is only required for building documentation
 Patch:          gix-date-fix-metadata.diff
@@ -37,8 +34,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license        LICENSE-MIT
-%license        LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/CHANGELOG.md
 %{crate_instdir}/
 
@@ -69,8 +66,6 @@ use the "serde" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
 %cargo_prep
-cp -pav %{SOURCE1} .
-cp -pav %{SOURCE2} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires

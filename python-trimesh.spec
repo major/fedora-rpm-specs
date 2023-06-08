@@ -1,5 +1,5 @@
 Name:           python-trimesh
-Version:        3.21.7
+Version:        3.22.0
 Release:        %autorelease
 Summary:        Import, export, process, analyze and view triangular meshes
 
@@ -212,6 +212,13 @@ sed -r -i "/^[[:blank:]]*'python-fcl',/d" setup.py
 #   xatlas: not yet packaged, https://github.com/mworchel/xatlas-python;
 #           depends on https://github.com/jpcy/xatlas, also not yet packaged
 sed -r -i "/^[[:blank:]]*'xatlas',/d" setup.py
+#
+# [easy]
+#   embreex: not packaged, https://github.com/mikedh/embreeX; this would
+#   require version 2.x of embree, which was once available in a compat package
+#   (https://src.fedoraproject.org/rpms/embree2) but was retired; the current
+#   version was 4.x.
+sed -r -i "/^[[:blank:]]*'embreex',/d" setup.py
 
 # Stub out unavailable pyinstrument test dependency; we don’t really need to do
 # profiling anyway. Note that this does mean that API function

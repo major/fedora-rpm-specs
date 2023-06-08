@@ -3,8 +3,8 @@
 
 Name:    kig
 Summary: Interactive Geometry 
-Version: 23.04.1
-Release: 2%{?dist}
+Version: 23.04.2
+Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/education/%{name}
@@ -24,13 +24,6 @@ Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name
 Patch1: 0001-explicitly-use-QLibrary-to-load-libpython-like-pykde.patch
 
 ## upstream patches
-# from release/23.04, should be upstream in 23.04.2:
-# https://bugs.kde.org/show_bug.cgi?id=469962
-# https://bugzilla.redhat.com/show_bug.cgi?id=2209374
-# https://invent.kde.org/education/kig/-/commit/bca478c18b1a64f96c63cbe87111c79155bf7eb5
-# fix loading Kig part (crash on startup, kde#469962, #2209374)
-# upstream patch by Nicolas Fella, backported to 23.04 by Albert Astals Cid
-Patch100: kig-23.04.1-kde#469962-rh#2209374.patch
 
 BuildRequires: boost-devel
 BuildRequires: python3
@@ -72,7 +65,6 @@ Conflicts: kdeedu-math < 4.7.0-10
 %setup  -q
 
 %patch1 -p1 -b .0001
-%patch100 -p1 -b .#2209374
 
 sed -ie "s|^#!/usr/bin/env python3$|#!%{__python3}|" pykig/pykig.py
 
@@ -123,6 +115,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Tue Jun 06 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.2-1
+- 23.04.2
+
 * Tue May 23 2023 Kevin Kofler <Kevin@tigcc.ticalc.org> - 23.04.1-2
 - backport upstream patch for crash on startup (kde#469962, #2209374)
 

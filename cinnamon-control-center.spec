@@ -1,4 +1,4 @@
-%global _artwork_version 5.7
+%global _artwork_version 1.7.5
 
 %global cinnamon_desktop_version 5.8.0
 %global csd_version 5.8.0
@@ -8,7 +8,7 @@
 Summary: Utilities to configure the Cinnamon desktop
 Name:    cinnamon-control-center
 Version: 5.8.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 # The following files contain code from
 # ISC for panels/network/rfkill.h
 # And MIT for wacom/calibrator/calibrator.c
@@ -19,7 +19,7 @@ Release: 1%{?dist}
 License: GPLv2+ and LGPLv2+ and MIT and ISC
 URL:     https://github.com/linuxmint/%{name}
 Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-Source1: http://packages.linuxmint.com/pool/main/m/mint-artwork-cinnamon/mint-artwork-cinnamon_%{_artwork_version}.tar.gz
+Source1: http://packages.linuxmint.com/pool/main/m/mint-artwork/mint-artwork_%{_artwork_version}.tar.xz
 
 ExcludeArch: %{ix86}
 
@@ -104,7 +104,7 @@ desktop-file-install                                  \
 
 # install sound files
 mkdir -p %{buildroot}/%{_datadir}/cinnamon-control-center/sounds/
-install -pm 0644 mint-artwork-cinnamon-%{_artwork_version}/%{_datadir}/mint-artwork-cinnamon/sounds/* %{buildroot}/%{_datadir}/cinnamon-control-center/sounds/
+install -pm 0644 mint-artwork/%{_datadir}/mint-artwork/sounds/* %{buildroot}/%{_datadir}/cinnamon-control-center/sounds/
 
 
 %files
@@ -140,6 +140,9 @@ install -pm 0644 mint-artwork-cinnamon-%{_artwork_version}/%{_datadir}/mint-artw
 
 
 %changelog
+* Tue Jun 06 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.0-2
+- Update mint-artwork for sounds
+
 * Fri Jun 02 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.0-1
 - Update to 5.8.0 release
 

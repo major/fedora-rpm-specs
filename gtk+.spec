@@ -2,7 +2,7 @@ Summary:	The GIMP ToolKit
 Name:		gtk+
 Epoch:		1
 Version:	1.2.10
-Release:	102%{?dist}
+Release:	103%{?dist}
 License:	LGPL-2.0-or-later
 URL:		http://www.gtk.org/
 Source0:	https://ftp.gnome.org/pub/gnome/sources/gtk+/1.2/gtk+-%{version}.tar.gz
@@ -97,9 +97,6 @@ BuildRequires:	libXi-devel
 BuildRequires:	libXt-devel
 BuildRequires:	make
 
-# Fix EL-6 compatibility (%%make_build only defined from EL-7, F-21 onwards)
-%{!?make_build:%global make_build make %{_smp_mflags}}
-
 %description
 The gtk+ package contains the GIMP ToolKit (GTK+), a library for
 creating graphical user interfaces for the X Window System. GTK+ was
@@ -125,36 +122,36 @@ Libraries, header files and documentation for developing GTK+
 %prep
 %setup -q -a 2
 
-%patch1 -p1 -b .ahiguti
-%patch5 -p1 -b .alnum
-%patch10 -p1 -b .alignment
-%patch11 -p1 -b .expose
-%patch12 -p1 -b .focus
-%patch13 -p1 -b .encoding
-%patch14 -p1 -b .ctext
-%patch15 -p1 -b .utf8fontset
-%patch16 -p1 -b .kpenter
-%patch17 -p1 -b .themeswitch
-%patch18 -p1 -b .pixmapref
-%patch19 -p1 -b .missingchar
-%patch20 -p1 -b .ukfont
-%patch21 -p1 -b .deletedir
-%patch22 -p1 -b .fontwarning
-%patch23 -p0 -b .troughpaint
-%patch24 -p1 -b .localecrash
-%patch26 -p0 -b .dndorder
-%patch27 -p0 -b .clistfocusrow
-%patch28 -p1 -b .bellvolume
-%patch29 -p1 -b .libtool
-%patch30 -p1 -b .gtkgdkdep
-%patch31 -p1 -b .underquoted
-%patch32 -p1 -b .ppc64
-%patch33 -p1 -b .no_undefined
-%patch34 -p1 -b .multilib
-%patch35 -p1 -b .unused-deps
-%patch36 -b .autotools
-%patch37 -b .format
-%patch38 -p1 -b .c99
+%patch -P  1 -p1 -b .ahiguti
+%patch -P  5 -p1 -b .alnum
+%patch -P 10 -p1 -b .alignment
+%patch -P 11 -p1 -b .expose
+%patch -P 12 -p1 -b .focus
+%patch -P 13 -p1 -b .encoding
+%patch -P 14 -p1 -b .ctext
+%patch -P 15 -p1 -b .utf8fontset
+%patch -P 16 -p1 -b .kpenter
+%patch -P 17 -p1 -b .themeswitch
+%patch -P 18 -p1 -b .pixmapref
+%patch -P 19 -p1 -b .missingchar
+%patch -P 20 -p1 -b .ukfont
+%patch -P 21 -p1 -b .deletedir
+%patch -P 22 -p1 -b .fontwarning
+%patch -P 23 -p0 -b .troughpaint
+%patch -P 24 -p1 -b .localecrash
+%patch -P 26 -p0 -b .dndorder
+%patch -P 27 -p0 -b .clistfocusrow
+%patch -P 28 -p1 -b .bellvolume
+%patch -P 29 -p1 -b .libtool
+%patch -P 30 -p1 -b .gtkgdkdep
+%patch -P 31 -p1 -b .underquoted
+%patch -P 32 -p1 -b .ppc64
+%patch -P 33 -p1 -b .no_undefined
+%patch -P 34 -p1 -b .multilib
+%patch -P 35 -p1 -b .unused-deps
+%patch -P 36 -p0 -b .autotools
+%patch -P 37 -p0 -b .format
+%patch -P 38 -p1 -b .c99
 
 # The original config.{guess,sub} do not work on x86_64, aarch64 etc.
 #
@@ -248,6 +245,10 @@ make check LIBTOOL=/usr/bin/libtool
 %{_mandir}/man1/gtk-config.1*
 
 %changelog
+* Tue Jun  6 2023 Paul Howarth <paul@city-fan.org> - 1:1.2.10-103
+- Avoid use of deprecated patch syntax
+- Drop workaround for unavailable make_build macro on EL-6
+
 * Fri Apr 14 2023 Florian Weimer <fweimer@redhat.com> - 1:1.2.10-102
 - Fix C99 compatibility issues in ltconfig
 

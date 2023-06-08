@@ -1,6 +1,6 @@
 Name:           libserf
-Version:        1.3.9
-Release:        28%{?dist}
+Version:        1.3.10
+Release:        1%{?dist}
 Summary:        High-Performance Asynchronous HTTP Client Library
 License:        Apache-2.0
 URL:            http://serf.apache.org/
@@ -12,12 +12,9 @@ BuildRequires:  zlib-devel, cmake
 BuildRequires: openssl, libfaketime
 %endif
 Patch0:         %{name}-norpath.patch
-Patch1:         %{name}-python3.patch
-Patch2:		%{name}-1.3.9-bio-ctrl.patch
-Patch3:         %{name}-1.3.9-errgetfunc.patch
-Patch4:		%{name}-1.3.9-multihome.patch
-Patch5:		%{name}-1.3.9-cmake.patch
-Patch6:		%{name}-1.3.9-testsuite.patch
+Patch1:         %{name}-1.3.9-errgetfunc.patch
+Patch2:		%{name}-1.3.9-multihome.patch
+Patch3:		%{name}-1.3.9-cmake.patch
 
 %description
 The serf library is a C-based HTTP client library built upon the Apache 
@@ -80,6 +77,10 @@ true
 %{_libdir}/pkgconfig/serf*.pc
 
 %changelog
+* Tue Jun 06 2023 Tomas Korbar <tkorbar@redhat.com> - 1.3.10-1
+- Update to 1.3.10
+- Resolves: rhbz#2211498
+
 * Sun Mar 12 2023 Tomas Korbar <tkorbar@redhat.com> - 1.3.9-28
 - Change the License tag to the SPDX format
 

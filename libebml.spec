@@ -1,12 +1,12 @@
 Summary:    Extensible Binary Meta Language library
 Name:       libebml
 Version:    1.4.4
-Release:    2%{?dist}
+Release:    3%{?dist}
 License:    LGPLv2+
 URL:        https://www.matroska.org/
 Source:     https://dl.matroska.org/downloads/%{name}/%{name}-%{version}.tar.xz
 Patch0:     %{name}-use-system-utf8cpp.patch
-BuildRequires: cmake3
+BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: utf8cpp-devel
 
@@ -19,7 +19,7 @@ pendant to XML.
 %package    devel
 Summary:    Development files for the Extensible Binary Meta Language library
 Requires:   %{name}%{?_isa} = %{version}-%{release}
-Requires:   %{_libdir}/cmake
+Requires:   cmake-filesystem
 Requires:   pkgconfig
 
 %description devel
@@ -33,26 +33,23 @@ will use the Extensible Binary Meta Language library.
 
 %prep
 %setup -q
-%patch0 -p1 -b .utf8cpp
+%patch 0 -p1 -b .utf8cpp
 rm -r src/lib/utf8-cpp
 
 
 %build
-%cmake3
-%cmake3_build
+%cmake
+%cmake_build
 
 
 %install
-%cmake3_install
-
-
-%ldconfig_scriptlets
+%cmake_install
 
 
 %files
 %license LICENSE.LGPL
 %doc NEWS.md
-%{_libdir}/%{name}.so.5*
+%{_libdir}/%{name}.so.5{,.*}
 
 %files devel
 %{_includedir}/ebml/
@@ -66,6 +63,12 @@ rm -r src/lib/utf8-cpp
 
 
 %changelog
+* Tue Jun 06 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.4.4-3
+- switch to plain cmake in dependencies and macros (resolves: rhbz#1731694)
+- use better glob for shared library
+- drop obsolete ldconfig_scriptlets macro
+- fix deprecated patchN macro usage
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

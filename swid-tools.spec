@@ -3,7 +3,7 @@
 
 Summary: Tools for producing SWID tags for rpm packages and inspecting the SWID tags
 Name: swid-tools
-Version: 0.8.19
+Version: 0.8.20
 Release: 1%{?dist}
 License: ASL 2.0
 URL: https://github.com/swidtags/rpm2swidtag
@@ -98,6 +98,9 @@ if rpm -q rpm2swidtag dnf-plugin-swidtags 2> /dev/null | grep -E -q '(rpm2swidta
 fi
 
 %changelog
+* Tue Jun 06 2023 Jan Pazdziora <jpazdziora@redhat.com> - 0.8.20-1
+- 2211503 - rebased to 0.8.20.
+
 * Thu May 04 2023 Jan Pazdziora <jpazdziora@redhat.com> - 0.8.19-1
 - 2193074 - rebased to 0.8.19.
 

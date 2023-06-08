@@ -20,13 +20,13 @@
 
 Name:    dbus
 Epoch:   1
-Version: 1.14.6
+Version: 1.14.8
 Release: 1%{?dist}
 Summary: D-BUS message bus
 
 # The effective license of the majority of the package, including the shared
 # library, is "GPL-2+ or AFL-2.1". Certain utilities are "GPL-2+" only.
-License: (GPLv2+ or AFL) and GPLv2+
+License: (AFL-2.1 OR GPL-2.0-or-later) AND GPL-2.0-or-later
 URL:     https://www.freedesktop.org/wiki/Software/dbus/
 Source0: https://dbus.freedesktop.org/releases/%{name}/%{name}-%{version}.tar.xz
 Source1: https://dbus.freedesktop.org/releases/%{name}/%{name}-%{version}.tar.xz.asc
@@ -374,7 +374,6 @@ fi
 %license COPYING
 %doc AUTHORS CONTRIBUTING.md NEWS README
 %exclude %{_pkgdocdir}/api
-%exclude %{_pkgdocdir}/dbus.devhelp
 %exclude %{_pkgdocdir}/diagram.*
 %exclude %{_pkgdocdir}/introspect.*
 %exclude %{_pkgdocdir}/system-activation.txt
@@ -428,11 +427,6 @@ fi
 %files doc
 %{_pkgdocdir}/*
 %{_datadir}/gtk-doc
-%exclude %{_pkgdocdir}/AUTHORS
-%exclude %{_pkgdocdir}/ChangeLog
-%exclude %{_pkgdocdir}/HACKING
-%exclude %{_pkgdocdir}/NEWS
-%exclude %{_pkgdocdir}/README
 
 %files devel
 %{_datadir}/xml/dbus-1
@@ -447,6 +441,9 @@ fi
 
 
 %changelog
+* Tue Jun 06 2023 David King <amigadave@amigadave.com> - 1:1.14.8-1
+- Update to 1.14.8
+
 * Wed Feb 08 2023 David King <amigadave@amigadave.com> - 1:1.14.6-1
 - Update to 1.14.6
 

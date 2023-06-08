@@ -1,11 +1,8 @@
 %global release_commit_hash 61ea9b6681104cadf0a3f8c25bd3e5685ee6691a
 
-# Use old cmake macro behaviour.
-%define __cmake_in_source_build 1
-
 Name: remmina
 Version: 1.4.30
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Remote Desktop Client
 License: GPL-2.0-or-later and MIT
 URL: https://remmina.org
@@ -21,7 +18,7 @@ Source1: pluginBuild-CMakeLists.txt
 # Patches.
 Patch00: 0001_remmina_fix_vnc_crash_domain_socket.patch
 
-BuildRequires: cmake
+BuildRequires: cmake >= 3.2
 BuildRequires: cups-devel
 BuildRequires: desktop-file-utils
 BuildRequires: gcc-c++
@@ -223,12 +220,7 @@ that shows up under the display manager session menu.
 %autosetup -p1 -n Remmina-v%{version}-%{release_commit_hash}
 
 %build
-%if 0%{?fedora}
-# Workaround for Pango on Fedora 31+.
-export CFLAGS="%{optflags} -I%{_includedir}/harfbuzz"
-%endif
-
-%cmake . \
+%cmake \
     -DCMAKE_INSTALL_LIBDIR=%{_lib} \
     -DCMAKE_INSTALL_PREFIX=%{_prefix} \
     -DHAVE_LIBAPPINDICATOR=ON \
@@ -256,7 +248,6 @@ export CFLAGS="%{optflags} -I%{_includedir}/harfbuzz"
 %else
     -DWITH_X2GO=OFF
 %endif
-
 %cmake_build
 
 %install
@@ -345,6 +336,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdat
 %{_mandir}/man1/remmina-gnome.1*
 
 %changelog
+* Tue Jun 06 2023 Phil Wyett <philip.wyett@kathenas.org> - 1.4.30-3
+- Remove some old workarounds from spec file.
+
 * Thu Apr 20 2023 Phil Wyett <philip.wyett@kathenas.org> - 1.4.30-2
 - Add patch: 0001_remmina_fix_vnc_crash_domain_socket.patch
 

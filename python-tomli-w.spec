@@ -2,7 +2,7 @@
 
 Name:           python-tomli-w
 Version:        1.0.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A Python library for writing TOML
 
 # SPDX
@@ -30,6 +30,11 @@ Summary:        %{summary}
 %autosetup -p1 -n tomli-w-%{version}
 # Measuring coverage is discouraged in Python packaging guidelines:
 sed -i '/pytest-cov/d' tests/requirements.txt
+# We don't need tomli on Python 3.11+
+%if v"%{python3_version}" >= v"3.11"
+sed -i '/tomli/d' tests/requirements.txt
+sed -Ei 's/tomli(\.|$)/tomllib\1/' tests/*.py
+%endif
 # This testing dependency is optional and we don't have it in (EP)EL,
 # it has many missing transitive dependencies that we don't want to maintain
 %if 0%{?rhel}
@@ -67,6 +72,9 @@ sed -i '/pytest-randomly/d' tests/requirements.txt
 
 
 %changelog
+* Wed May 31 2023 Miro Hrončok <mhroncok@redhat.com> - 1.0.0-6
+- On Python 3.11+, do not BuildRequire python3-tomli for tests
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

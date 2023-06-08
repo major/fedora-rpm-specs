@@ -1,5 +1,5 @@
 Name:           tokodon 
-Version:        23.04.1
+Version:        23.04.2
 Release:        1%{?dist}
 License:        GPLv3 and CC0 and BSD and LGPLv2+ and GPLv3+ and GPLv2
 # For a breakdown of the licensing, see PACKAGE-LICENSING
@@ -75,6 +75,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 %{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
 
 %changelog
+* Tue Jun 06 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.2-1
+- 23.04.2
+
 * Sat May 13 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.1-1
 - 23.04.1
 

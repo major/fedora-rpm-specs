@@ -17,9 +17,9 @@
 Summary:        Firmware and topology files for Sound Open Firmware project
 Name:           alsa-sof-firmware
 Version:        %{sof_ver}
-Release:        1%{?sof_ver_rel}%{?dist}
+Release:        2%{?sof_ver_rel}%{?dist}
 # See later in the spec for a breakdown of licensing
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/thesofproject/sof-bin
 Source:         https://github.com/thesofproject/sof-bin/releases/download/%{sof_ver_pkg}/sof-bin-%{sof_ver_pkg}.tar.gz
 %if 0%{?with_sof_addon}
@@ -130,6 +130,9 @@ if st and st.type == "link" then
 end
 
 %changelog
+* Tue Jun  6 2023 Jaroslav Kysela <perex@perex.cz> - 2.2.5-2
+- SPDX license
+
 * Mon May 15 2023 Jaroslav Kysela <perex@perex.cz> - 2.2.5-1
 - Update to v2.2.5
 

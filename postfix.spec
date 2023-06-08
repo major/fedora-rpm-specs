@@ -48,8 +48,8 @@
 
 Name: postfix
 Summary: Postfix Mail Transport Agent
-Version: 3.8.0
-Release: 3%{?dist}
+Version: 3.8.1
+Release: 1%{?dist}
 Epoch: 2
 URL: http://www.postfix.org
 License: (IBM and GPLv2+) or (EPL-2.0 and GPLv2+)
@@ -100,8 +100,6 @@ Patch10: pflogsumm-1.1.5-ipv6-warnings-fix.patch
 Patch11: postfix-3.4.4-chroot-example-fix.patch
 # rhbz#1931403, sent upstream
 Patch13: pflogsumm-1.1.5-syslog-name-underscore-fix.patch
-# fix freed memory access reported and fixed by upstream after 3.8.0
-Patch14: postfix-3.8.0-posttls-finger.patch
 
 # Optional patches - set the appropriate environment variables to include
 #                    them when building the package/spec file
@@ -806,6 +804,10 @@ fi
 %endif
 
 %changelog
+* Tue Jun  6 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2:3.8.1-1
+- New version
+  Resolves: rhbz#2212596
+
 * Thu May 25 2023 Tomas Korbar <tkorbar@redhat.com> - 2:3.8.0-3
 - Fix freed memory access
 

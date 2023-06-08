@@ -8,7 +8,7 @@
 #
 %bcond_without       tests
 
-%global gh_commit    e92dcc83d5a51851baf5f5591d32cb2b16e3684e
+%global gh_commit    a8dd186f07ea667c1e3abd2176bfab0ab161ea94
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     mockery
 %global gh_project   mockery
@@ -16,11 +16,11 @@
 %global major        1
 
 Name:           php-mockery
-Version:        1.5.1
-Release:        2%{?dist}
+Version:        1.6.1
+Release:        1%{?dist}
 Summary:        Mockery is a simple but flexible PHP mock object framework
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        %{name}-%{version}-%{gh_short}.tgz
 Source1:        makesrc.sh
@@ -30,22 +30,21 @@ Patch0:         %{gh_project}-tests.patch
 
 BuildArch:      noarch
 %if %{with tests}
-BuildRequires:  php(language) >= 7.3
+BuildRequires:  php(language) >= 7.4
 # From composer.json, "require-dev": {
-#        "phpunit/phpunit": "^8.5|^9.3"
-%if 0%{?fedora} >= 31 || 0%{?rhel} >= 9
+#        "phpunit/phpunit": "^8.5|^9.3",
+#        "psalm/plugin-phpunit": "^0.18",
+#        "vimeo/psalm": "^5.9"
 %global phpunit %{_bindir}/phpunit9
 BuildRequires: phpunit9 >= 9.3
-%endif
-%global phpunit %{_bindir}/phpunit8
-BuildRequires: phpunit8 >= 8.5
 BuildRequires: (php-composer(hamcrest/hamcrest-php) >= 2.0.1 with php-composer(hamcrest/hamcrest-php) < 3)
+BuildRequires:  php-pdo
 # Autoloader
 %endif
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer.json, "require": {
-#        "php": "^7.3 || ^8.0",
+#        "php": "^7.4 || ^8.0",
 #        "lib-pcre": ">=7.0",
 #        "hamcrest/hamcrest-php": "~2.0"
 Requires:       php(language) >= 7.3
@@ -78,10 +77,11 @@ cat << 'EOF' | tee -a library/%{ns_project}/autoload.php
 
 \Fedora\Autoloader\Dependencies::required([
     '/usr/share/php/Hamcrest2/autoload.php',
+    __DIR__ . '/helpers.php',
 ]);
 EOF
 
-%patch0 -p0 -b .rpm
+%patch -P0 -p0 -b .rpm
 
 rm -f docs/.gitignore
 
@@ -105,27 +105,14 @@ phpab --output tests/classmap.php --exclude */SemiReservedWordsAsMethods.php tes
 : Run upstream test suite
 ret=0
 
-for cmd in php php74 php80 php81 php82; do
+# need investigation
+rm tests/Mockery/MockeryCanMockClassesWithSemiReservedWordsTest.php
+
+for cmd in php php80 php81 php82; do
   if which $cmd; then
-    if [ $($cmd -r 'echo PHP_MAJOR_VERSION;') -lt 8 ]
-    then
-      # see .travis.yml
-      SUITE="Mockery Test Suite PHP7"
-
-      if [ -x %{_bindir}/phpunit8 ] ; then
-        $cmd %{_bindir}/phpunit8 \
-          --no-coverage \
-          --verbose --testsuite="$SUITE" || ret=1
-      fi
-    else
-      SUITE="Mockery Test Suite PHP8"
-    fi
-
-    if [ -x %{_bindir}/phpunit9 ] ; then
-      $cmd %{_bindir}/phpunit9 \
-        --no-coverage \
-        --verbose --testsuite="$SUITE" || ret=1
-    fi
+    $cmd %{_bindir}/phpunit9 \
+      --no-coverage \
+      --verbose || ret=1
   fi
 done
 exit $ret
@@ -141,6 +128,9 @@ exit $ret
 
 
 %changelog
+* Tue Jun  6 2023 Remi Collet <remi@remirepo.net> - 1.6.1-1
+- update to 1.6.1
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

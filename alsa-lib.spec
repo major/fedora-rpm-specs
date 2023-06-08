@@ -9,8 +9,8 @@
 Summary:  The Advanced Linux Sound Architecture (ALSA) library
 Name:     alsa-lib
 Version:  %{version_alsa_lib}
-Release:  2%{?prever_dot}%{?dist}
-License:  LGPLv2+
+Release:  3%{?prever_dot}%{?dist}
+License:  LGPL-2.1-or-later
 URL:      http://www.alsa-project.org/
 
 Source:   ftp://ftp.alsa-project.org/pub/lib/%{name}-%{version}%{?prever}%{?postver}.tar.bz2
@@ -51,7 +51,7 @@ against the ALSA libraries and interfaces.
 %package  -n alsa-ucm
 Summary:   ALSA Use Case Manager configuration
 BuildArch: noarch
-License:   BSD
+License:   BSD-3-Clause
 Requires:  %{name} >= %{version_alsa_lib}
 
 %description -n alsa-ucm
@@ -61,7 +61,7 @@ contains alsa-lib configuration of Audio input/output names and routing
 %package  -n alsa-topology
 Summary:   ALSA Topology configuration
 BuildArch: noarch
-License:   BSD
+License:   BSD-3-Clause
 Requires:  %{name} >= %{version_alsa_lib}
 
 %description -n alsa-topology
@@ -167,6 +167,9 @@ rm %{buildroot}/%{_includedir}/asoundlib.h
 %{_datadir}/alsa/topology
 
 %changelog
+* Tue Jun  6 2023 Jaroslav Kysela <perex@perex.cz> - 1.2.9-3
+- SPDX licences
+
 * Tue May 16 2023 Jaroslav Kysela <perex@perex.cz> - 1.2.9-2
 - update ucm (nhlt-dmic-info)
 

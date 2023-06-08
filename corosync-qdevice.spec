@@ -11,8 +11,8 @@
 Name: corosync-qdevice
 Summary: The Corosync Cluster Engine Qdevice
 Version: 3.0.3
-Release: 1%{?gitver}%{?dist}
-License: BSD
+Release: 2%{?gitver}%{?dist}
+License: BSD-3-Clause
 URL: https://github.com/corosync/corosync-qdevice
 Source0: https://github.com/corosync/corosync-qdevice/releases/download/v%{version}%{?gittarver}/%{name}-%{version}%{?gittarver}.tar.gz
 
@@ -207,6 +207,9 @@ fi
 %{_mandir}/man8/corosync-qnetd.8*
 
 %changelog
+* Tue Jun 06 2023 Jan Friesse <jfriesse@redhat.com> - 3.0.3-2
+- migrated to SPDX license
+
 * Wed Mar 22 2023 Jan Friesse <jfriesse@redhat.com> - 3.0.3-1
 - New upstream release
 

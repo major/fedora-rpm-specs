@@ -2,7 +2,7 @@ Name:    khelpcenter
 Summary: Show documentation for KDE applications
 # Override khelpcenter subpackage from kde-runtime-15.04 (no longer built)
 Epoch:   1
-Version: 23.04.1
+Version: 23.04.2
 Release: 1%{?dist}
 
 License: GPLv2 or GPLv3
@@ -96,6 +96,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 
 
 %changelog
+* Tue Jun 06 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:23.04.2-1
+- 23.04.2
+
 * Sat May 13 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:23.04.1-1
 - 23.04.1
 

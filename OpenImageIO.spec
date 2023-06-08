@@ -2,7 +2,7 @@
 %global sover 2.4
 
 Name:           OpenImageIO
-Version:        2.4.11.0
+Version:        2.4.12.0
 Release:        1%{?dist}
 Summary:        Library for reading and writing images
 
@@ -206,6 +206,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Tue Jun 06 2023 Richard Shaw <hobbes1069@gmail.com> - 2.4.12.0-1
+- Update to 2.4.12.0.
+
 * Mon May 08 2023 Richard Shaw <hobbes1069@gmail.com> - 2.4.11.0-1
 - Update to 2.4.11.0.
 

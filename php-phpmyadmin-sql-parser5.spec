@@ -9,7 +9,7 @@
 
 %bcond_without       tests
 
-%global gh_commit    0f5895aab2b6002d00b6831b60983523dea30bff
+%global gh_commit    db1b3069b5dbc220d393d67ff911e0ae76732755
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     phpmyadmin
 #global gh_date      20150820
@@ -19,7 +19,7 @@
 %global major        5
 
 Name:           php-%{gh_owner}-%{gh_project}%{major}
-Version:        5.7.0
+Version:        5.8.0
 Release:        1%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
 Summary:        A validating SQL lexer and parser with a focus on MySQL dialect
 
@@ -94,7 +94,7 @@ Autoloader: %{_datadir}/php/%{ns_vendor}/%{ns_project}%{major}/autoload.php
 %prep
 %setup -q -n %{gh_project}-%{gh_commit}
 
-%patch0 -p0 -b .rpm
+%patch -P0 -p0 -b .rpm
 find src -name \*rpm -exec rm {} \;
 
 : Create autoloader
@@ -152,7 +152,7 @@ EOF
 sed -e 's:%{_datadir}/php:%{buildroot}%{_datadir}/php:' -i bin/*query
 
 ret=0
-for cmdarg in "php %{phpunit}" php80 php81 php82; do
+for cmdarg in "php %{phpunit}" php80 php81 php82 php83; do
    if which $cmdarg; then
       set $cmdarg
       $1 ${2:-%{_bindir}/phpunit9} --no-coverage --verbose || ret=1
@@ -185,6 +185,9 @@ exit $ret
 
 
 %changelog
+* Tue Jun  6 2023 Remi Collet <remi@remirepo.net> - 5.8.0-1
+- update to 5.8.0
+
 * Wed Jan 25 2023 Remi Collet <remi@remirepo.net> - 5.7.0-1
 - update to 5.7.0
 - raise dependency on PHP 7.2

@@ -1,6 +1,6 @@
 Name:       dblatex
 Version:    0.3.12
-Release:    11%{?dist}
+Release:    12%{?dist}
 Summary:    DocBook to LaTeX/ConTeXt Publishing
 BuildArch:  noarch
 # Most of package is GPLv2+, except:
@@ -24,7 +24,6 @@ BuildRequires:  libxslt
 BuildRequires:  texlive-base
 BuildRequires:  texlive-collection-latex
 BuildRequires:  texlive-collection-xetex
-BuildRequires:  texlive-collection-htmlxml
 BuildRequires:  texlive-xmltex-bin
 BuildRequires:  texlive-anysize
 BuildRequires:  texlive-appendix
@@ -33,6 +32,7 @@ BuildRequires:  texlive-fancybox
 BuildRequires:  texlive-jknapltx
 BuildRequires:  texlive-multirow
 BuildRequires:  texlive-overpic
+BuildRequires:  texlive-passivetex
 BuildRequires:  texlive-pdfpages
 BuildRequires:  texlive-subfigure
 BuildRequires:  texlive-stmaryrd
@@ -40,9 +40,7 @@ BuildRequires:  texlive-wasysym
 Requires:       texlive-base
 Requires:       texlive-collection-latex
 Requires:       texlive-collection-xetex
-Requires:       texlive-collection-htmlxml
 Requires:       texlive-collection-fontsrecommended
-Requires:       texlive-passivetex
 Requires:       texlive-xmltex texlive-xmltex-bin
 Requires:       texlive-anysize
 Requires:       texlive-appendix
@@ -132,6 +130,9 @@ cp -p %{SOURCE1} COPYING-docbook-xsl
 %postun -p /usr/bin/texhash
 
 %changelog
+* Tue Jun 06 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.3.12-12
+- Remove obsolete texlive-collection-htmlxml dependency
+
 * Wed Mar 29 2023 Michael J Gruber <mjg@fedoraproject.org> - 0.3.12-11
 - Adjust patch macro usage to rpm >= 4.18 in a cleaner way
 

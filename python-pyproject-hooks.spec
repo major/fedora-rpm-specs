@@ -12,9 +12,6 @@ Source:         %{pypi_source pyproject_hooks}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-pytest
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-testpath
 
 %global _description %{expand:
 This is a low-level library for calling build-backends in
@@ -37,7 +34,7 @@ sed -i "/flake8/d" dev-requirements.txt
 
 
 %generate_buildrequires
-%pyproject_buildrequires %{?with_tests:-t}
+%pyproject_buildrequires %{?with_tests:dev-requirements.txt}
 
 
 %build
@@ -49,9 +46,10 @@ sed -i "/flake8/d" dev-requirements.txt
 %pyproject_save_files pyproject_hooks
 
 
-%if %{with tests}
 %check
-%tox
+%pyproject_check_import
+%if %{with tests}
+%pytest
 %endif
 
 

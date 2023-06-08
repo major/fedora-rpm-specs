@@ -1,10 +1,12 @@
 Name:           abcde
 Version:        2.9.3
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A Better CD Encoder
 
-# cddb-tool is Public Domain, otherwise GPLv2+
-License:        GPLv2+ and Public Domain
+# previously license field included Public Domain, but FOSSology scan of v2.9.3 did not 
+# turn up any public domain dedications other than a reference in an old changelog entry
+# to a public domain mention that has since been removed upstream.
+License:        GPL-2.0-or-later
 URL:            https://abcde.einval.com/
 Source0:        https://abcde.einval.com/download/%{name}-%{version}.tar.gz
 Source1:        https://abcde.einval.com/download/%{name}-%{version}.tar.gz.sign
@@ -80,6 +82,9 @@ install -pm 755 cue2discid $RPM_BUILD_ROOT%{_bindir}
 
 
 %changelog
+* Thu Mar 16 2023 Jilayne Lovejoy <jlovejoy@redhat.com> - 2.9.3-12
+- migrated to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.3-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

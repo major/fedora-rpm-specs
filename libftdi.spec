@@ -1,6 +1,6 @@
 Name:		libftdi
 Version:	1.5
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Library to program and control the FTDI USB controller
 
 License:	LGPLv2
@@ -11,6 +11,8 @@ Source0:	https://www.intra2net.com/en/developer/%{name}/download/%{name}1-%{vers
 Patch0:		libftdi-1.5-fix_pkgconfig_path.patch
 # http://developer.intra2net.com/mailarchive/html/libftdi/2023/msg00003.html
 Patch1:		libftdi-1.5-no-distutils.patch
+# http://developer.intra2net.com/mailarchive/html/libftdi/2023/msg00005.html
+Patch2:		libftdi-1.5-cmake-deps.patch
 
 BuildRequires:	cmake
 BuildRequires:	gcc
@@ -121,6 +123,9 @@ rm -f %{buildroot}%{_datadir}/doc/libftdipp1/example.conf
 
 
 %changelog
+* Tue Jun 06 2023 Dan Horák <dan[at]danny.cz> - 1.5-8
+- Fix parallel build
+
 * Fri Feb 03 2023 Dan Horák <dan[at]danny.cz> - 1.5-7
 - Prepare for distutils removal (rhbz#2154854)
 

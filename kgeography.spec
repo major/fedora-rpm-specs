@@ -1,8 +1,8 @@
 %undefine __cmake_in_source_build
 Name:    kgeography
 Summary: Geography Trainer 
-Version: 23.04.1
-Release: 2%{?dist}
+Version: 23.04.2
+Release: 1%{?dist}
 
 License: GPL-2.0-or-later
 URL:     https://invent.kde.org/education/%{name}
@@ -90,6 +90,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Tue Jun 06 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.2-1
+- 23.04.2
+
 * Sun May 21 2023 Benson Muite <benson_muite@emailplus.org> - 23.04.1-2
 - Update source url
 - Use SPDX license identifier

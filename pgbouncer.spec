@@ -1,6 +1,6 @@
 Name:		pgbouncer
-Version:	1.19.0
-Release:	2%{?dist}
+Version:	1.19.1
+Release:	1%{?dist}
 Summary:	Lightweight connection pooler for PostgreSQL
 License:	MIT and BSD
 URL:		https://www.pgbouncer.org
@@ -118,6 +118,9 @@ exit 0
 %{_unitdir}/%{name}.service
 
 %changelog
+* Tue Jun 06 2023 Simone Caronni <negativo17@gmail.com> - 1.19.1-1
+- Update to 1.19.1.
+
 * Wed May 24 2023 Simone Caronni <negativo17@gmail.com> - 1.19.0-2
 - Adjust python interpreter for mkauth.py.
 

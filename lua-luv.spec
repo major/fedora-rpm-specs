@@ -44,7 +44,7 @@ BuildRequires:  lua5.1-compat53
 
 Name:           lua-luv
 Version:        %{real_version}.%{extra_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 License:        Apache-2.0
 Summary:        Bare libuv bindings for lua
@@ -56,10 +56,12 @@ Requires:       lua(abi) = %{lua_version}
 
 Source0:        https://github.com/luvit/luv/archive/%{real_version}-%{extra_version}/luv-%{version}.tar.gz
 
+Patch0:         luv-module-install.patch
 # Disable multicast tests as they don't work with firewalld
-Patch0:         lua-luv-disable-udp-test.patch
+Patch1:         lua-luv-disable-udp-test.patch
 
 %description
+%global _description %{expand:
 This library makes libuv available to lua scripts. It was made
 for the luvit project but should usable from nearly any lua
 project.
@@ -70,13 +72,19 @@ will create a unique uv_loop_t for each state. You can't share uv
 handles between states/loops.
 
 The best docs currently are the libuv docs themselves. Hopefully
-soon we'll have a copy locally tailored for lua.
+soon we'll have a copy locally tailored for lua.}
 
-%package devel
+%package -n libluv
+Summary:        Lua bindings for libluv as a library
+
+%description -n libluv
+%{_description}
+
+%package -n libluv-devel
 Summary:        Development files for lua-luv
-Requires:       lua-luv%{?_isa} = %{version}-%{release}
+Requires:       libluv%{?_isa} = %{version}-%{release}
 
-%description devel
+%description -n libluv-devel
 Files required for lua-luv development
 
 %package -n lua5.1-luv
@@ -84,24 +92,7 @@ Summary:        Bare libuv bindings for lua 5.1
 Requires:       lua(abi) = %{lua_51_version}
 
 %description -n lua5.1-luv
-This library makes libuv available to lua scripts. It was made
-for the luvit project but should usable from nearly any lua
-project.
-
-The library can be used by multiple threads at once. Each thread
-is assumed to load the library from a different lua_State. Luv
-will create a unique uv_loop_t for each state. You can't share uv
-handles between states/loops.
-
-The best docs currently are the libuv docs themselves. Hopefully
-soon we'll have a copy locally tailored for lua.
-
-%package -n lua5.1-luv-devel
-Summary:        Development files for lua5.1-luv
-Requires:       lua5.1-luv%{?_isa} = %{version}-%{release}
-
-%description -n lua5.1-luv-devel
-Files required for lua5.1-luv development
+%{_description}
 
 %if %{with luajit}
 %package -n luajit%{luajit_version}-luv
@@ -109,25 +100,8 @@ Summary:        Bare libuv bindings for lua 5.1
 Requires:       lua(abi) = %{lua_51_version}
 
 %description -n luajit%{luajit_version}-luv
-This library makes libuv available to lua scripts. It was made
-for the luvit project but should usable from nearly any lua
-project.
-
-The library can be used by multiple threads at once. Each thread
-is assumed to load the library from a different lua_State. Luv
-will create a unique uv_loop_t for each state. You can't share uv
-handles between states/loops.
-
-The best docs currently are the libuv docs themselves. Hopefully
-soon we'll have a copy locally tailored for lua.
-
-%package -n luajit%{luajit_version}-luv-devel
-Summary:        Development files for luajit%{luajit_version}-luv
-Requires:       luajit%{luajit_version}-luv%{?_isa} = %{version}-%{release}
-
-%description -n luajit%{luajit_version}-luv-devel
-Files required for luajit%{luajit_version}-luv development
-# /with luajit
+%{_description}
+#/ with luajit
 %endif
 
 %prep
@@ -146,12 +120,11 @@ mkdir %{lua_builddir}
 
 %cmake \
     -DWITH_SHARED_LIBUV=ON \
-    -DBUILD_MODULE=ON \
-    -DBUILD_SHARED_LIBS=ON \
     -DWITH_LUA_ENGINE=Lua \
     -DLUA_BUILD_TYPE=System \
-    -DINSTALL_LIB_DIR=%{_libdir} \
-    -DLUA_INCLUDE_DIR=%{lua_incdir}
+    -DMODULE_INSTALL_LIB_DIR=%{lua_libdir} \
+    -DLUA_INCLUDE_DIR=%{lua_incdir} \
+    -DBUILD_SHARED_LIBS=OFF
 
 %cmake_build
 
@@ -161,14 +134,14 @@ mkdir %{lua_51_builddir}
 
 %cmake \
     -DWITH_SHARED_LIBUV=ON \
-    -DBUILD_MODULE=ON \
-    -DBUILD_SHARED_LIBS=ON \
     -DWITH_LUA_ENGINE=Lua \
     -DLUA_BUILD_TYPE=System \
-    -DINSTALL_LIB_DIR=%{_libdir} \
+    -DSHAREDLIBS_INSTALL_LIB_DIR=%{_libdir} \
+    -DMODULE_INSTALL_LIB_DIR=%{lua_51_libdir} \
     -DLUA_COMPAT53_DIR=%{lua_51_incdir} \
     -DLUA_INCLUDE_DIR=%{lua_51_incdir} \
-    -DLUA_LIBRARY=%{_libdir}/liblua-%{lua_51_version}.so
+    -DLUA_LIBRARY=%{_libdir}/liblua-%{lua_51_version}.so \
+    -DBUILD_SHARED_LIBS=ON
 
 %cmake_build
 
@@ -179,12 +152,11 @@ mkdir %{luajit_builddir}
 
 %cmake \
     -DWITH_SHARED_LIBUV=ON \
-    -DBUILD_MODULE=ON \
-    -DBUILD_SHARED_LIBS=ON \
     -DWITH_LUA_ENGINE=LuaJit \
     -DLUA_BUILD_TYPE=System \
-    -DINSTALL_LIB_DIR=%{_libdir} \
-    -DLUA_COMPAT53_DIR=%{lua_51_incdir}
+    -DMODULE_INSTALL_LIB_DIR=%{luajit_libdir} \
+    -DLUA_COMPAT53_DIR=%{lua_51_incdir} \
+    -DBUILD_SHARED_LIBS=OFF
 
 %cmake_build
 # /with luajit
@@ -192,32 +164,17 @@ mkdir %{luajit_builddir}
 
 %install
 # lua
-install -d -m 0755 %{buildroot}%{lua_libdir}
-install -m 0755 -p %{lua_builddir}/luv.so %{buildroot}%{lua_libdir}/luv.so
-
-install -d -m 0755 %{buildroot}%{lua_incdir}/luv
-for f in lhandle.h lreq.h luv.h util.h; do
-    install -m 0644 -p src/$f %{buildroot}%{lua_incdir}/luv/$f
-done
+%global __cmake_builddir  %{lua_builddir}
+%cmake_install
 
 # lua-5.1
-install -d -m 0755 %{buildroot}%{lua_51_libdir}
-install -m 0755 -p %{lua_51_builddir}/luv.so %{buildroot}%{lua_51_libdir}/luv.so
-
-install -d -m 0755 %{buildroot}%{lua_51_incdir}/luv
-for f in lhandle.h lreq.h luv.h util.h; do
-    install -m 0644 -p src/$f %{buildroot}%{lua_51_incdir}/luv/$f
-done
+%global __cmake_builddir  %{lua_51_builddir}
+%cmake_install
 
 %if %{with luajit}
 # luajit
-install -d -m 0755 %{buildroot}%{luajit_libdir}
-install -m 0755 -p %{luajit_builddir}/luv.so %{buildroot}%{luajit_libdir}/luv.so
-
-install -d -m 0755 %{buildroot}%{luajit_incdir}/luv
-for f in lhandle.h lreq.h luv.h util.h; do
-    install -m 0644 -p src/$f %{buildroot}%{luajit_incdir}/luv/$f
-done
+%global __cmake_builddir  %{luajit_builddir}
+%cmake_install
 # /with luajit
 %endif
 
@@ -252,49 +209,37 @@ rm luv.so
 # /with test
 %endif
 
-%files
+%files -n libluv
 %doc README.md
 %license LICENSE.txt
+%{_libdir}/libluv.so.*
+
+%files -n libluv-devel
+%{_libdir}/libluv.so
+%{_libdir}/pkgconfig/*.pc
+
+%dir %{_includedir}/luv/
+%{_includedir}/luv/lhandle.h
+%{_includedir}/luv/lreq.h
+%{_includedir}/luv/luv.h
+%{_includedir}/luv/util.h
+
+%files
 %{lua_libdir}/luv.so
 
-%files devel
-%dir %{lua_incdir}
-%dir %{lua_incdir}/luv/
-%{lua_incdir}/luv/lhandle.h
-%{lua_incdir}/luv/lreq.h
-%{lua_incdir}/luv/luv.h
-%{lua_incdir}/luv/util.h
-
 %files -n lua5.1-luv
-%doc README.md
-%license LICENSE.txt
 %{lua_51_libdir}/luv.so
-
-%files -n lua5.1-luv-devel
-%dir %{lua_51_incdir}
-%dir %{lua_51_incdir}/luv/
-%{lua_51_incdir}/luv/lhandle.h
-%{lua_51_incdir}/luv/lreq.h
-%{lua_51_incdir}/luv/luv.h
-%{lua_51_incdir}/luv/util.h
 
 %if %{with luajit}
 %files -n luajit%{luajit_version}-luv
-%doc README.md
-%license LICENSE.txt
 %{luajit_libdir}/luv.so
-
-%files -n luajit%{luajit_version}-luv-devel
-%dir %{luajit_incdir}
-%dir %{luajit_incdir}/luv/
-%{luajit_incdir}/luv/lhandle.h
-%{luajit_incdir}/luv/lreq.h
-%{luajit_incdir}/luv/luv.h
-%{luajit_incdir}/luv/util.h
-# /with luajit
+#/ with luajit
 %endif
 
 %changelog
+* Tue Jun 06 2023 Andreas Schneider <asn@redhat.com> - 1.44.2.1-3
+- resolves: #2212583 - Create a common libluv and libluv-devel package
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.44.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

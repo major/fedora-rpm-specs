@@ -9,7 +9,7 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 23.04.1
+Version: 23.04.2
 Release: 1%{?dist}
 Summary: Library to deal with Apple Wallet pass files
 
@@ -98,6 +98,9 @@ make test/fast ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||
 
 
 %changelog
+* Tue Jun 06 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.2-1
+- 23.04.2
+
 * Sat May 13 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.1-1
 - 23.04.1
 

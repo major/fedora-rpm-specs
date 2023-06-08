@@ -3,7 +3,7 @@
 Name:           kalendar
 %global uuid    org.kde.%{name}
 %global suuid   %{uuid}ac
-Version:        23.04.1
+Version:        23.04.2
 Release:        1%{?dist}
 Summary:        A calendar application using Akonadi to sync with external services
 License:        GPLv3+
@@ -114,6 +114,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/%{uuid}.ap
 
 
 %changelog
+* Tue Jun 06 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.2-1
+- 23.04.2
+
 * Sat May 13 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.1-1
 - 23.04.1
 

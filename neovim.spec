@@ -24,23 +24,18 @@
 %global luv_min_ver 1.43.0
 %global tree_sitter_min_ver 0.20.8
 
+%global luv_include_dir %{_includedir}/luv
 %if %{with luajit}
 %global luajit_version 2.1
 %global lua_prg %{_bindir}/luajit
-
-%global luv_include_dir %{_includedir}/luajit-%{luajit_version}
-%global luv_library %{_libdir}/luajit/%{luajit_version}/luv.so
 %else
 %global lua_version 5.1
 %global lua_prg %{_bindir}/lua-5.1
-
-%global luv_include_dir %{_includedir}/lua-%{lua_version}
-%global luv_library %{_libdir}/lua/%{lua_version}/luv.so
 %endif
 
 Name:           neovim
 Version:        0.9.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        Apache-2.0 AND Vim
 Summary:        Vim-fork focused on extensibility and agility
@@ -59,18 +54,17 @@ BuildRequires:  fdupes
 BuildRequires:  gettext
 BuildRequires:  gperf
 BuildRequires:  gcc
+BuildRequires:  libluv-devel >= %{luv_min_ver}
 %if %{with luajit}
 # luajit implements version 5.1 of the lua language spec, so it needs the
 # compat versions of libs.
 BuildRequires:  luajit-devel
-BuildRequires:  luajit2.1-luv-devel >= %{luv_min_ver}
 Requires:       luajit2.1-luv >= %{luv_min_ver}
 %else
 # lua5.1
 BuildRequires:  compat-lua
 BuildRequires:  compat-lua-devel
 BuildRequires:  lua5.1-bit32
-BuildRequires:  lua5.1-luv-devel >= %{luv_min_ver}
 Requires:       lua5.1-luv >= %{luv_min_ver}
 # /with luajit
 %endif
@@ -124,7 +118,6 @@ USERNAME=koji
        -DLUA_PRG=%{lua_prg} \
        -DENABLE_JEMALLOC=%{?with_jemalloc:ON}%{!?with_jemalloc:OFF} \
        -DLIBLUV_INCLUDE_DIR:PATH=%{luv_include_dir} \
-       -DLIBLUV_LIBRARY:STRING=-Wl,%{luv_library}
 
 %cmake_build
 
@@ -1952,6 +1945,9 @@ find %{buildroot}%{_datadir} \( -name "*.bat" -o -name "*.awk" \) \
 %{_datadir}/nvim/runtime/tutor/en/vim-01-beginner.tutor.json
 
 %changelog
+* Tue Jun 06 2023 Andreas Schneider <asn@redhat.com> - 0.9.1-2
+- Build with new libluv-devel
+
 * Wed May 31 2023 Andreas Schneider <asn@redhat.com> - 0.9.1-1
 - Update to version 0.9.1
   * For changelog see `:help news`

@@ -1,6 +1,6 @@
 Summary: Matroska container manipulation utilities
 Name: mkvtoolnix
-Version: 76.0
+Version: 77.0
 Release: 1%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
 Source0: https://mkvtoolnix.download/sources/mkvtoolnix-%{version}.tar.xz
@@ -122,6 +122,9 @@ drake tests:run_unit
 %{_datadir}/mkvtoolnix
 
 %changelog
+* Tue Jun 06 2023 Dominik Mierzejewski <dominik@greysector.net> - 77.0-1
+- update to 77.0 (#2212199)
+
 * Mon May 15 2023 Dominik Mierzejewski <dominik@greysector.net> - 76.0-1
 - update to 76.0 (#2203882)
 

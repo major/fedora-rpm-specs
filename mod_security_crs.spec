@@ -1,8 +1,8 @@
 Summary: ModSecurity Rules
 Name: mod_security_crs
 Version: 3.3.4
-Release: 4%{?dist}
-License: ASL 2.0
+Release: 5%{?dist}
+License: Apache-2.0
 URL: https://coreruleset.org/
 Source: https://github.com/coreruleset/coreruleset/archive/refs/tags/v%{version}.tar.gz
 BuildArch: noarch
@@ -48,6 +48,9 @@ done
 %{_datarootdir}/mod_modsecurity_crs
 
 %changelog
+* Tue Jun 06 2023 Luboš Uhliarik <luhliari@redhat.com> - 3.3.4-5
+- SPDX migration
+
 * Mon Mar 20 2023 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 3.3.4-4
 - Change URL to new official homepage
 

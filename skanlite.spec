@@ -1,5 +1,5 @@
 Name:           skanlite
-Version:        23.04.1
+Version:        23.04.2
 Release:        1%{?dist}
 Summary:        Lightweight scanning program
 # Actually: GPLv2 or GPLv3 or any later Version approved by KDE e.V.
@@ -63,6 +63,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.kde.
 
 
 %changelog
+* Tue Jun 06 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.2-1
+- 23.04.2
+
 * Sat May 13 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.1-1
 - 23.04.1
 

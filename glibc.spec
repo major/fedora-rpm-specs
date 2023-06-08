@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.37.9000-486-g6286cca2cb
+%global glibcsrcdir glibc-2.37.9000-505-ge3622a8f39
 %global glibcversion 2.37.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 11
+%global baserelease 12
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -2195,6 +2195,29 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Mon Jun 05 2023 Arjun Shankar <arjun@redhat.com> - 2.37.9000-12
+- Auto-sync with upstream branch master,
+  commit e3622a8f391deea3b75a577dce70d023dfa3f1c7.
+- time: Also check for EPERM while trying to clock_settime
+- linux: Fail as unsupported if personality call is filtered
+- Remove MAP_VARIABLE from hppa bits/mman.h
+- hurd: Fix x86_64 sigreturn restoring bogus reply_port
+- Add lint-makefiles Makefile linting test.
+- elf: Sort Makefile variables.
+- Fix a few more typos I missed in previous round -- BZ 25337
+- Fix all the remaining misspellings -- BZ 25337
+- Use __nonnull for the epoll_wait(2) family of syscalls
+- Fix invalid use of NULL in epoll_pwait2(2) test
+- getipv4sourcefilter: Get rid of alloca
+- getsourcefilter: Get rid of alloca.
+- tests: fix warn unused results
+- nptl_db/thread_dbP.h: fix warn unused result
+- malloc/{memusage.c, memusagestat.c}: fix warn unused result
+- catgets/gencat.c: fix warn unused result
+- tests: replace ftruncate by xftruncate
+- tests: replace write by xwrite
+- x86-64: Use YMM registers in memcmpeq-evex.S
+
 * Thu Jun 01 2023 Patsy Griffin <patsy@redhat.com> - 2.37.9000-11
 - Auto-sync with upstream branch master,
   commit 6286cca2cb8389dcffec39238a8bf15ffea96396.

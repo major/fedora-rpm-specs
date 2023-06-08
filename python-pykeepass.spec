@@ -1,5 +1,5 @@
 Name:           python-pykeepass
-Version:        4.0.4
+Version:        4.0.5
 Release:        %autorelease
 Epoch:          1
 Summary:        Python library to interact with keepass databases
@@ -12,15 +12,6 @@ License:        GPL-3.0-only AND MIT
 URL:            https://github.com/libkeepass/pykeepass
 # The GitHub archive has tests; the PyPI sdist does not.
 Source:         %{url}/archive/v%{version}/pykeepass-%{version}.tar.gz
-
-# Remove excessive byte-swapping in pytwofish.py
-# https://github.com/libkeepass/pykeepass/pull/336
-#
-# Fixes:
-#
-# Tests fail on big-endian platform (s390x)
-# https://github.com/libkeepass/pykeepass/issues/332
-Patch:          %{url}/pull/336.patch
 
 BuildArch:      noarch
  

@@ -31,7 +31,7 @@
 %global git_describe_str v1.0-283-g9d4029aa14323a7f3b496215d25e40bd14f33632
 
 # Set this to 1 when rebasing (changing git_describe_str) and increase otherwise
-%global release 2
+%global release 3
 
 # Run shell script to parse git_describe str into version, numcomm and sha1 hash
 %global booth_ver %(s=%{git_describe_str}; vver=${s%%%%-*}; echo ${vver:1})
@@ -59,7 +59,7 @@ Name:           booth
 Version:        %{booth_ver}
 Release:        %{booth_numcomm}.%{release}.%{booth_short_sha1}.git%{?dist}
 Summary:        Ticket Manager for Multi-site Clusters
-License:        GPLv2+
+License:        GPL-2.0-or-later
 Url:            https://github.com/%{github_owner}/%{name}
 Source0:        https://github.com/%{github_owner}/%{name}/archive/%{booth_short_sha1}/%{booth_archive_name}.tar.gz
 
@@ -310,6 +310,9 @@ VERBOSE=1 make check
 %{_usr}/lib/ocf/resource.d/booth/sharedrsc
 
 %changelog
+* Tue Jun 06 2023 Jan Friesse <jfriesse@redhat.com> - 1.0-283.3.9d4029a.git
+- migrated to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-283.2.9d4029a.git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

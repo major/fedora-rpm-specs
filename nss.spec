@@ -135,6 +135,10 @@ Patch40:          nss-no-dbm-man-page.patch
 # https://bugzilla.mozilla.org/show_bug.cgi?id=1774659
 Patch51:	nss-3.79-dbtool.patch
 
+# https://bugzilla.mozilla.org/show_bug.cgi?id=1836781
+# https://bugzilla.mozilla.org/show_bug.cgi?id=1836925
+Patch60:          nss-3.90-DisablingASM.patch
+
 Patch100:         nspr-config-pc.patch
 Patch101:         nspr-gcc-atomics.patch
 
@@ -293,9 +297,9 @@ Header files for doing development with the Netscape Portable Runtime.
 %setup -q -T -b 0 -n %{name}-%{nss_archive_version}
 cp ./nspr/config/nspr-config.in ./nspr/config/nspr-config-pc.in
 
-%patch100 -p0 -b .flags
+%patch 100 -p0 -b .flags
 pushd nspr
-%patch101 -p1 -b .gcc-atomics
+%patch 101 -p1 -b .gcc-atomics
 popd
 
 pushd nss
@@ -1088,6 +1092,13 @@ update-crypto-policies &> /dev/null || :
 
 
 %changelog
+* Tue Jun 6 2023 Frantisek Krenzelok <krenzelok.frantisek@gmail.com> - 3.90.0-1
+- Add patch for https://bugzilla.mozilla.org/show_bug.cgi?id=1836781 &
+                https://bugzilla.mozilla.org/show_bug.cgi?id=1836925
+
+* Mon Jun 5 2023 Frantisek Krenzelok <krenzelok.frantisek@gmail.com> - 3.90.0-1
+- Update %patch syntax
+
 * Mon Jun 5 2023 Frantisek Krenzelok <krenzelok.frantisek@gmail.com> - 3.90.0-1
 - Update NSS to 3.90.0
 
