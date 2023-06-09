@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel rc1
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: Python
 
 
@@ -364,6 +364,16 @@ Patch335: 00335-backport-pathfix-change.patch
 # Python/importlib_external.h to this patch but it'd make rebasing
 # a nightmare because it's basically a binary file.
 Patch353: 00353-architecture-names-upstream-downstream.patch
+
+# 00399 # b8b6954680af6471f83b0f720611badc5a4eb5a4
+# CVE-2023-24329
+#
+# gh-102153: Start stripping C0 control and space chars in `urlsplit` (GH-102508)
+#
+# `urllib.parse.urlsplit` has already been respecting the WHATWG spec a bit GH-25595.
+#
+# This adds more sanitizing to respect the "Remove any leading C0 control or space from input" [rule](https://url.spec.whatwg.org/GH-url-parsing:~:text=Remove%%20any%%20leading%%20and%%20trailing%%20C0%%20control%%20or%%20space%%20from%%20input.) in response to [CVE-2023-24329](https://nvd.nist.gov/vuln/detail/CVE-2023-24329).
+Patch399: 00399-cve-2023-24329.patch
 
 # (New patches go here ^^^)
 #
@@ -1173,13 +1183,16 @@ CheckPython() {
   #   https://bugzilla.redhat.com/show_bug.cgi?id=1196181
   # test_gdb skipped on s390x:
   #   https://bugzilla.redhat.com/show_bug.cgi?id=1678277
+  # test_gdb skipped on i686 as it's not reliable on PGO builds
+  #   https://bugzilla.redhat.com/show_bug.cgi?id=2211429
+  #   https://bugs.python.org/issue37023
   # test_speech128 and test_pair skipped on s390x:
   #   https://bugzilla.redhat.com/show_bug.cgi?id=2038848
   LD_LIBRARY_PATH=$ConfDir $ConfDir/python -m test.regrtest \
     -wW --slowest -j0 \
     -x test_distutils \
     -x test_bdist_rpm \
-    %ifarch %{arm} s390x
+    %ifarch %{arm} s390x %{ix86}
     -x test_gdb \
     %endif
     %ifarch %{mips64}
@@ -1671,6 +1684,10 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Mon May 29 2023 Charalampos Stratakis <cstratak@redhat.com> - 3.7.16-4
+- Fix for CVE-2023-24329
+Resolves: rhbz#2174014
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.16-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 %bcond_with bootstrap
 
-%if %{without bootstrap}
+%if %{without bootstrap} && %{undefined rhel}
 %bcond_without bnd_maven_plugin
 %else
 %bcond_with bnd_maven_plugin
@@ -8,7 +8,7 @@
 
 Name:           aqute-bnd
 Version:        6.3.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        BND Tool
 # Part of jpm is under BSD, but jpm is not included in binary RPM
 License:        ASL 2.0 or EPL-2.0
@@ -244,6 +244,9 @@ echo "aqute-bnd slf4j/api slf4j/simple osgi-annotation osgi-core osgi-compendium
 %license LICENSE
 
 %changelog
+* Wed Jun 07 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 6.3.1-4
+- Conditionally disable bnd-maven-plugin
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

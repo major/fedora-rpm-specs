@@ -1,6 +1,6 @@
 %bcond_with devel
 
-%global basever 1.23.4
+%global basever 1.23.5
 #%%global rcnum   0
 
 Name:           syncthing
@@ -13,11 +13,11 @@ Release:        %autorelease
 
 %gometa -f
 
-# syncthing (MPLv2.0) bundles
+# syncthing (MPL-2.0) bundles
 # - angular, bootstrap, daterangepicker, fancytree, jQuery, moment (MIT),
-# - ForkAwesome (MIT and OFL and CC-BY 3.0), and
-# - a number of go packages (MIT and MPLv2.0 and BSD and ASL 2.0 and ISC)
-License:        MPLv2.0 and MIT and OFL and CC-BY and BSD and ASL 2.0 and ISC
+# - ForkAwesome (MIT, OFL-1.1, CC-BY-3.0), and
+# - a number of go packages (Apache-2.0, BSD-2-Clause, BSD-2-Clause-Views, BSD-3-Clause, ISC, MIT, MPL-2.0)
+License:        MPL-2.0 AND Apache-2.0 AND BSD-2-Clause AND BSD-2-Clause-Views AND BSD-3-Clause AND CC-BY-3.0 AND ISC AND MIT AND MPL-2.0 AND OFL-1.1
 
 URL:            https://syncthing.net
 # use official release tarball (contains vendored dependencies)
@@ -48,8 +48,8 @@ Provides:       bundled(moment) = 2.19.4
 
 # github.com/AudriusButkevicius/pfilter : MIT
 Provides:       bundled(golang(github.com/AudriusButkevicius/pfilter)) = 0.0.11
-# github.com/AudriusButkevicius/recli : MPLv2.0
-Provides:       bundled(golang(github.com/AudriusButkevicius/recli)) = 0.0.6
+# github.com/AudriusButkevicius/recli : MPL-2.0
+Provides:       bundled(golang(github.com/AudriusButkevicius/recli)) = d000ce8
 # github.com/Azure/go-ntlmssp : MIT
 Provides:       bundled(golang(github.com/Azure/go-ntlmssp)) = 754e693
 # github.com/alecthomas/kong : MIT
@@ -60,9 +60,9 @@ Provides:       bundled(golang(github.com/beorn7/perks)) = 1.0.1
 Provides:       bundled(golang(github.com/calmh/incontainer)) = b3e71b1
 # github.com/calmh/xdr : MIT
 Provides:       bundled(golang(github.com/calmh/xdr)) = 1.1.0
-# github.com/ccding/go-stun : ASL 2.0
+# github.com/ccding/go-stun : Apache-2.0
 Provides:       bundled(golang(github.com/ccding/go-stun)) = 0.1.4
-# github.com/certifi/gocertifi : MPLv2.0
+# github.com/certifi/gocertifi : MPL-2.0
 Provides:       bundled(golang(github.com/certifi/gocertifi)) = 431795d
 # github.com/cespare/xxhash : MIT
 Provides:       bundled(golang(github.com/cespare/xxhash/v2)) = 2.2.0
@@ -72,9 +72,9 @@ Provides:       bundled(golang(github.com/chmduquesne/rollinghash)) = 4.0.0+inco
 Provides:       bundled(golang(github.com/cpuguy83/go-md2man/v2)) = 2.0.2
 # github.com/d4l3k/messagediff : MIT
 Provides:       bundled(golang(github.com/d4l3k/messagediff)) = 1.2.1
-# github.com/flynn-archive/go-shlex : ASL 2.0
+# github.com/flynn-archive/go-shlex : Apache-2.0
 Provides:       bundled(golang(github.com/flynn-archive/go-shlex)) = 3f9db97
-# github.com/getsentry/raven-go : BSD
+# github.com/getsentry/raven-go : BSD-3-Clause
 Provides:       bundled(golang(github.com/getsentry/raven-go)) = 0.2.0
 # github.com/go-asn1-ber/asn1-ber : MIT
 Provides:       bundled(golang(github.com/go-asn1-ber/asn1-ber)) = 1.5.4
@@ -83,28 +83,28 @@ Provides:       bundled(golang(github.com/go-ldap/ldap/v3)) = 3.4.4
 # github.com/go-ole/go-ole : MIT
 Provides:       bundled(golang(github.com/go-ole/go-ole)) = 1.2.6
 # github.com/go-task/slim-sprig : MIT
-Provides:       bundled(golang(github.com/go-task/slim-sprig)) = 348f09d
+Provides:       bundled(golang(github.com/go-task/slim-sprig)) = 52ccab3
 # github.com/gobwas/glob : MIT
 Provides:       bundled(golang(github.com/gobwas/glob)) = 0.2.3
-# github.com/gogo/protobuf : BSD
+# github.com/gogo/protobuf : BSD-3-Clause
 Provides:       bundled(golang(github.com/gogo/protobuf)) = 1.3.2
-# github.com/golang/mock : ASL 2.0
+# github.com/golang/mock : Apache-2.0
 Provides:       bundled(golang(github.com/golang/mock)) = 1.6.0
-# github.com/golang/protobuf : BSD
+# github.com/golang/protobuf : BSD-3-Clause
 Provides:       bundled(golang(github.com/golang/protobuf)) = 1.5.3
-# github.com/golang/snappy : BSD
+# github.com/golang/snappy : BSD-3-Clause
 Provides:       bundled(golang(github.com/golang/snappy)) = 0.0.4
-# github.com/google/pprof : ASL 2.0
-Provides:       bundled(golang(github.com/google/pprof)) = d61513b
-# github.com/greatroar/blobloom : ASL 2.0
+# github.com/google/pprof : Apache-2.0
+Provides:       bundled(golang(github.com/google/pprof)) = 00490a6
+# github.com/greatroar/blobloom : Apache-2.0
 Provides:       bundled(golang(github.com/greatroar/blobloom)) = 0.7.2
-# github.com/hashicorp/golang-lru : MPLv2.0
+# github.com/hashicorp/golang-lru : MPL-2.0
 Provides:       bundled(golang(github.com/hashicorp/golang-lru/v2)) = 2.0.2
-# github.com/jackpal/gateway : BSD
-Provides:       bundled(golang(github.com/jackpal/gateway)) = 1.0.7
-# github.com/jackpal/go-nat-pmp : ASL 2.0
+# github.com/jackpal/gateway : BSD-3-Clause
+Provides:       bundled(golang(github.com/jackpal/gateway)) = 1.0.10
+# github.com/jackpal/go-nat-pmp : Apache-2.0
 Provides:       bundled(golang(github.com/jackpal/go-nat-pmp)) = 1.0.2
-# github.com/julienschmidt/httprouter : BSD
+# github.com/julienschmidt/httprouter : BSD-3-Clause
 Provides:       bundled(golang(github.com/julienschmidt/httprouter)) = 1.3.0
 # github.com/kballard/go-shellquote : MIT
 Provides:       bundled(golang(github.com/kballard/go-shellquote)) = 95032a8
@@ -112,82 +112,82 @@ Provides:       bundled(golang(github.com/kballard/go-shellquote)) = 95032a8
 Provides:       bundled(golang(github.com/klauspost/cpuid/v2)) = 2.2.4
 # github.com/lib/pq : MIT
 Provides:       bundled(golang(github.com/lib/pq)) = 1.10.7
-# github.com/maruel/panicparse : ASL 2.0
+# github.com/maruel/panicparse : Apache-2.0
 Provides:       bundled(golang(github.com/maruel/panicparse/v2)) = 2.3.1
-# github.com/matttproud/golang_protobuf_extensions : ASL 2.0
+# github.com/matttproud/golang_protobuf_extensions : Apache-2.0
 Provides:       bundled(golang(github.com/matttproud/golang_protobuf_extensions)) = 1.0.4
 # github.com/maxbrunsfeld/counterfeiter : MIT
 Provides:       bundled(golang(github.com/maxbrunsfeld/counterfeiter/v6)) = 6.5.0
-# github.com/minio/sha256-simd : ASL 2.0
+# github.com/minio/sha256-simd : Apache-2.0
 Provides:       bundled(golang(github.com/minio/sha256-simd)) = 1.0.0
 # github.com/miscreant/miscreant.go : MIT
 Provides:       bundled(golang(github.com/miscreant/miscreant.go)) = 26d3763
 # github.com/onsi/ginkgo : MIT
-Provides:       bundled(golang(github.com/onsi/ginkgo/v2)) = 2.9.0
+Provides:       bundled(golang(github.com/onsi/ginkgo/v2)) = 2.9.2
 # github.com/oschwald/geoip2-golang : ISC
 Provides:       bundled(golang(github.com/oschwald/geoip2-golang)) = 1.8.0
 # github.com/oschwald/maxminddb-golang : ISC
 Provides:       bundled(golang(github.com/oschwald/maxminddb-golang)) = 1.10.0
-# github.com/petermattis/goid : ASL 2.0
-Provides:       bundled(golang(github.com/petermattis/goid)) = 8ff7bb2
-# github.com/pierrec/lz4 : BSD
+# github.com/petermattis/goid : Apache-2.0
+Provides:       bundled(golang(github.com/petermattis/goid)) = 371a4b8
+# github.com/pierrec/lz4 : BSD-3-Clause
 Provides:       bundled(golang(github.com/pierrec/lz4/v4)) = 4.1.17
-# github.com/pkg/errors : BSD
+# github.com/pkg/errors : BSD-2-Clause
 Provides:       bundled(golang(github.com/pkg/errors)) = 0.9.1
 # github.com/power-devops/perfstat : MIT
 Provides:       bundled(golang(github.com/power-devops/perfstat)) = 62379fc
-# github.com/prometheus/client_golang : ASL 2.0
+# github.com/prometheus/client_golang : Apache-2.0
 Provides:       bundled(golang(github.com/prometheus/client_golang)) = 1.14.0
-# github.com/prometheus/client_model : ASL 2.0
+# github.com/prometheus/client_model : Apache-2.0
 Provides:       bundled(golang(github.com/prometheus/client_model)) = 0.3.0
-# github.com/prometheus/common : ASL 2.0
+# github.com/prometheus/common : Apache-2.0
 Provides:       bundled(golang(github.com/prometheus/common)) = 0.42.0
-# github.com/prometheus/procfs : ASL 2.0
+# github.com/prometheus/procfs : Apache-2.0
 Provides:       bundled(golang(github.com/prometheus/procfs)) = 0.9.0
 # github.com/quic-go/qtls-go1-19 : BSD-3-Clause
-Provides:       bundled(golang(github.com/quic-go/qtls-go1-19)) = 0.2.1
+Provides:       bundled(golang(github.com/quic-go/qtls-go1-19)) = 0.3.2
 # github.com/quic-go/qtls-go1-20 : BSD-3-Clause
-Provides:       bundled(golang(github.com/quic-go/qtls-go1-20)) = 0.1.1
+Provides:       bundled(golang(github.com/quic-go/qtls-go1-20)) = 0.2.2
 # github.com/quic-go/quic-go : MIT
-Provides:       bundled(golang(github.com/quic-go/quic-go)) = 0.33.0
-# github.com/rcrowley/go-metrics : BSD
+Provides:       bundled(golang(github.com/quic-go/quic-go)) = 0.34.0
+# github.com/rcrowley/go-metrics : BSD-2-Clause-Views
 Provides:       bundled(golang(github.com/rcrowley/go-metrics)) = cf1acfc
-# github.com/russross/blackfriday : BSD
+# github.com/russross/blackfriday : BSD-2-Clause
 Provides:       bundled(golang(github.com/russross/blackfriday/v2)) = 2.1.0
-# github.com/sasha-s/go-deadlock : ASL 2.0
+# github.com/sasha-s/go-deadlock : Apache-2.0
 Provides:       bundled(golang(github.com/sasha-s/go-deadlock)) = 0.3.1
-# github.com/shirou/gopsutil : BSD
-Provides:       bundled(golang(github.com/shirou/gopsutil/v3)) = 3.23.2
+# github.com/shirou/gopsutil : BSD-3-Clause
+Provides:       bundled(golang(github.com/shirou/gopsutil/v3)) = 3.23.3
 # github.com/syncthing/notify : MIT
 Provides:       bundled(golang(github.com/syncthing/notify)) = c6b7342
-# github.com/syndtr/goleveldb : BSD
+# github.com/syndtr/goleveldb : BSD-2-Clause
 Provides:       bundled(golang(github.com/syndtr/goleveldb)) = 126854a
 # github.com/thejerf/suture : MIT
 Provides:       bundled(golang(github.com/thejerf/suture/v4)) = 4.0.2
 # github.com/urfave/cli : MIT
 Provides:       bundled(golang(github.com/urfave/cli)) = 1.22.12
-# github.com/vitrun/qart : ASL 2.0 and BSD
+# github.com/vitrun/qart : Apache-2.0 AND BSD-3-Clause
 Provides:       bundled(golang(github.com/vitrun/qart)) = bf64b92
 # github.com/yusufpapurcu/wmi : MIT
 Provides:       bundled(golang(github.com/yusufpapurcu/wmi)) = 1.2.2
-# golang.org/x/crypto : BSD
-Provides:       bundled(golang(golang.org/x/crypto)) = 0.7.0
-# golang.org/x/exp : BSD
-Provides:       bundled(golang(golang.org/x/exp)) = 24139be
-# golang.org/x/mod : BSD
-Provides:       bundled(golang(golang.org/x/mod)) = 0.9.0
-# golang.org/x/net : BSD
-Provides:       bundled(golang(golang.org/x/net)) = 0.8.0
-# golang.org/x/sys : BSD
-Provides:       bundled(golang(golang.org/x/sys)) = 0.6.0
-# golang.org/x/text: BSD
-Provides:       bundled(golang(golang.org/x/text)) = 0.8.0
-# golang.org/x/time : BSD
+# golang.org/x/crypto : BSD-3-Clause
+Provides:       bundled(golang(golang.org/x/crypto)) = 0.8.0
+# golang.org/x/exp : BSD-3-Clause
+Provides:       bundled(golang(golang.org/x/exp)) = 10a5072
+# golang.org/x/mod : BSD-3-Clause
+Provides:       bundled(golang(golang.org/x/mod)) = 0.10.0
+# golang.org/x/net : BSD-3-Clause
+Provides:       bundled(golang(golang.org/x/net)) = 0.9.0
+# golang.org/x/sys : BSD-3-Clause
+Provides:       bundled(golang(golang.org/x/sys)) = 0.7.0
+# golang.org/x/text : BSD-3-Clause
+Provides:       bundled(golang(golang.org/x/text)) = 0.9.0
+# golang.org/x/time : BSD-3-Clause
 Provides:       bundled(golang(golang.org/x/time)) = 0.3.0
-# golang.org/x/tools : BSD
-Provides:       bundled(golang(golang.org/x/tools)) = 0.7.0
-# google.golang.org/protobuf : BSD
-Provides:       bundled(golang(google.golang.org/protobuf)) = 1.29.0
+# golang.org/x/tools : BSD-3-Clause
+Provides:       bundled(golang(golang.org/x/tools)) = 0.8.0
+# google.golang.org/protobuf : BSD-3-Clause
+Provides:       bundled(golang(google.golang.org/protobuf)) = 1.30.0
 
 %description
 Syncthing replaces other file synchronization services with something

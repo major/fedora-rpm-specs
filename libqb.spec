@@ -1,15 +1,15 @@
 %bcond_with check
 
 Name:           libqb
-Version:        2.0.6
-Release:        5%{?dist}
+Version:        2.0.7
+Release:        1%{?dist}
 Summary:        Library providing high performance logging, tracing, ipc, and poll
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://github.com/ClusterLabs/libqb
 Source0:        https://github.com/ClusterLabs/libqb/releases/download/v%{version}/%{name}-%{version}.tar.xz
 
-Patch0: connretry-recv.patch
+#Patch0: connretry-recv.patch
 
 BuildRequires:  autoconf automake libtool
 BuildRequires:  check-devel
@@ -31,7 +31,7 @@ and polling.
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch0 -p1 -b .connretry-recv.patch
+#%patch0 -p1 -b .connretry-recv.patch
 
 %build
 ./autogen.sh
@@ -87,6 +87,12 @@ This package contains a program to create nicely-formatted man pages from Doxyge
 
 
 %changelog
+* Wed Jun 07 2023 Christine Caulfield <ccaulfie@redhat.com> 2.0.7-1
+- rebase to v2.0.7
+
+* Tue Jun 06 2023 Jan Friesse <jfriesse@redhat.com> - 2.0.6-6
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

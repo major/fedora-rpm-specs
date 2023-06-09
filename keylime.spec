@@ -8,7 +8,7 @@
 %global selinuxtype targeted
 
 Name:    keylime
-Version: 6.6.0
+Version: 7.2.5
 Release: %autorelease
 Summary: Open source TPM software for Bootstrapping and Maintaining Trust
 
@@ -19,6 +19,7 @@ Source1:        %{srcname}.sysusers
 Source2:        https://github.com/RedHat-SP-Security/%{name}-selinux/archive/v%{policy_version}/keylime-selinux-%{policy_version}.tar.gz
 
 Patch: 01-duplicate-str-to-version.patch
+Patch: 0002-templates-Fix-mapping-and-adjust-for-Rust-agent.patch
 
 # Main program: BSD
 # Icons: MIT
@@ -43,9 +44,12 @@ Requires: %{srcname}-tools = %{version}-%{release}
 # webapp was removed upstream in release 6.4.2.
 Obsoletes: %{srcname}-webapp < 6.4.2
 
+# python agent was removed upstream in release 6.8.0.
+Obsoletes: python3-%{srcname}-agent < 6.8.0
+
 # Agent.
 Requires: keylime-agent
-Suggests: python3-%{srcname}-agent
+Suggests: %{srcname}-agent-rust
 
 # Conflicts with the monolithic versions of the package, before the split.
 Conflicts: keylime < 6.3.0-3
@@ -219,7 +223,7 @@ mkdir -p %{buildroot}/%{_sharedstatedir}/%{srcname}
 mkdir -p --mode=0700 %{buildroot}/%{_rundir}/%{srcname}
 
 mkdir -p --mode=0700 %{buildroot}/%{_sysconfdir}/%{srcname}/
-for comp in "agent" "verifier" "tenant" "registrar" "ca" "logging"; do
+for comp in "verifier" "tenant" "registrar" "ca" "logging"; do
     mkdir -p --mode=0700  %{buildroot}/%{_sysconfdir}/%{srcname}/${comp}.conf.d
 done
 
@@ -227,7 +231,6 @@ done
 mkdir -p %{buildroot}/%{_datadir}/%{srcname}/scripts
 for s in create_runtime_policy.sh \
          create_mb_refstate \
-         create_policy \
          ek-openssl-verify; do
     install -Dpm 755 scripts/${s} \
         %{buildroot}/%{_datadir}/%{srcname}/scripts/${s}
@@ -236,14 +239,6 @@ done
 # Ship configuration templates.
 cp -r ./templates %{buildroot}%{_datadir}/%{srcname}/templates/
 
-# Setting up the agent to use keylime user/group.
-printf '[agent]\nrun_as = %s:%s\n' "%{srcname}" "%{srcname}" \
-    > %{buildroot}/%{_sysconfdir}/%{srcname}/agent.conf.d/run_as.conf
-
-# rhbz#2114485 - using sha256 for tpm_hash_alg.
-printf '[agent]\ntpm_hash_alg = sha256\n' \
-    > %{buildroot}/%{_sysconfdir}/%{srcname}/agent.conf.d/bz2114485.conf
-
 mkdir -p --mode=0755 %{buildroot}/%{_bindir}
 cp -a ./keylime/cmd/convert_config.py %{buildroot}/%{_bindir}/keylime_upgrade_config
 
@@ -251,12 +246,6 @@ cp -a ./keylime/cmd/convert_config.py %{buildroot}/%{_bindir}/keylime_upgrade_co
 install -D -m 0644 %{srcname}.pp.bz2 %{buildroot}%{_datadir}/selinux/packages/%{selinuxtype}/%{srcname}.pp.bz2
 install -D -p -m 0644 keylime-selinux-%{policy_version}/%{srcname}.if %{buildroot}%{_datadir}/selinux/devel/include/distributed/%{srcname}.if
 %endif
-
-install -Dpm 644 ./services/%{srcname}_agent.service \
-    %{buildroot}%{_unitdir}/%{srcname}_agent.service
-
-install -Dpm 644 ./services/var-lib-%{srcname}-secure.mount \
-    %{buildroot}%{_unitdir}/var-lib-%{srcname}-secure.mount
 
 install -Dpm 644 ./services/%{srcname}_verifier.service \
     %{buildroot}%{_unitdir}/%{srcname}_verifier.service
@@ -289,10 +278,6 @@ exit 0
 /usr/bin/keylime_upgrade_config
 exit 0
 
-%pre -n python3-%{srcname}-agent
-/usr/bin/keylime_upgrade_config
-exit 0
-
 %pre tenant
 /usr/bin/keylime_upgrade_config
 exit 0
@@ -302,7 +287,7 @@ if [ -d %{_sysconfdir}/%{srcname} ]; then
     chmod 500 %{_sysconfdir}/%{srcname}
     chown -R %{srcname}:%{srcname} %{_sysconfdir}/%{srcname}
 
-    for comp in "agent" "verifier" "tenant" "registrar" "ca" "logging"; do
+    for comp in "verifier" "tenant" "registrar" "ca" "logging"; do
         [ -d %{_sysconfdir}/%{srcname}/${comp}.conf.d ] && \
             chmod 500 %{_sysconfdir}/%{srcname}/${comp}.conf.d
     done
@@ -325,9 +310,6 @@ exit 0
 %post registrar
 %systemd_post %{srcname}_registrar.service
 
-%post -n python3-%{srcname}-agent
-%systemd_post %{srcname}_agent.service
-
 %if 0%{?with_selinux}
 # SELinux contexts are saved so that only affected files can be
 # relabeled after the policy module installation
@@ -342,7 +324,7 @@ if [ "$1" -le "1" ]; then # First install
     # The services need to be restarted for the custom label to be
     # applied in case they where already present in the system,
     # restart fails silently in case they where not.
-    for svc in agent registrar verifier; do
+    for svc in registrar verifier; do
         [ -f "%{_unitdir}/%{srcname}_${svc}".service ] && \
             %systemd_postun_with_restart "%{srcname}_${svc}".service
     done
@@ -362,9 +344,6 @@ fi
 %preun registrar
 %systemd_preun %{srcname}_registrar.service
 
-%preun -n python3-%{srcname}-agent
-%systemd_preun %{srcname}_agent.service
-
 %preun tenant
 %systemd_preun %{srcname}_registrar.service
 
@@ -373,9 +352,6 @@ fi
 
 %postun registrar
 %systemd_postun_with_restart %{srcname}_registrar.service
-
-%postun -n python3-%{srcname}-agent
-%systemd_postun_with_restart %{srcname}_agent.service
 
 %files verifier
 %license LICENSE
@@ -389,17 +365,6 @@ fi
 %attr(500,%{srcname},%{srcname}) %dir %{_sysconfdir}/%{srcname}/registrar.conf.d
 %{_bindir}/%{srcname}_registrar
 %{_unitdir}/keylime_registrar.service
-
-%files -n python3-%{srcname}-agent
-%license LICENSE
-%attr(500,%{srcname},%{srcname}) %dir %{_sysconfdir}/%{srcname}/agent.conf.d
-%{_unitdir}/%{srcname}_agent.service
-%{_unitdir}/var-lib-%{srcname}-secure.mount
-%{_bindir}/%{srcname}_convert_runtime_policy
-%{_bindir}/%{srcname}_agent
-%{_bindir}/%{srcname}_ima_emulator
-%{_sysconfdir}/%{srcname}/agent.conf.d/bz2114485.conf
-%{_sysconfdir}/%{srcname}/agent.conf.d/run_as.conf
 
 %if 0%{?with_selinux}
 %files selinux
@@ -418,8 +383,11 @@ fi
 %{python3_sitelib}/%{srcname}-*.egg-info/
 %{python3_sitelib}/%{srcname}
 %{_datadir}/%{srcname}/scripts/create_mb_refstate
-%{_datadir}/%{srcname}/scripts/create_policy
 %{_bindir}/keylime_attest
+%{_bindir}/keylime_convert_runtime_policy
+%{_bindir}/keylime_create_policy
+%{_bindir}/keylime_sign_runtime_policy
+
 
 %files tools
 %license LICENSE

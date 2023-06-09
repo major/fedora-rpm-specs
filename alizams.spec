@@ -1,7 +1,7 @@
 %global forgeurl https://github.com/AlizaMedicalImaging/AlizaMS
 
 Name:    alizams
-Version: 1.9.0
+Version: 1.9.1
 
 %forgemeta
 
@@ -65,9 +65,9 @@ rm -fr CG/glew/
 %cmake \
   -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo \
   -DALIZA_QT_VERSION:STRING=5 \
+  -DALIZA_QT5_COREGL:BOOL=ON \
   -DALIZA_USE_SYSTEM_BULLET:BOOL=ON \
   -DALIZA_USE_SYSTEM_LCMS2:BOOL=ON \
-  -DALIZA_CXX_STANDARD:STRING=14 \
   -DMDCM_USE_SYSTEM_ZLIB:BOOL=ON \
   -DMDCM_USE_SYSTEM_OPENJPEG:BOOL=ON \
   -DMDCM_USE_SYSTEM_CHARLS:BOOL=ON \

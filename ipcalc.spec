@@ -1,6 +1,6 @@
 Name: ipcalc
-Version: 1.0.2
-Release: 3%{?dist}
+Version: 1.0.3
+Release: 1%{?dist}
 Summary: IP network address calculator
 License: GPL-2.0-or-later
 URL: https://gitlab.com/ipcalc/ipcalc
@@ -43,6 +43,9 @@ or check the validity of an address.
 %{_mandir}/man1/ipcalc.1*
 
 %changelog
+* Wed Jun 07 2023 Nikos Mavrogiannopoulos <n.mavrogiannopoulos@gmail.com> - 1.0.3-1
+- Updated to 1.0.3
+
 * Thu Feb 16 2023 Richard Lescak <rlescak@redhat.com> - 1.0.2-3
 - SPDX migration
 

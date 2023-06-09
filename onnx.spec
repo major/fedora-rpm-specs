@@ -2,12 +2,14 @@
 
 Name:       onnx
 Version:    1.14.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Open standard for machine learning interoperability
 License:    Apache-2.0
 
 URL:        https://github.com/onnx/onnx
 Source0:    https://github.com/onnx/onnx/archive/v%{version}/%{name}-%{version}.tar.gz
+# Need to patch the generated headers
+Source1:    add-export-protobuf-headers.patch
 # Build shared libraries and fix install location 
 Patch0:     onnx-install.patch
 # Add what is missing to run tox, disable tests that require network
@@ -67,6 +69,11 @@ Requires:   %{name}-libs = %{version}-%{release}
     -DPYTHON_EXECUTABLE=%{python3} \
     -DPY_EXT_SUFFIX=%{python3_ext_suffix} \
     -DPY_SITEARCH=%{python3_sitearch}
+# Generate protobuf header and source files
+%cmake_build -- gen_onnx_proto
+# Add missing ONNX_API
+(cd "%__cmake_builddir"; patch -p1 < "%{_sourcedir}/add-export-protobuf-headers.patch")
+# Build 
 %cmake_build
 
 %install
@@ -84,6 +91,8 @@ chmod a+x "%{buildroot}/%{python3_sitearch}/%{name}/gen_proto.py"
 chmod a+x "%{buildroot}/%{python3_sitearch}/%{name}/defs/gen_doc.py"
 %py3_shebang_fix "%{buildroot}/%{python3_sitearch}/%{name}/gen_proto.py"
 %py3_shebang_fix "%{buildroot}/%{python3_sitearch}/%{name}/defs/gen_doc.py"
+# Install *.proto files
+install -p "./onnx/"*.proto -t "%{buildroot}/%{_includedir}/onnx/"
 
 %check
 export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
@@ -105,6 +114,10 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %{python3_sitearch}/%{name}/
 
 %changelog
+* Wed Jun 07 2023 Alejandro Alvarez Ayllon <a.alvarezayllon@gmail.com> - 1.14.0-2
+- Patch protobuf headers with ONNX_API
+- Ship .proto files
+
 * Sat Jun 03 2023 Alejandro Alvarez Ayllon <a.alvarezayllon@gmail.com> - 1.14.0-1
 - Release 1.14.0
 

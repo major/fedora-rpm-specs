@@ -4,7 +4,7 @@
 
 Name:      langpacks
 Version:   3.0
-Release:   32%{?dist}
+Release:   33%{?dist}
 Summary:   Langpacks meta-package
 
 License:   GPL-2.0-or-later
@@ -115,8 +115,6 @@ This package provides Amharic langpacks meta-package.
 Summary: Arabic langpacks meta-package
 Requires: %{name}-core-ar
 Recommends: %{defaultmonopkg}
-Recommends: paktype-naqsh-fonts
-Recommends: paktype-tehreer-fonts
 %if 0%{?fedora}
 Recommends: google-noto-sans-arabic-vf-fonts
 Recommends: kacst-art-fonts
@@ -1300,7 +1298,7 @@ This package provides Urdu langpacks meta-package.
 %files ur
 %{_datadir}/metainfo/org.fedoraproject.LangPack-ur.metainfo.xml
 
-%langcore_pkg -l ur -n Urdu -f paktype-naskh-basic-fonts -i ibus-m17n
+%langcore_pkg -l ur -n Urdu -f ibm-plex-sans-arabic-fonts -i ibus-m17n
 
 %package ve
 Summary: Venda langpacks meta-package
@@ -1439,6 +1437,9 @@ DESTDIR=%{buildroot} appstream-util split-appstream %{SOURCE1}
 DESTDIR=%{buildroot} appstream-util split-appstream %{SOURCE2}
 
 %changelog
+* Wed Jun 07 2023 Parag Nemade <pnemade AT redhat DOT Com > - 3.0-33
+- Resolves:rhbz#2213106 - Fix rawhide compose by changing default sans for ur language
+
 * Fri Apr  7 2023 Peng Wu <pwu@redhat.com> - 3.0-32
 - Rebuild the langpacks package for Fedora 38
 

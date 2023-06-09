@@ -18,8 +18,8 @@ Pour éviter un Access denied (insufficient permissions), n'oubliez pas
 de débrancher l'appareil après l'installation.}
 
 Name:          python-radexreader
-Version:       1.2.1
-Release:       5%{?dist}
+Version:       1.2.2
+Release:       1%{?dist}
 Summary:       %{common_summary_en}
 Summary(fr):   %{common_summary_fr}
 License:       GPLv2+
@@ -62,10 +62,15 @@ cd src
 %py3_install
 mkdir -p %{buildroot}%{_bindir}/
 mkdir -p %{buildroot}/lib/udev/rules.d/
+mkdir -p %{buildroot}%{_mandir}/man1/ %{buildroot}%{_mandir}/fr/man1/
 install -p -m 644 ../debian/udev %{buildroot}/lib/udev/rules.d/60-python3-radexreader.rules
+install -p -m 644 ../debian/radexreader.1 %{buildroot}%{_mandir}/man1/radexreader.1
+install -p -m 644 ../debian/radexreader.fr.1 %{buildroot}%{_mandir}/fr/man1/radexreader.1
 install -p -m 755 ../src/radexreader.py %{buildroot}%{_bindir}/radexreader
 
 %files -n python3-radexreader
+%{_mandir}/man1/radexreader.1*
+%{_mandir}/*/man1/radexreader.1*
 %license LICENSE
 %doc README.md
 %ghost %{python3_sitelib}/radexreader*egg-info/
@@ -75,6 +80,9 @@ install -p -m 755 ../src/radexreader.py %{buildroot}%{_bindir}/radexreader
 
 
 %changelog
+* Tue Jun 06 2023 Fabrice Creuzot <code@luigifab.fr> - 1.2.2-1
+- New upstream release
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -88,7 +96,7 @@ install -p -m 755 ../src/radexreader.py %{buildroot}%{_bindir}/radexreader
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 
 * Thu Sep 09 2021 Fabrice Creuzot <code@luigifab.fr> - 1.2.1-1
-- New upstream version
+- New upstream release
 
 * Wed May 05 2021 Fabrice Creuzot <code@luigifab.fr> - 1.2.0-1
 - Initial Fedora package release (Closes: rhbz#1896742)

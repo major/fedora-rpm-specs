@@ -1,6 +1,6 @@
 Name:           perl-Class-Observable
-Version:        2.002
-Release:        2%{?dist}
+Version:        2.004
+Release:        1%{?dist}
 Summary:        Allow other classes and objects to respond to events in yours
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Class-Observable
@@ -52,6 +52,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Wed Jun 07 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.004-1
+- 2.004 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.002-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

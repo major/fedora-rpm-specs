@@ -1,8 +1,8 @@
 Name:           perl-Net-CLI-Interact
-Version:        2.300003
-Release:        13%{?dist}
+Version:        2.300004
+Release:        1%{?dist}
 Summary:        Toolkit for CLI Automation
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-CLI-Interact
 Source0:        https://cpan.metacpan.org/modules/by-module/Net/Net-CLI-Interact-%{version}.tar.gz
 BuildArch:      noarch
@@ -60,6 +60,10 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Wed Jun 07 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.300004-1
+- 2.300004 bump
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.300003-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

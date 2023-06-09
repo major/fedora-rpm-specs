@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.37.9000-505-ge3622a8f39
+%global glibcsrcdir glibc-2.37.9000-511-g85e6d8b417
 %global glibcversion 2.37.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 12
+%global baserelease 13
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -2195,6 +2195,16 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Wed Jun 07 2023 Arjun Shankar <arjun@redhat.com> - 2.37.9000-13
+- Auto-sync with upstream branch master,
+  commit 85e6d8b4175fcb195011a0a1bad37d6f3b2355db:
+- time: Fix use-after-free in getdate
+- Move {read,write}_all functions to a dedicated header
+- tests: Replace various function calls with their x variant
+- tests: fix warn unused result on asprintf calls
+- pthreads: Use _exit to terminate the tst-stdio1 test
+- support: Add delayed__exit (with two underscores)
+
 * Mon Jun 05 2023 Arjun Shankar <arjun@redhat.com> - 2.37.9000-12
 - Auto-sync with upstream branch master,
   commit e3622a8f391deea3b75a577dce70d023dfa3f1c7.

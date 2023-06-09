@@ -10,7 +10,7 @@
 Name:    kf5-%{framework}
 Summary: A Tier 3 KDE Frameworks 5 module that provides indexing and search functionality
 Version: 5.107.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # libs are LGPL, tools are GPL
 # KDE e.V. may determine that future LGPL/GPL versions are accepted
@@ -30,6 +30,8 @@ Source2:        baloo_file_shutdown.sh
 ## upstreamable patches
 # http://bugzilla.redhat.com/1235026
 Patch100: baloo-5.67.0-baloofile_config.patch
+# https://invent.kde.org/frameworks/baloo/-/merge_requests/131
+Patch101: use_the_FSID_as_the_device_identifier_where_possible.patch
 
 ## upstream patches
 
@@ -207,6 +209,9 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_target_platform} ||:
 
 
 %changelog
+* Wed Jun 07 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.107.0-2
+- Backport patch from upstream
+
 * Sat Jun 03 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.107.0-1
 - 5.107.0
 

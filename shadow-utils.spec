@@ -1,7 +1,7 @@
 Summary: Utilities for managing accounts and shadow password files
 Name: shadow-utils
 Version: 4.13
-Release: 6%{?dist}
+Release: 7%{?dist}
 Epoch: 2
 License: BSD-3-Clause AND GPL-2.0-or-later
 URL: https://github.com/shadow-maint/shadow
@@ -57,7 +57,6 @@ BuildRequires: gettext-devel
 BuildRequires: itstool
 BuildRequires: libacl-devel
 BuildRequires: libattr-devel
-BuildRequires: libbsd-devel
 BuildRequires: libeconf-devel
 BuildRequires: libselinux-devel >= 1.25.2-1
 BuildRequires: libsemanage-devel
@@ -282,6 +281,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %{_libdir}/libsubid.so
 
 %changelog
+* Tue Jun 06 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2:4.13-7
+- Remove unused libbsd-devel dependency
+
 * Mon Mar  6 2023 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.13-6
 - Add libbsd-devel and libeconf-devel as build dependencies
 

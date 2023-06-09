@@ -1,7 +1,7 @@
-%global commit0 93135ed3741cab016b75a91a03c1fc9b48ec70b4
-%global date 20230601
+%global commit0 77e26aea3cd0a28f382fed82791054b4115c9138
+%global date 20230606
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-#global tag %{version}
+%global tag %{version}
 
 %global __requires_exclude ^lib%{name}.so|^lib%{name}-js.so
 
@@ -16,7 +16,7 @@
 
 Name:           cinnamon
 Version:        5.8.0
-Release:        0.1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
+Release:        1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 Summary:        Window management and application launching for GNOME
 License:        GPLv2+ and LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
@@ -176,6 +176,9 @@ Requires:       cups-client%{?_isa}
 # required for spice
 Requires:       gettext
 
+# required for gesture support
+Recommends:     touchegg
+
 Provides:       desktop-notification-daemon
 Provides:       bundled(libcroco) = 0.6.12
 
@@ -331,6 +334,12 @@ EOF
 %endif
 
 %changelog
+* Wed Jun 07 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.0-1
+- Update to 5.8.0 release
+
+* Wed Jun 07 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.0-0.2.20230606git77e26ae
+- Update to git master snapshot
+
 * Fri Jun 02 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.0-0.1.20230601git93135ed
 - Update to git master snapshot
 

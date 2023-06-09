@@ -30,6 +30,10 @@ BuildRequires:  python3-pytest
 
 %prep
 %autosetup -n quantities-%{version}
+# Work around confusion with SPECPARTS directory looking like a package to
+# setuptools automatic discovery:
+# https://bugzilla.redhat.com/show_bug.cgi?id=2213013#c2
+rm -rf SPECPARTS
 
 # remove spurious
 sed -i '/python (>=3.7)/ d' setup.py

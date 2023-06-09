@@ -1,65 +1,101 @@
-Name:      lpsolve
-Summary:   A Mixed Integer Linear Programming (MILP) solver
-Version:   5.5.2.0
-Release:   32%{?dist}
-Source:    http://downloads.sourceforge.net/lpsolve/lp_solve_%{version}_source.tar.gz
-URL:       http://sourceforge.net/projects/lpsolve
-License:   LGPL-2.1-or-later
-
-BuildRequires: gcc-c++
-
-Patch0:    lpsolve-5.5.0.11.cflags.patch
-Patch1:    lpsolve-5.5.2.0.defines.patch
-Patch2:    read-cc-from-env.patch
-Patch3:    lpsolve-ccc-c99.patch
+Name:       lpsolve
+Version:    5.5.2.0
+Release:    33%{?dist}
+Summary:    Mixed Integer Linear Programming (MILP) solver
+# bfp/bfp_LUSOL/lp_LUSOL.c:             LGPL-2.1-or-later
+# bfp/bfp_LUSOL/LUSOL/LUSOL_LGPL.txt:   LGLP-2.1 text
+# colamd/colamd.c:  ??? (free with attribution in Matlab)
+#                   Waiting on an identifier
+#                   <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/230>
+# colamd/colamd.h:  ??? (free with attribution in Matlab)
+#                   Waiting on an identifier
+#                   <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/230>
+# lp_crash.c:       LGPL-2.1-or-later
+# lp_lib.c:         LGPL-2.1-or-later
+# lp_lib.h:         LGPL-2.1-or-later
+# lp_matrix.c:      LGPL-2.1-or-later
+# lp_MDO.c:         LGPL-2.1-or-later
+# lp_mipbb.c:       LGPL-2.1-or-later
+# lp_presolve.c:    LGPL-2.1-or-later
+# lp_price.c:       LGPL-2.1-or-later
+# lp_pricePSE.c:    LGPL-2.1-or-later
+# lp_report.c:      LGPL-2.1-or-later
+# lp_rlp.c:         GPL-2.0-or-later WITH Bison-exception-2.2
+# lp_scale.c:       LGPL-2.1-or-later
+# lp_simplex.c:     LGPL-2.1-or-later
+# lp_SOS.c:         LGPL-2.1-or-later
+# lp_utils.c:       LGPL-2.1-or-later
+# README.txt:       LGPL-2.1-or-later
+## Unused and nonpackaged
+# bfp/bfp_LUSOL/LUSOL/hbio.c:           xlock-like
+# configure:        FSFUL
+License:    LGPL-2.1-or-later AND GPL-2.0-or-later WITH Bison-exception-2.2
+# There is a mailing list at <https://groups.google.com/g/lp_solve>.
+URL:        https://sourceforge.net/projects/lpsolve
+Source:     https://downloads.sourceforge.net/lpsolve/lp_solve_%{version}_source.tar.gz
+Patch0:     lpsolve-5.5.0.11.cflags.patch
+Patch1:     lpsolve-5.5.2.0.defines.patch
+Patch2:     read-cc-from-env.patch
+Patch3:     lpsolve-ccc-c99.patch
+BuildRequires:  bash
+# binutils for ar and ranlib
+BuildRequires:  binutils
+BuildRequires:  coreutils
+BuildRequires:  gcc
+BuildRequires:  sed
 
 %description
 Mixed Integer Linear Programming (MILP) solver lpsolve solves pure linear,
 (mixed) integer/binary, semi-continuous and special ordered sets (SOS) models.
 
 %package devel
-Requires: %{name}%{?_isa} = %{version}-%{release}
-Summary: Files for developing with lpsolve
+License:    LGPL-2.1-or-later
+Requires:   %{name}%{?_isa} = %{version}-%{release}
+Summary:    Files for developing with lpsolve
 
 %description devel
-Includes and definitions for developing with lpsolve 
+Header files for developing with lpsolve library.
 
 %prep
-%setup -q -n lp_solve_5.5
-%patch0 -p1 -b .cflags.patch
-%patch1 -p1 -b .defines.patch
-%patch2 -p1 -b .cc-from-env.patch
-%patch3 -p1 -b .ccc-c99.patch
+%autosetup -p1 -n lp_solve_5.5
+sed -n -e '/Authors:/,/http:\/\/www\.cise\.ufl/p' < colamd/colamd.c \
+    > colamd/colamd_license
 
 %build
 %set_build_flags
-cd lpsolve55
-sh -x ccc
+pushd lpsolve55
+sh ccc
 rm bin/ux*/liblpsolve55.a
-cd ../lp_solve
-sh -x ccc
+popd
+pushd lp_solve
+sh ccc
+popd
 
 %install
-rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_bindir} $RPM_BUILD_ROOT%{_libdir} $RPM_BUILD_ROOT%{_includedir}/lpsolve
+install -d %{buildroot}%{_bindir} %{buildroot}%{_libdir} %{buildroot}%{_includedir}/lpsolve
 install -p -m 755 \
-        lp_solve/bin/ux*/lp_solve $RPM_BUILD_ROOT%{_bindir}
+        lp_solve/bin/ux*/lp_solve %{buildroot}%{_bindir}
 install -p -m 755 \
-        lpsolve55/bin/ux*/liblpsolve55.so $RPM_BUILD_ROOT%{_libdir}
+        lpsolve55/bin/ux*/liblpsolve55.so %{buildroot}%{_libdir}
 install -p -m 644 \
-        lp*.h $RPM_BUILD_ROOT%{_includedir}/lpsolve
-
-%ldconfig_scriptlets
+        lp*.h %{buildroot}%{_includedir}/lpsolve
 
 %files
-%doc README.txt ./bfp/bfp_LUSOL/LUSOL/LUSOL_LGPL.txt ./bfp/bfp_LUSOL/LUSOL/LUSOL_README.txt ./bfp/bfp_LUSOL/LUSOL/LUSOL-overview.txt
+%license bfp/bfp_LUSOL/LUSOL/LUSOL_LGPL.txt colamd/colamd_license
+# LUSOL_Overview.txt is identical to LUSOL-overview.txt
+%doc README.txt ./bfp/bfp_LUSOL/LUSOL/LUSOL_README.txt ./bfp/bfp_LUSOL/LUSOL/LUSOL-overview.txt
 %{_bindir}/lp_solve
-%{_libdir}/*.so
+%{_libdir}/liblpsolve55.so
 
 %files devel
+# TODO: Package a separate documention from lp_solve_%%{version}_doc.tar.gz.
 %{_includedir}/lpsolve
 
 %changelog
+* Wed Jun 07 2023 Petr Pisar <ppisar@redhat.com> - 5.5.2.0-33
+- Modernize a spec file
+- Partially correct a license tag
+
 * Thu Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 5.5.2.0-32
 - migrated to SPDX license
 

@@ -1,8 +1,8 @@
 Name:           perl-Mail-AuthenticationResults
 Version:        2.20230112
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Object Oriented Authentication-Results Headers
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Mail-AuthenticationResults/
 Source0:        https://cpan.metacpan.org/modules/by-module/Mail/Mail-AuthenticationResults-%{version}.tar.gz
 BuildArch:      noarch
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Wed Jun 07 2023 Michal Josef Špaček <mspacek@redhat.com> - 2.20230112-2
+- Update license to SPDX format
+
 * Tue Mar 07 2023 Xavier Bachelot <xavier@bachelot.org> 2.20230112-1
 - Update to 2.20230112 (RHBZ#2160586)
 

@@ -1,12 +1,12 @@
-%global cpan_version 0.9725
+%global cpan_version 0.9726
 
 Name:           perl-Graph
 # Keep 2-digit precision
 Version:        %(echo '%{cpan_version}' | sed 's/\(\...\)\(.\)/\1.\2/')
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        Perl module for dealing with graphs, the abstract data structures
 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Graph
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETJ/Graph-%{cpan_version}.tar.gz
 
@@ -79,10 +79,13 @@ make test
 
 %files
 %doc README RELEASE DESIGN Changes TODO util
-%{perl_vendorlib}/*
-%{_mandir}/man3/*.3*
+%{perl_vendorlib}/Graph*
+%{_mandir}/man3/Graph*.3*
 
 %changelog
+* Wed Jun 07 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.97.26-1
+- 0.9726 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.97.25-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

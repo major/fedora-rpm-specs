@@ -14,7 +14,7 @@
 
 Name:           python-%{srcname}
 Version:        3.0.21
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        %{sum}
 
 License:        ASL 2.0
@@ -57,8 +57,7 @@ BuildRequires:  python%{python3_pkgversion}-sphinx_rtd_theme
 BuildRequires:  python%{python3_pkgversion}-urllib3
 %endif
 # Unbundle fonts and JS
-BuildRequires:  fontawesome-fonts
-BuildRequires:  fontawesome-fonts-web
+BuildRequires:  font(fontawesome)
 BuildRequires:  lato-fonts
 BuildRequires:  google-roboto-slab-fonts
 %{!?el8:BuildRequires:  levien-inconsolata-fonts}
@@ -100,8 +99,7 @@ delete configuration objects on a BIG-IP®.
 %if ! 0%{?el7}
 %package doc
 Summary:   Documentation for %{name}
-Requires:  fontawesome-fonts
-Requires:  fontawesome-fonts-web
+Requires:  font(fontawesome)
 Requires:  lato-fonts
 Requires:  google-roboto-slab-fonts
 %{!?el8:Requires:  levien-inconsolata-fonts}
@@ -232,6 +230,10 @@ rm %{buildroot}/usr/setup_requirements.txt
 
 
 %changelog
+* Wed Mar  1 2023 Jerry James <loganjerry@gmail.com> - 3.0.21-18
+- Require version 4 of the FontAwesome fonts
+- The FontAwesome web fonts are not needed
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.21-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

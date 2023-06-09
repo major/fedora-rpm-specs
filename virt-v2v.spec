@@ -107,7 +107,7 @@ Requires:      guestfs-tools >= 1.49.7-1
 # XFS is the default filesystem in Fedora and RHEL.
 Requires:      libguestfs-xfs
 
-%if 0%{?rhel}
+%if 0%{?rhel} && ! 0%{?eln}
 # For Windows conversions on RHEL.
 Requires:      libguestfs-winsupport >= 7.2
 %endif
@@ -128,7 +128,7 @@ Requires:      edk2-ovmf
 Requires:      edk2-aarch64
 %endif
 
-%if !0%{?rhel}
+%if 0%{?rhel} != 8
 Requires:      python3
 %else
 Requires:      platform-python
@@ -321,6 +321,7 @@ done
 %changelog
 * Mon Jun 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1:2.3.4-2
 - Migrated to SPDX license
+- Fix installation on newer RHEL
 
 * Wed Apr 19 2023 Richard W.M. Jones <rjones@redhat.com> - 1:2.3.4-1
 - New development branch version 2.3.4

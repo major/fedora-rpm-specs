@@ -2,15 +2,12 @@
 %{bcond_without perl_Graphics_TIFF_enables_optional_test}
 
 Name:           perl-Graphics-TIFF
-Version:        19
-Release:        5%{?dist}
+Version:        20
+Release:        1%{?dist}
 Summary:        Perl extension for the LibTIFF library
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Graphics-TIFF
 Source0:        https://cpan.metacpan.org/authors/id/R/RA/RATCLIFFE/Graphics-TIFF-%{version}.tar.gz
-# Handle position tags and adapt tests to changes in ImageMagick-7.1.1.8,
-# bug #2208278, CPAN RT#148337, proposed to an upstream.
-Patch0:         Graphics-TIFF-19-Handle-TIFFTAG_XPOSITION-and-TIFFTAG_YPOSITION.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -33,26 +30,17 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(Readonly)
 BuildRequires:  perl(XSLoader)
 # Tests:
-# ImageMagick for convert executed by t/1.t
-BuildRequires:  ImageMagick
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(File::Temp) >= 0.19
-BuildRequires:  perl(IPC::Cmd)
 BuildRequires:  perl(Test::Deep)
 BuildRequires:  perl(Test::More)
-BuildRequires:  perl(Test::Requires)
 %if %{with perl_Graphics_TIFF_enables_optional_test}
 # Optional tests:
-BuildRequires:  grep
-# libtiff-tools for tiffcp, tiff2pdf, tiffinfo
-BuildRequires:  libtiff-tools
-BuildRequires:  perl(:VERSION) >= 5.10
-BuildRequires:  perl(feature)
-BuildRequires:  perl(if)
+# ImageMagick for convert executed by t/1.t
+BuildRequires:  ImageMagick
+BuildRequires:  perl(IPC::Cmd)
 BuildRequires:  perl(Image::Magick)
-# Test::Perl::Critic not used
-# for hexdump
-BuildRequires:  util-linux
+BuildRequires:  perl(Test::Requires)
 %endif
 
 %description
@@ -63,19 +51,12 @@ LibTIFF library in a Perlish and object-oriented way.
 Summary:        Tests for %{name}
 BuildArch:      noarch
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
-# ImageMagick for convert executed by t/1.t
-Requires:       ImageMagick
 Requires:       perl-Test-Harness
 %if %{with perl_Graphics_TIFF_enables_optional_test}
 # Optional tests:
-Requires:       grep
-# libtiff-tools for tiffcp, tiff2pdf, tiffinfo
-Requires:       libtiff-tools
-Requires:       perl(:VERSION) >= 5.10
-Requires:       perl(if)
+# ImageMagick for convert executed by t/1.t
+Requires:       ImageMagick
 Requires:       perl(Image::Magick)
-# for hexdump
-Requires:       util-linux
 %endif
 
 %description tests
@@ -85,12 +66,12 @@ with "%{_libexecdir}/%{name}/test".
 %prep
 %autosetup -p 1 -n Graphics-TIFF-%{version}
 # Delete author tests skipped by default
-for F in t/91_critic.t; do
+for F in t/91_critic.t t/92_tiffinfo.t t/93_tiff2pdf.t; do
     rm "$F"
     perl -i -ne 'print $_ unless m{\Q'"$F"'\E}' MANIFEST
 done
 %if !%{with perl_Graphics_TIFF_enables_optional_test}
-for F in t/1.t t/92_tiffinfo.t t/93_tiff2pdf.t; do
+for F in t/1.t; do
     rm "$F"
     perl -i -ne 'print $_ unless m{\Q'"$F"'\E}' MANIFEST
 done
@@ -135,6 +116,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jun 07 2023 Petr Pisar <ppisar@redhat.com> - 20-1
+- 20 version bump
+
 * Thu May 18 2023 Petr Pisar <ppisar@redhat.com> - 19-5
 - Handle position tags and adapt tests to changes in ImageMagick-7.1.1.8
   (bug #2208278)

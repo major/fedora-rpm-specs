@@ -1,5 +1,9 @@
+%if 0%{?epel}
+%global debug_package %{nil}
+%endif
+
 Name:           moarvm
-Version:        2023.04
+Version:        2023.05
 Release:        %autorelease
 Summary:        Metamodel On A Runtime Virtual Machine
 License:        Artistic-2.0
@@ -23,24 +27,17 @@ but should be able to serve as a backend for any compilers built using the NQP
 compiler toolchain.
 
 %package        devel
-Summary:        Header files for MoarVM development
-
+Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       libffi-devel
-Requires:       libatomic_ops-devel
-Requires:       libtommath-devel
-Requires:       libuv-devel
-Requires:       libzstd-devel
-Requires:       mimalloc-devel
 
 %description devel
-This package contains header files for developing applications that use
-moarvm (Metamodel On A Runtime).
+This package contains development files for developing applications that use
+%{name}.
 
 %prep
 %autosetup -p1 -n MoarVM-%{version}
 
-# remove bundled things
+# remove bundled libraries
 rm -r 3rdparty/libuv
 rm -r 3rdparty/libatomicops
 rm -r 3rdparty/dyncall
@@ -54,6 +51,7 @@ rm -r 3rdparty/mimalloc
   --has-libatomic_ops \
   --has-libtommath \
   --has-mimalloc
+
 %make_build
 
 %install

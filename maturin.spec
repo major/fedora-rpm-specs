@@ -32,10 +32,12 @@ License:        0BSD AND Apache-2.0 AND Apache-2.0 WITH LLVM-exception AND BSD-3
 URL:            https://github.com/PyO3/maturin
 Source0:        %{pypi_source maturin %{pypi_version}}
 
-# * disable all optional features for now: they are not needed for building RPM
-#   packages, but they pull in lots of additional dependencies
+# * disable features with missing dependencies:
+#   - cli-completion (support for dynamic shell completions)
+#   - cross (support for cross compiling with zig / xwin)
+#   - upload (support for uploading wheels to PyPI)
 # * drop unused test dependencies
-Patch:          0001-disable-all-optional-features-and-drop-unused-test-d.patch
+Patch:          0001-disable-unavailable-features-and-drop-unused-test-de.patch
 
 # * drop incompatible arguments from setuptools_rust cargo invocations
 Patch:          0002-drop-incompatible-cargo-flags-from-setuptools_rust.patch

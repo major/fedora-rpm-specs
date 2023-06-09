@@ -1,5 +1,5 @@
 Name:           netcdf4-python
-Version:        1.6.3
+Version:        1.6.4
 Release:        1%{?dist}
 Summary:        Python/numpy interface to netCDF
 
@@ -7,7 +7,7 @@ License:        MIT
 URL:            https://github.com/Unidata/netcdf4-python
 Source0:        https://github.com/Unidata/netcdf4-python/archive/refs/tags/v%{version}rel/%{name}-%{version}.tar.gz
 # No rpath for library
-# http://code.google.com/p/netcdf4-python/issues/detail?id=138
+# https://github.com/Unidata/netcdf4-python/issues/138
 Patch0:         netcdf4-python-norpath.patch
 
 BuildRequires:  python%{python3_pkgversion}-devel
@@ -59,13 +59,15 @@ containing vlens, and vlens containing compound types) are not supported.
 
 
 %prep
-%setup -q -n %{name}-%{version}rel
-%patch0 -p1 -b .norpath
+%autosetup -p1 -n %{name}-%{version}rel
 
 
 %build
 # Set to get libs from ncconfig to avoid directly linking to -lhdf5
 export USE_NCCONFIG=1
+# This causes the plugins to be duplicated into the python package
+# https://github.com/Unidata/netcdf4-python/issues/1263
+#export NETCDF_PLUGIN_DIR=%%{_libdir}/hdf5/plugin
 %py3_build
 
 
@@ -99,6 +101,9 @@ PYTHONPATH=$(echo ../build/lib.linux-*) %{__python3} run_all.py
 
 
 %changelog
+* Wed Jun 07 2023 Orion Poplawski <orion@nwra.com> - 1.6.4-1
+- Update to 1.6.4
+
 * Sun Mar 05 2023 Orion Poplawski <orion@nwra.com> - 1.6.3-1
 - Update to 1.6.3
 

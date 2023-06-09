@@ -11,7 +11,6 @@ URL:            http://xfce.org/~benny/projects/xfce4-dev-tools/
 Source0:        http://archive.xfce.org/src/xfce/xfce4-dev-tools/%{xfceversion}/%{name}-%{version}.tar.bz2
 
 BuildRequires:  gettext-devel
-BuildRequires:  gtk-doc
 BuildRequires:  libtool
 BuildRequires:  intltool
 BuildRequires:  make
@@ -22,7 +21,6 @@ Requires:       gawk
 Requires:       git
 Requires:       glib2-devel
 Requires:       grep
-Requires:       gtk-doc
 Requires:       intltool
 
 %description

@@ -37,8 +37,8 @@
 Name: kronosnet
 Summary: Multipoint-to-Multipoint VPN daemon
 Version: 1.25
-Release: 2%{?dist}
-License: GPLv2+ and LGPLv2+
+Release: 3%{?dist}
+License: GPL-2.0-or-later AND LGPL-2.1-or-later
 URL: https://kronosnet.org
 Source0: https://kronosnet.org/releases/%{name}-%{version}.tar.xz
 
@@ -177,7 +177,7 @@ rm -rf %{buildroot}/usr/share/doc/kronosnet
 %if %{with libnozzle}
 %package -n libnozzle1
 Summary: Simple userland wrapper around kernel tap devices
-License: LGPLv2+
+License: LGPL-2.1-or-later
 
 %description -n libnozzle1
  This is an over-engineered commodity library to manage a pool
@@ -197,7 +197,7 @@ License: LGPLv2+
 
 %package -n libnozzle1-devel
 Summary: Simple userland wrapper around kernel tap devices (developer files)
-License: LGPLv2+
+License: LGPL-2.1-or-later
 Requires: libnozzle1%{_isa} = %{version}-%{release}
 Requires: pkgconfig
 
@@ -218,7 +218,7 @@ Requires: pkgconfig
 
 %package -n libknet1
 Summary: Kronosnet core switching implementation
-License: LGPLv2+
+License: LGPL-2.1-or-later
 
 %description -n libknet1
  The whole kronosnet core is implemented in this library.
@@ -239,7 +239,7 @@ License: LGPLv2+
 
 %package -n libknet1-devel
 Summary: Kronosnet core switching implementation (developer files)
-License: LGPLv2+
+License: LGPL-2.1-or-later
 Requires: libknet1%{_isa} = %{version}-%{release}
 Requires: pkgconfig
 
@@ -260,7 +260,7 @@ Requires: pkgconfig
 %if %{with nss}
 %package -n libknet1-crypto-nss-plugin
 Summary: Provides libknet1 nss support
-License: LGPLv2+
+License: LGPL-2.1-or-later
 Requires: libknet1%{_isa} = %{version}-%{release}
 
 %description -n libknet1-crypto-nss-plugin
@@ -273,7 +273,7 @@ Requires: libknet1%{_isa} = %{version}-%{release}
 %if %{with openssl}
 %package -n libknet1-crypto-openssl-plugin
 Summary: Provides libknet1 openssl support
-License: LGPLv2+
+License: LGPL-2.1-or-later
 Requires: libknet1%{_isa} = %{version}-%{release}
 
 %description -n libknet1-crypto-openssl-plugin
@@ -286,7 +286,7 @@ Requires: libknet1%{_isa} = %{version}-%{release}
 %if %{with zlib}
 %package -n libknet1-compress-zlib-plugin
 Summary: Provides libknet1 zlib support
-License: LGPLv2+
+License: LGPL-2.1-or-later
 Requires: libknet1%{_isa} = %{version}-%{release}
 
 %description -n libknet1-compress-zlib-plugin
@@ -299,7 +299,7 @@ Requires: libknet1%{_isa} = %{version}-%{release}
 %if %{with lz4}
 %package -n libknet1-compress-lz4-plugin
 Summary: Provides libknet1 lz4 and lz4hc support
-License: LGPLv2+
+License: LGPL-2.1-or-later
 Requires: libknet1%{_isa} = %{version}-%{release}
 
 %description -n libknet1-compress-lz4-plugin
@@ -313,7 +313,7 @@ Requires: libknet1%{_isa} = %{version}-%{release}
 %if %{with lzo2}
 %package -n libknet1-compress-lzo2-plugin
 Summary: Provides libknet1 lzo2 support
-License: LGPLv2+
+License: LGPL-2.1-or-later
 Requires: libknet1%{_isa} = %{version}-%{release}
 
 %description -n libknet1-compress-lzo2-plugin
@@ -326,7 +326,7 @@ Requires: libknet1%{_isa} = %{version}-%{release}
 %if %{with lzma}
 %package -n libknet1-compress-lzma-plugin
 Summary: Provides libknet1 lzma support
-License: LGPLv2+
+License: LGPL-2.1-or-later
 Requires: libknet1%{_isa} = %{version}-%{release}
 
 %description -n libknet1-compress-lzma-plugin
@@ -339,7 +339,7 @@ Requires: libknet1%{_isa} = %{version}-%{release}
 %if %{with bzip2}
 %package -n libknet1-compress-bzip2-plugin
 Summary: Provides libknet1 bzip2 support
-License: LGPLv2+
+License: LGPL-2.1-or-later
 Requires: libknet1%{_isa} = %{version}-%{release}
 
 %description -n libknet1-compress-bzip2-plugin
@@ -352,7 +352,7 @@ Requires: libknet1%{_isa} = %{version}-%{release}
 %if %{with zstd}
 %package -n libknet1-compress-zstd-plugin
 Summary: Provides libknet1 zstd support
-License: LGPLv2+
+License: LGPL-2.1-or-later
 Requires: libknet1%{_isa} = %{version}-%{release}
 
 %description -n libknet1-compress-zstd-plugin
@@ -364,7 +364,7 @@ Requires: libknet1%{_isa} = %{version}-%{release}
 
 %package -n libknet1-crypto-plugins-all
 Summary: Provides libknet1 crypto plugins meta package
-License: LGPLv2+
+License: LGPL-2.1-or-later
 %if %{with nss}
 Requires: libknet1-crypto-nss-plugin%{_isa} = %{version}-%{release}
 %endif
@@ -379,7 +379,7 @@ Requires: libknet1-crypto-openssl-plugin%{_isa} = %{version}-%{release}
 
 %package -n libknet1-compress-plugins-all
 Summary: Provides libknet1 compress plugins meta package
-License: LGPLv2+
+License: LGPL-2.1-or-later
 %if %{with zlib}
 Requires: libknet1-compress-zlib-plugin%{_isa} = %{version}-%{release}
 %endif
@@ -406,7 +406,7 @@ Requires: libknet1-compress-zstd-plugin%{_isa} = %{version}-%{release}
 
 %package -n libknet1-plugins-all
 Summary: Provides libknet1 plugins meta package
-License: LGPLv2+
+License: LGPL-2.1-or-later
 Requires: libknet1-compress-plugins-all%{_isa} = %{version}-%{release}
 Requires: libknet1-crypto-plugins-all%{_isa} = %{version}-%{release}
 
@@ -418,7 +418,7 @@ Requires: libknet1-crypto-plugins-all%{_isa} = %{version}-%{release}
 %if %{with installtests}
 %package -n kronosnet-tests
 Summary: Provides kronosnet test suite
-License: GPLv2+
+License: GPL-2.0-or-later
 Requires: libknet1%{_isa} = %{version}-%{release}
 %if %{with libnozzle}
 Requires: libnozzle1%{_isa} = %{version}-%{release}
@@ -436,6 +436,9 @@ Requires: libnozzle1%{_isa} = %{version}-%{release}
 %endif
 
 %changelog
+* Tue Jun 06 2023 Jan Friesse <jfriesse@redhat.com> - 1.25-3
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.25-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -475,7 +478,7 @@ Requires: libnozzle1%{_isa} = %{version}-%{release}
 * Fri May 14 2021 Timm Bäder <tbaeder@redhat.com> - 1.21-2
 - Use make macros
 
-* Tue Apr 28 2021 Fabio M. Di Nitto <fdinitto@redhat.com> - 1.21-1
+* Wed Apr 28 2021 Fabio M. Di Nitto <fdinitto@redhat.com> - 1.21-1
 - New upstream release
 - Update to openssl 3.0alpha13
 - Drop -rpath usage from libknet

@@ -34,6 +34,9 @@ A simple, correct PEP517 package builder.
 # deprecated python3-toml is not needed on Python 3.11+
 # upstream: https://github.com/pypa/build/pull/563
 sed -Ei '/\btoml\b/d' pyproject.toml
+# coverage is discouraged in Python packages
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+sed -Ei '/\bpytest-cov\b/d' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires -x test,virtualenv

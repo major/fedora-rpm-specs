@@ -89,6 +89,10 @@ touch %{buildroot}%{_mandir}/man1/{Mail,mail,mailx,nail}.1
 
 
 %check
+%if %{defined rhel}
+# SHA-1 is disabled as insecure by RHEL default policies, but used in tests
+export OPENSSL_ENABLE_SHA1_SIGNATURES=yes
+%endif
 make test
 
 

@@ -10,7 +10,7 @@
 Summary: Device-mapper Persistent Data Tools
 Name: device-mapper-persistent-data
 Version: 1.0.4
-Release: 1%{?dist}%{?release_suffix}
+Release: 2%{?dist}%{?release_suffix}
 License: GPLv3+
 #ExcludeArch: %%{ix86}
 URL: https://github.com/jthornber/thin-provisioning-tools
@@ -19,9 +19,13 @@ Source0: https://github.com/jthornber/thin-provisioning-tools/archive/v%{version
 Source1: dmpd104-vendor.tar.gz
 Patch1: 0001-Tweak-cargo.toml-to-work-with-vendor-directory.patch
 
+%if %{defined rhel}
+BuildRequires: rust-toolset
+%else
 BuildRequires: rust-packaging
 BuildRequires: rust >= 1.35
 BuildRequires: cargo
+%endif
 BuildRequires: make
 # FIXME: Remove this!
 BuildRequires: rust-gdb
@@ -114,6 +118,9 @@ make DESTDIR=%{buildroot} MANDIR=%{_mandir} install
 #% {_sbindir}/thin_show_duplicates
 
 %changelog
+* Tue May 30 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.0.4-2
+- Use rust-toolset in RHEL builds
+
 * Fri Apr 28 2023 Marian Csontos <mcsontos@redhat.com> - 1.0.4-1
 - Update to latest upstream release 1.0.4.
 

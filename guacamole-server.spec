@@ -7,7 +7,7 @@
 
 Name:           guacamole-server
 Version:        1.5.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Server-side native components that form the Guacamole proxy
 License:        Apache-2.0
 URL:            https://guacamole.apache.org/
@@ -15,6 +15,8 @@ URL:            https://guacamole.apache.org/
 Source0:        https://github.com/apache/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:        %{name}.service
 Source2:        %{name}.sysusersd
+# https://issues.apache.org/jira/browse/GUACAMOLE-1802
+Patch0:         https://github.com/apache/guacamole-server/commit/9859a72dafc8ef653e6feec1f992a04b0a7c0891.patch#/guacamole-server-1.5.2-memory-allocation.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -245,6 +247,9 @@ install -p -m 644 -D %{SOURCE2} %{buildroot}%{_sysusersdir}/guacd.conf
 %attr(750,%{username},%{username}) %{_sharedstatedir}/guacd/
 
 %changelog
+* Wed Jun 07 2023 Robert Scheck <robert@fedoraproject.org> - 1.5.2-2
+- Added upstream patch to fix RDP related segfault (GUACAMOLE-1802)
+
 * Sat May 27 2023 Robert Scheck <robert@fedoraproject.org> - 1.5.2-1
 - Update to 1.5.2 (#2208446)
 

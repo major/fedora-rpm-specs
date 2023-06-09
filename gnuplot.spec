@@ -1,6 +1,6 @@
 %global major 5
 %global minor 4
-%global patchlevel 5
+%global patchlevel 8
 
 %global x11_app_defaults_dir %{_datadir}/X11/app-defaults
 
@@ -19,25 +19,25 @@
 Summary: A program for plotting mathematical expressions and data
 Name: gnuplot
 Version: %{major}.%{minor}.%{patchlevel}
-Release: 2%{?dist}
+Release: 1%{?dist}
 # MIT .. term/PostScript/aglfn.txt
 License: gnuplot and MIT
 URL: http://www.gnuplot.info/
 # Need to remove non-free lena files
 # rm -rf demo/lena*
-# Source0: https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+#Source0: https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Source0: %{name}-%{version}-clean.tar.xz
-Source1: gnuplot-init.el
 
 Patch1: gnuplot-4.2.0-fonts.patch
 # resolves: #812225
-# submitted upstream: http://sourceforge.net/tracker/?func=detail&aid=3558973&group_id=2055&atid=302055
+# submitted upstream: https://sourceforge.net/p/gnuplot/gnuplot-main/merge-requests/26/
 Patch3: gnuplot-4.6.1-plot-sigsegv.patch
 Patch4: gnuplot-4.6.4-singlethread.patch
 Patch5: gnuplot-5.0.0-lua_checkint.patch
 Patch6: gnuplot-5.4.3-no-lena.patch
 Patch7: gnuplot-5.2.2-doc.patch
-Patch8: gnuplot-5.2.8-cmd-opts.patch
+# submitted upstream: https://sourceforge.net/p/gnuplot/gnuplot-main/merge-requests/25/
+Patch8: gnuplot-cmd-opts.patch
 Patch9: gnuplot-config.patch
 
 Requires: %{name}-common = %{version}-%{release}
@@ -46,7 +46,9 @@ Requires(post): /usr/sbin/alternatives
 Requires(preun): /usr/sbin/alternatives
 
 #libedit-devel can not handle utf8, readline-devel is not legal with gnuplot, stick to builtin
-BuildRequires: cairo-devel, emacs, gd-devel, giflib-devel, libotf, libpng-devel
+BuildRequires: cairo-devel, gd-devel, giflib-devel, libotf, libpng-devel
+# To produce gnuplot.info
+BuildRequires: emacs
 BuildRequires: librsvg2, libX11-devel, libXt-devel, lua-devel, m17n-lib
 BuildRequires: pango-devel, tex(latex), tex(subfigure.sty)
 BuildRequires: tex(cm-super-t1.enc), tex-tex4ht, texinfo
@@ -124,29 +126,6 @@ dimensions and in many different formats.
 This package provides a wxGTK based terminal version of gnuplot.
 %endif
 
-#%package -n emacs-%{name}
-#Group: Applications/Engineering
-#Summary: Emacs bindings for the gnuplot main application
-#Requires: %{name} = %{version}-%{release}
-#Requires: emacs >= %{_emacs_version}
-#BuildRequires: emacs-el pkgconfig
-#BuildArch: noarch
-#Provides: gnuplot-emacs = %{version}-%{release}
-
-#%description -n emacs-%{name}
-#The gnuplot-emacs package contains the emacs related .elc files so that gnuplot
-#nicely interacts and integrates into emacs.
-
-#%package -n emacs-%{name}-el
-#Group: Applications/Engineering
-#Summary: Emacs bindings for the gnuplot main application
-#Requires: emacs-%{name} = %{version}-%{release}
-#BuildArch: noarch
-
-#%description -n emacs-%{name}-el
-#The gnuplot-emacs package contains the emacs related .el files so that gnuplot
-#nicely interacts and integrates into emacs.
-
 %package doc
 Summary: Documentation fo bindings for the gnuplot main application
 BuildArch: noarch
@@ -167,14 +146,14 @@ plotting tool.
 
 %prep
 %setup -q
-%patch1 -p1 -b .font
-%patch3 -p1 -b .plot-sigsegv
-%patch4 -p1 -b .isinglethread
-%patch5 -p1 -b .checkint
-%patch6 -p1 -b .nolena
-%patch7 -p1 -b .doc
-%patch8 -p1 -b .cmd-opts
-%patch9 -p1 -b .config
+%patch -P1 -p1 -b .font
+%patch -P3 -p1 -b .plot-sigsegv
+%patch -P4 -p1 -b .isinglethread
+%patch -P5 -p1 -b .checkint
+%patch -P6 -p1 -b .nolena
+%patch -P7 -p1 -b .doc
+%patch -P8 -p1 -b .cmd-opts
+%patch -P9 -p1 -b .config
 sed -i -e 's:"/usr/lib/X11/app-defaults":"%{x11_app_defaults_dir}":' src/gplt_x11.c
 chmod 644 src/getcolor.h
 chmod 644 demo/html/webify.pl
@@ -242,14 +221,6 @@ install -p -m 755 minimal/src/gnuplot $RPM_BUILD_ROOT%{_bindir}/gnuplot-minimal
 
 # install info
 make -C docs install-info DESTDIR=$RPM_BUILD_ROOT INSTALL='install -p'
-
-# install emacs files
-#install -d ${RPM_BUILD_ROOT}/%{_emacs_sitestartdir}/
-#install -p -m 644 %SOURCE1 ${RPM_BUILD_ROOT}/%{_emacs_sitestartdir}/gnuplot-init.el
-#rm -f $RPM_BUILD_ROOT%{_datadir}/emacs/site-lisp/info-look*.el*
-#install -d ${RPM_BUILD_ROOT}/%{_emacs_sitelispdir}/%{name}
-#mv $RPM_BUILD_ROOT%{_datadir}/emacs/site-lisp/gnuplot.el{,c} $RPM_BUILD_ROOT/%{_emacs_sitelispdir}/%{name}
-#mv $RPM_BUILD_ROOT%{_datadir}/emacs/site-lisp/gnuplot-gui.el{,c} $RPM_BUILD_ROOT/%{_emacs_sitelispdir}/%{name}
 
 #packaged by info package, updated by post-installation script, do not package here
 rm -f $RPM_BUILD_ROOT%{_infodir}/dir
@@ -344,23 +315,14 @@ fi
 %{_bindir}/gnuplot-wx
 %endif
 
-#%files -n emacs-%{name}
-#%doc Copyright
-#%dir %{_emacs_sitelispdir}/%{name}
-#%{_emacs_sitelispdir}/*.elc
-#%{_emacs_sitelispdir}/%{name}/*.elc
-#%{_emacs_sitestartdir}/*.el
-
-#%files -n emacs-%{name}-el
-#%doc Copyright
-#%{_emacs_sitelispdir}/%{name}/*.el
-#%{_emacs_sitelispdir}/*.el
-
 %files latex
 %doc Copyright
 %{_texmf_vendor}/tex/latex/gnuplot/
 
 %changelog
+* Thu Jun 08 2023 Orion Poplawski <orion@nwra.com> - 5.4.8-1
+- Update to 5.4.8
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

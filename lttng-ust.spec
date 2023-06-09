@@ -13,7 +13,7 @@
 
 
 Name:           lttng-ust
-Version:        2.13.5
+Version:        2.13.6
 Release:        3%{?dist}
 
 License:        LGPL-2.1-only AND MIT AND GPL-2.0-only AND BSD-3-Clause AND BSD-2-Clause
@@ -136,6 +136,9 @@ make check
 %{python3_sitelib}/lttngust-*.egg-info
 
 %changelog
+* Wed Jun 07 2023 Kienan Stewart <kstewart@efficios.com> - 2.13.6-1
+- New upstream release
+
 * Mon May 08 2023 Michael Jeanson <mjeanson@efficios.com> - 2.13.5-3
 - migrated to SPDX license
 

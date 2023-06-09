@@ -1,7 +1,7 @@
 Name:           typescript
-Version:        4.9.3
+Version:        5.1.3
 Release:        %autorelease
-Summary:        A language for application scale JavaScript development
+Summary:        A language for application-scale JavaScript
 License:        Apache-2.0
 URL:            https://www.typescriptlang.org
 Source:         https://registry.npmjs.org/typescript/-/typescript-%{version}.tgz

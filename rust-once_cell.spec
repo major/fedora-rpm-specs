@@ -5,7 +5,7 @@
 %global crate once_cell
 
 Name:           rust-once_cell
-Version:        1.17.2
+Version:        1.18.0
 Release:        %autorelease
 Summary:        Single assignment cells and lazy values
 
@@ -13,7 +13,7 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/once_cell
 Source:         %{crates_source}
 
-BuildRequires:  rust-packaging >= 21
+BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
 Single assignment cells and lazy values.}
@@ -72,18 +72,6 @@ use the "atomic-polyfill" feature of the "%{crate}" crate.
 %files       -n %{name}+atomic-polyfill-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+atomic_polyfill-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+atomic_polyfill-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "atomic_polyfill" feature of the "%{crate}" crate.
-
-%files       -n %{name}+atomic_polyfill-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+critical-section-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -96,18 +84,6 @@ use the "critical-section" feature of the "%{crate}" crate.
 %files       -n %{name}+critical-section-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+critical_section-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+critical_section-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "critical_section" feature of the "%{crate}" crate.
-
-%files       -n %{name}+critical_section-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+parking_lot-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -118,18 +94,6 @@ This package contains library source intended for building other packages which
 use the "parking_lot" feature of the "%{crate}" crate.
 
 %files       -n %{name}+parking_lot-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+parking_lot_core-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+parking_lot_core-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "parking_lot_core" feature of the "%{crate}" crate.
-
-%files       -n %{name}+parking_lot_core-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+race-devel

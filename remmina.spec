@@ -1,8 +1,8 @@
-%global release_commit_hash 61ea9b6681104cadf0a3f8c25bd3e5685ee6691a
+%global release_commit_hash 7407cc3a27eb25ba4ddddeab565f67fd688324ed
 
 Name: remmina
-Version: 1.4.30
-Release: 3%{?dist}
+Version: 1.4.31
+Release: 1%{?dist}
 Summary: Remote Desktop Client
 License: GPL-2.0-or-later and MIT
 URL: https://remmina.org
@@ -14,9 +14,6 @@ Source0: https://gitlab.com/Remmina/Remmina/-/archive/v%{version}/Remmina-%{vers
 # use http://www.muflone.com/remmina-plugin-builder/ with remmina bundled source.
 # So we can't use it directly only as instructions.
 Source1: pluginBuild-CMakeLists.txt
-
-# Patches.
-Patch00: 0001_remmina_fix_vnc_crash_domain_socket.patch
 
 BuildRequires: cmake >= 3.2
 BuildRequires: cups-devel
@@ -336,6 +333,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdat
 %{_mandir}/man1/remmina-gnome.1*
 
 %changelog
+* Wed Jun 07 2023 Phil Wyett <philip.wyett@kathenas.org> - 1.4.31-1
+- New upstream version 1.4.31.
+- Remove no longer needed patches.
+
 * Tue Jun 06 2023 Phil Wyett <philip.wyett@kathenas.org> - 1.4.30-3
 - Remove some old workarounds from spec file.
 

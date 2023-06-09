@@ -1,9 +1,9 @@
 Name:           websvn
-Version:        2.7.0
-Release:        3%{?dist}
+Version:        2.8.1
+Release:        1%{?dist}
 Summary:        Online subversion repository browser
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://websvnphp.github.io
 Source0:        https://github.com/websvnphp/websvn/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:        websvn-httpd.conf
@@ -117,6 +117,10 @@ fi
 
 
 %changelog
+* Wed Jun 07 2023 Xavier Bachelot <xavier@bachelot.org> - 2.8.1-1
+- Update to 2.8.1 (RHBZ#2134251)
+- Convert License: to SPDX
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

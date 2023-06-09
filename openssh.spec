@@ -47,7 +47,7 @@
 
 # Do not forget to bump pam_ssh_agent_auth release if you rewind the main package release to 1
 %global openssh_ver 9.3p1
-%global openssh_rel 2
+%global openssh_rel 3
 %global pam_ssh_agent_ver 0.10.4
 %global pam_ssh_agent_rel 9
 
@@ -748,6 +748,10 @@ test -f %{sysconfig_anaconda} && \
 %endif
 
 %changelog
+* Wed Jun 07 2023 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.3p1-3
+- Fix DSS verification problem
+  Resolves: rhbz#2212937
+
 * Fri Jun 02 2023 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.3p1-2
 - Remove unused patch
 

@@ -3,16 +3,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           tracker
-Version:        3.5.2
+Version:        3.5.3
 Release:        1%{?dist}
 Summary:        Desktop-neutral metadata database and search tool
 
 License:        GPL-2.0-or-later
 URL:            https://gnome.pages.gitlab.gnome.org/tracker/
 Source0:        https://download.gnome.org/sources/tracker/3.5/tracker-%{tarball_version}.tar.xz
-# https://gitlab.gnome.org/GNOME/tracker/-/merge_requests/596
-# https://gitlab.gnome.org/GNOME/tracker/-/merge_requests/598
-Patch0:         tracker-3.5.2-fix-time_t_check-32bit.patch
 
 BuildRequires:  asciidoc
 BuildRequires:  gettext
@@ -170,6 +167,9 @@ The %{name}-devel package contains the documentation for %{name}.
 
 
 %changelog
+* Wed Jun 07 2023 Kalev Lember <klember@redhat.com> - 3.5.3-1
+- Update to 3.5.3
+
 * Sun May 14 2023 David King <amigadave@amigadave.com> - 3.5.2-1
 - Update to 3.5.2
 

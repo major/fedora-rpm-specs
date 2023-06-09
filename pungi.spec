@@ -1,14 +1,13 @@
 %{?python_enable_dependency_generator}
 
 Name:           pungi
-Version:        4.3.8
-Release:        3%{?dist}
+Version:        4.4.0
+Release:        1%{?dist}
 Summary:        Distribution compose tool
 
 License:        GPL-2.0-only
 URL:            https://pagure.io/pungi
 Source0:        https://pagure.io/releases/%{name}/%{name}-%{version}.tar.bz2
-Patch0:         https://pagure.io/pungi/pull-request/1671.patch
 
 BuildRequires:  make
 BuildRequires:  python3-pytest
@@ -121,6 +120,7 @@ rm %{buildroot}%{_bindir}/pungi
 %{_datadir}/pungi
 /var/cache/pungi
 %dir %attr(1777, root, root) /var/cache/pungi/createrepo_c
+%{_tmpfilesdir}/pungi-clean-cache.conf
 
 %files -n python3-%{name}
 %{python3_sitelib}/%{name}
@@ -133,12 +133,25 @@ rm %{buildroot}%{_bindir}/pungi
 %{_bindir}/%{name}-config-validate
 %{_bindir}/%{name}-fedmsg-notification
 %{_bindir}/%{name}-notification-report-progress
-%{_bindir}/%{name}-orchestrate
 %{_bindir}/%{name}-patch-iso
 %{_bindir}/%{name}-compare-depsolving
 %{_bindir}/%{name}-wait-for-signed-ostree-handler
 
 %changelog
+* Wed Jun 07 2023 Lubomír Sedlář <lsedlar@redhat.com> - 4.4.0-1
+- gather-dnf: Run latest() later (lsedlar)
+- iso: Support joliet long names (lsedlar)
+- Drop pungi-orchestrator code (lsedlar)
+- isos: Ensure proper file ownership and permissions (lsedlar)
+- gather: Always get latest packages (lsedlar)
+- Add back compatibility with jsonschema <3.0.0 (lsedlar)
+- Remove useless debug message (lsedlar)
+- Remove fedmsg from requirements (lsedlar)
+- gather: Support dotarch in DNF backend (lsedlar)
+- Fix compatibility with createrepo_c 0.21.1 (lsedlar)
+- comps: Apply arch filtering to environment/optionlist (lsedlar)
+- Add config file for cleaning up cache files (hlin)
+
 * Wed May 17 2023 Lubomír Sedlář <lsedlar@redhat.com> - 4.3.8-3
 - Rebuild without fedmsg dependency
 

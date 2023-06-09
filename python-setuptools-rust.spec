@@ -5,7 +5,7 @@
 %endif
 
 Name:           python-setuptools-rust
-Version:        1.5.2
+Version:        1.6.0
 Release:        %autorelease
 Summary:        Setuptools Rust extension plugin
 

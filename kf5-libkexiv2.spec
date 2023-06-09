@@ -3,7 +3,7 @@
 Name:    kf5-libkexiv2
 Summary: A wrapper around Exiv2 library
 Version: 23.04.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/graphics/%{base_name}
@@ -65,6 +65,9 @@ Requires: cmake(Qt5Gui)
 
 
 %changelog
+* Wed Jun 07 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.2-2
+- 23.04.2 re-spin
+
 * Tue Jun 06 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.2-1
 - 23.04.2
 

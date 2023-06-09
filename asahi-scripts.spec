@@ -1,5 +1,5 @@
 Name:           asahi-scripts
-Version:        20230530
+Version:        20230606
 Release:        %autorelease
 Summary:        Miscellaneous admin scripts for Asahi Linux
 
@@ -23,14 +23,16 @@ Requires:       util-linux-core
 This package contains miscellaneous admin scripts for the Asahi Linux reference
 distro.
 
-%package -n     asahi-fwextract
+%package -n     asahi-fwupdate
 Summary:        Asahi Linux firmware extractor
 
 Requires:       %{name} = %{version}-%{release}
-Requires:       python3dist(asahi-firmware)
+Requires:       python3dist(asahi-firmware) >= 0.5.4
+Provides:       asahi-fwextract = %{version}-%{release}
+Obsoletes:      asahi-fwextract < 20230530-2
 
-%description -n asahi-fwextract
-Asahi Linux firmware extractor.
+%description -n asahi-fwupdate
+Asahi Linux firmware updater.
 
 %package -n     dracut-asahi
 Summary:        Dracut config for Apple Silicon Macs
@@ -89,9 +91,9 @@ install -Dpm0644 %SOURCE1 %{buildroot}%{_sysconfdir}/sysconfig/update-m1n1
 %{_datadir}/%{name}/
 %{_sbindir}/asahi-diagnose
 
-%files -n asahi-fwextract
+%files -n asahi-fwupdate
 %license LICENSE
-%{_sbindir}/asahi-fwextract
+%{_sbindir}/asahi-fwupdate
 
 %files -n dracut-asahi
 %license LICENSE

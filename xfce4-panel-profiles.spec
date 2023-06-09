@@ -2,8 +2,8 @@
 %global app_org_name org.xfce.PanelProfiles
 
 Name:		xfce4-panel-profiles
-Version:	1.0.13
-Release:	5%{?dist}
+Version:	1.0.14
+Release:	%autorelease
 Summary:	A simple application to manage Xfce panel layouts
 
 License:	GPLv3
@@ -33,6 +33,8 @@ panel layouts.
 
 %prep
 %autosetup
+sed -i '4s/$/Configuration;User;/'  org.xfce.PanelProfiles.desktop.in
+sed -i '/Keywords/d' org.xfce.PanelProfiles.desktop.in
 
 %build
 ./configure --prefix=%{_prefix}
@@ -67,97 +69,4 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{app_org
 %{_datadir}/icons/hicolor/*/apps/%{app_org_name}.*
 
 %changelog
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.13-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.13-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.13-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.13-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Mon Feb 22 2021 Mukundan Ragavan <nonamedotc@fedoraproject.org> - 1.0.13-1
-- Update to 1.0.13
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.12-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Dec 28 2020 Mukundan Ragavan <nonamedotc@fedoraproject.org> - 1.0.12-1
-- Update to 1.0.12
-
-* Mon Dec 28 2020 Mukundan Ragavan <nonamedotc@fedoraproject.org> - 1.0.11-1
-- Update to 1.0.11
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.10-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Fri Jan 31 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.10-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Tue Jan 14 2020 Mukundan Ragavan <nonamedotc@fedoraproject.org> - 1.0.10-2
-- Add man pages
-
-* Tue Jan 14 2020 Mukundan Ragavan <nonamedotc@fedoraproject.org> - 1.0.10-1
-- Update to 1.0.10
-
-* Tue Jul 30 2019 Mukundan Ragavan <nonamedotc@fedoraproject.org> - 1.0.9-1
-- Update to 1.0.9
-
-* Sat Jul 27 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sun Feb 03 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Fri Oct 19 2018 Mukundan Ragavan <nonamedotc@fedoraproject.org> - 1.0.8-3
-- Fix provides and remove INSTALL file from package
-
-* Fri Oct 19 2018 Mukundan Ragavan <nonamedotc@fedoraproject.org> - 1.0.8-2
-- Fix packaging issues
-
-* Fri Oct 19 2018 Mukundan Ragavan <nonamedotc@fedoraproject.org> - 1.0.8-1
-- Rename to xfce4-panel-profiles
-
-* Tue Apr 17 2018 Mukundan Ragavan <nonamedotc@fedoraproject.org> - 1.0.7-1
-- Update to 1.0.7
-
-* Wed Mar 28 2018 Mukundan Ragavan <nonamedotc@fedoraproject.org> - 1.0.6-3
-- Truly fix files and appdata issues
-
-* Wed Mar 28 2018 Mukundan Ragavan <nonamedotc@fedoraproject.org> - 1.0.6-2
-- Fix build problems
-
-* Wed Mar 28 2018 Mukundan Ragavan <nonamedotc@fedoraproject.org> - 1.0.6-1
-- Update to 1.0.6
-- Change appdata filename
-- Drop upstreamed patches
-- Stop removing xubuntu layout
-
-* Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Fri Apr 15 2016 Mukundan Ragavan <nonamedotc@fedoraproject.org> - 1.0.4-2
-- Added fedora and el conditionals
-
-* Thu Apr 14 2016 Mukundan Ragavan <nonamedotc@fedoraproject.org> - 1.0.4-1
-- Updated to v1.0.4
-
-* Mon Mar 07 2016 Mukundan Ragavan <nonamedotc@gmail.com> - 1.0.3-3
-- Added italian translation
-
-* Sun Mar 06 2016 Mukundan Ragavan <nonamedotc@gmail.com> - 1.0.3-2
-- Add desktop-file-validate for .desktop files
-- Fix buildrequires
-- Add appdata file and corresponding BR
-
-* Sat Mar 05 2016 Mukundan Ragavan <nonamedotc@gmail.com> - 1.0.3-1
-- Inital package 
+%autochangelog

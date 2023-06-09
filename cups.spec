@@ -14,8 +14,8 @@
 Summary: CUPS printing system
 Name: cups
 Epoch: 1
-Version: 2.4.2
-Release: 11%{?dist}
+Version: 2.4.4
+Release: 1%{?dist}
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
 # https://lists.fedoraproject.org/archives/list/legal@lists.fedoraproject.org/message/A7GFSD6M3GYGSI32L2FC5KB22DUAEQI3/
@@ -70,13 +70,7 @@ Patch100: cups-lspp.patch
 %endif
 
 #### UPSTREAM PATCHES (starts with 1000) ####
-Patch1001: 0001-scheduler-ipp.c-Allocate-device_uri-via-cupsdSetStri.patch
-Patch1002: cups-resolve-local.patch
-Patch1003: cups-ippeveprinter-typo.patch
-Patch1004: 0001-Don-t-override-color-settings-from-print-dialog.patch
-Patch1005: 0001-scheduler-ipp.c-Convert-incoming-ColorModel-attribut.patch
-Patch1006: 0001-scheduler-printers.c-Check-for-CMYK-as-well-fixes-42.patch
-Patch1007: 0001-configure-Raise-FORTIFY_SOURCE-level-to-3.patch
+
 
 ##### Patches removed because IMHO they aren't no longer needed
 ##### but still I'll leave them in git in case their removal
@@ -117,6 +111,9 @@ BuildRequires: audit-libs-devel
 # /etc/cups was moved from main package to filesystem package
 # remove once CentOS Stream 10 is released
 Conflicts: %{name}-filesystem < 2.4.2-9
+# ippfind manpage was moved to cups-ipptool
+# remove once C10S is released
+Conflicts: %{name}-ipptool < 2.4.3-1
 
 # getaddrinfo from glibc needs nss-mdns or systemd-resolved for resolving
 # mdns .local addresses. Don't require a specific package for now and let
@@ -189,6 +186,9 @@ Provides: lpd
 
 %package ipptool
 Summary: CUPS printing system - tool for performing IPP requests
+# ippfind manpage was moved to cups-ipptool
+# remove once C10S is released
+Conflicts: %{name} < 2.4.3-1
 Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 # ippfind needs avahi for printer discovery
 Requires: avahi
@@ -262,50 +262,38 @@ to CUPS daemon. This solution will substitute printer drivers and raw queues in 
 %prep
 %setup -q -n cups-%{VERSION}
 # Use the system pam configuration.
-%patch 1 -p1 -b .system-auth
+%patch -P 1 -p1 -b .system-auth
 # Prevent multilib conflict in cups-config script.
-%patch 2 -p1 -b .multilib
+%patch -P 2 -p1 -b .multilib
 # Ignore rpm save/new files in the banners directory.
-%patch 3 -p1 -b .banners
+%patch -P 3 -p1 -b .banners
 # Don't export SSLLIBS to cups-config.
-%patch 4 -p1 -b .no-export-ssllibs
+%patch -P 4 -p1 -b .no-export-ssllibs
 # Allow file-based usb device URIs.
-%patch 5 -p1 -b .direct-usb
+%patch -P 5 -p1 -b .direct-usb
 # Increase driverd timeout to 70s to accommodate foomatic (bug #744715).
-%patch 6 -p1 -b .driverd-timeout
+%patch -P 6 -p1 -b .driverd-timeout
 # Support for errno==ENOSPACE-based USB paper-out reporting.
-%patch 7 -p1 -b .usb-paperout
+%patch -P 7 -p1 -b .usb-paperout
 # Allow the usb backend to understand old-style URI formats.
-%patch 8 -p1 -b .uri-compat
+%patch -P 8 -p1 -b .uri-compat
 # Use IP_FREEBIND socket option when binding listening sockets (bug #970809).
-%patch 9 -p1 -b .freebind
+%patch -P 9 -p1 -b .freebind
 # Fixes for jobs with multiple files and multiple formats.
-%patch 10 -p1 -b .ipp-multifile
+%patch -P 10 -p1 -b .ipp-multifile
 # Increase web interface get-devices timeout to 10s (bug #996664).
-%patch 11 -p1 -b .web-devices-timeout
+%patch -P 11 -p1 -b .web-devices-timeout
 # Add failover backend (bug #1689209)
-%patch 12 -p1 -b .failover
+%patch -P 12 -p1 -b .failover
 # Added IEEE 1284 Device ID for a Dymo device (bug #747866).
-%patch 13 -p1 -b .dymo-deviceid
+%patch -P 13 -p1 -b .dymo-deviceid
 
 # UPSTREAM PATCHES
-%patch 1001 -p1 -b .invalid-pointer-uri
-%patch 1002 -p1 -b .localhost
-# https://github.com/OpenPrinting/cups/pull/629
-%patch 1003 -p1 -b .ippeveprinter-typo
-# https://github.com/OpenPrinting/cups/pull/417
-%patch 1004 -p1 -b .no_color_override
-# https://github.com/OpenPrinting/cups/pull/451
-%patch 1005 -p1 -b .save-color-settings
-# https://github.com/OpenPrinting/cups/pull/500
-%patch 1006 -p1 -b .check-for-cmyk
-# https://github.com/OpenPrinting/cups/pull/642
-%patch 1007 -p1 -b .raise-fortify
 
 
 %if %{lspp}
 # LSPP support.
-%patch 100 -p1 -b .lspp
+%patch -P 100 -p1 -b .lspp
 %endif
 
 
@@ -465,15 +453,6 @@ s:.*\('%{_datadir}'/\)\([^/_]\+\)\(.*\.po$\):%lang(\2) \1\2\3:
 ' > %{name}.lang
 
 %post
-# remove this after F36 is EOL
-# - previously the file was empty by default, so check whether the directive exists
-#   and if not, add the directive+value
-# - we don't check for directive value in case some users already know they need MD5
-#   Digest authentication, so we won't break their setup with every update
-# - ^\s* prevents matching comments and ignores whitespaces at the beginning
-grep '^\s*DigestOptions' %{_sysconfdir}/cups/client.conf &> /dev/null || echo 'DigestOptions DenyMD5' \
->> %{_sysconfdir}/cups/client.conf
-
 # remove after CentOS Stream 10 is released
 # Require authentication for accessing /admin location
 # - needed for finding printers via Find New Printers button in Web UI
@@ -542,21 +521,58 @@ rm -f %{cups_serverbin}/backend/smb
 %files -f %{name}.lang
 %doc README.md CREDITS.md CHANGES.md
 %{_bindir}/cupstestppd
-%{_bindir}/ppd*
-%{_sbindir}/*
-# client subpackage
-%exclude %{_sbindir}/lpc.cups
+%{_bindir}/ppdc
+%{_bindir}/ppdhtml
+%{_bindir}/ppdi
+%{_bindir}/ppdmerge
+%{_bindir}/ppdpo
+%{_sbindir}/cupsaccept
+%{_sbindir}/cupsctl
+%{_sbindir}/cupsd
+%{_sbindir}/cupsdisable
+%{_sbindir}/cupsenable
+%{_sbindir}/cupsfilter
+%{_sbindir}/cupsreject
+%{_sbindir}/lpadmin
+%{_sbindir}/lpinfo
+%{_sbindir}/lpmove
 %dir %{cups_serverbin}/daemon
 %{cups_serverbin}/daemon/cups-deviced
 %{cups_serverbin}/daemon/cups-driverd
 %{cups_serverbin}/daemon/cups-exec
-%{cups_serverbin}/backend/*
-%{cups_serverbin}/cgi-bin
-%{cups_serverbin}/filter/*
-%{cups_serverbin}/monitor
-%{cups_serverbin}/notifier
+%{cups_serverbin}/backend/dnssd
+%{cups_serverbin}/backend/failover
+%{cups_serverbin}/backend/http
+%{cups_serverbin}/backend/https
+%{cups_serverbin}/backend/ipp
+%{cups_serverbin}/backend/ipps
+%{cups_serverbin}/backend/lpd
+%{cups_serverbin}/backend/snmp
+%{cups_serverbin}/backend/socket
+%{cups_serverbin}/backend/usb
+%dir %{cups_serverbin}/cgi-bin
+%{cups_serverbin}/cgi-bin/admin.cgi
+%{cups_serverbin}/cgi-bin/classes.cgi
+%{cups_serverbin}/cgi-bin/help.cgi
+%{cups_serverbin}/cgi-bin/jobs.cgi
+%{cups_serverbin}/cgi-bin/printers.cgi
+%{cups_serverbin}/filter/commandtops
+%{cups_serverbin}/filter/gziptoany
+%{cups_serverbin}/filter/pstops
+%{cups_serverbin}/filter/rastertoepson
+%{cups_serverbin}/filter/rastertohp
+%{cups_serverbin}/filter/rastertolabel
+%{cups_serverbin}/filter/rastertopwg
+%dir %{cups_serverbin}/monitor
+%{cups_serverbin}/monitor/bcp
+%{cups_serverbin}/monitor/tbcp
+%dir %{cups_serverbin}/notifier
+%{cups_serverbin}/notifier/dbus
+%{cups_serverbin}/notifier/mailto
+%{cups_serverbin}/notifier/rss
 %{_datadir}/cups/drv/sample.drv
-%{_datadir}/cups/examples
+%dir %{_datadir}/cups/examples
+%{_datadir}/cups/examples/*.drv
 %{_datadir}/cups/mime/mime.types
 %{_datadir}/cups/mime/mime.convs
 %{_datadir}/cups/ppdc/*.defs
@@ -607,22 +623,43 @@ rm -f %{cups_serverbin}/backend/smb
 %dir %attr(1770,root,lp) %{_localstatedir}/spool/cups/tmp
 %dir %attr(0710,root,lp) %{_localstatedir}/spool/cups
 %dir %attr(0755,root,lp) %{_localstatedir}/log/cups
-%{_mandir}/man[1578]/*
-# client subpackage
-%exclude %{_mandir}/man1/lp*.1.gz
-%exclude %{_mandir}/man1/cancel-cups.1.gz
-%exclude %{_mandir}/man8/lpc-cups.8.gz
-# devel subpackage
-%exclude %{_mandir}/man1/cups-config.1.gz
-# ipptool subpackage
-%exclude %{_mandir}/man1/ipptool.1.gz
-%exclude %{_mandir}/man5/ipptoolfile.5.gz
-# lpd subpackage
-%exclude %{_mandir}/man8/cups-lpd.8.gz
-# printerapp
-%exclude %{_mandir}/man1/ippeveprinter.1.gz
-%exclude %{_mandir}/man7/ippevepcl.7.gz
-%exclude %{_mandir}/man7/ippeveps.7.gz
+%{_mandir}/man1/cups.1.gz
+%{_mandir}/man1/cupstestppd.1.gz
+%{_mandir}/man1/ppdc.1.gz
+%{_mandir}/man1/ppdhtml.1.gz
+%{_mandir}/man1/ppdi.1.gz
+%{_mandir}/man1/ppdmerge.1.gz
+%{_mandir}/man1/ppdpo.1.gz
+%{_mandir}/man5/classes.conf.5.gz
+%{_mandir}/man5/client.conf.5.gz
+%{_mandir}/man5/cups-files.conf.5.gz
+%{_mandir}/man5/cups-snmp.conf.5.gz
+%{_mandir}/man5/cupsd-logs.5.gz
+%{_mandir}/man5/cupsd.conf.5.gz
+%{_mandir}/man5/mailto.conf.5.gz
+%{_mandir}/man5/mime.convs.5.gz
+%{_mandir}/man5/mime.types.5.gz
+%{_mandir}/man5/ppdcfile.5.gz
+%{_mandir}/man5/printers.conf.5.gz
+%{_mandir}/man5/subscriptions.conf.5.gz
+%{_mandir}/man7/backend.7.gz
+%{_mandir}/man7/filter.7.gz
+%{_mandir}/man7/notifier.7.gz
+%{_mandir}/man8/cups-deviced.8.gz
+%{_mandir}/man8/cups-driverd.8.gz
+%{_mandir}/man8/cups-exec.8.gz
+%{_mandir}/man8/cups-snmp.8.gz
+%{_mandir}/man8/cupsaccept.8.gz
+%{_mandir}/man8/cupsctl.8.gz
+%{_mandir}/man8/cupsd-helper.8.gz
+%{_mandir}/man8/cupsd.8.gz
+%{_mandir}/man8/cupsdisable.8.gz
+%{_mandir}/man8/cupsenable.8.gz
+%{_mandir}/man8/cupsfilter.8.gz
+%{_mandir}/man8/cupsreject.8.gz
+%{_mandir}/man8/lpadmin.8.gz
+%{_mandir}/man8/lpinfo.8.gz
+%{_mandir}/man8/lpmove.8.gz
 %dir %attr(0755,root,lp) %{_rundir}/cups
 %dir %attr(0511,lp,sys) %{_rundir}/cups/certs
 %attr(0640,root,lp) %{_sysconfdir}/cups/cupsd.conf.default
@@ -647,8 +684,13 @@ rm -f %{cups_serverbin}/backend/smb
 %attr(0644, root, root)%{_unitdir}/%{name}.path
 
 %files client
-%{_bindir}/cancel*
-%{_bindir}/lp*
+%{_bindir}/cancel.cups
+%{_bindir}/lp.cups
+%{_bindir}/lpoptions
+%{_bindir}/lpq.cups
+%{_bindir}/lpr.cups
+%{_bindir}/lprm.cups
+%{_bindir}/lpstat.cups
 %{_sbindir}/lpc.cups
 %{_mandir}/man1/cancel-cups.1.gz
 %{_mandir}/man1/lp*.1.gz
@@ -693,6 +735,7 @@ rm -f %{cups_serverbin}/backend/smb
 %{_bindir}/ipptool
 %dir %{_datadir}/cups/ipptool
 %{_datadir}/cups/ipptool/*
+%{_mandir}/man1/ippfind.1.gz
 %{_mandir}/man1/ipptool.1.gz
 %{_mandir}/man5/ipptoolfile.5.gz
 
@@ -706,6 +749,12 @@ rm -f %{cups_serverbin}/backend/smb
 %{_mandir}/man7/ippeveps.7.gz
 
 %changelog
+* Wed Jun 07 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.4-1
+- fixes CVE-2023-32324
+- 2211834 - cups-2.4.4 is available
+- 1985917 - Cups ignores black and white setting
+- 2094530 - After upgrade 35 to 36 process rastertokpsl (Kyocera cups-filter driver) segfaulted
+
 * Thu Mar 23 2023 Siddhesh Poyarekar <siddhesh@redhat.com> - 1:2.4.2-11
 - Drop unnecessary LDFLAGS addition.
 

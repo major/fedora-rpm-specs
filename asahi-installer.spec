@@ -14,7 +14,7 @@
 %global liblzfse_majver 1
 
 Name:           asahi-installer
-Version:        0.5.3
+Version:        0.5.4
 Release:        %autorelease
 Summary:        Asahi Linux installer
 
@@ -66,15 +66,13 @@ rm -r vendor
 %pyproject_install
 %pyproject_save_files %{pypi_name}
 
-# remove this as it conflicts with the wrapper shipped in asahi-scripts
-rm %{buildroot}%{_bindir}/asahi-fwextract
-
 %check
 %pyproject_check_import
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
 %doc README.md
+%{_bindir}/asahi-fwextract
 
 %changelog
 %autochangelog

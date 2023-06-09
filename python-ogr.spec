@@ -1,7 +1,7 @@
 %global srcname ogr
 
 Name:           python-%{srcname}
-Version:        0.44.0
+Version:        0.45.0
 Release:        1%{?dist}
 Summary:        One API for multiple git forges
 
@@ -52,6 +52,9 @@ rm -rf %{srcname}.egg-info
 
 
 %changelog
+* Mon Jun 05 2023 Packit <hello@packit.dev> - 0.45.0-1
+- OGR now supports PyGithub >= 1.58.
+
 * Sun Mar 05 2023 Packit <hello@packit.dev> - 0.44.0-1
 - OGR now understands a few community-hosted GitLab instances that could not be determined automatically from the hostname. Thanks to that, you don't need to hardcode these instances to be mapped correctly. (#775)
 

@@ -5,10 +5,10 @@
 
 Name:           python-%{pypi_name}
 Version:        4.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fixtures, reusable state for writing clean tests and more
 
-License:        ASL 2.0 or BSD
+License:        Apache-2.0 OR BSD-3-Clause
 URL:            https://github.com/testing-cabal/fixtures
 Source:         %pypi_source
 BuildArch:      noarch
@@ -64,6 +64,9 @@ sed -e '/testtools/d' -i requirements.txt
 %doc README.rst GOALS NEWS
 
 %changelog
+* Wed Jun 07 2023 Jan Friesse <jfriesse@redhat.com> - 4.0.1-2
+- migrated to SPDX license
+
 * Mon Feb 06 2023 Joel Capitao <jcapitao@redhat.com> - 4.0.1-1
 - Update to latest upstream (#2078479)
 

@@ -5,7 +5,7 @@
 %global crate aho-corasick
 
 Name:           rust-aho-corasick
-Version:        1.0.1
+Version:        1.0.2
 Release:        %autorelease
 Summary:        Fast multiple substring searching
 
@@ -100,17 +100,7 @@ use the "std" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%ifarch %{ix86}
-# * ignore harmless test failure on 32-bit architectures:
-#   https://github.com/BurntSushi/aho-corasick/issues/116
-%cargo_test -- -- --skip ahocorasick::AhoCorasick::memory_usage
-%elifarch s390x
-# * ignore harmless test failure on big-endian architectures:
-#   https://github.com/BurntSushi/aho-corasick/issues/117
-%cargo_test -- -- --skip nfa::contiguous::tests::swar
-%else
 %cargo_test
-%endif
 %endif
 
 %changelog

@@ -1,8 +1,8 @@
 Name:           perl-Business-ISMN
-Version:        1.202
+Version:        1.203
 Release:        %autorelease
 Summary:        Perl library for International Standard Music Numbers
-License:        Artistic 2.0
+License:        Artistic-2.0
 URL:            https://metacpan.org/release/Business-ISMN
 Source0:        https://cpan.metacpan.org/authors/id/B/BD/BDFOY/Business-ISMN-%{version}.tar.gz
 BuildArch:      noarch

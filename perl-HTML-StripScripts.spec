@@ -1,12 +1,14 @@
 Name:           perl-HTML-StripScripts
 Version:        1.06
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Strip scripting constructs out of HTML
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/HTML-StripScripts
 Source0:        https://cpan.metacpan.org/authors/id/D/DR/DRTECH/HTML-StripScripts-%{version}.tar.gz
+# https://github.com/clintongormley/perl-html-stripscripts/pull/4
+Patch1:         perl-HTML-StripScripts-1.06-CVE-2023-24038.patch
 BuildArch:      noarch
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl(base)
 BuildRequires:  perl(ExtUtils::MakeMaker)
@@ -26,10 +28,11 @@ display HTML originating from an untrusted source without introducing XSS
 
 %prep
 %setup -q -n HTML-StripScripts-%{version}
+%patch -P 1 -p1
 
 %build
 %{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+%make_build
 
 %install
 make pure_install DESTDIR=$RPM_BUILD_ROOT
@@ -48,6 +51,10 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Wed Jun 07 2023 Xavier Bachelot <xavier@bachelot.org> 1.06-22
+- Add patch for CVE-2023-24038
+- Convert License: to SPDX
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.06-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

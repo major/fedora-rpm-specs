@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        86
+Version:        87
 
 %forgemeta
 
@@ -121,7 +121,7 @@ Contains additional tools and utilities for development of
 manifests and osbuild.
 
 %prep
-%forgesetup
+%forgeautosetup -p1
 
 %build
 %py3_build
@@ -252,6 +252,23 @@ fi
 
 
 %changelog
+* Wed Jun 07 2023 Packit <hello@packit.dev> - 87-1
+Changes with 87
+----------------
+  * Spec: use `%%forgeautosetup` macro in `%%prep` phase (#1318)
+  * Support GPT partition attribute bits when creating images (#1296)
+  * Test: make partitioning tools stage tests pass on RHEL-8 + add unit test for `sfdisk` stage (#1317)
+  * add livesys stage (#1311)
+  * mockbuild.sh: retry dnf install up to 5 times (#1319)
+  * readme: mention matrix, redo headings (#1305)
+  * schutzfile: update manifest-db ref 2023-06-05 (#1323)
+  * stages/sgdisk: option to not quote partition names passed to sgdisk (#1316)
+
+Contributions from: Eric Chanudet, SchutzBot, Simon de Vlieger, Tomáš Hozza
+
+— Somewhere on the Internet, 2023-06-07
+
+
 * Wed May 24 2023 Packit <hello@packit.dev> - 86-1
 Changes with 86
 ----------------

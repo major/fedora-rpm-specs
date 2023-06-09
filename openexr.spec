@@ -2,7 +2,7 @@
 %global sover 30
 
 Name:           openexr
-Version:        3.1.7
+Version:        3.1.8
 Release:        1%{?dist}
 Summary:        Provides the specification and reference implementation of the EXR file format
 
@@ -144,6 +144,9 @@ Summary:        Development files for %{name}
 
 
 %changelog
+* Wed Jun 07 2023 Richard Shaw <hobbes1069@gmail.com> - 3.1.8-1
+- Update to 3.1.8.
+
 * Tue May 16 2023 Richard Shaw <hobbes1069@gmail.com> - 3.1.7-1
 - Update to 3.1.7.
 

@@ -7,7 +7,7 @@
 %global maj_ver 16
 %global min_ver 0
 #global rc_ver 4
-%global patch_ver 4
+%global patch_ver 5
 %global bolt_version %{maj_ver}.%{min_ver}.%{patch_ver}
 %global bolt_srcdir llvm-project-%{bolt_version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -101,8 +101,6 @@ Documentation for the BOLT optimizer
 # Set LD_LIBRARY_PATH now because we skip rpath generation and the build uses
 # some just built libraries.
 export LD_LIBRARY_PATH=%{_builddir}/%{bolt_srcdir}/%{_vpath_builddir}/%{_lib}
-# Set DESTDIR now because bolt sneaks in an install step in its build step.
-export DESTDIR=%{buildroot}
 %cmake_build --target bolt
 
 
@@ -120,16 +118,6 @@ install -d %{buildroot}%{_pkgdocdir}
 mv bolt/README.md bolt/docs/*.md %{buildroot}%{_pkgdocdir}
 
 %check
-
-%ifarch x86_64
-# Bolt makes incorrect assumptions on the location of libbolt_rt_*.a.
-mkdir -p %{_builddir}/%{bolt_srcdir}/%{_lib}
-for rt in libbolt_rt_instr libbolt_rt_hugify libbolt_rt_instr_osx
-do
-    ln -s %{buildroot}/%{_libdir}/${rt}.a %{_builddir}/%{bolt_srcdir}/%{_vpath_builddir}/%{_lib}
-done
-%endif
-
 %ifarch aarch64
 # Failing test cases on aarch64
 rm bolt/test/cache+-deprecated.test bolt/test/bolt-icf.test bolt/test/R_ABS.pic.lld.cpp
@@ -161,6 +149,10 @@ rm -f %{buildroot}/%{_builddir}/%{bolt_srcdir}/%{_vpath_builddir}/%{_lib}/lib*.a
 %doc %{_pkgdocdir}
 
 %changelog
+* Tue Jun 06 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.5-1
+- Update to LLVM 16.0.5
+- Remove code that became obsolete after commit 9d0a2a41081ba.
+
 * Sat May 20 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.4-1
 - Update to LLVM 16.0.4
 

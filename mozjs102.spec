@@ -12,19 +12,14 @@
 %define _lto_cflags %{nil}
 %endif
 
-# Clean pushed RUSTFLAGS to make it buildable
-%if %defined build_rustflags
-%global build_rustflags %{nil}
-%endif
-
 # Big endian platforms
 %ifarch ppc ppc64 s390 s390x
 %global big_endian 1
 %endif
 
 Name:           mozjs%{major}
-Version:        102.9.0
-Release:        1%{?dist}
+Version:        102.12.0
+Release:        %autorelease
 Summary:        SpiderMonkey JavaScript library
 
 License:        MPL-2.0 AND Apache-2.0 AND BSD-3-Clause AND BSD-2-Clause AND MIT AND GPL-3.0-or-later
@@ -48,6 +43,11 @@ Patch13:        tests-Use-native-TemporaryDirectory.patch
 # Build fixes
 Patch14:        init_patch.patch
 Patch15:        remove-sloppy-m4-detection-from-bundled-autoconf.patch
+
+# tentative patch for RUSTFLAGS parsing issue, taken from firefox package:
+# https://bugzilla.redhat.com/show_bug.cgi?id=2184743
+# https://bugzilla.mozilla.org/show_bug.cgi?id=1474486
+Patch16:        firefox-112.0-commasplit.patch
 
 # TODO: Check with mozilla for cause of these fails and re-enable spidermonkey compile time checks if needed
 Patch20:        spidermonkey_checks_disable.patch
@@ -230,35 +230,4 @@ ln -s libmozjs-%{major}.so.0 %{buildroot}%{_libdir}/libmozjs-%{major}.so
 %{_includedir}/mozjs-%{major}/
 
 %changelog
-* Mon Mar 13 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 102.9.0-1
-- mozjs102-102.9.0 (fixes RHBZ#2177727)
-
-* Fri Feb 17 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 102.8.0-1
-- mozjs102-102.8.0 (fixes RHBZ#2169721)
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 102.7.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Mon Jan 16 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 102.7.0-1
-- mozjs102-102.7.0 (fixes RHBZ#2161250)
-
-* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 102.6.0-2
-- Rebuild for ICU 72
-
-* Mon Dec 12 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 102.6.0-1
-- mozjs102-102.6.0 (fixes RHBZ#2152654)
-
-* Tue Nov 15 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 102.5.0-1
-- mozjs102-102.5.0
-
-* Mon Oct 17 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 102.4.0-1
-- mozjs102-102.4.0 (fixes RHBZ#2135298)
-
-* Wed Sep 21 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 102.3.0-1
-- mozjs102-102.3.0 (fixes RHBZ#2127989)
-
-* Mon Aug 22 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 102.2.0-1
-- mozjs102-102.2.0
-
-* Wed Jul 27 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 102.1.0-1
-- Initial mozjs102 package based on mozjs91
+%autochangelog
