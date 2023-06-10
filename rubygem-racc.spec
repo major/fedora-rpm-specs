@@ -1,8 +1,8 @@
 %global	gem_name	racc
 
 Name:		rubygem-%{gem_name}
-Version:	1.6.2
-Release:	202%{?dist}
+Version:	1.7.0
+Release:	200%{?dist}
 
 Summary:	LALR(1) parser generator
 # SPDX confirmed
@@ -126,6 +126,9 @@ popd
 %doc	%{gem_instdir}/sample
 
 %changelog
+* Thu Jun  8 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.7.0-200
+- 1.7.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-202
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

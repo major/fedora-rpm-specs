@@ -23,14 +23,11 @@ Source0:       http://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_ve
 # Work-around for OpenJDK's compliance test
 Patch0:        0001-window-actor-Special-case-shaped-Java-windows.patch
 
-# To make s390x build pass
-Patch1:        0001-Revert-build-Do-not-provide-built-sources-as-libmutt.patch
-
 # https://bugzilla.redhat.com/show_bug.cgi?id=1936991
-Patch2:        mutter-42.alpha-disable-tegra.patch
+Patch1:        mutter-42.alpha-disable-tegra.patch
 
 # https://pagure.io/fedora-workstation/issue/79
-Patch3:        0001-place-Always-center-initial-setup-fedora-welcome.patch
+Patch2:        0001-place-Always-center-initial-setup-fedora-welcome.patch
 
 BuildRequires: pkgconfig(gobject-introspection-1.0) >= 1.41.0
 BuildRequires: pkgconfig(sm)

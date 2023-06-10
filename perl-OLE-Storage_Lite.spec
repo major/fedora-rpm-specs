@@ -1,8 +1,8 @@
 Name:		perl-OLE-Storage_Lite
-Version:	0.20
-Release:	11%{?dist}
+Version:	0.22
+Release:	1%{?dist}
 Summary:	Simple Class for OLE document interface
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/OLE-Storage_Lite
 Source0:	https://cpan.metacpan.org/authors/id/J/JM/JMCNAMARA/OLE-Storage_Lite-%{version}.tar.gz
 BuildArch:	noarch
@@ -12,13 +12,16 @@ BuildRequires:	findutils
 BuildRequires:	make
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-BuildRequires:	perl(ExtUtils::MakeMaker)
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 # Run-time:
+BuildRequires:	perl(Carp)
+BuildRequires:	perl(constant)
 BuildRequires:	perl(Exporter)
 BuildRequires:	perl(Fcntl)
 BuildRequires:	perl(IO::File)
 BuildRequires:	perl(IO::Handle)
 BuildRequires:	perl(IO::Scalar)
+BuildRequires:	perl(List::Util)
 BuildRequires:	perl(POSIX)
 BuildRequires:	perl(strict)
 BuildRequires:	perl(Time::Local)
@@ -38,12 +41,11 @@ Simple Class for OLE document interface.
 perl -pi -e 's/\r\n/\n/g' Changes README sample/{README,*.pl}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -55,6 +57,10 @@ make test
 %{_mandir}/man3/OLE::Storage_Lite.3*
 
 %changelog
+* Thu Jun 08 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.22-1
+- 0.22 bump
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

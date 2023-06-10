@@ -2,7 +2,7 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*$
 
 Name:		xreader
-Version:	3.8.0
+Version:	3.8.1
 Release:	1%{?dist}
 Summary:	Simple document viewer
 
@@ -167,6 +167,9 @@ This package adds configuration to use %{name} as a thumbnailer.
 %doc %{_datadir}/doc/%{name}*
 
 %changelog
+* Thu Jun 08 2023 Leigh Scott <leigh123linux@gmail.com> - 3.8.1-1
+- Update to 3.8.1 release
+
 * Thu Jun 01 2023 Leigh Scott <leigh123linux@gmail.com> - 3.8.0-1
 - Update to 3.8.0 release
 

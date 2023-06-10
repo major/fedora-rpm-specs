@@ -48,7 +48,7 @@ Name: openvswitch
 Summary: Open vSwitch daemon/database/utilities
 URL: https://www.openvswitch.org/
 Version: 3.1.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # Nearly all of openvswitch is ASL 2.0.  The bugtool is LGPLv2+, and the
 # lib/sflow*.[ch] files are SISSL
@@ -68,6 +68,7 @@ Source1: openvswitch.sysusers
 # ovs-patches
 
 # OVS (including OVN) backports (0 - 300)
+Patch0: 0001-cpu-Fix-cpuid-check-for-some-AMD-processors.patch
 
 BuildRequires: gcc gcc-c++ make
 BuildRequires: autoconf automake libtool
@@ -601,6 +602,9 @@ fi
 %{_sysusersdir}/openvswitch.conf
 
 %changelog
+* Thu Jun 08 2023 Timothy Redaelli <tredaelli@redhat.com> - 3.1.1-3
+- Backport "cpu: Fix cpuid check for some AMD processors." (#2211747)
+
 * Mon May 22 2023 Timothy Redaelli <tredaelli@redhat.com> - 3.1.1-2
 - Replace fgrep with grep -F (#2203601)
 - Delete ovs-vswitchd, if it's not a link (#2188710)

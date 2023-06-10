@@ -1,5 +1,5 @@
 Name:		pepc
-Version:	1.4.15
+Version:	1.4.20
 Release:	%autorelease
 Summary:	Power, Energy, and Performance Configurator
 
@@ -26,6 +26,7 @@ Pepc Python libraries
 
 %prep
 %autosetup -n %{name}-%{version}
+sed -i -e "s|man\/man1|share\/man\/man1|" setup.py
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -36,7 +37,6 @@ Pepc Python libraries
 %install
 %pyproject_install
 %pyproject_save_files pepclibs pepctool
-install -pDm644 docs/man1/pepc.1 %{buildroot}/%{_mandir}/man1/pepc.1
 
 %check
 %pytest -v
@@ -45,7 +45,7 @@ install -pDm644 docs/man1/pepc.1 %{buildroot}/%{_mandir}/man1/pepc.1
 %license LICENSE.md
 %doc README.md CHANGELOG.md
 %{_bindir}/pepc
-%{_mandir}/man1/pepc.1*
+%{_mandir}/man1/pepc*
 
 %files -n python3-%{name} -f %{pyproject_files}
 

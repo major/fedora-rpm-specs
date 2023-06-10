@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        5.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Extensible memoizing collections and decorators
 
 License:        MIT
@@ -52,6 +52,9 @@ BuildRequires:  python3-setuptools
 
 
 %changelog
+* Thu Jun 08 2023 Jan Friesse <jfriesse@redhat.com> - 5.3.1-2
+- migrated to SPDX license
+
 * Tue May 30 2023 John Eckersberg <jeckersb@redhat.com> - 5.3.1-1
 - New upstream release 5.3.1 (rhbz#2210490)
 

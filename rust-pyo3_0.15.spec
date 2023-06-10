@@ -21,6 +21,7 @@ Source:         %{crates_source}
 # * drop unused, benchmark-only criterion dev-dependency to speed up builds
 # * drop unused benchmark definitions from Cargo.toml
 Patch:          pyo3-fix-metadata.diff
+Patch:          0001-deny-warnings-considered-harmful.patch
 
 BuildRequires:  rust-packaging >= 21
 

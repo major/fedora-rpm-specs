@@ -42,6 +42,7 @@ BuildRequires:  cmake(Qt5Widgets)
 Requires:       kf5-kirigami2
 Requires:       kf5-kirigami2-addons
 Requires:       hicolor-icon-theme
+Requires:       qt5-qtmultimedia
 
 %description
 Tokodon is a Mastodon client for Plasma and Plasma Mobile.

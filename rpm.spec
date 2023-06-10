@@ -32,7 +32,7 @@
 
 %global rpmver 4.18.90
 #global snapver rc1
-%global baserelease 9
+%global baserelease 10
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -631,6 +631,9 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Thu Jun 08 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 4.18.90-10
+- Rebuild for ima-evm-utils 1.5 soname bump
+
 * Mon May 29 2023 Panu Matilainen <pmatilai@redhat.com> - 4.18.90-9
 - Revert %%_smp_build_ncpus macro changing to parametric (#2210347)
 

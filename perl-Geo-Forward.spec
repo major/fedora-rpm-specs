@@ -1,55 +1,59 @@
 Name:           perl-Geo-Forward
-Version:        0.14
-Release:        24%{?dist}
+Version:        0.16
+Release:        1%{?dist}
 Summary:        Calculate geographic location from lat, lon, distance, and heading
 
-License:        GPL+ or Artistic
+License:        MIT
 URL:            https://metacpan.org/release/Geo-Forward
 Source0:        https://cpan.metacpan.org/authors/id/M/MR/MRDVT/Geo-Forward-%{version}.tar.gz
 
 BuildArch:      noarch
-BuildRequires: make
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+# Run-time
+BuildRequires:  perl(base)
 BuildRequires:  perl(Geo::Constants) >= 0.04
-BuildRequires:  perl(Geo::Functions) >= 0.03
 BuildRequires:  perl(Geo::Ellipsoids) >= 0.09
-BuildRequires:  perl(Package::New), perl(Test::More), perl(Test::Simple)
+BuildRequires:  perl(Geo::Functions) >= 0.03
+BuildRequires:  perl(Package::New)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+# Tests
+BuildRequires:  perl(Test::More)
 
 %description
 %{summary}.
 
-
 %prep
 %setup -q -n Geo-Forward-%{version}
-%{__perl} -i -pe 's/\r//;' doc/*
-
+perl -i -pe 's/\r//;' doc/*
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
-
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} ';'
-find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
-chmod -R u+w $RPM_BUILD_ROOT/*
-
+%{make_install}
+%{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
 make test
 
-
-
 %files
-%doc Changes LICENSE README doc/
+%license LICENSE
+%doc CONTRIBUTING.md Changes README.md doc/
 %{perl_vendorlib}/Geo/
 %{_mandir}/man3/*.3pm*
 
-
 %changelog
+* Thu Jun 08 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.16-1
+- 0.16 bump
+- Modernize spec
+- Specify all dependencies
+- Change license to MIT
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,9 +1,9 @@
 Name:           perl-Email-MessageID
-Version:        1.406
-Release:        24%{?dist}
+Version:        1.408
+Release:        1%{?dist}
 Summary:        Generate world unique message-ids
 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Email-MessageID
 Source0:        https://cpan.metacpan.org/modules/by-module/Email/Email-MessageID-%{version}.tar.gz
 
@@ -12,7 +12,8 @@ BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(:VERSION) >= 5.12
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.78
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
@@ -60,6 +61,10 @@ make test
 
 
 %changelog
+* Thu Jun 08 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.408-1
+- 1.408 bump
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.406-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

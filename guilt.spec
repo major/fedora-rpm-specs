@@ -1,6 +1,6 @@
 Name:		guilt
 Version:	0.36
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	Scripts to manage quilt-like patches on top of git
 
 License:	GPLv2
@@ -15,6 +15,7 @@ BuildRequires: make
 Patch0:		guilt-0.36-git-decorate.patch
 Patch1:		guilt-0.36-filter-dd.patch
 Patch2:		guilt-0.36-fix-regressions-newer-git.patch
+Patch3:		guilt-0.36-fix-portability-problem-with-using-find-perm-111.patch
 
 %description
 Guilt allows one to use quilt functionality on top of a Git repository.
@@ -25,11 +26,7 @@ placed under revision control, so you can have a separate history of changes
 made to your patches.
 
 %prep
-%setup -q
-
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
+%autosetup -p1
 
 %build
 make ASCIIDOC='asciidoc --unsafe' %{?_smp_mflags}
@@ -50,6 +47,9 @@ make test
 %{_mandir}/man7/guilt*.7*
 
 %changelog
+* Thu Jun 08 2023 Eric Sandeen <sandeen@redhat.com> - 0.36-18
+- fix portability problem with using find -perm +111
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.36-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

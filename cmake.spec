@@ -42,6 +42,10 @@
 %bcond_without bundled_rhash
 %endif
 
+# cppdap is currently shipped as a static lib from upstream,
+# so we do not have it in the repos.
+%bcond_without bundled_cppdap
+
 # Run tests
 %bcond_without test
 
@@ -61,11 +65,14 @@
 %{!?_vpath_builddir:%global _vpath_builddir %{_target_platform}}
 
 %global major_version 3
-%global minor_version 26
-%global patch_version 4
+%global minor_version 27
+%global patch_version 0
+
+# For handling bump release by rpmdev-bumpspec and mass rebuild
+%global baserelease 1
 
 # Set to RC version if building RC, else comment out.
-#global rcsuf rc1
+%global rcsuf rc1
 
 %if 0%{?rcsuf:1}
 %global pkg_version %{major_version}.%{minor_version}.%{patch_version}~%{rcsuf}
@@ -74,9 +81,6 @@
 %global pkg_version %{major_version}.%{minor_version}.%{patch_version}
 %global tar_version %{major_version}.%{minor_version}.%{patch_version}
 %endif
-
-# For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 4
 
 # Uncomment if building for EPEL
 #global name_suffix %%{major_version}
@@ -92,7 +96,7 @@ Summary:        Cross-platform make system
 # Source/kwsys/MD5.c is zlib
 # some GPL-licensed bison-generated files, which all include an
 # exception granting redistribution under terms of your choice
-License:        BSD and MIT and zlib
+License:        BSD and MIT and zlib%{?with_bundled_cppdap: and Apache-2.0}
 URL:            http://www.cmake.org
 Source0:        http://www.cmake.org/files/v%{major_version}.%{minor_version}/%{orig_name}-%{tar_version}.tar.gz
 Source1:        %{name}-init.el
@@ -110,23 +114,13 @@ Source5:        %{name}.req
 # http://public.kitware.com/Bug/view.php?id=12965
 # https://bugzilla.redhat.com/show_bug.cgi?id=822796
 Patch100:       %{name}-findruby.patch
-# Add dl to CMAKE_DL_LIBS on MINGW
-# https://gitlab.kitware.com/cmake/cmake/issues/17600
-%if 0%{?fedora} && 0%{?fedora} < 38
-Patch102:       %{name}-mingw-dl.patch
-%endif
+# https://gitlab.kitware.com/cmake/cmake/-/merge_requests/8550
+Patch101:       0001-bootstrap-Add-no-system-cppdap-configuration-switch.patch
 
 # Patch for renaming on EPEL
 %if 0%{?name_suffix:1}
 Patch1:         %{name}-rename.patch
 %endif
-
-# Backported from upstream.
-Patch10001:     0001-Sphinx-Specify-encoding-when-opening-files-for-title.patch
-Patch10002:     0002-Sphinx-Modernize-UTF-8-encoding-handling-when-updati.patch
-Patch10003:     0003-Tests-Always-load-presets-schema-as-UTF-8.patch
-Patch10004:     0004-CMakeDetermineCompilerABI-Avoid-removing-the-flag-af.patch
-Patch10005:     0005-FindBoost-Add-support-for-Boost-1.82.patch
 
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -151,6 +145,11 @@ BuildRequires:  %{_bindir}/sphinx-build
 %if %{without bootstrap}
 BuildRequires:  bzip2-devel
 BuildRequires:  curl-devel
+%if %{with bundled_cppdap}
+Provides: bundled(cppdap)
+%else
+BuildRequires:  cppdap-devel
+%endif
 BuildRequires:  expat-devel
 %if %{with bundled_jsoncpp}
 Provides: bundled(jsoncpp)
@@ -305,15 +304,7 @@ tail -n +2 %{SOURCE5} >> %{name}.req
 
 
 %build
-%if 0%{?set_build_flags:1}
 %{set_build_flags}
-%else
-CFLAGS="${CFLAGS:-%optflags}" ; export CFLAGS
-CXXFLAGS="${CXXFLAGS:-%optflags}" ; export CXXFLAGS
-FFLAGS="${FFLAGS:-%optflags%{?_fmoddir: -I%_fmoddir}}" ; export FFLAGS
-FCFLAGS="${FCFLAGS:-%optflags%{?_fmoddir: -I%_fmoddir}}" ; export FCFLAGS
-%{?__global_ldflags:LDFLAGS="${LDFLAGS:-%__global_ldflags}" ; export LDFLAGS ;}
-%endif
 SRCDIR="$(/usr/bin/pwd)"
 mkdir %{_vpath_builddir}
 pushd %{_vpath_builddir}
@@ -323,6 +314,9 @@ $SRCDIR/bootstrap --prefix=%{_prefix} \
                   --mandir=/share/man \
                   --%{?with_bootstrap:no-}system-libs \
                   --parallel="$(echo %{?_smp_mflags} | sed -e 's|-j||g')" \
+%if %{with bundled_cppdap}
+                  --no-system-cppdap \
+%endif
 %if %{with bundled_rhash}
                   --no-system-librhash \
 %endif
@@ -383,6 +377,10 @@ do
   dname=$(basename $dir)
   cp -p $f ./${fname}_${dname}
 done
+%if %{with bundled_cppdap}
+cp -p Utilities/cmcppdap/LICENSE LICENSE.cppdap
+cp -p Utilities/cmcppdap/NOTICE NOTICE.cppdap
+%endif
 # Cleanup pre-installed documentation
 %if %{with sphinx}
 mv %{buildroot}%{_docdir}/%{name}/html .
@@ -486,6 +484,10 @@ popd
 %doc %dir %{_pkgdocdir}
 %license Copyright.txt*
 %license COPYING*
+%if %{with bundled_cppdap}
+%license LICENSE.cppdap
+%license NOTICE.cppdap
+%endif
 %if %{with sphinx}
 %{_mandir}/man1/c%{name}.1.*
 %{_mandir}/man1/%{name}.1.*
@@ -546,6 +548,11 @@ popd
 
 
 %changelog
+* Thu Jun 08 2023 Björn Esser <besser82@fedoraproject.org> - 3.27.0~rc1-1
+- cmake-3.27.0-rc1
+- Use CMake-provided cppdap
+- Add licensing information for cppdap to packaged files if needed
+
 * Thu Jun 01 2023 Björn Esser <besser82@fedoraproject.org> - 3.26.4-4
 - Backport several bugfixes and support for Boost v1.82 from upstream
 

@@ -1,6 +1,6 @@
 Name:           wayland-utils
-Version:        1.1.0
-Release:        2%{?dist}
+Version:        1.2.0
+Release:        1%{?dist}
 Summary:        Wayland utilities
 
 License:        MIT
@@ -12,7 +12,7 @@ BuildRequires:  meson
 BuildRequires:  pkgconfig(wayland-client) >= 1.20
 BuildRequires:  pkgconfig(wayland-protocols) >= 1.24
 BuildRequires:  pkgconfig(wayland-scanner)
-BuildRequires:  pkgconfig(libdrm) >= 2.4.107
+BuildRequires:  pkgconfig(libdrm) >= 2.4.109
 
 %description
 wayland-utils contains wayland-info, a standalone version of weston-info,
@@ -39,6 +39,9 @@ XDG output protocols.
 %{_mandir}/man1/wayland-info.1*
 
 %changelog
+* Thu Jun  8 2023 Olivier Fourdan <ofourdan@redhat.com> - 1.2.0-1
+- wayland-utils 1.2.0
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

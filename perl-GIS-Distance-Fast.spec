@@ -1,8 +1,8 @@
 Name:           perl-GIS-Distance-Fast
-Version:        0.15
-Release:        8%{?dist}
+Version:        0.16
+Release:        1%{?dist}
 Summary:        C implementation of GIS::Distance formulas
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/GIS-Distance-Fast
 Source0:        https://cpan.metacpan.org/authors/id/B/BL/BLUEFEET/GIS-Distance-Fast-%{version}.tar.gz
 # Link to libm and fix linking by using EU::MM instead of buggy M::B::Tiny,
@@ -54,14 +54,12 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n GIS-Distance-Fast-%{version}
-%patch0 -p1
+%autosetup -p1 -n GIS-Distance-Fast-%{version}
 # Normalize shenangs
 for F in t/*.t; do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
     chmod +x "$F"
 done
-
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="$RPM_OPT_FLAGS"
@@ -87,14 +85,23 @@ make test
 %files
 %license LICENSE
 %doc Changes README.md
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/GIS*
-%{_mandir}/man3/*
+%dir %{perl_vendorarch}/auto/GIS
+%dir %{perl_vendorarch}/auto/GIS/Distance
+%{perl_vendorarch}/auto/GIS/Distance/Fast
+%dir %{perl_vendorarch}/GIS
+%dir %{perl_vendorarch}/GIS/Distance
+%{perl_vendorarch}/GIS/Distance/Fast
+%{perl_vendorarch}/GIS/Distance/Fast.pm
+%{_mandir}/man3/GIS::Distance::Fast.*
+%{_mandir}/man3/GIS::Distance::Fast::*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jun 08 2023 Petr Pisar <ppisar@redhat.com> - 0.16-1
+- 0.16 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

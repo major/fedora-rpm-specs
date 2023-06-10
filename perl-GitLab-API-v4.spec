@@ -2,8 +2,8 @@
 
 
 Name:           perl-%{src_name}
-Version:        0.26
-Release:        7%{?dist}
+Version:        0.27
+Release:        1%{?dist}
 Summary:        Complete GitLab API v4 client
 
 License:        GPL+ or Artistic
@@ -13,42 +13,43 @@ URL:            https://metacpan.org/release/%{src_name}
 # Source0:      https://www.cpan.org/modules/by-module/GitLab/%%{src_name}-%%{version}.tar.gz
 Source0:        https://cpan.metacpan.org/authors/id/B/BL/BLUEFEET/%{src_name}-%{version}.tar.gz
 
-# Fixed incorrect license messaging in POD backported from upstream
-Patch0:         GitLab-API-v4-0.26-Update-license-POD.patch
-
 BuildArch:      noarch
 
 BuildRequires:  coreutils
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(:VERSION) >= 5.010
+BuildRequires:  perl(:VERSION) >= 5.8.0
 BuildRequires:  perl(Carp)
-BuildRequires:  perl(Const::Fast) >= 0.014
+BuildRequires:  perl(Const::Fast)
+BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(Getopt::Long)
-BuildRequires:  perl(HTTP::Tiny) >= 0.059
-BuildRequires:  perl(HTTP::Tiny::Multipart) >= 0.05
-BuildRequires:  perl(IO::Prompter) >= 0.004014
+BuildRequires:  perl(HTTP::Tiny)
+BuildRequires:  perl(HTTP::Tiny::Multipart)
+BuildRequires:  perl(IO::Prompter)
 BuildRequires:  perl(IPC::Cmd)
-BuildRequires:  perl(JSON) >= 2.59
-BuildRequires:  perl(Log::Any) >= 1.703
-BuildRequires:  perl(Log::Any::Adapter) >= 1.703
-BuildRequires:  perl(Log::Any::Adapter::Screen) >= 0.13
-BuildRequires:  perl(MIME::Base64) >= 3.15
-BuildRequires:  perl(Module::Build::Tiny)
-BuildRequires:  perl(Moo) >= 2.003000
-BuildRequires:  perl(Path::Tiny) >= 0.079
+BuildRequires:  perl(JSON::MaybeXS)
+BuildRequires:  perl(List::Util)
+BuildRequires:  perl(Log::Any)
+BuildRequires:  perl(Log::Any::Adapter)
+BuildRequires:  perl(Log::Any::Adapter::Screen)
+BuildRequires:  perl(MIME::Base64)
+BuildRequires:  perl(Module::Build::Tiny) >= 0.035
+BuildRequires:  perl(Moo)
+BuildRequires:  perl(Path::Tiny)
 BuildRequires:  perl(Pod::Usage)
-BuildRequires:  perl(Test2::V0) >= 0.000094
-BuildRequires:  perl(Try::Tiny) >= 0.28
-BuildRequires:  perl(Types::Common::Numeric) >= 1.002001
-BuildRequires:  perl(Types::Common::String) >= 1.002001
-BuildRequires:  perl(Types::Standard) >= 1.002001
-BuildRequires:  perl(URI) >= 1.62
-BuildRequires:  perl(URI::Escape) >= 1.72
-BuildRequires:  perl(namespace::clean) >= 0.27
+BuildRequires:  perl(Test2::Require::AuthorTesting)
+BuildRequires:  perl(Test2::V0)
+BuildRequires:  perl(Try::Tiny)
+BuildRequires:  perl(Types::Common::Numeric)
+BuildRequires:  perl(Types::Common::String)
+BuildRequires:  perl(Types::Standard)
+BuildRequires:  perl(URI)
+BuildRequires:  perl(URI::Escape)
+BuildRequires:  perl(YAML::XS)
+BuildRequires:  perl(namespace::clean)
 BuildRequires:  perl(strict)
-BuildRequires:  perl(strictures) >= 2.000003
+BuildRequires:  perl(strictures) >= 2
 
 
 %description
@@ -84,6 +85,10 @@ perl Build.PL --installdirs=vendor
 
 
 %changelog
+* Thu Jun 08 2023 Björn Esser <besser82@fedoraproject.org> - 0.27-1
+- 0.27 bump
+  Fixes: rhbz#2213352
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,28 +1,27 @@
 Name:           perl-Email-MIME-Encodings
-Version:        1.315
-Release:        27%{?dist}
+Version:        1.317
+Release:        1%{?dist}
 Summary:        Unified interface to MIME encoding and decoding
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Email-MIME-Encodings
 Source0:        https://cpan.metacpan.org/modules/by-module/Email/Email-MIME-Encodings-%{version}.tar.gz
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.30
+BuildRequires:  perl(:VERSION) >= 5.12
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.78
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
 # Module
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(MIME::Base64) >= 3.05
 BuildRequires:  perl(MIME::QuotedPrint) >= 3.05
-BuildRequires:  perl(strict)
-BuildRequires:  perl(warnings)
 # Test Suite
-BuildRequires:  perl(blib)
-BuildRequires:  perl(Capture::Tiny)
-BuildRequires:  perl(Test::More) >= 0.88
+BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(Test::More) >= 0.96
 # Dependencies
 Requires:       perl(Carp)
 
@@ -37,13 +36,12 @@ some text and have the right thing happen.
 
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 
@@ -59,6 +57,10 @@ make test
 
 
 %changelog
+* Thu Jun 08 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.317-1
+- 1.317 bump
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.315-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

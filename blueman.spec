@@ -4,7 +4,7 @@ License:	GPLv2+
 
 Epoch:		1
 Version:	2.3.5
-Release:	2%{?dist}
+Release:	3%{?dist}
 
 URL:		https://github.com/blueman-project/blueman
 Source0:	%{URL}/archive/refs/tags/%{version}/blueman-%{version}.tar.gz
@@ -149,6 +149,11 @@ NOCONFIGURE="yes" ./autogen.sh
 find %{buildroot} -name '*.la' -exec rm -f {} ';'
 rm -rf %{buildroot}%{_datadir}/doc/blueman/
 
+# Run the python interpreter in "don't load code from user-controlled directories" mode
+# See: https://bugzilla.redhat.com/show_bug.cgi?id=2207684
+%global py3_shbang_opts %{py3_shbang_opts}E
+%py3_shebang_fix %{buildroot}%{_bindir}/blueman-* %{buildroot}%{_libexecdir}/blueman-*
+
 %find_lang blueman
 
 # we need to own this, not only because of SELinux
@@ -180,7 +185,7 @@ desktop-file-validate %{buildroot}%{_datadir}/Thunar/sendto/*blueman*.desktop
 %files -f blueman.lang
 %doc CHANGELOG.md FAQ README.md
 %license COPYING
-%{_bindir}/*
+%{_bindir}/blueman-*
 %{python3_sitelib}/blueman/
 %{python3_sitearch}/*.so
 %{_libexecdir}/blueman-*
@@ -222,6 +227,9 @@ desktop-file-validate %{buildroot}%{_datadir}/Thunar/sendto/*blueman*.desktop
 
 
 %changelog
+* Thu Jun 08 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1:2.3.5-3
+- Use py3_shebang_fix macro to add "-sPE" to Python shebangs
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.3.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

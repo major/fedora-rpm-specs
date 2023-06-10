@@ -1,5 +1,5 @@
 Name:           python-pyriemann
-Version:        0.3
+Version:        0.4
 Release:        %autorelease
 Summary:        Riemannian Geometry for Python
 
@@ -14,13 +14,6 @@ Source0:        %{url}/archive/v%{version}/pyRiemann-%{version}.tar.gz
 # packages are all still noarch, and there is no compiled code and therefore no
 # debugging symbols.
 %global debug_package %{nil}
-
-#   Loosen tolerance in test_distance_func_separability
-#   https://github.com/pyRiemann/pyRiemann/pull/193
-# Fixes:
-#   One test failure on s390x
-#   https://github.com/pyRiemann/pyRiemann/issues/192
-Patch:          %{url}/pull/193.patch
 
 BuildRequires:  python3-devel
 
@@ -108,7 +101,12 @@ sed -r -i 's/("tests".*), "flake8"/\1/' setup.py
 
 
 %check
-%pytest
+# https://github.com/pyRiemann/pyRiemann/issues/248
+%ifarch s390x %{arm64} %{power64}
+k="${k:+ and }not test_distance_mahalanobis"
+%endif
+
+%pytest ${k:+-k "$k"}
 
 
 %files -n python3-pyriemann -f %{pyproject_files}

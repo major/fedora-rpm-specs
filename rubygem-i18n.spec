@@ -3,16 +3,16 @@
 %bcond_without tests
 
 Name: rubygem-%{gem_name}
-Version: 1.8.11
-Release: 3%{?dist}
+Version: 1.14.1
+Release: 1%{?dist}
 Summary: New wave Internationalization support for Ruby
 # `BSD or Ruby` due to header of lib/i18n/gettext/po_parser.rb
-License: MIT and (BSD or Ruby)
+License: MIT AND (BSD-2-Clause OR Ruby)
 URL: https://github.com/ruby-i18n/i18n
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # Since 1.8.2 tests are not shipped with the gem, but can be checked like
 # git clone --no-checkout https://github.com/ruby-i18n/i18n
-# cd i18n && git archive -v -o i18n-1.8.11-tests.txz v1.8.11 test
+# cd i18n && git archive -v -o i18n-1.14.1-tests.txz v1.14.1 test
 Source1: %{gem_name}-%{version}-tests.txz
 BuildRequires: ruby
 BuildRequires: ruby(release)
@@ -64,9 +64,9 @@ sed -i 's/\(require .mocha\/\)setup/\1minitest/' test/test_helper.rb
 
 # Tests are failing without LANG environment is set.
 # https://github.com/svenfuchs/i18n/issues/115
-LANG=C.utf8 \
-find ./test/ -type f -name '*_test.rb' -exec \
-  ruby -Ilib:test '{}' \;
+find ./test/ -type f -name '*_test.rb' | \
+  LANG=C.utf8 \
+  xargs -n 1 ruby -Ilib:test
 popd
 %endif
 
@@ -82,6 +82,10 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Wed Jun 07 2023 Vít Ondruch <vondruch@redhat.com> - 1.14.1-1
+- Update to i18n 1.14.1.
+  Resolves: rhbz#2054428
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.11-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

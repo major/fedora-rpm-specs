@@ -99,13 +99,13 @@ ExcludeArch: s390x
 
 Summary:        Mozilla Thunderbird mail/newsgroup client
 Name:           thunderbird
-Version:        102.11.1
+Version:        102.12.0
 Release:        1%{?dist}
 URL:            http://www.mozilla.org/projects/thunderbird/
 License:        MPL-2.0 OR GPL-2.0-or-later OR LGPL-2.0-or-later
 Source0:        https://archive.mozilla.org/pub/thunderbird/releases/%{version}%{?pre_version}/source/thunderbird-%{version}%{?pre_version}.source.tar.xz
 %if %{build_langpacks}
-Source1:        thunderbird-langpacks-%{version}-20230525.tar.xz
+Source1:        thunderbird-langpacks-%{version}-20230605.tar.xz
 %endif
 Source3:        get-calendar-langpacks.sh
 Source4:        cbindgen-vendor.tar.xz
@@ -130,15 +130,17 @@ Patch418:       mozilla-1512162.patch
 Patch103:       rhbz-1219542-s390-build.patch
 # gcc 12 build fix patches
 Patch422:       0001-GLIBCXX-fix-for-GCC-12.patch
-# Python 3.11 "ValueError: invalid mode: 'rU'"; 'U' is deprecated since Python 3 and default, error with Python 3.11
-# Python 3.11 "Invalid regular expression for rule '...'. global flags not at the start of the expression at position ...
-Patch425:        build-disable-elfhack.patch
+Patch425:       build-disable-elfhack.patch
 Patch426:       gcc13-header-dependencies.patch
 
 # With clang LLVM 16 rust-bindgen 0.56.0 is too old, combined
 # https://github.com/rust-lang/rust-bindgen/pull/2319
 # https://github.com/rust-lang/rust-bindgen/pull/2339
 Patch427:       rust-bindgen-2319-2339.patch
+
+# Needed with rust 1.70
+# https://github.com/mozilla/mp4parse-rust/commit/8b5b652d38e007e736bb442ccd5aa5ed699db100
+Patch428:       mp4parse-rust-8b5b652d38e007e736bb442ccd5aa5ed699db100.patch
 
 # PPC fix
 Patch304:       mozilla-1245783.patch
@@ -298,10 +300,6 @@ debug %{name}, you want to install %{name}-debuginfo instead.
 %patch -P 103 -p1 -b .rhbz-1219542-s390-build
 %endif
 
-%if 0%{?fedora} >= 35
-# since python3.10 we need to use  `from collections.abc` instead of `from collections`. 
-%endif
-
 %patch -P 304 -p1 -b .1245783
 # Patch for big endian platforms only
 #%if 0%{?big_endian}
@@ -322,15 +320,10 @@ debug %{name}, you want to install %{name}-debuginfo instead.
 # most likely fixed
 #%patch -P 419 -p1 -b .bindgen
 
-#cd ..
-
 %patch -P 402 -p1 -b .526293
 %patch -P 406 -p1 -b .1170092-etc-conf
 %patch -P 408 -p1 -b .D165150
 %patch -P 409 -p1 -b .D165152
-
-pushd comm
-popd
 
 %patch -P 422 -p1 -b .0001-GLIBCXX-fix-for-GCC-12
 %patch -P 426 -p1 -b .gcc13-header-dependencies
@@ -339,6 +332,8 @@ popd
 # MUST ONLY be applied for building against clang LLVM 16.
 # Would crash with earlier clang.
 %patch -P 427 -p1 -b .rust-bindgen-2319-2339
+# Needed with rust 1.70
+%patch -P 428 -p1 -b .mp4parse-rust-8b5b652d38e007e736bb442ccd5aa5ed699db100
 %endif
 
 %patch -P 501 -p1 -b .expat-CVE-2022-25235
@@ -777,6 +772,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #===============================================================================
 
 %changelog
+* Wed Jun 07 2023 Eike Rathke <erack@redhat.com> - 102.12.0-1
+- Update to 102.12.0
+
 * Thu May 25 2023 Eike Rathke <erack@redhat.com> - 102.11.1-1
 - Update to 102.11.1
 - Change %%patchN ... to %%patch -P N ...

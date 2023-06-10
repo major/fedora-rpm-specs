@@ -1,5 +1,5 @@
 Name:		perl-MCE-Shared
-Version:	1.883
+Version:	1.884
 Release:	1%{?dist}
 Summary:	MCE extension for sharing data, supporting threads and processes
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -42,7 +42,7 @@ BuildRequires:	perl(MCE::Flow)
 BuildRequires:	perl(open)
 BuildRequires:	perl(Test::More) >= 0.88
 BuildRequires:	perl(utf8)
-# Runtime
+# Dependencies
 Requires:	perl(IO::FDPass) >= 1.2
 Requires:	perl(MCE) >= 1.886
 Requires:	perl(overloading)
@@ -92,6 +92,11 @@ make test
 %{_mandir}/man3/MCE::Shared::Server.3*
 
 %changelog
+* Thu Jun  8 2023 Paul Howarth <paul@city-fan.org> - 1.884-1
+- Update to 1.884
+  - Add missing return statement(s) in Condvar and Queue
+  - Move tests for condvar timedwait to xt/condvar_timedwait.t
+
 * Wed Jun  7 2023 Paul Howarth <paul@city-fan.org> - 1.883-1
 - Update to 1.883
   - Bump MCE dependency to 1.886
@@ -110,7 +115,7 @@ make test
 * Wed Jan  4 2023 Paul Howarth <paul@city-fan.org> - 1.880-1
 - Update to 1.880
   - Bump MCE dependency to 1.883
-  - Improve 05_mce_hobo.t test
+  - Improved 05_mce_hobo.t test
 
 * Sat Dec  3 2022 Paul Howarth <paul@city-fan.org> - 1.879-1
 - Update to 1.879

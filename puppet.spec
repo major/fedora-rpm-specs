@@ -3,10 +3,10 @@
 %global puppet_vendor_mod_dir %{_datadir}/%{name}/vendor_modules
 
 Name:           puppet
-Version:        7.21.0
-Release:        2%{?dist}
+Version:        7.24.0
+Release:        1%{?dist}
 Summary:        Network tool for managing many disparate systems
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://puppet.com
 Source0:        https://downloads.puppetlabs.com/puppet/%{name}-%{version}.tar.gz
 Source1:        https://downloads.puppetlabs.com/puppet/%{name}-%{version}.tar.gz.asc
@@ -208,6 +208,9 @@ useradd -r -u 52 -g puppet -s /sbin/nologin \
 %systemd_postun_with_restart %{name}.service
 
 %changelog
+* Thu Jun 8 2023 Breno Brand Fernandes <brandfbb@gmail.com> - 7.24.0-1
+- Build 7.24.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.21.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

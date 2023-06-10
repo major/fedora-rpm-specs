@@ -17,7 +17,7 @@
 
 Name:           gstreamer1
 Version:        1.22.3
-Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
+Release:        2%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPLv2+
@@ -111,6 +111,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 %ldconfig_scriptlets
 
+%post
+setcap cap_sys_nice,cap_net_bind_service,cap_net_admin+ep %{_libexecdir}/gstreamer-%{majorminor}/gst-ptp-helper
+
 %files -f gstreamer-%{majorminor}.lang
 %license COPYING
 %doc AUTHORS NEWS README.md README.static-linking RELEASE
@@ -195,6 +198,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Thu Jun 8 2023 Wim Taymans <wtaymans@redhat.com> - 1.22.3-2
+- Do setcap on gst-ptp-helper to give the right permissions.
+
 * Thu May 25 2023 Wim Taymans <wtaymans@redhat.com> - 1.22.3-1
 - Update to 1.22.3
 

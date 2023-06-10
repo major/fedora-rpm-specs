@@ -1,26 +1,21 @@
-# For cases where the soname requires a bump we need to define with_compat,
-# update the package into the side-tag, update RPM (rpm-sign) into side-tag,
-# _then_ undefine with_compat and rebuild the package into the side-tag. This
-# is required to workaround the chiken-egg situation with the rpm-sign update.
-# The compat pkg must not make the compose, it's only a buildrequirement for
-# rpm-sign in a soname bump.
-%bcond_with compat
+# If the soname gets bumped we need to ship a compat library to be able
+# to bootstrap and rebuild rpm else we end up with chicken and egg problem.
+%global bootstrap 0
 
-
-%if %{with compat}
+%if 0%{bootstrap}
 %global compat_soversion 3
 %endif
 
 Name:    ima-evm-utils
-Version: 1.4
-Release: 7%{?dist}
+Version: 1.5
+Release: 1%{?dist}
 Summary: IMA/EVM support utilities
 License: GPLv2
 Url:     http://linux-ima.sourceforge.net/
-Source0: http://sourceforge.net/projects/linux-ima/files/ima-evm-utils/%{name}-%{version}.tar.gz
+Source0: https://github.com/mimizohar/ima-evm-utils/releases/download/v%{version}/%{name}-%{version}.tar.gz
 
+%if 0%{bootstrap}
 # compat source and patches
-%if %{with compat}
 Source10: ima-evm-utils-1.4.tar.gz
 %endif
 
@@ -50,31 +45,25 @@ Requires: %{name} = %{version}-%{release}
 %description devel
 This package provides the header files for %{name}
 
-%if %{with compat}
-%package -n %{name}%{compat_soversion}
-Summary: Compatibility package of %{name}
-
-%description -n %{name}%{compat_soversion}
-This package provides the libimaevm.so.%{compat_soversion} relative to %{name}-1.3
-%endif
-
 %prep
 %setup -q
 
-%if %{with compat}
+%if 0%{bootstrap}
 mkdir compat/
-tar -zxf %{SOURCE10} --strip-components=1 -C compat/
+pushd compat/
+tar -zxf %{SOURCE10} --strip-components=1
+popd
 %endif
 
 %build
 autoreconf -vif
-%configure --disable-static
+%configure --disable-static --disable-engine
 %make_build
 
-%if %{with compat}
+%if 0%{bootstrap}
 pushd compat/
 autoreconf -vif
-%configure --disable-static
+%configure --disable-static --disable-engine
 %make_build
 popd
 %endif
@@ -83,7 +72,7 @@ popd
 %make_install
 find %{buildroot} -type f -name "*.la" -delete
 
-%if %{with compat}
+%if 0%{bootstrap}
 pushd compat/src/.libs/
 install -p libimaevm.so.%{compat_soversion}.0.0 %{buildroot}%{_libdir}/libimaevm.so.%{compat_soversion}.0.0
 ln -s -f %{buildroot}%{_libdir}/libimaevm.so.%{compat_soversion}.0.0 %{buildroot}%{_libdir}/libimaevm.so.%{compat_soversion}
@@ -97,21 +86,28 @@ popd
 %doc NEWS README AUTHORS
 %{_bindir}/evmctl
 # if you need to bump the soname version, coordinate with dependent packages
-%{_libdir}/libimaevm.so.3*
+%{_libdir}/libimaevm.so.4*
 %{_mandir}/man1/evmctl*
+%if 0%{bootstrap}
+%{_libdir}/libimaevm.so.%{compat_soversion}
+%{_libdir}/libimaevm.so.%{compat_soversion}.0.0
+%endif
 
 %files devel
 %{_pkgdocdir}/*.sh
 %{_includedir}/imaevm.h
 %{_libdir}/libimaevm.so
 
-%if %{with compat}
-%files -n %{name}%{compat_soversion}
-%{_libdir}/libimaevm.so.%{compat_soversion}
-%{_libdir}/libimaevm.so.%{compat_soversion}.0.0
-%endif
-
 %changelog
+* Thu Jun 08 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 1.5-1
+- Disable bootstrap
+
+* Wed Jun 07 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 1.5-0.1
+- Update to 1.5
+- Streamline bootstrap process a little
+- Bootstrap mode
+- Update download URL
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

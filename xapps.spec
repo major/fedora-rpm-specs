@@ -1,6 +1,6 @@
 Name:           xapps
-Version:        2.6.0
-Release:        2%{?dist}
+Version:        2.6.1
+Release:        1%{?dist}
 Summary:        Common files for XApp desktop apps
 
 License:        LGPLv2+
@@ -127,6 +127,9 @@ rm %{buildroot}%{_datadir}/format
 %{python3_sitearch}/gi/overrides/__pycache__/XApp.cpython-%{python3_version_nodots}*.py*
 
 %changelog
+* Thu Jun 08 2023 Leigh Scott <leigh123linux@gmail.com> - 2.6.1-1
+- Update to 2.6.1 release
+
 * Fri Jun 02 2023 Leigh Scott <leigh123linux@gmail.com> - 2.6.0-2
 - Use recommends switcheroo-control
 

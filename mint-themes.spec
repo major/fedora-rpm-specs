@@ -1,6 +1,6 @@
 Name:           mint-themes
 Epoch:          1
-Version:        2.1.0
+Version:        2.1.1
 Release:        1%{?dist}
 Summary:        Mint themes
 
@@ -70,26 +70,18 @@ make
 %files
 %license debian/copyright
 %doc debian/changelog
-%dir %{_datadir}/themes/Mint-X*/
-%dir %{_datadir}/themes/Mint-X*/gtk-3.0/
-%dir %{_datadir}/themes/Mint-X*/gtk-4.0/
-%{_datadir}/themes/Mint-X*/index.theme
-%{_datadir}/themes/Mint-X*/metacity-1/
-%{_datadir}/themes/Mint-X/xfce-notify-4.0/
-%{_datadir}/themes/Mint-X/xfwm4/
-%{_datadir}/themes/Mint-X*/gtk-2.0/
-%{_datadir}/themes/Mint-X-compact/xfwm4/
+%{_datadir}/themes/Mint-X*/
+%exclude %{_datadir}/themes/Mint-X*/gtk-3.0/*
+%exclude %{_datadir}/themes/Mint-X*/gtk-4.0/*
+%exclude %{_datadir}/themes/Mint-X*/cinnamon/
 
 %files -n mint-y-theme
 %license debian/copyright
 %doc debian/changelog
-%dir %{_datadir}/themes/Mint-Y*/
-%dir %{_datadir}/themes/Mint-Y*/gtk-3.0/
-%dir %{_datadir}/themes/Mint-Y*/gtk-4.0/
-%{_datadir}/themes/Mint-Y*/index.theme
-%{_datadir}/themes/Mint-Y*/metacity-1/
-%{_datadir}/themes/Mint-Y*/xfwm4/
-%{_datadir}/themes/Mint-Y*/gtk-2.0/
+%{_datadir}/themes/Mint-Y*/
+%exclude %{_datadir}/themes/Mint-Y*/gtk-3.0/*
+%exclude %{_datadir}/themes/Mint-Y*/gtk-4.0/*
+%exclude %{_datadir}/themes/Mint-Y*/cinnamon/
 
 %files -n mint-themes-gtk3
 %license debian/copyright
@@ -111,6 +103,9 @@ make
 %{_datadir}/themes/Mint-Y*/cinnamon/
 
 %changelog
+* Thu Jun 08 2023 Leigh Scott <leigh123linux@gmail.com> - 1:2.1.1-1
+- New upstream release
+
 * Tue Jun 06 2023 Leigh Scott <leigh123linux@gmail.com> - 1:2.1.0-1
 - New upstream release
 

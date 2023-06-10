@@ -17,7 +17,7 @@ URL: https://www.python.org/
 %global prerel b1
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python-2.0.1
 
 
@@ -60,13 +60,71 @@ License: Python-2.0.1
 #   python-pip is built with a wheel to get around the issue.
 %bcond_with bootstrap
 
-# Whether to use RPM build wheels from the python-pip-wheel package
+# Whether to use RPM build wheels from the python-{pip,setuptools,wheel}-wheel packages
 # Uses upstream bundled prebuilt wheels otherwise
+# Only F39+ has a pip new enough to work with Python 3.12
+%if 0%{?fedora} >= 39 || 0%{?rhel} >= 10
+%bcond_without rpmwheels
+%else
 %bcond_with rpmwheels
+%endif
 # If the rpmwheels condition is disabled, we use the bundled wheel packages
 # from Python with the versions below.
 # This needs to be manually updated when we update Python.
 %global pip_version 23.1.2
+%global setuptools_version 67.6.1
+%global wheel_version 0.40.0
+# All of those also include a list of indirect bundled libs:
+# pip
+#  $ %%{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/ensurepip/_bundled/pip-*.whl pip/_vendor/vendor.txt)
+%global pip_bundled_provides %{expand:
+Provides: bundled(python3dist(cachecontrol)) = 0.12.11
+Provides: bundled(python3dist(certifi)) = 2022.12.7
+Provides: bundled(python3dist(chardet)) = 5.1
+Provides: bundled(python3dist(colorama)) = 0.4.6
+Provides: bundled(python3dist(distlib)) = 0.3.6
+Provides: bundled(python3dist(distro)) = 1.8
+Provides: bundled(python3dist(idna)) = 3.4
+Provides: bundled(python3dist(msgpack)) = 1.0.5
+Provides: bundled(python3dist(packaging)) = 21.3
+Provides: bundled(python3dist(platformdirs)) = 3.2
+Provides: bundled(python3dist(pygments)) = 2.14
+Provides: bundled(python3dist(pyparsing)) = 3.0.9
+Provides: bundled(python3dist(pyproject-hooks)) = 1
+Provides: bundled(python3dist(requests)) = 2.28.2
+Provides: bundled(python3dist(resolvelib)) = 1.0.1
+Provides: bundled(python3dist(rich)) = 13.3.3
+Provides: bundled(python3dist(setuptools)) = 67.7.2
+Provides: bundled(python3dist(six)) = 1.16
+Provides: bundled(python3dist(tenacity)) = 8.2.2
+Provides: bundled(python3dist(tomli)) = 2.0.1
+Provides: bundled(python3dist(typing-extensions)) = 4.5
+Provides: bundled(python3dist(urllib3)) = 1.26.15
+Provides: bundled(python3dist(webencodings)) = 0.5.1
+}
+# setuptools
+# vendor.txt files not in .whl
+#  $ %%{_rpmconfigdir}/pythonbundles.py \
+#    <(curl -L https://github.com/pypa/setuptools/raw/v%%{setuptools_version}/setuptools/_vendor/vendored.txt) \
+#    <(curl -L https://github.com/pypa/setuptools/raw/v%%{setuptools_version}/pkg_resources/_vendor/vendored.txt)
+%global setuptools_bundled_provides %{expand:
+Provides: bundled(python3dist(importlib-metadata)) = 6
+Provides: bundled(python3dist(importlib-resources)) = 5.10.2
+Provides: bundled(python3dist(jaraco-text)) = 3.7
+Provides: bundled(python3dist(more-itertools)) = 8.8
+Provides: bundled(python3dist(ordered-set)) = 3.1.1
+Provides: bundled(python3dist(packaging)) = 23
+Provides: bundled(python3dist(platformdirs)) = 2.6.2
+Provides: bundled(python3dist(tomli)) = 2.0.1
+Provides: bundled(python3dist(typing-extensions)) = 4.0.1
+Provides: bundled(python3dist(typing-extensions)) = 4.4
+Provides: bundled(python3dist(zipp)) = 3.7
+}
+# wheel
+#  $ %%{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/test/wheel-*.whl wheel/vendored/vendor.txt)
+%global wheel_bundled_provides %{expand:
+Provides: bundled(python3dist(packaging)) = 23
+}
 
 # Expensive optimizations (mainly, profile-guided optimizations)
 %bcond_without optimizations
@@ -238,6 +296,10 @@ BuildRequires: /usr/sbin/ifconfig
 # Python 3.12 removed the deprecated imp module,
 # the first compatible version of pip is 23.1.2.
 BuildRequires: %{python_wheel_pkg_prefix}-pip-wheel >= 23.1.2
+%if %{with tests}
+BuildRequires: %{python_wheel_pkg_prefix}-setuptools-wheel
+BuildRequires: %{python_wheel_pkg_prefix}-wheel-wheel
+%endif
 %endif
 
 %if %{without bootstrap}
@@ -303,6 +365,12 @@ Patch371: 00371-revert-bpo-1596321-fix-threading-_shutdown-for-the-main-thread-g
 # 00398 # 3a2e73c1542a7204628783cef2186e4b8a385f79
 # fix stack overwrite on 32-bit in perf map test harness (#104811)
 Patch398: 00398-fix-stack-overwrite-on-32-bit-in-perf-map-test-harness-gh-104811-104823.patch
+
+# 00401 # 48310af24b090719553bf0e9c965d80524e0b40e
+# Tests: Use setuptools+wheel from sysconfig.get_config_var('WHEEL_PKG_DIR') if set
+#
+# Proposed upstream https://github.com/python/cpython/pull/105056
+Patch401: 00401-tests-use-setuptools-wheel-from-sysconfig-get_config_var-wheel_pkg_dir-if-set.patch
 
 # (New patches go here ^^^)
 #
@@ -428,6 +496,9 @@ Summary:        Python runtime libraries
 Requires: %{python_wheel_pkg_prefix}-pip-wheel >= 23.1.2
 %else
 Provides: bundled(python3dist(pip)) = %{pip_version}
+%pip_bundled_provides
+# License manually combined form Python + pip
+License: Python-2.0.1 AND MIT AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND LGPL-2.1-only AND MPL-2.0 AND (Apache-2.0 OR BSD-2-Clause)
 %endif
 
 %unversioned_obsoletes_of_python3_X_if_main libs
@@ -546,6 +617,18 @@ Summary: The self-test suite for the main python3 package
 Requires: %{pkgname} = %{version}-%{release}
 Requires: %{pkgname}-libs%{?_isa} = %{version}-%{release}
 
+%if %{with rpmwheels}
+Requires: %{python_wheel_pkg_prefix}-setuptools-wheel
+Requires: %{python_wheel_pkg_prefix}-wheel-wheel
+%else
+Provides: bundled(python3dist(setuptools)) = %{setuptools_version}
+%setuptools_bundled_provides
+Provides: bundled(python3dist(wheel)) = %{wheel_version}
+%wheel_bundled_provides
+# License manually combined from Python + setuptools + wheel
+License: Python-2.0.1 AND MIT AND Apache-2.0 AND (Apache-2.0 OR BSD-2-Clause)
+%endif
+
 %unversioned_obsoletes_of_python3_X_if_main test
 
 %description -n %{pkgname}-test
@@ -598,8 +681,18 @@ The debug runtime additionally supports debug builds of C-API extensions
 %gpgverify -k2 -s1 -d0
 %autosetup -S git_am -n Python-%{upstream_version}
 
+# Verify the second level of bundled provides is up to date
+# Arguably this should be done in %%check, but %%prep has a faster feedback loop
+# setuptools.whl does not contain the vendored.txt files
+if [ -f %{_rpmconfigdir}/pythonbundles.py ]; then
+  %{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/ensurepip/_bundled/pip-*.whl pip/_vendor/vendor.txt) --compare-with '%pip_bundled_provides'
+  %{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/test/wheel-*.whl wheel/vendored/vendor.txt) --compare-with '%wheel_bundled_provides'
+fi
+
 %if %{with rpmwheels}
 rm Lib/ensurepip/_bundled/pip-%{pip_version}-py3-none-any.whl
+rm Lib/test/setuptools-%{setuptools_version}-py3-none-any.whl
+rm Lib/test/wheel-%{wheel_version}-py3-none-any.whl
 %endif
 
 # Remove all exe files to ensure we are not shipping prebuilt binaries
@@ -1568,6 +1661,10 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Mon May 29 2023 Miro Hrončok <mhroncok@redhat.com> - 3.12.0~b1-2
+- Use wheels from RPMs, at least on Fedora 39+
+- On older Fedora releases, declare bundled() provides and a complex License tag
+
 * Tue May 23 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.12.0~b1-1
 - Update to 3.12.0b1
 

@@ -4,7 +4,7 @@
 %bcond_with signed
 
 Name:      pykickstart
-Version:   3.47
+Version:   3.48
 Release:   1%{?dist}
 License:   GPL-2.0-only AND MIT
 Summary:   Python utilities for manipulating kickstart files.
@@ -27,7 +27,6 @@ BuildRequires: make
 
 # Only required when building with runtests
 %if %{with runtests}
-BuildRequires: python3-coverage
 BuildRequires: python3-sphinx
 %endif
 
@@ -55,7 +54,7 @@ make PYTHON=%{__python3} DESTDIR=%{buildroot} install
 
 %check
 %if %{with runtests}
-LC_ALL=C make PYTHON=%{__python3} test
+LC_ALL=C make PYTHON=%{__python3} test-no-coverage
 %endif
 
 %files
@@ -79,6 +78,12 @@ LC_ALL=C make PYTHON=%{__python3} test
 %{python3_sitelib}/pykickstart*.egg-info
 
 %changelog
+* Thu Jun 08 2023 Brian C. Lane <bcl@redhat.com> - 3.48-1
+- Makefile: Add a test-no-coverage target (bcl)
+- realm: switch from pipes.quote() to shlex.quote() (ptoscano)
+- workflow: Update actions to newest versions (bcl)
+- Fix issues how to generate encrypted passwords (woiling)
+
 * Fri Mar 17 2023 Brian C. Lane <bcl@redhat.com> - 3.47-1
 - network: Move new options to Fedora 39 (bcl)
   Related: rhbz#1656662

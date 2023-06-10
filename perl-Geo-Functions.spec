@@ -1,17 +1,30 @@
 Name:           perl-Geo-Functions
-Version:        0.07
-Release:        39%{?dist}
+Version:        0.08
+Release:        2%{?dist}
 Summary:        Standard Geo:: functions
 
-License:        GPL+ or Artistic
+License:        MIT
 URL:            https://metacpan.org/release/Geo-Functions
 Source0:        https://cpan.metacpan.org/authors/id/M/MR/MRDVT/Geo-Functions-%{version}.tar.gz
 
 BuildArch:      noarch
-BuildRequires: make
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+# Run-time
+BuildRequires:  perl(Exporter)
 BuildRequires:  perl(Geo::Constants) >= 0.06
+BuildRequires:  perl(strict)
+BuildRequires:  perl(vars)
+BuildRequires:  perl(warnings)
+# Tests
+BuildRequires:  perl(constant)
+BuildRequires:  perl(lib)
+BuildRequires:  perl(Test)
+BuildRequires:  perl(vars)
+
 
 %description
 %{summary}.
@@ -22,30 +35,35 @@ BuildRequires:  perl(Geo::Constants) >= 0.06
 
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} ';'
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null ';'
-chmod -R u+w $RPM_BUILD_ROOT/*
+%{make_install}
+%{_fixperms} $RPM_BUILD_ROOT/*
 
 
 %check
 make test
 
-
-
 %files
-%doc CHANGES LICENSE README
+%license LICENSE
+%doc CONTRIBUTING.md README.md
 %{perl_vendorlib}/Geo/
 %{_mandir}/man3/*.3pm*
 
 
 %changelog
+* Thu Jun 08 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.08-2
+- Add missing test build-require perl(Test)
+
+* Thu Jun 08 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.08-1
+- 0.08 bump
+- Modernize spec
+- Specify all dependencies
+- Change license to MIT
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -8,7 +8,7 @@
 #
 %bcond_without       tests
 
-%global gh_commit    a8dd186f07ea667c1e3abd2176bfab0ab161ea94
+%global gh_commit    13a7fa2642c76c58fa2806ef7f565344c817a191
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     mockery
 %global gh_project   mockery
@@ -16,7 +16,7 @@
 %global major        1
 
 Name:           php-mockery
-Version:        1.6.1
+Version:        1.6.2
 Release:        1%{?dist}
 Summary:        Mockery is a simple but flexible PHP mock object framework
 
@@ -128,6 +128,9 @@ exit $ret
 
 
 %changelog
+* Thu Jun  8 2023 Remi Collet <remi@remirepo.net> - 1.6.2-1
+- update to 1.6.2
+
 * Tue Jun  6 2023 Remi Collet <remi@remirepo.net> - 1.6.1-1
 - update to 1.6.1
 

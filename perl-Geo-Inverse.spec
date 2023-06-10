@@ -1,53 +1,60 @@
 Name:           perl-Geo-Inverse
-Version:        0.05
-Release:        40%{?dist}
+Version:        0.07
+Release:        1%{?dist}
 Summary:        Calculate geographic distance from a lat & lon pair
 
-License:        GPL+ or Artistic
+License:        MIT
 URL:            https://metacpan.org/release/Geo-Inverse
 Source0:        https://cpan.metacpan.org/authors/id/M/MR/MRDVT/Geo-Inverse-%{version}.tar.gz
 
 BuildArch:      noarch
-BuildRequires: make
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+# Run-time
+BuildRequires:  perl(base)
 BuildRequires:  perl(Geo::Constants) >= 0.04
-BuildRequires:  perl(Geo::Functions) >= 0.03
 BuildRequires:  perl(Geo::Ellipsoids) >= 0.09
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(Geo::Functions) >= 0.03
+BuildRequires:  perl(Package::New)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+# Tests
+BuildRequires:  perl(constant)
+BuildRequires:  perl(Test)
 
 %description
 %{summary}.
 
-
 %prep
 %setup -q -n Geo-Inverse-%{version}
 
-
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
-
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} ';'
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null ';'
-chmod -R u+w $RPM_BUILD_ROOT/*
-
+%{make_install}
+%{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
 make test
 
-
-
 %files
-%doc CHANGES LICENSE README
+%license LICENSE
+%doc CONTRIBUTING.md Changes README.md
 %{perl_vendorlib}/Geo/
-%{_mandir}/man3/*.3pm*
-
+%{_mandir}/man3/Geo*.3pm*
 
 %changelog
+* Thu Jun 08 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.07-1
+- 0.07 bump
+- Modernize spec
+- Specify all dependencies
+- Change license to MIT
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

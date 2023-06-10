@@ -16,6 +16,7 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * relax stricter-than-SemVer requirement for the syn dev-dependency
 Patch:          pyo3-log-fix-metadata.diff
+Patch:          0001-deny-warnings-considered-harmful.patch
 
 BuildRequires:  rust-packaging >= 21
 

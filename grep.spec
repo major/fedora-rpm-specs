@@ -1,6 +1,6 @@
 Summary: Pattern matching utilities
 Name: grep
-Version: 3.10
+Version: 3.11
 Release: 1%{?dist}
 License: GPLv3+
 URL: https://www.gnu.org/software/grep/
@@ -15,6 +15,8 @@ Source6: grepconf.sh
 
 # upstream ticket 39445
 Patch0: grep-3.5-help-align.patch
+# upstream ticket 63965, maybe glibc bug, temporal drop of some gnulib tests shouldn't cause any harm
+Patch1: grep-3.11-gnulib-tests-drop.patch
 
 BuildRequires: gcc
 BuildRequires: pcre2-devel
@@ -22,6 +24,10 @@ BuildRequires: texinfo
 BuildRequires: gettext
 BuildRequires: autoconf
 BuildRequires: automake
+
+# temporal for the gnulib patch
+BuildRequires: gettext-devel
+
 Buildrequires: glibc-all-langpacks
 BuildRequires: perl(FileHandle)
 BuildRequires: make
@@ -58,6 +64,9 @@ GNU grep is needed by many scripts, so it shall be installed on every system.
 # Temporarily switch to the included regex until glibc bug is fixed:
 # https://sourceware.org/bugzilla/show_bug.cgi?id=11053
 #%%configure --without-included-regex --disable-silent-rules \
+
+# temporal for gnulib patch, remove with the patch
+autoreconf -fi
 %configure --disable-silent-rules \
   CPPFLAGS="-I%{_includedir}/pcre" CFLAGS="%{BUILD_FLAGS}"
 %make_build
@@ -88,6 +97,10 @@ make check
 %{_libexecdir}/grepconf.sh
 
 %changelog
+* Tue Jun  6 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 3.11-1
+- New version
+  Resolves: rhbz#2181063
+
 * Thu Mar 23 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 3.10-1
 - New version
   Resolves: rhbz#2181063

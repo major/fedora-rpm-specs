@@ -10,14 +10,14 @@
 
 Name: keepalived
 Summary: High Availability monitor built upon LVS, VRRP and service pollers
-Version: 2.2.7
-Release: 6%{?dist}
+Version: 2.2.8
+Release: 1%{?dist}
 License: GPLv2+
 URL: http://www.keepalived.org/
 
 Source0: http://www.keepalived.org/software/keepalived-%{version}.tar.gz
 Source1: keepalived.service
-Patch0: keepalived-configure-c99.patch
+#Patch0: keepalived-configure-c99.patch
 
 Requires(post): systemd
 Requires(preun): systemd
@@ -113,6 +113,9 @@ mkdir -p %{buildroot}%{_libexecdir}/keepalived
 %{_mandir}/man8/keepalived.8*
 
 %changelog
+* Thu Jun 08 2023 Ryan O'Hara <rohara@redhat.com> - 2.2.8-1
+- Update to 2.2.8 (#2211385)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.7-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

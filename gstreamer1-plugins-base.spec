@@ -1,3 +1,5 @@
+%bcond cdparanoia %{undefined rhel}
+
 %global         majorminor      1.0
 
 #global gitrel     140
@@ -6,7 +8,7 @@
 
 Name:           gstreamer1-plugins-base
 Version:        1.22.3
-Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
+Release:        2%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework base plugins
 
 License:        LGPLv2+
@@ -28,7 +30,9 @@ BuildRequires:  gobject-introspection-devel >= 1.31.1
 BuildRequires:  iso-codes-devel
 
 BuildRequires:  alsa-lib-devel
+%if %{with cdparanoia}
 BuildRequires:  cdparanoia-devel
+%endif
 BuildRequires:  libogg-devel >= 1.0
 BuildRequires:  libtheora-devel >= 1.1
 BuildRequires:  libvisual-devel
@@ -123,6 +127,7 @@ for the GStreamer Base Plugins library.
   -D package-name='Fedora GStreamer-plugins-base package' \
   -D package-origin='http://download.fedoraproject.org' \
   -D gl_winsys=wayland,x11,gbm \
+  %{!?with_cdparanoia:-D cdparanoia=disabled} \
   -D doc=disabled \
   -D orc=enabled \
   -D tremor=disabled \
@@ -198,7 +203,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstapp.so
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstencoding.so
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstrawparse.so
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstplayback.so
+%if %{with cdparanoia}
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstcdparanoia.so
+%endif
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libgstriff-1.0.so.*
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstxvimagesink.so
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgsttheora.so
@@ -275,7 +282,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-play-1.0
 
 # base plugins with dependencies
 %{_libdir}/gstreamer-%{majorminor}/libgstalsa.so
+%if %{with cdparanoia}
 %{_libdir}/gstreamer-%{majorminor}/libgstcdparanoia.so
+%endif
 %{_libdir}/gstreamer-%{majorminor}/libgstopengl.so
 %{_libdir}/gstreamer-%{majorminor}/libgstlibvisual.so
 %{_libdir}/gstreamer-%{majorminor}/libgstogg.so
@@ -482,6 +491,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-play-1.0
 %endif
 
 %changelog
+* Thu Jun 08 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.22.3-2
+- Disable cdparanoia in RHEL builds
+
 * Thu May 25 2023 Wim Taymans <wtaymans@redhat.com> - 1.22.3-1
 - Update to 1.22.3
 

@@ -10,10 +10,10 @@
 
 Name:       python-%{library}
 Version:    2.19.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 Epoch:      1
 Summary:    Google Auth Python Library
-License:    ASL 2.0
+License:    Apache-2.0
 URL:        https://github.com/googleapis/google-auth-library-python
 
 Source0:    https://github.com/googleapis/google-auth-library-python/archive/v%{version}.tar.gz
@@ -60,6 +60,9 @@ Python client for the kubernetes API.
 %{python3_sitelib}/google_auth-%{version}*.pth
 
 %changelog
+* Thu Jun 08 2023 Jan Friesse <jfriesse@redhat.com> - 1:2.19.1-2
+- migrated to SPDX license
+
 * Fri Jun 02 2023 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 1:2.19.1-1
 - Update to 2.19.1 (#2212001)
 

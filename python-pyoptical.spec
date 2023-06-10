@@ -8,8 +8,11 @@ Version:        0.4
 Release:        25%{?dist}
 Summary:        Pure python interface to OptiCAL
 License:        MIT
-URL:            https://github.com/esc/pyoptical
-Source0:        https://github.com/esc/pyoptical/archive/%{version}/%{modname}-%{version}.tar.gz
+# The upstream project has been deleted from github and does not seem
+# to exist anywhere else
+#URL:            https://github.com/esc/pyoptical
+#Source0:        https://github.com/esc/pyoptical/archive/%{version}/%{modname}-%{version}.tar.gz
+Source0:        %{modname}-%{version}.tar.gz
 BuildArch:      noarch
 
 %description

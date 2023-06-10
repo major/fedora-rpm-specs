@@ -15,8 +15,8 @@
 %global __python %{__python3}
 
 Name:           cinnamon
-Version:        5.8.0
-Release:        1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
+Version:        5.8.1
+Release:        2%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 Summary:        Window management and application launching for GNOME
 License:        GPLv2+ and LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
@@ -80,8 +80,6 @@ BuildRequires:  pkgconfig(xorg-wacom)
 %endif
 BuildRequires:  pkgconfig(xtst)
 
-#  Add a soup version requirement to cinnamon's environment.
-Requires:       libsoup
 
 Requires:       %{name}-desktop%{?_isa} >= %{cinnamon_desktop_version}
 Requires:       muffin%{?_isa} >= %{muffin_version}
@@ -178,6 +176,9 @@ Requires:       gettext
 
 # required for gesture support
 Recommends:     touchegg
+
+# required for flatpak support
+Recommends:     xdg-desktop-portal-xapp
 
 Provides:       desktop-notification-daemon
 Provides:       bundled(libcroco) = 0.6.12
@@ -334,6 +335,15 @@ EOF
 %endif
 
 %changelog
+* Thu Jun 08 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.1-2
+- Drop requires libsoup
+
+* Thu Jun 08 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.1-1
+- Update to 5.8.1 release
+
+* Thu Jun 08 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.0-2
+- Default disable desktop effects
+
 * Wed Jun 07 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.0-1
 - Update to 5.8.0 release
 

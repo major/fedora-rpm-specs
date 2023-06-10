@@ -15,8 +15,6 @@
 %global build_cris		%{build_all}
 %global build_frv		%{build_all}
 %global build_h8300		%{build_all}
-%global build_hppa		%{build_all}
-%global build_hppa64		%{build_all}
 %global build_ia64		%{build_all}
 %global build_loongarch64	%{build_all}
 %global build_m68k		%{build_all}
@@ -31,7 +29,6 @@
 %global build_s390x		%{build_all}
 %global build_sh		%{build_all}
 %global build_sparc64		%{build_all}
-%global build_tile		%{build_all}
 %global build_x86_64		%{build_all}
 %global build_xtensa		%{build_all}
 
@@ -65,7 +62,7 @@
 %global multilib_64_archs sparc64 ppc64 s390x x86_64
 
 # we won't build libgcc for these as it depends on C library or kernel headers
-# % global no_libgcc_targets	nios2*|tile-*
+# % global no_libgcc_targets	nios2*
 %global no_libgcc_targets	none
 
 ###############################################################################
@@ -73,20 +70,20 @@
 # The gcc versioning information.  In a sed command below, the specfile winds
 # pre-release version numbers in BASE-VER back to the last actually-released
 # number.
-%global DATE 20221121
-%global gitrev b3f5a0d53b84ed27cf00cfa2b9c3e2c78935c07d
-%global gcc_version 12.2.1
-%global gcc_major 12
+%global DATE 20230519
+%global gitrev 75b6adf0fdb4d09b64cddfdce59a030f69071fc5
+%global gcc_version 13.1.1
+%global gcc_major 13
 
 # Note, cross_gcc_release must be integer, if you want to add suffixes
 # to %%{release}, append them after %%{cross_gcc_release} on Release:
 # line.  gcc_release is the Fedora gcc release that the patches were
 # taken from.
-%global gcc_release 4
-%global cross_gcc_release 6
+%global gcc_release 2
+%global cross_gcc_release 1
 %global cross_binutils_version 2.39-3
 %global isl_version 0.16.1
-%global isl_libmajor 15
+%global isl_libmajor 16
 
 %global _performance_build 1
 # Hardening slows the compiler way too much.
@@ -112,22 +109,19 @@ BuildRequires: isl-devel >= %{isl_version}
 %global srcdir gcc-%{version}-%{DATE}
 Source0: %{srcdir}.tar.xz
 
-Patch0: gcc12-hack.patch
-Patch2: gcc12-sparc-config-detection.patch
-Patch3: gcc12-libgomp-omp_h-multilib.patch
-Patch4: gcc12-libtool-no-rpath.patch
-Patch5: gcc12-isl-dl.patch
-Patch6: gcc12-isl-dl2.patch
-Patch7: gcc12-libstdc++-docs.patch
-Patch8: gcc12-no-add-needed.patch
-Patch9: gcc12-Wno-format-security.patch
-Patch10: gcc12-rh1574936.patch
-Patch11: gcc12-d-shared-libphobos.patch
-Patch12: gcc12-pr107468.patch
-Patch13: gcc12-configure-c99-1.patch
-Patch14: gcc12-configure-c99-2.patch
+Patch0: gcc13-hack.patch
+Patch2: gcc13-sparc-config-detection.patch
+Patch3: gcc13-libgomp-omp_h-multilib.patch
+Patch4: gcc13-libtool-no-rpath.patch
+Patch5: gcc13-isl-dl.patch
+Patch6: gcc13-isl-dl2.patch
+Patch7: gcc13-libstdc++-docs.patch
+Patch8: gcc13-no-add-needed.patch
+Patch9: gcc13-Wno-format-security.patch
+Patch10: gcc13-rh1574936.patch
+Patch11: gcc13-d-shared-libphobos.patch
 
-Patch900: cross-intl-filename.patch
+Patch900: cross-gcc-intl-filename.patch
 Patch901: cross-gcc-format-config.patch
 
 %if 0%{?fedora} >= 29 || 0%{?rhel} > 7
@@ -233,8 +227,6 @@ the number of packages. \
 %do_package cris-linux-gnu	%{build_cris}
 %do_package frv-linux-gnu	%{build_frv}
 %do_package h8300-linux-gnu	%{build_h8300}
-%do_package hppa-linux-gnu	%{build_hppa}
-%do_package hppa64-linux-gnu	%{build_hppa64}
 %do_package i386-linux-gnu	%{build_i386}
 %do_package ia64-linux-gnu	%{build_ia64}
 %do_package loongarch64-linux-gnu %{build_loongarch64}
@@ -262,7 +254,6 @@ the number of packages. \
 %do_package sh64-linux-gnu	%{build_sh64}
 %do_package sparc-linux-gnu	%{build_sparc}
 %do_package sparc64-linux-gnu	%{build_sparc64}
-%do_package tile-linux-gnu	%{build_tile}
 %do_package unicore32-linux-gnu	%{build_unicore32}
 %do_package x86_64-linux-gnu	%{build_x86_64}
 %do_package xtensa-linux-gnu	%{build_xtensa}
@@ -284,15 +275,11 @@ cd %{srcdir}
 %patch6 -p0 -b .isl-dl2
 %patch7 -p0 -b .libc++docs
 %patch8 -p0 -b .no-add-needed~
-%patch9 -p0 -b .foffload-default~
-%patch10 -p0 -b .Wno-format-security~
-%patch11 -p0 -b .libphobos
-%patch12 -p0 -b .pr107468~
+%patch9 -p0 -b .Wno-format-security~
+%patch10 -p0 -b .rh1574936
+%patch11 -p0 -b .shared-libphobos
 
-%patch13 -p1
-%patch14 -p1
-
-#%patch900 -p0 -b .cross-intl~
+%patch900 -p0 -b .cross-intl~
 %patch901 -p0 -b .format-config~
 
 echo 'Red Hat Cross %{version}-%{cross_gcc_release}' > gcc/DEV-PHASE
@@ -331,8 +318,6 @@ cd ..
     prep_target cris-linux-gnu		%{build_cris}
     prep_target frv-linux-gnu		%{build_frv}
     prep_target h8300-linux-gnu		%{build_h8300}
-    prep_target hppa-linux-gnu		%{build_hppa}
-    prep_target hppa64-linux-gnu	%{build_hppa64}
     prep_target i386-linux-gnu		%{build_i386}
     prep_target ia64-linux-gnu		%{build_ia64}
     prep_target loongarch64-linux-gnu	%{build_loongarch64}
@@ -357,7 +342,6 @@ cd ..
     prep_target sh64-linux-gnu		%{build_sh64}
     prep_target sparc-linux-gnu		%{build_sparc}
     prep_target sparc64-linux-gnu	%{build_sparc64}
-    prep_target tile-linux-gnu		%{build_tile}
     prep_target unicore32-linux-gnu	%{build_unicore32}
     prep_target x86_64-linux-gnu	%{build_x86_64}
     prep_target xtensa-linux-gnu	%{build_xtensa}
@@ -432,10 +416,8 @@ function config_target () {
 	mn10300-*)	target=am33_2.0-linux;;
 	m68knommu-*)	target=m68k-linux;;
 	openrisc-*)	target=or1k-linux-gnu;;
-	parisc-*)	target=hppa-linux;;
 	score-*)	target=score-elf;;
 	sh64-*)		target=sh64-linux-elf;;
-	tile-*)		target=tilegx-linux;;
 	v850-*)		target=v850e-linux;;
 	x86-*)		target=x86_64-linux;;
 	*)		target=$arch;;
@@ -484,9 +466,6 @@ function config_target () {
 	    ;;
 	sparc64-*)
 	    CONFIG_FLAGS="--disable-linux-futex --with-cpu=ultrasparc"
-	    ;;
-	tile-*)
-	    #CONFIG_FLAGS="--with-arch_32=tilepro"
 	    ;;
 	x86_64-*)
 	    CONFIG_FLAGS="--with-arch_32=i686 --with-tune=generic --enable-cet"
@@ -744,9 +723,7 @@ function install_lang () {
 	h8300)		target_cpu=h8300;;
 	mn10300)	target_cpu=am33_2.0;;
 	openrisc)	target_cpu=or1k;;
-	parisc)		target_cpu=hppa;;
 	score)		target_cpu=score;;
-	tile)		target_cpu=tilegx;;
 	v850)		target_cpu=v850e;;
 	x86)		target_cpu=x86_64;;
 	*)		target_cpu=$cpu;;
@@ -837,8 +814,6 @@ chmod +x %{__ar_no_strip}
 %do_files cris-linux-gnu	%{build_cris}
 %do_files frv-linux-gnu		%{build_frv}
 %do_files h8300-linux-gnu	%{build_h8300}
-%do_files hppa-linux-gnu	%{build_hppa}
-%do_files hppa64-linux-gnu	%{build_hppa64}
 %do_files i386-linux-gnu	%{build_i386}
 %do_files ia64-linux-gnu	%{build_ia64}
 %do_files loongarch64-linux-gnu	%{build_loongarch64}
@@ -866,12 +841,15 @@ chmod +x %{__ar_no_strip}
 %do_files sh64-linux-gnu	%{build_sh64}
 %do_files sparc-linux-gnu	%{build_sparc}
 %do_files sparc64-linux-gnu	%{build_sparc64}
-%do_files tile-linux-gnu	%{build_tile}
 %do_files unicore32-linux-gnu	%{build_unicore32}
 %do_files x86_64-linux-gnu	%{build_x86_64}
 %do_files xtensa-linux-gnu	%{build_xtensa}
 
 %changelog
+* Thu Jun 08 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 13.1.1-1
+- Update to gcc 13.1
+- Drop tile/hppa support (dropped upstream)
+
 * Tue Apr 18 2023 Arjun Shankar <arjun@redhat.com> - 12.2.1-6
 - Backport upstream patches for improved C99 compatibility
 

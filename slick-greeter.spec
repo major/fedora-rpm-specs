@@ -1,6 +1,6 @@
 Summary:	A slick-looking LightDM greeter
 Name:		slick-greeter
-Version:	1.8.0
+Version:	1.8.1
 Release:	1%{?dist}
 License:	GPLv3+
 URL:		https://github.com/linuxmint/%{name}
@@ -134,6 +134,9 @@ NOCONFIGURE=1 ./autogen.sh
 
 
 %changelog
+* Thu Jun 08 2023 Leigh Scott <leigh123linux@gmail.com> - 1.8.1-1
+- Update to 1.8.1 release
+
 * Fri Jun 02 2023 Leigh Scott <leigh123linux@gmail.com> - 1.8.0-1
 - Update to 1.8.0 release
 

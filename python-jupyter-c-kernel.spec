@@ -7,7 +7,7 @@ Release:        18%{?dist}
 Summary:        Minimalistic C kernel for Jupyter
 
 License:        MIT
-URL:            https://github.com/brendanrius/jupyter-c-kernel
+URL:            https://github.com/brendan-rius/jupyter-c-kernel
 Source0:        https://files.pythonhosted.org/packages/source/j/%{srcname_}/%{srcname_}-%{version}.tar.gz
 # https://github.com/brendan-rius/jupyter-c-kernel/pull/46
 Source1:        README.md

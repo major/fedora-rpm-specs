@@ -19,8 +19,9 @@ Source:         %{crates_source}
 # * drop send_wrapper and widestring dev-dependencies (not packaged yet)
 # * drop MSVC- and MinGW-only features
 Patch:          pyo3-fix-metadata.diff
+Patch:          0001-deny-warnings-considered-harmful.patch
 # * skip the single doctest that depends on send_wrapper
-Patch:          0001-ignore-doctest-with-missing-send_wrapper-dependency.patch
+Patch:          0002-ignore-doctest-with-missing-send_wrapper-dependency.patch
 
 BuildRequires:  rust-packaging >= 21
 

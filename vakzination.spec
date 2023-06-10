@@ -1,6 +1,6 @@
 Name:           vakzination
 Version:        23.01.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        Apache2.0 and BSD and CC-PDDC and CC0-1.0 and FSFAP and GPLv2+
 Summary:        Vakzination manages your health certificates like vaccination, test, and recovery certificates.
 Url:            https://invent.kde.org/plasma-mobile/vakzination
@@ -55,6 +55,9 @@ desktop-file-install --dir=%{buildroot}%{_kf5_datadir}/applications/ %{buildroot
 %{_kf5_metainfodir}/org.kde.%{name}.metainfo.xml
 
 %changelog
+* Thu Jun 08 2023 Justin Zobel <justin.zobel@gmail.com> - 23.01.0-3
+- rebuilt
+
 * Thu May 04 2023 Justin Zobel <justin@1707.io> - 23.01.0-2
 - Rebuild
 

@@ -1,6 +1,6 @@
 %define		mainver		0.996
 #%%define		betaver		pre3
-%define		baserelease	3
+%define		baserelease	4
 
 # Note:
 # mecab dictionary requires mecab-devel to rebuild it,
@@ -9,17 +9,18 @@
 Name:		mecab
 Version:	%{mainver}
 %if %{?betaver:0}%{!?betaver:1}
-Release:	%{baserelease}%{?dist}.5
+Release:	%{baserelease}%{?dist}
 %else
-Release:	0.%{baserelease}.%{betaver}%{?dist}.5
+Release:	0.%{baserelease}.%{betaver}%{?dist}
 %endif
 Summary:	Yet Another Part-of-Speech and Morphological Analyzer
 
-License:	BSD or LGPLv2+ or GPL+
+# SPDX confirmed
+License:	BSD-3-Clause OR LGPL-2.1-or-later OR GPL-2.0-or-later
 URL:		http://mecab.sourceforge.net/
 Source0:	http://mecab.googlecode.com/files/%{name}-%{version}.tar.gz
 
-BuildRequires: make
+BuildRequires:	make
 BuildRequires:	gcc-c++
 
 %description
@@ -86,7 +87,8 @@ cd ..
 %ldconfig_scriptlets
 
 %files
-%doc AUTHORS BSD COPYING GPL LGPL
+%doc AUTHORS
+%license BSD COPYING GPL LGPL
 %doc doc/ example/
 %{_mandir}/man1/%{name}.1*
 
@@ -106,6 +108,10 @@ cd ..
 %{_includedir}/%{name}.h
 
 %changelog
+* Tue Jun  8 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.996-4
+- SPDX migration (ljavorsk)
+- Use %%license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.996-3.5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

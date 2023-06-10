@@ -7,7 +7,11 @@ Release:        27%{?dist}
 Summary:        %{sum}
 
 License:        WTFPL
-URL:            https://github.com/phoemur/ipgetter
+# There is no upstream for this project any more; the github and pypi
+# projects have both been deleted. See:
+# https://www.reddit.com/r/learnpython/comments/9w7mbc/module_ipgetter_disappeared_from_github_and_pypi/
+# https://pypi.org/project/ipgetter2/
+#URL:            https://github.com/phoemur/ipgetter
 Source0:        https://pypi.python.org/packages/source/i/%{srcname}/%{srcname}-%{version}.tar.gz
 BuildArch:      noarch
 

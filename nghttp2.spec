@@ -1,6 +1,6 @@
 Summary: Experimental HTTP/2 client, server and proxy
 Name: nghttp2
-Version: 1.53.0
+Version: 1.54.0
 Release: 1%{?dist}
 License: MIT
 URL: https://nghttp2.org/
@@ -120,6 +120,9 @@ export "LD_LIBRARY_PATH=$RPM_BUILD_ROOT%{_libdir}:$LD_LIBRARY_PATH"
 
 
 %changelog
+* Thu Jun 08 2023 Jan Macku <jamacku@redhat.com> 1.54.0-1
+- update to the latest upstream release
+
 * Thu May 11 2023 Kamil Dudka <kdudka@redhat.com> 1.53.0-1
 - verify GPG signature of upstream tarball
 - update to the latest upstream release

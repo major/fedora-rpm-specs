@@ -4,7 +4,7 @@
 
 Name:      langpacks
 Version:   3.0
-Release:   33%{?dist}
+Release:   34%{?dist}
 Summary:   Langpacks meta-package
 
 License:   GPL-2.0-or-later
@@ -1285,8 +1285,6 @@ This package provides Ukrainian langpacks meta-package.
 %package ur
 Summary: Urdu langpacks meta-package
 Requires: %{name}-core-ur
-Recommends: %{defaultsanspkg}
-Recommends: %{defaultmonopkg}
 %if 0%{?fedora}
 Recommends: nafees-nastaleeq-fonts
 Recommends: nafees-web-naskh-fonts
@@ -1298,7 +1296,7 @@ This package provides Urdu langpacks meta-package.
 %files ur
 %{_datadir}/metainfo/org.fedoraproject.LangPack-ur.metainfo.xml
 
-%langcore_pkg -l ur -n Urdu -f ibm-plex-sans-arabic-fonts -i ibus-m17n
+%langcore_pkg -l ur -n Urdu -f paktype-naskh-basic-fonts -i ibus-m17n
 
 %package ve
 Summary: Venda langpacks meta-package
@@ -1437,6 +1435,9 @@ DESTDIR=%{buildroot} appstream-util split-appstream %{SOURCE1}
 DESTDIR=%{buildroot} appstream-util split-appstream %{SOURCE2}
 
 %changelog
+* Thu Jun  8 2023 Jens Petersen <petersen@redhat.com> - 3.0-34
+- revert Urdu default font to paktype-naskh-basic-fonts
+
 * Wed Jun 07 2023 Parag Nemade <pnemade AT redhat DOT Com > - 3.0-33
 - Resolves:rhbz#2213106 - Fix rawhide compose by changing default sans for ur language
 

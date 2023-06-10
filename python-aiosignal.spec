@@ -59,6 +59,9 @@ echo 'intersphinx_mapping.clear()' >> docs/conf.py
 # Patch out coverage options
 sed -r -i 's/--cov[^[:blank:]]*//g' setup.cfg
 
+# Do not fail on warnings
+sed -zi 's/filterwarnings = error/filterwarnings = default/' setup.cfg
+
 
 %generate_buildrequires
 %pyproject_buildrequires

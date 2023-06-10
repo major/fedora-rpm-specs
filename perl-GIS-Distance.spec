@@ -9,10 +9,10 @@
 %endif
 
 Name:           perl-GIS-Distance
-Version:        0.19
-Release:        10%{?dist}
+Version:        0.20
+Release:        1%{?dist}
 Summary:        Calculate geographic distances
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/GIS-Distance
 Source0:        https://cpan.metacpan.org/authors/id/B/BL/BLUEFEET/GIS-Distance-%{version}.tar.gz
 BuildArch:      noarch
@@ -108,13 +108,19 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %files
 %license LICENSE
 %doc Changes README.md
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/GIS
+%{perl_vendorlib}/GIS/Distance
+%{perl_vendorlib}/GIS/Distance.pm
+%{_mandir}/man3/GIS::Distance.*
+%{_mandir}/man3/GIS::Distance::*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jun 08 2023 Petr Pisar <ppisar@redhat.com> - 0.20-1
+- 0.20 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -7,8 +7,8 @@
 
 Summary: Utilities to configure the Cinnamon desktop
 Name:    cinnamon-control-center
-Version: 5.8.0
-Release: 2%{?dist}
+Version: 5.8.1
+Release: 1%{?dist}
 # The following files contain code from
 # ISC for panels/network/rfkill.h
 # And MIT for wacom/calibrator/calibrator.c
@@ -140,6 +140,9 @@ install -pm 0644 mint-artwork/%{_datadir}/mint-artwork/sounds/* %{buildroot}/%{_
 
 
 %changelog
+* Thu Jun 08 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.1-1
+- Update to 5.8.1 release
+
 * Tue Jun 06 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.0-2
 - Update mint-artwork for sounds
 

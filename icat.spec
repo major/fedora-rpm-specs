@@ -10,7 +10,7 @@ License: BSD-2-Clause
 %global git_short  %(c="%{git_commit}"; echo "${c:0:7}")
 
 Version: 0.5
-Release: 13.%{git_date}git%{git_short}%{?dist}
+Release: 14.%{git_date}git%{git_short}%{?dist}
 
 URL:     https://github.com/%{repo_owner}/%{repo_name}
 Source0: %{URL}/archive/%{git_commit}/%{repo_name}-%{git_commit}.tar.gz
@@ -18,6 +18,9 @@ Source0: %{URL}/archive/%{git_commit}/%{repo_name}-%{git_commit}.tar.gz
 BuildRequires: gcc
 BuildRequires: imlib2-devel
 BuildRequires: make
+
+# sleuthkit provides a completely unrelated /usr/bin/icat
+Conflicts: sleuthkit
 
 %description
 Outputs an image on a 256-color or 24-bit color enabled terminal
@@ -45,6 +48,9 @@ install -m 644 ./icat.man %{buildroot}/%{_mandir}/man1/%{name}.1
 %{_mandir}/man1/*
 
 %changelog
+* Thu Jun 08 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.5-14.20230110git9b5aa62
+- Add an explicit Conflicts tag against sleuthkit
+
 * Tue Apr 18 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.5-13.20230110git9b5aa62
 - Update to latest git snapshot (2023-01-10)
 - Fix man page having the executable permission bit set

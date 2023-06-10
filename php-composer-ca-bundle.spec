@@ -9,15 +9,15 @@
 
 %bcond_without       tests
 
-%global gh_commit    74780ccf8c19d6acb8d65c5f39cd72110e132bbd
+%global gh_commit    90d087e988ff194065333d16bc5cf649872d9cdb
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     composer
 %global gh_project   ca-bundle
 %global php_home     %{_datadir}/php
 
 Name:           php-composer-ca-bundle
-Version:        1.3.5
-Release:        2%{?dist}
+Version:        1.3.6
+Release:        1%{?dist}
 Summary:        Lets you find a path to the system CA
 
 License:        MIT
@@ -83,7 +83,7 @@ Autoloader: %{php_home}/Composer/CaBundle/autoload.php
 %prep
 %setup -q -n %{gh_project}-%{gh_commit}
 
-%patch0 -p0 -b .rpm
+%patch -P0 -p0 -b .rpm
 find src -name \*.rpm -exec rm {} \;
 
 cat << 'EOF' | tee src/autoload.php
@@ -147,6 +147,9 @@ exit $ret
 
 
 %changelog
+* Thu Jun  8 2023 Remi Collet <remi@remirepo.net> - 1.3.6-1
+- update to 1.3.6 (no change)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

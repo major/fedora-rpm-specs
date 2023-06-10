@@ -1,17 +1,13 @@
 %bcond_without tests
 
 Name:           python-fasjson-client
-Version:        1.0.7
+Version:        1.0.8
 Release:        %autorelease
 Summary:        An OpenAPI client for FASJSON
 
 License:        LGPL-3.0-or-later
 URL:            https://github.com/fedora-infra/fasjson-client
 Source:         %{pypi_source fasjson-client}
-# https://github.com/fedora-infra/fasjson-client/pull/304
-Patch:          0001-Use-poetry-core-as-the-build-backend.patch
-# https://github.com/fedora-infra/fasjson-client/pull/305
-Patch:          0002-Restore-compatibility-with-requests-2.26.0.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

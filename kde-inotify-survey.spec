@@ -1,6 +1,6 @@
 Name:          kde-inotify-survey
-Version:       23.04.1
-Release:       1%{?dist}
+Version:       23.04.2
+Release:       3%{?dist}
 Summary:       Monitors inotify limits and lets the user know when exceeded
 
 # Complete license breakdown can be found in the "LICENSE-BREAKDOWN" file
@@ -59,5 +59,9 @@ install -m644 -p -D %{SOURCE1} %{buildroot}%{_datadir}/dbus-1/system.d/org.kde.k
 %{_datadir}/polkit-1/actions/org.kde.kded.inotify.policy
 
 %changelog
+* Thu Jun 8 2023 Steve Cossette <farchord@gmail.com> - 23.04.2-3
+- Update to 23.04.2
+- Fixed changelog mistake
+
 * Mon May 29 2023 Steve Cossette <farchord@gmail.com> - 23.04.1-1
 - Initial release

@@ -27,7 +27,8 @@ distro.
 Summary:        Asahi Linux firmware extractor
 
 Requires:       %{name} = %{version}-%{release}
-Requires:       python3dist(asahi-firmware) >= 0.5.4
+# Not using python3dist(asahi-firmware) because its version is fixed
+Requires:       python3-asahi_firmware >= 0.5.4
 Provides:       asahi-fwextract = %{version}-%{release}
 Obsoletes:      asahi-fwextract < 20230530-2
 

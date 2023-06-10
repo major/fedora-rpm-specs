@@ -1,13 +1,10 @@
 Name:           perl-Crypt-OpenSSL-RSA
-Version:        0.32
-Release:        7%{?dist}
+Version:        0.33
+Release:        1%{?dist}
 Summary:        Perl interface to OpenSSL for RSA
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-OpenSSL-RSA
 Source0:        https://cpan.metacpan.org/authors/id/T/TO/TODDR/Crypt-OpenSSL-RSA-%{version}.tar.gz
-# Adapt to OpenSSL 3, bug #2005979, upstream bug #31, proposed to the upstream
-# <https://github.com/toddr/Crypt-OpenSSL-RSA/pull/34>
-Patch0:         Crypt-OpenSSL-RSA-0.32-Fix-for-Issue-31.patch
 BuildRequires:  gcc
 BuildRequires:  findutils
 BuildRequires:  make
@@ -42,11 +39,11 @@ Crypt::OpenSSL::RSA - RSA encoding and decoding, using the openSSL libraries
 %autosetup -p1 -n Crypt-OpenSSL-RSA-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-%make_build
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
+%{make_install}
 find %{buildroot} -type f -name '*.bs' -size 0 -delete
 %{_fixperms} %{buildroot}/*
 
@@ -61,6 +58,10 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Wed Jun 07 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.33-1
+- 0.33 bump
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.32-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

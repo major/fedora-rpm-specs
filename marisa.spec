@@ -8,7 +8,7 @@
 
 Name:          marisa
 Version:       0.2.4
-Release:       59%{?dist}
+Release:       60%{?dist}
 Summary:       Static and spece-efficient trie data structure library
 
 License:       BSD or LGPLv2+
@@ -18,8 +18,8 @@ URL:  https://code.google.com/p/marisa-trie
 Source0: https://marisa-trie.googlecode.com/files/%{name}-%{version}.tar.gz
 
 BuildRequires: make
-BuildRequires:  gcc
-BuildRequires:  gcc-c++
+BuildRequires: gcc
+BuildRequires: gcc-c++
 BuildRequires: swig
 BuildRequires: perl-devel
 BuildRequires: perl-generators
@@ -27,6 +27,7 @@ BuildRequires: perl-generators
 BuildRequires: python2-devel
 %endif
 BuildRequires: python3-devel
+BuildRequires: python3-setuptools
 BuildRequires: ruby-devel
 
 %description
@@ -113,17 +114,17 @@ Ruby language binding for groonga
 %configure --disable-static
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
-make %{?_smp_mflags}
+%{make_build}
 
 # build Perl bindings
 pushd bindings/perl
 %{__perl} Makefile.PL INC="-I%{_builddir}/%{name}-%{version}/lib" LIBS="-L%{_builddir}/%{name}-%{version}/lib/.libs -lmarisa" INSTALLDIRS=vendor
-make %{?_smp_mflags}
+%{make_build}
 popd
 
 # build Python bindings
 # Regenerate Python bindings
-make --directory=bindings swig-python
+%{make_build} --directory=bindings swig-python
 
 pushd bindings/python
 %if %{with python2}
@@ -138,12 +139,12 @@ popd
 # build Ruby bindings
 # Regenerate ruby bindings
 pushd bindings
-make swig-ruby
+%{make_build} swig-ruby
 popd
 
 pushd bindings/ruby
 ruby extconf.rb --with-opt-include="%{_builddir}/%{name}-%{version}/lib" --with-opt-lib="%{_builddir}/%{name}-%{version}/lib/.libs" --vendor
-make
+%{make_build}
 popd
 
 %install
@@ -163,6 +164,7 @@ pushd bindings/python
 %py2_install
 %endif
 %py3_install
+rm -rf %{buildroot}/%{python3_sitearch}/marisa-0.0.0-py%{python3_version}.egg-info
 popd
 
 # install Ruby bindings
@@ -217,12 +219,16 @@ rm -f $RPM_BUILD_ROOT%{perl_vendorarch}/sample.pl
 %{python3_sitearch}/__pycache__/marisa*
 %{python3_sitearch}/_marisa*.so
 %{python3_sitearch}/marisa.py
-%{python3_sitearch}/marisa-0.0.0-py%{python3_version}.egg-info
 
 %files ruby
 %{ruby_vendorarchdir}/marisa.so
 
 %changelog
+* Thu Jun  8 2023 Peng Wu <pwu@redhat.com> - 0.2.4-60
+- Add BuildRequires python3-setuptools
+- Use make_build macro instead of just make
+- Resolves: RHBZ#2048094, RHBZ#2155002
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-59
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -25,12 +25,12 @@
 %global mathjax_short               27
 %global rstudio_visual_editor       panmirror-0.0.0
 %global rstudio_version_major       2023
-%global rstudio_version_minor       03
-%global rstudio_version_patch       1
-%global rstudio_version_suffix      446
-%global rstudio_git_revision_hash   6e31ffc3ef2a1f81d377eeccab71ddc11cfbd29e
+%global rstudio_version_minor       06
+%global rstudio_version_patch       0
+%global rstudio_version_suffix      421
+%global rstudio_git_revision_hash   583b465ecc45e60ee9de085148cd2f9741cc5214
 %global rstudio_version             %{rstudio_version_major}.%{rstudio_version_minor}.%{rstudio_version_patch}
-%global rstudio_codename            cherry-blossom
+%global rstudio_codename            mountain-hydrangea
 %global rstudio_flags \
     export RSTUDIO_VERSION_MAJOR=%{rstudio_version_major} ; \
     export RSTUDIO_VERSION_MINOR=%{rstudio_version_minor} ; \
@@ -75,8 +75,6 @@ Patch5:         0005-disable-quarto.patch
 # https://github.com/rstudio/rstudio/issues/9854
 # We don't need this with our version of QtWebEngine
 Patch6:         0006-do-not-disable-seccomp-filter-sandbox.patch
-# https://github.com/rstudio/rstudio/issues/12317
-Patch7:         0007-rstudio-yaml-cpp.patch
 
 BuildRequires:  make, cmake, ant
 BuildRequires:  gcc-c++, java-11-openjdk-devel, R-core-devel
@@ -350,6 +348,9 @@ chown -R %{name}-server:%{name}-server %{_sharedstatedir}/%{name}-server
 %config(noreplace) %{_sysconfdir}/pam.d/%{name}
 
 %changelog
+* Thu Jun 08 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2023.06.0+421-1
+- Update to 2023.06.0+421
+
 * Fri May 12 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2023.03.1+446-1
 - Update to 2023.03.1+446
 

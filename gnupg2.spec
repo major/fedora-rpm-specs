@@ -3,7 +3,7 @@
 Summary: Utility for secure communication and data storage
 Name:    gnupg2
 Version: 2.4.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later AND (BSD-3-Clause OR LGPL-3.0-or-later OR GPL-2.0-or-later) AND CC-BY-4.0 AND MIT
 Source0: https://gnupg.org/ftp/gcrypt/%{?pre:alpha/}gnupg/gnupg-%{version}%{?pre}.tar.bz2
@@ -26,7 +26,10 @@ Patch22: gnupg-2.2.18-gpg-accept-subkeys-with-a-good-revocation-but-no-self-sig.
 Patch30: gnupg-2.2.21-coverity.patch
 # Revert the introduction of the RFC4880bis draft into defaults
 Patch31: gnupg2-revert-rfc4880bis.patch
-
+# fix emacs usage etc (see https://dev.gnupg.org/T6481) via upstream patch
+# https://dev.gnupg.org/rG2f872fa68c6576724b9dabee9fb0844266f55d0d
+# cherry-picked on top of gnupg 2.4.2 + gnupg-2.4.1-file-is-digest.patch
+Patch32: gnupg-2.4.2-gpg-Report-BEGIN_-status-before-examining-the-input.patch
 
 URL:     https://www.gnupg.org/
 
@@ -118,6 +121,7 @@ to the base GnuPG package
 
 %patch 30 -p1 -b .coverity
 %patch 31 -p1 -b .revert-rfc4880bis
+%patch 32 -p1 -b .report-begin
 
 # pcsc-lite library major: 0 in 1.2.0, 1 in 1.2.9+ (dlopen()'d in pcsc-wrapper)
 # Note: this is just the name of the default shared lib to load in scdaemon,
@@ -214,6 +218,9 @@ make -k check
 
 
 %changelog
+* Thu Jun 01 2023 Michael J Gruber <mjg@fedoraproject.org> - 2.4.2-2
+- fix emacs usage (rhbz#2212090)
+
 * Wed May 31 2023 Jakub Jelen <jjelen@redhat.com> - 2.4.2-1
 - New upstream release
 - Build with TPM2 support
