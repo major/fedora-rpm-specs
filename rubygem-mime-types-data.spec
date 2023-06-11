@@ -2,8 +2,8 @@
 %global gem_name mime-types-data
 
 Name: rubygem-%{gem_name}
-Version: 3.2020.1104
-Release: 6%{?dist}
+Version: 3.2023.0218.1
+Release: 1%{?dist}
 Summary: A registry for information about MIME media type definitions
 License: MIT
 URL: https://github.com/mime-types/mime-types-data/
@@ -50,8 +50,8 @@ popd
 %dir %{gem_instdir}
 %license %{gem_instdir}/Licence.md
 %{gem_instdir}/data
-%{gem_instdir}/types
 %{gem_libdir}
+%{gem_instdir}/types
 %exclude %{gem_cache}
 %{gem_spec}
 
@@ -65,6 +65,10 @@ popd
 %{gem_instdir}/Rakefile
 
 %changelog
+* Fri Jun 09 2023 Vít Ondruch <vondruch@redhat.com> - 3.2023.0218.1-1
+- Update to mime-types-data 3.2023.0218.1.
+  Resolves: rhbz#1928283
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2020.1104-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

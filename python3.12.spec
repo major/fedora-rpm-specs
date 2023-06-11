@@ -14,10 +14,10 @@ URL: https://www.python.org/
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
 %global general_version %{pybasever}.0
-%global prerel b1
+%global prerel b2
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -351,7 +351,7 @@ Source11: idle3.appdata.xml
 # pypa/distutils integration: https://github.com/pypa/distutils/pull/70
 Patch251: 00251-change-user-install-location.patch
 
-# 00371 # 1fc313929648e9b543542de09f59c55e175ac45a
+# 00371 # d917a50238c94c652bc30ae9061d65f60cc8accd
 # Revert "bpo-1596321: Fix threading._shutdown() for the main thread (GH-28549) (GH-28589)"
 #
 # This reverts commit 38c67738c64304928c68d5c2bd78bbb01d979b94. It
@@ -361,10 +361,6 @@ Patch251: 00251-change-user-install-location.patch
 # https://bodhi.fedoraproject.org/updates/FEDORA-2021-e152ce5f31
 # https://github.com/GrahamDumpleton/mod_wsgi/issues/730
 Patch371: 00371-revert-bpo-1596321-fix-threading-_shutdown-for-the-main-thread-gh-28549-gh-28589.patch
-
-# 00398 # 3a2e73c1542a7204628783cef2186e4b8a385f79
-# fix stack overwrite on 32-bit in perf map test harness (#104811)
-Patch398: 00398-fix-stack-overwrite-on-32-bit-in-perf-map-test-harness-gh-104811-104823.patch
 
 # 00401 # 48310af24b090719553bf0e9c965d80524e0b40e
 # Tests: Use setuptools+wheel from sysconfig.get_config_var('WHEEL_PKG_DIR') if set
@@ -1661,6 +1657,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Wed Jun 07 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.12.0~b2-1
+- Update to 3.12.0b2
+
 * Mon May 29 2023 Miro Hrončok <mhroncok@redhat.com> - 3.12.0~b1-2
 - Use wheels from RPMs, at least on Fedora 39+
 - On older Fedora releases, declare bundled() provides and a complex License tag

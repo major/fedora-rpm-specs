@@ -26,7 +26,7 @@
 %endif
 
 %define min_ndctl_ver 60.1
-%define upstreamversion 1.13.0
+%define upstreamversion 1.13.1
 
 Name:		nvml
 Version:	%{upstreamversion}
@@ -586,6 +586,7 @@ cp utils/pmdk.magic %{buildroot}%{_datadir}/pmdk/
 	rm -f src/test/rpmemd_dbg/TEST*
 	rm -f src/test/rpmemd_log/TEST*
 	rm -f src/test/obj_zones/TEST*
+	rm -f src/test/ex_libpmemobj/TESTS.py
 
 	# bad on ppc64
 	rm -f src/test/obj_ctl_arenas/TEST3 src/test/pmem2_future/TESTS.py
@@ -607,6 +608,10 @@ cp utils/pmdk.magic %{buildroot}%{_datadir}/pmdk/
 
 
 %changelog
+* Mon Jun 5 2023 Adam Borowski <kilobyte@angband.pl> - 1.13.1-1
+- PMDK 1.13.1.
+- Disable a test broken by Fedora debuginfo changes.
+
 * Fri Apr 28 2023 Adam Borowski <kilobyte@angband.pl> - 1.13.0-1
 - PMDK 1.13.0
 - Drop librpmem.

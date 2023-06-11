@@ -1,14 +1,10 @@
 Name:       hirte
-Version:    0.2.0
+Version:    0.3.0
 Release:    1%{?dist}
 Summary:    A systemd service controller for multi-nodes environments
 License:    GPL-2.0-or-later
 URL:        https://github.com/containers/hirte
 Source0:    %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# Patch source: https://github.com/containers/hirte/pull/267
-# merged in 0.2.0, will be in >0.2.0
-Patch:      267.patch
-# Required to apply the patch
 BuildRequires:  git
 
 BuildRequires:  gcc
@@ -37,7 +33,7 @@ This package contains the controller and command line tool.
 %systemd_postun_with_restart hirte.service
 
 %files
-%config(noreplace) %{_sysconfdir}/hirte/hirte.conf
+%ghost %{_sysconfdir}/hirte/hirte.conf
 %doc README.md
 %doc README.developer.md
 %license LICENSE
@@ -47,7 +43,7 @@ This package contains the controller and command line tool.
 %{_datadir}/dbus-1/interfaces/org.containers.hirte.Monitor.xml
 %{_datadir}/dbus-1/interfaces/org.containers.hirte.Node.xml
 %{_datadir}/dbus-1/system.d/org.containers.hirte.conf
-%{_datadir}/hirte/config/hirte-default.conf
+%{_datadir}/hirte/config/hirte.conf
 %{_mandir}/man1/hirte.*
 %{_mandir}/man5/hirte.conf.*
 %{_sysconfdir}/hirte/hirte.conf.d/README.md
@@ -77,13 +73,13 @@ This package contains the node agent.
 %systemd_postun_with_restart hirte-agent.service
 
 %files agent
-%config(noreplace) %{_sysconfdir}/hirte/agent.conf
+%ghost %{_sysconfdir}/hirte/agent.conf
 %doc README.md
 %license LICENSE
 %{_bindir}/hirte-agent
 %{_bindir}/hirte-proxy
 %{_datadir}/dbus-1/system.d/org.containers.hirte.Agent.conf
-%{_datadir}/hirte-agent/config/hirte-default.conf
+%{_datadir}/hirte-agent/config/agent.conf
 %{_datadir}/dbus-1/interfaces/org.containers.hirte.Agent.xml
 %{_mandir}/man1/hirte-agent.*
 %{_mandir}/man1/hirte-proxy.*
@@ -171,6 +167,9 @@ This package contains the service controller command line tool.
 
 
 %changelog
+* Fri Jun 09 2023 Pierre-Yves Chibon <pingou@pingoured.fr> - 0.3.0-1
+- Update to 0.3.0
+
 * Tue May 02 2023 Pierre-Yves Chibon <pingou@pingoured.fr> - 0.2.0-1
 - Update to 0.2.0
 - Introduce the hirte-selinux sub-package

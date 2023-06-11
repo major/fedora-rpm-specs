@@ -1,6 +1,6 @@
 Name: tmt
-Version: 1.23.0
-Release: 2%{?dist}
+Version: 1.24.1
+Release: 1%{?dist}
 
 Summary: Test Management Tool
 License: MIT
@@ -61,8 +61,6 @@ BuildRequires: python%{python3_pkgversion}-importlib-metadata
 # Required for tests
 BuildRequires: rsync
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{name}}
-# Necessary until tmt-1.24 is released
-Requires: python%{python3_pkgversion}-setuptools
 
 %description -n python%{python3_pkgversion}-%{name}
 The tmt Python module and command line tool implement the test
@@ -252,8 +250,54 @@ install -pm 644 %{name}/steps/provision/mrack/mrack* %{buildroot}/etc/%{name}/
 
 
 %changelog
-* Thu May 15 2023 Lukáš Zachar <lzachar@redhat.com> - 1.23.0-2
-- Require python3-setuptools
+* Fri Jun 09 2023 Petr Šplíchal <psplicha@redhat.com> - 1.24.1-1
+- Revert the `Source0` url to the original value
+- Use correct url for the release archive, fix docs
+
+* Wed Jun 07 2023 Petr Šplíchal <psplicha@redhat.com> - 1.24.0-1
+- Do not display guest facts when showing a plan
+- Add new guide/summary for multihost testing
+- Define a "plugin registry" class
+- Hide `facts` in the `virtual` provision plugin
+- Cache resolved linters
+- Improve documentation of lint checks (#2089)
+- A custom wrapper for options instead of click.option()
+- Identify incorrect subcommand after a correct one
+- Remove one extra space between @ and decorator name
+- Assign envvars to Polarion report arguments
+- Expose "key address" to normalization callbacks (#1869)
+- Move export of special test/plan/story fields to their respective classes
+- Expose guest topology to tests and scripts (#2072)
+- Enable building downstream release using Packit
+- Add sections for environment variable groups
+- Add default envvar to plugin options
+- Load env TMT_WORKDIR_ROOT when running tmt status (#2087)
+- Opportunistically use "selectable" entry_points.
+- Explicitly convert tmpdir to str in test_utils.py.
+- Move pytest.ini contents to pyproject.toml.
+- Rename Require* classes to Dependency* (#2099)
+- Expose fmf ID of tests in results
+- Use the `tmt-lint` pre-commit hook
+- Turn finish step implementation to queue-based one (#2110)
+- Convert base classes to data classes (#2080)
+- Crashed prepare and execute steps propagate all causes
+- Support exceptions with multiple causes
+- Make "needs sudo" a guest fact (#2096)
+- Test data path must use safe guest/test names
+- Support for multi case import from Polarion and Polarion as only source (#2084)
+- Fix search function in docs
+- Make tmt test wrapper name unique to avoid race conditions
+- Change link-polarion argument default to false
+- Add export plugin for JSON (#2058)
+- Handle el6 as a legacy os too in virtual provision
+- Hint beakerlib is old when result parsing fails
+- Revert "Fix dry mode handling when running a remote plan"
+- Set a new dict instance to the Plan class
+- Replaces "common" object with logger in method hint logging
+- Parallelize prepare and execute steps
+- Formalizing guest "facts" storage
+- Support urllib3 2.x and its allowed_methods/method_whitelist
+- Require setuptools
 
 * Thu May 11 2023 Lukáš Zachar <lzachar@redhat.com> - 1.23.0-1
 - Add `Artemis` to the `provision` documentation

@@ -1,8 +1,6 @@
-%global pypi_name scikit_build
-
 Name:           python-scikit-build
-Version:        0.17.1
-Release:        %{autorelease}
+Version:        0.17.6
+Release:        %autorelease
 Summary:        Improved build system generator for Python C/C++/Fortran/Cython extensions
 
 # This project is mainly MIT but LICENSE also mentions some code
@@ -10,9 +8,7 @@ Summary:        Improved build system generator for Python C/C++/Fortran/Cython 
 # All bundled(cmake()) files listed are Apache-2.0 licensed.
 License:        MIT AND BSD-2-Clause-Views AND Apache-2.0
 URL:            https://github.com/scikit-build/scikit-build
-Source0:        %{pypi_source %{pypi_name}}
-
-Patch:          0001-tests-fix-match-for-get_map-symbol.patch
+Source:         %{pypi_source scikit_build}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -54,7 +50,7 @@ Provides:       bundled(cmake(UsePythonExtensions))
 
 
 %prep
-%autosetup -p1 -n %{pypi_name}-%{version}
+%autosetup -p1 -n scikit_build-%{version}
 
 
 %generate_buildrequires
@@ -75,13 +71,8 @@ Provides:       bundled(cmake(UsePythonExtensions))
 # so we clean them.
 export CFLAGS=' '
 export CXXFLAGS=' '
-OPTIONS=(
-  # pep518 tests are disabled because they require internet
-  -k "not pep518"
-
-  -m "not deprecated and not nosetuptoolsscm"
-)
-%pytest -v "${OPTIONS[@]}"
+# isolated tests are disabled because they require internet
+%pytest -v -m "not isolated and not deprecated and not nosetuptoolsscm"
 
 
 %files -n python3-scikit-build -f %{pyproject_files}

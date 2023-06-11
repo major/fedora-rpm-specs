@@ -1,9 +1,8 @@
 Name:       lpsolve
-Version:    5.5.2.0
-Release:    33%{?dist}
+Version:    5.5.2.11
+Release:    1%{?dist}
 Summary:    Mixed Integer Linear Programming (MILP) solver
 # bfp/bfp_LUSOL/lp_LUSOL.c:             LGPL-2.1-or-later
-# bfp/bfp_LUSOL/LUSOL/LUSOL_LGPL.txt:   LGLP-2.1 text
 # colamd/colamd.c:  ??? (free with attribution in Matlab)
 #                   Waiting on an identifier
 #                   <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/230>
@@ -21,6 +20,8 @@ Summary:    Mixed Integer Linear Programming (MILP) solver
 # lp_pricePSE.c:    LGPL-2.1-or-later
 # lp_report.c:      LGPL-2.1-or-later
 # lp_rlp.c:         GPL-2.0-or-later WITH Bison-exception-2.2
+#                   Waiting on an approval
+#                   <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/232>
 # lp_scale.c:       LGPL-2.1-or-later
 # lp_simplex.c:     LGPL-2.1-or-later
 # lp_SOS.c:         LGPL-2.1-or-later
@@ -32,17 +33,25 @@ Summary:    Mixed Integer Linear Programming (MILP) solver
 License:    LGPL-2.1-or-later AND GPL-2.0-or-later WITH Bison-exception-2.2
 # There is a mailing list at <https://groups.google.com/g/lp_solve>.
 URL:        https://sourceforge.net/projects/lpsolve
+# A separate documention at
+# <https://downloads.sourceforge.net/lpsolve/lp_solve_%%{version}_doc.tar.gz>
+# contains proprietary JavaScript files and javascript trackers.
 Source:     https://downloads.sourceforge.net/lpsolve/lp_solve_%{version}_source.tar.gz
-Patch0:     lpsolve-5.5.0.11.cflags.patch
-Patch1:     lpsolve-5.5.2.0.defines.patch
-Patch2:     read-cc-from-env.patch
-Patch3:     lpsolve-ccc-c99.patch
+# Use system-wide compiler, compiler and linker flags
+Patch0:     lp_solve-5.5.2.11-Respect-CC-CFLAGS-and-LDFLAGS.patch
+# Port to C99, GCC 14 will remove support for previous standards, proposed to
+# an upstream <https://groups.google.com/g/lp_solve/c/WjVf0dxrwfQ/m/rKMwf57tAwAJ>.
+Patch1:     lp_solve-5.5.2.11-Port-to-C99.patch
+# Do not duplicate library code in the the tool
+Patch2:     lp_solve-5.5.2.11-Link-a-tool-to-a-shared-library.patch
 BuildRequires:  bash
 # binutils for ar and ranlib
 BuildRequires:  binutils
 BuildRequires:  coreutils
 BuildRequires:  gcc
 BuildRequires:  sed
+# Tests:
+BuildRequires:  grep
 
 %description
 Mixed Integer Linear Programming (MILP) solver lpsolve solves pure linear,
@@ -60,15 +69,16 @@ Header files for developing with lpsolve library.
 %autosetup -p1 -n lp_solve_5.5
 sed -n -e '/Authors:/,/http:\/\/www\.cise\.ufl/p' < colamd/colamd.c \
     > colamd/colamd_license
+chmod -x lp_lib.h
 
 %build
 %set_build_flags
 pushd lpsolve55
-sh ccc
+sh -x ccc
 rm bin/ux*/liblpsolve55.a
 popd
 pushd lp_solve
-sh ccc
+sh -x ccc
 popd
 
 %install
@@ -80,18 +90,32 @@ install -p -m 755 \
 install -p -m 644 \
         lp*.h %{buildroot}%{_includedir}/lpsolve
 
+%check
+LP_PATH="$(echo lpsolve55/bin/ux*)"
+# Verify lp_solve tool works
+echo 'max: x; x < 42;' | \
+    LD_LIBRARY_PATH="$LP_PATH" ./lp_solve/bin/ux*/lp_solve -S1 | \
+    grep -e ': 42\.0*$'
+# Verify a demo code is buildable
+%set_build_flags
+${CC} ${CFLAGS} -I. demo/demo.c ${LDFLAGS} -L"$LP_PATH" -llpsolve55
+LD_LIBRARY_PATH="$LP_PATH" ./a.out </dev/null
+
 %files
-%license bfp/bfp_LUSOL/LUSOL/LUSOL_LGPL.txt colamd/colamd_license
-# LUSOL_Overview.txt is identical to LUSOL-overview.txt
-%doc README.txt ./bfp/bfp_LUSOL/LUSOL/LUSOL_README.txt ./bfp/bfp_LUSOL/LUSOL/LUSOL-overview.txt
+%license colamd/colamd_license
+%doc README.txt
 %{_bindir}/lp_solve
 %{_libdir}/liblpsolve55.so
 
 %files devel
-# TODO: Package a separate documention from lp_solve_%%{version}_doc.tar.gz.
+%doc demo/demo.c
 %{_includedir}/lpsolve
 
 %changelog
+* Wed Jun 07 2023 Petr Pisar <ppisar@redhat.com> - 5.5.2.11-1
+- 5.5.2.11 bump
+- Link lp_solve tool dynamically
+
 * Wed Jun 07 2023 Petr Pisar <ppisar@redhat.com> - 5.5.2.0-33
 - Modernize a spec file
 - Partially correct a license tag

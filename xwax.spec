@@ -1,13 +1,10 @@
 Name:           xwax
-Version:        1.8
-Release:        4%{?dist}
+Version:        1.9
+Release:        1%{?dist}
 Summary:        Open source vinyl emulation software for Linux
 License:        GPLv2
-URL:            http://www.xwax.org
-Source0:        http://www.xwax.org/releases/%{name}-%{version}.tar.gz
-# use sox as fallback decoder instead of ffmpeg for time being while we work out the best patch for Fedora
-# http://sourceforge.net/mailarchive/forum.php?thread_name=4DB4E2E0.6080609%40redhat.com&forum_name=xwax-devel
-# Patch0:         xwax-1.6-import-sox.patch
+URL:            https://www.xwax.org
+Source0:        https://xwax.org/releases/%{name}-%{version}.tar.gz
 
 BuildRequires: alsa-lib-devel
 BuildRequires: make
@@ -48,6 +45,9 @@ make ALSA=yes JACK=yes install PREFIX=%{buildroot}/%{_prefix} EXECDIR=%{buildroo
 %doc %{_mandir}/man1/xwax.1.gz
 
 %changelog
+* Fri Jun 09 2023 Filipe Rosset <rosset.filipe@gmail.com> - 1.9-1
+- Update to 1.9 fixes rhbz#2204460
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

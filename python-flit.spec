@@ -3,8 +3,8 @@
 %bcond tests %[! %[%{defined rhel} && %{undefined epel}]]
 
 Name:           python-flit
-Version:        3.8.0
-Release:        3%{?dist}
+Version:        3.9.0
+Release:        1%{?dist}
 Summary:        Simplified packaging of Python modules
 
 # ./flit/log.py: Apache-2.0
@@ -31,31 +31,27 @@ BuildRequires:  git-core
 
 %global _description %{expand:
 Flit is a simple way to put Python packages and modules on PyPI.
-
-Flit only creates packages in the new 'wheel' format. People using older
-versions of pip (<1.5) or easy_install will not be able to install them.
+It tries to require less thought about packaging and help you avoid common
+mistakes.
 
 Flit packages a single importable module or package at a time, using the import
 name as the name on PyPI. All sub-packages and data files within a package are
-included automatically.
-
-Flit requires Python 3, but you can use it to distribute modules for Python 2,
-so long as they can be imported on Python 3.}
+included automatically.}
 
 %description %_description
 
 
-%package -n python3-flit
+%package -n flit
 Summary:        %{summary}
+%py_provides    python3-flit
+# Remove this in Fedora 41+:
+Obsoletes:      python3-flit < 3.9.0
 
 # https://pypi.python.org/pypi/tornado
 # ./flit/log.py unknown version
 Provides:       bundled(python3dist(tornado))
 
-# soft dependency: (WARNING) Cannot analyze code. Pygments package not found.
-Recommends:     python3-pygments
-
-%description -n python3-flit %_description
+%description -n flit %_description
 
 
 %prep
@@ -91,13 +87,18 @@ export XDG_CACHE_HOME=$PWD/fake_cache
 %endif
 
 
-%files -n python3-flit -f %{pyproject_files}
+%files -n flit -f %{pyproject_files}
 %license LICENSE
 %doc README.rst
 %{_bindir}/flit
 
 
 %changelog
+* Thu Jun 08 2023 Miro Hrončok <mhroncok@redhat.com> - 3.9.0-1
+- Update to 3.9.0, fixes rhbz#2203614
+- Drop unhelpful Recommends of python3-pygments
+- Rename the built package to flit
+
 * Fri May 19 2023 Miro Hrončok <mhroncok@redhat.com> - 3.8.0-3
 - Fork python-flit-core from the python-flit package
 

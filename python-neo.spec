@@ -70,6 +70,8 @@ Recommends:  %{py3_dist igor}
 
 %prep
 %autosetup
+# remove rpm's SPECPARTS file
+rm -rf SPECPARTS
 
 %if %{with tests}
 # datalad needs to know who we are later when it tries to download the data sets

@@ -5,10 +5,10 @@
 
 Name:           python-%{srcname}
 Version:        4.1.3
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        %{sum}
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/google/%{srcname}
 Source0:        https://github.com/google/%{srcname}/archive/v%{version}.tar.gz#/%{srcname}-%{version}.tar.gz
 Patch0:         docs-build-fix.patch
@@ -89,6 +89,9 @@ rm -r $(find %{_buildrootdir} -type d -name 'tests') || /bin/true
 %{python3_sitelib}/%{srcname}*.egg-info
 
 %changelog
+* Wed Jun 07 2023 Jan Friesse <jfriesse@redhat.com> - 4.1.3-21
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.3-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

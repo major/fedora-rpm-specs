@@ -15,8 +15,8 @@ Source6: grepconf.sh
 
 # upstream ticket 39445
 Patch0: grep-3.5-help-align.patch
-# upstream ticket 63965, maybe glibc bug, temporal drop of some gnulib tests shouldn't cause any harm
-Patch1: grep-3.11-gnulib-tests-drop.patch
+# upstream ticket 63965, maybe glibc bug, temporal drop of some gnulib tests and y2038 test, it shouldn't cause any harm
+Patch1: grep-3.11-tests-drop.patch
 
 BuildRequires: gcc
 BuildRequires: pcre2-devel

@@ -4,8 +4,8 @@
 %global tag %{version}
 
 Name:           egl-wayland
-Version:        1.1.11
-Release:        3%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
+Version:        1.1.12
+Release:        1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 Summary:        Wayland EGL External Platform library
 License:        MIT
 URL:            https://github.com/NVIDIA/%{name}
@@ -19,7 +19,6 @@ Source0:        %url/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
 Source1:        10_nvidia_wayland.json
 Source2:        15_nvidia_gbm.json
 
-Patch0:         fix-destruction-order.patch
 
 BuildRequires:  meson
 BuildRequires:  libtool
@@ -74,6 +73,9 @@ find %{buildroot} -name '*.la' -delete
 %{_datadir}/wayland-eglstream/
 
 %changelog
+* Fri Jun 09 2023 Leigh Scott <leigh123linux@gmail.com> - 1.1.12-1
+- Update to 1.1.12
+
 * Mon Apr 10 2023 Jonathan Schleifer <js@nil.im> - 1.1.11-3
 - Fix Firefox and Thunderbird crashing on start
 

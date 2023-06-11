@@ -1,7 +1,3 @@
-%if (0%{?fedora} && 0%{?fedora} < 19)  || (0%{?rhel} && 0%{?rhel} < 7)
-%global with_desktop_vendor_tag 1
-%endif
-
 %global git_snapshot 1
 
 %if 0%{?git_snapshot}
@@ -21,15 +17,20 @@
 %global         gitversion    D%{gitdate}git%{shortcommit}
 %endif
 
+#%%global         use_gcc_strict_sanitize 1
+
 %undefine        _changelog_trimtime
+
+%global         baserelease   8
 
 Name:           lxterminal
 Version:        0.4.0
-Release:        7%{?gitversion:.%{?gitversion}}%{?dist}
+Release:        %{baserelease}%{?gitversion:.%{?gitversion}}%{?dist}%{?use_gcc_strict_sanitize:.san}
 Summary:        Desktop-independent VTE-based terminal emulator
 Summary(de):    Desktop-unabhängiger VTE-basierter Terminal Emulator
 
-License:        GPLv2+
+# SPDX confirmed
+License:        GPL-2.0-or-later
 URL:            http://lxde.sourceforge.net/
 %if 0%{?git_snapshot}
 Source0:        %{name}-%{version}-%{tarballdate}T%{tarballtime}.tar.gz
@@ -38,6 +39,8 @@ Source0:        http://downloads.sourceforge.net/sourceforge/lxde/%{name}-%{vers
 %endif
 # Shell script to create tarball from git scm
 Source100:      create-lxterminal-git-bare-tarball.sh
+# Fix segfault when closing window (bug 2207699)
+Patch0:         lxterminal-0.4.0-avoid-segv-on-window-close.patch
 
 %if 0%{?git_snapshot}
 BuildRequires:	git
@@ -57,8 +60,13 @@ BuildRequires:	intltool
 BuildRequires:	gettext
 
 %if 0%{?git_snapshot}
-BuildRequires:  automake
-BuildRequires:  libtool
+BuildRequires:	automake
+BuildRequires:	libtool
+%endif
+
+%if 0%{?use_gcc_strict_sanitize}
+BuildRequires:	libasan
+BuildRequires:	libubsan
 %endif
 
 %description
@@ -92,9 +100,20 @@ cp -a [A-Z]* ..
 %setup -q
 %endif
 
+%patch -P0 -p1 -b .closewin
+
 %build
 %global optflags_orig %optflags
 %global optflags %optflags_orig -fno-optimize-sibling-calls
+
+%if 0%{?use_gcc_strict_sanitize}
+export CC="${CC} -fsanitize=address -fsanitize=undefined"
+export LDFLAGS="${LDFLAGS} -pthread"
+# Currently -fPIE binary cannot work with ASAN on kernel 4.12
+# https://github.com/google/sanitizers/issues/837
+export CFLAGS="$(echo $CFLAGS   | sed -e 's|-specs=[^ \t][^ \t]*hardened[^ \t][^ \t]*||g')"
+export LDFLAGS="$(echo $LDFLAGS | sed -e 's|-specs=[^ \t][^ \t]*hardened[^ \t][^ \t]*||g')"
+%endif
 
 %if 0%{?git_snapshot}
 cd %{name}
@@ -117,9 +136,6 @@ cd %{name}
 make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
 
 desktop-file-install \
-%if 0%{?with_desktop_vendor_tag}
-  --vendor fedora \
-%endif
   --delete-original                                        \
   --remove-category=Utility                                \
   --add-category=System                                    \
@@ -145,6 +161,10 @@ cd ..
 
 
 %changelog
+* Fri Jun  9 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.4.0-8.D20211203git0febe16
+- Avoid segfault when closing window (bug 2207699)
+- SPDX migration
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-7.D20211203git0febe16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

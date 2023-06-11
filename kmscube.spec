@@ -1,10 +1,10 @@
-%global commit 9f63f359fab1b5d8e862508e4e51c9dfe339ccb0
+%global commit 0be1681d09e77330e02b8d4708e47a04585f4b16
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global commitdate 20210207
+%global commitdate 20230609
 
 Name: kmscube
 Version: 0
-Release: 3.%{commitdate}.git%{shortcommit}%{?dist}
+Release: 4.%{commitdate}.git%{shortcommit}%{?dist}
 Summary: Example KMS/GBM/EGL application
 License: MIT
 URL: https://gitlab.freedesktop.org/mesa/kmscube/
@@ -36,6 +36,9 @@ for rendering content using OpenGL or OpenGL ES.
 %{_bindir}/texturator
 
 %changelog
+* Fri Jun 09 2023 Erico Nunes <ernunes@redhat.com> - 0-4.20230609.git0be1681
+- Update snapshot to 20230609.git0be1681
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-3.20210207.git9f63f35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

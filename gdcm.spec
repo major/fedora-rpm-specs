@@ -9,7 +9,7 @@
 %bcond_with texdocs
 
 Name:       gdcm
-Version:    3.0.21
+Version:    3.0.22
 Release:    %autorelease
 Summary:    Grassroots DiCoM is a C++ library to parse DICOM medical files
 License:    BSD
@@ -20,9 +20,11 @@ Source1:    http://downloads.sourceforge.net/project/gdcm/gdcmData/gdcmData/gdcm
 
 Patch1: 0001-3.0.1-Use-copyright.patch
 # Fix for 1687233
-Patch3: 0002-Fix-export-variables.patch
+Patch2: 0002-Fix-export-variables.patch
+# Support charls > 2.0 - https://github.com/malaterre/GDCM/pull/157
+Patch3: https://patch-diff.githubusercontent.com/raw/malaterre/GDCM/pull/157.patch
 
-BuildRequires:  CharLS-devel >= 2.0
+BuildRequires:  CharLS-devel >= 2.2
 BuildRequires:  cmake
 BuildRequires:  doxygen
 BuildRequires:  libxslt-devel
@@ -190,25 +192,25 @@ make test -C %{__cmake_builddir} || exit 0
 %doc AUTHORS README.md
 %license Copyright.txt README.Copyright.txt
 %{_libdir}/libgdcmCommon.so.3.0
-%{_libdir}/libgdcmCommon.so.3.0.21
+%{_libdir}/libgdcmCommon.so.3.0.22
 %{_libdir}/libgdcmDICT.so.3.0
-%{_libdir}/libgdcmDICT.so.3.0.21
+%{_libdir}/libgdcmDICT.so.3.0.22
 %{_libdir}/libgdcmDSED.so.3.0
-%{_libdir}/libgdcmDSED.so.3.0.21
+%{_libdir}/libgdcmDSED.so.3.0.22
 %{_libdir}/libgdcmIOD.so.3.0
-%{_libdir}/libgdcmIOD.so.3.0.21
+%{_libdir}/libgdcmIOD.so.3.0.22
 %{_libdir}/libgdcmMEXD.so.3.0
-%{_libdir}/libgdcmMEXD.so.3.0.21
+%{_libdir}/libgdcmMEXD.so.3.0.22
 %{_libdir}/libgdcmMSFF.so.3.0
-%{_libdir}/libgdcmMSFF.so.3.0.21
+%{_libdir}/libgdcmMSFF.so.3.0.22
 %{_libdir}/libgdcmjpeg12.so.3.0
-%{_libdir}/libgdcmjpeg12.so.3.0.21
+%{_libdir}/libgdcmjpeg12.so.3.0.22
 %{_libdir}/libgdcmjpeg16.so.3.0
-%{_libdir}/libgdcmjpeg16.so.3.0.21
+%{_libdir}/libgdcmjpeg16.so.3.0.22
 %{_libdir}/libgdcmjpeg8.so.3.0
-%{_libdir}/libgdcmjpeg8.so.3.0.21
+%{_libdir}/libgdcmjpeg8.so.3.0.22
 %{_libdir}/libgdcmmd5.so.3.0
-%{_libdir}/libgdcmmd5.so.3.0.21
+%{_libdir}/libgdcmmd5.so.3.0.22
 %{_libdir}/libsocketxx.so.1.2
 %{_libdir}/libsocketxx.so.1.2.0
 %{_datadir}/%{name}-3.0/XML/

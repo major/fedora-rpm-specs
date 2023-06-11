@@ -1,6 +1,6 @@
 Name:           python-pari-jupyter
-Version:        1.4.1
-Release:        5%{?dist}
+Version:        1.4.2
+Release:        1%{?dist}
 Summary:        Jupyter kernel for PARI/GP
 
 License:        GPL-3.0-or-later
@@ -51,13 +51,12 @@ mv %{buildroot}%{_prefix}%{_sysconfdir}/jupyter/nbconfig/notebook.d \
 rm -fr %{buildroot}%{_prefix}%{_sysconfdir}
 
 %check
-export PYTHONPATH=%{buildroot}%{python3_sitearch}
 export IPYTHONDIR=$PWD/.ipython
 mkdir .ipython
 ln -s %{buildroot}%{_datadir}/jupyter/kernels .ipython
 ln -s %{buildroot}%{_datadir}/jupyter/nbextensions .ipython
 cd test
-python3 test_pari_jupyter_kernel.py
+%{py3_test_envvars} %{python3} test_pari_jupyter_kernel.py
 cd -
 rm -fr .ipython
 
@@ -70,6 +69,9 @@ rm -fr .ipython
 %{python3_sitearch}/pari_jupyter*
 
 %changelog
+* Fri Jun  9 2023 Jerry James <loganjerry@gmail.com> - 1.4.2-1
+- Version 1.4.2
+
 * Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 1.4.1-5
 - Dynamically generate BuildRequires
 - Add %%check script

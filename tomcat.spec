@@ -31,7 +31,7 @@
 %global jspspec 2.3
 %global major_version 9
 %global minor_version 0
-%global micro_version 73
+%global micro_version 75
 %global packdname apache-tomcat-%{version}-src
 %global servletspec 4.0
 %global elspec 3.0
@@ -496,6 +496,9 @@ fi
 %{appdir}/ROOT
 
 %changelog
+* Thu Jun 08 2023 Hui Wang <huwang@redhat.com> - 1:9.0.75-1
+- Updated to 9.0.75
+
 * Fri Mar 17 2023 Hui Wang <huwang@redhat.com> - 1:9.0.73-1
 - Update to 9.0.73
 

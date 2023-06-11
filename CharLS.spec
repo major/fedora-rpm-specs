@@ -1,6 +1,6 @@
 Name:		CharLS
-Version:	2.0.0
-Release:	10%{?dist}
+Version:	2.4.2
+Release:	1%{?dist}
 Summary:	An optimized implementation of the JPEG-LS standard
 License:	BSD
 URL:		https://github.com/team-charls/charls
@@ -8,7 +8,8 @@ Source0:	https://github.com/team-charls/charls/archive/%{version}/%{name}-%{vers
 
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
-BuildRequires:	cmake >= 2.6.0
+BuildRequires:	cmake
+Provides:       charls
 
 %description
 An optimized implementation of the JPEG-LS standard for loss less and
@@ -25,6 +26,7 @@ result in vastly different performance characteristics.
 %package devel
 Summary:	Libraries and headers for CharLS
 Requires:	%{name}%{?_isa} = %{version}-%{release}
+Provides:       charls-devel
 
 %description devel
 CharLS Library Header Files and Link Libraries.
@@ -32,7 +34,7 @@ CharLS Library Header Files and Link Libraries.
 
 %prep
 %autosetup -n charls-%{version}
-%{__rm} CharLS*.sln* -v
+rm CharLS*.sln* -v
 
 %build
 %cmake -DBUILD_SHARED_LIBS:BOOL=ON\
@@ -48,24 +50,27 @@ CharLS Library Header Files and Link Libraries.
 
 
 %check
-pushd %{__cmake_builddir}
-# Enter a key + enter to finish
-echo "a" | ./charlstest
-popd
+%ctest
 
 
 %files
-%license License.txt
-%{_libdir}/lib%{name}.so.2
-%{_libdir}/lib%{name}.so.2.0
-
+%license LICENSE.md
+%doc CHANGELOG.md README.md SECURITY.md
+%{_libdir}/libcharls.so.2*
 
 %files devel
-%dir %{_includedir}/%{name}/
-%{_includedir}/%{name}/*
-%{_libdir}/lib%{name}.so
+%dir %{_includedir}/charls/
+%{_includedir}/charls/*
+%{_libdir}/cmake/charls/
+%{_libdir}/libcharls.so
+%{_libdir}/pkgconfig/charls.pc
+
 
 %changelog
+* Sun Jun 04 2023 Orion Poplawski <orion@nwra.com> - 2.4.2-1
+- Update to 2.4.2
+- Provide lowercase names
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

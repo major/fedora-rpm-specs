@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 13
+%global baserelease 14
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -231,6 +231,23 @@ Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
 Patch23: glibc-python3.patch
 Patch24: glibc-disable-werror-tst-realloc.patch
+
+Patch100: v2-0001-x86-cet-Check-user_shstk-in-proc-cpuinfo.patch
+Patch101: v2-0002-x86-cet-Update-tst-cet-vfork-1.patch
+Patch102: v2-0003-x86-cet-Don-t-assume-that-SHSTK-implies-IBT.patch
+Patch103: v2-0004-x86-cet-Check-legacy-shadow-stack-applications.patch
+Patch104: v2-0005-x86-cet-Check-CPU_FEATURE_ACTIVE-when-CET-is-disa.patch
+Patch105: v2-0006-x86-cet-Add-tests-for-GLIBC_TUNABLES-glibc.cpu.hw.patch
+Patch106: v2-0007-x86-cet-Check-legacy-shadow-stack-code-in-.init_a.patch
+Patch107: v2-0008-x86-cet-Check-CPU_FEATURE_ACTIVE-in-permissive-mo.patch
+Patch108: v2-0009-x86-Check-PT_GNU_PROPERTY-early.patch
+Patch109: v2-0010-x86-Modularize-sysdeps-x86-dl-cet.c.patch
+Patch110: v2-0011-x86-64-Add-fixup-asm-unistd.h-and-regenerate-arch.patch
+Patch111: v2-0012-x86-cet-Sync-with-the-kernel-shadow-stack-interfa.patch
+Patch112: v2-0013-elf-Always-provide-_dl_get_dl_main_map-in-libc.a.patch
+Patch113: v2-0014-x86-cet-Enable-shadow-stack-during-startup.patch
+Patch114: v2-0015-x86-cet-Check-feature_1-in-TCB-for-active-IBT-and.patch
+Patch115: 0001-x86-cet-Don-t-set-CET-active.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -2195,6 +2212,9 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Thu Jun 08 2023 Siddhesh Poyarekar <siddhesh@redhat.com> - 2.37.9000-14
+- Shadow stack userspace support, downstream only and disabled by default.
+
 * Wed Jun 07 2023 Arjun Shankar <arjun@redhat.com> - 2.37.9000-13
 - Auto-sync with upstream branch master,
   commit 85e6d8b4175fcb195011a0a1bad37d6f3b2355db:

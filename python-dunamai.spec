@@ -6,7 +6,7 @@ continuous integration and releasing new versions of your software simply by
 creating a tag.}
 
 Name:           python-dunamai
-Version:        1.16.1
+Version:        1.17.0
 Release:        %{autorelease}
 Summary:        Dynamic version generation
 
@@ -78,7 +78,8 @@ brz whoami "Your Name <name@example.com>"
 # set up darcs
 export DARCS_EMAIL="Yep something <name@example.com>"
 
-%pytest -n auto -v
+# skip test that requires network
+%pytest -n auto -v -k "not test__version__from_git__shallow"
 
 %files -n python3-dunamai -f %{pyproject_files}
 %doc README.md CHANGELOG.md CONTRIBUTING.md

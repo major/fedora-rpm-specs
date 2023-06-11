@@ -6,7 +6,7 @@ Name:		python-%{srcname}
 # WARNING: Check if an update does not break flake8!
 Version:	0.3
 
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	%{sum}
 
 # license clarification issue opened upstream
@@ -16,6 +16,9 @@ License:	MIT
 
 URL:		https://entrypoints.readthedocs.io/
 Source0:	https://github.com/takluyver/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
+
+# Switch build-backend to flit_core, from upstream version 0.4
+Patch:		https://github.com/takluyver/entrypoints/commit/1869c4845e.patch
 
 BuildArch:	noarch
 BuildRequires: make
@@ -46,7 +49,7 @@ Summary:	Documentation for python-entrypoints
 Documentation files for python-entrypoints
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{srcname}-%{version} -p1
 
 
 %generate_buildrequires
@@ -81,6 +84,9 @@ popd
 
 
 %changelog
+* Mon May 15 2023 Miro Hrončok <mhroncok@redhat.com> - 0.3-16
+- Use flit-core to build this package, instead of flit
+
 * Mon Feb 13 2023 Miro Hrončok <mhroncok@redhat.com>
 - Convert to pyproject-rpm-macros
 - The INSTALLER file now says "rpm" instead of "pip"

@@ -29,7 +29,7 @@ limiting with commonly used storage backends
 
 Name:           python-%{pypi_name}
 Version:        2.8.0
-Release:        2%{?dist}
+Release:        %autorelease
 Summary:        Utilities to implement rate limiting using various strategies
 
 # SPDX
@@ -186,38 +186,4 @@ m="${m-}${m+ and }not memcached"
 
 
 %changelog
-* Fri Jan 20 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 2.8.0-2
-- Relax packaging version constraint
-
-* Tue Dec 27 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 2.8.0-1
-- Drop F35 conditionals
-- Update to 2.8.0 (close RHBZ#2152428)
-
-* Sun Oct 23 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 2.7.1-1
-- Update to 2.7.1 (close RHBZ#2136594)
-
-* Sun Oct 09 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 2.7.0-1
-- Support F36 and F35 (close RHBZ#2133279)
-- Don’t loosen Sphinx version bound on releases where we don’t have to do so
-- Update to 2.7.0 (close RHBZ#2107863)
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Jul 08 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 2.6.3-1
-- Update to 2.6.3 (https://github.com/alisaifee/limits/releases/tag/2.6.3)
-- Restore sphinxext-opengraph doc dependency; it is now packaged
-- Backport upstream support for Sphinx 5 (fix RHBZ#2105292)
-
-* Tue Jun 14 2022 Python Maint <python-maint@redhat.com> - 2.6.2-2
-- Rebuilt for Python 3.11
-
-* Tue May 24 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 2.6.2-1
-- Update to 2.6.2
-- Add extras metapackages where dependencies are available
-- Use more generated BuildRequires
-- Enable some tests
-- Build the PDF documentation
-
-* Wed May 11 2022 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 2.6.1-1
-- Initial package
+%autochangelog

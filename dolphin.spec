@@ -159,8 +159,6 @@ make test ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||:
 %{_kf5_datadir}/dolphin/dolphinpartactions.desktop
 %{_kf5_datadir}/zsh/site-functions/_dolphin
 
-%ldconfig_scriptlets libs
-
 %files libs
 %{_kf5_libdir}/libdolphinprivate.so.*
 %{_kf5_libdir}/libdolphinvcs.so.*

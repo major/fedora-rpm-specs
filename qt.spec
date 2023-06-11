@@ -43,7 +43,7 @@ Summary: Qt toolkit
 Name:    qt
 Epoch:   1
 Version: 4.8.7
-Release: 72%{?dist}
+Release: 73%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: (LGPLv2 with exceptions or GPLv3 with exceptions) and ASL 2.0 and BSD and FTL and MIT
@@ -245,6 +245,7 @@ Patch503: qt-everywhere-opensource-src-4.8.5-CVE-2020-24741.patch
 
 # CVE-2023-32573 qt: Uninitialized variable usage in m_unitsPerEm
 Patch504: qt-CVE-2023-32573.patch
+Patch505: qt-CVE-2023-34410.patch
 
 # desktop files
 Source20: assistant.desktop
@@ -690,6 +691,7 @@ rm -rf src/3rdparty/clucene
 %patch -P502 -p1 -b .clamp-parsed-doubles-to-float-representtable-values
 %patch -P503 -p1 -b .CVE-2020-24741
 %patch -P504 -p1 -b .CVE-2023-32573
+%patch -P505 -p1 -b .CVE-2023-34410
 
 # regression fixes for the security fixes
 %patch -P84 -p1 -b .QTBUG-35459
@@ -1412,6 +1414,9 @@ fi
 
 
 %changelog
+* Fri Jun 09 2023 Than Ngo <than@redhat.com> - 4.8.7-73
+- fix #2212749, CVE-2023-34410
+
 * Thu May 18 2023 Than Ngo <than@redhat.com> - 4.8.7-72
 - fix #2208136, CVE-2023-32573 Uninitialized variable usage in m_unitsPerEm 
 

@@ -13,11 +13,11 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.16
+%global general_version %{pybasever}.17
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 4%{?dist}
+Release: 1%{?dist}
 License: Python
 
 
@@ -311,7 +311,7 @@ Patch1: 00001-rpath.patch
 # See https://bugzilla.redhat.com/show_bug.cgi?id=556092
 Patch111: 00111-no-static-lib.patch
 
-# 00189 # a79a85be3f0ad45792d998aed1104c2c2a0ef729
+# 00189 # 60517f098bd1525ad454adf7252b60a3d6b0f8ba
 # Instead of bundled wheels, use our RPM packaged wheels
 #
 # We keep them in /usr/share/python-wheels
@@ -323,7 +323,7 @@ Patch189: 00189-use-rpm-wheels.patch
 # The versions are written in Lib/ensurepip/__init__.py, this patch removes them.
 # When the bundled setuptools/pip wheel is updated, the patch no longer applies cleanly.
 # In such cases, the patch needs to be amended and the versions updated here:
-%global pip_version 22.0.4
+%global pip_version 23.0.1
 %global setuptools_version 58.1.0
 
 # 00251 # 1b1047c14ff98eae6d355b4aac4df3e388813f62
@@ -378,18 +378,6 @@ Patch353: 00353-architecture-names-upstream-downstream.patch
 # https://bodhi.fedoraproject.org/updates/FEDORA-2021-e152ce5f31
 # https://github.com/GrahamDumpleton/mod_wsgi/issues/730
 Patch371: 00371-revert-bpo-1596321-fix-threading-_shutdown-for-the-main-thread-gh-28549-gh-28589.patch
-
-# 00399 # c32eff86eb80f6a6bdcbf4b1b6535fbc627b51a2
-# CVE-2023-24329
-#
-# * gh-102153: Start stripping C0 control and space chars in `urlsplit` (GH-102508)
-#
-# `urllib.parse.urlsplit` has already been respecting the WHATWG spec a bit GH-25595.
-#
-# This adds more sanitizing to respect the "Remove any leading C0 control or space from input" [rule](https://url.spec.whatwg.org/GH-url-parsing:~:text=Remove%%20any%%20leading%%20and%%20trailing%%20C0%%20control%%20or%%20space%%20from%%20input.) in response to [CVE-2023-24329](https://nvd.nist.gov/vuln/detail/CVE-2023-24329).
-#
-# ---------
-Patch399: 00399-cve-2023-24329.patch
 
 # (New patches go here ^^^)
 #
@@ -1816,6 +1804,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Thu Jun 08 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.9.17-1
+- Update to 3.9.17
+
 * Mon May 29 2023 Lumír Balhar <lbalhar@redhat.com> - 3.9.16-4
 - Security fix for CVE-2023-24329
 - Resolves: rhbz#2174016

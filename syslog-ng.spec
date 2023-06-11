@@ -1,14 +1,14 @@
 %global ivykis_ver 0.42.3
 
 %global syslog_ng_major_ver 4
-%global syslog_ng_minor_ver 0
-%global syslog_ng_patch_ver 1
+%global syslog_ng_minor_ver 2
+%global syslog_ng_patch_ver 0
 %global syslog_ng_major_minor_ver %{syslog_ng_major_ver}.%{syslog_ng_minor_ver}
 %global syslog_ng_ver %{syslog_ng_major_ver}.%{syslog_ng_minor_ver}.%{syslog_ng_patch_ver}
 
 Name:    syslog-ng
 Version: %{syslog_ng_ver}
-Release: 2%{?dist}
+Release: 1%{?dist}
 Summary: Next-generation syslog server
 
 License: GPLv2+
@@ -203,6 +203,15 @@ This module supports sending logs to MQTT through paho-c.
 Summary: Python support for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Obsoletes: python3-syslog-ng < 3.22
+
+%description python
+This package provides python support for syslog-ng.
+
+%package python-modules
+Summary:        Python-based drivers for syslog-ng
+Group:          System/Libraries
+Requires:       %{name} = %{version}
+Requires:       %{name}-python
 Requires:  python3-cachetools
 Requires:  python3-certifi
 Requires:  python3-charset-normalizer
@@ -221,9 +230,8 @@ Requires:  python3-six
 Requires:  python3-urllib3
 Requires:  python3-websocket-client
 
-%description python
-This module supports the Python destination.
-
+%description python-modules
+This package provides Python-based (Kubernetes, Hypr) drivers for syslog-ng.
 
 %package devel
 Summary: Development files for %{name}
@@ -316,12 +324,16 @@ make DESTDIR=%{buildroot} install
 %{__install} -p -m 644 lib/*.h %{buildroot}%{_includedir}/%{name}
 
 # install vim files
-%{__install} -d -m 755 %{buildroot}%{_datadir}/%{name}
-%{__install} -p -m 644 contrib/syslog-ng.vim %{buildroot}%{_datadir}/%{name}
-for vimver in 81 ; do
+%{__install} -d -m 755 %{buildroot}%{_datadir}/%{name}/vim/ftdetect
+%{__install} -d -m 755 %{buildroot}%{_datadir}/%{name}/vim/syntax
+%{__install} -p -m 644 contrib/vim/ftdetect/syslog-ng.vim %{buildroot}%{_datadir}/%{name}/vim/ftdetect
+%{__install} -p -m 644 contrib/vim/syntax/syslog-ng.vim %{buildroot}%{_datadir}/%{name}/vim/syntax
+for vimver in 73 ; do
+    %{__install} -d -m 755 %{buildroot}%{_datadir}/vim/vim$vimver/ftdetect
     %{__install} -d -m 755 %{buildroot}%{_datadir}/vim/vim$vimver/syntax
-    cd %{buildroot}%{_datadir}/vim/vim$vimver/syntax
-    ln -s ../../../%{name}/syslog-ng.vim .
+    cd %{buildroot}%{_datadir}/vim/vim$vimver
+    ln -s ../../../%{name}/vim/ftdetect/syslog-ng.vim ftdetect
+    ln -s ../../../%{name}/vim/syntax/syslog-ng.vim syntax
     cd -
 done
 
@@ -350,29 +362,31 @@ if /sbin/chkconfig --level 3 %{name} ; then
     /bin/systemctl enable %{name}.service >/dev/null 2>&1 || :
 fi
 
-
 %triggerin -- vim-common
 VIMVERNEW=`rpm -q --qf='%%{epoch}:%%{version}\n' vim-common | sort | tail -n 1 | sed -e 's/[0-9]*://' | sed -e 's/\.[0-9]*$//' | sed -e 's/\.//'`
+[ -d %{_datadir}/vim/vim${VIMVERNEW}/ftdetect ] && \
+    cd %{_datadir}/vim/vim${VIMVERNEW}/ftdetect && \
+    ln -sf ../../../%{name}/vim/ftdetect/syslog-ng.vim . || :
 [ -d %{_datadir}/vim/vim${VIMVERNEW}/syntax ] && \
     cd %{_datadir}/vim/vim${VIMVERNEW}/syntax && \
-    ln -sf ../../../%{name}/syslog-ng.vim . || :
-
+    ln -sf ../../../%{name}/vim/syntax/syslog-ng.vim . || :
 
 %triggerun -- vim-common
 VIMVEROLD=`rpm -q --qf='%%{epoch}:%%{version}\n' vim-common | sort | head -n 1 | sed -e 's/[0-9]*://' | sed -e 's/\.[0-9]*$//' | sed -e 's/\.//'`
-[ $2 = 0 ] && rm -f %{_datadir}/vim/vim${VIMVEROLD}/syntax/syslog-ng.vim || :
-
+[ $2 = 0 ] && rm -f %{_datadir}/vim/vim${VIMVEROLD}/ftdetect/syslog-ng.vim %{_datadir}/vim/vim${VIMVEROLD}/syntax/syslog-ng.vim || :
 
 %triggerpostun -- vim-common
 VIMVEROLD=`rpm -q --qf='%%{epoch}:%%{version}\n' vim-common | sort | head -n 1 | sed -e 's/[0-9]*://' | sed -e 's/\.[0-9]*$//' | sed -e 's/\.//'`
 VIMVERNEW=`rpm -q --qf='%%{epoch}:%%{version}\n' vim-common | sort | tail -n 1 | sed -e 's/[0-9]*://' | sed -e 's/\.[0-9]*$//' | sed -e 's/\.//'`
 if [ $1 = 1 ]; then
-    rm -f %{_datadir}/vim/vim${VIMVEROLD}/syntax/syslog-ng.vim || :
+    rm -f %{_datadir}/vim/vim${VIMVEROLD}/ftdetect/syslog-ng.vim %{_datadir}/vim/vim${VIMVEROLD}/syntax/syslog-ng.vim || :
+    [ -d %{_datadir}/vim/vim${VIMVERNEW}/ftdetect ] && \
+        cd %{_datadir}/vim/vim${VIMVERNEW}/ftdetect && \
+        ln -sf ../../../%{name}/vim/ftdetect/syslog-ng.vim . || :
     [ -d %{_datadir}/vim/vim${VIMVERNEW}/syntax ] && \
         cd %{_datadir}/vim/vim${VIMVERNEW}/syntax && \
-        ln -sf ../../../%{name}/syslog-ng.vim . || :
+        ln -sf ../../../%{name}/vim/syntax/syslog-ng.vim . || :
 fi
-
 
 %files
 %doc AUTHORS COPYING NEWS.md
@@ -430,8 +444,9 @@ fi
 %exclude %{_libdir}/syslog-ng/libafsnmp.so
 %exclude %{_libdir}/syslog-ng/libkafka.so
 
-%dir %{_datadir}/syslog-ng
-%{_datadir}/syslog-ng/syslog-ng.vim
+%dir %{_datadir}/%{name}
+%{_datadir}/%{name}/vim/ftdetect/syslog-ng.vim
+%{_datadir}/%{name}/vim/syntax/syslog-ng.vim
 %ghost %{_datadir}/vim/
 
 # scl files
@@ -439,6 +454,8 @@ fi
 
 # uhm, some better places for those?
 %{_datadir}/syslog-ng/xsd/
+
+%{_datadir}/syslog-ng/smart-multi-line.fsm
 
 %{_mandir}/man1/loggen.1*
 %{_mandir}/man1/pdbtool.1*
@@ -506,7 +523,11 @@ fi
 %{_libdir}/%{name}/python/syslogng-1.0-py%{python3_version}.egg-info
 %{_libdir}/%{name}/python/syslogng/*
 %{_libdir}/%{name}/python/requirements.txt
+%exclude %{_libdir}/syslog-ng/python/syslogng/modules/
 
+%files python-modules
+%dir %{_libdir}/syslog-ng/python/syslogng/modules/
+%{_libdir}/syslog-ng/python/syslogng/modules/*
 
 %files devel
 %{_datadir}/syslog-ng/tools/
@@ -522,6 +543,11 @@ fi
 
 
 %changelog
+* Thu Jun 01 2023 Peter Czanik <peter@czanik.hu> - 4.2.0-1
+- update to 4.2.0
+- update vim support
+- split Python-based drivers from the Python plugin
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

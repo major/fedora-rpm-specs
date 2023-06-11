@@ -7,7 +7,7 @@
 %bcond_without doc_pdf
 
 Name:           python-pyscaffold
-Version:        4.2.1
+Version:        4.4.1
 Release:        %autorelease
 Summary:        Template tool for putting up the scaffold of a Python project
 

@@ -1,8 +1,8 @@
 Name:           highlight
 Summary:        Universal source code to formatted text converter
-Version:        4.5
+Version:        4.6
 Release:        1%{?dist}
-License:        GPLv3
+License:        GPL-3.0-only
 URL:            http://www.andre-simon.de/
 Source0:        http://www.andre-simon.de/zip/%{name}-%{version}.tar.bz2
 
@@ -107,6 +107,9 @@ desktop-file-install \
 
 
 %changelog
+* Fri Jun 09 2023 Filipe Rosset <rosset.filipe@gmail.com> - 4.6-1
+- update to 4.6
+
 * Fri Mar 31 2023 Filipe Rosset <rosset.filipe@gmail.com> - 4.5-1
 - Update to 4.5
 

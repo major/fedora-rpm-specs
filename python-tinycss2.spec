@@ -7,7 +7,7 @@
 
 Name:           python-%{srcname}
 Version:        1.2.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Low-level CSS parser for Python
 
 License:        BSD
@@ -17,9 +17,6 @@ Source0:        %pypi_source
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
-# used as "build-backend" in pyproject.toml but not detected by Fedora's
-# macros to generate build requirements
-BuildRequires:  python3-flit
 
 
 %description
@@ -70,6 +67,9 @@ rm -rf %{buildroot}%{python3_sitelib}/%{srcname}/__pycache__/test.*.py?
 
 
 %changelog
+* Mon May 15 2023 Miro Hrončok <mhroncok@redhat.com> - 1.2.1-3
+- Drop redundant build dependency on flit, this package uses flit-core
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

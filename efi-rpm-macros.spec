@@ -1,7 +1,7 @@
 Summary: Common RPM Macros for building EFI-related packages
 Name: efi-rpm-macros
 Version: 5
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: GPLv3+
 URL: https://github.com/rhboot/%{name}/
 BuildRequires: git sed
@@ -11,6 +11,7 @@ BuildArch: noarch
 Source0: https://github.com/rhboot/%{name}/releases/download/%{version}/%{name}-5.tar.bz2
 
 Patch0001: 0001-Don-t-have-arm-as-an-alt-arch-of-aarch64.patch
+Patch0002: 0002-Makefile-fix-permission-on-boot-efi-EFI.patch
 
 %global debug_package %{nil}
 %global _efi_vendor_ %(eval echo $(sed -n -e 's/rhel/redhat/' -e 's/^ID=//p' /etc/os-release))
@@ -68,6 +69,10 @@ git config --local --add efi.arches "x86_64 aarch64 %{arm} %{ix86}"
 %dir /boot/efi/EFI/%{_efi_vendor_}
 
 %changelog
+* Fri Jun 09 2023 Sandro Bonazzola <sbonazzo@redhat.com> - 5-8
+- Fixes permissions on /boot/efi/EFI
+- Resolves: rhbz#2144459
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

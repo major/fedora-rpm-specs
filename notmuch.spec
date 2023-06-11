@@ -34,8 +34,9 @@ Source0:        https://notmuchmail.org/releases/notmuch-%{version}.tar.xz
 Source1:        https://notmuchmail.org/releases/notmuch-%{version}.tar.xz.asc
 # Imported from public key servers; author provides no fingerprint!
 Source2:        gpgkey-7A18807F100A4570C59684207E4E65C8720B706B.gpg
-Patch1:         0001-test-allow-to-use-full-sync.patch
-Patch2:         notmuch-c99.patch
+Patch1:         0001-test-allow-to-use-full-scan.patch
+Patch2:         0002-test-use-NOTMUCH_NEW-consistently.patch
+Patch3:         notmuch-c99.patch
 
 BuildRequires:  make
 BuildRequires:  bash-completion
@@ -249,9 +250,12 @@ popd
 %check
 # armv7hl pulls in libasan but we build without, and should test without it.
 # notmuch-git and its tests require sfsexp.
+# At least on koji/copr, test suite suffers from race conditions when parallelised.
 # At least some rhel builds show mtime/stat related Heisenbugs when
 # notmuch new takes shortcuts, so enforce --full-scan there.
-NOTMUCH_SKIP_TESTS="asan%{!?with_sfsexp: git}" make test V=1 %{?rhel:NOTMUCH_TEST_FULLSCAN=1}
+NOTMUCH_SKIP_TESTS="asan%{!?with_sfsexp: git}" \
+NOTMUCH_TEST_SERIALIZE="yesplease" \
+make test V=1 %{?rhel:NOTMUCH_TEST_FULLSCAN=1}
 %endif
 
 %install

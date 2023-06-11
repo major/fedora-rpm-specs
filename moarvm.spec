@@ -29,6 +29,11 @@ compiler toolchain.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       libuv-devel
+Requires:       mimalloc-devel
+Requires:       libffi-devel
+Requires:       libtommath-devel
+Requires:       libzstd-devel
 
 %description devel
 This package contains development files for developing applications that use

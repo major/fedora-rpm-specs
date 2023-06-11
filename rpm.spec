@@ -30,9 +30,9 @@
 
 %define rpmhome /usr/lib/rpm
 
-%global rpmver 4.18.90
+%global rpmver 4.18.91
 #global snapver rc1
-%global baserelease 10
+%global baserelease 1
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -148,13 +148,6 @@ rpm-4.18.90-disable-sysusers.patch
 rpm-4.18.90-weak-user-group.patch
 # Patches already upstream:
 # ...
-0001-Remove-second-share-dir-from-infodir-and-mandir.patch
-0001-Add-pgpVerifySignature2-and-pgpPrtParams2.patch
-0001-Fix-bzip2-detection.patch
-0001-Enable-large-file-support-on-32-bit-systems-again.patch
-0001-Use-mkdir-p-for-creating-SPECPARTS-dir.patch
-0001-Fix-undefined-symbols-from-plugins-in-some-circumsta.patch
-0001-Revert-_smp_build_ncpus-change-to-a-parametric-macro.patch
 
 # These are not yet upstream
 rpm-4.7.1-geode-i686.patch
@@ -569,7 +562,7 @@ fi
 %files plugin-dbus-announce
 %{_libdir}/rpm-plugins/dbus_announce.so
 %{_mandir}/man8/rpm-plugin-dbus-announce.8*
-%{_sysconfdir}/dbus-1/system.d/org.rpm.conf
+%{_datadir}/dbus-1/system.d/org.rpm.conf
 %endif
 
 %files build-libs
@@ -631,6 +624,9 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Fri Jun 09 2023 Michal Domonkos <mdomonko@redhat.com> - 4.18.91-1
+- Update to 4.19 alpha2
+
 * Thu Jun 08 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 4.18.90-10
 - Rebuild for ima-evm-utils 1.5 soname bump
 

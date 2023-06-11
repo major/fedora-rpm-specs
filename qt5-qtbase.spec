@@ -57,7 +57,7 @@
 Name:    qt5-qtbase
 Summary: Qt5 - QtBase components
 Version: 5.15.9
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -216,8 +216,11 @@ BuildRequires: pkgconfig(sqlite3) >= 3.7
 BuildRequires: pkgconfig(harfbuzz) >= 0.9.42
 %endif
 BuildRequires: pkgconfig(icu-i18n)
+%if 0%{?fedora} > 37
 BuildRequires: pkgconfig(libpcre2-posix) >= 10.20
+%else
 BuildRequires: pkgconfig(libpcre) >= 8.0
+%endif
 %global pcre -system-pcre
 BuildRequires: pkgconfig(xcb-xkb)
 %else
@@ -1112,6 +1115,9 @@ fi
 
 
 %changelog
+* Fri Jun 09 2023 Than Ngo <than@redhat.com> - 5.15.9-4
+- Fix #2212744, pcre2 support
+
 * Mon May 15 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.9-3
 - Fix CVE-2023-32762 and CVE-2023-32763
 

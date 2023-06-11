@@ -10,23 +10,31 @@
 %bcond_with lwt
 
 Name:           ocaml-dune
-Version:        3.7.1
+Version:        3.8.1
 Release:        1%{?dist}
 Summary:        Composable build system for OCaml and Reason
 
 # Dune itself is MIT.  Some bundled libraries have a different license:
 # ISC:
 # - vendor/cmdliner
+# - vendor/fmt
+# - vendor/notty
+# - vendor/opam-0install
+# - vendor/sha
+# - vendor/uutf
 # LGPL-2.0-only:
 # - vendor/incremental-cycles
 # LGPL-2.0-only WITH OCaml-LGPL-linking-exception
 # - vendor/ocaml-inotify
+# - vendor/opam
 # - vendor/opam-file-format
 # - vendor/re
+# LGPL-2.1-or-later:
+# - vendor/0install-solver
 # MIT:
 # - vendor/build_path_prefix_map
 # - vendor/spawn
-License:        MIT AND ISC AND LGPL-2.0-only AND LGPL-2.0-only WITH OCaml-LGPL-linking-exception
+License:        MIT AND ISC AND LGPL-2.0-only AND LGPL-2.0-only WITH OCaml-LGPL-linking-exception AND LGPL-2.1-or-later
 URL:            https://dune.build
 Source0:        https://github.com/ocaml/dune/archive/%{version}/dune-%{version}.tar.gz
 # When building without lwt, remove libraries that need it
@@ -51,13 +59,20 @@ BuildRequires:  ocaml-lwt-devel
 # Dune has vendored deps to avoid dependency cycles.  Upstream deliberately
 # does not support unbundling these dependencies.
 # See https://github.com/ocaml/dune/issues/220
+Provides:       bundled(ocaml-0install-solver) = 2.18
 Provides:       bundled(ocaml-build-path-prefix-map) = 0.3
 Provides:       bundled(ocaml-cmdliner) = 1.1.1
+Provides:       bundled(ocaml-fmt) = 0.8.10
 Provides:       bundled(ocaml-incremental-cycles) = 1e2030a5d5183d84561cde142eecca40e03db2a3
 Provides:       bundled(ocaml-inotify) = 2.3
-Provides:       bundled(ocaml-opam-file-format) = 2.0.0
+Provides:       bundled(ocaml-notty) = 0.2.3
+Provides:       bundled(ocaml-opam) = 2.1.4
+Provides:       bundled(ocaml-opam-0install) = 0.4.3
+Provides:       bundled(ocaml-opam-file-format) = 2.1.6
 Provides:       bundled(ocaml-re) = 1.9.0
+Provides:       bundled(ocaml-sha) = 1.15.4
 Provides:       bundled(ocaml-spawn) = 0.15.1
+Provides:       bundled(ocaml-uutf) = 1.0.3
 
 Provides:       dune = %{version}-%{release}
 
@@ -548,6 +563,10 @@ cd -
 %files -n ocaml-xdg-devel -f .ofiles-xdg-devel
 
 %changelog
+* Fri Jun  9 2023 Jerry James <loganjerry@gmail.com> - 3.8.1-1
+- Version 3.8.1
+- Add LGPL-2.1-or-later to License tag due to bundled 0install-solver
+
 * Tue Apr  4 2023 Jerry James <loganjerry@gmail.com> - 3.7.1-1
 - Version 3.7.1
 

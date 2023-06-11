@@ -4,7 +4,7 @@
 # https://github.com/zricethezav/gitleaks
 %global forgeurl        https://github.com/zricethezav/gitleaks
 %global goipath         github.com/zricethezav/gitleaks/v8
-Version:                8.16.3
+Version:                8.16.4
 
 %gometa -f
 
@@ -44,9 +44,9 @@ BuildRequires:  git-core
 %gopkginstall
 install -m 0755 -vd                     %{buildroot}%{_bindir}
 install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
-install -Dp %{name}.bash %{buildroot}%{_datadir}/bash-completion/completions/%{name}
-install -Dp %{name}.fish %{buildroot}%{_datadir}/fish/vendor_completions.d/%{name}.fish
-install -Dp %{name}.zsh  %{buildroot}%{_datadir}/zsh/site-functions/_%{name}
+install -Dpm 0644 %{name}.bash %{buildroot}%{bash_completions_dir}/%{name}
+install -Dpm 0644 %{name}.fish %{buildroot}%{fish_completions_dir}/%{name}.fish
+install -Dpm 0644 %{name}.zsh  %{buildroot}%{zsh_completions_dir}/_%{name}
 
 
 %if %{with check}
@@ -58,15 +58,9 @@ install -Dp %{name}.zsh  %{buildroot}%{_datadir}/zsh/site-functions/_%{name}
 %license LICENSE
 %doc CONTRIBUTING.md README.md
 %{_bindir}/*
-%dir %{_datadir}/bash-completion
-%dir %{_datadir}/bash-completion/completions
-%{_datadir}/bash-completion/completions/%{name}
-%dir %{_datadir}/fish
-%dir %{_datadir}/fish/vendor_completions.d
-%{_datadir}/fish/vendor_completions.d/%{name}.fish
-%dir %{_datadir}/zsh
-%dir %{_datadir}/zsh/site-functions
-%{_datadir}/zsh/site-functions/_%{name}
+%{bash_completions_dir}/%{name}
+%{fish_completions_dir}/%{name}.fish
+%{zsh_completions_dir}/_%{name}
 
 
 %gopkgfiles

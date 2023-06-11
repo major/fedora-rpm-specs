@@ -1,6 +1,6 @@
 Summary:	A unix pager optimized for psql
 Name:		pspg
-Version:	5.7.6
+Version:	5.7.7
 Release:	1%{?dist}
 License:	BSD
 URL:		https://github.com/okbob/%{name}
@@ -39,6 +39,9 @@ columns, and lot of color themes are included.
 
 
 %changelog
+* Fri Jun 09 2023 Pavel Raiskup <praiskup@redhat.com> - 5.7.7-1
+- https://github.com/okbob/pspg/releases/tag/5.7.7
+
 * Wed Apr 26 2023 Pavel Raiskup <praiskup@redhat.com> - 5.7.6-1
 - new upstream release, per release notes:
   https://github.com/okbob/pspg/releases/tag/5.7.6

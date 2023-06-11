@@ -36,6 +36,9 @@ BuildRequires:  %{py3_dist importlib-metadata}
 %prep
 %autosetup -n chaospy-%{version}
 
+# remove rpm created dir
+rm -rf SPECPARTS
+
 # This particular version is required for the tests
 # https://github.com/jonathf/chaospy/issues/307#issuecomment-735379840
 sed -i 's/numpoly.*/numpoly>=1.2.7/' requirements.txt

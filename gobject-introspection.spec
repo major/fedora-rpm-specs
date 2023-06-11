@@ -2,7 +2,7 @@
 
 Name:           gobject-introspection
 Version:        1.76.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Introspection system for GObject-based libraries
 
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND BSD-2-Clause
@@ -10,6 +10,9 @@ URL:            https://wiki.gnome.org/Projects/GObjectIntrospection
 Source0:        https://download.gnome.org/sources/%{name}/1.76/%{name}-%{version}.tar.xz
 # https://gitlab.gnome.org/GNOME/gobject-introspection/-/issues/458
 Patch0:         gobject-introspection-1.76.1-revert-failing-test.patch
+# Workaround for Python 3.12 compatibility
+# https://bugzilla.redhat.com/show_bug.cgi?id=2208966
+Patch1:         workaround.patch
 
 BuildRequires:  bison
 BuildRequires:  flex
@@ -52,6 +55,7 @@ Libraries and headers for gobject-introspection
 
 %prep
 %autosetup -p1
+mv giscanner/ast.py giscanner/gio_ast.py
 
 %build
 %meson -Ddoctool=enabled -Dgtk_doc=true -Dpython=%{__python3}
@@ -91,6 +95,9 @@ Libraries and headers for gobject-introspection
 %{_mandir}/man1/g-ir-scanner.1*
 
 %changelog
+* Fri Jun 09 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.76.1-3
+- Add workaround patch for compatibility with Python 3.12
+
 * Fri May 19 2023 David King <amigadave@amigadave.com> - 1.76.1-2
 - Enable tests during check phase
 
