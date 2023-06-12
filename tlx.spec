@@ -1,5 +1,5 @@
 Name:           tlx
-Version:        0.6.0
+Version:        0.6.1
 Release:        1%{?dist}
 Summary:        Sophisticated C++ data structures, algorithms, and helpers
 
@@ -58,7 +58,6 @@ Doxygen documentation for tlx.
   -DTLX_BUILD_STATIC_LIBS:BOOL=OFF \
   -DTLX_BUILD_STRING_SORTING:BOOL=ON \
   -DTLX_BUILD_TESTS:BOOL=ON \
-  -DTLX_SOVERSION:STRING=0 \
   %{nil}
 %cmake_build
 doxygen
@@ -72,8 +71,7 @@ doxygen
 %files
 %license LICENSE
 %doc AUTHORS README.md
-%{_libdir}/libtlx.so.0
-%{_libdir}/libtlx.so.0.*
+%{_libdir}/libtlx.so.0.6*
 
 %files         devel
 %{_includedir}/%{name}/
@@ -85,6 +83,10 @@ doxygen
 %doc doxygen-html
 
 %changelog
+* Sat Jun 10 2023 Jerry James <loganjerry@gmail.com> - 0.6.1-1
+- Version 0.6.1
+- Upstream sets the SOVERSION again
+
 * Wed May 17 2023 Jerry James <loganjerry@gmail.com> - 0.6.0-1
 - Version 0.6.0
 - Drop upstreamed cstdint patch

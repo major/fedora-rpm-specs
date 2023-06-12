@@ -6,7 +6,7 @@
 %define __perl_provides %{nil}
 
 Name:           moodle
-Version:        4.2
+Version:        4.2.1
 Release:       	1%{?dist}
 Summary:        A Course Management System
 
@@ -178,6 +178,9 @@ end
 %{_datadir}/php/php-simplepie/moodle_simplepie.php
 
 %changelog
+* Sat Jun 10 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.2.1-1
+- 4.2.1
+
 * Mon Apr 24 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.2-1
 - 4.2
 

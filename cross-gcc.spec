@@ -80,10 +80,10 @@
 # line.  gcc_release is the Fedora gcc release that the patches were
 # taken from.
 %global gcc_release 2
-%global cross_gcc_release 1
+%global cross_gcc_release 2
 %global cross_binutils_version 2.39-3
 %global isl_version 0.16.1
-%global isl_libmajor 16
+%global isl_libmajor 15
 
 %global _performance_build 1
 # Hardening slows the compiler way too much.
@@ -846,6 +846,9 @@ chmod +x %{__ar_no_strip}
 %do_files xtensa-linux-gnu	%{build_xtensa}
 
 %changelog
+* Sat Jun 10 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 13.1.1-2
+- Fix libisl version issue
+
 * Thu Jun 08 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 13.1.1-1
 - Update to gcc 13.1
 - Drop tile/hppa support (dropped upstream)

@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit 1c095937163faff5822b673b6771b700002ad3a6
+%global commit 79f41b6c52b80920a70fe2ba8addead254579365
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 38.15
+Version: 38.16
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -813,6 +813,24 @@ exit 0
 %endif
 
 %changelog
+* Fri Jun 09 2023 Zdenek Pytela <zpytela@redhat.com> - 38.16-1
+- Add support for the systemd-pstore service
+- Allow kdumpctl_t to execmem
+- Update sendmail policy module for opensmtpd
+- Allow nagios-mail-plugin exec postfix master
+- Allow subscription-manager execute ip
+- Allow ssh client connect with a user dbus instance
+- Add support for ksshaskpass
+- Allow rhsmcertd file transition in /run also for socket files
+- Allow keyutils_dns_resolver_t execute keyutils_dns_resolver_exec_t
+- Allow plymouthd read/write X server miscellaneous devices
+- Allow systemd-sleep read udev pid files
+- Allow exim read network sysctls
+- Allow sendmail request load module
+- Allow named map its conf files
+- Allow squid map its cache files
+- Allow NetworkManager_dispatcher_dhclient_t to execute shells without a domain transition
+
 * Tue May 30 2023 Zdenek Pytela <zpytela@redhat.com> - 38.15-1
 - Update policy for systemd-sleep
 - Remove permissive domain for rshim_t

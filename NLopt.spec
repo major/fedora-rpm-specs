@@ -15,7 +15,7 @@
 
 Name:              NLopt
 Version:           2.7.1
-Release:           13%{?dist}
+Release:           14%{?dist}
 Summary:           Open-Source library for nonlinear optimization
 
 # Get a lowercase name for virtual provides.
@@ -58,6 +58,8 @@ Patch0:            nlopt-2.6.2-kill_rpath.patch
 # Fix guile detection
 # https://github.com/stevengj/nlopt/pull/428
 Patch1:            0001-CMake-Fix-guile-detection-in-Fedora.patch
+# Fix build with CMake 3.27.0
+Patch2:            nlopt-2.7.1-cmake_327.patch
 
 BuildRequires:     cmake3
 BuildRequires:     gcc
@@ -296,6 +298,9 @@ EOF
 
 
 %changelog
+* Sat Jun 10 2023 Björn Esser <besser82@fedoraproject.org> - 2.7.1-14
+- Fix build with CMake 3.27.0
+
 * Sat Apr 08 2023 Orion Poplawski <orion@nwra.com> - 2.7.1-13
 - Rebuild with octave 8.1.0
 

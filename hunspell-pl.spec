@@ -5,10 +5,10 @@
 %endif
 Name: hunspell-pl
 Summary: Polish hunspell dictionaries
-%global upstreamid 20180707
+%global upstreamid 20230601
 Version: 0.%{upstreamid}
-Release: 13%{?dist}
-Source: http://sjp.pl/slownik/ort/sjp-myspell-pl-%{upstreamid}.zip
+Release: 1%{?dist}
+Source: https://sjp.pl/slownik/ort/sjp-myspell-pl-%{upstreamid}.zip
 URL: https://sjp.pl/slownik/ort/
 License: LGPL-2.1-or-later OR GPL-1.0-or-later OR MPL-1.1 OR Apache-2.0 OR CC-BY-SA-4.0
 BuildArch: noarch
@@ -35,6 +35,9 @@ cp -p *.dic *.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Jun 08 2023 Paweł Marciniak <sunwire+repo@gmail.com> - 0.20230601-1
+- Update to the latest version
+
 * Wed Feb 22 2023 Caolán McNamara <caolanm@redhat.com> - 0.20160720-13
 - migrated to SPDX license
 

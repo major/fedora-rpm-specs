@@ -1,5 +1,5 @@
 Name:		perl-MCE-Shared
-Version:	1.884
+Version:	1.885
 Release:	1%{?dist}
 Summary:	MCE extension for sharing data, supporting threads and processes
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -92,6 +92,10 @@ make test
 %{_mandir}/man3/MCE::Shared::Server.3*
 
 %changelog
+* Fri Jun  9 2023 Paul Howarth <paul@city-fan.org> - 1.885-1
+- Update to 1.885
+  - Fix typo in Queue dequeue_timed documentation
+
 * Thu Jun  8 2023 Paul Howarth <paul@city-fan.org> - 1.884-1
 - Update to 1.884
   - Add missing return statement(s) in Condvar and Queue

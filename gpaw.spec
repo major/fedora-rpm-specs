@@ -18,15 +18,9 @@ ExcludeArch: ppc64
 ExcludeArch: %{ix86}
 %endif
 
-%if 0%{?fedora} >= 21 || 0%{?el7} || 0%{?el6}
-%global blacs_libs 'mpiblacs'
-%else
-%global	blacs_libs 'mpiblacsCinit', 'mpiblacs'
-%endif
-
 Name:			gpaw
-Version:		22.8.0
-Release:		5%{?dist}
+Version:		23.6.0
+Release:		1%{?dist}
 Summary:		A grid-based real-space PAW method DFT code
 
 License:		GPLv3+
@@ -39,7 +33,7 @@ Source1:		gpaw
 
 BuildRequires:		time
 BuildRequires:		libxc-devel
-%if 0%{?fedora} >= 33
+%if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
 BuildRequires:		flexiblas-devel
 %else
 BuildRequires:		openblas-devel
@@ -93,16 +87,7 @@ Summary:		python3-%{name} - openmpi version
 BuildRequires:		openssh-clients
 BuildRequires:		openmpi-devel
 BuildRequires:		scalapack-openmpi-devel
-BuildRequires:		blacs-openmpi-devel
 Requires:		%{name}-common = %{version}-%{release}
-%if 0%{?el6}
-BuildRequires:		scalapack-openmpi
-BuildRequires:		blacs-openmpi
-%endif
-%if 0%{?el7} || 0%{?el6}
-Requires:		scalapack-openmpi
-Requires:		blacs-openmpi
-%endif
 
 %description -n python3-%{name}-openmpi
 %{desc_base}
@@ -113,16 +98,7 @@ This package contains the openmpi Python 3 version.
 Summary:		python3-%{name} - mpich version
 BuildRequires:		mpich-devel
 BuildRequires:		scalapack-mpich-devel
-BuildRequires:		blacs-mpich-devel
 Requires:		%{name}-common = %{version}-%{release}
-%if 0%{?el6}
-BuildRequires:		scalapack-mpich
-BuildRequires:		blacs-mpich
-%endif
-%if 0%{?el7} || 0%{?el6}
-Requires:		scalapack-mpich
-Requires:		blacs-mpich
-%endif
 
 %description -n python3-%{name}-mpich
 %{desc_base}
@@ -139,10 +115,6 @@ mv %{name}-%{version} python3
 
 # create siteconfig.py
 cp python3/siteconfig_example.py python3/siteconfig.py
-# replace Debian-centric naming of scalapack/blacs
-sed -i "s/scalapack-openmpi/scalapack/" python3/siteconfig.py
-sed -i "s/blacsCinit-openmpi/scalapack/" python3/siteconfig.py
-sed -i "s/blacs-openmpi/scalapack/" python3/siteconfig.py
 
 cp -p python3/LICENSE .
 
@@ -161,10 +133,12 @@ ${PYTHON} setup.py build && \
 mv build build$MPI_SUFFIX && \
 ${PYTHON} setup.py clean
 
+# disable mpi
+sed -i 's/.*mpi =.*/mpi = False/' python3/siteconfig.py
 # disable scalapack
 sed -i 's/.*scalapack =.*/scalapack = False/' python3/siteconfig.py
 # enable flexiblas/openblas
-%if 0%{?fedora} >= 33
+%if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
 echo "libraries += ['flexiblas']" >> python3/siteconfig.py
 %else
 echo "libraries += ['openblas']" >> python3/siteconfig.py
@@ -182,11 +156,10 @@ popd
 
 # build openmpi version
 %{_openmpi_load}
+# enable mpi
+sed -i 's/.*mpi =.*/mpi = True/' python3/siteconfig.py
 # enable scalapack
 sed -i 's/.*scalapack =.*/scalapack = True/' python3/siteconfig.py
-%if 0%{?fedora} < 32
-sed -i "s/'scalapack'/%{blacs_libs}, 'scalapack'/" python3/siteconfig.py
-%endif
 # force mpicc
 sed -i 's/# compiler =.*/compiler = "mpicc"/' python3/siteconfig.py
 which mpicc
@@ -199,11 +172,10 @@ popd
 
 # build mpich version
 %{_mpich_load}
+# enable mpi
+sed -i 's/.*mpi =.*/mpi = True/' python3/siteconfig.py
 # enable scalapack
 sed -i 's/.*scalapack =.*/scalapack = True/' python3/siteconfig.py
-%if 0%{?fedora} < 32
-sed -i "s/'scalapack'/%{blacs_libs}, 'scalapack'/" python3/siteconfig.py
-%endif
 # force mpicc
 sed -i 's/# compiler =.*/compiler = "mpicc"/' python3/siteconfig.py
 which mpicc
@@ -224,7 +196,7 @@ mkdir -p $RPM_BUILD_ROOT/$MPI_BIN&& \
 install -p -m 755 build$MPI_SUFFIX/scripts-*/* $RPM_BUILD_ROOT/$MPI_BIN/&& \
 install -p -m 755 %{SOURCE1} $RPM_BUILD_ROOT/$MPI_BIN/&& \
 mkdir -p $RPM_BUILD_ROOT/$MPI_PYTHON3_SITEARCH&& \
-cp -rp build$MPI_SUFFIX/lib.*/%{name} $RPM_BUILD_ROOT/$MPI_PYTHON3_SITEARCH/&& \
+cp -rpv build$MPI_SUFFIX/lib.*/%{name} $RPM_BUILD_ROOT/$MPI_PYTHON3_SITEARCH/&& \
 install -p -m 755 build$MPI_SUFFIX/lib.*/*.so $RPM_BUILD_ROOT/$MPI_PYTHON3_SITEARCH/
 
 # install serial version
@@ -306,6 +278,10 @@ popd
 
 
 %changelog
+* Fri Jun 09 2023 Marcin Dulak <marcindulak@fedoraproject.org> - 23.6.0-1
+- New upstream release
+- Remove references to blacs
+
 * Thu Jan 19 2023 Marcin Dulak <marcindulak@fedoraproject.org> - 22.8.0-5
 - Exlude %%{ix86} due to bug #2142304
 

@@ -14,7 +14,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  meson
 BuildRequires:  cmake
 
-%if %{?fedora} >= 38
+%if 0%{?fedora} >= 38
 BuildRequires:  catch2-devel
 %else
 BuildRequires:  catch-devel

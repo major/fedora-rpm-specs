@@ -159,6 +159,15 @@ Patch5: rhbz-1219542-s390-build.patch
 # If cbindgen=0.24
 Patch6: mozilla-1773336.patch
 
+# With clang LLVM 16 rust-bindgen 0.56.0 is too old, combined
+# https://github.com/rust-lang/rust-bindgen/pull/2319
+# https://github.com/rust-lang/rust-bindgen/pull/2339
+Patch7:  rust-bindgen-2319-2339.patch
+
+# Needed with rust 1.70
+# https://github.com/mozilla/mp4parse-rust/commit/8b5b652d38e007e736bb442ccd5aa5ed699db100
+Patch8:  mp4parse-rust-8b5b652d38e007e736bb442ccd5aa5ed699db100.patch 
+
 Patch40: build-aarch64-skia.patch
 Patch41: build-disable-elfhack.patch
 Patch44: build-arm-libopus.patch
@@ -344,58 +353,59 @@ to run GNU IceCat native on Wayland.
 %prep
 %autosetup -N -n %{name}-%{version}
 
-# Fix permissions
-#find . -type f -name "*.h" -exec chmod 0644 '{}' \;
-#find . -type f -name "*.cpp" -exec chmod 0644 '{}' \;
-#find . -type f -name "*.cc" -exec chmod 0644 '{}' \;
-#find . -type f -name "*.c" -exec chmod 0644 '{}' \;
-
 # Copy license files
 tar -xf %{SOURCE5}
 
-%patch 1 -p 1 -b .fix_addon_installation
-%patch 2 -p 1 -b .commasplit
-%patch 3 -p 1 -b .build-arm-libaom
-%patch 4 -p 1 -b .arm
+%patch -P 1 -p 1 -b .fix_addon_installation
+%patch -P 2 -p 1 -b .commasplit
+%patch -P 3 -p 1 -b .build-arm-libaom
+%patch -P 4 -p 1 -b .arm
 %ifarch s390
-%patch 5 -p 1 -b .rhbz-1219542-s390
+%patch -P 5 -p 1 -b .rhbz-1219542-s390
 %endif
-%patch 6 -p 1 -b .1773336
+%patch -P 6 -p 1 -b .1773336
+
+  
+%if 0%{?fedora} >= 38
+# MUST ONLY be applied for building against clang LLVM 16.
+%patch -P 7 -p1 -b .rust-bindgen-2319-2339
+%patch -P 8 -p1 -b .mp4parse-rust
+%endif
 
 %if 0%{?disable_elfhack}
-%patch 41 -p 1 -b .disable-elfhack
+%patch -P 41 -p 1 -b .disable-elfhack
 %endif
 
 # Fedora patches
-%patch 219 -p 1 -b .rhbz-1173156
-%patch 221 -p 1 -b .firefox-nss-addon-hack
-%patch 224 -p 1 -b .glibcxx
-%patch 225 -p 1 -b .gcc13
+%patch -P 219 -p 1 -b .rhbz-1173156
+%patch -P 221 -p 1 -b .firefox-nss-addon-hack
+%patch -P 224 -p 1 -b .glibcxx
+%patch -P 225 -p 1 -b .gcc13
 
 # ARM run-time patch
 %ifarch aarch64
-%patch 40 -p 1 -b .aarch64-skia
-%patch 226 -p 1 -b .1354671
+%patch -P 40 -p 1 -b .aarch64-skia
+%patch -P 226 -p 1 -b .1354671
 %endif
 
 %ifarch %{arm}
-%patch 44  -p 1 -b .build-arm-libopus
+%patch -P 44  -p 1 -b .build-arm-libopus
 %endif
 
-%patch 402 -p 1 -b .1196777
+%patch -P 402 -p 1 -b .1196777
 %ifarch %{power64}
-%patch 423 -p 1 -b .1512162
+%patch -P 423 -p 1 -b .1512162
 %endif
 
 #%%patch 584 -p1 -b .firefox-disable-ffvpx-with-vapi
 #%%patch 585 -p1 -b .firefox-vaapi-extra-frames
-%patch 54 -p 1 -b .1669639
+%patch -P 54 -p 1 -b .1669639
 
 # PGO patches
 %if 0%{?build_with_pgo}
 %if !%{build_with_clang}
-%patch 600 -p 1 -b .pgo
-%patch 602 -p 1 -b .1516803
+%patch -P 600 -p 1 -b .pgo
+%patch -P 602 -p 1 -b .1516803
 %endif
 %endif
 

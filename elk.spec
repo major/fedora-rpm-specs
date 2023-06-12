@@ -11,7 +11,7 @@ elk-5.2.14 requires libxc 3 or newer
 # missing on el6
 %{?!_fmoddir: %global _fmoddir %{_libdir}/gfortran/modules}
 
-%if 0%{?fedora} >= 32
+%if 0%{?fedora} >= 32 || 0%{?rhel} >= 9
 %global extra_gfortran_flags -fallow-argument-mismatch
 %else
 %global extra_gfortran_flags %{nil}
@@ -24,20 +24,20 @@ ExclusiveArch:          x86_64 %{ix86}
 ExclusiveArch:          x86_64 %{ix86} aarch64 %{arm} %{power64}
 %endif
 
-%if 0%{?fedora} >= 33
+%if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
 %global BLASLAPACK flexiblas
 %else
 %global BLASLAPACK openblas
 %endif
 %global FFTW -L%{_libdir} -lfftw3 -lfftw3f
-%if 0%{?fedora} >= 25 || 0%{?el8}
+%if 0%{?fedora} >= 25 || 0%{?rhel} >= 9
 %global LIBXC -L%{_libdir} -lxc -lxcf90
 %else
 %global LIBXC -L%{_libdir} -lxc
 %endif
 
 Name:			elk
-Version:		8.7.10
+Version:		8.8.26
 Release:		1%{?dist}
 Summary:		An all-electron full-potential linearised augmented-plane wave code
 
@@ -50,10 +50,12 @@ BuildRequires:		time
 
 BuildRequires:		gcc-gfortran
 BuildRequires:		%{BLASLAPACK}-devel
-# Use openblas-serial instead of openblas-openmp
+# Use openblas-serial instead of openblas-openmp, but it's unavailable on centos stream
+# due to https://bugzilla.redhat.com/show_bug.cgi?id=2182460, so use a workaround of export OMP_NUM_THREADS=1
+# https://github.com/edoapra/fedpkg/issues/10#issuecomment-731855285
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
-BuildRequires:		flexiblas-openblas-serial
-Requires:		flexiblas-openblas-serial
+BuildRequires:		flexiblas-openblas-openmp
+Requires:		flexiblas-openblas-openmp
 %endif
 
 BuildRequires:		fftw3-devel
@@ -202,7 +204,8 @@ mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}
 mkdir -p $RPM_BUILD_ROOT/$MPI_BIN&& \
 install -p -m 755 %{name}$MPI_SUFFIX $RPM_BUILD_ROOT/$MPI_BIN/%{name}_binary$MPI_SUFFIX&& \
 echo '#!/bin/bash' >  $RPM_BUILD_ROOT/$MPI_BIN/%{name}$MPI_SUFFIX&& \
-echo 'export FLEXIBLAS=openblas-serial' >>  $RPM_BUILD_ROOT/$MPI_BIN/%{name}$MPI_SUFFIX&& \
+echo 'export FLEXIBLAS=openblas-openmp' >>  $RPM_BUILD_ROOT/$MPI_BIN/%{name}$MPI_SUFFIX&& \
+echo 'export OMP_NUM_THREADS=1' >>  $RPM_BUILD_ROOT/$MPI_BIN/%{name}$MPI_SUFFIX&& \
 echo -n "%{name}_binary$MPI_SUFFIX " >>  $RPM_BUILD_ROOT/$MPI_BIN/%{name}$MPI_SUFFIX&& \
 echo '"$@"' >>  $RPM_BUILD_ROOT/$MPI_BIN/%{name}$MPI_SUFFIX&& \
 chmod 755  $RPM_BUILD_ROOT/$MPI_BIN/%{name}$MPI_SUFFIX&& \
@@ -233,8 +236,8 @@ cp -rp tests tests-libxc examples $RPM_BUILD_ROOT%{_datadir}/%{name}
 
 %check
 
-export NPROC=1 # test on X cores
-export OMP_NUM_THREADS=$NPROC
+export NPROC=2 # test on X cores
+export OMP_NUM_THREADS=1
 
 # save tests
 mv tests-libxc tests-libxc.orig
@@ -302,6 +305,10 @@ mv tests.orig tests
 
 
 %changelog
+* Fri Jun 09 2023 Marcin Dulak <marcindulak@fedoraproject.org> - 8.8.26-1
+- New upstream release
+- Switch to flexiblas-openblas-openmp due to bug #2182460
+
 * Tue Mar 28 2023 Marcin Dulak <marcindulak@fedoraproject.org> - 8.7.10-1
 - New upstream release
 - Use 4 cores for test-libxc-mpi

@@ -10,7 +10,7 @@
 
 Name:           rocclr
 Version:        %{rocm_version}
-Release:        6%{?dist}
+Release:        8%{?dist}
 Summary:        ROCm Compute Language Runtime
 Url:            https://github.com/ROCm-Developer-Tools/clr
 License:        MIT
@@ -36,15 +36,17 @@ Patch4:         0001-Revert-SWDEV-325538-Enable-code-object-v5-by-default.patch
 # https://github.com/ROCm-Developer-Tools/HIPCC/pull/83
 Patch100:       0001-Improve-HIP_CLANG_INCLUDE-detection.patch
 Patch101:       0002-Improve-HIP_CLANG_PATH-detection.patch
-# It's a Windows fix, but this likely also affects Fedora too:
-# https://github.com/ROCm-Developer-Tools/HIP/commit/e18cbe64c173f6f9abf1b56f78cdd9bc7d4716d2
-Patch102:       https://github.com/ROCm-Developer-Tools/HIP/commit/e18cbe64c173f6f9abf1b56f78cdd9bc7d4716d2.patch
 
-# Some Fedora patches that upstream might not take
-# Fix FHS compliance issue:
+# Fix FHS compliance issue (currently working on an upstream-able patch):
 Patch5:         0001-Install-.hipVersion-into-datadir.patch
+
 # Moves FindHIP cmake to datadir, to fit better with hip-devel being noarch:
 Patch6:         0002-Move-FindHIP-to-datadir.patch
+
+# Upstream patches to let clang use the default hip device lib path:
+Patch7:         https://github.com/ROCm-Developer-Tools/clr/commit/cbb393719633f5ade47efbe8d2946e5f649c1f22.patch
+Patch102:       https://github.com/ROCm-Developer-Tools/HIP/commit/e18cbe64c173f6f9abf1b56f78cdd9bc7d4716d2.patch
+Patch103:       https://github.com/ROCm-Developer-Tools/HIP/commit/802e3f439726b0c119f58de5dde8770cda75b2b0.patch
 
 BuildRequires:  cmake
 BuildRequires:  clang-devel
@@ -312,6 +314,12 @@ fi
 %{_docdir}/hip
 
 %changelog
+* Sat Jun 10 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.5.1-8
+- Fix hip-lang-config.cmake bug (upstream patch)
+
+* Fri Jun 09 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.5.1-7
+- Fix hip-config.cmake bug (upstream patch)
+
 * Fri Jun 02 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.5.1-6
 - Fix rocminfo requires for hip
 

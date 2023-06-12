@@ -51,7 +51,7 @@ need libxc version > 3
 
 Name:			nwchem
 Version:		%{major_version}
-Release:		1%{?dist}
+Release:		2%{?dist}
 Summary:		Delivering High-Performance Computational Chemistry to Science
 
 License:		ECL 2.0
@@ -73,7 +73,7 @@ BuildRequires: make
 BuildRequires:		patch
 BuildRequires:		time
 
-%if 0%{?fedora} >= 29
+%if 0%{?fedora} >= 29 || 0%{?rhel} >= 9
 BuildRequires:		python3-devel
 %else
 BuildRequires:		python2-devel
@@ -82,11 +82,12 @@ BuildRequires:		python2-devel
 BuildRequires:		gcc-gfortran
 
 BuildRequires:		%{blaslib}-devel
-# Use openblas-serial instead of openblas-openmp
-# See https://github.com/edoapra/fedpkg/issues/10#issuecomment-712437582
+# Use openblas-serial instead of openblas-openmp, but it's unavailable on centos stream
+# due to https://bugzilla.redhat.com/show_bug.cgi?id=2182460, so use a workaround of export OMP_NUM_THREADS=1
+# See https://github.com/edoapra/fedpkg/issues/10#issuecomment-731855285
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
-BuildRequires:		flexiblas-openblas-serial
-Requires:		flexiblas-openblas-serial
+BuildRequires:		flexiblas-openblas-openmp
+Requires:		flexiblas-openblas-openmp
 %endif
 BuildRequires:		libxc-devel
 
@@ -218,7 +219,7 @@ echo export NWCHEM_TARGET=%{NWCHEM_TARGET} >> settings.sh
 echo export CC=gcc >> settings.sh
 echo export FC=gfortran >> settings.sh
 # https://nwchemgit.github.io/Special_AWCforum/st/id1590/Nwchem-dev.revision26704-src.201....html
-%if 0%{?fedora} >= 21
+%if 0%{?fedora} >= 21 || 0%{?rhel} >= 9
 echo export USE_ARUR=TRUE >> settings.sh
 %endif
 %if 0%{?rhel} >= 7
@@ -281,7 +282,8 @@ cat ../compile$MPI_SUFFIX.sh&& \
 sh ../compile$MPI_SUFFIX.sh&& \
 mv ../bin/%{NWCHEM_TARGET}/%{name} ../bin/%{NWCHEM_TARGET}/%{name}_binary$MPI_SUFFIX&& \
 echo '#!/bin/bash' >  ../bin/%{NWCHEM_TARGET}/%{name}$MPI_SUFFIX&& \
-echo 'export FLEXIBLAS=openblas-serial' >>  ../bin/%{NWCHEM_TARGET}/%{name}$MPI_SUFFIX&& \
+echo 'export FLEXIBLAS=openblas-openmp' >>  ../bin/%{NWCHEM_TARGET}/%{name}$MPI_SUFFIX&& \
+echo 'export OMP_NUM_THREADS=1' >>  ../bin/%{NWCHEM_TARGET}/%{name}$MPI_SUFFIX&& \
 echo -n "%{name}_binary$MPI_SUFFIX " >>  ../bin/%{NWCHEM_TARGET}/%{name}$MPI_SUFFIX&& \
 echo '"$@"' >>  ../bin/%{NWCHEM_TARGET}/%{name}$MPI_SUFFIX&& \
 chmod 755  ../bin/%{NWCHEM_TARGET}/%{name}$MPI_SUFFIX&& \
@@ -442,7 +444,8 @@ mv QA QA.orig.orig
 cp -rp QA.orig.orig QA.orig
 
 export NPROC=2 # test on 2 cores
-export FLEXIBLAS=openblas-serial
+export FLEXIBLAS=openblas-openmp
+export OMP_NUM_THREADS=1
 
 %if 0%{?el6}
 export TIMEOUT_OPTS='3600'
@@ -511,6 +514,9 @@ mv QA.orig QA
 
 
 %changelog
+* Fri Jun 09 2023 Marcin Dulak <marcindulak@fedoraproject.org> - 7.2.0-2
+- Switch to flexiblas-openblas-openmp due to bug #2182460
+
 * Tue Mar 28 2023 Marcin Dulak <marcindulak@fedoraproject.org> - 7.2.0-1
 - New upstream release
 - Build with libxc support bug #2081873

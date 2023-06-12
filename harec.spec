@@ -1,6 +1,6 @@
-%global commit dd50ca7740408e3c6e41c0ca48b59b9f7f5911f2
+%global commit 174aef484c0b0067f0a131dc52ee05af1a0e5027
 %global shortcommit %(c=%{commit}; echo ${c:0:8})
-%global date 20230316
+%global date 20230610
 
 Summary:        Hare bootstrap compiler
 Name:           harec
@@ -53,6 +53,9 @@ make check
 %{_bindir}/harec
 
 %changelog
+* Sat Jun 10 2023 Timothée Floure <fnux@fedoraproject.org> - 0^20230610git174aef48-1
+- Upstream rebase, early June 2023
+
 * Sat Apr 15 2023 Dridi Boukelmoune <dridi@fedoraproject.org> - 0^20230316gitdd50ca77-1
 - Updated to March 2023
 
@@ -67,4 +70,3 @@ make check
 
 * Fri Dec 16 2022 Benson Muite <benson_muite@emailplus.org> - 0^20221126gita1aa5039-1
 - Initial packaging
-
