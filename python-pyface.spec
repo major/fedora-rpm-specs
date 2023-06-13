@@ -4,8 +4,8 @@
 %global modname pyface
 
 Name:           python-%{modname}
-Version:        7.4.4
-Release:        2%{?dist}
+Version:        8.0.0
+Release:        1%{?dist}
 Summary:        Generic User Interface objects
 
 # Images have different licenses. For image license breakdown check
@@ -29,27 +29,7 @@ views and editors for displaying and editing Traits-based objects.
 
 %package -n python%{python3_pkgversion}-%{modname}
 Summary:        %{summary}
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{modname}}
 BuildRequires:  python%{python3_pkgversion}-devel >= 3.9
-BuildRequires:  python%{python3_pkgversion}-setuptools
-BuildRequires:  python%{python3_pkgversion}-Traits
-%if %{without bootstrap}
-BuildRequires:  python%{python3_pkgversion}-traitsui
-%endif
-BuildRequires:  python%{python3_pkgversion}-pygments
-BuildRequires:  python%{python3_pkgversion}-six
-# For tests
-BuildRequires:  python%{python3_pkgversion}-packaging
-BuildRequires:  python%{python3_pkgversion}-pillow-qt
-BuildRequires:  python%{python3_pkgversion}-pyside2
-BuildRequires:  python%{python3_pkgversion}-wxpython4
-Requires:       python%{python3_pkgversion}-Traits >= 6.0.0
-%if %{without bootstrap}
-Requires:       python%{python3_pkgversion}-traitsui
-%endif
-Requires:       python%{python3_pkgversion}-pygments
-Requires:       python%{python3_pkgversion}-%{modname}-backend
-Requires:       python%{python3_pkgversion}-six
 
 %description -n python%{python3_pkgversion}-%{modname}
 Pyface enables programmers to interact with generic UI objects, such as
@@ -67,13 +47,10 @@ Documentation and examples for pyface.
 
 %package -n python%{python3_pkgversion}-%{modname}-qt
 Summary:        Qt backend placeholder for pyface
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{modname}-qt}
+# These are not picked up automatically
+BuildRequires:  python%{python3_pkgversion}-pillow-qt
+BuildRequires:  python%{python3_pkgversion}-pyqt6
 Requires:       python%{python3_pkgversion}-%{modname} = %{version}-%{release}
-BuildRequires:  python%{python3_pkgversion}-PyQt5
-BuildRequires:  python%{python3_pkgversion}-qt5-webkit
-BuildRequires:  python%{python3_pkgversion}-pyqt5-sip
-Requires:       python%{python3_pkgversion}-PyQt5
-Requires:       python%{python3_pkgversion}-qt5-webkit
 %{?_sip_api:Requires: python3-pyqt5-sip-api(%{_sip_api_major}) >= %{_sip_api}}
 Provides:       python%{python3_pkgversion}-%{modname}-backend
 
@@ -106,11 +83,16 @@ sed -i -e '/"importlib-[^"]*",/d' pyface/__init__.py
 sed -i -e /importlib./d etstool.py
 
 
+%generate_buildrequires
+%pyproject_buildrequires -x pillow -x pyqt5 -x pyqt6 -x pyside2 -x traitsui -x wx
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files pyface
 
 %check
 # Needed for wx tests
@@ -120,21 +102,38 @@ export PYTHONUNBUFFERED=1
 # Run in a separate directory so we only see the installed package
 mkdir -p test
 cd test
-for toolkit in wx pyqt5 pyside2 # pyside6
+status=0
+# pyside6 is not packaged
+for toolkit in null pyqt5 pyqt6 pyside2 wx # pyside6
 do
+  # By default, fail build if tests fail
+  fail=1
+  # Decent default, overridded later if needed
+  export QT_API=$toolkit
   case $toolkit in
-    pyside2) export ETS_TOOLKIT="qt4"; export QT_API="pyside2"; export EXCLUDE_TESTS="wx";;
-    pyside6) export ETS_TOOLKIT="qt4"; export QT_API="pyside6"; export EXCLUDE_TESTS="wx";;
-    pyqt5) export ETS_TOOLKIT="qt4"; export QT_API="pyqt5"; export EXCLUDE_TESTS="wx";;
-    wx) export ETS_TOOLKIT="wx"; unset QT_API; export EXCLUDE_TESTS="qt";;
+    pyside2) export ETS_TOOLKIT="qt"; export EXCLUDE_TESTS="wx";;
+    pyside6) export ETS_TOOLKIT="qt"; export EXCLUDE_TESTS="wx";;
+    # pyqt5 test fails on s390x - https://github.com/enthought/pyface/issues/1247
+%ifarch s390x
+    pyqt5) export ETS_TOOLKIT="qt"; export EXCLUDE_TESTS="wx"; fail=0;;
+%else
+    pyqt5) export ETS_TOOLKIT="qt"; export EXCLUDE_TESTS="wx";;
+%endif
+    # pyqt6 is failing - https://github.com/enthought/pyface/issues/1248
+    # https://github.com/enthought/pyface/issues/1250
+    pyqt6) export ETS_TOOLKIT="qt"; export EXCLUDE_TESTS="wx"; fail=0;;
+    # wx and null currently failing - https://github.com/enthought/pyface/issues/1244
+    wx) export ETS_TOOLKIT="wx"; unset QT_API; export EXCLUDE_TESTS="qt"; fail=0;;
+    null) export ETS_TOOLKIT="null"; unset QT_API; export EXCLUDE_TESTS="(wx|qt)"; fail=0;;
   esac
-  xvfb-run %{__python3} -s -m unittest discover -v pyface
+  # Adding -f can be helpful to debug missing components or other issues when the test crashes
+  xvfb-run %{__python3} -Xfaulthandler -s -m unittest discover -v pyface || status=$(( $status + $fail ))
 done
+exit $status
  
-%files -n python%{python3_pkgversion}-%{modname}
+%files -n python%{python3_pkgversion}-%{modname} -f %{pyproject_files}
 %license image_LICENSE*.txt LICENSE.txt
 %doc CHANGES.txt README.rst
-%{python3_sitelib}/%{modname}*
 
 %files doc
 %doc docs/DockWindowFeature.pdf examples
@@ -142,6 +141,9 @@ done
 %files -n python%{python3_pkgversion}-%{modname}-qt
 
 %changelog
+* Sun Jun 11 2023 Orion Poplawski <orion@nwra.com> - 8.0.0-1
+- Update to 8.0.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.4.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,9 +1,8 @@
 %global srcname flask-cors
-%{?python_enable_dependency_generator}
 
 Name:           python-%{srcname}
-Version:        3.0.10
-Release:        8%{?dist}
+Version:        3.1.01
+Release:        1%{?dist}
 Summary:        Cross Origin Resource Sharing (CORS) support for Flask
 License:        MIT
 URL:            https://github.com/corydolphin/%{srcname}
@@ -48,6 +47,9 @@ nosetests-%{python3_version} -v
 %{python3_sitelib}/Flask_Cors*.egg-info/
 
 %changelog
+* Sun Jun 11 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 3.1.01-1
+- Update to 3.1.01 (fixes RHBZ#2211994)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.10-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

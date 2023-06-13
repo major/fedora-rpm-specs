@@ -3,7 +3,7 @@
 %global _python_bytecompile_extra 0
 
 Name:           calibre
-Version:        6.17.0
+Version:        6.20.0
 Release:        %autorelease
 Summary:        E-book converter and library manager
 License:        GPLv3
@@ -17,6 +17,7 @@ Patch1:         calibre-no-update.patch
 # Do not display multiple apps in desktop files, only the main app
 # This is so gnome-software only 'sees' calibre once.
 Patch3:         calibre-nodisplay.patch
+Patch4:         calibre-revert-new-podofo.patch
 
 ExclusiveArch: aarch64 x86_64
 

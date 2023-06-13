@@ -24,7 +24,7 @@ Source0:    %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires: coreutils
 BuildRequires: gcc
-BuildRequires: cmake >= 3.6
+BuildRequires: cmake >= 3.17
 BuildRequires: sed
 
 BuildRequires: pkgconfig(libcrypto) >= 1.1.0

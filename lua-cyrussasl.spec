@@ -5,7 +5,7 @@ Summary:        Cyrus SASL library for Lua
 Name:           lua-cyrussasl
 Version:        1.1.0
 Release:        15%{?dist}
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/JorjBauer/lua-cyrussasl
 Source0:        https://github.com/JorjBauer/lua-cyrussasl/archive/v%{version}/%{name}-%{version}.tar.gz
 Requires:       lua(abi) = %{lua_version}

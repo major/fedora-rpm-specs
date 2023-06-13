@@ -9,16 +9,13 @@
 %define _legacy_common_support 1
 
 Name:           tcpreplay
-Version:        4.4.3
-Release:        3%{?dist}
+Version:        4.4.4
+Release:        1%{?dist}
 Summary:        Replay captured network traffic
 
 License:        GPLv3
 URL:            http://tcpreplay.appneta.com/
 Source:         https://github.com/appneta/tcpreplay/releases/download/v%{version}/tcpreplay-%{version}.tar.xz
-
-Patch0:         CVE-2023-27783.patch
-Patch1:         CVE-2023-27784.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -68,6 +65,9 @@ capture files.
 %{_bindir}/*
 
 %changelog
+* Mon Jun 12 2023 Bojan Smojver <bojan@rexursive com> - 4.4.1-1
+- Update to 4.4.4
+
 * Sat May  6 2023 Bojan Smojver <bojan@rexursive com> - 4.4.3-3
 - CVE-2023-27783 CVE-2023-27784 CVE-2023-27785 CVE-2023-27786
   CVE-2023-27787 CVE-2023-27788 CVE-2023-27789

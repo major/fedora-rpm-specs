@@ -1,7 +1,7 @@
 %global antlr_version 3.5.3
 %global c_runtime_version 3.4
 %global javascript_runtime_version 3.1
-%global baserelease 4
+%global baserelease 5
 
 # This package needs itself to build.  Use this to bootstrap on a new system.
 %bcond_with bootstrap
@@ -72,7 +72,6 @@ BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-plugin-plugin)
 BuildRequires:  mvn(org.apache.maven:maven-plugin-api)
-BuildRequires:  mvn(org.apache.maven:maven-project)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-compiler-api)
 
 BuildRequires:  autoconf
@@ -351,10 +350,13 @@ install -pm 644 runtime/Cpp/include/* $RPM_BUILD_ROOT/%{_includedir}/
 %doc tool/LICENSE.txt
 
 %changelog
+* Sun Jun 11 2023 Jerry James <loganjerry@gmail.com> - 1:3.5.3-5
+- Remove unneeded maven 2 dependency
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.5.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
-* Thu Aug 11 2022 Jerry James <loganjerry@gmail.com> - 1:3.5.3-3%{?dist}
+* Thu Aug 11 2022 Jerry James <loganjerry@gmail.com> - 1:3.5.3-3
 - Convert License tag to SPDX
 
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.5.3-3

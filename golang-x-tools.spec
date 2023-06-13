@@ -5,7 +5,7 @@
 %global goipath         golang.org/x/tools
 %global forgeurl        https://github.com/golang/tools
 Epoch:                  1
-Version:                0.6.0
+Version:                0.9.3
 
 %gometa
 

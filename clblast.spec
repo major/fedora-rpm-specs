@@ -1,9 +1,21 @@
 # TESTING NOTE: An OpenCL device is needed to run the tests.  Since the koji
 # builders may or may not have a GPU, we use the CPU-only POCL implementation.
+#
+# Except, as of pocl 3.1, the tests no longer pass.  We get this:
+#
+# The following tests FAILED:
+#	  8 - clblast_test_xnrm2 (Subprocess aborted)
+#	  9 - clblast_test_xasum (Subprocess aborted)
+#	 10 - clblast_test_xamax (Subprocess aborted)
+#	 48 - clblast_test_xaxpybatched (Failed)
+#	 49 - clblast_test_xgemmbatched (Failed)
+#
+# Reverting to pocl 1.8 makes the tests pass.  We seem unable to run the tests
+# at all at this point.  Try again when pocl 4.0 is released.
 
 Name:           clblast
-Version:        1.5.3
-Release:        3%{?dist}
+Version:        1.6.0
+Release:        1%{?dist}
 Summary:        Tuned OpenCL BLAS routines
 
 License:        Apache-2.0
@@ -12,13 +24,8 @@ Source0:        https://github.com/CNugteren/CLBlast/archive/%{version}/%{name}-
 # Fix name clashes between macros in altivec.h and standard types on ppc64le
 Patch0:         %{name}-altivec.patch
 
-%if 0%{?fedora}
-%bcond_without check
-%bcond_without pocl
-%else
 %bcond_with check
 %bcond_with pocl
-%endif
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -82,7 +89,7 @@ sed -i 's,NAMES cblas blas,NAMES cblas blas flexiblas,' cmake/Modules/FindCBLAS.
 
 %files
 %license LICENSE
-%doc CHANGELOG README.md ROADMAP.md
+%doc CHANGELOG README.md
 %{_libdir}/lib{%name}.so.1
 %{_libdir}/lib{%name}.so.%{version}
 
@@ -97,6 +104,10 @@ sed -i 's,NAMES cblas blas,NAMES cblas blas flexiblas,' cmake/Modules/FindCBLAS.
 %{_bindir}/clblast*
 
 %changelog
+* Sat Jun 10 2023 Jerry James <loganjerry@gmail.com> - 1.6.0-1
+- Version 1.6.0
+- Disable tests due to problems with pocl
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

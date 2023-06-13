@@ -2,25 +2,25 @@
 %bcond_without check
 %global debug_package %{nil}
 
-# https://github.com/aymanbagabas/go-osc52
-%global goipath         github.com/aymanbagabas/go-osc52
-Version:                2.0.1
+# https://github.com/hebcal/gematriya
+%global goipath         github.com/hebcal/gematriya
+Version:                1.0.1
 
 %gometa -f
 
-%global goaltipaths     github.com/aymanbagabas/go-osc52/v2
 
 %global common_description %{expand:
-Golang terminal ANSI OSC52 wrapper. Copy text to clipboard from anywhere.}
+Simple Go implementation of gematriya, a system of writing numbers as Hebrew
+letters.}
 
 %global golicenses      LICENSE
-%global godocs          _examples README.md
+%global godocs          README.md
 
 Name:           %{goname}
 Release:        %autorelease
-Summary:        Golang terminal ANSI OSC52 wrapper. Copy text to clipboard from anywhere
+Summary:        Simple Go implementation of gematriya, a system of writing numbers as Hebrew letters
 
-License:        MIT
+License:        BSD-2-Clause
 URL:            %{gourl}
 Source:         %{gosource}
 

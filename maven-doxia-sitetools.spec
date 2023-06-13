@@ -5,7 +5,7 @@
 
 Name:           %{parent}-%{subproj}
 Version:        1.11.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Doxia content generation framework
 License:        Apache-2.0
 URL:            https://maven.apache.org/doxia/
@@ -35,12 +35,10 @@ BuildRequires:  mvn(org.apache.maven.doxia:doxia-module-xhtml)
 BuildRequires:  mvn(org.apache.maven.doxia:doxia-module-xhtml5)
 BuildRequires:  mvn(org.apache.maven.doxia:doxia-sink-api)
 BuildRequires:  mvn(org.apache.maven:maven-artifact)
-BuildRequires:  mvn(org.apache.maven:maven-artifact:2.2.1)
-BuildRequires:  mvn(org.apache.maven:maven-artifact-manager)
-BuildRequires:  mvn(org.apache.maven:maven-model:2.2.1)
+BuildRequires:  mvn(org.apache.maven:maven-core)
+BuildRequires:  mvn(org.apache.maven:maven-model)
 BuildRequires:  mvn(org.apache.maven:maven-parent:pom:)
 BuildRequires:  mvn(org.apache.maven:maven-plugin-api)
-BuildRequires:  mvn(org.apache.maven:maven-project)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
 BuildRequires:  mvn(org.apache.maven.reporting:maven-reporting-api)
 BuildRequires:  mvn(org.apache.velocity:velocity)
@@ -71,6 +69,11 @@ API documentation for %{name}.
 %prep
 %{gpgverify} --data=%{SOURCE0} --signature=%{SOURCE1} --keyring=%{SOURCE2}
 %autosetup -p1 -n doxia-%{subproj}-%{version}
+
+# migrate to maven 3
+%pom_xpath_set //pom:mavenVersion 3.8.6 doxia-integration-tools
+%pom_change_dep :maven-artifact-manager :maven-core doxia-integration-tools
+%pom_change_dep :maven-project :maven-compat doxia-integration-tools
 
 # complains
 %pom_remove_plugin :apache-rat-plugin
@@ -116,6 +119,9 @@ rm -r doxia-doc-renderer/src/main/java/org/apache/maven/doxia/docrenderer/pdf/fo
 %license LICENSE NOTICE
 
 %changelog
+* Sat Jun 10 2023 Jerry James <loganjerry@gmail.com> - 1.11.1-5
+- Remove maven 2 dependencies
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

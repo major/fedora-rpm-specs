@@ -1,4 +1,4 @@
-%global commit f78eea63cb60899c88ee243c20e1a106da264443
+%global commit 3d2b62249dbf6cd5b78e548969c29a171c5595c6
 
 %if 0%{?fedora} || 0%{?rhel} > 8
 %global link_bin nc
@@ -11,8 +11,8 @@
 Summary:         OpenBSD netcat to read and write data across connections using TCP or UDP
 Name:            netcat
 # Version from CVS revision of OpenBSD netcat.c
-Version:         1.219
-Release:         3%{?dist}
+Version:         1.225
+Release:         1%{?dist}
 # BSD-3-Clause: nc.1 and netcat.c
 # BSD-2-Clause: atomicio.{c,h} and socks.c
 License:         BSD-3-Clause AND BSD-2-Clause
@@ -24,17 +24,13 @@ Source3:         https://raw.githubusercontent.com/openbsd/src/%{commit}/usr.bin
 Source4:         https://raw.githubusercontent.com/openbsd/src/%{commit}/usr.bin/nc/socks.c
 Source5:         https://raw.githubusercontent.com/openbsd/src/%{commit}/usr.bin/nc/Makefile
 # Port peculiarities from OpenBSD to Linux
-Patch0:          https://salsa.debian.org/debian/netcat-openbsd/-/raw/e1c64e850ca7b58138ad9c0d544d06ab5441baf6/debian/patches/port-to-linux-with-libbsd.patch
+Patch0:          https://salsa.debian.org/debian/netcat-openbsd/-/raw/08f1670e0f7c682b3a86335c026a2df62daab3d4/debian/patches/port-to-linux-with-libbsd.patch
 BuildRequires:   make
 BuildRequires:   gcc
 BuildRequires:   libbsd-devel
 BuildRequires:   libretls-devel
 Requires(post):  %{_sbindir}/alternatives
 Requires(preun): %{_sbindir}/alternatives
-Obsoletes:       nc < 1.109.20120711-2
-Obsoletes:       nc6 < 1.00-22
-Provides:        nc = %{version}-%{release}
-Provides:        nc6 = %{version}-%{release}
 
 %description
 The OpenBSD nc (or netcat) utility can be used for just about anything involving
@@ -52,6 +48,12 @@ sed -e '1i #define unveil(path, permissions) 0' \
     -e '1i #define pledge(request, paths) 0' \
     -i netcat.c
 sed -e 's/^\(LIBS=.*\)/\1 -ltls/' -i Makefile
+
+%if 0%{?eln}
+echo "The netcat package is not intended for ELN: Red Hat decided explicitly to switch from OpenBSD nc to Nmap ncat for RHEL; see also:"
+echo "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/networking_guide/sec-managing_data_using_the_ncat_utility"
+exit 1
+%endif
 
 %build
 %make_build CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS"
@@ -79,6 +81,9 @@ fi
 %{_mandir}/man1/netcat.1*
 
 %changelog
+* Sun Jun 11 2023 Robert Scheck <robert@fedoraproject.org> 1.225-1
+- Upgrade to 1.225 (#2214050)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.219-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

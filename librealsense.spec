@@ -1,6 +1,6 @@
-%global abiver 2.53
+%global abiver 2.54
 Name:           librealsense
-Version:        2.53.1
+Version:        2.54.1
 Release:        %autorelease
 Summary:        Cross-platform camera capture for Intel RealSense
 
@@ -13,8 +13,8 @@ Patch0:         librealsense.remove-cflags.patch
 Patch1:         librealsense.realsense-file-shared-library.patch
 Patch2:         librealsense.use-system-pybind11.patch
 Patch3:         librealsense.remove-invalid-unused-code.patch
-Patch4:         librealsense.iostream-include.patch
-Patch5:         librealsense-include-cstdint.patch
+Patch4:         librealsense-include-cstdint.patch
+Patch5:         librealsense.rsutils-shared-library.patch
 
 BuildRequires:  cmake
 BuildRequires:  cmake(glfw3)
@@ -123,12 +123,11 @@ mv %{buildroot}/builddir/Documents/librealsense2/presets %{buildroot}/%{_datadir
 %{_libdir}/librealsense-file.so.%{abiver}*
 %{_libdir}/librealsense2-gl.so.%{abiver}*
 %{_libdir}/librealsense2.so.%{abiver}*
+%{_libdir}/librsutils.so.%{abiver}*
 %{_datadir}/realsense
 %{_bindir}/realsense-viewer
 %{_bindir}/rs-align
 %{_bindir}/rs-align-advanced
-%{_bindir}/rs-ar-advanced
-%{_bindir}/rs-ar-basic
 %{_bindir}/rs-benchmark
 %{_bindir}/rs-callback
 %{_bindir}/rs-capture
@@ -149,9 +148,6 @@ mv %{buildroot}/builddir/Documents/librealsense2/presets %{buildroot}/%{_datadir
 %{_bindir}/rs-motion
 %{_bindir}/rs-multicam
 %{_bindir}/rs-pointcloud
-%{_bindir}/rs-pose
-%{_bindir}/rs-pose-and-image
-%{_bindir}/rs-pose-predict
 %{_bindir}/rs-post-processing
 %{_bindir}/rs-record
 %{_bindir}/rs-record-playback
@@ -160,13 +156,12 @@ mv %{buildroot}/builddir/Documents/librealsense2/presets %{buildroot}/%{_datadir
 %{_bindir}/rs-sensor-control
 %{_bindir}/rs-software-device
 %{_bindir}/rs-terminal
-%{_bindir}/rs-tracking-and-depth
-%{_bindir}/rs-trajectory
 %{_udevrulesdir}/99-realsense-libusb.rules
 
 %files devel
 %{_includedir}/librealsense2
 %{_includedir}/librealsense2-gl
+%{_libdir}/librsutils.so
 %{_libdir}/cmake/realsense2
 %{_libdir}/cmake/realsense2-gl
 %{_libdir}/librealsense-file.so
@@ -179,11 +174,13 @@ mv %{buildroot}/builddir/Documents/librealsense2/presets %{buildroot}/%{_datadir
 %dir %{python3_sitearch}/pyrealsense2
 %{python3_sitearch}/pyrealsense2/pyrealsense2*.so.%{abiver}*
 %{python3_sitearch}/pyrealsense2/pybackend2*.so.2*
+%{python3_sitearch}/pyrealsense2/pyrsutils*.so.%{abiver}*
 
 %files -n python3-%{name}-devel
 %{_libdir}/cmake/pyrealsense2
 %{python3_sitearch}/pyrealsense2/pyrealsense2*.so
 %{python3_sitearch}/pyrealsense2/pybackend2*.so
+%{python3_sitearch}/pyrealsense2/pyrsutils*.so
 
 %files doc
 %license LICENSE

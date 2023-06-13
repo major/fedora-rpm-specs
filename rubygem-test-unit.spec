@@ -5,8 +5,10 @@
 
 Summary:	Improved version of Test::Unit bundled in Ruby 1.8.x
 Name:		rubygem-%{gem_name}
-# 3.3.8 and above is for ruby 3.0+ only
-Version:	3.5.9
+# 3.6.0 and above is for F-39+ only as 3.5.8 and above
+# changes default progress style
+# (For 3.5.8 and 3.5.9, F-38 and below reverted this change)
+Version:	3.6.0
 Release:	200%{?dist}
 # SPDX confirmed
 # lib/test/unit/diff.rb is under (BSD-2-Clause OR Ruby) AND Python-2.0.1
@@ -19,9 +21,6 @@ Source0:	http://rubygems.org/gems/%{gem_name}-%{version}.gem
 Source1:	%{gem_name}-%{version}-tests.tar.gz
 # Source1 is created by bash %%SOURCE2
 Source2:	test-unit-create-missing-files.sh
-# 3.5.8 changes progress style to in-place. Change it to mark as before
-# on F-38 and below
-Patch0:	test-unit-3.5.9-progress_style-default-mark.patch
 
 BuildRequires:	ruby(release)
 BuildRequires:	rubygems
@@ -53,9 +52,6 @@ This package contains documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -a 1
-%if 0%{?fedora} <= 38
-%patch -P0 -p1 -b .default
-%endif
 
 mv ../%{gem_name}-%{version}.gemspec .
 
@@ -105,6 +101,9 @@ popd
 %{gem_docdir}/
 
 %changelog
+* Sun Jun 11 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.6.0-200
+- 3.6.0
+
 * Thu May 25 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.9-200
 - 3.5.9
 

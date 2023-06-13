@@ -1,6 +1,6 @@
 
 %global forgeurl    https://github.com/AnalogJ/lexicon
-Version:            3.11.7
+Version:            3.12.0
 %forgemeta
 
 %global pypi_name dns-lexicon
@@ -16,7 +16,7 @@ Version:            3.11.7
 %endif
 
 Name:           python-%{pypi_name}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Manipulate DNS records on various DNS providers in a standardized/agnostic way
 
 License:        MIT
@@ -97,6 +97,17 @@ dependencies necessary to use the ddns provider.
 
 
 
+%package -n     python3-%{pypi_name}+duckdns
+Summary:        Meta-package for python3-%{pypi_name} and duckdns provider
+%{?python_provide:%python_provide python3-%{pypi_name}+duckdns}
+Requires:       python3-%{pypi_name} = %{version}-%{release}
+
+%description -n python3-%{pypi_name}+duckdns
+This package installs no files. It requires python3-%{pypi_name} and all
+dependencies necessary to use the duckdns provider.
+
+
+
 %package -n     python3-%{pypi_name}+gransy
 Summary:        Meta-package for python3-%{pypi_name} and gransy provider
 %{?python_provide:%python_provide python3-%{pypi_name}+gransy}
@@ -105,6 +116,28 @@ Requires:       python3-%{pypi_name} = %{version}-%{release}
 %description -n python3-%{pypi_name}+gransy
 This package installs no files. It requires python3-%{pypi_name} and all
 dependencies necessary to use the gransy provider.
+
+
+
+%package -n     python3-%{pypi_name}+localzone
+Summary:        Meta-package for python3-%{pypi_name} and localzone provider
+%{?python_provide:%python_provide python3-%{pypi_name}+localzone}
+Requires:       python3-%{pypi_name} = %{version}-%{release}
+
+%description -n python3-%{pypi_name}+localzone
+This package installs no files. It requires python3-%{pypi_name} and all
+dependencies necessary to use the localzone provider.
+
+
+
+%package -n     python3-%{pypi_name}+oci
+Summary:        Meta-package for python3-%{pypi_name} and oci provider
+%{?python_provide:%python_provide python3-%{pypi_name}+oci}
+Requires:       python3-%{pypi_name} = %{version}-%{release}
+
+%description -n python3-%{pypi_name}+oci
+This package installs no files. It requires python3-%{pypi_name} and all
+dependencies necessary to use the oci provider.
 
 
 
@@ -127,7 +160,7 @@ rm setup.py
 
 %generate_buildrequires
 %if %{with extras}
-%pyproject_buildrequires -r -t -e light -x ddns,gransy,route53
+%pyproject_buildrequires -r -t -e light -x ddns,duckdns,gransy,localzone,oci,route53
 %else
 %pyproject_buildrequires -r -t -e light
 %endif
@@ -153,12 +186,9 @@ TEST_SELECTOR="not AutoProviderTests and not NamecheapProviderTests and not Name
 
 # lexicon providers which do not work in Fedora due to missing dependencies:
 # - SoftLayerProviderTests
-# - LocalzoneProviderTests
-# - OciProviderTests
-# - OciInstancePrincipalProviderTests
-TEST_SELECTOR+=" and not SoftLayerProviderTests and not LocalzoneProviderTests and not OciProviderTests and not OciInstancePrincipalProviderTests"
+TEST_SELECTOR+=" and not SoftLayerProviderTests"
 %if %{without extras}
-TEST_SELECTOR+=" and not DDNSProviderTests and not GransyProviderTests and not Route53ProviderTests"
+TEST_SELECTOR+=" and not DDNSProviderTests and not DuckdnsProviderTests and not GransyProviderTests and not LocalzoneProviderTests and not OciProviderTests and not OciInstancePrincipalProviderTests and not Route53ProviderTests"
 %endif
 # The %%tox macro lacks features so we need to use pytest directly:
 # Miro Hrončok, 2020-09-11:
@@ -191,7 +221,16 @@ rm -rf %{buildroot}%{python3_sitelib}/lexicon/tests
 %files -n python3-%{pypi_name}+ddns
 %{?python_extras_subpkg:%ghost %{python3_sitelib}/dns_lexicon-%{version}.dist-info}
 
+%files -n python3-%{pypi_name}+duckdns
+%{?python_extras_subpkg:%ghost %{python3_sitelib}/dns_lexicon-%{version}.dist-info}
+
 %files -n python3-%{pypi_name}+gransy
+%{?python_extras_subpkg:%ghost %{python3_sitelib}/dns_lexicon-%{version}.dist-info}
+
+%files -n python3-%{pypi_name}+localzone
+%{?python_extras_subpkg:%ghost %{python3_sitelib}/dns_lexicon-%{version}.dist-info}
+
+%files -n python3-%{pypi_name}+oci
 %{?python_extras_subpkg:%ghost %{python3_sitelib}/dns_lexicon-%{version}.dist-info}
 
 %files -n python3-%{pypi_name}+route53
@@ -201,6 +240,11 @@ rm -rf %{buildroot}%{python3_sitelib}/lexicon/tests
 # }}}
 
 %changelog
+* Sun Jun 11 2023 Christian Schuermann <spike@fedoraproject.org> 3.12.0-1
+- Update to 3.12.0
+- Add new duckdns extra package
+- Add localzone and oci extra packages since dependancies are now available on Fedora
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,13 +1,14 @@
 Summary: A tool which displays the status of serial port modem lines
 Name: statserial
 Version: 1.1
-Release: 66%{?dist}
+Release: 67%{?dist}
 License: GPLv2+
 URL: ftp://metalab.unc.edu/pub/Linux/system/serial/
 Source: ftp://metalab.unc.edu/pub/Linux/system/serial/statserial-1.1.tar.gz
 Patch0: statserial-1.1-config.patch
 Patch1: statserial-1.1-dev.patch
 Patch2: statserial-1.1--n.patch
+Patch3: statserial-1.1-loop-fix.patch
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: ncurses-devel
@@ -24,6 +25,7 @@ and/or modem problems.
 %patch0 -p1 -b .config
 %patch1 -p1 -b .dev
 %patch2 -p1 -b .-n
+%patch3 -p1 -b .loop-fix
 
 %build
 make LDFLAGS= CFLAGS="$RPM_OPT_FLAGS" %{?_smp_mflags}
@@ -43,6 +45,10 @@ install -m 644 statserial.1 ${RPM_BUILD_ROOT}%{_mandir}/man1/statserial.1
 %{_mandir}/man1/*
 
 %changelog
+* Sun Jun 11 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 1.1-67
+- Fixed unintended looping with some serial ports
+  Resolves: rhbz#2214075
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-66
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

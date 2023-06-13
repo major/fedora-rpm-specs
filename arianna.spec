@@ -1,6 +1,6 @@
 Name:          arianna
-Version:       1.0.1
-Release:       2%{?dist}
+Version:       1.1.0
+Release:       1%{?dist}
 Summary:       EPub Reader for mobile devices
 # Complete license breakdown can be found in the "LICENSE-BREAKDOWN" file.
 License:       GPLv3
@@ -81,6 +81,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.ar
 %{_datadir}/qlogging-categories5/arianna.categories
 
 %changelog
+* Sun Jun 11 2023 Steve Cossette <farchord@gmail.com> - 1.1.0-1
+- This release adds a table of content overview as well as a book detail dialog.
+
 * Mon May 29 2023 Steve Cossette <farchord@gmail.com> - 1.0.1-2
 - Added more install dependancies
 - Cleaned up the licensing text by moving the license breakdown to a separate file

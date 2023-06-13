@@ -2,23 +2,22 @@
 %bcond_without check
 %global debug_package %{nil}
 
-# https://github.com/aymanbagabas/go-osc52
-%global goipath         github.com/aymanbagabas/go-osc52
-Version:                2.0.1
+# https://github.com/nathan-osman/go-sunrise
+%global goipath         github.com/nathan-osman/go-sunrise
+Version:                1.1.0
 
 %gometa -f
 
-%global goaltipaths     github.com/aymanbagabas/go-osc52/v2
 
 %global common_description %{expand:
-Golang terminal ANSI OSC52 wrapper. Copy text to clipboard from anywhere.}
+Go package for calculating the sunrise and sunset times for a given location.}
 
-%global golicenses      LICENSE
-%global godocs          _examples README.md
+%global golicenses      LICENSE.txt
+%global godocs          README.md
 
 Name:           %{goname}
 Release:        %autorelease
-Summary:        Golang terminal ANSI OSC52 wrapper. Copy text to clipboard from anywhere
+Summary:        Go package for calculating the sunrise and sunset times for a given location
 
 License:        MIT
 URL:            %{gourl}

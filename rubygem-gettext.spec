@@ -4,8 +4,8 @@
 %global		repoid			67096
 
 Name:		rubygem-%{gem_name}
-Version:	3.4.3
-Release:	5%{?dist}
+Version:	3.4.4
+Release:	1%{?dist}
 Summary:	RubyGem of Localization Library and Tools for Ruby
 
 # Ruby OR LGPL-3.0-or-later:	gemspec
@@ -31,7 +31,6 @@ BuildRequires:	rubygem(rake)
 BuildRequires:	gettext
 
 BuildRequires:	rubygem(racc)
-Requires:	rubygem(racc)
 
 Requires:	ruby(rubygems)
 Provides:	rubygem(%{gem_name}) = %{version}-%{release}
@@ -157,6 +156,9 @@ popd
 %{gem_instdir}/samples/
 
 %changelog
+* Sun Jun 11 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.4-1
+- 3.4.4
+
 * Tue May 23 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.3-5
 - Fix license typo
 

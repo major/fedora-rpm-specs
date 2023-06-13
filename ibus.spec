@@ -50,7 +50,7 @@
 
 Name:           ibus
 Version:        1.5.28
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.0-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -559,6 +559,11 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Sun Jun 11 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.28-7
+- Delete GZipped man files
+- Resolves #2213145 Unselect Add button in Select Input Method dialog in setup
+- Fix unaligned accesses in ibuscomposetable
+
 * Fri May 26 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.28-6
 - Resolves: #2195895 ibus_input_context_set_cursor_location(): ibus-x11 SIGSEGV
 

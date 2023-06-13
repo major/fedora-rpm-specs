@@ -7,7 +7,7 @@
 
 Name:     uboot-tools
 Version:  2023.07
-Release:  0.1%{?candidate:.%{candidate}}%{?dist}
+Release:  0.2%{?candidate:.%{candidate}}%{?dist}
 Summary:  U-Boot utilities
 License:  GPLv2+ BSD LGPL-2.1+ LGPL-2.0+
 URL:      http://www.denx.de/wiki/U-Boot
@@ -26,6 +26,8 @@ Patch2:   smbios-Simplify-reporting-of-unknown-values.patch
 Patch3:   rpi-Enable-using-the-DT-provided-by-the-Raspberry-Pi.patch
 # Rockchips improvements
 Patch6:   rockchip-Add-initial-support-for-the-PinePhone-Pro.patch
+Patch7:   rockchip-PinePhone-Pro-fixes.patch
+Patch8:   0001-Revert-rockchip-rockpro64-Build-u-boot-rockchip-spi..patch
 
 BuildRequires:  bc
 BuildRequires:  bison
@@ -210,6 +212,10 @@ cp -p board/sunxi/README.nand builds/docs/README.sunxi-nand
 %endif
 
 %changelog
+* Sun Jun 11 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 2023.07-0.2.rc3
+- Update to 2023.07 RC3
+- Fixes for the Pinephone Pro, RockPro64
+
 * Wed May 17 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 2023.07-0.1.rc2
 - Update to 2023.07 RC2
 

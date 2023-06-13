@@ -7,8 +7,8 @@
 %global libwhichversion 1.1.0
 %global libwhichcommit 81e9723c0273d78493dc8c8ed570f68d9ce7e89e
 
-%global blastrampolineversion 5.7.0
-%global blastrampolinecommit 2272604bfb10b9e8a3ae5f1a4569899b99251a65
+%global blastrampolineversion 5.8.0
+%global blastrampolinecommit 81316155d4838392e8462a92bcac3eebe9acd0c7
 
 # Bundled until Julia supports libunwind 1.6
 # https://bugzilla.redhat.com/show_bug.cgi?id=2045732
@@ -29,8 +29,8 @@
 %undefine _missing_build_ids_terminate_build
 
 Name:           julia
-Version:        1.9.0
-Release:        3%{?dist}
+Version:        1.9.1
+Release:        1%{?dist}
 Summary:        High-level, high-performance dynamic language for technical computing
 # Julia itself is MIT
 # libuv, libwhich, libblastrampoline and libunwind are MIT
@@ -481,6 +481,9 @@ desktop-file-validate %{buildroot}%{_datarootdir}/applications/%{name}.desktop
 exit 0
 
 %changelog
+* Sun Jun 11 2023 Milan Bouchet-Valat <nalimilan@club.fr> - 1.9.1-1
+- New upstream release.
+
 * Mon May 15 2023 Milan Bouchet-Valat <nalimilan@club.fr> - 1.9.0-3
 - New upstream release.
 

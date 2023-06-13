@@ -6,7 +6,7 @@
 %bcond_without tests
 
 Name:           python-%{srcname}
-Version:        0.13.0
+Version:        0.13.2
 Release:        %autorelease
 Summary:        Geographic Pandas extensions
 
