@@ -4,7 +4,7 @@ Version: 2.5.5
 Release: 6%{?dist}
 
 # The library is LGPLv2+, the documentation GPLv3+
-License: LGPLv2+ and GPLv3+
+License: FSFULLR AND GPL-3.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later
 Source0: https://gnupg.org/ftp/gcrypt/libassuan/libassuan-%{version}.tar.bz2
 Source1: https://gnupg.org/ftp/gcrypt/libassuan/libassuan-%{version}.tar.bz2.sig
 URL:     https://www.gnupg.org/

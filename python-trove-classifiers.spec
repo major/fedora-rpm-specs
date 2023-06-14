@@ -1,5 +1,5 @@
 Name:           python-trove-classifiers
-Version:        2023.4.25
+Version:        2023.5.24
 Release:        1%{?dist}
 Summary:        Canonical source for classifiers on PyPI (pypi.org)
 
@@ -32,6 +32,8 @@ Summary:        %{summary}
 
 %prep
 %autosetup -p1 -n trove-classifiers-%{version}
+# Replace @@VERSION@@ with %%version
+%writevars -f pyproject.toml version
 
 
 %generate_buildrequires
@@ -56,6 +58,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Wed Jun 7 2023 Maxwell G <maxwell@gtmx.me> - 2023.5.24-1
+- Update to 2023.5.24. Fixes rhbz#2189711.
+
 * Wed Apr 26 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 2023.4.25-1
 - Update to 2023.4.25
 Fixes: rhbz#2177081

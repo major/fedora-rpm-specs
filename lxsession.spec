@@ -29,7 +29,7 @@
 %global	git_version	D%{gitbaredate}git%{git_short}
 %endif
 
-%global	baserelease 9
+%global	baserelease 10
 
 %if 0%{?use_release} >= 1
 %global         fedorarel   %{?prever:0.}%{baserelease}%{?prever:.%{prerpmver}}
@@ -71,6 +71,9 @@ Patch1002:      lxsession-0.5.2-notify-daemon-default.patch
 # race condition when calling "lxsession -r" from imsettings-lxde and when daemon is not configured yet
 # explicitly do nullptr check
 Patch1005:      lxsession-0.5.4-load-settings-nullcheck.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2213030
+# Always create parent directory for lxsession autostart file
+Patch1006:      lxsession-0.5.5-read_autostart_conf-create-directory.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=1830588
 # add custom directory to XDG_CONFIG_DIRS
 Patch2001:      lxsession-0.5.5-add-custom-xdg-config-dir.patch
@@ -183,11 +186,12 @@ git commit -m "base" -q
 #%patch0 -p1 -b .dsofix
 %__cat %PATCH1 | git am
 %__cat %PATCH2 | git am
-%patch1000 -p1 -b .reload
-%patch1002 -p1 -b .notify
-%patch1005 -p1 -b .nullcheck
-%patch2001 -p1 -b .custom
-%patch2002 -p1 -b .indicator
+%patch -P1000 -p1 -b .reload
+%patch -P1002 -p1 -b .notify
+%patch -P1005 -p1 -b .nullcheck
+%patch -P1006 -p1 -b .conf_noexist
+%patch -P2001 -p1 -b .custom
+%patch -P2002 -p1 -b .indicator
 %if 0%{?use_gitbare}
 git commit -m "Apply Fedora specific configulation" -a
 %endif
@@ -302,6 +306,9 @@ cd ..
 %{_datadir}/%{name}/ui/lxpolkit.ui
 
 %changelog
+* Mon Jun 12 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.5-10.D20210419git82580e45
+- Always create parent directory for lxsession autostart file (bug 2213030)
+
 * Fri Jan 20 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.5-9.D20210419git82580e45
 - F-37+: kill appindicator support for now due to 12.10.1 GTK2 support removal
 

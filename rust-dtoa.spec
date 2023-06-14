@@ -5,9 +5,9 @@
 %global crate dtoa
 
 Name:           rust-dtoa
-Version:        0.4.8
+Version:        1.0.6
 Release:        %autorelease
-Summary:        Fast functions for printing floating-point primitives to an io::Write
+Summary:        Fast floating point primitive to string conversion
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/dtoa
@@ -16,7 +16,7 @@ Source:         %{crates_source}
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Fast functions for printing floating-point primitives to an io::Write.}
+Fast floating point primitive to string conversion.}
 
 %description %{_description}
 
@@ -45,6 +45,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+no-panic-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+no-panic-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "no-panic" feature of the "%{crate}" crate.
+
+%files       -n %{name}+no-panic-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

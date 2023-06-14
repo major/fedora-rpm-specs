@@ -1,15 +1,20 @@
 Name:           python-lxml
 Version:        4.9.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        XML processing library combining libxml2/libxslt with the ElementTree API
 
 # The lxml project is licensed under BSD-3-Clause
 # Some code is derived from ElementTree and cElementTree
 # thus using the MIT-CMU elementtree license
-# .xsl schematron files are under the MIT license
-License:        BSD-3-Clause AND MIT-CMU AND MIT
+License:        BSD-3-Clause AND MIT-CMU
 URL:            https://github.com/lxml/lxml
-Source:         %{pypi_source lxml}
+
+# We use the get-lxml-source.sh script to generate the tarball
+# without the isoschematron submodule as it contains a problematic
+# license.
+# See: https://gitlab.com/fedora/legal/fedora-license-data/-/issues/154
+Source0:         lxml-%{version}-no-isoschematron.tar.gz
+Source1:         get-lxml-source.sh
 
 # Upstream issue: https://bugs.launchpad.net/lxml/+bug/2016939
 Patch:          Skip-failing-test-test_html_prefix_nsmap.patch
@@ -53,6 +58,11 @@ Python 3 version.
 
 %prep
 %autosetup -n lxml-%{version} -p1
+# Remove isoschematron module due to problematic license
+sed -i "s/, 'lxml.isoschematron'//" setup.py
+# Remove the doctests for it (the documentation is not shipped)
+# The command [d]eletes all lines from the first pattern to the second
+sed -Ei '/^Schematron$/,/^\(Pre-ISO-Schematron\)$/d' doc/validation.txt
 
 %generate_buildrequires
 %pyproject_buildrequires -x source%{?with_extras:,cssselect,html5,htmlsoup}
@@ -78,9 +88,12 @@ cp -a build/lib.%{python3_platform}-*/* src/
 
 %files -n python3-lxml -f %{pyproject_files}
 %license doc/licenses/BSD.txt doc/licenses/elementtree.txt
-%doc README.rst src/lxml/isoschematron/resources/xsl/iso-schematron-xslt1/readme.txt
+%doc README.rst
 
 %changelog
+* Wed May 31 2023 Miro Hrončok <mhroncok@redhat.com> - 4.9.2-5
+- Remove the isoschematron submodule
+
 * Tue May 30 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 4.9.2-4
 - Disable extra subpackages in RHEL builds
 

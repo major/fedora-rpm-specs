@@ -1,11 +1,11 @@
 Name:    dragon
 Summary: Media player
 Version: 23.04.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # code: KDE e.V. may determine that future GPL versions are accepted
 # docs: GFDL
-License: (GPLv2 or GPLv3) and GFDL
+License: ( GPL-2.0-only OR GPL-3.0-only ) AND GFDL-1.2-or-later
 URL:     https://apps.kde.org/dragonplayer/
 
 %global revision %(echo %{version} | cut -d. -f3)
@@ -98,6 +98,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.dragonpla
 
 
 %changelog
+* Mon Jun 12 2023 Than Ngo <than@redhat.com> - 23.04.2-2
+- migrated to SPDX license
+
 * Tue Jun 06 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.2-1
 - 23.04.2
 

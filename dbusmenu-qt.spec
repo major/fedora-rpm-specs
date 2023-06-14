@@ -14,9 +14,9 @@
 Summary: A Qt implementation of the DBusMenu protocol 
 Name:    dbusmenu-qt
 Version: 0.9.3
-Release: 0.30.%{snapshot}%{?dist}
+Release: 0.31.%{snapshot}%{?dist}
 
-License: LGPLv2+
+License: LGPL-2.0-or-later
 URL: https://launchpad.net/libdbusmenu-qt/
 %if 0%{?snapshot}
 # bzr branch lp:libdbusmenu-qt && cd libdbusmenu-qt && bzr export --root=libdbusmenu-qt-%{version}-%{snapshot}bzr.tar.gz
@@ -170,6 +170,9 @@ xvfb-run -a dbus-launch --exit-with-session make -C %{_target_platform} check AR
 
 
 %changelog
+* Mon Jun 12 2023 Than Ngo <than@redhat.com> - 0.9.3-0.31.20160218
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-0.30.20160218
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,10 +3,10 @@
 %global debug_package %{nil}
 
 %global crate curl-sys
-%global crate_version 0.4.60+curl-7.88.1
+%global crate_version 0.4.63+curl-8.1.2
 
 Name:           rust-curl-sys
-Version:        0.4.60
+Version:        0.4.63
 Release:        %autorelease
 Summary:        Native bindings to the libcurl library
 
@@ -158,7 +158,7 @@ use the "upkeep_7_62_0" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{crate_version} -p1
 # remove bundled curl sources
-rm -vr curl
+rm -vr curl/
 %cargo_prep
 
 %generate_buildrequires

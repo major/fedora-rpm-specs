@@ -3,7 +3,7 @@
 
 Name:    clitest
 Version: 0.4.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Command Line Tester
 
 License: MIT
@@ -11,6 +11,10 @@ URL:     %{forgeurl}
 
 %forgemeta
 Source:  %{forgesource}
+
+# Some tests fails, for more details:
+# https://github.com/aureliojargas/clitest/issues/53
+Patch0:  https://github.com/aureliojargas/clitest/pull/54.patch
 
 BuildArch:     noarch
 BuildRequires: /usr/bin/perl
@@ -32,6 +36,7 @@ format, and a specialized tool tests them.
 
 %prep
 %forgesetup
+%patch 0 -p1
 
 %build
 #no build, only shell script
@@ -49,6 +54,9 @@ install -D -m755 -p clitest %{buildroot}%{_bindir}/clitest
 
 
 %changelog
+* Mon Jun 12 2023 Jonny Heggheim <hegjon@gmail.com> - 0.4.0-8
+- Fixed broken tests
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

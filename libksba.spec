@@ -7,7 +7,7 @@ Release: 2%{?dist}
 
 # The library is licensed under LGPLv3+ or GPLv2+,
 # the rest of the package under GPLv3+
-License: (LGPLv3+ or GPLv2+) and GPLv3+
+License: FSFUL AND GPL-3.0-or-later AND LGPL-2.1-or-later AND (LGPL-3.0-or-later OR GPL-2.0-or-later)
 URL:     https://www.gnupg.org/
 Source0: https://www.gnupg.org/ftp/gcrypt/libksba/libksba-%{version}.tar.bz2
 Source1: https://www.gnupg.org/ftp/gcrypt/libksba/libksba-%{version}.tar.bz2.sig

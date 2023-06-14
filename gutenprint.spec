@@ -20,7 +20,7 @@
 Name:           gutenprint
 Summary:        Printer Drivers Package
 Version:        5.3.4
-Release:        10%{?dist}
+Release:        11%{?dist}
 URL:            http://gimp-print.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/gimp-print/%{name}-%{version}.tar.xz
 # Post-install script to update CUPS native PPDs.
@@ -154,7 +154,7 @@ Requires:       cups
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 # for cups-genppdupdate python script
 Requires:       python3
-Requires:       python3-chardet
+Requires:       python3-charset-normalizer
 
 %description cups
 This package contains native CUPS support for a wide range of Canon,
@@ -314,6 +314,9 @@ exit 0
 %{_mandir}/man8/cups-genppd*8*.gz
 
 %changelog
+* Tue Jun 06 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 5.3.4-11
+- Replace python3-chardet with python3-charset-normalizer
+
 * Wed Apr 05 2023 Zdenek Dohnal <zdohnal@redhat.com> - 5.3.4-11
 - GTK2 is not in CentOS Stream 10, dont ship libs-ui subpackage there
 - Add other licenses to License tag and use SPDX identifiers to comply with FPG

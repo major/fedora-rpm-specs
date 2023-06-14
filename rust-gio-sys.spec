@@ -6,7 +6,7 @@
 %global crate gio-sys
 
 Name:           rust-gio-sys
-Version:        0.17.4
+Version:        0.17.10
 Release:        %autorelease
 Summary:        FFI bindings to libgio-2.0
 

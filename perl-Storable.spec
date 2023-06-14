@@ -1,17 +1,15 @@
 %global base_version 3.25
 Name:           perl-Storable
 Epoch:          1
-Version:        3.31
+Version:        3.32
 Release:        1%{?dist}
 Summary:        Persistence for Perl data structures
 # Storable.pm:  GPL+ or Artistic
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Storable
 Source0:        https://cpan.metacpan.org/authors/id/N/NW/NWCLARK/Storable-%{base_version}.tar.gz
-# Unbundled from perl 5.35.11
-Patch0:         Storable-3.25-Upgrade-to-3.26.patch
-# Unbundled from perl 5.37.11
-Patch1:         Storable-3.26-Upgrade-to-3.31.patch
+# Unbundled from perl 5.37.12
+Patch0:         Storable-3.25-Upgrade-to-3.32.patch
 BuildRequires:  coreutils
 BuildRequires:  gcc
 BuildRequires:  make
@@ -88,9 +86,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n Storable-%{base_version}
-%patch -P0 -p1
-%patch -P1 -p1
+%autosetup -p1 -n Storable-%{base_version}
 
 # Help generators to recognize Perl scripts
 for F in t/*.t t/*.pl; do
@@ -140,6 +136,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jun 12 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:3.32-1
+- Upgrade to 3.32 as provided in perl-5.37.12
+
 * Thu May 18 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:3.31-1
 - Upgrade to 3.31 as provided in perl-5.37.11
 

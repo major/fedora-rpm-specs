@@ -13,14 +13,15 @@
 %global with_zts   0%{!?_without_zts:%{?__ztsphp:1}}
 %global ini_name   40-%{pecl_name}.ini
 
-%global upstream_version 8.1.2
+%global upstream_version 8.2.0
 #global upstream_prever  RC1
+%global libversion       8.6
 
 Summary:        Get geo location information of an IP address
 Name:           php-pecl-%{pecl_name}
 License:        PHP-3.01
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
 
@@ -28,7 +29,9 @@ BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  php-pear
 BuildRequires:  php-devel
-BuildRequires:  IP2Location-devel >= 8.4
+# ensure proper version is used with all features
+BuildRequires:  IP2Location-devel >= %{libversion}
+Requires:       IP2Location-libs%{?_isa} >= %{libversion}
 
 Requires:       php(zend-abi) = %{php_zend_api}
 Requires:       php(api) = %{php_core_api}
@@ -153,6 +156,10 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Mon Jun 12 2023 Remi Collet <remi@remirepo.net> - 8.2.0-1
+- update to 8.2.0
+- raise dependency on IP2location library version 8.6
+
 * Thu Apr 20 2023 Remi Collet <remi@remirepo.net> - 8.1.2-2
 - use SPDX license ID
 

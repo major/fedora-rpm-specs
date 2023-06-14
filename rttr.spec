@@ -3,12 +3,11 @@
 
 Name:           rttr
 Version:        0.9.7
-Release:        0.4git%{shortcommit0}%{?dist}
+Release:        0.5git%{shortcommit0}%{?dist}
 Summary:        Run Time Type Reflection
 
 License:        MIT
 URL:            https://www.rttr.org
-#Source0:        %{url}/releases/rttr-%{version}-src.tar.gz
 Source0:        https://github.com/rttrorg/rttr/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
 Patch0:         0001-cmake-Don-t-set-non-default-permissions.patch
 
@@ -72,7 +71,8 @@ find src/unit_tests/ -name *.h -exec sed -i -e 's|catch/catch.hpp|catch2/catch.h
 
 # Disable compiler Werror
 # See also https://github.com/rttrorg/rttr/issues/317
-sed -i -e 's/^set_compiler_warnings/#set_compiler_warnings/' src/unit_tests/CMakeLists.txt
+# and https://github.com/rttrorg/rttr/issues/357
+sed -i -e 's/target_compile_options/#target_compile_options/' CMake/utility.cmake
 
 
 %build
@@ -116,6 +116,9 @@ rm -rf %{buildroot}%{_datadir}/rttr/{LICENSE.txt,README.md}
 
 
 %changelog
+* Mon Jun 12 2023 Nicolas Chauvet <kwizart@gmail.com> - 0.9.7-0.5git7edbd58
+- Disable Werror on rttr - rhbz#2113682
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.7-0.4git7edbd58
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

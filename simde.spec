@@ -1,20 +1,14 @@
-# Run the tests on gcc?
-%bcond_without check_gcc
-# Run the tests on clang?
-%bcond_without check_clang
-
-%global commit_simde 9609eb2cf687984277185813fdfe81b8b200377b
+%global commit_simde fefc7857ff3e785b988a61a8f5f3c5bd5eb24342
 %global short_commit_simde %(c=%{commit_simde}; echo ${c:0:7})
-%global commit_munit da8f73412998e4f1adf1100dc187533a51af77fd
 # Disable debuginfo package for the header only package.
 %global debug_package %{nil}
 
 # Disable the auto_set_build_flags. Because it sets clang flags for gcc in
-# the %check section.
+# the %%check section.
 %undefine _auto_set_build_flags
 
-%global simde_version 0.7.4
-%global rc_version 1
+%global simde_version 0.7.6
+# %%global rc_version 1
 
 Name: simde
 Version: %{simde_version}%{?rc_version:~rc%{rc_version}}
@@ -24,16 +18,22 @@ Release: 1.git%{short_commit_simde}%{?dist}
 Summary: SIMD Everywhere
 # find simde/ -type f | xargs licensecheck
 #   simde: MIT
-#   simde/check.h: CC0
-#   simde/debug-trap.h: CC0
-#   simde/simde-arch.h: CC0
+#   simde/check.h: CC0-1.0
+#   simde/debug-trap.h: CC0-1.0
+#   simde/simde-align.h: CC0-1.0
+#   simde/simde-arch.h: CC0-1.0
+#   simde/simde-detect-clang.h: CC0-1.0
 # removed in %%prep (unbundled):
 #   simde/hedley.h: CC0
-License: MIT and CC0
+# Consider relicensing CC0 code to another license (MIT?)
+# https://github.com/simd-everywhere/simde/issues/999
+License: MIT and CC0-1.0
 URL: https://github.com/simd-everywhere/simde
-Source0: https://github.com/simd-everywhere/%{name}/archive/%{commit_simde}.tar.gz
-# munit used in the unit test.
-Source1: https://github.com/nemequ/munit/archive/%{commit_munit}.tar.gz
+Source0: https://github.com/simd-everywhere/simde/archive/%{commit_simde}.tar.gz
+# Use the `.packit/ci.sh` on the pull-requset below until it will be merged.
+# https://github.com/simd-everywhere/simde/blob/master/.packit/ci.sh
+# https://github.com/simd-everywhere/simde/pull/1044
+Source1: ci.sh
 # gcc and clang are used in the unit tests.
 BuildRequires: clang
 BuildRequires: gcc
@@ -91,274 +91,89 @@ bash - <<\EOF
 for file in $(find simde/ -type f); do
   if ! [[ "${file}" =~ \.h$ ]]; then
     echo "${file} is not a header file."
-    false
+    exit 1
   elif [ -x "${file}" ]; then
     echo "${file} has executable bit."
-    false
+    exit 1
   fi
 done
 EOF
 
-# Set munit.
-rm -rf test/munit
-tar xzvf %{SOURCE1}
-mv munit-%{commit_munit} test/munit
+# Only test the GCC and Clang cases with RPM build flags.
+# If you find test failures on the cases, reproduce it in the upstream CI.
+# in the O2 or RPM build flags cases, and report it.
+# See <https://github.com/simd-everywhere/simde/blob/master/.packit/>.
 
-# Define functions.
-JOB_NUM="$(nproc)"
+# Copy to use the modified script.
+cp -p "%{SOURCE1}" ci.sh
+# Suppress the system info.
+sed -i -e '/^cat \/proc\/cpuinfo/ s/^/#/' ci.sh
+sed -i -e '/^cat \/proc\/meminfo/ s/^/#/' ci.sh
+# Use the meson RPM package instead of the PyPI package.
+sed -i -e '/^pip3 install meson/ s/^/#/' ci.sh
+# Comment out the default configuration.
+sed -i -e '/^IGNORE_EXIT_STATUS=/,/^SKIP_i686_GCC_DEFAULT=/ s/^/#/' ci.sh
+# Print the difference on the debugging purpose.
+diff -u "%{SOURCE1}" ci.sh || :
 
-function _time {
-  %{_bindir}/time -f '=> [%E]' ${@}
-}
-
-function _setup {
-  meson setup "${BUILD_DIR}" || (
-    cat "${BUILD_DIR}/meson-logs/meson-log.txt"
-    false
-  )
-}
-
-function _build {
-  rm -f build.log
-  _time ninja -C "${BUILD_DIR}" -v -j "${JOB_NUM}" >& build.log || (
-    cat build.log
-    false
-  )
-  head -4 build.log
-  tail -3 build.log
-}
-
-function _test {
-  _time meson test -C "${BUILD_DIR}" -q --no-rebuild --print-errorlogs
-}
-
-BACKUP_FILES="
-  meson.build
-  test/x86/meson.build
-  test/wasm/simd128/meson.build
-"
-
-function _backup {
-  for file in ${BACKUP_FILES}; do
-    cp -p ${file}{,.orig}
-  done
-}
-
-function _reset {
-  for file in ${BACKUP_FILES}; do
-    cp -p ${file}{.orig,}
-  done
-}
-
-_backup
-
-# Run the unit tests.
-# gcc
-%if %{with check_gcc}
-%global toolchain gcc
-bash - <<\EOF
-echo "== 1. tests on gcc =="
+# Prepare to test on the GCC case with RPM build flags.
+cp -p ci.sh ci_gcc.sh
+# Print the failing messages in the CPU cases without checking the exit status.
+IGNORE_EXIT_STATUS=
+%ifarch i686 ppc64le
+IGNORE_EXIT_STATUS=true
+%endif
+# Prepare the configuration.
+cat > config.txt <<EOF
+IGNORE_EXIT_STATUS=${IGNORE_EXIT_STATUS}
+SKIP_ALL_GCC_DEFAULT=true
+SKIP_ALL_GCC_O2=true
+SKIP_ALL_GCC_RPM=
+SKIP_ALL_CLANG_DEFAULT=true
+SKIP_ALL_CLANG_O2=true
+SKIP_ALL_CLANG_RPM=true
 EOF
-gcc --version
-g++ --version
+# Insert the configuration.
+sed -i -e '/^#SKIP_i686_GCC_DEFAULT=/r config.txt' ci_gcc.sh
+# Print the difference on the debugging purpose.
+diff -u ci.sh ci_gcc.sh || :
 
-bash - <<\EOF
-echo "=== 1.1. tests on gcc without flags ==="
+# Prepare to test on the Clang case with RPM build flags.
+cp -p ci.sh ci_clang.sh
+# Print the failing messages in the CPU cases without checking the exit status.
+IGNORE_EXIT_STATUS=true
+# Prepare the configuration to be inserted.
+cat > config.txt <<EOF
+IGNORE_EXIT_STATUS=${IGNORE_EXIT_STATUS}
+SKIP_ALL_GCC_DEFAULT=true
+SKIP_ALL_GCC_O2=true
+SKIP_ALL_GCC_RPM=true
+SKIP_ALL_CLANG_DEFAULT=true
+SKIP_ALL_CLANG_O2=true
+SKIP_ALL_CLANG_RPM=
 EOF
-# gcc 11.1.1 without flags + i686 x86/avx512/dbsad failures
-# https://github.com/simd-everywhere/simde/issues/867
-%ifarch i686
-sed -i "/^simde_avx512_families/,/\]/ s/'dbsad',/#\0/" meson.build
-%endif
-# gcc 13.0.1 without flags + ppc64le test failures and errors.
-# https://github.com/simd-everywhere/simde/issues/986
-%ifarch ppc64le
-sed -i -E "/^simde_avx512_families/,/\]/ s/'(range|range_round)',/#\0/" meson.build
-sed -i '/^test_simde_x_mm_copysign_ps *(/,/^}$/ s|simde_test_x86_assert_equal_f32x4|//\0|' \
-  test/x86/sse.c
-sed -i '/^test_simde_x_mm_copysign_pd *(/,/^}$/ s|simde_test_x86_assert_equal_f64x2|//\0|' \
-  test/x86/sse2.c
-sed -i '/^test_simde_wasm_i16x8_mul *(/,/^}$/ s|simde_test_wasm_i16x8_assert_equal|//\0|' \
-  test/wasm/simd128/mul.c
-sed -i '/^test_simde_wasm_u16x8_shr *(/,/^}$/ s|simde_test_wasm_u16x8_assert_equal|//\0|' \
-  test/wasm/simd128/shr.c
-sed -i '/^test_simde_wasm_u32x4_shr *(/,/^}$/ s|simde_test_wasm_u32x4_assert_equal|//\0|' \
-  test/wasm/simd128/shr.c
-sed -i '/^test_simde_wasm_u64x2_shr *(/,/^}$/ s|simde_test_wasm_u64x2_assert_equal|//\0|' \
-  test/wasm/simd128/shr.c
-%endif
-# gcc 13.0.1 without flags + s390x test qdmulh* failures and errors
-# https://github.com/simd-everywhere/simde/issues/987
-%ifarch s390x
-sed -i -E "/^simde_neon_families/,/\]/ s/'(qdmulh|qdmulh_lane|qdmulh_n)',/#\0/" meson.build
-%endif
-BUILD_DIR="build/gcc"
-CC="gcc -fno-strict-aliasing" CXX="g++ -fno-strict-aliasing" \
-  _setup
-_build
-_test
+# Insert the configuration.
+sed -i -e '/^#SKIP_i686_GCC_DEFAULT=/r config.txt' ci_clang.sh
+# Print the difference on the debugging purpose.
+diff -u ci.sh ci_clang.sh || :
 
-bash - <<\EOF
-echo "=== 1.2. tests on gcc with O2 flag ==="
-EOF
-# _reset
-# gcc 13.0.1 with O2 + i686 test dpbf16 failures and x86/avx512/dpbf16 errors
-# https://github.com/simd-everywhere/simde/issues/988
-%ifarch i686
-sed -i "/^simde_avx512_families/,/\]/ s/'dpbf16',/#\0/" meson.build
-%endif
-# gcc 11.1.1 with -O2 + s390x arm/neon/{mlal_lane,mlsl_lane} failures
-# https://github.com/simd-everywhere/simde/issues/874
-%ifarch s390x
-sed -i -E "/^simde_neon_families/,/\]/ s/'(mlal_lane|mlsl_lane)',/#\0/" meson.build
-%endif
-BUILD_DIR="build/gcc-O2"
-CC="gcc -fno-strict-aliasing" CXX="g++ -fno-strict-aliasing" \
-CFLAGS="-O2" CXXFLAGS="-O2" \
-  _setup
-# gcc 13.0.1 with -O2 + -fno-strict-aliasing + aarch64 (arm64) build stucking.
-# https://github.com/simd-everywhere/simde/issues/992
-%ifnarch aarch64
-_build
-_test
-%endif
-
-bash - <<\EOF
-echo "=== 1.3. tests on gcc with flags macro ==="
-EOF
-# gcc 11 with flags + i686 x86/{sse,sse2} test_simde_mm_cvt* failures
-# https://github.com/simd-everywhere/simde/issues/719
-%ifarch i686
-sed -i '/^test_simde_mm_cvt_ps2pi *(/,/^}$/ s|simde_test_x86_assert_equal_i32x2|//\0|' \
-  test/x86/sse.c
-sed -i '/^test_simde_mm_cvtps_pi16 *(/,/^}$/ s|simde_test_x86_assert_equal_i16x4|//\0|' \
-  test/x86/sse.c
-sed -i '/^test_simde_mm_cvtsi64_ss *(/,/^}$/ s|simde_test_x86_assert_equal_f32x4|//\0|' \
-  test/x86/sse.c
-sed -i '/^test_simde_mm_cvtsd_si64 *(/,/^}$/ s|simde_assert_equal_i64|//\0|' \
-  test/x86/sse2.c
-sed -i '/^test_simde_mm_cvtsi64_sd *(/,/^}$/ s|simde_assert_m128d_close|//\0|' \
-  test/x86/sse2.c
-sed -i '/^test_simde_mm_cvttsd_si64 *(/,/^}$/ s|simde_assert_equal_i64|//\0|' \
-  test/x86/sse2.c
-%endif
-# gcc 11.1.1 with flags + ppc64le arm/neon failures
-# https://github.com/simd-everywhere/simde/issues/865
-%ifarch ppc64le
-sed -i -E "/^simde_neon_families/,/\]/ s/'\w+',/#\0/" meson.build
-%endif
-BUILD_DIR="build/gcc-flags-macro"
-CC="gcc -fno-strict-aliasing" CXX="g++ -fno-strict-aliasing" \
-CFLAGS="%{build_cflags}" CXXFLAGS="%{build_cxxflags}" \
-  _setup
-# gcc 13.0.1 with -O2 + -fno-strict-aliasing + aarch64 (arm64) build stucking.
-# https://github.com/simd-everywhere/simde/issues/992
-%ifnarch aarch64
-_build
-_test
-%endif
-
-# with check_gcc
-%endif
-
-# clang
-%if %{with check_clang}
+# Set environment variables to test with RPM build flags.
+# See <https://github.com/simd-everywhere/simde/blob/master/.packit/simde.spec>.
+# Append the `-fno-strict-aliasing` for a compatibility from the past commit
+# below, though it's not related to the shipping simde RPM package.
+# https://src.fedoraproject.org/rpms/simde/c/3371c3a422f2512562fd4641b956d0c4b848c7ec
 %global toolchain clang
-bash - <<\EOF
-echo "== 2. tests on clang =="
-EOF
-clang --version
-clang++ --version
+export CI_CLANG_RPM_CFLAGS="%{build_cflags} -fno-strict-aliasing"
+export CI_CLANG_RPM_CXXFLAGS="%{build_cxxflags} -fno-strict-aliasing"
+export CI_CLANG_RPM_LDFLAGS="%{build_ldflags}"
+%global toolchain gcc
+export CI_GCC_RPM_CFLAGS="%{build_cflags} -fno-strict-aliasing"
+export CI_GCC_RPM_CXXFLAGS="%{build_cxxflags} -fno-strict-aliasing"
+export CI_GCC_RPM_LDFLAGS="%{build_ldflags}"
 
-bash - <<\EOF
-echo "=== 2.1. tests on clang without flags ==="
-EOF
-_reset
-# clang 12 + i686 {x86/sse,x86/sse2,arm/neon} failures
-# https://github.com/simd-everywhere/simde/issues/721
-%ifarch i686
-sed -i -E "/^simde_test_x86_tests/,/\]/ s/'(sse|sse2)',/#\0/" test/x86/meson.build
-sed -i -E "/^simde_neon_families/,/\]/ s/'(abd|max|min|mla|mls|mls_n|mul|mul_n|pmax|pmin|rev64|sub|zip|zip1|zip2)',/#\0/" meson.build
-%endif
-%ifarch ppc64le
-# clang 15.0.7 without flags + ppc64le test arm/neon/ld1q_x{2,3,4} failures and errors
-# https://github.com/simd-everywhere/simde/issues/989
-sed -i -E "/^simde_neon_families/,/\]/ s/'(ld1q_x2|ld1q_x3|ld1q_x4)',/#\0/" meson.build
-# clang 15.0.7 without flags + ppc64le test wasm/simd128/{mul,shr} failures
-# https://github.com/simd-everywhere/simde/issues/991
-sed -i '/^test_simde_wasm_i16x8_mul *(/,/^}$/ s|simde_test_wasm_i16x8_assert_equal|//\0|' \
-  test/wasm/simd128/mul.c
-sed -i '/^test_simde_wasm_u16x8_shr *(/,/^}$/ s|simde_test_wasm_u16x8_assert_equal|//\0|' \
-  test/wasm/simd128/shr.c
-sed -i '/^test_simde_wasm_u32x4_shr *(/,/^}$/ s|simde_test_wasm_u32x4_assert_equal|//\0|' \
-  test/wasm/simd128/shr.c
-sed -i '/^test_simde_wasm_u64x2_shr *(/,/^}$/ s|simde_test_wasm_u64x2_assert_equal|//\0|' \
-  test/wasm/simd128/shr.c
-%endif
-# clang 12.0.1 without flags + s390x x86/avx512/shldv, arm/neon/qdmulh* failures
-# https://github.com/simd-everywhere/simde/issues/869
-%ifarch s390x
-sed -i -E "/^simde_neon_families/,/\]/ s/'(qdmulh|qdmulh_lane|qdmulh_n)',/#\0/" meson.build
-sed -i "/^simde_avx512_families/,/\]/ s/'shldv',/#\0/" meson.build
-%endif
-BUILD_DIR="build/clang"
-CC=clang CXX=clang++ \
-  _setup
-_build
-_test
-
-bash - <<\EOF
-echo "=== 2.2. tests on clang with O2 flag ==="
-EOF
-_reset
-
-# clang 15.0.7 with -O2 + x86_64 arm/qabs/vqabsq_s32
-# https://github.com/simd-everywhere/simde/issues/901
-sed -i -E "/^simde_neon_families/,/\]/ s/'qabs',/#\0/" meson.build
-# clang 12 with -O2 + i686 x86/sse2 test_simde_mm_cvtsi64_sd failures
-# https://github.com/simd-everywhere/simde/issues/740
-%ifarch i686
-sed -i '/^test_simde_mm_cvtsi64_sd *(/,/^}$/ s|simde_assert_m128d_close|//\0|' \
-  test/x86/sse2.c
-%endif
-# clang 12.0.1 with -O2 + armv7hl wasm_simd128/trunc_sat failures
-# https://github.com/simd-everywhere/simde/issues/880
-%ifarch %{arm}
-sed -i "/^simde_test_wasm_simd128_tests/,/\]/ s/'trunc_sat',/#\0/" test/wasm/simd128/meson.build
-%endif
-# clang 12.0.1 with -O2 + ppc64le x86/avx512/ror failures
-# https://github.com/simd-everywhere/simde/issues/875
-%ifarch ppc64le
-sed -i "/^simde_avx512_families/,/\]/ s/'ror',/#\0/" meson.build
-%endif
-%ifarch s390x
-sed -i -E "/^simde_neon_families/,/\]/ s/'(qdmulh|qdmulh_lane|qdmulh_n)',/#\0/" meson.build
-%endif
-BUILD_DIR="build/clang-O2"
-CC="clang" CXX="clang++" \
-CFLAGS="-O2" CXXFLAGS="-O2" \
-  _setup
-_build
-_test
-
-bash - <<\EOF
-echo "=== 2.3. tests on clang with flags macro ==="
-EOF
-BUILD_DIR="build/clang-flags-macro"
-# clang is broken armv7hl.
-# https://bugzilla.redhat.com/show_bug.cgi?id=1918924
-# A temporary workaround to avoid the segmentation fault on armv7hl.
-%ifarch %{arm}
-%global _lto_cflags %{nil}
-%endif
-CC="clang" CXX="clang++" \
-CFLAGS="%{build_cflags}" CXXFLAGS="%{build_cxxflags}" \
-  _setup
-_build
-_test
-
-# with check_clang
-%endif
+# Run tests.
+/bin/time -f '=> [%E]' ./ci_gcc.sh
+/bin/time -f '=> [%E]' ./ci_clang.sh
 
 %files devel
 %license COPYING
@@ -366,6 +181,10 @@ _test
 %{_includedir}/%{name}
 
 %changelog
+* Mon Jun 12 2023 Jun Aruga <jaruga@redhat.com> - 0.7.6-1.gitfefc785
+- Upgrade to SIMDe 0.7.6.
+  Resolves: rhbz#2192076
+
 * Thu Feb 16 2023 Jun Aruga <jaruga@redhat.com> - 0.7.4~rc1-1.git9609eb2
 - Upgrade to SIMDe 0.7.4 rc1.
   Resolves: rhbz#2047012

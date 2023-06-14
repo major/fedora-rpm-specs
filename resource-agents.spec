@@ -52,8 +52,8 @@
 Name:		resource-agents
 Summary:	Open Source HA Reusable Cluster Resource Scripts
 Version:	4.12.0
-Release:	1%{?rcver:%{rcver}}%{?numcomm:.%{numcomm}}%{?alphatag:.%{alphatag}}%{?dirty:.%{dirty}}%{?dist}
-License:	GPLv2+ and LGPLv2+
+Release:	3%{?rcver:%{rcver}}%{?numcomm:.%{numcomm}}%{?alphatag:.%{alphatag}}%{?dirty:.%{dirty}}%{?dist}
+License:	GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:		https://github.com/ClusterLabs/resource-agents
 Source0:	%{upstream_prefix}-%{upstream_version}.tar.gz
 Obsoletes:	heartbeat-resources <= %{version}
@@ -160,7 +160,7 @@ service managers.
 
 %if %{with linuxha}
 %package -n ldirectord
-License:	GPLv2+
+License:	GPL-2.0-or-later
 Summary:	A Monitoring Daemon for Maintaining High Availability Resources
 Obsoletes:	heartbeat-ldirectord <= %{version}
 Provides:	heartbeat-ldirectord = %{version}
@@ -240,13 +240,7 @@ export CFLAGS
 	--with-pkg-name=%{name} \
 	--with-ras-set=%{rasset}
 
-%if %{defined jobs}
-JFLAGS="$(echo '-j%{jobs}')"
-%else
-JFLAGS="$(echo '%{_smp_mflags}')"
-%endif
-
-make $JFLAGS
+make %{_smp_mflags}
 
 %install
 rm -rf %{buildroot}
@@ -395,6 +389,12 @@ ccs_update_schema > /dev/null 2>&1 ||:
 %endif
 
 %changelog
+* Mon Jun 12 2023 Oyvind Albrigtsen <oalbrigt@redhat.com> - 4.12.0-3
+- spec: remove JFLAGS logic and use %{_smp_mflags} like we do in other projects
+
+* Tue Jun 06 2023 Jan Friesse <jfriesse@redhat.com> - 4.12.0-2
+- migrated to SPDX license
+
 * Wed Jan 25 2023 Oyvind Albrigtsen <oalbrigt@redhat.com> - 4.12.0-1
 - Rebase to resource-agents 4.12.0 upstream release.
 

@@ -1,5 +1,5 @@
 Name:           perl-Log-Dispatchouli
-Version:        3.004
+Version:        3.005
 Release:        1%{?dist}
 Summary:        Simple wrapper around Log::Dispatch
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -103,13 +103,16 @@ make test
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Log*
+%{_mandir}/man3/Log::*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jun 12 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.005-1
+- 3.005 bump
+
 * Tue Jun 06 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.004-1
 - 3.004 bump
 

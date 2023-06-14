@@ -15,6 +15,7 @@ Patch6: 	replace-mlxfwreset-with-mstfwreset-in-mstflint-message.patch
 BuildRequires:	make
 BuildRequires:	libstdc++-devel, zlib-devel, libibmad-devel, gcc-c++, gcc
 BuildRequires:  libcurl-devel, boost-devel, libxml2-devel, openssl-devel
+BuildRequires:  expat-devel
 %if %{__remake_config}
 BuildRequires:  libtool, autoconf, automake
 %endif
@@ -39,7 +40,7 @@ find . -type f -iname '*.cpp' -exec chmod a-x '{}' ';'
 %if %{__remake_config}
 ./autogen.sh
 %endif
-%configure --enable-fw-mgr
+%configure --enable-fw-mgr --enable-adb-generic-tools
 %make_build
 
 %install

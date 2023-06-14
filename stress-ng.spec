@@ -1,6 +1,6 @@
 Name:		stress-ng
 Version:	0.15.06
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Stress test a computer system in various ways
 
 License:	GPLv2+
@@ -14,7 +14,9 @@ BuildRequires:	kernel-headers
 BuildRequires:	keyutils-libs-devel
 BuildRequires:	libaio-devel
 BuildRequires:	libattr-devel
+%if %{undefined rhel}
 BuildRequires:	libbsd-devel
+%endif
 BuildRequires:	libcap-devel
 BuildRequires:	libgcrypt-devel
 BuildRequires:	lksctp-tools-devel
@@ -50,6 +52,9 @@ install -pm 644 bash-completion/%{name} \
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Mon Jun 05 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.15.06-2
+- Disable libbsd dependency in RHEL builds
+
 * Sat Mar 25 2023 Fabio Alessandro Locati <fale@fedoraproject.ora> - 0.15.06-1
 - Update to 0.15.06
 - Fixes rhbz#2179538

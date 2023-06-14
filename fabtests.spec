@@ -1,5 +1,5 @@
 Name:           fabtests
-Version:        1.17.0
+Version:        1.18.0
 Release:        %autorelease
 Summary:        Test suite for libfabric API
 # include/jsmn.h and common/jsmn.c are licensed under MIT.

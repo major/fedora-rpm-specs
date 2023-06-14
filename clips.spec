@@ -5,7 +5,7 @@ Name:		clips
 Version:	6.31
 Release:	%{autorelease}
 Url:		http://clipsrules.sourceforge.net
-License:	GPLv2
+License:	MIT-0
 Source0:  https://downloads.sourceforge.net/clipsrules/CLIPS/6.31/clips_core_source_631.tar.gz
 Source1:  https://downloads.sourceforge.net/clipsrules/CLIPS/%{version}/clips_documentation_631.tar.gz
 Patch0:   clips.shared-lib.patch

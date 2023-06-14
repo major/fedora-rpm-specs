@@ -27,10 +27,7 @@ Patch1: libgcrypt-1.10.1-annobin.patch
 %global gcrysoname libgcrypt.so.20
 %global hmackey orboDeJITITejsirpADONivirpUkvarP
 
-# Technically LGPLv2.1+, but Fedora's table doesn't draw a distinction.
-# Documentation and some utilities are GPLv2+ licensed. These files
-# are in the devel subpackage.
-License: LGPLv2+
+License: BSD-3-Clause AND (BSD-3-Clause OR GPL-2.0-only) AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later AND MIT-Modern-Variant
 Summary: A general-purpose cryptography library
 BuildRequires: gcc
 BuildRequires: gawk, libgpg-error-devel >= 1.11, pkgconfig
@@ -41,7 +38,6 @@ BuildRequires: make
 
 %package devel
 Summary: Development files for the %{name} package
-License: LGPLv2+ and GPLv2+
 Requires: libgpg-error-devel
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: pkgconfig
@@ -83,6 +79,7 @@ autoreconf -f
 %endif
      --enable-noexecstack \
      --enable-hmac-binary-check=%{hmackey} \
+     --disable-jent-support \
      --enable-digests="$DIGESTS" \
      --enable-ciphers="$CIPHERS" \
      --with-fips-module-version="$FIPS_MODULE_NAME %{version}-%{srpmhash}"

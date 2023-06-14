@@ -72,7 +72,7 @@
 %global baserelease 1
 
 # Set to RC version if building RC, else comment out.
-%global rcsuf rc1
+%global rcsuf rc2
 
 %if 0%{?rcsuf:1}
 %global pkg_version %{major_version}.%{minor_version}.%{patch_version}~%{rcsuf}
@@ -114,8 +114,6 @@ Source5:        %{name}.req
 # http://public.kitware.com/Bug/view.php?id=12965
 # https://bugzilla.redhat.com/show_bug.cgi?id=822796
 Patch100:       %{name}-findruby.patch
-# https://gitlab.kitware.com/cmake/cmake/-/merge_requests/8550
-Patch101:       0001-bootstrap-Add-no-system-cppdap-configuration-switch.patch
 
 # Patch for renaming on EPEL
 %if 0%{?name_suffix:1}
@@ -555,6 +553,9 @@ popd
 
 
 %changelog
+* Mon Jun 12 2023 Björn Esser <besser82@fedoraproject.org> - 3.27.0~rc2-1
+- cmake-3.27.0-rc2
+
 * Thu Jun 08 2023 Björn Esser <besser82@fedoraproject.org> - 3.27.0~rc1-1
 - cmake-3.27.0-rc1
 - Use CMake-provided cppdap

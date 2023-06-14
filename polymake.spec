@@ -12,17 +12,9 @@
 # itextpdf 5.3.2, whose license is problematic.
 %bcond_with jreality
 
-# Disable LTO on arm due to lack of memory.
-%ifarch %{arm}
-%global _lto_cflags %{nil}
-%endif
-
-%global upver   4.9
-%global majver  %(cut -dr -f1 <<< %{upver})
-
 Name:           polymake
-Version:        %(tr r . <<< %{upver})
-Release:        2%{?dist}
+Version:        4.10
+Release:        1%{?dist}
 
 # GPL-2.0-or-later: the project as a whole
 # MIT: external/js/three.js
@@ -31,7 +23,7 @@ Release:        2%{?dist}
 License:        GPL-2.0-or-later AND MIT AND MPL-2.0 AND BSD-3-Clause AND Apache-2.0
 Summary:        Algorithms on convex polytopes and polyhedra
 URL:            https://polymake.org/
-Source0:        https://polymake.org/lib/exe/fetch.php/download/%{name}-%{upver}-minimal.tar.bz2
+Source0:        https://polymake.org/lib/exe/fetch.php/download/%{name}-%{version}-minimal.tar.bz2
 # Man page written by Jerry James from text found in the sources.  Therefore,
 # the copyright and license are the same as for the sources.
 Source1:        %{name}.1
@@ -181,6 +173,9 @@ Provides:       perl(Polymake::utils.pl)
 # Exclude private perl interfaces that we don't Provide
 %global __requires_exclude perl\\\(namespaces.*\\\)
 
+# Major version number
+%global majver  %(cut -dr -f1 <<< %{version})
+
 # This can be removed when F38 reaches EOL
 Obsoletes:      polymake-singular < 4.4-1
 Provides:       polymake-singular = %{version}-%{release}
@@ -312,13 +307,16 @@ sed -i 's@ -Wl,-dT,[^[:blank:]]*\.ld@@' %{buildroot}%{_libdir}/%{name}/config.ni
 %{_includedir}/%{name}/
 %{_libdir}/%{name}/
 %{_libdir}/lib%{name}*.so
-%{_libdir}/lib%{name}*.so.4.9
+%{_libdir}/lib%{name}*.so.4.10
 %{_mandir}/man1/%{name}.1*
 
 %files doc
 %doc doc/*
 
 %changelog
+* Mon Jun 12 2023 Jerry James <loganjerry@gmail.com> - 4.10-1
+- Version 4.10
+
 * Wed Apr 26 2023 Jerry James <loganjerry@gmail.com> - 4.9-2
 - Rebuild for perl 5.36.1
 

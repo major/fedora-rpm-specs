@@ -1,6 +1,9 @@
+# Not enabled by default for now - see rhbz#2190013
+%bcond_with facedetect
+
 Name:           shotwell
 Version:        0.32.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A photo organizer for the GNOME desktop
 
 # LGPLv2+ for the code
@@ -49,6 +52,10 @@ BuildRequires:  pkgconfig(libxml-2.0) >= 2.6.32
 BuildRequires:  pkgconfig(sqlite3) >= 3.5.9
 BuildRequires:  pkgconfig(webkit2gtk-4.1) >= 2.26
 BuildRequires:  pkgconfig(libsecret-1)
+%if %{with facedetect}
+BuildRequires:  pkgconfig(opencv4)
+BuildRequires:  gcc-c++
+%endif
 
 # to fix symlinks
 BuildRequires:  symlinks fakechroot
@@ -70,7 +77,15 @@ making it easy to experiment and correct errors.
 
 
 %build
-%meson -Dinstall_apport_hook=false
+%meson \
+  -Dinstall_apport_hook=false \
+%if %{with facedetect}
+  -Dface_detection=true \
+  -Dface_detection_helper=true \
+  -Dface_detection_helper_bus=session \
+%endif
+  %{nil}
+
 %meson_build
 
 
@@ -109,9 +124,17 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Shotwell-Vi
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.Shotwell-symbolic.svg
 %{_metainfodir}/org.gnome.Shotwell.appdata.xml
 %{_mandir}/man1/shotwell.1*
+%if %{with facedetect}
+%{_datadir}/dbus-1/services/org.gnome.Shotwell.Faces1.service
+%{_datadir}/shotwell/facedetect
+%endif
 
 
 %changelog
+* Mon Jun 12 2023 Nicolas Chauvet <kwizart@gmail.com> - 0.32.1-2
+- Enable RPM conditional --with facedetect, using opencv
+  Disabled by default for now - see rhbz#2190013
+
 * Wed May 10 2023 David King <amigadave@amigadave.com> - 0.32.1-1
 - Update to 0.32.1
 

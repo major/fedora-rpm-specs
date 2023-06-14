@@ -1,7 +1,7 @@
 %define _hardened_build 1
 Name:             zfs-fuse
 Version:          0.7.2.2
-Release:          26%{?dist}
+Release:          27%{?dist}
 Summary:          ZFS ported to Linux FUSE
 License:          CDDL-1.0
 URL:              https://github.com/gordan-bobic/zfs-fuse
@@ -29,6 +29,8 @@ BuildRequires:    /usr/bin/execstack
 %endif
 BuildRequires:    systemd
 Requires:         fuse >= 2.7.4-1
+#Needs initscripts for helper scripts
+Requires:         initscripts
 # (2010 karsten@redhat.com) zfs-fuse doesn't have s390(x) implementations for atomic instructions
 ExcludeArch:      s390 s390x aarch64
 # For compatibility for packages expecting slightly other locations
@@ -49,12 +51,12 @@ operating system.
 %prep
 %setup -q
 
-%patch0 -p0
-%patch1 -p1
-%patch2 -p1
-%patch3 -p0
-%patch4 -p1
-%patch5 -p1
+%patch -P 0 -p0
+%patch -P 1 -p1
+%patch -P 2 -p1
+%patch -P 3 -p0
+%patch -P 4 -p1
+%patch -P 5 -p1
 
 f=LICENSE
 mv $f $f.iso88591
@@ -142,6 +144,9 @@ rm -rf /var/lock/zfs
 %{_mandir}/man8/zstreamdump.8.gz
 
 %changelog
+* Mon Jun 12 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.7.2.2-27
+- Require initscripts
+
 * Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.7.2.2-26
 - migrated to SPDX license
 

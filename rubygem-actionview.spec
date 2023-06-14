@@ -5,7 +5,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 7.0.4.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Rendering framework putting the V in MVC (part of Rails)
 License: MIT
 URL: http://rubyonrails.org
@@ -25,6 +25,11 @@ Source2: rails-%{version}%{?prerelease}-tools.txz
 Patch0: rubygem-actionview-7.0.2.3-Remove-the-multi-call-form-of-assert_called_with.patch
 # https://github.com/rails/rails/pull/45370
 Patch1: rubygem-actionview-7.0.2.3-Fix-tests-for-minitest-5.16.patch
+# Fix i18n 1.14+ compatibility.
+# https://github.com/ruby-i18n/i18n/pull/654
+# https://github.com/rails/rails/issues/48377
+# https://github.com/rails/rails/commit/f618fa4bfd202c9be47f0d07f3799eef55e20fef
+Patch2: rubygem-actionview-7.1.0-Fix-actionview-test-to-work-regardless-of-capitalization-of-missing-translation-message.patch
 
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -55,6 +60,7 @@ Documentation for %{name}.
 pushd %{_builddir}
 %patch0 -p2
 %patch1 -p2
+%patch2 -p2
 popd
 
 %build
@@ -101,6 +107,9 @@ popd
 %doc %{gem_instdir}/CHANGELOG.md
 
 %changelog
+* Mon Jun 12 2023 Vít Ondruch <vondruch@redhat.com> - 7.0.4.3-2
+- Fix FTBFS due to i18n 1.14+.
+
 * Tue Mar 14 2023 Pavel Valena <pvalena@redhat.com> - 7.0.4.3-1
 - Update to actionview 7.0.4.3.
 

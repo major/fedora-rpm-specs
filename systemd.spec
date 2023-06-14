@@ -141,7 +141,9 @@ BuildRequires:  kmod-devel
 BuildRequires:  elfutils-devel
 BuildRequires:  openssl-devel
 BuildRequires:  gnutls-devel
+%if %{undefined rhel}
 BuildRequires:  qrencode-devel
+%endif
 BuildRequires:  libmicrohttpd-devel
 BuildRequires:  libxkbcommon-devel
 BuildRequires:  iptables-devel
@@ -163,9 +165,11 @@ BuildRequires:  python3-devel
 BuildRequires:  python3dist(jinja2)
 BuildRequires:  python3dist(lxml)
 BuildRequires:  python3dist(pefile)
+%if %{undefined rhel}
 BuildRequires:  python3dist(pillow)
-BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-flakes)
+%endif
+BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(zstd)
 # gzip and lzma are provided by the stdlib
 BuildRequires:  firewalld-filesystem
@@ -236,7 +240,9 @@ Recommends:     libidn2.so.0(IDN2_0.0.0)%{?elf_bits}
 Recommends:     libpcre2-8.so.0%{?elf_suffix}
 Recommends:     libpwquality.so.1%{?elf_suffix}
 Recommends:     libpwquality.so.1(LIBPWQUALITY_1.0)%{?elf_bits}
+%if %{undefined rhel}
 Recommends:     libqrencode.so.4%{?elf_suffix}
+%endif
 Recommends:     libbpf.so.0%{?elf_suffix}
 Recommends:     libbpf.so.0(LIBBPF_0.4.0)%{?elf_bits}
 
@@ -589,7 +595,7 @@ CONFIGURE_OPTS=(
         -Dlibcryptsetup=%[%{with bootstrap}?"false":"true"]
         -Delfutils=true
         -Dpwquality=true
-        -Dqrencode=true
+        -Dqrencode=%[%{defined rhel}?"false":"true"]
         -Dgnutls=true
         -Dmicrohttpd=true
         -Dlibidn2=true

@@ -8,7 +8,7 @@
 
 
 Name:           qdigidoc
-Version:        4.2.14
+Version:        4.3.0
 Release:        1%{?dist}
 Summary:        Estonian digital signature and encryption application
 License:        LGPLv2+
@@ -36,7 +36,7 @@ BuildRequires: make
 BuildRequires:  cmake3 >= 3.5
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
-BuildRequires:  libdigidocpp-devel >= 3.14.12
+BuildRequires:  libdigidocpp-devel >= 3.15.0
 BuildRequires:  openldap-devel
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(Qt5Svg)
@@ -71,7 +71,7 @@ extension for the nautilus file manager.
 %prep
 %setup -q -n %{upstream_name}-%{version}
 
-%patch0 -p1
+%patch 0 -p1
 
 cp %{S:1} %{S:2} %{S:3} %{S:4} common/
 cp %{S:5} %{S:6} %{S:7} client/
@@ -149,6 +149,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/qdigidoc4.desktop
 %{_datadir}/nautilus-python/extensions/*
 
 %changelog
+* Mon Jun 12 2023 Dmitri Smirnov <dmitri@smirnov.ee> - 4.3.0-1
+- Upstream release 4.3.0
+
 * Fri Feb 10 2023 Dmitri Smirnov <dmitri@smirnov.ee> - 4.2.14-1
 - Upstream release 4.2.14
 - Removed dword_cast.patch - fixed in upstream

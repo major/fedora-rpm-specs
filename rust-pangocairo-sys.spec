@@ -6,7 +6,7 @@
 %global crate pangocairo-sys
 
 Name:           rust-pangocairo-sys
-Version:        0.17.3
+Version:        0.17.10
 Release:        %autorelease
 Summary:        FFI bindings to PangoCairo
 

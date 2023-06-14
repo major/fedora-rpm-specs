@@ -7,7 +7,7 @@
 
 Summary: Roles and playbooks to deploy FreeIPA servers, replicas and clients
 Name: ansible-freeipa
-Version: 1.10.0
+Version: 1.11.0
 Release: 1%{?dist}
 URL: https://github.com/freeipa/ansible-freeipa
 License: GPL-3.0-or-later
@@ -35,6 +35,7 @@ Features
 - Modules for automount key management
 - Modules for automount location management
 - Modules for automount map management
+- Modules for certificate management
 - Modules for config management
 - Modules for delegation management
 - Modules for dns config management
@@ -120,12 +121,14 @@ to get the needed requrements to run the tests.
 for i in roles/ipa*/library/*.py roles/ipa*/module_utils/*.py plugins/*/*.py;
 do
     sed -i '1{/\/usr\/bin\/python*/d;}' $i
+    sed -i '1{/\/usr\/bin\/env python*/d;}' $i
     chmod a-x $i
 done
 
 for i in utils/*.py utils/new_module utils/changelog utils/ansible-doc-test;
 do
     sed -i '{s@/usr/bin/python*@%{python}@}' $i
+    sed -i '{s@/usr/bin/env python*@%{python}@}' $i
 done
 
 
@@ -176,6 +179,17 @@ cp -rp tests %{buildroot}%{_datadir}/ansible-freeipa/
 %{_datadir}/ansible-freeipa/requirements-tests.txt
 
 %changelog
+* Mon Jun 12 2023 Thomas Woerner <twoerner@redhat.com> - 1.11.0-1
+- Update to version 1.11.0
+  https://github.com/freeipa/ansible-freeipa/releases/tag/v1.11.0
+  Highlights:
+  - Multiple service management with ipaservice module
+  - New ipacert module for certificate management
+  - Action group support for the Ansible collections on Ansible Galaxy and
+    Ansible AutomationHub
+  - Fixed maxsequence handling in ipapwpolicy module
+  - Even more Ansible lint driven changes
+
 * Wed Apr  5 2023 Thomas Woerner <twoerner@redhat.com> - 1.10.0-1
 - Update to version 1.10.0
   https://github.com/freeipa/ansible-freeipa/releases/tag/v1.10.0

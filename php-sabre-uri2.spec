@@ -10,7 +10,7 @@
 %bcond_without       tests
 
 # Github
-%global gh_commit    eceb4a1b8b680b45e215574222d6ca00be541970
+%global gh_commit    7e0e7dfd0b7e14346a27eabd66e843a6e7f1812b
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sabre-io
 %global gh_project   uri
@@ -24,11 +24,11 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Summary:        Functions for making sense out of URIs
-Version:        2.3.2
-Release:        2%{?dist}
+Version:        2.3.3
+Release:        1%{?dist}
 
 URL:            https://github.com/%{gh_owner}/%{gh_project}
-License:        BSD
+License:        BSD-3-Clause
 # Git snapshot with tests, because of .gitattributes
 Source0:        %{name}-%{version}-%{gh_short}.tgz
 Source1:        makesrc.sh
@@ -37,11 +37,14 @@ BuildArch:      noarch
 %if %{with tests}
 BuildRequires:  php(language) >= 7.4
 # From composer.json, "require-dev": {
-#        "friendsofphp/php-cs-fixer": "^3.9",
-#        "phpstan/phpstan": "^1.8",
-#        "phpunit/phpunit" : "^9.0"
+#        "friendsofphp/php-cs-fixer": "^3.17",
+#        "phpstan/phpstan": "^1.10",
+#        "phpstan/phpstan-phpunit": "^1.3",
+#        "phpstan/phpstan-strict-rules": "^1.5",
+#        "phpstan/extension-installer": "^1.3",
+#        "phpunit/phpunit" : "^9.6"
 BuildRequires:  php-pcre
-BuildRequires:  phpunit9
+BuildRequires:  phpunit9 >= 9.6
 %global phpunit %{_bindir}/phpunit9
 %endif
 # Autoloader
@@ -113,7 +116,7 @@ mkdir vendor
 ln -s %{buildroot}%{_datadir}/php/%{ns_vendor}/%{ns_project}%{major}/autoload.php vendor/autoload.php
 
 cd tests
-for cmdarg in "php %{phpunit}" php74 php80 php81 php82; do
+for cmdarg in "php %{phpunit}" php80 php81 php82 php83; do
   if which $cmdarg; then
     set $cmdarg
     $1 ${2:-%{_bindir}/phpunit9} --verbose || ret=1
@@ -134,6 +137,9 @@ exit $ret
 
 
 %changelog
+* Mon Jun 12 2023 Remi Collet <remi@remirepo.net> - 2.3.3-1
+- update to 2.3.3
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

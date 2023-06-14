@@ -1,5 +1,7 @@
-# enable the following for intermediate builds
-#define gitcommit b32d47bf915d38e08b53904501764452773d62ca
+### supports following defines during RPM build:
+#
+## specific git commit on upstream (EXAMPLE)
+# rpmbuild --undefine=_disable_source_fetch -bb -D "gitcommit b32d47bf915d38e08b53904501764452773d62ca" ipv6calc.spec
 
 %if 0%{?gitcommit:1}
 %global shortcommit %(c=%{gitcommit}; echo ${c:0:7})
@@ -15,8 +17,8 @@
 
 Summary:	IPv6 address format change and calculation utility
 Name:		ipv6calc
-Version:	4.0.2
-Release:	68%{?gittag}%{?dist}
+Version:	4.1.0
+Release:	69%{?gittag}%{?dist}
 URL:		http://www.deepspace6.net/projects/%{name}.html
 License:	GPLv2
 %if 0%{?gitcommit:1}
@@ -343,6 +345,9 @@ fi
 
 
 %changelog
+* Mon Jun 12 2023 Peter Bieringer <pb@bieringer.de> - 4.1.0-69
+- Final release 4.1.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.2-68
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

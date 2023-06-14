@@ -2,7 +2,7 @@
 
 Name:      mrpt
 Version:   1.4.0
-Release:   35%{?dist}
+Release:   36%{?dist}
 License:   BSD
 Summary:   Libraries and programs for mobile robot SLAM and navigation
 URL:       http://www.mrpt.org
@@ -477,6 +477,9 @@ rm -fr $RPM_BUILD_ROOT/%{_usr}/lib/python*
 %{_libdir}/*.so.*
 
 %changelog
+* Mon Jun 12 2023 Till Hofmann <thofmann@fedoraproject.org> - 1.4.0-36
+- Rebuild for libdc1394-2.2.7
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

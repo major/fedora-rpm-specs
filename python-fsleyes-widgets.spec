@@ -6,7 +6,7 @@ A collection of custom wx widgets and utilities used by FSLeyes.
 
 
 Name:           python-fsleyes-widgets
-Version:        0.13.0
+Version:        0.14.2
 Release:        %autorelease
 Summary:        A collection of custom wx widgets and utilities used by FSLeyes
 

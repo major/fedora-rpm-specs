@@ -1,5 +1,5 @@
 Name:		pepc
-Version:	1.4.20
+Version:	1.4.21
 Release:	%autorelease
 Summary:	Power, Energy, and Performance Configurator
 
@@ -26,7 +26,6 @@ Pepc Python libraries
 
 %prep
 %autosetup -n %{name}-%{version}
-sed -i -e "s|man\/man1|share\/man\/man1|" setup.py
 
 %generate_buildrequires
 %pyproject_buildrequires

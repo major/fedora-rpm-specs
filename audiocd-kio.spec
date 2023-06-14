@@ -1,10 +1,10 @@
 Name:    audiocd-kio 
 Summary: Audiocd kio slave
 Version: 16.08.3
-Release: 19%{?dist}
+Release: 20%{?dist}
 
 # code GPLv2+, handbook/docs GFDL
-License: GPLv2+
+License: GPL-2.0-or-later
 URL:     https://www.kde.org/applications/multimedia/
 
 %global revision %(echo %{version} | cut -d. -f3)
@@ -127,6 +127,9 @@ bzip2 -9 %{buildroot}%{_kde4_docdir}/HTML/en/kioslave/audiocd/index.cache
 
 
 %changelog
+* Mon Jun 12 2023 Than Ngo <than@redhat.com> - 16.08.3-20
+- migrated to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 16.08.3-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

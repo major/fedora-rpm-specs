@@ -3,7 +3,7 @@ Version:	13.1.1
 Release:	17%{?dist}
 Summary:	Goddard KDE Theme
 
-License:	GPLv2+ and CC-BY-SA
+License:	GPL-2.0-or-later AND CC-BY-SA-1.0
 
 # We are upstream for this package
 URL:		https://fedorahosted.org/fedora-kde-artwork/
@@ -107,6 +107,9 @@ ln -s ../../../../../../pixmaps/system-logo-white.png %{buildroot}%{_kde4_appsdi
 
 
 %changelog
+* Mon Jun 12 2023 Than Ngo <than@redhat.com> - 13.1.1-17
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 13.1.1-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

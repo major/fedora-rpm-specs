@@ -1,9 +1,9 @@
 Name:           cagibi
 Summary:        SSDP (UPnP discovery) cache/proxy daemon
 Version:        0.2.0
-Release:        26%{?dist}
+Release:        27%{?dist}
 
-License:        GPLv2+ and LGPLv2+
+License:        GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:            http://www.kde.org/
 Source0:        ftp://ftp.kde.org/pub/kde/stable/cagibi/%{name}-%{version}.tar.bz2
 
@@ -46,6 +46,9 @@ rm -f %{buildroot}%{_libdir}/pkgconfig/cagibi.pc
 
 
 %changelog
+* Mon Jun 12 2023 Than Ngo <than@redhat.com> - 0.2.0-27
+- migrated to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

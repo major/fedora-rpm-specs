@@ -1,10 +1,10 @@
 Name:    bomber
 Summary: Arcade bombing game
 Version: 23.04.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # code LGPLv2+, docs GFDL
-License: LGPLv2+ and GFDL
+License: LGPL-2.0-or-later AND GFDL-1.2-or-later
 URL:     https://invent.kde.org/games/%{name}
 
 %global revision %(echo %{version} | cut -d. -f3)
@@ -79,6 +79,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Mon Jun 12 2023 Than Ngo <than@redhat.com> - 23.04.2-2
+- migrated to SPDX license
+
 * Tue Jun 06 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 23.04.2-1
 - 23.04.2
 

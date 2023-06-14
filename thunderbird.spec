@@ -328,7 +328,7 @@ debug %{name}, you want to install %{name}-debuginfo instead.
 %patch -P 422 -p1 -b .0001-GLIBCXX-fix-for-GCC-12
 %patch -P 426 -p1 -b .gcc13-header-dependencies
 
-%if 0%{?fedora} >= 38
+%if 0%{?fedora} >= 38 || 0%{?rhel} >= 10
 # MUST ONLY be applied for building against clang LLVM 16.
 # Would crash with earlier clang.
 %patch -P 427 -p1 -b .rust-bindgen-2319-2339

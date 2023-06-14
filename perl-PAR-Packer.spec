@@ -1,6 +1,6 @@
 Name:           perl-PAR-Packer
-Version:        1.057
-Release:        3%{?dist}
+Version:        1.058
+Release:        1%{?dist}
 Summary:        PAR Packager
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/PAR-Packer
@@ -53,11 +53,13 @@ BuildRequires:  perl(Module::Signature)
 BuildRequires:  perl(blib)
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Encode)
+BuildRequires:  perl(Exporter)
 BuildRequires:  perl(File::Path)
 BuildRequires:  perl(File::stat)
 BuildRequires:  perl(IPC::Run3) >= 0.048
 BuildRequires:  perl(PAR::SetupTemp)
 BuildRequires:  perl(Test::More)
+BuildRequires:  perl(XSLoader)
 Requires:       perl(Archive::Zip) >= 1
 Requires:       perl(Compress::Zlib) >= 1.3
 Requires:       perl(File::Temp) >= 0.05
@@ -142,6 +144,9 @@ make test
 %{_datadir}/icons/hicolor/32x32/apps/tkpp.png
 
 %changelog
+* Mon Jun 12 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.058-1
+- 1.058 bump
+
 * Wed Apr 26 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.057-3
 - Rebuild for Perl 5.36.1
 

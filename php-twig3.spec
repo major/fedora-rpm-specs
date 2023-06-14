@@ -14,7 +14,7 @@
 
 %global github_owner     twigphp
 %global github_name      Twig
-%global github_commit    106c170d08e8415d78be2d16c3d057d0d108262b
+%global github_commit    7e7d5839d4bec168dfeef0ac66d5c5a2edbabffd
 %global github_short     %(c=%{github_commit}; echo ${c:0:7})
 
 %global composer_vendor  twig
@@ -27,7 +27,7 @@
 %global phpdir      %{_datadir}/php
 
 Name:          php-%{composer_project}%{major}
-Version:       3.6.0
+Version:       3.6.1
 Release:       1%{?dist}
 Summary:       The flexible, fast, and secure template engine for PHP
 
@@ -158,6 +158,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Mon Jun 12 2023 Remi Collet <remi@remirepo.net> - 3.6.1-1
+- update to 3.6.1
+
 * Thu May  4 2023 Remi Collet <remi@remirepo.net> - 3.6.0-1
 - update to 3.6.0
 

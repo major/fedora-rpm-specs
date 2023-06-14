@@ -34,7 +34,7 @@
 %global upstream_major 6
 
 # The rc snapshot level
-%global rcrev 5
+%global rcrev 6
 # Set rpm version accordingly
 %global rpmversion %{upstream_major}.%{upstream_sublevel}.0
 %endif
@@ -114,7 +114,7 @@ Source5000: patch-%{upstream_major}.%{upstream_sublevel}-rc%{rcrev}.xz
 %endif
 %endif
 
-# Patch1: 
+Patch1: kernel-tools-c99.patch
 
 Name: kernel-tools
 Summary: Assortment of tools for the Linux kernel
@@ -230,7 +230,7 @@ cd linux-%{kversion}
     xzcat %{SOURCE5000} | patch -p1 -F1 -s
 %endif
 
-# %patch1 -p1
+%patch1 -p1
 
 # END OF PATCH APPLICATIONS
 
@@ -596,6 +596,9 @@ popd
 %{_mandir}/man1/rv.1.gz
 
 %changelog
+* Mon Jun 12 2023 Justin M. Forbes <jforbes@fedoraproject.org> - 6.4.0-0.rc6.git0.1
+- Linux v6.4-rc6
+
 * Mon Jun 05 2023 Justin M. Forbes <jforbes@fedoraproject.org> - 6.4.0-0.rc5.git0.1
 - Linux v6.4-rc5
 

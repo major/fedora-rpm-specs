@@ -3,7 +3,7 @@ Version: 1.47
 Release: 1%{?dist}
 Summary: Library for error values used by GnuPG components
 URL: https://www.gnupg.org/related_software/libgpg-error/
-License: LGPLv2+
+License: LGPL-2.1-or-later AND (BSD-3-Clause OR LGPL-2.1-or-later) AND FSFULLR AND GPL-2.0-or-later
 
 Source0: https://www.gnupg.org/ftp/gcrypt/libgpg-error/%{name}-%{version}.tar.bz2
 Source1: https://www.gnupg.org/ftp/gcrypt/libgpg-error/%{name}-%{version}.tar.bz2.sig

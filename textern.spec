@@ -6,8 +6,8 @@
 %global __brp_python_bytecompile :
 
 Name:           textern
-Version:        0.7
-Release:        7%{?dist}
+Version:        0.8
+Release:        1%{?dist}
 Summary:        Firefox add-on for editing text in your favorite external editor
 
 License:        GPLv3+
@@ -57,6 +57,9 @@ make native-install \
 
 
 %changelog
+* Mon Jun 12 2023 Pavel Raiskup <praiskup@redhat.com> - 0.8-1
+- new upstream release
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -6,11 +6,11 @@
 %endif
 
 Name:           pcsc-lite
-Version:        1.9.9
-Release:        3%{?dist}
+Version:        2.0.0
+Release:        1%{?dist}
 Summary:        PC/SC Lite smart card framework and applications
 
-License:        BSD
+License:        BSD-3-Clause AND BSD-2-Clause AND GPL-3.0-or-later
 URL:            https://pcsclite.apdu.fr/
 Source0:        https://pcsclite.apdu.fr/files/%{name}-%{version}.tar.bz2
 Source1:        https://pcsclite.apdu.fr/files/%{name}-%{version}.tar.bz2.asc
@@ -171,6 +171,9 @@ fi
 
 
 %changelog
+* Mon Jun 12 2023 Jakub Jelen <jjelen@redhat.com> - 2.0.0-1
+- New upstream release (#2213961)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

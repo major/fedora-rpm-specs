@@ -3,8 +3,8 @@
 %define pkg_name bash-language-server
 
 Name:           nodejs-bash-language-server
-Version:        4.6.1
-Release:        2%{?dist}
+Version:        4.10.0
+Release:        1%{?dist}
 Summary:        A language server for Bash
 License:        MIT
 Url:            https://github.com/bash-lsp/bash-language-server
@@ -90,6 +90,9 @@ find %{buildroot}%{nodejs_sitelib}/%{pkg_name} -type f -name "\.*" -delete
 %{nodejs_sitelib}/%{pkg_name}/
 
 %changelog
+* Mon Jun 12 2023 Pavel Filipenský <pfilipen@redhat.com> - 4.6.10-1
+- Update to version 4.10.0 - https://github.com/bash-lsp/bash-language-server/blob/server-4.10.0/server/CHANGELOG.md
+
 * Thu Feb 02 2023 Pavel Filipenský <pfilipen@redhat.com> - 4.6.1-2
 - Fix /usr/bin/bash-language-server
 

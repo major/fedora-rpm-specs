@@ -3,11 +3,13 @@
 %global _hardened_build 1
 %global selinuxtype targeted
 %define _legacy_common_support 1
-%bcond_without selinux
+
+%bcond grpc %{undefined rhel}
+%bcond selinux 1
 
 Name:           frr
 Version:        8.5.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Routing daemon
 License:        GPL-2.0-or-later AND ISC AND LGPL-2.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND (GPL-2.0-or-later  OR ISC) AND MIT
 URL:            http://www.frrouting.org
@@ -34,8 +36,10 @@ BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  git-core
 BuildRequires:  groff
+%if %{with grpc}
 BuildRequires:  grpc-devel
 BuildRequires:  grpc-plugins
+%endif
 BuildRequires:  json-c-devel
 BuildRequires:  libcap-devel
 BuildRequires:  libtool
@@ -128,7 +132,7 @@ autoreconf -ivf
     --with-moduledir=%{_libdir}/frr/modules \
     --with-crypto=openssl \
     --enable-fpm \
-    --enable-grpc
+    %{?with_grpc:--enable-grpc}
 
 %make_build MAKEINFO="makeinfo --no-split" PYTHON=%{__python3}
 
@@ -269,6 +273,9 @@ rm tests/lib/*grpc*
 %endif
 
 %changelog
+* Mon Jun 05 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 8.5.1-3
+- Disable grpc in RHEL builds
+
 * Fri May 19 2023 Petr Pisar <ppisar@redhat.com> - 8.5.1-2
 - Rebuild against rpm-4.19 (https://fedoraproject.org/wiki/Changes/RPM-4.19)
 

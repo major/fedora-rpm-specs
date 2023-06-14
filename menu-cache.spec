@@ -14,10 +14,10 @@
 
 Name:           menu-cache
 Version:        1.1.0
-Release:        %{fedorarel}%{?dist}.7
+Release:        %{fedorarel}%{?dist}.8
 Summary:        Caching mechanism for freedesktop.org compliant menus
 
-License:        LGPLv2+ and GPLv2+
+License:        LGPL-2.0-or-later AND GPL-2.0-or-later
 URL:            http://lxde.org
 #VCS: git:git://lxde.git.sourceforge.net/gitroot/lxde/menu-cache
 %if 0%{?usegit} >= 1
@@ -107,6 +107,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Mon Jun 12 2023 Than Ngo <than@redhat.com> - 1.1.0-2.8
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2.7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

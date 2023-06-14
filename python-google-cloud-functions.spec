@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-functions
 %global         forgeurl    https://github.com/googleapis/python-functions
-Version:        1.12.0
+Version:        1.13.0
 %global         tag         v%{version}
 %forgemeta
 
@@ -63,7 +63,7 @@ rm -f %{buildroot}/%{_bindir}/fixup_functions_v1_keywords.py
 
 
 %check
-%pyproject_check_import -e 'google.cloud.functions_v2*'
+%pyproject_check_import -e 'google.cloud.functions_v2*' -e 'google.cloud.functions*'
 
 %if %{with tests}
 # NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.

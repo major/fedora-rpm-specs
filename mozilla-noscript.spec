@@ -12,7 +12,7 @@
 %global nscl_commit f84e94cdcf576ecc25da02d10b6db660c4199dce
 
 Name:           mozilla-noscript
-Version:        11.4.21
+Version:        11.4.22
 Release:        1%{?dist}
 Summary:        JavaScript white list extension for Mozilla Firefox
 
@@ -55,7 +55,7 @@ provides Anti-XSS protection.
 %prep
 %setup -q -n noscript-%{version}
 tar -xz -C src/nscl --strip-components=1 -f %{S:2}
-%patch0 -p1 -b .f
+%patch 0 -p1 -b .f
 cp -p src/nscl/COPYING nscl.COPYING
 cp -p src/nscl/LICENSE.md nscl.LICENSE.md
 ln -s /usr/share/publicsuffix/public_suffix_list.dat ./
@@ -78,6 +78,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.m
 %{_datadir}/metainfo/%{name}.metainfo.xml
 
 %changelog
+* Mon Jun 12 2023 Dominik Mierzejewski <dominik@greysector.net> - 11.4.22-1
+- update to 11.4.22 (#2204533)
+- fix deprecated patchN macro usage
+
 * Thu Apr 06 2023 Dominik Mierzejewski <dominik@greysector.net> - 11.4.21-1
 - update to 11.4.21 (#2180051)
 - switch to SPDX license identifiers

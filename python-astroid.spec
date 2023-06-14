@@ -15,6 +15,10 @@ License:        LGPL-2.1-or-later
 URL:            https://pypi.org/project/astroid/
 Source0:        %{forgesource}
 
+# Python3.12 compatibility: Temporarily disable failing test
+# Upstream issue: https://github.com/pylint-dev/astroid/issues/2116
+Patch:          Skip-test_ctypes_redefined_types_members-test-on-Pyt.patch
+
 BuildArch:      noarch
 
 BuildRequires:  pyproject-rpm-macros
@@ -54,7 +58,7 @@ Requires:  python3-six
 %description -n python3-%{srcname} %_description
 
 %prep
-%autosetup -n %{srcname}-%{version} -p0
+%autosetup -n %{srcname}-%{version} -p1
 sed -i /six/d astroid/__pkginfo__.py
 
 %build

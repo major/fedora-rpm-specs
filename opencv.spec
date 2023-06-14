@@ -74,7 +74,7 @@ Version:        4.7.0
 %global minorver %(foo=%{version}; a=(${foo//./ }); echo ${a[1]} )
 %global padding  %(digits=00; num=%{minorver}; echo ${digits:${#num}:${#digits}} )
 %global abiver   %(echo %{majorver}%{padding}%{minorver} )
-Release:        8%{?dist}
+Release:        10%{?dist}
 Summary:        Collection of algorithms for computer vision
 # This is normal three clause BSD.
 License:        BSD
@@ -98,6 +98,8 @@ Source5:        xorg.conf
 
 Patch0:         opencv-4.1.0-install_3rdparty_licenses.patch
 Patch3:         opencv.python.patch
+# Upstream commit to fix rhbz#2190013
+Patch4:         https://github.com/opencv/opencv/pull/23112.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake >= 2.6.3
@@ -292,6 +294,7 @@ popd &>/dev/null
 
 %patch -P 0 -p1 -b .install_3rdparty_licenses
 %patch -P 3 -p1 -b .python_install_binary
+%patch -P 4 -p1 -b .backport_avx2
 
 pushd %{name}_contrib-%{version}
 #patch1 -p1 -b .install_cvv
@@ -518,6 +521,12 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 %{_libdir}/libopencv_xphoto.so.{%{abiver},%{version}}
 
 %changelog
+* Mon Jun 12 2023 Nicolas Chauvet <kwizart@gmail.com> - 4.7.0-10
+- Rebuilt for libdc1394
+
+* Mon Jun 12 2023 Nicolas Chauvet <kwizart@gmail.com> - 4.7.0-9
+- Upstream commit to fix rhbz#2190013
+
 * Sat May 13 2023 Sérgio Basto <sergio@serjux.com> - 4.7.0-8
 - The %%ldconfig_scriptlets macro can be removed on all Fedoras. Possibly also on
   EPEL 8. But it is required on EPEL 7.

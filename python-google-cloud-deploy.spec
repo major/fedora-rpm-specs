@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-deploy
 %global         forgeurl    https://github.com/googleapis/python-deploy
-Version:        1.8.0
+Version:        1.9.0
 %global         tag         v%{version}
 %forgemeta
 

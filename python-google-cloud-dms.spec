@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-dms
 %global         forgeurl    https://github.com/googleapis/python-dms
-Version:        1.6.2
+Version:        1.7.0
 %global         tag         v%{version}
 %forgemeta
 
@@ -63,7 +63,7 @@ rm -f %{buildroot}%{_bindir}/fixup*
 
 
 %check
-%pyproject_check_import
+%pyproject_check_import -e 'google.cloud.clouddms*'
 
 %if %{with tests}
 # NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.

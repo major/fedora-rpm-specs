@@ -1,4 +1,3 @@
-
 %global kf5_version 5.82.0
 
 Name:    powerdevil
@@ -66,8 +65,8 @@ BuildRequires:  xcb-util-wm-devel
 
 %{?_qt5:Requires: %{_qt5}%{?_isa} >= %{_qt5_version}}
 
-# available on f34+
-%if 0%{?fedora} > 33
+# available on rhel 9+
+%if (0%{?rhel} && 0%{?rhel} > 8)
 Recommends: power-profiles-daemon
 %endif
 

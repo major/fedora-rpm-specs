@@ -1,8 +1,8 @@
 Summary: A program for faxing using a Class 1, 2 or 2.0 fax modem
 Name: efax
 Version: 0.9a
-Release: 39.001114%{?dist}
-License: GPLv2+
+Release: 40.001114%{?dist}
+License: GPL-2.0-or-later
 Url: http://www.cce.com/efax/
 Source: http://www.cce.com/efax/download/%{name}-%{version}-001114.tar.gz
 Source1: logrotate-efax
@@ -74,6 +74,9 @@ install -c -m 644 %{SOURCE1} %{buildroot}/etc/logrotate.d/efax
 %dir %{_localstatedir}/log/fax
 
 %changelog
+* Mon Jun 12 2023 Than Ngo <than@redhat.com> - 0.9a-40.001114
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9a-39.001114
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

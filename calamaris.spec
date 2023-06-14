@@ -4,7 +4,7 @@ Summary:        Analyzer and report generator for web proxy servers like Squid
 Name:           calamaris
 Version:        2.99.4.7
 Release:        4%{?dist}
-License:        (GPL+ or Artistic) and GPLv2+
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND GPL-2.0-or-later
 URL:            https://cord.de/calamaris-english
 Source0:        https://cord.de/files/calamaris/%{name}-%{version}.tar.gz
 Patch0:         calamaris-2.99.4.7-use-lib.patch

@@ -1,16 +1,20 @@
+%global base_version 0.082
+
 # Run optional test
 %bcond_without perl_HTTP_Tiny_enables_optional_deps
 
 Name:           perl-HTTP-Tiny
-Version:        0.082
-Release:        2%{?dist}
+Version:        0.083
+Release:        1%{?dist}
 Summary:        Small, simple, correct HTTP/1.1 client
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/HTTP-Tiny
-Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/HTTP-Tiny-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/HTTP-Tiny-%{base_version}.tar.gz
+# Unbundled from perl 5.37.12
+Patch0:         HTTP-Tiny-0.082-Upgrade-to-0.083.patch
 # Check for write failure, bug #1031096, refused by upstream,
 # <https://github.com/chansen/p5-http-tiny/issues/32>
-Patch0:         HTTP-Tiny-0.070-Croak-on-failed-write-into-a-file.patch
+Patch1:         HTTP-Tiny-0.070-Croak-on-failed-write-into-a-file.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -86,8 +90,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n HTTP-Tiny-%{version}
-%patch0 -p1
+%autosetup -p1 -n HTTP-Tiny-%{base_version}
 
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
@@ -126,6 +129,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jun 12 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.083-1
+- Upgrade to 0.083 as provided in perl-5.37.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.082-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

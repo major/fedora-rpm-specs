@@ -1,15 +1,12 @@
-# NOTE: Even though ansible-core is in 8.6, it is only available
-# at *runtime*, not at *buildtime* - so we can't have
-# ansible-core as a build_dep on RHEL8
-%if 0%{?fedora} || 0%{?rhel} >= 9
-%bcond_without ansible
+# NOTE: ansible-core is in rhel-8.6 and newer, but not installable
+# in buildroot as it depended on modular Python.
+# It has been installable at buildtime in 8.8 and newer.
 %if 0%{?fedora}
 BuildRequires: ansible-packaging
 %else
+%if 0%{?rhel} >= 8
 BuildRequires: ansible-core >= 2.11.0
 %endif
-%else
-%bcond_with ansible
 %endif
 
 %bcond_with collection_artifact
@@ -24,8 +21,8 @@ BuildRequires: ansible-core >= 2.11.0
 Name: ansible-collection-microsoft-sql
 Url: https://github.com/linux-system-roles/mssql
 Summary: The Ansible collection for Microsoft SQL Server management
-Version: 1.3.0
-Release: 4%{?dist}
+Version: 1.4.1
+Release: 1%{?dist}
 
 License: MIT
 
@@ -336,6 +333,10 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Wed May 31 2023 Sergei Petrosian <spetrosi@redhat.com> - 1.4.1-1
+- Update BuiildRequires to use ansible-core on RHEL > 8.8
+- Update role to version 1.4.1 to add customizable storage paths
+
 * Tue May 30 2023 Sergei Petrosian <spetrosi@redhat.com> - 1.3.0-4
 - Move RHEL related code into an include for spec readability
 

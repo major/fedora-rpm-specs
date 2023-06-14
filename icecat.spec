@@ -14,7 +14,7 @@ ExcludeArch: %{arm}
 
 # Build is failing because of
 # include/mozilla/FloatingPoint.h:212:31: error: inlining failed in call to ‘always_inline’ ‘bool mozilla::IsNegativeZero(T) [with T = double]’: indirect function call with a yet undetermined callee
-%if 0%{?fedora} > 37
+%if 0%{?fedora}
 ExcludeArch: s390x
 %endif
 
@@ -54,8 +54,6 @@ ExcludeArch: s390x
 # Active/Deactive language files handling
 %global build_langpacks 1
 
-%global default_bookmarks_file %{_datadir}/bookmarks/default-bookmarks.html
-
 # Define installation directories
 %global icecatappdir %{_libdir}/%{name}
 %global icecat_ver   %{name}-%{version}
@@ -73,11 +71,15 @@ ExcludeArch: s390x
 %global big_endian    1
 %endif
 
+%if 0%{?fedora}
 %global system_nss  1
+%else
+%global system_nss  0
+%endif
 %if %{?system_nss}
 %global nspr_version 4.32
 %global nspr_build_version %{nspr_version}
-%global nss_version 3.80
+%global nss_version 3.88
 %global nss_build_version %{nss_version}
 %endif
 
@@ -220,7 +222,6 @@ BuildRequires: desktop-file-utils
 BuildRequires: dos2unix
 BuildRequires: gcc, gcc-c++
 BuildRequires: make
-BuildRequires: fedora-bookmarks
 BuildRequires: freetype-devel
 BuildRequires: gdk-pixbuf2
 BuildRequires: glib2-devel
@@ -307,11 +308,13 @@ Requires: nspr >= %{nspr_build_version}
 Requires: nss >= %{nss_build_version}
 %endif
 
+%if 0%{?fedora}
+BuildRequires: fedora-bookmarks
 Requires: fedora-bookmarks
-Suggests: mozilla-ublock-origin
+%endif
 
+Suggests: mozilla-ublock-origin
 Provides: webclient
-Provides: bundled(mozilla-https-everywhere) = 2022.5.11
 
 %description
 GNU IceCat is the GNU version of the Firefox ESR browser.
@@ -378,7 +381,9 @@ tar -xf %{SOURCE5}
 
 # Fedora patches
 %patch -P 219 -p 1 -b .rhbz-1173156
+%if 0%{?fedora}
 %patch -P 221 -p 1 -b .firefox-nss-addon-hack
+%endif
 %patch -P 224 -p 1 -b .glibcxx
 %patch -P 225 -p 1 -b .gcc13
 
@@ -687,7 +692,10 @@ xvfb-run ./mach build  2>&1 | cat - || exit 1
 
 %install
 # set up our default bookmarks
+%if 0%{?fedora}
+%global default_bookmarks_file %{_datadir}/bookmarks/default-bookmarks.html
 cp -p %{default_bookmarks_file} objdir/dist/bin/browser/chrome/en-US/locale/browser/bookmarks.html
+%endif
 
 %make_install -C objdir
 

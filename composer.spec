@@ -10,7 +10,7 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    d477018d3f2ebd76dede3d3988a0b1a7add4d81e
+%global gh_commit    4c516146167d1392c8b9b269bb7c24115d262164
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_branch    2.0-dev
 %global gh_owner     composer
@@ -18,7 +18,7 @@
 %global api_version  2.3.0
 %global run_version  2.2.2
 
-%global upstream_version 2.5.7
+%global upstream_version 2.5.8
 #global upstream_prever  RC1
 #global upstream_lower   rc1
 
@@ -80,6 +80,7 @@ Requires:       php-cli
 Requires:       ca-certificates
 # Bundled libraries
 # License MIT
+Provides:       bundled(php-composer-ca-bundle) = 1.3.6
 Provides:       bundled(php-composer-class-map-generator) = 1.0.0
 Provides:       bundled(php-composer-metadata-minifier) = 1.0.0
 Provides:       bundled(php-composer-pcre) = 2.1.0
@@ -93,7 +94,7 @@ Provides:       bundled(php-react-promise) = v2.10.0
 Provides:       bundled(php-seld-jsonlint) = 1.10.0
 Provides:       bundled(php-seld-phar-utils) = 1.2.1
 Provides:       bundled(php-seld-signal-handler) = 2.0.1
-Provides:       bundled(php-symfony-console) = v5.4.23
+Provides:       bundled(php-symfony-console) = v5.4.24
 Provides:       bundled(php-symfony-deprecation-contracts) = v2.5.2
 Provides:       bundled(php-symfony-filesystem) = v5.4.23
 Provides:       bundled(php-symfony-finder) = v5.4.21
@@ -104,7 +105,7 @@ Provides:       bundled(php-symfony-polyfill-mbstring) = v1.27.0
 Provides:       bundled(php-symfony-polyfill-php73) = v1.27.0
 Provides:       bundled(php-symfony-polyfill-php80) = v1.27.0
 Provides:       bundled(php-symfony-polyfill-php81) = v1.27.0
-Provides:       bundled(php-symfony-process) = v5.4.23
+Provides:       bundled(php-symfony-process) = v5.4.24
 Provides:       bundled(php-symfony-service-contracts) = v2.5.2
 Provides:       bundled(php-symfony-string) = v5.4.22
 
@@ -248,6 +249,9 @@ install -Dpm 755 bin/%{name} %{buildroot}%{_bindir}/%{name}
 
 
 %changelog
+* Sat Jun 10 2023 Remi Collet <remi@remirepo.net> - 2.5.8-1
+- update to 2.5.8
+
 * Wed May 24 2023 Remi Collet <remi@remirepo.net> - 2.5.7-1
 - update to 2.5.7
 

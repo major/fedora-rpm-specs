@@ -11,11 +11,12 @@
 # so we make the dependency conditional.
 # Ideally, the dependency would be conditional on pytz availability in the repo,
 # but that's not possible in 2023 yet.
-%bcond pytz_tests %{undefined rhel}
+# Additionally, the date/time tests require freezegun, which is unwanted in RHEL.
+%bcond datetime_tests %{undefined rhel}
 
 Name:           babel
 Version:        2.12.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tools for internationalizing Python applications
 
 License:        BSD-3-Clause
@@ -33,13 +34,12 @@ BuildRequires:  python3-devel
 
 %if %{without bootstrap}
 BuildRequires:  coreutils
-BuildRequires:  /usr/bin/faketime
 # The Python test dependencies are not generated from tox.ini,
 # because it would require complex patching to be usable
 # and becasue we want to avoid the tox dependency in ELN/RHEL.
 BuildRequires:  python3-pytest
+%if %{with datetime_tests}
 BuildRequires:  python3-freezegun
-%if %{with pytz_tests}
 # The pytz tests are skipped when pytz is missing
 BuildRequires:  python3-pytz
 %endif
@@ -117,12 +117,10 @@ export TZ=UTC
 %if %{without bootstrap}
 # The deselected doctests fail without pytz when run during Eastern Daylight Time
 # https://github.com/python-babel/babel/issues/988
-%pytest %{!?pytz_tests:-k "not (babel.dates.format_time or babel.dates.get_timezone_name)"}
-
-# For good measure, we run the deselected tests during Eastern Standard Time
-# The date is more or less in the middle of Eastern Standard Time, the time is arbitrary
-%global __pytest faketime '2023-01-09 12:13:14' %__pytest
-%pytest -k "babel.dates.format_time or babel.dates.get_timezone_name"
+# The ignored files use freezegun
+%pytest %{!?with_datetime_tests:\
+  -k "not (babel.dates.format_time or babel.dates.get_timezone_name)" \
+  --ignore tests/test_dates.py --ignore tests/messages/test_frontend.py}
 %endif
 
 %files
@@ -142,6 +140,9 @@ export TZ=UTC
 %endif
 
 %changelog
+* Mon Jun 05 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2.12.1-3
+- Avoid libfaketime and python-freezegun deps in RHEL builds
+
 * Mon Apr 10 2023 Miro Hrončok <mhroncok@redhat.com> - 2.12.1-2
 - Fix DST-related test failures
 

@@ -62,6 +62,17 @@ group["sans-serif"] = "Noto Sans"
 group["serif"] = "Noto Serif"
 group["monospace"] = "Noto Sans Mono"
 
+--
+--alias: string: generic alias name
+--family: string: font family name
+--lang: array: lang code font family support
+--fcconffile: string: fontconfig config file to package instead of auto-generated
+--fcconfexfile: string: extra fontconfig config file to be added to auto-generated
+--obsoletes: array: outdated package name to replace by
+--default: bool: Wheter font is default or not
+--variable: bool: Wheter font is variable or not
+--priority: int: priority number for fontconfig config file
+--
 local subpackages = {
     { alias="cursive",    family="Nastaliq Urdu", lang={ "ur" } },
     { alias="cursive",    family="Rashi Hebrew", lang={ "he" },

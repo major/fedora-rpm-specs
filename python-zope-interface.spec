@@ -1,4 +1,6 @@
-%bcond_without docs
+# Bconds are needed for Python bootstrap
+%bcond docs %{undefined rhel}
+%bcond tests 1
 
 # Install doc subpackage files into the main package doc directory
 %global _docdir_fmt %{name}
@@ -36,8 +38,6 @@ This is a separate distribution of the zope.interface package used in Zope 3.
 Summary:        Documentation for zope.interface
 BuildArch:      noarch
 BuildRequires:  python3-docs
-BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  %{py3_dist repoze-sphinx-autointerface}
 
 %description doc
 Documentation for %{name}.
@@ -53,7 +53,7 @@ sed -i "s/'default'/'classic'/" docs/conf.py
 sed -i "s|\('https://docs\.python\.org/': \)None|\1'%{_docdir}/python3-docs/html/objects.inv'|" docs/conf.py
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires %{?with_docs: -x docs} %{?with_tests: -x test}
 
 %build
 %pyproject_wheel
@@ -69,12 +69,14 @@ rm -f docs/_build/html/.buildinfo
 # C files don't need to be packaged
 rm -f %{buildroot}%{python3_sitearch}/zope/interface/_zope_interface_coptimizations.c
 
+%if %{with tests}
 %check
 # We have to run tests installed together with the package
 # https://github.com/zopefoundation/zope.interface/issues/196
 pushd %{buildroot}%{python3_sitearch}
 PURE_PYTHON=1 python3 -m unittest discover -s zope/interface -t .
 popd
+%endif
 
 %files -n python3-zope-interface
 %doc README.rst CHANGES.rst

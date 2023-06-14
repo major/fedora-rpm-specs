@@ -10,6 +10,12 @@
 # Please, preserve the changelog entries
 #
 
+# Defined in Fedora >= 37 and RHEL >= 10
+%{!?__phpize:      %global __phpize       %{_bindir}/phpize}
+%{!?__ztsphpize:   %global __ztsphpize    %{_bindir}/zts-phpize}
+%{!?__phpconfig:   %global __phpconfig    %{_bindir}/php-config}
+%{!?__ztsphpconfig:%global __ztsphpconfig %{_bindir}/zts-php-config}
+
 # Build using "--without tests" to disable tests
 %bcond_without     tests
 
@@ -19,10 +25,12 @@
 %global with_zts   0%{?__ztsphp:1}
 %global pecl_name  pq
 %global ini_name   50-%{pecl_name}.ini
+%global sources    %{pecl_name}-%{version}
+%global _configure ../%{sources}/configure
 
 Summary:        PostgreSQL client library (libpq) binding
 Name:           php-pecl-%{pecl_name}
-Version:        2.2.1
+Version:        2.2.2
 Release:        1%{?dist}
 License:        BSD-2-Clause
 URL:            https://pecl.php.net/package/%{pecl_name}
@@ -65,14 +73,13 @@ Highlights:
 
 %prep
 %setup -q -c
-mv %{pecl_name}-%{version}%{?rcver} NTS
 
 # Don't install tests nor LICENSE
 sed -e '/role="test"/d' \
     -e '/LICENSE/s/role="doc"/role="src"/' \
     -i package.xml
 
-cd NTS
+cd %{sources}
 # Sanity check, really often broken
 extver=$(sed -n '/#define PHP_PQ_VERSION/{s/.* "//;s/".*$//;p}' php_pq.h)
 if test "x${extver}" != "x%{version}%{?rcver}"; then
@@ -81,9 +88,9 @@ if test "x${extver}" != "x%{version}%{?rcver}"; then
 fi
 cd ..
 
+mkdir NTS
 %if %{with_zts}
-# Duplicate source tree for NTS / ZTS build
-cp -pr NTS ZTS
+mkdir  ZTS
 %endif
 
 # Create configuration file
@@ -94,19 +101,20 @@ EOF
 
 
 %build
-cd NTS
-%{_bindir}/phpize
+cd %{sources}
+%{__phpize}
+
+cd ../NTS
 %configure \
     --with-libdir=%{_lib} \
-    --with-php-config=%{_bindir}/php-config
+    --with-php-config=%{__phpconfig}
 make %{?_smp_mflags}
 
 %if %{with_zts}
 cd ../ZTS
-%{_bindir}/zts-phpize
 %configure \
     --with-libdir=%{_lib} \
-    --with-php-config=%{_bindir}/zts-php-config
+    --with-php-config=%{__ztsphpconfig}
 make %{?_smp_mflags}
 %endif
 
@@ -128,14 +136,14 @@ install -D -m 644 %{ini_name} %{buildroot}%{php_ztsinidir}/%{ini_name}
 
 # Documentation
 for i in $(grep 'role="doc"' package.xml | sed -e 's/^.*name="//;s/".*$//')
-do install -Dpm 644 NTS/$i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
+do install -Dpm 644 %{sources}/$i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
 done
 
 
 %check
 : ignore tests with erratic results
-rm ?TS/tests/cancel001.phpt
-rm ?TS/tests/flush001.phpt
+rm %{sources}/tests/cancel001.phpt
+rm %{sources}/tests/flush001.phpt
 
 
 OPT="-n"
@@ -145,13 +153,13 @@ OPT="-n"
 : Minimal load test for NTS extension
 %{__php} $OPT \
     --define extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
-    --modules | grep %{pecl_name}
+    --modules | grep '^%{pecl_name}$'
 
 %if %{with_zts}
 : Minimal load test for ZTS extension
 %{__ztsphp} $OPT \
     --define extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so \
-    --modules | grep %{pecl_name}
+    --modules | grep '^%{pecl_name}$'
 %endif
 
 %if %{with tests}
@@ -172,28 +180,22 @@ EOF
 pg_ctl -D $DATABASE -l $PWD/server.log -w -t 200  start
 createdb -h localhost -p $PORT rpmtest
 
-cd NTS
+cd %{sources}
 sed -e "/PQ_DSN/s/\"host.*\"/'host=localhost port=$PORT dbname=rpmtest'/" \
     -i tests/_setup.inc
 
 : Upstream test suite  for NTS extension
 TEST_PHP_EXECUTABLE=%{__php} \
-TEST_PHP_ARGS="$OPT -d extension=$PWD/modules/%{pecl_name}.so" \
-NO_INTERACTION=1 \
+TEST_PHP_ARGS="$OPT -d extension=$PWD/../NTS/modules/%{pecl_name}.so" \
 REPORT_EXIT_STATUS=1 \
-%{__php} -n run-tests.php --show-diff || RET=1
+%{__php} -n run-tests.php -q --show-diff || RET=1
 
 %if %{with_zts}
-cd ../ZTS
-sed -e "/PQ_DSN/s/\"host.*\"/'host=localhost port=$PORT dbname=rpmtest'/" \
-    -i tests/_setup.inc
-
 : Upstream test suite  for ZTS extension
-TEST_PHP_EXECUTABLE=%{_bindir}/zts-php \
-TEST_PHP_ARGS="$OPT -d extension=$PWD/modules/%{pecl_name}.so" \
-NO_INTERACTION=1 \
+TEST_PHP_EXECUTABLE=%{__ztsphp} \
+TEST_PHP_ARGS="$OPT -d extension=$PWD/../ZTS/modules/%{pecl_name}.so" \
 REPORT_EXIT_STATUS=1 \
-%{_bindir}/zts-php -n run-tests.php --show-diff || RET=1
+%{__ztsphp} -n run-tests.php -q --show-diff || RET=1
 %endif
 
 cd ..
@@ -208,7 +210,7 @@ exit $RET
 
 %files
 %doc %{pecl_docdir}/%{pecl_name}
-%license NTS/LICENSE
+%license %{sources}/LICENSE
 %{pecl_xmldir}/%{name}.xml
 
 %config(noreplace) %{php_inidir}/%{ini_name}
@@ -221,6 +223,10 @@ exit $RET
 
 
 %changelog
+* Mon Jun 12 2023 Remi Collet <remi@remirepo.net> - 2.2.2-1
+- update to 2.2.2
+- build out of sources tree
+
 * Fri Mar  3 2023 Remi Collet <remi@remirepo.net> - 2.2.1-1
 - update to 2.2.1
 

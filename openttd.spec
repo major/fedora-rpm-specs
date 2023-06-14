@@ -2,7 +2,7 @@
 #%%global prever RC1
 
 Name:           openttd
-Version:        13.1
+Version:        13.3
 Release:        %autorelease
 Summary:        Transport system simulation game
 
@@ -17,6 +17,7 @@ BuildRequires:  fontconfig-devel
 BuildRequires:  fluidsynth-devel
 BuildRequires:  freetype-devel
 BuildRequires:  gcc-c++
+BuildRequires:  grfcodec
 BuildRequires:  libicu-devel
 BuildRequires:  libpng-devel
 BuildRequires:  lzo-devel

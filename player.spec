@@ -4,7 +4,7 @@
 
 Name:           player
 Version:        3.1.0
-Release:        49%{?dist}
+Release:        50%{?dist}
 Summary:        Cross-platform robot device interface and server
 
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
@@ -225,6 +225,9 @@ desktop-file-install \
 %{ruby_vendorarchdir}/*.so
 
 %changelog
+* Mon Jun 12 2023 Till Hofmann <thofmann@fedoraproject.org> - 3.1.0-50
+- Rebuild for libdc1394-2.2.7
+
 * Sun Mar 12 2023 Tim Orling <ticotimo@gmail.com> - 3.1.0-49
 - migrated to SPDX license
 

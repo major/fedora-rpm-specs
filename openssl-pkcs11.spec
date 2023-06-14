@@ -7,7 +7,8 @@ Release: 3%{?dist}
 Name:           openssl-pkcs11
 Summary:        A PKCS#11 engine for use with OpenSSL
 # The source code is LGPLv2+ except eng_back.c and eng_parse.c which are BSD
-License:        LGPLv2+ and BSD
+# There are parts licensed with OpenSSL license too
+License:        LGPL-2.1-or-later AND BSD-2-Clause AND OpenSSL
 URL:            https://github.com/OpenSC/libp11
 Source0:        https://github.com/OpenSC/libp11/releases/download/libp11-%{version}/libp11-%{version}.tar.gz
 
@@ -17,6 +18,7 @@ Patch4:         openssl-pkcs11-0.4.10-set-rsa-fips-method-flag.patch
 # https://github.com/OpenSC/libp11/pull/460
 # https://github.com/OpenSC/libp11/commit/feb22a66
 Patch5:         openssl-pkcs11-ossl3.patch
+Patch6:         openssl-pkcs11-ec-copy.patch
 
 BuildRequires: make
 BuildRequires:  autoconf automake libtool

@@ -3,7 +3,7 @@ Version:        0.23.0
 Release:        3%{?dist}
 Summary:        Smart card library and applications
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later AND BSD 3-Clause
 URL:            https://github.com/OpenSC/OpenSC/wiki
 Source0:        https://github.com/OpenSC/OpenSC/releases/download/%{version}/%{name}-%{version}.tar.gz
 Source1:        opensc.module

@@ -31,7 +31,7 @@
 Summary:       Tool for creating supermin appliances
 Name:          supermin
 Version:       5.3.3
-Release:       8%{?dist}
+Release:       9%{?dist}
 License:       GPL-2.0-or-later
 
 ExclusiveArch: %{kernel_arches}
@@ -55,6 +55,9 @@ Patch:         0003-Restore-compatibility-with-OCaml-4.07.patch
 Patch:         0004-rpm-Detect-dnf5-and-omit-missing-options.patch
 # dnf5 (https://bugzilla.redhat.com/show_bug.cgi?id=2211386)
 Patch:         0005-rpm-Use-dnf-config-instead-of-c.patch
+# Fix --if-newer
+Patch:         0006-src-Improved-debugging-of-the-supermin-if-newer-calc.patch
+Patch:         0007-src-Fix-if-newer-copy-kernel.patch
 
 BuildRequires: gcc
 BuildRequires: make
@@ -199,6 +202,9 @@ make check || {
 
 
 %changelog
+* Mon Jun 12 2023 Richard W.M. Jones <rjones@redhat.com> - 5.3.3-9
+- Fix --if-newer
+
 * Mon Jun 05 2023 Richard W.M. Jones <rjones@redhat.com> - 5.3.3-8
 - Migrated to SPDX license
 

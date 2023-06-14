@@ -1,14 +1,14 @@
 Name: routino
 Summary: Router for OpenStreetMap Data
-Version: 3.3.3
-Release: 6%{?dist}
-License: AGPLv3+
+Version: 3.4
+Release: 1%{?dist}
+License: AGPL-3.0-or-later AND MIT
 URL: http://www.routino.org/
 Source0: http://www.routino.org/download/routino-%{version}.tgz
 # documentation for how to set up Routino for use with Marble
 Source1: README-MARBLE.txt
 # https://github.com/sharkcz/routino/commits/fedora
-Patch0: routino-3.3-fedora.patch
+Patch0: routino-3.4-fedora.patch
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: bzip2-devel
@@ -60,9 +60,9 @@ This package contains the files required to compile applications that use
 
 
 %prep
-%setup -q
+%autosetup -p1
+
 cp -p %{SOURCE1} doc/
-%patch0 -p1 -b .fedora
 
 # Get rid of installation documentation which is not applicable to the RPM
 rm -f INSTALL*.txt doc/INSTALL*.txt doc/html/installation.html
@@ -75,12 +75,11 @@ rm -rf extras
 
 
 %build
-export CFLAGS="%{build_cflags}" LDFLAGS="%{build_ldflags}"
-make %{?_smp_mflags} libdir=%{_libdir}
+%make_build libdir=%{_libdir}
 
 
 %install
-make install DESTDIR=%{buildroot} libdir=%{_libdir}
+%make_install libdir=%{_libdir}
 
 
 %files
@@ -102,6 +101,9 @@ make install DESTDIR=%{buildroot} libdir=%{_libdir}
 
 
 %changelog
+* Mon Jun 12 2023 Dan Horák <dan[at]danny.cz> - 3.4-1
+- updated to 3.4 (rhbz#2214067)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

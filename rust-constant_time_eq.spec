@@ -5,7 +5,7 @@
 %global crate constant_time_eq
 
 Name:           rust-constant_time_eq
-Version:        0.2.5
+Version:        0.2.6
 Release:        %autorelease
 Summary:        Compares two equal-sized byte strings in constant time
 
@@ -14,6 +14,7 @@ URL:            https://crates.io/crates/constant_time_eq
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop unused, benchmark-only criterion dev-dependency to speed up builds
+# * drop unused count_instructions dev-dependency and associated feature
 Patch:          constant_time_eq-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21

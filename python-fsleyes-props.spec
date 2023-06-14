@@ -13,7 +13,7 @@ you to:
 
 
 Name:           python-fsleyes-props
-Version:        1.9.1
+Version:        1.9.3
 Release:        %autorelease
 Summary:        [wx]Python event programming framework
 

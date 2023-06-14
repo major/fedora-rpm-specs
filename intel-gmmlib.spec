@@ -1,11 +1,13 @@
 Name:           intel-gmmlib
-Version:        22.3.5
+Version:        22.3.7
 Release:        1%{?dist}
 Summary:        Intel Graphics Memory Management Library
 
 License:        MIT and BSD
 URL:            https://github.com/intel/gmmlib
 Source0:        %{url}/archive/%{name}-%{version}.tar.gz
+# https://github.com/intel/gmmlib/issues/103
+Patch0:         0001-Fix-for-intel-gmmlib-22.3.7.patch
 
 # This package relies on intel asm
 ExclusiveArch:  x86_64 i686
@@ -63,6 +65,9 @@ find Source -name "*.h" -exec chmod -x {} ';'
 
 
 %changelog
+* Mon Jun 12 2023 Nicolas Chauvet <kwizart@gmail.com> - 22.3.7-1
+- Update to 22.3.7
+
 * Tue Mar 21 2023 Nicolas Chauvet <kwizart@gmail.com> - 22.3.5-1
 - Update to 22.3.5
 

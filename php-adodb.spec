@@ -2,7 +2,7 @@
 
 Name:           php-adodb
 Summary:        Database abstraction layer for PHP
-Version:        5.22.5
+Version:        5.22.6
 Release:        1%{?dist}
 
 License:        BSD-3-Clause or LGPL-2.0-or-later
@@ -57,6 +57,9 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/adodb/*.txt
 
 
 %changelog
+* Mon Jun 12 2023 Gwyn Ciesla <gwync@protonmail.com> - 5.22.6-1
+- 5.22.6
+
 * Tue Apr 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 5.22.5-1
 - 5.22.5
 

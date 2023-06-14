@@ -2,16 +2,14 @@
 Name:           perl-ExtUtils-ParseXS
 # Epoch to compete with perl.spec
 Epoch:          1
-Version:        3.50
+Version:        3.51
 Release:        1%{?dist}
 Summary:        Module and a script for converting Perl XS code into C code
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ExtUtils-ParseXS
 Source0:        https://cpan.metacpan.org/authors/id/X/XS/XSAWYERX/ExtUtils-ParseXS-%{base_version}.tar.gz
-# Added man page perlxs* which are missing in tarball
-Patch0:         ExtUtils-ParseXS-3.44-Add-perlxs-man-pages.patch
-# Unbundled from perl 5.37.11
-Patch1:         ExtUtils-ParseXS-3.44-Upgrade-to-3.50.patch
+# Unbundled from perl 5.37.12
+Patch0:         ExtUtils-ParseXS-3.44-Upgrade-to-3.51.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -67,7 +65,6 @@ with "%{_libexecdir}/%{name}/test".
 %prep
 %setup -q -n ExtUtils-ParseXS-%{base_version}
 %patch -P0 -p1
-%patch -P1 -p1
 
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
@@ -120,6 +117,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jun 12 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:3.51-1
+- Upgrade to 3.51 as provided in perl-5.37.12
+
 * Wed May 17 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:3.50-1
 - Upgrade to 3.50 as provided in perl-5.37.11
 - Package tests

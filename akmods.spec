@@ -1,6 +1,6 @@
 Name:           akmods
-Version:        0.5.7
-Release:        10%{?dist}
+Version:        0.5.8
+Release:        1%{?dist}
 Summary:        Automatic kmods build and install tool
 
 License:        MIT
@@ -48,12 +48,12 @@ Requires:       openssl
 
 # this should track in all stuff that is normally needed to compile modules:
 Requires:       bzip2 coreutils diffutils file findutils gawk gcc grep
-Requires:       gzip make sed tar unzip util-linux which rpm-build
+Requires:       gzip make sed tar unzip util-linux rpm-build
 
 # On EL, kABI list was renamed
 %if 0%{?rhel}
 %if 0%{?rhel} >= 8
-Requires:       (kernel-abi-stablelists or kernel-abi-whitelists)
+Requires:       (kernel-abi-stablelists if kernel)
 %else
 Requires:       kernel-abi-whitelists
 %endif
@@ -100,6 +100,11 @@ Requires(postun): systemd
 # Optional but good to have on recent kernel
 Requires: pkgconfig(libelf)
 
+# We need grubby or systemd-boot to know the default kernel
+# On EL7 assumes grubby is there by default - rhbz#2124086
+%if 0%{?fedora} || 0%{?rhel} > 7
+Requires: (grubby or systemd-boot)
+%endif
 
 %description
 Akmods startup script will rebuild akmod packages during system
@@ -219,6 +224,12 @@ useradd -r -g akmods -d /var/cache/akmods/ -s /sbin/nologin \
 
 
 %changelog
+* Fri May 5 2023 Nicolas Chauvet <kwizart@gmail.com> - 0.5.8-1
+- Don't emit weak-deps from deprecated arches on all
+- Allow akmods --rebuild to force rebuild+reinstall - rhbz#2140012
+- ensure to build for grub or systemd-boot default kernel - rhbz#2124086
+- Drop "which" as akmods dependency
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.7-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

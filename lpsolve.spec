@@ -20,8 +20,6 @@ Summary:    Mixed Integer Linear Programming (MILP) solver
 # lp_pricePSE.c:    LGPL-2.1-or-later
 # lp_report.c:      LGPL-2.1-or-later
 # lp_rlp.c:         GPL-2.0-or-later WITH Bison-exception-2.2
-#                   Waiting on an approval
-#                   <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/232>
 # lp_scale.c:       LGPL-2.1-or-later
 # lp_simplex.c:     LGPL-2.1-or-later
 # lp_SOS.c:         LGPL-2.1-or-later

@@ -2,10 +2,10 @@ Name:    filelight
 Summary: Graphical disk usage statistics 
 Epoch:   1
 Version: 23.04.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
-License: GPLv2 or GPLv3
+License: GPL-2.0-only OR GPL-3.0-only
 URL:     http://utils.kde.org/projects/filelight
 
 %global revision %(echo %{version} | cut -d. -f3)
@@ -82,6 +82,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Mon Jun 12 2023 Than Ngo <than@redhat.com> - 23.04.2-2
+- migrated to SPDX license
+
 * Tue Jun 06 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:23.04.2-1
 - 23.04.2
 

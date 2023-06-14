@@ -48,7 +48,7 @@
 
 Summary:   Firmware update daemon
 Name:      fwupd
-Version:   1.9.1
+Version:   1.9.2
 Release:   %autorelease
 License:   LGPL-2.1-or-later
 URL:       https://github.com/fwupd/fwupd
@@ -113,11 +113,6 @@ Requires: glib2%{?_isa} >= %{glib2_version}
 Requires: libxmlb%{?_isa} >= %{libxmlb_version}
 Requires: libgusb%{?_isa} >= %{libgusb_version}
 Requires: shared-mime-info
-
-Obsoletes: fwupd-sign < 0.1.6
-Obsoletes: libebitdo < 0.7.5-3
-Obsoletes: libdfu < 1.0.0
-Obsoletes: fwupd-labels < 1.1.0-1
 
 Obsoletes: dbxtool < 9
 Provides: dbxtool

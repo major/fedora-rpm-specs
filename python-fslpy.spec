@@ -6,12 +6,12 @@ The fslpy project is a FSL programming library written in Python. It is used by 
 FSLeyes.
 
 Name:           python-fslpy
-Version:        3.11.1
+Version:        3.12.1
 Release:        %autorelease
 Summary:        The FSL Python Library
 
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://pypi.python.org/pypi/fslpy
 Source0:        %{pypi_source fslpy}
 
@@ -19,6 +19,7 @@ BuildRequires:  git-core
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildRequires:  help2man
 
 BuildRequires:  dcm2niix
 BuildRequires:  %{py3_dist pytest}
@@ -46,6 +47,7 @@ cat requirements-extra.txt >> requirements.txt
 
 # remove unneeded shebangs
 find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env python$/ d' {} 2>/dev/null ';'
+sed -i '/^#![  ]*\/usr\/bin\/env python3$/ d' fsl/wrappers/tbss.py
 # some scripts have the shebang, so we correct these
 find . -type f -name "*.py" -exec sed -i 's/#![  ]*\/usr\/bin\/env python$/#!\/usr\/bin\/python3/' {} 2>/dev/null ';'
 
@@ -62,6 +64,24 @@ find . -type f -name "*.py" -exec sed -i 's/#![  ]*\/usr\/bin\/env python$/#!\/u
 # Remove test packages that are installed in site packages
 rm -rfv %{buildroot}/%{python3_sitelib}/tests/
 
+# generate man pages
+# imglob does not have a --help
+for binary in "atlasq" "atlasquery" "fsl_apply_x5" "fsl_ents" "fsl_convert_x5" "imcp" "immv" "resample_image" "Text2Vest" "Vest2Text" "fsl_abspath" "imln" "imtest" "remove_ext"
+do
+    echo "Generating man page for ${binary// /-/}"
+    PYTHONPATH="$PYTHONPATH:%{buildroot}/%{python3_sitelib}/" PATH="$PATH:%{buildroot}/%{_bindir}/" help2man --no-info --no-discard-stderr --name="${binary}" --version-string="${binary} %{version}" --output="${binary// /-}.1" "${binary}"
+    cat "${binary// /-}.1"
+    install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D "${binary// /-}.1"
+done
+
+# do not have a --help
+for binary in "imglob" "imrm"
+do
+    echo "Generating man page for ${binary// /-/}"
+    PYTHONPATH="$PYTHONPATH:%{buildroot}/%{python3_sitelib}/" PATH="$PATH:%{buildroot}/%{_bindir}/" help2man --help-option=" " --no-info --no-discard-stderr --name="${binary}" --version-string="${binary} %{version}" --output="${binary// /-}.1" "${binary}"
+    cat "${binary// /-}.1"
+    install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D "${binary// /-}.1"
+done
 
 %check
 %if %{with xvfb_tests}
@@ -108,6 +128,7 @@ xvfb-run pytest-3 tests/test_platform.py || exit 0
 %{_bindir}/imrm
 %{_bindir}/imtest
 %{_bindir}/remove_ext
+%{_mandir}/man1/*.*
 
 %changelog
 %autochangelog

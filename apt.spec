@@ -13,7 +13,7 @@
 %bcond_with check_integration
 
 Name:           apt
-Version:        2.5.6
+Version:        2.7.1
 Release:        1%{?dist}
 Summary:        Command-line package manager for Debian packages
 
@@ -310,6 +310,9 @@ exit 0
 %doc %{_docdir}/%{name}-utils
 
 %changelog
+* Mon Jun 12 2023 Mosaab Alzoubi <moceap[At]fedoraproject[Dot]org> - 2.7.1-1
+- Update to 2.7.1
+
 * Thu Feb 23 2023 Sérgio Basto <sergio@serjux.com> - 2.5.6-1
 - Update apt to 2.5.6 (#2168285)
 

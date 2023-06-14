@@ -1,67 +1,59 @@
 %global github_name warlock
-%global commit 460080eb27fd8598c6b00f0df70e597058152323
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           python-warlock
-Version:        1.3.3
-Release:        11%{?dist}
+Version:        2.0.1
+Release:        1%{?dist}
 Summary:        Python object model built on top of JSON schema
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            http://pypi.python.org/pypi/warlock
-# pypi tarball does not contain LICENSE.txt
-# TODO return pypi tarball when github.com/bcwaldon/warlock/pull/12 is done
-#Source0:        https://github.com/bcwaldon/%{github_name}/archive/%{commit}/%{github_name}-%{version}-%{shortcommit}.tar.gz
-Source0:        https://files.pythonhosted.org/packages/source/w/warlock/warlock-%{version}.tar.gz
+Source0:        %{pypi_source %{github_name}}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:	python3-jsonschema
-BuildRequires:	python3-jsonpatch
+BuildRequires:  pyproject-rpm-macros
 
-# Tests requires for python 3
-BuildRequires:	python3-six
+%global _description %{expand:
+Build self-validating python objects using JSON schemas}
 
-%description
-Build self-validating python objects using JSON schemas
+%description %_description
 
 %package -n python3-%{github_name}
 Summary:        Python object model built on top of JSON schema
 %{?python_provide:%python_provide python3-%{github_name}}
 
-Requires: python3-jsonschema
-Requires: python3-jsonpatch
-Requires: python3-six
-
-%description -n python3-%{github_name}
-Build self-validating python objects using JSON schemas
+%description -n python3-%{github_name} %_description
 
 %prep
-%setup -q -n %{github_name}-%{version}
+%autosetup -n %{github_name}-%{version}
 
-# Remove bundled egg-info
-rm -rf warlock.egg-info
-# let RPM handle deps
-sed -i '/setup_requires/d; /install_requires/d; /dependency_links/d' setup.py
-rm -f requirements.txt
+sed -i 's/\(jsonschema\).*"^\(.*\)"/\1 = ">= \2"/' pyproject.toml
+sed -i 's/\(jsonpatch\).*"^\(.*\)"/\1 = ">= \2"/' pyproject.toml
+cat pyproject.toml | grep -e json
+
+%generate_buildrequires
+%pyproject_buildrequires -t
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files warlock
 
 %check
-%{__python3} setup.py test
+%tox
 
-%files -n python3-%{github_name}
+%files -n python3-%{github_name} -f %{pyproject_files}
 %doc README.md
 %license LICENSE
-%{python3_sitelib}/warlock
-%{python3_sitelib}/warlock-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Thu Jun 08 2023 Joel Capitao <jcapitao@redhat.com> - 2.0.1-1
+- Update to 2.0.1 (#1711642)
+- Switch to pyproject macros
+- Switch to SPDX identifier
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

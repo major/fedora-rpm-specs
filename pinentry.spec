@@ -7,7 +7,7 @@ Version: 1.2.1
 Release: 2%{?dist}
 Summary: Collection of simple PIN or passphrase entry dialogs
 
-License: GPLv2+
+License: GPL-2.0-or-later
 URL:     https://www.gnupg.org/
 Source0: https://gnupg.org/ftp/gcrypt/pinentry/%{name}-%{version}.tar.bz2
 Source1: https://gnupg.org/ftp/gcrypt/pinentry/%{name}-%{version}.tar.bz2.sig

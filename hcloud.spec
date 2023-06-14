@@ -3,7 +3,7 @@
 
 # https://github.com/hetznercloud/cli
 %global goipath         github.com/hetznercloud/cli
-Version:                1.34.0
+Version:                1.34.1
 
 %gometa
 

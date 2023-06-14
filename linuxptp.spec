@@ -1,16 +1,16 @@
 %global _hardened_build 1
-%global testsuite_ver ff37e2
-%global clknetsim_ver 9ed48d
+%global testsuite_ver 04397a
+%global clknetsim_ver ef2a7a
 %global selinuxtype targeted
 %bcond_without selinux
 
 Name:		linuxptp
-Version:	3.1.1
-Release:	7%{?dist}
+Version:	4.0
+Release:	1%{?dist}
 Summary:	PTP implementation for Linux
 
-License:	GPLv2+
-URL:		http://linuxptp.sourceforge.net/
+License:	GPL-2.0-or-later
+URL:		https://linuxptp.sourceforge.net/
 
 Source0:	https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tgz
 Source1:	phc2sys.service
@@ -26,11 +26,6 @@ Source11:	https://github.com/mlichvar/clknetsim/archive/%{clknetsim_ver}/clknets
 Source20:	linuxptp.fc
 Source21:	linuxptp.if
 Source22:	linuxptp.te
-
-# fix handling of zero-length messages
-Patch1:		linuxptp-zerolength.patch
-# revert phc2sys options needed by the older version of test suite
-Patch2:		clknetsim-phc2sys.patch
 
 BuildRequires:	gcc gcc-c++ make systemd
 
@@ -63,12 +58,10 @@ linuxptp SELinux policy module
 
 %prep
 %setup -q -a 10 -a 11 -n %{name}-%{!?gitfullver:%{version}}%{?gitfullver}
-%patch1 -p1 -b .zerolength
 mv linuxptp-testsuite-%{testsuite_ver}* testsuite
 mv clknetsim-%{clknetsim_ver}* testsuite/clknetsim
 
 pushd testsuite/clknetsim
-%patch2 -p1 -R -b .phc2sys
 popd
 
 mkdir selinux
@@ -159,10 +152,16 @@ fi
 %{_sbindir}/ptp4l
 %{_sbindir}/timemaster
 %{_sbindir}/ts2phc
+%{_sbindir}/tz2alt
 %{_mandir}/man5/*.5*
 %{_mandir}/man8/*.8*
 
 %changelog
+* Mon Jun 12 2023 Miroslav Lichvar <mlichvar@redhat.com> 4.0-1
+- update to 4.0
+- convert license tag to SPDX
+- update URL to https
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,13 +2,13 @@
 Name: yubikey-manager-qt
 Summary: Application for configuring any YubiKey over all USB interfaces
 Version: 1.2.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://developers.yubico.com/yubikey-manager-qt/
 Source0: https://developers.yubico.com/%{name}/Releases/%{name}-%{version}.tar.gz
 Source1: https://developers.yubico.com/%{name}/Releases/%{name}-%{version}.tar.gz.sig
 Source2:  gpgkey-6690D8BC.gpg
 
-License: BSD
+License: BSD-2-Clause
 
 BuildRequires: gnupg2
 BuildRequires: gcc-c++
@@ -21,6 +21,8 @@ BuildRequires: qt5-qtquickcontrols qt5-qtgraphicaleffects pyotherside
 BuildRequires: desktop-file-utils
 Requires:      pyotherside 
 Requires:      qt5-qtquickcontrols
+Requires:      python3-yubikey-manager
+
 
 %description
 Cross-platform application for configuring any YubiKey over all USB interfaces.
@@ -52,6 +54,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications resources/%{bnam
 %{_datadir}/pixmaps/ykman.png
 
 %changelog
+* Mon Jun 12 2023 Jakub Jelen <jjelen@redhat.com> - 1.2.5-2
+- Add missing dependency (#2214260)
+- Use SPDX identifier for license field
+
 * Tue Feb 07 2023 Jakub Jelen <jjelen@redhat.com> - 1.2.5-1
 - New upstream release (#2167005)
 - Remove dependency on old version of python-yubikey-manager (#2148957)

@@ -64,7 +64,7 @@ Requires: util-linux-core
 
 # The keylime-base package provides the keylime user creation. It is available
 # from Fedora 36
-%if 0%{?fedora} >= 36
+%if 0%{?fedora} >= 36 || 0%{?rhel} >= 9
 Requires: keylime-base
 %endif
 

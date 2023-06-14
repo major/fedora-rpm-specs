@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-redis
 %global         forgeurl    https://github.com/googleapis/python-redis
-Version:        2.12.1
+Version:        2.13.0
 %global         tag         v%{version}
 %forgemeta
 
@@ -63,7 +63,7 @@ rm -f %{buildroot}/%{_bindir}/fixup*
 
 
 %check
-%pyproject_check_import
+%pyproject_check_import -e "google.cloud.redis*"
 
 %if %{with tests}
 # NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.

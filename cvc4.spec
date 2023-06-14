@@ -3,7 +3,7 @@
 
 Name:           cvc4
 Version:        1.8
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Automatic theorem prover for SMT problems
 
 %global jar_version %{version}.0
@@ -31,6 +31,9 @@ Patch3:         %{name}-do-not-use-gold.diff
 Patch4:         %{name}-toml.patch
 # Turn off the bash patsub_replacement option, which breaks templating
 Patch5:         %{name}-bash-patsub-replacement.patch
+# Add explicit includes to make CMake-3.27 happy
+# https://bugzilla.redhat.com/show_bug.cgi?id=2214406
+Patch6:         %{name}-cmake327.patch
 
 # ANTLR 3 is not available on i686.
 # See https://fedoraproject.org/wiki/Changes/Drop_i686_JDKs
@@ -258,6 +261,9 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %{python3_sitearch}/pycvc4*
 
 %changelog
+* Mon Jun 12 2023 Björn Esser <besser82@fedoraproject.org> - 1.8-17
+- Add patch to fix build with CMake v3.27.0
+
 * Thu May 11 2023 Jerry James <loganjerry@gmail.com> - 1.8-16
 - Add missing Requires to the devel subpackage (rhbz#2203174)
 

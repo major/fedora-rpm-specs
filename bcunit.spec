@@ -19,7 +19,7 @@ Patch02: 0003_bcunit_examples_include_folder.patch
 Patch03: 0004_bcunit_change_cmake_files_default_install_location.patch
 Patch04: 0005_bcunit_ncurses_fix_error_format_security.patch
 
-BuildRequires: cmake
+BuildRequires: cmake >= 3.2
 BuildRequires: doxygen
 BuildRequires: gcc
 BuildRequires: pkgconfig(ncurses)
