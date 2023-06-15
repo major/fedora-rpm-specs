@@ -1,7 +1,7 @@
 
 Name: gofer
 Version: 3.0.0
-Release: 0.17%{?dist}
+Release: 0.18%{?dist}
 Summary: A lightweight, extensible python agent
 License: LGPLv2
 URL: https://github.com/jortel/gofer
@@ -173,6 +173,9 @@ Provides the gofer amqp messaging adapter package.
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.0.0-0.18
+- Rebuilt for Python 3.12
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-0.17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

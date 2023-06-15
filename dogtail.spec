@@ -2,7 +2,7 @@
 Summary: GUI test tool and automation framework
 Name: dogtail
 Version: 0.9.11
-Release: 16%{?dist}
+Release: 17%{?dist}
 License: GPLv2
 URL: https://gitlab.com/dogtail/dogtail/
 Source0: https://gitlab.com/dogtail/dogtail/raw/released/%{name}-%{version}.tar.gz
@@ -81,6 +81,9 @@ desktop-file-install $RPM_BUILD_ROOT/%{_datadir}/applications/sniff.desktop \
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.9.11-17
+- Rebuilt for Python 3.12
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.11-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

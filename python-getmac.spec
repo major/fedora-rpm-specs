@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.9.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python module to get the MAC address of local network interfaces and LAN hosts
 
 License:        MIT
@@ -46,6 +46,9 @@ sed -i '1{/^#!\//d}' getmac/__main__.py
 /usr/bin/getmac
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.9.2-3
+- Rebuilt for Python 3.12
+
 * Sun Feb 12 2023 Henrik Boeving <hargonix@gmail.com> - 0.9.2-2
 - Upstream no longer ships manpages
 

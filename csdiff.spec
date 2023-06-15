@@ -14,7 +14,7 @@
 
 Name:       csdiff
 Version:    3.0.2
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Non-interactive tools for processing code scan results in plain-text
 
 License:    GPL-3.0-or-later
@@ -133,6 +133,9 @@ make version.cc
 %endif
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.0.2-2
+- Rebuilt for Python 3.12
+
 * Fri Apr 21 2023 Kamil Dudka <kdudka@redhat.com> 3.0.2-1
 - update to latest upstream release
 

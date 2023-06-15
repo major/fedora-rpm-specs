@@ -10,7 +10,7 @@ servers.
 
 Name:           python-%{pkgname}
 Version:        2.0.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        %{summary}
 
 License:        ASL 2.0
@@ -97,6 +97,9 @@ rm -rf %{buildroot}%{_prefix}/lib/python*/site-packages/flufl/i18n/{*.rst,docs,c
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.0.2-12
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

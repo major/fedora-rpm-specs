@@ -1,6 +1,6 @@
 Name:           python-beniget
 Version:        0.4.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Extract semantic information about static Python code
 License:        BSD-3-Clause
 URL:            https://github.com/serge-sans-paille/beniget/
@@ -53,6 +53,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.4.1-7
+- Rebuilt for Python 3.12
+
 * Wed May 24 2023 Miro Hrončok <mhroncok@redhat.com> - 0.4.1-6
 - Update the license tag to SPDX
 

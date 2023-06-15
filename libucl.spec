@@ -1,6 +1,6 @@
 Name:           libucl
 Version:        0.8.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Universal configuration library parser
 
 License:        BSD and MIT
@@ -97,6 +97,9 @@ rm %{buildroot}%{_libdir}/%{name}.la
 %{python3_sitearch}/ucl*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.8.2-2
+- Rebuilt for Python 3.12
+
 * Sun Apr 30 2023 Peter Lemenkov <lemenkov@gmail.com> - 0.8.2-1
 - Ver. 0.8.2
 

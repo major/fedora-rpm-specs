@@ -1,6 +1,6 @@
 Name:           python-svg
 Version:        0.2.2b
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Python wrapper for svg
 
 License:        BSD-2-Clause-Views
@@ -80,6 +80,9 @@ find $RPM_BUILD_ROOT -name '*.egg-info' | xargs rm -rf
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.2.2b-34
+- Rebuilt for Python 3.12
+
 * Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.2.2b-33
 - migrated to SPDX license
 

@@ -18,7 +18,7 @@
 Summary: Round Robin Database Tool to store and display time-series data
 Name: rrdtool
 Version: 1.8.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: GPLv2+ with exceptions
 URL: https://oss.oetiker.ch/rrdtool/
 Source0: https://github.com/oetiker/rrdtool-1.x/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -410,6 +410,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} php -n \
 %endif
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.8.0-10
+- Rebuilt for Python 3.12
+
 * Mon Apr 17 2023 Florian Weimer <fweimer@redhat.com> - 1.8.0-9
 - Backport upstream patch to fix C99 issue in configure script
 

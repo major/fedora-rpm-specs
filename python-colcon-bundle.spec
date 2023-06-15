@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.1.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Plugin to bundle built software for the colcon command line tool
 
 License:        ASL 2.0
@@ -73,6 +73,9 @@ installed locally.
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.1.3-2
+- Rebuilt for Python 3.12
+
 * Tue May 09 2023 Scott K Logan <logans@cottsay.net> - 0.1.3-1
 - Update to 0.1.3 (rhbz#2196633)
 

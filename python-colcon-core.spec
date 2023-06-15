@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.12.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Command line tool to build sets of software packages
 
 License:        ASL 2.0
@@ -91,6 +91,9 @@ and sets up the environment to use the packages.
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.12.1-2
+- Rebuilt for Python 3.12
+
 * Mon May 08 2023 Scott K Logan <logans@cottsay.net> - 0.12.1-1
 - Update to 0.12.1 (rhbz#2166742)
 

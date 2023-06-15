@@ -4,7 +4,7 @@
 
 Name: libtdb
 Version: 1.4.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The tdb library
 License: LGPL-3.0-or-later
 URL: http://tdb.samba.org/
@@ -101,6 +101,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %ldconfig_scriptlets
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.4.8-2
+- Rebuilt for Python 3.12
+
 * Thu Feb 23 2023 Pavel Filipenský <pfilipen@redhat.com> - 1.4.8-1
 - SPDX migration
 

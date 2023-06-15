@@ -4,7 +4,7 @@ Python module to generate a formatted text table, using ASCII characters.}
 
 Name:           python-%{srcname}
 Version:        1.6.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python module for creating simple ASCII tables
 License:        MIT
 URL:            https://github.com/foutaise/%{srcname}
@@ -50,6 +50,9 @@ BuildRequires:  python3-pytest
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.6.4-5
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

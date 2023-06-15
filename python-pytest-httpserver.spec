@@ -34,6 +34,13 @@ Summary:	%{summary}
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
 
+# Remove unnecessary dependencies
+sed -i '/flake8/d' pyproject.toml
+sed -i '/pytest-cov/d' pyproject.toml
+sed -i '/coverage/d' pyproject.toml
+sed -i '/mypy/d' pyproject.toml
+sed -i '/types-requests/d' pyproject.toml
+
 %generate_buildrequires
 %pyproject_buildrequires -x test
 

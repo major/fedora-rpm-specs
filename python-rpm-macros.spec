@@ -53,7 +53,7 @@ elseif posix.stat('macros.python-srpm') then
 end
 }
 Version:        %{__default_python3_version}
-Release:        10%{?dist}
+Release:        1%{?dist}
 
 BuildArch:      noarch
 
@@ -163,6 +163,10 @@ grep -E '^#[^%%]*%%[^%%]' %{buildroot}%{rpmmacrodir}/macros.* && exit 1 || true
 
 
 %changelog
+* Tue Jun 13 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.12-1
+- Update main Python to Python 3.12
+- https://fedoraproject.org/wiki/Changes/Python3.12
+
 * Thu Mar 16 2023 Miro Hrončok <mhroncok@redhat.com> - 3.11-10
 - Don't assume %%_smp_mflags only ever contains -jX, use -j%%_smp_build_ncpus directly
 - Fixes: rhbz#2179149

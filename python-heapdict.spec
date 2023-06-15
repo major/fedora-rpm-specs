@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A heap with decrease-key and increase-key operations
 
 License:        BSD-3-Clause
@@ -59,6 +59,9 @@ BuildRequires:  python3-test
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.0.1-14
+- Rebuilt for Python 3.12
+
 * Sat Apr 08 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.0.1-13
 - Switch to SPDX license
 

@@ -24,7 +24,7 @@ single-step forward/backwards.
 
 Name:           python-%{pkgname}
 Version:        0.201
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Python bindings for leveldb database library
 License:        BSD
 URL:            https://github.com/rjpower/py-leveldb
@@ -130,6 +130,9 @@ chmod -x README
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.201-12
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.201-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

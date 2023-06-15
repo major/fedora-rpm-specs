@@ -10,7 +10,7 @@
 Summary:    A collection of SNMP protocol tools and libraries
 Name:       net-snmp
 Version:    5.9.3
-Release:    3%{?dist}
+Release:    4%{?dist}
 Epoch:      1
 
 License:    BSD
@@ -490,6 +490,9 @@ LD_LIBRARY_PATH=%{buildroot}/%{_libdir} make test
 %{_libdir}/libnetsnmptrapd*.so.%{soname}*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1:5.9.3-4
+- Rebuilt for Python 3.12
+
 * Fri May 19 2023 Petr Pisar <ppisar@redhat.com> - 1:5.9.3-3
 - Rebuild against rpm-4.19 (https://fedoraproject.org/wiki/Changes/RPM-4.19)
 

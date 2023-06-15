@@ -1,7 +1,7 @@
 Name:           jsonnet
 Version:        0.20.0
 %global so_version 0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A data templating language based on JSON
 
 # The entire source is Apache-2.0, except:
@@ -177,6 +177,9 @@ LD_LIBRARY_PATH='%{buildroot}%{_libdir}' \
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.20.0-3
+- Rebuilt for Python 3.12
+
 * Thu May 25 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.20.0-2
 - Drop “RSA” license per current guidance on RSA MD5 implementations
 - Drop EPEL8 conditionals from spec file

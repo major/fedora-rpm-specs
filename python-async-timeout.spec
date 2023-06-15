@@ -1,3 +1,4 @@
+%global _without_tests 1
 %global srcname async-timeout
 %global common_desc asyncio-compatible timeout context manager\
 The context manager is useful in cases when you want to apply timeout\
@@ -11,7 +12,7 @@ doesn't create a new task.
 
 Name:           python-%{srcname}
 Version:        4.0.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        An asyncio-compatible timeout context manager
 
 License:        ASL 2.0
@@ -61,6 +62,9 @@ sed -e '/^addopts/d' -i setup.cfg
 %doc README.rst CHANGES.rst
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 4.0.2-7
+- Bootstrap for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

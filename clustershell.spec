@@ -25,7 +25,7 @@
 
 Name:           clustershell
 Version:        1.9.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python framework for efficient cluster administration
 
 %if 0%{?suse_version}
@@ -223,6 +223,9 @@ install -p -m 0644 doc/extras/vim/syntax/groupsconf.vim %{buildroot}/%{vimdatadi
 %{vimdatadir}/syntax/groupsconf.vim
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.9.1-2
+- Rebuilt for Python 3.12
+
 * Fri Feb 10 2023 Stephane Thiell <sthiell@stanford.edu> 1.9.1-1
 - update to 1.9.1
 

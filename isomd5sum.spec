@@ -1,7 +1,7 @@
 Summary: Utilities for working with md5sum implanted in ISO images
 Name:    isomd5sum
 Version: 1.2.3
-Release: 19%{?dist}
+Release: 20%{?dist}
 Epoch: 1
 License: GPL-2.0-or-later
 
@@ -63,6 +63,9 @@ PYTHON=%{__python3} make DESTDIR=$RPM_BUILD_ROOT install-bin install-devel insta
 %{python3_sitearch}/pyisomd5sum.so
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1:1.2.3-20
+- Rebuilt for Python 3.12
+
 * Mon Jan 30 2023 Brian C. Lane <bcl@redhat.com> - 1.2.3-19
 - SPDX migration
 

@@ -10,7 +10,7 @@ the repomd parsing code from Yum.
 
 Name:           python-%{srcname}
 Version:        0.1.1
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        %{sum}
 
 License:        GPLv2+
@@ -55,6 +55,9 @@ This package provides the Python 3 version.
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.1.1-21
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

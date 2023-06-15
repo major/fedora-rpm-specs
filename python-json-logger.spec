@@ -3,7 +3,7 @@
 
 Name:           python-json-logger
 Version:        2.0.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A python library adding a json log formatter
 
 License:        BSD
@@ -48,6 +48,9 @@ PYTHONPATH=%{buildroot}/%{python3_sitelib} %{__python3} -m unittest discover
 %{python3_sitelib}/python_json_logger-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.0.4-2
+- Rebuilt for Python 3.12
+
 * Mon Feb 06 2023 Lumír Balhar <lbalhar@redhat.com> - 2.0.4-1
 - Update to 2.0.4 (rhbz#1597299)
 

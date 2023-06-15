@@ -8,7 +8,7 @@ be}
 
 Name:		python-%{pypi_name}
 Version:	0.32.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	A formatter for Python code
 License:	ASL 2.0
 URL:		https://github.com/google/yapf
@@ -61,6 +61,9 @@ cp plugins/README.rst README-plugins.rst
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.32.0-4
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.32.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

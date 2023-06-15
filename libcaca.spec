@@ -13,7 +13,7 @@
 Summary: Library for Colour AsCii Art, text mode graphics
 Name: libcaca
 Version: 0.99
-Release: 0.65.%{beta}%{?dist}
+Release: 0.67.%{beta}%{?dist}
 License: WTFPL
 URL: http://caca.zoy.org/wiki/libcaca
 
@@ -187,6 +187,12 @@ mv %{buildroot}%{_docdir}/libcaca-dev libcaca-dev-docs
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.99-0.67.beta20
+- Rebuilt for Python 3.12
+
+* Tue Jun 13 2023 Leigh Scott <leigh123linux@gmail.com> - 0.99-0.66.beta20
+- Rebuild fo new imlib2
+
 * Fri Jan 20 2023 Peter Fordham <peter.fordham@gmail.com> - 0.99-0.65.beta20
 - Port code to C99.
 

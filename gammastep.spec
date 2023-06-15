@@ -1,6 +1,6 @@
 Name:           gammastep
 Version:        2.0.9
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Adjusts the color temperature of your screen according to time of day
 
 # src/gamma-control.xml is licensed under MIT
@@ -110,6 +110,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.0.9-3
+- Rebuilt for Python 3.12
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

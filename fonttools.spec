@@ -1,3 +1,4 @@
+%global _without_tests 1
 %global pypi_name fonttools
 %global desc \
 fontTools is a library for manipulating fonts, written in Python. The project \
@@ -7,7 +8,7 @@ OpenType, AFM and to an extent Type 1 and some Mac-specific formats.
 
 Name:           fonttools
 Version:        4.39.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools to manipulate font files
 
 # https://spdx.org/licenses/MIT.html
@@ -96,6 +97,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} %{python3} -m pytest --ignore Tests/o
 %{python3_sitearch}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 4.39.4-2
+- Bootstrap for Python 3.12
+
 * Thu May 11 2023 Parag Nemade <pnemade AT redhat DOT com> - 4.39.4-1
 - Update to 4.39.4 version (#2198487)
 

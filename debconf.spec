@@ -1,6 +1,6 @@
 Name:           debconf
 Version:        1.5.82
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Debian configuration management system
 
 License:        BSD
@@ -259,6 +259,9 @@ done
 %{python3_sitelib}/__pycache__/debconf.*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.5.82-2
+- Rebuilt for Python 3.12
+
 * Mon Mar 27 2023 Sérgio Basto <sergio@serjux.com> - 1.5.82-1
 - Update debconf to 1.5.82 (#2148805)
 

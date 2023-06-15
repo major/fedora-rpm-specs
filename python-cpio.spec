@@ -1,6 +1,6 @@
 Name:           python-cpio
 Version:        0.1
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        A Python module for accessing cpio archives
 
 License:        LGPLv2+
@@ -42,6 +42,9 @@ Summary: %summary
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.1-46
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

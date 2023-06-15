@@ -1,6 +1,6 @@
 %global pkgver 2.2.14
 #global prerel rc1
-%global baserelease 1
+%global baserelease 2
 
 Name:		bluefish
 Version:	%{pkgver}
@@ -184,6 +184,9 @@ update-mime-database %{_datadir}/mime &> /dev/null || :
 %{_mandir}/man1/bluefish.1*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.2.14-2
+- Rebuilt for Python 3.12
+
 * Sun Jun  4 2023 Paul Howarth <paul@city-fan.org> - 2.2.14-1
 - Update to 2.2.14 (rhbz#2212156)
   - Fix three bugs that in certain situations could lead to a segfault

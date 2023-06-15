@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        5.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A lightweight derivative of Enthought Traits for configuring Python objects
 
 License:        BSD-3-Clause
@@ -57,6 +57,9 @@ This package powers the config system of IPython and Jupyter.
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 5.9.0-2
+- Rebuilt for Python 3.12
+
 * Wed Feb 01 2023 Orion Poplawski <orion@nwra.com> - 5.9.0-1
 - Update to 5.9.0
 

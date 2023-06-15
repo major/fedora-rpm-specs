@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        %{zstd_version}.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Zstd Bindings for Python
 
 License:        BSD
@@ -70,6 +70,9 @@ sed -i -e '/test_version/d' tests/__init__.py
 %{python3_sitearch}/%{pypi_name}*.so
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.4.5.1-11
+- Rebuilt for Python 3.12
+
 * Wed Feb 01 2023 Nikita Popov <npopov@redhat.com> - 1.4.5.1-10
 - Port to C99
 

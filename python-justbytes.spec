@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.15.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library for handling computation with address ranges in bytes
 
 License:        LGPL-2.1-or-later
@@ -44,6 +44,9 @@ rm -rf justbytes.egg-info
 %{python3_sitelib}/justbytes-%{version}-*.egg-info/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.15.2-2
+- Rebuilt for Python 3.12
+
 * Mon May 15 2023 mulhern <amulhern@redhat.com> - 0.15.2-1
 - Update to 0.15.2
 

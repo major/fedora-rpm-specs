@@ -3,7 +3,7 @@
 
 Name:		python-%{pypi_name}
 Version:	1.2.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 Summary:	FontAwesome icons in PyQt and PySide applications
 # MIT: QtAwesome code and the bundled phosphor and remixicon fonts
@@ -104,6 +104,9 @@ ln -s %{_datadir}/fontawesome/webfonts/fa-solid-900.ttf \
 %{_bindir}/qta-browser
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.2.3-2
+- Rebuilt for Python 3.12
+
 * Thu Apr 13 2023 Jonathan Wright <jonathan@almalinux.org> - 1.2.3-1
 - Update to 1.2.3 rhbz#2136710
 

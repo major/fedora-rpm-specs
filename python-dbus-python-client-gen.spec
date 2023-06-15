@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.8.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python Library for Generating dbus-python Client Code
 
 License:        MPL-2.0
@@ -42,6 +42,9 @@ Python 3 version.
 %{python3_sitelib}/dbus_python_client_gen-*.egg-info/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.8.3-2
+- Rebuilt for Python 3.12
+
 * Thu Apr 27 2023 mulhern <amulhern@redhat.com> - 0.8.3-1
 - Update to 0.8.3
 

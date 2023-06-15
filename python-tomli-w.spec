@@ -1,8 +1,9 @@
+%global _without_check 1
 %bcond_without check
 
 Name:           python-tomli-w
 Version:        1.0.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A Python library for writing TOML
 
 # SPDX
@@ -72,6 +73,9 @@ sed -i '/pytest-randomly/d' tests/requirements.txt
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.0.0-7
+- Bootstrap for Python 3.12
+
 * Wed May 31 2023 Miro Hrončok <mhroncok@redhat.com> - 1.0.0-6
 - On Python 3.11+, do not BuildRequire python3-tomli for tests
 

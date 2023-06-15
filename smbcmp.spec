@@ -4,7 +4,7 @@
 
 Name:		smbcmp
 Version:	0.1
-Release:	13%{?dist}
+Release:	14%{?dist}
 License:	GPLv3+
 Summary:	Small curses utility to diff, compare and debug SMB network traces
 URL:		https://github.com/smbcmp/smbcmp
@@ -51,6 +51,9 @@ sed -i 's|curses||' setup.py
 %{_bindir}/%{name}-gui
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.1-14
+- Rebuilt for Python 3.12
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

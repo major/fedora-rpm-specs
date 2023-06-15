@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.0.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        SipHash in Python
 
 License:        MIT
@@ -50,6 +50,9 @@ rm -rf %{pypi_name}.egg-info
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.0.1-12
+- Rebuilt for Python 3.12
+
 * Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.0.1-11
 - migrated to SPDX license
 

@@ -12,6 +12,11 @@ License:        MIT
 URL:            https://pypi.org/project/fs/
 Source0:        https://github.com/PyFilesystem/pyfilesystem2/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
+# Replace TestCase method aliases removed in Python 3.12
+# https://github.com/PyFilesystem/pyfilesystem2/pull/570
+# changelog fragment removed to avoid conflict
+Patch:          570.patch
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -49,7 +54,9 @@ Summary:        %{summary}
 %if %{with tests}
 %check
 # tests/test_ftpfs.py needs pyftpdlib (not packaged yet)
-%{python3} -m pytest --ignore tests/test_ftpfs.py
+# test_seek_current and test_seek_end are skipped due to regression in Python 3.12
+# upstream issue: https://github.com/python/cpython/issues/102956
+%{python3} -m pytest --ignore tests/test_ftpfs.py -k "not test_seek_current and not test_seek_end"
 %endif
 
 %files -n python3-%{srcname}

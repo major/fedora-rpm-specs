@@ -2,7 +2,7 @@
 
 Name:           pyliblo
 Version:        0.10.0
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        %{sum}
 
 License:        GPLv2+
@@ -59,6 +59,9 @@ chmod -x examples/*
 %{python3_sitearch}/%{name}*.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.10.0-26
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

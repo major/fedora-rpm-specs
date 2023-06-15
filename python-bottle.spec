@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.12.25
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast and simple WSGI-framework for small web-applications
 
 License:        MIT
@@ -57,6 +57,9 @@ rm %{buildroot}%{_bindir}/bottle.py
 %{python3_sitelib}/*.py
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.12.25-2
+- Rebuilt for Python 3.12
+
 * Tue Mar 07 2023 Federico Pellegrin <fede@evolware.org> - 0.12.25-1
 - Update to 0.12.25
 - Drop now upstreamed patch for deprecation in tests

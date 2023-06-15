@@ -6,7 +6,7 @@ License:        ASL 2.0
 Summary:        A framework to implement simple but nice CLIs
 Epoch:          1
 Version:        1.1.30
-Release:        1%{?dist}
+Release:        2%{?dist}
 URL:            https://github.com/open-iscsi/configshell-fb
 Source:         %{url}/archive/v%{version}/%{oname}-%{version}.tar.gz
 BuildArch:      noarch
@@ -42,6 +42,9 @@ sed -r -i "s/'pyparsing.*'/'pyparsing'/" setup.py
 %doc COPYING README.md
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1:1.1.30-2
+- Rebuilt for Python 3.12
+
 * Tue Jun 06 2023 Maurizio Lombardi <mlombard@redhat.com> - 1:1.1.30-1
 - Rebase to version v1.1.30
 

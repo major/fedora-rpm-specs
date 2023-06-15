@@ -3,7 +3,7 @@
 
 Name:		python-%{pypi_name}
 Version:	3.1.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Python module for writing files in the Excel 2007+ XLSX file format
 License:	BSD
 URL:		https://pypi.python.org/pypi/XlsxWriter
@@ -67,6 +67,9 @@ rm -rf %{src_name}.egg-info
 %{_bindir}/vba_extract.py
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.1.2-2
+- Rebuilt for Python 3.12
+
 * Sun Jun 04 2023 Rajeesh K V <rajeeshknambiar@gmail.com> - 3.1.2-1
 - New release 3.1.2
 

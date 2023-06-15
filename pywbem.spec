@@ -3,7 +3,7 @@
 Name:           pywbem
 Version:        0.17.6
 Epoch:          1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python WBEM client interface and related utilities
 License:        LGPLv2
 URL:            https://github.com/pywbem/pywbem
@@ -71,6 +71,9 @@ mv -v %{buildroot}/%{_bindir}/wbemcli.py %{buildroot}/%{_bindir}/pywbemcli.py
 %doc README.rst
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1:0.17.6-5
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.17.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

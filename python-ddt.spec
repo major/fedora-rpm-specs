@@ -8,7 +8,7 @@ different test data, and make it appear as multiple test cases.}
 
 Name:           python-%{srcname}
 Version:        1.6.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python library to multiply test cases
 License:        MIT
 URL:            https://github.com/datadriventests/ddt
@@ -62,6 +62,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.6.0-4
+- Rebuilt for Python 3.12
+
 * Wed Jun 07 2023 Jan Friesse <jfriesse@redhat.com> - 1.6.0-3
 - migrated to SPDX license
 

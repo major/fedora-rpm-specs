@@ -6,7 +6,7 @@
 
 Name: libtalloc
 Version: 2.4.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: The talloc library
 License: LGPL-3.0-or-later
 URL: https://talloc.samba.org/
@@ -114,6 +114,9 @@ cp -a doc/man/man3 %{buildroot}%{_mandir}
 %endif
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.4.0-3
+- Rebuilt for Python 3.12
+
 * Thu Feb 23 2023 Pavel Filipenský <pfilipen@redhat.com> - 2.4.0-2
 - SPDX migration
 

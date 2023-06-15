@@ -51,7 +51,7 @@ need libxc version > 3
 
 Name:			nwchem
 Version:		%{major_version}
-Release:		2%{?dist}
+Release:		3%{?dist}
 Summary:		Delivering High-Performance Computational Chemistry to Science
 
 License:		ECL 2.0
@@ -514,6 +514,9 @@ mv QA.orig QA
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 7.2.0-3
+- Rebuilt for Python 3.12
+
 * Fri Jun 09 2023 Marcin Dulak <marcindulak@fedoraproject.org> - 7.2.0-2
 - Switch to flexiblas-openblas-openmp due to bug #2182460
 

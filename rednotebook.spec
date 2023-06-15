@@ -1,6 +1,6 @@
 Name: rednotebook
 Version: 2.29.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Daily journal with calendar, templates and keyword searching
 License: GPL-2.0-or-later
 
@@ -72,6 +72,9 @@ mv %{buildroot}/%{_datadir}/metainfo/%{name}.appdata.xml %{buildroot}/%{_datadir
 %{python3_sitelib}/%{name}/__pycache__
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.29.6-2
+- Rebuilt for Python 3.12
+
 * Mon May 01 2023 Phil Wyett <philip.wyett@kathenas.org> - 2.29.6-1
 - New upstream version 2.29.6.
 

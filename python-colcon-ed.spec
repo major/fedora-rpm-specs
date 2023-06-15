@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Extension for colcon to edit a file within a package
 
 License:        ASL 2.0
@@ -57,6 +57,9 @@ An extension for colcon-core to edit a file within a package.
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.2.2-6
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

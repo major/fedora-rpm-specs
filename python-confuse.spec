@@ -1,6 +1,6 @@
 Name:           python-confuse
 Version:        2.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Python module for handling YAML configuration files
 
 # SPDX
@@ -49,6 +49,9 @@ Summary:        %{summary}
 %doc README.rst
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.0.1-2
+- Rebuilt for Python 3.12
+
 * Wed May 03 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 2.0.1-1
 - Update to 2.0.1 (close RHBZ#2192074)
 

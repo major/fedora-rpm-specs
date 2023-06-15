@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2.4.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A fast and complete Python implementation of Markdown
 License:        MIT
 URL:            https://github.com/trentm/python-%{srcname}/
@@ -78,6 +78,9 @@ popd
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.4.7-2
+- Rebuilt for Python 3.12
+
 * Sat Jan 28 2023 Thomas Moschny <thomas.moschny@gmx.de> - 2.4.7-1
 - Update to 2.4.7.
 

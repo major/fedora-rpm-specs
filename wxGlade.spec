@@ -1,6 +1,6 @@
 Name:           wxGlade
 Version:        1.0.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A wxWidgets/wxPython/wxPerl GUI designer
 License:        MIT
 URL:            http://wxglade.sourceforge.net
@@ -50,6 +50,9 @@ install -pm 644 %{S:2} %{buildroot}%{_datadir}/icons/hicolor/32x32/apps
 %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.0.5-2
+- Rebuilt for Python 3.12
+
 * Wed Apr 26 2023 Scott Talbert <swt@techie.net> - 1.0.5-1
 - Update to new upstream release 1.0.5 (#2183890)
 

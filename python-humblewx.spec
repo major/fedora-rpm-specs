@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        %{sum}
 
 License:        GPL-3.0-or-later
@@ -40,6 +40,9 @@ Library that simplifies creating user interfaces with wxPython.
 %{python3_sitelib}/%{srcname}*/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.2.2-4
+- Rebuilt for Python 3.12
+
 * Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.2.2-3
 - migrated to SPDX license
 

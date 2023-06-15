@@ -3,7 +3,7 @@
 
 Name:               python-svg-path
 Version:            4.1
-Release:            6%{?dist}
+Release:            7%{?dist}
 Summary:            SVG path objects and parser
 
 License:            CC0
@@ -50,6 +50,9 @@ commands in SVG, and a parser for SVG path definitions.
 %{python3_sitelib}/%{modname}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 4.1-7
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

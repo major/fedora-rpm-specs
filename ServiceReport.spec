@@ -1,6 +1,6 @@
 Name: ServiceReport
 Version: 2.2.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A tool to validate and repair First Failure Data Capture (FFDC) configuration
 
 License: GPL-2.0-or-later
@@ -45,6 +45,9 @@ the incorrect configuration
 %{python3_sitelib}/ServiceReport*.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.2.3-3
+- Rebuilt for Python 3.12
+
 * Mon Jun 12 2023 Than Ngo <than@redhat.com> - 2.2.3-2
 - migrated to SPDX license
 

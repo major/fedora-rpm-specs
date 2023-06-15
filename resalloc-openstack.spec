@@ -16,7 +16,7 @@
 Name:       %srcname
 Summary:    Resource allocator scripts for OpenStack
 Version:    9.6
-Release:    1%{?dist}
+Release:    2%{?dist}
 License:    GPLv2+
 URL:        https://github.com/praiskup/resalloc-openstack
 BuildArch:  noarch
@@ -78,6 +78,9 @@ general might be used separately.
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 9.6-2
+- Rebuilt for Python 3.12
+
 * Wed Mar 22 2023 Pavel Raiskup <praiskup@redhat.com> - 9.6-1
 - new upstream release, allow logging in with app credential
 

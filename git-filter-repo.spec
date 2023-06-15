@@ -2,7 +2,7 @@
 
 Name:           git-filter-repo
 Version:        2.38.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Quickly rewrite git repository history (git-filter-branch replacement)
 License:        GPL-2.0-only OR MIT
 Group:          Development/Tools/Version Control
@@ -76,6 +76,9 @@ t/run_tests
 %{_mandir}/man1/git-filter-repo.1*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.38.0-2
+- Rebuilt for Python 3.12
+
 * Sun Mar 05 2023 Andreas Schneider <asn@redhat.com> - 2.38.0-1
 - Update to version 2.38.0
 

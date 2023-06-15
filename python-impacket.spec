@@ -1,6 +1,6 @@
 Name:           python-impacket
 Version:        0.10.0
-%global         baserelease     2
+%global         baserelease     3
 
 License:        ASL 1.1 and zlib
 URL:            https://github.com/fortra/impacket
@@ -185,6 +185,9 @@ rm -f %{buildroot}%{_defaultdocdir}/%{name}/LICENSE
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.10.0-3
+- Rebuilt for Python 3.12
+
 * Mon Jan 30 2023 Michal Ambroz <rebus AT_ seznam.cz> - 0.10.0-3
 - update the git user / URL
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{sname}
 Version:        0.2.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Tool for looking at the entry point plugins on a system
 
 License:        ASL 2.0
@@ -44,6 +44,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.2.1-6
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

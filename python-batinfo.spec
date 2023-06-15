@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.4.2
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Python module to retrieve battery information
 
 License:        LGPLv3+
@@ -44,6 +44,9 @@ rm -rf %{buildroot}%{_defaultdocdir}/%{srcname}/
 %{python3_sitelib}/%{srcname}*.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.4.2-25
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

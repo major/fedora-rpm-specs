@@ -7,7 +7,7 @@ this configuration file.
 
 Name:           python-paste-deploy
 Version:        3.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 License:        MIT
 URL:            https://github.com/Pylons/pastedeploy
@@ -64,6 +64,9 @@ rm -rf %{buildroot}%{python3_sitelib}/test
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.0.1-2
+- Rebuilt for Python 3.12
+
 * Sun Feb 19 2023 Kevin Fenzi <kevin@scrye.com> - 3.0.1-1
 - Update to 3.0.1. Fixes rhbz#2135186
 

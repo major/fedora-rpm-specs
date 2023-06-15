@@ -13,7 +13,7 @@
 
 Name:           %{srcname}
 Version:        1.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        %{summary}
 
 %global git_tag RELEASE_%(r=%{version}; echo $r | tr '.' '_')
@@ -145,6 +145,9 @@ install -c -m 644 doc/keycloak-httpd-client-install.8 %{buildroot}/%{_mandir}/ma
 %endif
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.1-17
+- Rebuilt for Python 3.12
+
 * Thu Mar 7 2023 Tomas Halman <thalman@redhat.com> - 1.1-16
 - migrated to SPDX license
 

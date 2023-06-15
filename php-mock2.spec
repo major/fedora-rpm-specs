@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    6f71999665d27fbdf684c1639981e96eff540b5f
+%global gh_commit    6240b6f0a76d7b9d1ee4d70e686a7cc711619a9d
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     php-mock
 %global gh_project   php-mock
@@ -14,7 +14,7 @@
 %global major        2
 
 Name:           php-mock%{major}
-Version:        2.4.0
+Version:        2.4.1
 Release:        1%{?dist}
 Summary:        PHP-Mock can mock built-in PHP functions
 
@@ -124,7 +124,7 @@ if [ -x %{_bindir}/phpunit8 ]; then
 fi
 
 if [ -x %{_bindir}/phpunit9 ]; then
-	for cmd in php php80 php81 php82;do
+	for cmd in php php80 php81 php82 php83;do
 	  if which $cmd; then
 		$cmd %{_bindir}/phpunit9 \
 		  --filter '^((?!(testDefiningAfterCallingUnqualified|testEnable)).)*$' \
@@ -134,7 +134,7 @@ if [ -x %{_bindir}/phpunit9 ]; then
 fi
 
 if [ -x %{_bindir}/phpunit10 ]; then
-	for cmd in php php81 php82;do
+	for cmd in php php81 php82 php83;do
 	  if which $cmd; then
 		$cmd %{_bindir}/phpunit10 \
 		  --filter '^((?!(testDefiningAfterCallingUnqualified|testEnable)).)*$' \
@@ -157,6 +157,9 @@ exit $ret
 
 
 %changelog
+* Tue Jun 13 2023 Remi Collet <remi@remirepo.net> - 2.4.1-1
+- update to 2.4.1 (no change)
+
 * Mon Feb 13 2023 Remi Collet <remi@remirepo.net> - 2.4.0-1
 - update to 2.4.0
 - allow phpunit10

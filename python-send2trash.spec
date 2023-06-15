@@ -2,7 +2,7 @@
 
 Name:           python-send2trash
 Version:        1.8.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python library to natively send files to Trash
 
 License:        BSD-3-Clause
@@ -61,6 +61,9 @@ from freedesktop.org.
 %{_bindir}/send2trash
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.8.2-2
+- Rebuilt for Python 3.12
+
 * Fri Apr 28 2023 Lumír Balhar <lbalhar@redhat.com> - 1.8.2-1
 - Update to 1.8.2 (rhbz#1996282)
 

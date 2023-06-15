@@ -2,7 +2,7 @@
 %global srcname justbases
 Name:       python-%{srcname}
 Version:    0.15.2
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    A small library for precise conversion between arbitrary bases
 
 License:    LGPL-2.1-or-later
@@ -43,6 +43,9 @@ rm -rf justbases.egg-info
 %{python3_sitelib}/justbases-%{version}-*.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.15.2-4
+- Rebuilt for Python 3.12
+
 * Mon May 15 2023 mulhern <amulhern@redhat.com> - 0.15.2-3
 - Fix package name
 

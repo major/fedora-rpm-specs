@@ -1,6 +1,6 @@
 Name:           pygame
 Version:        2.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python modules for writing games
 
 License:        LGPL-2.0-or-later
@@ -99,6 +99,9 @@ PYTHONPATH="$RPM_BUILD_ROOT%{python3_sitearch}" %{__python3} test/rect_test.py
 %{_includedir}/python*/%{name}/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.4.0-2
+- Rebuilt for Python 3.12
+
 * Mon May 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.4.0-1
 - 2.4.0
 

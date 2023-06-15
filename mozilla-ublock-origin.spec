@@ -5,10 +5,8 @@
 %global firefox_app_id \{ec8030f7-c20a-464f-9b0e-13a3a9e97384\}
 %global firefox_inst_dir %{_datadir}/mozilla/extensions/%{firefox_app_id}
 
-%global uAssets_commit 4d18934be5d06f3aaaaeeed786e9e7e99b2a0e17
-
 Name:           mozilla-ublock-origin
-Version:        1.49.2
+Version:        1.50.0
 Release:        1%{?dist}
 Summary:        An efficient blocker for Firefox
 
@@ -16,7 +14,7 @@ License:        GPLv3 and MIT and OFL and Unlicense
 URL:            https://github.com/gorhill/uBlock
 Source0:        https://github.com/gorhill/uBlock/archive/%{version}/uBlock-%{version}.tar.gz
 Source1:        mozilla-ublock-origin.metainfo.xml
-Source2:        uAssets-%{uAssets_commit}.tar.gz
+Source2:        uAssets-%{version}.tar.gz
 # uAssets tarball contains non-free filter lists
 # thirdparties/mirror1.malwaredomains.com - http://www.malwaredomains.com/?page_id=1508
 # thirdparties/pgl.yoyo.org - https://pgl.yoyo.org/license/
@@ -30,6 +28,7 @@ BuildArch:      noarch
 ExcludeArch:    ppc64 s390x
 BuildRequires:  binaryen
 BuildRequires:  libappstream-glib
+BuildRequires:  nodejs
 BuildRequires:  python3
 BuildRequires:  wabt
 # lib/csstree https://github.com/csstree/csstree MIT
@@ -67,11 +66,12 @@ from hosts files.
 %prep
 # https://github.com/gorhill/uBlock/tree/master/dist#build-instructions-for-developers
 %setup -q -n uBlock-%{version}
-mkdir -p dist/build/uAssets/{main,prod}
-tar -xz -C dist/build/uAssets/main --strip-components=1 -f %{SOURCE2}
-ln -s ../main/thirdparties/easylist-downloads.adblockplus.org dist/build/uAssets/prod/thirdparties
-ln -s ../main/filters dist/build/uAssets/prod/filters
-%patch0 -p1
+mkdir -p dist/build/uAssets
+tar -xz -C dist/build/uAssets -f %{SOURCE2}
+pushd dist/build/uAssets/main
+tools/make-ublock.sh
+popd
+%patch 0 -p1
 rm src/{js/wasm,lib/{lz4,publicsuffixlist/wasm}}/*.wasm
 mv src/css/fonts/Inter/LICENSE.txt LICENSE.Inter.txt
 mv src/img/fontawesome/LICENSE.txt LICENSE.fontawesome.txt
@@ -106,6 +106,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 %{_metainfodir}/%{name}.metainfo.xml
 
 %changelog
+* Mon Jun 12 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.50.0-1
+- update to 1.50.0 (#2213457)
+- match upstream build process for uAssets to avoid missing timestamps
+- fix deprecated patchN macro usage
+
 * Sat May 06 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.49.2-1
 - update to 1.49.2 (#2180855)
 

@@ -6,7 +6,7 @@
 
 Name:           s3cmd
 Version:        2.3.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Tool for accessing Amazon Simple Storage Service
 
 License:        GPL-2.0-or-later
@@ -80,6 +80,9 @@ install -D -p -m 0644 -t %{buildroot}%{_mandir}/man1 s3cmd.1
 %endif
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.3.0-5
+- Rebuilt for Python 3.12
+
 * Sat Feb 04 2023 Frank Crawford <frank@crawford.emu.id.au> - 2.3.0-4
 - Rebuilt to change Python shebangs to /usr/bin/python3.6 on EPEL 8
 

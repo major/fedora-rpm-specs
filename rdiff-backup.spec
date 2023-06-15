@@ -3,7 +3,7 @@
 Version: %{gittag}
 Summary: Convenient and transparent local/remote incremental mirror/backup
 Name: rdiff-backup
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 URL: https://rdiff-backup.net/
 Source0: https://github.com/%{name}/%{name}/releases/download/v%{gittag}/%{name}-%{version}.tar.gz
@@ -59,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT/usr/share/doc/*
 %license COPYING
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.2.5-3
+- Rebuilt for Python 3.12
+
 * Sun May 07 2023 Frank Crawford <frank@crawford.emu.id.au> - 2.2.5-2
 - Minor Fix release v2.2.5 - Fedora/EPEL Release
 

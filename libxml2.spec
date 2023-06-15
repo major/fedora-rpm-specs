@@ -1,6 +1,6 @@
 Name:           libxml2
 Version:        2.10.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library providing XML and HTML support
 
 License:        MIT
@@ -142,6 +142,9 @@ gzip -9 -c doc/libxml2-api.xml > doc/libxml2-api.xml.gz
 %{python3_sitelib}/__pycache__/drv_libxml2.*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.10.4-2
+- Rebuilt for Python 3.12
+
 * Wed Apr 12 2023 David King <amigadave@amigadave.com> - 2.10.4-1
 - Update to 2.10.4 (#2185870)
 

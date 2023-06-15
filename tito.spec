@@ -11,16 +11,16 @@
 %global our_sitelib %{python2_sitelib}
 %else
 %global ourpythonbin %{__python}
+%global our_sitelib %(%{ourpythonbin} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")
 %endif
 %endif
-%{!?our_sitelib: %define our_sitelib %(%{ourpythonbin} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 
 Name: tito
-Version: 0.6.22
-Release: 2%{?dist}
+Version: 0.6.23
+Release: 1%{?dist}
 Summary: A tool for managing rpm based git projects
 
-License: GPLv2
+License: GPL-2.0-only
 URL: https://github.com/rpm-software-management/tito
 # Sources can be obtained by
 # git clone https://github.com/rpm-software-management/tito
@@ -118,8 +118,12 @@ install -Dp -m 0644 share/tito_completion.sh %{buildroot}%{_datadir}/bash-comple
 
 
 %changelog
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.22-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+* Tue Jun 13 2023 Jakub Kadlcik <frostyx@email.cz> 0.6.23-1
+- Replace `submodule--helper list` with `git config --get-regexp`
+- do not overwrite packit.yaml and its variants (msuchy@redhat.com)
+- packit: fixing the Fedora build failures (praiskup@redhat.com)
+- Don't upload patches to the lookaside cache (frostyx@email.cz)
+- use spdx license (msuchy@redhat.com)
 
 * Mon Nov 14 2022 Jakub Kadlcik <frostyx@email.cz> 0.6.22-1
 - Fix python2 urlretrieve import (frostyx@email.cz)

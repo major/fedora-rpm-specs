@@ -1,6 +1,6 @@
 Name:		timeline
 Version:	2.8.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Displays and navigates events on a timeline
 
 License:	GPL-3.0-only
@@ -68,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/timeline/dependencies
 %{python3_sitelib}/timelinelib*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.8.0-4
+- Rebuilt for Python 3.12
+
 * Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.8.0-3
 - migrated to SPDX license
 

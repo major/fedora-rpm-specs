@@ -1,6 +1,6 @@
 Name:           python-setuptools-gettext
 Version:        0.1.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Setuptools gettext extension plugin
 
 License:        GPL-2.0-or-later
@@ -46,6 +46,9 @@ sed -e 's/\(License :: OSI Approved ::\) Apache Software License/\1 GNU General 
 %{python3_sitelib}/setuptools_gettext-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.1.3-3
+- Rebuilt for Python 3.12
+
 * Thu May 4 2023 Björn Lindström <bkhl@elektrubadur.se> - 0.1.3-2
 - Add missing dist tag in release number.
 

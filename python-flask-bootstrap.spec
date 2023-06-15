@@ -7,7 +7,7 @@ application
 
 Name:           python-flask-bootstrap
 Version:        3.3.7.1
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Include Bootstrap in your project without boilerplate code
 
 License:        BSD
@@ -52,6 +52,9 @@ cp %{SOURCE1} .
 %{python3_sitelib}/Flask_Bootstrap-%{version}-py*egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.3.7.1-21
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.7.1-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:           lorax
 Version:        39.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tool for creating the anaconda install images
 
 License:        GPL-2.0-or-later
@@ -168,6 +168,9 @@ make DESTDIR=$RPM_BUILD_ROOT mandir=%{_mandir} install
 %{_datadir}/lorax/templates.d/*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 39.1-2
+- Rebuilt for Python 3.12
+
 * Wed May 31 2023 Brian C. Lane <bcl@redhat.com> 39.1-1
 - livemedia-creator: Reorganize the qemu arch patch (bcl@redhat.com)
 - Make sure -machine is passed to qemu (hadess@hadess.net)

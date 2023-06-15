@@ -105,7 +105,7 @@
 
 Name: dmlite
 Version: 1.15.2
-Release: 15%{?dist}%{?_with_asan:.asan}
+Release: 16%{?dist}%{?_with_asan:.asan}
 Summary: Lcgdm grid data management and storage framework
 Group: Applications/Internet
 License: ASL 2.0
@@ -1094,6 +1094,9 @@ install -p -d -m 755 %{buildroot}%{_localstatedir}/log/dpm-gsiftp
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.15.2-16
+- Rebuilt for Python 3.12
+
 * Tue May 02 2023 Petr Vokac <petr.vokac@cern.ch> - 1.15.2-15
 - Drop dependency on legacy and deprecated edg-mkgridmap
 

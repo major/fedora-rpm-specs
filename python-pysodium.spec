@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.7.12
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A Python libsodium wrapper
 
 License:        BSD-2-Clause
@@ -47,6 +47,9 @@ Requires:       libsodium
 %{python3_sitelib}/%{pypi_name}
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.7.12-6
+- Rebuilt for Python 3.12
+
 * Sun Mar 05 2023 Andreas Schneider <asn@redhat.com> - 0.7.12-5
 - Update License to SPDX expression
 

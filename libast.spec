@@ -3,7 +3,7 @@
 Summary:       Library of Assorted Spiffy Things
 Name:          libast
 Version:       0.7.1
-Release:       0.37.%{cvs}cvs%{?dist}
+Release:       0.38.%{cvs}cvs%{?dist}
 License:       BSD
 URL:           http://www.eterm.org/
 # Sources are pulled from cvs:
@@ -78,6 +78,9 @@ touch -r ChangeLog %{buildroot}%{_bindir}/libast-config
 %exclude %{_libdir}/*.a
 
 %changelog
+* Tue Jun 13 2023 Leigh Scott <leigh123linux@gmail.com> - 0.7.1-0.38.20080502cvs
+- Rebuild fo new imlib2
+
 * Tue Apr 11 2023 Florian Weimer <fweimer@redhat.com> - 0.7.1-0.37.20080502cvs
 - Port configure script to C99
 

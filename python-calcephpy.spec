@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        3.5.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Astronomical library to access planetary ephemeris files
 
 License:        CECILL-2.0 OR CECILL-B OR CECILL-C
@@ -75,6 +75,9 @@ find doc -name .buildinfo -exec rm -f {} \;
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.5.2-2
+- Rebuilt for Python 3.12
+
 * Sat Apr 15 2023 Mattia Verga <mattia.verga@protonm.me> - 3.5.2-1
 - Update to 3.5.2 (fedora#2186143)
 

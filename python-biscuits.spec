@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast and tasty cookies handling
 
 License:        MIT
@@ -58,6 +58,9 @@ make compile PYTHON=%{__python3}
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.3.0-2
+- Rebuilt for Python 3.12
+
 * Tue May 02 2023 Jonathan Wright <jonathan@almalinux.org> - 0.3.0-1
 - Update to 0.3.0 rhbz#1899380
 

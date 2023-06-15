@@ -1,9 +1,11 @@
+%global _without_docs 1
+%global _without_tests 1
 %bcond_without tests
 %bcond_without docs
 
 Name:       python-atomicwrites
 Version:    1.4.1
-Release:    2%{?git_tag}%{?dist}
+Release:    3%{?git_tag}%{?dist}
 Summary:    Python Atomic file writes on POSIX 
 
 License:    MIT
@@ -79,6 +81,9 @@ cp -r docs/_build/man/*.1 "$RPM_BUILD_ROOT%{_mandir}/man1"
 %endif
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.4.1-3
+- Bootstrap for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           python-pdm-backend
 Version:        2.0.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The build backend used by PDM that supports latest packaging standards
 License:        MIT
 URL:            https://github.com/pdm-project/pdm-backend
@@ -66,6 +66,9 @@ rm -rv src/pdm/backend/_vendor
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.0.7-2
+- Rebuilt for Python 3.12
+
 * Mon May 15 2023 Lumír Balhar <lbalhar@redhat.com> - 2.0.7-1
 - Update to 2.0.7 (rhbz#2203716)
 - SPDX license

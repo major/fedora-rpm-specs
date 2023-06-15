@@ -5,7 +5,7 @@
 
 Name:           cryptominisat
 Version:        5.8.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        SAT solver
 
 # The project as a whole is MIT.
@@ -124,6 +124,9 @@ chrpath -d %{buildroot}%{python3_sitearch}/pycryptosat*.so
 %{python3_sitearch}/pycryptosat*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 5.8.0-14
+- Rebuilt for Python 3.12
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 5.8.0-13
 - Rebuilt for Boost 1.81
 

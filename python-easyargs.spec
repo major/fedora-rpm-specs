@@ -12,7 +12,7 @@ line.}
 
 Name:           python-%{srcname}
 Version:        0.9.4
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Making argument parsing easy
 License:        MIT
 URL:            https://github.com/stedmeister/easyargs
@@ -69,6 +69,9 @@ find -name \*.py | xargs sed -i -e '1 {/^#!/d}'
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.9.4-22
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

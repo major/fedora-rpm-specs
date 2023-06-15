@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.12.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The Swiss Army Knife of the Bitcoin protocol
 
 License:        LGPLv3+
@@ -51,6 +51,9 @@ a focus on providing tools to manipulate the internals of how Bitcoin works.
 %doc README.md
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.12.0-2
+- Rebuilt for Python 3.12
+
 * Sun Feb 26 2023 Pablo Greco <pgreco@centosproject.org> - 0.12.0-1
 - Update to 0.12.0
 

@@ -5,7 +5,7 @@ semaphores, shared memory and message queues on systems that support them.
 
 Name:           python-%{srcname}
 Version:        1.1.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        %{sum}
 License:        GPLv3+
 URL:            http://semanchuk.com/philip/%{srcname}/
@@ -54,6 +54,9 @@ chmod -x demos/*/*.{py,sh}
 %doc demos
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.1.0-8
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

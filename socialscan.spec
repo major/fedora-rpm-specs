@@ -3,7 +3,7 @@
 
 Name:           %{pypi_name}
 Version:        1.4.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        CLI and library for usage checking of user names and email addresses
 
 License:        MPLv2.0
@@ -60,6 +60,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v tests \
 %{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.4.2-6
+- Rebuilt for Python 3.12
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

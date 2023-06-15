@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.0.5
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        AJP package crafting library
 
 License:        BSD
@@ -40,6 +40,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.0.5-11
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.5-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

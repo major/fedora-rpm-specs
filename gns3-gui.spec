@@ -5,7 +5,7 @@
 
 Name:           gns3-gui
 Version:        2.2.40.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GNS3 graphical user interface
 
 License:        GPLv3+
@@ -96,6 +96,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/gns3*.desktop
 %{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.2.40.1-2
+- Rebuilt for Python 3.12
+
 * Sat Jun 10 2023 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.40.1-1
 - Update to 2.2.40.1
 

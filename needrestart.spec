@@ -1,6 +1,6 @@
 Name:           needrestart
 Version:        3.6
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Restart daemons after library updates
 
 License:        GPLv2+
@@ -112,6 +112,9 @@ echo "IUCODE_TOOL_EXTRA_OPTIONS=--ignore-broken" >%{buildroot}/%{_sysconfdir}/de
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.6-8
+- Rebuilt for Python 3.12
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -39,7 +39,7 @@ with exotic connection methods such as WMI, telnet, or console-over-IPMI.}
 
 Name:           python-%{pkgname}
 Version:        0.2.9
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Distributed self-replicating programs in Python
 License:        BSD
 URL:            https://github.com/dw/mitogen
@@ -125,6 +125,9 @@ rm -r mitogen/compat ansible_mitogen/compat
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.2.9-12
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.9-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

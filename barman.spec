@@ -1,6 +1,6 @@
 Name:       barman
 Version:    3.5.0
-Release:    2%{?dist}
+Release:    4%{?dist}
 Summary:    Backup and Recovery Manager for PostgreSQL
 License:    GPLv3
 URL:        http://www.pgbarman.org/
@@ -19,7 +19,7 @@ Requires:       logrotate
 Requires(pre):  shadow-utils
 Requires:       rsync >= 3.0.4
 Requires:       %{py3_dist argcomplete}
-Requires:       %{py3_dist barman} = 3.5
+Requires:       %{py3_dist barman}
 
 %description
 Barman (Backup and Recovery Manager) is an open-source administration tool for
@@ -31,7 +31,7 @@ phase.
 
 %package cli
 Summary:    Client Utilities for Barman
-Requires:   %{py3_dist barman} = 3.5
+Requires:   %{py3_dist barman}
 
 %description cli
 Client utilities for the integration of Barman in PostgreSQL clusters.
@@ -120,6 +120,13 @@ getent passwd %{name} >/dev/null || \
 exit 0
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.5.0-4
+- Rebuilt for Python 3.12
+
+* Tue Jun 13 2023 Simone Caronni <negativo17@gmail.com> - 3.5.0-3
+- Remove Python dependencies version, pep-0440 is enforced when building
+  packages.
+
 * Mon May 15 2023 Simone Caronni <negativo17@gmail.com> - 3.5.0-2
 - Adjust Python dependencies.
 

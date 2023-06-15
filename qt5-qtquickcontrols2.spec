@@ -2,7 +2,7 @@
 
 Name:    qt5-%{qt_module}
 Summary: Qt5 - module with set of QtQuick controls for embedded
-Version: 5.15.9
+Version: 5.15.10
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -10,11 +10,12 @@ Url:     http://www.qt.io
 %global majmin %(echo %{version} | cut -d. -f1-2)
 Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submodules/%{qt_module}-everywhere-opensource-src-%{version}.tar.xz
 
-Patch1:  0001-Unset-mouseGrabberPopup-if-it-s-removed-from-childre.patch
-Patch2:  0002-Ensure-we-don-t-crash-when-changing-sizes-after-clea.patch
-Patch3:  0003-Fix-scroll-bars-not-showing-up-when-binding-to-stand.patch
-Patch4:  0004-implement-a11y-pressing-of-qquickabstractbutton.patch
-Patch5:  0005-Fix-the-popup-position-of-a-Menu.patch
+Patch1: 0001-Unset-mouseGrabberPopup-if-it-s-removed-from-childre.patch
+Patch2: 0002-Ensure-we-don-t-crash-when-changing-sizes-after-clea.patch
+Patch3: 0003-Fix-scroll-bars-not-showing-up-when-binding-to-stand.patch
+Patch4: 0004-implement-a11y-pressing-of-qquickabstractbutton.patch
+Patch5: 0005-Fix-the-popup-position-of-a-Menu.patch
+Patch6: 0006-Accessibility-respect-value-in-attached-Accessible-i.patch
 
 
 # filter qml provides
@@ -110,6 +111,9 @@ rm -f %{buildroot}%{_qt5_libdir}/libQt5*.la
 %{_libdir}/cmake/Qt5QuickTemplates2/
 
 %changelog
+* Mon Jun 12 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.10-1
+- 5.15.10
+
 * Tue Apr 11 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.9-1
 - 5.15.9
 

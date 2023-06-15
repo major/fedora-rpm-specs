@@ -17,7 +17,7 @@
 Name:		gambas3
 Summary:	IDE based on a basic interpreter with object extensions
 Version:	3.18.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	GPL+
 URL:		http://gambas.sourceforge.net/
 Source0:	https://gitlab.com/gambas/gambas/-/archive/%{version}/gambas-%{version}.tar.bz2
@@ -1795,6 +1795,9 @@ install -m 0644 -p main/mime/application-x-gambas3.xml %{buildroot}%{_datadir}/m
 %{_datadir}/%{name}/info/gb.xml.xslt.*
 
 %changelog
+* Tue Jun 13 2023 Leigh Scott <leigh123linux@gmail.com> - 3.18.2-3
+- Rebuild fo new imlib2
+
 * Wed May 24 2023 Tom Callaway <spot@fedoraproject.org> - 3.18.2-2
 - use webkit2gtk-4.1
 

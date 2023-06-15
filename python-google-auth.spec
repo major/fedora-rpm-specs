@@ -10,7 +10,7 @@
 
 Name:       python-%{library}
 Version:    2.19.1
-Release:    2%{?dist}
+Release:    3%{?dist}
 Epoch:      1
 Summary:    Google Auth Python Library
 License:    Apache-2.0
@@ -60,6 +60,9 @@ Python client for the kubernetes API.
 %{python3_sitelib}/google_auth-%{version}*.pth
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1:2.19.1-3
+- Rebuilt for Python 3.12
+
 * Thu Jun 08 2023 Jan Friesse <jfriesse@redhat.com> - 1:2.19.1-2
 - migrated to SPDX license
 

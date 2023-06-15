@@ -4,7 +4,7 @@
 
 Name:               python-gearbox
 Version:            0.2.1
-Release:            7%{?dist}
+Release:            8%{?dist}
 Summary:            Command line toolkit born as a PasteScript replacement for TurboGears2
 
 License:            MIT
@@ -58,6 +58,9 @@ rm -rf %{modname}.egg-info
 %{python3_sitelib}/%{modname}-%{version}-*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.2.1-8
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

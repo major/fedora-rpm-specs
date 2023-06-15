@@ -3,7 +3,7 @@
 %global selinuxtype targeted
 
 Name:           trafficserver
-Version:        9.2.0
+Version:        9.2.1
 Release:        1%{?dist}
 Summary:        Fast, scalable and extensible HTTP/1.1 and HTTP/2 caching proxy server
 
@@ -27,12 +27,6 @@ Patch0:         trafficserver-crypto-policy.patch
 # Fencepost error when parsing bracketed IP address with no port; OOB string_view access
 # Upstream PR: https://github.com/apache/trafficserver/pull/8468 
 Patch1:         string-index-oob.patch
-# glibc 2.37 will require additional explicit includes
-# Upstream PR: https://github.com/apache/trafficserver/pull/9325
-Patch2:         glibc-237.patch
-# ppc64le stack grows down
-# Upstream PR: https://github.com/apache/trafficserver/pull/9326
-Patch3:         ppc64-stack-growth.patch
 
 # Upstream does not support 32-bit architectures:
 # https://github.com/apache/trafficserver/issues/4432
@@ -304,6 +298,9 @@ fi
 
 
 %changelog
+* Tue Jun 13 2023 Jered Floyd <jered@redhat.com> 9.2.1-1
+- Update to upstream 9.2.1
+
 * Fri Jan 20 2023 Jered Floyd <jered@redhat.com> 9.2.0-1
 - Update to upstream 9.2.0
 

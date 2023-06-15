@@ -1,6 +1,6 @@
 Name:           python-j1m.sphinxautozconfig
 Version:        0.1.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Sphinx support for ZConfig
 
 License:        MIT
@@ -47,6 +47,9 @@ rst2html --no-datestamp README.rst README.html
 %{python3_sitelib}/j1m.sphinxautozconfig-%{version}-py%{python3_version}-nspkg.pth
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.1.0-19
+- Rebuilt for Python 3.12
+
 * Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 0.1.0-18
 - Dynamically generate BuildRequires
 

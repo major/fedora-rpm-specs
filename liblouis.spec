@@ -3,7 +3,7 @@
 
 Name:           liblouis
 Version:        3.25.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Braille translation and back-translation library
 
 License:        LGPLv3+
@@ -148,6 +148,9 @@ done
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.25.0-2
+- Rebuilt for Python 3.12
+
 * Tue Mar 07 2023 Martin Gieseking <martin.gieseking@uos.de> - 3.25.0-1
 - Update to 3.25.0
 

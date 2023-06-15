@@ -1,8 +1,8 @@
 Name: vim-fugitive-pagure
-Version: 1.4
-Release: 6%{?dist}
+Version: 1.5
+Release: 1%{?dist}
 Summary: Pagure support for vim-fugitive plugin
-License: GPLv2+
+License: GPL-2.0-or-later
 BuildArch: noarch
 
 URL: https://github.com/FrostyX/vim-fugitive-pagure
@@ -47,20 +47,8 @@ python3 -B -m pytest . -v -s
 
 
 %changelog
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+* Tue Jun 13 2023 Jakub Kadlcik <frostyx@email.cz> 1.5-1
+- Update License to an SPDX expression (frostyx@email.cz)
 
 * Tue Jul 28 2020 Jakub Kadlcik <frostyx@email.cz> 1.4-1
 - Recognize pkgs.fedoraproject.org as a pagure URL (frostyx@email.cz)

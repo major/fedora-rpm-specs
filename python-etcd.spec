@@ -13,6 +13,10 @@ URL:            http://pypi.python.org/pypi/%{srcname}
 # the license file. But github tarball files are named awkwardly.
 Source0:        https://github.com/jplana/%{srcname}/archive/%{version}.tar.gz
 
+# Python 3.12 compatibility
+# Upstream PR: https://github.com/jplana/python-etcd/pull/282
+Patch:          Replace-the-usage-of-assertEquals-unit-test-alias-re.patch
+
 #VCS: git:https://github.com/jplana/python-etcd
 
 BuildArch:      noarch

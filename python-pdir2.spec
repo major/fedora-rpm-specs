@@ -1,6 +1,6 @@
 Name:           python-pdir2
 Version:        0.3.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Pretty dir() printing with joy
 
 License:        MIT
@@ -53,6 +53,9 @@ sed -r -i 's/=(=[[:digit:]\.]+)\.\*/>\1/' pyproject.toml
 %doc README.md
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.3.6-5
+- Rebuilt for Python 3.12
+
 * Mon Jan 30 2023 Simon de Vlieger <cmdr@supakeen.com> - 0.3.6-4
 - Update dependency version specifiers to be valid.
 

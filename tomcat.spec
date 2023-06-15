@@ -31,7 +31,7 @@
 %global jspspec 2.3
 %global major_version 9
 %global minor_version 0
-%global micro_version 75
+%global micro_version 76
 %global packdname apache-tomcat-%{version}-src
 %global servletspec 4.0
 %global elspec 3.0
@@ -328,6 +328,8 @@ pushd ${RPM_BUILD_ROOT}%{libdir}
     %{__ln_s} ../../java/%{name}-servlet-%{servletspec}-api.jar .
     %{__ln_s} ../../java/%{name}-el-%{elspec}-api.jar .
     %{__ln_s} $(build-classpath ecj/ecj) jasper-jdt.jar
+    
+    %{__ln_s} ${RPM_BUILD_ROOT}%{bindir}/tomcat-juli.jar ./
 popd
 
 # symlink to the FHS locations where we've installed things
@@ -496,8 +498,12 @@ fi
 %{appdir}/ROOT
 
 %changelog
+* Wed Jun 14 2023 Hui Wang <huwang@redhat.com> - 1:9.0.76-1
+- Update to 9.0.76
+- Resolves: rhbz#2188218 Link bin/tomcat-juli.jar to /usr/share/java
+
 * Thu Jun 08 2023 Hui Wang <huwang@redhat.com> - 1:9.0.75-1
-- Updated to 9.0.75
+- Update to 9.0.75
 
 * Fri Mar 17 2023 Hui Wang <huwang@redhat.com> - 1:9.0.73-1
 - Update to 9.0.73

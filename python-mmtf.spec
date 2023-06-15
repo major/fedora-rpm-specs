@@ -22,7 +22,7 @@ doi: 10.1145/2945292.2945324\
 
 Name: python-mmtf
 Version: 1.1.2
-Release: 19%{?dist}
+Release: 20%{?dist}
 Summary: A decoding library for the macromolecular transmission format (MMTF) 
 License: ASL 2.0
 URL: https://github.com/rcsb/mmtf-python
@@ -68,6 +68,9 @@ Requires: python3-msgpack
 %{python3_sitelib}/mmtf
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.1.2-20
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

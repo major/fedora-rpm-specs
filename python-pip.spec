@@ -1,3 +1,5 @@
+%global _without_doc 1
+%global _without_tests 1
 # The original RHEL N+1 content set is defined by (build)dependencies
 # of the packages in Fedora ELN. Hence we disable tests and documentation here
 # to prevent pulling many unwanted packages in.
@@ -14,7 +16,7 @@
 
 Name:           python-%{srcname}
 Version:        %{base_version}%{?prerel:~%{prerel}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A tool for installing and managing Python packages
 
 # We bundle a lot of libraries with pip, which itself is under MIT license.
@@ -387,6 +389,9 @@ pytest_k='not completion'
 %{python_wheel_dir}/%{python_wheel_name}
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 23.1.2-2
+- Bootstrap for Python 3.12
+
 * Fri May 19 2023 Miro Hrončok <mhroncok@redhat.com> - 23.1.2-1
 - Update to 23.1.2
 Resolves: rhbz#2186979

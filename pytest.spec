@@ -1,5 +1,8 @@
+%global _without_docs 1
+%global _without_tests 1
+%global _without_timeout 1
 Name:           pytest
-%global base_version 7.3.1
+%global base_version 7.3.2
 #global prerelease ...
 Version:        %{base_version}%{?prerelease:~%{prerelease}}
 Release:        2%{?dist}
@@ -9,8 +12,6 @@ URL:            https://pytest.org
 Source:         %{pypi_source pytest %{base_version}%{?prerelease}}
 # see https://github.com/pytest-dev/pytest/issues/10042#issuecomment-1237132867
 Patch:          pytest-7.1.3-fix-xfails.patch
-# Filter new pkg_resources deprecations, merged upstream
-Patch:          https://github.com/pytest-dev/pytest/pull/10938.patch
 
 # Remove -s from Python shebang,
 # ensure that packages installed with pip to user locations are testable
@@ -120,7 +121,7 @@ sed -i 's/"endline": "\\x1b\[90m\\x1b\[39;49;00m",/"endline": "",/' testing/conf
 
 %if %{with docs}
 for l in doc/* ; do
-  %make_build -C $l html PYTHONPATH=%{pyproject_build_lib}
+  %make_build -C $l html PYTHONPATH="$(pwd)/src"
 done
 for f in README CHANGELOG CONTRIBUTING ; do
   rst2html ${f}.rst > ${f}.html
@@ -182,6 +183,12 @@ find %{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 7.3.2-2
+- Bootstrap for Python 3.12
+
+* Mon Jun 12 2023 Maxwell G <maxwell@gtmx.me> - 7.3.2-1
+- Update to 7.3.2. Fixes rhbz#2213992.
+
 * Mon Apr 24 2023 Miro Hrončok <mhroncok@redhat.com> - 7.3.1-2
 - Fix build with setuptools >= 67.5.0
 - Fixes: rhbz#2188982

@@ -1,6 +1,6 @@
 Name:           python-gast
 Version:        0.5.3
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Python AST that abstracts the underlying Python version
 License:        BSD-3-Clause
 URL:            https://github.com/serge-sans-paille/gast/
@@ -51,6 +51,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.5.3-7
+- Rebuilt for Python 3.12
+
 * Wed May 24 2023 Miro Hrončok <mhroncok@redhat.com> - 0.5.3-6
 - Update the license tag to SPDX
 

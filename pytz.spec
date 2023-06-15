@@ -3,7 +3,7 @@
 
 Name:           pytz
 Version:        2023.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        World Timezone Definitions for Python
 
 License:        MIT
@@ -68,6 +68,9 @@ rm -r %{buildroot}%{python3_sitelib}/pytz/zoneinfo
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2023.3-2
+- Rebuilt for Python 3.12
+
 * Wed Mar 29 2023 Gwyn Ciesla <gwync@protonmail.com> - 2023.3-1
 - 2023.3
 

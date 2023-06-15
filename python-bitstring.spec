@@ -5,7 +5,7 @@
 
 Name:           python-%{srcname}
 Version:        3.1.9
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Simple construction, analysis and modification of binary data
 
 License:        MIT
@@ -126,6 +126,9 @@ popd
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.1.9-7
+- Rebuilt for Python 3.12
+
 * Thu Jan 26 2023 Scott K Logan <logans@cottsay.net> - 3.1.9-6
 - Add missing dependency on setuptools (rhbz#2142041)
 

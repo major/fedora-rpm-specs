@@ -1,6 +1,7 @@
+%global _without_tests 1
 Name:               python-iniconfig
 Version:            1.1.1
-Release:            11%{?dist}
+Release:            12%{?dist}
 Summary:            Brain-dead simple parsing of ini files
 # SDPX
 License:            MIT
@@ -70,6 +71,9 @@ sed -i "s/py\.test/pytest/" testing/test_iniconfig.py
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.1.1-12
+- Bootstrap for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

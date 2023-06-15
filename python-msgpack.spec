@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python MessagePack (de)serializer
 
 License:        ASL 2.0
@@ -55,6 +55,9 @@ rm -rf test/test_timestamp.py
 %{python3_sitearch}/%{srcname}*.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.0.5-2
+- Rebuilt for Python 3.12
+
 * Fri May 12 2023 Denis Fateyev <denis@fateyev.com> - 1.0.5-1
 - Update to 1.0.5 version
 

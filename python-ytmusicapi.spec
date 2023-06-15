@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.24.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        MIT
 Summary:        Unofficial API for YouTube Music
 Url:            https://github.com/sigma67/%{srcname}
@@ -46,6 +46,9 @@ Recommends:     python3-%{srcname}
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.24.1-4
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.24.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

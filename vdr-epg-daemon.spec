@@ -8,7 +8,7 @@
 
 Name:           vdr-epg-daemon
 Version:        1.3.21
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        A daemon to download EPG data from internet and manage it in a mysql database
 
 License:        GPL+ and GPLv2 and BSD
@@ -133,6 +133,12 @@ mkdir -p %{buildroot}%{_libdir}/mariadb/plugin
 %{vdr_resdir}/epgd/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.3.21-3
+- Rebuilt for Python 3.12
+
+* Tue Jun 13 2023 Leigh Scott <leigh123linux@gmail.com> - 1.3.21-2
+- Rebuild fo new imlib2
+
 * Tue Feb 14 2023 Martin Gansser <martinkg@fedoraproject.org> - 1.3.21-1
 - Update to 1.3.21
 

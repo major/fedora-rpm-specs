@@ -5,7 +5,7 @@
 Summary: Application Whitelisting Daemon
 Name: fapolicyd
 Version: 1.2
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPL-3.0-or-later
 URL: http://people.redhat.com/sgrubb/fapolicyd
 Source0: https://people.redhat.com/sgrubb/fapolicyd/%{name}-%{version}.tar.gz
@@ -205,6 +205,9 @@ fi
 %selinux_relabel_post -s %{selinuxtype}
 
 %changelog
+* Tue Jun 13 2023 Radovan Sroka <rsroka@redhat.com> - 1.2-6
+- migrated to SPDX license
+
 * Fri May 19 2023 Petr Pisar <ppisar@redhat.com> - 1.2-5
 - Rebuild against rpm-4.19 (https://fedoraproject.org/wiki/Changes/RPM-4.19)
 

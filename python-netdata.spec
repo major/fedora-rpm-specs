@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Python API for interacting with Netdata
 
 License:        MIT
@@ -41,6 +41,9 @@ allmetrics and the alarms endpoint supported.
 %{python3_sitelib}/%{pypi_name}*.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.2.0-11
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:           partio
 Version:        1.14.6
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Library for manipulating common animation particle
 
 License:        BSD-3-Clause-Modification
@@ -112,6 +112,9 @@ rm -rf %{buildroot}%{_datadir}/%{name}/test
 #%%{_datadir}/%%{name}/test/*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.14.6-7
+- Rebuilt for Python 3.12
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.6-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

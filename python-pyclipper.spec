@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.2.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Cython wrapper for the C++ translation of the Angus Johnson's Clipper library
 
 License:        MIT
@@ -74,6 +74,9 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %{python3_sitearch}/*.so
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.2.0-10
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

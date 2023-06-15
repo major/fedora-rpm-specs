@@ -8,7 +8,7 @@ Office Open XML format.
 
 Name:           python-%{pypi_name}
 Version:        3.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 
 License:        MIT and Python
@@ -53,6 +53,9 @@ rm -rf *.egg-info
 %{python3_sitelib}/%{pypi_name}/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.1.2-2
+- Rebuilt for Python 3.12
+
 * Tue Apr 25 2023 Julien Enselme <jujens@jujens.eu> - 3.1.2-1
 - Update to 3.1.2
 

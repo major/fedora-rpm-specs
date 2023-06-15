@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.6.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        RESTful HTTP Content Negotiation for Flask, Bottle, etc.
 
 License:        MIT
@@ -75,6 +75,9 @@ cp %{SOURCE1} ./LICENSE
 %{python3_sitelib}/__pycache__/%{srcname}*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.6.0-17
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

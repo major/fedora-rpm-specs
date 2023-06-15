@@ -1,6 +1,6 @@
 Name:       dblatex
 Version:    0.3.12
-Release:    12%{?dist}
+Release:    13%{?dist}
 Summary:    DocBook to LaTeX/ConTeXt Publishing
 BuildArch:  noarch
 # Most of package is GPLv2+, except:
@@ -130,6 +130,9 @@ cp -p %{SOURCE1} COPYING-docbook-xsl
 %postun -p /usr/bin/texhash
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.3.12-13
+- Rebuilt for Python 3.12
+
 * Tue Jun 06 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.3.12-12
 - Remove obsolete texlive-collection-htmlxml dependency
 

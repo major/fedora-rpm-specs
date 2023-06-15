@@ -1,6 +1,6 @@
 Name:           jaxb-fi
 Version:        2.1.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Implementation of the Fast Infoset Standard for Binary XML
 # jaxb-fi is licensed ASL 2.0 and EDL-1.0 (BSD)
 # bundled org.apache.xerces.util.XMLChar.java is licensed ASL 1.1
@@ -64,6 +64,9 @@ Summary:        FastInfoset Roundtrip Tests
 %license LICENSE NOTICE.md
 
 %changelog
+* Tue Jun 13 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.1.0-5
+- Rebuilt to enable smoke test
+
 * Fri Mar 17 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.1.0-4
 - Re-enable javadoc package
 

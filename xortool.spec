@@ -2,7 +2,7 @@
 
 Name:           %{pypi_name}
 Version:        0.99
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Tool for XOR cipher analysis
 
 License:        MIT
@@ -37,6 +37,9 @@ sed -i -e '/^#!\//, 1d' xortool/*.py
 %{python3_sitelib}/%{pypi_name}/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.99-12
+- Rebuilt for Python 3.12
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.99-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

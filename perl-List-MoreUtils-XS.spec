@@ -1,9 +1,13 @@
 # Run extra tests
+%if ! (0%{?rhel})
 %bcond_without perl_List_MoreUtils_XS_enables_extra_test
+%else
+%bcond_with perl_List_MoreUtils_XS_enables_extra_test
+%endif
 
 Name:		perl-List-MoreUtils-XS
 Version:	0.430
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Provide compiled List::MoreUtils functions
 # Code from List-MoreUtils < 0.417 is GPL-1.0-or-later OR Artistic-1.0-Perl
 # Anything after that is Apache-2.0
@@ -59,6 +63,7 @@ This module provides accelerated versions of functions in List::MoreUtils.
 # Unbundle bundled modules except private inc::Config::AutoConf::LMU
 %patch -P 0
 find inc/ -type f ! -name LMU.pm -print -delete
+perl -i -ne 'print $_ unless m{^inc/} and not m{LMU\.pm}' MANIFEST
 
 %build
 perl Makefile.PL \
@@ -84,6 +89,11 @@ make test
 %{_mandir}/man3/List::MoreUtils::XS.3*
 
 %changelog
+* Tue Jun 13 2023 Paul Howarth <paul@city-fan.org> - 0.430-9
+- Disable extra test in RHEL builds (based on
+  https://src.fedoraproject.org/rpms/perl-List-MoreUtils-XS/pull-request/1)
+- Silence build-time warnings about missing bundled modules
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.430-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

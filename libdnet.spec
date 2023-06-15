@@ -7,7 +7,7 @@ Version:       1.16.4
 %global tag libdnet-%{version}
 %forgemeta
 
-Release:       1%{?dist}
+Release:       2%{?dist}
 URL:           %{forgeurl}
 Source:        %{forgesource}
 
@@ -94,6 +94,9 @@ popd
 %{python3_sitearch}/*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.16.4-2
+- Rebuilt for Python 3.12
+
 * Wed Apr 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.16.4-1
 - Rebase to 1.16.4 (RHBZ#2185292)
 

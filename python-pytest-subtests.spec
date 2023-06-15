@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.10.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Support for unittest subTest() and subtests fixture
 
 License:        MIT
@@ -49,6 +49,9 @@ PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=%{buildroot}%{python3_sitelib} \
 %{python3_sitelib}/pytest_subtests-%{version}-py*.egg-info/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.10.0-2
+- Rebuilt for Python 3.12
+
 * Mon Mar 27 2023 Christian Heimes <cheimes@redhat.com> - 0.10.0-1
 - Update to 0.10.0
 

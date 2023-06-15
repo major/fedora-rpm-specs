@@ -1,6 +1,6 @@
 Name:           omniORBpy
 Version:        4.3.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        CORBA ORB for Python
 
 License:        LGPLv2+
@@ -95,6 +95,9 @@ find %{buildroot}%{python3_sitelib} -type d -exec chmod 755 {} \;
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 4.3.0-7
+- Rebuilt for Python 3.12
+
 * Mon Jan 30 2023 Sandro Mani <manisandro@gmail.com> - 4.3.0-6
 - Fix FTBFS with Python 3.12 (distutils removed)
 

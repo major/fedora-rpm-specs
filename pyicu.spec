@@ -1,7 +1,7 @@
 %define		realname PyICU
 Name:		pyicu
 Version:	2.10.2
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Python extension wrapping the ICU C++ libraries
 
 License:	MIT
@@ -60,6 +60,9 @@ rm -rf %{buildroot}%{python3_sitearch}/tests
 %{python3_sitearch}/icu/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.10.2-5
+- Rebuilt for Python 3.12
+
 * Thu Mar 09 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.10.2-4
 - Patch for Python 3.12.
 

@@ -9,7 +9,7 @@
 
 Name:           python-%{srcname}
 Version:        1.35
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library providing parsers for metadata related to OS installation
 
 License:        LGPL-2.1-only
@@ -102,6 +102,9 @@ Requires:       python%{python3_pkgversion}-six
 %endif
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.35-2
+- Rebuilt for Python 3.12
+
 * Wed Mar 01 2023 Lubomír Sedlář <lsedlar@redhat.com> - 1.35-1
 - New upstream release 1.35
 

@@ -9,7 +9,7 @@ the syntax tree.}
 
 Name:           python-%{srcname}
 Version:        0.8.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Parser that supports error recovery and round-trip parsing
 License:        MIT and Python
 BuildArch:      noarch
@@ -59,6 +59,9 @@ sed -e '/^addopts/d' -i pytest.ini
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.8.3-6
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

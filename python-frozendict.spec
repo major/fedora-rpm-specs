@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        2.3.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An immutable dictionary
 
 License:        MIT
@@ -45,6 +45,9 @@ BuildRequires:  python3-wheel
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.3.8-2
+- Rebuilt for Python 3.12
+
 * Fri May 05 2023 Orion Poplawski <orion@nwra.com> - 2.3.8-1
 - Update to 2.3.8
 

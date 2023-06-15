@@ -4,7 +4,7 @@
 
 Name:       csmock
 Version:    3.4.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    A mock wrapper for Static Analysis tools
 
 License:    GPL-3.0-or-later
@@ -288,6 +288,9 @@ This package contains the unicontrol plug-in for csmock.
 %{python3_sitelib}/csmock/plugins/__pycache__/unicontrol.*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.4.1-2
+- Rebuilt for Python 3.12
+
 * Thu Apr 06 2023 Kamil Dudka <kdudka@redhat.com> 3.4.1-1
 - update to latest upstream
 

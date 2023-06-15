@@ -37,7 +37,7 @@
 
 Name:           openmpi%{?_cc_name_suffix}
 Version:        4.1.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Open Message Passing Interface
 License:        BSD and MIT and Romio
 URL:            http://www.open-mpi.org/
@@ -380,6 +380,9 @@ make check
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 4.1.5-2
+- Rebuilt for Python 3.12
+
 * Sun Feb 26 2023 Orion Poplawski <orion@nwra.com> - 4.1.5-1
 - Update to 4.1.5
 

@@ -11,7 +11,7 @@ Version:        3.6
 
 %forgemeta
 
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Tool for Red Hat Enterprise Linux Driver Update Disk creation
 
 License:        GPLv3
@@ -71,6 +71,9 @@ find %{buildroot} -size 0 -delete
 %config(noreplace) /etc/ddiskit.config
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.6-20
+- Rebuilt for Python 3.12
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:           python-%{pkgname}
 Version:        0.1.2
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Python library to generate nicely formatted trees, like the UNIX tree command
 License:        ASL 2.0
 URL:            https://github.com/jml/tree-format
@@ -45,6 +45,9 @@ Python library to generate nicely formatted trees, like the UNIX `tree` command
 %{python3_sitelib}/tree_format/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.1.2-19
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

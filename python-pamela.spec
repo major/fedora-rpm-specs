@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python PAM interface
 
 License:        MIT
@@ -46,6 +46,9 @@ py.test-%{python3_version} -v
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.1.0-2
+- Rebuilt for Python 3.12
+
 * Fri Jun 02 2023 Orion Poplawski <orion@nwra.com> - 1.1.0-1
 - Update to 1.1.0
 

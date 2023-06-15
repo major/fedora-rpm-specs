@@ -2,7 +2,7 @@
 
 Name:          libgpiod
 Version:       2.0.1
-Release:       2%{?candidate:.%{candidate}}%{?dist}
+Release:       3%{?candidate:.%{candidate}}%{?dist}
 Summary:       C library and tools for interacting with linux GPIO char device
 
 License:       LGPLv2+
@@ -106,6 +106,9 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/%{name}*.so
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.0.1-3
+- Rebuilt for Python 3.12
+
 * Tue Apr 25 2023 Miro Hrončok <mhroncok@redhat.com> - 2.0.1-2
 - Don't install a Python .egg
 

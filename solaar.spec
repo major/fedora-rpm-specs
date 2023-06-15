@@ -1,6 +1,6 @@
 Name:           solaar
 Version:        1.1.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Device manager for a wide range of Logitech devices
 URL:            https://github.com/pwr/Solaar
 Source:         %{url}/archive/%{version}/Solaar-%{version}.tar.gz
@@ -123,6 +123,9 @@ fi
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.1.9-2
+- Rebuilt for Python 3.12
+
 * Fri Apr 21 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.1.9-1
 - update to 1.1.9 (#2184776)
 - add weak dependency on libappindicator-gtk3, required to show tray icon (#2181248)

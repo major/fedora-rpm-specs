@@ -9,7 +9,7 @@
 
 Name: koji
 Version: 1.33.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 # the included arch lib from yum's rpmUtils is GPLv2+
 License: LGPLv2 and GPLv2+
 Summary: Build system tools
@@ -348,6 +348,9 @@ done
 %systemd_postun kojira.service
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.33.0-2
+- Rebuilt for Python 3.12
+
 * Wed May 24 2023 Kevin Fenzi <kevin@scrye.com> - 1.33.0-1
 - Update to 1.33.0. Fixes rhbz#2209371
 

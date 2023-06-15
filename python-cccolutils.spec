@@ -1,7 +1,7 @@
 
 Name:           python-cccolutils
 Version:        1.5
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Python Kerberos Credential Cache Collection Utilities
 
 License:        GPLv2+
@@ -48,6 +48,9 @@ Python utilities for Kerberos Credential Cache Collections
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.5-24
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.0.2
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        %{desc}
 
 License:        MIT
@@ -53,6 +53,9 @@ rm -rf *.egg-info
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.0.2-17
+- Rebuilt for Python 3.12
+
 * Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.0.2-16
 - migrated to SPDX license
 

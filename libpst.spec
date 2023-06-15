@@ -15,7 +15,7 @@
 Summary:            Utilities to convert Outlook .pst files to other formats
 Name:               libpst
 Version:            0.6.76
-Release:            13%{?dist}
+Release:            14%{?dist}
 License:            GPL-2.0-or-later
 URL:                http://www.five-ten-sg.com/%{name}/
 Source:             %{url}/packages/%{name}-%{version}.tar.gz
@@ -216,6 +216,9 @@ rm %{buildroot}%{_mandir}/man1/pst2dii.1*
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.6.76-14
+- Rebuilt for Python 3.12
+
 * Tue Apr 25 2023 Milan Crha <mcrha@redhat.com> - 0.6.76-13
 - Resolves: #2189479 (Fails to build with Python 3.12)
 

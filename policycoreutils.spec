@@ -11,7 +11,7 @@
 Summary: SELinux policy core utilities
 Name:    policycoreutils
 Version: 3.5
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPL-2.0-or-later
 # https://github.com/SELinuxProject/selinux/wiki/Releases
 Source0: https://github.com/SELinuxProject/selinux/releases/download/3.5/selinux-3.5.tar.gz
@@ -443,6 +443,9 @@ The policycoreutils-restorecond package contains the restorecond service.
 %systemd_postun_with_restart restorecond.service
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.5-4
+- Rebuilt for Python 3.12
+
 * Fri May 26 2023 Miro Hrončok <mhroncok@redhat.com> - 3.5-3
 - Fix build with pip 23.1.2+
 - Fixes: rhbz#2209016

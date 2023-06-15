@@ -2,7 +2,7 @@
 
 Name:           pystatgrab
 Version:        0.7.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Python bindings for libstatgrab
 
 License:        LGPL-2.0-or-later
@@ -46,6 +46,9 @@ PYTHONPATH=%{buildroot}/%{python3_sitearch} %{__python3} test.py
 %{python3_sitearch}/*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.7.1-10
+- Rebuilt for Python 3.12
+
 * Sat Feb 25 2023 Tim Orling <ticotimo@gmail.com> - 0.7.1-9
   - Add patch for deprecated distuls (rhbz 2154875)
   - https://github.com/libstatgrab/pystatgrab/pull/7

@@ -2,7 +2,7 @@
 
 Name: python-%{srcname}
 Version: 1.2.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Astronomical source extraction and photometry in Python
 
 # Code from photutils is BSD (src/overlap.h)
@@ -55,6 +55,9 @@ functions and classes. These operate directly on in-memory numpy arrays
 %{python3_sitearch}/sep*.so
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.2.1-5
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

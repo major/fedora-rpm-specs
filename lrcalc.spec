@@ -1,6 +1,6 @@
 Name:		lrcalc
 Version:	2.1
-Release:	4%{?dist}
+Release:	5%{?dist}
 License:	GPL-3.0-or-later
 Summary:	Littlewood-Richardson Calculator
 URL:		https://sites.math.rutgers.edu/~asbuch/lrcalc/
@@ -92,6 +92,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir}: make check
 %files -n	python3-lrcalc -f %{pyproject_files}
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.1-5
+- Rebuilt for Python 3.12
+
 * Fri Feb 24 2023 Jerry James <loganjerry@gmail.com> - 2.1-4
 - Dynamically generate python BuildRequires
 

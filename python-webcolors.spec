@@ -12,7 +12,7 @@ colorsys module in the Python standard library):
 
 Name:           python-webcolors
 Version:        1.13
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A library for working with HTML and CSS color names and value formats
 
 License:        BSD-3-Clause
@@ -60,6 +60,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.13-2
+- Rebuilt for Python 3.12
+
 * Sat Apr 08 2023 Dridi Boukelmoune <dridi@fedoraproject.org> - 1.13-1
 - Bumped version to 1.13
 

@@ -4,7 +4,7 @@
 
 Name:          vim-jedi
 Version:       0.11.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       The Jedi vim plugin
 
 License:       LGPLv3
@@ -56,6 +56,9 @@ install -m 644 pythonx/*.py %buildroot/%python3_sitelib
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.11.1-2
+- Rebuilt for Python 3.12
+
 * Thu Jan 12 2023 Martin Jackson <mhjacks@swbell.net> - 0.11.1-1
 - Update to 0.11.1 for bz#2145031
 

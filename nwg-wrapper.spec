@@ -14,7 +14,7 @@ Version:  0.1.3
 
 Name:    nwg-wrapper
 Summary: A GTK3 wrapper to display text on the desktop for wlroots
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: MIT
 URL:      %{forgeurl}
@@ -59,6 +59,9 @@ done
 %{python3_sitelib}/%{sys_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.1.3-4
+- Rebuilt for Python 3.12
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

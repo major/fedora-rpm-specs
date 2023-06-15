@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.4.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python library to create SVG drawings
 
 License:        MIT
@@ -55,6 +55,9 @@ done
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.4.3-5
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

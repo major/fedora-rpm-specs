@@ -2,7 +2,7 @@ Name: gnucash
 Summary: Finance management application
 Version: 5.1
 URL: https://gnucash.org/
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-or-later
 Source: https://downloads.sourceforge.net/sourceforge/gnucash/gnucash-%{version}.tar.bz2
 
@@ -107,6 +107,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/gnucas
 %config(noreplace) %{_sysconfdir}/gnucash/*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 5.1-3
+- Rebuilt for Python 3.12
+
 * Thu May 11 2023 Gwyn Ciesla <gwync@protonmail.com> - 5.1-2
 - Move to webkit2gtk4.1
 

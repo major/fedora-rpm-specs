@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2022.10.0 
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python library for the Ambient Weather API
 
 License:        MIT
@@ -41,6 +41,9 @@ REST and Websocket APIs provided by Ambient Weather.
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2022.10.0-2
+- Rebuilt for Python 3.12
+
 * Mon Feb 20 2023 Fabian Affolter <mail@fabian-affolter.ch> - 2022.10.0-1
 - Update to latest upstream release 2022.10.0 (closes rhbz#2010538)
 

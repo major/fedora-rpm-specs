@@ -66,7 +66,7 @@ BuildRequires:  xcb-util-wm-devel
 %{?_qt5:Requires: %{_qt5}%{?_isa} >= %{_qt5_version}}
 
 # available on rhel 9+
-%if (0%{?rhel} && 0%{?rhel} > 8)
+%if 0%{?fedora} || (0%{?rhel} && 0%{?rhel} > 8)
 Recommends: power-profiles-daemon
 %endif
 

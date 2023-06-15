@@ -2,7 +2,7 @@
 
 Name:               python3-%{modname}
 Version:            1.5.4
-Release:            5%{?dist}
+Release:            6%{?dist}
 Summary:            A fork of the ast module with type annotations
 
 License:            Apache-2.0 
@@ -41,6 +41,9 @@ as supported in Python 3.6.
 %{python3_sitearch}/%{modname}-*.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.5.4-6
+- Rebuilt for Python 3.12
+
 * Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.5.4-5
 - migrated to SPDX license
 

@@ -1,6 +1,6 @@
 Name:           sasutils
 Version:        0.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Serial Attached SCSI (SAS) utilities
 
 License:        ASL 2.0
@@ -51,6 +51,9 @@ install -p -m 0644 doc/man/man1/ses_report.1 %{buildroot}/%{_mandir}/man1/
 %license LICENSE.txt
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.4.0-2
+- Rebuilt for Python 3.12
+
 * Thu Feb 16 2023 Stephane Thiell <sthiell@stanford.edu> 0.4.0-1
 - update version
 

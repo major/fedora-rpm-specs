@@ -1,3 +1,4 @@
+%global _without_tests 1
 %bcond tests 1
 
 # This bcond allows to ship a non-compiled version
@@ -9,7 +10,7 @@
 
 Name:           Cython
 Version:        0.29.34
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Language for writing Python extension modules
 
 License:        Apache-2.0
@@ -151,6 +152,9 @@ cp -p cython-mode-init.el cython-mode-init.elc %{buildroot}%{_emacs_sitestartdir
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.29.34-3
+- Bootstrap for Python 3.12
+
 * Wed May 24 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.29.34-2
 - Avoid python-jedi dependency in RHEL builds
 - Stop shipping emacs-cython-mode in RHEL builds

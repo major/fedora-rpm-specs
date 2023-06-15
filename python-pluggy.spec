@@ -1,3 +1,4 @@
+%global _without_tests 1
 %global pypi_name pluggy
 
 # Turn the tests off when bootstrapping Python, because pytest requires pluggy
@@ -5,7 +6,7 @@
 
 Name:           python-pluggy
 Version:        1.0.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        The plugin manager stripped of pytest specific details
 
 License:        MIT
@@ -60,6 +61,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} -m pytest testing -k "not
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.0.0-7
+- Bootstrap for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

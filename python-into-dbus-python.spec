@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.8.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Transformer to dbus-python types
 
 License:        Apache-2.0
@@ -45,6 +45,9 @@ Python 3 version.
 %{python3_sitelib}/into_dbus_python-*.egg-info/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.8.2-2
+- Rebuilt for Python 3.12
+
 * Thu May 4 2023 mulhern <amulhern@redhat.com> - 0.8.2-1
 - Upgrade to new release; fix license field; use TMT format tests
 

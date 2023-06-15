@@ -7,7 +7,7 @@
 
 Name:           PyYAML
 Version:        6.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 %global uversion %{version}
 Summary:        YAML parser and emitter for Python
 
@@ -111,6 +111,9 @@ rm -rf ext/_yaml.c
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 6.0-8
+- Rebuilt for Python 3.12
+
 * Tue Apr 11 2023 John Eckersberg <jeckersb@redhat.com> - 6.0-7
 - Rebuilt for Python 3.12 / Cython 0.29.34 (rhbz#2177815)
 

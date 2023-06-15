@@ -1,6 +1,6 @@
 Name:		asciinema
 Version:	2.2.0
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Terminal session recorder
 License:	GPLv3+
 URL:		https://asciinema.org
@@ -49,6 +49,9 @@ install -p -m 644 man/asciinema.1 %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.2.0-7
+- Rebuilt for Python 3.12
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

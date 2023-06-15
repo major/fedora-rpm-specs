@@ -1,3 +1,4 @@
+%global _with_bootstrap 1
 %global pypi_name packaging
 
 # Specify --with bootstrap to build in bootstrap mode
@@ -20,7 +21,7 @@
 
 Name:           python-%{pypi_name}
 Version:        23.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Core utilities for Python packages
 
 License:        BSD or ASL 2.0
@@ -136,6 +137,9 @@ echo '%{python3_sitelib}/packaging*' > %{pyproject_files}
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 23.1-2
+- Bootstrap for Python 3.12
+
 * Mon Apr 17 2023 Lumír Balhar <lbalhar@redhat.com> - 23.1-1
 - Update to 23.1 (rhbz#2186423)
 

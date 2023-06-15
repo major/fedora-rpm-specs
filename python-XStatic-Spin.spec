@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.2.5.2
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Spin (XStatic packaging standard)
 
 License:        MIT
@@ -83,6 +83,9 @@ chmod 644 %{buildroot}%{_jsdir}/spin/*.js
 %{_jsdir}/spin
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.2.5.2-29
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5.2-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

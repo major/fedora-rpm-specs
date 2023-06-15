@@ -5,7 +5,7 @@
 
 Name:           python-pyproject-metadata
 Version:        0.7.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PEP 621 metadata parsing
 
 License:        MIT
@@ -89,6 +89,9 @@ rm -rf html/{.buildinfo,.doctrees}
 %endif
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.7.1-2
+- Rebuilt for Python 3.12
+
 * Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 0.7.1-1
 - Dynamically generate BuildRequires
 

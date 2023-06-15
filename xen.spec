@@ -55,7 +55,7 @@
 Summary: Xen is a virtual machine monitor
 Name:    xen
 Version: 4.17.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2+ and LGPLv2+ and BSD
 URL:     http://xen.org/
 Source0: https://downloads.xenproject.org/release/xen/%{version}/xen-%{version}.tar.gz
@@ -931,6 +931,9 @@ fi
 %endif
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 4.17.1-3
+- Rebuilt for Python 3.12
+
 * Tue May 16 2023 Michael Young <m.a.young@durham.ac.uk> - 4.17.1-2
 - Mishandling of guest SSBD selection on AMD hardware
 	[XSA-431, CVE-2022-42336]

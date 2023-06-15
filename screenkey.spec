@@ -1,7 +1,7 @@
 %global py_name Screenkey
 Name:		screenkey
 Version:	1.5
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	A screencast tool to display your keys
 License:	GPLv3+
 URL:		https://www.thregr.org/~wavexx/software/%{name}
@@ -63,6 +63,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{python3_sitelib}/%{name}-%{version}-*.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.5-5
+- Rebuilt for Python 3.12
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

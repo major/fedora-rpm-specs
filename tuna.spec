@@ -1,6 +1,6 @@
 Name: tuna
 Version: 0.19
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2
 Summary: Application tuning GUI & command line utility
 Source: https://www.kernel.org/pub/software/utils/%{name}/%{name}-%{version}.tar.xz
@@ -91,6 +91,9 @@ done
 %doc docs/oscilloscope+tuna.pdf
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.19-2
+- Rebuilt for Python 3.12
+
 * Thu Feb 16 2023 John Kacur <jkacur@redhat.com> - 0.19-1
 - Use setuptools and sysconfig instead of distutils in setup.py
 - Update to 0.19 upstream

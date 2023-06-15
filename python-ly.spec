@@ -1,6 +1,6 @@
 Name:           python-ly
 Version:        0.9.7
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Tool and library for manipulating LilyPond files
 
 License:        GPL-2.0-or-later
@@ -48,6 +48,9 @@ This package allows for use of python-ly with Python 3.
 %{python3_sitelib}/*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.9.7-10
+- Rebuilt for Python 3.12
+
 * Sat Mar 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.9.7-9
 - migrated to SPDX license
 

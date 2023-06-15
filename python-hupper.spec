@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.10.3
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -52,6 +52,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} -m pytest
 %{_bindir}/hupper
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.10.3-8
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

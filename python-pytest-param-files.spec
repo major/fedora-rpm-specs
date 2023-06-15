@@ -1,6 +1,6 @@
 Name:           python-pytest-param-files
 Version:        0.3.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Create pytest parametrize decorators from external files
 
 License:        MIT
@@ -52,6 +52,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.3.4-4
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

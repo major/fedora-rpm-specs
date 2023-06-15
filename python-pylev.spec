@@ -11,7 +11,7 @@ https://en.wikipedia.org/wiki/Levenshtein_distance.}
 Name:           python-%{pypi_name}
 Summary:        Liberally licensed, pure Python Levenshtein implementation
 Version:        1.3.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 License:        BSD
 
 URL:            http://github.com/toastdriven/pylev
@@ -62,6 +62,9 @@ cp %{SOURCE1} .
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.3.0-16
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -8,7 +8,7 @@
 
 Name: libtevent
 Version: 0.14.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The tevent library
 License: LGPL-3.0-or-later
 URL: http://tevent.samba.org/
@@ -107,6 +107,9 @@ cp -a doc/man/man3 %{buildroot}%{_mandir}
 %ldconfig_scriptlets
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.14.1-2
+- Rebuilt for Python 3.12
+
 * Thu Feb 23 2023 Pavel Filipenský <pfilipen@redhat.com> -0.14.1-1
 - SPDX migration
 

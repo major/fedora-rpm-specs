@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        4.0.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Git Object Database
 
 License:        BSD-3-Clause
@@ -60,6 +60,9 @@ export GITDB_TEST_GIT_REPO_BASE=testrepo/.git
 %doc AUTHORS
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 4.0.10-2
+- Rebuilt for Python 3.12
+
 * Tue May 23 2023 Lubomír Sedlář <lsedlar@redhat.com> - 4.0.10-1
 - New upstream release 4.0.10 (#2148339)
 

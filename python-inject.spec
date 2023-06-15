@@ -21,7 +21,7 @@ Summary: Dependency injection, the Python way
 License: ASL 2.0
 
 Version: 4.3.1
-Release: 9%{?dist}
+Release: 10%{?dist}
 
 URL: https://github.com/ivankorobkov/python-%{pkg_name}
 Source0: %pypi_source
@@ -93,6 +93,9 @@ EOF
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 4.3.1-10
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

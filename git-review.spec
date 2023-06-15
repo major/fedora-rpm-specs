@@ -1,6 +1,6 @@
 Name:		git-review
 Version:	2.3.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A Git helper for integration with Gerrit
 
 License:	ASL 2.0
@@ -54,6 +54,9 @@ install -p -m 0644 -D git-review.1 %{buildroot}%{_mandir}/man1/git-review.1
 %{python3_sitelib}/git_review-%{version}-py%{python3_version}*.egg-info/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.3.1-3
+- Rebuilt for Python 3.12
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

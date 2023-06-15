@@ -25,7 +25,7 @@ fi \
 
 Name:           mpsolve
 Version:        3.2.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Multiprecision polynomial solver
 
 License:        GPL-3.0-or-later
@@ -283,6 +283,9 @@ make check
 %doc %{octpkgdir}/doc-cache
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.2.1-17
+- Rebuilt for Python 3.12
+
 * Sun Apr 09 2023 Orion Poplawski <orion@nwra.com> - 3.2.1-16
 - Rebuild for octave 8.1.0
 

@@ -1,7 +1,7 @@
 %global sys_name nwg_panel
 
 Name:       nwg-panel
-Version:    0.9.6
+Version:    0.9.7
 Release:    %autorelease
 Summary:    GTK3-based panel for sway window manager
 BuildArch:  noarch
@@ -21,14 +21,12 @@ Requires:   python3-gobject
 Requires:   python3-i3ipc
 Requires:   wlr-randr
 
+Recommends: /usr/bin/pactl
 Recommends: light
 Recommends: playerctl
 Recommends: python3-netifaces
 Recommends: python3-psutil
 Recommends: python3-pybluez
-
-### Not packaged
-# Recommends: pamixer
 
 %description
 I have been using sway since 2019 and find it the most comfortable working

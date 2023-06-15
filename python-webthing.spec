@@ -1,7 +1,7 @@
 %define realname webthing-python
 Name:           python-webthing
 Version:        0.15.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        HTTP Web Thing implementation in Python
 License:        MPLv2.0
 URL:            https://github.com/WebThingsIO/webthing-python
@@ -42,6 +42,9 @@ rm -rf %{realname}.egg-info
 %{python3_sitelib}/webthing-%{version}-py3.*.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.15.0-9
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

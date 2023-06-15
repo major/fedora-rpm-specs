@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    dc4cf8896bf47647080dc5709a2c67ee9d437c21
+%global gh_commit    33a99c190d078e77864b8d74cdc91cc4e5342598
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     php-mock
 %global gh_project   php-mock-phpunit
@@ -14,7 +14,7 @@
 %global major        2
 
 Name:           php-mock-phpunit%{major}
-Version:        2.7.1
+Version:        2.7.2
 Release:        1%{?dist}
 Summary:        Mock built-in PHP functions with PHPUnit.
 
@@ -149,6 +149,9 @@ exit $ret
 
 
 %changelog
+* Tue Jun 13 2023 Remi Collet <remi@remirepo.net> - 2.7.2-1
+- update to 2.7.2 (no change)
+
 * Tue Mar 21 2023 Remi Collet <remi@remirepo.net> - 2.7.1-1
 - update to 2.7.1
 

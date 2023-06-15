@@ -6,7 +6,7 @@
 
 Name:           python-%{srcname}
 Version:        40.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PyCA's cryptography library
 
 # cryptography is dual licensed under the Apache-2.0 and BSD-3-Clause,
@@ -26,6 +26,8 @@ BuildRequires:  gcc
 BuildRequires:  gnupg2
 %if 0%{?fedora}
 BuildRequires:  rust-packaging
+# test_load_with_other_sections in 40.0 fails with pem 1.1.0
+BuildRequires:  rust-pem-devel >= 1.1.1
 %else
 BuildRequires:  rust-toolset
 %endif
@@ -34,8 +36,6 @@ BuildRequires:  python%{python3_pkgversion}-cffi >= 1.12
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python%{python3_pkgversion}-setuptools-rust >= 0.11.4
-# test_load_with_other_sections in 40.0 fails with pem 1.1.0
-BuildRequires:  rust-pem-devel >= 1.1.1
 
 %if %{with tests}
 %if 0%{?fedora}
@@ -131,6 +131,9 @@ PYTHONPATH=${PWD}/vectors:%{buildroot}%{python3_sitearch} \
 %{python3_sitearch}/%{srcname}-%{version}-py*.egg-info
 
 %changelog
+* Tue Jun 13 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 40.0.2-2
+- Use vendored rust-pem in RHEL builds
+
 * Tue Apr 18 2023 Christian Heimes <cheimes@redhat.com> - 40.0.2-1
 - Update to 40.0.2, resolves rhbz#2181430
 

@@ -1,6 +1,6 @@
 Name:           capstone
 Version:        4.0.2
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A lightweight multi-platform, multi-architecture disassembly framework
 
 %global         gituser         capstone-engine
@@ -239,6 +239,9 @@ make check LD_LIBRARY_PATH="`pwd`"
 %endif
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 4.0.2-14
+- Rebuilt for Python 3.12
+
 * Fri Jan 27 2023 Michal Ambroz <rebus AT_ seznam.cz> - 4.0.2-13
 - update the new github page
 

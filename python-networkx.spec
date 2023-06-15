@@ -1,3 +1,4 @@
+%global _with_bootstrap 1
 # There is a bootstrap loop between libpysal and networkx when tests/docs are
 # enabled
 %bcond_with     bootstrap
@@ -11,7 +12,7 @@
 
 Name:           python-networkx
 Version:        3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Creates and Manipulates Graphs and Networks
 License:        BSD-3-Clause
 URL:            https://networkx.org/
@@ -180,6 +181,9 @@ done
 %endif
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.1-2
+- Bootstrap for Python 3.12
+
 * Fri Apr  7 2023 Jerry James <loganjerry@gmail.com> - 3.1-1
 - Version 3.1
 - Drop obsolete test patch

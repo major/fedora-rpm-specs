@@ -14,7 +14,7 @@
 
 Name: openbabel
 Version: 3.1.1
-Release: 18%{?dist}
+Release: 19%{?dist}
 Summary: Chemistry software file format converter
 License: GPL-2.0-only
 URL: https://openbabel.org/
@@ -345,6 +345,9 @@ ctest3 -j1 --force-new-ctest-process
 %{ruby_vendorarchdir}/openbabel.so
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.1.1-19
+- Rebuilt for Python 3.12
+
 * Wed Feb 08 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.1.1-18
 - Fix config files (rhbz#2168290)
 

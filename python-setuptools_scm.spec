@@ -1,8 +1,9 @@
+%global _without_tests 1
 %bcond_without tests
 
 Name:           python-setuptools_scm
 Version:        7.1.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Blessed package to manage your versions by SCM tags
 
 # SPDX
@@ -17,7 +18,9 @@ BuildRequires:  pyproject-rpm-macros
 %if %{with tests}
 BuildRequires:  git-core
 # Don't pull mercurial into RHEL just to test this work with it
-%if %{undefined rhel}
+# Mercurial uses imp module which was removed in Python 3.12,
+# we skip the tests until it is fixed in mercurial
+%if 0%{?fedora} && 0%{?fedora} < 39
 BuildRequires:  mercurial
 %endif
 # Manually listed test dependencies from tox.ini, to avoid pulling tox into RHEL
@@ -76,6 +79,9 @@ It also handles file finders for the supported SCMs.
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 7.1.0-5
+- Bootstrap for Python 3.12
+
 * Tue May 30 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 7.1.0-4
 - Drop unused python-virtualenv test dependency
 

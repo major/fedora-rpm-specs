@@ -2,7 +2,7 @@
 
 Name:           %{pypi_name}
 Version:        0.2.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Tool for generating MQTT messages on various topics
 
 License:        MIT
@@ -39,6 +39,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/mqtt_randompub-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.2.2-8
+- Rebuilt for Python 3.12
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

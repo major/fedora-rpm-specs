@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.9.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Solver-agnostic library for SMT Formulae manipulation and solving
 
 License:        ASL 2.0
@@ -66,6 +66,9 @@ sed -i -e '/^#!\//, 1d' pysmt/{cmd/shell.py,constants.py}
 %{_bindir}/pysmt-install
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.9.5-2
+- Rebuilt for Python 3.12
+
 * Sat Feb 11 2023 Fabian Affolter <mail@fabian-affolter.ch> - 0.9.5-1
 - Update to latest upstream release 0.9.5 (closes rhbz#2157764)
 

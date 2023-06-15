@@ -11,7 +11,7 @@
 
 Summary: Qt5 - QtDeclarative component
 Name:    qt5-%{qt_module}
-Version: 5.15.9
+Version: 5.15.10
 Release: 1%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
@@ -27,16 +27,16 @@ Source5: qv4global_p-multilib.h
 ## upstream patches
 ## repo: https://invent.kde.org/qt/qt/qtdeclarative
 ## branch: kde/5.15
-## git format-patch v5.15.9-lts-lgpl
-Patch1:  0001-Remove-unused-QPointer-QQuickPointerMask.patch
-Patch2:  0002-QQmlDelegateModel-Refresh-the-view-when-a-column-is-.patch
-Patch3:  0003-Fix-TapHandler-so-that-it-actually-registers-a-tap.patch
-Patch4:  0004-Revert-Fix-TapHandler-so-that-it-actually-registers-.patch
-Patch5:  0005-Make-sure-QQuickWidget-and-its-offscreen-window-s-sc.patch
-Patch6:  0006-QQuickItem-Guard-against-cycles-in-nextPrevItemInTab.patch
-Patch7:  0007-Don-t-convert-QByteArray-in-startDrag.patch
-Patch8:  0008-Fix-build-after-95290f66b806a307b8da1f72f8fc2c698019.patch
-Patch9:  0009-Implement-accessibility-for-QQuickWidget.patch
+## git format-patch v5.15.10-lts-lgpl
+Patch1: 0001-Remove-unused-QPointer-QQuickPointerMask.patch
+Patch2: 0002-QQmlDelegateModel-Refresh-the-view-when-a-column-is-.patch
+Patch3: 0003-Fix-TapHandler-so-that-it-actually-registers-a-tap.patch
+Patch4: 0004-Revert-Fix-TapHandler-so-that-it-actually-registers-.patch
+Patch5: 0005-Make-sure-QQuickWidget-and-its-offscreen-window-s-sc.patch
+Patch6: 0006-QQuickItem-Guard-against-cycles-in-nextPrevItemInTab.patch
+Patch7: 0007-Don-t-convert-QByteArray-in-startDrag.patch
+Patch8: 0008-Fix-build-after-95290f66b806a307b8da1f72f8fc2c698019.patch
+Patch9: 0009-Implement-accessibility-for-QQuickWidget.patch
 Patch10: 0010-Send-ObjectShow-event-for-visible-components-after-i.patch
 Patch11: 0011-QQuickItem-avoid-emitting-signals-during-destruction.patch
 Patch12: 0012-a11y-track-item-enabled-state.patch
@@ -47,6 +47,13 @@ Patch16: 0016-Revert-Fix-missing-glyphs-when-using-NativeRendering.patch
 Patch17: 0017-QQmlImportDatabase-Make-sure-the-newly-added-import-.patch
 Patch18: 0018-QQuickState-when-handle-QJSValue-properties-correctl.patch
 Patch19: 0019-Models-Avoid-crashes-when-deleting-cache-items.patch
+Patch20: 0020-qv4function-Fix-crash-due-to-reference-being-invalid.patch
+Patch21: 0021-Quick-Animations-Fix-crash.patch
+Patch22: 0022-Prevent-crash-when-destroying-asynchronous-Loader.patch
+Patch23: 0023-QQuickItem-Fix-effective-visibility-for-items-withou.patch
+Patch24: 0024-Revert-QQuickItem-Fix-effective-visibility-for-items.patch
+Patch25: 0025-Accessibility-respect-value-in-attached-Accessible-i.patch
+Patch26: 0026-qml-tool-Use-QCommandLineParser-process-rather-than-.patch
 
 
 ## upstreamable patches
@@ -233,6 +240,9 @@ make check -k -C tests ||:
 
 
 %changelog
+* Mon Jun 12 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.10-1
+- 5.15.10
+
 * Tue Apr 11 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.9-1
 - 5.15.9
 

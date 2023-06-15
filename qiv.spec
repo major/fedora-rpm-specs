@@ -1,6 +1,6 @@
 Name:           qiv
 Version:        2.3.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 
 Summary:        Quick Image Viewer
 
@@ -41,6 +41,9 @@ chmod 644 contrib/qiv-command.example
 %{_datadir}/pixmaps/qiv.png
 
 %changelog
+* Tue Jun 13 2023 Leigh Scott <leigh123linux@gmail.com> - 2.3.2-6
+- Rebuild fo new imlib2
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

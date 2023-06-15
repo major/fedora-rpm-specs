@@ -1,6 +1,6 @@
 Name:           python-jsonref
 Version:        1.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python library for automatic dereferencing of JSON Reference objects
 
 License:        MIT
@@ -56,6 +56,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.1.0-2
+- Rebuilt for Python 3.12
+
 * Tue Feb 14 2023 Carl George <carl@george.computer> - 1.1.0-1
 - Update to version 1.1.0, resolves rhbz#2169606
 - Convert to pyproject macros

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.32
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Send test results to TeamCity continuous integration servers
 
 License:        Apache-2.0 
@@ -93,6 +93,9 @@ Twisted Plugin to interact with TeamCity
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.32-3
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.32-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

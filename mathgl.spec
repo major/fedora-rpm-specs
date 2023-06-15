@@ -19,7 +19,7 @@
 
 Name:          mathgl
 Version:       8.0.1
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       Cross-platform library for making high-quality scientific graphics
 Summary(de):   Plattformübergreifende Bibliothek für hochwertige wissenschaftliche Graphiken
 Summary(ru):   Библиотека для осуществления высококачественной визуализации данных
@@ -623,6 +623,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/mgllab.desktop
 %endif
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 8.0.1-5
+- Rebuilt for Python 3.12
+
 * Sat Apr 08 2023 Orion Poplawski <orion@nwra.com> - 8.0.1-4
 - Rebuild with octave 8.1.0
 

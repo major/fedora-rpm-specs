@@ -39,7 +39,7 @@
 
 Name:               gfal2-python
 Version:            1.12.0
-Release:            3%{?dist}
+Release:            4%{?dist}
 Summary:            Python bindings for gfal 2
 License:            ASL 2.0
 URL:                http://dmc.web.cern.ch/
@@ -182,6 +182,9 @@ fi
 %endif
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.12.0-4
+- Rebuilt for Python 3.12
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 1.12.0-3
 - Rebuilt for Boost 1.81
 

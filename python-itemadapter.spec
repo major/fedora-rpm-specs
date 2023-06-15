@@ -5,7 +5,7 @@ providing a common interface to handle objects of different
 types in an uniform manner, regardless of their underlying implementation.}
 Name:		python-itemadapter
 Version:	0.4.0
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	The ItemAdapter class is a wrapper for data container object
 
 License:	BSD
@@ -48,6 +48,9 @@ Requires:	python3-attrs
 %{python3_sitelib}/itemadapter-*.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.4.0-5
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

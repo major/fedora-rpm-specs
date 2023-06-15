@@ -10,7 +10,7 @@
 Summary:        Real-time Midi I/O Library
 Name:           portmidi
 Version:        217
-Release:        52%{?dist}
+Release:        53%{?dist}
 License:        MIT
 URL:            http://portmedia.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/portmedia/%{name}-src-%{version}.zip
@@ -214,6 +214,9 @@ rm -f %{buildroot}%{_libdir}/libportmidi_s.so
 %{_libdir}/lib*.so
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 217-53
+- Rebuilt for Python 3.12
+
 * Wed Mar 29 2023 Michael J Gruber <mjg@fedoraproject.org> - 217-52
 - Adjust patch macro usage to rpm >= 4.18
 

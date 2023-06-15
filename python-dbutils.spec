@@ -2,7 +2,7 @@
 
 Name:           python-dbutils
 Version:        3.0.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools providing solid, persistent and pooled connections to a database
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
@@ -73,6 +73,9 @@ popd
 %doc %{_pkgdocdir}
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.0.3-2
+- Rebuilt for Python 3.12
+
 * Thu Apr 27 2023 Pat Riehecky <riehecky@fnal.gov> - 3.0.3-1
 - Update to 3.0.3
 

@@ -9,7 +9,7 @@
 
 Name: python-%{srcname}
 Version: 0.7.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Pure Python netlink library
 License: GPLv2+
 URL: https://github.com/svinota/%{srcname}
@@ -58,6 +58,9 @@ IPQ.
 %{python3_sitelib}/pr2modules
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.7.3-2
+- Rebuilt for Python 3.12
+
 * Thu Jan 26 2023 Alfredo Moralejo <amoralej@redhat.com> - 0.7.3-1
 - Update to 0.7.3
 

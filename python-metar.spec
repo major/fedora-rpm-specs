@@ -3,7 +3,7 @@
 
 Name: python-%{srcname}
 Version: 1.10.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: %{summary}
 
 # This software uses the BSD-Source-Code license
@@ -72,6 +72,9 @@ PYTHONPATH="%{buildroot}%{python3_sitelib}" %{_bindir}/pytest-3
 %{python3_sitelib}/%{srcname}*egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.10.0-2
+- Rebuilt for Python 3.12
+
 * Sat May 20 2023 Jos de Kloe <josdekloe@gmail.com> 1.10.0-1
 - new upstream version 1.10.0
 

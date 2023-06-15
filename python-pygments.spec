@@ -1,3 +1,5 @@
+%global _without_docs 1
+%global _without_tests 1
 # when bootstrapping, we cannot yet use sphinx and pytest
 # on RHEL, we don't need to build the documentation
 %bcond docs %{undefined rhel}
@@ -5,7 +7,7 @@
 
 Name:           python-pygments
 Version:        2.15.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Syntax highlighting engine written in Python
 
 License:        BSD-2-Clause
@@ -98,6 +100,9 @@ chmod -x %{buildroot}%{_mandir}/man1/*.1
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.15.1-2
+- Bootstrap for Python 3.12
+
 * Tue May 02 2023 Karolina Surma <ksurma@redhat.com> - 2.15.1-1
 - Update to 2.15.1
 - Fixes: rhbz#2185608

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.9.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Sphinx extension to enable documenting PHP code
 
 License:        BSD
@@ -44,6 +44,9 @@ sed -i 's/install\_requires=requirements/install\_requires=\[\"sphinx\"\]/g' set
 %{python3_sitelib}/sphinxcontrib_phpdomain-%{version}-py*.egg-info/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.9.0-3
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

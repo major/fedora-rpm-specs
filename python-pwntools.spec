@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        4.9.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A CTF framework and exploit development library
 
 # Source contains four LICENSE*.txt files which explain the licenses which cover
@@ -73,6 +73,9 @@ rm -rf %{buildroot}%{_prefix}/pwntools-doc
 # %%license LICENSE-pwntools.txt
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 4.9.0-3
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

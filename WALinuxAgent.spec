@@ -3,7 +3,7 @@
 
 Name:           WALinuxAgent
 Version:        2.9.0.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        The Microsoft Azure Linux Agent
 
 License:        Apache-2.0
@@ -123,6 +123,9 @@ install -m0755 -D -t %{buildroot}%{_prefix}/lib/dracut/modules.d/%{dracut_modnam
 %endif
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.9.0.4-3
+- Rebuilt for Python 3.12
+
 * Tue May 30 2023 Vitaly Kuznetsov <vkuznets@redhat.com> - 2.9.0.4-2
 - Switch to SPDX identifiers for the license field
 

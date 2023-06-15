@@ -2,7 +2,7 @@
 
 Name:    gjots2
 Version: 3.2.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A hierarchical note jotter - organize your ideas, notes, facts in a tree
 License: GPL-2.0-only
 URL:     http://bhepple.freeshell.org/gjots
@@ -94,6 +94,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 %{_mandir}/man1/docbook2gjots*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.2.1-2
+- Rebuilt for Python 3.12
+
 * Mon Feb 20 2023 Bob Hepple <bob.hepple@gmail.com> - 3.2.1-1
 - new version
 - migrated to SPDX license

@@ -1,6 +1,6 @@
 Name:           python3-lxc
 Version:        5.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python binding for LXC
 License:        LGPLv2+
 URL:            https://linuxcontainers.org/lxc
@@ -61,6 +61,9 @@ sed -i -e '1 s@^#!.*@#!%{__python3}@' examples/*.py
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 5.0.0-2
+- Rebuilt for Python 3.12
+
 * Sat Jan 28 2023 Thomas Moschny <thomas.moschny@gmx.de> - 5.0.0-1
 - Update to 5.0.0.
 

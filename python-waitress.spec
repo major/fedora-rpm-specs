@@ -1,6 +1,6 @@
 Name:           python-waitress
 Version:        2.1.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Waitress WSGI server
 
 License:        ZPL-2.1
@@ -59,6 +59,9 @@ sed -e '/pytest-cover/d' \
 %{_bindir}/waitress-serve
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.1.2-4
+- Rebuilt for Python 3.12
+
 * Wed May 10 2023 Carl George <carl@george.computer> - 2.1.2-3
 - Convert to pyproject macros
 - Run test suite

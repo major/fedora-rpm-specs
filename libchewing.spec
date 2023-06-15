@@ -5,7 +5,7 @@
 
 Name:           libchewing
 Version:        0.5.1
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Intelligent phonetic input method library for Traditional Chinese
 Summary(zh_TW): %{name_zh_TW}
 
@@ -98,6 +98,9 @@ rm -f %{buildroot}/%{_infodir}/dir
 %{libchewing_python_dir}/__pycache__/*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.5.1-27
+- Rebuilt for Python 3.12
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

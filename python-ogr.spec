@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.45.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        One API for multiple git forges
 
 License:        MIT
@@ -52,6 +52,9 @@ rm -rf %{srcname}.egg-info
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.45.0-2
+- Rebuilt for Python 3.12
+
 * Mon Jun 05 2023 Packit <hello@packit.dev> - 0.45.0-1
 - OGR now supports PyGithub >= 1.58.
 

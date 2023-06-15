@@ -1,3 +1,5 @@
+%global _without_tests 1
+%global _without_websupport 1
 # When bootstrapping sphinx, we don't yet have sphinxcontrib-websupport
 # Without it we have warnings in docs, but it's not a hard dependency
 %bcond_without websupport
@@ -28,7 +30,7 @@ Name:       python-sphinx
 #global     prerel ...
 %global     upstream_version %{general_version}%{?prerel}
 Version:    %{general_version}%{?prerel:~%{prerel}}
-Release:    2%{?dist}
+Release:    3%{?dist}
 Epoch:      1
 Summary:    Python documentation generator
 
@@ -370,6 +372,9 @@ mkdir %{buildroot}%{python3_sitelib}/sphinxcontrib
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1:6.1.3-3
+- Bootstrap for Python 3.12
+
 * Wed May 31 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1:6.1.3-2
 - Avoid html5lib test dependency in RHEL builds
 

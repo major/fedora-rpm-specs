@@ -4,7 +4,7 @@
 #
 Name:           trademgen
 Version:        1.00.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        C++ Simulated Travel Demand Generation Library
 License:        LGPLv2+
@@ -147,6 +147,9 @@ rm -f %{_bindir}/py%{name}
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.00.9-2
+- Rebuilt for Python 3.12
+
 * Mon May 01 2023 Denis Arnaud <denis.arnaud_fedora@m4x.org> - 1.00.9-1
 - Upstream upgrade
 

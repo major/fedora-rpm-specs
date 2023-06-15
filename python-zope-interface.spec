@@ -1,3 +1,5 @@
+%global _without_docs 1
+%global _without_tests 1
 # Bconds are needed for Python bootstrap
 %bcond docs %{undefined rhel}
 %bcond tests 1
@@ -7,7 +9,7 @@
 
 Name:		python-zope-interface
 Version:	5.5.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Zope 3 Interface Infrastructure
 License:	ZPLv2.1
 URL:		https://pypi.io/project/zope.interface
@@ -95,6 +97,9 @@ popd
 %endif
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 5.5.2-3
+- Bootstrap for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.5.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

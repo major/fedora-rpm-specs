@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.21
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Python cross-platform network interface discovery (ifconfig/ipconfig/ip)
 
 License:        BSD
@@ -64,6 +64,9 @@ A fallback to ip is included for newer Unix systems w/o ifconfig.
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.21-10
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

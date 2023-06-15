@@ -100,7 +100,7 @@
 Name:			graphviz
 Summary:		Graph Visualization Tools
 Version:		8.0.5
-Release:		1%{?dist}
+Release:		2%{?dist}
 License:		EPL-1.0
 URL:			http://www.graphviz.org/
 #Source0:		https://gitlab.com/%%{name}/%%{name}/-/archive/%%{version}/%%{name}-%%{version}.tar.bz2
@@ -773,6 +773,9 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 8.0.5-2
+- Rebuilt for Python 3.12
+
 * Tue May  2 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 8.0.5-1
 - New version
   Resolves: rhbz#2192232

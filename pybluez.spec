@@ -1,6 +1,6 @@
 Name:           pybluez
 Version:        0.23
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Python API for the BlueZ bluetooth stack 
 
 License:        GPL-2.0-only
@@ -48,6 +48,9 @@ chmod a-x examples/bluezchat/bluezchat.py
 %{python3_sitearch}/*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.23-12
+- Rebuilt for Python 3.12
+
 * Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.23-11
 - migrated to SPDX license
 

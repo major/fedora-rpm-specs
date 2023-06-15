@@ -123,7 +123,7 @@ m     stapdev  stapdev
 Name: systemtap
 # PRERELEASE
 Version: 4.9
-Release: 2%{?release_override}%{?dist}
+Release: 3%{?release_override}%{?dist}
 # for version, see also configure.ac
 
 
@@ -1307,6 +1307,9 @@ exit 0
 
 # PRERELEASE
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 4.9-3
+- Rebuilt for Python 3.12
+
 * Fri May 19 2023 Mark Wielaard <mjw@fedoraproject.org> - 4.9-2
 - rebuilt for f39-build-side-67564 target
 

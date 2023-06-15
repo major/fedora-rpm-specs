@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        multi-byte character string decoder
 
 License:        MIT
@@ -45,6 +45,9 @@ sed -i 's/chardet>=3.0.4,<.*/chardet>=3.0.4/g' requirements/requirements.txt
 %doc README.rst
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.1.2-2
+- Rebuilt for Python 3.12
+
 * Tue Feb 07 2023 Karolina Kula <kkula@redhat.com> - 1.1.2-1
 - Update to 1.1.2
 

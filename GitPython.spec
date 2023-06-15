@@ -2,7 +2,7 @@
 
 Name:           %{srcname}
 Version:        3.1.31
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python Git Library
 
 License:        BSD-3-Clause
@@ -60,6 +60,9 @@ Requires:       git-core
 %doc CHANGES AUTHORS
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.1.31-2
+- Rebuilt for Python 3.12
+
 * Tue May 23 2023 Lubomír Sedlář <lsedlar@redhat.com> - 3.1.31-1
 - Update to 3.1.31 (#2170552)
 

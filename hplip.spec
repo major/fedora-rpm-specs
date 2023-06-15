@@ -7,7 +7,7 @@
 Summary: HP Linux Imaging and Printing Project
 Name: hplip
 Version: 3.23.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+ and MIT and BSD and IJG and GPLv2+ with exceptions and ISC
 
 Url: https://developers.hp.com/hp-linux-imaging-and-printing
@@ -929,6 +929,9 @@ find doc/images -type f -exec chmod 644 {} \;
 %config(noreplace) %{_sysconfdir}/sane.d/dll.d/hpaio
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.23.5-2
+- Rebuilt for Python 3.12
+
 * Tue Jun 06 2023 Zdenek Dohnal <zdohnal@redhat.com> - 3.23.5-1
 - 2184067 - hplip-3.23.5 is available
 

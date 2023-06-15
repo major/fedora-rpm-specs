@@ -1,3 +1,4 @@
+%global _without_check 1
 %global pypi_name sphinxcontrib-htmlhelp
 
 # when bootstrapping sphinx, we cannot even run an import check
@@ -7,7 +8,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Sphinx extension for HTML help files
 License:        BSD
 URL:            http://sphinx-doc.org/
@@ -90,6 +91,9 @@ popd
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.0.0-9
+- Bootstrap for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

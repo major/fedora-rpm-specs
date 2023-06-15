@@ -1,6 +1,6 @@
 Name:          python-tcolorpy
 Version:       0.1.3
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Python library to apply true color for terminal text
 
 License:       MIT
@@ -50,6 +50,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.1.3-2
+- Rebuilt for Python 3.12
+
 * Wed May 10 2023 Jonny Heggheim <hegjon@gmail.com> - 0.1.3-1
 - Updated to version 0.1.3
 

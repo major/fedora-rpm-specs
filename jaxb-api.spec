@@ -2,7 +2,7 @@ Name:           jaxb-api
 Version:        4.0.0
 Release:        3%{?dist}
 Summary:        Jakarta XML Binding API
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/eclipse-ee4j/jaxb-api
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch

@@ -1,6 +1,6 @@
 Name: NFStest		
 Version: 3.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: NFS Testing Tool
 
 License: GPLv2+ 
@@ -50,6 +50,9 @@ most of the functionality is focused mainly on testing the client.
 %doc COPYING README
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.2-2
+- Rebuilt for Python 3.12
+
 * Mon Mar 27 2023 Steve Dickson <steved@redhat.com> 3.2-1
 - Update to latest upstream version: 3.2
 

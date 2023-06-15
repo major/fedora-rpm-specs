@@ -1,6 +1,6 @@
 Name:		tint2
 Version:	17.1.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A lightweight X11 desktop panel and task manager
 
 License:	GPLv2
@@ -74,6 +74,9 @@ desktop-file-install	\
 %{_mandir}/man1/tint2*
 
 %changelog
+* Tue Jun 13 2023 Leigh Scott <leigh123linux@gmail.com> - 17.1.3-2
+- Rebuild fo new imlib2
+
 * Tue Jan 24 2023 Leigh Scott <leigh123linux@gmail.com> - 17.1.3-1
 - New version 17.1.3
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.8.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Linux Distribution - a Linux OS platform information API
 
 License:        Apache-2.0
@@ -60,6 +60,9 @@ Suggests:       /usr/bin/lsb_release
 %pytest
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.8.0-5
+- Rebuilt for Python 3.12
+
 * Tue May 23 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.8.0-4
 - Migrate from tox to pytest
 

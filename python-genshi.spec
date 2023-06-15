@@ -2,7 +2,7 @@
 
 Name:           python-genshi
 Version:        0.7.7
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Toolkit for stream-based generation of output for the web
 
 License:        BSD
@@ -67,6 +67,9 @@ sed -i -e '/_speedups.c/d' %{pyproject_files}
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.7.7-6
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.7-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

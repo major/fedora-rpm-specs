@@ -1,6 +1,6 @@
 Name:           fts-rest-client
 Version:        3.12.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        File Transfer Service (FTS) -- Python3 Client and CLI
 
 License:        ASL 2.0
@@ -46,6 +46,9 @@ cp src/cli/fts3client.cfg %{buildroot}%{_sysconfdir}/fts3
 %config(noreplace) %{_sysconfdir}/fts3/fts3client.cfg
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.12.2-2
+- Rebuilt for Python 3.12
+
 * Thu Mar 02 2023 Mihai Patrascoiu <mihai.patrascoiu@cern.ch> - 3.12.2-1
 - New upstream release 3.12.2
 - Remove patch for bugzilla#2164054 as it has been addressed upstream

@@ -1,6 +1,6 @@
 Name:           rapid-photo-downloader
 Version:        0.9.33
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Images downloader for external devices
 
 License:        GPLv3+
@@ -84,6 +84,9 @@ desktop-file-install                                        \
 %{_mandir}/man1/*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.9.33-7
+- Rebuilt for Python 3.12
+
 * Tue Apr 04 2023 Charalampos Stratakis <cstratak@redhat.com> - 0.9.33-6
 - Fix FTBFS with setuptools >= 66.0.0
 Resolves: rhbz#2183371

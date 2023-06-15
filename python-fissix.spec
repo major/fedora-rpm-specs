@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        20.8.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Monkeypatches to override default behavior of lib2to3
 License:        Python
 URL:            https://github.com/jreese/fissix
@@ -64,6 +64,9 @@ cp -p fissix/*.txt %{buildroot}%{python3_sitelib}/%{srcname}/
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 20.8.0-9
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20.8.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

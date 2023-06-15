@@ -1,6 +1,6 @@
 Name:           babeltrace
 Version:        1.5.11
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Trace Viewer and Converter, mainly for the Common Trace Format
 License:        MIT AND GPL-3.0-or-later WITH Bison-exception-2.2 AND LGPL-2.1-only AND BSD-4-Clause-UC
 URL:            https://www.efficios.com/babeltrace
@@ -117,6 +117,9 @@ rm -f %{buildroot}/%{_pkgdocdir}/std-ext-lib.txt
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.5.11-4
+- Rebuilt for Python 3.12
+
 * Mon May 30 2023 Keith Seitz <keiths@redhat.com>
 - Update license expression.
 

@@ -12,7 +12,7 @@
 
 Name:           pcapy
 Version:        0.11.5
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        %{sum}
 
 License:        Apache-1.1
@@ -87,6 +87,9 @@ rm -rf %{buildroot}/usr/share/doc/pcapy
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.11.5-19
+- Rebuilt for Python 3.12
+
 * Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.11.5-18
 - migrated to SPDX license
 

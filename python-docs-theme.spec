@@ -1,6 +1,6 @@
 Name:           python-docs-theme
 Version:        2023.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The Sphinx theme for the CPython docs and related projects
 
 License:        PSF-2.0
@@ -39,6 +39,9 @@ Summary:        %{summary}
 %doc README.rst
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2023.5-2
+- Rebuilt for Python 3.12
+
 * Wed May 24 2023 Karolina Surma <ksurma@redhat.com> - 2023.5-1
 - Update to 2023.5
 Resolves: rhbz#2203424

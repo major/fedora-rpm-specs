@@ -6,7 +6,7 @@ and apply unified diffs.}
 
 Name: python-%{pypi_name}
 Version: 1.17.4
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 # Separate license file is currently missing:
 # https://github.com/conan-io/python-patch-ng/issues/8
@@ -45,6 +45,9 @@ Summary: %{summary}
 %doc README.md
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.17.4-6
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

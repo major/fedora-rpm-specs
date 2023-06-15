@@ -1,3 +1,4 @@
+%global _without_check 1
 %global pypi_name sphinxcontrib-qthelp
 
 # when bootstrapping sphinx, we cannot run tests yet
@@ -5,7 +6,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.0.3
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Sphinx extension for QtHelp documents
 License:        BSD
 URL:            http://sphinx-doc.org/
@@ -82,6 +83,9 @@ popd
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.0.3-13
+- Bootstrap for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

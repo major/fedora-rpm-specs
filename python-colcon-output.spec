@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.13
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Extension for colcon to customize the output in various ways
 
 License:        ASL 2.0
@@ -57,6 +57,9 @@ An extension for colcon-core to customize the output in various ways.
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.2.13-2
+- Rebuilt for Python 3.12
+
 * Tue May 09 2023 Scott K Logan <logans@cottsay.net> - 0.2.13-1
 - Update to 0.2.13 (rhbz#2170313)
 

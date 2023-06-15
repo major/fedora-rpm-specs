@@ -1,6 +1,6 @@
 Name:           python-multidict
 Version:        6.0.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MultiDict implementation
 
 License:        Apache-2.0
@@ -51,6 +51,9 @@ sed -i -e '/addopts/d' setup.cfg
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 6.0.4-2
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 6.0.4-1
 - Update to 6.0.4, resolves rhbz#2150589
 - Convert to pyproject macros

@@ -1,8 +1,9 @@
+%global _without_tests 1
 %bcond_without tests
 
 Name:           python-mock
 Version:        4.0.3
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Deprecated, use unittest.mock from the standard library instead
 
 License:        BSD-2-Clause
@@ -73,6 +74,9 @@ https://fedoraproject.org/wiki/Changes/DeprecatePythonMock
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 4.0.3-8
+- Bootstrap for Python 3.12
+
 * Sun Mar 12 2023 Tim Orling <ticotimo@gmail.com> - 4.0.3-7
 - migrated to SDPX license
 

@@ -2,7 +2,7 @@
 
 Name:           sgtk-menu
 Version:        1.4.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        GTK launcher for sway & other WMs
 
 License:        GPLv3+
@@ -51,6 +51,9 @@ done
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.4.1-10
+- Rebuilt for Python 3.12
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

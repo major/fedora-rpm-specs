@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.9.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python module to handle URLs
 
 License:        ASL 2.0
@@ -53,6 +53,9 @@ sed -e '/addopts/d' -i setup.cfg
 %{python3_sitearch}/%{pypi_name}-*.egg-info/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.9.2-2
+- Rebuilt for Python 3.12
+
 * Mon May 15 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.9.2-1
 - Update to 1.9.2
 - Fixes: rhbz#2161299

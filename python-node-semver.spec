@@ -10,7 +10,7 @@ A leading "=" or "v" character is stripped off and ignored.}
 
 Name: python-%{pypi_name}
 Version: 0.9.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: MIT
 Summary: Python version of node-semver
@@ -49,6 +49,9 @@ Summary: %{summary}
 %doc CHANGES.txt README.rst
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.9.0-2
+- Rebuilt for Python 3.12
+
 * Sat Feb 25 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.9.0-1
 - Updated to version 0.9.0.
 

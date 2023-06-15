@@ -17,7 +17,7 @@
 
 Name:       python-copr-common
 Version:    0.19
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Python code used by Copr
 
 License:    GPL-2.0-or-later
@@ -115,6 +115,9 @@ version=%version %py2_install
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.19-2
+- Rebuilt for Python 3.12
+
 * Tue May 23 2023 Jakub Kadlcik <frostyx@email.cz> 0.19-1
 - Specfile compatibility with OpenEuler
 

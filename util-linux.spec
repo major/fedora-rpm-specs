@@ -2,7 +2,7 @@
 Summary: Collection of basic system utilities
 Name: util-linux
 Version: 2.39
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv2 and GPLv2+ and LGPLv2+ and BSD with advertising and Public Domain
 URL: https://en.wikipedia.org/wiki/Util-linux
 
@@ -929,6 +929,9 @@ fi
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.39-5
+- Rebuilt for Python 3.12
+
 * Thu May 25 2023 Karel Zak <kzak@redhat.com> - 2.39-4
 - fix mount when /sbin/mount.<type> executed
 

@@ -14,7 +14,7 @@
 Name:       distgen
 Summary:    Templating system/generator for distributions
 Version:    1.16
-Release:    1%{?dist}
+Release:    2%{?dist}
 License:    GPL-2.0-or-later AND Apache-2.0
 URL:        https://github.com/devexp-db/distgen
 BuildArch:  noarch
@@ -74,6 +74,9 @@ make PYTHON=%{pybin} check
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.16-2
+- Rebuilt for Python 3.12
+
 * Mon May 29 2023 Zuzana Miklankova <zmiklank@redhat.com> - 1.16-1
 - new upstream release, https://github.com/devexp-db/distgen/releases/tag/v1.16
 

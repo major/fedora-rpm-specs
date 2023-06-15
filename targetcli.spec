@@ -4,7 +4,7 @@ Name:           targetcli
 License:        ASL 2.0
 Summary:        An administration shell for storage targets
 Version:        2.1.56
-Release:        1%{?dist}
+Release:        2%{?dist}
 URL:            https://github.com/open-iscsi/%{oname}
 Source:         %{url}/archive/v%{version}/%{oname}-%{version}.tar.gz
 # Proposed upstream
@@ -47,6 +47,9 @@ install -m 644 systemd/* %{buildroot}%{_unitdir}/
 %dir %{_sysconfdir}/target/backup
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.1.56-2
+- Rebuilt for Python 3.12
+
 
 * Tue Jun 06 2023 Maurizio Lombardi <mlombard@redhat.com> - 2.1.56-1
 - Rebase to version 2.1.56

@@ -3,7 +3,7 @@
 
 Name:           python-%{pkgname}
 Version:        0.0.7.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        term.js (XStatic packaging standard)
 
 License:        MIT
@@ -83,6 +83,9 @@ chmod 644 %{buildroot}%{_jsdir}/termjs/term.js
 %{_jsdir}/termjs
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.0.7.0-20
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.7.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

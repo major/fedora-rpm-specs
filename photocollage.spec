@@ -1,7 +1,7 @@
 Summary:        Graphical tool to make photo collage posters
 Name:           photocollage
 Version:        1.4.4
-Release:        17%{?dist}
+Release:        18%{?dist}
 Url:            https://github.com/adrienverge/PhotoCollage
 License:        GPLv2+
 
@@ -47,6 +47,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.4.4-18
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -9,7 +9,7 @@ inclusion specifications with MANIFEST.in.
 
 Name:           python-%{srcname}
 Version:        1.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Setuptools revision control system plugin for Git
 
 License:        BSD
@@ -58,6 +58,9 @@ BuildRequires:  python3dist(pytest)
 %{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.2-9
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

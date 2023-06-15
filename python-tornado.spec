@@ -11,7 +11,7 @@ ideal for real-time web services.}
 
 Name:           python-%{srcname}
 Version:        6.3.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Scalable, non-blocking web server and tools
 
 License:        Apache-2.0 
@@ -66,6 +66,9 @@ export TRAVIS=true
 %doc demos
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 6.3.2-3
+- Rebuilt for Python 3.12
+
 * Tue May 23 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 6.3.2-2
 - Avoid tox dependency
 

@@ -3,7 +3,7 @@
 
 Name:     python-%{libname}
 Version:  0.1.32
-Release:  8%{?dist}
+Release:  9%{?dist}
 Summary:  Python communication library for Ledger Hardware Wallet products
 
 License:  ASL 2.0
@@ -75,6 +75,9 @@ install -m644 %{SOURCE1} %{buildroot}%{_udevrulesdir}/20-ledger.rules
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.1.32-9
+- Rebuilt for Python 3.12
+
 * Wed Feb 01 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 0.1.32-8
 - Adjust version constraint to make it compatible with new packaging>=22.0
 

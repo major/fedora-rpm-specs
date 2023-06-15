@@ -2,7 +2,7 @@
 
 Name:           dnf-plugin-diff
 Version:        1.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Show local changes in RPM packages
 BuildArch:      noarch
 
@@ -46,6 +46,9 @@ files.
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.1-14
+- Rebuilt for Python 3.12
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

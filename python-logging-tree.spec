@@ -3,7 +3,7 @@
 
 Name:               python-%{pypi_name}
 Version:            1.9
-Release:            7%{?dist}
+Release:            8%{?dist}
 Summary:            Introspect and display the logger tree inside "logging"
 
 License:            BSD
@@ -89,6 +89,9 @@ loggers, filters, and handlers that your application has configured::
 %{python3_sitelib}/%{mod_name}-%{version}-*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.9-8
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

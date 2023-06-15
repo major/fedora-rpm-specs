@@ -1,7 +1,7 @@
 %global srcname pyprocdev
 Name:       python-%{srcname}
 Version:    0.2
-Release:    23%{?dist}
+Release:    24%{?dist}
 Summary:    Tiny library providing a Pythonic interface to /proc/devices
 
 License:    GPLv2+
@@ -42,6 +42,9 @@ rm -rf src/pyprocdev.egg-info
 %{python3_sitelib}/%{srcname}-%{version}-*.egg-info/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.2-24
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

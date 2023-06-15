@@ -6,7 +6,7 @@
 
 Name:           vdr-epg2vdr
 Version:        1.2.14
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A plugin to retrieve EPG data from a mysql database into VDR
 
 License:        GPL+
@@ -63,6 +63,9 @@ chmod 0755 %{buildroot}/%{vdr_plugindir}/libvdr-*.so.%{vdr_apiversion}
 %{vdr_plugindir}/libvdr-*.so.%{vdr_apiversion}
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.2.14-2
+- Rebuilt for Python 3.12
+
 * Wed Feb 15 2023 Martin Gansser <martinkg@fedoraproject.org> - 1.2.14-1
 - Update to 1.2.14
 

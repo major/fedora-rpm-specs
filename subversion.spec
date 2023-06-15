@@ -59,7 +59,7 @@
 Summary: A Modern Concurrent Version Control System
 Name: subversion
 Version: 1.14.2
-Release: 15%{?dist}
+Release: 16%{?dist}
 License: Apache-2.0
 URL: https://subversion.apache.org/
 Source0: https://downloads.apache.org/subversion/subversion-%{version}.tar.bz2
@@ -587,6 +587,9 @@ make check-javahl
 %endif
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.14.2-16
+- Rebuilt for Python 3.12
+
 * Mon May 08 2023 Florian Weimer <fweimer@redhat.com> - 1.14.2-15
 - Port to C99
 

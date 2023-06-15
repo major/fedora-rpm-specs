@@ -1,6 +1,6 @@
 Name:           python-gpiozero
 Version:        1.6.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Interface to GPIO on Raspberry Pi
 
 License:        BSD-3-Clause
@@ -45,6 +45,9 @@ A simple interface to GPIO devices with Raspberry Pi.
 %{_bindir}/pinout
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.6.2-9
+- Rebuilt for Python 3.12
+
 * Fri Mar 31 2023 Miro Hrončok <mhroncok@redhat.com> - 1.6.2-8
 - Require runtime dependencies during build
 - Run import check during the build

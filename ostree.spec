@@ -8,9 +8,9 @@
 Summary: Tool for managing bootable, immutable filesystem trees
 Name: ostree
 Version: 2023.3
-Release: 3%{?dist}
+Release: 4%{?dist}
 Source0: https://github.com/ostreedev/%{name}/releases/download/v%{version}/libostree-%{version}.tar.xz
-License: LGPLv2+
+License: LGPL-2.0-or-later
 URL: https://ostree.readthedocs.io/en/latest/
 
 Patch1: 0001-lib-deploy-Initialize-var-to-pacify-gcc-static-analy.patch
@@ -177,6 +177,9 @@ find %{buildroot} -name '*.la' -delete
 %endif
 
 %changelog
+* Tue Jun 13 2023 Joseph Marrero <jmarrero@fedoraproject.org> - 2023.3-4
+- Switch License tags to SPDX
+
 * Thu Jun 1 2023 Dusty Mabe <dusty@dustymabe.com> - 2023.3-3
 - Backport log message fix in https://github.com/ostreedev/ostree/pull/2870
 - Backport fallocate fix in https://github.com/ostreedev/ostree/pull/2871

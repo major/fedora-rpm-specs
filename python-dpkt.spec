@@ -2,7 +2,7 @@
 
 Name:           python-dpkt
 Version:        1.9.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 
 License:        BSD
@@ -57,6 +57,9 @@ with definitions for the basic TCP/IP protocols.
 %{python3_sitelib}/dpkt*.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.9.8-2
+- Rebuilt for Python 3.12
+
 * Tue Jun 6 2023 Michele Baldessari <michele@acksyn.org> - 1.9.8-1
 - New upstream
 

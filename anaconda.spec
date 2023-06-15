@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 39.18
+Version: 39.19
 Release: 1%{?dist}
 License: GPLv2+ and MIT
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -41,7 +41,7 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 %define nmver 1.0
 %define pykickstartver 3.47-1
 %define pypartedver 2.5-2
-%define pythonblivetver 1:3.6.0-1
+%define pythonblivetver 1:3.7.1-4
 %define rpmver 4.15.0
 %define simplelinever 1.9.0-1
 %define subscriptionmanagerver 1.26
@@ -252,10 +252,10 @@ Add this package to an image build (eg. with lorax) to ensure all Anaconda capab
 Summary: Cockpit based user interface for the Anaconda installer
 Requires: cockpit-bridge >= %{cockpitver}
 Requires: cockpit-ws >= %{cockpitver}
-# WebKit dependency needs to be specified there as cockpit web-view does not have a hard dependency on webkit as
-# it can normally fall back to a regular browser. This does not work in the limited installer
-# environment, so we need to make sure the WebKit API is available.
-Requires: webkit2gtk4.1
+# Firefox dependency needs to be specified there as cockpit web-view does not have a hard dependency on Firefox as
+# it can often fall back to a diferent browser. This does not work in the limited installer
+# environment, so we need to make sure Firefox is available.
+Requires: firefox
 
 %description webui
 This package contains Cockpit based user interface for the Anaconda installer.
@@ -470,6 +470,21 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jun 13 2023 Packit <hello@packit.dev> - 39.19-1
+- webui: remove redundant dashes from README (kkoukiou)
+- docs: remove confusion for which toolbox to use for webui development
+  (kkoukiou)
+- webui: enable linter for webui CI runs (kkoukiou)
+- Check minimal LUKS passphrase length in FIPS mode for Kickstart (vslavik)
+- GUI: Require 8 chars of LUKS passwords in FIPS mode (vslavik)
+- Use Firefox in kiosk mode for running the Web UI locally (mkolman)
+- Do not print error on inst.ks=cdrom|hd (#2077045) (jkonecny)
+- storage: fix resolving btrfs subvolumes from fstab (#2186158) (rvykydal)
+- storage: improve btrfs devices removing in custom partitioning (#2186158)
+  (rvykydal)
+- Don't override blivet's preferred disk label type by default (awilliam)
+- Update translations from Weblate
+
 * Tue Jun 06 2023 Packit <hello@packit.dev> - 39.18-1
 - webui: change the language direction when language changes (kkoukiou)
 - Fix webui-tests workflow waiving (zveleba)

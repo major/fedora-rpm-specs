@@ -1,6 +1,6 @@
 Name:           awake
 Version:        1.0
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        A command to 'wake on LAN' a remote host
 
 License:        GPLv3
@@ -42,6 +42,9 @@ sed -i -e '/^#!\//, 1d' *.py
 %{python3_sitelib}/*.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.0-31
+- Rebuilt for Python 3.12
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

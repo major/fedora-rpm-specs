@@ -5,7 +5,7 @@
 
 Name: python-linux-procfs
 Version: 0.7.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2
 Summary: Linux /proc abstraction classes
 Source: https://cdn.kernel.org/pub/software/libs/python/%{name}/%{name}-%{version}.tar.xz
@@ -49,6 +49,9 @@ rm -rf %{buildroot}
 %license COPYING
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.7.1-2
+- Rebuilt for Python 3.12
+
 * Thu Feb 16 2023 John Kacur <jkacur@redhat.com> - 0.7.1-1
 - Rebase to 0.7.1 upstream
 - Add upstream patch to remove use of distutils

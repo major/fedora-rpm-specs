@@ -3,8 +3,8 @@
 %global mozjs102_version 102.12.0
 
 Name:           gjs
-Version:        1.76.0
-Release:        2%{?dist}
+Version:        1.76.1
+Release:        1%{?dist}
 Summary:        Javascript Bindings for GNOME
 
 # The following files contain code from Mozilla which
@@ -94,6 +94,9 @@ the functionality of the installed gjs package.
 %{_datadir}/installed-tests/
 
 %changelog
+* Tue Jun 13 2023 David King <amigadave@amigadave.com> - 1.76.1-1
+- Update to 1.76.1
+
 * Sun Jun 11 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.76.0-2
 - Rebuild against mozjs102-102.12.0-1
 

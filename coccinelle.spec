@@ -13,7 +13,7 @@ Version:       1.1.1
 %endif
 
 Name:           coccinelle
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Semantic patching for Linux (spatch)
 
 License:        GPL-2.0-only
@@ -283,6 +283,9 @@ $spatch --sp-file %{SOURCE2} %{SOURCE1}
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.1.1-18
+- Rebuilt for Python 3.12
+
 * Wed Feb 15 2023 Jerry James <loganjerry@gmail.com> - 1.1.1-17
 - Rebuild for ocaml-pyml 20220905
 - Convert License tags to SPDX

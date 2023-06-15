@@ -25,7 +25,7 @@
 
 Name: libldb
 Version: 2.7.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A schema-less, ldap like, API and database
 Requires: libtalloc%{?_isa} >= %{talloc_version}
 Requires: libtdb%{?_isa} >= %{tdb_version}
@@ -222,6 +222,9 @@ rm -f $RPM_BUILD_ROOT/%{_mandir}/man3/_*
 %endif
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.7.2-2
+- Rebuilt for Python 3.12
+
 * Wed Mar 29 2023 Guenther Deschner <gdeschner@redhat.com> - 2.7.2-1
 - rhbz#2182738 - libldb-2.7.2 is available
 

@@ -1,6 +1,6 @@
 Name:           python-transaction
 Version:        3.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Transaction management for Python
 
 License:        ZPLv2.1
@@ -57,6 +57,9 @@ rm -rf %{modname}.egg-info
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.1.0-2
+- Rebuilt for Python 3.12
+
 * Mon Mar 20 2023 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 3.1.0-1
 - Update to upstream.
 

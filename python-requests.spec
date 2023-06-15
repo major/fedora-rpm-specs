@@ -1,3 +1,4 @@
+%global _without_tests 1
 %if 0%{?_module_build} || 0%{?rhel}
 # Don't run tests on module-build for now
 # See: https://bugzilla.redhat.com/show_bug.cgi?id=1450608
@@ -11,7 +12,7 @@
 
 Name:           python-requests
 Version:        2.28.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        HTTP library, written in Python, for human beings
 
 License:        ASL 2.0
@@ -97,6 +98,9 @@ sed -i 's/ --doctest-modules//' pyproject.toml
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.28.2-3
+- Bootstrap for Python 3.12
+
 * Tue May 23 2023 Miro Hrončok <mhroncok@redhat.com> - 2.28.2-2
 - Security fix for CVE-2023-32681
 - https://github.com/psf/requests/security/advisories/GHSA-j8r2-6x86-q33q

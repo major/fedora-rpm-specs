@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 
 License:        OpenLDAP
@@ -62,6 +62,9 @@ unset LMDB_FORCE_CFFI
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.4.0-2
+- Rebuilt for Python 3.12
+
 * Fri Feb 03 2023 Jonathan Wright <jonathan@almalinux.org> - 1.4.0-1
 - Update to 1.4.0
 - modernize spec

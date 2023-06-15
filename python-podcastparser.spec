@@ -3,7 +3,7 @@
 
 Name:               python-%{modname}
 Version:            0.6.10
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            %{sum}
 
 License:            ISC
@@ -52,6 +52,9 @@ find . -type f -name '*.py' -exec sed -i /env\ python/d {} ';'
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.6.10-2
+- Rebuilt for Python 3.12
+
 * Wed Apr 19 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.6.10-1
 - 0.6.10
 

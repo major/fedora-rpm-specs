@@ -4,7 +4,7 @@
 
 Name:           poezio-omemo
 Version:        0.6.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        OMEMO plugin for the Poezio XMPP client
 
 License:        GPLv3
@@ -55,6 +55,9 @@ find ./%{srcname}/ -type f '(' -name __init__.py -o -name version.py ')' -ls -ex
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.6.0-5
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

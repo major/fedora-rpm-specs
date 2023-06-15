@@ -1,5 +1,5 @@
 %global nativever 2.2
-%global baserelease 3
+%global baserelease 4
 %global pythonver 2.0
 %global pythonrelease %{nativever}.%{baserelease}
 
@@ -244,6 +244,9 @@ popd
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.2-4
+- Rebuilt for Python 3.12
+
 * Sat Apr 08 2023 Orion Poplawski <orion@nwra.com> - 2.2-3
 - Rebuild with octave 8.1.0
 

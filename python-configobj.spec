@@ -1,6 +1,6 @@
 Name:           python-configobj
 Version:        5.0.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Config file reading, writing, and validation
 License:        BSD
 URL:            http://configobj.readthedocs.org/
@@ -50,6 +50,9 @@ export PYTHONPATH=$(pwd)/build/lib
 %{python3_sitelib}/configobj-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 5.0.8-3
+- Rebuilt for Python 3.12
+
 * Tue May 23 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 5.0.8-2
 - Avoid pytest-cov dependency
 

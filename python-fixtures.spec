@@ -1,3 +1,4 @@
+%global _with_bootstrap 1
 %global pypi_name fixtures
 
 # fixtures has a circular dependency with testtools
@@ -5,7 +6,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fixtures, reusable state for writing clean tests and more
 
 License:        Apache-2.0 OR BSD-3-Clause
@@ -64,6 +65,9 @@ sed -e '/testtools/d' -i requirements.txt
 %doc README.rst GOALS NEWS
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 4.0.1-3
+- Bootstrap for Python 3.12
+
 * Wed Jun 07 2023 Jan Friesse <jfriesse@redhat.com> - 4.0.1-2
 - migrated to SPDX license
 

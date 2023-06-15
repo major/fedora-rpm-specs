@@ -4,7 +4,7 @@
 Summary:            Tool for visualization of SCAP rule evaluation results
 Name:               %{name}
 Version:            1.3.3
-Release:            5%{?dist}
+Release:            6%{?dist}
 # The entire source code is ASL 2.0 except schemas/ which is Public Domain
 License:            ASL 2.0 and Public Domain
 
@@ -44,6 +44,9 @@ Use `arf-to-json` to generate a rule result in json. Using the
 %{_bindir}/json-to-graph
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.3.3-6
+- Rebuilt for Python 3.12
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

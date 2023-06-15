@@ -1,3 +1,4 @@
+%global _without_tests 1
 %global srcname pytest-asyncio
 %global _description %{expand:
 pytest-asyncio is an Apache2 licensed library, written in Python, for testing

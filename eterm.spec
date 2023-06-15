@@ -1,7 +1,7 @@
 Summary:       Enlightened terminal emulator
 Name:          eterm
 Version:       0.9.6
-Release:       32%{?dist}
+Release:       33%{?dist}
 License:       BSD
 Source0:       http://www.eterm.org/download/Eterm-%{version}.tar.gz
 Source1:       http://www.eterm.org/download/Eterm-bg-%{version}.tar.gz
@@ -10,6 +10,7 @@ Patch0:        eterm-0.9.6-gcc10.patch
 Patch1:        eterm-0.9.6-query-graphics.patch
 Patch2:        eterm-configure-c99.patch
 Patch3:        eterm-c99-headers.patch
+Patch4:        fix-fail-to-build-with-imlib2.patch
 URL:           http://www.eterm.org/
 Requires:      xorg-x11-fonts-misc
 Requires:      xorg-x11-fonts-ISO8859-1-75dpi
@@ -35,10 +36,11 @@ philosophy of Enlightenment.
 
 %prep
 %setup -a 1 -q -n Eterm-%{version}
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+%patch -P0 -p1
+%patch -P1 -p1
+%patch -P2 -p1
+%patch -P3 -p1
+%patch -P4 -p1
 for f in ChangeLog ; do
     mv $f $f.iso88591
     iconv -o $f -f iso88591 -t utf8 $f.iso88591
@@ -98,6 +100,9 @@ rm -f %{buildroot}/%{_libdir}/libEterm.{a,la,so}
 %{_datadir}/pixmaps/eterm.png
 
 %changelog
+* Tue Jun 13 2023 Leigh Scott <leigh123linux@gmail.com> - 0.9.6-33
+- Rebuild fo new imlib2
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:           python-sgmllib3k
 Version:        1.0.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        python3 copy of sgmllib
 License:        BSD
 URL:            http://hg.hardcoded.net/sgmllib
@@ -52,6 +52,9 @@ eventually think about finding another module to use.
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.0.0-10
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

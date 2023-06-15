@@ -1,6 +1,6 @@
 Name:           transifex-client
 Version:        0.13.7
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Command line tool for Transifex translation management
 License:        GPLv2
 URL:            http://transifex.org
@@ -50,6 +50,9 @@ need of an elaborate UI system.
 %{_bindir}/*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.13.7-12
+- Rebuilt for Python 3.12
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.7-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

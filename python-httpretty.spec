@@ -3,7 +3,7 @@
 %global srcname         httpretty
 
 %if 0%{?fedora}
-%global run_tests 1
+%global run_tests 0
 %else
 # missing deps in epel9
 %global run_tests 0

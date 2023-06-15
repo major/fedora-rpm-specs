@@ -1,6 +1,6 @@
 Name:           buttermanager
 Version:        2.4.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Tool for managing Btrfs snapshots, balancing filesystems and more
 
 License:        GPLv3
@@ -53,6 +53,9 @@ desktop-file-install \
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.4.2-7
+- Rebuilt for Python 3.12
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

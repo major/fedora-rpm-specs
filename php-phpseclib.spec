@@ -3,12 +3,12 @@
 
 %global github_owner            phpseclib
 %global github_name             phpseclib
-%global github_commit           665d289f59e646a259ebf13f29be7f6f54cab24b
+%global github_commit           149f608243f8133c61926aae26ce67d2b22b37e5
 %global github_short            %(c=%{github_commit}; echo ${c:0:7})
 %bcond_without                  tests
 
 Name:       php-%{composer_vendor}
-Version:    2.0.42
+Version:    2.0.44
 Release:    1%{?dist}
 Summary:    PHP Secure Communications Library
 License:    MIT
@@ -131,6 +131,12 @@ exit $ret
 
 
 %changelog
+* Tue Jun 13 2023 Remi Collet <remi@remirepo.net> - 2.0.44-1
+- update to 2.0.44
+
+* Tue Jun 13 2023 Remi Collet <remi@remirepo.net> - 2.0.43-1
+- update to 2.0.43
+
 * Mon Mar  6 2023 Remi Collet <remi@remirepo.net> - 2.0.42-1
 - update to 2.0.42
 

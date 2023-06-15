@@ -3,7 +3,7 @@
 
 Name:           python-%{pkgname}
 Version:        2.0.3.1
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        JQuery.quicksearch (XStatic packaging standard)
 
 License:        MIT
@@ -84,6 +84,9 @@ chmod 644 %{buildroot}%{_jsdir}/jquery_quicksearch/jquery.quicksearch.js
 %{_jsdir}/jquery_quicksearch
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.0.3.1-28
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3.1-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:               python3-py3dns
 Version:            3.2.1
-Release:            9%{?dist}
+Release:            10%{?dist}
 Summary:            Python3 DNS library
 
 License:            Python
@@ -69,6 +69,9 @@ done
 %{python3_sitelib}/%{distname}-%{version}*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.2.1-10
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

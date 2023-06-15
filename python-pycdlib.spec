@@ -9,7 +9,7 @@ extensions, and UDF.
 Summary:        A pure python ISO9660 read and write library
 Name:           python-%{srcname}
 Version:        1.14.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        LGPL-2.0-only
 URL:            https://github.com/clalancette/%{srcname}
 Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
@@ -79,6 +79,9 @@ PYCDLIB_TRACK_WRITES=1 py.test-%{python3_version} \
 %{_mandir}/man1/*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.14.0-3
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

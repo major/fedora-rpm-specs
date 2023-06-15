@@ -1,6 +1,6 @@
 Name:           python-rfc3987
 Version:        1.3.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Parsing and validation of URIs (RFC 3986) and IRIs (RFC 3987)
 
 License:        GPL-3.0-or-later
@@ -57,6 +57,9 @@ sed -i -e '/^#!\//, 1d' %{buildroot}%{python3_sitelib}/rfc3987.py
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.3.8-2
+- Rebuilt for Python 3.12
+
 * Wed Feb 15 2023 Carl George <carl@george.computer> - 1.3.8-1
 - Update to version 1.3.8
 - Convert to pyproject macros

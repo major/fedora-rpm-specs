@@ -3,7 +3,7 @@
 Summary:  An interface to MySQL
 Name:     python-mysql
 Version:  1.4.6
-Release:  12%{?dist}
+Release:  13%{?dist}
 License:  GPLv2+
 URL:      https://github.com/PyMySQL/mysqlclient-python
 
@@ -97,6 +97,9 @@ Python3 interface to MySQL, built for the CPython debug runtime
 %endif # with debug
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.4.6-13
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.6-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

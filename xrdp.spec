@@ -17,7 +17,7 @@ Summary:   Open source remote desktop protocol (RDP) server
 Name:      xrdp
 Epoch:     1
 Version:   0.9.22.1
-Release:   2%{?dist}
+Release:   3%{?dist}
 License:   ASL 2.0 and GPLv2+ and MIT
 URL:       http://www.xrdp.org/
 Source0:   https://github.com/neutrinolabs/xrdp/releases/download/v%{version}/xrdp-%{version}.tar.gz
@@ -298,6 +298,9 @@ fi
 %{_datadir}/selinux/*/%{name}.pp
 
 %changelog
+* Tue Jun 13 2023 Leigh Scott <leigh123linux@gmail.com> - 1:0.9.22.1-3
+- Rebuild fo new imlib2
+
 * Tue May 23 2023 Bojan Smojver <bojan@rexursive.com> - 1:0.9.22.1-2
 - Remove C99 loop initialisation on EPEL7
 

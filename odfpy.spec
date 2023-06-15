@@ -1,6 +1,6 @@
 Name:           odfpy
 Version:        1.4.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Python library for manipulating OpenDocument files
 
 License:        GPLv2+
@@ -98,6 +98,9 @@ PYTHONPATH=%{_builddir}/%{name}-release-%{version} pytest
 %doc doc examples contrib
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.4.1-6
+- Rebuilt for Python 3.12
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

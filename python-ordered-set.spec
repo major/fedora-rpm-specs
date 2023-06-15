@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        4.1.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Custom MutableSet that remembers its order
 
 License:        MIT
@@ -52,6 +52,9 @@ Python 3 version.
 %{python3_sitelib}/%{dir_name}/__pycache__
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 4.1.0-6
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

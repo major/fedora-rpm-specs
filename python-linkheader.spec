@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.4.3
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Parse and format link headers according to RFC 5988
 
 License:        BSD
@@ -38,6 +38,9 @@ Parse and format link headers according to RFC 5988 "Web Linking".
 %{python3_sitelib}/LinkHeader-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.4.3-10
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global srcname nose-testconfig
 Name:           python-nose-testconfig
 Version:        0.10
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Test configuration plugin for nosetests
 
 License:        ASL 2.0
@@ -75,6 +75,9 @@ cp %{SOURCE1} .
 %{python3_sitelib}/nose_testconfig-%{version}-*.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.10-28
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

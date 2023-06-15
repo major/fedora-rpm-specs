@@ -1,6 +1,6 @@
 Name: iotop
 Version: 0.6
-Release: 36%{?dist}
+Release: 37%{?dist}
 Summary: Top like utility for I/O       
 License: GPL-2.0-or-later
 URL: http://guichaz.free.fr/iotop/            
@@ -55,6 +55,9 @@ show of behalf of which process is the I/O going on.
 %{_mandir}/man8/iotop.*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.6-37
+- Rebuilt for Python 3.12
+
 * Wed Apr 26 2023 Michal Hlavinka <mhlavink@redhat.com> - 0.6-36
 - update license tag format (SPDX migration) for https://fedoraproject.org/wiki/Changes/SPDX_Licenses_Phase_1
 

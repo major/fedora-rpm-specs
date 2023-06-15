@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.3.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        %{sum}
 
 License:        Apache-2.0
@@ -62,6 +62,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.3.0-20
+- Rebuilt for Python 3.12
+
 * Thu Feb 23 2023 Rob Crittenden <rcritten@redhat.com> - 1.3.0-19
 - migrated to SPDX license
 

@@ -1,6 +1,6 @@
 Name:           pyxdg
 Version:        0.27
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Python library to access freedesktop.org standards
 License:        LGPLv2
 URL:            http://freedesktop.org/Software/pyxdg
@@ -51,6 +51,9 @@ nosetests-%{python3_version} || :
 %{python3_sitelib}/pyxdg-*.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.27-8
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.27-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

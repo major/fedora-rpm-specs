@@ -40,7 +40,7 @@ It provides: \
 
 Name:       python-%{pypi_name}
 Version:    1.19.1
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    %{summary}
 
 License:    MIT
@@ -204,6 +204,9 @@ export TERM=xterm-256color
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.19.1-5
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

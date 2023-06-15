@@ -12,7 +12,7 @@
 
 Name:           avogadro2-libs
 Version:        1.97.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Avogadro2 libraries
 
 # BSD is main license
@@ -192,6 +192,9 @@ rm -rf %{buildroot}%{_datadir}/doc
 %license LICENSE
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.97.0-4
+- Rebuilt for Python 3.12
+
 * Sat Jan 28 2023 Antonio Trande <sagitter@fedoraproject.org> - 1.97.0-3
 - Fix upstream bug #1185
 

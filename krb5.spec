@@ -10,7 +10,7 @@
 #
 # baserelease is what we have standardized across Fedora and what
 # rpmdev-bumpspec knows how to handle.
-%global baserelease 9
+%global baserelease 1
 
 # This should be e.g. beta1 or %%nil
 %global pre_release %nil
@@ -22,9 +22,9 @@
 %endif
 
 %global krb5_version_major 1
-%global krb5_version_minor 20
+%global krb5_version_minor 21
 # For a release without a patch number set to %%nil
-%global krb5_version_patch 1
+%global krb5_version_patch %nil
 
 %global krb5_version_major_minor %{krb5_version_major}.%{krb5_version_minor}
 %global krb5_version %{krb5_version_major_minor}
@@ -59,23 +59,19 @@ Source13: kadmind.logrotate
 Source14: krb5-krb5kdc.conf
 Source15: %{name}-tests
 
-Patch1:  0001-downstream-ksu-pam-integration.patch
-Patch2:  0002-downstream-SELinux-integration.patch
-Patch3:  0003-downstream-fix-debuginfo-with-y.tab.c.patch
-Patch4:  0004-downstream-Remove-3des-support.patch
-Patch5:  0005-downstream-FIPS-with-PRNG-and-RADIUS-and-MD4.patch
-Patch6:  0006-downstream-Allow-krad-UDP-TCP-localhost-connection-w.patch
-Patch7:  0007-Add-configure-variable-for-default-PKCS-11-module.patch
-Patch8:  0008-Set-reasonable-supportedCMSTypes-in-PKINIT.patch
-Patch9:  0009-Simplify-plugin-loading-code.patch
-Patch10: 0010-Update-error-checking-for-OpenSSL-CMS_verify.patch
-Patch11: 0011-downstream-Catch-SHA-1-digest-disallowed-error-for-P.patch
-Patch12: 0012-Add-and-use-ts_interval-helper.patch
-Patch13: 0013-downstream-Make-tests-compatible-with-sssd_krb5_loca.patch
-Patch14: 0014-downstream-Include-missing-OpenSSL-FIPS-header.patch
-Patch15: 0015-downstream-Do-not-set-root-as-ksu-file-owner.patch
-Patch16: 0016-downstream-Allow-KRB5KDF-MD5-and-MD4-in-FIPS-mode.patch
-Patch17: 0017-Add-PAC-full-checksums.patch
+Patch0001: 0001-downstream-ksu-pam-integration.patch
+Patch0002: 0002-downstream-SELinux-integration.patch
+Patch0003: 0003-downstream-fix-debuginfo-with-y.tab.c.patch
+Patch0004: 0004-downstream-Remove-3des-support.patch
+Patch0005: 0005-downstream-FIPS-with-PRNG-and-RADIUS-and-MD4.patch
+Patch0006: 0006-downstream-Allow-krad-UDP-TCP-localhost-connection-w.patch
+Patch0007: 0007-downstream-Make-tests-compatible-with-sssd_krb5_loca.patch
+Patch0008: 0008-downstream-Include-missing-OpenSSL-FIPS-header.patch
+Patch0009: 0009-downstream-Do-not-set-root-as-ksu-file-owner.patch
+Patch0010: 0010-downstream-Allow-KRB5KDF-MD5-and-MD4-in-FIPS-mode.patch
+Patch0011: 0011-downstream-Allow-to-set-PAC-ticket-signature-as-opti.patch
+Patch0012: 0012-downstream-Make-PKINIT-CMS-SHA-1-signature-verificat.patch
+Patch0013: 0013-Enable-PKINIT-if-at-least-one-group-is-available.patch
 
 License: MIT
 URL: https://web.mit.edu/kerberos/www/
@@ -712,9 +708,22 @@ exit 0
 %{_datarootdir}/%{name}-tests/
 
 %changelog
+* Mon Jun 12 2023 Julien Rische <jrische@redhat.com> - 1.21-1
+- New upstream version (1.21)
+- Do not disable PKINIT if some of the well-known DH groups are unavailable
+  Resolves: rhbz#2214297
+- Make PKINIT CMS SHA-1 signature verification available in FIPS mode
+  Resolves: rhbz#2214300
+- Allow to set PAC ticket signature as optional
+  Resolves: rhbz#2181311
+- Add support for MS-PAC extended KDC signature (CVE-2022-37967)
+  Resolves: rhbz#2166001
+- Fix syntax error in aclocal.m4
+  Resolves: rhbz#2143306
+
 * Tue Jan 31 2023 Julien Rische <jrische@redhat.com> - 1.20.1-9
 - Add support for MS-PAC extended KDC signature (CVE-2022-37967)
-- Resolves: rhbz#2166001
+  Resolves: rhbz#2166001
 
 * Mon Jan 30 2023 Julien Rische <jrische@redhat.com> - 1.20.1-8
 - Bypass FIPS restrictions to use KRB5KDF in case AES SHA-1 HMAC is enabled
@@ -726,7 +735,7 @@ exit 0
 * Wed Jan 18 2023 Julien Rische <jrische@redhat.com> - 1.20.1-6
 - Set aes256-cts-hmac-sha384-192 as EXAMLE.COM master key in kdc.conf
 - Add AES SHA-2 HMAC family as EXAMPLE.COM supported etypes in kdc.conf
-- Resolves: rhbz#2114771
+  Resolves: rhbz#2114771
 
 * Mon Jan 09 2023 Julien Rische <jrische@redhat.com> - 1.20.1-5
 - Strip debugging data from ksu executable file
@@ -743,18 +752,18 @@ exit 0
 
 * Wed Nov 23 2022 Julien Rische <jrische@redhat.com> - 1.20.1-1
 - New upstream version (1.20.1)
-- Resolves: rhbz#2124463
+  Resolves: rhbz#2124463
 - Restore "supportedCMSTypes" attribute in PKINIT preauth requests
 - Set SHA-512 or SHA-256 with RSA as preferred CMS signature algorithms
-- Resolves: rhbz#2114766
+  Resolves: rhbz#2114766
 - Update error checking for OpenSSL CMS_verify
-- Resolves: rhbz#2119704
+  Resolves: rhbz#2119704
 - Remove invalid password expiry warning
-- Resolves: rhbz#2129113
+  Resolves: rhbz#2129113
 
 * Wed Nov 09 2022 Julien Rische <jrische@redhat.com> - 1.19.2-13
 - Fix integer overflows in PAC parsing (CVE-2022-42898)
-- Resolves: rhbz#2143011
+  Resolves: rhbz#2143011
 
 * Tue Aug 02 2022 Andreas Schneider <asn@redhat.com> - 1.19.2-12
 - Use baserelease to set the release number
@@ -766,14 +775,14 @@ exit 0
 
 * Wed Jun 15 2022 Julien Rische <jrische@redhat.com> - 1.19.2-11
 - Allow libkrad UDP/TCP connection to localhost in FIPS mode
-- Resolves: rhbz#2082189
+  Resolves: rhbz#2082189
 - Read GSS configuration files with mtime 0
 
 * Mon May  2 2022 Julien Rische <jrische@redhat.com> - 1.19.2-10
 - Use p11-kit as default PKCS11 module
-- Resolves: rhbz#2073274
+  Resolves: rhbz#2073274
 - Try harder to avoid password change replay errors
-- Resolves: rhbz#2072059
+  Resolves: rhbz#2072059
 
 * Tue Apr 05 2022 Alexander Bokovoy <abokovoy@redhat.com> - 1.19.2-9
 - Fix libkrad client cleanup
@@ -791,7 +800,7 @@ exit 0
 
 * Wed Feb 02 2022 Alexander Bokovoy <abokovoy@redhat.com> - 1.19.2-5
 - Temporarily remove package note to unblock krb5-dependent packages
-- Resolves: rhbz#2048909
+  Resolves: rhbz#2048909
 
 * Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.2-4.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
@@ -909,7 +918,7 @@ exit 0
 
 * Tue Nov 17 2020 Robbie Harwood <rharwood@redhat.com> - 1.18.2-30
 - Migrate /var/run to /run, an exercise in pointlessness
-- Resolves: #1898410
+  Resolves: rhbz#1898410
 
 * Thu Nov 05 2020 Robbie Harwood <rharwood@redhat.com> - 1.18.2-29
 - Add recursion limit for ASN.1 indefinite lengths (CVE-2020-28196)
@@ -931,14 +940,14 @@ exit 0
 
 * Thu Sep 10 2020 Robbie Harwood <rharwood@redhat.com> - 1.18.2-23
 - Use `systemctl reload` to HUP the KDC during logrotate
-- Resolves: #1877692
+  Resolves: rhbz#1877692
 
 * Wed Sep 09 2020 Robbie Harwood <rharwood@redhat.com> - 1.18.2-22
 - Fix input length checking in SPNEGO DER decoding
 
 * Fri Aug 28 2020 Robbie Harwood <rharwood@redhat.com> - 1.18.2-21
 - Mark crypto-polices snippet as missingok
-- Resolves: #1868379
+  Resolves: rhbz#1868379
 
 * Thu Aug 13 2020 Robbie Harwood <rharwood@redhat.com> - 1.18.2-20
 - Temporarily dns_canonicalize_hostname=fallback changes
@@ -955,7 +964,7 @@ exit 0
 
 * Mon Aug 03 2020 Robbie Harwood <rharwood@redhat.com> - 1.18.2-16
 - Disable tests on s390x
-- Resolves: #1863952
+  Resolves: rhbz#1863952
 
 * Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.2-15
 - Second attempt - Rebuilt for
@@ -976,7 +985,7 @@ exit 0
 
 * Wed Jul 08 2020 Robbie Harwood <rharwood@redhat.com> - 1.18.2-10
 - Set qualify_shortname empty in default configuration
-- Resolves: #1852041
+  Resolves: rhbz#1852041
 
 * Mon Jun 15 2020 Robbie Harwood <rharwood@redhat.com> - 1.18.2-9
 - Use two queues for concurrent t_otp.py daemons
@@ -1150,7 +1159,7 @@ exit 0
 
 * Mon Jul 15 2019 Robbie Harwood <rharwood@redhat.com> - 1.17-35
 - Don't error on invalid enctypes in keytab
-- Resolves: #1724380
+  Resolves: rhbz#1724380
 
 * Tue Jul 02 2019 Robbie Harwood <rharwood@redhat.com> - 1.17-34
 - Remove now-unused checksum functions
@@ -1235,7 +1244,7 @@ exit 0
 
 * Thu Apr 11 2019 Robbie Harwood <rharwood@redhat.com> - 1.17-8
 - Implement krb5_cc_remove_cred for remaining types
-- Resolves: #1693836
+  Resolves: rhbz#1693836
 
 * Mon Apr 01 2019 Robbie Harwood <rharwood@redhat.com> - 1.17-7
 - FIPS-aware SPAKE group negotiation
@@ -1270,7 +1279,7 @@ exit 0
 
 * Mon Dec 17 2018 Robbie Harwood <rharwood@redhat.com> - 1.17-1.beta2.2
 - Restore pdfs source file
-- Resolves: #1659716
+  Resolves: rhbz#1659716
 
 * Thu Dec 06 2018 Robbie Harwood <rharwood@redhat.com> - 1.17-1.beta2.1
 - New upstream release (1.17-beta2)
@@ -1284,26 +1293,26 @@ exit 0
 
 * Thu Nov 08 2018 Robbie Harwood <rharwood@redhat.com> - 1.17-1.beta1.1
 - Fix spurious errors from kcmio_unix_socket_write
-- Resolves: #1645912
+  Resolves: rhbz#1645912
 
 * Thu Nov 01 2018 Robbie Harwood <rharwood@redhat.com> - 1.17-0.beta1.1
 - New upstream beta release
 
 * Wed Oct 24 2018 Robbie Harwood <rharwood@redhat.com> - 1.16.1-25
 - Update man pages to reference kerberos(7)
-- Resolves: #1143767
+  Resolves: rhbz#1143767
 
 * Wed Oct 17 2018 Robbie Harwood <rharwood@redhat.com> - 1.16.1-24
 - Use port-sockets.h macros in cc_kcm, sendto_kdc
-- Resolves: #1631998
+  Resolves: rhbz#1631998
 
 * Wed Oct 17 2018 Robbie Harwood <rharwood@redhat.com> - 1.16.1-23
 - Correct kpasswd_server description in krb5.conf(5)
-- Resolves: #1640272
+  Resolves: rhbz#1640272
 
 * Mon Oct 15 2018 Robbie Harwood <rharwood@redhat.com> - 1.16.1-22
 - Prefer TCP to UDP for password changes
-- Resolves: #1637611
+  Resolves: rhbz#1637611
 
 * Tue Oct 09 2018 Adam Williamson <awilliam@redhat.com> - 1.16.1-21
 - Revert the patch from -20 for now as it seems to make FreeIPA worse
@@ -1352,18 +1361,18 @@ exit 0
 
 * Thu Jun 14 2018 Robbie Harwood <rharwood@redhat.com> - 1.16.1-6
 - Switch to python3-sphinx for docs
-- Resolves: #1590928
+  Resolves: rhbz#1590928
 
 * Thu Jun 14 2018 Robbie Harwood <rharwood@redhat.com> - 1.16.1-5
 - Make docs build python3-compatible
-- Resolves: #1590928
+  Resolves: rhbz#1590928
 
 * Thu Jun 07 2018 Robbie Harwood <rharwood@redhat.com> - 1.16.1-4
 - Update includedir processing to match upstream
 
 * Fri Jun 01 2018 Robbie Harwood <rharwood@redhat.com> - 1.16.1-3
 - Log when non-root ksu authorization fails
-- Resolves: #1575771
+  Resolves: rhbz#1575771
 
 * Fri May 04 2018 Robbie Harwood <rharwood@redhat.com> - 1.16.1-2
 - Remove "-nodes" option from make-certs scripts
@@ -1385,7 +1394,7 @@ exit 0
 
 * Mon Apr 23 2018 Robbie Harwood <rharwood@redhat.com> - 1.16-23
 - Explicitly use openssl rather than builtin crypto
-- Resolves: #1570910
+  Resolves: rhbz#1570910
 
 * Tue Apr 17 2018 Robbie Harwood <rharwood@redhat.com> - 1.16-22
 - Merge duplicate subsections in profile library
@@ -1435,7 +1444,7 @@ exit 0
 
 * Wed Mar 07 2018 Robbie Harwood <rharwood@redhat.com> - 1.16-8
 - Fix capaths "." values on client
-- Resolves: 1551099
+  Resolves: 1551099
 
 * Tue Feb 13 2018 Robbie Harwood <rharwood@redhat.com> - 1.16-7
 - Fix flaws in LDAP DN checking
@@ -1444,7 +1453,7 @@ exit 0
 * Mon Feb 12 2018 Robbie Harwood <rharwood@redhat.com> - 1.16-6
 - Fix a leak in the previous commit
 - Restore dist macro that was accidentally removed
-- Resolves: #1540939
+  Resolves: rhbz#1540939
 
 * Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
@@ -1457,7 +1466,7 @@ exit 0
 
 * Tue Dec 12 2017 Robbie Harwood <rharwood@redhat.com> - 1.16-2
 - Fix network service dependencies
-- Resolves: #1525230
+  Resolves: rhbz#1525230
 
 * Wed Dec 06 2017 Robbie Harwood <rharwood@redhat.com> - 1.16-1
 - New upstream release (1.16)
@@ -1487,12 +1496,12 @@ exit 0
 
 * Wed Sep 06 2017 Robbie Harwood <rharwood@redhat.com> - 1.15.1-28
 - Save other programs from worrying about CVE-2017-11462
-- Resolves: #1488873
-- Resolves: #1488874
+  Resolves: rhbz#1488873
+  Resolves: rhbz#1488874
 
 * Tue Sep 05 2017 Robbie Harwood <rharwood@redhat.com> - 1.15.1-27
 - Add hostname-based ccselect module
-- Resolves: #1463665
+  Resolves: rhbz#1463665
 
 * Tue Sep 05 2017 Robbie Harwood <rharwood@redhat.com> - 1.15.1-26
 - Backport upstream certauth EKU fixes
@@ -1543,7 +1552,7 @@ exit 0
 
 * Fri Jun 23 2017 Robbie Harwood <rharwood@redhat.com> - 1.15.1-11
 - Include more test suite changes from upstream
-- Resolves: #1464381
+  Resolves: rhbz#1464381
 
 * Wed Jun 07 2017 Robbie Harwood <rharwood@redhat.com> - 1.15.1-10
 - Fix custom build with -DDEBUG
@@ -1559,12 +1568,12 @@ exit 0
 
 * Thu Apr 13 2017 Robbie Harwood <rharwood@redhat.com> - 1.15.1-6
 - Include fixes for previous commit
-- Resolves: #1433083
+  Resolves: rhbz#1433083
 
 * Thu Apr 13 2017 Robbie Harwood <rharwood@redhat.com> - 1.15.1-5
 - Automatically add includedir where not present
 - Try removing sleep statement to see if it is still needed
-- Resolves: #1433083
+  Resolves: rhbz#1433083
 
 * Fri Apr 07 2017 Robbie Harwood <rharwood@redhat.com> - 1.15.1-4
 - Fix use of enterprise principals with forwarding
@@ -1574,7 +1583,7 @@ exit 0
 
 * Tue Mar 07 2017 Robbie Harwood <rharwood@redhat.com> - 1.15.1-2
 - Remove duplication between subpackages
-- Resolves: #1250228
+  Resolves: rhbz#1250228
 
 * Fri Mar 03 2017 Robbie Harwood <rharwood@redhat.com> - 1.15.1-1
 - New upstream release - 1.15.1
@@ -1608,14 +1617,14 @@ exit 0
 * Thu Oct 20 2016 Robbie Harwood <rharwood@redhat.com> - 1.15-beta1-1
 - New upstream release
 - Update selinux with RHEL hygene
-- Resolves: #1314096
+  Resolves: rhbz#1314096
 
 * Tue Oct 11 2016 Tomáš Mráz <tmraz@redhat.com> - 1.14.4-6
 - rebuild with OpenSSL 1.1.0, added backported upstream patch
 
 * Fri Sep 30 2016 Robbie Harwood <rharwood@redhat.com> - 1.14.4-5
 - Properly close krad sockets
-- Resolves: #1380836
+  Resolves: rhbz#1380836
 
 * Fri Sep 30 2016 Robbie Harwood <rharwood@redhat.com> - 1.14.4-4
 - Fix backward check in kprop.service
@@ -1634,42 +1643,42 @@ exit 0
 
 * Mon Sep 19 2016 Robbie Harwood <rharwood@redhat.com> - 1.14.3-9
 - Add krb5_db_register_keytab
-- Resolves: #1376812
+  Resolves: rhbz#1376812
 
 * Mon Aug 29 2016 Robbie Harwood <rharwood@redhat.com> - 1.14.3-8
 - Use responder for non-preauth AS requests
-- Resolves: #1370622
+  Resolves: rhbz#1370622
 
 * Mon Aug 29 2016 Robbie Harwood <rharwood@redhat.com> - 1.14.3-7
 - Guess Samba client mutual flag using ap_option
-- Resolves: #1370980
+  Resolves: rhbz#1370980
 
 * Thu Aug 25 2016 Robbie Harwood <rharwood@redhat.com> - 1.14.3-6
 - Fix KDC return code and set prompt types for OTP client preauth
-- Resolves: #1370072
+  Resolves: rhbz#1370072
 
 * Mon Aug 15 2016 Robbie Harwood <rharwood@redhat.com> - 1.14.3-5
 - Turn OFD locks back on with glibc workaround
-- Resolves: #1274922
+  Resolves: rhbz#1274922
 
 * Wed Aug 10 2016 Robbie Harwood <rharwood@redhat.com> - 1.14.3-4
 - Fix use of KKDCPP with SNI
-- Resolves: #1365027
+  Resolves: rhbz#1365027
 
 * Fri Aug 05 2016 Robbie Harwood <rharwood@redhat.com> - 1.14.3-3
 - Make krb5-devel depend on libkadm5
-- Resolves: #1364487
+  Resolves: rhbz#1364487
 
 * Wed Aug 03 2016 Robbie Harwood <rharwood@redhat.com> - 1.14.3-2
 - Up-port a bunch of stuff from the el-7.3 cycle
-- Resolves: #1255450, #1314989
+  Resolves: rhbz#1255450, rhbz#1314989
 
 * Mon Aug 01 2016 Robbie Harwood <rharwood@redhat.com> - 1.14.3-1
 - New upstream version 1.14.3
 
 * Thu Jul 28 2016 Robbie Harwood <rharwood@redhat.com> - 1.14.1-9
 - Fix CVE-2016-3120
-- Resolves: #1361051
+  Resolves: rhbz#1361051
 
 * Wed Jun 22 2016 Robbie Harwood <rharwood@redhat.com> - 1.14.1-8
 - Fix incorrect recv() size calculation in libkrad
@@ -1682,18 +1691,18 @@ exit 0
 
 * Tue Apr 05 2016 Robbie Harwood <rharwood@redhat.com> - 1.14.1-5
 - Use the correct patches this time.
-- Resolves: #1321135
+  Resolves: rhbz#1321135
 
 * Mon Apr 04 2016 Robbie Harwood <rharwood@redhat.com> - 1.14.1-4
 - Add send/receive sendto_kdc hooks and corresponding tests
-- Resolves: #1321135
+  Resolves: rhbz#1321135
 
 * Fri Mar 18 2016 Robbie Harwood <rharwood@redhat.com> - 1.14.1-3
 - Fix CVE-2016-3119 (NULL deref in LDAP module)
 
 * Thu Mar 17 2016 Robbie Harwood <rharwood@redhat.com> - 1.14.1-2
 - Backport OID mech fix
-- Resolves: #1317609
+  Resolves: rhbz#1317609
 
 * Mon Feb 29 2016 Robbie Harwood <rharwood@redhat.com> - 1.14.1-1
 - New rawhide, new upstream version
@@ -1703,7 +1712,7 @@ exit 0
 
 * Mon Feb 22 2016 Robbie Harwood <rharwood@redhat.com> - 1.14-23
 - Fix log file permissions patch with our selinux
-- Resolves: #1309421
+  Resolves: rhbz#1309421
 
 * Fri Feb 19 2016 Robbie Harwood <rharwood@redhat.com> - 1.14-22
 - Backport my interposer fixes from upstream
@@ -1712,7 +1721,7 @@ exit 0
 * Tue Feb 16 2016 Robbie Harwood <rharwood@redhat.com> - 1.14-21
 - Adjust dependency on crypto-polices to be just the file we want
 - Patch courtesy of lslebodn
-- Resolves: #1308984
+  Resolves: rhbz#1308984
 
 * Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
@@ -1720,21 +1729,21 @@ exit 0
 * Thu Jan 28 2016 Robbie Harwood <rharwood@redhat.com> - 1.14-19
 - Replace _kadmin/_kprop with systemd macros
 - Remove traces of upstart from fedora package per policy
-- Resolves: #1290185
+  Resolves: rhbz#1290185
 
 * Wed Jan 27 2016 Robbie Harwood <rharwood@redhat.com> - 1.14-18
 - Fix CVE-2015-8629, CVE-2015-8630, CVE-2015-8631
 
 * Thu Jan 21 2016 Robbie Harwood <rharwood@redhat.com> - 1.14-17
 - Make krb5kdc.log not world-readable by default
-- Resolves: #1276484
+  Resolves: rhbz#1276484
 
 * Thu Jan 21 2016 Robbie Harwood <rharwood@redhat.com> - 1.14-16
 - Allow verification of attributes on krb5.conf
 
 * Wed Jan 20 2016 Robbie Harwood <rharwood@redhat.com> - 1.14-15
 - Use "new" systemd macros for service handling.  (Thanks vpavlin!)
-- Resolves: #850399
+  Resolves: rhbz#850399
 
 * Wed Jan 20 2016 Robbie Harwood <rharwood@redhat.com> - 1.14-14
 - Remove WITH_NSS macro (always false)
@@ -1744,7 +1753,7 @@ exit 0
 
 * Fri Jan 08 2016 Robbie Harwood <rharwood@redhat.com> - 1.14-13
 - Backport fix for chrome crash in spnego_gss_inquire_context
-- Resolves: #1295893
+  Resolves: rhbz#1295893
 
 * Wed Dec 16 2015 Robbie Harwood <rharwood@redhat.com> - 1.14-12
 - Backport patch to fix mechglue for gss_inqure_attrs_for_mech()

@@ -6,7 +6,7 @@ format that stores data indexed by IP address subnets (IPv4 or IPv6).
 
 Name:           python-%{pypi_name}
 Version:        2.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Reader for the MaxMind DB format
 
 License:        Apache-2.0
@@ -57,6 +57,9 @@ Summary:        %{summary}
 %license LICENSE
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.3.0-2
+- Rebuilt for Python 3.12
+
 * Mon May 15 2023 Lumír Balhar <lbalhar@redhat.com> - 2.3.0-1
 - Update to 2.3.0 (rhbz#2196686)
 - SPDX License

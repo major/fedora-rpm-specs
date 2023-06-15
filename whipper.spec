@@ -5,7 +5,7 @@
 
 Name:    %{srcname}
 Version: 0.10.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: %{sum}
 URL:     https://github.com/whipper-team/whipper
 License: GPL-3.0-or-later
@@ -69,6 +69,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/com.github.wh
 %doc README.md TODO CHANGELOG.md HACKING COVERAGE
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.10.0-10
+- Rebuilt for Python 3.12
+
 * Mon Apr 24 2023 Peter Oliver <rpm@mavit.org.uk> - 0.10.0-9
 - SPDX migration.
 

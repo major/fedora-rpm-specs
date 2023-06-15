@@ -8,7 +8,7 @@
 
 Name:           snowball
 Version:        2.2.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Snowball compiler and stemming algorithms
 
 License:        BSD-3-Clause
@@ -262,6 +262,9 @@ make check_python
 %license COPYING
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.2.0-6
+- Rebuilt for Python 3.12
+
 * Mon Feb 27 2023 Jerry James <loganjerry@gmail.com> - 2.2.0-5
 - Dynamically generate python BuildRequires
 

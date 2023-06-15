@@ -3,7 +3,7 @@
 
 Name:           python-%{modname}_2
 Version:        2.6.11
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Python implementation of Markdown
 
 License:        BSD
@@ -46,6 +46,9 @@ sed -i -e '/markdown.__main__/d' setup.py
 %{python3_sitelib}/Markdown-*.egg-info/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.6.11-11
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.11-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

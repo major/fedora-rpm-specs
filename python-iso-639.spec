@@ -7,7 +7,7 @@ different.}
 
 Name:           python-%{srcname}
 Version:        0.4.5
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        ISO 639 library for Python
 
 License:        AGPLv3
@@ -57,6 +57,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.4.5-22
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.5-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

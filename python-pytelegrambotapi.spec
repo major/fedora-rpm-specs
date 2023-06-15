@@ -9,7 +9,7 @@ It can be used to create powerful bots for the Telegram messenger.}
 
 Name: python-%{appname}
 Version: 4.11.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPL-2.0-or-later
 Summary: Python Telegram Bot API implementation
@@ -48,6 +48,9 @@ Summary: %{summary}
 %doc README.md
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 4.11.0-2
+- Rebuilt for Python 3.12
+
 * Sun Apr 16 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 4.11.0-1
 - Updated to version 4.11.0.
 

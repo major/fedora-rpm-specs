@@ -1,6 +1,6 @@
 Name:           python-ujson
 Version:        5.7.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Ultra fast JSON encoder and decoder written in pure C
 
 # The entire source is BSD-3-Clause, except:
@@ -80,6 +80,9 @@ export UJSON_BUILD_DC_LIBS='-ldouble-conversion'
 %doc README.md
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 5.7.0-4
+- Rebuilt for Python 3.12
+
 * Fri Mar 10 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 5.7.0-3
 - Apply upstream PR#565 to add license texts to LICENSE.txt
 

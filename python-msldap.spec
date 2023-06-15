@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.3.26
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Python library to play with MS LDAP
 
 License:        MIT
@@ -41,6 +41,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.3.26-8
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.26-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

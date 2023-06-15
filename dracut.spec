@@ -7,7 +7,7 @@
 %global __requires_exclude pkg-config
 
 # rpmdev-bumpspec and releng automation compatible variable
-%global baserelease 7
+%global baserelease 8
 
 Name: dracut
 Version: 059
@@ -61,6 +61,10 @@ Patch7: 2224-network-include-default-mac-none-link.patch
 # fix(multipath): remove dependency on multipathd.socket
 # https://github.com/dracutdevs/dracut/pull/2290
 Patch8: 2290-remove-dependency-on-multipathd-socket.patch
+
+# fix(kernel-modules): add interconnect drivers
+# https://github.com/dracutdevs/dracut/pull/2377
+Patch9: 2377-fix-kernel-modules-add-interconnect-drivers.patch
 
 BuildRequires: bash
 BuildRequires: git-core
@@ -468,6 +472,9 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{_prefix}/lib/kernel/install.d/51-dracut-rescue.install
 
 %changelog
+* Thu Jun 08 2023 Brian Masney <bmasney@redhat.com> - 059-8
+- Backport fix to add the interconnect drivers
+
 * Thu Apr 27 2023 Lukáš Zaoral <lzaoral@redhat.com> - 059-7
 - migrate to SPDX license format
 

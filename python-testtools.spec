@@ -1,3 +1,4 @@
+%global _with_bootstrap 1
 %global srcname testtools
 %global common_description %{expand:
 testtools is a set of extensions to the Python standard library's unit testing
@@ -19,7 +20,7 @@ framework.}
 
 Name:           python-%{srcname}
 Version:        2.5.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Extensions to the Python standard library unit testing framework
 License:        MIT
 URL:            https://github.com/testing-cabal/testtools
@@ -95,6 +96,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m testtools.run testtools.
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.5.0-12
+- Bootstrap for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

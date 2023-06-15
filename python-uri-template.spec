@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        RFC 6570 URI Template Processor
 
 License:        MIT
@@ -49,6 +49,9 @@ sed -i 's/0.0.0/%{pypi_version}/g' setup.py
 %{python3_sitelib}/uri_template-%{pypi_version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.2.0-5
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

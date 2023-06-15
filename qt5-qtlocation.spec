@@ -2,7 +2,7 @@
 
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
-Version: 5.15.9
+Version: 5.15.10
 Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
@@ -90,6 +90,7 @@ popd
 %license LICENSE.GPL* LICENSE.LGPL*
 %{_qt5_libdir}/libQt5Location.so.5*
 %{_qt5_archdatadir}/qml/QtLocation/
+%{_qt5_libdir}/qt5/qml/Qt/labs/location/*
 %{_qt5_plugindir}/geoservices/
 %{_qt5_libdir}/libQt5Positioning.so.5*
 %dir %{_qt5_archdatadir}/qml/QtPositioning
@@ -125,6 +126,9 @@ popd
 
 
 %changelog
+* Mon Jun 12 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.10-1
+- 5.15.10
+
 * Tue Apr 11 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.9-1
 - 5.15.9
 

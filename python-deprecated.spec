@@ -3,7 +3,7 @@
 
 Name:           python-%{pkgname}
 Version:        1.2.14
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python decorator to deprecate old python classes, functions or methods
 License:        MIT
 URL:            https://github.com/tantale/%{pkgname}
@@ -42,6 +42,9 @@ rm -rf %{pkgname}.egg-info
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.2.14-2
+- Rebuilt for Python 3.12
+
 * Sat May 27 2023 Packit <hello@packit.dev> - 1.2.14-1
 - Drops seemingly unused importlib-metadata dev dep (Colin Dean)
 - Fixes comment on which version is development branch (Colin Dean)

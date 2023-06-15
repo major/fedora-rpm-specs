@@ -1,5 +1,5 @@
-%global upstream_tag    8.6.0
-%global rpm_version     8.6.0
+%global upstream_tag    8.6.1
+%global rpm_version     8.6.1
 %global soname 3
 
 # enable the following for intermediate builds
@@ -14,16 +14,14 @@
 Name:		IP2Location
 Summary:	Tools for mapping IP address to geolocation information
 Version:	%{rpm_version}
-Release:	7%{?gittag}%{?dist}
+Release:	1%{?gittag}%{?dist}
 License:	MIT
-URL:		http://www.ip2location.com/
+URL:		https://www.ip2location.com/
 %if 0%{?gitcommit:1}
 Source0:	https://github.com/chrislim2888/IP2Location-C-Library/archive/%{gitcommit}/%{name}-%{gitcommit}.tar.gz
 %else
 Source0:	https://github.com/chrislim2888/IP2Location-C-Library/archive/%{upstream_tag}/%{name}-%{upstream_tag}.tar.gz
 %endif
-
-Patch1:		IP2Location-8.6.0-bigendian.patch
 
 BuildRequires:	libtool
 BuildRequires:  perl-generators
@@ -116,8 +114,6 @@ Further sample databases can be downloaded from
 %setup -q -n IP2Location-C-Library-%{upstream_tag}
 %endif
 
-%patch -P 1 -p 1
-
 # remove a warning option which break configure on older gcc versions
 # (at least gcc version 4.1.2 20080704)
 perl -pi -e 's/-Wno-unused-result//' configure.ac
@@ -181,6 +177,10 @@ install -p data/IPV6-COUNTRY.BIN %{buildroot}%{_datadir}/%{name}/IPV6-COUNTRY.SA
 
 
 %changelog
+* Tue Jun 13 2023 Remi Collet <remi@remirepo.net> - 8.6.1-1
+- update to 8.6.1
+- drop patch merged upstream
+
 * Sun Jun 04 2023 Peter Bieringer <pb@bieringer.de> - 8.6.0-7
 - reenable "make check" for arch s390x and wait for upstream fix
 - add IP2Location-8.6.0-bigendian.patch

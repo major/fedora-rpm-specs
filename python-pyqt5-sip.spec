@@ -6,7 +6,7 @@
 
 Name:           python-%{pkg_name}
 Version:        12.12.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The sip module support for PyQt5
 
 License:        GPLv2 or GPLv3
@@ -51,6 +51,9 @@ Provides: python3-pyqt5-sip-api(%{_sip_api_major})%{?_isa} = %{_sip_api}
 %{python3_sitearch}/PyQt5/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 12.12.1-2
+- Rebuilt for Python 3.12
+
 * Wed Apr 26 2023 Scott Talbert <swt@techie.net> - 12.12.1-1
 - Update to new upstream release 12.12.1 (#2185558)
 

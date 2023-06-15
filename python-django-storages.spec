@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.11.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Support for many storage backends in Django
 
 License:        BSD
@@ -137,6 +137,9 @@ rm -vr *.egg-info
 %{?python_extras_subpkg:%ghost %{python3_sitelib}/django_storages-*.egg-info}
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.11.1-9
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

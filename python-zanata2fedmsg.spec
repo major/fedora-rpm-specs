@@ -13,7 +13,7 @@
 
 Name:               python-zanata2fedmsg
 Version:            0.2
-Release:            25%{?dist}
+Release:            26%{?dist}
 Summary:            %{sum}
 License:            GPLv2+
 URL:                http://pypi.python.org/pypi/zanata2fedmsg
@@ -67,6 +67,9 @@ rm %{buildroot}/%{_bindir}/zanata2fedmsg-webhook-generator.py
 %endif
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.2-26
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

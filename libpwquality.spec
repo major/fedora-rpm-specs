@@ -1,7 +1,7 @@
 Summary: A library for password generation and password quality checking
 Name: libpwquality
 Version: 1.4.5
-Release: 4%{?dist}
+Release: 5%{?dist}
 URL: https://github.com/libpwquality/libpwquality/
 Source0: https://github.com/libpwquality/libpwquality/releases/download/libpwquality-%{version}/libpwquality-%{version}.tar.bz2
 
@@ -108,6 +108,9 @@ mkdir %{buildroot}%{_secconfdir}/pwquality.conf.d
 %{python3_sitearch}/*.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.4.5-5
+- Rebuilt for Python 3.12
+
 * Fri Mar 31 2023 Miro Hrončok <mhroncok@redhat.com> - 1.4.5-4
 - Use setuptools instead of distutils to build this package
 - Resolves: rhbz#2165572

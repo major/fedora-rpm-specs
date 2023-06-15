@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.8
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Math extension for Python-Markdown
 
 License:        BSD
@@ -51,6 +51,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/python_markdown_math-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.8-9
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

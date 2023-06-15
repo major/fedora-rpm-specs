@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.3.7.1
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Bootstrap-SCSS (XStatic packaging standard)
 
 License:        MIT
@@ -89,6 +89,9 @@ chmod 644 %{buildroot}%{_jsdir}/bootstrap_scss/js/bootstrap/*.js
 %{_jsdir}/bootstrap_scss
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.3.7.1-21
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.7.1-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

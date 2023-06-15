@@ -18,7 +18,7 @@
 Summary:	IPv6 address format change and calculation utility
 Name:		ipv6calc
 Version:	4.1.0
-Release:	69%{?gittag}%{?dist}
+Release:	70%{?gittag}%{?dist}
 URL:		http://www.deepspace6.net/projects/%{name}.html
 License:	GPLv2
 %if 0%{?gitcommit:1}
@@ -91,7 +91,7 @@ Recommends:    libmaxminddb
 %endif
 
 %if %{enable_ip2location}
-BuildRequires: IP2Location-devel >= 8.2.0
+BuildRequires: IP2Location-devel >= 8.6.0
 Recommends:    IP2Location       >= 8.2.0
 %endif
 
@@ -345,6 +345,9 @@ fi
 
 
 %changelog
+* Tue Jun 13 2023 Peter Bieringer <pb@bieringer.de> - 4.1.0-70
+- Increase build requirement IP2Location 8.6.0 to support new DB-26
+
 * Mon Jun 12 2023 Peter Bieringer <pb@bieringer.de> - 4.1.0-69
 - Final release 4.1.0
 

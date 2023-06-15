@@ -5,7 +5,7 @@
 
 Name:           python-%{pkgname}
 Version:        1.4.7
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Modest Maps python port
 
 License:        BSD
@@ -50,6 +50,9 @@ additional functionality.
 %{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.4.7-16
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.7-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

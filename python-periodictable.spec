@@ -38,7 +38,7 @@ may give different results from other packages.}
 
 Name:           python-%{pname}
 Version:        1.6.1
-Release:        4%{date}%{shortcommit}%{?dist}
+Release:        5%{date}%{shortcommit}%{?dist}
 Summary:        Extensible periodic table of the elements
 
 # periodictable/cromermann.py: BSD 3-clause "New" or "Revised" License
@@ -89,6 +89,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} py.test-%{python3_version} -v
 %{python3_sitelib}/%{pname}/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.6.1-5
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

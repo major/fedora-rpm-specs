@@ -1,6 +1,6 @@
 Name:          speech-dispatcher
 Version:       0.11.4
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       To provide a high-level device independent layer for speech synthesis
 
 # Almost all files are under GPL-2.0-or-later, however
@@ -234,6 +234,9 @@ sed 's/# AudioOutputMethod "pulse,alsa"/AudioOutputMethod "pulse,alsa"/' %{build
 %{python3_sitearch}/speechd*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.11.4-5
+- Rebuilt for Python 3.12
+
 * Fri May 12 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.11.4-4
 - Disable flite in RHEL 10+ builds
 

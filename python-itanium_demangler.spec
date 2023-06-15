@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python parser for mangled itanium symbols
 
 License:        BSD
@@ -48,6 +48,9 @@ cp -a %{SOURCE1} LICENSE-0BSD.txt
 %{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.1-2
+- Rebuilt for Python 3.12
+
 * Sat Feb 18 2023 Fabian Affolter <mail@fabian-affolter.ch> - 1.1-1
 - Update to latest upstream release 1.1 (closes rhbz#2119978)
 

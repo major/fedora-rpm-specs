@@ -5,7 +5,7 @@
 
 Name:           python-xlwt
 Version:        1.3.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        %{sum}
 
                 # Utils.py is LPGL2.0+
@@ -69,6 +69,9 @@ cp -ar examples docs tmp_docs
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.3.0-7
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 Name:           python-whisper
 Version:        1.1.6
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        %{sum}
 
 License:        ASL 2.0
@@ -120,6 +120,9 @@ install -D -p -m0644 %{SOURCE19} %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.1.6-13
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.6-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

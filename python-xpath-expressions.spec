@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.0.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Treat XPath expressions as Python objects
 
 License:        MIT
@@ -44,6 +44,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/xpath_expressions-%{version}-py*.egg-info/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.0.2-11
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

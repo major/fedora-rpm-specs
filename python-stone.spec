@@ -1,7 +1,7 @@
 %global pypi_name stone
 Name:           python-%{pypi_name}
 Version:        3.2.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        The Official Api Spec Language for Dropbox
 License:        +MIT
 
@@ -41,6 +41,9 @@ Summary:        %{summary}
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.2.1-11
+- Rebuilt for Python 3.12
+
 * Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.2.1-10
 - migrated to SPDX license
 

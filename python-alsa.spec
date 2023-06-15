@@ -3,7 +3,7 @@
 Summary:	Python binding for the ALSA library
 Name:		python-alsa
 Version:	%{baseversion}
-Release:	5%{?dist}
+Release:	6%{?dist}
 License:	LGPL-2.1-or-later
 Source0:	ftp://ftp.alsa-project.org/pub/pyalsa/pyalsa-%{version}.tar.bz2
 URL:		http://www.alsa-project.org/
@@ -39,6 +39,9 @@ Summary: %summary
 %{python3_sitearch}/*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.2.7-6
+- Rebuilt for Python 3.12
+
 * Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.2.7-5
 - migrated to SPDX license
 

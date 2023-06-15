@@ -16,7 +16,7 @@ get() operations, which is essentially O(1) for relatively small mappings.}
 
 Name:           python-%{srcname}
 Version:        0.19
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Immutable Collections
 # The entire source code is Apache-2.0, except pythoncapi_compat.h, which is
 # 0BSD. While this file is unbundled, it is a header-only library; its entire
@@ -86,6 +86,9 @@ rm -vf immutables/pythoncapi_compat.h
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.19-3
+- Rebuilt for Python 3.12
+
 * Mon Jan 09 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.19-2
 - Unbundle pythoncapi-compat
 

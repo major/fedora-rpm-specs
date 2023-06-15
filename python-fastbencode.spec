@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.0.9
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Implementation of bencode with optional fast C extensions
 
 License:        GPLv2+ and MIT
@@ -53,6 +53,9 @@ Summary:        %{summary}
 %{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.0.9-5
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.9-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

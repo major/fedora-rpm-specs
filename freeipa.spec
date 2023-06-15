@@ -168,7 +168,7 @@
 # RHEL 8.7+, F35+
 %global sssd_version 2.7.1
 
-%define krb5_base_version %(LC_ALL=C /usr/bin/pkgconf --modversion krb5 | grep -Eo '^[^.]+\.[^.]+' || echo %krb5_version)
+%define krb5_base_version %(LC_ALL=C /usr/bin/pkgconf --modversion krb5 2>/dev/null | grep -Eo '^[^.]+\.[^.]+' || echo %krb5_version)
 %global kdcproxy_version 0.4-3
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
@@ -200,7 +200,7 @@
 
 # Work-around fact that RPM SPEC parser does not accept
 # "Version: @VERSION@" in freeipa.spec.in used for Autoconf string replacement
-%define IPA_VERSION 4.10.1
+%define IPA_VERSION 4.10.2
 # Release candidate version -- uncomment with one percent for RC versions
 #%%global rc_version %%nil
 %define AT_SIGN @
@@ -213,7 +213,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        5%{?rc_version:.%rc_version}%{?dist}
+Release:        1%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -224,8 +224,7 @@ Source0:        https://releases.pagure.org/freeipa/freeipa-%{version}%{?rc_vers
 Source1:        https://releases.pagure.org/freeipa/freeipa-%{version}%{?rc_version}.tar.gz.asc
 %endif
 
-# python-cryptography 40.0+ support
-Patch0:         freeipa-issue-9355.patch
+Patch0:         0001-Revert-cert_find-fix-call-with-all.patch
 
 # RHEL spec file only: START: Change branding to IPA and Identity Management
 # Moved branding logos and background to redhat-logos-ipa-80.4:
@@ -684,6 +683,7 @@ Requires: jansson
 %endif
 Requires: sssd-ipa >= %{sssd_version}
 Requires: sssd-idp >= %{sssd_version}
+Requires: sssd-krb5 >= %{sssd_version}
 Requires: certmonger >= %{certmonger_version}
 Requires: nss-tools >= %{nss_version}
 Requires: bind-utils
@@ -1247,10 +1247,8 @@ if [ $1 -gt 1 ] ; then
     test -f '/var/lib/ipa-client/sysrestore/sysrestore.index' && restore=$(wc -l '/var/lib/ipa-client/sysrestore/sysrestore.index' | awk '{print $1}')
 
     if [ -f '/etc/sssd/sssd.conf' -a $restore -ge 2 ]; then
-        if ! grep -E -q '/var/lib/sss/pubconf/krb5.include.d/' /etc/krb5.conf  2>/dev/null ; then
-            echo "includedir /var/lib/sss/pubconf/krb5.include.d/" > /etc/krb5.conf.ipanew
-            cat /etc/krb5.conf >> /etc/krb5.conf.ipanew
-            mv -Z /etc/krb5.conf.ipanew /etc/krb5.conf
+        if grep -E -q '/var/lib/sss/pubconf/krb5.include.d/' /etc/krb5.conf  2>/dev/null ; then
+            sed -i '\;includedir /var/lib/sss/pubconf/krb5.include.d;d' /etc/krb5.conf
         fi
     fi
 
@@ -1744,6 +1742,10 @@ fi
 %endif
 
 %changelog
+* Tue Jun 13 2023 Alexander Bokovoy <abokovoy@redhat.com> - 4.10.2-1
+- Upstream release FreeIPA 4.10.2
+- Synchronize patches with CentOS 9 Stream
+
 * Mon May 15 2023 Alexander Bokovoy <abokovoy@redhat.com> - 4.10.1-5
 - Support python-cryptography 40.0
 

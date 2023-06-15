@@ -1,6 +1,6 @@
 Name:           python-installer
 Version:        0.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A library for installing Python wheels
 
 License:        MIT
@@ -54,6 +54,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.7.0-2
+- Rebuilt for Python 3.12
+
 * Wed Mar 22 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 0.7.0-1
 - Update to 0.7.0
 

@@ -1,6 +1,6 @@
 Name:           androwarn
 Version:        1.6.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Static code analyzer for malicious Android applications
 
 # androwarn is LGPL, Twitter Bootstrap is ASL 2.0 and jQuery MIT
@@ -46,6 +46,9 @@ rm -rf *.egg-info
 %{python3_sitelib}/%{name}*.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.6.1-13
+- Rebuilt for Python 3.12
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

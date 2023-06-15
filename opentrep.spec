@@ -4,7 +4,7 @@
 #
 Name:           opentrep
 Version:        0.07.13
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        C++ library providing a clean API for parsing travel-focused requests
 
@@ -197,6 +197,9 @@ rm -f %{_bindir}/py%{name}
 %endif
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.07.13-2
+- Rebuilt for Python 3.12
+
 * Mon May 01 2023 Denis Arnaud <denis.arnaud_fedora@m4x.org> - 0.07.13-1
 - Upstream upgrade
 

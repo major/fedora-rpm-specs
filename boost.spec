@@ -42,7 +42,7 @@ Name: boost
 %global real_name boost
 Summary: The free peer-reviewed portable C++ source libraries
 Version: 1.81.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: Boost and MIT and Python
 
 # Replace each . with _ in %%{version}
@@ -1275,6 +1275,9 @@ fi
 %{_mandir}/man1/b2.1*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.81.0-3
+- Rebuilt for Python 3.12
+
 * Fri May 05 2023 Nianqing Yao <imbearchild@outlook.com> - 1.81.0-3
 - Fix build for riscv64
   See https://github.com/fedora-riscv/boost/tree/f38-rv64

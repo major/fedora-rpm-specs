@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.4.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Parser for a D-Bus Signature
 
 License:        Apache-2.0
@@ -42,6 +42,9 @@ Python 3 version.
 %{python3_sitelib}/dbus_signature_pyparsing-*.egg-info/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.4.1-4
+- Rebuilt for Python 3.12
+
 * Sun May 7 2023 mulhern<amulhern@redhat.com> - 0.4.3
 - Fix up testing plan tag
 

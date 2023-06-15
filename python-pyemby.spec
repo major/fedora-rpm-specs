@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.6
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python module to interact with a Emby media server
 
 License:        MIT
@@ -42,6 +42,9 @@ Server API.
 %{python3_sitelib}/%{upstream_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.6-9
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

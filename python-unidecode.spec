@@ -2,7 +2,7 @@
 
 Name:		python-unidecode
 Version:	1.3.4
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	US-ASCII transliterations of Unicode text
 
 License:	GPLv2+
@@ -53,6 +53,9 @@ characters.
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.3.4-4
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

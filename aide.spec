@@ -1,9 +1,9 @@
 Summary:        Intrusion detection environment
 Name:           aide
 Version:        0.16
-Release:        22%{?dist}
+Release:        23%{?dist}
 URL:            http://sourceforge.net/projects/aide
-License:        GPLv2+
+License:        GPL-2.0-or-later
 
 
 Source0:        %{url}/files/aide/%{version}/%{name}-%{version}.tar.gz
@@ -83,6 +83,9 @@ mkdir -p -m0700 %{buildroot}%{_localstatedir}/lib/aide
 %dir %attr(0700,root,root) %{_localstatedir}/log/aide
 
 %changelog
+* Tue Jun 13 2023 Radovan Sroka <rsroka@redhat.com> - 0.16-23
+- migrated to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

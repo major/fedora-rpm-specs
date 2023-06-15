@@ -3,7 +3,7 @@
 
 Name:           %{srcname}
 Version:        1.15.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The PEP 517 compliant PyQt build system
 
 License:        GPLv2 or GPLv3
@@ -50,6 +50,9 @@ rm -rf %{buildroot}/%{python3_sitelib}/pyqtbuild/bundle/dlls
 %{python3_sitelib}/PyQt_builder-%{version}.dist-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.15.0-2
+- Rebuilt for Python 3.12
+
 * Wed Apr 26 2023 Scott Talbert <swt@techie.net> - 1.15.0-1
 - Update to new upstream release 1.15.0 (#2185560)
 

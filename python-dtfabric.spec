@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.0.%{date}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tool to manage data types and structures, as used by libyal
 
 License:        ASL 2.0
@@ -49,6 +49,9 @@ rm -rf %{buildroot}%{_defaultdocdir}/%{pypi_name}/*
 %{python3_sitelib}/%{pypi_name}/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.0.20230520-2
+- Rebuilt for Python 3.12
+
 * Tue May 23 2023 Fabian Affolter <mail@fabian-affolter.ch> - 0.0.20230520-1
 - Update to latest upstream release 20230520 (closes rhbz#2154653)
 

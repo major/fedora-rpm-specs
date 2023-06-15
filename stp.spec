@@ -1,6 +1,6 @@
 Name:		stp
 Version:	2.3.3
-Release:	25%{?dist}
+Release:	26%{?dist}
 Summary:	Constraint solver/decision procedure
 
 # MIT: the project as a whole
@@ -127,6 +127,9 @@ mv %{buildroot}%{_prefix}/man %{buildroot}%{_datadir}/man
 %{python3_sitelib}/%{name}/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.3.3-26
+- Rebuilt for Python 3.12
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 2.3.3-25
 - Rebuilt for Boost 1.81
 

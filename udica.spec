@@ -1,7 +1,7 @@
 Summary: A tool for generating SELinux security policies for containers
 Name: udica
 Version: 0.2.7
-Release: 5%{?dist}
+Release: 6%{?dist}
 Source0: https://github.com/containers/udica/archive/v%{version}.tar.gz
 #git format-patch -N 4a64ff7c1b8116a1894e72eee2a19706e970001f -- . ':!.cirrus.yml' ':!.github'
 Patch0001: 0001-Add-device-access-option.patch
@@ -66,6 +66,9 @@ install -m 0644 udica/man/man8/udica.8 %{buildroot}%{_mandir}/man8/udica.8
 %endif
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.2.7-6
+- Rebuilt for Python 3.12
+
 * Tue Apr 11 2023 Vit Mojzis <vmojzis@redhat.com> - 0.2.7-5
 - Show diff when checking formatting
 - Fix several lint findings

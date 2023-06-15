@@ -16,7 +16,7 @@ without any redirection.
 
 Name:           python-%{pypi_name}
 Version:        1.11.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 
 License:        MPLv2.0
@@ -172,6 +172,9 @@ find -name '*.pyc' -delete
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.11.2-2
+- Rebuilt for Python 3.12
+
 * Mon Feb 20 2023 Avram Lubkin <aviso@rockhopper.net> - 1.11.2-1
 - Update to 1.11.2 (#2130958)
 

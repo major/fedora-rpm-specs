@@ -9,7 +9,7 @@
 Summary:    Library and tool to control NAT in UPnP-enabled routers
 Name:       miniupnpc
 Version:    2.2.4
-Release:    3%{?dist}
+Release:    4%{?dist}
 License:    BSD
 URL:        http://miniupnp.free.fr/
 
@@ -96,6 +96,9 @@ make CFLAGS="%{optflags} -DMINIUPNPC_SET_SOCKET_TIMEOUT" check
 %{python3_sitearch}/miniupnpc*.so
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.2.4-4
+- Rebuilt for Python 3.12
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

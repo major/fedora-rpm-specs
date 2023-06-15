@@ -1,3 +1,4 @@
+%global _without_tests 1
 %{?python_enable_dependency_generator}
 
 %if 0%{?el8}
@@ -10,7 +11,7 @@
 Name:           python-cherrypy
 %global         camelname CherryPy
 Version:        18.8.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Pythonic, object-oriented web development framework
 License:        BSD
 URL:            https://cherrypy.dev/
@@ -102,6 +103,9 @@ export WEBTEST_INTERACTIVE=false
 %exclude %{python3_sitelib}/cherrypy/tutorial
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 18.8.0-5
+- Bootstrap for Python 3.12
+
 * Tue Apr 04 2023 Dan Radez <dradez@redhat.com> - 18.8.0-4
 - rhbz#2183388 submitting upstream patch to resolve pkg_resources dep warning
 

@@ -5,7 +5,7 @@
 
 Name:               python-blowfish
 Version:            0.6.1
-Release:            22%{?dist}
+Release:            23%{?dist}
 Summary:            %{sum}
 
 License:            GPL-3.0-or-later
@@ -46,6 +46,9 @@ Summary:            %{sum}
 %{python3_sitelib}/__pycache__/*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.6.1-23
+- Rebuilt for Python 3.12
+
 * Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.6.1-22
 - migrated to SPDX license
 

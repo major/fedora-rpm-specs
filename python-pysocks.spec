@@ -1,5 +1,5 @@
 %if 0%{?fedora}
-%global with_python3_tests 1
+%global with_python3_tests 0
 %endif
 
 %global pypi_name   PySocks
@@ -8,7 +8,7 @@
 
 Name:               python-%{modname}
 Version:            1.7.1
-Release:            17%{?dist}
+Release:            18%{?dist}
 Summary:            %{sum}
 
 License:            BSD-3-Clause
@@ -115,6 +115,9 @@ rm -rfv test/bin
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.7.1-18
+- Bootstrap for Python 3.12
+
 * Sun Mar 12 2023 Tim Orling <ticotimo@gmail.com> - 1.7.1-17
 - migrated to SPDX license
 

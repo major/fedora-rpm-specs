@@ -9,7 +9,7 @@
 
 Name:           lttng-tools
 Version:        2.13.9
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        GPL-2.0-only AND LGPL-2.1-only
 URL:            http://lttng.org
 Summary:        LTTng control and utility programs
@@ -181,6 +181,9 @@ exit 0
 %endif
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.13.9-4
+- Rebuilt for Python 3.12
+
 * Mon May 08 2023 Michael Jeanson <mjeanson@efficios.com> - 2.13.9-3
 - migrated to SPDX license
 

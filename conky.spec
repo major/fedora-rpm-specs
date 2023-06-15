@@ -22,7 +22,7 @@
 
 Name:           conky
 Version:        1.19.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A system monitor for X
 
 License:        GPLv3+
@@ -121,6 +121,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/conky.desktop
 
 
 %changelog
+* Tue Jun 13 2023 Leigh Scott <leigh123linux@gmail.com> - 1.19.0-2
+- Rebuild fo new imlib2
+
 * Mon Apr 03 2023 Miroslav Lichvar <mlichvar@redhat.com> - 1.19.0-1
 - update to 1.19.0
 

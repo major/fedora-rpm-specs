@@ -1,6 +1,6 @@
 Name:          whichfont
-Version:       1.0.5
-Release:       2%{?dist}
+Version:       1.0.6
+Release:       1%{?dist}
 Summary:       Querying Fontconfig
 
 License:       GPL-3.0-or-later
@@ -34,6 +34,9 @@ Querying fontconfig for certain code point.
 %{_bindir}/%{name}
 
 %changelog
+* Tue Jun 13 2023 Sudip Shil <sshil@redhat.com> - 1.0.6-1
+- help section changed
+
 * Wed May 17 2023 Sudip Shil <sshil@redhat.com> - 1.0.5-2
 - spec file updated
 

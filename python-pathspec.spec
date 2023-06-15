@@ -1,6 +1,6 @@
 Name:           python-pathspec
 Version:        0.11.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Utility library for gitignore style pattern matching of file paths
 
 License:        MPLv2.0
@@ -46,6 +46,9 @@ is derived from Rsync's wildmatch. Git uses wildmatch for its gitignore files.
 %{python3_sitelib}/pathspec-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.11.1-2
+- Rebuilt for Python 3.12
+
 * Fri Mar 24 2023 Dan Radez <dradez@redhat.com> - 0.11.1-1
 - update to 0.11.1 rhbz#2178386
 

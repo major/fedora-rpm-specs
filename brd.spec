@@ -2,7 +2,7 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 Name:		brd
 Version:	1.0
-Release:	24%{?dist}
+Release:	25%{?dist}
 Summary:	Scans directories and files for damage due to decay of storage medium
 
 License:	GPLv2+
@@ -49,6 +49,9 @@ mv %{buildroot}/%{_datadir}/doc/%{name} %{buildroot}/%{_pkgdocdir}
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.0-25
+- Rebuilt for Python 3.12
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

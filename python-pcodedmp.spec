@@ -1,3 +1,4 @@
+%global _with_bootstrap 1
 %global srcname pcodedmp
 
 # Bootstrap may be needed to break circular dependencies between
@@ -14,7 +15,7 @@
 Summary:        VBA p-code disassembler
 Name:           python-%{srcname}
 Version:        1.2.6
-Release:        14%{?dist}
+Release:        15%{?dist}
 License:        GPLv3+
 URL:            https://github.com/bontchev/pcodedmp
 Source0:        %{pypi_source}
@@ -139,6 +140,9 @@ Requires:       python%{python3_other_pkgversion}-oletools >= 0.54
 %endif
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.2.6-15
+- Bootstrap for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.6-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

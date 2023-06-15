@@ -8,7 +8,7 @@
 
 Name:          marisa
 Version:       0.2.4
-Release:       60%{?dist}
+Release:       61%{?dist}
 Summary:       Static and spece-efficient trie data structure library
 
 License:       BSD or LGPLv2+
@@ -224,6 +224,9 @@ rm -f $RPM_BUILD_ROOT%{perl_vendorarch}/sample.pl
 %{ruby_vendorarchdir}/marisa.so
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.2.4-61
+- Rebuilt for Python 3.12
+
 * Thu Jun  8 2023 Peng Wu <pwu@redhat.com> - 0.2.4-60
 - Add BuildRequires python3-setuptools
 - Use make_build macro instead of just make

@@ -1,7 +1,7 @@
 %global pypi_name requests_download
 Name:           python-requests-download
 Version:        0.1.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Download files using requests and save them to a target path
 
 License:        MIT
@@ -59,6 +59,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitelib}
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.1.2-13
+- Rebuilt for Python 3.12
+
 * Mon May 15 2023 Miro Hrončok <mhroncok@redhat.com> - 0.1.2-12
 - Use flit-core to build this package, instead of flit
 

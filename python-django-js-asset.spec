@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.2.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Script tag with additional attributes for django.forms.Media
 
 License:        BSD
@@ -45,6 +45,9 @@ rm -vr *.egg-info
 %{python3_sitelib}/js_asset/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.2.2-12
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

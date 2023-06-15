@@ -4,7 +4,7 @@
 #
 Name:           rmol
 Version:        1.00.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        C++ library of Revenue Management and Optimisation classes and functions
 
@@ -146,6 +146,9 @@ rm -f %{_bindir}/py%{name}
 %endif
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.00.9-2
+- Rebuilt for Python 3.12
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 1.00.9-1
 - Upstream upgrade
 

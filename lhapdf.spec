@@ -1,6 +1,6 @@
 Name:		lhapdf
 Version:	6.5.4
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Les Houches Accord PDF Interface
 
 License:	GPL-3.0-only
@@ -202,6 +202,9 @@ find %{buildroot}%{_pkgdocdir}/examples -type f -a '!' -name '*.*' -delete
 %license COPYING
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 6.5.4-2
+- Rebuilt for Python 3.12
+
 * Mon Mar 13 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.5.4-1
 - Update to version 6.5.4
 

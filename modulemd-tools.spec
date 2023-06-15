@@ -1,7 +1,7 @@
 Name: modulemd-tools
-Version: 0.13
-Release: 4%{?dist}
-Summary: Collection of tools for parsing and generating modulemd YAML files
+Version: 0.14
+Release: 1%{?dist}
+Summary: Collection of tools for modular (in terms of Fedora Modularity origin) content creators
 License: MIT
 BuildArch: noarch
 
@@ -63,121 +63,29 @@ bld2repo - Simple tool for dowloading build required RPMs of a modular build fro
 
 
 %build
-cd repo2module
 %py3_build
-cd ..
 
-cd dir2module
-%py3_build
-cd ..
-
-cd createrepo_mod
-%py3_build
-cd ..
-
-cd modulemd-add-platform
-%py3_build
-cd ..
-
-cd modulemd-merge
-%py3_build
-cd ..
-
-cd modulemd_tools
-%py3_build
-cd ..
-
-cd bld2repo
-%py3_build
-cd ..
-
-PYTHONPATH=./modulemd_tools:./bld2repo ./man/generate-manpages.sh
+PYTHONPATH=: ./man/generate-manpages.sh
 
 
 %install
-cd repo2module
 %py3_install
-cd ..
-
-cd dir2module
-%py3_install
-cd ..
-
-cd createrepo_mod
-%py3_install
-cd ..
-
-cd modulemd-add-platform
-%py3_install
-cd ..
-
-cd modulemd-merge
-%py3_install
-cd ..
-
-cd modulemd_tools
-%py3_install
-cd ..
-
-cd bld2repo
-%py3_install
-cd ..
-
-cp modulemd-generate-macros/modulemd-generate-macros.py \
-    %{buildroot}%{_bindir}/modulemd-generate-macros
 
 install -d %{buildroot}%{_mandir}/man1
 cp man/*.1 %{buildroot}%{_mandir}/man1/
 
 
 %check
-export PATH=%{buildroot}%{_bindir}:$PATH
-
-cd repo2module
 %{python3} -m pytest -vv
-cd ..
 
-cd dir2module
-%{python3} -m pytest -vv
-cd ..
-
-cd createrepo_mod
-%{python3} -m pytest -vv
-cd ..
-
-cd modulemd-add-platform
-%pytest
-cd ..
-
-cd modulemd-merge
-%{python3} -m pytest -vv -s
-cd ..
-
-cd modulemd_tools
-%{python3} -m pytest -vv
-cd ..
-
-cd bld2repo
-%{python3} -m pytest -vv
-cd ..
 
 %files
 %doc README.md
 %license LICENSE
-%{python3_sitelib}/repo2module
-%{python3_sitelib}/repo2module-*.egg-info/
-%{python3_sitelib}/dir2module
-%{python3_sitelib}/dir2module-*.egg-info/
-%{python3_sitelib}/createrepo_mod
-%{python3_sitelib}/createrepo_mod-*.egg-info/
-%{python3_sitelib}/modulemd_merge
-%{python3_sitelib}/modulemd_merge-*.egg-info/
+
 %{python3_sitelib}/modulemd_tools
 %{python3_sitelib}/modulemd_tools-*.egg-info/
-%{python3_sitelib}/bld2repo
-%{python3_sitelib}/bld2repo-*.egg-info/
-%{python3_sitelib}/modulemd_add_platform
-%{python3_sitelib}/modulemd_add_platform-*.egg-info/
+
 %{_bindir}/repo2module
 %{_bindir}/dir2module
 %{_bindir}/createrepo_mod
@@ -196,14 +104,22 @@ cd ..
 
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jun 15 2022 Python Maint <python-maint@redhat.com> - 0.13-2
-- Rebuilt for Python 3.11
+* Tue Jun 13 2023 Jakub Kadlcik <frostyx@email.cz> 0.14-1
+- modulemd_tools: fix tests for new libmodulemd version 2.15.0
+  (frostyx@email.cz)
+- repo2module: don't traceback because of a modular SRPM in the repo
+  (frostyx@email.cz)
+- bld2repo: add rpms filtering based on MBS buildorder (mkulik@redhat.com)
+- modulemd_merge: test using file instead of output stream (mkulik@redhat.com)
+- createrepo: replace deprecated LooseVersion (mkulik@redhat.com)
+- ci: fix workflows (mkulik@redhat.com)
+- bld2repo: print name of the file being downloaded (kdudka@redhat.com)
+- modulemd_add_platform: Don't crash on a document without a module name and
+  with a default profile (ppisar@redhat.com)
+- modulemd_add_platform: Remove an unused variable and fix formmating error
+  messages (ppisar@redhat.com)
+- Merge all tools into a single package (fvalder@redhat.com)
+- modulemd_add_platform: describe what platform is (frostyx@email.cz)
 
 * Wed Feb 23 2022 Jakub Kadlcik <frostyx@email.cz> 0.13-1
 - modulemd_add_platform: don't use pyproject macros (frostyx@email.cz)

@@ -47,7 +47,7 @@
 Summary: SIP - Python/C++ Bindings Generator
 Name: sip
 Version: 4.19.25
-Release: 7%{?dist}
+Release: 8%{?dist}
 
 # sipgen/parser.{c.h} is GPLv3+ with exceptions (bison)
 License: GPLv2 or GPLv3 and (GPLv3+ with exceptions)
@@ -480,6 +480,9 @@ popd
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 4.19.25-8
+- Rebuilt for Python 3.12
+
 * Tue Mar 07 2023 Than Ngo <than@redhat.com> - 4.19.25-7
 - fixed bz#2154988, fails to build with Python 3.12: ModuleNotFoundError: No module named 'distutils'  
 

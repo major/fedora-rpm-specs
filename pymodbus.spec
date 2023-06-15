@@ -22,7 +22,7 @@ Server Features \
 
 Name: pymodbus
 Version: 3.2.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: %{sum}
 
 License: BSD
@@ -96,6 +96,9 @@ rm -rf %{buildroot}%{python3_sitelib}/test
 %{python3_sitelib}/pymodbus/server/simulator/setup.json
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.2.2-3
+- Rebuilt for Python 3.12
+
 * Sun Apr 23 2023 Christian Krause <chkr@fedoraproject.org> - 3.2.2-2
 - Remove unneeded setuptools requirement which causes a
   FailsToInstall problem in F39 (#2188643) (upstream removed

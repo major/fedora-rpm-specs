@@ -34,7 +34,7 @@ Summary: Python module for GNU parted
 Name:    pyparted
 Epoch:   1
 Version: 3.12.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: GPL-2.0-or-later
 URL:     https://github.com/dcantrell/pyparted
 
@@ -159,6 +159,9 @@ popd
 %endif
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1:3.12.0-9
+- Rebuilt for Python 3.12
+
 * Thu Mar 02 2023 David Cantrell <dcantrell@redhat.com> - 1:3.12.0-8
 - Fix FTBFS with _ped.disktype test case for gpt (#2171656)
 - Update License tag to SPDX expression

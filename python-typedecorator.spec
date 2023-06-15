@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.0.5
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Decorator-based type checking library
 
 License:        MIT
@@ -52,6 +52,9 @@ sed -i -e '/^#!\//, 1d' typedecorator/__init__.py
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.0.5-10
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

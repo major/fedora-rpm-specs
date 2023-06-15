@@ -5,7 +5,7 @@
 
 Name:           krop
 Version:        0.5.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Tool to crop PDF files with an eye towards eReaders
 License:        GPLv3+
 URL:            http://arminstraub.com/software/krop
@@ -108,6 +108,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.5.1-17
+- Rebuilt for Python 3.12
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

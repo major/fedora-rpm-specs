@@ -1,7 +1,7 @@
 Summary:       Parallel SSH tools
 Name:          pssh
 Version:       2.3.5
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       BSD
 Url:           https://github.com/lilydjwg/pssh
 Source0:       https://github.com/lilydjwg/pssh/archive/refs/tags/v%{version}.tar.gz
@@ -58,6 +58,9 @@ mv %{buildroot}%{_mandir}/man1/pscp.1 %{buildroot}%{_mandir}/man1/pscp.pssh.1
 %{python3_sitelib}/psshlib
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.3.5-2
+- Rebuilt for Python 3.12
+
 * Sun Mar 26 2023 Terje Rosten <terje.rosten@ntnu.no> - 2.3.5-1
 - 2.3.5
 

@@ -4,8 +4,8 @@
 Summary: Hybrid image/package system
 Name: rpm-ostree
 Version: 2023.4
-Release: 4%{?dist}
-License: LGPLv2+
+Release: 5%{?dist}
+License: LGPL-2.0-or-later
 URL: https://github.com/coreos/rpm-ostree
 # This tarball is generated via "cd packaging && make -f Makefile.dist-packaging dist-snapshot"
 # in the upstream git.  It also contains vendored Rust sources.
@@ -246,6 +246,9 @@ $PYTHON autofiles.py > files.devel \
 %files devel -f files.devel
 
 %changelog
+* Tue Jun 13 2023 Joseph Marrero <jmarrero@fedoraproject.org> - 2023.4-5
+- Switch License tags to SPDX
+
 * Thu May 25 2023 Adam Williamson <awilliam@redhat.com> - 2023.4-4
 - Backport libdnf patches to work with rpm-4.19
 

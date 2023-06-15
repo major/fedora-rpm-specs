@@ -4,7 +4,7 @@
 
 Name:		sentencepiece
 Version:	0.1.92
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	An unsupervised text tokenizer for Neural Network-based text generation
 
 License:	ASL 2.0
@@ -106,6 +106,9 @@ find %{buildroot} -name '*.a' -delete
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.1.92-10
+- Rebuilt for Python 3.12
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.92-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

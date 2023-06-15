@@ -1,6 +1,6 @@
 Name: gnome-doc-utils
 Version: 0.20.10
-Release: 32%{?dist}
+Release: 33%{?dist}
 Summary: Documentation utilities for GNOME
 
 License: LGPL-2.1-or-later AND GPL-2.0-or-later AND GFDL-1.1-or-later
@@ -90,6 +90,9 @@ sed -i -e '/^Requires:/d' %{buildroot}%{_datadir}/pkgconfig/xml2po.pc
 %{_datadir}/xml/mallard
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.20.10-33
+- Rebuilt for Python 3.12
+
 * Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.20.10-32
 - migrated to SPDX license
 

@@ -1,3 +1,4 @@
+%global _without_check 1
 %global pypi_name sphinxcontrib-serializinghtml
 
 # when bootstrapping sphinx, we cannot run tests yet
@@ -5,7 +6,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.1.5
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Sphinx extension for serialized HTML
 License:        BSD
 URL:            http://sphinx-doc.org/
@@ -81,6 +82,9 @@ popd
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.1.5-8
+- Bootstrap for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

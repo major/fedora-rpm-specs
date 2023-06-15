@@ -10,7 +10,7 @@
 
 Name:           python-%{modname}
 Version:        1.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        QUEST algorithm for finding threshold
 
 License:        BSD
@@ -80,6 +80,9 @@ Python 3 version.
 %{python3_sitelib}/__pycache__/%{srcname}.*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.1-17
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

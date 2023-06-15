@@ -2,7 +2,7 @@
 
 Summary: Qt5 - QtTranslations module
 Name:    qt5-%{qt_module}
-Version: 5.15.9
+Version: 5.15.10
 Release: 1%{?dist}
 
 License: GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -115,6 +115,9 @@ make install INSTALL_ROOT=%{buildroot}
 
 
 %changelog
+* Mon Jun 12 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.10-1
+- 5.15.10
+
 * Tue Apr 11 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.9-1
 - 5.15.9
 

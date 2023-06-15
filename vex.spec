@@ -1,6 +1,6 @@
 Name:           vex
 Version:        0.0.19
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Run commands in a virtualenv
 
 License:        MIT
@@ -48,6 +48,9 @@ rm -rf %{name}/shell_configs/fish.orig
 %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.0.19-15
+- Rebuilt for Python 3.12
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.19-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

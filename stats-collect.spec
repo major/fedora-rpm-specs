@@ -17,7 +17,6 @@ BuildRequires:	python3-pytest
 BuildRequires:	web-assets-devel
 Provides:	bundled(lit) = 2.2.8
 Requires:	web-assets-filesystem
-Requires:	wult%{?_isa} >= 1.11.21
 
 %description
 The Statistics Collection Tool project provides the 'stats-collect'
@@ -43,7 +42,7 @@ STATS_COLLECT_WEB_ASSETS_PATH=%{buildroot}%{_jsdir}/%{name} STATS_COLLECT_DATA_P
 
 %files -n %{name} -f %{pyproject_files}
 %license js/dist/main.js.LICENSE.txt
-%doc CHANGELOG.md README.md security.md
+%doc CHANGELOG.md CODE_OF_CONDUCT.md README.md security.md
 %{_bindir}/ipmi-helper
 %{_bindir}/stats-collect
 %{_bindir}/stc-agent

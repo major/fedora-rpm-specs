@@ -1,5 +1,5 @@
 Name:		wult
-Version:	1.11.16
+Version:	1.12.1
 Release:	%autorelease
 Summary:	A tool for measuring C-state latency in Linux
 
@@ -21,11 +21,9 @@ BuildRequires:	kernel-devel
 BuildRequires:	libbpf-devel
 BuildRequires:	python3-devel
 BuildRequires:	python3-pytest
-BuildRequires:	web-assets-devel
 Requires:	pciutils
 Requires:	pepc
 Requires:	python3-%{name} = %{version}-%{release}
-Requires:	web-assets-filesystem
 
 %description
 The name Wult comes from "Wake Up Latency Tracer". Wult measures C-state
@@ -57,14 +55,11 @@ Wult Python libraries
 
 %install
 %pyproject_install
-%pyproject_save_files wultlibs wulttools statscollectlibs statscollecttools
+%pyproject_save_files wultlibs wulttools
 
 install -pDm755 helpers/ndl-helper/ndl-helper %{buildroot}%{_bindir}/ndl-helper
 install -pDm755 helpers/wult-hrt-helper/wult-hrt-helper %{buildroot}%{_bindir}/wult-hrt-helper
 install -pDm755 helpers/wult-tdt-helper/wult-tdt-helper %{buildroot}%{_bindir}/wult-tdt-helper
-install -pDm644 docs/man1/exercise-sut.1 %{buildroot}/%{_mandir}/man1/exercise-sut.1
-install -pDm644 docs/man1/ndl.1 %{buildroot}/%{_mandir}/man1/ndl.1
-install -pDm644 docs/man1/wult.1 %{buildroot}/%{_mandir}/man1/wult.1
 
 %check
 %pytest -v
@@ -73,17 +68,12 @@ install -pDm644 docs/man1/wult.1 %{buildroot}/%{_mandir}/man1/wult.1
 %doc README.md CHANGELOG.md
 %license LICENSE.md
 %{_bindir}/exercise-sut
-%{_bindir}/ipmi-helper
 %{_bindir}/ndl
 %{_bindir}/ndl-helper
-%{_bindir}/stats-collect
-%{_bindir}/stc-agent
 %{_bindir}/wult
 %{_bindir}/wult-hrt-helper
 %{_bindir}/wult-tdt-helper
 %{_datadir}/wult
-%{_datadir}/stats-collect
-%{_jsdir}/stats-collect
 %{_mandir}/man1/exercise-sut.1*
 %{_mandir}/man1/ndl.1*
 %{_mandir}/man1/wult.1*

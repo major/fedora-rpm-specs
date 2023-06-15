@@ -1,8 +1,9 @@
+%global _with_bootstrap 1
 %bcond_with bootstrap
 
 Name:           python-extras
 Version:        1.0.0
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Useful extra bits for Python
 
 License:        MIT
@@ -51,6 +52,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} setup.py test
 %doc NEWS README.rst
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.0.0-27
+- Bootstrap for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

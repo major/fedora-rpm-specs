@@ -2,7 +2,7 @@
 
 Name:           python-modernize
 Version:        0.8.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Modernizes Python code for eventual Python 3 migration
 
 License:        BSD
@@ -56,6 +56,9 @@ dependency on python-six.
 %{_bindir}/modernize
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.8.0-9
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

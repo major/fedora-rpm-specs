@@ -3,7 +3,7 @@
 
 Name:           python-%{shortname}
 Version:        3.1.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python bindings for OpenGL
 License:        BSD
 URL:            https://github.com/mcfletch/pyopengl
@@ -119,6 +119,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.1.6-2
+- Rebuilt for Python 3.12
+
 * Thu Jan 26 2023 Scott Talbert <swt@techie.net> - 3.1.6-1
 - Update to new upstream release 3.1.6 (#2056226)
 - Enable upstream tests

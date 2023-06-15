@@ -2,7 +2,7 @@
 
 Name:               python-%{modname}
 Version:            0.3.5
-Release:            21%{?dist}
+Release:            22%{?dist}
 Summary:            Logging utilities
 
 License:            BSD
@@ -59,6 +59,9 @@ rm -rf %{modname}.egg-info
 %{python3_sitelib}/%{modname}-%{version}-*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.3.5-22
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.5-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

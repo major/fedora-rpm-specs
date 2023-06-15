@@ -1,6 +1,6 @@
 Name:		libftdi
 Version:	1.5
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Library to program and control the FTDI USB controller
 
 License:	LGPLv2
@@ -123,6 +123,9 @@ rm -f %{buildroot}%{_datadir}/doc/libftdipp1/example.conf
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.5-9
+- Rebuilt for Python 3.12
+
 * Tue Jun 06 2023 Dan Horák <dan[at]danny.cz> - 1.5-8
 - Fix parallel build
 

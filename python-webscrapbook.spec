@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.15.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A backend toolkit for management of WebScrapBook collection
 
 License:        MIT
@@ -67,6 +67,9 @@ Recommends:     python3-%{pypi_name}+adhoc_ssl
 %{_bindir}/wsbview
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.15.0-2
+- Rebuilt for Python 3.12
+
 * Wed May 31 2023 FeRD (Frank Dana) <ferdnyc@gmail.com> - 1.15.0-1
 - New upstream release
 - Convert spec file to pyproject_* RPM macros

@@ -11,7 +11,7 @@
 
 Name:           freeipa-%{plugin_name}
 Version:        0.0.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fedora Account System extension for FreeIPA
 
 License:        GPLv3+
@@ -107,6 +107,9 @@ fi
 %{_bindir}/ipa-create-agreement
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.0.8-2
+- Rebuilt for Python 3.12
+
 * Sat Feb 18 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.0.8-1
 - Rebase to version 0.0.8
 - Backport a couple of upstream fixes for the build

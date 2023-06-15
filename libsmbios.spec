@@ -4,7 +4,7 @@
 
 Name: libsmbios
 Version: 2.4.3
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Libsmbios C/C++ shared libraries
 
 License: GPLv2+ or OSL 2.1
@@ -199,6 +199,9 @@ rename %{pot_file}.mo %{lang_dom}.mo $(find %{buildroot}/%{_datadir} -name %{pot
 %{_datadir}/smbios-utils
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.4.3-9
+- Rebuilt for Python 3.12
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

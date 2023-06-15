@@ -1,6 +1,6 @@
 Name:           python-mdx_gh_links
 Version:        0.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python-Markdown Github-Links Extension
 
 License:        BSD
@@ -52,6 +52,9 @@ shorthand links to GitHub users, repositories, issues and commits.
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.3-4
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

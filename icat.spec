@@ -10,7 +10,7 @@ License: BSD-2-Clause
 %global git_short  %(c="%{git_commit}"; echo "${c:0:7}")
 
 Version: 0.5
-Release: 14.%{git_date}git%{git_short}%{?dist}
+Release: 15.%{git_date}git%{git_short}%{?dist}
 
 URL:     https://github.com/%{repo_owner}/%{repo_name}
 Source0: %{URL}/archive/%{git_commit}/%{repo_name}-%{git_commit}.tar.gz
@@ -48,6 +48,9 @@ install -m 644 ./icat.man %{buildroot}/%{_mandir}/man1/%{name}.1
 %{_mandir}/man1/*
 
 %changelog
+* Tue Jun 13 2023 Leigh Scott <leigh123linux@gmail.com> - 0.5-15.20230110git9b5aa62
+- Rebuild fo new imlib2
+
 * Thu Jun 08 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.5-14.20230110git9b5aa62
 - Add an explicit Conflicts tag against sleuthkit
 

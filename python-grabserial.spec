@@ -2,7 +2,7 @@
 
 Name: python-grabserial
 Version: 2.0.2
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: Reads a serial port and writes data to standard output
 
 License: GPLv2
@@ -43,6 +43,9 @@ Requires: python3-pyserial
 %{python3_sitelib}/*.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.0.2-11
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

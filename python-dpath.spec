@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.1.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library for searching dictionaries using XPath-like expressions
 
 License:        MIT
@@ -50,6 +50,9 @@ find -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
 %{python3_sitelib}/%{pypi_name}*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.1.4-2
+- Rebuilt for Python 3.12
+
 * Sun Feb 19 2023 Fabian Affolter <mail@fabian-affolter.ch> - 2.1.4-1
 - Update to latest upstream release 2.1.4 (closes rhbz#2145018)
 

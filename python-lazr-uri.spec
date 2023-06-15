@@ -1,7 +1,7 @@
 %global pypi_name lazr.uri
 Name:           python-lazr-uri
 Version:        1.0.6
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Parsing and dealing with URIs
 
 License:        LGPLv3
@@ -44,6 +44,9 @@ BuildRequires:  python3-setuptools
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.0.6-6
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

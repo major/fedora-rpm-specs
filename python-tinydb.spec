@@ -4,7 +4,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.7.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        TinyDB is a tiny, document oriented database
 
 License:        MIT
@@ -50,6 +50,9 @@ rm -rf %{buildroot}/%{python3_sitelib}/tests
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 4.7.1-3
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

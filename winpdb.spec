@@ -1,6 +1,6 @@
 Name:		winpdb
 Version:	2.0.0
-Release:	0.14.dev5%{?dist}
+Release:	0.15.dev5%{?dist}
 Summary:	An advanced python debugger
 License:	GPLv2+
 URL:		https://pypi.org/project/winpdb-reborn
@@ -56,6 +56,9 @@ chmod +x $RPM_BUILD_ROOT%{python3_sitelib}/rpdb2.py $RPM_BUILD_ROOT%{python3_sit
 %{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.0.0-0.15.dev5
+- Rebuilt for Python 3.12
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-0.14.dev5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

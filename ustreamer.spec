@@ -1,6 +1,6 @@
 Name: ustreamer
 Version: 5.37
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Lightweight and fast MJPG-HTTP streamer
 License: GPL-3.0-or-later
 URL: https://github.com/pikvm/ustreamer
@@ -61,6 +61,9 @@ Python 3 bindings for %{name}.
 %{python3_sitearch}/%{name}*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 5.37-2
+- Rebuilt for Python 3.12
+
 * Thu Feb 16 2023 Tao Jin <tao-j@outlook.com> - 5.37-1
 - Update to 5.37
 

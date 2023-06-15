@@ -1,26 +1,30 @@
 Summary:        Image loading, saving, rendering, and manipulation library
 Name:           imlib2
-Version:        1.7.4
-Release:        4%{?dist}
+Version:        1.11.1
+Release:        1%{?dist}
 License:        Imlib2
 URL:            http://docs.enlightenment.org/api/imlib2/html/
-Source0:        http://downloads.sourceforge.net/enlightenment/%{name}-%{version}.tar.bz2
-# Fedora specific multilib hack, upstream should switch to pkgconfig one day
-Patch0:         imlib2-1.4.7-multilib.patch
+Source0:        http://downloads.sourceforge.net/enlightenment/%{name}-%{version}.tar.xz
 
-BuildRequires:  libjpeg-devel
-BuildRequires:  libpng-devel
-BuildRequires:  libtiff-devel
+BuildRequires:  doxygen
 BuildRequires:  giflib-devel
 BuildRequires:  freetype-devel >= 2.1.9-4
 BuildRequires:  libtool
 BuildRequires:  bzip2-devel
+BuildRequires:  libid3tag-devel
+BuildRequires:  libheif-devel
+BuildRequires:  libjxl-devel
+BuildRequires:  libjpeg-devel
+BuildRequires:  libpng-devel
+BuildRequires:  libtiff-devel
+BuildRequires:  librsvg2-devel
+BuildRequires:  libspectre-devel
 BuildRequires:  libX11-devel
 BuildRequires:  libXext-devel
-BuildRequires:  libid3tag-devel
 BuildRequires:  libwebp-devel
+BuildRequires:  openjpeg2-devel
 BuildRequires:  pkgconfig
-BuildRequires: make
+BuildRequires:  make
 
 %description
 Imlib 2 is a library that does image file loading and saving as well
@@ -65,8 +69,7 @@ conditions of the GPL version 2 (or at your option) any later version.
 
 
 %prep
-%setup -q
-%patch0 -p1 -b .multilib
+%autosetup -p1
 
 %build
 asmopts="--disable-mmx --disable-amd64"
@@ -83,7 +86,11 @@ autoreconf -ifv
 
 # stop -L/usr/lib[64] getting added to imlib2-config
 export x_libs=" "
-%configure --disable-static --with-pic $asmopts
+%configure \
+ --disable-static \
+ --enable-doc-build \
+ --with-pic \
+ $asmopts
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 %{make_build}
@@ -94,7 +101,8 @@ sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 
 # remove demos and their dependencies
 rm $RPM_BUILD_ROOT%{_bindir}/imlib2_*
-rm -rf $RPM_BUILD_ROOT%{_datadir}/imlib2/data/
+rm -rf $RPM_BUILD_ROOT%{_datadir}/imlib2/
+
 # remove static libraries
 find $RPM_BUILD_ROOT -name '*.la' -exec rm -f \{\} \;
 
@@ -107,17 +115,12 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f \{\} \;
 %doc AUTHORS README TODO
 %license COPYING
 %{_libdir}/libImlib2.so.*
-%dir %{_libdir}/imlib2/
-%dir %{_libdir}/imlib2/filters/
-%{_libdir}/imlib2/filters/*.so
-%dir %{_libdir}/imlib2/loaders/
-%{_libdir}/imlib2/loaders/*.so
+%{_libdir}/imlib2/
 %exclude %{_libdir}/imlib2/loaders/id3.*
 
 %files devel
-%doc doc/*.gif doc/*.html
-%{_bindir}/imlib2-config
-%{_includedir}/Imlib2.h
+%doc doc/html
+%{_includedir}/Imlib2*.h
 %{_libdir}/libImlib2.so
 %{_libdir}/pkgconfig/imlib2.pc
 
@@ -126,6 +129,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f \{\} \;
 
 
 %changelog
+* Tue Jun 13 2023 Leigh Scott <leigh123linux@gmail.com> - 1.11.1-1
+- New upstream version
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

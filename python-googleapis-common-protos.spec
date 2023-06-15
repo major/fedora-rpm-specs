@@ -5,21 +5,9 @@
 # python3dist(grpcio-status), which creates a circular dependency with grpc.
 %bcond_with bootstrap
 
-# The python-xds-protos overlays additional proto wrappers on top of those
-# provided by this package. This can be rather brittle in terms of file
-# conflicts, so it has an exact-version dependency on this package.
-#
-# Therefore, when updating this package, please adjust the
-# googleapis_common_protos_version macro in the python-xds-protos spec file and
-# rebuild it with the new version of this package (ideally in a side tag as a
-# multi-build update). While python-xds-protos automatically adapts itself to
-# the files provided by python-googlapis-common-priotos to a large extent, it
-# may rarely be necessary to adjust the %files list for python3-xds-protos as
-# well.
-
 %global         srcname     googleapis-common-protos
 %global         forgeurl    https://github.com/googleapis/python-api-common-protos/
-Version:        1.59.0
+Version:        1.59.1
 %global         tag         v%{version}
 %forgemeta
 

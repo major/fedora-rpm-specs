@@ -28,7 +28,7 @@
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
 Version: 5.27.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/plasma/%{name}
@@ -250,6 +250,12 @@ Requires:       kf5-frameworkintegration
 
 # For krunner
 Recommends:       plasma-milou >= %{majmin_ver}
+
+# https://pagure.io/fedora-kde/SIG/issue/303
+Recommends: kde-inotify-survey
+
+# https://pagure.io/fedora-kde/SIG/issue/354
+Recommends: kf5-audiocd-kio
 
 # powerdevil has a versioned dep on libkworkspace5, so (may?)
 # need to avoid this dep when bootstrapping
@@ -803,6 +809,9 @@ fi
 
 
 %changelog
+* Mon Jun 12 2023 Timothée Ravier <tim@siosm.fr> - 5.27.5-2
+- Recommend kde-inotify-survey & kf5-audiocd-kio
+
 * Wed May 10 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.5-1
 - 5.27.5
 

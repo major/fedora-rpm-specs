@@ -1,6 +1,6 @@
 Name:           pam_wrapper
 Version:        1.1.4
-Release:        7%{?dist}
+Release:        8%{?dist}
 
 Summary:        A tool to test PAM applications and PAM modules
 License:        GPL-3.0-or-later
@@ -140,6 +140,9 @@ the header files for libpamtest
 %{python3_sitearch}/pypamtest.so
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.1.4-8
+- Rebuilt for Python 3.12
+
 * Mon Mar 06 2023 Andreas Schneider <asn@redhat.com> - 1.1.4-7
 - Update License to SPDX expression
 

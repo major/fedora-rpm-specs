@@ -1,6 +1,6 @@
 Name:           scrot
 Version:        1.8.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Command line screen capture utility
 
 License:        MIT
@@ -41,6 +41,9 @@ autoreconf -if
 
 
 %changelog
+* Tue Jun 13 2023 Leigh Scott <leigh123linux@gmail.com> - 1.8.1-2
+- Rebuild fo new imlib2
+
 * Mon Jan 23 2023 Peter Kotvan <pkotvan@redhat.com> - 1.8.1-1
 - Update to 1.8.1
 

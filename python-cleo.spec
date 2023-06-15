@@ -13,7 +13,7 @@ more information.}
 Name:           python-%{pypi_name}
 Summary:        Create beautiful and testable command-line interfaces
 Version:        %{base_version}%{?prerel:~%{prerel}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        MIT
 
 URL:            https://github.com/sdispater/cleo
@@ -55,6 +55,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.0.1-2
+- Rebuilt for Python 3.12
+
 * Tue Feb 21 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 2.0.1-1
 - Update to 2.0.1
 

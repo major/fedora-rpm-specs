@@ -3,7 +3,7 @@
 Name:         python-Levenshtein
 Summary:      Python extension computing string distances and similarities
 Version:      0.12.0
-Release:      23%{?dist}
+Release:      24%{?dist}
 
 License:      GPLv2+
 
@@ -51,6 +51,9 @@ methods.
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.12.0-24
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

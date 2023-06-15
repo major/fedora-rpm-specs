@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.1.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Use Cache URLs in your Django application
 
 License:        MIT
@@ -43,6 +43,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/django_cache_url-%{version}-py*.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.1.2-10
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

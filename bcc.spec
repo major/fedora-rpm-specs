@@ -25,7 +25,7 @@
 
 Name:           bcc
 Version:        0.27.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        BPF Compiler Collection (BCC)
 License:        Apache-2.0
 URL:            https://github.com/iovisor/bcc
@@ -240,6 +240,9 @@ cp -a libbpf-tools/tmp-install/bin/* %{buildroot}/%{_sbindir}/
 %endif
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.27.0-3
+- Rebuilt for Python 3.12
+
 * Tue Jun 06 2023 Jerome Marchand <jmarchan@redhat.com> - 0.27.0-2
 - migrated to SPDX license
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        py.test plugin for running tests in isolated forked subprocesses
 
 License:        MIT
@@ -48,6 +48,9 @@ Summary:        %{summary}
 %{python3_sitelib}/pytest_forked*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.6.0-2
+- Rebuilt for Python 3.12
+
 * Mon Feb 13 2023 Scott Talbert <swt@techie.net> - 1.6.0-1
 - Update to new upstream release 1.6.0 (#2169236)
 - Modernize python packaging

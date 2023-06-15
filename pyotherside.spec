@@ -1,7 +1,7 @@
 Summary: Asynchronous Python 3 Bindings for Qt 5
 Name: pyotherside
 Version:    1.6.0
-Release:    2%{?dist}
+Release:    3%{?dist}
 Source0: http://thp.io/2011/pyotherside/%{name}-%{version}.tar.gz
 URL: http://thp.io/2011/pyotherside/
 License: ISC
@@ -44,6 +44,9 @@ make INSTALL_ROOT=%{buildroot} install
 %exclude %{_qt5_prefix}/tests/qtquicktests
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.6.0-3
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

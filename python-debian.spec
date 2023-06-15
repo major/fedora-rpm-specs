@@ -1,6 +1,6 @@
 Name:           python-debian
 Version:        0.1.49
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Modules for Debian-related data formats
 # debfile.py, arfile.py, debtags.py are release under GPL v3 or above
 # everything else is GPLv2+
@@ -99,6 +99,9 @@ touch lib/debian/tests/test_debfile.py
 %doc README.rst HISTORY.deb822
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.1.49-4
+- Rebuilt for Python 3.12
+
 * Sat Feb 11 2023 msuchy <msuchy@redhat.com> - 0.1.49-3
 - migrate license to spdx
 

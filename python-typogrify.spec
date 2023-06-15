@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0.7
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Filters to enhance web typography, with support for Django & Jinja templates
 
 License:        BSD
@@ -54,6 +54,9 @@ done
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.0.7-16
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.7-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

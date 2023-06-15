@@ -2,18 +2,14 @@
 
 Name:           perl-Time-HiRes
 Epoch:          4
-Version:        1.9774
+Version:        1.9775
 Release:        1%{?dist}
 Summary:        High resolution alarm, sleep, gettimeofday, interval timers
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Time-HiRes
 Source0:        https://cpan.metacpan.org/authors/id/A/AT/ATOOMIC/Time-HiRes-%{base_version}.tar.gz
-# Unbundled from perl 5.34.0
-Patch0:         Time-HiRes-1.9764-Upgrade-to-1.9767.patch
-# Unbundled from perl 5.35.11
-Patch1:         Time-HiRes-1.9767-Upgrade-to-1.9770.patch
-# Unbundled from perl 5.37.11
-Patch2:         Time-HiRes-1.9770-Upgrade-to-1.9774.patch
+# Unbundled from perl 5.37.12
+Patch0:          Time-HiRes-1.9764-Upgrade-to-1.9775.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -59,10 +55,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n Time-HiRes-%{base_version}
-%patch -P0 -p1
-%patch -P1 -p1
-%patch -P2 -p1
+%autosetup -p1 -n Time-HiRes-%{base_version}
 
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
@@ -110,6 +103,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jun 13 2023 Jitka Plesnikova <jplesnik@redhat.com> - 4:1.9775-1
+- Upgrade to 1.9775 as provided in perl-5.37.12
+
 * Thu May 18 2023 Jitka Plesnikova <jplesnik@redhat.com> - 4:1.9774-1
 - Upgrade to 1.9774 as provided in perl-5.37.11
 - Package tests

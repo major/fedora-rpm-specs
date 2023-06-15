@@ -1,6 +1,6 @@
 Name:           mrchem
 Version:        1.1.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A numerical real-space code for molecular electronic structure calculations
 License:        LGPLv3+
 URL:            https://github.com/MRChemSoft/mrchem/
@@ -117,6 +117,9 @@ EOF
 %{_datadir}/MRChem/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.1.2-3
+- Rebuilt for Python 3.12
+
 * Mon Mar 13 2023 Susi Lehtola <jussilehtola@fedoraproject.org> - 1.1.2-2
 - Fix FTBFS caused by catch3 in rawhide.
 

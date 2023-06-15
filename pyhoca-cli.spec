@@ -3,7 +3,7 @@
 
 Name:           pyhoca-cli
 Version:        0.6.1.3~20220916git%{shortcommit}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Command line X2Go client written in Python
 
 License:        AGPLv3+
@@ -59,6 +59,9 @@ cp -rp man/* %{buildroot}/%{_mandir}/
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.6.1.3~20220916git7303ada-3
+- Rebuilt for Python 3.12
+
 * Sun May 28 2023 Orion Poplawski <orion@nwra.com> - 0.6.1.3~20220916git7303ada-2
 - Use %%py3_shebang_fix for Python 3.12 support (bz#2155179)
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.5.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Library for Generating D-Bus Client Code
 
 License:        MPL-2.0
@@ -46,6 +46,9 @@ Python 3 version.
 %{python3_sitelib}/dbus_client_gen-*.egg-info/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.5.1-3
+- Rebuilt for Python 3.12
+
 * Mon May 1 2023 mulhern <amulhern@redhat.com> - 0.5.1-2
 - SPDX license format
 

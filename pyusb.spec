@@ -1,6 +1,6 @@
 Name: pyusb
 Version: 1.2.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Python bindings for libusb
 License: BSD-3-Clause
 URL: https://github.com/pyusb/pyusb/
@@ -41,6 +41,9 @@ sed -i -e 's/\r//g' README.rst
 %{python3_sitelib}/*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.2.1-5
+- Rebuilt for Python 3.12
+
 * Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.2.1-4
 - migrated to SPDX license
 

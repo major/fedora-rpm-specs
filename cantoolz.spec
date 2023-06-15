@@ -1,6 +1,6 @@
 Name:           cantoolz
 Version:        3.7.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Framework for Controller Area Network (CAN) bus analysis
 
 License:        ASL 2.0
@@ -41,6 +41,9 @@ scanning or R&D, testing and validation.
 %exclude %{python3_sitelib}/tests/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.7.0-16
+- Rebuilt for Python 3.12
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

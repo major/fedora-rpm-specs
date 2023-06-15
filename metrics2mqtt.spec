@@ -2,7 +2,7 @@
 
 Name:           %{pypi_name}
 Version:        0.1.18
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Publish system performance metrics to a MQTT broker
 
 License:        MIT
@@ -51,6 +51,9 @@ sed -i -e '/^#!\//, 1d' metrics2mqtt/base.py
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.1.18-9
+- Rebuilt for Python 3.12
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.18-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

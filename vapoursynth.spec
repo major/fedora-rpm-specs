@@ -1,6 +1,6 @@
 Name:       vapoursynth
 Version:    58
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    Video processing framework with simplicity in mind
 License:    LGPLv2
 URL:        http://www.vapoursynth.com
@@ -116,6 +116,9 @@ rm -fr %{buildroot}%{_docdir}/%{name}
 %{_bindir}/vspipe
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 58-5
+- Rebuilt for Python 3.12
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 58-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

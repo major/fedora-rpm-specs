@@ -7,18 +7,18 @@
 %global firefox_app_id \{ec8030f7-c20a-464f-9b0e-13a3a9e97384\}
 %global firefox_inst_dir %{moz_extensions}/%{firefox_app_id}
 
-%global file_id 4008174
-
 Name:           mozilla-privacy-badger
-Version:        2022.9.27
-Release:        2%{?dist}
+Version:        2023.5.10
+Release:        1%{?dist}
 Summary:        Protects your privacy by blocking spying ads and invisible trackers
 
 License:        ASL 2.0 and GPLv3+ and MPLv2.0 and MIT and OFL and Public Domain
 URL:            https://www.eff.org/privacybadger
-Source0:        https://addons.mozilla.org/firefox/downloads/file/%{file_id}/privacy_badger17-%{version}.xpi
+Source0:        https://github.com/EFForg/privacybadger/archive/release-%{version}/privacybadger-%{version}.tar.gz
 Requires:       mozilla-filesystem
 BuildArch:      noarch
+BuildRequires:  sed
+BuildRequires:  zip
 # lib/vendor/jquery-3.5.1.min.js
 # https://jquery.com MIT
 Provides:       bundled(js-jquery) = 3.5.1
@@ -80,20 +80,40 @@ loading any more content in your browser. To the advertiser, it's like you
 suddenly disappeared.
 
 %prep
-%setup -qc
+%setup -q -n privacybadger-release-%{version}
+rm -rv src/data/dnt-policy.txt src/tests
 
 %build
-echo Nothing to build
+# https://github.com/EFForg/privacybadger/blob/master/release-utils/make-signed-xpi.sh
+mkdir pkg
+
+sed -i -e '/eff.software.projects@gmail.com/,+1d' -e 's/"author": {/"author": "privacybadger-owner@eff.org",/' src/manifest.json
+
+sed -i -e '/"update_url": "https:\/\/clients2.google.com\/service\/update2\/crx"/,+0d' src/manifest.json
+
+rm -fv pkg/privacybadger-%{version}.zip
+pushd src
+zip -v -q -x pkg -r ../pkg/privacybadger-%{version}.zip ./*
+popd
 
 %install
-install -Dpm644 %{SOURCE0} %{buildroot}%{firefox_inst_dir}/%{ext_id}.xpi
+install -Dpm644 pkg/privacybadger-%{version}.zip %{buildroot}%{firefox_inst_dir}/%{ext_id}.xpi
 
 %files
 %license LICENSE
+%doc doc/Changelog
+%doc doc/fixing-broken-sites.md
+%doc doc/permissions.md
+%doc doc/yellowlist-criteria.md
 %dir %{firefox_inst_dir}
 %{firefox_inst_dir}/%{ext_id}.xpi
 
 %changelog
+* Tue Jun 13 2023 Dominik Mierzejewski <dominik@greysector.net> - 2023.5.10-1
+- update to 2023.5.10 (#2166099)
+- "build" from source
+- include useful docs
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.9.27-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

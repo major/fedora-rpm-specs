@@ -5,7 +5,7 @@ version-control system about the current tree.}
 
 Name:           python-versioneer
 Version:        0.28
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Easy VCS-based management of project version strings
 
 License:        Unlicense
@@ -57,6 +57,9 @@ sed -r -i '1{/^#!/d}' %{buildroot}%{python3_sitelib}/versioneer.py
 %{_bindir}/versioneer
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.28-2
+- Rebuilt for Python 3.12
+
 * Fri Mar 03 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.28-1
 - Update to 0.28
 - Port to pyproject-rpm-macros

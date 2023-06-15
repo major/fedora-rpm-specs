@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2022.3.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python wrapper for OpenCL
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1219819#c16
@@ -95,6 +95,9 @@ find %{buildroot}%{python3_sitearch}/%{srcname} -name '*.so' -exec chmod 755 {} 
 %{python3_sitearch}/%{srcname}-*.egg-info/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2022.3.1-3
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

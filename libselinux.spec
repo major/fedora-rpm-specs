@@ -4,7 +4,7 @@
 Summary: SELinux library and simple utilities
 Name: libselinux
 Version: 3.5
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: LicenseRef-Fedora-Public-Domain
 # https://github.com/SELinuxProject/selinux/wiki/Releases
 Source0: https://github.com/SELinuxProject/selinux/releases/download/3.5/libselinux-3.5.tar.gz
@@ -214,6 +214,9 @@ rm -f %{buildroot}%{_mandir}/man8/togglesebool*
 %{ruby_vendorarchdir}/selinux.so
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.5-3
+- Rebuilt for Python 3.12
+
 * Fri May 26 2023 Miro Hrončok <mhroncok@redhat.com> - 3.5-2
 - Fix build with pip 23.1.2+
 - Fixes: rhbz#2209019

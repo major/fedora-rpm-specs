@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.23
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Extension for colcon to support ROS packages
 
 License:        ASL 2.0
@@ -74,6 +74,9 @@ An extension for colcon-core to support ROS packages.
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.3.23-5
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.23-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

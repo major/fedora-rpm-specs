@@ -11,7 +11,7 @@
 
 Name:           hivex
 Version:        1.3.23
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Read and write Windows Registry binary hive files
 
 License:        LGPL-2.1 AND LGPL-2.0-or-later AND GPL-2.0-or-later
@@ -319,6 +319,9 @@ fi
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.3.23-6
+- Rebuilt for Python 3.12
+
 * Mon Jun 05 2023 Richard W.M. Jones <rjones@redhat.com> - 1.3.23-5
 - Migrated to SPDX license
 

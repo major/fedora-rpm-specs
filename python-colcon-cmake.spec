@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.27
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Extension for colcon to support CMake packages
 
 License:        ASL 2.0
@@ -63,6 +63,9 @@ An extension for colcon-core to support CMake projects.
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.2.27-3
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.27-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           devscripts
 Version:        2.23.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Scripts for Debian Package maintainers
 
 License:        GPL-2.0-or-later
@@ -161,6 +161,9 @@ rm -f %{buildroot}%{_datadir}/bash-completion/completions/bts
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.23.4-2
+- Rebuilt for Python 3.12
+
 * Wed Apr 05 2023 Sandro Mani <manisandro@gmail.com> - 2.23.4-1
 - Update to 2.23.4
 

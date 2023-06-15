@@ -1,9 +1,10 @@
+%global _without_tests 1
 # tests are enabled by default
 %bcond_without tests
 
 Name:           python-six
 Version:        1.16.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Python 2 and 3 compatibility utilities
 
 License:        MIT
@@ -63,6 +64,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.16.0-10
+- Bootstrap for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

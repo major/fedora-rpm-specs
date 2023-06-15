@@ -4,7 +4,7 @@
 %global crate erdtree
 
 Name:           rust-erdtree
-Version:        3.0.1
+Version:        3.0.2
 Release:        %autorelease
 Summary:        Cross-platform multi-threaded filesystem and disk usage analysis tool
 

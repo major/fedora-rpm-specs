@@ -3,7 +3,7 @@
 
 Name:           %{pypi_name}
 Version:        6.0.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Command line tool to send GitHub pull-request
 
 License:        ASL 2.0
@@ -43,6 +43,9 @@ rm -rf %{pypi_name}.egg-info
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 6.0.2-5
+- Rebuilt for Python 3.12
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

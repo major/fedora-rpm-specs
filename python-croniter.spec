@@ -2,60 +2,58 @@
 %global pypi_name croniter
 
 Name:           python-%{pypi_name}
-Version:        1.3.8
-Release:        2%{?dist}
+Version:        1.3.14
+Release:        1%{?dist}
 Summary:        Iteration for datetime object with cron like format
 
 License:        MIT
 URL:            https://github.com/kiorky/croniter
-Source0:        https://files.pythonhosted.org/packages/source/c/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
+Source0:        %{pypi_source}
 BuildArch:      noarch
 
-BuildRequires:  python3-dateutil
-BuildRequires:  python3-devel
-BuildRequires:  python3-pytest
-BuildRequires:  python3-pytz
-BuildRequires:  python3-setuptools
+%global _description %{expand:
+croniter provides iteration for the datetime object with a cron like format.}
 
-%description
-croniter provides iteration for the datetime object with a cron like format.
+
+%description %_description
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{pypi_name}}
  
 Requires:       python3-dateutil
-%description -n python3-%{pypi_name}
-croniter provides iteration for the datetime object with a cron like format.
+%description -n python3-%{pypi_name} %_description
 
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}
 
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+sed -i '/-e ./d' requirements/base.txt
+
+%generate_buildrequires
+%pyproject_buildrequires -t
 
 # Remove reundant script header to avoid rpmlint warnings
 find -name \*.py -exec sed -i '/\/usr\/bin\/env python/{d;q}' {} +
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-# Must do the subpackages' install first because the scripts in /usr/bin are
-# overwritten with every setup.py install.
-%py3_install
+%pyproject_install
+%pyproject_save_files %{pypi_name}
 
 %check
-py.test -v
+%tox
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
 %doc README.rst
 
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
-
 %changelog
+* Tue Jun 13 2023 Joel Capitao <jcapitao@redhat.com> - 1.3.14-1
+- Update to 1.3.14
+- Switch to pyproject macros
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

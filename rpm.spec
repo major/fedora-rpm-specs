@@ -32,7 +32,7 @@
 
 %global rpmver 4.18.91
 #global snapver rc1
-%global baserelease 1
+%global baserelease 2
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -624,6 +624,9 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 4.18.91-2
+- Rebuilt for Python 3.12
+
 * Fri Jun 09 2023 Michal Domonkos <mdomonko@redhat.com> - 4.18.91-1
 - Update to 4.19 alpha2
 

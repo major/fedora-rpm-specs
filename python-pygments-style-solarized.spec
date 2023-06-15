@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -43,6 +43,9 @@ rm -rf %{srcname}.egg-info
 %{python3_sitelib}/*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.2.0-7
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.9.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        %{sum}
 
 License:        BSD-2-Clause
@@ -47,6 +47,9 @@ A fast and thorough lazy object proxy.
 %exclude %{python3_sitearch}/lazy_object_proxy/cext.c
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.9.0-4
+- Rebuilt for Python 3.12
+
 * Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.9.0-3
 - migrated to SPDX license
 

@@ -5,7 +5,7 @@
 Name:       pybugz
 Summary:    Command line interface for Bugzilla written in Python
 Version:    0.13
-Release:    5.%{posttag}%{?dist}
+Release:    6.%{posttag}%{?dist}
 License:    GPLv2
 URL:        https://github.com/williamh/pybugz
 BuildArch:  noarch
@@ -78,6 +78,9 @@ mkdir -p %{buildroot}%{_docdir}
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.13-6.gitbb0ae
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-5.gitbb0ae
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

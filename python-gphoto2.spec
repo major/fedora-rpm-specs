@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        A Python interface to libgphoto2
 
 License:        GPLv3+
@@ -55,6 +55,9 @@ rm -rf %{buildroot}%{_datadir}/%{name}
 %{python3_sitearch}/%{pypi_name}/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.0.0-16
+- Rebuilt for Python 3.12
+
 * Thu Jan 26 2023 Florian Weimer <fweimer@redhat.com> - 2.0.0-15
 - Avoid implicit function declarations in SWIG-generated code
 

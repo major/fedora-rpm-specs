@@ -14,7 +14,7 @@ Garmin Swim}
 
 Name:           python-%{pretty_name}
 Version:        1.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A python library to communicate with ANT-FS compliant devices
 
 License:        MIT
@@ -71,6 +71,9 @@ install -pm 644 %{SOURCE2} %{buildroot}/%{_udevrulesdir}
 %config(noreplace) %{_udevrulesdir}/*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.2.1-2
+- Rebuilt for Python 3.12
+
 * Wed Feb 1 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 1.2.1-1
 - Update to 1.2.1
 

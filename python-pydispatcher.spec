@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        2.0.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Multi-producer-multi-consumer signal dispatching mechanism
 
 License:        BSD
@@ -62,6 +62,9 @@ rm -rf %{pypi_name}.egg-info
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.0.7-2
+- Rebuilt for Python 3.12
+
 * Wed Feb 22 2023 Eduardo Echeverria  <releng@fedoraproject.org> - 2.0.7-1
 - Taking ownership of the package and bump version to 2.0.7
 

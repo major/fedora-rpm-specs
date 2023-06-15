@@ -3,7 +3,7 @@
 
 Name:           python-%{rpmname}
 Version:        1.16.2
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Python simple and lightweight SOAP Library
 
 License:        LGPLv3+
@@ -52,6 +52,9 @@ cp -p %{SOURCE1} .
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.16.2-17
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.2-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

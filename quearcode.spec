@@ -1,6 +1,6 @@
 Name:           quearcode
 Version:        0.2.7
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A tool for creating QR Codes
 
 License:        GPL-3.0-or-later
@@ -49,6 +49,9 @@ desktop-file-install \
 %{python3_sitelib}/quearcode-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.2.7-5
+- Rebuilt for Python 3.12
+
 * Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.2.7-4
 - migrated to SPDX license
 

@@ -10,7 +10,7 @@ It reports errors and warning including:\
 
 Name:           python-%{pkg_name}
 Version:        1.4.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        reStructuredText linter
 
 License:        Unlicense
@@ -70,6 +70,9 @@ PYTHONPATH="$(pwd)" pytest-%{python3_version} -v
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.4.0-5
+- Rebuilt for Python 3.12
+
 * Thu Feb 02 2023 Julien Enselme <jujens@jujens.eu> - 1.4.0-4
 - Update SPEC to build on EPEL9
 

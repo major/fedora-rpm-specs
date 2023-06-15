@@ -4,7 +4,7 @@
 
 Name:           python-pygments-pytest
 Version:        2.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A pygments lexer for pytest output
 License:        MIT
 URL:            https://github.com/asottile/pygments-pytest
@@ -48,6 +48,9 @@ This library also provides a sphinx extension.
 %doc README.md
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.3.0-2
+- Rebuilt for Python 3.12
+
 * Fri Jan 27 2023 Miro Hrončok <mhroncok@redhat.com> - 2.3.0-1
 - Update to 2.3.0
 - Fixes: rhbz#2137872

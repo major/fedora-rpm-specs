@@ -5,7 +5,7 @@
 
 Name:       cryptlib
 Version:    3.4.6  
-Release:    16%{?dist}
+Release:    17%{?dist}
 Summary:    Security library and toolkit for encryption and authentication services    
 
 License:    Sleepycat and OpenSSL     
@@ -350,6 +350,9 @@ cp /%{buildroot}%{cryptlibdir}/tools/man/claes.1  %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.4.6-17
+- Rebuilt for Python 3.12
+
 * Wed Apr 05 2023 Ralf Senderek <innovation@senderek.ie> - 3.4.6-16
 - Remove obsolete gcc flags
 

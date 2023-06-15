@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.4.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python Fast Noise with SIMD
 
 License:        BSD-3-Clause
@@ -84,6 +84,9 @@ popd
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.4.2-9
+- Rebuilt for Python 3.12
+
 * Sat Apr 08 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.4.2-8
 - Switch to SPDX license
 

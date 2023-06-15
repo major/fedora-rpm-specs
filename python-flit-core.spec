@@ -1,3 +1,4 @@
+%global _with_bootstrap 1
 # When bootstrapping new Python we need to build flit in bootstrap mode.
 # The Python RPM dependency generators and pip are not yet available.
 # When building in bootstrap mode, only flit-core is built.
@@ -9,7 +10,7 @@
 
 Name:           python-flit-core
 Version:        3.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PEP 517 build backend for packages using Flit
 
 # flit-core is BSD-3-Clause
@@ -101,6 +102,9 @@ rm -r %{buildroot}%{python3_sitelib}/flit_core/tests/
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.9.0-2
+- Bootstrap for Python 3.12
+
 * Fri May 26 2023 Miro Hrončok <mhroncok@redhat.com> - 3.9.0-1
 - Update to 3.9.0
 

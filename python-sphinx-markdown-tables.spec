@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.0.17
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Sphinx extension for rendering markdown tables
 License:        GPL-3.0-only
 
@@ -56,6 +56,9 @@ rm -f %{buildroot}%{_prefix}/LICENSE
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.0.17-3
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.17-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,10 +1,11 @@
+%global _without_check 1
 %bcond_without check
 
 %global srcname astropy
 
 Name: python-%{srcname}
 Version: 5.2.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A Community Python Library for Astronomy
 License: BSD
 
@@ -140,6 +141,9 @@ popd
 %license LICENSE.rst
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 5.2.2-2
+- Bootstrap for Python 3.12
+
 * Wed Mar 29 2023 Christian Dersch <lupinix@fedoraproject.org> - 5.2.2-1
 - new version
 - enable astropy/visualization/wcsaxes/tests/test_misc.py::test_contour_empty (fixed upstream)

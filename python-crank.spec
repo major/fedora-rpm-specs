@@ -2,7 +2,7 @@
 
 Name:               python-crank
 Version:            0.8.1
-Release:            21%{?dist}
+Release:            22%{?dist}
 Summary:            Generalization of dispatch mechanism for use across frameworks
 
 License:            MIT
@@ -52,6 +52,9 @@ rm -rf %{modname}.egg-info
 %{python3_sitelib}/%{modname}-%{version}*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.8.1-22
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

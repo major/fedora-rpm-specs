@@ -2,7 +2,7 @@
 Name:           python-dtopt
 Summary:        Add options to doctest examples while they are running
 Version:        0.1
-Release:        44%{?dist}
+Release:        45%{?dist}
 License:        MIT
 
 URL:            http://pypi.python.org/pypi/dtopt/
@@ -60,6 +60,9 @@ rm dtopt/tests.py*
 %{python3_sitelib}/dtopt*.egg-info/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.1-45
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

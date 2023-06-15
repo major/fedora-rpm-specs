@@ -1,3 +1,4 @@
+%global _without_tests 1
 %global srcname pytest-rerunfailures
 
 # Needed for Python bootstrap
@@ -5,7 +6,7 @@
 
 Name:           python-%{srcname}
 Version:        11.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A py.test plugin that re-runs failed tests to eliminate flakey failures
 
 License:        MPL-2.0
@@ -56,6 +57,9 @@ BuildRequires:  python%{python3_pkgversion}-devel
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 11.0-3
+- Bootstrap for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

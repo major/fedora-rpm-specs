@@ -1,6 +1,6 @@
 Name: imagefactory
 Version: 1.1.16
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: System image generation tool
 License: ASL 2.0
 URL: https://github.com/redhat-imaging/imagefactory
@@ -93,6 +93,9 @@ rm -f %{buildroot}/%{_initddir}/imagefactoryd
 %{_bindir}/imagefactoryd
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.1.16-5
+- Rebuilt for Python 3.12
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.16-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

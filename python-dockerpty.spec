@@ -16,7 +16,7 @@
 
 Name:           python-%{pkgname}
 Version:        0.4.1
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Python library to use the pseudo-tty of a docker container
 License:        ASL 2.0
 URL:            https://github.com/d11wtq/dockerpty
@@ -84,6 +84,9 @@ Requires:       python%{python3_pkgversion}-six
 %endif
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.4.1-28
+- Rebuilt for Python 3.12
+
 * Fri Apr 21 2023 Tomas Tomecek <ttomecek@redhat.com> - 0.4.1-27
 - Rebuilt after unretirement
 

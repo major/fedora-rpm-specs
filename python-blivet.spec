@@ -23,7 +23,7 @@ Version: 3.7.1
 
 #%%global prerelease .b2
 # prerelease, if defined, should be something like .a1, .b1, .b2.dev1, or .c2
-Release: 4%{?prerelease}%{?dist}
+Release: 5%{?prerelease}%{?dist}
 Epoch: 1
 License: LGPL-2.1-or-later
 %global realname blivet
@@ -200,6 +200,9 @@ configuration.
 %endif
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1:3.7.1-5
+- Rebuilt for Python 3.12
+
 * Wed May 31 2023 Vojtech Trefny <@trefny@redhat.com> - 3.7.1-4
 - Always prefer GPT disk labels on x86_64
 

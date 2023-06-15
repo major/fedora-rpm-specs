@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        5.1.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Module to simplify usage of decorators
 
 License:        BSD
@@ -53,6 +53,9 @@ find %{buildroot} -name SOURCES.txt~ -exec rm -f {} \;
 %{python3_sitelib}/__pycache__/*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 5.1.1-6
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

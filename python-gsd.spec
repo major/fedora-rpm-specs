@@ -26,7 +26,7 @@ and writes hoomd schema gsd files with an easy to use syntax.\
 
 Name: python-gsd
 Version: 2.8.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Read and write hoomd schema gsd files with an easy to use syntax 
 License: BSD
 URL: https://gsd.readthedocs.io/
@@ -116,6 +116,9 @@ rm -v gsd/fl.cpython-%{python3_version_nodots}-%{python3_platform_triplet}.so
 %{python3_sitearch}/%{pname}
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.8.0-2
+- Rebuilt for Python 3.12
+
 * Sun Mar 19 2023 Dominik Mierzejewski <dominik@greysector.net> - 2.8.0-1
 - update to 2.8.0 (resolves rhbz#2119834)
 

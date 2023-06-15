@@ -45,7 +45,7 @@
 
 Name: brltty
 Version: %{pkg_version}
-Release: 11%{?dist}
+Release: 12%{?dist}
 License: LGPL-2.0-or-later
 URL: http://brltty.app/
 Source0: http://brltty.app/archive/%{name}-%{version}.tar.xz
@@ -681,6 +681,9 @@ fi
 %config(noreplace) %verify(not size md5 mtime) %{_sysconfdir}/brltty/Initramfs/cmdline
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 6.5-12
+- Rebuilt for Python 3.12
+
 * Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 6.5-11
 - migrated to SPDX license
 

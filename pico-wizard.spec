@@ -4,7 +4,7 @@
 
 Name:           pico-wizard
 Version:        0.1.0^git%{snapdate}.%{shortcommit}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Post-installation configuration wizard
 
 License:        MIT
@@ -67,6 +67,9 @@ install -Dpm 0644 pico-wizard.svg -t %{buildroot}%{_datadir}/icons/hicolor/scala
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.1.0^git20220929.934dbcf-3
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0^git20220929.934dbcf-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

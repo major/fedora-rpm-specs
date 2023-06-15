@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        1.2.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Shell Completion Self-Generator for Python
 License:        BSD
 URL:            http://furius.ca/%{srcname}
@@ -42,4 +42,7 @@ for any Python program that already uses the optparse module.
 %{python3_sitelib}/__pycache__/*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.2.1-16
+- Rebuilt for Python 3.12
+
 %autochangelog

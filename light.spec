@@ -1,9 +1,9 @@
 Name:       light
 Version:    1.2.2
-Release:    8%{?dist}
+Release:    9%{?dist}
 Summary:    Control backlight controllers
 
-License:    GPLv3
+License:    GPL-3.0-only
 URL:        http://haikarainen.github.io/light/
 Source0:    https://github.com/haikarainen/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
@@ -61,6 +61,9 @@ fi
 
 
 %changelog
+* Tue Jun 13 2023 Jakub Kadlcik <frostyx@email.cz> - 1.2.2-9
+- Update License to an SPDX expression
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

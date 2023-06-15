@@ -34,7 +34,7 @@ exit 0
 
 Name: imagefactory-plugins
 Version: 1.1.16
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Default plugins for the Image Factory system image generation tool
 License: ASL 2.0
 URL: https://github.com/redhat-imaging/imagefactory
@@ -402,6 +402,9 @@ rm -rf %{buildroot}%{python3_sitelib}/imagefactory_plugins/EC2
 %{python3_sitelib}/imagefactory_plugins/GCE/*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.1.16-5
+- Rebuilt for Python 3.12
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.16-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

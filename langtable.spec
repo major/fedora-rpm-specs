@@ -1,6 +1,6 @@
 Name:           langtable
 Version:        0.0.62
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Guessing reasonable defaults for locale, keyboard layout, territory, and language.
 # the translations in languages.xml and territories.xml are (mostly)
 # imported from CLDR and are thus under the Unicode license, the
@@ -75,6 +75,9 @@ xmllint --noout --relaxng \
 %{python3_sitelib}/langtable-*.egg-info/*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.0.62-2
+- Rebuilt for Python 3.12
+
 * Tue May 02 2023 Mike FABIAN <mfabian@redhat.com> - 0.0.62-1
 - Update to 0.0.62
 - Get translation changes from CLDR

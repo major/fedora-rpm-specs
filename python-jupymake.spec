@@ -6,7 +6,7 @@
 
 Name:           python-jupymake
 Version:        0.9
-Release:        24.%{gitdate}.%{shortcommit}%{?dist}
+Release:        25.%{gitdate}.%{shortcommit}%{?dist}
 Summary:        Python wrapper for the polymake shell
 
 License:        GPL-2.0-or-later
@@ -54,6 +54,9 @@ Requires:       polymake%{?_isa}
 %doc README README.md example.py
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.9-25.20190509.031cc3a
+- Rebuilt for Python 3.12
+
 * Mon Jun 12 2023 Jerry James <loganjerry@gmail.com> - 0.9-24.20190509.031cc3a
 - Rebuild for polymake 4.10
 

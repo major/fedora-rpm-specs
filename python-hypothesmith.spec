@@ -4,6 +4,8 @@
 %global common_description %{expand:
 Hypothesis strategies for generating Python programs, something like CSmith.}
 
+%bcond tests 1
+
 Name:           python-%{pypi_name}
 Version:        0.2.0
 Release:        %autorelease
@@ -35,7 +37,7 @@ Summary:        %{summary}
 # rm tox.ini
 
 %generate_buildrequires
-%pyproject_buildrequires -r deps/test.in
+%pyproject_buildrequires %{?with_tests: -r deps/test.in}
 
 
 %build
@@ -48,8 +50,10 @@ Summary:        %{summary}
 %pyproject_save_files %{pypi_name}
 
 
+%if %{with tests}
 %check
 %pytest
+%endif
 
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}

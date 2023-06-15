@@ -1,6 +1,6 @@
 Name:      python-typing-extensions
 Version:   4.6.3
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   Python Typing Extensions
 
 License:   PSF-2.0
@@ -75,6 +75,9 @@ cd src
 %doc README.md
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 4.6.3-2
+- Rebuilt for Python 3.12
+
 * Sat Jun 03 2023 Jonny Heggheim <hegjon@gmail.com> - 4.6.3-1
 - Updated to version 4.6.3
 

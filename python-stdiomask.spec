@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.0.6
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python module for masking passwords
 
 License:        GPLv3+
@@ -43,6 +43,9 @@ sed -i 's/\r$//' README.md
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.0.6-9
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.6-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

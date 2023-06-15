@@ -2,7 +2,7 @@
 
 Name:           python-requests-futures
 Version:        1.0.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Asynchronous Python HTTP Requests
 
 License:        Apache-2.0
@@ -61,6 +61,9 @@ BuildRequires:  python3-pytest
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.0.0-15
+- Rebuilt for Python 3.12
+
 * Wed Feb 15 2023 Carl George <carl@george.computer> - 1.0.0-14
 - Convert to pyproject macros
 - Rename binary package to follow guidelines

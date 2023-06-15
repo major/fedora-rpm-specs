@@ -2,7 +2,7 @@ Name:           tiled
 Summary:        Tiled Map Editor
 
 Version:        1.10.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 # tiled itself is GPLv2+, libtiled and tmxviewer are BSD
 License:        GPL-2.0-or-later AND BSD-2-Clause
@@ -279,6 +279,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.mape
 %{_libdir}/%{name}/plugins/libtscn.so
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.10.1-2
+- Rebuilt for Python 3.12
+
 * Tue Apr 04 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.10.1-1
 - Update to v1.10.1
 - Drop Patch0 (change the default plugin dir - now supported upstream)

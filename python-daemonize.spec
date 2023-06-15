@@ -2,7 +2,7 @@
 
 Name:           python-%{modname}
 Version:        2.5.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Library for writing system daemons in Python
 
 License:        MIT
@@ -43,6 +43,9 @@ Python 3 version.
 %{python3_sitelib}/__pycache__/%{modname}.*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.5.0-16
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

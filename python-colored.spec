@@ -1,6 +1,6 @@
 Name:           python-colored
 Version:        1.4.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library for color and formatting in terminal
 
 License:        MIT
@@ -50,5 +50,8 @@ sed -i '/#!\/usr\/bin\/env python/d' colored/*.py
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.4.4-2
+- Rebuilt for Python 3.12
+
 * Thu Jan 12 2023 Jonathan Wright <jonathan@almalinux.org> - 1.4.4-1
 - Initial package build

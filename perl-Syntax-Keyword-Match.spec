@@ -2,8 +2,8 @@
 %bcond_without perl_Syntax_Keyword_Match_enables_optional_test
 
 Name:           perl-Syntax-Keyword-Match
-Version:        0.10
-Release:        2%{?dist}
+Version:        0.11
+Release:        1%{?dist}
 Summary:        Match/case syntax for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Syntax-Keyword-Match
@@ -37,7 +37,7 @@ BuildRequires:  perl(XS::Parse::Keyword) >= %{xs_parse_keyword_minver}
 BuildRequires:  perl(XSLoader)
 # Tests:
 BuildRequires:  perl(overload)
-BuildRequires:  perl(Test::More) >= 0.88
+BuildRequires:  perl(Test2::V0)
 BuildRequires:  perl(Time::HiRes)
 %if %{with perl_Syntax_Keyword_Match_enables_optional_test}
 # Optional tests:
@@ -65,9 +65,6 @@ Requires:       perl(XS::Parse::Keyword) >= %{xs_parse_keyword_minver}
 Requires:       %{perl_XS_Parse_Keyword_ABI}
 %endif
 
-# Remove under-specified dependencies
-%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(Test::More\\)$
-
 %description
 This module provides a syntax plugin that implements a control-flow block
 called match/case, which executes at most one of a choice of different
@@ -78,7 +75,6 @@ Summary:        Tests for %{name}
 BuildArch:      noarch
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
-Requires:       perl(Test::More) >= 0.88
 %if %{with perl_Syntax_Keyword_Match_enables_optional_test}
 Requires:       perl(Future)
 Requires:       perl(Future::AsyncAwait) >= 0.10
@@ -137,6 +133,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jun 13 2023 Petr Pisar <ppisar@redhat.com> - 0.11-1
+- 0.11 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

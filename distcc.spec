@@ -2,7 +2,7 @@
 
 Name:       distcc
 Version:    3.3.5
-Release:    13%{?dist}
+Release:    14%{?dist}
 Summary:    Distributed C/C++ compilation
 License:    GPL-2.0-or-later
 URL:        https://github.com/distcc/distcc
@@ -139,6 +139,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/*
 %dir /usr/lib/gcc-cross
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.3.5-14
+- Rebuilt for Python 3.12
+
 * Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.3.5-13
 - migrated to SPDX license
 

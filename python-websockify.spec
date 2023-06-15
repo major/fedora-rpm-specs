@@ -2,7 +2,7 @@
 %global summary WSGI based adapter for the Websockets protocol
 Name:           python-%{pkgname}
 Version:        0.11.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{summary}
 
 License:        LGPLv3
@@ -56,6 +56,9 @@ install -m 444 docs/websockify.1 %{buildroot}%{_mandir}/man1/
 %doc docs
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.11.0-2
+- Rebuilt for Python 3.12
+
 * Sun Feb 05 2023 Jonathan Wright <jonathan@almalinux.org> - 0.11.0-1
 - update to 0.11.0
 

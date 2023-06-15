@@ -6,7 +6,7 @@
 
 Name:           python-%{modname}
 Version:        0.1
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Lightweight library to build and train neural networks in Theano
 
 License:        MIT
@@ -77,6 +77,9 @@ sed -i -e '1{\@^#!/usr/bin/env python@d}' examples/*.py
 %{python3_sitelib}/%{srcname}-%{version}-*.egg-info/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.1-27
+- Rebuilt for Python 3.12
+
 * Sat Mar 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.1-26
 - migrated to SPDX license
 

@@ -3,7 +3,7 @@
 
 Name:               python-scour
 Version:            0.38.2
-Release:            3%{?dist}
+Release:            4%{?dist}
 Summary:            %{sum}
 
 License:            Apache-2.0 AND BSD-3-Clause
@@ -58,6 +58,9 @@ find . -type f -name '*.py' -exec sed -i /env\ python/d {} ';'
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.38.2-4
+- Rebuilt for Python 3.12
+
 * Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.38.2-3
 - migrated to SPDX license
 

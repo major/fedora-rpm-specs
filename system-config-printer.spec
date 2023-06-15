@@ -9,7 +9,7 @@
 Summary: A printer administration tool
 Name: system-config-printer
 Version: 1.5.18
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv2+
 URL: https://github.com/%{username}/%{name}
 Source0: %{url}/releases/download/%{version}/%{name}-%{version}.tar.xz
@@ -292,6 +292,9 @@ exit 0
 %endif
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.5.18-4
+- Rebuilt for Python 3.12
+
 * Tue Mar 14 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1.5.18-3
 - 2178027 - fix crash in options.py
 

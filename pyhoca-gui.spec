@@ -1,6 +1,6 @@
 Name:           pyhoca-gui
 Version:        0.6.1.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Graphical X2Go client written in (wx)Python
 
 License:        AGPLv3+
@@ -117,6 +117,9 @@ fi
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.6.1.1-13
+- Rebuilt for Python 3.12
+
 * Sun May 28 2023 Orion Poplawski <orion@nwra.com> - 0.6.1.1-12
 - Use %%py3_shebang_fix for Python 3.12 support (bz#2155192)
 

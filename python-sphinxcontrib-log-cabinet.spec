@@ -1,7 +1,7 @@
 %global pypi_name sphinxcontrib-log-cabinet
 Name:           python-%{pypi_name}
 Version:        1.0.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Organize changelog directives in Sphinx docs
 License:        BSD
 URL:            https://github.com/davidism/sphinxcontrib-log-cabinet
@@ -48,6 +48,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.0.1-13
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

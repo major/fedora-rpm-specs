@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Source colcon workspaces in a new shell
 
 License:        ASL 2.0
@@ -58,6 +58,9 @@ shell is bash.
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.2.0-16
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

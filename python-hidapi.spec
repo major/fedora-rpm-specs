@@ -2,7 +2,7 @@
 
 Name:     python-hidapi
 Version:  0.14.0
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  Interface to the hidapi library
 
 License:  GPLv3+ or BSD or Public Domain
@@ -57,6 +57,9 @@ rm -rf hidapi hidapi.egg-info hid.c
 %{python3_sitearch}/hidapi-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.14.0-2
+- Rebuilt for Python 3.12
+
 * Tue May 30 2023 Jonny Heggheim <hegjon@gmail.com> - 0.14.0-1
 - Updated to version 0.14.0
 

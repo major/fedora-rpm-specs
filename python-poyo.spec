@@ -2,7 +2,7 @@
 
 Name:           python-poyo
 Version:        0.5.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A lightweight YAML Parser for Python
 
 License:        MIT
@@ -60,6 +60,9 @@ Please see the examples below to get an idea of what Poyo understands.
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.5.0-11
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

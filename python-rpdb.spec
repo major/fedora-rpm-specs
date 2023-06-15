@@ -3,7 +3,7 @@
 
 Name: python-%{srcname}
 Version: 0.1.6
-Release: 25%{?dist}
+Release: 26%{?dist}
 BuildArch: noarch
 
 Summary: A wrapper around pdb allowing remote debugging
@@ -54,6 +54,9 @@ debugging tools are available.
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.1.6-26
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.6-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

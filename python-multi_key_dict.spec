@@ -7,7 +7,7 @@
 
 Name:           python-%{srcname}
 Version:        2.0.3
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Multi-key dictionary implementation in Python
 
 License:        MIT
@@ -111,6 +111,9 @@ is extended to support multiple keys referring to the same element.
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.0.3-24
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

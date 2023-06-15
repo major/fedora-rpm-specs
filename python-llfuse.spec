@@ -1,6 +1,6 @@
 Name:               python-llfuse
 Version:            1.4.4
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Python Bindings for the low-level FUSE API
 Source0:            https://files.pythonhosted.org/packages/source/l/llfuse/llfuse-%{version}.tar.gz
 URL:                https://pypi.python.org/pypi/llfuse
@@ -56,6 +56,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} py.test-3 -v test
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.4.4-2
+- Rebuilt for Python 3.12
+
 * Mon May 22 2023 Denis Fateyev <denis@fateyev.com> - 1.4.4-1
 - Update to 1.4.4 release
 

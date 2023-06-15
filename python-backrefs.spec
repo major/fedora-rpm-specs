@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        5.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A wrapper around re and regex that adds additional back references
 
 License:        MIT
@@ -61,6 +61,9 @@ py.test-3
 %doc README.md
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 5.4-3
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

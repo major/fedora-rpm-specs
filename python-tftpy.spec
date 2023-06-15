@@ -2,7 +2,7 @@
 
 Name:		python-%{srcname}
 Version:	0.8.0
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	TFTPy is a pure Python implementation of the Trivial FTP protocol
 
 License:	MIT
@@ -95,6 +95,9 @@ ln -s tftpy_server3.py ${RPM_BUILD_ROOT}%{_bindir}/tftpy_server.py
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.8.0-15
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

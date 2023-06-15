@@ -2,7 +2,7 @@
 
 Name:           python-%{modname}
 Version:        1.3.7
-Release:        40%{?dist}
+Release:        41%{?dist}
 BuildArch:      noarch
 
 License:        LGPLv2+ and Public Domain
@@ -35,9 +35,12 @@ Patch6:         python-nose-no-use_2to3.patch
 # Adapt test_xunit to tracebacks/exceptions with ^^^^^^^^ lines
 # Migrate from removed inspect.getargspec() to inspect.getfullargspec()
 Patch7:         python-nose-py311.patch
-
 # Adapt doctest to new tracebacks/exceptions on Python 3.11+
-Patch311:       python-nose-py311-doctest.patch
+Patch8:         python-nose-py311-doctest.patch
+# Python 3.12 support from mdmintz/pynose
+# https://github.com/mdmintz/pynose/commit/b5247565df (rebased)
+# changes in tests hacked on top
+Patch9:         python-nose-py312.patch
 
 BuildRequires:  dos2unix
 
@@ -67,12 +70,7 @@ Provides:       deprecated()
 %description -n python3-%{modname} %_description
 
 %prep
-%autosetup -N -n %{modname}-%{version}
-# apply all patches up until number 300
-%autopatch -p1 -M 300
-%if v"0%{?python3_version}" >= v"3.11"
-%patch311 -p1
-%endif
+%autosetup -p1 -n %{modname}-%{version}
 
 dos2unix examples/attrib_plugin.py
 
@@ -108,6 +106,9 @@ ln -sf nosetests-3.1 %{buildroot}%{_mandir}/man1/nosetests.1
 %{python3_sitelib}/nose/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.3.7-41
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.7-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A py.test plug-in which executes only tests affected by recent changes
 License:        MIT
 URL:            http://testmon.org/
@@ -51,6 +51,9 @@ This a Python 3 version of the package.
 %{python3_sitelib}/pytest_testmon-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.0.6-2
+- Rebuilt for Python 3.12
+
 * Tue Apr 11 2023 Dan Radez <dradez@redhat.com> - 2.0.6
 - update to 2.0.6 rhbz#2185045
 

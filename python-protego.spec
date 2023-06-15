@@ -6,7 +6,7 @@ conventions.}
 
 Name:		python-protego
 Version:	0.2.1
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Pure-Python robots.txt parser with support for modern conventions
 
 License:	BSD
@@ -51,6 +51,9 @@ BuildRequires:	python3-six
 %{python3_sitelib}/Protego-*.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.2.1-5
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

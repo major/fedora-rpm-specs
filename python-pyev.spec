@@ -29,10 +29,10 @@ URL:            https://github.com/gabrielfalcao/pyev
 %global         build_release    0
 
 %if 0%{?build_release}  > 0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Source0:        https://github.com/%{gituser}/%{gitname}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 %else
-Release:        0.19.%{gitdate}git%{shortcommit}%{?dist}
+Release:        0.20.%{gitdate}git%{shortcommit}%{?dist}
 Source0:        https://github.com/%{gituser}/%{gitname}/archive/%{commit}/%{name}-%{version}-%{shortcommit}.tar.gz
 %endif #build_release
 
@@ -109,6 +109,9 @@ to libev library to be called from Python scripts.
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.9.0-0.20.20130610gite31d137
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-0.19.20130610gite31d137
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           %{pypi_name}
 Version:        0.1.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        TCP/UDP communication suite
 
 License:        MIT
@@ -55,6 +55,9 @@ install -Dp -m 0644 man/%{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.1.0-11
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

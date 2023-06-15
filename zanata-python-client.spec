@@ -1,6 +1,6 @@
 Name:          zanata-python-client
 Version:       1.5.3
-Release:       15%{?dist}
+Release:       16%{?dist}
 Summary:       Python3 Client for Zanata Server
 License:       LGPL-2.0-or-later
 URL:           http://zanata.org
@@ -47,6 +47,9 @@ rm -rf $RPM_BUILD_ROOT/%{_docdir}
 %{python3_sitelib}/zanata_python_client-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.5.3-16
+- Rebuilt for Python 3.12
+
 * Wed Mar 29 2023 Sundeep Anand <suanand@redhat.com> - 1.5.3-15
 - update license tag to as per SPDX identifiers
 

@@ -2,7 +2,7 @@
 
 Name:           bmap-tools
 Version:        3.6
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Tools to generate and flash sparse images using the "block map" (bmap) format
 License:        GPLv2+
 URL:            https://github.com/intel/bmap-tools
@@ -67,6 +67,9 @@ install -m644 docs/man1/bmaptool.1 %{buildroot}/%{_mandir}/man1
 %{python3_sitelib}/bmap_tools*.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.6-8
+- Rebuilt for Python 3.12
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

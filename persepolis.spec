@@ -1,6 +1,6 @@
 Name:           persepolis
 Version:        3.2.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A powerful download manager powered by aria2
 
 License:        GPLv3+
@@ -65,6 +65,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.2.0-13
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

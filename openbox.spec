@@ -1,6 +1,6 @@
 Name:		openbox
 Version:	3.6.1
-Release:	22%{?dist}
+Release:	23%{?dist}
 Summary:	A highly configurable and standards-compliant X11 window manager
 
 License:	GPLv2+
@@ -173,6 +173,9 @@ rm -rf %{buildroot}%{_datadir}/doc/%{name}
 %ldconfig_scriptlets libs
 
 %changelog
+* Tue Jun 13 2023 Leigh Scott <leigh123linux@gmail.com> - 3.6.1-23
+- Rebuild fo new imlib2
+
 * Thu Apr 27 2023 Miroslav Lichvar <mlichvar@redhat.com> - 3.6.1-22
 - fix crash with new glib (#2178299)
 

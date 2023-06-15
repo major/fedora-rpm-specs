@@ -1,6 +1,6 @@
 Name:		rteval
 Version:	3.6
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Utility to evaluate system suitability for RT Linux
 
 Group:		Development/Tools
@@ -64,6 +64,9 @@ to the screen.
 %{_bindir}/rteval
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.6-3
+- Rebuilt for Python 3.12
+
 * Fri Feb 17 2023 John Kacur <jkacur@redhat.com> - 3.6-2
 - Update the BuildRequires for correct version of rteval-loads
 - Remove python3-ethtool as a Requires

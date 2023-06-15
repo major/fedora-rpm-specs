@@ -17,7 +17,7 @@
 
 Name: criu
 Version: 3.18
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Tool for Checkpoint/Restore in User-space
 License: GPLv2
 URL: http://criu.org/
@@ -217,6 +217,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libcriu.a
 %doc %{_mandir}/man1/criu-ns.1*
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.18-2
+- Rebuilt for Python 3.12
+
 * Tue Apr 25 2034 Adrian Reber <adrian@lisas.de> - 3.18-1
 - Update to 3.18
 - Apply patch from upstream to support newer CPUs

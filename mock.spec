@@ -10,7 +10,7 @@
 Summary: Builds packages inside chroots
 Name: mock
 Version: 4.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 # Source is created by
 # git clone https://github.com/rpm-software-management/mock.git
@@ -270,6 +270,9 @@ pylint-3 py/mockbuild/ py/*.py py/mockbuild/plugins/* || :
 %dir  %{_datadir}/cheat
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 4.1-2
+- Rebuilt for Python 3.12
+
 * Fri Jun 02 2023 Pavel Raiskup <praiskup@redhat.com> 4.1-1
 - bootstrap: fix certificate copying into the bootstrap chroot
 - don't strictly require any package manager

@@ -6,7 +6,7 @@
 
 Name:               pagure-dist-git
 Version:            1.13
-Release:            2%{?dist}
+Release:            3%{?dist}
 Summary:            Pagure Git auth backend for Dist-Git setups
 
 License:            GPLv2+
@@ -66,6 +66,9 @@ install -p -m 644 scripts/*.py $RPM_BUILD_ROOT/%{_libexecdir}/pagure-dist-git/
 %{_libexecdir}/pagure-dist-git/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.13-3
+- Rebuilt for Python 3.12
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

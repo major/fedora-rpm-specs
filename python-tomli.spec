@@ -1,6 +1,6 @@
 Name:           python-tomli
 Version:        2.0.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A little TOML parser for Python
 
 License:        MIT
@@ -56,6 +56,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.0.1-7
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

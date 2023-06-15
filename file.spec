@@ -15,7 +15,7 @@
 Summary: Utility for determining file types
 Name: file
 Version: 5.44
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: BSD
 Source0: http://ftp.astron.com/pub/file/file-%{version}.tar.gz
 Source1: http://ftp.astron.com/pub/file/file-%{version}.tar.gz.asc
@@ -221,6 +221,9 @@ make -C tests check
 %endif
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 5.44-4
+- Rebuilt for Python 3.12
+
 * Wed Mar 01 2023 Vincent Mihalkovic <vmihalko@redhat.com> - 5.44-3
 - Remove the size limit check of the elf note section (rhbz#2167964)
 

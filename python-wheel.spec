@@ -1,3 +1,4 @@
+%global _with_bootstrap 1
 # The function of bootstrap is that it disables the wheel subpackage
 %bcond bootstrap 0
 # Default: when bootstrapping -> disable tests
@@ -13,7 +14,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.40.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        Built-package format for Python
 
@@ -148,6 +149,9 @@ install -p %{_pyproject_wheeldir}/%{python_wheel_name} -t %{buildroot}%{python_w
 %{python_wheel_dir}/%{python_wheel_name}
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1:0.40.0-2
+- Bootstrap for Python 3.12
+
 * Tue Mar 14 2023 Maxwell G <maxwell@gtmx.me> - 1:0.40.0-1
 - Update to 0.40.0. Fixes rhbz#2178246.
 

@@ -1,3 +1,4 @@
+%global _without_tests 1
 %global srcname  subprocess-tee
 %global slugname subprocess_tee
 %global forgeurl https://github.com/pycontribs/subprocess-tee

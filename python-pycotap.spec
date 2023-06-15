@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.1.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        A tiny test runner that outputs TAP results to standard output
 
 License:        MIT
@@ -49,6 +49,9 @@ find %{buildroot}/%{python3_sitelib} -name '*.py' | xargs sed -i '/^#!/d'
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.1.0-16
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

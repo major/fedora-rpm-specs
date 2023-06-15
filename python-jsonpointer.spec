@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Resolve JSON Pointers in Python
 
 License:        BSD
@@ -45,6 +45,9 @@ BuildRequires:  python3-devel
 %{_bindir}/jsonpointer
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.3-3
+- Rebuilt for Python 3.12
+
 * Sat Mar 25 2023 Igor Raits <igor@gooddata.com> - 2.3-2
 - Remove broken gating tests
 

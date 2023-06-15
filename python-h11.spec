@@ -15,7 +15,7 @@ like requests or twisted.web.}
 
 Name:           python-%{srcname}
 Version:        0.13.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A pure-Python, bring-your-own-I/O implementation of HTTP/1.1
 License:        MIT
 URL:            https://github.com/python-hyper/h11
@@ -65,6 +65,9 @@ BuildRequires:  %{py3_dist pytest}
 
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.13.0-5
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
 Version: 2.4.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source0: http://github.com/storaged-project/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 Source1: blivet-gui_event.conf
 License: GPL-2.0-or-later
@@ -74,6 +74,9 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.4.1-2
+- Rebuilt for Python 3.12
+
 * Fri Mar 24 2023 Packit <hello@packit.dev> - 2.4.1-1
 - New version 2.4.1 (Vojtech Trefny)
 - ci: Add Packit configuration for downstream builds on release (Vojtech Trefny)
