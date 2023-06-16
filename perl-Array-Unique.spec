@@ -1,12 +1,11 @@
 Name:           perl-Array-Unique
-Version:        0.08
-Release:        25%{?dist}
+Version:        0.09
+Release:        1%{?dist}
 Summary:        Tie-able array that allows only unique values
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Array-Unique
 
 Source0:        https://cpan.metacpan.org/authors/id/S/SZ/SZABGAB/Array-Unique-%{version}.tar.gz
-%{?el5:BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)}
 BuildArch:      noarch
 
 BuildRequires: make
@@ -44,9 +43,6 @@ perl Makefile.PL INSTALLDIRS=vendor
 make %{?_smp_mflags}
 
 %install
-%if 0%{?el5}
-rm -rf $RPM_BUILD_ROOT
-%endif
 make pure_install DESTDIR=$RPM_BUILD_ROOT
 
 find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
@@ -63,6 +59,9 @@ make test
 
 
 %changelog
+* Wed Jun 14 2023 Denis Fateyev <denis@fateyev.com> - 0.09-1
+- Update to 0.09 release
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name:           python-ruamel-yaml
 Version:        0.17.26
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        YAML 1.2 loader/dumper package for Python
 
 # SPDX
@@ -67,6 +67,12 @@ k="${k-}${k+ and }not test_dump_cyaml_1_2"
 %doc README.rst
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.17.26-4
+- Rebuilt for Python 3.12
+
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.17.26-3
+- Bootstrap for Python 3.12
+
 * Wed May 24 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.17.26-2
 - Avoid tox dependency
 

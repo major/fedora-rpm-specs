@@ -1,6 +1,6 @@
 Name:           perl-DBIx-RunSQL
-Version:        0.22
-Release:        6%{?dist}
+Version:        0.24
+Release:        1%{?dist}
 Summary:        Run SQL commands from a file
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/DBIx-RunSQL
@@ -62,6 +62,9 @@ make test
 
 
 %changelog
+* Wed Jun 14 2023 Denis Fateyev <denis@fateyev.com> - 0.24-1
+- Update to 0.24 release
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

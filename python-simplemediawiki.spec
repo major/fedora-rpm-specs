@@ -4,7 +4,7 @@
 
 Name:           python-%{tarball_name}
 Version:        1.2.0
-Release:        0.31.b2%{?dist}
+Release:        0.32.b2%{?dist}
 Summary:        Extremely low-level wrapper to the MediaWiki API
 
 License:        LGPLv2+
@@ -54,6 +54,9 @@ This is the Python 3 version.
 %{python3_sitelib}/*
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.2.0-0.32.b2
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-0.31.b2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

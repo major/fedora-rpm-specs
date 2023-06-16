@@ -1,6 +1,6 @@
 Name:           python-jupyter-ydoc
 Version:        1.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Document structures for collaborative editing using Ypy
 License:        BSD-3-Clause
 URL:            https://jupyter.org
@@ -54,6 +54,9 @@ sed -i "s/VERSION_PLACEHOLDER/%{version}/" pyproject.toml
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.0.2-2
+- Rebuilt for Python 3.12
+
 * Tue May 30 2023 Lumír Balhar <lbalhar@redhat.com> - 1.0.2-1
 - Update to 1.0.2 (rhbz#2182754)
 

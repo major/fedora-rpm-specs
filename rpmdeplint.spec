@@ -3,7 +3,7 @@
 
 Name:           rpmdeplint
 Version:        1.4
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Tool to find errors in RPM packages in the context of their dependency graph
 License:        GPLv2+
 URL:            https://pagure.io/rpmdeplint
@@ -74,6 +74,9 @@ py.test-3 rpmdeplint -k "not TestDependencyAnalyzer"
 %{python3_sitelib}/%{name}*.egg-info
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.4-27
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

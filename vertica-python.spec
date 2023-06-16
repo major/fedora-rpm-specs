@@ -1,6 +1,6 @@
 Name:           vertica-python
 Version:        1.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Native Python adapter for the Vertica database
 
 License:        MIT
@@ -41,6 +41,9 @@ BuildRequires:  python3-devel
 %doc README.md
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.3.1-2
+- Rebuilt for Python 3.12
+
 * Sun Mar 12 2023 Igor Raits <igor@gooddata.com> - 1.3.1-1
 - Update to 1.3.1
 

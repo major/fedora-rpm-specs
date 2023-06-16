@@ -1,6 +1,6 @@
 Name:           python-sphinxext-rediraffe
 Version:        0.2.7
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Sphinx extension to redirect nonexistent pages
 License:        MIT
 URL:            https://wpilib.org/
@@ -56,6 +56,9 @@ sed -i 's/main/%{version}/' setup.py
 %doc README.md
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.2.7-5
+- Rebuilt for Python 3.12
+
 * Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 0.2.7-4
 - Dynamically generate BuildRequires
 

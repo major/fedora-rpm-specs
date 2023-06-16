@@ -7,7 +7,7 @@
 
 Name:           python-%{pkg_name}
 Version:        2.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Can add links and perform other custom replacements to rst
 
 License:        MIT
@@ -87,6 +87,9 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.4.0-2
+- Rebuilt for Python 3.12
+
 * Wed Feb 08 2023 Dan Radez <dradez@redhat.com> - 2.4.0-1
 - update to 2.4.0 rhbz#2165203
 

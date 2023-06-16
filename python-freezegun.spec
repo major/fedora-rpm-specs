@@ -3,7 +3,7 @@
 
 Name:               python-freezegun
 Version:            1.2.2
-Release:            2%{?dist}
+Release:            3%{?dist}
 Summary:            %{sum}
 
 License:            ASL 2.0
@@ -64,6 +64,9 @@ pytest-3 --deselect tests/test_datetimes.py::TestUnitTestMethodDecorator::test_m
 %{python3_sitelib}/%{modname}-%{version}-*
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.2.2-3
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

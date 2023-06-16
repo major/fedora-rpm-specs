@@ -4,7 +4,7 @@
 
 Name:           gcovr
 Version:        6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A code coverage report generator using GNU gcov
 
 License:        BSD
@@ -99,6 +99,9 @@ popd
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 6.0-2
+- Rebuilt for Python 3.12
+
 * Thu Mar  9 2023 Dan Čermák <dan.cermak@cgc-instruments.com> - 6.0-1
 - New upstream release 6.0, fixes rhbz#2177094
 

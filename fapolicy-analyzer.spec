@@ -1,7 +1,7 @@
 Summary:       File Access Policy Analyzer
 Name:          fapolicy-analyzer
 Version:       1.0.3
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       GPL-3.0-or-later
 URL:           https://github.com/ctc-oss/fapolicy-analyzer
 Source0:       %{url}/releases/download/v%{version}/%{name}.tar.gz
@@ -165,6 +165,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %attr(755,root,root) %{_datadir}/applications/%{name}.desktop
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.0.3-2
+- Rebuilt for Python 3.12
+
 * Mon May 29 2023 John Wass <jwass3@gmail.com> 1.0.3-1
 - Release v1.0.3
 

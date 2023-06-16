@@ -10,7 +10,7 @@ support the Transifex service for translation with Sphinx (not packaged yet).
 
 Name:           python-%{pypi_name}
 Version:        2.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Sphinx utility that make it easy to translate and to apply translation
 
 License:        BSD
@@ -82,6 +82,9 @@ PYTHONPATH="$(pwd)" pytest-%{python3_version} -v tests
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.1.0-2
+- Rebuilt for Python 3.12
+
 * Tue Feb 07 2023 Julien Enselme <jujens@jujens.eu> - 2.1.0-1
 - Update to 2.1.0
 

@@ -1,9 +1,10 @@
+%global _without_optional_tests 1
 %bcond_without optional_tests
 %global pypi_name sphinxcontrib-websupport
 
 Name:           python-%{pypi_name}
 Version:        1.2.4
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Sphinx API for Web Apps
 
 License:        BSD
@@ -69,6 +70,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/sphinxcontrib_websupport-*.egg-info/
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.2.4-12
+- Bootstrap for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,15 +1,17 @@
 Summary:        Line wrapping with support for several locale setups
 Name:           perl-Text-WrapI18N
 Version:        0.06
-Release:        45%{?dist}
-License:        GPL+ or Artistic
+Release:        46%{?dist}
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/Text-WrapI18N
 Source0:        https://cpan.metacpan.org/authors/id/K/KU/KUBOTA/Text-WrapI18N-%{version}.tar.gz
 
 BuildArch:      noarch
-BuildRequires: make
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(Test::Simple)
@@ -51,6 +53,9 @@ make test
 %{_mandir}/man3/Text::WrapI18N.3pm*
 
 %changelog
+* Thu Jun 01 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.06-46
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,3 +1,4 @@
+%global _without_tests 1
 # tests disabled in RHEL
 %if 0%{?rhel}
 %bcond_with tests
@@ -21,7 +22,7 @@ Its features include:\
 
 Name: python-factory-boy
 Version: 3.2.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: A versatile test fixtures replacement based on thoughtbot's factory_girl
 License: MIT
 URL: https://github.com/rbarrois/factory_boy
@@ -84,6 +85,9 @@ SKIP_MONGOENGINE=1 %pytest
 %license LICENSE
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 3.2.1-7
+- Bootstrap for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

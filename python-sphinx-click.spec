@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.3.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Sphinx extension that automatically documents Click applications
 
 License:        MIT
@@ -54,6 +54,9 @@ Obsoletes:      python-%{pypi_name}-doc < 2.7.1-1
 %doc README.rst ChangeLog
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 4.3.0-3
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

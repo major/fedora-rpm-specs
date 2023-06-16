@@ -1,6 +1,6 @@
 Name: conan
 Version: 2.0.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: MIT
 Summary: Open-source C/C++ package manager
@@ -62,6 +62,9 @@ find -name '*.py' \( \! -perm /u+x,g+x,o+x -exec sed -e '/^#!/Q 0' -e 'Q 1' {} \
 %{_bindir}/%{name}
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.0.6-2
+- Rebuilt for Python 3.12
+
 * Wed May 31 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2.0.6-1
 - Updated to version 2.0.6.
 

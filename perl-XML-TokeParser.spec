@@ -1,8 +1,8 @@
 Name:           perl-XML-TokeParser
 Version:        0.05
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Simplified interface to XML::Parser
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/XML-TokeParser
 Source0:        https://cpan.metacpan.org/authors/id/P/PO/PODMASTER/XML-TokeParser-%{version}.tar.gz
@@ -51,6 +51,9 @@ make test
 %{_mandir}/man3/XML*
 
 %changelog
+* Thu Jun 01 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.05-41
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

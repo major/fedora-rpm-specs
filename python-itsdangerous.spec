@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2.1.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Library for passing trusted data to untrusted environments
 License:        BSD-3-Clause
 URL:            https://itsdangerous.palletsprojects.com
@@ -57,6 +57,9 @@ BuildRequires:  python3dist(freezegun)
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.1.2-4
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

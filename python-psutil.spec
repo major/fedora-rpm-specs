@@ -13,6 +13,10 @@ Source0:        %{url}/archive/release-%{version}/%{srcname}-%{version}.tar.gz
 # skip 2 tests that fail in mock chroots
 #
 Patch0:         python-psutil-skip-tests-in-mock.patch
+#
+# avoid: AssertionError: 7883822.420000001 != 7883822.42
+#
+Patch1:         python-psutil-test-sum-floats-via-almost-equal.patch
 
 BuildRequires:  gcc
 BuildRequires:  grep

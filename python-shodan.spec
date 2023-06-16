@@ -6,7 +6,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.29.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python library and command-line utility for Shodan.io
 
 License:        MIT
@@ -95,6 +95,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.29.1-2
+- Rebuilt for Python 3.12
+
 * Tue May 23 2023 Fabian Affolter <mail@fabian-affolter.ch> - 1.29.1-1
 - Update to latest upstream release 1.29.1 (closes rhbz#2204485)
 

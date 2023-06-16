@@ -2,7 +2,7 @@
 
 Name:           python-snappy
 Version:        0.6.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python library for the snappy compression library from Google
 License:        BSD
 URL:            https://pypi.python.org/pypi/%{pypi_name}
@@ -54,6 +54,9 @@ sed -i '1{\@^#!/usr/bin/env python@d}' %{buildroot}%{python3_sitearch}/snappy/sn
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.6.1-5
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

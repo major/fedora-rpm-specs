@@ -2,7 +2,7 @@
 
 Name:           python-ruamel-yaml-clib
 Version:        0.2.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        C version of reader, parser and emitter for ruamel.yaml derived from libyaml
 
 # SPDX
@@ -95,6 +95,9 @@ rmdir ruamel.yaml.clib
 %doc README.rst
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.2.7-2
+- Rebuilt for Python 3.12
+
 * Wed May 03 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.2.7-1
 - Update to 0.2.7
 

@@ -1,6 +1,6 @@
 Name:           python-latexcodec
 Version:        2.0.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Lexer and codec to work with LaTeX code in Python
 
 License:        MIT
@@ -82,6 +82,9 @@ rst2html --no-datestamp LICENSE.rst LICENSE.html
 %doc doc/_build/html/*
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.0.1-11
+- Rebuilt for Python 3.12
+
 * Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 2.0.1-10
 - Dynamically generate BuildRequires
 

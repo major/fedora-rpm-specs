@@ -31,7 +31,7 @@ Name:           uhd
 URL:            http://github.com/EttusResearch/uhd
 Version:        4.4.0.0
 %global images_ver %{version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        GPLv3+
 BuildRequires:  make
 BuildRequires:  gcc-c++
@@ -279,6 +279,9 @@ exit 0
 %endif
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 4.4.0.0-3
+- Rebuilt for Python 3.12
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 4.4.0.0-2
 - Rebuilt for Boost 1.81
 

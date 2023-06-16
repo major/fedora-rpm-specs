@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.7.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -68,6 +68,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} -m pytest
 %{python3_sitelib}/*
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.7.0-20
+- Rebuilt for Python 3.12
+
 * Sun May 13 2023 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 1.7.0-19
 - Add patch for new termcolor
 

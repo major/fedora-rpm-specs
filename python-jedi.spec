@@ -1,3 +1,4 @@
+%global _without_tests 1
 %global common_description %{expand:
 Jedi is a static analysis tool for Python that can be used in IDEs/editors. Its
 historic focus is autocompletion, but does static analysis for now as well.
@@ -17,7 +18,7 @@ than all other static analysis frameworks for Python.}
 
 Name:           python-jedi
 Version:        0.18.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        An auto completion tool for Python that can be used for text editors
 
 # jedi is MIT
@@ -100,6 +101,9 @@ sed -e 's/pytest<7.0.0/pytest/' \
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.18.2-4
+- Bootstrap for Python 3.12
+
 * Mon May 29 2023 Lumír Balhar <lbalhar@redhat.com> - 0.18.2-3
 - Fix compatibility with attrs 23.1.0
 

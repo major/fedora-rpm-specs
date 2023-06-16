@@ -20,6 +20,10 @@ Source1:         get-lxml-source.sh
 # Upstream issue: https://bugs.launchpad.net/lxml/+bug/2016939
 Patch:          Skip-failing-test-test_html_prefix_nsmap.patch
 
+# Avoid using the deprecated "imp" module (removed in Python 3.12)
+Patch:          https://github.com/lxml/lxml/commit/07db761f9f.patch
+Patch:          https://github.com/lxml/lxml/commit/c6b7e621e4.patch
+
 BuildRequires:  gcc
 BuildRequires:  libxml2-devel
 BuildRequires:  libxslt-devel
@@ -64,6 +68,8 @@ sed -i "s/, 'lxml.isoschematron'//" setup.py
 # Remove the doctests for it (the documentation is not shipped)
 # The command [d]eletes all lines from the first pattern to the second
 sed -Ei '/^Schematron$/,/^\(Pre-ISO-Schematron\)$/d' doc/validation.txt
+# Don't run html5lib tests --without extras
+%{!?without_extras:rm src/lxml/html/tests/test_html5parser.py}
 
 %generate_buildrequires
 %pyproject_buildrequires -x source%{?with_extras:,cssselect,html5,htmlsoup}

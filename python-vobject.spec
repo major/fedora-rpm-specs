@@ -4,7 +4,7 @@
 
 Name:           python-vobject
 Version:        0.9.6.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        %{sum}
 
 License:        ASL 2.0
@@ -66,6 +66,9 @@ rm vobject/win32tz.py
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.9.6.1-17
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

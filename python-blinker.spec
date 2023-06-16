@@ -2,7 +2,7 @@
 
 Name:           python-blinker
 Version:        1.6.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast, simple object-to-object and broadcast signaling
 
 License:        MIT
@@ -53,6 +53,9 @@ of interested parties to subscribe to events, or "signals".
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.6.2-2
+- Rebuilt for Python 3.12
+
 * Wed May 10 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.6.2-1
 - Bump to blinker 1.6.2 (fixes RHBZ#2183824 )
 - Convert spec to pyproject

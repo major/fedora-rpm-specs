@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.5.24
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        File identification library for Python
 
 License:        MIT
@@ -65,6 +65,9 @@ rm -rf %{pypi_name}.egg-info
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.5.24-2
+- Rebuilt for Python 3.12
+
 * Wed May 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.5.24-1
 - 2.5.24
 

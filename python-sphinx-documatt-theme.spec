@@ -1,6 +1,6 @@
 Name:           python-sphinx-documatt-theme
 Version:        0.0.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Mobile-friendly Sphinx theme with beautiful typography
 
 # The project as a whole is MIT.
@@ -44,6 +44,9 @@ rst2html --no-datestamp README.rst README.html
 %doc README.html
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.0.5-3
+- Rebuilt for Python 3.12
+
 * Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 0.0.5-2
 - Dynamically generate BuildRequires
 

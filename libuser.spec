@@ -1,6 +1,6 @@
 Name: libuser
 Version: 0.64
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: LGPLv2+
 URL: https://pagure.io/libuser
 Source: libuser-%{version}.tar.gz
@@ -116,6 +116,9 @@ export PYTHONPATH
 %{_datadir}/gtk-doc/html/*
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.64-3
+- Rebuilt for Python 3.12
+
 * Tue Jan 24 2023 Tomas Halman <thalman@redhat.com>
 - Disabling fs_test, fakeroot does not work on all architectures
 

@@ -5,7 +5,7 @@
 
 Name:		python-cypari2
 Version:	2.1.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A Python interface to the number theory library pari
 License:	GPL-2.0-or-later
 URL:		https://github.com/sagemath/%{modname}
@@ -93,6 +93,9 @@ export PATH PYTHONPATH
 %doc docs/build/html
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.1.3-2
+- Rebuilt for Python 3.12
+
 * Wed Feb 22 2023 Jerry James <loganjerry@gmail.com> - 2.1.3-1
 - Version 2.1.3
 - Drop upstreamed -python310 and -test patches

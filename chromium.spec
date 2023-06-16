@@ -240,7 +240,7 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 114.0.5735.106
+Version: 114.0.5735.133
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -364,6 +364,9 @@ Patch303: chromium-114-typename.patch
 Patch320: chromium-114-add_qt6_linuxui_backend.patch
 Patch321: chromium-114-qt-handle_scale_factor_changes.patch
 Patch322: chromium-114-qt-fix_font_double_scaling.patch
+Patch323: chromium-114-qt_deps.patch
+Patch324: chromium-114-qt_enable_AllowQt_feature_flag.patch
+Patch325: chromium-114-qt_logical_scale_factor.patch
 
 # Use chromium-latest.py to generate clean tarball from released build tarballs, found here:
 # http://build.chromium.org/buildbot/official/
@@ -965,6 +968,9 @@ udev.
 %patch -P320 -p1 -b .add_qt6_linuxui_backend
 %patch -P321 -p1 -b .handle_scale_factor_changes
 %patch -P322 -p1 -b .fix_font_double_scaling
+%patch -P323 -p1 -b .qt_deps
+%patch -P324 -p1 -b .qt_enable_AllowQt_feature_flag
+%patch -P325 -p1 -b .qt_logical_scale_factor
 
 # Change shebang in all relevant files in this directory and all subdirectories
 # See `man find` for how the `-exec command {} +` syntax works
@@ -1641,6 +1647,12 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Wed Jun 14 2023 Than Ngo <than@redhat.com> - 114.0.5735.133-1
+- update to 114.0.5735.133 
+- Enable AllowQt feature flag
+- Fix Qt deps
+- Fix Qt logical scale factor
+
 * Wed Jun 07 2023 Than Ngo <than@redhat.com> - 114.0.5735.106-1
 - update to 114.0.5735.106
 

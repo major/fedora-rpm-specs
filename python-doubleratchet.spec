@@ -1,6 +1,6 @@
 Name:           python-doubleratchet
 Version:        0.7.0~beta
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Python implementation of the Double Ratchet algorithm
 
 License:        MIT
@@ -67,6 +67,9 @@ class.
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.7.0~beta-10
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0~beta-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

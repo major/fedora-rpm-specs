@@ -9,7 +9,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        83
+Version:        84
 
 %gometa
 
@@ -102,10 +102,10 @@ Provides: bundled(golang(github.com/golang/groupcache)) = v0.0.0_20210331224755_
 Provides: bundled(golang(github.com/golang/protobuf)) = v1.5.3
 Provides: bundled(golang(github.com/google/go_cmp)) = v0.5.9
 Provides: bundled(golang(github.com/google/go_containerregistry)) = v0.10.0
-Provides: bundled(golang(github.com/google/s2a_go)) = v0.1.3
+Provides: bundled(golang(github.com/google/s2a_go)) = v0.1.4
 Provides: bundled(golang(github.com/google/uuid)) = v1.3.0
 Provides: bundled(golang(github.com/googleapis/enterprise_certificate_proxy)) = v0.2.3
-Provides: bundled(golang(github.com/googleapis/gax_go/v2)) = v2.8.0
+Provides: bundled(golang(github.com/googleapis/gax_go/v2)) = v2.10.0
 Provides: bundled(golang(github.com/gophercloud/gophercloud)) = v1.0.0
 Provides: bundled(golang(github.com/gorilla/css)) = v1.0.0
 Provides: bundled(golang(github.com/gorilla/mux)) = v1.8.0
@@ -182,7 +182,7 @@ Provides: bundled(golang(github.com/vmware/govmomi)) = v0.29.0
 Provides: bundled(golang(go.etcd.io/bbolt)) = v1.3.6
 Provides: bundled(golang(go.mozilla.org/pkcs7)) = v0.0.0_20200128120323_432b2356ecb1
 Provides: bundled(golang(go.opencensus.io)) = v0.24.0
-Provides: bundled(golang(golang.org/x/crypto)) = v0.7.0
+Provides: bundled(golang(golang.org/x/crypto)) = v0.9.0
 Provides: bundled(golang(golang.org/x/exp)) = v0.0.0_20230307190834_24139beb5833
 Provides: bundled(golang(golang.org/x/mod)) = v0.8.0
 Provides: bundled(golang(golang.org/x/net)) = v0.10.0
@@ -194,9 +194,11 @@ Provides: bundled(golang(golang.org/x/text)) = v0.9.0
 Provides: bundled(golang(golang.org/x/time)) = v0.3.0
 Provides: bundled(golang(golang.org/x/tools)) = v0.6.0
 Provides: bundled(golang(golang.org/x/xerrors)) = v0.0.0_20220907171357_04be3eba64a2
-Provides: bundled(golang(google.golang.org/api)) = v0.123.0
+Provides: bundled(golang(google.golang.org/api)) = v0.126.0
 Provides: bundled(golang(google.golang.org/appengine)) = v1.6.7
-Provides: bundled(golang(google.golang.org/genproto)) = v0.0.0_20230410155749_daa745c078e1
+Provides: bundled(golang(google.golang.org/genproto)) = v0.0.0_20230530153820_e85fd2cbaebc
+Provides: bundled(golang(google.golang.org/genproto/googleapis/api)) = v0.0.0_20230530153820_e85fd2cbaebc
+Provides: bundled(golang(google.golang.org/genproto/googleapis/rpc)) = v0.0.0_20230530153820_e85fd2cbaebc
 Provides: bundled(golang(google.golang.org/grpc)) = v1.55.0
 Provides: bundled(golang(google.golang.org/protobuf)) = v1.30.0
 Provides: bundled(golang(gopkg.in/ini.v1)) = v1.67.0
@@ -418,13 +420,13 @@ cd $PWD/_build/src/%{goipath}
 %endif
 
 %post
-%systemd_post osbuild-composer.service osbuild-composer.socket osbuild-composer-api.socket osbuild-remote-worker.socket
+%systemd_post osbuild-composer.service osbuild-composer.socket osbuild-composer-api.socket osbuild-composer-prometheus.socket osbuild-remote-worker.socket
 
 %preun
-%systemd_preun osbuild-composer.service osbuild-composer.socket osbuild-composer-api.socket osbuild-remote-worker.socket
+%systemd_preun osbuild-composer.service osbuild-composer.socket osbuild-composer-api.socket osbuild-composer-prometheus.socket osbuild-remote-worker.socket
 
 %postun
-%systemd_postun_with_restart osbuild-composer.service osbuild-composer.socket osbuild-composer-api.socket osbuild-remote-worker.socket
+%systemd_postun_with_restart osbuild-composer.service osbuild-composer.socket osbuild-composer-api.socket osbuild-composer-prometheus.socket osbuild-remote-worker.socket
 
 %files
 %license LICENSE
@@ -433,6 +435,7 @@ cd $PWD/_build/src/%{goipath}
 %{_unitdir}/osbuild-composer.service
 %{_unitdir}/osbuild-composer.socket
 %{_unitdir}/osbuild-composer-api.socket
+%{_unitdir}/osbuild-composer-prometheus.socket
 %{_unitdir}/osbuild-local-worker.socket
 %{_unitdir}/osbuild-remote-worker.socket
 %{_sysusersdir}/osbuild-composer.conf
@@ -452,10 +455,10 @@ The core osbuild-composer binary. This is suitable both for spawning in containe
 Summary:    The worker for osbuild-composer
 Requires:   systemd
 Requires:   qemu-img
-Requires:   osbuild >= 83
-Requires:   osbuild-ostree >= 83
-Requires:   osbuild-lvm2 >= 83
-Requires:   osbuild-luks2 >= 83
+Requires:   osbuild >= 85
+Requires:   osbuild-ostree >= 85
+Requires:   osbuild-lvm2 >= 85
+Requires:   osbuild-luks2 >= 85
 Requires:   %{name}-dnf-json = %{version}-%{release}
 
 %description worker
@@ -574,6 +577,27 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Jun 14 2023 Packit <hello@packit.dev> - 84-1
+Changes with 84
+----------------
+  * Add the 'edge-ami' image type based on edge-raw-image (#3429)
+  * CI: Move RHEL for Edge CI into osbuild/rhel-edge-ci repo (#3460)
+  * Cleanup of Fedora cloud images (#3480)
+  * Finalise interface between composer and image definitions (#3444)
+  * Update snapshots to 20230522 (#3451)
+  * build(deps): bump google.golang.org/api from 0.123.0 to 0.126.0 (#3485)
+  * cloudapi: add vsphere-ova type (#3474)
+  * fedora: f36 went EOL (#3445)
+  * internal/cloudapi: new prometheus listener (#3430)
+  * internal/osbuild: yum repos ssl verify (#3419)
+  * osbuild: Add validation error logging (#3483)
+  * templates/composer:  parametrise replicas and tweak cpu requests/limits (#3472)
+
+Contributions from: Achilleas Koutsou, Brian C. Lane, Diaa Sami, Gianluca Zuccarelli, Irene Diez, Ondřej Budai, Sanne Raymaekers, Simon de Vlieger, Tomáš Hozza, Xiaofeng Wang, dependabot[bot], jabia99, schutzbot
+
+— Somewhere on the Internet, 2023-06-14
+
+
 * Wed May 31 2023 Packit <hello@packit.dev> - 83-1
 Changes with 83
 ----------------

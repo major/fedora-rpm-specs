@@ -1,6 +1,6 @@
 Name:           python-cheetah
 Version:        3.2.6.post1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Template engine and code generator
 
 License:        MIT
@@ -68,6 +68,9 @@ sed -e 's|{envsitepackagesdir}|%{buildroot}%{python3_sitearch}|' -i tox.ini
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 3.2.6.post1-5
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.6.post1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

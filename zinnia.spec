@@ -1,6 +1,6 @@
 Name:		zinnia
 Version:	0.06
-Release:	63%{?dist}
+Release:	64%{?dist}
 Summary:	Online handwriting recognition system with machine learning
 
 License:	BSD-3-Clause
@@ -195,6 +195,9 @@ chmod 0755 $RPM_BUILD_ROOT%{perl_vendorarch}/auto/%{name}/%{name}.so
 %{_datadir}/zinnia/model/tomoe/handwriting-zh_CN.model
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.06-64
+- Rebuilt for Python 3.12
+
 * Sat May  6 2023 Peng Wu <pwu@redhat.com> - 0.06-63
 - Migrate to SPDX license
 

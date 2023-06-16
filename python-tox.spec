@@ -1,3 +1,4 @@
+%global _without_tests 1
 # Many tests are enabled by default
 %bcond_without tests
 # However, some tests are disabled by default, becasue they require:
@@ -20,7 +21,7 @@
 
 Name:           python-tox
 Version:        4.4.12
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Virtualenv-based automation of test activities
 
 License:        MIT
@@ -156,6 +157,9 @@ k="${k-}${k+ and }not test_local_execute_write_a_lot"
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 4.4.12-2
+- Bootstrap for Python 3.12
+
 * Thu Apr 13 2023 Miro Hrončok <mhroncok@redhat.com> - 4.4.12-1
 - Update to 4.4.12 (rhbz#2186618)
 

@@ -2,7 +2,7 @@
 
 Name:           python-testpath
 Version:        0.6.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Test utilities for code working with files and commands
 
 License:        MIT
@@ -85,6 +85,9 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.6.0-6
+- Rebuilt for Python 3.12
+
 * Mon Feb 13 2023 Miro Hrončok <mhroncok@redhat.com> - 0.6.0-5
 - Convert to pyproject-rpm-macros
 - The INSTALLER file now says "rpm" instead of "pip"

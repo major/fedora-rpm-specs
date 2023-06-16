@@ -6,7 +6,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.13.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A thin Cython-based wrapper on top of libsystemd
 
 License:        LGPL-2.1-or-later
@@ -69,6 +69,9 @@ popd
 %{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.13.1-2
+- Rebuilt for Python 3.12
+
 * Wed May 17 2023 Davide Cavalca <dcavalca@fedoraproject.org> - 0.13.1-1
 - Update to 0.13.1; Fixes: RHBZ#2207826
 - Drop some unnecessary logic from the spec

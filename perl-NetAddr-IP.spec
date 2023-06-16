@@ -1,10 +1,10 @@
 Name:           perl-NetAddr-IP
 Version:        4.079
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Manages IPv4 and IPv6 addresses and subnets
-# Lite/Util/Util.xs is GPLv2+
-# Other files are (GPLv2+ or Artistic clarified)
-License:        GPLv2+ and (GPLv2+ or Artistic clarified)
+# Lite/Util/Util.xs is GPL-2.0-or-later
+# Other files are (GPL-2.0-or-later OR Artistic-1.0-Perl)
+License:        GPL-2.0-or-later AND (GPL-2.0-or-later OR Artistic-1.0-Perl)
 URL:            https://metacpan.org/release/NetAddr-IP
 Source0:        https://cpan.metacpan.org/authors/id/M/MI/MIKER/NetAddr-IP-%{version}.tar.gz
 # Module Build
@@ -80,6 +80,9 @@ make test
 %{_mandir}/man3/NetAddr::IP::UtilPP.3*
 
 %changelog
+* Fri Jun 02 2023 Michal Josef Špaček <mspacek@redhat.com> - 4.079-23
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.079-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

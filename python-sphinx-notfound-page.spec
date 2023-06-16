@@ -13,7 +13,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.7.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Create a custom 404 page with absolute URLs hardcoded
 
 License:        MIT
@@ -97,6 +97,9 @@ PYTHONPATH="$(pwd)" py.test-%{python3_version} -v .
 %{python3_sitelib}/%{importname}/
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.7.1-8
+- Rebuilt for Python 3.12
+
 * Fri Apr 14 2023 Karolina Surma <ksurma@redhat.com> - 0.7.1-7
 - Ensure compatibility with Sphinx 6+
 Resolves: rhbz#2180484

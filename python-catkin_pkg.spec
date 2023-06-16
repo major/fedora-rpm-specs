@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.5.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Library for retrieving information about catkin packages
 
 License:        BSD
@@ -105,6 +105,9 @@ popd
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.5.2-6
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

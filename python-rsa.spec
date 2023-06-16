@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.8
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Pure-Python RSA implementation
 
 License:        ASL 2.0
@@ -73,6 +73,9 @@ cp %{buildroot}%{_bindir}/pyrsa-verify %{buildroot}%{_bindir}/pyrsa-verify-3
 # %{__python3} setup.py test
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 4.8-6
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.8-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

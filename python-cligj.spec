@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.7.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Click params for GeoJSON CLI
 
 License:        BSD-3-Clause
@@ -54,6 +54,9 @@ chmod -x README.rst
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.7.2-9
+- Rebuilt for Python 3.12
+
 * Sat Apr 08 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.7.2-8
 - Switch to SPDX license
 

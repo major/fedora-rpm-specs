@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.5.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        %{sum}
 
 License:        BSD
@@ -57,6 +57,9 @@ rm -fr %{buildroot}%{python3_sitelib}/tests
 %{python3_sitelib}/*
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.5.0-10
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

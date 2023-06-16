@@ -2,7 +2,7 @@
 
 Name:           python-primecountpy
 Version:        0.1.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python Primecount wrapper
 
 # GPL-3.0-only: setup.py
@@ -61,6 +61,9 @@ This package contains API documentation for %{name}.
 %prep
 %autosetup -n primecountpy-%{version}
 
+# Remove docs self-dependency
+sed -i '/primecountpy/d' docs/requirements.txt
+
 # Remove as-you-type search capability from the docs due to missing dependency
 sed -i '/readthedocs-sphinx-search/d' docs/requirements.txt
 
@@ -93,6 +96,9 @@ ln -s ../$(find build -name \*.so) primecountpy
 %license LICENSE
 
 %changelog
+* Wed Jun 14 2023 Miro Hrončok <mhroncok@redhat.com> - 0.1.0-9
+- Don't needlessly BuildRequire self
+
 * Sun Mar 26 2023 Jerry James <loganjerry@gmail.com> - 0.1.0-8
 - Test with pytest-cython
 

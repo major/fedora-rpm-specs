@@ -12,7 +12,7 @@
 
 Name:           librepo
 Version:        1.15.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Repodata downloading library
 
 License:        LGPL-2.1-or-later
@@ -96,6 +96,9 @@ Python 3 bindings for the librepo library.
 %{python3_sitearch}/%{name}/
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.15.1-3
+- Rebuilt for Python 3.12
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,17 +1,13 @@
-%global base_version 0.082
-
 # Run optional test
 %bcond_without perl_HTTP_Tiny_enables_optional_deps
 
 Name:           perl-HTTP-Tiny
-Version:        0.083
+Version:        0.084
 Release:        1%{?dist}
 Summary:        Small, simple, correct HTTP/1.1 client
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/HTTP-Tiny
-Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/HTTP-Tiny-%{base_version}.tar.gz
-# Unbundled from perl 5.37.12
-Patch0:         HTTP-Tiny-0.082-Upgrade-to-0.083.patch
+Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/HTTP-Tiny-%{version}.tar.gz
 # Check for write failure, bug #1031096, refused by upstream,
 # <https://github.com/chansen/p5-http-tiny/issues/32>
 Patch1:         HTTP-Tiny-0.070-Croak-on-failed-write-into-a-file.patch
@@ -90,7 +86,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%autosetup -p1 -n HTTP-Tiny-%{base_version}
+%autosetup -p1 -n HTTP-Tiny-%{version}
 
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
@@ -129,6 +125,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jun 14 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.084-1
+- 0.084 bump
+
 * Mon Jun 12 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.083-1
 - Upgrade to 0.083 as provided in perl-5.37.12
 

@@ -32,7 +32,7 @@
 %{!?beta:%global beta 0}
 
 %{!?test:%global test 1}
-%{!?llvmjit:%global llvmjit 0}
+%{!?llvmjit:%global llvmjit 1}
 %{!?external_libpq:%global external_libpq 0}
 %{!?upgrade:%global upgrade 1}
 %{!?plpython3:%global plpython3 1}

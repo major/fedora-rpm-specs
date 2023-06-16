@@ -3,7 +3,7 @@
 
 Name:           python-%{module_name}
 Version:        1.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python module DateTimeRange
 
 License:        MIT
@@ -53,6 +53,9 @@ Summary:        %{summary}
 %doc README.rst
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.2.0-2
+- Rebuilt for Python 3.12
+
 * Wed Feb 08 2023 Karolina Kula <kkula@redhat.com> - 1.2.0-1
 - initial package build
 

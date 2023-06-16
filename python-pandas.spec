@@ -1,3 +1,4 @@
+%global _with_bootstrap 1
 # We need to break some cycles with optional dependencies for bootstrapping;
 # given that a conditional is needed, we take the opportunity to omit as many
 # optional dependencies as possible for bootstrapping.
@@ -13,7 +14,7 @@
 
 Name:           python-pandas
 Version:        1.5.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Python library providing high-performance data analysis tools
 
 # The entire source is BSD-3-Clause and covered by LICENSE, except:
@@ -757,6 +758,9 @@ export PYTHONHASHSEED="$(
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.5.3-6
+- Bootstrap for Python 3.12
+
 * Mon May 29 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.5.3-5
 - Simplify running tests serially
 

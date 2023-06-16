@@ -3,7 +3,7 @@
 
 Name:           python-pyasn1
 Version:        0.4.8
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        ASN.1 tools for Python
 License:        BSD-2-Clause
 Source0:        https://github.com/etingof/pyasn1/archive/v%{version}.tar.gz
@@ -85,6 +85,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} setup.py test
 %doc docs/build/html/*
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.4.8-14
+- Rebuilt for Python 3.12
+
 * Thu Feb 23 2023 Rob Crittenden <rcritten@redhat.com> - 0.4.8-13
 - migrated to SPDX license
 - correct bad date in changelog

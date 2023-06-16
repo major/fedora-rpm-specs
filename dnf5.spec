@@ -1,10 +1,10 @@
 %global project_version_major 5
 %global project_version_minor 0
-%global project_version_patch 13
+%global project_version_patch 14
 
 Name:           dnf5
 Version:        %{project_version_major}.%{project_version_minor}.%{project_version_patch}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
@@ -317,7 +317,6 @@ Summary:        Development files for libdnf
 License:        LGPL-2.1-or-later
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libsolv-devel%{?_isa} >= %{libsolv_version}
-Conflicts:      libdnf-devel < 5
 
 %description -n libdnf5-devel
 Development files for libdnf.
@@ -326,7 +325,7 @@ Development files for libdnf.
 %{_includedir}/libdnf/
 %dir %{_libdir}/libdnf5
 %{_libdir}/libdnf5.so
-%{_libdir}/pkgconfig/libdnf.pc
+%{_libdir}/pkgconfig/libdnf5.pc
 %license COPYING.md
 %license lgpl-2.1.txt
 
@@ -664,6 +663,22 @@ ln -sr %{buildroot}%{_bindir}/dnf5 %{buildroot}%{_bindir}/microdnf
 
 
 %changelog
+* Wed Jun 14 2023 Packit <hello@packit.dev> - 5.0.14-1
+- Modify libdnf5-devel to generate pkgconf(libdnf5)
+- Handle unnamed environments in transaction table
+- Return error exit code on RPM transaction failure
+- Add `repoquery --file` option
+- Add `repoquery --arch` option
+- Add `repoquery --installonly` option
+- Add `repoquery --extras`, `--upgrades` and `--recent` options
+- Add `repoquery --changelogs` formatting option
+- Don't complete ls alias
+- Add rq command alias for `repoquery`
+- Exclude dnf.conf when not installed
+- Improve the download methods API
+  - Switch to parameterless download methods and introduce setters for fail_fast and resume
+  - Affected classes: libdnf::repo::FileDownloader, libdnf::repo::PackageDownloader
+
 * Tue May 30 2023 Packit <nsella@redhat.com> - 5.0.13-2
 - Update specfile to exclude dnf.conf for fedora < 39
 

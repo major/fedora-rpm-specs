@@ -3,7 +3,7 @@
 
 Name:           python-%{module_name}
 Version:        1.0.3
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        A reading text analysis tool
 
 License:        GPL-3.0-or-later
@@ -61,6 +61,9 @@ rm -rf *.egg-info
 %{python3_sitelib}/%{module_name}-*.egg-info/
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.0.3-16
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

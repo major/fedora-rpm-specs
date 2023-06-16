@@ -2,7 +2,7 @@
 
 Name:           python-%{modname}
 Version:        6.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An easy whitelist-based HTML-sanitizing tool
 
 License:        ASL 2.0
@@ -74,6 +74,9 @@ fi;
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 6.0.0-2
+- Rebuilt for Python 3.12
+
 * Wed Feb 08 2023 Sandro Mani <manisandro@gmail.com> - 6.0.0-1
 - Update to 6.0.0
 

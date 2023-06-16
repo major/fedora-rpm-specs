@@ -1,6 +1,6 @@
 Name:           python-random2
 Version:        1.0.1
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Python 2 compatible random module
 
 License:        Python-2.0.1
@@ -55,6 +55,9 @@ sed -i '/self\.gen\.getrandbits, 0/d' src/tests.py
 %doc CHANGES.txt README.txt
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.0.1-29
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

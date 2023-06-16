@@ -96,7 +96,7 @@
 
 Name: subscription-manager
 Version: 1.29.35
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Tools and libraries for subscription and repository management
 %if 0%{?suse_version}
 Group:   Productivity/Networking/System
@@ -736,6 +736,9 @@ rmdir %{python_sitearch}/subscription_manager-*-*.egg-info --ignore-fail-on-non-
 rm -f /var/lib/rhsm/cache/rhsm_icon.json
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.29.35-2
+- Rebuilt for Python 3.12
+
 * Tue May 16 2023 Packit <hello@packit.dev> - 1.29.35-1
 - Automatic commit of package [subscription-manager] release [1.29.35-1]. (Pino Toscano)
 - Translated using Weblate (Italian) (Pino Toscano)

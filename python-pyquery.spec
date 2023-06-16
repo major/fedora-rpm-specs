@@ -1,3 +1,4 @@
+%global _without_tests 1
 %global real_name pyquery
 
 %if 0%{?rhel}
@@ -8,7 +9,7 @@
 
 Name:           python-%{real_name}
 Version:        1.4.3
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A jQuery-like library for python
 License:        BSD
 URL:            http://pypi.python.org/pypi/pyquery
@@ -75,6 +76,9 @@ nosetests-%{python3_version}
 %{python3_sitelib}/pyquery*.egg-info/
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.4.3-11
+- Bootstrap for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

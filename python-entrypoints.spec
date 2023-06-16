@@ -6,7 +6,7 @@ Name:		python-%{srcname}
 # WARNING: Check if an update does not break flake8!
 Version:	0.3
 
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	%{sum}
 
 # license clarification issue opened upstream
@@ -84,6 +84,9 @@ popd
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.3-17
+- Rebuilt for Python 3.12
+
 * Mon May 15 2023 Miro Hrončok <mhroncok@redhat.com> - 0.3-16
 - Use flit-core to build this package, instead of flit
 

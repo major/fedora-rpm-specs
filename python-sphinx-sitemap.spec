@@ -1,6 +1,6 @@
 Name:           python-sphinx-sitemap
 Version:        2.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Sitemap generator for Sphinx
 
 License:        MIT
@@ -43,6 +43,9 @@ rst2html --no-datestamp README.rst README.html
 %doc README.html
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.5.0-2
+- Rebuilt for Python 3.12
+
 * Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 2.5.0-1
 - Dynamically generate BuildRequires
 

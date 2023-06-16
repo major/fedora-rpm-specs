@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        pytest plugin for distributed testing and loop-on-failing modes
 
 License:        MIT
@@ -54,6 +54,9 @@ Summary:        %{summary}
 %{python3_sitelib}/xdist/
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 3.3.1-2
+- Rebuilt for Python 3.12
+
 * Fri May 19 2023 Scott Talbert <swt@techie.net> - 3.3.1-1
 - Update to new upstream release 3.3.1 (#2203558)
 

@@ -3,7 +3,7 @@
 
 Name:		domoticz
 Version:	2022.1
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Open source Home Automation System
 
 License:	GPLv3+ and ASL 2.0 and Boost and BSD and MIT
@@ -250,6 +250,9 @@ usermod -G domoticz,dialout domoticz
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2022.1-8
+- Rebuilt for Python 3.12
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 2022.1-7
 - Rebuilt for Boost 1.81
 

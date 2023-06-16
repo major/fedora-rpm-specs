@@ -2,7 +2,7 @@
 
 Summary: Qt5 - WebView component
 Name:    qt5-%{qt_module}
-Version: 5.15.9
+Version: 5.15.10
 Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
@@ -83,6 +83,9 @@ make install INSTALL_ROOT=%{buildroot}
 
 
 %changelog
+* Mon Jun 12 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.10-1
+- 5.15.10
+
 * Wed Apr 12 2023 Adam Williamson <awilliam@redhat.com> - 5.15.9-1
 - No, really, 5.15.9
 

@@ -9,7 +9,7 @@ work tcxparser and gpxpy.}
 
 Name:           python-tcx2gpx
 Version:        0.1.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Convert Garmin TPX to GPX
 
 License:        GPL-3.0-only
@@ -65,5 +65,8 @@ BuildRequires:  python3dist(pytest)
 %doc README.md
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.1.4-2
+- Rebuilt for Python 3.12
+
 * Mon Feb 20 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.1.4-1
 - Initial package

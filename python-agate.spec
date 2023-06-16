@@ -12,7 +12,7 @@ agate was previously known as journalism.
 
 Name:           python-%{pypi_name}
 Version:        1.7.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Data analysis library that is optimized for humans instead of machines
 
 License:        MIT
@@ -105,6 +105,9 @@ nosetests-%{python3_version} tests -v --exclude=test_cast_format_locale --exclud
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.7.1-4
+- Rebuilt for Python 3.12
+
 * Wed Mar 01 2023 Julien Enselme <jujens@jujens.eu> - 1.7.1-3
 - Remove dependency on pytz
 

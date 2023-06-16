@@ -2,7 +2,7 @@
 
 Name:             flent
 Version:          2.1.1
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          FLExible Network Tester for bufferbloat testing and more
 
 License:          GPLv3+
@@ -87,6 +87,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %doc doc/_build/html
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.1.1-3
+- Rebuilt for Python 3.12
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

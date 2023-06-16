@@ -4,7 +4,7 @@
 
 Name:           python-aiodns
 Version:        3.0.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Simple DNS resolver for asyncio
 
 License:        MIT
@@ -63,6 +63,9 @@ with a synchronous looking interface by using pycares.
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 3.0.0-7
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 Name:           perl-Mail-SPF
 Version:        2.9.0
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Object-oriented implementation of Sender Policy Framework
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://metacpan.org/release/Mail-SPF
 Source0:        https://cpan.metacpan.org/authors/id/J/JM/JMEHNLE/mail-spf/Mail-SPF-v%{version}.tar.gz
 Patch0:         Mail-SPF-v2.8.0-POD.patch
@@ -48,9 +48,9 @@ Mail::SPF is an object-oriented implementation of Sender Policy Framework
 %prep
 %setup -q -n Mail-SPF-v%{version}
 # Fix broken POD (CPAN RT#86060)
-%patch0
+%patch -P 0
 # Work around test suite failures with Net::DNS ≥ 0.68 (CPAN RT#78214)
-%patch1
+%patch -P 1
 chmod -x bin/* sbin/*
 
 %build
@@ -92,6 +92,10 @@ fi
 %{_bindir}/spfd.%{name}
 
 %changelog
+* Wed Jun 07 2023 Michal Josef Špaček <mspacek@redhat.com> - 2.9.0-31
+- Fix %patch macro
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

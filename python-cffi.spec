@@ -1,9 +1,10 @@
 Name:           python-cffi
 %global general_version 1.15.1
 Version:        %{general_version}%{?prerel:~%{prerel}}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Foreign Function Interface for Python to call C code
-License:        MIT
+# Patch 482f0af has bits copied from CPython (PSF-2.0)
+License:        MIT AND PSF-2.0
 URL:            https://cffi.readthedocs.org/
 Source:         https://foss.heptapod.net/pypy/cffi/-/archive/v%{version}/cffi-v%{version}.tar.bz2
 
@@ -14,6 +15,12 @@ Patch:          https://foss.heptapod.net/pypy/cffi/-/merge_requests/113.patch
 Patch:          https://foss.heptapod.net/pypy/cffi/-/merge_requests/115.patch
 # Drop usage of the deprecated py.code package
 Patch:          https://foss.heptapod.net/pypy/cffi/-/merge_requests/116.patch
+# Python 3.12 compatibility
+Patch:          https://foss.heptapod.net/pypy/cffi/-/commit/482f0af.patch
+Patch:          https://foss.heptapod.net/pypy/cffi/-/commit/c3593e4.patch
+Patch:          https://foss.heptapod.net/pypy/cffi/-/commit/87f514b.patch
+Patch:          https://foss.heptapod.net/pypy/cffi/-/commit/69660bd.patch
+Patch:          https://foss.heptapod.net/pypy/cffi/-/commit/814c55e.patch
 
 BuildRequires:  make
 BuildRequires:  libffi-devel
@@ -74,6 +81,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} %{__python3} -m pytest c/ testing/
 %doc doc/build/html
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.15.1-5
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

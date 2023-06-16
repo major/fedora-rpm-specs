@@ -5,7 +5,7 @@
 
 Name:      pykickstart
 Version:   3.48
-Release:   1%{?dist}
+Release:   2%{?dist}
 License:   GPL-2.0-only AND MIT
 Summary:   Python utilities for manipulating kickstart files.
 Url:       http://fedoraproject.org/wiki/pykickstart
@@ -78,6 +78,9 @@ LC_ALL=C make PYTHON=%{__python3} test-no-coverage
 %{python3_sitelib}/pykickstart*.egg-info
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 3.48-2
+- Rebuilt for Python 3.12
+
 * Thu Jun 08 2023 Brian C. Lane <bcl@redhat.com> - 3.48-1
 - Makefile: Add a test-no-coverage target (bcl)
 - realm: switch from pipes.quote() to shlex.quote() (ptoscano)

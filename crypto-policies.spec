@@ -1,5 +1,5 @@
-%global git_date 20230420
-%global git_commit 3d08ae70557e5a86686e5b24e443731bfdf232bb
+%global git_date 20230614
+%global git_commit 5f3458e619628288883f22695f3311f1ccd6a39f
 %{?git_commit:%global git_commit_hash %(c=%{git_commit}; echo ${c:0:7})}
 
 %global _python_bytecompile_extra 0
@@ -208,6 +208,9 @@ end
 %{_mandir}/man8/fips-finish-install.8*
 
 %changelog
+* Wed Jun 14 2023 Alexander Sosedkin <asosedkin@redhat.com> - 20230614-1.git5f3458e
+- policies: restore group order to old OpenSSL default order
+
 * Thu Apr 20 2023 Alexander Sosedkin <asosedkin@redhat.com> - 20230420-1.git3d08ae7
 - openssl: specify Groups explicitly
 - openssl: add support for Brainpool curves

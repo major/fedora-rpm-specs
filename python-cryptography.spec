@@ -1,3 +1,4 @@
+%global _without_tests 1
 %bcond_without tests
 
 %{!?python3_pkgversion:%global python3_pkgversion 3}
@@ -6,7 +7,7 @@
 
 Name:           python-%{srcname}
 Version:        40.0.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        PyCA's cryptography library
 
 # cryptography is dual licensed under the Apache-2.0 and BSD-3-Clause,
@@ -131,6 +132,9 @@ PYTHONPATH=${PWD}/vectors:%{buildroot}%{python3_sitearch} \
 %{python3_sitearch}/%{srcname}-%{version}-py*.egg-info
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 40.0.2-3
+- Bootstrap for Python 3.12
+
 * Tue Jun 13 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 40.0.2-2
 - Use vendored rust-pem in RHEL builds
 

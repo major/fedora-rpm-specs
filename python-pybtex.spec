@@ -1,6 +1,6 @@
 Name:           python-pybtex
 Version:        0.24.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        BibTeX-compatible bibliography processor written in Python
 
 License:        MIT
@@ -136,6 +136,9 @@ popd
 %doc CHANGES docs/build/html
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.24.0-12
+- Rebuilt for Python 3.12
+
 * Tue Mar 21 2023 Jerry James <loganjerry@gmail.com> - 0.24.0-11
 - Fix an extlinks configuration error (rhbz#2180478)
 

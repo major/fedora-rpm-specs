@@ -10,7 +10,7 @@ Built-in features:\
 
 Name:           python-paste-script
 Version:        3.2.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 BuildArch:      noarch
 
 # paste/script/wsgiserver/ is BSD licensed from CherryPy
@@ -118,6 +118,9 @@ ln -s ./paster-%{python2_version} %{buildroot}%{_bindir}/paster
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 3.2.1-8
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

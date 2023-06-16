@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.11.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        wsgi_intercept installs a WSGI application in place of a real URI for testing
 
 License:        MIT
@@ -79,6 +79,9 @@ rm -rf html/.{doctrees,buildinfo}
 %doc html
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.11.0-2
+- Rebuilt for Python 3.12
+
 * Tue May 23 2023 Joel Capitao <jcapitao@redhat.com> - 1.11.0-1
 - Update to 1.11.0 (#2140362)
 

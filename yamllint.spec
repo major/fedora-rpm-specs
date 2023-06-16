@@ -4,7 +4,7 @@
 
 Name:           %{pypi_name}
 Version:        1.32.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A linter for YAML files
 
 License:        GPLv3+
@@ -61,6 +61,9 @@ install -m0644 docs/_build/man/%{pypi_name}.1.gz %{buildroot}%{_mandir}/man1/
 %exclude %{python3_sitelib}/tests
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.32.0-2
+- Rebuilt for Python 3.12
+
 * Mon May 22 2023 Adrien Vergé <adrienverge@gmail.com> - 1.32.0-1
 - Update to latest upstream version
 

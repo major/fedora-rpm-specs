@@ -10,7 +10,7 @@ access to Bluetooth Low Energy devices from Python.}
 
 Name:           python-bluepy
 Version:        1.3.0^%{date}git%{shortcommit}
-Release:        1%{dist}
+Release:        2%{dist}
 Summary:        Python interface to Bluetooth LE
 
 #bluepy uses code from the bluez project, which is made available under
@@ -83,6 +83,9 @@ done
 %doc docs/_build/html
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.3.0^20210503git7ad56523-2
+- Rebuilt for Python 3.12
+
 * Mon Jan 30 2023 Alessio <alciregi AT fedoraproject DOT org> - 1.3.0^20210503git7ad56523-1
 - Update to 2021-05-03 git commit
 

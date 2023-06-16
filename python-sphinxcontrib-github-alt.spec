@@ -1,6 +1,6 @@
 Name:           python-sphinxcontrib-github-alt
 Version:        1.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Link to GitHub issues, pull requests, commits and users from Sphinx docs
 License:        BSD-2-Clause
 URL:            https://github.com/jupyter/sphinxcontrib_github_alt
@@ -56,6 +56,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.2-11
+- Rebuilt for Python 3.12
+
 * Mon Feb 13 2023 Miro Hrončok <mhroncok@redhat.com> - 1.2-10
 - Convert to pyproject-rpm-macros
 - The INSTALLER file now says "rpm" instead of "pip"

@@ -2,7 +2,7 @@
 
 Name:           python-sphinxcontrib-zopeext
 Version:        0.4.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Sphinx extension for documenting Zope interfaces
 
 License:        BSD-2-Clause
@@ -44,6 +44,9 @@ interfaces.
 %license LICENSE
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.4.2-2
+- Rebuilt for Python 3.12
+
 * Mon Mar 20 2023 Lumír Balhar <lbalhar@redhat.com> - 0.4.2-1
 - Update to 0.4.2 (rhbz#2179530)
 - Drop unneeded pyproject.toml manipulations

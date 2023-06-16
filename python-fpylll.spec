@@ -2,7 +2,7 @@
 
 Name:		python-%{modname}
 Version:	0.5.9
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A Python wrapper for fplll
 License:	GPL-2.0-or-later
 URL:		https://github.com/fplll/%{modname}
@@ -68,6 +68,9 @@ popd
 %doc PKG-INFO README.html
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.5.9-2
+- Rebuilt for Python 3.12
+
 * Mon Mar 13 2023 Jerry James <loganjerry@gmail.com> - 0.5.9-1
 - Version 0.5.9
 - Use pyproject macros

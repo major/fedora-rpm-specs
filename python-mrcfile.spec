@@ -18,18 +18,16 @@ interactively to inspect files, correct headers and so on, or in scripts and\
 larger software packages to provide basic MRC file I/O functions.
 
 Name: python-%{pname}
-Version: 1.3.0
-Release: 7%{?dist}
+Version: 1.4.3
+Release: 1%{?dist}
 Summary: MRC2014 file format used in structural biology to store image and volume data
 License: BSD
 URL: https://github.com/ccpem/mrcfile
 Source0: https://github.com/ccpem/mrcfile/archive/v%{version}/%{pname}-%{version}.tar.gz
-Patch0: 0001-Use-explicit-endianness-for-FEI-extended-header-dtyp.patch
-Patch1: 0002-Finish-applying-extended-header-byte-order-fix.patch
-Patch2: 0003-Check-that-test-file-extended-header-is-always-littl.patch
-Patch3: 0001-Switch-to-built-in-bool-type-to-avoid-numpy-deprecat.patch
-# fix test failures with python 3.11 due to changed error messages
-Patch10: %{name}-python311.patch
+# https://github.com/ccpem/mrcfile/issues/49
+Patch0: %{name}-issue-49.patch
+# https://github.com/ccpem/mrcfile/issues/53
+Patch1: %{name}-issue-53.patch
 
 %description
 %{desc}
@@ -58,7 +56,6 @@ BuildArch: noarch
 
 %if %{with check}
 %check
-# 8 tests are failing on s390x: https://github.com/ccpem/mrcfile/issues/35
 PYTHONDONTWRITEBYTECODE=1 \
 PATH=%{buildroot}/usr/bin:${PATH} \
 PYTHONPATH=%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib} \
@@ -74,6 +71,12 @@ python3 -m unittest tests
 %{python3_sitelib}/%{pname}
 
 %changelog
+* Wed Jun 14 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.4.3-1
+- update to 1.4.3
+- drop obsolete patches
+- skip test_data_is_not_copied_unnecessarily test (fails with numpy>=1.24.1)
+- skip test_data_is_not_read_if_dimensions_are_too_huge on 32-bit
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.3.0-7
 - Rebuilt for Python 3.12
 

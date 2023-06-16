@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        7.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python dictionaries with advanced dot notation access
 
 License:        MIT
@@ -57,6 +57,9 @@ added to a Box or BoxList object are converted automatically.
 %{python3_sitelib}/python_box-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 7.0.1-2
+- Rebuilt for Python 3.12
+
 * Tue May 23 2023 Fabian Affolter <mail@fabian-affolter.ch> - 6.1.0-1
 - Update to latest upstream release 7.0.1 (closes rhbz#2165252)
 

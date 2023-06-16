@@ -8,7 +8,7 @@
 Name:          python-argcomplete
 Summary:       Bash tab completion for argparse
 Version:       2.0.0
-Release:       8%{?dist}
+Release:       9%{?dist}
 License:       ASL 2.0
 URL:           https://github.com/kislyuk/argcomplete
 Source0:       %pypi_source argcomplete
@@ -91,6 +91,9 @@ export INPUTRC=$PWD/.inputrc
 %{_sysconfdir}/bash_completion.d/%{name}
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.0.0-9
+- Rebuilt for Python 3.12
+
 * Mon Jun 05 2023 Miro Hrončok <mhroncok@redhat.com> - 2.0.0-8
 - Move the Bash completion files to /etc/bash_completion.d to fix rhbz#2211862
 

@@ -4,7 +4,7 @@
 
 Name:           python-ptyprocess
 Version:        0.7.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Run a subprocess in a pseudo terminal
 
 License:        ISC
@@ -52,6 +52,9 @@ process and its pty.
 %doc README.rst
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.7.0-4
+- Rebuilt for Python 3.12
+
 * Tue Jan 24 2023 Adam Williamson <awilliam@redhat.com> - 0.7.0-3
 - Build with modern pyproject macros, fixes #2164207
 

@@ -50,7 +50,7 @@ features offered by PostgreSQL.
 Summary:	%{sum}
 Name:		python-%{srcname}
 Version:	2.9.6
-Release:	1%{?dist}
+Release:	2%{?dist}
 # The exceptions allow linking to OpenSSL and PostgreSQL's libpq
 License:	LGPL-3.0-or-later AND (GPL-2.0-or-later WITH Classpath-exception-2.0)
 Url:		http://initd.org/psycopg/
@@ -311,6 +311,9 @@ done
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.9.6-2
+- Rebuilt for Python 3.12
+
 * Fri May 05 2023 Ondrej Sloup <osloup@redhat.com> -  2.9.6-1
 - Rebase to the latest upstream version
 - Resolves rhbz#2171683

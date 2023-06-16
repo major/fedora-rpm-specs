@@ -1,4 +1,4 @@
-%global lit_version 16.0.5.post0
+%global lit_version 16.0.6
 #global rc_ver 4
 #global post_ver 0
 
@@ -6,7 +6,7 @@
 
 Name: python-lit
 Version: %{lit_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 BuildArch: noarch
 
 License: NCSA
@@ -62,6 +62,9 @@ sed -i -e '1{\@^#!/usr/bin/env python@d}' %{buildroot}%{python3_sitelib}/lit/*.p
 %{_bindir}/lit
 
 %changelog
+* Wed Jun 14 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.6-1
+- Update to LLVM 16.0.6
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 16.0.5.post0-2
 - Rebuilt for Python 3.12
 

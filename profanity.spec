@@ -1,6 +1,6 @@
 Name:           profanity
 Version:        0.13.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A console based XMPP client
 
 License:        GPLv3
@@ -145,6 +145,9 @@ make check
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.13.1-4
+- Rebuilt for Python 3.12
+
 * Thu Mar 2 2023 Matthieu Saulnier <fantom@fedoraproject.org> - 0.13.1-3
 - Enable displaying OMEMO QRcode support
 

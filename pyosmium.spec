@@ -3,7 +3,7 @@
 
 Name:           pyosmium
 Version:        3.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python bindings for libosmium
 
 License:        BSD-2-Clause
@@ -66,6 +66,9 @@ make -C doc html SPHINXBUILD=sphinx-build-3
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 3.6.0-2
+- Rebuilt for Python 3.12
+
 * Sun Jan 22 2023 Tom Hughes <tom@compton.nu> - 3.6.0-1
 - Update to 3.6.0 upstream release
 

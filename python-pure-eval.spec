@@ -1,6 +1,6 @@
 Name:           python-pure-eval
 Version:        0.2.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Safely evaluate AST nodes without side effects
 
 License:        MIT
@@ -48,6 +48,9 @@ Summary:        %{summary}
 %doc README.md
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.2.2-5
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

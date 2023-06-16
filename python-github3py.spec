@@ -7,7 +7,7 @@
 
 Name:           python-%{modname}
 Version:        4.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python wrapper for the GitHub API
 
 License:        BSD
@@ -58,6 +58,9 @@ Python 3 version.
 %doc AUTHORS.rst README.rst
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 4.0.1-2
+- Rebuilt for Python 3.12
+
 * Thu Apr 27 2023 Alexander Bokovoy <abokovoy@redhat.com> - 4.0.1
 - Upstream release 4.0.1
 - Switch to pyproject.toml for builds

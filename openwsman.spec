@@ -25,7 +25,7 @@
 
 Name:		openwsman
 Version:	2.7.1
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	Open source Implementation of WS-Management
 
 License:	BSD-3-Clause AND MIT
@@ -415,6 +415,9 @@ fi
 %endif
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.7.1-12
+- Rebuilt for Python 3.12
+
 * Tue Feb 14 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.7.1-11
 - SPDX migration
 

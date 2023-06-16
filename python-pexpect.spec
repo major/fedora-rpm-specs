@@ -5,7 +5,7 @@
 Name:           python-%{modname}
 Summary:        Unicode-aware Pure Python Expect-like module
 Version:        4.8.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 
 License:        ISC
 URL:            https://github.com/pexpect/pexpect
@@ -96,6 +96,9 @@ TRAVIS=true py.test-3 --verbose
 %{python3_sitelib}/%{modname}-*.egg-info
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 4.8.0-16
+- Rebuilt for Python 3.12
+
 * Sun Feb 12 2023 Scott Talbert <swt@techie.net> - 4.8.0-15
 - Fix FTBFS with Python 3.12 (#2155493)
 

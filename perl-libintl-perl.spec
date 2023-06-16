@@ -1,14 +1,14 @@
 Summary:        Internationalization library for Perl, compatible with gettext
 Name:           perl-libintl-perl
 Version:        1.33
-Release:        2%{?dist}
-# gettext_xs/gettext_xs.pm:     GPLv3+
-# gettext_xs/Makefile.PL:       LGPLv2+
-# lib/Locale/gettext_xs.pod:    LGPLv2+
-# lib/Locale/RecodeData.pm:     GPLv3+
-# lib/Locale/libintlFAQ.pod:    LGPLv2+
-# COPYING:                      GPLv3+
-License:        GPLv3+ and LGPLv2+
+Release:        3%{?dist}
+# gettext_xs/gettext_xs.pm:     GPL-3.0-or-later
+# gettext_xs/Makefile.PL:       LGPL-2.0-or-later
+# lib/Locale/gettext_xs.pod:    LGPL-2.0-or-later
+# lib/Locale/RecodeData.pm:     GPL-3.0-or-later
+# lib/Locale/libintlFAQ.pod:    LGPL-2.0-or-later
+# COPYING:                      GPL-3.0-or-later
+License:        GPL-3.0-or-later AND LGPL-2.0-or-later
 URL:            https://metacpan.org/release/libintl-perl
 Source0:        https://cpan.metacpan.org/authors/id/G/GU/GUIDO/libintl-perl-%{version}.tar.gz
 # this module was renamed in the f25 dev cycle
@@ -105,6 +105,9 @@ make test
 %{_mandir}/man?/*
 
 %changelog
+* Wed May 31 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.33-3
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.33-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

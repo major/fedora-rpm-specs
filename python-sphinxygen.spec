@@ -1,6 +1,6 @@
 Name:           python-sphinxygen
 Version:        1.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A script to read Doxygen XML output and emit ReST for Sphinx
 
 # All files under ISC, though some tests and
@@ -64,5 +64,8 @@ install -Dpm 0644 doc/sphinxygen.1 -t %{buildroot}%{_mandir}/man1/
 %{_mandir}/man1/sphinxygen.1*
  
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.0.0-2
+- Rebuilt for Python 3.12
+
 * Thu Feb 09 2023 Benson Muite <benson_muite@emailplus.org> - 1.0.0-1
 - Initial packaging

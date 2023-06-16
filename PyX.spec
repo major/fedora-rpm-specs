@@ -1,6 +1,6 @@
 Name:           PyX
 Version:        0.16
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python graphics package
 
 License:        GPLv2+
@@ -105,6 +105,9 @@ done
 %doc examples/
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.16-2
+- Rebuilt for Python 3.12
+
 * Thu Mar 23 2023 José Matos <jamatos@fedoraproject.org> - 0.16-1
 - Update to 0.16
 - Remove patch already included in this version

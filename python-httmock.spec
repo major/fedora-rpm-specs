@@ -1,6 +1,6 @@
 Name:           python-httmock
 Version:        1.4.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A mocking library for requests
 License:        Apache-2.0
 URL:            https://github.com/patrys/httmock
@@ -57,6 +57,9 @@ cp %{SOURCE1} .
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.4.0-10
+- Rebuilt for Python 3.12
+
 * Fri May 05 2023 Steve Traylen <steve.traylen@cern.ch> 1.4.0-9
 - Complete migration to pyproject macros
 - Switch SPDX license field

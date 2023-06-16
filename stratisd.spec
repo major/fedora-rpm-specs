@@ -5,7 +5,7 @@
 
 Name:           stratisd
 Version:        3.5.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Daemon that manages block devices to create filesystems
 
 License:        (MIT OR Apache-2.0) AND Unicode-DFS-2016 AND Apache-2.0 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND MIT AND MPL-2.0 AND (Unlicense OR MIT)
@@ -180,6 +180,9 @@ a2x -f manpage docs/stratis-dumpmetadata.txt
 %{_mandir}/man8/stratis-dumpmetadata.8*
 
 %changelog
+* Wed Jun 14 2023 Bryan Gurney <bgurney@redhat.com> - 3.5.7-2
+- Use tmt tests
+
 * Wed Jun 07 2023 Bryan Gurney <bgurney@redhat.com> - 3.5.7-1
 - Update to 3.5.7
 

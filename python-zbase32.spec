@@ -37,7 +37,7 @@ Requires:       python3-pyutil
 %setup -q -n zbase32-%{version}
 %patch1 -p1
 %patch2 -p1
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" .
+%py3_shebang_fix .
 
 %build
 %py3_build

@@ -1,8 +1,11 @@
 Name:           perl-Text-Diff
 Version:        1.45
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Perform diffs on files and record sets
-License:        (GPL+ or Artistic) and (GPLv2+ or Artistic) and MIT
+# lib/Text/Diff.pm - GPL-2.0-or-later OR Artistic-1.0-Perl
+# lib/Text/Diff/Config.pm - MIT
+# lib/Text/Diff/Table.pm - GPL-1.0-or-later OR Artistic-1.0-Perl
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND (GPL-2.0-or-later OR Artistic-1.0-Perl) AND MIT
 URL:            https://metacpan.org/release/Text-Diff
 Source0:        https://cpan.metacpan.org/authors/id/N/NE/NEILB/Text-Diff-%{version}.tar.gz
 BuildArch:      noarch
@@ -58,6 +61,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jun 01 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.45-18
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.45-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

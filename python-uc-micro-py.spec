@@ -23,6 +23,8 @@ Summary:        Micro subset of Unicode data files for linkify-it.py projects
 
 %prep
 %autosetup -n uc.micro-py-%{version}
+# Workaround for https://github.com/rpm-software-management/rpm/issues/2532:
+rm -rf SPECPARTS
 
 %generate_buildrequires
 %pyproject_buildrequires -x test

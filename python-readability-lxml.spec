@@ -4,7 +4,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.8.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Fast html to text parser (article readability tool)
 
 License:        Apache-2.0 
@@ -72,6 +72,9 @@ done
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.8.1-10
+- Rebuilt for Python 3.12
+
 * Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.8.1-9
 - migrated to SPDX license
 

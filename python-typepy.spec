@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.3.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python library for variable type checker/validator/converter at a run time
 
 License:        MIT
@@ -51,6 +51,9 @@ Python library for variable type checker/validator/converter at a run time.
 %doc README.rst
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.3.0-3
+- Rebuilt for Python 3.12
+
 * Thu Mar 02 2023 Karolina Kula <kkula@redhat.com> - 1.3.0-2
 - Add datetime subpackage
 * Thu Oct 13 2022 Karolina Kula <kkula@redhat.com> - 1.3.0-1

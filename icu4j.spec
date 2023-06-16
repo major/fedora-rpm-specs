@@ -2,7 +2,7 @@
 %global srctgz %(v=%{version}; echo "icu4j-$v" | sed 's/\\./_/')
 
 Name:           icu4j
-Version:        73.1
+Version:        73.2
 Release:        1%{?dist}
 Epoch:          1
 Summary:        International Components for Unicode for Java
@@ -117,6 +117,9 @@ install -m 644 icu4j-localespi.jar %{buildroot}%{_javadir}/icu4j/
 %license main/shared/licenses/*
 
 %changelog
+* Wed Jun 14 2023 Jerry James <loganjerry@gmail.com> - 1:73.2-1
+- Version 73.2
+
 * Wed Apr 26 2023 Jerry James <loganjerry@gmail.com> - 1:73.1-1
 - Version 73.1
 

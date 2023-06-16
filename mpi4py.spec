@@ -20,7 +20,7 @@
 
 Name:           mpi4py
 Version:        3.1.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python bindings of the Message Passing Interface (MPI)
 
 License:        BSD-2-Clause
@@ -229,6 +229,9 @@ mv build mpich
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 3.1.4-4
+- Rebuilt for Python 3.12
+
 * Sat Mar 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.1.4-3
 - migrated to SPDX license
 

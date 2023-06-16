@@ -1,5 +1,5 @@
 Name:           tang
-Version:        13
+Version:        14
 Release:        1%{?dist}
 Summary:        Network Presence Binding Daemon
 
@@ -99,6 +99,10 @@ fi
 %{_sysusersdir}/tang.conf
 
 %changelog
+* Wed Jun 14 2023 Sergio Arroutbi <sarroutb@redhat.com> - 14-1
+- New upstream release - v14
+  Resolves: rhbz#2180990
+
 * Fri Feb 10 2023 Sergio Arroutbi <sarroutb@redhat.com> - 13-1
 - New upstream release - v13
 

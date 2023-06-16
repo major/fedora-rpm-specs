@@ -1,6 +1,6 @@
 Name:           python-scripttester
 Version:        0.1
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Utility for testing command line scripts
 
 # The code is BSD-2-Clause.  Other licenses are due to files copied in by
@@ -81,6 +81,9 @@ rm -f doc/_build/html/.{buildinfo,nojekyll}
 %doc README.html doc/_build/html
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.1-18
+- Rebuilt for Python 3.12
+
 * Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 0.1-17
 - Dynamically generate BuildRequires
 

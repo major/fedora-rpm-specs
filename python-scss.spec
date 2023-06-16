@@ -9,7 +9,7 @@
 
 Name:           python-scss
 Version:        1.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Scss compiler for Python
 
 License:        MIT
@@ -71,6 +71,9 @@ cp -ar docs/_build/man/pyscss.1 %{buildroot}%{_mandir}/man1/pyscss.1
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.4.0-2
+- Rebuilt for Python 3.12
+
 * Mon Mar 06 2023 Alfredo Moralejo <amoralej@redhat.com> - 1.4.0-1
 - Update to 1.4.0
 

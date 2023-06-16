@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.1.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python access to Linux IO including I2C and SPI
 
 License:        MIT
@@ -65,6 +65,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.1.10-2
+- Rebuilt for Python 3.12
+
 * Sat Feb 18 2023 Fabian Affolter <mail@fabian-affolter.ch> - 1.1.10-1
 - Update to latest upstream release 1.1.10 (closes rhbz#2168356)
 

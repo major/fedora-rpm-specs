@@ -13,7 +13,7 @@
 
 Name:           python-dns
 Version:        2.3.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        DNS toolkit for Python
 
 # The entire package is licensed with both licenses, see LICENSE file
@@ -52,6 +52,10 @@ Summary:        %{summary}
 # strip exec permissions so that we don't pick up dependencies from docs
 find examples -type f | xargs chmod a-x
 
+# Allow newer cryptography and requests-toolbelt
+sed -i 's/cryptography = {version=">=2.6,<40.0"/cryptography = {version=">=2.6,<42.0"/' pyproject.toml
+sed -i 's/requests-toolbelt = {version=">=0.9.1,<0.11.0"/requests-toolbelt = {version=">=0.9.1,<=1.0.0"/' pyproject.toml
+
 %build
 %pyproject_wheel
 
@@ -86,6 +90,10 @@ export OPENSSL_ENABLE_SHA1_SIGNATURES=yes
 %endif
 
 %changelog
+* Wed Jun 14 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 2.3.0-4
+- Fix FTBFS by allowing newer versions of cryptography and requests-toolbelt
+- Fixes: rhbz#2214971
+
 * Wed Mar 8 2023 Rafael Jeffman <rjeffman@redhat.com> - 2.3.0-3
 - Migrated to SPDX license
 

@@ -67,7 +67,7 @@
 Summary: Liberty Alliance Single Sign On
 Name: lasso
 Version: 2.8.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+
 URL: https://lasso.entrouvert.org/
 Source: https://dev.entrouvert.org/lasso/lasso-%{version}.tar.gz
@@ -322,6 +322,9 @@ rm -fr %{buildroot}%{_defaultdocdir}/%{name}
 %endif
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.8.2-2
+- Rebuilt for Python 3.12
+
 * Thu Mar 30 2023 Xavier Bachelot <xavier@bachelot.org> - 2.8.2-1
 - Update to 2.8.2
 - Disable PHP bindings for PHP8, which is not supported yet

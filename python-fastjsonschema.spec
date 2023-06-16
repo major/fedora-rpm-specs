@@ -1,6 +1,6 @@
 Name:           python-fastjsonschema
 Version:        2.16.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fastest Python implementation of JSON schema
 
 License:        BSD-3-Clause
@@ -44,6 +44,9 @@ Summary:        %{summary}
 %doc README.rst
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.16.3-2
+- Rebuilt for Python 3.12
+
 * Mon Mar 20 2023 Jerry James <loganjerry@gmail.com> - 2.16.3-1
 - Version 2.16.3
 - Convert License tag to SPDX

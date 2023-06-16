@@ -1,6 +1,6 @@
 Name:           python-sphinx-reredirects
 Version:        0.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Handle redirects for moved pages in Sphinx documentation
 
 License:        BSD-3-Clause
@@ -83,6 +83,9 @@ rst2html --no-datestamp README.rst README.html
 %license LICENSE
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.1.2-2
+- Rebuilt for Python 3.12
+
 * Thu May 18 2023 Jerry James <loganjerry@gmail.com> - 0.1.2-1
 - Version 0.1.2
 

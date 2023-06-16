@@ -1,11 +1,11 @@
 Name:           gnome-video-effects
-Version:        0.5.0
-Release:        9%{?dist}
+Version:        0.6.0
+Release:        1%{?dist}
 Summary:        Collection of GStreamer video effects
 
 License:        GPLv2
 URL:            https://wiki.gnome.org/Projects/GnomeVideoEffects
-Source0:        http://ftp.gnome.org/pub/GNOME/sources/%{name}/0.5/%{name}-%{version}.tar.xz
+Source0:        http://ftp.gnome.org/pub/GNOME/sources/%{name}/0.6/%{name}-%{version}.tar.xz
 Buildarch:      noarch
 
 BuildRequires:  gettext
@@ -40,6 +40,9 @@ A collection of GStreamer effects to be used in different GNOME Modules.
 
 
 %changelog
+* Wed Jun 14 2023 Kalev Lember <klember@redhat.com> - 0.6.0-1
+- Update to 0.6.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

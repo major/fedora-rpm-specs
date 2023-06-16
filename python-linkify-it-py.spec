@@ -3,7 +3,7 @@
 
 Name:           python-linkify-it-py
 Version:        2.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Link recognition library with full Unicode support
 
 License:        MIT
@@ -50,6 +50,9 @@ Summary:        Link recognition library with full Unicode support
 %doc CHANGELOG.md README.md
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.0.2-2
+- Rebuilt for Python 3.12
+
 * Tue May  2 2023 Jerry James <loganjerry@gmail.com> - 2.0.2-1
 - Version 2.0.2
 

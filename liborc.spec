@@ -1,6 +1,6 @@
 Summary: Library for producing small, fast columnar storage for Hadoop workloads
 Name:    liborc
-Version: 1.8.3
+Version: 1.8.4
 Release: 1%{?dist}
 License: Apache-2.0
 URL:     http://orc.apache.org/
@@ -74,7 +74,7 @@ library.
 
 %prep
 %setup -qn orc-%{version}
-%patch1 -p1
+%patch 0001 -p1
 
 %build
 
@@ -128,6 +128,9 @@ mv %{buildroot}%{_docdir}/orc/LICENSE %{buildroot}/%{_defaultlicensedir}/%{name}
      %{_libdir}/cmake/orc/orc*.cmake
 
 %changelog
+* Wed Jun 14 2023  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 1.8.4-1
+- 1.8.4 GA
+
 * Thu Mar 16 2023  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 1.8.3-1
 - 1.8.3 GA
 

@@ -1,8 +1,8 @@
 Name:           perl-Crypt-OpenSSL-Bignum
 Version:        0.09
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Perl interface to OpenSSL for Bignum
-License:        GPL+ or Artistic 
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-OpenSSL-Bignum
 Source0:        https://cpan.metacpan.org/authors/id/K/KM/KMX/Crypt-OpenSSL-Bignum-%{version}.tar.gz
 BuildRequires:  coreutils
@@ -18,7 +18,7 @@ BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Config)
 BuildRequires:  perl(DynaLoader)
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(vars)
@@ -37,16 +37,12 @@ OpenSSL modules, such as key parameters from Crypt::OpenSSL::RSA.
 chmod a-x LICENSE README Changes
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-%make_build
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-
-find %{buildroot} -type f -name .packlist -delete
-find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null \;
+%{make_install}
 find %{buildroot} -type f -name '*.bs' -size 0 -delete
-
 %{_fixperms} %{buildroot}/*
 
 %check
@@ -55,11 +51,14 @@ make test
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorarch}/auto/*
+%{perl_vendorarch}/auto/Crypt*
 %{perl_vendorarch}/Crypt/
-%{_mandir}/man3/*
+%{_mandir}/man3/Crypt::OpenSSL::Bignum*
 
 %changelog
+* Wed Jun 07 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.09-21
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

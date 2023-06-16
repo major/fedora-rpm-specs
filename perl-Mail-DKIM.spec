@@ -1,8 +1,8 @@
 Name:           perl-Mail-DKIM
 Version:        1.20230212
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Sign and verify Internet mail with DKIM/DomainKey signatures
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            http://dkimproxy.sourceforge.net/
 Source0:        https://cpan.metacpan.org/authors/id/M/MB/MBRADSHAW/Mail-DKIM-%{version}.tar.gz
 BuildArch:      noarch
@@ -65,6 +65,9 @@ chmod -x scripts/*.pl
 %{_mandir}/man3/*.3*
 
 %changelog
+* Wed Jun 07 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.20230212-2
+- Update license to SPDX format
+
 * Sun Feb 19 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 1.20230212-1
 - Update to 1.20230212
 

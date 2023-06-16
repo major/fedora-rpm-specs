@@ -1,6 +1,6 @@
 Name:           python-pytest-datadir
 Version:        1.4.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Pytest plugin for test data directories and files
 License:        MIT
 URL:            https://github.com/gabrielcnr/pytest-datadir
@@ -49,6 +49,9 @@ rst2html --no-datestamp CHANGELOG.rst CHANGELOG.html
 %doc AUTHORS CHANGELOG.html README.md
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.4.1-3
+- Rebuilt for Python 3.12
+
 * Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 1.4.1-2
 - Dynamically generate BuildRequires
 

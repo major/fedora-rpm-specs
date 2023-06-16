@@ -66,7 +66,7 @@ It supports RPMs, modules and comps groups & environments.
 
 Name:           dnf
 Version:        4.16.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        %{pkg_summary}
 # For a breakdown of the licensing, see PACKAGE-LICENSING
 License:        GPL-2.0-or-later AND GPL-1.0-only
@@ -377,6 +377,9 @@ popd
 %{python3_sitelib}/%{name}/automatic/
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 4.16.1-3
+- Rebuilt for Python 3.12
+
 * Tue Jun 06 2023 Jan Kolarik <jkolarik@redhat.com> - 4.16.1-2
 - dnf-data: depend on /etc/dnf/dnf.conf, not libdnf5
 

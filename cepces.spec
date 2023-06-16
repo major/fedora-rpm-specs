@@ -5,7 +5,7 @@
 
 Name:           cepces
 Version:        0.3.5
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Certificate Enrollment through CEP/CES
 
 License:        GPL-3.0-or-later
@@ -190,6 +190,9 @@ fi
 %files selinux -f selinux-files.txt
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.3.5-8
+- Rebuilt for Python 3.12
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.5-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

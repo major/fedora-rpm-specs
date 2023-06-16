@@ -1,8 +1,8 @@
 Name:           perl-Crypt-OpenSSL-Random
 Version:        0.15
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        OpenSSL/LibreSSL pseudo-random number generator access
-License:        GPL+ or Artistic 
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-OpenSSL-Random
 Source0:        https://cpan.metacpan.org/authors/id/R/RU/RURBAN/Crypt-OpenSSL-Random-%{version}.tar.gz
 BuildRequires:  gcc
@@ -17,7 +17,7 @@ BuildRequires:  perl-interpreter
 BuildRequires:  perl(Config)
 BuildRequires:  perl(Crypt::OpenSSL::Guess) >= 0.11
 BuildRequires:  perl(Exporter)
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(vars)
@@ -34,17 +34,14 @@ and LibreSSL library's pseudo-random number generators.
 %setup -q -n Crypt-OpenSSL-Random-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-%make_build
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-rm -rf %{buildroot}
+%{make_install}
 
-make pure_install DESTDIR=%{buildroot}
+find %{buildroot} -type f -name '*.bs' -empty -delete
 
-find %{buildroot} -type f \( -name .packlist -o \
-        -name '*.bs' -empty \) -exec rm -f {} \;
-find %{buildroot} -depth -type d -empty -exec rmdir {} \;
 %{_fixperms} %{buildroot}/*
 
 %check
@@ -54,11 +51,15 @@ make test
 %{!?_licensedir:%global license %%doc}
 %license LICENSE
 %doc Changes
-%{perl_vendorarch}/auto/*
+%{perl_vendorarch}/auto/Crypt/*
 %{perl_vendorarch}/Crypt/
-%{_mandir}/man3/*
+%{_mandir}/man3/Crypt::OpenSSL::Random*
 
 %changelog
+* Wed Jun 07 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.15-19
+- Update license to SPDX format
+- Modernize spec
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

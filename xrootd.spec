@@ -14,7 +14,7 @@
 Name:		xrootd
 Epoch:		1
 Version:	5.5.5
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Extended ROOT file server
 License:	LGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND curl AND MIT AND Zlib
 URL:		https://xrootd.slac.stanford.edu/
@@ -690,6 +690,9 @@ fi
 %doc %{_pkgdocdir}
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1:5.5.5-3
+- Rebuilt for Python 3.12
+
 * Sun May 21 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.5.5-2
 - Fix build failure with latest glibc
 

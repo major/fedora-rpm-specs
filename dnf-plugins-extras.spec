@@ -5,7 +5,7 @@
 
 Name:           dnf-plugins-extras
 Version:        4.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Extras Plugins for DNF
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/%{name}
@@ -178,6 +178,9 @@ $releasever and $basearch.
 %{_mandir}/man8/dnf-showvars.*
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 4.1.0-2
+- Rebuilt for Python 3.12
+
 * Wed Apr 05 2023 Jan Kolarik <jkolarik@redhat.com> - 4.1.0-1
 - Update to 4.1.0
 - Move system-upgrade plugin to core (RhBug:2054235)

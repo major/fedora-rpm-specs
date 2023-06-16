@@ -1,18 +1,27 @@
 Name: perl-Encode-Detect
 Version: 1.01
-Release: 41%{?dist}
+Release: 42%{?dist}
 Summary: Encode::Encoding subclass that detects the encoding of data
 
-License: MPLv1.1 or GPLv2+ or LGPLv2+
+License: MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.0-or-later
 URL: https://metacpan.org/release/Encode-Detect
 Source0: https://cpan.metacpan.org/authors/id/J/JG/JGMYERS/Encode-Detect-%{version}.tar.gz
 
+BuildRequires: coreutils
 BuildRequires: perl-devel
 BuildRequires: perl-generators
+BuildRequires: perl-interpreter
 BuildRequires: perl(ExtUtils::CBuilder)
 BuildRequires: perl(Module::Build)
+# Run-time
+BuildRequires: perl(base)
+BuildRequires: perl(DynaLoader)
+BuildRequires: perl(Encode)
+BuildRequires: perl(Encode::Encoding)
+BuildRequires: perl(strict)
+BuildRequires: perl(warnings)
+# Tests
 BuildRequires: perl(Test::More)
-Requires: perl(Encode::Encoding)
 
 %description
 This Perl module is an Encode::Encoding subclass that uses
@@ -21,13 +30,6 @@ decodes it using the encoder of the detected charset.
 
 %prep
 %setup -q -n Encode-Detect-%{version}
-cat <<EOF >%{name}-req
-#!/bin/sh
-%{__perl_requires} $* |\
-  sed -e '/perl(base)/d'
-EOF
-%define __perl_requires %{_builddir}/Encode-Detect-%{version}/%{name}-req
-%{__chmod} +x %{__perl_requires}
 
 %build
 %{__perl} Build.PL installdirs=vendor optimize="${RPM_OPT_FLAGS}"
@@ -38,8 +40,7 @@ EOF
 
 %install
 ./Build install destdir="${RPM_BUILD_ROOT}" create_packlist=0
-find "${RPM_BUILD_ROOT}" -type f -name "*.bs" -size 0 -exec %{__rm} -f {} \;
-find "${RPM_BUILD_ROOT}" -depth -type d -exec rmdir {} 2>/dev/null \;
+find "${RPM_BUILD_ROOT}" -type f -name "*.bs" -empty -delete
 %{_fixperms} "${RPM_BUILD_ROOT}"/*
 
 %files
@@ -50,6 +51,10 @@ find "${RPM_BUILD_ROOT}" -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/Encode::Detect::Detector.3*
 
 %changelog
+* Wed Jun 07 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.01-42
+- Update license to SPDX format
+- Modernize spec
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

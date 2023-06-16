@@ -9,7 +9,7 @@ Version:        87
 %global         pkgdir %{_prefix}/lib/%{pypi_name}
 
 Name:           %{pypi_name}
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        Apache-2.0
 
 URL:            %{forgeurl}
@@ -252,6 +252,9 @@ fi
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 87-2
+- Rebuilt for Python 3.12
+
 * Wed Jun 07 2023 Packit <hello@packit.dev> - 87-1
 Changes with 87
 ----------------

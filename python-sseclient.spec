@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.0.27
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python library for iterating over HTTP Server Sent Events (SSE)
 
 License:        MIT
@@ -57,6 +57,9 @@ pytest-%{python3_version} -v
 %{python3_sitelib}/__pycache__/sseclient*
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.0.27-9
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.27-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

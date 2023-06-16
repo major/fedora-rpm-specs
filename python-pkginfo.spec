@@ -10,7 +10,7 @@ checkout" (e.g, created by running setup.py develop).}
 Name:           python-%{pypi_name}
 Summary:        Query metadata from sdists / bdists / installed packages
 Version:        1.9.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        MIT
 
 URL:            https://pypi.python.org/pypi/%{pypi_name}
@@ -84,6 +84,9 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.9.6-2
+- Rebuilt for Python 3.12
+
 * Wed Jan 25 2023 Fabian Affolter <mail@fabian-affolter.ch> - 1.9.6-4
 - Update to latest upstream release 1.9.6 (closes rhbz#2157943)
 

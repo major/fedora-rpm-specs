@@ -2,7 +2,7 @@
 
 Name:           fcitx-qt5
 Version:        1.2.6
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Fcitx IM module for Qt5
 
 # The entire source code is GPLv2+ except
@@ -66,6 +66,9 @@ developing programs using fcitx-qt5 libraries.
 
 
 %changelog
+* Wed Jun 14 2023 Jan Grulich <jgrulich@redhat.com> - 1.2.6-14
+- Rebuild (qt5)
+
 * Wed Apr 12 2023 Jan Grulich <jgrulich@redhat.com> - 1.2.6-13
 - Rebuild (qt5)
 

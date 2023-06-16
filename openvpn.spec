@@ -26,7 +26,7 @@
 %bcond_without tests_long
 
 Name:              openvpn
-Version:           2.6.3
+Version:           2.6.5
 Release:           1%{?dist}
 Summary:           A full-featured TLS VPN solution (beta release)
 URL:               https://community.openvpn.net/
@@ -250,6 +250,9 @@ getent passwd openvpn &>/dev/null || \
 
 
 %changelog
+* Wed Jun 14 2023 David Sommerseth <davids@openvpn.net> - 2.6.5-1
+- Update to upstream OpenVPN 2.6.5
+
 * Fri Apr 21 2023 David Sommerseth <davids@openvpn.net> - 2.6.3-1
 - Update to upstream OpenVPN 2.6.3
 - Remove BF-CBC from the --data-ciphers list in openvpn-server@.service

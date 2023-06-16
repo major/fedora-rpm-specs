@@ -9,7 +9,7 @@
 
 Name:       python-%{gh_name}
 Version:    2.0.0
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    Allows for HTTPS CredSSP authentication using the requests library
 
 License:    MIT
@@ -73,6 +73,9 @@ rm -rf %{gh_name}.egg-info
 %{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.0.0-4
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

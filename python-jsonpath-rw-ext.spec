@@ -4,7 +4,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.2.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Extensions for JSONPath RW
 
 License:        ASL 2.0
@@ -62,6 +62,9 @@ rm -rf html/.{doctrees,buildinfo}
 %doc html 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.2.2-9
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

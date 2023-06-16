@@ -14,7 +14,7 @@ This implementation will:
 
 Name:           python-%{pypi_name}
 Version:        0.6.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Python rdflib extension adding JSON-LD parser and serializer
 
 License:        BSD
@@ -81,6 +81,9 @@ PYTHONPATH=. pytest-%{python3_version}
 %doc html
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.6.0-8
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{modname}
 Version:        0.3.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Python bindings for util-linux libsmartcols-library
 
 License:        GPL-3.0-or-later
@@ -74,6 +74,9 @@ rm -f doc/_build/html/.buildinfo
 %doc examples doc/_build/html
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.3.0-20
+- Rebuilt for Python 3.12
+
 * Sun May 07 2023 Maxwell G <maxwell@gtmx.me> - 0.3.0-19
 - Remove buildtime dependency on deprecated pytest-runner
 

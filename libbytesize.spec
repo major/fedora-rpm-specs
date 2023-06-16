@@ -17,7 +17,7 @@
 
 Name:        libbytesize
 Version:     2.8
-Release:     21%{?dist}
+Release:     22%{?dist}
 Summary:     A library for working with sizes in bytes
 License:     LGPL-2.1-or-later
 URL:         https://github.com/storaged-project/libbytesize
@@ -115,6 +115,9 @@ find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 %endif
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.8-22
+- Rebuilt for Python 3.12
+
 * Fri Mar 24 2023 Vojtech Trefny <vtrefny@redhat.com> - 2.8-21
 - New version - 2.8 (Vojtech Trefny)
 - ci: Do not use release descriptions for Packit builds (Vojtech Trefny)

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.3.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Coveralls.io provides seamless integration with coverage.py
 
 LICENSE:        MIT
@@ -66,6 +66,9 @@ cp %{buildroot}%{_bindir}/coveralls %{buildroot}%{_bindir}/coveralls-py3
 %doc docs/*
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 3.3.1-6
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,3 +1,4 @@
+%global _with_bootstrap 1
 %global prerel beta1
 
 # The documentation and tests need furo.  But to build furo at all, we need
@@ -6,7 +7,7 @@
 
 Name:           python-sphinx-basic-ng
 Version:        1.0.0
-Release:        0.2.%{prerel}%{?dist}
+Release:        0.3.%{prerel}%{?dist}
 Summary:        Modernized skeleton for Sphinx themes
 
 License:        MIT
@@ -110,6 +111,9 @@ rm -rf html/{.buildinfo,.doctrees}
 %endif
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.0.0-0.3.beta1
+- Bootstrap for Python 3.12
+
 * Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 1.0.0-0.2.beta1%{?dist}
 - Dynamically generate BuildRequires
 

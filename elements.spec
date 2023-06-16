@@ -1,7 +1,7 @@
 Summary:        A C++/Python build framework
 Name:           elements
 Version:        6.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        LGPLv3+
 Source0:        https://github.com/astrorama/Elements/archive/%{version}/%{name}-%{version}.tar.gz
 # Elements use this file to link the documentation to cppreference.com
@@ -173,6 +173,9 @@ export ELEMENTS_CONF_PATH="%{_builddir}/ElementsKernel/auxdir/"
 %{docdir}
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 6.1.2-2
+- Rebuilt for Python 3.12
+
 * Tue Mar 14 2023 Alejandro Alvarez Ayllon <a.alvarezayllon@gmail.com> - 6.1.2-1
 - Elements 6.1.2
 

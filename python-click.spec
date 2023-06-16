@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        8.1.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Simple wrapper around optparse for powerful command line utilities
 
 License:        BSD
@@ -54,6 +54,9 @@ sed -i 's|requirements/tests.txt|requirements/tests.in|' tox.ini
 %doc README.rst CHANGES.rst
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 8.1.3-4
+- Rebuilt for Python 3.12
+
 * Wed Apr 12 2023 Miro Hrončok <mhroncok@redhat.com> - 8.1.3-3
 - Fix test failures with pytest 7.3.0
 

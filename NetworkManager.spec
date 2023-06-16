@@ -4,7 +4,7 @@
 %global glib2_version %(pkg-config --modversion glib-2.0 2>/dev/null || echo bad)
 
 %global epoch_version 1
-%global real_version 1.43.8
+%global real_version 1.43.10
 %global rpm_version %{real_version}
 %global release_version 1
 %global snapshot %{nil}
@@ -585,8 +585,8 @@ Requires: %{name}-libnm%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description cloud-setup
 Installs a nm-cloud-setup tool that can automatically configure
-NetworkManager in cloud setups. Currently only EC2 is supported.
-This tool is still experimental.
+NetworkManager in cloud environment. Only certain cloud providers
+like Aliyun, Azure, EC2, GCP are supported.
 %endif
 
 
@@ -1233,6 +1233,7 @@ fi
 %{_unitdir}/nm-cloud-setup.timer
 %{nmlibdir}/dispatcher.d/90-nm-cloud-setup.sh
 %{nmlibdir}/dispatcher.d/no-wait.d/90-nm-cloud-setup.sh
+%{nmlibdir}/dispatcher.d/pre-up.d/90-nm-cloud-setup.sh
 %{_mandir}/man8/nm-cloud-setup.8*
 %endif
 
@@ -1245,6 +1246,9 @@ fi
 
 
 %changelog
+* Wed Jun 14 2023 Thomas Haller <thaller@redhat.com> - 1:1.43.10-1
+- Update to 1.43.10 release (development)
+
 * Wed May 17 2023 Beniamino Galvani <bgalvani@redhat.com> - 1:1.43.8-1
 - Update to 1.43.8 release (development)
 

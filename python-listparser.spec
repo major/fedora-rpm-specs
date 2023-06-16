@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.18
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Parse OPML, FOAF, and iGoogle subscription lists
 
 License:        LGPL-3.0-or-later
@@ -70,6 +70,9 @@ rm -rf html/.{doctrees,buildinfo}
 %doc html
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.18-18
+- Rebuilt for Python 3.12
+
 * Sat Mar 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.18-17
 - migrated to SPDX license
 

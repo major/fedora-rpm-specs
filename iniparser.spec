@@ -3,12 +3,14 @@
 
 Name:		iniparser
 Version:	4.1
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	C library for parsing "INI-style" files
 
 License:	MIT
 URL:		https://github.com/ndevilla/%{name}
 Source0:	https://github.com/ndevilla/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+
+Patch0:	iniparser-4.1-CVE-2023-33461.patch
 
 BuildRequires:	gcc
 BuildRequires: make
@@ -28,6 +30,7 @@ you will need to install %{name}-devel.
 
 %prep
 %setup -q
+%patch -P 0 -p1
 
 %build
 # remove library rpath from Makefile
@@ -70,6 +73,9 @@ make check
 %{_includedir}/*.h
 
 %changelog
+* Wed Jun 14 2023 David Cantrell <dcantrell@redhat.com> - 4.1-12
+- Fix for CVE-2023-33461 (BZ#2211622)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

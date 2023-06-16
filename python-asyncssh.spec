@@ -6,7 +6,7 @@ SFTP, SCP, forwarding, session multiplexing over a connection and more.
 
 Name:           python-%{srcname}
 Version:        2.13.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Asynchronous SSH for Python
 
 License:        EPL-2.0 or GPLv2+
@@ -82,6 +82,9 @@ sed -i '1,1s@^#!.*$@#!%{__python3}@' examples/*.py
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.13.1-2
+- Rebuilt for Python 3.12
+
 * Sun Mar 26 2023 Georg Sauthoff <mail@gms.tf> - 2.13.1-1
 - Update to latest upstream version (fixes fedora#2156599)
 

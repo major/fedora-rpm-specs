@@ -1,6 +1,6 @@
 Name:           mrack
 Version:        1.15.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Multicloud use-case based multihost async provisioner
 
 License:        Apache-2.0
@@ -182,6 +182,9 @@ rm -r src/%{name}.egg-info
 %{python3_sitelib}/%{name}/providers/utils/{,__pycache__/}testcloud.*
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.15.1-2
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Tibor Dudlák <tdudlak@redhat.com> - 1.15.1-1
 - 608c763 chore(Packit): Use yaml magic to run same internal tests for PRs and commits to main (Tibor Dudlák)
 - 8062a20 refactor: more verbose output when (re)provisioning (Tibor Dudlák)

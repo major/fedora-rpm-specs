@@ -4,7 +4,7 @@
 
 Name:             python-%{srcname}
 Version:          1.10.1
-Release:          8%{?dist}
+Release:          9%{?dist}
 Summary:          %{sum}
 
 License:          BSD
@@ -61,6 +61,9 @@ rm -rf %{modname}.egg-info
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.10.1-9
+- Rebuilt for Python 3.12
+
 * Wed Mar 01 2023 Miro Hrončok <mhroncok@redhat.com> - 1.10.1-8
 - BuildRequire setuptools explicitly, not just transitively
 

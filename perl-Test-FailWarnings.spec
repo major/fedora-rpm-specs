@@ -1,8 +1,8 @@
 Name:           perl-Test-FailWarnings
 Version:        0.008
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Add test failures if warnings are caught
-License:        ASL 2.0 
+License:        Apache-2.0
 
 URL:            https://metacpan.org/release/Test-FailWarnings
 Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/Test-FailWarnings-%{version}.tar.gz
@@ -57,6 +57,9 @@ need to know the test count in advance.
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jun 01 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.008-30
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.008-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

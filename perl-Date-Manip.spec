@@ -1,5 +1,5 @@
 Name:           perl-Date-Manip
-Version:        6.91
+Version:        6.92
 Release:        1%{?dist}
 Summary:        Date manipulation routines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -80,6 +80,9 @@ make test
 %{_bindir}/dm_*
 
 %changelog
+* Wed Jun 14 2023 Jan Pazdziora <jpazdziora@redhat.com> - 6.92-1
+- 2213282 - Rebase to upstream version 6.92.
+
 * Wed Mar 08 2023 Jan Pazdziora <jpazdziora@redhat.com> - 6.91-1
 - 2174484 - Rebase to upstream version 6.91.
 

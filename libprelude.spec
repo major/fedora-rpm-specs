@@ -7,7 +7,7 @@
 
 Name:           libprelude
 Version:        5.2.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Secure Connections between all Sensors and the Prelude Manager
 License:        LGPL-2.1-or-later
 URL:            https://www.prelude-siem.org/
@@ -241,6 +241,9 @@ patch -d %{buildroot}%{_includedir}/libprelude/ -p0 < %SOURCE1
 %doc AUTHORS ChangeLog README NEWS
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 5.2.0-19
+- Rebuilt for Python 3.12
+
 * Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 5.2.0-18
 - migrated to SPDX license
 

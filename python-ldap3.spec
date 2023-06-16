@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.9.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Strictly RFC 4511 conforming LDAP V3 pure Python client
 
 License:        LGPLv2+
@@ -46,6 +46,9 @@ rm -vf %{pypi_name}/utils/ordDict.py
 %doc README.rst
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.9.1-3
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

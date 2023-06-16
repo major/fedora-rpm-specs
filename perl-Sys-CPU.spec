@@ -1,12 +1,12 @@
 Name:           perl-Sys-CPU
 Version:        0.61
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Getting CPU information
 
-# Some code was copied from Unix::Processors, which is LGPLv3 or Artistic 2.0
-# The rest of the code is under the standard Perl license (GPL+ or Artistic).
+# Some code was copied from Unix::Processors, which is LGPL-3.0-only OR Artistic-2.0
+# The rest of the code is under the standard Perl license (GPL-1.0-or-later OR Artistic-1.0-Perl).
 # See <https://bugzilla.redhat.com/show_bug.cgi?id=585336>.
-License:        (GPL+ or Artistic) and (LGPLv3 or Artistic 2.0)
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND (LGPL-3.0-only OR Artistic-2.0)
 URL:            https://metacpan.org/release/Sys-CPU
 Source0:        https://cpan.metacpan.org/authors/id/M/MZ/MZSANFORD/Sys-CPU-%{version}.tar.gz
 # Support cpu_type on ARM and AArch64, bug #1093266, CPAN RT#95400
@@ -33,8 +33,8 @@ Currently only number of CPU's supported.
 
 %prep
 %setup -q -n Sys-CPU-%{version}
-%patch0 -p1
-%patch1 -p1
+%patch -P 0 -p1
+%patch -P 1 -p1
 sed -i 's/\r//' Changes README
 
 %build
@@ -58,6 +58,10 @@ find %{buildroot} -type f -name CPU.bs -exec rm -f {} ';'
 
 
 %changelog
+* Thu Jun 01 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.61-31
+- Fix %patch macro
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.61-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

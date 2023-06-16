@@ -1,6 +1,6 @@
 Name:           python-netaddr
 Version:        0.8.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A pure Python network address representation and manipulation library
 
 License:        BSD-3-Clause
@@ -96,6 +96,9 @@ py.test-%{python3_version}
 %{_bindir}/netaddr
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.8.0-13
+- Rebuilt for Python 3.12
+
 * Thu Feb 23 2023 Orion Poplawski <orion@nwra.com> - 0.8.0-12
 - Cleanup spec
 - Use SPDX License tag

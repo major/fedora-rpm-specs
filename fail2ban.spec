@@ -1,6 +1,6 @@
 Name: fail2ban
 Version: 1.0.2
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Daemon to ban hosts that cause multiple authentication errors
 
 License: GPLv2+
@@ -422,6 +422,9 @@ fi
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.0.2-6
+- Rebuilt for Python 3.12
+
 * Tue Apr 04 2023 Orion Poplawski <orion@nwra.com> - 1.0.2-5
 - Drop downstream python3.11 patch, upstream went with a different fix
 

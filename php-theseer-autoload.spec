@@ -10,7 +10,7 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    39eb04ee16634af2110c646a224c81b1f04bcf1f
+%global gh_commit    177e95d09f546f4dd44666e60ecdd868d0c24904
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     theseer
 %global gh_project   Autoload
@@ -25,7 +25,7 @@
 %endif
 
 Name:           php-theseer-autoload
-Version:        1.27.2
+Version:        1.28.0
 Release:        1%{?dist}
 Summary:        A tool and library to generate autoload code
 
@@ -37,7 +37,7 @@ Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit
 Patch0:         %{gh_project}-rpm.patch
 
 BuildArch:      noarch
-BuildRequires:  php(language) >= 7.2
+BuildRequires:  php(language) >= 7.4
 BuildRequires:  php-cli
 BuildRequires:  php-date
 BuildRequires:  php-json
@@ -91,7 +91,7 @@ the option of creating static require lists as well as phar archives.
 %prep
 %setup -q -n %{gh_project}-%{gh_commit}
 
-%patch0 -p0 -b .rpm
+%patch -P0 -p0 -b .rpm
 
 : drop composer dependencies
 sed -e '\:../vendor/:d'    -i src/autoload.php
@@ -133,7 +133,7 @@ require '%{buildroot}%{_datadir}/php/TheSeer/Autoload/autoload.php';
 EOF
 
 ret=0
-for cmd in "php %{phpunit}" php80 php81 php82; do
+for cmd in "php %{phpunit}" php80 php81 php82 php83; do
   if which $cmd; then
     set $cmd
     $1 ${2:-%{_bindir}/phpunit9} --verbose || ret=1
@@ -159,6 +159,9 @@ fi
 
 
 %changelog
+* Wed Jun 14 2023 Remi Collet <remi@remirepo.net> - 1.28.0-1
+- update to 1.28.0
+
 * Fri Feb 17 2023 Remi Collet <remi@remirepo.net> - 1.27.2-1
 - update to 1.27.2
 

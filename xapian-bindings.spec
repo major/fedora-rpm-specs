@@ -3,7 +3,7 @@
 
 Name:          xapian-bindings
 Version:       1.4.22
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Bindings for the Xapian Probabilistic Information Retrieval Library
 
 License:       GPLv2+
@@ -104,6 +104,9 @@ rm -rf %{buildroot}%{_datadir}/doc/%{name}
 %{_libdir}/tcl%{tcl_version}/xapian%{version}/
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.4.22-2
+- Rebuilt for Python 3.12
+
 * Thu May 18 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 1.4.22-1
 - Update to 1.4.22
 

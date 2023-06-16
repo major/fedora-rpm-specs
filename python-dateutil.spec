@@ -1,8 +1,9 @@
+%global _without_tests 1
 %global modname dateutil
 
 Name:           python-%{modname}
 Version:        2.8.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Epoch:          1
 Summary:        Powerful extensions to the standard datetime module
 
@@ -94,6 +95,9 @@ make -C docs html
 %doc docs/_build/html
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1:2.8.2-7
+- Bootstrap for Python 3.12
+
 * Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 1:2.8.2-6
 - migrated to SPDX license
 

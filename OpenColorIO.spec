@@ -12,6 +12,8 @@ License:        BSD
 URL:            http://opencolorio.org/
 Source0:        https://github.com/AcademySoftwareFoundation/OpenColorIO/archive/v%{version}/%{name}-%{version}.tar.gz
 
+Patch0:         94da59daeb4647faa9b134665ad156f37cfa021d.patch
+
 # OIIO is only built for these arches due to Libraw
 %if 0%{?rhel} >= 8 && 0%{?rhel} < 9
 ExclusiveArch:  x86_64 ppc64le

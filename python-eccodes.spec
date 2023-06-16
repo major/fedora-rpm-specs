@@ -1,6 +1,6 @@
 Name:           python-eccodes
 Version:        1.5.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python interface to the ecCodes GRIB and BUFR decoder/encoder
 License:        Apache-2.0
 # note: upstream has changed the name on pypi from eccodes-python to eccodes
@@ -101,6 +101,9 @@ rm build/sphinx/html/.buildinfo
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.5.2-2
+- Rebuilt for Python 3.12
+
 * Sat May 20 2023 Jos de Kloe <josdekloe@gmail.com> 1.5.2-1
 - new upstream release 1.5.2
 

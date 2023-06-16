@@ -2,7 +2,7 @@
 
 Name:		python-%{module}
 Version:	0.1.30
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	ASL 2.0
 Summary:	TKRZW Python bindings
 URL:		https://dbmx.net/tkrzw/
@@ -78,6 +78,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.1.30-2
+- Rebuilt for Python 3.12
+
 * Thu Apr 06 2023 TI_Eugene <ti.eugene@gmail.com> - 0.1.30-1
 - Version bump
 

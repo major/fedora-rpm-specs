@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Utilities for ROS package, stack, and distribution information
 
 License:        BSD
@@ -103,6 +103,9 @@ export LANG=en_US.UTF-8
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.5.0-2
+- Rebuilt for Python 3.12
+
 * Tue May 09 2023 Scott K Logan <logans@cottsay.net> - 1.5.0-1
 - Update to 1.5.0 (rhbz#2180332)
 

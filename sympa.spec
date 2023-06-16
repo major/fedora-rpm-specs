@@ -83,7 +83,7 @@
 
 Name:        sympa
 Version:     6.2.72
-Release:     %{?pre_rel:0.}2%{?pre_rel:.%pre_rel}%{?dist}
+Release:     %{?pre_rel:0.}3%{?pre_rel:.%pre_rel}%{?dist}
 Summary:     Powerful multilingual List Manager
 Summary(fr): Gestionnaire de listes électroniques
 Summary(ja): 高機能で多言語対応のメーリングリスト管理ソフトウェア
@@ -105,6 +105,10 @@ Source130:   sympa-sysconfig
 
 # RPM specific customization of site defaults
 Patch13:     sympa-6.2.57b.1-confdef.patch
+
+# Workaround for https://github.com/sympa-community/sympa/issues/1685
+# https://github.com/sympa-community/sympa/commit/8e4d671.patch
+Patch14:     sympa-6.2.72-DKIM_workaround_for_EL7.patch
 
 BuildRequires: gcc, make
 BuildRequires: gettext
@@ -138,6 +142,7 @@ BuildRequires: perl(DBD::SQLite)
 BuildRequires: perl(DBI)
 BuildRequires: perl(Digest::MD5)
 BuildRequires: perl(Encode)
+BuildRequires: perl(Encode::Guess)
 BuildRequires: perl(Encode::MIME::Header)
 BuildRequires: perl(English)
 BuildRequires: perl(FCGI)
@@ -171,12 +176,14 @@ BuildRequires: perl(MIME::Base64)
 BuildRequires: perl(MIME::Charset)
 BuildRequires: perl(MIME::EncWords)
 BuildRequires: perl(MIME::Entity)
+BuildRequires: perl(MIME::Field::ParamVal)
 BuildRequires: perl(MIME::Head)
 BuildRequires: perl(MIME::Lite::HTML)
 BuildRequires: perl(MIME::Parser)
 BuildRequires: perl(MIME::Tools)
 BuildRequires: perl(Net::CIDR)
 BuildRequires: perl(Net::LDAP)
+BuildRequires: perl(parent)
 BuildRequires: perl(Pod::Usage)
 BuildRequires: perl(POSIX)
 BuildRequires: perl(Scalar::Util)
@@ -224,6 +231,7 @@ Requires:    perl(FCGI)
 %if 0%{?el7}
 Requires:    perl(HTML::FormatText)
 Requires:    perl(HTML::StripScripts::Parser)
+Requires:    perl(Mail::AuthenticationResults)
 %endif
 
 # Optional CPAN packages
@@ -419,6 +427,7 @@ Sympa documentation for developers.
 %prep
 %setup -q -n %{name}-%{version}%{?pre_rel}
 %patch -P13 -p0 -b .confdef
+%{?el7:%patch -P14 -p1 -b .dkim_el7}
 
 
 %build
@@ -861,7 +870,11 @@ fi
 
 
 %changelog
-* Thu Jun 01 2023 Xavier Bachelot <xavier@bachelot.org> 6.2.72-1
+* Wed Jun 14 2023 Xavier Bachelot <xavier@bachelot.org> 6.2.72-3
+- Workaround DKIM issues on EL7
+- Add missing BuildRequires:
+
+* Thu Jun 01 2023 Xavier Bachelot <xavier@bachelot.org> 6.2.72-2
 - Update to 6.2.72 (fixes CVE-2021-4243)
 - Convert License: to SPDX
 

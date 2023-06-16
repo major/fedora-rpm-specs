@@ -1,6 +1,6 @@
 Name:           wfuzz
 Version:        3.1.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Web fuzzer
 
 License:        GPLv2
@@ -60,6 +60,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 3.1.0-10
+- Rebuilt for Python 3.12
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

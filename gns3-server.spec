@@ -6,7 +6,7 @@
 
 Name:           gns3-server
 Version:        2.2.40.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Graphical Network Simulator 3
 
 License:        GPLv3
@@ -133,6 +133,9 @@ cp -f %{_sbindir}/busybox %{python3_sitelib}/gns3server/compute/docker/resources
 %systemd_postun_with_restart gns3.service
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.2.40.1-2
+- Rebuilt for Python 3.12
+
 * Sat Jun 10 2023 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.40.1-1
 - Update to 2.2.40.1
 

@@ -185,13 +185,13 @@ The ROOT web application for Apache Tomcat.
 find . -type f \( -name "*.bat" -o -name "*.class" -o -name Thumbs.db -o -name "*.gz" -o \
    -name "*.jar" -o -name "*.war" -o -name "*.zip" \) -delete
 
-%patch0 -p0
-%patch1 -p0
-%patch2 -p0
-%patch3 -p0
-%patch4 -p0
-%patch5 -p0
-%patch6 -p0
+%patch 0 -p0
+%patch 1 -p0
+%patch 2 -p0
+%patch 3 -p0
+%patch 4 -p0
+%patch 5 -p0
+%patch 6 -p0
 
 # Remove webservices naming resources as it's generally unused
 %{__rm} -rf java/org/apache/naming/factory/webservices
@@ -329,7 +329,7 @@ pushd ${RPM_BUILD_ROOT}%{libdir}
     %{__ln_s} ../../java/%{name}-el-%{elspec}-api.jar .
     %{__ln_s} $(build-classpath ecj/ecj) jasper-jdt.jar
     
-    %{__ln_s} ${RPM_BUILD_ROOT}%{bindir}/tomcat-juli.jar ./
+    %{__cp} -a ../../%{name}/bin/tomcat-juli.jar .
 popd
 
 # symlink to the FHS locations where we've installed things
@@ -477,21 +477,31 @@ fi
 %{_javadir}/*.jar
 %{bindir}/tomcat-juli.jar
 %exclude %{libdir}/%{name}-el-%{elspec}-api.jar
+%exclude %{libdir}/%{name}-servlet-%{servletspec}*.jar
+%exclude %{libdir}/%{name}-jsp-%{jspspec}*.jar
 %exclude %{_javadir}/%{name}-servlet-%{servletspec}*.jar
 %exclude %{_javadir}/%{name}-el-%{elspec}-api.jar
 %exclude %{_javadir}/%{name}-jsp-%{jspspec}*.jar
+%exclude %{_javadir}/%{name}-servlet-api.jar
+%exclude %{_javadir}/%{name}-el-api.jar
+%exclude %{_javadir}/%{name}-jsp-api.jar
 
 %files jsp-%{jspspec}-api -f .mfiles-tomcat-jsp-api
 %{_javadir}/%{name}-jsp-%{jspspec}*.jar
+%{libdir}/%{name}-jsp-%{jspspec}*.jar
+%{_javadir}/%{name}-jsp-api.jar
 
 %files servlet-%{servletspec}-api -f .mfiles-tomcat-servlet-api
 %doc LICENSE
 %{_javadir}/%{name}-servlet-%{servletspec}*.jar
+%{libdir}/%{name}-servlet-%{servletspec}*.jar
+%{_javadir}/%{name}-servlet-api.jar
 
 %files el-%{elspec}-api -f .mfiles-tomcat-el-api
 %doc LICENSE
 %{_javadir}/%{name}-el-%{elspec}-api.jar
 %{libdir}/%{name}-el-%{elspec}-api.jar
+%{_javadir}/%{name}-el-api.jar
 
 %files webapps
 %defattr(0644,tomcat,tomcat,0755)
@@ -501,6 +511,7 @@ fi
 * Wed Jun 14 2023 Hui Wang <huwang@redhat.com> - 1:9.0.76-1
 - Update to 9.0.76
 - Resolves: rhbz#2188218 Link bin/tomcat-juli.jar to /usr/share/java
+- Move tomcat-jsp-2.3-api.jar,tomcat-servlet-4.0-api.jar and tomcat-el-api.jar to the subpackages
 
 * Thu Jun 08 2023 Hui Wang <huwang@redhat.com> - 1:9.0.75-1
 - Update to 9.0.75

@@ -5,7 +5,7 @@
 
 Name:           python-%{srcname}
 Version:        4.1.3
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        %{sum}
 
 License:        Apache-2.0
@@ -89,6 +89,9 @@ rm -r $(find %{_buildrootdir} -type d -name 'tests') || /bin/true
 %{python3_sitelib}/%{srcname}*.egg-info
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 4.1.3-22
+- Rebuilt for Python 3.12
+
 * Wed Jun 07 2023 Jan Friesse <jfriesse@redhat.com> - 4.1.3-21
 - migrated to SPDX license
 

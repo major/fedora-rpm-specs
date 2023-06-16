@@ -6,7 +6,7 @@
 
 Name:           python-%{pypi_name}
 Version:        11.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Implementation of the WebSocket Protocol for Python
 
 License:        BSD
@@ -55,6 +55,9 @@ BuildRequires:  python3-devel
 %doc README.rst
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 11.0.2-2
+- Rebuilt for Python 3.12
+
 * Tue Apr 25 2023 Julien Enselme <jujens@jujens.eu> - 11.0.2-1
 - Update to 11.0.2
 

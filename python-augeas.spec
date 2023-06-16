@@ -1,6 +1,6 @@
 Name:		python-augeas
 Version:	1.1.0
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Python bindings to augeas
 License:	LGPL-2.1-or-later
 URL:		http://augeas.net/
@@ -50,6 +50,9 @@ pytest-3
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.1.0-9
+- Rebuilt for Python 3.12
+
 * Thu Feb 23 2023 Rafael Jeffman <rjeffman@redhat.com> - 1.1.0-8
 - migrated to SPDX license
 

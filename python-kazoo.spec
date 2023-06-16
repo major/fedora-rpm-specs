@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.8.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Higher level Python Zookeeper client
 
 License:        ASL 2.0
@@ -72,6 +72,9 @@ rm -fr %{buildroot}%{python3_sitelib}/%{pypi_name}/tests/
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.8.0-9
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

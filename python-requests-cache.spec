@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.5.1
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Persistent cache for requests library
 
 License:        BSD
@@ -80,6 +80,9 @@ sed -i 's/\r$//' LICENSE
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.5.1-15
+- Rebuilt for Python 3.12
+
 * Wed Mar 22 2023 Andrew Bauer <zonexpertconsulting@outlook.com> - 0.5.1-14
 - Latest sphinx no longer bundles jquery. Fixes BZ 2180485
 

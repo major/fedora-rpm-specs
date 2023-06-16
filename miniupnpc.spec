@@ -8,8 +8,8 @@
 
 Summary:    Library and tool to control NAT in UPnP-enabled routers
 Name:       miniupnpc
-Version:    2.2.4
-Release:    4%{?dist}
+Version:    2.2.5
+Release:    1%{?dist}
 License:    BSD
 URL:        http://miniupnp.free.fr/
 
@@ -20,7 +20,6 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 
 Source0:    http://miniupnp.free.fr/files/%{name}-%{version}.tar.gz
-Patch0:     https://github.com/miniupnp/miniupnp/commit/ea67c29b64ff3c89a01f4fd66e8d5733f5ebe00e.patch
 
 %description
 miniupnpc is an implementation of a UPnP client library, enabling applications
@@ -69,8 +68,9 @@ sed -i -e 's|build/libminiupnpc.a|build/libminiupnpc.so.%{version}|g' setup.py
 %cmake_install
 %py3_install
 
-install -p -m 0644 -D man3/%{name}.3 %{buildroot}%{_mandir}/man3/%{name}.3
-install -p -m 0755 -D build/upnpc-shared %{buildroot}%{_bindir}/upnpc
+mv %{buildroot}%{_bindir}/upnpc-shared %{buildroot}%{_bindir}/upnpc
+mv %{buildroot}%{_bindir}/listdevices %{buildroot}%{_bindir}/upnp-listdevices
+rm -f %{buildroot}%{_bindir}/external-ip.sh
 
 %check
 make CFLAGS="%{optflags} -DMINIUPNPC_SET_SOCKET_TIMEOUT" check
@@ -79,6 +79,7 @@ make CFLAGS="%{optflags} -DMINIUPNPC_SET_SOCKET_TIMEOUT" check
 %license LICENSE
 %doc Changelog.txt README
 %{_bindir}/upnpc
+%{_bindir}/upnp-listdevices
 %{_libdir}/libminiupnpc.so.17
 %{_libdir}/libminiupnpc.so.%{version}
 
@@ -96,6 +97,9 @@ make CFLAGS="%{optflags} -DMINIUPNPC_SET_SOCKET_TIMEOUT" check
 %{python3_sitearch}/miniupnpc*.so
 
 %changelog
+* Wed Jun 14 2023 Simone Caronni <negativo17@gmail.com> - 2.2.5-1
+- Update to 2.2.5.
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.2.4-4
 - Rebuilt for Python 3.12
 

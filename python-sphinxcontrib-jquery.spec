@@ -1,6 +1,6 @@
 Name:           python-sphinxcontrib-jquery
 Version:        4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Extension to include jQuery on newer Sphinx releases
 
 # The project is 0BSD
@@ -55,6 +55,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 4.1-2
+- Rebuilt for Python 3.12
+
 * Wed Mar 29 2023 Karolina Surma <ksurma@redhat.com> - 4.1-1
 - Update to 4.1
 Resolves rhbz#2178260

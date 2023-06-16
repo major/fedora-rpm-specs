@@ -2,7 +2,7 @@
 
 Name:               python-http-ece
 Version:            1.1.0
-Release:            13%{?dist}
+Release:            14%{?dist}
 Summary:            A simple implementation of the encrypted content-encoding
 
 License:            MIT
@@ -53,6 +53,9 @@ nosetests-%{python3_version} -v
 %{python3_sitelib}/http_ece-*.egg-info/
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.1.0-14
+- Rebuilt for Python 3.12
+
 * Tue May 02 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.1.0-13
 - Patch for test failure.
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        2.0.1
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Python XMP Toolkit for working with metadata
 
 License:        BSD-3-Clause
@@ -87,6 +87,9 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.0.1-19
+- Rebuilt for Python 3.12
+
 * Sat Apr 08 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 2.0.1-18
 - Switch to SPDX license
 

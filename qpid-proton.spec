@@ -8,7 +8,7 @@
 
 Name:           qpid-proton
 Version:        0.38.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A high performance, lightweight messaging library
 License:        ASL 2.0
 URL:            http://qpid.apache.org/proton/
@@ -320,6 +320,9 @@ rm -f  %{buildroot}%{proton_datadir}/CMakeLists.txt
 %check
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.38.0-2
+- Rebuilt for Python 3.12
+
 * Fri Mar 31 2023 Kim van der Riet <kvanderr@redhat.com> - 0.38.0-1
 - Rebased to 0.38.0, opentelemetry-cpp not included as no pkgs in Fedora yet.
 

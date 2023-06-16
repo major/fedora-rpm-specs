@@ -48,7 +48,7 @@ Name: openvswitch
 Summary: Open vSwitch daemon/database/utilities
 URL: https://www.openvswitch.org/
 Version: 3.1.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # Nearly all of openvswitch is ASL 2.0.  The bugtool is LGPLv2+, and the
 # lib/sflow*.[ch] files are SISSL
@@ -602,6 +602,9 @@ fi
 %{_sysusersdir}/openvswitch.conf
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 3.1.1-4
+- Rebuilt for Python 3.12
+
 * Thu Jun 08 2023 Timothy Redaelli <tredaelli@redhat.com> - 3.1.1-3
 - Backport "cpu: Fix cpuid check for some AMD processors." (#2211747)
 

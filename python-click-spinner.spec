@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.1.10
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Spinner for Click
 
 License:        MIT
@@ -51,6 +51,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/click_spinner-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.1.10-10
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.10-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 # https://github.com/mozillazg/go-pinyin
 %global goipath         github.com/mozillazg/go-pinyin
-Version:                0.19.0
+Version:                0.20.0
 
 %gometa
 
@@ -33,7 +33,7 @@ BuildRequires:  golang(github.com/mattn/go-isatty)
 %goprep
 
 %build
-for cmd in cmd/* ; do
+for cmd in cli/* ; do
   %gobuild -o %{gobuilddir}/bin/$(basename $cmd) %{goipath}/$cmd
 done
 for cmd in _tools; do

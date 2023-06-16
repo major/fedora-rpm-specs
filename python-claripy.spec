@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        9.2.39
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Abstraction layer for constraint solvers
 
 License:        BSD
@@ -44,6 +44,9 @@ sed -i -e '/z3-solver/d' setup.cfg
 %doc README.md
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 9.2.39-2
+- Rebuilt for Python 3.12
+
 * Tue Feb 21 2023 Fabian Affolter <mail@fabian-affolter.ch> - 9.2.39-1
 - Update to latest upstream release 9.2.39
 

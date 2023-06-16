@@ -6,7 +6,7 @@ interfaces.
 
 Name:           python-paste
 Version:        3.5.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 BuildArch:      noarch
 
 # Most of the code is MIT
@@ -86,6 +86,9 @@ py.test-3 -k "not test_paste_website and not test_proxy_to_website and not test_
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 3.5.3-2
+- Rebuilt for Python 3.12
+
 * Tue May 02 2023 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 3.5.3-1
 - Update to upstream.
 

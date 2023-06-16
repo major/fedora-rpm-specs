@@ -12,7 +12,7 @@
 
 Name:           ec2-hibinit-agent
 Version:        1.0.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Hibernation setup utility for Amazon EC2
 
 License:        ASL 2.0
@@ -144,6 +144,9 @@ fi
 %selinux_relabel_post -s %{selinuxtype}
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.0.5-2
+- Rebuilt for Python 3.12
+
 * Tue Apr 25 2023 David Duncan <<davdunc@amazon.com>> - 1.0.5-1
 - Ensure we swapon the hibinit swapfile with the highest priority
 

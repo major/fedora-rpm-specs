@@ -57,7 +57,7 @@ Twilio, Twitter, Twist, XBMC, Voipms, Vonage, Webex Teams}
 
 Name:           python-%{pypi_name}
 Version:        1.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A simple wrapper to many popular notification services used today
 License:        BSD
 URL:            https://github.com/caronc/%{pypi_name}
@@ -186,6 +186,9 @@ LANG=C.UTF-8 PYTHONPATH=%{buildroot}%{python3_sitelib} py.test-%{python3_version
 %{python3_sitelib}/%{pypi_name}/cli.*
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.4.0-2
+- Rebuilt for Python 3.12
+
 * Mon May 15 2023 Chris Caron <lead2gold@gmail.com> - 1.4.0
 - Updated to v1.4.0
 

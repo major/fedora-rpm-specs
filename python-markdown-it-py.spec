@@ -13,6 +13,8 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 
+# The plugins extras creates a bootstrap loop
+%bcond plugins 1
 
 %global _description %{expand:
 Markdown parser done right. Its features:
@@ -29,7 +31,7 @@ Summary:        %{summary}
 
 %description -n python3-%{pypi_name} %_description
 
-%pyproject_extras_subpkg -n python3-%{pypi_name} linkify plugins
+%pyproject_extras_subpkg -n python3-%{pypi_name} linkify %{?with_plugins:plugins}
 
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}
@@ -43,7 +45,7 @@ sed -i '/"coverage",/d' pyproject.toml
 sed -i '/"pytest-cov",/d' pyproject.toml
 
 %generate_buildrequires
-%pyproject_buildrequires -x testing,linkify,plugins
+%pyproject_buildrequires -x testing,linkify%{?with_plugins:,plugins}
 
 %build
 %pyproject_wheel

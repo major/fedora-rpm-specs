@@ -12,7 +12,7 @@
 %global obs_srcsvc_dir %{obsroot}/service
 
 # Real release number
-%global baserelease 1
+%global baserelease 2
 
 Name:           osc
 Summary:        Open Build Service Commander
@@ -127,6 +127,9 @@ python3 setup.py test
 %dir %{osc_plugin_dir}
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.1.4-370.2.2
+- Rebuilt for Python 3.12
+
 * Tue May 30 2023 Dan Čermák <dan.cermak@cgc-instruments.com> - 1.1.4-370.2.1
 - New upstream release 1.1.4, fixes rhbz#2209816
 

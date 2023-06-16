@@ -34,7 +34,7 @@ Summary: Python module for GNU parted
 Name:    pyparted
 Epoch:   1
 Version: 3.12.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: GPL-2.0-or-later
 URL:     https://github.com/dcantrell/pyparted
 
@@ -100,8 +100,8 @@ partition tables. This package provides Python 3 bindings for parted.
 gpg --no-default-keyring --keyring %{SOURCE2} --trustdb-name %{SOURCE3} --verify %{SOURCE1} %{SOURCE0} || exit 1
 
 %setup -q
-%patch0 -p1
-%patch1 -p1
+%patch -P 0 -p1
+%patch -P 1 -p1
 
 %if %{with python3}
 everything=$(ls)
@@ -159,6 +159,9 @@ popd
 %endif
 
 %changelog
+* Wed Jun 14 2023 David Cantrell <dcantrell@redhat.com> - 1:3.12.0-10
+- Use non-deprecated syntax for the %%patch macros
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1:3.12.0-9
 - Rebuilt for Python 3.12
 

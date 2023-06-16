@@ -1,6 +1,6 @@
 Name:           qt5ct
 Version:        1.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Qt5 Configuration Tool
 
 License:        BSD
@@ -60,6 +60,9 @@ install -D -pm 644 src/%{name}/translations/*.qm %{buildroot}%{_datadir}/%{name}
 %{_qt5_plugindir}/styles/libqt5ct-style.so
 
 %changelog
+* Wed Jun 14 2023 Jan Grulich <jgrulich@redhat.com> - 1.1-17
+- Rebuild (qt5)
+
 * Wed Apr 12 2023 Jan Grulich <jgrulich@redhat.com> - 1.1-16
 - Rebuild (qt5)
 

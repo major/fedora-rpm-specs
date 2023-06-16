@@ -2,7 +2,7 @@
 
 Name:           fedfind
 Version:        5.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fedora compose and image finder
 
 License:        GPLv3+
@@ -64,6 +64,9 @@ sed -i -e 's,coverage\[toml\],coverage,g' tests.requires tox.requires
 %{python3_sitelib}/%{srcname}*
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 5.0.1-3
+- Rebuilt for Python 3.12
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{dist_name}
 Version:        0.3
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Easy to use Python subprocess interface
 
 License:        BSD
@@ -52,6 +52,9 @@ rm -f tests/test_fast/test_deadlock.py
 %{python3_sitelib}/%{dist_name}/
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.3-8
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

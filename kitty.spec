@@ -28,6 +28,8 @@ Patch0:         kitty-do-not-build-kitten.patch
 ## upstream patches
 # https://github.com/kovidgoyal/kitty/commit/537cabca710f64b838d3b8b1dc986db596fb29d4
 Patch1:         kitty-ask-perm-before-executing.patch
+Patch2:         https://github.com/kovidgoyal/kitty/commit/b96a261a3538b98614a798fb6bc2093319a8054f.patch#/kitty-fix-warnings.patch
+Patch3:         https://github.com/kovidgoyal/kitty/commit/4c5f4c4baf0e4c6dd87960a2030489bf2cbd8e1e.patch#/kitty-fix-test-python312.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

@@ -2,7 +2,7 @@
 
 Name:           %{modname}
 Version:        0.36.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A CLI and TUI tool for interacting with Mastodon
 
 License:        GPLv3
@@ -41,4 +41,7 @@ find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/
 %license LICENSE
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.36.0-2
+- Rebuilt for Python 3.12
+
 %autochangelog

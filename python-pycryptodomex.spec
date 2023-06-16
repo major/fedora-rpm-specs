@@ -29,7 +29,7 @@ with the PyCrypto library.}
 
 Name:           python-%{srcname}
 Version:        3.17.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A self-contained cryptographic library for Python
 
 # PyCrypto-based code is public domain, further PyCryptodome contributions are
@@ -124,6 +124,9 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python3_sitearch}/ %{__python3} %{py_setup} test
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 3.17.0-2
+- Rebuilt for Python 3.12
+
 * Sun Feb 05 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 3.17.0-1
 - Update to 3.17.0
 - Fix Flatpak build (see

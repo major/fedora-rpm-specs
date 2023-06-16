@@ -49,11 +49,15 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        293
+Version:        294
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
-# Experimental Python support
+# Use Python bridge on non-stable versions
+%if 0%{?fedora} >= 39
+%define cockpit_enable_python 1
+%endif
+
 %if !%{defined cockpit_enable_python}
 %define cockpit_enable_python 0
 %endif
@@ -290,8 +294,7 @@ rm -f %{buildroot}/%{_libdir}/security/pam_*
 rm -f %{buildroot}/usr/bin/cockpit-bridge
 rm -f %{buildroot}%{_libexecdir}/cockpit-ssh
 rm -f %{buildroot}%{_datadir}/metainfo/cockpit.appdata.xml
-rm -rf %{buildroot}%{python3_sitelib}/cockpit/
-rm -rf %{buildroot}%{python3_sitelib}/cockpit-%{version}.dist-info/
+rm -rf %{buildroot}%{python3_sitelib}/cockpit*
 %endif
 
 # when not building optional packages, remove their files
@@ -373,8 +376,7 @@ system on behalf of the web based user interface.
 %{_bindir}/cockpit-bridge
 %{_libexecdir}/cockpit-askpass
 %if %{cockpit_enable_python}
-%{python3_sitelib}/%{name}/
-%{python3_sitelib}/%{name}-%{version}.dist-info/
+%{python3_sitelib}/%{name}*
 %endif
 
 %package doc
@@ -781,6 +783,9 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Jun 14 2023 Packit <hello@packit.dev> - 294-1
+- Introduce Python bridge on Fedora Rawhide and Debian unstable
+
 * Thu Jun 01 2023 Packit <hello@packit.dev> - 293-1
 - Tests and code quality improvements
 

@@ -445,6 +445,10 @@ Summary:        Package providing the identity for Fedora ELN
 # libdnf to use this set of templates instead of lorax-templates-generic.
 Suggests: lorax-templates-rhel
 
+# Both netcat and nmap-ncat provide /usr/bin/nc, so prefer the latter like
+# RHEL does.
+Suggests: nmap-ncat
+
 RemovePathPostfixes: .eln
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity

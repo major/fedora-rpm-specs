@@ -7,7 +7,7 @@
 
 Name:           python-requests-mock
 Version:        1.10.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Mock out responses from the requests package
 License:        Apache-2.0
 URL:            https://requests-mock.readthedocs.io/
@@ -67,6 +67,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.10.0-4
+- Rebuilt for Python 3.12
+
 * Wed Feb 15 2023 Carl George <carl@george.computer> - 1.10.0-3
 - Convert to pyproject macros
 

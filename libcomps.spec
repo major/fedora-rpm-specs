@@ -2,7 +2,7 @@
 
 Name:           libcomps
 Version:        0.1.19
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Comps XML file manipulation library
 
 License:        GPL-2.0-or-later
@@ -116,6 +116,9 @@ popd
 %{python3_sitearch}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.1.19-2
+- Rebuilt for Python 3.12
+
 * Tue Feb 28 2023 Sérgio Basto <sergio@serjux.com> - 0.1.19-1
 - Update libcomps to 0.1.19
 - Migrated to SPDX license

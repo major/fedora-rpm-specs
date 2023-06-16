@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.9.29
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Evaluator of Python expression using ast module
 
 License:        MIT
@@ -69,6 +69,9 @@ rm -rf html/.{doctrees,buildinfo} html/_static/empty
 %license LICENSE
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.9.29-2
+- Rebuilt for Python 3.12
+
 * Sat Feb 11 2023 Fabian Affolter <mail@fabian-affolter.ch> - 0.9.29-1
 - Update to latest upstream release 0.9.29 (closes rhbz#2169113)
 

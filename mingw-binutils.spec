@@ -4,7 +4,7 @@
 
 Name:           mingw-binutils
 Version:        2.40
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Cross-compiled version of binutils for Win32 and Win64 environments
 
 License:        GPLv2+ and LGPLv2+ and GPLv3+ and LGPLv3+
@@ -131,6 +131,10 @@ Patch19: binutils-testsuite-fixes.patch
 # Backport fix for CVE-2023-1972
 # https://sourceware.org/git/?p=binutils-gdb.git;a=commit;h=c22d38baefc5a7a1e1f5cdc9dbb556b1f0ec5c57
 Patch20: CVE-2023-1972.patch
+
+# Backport fix for https://sourceware.org/bugzilla/show_bug.cgi?id=30079
+# https://sourceware.org/git/?p=binutils-gdb.git;a=patch;h=b7eab2a9d4f4e92692daf14b09fc95ca11b72e30
+Patch21: binutils-gdb.git-b7eab2a9d4f4e92692daf14b09fc95ca11b72e30.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -463,6 +467,10 @@ rm -rf %{buildroot}%{_mandir}/man1/*
 
 
 %changelog
+* Wed Jun 14 2023 Sandro Mani <manisandro@gmail.com> - 2.40-3
+- Backport fix for Backport fix for
+  https://sourceware.org/bugzilla/show_bug.cgi?id=30079
+
 * Fri Apr 14 2023 Sandro Mani <manisandro@gmail.com> - 2.40-2
 - Backport fix for CVE-2023-1972
 

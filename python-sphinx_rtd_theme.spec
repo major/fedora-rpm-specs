@@ -5,7 +5,7 @@
 
 Name:           python-%{srcname}
 Version:        1.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Sphinx theme for readthedocs.org
 
 License:        MIT
@@ -194,6 +194,9 @@ grep 'format("woff2\?")' \
 %endif
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.2.1-2
+- Rebuilt for Python 3.12
+
 * Wed May 24 2023 Karolina Surma <ksurma@redhat.com> - 1.2.1-1
 - Update to 1.2.1
 Fixes rhbz#2209270

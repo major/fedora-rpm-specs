@@ -1,6 +1,6 @@
 Name:           python-gmpy2
 Version:        2.1.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python interface to GMP, MPFR, and MPC
 
 License:        LGPL-3.0-or-later
@@ -81,6 +81,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} %{python3} test/runtests.py
 %doc docs/_build/html/*
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.1.5-3
+- Rebuilt for Python 3.12
+
 * Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 2.1.5-2
 - Dynamically generate BuildRequires
 

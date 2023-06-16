@@ -1,3 +1,4 @@
+%global _with_bootstrap 1
 %global srcname Traits
 %global modname traits
 %global commit ac5d0296def6a389f932add5fbcab2eef6e7334e
@@ -8,7 +9,7 @@
 
 Name:           python-%{srcname}
 Version:        6.4.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Explicitly typed attributes for Python
 # Images have different licenses. For image license breakdown check
 # image_LICENSE.txt file.
@@ -91,6 +92,9 @@ popd
 %{python3_sitearch}/%{modname}*
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 6.4.1-3
+- Bootstrap for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

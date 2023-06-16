@@ -1,6 +1,6 @@
 Name:           python-sphinx-pytest
 Version:        0.0.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Helpful pytest fixtures for sphinx extensions
 
 License:        MIT
@@ -53,6 +53,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.0.3-4
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

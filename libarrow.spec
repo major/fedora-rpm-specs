@@ -30,7 +30,7 @@
 %bcond_without have_utf8proc
 
 Name:		libarrow
-Version:	12.0.0
+Version:	12.0.1
 Release:	1%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
@@ -864,6 +864,9 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
+* Wed Jun 14 2023  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 12.0.1-1
+- Arrow 12.0.1 GA
+
 * Mon May 1 2023  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 12.0.0-1
 - Arrow 12.0.0 GA
 

@@ -1,7 +1,7 @@
 %global pypi_name dropbox
 Name:           python-%{pypi_name}
 Version:        11.36.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Official Dropbox REST API Client
 License:        MIT
 
@@ -49,6 +49,9 @@ A Python library for Dropbox's HTTP-based Core and Datastore APIs.
 %{python3_sitelib}/%{pypi_name}-%{version}.dist-info/
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 11.36.2-2
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Gwyn Ciesla <gwync@protonmail.com> - 11.36.2-1
 - 11.36.2
 

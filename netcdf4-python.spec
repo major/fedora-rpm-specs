@@ -1,6 +1,6 @@
 Name:           netcdf4-python
 Version:        1.6.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python/numpy interface to netCDF
 
 License:        MIT
@@ -101,6 +101,9 @@ PYTHONPATH=$(echo ../build/lib.linux-*) %{__python3} run_all.py
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.6.4-2
+- Rebuilt for Python 3.12
+
 * Wed Jun 07 2023 Orion Poplawski <orion@nwra.com> - 1.6.4-1
 - Update to 1.6.4
 

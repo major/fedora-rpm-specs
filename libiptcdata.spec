@@ -1,6 +1,6 @@
 Name: libiptcdata
 Version: 1.0.5
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: IPTC tag library
 
 License: LGPLv2+
@@ -85,6 +85,9 @@ find %{buildroot} -name "*.la" -exec rm -f {} \;
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.0.5-14
+- Rebuilt for Python 3.12
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

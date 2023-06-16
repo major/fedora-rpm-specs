@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.5b1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        %{sum}
 BuildArch:      noarch
 
@@ -61,6 +61,9 @@ pytest tests/
 
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.5b1-11
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5b1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

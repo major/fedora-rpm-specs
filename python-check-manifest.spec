@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.48
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Check MANIFEST.in in a Python source package
 
 License:        MIT
@@ -67,6 +67,9 @@ sed -i -e '/^#!\//, 1d' check_manifest.py
 %{_bindir}/check-manifest
 
 %changelog
+* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.48-5
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.48-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
