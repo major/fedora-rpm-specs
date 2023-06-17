@@ -1,8 +1,8 @@
 %{?mingw_package_header}
 
 Name:           mingw-postgresql
-Version:        15.1
-Release:        2%{?dist}
+Version:        15.3
+Release:        1%{?dist}
 Summary:        MinGW Windows PostgreSQL library
 
 License:        PostgreSQL
@@ -211,6 +211,9 @@ rm -rf %{buildroot}%{mingw64_datadir}
 
 
 %changelog
+* Thu Jun 15 2023 Sandro Mani <manisandro@gmail.com> - 15.3-1
+- Update to 15.3
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 15.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

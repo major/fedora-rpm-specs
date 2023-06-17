@@ -7,7 +7,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Friendly state machines for python
 
 License:        ASL 2.0
@@ -87,6 +87,9 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 3.1.0-2
+- Rebuilt for Python 3.12
+
 * Fri Apr 14 2023 Karolina Kula <kkula@redhat.com> 3.1.0-1
 - Update to upstream version 3.1.0
 

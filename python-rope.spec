@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.22.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python Code Refactoring Library
 
 License:        LGPLv3+
@@ -49,6 +49,9 @@ Summary: %summary
 %doc README.rst docs
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.22.0-5
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

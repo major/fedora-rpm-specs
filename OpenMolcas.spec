@@ -1,8 +1,8 @@
 # git commit appears in the directory name of the tarball...
-%global commit 03265f62cd98b985712b063aea88313f984a8857
+%global commit 1cda3772686cbf99a4af695929a12d563c795ca2
 
 Name:           OpenMolcas
-Version:        23.02
+Version:        23.06
 Release:        1%{?dist}
 Summary:        A multiconfigurational quantum chemistry software package
 License:        LGPLv2
@@ -10,7 +10,7 @@ URL:            https://gitlab.com/Molcas/OpenMolcas
 Source0:        https://gitlab.com/Molcas/OpenMolcas/-/archive/v%{version}/%{name}-%{version}.tar.bz2
 
 # Fedora patches
-Patch0:         OpenMolcas-23.02-fedora.patch
+Patch0:         OpenMolcas-23.06-fedora.patch
 # Read python modules from system directory
 Patch1:         OpenMolcas-19.11-pymodule.patch
 
@@ -60,8 +60,8 @@ therefore not included in OpenMolcas.
 
 %prep
 %setup -q -n %{name}-v%{version}-%{commit}
-%patch0 -p1 -b .fedora
-%patch1 -p1 -b .pymodule
+%patch 0 -p1 -b .fedora
+%patch 1 -p1 -b .pymodule
 
 # Name of OpenBLAS library to use is
 %if 0%{?fedora} >= 33
@@ -140,6 +140,9 @@ cp -p Tools/pymolcas/pymolcas.py %{buildroot}%{_bindir}/pymolcas
 %{_bindir}/pymolcas
 
 %changelog
+* Thu Jun 15 2023 Susi Lehtola <jussilehtola@fedoraproject.org> - 23.06-1
+- Update to release 23.06.
+
 * Wed Mar 15 2023 Susi Lehtola <jussilehtola@fedoraproject.org> - 23.02-1
 - Update to release 23.02.
 

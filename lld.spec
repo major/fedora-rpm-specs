@@ -9,7 +9,6 @@
 
 #global rc_ver 4
 %global lld_srcdir lld-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:rc%{rc_ver}}.src
-%global cmake_srcdir cmake-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:rc%{rc_ver}}.src
 %global maj_ver 16
 %global min_ver 0
 %global patch_ver 5
@@ -19,25 +18,25 @@
 %global install_prefix %{_libdir}/llvm%{maj_ver}
 %global install_includedir %{install_prefix}/include
 %global install_libdir %{install_prefix}/lib
+%global install_datadir %{install_prefix}/share
 %else
 %global pkg_name lld
 %global install_prefix /usr
 %global install_includedir %{_includedir}
 %global install_libdir %{_libdir}
+%global install_datadir %{_datadir}
 %endif
 
 Name:		%{pkg_name}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	The LLVM Linker
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
 URL:		http://llvm.org
 Source0:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{lld_srcdir}.tar.xz
 Source1:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{lld_srcdir}.tar.xz.sig
-Source2:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{cmake_srcdir}.tar.xz
-Source3:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{cmake_srcdir}.tar.xz.sig
-Source4:	release-keys.asc
+Source2:	release-keys.asc
 
 ExcludeArch:	s390x
 
@@ -52,8 +51,10 @@ BuildRequires:	cmake
 BuildRequires:	ninja-build
 %if %{with compat_build}
 BuildRequires:	llvm%{maj_ver}-devel = %{version}
+BuildRequires:	llvm%{maj_ver}-cmake-utils = %{version}
 %else
 BuildRequires:	llvm-devel = %{version}
+BuildRequires:	llvm-cmake-utils = %{version}
 BuildRequires:	llvm-test = %{version}
 BuildRequires:	llvm-googletest = %{version}
 %endif
@@ -95,13 +96,7 @@ Summary:	LLD shared libraries
 Shared libraries for LLD.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE4}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%{gpgverify} --keyring='%{SOURCE4}' --signature='%{SOURCE3}' --data='%{SOURCE2}'
-%setup -T -q -b 2 -n %{cmake_srcdir}
-# TODO: It would be more elegant to set -DLLVM_COMMON_CMAKE_UTILS=%{_builddir}/%{cmake_srcdir},
-# but this is not a CACHED variable, so we can't actually set it externally :(
-cd ..
-mv %{cmake_srcdir} cmake
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -n %{lld_srcdir} -p2
 
 %if %{with compat_build}
@@ -121,6 +116,7 @@ sed 's/add_subdirectory(tools\/lld)//' -i CMakeLists.txt
 	-DCMAKE_INSTALL_PREFIX=%{install_prefix} \
 	-DLLVM_LINK_LLVM_DYLIB:BOOL=ON \
 	-DLLVM_DYLIB_COMPONENTS="all" \
+	-DLLVM_COMMON_CMAKE_UTILS=%{install_datadir}/llvm/cmake \
 	-DCMAKE_SKIP_RPATH:BOOL=ON \
 	-DPYTHON_EXECUTABLE=%{__python3} \
 %if %{with compat_build}
@@ -195,6 +191,9 @@ fi
 %{install_libdir}/liblld*.so.*
 
 %changelog
+* Tue Jun 13 2023 Nikita Popov <npopov@redhat.com> - 16.0.5-2
+- Use llvm-cmake-utils package
+
 * Tue Jun 06 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.5-1
 - Update to LLVM 16.0.5
 

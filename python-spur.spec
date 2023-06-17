@@ -5,7 +5,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.23
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 
 License:        BSD-2-Clause
@@ -58,6 +58,9 @@ nosetests-%{python3_version} -v -e testing -e ssh_tests
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.3.23-2
+- Rebuilt for Python 3.12
+
 * Wed Mar 15 2023 Orion Poplawski <orion@nwra.com> - 0.3.23-1
 - Update to 0.3.23
 

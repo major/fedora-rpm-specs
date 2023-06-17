@@ -2,7 +2,7 @@
 
 Name:           python-%{modname}
 Version:        2.13.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Python helper for Semantic Versioning
 
 License:        BSD
@@ -53,6 +53,9 @@ py.test-%{python3_version} -v
 %{python3_sitelib}/__pycache__/%{modname}.*
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 2.13.0-10
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

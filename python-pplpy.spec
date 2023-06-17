@@ -1,6 +1,6 @@
 Name:           python-pplpy
 Version:        0.8.7
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Python PPL wrapper
 
 License:        GPL-3.0-or-later
@@ -91,6 +91,9 @@ rst2html --no-datestamp README.rst README.html
 %{python3_sitearch}/ppl/*.pxd
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.8.7-10
+- Rebuilt for Python 3.12
+
 * Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 0.8.7-9
 - Dynamically generate BuildRequires
 

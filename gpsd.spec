@@ -2,7 +2,7 @@
 
 Name:           gpsd
 Version:        3.25
-Release:        4%{?dist}
+Release:        5%{?dist}
 Epoch:          1
 Summary:        Service daemon for mediating access to a GPS
 
@@ -302,6 +302,9 @@ rm -rf %{buildroot}%{_docdir}/gpsd
 %{_datadir}/gpsd/gpsd-logo.png
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1:3.25-5
+- Rebuilt for Python 3.12
+
 * Thu May 11 2023 Miroslav Lichvar <mlichvar@redhat.com> - 1:3.25-4
 - convert NEWS to UTF-8
 - remove shebang in python module files and fix permissions

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        13.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Library to interact with devices flashed with esphome
 
 License:        MIT
@@ -51,6 +51,9 @@ sed -i 's/from mock/from unittest.mock/' tests/*.py
 %doc README.rst
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 13.0.0-3
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 13.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

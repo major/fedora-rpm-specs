@@ -1,6 +1,6 @@
 Name:           python-zeroconf
 Version:        0.58.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Pure Python Multicast DNS Service Discovery Library
 
 License:        LGPL-2.1-or-later
@@ -57,6 +57,9 @@ sed -Ei 's/--cov(-|=)[^ "]+//g' pyproject.toml
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.58.0-2
+- Rebuilt for Python 3.12
+
 * Tue Apr 25 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.58.0-1
 - Update to 0.58.0
 

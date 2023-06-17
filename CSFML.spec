@@ -1,11 +1,12 @@
 Name:           CSFML
-Version:        2.5.1
-Release:        7%{?dist}
 Summary:        C Interface for the Simple and Fast Multimedia Library
+License:        Zlib
 
-License:        zlib
+Version:        2.5.2
+Release:        1%{?dist}
+
 URL:            https://www.sfml-dev.org/download/csfml/
-Source0:        https://www.sfml-dev.org/files/CSFML-%{version}-sources.zip
+Source0:        https://github.com/SFML/CSFML/archive/%{version}/CSFML-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  doxygen
@@ -54,16 +55,16 @@ mv \
 	%{buildroot}%{_datadir}/doc/%{name}
 
 # Remove license.txt and readme.txt - rely on %%license and %%doc macros
-rm %{buildroot}%{_datadir}/%{name}/license.txt
-rm %{buildroot}%{_datadir}/%{name}/readme.txt
+rm %{buildroot}%{_datadir}/%{name}/license.md
+rm %{buildroot}%{_datadir}/%{name}/readme.md
 
 
 %ldconfig_scriptlets
 
 
 %files
-%license license.txt
-%doc readme.txt
+%license license.md
+%doc readme.md
 %{_libdir}/libcsfml-*.so.2*
 
 %files devel
@@ -71,11 +72,16 @@ rm %{buildroot}%{_datadir}/%{name}/readme.txt
 %{_libdir}/libcsfml-*.so
 
 %files doc
-%license license.txt
+%license license.md
 %doc %{_datadir}/doc/%{name}/
 
 
 %changelog
+* Thu Jun 15 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.5.2-1
+- Update to v2.5.2
+- Switch to downloading sources from GitHub (no v2.5.2 download available on sfml-dev.org)
+- Convert License tag to SPDX
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

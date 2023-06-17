@@ -1,6 +1,6 @@
 Name:           auditwheel
 Version:        5.3.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Cross-distribution Linux wheels auditing and relabeling
 
 License:        MIT
@@ -89,6 +89,9 @@ done
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 5.3.0-3
+- Rebuilt for Python 3.12
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

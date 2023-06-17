@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.8.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Mock SSH server for testing purposes
 
 License:        MIT
@@ -49,6 +49,9 @@ rm -rf *.egg-info
 %{python3_sitelib}/mock_ssh_server-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.8.2-9
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

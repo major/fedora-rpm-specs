@@ -21,6 +21,7 @@
 %global install_bindir %{install_prefix}/bin
 %global install_includedir %{install_prefix}/include
 %global install_libdir %{install_prefix}/lib
+%global install_datadir %{install_prefix}/share
 
 %global pkg_bindir %{install_bindir}
 %global pkg_includedir %{install_includedir}
@@ -28,6 +29,7 @@
 %else
 %global pkg_name clang
 %global install_prefix /usr
+%global install_datadir %{_datadir}
 %global pkg_libdir %{_libdir}
 %endif
 
@@ -41,7 +43,7 @@
 
 Name:		%pkg_name
 Version:	%{clang_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	1%{?dist}
+Release:	3%{?dist}
 Summary:	A C language family front-end for LLVM
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -73,8 +75,6 @@ Patch8:     D138472.diff
 
 Patch10:    fix-ieee128-cross.diff
 
-Patch11:    0001-Change-LLVM_COMMON_CMAKE_UTILS-usage.patch
-
 # RHEL specific patches
 # Avoid unwanted dependency on python-recommonmark
 Patch101:  0009-disable-recommonmark.patch
@@ -91,8 +91,10 @@ BuildRequires:	ninja-build
 %if %{with compat_build}
 BuildRequires:	llvm%{maj_ver}-devel = %{version}
 BuildRequires:	llvm%{maj_ver}-static = %{version}
+BuildRequires:	llvm%{maj_ver}-cmake-utils = %{version}
 %else
 BuildRequires:	llvm-devel = %{version}
+BuildRequires:	llvm-cmake-utils = %{version}
 BuildRequires:	llvm-test = %{version}
 # llvm-static is required, because clang-tablegen needs libLLVMTableGen, which
 # is not included in libLLVM.so.
@@ -363,7 +365,7 @@ sed -i 's/\@FEDORA_LLVM_LIB_SUFFIX\@//g' test/lit.cfg.py
 %else
 	-DLLVM_TABLEGEN_EXE:FILEPATH=%{_bindir}/llvm-tblgen \
 %endif
-	-DLLVM_COMMON_CMAKE_UTILS=%{_libdir}/cmake/llvm \
+	-DLLVM_COMMON_CMAKE_UTILS=%{install_datadir}/llvm/cmake \
 	-DCLANG_ENABLE_ARCMT:BOOL=ON \
 	-DCLANG_ENABLE_STATIC_ANALYZER:BOOL=ON \
 	-DCLANG_INCLUDE_DOCS:BOOL=ON \
@@ -608,6 +610,12 @@ false
 
 %endif
 %changelog
+* Thu Jun 15 2023 Nikita Popov <npopov@redhat.com> - 16.0.5-3
+- Use llvm-cmake-utils package
+
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 16.0.5-2
+- Rebuilt for Python 3.12
+
 * Tue Jun 06 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.5-1
 - Update to LLVM 16.0.5
 

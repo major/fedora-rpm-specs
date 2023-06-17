@@ -34,7 +34,7 @@ Summary: Python module for GNU parted
 Name:    pyparted
 Epoch:   1
 Version: 3.12.0
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: GPL-2.0-or-later
 URL:     https://github.com/dcantrell/pyparted
 
@@ -159,6 +159,9 @@ popd
 %endif
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1:3.12.0-11
+- Rebuilt for Python 3.12
+
 * Wed Jun 14 2023 David Cantrell <dcantrell@redhat.com> - 1:3.12.0-10
 - Use non-deprecated syntax for the %%patch macros
 

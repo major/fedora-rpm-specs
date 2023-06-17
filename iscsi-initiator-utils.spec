@@ -9,7 +9,7 @@
 Summary: iSCSI daemon and utility programs
 Name: iscsi-initiator-utils
 Version: 6.%{open_iscsi_version}.%{open_iscsi_build}
-Release: 12.git%{shortcommit0}%{?dist}
+Release: 13.git%{shortcommit0}%{?dist}
 License: GPLv2+
 URL: https://github.com/open-iscsi/open-iscsi
 Source0: https://github.com/open-iscsi/open-iscsi/archive/%{commit0}.tar.gz#/open-iscsi-%{shortcommit0}.tar.gz
@@ -287,6 +287,9 @@ systemctl --no-reload preset iscsi.service iscsi-starter.service &>/dev/null || 
 %{python3_sitearch}/*
 
 %changelog
+* Thu Jun 15 2023 Chris Leech <cleech@redhat.com> - 6.2.1.4-13.git2a8f9d8
+- rebuilt
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 6.2.1.4-12.git2a8f9d8
 - Rebuilt for Python 3.12
 

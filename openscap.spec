@@ -1,6 +1,6 @@
 Name:           openscap
 Version:        1.3.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Epoch:          1
 Summary:        Set of open source libraries enabling integration of the SCAP line of standards
 License:        LGPL-2.1-or-later
@@ -219,6 +219,9 @@ ln -sf ../oscap-remediate.service %{buildroot}%{_unitdir}/system-update.target.w
 %{_mandir}/man8/oscap-podman.8*
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1:1.3.7-4
+- Rebuilt for Python 3.12
+
 * Fri May 19 2023 Petr Pisar <ppisar@redhat.com> - 1:1.3.7-3
 - Rebuild against rpm-4.19 (https://fedoraproject.org/wiki/Changes/RPM-4.19)
 

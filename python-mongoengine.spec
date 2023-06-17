@@ -8,7 +8,7 @@ to the Django ORM.
  
 Name: python-mongoengine
 Version: 0.27.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 BuildArch: noarch
  
 License: MIT
@@ -81,6 +81,9 @@ rm -rf docs/_build/html/_static/font
  
  
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.27.0-2
+- Rebuilt for Python 3.12
+
 * Tue Mar 07 2023 Sandro Mani <manisandro@gmail.com> - 0.27.0-1
 - Update to 0.27.0
 

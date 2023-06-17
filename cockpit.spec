@@ -49,8 +49,8 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        294
-Release:        1%{?dist}
+Version:        294.1
+Release:        2%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
 # Use Python bridge on non-stable versions
@@ -783,6 +783,15 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 294.1-2
+- Rebuilt for Python 3.12
+
+* Thu Jun 15 2023 Packit <hello@packit.dev> - 294.1-1
+- Multiple major fixes for the "remote python bridge" use case
+
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 294-2
+- Rebuilt for Python 3.12
+
 * Wed Jun 14 2023 Packit <hello@packit.dev> - 294-1
 - Introduce Python bridge on Fedora Rawhide and Debian unstable
 

@@ -6,7 +6,7 @@
 
 Name:           python-zope-testrunner
 Version:        6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Zope testrunner script
 
 License:        ZPL-2.1
@@ -115,6 +115,9 @@ popd
 %doc docs/_build/html
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 6.0-2
+- Rebuilt for Python 3.12
+
 * Tue Mar 28 2023 Jerry James <loganjerry@gmail.com> - 6.0-1
 - Version 6.0
 

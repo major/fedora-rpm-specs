@@ -12,7 +12,7 @@ some helpful extra functionality around testr.
 
 Name:           python-%{pypi_name}
 Version:        3.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A testr wrapper to provide functionality for OpenStack projects
 
 License:        ASL 2.0
@@ -107,6 +107,9 @@ done
 %endif
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 3.0.0-3
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

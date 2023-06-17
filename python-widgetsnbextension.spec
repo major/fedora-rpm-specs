@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.0.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Interactive HTML widgets for Jupyter notebooks
 
 License:        BSD
@@ -52,6 +52,9 @@ mv {%{buildroot}%{_prefix}/etc,%{buildroot}%{_sysconfdir}}/jupyter/nbconfig/note
 %config(noreplace) %{_sysconfdir}/jupyter/nbconfig/notebook.d/widgetsnbextension.json
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 4.0.7-2
+- Rebuilt for Python 3.12
+
 * Wed Mar 29 2023 Lumír Balhar <lbalhar@redhat.com> - 4.0.7-1
 - Update to 4.0.7 (rhbz#2182420)
 

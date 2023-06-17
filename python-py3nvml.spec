@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.7
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Python 3 Bindings for the NVIDIA Management Library
 
 License:        BSD-3-Clause
@@ -74,6 +74,9 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.2.7-6
+- Rebuilt for Python 3.12
+
 * Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.2.7-5
 - migrated to SPDX license
 

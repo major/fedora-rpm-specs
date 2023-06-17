@@ -5,7 +5,7 @@
 
 Name:           python-%{srcname}
 Version:        2.10.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A Meta CLI toolkit
 
 License:        MIT
@@ -66,6 +66,9 @@ BuildRequires:  python3dist(terminaltables)
 %{_bindir}/%{srcname}
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 2.10.1-7
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

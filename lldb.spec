@@ -10,7 +10,7 @@
 
 Name:		lldb
 Version:	%{lldb_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	1%{?dist}
+Release:	3%{?dist}
 Summary:	Next generation high-performance debugger
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -19,13 +19,12 @@ Source0:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{lldb_v
 Source1:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{lldb_version}%{?rc_ver:-rc%{rc_ver}}/%{lldb_srcdir}.tar.xz.sig
 Source2:	release-keys.asc
 
-Patch0: 0001-lldb-Change-LLVM_COMMON_CMAKE_UTILS-usage.patch
-
 BuildRequires:	clang
 BuildRequires:	cmake
 BuildRequires:	ninja-build
 BuildRequires:	llvm-devel = %{version}
 BuildRequires:	llvm-test = %{version}
+BuildRequires:	llvm-cmake-utils = %{version}
 BuildRequires:	clang-devel = %{version}
 BuildRequires:	ncurses-devel
 BuildRequires:	swig
@@ -79,8 +78,7 @@ The package contains the LLDB Python module.
 	-DCMAKE_SKIP_RPATH:BOOL=ON \
 	-DLLVM_LINK_LLVM_DYLIB:BOOL=ON \
 	-DLLVM_CONFIG:FILEPATH=/usr/bin/llvm-config-%{__isa_bits} \
-	-DLLVM_COMMON_CMAKE_UTILS=%{_libdir}/cmake/llvm/ \
-	\
+	-DLLVM_COMMON_CMAKE_UTILS=%{_datadir}/llvm/cmake \
 	-DLLDB_DISABLE_CURSES:BOOL=OFF \
 	-DLLDB_DISABLE_LIBEDIT:BOOL=OFF \
 	-DLLDB_DISABLE_PYTHON:BOOL=OFF \
@@ -135,6 +133,12 @@ rm -f %{buildroot}%{python3_sitearch}/six.*
 %{python3_sitearch}/lldb
 
 %changelog
+* Thu Jun 15 2023 Nikita Popov <npopov@redhat.com> - 16.0.5-3
+- Use llvm-cmake-utils package
+
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 16.0.5-2
+- Rebuilt for Python 3.12
+
 * Tue Jun 06 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.5-1
 - Update to LLVM 16.0.5
 

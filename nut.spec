@@ -76,7 +76,6 @@ BuildRequires: powerman-devel
 %endif
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
-BuildRequires: /usr/bin/pathfix.py
 BuildRequires: systemd-rpm-macros
 
 %ifnarch s390 s390x

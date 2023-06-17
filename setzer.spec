@@ -3,7 +3,7 @@
 
 Name:           setzer
 Version:        55
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        LaTeX editor written in Python with Gtk
 
 %forgemeta
@@ -93,6 +93,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{uuid}.desktop
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 55-2
+- Rebuilt for Python 3.12
+
 * Sun Apr 09 2023 Lyes Saadi <fedora@lyes.eu> - 55-1
 - Updating to 55 (fix #2177312)
 

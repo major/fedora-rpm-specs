@@ -1,5 +1,5 @@
-%global srcname service-identity
-%global libname service_identity
+%bcond tests 1
+%bcond docs 1
 
 %global common_description %{expand:
 Use this package if you use pyOpenSSL and don’t want to be MITMed, or if you
@@ -10,28 +10,26 @@ In the simplest case, this means host name verification.  However,
 service-identity implements RFC 6125 fully and plans to add other relevant RFCs
 too.}
 
-Name:           python-%{srcname}
-Version:        21.1.0
+Name:           python-service-identity
+Version:        23.1.0
 Release:        %autorelease
 Summary:        Service identity verification for pyOpenSSL
 
 License:        MIT
 URL:            https://github.com/pyca/service-identity
-Source0:        %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
-# Revert theme change as "furo" theme is not packaged
-Patch0:         0001-Revert-theme-change.patch
+Source:         %{pypi_source service_identity}
+# Downstream-only patch to disable coverage
+Patch:          0001-Remove-coverage-from-tests-extras.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(sphinx)
 
 %description %{common_description}
 
-%package -n     python3-%{srcname}
+%package -n     python3-service-identity
 Summary:        %{summary}
 
-%description -n python3-%{srcname} %{common_description}
+%description -n python3-service-identity %{common_description}
 
 %package doc
 Summary:        Documentation for %{name}
@@ -41,35 +39,46 @@ Summary:        Documentation for %{name}
 
 This is the documentation package for %{name}.
 
-%pyproject_extras_subpkg -n python3-%{srcname} idna
+%pyproject_extras_subpkg -n python3-service-identity idna
 
 %prep
-%autosetup -p1 -n %{srcname}-%{version}
+%autosetup -p1 -n service_identity-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -x idna
+%pyproject_buildrequires %{?with_tests:-x tests,idna} %{?with_docs:-x docs}
 
 %build
 %pyproject_wheel
 
-# generate html docs
-PYTHONPATH=%{pyproject_build_lib} sphinx-build docs html
-# remove the sphinx-build leftovers
-rm -rf html/.{doctrees,buildinfo}
-
 %install
 %pyproject_install
-%pyproject_save_files %{libname}
+%pyproject_save_files service_identity
+
+%if %{with docs}
+# Previously the docs were built with PYTHONPATH=%%{pyproject_build_lib}, but
+# that macro is now deprecated.  It also only works with setuptools, and
+# upstream switched to hatchling.  Building the docs relies on the library
+# being installed, so we have to do it here in %%install instead of in %%build.
+PYTHONPATH=%{buildroot}%{python3_sitelib} sphinx-build docs html
+# remove the sphinx-build leftovers
+rm -rf html/.{doctrees,buildinfo}
+%endif
 
 %check
+%if %{with tests}
 %pytest -v
+%else
+%pyproject_check_import
+%endif
 
-%files -n python3-%{srcname} -f %{pyproject_files}
-%doc README.rst
+%files -n python3-service-identity -f %{pyproject_files}
+%doc README.md
 
-%files -n python-%{srcname}-doc
+%if %{with docs}
+%files doc
 %doc html
-%license LICENSE docs/license.rst
+%license LICENSE
+%endif
 
 %changelog
 %autochangelog

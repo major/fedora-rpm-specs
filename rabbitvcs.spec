@@ -2,7 +2,7 @@
 
 Name:           rabbitvcs
 Version:        0.18
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        %{sum}
 
 License:        GPL-2.0-or-later
@@ -128,6 +128,9 @@ install -p -m0644 clients/nemo/RabbitVCS.py -D %{buildroot}%{_datadir}/nemo-pyth
 %{_datadir}/nemo-python/extensions/*.py*
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.18-12
+- Rebuilt for Python 3.12
+
 * Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.18-11
 - migrated to SPDX license
 

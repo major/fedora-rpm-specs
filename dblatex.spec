@@ -17,6 +17,8 @@ Source1:    COPYING-docbook-xsl
 Patch0:     dblatex-0.3.11-disable-debian.patch
 Patch1:     dblatex-0.3.11-which-shutil.patch
 Patch2:     dblatex-0.3.11-replace-inkscape-by-rsvg.patch
+# Patch3 sent upstream: https://sourceforge.net/p/dblatex/patches/12/
+Patch3:     dblatex-0.3.12-replace-imp-by-importlib.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools

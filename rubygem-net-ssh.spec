@@ -2,20 +2,15 @@
 %global gem_name net-ssh
 
 Name: rubygem-%{gem_name}
-Version: 6.1.0
-Release: 7%{?dist}
+Version: 7.1.0
+Release: 1%{?dist}
 Summary: Net::SSH: a pure-Ruby implementation of the SSH2 client protocol
 License: MIT
 URL: https://github.com/net-ssh/net-ssh
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/net-ssh/net-ssh.git --no-checkout
-# cd net-ssh && git archive -v -o net-ssh-6.1.0-tests.tar.xz v6.1.0 test/
-Source1: %{gem_name}-%{version}-tests.tar.xz
-# OpenSSL 3 system library support
-# https://github.com/net-ssh/net-ssh/pull/857
-Patch0: rubygem-net-ssh-6.3.0.beta1-openssl-3.0-support.patch
-# Tests need to be patched separately.
-Patch1: rubygem-net-ssh-6.3.0.beta1-openssl-3.0-support-tests.patch
+# cd net-ssh && git archive -v --format=tar.gz -o net-ssh-7.1.0-tests.tar.gz v7.1.0 test/
+Source1: %{gem_name}-%{version}-tests.tar.gz
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -46,11 +41,6 @@ Documentation for %{name}.
 
 %gemspec_add_dep -g openssl
 
-%patch0 -p1
-pushd %{_builddir}
-%patch1 -p1
-popd
-
 %build
 gem build ../%{gem_name}-%{version}.gemspec
 %gem_install
@@ -64,17 +54,18 @@ cp -a .%{gem_dir}/* \
 pushd .%{gem_instdir}
 ln -s %{_builddir}/test test
 
-# Match the number of failed tests, since the patch fixes the compatibility
-# only partially.
-# Without patches there are "28 failures, 449 errors".
+# Match the number of failed tests, net-ssh tests
+# ciphers that are deprecated in OpenSSL 3.0,
+# and would require a special OpenSSL configuration
+# to allow their usage without errors.
+# There is a plan to remove such ciphers, see "To remove":
+# https://github.com/net-ssh/net-ssh/issues/705
 
 # This requires rubygem-x25519 which is not yet in Fedora.
 mv test/transport/kex/test_curve25519_sha256.rb{,.disable}
 
-# Logger used to be loaded by some dependency (probably RDoc?)
-# but it it not loaded anymore, so require it explicitly.
-ruby -Ilib:test -rlogger test/test_all.rb 2>&1 | tee test.out
-grep "4 failures, 381 errors" test.out
+ruby -Ilib:test test/test_all.rb 2>&1 | tee test.out
+grep "0 failures, 275 errors" test.out
 popd
 
 %files
@@ -85,6 +76,7 @@ popd
 %exclude %{gem_cache}
 %{gem_spec}
 %exclude %{gem_instdir}/appveyor.yml
+%exclude %{gem_instdir}/{D,d}ocker*
 
 %files doc
 %doc %{gem_docdir}
@@ -96,11 +88,15 @@ popd
 %doc %{gem_instdir}/THANKS.txt
 %{gem_instdir}/Rakefile
 %{gem_instdir}/support
+%doc %{gem_instdir}/SECURITY.md
 # Required to run tests
 %{gem_instdir}/net-ssh.gemspec
 %exclude %{gem_instdir}/net-ssh-public_cert.pem
 
 %changelog
+* Wed May 03 2023 Zdenek Zambersky <zzambers@redhat.com> - 7.1.0-1
+- Update to net-ssh 7.1.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

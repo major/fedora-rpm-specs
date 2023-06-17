@@ -1,32 +1,47 @@
-%global commit 00d4b9ca5bf4588629939cca9d602a3dbd6a8525
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global forgeurl https://github.com/zealdocs/zeal
+%global commit 1cfa7c637f745be9d98777f06b4f8dec90892bf2
 %global debug_package %{nil}
 
+%forgemeta
+
 Name:           zeal
-Version:        0.6.1
-Release:        14.20220826.%{shortcommit}%{?dist}
+Version:        0.6.2
+Release:        1%{?dist}
 Summary:        Offline documentation browser inspired by Dash
 
 License:        GPLv3+
 URL:            https://zealdocs.org/
-Source0:        https://github.com/zealdocs/%{name}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+Source:         %{forgesource}
+Patch0:         0001-apply-websettings.patch
 
-# handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
-ExclusiveArch: %{qt5_qtwebengine_arches}
+# handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
+ExclusiveArch: %{qt6_qtwebengine_arches}
 
-BuildRequires:  cmake3
-BuildRequires:  cmake(Qt5)
-BuildRequires:  cmake(Qt5WebKit)
-BuildRequires:  cmake(Qt5X11Extras)
-BuildRequires:  desktop-file-utils
+BuildRequires:  cmake(Qt6Core) >= 6.2.0
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6WebEngineWidgets)
+BuildRequires:  cmake(Qt6WebChannel)
+BuildRequires:  cmake(Qt6Network)
+
+BuildRequires:  pkgconfig(libarchive)
+BuildRequires:  pkgconfig(sqlite3)
+BuildRequires:  pkgconfig(x11)
+BuildRequires:  pkgconfig(xkbcommon)
+BuildRequires:  pkgconfig(xcb)
+BuildRequires:  pkgconfig(xcb-keysyms)
+
+BuildRequires:  cmake
 BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-rpm-macros
+BuildRequires:  ninja-build
+BuildRequires:  gcc
 BuildRequires:  gcc-c++
+BuildRequires:  qt6-qtbase-private-devel
+BuildRequires:  qt6-srpm-macros
+BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
-BuildRequires:  libarchive-devel
-BuildRequires:  sqlite-devel
-BuildRequires:  xcb-util-keysyms-devel
-BuildRequires:  qt5-qtwebengine-devel
+
+%{?_qt6:Requires: %{_qt6}%{?_isa} = %{_qt6_version}}
 Requires:       hicolor-icon-theme
 
 %description
@@ -34,24 +49,20 @@ Zeal is a simple offline documentation browser inspired by Dash.
 
 
 %prep
-%autosetup -p1 -n %{name}-%{commit}
-
-# Disable ads on the welcome page
-# Ads will be removed in 0.7.x
-sed -i 's/("disable_ad"), false/("disable_ad"), true/' src/libs/core/settings.cpp
+%forgesetup
+%autopatch -p1
 
 %build
 # turn off shared libs building:
 # - it's only used from Zeal itself
 # - build scripts not configured to install the lib
-%cmake_kf5 \
-  -DBUILD_SHARED_LIBS:BOOL=OFF \
-  %{nil}
-%cmake3_build
+%cmake_qt6 \
+  -DBUILD_SHARED_LIBS:BOOL=OFF
+%cmake_build
 
 
 %install
-%cmake3_install
+%cmake_install
 
 
 %check
@@ -61,7 +72,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.zealdocs.z
 
 %files
 %license COPYING
-%doc README.md
+%doc README.md CHANGELOG.md
 %{_bindir}/%{name}
 %{_datadir}/applications/org.zealdocs.zeal.desktop
 %{_metainfodir}/org.zealdocs.zeal.appdata.xml
@@ -69,6 +80,14 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.zealdocs.z
 
 
 %changelog
+* Sat Jun 10 2023 Zephyr Lykos <fedora@mochaa.ws> - 0.6.2-1.git1cfa7c6
+- Update to commit 1cfa7c6
+- Migrate to Qt 6
+- Use forge macros
+- Deprecate versioned cmake macros
+- Clean up BuildRequires
+- Reflect the actual version written in CMakeLists.txt
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-14.20220826.00d4b9c
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

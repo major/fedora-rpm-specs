@@ -6,7 +6,7 @@
 
 Name:           python-hid-parser
 Version:        0.0.3
-Release:        3.%{snapshotdate}git%{shortcommit}%{?dist}
+Release:        4.%{snapshotdate}git%{shortcommit}%{?dist}
 Summary:        Parse HID report descriptors
 License:        MIT
 URL:            https://github.com/usb-tools/python-hid-parser
@@ -52,6 +52,9 @@ Summary:        %{summary}
 %license LICENSE
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.0.3-4.20210228git7d94740
+- Rebuilt for Python 3.12
+
 * Fri Apr 21 2023 Dominik Mierzejewski <dominik@greysector.net> - 0.0.3-3.20210228git7d94740
 - update to latest git HEAD
 

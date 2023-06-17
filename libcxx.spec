@@ -13,7 +13,7 @@
 
 Name:		libcxx
 Version:	%{libcxx_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	C++ standard library targeting C++11
 License:	Apache-2.0 WITH LLVM-exception OR MIT OR NCSA
 URL:		http://libcxx.llvm.org/
@@ -28,7 +28,7 @@ Source7:	CMakeLists.txt
 
 Patch0: standalone.patch
 
-BuildRequires:	clang llvm-devel cmake ninja-build
+BuildRequires:	clang llvm-devel llvm-cmake-utils cmake ninja-build
 # We need python3-devel for %%py3_shebang_fix
 BuildRequires:  python3-devel
 
@@ -141,7 +141,7 @@ export ASMFLAGS=$CFLAGS
 
 %cmake -GNinja \
 	-DCMAKE_BUILD_TYPE=RelWithDebInfo \
-	-DCMAKE_MODULE_PATH=%{_libdir}/cmake/llvm \
+	-DCMAKE_MODULE_PATH="%{_libdir}/cmake/llvm;%{_datadir}/llvm/cmake/Modules" \
 	-DCMAKE_POSITION_INDEPENDENT_CODE=ON \
 %if 0%{?__isa_bits} == 64
 	-DLIBCXX_LIBDIR_SUFFIX:STRING=64 \
@@ -236,6 +236,9 @@ rm %{buildroot}%{_pkgdocdir}/html/.buildinfo
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Thu Jun 15 2023 Nikita Popov <npopov@redhat.com> - 16.0.5-2
+- Use llvm-cmake-utils package
+
 * Tue Jun 06 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.5-1
 - Update to LLVM 16.0.5
 

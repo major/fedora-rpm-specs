@@ -2,7 +2,7 @@
 %global         modulename hypothesis_fspaths
 Name:           python-%{pypi_name}
 Version:        0.1
-Release:        14%{?dist}
+Release:        15%{?dist}
 License:        MIT
 URL:            https://pypi.org/project/%{pypi_name}
 Source0:        %{pypi_source}
@@ -48,6 +48,9 @@ Anything the built-in Python function open() accepts can be generated.
 %{python3_sitelib}/__pycache__/%{modulename}.*.py*
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.1-15
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

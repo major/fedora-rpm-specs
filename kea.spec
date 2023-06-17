@@ -6,7 +6,7 @@
 
 Name:           kea
 Version:        2.2.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        DHCPv4, DHCPv6 and DDNS server from ISC
 
 License:        MPLv2.0 and Boost
@@ -225,6 +225,9 @@ EOF
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 2.2.0-5
+- Rebuilt for Python 3.12
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 2.2.0-4
 - Rebuilt for Boost 1.81
 

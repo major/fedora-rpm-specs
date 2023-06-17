@@ -1,7 +1,7 @@
 #global		_beta 2
 Name:           gramps
 Version:        5.1.5
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Genealogical Research and Analysis Management Programming System
 
 License: GPL-2.0-or-later
@@ -109,6 +109,9 @@ desktop-file-install --delete-original  \
 %{python3_sitelib}/gramps/plugins
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 5.1.5-6
+- Rebuilt for Python 3.12
+
 * Tue Feb 28 2023 Gwyn Ciesla <gwync@protonmail.com> - 5.1.5-5
 - migrated to SPDX license
 

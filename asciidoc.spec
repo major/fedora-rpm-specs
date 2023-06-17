@@ -1,6 +1,6 @@
 Name:           asciidoc
 Version:        10.2.0
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Text based document generation
 
 License:        GPL-2.0-only
@@ -12,6 +12,7 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-pip
 BuildRequires:  python3-setuptools
+BuildRequires:  python3-wheel
 BuildRequires:  dblatex
 BuildRequires:  docbook-style-xsl
 BuildRequires:  graphviz
@@ -83,7 +84,7 @@ rm  %{buildroot}/share/doc/{BUGS.adoc,CHANGELOG.adoc,INSTALL.adoc,README.md,dbla
 %{_mandir}/man1/*.1*
 %{_bindir}/a2x
 %{_bindir}/asciidoc
-%{python3_sitelib}/asciidoc-%{version}-py*.egg-info/
+%{python3_sitelib}/asciidoc-%{version}.dist-info/
 %{python3_sitelib}/asciidoc/
 %exclude %{python3_sitelib}/asciidoc/resources/filters/latex
 %exclude %{python3_sitelib}/asciidoc/resources/filters/music
@@ -98,6 +99,13 @@ rm  %{buildroot}/share/doc/{BUGS.adoc,CHANGELOG.adoc,INSTALL.adoc,README.md,dbla
 %dir %{python3_sitelib}/asciidoc/resources/filters/latex
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 10.2.0-4
+- Rebuilt for Python 3.12
+
+* Fri May 26 2023 Miro Hrončok <mhroncok@redhat.com> - 10.2.0-3
+- Fix build with pip 23.1.2+
+- Fixes: rhbz#2209018
+
 * Tue May 02 2023 Josef Ridky <jridky@redhat.com> - 10.2.0-2
 - move to SPDX license format
 

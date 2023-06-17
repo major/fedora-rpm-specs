@@ -2,7 +2,7 @@
 
 Name:           python-cvxopt
 Version:        1.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Python Package for Convex Optimization
 
 License:        GPL-3.0-or-later
@@ -130,6 +130,9 @@ rm -f doc/build/html/.buildinfo
 %doc examples/
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.3.1-2
+- Rebuilt for Python 3.12
+
 * Wed May 10 2023 Jerry James <loganjerry@gmail.com> - 1.3.1-1
 - Version 1.3.1
 

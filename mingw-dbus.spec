@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 Name:           mingw-dbus
-Version:        1.14.6
+Version:        1.14.8
 Release:        1%{?dist}
 Summary:        MinGW Windows port of D-Bus
 
@@ -17,12 +17,12 @@ BuildArch:      noarch
 BuildRequires:  cmake
 
 BuildRequires:  mingw32-filesystem
-BuildRequires:  mingw32-gcc
+BuildRequires:  mingw32-gcc-c++
 BuildRequires:  mingw32-glib2
 BuildRequires:  mingw32-expat
 
 BuildRequires:  mingw64-filesystem
-BuildRequires:  mingw64-gcc
+BuildRequires:  mingw64-gcc-c++
 BuildRequires:  mingw64-glib2
 BuildRequires:  mingw64-expat
 
@@ -154,6 +154,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/xml
 
 
 %changelog
+* Thu Jun 15 2023 Sandro Mani <manisandro@gmail.com> - 1.14.8-1
+- Update to 1.14.8
+
 * Sat Feb 11 2023 Sandro Mani <manisandro@gmail.com> - 1.14.6-1
 - Update to 1.14.6
 

@@ -102,16 +102,8 @@ The API/ABI version series is %{apiver}.
 
 
 %prep
-# Import developer’s public GPG key to a keyring that we can use for signature
-# verification.
-workdir="$(mktemp --directory)"
-gpg2 --homedir="${workdir}" --yes --import '%{SOURCE2}'
-gpg2 --homedir="${workdir}" --export --export-options export-minimal \
-    > cairomm%{apiver}.gpg
-rm -rf "${workdir}"
-
 %{gpgverify} \
-    --keyring='cairomm%{apiver}.gpg' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+    --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 
 %autosetup -n cairomm-%{version}
 # We must remove the jQuery/jQueryUI bundle with precompiled/minified/bundled

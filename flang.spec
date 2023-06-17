@@ -4,7 +4,6 @@
 #global rc_ver 4
 %global flang_version %{maj_ver}.%{min_ver}.%{patch_ver}
 %global flang_srcdir flang-%{flang_version}%{?rc_ver:rc%{rc_ver}}.src
-%global cmake_srcdir cmake-%{flang_version}%{?rc_ver:rc%{rc_ver}}.src
 
 # Opt out of https://fedoraproject.org/wiki/Changes/fno-omit-frame-pointer
 # https://bugzilla.redhat.com/show_bug.cgi?id=2158587
@@ -12,7 +11,7 @@
 
 Name: flang
 Version: %{flang_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: a Fortran language front-end designed for integration with LLVM
 
 License: Apache-2.0 WITH LLVM-exception
@@ -28,8 +27,6 @@ Source4: TestAliasAnalysis.h
 
 # Needed for documentation generation
 Patch1: 0001-PATCH-flang-Disable-use-of-sphinx_markdown_tables.patch
-
-Patch2: 0001-Flang-Fix-CMakePolicy.cmake.patch
 
 # The Bye plugin is not distributed on Fedora.
 Patch3: 0001-flang-Remove-the-dependency-on-Bye.patch
@@ -98,6 +95,7 @@ BuildRequires: gcc-c++
 BuildRequires: cmake
 BuildRequires: zlib-devel
 BuildRequires: llvm-devel = %{version}
+BuildRequires: llvm-cmake-utils = %{version}
 BuildRequires: llvm-test = %{version}
 BuildRequires: llvm-googletest = %{version}
 BuildRequires: mlir-devel = %{version}
@@ -156,7 +154,7 @@ cp %{SOURCE4} include/mlir/test/lib/Analysis/
        -DLLVM_EXTERNAL_LIT=%{_bindir}/lit \
        -DLLVM_THIRD_PARTY_DIR=%{_datadir}/llvm/src/utils \
        -DCMAKE_PREFIX_PATH=%{_libdir}/cmake/llvm/ \
-       -DLLVM_COMMON_CMAKE_UTILS=%{_libdir}/cmake/llvm/ \
+       -DLLVM_COMMON_CMAKE_UTILS=%{_datadir}/llvm/cmake \
 \
        -DFLANG_INCLUDE_DOCS:BOOL=ON \
        -DLLVM_ENABLE_SPHINX:BOOL=ON \
@@ -272,6 +270,9 @@ export LD_LIBRARY_PATH=%{_builddir}/%{flang_srcdir}/%{_build}/lib
 %doc %{_pkgdocdir}/html/
 
 %changelog
+* Thu Jun 15 2023 Nikita Popov <npopov@redhat.com> - 16.0.5-2
+- Use llvm-cmake-utils package
+
 * Tue Jun 06 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.5-1
 - Update to LLVM 16.0.5
 

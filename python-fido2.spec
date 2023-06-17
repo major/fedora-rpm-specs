@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Functionality for FIDO 2.0, including USB device communication
 
 # Main code is BSD
@@ -68,6 +68,9 @@ BuildRequires:  python%{python3_pkgversion}-pytest
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.1.1-2
+- Rebuilt for Python 3.12
+
 * Wed Apr 05 2023 Orion Poplawski <orion@nwra.com> - 1.1.1-1
 - Update to 1.1.1
 

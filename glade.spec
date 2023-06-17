@@ -1,6 +1,6 @@
 Name:           glade
 Version:        3.40.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        User Interface Designer for GTK+
 
 # - /usr/bin/glade is GPLv2+
@@ -117,6 +117,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Glade.de
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 3.40.0-4
+- Rebuilt for Python 3.12
+
 * Sun Mar 26 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.40.0-3
 - Use webkit2gtk-4.1
 

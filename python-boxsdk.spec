@@ -4,7 +4,7 @@
 
 Name:               python-boxsdk
 Version:            3.7.2
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Python wrapper for the Box API
 
 
@@ -66,6 +66,9 @@ pytest-3
 %{python3_sitelib}/%{modname}-*.egg-info/
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 3.7.2-2
+- Rebuilt for Python 3.12
+
 * Fri May 26 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.7.2-1
 - 3.7.2
 

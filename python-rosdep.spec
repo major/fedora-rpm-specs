@@ -5,7 +5,7 @@
 
 Name:           python-%{srcname}
 Version:        0.22.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROS System Dependency Installer
 
 License:        BSD
@@ -215,6 +215,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} -m pytest test \
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.22.2-2
+- Rebuilt for Python 3.12
+
 * Tue May 09 2023 Scott K Logan <logans@cottsay.net> - 0.22.2-1
 - Update to 0.22.2 (rhbz#2180331)
 

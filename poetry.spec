@@ -1,3 +1,4 @@
+%global _with_bootstrap 1
 # To break circular dependency on poetry-plugin-export, when bootstrapping
 # we don't BuildRequire runtime deps and we don't run tests.
 %bcond bootstrap 0
@@ -9,7 +10,7 @@ projects, ensuring you have the right stack everywhere.}
 Name:           poetry
 Summary:        Python dependency management and packaging made easy
 Version:        1.3.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 
 License:        MIT
 
@@ -128,6 +129,9 @@ not editable_builder" \
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.3.2-6
+- Bootstrap for Python 3.12
+
 * Thu May 11 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.3.2-5
 - Allow newer requests-toolbelt version - without bootstrap
 

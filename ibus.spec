@@ -50,7 +50,7 @@
 
 Name:           ibus
 Version:        1.5.28
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.0-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -559,6 +559,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.5.28-8
+- Rebuilt for Python 3.12
+
 * Sun Jun 11 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.28-7
 - Delete GZipped man files
 - Resolves #2213145 Unselect Add button in Select Input Method dialog in setup

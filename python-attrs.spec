@@ -1,3 +1,4 @@
+%global _without_tests 1
 %global modname attrs
 
 %if 0%{?rhel}
@@ -10,7 +11,7 @@
 
 Name:           python-attrs
 Version:        23.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python attributes without boilerplate
 
 License:        MIT
@@ -47,8 +48,9 @@ object protocols.
 %pyproject_install
 %pyproject_save_files attr attrs
 
-%if %{with tests}
 %check
+%pyproject_check_import
+%if %{with tests}
 %pytest
 %endif
 
@@ -57,6 +59,9 @@ object protocols.
 %doc README.md
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 23.1.0-2
+- Bootstrap for Python 3.12
+
 * Wed May 17 2023 Lumír Balhar <lbalhar@redhat.com> - 23.1.0-1
 - Update to 23.1.0 (rhbz#2187066)
 

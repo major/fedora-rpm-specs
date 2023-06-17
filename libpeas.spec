@@ -2,7 +2,7 @@
 
 Name:           libpeas
 Version:        1.36.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Plug-ins implementation convenience library
 
 License:        LGPL-2.1-or-later
@@ -107,6 +107,9 @@ that are needed to write applications that use libpeas.
 %{_datadir}/glade/catalogs/libpeas-gtk.xml
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.36.0-2
+- Rebuilt for Python 3.12
+
 * Sat Mar 18 2023 David King <amigadave@amigadave.com> - 1.36.0-1
 - Update to 1.36.0
 

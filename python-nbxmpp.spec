@@ -1,6 +1,6 @@
 Name:           python-nbxmpp
 Version:        4.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python library for non-blocking use of Jabber/XMPP
 License:        GPLv3
 URL:            https://dev.gajim.org/gajim/python-nbxmpp/
@@ -44,6 +44,9 @@ Obsoletes:      python-nbxmpp-doc < 1.0.0
 %doc README.md ChangeLog
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 4.3.1-2
+- Rebuilt for Python 3.12
+
 * Sun Jun 04 2023 Michael Kuhn <suraia@fedoraproject.org> - 4.3.1-1
 - Update to 4.3.1
 

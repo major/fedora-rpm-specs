@@ -1,6 +1,6 @@
 Name:           andriller
 Version:        3.3.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Android Forensic Tools
 
 License:        MIT
@@ -64,6 +64,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v tests
 %{python3_sitelib}/*.egg-info/
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 3.3.1-10
+- Rebuilt for Python 3.12
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,377 +1,286 @@
-#can rust have debuginfo? Verify and fix! Likely issue in Makefile of itw.
+# Rust doesn't create data for a -debuginfo package
 %global debug_package %{nil}
 
-# Version of java we run against
-%define javaver 11
-# Version of java we build by
-%define buildjavaver 1.8.0
+# Build- and run-time version of OpenJDK Java
+%if 0%{?fedora} || 0%{?rhel} > 9
+%global java_version 17
+%else
+%global java_version 11
+%endif
 
-# Alternatives priority (rised by one number when jre bumped to 11 (as 11 < 18 :)
-%define priority 110000
-# jnlp prorocol gnome registry keys
-%define gurlhandler   /desktop/gnome/url-handlers
-%define jnlphandler   %{gurlhandler}/jnlp
-%define jnlpshandler  %{gurlhandler}/jnlps
-
-%define jredir      %{_jvmdir}/jre-%{javaver}-openjdk
-%define sdkdir      %{_jvmdir}/java-%{buildjavaver}-openjdk
-
-%define preffered_jre  java-%{javaver}-openjdk
-%define preffered_jdk  java-%{buildjavaver}-openjdk-devel
-
-Name:		icedtea-web
-Version:	2.0.0
-Release:	pre.0.3.alpha16.patched1.1%{?dist}.2
-Summary:	Additional Java components for OpenJDK - Java Web Start implementation
-
-License:    LGPLv2+ and GPLv2 with exceptions
-URL:        https://openwebstart.com/
-Source0:    https://github.com/AdoptOpenJDK/IcedTea-Web/archive/%{name}-%{version}-alpha16.tar.gz
-Patch0:     patchOutDunce.patch
-Patch1:     launchersPhase.patch
-# this should be upstreamed. In build tasks which lauches java are using runtime JRE, should beusing SDK, but there is no place where to set it
-Patch2:     usePathJdkForDifferentBuildAndRuntimeJre.patch
-Patch3:     altjava.patch
-
-BuildRequires:  javapackages-tools
-#for deprecated add_maven_depmap, see https://www.spinics.net/lists/fedora-devel/msg233211.html
-BuildRequires:  javapackages-local
-BuildRequires:  %{preffered_jdk}
-BuildRequires:  desktop-file-utils
-BuildRequires:  glib2-devel
-BuildRequires:  dos2unix
-BuildRequires:	rust
-BuildRequires:	cargo
-BuildRequires:  junit
-BuildRequires:  maven
-BuildRequires:  hamcrest
-BuildRequires:  libappstream-glib
-BuildRequires:  tagsoup
-BuildRequires:  maven-local-openjdk8
-# have to remove them at the end, what is the result?
-BuildRequires:  buildnumber-maven-plugin
-BuildRequires:  maven-source-plugin
-BuildRequires:  maven-clean-plugin
-BuildRequires:  maven-shade-plugin
-BuildRequires:  exec-maven-plugin
-BuildRequires:  hamcrest
-BuildRequires:  hamcrest-core
-BuildRequires:  rhino
-BuildRequires:  IPAddress
-
-# For functionality and the OpenJDK dirs
-Requires:      %{preffered_jre}
-Requires:      javapackages-tools
-Requires:      rhino
-Requires:      IPAddress
-
-Recommends:    bash-completion
-#maven fragments
-Requires(post):      javapackages-tools
-Requires(postun):    javapackages-tools
-
-# When itw builds against it, it have to be also in runtime
-Requires:      tagsoup
-
-# Post requires alternatives to install tool alternatives.
-Requires(post):   %{_sbindir}/alternatives
-# jnlp protocols support
-Requires(post):   GConf2
-# Postun requires alternatives to uninstall tool alternatives.
-Requires(postun): %{_sbindir}/alternatives
-# jnlp protocols support
-Requires(postun):   GConf2
-
-# Standard JPackage plugin provides.
-Provides: javaws      = 1:%{javaver}
-Provides: %{preffered_jre}-javaws =  1:%{version}
+Summary:           Open Source implementation of JSR-56 better known as Java Web Start
+Name:              icedtea-web
+Version:           1.8.8
+Release:           1%{?dist}
+# Run the following command after removing applet/unused sources in %%prep:
+# licensecheck -r --shortname-scheme=spdx . | sed -e 's/.*: //' | sort -u
+License:           GPL-2.0-only AND GPL-2.0-only WITH Classpath-exception-2.0 AND GPL-2.0-or-later AND GPL-2.0-or-later WITH Classpath-exception-2.0 AND LGPL-2.1-or-later AND Zlib
+URL:               https://github.com/AdoptOpenJDK/IcedTea-Web
+Source0:           https://github.com/AdoptOpenJDK/IcedTea-Web/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
+# Remove dependency to dunce (normalizes Windows paths to the most compatible format)
+Patch0:            icedtea-web-1.8.8-remove-dunce.patch
+# https://access.redhat.com/documentation/en-us/openjdk/11/html/using_alt-java
+Patch1:            icedtea-web-1.8.8-alt-java.patch
+# Upstream changes since IcedTea-Web 1.8.8
+Patch2:            https://github.com/AdoptOpenJDK/IcedTea-Web/compare/icedtea-web-1.8.8...4b3375b9ad68bec6306c38a976f7c0604fea1852.patch#/icedtea-web-1.8.8-upstream-changes.patch
+# Disable sun.applet javadocs and plugin man page for --disable-pluginjar
+Patch3:            https://github.com/AdoptOpenJDK/IcedTea-Web/pull/907.patch#/icedtea-web-1.8.8-disable-pluginjar.patch
+# Use same naming scheme like bash-completion
+Patch4:            https://github.com/AdoptOpenJDK/IcedTea-Web/pull/899.patch#/icedtea-web-1.8.8-bash-completion.patch
+# Disable man pages for languages without any translation
+Patch5:            https://github.com/AdoptOpenJDK/IcedTea-Web/pull/901.patch#/icedtea-web-1.8.8-untranslated-man-pages.patch
+# Fix javadoc error related to @param in TimedHashMap.java
+Patch6:            https://github.com/AdoptOpenJDK/IcedTea-Web/pull/908.patch#/icedtea-web-1.8.8-javadoc-param.patch
+# Reflect removal of Pack200 Tools and API in Java 17 to IcedTea-Web
+Patch7:            icedtea-web-1.8.8-java18-no-pack200.patch
+ExclusiveArch:     %{java_arches}
+BuildRequires:     autoconf
+BuildRequires:     automake
+BuildRequires:     bash-completion
+BuildRequires:     bc
+BuildRequires:     cargo
+BuildRequires:     desktop-file-utils
+BuildRequires:     java-%{java_version}-openjdk-devel
+BuildRequires:     javapackages-local
+BuildRequires:     javapackages-tools
+BuildRequires:     libappstream-glib
+BuildRequires:     tagsoup
+BuildRequires:     zip
+Recommends:        bash-completion
+Requires:          java-%{java_version}-openjdk
+Requires:          javapackages-tools
+# Required at runtime if icedtea-web was built against it
+Requires:          tagsoup
+Requires(post):    %{_sbindir}/alternatives
+Requires(post):    GConf2
+Requires(postun):  %{_sbindir}/alternatives
+Requires(postun):  GConf2
+# Cover third party repositories
+Obsoletes:         javaws < 1.8.8-1
+Provides:          javaws = %{version}-%{release}
+Provides:          javaws%{?_isa} = %{version}-%{release}
 
 %description
-The IcedTea-Web project provides a an implementation of Java Web Start
-(originally based on the Netx project, now opensource part of OpenWebStart)
-and a settings tool to manage deployment settings for the aforementioned 
-Web Start implementations. 
+The IcedTea-Web project provides a free software implementation of Java
+Web Start, originally based on the NetX, project.
+
+IcedTea's NetX currently supports verification of signed jars, trusted
+certificate storing, system certificate store checking, and provides the
+services specified by the jnlp API.
+
+In addition it also provides a full desktop integration, an offline run,
+many extended security features, an own policy editor and much more.
 
 %package javadoc
-Summary:    API documentation for IcedTea-Web
-Requires:   %{name} = %{version}-%{release}
-BuildArch:  noarch
+Summary:           API documentation for IcedTea-Web
+Requires:          %{name} = %{version}-%{release}
+BuildArch:         noarch
 
 %description javadoc
-This package contains Javadocs for the IcedTea-Web project.
-
+This package contains the API documentation for the IcedTea-Web project.
 
 %package devel
-Summary:    pure sources for debugging IcedTea-Web
-Requires:   %{name} = %{version}-%{release}
-BuildArch:  noarch
+Summary:           Pure sources for debugging IcedTea-Web
+Requires:          %{name} = %{version}-%{release}
+BuildArch:         noarch
 
 %description devel
-This package contains ziped sources of the IcedTea-Web project.
+This package contains the zipped sources of the IcedTea-Web project for
+debugging IcedTea-Web.
 
 %prep
-%setup -q -n IcedTea-Web-icedtea-web-2.0.0-alpha16
-%patch0 -p1
-dos2unix launchers/pom.xml
-%patch1 -p0
-%patch2 -p1
-%patch3 -p1
+%setup -q -n IcedTea-Web-%{name}-%{version}
+%patch0 -p1 -b .remove-dunce
+%patch1 -p1 -b .alt-java
+%patch2 -p1 -b .upstream-changes
+%patch3 -p1 -b .disable-pluginjar
+%patch4 -p1 -b .bash-completion
+%patch5 -p1 -b .untranslated-man-pages
+%patch6 -p1 -b .javadoc-param
+%if 0%{?java_version} >= 17
+%patch7 -p1 -b .java18-no-pack200
+%endif
 
-%pom_remove_plugin org.codehaus.mojo:buildnumber-maven-plugin
-%pom_remove_plugin org.apache.maven.plugins:maven-source-plugin
-%pom_remove_plugin org.jacoco:jacoco-maven-plugin
-%pom_remove_plugin org.apache.maven.plugins:maven-surefire-plugin
-%pom_add_plugin org.apache.maven.plugins:maven-install-plugin:2.5.2
-%pom_remove_dep junit:junit common/pom.xml
-%pom_remove_dep org.hamcrest:hamcrest common/pom.xml
+# Remove applet support
+rm -rf plugin netx/sun netx/net/sourceforge/jnlp/{NetxPanel,runtime/RhinoBasedPacEvaluator,util/WindowsDesktopEntry}.java
 
-%pom_remove_dep org.hamcrest:hamcrest test-extensions/pom.xml
-%pom_remove_dep net.jcip:jcip-annotations test-extensions/pom.xml
-%pom_remove_dep com.github.stefanbirkner:system-rules test-extensions/pom.xml
-
-%pom_remove_dep com.github.vatbub:mslinks core/pom.xml
-%pom_remove_dep org.hamcrest:hamcrest integration/pom.xml
-%pom_remove_dep com.github.tomakehurst:wiremock-jre8 integration/pom.xml
-%pom_remove_dep com.github.stefanbirkner:system-rules integration/pom.xml
-
-%pom_remove_plugin org.apache.maven.plugins:maven-javadoc-plugin common/pom.xml
-%pom_remove_plugin org.apache.maven.plugins:maven-javadoc-plugin core/pom.xml
-%pom_remove_plugin org.apache.maven.plugins:maven-javadoc-plugin test-extensions/pom.xml
-%pom_remove_plugin org.apache.maven.plugins:maven-javadoc-plugin xml-parser/pom.xml
-%pom_remove_plugin org.apache.maven.plugins:maven-javadoc-plugin pom.xml
-
-rm -v core/src/main/java/net/sourceforge/jnlp/util/WindowsDesktopEntry.java
-rm -r integration/src
-
+# Remove unused sources
+rm -rf tests win-installer
 
 %build
-rm -rf launchers/build.log
-export JAVA_HOME=%{sdkdir}
-SPLASH_TARGET_DIR=%{_datadir}/%{name} \
-ITW_TARGET_DIR=%{_datadir}/%{name} \
-BIN_TARGET_DIR=%{_libexecdir}/%{name} \
-ETC_TARGET_DIR=%{_sysconfdir}/java/%{name} \
-ITW_LIBS=DISTRIBUTION \
-JRE=%{jredir} \
-%mvn_build -- -Plaunchers -Dmaven.test.skip=true -Dmaven.javadoc.skip=true   || cat launchers/build.log
-cat launchers/build.log
+autoreconf --force --install
+%configure \
+  --with-pkgversion=fedora-%{release}-%{_arch} \
+  --docdir=%{_datadir}/javadoc/%{name} \
+  --with-jdk-home=%{_jvmdir}/java-%{java_version}-openjdk \
+  --with-jre-home=%{_jvmdir}/jre-%{java_version}-openjdk \
+  --program-suffix=.itweb \
+  --disable-native-plugin \
+  --disable-pluginjar \
+  --with-itw-libs=DISTRIBUTION \
+  --with-modularjdk-file=%{_sysconfdir}/java/%{name} \
+  --enable-shell-launchers
+%make_build
 
 %install
-#not installing all, itw is comlex maven project, wfrom which we need onlythe finall jar, without system deps
-%mvn_artifact pom.xml launchers/target//usr/share/icedtea-web/javaws.jar
+%make_install
 
-mkdir -p $RPM_BUILD_ROOT%{_libexecdir}/%{name}
-# build provides also .bat files, we do not want them
-cp -v launchers/target/%{_libexecdir}/%{name}/javaws $RPM_BUILD_ROOT%{_libexecdir}/%{name}/
-cp -v launchers/target/%{_libexecdir}/%{name}/itweb-settings $RPM_BUILD_ROOT%{_libexecdir}/%{name}/
-cp -v launchers/target/%{_libexecdir}/%{name}/policyeditor $RPM_BUILD_ROOT%{_libexecdir}/%{name}/
-cp -v launchers/target/%{_libexecdir}/%{name}/javaws.sh $RPM_BUILD_ROOT%{_libexecdir}/%{name}/
-cp -v launchers/target/%{_libexecdir}/%{name}/itweb-settings.sh $RPM_BUILD_ROOT%{_libexecdir}/%{name}/
-cp -v launchers/target/%{_libexecdir}/%{name}/policyeditor.sh $RPM_BUILD_ROOT%{_libexecdir}/%{name}/
+# Install desktop files
+desktop-file-install --dir $RPM_BUILD_ROOT%{_datadir}/applications javaws.desktop
+desktop-file-install --dir $RPM_BUILD_ROOT%{_datadir}/applications itweb-settings.desktop
+desktop-file-install --dir $RPM_BUILD_ROOT%{_datadir}/applications policyeditor.desktop
 
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/java/%{name}/
-cp -v launchers/target/%{_sysconfdir}/java/%{name}/itw-modularjdk.args $RPM_BUILD_ROOT%{_sysconfdir}/java/%{name}/
+# Install MetaInfo file for firefox
+install -D -p -m 0644 metadata/%{name}.metainfo.xml $RPM_BUILD_ROOT%{_metainfodir}/%{name}.metainfo.xml
 
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/%{name}
-cp -v launchers/target/%{_datadir}/%{name}/* $RPM_BUILD_ROOT%{_datadir}/%{name}
+# Install MetaInfo file for javaws
+install -D -p -m 0644 metadata/%{name}-javaws.appdata.xml $RPM_BUILD_ROOT%{_metainfodir}/%{name}-javaws.metainfo.xml
 
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d/
-cp -v launchers/target/extensions/bash_completion.d/* $RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d/
+# Maven fragments generation
+mkdir -p $RPM_BUILD_ROOT%{_javadir}/
+ln -s ../%{name}/javaws.jar $RPM_BUILD_ROOT%{_javadir}/%{name}.jar
+install -D -p -m 0644 metadata/%{name}.pom $RPM_BUILD_ROOT%{_mavenpomdir}/%{name}.pom
 
-mkdir -p $RPM_BUILD_ROOT/%{_mandir}/
-cp -r launchers/target/icedtea-web-docs/2.0.0-alpha16/man/* $RPM_BUILD_ROOT/%{_mandir}/
-# rename javaws so it can coexists with other implementations
-mv $RPM_BUILD_ROOT/%{_mandir}/man1/javaws.1 $RPM_BUILD_ROOT/%{_mandir}/man1/javaws.itweb.1
-mv $RPM_BUILD_ROOT/%{_mandir}/cs/man1/javaws.1 $RPM_BUILD_ROOT/%{_mandir}/cs/man1/javaws.itweb.1
-mv $RPM_BUILD_ROOT/%{_mandir}/de/man1/javaws.1 $RPM_BUILD_ROOT/%{_mandir}/de/man1/javaws.itweb.1
-mv $RPM_BUILD_ROOT/%{_mandir}/pl/man1/javaws.1 $RPM_BUILD_ROOT/%{_mandir}/pl/man1/javaws.itweb.1
+%mvn_artifact $RPM_BUILD_ROOT%{_mavenpomdir}/%{name}.pom $RPM_BUILD_ROOT%{_javadir}/%{name}.jar
 
-# Install desktop files.
-install -d -m 755 $RPM_BUILD_ROOT%{_datadir}/{applications,pixmaps}
-desktop-file-install --vendor '' --dir $RPM_BUILD_ROOT%{_datadir}/applications launchers/target/extensions/xdesktop/javaws.desktop
-desktop-file-install --vendor '' --dir $RPM_BUILD_ROOT%{_datadir}/applications launchers/target/extensions/xdesktop/itweb-settings.desktop
-desktop-file-install --vendor '' --dir $RPM_BUILD_ROOT%{_datadir}/applications launchers/target/extensions/xdesktop/policyeditor.desktop
-cp launchers/target/libs/javaws.png $RPM_BUILD_ROOT%{_datadir}/pixmaps
+# Install source zip for devel package
+install -D -p -m 0644 netx.build/lib/src.zip $RPM_BUILD_ROOT%{_datadir}/%{name}/javaws.src.zip
 
-# install MetaInfo file for javaws
-DESTDIR=%{buildroot} appstream-util install launchers/metadata/%{name}-javaws.appdata.xml
+# Create files for %%ghost in %%files
+touch $RPM_BUILD_ROOT%{_bindir}/{javaws,itweb-settings,policyeditor}
 
-# maven fragments generation
-mkdir -p $RPM_BUILD_ROOT%{_javadir}
-pushd $RPM_BUILD_ROOT%{_javadir}
-  ln -s ../%{name}/javaws.jar %{name}.jar
-popd
-mkdir -p $RPM_BUILD_ROOT/%{_mavenpomdir}
-cp pom.xml  $RPM_BUILD_ROOT/%{_mavenpomdir}/%{name}.pom
-
-%mvn_artifact $RPM_BUILD_ROOT/%{_mavenpomdir}/%{name}.pom $RPM_BUILD_ROOT/%{_javadir}/%{name}.jar
-
-%find_lang %{name} --all-name --with-man
+# Until https://bugzilla.redhat.com/show_bug.cgi?id=2188866 is fixed
+rm -f $RPM_BUILD_ROOT%{_datadir}/bash-completion/completions/javaws
 
 %check
-# takes long, and fails anyway
-# appstream-util validate $RPM_BUILD_ROOT/%{_datadir}/appdata/*.xml || :
+appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/*.metainfo.xml
 
 %post
-# we had changed master of alternative, thus rmoving the old ones
-# this is braking alternatives, thus variabled-out if necessary
-if [ ! "x$ITW_20_18" ==  "xtrue" ] ; then
-  alternatives --remove javaws.%{_arch} %{_prefix}/bin/javaws.itweb
-fi
-
-PRIORITY=%{priority}
 alternatives \
-  --install %{_bindir}/javaws				javaws.%{_arch}		%{_libexecdir}/%{name}/javaws $PRIORITY  --family %{preffered_jre}.%{_arch} \
-  --slave   %{_bindir}/itweb-settings			itweb-settings		%{_libexecdir}/%{name}/itweb-settings \
-  --slave   %{_bindir}/policyeditor			policyeditor		%{_libexecdir}/%{name}/policyeditor \
-  --slave   %{_bindir}/ControlPanel			ControlPanel		%{_libexecdir}/%{name}/itweb-settings \
-  --slave   %{_mandir}/man1/javaws.1.gz			javaws.1.gz		%{_mandir}/man1/javaws.itweb.1.gz \
-  --slave   %{_mandir}/man1/ControlPanel.1.gz		ControlPanel.1.gz	%{_mandir}/man1/itweb-settings.1.gz
+  --install %{_bindir}/javaws         javaws.%{_arch} %{_bindir}/javaws.itweb    %{java_version}0000 --family java-%{java_version}-openjdk.%{_arch} \
+  --slave   %{_bindir}/itweb-settings itweb-settings  %{_bindir}/itweb-settings.itweb \
+  --slave   %{_bindir}/policyeditor   policyeditor    %{_bindir}/policyeditor.itweb
 
-let PRIORITY=PRIORITY-1
 alternatives \
-  --install %{_bindir}/javaws				javaws.%{_arch}		%{_libexecdir}/%{name}/javaws.sh $PRIORITY  --family %{preffered_jre}.%{_arch} \
-  --slave   %{_bindir}/itweb-settings			itweb-settings		%{_libexecdir}/%{name}/itweb-settings.sh \
-  --slave   %{_bindir}/policyeditor			policyeditor		%{_libexecdir}/%{name}/policyeditor.sh \
-  --slave   %{_bindir}/ControlPanel			ControlPanel		%{_libexecdir}/%{name}/itweb-settings.sh \
-  --slave   %{_mandir}/man1/javaws.1.gz			javaws.1.gz		%{_mandir}/man1/javaws.itweb.1.gz \
-  --slave   %{_mandir}/man1/ControlPanel.1.gz		ControlPanel.1.gz	%{_mandir}/man1/itweb-settings.1.gz
+  --install %{_bindir}/javaws         javaws.%{_arch} %{_bindir}/javaws.itweb.sh %{java_version}0000 --family java-%{java_version}-openjdk.%{_arch} \
+  --slave   %{_bindir}/itweb-settings itweb-settings  %{_bindir}/itweb-settings.itweb.sh \
+  --slave   %{_bindir}/policyeditor   policyeditor    %{_bindir}/policyeditor.itweb.sh
 
-
-gconftool-2 -s  %{jnlphandler}/command  '%{_bindir}/javaws %s' --type String &> /dev/null || :
-gconftool-2 -s  %{jnlphandler}/enabled  --type Boolean true &> /dev/null || :
-gconftool-2 -s %{jnlpshandler}/command '%{_bindir}/javaws %s' --type String &> /dev/null || :
-gconftool-2 -s %{jnlpshandler}/enabled --type Boolean true &> /dev/null || :
+gconftool-2 --set /desktop/gnome/url-handlers/jnlp/command  --type=string '%{_bindir}/javaws.itweb %s' &> /dev/null || :
+gconftool-2 --set /desktop/gnome/url-handlers/jnlp/enabled  --type=bool true &> /dev/null || :
+gconftool-2 --set /desktop/gnome/url-handlers/jnlps/command --type=string '%{_bindir}/javaws.itweb %s' &> /dev/null || :
+gconftool-2 --set /desktop/gnome/url-handlers/jnlps/enabled --type=bool true &> /dev/null || :
 
 %postun
-if [ $1 -eq 0 ]
-then
-  alternatives --remove javaws.%{_arch} %{_libexecdir}/%{name}/javaws
-  alternatives --remove javaws.%{_arch} %{_libexecdir}/%{name}/javaws.sh
-  gconftool-2 -u  %{jnlphandler}/command &> /dev/null || :
-  gconftool-2 -u  %{jnlphandler}/enabled &> /dev/null || :
-  gconftool-2 -u %{jnlpshandler}/command &> /dev/null || :
-  gconftool-2 -u %{jnlpshandler}/enabled &> /dev/null || :
+if [ $1 -eq 0 ]; then
+  alternatives --remove javaws.%{_arch} %{_bindir}/javaws.itweb
+  alternatives --remove javaws.%{_arch} %{_bindir}/javaws.itweb.sh
+  gconftool-2 --unset /desktop/gnome/url-handlers/jnlp/command  &> /dev/null || :
+  gconftool-2 --unset /desktop/gnome/url-handlers/jnlp/enabled  &> /dev/null || :
+  gconftool-2 --unset /desktop/gnome/url-handlers/jnlps/command &> /dev/null || :
+  gconftool-2 --unset /desktop/gnome/url-handlers/jnlps/enabled &> /dev/null || :
 fi
 exit 0
 
-%files -f %{name}.lang
-%{_sysconfdir}/bash_completion.d/*
+%files
+%license COPYING
+%doc AUTHORS NEWS README
+%dir %{_sysconfdir}/java/%{name}/
 %config(noreplace) %{_sysconfdir}/java/%{name}/itw-modularjdk.args
-%{_libexecdir}/%{name}/*
-%{_datadir}/applications/*
-%dir %{_datadir}/%{name}
-%{_datadir}/%{name}/*.jar
-%{_datadir}/java/%{name}.jar
-%{_datadir}/maven-poms/%{name}.pom
-%{_datadir}/%{name}/*.png
-%{_datadir}/man/man1/*
-%{_datadir}/pixmaps/*
-%{_datadir}/appdata/*.xml
-%doc README.md CONTRIBUTING.md
-%license LICENSE LICENCE_DETAILS.md
+%ghost %{_bindir}/javaws
+%{_bindir}/javaws.itweb
+%{_bindir}/javaws.itweb.sh
+%ghost %{_bindir}/itweb-settings
+%{_bindir}/itweb-settings.itweb
+%{_bindir}/itweb-settings.itweb.sh
+%ghost %{_bindir}/policyeditor
+%{_bindir}/policyeditor.itweb
+%{_bindir}/policyeditor.itweb.sh
+%{_datadir}/applications/javaws.desktop
+%{_datadir}/applications/itweb-settings.desktop
+%{_datadir}/applications/policyeditor.desktop
+%{_datadir}/bash-completion/completions/itweb-settings
+%{_datadir}/bash-completion/completions/policyeditor
+%dir %{_datadir}/%{name}/
+%{_datadir}/%{name}/javaws.jar
+%{_datadir}/%{name}/javaws_splash.png
+%{_javadir}/%{name}.jar
+%{_mavenpomdir}/%{name}.pom
+%{_metainfodir}/%{name}.metainfo.xml
+%{_metainfodir}/%{name}-javaws.metainfo.xml
+%{_datadir}/pixmaps/javaws.png
+%{_mandir}/man1/%{name}.1*
+%{_mandir}/man1/itweb-settings.1*
+%{_mandir}/man1/javaws.1*
+%{_mandir}/man1/policyeditor.1*
 
+%files javadoc
+%{_datadir}/javadoc/%{name}/
+
+%files devel
+%{_datadir}/%{name}/javaws.src.zip
 
 %changelog
-* Tue Oct 19 2021 Orion Poplawski <orion@nwra.com> - 2.0.0-pre.0.3.alpha16.patched1.1.2
-- Remove unneeded BR on maven-install-plugin, and BR maven-local-openjdk8 (FTBFS bz#1987575)
+* Sun Apr 23 2023 Robert Scheck <robert@fedoraproject.org> - 1.8.8-1
+- Upgrade to 1.8.8 (#2188867)
 
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-pre.0.3.alpha16.patched1.1.1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-pre.0.3.alpha16.patched1.3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Tue Nov 24 2020 Jiri Vanek <jvanek@redhat.com> - 2.0.0-pre.0.3.alpha16.patched1.2
-- removed policyeditor manpage, it was link to itself
-
-* Tue Nov 24 2020 Jiri Vanek <jvanek@redhat.com> - 2.0.0-pre.0.3.alpha16.patched1.1
-- fixed jnlp handlers to use masterlink
-
-* Tue Nov 24 2020 Jiri Vanek <jvanek@redhat.com> - 2.0.0-pre.0.3.alpha16.patched1.0
-- bumped to latest upstream
-
-* Fri Jul 10 2020 Jiri Vanek <jvanek@redhat.com> - 2.0.0-pre.0.3.alpha13.patched1.5
+* Tue Nov 24 2020 Jiri Vanek <jvanek@redhat.com> - 1.8.4-1
+- patched to use alt-java
 - returned shell launchers
-- made to use alt-java if it exists
 
-* Fri Jul 10 2020 Jiri Vanek <jvanek@redhat.com> - 2.0.0-pre.0.3.alpha13.patched1.4
-- removed all javadocs, likely broken after usage of xmvn to javadocs generation
-- https://src.fedoraproject.org/rpms/javapackages-tools/pull-request/3#comment-46283
+* Tue Nov 24 2020 Jiri Vanek <jvanek@redhat.com> - 1.8.4-0
+- rebased to 1.8.4
 
-* Fri Jul 10 2020 Jiri Vanek <jvanek@redhat.com> - 2.0.0-pre.0.3.alpha13.patched1.3
-- added removal of old alternatives. Sorry
+* Wed Jul 31 2019 Jiri Vanek <jvanek@redhat.com> - 1.8.2-4
+- fixed alternatives removal. Were broken for years
 
-* Fri Jul 10 2020 Jiri Vanek <jvanek@redhat.com> - 2.0.0-pre.0.3.alpha13.patched1.2
-- fixed removal of alternatives, was not working for years
-- fixed unexpanded macro in alternatives, reason of non working update from 1.8
-
-* Fri Jul 10 2020 Jiri Vanek <jvanek@redhat.com> - 2.0.0-pre.0.3.alpha13.patched1.1
-- Rebuilt for JDK-11, see https://fedoraproject.org/wiki/Changes/Java11
-
-* Fri Jun 05 2020 Jiri Vanek <jvanek@fedoraproject.org> - 2.0.0-pre.0.2.alpha13.patched2
-- updated to upstream sources with proper ipaddress handling
-- still needs jdk8 to build due to bug in upstream
-
-* Fri May 08 2020 Jiri Vanek <jvanek@fedoraproject.org> - 2.0.0-pre.0.2.alpha13.patched1
-- Changed so it builds by jdk8, but runs by jdk11. It should be upstream supported way
-
-* Fri May 08 2020 Jiri Vanek <jvanek@fedoraproject.org> - 2.0.0-pre.0.1.alpha13.patched1
-- bumped to use jdk11
-
-* Fri May 08 2020 Jiri Vanek <jvanek@fedoraproject.org> - 2.0.0-pre.0.0.alpha13.patched1
-- rewriten for itw 2.0
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Wed Jul 31 2019 - Jiri Vanek <jvanek@redhat.com> -1.8.2-3
+* Wed Jul 31 2019 Jiri Vanek <jvanek@redhat.com> - 1.8.2-3
 - added issue1-3 patches to fix CVEs 2019-10181, 2019-10182, 2019-10185
 
 * Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
 
-* Wed Jul 17 2019 - Jiri Vanek <jvanek@redhat.com> -1.8.2-1
+* Wed Jul 17 2019 Jiri Vanek <jvanek@redhat.com> - 1.8.2-1
 - Bump to 1.8.2; first from AdoptOpenJDK
 
-* Wed Mar 20 2019 Peter Robinson <pbrobinson@fedoraproject.org> -1.8-2
+* Wed Mar 20 2019 Peter Robinson <pbrobinson@fedoraproject.org> - 1.8-2
 - Drop chkconfig dep, 1.7 shipped in f24
 
-* Tue Mar 12 2019 - Jiri Vanek <jvanek@redhat.com> -1.8-1
+* Tue Mar 12 2019 Jiri Vanek <jvanek@redhat.com> - 1.8-1
 - Bump to 1.8
 
-* Tue Feb 26 2019 - Jiri Vanek <jvanek@redhat.com> -1.8pre-0.2
-- itw-modularjdk.args marked as config(norepalce)
+* Tue Feb 26 2019 Jiri Vanek <jvanek@redhat.com> - 1.8pre-0.2
+- itw-modularjdk.args marked as %%config(noreplace)
 
-* Thu Feb 21 2019 - Jiri Vanek <jvanek@redhat.com> -1.8pre-0.1
+* Thu Feb 21 2019 Jiri Vanek <jvanek@redhat.com> - 1.8pre-0.1
 - updated to soon to release itw 1.8 with native launchers
 
 * Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
 
-* Mon Jul 16 2018 - Jiri Vanek <jvanek@redhat.com> -1.7.1-11
-- added usptream pathces
+* Mon Jul 16 2018 Jiri Vanek <jvanek@redhat.com> - 1.7.1-11
+- added upstream patches
 
-* Mon Jul 16 2018 - Jiri Vanek <jvanek@redhat.com> -1.7.1-10
-- added usptream pathces
-- removed most relicts off plugin
+* Mon Jul 16 2018 Jiri Vanek <jvanek@redhat.com> - 1.7.1-10
+- added upstream patches
+- removed most relicts of plugin
 
-* Mon Jul 16 2018 - Jiri Vanek <jvanek@redhat.com> -1.7.1-8
+* Mon Jul 16 2018 Jiri Vanek <jvanek@redhat.com> - 1.7.1-8
 - removed rhino
 
-* Thu May 24 2018 - Jiri Vanek <jvanek@redhat.com> -1.7.1-6
+* Thu May 24 2018 Jiri Vanek <jvanek@redhat.com> - 1.7.1-6
 - removed clang
 
-* Mon May 14 2018 - Jiri Vanek <jvanek@redhat.com> -1.7.1-6
+* Mon May 14 2018 Jiri Vanek <jvanek@redhat.com> - 1.7.1-6
 - added an applied patch1, oracleForms.patch to make oracle forms working
 
-* Fri Mar 02 2018 - Jiri Vanek <jvanek@redhat.com> -1.7.1-5
+* Fri Mar 02 2018 Jiri Vanek <jvanek@redhat.com> - 1.7.1-5
 - added 1473-1480.patch
-- added support for javafx-desc and so allwong run of pure-javafx only applications
+- added support for javafx-desc and so allow run of pure-javafx only applications
 - --nosecurity enhanced for possibility to skip invalid signatures
 - enhanced to allow resources to be read also from j2se/java element (OmegaT)
 
-* Tue Feb 20 2018 - Jiri Vanek <jvanek@redhat.com> -1.7.1-3
+* Tue Feb 20 2018 Jiri Vanek <jvanek@redhat.com> - 1.7.1-3
 - added buildrequires on gcc/gcc-c++
 - to follow new packaging guidelines which no longer automatically pulls gcc/c++ to build root
 
@@ -379,22 +288,22 @@ exit 0
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
 * Mon Dec 18 2017 Jiri Vanek <jvanek@redhat.com> 1.7.1-1
-* bump to 1.7.1
+- bump to 1.7.1
 
 * Fri Nov 03 2017 Jiri Vanek <jvanek@redhat.com> 1.7-6
-- javaws specific manpage renmed from -suffix to .suffix
+- javaws specific manpage renamed from -suffix to .suffix
 
 * Wed Oct 18 2017 Jiri Vanek <jvanek@redhat.com> 1.7-5
-- gathered various patches from usptream
+- gathered various patches from upstream
 
 * Wed Aug 23 2017 Jiri Vanek <jvanek@redhat.com> 1.7-4
-- removed natie plugin, no longer can build (removed xullruner and gecko devel packages)
+- removed native plugin, no longer can build (removed xulrunner and gecko devel packages)
 - added forgotten slaves of itweb-settings policyeditor
 - Own %%{_datadir}/%%{name} dir
 - Mark non-English man pages with %%lang
 - Install COPYING as %%license
-- last three by Ville Skytta <ville.skytta@iki.fi> via 1481270
-- added BuildRequires:  javapackages-local to introduce deprecated add_maven_depmap macro
+- last three by Ville Skytta <ville.skytta@iki.fi> via #1481270
+- added BuildRequires: javapackages-local to introduce deprecated %%add_maven_depmap macro
 
 * Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
@@ -413,7 +322,7 @@ exit 0
 
 * Fri May 12 2017 Jiri Vanek <jvanek@redhat.com> 1.7-0.3.pre06
 - updated to RC6
-- split bash-copletion
+- split bash-completion
 - added sources (to align with upstream binary release)
 
 * Tue May 02 2017 Jiri Vanek <jvanek@redhat.com> 1.7-0.3.pre05
@@ -422,7 +331,7 @@ exit 0
 
 * Fri Apr 28 2017 Jiri Vanek <jvanek@redhat.com> 1.7-0.2.pre05
 - updated to rc5
-- added support for jnlp://, jnlps:// and jnlp: protocols 
+- added support for jnlp://, jnlps:// and jnlp: protocols
 
 * Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-0.2.pre04
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
@@ -432,22 +341,22 @@ exit 0
 - fixed RHBZ#1412544
 
 * Wed Jan 11 2017 Jiri Vanek <jvanek@redhat.com> 1.7-0.1.pre03
-- updated ro RC3 of 1.7 
+- updated to RC3 of 1.7
 
 * Wed Jan 04 2017 Jiri Vanek <jvanek@redhat.com> 1.7-0.1.pre01
-- updated ro RC1 of 1.7 
-- added recommends on vash completion
+- updated to RC1 of 1.7
+- added recommends on bash completion
 
 * Wed Jul 13 2016 Jiri Vanek <jvanek@redhat.com> 1.6.2-3
 - minor fix to javadir and jre dir
 
 * Wed Jul 13 2016 Jiri Vanek <jvanek@redhat.com> 1.6.2-2
-- added --family to make it part of javas alternatives alignment
-- java-javaver-openjdk collected into preffered_java 
+- added --family to make it part of java's alternatives alignment
+- java-javaver-openjdk collected into preferred_java
 
 * Wed Feb 03 2016 Jiri Vanek <jvanek@redhat.com> 1.6.2-1
 - updated to 1.6.2
-- fixed also rhbz#1303437 - package owns /etc/bash_completion.d but it should not own it 
+- fixed also rhbz#1303437 - package owns /etc/bash_completion.d but it should not own it
 
 * Thu Jan 28 2016 Jiri Vanek <jvanek@redhat.com> 1.6.1-66
 - moved to 1.6.2pre
@@ -460,12 +369,12 @@ exit 0
 
 * Wed Oct 14 2015 Jiri Vanek <jvanek@redhat.com> 1.6.1-3
 - added and applied three patches scheduled for 1.6.2
-- patch2 fileLogInitializationError-1.6.patch to prevent consequences 1268909
+- patch2 fileLogInitializationError-1.6.patch to prevent consequences (#1268909)
 - patch1 donLogToFileBeforeFileLogsInitiate.patch
-- patch0 javadocFixes.patch 
+- patch0 javadocFixes.patch
 
 * Mon Sep 21 2015 Jiri Vanek <jvanek@redhat.com> 1.6.1-2
-- added and applied patch0 javadocFixes.patch 
+- added and applied patch0 javadocFixes.patch
 
 * Fri Sep 11 2015 Jiri Vanek <jvanek@redhat.com> 1.6.1-1
 - updated to upstream release 1.6.1
@@ -481,7 +390,7 @@ exit 0
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
 
 * Mon May 04 2015 Jiri Vanek <jvanek@redhat.com> 1.6-3
-- added depndence on hamcrest - no longer part of junit
+- added dependence on hamcrest - no longer part of junit
 
 * Wed Apr 29 2015 Jiri Vanek <jvanek@redhat.com> 1.6-2
 - enabled check
@@ -492,9 +401,9 @@ exit 0
 * Fri Apr 24 2015 Jiri Vanek <jvanek@redhat.com> 1.6-0.1.pre05
 - updated to pre06
 - handled "Add Tab Completion for icedtea-web" change
-- this release contains numers, not yet upstreamed, but going to release features:
+- this release contains numerous, not yet upstreamed, but going to release features:
 - summary: Fixed resource test to pass for CZ localization
-- summary: Added Czech translation for 1.6.
+- summary: Added Czech translation for 1.6
 - summary: Messages from TextsProvider moved to properties
 - summary: various improvements to default set of properties
 - summary: Added MultipleDeploymentPropertiesModifier improvement to testsuite
@@ -512,8 +421,8 @@ exit 0
 * Mon Dec 22 2014 Jiri Vanek <jvanek@redhat.com> 1.6-0.1.pre02
 - updated to pre02
 - upstreamed patch1, quoteDocsPaths.patch
-- temprarily disabled unittests
-- fixed nlp apps shortcut
+- temporarily disabled unittests
+- fixed jnlp apps shortcut
 
 * Mon Dec 22 2014 Jiri Vanek <jvanek@redhat.com> 1.6-0.1.pre01
 - update future 1.6 alpha pre01
@@ -531,11 +440,11 @@ exit 0
 - removed all patches (all upstreamed)
 
 * Thu Aug 14 2014 Richard Hughes <richard@hughsie.com> - 1.5-4
-- Add MetaInfo file to show an addon in GNOME Software.
-- See http://icedtea.classpath.org/bugzilla/show_bug.cgi?id=1907 for upstream.
+- Add MetaInfo file to show an addon in GNOME Software
+- See http://icedtea.classpath.org/bugzilla/show_bug.cgi?id=1907 for upstream
 
 * Mon Jun 09 2014 Omair Majid <omajid@redhat.com> - 1.5-3
-- Require junit instead of juni4
+- Require junit instead of junit4
 - Build against OpenJDK 7 explicitly
 
 * Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.5-3
@@ -543,38 +452,38 @@ exit 0
 
 * Mon Apr 07 2014 Jiri Vanek <jvanek@redhat.com> 1.5-2
 - add not yet upstreamed DE localisation of 1.5
- - patch0 DElocalizationforIcedTea-Web1.5-0001.patch
-- autoreconf gog  -vfi, see RH1077898
-- ./configure changed to %%configure,see RH1077287
+  - patch0 DElocalizationforIcedTea-Web1.5-0001.patch
+- autoreconf gog -vfi, see RH1077898
+- ./configure changed to %%configure, see RH1077287
 
 * Mon Apr 07 2014 Jiri Vanek <jvanek@redhat.com> 1.5-1
 - updated to icedtea-web-1.5
 
 * Mon Mar 10 2014 Jiri Vanek <jvanek@redhat.com> 1.5-0.8.pre05
 - updated to pre05
- - based on revision 925
+  - based on revision 925
 
 * Mon Mar 10 2014 Jiri Vanek <jvanek@redhat.com> 1.5-0.4.pre04
 - updated to pre04
- - based on revision 917
+  - based on revision 917
 
 * Wed Mar 05 2014 Jiri Vanek <jvanek@redhat.com> 1.5-0.3.pre03
 - updated to pre03
- - based on revision 910:0a36108ce4b9
+  - based on revision 910:0a36108ce4b9
 
 * Wed Feb 26 2014 Jiri Vanek <jvanek@redhat.com> 1.5-0.2.pre02
 - added supported tagsoup dependence
 
 * Wed Feb 26 2014 Jiri Vanek <jvanek@redhat.com> 1.5-0.1.pre02
-- updated to  bleeding edge as tracker before 1.5 actual release
- - based on revision 899
+- updated to bleeding edge as tracker before 1.5 actual release
+  - based on revision 899
 - added policyeditor.desktop
-- removed -std=c++11  flag
+- removed -std=c++11 flag
 
 * Wed Feb 12 2014 Jiri Vanek <jvanek@redhat.com> 1.5-0.1.pre01
-- updated to  bleeding edge as tracker before 1.5 actual release
+- updated to bleeding edge as tracker before 1.5 actual release
 - named by https://fedoraproject.org/wiki/Packaging:NamingGuidelines#Pre-Release_packages
- - see commented original source0 line and setup line reusing versions
+  - see commented original source0 line and setup line reusing versions
 - the source tarball is based on revision 892
 
 * Tue Feb 04 2014 Jiri Vanek <jvanek@redhat.com> 1.4.2-0
@@ -590,10 +499,10 @@ exit 0
 * Tue Sep 17 2013 Jiri Vanek <jvanek@redhat.com> 1.4.1-0
 - updated to 1.4.1
 - add icedtea-web man page
-- removed upstreamed  patch1 b25-appContextFix.patch
-- removed upstreamed  patch2 rhino-pac-permissions.patch
+- removed upstreamed patch1 b25-appContextFix.patch
+- removed upstreamed patch2 rhino-pac-permissions.patch
 - make check enabled again
-- should be build for non-standart archs !-)
+- should be build for non-standard archs !-)
 - removed unused multilib arches (yupii!)
 
 * Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.4-4
@@ -611,28 +520,28 @@ exit 0
 - minor clean up
 - Updated to 1.4
 - See announcement for detail
- - http://mail.openjdk.java.net/pipermail/distro-pkg-dev/2013-May/023195.html
-- commented out check - some junit4  incompatibility
+  - http://mail.openjdk.java.net/pipermail/distro-pkg-dev/2013-May/023195.html
+- commented out check - some junit4 incompatibility
 
 * Wed Apr 17 2013 Jiri Vanek <jvanek@redhat.com> 1.3.2-0
 - Updated to latest ustream release of 1.3 branch - 1.3.2
- - Security Updates
-  - CVE-2013-1927, RH884705: fixed gifar vulnerability
-  - CVE-2013-1926, RH916774: Class-loader incorrectly shared for applets with same relative-path.
- - Common
-  - Added new option in itw-settings which allows users to set JVM arguments when plugin is initialized.
- - NetX
-  - PR580: http://www.horaoficial.cl/ loads improperly
- - Plugin
-   PR1260: IcedTea-Web should not rely on GTK
-   PR1157: Applets can hang browser after fatal exception
+  - Security Updates
+    - CVE-2013-1927, RH884705: fixed gifar vulnerability
+    - CVE-2013-1926, RH916774: Class-loader incorrectly shared for applets with same relative-path
+  - Common
+    - Added new option in itw-settings which allows users to set JVM arguments when plugin is initialized
+  - NetX
+    - PR580: http://www.horaoficial.cl/ loads improperly
+  - Plugin
+    PR1260: IcedTea-Web should not rely on GTK
+    PR1157: Applets can hang browser after fatal exception
 - Removed upstreamed patch to remove GTK dependency
   - icedtea-web-pr1260-remove-gtk-dep.patch
 
 * Wed Feb 20 2013 Ville Skyttä <ville.skytta@iki.fi> - 1.3.1-5
 - Resolves: rhbz#875496
-- Build with $RPM_LD_FLAGS and %%{_smp_mflags}.
-- Run unit tests during build.
+- Build with $RPM_LD_FLAGS and %%{_smp_mflags}
+- Run unit tests during build
 
 * Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.3.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
@@ -642,7 +551,7 @@ exit 0
 - Added patch to remove GTK dependency
 
 * Thu Dec 20 2012 Jiri Vanek <jvanek@redhat.com> 1.3.1-2
-- Moved to be  build with GTK3
+- Moved to be build with GTK3
 
 * Wed Nov 07 2012 Deepak Bhole <dbhole@redhat.com> 1.3.1-1
 - Resolves: RH869040/CVE-2012-4540
@@ -681,16 +590,16 @@ exit 0
 - Bumped min_openjdk_version to -60 (latest)
 
 * Thu Nov 24 2011 Deepak Bhole <dbhole@redhat.com> 1.1.4-2
-- Resolves: rhbz#742887. Do not own directories not created by the package.
+- Resolves: rhbz#742887. Do not own directories not created by the package
 
 * Tue Nov 08 2011 Deepak Bhole <dbhole@redhat.com> 1.1.4-1
 - Updated to 1.1.4
-- Added npapi-fix patch so that the plug-in compiles with xulrunner 8 
+- Added npapi-fix patch so that the plug-in compiles with xulrunner 8
 
 * Thu Sep 01 2011 Deepak Bhole <dbhole@redhat.com> 1.1.2-1
 - Updated to 1.1.2
 - Removed all patches (now upstream)
-- Resolves: rhbz# 734890
+- Resolves: rhbz#734890
 
 * Tue Aug 23 2011 Deepak Bhole <dbhole@redhat.com> 1.1.1-3
 - Added patch to allow install to jre dir
@@ -710,11 +619,11 @@ exit 0
 
 * Mon Jun 13 2011 Deepak Bhole <dbhole@redhat.com> 1.0.3-1
 - Update to 1.0.3
-- Resolves: rhbz#691259 
+- Resolves: rhbz#691259
 
 * Mon Apr 04 2011 Deepak Bhole <dbhole@redhat.com> 1.0.2-2
 - Fixed incorrect macro value for min_openjdk_version
-- Use posttrans instead of post, so that upgrade from old plugin works
+- Use %%posttrans instead of %%post, so that upgrade from old plugin works
 
 * Mon Apr 04 2011 Deepak Bhole <dbhole@redhat.com> 1.0.2-1
 - Initial build

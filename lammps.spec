@@ -25,7 +25,7 @@ Version:        20220623.3
                   m=${v:4:2};
                   y=${v:0:4};
                   echo $([[ -z $patch ]] && echo patch || echo stable)_${d#0}${months[${m#0}]}${y}$([[ -n $patch ]] && echo _update${patch}))
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Molecular Dynamics Simulator
 License:        GPLv2
 Url:            https://www.lammps.org/
@@ -350,6 +350,9 @@ done
 %config %{_sysconfdir}/profile.d/lammps.*
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 20220623.3-3
+- Rebuilt for Python 3.12
+
 * Mon May 15 2023 Christoph Junghans <junghans@votca.org> - 20220623.3-2
 - disable kokkos on rawhide for now
 

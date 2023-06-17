@@ -1,6 +1,6 @@
 Name:           nodepool
 Version:        3.13.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Nodepool management for a distributed test infrastructure
 
 License:        ASL 2.0
@@ -158,6 +158,9 @@ exit 0
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 3.13.1-6
+- Rebuilt for Python 3.12
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

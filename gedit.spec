@@ -17,7 +17,7 @@
 Name:		gedit
 Epoch:		2
 Version:	44.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Text editor for the GNOME desktop
 
 License:	GPLv2+ and GFDL
@@ -164,6 +164,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.gedit.deskt
 %{_datadir}/vala/
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 2:44.2-2
+- Rebuilt for Python 3.12
+
 * Wed May 17 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2:44.2-1
 - Update to 44.2
 

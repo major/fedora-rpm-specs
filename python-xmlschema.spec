@@ -7,6 +7,10 @@ Summary:        A Python XML Schema validator and decoder
 License:        MIT
 URL:            https://github.com/brunato/xmlschema
 Source0:        %{pypi_source}
+
+# Python 3.12: Refactor _PurePath to not use PurePath internals 
+Patch:          https://github.com/sissaschool/xmlschema/commit/62e317e210.patch
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
@@ -35,7 +39,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -p1 -n %{pypi_name}-%{version}
 sed -i 's/~=/>=/' setup.py tox.ini  # https://bugzilla.redhat.com/show_bug.cgi?id=1758141
 sed -i 's/==/>=/' tox.ini  # too strict test deps
 sed -i '/memory_profiler/d' tox.ini # optional test dep, not packaged in Fedora, not worth testing

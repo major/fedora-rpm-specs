@@ -1,6 +1,6 @@
 Name:		fio
 Version:	3.35
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Multithreaded IO generation tool
 
 License:	GPLv2
@@ -11,10 +11,16 @@ Source2:	https://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git/plain/keys/F7D35
 
 %if 0%{?rhel} && 0%{?rhel} < 10
 %bcond_without nbd
+%ifarch x86_64 ppc64le
+%bcond_without pmem
+%endif
 %bcond_without rbd
 %bcond_without rados
 %else
 %bcond nbd 1
+%ifarch x86_64 ppc64le
+%bcond pmem %{undefined rhel}
+%endif
 %bcond rbd 1
 %bcond rados 1
 %endif
@@ -29,7 +35,7 @@ BuildRequires:	libnbd-devel
 %endif
 BuildRequires:	libcurl-devel
 BuildRequires:	openssl-devel
-%ifarch x86_64 ppc64le
+%if %{with pmem}
 BuildRequires:	libpmem-devel
 %endif
 
@@ -57,7 +63,7 @@ Recommends:     %{name}-engine-http
 %if %{with nbd}
 Recommends:     %{name}-engine-nbd
 %endif
-%ifarch x86-64 ppc64le
+%if %{with pmem}
 Recommends:     %{name}-engine-dev-dax
 Recommends:     %{name}-engine-libpmem
 %endif
@@ -104,7 +110,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Network Block Device (NBD) engine for %{name}.
 %endif
 
-%ifarch x86_64 ppc64le
+%if %{with pmem}
 %package engine-dev-dax
 Summary:        PMDK dev-dax engine for %{name}.
 Requires:       %{name}%{?_isa} = %{version}-%{release}
@@ -115,7 +121,7 @@ Read and write using device DAX to a persistent memory device
 (e.g., /dev/dax0.0) through the PMDK libpmem library.
 %endif
 
-%ifarch x86_64 ppc64le
+%if %{with pmem}
 %package engine-libpmem
 Summary:        PMDK pmemblk engine for %{name}.
 Requires:       %{name}%{?_isa} = %{version}-%{release}
@@ -190,7 +196,7 @@ make install prefix=%{_prefix} mandir=%{_mandir} libdir=%{_libdir}/fio DESTDIR=$
 %{_mandir}/man1/*
 %{_datadir}/%{name}/*
 
-%ifarch x86_64 ppc64le
+%if %{with pmem}
 %files engine-dev-dax
 %{_libdir}/fio/fio-dev-dax.so
 %endif
@@ -201,7 +207,7 @@ make install prefix=%{_prefix} mandir=%{_mandir} libdir=%{_libdir}/fio DESTDIR=$
 %files engine-libaio
 %{_libdir}/fio/fio-libaio.so
 
-%ifarch x86_64 ppc64le
+%if %{with pmem}
 %files engine-libpmem
 %{_libdir}/fio/fio-libpmem.so
 %endif
@@ -229,6 +235,9 @@ make install prefix=%{_prefix} mandir=%{_mandir} libdir=%{_libdir}/fio DESTDIR=$
 %endif
 
 %changelog
+* Mon Jun 12 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.35-2
+- Drop libpmem support from RHEL 10+ builds
+
 * Wed May 24 2023 Pavel Reichl <preichl@redhat.com> - 3.35-1
 - New upstream version (RHBZ#2209407)
 

@@ -1,6 +1,6 @@
 Name:           nftables
 Version:        1.0.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 # Upstream released a 0.100 version, then 0.4. Need Epoch to get back on track.
 Epoch:          1
 Summary:        Netfilter Tables userspace utilites
@@ -130,6 +130,9 @@ sed -i -e 's/\(sofile=\)".*"/\1"'$sofile'"/' \
 %{python3_sitelib}/nftables/
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1:1.0.7-2
+- Rebuilt for Python 3.12
+
 * Sat Apr 01 2023 Kevin Fenzi <kevin@scrye.com> - 1.0.7-1
 - Update to 1.0.7. Fixes rhbz#2155658
 - Build the package with setuptools instead of distutils. Fixes: rhbz#2154872

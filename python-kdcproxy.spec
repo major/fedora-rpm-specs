@@ -2,7 +2,7 @@
 
 Name:           python-%{realname}
 Version:        1.0.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        MS-KKDCP (kerberos proxy) WSGI module
 
 License:        MIT
@@ -56,6 +56,9 @@ minimal configuration.
 %{python3_sitelib}/%{realname}-%{version}-*.egg-info
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.0.0-12
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

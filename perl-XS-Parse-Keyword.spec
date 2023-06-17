@@ -2,7 +2,7 @@
 %bcond_without perl_XS_Parse_Keyword_enables_optional_test
 
 Name:           perl-XS-Parse-Keyword
-Version:        0.33
+Version:        0.34
 Release:        1%{?dist}
 Summary:        XS functions to assist in parsing keyword syntax
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -33,8 +33,8 @@ BuildRequires:  perl(B::Deparse)
 # Some t/*.xs tests need a newer ExtUtils::ParseXS
 BuildRequires:  perl(ExtUtils::ParseXS) >= 3.16
 BuildRequires:  perl(overload)
-BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(utf8)
+BuildRequires:  perl(Test2::V0)
 %if %{with perl_XS_Parse_Keyword_enables_optional_test}
 # Optional tests:
 BuildRequires:  perl(Test::Pod) >= 1.00
@@ -52,10 +52,8 @@ Provides:       perl(:XS_Parse_Keyword_ABI_2)
 Provides:       perl(:XS_Parse_Infix_ABI_1)
 Provides:       perl(:XS_Parse_Infix_ABI_2)
 
-# Remove under-specified dependencies
-%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(Test::More\\)$
 # Filter private modules
-%global __requires_exclude %{__requires_exclude}|^perl\\(testcase\\)
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(testcase\\)
 %global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\(testcase\\)
 
 %description
@@ -81,7 +79,6 @@ Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
 # ExtUtils::ParseXS is not needed at run-time because the XS tests are
 # packaged precompiled.
-Requires:       perl(Test::More) >= 0.88
 Requires:       perl(XSLoader)
 
 %description tests
@@ -149,6 +146,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jun 15 2023 Petr Pisar <ppisar@redhat.com> - 0.34-1
+- 0.34 bump
+
 * Mon Feb 20 2023 Petr Pisar <ppisar@redhat.com> - 0.33-1
 - 0.33 bump
 

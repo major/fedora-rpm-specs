@@ -6,7 +6,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.15
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Python module to interface with %{pypi_name}
 
 License:        GPLv2
@@ -76,6 +76,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 %{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.15-6
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

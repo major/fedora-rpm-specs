@@ -18,7 +18,7 @@
 
 Name:       tracer
 Version:    0.7.10
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Finds outdated running applications in your system
 
 BuildArch:  noarch
@@ -197,6 +197,9 @@ make DESTDIR=%{buildroot}%{_datadir} mo
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.7.10-2
+- Rebuilt for Python 3.12
+
 * Mon Jun 05 2023 Jakub Kadlcik <frostyx@email.cz> 0.7.10-1
 - Update license to SPDX (frostyx@email.cz)
 - Update tito releasers (frostyx@email.cz)

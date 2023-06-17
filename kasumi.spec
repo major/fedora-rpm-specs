@@ -5,7 +5,7 @@
 
 Name:    kasumi
 Version: 2.5
-Release: 40%{?dist}
+Release: 41%{?dist}
 
 License: GPL-2.0-or-later
 URL:     http://kasumi.sourceforge.jp/
@@ -82,7 +82,7 @@ make %{?_smp_mflags}
 
 %install
 make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
-%if 0%{fedora}
+%if 0%{?fedora}
 install -pm 755 kasumi-unicode $RPM_BUILD_ROOT%{_bindir}/kasumi-unicode
 %else
 mv $RPM_BUILD_ROOT%{_bindir}/kasumi $RPM_BUILD_ROOT%{_bindir}/kasumi-unicode
@@ -112,6 +112,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Thu Jun 15 2023 Stephen Gallagher <sgallagh@redhat.com> - 2.5-41
+- Fix typo in RPM macro breaking ELN builds
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

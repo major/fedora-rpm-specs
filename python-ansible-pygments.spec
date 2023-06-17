@@ -4,7 +4,7 @@
 
 Name:    %{pkgname}
 Version: 0.1.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Provides Pygments highlighter for Ansible output for use in Sphinx
 URL:       https://github.com/ansible-community/%{srcname}
 Source:    %{url}/archive/%{version}/%{pypiname}-%{version}.tar.gz
@@ -54,6 +54,9 @@ Summary: %summary
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.1.1-5
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

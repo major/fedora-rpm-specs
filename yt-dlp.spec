@@ -8,7 +8,7 @@
 
 Name:           yt-dlp
 Version:        2023.03.04
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A command-line program to download videos from online video platforms
 
 License:        Unlicense
@@ -112,6 +112,9 @@ make yt-dlp.1 completion-bash completion-zsh completion-fish
 %{fish_completions_dir}/%{name}.fish
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 2023.03.04-2
+- Rebuilt for Python 3.12
+
 * Mon Mar 06 2023 Maxwell G <maxwell@gtmx.me> - 2023.03.04-1
 - Update to 2023.03.04. Fixes rhbz#2175395.
 

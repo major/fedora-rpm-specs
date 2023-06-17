@@ -1,6 +1,6 @@
 Name:           python-syrupy
 Version:        3.0.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Pytest snapshot plugin
 
 License:        Apache-2.0
@@ -48,5 +48,8 @@ Summary:        %{summary}
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 3.0.6-2
+- Rebuilt for Python 3.12
+
 * Thu Jan 12 2023 Jonathan Wright <jonathan@almalinux.org> - 3.0.6-1
 - Initial package build

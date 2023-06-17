@@ -8,7 +8,7 @@
 
 Name:           astrometry
 Version:        0.91
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Blind astrometric calibration of arbitrary astronomical images
 
 # Software is BSD with some GPL code
@@ -333,6 +333,9 @@ make test ARCH_FLAGS="%{optflags}"
 %{_bindir}/votabletofits
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.91-4
+- Rebuilt for Python 3.12
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.91-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

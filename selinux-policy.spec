@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit 79f41b6c52b80920a70fe2ba8addead254579365
+%global commit 8f7ccc6e2f7fdc36666ae195e6c8a06bb611b862
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 38.16
+Version: 38.17
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -168,6 +168,7 @@ This package contains manual pages and documentation of the policy modules.
 %files doc
 %{_mandir}/man*/*
 %{_mandir}/ru/*/*
+%exclude %{_mandir}/man8/container_selinux.8.gz
 %doc %{_datadir}/doc/%{name}
 
 %define common_params DISTRO=%{distro} UBAC=n DIRECT_INITRC=n MONOLITHIC=%{monolithic} MLS_CATS=1024 MCS_CATS=1024
@@ -813,6 +814,22 @@ exit 0
 %endif
 
 %changelog
+* Thu Jun 15 2023 Zdenek Pytela <zpytela@redhat.com> - 38.17-1
+- Label /dev/userfaultfd with userfaultfd_t
+- Allow blueman send general signals to unprivileged user domains
+- Allow dkim-milter domain transition to sendmail
+- Label /usr/sbin/cifs.idmap with cifs_helper_exec_t
+- Allow cifs-helper read sssd kerberos configuration files
+- Allow rpm_t sys_admin capability
+- Allow dovecot_deliver_t create/map dovecot_spool_t dir/file
+- Allow collectd_t read proc_net link files
+- Allow insights-client getsession process permission
+- Allow insights-client work with pipe and socket tmp files
+- Allow insights-client map generic log files
+- Update cyrus_stream_connect() to use sockets in /run
+- Allow keyutils-dns-resolver read/view kernel key ring
+- Label /var/log/kdump.log with kdump_log_t
+
 * Fri Jun 09 2023 Zdenek Pytela <zpytela@redhat.com> - 38.16-1
 - Add support for the systemd-pstore service
 - Allow kdumpctl_t to execmem

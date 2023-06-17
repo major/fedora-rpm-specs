@@ -1,8 +1,8 @@
 %global srcname cftime
 
 Name:           python-%{srcname}
-Version:        1.6.1
-Release:        3%{?dist}
+Version:        1.6.2
+Release:        1%{?dist}
 Summary:        Time-handling functionality from netcdf4-python
 
 # calendar calculation routines in _cftime.pyx derived from calcalcs.c by David
@@ -50,6 +50,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} py.test-%{python3_version} -v
 %{python3_sitearch}/%{srcname}/
 
 %changelog
+* Thu Jun 15 2023 Orion Poplawski <orion@nwra.com> - 1.6.2-1
+- Update to 1.6.2
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.6.1-3
 - Rebuilt for Python 3.12
 

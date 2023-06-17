@@ -3,7 +3,7 @@
 
 Name:           gitg
 Version:        41
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        GTK+ graphical interface for the git revision control system
 
 License:        GPLv2+
@@ -141,6 +141,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 41-6
+- Rebuilt for Python 3.12
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 41-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

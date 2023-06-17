@@ -24,7 +24,7 @@
 
 Name:           obs-studio
 Version:        29.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Open Broadcaster Software Studio
 
 # OBS itself is GPL-2.0-or-later, while various plugin dependencies are of various other licenses
@@ -298,6 +298,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 29.1.2-2
+- Rebuilt for Python 3.12
+
 * Tue May 30 2023 Neal Gompa <ngompa@fedoraproject.org> - 29.1.2-1
 - Update to 29.1.2
 

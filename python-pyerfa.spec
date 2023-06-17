@@ -1,4 +1,3 @@
-%global _without_tests 1
 %global module_name erfa
 %global pypi_name pyerfa
 # tests need pytest-astropy, needs astropy, needs pyerfa
@@ -6,7 +5,7 @@
 
 Name:           python-pyerfa
 Version:        2.0.0.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python wrapper for the ERFA library
 License:        BSD
 URL:            https://github.com/liberfa/pyerfa
@@ -78,6 +77,9 @@ popd
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 2.0.0.3-3
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.0.0.3-2
 - Bootstrap for Python 3.12
 

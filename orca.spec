@@ -2,7 +2,7 @@
 
 Name:           orca
 Version:        44.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Assistive technology for people with visual impairments
 
 License:        LGPL-2.1-or-later
@@ -74,6 +74,9 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/orca-autostart.de
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 44.1-2
+- Rebuilt for Python 3.12
+
 * Wed May 31 2023 Kalev Lember <klember@redhat.com> - 44.1-1
 - Update to 44.1
 

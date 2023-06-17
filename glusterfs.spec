@@ -196,11 +196,11 @@ Summary:          Distributed File System
 %if ( 0%{_for_fedora_koji_builds} )
 Name:             glusterfs
 Version:          11.0
-Release:          2%{?prereltag:%{prereltag}}%{?dist}
+Release:          3%{?prereltag:%{prereltag}}%{?dist}
 %else
 Name:             @PACKAGE_NAME@
 Version:          @PACKAGE_VERSION@
-Release:          0.@PACKAGE_RELEASE@%{?dist}.13
+Release:          0.@PACKAGE_RELEASE@%{?dist}.14
 %endif
 License:          GPL-2.0-only OR LGPL-3.0-or-later
 URL:              http://docs.gluster.org/
@@ -1623,6 +1623,9 @@ exit 0
 %{_unitdir}/gluster-ta-volume.service
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 11.0-3
+- Rebuilt for Python 3.12
+
 * Thu May 4 2023  Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 11.0-2
 - glusterfs 11, remove unnecessary BR for ldconfig, i.e. glibc, also
   rhbz#1731689

@@ -1,6 +1,12 @@
 # several test dependencies are unwanted in RHEL
 %bcond tests %{undefined rhel}
 
+# controls whether to generate shell completions
+# may be useful for bootstrapping purposes
+#
+# python3-argcomplete currently FTBFS with python3.12
+%bcond argcomplete %[ %{defined python3_version} && v"%{python3_version}" < v"3.12" ]
+
 # disable the python -s shbang flag as we want to be able to find non system modules
 %undefine _py3_shebang_s
 
@@ -8,14 +14,37 @@ Name: ansible-core
 Summary: A radically simple IT automation system
 Version: 2.15.0
 %global uversion %{version_no_tilde %{quote:%nil}}
-Release: 2%{?dist}
+Release: 3%{?dist}
 # The main license is GPLv3+. Many of the files in lib/ansible/module_utils
 # are BSD licensed. There are various files scattered throughout the codebase
 # containing code under different licenses.
 License: GPL-3.0-or-later AND BSD-2-Clause AND PSF-2.0 AND MIT AND Apache-2.0
+
 Source0: https://github.com/ansible/ansible/archive/v%{uversion}/%{name}-%{uversion}.tar.gz
 Source1: build_manpages.py
+
 Patch: https://github.com/ansible/ansible/commit/734f38b2594692707d1fd3cbcfc8dc8a677f4ee3.patch#/GALAXY_COLLECTIONS_PATH_WARNINGS.patch
+# These patches are only applied on Rawhide to enable support for Python 3.12
+# See https://bugzilla.redhat.com/2196539
+#
+# Essential #
+# add Python 3.12 support to ansible-test (#80834)
+Patch5000: https://github.com/ansible/ansible/pull/80834.patch#/support-Python-3.12-in-ansible-test.patch
+# Fix unit test asserts (#80500)
+Patch5001: https://github.com/ansible/ansible/commit/3ec828703f020551241b4169f6a3f07c701e240a.patch#/fix-unit-test-asserts.patch
+# Fix galaxy CLI unit test assertions (#80504)
+Patch5002: https://github.com/ansible/ansible/commit/43c5cbcaef34aeb0141b8ad24027496bf6ec2acd.patch#/fix-galaxy-cli-unit-test-asserts.patch
+Patch5003: Disable-test-that-calls-compat-code-removed-in-3.12.patch
+# Deprecations #
+# ansible-test - Replace pytest-forked (#80525)
+Patch6000: https://github.com/ansible/ansible/commit/676b731e6f7d60ce6fd48c0d1c883fc85f5c6537.patch#/ansible-test-replace-pytest-forked.patch
+# ansible-test - Avoid use of deprecated utcnow (#80750)
+Patch6001: https://github.com/ansible/ansible/commit/fd341265d001d4e6545ffb2b7d154340cb1f1931.patch#/avoid-use-of-deprecated-utcnow.patch
+# urls - remove deprecated client key calls (#80751)
+Patch6002: https://github.com/ansible/ansible/commit/0df794e5a4fe4597ee65b0d492fbf0d0989d5ca0.patch#/urls-remove-deprecated-client-key-calls.patch
+# replace deprecated ast.value.s with ast.value.value (#80968)
+Patch6003: https://github.com/ansible/ansible/commit/742d47fa15a5418f98abf9aaf07edf466e871c81.patch#/replace-deprecated-ast.value.s.patch
+
 Url: https://ansible.com
 BuildArch: noarch
 
@@ -53,8 +82,6 @@ BuildRequires: make
 BuildRequires: python%{python3_pkgversion}-devel
 # Needed to build manpages from source.
 BuildRequires: python%{python3_pkgversion}-docutils
-# Shell completions
-BuildRequires: python%{python3_pkgversion}-argcomplete
 
 %if %{with tests}
 BuildRequires: git-core
@@ -66,7 +93,9 @@ BuildRequires: python%{python3_pkgversion}-systemd
 BuildRequires: /usr/bin/python
 %endif
 
+%if %{with argcomplete}
 Requires: python%{python3_pkgversion}-argcomplete
+%endif
 # Require packaging macros if rpm-build exists
 # This makes the transition seamless for other packages
 # This is DEPRECATED. Packages must explicitly BuildRequire ansible-packaging.
@@ -95,7 +124,13 @@ This package installs extensive documentation for ansible-core
 
 
 %prep
-%autosetup -p1 -n ansible-%{uversion}
+%autosetup -N -n ansible-%{uversion}
+%autopatch -M 4999 -p1
+# Python 3.12 specific patches
+# Set `-D '_has_python312 1'` to test locally
+%if 0%{?_has_python312} || v"%{python3_version}" >= v"3.12"
+%autopatch -m 5000 -p1
+%endif
 
 sed -i -s 's|/usr/bin/env python|%{python3}|' \
     bin/ansible-test \
@@ -111,6 +146,10 @@ sed '/^mock$/d' test/lib/ansible_test/_data/requirements/units.txt > _requiremen
 
 %generate_buildrequires
 %pyproject_buildrequires %{?with_tests:_requirements.txt test/units/requirements.txt}
+%if %{with argcomplete}
+# Shell completions
+echo 'python%{python3_pkgversion}-argcomplete'
+%endif
 
 
 %build
@@ -125,6 +164,7 @@ sed '/^mock$/d' test/lib/ansible_test/_data/requirements/units.txt > _requiremen
 # for more details.
 PYTHONPATH="$(pwd)/packaging" %{python3} %{S:1}
 
+%if %{with argcomplete}
 # Build shell completions
 (
     cd bin
@@ -147,6 +187,7 @@ PYTHONPATH="$(pwd)/packaging" %{python3} %{S:1}
         done
     done
 )
+%endif
 
 
 %install
@@ -163,8 +204,10 @@ done < <(find \
     %{buildroot}%{python3_sitelib}/ansible/cli/scripts/ansible_connection_cli_stub.py \
         -type f ! -executable)
 
+%if %{with argcomplete}
 install -Dpm 0644 bash_completions/* -t %{buildroot}%{bash_completions_dir}
 install -Dpm 0644 fish_completions/* -t %{buildroot}%{fish_completions_dir}
+%endif
 
 # Create system directories that Ansible defines as default locations in
 # ansible/config/base.yml
@@ -220,7 +263,7 @@ install -Dpm 0644 licenses/* -t %{buildroot}%{_pkglicensedir}
 %check
 %if %{with tests}
 %{python3} bin/ansible-test \
-    units --local --python-interpreter %{python3}
+    units --local --python-interpreter %{python3} -vv
 %endif
 
 
@@ -232,8 +275,10 @@ install -Dpm 0644 licenses/* -t %{buildroot}%{_pkglicensedir}
 %config(noreplace) %{_sysconfdir}/ansible/*
 %{_bindir}/ansible*
 %{_datadir}/ansible/
+%if %{with argcomplete}
 %{bash_completions_dir}/ansible*
 %{fish_completions_dir}/ansible*.fish
+%endif
 %{_mandir}/man1/ansible*
 
 %files doc
@@ -244,6 +289,9 @@ install -Dpm 0644 licenses/* -t %{buildroot}%{_pkglicensedir}
 
 
 %changelog
+* Tue Jun 13 2023 Maxwell G <maxwell@gtmx.me> - 2.15.0-3
+- Add support for Python 3.12. Fixes rhbz#2196539.
+
 * Tue May 23 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2.15.0-2
 - Disable tests in RHEL builds
 

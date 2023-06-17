@@ -12,7 +12,7 @@
 
 Name: mlir
 Version: %{mlir_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Multi-Level Intermediate Representation Overview
 
 License: Apache-2.0 WITH LLVM-exception
@@ -20,8 +20,6 @@ URL: http://mlir.llvm.org
 Source0: https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{mlir_srcdir}.tar.xz
 Source1: https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{mlir_srcdir}.tar.xz.sig
 Source2: release-keys.asc
-
-Patch0: 0001-mlir-Change-LLVM_COMMON_CMAKE_UTILS-usage.patch
 
 # Support for i686 upstream is unclear with lots of tests failling.
 ExcludeArch: i686
@@ -31,6 +29,7 @@ BuildRequires: cmake
 BuildRequires: ninja-build
 BuildRequires: zlib-devel
 BuildRequires: llvm-devel = %{version}
+BuildRequires: llvm-cmake-utils = %{version}
 BuildRequires: llvm-googletest = %{version}
 BuildRequires: llvm-test = %{version}
 BuildRequires: python3-lit
@@ -93,7 +92,7 @@ MLIR development files.
         -DCMAKE_PREFIX_PATH=%{_libdir}/cmake/llvm/ \
         -DLLVM_EXTERNAL_LIT=%{_bindir}/lit \
         -DLLVM_THIRD_PARTY_DIR=%{_datadir}/llvm/src/utils \
-        -DLLVM_COMMON_CMAKE_UTILS=%{_libdir}/cmake/llvm/ \
+        -DLLVM_COMMON_CMAKE_UTILS=%{_datadir}/llvm/cmake \
         -DLLVM_BUILD_TOOLS:BOOL=ON \
         -DLLVM_BUILD_UTILS:BOOL=ON \
         -DMLIR_INCLUDE_DOCS:BOOL=ON \
@@ -200,6 +199,9 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %{_libdir}/cmake/mlir
 
 %changelog
+* Thu Jun 15 2023 Nikita Popov <npopov@redhat.com> - 16.0.5-2
+- Use llvm-cmake-utils package
+
 * Tue Jun 06 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.5-1
 - Update to LLVM 16.0.5
 

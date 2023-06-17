@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.9.12
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python implementation of the JSON5 data format
 
 License:        ASL 2.0
@@ -70,6 +70,9 @@ rm -rf %{buildroot}/%{python3_sitelib}/README.md
 %{_bindir}/pyjson5
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.9.12-2
+- Rebuilt for Python 3.12
+
 * Wed Jan 25 2023 Fabian Affolter <mail@fabian-affolter.ch> - 0.9.12-1
 - Update to latest upstream release 0.9.12
 

@@ -3,7 +3,7 @@
 
 Name:           python-poetry-core
 Version:        1.4.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Poetry PEP 517 Build Backend
 
 # We bundle a lot of libraries with poetry, which itself is under MIT license.
@@ -111,6 +111,9 @@ Provides:       bundled(python3dist(typing-extensions)) = 4.3.0
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.4.0-4
+- Rebuilt for Python 3.12
+
 * Mon May 29 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.4.0-3
 - Disable tests in RHEL builds
 

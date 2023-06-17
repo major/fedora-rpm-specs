@@ -1,6 +1,6 @@
 Name:           python-hatch-fancy-pypi-readme
 Version:        22.3.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Hatch plugin for writing fancy PyPI readmes
 
 License:        MIT
@@ -57,6 +57,9 @@ sed -i 's/ \"pytest-icdiff\", \"coverage\[toml\]\", //g' pyproject.toml
 %{_bindir}/hatch-fancy-pypi-readme
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 22.3.0-5
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -20,7 +20,7 @@
 #global rc_ver 4
 %global maj_ver 16
 %global min_ver 0
-%global patch_ver 5
+%global patch_ver 6
 %global llvm_srcdir llvm-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:rc%{rc_ver}}.src
 %global cmake_srcdir cmake-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:rc%{rc_ver}}.src
 %global third_party_srcdir third-party-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:rc%{rc_ver}}.src
@@ -37,12 +37,14 @@
 %global pkg_bindir %{install_bindir}
 %global pkg_includedir %{_includedir}/%{name}
 %global pkg_libdir %{install_libdir}
+%global pkg_datadir %{install_prefix}/share
 %else
 %global pkg_name llvm
 %global install_prefix /usr
 %global install_libdir %{_libdir}
 %global pkg_bindir %{_bindir}
 %global pkg_libdir %{install_libdir}
+%global pkg_datadir %{_datadir}
 %global exec_suffix %{nil}
 %endif
 
@@ -75,7 +77,7 @@
 
 Name:		%{pkg_name}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -186,6 +188,13 @@ Provides:	llvm-static(major) = %{maj_ver}
 
 %description static
 Static libraries for the LLVM compiler infrastructure.
+
+%package cmake-utils
+Summary: CMake utilities shared across LLVM subprojects
+
+%description cmake-utils
+CMake utilities shared across LLVM subprojects.
+This is for internal use by LLVM packages only.
 
 %if %{without compat_build}
 
@@ -418,7 +427,8 @@ rm %{buildroot}%{_bindir}/llvm-config%{exec_suffix}
 # ghost presence
 touch %{buildroot}%{_bindir}/llvm-config%{exec_suffix}
 
-cp -Rv ../cmake/Modules/* %{buildroot}%{pkg_libdir}/cmake/llvm
+mkdir -p %{buildroot}%{pkg_datadir}/llvm/cmake
+cp -Rv ../cmake/* %{buildroot}%{pkg_datadir}/llvm/cmake
 
 %check
 # Disable check section on arm due to some kind of memory related failure.
@@ -540,6 +550,10 @@ fi
 %{_libdir}/%{name}/lib/*.a
 %endif
 
+%files cmake-utils
+%license LICENSE.TXT
+%{pkg_datadir}/llvm/cmake
+
 %if %{without compat_build}
 
 %files test
@@ -563,6 +577,12 @@ fi
 %endif
 
 %changelog
+* Wed Jun 14 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.6-1
+- Update to LLVM 16.0.6
+
+* Fri Jun 09 2023 Nikita Popov <npopov@redhat.com> - 16.0.5-2
+- Split off llvm-cmake-utils package
+
 * Mon Jun 05 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.5-1
 - Update to LLVM 16.0.5
 

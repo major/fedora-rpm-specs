@@ -3,17 +3,13 @@
 %global optflags %(echo %{optflags} -I%{_includedir}/libev)
 
 Name:          python-%{modname}
-Version:       21.12.0
-Release:       5%{?dist}
+Version:       22.10.2
+Release:       2%{?dist}
 Summary:       A coroutine-based Python networking library
 
 License:       MIT
 URL:           http://www.gevent.org/
 Source0:       %{pypi_source %{modname} %{version} tar.gz}
-
-# Support Python 3.11
-# Discussion in https://github.com/gevent/gevent/pull/1872.patch
-Patch:         https://github.com/gevent/gevent/compare/master...hroncok:py311b3.patch
 
 BuildRequires: gcc
 BuildRequires: c-ares-devel
@@ -99,6 +95,12 @@ cd src/gevent/tests && GEVENT_FILE=thread %__python3 -mgevent.tests test__*subpr
 %{python3_sitearch}/%{modname}*
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 22.10.2-2
+- Rebuilt for Python 3.12
+
+* Thu Jun 15 2023 Petr Viktorin <pviktori@redhat.com> - 22.10.2-1
+- Update to 22.10.2
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 21.12.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

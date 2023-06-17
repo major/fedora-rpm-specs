@@ -2,7 +2,7 @@
 
 Name:           gobject-introspection
 Version:        1.76.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Introspection system for GObject-based libraries
 
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND BSD-2-Clause
@@ -95,6 +95,9 @@ mv giscanner/ast.py giscanner/gio_ast.py
 %{_mandir}/man1/g-ir-scanner.1*
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.76.1-4
+- Rebuilt for Python 3.12
+
 * Fri Jun 09 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.76.1-3
 - Add workaround patch for compatibility with Python 3.12
 

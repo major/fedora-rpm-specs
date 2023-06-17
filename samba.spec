@@ -138,7 +138,7 @@
 %define samba_requires_eq()  %(LC_ALL="C" echo '%*' | xargs -r rpm -q --qf 'Requires: %%{name} = %%{epoch}:%%{version}\\n' | sed -e 's/ (none):/ /' -e 's/ 0:/ /' | grep -v "is not")
 
 %global samba_version 4.18.3
-%global baserelease 0
+%global baserelease 2
 # This should be rc1 or %%nil
 %global pre_release %nil
 
@@ -4381,6 +4381,12 @@ fi
 %endif
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 2:4.18.3-2
+- Rebuilt for Python 3.12
+
+* Thu Jun 15 2023 Andreas Schneider <asn@redhat.com> - 4.18.3-1
+- resolves: #2203539 - Also cover mit_kdc.log by logrotate
+
 * Thu Jun 01 2023 Guenther Deschner <gdeschner@redhat.com> - 4.18.3-0
 - resolves: #2211453 - Update to version 4.18.3
 

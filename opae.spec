@@ -6,7 +6,7 @@ License:        BSD
 Version:        2.2.0
 %define opae_release 1
 %define patch_level 1
-Release:        %{opae_release}.%{patch_level}%{?dist}
+Release:        %{opae_release}.%{patch_level}%{?dist}.1
 
 URL:            https://github.com/OPAE/%{name}-sdk
 Source0:        https://github.com/OPAE/opae-sdk/releases/download/%{version}-%{opae_release}/%{name}-%{version}-%{opae_release}.tar.gz
@@ -336,6 +336,9 @@ done
 %{python3_sitelib}/uio*
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 2.2.0-1.1.1
+- Rebuilt for Python 3.12
+
 * Fri Mar 3 2023 Tom Rix <trix@redhat.com> - 2.2.0-1.1
 - Update tarball to 2.2.0-1
 - glob the cmake files to install

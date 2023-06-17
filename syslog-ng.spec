@@ -8,7 +8,7 @@
 
 Name:    syslog-ng
 Version: %{syslog_ng_ver}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Next-generation syslog server
 
 License: GPLv2+
@@ -543,6 +543,9 @@ fi
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 4.2.0-2
+- Rebuilt for Python 3.12
+
 * Thu Jun 01 2023 Peter Czanik <peter@czanik.hu> - 4.2.0-1
 - update to 4.2.0
 - update vim support

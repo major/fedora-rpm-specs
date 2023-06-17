@@ -4,7 +4,7 @@
 
 Name:           python-%{modname}
 Version:        1.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Bindings for libssh C library
 
 License:        GPL-2.0-or-later
@@ -95,6 +95,9 @@ Summary:        %{summary} documentation
 %doc examples/ _build/html/
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.0.0-3
+- Rebuilt for Python 3.12
+
 * Fri Apr 28 2023 Federico Pellegrin <fede@evolware.org> - 1.0.0-2
 - More patches for Python 3.12 compatibility (fixes rhbz#2190204)
 

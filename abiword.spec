@@ -3,7 +3,7 @@
 
 Name: abiword
 Version: 3.0.5
-Release: 6%{?dist}
+Release: 7%{?dist}
 Epoch: 1
 Summary: Word processing program
 License: GPL-2.0-or-later
@@ -188,6 +188,9 @@ find %{buildroot} -name '*.a' -delete
 %pycached %{python3_sitelib}/gi/overrides/Abi.py
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1:3.0.5-7
+- Rebuilt for Python 3.12
+
 * Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 1:3.0.5-6
 - migrated to SPDX license
 

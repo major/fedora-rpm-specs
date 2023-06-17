@@ -9,7 +9,7 @@
 %global	shorthash	%(c=%{githash} ; echo ${c:0:7})
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
-%global	baserelease	44
+%global	baserelease	45
 
 
 %global	ruby_vendorlib	%(ruby -rrbconfig -e "puts RbConfig::CONFIG['vendorlibdir']")
@@ -414,6 +414,9 @@ popd
 %{_datadir}/cairo-dock/plug-ins/Dbus/CDApplet.h
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 3.4.1-45.20210730gitf24f769
+- Rebuilt for Python 3.12
+
 * Mon May 29 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.1-44.20210730gitf24f769
 - Pass -r option to xargs because new rpm creates empty directory
 

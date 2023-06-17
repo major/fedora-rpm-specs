@@ -5,7 +5,7 @@
 
 Name:               python-binaryornot
 Version:            0.4.4
-Release:            13%{?dist}
+Release:            14%{?dist}
 Summary:            %{sum}
 
 License:            BSD
@@ -92,6 +92,9 @@ rm -rf docs/_build/html/.buildinfo
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.4.4-14
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.4-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

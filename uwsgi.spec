@@ -10,6 +10,7 @@
 %if 0%{?fedora}
 %bcond_without go
 %bcond_without python3
+%bcond_without python3_greenlet
 %bcond_without ruby19
 %bcond_without tuntap
 %bcond_without zeromq
@@ -52,6 +53,7 @@
 %bcond_without python2
 %bcond_without python3
 %bcond_without python3_other
+%bcond_without python3_greenlet
 %bcond_without gloox
 %bcond_without geoip
 # This only exists on EL7
@@ -83,6 +85,7 @@
 %if 0%{?rhel} == 8
 %bcond_without go
 %bcond_without python3
+%bcond_without python3_greenlet
 %bcond_without ruby19
 %bcond_without tuntap
 %bcond_without zeromq
@@ -121,6 +124,8 @@
 %if 0%{?rhel} == 9
 %bcond_without go
 %bcond_without python3
+# EPEL9 does not have python-greenlet-devel any more
+%bcond_with python3_greenlet
 %bcond_without ruby19
 %bcond_without tuntap
 # EPEL9 doesn't have zeromq yet
@@ -186,7 +191,7 @@
 
 Name:           uwsgi
 Version:        2.0.21
-Release:        7%{?dist}
+Release:        10%{?dist}
 Summary:        Fast, self-healing, application container server
 # uwsgi is licensed under GPLv2 with a linking exception
 # docs are licensed under MIT
@@ -234,6 +239,8 @@ BuildRequires:  python-greenlet-devel
 %endif
 %if %{with python3}
 BuildRequires:  python%{python3_pkgversion}-devel
+%endif
+%if %{with python3_greenlet}
 BuildRequires:  python%{python3_pkgversion}-greenlet-devel
 %endif
 %if %{with python3_other}
@@ -743,7 +750,7 @@ This package contains the Python 2 greenlet plugin for uWSGI
 %endif
 %endif
 
-%if %{with python3}
+%if %{with python3_greenlet}
 %package -n uwsgi-plugin-python%{python3_pkgversion}-greenlet
 Summary:  uWSGI - Plugin for Python %{python3_version} Greenlet support
 Requires: python%{python3_pkgversion}-greenlet, uwsgi-plugin-python%{python3_pkgversion} = %{version}-%{release}
@@ -1308,7 +1315,7 @@ CFLAGS="%{optflags} -Wno-unused-but-set-variable" %{__python} uwsgiconfig.py --v
 %if %{with python2_greenlet}
 CFLAGS="%{optflags} -Wno-unused-but-set-variable" %{__python} uwsgiconfig.py --verbose --plugin plugins/greenlet fedora
 %endif
-%if %{with python3}
+%if %{with python3_greenlet}
 CFLAGS="%{optflags} -Wno-unused-but-set-variable" %{__python} uwsgiconfig.py --verbose --plugin plugins/greenlet fedora python%{python3_pkgversion}_greenlet
 %endif
 %if %{with glusterfs}
@@ -1613,7 +1620,7 @@ exit 0
 %{_libdir}/uwsgi/greenlet_plugin.so
 %endif
 
-%if %{with python3}
+%if %{with python3_greenlet}
 %files -n uwsgi-plugin-python%{python3_pkgversion}-greenlet
 %{_libdir}/uwsgi/python%{python3_pkgversion}_greenlet_plugin.so
 %endif
@@ -1837,6 +1844,16 @@ exit 0
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 2.0.21-10
+- Rebuilt for Python 3.12
+
+* Thu Jun 15 2023 Ralf Ertzinger <ralf@skytale.net> - 2.0.21-9
+- Rework Ruby patches
+- Disable python3-greenlet plugin for EPEL9
+
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 2.0.21-8
+- Rebuilt for Python 3.12
+
 * Fri Apr 21 2023 Ralf Ertzinger <ralf@skytale.net> - 2.0.21-7
 - Fix Ruby/Rack plugin for Ruby >= 3.2
 

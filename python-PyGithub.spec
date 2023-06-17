@@ -7,7 +7,7 @@
 
 Name:           python-%{srcname}
 Version:        1.58.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python library to work with the Github API
 License:        LGPL-3.0-or-later
 URL:            https://github.com/PyGithub/PyGithub
@@ -53,6 +53,9 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %doc README.md
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.58.2-2
+- Rebuilt for Python 3.12
+
 * Tue May 09 2023 Jiri Popelka <jpopelka@redhat.com> - 1.58.2-1
 - 1.58.2
 

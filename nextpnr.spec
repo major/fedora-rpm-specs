@@ -5,7 +5,7 @@
 
 Name:		nextpnr
 Version:	1
-Release:	24.%{snapdate}git%{shortcommit}%{?dist}
+Release:	25.%{snapdate}git%{shortcommit}%{?dist}
 Summary:	FPGA place and route tool
 
 License:	ISC and BSD and MIT and (MIT or Public Domain)
@@ -86,6 +86,9 @@ cp -r ice40/examples/* examples/ice40
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1-25.20230607git119b47a
+- Rebuilt for Python 3.12
+
 * Wed Jun 07 2023 Gabriel Somlo <gsomlo@gmail.com> - 1-24.20230607git119b47a
 - Update to newer snapshot
 

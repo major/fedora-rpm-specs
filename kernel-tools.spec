@@ -5,7 +5,7 @@
 # and/or a kernel built from an rc or git snapshot, released_kernel should
 # be 0.
 %global released_kernel 0
-%global baserelease 1
+%global baserelease 2
 %global fedora_build %{baserelease}
 
 # base_sublevel is the kernel version we're starting with and patching
@@ -596,6 +596,9 @@ popd
 %{_mandir}/man1/rv.1.gz
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 6.4.0-0.rc6.git0.2
+- Rebuilt for Python 3.12
+
 * Mon Jun 12 2023 Justin M. Forbes <jforbes@fedoraproject.org> - 6.4.0-0.rc6.git0.1
 - Linux v6.4-rc6
 

@@ -13,7 +13,7 @@
 %global libver 16
 
 Name:          mingw-%{pkgname}
-Version:       16.0.4
+Version:       16.0.6
 Release:       1%{?dist}
 Summary:       LLVM for MinGW
 
@@ -249,6 +249,9 @@ install -Dpm 0755 %{_vpath_builddir}/bin/llvm-tblgen %{buildroot}%{_prefix}/%{mi
 
 
 %changelog
+* Thu Jun 15 2023 Sandro Mani <manisandro@gmail.com> - 16.0.6-1
+- Update to 16.0.6
+
 * Tue May 23 2023 Sandro Mani <manisandro@gmail.com> - 16.0.4-1
 - Update to 16.0.4
 

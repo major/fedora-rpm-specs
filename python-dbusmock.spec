@@ -2,7 +2,7 @@
 
 Name:             python-%{modname}
 Version:          0.29.0
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Mock D-Bus objects
 
 License:          LGPLv3+
@@ -51,6 +51,9 @@ rm -rf python-%{modname}.egg-info
 %{python3_sitelib}/*%{modname}*
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.29.0-2
+- Rebuilt for Python 3.12
+
 * Thu Apr 20 2023 Packit <hello@packit.dev> - 0.29.0-1
  - Support loading templates from XDG_DATA_DIRS
  - iio-sensors-proxy: Throw proper D-Bus errors instead of Python Exception

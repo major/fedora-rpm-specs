@@ -1,16 +1,19 @@
 %global         modname greenlet
 
 Name:           python-%{modname}
-Version:        1.1.3
-Release:        3%{?dist}
+Version:        2.0.2
+Release:        1%{?dist}
 Summary:        Lightweight in-process concurrent programming
 License:        MIT
 URL:            https://github.com/python-greenlet/greenlet
 Source0:        %{url}/archive/%{version}/%{modname}-%{version}.tar.gz
 
 # Patch needed for compatibility with Python 3.12
-# Inspired by: https://github.com/python-greenlet/greenlet/issues/323#issue-1428384781
-Patch:          Rename-recursion-limits-to-add-compatibility-with-Py.patch
+# From: https://github.com/python-greenlet/greenlet/pull/327
+Patch:          https://github.com/python-greenlet/greenlet/pull/327.patch
+
+# Skip leak checking to avoid a missing dependency, `objgraph`
+Patch:          skip-leak-checks.patch
 
 BuildRequires:  gcc-c++
 
@@ -27,6 +30,9 @@ Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{modname}}
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
+
+# For tests
+BuildRequires:  python3-psutil
 
 %description -n python3-%{modname} %{_description}
 
@@ -52,7 +58,11 @@ Python 3 version.
 %py3_install
  
 %check
-PYTHONPATH="%{buildroot}%{python3_sitearch}" %{python3} -m unittest discover greenlet.tests
+cd /
+PYTHONPATH="%{buildroot}%{python3_sitearch}" \
+  %{python3} -m unittest discover -v \
+  -s "%{buildroot}%{python3_sitearch}/greenlet/tests" \
+  -t "%{buildroot}%{python3_sitearch}"
 
 %files -n python3-%{modname}
 %license LICENSE LICENSE.PSF
@@ -64,6 +74,11 @@ PYTHONPATH="%{buildroot}%{python3_sitearch}" %{python3} -m unittest discover gre
 %{_includedir}/python%{python3_version}*/%{modname}/
 
 %changelog
+* Wed Jun 14 2023 Petr Viktorin <pviktori@redhat.com> - 2.0.2-1
+- Update to upstream version 2.0.2
+- Update patch for Python 3.12 compatibility
+- Skip leak checks for now
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.1.3-3
 - Rebuilt for Python 3.12
 

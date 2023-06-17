@@ -38,7 +38,7 @@
 Summary: Python bindings for Qt4
 Name: 	 PyQt4
 Version: 4.12.3
-Release: 24%{?dist}
+Release: 25%{?dist}
 
 # GPLv2 exceptions(see GPL_EXCEPTIONS*.txt)
 License: (GPLv3 or GPLv2 with exceptions) and BSD
@@ -447,6 +447,9 @@ diff -u ./sip/QtGui/opengl_types.sip.orig \
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 4.12.3-25
+- Rebuilt for Python 3.12
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.12.3-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

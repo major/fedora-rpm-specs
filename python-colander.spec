@@ -2,7 +2,7 @@
 
 Name:           python-%{modname}
 Version:        2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple schema-based serialization and deserialization library
 
 License:        BSD
@@ -57,6 +57,9 @@ Python 3 version.
 %doc README.rst CONTRIBUTORS.txt CHANGES.rst docs
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 2.0-2
+- Rebuilt for Python 3.12
+
 * Mon Jan 23 2023 Jonathan Wright <jonathan@almalinux.org> - 2.0-1
 - Update to 2.0 rhbz#2157806
 

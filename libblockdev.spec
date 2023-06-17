@@ -125,7 +125,7 @@
 
 Name:        libblockdev
 Version:     2.28
-Release:     6%{?dist}
+Release:     7%{?dist}
 Summary:     A library for low-level manipulation with block devices
 License:     LGPL-2.1-or-later
 URL:         https://github.com/storaged-project/libblockdev
@@ -978,6 +978,9 @@ find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 %files plugins-all
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 2.28-7
+- Rebuilt for Python 3.12
+
 * Wed May 17 2023 Vojtech Trefny <vtrefny@redhat.com> - 2.28-6
 - Allow resizing of inactive LVs with latest LVM (#2188830)
 

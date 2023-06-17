@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 Name:           lutris
 Version:        0.5.13
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Install and play any video game easily
 
 License:        GPLv3
@@ -95,6 +95,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications share/applicatio
 %{_datadir}/locale/
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.5.13-3
+- Rebuilt for Python 3.12
+
 * Fri May 19 2023 Steve Cossette <farchord@gmail.com> 0.5.13-2
 - Applied a fix for a bug where Lutris may no longer start on 0.5.13 if the user was running a deprecated runner.
 

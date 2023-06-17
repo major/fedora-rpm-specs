@@ -10,7 +10,7 @@ diff.
 
 Name:           python-diff-cover
 Version:        7.3.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 BuildArch:      noarch
 
 License:        ASL 2.0
@@ -98,6 +98,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} \
 %{_bindir}/diff-quality
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 7.3.2-2
+- Rebuilt for Python 3.12
+
 * Mon Mar 06 2023 Miro Hrončok <mhroncok@redhat.com> - 7.3.2-1
 - Update to 7.3.2
 

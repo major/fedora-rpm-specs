@@ -1,9 +1,9 @@
 Name:           ufw
 Version:        0.35
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Uncomplicated Firewall
 
-License:        GPLv3
+License:        GPL-3.0-only
 URL:            https://launchpad.net/%{name}
 Source0:        https://launchpad.net/%{name}/%{version}/%{version}/+download/ufw-%{version}.tar.gz
 # systemd service file
@@ -36,10 +36,13 @@ Patch6:         ufw-0.35-python36.patch
 Patch7:         ufw-0.35-permissions.patch
 # Don't prepend /usr/bin/env to sys.executable, which is always an absolute path
 Patch8:         ufw-0.35-no-pointless-env.patch
+# Switch to Python setuptools because Python 3.12 removed deprecated distutils
+Patch9:         ufw-0.35-distutils-setuptools.patch
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 BuildRequires:  iptables
 BuildRequires:  gettext
 BuildRequires:  systemd
@@ -71,6 +74,7 @@ rm -f profiles/*.additional-profiles
 %patch6 -p1 -b .python36
 %patch7 -p1 -b .permissions
 %patch8 -p1 -b .no-pointless-env
+%patch9 -p1 -b .distutils-setuptools
 
 %build
 %py3_build
@@ -121,6 +125,9 @@ install -D -p -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/ufw.service
 
 
 %changelog
+* Thu Jun 15 2023 Robert Scheck <robert@fedoraproject.org> - 0.35-29
+- Switch from deprecated distutils to setuptools for Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.35-28
 - Rebuilt for Python 3.12
 

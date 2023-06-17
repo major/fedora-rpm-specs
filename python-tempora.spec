@@ -4,7 +4,7 @@
 
 Name:           python-%{pypi_name}
 Version:        5.2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Objects and routines pertaining to date and time (tempora)
 
 License:        MIT
@@ -88,6 +88,9 @@ LANG=C.utf-8 %{__python3} -m pytest --ignore=build
 %endif
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 5.2.2-2
+- Rebuilt for Python 3.12
+
 * Tue Apr 11 2023 Dan Radez <dradez@redhat.com> - 5.2.2-1
 - update to 5.2.2 rhbz#2185610
 

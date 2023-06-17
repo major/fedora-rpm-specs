@@ -5,10 +5,10 @@
 
 Name:           %{githubname}
 Version:        %{githubver}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Libbpf library
 
-License:        LGPLv2 or BSD
+License:        LGPL-2.1-only OR BSD-2-Clause
 URL:            https://github.com/%{githubname}/%{githubname}
 Source:         https://github.com/%{githubname}/%{githubname}/archive/v%{githubver}.tar.gz
 BuildRequires:  gcc elfutils-libelf-devel elfutils-devel
@@ -70,6 +70,9 @@ developing applications that use %{name}
 %{_libdir}/libbpf.a
 
 %changelog
+* Wed Jun 14 2023 Viktor Malik <vmalik@redhat.com> - 2:1.1.0-3
+- Migrate license to SPDX
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

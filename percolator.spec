@@ -3,8 +3,8 @@
 
 Name:      percolator
 Summary:   Software for postprocessing of shotgun proteomics data
-Version:   3.05
-Release:   11%{?dist}
+Version:   3.06.01
+Release:   1%{?dist}
 
 ## Code under src/ (except RAMP and Fido sub-directories) is licensed under a ASL 2.0 license.
 ## Code under src/Fido under MIT license.
@@ -12,7 +12,7 @@ Release:   11%{?dist}
 ## Code under src/converters/MSToolkit/RAMP is licensed under a LGPLv2+ license.
 License:   ASL 2.0 and MIT and BSD and LGPLv2+
 URL:       https://github.com/percolator/percolator
-Source0:   https://github.com/percolator/percolator/archive/rel-3-05/percolator-rel-3-05.tar.gz
+Source0:   https://github.com/percolator/percolator/archive/rel-3-06-01/percolator-rel-3-06-01.tar.gz
 ## Example files for testing
 ## https://github.com/percolator/percolator/wiki/Example
 Source1:   http://noble.gs.washington.edu/proj/percolator/data/yeast-01.sqt.tar.gz
@@ -20,7 +20,11 @@ Source2:   %{name}-RAMP_license_lgpl-2.1.txt
 
 BuildRequires: make
 BuildRequires: gcc, gcc-c++
-BuildRequires: cmake3
+BuildRequires: cmake
+
+# Needed for testing
+BuildRequires: gtest-devel
+BuildRequires: python3-devel
 
 %if 0%{?el7}
 BuildRequires: boost169-static, boost169-devel
@@ -69,7 +73,7 @@ Summary: percolator static libraries
 This package contains static libraries of %{name}.
 
 %prep
-%autosetup -n percolator-rel-3-05
+%autosetup -n percolator-rel-3-06-01
 tar -xvf %{SOURCE1}
 
 ## Remove spurious executable permissions
@@ -89,14 +93,10 @@ cp -p %{SOURCE2} RAMP_license_lgpl-2.1.txt
 ## Set 'qvality' destination directory
 sed -e 's|./bin|bin|g' -i src/qvality/CMakeLists.txt
 
-## Set 'elude models' destination directory
-sed -e 's|${ELUDE_MODELS_PATH}..|${ELUDE_MODELS_PATH}|g' -i src/elude_tool/CMakeLists.txt
-sed -e 's|${CMAKE_INSTALL_PREFIX}/share/elude/models/|${CMAKE_INSTALL_PREFIX}/share/elude|g' -i src/elude_tool/CMakeLists.txt
-
 %build
 export CXXFLAGS="-std=c++14 $RPM_OPT_FLAGS"
 mkdir -p percolator && pushd percolator
-%cmake3 -Wno-dev \
+%cmake -Wno-dev \
  -DCMAKE_COLOR_MAKEFILE:BOOL=ON \
  -DCMAKE_VERBOSE_MAKEFILE=TRUE -DXML_SUPPORT:BOOL=ON \
 %if 0%{?el7}
@@ -131,7 +131,7 @@ cd ..
 popd
 
 mkdir -p fido && pushd fido
-%cmake3 -Wno-dev \
+%cmake -Wno-dev \
  -DCMAKE_COLOR_MAKEFILE:BOOL=ON \
  -DCMAKE_VERBOSE_MAKEFILE=TRUE \
  -DCMAKE_BUILD_TYPE:STRING=Release \
@@ -157,7 +157,7 @@ mkdir -p fido && pushd fido
 popd
 
 mkdir -p converters && pushd converters
-%cmake3 -Wno-dev \
+%cmake -Wno-dev \
  -DCMAKE_COLOR_MAKEFILE:BOOL=ON \
  -DCMAKE_VERBOSE_MAKEFILE=TRUE \
 %if 0%{?el7}
@@ -203,37 +203,9 @@ xsdcxx cxx-tree --generate-serialization --generate-insertion XDR --generate-ext
 %make_build
 popd
 
-mkdir -p elude && pushd elude
-%cmake3 -Wno-dev \
- -DCMAKE_COLOR_MAKEFILE:BOOL=ON \
- -DCMAKE_VERBOSE_MAKEFILE=TRUE \
- -DCMAKE_BUILD_TYPE:STRING=Release \
- -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES -DCMAKE_SKIP_RPATH:BOOL=YES \
- -DCMAKE_PREFIX_PATH:STRING=%{_prefix} \
- -DBoost_USE_STATIC_LIBS:BOOL=OFF \
- -DCMAKE_USE_RELATIVE_PATHS:BOOL=ON \
-%if 0%{?el7}
- -DXML_SUPPORT:BOOL=OFF \
- -DCMAKE_CXX_FLAGS_RELEASE:STRING="%{optflags} -I../src -I%{_includedir}/xsd/cxx/tree -I%{_includedir}/boost169" \
- -DCMAKE_EXE_LINKER_FLAGS_RELEASE:STRING="%{__global_ldflags}" \
- -DBoost_FILESYSTEM_LIBRARY_RELEASE:FILEPATH=%{_libdir}/boost169/libboost_filesystem.so \
- -DBoost_SERIALIZATION_LIBRARY_RELEASE:FILEPATH=%{_libdir}/boost169/libboost_serialization.so \
- -DBoost_SYSTEM_LIBRARY_RELEASE:FILEPATH=%{_libdir}/boost169/libboost_system.so \
- -DBoost_INCLUDE_DIR:PATH=%{_includedir}/boost169 \
- -DBoost_LIBRARY_DIR_RELEASE:PATH=%{_libdir}/boost169 \
- -DCMAKE_EXE_LINKER_FLAGS_RELEASE:STRING="%{__global_ldflags}" \
-%else
- -DCMAKE_CXX_FLAGS_RELEASE:STRING="%{optflags} -I../src -I%{_includedir}/tirpc" \
- -DCMAKE_EXE_LINKER_FLAGS_RELEASE:STRING="%{__global_ldflags} -ltirpc" \
-%endif
- -DTARGET_ARCH=%{_arch} ../src/elude_tool
-%make_build
-popd
-
 %install
 %make_install -C percolator
 %make_install -C converters
-%make_install -C elude
 
 ## Install static libraries
 mkdir -p %{buildroot}%{_libdir}/percolator
@@ -241,10 +213,21 @@ for i in `find . -type f \( -name "*.a" \)`; do
  install -pm 755 $i %{buildroot}%{_libdir}/percolator
 done
 
+rm -f %{buildroot}%{_bindir}/gtest_unit
+
 %check
-mkdir -p test && cd test
+mkdir -p test && pushd test
 ../converters/sqt2pin -o pin.tab ../yeast-01.sqt ../yeast-01.shuffled.sqt
 ../percolator/src/percolator -X pout.xml pin.tab > yeast-01.psms
+popd
+
+pushd percolator
+%ctest
+popd
+
+pushd converters
+%{python3} data/system_tests/converters/SystemTest_Converters_Correctness.py
+popd
 
 %files
 # ASL 2.0 and MIT
@@ -252,7 +235,6 @@ mkdir -p test && cd test
 # ASL 2.0 and LGPLv2+ and MIT and BSD
 %{_bindir}/sqt2pin
 %{_bindir}/qvality
-%{_bindir}/elude
 %{_bindir}/tandem2pin
 %{_bindir}/msgf2pin
 
@@ -261,7 +243,6 @@ mkdir -p test && cd test
 %doc src/converters/MSToolkit/RAMP/RAMP-*
 %license license.txt
 %license RAMP_license_lgpl-2.1.txt
-%{_datadir}/elude/
 %{_datadir}/percolator/
 %{_datadir}/xml/percolator/
 
@@ -273,6 +254,10 @@ mkdir -p test && cd test
 %{_libdir}/percolator/
 
 %changelog
+* Thu Jun 15 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.06.01-1
+- Release 3.06.01
+- Elude support dropped
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.05-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

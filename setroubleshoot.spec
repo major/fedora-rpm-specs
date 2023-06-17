@@ -4,7 +4,7 @@
 Summary: Helps troubleshoot SELinux problems
 Name: setroubleshoot
 Version: 3.3.32
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPL-2.0-or-later
 URL: https://gitlab.com/setroubleshoot/setroubleshoot
 Source0: https://gitlab.com/setroubleshoot/setroubleshoot/-/archive/%{version}/setroubleshoot-%{version}.tar.gz
@@ -191,6 +191,9 @@ to user preference. The same tools can be run on existing log files.
 %doc AUTHORS COPYING ChangeLog DBUS.md NEWS README TODO
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 3.3.32-4
+- Rebuilt for Python 3.12
+
 * Fri May 26 2023 Miro Hrončok <mhroncok@redhat.com> - 3.3.32-3
 - Fix build with pip 23.1.2+
 - Fixes: rhbz#2209022

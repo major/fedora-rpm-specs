@@ -16,7 +16,7 @@ BuildRequires:  %1 \
 
 Name:		catfish
 Version:	%{mainver}
-Release:	%{?betaver:0.}%{fedoraver}%{?betaver:.%betaver}%{?dist}.1
+Release:	%{?betaver:0.}%{fedoraver}%{?betaver:.%betaver}%{?dist}.2
 Summary:	A handy file search tool
 
 License:	GPLv2+
@@ -175,6 +175,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 4.16.4-1.2
+- Rebuilt for Python 3.12
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.16.4-1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

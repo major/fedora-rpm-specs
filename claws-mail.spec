@@ -21,7 +21,7 @@ Obsoletes: claws-mail-plugins-dillo < 4.0.0-1
 
 Name:           claws-mail
 Version:        4.1.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Email client and news reader based on GTK+
 License:        GPLv3+
 URL:            http://claws-mail.org
@@ -662,6 +662,9 @@ touch -r NEWS %{buildroot}%{_includedir}/%{name}/config.h
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 4.1.1-7
+- Rebuilt for Python 3.12
+
 * Tue May  2 2023 Michael Schwendt <mschwendt@fedoraproject.org> - 4.1.1-5
 - Merge upstream fix for bug 4670,
   'To/CC incorrectly escaped with a trailing backslash'

@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.7.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -11,6 +11,7 @@ URL:            https://pypi.python.org/pypi/%{srcname}
 Source0:        https://files.pythonhosted.org/packages/source/p/%{srcname}/%{srcname}-%{version}.tar.gz
 Patch1:         https://github.com/manahl/pytest-plugins/pull/144.patch
 Patch2:         https://github.com/manahl/pytest-plugins/pull/217.patch
+Patch3:         https://github.com/man-group/pytest-plugins/pull/219.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -68,6 +69,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} -m pytest
 %{python3_sitelib}/*
 
 %changelog
+* Thu Jun 15 2023 Michael J Gruber <mjg@fedoraproject.org> - 1.7.0-21
+- Adjust to Python 3.12
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.7.0-20
 - Rebuilt for Python 3.12
 

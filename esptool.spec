@@ -1,6 +1,6 @@
 Name:           esptool
 Version:        4.5.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A utility to communicate with the ROM bootloader in Espressif ESP8266 & ESP32
 
 License:        GPL-2.0-or-later
@@ -64,6 +64,9 @@ done
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 4.5.1-3
+- Rebuilt for Python 3.12
+
 * Tue Apr 11 2023 Karolina Surma <ksurma@redhat.com> - 4.5.1-2
 - Relax the requirement on python3-reedsolo to fix FTI
 Resolves: rhbz#2185836

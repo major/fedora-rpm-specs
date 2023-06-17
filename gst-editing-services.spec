@@ -4,7 +4,7 @@
 
 Name:		gst-editing-services
 Version:        1.22.3
-Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
+Release:        2%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:	Gstreamer editing services
 
 License:	GPL-2.0-or-later and LGPL-2.0-or-later
@@ -87,6 +87,9 @@ cp data/completions/ges-launch-1.0 \
 %{_datadir}/gir-1.0/GES-1.0.gir
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.22.3-2
+- Rebuilt for Python 3.12
+
 * Thu May 25 2023 Wim Taymans <wtaymans@redhat.com> - 1.22.3-1
 - Update to 1.22.3
 

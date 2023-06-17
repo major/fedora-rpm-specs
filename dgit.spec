@@ -1,5 +1,5 @@
 Name:           dgit
-Version:        10.6
+Version:        11.0
 Release:        1%{?dist}
 Summary:        Integration between git and Debian-style archives
 License:        GPLv3+
@@ -51,7 +51,6 @@ make install DESTDIR="%{buildroot}" \
 
 %files
 %{_bindir}/dgit
-%{_bindir}/dgit-badcommit-fixup
 %{_bindir}/git-playtree-setup
 %{_datadir}/%{name}
 %{_mandir}/man1/dgit*.1*
@@ -61,6 +60,9 @@ make install DESTDIR="%{buildroot}" \
 %license debian/copyright
 
 %changelog
+* Thu Jun 15 2023 Filipe Rosset <rosset.filipe@gmail.com> - 11.0-1
+- Update to 11.0 fixes rhbz#2172664
+
 * Tue Feb 14 2023 Filipe Rosset <rosset.filipe@gmail.com> - 10.6-1
 - Update to 10.6 fixes rhbz#2164892
 

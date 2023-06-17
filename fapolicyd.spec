@@ -1,11 +1,11 @@
 %global selinuxtype targeted
 %global moduletype contrib
-%define semodule_version 0.5
+%define semodule_version 0.6
 
 Summary: Application Whitelisting Daemon
 Name: fapolicyd
-Version: 1.2
-Release: 6%{?dist}
+Version: 1.3.1
+Release: 2%{?dist}
 License: GPL-3.0-or-later
 URL: http://people.redhat.com/sgrubb/fapolicyd
 Source0: https://people.redhat.com/sgrubb/fapolicyd/%{name}-%{version}.tar.gz
@@ -29,6 +29,8 @@ Requires(pre): shadow-utils
 Requires(post): systemd-units
 Requires(preun): systemd-units
 Requires(postun): systemd-units
+
+Patch1: selinux.patch
 
 # RHEL-specific patches
 Patch100: fapolicyd-uthash-bundle.patch
@@ -59,10 +61,12 @@ The %{name}-selinux package contains selinux policy for the %{name} daemon.
 # selinux
 %setup -q -D -T -a 1
 
+%patch 1 -p1 -b .selinux
+
 %if 0%{?rhel} != 0
 # uthash
 %setup -q -D -T -a 2
-%patch100 -p1 -b .uthash
+%patch 100 -p1 -b .uthash
 %endif
 
 # generate rules for python
@@ -79,7 +83,7 @@ interpret=`readelf -e /usr/bin/bash \
 sed -i "s|%ld_so_path%|`realpath $interpret`|g" rules.d/*.rules
 
 %build
-#cp INSTALL INSTALL.tmp
+cp INSTALL INSTALL.tmp
 ./autogen.sh
 %configure \
     --with-audit \
@@ -170,7 +174,7 @@ fi
 %ghost %{_sysconfdir}/%{name}/rules.d/*
 %ghost %{_sysconfdir}/%{name}/%{name}.rules
 %config(noreplace) %attr(644,root,%{name}) %{_sysconfdir}/%{name}/%{name}.conf
-%config(noreplace) %attr(644,root,%{name}) %{_sysconfdir}/%{name}/rpm-filter.conf
+%config(noreplace) %attr(644,root,%{name}) %{_sysconfdir}/%{name}/%{name}-filter.conf
 %config(noreplace) %attr(644,root,%{name}) %{_sysconfdir}/%{name}/%{name}.trust
 %ghost %attr(644,root,%{name}) %{_sysconfdir}/%{name}/compiled.rules
 %attr(644,root,root) %{_unitdir}/%{name}.service
@@ -205,6 +209,9 @@ fi
 %selinux_relabel_post -s %{selinuxtype}
 
 %changelog
+* Thu Jun 15 2023 Radovan Sroka <rsroka@redhat.com> - 1.3.1-2
+- rebase to fapolicyd v1.3.1 and selinux v0.6
+
 * Tue Jun 13 2023 Radovan Sroka <rsroka@redhat.com> - 1.2-6
 - migrated to SPDX license
 

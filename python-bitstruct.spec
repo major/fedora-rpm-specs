@@ -11,7 +11,7 @@ bits instead of primitive data types (char, int, …).
 
 Name:           python-%{pypi_name}
 Version:        8.17.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Interpret strings as packed binary data
 
 # the c module won't compile
@@ -76,6 +76,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 8.17.0-2
+- Rebuilt for Python 3.12
+
 * Sat Mar 25 2023 Jonathan Wright <jonathan@almalinux.org> - 8.17.0-1
 - Update to 8.17.0 rhbz#2170634
 

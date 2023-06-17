@@ -2,7 +2,7 @@
 
 Name:           python-wtforms
 Version:        3.0.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Forms validation and rendering library for python
 
 License:        BSD
@@ -58,6 +58,9 @@ and keep those messy parameters out of your python code.
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 3.0.1-8
+- Rebuilt for Python 3.12
+
 * Tue May 02 2023 Jonathan Wright <jonathan@almalinux.org> - 3.0.1-7
 - fix epel9 git to track with rawhide
 

@@ -2,7 +2,7 @@
 
 Name:          python-%{srcname}
 Version:       3.2.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       SSH2 protocol library for python
 
 # No version specified
@@ -91,6 +91,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version}
 %doc html/ demos/
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 3.2.0-2
+- Rebuilt for Python 3.12
+
 * Sat May 27 2023 Paul Howarth <paul@city-fan.org> - 3.2.0-1
 - Update to 3.2.0 (rhbz#2210398)
   - Fixed a very sneaky bug found at the apparently rarely-traveled

@@ -3,7 +3,7 @@
 
 Name:           subunit
 Version:        1.4.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        C bindings for subunit
 
 %global majver  %(cut -d. -f-2 <<< %{version})
@@ -260,6 +260,9 @@ make check
 %exclude %{_bindir}/%{name}-diff
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.4.2-3
+- Rebuilt for Python 3.12
+
 * Fri Feb 24 2023 Jerry James <loganjerry@gmail.com> - 1.4.2-2
 - Dynamically generate python BuildRequires
 

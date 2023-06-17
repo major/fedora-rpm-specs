@@ -1,3 +1,6 @@
+%global _without_curio 1
+%global _without_doh 1
+%global _without_trio 1
 %global pypi_name dnspython
 %global rctag %{nil}
 
@@ -13,7 +16,7 @@
 
 Name:           python-dns
 Version:        2.3.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        DNS toolkit for Python
 
 # The entire package is licensed with both licenses, see LICENSE file
@@ -90,6 +93,9 @@ export OPENSSL_ENABLE_SHA1_SIGNATURES=yes
 %endif
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 2.3.0-5
+- Bootstrap for Python 3.12
+
 * Wed Jun 14 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 2.3.0-4
 - Fix FTBFS by allowing newer versions of cryptography and requests-toolbelt
 - Fixes: rhbz#2214971

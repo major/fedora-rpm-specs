@@ -2,15 +2,15 @@
 
 Summary: A pure Ruby implementation of the SCP client protocol
 Name: rubygem-%{gem_name}
-Version: 3.0.0
-Release: 5%{?dist}
+Version: 4.0.0
+Release: 1%{?dist}
 License: MIT
 URL: https://github.com/net-ssh/net-scp
 Source0: http://rubygems.org/gems/%{gem_name}-%{version}.gem
 # Tests are not packaged with the gem. You may get them like so:
 # git clone --no-checkout https://github.com/net-ssh/net-scp
-# git -C net-scp archive -v -o net-scp-3.0.0-test.txz v3.0.0 test
-Source1: %{gem_name}-%{version}-test.txz
+# git -C net-scp archive -v --format=tar.gz -o net-scp-4.0.0-test.tar.gz v4.0.0 test
+Source1: %{gem_name}-%{version}-test.tar.gz
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: rubygem(net-ssh)
@@ -68,6 +68,9 @@ popd
 %doc %{gem_docdir}
 
 %changelog
+* Wed May 03 2023 Zdenek Zambersky <zzambers@redhat.com> - 4.0.0-1
+- Update to net-ssh 4.0.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

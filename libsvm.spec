@@ -21,7 +21,7 @@
 
 Name:           libsvm
 Version:        3.31
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Library for Support Vector Machines
 
 %global upver   %(tr -d . <<< %{version})
@@ -306,6 +306,9 @@ cp -p README java/README-Java
 %{_datadir}/applications/*%{name}-svm-toy-qt.desktop
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 3.31-2
+- Rebuilt for Python 3.12
+
 * Tue Feb 28 2023 Jerry James <loganjerry@gmail.com> - 3.31-1
 - Version 3.31
 

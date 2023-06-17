@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.5.11
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Python implementation of Jean Meeus astronomical routines
 
 License:        LGPLv3
@@ -63,6 +63,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v tests
 %license LICENSE.txt COPYING.LESSER
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.5.11-6
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.11-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -16,7 +16,7 @@
 
 Name:           javapackages-tools
 Version:        6.1.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Macros and scripts for Java packaging support
 License:        BSD
 URL:            https://github.com/fedora-java/javapackages
@@ -233,6 +233,9 @@ install -p -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/java/javapackages-config
 %license LICENSE
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 6.1.0-9
+- Rebuilt for Python 3.12
+
 * Wed Mar 08 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 6.1.0-8
 - Make javapackages-extra depend on jurand
 

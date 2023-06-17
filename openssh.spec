@@ -137,6 +137,10 @@ Patch711: openssh-7.8p1-UsePAM-warning.patch
 
 # GSSAPI Key Exchange (RFC 4462 + RFC 8732)
 # from https://github.com/openssh-gsskex/openssh-gsskex/tree/fedora/master
+# and
+# Reenable MONITOR_REQ_GSSCHECKMIC after gssapi-with-mic failures
+# upstream MR:
+# https://github.com/openssh-gsskex/openssh-gsskex/pull/21
 Patch800: openssh-8.0p1-gssapi-keyex.patch
 #http://www.mail-archive.com/kerberos@mit.edu/msg17591.html
 Patch801: openssh-6.6p1-force_krb.patch
@@ -181,9 +185,11 @@ Patch951: openssh-8.0p1-pkcs11-uri.patch
 # Unbreak scp between two IPv6 hosts (#1620333)
 Patch953: openssh-7.8p1-scp-ipv6.patch
 # Mention crypto-policies in manual pages (#1668325)
+# clarify rhbz#2068423 on the man page of ssh_config
 Patch962: openssh-8.0p1-crypto-policies.patch
 # Use OpenSSL high-level API to produce and verify signatures (#1707485)
-Patch963: openssh-8.0p1-openssl-evp.patch
+# TODO fix the comment above ^
+Patch963: openssh-9.3p1-merged-openssl-evp.patch
 # Use OpenSSL KDF (#1631761)
 Patch964: openssh-8.0p1-openssl-kdf.patch
 # sk-dummy.so built with -fvisibility=hidden does not work
@@ -205,8 +211,6 @@ Patch977: openssh-8.7p1-scp-kill-switch.patch
 Patch981: openssh-8.7p1-recursive-scp.patch
 # https://github.com/djmdjm/openssh-wip/pull/13
 Patch982: openssh-8.7p1-minrsabits.patch
-# downstream only
-Patch983: openssh-8.7p1-evpgenkey.patch
 # downstream only, IBMCA tentative fix
 # From https://bugzilla.redhat.com/show_bug.cgi?id=1976202#c14
 Patch984: openssh-8.7p1-ibmca.patch
@@ -215,24 +219,15 @@ Patch984: openssh-8.7p1-ibmca.patch
 # upstream bug:
 # https://bugzilla.mindrot.org/show_bug.cgi?id=3455
 Patch1002: openssh-8.7p1-ssh-manpage.patch
-# Reenable MONITOR_REQ_GSSCHECKMIC after gssapi-with-mic failures
-# upstream MR:
-# https://github.com/openssh-gsskex/openssh-gsskex/pull/21
-Patch1004: openssh-8.7p1-gssapi-auth.patch
 
 # Don't propose disallowed algorithms during hostkey negotiation
 # upstream MR:
 # https://github.com/openssh/openssh-portable/pull/323
 Patch1006: openssh-8.7p1-negotiate-supported-algs.patch
 
-Patch1011: openssh-9.0p1-evp-fips-sign.patch
 Patch1012: openssh-9.0p1-evp-fips-dh.patch
 Patch1013: openssh-9.0p1-evp-fips-ecdh.patch
 Patch1014: openssh-8.7p1-nohostsha1proof.patch
-Patch1015: openssh-9.0p1-evp-pkcs11.patch
-
-# clarify rhbz#2068423 on the man page of ssh_config
-Patch1016: openssh-9.0p1-man-hostkeyalgos.patch
 
 License: BSD
 Requires: /sbin/nologin
@@ -362,87 +357,81 @@ gpgv2 --quiet --keyring %{SOURCE3} %{SOURCE1} %{SOURCE0}
 
 %if %{pam_ssh_agent}
 pushd pam_ssh_agent_auth-pam_ssh_agent_auth-%{pam_ssh_agent_ver}
-%patch300 -p2 -b .psaa-build
-%patch301 -p2 -b .psaa-seteuid
-%patch302 -p2 -b .psaa-visibility
-%patch306 -p2 -b .psaa-compat
-%patch305 -p2 -b .psaa-agent
-%patch307 -p2 -b .psaa-deref
-%patch308 -p2 -b .rsasha2
-%patch309 -p1 -b .psaa-configure-c99
+%patch -P 300 -p2 -b .psaa-build
+%patch -P 301 -p2 -b .psaa-seteuid
+%patch -P 302 -p2 -b .psaa-visibility
+%patch -P 306 -p2 -b .psaa-compat
+%patch -P 305 -p2 -b .psaa-agent
+%patch -P 307 -p2 -b .psaa-deref
+%patch -P 308 -p2 -b .rsasha2
+%patch -P 309 -p1 -b .psaa-configure-c99
 # Remove duplicate headers and library files
 rm -f $(cat %{SOURCE5})
 popd
 %endif
 
-%patch400 -p1 -b .role-mls
-%patch404 -p1 -b .privsep-selinux
+%patch -P 400 -p1 -b .role-mls
+%patch -P 404 -p1 -b .privsep-selinux
 
-%patch502 -p1 -b .keycat
+%patch -P 502 -p1 -b .keycat
 
-%patch601 -p1 -b .ip-opts
-%patch606 -p1 -b .ipv6man
-%patch607 -p1 -b .sigpipe
-%patch609 -p1 -b .x11
-%patch702 -p1 -b .progress
-%patch703 -p1 -b .grab-info
-%patch707 -p1 -b .redhat
-%patch711 -p1 -b .log-usepam-no
+%patch -P 601 -p1 -b .ip-opts
+%patch -P 606 -p1 -b .ipv6man
+%patch -P 607 -p1 -b .sigpipe
+%patch -P 609 -p1 -b .x11
+%patch -P 702 -p1 -b .progress
+%patch -P 703 -p1 -b .grab-info
+%patch -P 707 -p1 -b .redhat
+%patch -P 711 -p1 -b .log-usepam-no
 # 
-%patch800 -p1 -b .gsskex
-%patch801 -p1 -b .force_krb
-%patch804 -p1 -b .ccache_name
-%patch805 -p1 -b .k5login
+%patch -P 800 -p1 -b .gsskex
+%patch -P 801 -p1 -b .force_krb
+%patch -P 804 -p1 -b .ccache_name
+%patch -P 805 -p1 -b .k5login
 # 
-%patch901 -p1 -b .kuserok
-%patch906 -p1 -b .fromto-remote
-%patch916 -p1 -b .contexts
-%patch918 -p1 -b .log-in-chroot
-%patch919 -p1 -b .scp
-%patch802 -p1 -b .GSSAPIEnablek5users
-%patch922 -p1 -b .sshdt
-%patch926 -p1 -b .sftp-force-mode
-%patch939 -p1 -b .s390-dev
-%patch944 -p1 -b .x11max
-%patch948 -p1 -b .systemd
-%patch949 -p1 -b .refactor
-%patch950 -p1 -b .sandbox
-%patch951 -p1 -b .pkcs11-uri
-%patch953 -p1 -b .scp-ipv6
-%patch962 -p1 -b .crypto-policies
-%patch963 -p1 -b .openssl-evp
-%patch964 -p1 -b .openssl-kdf
-%patch965 -p1 -b .visibility
-%patch966 -p1 -b .x11-ipv6
-%patch974 -p1 -b .keygen-strip-doseol
-%patch975 -p1 -b .preserve-pam-errors
+%patch -P 901 -p1 -b .kuserok
+%patch -P 906 -p1 -b .fromto-remote
+%patch -P 916 -p1 -b .contexts
+%patch -P 918 -p1 -b .log-in-chroot
+%patch -P 919 -p1 -b .scp
+%patch -P 802 -p1 -b .GSSAPIEnablek5users
+%patch -P 922 -p1 -b .sshdt
+%patch -P 926 -p1 -b .sftp-force-mode
+%patch -P 939 -p1 -b .s390-dev
+%patch -P 944 -p1 -b .x11max
+%patch -P 948 -p1 -b .systemd
+%patch -P 949 -p1 -b .refactor
+%patch -P 950 -p1 -b .sandbox
+%patch -P 951 -p1 -b .pkcs11-uri
+%patch -P 953 -p1 -b .scp-ipv6
+%patch -P 962 -p1 -b .crypto-policies
+%patch -P 963 -p1 -b .openssl-evp
+%patch -P 964 -p1 -b .openssl-kdf
+%patch -P 965 -p1 -b .visibility
+%patch -P 966 -p1 -b .x11-ipv6
+%patch -P 974 -p1 -b .keygen-strip-doseol
+%patch -P 975 -p1 -b .preserve-pam-errors
 
-%patch977 -p1 -b .kill-scp
+%patch -P 977 -p1 -b .kill-scp
 
-%patch981 -p1 -b .scp-sftpdirs
-%patch982 -p1 -b .minrsabits
-%patch983 -p1 -b .evpgenrsa
-%patch984 -p1 -b .ibmca
+%patch -P 981 -p1 -b .scp-sftpdirs
+%patch -P 982 -p1 -b .minrsabits
+%patch -P 984 -p1 -b .ibmca
 
-%patch200 -p1 -b .audit
-%patch201 -p1 -b .audit-race
-%patch202 -p1 -b .audit-log
-%patch700 -p1 -b .fips
+%patch -P 200 -p1 -b .audit
+%patch -P 201 -p1 -b .audit-race
+%patch -P 202 -p1 -b .audit-log
+%patch -P 700 -p1 -b .fips
 
-%patch1002 -p1 -b .ssh-manpage
-%patch1004 -p1 -b .gssapi-auth
+%patch -P 1002 -p1 -b .ssh-manpage
 
-%patch1006 -p1 -b .negotiate-supported-algs
+%patch -P 1006 -p1 -b .negotiate-supported-algs
 
-%patch1011 -p1 -b .evp-fips-sign
-%patch1012 -p1 -b .evp-fips-dh
-%patch1013 -p1 -b .evp-fips-ecdh
-%patch1014 -p1 -b .nosha1hostproof
-%patch1015 -p1 -b .evp-pkcs11
+%patch -P 1012 -p1 -b .evp-fips-dh
+%patch -P 1013 -p1 -b .evp-fips-ecdh
+%patch -P 1014 -p1 -b .nosha1hostproof
 
-%patch1016 -p1 -b .man-hostkeyalgos
-
-%patch100 -p1 -b .coverity
+%patch -P 100 -p1 -b .coverity
 
 autoreconf
 pushd pam_ssh_agent_auth-pam_ssh_agent_auth-%{pam_ssh_agent_ver}
@@ -748,6 +737,10 @@ test -f %{sysconfig_anaconda} && \
 %endif
 
 %changelog
+* Thu Jun 08 2023 Norbert Pocs <npocs@redhat.com> - 9.3p1-4
+- Fix deprecated %patchN syntax
+- Reduce the number of patches by merging related patches
+
 * Wed Jun 07 2023 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.3p1-3
 - Fix DSS verification problem
   Resolves: rhbz#2212937
@@ -760,7 +753,6 @@ test -f %{sysconfig_anaconda} && \
 
 * Wed May 24 2023 Norbert Pocs <npocs@redhat.com> - 9.0p1-18
 - Fix pkcs11 issue with the recent changes
-- Add support for 'serial' in PKCS#11 URI
 - Clarify HostKeyAlgorithms relation with crypto-policies
 
 * Fri Apr 14 2023 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.0p1-17

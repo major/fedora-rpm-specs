@@ -4,7 +4,7 @@
 
 Name:           python-%{modname}
 Version:        2.1.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Encode and decode Base64 without "=" padding
 
 License:        ASL 2.0
@@ -57,6 +57,9 @@ Python 3 version.
 %doc README.rst
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 2.1.0-6
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

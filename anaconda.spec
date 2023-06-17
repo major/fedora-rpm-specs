@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
 Version: 39.19
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+ and MIT
 URL:     http://fedoraproject.org/wiki/Anaconda
 
@@ -470,6 +470,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 39.19-2
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Packit <hello@packit.dev> - 39.19-1
 - webui: remove redundant dashes from README (kkoukiou)
 - docs: remove confusion for which toolbox to use for webui development

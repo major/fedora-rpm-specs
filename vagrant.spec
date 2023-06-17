@@ -1,13 +1,13 @@
 %global bashcompletion_dir %(pkg-config --variable=completionsdir bash-completion 2> /dev/null || :)
 
-%global vagrant_spec_commit 03d88fe2467716b072951c2b55d78223130851a6
+%global vagrant_spec_commit a88825f4cb254b703d0f9235667223f02ad5c600
 
 %bcond_without help2man
 %bcond_without ed25519
 
 Name: vagrant
-Version: 2.2.19
-Release: 10%{?dist}
+Version: 2.3.4
+Release: 1%{?dist}
 Summary: Build and distribute virtualized development environments
 License: MIT
 URL: http://vagrantup.com
@@ -22,28 +22,24 @@ Source2: https://github.com/hashicorp/%{name}-spec/archive/%{vagrant_spec_commit
 # for RubyGems and Bundler are in place
 Source4: macros.vagrant
 
-# Fix fake_ftp 0.3.x compatibility.
-# https://github.com/hashicorp/vagrant/issues/10646
-Patch0: vagrant-2.2.3-Fix-fake_ftp-0.3.x-compatibility.patch
 # Do not load runtime dependencies in %%check if vagrant is not loaded
 # https://github.com/hashicorp/vagrant/pull/10945
 Patch1: vagrant-2.2.9-do-not-load-dependencies.patch
-# Fix spec test suite for new rspec-mocks.
-# https://github.com/hashicorp/vagrant/pull/12699
-Patch2: vagrant-2.2.19-fix-3.1-compatibility.patch
-# ruby3.2 removes Object#=~
-# https://github.com/hashicorp/vagrant/pull/13043 , extracted minimum required change
-Patch3: vagrant-pr13043-ruby32-object-regex-match-removal.patch
-# ruby3.2 removes File.exists
-# https://github.com/hashicorp/vagrant/pull/12913
-Patch4: vagrant-pr12913-ruby32-File_exists-removal.patch
-# and also one more fix for File.exists-removal
-# https://github.com/hashicorp/vagrant/commit/2fe4056a7dcf96dd894875b02032a988777e05d4
-Patch5: vagrant-2.2.3-ruby32-File_exists-removal-zsh-test.patch
-# Prevent trailing space character on user agent
-# https://bugzilla.redhat.com/show_bug.cgi?id=2177215
-# https://github.com/hashicorp/vagrant/pull/12925/
-Patch6: vagrant-2.3.1-Fix-downloader-user-agent.patch
+# Remove GRPC dependencies for Fedora. It seems that it will serve
+# for communication with upcoming Golang backend, however
+# it is only in tech-preview now and grpc is not simple to package.
+# Let's remove it for now and revisit in the future.
+Patch2: vagrant-2.3.4-remove_grpc.patch
+# Ruby 3.2 compatibility for tests.
+# Commits are cherry-picked instead of a whole PR as it also edits .github
+# files that we do not care about.
+# https://github.com/hashicorp/vagrant/pull/13043
+Patch3: vagrant-2.3.4-Environment-home-dir-is-also-not-accessible-if-EROFS-error-occurs.patch
+Patch4: vagrant-2.3.4-Only-check-for-arguments-matching-test-string.patch
+# Disable loading of direc_conversions.rb in other files.
+# The file is removed as it requires protobuf components not yet
+# packaged in Fedora.
+Patch5: vagrant-2.3.4-Disable-loading-of-direct_conversions-file.patch
 
 # The load directive is supported since RPM 4.12, i.e. F21+. The build process
 # fails on older Fedoras.
@@ -60,7 +56,7 @@ Requires: (rubygem(i18n) >= 1.8 with rubygem(i18n) < 2.0)
 Requires: rubygem(json)
 Requires: (rubygem(listen) >= 3.2 with rubygem(listen) < 4)
 Requires: rubygem(log4r) >= 1.1.9
-Requires: (rubygem(net-ssh) >= 5.2.0 with rubygem(net-ssh) < 7)
+Requires: (rubygem(net-ssh) >= 5.2.0 with rubygem(net-ssh) < 8)
 Requires: rubygem(net-scp) >= 1.2.0
 Requires: rubygem(net-sftp) >= 2.1
 Requires: rubygem(rest-client) >= 1.6.0
@@ -113,11 +109,6 @@ BuildRequires: help2man
 BuildRequires: %{_bindir}/ssh
 BuildArch: noarch
 
-# vagrant-atomic was retired in F26, since it was merged into Vagrant.
-# https://github.com/projectatomic/vagrant-atomic/issues/5
-# https://github.com/mitchellh/vagrant/pull/5847
-Obsoletes: vagrant-atomic <= 0.1.0-4
-
 # Since Vagrant itself is installed on the same place as its plugins
 # the vagrant_plugin macros can be reused in the spec file, but the plugin
 # name must be specified.
@@ -138,13 +129,6 @@ Documentation for %{name}.
 %prep
 %setup -q -b2
 
-%patch0 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
-
 # TODO: package vagrant_cloud, as it is not in Fedora yet
 %gemspec_remove_dep -s %{name}.gemspec -g vagrant_cloud
 
@@ -157,12 +141,12 @@ sed -i '/^\s*command(:login) do$/,/\s*end$/ s/^/#/g' plugins/commands/login/plug
 # Expand required Ruby compatibility, otherwise RubyGems throws exceptions.
 # Relevant rhbz: https://bugzilla.redhat.com/show_bug.cgi?id=2053476#c0
 # Relevant RubyGems issue: https://github.com/rubygems/rubygems/issues/4338
-sed -i -e '/required_ruby_version/ s/, "< 3.1"//' %{name}.gemspec
+sed -i -e '/required_ruby_version/ s/, "< 3.2"//' %{name}.gemspec
 
 # We have older version in Fedora
-%gemspec_remove_dep -s %{name}.gemspec -g net-sftp '~> 3.0'
+%gemspec_remove_dep -s %{name}.gemspec -g net-sftp '~> 4.0'
 %gemspec_add_dep -s %{name}.gemspec -g net-sftp '>= 2.1.2'
-%gemspec_remove_dep -s %{name}.gemspec -g net-scp '~> 3.0.0'
+%gemspec_remove_dep -s %{name}.gemspec -g net-scp '~> 4.0'
 %gemspec_add_dep -s %{name}.gemspec -g net-scp '>= 1.2.0'
 
 # We have newer version in Fedora
@@ -184,16 +168,18 @@ sed -i -e '/required_ruby_version/ s/, "< 3.1"//' %{name}.gemspec
 
 # Relax net-ssh dependency. We have newer net-ssh in Fedora
 %gemspec_remove_dep -s %{name}.gemspec -g net-ssh
-%gemspec_add_dep -s %{name}.gemspec -g net-ssh ['>= 5.2.0', '< 7']
+%gemspec_add_dep -s %{name}.gemspec -g net-ssh ['>= 5.2.0', '< 8']
 
+# Remove "optional" dependencies
+# This seems like prelude for the in-development golang backend.
+# Nothing runtime critical.
+%gemspec_remove_dep -s %{name}.gemspec -g googleapis-common-protos-types
+%gemspec_remove_dep -s %{name}.gemspec -g grpc
+%gemspec_remove_dep -s %{name}.gemspec -g rgl
 # Load missing dependency Vagrant::Util::MapCommandOptions
 # https://github.com/hashicorp/vagrant/pull/11609
 sed -i '/^\s*require..vagrant.util.experimental.\s*$/ a\require "vagrant/util/map_command_options"' \
   plugins/kernel_v2/config/vm.rb
-
-# Apply net-ssh patches apply regardless of net-ssh version
-sed -i 's/^if Net::SSH::Version::STRING.*$/if true/' \
-  lib/vagrant/patches/net-ssh.rb
 
 %if %{without ed25519}
 # Remove optional dependencies
@@ -207,6 +193,20 @@ sed -i '/^  require .net\/ssh\/authentication\/ed25519.$/,/^  end$/ s/^/#/' \
 %gemspec_remove_dep -s %{name}.gemspec -g ed25519
 %gemspec_add_dep -s %{name}.gemspec -g ed25519 ['>= 1.2.4', '< 1.4']
 %endif
+
+# Let's get rid of protobuf related components
+%patch2 -p16
+
+%gemspec_remove_file -s %{name}.gemspec Dir.glob('lib/vagrant/protobufs/**/*.*')
+# This file contains monkey patching and compatibility for Protobuf serialization.
+# We do not need that as we skip protobuf related parts completely.
+%gemspec_remove_file -s %{name}.gemspec "plugins/commands/serve/util/direct_conversions.rb"
+rm -rf plugins/commands/serve/util/direct_conversions.rb
+# Patch out related requires in code.
+%patch5 -p1
+
+%patch3 -p1
+
 
 %build
 gem build %{name}.gemspec
@@ -272,6 +272,8 @@ help2man -N -s1 -o %{buildroot}%{_mandir}/man1/%{name}.1 \
 %check
 # Do not load dependencies from gemspec
 cat %{PATCH1} | patch -p1
+# Ruby 3.2 compatibility fix
+cat %{PATCH4} | patch -p1
 
 sed -i '/^\s*context "when vagrant specification is not found" do$/,/^    end$/ s/^/#/' \
   test/unit/vagrant/bundler_test.rb
@@ -310,44 +312,25 @@ mv test/unit/vagrant/util/env_test.rb{,.disable}
 # in favor of vagrant_cloud
 rm -r test/unit/plugins/commands/cloud/
 
-# fake_ftp 0.3.0 compatibility.
-# https://github.com/livinginthepast/fake_ftp/pull/56
-sed -i '/^\s*it "adds from FTP URL" do$/ a skip' test/unit/vagrant/action/builtin/box_add_test.rb
-
 # Disable test that requires network
 sed -i '/^    it "generates a network name and configuration" do$/,/^    end/ s/^/#/' \
   test/unit/plugins/providers/docker/action/prepare_networks_test.rb
 
-# There are some Ruby 2.7 incompatibilities which might be fixed by:
-# https://github.com/hashicorp/vagrant/pull/11459
-# but workarond the offending test case for now.
-sed -i "/describe '#create' do/,/^  end$/ s/^/#/" \
-  test/unit/plugins/providers/docker/driver_compose_test.rb
-sed -i "/it 'removes the container' do/a\        skip 'Ruby 2.7 incompatibility'" \
-  test/unit/plugins/providers/docker/driver_compose_test.rb
-
 # Remove failing BSD-host tests, as we don't care about those.
 rm -rf test/unit/plugins/hosts/bsd
-
-# Disable broken test for installing docker on host
-# https://github.com/hashicorp/vagrant/issues/11606
-sed -i '/^\s*it "installs docker if not present" do$/ a\ skip "GH#11606"' \
-  test/unit/plugins/provisioners/docker/installer_test.rb
-
-# Disable tests failing on class variable access from toplevel
-# > Failure/Error: @@logger = nil
-# https://github.com/hashicorp/vagrant/issues/12362
-mv test/unit/plugins/synced_folders/unix_mount_helpers_test.rb{,.disable}
-
-# Disable currently broken powershell tests, due to:
-# https://github.com/hashicorp/vagrant/commit/5967a23fa097e89726d335dcf781ae43cb256bc1#
-# https://github.com/hashicorp/vagrant/issues/12363
-mv test/unit/vagrant/util/powershell_test.rb{,.disable}
 
 # Export the OS as an environment variable that Vagrant can access, so the
 # test suite is executed with same host it will be run (also avoids docker
 # installer_test issue).
 export VAGRANT_DETECTED_OS="$(uname -s 2>/dev/null)"
+
+# Disable tests concerning protobuf
+mv ./test/unit/plugins/commands/serve/service/guest_service_test.rb{,.disabled}
+mv ./test/unit/plugins/commands/serve/service/host_service_test.rb{,.disabled}
+mv ./test/unit/plugins/commands/serve/util/exception_transformer_test.rb{,.disabled}
+mv ./test/unit/plugins/commands/serve/mappers_test.rb{,.disabled}
+sed -i -e '/    it "uses a directory within the home directory by default" do/a\
+    skip "Requires protobuf"' ./test/unit/vagrant/environment_test.rb
 
 # Put gem load path on top of the load path, so they are loaded earlier then
 # their StdLib symlinks.
@@ -370,35 +353,6 @@ export RUBYOPT
 # Rake solves the requires issues for tests
 rake -f tasks/test.rake test:unit \
   | tee error.log
-
-# Temporarily disable (3) tests failing on older childprocess
-# 4) Vagrant::Util::Subprocess#running? should return false when subprocess has completed
-#    Failure/Error: expect(sp.running?).to be(false)
-#      expected false
-#           got true
-#    # ./test/unit/vagrant/util/subprocess_test.rb:123:in `block (4 levels) in <top (required)>'
-#    # ./test/unit/vagrant/util/subprocess_test.rb:120:in `each'
-#    # ./test/unit/vagrant/util/subprocess_test.rb:120:in `block (3 levels) in <top (required)>'
-#    # /usr/share/gems/gems/webmock-3.11.1/lib/webmock/rspec.rb:37:in `block (2 levels) in <top (required)>'
-# 5) Vagrant::Util::Subprocess#stop when subprocess has already completed should return false
-#    Failure/Error: expect(sp.stop).to be(false)
-#      expected false
-#           got true
-#    # ./test/unit/vagrant/util/subprocess_test.rb:152:in `block (5 levels) in <top (required)>'
-#    # ./test/unit/vagrant/util/subprocess_test.rb:149:in `each'
-#    # ./test/unit/vagrant/util/subprocess_test.rb:149:in `block (4 levels) in <top (required)>'
-#    # /usr/share/gems/gems/webmock-3.11.1/lib/webmock/rspec.rb:37:in `block (2 levels) in <top (required)>'
-# 6) Vagrant::Util::Subprocess#stop when subprocess is running should stop the process
-#    Failure/Error: expect(sp.running?).to be(false)
-#      expected false
-#           got true
-#    # ./test/unit/vagrant/util/subprocess_test.rb:172:in `block (5 levels) in <top (required)>'
-#    # ./test/unit/vagrant/util/subprocess_test.rb:168:in `each'
-#    # ./test/unit/vagrant/util/subprocess_test.rb:168:in `block (4 levels) in <top (required)>'
-#    # /usr/share/gems/gems/webmock-3.11.1/lib/webmock/rspec.rb:37:in `block (2 levels) in <top (required)>'
-# Note: failures will dissapear when rubygem-childprocess update PR is merged
-# https://src.fedoraproject.org/rpms/rubygem-childprocess/pull-request/2/
-grep -E ', (3|0) failures, ' error.log || exit 1
 
 %if %{with help2man}
 # Check `--help` output, using which man page is created
@@ -476,6 +430,16 @@ end
 %dir %{dirname:%{vagrant_plugin_instdir}}
 %dir %{dirname:%{vagrant_plugin_spec}}
 
+%exclude %{vagrant_plugin_instdir}/Makefile
+%exclude %{vagrant_plugin_instdir}/Dockerfile
+%exclude %{vagrant_plugin_instdir}/flake*
+%exclude %{vagrant_plugin_instdir}/go.{mod,sum}
+%exclude %{vagrant_plugin_instdir}/gen.go
+%exclude %{vagrant_plugin_instdir}/binstubs/vagrant
+%exclude %{vagrant_plugin_instdir}/nix/*.nix
+%exclude %{vagrant_plugin_instdir}/shell.nix
+%exclude %{vagrant_plugin_instdir}/vagrant-config.hcl
+
 %{_bindir}/%{name}
 %dir %{vagrant_plugin_instdir}
 %license %{vagrant_plugin_instdir}/LICENSE
@@ -522,6 +486,9 @@ end
 %{vagrant_plugin_instdir}/vagrant-spec.config.example.rb
 
 %changelog
+* Tue May 09 2023 Jarek Prokop <jprokop@redhat.com> - 2.3.4-1
+- Upgrade to Vagrant 2.3.4.
+
 * Thu Mar 16 2023 Pavel Valena <pvalena@redhat.com> - 2.2.19-10
 - Handle URL properly
 

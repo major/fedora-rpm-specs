@@ -1,6 +1,6 @@
 Name:           alacarte
 Version:        3.44.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Menu editor for the GNOME desktop
 License:        LGPL-2.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/alacarte
@@ -66,6 +66,9 @@ desktop-file-install \
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 3.44.2-4
+- Rebuilt for Python 3.12
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.44.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

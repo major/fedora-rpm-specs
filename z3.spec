@@ -16,7 +16,7 @@
 
 Name:           z3
 Version:        4.12.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Satisfiability Modulo Theories (SMT) solver
 
 License:        MIT
@@ -293,6 +293,9 @@ cd -
 %{python3_sitelib}/z3/
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 4.12.2-2
+- Rebuilt for Python 3.12
+
 * Mon May 15 2023 Jerry James <loganjerry@gmail.com> - 4.12.2-1
 - Version 4.12.2
 

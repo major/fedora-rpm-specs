@@ -4,7 +4,7 @@
 
 Name:           nemo-extensions
 Version:        5.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Extensions for Nemo
 
 License:        GPLv2+ and LGPLv2
@@ -333,6 +333,9 @@ desktop-file-install                                    \
 %{_mandir}/man1/nemo-seahorse-tool.1.* 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 5.8.0-2
+- Rebuilt for Python 3.12
+
 * Fri Jun 02 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.0-1
 - Update to 5.8.0 release
 

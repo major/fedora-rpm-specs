@@ -4,7 +4,7 @@
 
 Name: python-%{srcname}
 Version: 1.5.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Astropy affiliated package for image photometry tasks
 License: BSD
 
@@ -61,6 +61,9 @@ sed -i 's/38,39,310/38,39,310,311/g' tox.ini
 %doc README.rst
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.5.0-3
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

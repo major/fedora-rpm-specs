@@ -4,7 +4,7 @@
 Name:    libnvme
 Summary: Linux-native nvme device management library
 Version: 1.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: LGPLv2+
 URL:     https://github.com/linux-nvme/libnvme
 Source0: %{url}/archive/v%{version_no_tilde}/%{name}-%{version_no_tilde}.tar.gz
@@ -104,6 +104,9 @@ mv %{buildroot}/usr/*.rst %{buildroot}%{_pkgdocdir}/
 %{python3_sitearch}/libnvme/*
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.4-3
+- Rebuilt for Python 3.12
+
 * Thu Apr 20 2023 Tomas Bzatek <tbzatek@redhat.com> - 1.4-2
 - Backport the NBFT parser from git master
 

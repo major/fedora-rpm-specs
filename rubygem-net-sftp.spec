@@ -1,14 +1,14 @@
 %global gem_name net-sftp
 
 Name: rubygem-%{gem_name}
-Version: 3.0.0
-Release: 5%{?dist}
+Version: 4.0.0
+Release: 1%{?dist}
 Summary: A pure Ruby implementation of the SFTP client protocol
-License: MIT or LGPLv2
+License: MIT
 URL: https://github.com/net-ssh/net-sftp
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/net-ssh/net-sftp.git && cd net-sftp
-# git archive -v -o net-sftp-3.0.0-test.tar.gz v3.0.0 test/
+# git archive -v --format=tar.gz -o net-sftp-4.0.0-test.tar.gz v4.0.0 test/
 Source1: %{gem_name}-%{version}-test.tar.gz
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -24,6 +24,9 @@ A pure Ruby implementation of the SFTP client protocol.
 
 %package doc
 Summary: Documentation for %{name}
+# LICENSE.txt declares MIT
+# setup.rb: LGPL-2.1-only
+License: MIT AND LGPL-2.1-only
 Requires: %{name} = %{version}-%{release}
 BuildArch: noarch
 
@@ -72,10 +75,13 @@ popd
 %{gem_instdir}/Rakefile
 %{gem_instdir}/net-sftp-public_cert.pem
 %{gem_instdir}/net-sftp.gemspec
-# License: LGPL version 2.1
 %{gem_instdir}/setup.rb
 
 %changelog
+* Wed May 03 2023 Zdenek Zambersky <zzambers@redhat.com> - 4.0.0-1
+- Update to net-sftp 4.0.0
+  Resolves: rhbz#2139136
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

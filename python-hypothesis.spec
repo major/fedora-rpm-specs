@@ -1,3 +1,5 @@
+%global _without_doc 1
+%global _without_tests 1
 %if 0%{?rhel} >= 9
 # Needs pytest-xdist and typing-extensions which pull in a bunch of BRs, see
 # missing-epel9-test-brs.json

@@ -4,7 +4,7 @@ License:	GPLv2+
 
 Epoch:		1
 Version:	2.3.5
-Release:	3%{?dist}
+Release:	4%{?dist}
 
 URL:		https://github.com/blueman-project/blueman
 Source0:	%{URL}/archive/refs/tags/%{version}/blueman-%{version}.tar.gz
@@ -227,6 +227,9 @@ desktop-file-validate %{buildroot}%{_datadir}/Thunar/sendto/*blueman*.desktop
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1:2.3.5-4
+- Rebuilt for Python 3.12
+
 * Thu Jun 08 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1:2.3.5-3
 - Use py3_shebang_fix macro to add "-sPE" to Python shebangs
 

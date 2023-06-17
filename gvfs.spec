@@ -22,7 +22,7 @@
 
 Name:    gvfs
 Version: 1.50.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Backends for the gio framework in GLib
 
 License: GPLv3 and LGPLv2+ and BSD and MPLv2.0
@@ -199,8 +199,10 @@ Summary: GOA support for gvfs
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: %{name}-client%{?_isa} = %{version}-%{release}
 BuildRequires: pkgconfig(goa-1.0) >= %{goa_version}
+%if ! (0%{?rhel} >= 10)
 BuildRequires: pkgconfig(libgdata) >= %{libgdata_version}
 Requires: libgdata%{?_isa} >= %{libgdata_version}
+%endif
 
 %description goa
 This package provides seamless integration with gnome-online-accounts
@@ -232,6 +234,9 @@ the functionality of the installed gvfs package.
        -Darchive=false \
        -Dafp=false \
        -Dgcrypt=false \
+%endif
+%if 0%{?rhel} >= 10
+       -Dgoogle=false \
 %endif
         %{nil}
 %meson_build
@@ -411,8 +416,10 @@ killall -USR1 gvfsd >&/dev/null || :
 %{_libexecdir}/gvfs-goa-volume-monitor
 %{_datadir}/dbus-1/services/org.gtk.vfs.GoaVolumeMonitor.service
 %{_datadir}/gvfs/remote-volume-monitors/goa.monitor
+%if ! (0%{?rhel} >= 10)
 %{_datadir}/gvfs/mounts/google.mount
 %{_libexecdir}/gvfsd-google
+%endif
 %{_userunitdir}/gvfs-goa-volume-monitor.service
 
 %files tests
@@ -421,6 +428,9 @@ killall -USR1 gvfsd >&/dev/null || :
 %{_datadir}/installed-tests
 
 %changelog
+* Thu Jun 15 2023 Ondrej Holy <oholy@redhat.com> - 1.50.4-3
+- Disable Google backend in RHEL
+
 * Thu Jun 01 2023 David King <amigadave@amigadave.com> - 1.50.4-2
 - Rebuilt against libnfs
 

@@ -24,7 +24,7 @@
 
 Name:           %{upstream_name}%{?v2_suffix}
 Version:        2.15.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Module metadata manipulation library
 
 # COPYING:      MIT
@@ -181,6 +181,9 @@ mv %{buildroot}%{_mandir}/man1/modulemd-validator.1 \
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 2.15.0-4
+- Rebuilt for Python 3.12
+
 * Wed May 10 2023 Florian Festi <ffesti@redhat.com>  - 2.15.0-3
 - Rebuild for rpm-4.18.90
 

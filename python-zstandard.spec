@@ -19,7 +19,7 @@ compression library. A C extension and CFFI interface are provided.
 
 Name: python-%{pypi_name}
 Version: 0.21.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Zstandard bindings for Python
 License: BSD and GPLv2
 URL: https://github.com/indygreg/python-zstandard
@@ -72,6 +72,9 @@ mv zstandard{.src,}
 %{python3_sitearch}/%{pypi_name}
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.21.0-2
+- Rebuilt for Python 3.12
+
 * Wed May 24 2023 Dominik Mierzejewski <dominik@greysector.net> - 0.21.0-1
 - update to 0.21.0 (#2172363)
 - bump bundled zstd version

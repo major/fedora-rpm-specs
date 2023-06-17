@@ -16,7 +16,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt5-%{qt_module}
-Version:        5.15.9
+Version:        5.15.10
 Release:        1%{?dist}
 Summary:        Qt5 for Windows - QtLocation component
 
@@ -124,6 +124,7 @@ mkdir .git
 %{mingw32_libdir}/qt5/plugins/position/
 %{mingw32_libdir}/qt5/qml/QtLocation/
 %{mingw32_libdir}/qt5/qml/QtPositioning/
+%{mingw32_libdir}/qt5/qml/Qt/labs/location/
 %{mingw32_datadir}/qt5/mkspecs/modules/qt_lib_location.pri
 %{mingw32_datadir}/qt5/mkspecs/modules/qt_lib_location_private.pri
 %{mingw32_datadir}/qt5/mkspecs/modules/qt_lib_positioning.pri
@@ -154,6 +155,7 @@ mkdir .git
 %{mingw64_libdir}/qt5/plugins/position/
 %{mingw64_libdir}/qt5/qml/QtLocation/
 %{mingw64_libdir}/qt5/qml/QtPositioning/
+%{mingw64_libdir}/qt5/qml/Qt/labs/location/
 %{mingw64_datadir}/qt5/mkspecs/modules/qt_lib_location.pri
 %{mingw64_datadir}/qt5/mkspecs/modules/qt_lib_location_private.pri
 %{mingw64_datadir}/qt5/mkspecs/modules/qt_lib_positioning.pri
@@ -163,6 +165,9 @@ mkdir .git
 
 
 %changelog
+* Thu Jun 15 2023 Sandro Mani <manisandro@gmail.com> - 5.15.10-1
+- Update to 5.15.10
+
 * Thu Apr 13 2023 Sandro Mani <manisandro@gmail.com> - 5.15.9-1
 - Update to 5.15.9
 

@@ -1,6 +1,6 @@
 Name:           pychromecast
 Version:        13.0.7
-Release:        0%{?dist}
+Release:        1%{?dist}
 Summary:        Python library to communicate with the Google Chromecast
 
 License:        MIT
@@ -62,6 +62,9 @@ currently supports:
 %{python3_sitelib}/PyChromecast-*/
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 13.0.7-1
+- Rebuilt for Python 3.12
+
 * Tue Mar 21 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 13.0.5-1
 - Update to 13.0.5
 

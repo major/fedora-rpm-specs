@@ -1,7 +1,8 @@
 Name:           devscripts
-Version:        2.23.4
-Release:        2%{?dist}
+Version:        2.23.5
+Release:        1%{?dist}
 Summary:        Scripts for Debian Package maintainers
+BuildArch:      noarch
 
 License:        GPL-2.0-or-later
 URL:            https://packages.debian.org/sid/%{name}
@@ -13,7 +14,6 @@ Patch1:         devscripts_install-layout.patch
 # Install some additional man pages
 Patch2:         devscripts_install-man.patch
 
-BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
@@ -83,21 +83,13 @@ Requires:       dpkg-dev
 Requires:       sensible-utils
 # man for manpage-alert
 Requires:       %{_bindir}/man
-
 Requires:       %{name}-checkbashisms
-
-# rhbz 1508087, 1536718
-Obsoletes:      hardening-check < 2.6-8
-Provides:       hardening-check = 2.6-8
 
 %description
 Scripts to make the life of a Debian Package maintainer easier.
 
 %package checkbashisms
 Summary:        Devscripts checkbashisms script
-Obsoletes:      devscripts-minimal < 2.16.6-1
-# Removed in F30
-Obsoletes:      devscripts-compat < 2.19.2-4
 
 %description checkbashisms
 This package contains the devscripts checkbashisms script.
@@ -108,8 +100,7 @@ This package contains the devscripts checkbashisms script.
 
 
 %build
-# Parallel build occasionally broken
-make CFLAGS="%{optflags}" LDFLAGS="%{__global_ldflags}"
+%make_build
 
 
 %install
@@ -161,6 +152,9 @@ rm -f %{buildroot}%{_datadir}/bash-completion/completions/bts
 
 
 %changelog
+* Thu Jun 15 2023 Sandro Mani <manisandro@gmail.com> - 2.23.5-1
+- Update to 2.23.5
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.23.4-2
 - Rebuilt for Python 3.12
 

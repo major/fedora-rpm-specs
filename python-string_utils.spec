@@ -10,7 +10,7 @@
 
 Name:       python-%{library}
 Version:    1.0.0
-Release:    10%{?dist}
+Release:    11%{?dist}
 Summary:    A python module containing utility functions for strings
 License:    MIT
 URL:        https://github.com/daveoncode/python-string-utils
@@ -176,6 +176,9 @@ coverage run -m unittest
 %endif
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.0.0-11
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

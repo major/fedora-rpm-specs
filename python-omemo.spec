@@ -1,6 +1,6 @@
 Name:           python-omemo
 Version:        0.14.0~beta
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python implementation of the OMEMO Encryption protocol
 
 License:        MIT
@@ -72,6 +72,9 @@ are offline.
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.14.0~beta-5
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0~beta-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

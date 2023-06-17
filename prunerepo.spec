@@ -1,7 +1,7 @@
 Name:    prunerepo
 Version: 1.25
 Summary: Remove old packages from rpm-md repository
-Release: 1%{?dist}
+Release: 2%{?dist}
 Url: https://pagure.io/prunerepo
 
 # Source is created by:
@@ -65,6 +65,9 @@ install -p -m 644 man/prunerepo.1 %{buildroot}/%{_mandir}/man1/
 %{_mandir}/man1/prunerepo.1*
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.25-2
+- Rebuilt for Python 3.12
+
 * Tue Jun 06 2023 Pavel Raiskup <praiskup@redhat.com> 1.25-1
 - PruneRepoAnalyzer to use the temporary cachedir, too
 - Read BUILDTIME from the repo metadata, rather than every single RPM file

@@ -2,7 +2,7 @@
 Summary:       Generate tables in terminals from list of strings
 Name:          python-terminaltables
 Version:       3.1.10
-Release:       7%{?dist}
+Release:       8%{?dist}
 License:       MIT
 URL:           https://github.com/matthewdeanmartin/terminaltables
 Source0:       https://github.com/matthewdeanmartin/terminaltables/archive/v%{version}.tar.gz
@@ -41,6 +41,9 @@ Summary:        %summary
 %doc CHANGELOG.md CONTRIBUTING.md README.md
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 3.1.10-8
+- Rebuilt for Python 3.12
+
 * Mon Mar 27 2023 Terje Rosten <terje.rosten@ntnu.no> - 3.1.10-7
 - Use upstream patch to do poetry-core switch
 

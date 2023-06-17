@@ -7,6 +7,11 @@ License:        LGPL-3.0-or-later
 URL:            https://pypi.python.org/pypi/gmpy2
 Source0:        %pypi_source gmpy2
 
+# Compatibility with python 3.12.  Upstream patch which does not apply cleanly
+# to version 2.1.5:
+# https://github.com/aleaxit/gmpy/commit/b2236fc26fe48572acdae2c6598be8b02a78edee
+Patch0:         %{name}-python3.12.patch
+
 BuildRequires:  gcc
 BuildRequires:  gmp-devel
 BuildRequires:  libmpc-devel
@@ -53,7 +58,10 @@ Provides:       bundled(js-jquery)
 This package contains API documentation for gmpy2.
 
 %prep
-%autosetup -n gmpy2-%{version}
+%autosetup -N -n gmpy2-%{version}
+%if 0%{?python3_version_nodots} > 311
+%autopatch -p1
+%endif
 
 # Update the sphinx theme name
 sed -i "s/'default'/'classic'/" docs/conf.py
@@ -73,7 +81,7 @@ make -C docs html
 %pyproject_save_files gmpy2
 
 %check
-PYTHONPATH=%{buildroot}%{python3_sitearch} %{python3} test/runtests.py
+%{py3_test_envvars} %{python3} test/runtests.py
 
 %files -n python3-gmpy2 -f %{pyproject_files}
 
@@ -81,6 +89,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} %{python3} test/runtests.py
 %doc docs/_build/html/*
 
 %changelog
+* Thu Jun 15 2023 Jerry James <loganjerry@gmail.com> - 2.1.5-3
+- Add upstream patch for python 3.12 compatibility
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.1.5-3
 - Rebuilt for Python 3.12
 

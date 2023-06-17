@@ -2,7 +2,7 @@
 
 Name:           pyatspi
 Version:        2.46.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python bindings for at-spi
 
 License:        LGPL-2.0-or-later AND GPL-2.0-or-later
@@ -76,6 +76,9 @@ sed -i '1s|^#!/usr/bin/python|#!%{__python3}|' examples/magFocusTracker.py
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 2.46.0-5
+- Rebuilt for Python 3.12
+
 * Wed May 10 2023 Tomas Popela <tpopela@redhat.com> - 2.46.0-4
 - Drop BR on dbus-glib as the project is using plain dbus
 

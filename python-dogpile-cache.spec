@@ -23,7 +23,7 @@ heap.
 
 Name:               python-dogpile-cache
 Version:            1.2.0
-Release:            2%{?dist}
+Release:            3%{?dist}
 Summary:            %{sum}
 
 License:            MIT
@@ -86,6 +86,9 @@ rm -rf %{modname}.egg-info
 %{python3_sitelib}/%{modname}-%{version}-*
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.2.0-3
+- Rebuilt for Python 3.12
+
 * Thu Apr 27 2023 Jonathan Wright <jonathan@almalinux.org> - 1.2.0-2
 - remove unnecessary BR on python3-mock
 

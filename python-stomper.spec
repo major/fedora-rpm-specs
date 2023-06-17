@@ -9,12 +9,15 @@
 
 Name:           python-stomper
 Version:        0.4.3
-Release:        15%{?dist}
+Release:        17%{?dist}
 Summary:        A python client implementation of the STOMP protocol
 License:        ASL 2.0
 URL:            https://pypi.io/project/stomper
 
 Source0:        https://pypi.io/packages/source/s/stomper/stomper-%{version}.tar.gz
+
+# Python 3.12 compatibility for tests
+Patch:          https://github.com/oisinmulvihill/stomper/pull/15.patch
 
 BuildArch:      noarch
 
@@ -58,7 +61,7 @@ create and parse STOMP messages in a programatic fashion.
 %endif
 
 %prep
-%setup -q -n stomper-%{version}
+%autosetup -n stomper-%{version} -p1
 
 %build
 %if %{with python2}
@@ -97,6 +100,12 @@ PYTHONPATH=. nosetests-%{python3_version} -q
 %endif
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.4.3-17
+- Rebuilt for Python 3.12
+
+* Thu Jun 15 2023 Petr Viktorin <pviktori@redhat.com> - 0.4.3-16
+- Python 3.12 compatibility for tests
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.3-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,8 +2,8 @@
 %global sum Efficient Array of Booleans --C Extensions
 
 Name:           python-%{srcname}
-Version:        1.6.3
-Release:        8%{?dist}
+Version:        2.7.5
+Release:        1%{?dist}
 Summary:        %{sum}
 
 License:        Python
@@ -58,6 +58,9 @@ This is Python 3 version.
 
 
 %changelog
+* Wed Jun 14 2023 Nick Bebout <nb@fedoraproject.org> - 2.7.5-1
+- Update to 2.7.5
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.6.3-8
 - Rebuilt for Python 3.12
 

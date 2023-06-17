@@ -3,7 +3,7 @@
 
 Name:           gnome-tweaks
 Version:        42~beta
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Customize advanced GNOME 3 options
 
 # Software is GPL-3.0+, Appdata file is CC0-1.0
@@ -76,6 +76,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT/%{_datadir}/metainfo/*.app
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 42~beta-7
+- Rebuilt for Python 3.12
+
 * Mon May 01 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 42~beta-6
 - Switch to SPDX license identifiers
 - Separate app and host requirements (https://src.fedoraproject.org/rpms/gnome-tweaks/pull-request/2)

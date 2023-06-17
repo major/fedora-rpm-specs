@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.0.20
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        A repository of test results
 
 License:        ASL 2.0
@@ -69,6 +69,9 @@ ln -s ./testr-%{python3_version} %{buildroot}%{_bindir}/testr
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.0.20-31
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.20-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,8 +2,8 @@
 
 Name:           junit
 Epoch:          1
-Version:        4.13.1
-Release:        10%{?dist}
+Version:        4.13.2
+Release:        1%{?dist}
 Summary:        Java regression test package
 License:        EPL-1.0
 URL:            http://www.junit.org/
@@ -87,6 +87,9 @@ sed s/@version@/%{version}/ src/main/java/junit/runner/Version.java.template >sr
 %doc doc/*
 
 %changelog
+* Tue Apr 25 2023 Chris Kelley <ckelley@redhat.com> - 4.13.2-1
+- Update to upstream version 4.13.2
+
 * Thu Feb 16 2023 Marian Koncek <mkoncek@redhat.com> - 1:4.13.1-11
 - Change packaging to jar instead of bundle
 

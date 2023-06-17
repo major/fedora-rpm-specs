@@ -3,7 +3,7 @@
 
 Name:           libgit2-glib
 Version:        1.1.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Git library for GLib
 
 License:        LGPLv2+
@@ -63,6 +63,9 @@ developing applications that use %{name}.
 %doc %{_datadir}/gtk-doc/
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.1.0-6
+- Rebuilt for Python 3.12
+
 * Sun Mar 05 2023 Pete Walter <pwalter@fedoraproject.org> - 1.1.0-5
 - Rebuild for libgit2 1.6.x
 

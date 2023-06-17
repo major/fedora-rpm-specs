@@ -1,11 +1,12 @@
 Name:           perl-Net-SNMP
 Version:        6.0.1
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Object oriented interface to SNMP
 
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Net-SNMP
 Source0:        https://cpan.metacpan.org/authors/id/D/DT/DTOWN/Net-SNMP-v%{version}.tar.gz
+Patch0:         perl-net-snmp-remove-deprecated.patch
 
 BuildArch:      noarch
 BuildRequires:  coreutils
@@ -29,7 +30,6 @@ BuildRequires:  perl(Errno)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(IO::Socket)
 BuildRequires:  perl(Math::BigInt)
-# Socket6 0.23 not used at tests
 # Optional run-time:
 # Crypt::Rijndael 1.02 not used at tests
 # Sys::Hostname not used at tests
@@ -58,6 +58,7 @@ Management Protocol and related network management concepts.
 
 %prep
 %setup -q -n Net-SNMP-v%{version}
+%patch -P0 -p1
 %{__perl} -pi -e 's|^#!\s+/usr/local/bin/perl|#!%{__perl}|' examples/*.pl
 chmod -c a-x examples/*.pl
 
@@ -89,6 +90,9 @@ make test
 
 
 %changelog
+* Wed Jun 14 2023 Petr Salaba <psalaba@redhat.com> - 6.0.1-36
+- Switch from Socket6 to Socket
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.1-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

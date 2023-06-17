@@ -1,14 +1,14 @@
 Name:           targetd
 License:        GPLv3
 Summary:        Service to make storage remotely configurable
-Version:        0.10.0
-Release:        8%{?dist}
+Version:        0.10.1
+Release:        1%{?dist}
 URL:            https://github.com/open-iscsi/targetd
 Source:         https://github.com/open-iscsi/targetd/archive/v%{version}/targetd-%{version}.tar.gz
 Source1:        targetd.service
 BuildArch:      noarch
 BuildRequires:  systemd-rpm-macros
-BuildRequires:  python3-devel
+BuildRequires:  python3-devel python3-setuptools
 Requires:       python3-PyYAML python3-setproctitle python3-rtslib target-restore
 Requires:       nfs-utils, btrfs-progs, python3-blockdev, libblockdev-lvm
 
@@ -56,6 +56,9 @@ install -m 644 targetd.yaml.5 %{buildroot}%{_mandir}/man5/
 %config(noreplace) %{_sysconfdir}/target/targetd.yaml
 
 %changelog
+* Thu Jun 15 2023 Tony Asleson <tasleson@redhat.com> - 0.10.1-1
+- New upstream release which includes a fix for python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.10.0-8
 - Rebuilt for Python 3.12
 

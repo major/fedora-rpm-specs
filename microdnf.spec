@@ -1,11 +1,11 @@
 %global libdnf_version 0.62.0
 
 Name:           microdnf
-Version:        3.9.0
-Release:        3%{?dist}
+Version:        3.10.0
+Release:        2%{?dist}
 Summary:        Lightweight implementation of DNF in C
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/microdnf
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -14,14 +14,14 @@ BuildRequires:  meson >= 0.36.0
 BuildRequires:  pkgconfig(glib-2.0) >= 2.44.0
 BuildRequires:  pkgconfig(gobject-2.0) >= 2.44.0
 BuildRequires:  pkgconfig(libpeas-1.0) >= 1.20.0
-BuildRequires:  pkgconfig(libdnf) >= %{libdnf_version}
+BuildRequires:  (pkgconfig(libdnf) >= %{libdnf_version} with pkgconfig(libdnf) < 5)
 BuildRequires:  pkgconfig(smartcols)
 BuildRequires:  help2man
 
 Requires:       libdnf%{?_isa} >= %{libdnf_version}
 %if 0%{?rhel} > 8 || 0%{?fedora}
 # Ensure DNF package manager configuration skeleton is installed
-Requires:       dnf-data
+Requires:       /etc/dnf/dnf.conf
 %endif
 
 %description
@@ -53,6 +53,14 @@ minimal environment possible so you can build up to exactly what you need.
 %{_bindir}/%{name}
 
 %changelog
+* Wed Jun 14 2023 Jan Kolarik <jkolarik@redhat.com> - 3.10.0-2
+- Don't use libdnf5 as a dependency
+
+* Tue Jun 06 2023 Jan Kolarik <jkolarik@redhat.com> - 3.10.0-1
+- Update to 3.10.0
+- Add swap command
+- Prepare for dnf5 transition in Fedora 39
+
 * Fri May 19 2023 Petr Pisar <ppisar@redhat.com> - 3.9.0-3
 - Rebuild against rpm-4.19 (https://fedoraproject.org/wiki/Changes/RPM-4.19)
 

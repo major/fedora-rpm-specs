@@ -55,7 +55,7 @@ Summary:        Free Software Productivity Suite
 Name:           libreoffice
 Epoch:          1
 Version:        %{libo_version}.2
-Release:        2%{?libo_prerelease}%{?dist}
+Release:        3%{?libo_prerelease}%{?dist}
 # default new files are: MPLv2
 # older files are typically: MPLv2 incorporating work under ASLv2
 # nlpsolver is: LGPLv3
@@ -2249,6 +2249,9 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor &>/dev/null || :
 %{_includedir}/LibreOfficeKit
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1:7.5.3.2-3
+- Rebuilt for Python 3.12
+
 * Tue May 09 2023 Caolán McNamara <caolanm@redhat.com> - 1:7.5.3.2-2
 - rhbz#2192915 Japanese font not printed
 

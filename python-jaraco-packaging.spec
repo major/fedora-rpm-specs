@@ -7,7 +7,7 @@
 
 Name:           python-%{pkg_name}
 Version:        9.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools to supplement packaging Python releases
 
 License:        MIT
@@ -95,6 +95,9 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 9.2.0-2
+- Rebuilt for Python 3.12
+
 * Mon May 15 2023 Dan Radez <dradez@redhat.com> - 9.2.0-1
 - update to 9.2.0 rhbz#2203493
 

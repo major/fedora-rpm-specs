@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.0.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Pure-Python MySQL client library
 
 License:        MIT
@@ -67,6 +67,9 @@ cp %{SOURCE1} .
 %{python3_sitelib}/pymysql/
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.0.3-3
+- Rebuilt for Python 3.12
+
 * Thu May 11 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.0.3-2
 - Disable ed25519 in RHEL builds
 

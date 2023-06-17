@@ -1,5 +1,5 @@
 %global tarname FreeFem-sources
-%global tarvers 4.12
+%global tarvers 4.13
 
 %bcond_without serial
 
@@ -15,7 +15,7 @@
 # They fail/hang for yet undetermined causes.
 # Build with --with checks to force building them.
 # Build with --without checks to skip building them.
-%ifarch ppc64le aarch64 s390x armv7hl
+%ifarch ppc64le aarch64 s390x armv7hl %{ix86}
 %bcond_with checks
 %else
 %bcond_without checks
@@ -24,7 +24,7 @@
 Summary: PDE solving tool
 Name: freefem++
 Version: %{expand:%(echo %tarvers | tr - .)}
-Release: 5%{?dist}
+Release: 2%{?dist}
 URL: https://freefem.org
 Source0: https://github.com/FreeFem/FreeFem-sources/archive/v%{tarvers}.tar.gz#/%{tarname}-%{tarvers}.tar.gz
 
@@ -46,35 +46,37 @@ Patch14: 0014-Wmisleading-indentation.patch
 Patch15: 0015-Mark-failing-tests-XFAIL.patch
 Patch16: 0016-Fix-missing-includes-for-gcc-11.patch
 Patch17: 0017-Modernize-autotools.patch
-Patch18: 0018-Eliminate-__STRICT_ANSI__.patch
-Patch19: 0019-Unbundle-boost.patch
-Patch20: 0020-Fedora-hacks.patch
-Patch21: 0021-Modernize-autotools.patch
+Patch18: 0018-Unbundle-boost.patch
+Patch19: 0019-Fedora-hacks.patch
+Patch20: 0020-Modernize-autotools.patch
 
 # --disable-download doesn't work
 # Bundle hpddm.zip to prevent downloading during builds.
 # cf. hpddm in 3rdparty/getall
-%if "%{tarvers}" == "4.12"
 %if 0%{fedora} > 38
 # petsc-3.18.5 compatible
 # hpddm-20221104gitff61cf3
-%global hpddm_gitcommit ff61cf3
+%global hpddm_git_hash ff61cf3ced922c2f896ebe1fff1a42f1f2805a3a
+%global hpddm_git_checksum 872bf9c2bf1de6c6943a0f7712f89c5c
+%global hpddm_gitcommit %(c=%{hpddm_git_hash}; echo ${c:0:7})
 %global hpddm_gitdate 20221104
 %else
 # petsc-3.17.4 compatible
 # hpddm-20210919git7113b9a
-%global hpddm_gitcommit 7113b9a
+%global hpddm_git_hash 7113b9a6b77fceee3f52490cb27941a87b96542f
+%global hpddm_git_checksum 6910b7b974f0b60d9c247c666e7f3862
+%global hpddm_gitcommit %(c=%{hpddm_git_hash}; echo ${c:0:7})
 %global hpddm_gitdate 20210919
 %endif
 
-%global htool_gitcommit b6e9169
-%global htool_gitdate 20220218
+%global htool_gitcommit 946875d
+%global htool_gitdate 20230530
 
-%global bemtool_gitcommit 61aa37b
-%global bemtool_gitdate 20230327
+%global bemtool_gitcommit 435b9d8
+%global bemtool_gitdate 20230609
 
-%global ffvers 4.12
-%endif
+%global ffvers 4.13
+
 Source1: https://github.com/hpddm/hpddm/archive/%{hpddm_gitcommit}/master.zip#/hpddm-%{hpddm_gitdate}git%{hpddm_gitcommit}.zip
 
 # FreeFEM doesn't build docs anymore.
@@ -225,12 +227,11 @@ pushd serial
 %patch -P 18 -p1
 %patch -P 19 -p1
 %patch -P 20 -p1
-%patch -P 21 -p1
 
 %if 0%{fedora} > 38
 sed -i \
-  -e 's,/hpddm/zip/7113b9a6b77fceee3f52490cb27941a87b96542f,/hpddm/zip/ff61cf3ced922c2f896ebe1fff1a42f1f2805a3a,' \
-  -e "s,'6910b7b974f0b60d9c247c666e7f3862','872bf9c2bf1de6c6943a0f7712f89c5c'," \
+  -e 's,/hpddm/zip/7113b9a6b77fceee3f52490cb27941a87b96542f,/hpddm/zip/%hpddm_git_hash,' \
+  -e "s,'6910b7b974f0b60d9c247c666e7f3862','%hpddm_git_checksum'," \
   3rdparty/getall
 
 sed -i -e 's,XFAIL_TESTS = ,XFAIL_TESTS = Pinocchio.edp ,' examples/3dSurf/Makefile.am
@@ -420,6 +421,12 @@ done
 %endif
 
 %changelog
+* Thu Jun 15 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 4.13-2
+- Switch off tests on %%{ix86}.
+
+* Wed Jun 14 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 4.13-1
+- Update to freefem++-4.13.
+
 * Wed May 03 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 4.12-5
 - Update FreeFEM-documentation.pdf.
 

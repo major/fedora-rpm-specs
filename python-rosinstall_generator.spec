@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.1.23
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Generates rosinstall files
 
 License:        BSD
@@ -68,6 +68,9 @@ ln -s %{srcname}-%{python3_version} %{buildroot}%{_bindir}/%{srcname}
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.1.23-2
+- Rebuilt for Python 3.12
+
 * Tue May 09 2023 Scott K Logan <logans@cottsay.net> - 0.1.23-1
 - Update to 0.1.23 (rhbz#2174298)
 

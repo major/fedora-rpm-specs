@@ -16,7 +16,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt5-%{qt_module}
-Version:        5.15.9
+Version:        5.15.10
 Release:        1%{?dist}
 Summary:        Qt5 for Windows - QtQuickControls2 component
 
@@ -200,6 +200,9 @@ rm -f %{buildroot}%{_qt5_libdir}/libQt5*.la
 %{mingw64_libdir}/qt5/qml/QtQuick/Templates.2/libqtquicktemplates2plugin.a
 
 %changelog
+* Thu Jun 15 2023 Sandro Mani <manisandro@gmail.com> - 5.15.10-1
+- Update to 5.15.10
+
 * Thu Apr 13 2023 Sandro Mani <manisandro@gmail.com> - 5.15.9-1
 - Update to 5.15.9
 

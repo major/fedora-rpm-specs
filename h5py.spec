@@ -4,7 +4,7 @@
 Summary:        A Python interface to the HDF5 library
 Name:           h5py
 Version:        3.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        BSD
 URL:            http://www.h5py.org/
 Source0:        https://files.pythonhosted.org/packages/source/h/h5py/h5py-%{version}.tar.gz
@@ -201,6 +201,9 @@ mpirun %{__python3} -m pytest --pyargs h5py -rxXs --with-mpi ${PYTHONPATH} || ex
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 3.8.0-2
+- Rebuilt for Python 3.12
+
 * Sun Feb 26 2023 Orion Poplawski <orion@nwra.com> - 3.8.0-1
 - Update to 3.8.0
 

@@ -1,7 +1,7 @@
 Name:           pocketsphinx
 Epoch:          2
 Version:        5.0.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Real-time speech recognition
 
 License:        BSD
@@ -127,6 +127,9 @@ mv $RPM_BUILD_ROOT/%{_prefix}/cython/* $RPM_BUILD_ROOT%{python3_sitearch}
 %{python3_sitearch}/*
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 2:5.0.0-5
+- Rebuilt for Python 3.12
+
 * Mon May 15 2023 W. Michael Petullo <mike@flyn.org> - 5.0.0-3
 - Backport upstream s390x patch
 

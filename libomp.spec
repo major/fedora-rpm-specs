@@ -8,7 +8,6 @@
 %global libomp_version %{maj_ver}.0.5
 #global rc_ver 4
 %global libomp_srcdir openmp-%{libomp_version}%{?rc_ver:rc%{rc_ver}}.src
-%global cmake_srcdir cmake-%{libomp_version}%{?rc_ver:rc%{rc_ver}}.src
 
 
 %ifarch ppc64le
@@ -19,7 +18,7 @@
 
 Name: libomp
 Version: %{libomp_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: OpenMP runtime for clang
 
 License: Apache-2.0 WITH LLVM-exception OR NCSA
@@ -29,8 +28,6 @@ Source1: https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libomp
 Source2: release-keys.asc
 Source3: run-lit-tests
 Source4: lit.fedora.cfg.py
-Source5:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libomp_version}%{?rc_ver:-rc%{rc_ver}}/%{cmake_srcdir}.tar.xz
-Source6:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libomp_version}%{?rc_ver:-rc%{rc_ver}}/%{cmake_srcdir}.tar.xz.sig
 
 BuildRequires: clang
 # For clang-offload-packager
@@ -48,6 +45,7 @@ BuildRequires:	gnupg2
 
 # libomptarget needs the llvm cmake files
 BuildRequires: llvm-devel
+BuildRequires: llvm-cmake-utils
 
 Requires: elfutils-libelf%{?isa}
 
@@ -78,19 +76,13 @@ OpenMP regression tests
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE6}' --data='%{SOURCE5}'
-%setup -T -q -b 5 -n %{cmake_srcdir}
-# TODO: It would be more elegant to set -DLLVM_COMMON_CMAKE_UTILS=%{_builddir}/%{cmake_srcdir},
-# but this is not a CACHED variable, so we can't actually set it externally :(
-cd ..
-mv %{cmake_srcdir} cmake
 %autosetup -n %{libomp_srcdir} -p2
 
 %build
 # TODO: LIBOMP_HAVE_VERSION_SCRIPT_FLAG should be set automatically.
 %cmake	-GNinja \
 	-DLIBOMP_INSTALL_ALIASES=OFF \
-	-DCMAKE_MODULE_PATH=%{_libdir}/cmake/llvm \
+	-DCMAKE_MODULE_PATH=%{_datadir}/llvm/cmake/Modules \
 	-DLLVM_DIR=%{_libdir}/cmake/llvm \
 	-DCMAKE_INSTALL_INCLUDEDIR=%{_libdir}/clang/%{maj_ver}/include \
 %if 0%{?__isa_bits} == 64
@@ -182,6 +174,9 @@ rm -rf %{buildroot}%{_libdir}/libarcher_static.a
 %{_libexecdir}/tests/libomp/
 
 %changelog
+* Thu Jun 15 2023 Nikita Popov <npopov@redhat.com> - 16.0.5-2
+- Use llvm-cmake-utils package
+
 * Tue Jun 06 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.5-1
 - Update to LLVM 16.0.5
 

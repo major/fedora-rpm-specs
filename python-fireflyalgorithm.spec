@@ -6,7 +6,7 @@ Implementation of Firefly Algorithm (FA) for optimization.}
 
 Name:           python-%{new_name}
 Version:        0.3.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Implementation of Firefly Algorithm in Python
 
 License:        MIT
@@ -57,6 +57,9 @@ toml-adapt -path pyproject.toml -a change -dep ALL -ver X
 %doc README.md examples/
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.3.4-4
+- Rebuilt for Python 3.12
+
 * Tue Jun 6 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.3.4-3
 - Use standard format for dependencies
 

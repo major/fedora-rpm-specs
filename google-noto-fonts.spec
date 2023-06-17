@@ -29,7 +29,7 @@ in Unicode.\
 
 Name:           %{fontname}-fonts
 Version:        20230601
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Hinted and Non Hinted OpenType fonts for Unicode scripts
 License:        OFL-1.1
 URL:            https://notofonts.github.io/
@@ -116,8 +116,8 @@ local subpackages = {
     { alias="sans-serif", family="Sans Bamum", lang={ "bax" } },
     { alias="sans-serif", family="Sans Bassa Vah" },
     { alias="sans-serif", family="Sans Batak", lang={ "bbc" } },
-    { alias="sans-serif", family="Sans Bengali", lang= { "as", "bn" } },
-    { alias="sans-serif", family="Sans Bengali UI", lang= { "as", "bn" },
+    { alias="sans-serif", family="Sans Bengali", lang= { "as", "bn", "mni" } },
+    { alias="sans-serif", family="Sans Bengali UI", lang= { "as", "bn", "mni" },
       priority=rpm.expand('%{lprio}'), nogroup=1,
       obsoletes={ "sans-bengali-ui-vf" },
     },
@@ -436,7 +436,7 @@ local subpackages = {
     { alias="serif",      family="Serif Balinese", lang={ "ban" },
       obsoletes={ "sans-balinese" }
     },
-    { alias="serif",      family="Serif Bengali", lang={ "as", "bn" } },
+    { alias="serif",      family="Serif Bengali", lang={ "as", "bn", "mni" } },
     { alias="serif",      family="Serif Devanagari", lang={ "bh", "bho", "brx", "doi", "hi", "hne", "kok", "ks@devanagari", "mai", "mr", "ne", "sa", "sat", "sd@devanagari" } },
     { alias="serif",      family="Serif Dives Akuru" },
     { alias="serif",      family="Serif Dogra",
@@ -518,7 +518,7 @@ local subpackages = {
     { alias="sans-serif", variable=true, family="Sans Balinese", lang={ "ban" } },
     { alias="sans-serif", variable=true, family="Sans Bamum", lang={ "bax" } },
     { alias="sans-serif", variable=true, family="Sans Bassa Vah" },
-    { alias="sans-serif", variable=true, family="Sans Bengali", lang={ "as", "bn" } },
+    { alias="sans-serif", variable=true, family="Sans Bengali", lang={ "as", "bn", "mni" } },
     { alias="sans-serif", variable=true, family="Sans Canadian Aboriginal", lang={ "iu" },
       default=true
     },
@@ -627,7 +627,7 @@ local subpackages = {
     { alias="serif",      variable=true, family="Serif Armenian", lang={ "hy" },
       default=true
     },
-    { alias="serif",      variable=true, family="Serif Bengali", lang={ "as", "bn" } },
+    { alias="serif",      variable=true, family="Serif Bengali", lang={ "as", "bn", "mni" } },
     { alias="serif",      variable=true, family="Serif Devanagari", lang={ "bh", "bho", "brx", "doi", "hi", "hne", "kok", "ks@devanagari", "mai", "mr", "ne", "sa", "sat", "sd@devanagari" } },
     { alias="serif",      variable=true, family="Serif Ethiopic", lang={ "am", "byn", "gez", "sid", "ti-er", "ti-et", "tig", "wal" },
       default=true
@@ -1170,6 +1170,10 @@ done
 
 
 %changelog
+* Thu Jun 15 2023 Akira TAGOH <tagoh@redhat.com> - 20230601-3
+- Use Noto Bengali for mni
+  Resolves: rhbz#2214982
+
 * Thu Jun  8 2023 Akira TAGOH <tagoh@redhat.com> - 20230601-2
 - Increase a priority a bit for static fonts but still lower than variable fonts.
 - Fix priority for some languages.

@@ -20,7 +20,7 @@
 #######################
 Name:           condor
 Version:        8.8.15
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        HTCondor: High Throughput Computing
 License:        ASL 2.0
 URL:            http://research.cs.wisc.edu/htcondor/
@@ -1059,6 +1059,9 @@ rm -rf %{buildroot}/etc/examples
 /sbin/ldconfig
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 8.8.15-11
+- Rebuilt for Python 3.12
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.8.15-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

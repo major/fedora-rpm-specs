@@ -11,7 +11,7 @@ single place.}
 
 Name:		python-itemloaders
 Version:	1.0.4
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Library that helps you collect data from HTML and XML sources.
 
 License:	BSD
@@ -56,6 +56,9 @@ BuildRequires:	python3-w3lib
 %{python3_sitelib}/itemloaders-*.egg-info
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.0.4-8
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

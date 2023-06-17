@@ -10,7 +10,7 @@ on asyncio for Python 3.
 
 Name:           python-%{pkgname}
 Version:        1.4.4.post2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{summary}
 
 License:        ASL 2.0
@@ -74,6 +74,9 @@ rm -f  %{buildroot}%{python3_sitelib}/aiosmtpd/docs/.gitignore
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.4.4.post2-2
+- Rebuilt for Python 3.12
+
 * Sat May 13 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.4.4.post2-1
 - Update to 1.4.4.post2
 

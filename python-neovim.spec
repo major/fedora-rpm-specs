@@ -16,7 +16,7 @@ connecting to and scripting Nvim processes through its msgpack-rpc API.
 
 Name:           python-neovim
 Version:        0.4.3
-Release:        8%{?dist}
+Release:        9%{?dist}
 
 License:        ASL 2.0
 Summary:        Python client to Neovim
@@ -128,6 +128,9 @@ popd
 %endif
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.4.3-9
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

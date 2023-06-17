@@ -5,7 +5,7 @@
 
 Name: python-%{srcname}
 Version: 0.14.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Statistics in Python
 
 # Package is licensed under BSD (3 clauses)
@@ -127,6 +127,9 @@ popd
 ## %doc build/sphinx/html
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.14.0-2
+- Rebuilt for Python 3.12
+
 * Tue May 09 2023 Sandro <devel@penguinpee.nl> - 0.14.0-1
 - Update to 0.14.0 (RHBZ#2139206)
 

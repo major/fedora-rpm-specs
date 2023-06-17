@@ -15,7 +15,7 @@
 Summary: Generic library for reporting various problems
 Name: libreport
 Version: 2.17.10
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 URL: https://abrt.readthedocs.org/
 Source: https://github.com/abrt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -667,6 +667,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %endif
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 2.17.10-2
+- Rebuilt for Python 3.12
+
 * Thu May 11 2023 Packit <hello@packit.dev> - 2.17.10-1
 - Release version 2.17.10 (Matěj Grabovský)
 - reporter-upload: Fix a use-after-free error in string handling (Matěj Grabovský)

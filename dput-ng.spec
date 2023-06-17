@@ -1,6 +1,6 @@
 Name:    dput-ng
 Version: 1.21
-Release: 15%{?dist}
+Release: 16%{?dist}
 
 Summary: Next generation Debian package upload tool
 License: GPLv2+ and MIT
@@ -92,6 +92,9 @@ python3 setup.py install --root=%{buildroot}
 %{python3_sitelib}/dput*.egg-info
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.21-16
+- Rebuilt for Python 3.12
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.21-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

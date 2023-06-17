@@ -2,7 +2,6 @@
 %global	header_dir	%{ruby_vendorarchdir}
 
 %global	gem_name		cairo
-%global	gemver		1.17.8
 #%%global	gem_githash	af3e3fc059
 
 %global	need_test_bootstrap	0
@@ -13,8 +12,8 @@
 
 Summary:	Ruby bindings for cairo
 Name:		rubygem-%{gem_name}
-Version:	%{gemver}
-Release:	5%{?dist}
+Version:	1.17.9
+Release:	1%{?dist}
 # From gemspec
 # SPDX confirmed
 License:	GPL-2.0-or-later OR Ruby
@@ -179,6 +178,9 @@ ruby ./test/run-test.rb
 %{header_dir}/rb_cairo.h
 
 %changelog
+* Thu Jun 15 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.17.9-1
+- 1.17.9
+
 * Wed May 24 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.17.8-5
 - Enable test suite again
 - SPDX migration

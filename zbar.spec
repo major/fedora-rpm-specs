@@ -6,7 +6,7 @@
 
 Name:		zbar
 Version:	0.23.90
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Bar code reader
 
 License:	LGPL-2.1-or-later
@@ -215,6 +215,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}/
 %{_docdir}/test_python.py
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.23.90-9
+- Rebuilt for Python 3.12
+
 * Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.23.90-8
 - migrated to SPDX license
 

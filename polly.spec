@@ -9,7 +9,7 @@
 
 Name: polly
 Version: %{polly_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: LLVM Framework for High-Level Loop and Data-Locality Optimizations
 
 License: NCSA
@@ -22,6 +22,7 @@ Patch0: 0001-PATCH-polly-Portability-of-subproject-extension.patch
 
 BuildRequires: cmake
 BuildRequires: llvm-devel = %{version}
+BuildRequires: llvm-cmake-utils = %{version}
 BuildRequires: llvm-test = %{version}
 BuildRequires: clang-devel = %{version}
 BuildRequires: ninja-build
@@ -64,6 +65,7 @@ Documentation for the Polly optimizer.
 	-DLLVM_LINK_LLVM_DYLIB:BOOL=ON \
 	-DLLVM_EXTERNAL_LIT=%{_bindir}/lit \
 	-DCMAKE_PREFIX_PATH=%{_libdir}/cmake/llvm/ \
+	-DLLVM_COMMON_CMAKE_UTILS=%{_datadir}/llvm/cmake \
 \
 	-DLLVM_ENABLE_SPHINX:BOOL=ON \
 	-DSPHINX_WARNINGS_AS_ERRORS=OFF \
@@ -105,6 +107,9 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Thu Jun 15 2023 Nikita Popov <npopov@redhat.com> - 16.0.5-2
+- Use llvm-cmake-utils package
+
 * Tue Jun 06 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.5-1
 - Update to LLVM 16.0.5
 

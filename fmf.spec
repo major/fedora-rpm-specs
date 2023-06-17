@@ -1,6 +1,6 @@
 Name: fmf
 Version: 1.2.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 Summary: Flexible Metadata Format
 License: GPLv2+
@@ -77,6 +77,9 @@ install -pm 644 fmf.1* %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.2.1-4
+- Rebuilt for Python 3.12
+
 * Mon Jan 30 2023 Miro Hrončok <mhroncok@redhat.com> - 1.2.1-3
 - Rebuilt to change Python shebangs to /usr/bin/python3.6 on EPEL 8
 

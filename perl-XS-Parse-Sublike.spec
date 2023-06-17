@@ -2,7 +2,7 @@
 %bcond_without perl_XS_Parse_Sublike_enables_optional_tests
 
 Name:           perl-XS-Parse-Sublike
-Version:        0.17
+Version:        0.18
 Release:        1%{?dist}
 Summary:        XS functions to assist in parsing sub-like syntax
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -30,8 +30,7 @@ BuildRequires:  perl(XSLoader)
 BuildRequires:  perl(B::Deparse)
 BuildRequires:  perl(feature)
 BuildRequires:  perl(Sub::Util)
-BuildRequires:  perl(Test::Fatal)
-BuildRequires:  perl(Test::More) >= 0.88
+BuildRequires:  perl(Test2::V0)
 %if %{with perl_XS_Parse_Sublike_enables_optional_tests}
 # Optional tests:
 BuildRequires:  perl(Test::Pod) >= 1
@@ -42,8 +41,6 @@ BuildRequires:  perl(Test::Pod) >= 1
 # XS::Parse::Sublike/ABIVERSION_MAX in lib/XS/Parse/Sublike.xs.
 Provides:       perl(:XS_Parse_Sublike_ABI) = 4
 
-# Filter under-specified dependencies
-%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(Test::More\\)$
 # Filter private modules
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(testcase\\)
 %global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\(testcase\\)
@@ -69,7 +66,6 @@ be able to make use of XS::Parse::Sublike.
 Summary:        Tests for %{name}
 Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
-Requires:       perl(Test::More) >= 0.88
 Requires:       perl(XSLoader)
 
 %description tests
@@ -133,6 +129,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jun 15 2023 Petr Pisar <ppisar@redhat.com> - 0.18-1
+- 0.18 bump
+
 * Tue Mar 21 2023 Petr Pisar <ppisar@redhat.com> - 0.17-1
 - 0.17 bump
 

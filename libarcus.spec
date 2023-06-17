@@ -1,6 +1,6 @@
 Name:           libarcus
 Version:        5.2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Communication library between internal components for Ultimaker software
 License:        LGPLv3+
 URL:            https://github.com/Ultimaker/libArcus
@@ -120,6 +120,9 @@ sed -i 's/Python3_SITELIB/Python3_SITEARCH/' cmake/SIPMacros.cmake
 %{python3_sitearch}/pyArcus.so
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 5.2.2-2
+- Rebuilt for Python 3.12
+
 * Tue Mar  7 2023 Tom Callaway <spot@fedoraproject.org> - 5.2.2-1
 - update to 5.2.2 with the help of forward ported CMake bits
 

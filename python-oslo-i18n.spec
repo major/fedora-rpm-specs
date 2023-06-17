@@ -13,7 +13,7 @@ or library.
 
 Name:           python-oslo-i18n
 Version:        6.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        OpenStack i18n library
 License:        ASL 2.0
 URL:            https://github.com/openstack/%{pypi_name}
@@ -129,6 +129,9 @@ mv %{buildroot}%{python3_sitelib}/oslo_i18n/locale %{buildroot}%{_datadir}/local
 %license LICENSE
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 6.0.0-3
+- Rebuilt for Python 3.12
+
 * Wed Apr 19 2023 Karolina Kula <kkula@redhat.com> 6.0.0-2
 - Update to upstream version 6.0.0
 

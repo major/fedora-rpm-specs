@@ -4,7 +4,7 @@
 
 Name:           python-%{modname}
 Version:        1.46.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Mutagen is a Python module to handle audio meta-data
 
 # licensecheck -r . | grep -vEe "UNKNOWN" -e "GNU General Public License v2.0" | sort
@@ -101,6 +101,9 @@ rm -rf docs/_build/{.buildinfo,.doctrees}
 %doc docs/_build/*
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.46.0-5
+- Rebuilt for Python 3.12
+
 * Mon Mar 27 2023 Michele Baldessari <michele@acksyn.org> - 1.46.0-4
 - Fix doc build with newer sphinx versions (rhbz#2180475)
 

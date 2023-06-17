@@ -6,7 +6,7 @@ inspection easier.}
 
 Name:           python-%{pypi_name}
 Version:        0.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Manage Python errors with ease
 License:        MIT
 
@@ -55,6 +55,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.4.1-2
+- Rebuilt for Python 3.12
+
 * Tue Feb 21 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 0.4.1-1
 - Update to 0.4.1
 

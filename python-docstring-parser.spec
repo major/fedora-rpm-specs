@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.15
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Parse Python docstrings
 License:        MIT
 URL:            https://github.com/rr-/docstring_parser
@@ -54,6 +54,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.15-2
+- Rebuilt for Python 3.12
+
 * Wed Jan 18 2023 Piotr Szubiakowski <pszubiak@eso.org> - 0.15-1
 - Update to 0.15
 

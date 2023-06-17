@@ -16,11 +16,11 @@
 
 Name:           zabbix
 Epoch:          1
-Version:        6.0.17
+Version:        6.0.18
 Release:        1%{?dist}
 Summary:        Open-source monitoring solution for your IT infrastructure
 
-License:        GPL-2.0-or-later
+License:        GPLv2
 URL:            https://www.zabbix.com
 Source0:        https://cdn.zabbix.com/zabbix/sources/stable/6.0/zabbix-%{version}.tar.gz
 Source1:        %{srcname}-web.conf
@@ -798,6 +798,9 @@ fi
 %files web-pgsql
 
 %changelog
+* Thu Jun 15 2023 Morten Stevens <mstevens@fedoraproject.org> - 1:6.0.18-1
+- Update to 6.0.18
+
 * Tue Apr 25 2023 Morten Stevens <mstevens@fedoraproject.org> - 1:6.0.17-1
 - Update to 6.0.17
 

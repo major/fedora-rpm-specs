@@ -1,7 +1,7 @@
 %global shortname mediafile
 Name:           python-mediafile
 Version:        0.11.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Elegant audio file tagging in Python
 
 License:        MIT
@@ -51,6 +51,9 @@ Python 3 version.
 %doc README.rst
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.11.0-2
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Michele Baldessari <michele@acksyn.org> - 0.11.0-1
 - New package (drop unneeded patches)
 

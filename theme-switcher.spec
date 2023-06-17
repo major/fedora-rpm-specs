@@ -2,7 +2,7 @@
 
 Name:           theme-switcher
 Version:        2.0.4
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Switch dark/light GTK theme automatically during day/night
 
 License:        GPLv3+
@@ -101,6 +101,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 2.0.4-14
+- Rebuilt for Python 3.12
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

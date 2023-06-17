@@ -2,7 +2,7 @@
 
 Name: python-%{pypi_name}
 Version: 6.3.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Python docstring style checker
 
 License: MIT
@@ -88,6 +88,9 @@ sed -E -i 's|"python(2\|3)?( -m pydocstyle)|"%{__python3}\2|' \
 
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 6.3.0-2
+- Rebuilt for Python 3.12
+
 * Fri May 19 2023 Tadej Janež <tadej.j@nez.si> - 6.3.0-1
 - Update to 6.3.0 release
 - Use %%{url} in %%{Source0} to avoid redundance

@@ -4,7 +4,7 @@
 
 Name: python-%{srcname}
 Version: 3.1.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Thread-pool Controls
 License: BSD
 
@@ -63,6 +63,9 @@ BuildRequires: python3dist(cython)
 %doc README.md multiple_openmp.md
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 3.1.0-7
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -16,7 +16,7 @@
 
 Name:           mod_wsgi
 Version:        4.9.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A WSGI interface for Python web applications in Apache
 License:        Apache-2.0 AND CC-BY-3.0
 URL:            https://modwsgi.readthedocs.io/
@@ -160,6 +160,9 @@ ln -s %{_bindir}/mod_wsgi-express-2 $RPM_BUILD_ROOT%{_bindir}/mod_wsgi-express
 %endif
 
 %changelog
+* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 4.9.4-4
+- Rebuilt for Python 3.12
+
 * Thu Jun 01 2023 Luboš Uhliarik <luhliari@redhat.com> - 4.9.4-3
 - SPDX migration
 
