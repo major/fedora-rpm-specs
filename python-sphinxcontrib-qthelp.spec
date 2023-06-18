@@ -1,4 +1,3 @@
-%global _without_check 1
 %global pypi_name sphinxcontrib-qthelp
 
 # when bootstrapping sphinx, we cannot run tests yet
@@ -6,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.0.3
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Sphinx extension for QtHelp documents
 License:        BSD
 URL:            http://sphinx-doc.org/
@@ -83,6 +82,9 @@ popd
 
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 1.0.3-14
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.0.3-13
 - Bootstrap for Python 3.12
 

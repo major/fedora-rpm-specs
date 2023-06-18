@@ -3,11 +3,6 @@
 # 9223372036854775800] [-Werror=free-nonheap-object]
 # https://bugzilla.redhat.com/show_bug.cgi?id=2046213
 #
-# Fails to build with gcc 12
-# https://issues.apache.org/jira/browse/THRIFT-5498
-#
-# Work around this for now by disabling LTO:
-%global _lto_cflags %{nil}
 
 %global php_extdir  %(php-config --extension-dir 2>/dev/null || echo "undefined")
 
@@ -75,8 +70,8 @@
 # NOTE: thrift versions their libraries by package version, so each version
 # change is a SONAME change and dependencies need to be rebuilt
 Name:    thrift
-Version: 0.14.0
-Release: 14%{?dist}
+Version: 0.15.0
+Release: 2%{?dist}
 Summary: Software framework for cross-language services development
 
 # Parts of the source are used under the BSD and zlib licenses, but
@@ -94,9 +89,6 @@ Source0: https://archive.apache.org/dist/%{name}/%{version}/%{name}-%{version}.t
 Source1: https://repo1.maven.org/maven2/org/apache/thrift/lib%{name}/%{version}/lib%{name}-%{version}.pom
 Source2: https://raw.github.com/apache/%{name}/%{version}/bootstrap.sh
 
-# Fix char warning
-# https://issues.apache.org/jira/browse/THRIFT-5350
-Patch0: thrift-char.patch
 # fix configure.ac insistence on using /usr/local/lib for JAVA_PREFIX
 Patch2: configure-java-prefix.patch
 
@@ -455,6 +447,12 @@ find %{buildroot} -name \*.py -exec grep -q /usr/bin/env {} \; -print | xargs -r
 
 
 %changelog
+* Fri Jun 16 2023 Orion Poplawski <orion@nwra.com> - 0.15.0-2
+- Re-enable LTO, seems to be working again
+
+* Thu Jun 15 2023 Orion Poplawski <orion@nwra.com> - 0.15.0-1
+- Update to 0.15.0
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.14.0-14
 - Rebuilt for Python 3.12
 

@@ -1,8 +1,7 @@
-%global _without_tests 1
 %global pypi_name elementpath
 Name:           python-%{pypi_name}
 Version:        3.0.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        XPath 1.0/2.0 parsers and selectors for ElementTree and lxml
 
 License:        MIT
@@ -40,6 +39,9 @@ Summary:        %{summary}
 %autosetup -p1 -n %{pypi_name}-%{version}
 sed -i 's/~=/>=/' setup.py tox.ini  # https://bugzilla.redhat.com/show_bug.cgi?id=1758141
 
+# https://github.com/sissaschool/elementpath/issues/66
+sed -i 's/self.assertEqual(/self.assertAlmostEqual(/' tests/test_xpath1_parser.py tests/xpath_test_class.py
+
 %generate_buildrequires
 %if %{with tests}
 %pyproject_buildrequires -t
@@ -69,6 +71,9 @@ export LANG=en_US.utf-8
 
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 3.0.2-5
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.0.2-4
 - Bootstrap for Python 3.12
 

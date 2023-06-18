@@ -11,7 +11,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.3.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A tool and python library to interface with Ansible
 
 License:        ASL 2.0
@@ -91,6 +91,9 @@ ln -s ansible-runner-%{python3_version} %{buildroot}/%{_bindir}/ansible-runner-3
 %{_datadir}/ansible-runner/utils
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 2.3.2-2
+- Rebuilt for Python 3.12
+
 * Fri Mar 24 2023 Dan Radez <dradez@redhat.com> - 2.3.2-1
 - update to 2.3.2 rhbz#2174741
 

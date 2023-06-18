@@ -2,8 +2,8 @@
 %bcond_without mpich
 
 Name:           cgnslib
-Version:        4.3.0
-Release:        7%{?dist}
+Version:        4.4.0
+Release:        1%{?dist}
 Summary:        Computational Fluid Dynamics General Notation System
 License:        Zlib
 URL:            http://www.cgns.org/
@@ -398,6 +398,9 @@ ctest || :
 
 
 %changelog
+* Fri Jun 16 2023 Sandro Mani <manisandro@gmail.com> - 4.4.0-1
+- Update to 4.4.0
+
 * Thu Feb 02 2023 Florian Weimer <fweimer@redhat.com> - 4.3.0-7
 - Fix C99 compatibility issue around TkWmAddToColormapWindows
 

@@ -19,6 +19,9 @@ Source1:        http://lttng.org/files/lttng-tools/%{name}-%{version}.tar.bz2.as
 Source2:        gpgkey-7F49314A26E0DE78427680E05F1B2A0789F12B11.gpg
 Source3:        lttng-sessiond.service
 
+# Fixes tests on s390x
+Patch0:         0001-Fix-truncated-len-in-lttng_event_rule_user_tracepoin.patch
+
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  libtool
@@ -33,6 +36,8 @@ BuildRequires:  userspace-rcu-devel >= 0.11.0
 
 # For check
 BuildRequires:  babeltrace
+BuildRequires:  hostname
+BuildRequires:  kmod
 BuildRequires:  procps-ng
 
 Requires(pre):  shadow-utils
@@ -72,6 +77,9 @@ This package provides Python bindings for LTTng
 %autosetup -p1
 
 %build
+# The build flags include -Wl,--as-needed by default, and this causes
+# some tests to fail (eg. regression/ust/libc-wrapper)
+%undefine _ld_as_needed
 # Reinitialize libtool with the fedora version to remove Rpath
 autoreconf -vif
 touch doc/man/*.1 doc/man/*.3 doc/man/*.8
@@ -83,6 +91,8 @@ touch doc/man/*.1 doc/man/*.3 doc/man/*.8
 make %{?_smp_mflags} V=1
 
 %check
+# Tests (eg. test_nprocesses) were failing with the default open files limit (1024)
+ulimit -n 4096
 make check
 
 %install

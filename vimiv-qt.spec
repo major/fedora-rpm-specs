@@ -23,7 +23,7 @@ Full documentation is available at https://karlch.github.io/vimiv-qt.}
 
 Name:           %{pypi_name}
 Version:        0.8.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        An image viewer with vim-like keybindings
 
 License:        GPLv3+
@@ -97,6 +97,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{binname}.desktop
 %{_mandir}/man1/%{binname}.*
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 0.8.0-9
+- Rebuilt for Python 3.12
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

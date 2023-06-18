@@ -13,6 +13,9 @@ License:        ZPL-2.1
 URL:            https://pypi.python.org/pypi/zope.testrunner
 Source0:        https://github.com/zopefoundation/zope.testrunner/archive/%{version}/zope.testrunner-%{version}.tar.gz
 
+# Work around a test failure with python 3.12
+Patch0:         %{name}-python3.12.patch
+
 BuildArch:      noarch
 BuildRequires:  help2man
 BuildRequires:  python3-devel
@@ -42,7 +45,7 @@ Documentation for zope.testrunner.
 %pyproject_extras_subpkg -n python3-zope-testrunner subunit
 
 %prep
-%autosetup -n zope.testrunner-%{version}
+%autosetup -n zope.testrunner-%{version} -p1
 
 # Update the sphinx HTML theme name
 sed -i "s/'default'/'classic'/" docs/conf.py
@@ -115,6 +118,9 @@ popd
 %doc docs/_build/html
 
 %changelog
+* Fri Jun 16 2023 Jerry James <loganjerry@gmail.com> - 6.0-2
+- Add patch to work around a test failure with python 3.12
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 6.0-2
 - Rebuilt for Python 3.12
 

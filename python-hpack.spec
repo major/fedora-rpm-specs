@@ -8,7 +8,7 @@ use of nghttp2 if it's available.}
 
 Name:           python-%{srcname}
 Version:        4.0.0
-Release:        4%{?dist}
+Release:        %autorelease
 Summary:        Pure-Python HPACK header compression
 
 License:        MIT
@@ -71,13 +71,4 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
-* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 4.0.0-4
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
 %autochangelog

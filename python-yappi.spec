@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.3.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Yet Another Python Profiler, supports Multithread/CPU time profiling
 
 License:        MIT
@@ -66,6 +66,9 @@ export PYTHONPATH=%{buildroot}/%{python3_sitearch}
 %{_bindir}/%{srcname}-3*
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 1.3.6-5
+- Rebuilt for Python 3.12
+
 * Fri Apr 21 2023 Florian Weimer <fweimer@redhat.com> - 1.3.6-4
 - Drop 0010-Unconditionally-set-LIB_RT_AVAILABLE-and-link-with-l.patch,
   python3-setuptools has been fixed.

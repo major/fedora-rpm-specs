@@ -1,6 +1,6 @@
 Name:           gnome-klotski
 Version:        3.38.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        GNOME Klotski game
 
 License:        GPLv2+ and CC-BY-SA
@@ -10,16 +10,14 @@ Source0:        https://download.gnome.org/sources/%{name}/3.38/%{name}-%{versio
 BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  desktop-file-utils
-BuildRequires:  gtk3-devel
 BuildRequires:  itstool
-BuildRequires:  librsvg2-devel
-BuildRequires:  libgee-devel
-BuildRequires:  libgnome-games-support-devel
 BuildRequires:  meson
+BuildRequires:  pkgconfig(gee-0.8)
+BuildRequires:  pkgconfig(glib-2.0)
+BuildRequires:  pkgconfig(gtk+-3.0)
+BuildRequires:  pkgconfig(libgnome-games-support-1)
+BuildRequires:  pkgconfig(librsvg-2.0)
 BuildRequires:  vala
-
-Obsoletes: gnome-games-extra < 1:3.7.92
-Obsoletes: gnome-games-gnotski < 1:3.7.92
 
 %description
 A series of sliding block puzzles. Try and solve them in the least number of
@@ -58,6 +56,10 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Fri Jun 16 2023 Kalev Lember <klember@redhat.com> - 3.38.2-7
+- Use pkgconfig buildrequires
+- Drop old gnome-games-extra and gnome-games-gnotski obsoletes
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.38.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

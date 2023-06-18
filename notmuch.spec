@@ -36,7 +36,8 @@ Source1:        https://notmuchmail.org/releases/notmuch-%{version}.tar.xz.asc
 Source2:        gpgkey-7A18807F100A4570C59684207E4E65C8720B706B.gpg
 Patch1:         0001-test-allow-to-use-full-scan.patch
 Patch2:         0002-test-use-NOTMUCH_NEW-consistently.patch
-Patch3:         notmuch-c99.patch
+Patch3:         0001-python-adjust-legacy-bindings-to-py-3.12.patch
+Patch4:         notmuch-c99.patch
 
 BuildRequires:  make
 BuildRequires:  bash-completion

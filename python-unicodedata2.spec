@@ -4,7 +4,7 @@
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Unicodedata backport updated to the latest Unicode version
 
 License:        Apache-2.0
@@ -58,6 +58,9 @@ is data from Unicode 13.0.0.
 %{python3_sitearch}/%{pypi_name}-%{pypi_version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 15.0.0-2
+- Rebuilt for Python 3.12
+
 * Tue Mar 21 2023 Parag Nemade <pnemade AT redhat DOT com> - 15.0.0-1
 - Update to 15.0.0 release
 

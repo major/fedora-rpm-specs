@@ -48,7 +48,7 @@ BuildRequires:  python3dist(freezegun)
 
 
 %check
-%pytest
+%pytest -Wdefault
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}

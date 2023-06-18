@@ -85,7 +85,7 @@ popd
 %check
 # deselect the test_exclude_patterns test case as it's failing
 # when we set PYTHONPATH: https://github.com/pallets/werkzeug/issues/2404
-%pytest --deselect tests/test_serving.py::test_exclude_patterns
+%pytest -Wdefault --deselect tests/test_serving.py::test_exclude_patterns
 
 %files -n python3-%{modname}
 %license LICENSE.rst

@@ -1,9 +1,8 @@
-%global _without_tests 1
 %bcond_without tests
 
 Name:           python-more-itertools
 Version:        8.13.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        More routines for operating on Python iterables, beyond itertools
 License:        MIT
 URL:            https://github.com/erikrose/more-itertools
@@ -47,6 +46,9 @@ Summary:        %{summary}
 %doc README.rst
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 8.13.0-4
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 8.13.0-3
 - Bootstrap for Python 3.12
 

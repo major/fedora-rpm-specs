@@ -1,4 +1,3 @@
-%global _without_tests 1
 %bcond tests 1
 
 # This bcond allows to ship a non-compiled version
@@ -10,7 +9,7 @@
 
 Name:           Cython
 Version:        0.29.34
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Language for writing Python extension modules
 
 License:        Apache-2.0
@@ -152,6 +151,9 @@ cp -p cython-mode-init.el cython-mode-init.elc %{buildroot}%{_emacs_sitestartdir
 
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 0.29.34-4
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.29.34-3
 - Bootstrap for Python 3.12
 

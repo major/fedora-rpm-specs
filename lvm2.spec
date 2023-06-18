@@ -45,7 +45,7 @@ Name: lvm2
 Epoch: %{rhel}
 %endif
 Version: 2.03.21
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2
 URL: https://sourceware.org/lvm2/
 Source0: https://sourceware.org/pub/lvm2/releases/LVM2.%{version}.tgz
@@ -658,6 +658,9 @@ An extensive functional testsuite for LVM2.
 %endif
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 2.03.21-3
+- Rebuilt for Python 3.12
+
 * Sat May 20 2023 Todd Zullinger <tmz@pobox.com> - 2.03.21-2
 - Avoid unowned %%{python3_sitelib}/lvmdbusd directory
 

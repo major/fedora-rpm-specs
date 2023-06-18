@@ -214,6 +214,7 @@ Source8:          glusterfsd.init
 Source0:          @PACKAGE_NAME@-@PACKAGE_VERSION@.tar.gz
 %endif
 Patch0001:        0001-configure.ac.patch
+Patch0002:        0002-contrib-aclocal-python.m4.patch
 
 Requires(pre):    shadow-utils
 BuildRequires:    systemd
@@ -803,8 +804,9 @@ This package provides the glusterfs thin-arbiter translator.
 %prep
 %setup -q -n %{name}-%{version}%{?prereltag}
 %ifarch x86_64 aarch64
-%patch0001 -p1
+%patch 0001 -p1
 %endif
+%patch 0002 -p1
 %if ( ! %{_usepython3} )
 echo "fixing python shebangs..."
 for f in api events extras geo-replication libglusterfs tools xlators; do

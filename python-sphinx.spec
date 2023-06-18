@@ -1,5 +1,3 @@
-%global _without_tests 1
-%global _without_websupport 1
 # When bootstrapping sphinx, we don't yet have sphinxcontrib-websupport
 # Without it we have warnings in docs, but it's not a hard dependency
 %bcond_without websupport
@@ -30,7 +28,7 @@ Name:       python-sphinx
 #global     prerel ...
 %global     upstream_version %{general_version}%{?prerel}
 Version:    %{general_version}%{?prerel:~%{prerel}}
-Release:    3%{?dist}
+Release:    4%{?dist}
 Epoch:      1
 Summary:    Python documentation generator
 
@@ -372,6 +370,9 @@ mkdir %{buildroot}%{python3_sitelib}/sphinxcontrib
 
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 1:6.1.3-4
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1:6.1.3-3
 - Bootstrap for Python 3.12
 

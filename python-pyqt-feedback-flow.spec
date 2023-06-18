@@ -10,7 +10,7 @@ variety of possibilities for providing flowing feedback.}
 
 Name:           python-%{pypi_name}
 Version:        0.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Show feedback in toast-like notifications
 
 License:        MIT
@@ -71,6 +71,9 @@ toml-adapt -path pyproject.toml -a change -dep PyQt5 -ver X
 %doc README.md CHANGELOG.md CODE_OF_CONDUCT.md
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 0.2.0-2
+- Rebuilt for Python 3.12
+
 * Mon Mar 27 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.2.0-1
 - Update to the latest release
 

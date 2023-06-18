@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.5.8
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Desktop Publishing application written in Qt
 # swatches bring in the fun licenses
 License:        GPLv2+ and OGL and CC0 and CC-BY and CC-BY-SA and Public Domain and ASL 2.0 and LGPLv2+ 
@@ -140,6 +140,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 1.5.8-10
+- Rebuilt for Python 3.12
+
 * Mon Feb 06 2023 Marek Kasik <mkasik@redhat.com> - 1.5.8-9
 - Rebuild for poppler-23.02.0
 - Backported handling of new API of getLineDash()

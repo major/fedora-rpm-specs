@@ -2,20 +2,19 @@
 %global gem_name ruby-dbus
 
 Name: rubygem-%{gem_name}
-Version: 0.16.0
-Release: 8%{?dist}
+Version: 0.22.1
+Release: 1%{?dist}
 Summary: Ruby module for interaction with D-Bus
 # MIT: lib/dbus/core_ext/*
-License: LGPLv2+ and MIT
+License: LGPL-2.1-or-later AND MIT
 URL: https://github.com/mvidner/ruby-dbus
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
-# Add 'rexml' dependency to fix Ruby 3.0 compatibility.
-# https://github.com/mvidner/ruby-dbus/pull/87
-Patch0: ruby-dbus-0.16.0-Add-dependency-rexml.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
 BuildRequires: rubygem(rspec)
+# ReXML as well as Nokogiri are necessary to pass the test suite.
+# https://github.com/mvidner/ruby-dbus/issues/137
 BuildRequires: rubygem(nokogiri)
 BuildRequires: rubygem(rexml)
 BuildRequires: %{_bindir}/dbus-daemon
@@ -35,9 +34,6 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}
-
-%patch0 -p1
-%gemspec_add_dep -g rexml
 
 # Rakefile should not be executable.
 sed -i '1d' Rakefile
@@ -64,7 +60,7 @@ cp -a .%{gem_dir}/* \
 
 %check
 pushd .%{gem_instdir}
-COVERAGE=false spec/tools/test_env rspec spec
+spec/tools/test_env rspec spec
 popd
 
 %files
@@ -87,6 +83,10 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Jun 16 2023 Vít Ondruch <vondruch@redhat.com> - 0.22.1-1
+- Update to ruby-dubs 0.22.1.
+  Resolves: rhbz#2053719
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

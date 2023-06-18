@@ -3,7 +3,7 @@
 
 Name:       copr-keygen
 Version:    1.90
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Part of Copr build system. Aux service that generate keys for signd
 
 License:    GPL-2.0-or-later
@@ -176,6 +176,9 @@ systemctl condrestart httpd &>/dev/null || :
 %endif
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 1.90-2
+- Rebuilt for Python 3.12
+
 * Mon May 22 2023 Jakub Kadlcik <frostyx@email.cz> 1.90-1
 - Specfile compatibility with OpenEuler
 

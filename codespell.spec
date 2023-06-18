@@ -1,6 +1,6 @@
 Name:           codespell
 Version:        2.2.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fix common misspellings in text files
 
 License:        GPLv2 and CC-BY-SA
@@ -40,6 +40,9 @@ rm -rf %{name}.egg-info
 %{python3_sitelib}/%{name}-%{version}.dist-info
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 2.2.5-2
+- Rebuilt for Python 3.12
+
 * Wed Jun 14 2023 Bastien Nocera <bnocera@redhat.com> - 2.2.5-1
 - Update to 2.2.5
 

@@ -1,4 +1,3 @@
-%global _without_check 1
 %global pypi_name sphinxcontrib-jsmath
 
 # when bootstrapping sphinx, we cannot run tests yet
@@ -6,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.0.1
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Sphinx extension for math in HTML via JavaScript
 License:        BSD
 URL:            http://sphinx-doc.org/
@@ -65,6 +64,9 @@ via JavaScript.
 
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 1.0.1-21
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.0.1-20
 - Bootstrap for Python 3.12
 

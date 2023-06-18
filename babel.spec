@@ -1,4 +1,3 @@
-%global _with_bootstrap 1
 # There is some bootstrapping involved when upgrading Python 3
 # First of all we need babel (this package) to use sphinx
 # And pytest is at this point not yet ready
@@ -17,7 +16,7 @@
 
 Name:           babel
 Version:        2.12.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Tools for internationalizing Python applications
 
 License:        BSD-3-Clause
@@ -141,6 +140,9 @@ export TZ=UTC
 %endif
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 2.12.1-5
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.12.1-4
 - Bootstrap for Python 3.12
 

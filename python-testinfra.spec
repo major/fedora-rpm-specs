@@ -2,7 +2,7 @@
 
 Name:    python-%{srcname}
 Version: 5.3.1
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: Unit testing for config-managed server state
 
 License: ASL 2.0
@@ -90,6 +90,9 @@ rm -vr html/.{doctrees,buildinfo}
 %{python3_sitelib}/%{srcname}-*.egg-info/
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 5.3.1-11
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

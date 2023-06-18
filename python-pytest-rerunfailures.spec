@@ -1,4 +1,3 @@
-%global _without_tests 1
 %global srcname pytest-rerunfailures
 
 # Needed for Python bootstrap
@@ -6,7 +5,7 @@
 
 Name:           python-%{srcname}
 Version:        11.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A py.test plugin that re-runs failed tests to eliminate flakey failures
 
 License:        MPL-2.0
@@ -57,6 +56,9 @@ BuildRequires:  python%{python3_pkgversion}-devel
 
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 11.0-4
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 11.0-3
 - Bootstrap for Python 3.12
 

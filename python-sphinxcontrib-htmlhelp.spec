@@ -1,4 +1,3 @@
-%global _without_check 1
 %global pypi_name sphinxcontrib-htmlhelp
 
 # when bootstrapping sphinx, we cannot even run an import check
@@ -8,7 +7,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Sphinx extension for HTML help files
 License:        BSD
 URL:            http://sphinx-doc.org/
@@ -91,6 +90,9 @@ popd
 
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 2.0.0-10
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.0.0-9
 - Bootstrap for Python 3.12
 

@@ -1,6 +1,6 @@
 Name:           libpsl
 Version:        0.21.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        C library for the Publix Suffix List
 License:        MIT
 URL:            https://rockdaboot.github.io/libpsl
@@ -60,6 +60,7 @@ is acceptable for domains and so on.
 
 %package -n     psl-make-dafsa
 Summary:        Compiles the Public Suffix List into DAFSA form
+BuildArch:      noarch
 
 %description -n psl-make-dafsa
 This script produces C/C++ code or an architecture-independent binary object
@@ -71,7 +72,7 @@ from a plain text Public Suffix List.
 %autosetup -p1
 rm -frv list
 ln -sv %{_datadir}/publicsuffix list
-sed -i -e "1s|#!.*|#!%{__python3}|" src/psl-make-dafsa
+%py3_shebang_fix src/psl-make-dafsa
 
 %build
 # Tarballs from github have 2 versions, one is raw files from repo, and
@@ -145,6 +146,10 @@ make check || cat tests/test-suite.log
 %{_mandir}/man1/psl-make-dafsa.1*
 
 %changelog
+* Fri Jun 16 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.21.2-3
+- Rebuilt for libunistring-1.1
+- Mark psl-make-dafsa noarch
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

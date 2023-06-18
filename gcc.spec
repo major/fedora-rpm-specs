@@ -290,9 +290,6 @@ Patch11: gcc13-d-shared-libphobos.patch
 Patch50: isl-rh2155127.patch
 
 Patch100: gcc13-fortran-fdec-duplicates.patch
-Patch101: gcc13-fortran-flogical-as-integer.patch
-Patch102: gcc13-fortran-fdec-override-kind.patch
-Patch103: gcc13-fortran-fdec-non-logical-if.patch
 
 # On ARM EABI systems, we do want -gnueabi to be part of the
 # target triple.
@@ -868,9 +865,6 @@ touch -r isl-0.24/m4/ax_prog_cxx_for_build.m4 isl-0.24/m4/ax_prog_cc_for_build.m
 
 %if 0%{?rhel} >= 9
 %patch -P100 -p1 -b .fortran-fdec-duplicates~
-%patch -P101 -p1 -b .fortran-flogical-as-integer~
-%patch -P102 -p1 -b .fortran-fdec-override-kind~
-%patch -P103 -p1 -b .fortran-fdec-non-logical-if~
 %endif
 
 %ifarch %{arm}

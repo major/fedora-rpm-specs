@@ -1,5 +1,5 @@
 %if 0%{?fedora}
-%global with_python3_tests 0
+%global with_python3_tests 1
 %endif
 
 %global pypi_name   PySocks
@@ -8,7 +8,7 @@
 
 Name:               python-%{modname}
 Version:            1.7.1
-Release:            18%{?dist}
+Release:            19%{?dist}
 Summary:            %{sum}
 
 License:            BSD-3-Clause
@@ -115,6 +115,9 @@ rm -rfv test/bin
 
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 1.7.1-19
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.7.1-18
 - Bootstrap for Python 3.12
 

@@ -1,7 +1,7 @@
 %{?python_enable_dependency_generator}
 Name:		autokey
 Version:	0.96.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Desktop automation utility
 
 
@@ -104,6 +104,9 @@ done
 
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 0.96.0-2
+- Rebuilt for Python 3.12
+
 * Sat Apr 29 2023 Jonathan Wright <jonathan@almalinux.org> - 0.96.0-1
 - Update to 0.96.0 rhbz#1771109
 

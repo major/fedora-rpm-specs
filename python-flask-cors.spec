@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        3.1.01
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cross Origin Resource Sharing (CORS) support for Flask
 License:        MIT
 URL:            https://github.com/corydolphin/%{srcname}
@@ -47,6 +47,9 @@ nosetests-%{python3_version} -v
 %{python3_sitelib}/Flask_Cors*.egg-info/
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 3.1.01-2
+- Rebuilt for Python 3.12
+
 * Sun Jun 11 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 3.1.01-1
 - Update to 3.1.01 (fixes RHBZ#2211994)
 

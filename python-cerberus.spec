@@ -14,9 +14,10 @@ validation. It has no dependancies and is thoroughly tested.
 %bcond_without tests
 
 Name:           %{pkgname}
-Version:        1.3.2
+Version:        1.3.4
 %forgemeta
-Release:        %autorelease
+# Remove -b4 when upgrading to a newer version:
+Release:        %autorelease -b4
 Summary:        Lightweight, extensible data validation library for Python
 License:        ISC
 URL:            %{forgeurl}
@@ -57,7 +58,7 @@ Summary: %{summary}
 
 %files -n python3-%{slugname}
 %license LICENSE
-%doc README.rst AUTHORS
+%doc README.rst AUTHORS CHANGES.rst
 %{python3_sitelib}/%{srcname}-%{version}.dist-info
 %{python3_sitelib}/%{slugname}/
 

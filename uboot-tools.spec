@@ -7,7 +7,7 @@
 
 Name:     uboot-tools
 Version:  2023.07
-Release:  0.3%{?candidate:.%{candidate}}%{?dist}
+Release:  0.4%{?candidate:.%{candidate}}%{?dist}
 Summary:  U-Boot utilities
 License:  GPLv2+ BSD LGPL-2.1+ LGPL-2.0+
 URL:      http://www.denx.de/wiki/U-Boot
@@ -20,10 +20,11 @@ Source1:  aarch64-boards
 # Needed to find DT on boot partition that's not the first partition
 Patch1:   uefi-distro-load-FDT-from-any-partition-on-boot-device.patch
 Patch2:   smbios-Simplify-reporting-of-unknown-values.patch
+Patch3:   0001-disable-NFS-support-by-default.patch
 
 # Board fixes and enablement
 # RPi - uses RPI firmware device tree for HAT support
-Patch3:   rpi-Enable-using-the-DT-provided-by-the-Raspberry-Pi.patch
+Patch5:   rpi-Enable-using-the-DT-provided-by-the-Raspberry-Pi.patch
 # Rockchips improvements
 Patch6:   rockchip-Add-initial-support-for-the-PinePhone-Pro.patch
 Patch7:   rockchip-PinePhone-Pro-fixes.patch
@@ -212,6 +213,9 @@ cp -p board/sunxi/README.nand builds/docs/README.sunxi-nand
 %endif
 
 %changelog
+* Fri Jun 16 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 2023.07-0.4.rc4
+- Disable NFS by default
+
 * Mon Jun 12 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 2023.07-0.3.rc4
 - Update to 2023.07 RC4
 

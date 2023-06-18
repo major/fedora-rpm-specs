@@ -8,7 +8,7 @@
 
 Name:		python-%{pkg_name}
 Version:	2.0.0
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Adds i18n/l10n support to Flask applications
 License:	BSD
 URL:		http://github.com/mitsuhiko/%{pkg_name}/
@@ -85,6 +85,9 @@ PYTHONPATH=$RPM_BUILD_ROOT/%{python3_sitelib}:%{python3_sitelib} pytest -v
 %{python3_sitelib}/flask_babel
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 2.0.0-7
+- Rebuilt for Python 3.12
+
 * Thu Mar 02 2023 Jonathan Wright <jonathan@almalinux.org> - 2.0.0-6
 - don't build docs on RHEL
 

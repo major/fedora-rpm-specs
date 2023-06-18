@@ -1,7 +1,7 @@
 %global srcname pyudev
 Name:             python-%{srcname}
 Version:          0.24.1
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          A libudev binding
 
 License:          LGPL-2.1-or-later
@@ -97,6 +97,9 @@ rm -rf pyudev.egg-info
 %{python3_sitelib}/pyudev/__pycache__/pyqt5.*
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 0.24.1-4
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 mulhern <amulhern@redhat.com> - 0.24.1-3
 - Use SPDX-format license; also make it match upstream
 

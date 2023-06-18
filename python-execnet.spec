@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.9.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Distributed Python deployment and communication
 License:        MIT
 URL:            https://github.com/pytest-dev/execnet
@@ -31,7 +31,7 @@ BuildRequires:  python3-setuptools_scm
 BuildRequires:  python3-py
 BuildRequires:  python3-pytest
 #BuildRequires:  python3-eventlet -- not yet ready for Python 3.12
-#BuildRequires:  python3-gevent -- not yet ready for Python 3.12
+BuildRequires:  python3-gevent
 BuildRequires:  python3-pytest-timeout
 BuildRequires:  %{_bindir}/sphinx-build-3
 %{?python_provide:%python_provide python3-%{srcname}}
@@ -89,6 +89,9 @@ py.test-%{python3_version} -r s \
 
 
 %changelog
+* Fri Jun 16 2023 Miro Hrončok <mhroncok@redhat.com> - 1.9.0-11
+- Run gevent tests during build
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.9.0-10
 - Rebuilt for Python 3.12
 

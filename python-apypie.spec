@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Apipie bindings for Python
 
 License:        MIT
@@ -40,6 +40,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 0.4.0-2
+- Rebuilt for Python 3.12
+
 * Thu Jun 15 2023 Ondřej Gajdušek <ogajduse@redhat.com> - 0.4.0-1
 - Update to apypie 0.4.0
 

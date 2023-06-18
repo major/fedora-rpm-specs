@@ -5,7 +5,7 @@
 Summary:	Font configuration and customization library
 Name:		fontconfig
 Version:	2.14.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 # src/ftglue.[ch] is in Public Domain
 # src/fccache.c contains Public Domain code
 ## https://gitlab.com/fedora/legal/fedora-license-data/-/issues/177
@@ -16,7 +16,6 @@ Source:		http://fontconfig.org/release/%{name}-%{version}.tar.xz
 URL:		http://fontconfig.org
 Source1:	25-no-bitmap-fedora.conf
 Source2:	fc-cache
-Source3:	10-sub-pixel-rgb-for-kde.conf
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=140335
 Patch0:		%{name}-sleep-less.patch
@@ -94,9 +93,8 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 install -p -m 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/fonts/conf.d
 ln -s %{_fontconfig_templatedir}/25-unhint-nonlatin.conf $RPM_BUILD_ROOT%{_fontconfig_confdir}/
 
-# Use conditional conf instead
+# Use implied value to allow the use of conditional conf
 rm $RPM_BUILD_ROOT%{_sysconfdir}/fonts/conf.d/10-sub-pixel-*.conf
-install -p -m 0644 %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/fonts/conf.d
 
 # move installed doc files back to build directory to package them
 # in the right place
@@ -193,6 +191,10 @@ fi
 %doc fontconfig-devel.txt fontconfig-devel
 
 %changelog
+* Fri Jun 16 2023 Akira TAGOH <tagoh@redhat.com> - 2.14.2-3
+- Drop 10-sub-pixel-rgb-for-kde.conf
+  Resolves: rhbz#2212512
+
 * Tue Apr  4 2023 Akira TAGOH <tagoh@redhat.com> - 2.14.2-2
 - Migrated license tag to SPDX.
 

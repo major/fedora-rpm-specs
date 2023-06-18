@@ -1,18 +1,13 @@
 # Generated from rttool-1.0.3.0.gem by gem2rpm -*- rpm-spec -*-
 %global	gem_name	rttool
 
-%if 0%{?fedora} >= 21
-%global	gem_minitest	rubygem(minitest4)
-%else
-%global	gem_minitest	rubygem(minitest)
-%endif
-
 Name:		rubygem-%{gem_name}
 Version:	1.0.3.0
-Release:	19%{?dist}
+Release:	20%{?dist}
 
 Summary:	Converter from RT into various formats
 # See rttool.en.rd
+# SPDX confirmed
 License:	Ruby
 # raa is dead
 #URL:		http://raa.ruby-lang.org/project/rttool/
@@ -21,7 +16,7 @@ Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
 
 BuildRequires:	ruby(release)
 BuildRequires:	rubygems-devel
-BuildRequires:	%gem_minitest
+BuildRequires:	rubygem(minitest)
 BuildRequires:	rubygem(test-unit)
 BuildRequires:	rubygem(rdtool)
 BuildRequires:	rubygem(racc)
@@ -46,9 +41,8 @@ BuildArch:	noarch
 Documentation for %{name}
 
 %prep
-gem unpack %{SOURCE0}
-%setup -q -D -T -n  %{gem_name}-%{version}
-gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
+%setup -q -n  %{gem_name}-%{version}
+mv ../%{gem_name}-%{version}.gemspec .
 
 # Encoding
 for f in \
@@ -65,7 +59,7 @@ sed -i \
 	lib/rt/*.rb
 
 %build
-gem build %{gem_name}.gemspec
+gem build %{gem_name}-%{version}.gemspec
 %gem_install
 
 %install
@@ -85,16 +79,16 @@ chmod 0755 bin/rt2
 
 export RUBYOPT="-I$(pwd)/lib"
 export PATH=$(pwd)/bin:$PATH
-ruby -Ilib:. -e 'gem "minitest", "<5" ; Dir.glob("test/test*.rb").each {|f| require f}'
+ruby -Ilib:. -e 'gem "minitest" ; Dir.glob("test/test*.rb").each {|f| require f}'
 
 popd
 
 %files
 %dir	%{gem_instdir}
 %doc	%{gem_instdir}/ChangeLog
-%doc	%{gem_instdir}/GPL
+%license	%{gem_instdir}/GPL
 %doc %{gem_instdir}/rttool.*.html
-%doc	%{gem_instdir}/rttool.*.rd
+%license	%{gem_instdir}/rttool.*.rd
 
 %{_bindir}/rdrt2
 %{_bindir}/rt2
@@ -110,6 +104,10 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Fri Jun 16 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.3.0-20
+- Modernize spec file
+- Use minitest5 instead of minitest4
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

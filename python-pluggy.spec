@@ -1,4 +1,3 @@
-%global _without_tests 1
 %global pypi_name pluggy
 
 # Turn the tests off when bootstrapping Python, because pytest requires pluggy
@@ -6,7 +5,7 @@
 
 Name:           python-pluggy
 Version:        1.0.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        The plugin manager stripped of pytest specific details
 
 License:        MIT
@@ -61,6 +60,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} -m pytest testing -k "not
 
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 1.0.0-8
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.0.0-7
 - Bootstrap for Python 3.12
 

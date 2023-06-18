@@ -63,7 +63,7 @@
 
 Name:           plplot
 Version:        5.15.0
-Release:        52%{?dist}
+Release:        53%{?dist}
 Summary:        Library of functions for making scientific plots
 
 License:        LGPLv2+
@@ -761,6 +761,9 @@ export DISPLAY=:99
 
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 5.15.0-53
+- Rebuilt for Python 3.12
+
 * Tue Apr 11 2023 Florian Weimer <fweimer@redhat.com> - 5.15.0-52
 - Port to C99
 

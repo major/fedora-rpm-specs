@@ -199,7 +199,7 @@
 Name:          pacemaker
 Summary:       Scalable High-Availability cluster resource manager
 Version:       %{pcmkversion}
-Release:       %{pcmk_release}%{?dist}
+Release:       %{pcmk_release}%{?dist}.1
 License:       GPL-2.0-or-later AND LGPL-2.1-or-later
 Url:           https://www.clusterlabs.org/
 
@@ -858,6 +858,9 @@ exit 0
 %license %{nagios_name}-%{nagios_hash}/COPYING
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 2.1.6-4.1
+- Rebuilt for Python 3.12
+
 * Thu May 25 2023 Klaus Wenninger <kwenning@redhat.com> - 2.1.6-4
 - Update for new upstream release tarball: Pacemaker-2.1.6,
   for full details, see included ChangeLog file or

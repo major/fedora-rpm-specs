@@ -1,4 +1,3 @@
-%global _without_check 1
 %global pypi_name sphinxcontrib-applehelp
 
 # when bootstrapping sphinx, we cannot run tests yet
@@ -6,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.0.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Sphinx extension for Apple help books
 License:        BSD
 URL:            http://sphinx-doc.org/
@@ -80,6 +79,9 @@ popd
 
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 1.0.2-13
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.0.2-12
 - Bootstrap for Python 3.12
 

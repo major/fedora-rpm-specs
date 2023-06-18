@@ -1,4 +1,3 @@
-%global _without_tests 1
 #uncomment next line for a release candidate or a beta
 #%%global relc rc1
 
@@ -21,7 +20,7 @@
 
 Name:           numpy
 Version:        1.24.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Epoch:          1
 Summary:        A fast multidimensional array facility for Python
 
@@ -211,6 +210,9 @@ python3 runtests.py --no-build -- -ra -k 'not test_ppc64_ibm_double_double128 %{
 
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 1:1.24.3-3
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1:1.24.3-2
 - Bootstrap for Python 3.12
 

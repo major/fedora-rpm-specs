@@ -1,36 +1,29 @@
 Name:           libgnome-games-support
-Version:        1.8.2
-Release:        4%{?dist}
+Version:        2.0.0
+Release:        1%{?dist}
 Summary:        Support library for GNOME games
 
 License:        LGPLv3+
 URL:            https://gitlab.gnome.org/GNOME/libgnome-games-support/
-Source0:        https://download.gnome.org/sources/libgnome-games-support/1.8/libgnome-games-support-%{version}.tar.xz
-
+Source0:        https://download.gnome.org/sources/libgnome-games-support/2.0/libgnome-games-support-%{version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  meson
 BuildRequires:  vala
 BuildRequires:  pkgconfig(glib-2.0) >= 2.40
 BuildRequires:  pkgconfig(gio-2.0) >= 2.40
-BuildRequires:  pkgconfig(gtk+-3.0) >= 3.19
 BuildRequires:  pkgconfig(gee-0.8)
-
-# Retired in F25
-Obsoletes:      libgames-support < 1.1.90
-
+BuildRequires:  pkgconfig(gtk4)
 
 %description
 libgnome-games-support is a small library intended for internal use
-by GNOME Games, but it may be used by others. 
+by GNOME Games, but it may be used by others.
 The API will only break with the major version number.
 
 
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-# Retired in F25
-Obsoletes:      libgames-support-devel < 1.1.90
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -49,13 +42,13 @@ developing applications that use %{name}.
 %install
 %meson_install
 
-%find_lang %{name}
+%find_lang libgnome-games-support2
 
 
-%files -f %{name}.lang
+%files -f libgnome-games-support2.lang
 %doc README
 %license COPYING.LESSER
-%{_libdir}/libgnome-games-support-1.so.3*
+%{_libdir}/libgnome-games-support-2.so.4*
 
 %files devel
 %dir %{_datadir}/vala
@@ -67,6 +60,10 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Jun 16 2023 Kalev Lember <klember@redhat.com> - 2.0.0-1
+- Update to 2.0.0
+- Drop old, unused libgames-support provides
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

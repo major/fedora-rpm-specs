@@ -7,10 +7,16 @@
 Summary: A fast, open source AsciiDoc implementation in Ruby
 Name: rubygem-%{gem_name}
 Version: 2.0.20
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: MIT
 URL: https://asciidoctor.org
 Source0: https://github.com/asciidoctor/asciidoctor/archive/%{gittag}/%{gem_name}-%{version}%{pre}.tar.gz
+# improve ruby-2.5 compatibility
+# https://github.com/asciidoctor/asciidoctor/issues/4462
+# https://github.com/asciidoctor/asciidoctor/commit/cc9a8d3c
+Patch0: 0001-use-single-line-block-in-manify-method-in-manpage-co.patch
+# https://github.com/asciidoctor/asciidoctor/commit/b7c03964
+Patch1: 0002-change-dot-layout-in-chained-method-call-to-be-compa.patch
 %if 0%{?el7}
 Requires: ruby(release)
 BuildRequires: ruby(release)
@@ -121,6 +127,9 @@ cp -a .%{gem_instdir}/man/*.1 \
 %doc %{gem_docdir}
 
 %changelog
+* Thu May 25 2023 Todd Zullinger <tmz@pobox.com> - 2.0.20-2
+- improve ruby-2.5 compatibility (epel8)
+
 * Thu May 18 2023 Todd Zullinger <tmz@pobox.com> - 2.0.20-1
 - update to asciidoctor 2.0.20 (rhbz#2208089)
 

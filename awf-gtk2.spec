@@ -1,19 +1,19 @@
 Name:          awf-gtk2
 Version:       2.7.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Theme preview application for GTK
 Summary(fr):   Application d'aperçu de thème pour GTK
 License:       GPLv3+
 URL:           https://github.com/luigifab/awf-extended
 Source0:       %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires: gtk2-devel
-BuildRequires: gettext
-BuildRequires: gcc
+BuildRequires: aspell-fr
 BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: desktop-file-utils
-BuildRequires: hunspell-fr
+BuildRequires: gcc
+BuildRequires: gettext
+BuildRequires: gtk2-devel
 Requires:      gtk2
 Requires:      hicolor-icon-theme
 
@@ -22,14 +22,14 @@ A widget factory is a theme preview application for GTK. It displays the
 various widget types provided by GTK in a single window allowing to see
 the visual effect of the applied theme.
 
-This package provides the gtk2 version.}
+This package provides the GTK 2 version.}
 
 %description -l fr %{expand:
 La fabrique à widgets est une application d'aperçu de thème pour GTK. Elle
 affiche les différents types de widgets fournis par GTK dans une seule
 fenêtre permettant de voir l'effet visuel du thème appliqué.
 
-Ce paquet fournit la version gtk2.}
+Ce paquet fournit la version GTK 2.}
 
 
 %prep
@@ -40,7 +40,7 @@ touch {NEWS,AUTHORS,README,ChangeLog}
 mv LICENSE COPYING
 
 %build
-autoreconf -f -i
+autoreconf -fi
 %configure
 %make_build
 
@@ -62,16 +62,19 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications/ applications/%{
 %find_lang %{name} --with-man
 
 %files -f %{name}.lang
-%{_mandir}/man1/%{name}.1*
 %license COPYING
 %doc README.md
 %{_bindir}/%{name}
+%{_mandir}/man1/%{name}.1*
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 
 
 %changelog
+* Fri Jun 16 2023 Fabrice Creuzot <code@luigifab.fr> - 2.7.0-2
+- Package spec update
+
 * Tue Jun 06 2023 Fabrice Creuzot <code@luigifab.fr> - 2.7.0-1
 - New upstream release
 

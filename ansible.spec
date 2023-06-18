@@ -34,7 +34,7 @@ Name:           ansible
 Summary:        Curated set of Ansible collections included in addition to ansible-core
 Version:        8.0.0
 %global uversion %{version_no_tilde %{quote:%nil}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 # In addition to GPL-3.0-or-later, the following licenses apply.
 # License text that solely exists in file headers were not considered.
@@ -168,6 +168,9 @@ chmod 0755 %{buildroot}%{python3_sitelib}/ansible_collections/ngine_io/cloudstac
 
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 8.0.0-2
+- Rebuilt for Python 3.12
+
 * Tue May 30 2023 Maxwell G <maxwell@gtmx.me> - 8.0.0-1
 - Update to 8.0.0.
 

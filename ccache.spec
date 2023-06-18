@@ -12,7 +12,7 @@
 %global relccache %(%abs2rel %{_bindir}/ccache %{_libdir}/ccache)
 
 Name:           ccache
-Version:        4.8
+Version:        4.8.2
 Release:        1%{?dist}
 Summary:        C/C++ compiler cache
 
@@ -217,6 +217,9 @@ getent group ccache >/dev/null || groupadd -r ccache || :
 
 
 %changelog
+* Fri Jun 16 2023 Orion Poplawski <orion@nwra.com> - 4.8.2-1
+- Update to 4.8.2
+
 * Wed Apr 05 2023 Orion Poplawski <orion@nwra.com> - 4.8-1
 - Update to 4.8 (fixes bz#2160275)
 

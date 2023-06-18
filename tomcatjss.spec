@@ -6,8 +6,8 @@ Name:             tomcatjss
 
 # Upstream version number:
 %global           major_version 8
-%global           minor_version 3
-%global           update_version 0
+%global           minor_version 4
+%global           update_version 1
 
 # Downstream release number:
 # - development/stabilization (unsupported): 0.<n> where n >= 1
@@ -26,8 +26,8 @@ Name:             tomcatjss
 Summary:          JSS Connector for Apache Tomcat
 URL:              https://github.com/dogtagpki/tomcatjss
 License:          LGPL-2.1-or-later
-Version:          %{major_version}.%{minor_version}.%{update_version}
-Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}
+Version:          8.4.1
+Release:          1%{?dist}
 
 # To generate the source tarball:
 # $ git clone https://github.com/dogtagpki/tomcatjss.git
@@ -76,7 +76,7 @@ BuildRequires:    slf4j
 BuildRequires:    slf4j-jdk14
 
 # JSS
-BuildRequires:    jss = 5.3
+BuildRequires:    jss = 5.4
 
 # Tomcat
 %if 0%{?rhel} && ! 0%{?eln}
@@ -107,7 +107,7 @@ Requires:         slf4j
 Requires:         slf4j-jdk14
 
 # JSS
-Requires:         jss = 5.3
+Requires:         jss = 5.4
 
 # Tomcat
 %if 0%{?rhel} && ! 0%{?eln}
@@ -183,6 +183,11 @@ export JAVA_HOME=%{java_home}
 
 ################################################################################
 %changelog
+* Fri Jun 16 2023 Packit <hello@packit.dev> - 8.4.1-1
+- Updating version to v8.4.1 (Chris Kelley)
+- Updating version to v8.4.1.. (Chris Kelley)
+- Introduce Packit configuration file for tomcatjss (Chris Kelley)
+
 * Tue Feb 07 2023 Dogtag PKI Team <devel@lists.dogtagpki.org> - 8.3.0-1
 - Rebase to Tomcat JSS 8.3.0
 

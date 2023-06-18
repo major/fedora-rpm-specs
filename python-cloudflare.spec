@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.11.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python wrapper for the Cloudflare Client API v4
 
 License:        MIT
@@ -70,6 +70,9 @@ sed -i -e '1!b' -e '\~^#!/usr/bin/env python~d' cli4/*.py
 
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 2.11.6-2
+- Rebuilt for Python 3.12
+
 * Wed Jun 14 2023 Nick Bebout <nb@fedoraproject.org> - 2.11.6-1
 - Update to 2.11.6
 

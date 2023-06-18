@@ -16,7 +16,7 @@ provides your test with the URL in the fixture.
 
 Name:           python-%{github_name}
 Version:        2.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 
 # License is included in-line in README.md
@@ -80,6 +80,9 @@ PYTHONPATH=./ py.test-3 -p "no:unraisableexception"
 
 #################################################################################
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 2.0.0-2
+- Rebuilt for Python 3.12
+
 * Thu May 11 2023 Adam Williamson <awilliam@redhat.com> - 2.0.0-1
 - Update to 2.0.0 final, re-enable fixed test
 

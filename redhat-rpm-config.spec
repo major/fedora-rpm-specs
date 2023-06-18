@@ -4,7 +4,7 @@
 # 2) When making changes, increment the version (in baserelease) by 1.
 #    rpmdev-bumpspec and other tools update the macro below, which is used
 #    in Version: to get the desired effect.
-%global baserelease 254
+%global baserelease 255
 
 Summary: Red Hat specific rpm configuration files
 Name: redhat-rpm-config
@@ -103,6 +103,7 @@ Requires: perl-srpm-macros
 # ↓ Has Python BRPs originaly present in redhat-rpm-config
 Requires: python-srpm-macros >= 3.11-7
 Requires: qt5-srpm-macros
+Requires: qt6-srpm-macros
 # rust-srpm-macros v24 contains %%build_rustflags defintion
 Requires: rust-srpm-macros >= 24
 Requires: rpmautospec-rpm-macros
@@ -253,6 +254,9 @@ install -p -m 644 -t %{buildroot}%{_rpmluadir}/fedora/srpm forge.lua
 %doc buildflags.md
 
 %changelog
+* Fri Jun 16 2023 Lumír Balhar <lbalhar@redhat.com> - 255-1
+- Add qt6-srpm-macros
+
 * Thu Mar  9 2023 Florian Weimer <fweimer@redhat.com> - 254-1
 - Switch ELN to x86-64-v3
 

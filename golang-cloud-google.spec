@@ -68,6 +68,7 @@ for test in "TestInstanceAdmin_GetCluster" \
             "TestInstanceAdmin_UpdateInstanceWithClusters_IgnoresInvalidClusters" \
             "TestInstanceAdmin_UpdateInstanceWithClusters_WithAutoscaling" \
             "TestInstanceAdmin_UpdateInstanceAndSyncClusters_WithAutoscaling" \
+            "TestIntegration_HTTPR" \
             "TestCreateGetPutPatchListInstance" \
             "TestCreateGetRemoveSecurityPolicies" \
             "TestPaginationWithMaxRes" \

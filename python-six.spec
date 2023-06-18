@@ -1,10 +1,9 @@
-%global _without_tests 1
 # tests are enabled by default
 %bcond_without tests
 
 Name:           python-six
 Version:        1.16.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Python 2 and 3 compatibility utilities
 
 License:        MIT
@@ -64,6 +63,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 1.16.0-11
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.16.0-10
 - Bootstrap for Python 3.12
 

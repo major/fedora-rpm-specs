@@ -9,7 +9,7 @@
 Summary:    Library and tool to control NAT in UPnP-enabled routers
 Name:       miniupnpc
 Version:    2.2.5
-Release:    1%{?dist}
+Release:    2%{?dist}
 License:    BSD
 URL:        http://miniupnp.free.fr/
 
@@ -97,6 +97,9 @@ make CFLAGS="%{optflags} -DMINIUPNPC_SET_SOCKET_TIMEOUT" check
 %{python3_sitearch}/miniupnpc*.so
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 2.2.5-2
+- Rebuilt for Python 3.12
+
 * Wed Jun 14 2023 Simone Caronni <negativo17@gmail.com> - 2.2.5-1
 - Update to 2.2.5.
 

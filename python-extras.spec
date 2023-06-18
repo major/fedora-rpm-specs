@@ -1,9 +1,8 @@
-%global _with_bootstrap 1
 %bcond_with bootstrap
 
 Name:           python-extras
 Version:        1.0.0
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Useful extra bits for Python
 
 License:        MIT
@@ -52,6 +51,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} setup.py test
 %doc NEWS README.rst
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 1.0.0-28
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.0.0-27
 - Bootstrap for Python 3.12
 

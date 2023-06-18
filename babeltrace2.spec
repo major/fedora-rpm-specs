@@ -1,6 +1,6 @@
 Name:           babeltrace2
 Version:        2.0.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A trace manipulation toolkit
 License:        MIT AND GPL-2.0-only
 URL:            https://www.efficios.com/babeltrace
@@ -8,6 +8,9 @@ Source0:        https://www.efficios.com/files/babeltrace/babeltrace2-%{version}
 Source1:        https://www.efficios.com/files/babeltrace/babeltrace2-%{version}.tar.bz2.asc
 # gpg2 --export --export-options export-minimal 7F49314A26E0DE78427680E05F1B2A0789F12B11 > gpgkey-7F49314A26E0DE78427680E05F1B2A0789F12B11.gpg
 Source2:        gpgkey-7F49314A26E0DE78427680E05F1B2A0789F12B11.gpg
+
+# Fix tests with python 3.12
+Patch0:         fix-tests-py312.diff
 
 BuildRequires:  autoconf >= 2.50
 BuildRequires:  automake >= 1.10
@@ -122,6 +125,9 @@ rm -f %{buildroot}/%{_pkgdocdir}/std-ext-lib.txt
 
 
 %changelog
+* Fri Jun 16 2023 Michael Jeanson <mjeanson@efficios.com> - 2.0.5-3
+- Fix tests on Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.0.5-2
 - Rebuilt for Python 3.12
 

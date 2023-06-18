@@ -43,7 +43,7 @@
 
 Name:		%pkg_name
 Version:	%{clang_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	A C language family front-end for LLVM
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -610,6 +610,9 @@ false
 
 %endif
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 16.0.5-4
+- Rebuilt for Python 3.12
+
 * Thu Jun 15 2023 Nikita Popov <npopov@redhat.com> - 16.0.5-3
 - Use llvm-cmake-utils package
 

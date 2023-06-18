@@ -1,7 +1,7 @@
 %global _vpath_srcdir Kvantum
 
 Name:           kvantum
-Version:        1.0.9
+Version:        1.0.10
 Release:        %autorelease
 Summary:        SVG-based theme engine for Qt5, KDE and LXQt
 
@@ -78,7 +78,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/kvantummanager.deskto
 %{_datadir}/applications/kvantummanager.desktop
 %{_datadir}/color-schemes/Kv*.colors
 %{_datadir}/icons/hicolor/scalable/apps/kvantum.svg
-%{_datadir}/themes/Kv*/
 %dir %{_datadir}/kvantumpreview
 %dir %{_datadir}/kvantumpreview/translations
 %dir %{_datadir}/kvantummanager

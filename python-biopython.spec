@@ -4,7 +4,7 @@
 
 Name:             python-%{pypi_name}
 Version:          1.81
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Python tools for computational molecular biology
 Source0:          %{pypi_source}
 
@@ -116,6 +116,9 @@ popd
 %license %{module}-%{version}/LICENSE.rst
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 1.81-2
+- Rebuilt for Python 3.12
+
 * Tue Feb 14 2023 Antonio Trande <sagitter@fedoraproject.org> - 1.81-1
 - Release 1.81
 

@@ -1,7 +1,6 @@
-%global _without_tests 1
 Name:           python-tox-current-env
 Version:        0.0.11
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Tox plugin to run tests in current Python environment
 
 License:        MIT
@@ -59,6 +58,9 @@ The tox-current-env plugin allows to run tests in current Python environment.
 
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 0.0.11-4
+- Rebuilt for Python 3.12
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.0.11-3
 - Bootstrap for Python 3.12
 

@@ -6,7 +6,7 @@
 Summary: A Scintilla port to Qt
 Name:    qscintilla
 Version: 2.13.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv3
 Url:     http://www.riverbankcomputing.com/software/qscintilla/
@@ -245,6 +245,9 @@ grep "%{_qt6_translationdir}" qscintilla.lang > qscintilla-qt6.lang
 
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 2.13.4-2
+- Rebuilt for Python 3.12
+
 * Mon Apr 03 2023 Sandro Mani <manisandro@gmail.com> - 2.13.4-1
 - Update to 2.13.4
 

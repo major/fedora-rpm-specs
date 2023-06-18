@@ -4,7 +4,7 @@
 
 %global         srcname         google-api-core
 %global         forgeurl        https://github.com/googleapis/python-api-core
-Version:        2.11.0
+Version:        2.11.1
 %global         tag             v%{version}
 %forgemeta
 

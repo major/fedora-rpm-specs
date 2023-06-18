@@ -17,7 +17,7 @@ being considered. All endpoint responses are JSON-encoded.
 
 Name:           python-%{modname}
 Version:        0.7.0
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        HTTP Request & Response Service, written in Python + Flask
 
 License:        MIT
@@ -101,6 +101,9 @@ sed -i -e 's,werkzeug>=0.14.1,werkzeug,g' setup.py
 
 #################################################################################
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 0.7.0-23
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -16,7 +16,7 @@
 
 Name:           mod_wsgi
 Version:        4.9.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A WSGI interface for Python web applications in Apache
 License:        Apache-2.0 AND CC-BY-3.0
 URL:            https://modwsgi.readthedocs.io/
@@ -30,8 +30,7 @@ BuildRequires:  gcc
 BuildRequires:  make
 
 # Suppress auto-provides for module DSO
-%{?filter_provides_in: %filter_provides_in %{_httpd_moddir}/.*\.so$}
-%{?filter_setup}
+%global __provides_exclude_from %{_httpd_moddir}/.*\\.so$
 
 %global _description\
 The mod_wsgi adapter is an Apache module that provides a WSGI compliant\
@@ -160,6 +159,10 @@ ln -s %{_bindir}/mod_wsgi-express-2 $RPM_BUILD_ROOT%{_bindir}/mod_wsgi-express
 %endif
 
 %changelog
+* Thu Jun 15 2023 Tomas Orsava <torsava@redhat.com> - 4.9.4-5
+- Use the modern way of filtering Provides not to interfere with modern Python
+  RPM generators
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 4.9.4-4
 - Rebuilt for Python 3.12
 

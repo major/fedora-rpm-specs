@@ -2,7 +2,7 @@
 
 Name:           gnome-robots
 Version:        40.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        GNOME Robots game
 
 License:        GPLv2+ and GFDL
@@ -12,13 +12,16 @@ Source0:        https://download.gnome.org/sources/%{name}/40/%{name}-%{tarball_
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  gettext
-BuildRequires:  gsound-devel
-BuildRequires:  gtk3-devel
 BuildRequires:  itstool
-BuildRequires:  libcanberra-devel
-BuildRequires:  libgnome-games-support-devel
-BuildRequires:  librsvg2-devel
 BuildRequires:  meson
+BuildRequires:  pkgconfig(gdk-3.0)
+BuildRequires:  pkgconfig(gee-0.8)
+BuildRequires:  pkgconfig(gio-2.0)
+BuildRequires:  pkgconfig(glib-2.0)
+BuildRequires:  pkgconfig(gsound)
+BuildRequires:  pkgconfig(gtk+-3.0)
+BuildRequires:  pkgconfig(libgnome-games-support-1)
+BuildRequires:  pkgconfig(librsvg-2.0)
 BuildRequires:  vala
 
 %description
@@ -61,6 +64,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Fri Jun 16 2023 Kalev Lember <klember@redhat.com> - 40.0-6
+- Use pkgconfig buildrequires
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 40.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

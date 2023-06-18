@@ -56,7 +56,9 @@ Patch20:        spidermonkey_checks_disable.patch
 Patch21:        0001-Skip-failing-tests-on-ppc64-and-s390x.patch
 
 BuildRequires:  cargo
+%if !0%{?rhel}
 BuildRequires:  ccache
+%endif
 BuildRequires:  clang-devel
 BuildRequires:  gcc
 BuildRequires:  gcc-c++

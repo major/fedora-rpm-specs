@@ -1,11 +1,10 @@
-%global _without_tests 1
 %bcond_without tests
 
 %global pypi_name wcwidth
 
 Name:           python-%{pypi_name}
 Version:        0.2.5
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Measures number of Terminal column cells of wide-character codes
 
 License:        MIT
@@ -53,6 +52,9 @@ printable width of a string on a Terminal.
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 0.2.5-13
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.2.5-12
 - Bootstrap for Python 3.12
 

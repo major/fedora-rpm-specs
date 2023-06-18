@@ -5,7 +5,7 @@
 
 Summary: X.Org X11 Protocol headers
 Name: xorg-x11-proto-devel
-Version: 2023.1
+Version: 2023.2
 Release: 1%{?dist}
 License: MIT
 URL: https://www.x.org
@@ -209,6 +209,9 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/*/*.{html,svg}
 %{_docdir}/xorgproto/*
 
 %changelog
+* Fri Jun 16 2023 Olivier Fourdan <ofourdan@redhat.com> - 2023.2-1
+- xorgproto 2023.2
+
 * Mon Jun  5 2023 Olivier Fourdan <ofourdan@redhat.com> - 2023.1-1
 - xorgproto 2023.1
 

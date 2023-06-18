@@ -1,7 +1,6 @@
-%global _without_tests 1
 Name:               python-iniconfig
 Version:            1.1.1
-Release:            12%{?dist}
+Release:            13%{?dist}
 Summary:            Brain-dead simple parsing of ini files
 # SDPX
 License:            MIT
@@ -71,6 +70,9 @@ sed -i "s/py\.test/pytest/" testing/test_iniconfig.py
 
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 1.1.1-13
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.1.1-12
 - Bootstrap for Python 3.12
 

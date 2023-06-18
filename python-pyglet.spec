@@ -5,7 +5,7 @@
 
 Name: python-%{srcname}
 Version: 1.5.23
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: A cross-platform windowing and multimedia library for Python
 
 License: BSD
@@ -148,6 +148,9 @@ ln -s %{_datadir}/sounds/purple/*.wav tests/data/media/
 
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 1.5.23-5
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.23-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

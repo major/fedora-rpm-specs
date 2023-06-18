@@ -1,5 +1,3 @@
-%global _without_docs 1
-%global _without_tests 1
 # Bconds are needed for Python bootstrap
 %bcond docs %{undefined rhel}
 %bcond tests 1
@@ -9,7 +7,7 @@
 
 Name:		python-zope-interface
 Version:	5.5.2
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Zope 3 Interface Infrastructure
 License:	ZPLv2.1
 URL:		https://pypi.io/project/zope.interface
@@ -97,6 +95,9 @@ popd
 %endif
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 5.5.2-4
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 5.5.2-3
 - Bootstrap for Python 3.12
 

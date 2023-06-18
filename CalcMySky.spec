@@ -1,5 +1,5 @@
 Name: CalcMySky
-Version:  0.3.0
+Version:  0.3.1
 Release:  1%{?dist}
 Summary: Simulator of light scattering by planetary atmospheres 
 
@@ -65,6 +65,9 @@ These are the development files.
 
 
 %changelog
+* Fri Jun 16 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.3.1-1
+- 0.3.1
+
 * Wed Mar 29 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.3.0-1
 - 0.3.0
 

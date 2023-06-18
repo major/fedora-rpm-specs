@@ -13,9 +13,7 @@
 %endif
 
 # We need at least gcc 10
-%global enable_lto 1
 %if 0%{?rhel} && 0%{?rhel} < 9
-%global enable_lto 0
 %global _lto_cflags %nil
 %endif
 
@@ -33,7 +31,7 @@
 
 %global major_version 4
 %global minor_version 3
-%global patch_version 0
+%global patch_version 1
 
 Name:           R
 Version:        %{major_version}.%{minor_version}.%{patch_version}
@@ -138,7 +136,7 @@ Provides:       R(ABI) = %{bootstrap_abi}
 }
 %add_submodule  base %{version}
 %add_submodule  boot 1.3-28.1
-%add_submodule  class 7.3-21
+%add_submodule  class 7.3-22
 %add_submodule  cluster 2.1.4
 %add_submodule  codetools 0.2-19
 %add_submodule  compiler %{version}
@@ -147,15 +145,15 @@ Provides:       R(ABI) = %{bootstrap_abi}
 %add_submodule  graphics %{version}
 %add_submodule  grDevices %{version}
 %add_submodule  grid %{version}
-%add_submodule  KernSmooth 2.23-20
+%add_submodule  KernSmooth 2.23-21
 %add_submodule  lattice 0.21-8
-%add_submodule  MASS 7.3-58.4
-%add_submodule  Matrix 1.5-4
+%add_submodule  MASS 7.3-60
+%add_submodule  Matrix 1.5-4.1
 Obsoletes:      R-Matrix < 0.999375-7
 %add_submodule  methods %{version}
 %add_submodule  mgcv 1.8-42
 %add_submodule  nlme 3.1-162
-%add_submodule  nnet 7.3-18
+%add_submodule  nnet 7.3-19
 %add_submodule  parallel %{version}
 %add_submodule  rpart 4.1.19
 %add_submodule  spatial 7.3-16
@@ -206,6 +204,8 @@ Requires:       libicu-devel
 Requires:       libtirpc-devel
 Recommends:     tex(latex)
 Recommends:     texinfo-tex
+Recommends:     tidy
+Recommends:     devscripts-checkbashisms
 %if 0%{?fedora}
 # No inconsolata on RHEL tex
 Recommends:     tex(inconsolata.sty)
@@ -214,7 +214,7 @@ Recommends:     tex(inconsolata.sty)
 Recommends:     qpdf
 %endif
 
-Provides:       R-Matrix-devel = 1.5.4
+Provides:       R-Matrix-devel = 1.5.4.1
 Obsoletes:      R-Matrix-devel < 0.999375-7
 
 %ifarch %{java_arches}
@@ -325,9 +325,6 @@ export JAVA_HOME=%{_jvmdir}/jre
   rincludedir=%{_includedir}/R \
   rsharedir=%{_datadir}/R \
   --with-system-tre \
-%ifarch %{valgrind_arches}
-  --with-system-valgrind-headers \
-%endif
   --with-lapack=%{blaslib}%{blasvar} \
   --with-blas=%{blaslib}%{blasvar} \
   --with-tcl-config=%{_libdir}/tclConfig.sh \
@@ -336,9 +333,6 @@ export JAVA_HOME=%{_jvmdir}/jre
   --enable-prebuilt-html \
   --enable-R-profiling \
   --enable-memory-profiling \
-%if %{enable_lto}
-  --enable-lto \
-%endif
   | tee CONFIGURE.log
 cat CONFIGURE.log | grep -A30 'R is now' - > CAPABILITIES
 make V=1
@@ -941,6 +935,9 @@ TZ="Europe/Paris" make check
 %{_libdir}/libRmath.a
 
 %changelog
+* Fri Jun 16 2023 Iñaki Úcar <iucar@fedoraproject.org> - 4.3.1-1
+- Update to 4.3.1
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 4.3.0-1
 - Update to 4.3.0
 - Enable LTO (except for EPEL8)

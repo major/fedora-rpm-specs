@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Various image processing algorithms
 
 License:        GPL-2.0-or-later
@@ -71,6 +71,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} \
 
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 0.3.0-15
+- Rebuilt for Python 3.12
+
 * Sat Apr 08 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.3.0-14
 - Switch to SPDX license
 

@@ -2,7 +2,7 @@
 
 Name:           retext
 Version:        8.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple editor for Markdown and reStructuredText
 
 License:        GPLv3+
@@ -75,6 +75,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 8.0.0-2
+- Rebuilt for Python 3.12
+
 * Sun Feb 19 2023 Mattia Verga <mattia.verga@protonmail.com> - 8.0.0-1
 - Update to 8.0.0
 

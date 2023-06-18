@@ -10,7 +10,7 @@
 
 Name:		lldb
 Version:	%{lldb_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Next generation high-performance debugger
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -133,6 +133,9 @@ rm -f %{buildroot}%{python3_sitearch}/six.*
 %{python3_sitearch}/lldb
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 16.0.5-4
+- Rebuilt for Python 3.12
+
 * Thu Jun 15 2023 Nikita Popov <npopov@redhat.com> - 16.0.5-3
 - Use llvm-cmake-utils package
 

@@ -1,4 +1,3 @@
-%global _without_doc_pdf 1
 # Sphinx-generated HTML documentation is not suitable for packaging; see
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #

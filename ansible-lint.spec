@@ -3,7 +3,7 @@
 
 Name:           %{archive_name}
 Epoch:          1
-Version:        6.16.2
+Version:        6.17.1
 Release:        1%{?dist}
 Summary:        Best practices checker for Ansible
 
@@ -42,6 +42,10 @@ sed 's|setuptools >= 63.0.0|setuptools >= 62.0.0|' -i pyproject.toml
 grep -F 'setuptools >= 62.0.0' pyproject.toml
 %endif
 
+# Relax requests dependency
+sed -i 's|^requests>=.*|requests|' .config/requirements.in
+grep '^requests$' .config/requirements.in
+
 %generate_buildrequires
 %pyproject_buildrequires
 
@@ -66,6 +70,9 @@ ln -sr %{buildroot}%{_bindir}/%{name}{,-3}
 %{_bindir}/%{name}-3
 
 %changelog
+* Fri Jun 16 2023 Maxwell G <maxwell@gtmx.me> - 1:6.17.1-1
+- Update to 6.17.1. Fixes rhbz#2211403.
+
 * Tue May 30 2023 Parag Nemade <pnemade AT redhat DOT com> - 1:6.16.2-1
 - Update to 6.16.2 version (#2207538)
 

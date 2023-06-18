@@ -6,8 +6,8 @@ Name:             ldapjdk
 
 # Upstream version number:
 %global           major_version 5
-%global           minor_version 3
-%global           update_version 0
+%global           minor_version 4
+%global           update_version 1
 
 # Downstream release number:
 # - development/stabilization (unsupported): 0.<n> where n >= 1
@@ -26,8 +26,8 @@ Name:             ldapjdk
 Summary:          LDAP SDK
 URL:              https://github.com/dogtagpki/ldap-sdk
 License:          MPL-1.1 or GPL-2.0-or-later or LGPL-2.1-or-later
-Version:          %{major_version}.%{minor_version}.%{update_version}
-Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}
+Version:          5.4.1
+Release:          1%{?dist}
 
 # To create a tarball from a version tag:
 # $ git archive \
@@ -45,7 +45,9 @@ Source: https://github.com/dogtagpki/ldap-sdk/archive/v%{version}%{?phase:-}%{?p
 # Patch: ldap-sdk-VERSION-RELEASE.patch
 
 BuildArch:        noarch
+%if 0%{?fedora}
 ExclusiveArch:    %{java_arches} noarch
+%endif
 
 ################################################################################
 # Java
@@ -64,7 +66,7 @@ BuildRequires:    %{java_devel}
 BuildRequires:    javapackages-local
 BuildRequires:    slf4j
 BuildRequires:    slf4j-jdk14
-BuildRequires:    jss = 5.3
+BuildRequires:    jss = 5.4
 
 %description
 The Mozilla LDAP SDKs enable you to write applications which access,
@@ -80,7 +82,7 @@ Requires:         %{java_headless}
 Requires:         jpackage-utils >= 0:1.5
 Requires:         slf4j
 Requires:         slf4j-jdk14
-Requires:         jss = 5.3
+Requires:         jss = 5.4
 
 Obsoletes:        ldapjdk < %{version}-%{release}
 Provides:         ldapjdk = %{version}-%{release}
@@ -160,6 +162,11 @@ export JAVA_HOME=%{java_home}
 
 ################################################################################
 %changelog
+* Fri Jun 16 2023 Packit <hello@packit.dev> - 5.4.1-1
+- Updating version to v5.4.1 (Chris Kelley)
+- Upstream some spec file changes from Fedora to minimise diff (Chris Kelley)
+- Introduce Packit configuration for ldapjdk (Chris Kelley)
+
 * Tue Feb 07 2023 Dogtag PKI Team <devel@lists.dogtagpki.org> - 5.3.0-1
 - Rebase to LDAP SDK 5.3.0
 

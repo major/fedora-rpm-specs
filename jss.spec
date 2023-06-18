@@ -6,13 +6,13 @@ Name:           jss
 
 # Upstream version number:
 %global         major_version 5
-%global         minor_version 3
-%global         update_version 0
+%global         minor_version 4
+%global         update_version 2
 
 # Downstream release number:
 # - development/stabilization (unsupported): 0.<n> where n >= 1
 # - GA/update (supported): <n> where n >= 1
-%global         release_number 2
+%global         release_number 1
 
 # Development phase:
 # - development (unsupported): alpha<n> where n >= 1
@@ -26,7 +26,7 @@ Name:           jss
 Summary:        Java Security Services (JSS)
 URL:            https://github.com/dogtagpki/jss
 License:        MPL-1.1 or GPL-2.0-or-later or LGPL-2.1-or-later
-Version:        %{major_version}.%{minor_version}.%{update_version}
+Version:        5.4.2
 Release:        %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}
 
 # To generate the source tarball:
@@ -85,13 +85,13 @@ BuildRequires:  unzip
 BuildRequires:  gcc-c++
 BuildRequires:  nss-devel >= 3.66
 BuildRequires:  nss-tools >= 3.66
-BuildRequires:  %{java_devel}
-BuildRequires:  jpackage-utils
-BuildRequires:  slf4j
-BuildRequires:  slf4j-jdk14
-BuildRequires:  apache-commons-lang3
 
-BuildRequires:  junit
+BuildRequires:  %{java_devel}
+BuildRequires:  maven-local
+BuildRequires:  mvn(org.apache.commons:commons-lang3)
+BuildRequires:  mvn(org.slf4j:slf4j-api)
+BuildRequires:  mvn(org.slf4j:slf4j-jdk14)
+BuildRequires:  mvn(junit:junit)
 
 %description
 Java Security Services (JSS) is a java native interface which provides a bridge
@@ -105,11 +105,11 @@ This only works with gcj. Other JREs require that JCE providers be signed.
 Summary:        Java Security Services (JSS)
 
 Requires:       nss >= 3.66
+
 Requires:       %{java_headless}
-Requires:       jpackage-utils
-Requires:       slf4j
-Requires:       slf4j-jdk14
-Requires:       apache-commons-lang3
+Requires:       mvn(org.apache.commons:commons-lang3)
+Requires:       mvn(org.slf4j:slf4j-api)
+Requires:       mvn(org.slf4j:slf4j-jdk14)
 
 Obsoletes:      jss < %{version}-%{release}
 Provides:       jss = %{version}-%{release}
@@ -215,6 +215,11 @@ modutil -dbdir /etc/pki/nssdb -chkfips true | grep -q enabled && export FIPS_ENA
 
 ################################################################################
 %changelog
+* Fri Jun 16 2023 Packit <hello@packit.dev> - 5.4.2-1
+- Updating version to v5.4.2 (Chris Kelley)
+- Upstream spec file changes to reduce diffs (Chris Kelley)
+- Introduce Packit configuration for jss (Chris Kelley)
+
 * Tue Feb 07 2023 Dogtag PKI Team <devel@lists.dogtagpki.org> - 5.3.0-2
 - Update version number in JSSConfig.cmake
 

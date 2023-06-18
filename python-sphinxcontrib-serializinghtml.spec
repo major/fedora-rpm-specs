@@ -1,4 +1,3 @@
-%global _without_check 1
 %global pypi_name sphinxcontrib-serializinghtml
 
 # when bootstrapping sphinx, we cannot run tests yet
@@ -6,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.1.5
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Sphinx extension for serialized HTML
 License:        BSD
 URL:            http://sphinx-doc.org/
@@ -82,6 +81,9 @@ popd
 
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 1.1.5-9
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.1.5-8
 - Bootstrap for Python 3.12
 

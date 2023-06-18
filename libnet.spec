@@ -1,8 +1,8 @@
 Summary:        C library for portable packet creation and injection
 Name:           libnet
 Version:        1.2
-Release:        7%{?dist}
-License:        BSD
+Release:        8%{?dist}
+License:        BSD-2-Clause
 URL:            https://github.com/libnet/libnet
 Source0:        https://github.com/libnet/libnet/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Patch0:         libnet-config.patch
@@ -95,6 +95,9 @@ done
 %endif
 
 %changelog
+* Fri Jun 16 2023 Adrian Reber <adrian@lisas.de> - 1.2-8
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

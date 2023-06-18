@@ -1,7 +1,6 @@
-%global _without_extras 1
 Name:           python-lxml
 Version:        4.9.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        XML processing library combining libxml2/libxslt with the ElementTree API
 
 # The lxml project is licensed under BSD-3-Clause
@@ -98,6 +97,9 @@ cp -a build/lib.%{python3_platform}-*/* src/
 %doc README.rst
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 4.9.2-7
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 4.9.2-6
 - Bootstrap for Python 3.12
 

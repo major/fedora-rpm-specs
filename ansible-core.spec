@@ -14,7 +14,7 @@ Name: ansible-core
 Summary: A radically simple IT automation system
 Version: 2.15.0
 %global uversion %{version_no_tilde %{quote:%nil}}
-Release: 3%{?dist}
+Release: 4%{?dist}
 # The main license is GPLv3+. Many of the files in lib/ansible/module_utils
 # are BSD licensed. There are various files scattered throughout the codebase
 # containing code under different licenses.
@@ -96,10 +96,6 @@ BuildRequires: /usr/bin/python
 %if %{with argcomplete}
 Requires: python%{python3_pkgversion}-argcomplete
 %endif
-# Require packaging macros if rpm-build exists
-# This makes the transition seamless for other packages
-# This is DEPRECATED. Packages must explicitly BuildRequire ansible-packaging.
-Requires: (ansible-packaging if rpm-build)
 
 
 %global _description %{expand:
@@ -289,8 +285,12 @@ install -Dpm 0644 licenses/* -t %{buildroot}%{_pkglicensedir}
 
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 2.15.0-4
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Maxwell G <maxwell@gtmx.me> - 2.15.0-3
 - Add support for Python 3.12. Fixes rhbz#2196539.
+- Remove conditional Requires on ansible-packaging.
 
 * Tue May 23 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2.15.0-2
 - Disable tests in RHEL builds

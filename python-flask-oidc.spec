@@ -4,7 +4,7 @@
 
 Name:           python-%{tar_name}
 Version:        1.5.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        %{sum}
 
 License:        BSD-2-Clause
@@ -67,6 +67,9 @@ identity providers, for example, Microsoft’s Azure Active Directory
 %{_bindir}/oidc-register
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 1.5.0-4
+- Rebuilt for Python 3.12
+
 * Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.5.0-3
 - migrated to SPDX license
 

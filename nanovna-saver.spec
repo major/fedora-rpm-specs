@@ -1,6 +1,6 @@
 Name:		nanovna-saver
 Version:	0.5.5
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Tool for reading, displaying and saving data from the NanoVNA
 License:	GPLv3
 URL:		https://github.com/mihtjel/%{name}
@@ -66,6 +66,9 @@ rm -f %{buildroot}%{_docdir}/%{name}/LICENSE
 %{_datadir}/applications/NanoVNASaver.desktop
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 0.5.5-2
+- Rebuilt for Python 3.12
+
 * Tue Mar  7 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 0.5.5-1
 - New version
   Resolves: rhbz#2175630

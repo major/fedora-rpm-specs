@@ -11,6 +11,9 @@ License:       MIT
 URL:           http://www.gevent.org/
 Source0:       %{pypi_source %{modname} %{version} tar.gz}
 
+# Remove the usage of assertRaisesRegexp unit test alias removed in Python 3.12
+Patch:         https://github.com/gevent/gevent/pull/1944.patch
+
 BuildRequires: gcc
 BuildRequires: c-ares-devel
 BuildRequires: libev-devel

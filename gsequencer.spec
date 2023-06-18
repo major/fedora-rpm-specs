@@ -1,10 +1,10 @@
 Name:     gsequencer
-Version:  5.1.4
+Version:  5.3.8
 Release:  0%{?dist}
 Summary:  Audio processing engine
 License:  GPLv3+ and AGPLv3+ and GFDL
 URL:      http://nongnu.org/gsequencer
-Source:   http://download.savannah.gnu.org/releases/gsequencer/5.1.x/%{name}-%{version}.tar.gz
+Source:   http://download.savannah.gnu.org/releases/gsequencer/5.3.x/%{name}-%{version}.tar.gz
 ExcludeArch:        i686
 BuildRequires:      make
 BuildRequires:      libtool
@@ -31,6 +31,7 @@ BuildRequires:      pkgconfig(samplerate)
 BuildRequires:      pkgconfig(sndfile)
 BuildRequires:      pkgconfig(libinstpatch-1.0)
 BuildRequires:      pkgconfig(gtk4)
+BuildRequires:      pkgconfig(json-glib-1.0)
 BuildRequires:      pkgconfig(poppler-glib)
 BuildRequires:      pkgconfig(gstreamer-1.0)
 BuildRequires:      pkgconfig(gstreamer-app-1.0)

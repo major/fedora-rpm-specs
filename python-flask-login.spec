@@ -2,7 +2,7 @@
 
 Name:           python-flask-login
 Version:        0.6.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        User session management for Flask
 
 License:        MIT
@@ -58,6 +58,9 @@ extended periods of time.
 %license LICENSE
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 0.6.2-3
+- Rebuilt for Python 3.12
+
 * Mon May 01 2023 Sandro Mani <manisandro@gmail.com> - 0.6.2-3
 - Switch to pyproject macros
 

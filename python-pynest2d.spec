@@ -11,7 +11,7 @@
 
 Name:           python-pynest2d
 Version:        4.8.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Python bindings for libnest2d
 License:        LGPLv3
 URL:            https://github.com/Ultimaker/pynest2d
@@ -66,6 +66,9 @@ sed -i 's/CMAKE_CXX_STANDARD 11/CMAKE_CXX_STANDARD 14/' CMakeLists.txt
 
 
 %changelog
+* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 4.8.0-10
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 Summary: Tool for dynamic reconfiguration of validating resolver Unbound
 Name: dnssec-trigger
 Version: 0.17
-Release: 10%{?snapshot:.%{snapshot}git}%{?dist}
+Release: 11%{?snapshot:.%{snapshot}git}%{?dist}
 License: BSD
 Url: https://www.nlnetlabs.nl/projects/dnssec-trigger/
 
@@ -188,7 +188,7 @@ fi
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/%{name}/dnssec-trigger-default.conf
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/%{name}/dnssec-trigger-workstation.conf
 %attr(0755,root,root) %dir %{_sysconfdir}/ssh/ssh_config.d
-%attr(0755,root,root) %config(noreplace) %{_sysconfdir}/ssh/ssh_config.d/10-%{name}.conf
+%attr(0644,root,root) %config(noreplace) %{_sysconfdir}/ssh/ssh_config.d/10-%{name}.conf
 %dir %{_localstatedir}/run/%{name}
 %{_tmpfilesdir}/%{name}.conf
 %{_mandir}/man8/dnssec-trigger*
@@ -202,6 +202,9 @@ fi
 
 
 %changelog
+* Thu Jun 15 2023 Todd Zullinger <tmz@pobox.com> - 0.17-11
+- Remove execute bit on ssh_config.d snippet
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

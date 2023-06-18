@@ -1,5 +1,8 @@
+# Not yet packaged: python3dist(pettingzoo)
+%bcond gymnasium 0
+
 Name:           python-ratinabox
-Version:        1.6.3
+Version:        1.7.1
 Release:        %autorelease
 Summary:        A package for simulating motion and ephys data in continuous environments
 
@@ -36,12 +39,17 @@ Summary:        %{summary}
 %description -n python3-ratinabox %{common_description}
 
 
+%if %{with gymnasium}
+%pyproject_extras_subpkg -n python3-ratinabox gymnasium
+%endif
+
+
 %prep
 %autosetup -n ratinabox-%{version}
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x test
+%pyproject_buildrequires -x test%{?with_gymnasium:,gymnasium}
 
 
 %build
@@ -54,7 +62,11 @@ Summary:        %{summary}
 
 
 %check
-%pytest -n auto
+%if %{without gymnasium}
+# Indirectly (via ratinabox/contribs/TaskEnvironment.py) requires pettingzoo:
+ignore="${ignore-} --ignore=tests/test_taskenv.py"
+%endif
+%pytest ${ignore-} -v -n auto
 
 
 %files -n python3-ratinabox -f %{pyproject_files}

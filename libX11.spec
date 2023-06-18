@@ -4,7 +4,7 @@
 
 Summary: Core X11 protocol client library
 Name: libX11
-Version: 1.8.5
+Version: 1.8.6
 Release: 1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 License: MIT
 URL: http://www.x.org
@@ -122,6 +122,9 @@ make %{?_smp_mflags} check
 %{_mandir}/man5/*.5*
 
 %changelog
+* Fri Jun 16 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.8.6-1
+- libX11 1.8.6 (CVE-2023-3138)
+
 * Mon Jun 05 2023 Peter Hutterer <peter.hutterer@redhat.com> 1.8.5-1
 - libX11 1.8.5
 
