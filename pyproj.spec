@@ -3,7 +3,7 @@
 %global minimal_needed_proj_version 9.0.0
 
 Name:           pyproj
-Version:        3.5.0
+Version:        3.6.0
 Release:        1%{?dist}
 Summary:        Cython wrapper to provide python interfaces to Proj
 # this software uses the "MIT:Modern Style with sublicense" license
@@ -190,11 +190,11 @@ py.test-3 -m "not network and not grid"
 
 
 %changelog
-* Thu Mar 30 2023 Jos de Kloe <josdekloe@gmail.com> 3.5.0-0
-- Update to 3.5.0
+* Sat Jun 17 2023 Jos de Kloe <josdekloe@gmail.com> 3.6.0-1
+- Update to 3.6.0
 
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+* Thu Mar 30 2023 Jos de Kloe <josdekloe@gmail.com> 3.5.0-1
+- Update to 3.5.0
 
 * Wed Dec 28 2022 Jos de Kloe <josdekloe@gmail.com> 3.4.1-2
 - SPDX migration: checked the license text, and concluded that MIT is the

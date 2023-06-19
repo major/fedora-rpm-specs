@@ -3,7 +3,7 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555.
 #
 # We can enable the Doxygen PDF documentation as a substitute.
-%bcond_without doc_pdf
+%bcond doc_pdf 1
 
 # This package is arch-specific, because it computes properties of the system
 # (such as endianness) and stores them in generated header files. Hence, the

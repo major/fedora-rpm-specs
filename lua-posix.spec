@@ -2,7 +2,7 @@
 %bcond_with check
 
 Name:           lua-posix
-Version:        36.1
+Version:        36.2.1
 Release:        %autorelease
 Summary:        POSIX library for Lua
 License:        MIT

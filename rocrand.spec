@@ -4,22 +4,21 @@
 %global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
-%undefine _hardened_build
 # Compiler is hipcc, which is clang based:
 %global toolchain clang
-#The target doesn't support -fcf-protection:
-%global optflags %(o="%{optflags}"; echo ${o//-fcf-protection/})
+# hipcc does not support some clang flags
+%global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/')
 
 # Option to test suite for testing on real HW:
 %bcond_with check
 
 Name:           rocrand
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm random number generator
 
 Url:            https://github.com/ROCmSoftwarePlatform
-License:        MIT
+License:        MIT and BSD
 Source0:        %{url}/%{upstreamname}/archive/refs/tags/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 Source1:        %{url}/hipRAND/archive/refs/tags/rocm-%{version}.tar.gz#/hipRAND-%{version}.tar.gz
 
@@ -132,6 +131,10 @@ sed -i '/INSTALL_RPATH/d' hipRAND/library/CMakeLists.txt
 %{_libdir}/cmake/hiprand
 
 %changelog
+* Fri Jun 16 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.5.1-3
+- Fix hardening flags
+- Fix license field
+
 * Sat Jun 10 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.5.1-2
 - Add with check option (requires HW), useful for CI or manual tests
 - Drop chrpath, patch the cmake in prep instead

@@ -76,6 +76,9 @@ Summary:        Documentation for %{name}
 # upstream for changelog generation.
 sed -r -i '/"sphinx_issues",/d' docs/conf.py
 
+# Workaround for https://github.com/rpm-software-management/rpm/issues/2532:
+rm -rf SPECPARTS
+
 
 %generate_buildrequires
 %pyproject_buildrequires -t

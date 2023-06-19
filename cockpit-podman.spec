@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-podman
-Version:        70
+Version:        71
 Release:        1%{?dist}
 Summary:        Cockpit component for Podman containers
 License:        LGPL-2.1-or-later
@@ -84,6 +84,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Sat Jun 17 2023 Packit <hello@packit.dev> - 71-1
+- Add manifest condition for the Python bridge
+
 * Thu Jun 01 2023 Packit <hello@packit.dev> - 70-1
 - Add ability to prune unused containers
 

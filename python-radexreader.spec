@@ -19,7 +19,7 @@ de débrancher l'appareil après l'installation.}
 
 Name:          python-radexreader
 Version:       1.2.2
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       %{common_summary_en}
 Summary(fr):   %{common_summary_fr}
 License:       GPLv2+
@@ -80,6 +80,9 @@ install -p -m 644 ../debian/udev %{buildroot}/lib/udev/rules.d/60-python3-radexr
 
 
 %changelog
+* Sat Jun 17 2023 Python Maint <python-maint@redhat.com> - 1.2.2-4
+- Rebuilt for Python 3.12
+
 * Fri Jun 16 2023 Fabrice Creuzot <code@luigifab.fr> - 1.2.2-3
 - Package spec update
 

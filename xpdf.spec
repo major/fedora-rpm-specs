@@ -3,12 +3,13 @@
 Summary: A PDF file viewer for the X Window System
 Name: xpdf
 Version: 4.04
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: (GPL-2.0-only OR GPL-3.0-only) AND BSD-3-Clause
 Epoch: 1
 Url: http://www.xpdfreader.com/
 
 Source0: http://www.xpdfreader.com/dl/%{name}-%{version}.tar.gz
+%if 0%{?fedora}
 # We have to pull the following CMap files out due to non-free license.
 # CMap/Adobe-GB1-UCS2
 # CMap/GBK-EUC-UCS2
@@ -44,6 +45,7 @@ Source13: ftp://ftp.foolabs.com/pub/xpdf/xpdf-greek-2011-aug-15.tar.gz
 Source14: ftp://ftp.foolabs.com/pub/xpdf/xpdf-hebrew-2011-aug-15.tar.gz
 Source15: ftp://ftp.foolabs.com/pub/xpdf/xpdf-latin2-2011-aug-15.tar.gz
 Source16: ftp://ftp.foolabs.com/pub/xpdf/xpdf-turkish-2011-aug-15.tar.gz
+%endif
 
 Patch3: xpdf-4.01-ext.patch
 Patch9: xpdf-3.00-papersize.patch
@@ -74,6 +76,7 @@ Requires: xorg-x11-fonts-ISO8859-1-75dpi
 Requires: xorg-x11-fonts-ISO8859-1-100dpi
 Requires: qt5-qtsvg
 
+%if 0%{?fedora}
 BuildRequires: qt5-qtbase-devel, cmake
 BuildRequires: freetype-devel >= 2.1.7
 BuildRequires: fontconfig-devel
@@ -82,6 +85,13 @@ BuildRequires: libpaper-devel
 BuildRequires: libpng-devel
 BuildRequires: libXpm-devel
 BuildRequires: cups-devel
+%else
+BuildRequires: gcc-c++
+BuildRequires: cmake
+BuildRequires: freetype-devel >= 2.1.7
+BuildRequires: fontconfig-devel
+BuildRequires: libpng-devel
+%endif
 
 Provides:  %{name}-chinese-simplified = %{version}-%{release}
 Obsoletes: %{name}-chinese-simplified
@@ -100,8 +110,10 @@ Xpdf is an X Window System based viewer for Portable Document Format
 standard X fonts.
 
 %package devel
+%if 0%{?fedora}
 Requires: %{name}%{_isa} = %{epoch}:%{version}-%{release}
 Requires: libpaper-devel
+%endif
 Requires: fontconfig-devel, freetype-devel
 Requires: libpng-devel
 Summary: Development files for xpdf libraries
@@ -116,7 +128,11 @@ Summary: Libraries from xpdf
 Libraries from xpdf.
 
 %prep
+%if 0%{?fedora} 
 %setup -q -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 12 -a 13 -a 14 -a 15 -a 16
+%else
+%setup -q
+%endif
 %patch -P3 -p1 -b .ext
 %patch -P9 -p1 -b .papersize
 %patch -P11 -p1 -b .crash
@@ -139,6 +155,7 @@ sed -i 's|urlCommand|#urlCommand|g' doc/sample-xpdfrc
 %build
 find -name "*orig" | xargs rm -f
 
+%if 0%{?fedora}
 # This may seem pointless, but in the unlikely event that _sysconfdir != /etc ...
 for file in doc/*.1 doc/*.5 xpdf-*/README; do
   sed -i -e 's:/etc/xpdfrc:%{_sysconfdir}/xpdfrc:g' $file
@@ -148,15 +165,19 @@ for file in xpdf-*/README xpdf-*/add-to-xpdfrc; do
   sed -i -e 's:/usr/share/:%{_datadir}/:g' $file
   sed -i -e 's:/usr/local/share/:%{_datadir}/:g' $file
 done
+%endif
 
 export CFLAGS="%{optflags} -fPIC"
 export CXXFLAGS="%{optflags} -Wno-deprecated -fPIC"
 %cmake -DMULTITHREADED=ON -DOPI_SUPPORT=ON -DXPDFWIDGET_PRINTING=1 -DSYSTEM_XPDFRC="%{_sysconfdir}/xpdfrc"
 
 %cmake_build
+%if 0%{?fedora}
 %cmake_build --target xpdf
+%endif
 
 %install
+%if 0%{?fedora}
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/xpdf/arabic \
          $RPM_BUILD_ROOT%{_datadir}/xpdf/chinese-simplified \
          $RPM_BUILD_ROOT%{_datadir}/xpdf/chinese-traditional \
@@ -171,6 +192,7 @@ mkdir -p $RPM_BUILD_ROOT%{_datadir}/xpdf/arabic \
          $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/48x48/apps
 
 %cmake_install
+%endif
 
 # Y U NO INSTALL LIBS?!?
 mkdir -p $RPM_BUILD_ROOT%{_libdir}
@@ -190,6 +212,7 @@ cp -a xpdf/*.h $RPM_BUILD_ROOT%{_includedir}/xpdf/
 cp -a %{__cmake_builddir}/aconf.h $RPM_BUILD_ROOT%{_includedir}/xpdf/
 cp -a aconf2.h $RPM_BUILD_ROOT%{_includedir}/xpdf/
 
+%if 0%{?fedora}
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications/
 %if 0%{?rhel} > 5 || 0%{?fedora}
 desktop-file-install            \
@@ -249,9 +272,11 @@ done
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/
 cp -a doc/sample-xpdfrc $RPM_BUILD_ROOT%{_sysconfdir}/xpdfrc
 sed -i -e 's:/usr/local/share/:%{_datadir}/:g' $RPM_BUILD_ROOT%{_sysconfdir}/xpdfrc
+%endif
 
 %ldconfig_scriptlets
 
+%if 0%{?fedora}
 %files
 %license COPYING COPYING3
 %doc CHANGES README README.*
@@ -300,6 +325,7 @@ sed -i -e 's:/usr/local/share/:%{_datadir}/:g' $RPM_BUILD_ROOT%{_sysconfdir}/xpd
 %lang(tr) %{_datadir}/xpdf/turkish
 %{_datadir}/xpdf/cyrillic
 %{_datadir}/xpdf/latin2
+%endif
 
 %files devel
 %{_includedir}/xpdf/
@@ -309,6 +335,9 @@ sed -i -e 's:/usr/local/share/:%{_datadir}/:g' $RPM_BUILD_ROOT%{_sysconfdir}/xpd
 %{_libdir}/lib*.so.*
 
 %changelog
+* Fri Jun 16 2023 Than Ngo <than@redhat.com> - 1:4.04-9
+- added ELN/RHEL conditions
+
 * Fri Apr 28 2023 Tom Callaway <spot@fedoraproject.org> 1:4.04-8
 - move libs to -libs subpackage to minimize dep footprint of texlive-pdftex (bz2188328)
 

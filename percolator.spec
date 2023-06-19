@@ -225,10 +225,6 @@ pushd percolator
 %ctest
 popd
 
-pushd converters
-%{python3} data/system_tests/converters/SystemTest_Converters_Correctness.py
-popd
-
 %files
 # ASL 2.0 and MIT
 %{_bindir}/percolator

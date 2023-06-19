@@ -3,9 +3,9 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555.
 #
 # We can enable the Doxygen PDF documentation as a substitute.
-%bcond_without doc_pdf
+%bcond doc_pdf 1
 
-%bcond_without autoreconf
+%bcond autoreconf 1
 
 Name:           freexl
 Version:        1.0.6

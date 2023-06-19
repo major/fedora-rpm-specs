@@ -1,5 +1,5 @@
-%global commit c2e2189043af9e1985d016eca59c4b39a832b83f
-%global snapdate 20230522
+%global commit 056b6f5e1f7cc5046aac33e6331551b6b2813292
+%global snapdate 20230617
 
 Name:           dr_libs
 # While the individual header-only libraries are versioned, the overall
@@ -20,9 +20,9 @@ License:        Unlicense OR MIT-0
 #
 # - old/*.h are Unlicense (only)
 
-%global dr_flac_version 0.12.40
-%global dr_mp3_version 0.6.35
-%global dr_wav_version 0.13.9
+%global dr_flac_version 0.12.41
+%global dr_mp3_version 0.6.36
+%global dr_wav_version 0.13.10
 
 Source0:        %{url}/archive/%{commit}/dr_libs-%{commit}.tar.gz
 # Upstream does not provide a build system for the tests. We have written a

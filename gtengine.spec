@@ -2,8 +2,8 @@
 
 Name: gtengine
 Summary: Library for computations in mathematics, graphics, image analysis, and physics
-Version: 6.4
-Release: 3%{?dist}
+Version: 6.6
+Release: 1%{?dist}
 Epoch: 1
 License: Boost
 URL: http://www.geometrictools.com
@@ -53,6 +53,8 @@ testing that use %{name}.
 # Remove -Werror flags (rhbz#1923590)
 find . -type f \( -name "CMakeLists.txt" \) -exec sed -i 's| -Werror||g' '{}' \;
 
+sed -i 's|GTE_VERSION_MINOR 5|GTE_VERSION_MINOR 6|g' -i GTE/CMakeLists.txt
+
 %build
 %define __cmake_in_source_build .
 pushd GTE
@@ -94,7 +96,13 @@ cp -a GTE/Graphics $RPM_BUILD_ROOT%{_includedir}/GTE/
 cp -a GTE/Mathematics $RPM_BUILD_ROOT%{_includedir}/GTE/
 find $RPM_BUILD_ROOT%{_includedir}/GTE -type f -name "*.cpp" -exec rm -f '{}' \;
 
-## Install samples files
+mkdir -p $RPM_BUILD_ROOT%{_includedir}/GTL
+cp -a GTL/Mathematics $RPM_BUILD_ROOT%{_includedir}/GTL/
+cp -a GTL/Utility $RPM_BUILD_ROOT%{_includedir}/GTL/
+find $RPM_BUILD_ROOT%{_includedir}/GTL -type f -name "*.vcxproj" -exec rm -f '{}' \;
+find $RPM_BUILD_ROOT%{_includedir}/GTL -type f -name "*.sln" -exec rm -f '{}' \;
+
+## Install GTL files
 mkdir -p $RPM_BUILD_ROOT%{_libexecdir}/%{name}
 cp -a GTE/Samples $RPM_BUILD_ROOT%{_libexecdir}/%{name}/
 
@@ -142,14 +150,18 @@ EOF
 
 %files devel
 %{_includedir}/GTE/
+%{_includedir}/GTL/
 %{_libdir}/libgt*.so
 %{_libdir}/pkgconfig/gtengine.pc
 
 %files samples
-%doc GTE/*InstallationRelease.pdf
+%doc GTE/*InstallationRelease.pdf GTL/Documentation/GTLUtility.pdf
 %{_libexecdir}/%{name}/
 
 %changelog
+* Sat Jun 17 2023 Antonio Trande <sagitter@fedoraproject.org> 1:6.6-1
+- Release 6.6
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

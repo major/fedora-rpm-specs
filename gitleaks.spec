@@ -4,7 +4,7 @@
 # https://github.com/zricethezav/gitleaks
 %global forgeurl        https://github.com/zricethezav/gitleaks
 %global goipath         github.com/zricethezav/gitleaks/v8
-Version:                8.16.4
+Version:                8.17.0
 
 %gometa -f
 

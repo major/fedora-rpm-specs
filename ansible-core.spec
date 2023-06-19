@@ -14,7 +14,7 @@ Name: ansible-core
 Summary: A radically simple IT automation system
 Version: 2.15.0
 %global uversion %{version_no_tilde %{quote:%nil}}
-Release: 4%{?dist}
+Release: 5%{?dist}
 # The main license is GPLv3+. Many of the files in lib/ansible/module_utils
 # are BSD licensed. There are various files scattered throughout the codebase
 # containing code under different licenses.
@@ -44,6 +44,8 @@ Patch6001: https://github.com/ansible/ansible/commit/fd341265d001d4e6545ffb2b7d1
 Patch6002: https://github.com/ansible/ansible/commit/0df794e5a4fe4597ee65b0d492fbf0d0989d5ca0.patch#/urls-remove-deprecated-client-key-calls.patch
 # replace deprecated ast.value.s with ast.value.value (#80968)
 Patch6003: https://github.com/ansible/ansible/commit/742d47fa15a5418f98abf9aaf07edf466e871c81.patch#/replace-deprecated-ast.value.s.patch
+# Avoid deprecated importlib.abc.TraversableResources (#81082)
+Patch6004: https://github.com/ansible/ansible/pull/81082.patch#/avoid-importlib-resources-abc-deprecation.patch
 
 Url: https://ansible.com
 BuildArch: noarch
@@ -285,6 +287,9 @@ install -Dpm 0644 licenses/* -t %{buildroot}%{_pkglicensedir}
 
 
 %changelog
+* Sat Jun 17 2023 Maxwell G <maxwell@gtmx.me> - 2.15.0-5
+- Add patch to avoid importlib.abc.TraversableResources DeprecationWarning
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 2.15.0-4
 - Rebuilt for Python 3.12
 

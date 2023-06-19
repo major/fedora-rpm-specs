@@ -4,7 +4,7 @@
 %endif
 
 Name:           nextcloud-client
-Version:        3.8.2
+Version:        3.9.0
 Release:        %autorelease
 Summary:        The Nextcloud Client
 
@@ -220,7 +220,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/com.nextc
 
 %files libs
 %{_libdir}/libnextcloudsync.so.0
-%{_libdir}/libnextcloudsync.so.%%{version}
+%{_libdir}/libnextcloudsync.so.%{version}
 %{_libdir}/libnextcloud_csync.so*
 %doc README.md
 %config %{_sysconfdir}/Nextcloud/sync-exclude.lst

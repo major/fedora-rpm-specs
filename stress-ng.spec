@@ -1,11 +1,13 @@
 Name:		stress-ng
-Version:	0.15.06
-Release:	2%{?dist}
+Version:	0.15.10
+Release:	1%{?dist}
 Summary:	Stress test a computer system in various ways
 
 License:	GPLv2+
 URL:		https://github.com/ColinIanKing/stress-ng
 Source0:	https://github.com/ColinIanKing/stress-ng/archive/V%{version}/%{name}-%{version}.tar.gz
+# darn is not supported in Power ISA < 3.0, while Fedora aims for Power ISA 2.07
+Patch0:     0_15_10-poewrpc-remove-darn.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -52,6 +54,10 @@ install -pm 644 bash-completion/%{name} \
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Sat Jun 17 2023 Fabio Alessandro Locati <fale@fedoraproject.ora> - 0.15.10-1
+- Update to 0.15.10
+- Fixes rhbz#2186552
+
 * Mon Jun 05 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.15.06-2
 - Disable libbsd dependency in RHEL builds
 

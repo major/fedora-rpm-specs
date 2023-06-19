@@ -1,4 +1,4 @@
-%bcond_without autoreconf
+%bcond autoreconf 1
 
 Name:           eot-utils
 Version:        1.1
@@ -42,7 +42,7 @@ displays EOT metadata in a human-readable way.
 
 %build
 %if %{with autoreconf}
-autoreconf -f -i -v
+autoreconf --force --install --verbose
 %endif
 %configure
 %make_build

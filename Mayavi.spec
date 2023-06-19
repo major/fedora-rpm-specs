@@ -2,7 +2,7 @@
 
 Name:           Mayavi
 Version:        4.8.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Scientific data 3-dimensional visualizer
 License:        BSD and EPL and LGPLv2+ and LGPLv2 and LGPLv3
 URL:            http://code.enthought.com/projects/mayavi/
@@ -164,6 +164,9 @@ PYTHONPATH=${libdir} mayavi/scripts/mayavi2 -t || :
 
 
 %changelog
+* Sat Jun 17 2023 Python Maint <python-maint@redhat.com> - 4.8.1-4
+- Rebuilt for Python 3.12
+
 * Mon May 08 2023 Orion Poplawski <orion@nwra.com> - 4.8.1-3
 - Add upstream patch to fix build with Python 3.11 (FTBFS bz#2171427)
 

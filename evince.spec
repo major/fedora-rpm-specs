@@ -8,7 +8,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           evince
-Version:        44.1
+Version:        44.2
 Release:        1%{?dist}
 Summary:        Document viewer
 
@@ -279,6 +279,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Evince-p
 %{_mandir}/man1/evince-previewer.1*
 
 %changelog
+* Sat Jun 17 2023 Kalev Lember <klember@redhat.com> - 44.2-1
+- Update to 44.2
+
 * Wed Mar 22 2023 David King <amigadave@amigadave.com> - 44.1-1
 - Update to 44.1
 

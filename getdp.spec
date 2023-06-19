@@ -1,6 +1,6 @@
 Name:           getdp
 Version:        3.5.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        General Environment for the Treatment of Discrete Problems
 
 License:        GPL-2.0-or-later
@@ -89,6 +89,9 @@ rm -rf %{buildroot}%{_datadir}/doc/%{name}
 %{_libdir}/libgetdp.so
 
 %changelog
+* Sat Jun 17 2023 Python Maint <python-maint@redhat.com> - 3.5.0-7
+- Rebuilt for Python 3.12
+
 * Wed Apr 26 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 3.5.0-6
 - Drop conditionals for end-of-life Fedora releases
 - Drop obsolete ldconfig_scriptlets macro

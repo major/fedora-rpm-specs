@@ -2,7 +2,7 @@
 %global modname jsonschema_spec
 
 Name:           python-%{srcname}
-Version:        0.1.3
+Version:        0.1.6
 Release:        %autorelease
 Summary:        JSONSchema Spec with object-oriented paths
 
@@ -10,6 +10,19 @@ License:        Apache-2.0
 URL:            https://github.com/p1c2u/%{srcname}
 # The GitHub archive has the tests; the PyPI sdist does not.
 Source:         %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
+
+# Do not require quite such a recent version of requests
+#
+# Until python-requests is updated to 2.31.0[1], loosen the minimum version to
+# 2.28.2. It is an optional dependency that was added with “deptry”
+# analysis[2], which is only really useful for upstream CI, but it is also
+# imported from jsonschema_spec/handlers/requests.py. There is no obvious
+# reason why the most recent version (ahead of Rawhide as of this writing)
+# should be needed.
+#
+# [1] https://bugzilla.redhat.com/show_bug.cgi?id=2189970
+# [2] https://github.com/p1c2u/jsonschema-spec/commit/d207d233e31198942ba417875e2c1e09f848ab5d
+Patch:          0001-Do-not-require-quite-such-a-recent-version-of-reques.patch
 
 BuildArch:      noarch
 
@@ -30,7 +43,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{srcname}-%{version} -p1
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 sed -r -i '/^--cov[-=]/d' pyproject.toml
 

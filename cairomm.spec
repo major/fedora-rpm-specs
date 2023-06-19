@@ -4,7 +4,7 @@
 # “Let mm-common-get copy some files to untracked/”, i.e., replace scripts from
 # the tarball with those from mm-common. This is (potentially) required if
 # building an autotools-generated tarball with meson, or vice versa.
-%bcond_without maintainer_mode
+%bcond maintainer_mode 1
 
 # Doxygen HTML help is not suitable for packaging due to a minified JavaScript
 # bundle inserted by Doxygen itself. See discussion at
@@ -15,7 +15,7 @@
 # We still generate the HTML documentation, but strip out all the JavaScript
 # that causes policy issues. This degrades it in the browser, but is sufficient
 # to keep the Devhelp documentation working.
-%bcond_without doc_pdf
+%bcond doc_pdf 1
 
 Name:           cairomm
 Summary:        C++ API for the cairo graphics library

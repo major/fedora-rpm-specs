@@ -2,29 +2,30 @@
 %bcond_without check
 %global commit 3e8207aabe969098d2b4941142a1973008c63033
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global ts_commit 3a04b2cf93bd8fce277458d419eea8d9c326345c
+%global ts_commit 7ef86ddeed81458f9031a49a40b3a3f99c1c6a8a
 %global ts_shortcommit %(c=%{ts_commit}; echo ${c:0:7})
-%global wc_commit d9a80099d496b5cdba6f3fe8fc77586e0e505ddc
+%global wc_commit b6dd1fb658a282c64b029867845bc50ae59e1497
 %global wc_shortcommit %(c=%{wc_commit}; echo ${c:0:7})
 
 Summary: The WebAssembly Binary Toolkit
 Name: wabt
-Version: 1.0.32
-Release: 2%{?dist}
+Version: 1.0.33
+Release: 1%{?dist}
 URL: https://github.com/WebAssembly/wabt
 Source0: https://github.com/WebAssembly/wabt/archive/%{version}/%{name}-%{version}.tar.gz
 Source1: https://github.com/WebAssembly/testsuite/archive/%{ts_commit}/%{name}-testsuite-%{ts_shortcommit}.tar.gz
 Source2: https://github.com/WebAssembly/wasm-c-api/archive/%{wc_commit}/%{name}-wasm-c-api-%{wc_shortcommit}.tar.gz
 # https://github.com/WebAssembly/wabt/issues/1885
 Patch0: wabt-tests.patch
-# https://github.com/WebAssembly/wabt/issues/2099
-Patch1: wabt-32bit.patch
+Patch1: wabt-tests-i686.patch
 License: ASL 2.0
 BuildRequires: cmake3
 BuildRequires: gcc-c++
+BuildRequires: openssl-devel
 %if %{with check}
 BuildRequires: gtest-devel
 BuildRequires: python%{python3_pkgversion}-ply
+BuildRequires: simde-devel >= 0.7.4~rc4
 %endif
 # wasm.h from https://github.com/WebAssembly/wasm-c-api/ is used for build
 Provides: bundled(wasm-c-api) = %{wc_commit}
@@ -48,12 +49,18 @@ mv third_party/wasm-c-api{-%{wc_commit},}
 rmdir third_party/testsuite
 tar xzf %{S:1} -C third_party
 mv third_party/testsuite{-%{ts_commit},}
-%patch0 -p1 -b .orig
-%patch1 -p1 -b .32bit
+%patch 0 -p1 -b .orig
+%ifarch i686
+%patch 1 -p1 -b .i686
+%endif
 pushd test
 # https://github.com/WebAssembly/wabt/issues/2118
+# https://github.com/WebAssembly/wabt/issues/2240
+# https://bugzilla.redhat.com/show_bug.cgi?id=2210218
 %ifarch aarch64
 rm spec/relaxed-simd/relaxed_madd_nmadd.txt
+rm wasm2c/spec/simd_address.txt
+rm wasm2c/spec/simd_f32x4.txt
 %endif
 # https://github.com/WebAssembly/wabt/issues/1044
 %ifarch i686
@@ -69,24 +76,69 @@ rm wasm2c/spec/float_memory.txt
 rm wasm2c/spec/float_misc.txt
 rm wasm2c/spec/float_exprs.txt
 rm wasm2c/spec/local_tee.txt
+rm wasm2c/spec/memory64/float_memory64.txt
+rm wasm2c/spec/multi-memory/float_memory0.txt
 rm wasm2c/spec/select.txt
 %endif
 # https://github.com/WebAssembly/wabt/issues/1045
 # https://github.com/WebAssembly/wabt/issues/2118
+# https://github.com/WebAssembly/wabt/issues/2240
 %ifarch ppc64le
 rm spec/conversions.txt
 rm spec/relaxed-simd/relaxed_madd_nmadd.txt
 rm spec/simd_conversions.txt
 rm wasm2c/spec/conversions.txt
+rm wasm2c/spec/simd_address.txt
+rm wasm2c/spec/simd_bit_shift.txt
+rm wasm2c/spec/simd_f32x4_arith.txt
+rm wasm2c/spec/simd_f32x4_pmin_pmax.txt
+rm wasm2c/spec/simd_f64x2_pmin_pmax.txt
+rm wasm2c/spec/simd_i16x8_arith.txt
+rm wasm2c/spec/simd_splat.txt
 %endif
 # https://github.com/WebAssembly/wabt/issues/2070
 # https://github.com/WebAssembly/wabt/issues/2118
+# https://github.com/WebAssembly/wabt/issues/2240
 %ifarch s390x
 rm spec/relaxed-simd/relaxed_madd_nmadd.txt
 rm wasm2c/spec/bulk.txt
+rm wasm2c/spec/extended-const/data.txt
 rm wasm2c/spec/memory_copy.txt
 rm wasm2c/spec/memory_fill.txt
 rm wasm2c/spec/memory_init.txt
+rm wasm2c/spec/multi-memory/memory-multi.txt
+rm wasm2c/spec/multi-memory/memory_copy0.txt
+rm wasm2c/spec/multi-memory/memory_fill0.txt
+rm wasm2c/spec/simd_address.txt
+rm wasm2c/spec/simd_align.txt
+rm wasm2c/spec/simd_const.txt
+rm wasm2c/spec/simd_f64x2.txt
+rm wasm2c/spec/simd_f64x2_arith.txt
+rm wasm2c/spec/simd_i16x8_arith.txt
+rm wasm2c/spec/simd_i16x8_cmp.txt
+rm wasm2c/spec/simd_i16x8_sat_arith.txt
+rm wasm2c/spec/simd_i32x4_arith.txt
+rm wasm2c/spec/simd_i32x4_cmp.txt
+rm wasm2c/spec/simd_i64x2_arith.txt
+rm wasm2c/spec/simd_i64x2_arith2.txt
+rm wasm2c/spec/simd_i8x16_arith.txt
+rm wasm2c/spec/simd_i8x16_cmp.txt
+rm wasm2c/spec/simd_i8x16_sat_arith.txt
+rm wasm2c/spec/simd_lane.txt
+rm wasm2c/spec/simd_load.txt
+rm wasm2c/spec/simd_load16_lane.txt
+rm wasm2c/spec/simd_load32_lane.txt
+rm wasm2c/spec/simd_load64_lane.txt
+rm wasm2c/spec/simd_load8_lane.txt
+rm wasm2c/spec/simd_load_extend.txt
+rm wasm2c/spec/simd_load_splat.txt
+rm wasm2c/spec/simd_load_zero.txt
+rm wasm2c/spec/simd_store.txt
+rm wasm2c/spec/simd_store16_lane.txt
+rm wasm2c/spec/simd_store32_lane.txt
+rm wasm2c/spec/simd_store64_lane.txt
+rm wasm2c/spec/simd_store8_lane.txt
+rm wasm2c/spec-multi-output/memory_init.txt
 %endif
 popd
 %endif
@@ -100,7 +152,7 @@ popd
 
 %if %{with check}
 %check
-test/run-tests.py -v --bindir %{_vpath_builddir} --timeout=240 %{?_smp_mflags}
+test/run-tests.py -v --bindir %{_vpath_builddir} --timeout=1200 %{?_smp_mflags}
 %endif
 
 %files
@@ -121,6 +173,7 @@ test/run-tests.py -v --bindir %{_vpath_builddir} --timeout=240 %{?_smp_mflags}
 %{_datadir}/wabt
 %{_includedir}/wabt
 %{_includedir}/wasm-rt.h
+%{_includedir}/wasm-rt-exceptions.h
 %{_libdir}/cmake/wabt
 %{_libdir}/libwabt.a
 %{_libdir}/libwasm-rt-impl.a
@@ -138,6 +191,14 @@ test/run-tests.py -v --bindir %{_vpath_builddir} --timeout=240 %{?_smp_mflags}
 %{_mandir}/man1/wat2wasm.1*
 
 %changelog
+* Thu May 25 2023 Dominik Mierzejewski <dominik@greysector.net> 1.0.33-1
+- update to 1.0.33 (#2203483)
+- drop obsolete patch
+- disable failing tests on aarch64 and ppc64le (reported upstream)
+- fix running tests on i686
+- disable failing wasm2c tests on s390x (big endian not supported upstream)
+- fix deprecated patchN macro usage
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.32-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

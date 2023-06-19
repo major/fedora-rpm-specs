@@ -1,7 +1,7 @@
 %global _hardened_build 1
 Summary: Fast and lean authoritative DNS Name Server
 Name: nsd
-Version: 4.6.1
+Version: 4.7.0
 Release: 1%{?dist}
 License: BSD
 Url: http://www.nlnetlabs.nl/nsd/
@@ -112,6 +112,10 @@ exit 0
 %systemd_postun_with_restart nsd.service
 
 %changelog
+* Sat Jun 17 2023 Fabio Alessandro Locati <fale@fedoraproject.org> - 4.7.0-1
+- Update to 4.7.0
+- Resolves: rhbz#2211783
+
 * Sun Feb 19 2023 Fabio Alessandro Locati <fale@fedoraproject.org> - 4.6.1-1
 - Update to 4.6.1
 

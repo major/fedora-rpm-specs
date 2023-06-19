@@ -2,7 +2,7 @@
 %bcond_without  gui
 
 Name:           ansifilter
-Version:        2.19
+Version:        2.20
 Release:        1%{?dist}
 Summary:        ANSI terminal escape code converter
 License:        GPLv3+
@@ -90,6 +90,9 @@ rm -frv %{buildroot}%{_docdir}
 %endif
 
 %changelog
+* Sat Jun 17 2023 Filipe Rosset <rosset.filipe@gmail.com> - 2.20-1
+- Update to 2.20 fixes rhbz#2215705
+
 * Fri Mar 31 2023 Filipe Rosset <rosset.filipe@gmail.com> - 2.19-1
 - Update to 2.19 fixes rhbz#2178834
 

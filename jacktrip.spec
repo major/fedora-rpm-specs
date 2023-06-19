@@ -1,11 +1,13 @@
 Name:           jacktrip
-Version:        1.9.0
+Version:        1.10.0
 Release:        %autorelease
 Summary:        A system for high-quality audio network performance over the Internet
 
 License:        MIT and GPL-3.0-or-later and LGPL-3.0-only
 URL:            https://github.com/%{name}/%{name}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+%global fft_ver 06f2377
+Source1:        https://github.com/%{name}/Simple-FFT/tarball/%{fft_ver}/%{name}-Simple-FFT-%{fft_ver}.tar.gz
 
 BuildRequires:  meson, cmake, gcc-c++
 BuildRequires:  python3-pyyaml, python3-jinja2
@@ -38,8 +40,9 @@ bidirectional, high quality, uncompressed audio signal steaming.
 
 %prep
 %autosetup -p1
-rm -rf externals
-mkdir -p externals/weakjack
+rm -rf externals/*
+tar -C externals -xf %{SOURCE1}
+mv externals/%{name}-Simple-FFT-%{fft_ver} externals/Simple-FFT
 
 %build
 %meson -Drtaudio=enabled

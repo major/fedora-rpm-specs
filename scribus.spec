@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.5.8
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Desktop Publishing application written in Qt
 # swatches bring in the fun licenses
 License:        GPLv2+ and OGL and CC0 and CC-BY and CC-BY-SA and Public Domain and ASL 2.0 and LGPLv2+ 
@@ -16,6 +16,7 @@ Source0:        %{name}-%{version}-free.tar.xz
 
 Patch0:         scribus-1.5.8-poppler-22.08.0.patch
 Patch1:         scribus-1.5.8-poppler-22.09.0.patch
+Patch2:         scribus-1.5.8-python-3.12.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake
@@ -140,6 +141,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sun Jun 18 2023 Robert Scheck <robert@fedoraproject.org> - 1.5.8-11
+- Backported upstream patch to fix PyUnicode_AS_UNICODE (#2155514)
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 1.5.8-10
 - Rebuilt for Python 3.12
 

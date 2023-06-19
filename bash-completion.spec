@@ -5,7 +5,7 @@
 
 Name:           bash-completion
 Version:        2.11
-Release:        10%{?dist}
+Release:        11%{?dist}
 Epoch:          1
 Summary:        Programmable completion for Bash
 
@@ -51,6 +51,9 @@ rm %{buildroot}%{_datadir}/bash-completion/completions/makepkg
 # Bug 2088307 - Remove completions for prelink
 rm %{buildroot}%{_datadir}/bash-completion/completions/prelink
 
+# Bug 2188865 - Remove bash completions for javaws as it's not shipped with Fedora
+rm %{buildroot}%{_datadir}/bash-completion/completions/javaws
+
 %check
 # For some tests involving non-ASCII filenames
 export LANG=C.UTF-8
@@ -78,6 +81,10 @@ make -C completions check
 
 
 %changelog
+* Fri Jun 16 2023 Siteshwar Vashisht <svashisht@redhat.com> - 1:2.11-11
+- Remove bash completions for javaws
+  Resolves: #2188865
+
 * Tue Apr 11 2023 Lukáš Zaoral <lzaoral@redhat.com> - 1:2.11-10
 - migrate to SPDX license format
 

@@ -1,5 +1,5 @@
 Name:           libXISF
-Version:        0.2.6
+Version:        0.2.8
 Release:        %autorelease
 Summary:        Library to load and write XISF format
 License:        GPL-3.0-or-later

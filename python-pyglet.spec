@@ -4,11 +4,11 @@
 %bcond_without tests
 
 Name: python-%{srcname}
-Version: 1.5.23
-Release: 5%{?dist}
+Version: 1.5.27
+Release: 1%{?dist}
 Summary: A cross-platform windowing and multimedia library for Python
 
-License: BSD
+License: BSD-3-Clause
 URL: http://www.pyglet.org/
 
 # The upstream tarball includes some non-free files in the examples and tests,
@@ -19,6 +19,9 @@ URL: http://www.pyglet.org/
 # See the script for details.
 Source0: %{versionedname}-repacked.tar.gz
 Source1: pyglet-get-tarball.sh
+
+# Use importlib instead of imp
+Patch0: python-pyglet-imp.patch
 
 # Note that unbundling pypng removes "PNGImageDecoder", which is normally
 # available for advanced use cases. Instead of:
@@ -41,6 +44,9 @@ BuildRequires: pyproject-rpm-macros
 %if %{with tests}
 BuildRequires: /usr/bin/xvfb-run mesa-dri-drivers
 BuildRequires: python3-pytest
+# These two for gdkpixbuf2 tests
+BuildRequires: gtk2-devel
+BuildRequires: gdk-pixbuf2-devel
 # libpurple has sound files unbundled in the repacked tarball
 BuildRequires: libpurple
 %endif
@@ -129,6 +135,7 @@ ln -s %{_datadir}/sounds/purple/*.wav tests/data/media/
 # test_find_font_match & test_have_font skipped -- they look for a font named 'arial'
 # test_freetype_face tests are is skipped -- they depend on non-free font we remove
 # test_push_handlers_instance has broken mocking: https://github.com/pyglet/pyglet/issues/606
+# GdkPixBufTest.test_load_animation uses dinosaur.gif which we remove
 %pytest \
     -vv \
     --non-interactive \
@@ -136,6 +143,7 @@ ln -s %{_datadir}/sounds/purple/*.wav tests/data/media/
     --ignore=tests/integration/media \
     -m 'not (requires_user_action or requires_user_validation or only_interactive)' \
     -k 'not (test_find_font_match or test_have_font or test_freetype_face or test_push_handlers_instance)' \
+    --deselect tests/integration/image/test_gdkpixbuf2.py::GdkPixBufTest::test_load_animation \
     tests
 %endif
 
@@ -148,6 +156,11 @@ ln -s %{_datadir}/sounds/purple/*.wav tests/data/media/
 
 
 %changelog
+* Sat Jun 17 2023 Orion Poplawski <orion@nwra.com> - 1.5.27-1
+- Update to 1.5.27
+- Add patch for Python 3.12 support
+- Use SPDX License
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 1.5.23-5
 - Rebuilt for Python 3.12
 

@@ -20,6 +20,7 @@ BuildRequires:	desktop-file-utils
 BuildArch:	noarch
 
 Requires:	xfce4-panel
+Requires:	python3-psutil
 
 Provides:	xfpanel-switch = %{version}-%{release}
 Obsoletes:	xfpanel-switch <= 1.0.7

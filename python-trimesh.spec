@@ -1,5 +1,5 @@
 Name:           python-trimesh
-Version:        3.22.0
+Version:        3.22.1
 Release:        %autorelease
 Summary:        Import, export, process, analyze and view triangular meshes
 
@@ -44,13 +44,6 @@ BuildRequires:  python3dist(ezdxf)
 BuildRequires:  python3dist(pytest-xdist)
 
 # Command-line tools that are (optional) test dependencies:
-#
-# tests/test_export.py, tests/generic.py
-# Meshlab Server Does Not Work With XVFB
-# https://github.com/cnr-isti-vclab/meshlab/issues/237
-# Upstream closed as WONTFIX
-#BuildRequires:  /usr/bin/xvfb-run
-#BuildRequires:  /usr/bin/meshlabserver
 # tests/test_gltf.py
 # Not yet packaged: https://github.com/KhronosGroup/glTF-Validator
 #BuildRequires:  /usr/bin/gltf_validator
@@ -219,6 +212,14 @@ sed -r -i "/^[[:blank:]]*'xatlas',/d" setup.py
 #   (https://src.fedoraproject.org/rpms/embree2) but was retired; the current
 #   version was 4.x.
 sed -r -i "/^[[:blank:]]*'embreex',/d" setup.py
+
+# Patch out an unavailable test dependency:
+#
+#   pymeshlab: not yet packaged, https://github.com/cnr-isti-vclab/PyMeshLab/;
+#              bundles MeshLab, which is a nontrivial package that has its own
+#              bundling; see “Support a system/external copy of meshlab?”
+#              https://github.com/cnr-isti-vclab/PyMeshLab/issues/309
+sed -r -i "/^[[:blank:]]*'pymeshlab',/d" setup.py
 
 # Stub out unavailable pyinstrument test dependency; we don’t really need to do
 # profiling anyway. Note that this does mean that API function
