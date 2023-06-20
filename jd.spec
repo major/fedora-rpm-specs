@@ -11,25 +11,26 @@
 ##########################################
 # Defined by upsteam
 #
-%define         main_ver      0.9.0
+%define         main_ver      0.10.0
 #%%define         strtag        20200118
+%define         pre_ver       beta
 ##########################################
 #
 %global         reponame      JDim
-%global         gitdate       20230107
-%global         gitcommit     eadc5fa9e7ea7bf84115402714b234dc2f0c9356
+%global         gitdate       20230617
+%global         gitcommit     fbf4bc371ee548c620b6f77ec0db91e261581892
 #%%global         gitcommit     JDim-v%{main_ver}
 %global         shortcommit   %(c=%{gitcommit}; echo ${c:0:7})
 
-%global         tarballdate   20230108
-%global         tarballtime   2224
+%global         tarballdate   20230619
+%global         tarballtime   0940
 
 ##########################################
 # Defined by vendor
 #
-%define         vendor_rel    2
+%define         baserelease    1
 %define         extra_rel     %{nil}
-%define         use_gitcommit_as_rel  0
+#%%define         use_gitcommit_as_rel  1
 # Tag name changed from vendor to vendorname so as not to
 # overwrite Vendor entry in Summary
 %define         vendorname    fedora
@@ -39,9 +40,9 @@
 
 ##########################################
 %if 0%{?use_gitcommit_as_rel} >= 1
-%global         rel           %{vendor_rel}.D%{gitdate}git%{shortcommit}%{?dist}
+%global         rel           %{baserelease}.D%{gitdate}git%{shortcommit}%{?dist}
 %else
-%define         rel           %{vendor_rel}%{?dist}
+%define         rel           %{baserelease}%{?dist}
 %endif
 
 %define         _with_migemo  1
@@ -53,7 +54,7 @@
 ##########################################
 
 ##########################################
-%global		use_gcc_strict_sanitize	0
+#%%global		use_gcc_strict_sanitize	1
 
 %global		flagrel	%{nil}
 %if	0%{?use_cppcheck} >= 1
@@ -69,8 +70,8 @@
 
 Name:           jd
 Epoch:          1
-Version:        %{main_ver}%{?strtag:.%{strtag}}
-Release:        %{rel}%{flagrel}.1
+Version:        %{main_ver}%{?strtag:.%{strtag}}%{?pre_ver:~%{pre_ver}}
+Release:        %{rel}%{flagrel}
 Summary:        A 2ch browser
 
 License:        GPLv2
@@ -79,11 +80,6 @@ URL:            https://github.com/JDimproved/JDim
 #Source0:        http://dl.sourceforge.jp/jd4linux/%{repoid}/%{name}-%{main_ver}-%{strtag}.tgz
 Source0:        JDim-%{tarballdate}T%{tarballtime}.tar.gz
 Source1:        create-JD-git-bare-tarball.sh
-
-Patch0:         jdim-0.3.0-env-pkg-distro-specific.patch
-# Upstream patch
-# https://github.com/JDimproved/JDim/pull/1093
-Patch1:         0001-buidfix-add-missing-cstdint-to-misccharcode.cpp.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  %{gtkmmdevel}
@@ -126,23 +122,23 @@ git config user.name "%{name} Fedora maintainer"
 git config user.email "%{name}-owner@fedoraproject.org"
 
 %if 0%{?use_gitcommit_as_rel} >= 1
-git checkout -b %{version}-fedora-local %{gitcommit}
+git checkout -b %{main_ver}-fedora-local %{gitcommit}
 %else
-git checkout -b %{version}-fedora-local %{reponame}-v%{main_ver}
+git checkout -b %{main_ver}-fedora-local %{gitcommit}
+#git checkout -b %{main_ver}-fedora-local %{reponame}-v%{main_ver}
 %endif
 
 cp -a [A-Z]* ..
 
 # reset to base, as git information is embedded in the source
-git checkout -b %{version}-fedora
+git checkout -b %{main_ver}-fedora
 #git reset %{reponame}-v%{main_ver}
 %if 0%{?use_gitcommit_as_rel} >= 1
 git reset %{gitcommit}
 %else
-git reset %{reponame}-v%{main_ver}
+git reset %{gitcommit}
+#git reset %{reponame}-v%{main_ver}
 %endif
-
-cat %PATCH1 | git am
 
 %build
 cd %{reponame}
@@ -197,7 +193,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/jdim.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/jdim.metainfo.xml
 
 cd %{reponame}
-%if 0%{use_gcc_strict_sanitize} >= 1
+%if 0%{?use_gcc_strict_sanitize} >= 1
 export ASAN_OPTIONS=detect_leaks=0
 %endif
 %meson_test -v
@@ -214,6 +210,9 @@ export ASAN_OPTIONS=detect_leaks=0
 %{_datadir}/icons/hicolor/*/apps/jdim.*
 
 %changelog
+* Mon Jun 19 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:0.10.0~beta-1
+- 0.10.0 beta
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.9.0-2.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

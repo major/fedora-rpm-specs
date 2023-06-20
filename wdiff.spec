@@ -1,4 +1,4 @@
-%bcond_without rebuild_mans
+%bcond rebuild_mans 1
 
 Name:           wdiff
 Version:        1.2.2

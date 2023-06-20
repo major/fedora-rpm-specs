@@ -1,4 +1,4 @@
-%bcond_without tests
+%bcond tests 1
 
 Name:           v-hacd
 Version:        4.1.0

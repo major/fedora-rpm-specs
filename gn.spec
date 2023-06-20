@@ -1,8 +1,8 @@
 # Build HTML docs from markdown using pandoc?
-%bcond_without html_docs
+%bcond html_docs 1
 # Normally, treating warnings as errors is too strict for downstream builds.
 # It’s nice to be able to turn it on, though.
-%bcond_with werror
+%bcond werror 0
 
 Name:           gn
 # Upstream uses the number of commits in the git history as the version number.
@@ -27,10 +27,10 @@ Name:           gn
 #  7. Commit the changes
 #
 # See https://gn.googlesource.com/gn/+log for the latest changes.
-%global commit e3978de3e8dafb50a2b11efa784e08699a43faf8
-%global access 20230529
+%global commit 4bd1a77e67958fb7f6739bd4542641646f264e5d
+%global access 20230618
 %global shortcommit %(c='%{commit}'; echo "${c:0:12}")
-%global position 2106
+%global position 2109
 Version:        %{position}^%{access}git%{shortcommit}
 Release:        %autorelease
 Summary:        Meta-build system that generates build files for Ninja

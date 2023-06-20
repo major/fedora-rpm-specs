@@ -1,4 +1,5 @@
-%bcond_without icu
+%bcond icu 1
+
 Name:           xalan-c
 Version:        1.12.0
 # The soversion is made from the major and minor version numbers, e.g. 112 for

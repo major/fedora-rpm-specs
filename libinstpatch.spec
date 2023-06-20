@@ -1,7 +1,7 @@
 # https://github.com/swami/libinstpatch/issues/34
 #
 # Since this has never worked, we do not have %%files entries for the result.
-%bcond_with introspection
+%bcond introspection 0
 
 Name:           libinstpatch
 Version:        1.1.6

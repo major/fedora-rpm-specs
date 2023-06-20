@@ -4,7 +4,7 @@
 
 Name:		vips
 Version:	%{vips_version}
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	C/C++ library for processing large images
 
 License:	LGPLv2+
@@ -217,6 +217,9 @@ make check
 
 
 %changelog
+* Sun Jun 18 2023 Sérgio Basto <sergio@serjux.com> - 8.13.3-8
+- Mass rebuild for jpegxl-0.8.1
+
 * Sat Mar 04 2023 Sandro Mani <manisandro@gmail.com> - 8.13.3-7
 - Rebuild (libimagequant)
 

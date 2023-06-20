@@ -17,7 +17,7 @@
 %endif
 
 Name:       tracer
-Version:    0.7.10
+Version:    0.7.11
 Release:    2%{?dist}
 Summary:    Finds outdated running applications in your system
 
@@ -197,8 +197,12 @@ make DESTDIR=%{buildroot}%{_datadir} mo
 
 
 %changelog
-* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.7.10-2
+* Sun Jun 18 2023 Python Maint <python-maint@redhat.com> - 0.7.11-2
 - Rebuilt for Python 3.12
+
+* Sun Jun 18 2023 Jakub Kadlcik <frostyx@email.cz> 0.7.11-1
+- Rather create a /run/reboot-required not /var/run/reboot-required
+  (frostyx@email.cz)
 
 * Mon Jun 05 2023 Jakub Kadlcik <frostyx@email.cz> 0.7.10-1
 - Update license to SPDX (frostyx@email.cz)

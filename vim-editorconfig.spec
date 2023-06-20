@@ -1,7 +1,7 @@
 # Currently, rubygem(vimrunner) is not packaged so we cannot run the plugin
 # tests. Some other work may be required to get them running. See also
 # https://github.com/editorconfig/editorconfig-vim/issues/150.
-%bcond_with plugin_tests
+%bcond plugin_tests 0
 
 # In Fedora, vim plugin packages should ideally start with the vim- prefix:
 Name:           vim-editorconfig

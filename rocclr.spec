@@ -10,7 +10,7 @@
 
 Name:           rocclr
 Version:        %{rocm_version}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        ROCm Compute Language Runtime
 Url:            https://github.com/ROCm-Developer-Tools/clr
 License:        MIT
@@ -47,6 +47,9 @@ Patch6:         0002-Move-FindHIP-to-datadir.patch
 Patch7:         https://github.com/ROCm-Developer-Tools/clr/commit/cbb393719633f5ade47efbe8d2946e5f649c1f22.patch
 Patch102:       https://github.com/ROCm-Developer-Tools/HIP/commit/e18cbe64c173f6f9abf1b56f78cdd9bc7d4716d2.patch
 Patch103:       https://github.com/ROCm-Developer-Tools/HIP/commit/802e3f439726b0c119f58de5dde8770cda75b2b0.patch
+
+# a fix for building blender
+Patch8:         0001-add-uint64_t-variant-for-__ffsll.patch
 
 BuildRequires:  cmake
 BuildRequires:  clang-devel
@@ -314,6 +317,9 @@ fi
 %{_docdir}/hip
 
 %changelog
+* Sun Jun 18 2023 Tom Rix <trix@redhat.com> - 5.5.1-9
+- Fix building upstream blender 3.5.x
+
 * Sat Jun 10 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.5.1-8
 - Fix hip-lang-config.cmake bug (upstream patch)
 

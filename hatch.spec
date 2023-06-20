@@ -1,4 +1,4 @@
-%bcond_without tests
+%bcond tests 1
 
 # Use this to package a pre-release
 #global commit xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx

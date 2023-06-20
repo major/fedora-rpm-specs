@@ -4,7 +4,7 @@
 Name:    gthumb
 Epoch:   1
 Version: 3.12.2
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Image viewer, editor, organizer
 
 License: GPLv2+
@@ -98,6 +98,9 @@ package.
 %{_datadir}/aclocal/gthumb.m4
 
 %changelog
+* Sun Jun 18 2023 Sérgio Basto <sergio@serjux.com> - 1:3.12.2-8
+- Mass rebuild for jpegxl-0.8.1
+
 * Sat Mar 18 2023 Kalev Lember <klember@redhat.com> - 3.12.2-7
 - Enable avif support through libheif (#2165606)
 - Fix plugin requires filtering to not filter out library dependencies

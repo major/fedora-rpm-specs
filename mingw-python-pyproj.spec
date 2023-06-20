@@ -4,7 +4,7 @@
 
 Name:           mingw-python-%{pypi_name}
 Summary:        MinGW Python %{pypi_name} library
-Version:        3.5.0
+Version:        3.6.0
 Release:        1%{?dist}
 BuildArch:      noarch
 
@@ -91,6 +91,9 @@ export PROJ_VERSION=`mingw64-pkg-config --modversion proj`
 
 
 %changelog
+* Sun Jun 18 2023 Sandro Mani <manisandro@gmail.com> - 3.6.0-1
+- Update to 3.6.0
+
 * Mon Apr 03 2023 Sandro Mani <manisandro@gmail.com> - 3.5.0-1
 - Update to 3.5.0
 

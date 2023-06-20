@@ -12,14 +12,16 @@
 %endif
 
 Name:           python-%{modname}
-Version:        7.1.7
-Release:        5%{?dist}
+Version:        7.1.8
+Release:        3%{?dist}
 Summary:        Write Python extensions in C++
 
 License:        BSD
 URL:            http://CXX.sourceforge.net/
 
 BuildArch:      noarch
+
+BuildRequires:  python3-setuptools
 
 Source0:        http://downloads.sourceforge.net/cxx/%{modname}-%{version}.tar.gz
 # Patch0:  remove unnecessary 'Src/' directory from include path in sources
@@ -129,6 +131,16 @@ test "$(pkg-config --modversion PyCXX)" = "%{version}"
 
 
 %changelog
+* Sun Jun 18 2023 Barry A. Scott <barry@barrys-emacs.org> - 7.1.8-3
+- Add python3-setuptools so that distutils is available to setup.py
+
+* Sun Jun 18 2023 Python Maint <python-maint@redhat.com> - 7.1.8-2
+- Rebuilt for Python 3.12
+
+* Sun Jun 18 2023 Barry A. Scott <barry@barrys-emacs.org> - 7.1.8-1
+- Update to 7.1.8 to be in sync with upstream.
+  This includes support for Python 3.12 beta 1
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 7.1.7-5
 - Rebuilt for Python 3.12
 

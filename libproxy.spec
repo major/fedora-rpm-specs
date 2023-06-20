@@ -3,7 +3,7 @@
 %global __requires_exclude ^(%{_privatelibs})$
 
 Name:           libproxy
-Version:        0.5.1
+Version:        0.5.2
 Release:        1%{?dist}
 Summary:        A library handling all the details of proxy configuration
 
@@ -121,6 +121,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sun Jun 18 2023 David King <amigadave@amigadave.com> - 0.5.2-1
+- Update to 0.5.2
+
 * Wed May 24 2023 David King <amigadave@amigadave.com> - 0.5.1-1
 - Update to 0.5.1
 

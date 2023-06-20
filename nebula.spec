@@ -3,9 +3,10 @@
 
 # https://github.com/slackhq/nebula
 %global goipath         github.com/slackhq/nebula
-Version:                1.6.1
+Version:                1.7.2
 
-%gometa
+%gometa -f
+
 %global goname nebula
 
 %global common_description %{expand:
@@ -35,8 +36,6 @@ Conflicts:      nebula < 1.0
 
 %prep
 %goprep
-# https://github.com/slackhq/nebula/pull/791
-sed -i 's/\(Wants=.*\)$/\1 nss-lookup.target time-sync.target/' dist/fedora/nebula.service
 
 %generate_buildrequires
 %go_generate_buildrequires

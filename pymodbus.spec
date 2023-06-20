@@ -21,17 +21,17 @@ Server Features \
     * A number of backing contexts (database, redis, a slave device)
 
 Name: pymodbus
-Version: 3.2.2
-Release: 3%{?dist}
+Version: 3.3.1
+Release: 1%{?dist}
 Summary: %{sum}
 
 License: BSD
 URL: https://github.com/pymodbus-dev/pymodbus/
 Source0: https://github.com/pymodbus-dev/pymodbus/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
-# Upstream patch, commit 533e0edc9c79fd3f80034c3799fafc0cbc0479be
-Patch0: 0001-Do-not-overwrite-command-line-1459.patch
-# Upstream patch, commit f815003721f91496874d677b3a1255bbe00b6f53
-Patch1: 0001-pymodbus.simulator-fixes-1463.patch
+# Upstream patch, solves a startup issue with pymodbus.server
+#  commit: 56591a483c66c803ba7a3c092a3ab270e504b1cf
+Patch0: 0001-Fix-regression-with-REPL-server-not-listening-1604.patch
+
 BuildArch: noarch
 BuildRequires: python3-devel
 
@@ -73,14 +73,8 @@ sed -i '/setuptools/d' requirements.txt
 %pyproject_install
 %pyproject_save_files pymodbus
 
-# additional files reuiqred for pymodbus.simulator
-install -m 644 pymodbus/server/simulator/setup.json %{buildroot}%{python3_sitelib}/pymodbus/server/simulator/
-install -d %{buildroot}%{python3_sitelib}/pymodbus/server/simulator/web/generator
-install -m 644 pymodbus/server/simulator/web/{*.png,*.ico,*.css,*.html} %{buildroot}%{python3_sitelib}/pymodbus/server/simulator/web/
-install -m 644 pymodbus/server/simulator/web/generator/* %{buildroot}%{python3_sitelib}/pymodbus/server/simulator/web/generator/
-
 # delete unnecessary shebang
-sed -i '/^#!\/usr\/bin\/env.*$/d' $RPM_BUILD_ROOT%{python3_sitelib}/pymodbus/client/serial_asyncio/__init__.py
+sed -i '/^#!\/usr\/bin\/env.*$/d' $RPM_BUILD_ROOT%{python3_sitelib}/pymodbus/transport/serial_asyncio/__init__.py
 sed -i '/^#!\/usr\/bin\/env.*$/d' $RPM_BUILD_ROOT%{python3_sitelib}/pymodbus/server/simulator/main.py
 
 # remove test files
@@ -92,10 +86,16 @@ rm -rf %{buildroot}%{python3_sitelib}/test
 %{_bindir}/pymodbus.console
 %{_bindir}/pymodbus.server
 %{_bindir}/pymodbus.simulator
-%{python3_sitelib}/pymodbus/server/simulator/web
-%{python3_sitelib}/pymodbus/server/simulator/setup.json
 
 %changelog
+* Sat Jun 17 2023 Christian Krause <chkr@fedoraproject.org> - 3.3.1-1
+- Update to 3.3.1 (#2212064)
+- Add upstream patch for pymodbus.server
+- Remove patches already applied upstream
+- Remove manual installation for pymodbus.simulator, now done
+  automatically
+- Adjust path for shebang fix to upstream directory changes
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.2.2-3
 - Rebuilt for Python 3.12
 

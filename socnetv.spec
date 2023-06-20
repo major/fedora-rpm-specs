@@ -1,8 +1,8 @@
 %global debug_package %{nil}
 
 Name:		socnetv
-Version:	3.0.4
-Release:	5%{?dist}
+Version:	3.1
+Release:	1%{?dist}
 License:	GPLv3
 Summary:	A Social Networks Analyser and Visualiser
 URL:		https://socnetv.org/
@@ -10,14 +10,16 @@ Source0:	https://github.com/socnetv/app/archive/v%{version}.tar.gz#/%{name}-%{ve
 BuildRequires: make
 BuildRequires:	gcc-c++
 BuildRequires:	gzip
-BuildRequires:	qt5-linguist
+BuildRequires:	qt6-linguist
 BuildRequires:	desktop-file-utils
-# qt5-qtbase-devel
-BuildRequires:	pkgconfig(Qt5)
-# qt5-qtsvg-devel
-BuildRequires:	pkgconfig(Qt5Svg)
-# qt5-qtcharts-devel
-BuildRequires:	pkgconfig(Qt5Charts)
+# qt6-qtbase-devel
+BuildRequires:	pkgconfig(Qt6)
+# qt6-qtsvg-devel
+BuildRequires:	pkgconfig(Qt6Svg)
+# qt6-qtcharts-devel
+BuildRequires:	pkgconfig(Qt6Charts)
+# qt6-qt5compat-devel
+BuildRequires:	pkgconfig(Qt6Core5Compat)
 
 %description
 Social Network Visualizer (SocNetV) is a cross-platform, user-friendly
@@ -30,8 +32,8 @@ gunzip changelog.gz
 chmod -x changelog
 
 %build
-lrelease-qt5 socnetv.pro
-qmake-qt5
+lrelease-qt6 socnetv.pro
+qmake6
 %{make_build}
 
 
@@ -63,6 +65,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sun Jun 18 2023 TI_Eugene <ti.eugene@gmail.com> 3.1-1
+- Version bump
+- Qt6
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

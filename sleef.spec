@@ -2,19 +2,19 @@
 # Fedora at -O2, and is not well-supported upstream. Additionally, it uses
 # illegal instructions on ARM and s390x, at least on the Fedora build machines.
 # See https://github.com/shibatch/sleef/issues/214.
-%bcond_with dft
+%bcond dft 0
 # We would like to ship the quad-precision library, but since it is still
 # considered experimental, it may have breaking ABI or API changes without an
 # soversion bump, which is a no-no in Fedora. Rather than contorting ourselves
 # to accommodate this, we disable it until it stabilizes or some dependent
 # package appears.
-%bcond_with quad
+%bcond quad 0
 # Similarly, Fedora packages should not ship static libraries unless absolutely
 # required. Some software, like pytorch, really does rely on the inline headers
 # and accompanying static support library for exceptional performance
 # requirements, but no such software exists in Fedora at the moment. We will
 # leave this feature disabled until someone asks for it.
-%bcond_with static
+%bcond static 0
 
 Name:           sleef
 Version:        3.5.1

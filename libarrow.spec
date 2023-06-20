@@ -31,7 +31,7 @@
 
 Name:		libarrow
 Version:	12.0.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
@@ -864,6 +864,9 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
+* Sun Jun 18 2023  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 12.0.1-3
+- Rebuilt for Python 3.12 and thrift-0.15.0
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 12.0.1-2
 - Rebuilt for Python 3.12
 

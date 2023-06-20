@@ -15,7 +15,7 @@
 # request for this library arises, this decision may be revisited, or the
 # necessary rewrite may be done and offered upstream. For now, we omit the
 # library and expect it will not be missed.
-%bcond_with stb_include
+%bcond stb_include 0
 
 Name:           stb
 # While the individual header-only libraries are versioned, the overall

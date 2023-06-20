@@ -30,9 +30,9 @@ Summary: SIMD Everywhere
 License: MIT and CC0-1.0
 URL: https://github.com/simd-everywhere/simde
 Source0: https://github.com/simd-everywhere/simde/archive/%{commit_simde}.tar.gz
-# Use the `.packit/ci.sh` on the pull-requset below until it will be merged.
-# https://github.com/simd-everywhere/simde/blob/master/.packit/ci.sh
-# https://github.com/simd-everywhere/simde/pull/1044
+# Use the `.packit/ci.sh` separately until the file will be included in the
+# archive tar.gz file in the next release.
+# https://raw.githubusercontent.com/simd-everywhere/simde/496e2d032b62648ba764aca156adfd231c022908/.packit/ci.sh
 Source1: ci.sh
 # gcc and clang are used in the unit tests.
 BuildRequires: clang
@@ -112,50 +112,28 @@ sed -i -e '/^cat \/proc\/meminfo/ s/^/#/' ci.sh
 # Use the meson RPM package instead of the PyPI package.
 sed -i -e '/^pip3 install meson/ s/^/#/' ci.sh
 # Comment out the default configuration.
-sed -i -e '/^IGNORE_EXIT_STATUS=/,/^SKIP_i686_GCC_DEFAULT=/ s/^/#/' ci.sh
-# Print the difference on the debugging purpose.
-diff -u "%{SOURCE1}" ci.sh || :
-
-# Prepare to test on the GCC case with RPM build flags.
-cp -p ci.sh ci_gcc.sh
-# Print the failing messages in the CPU cases without checking the exit status.
-IGNORE_EXIT_STATUS=
-%ifarch i686 ppc64le
-IGNORE_EXIT_STATUS=true
-%endif
+sed -i -e '/^IGNORE_EXIT_STATUS=/ s/^/#/' ci.sh
+sed -i -e '/^MATRIX_.*=/ s/^/#/' ci.sh
 # Prepare the configuration.
 cat > config.txt <<EOF
-IGNORE_EXIT_STATUS=${IGNORE_EXIT_STATUS}
-SKIP_ALL_GCC_DEFAULT=true
-SKIP_ALL_GCC_O2=true
-SKIP_ALL_GCC_RPM=
-SKIP_ALL_CLANG_DEFAULT=true
-SKIP_ALL_CLANG_O2=true
-SKIP_ALL_CLANG_RPM=true
+IGNORE_EXIT_STATUS=
+MATRIX_DEFAULT_GCC_DEFAULT="exclude"
+MATRIX_DEFAULT_GCC_O2="exclude"
+MATRIX_DEFAULT_GCC_RPM="include"
+MATRIX_DEFAULT_CLANG_DEFAULT="exclude"
+MATRIX_DEFAULT_CLANG_O2="exclude"
+MATRIX_DEFAULT_CLANG_RPM="pend"
+MATRIX_i686_GCC_RPM="pend"
+MATRIX_ppc64le_GCC_RPM="pend"
 EOF
 # Insert the configuration.
-sed -i -e '/^#SKIP_i686_GCC_DEFAULT=/r config.txt' ci_gcc.sh
+sed -i -e '/^# Configuration$/r config.txt' ci.sh
 # Print the difference on the debugging purpose.
-diff -u ci.sh ci_gcc.sh || :
-
-# Prepare to test on the Clang case with RPM build flags.
-cp -p ci.sh ci_clang.sh
-# Print the failing messages in the CPU cases without checking the exit status.
-IGNORE_EXIT_STATUS=true
-# Prepare the configuration to be inserted.
-cat > config.txt <<EOF
-IGNORE_EXIT_STATUS=${IGNORE_EXIT_STATUS}
-SKIP_ALL_GCC_DEFAULT=true
-SKIP_ALL_GCC_O2=true
-SKIP_ALL_GCC_RPM=true
-SKIP_ALL_CLANG_DEFAULT=true
-SKIP_ALL_CLANG_O2=true
-SKIP_ALL_CLANG_RPM=
-EOF
-# Insert the configuration.
-sed -i -e '/^#SKIP_i686_GCC_DEFAULT=/r config.txt' ci_clang.sh
-# Print the difference on the debugging purpose.
-diff -u ci.sh ci_clang.sh || :
+if diff -u "%{SOURCE1}" ci.sh; then
+  exit 1
+elif "${?}" != 1; then
+  exit 2
+fi
 
 # Set environment variables to test with RPM build flags.
 # See <https://github.com/simd-everywhere/simde/blob/master/.packit/simde.spec>.
@@ -172,8 +150,7 @@ export CI_GCC_RPM_CXXFLAGS="%{build_cxxflags} -fno-strict-aliasing"
 export CI_GCC_RPM_LDFLAGS="%{build_ldflags}"
 
 # Run tests.
-/bin/time -f '=> [%E]' ./ci_gcc.sh
-/bin/time -f '=> [%E]' ./ci_clang.sh
+/bin/time -f '=> [%E]' ./ci.sh
 
 %files devel
 %license COPYING

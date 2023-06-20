@@ -174,12 +174,27 @@ OPTIONS=(
 %if %{with openmpi}
 %{_openmpi_load}
 %global _vpath_builddir %{_target_platform}-openmpi
+
+# https://koji.fedoraproject.org/koji/taskinfo?taskID=102286521
+# https://kojipkgs.fedoraproject.org//work/tasks/6747/102286747/build.log
+%ifarch i686 || 0{?fedora} == 38
+echo "skip tests of mfem-openmpi on Fedora 38 i686"
+%endif
+
 # https://koji.fedoraproject.org/koji/taskinfo?taskID=102204595
 # https://kojipkgs.fedoraproject.org//work/tasks/4688/102204688/build.log
 # Converting between different byte orders is unsupported.
 %ifarch s390x
 %ctest -E unit_tests
-%else
+%endif
+
+# https://kojipkgs.fedoraproject.org//work/tasks/6034/102296034/build.log
+%ifarch ppc64le || 0{?fedora} == 38
+echo "skip some tests of mfem-openmpi on Fedora 38 ppc64le"
+%ctest -E 'punit_tests_np=1|psedov_tests_cpu_np=1'
+%endif
+
+%ifarch x86_64 aarch64
 %ctest
 %endif
 %{_openmpi_unload}

@@ -1,21 +1,23 @@
-%global forgeurl https://github.com/zealdocs/zeal
 %global commit 1cfa7c637f745be9d98777f06b4f8dec90892bf2
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
 %global debug_package %{nil}
-
-%forgemeta
 
 Name:           zeal
 Version:        0.6.2
-Release:        1%{?dist}
+Release:        2.20230618.%{shortcommit}%{?dist}
 Summary:        Offline documentation browser inspired by Dash
 
 License:        GPLv3+
 URL:            https://zealdocs.org/
-Source:         %{forgesource}
+Source:         https://github.com/zealdocs/%{name}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 Patch0:         0001-apply-websettings.patch
 
-# handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
-ExclusiveArch: %{qt6_qtwebengine_arches}
+# We should use %%qt6_qtwebengine_arches provided by qt6-srpm-macros
+# but one of our dependency qt6-qtwebengine is available only
+# for aarch64 and x86_64.
+# BZ for the macro: https://bugzilla.redhat.com/show_bug.cgi?id=2215703
+# Ticket about the arch supoort: https://bugreports.qt.io/browse/QTBUG-102143
+ExclusiveArch:  aarch64 x86_64
 
 BuildRequires:  cmake(Qt6Core) >= 6.2.0
 BuildRequires:  cmake(Qt6Gui)
@@ -37,7 +39,6 @@ BuildRequires:  ninja-build
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  qt6-qtbase-private-devel
-BuildRequires:  qt6-srpm-macros
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 
@@ -49,8 +50,8 @@ Zeal is a simple offline documentation browser inspired by Dash.
 
 
 %prep
-%forgesetup
-%autopatch -p1
+%autosetup -p1 -n %{name}-%{commit}
+
 
 %build
 # turn off shared libs building:
@@ -80,6 +81,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.zealdocs.z
 
 
 %changelog
+* Sun Jun 18 2023 Lumír Balhar <lbalhar@redhat.com> - 0.6.2-2.20230618.1cfa7c6
+- Don't use obsoleted forge macros
+
 * Sat Jun 10 2023 Zephyr Lykos <fedora@mochaa.ws> - 0.6.2-1.git1cfa7c6
 - Update to commit 1cfa7c6
 - Migrate to Qt 6

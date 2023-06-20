@@ -1,4 +1,4 @@
-%bcond tests 1
+%bcond tests 0
 
 # This bcond allows to ship a non-compiled version
 # Slower, but sometimes necessary with alpha Python versions
@@ -8,8 +8,8 @@
 %bcond emacs %{undefined rhel}
 
 Name:           Cython
-Version:        0.29.34
-Release:        4%{?dist}
+Version:        0.29.35
+Release:        1%{?dist}
 Summary:        Language for writing Python extension modules
 
 License:        Apache-2.0
@@ -151,8 +151,9 @@ cp -p cython-mode-init.el cython-mode-init.elc %{buildroot}%{_emacs_sitestartdir
 
 
 %changelog
-* Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 0.29.34-4
-- Rebuilt for Python 3.12
+* Sun Jun 18 2023 Miro Hrončok <mhroncok@redhat.com> - 0.29.35-1
+- Update to 0.29.35
+- Fixes: rhbz#2210064
 
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.29.34-3
 - Bootstrap for Python 3.12

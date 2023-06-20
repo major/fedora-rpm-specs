@@ -6,7 +6,7 @@
 
 # Should we re-generate Autoconf build files? Opinions vary wildly and strongly
 # on this! We choose to do so.
-%bcond_without autoreconf
+%bcond autoreconf 1
 
 Name:           libcsv
 Version:        3.0.3^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")

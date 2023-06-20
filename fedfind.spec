@@ -36,10 +36,6 @@ Python 3 library package.
 # setuptools-scm is needed to build the source distribution, but not
 # for packaging, which *starts* from the source distribution
 sed -i -e 's., "setuptools-scm"..g' pyproject.toml
-# Before F35, there's no 'coverage[toml]', just 'coverage' can read TOML
-%if 0%{?fedora} < 35
-sed -i -e 's,coverage\[toml\],coverage,g' tests.requires tox.requires
-%endif
 
 %generate_buildrequires
 %pyproject_buildrequires -t

@@ -37,7 +37,7 @@
 Summary:        A multimedia engine
 Name:           xine-lib
 Version:        1.2.13
-Release:        5%{?snapshot:.%{date}hg%{revision}}%{?dist}
+Release:        6%{?snapshot:.%{date}hg%{revision}}%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://www.xine-project.org/
 %if ! 0%{?snapshot}
@@ -350,6 +350,9 @@ mkdir -p %{buildroot}%{codecdir}
 
 
 %changelog
+* Sun Jun 18 2023 Sérgio Basto <sergio@serjux.com> - 1.2.13-6
+- Mass rebuild for jpegxl-0.8.1
+
 * Thu Jun 01 2023 Xavier Bachelot <xavier@bachelot.org> - 1.2.13-5
 - Rebuild for new libnfs
 

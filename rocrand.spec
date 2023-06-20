@@ -58,6 +58,7 @@ The rocRAND development package.
 
 %package -n hiprand
 Summary:        HIP random number generator
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description -n hiprand
 hipRAND is a RAND marshalling library, with multiple supported backends. It

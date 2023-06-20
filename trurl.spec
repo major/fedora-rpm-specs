@@ -1,5 +1,5 @@
 Name:           trurl
-Version:        0.7
+Version:        0.8
 Release:        %autorelease
 Summary:        Command line tool for URL parsing and manipulation
 
@@ -20,7 +20,7 @@ shell script authors everywhere.
 %autosetup -n %{name}-%{name}-%{version}
 
 %build
-%make_build CFLAGS="%{build_cflags}"
+%make_build
 
 %check
 make test

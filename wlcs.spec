@@ -2,26 +2,26 @@
 # Current as of 13.0.1 (line 66)
 # Note that this covers all Fedora primary architectures.
 %ifarch %{ix86} x86_64 ppc ppc64 ppc64le ppc64p7 s390 s390x %{arm} aarch64
-%bcond_without asan
+%bcond asan 1
 %else
-%bcond_with asan
+%bcond asan 0
 %endif
 
 # List copied from gcc.spec
 # Current as of 13.0.1 (line 86)
 # Note that this covers all Fedora primary architectures.
 %ifarch %{ix86} x86_64 ppc ppc64 ppc64le ppc64p7 s390 s390x %{arm} aarch64
-%bcond_without ubsan
+%bcond ubsan 1
 %else
-%bcond_with ubsan
+%bcond ubsan 0
 %endif
 
 # List copied from gcc.spec
 # Current as of 13.0.1 (line 76)
 %ifarch x86_64 ppc64 ppc64le aarch64 s390x
-%bcond_without tsan
+%bcond tsan 1
 %else
-%bcond_with tsan
+%bcond tsan 0
 %endif
 
 Name:           wlcs

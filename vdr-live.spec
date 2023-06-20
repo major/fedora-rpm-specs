@@ -9,9 +9,9 @@
 %endif
 
 Name:           vdr-live
-Version:        3.1.12
+Version:        3.2.0
 #Release:        0.4.%%{gitdate}git%%{shortcommit0}%%{?dist}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        An interactive web interface with HTML5 live stream support for VDR
 
 # The entire source code is GPLv2+ except live/js/mootools/ which is MIT
@@ -20,7 +20,6 @@ URL:            https://github.com/MarkusEh/vdr-plugin-live
 #Source0:        https://github.com/MarkusEh/vdr-plugin-live/archive/%%{commit0}/%%{name}-%%{version}-%%{shortcommit0}.tar.gz
 Source0:        https://github.com/MarkusEh/vdr-plugin-live/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:        %{name}.conf
-Patch0:         %{name}-timerconflict.patch
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
@@ -83,6 +82,9 @@ install -Dpm 644 %{SOURCE1} \
 %{vdr_resdir}/plugins/live/
 
 %changelog
+* Sun Jun 11 2023 Martin Gansser <martinkg@fedoraproject.org> - 3.2.0-1
+- Update to 3.2.0
+
 * Sun Jun 11 2023 Martin Gansser <martinkg@fedoraproject.org> - 3.1.12-1
 - Update to 3.1.12
 - Add %{name}-timerconflict.patch

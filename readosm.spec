@@ -1,4 +1,4 @@
-%bcond_without autoreconf
+%bcond autoreconf 1
 
 Name:           readosm
 Version:        1.1.0a

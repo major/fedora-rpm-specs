@@ -6,7 +6,7 @@
 %endif
 
 Name:           packit
-Version:        0.76.0
+Version:        0.77.0
 Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
@@ -77,6 +77,10 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Sat Jun 17 2023 Packit <hello@packit.dev> - 0.77.0-1
+- Packit now includes dist-git branch in the title of the PRs for `propose-downstream` and `pull-from-upstream`. (#1996)
+- We have fixed an issue with `files_to_sync` filters not being applied properly. (#1977)
+
 * Fri May 26 2023 Packit <hello@packit.dev> - 0.76.0-1
 - Unsuccessful Image Builder requests now provide error details so you can fix the Image configuration. (#1981)
 - Copr projects created by Packit will not follow the Fedora branching from now on.

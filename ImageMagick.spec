@@ -14,7 +14,7 @@ Epoch:          1
 Epoch:          0
 %endif
 Version:        7.1.1.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An X application for displaying and manipulating images
 
 %global VER %(foo=%{version}; echo ${foo:0:5})
@@ -413,6 +413,9 @@ rm PerlMagick/demo/Generic.ttf
 %doc PerlMagick/demo/ PerlMagick/Changelog PerlMagick/README.txt
 
 %changelog
+* Sun Jun 18 2023 Sérgio Basto <sergio@serjux.com> - 1:7.1.1.11-2
+- Mass rebuild for jpegxl-0.8.1
+
 * Mon May 29 2023 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 1:7.1.1.11-1
 - Update to 7.1.1.11 (#2210875)
 

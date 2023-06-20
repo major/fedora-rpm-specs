@@ -1,7 +1,7 @@
 %global apiver 2.6
 %global so_version 1
 
-%bcond_without autoreconf
+%bcond autoreconf 1
 
 # Doxygen HTML help is not suitable for packaging due to a minified JavaScript
 # bundle inserted by Doxygen itself. See discussion at
@@ -12,7 +12,7 @@
 # We still generate the HTML documentation, but strip out all the JavaScript
 # that causes policy issues. This degrades it in the browser, but is sufficient
 # to keep the Devhelp documentation working.
-%bcond_without doc_pdf
+%bcond doc_pdf 1
 
 Name:           gconfmm26
 Version:        2.28.3

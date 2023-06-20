@@ -1,5 +1,5 @@
 Name:           sensible-utils
-Version:        0.0.19
+Version:        0.0.20
 Release:        1%{?dist}
 Summary:        Utilities for sensible alternative selection
 
@@ -49,6 +49,9 @@ autoreconf -ifv
 
 
 %changelog
+* Sun Jun 18 2023 Sandro Mani <manisandro@gmail.com> - 0.0.20-1
+- Update to 0.0.20
+
 * Tue May 09 2023 Sandro Mani <manisandro@gmail.com> - 0.0.19-1
 - Update to 0.0.19
 

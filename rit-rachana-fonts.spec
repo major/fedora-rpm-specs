@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT
-Version:    1.4.3
+Version:    1.4.4
 Release:    1%{?dist}
 URL:        https://gitlab.com/rit-fonts/%{fontsource}
 
@@ -51,6 +51,9 @@ make otf
 
 
 %changelog
+* Sun Jun 18 2023 Rajeesh K V <rajeeshknambiar@gmail.com> - 1.4.4-1
+- Bugfix update, version 1.4.4
+
 * Wed May 10 2023 Rajeesh K V <rajeeshknambiar@gmail.com> - 1.4.3-1
 - Bugfix update, version 1.4.3
 
