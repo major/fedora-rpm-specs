@@ -9,8 +9,8 @@
 ExclusiveArch: x86_64 aarch64
 
 # edk2-stable202302
-%define GITDATE        20230301
-%define GITCOMMIT      f80f052277c8
+%define GITDATE        20230524
+%define GITCOMMIT      ba91d0292e59
 %define TOOLCHAIN      GCC5
 %define OPENSSL_VER    1.1.1k
 
@@ -38,7 +38,7 @@ ExclusiveArch: x86_64 aarch64
 
 
 Name:       edk2
-Version:    %{GITDATE}git%{GITCOMMIT}
+Version:    %{GITDATE}
 Release:    %autorelease
 Summary:    UEFI firmware for 64-bit virtual machines
 License:    BSD-2-Clause-Patent and OpenSSL and MIT
@@ -52,7 +52,7 @@ Source0: edk2-%{GITCOMMIT}.tar.xz
 Source1: ovmf-whitepaper-c770f8c.txt
 Source2: openssl-rhel-d00c3c5b8a9d6d3ea3dabfcafdf36afd61ba8bcc.tar.xz
 Source3: softfloat-%{softfloat_version}.tar.xz
-Source4: edk2-platforms-54306d023e7d.tar.xz
+Source4: edk2-platforms-7880b92e2a04.tar.xz
 Source5: jansson-2.13.1.tar.bz2
 
 # json description files
@@ -99,10 +99,20 @@ Patch0010: 0010-OvmfPkg-silence-EFI_D_VERBOSE-0x00400000-in-NvmExpre.patch
 Patch0011: 0011-CryptoPkg-OpensslLib-list-RHEL8-specific-OpenSSL-fil.patch
 Patch0012: 0012-OvmfPkg-QemuKernelLoaderFsDxe-suppress-error-on-no-k.patch
 Patch0013: 0013-SecurityPkg-Tcg2Dxe-suppress-error-on-no-swtpm-in-si.patch
-Patch0014: 0014-SecurityPkg-add-TIS-sanity-check-tpm2.patch
-Patch0015: 0015-SecurityPkg-add-TIS-sanity-check-tpm12.patch
-Patch0016: 0016-OvmfPkg-Clarify-invariants-for-NestedInterruptTplLib.patch
-Patch0017: 0017-OvmfPkg-Relax-assertion-that-interrupts-do-not-occur.patch
+
+Patch0015: 0015-OvmfPkg-PlatformPei-drop-S3Verification.patch
+Patch0016: 0016-OvmfPkg-PciHotPlugInitDxe-Do-not-reserve-IO-ports-by.patch
+Patch0017: 0017-OvmfPkg-PlatformInitLib-check-PcdUse1GPageTable.patch
+Patch0018: 0018-OvmfPkg-OvmfPkgIa32X64-enable-1G-pages.patch
+Patch0019: 0019-OvmfPkg-MicrovmX64-enable-1G-pages.patch
+Patch0020: 0020-OvmfPkg-VirtioSerialDxe-use-TPL_NOTIFY.patch
+Patch0021: 0021-OvmfPkg-QemuFlashFvbServicesRuntimeDxe-refine-flash-.patch
+Patch0022: 0022-OvmfPkg-PlatformInitLib-limit-phys-bits-to-46.patch
+Patch0023: 0023-ArmVirt-add-VirtioSerialDxe-to-ArmVirtQemu-builds.patch
+Patch0024: 0024-ArmVirt-PlatformBootManagerLib-factor-out-IsVirtio.patch
+Patch0025: 0025-ArmVirt-PlatformBootManagerLib-factor-out-IsVirtioPc.patch
+Patch0026: 0026-ArmVirt-PlatformBootManagerLib-set-up-virtio-serial-.patch
+Patch0027: 0027-UefiCpuPkg-MpInitLib-fix-apic-mode-for-cpu-hotplug.patch
 
 
 # python3-devel and libuuid-devel are required for building tools.
@@ -288,6 +298,8 @@ tar -C CryptoPkg/Library/OpensslLib -a -f %{SOURCE2} -x
 tar -xf %{SOURCE3} --strip-components=1 --directory ArmPkg/Library/ArmSoftFloatLib/berkeley-softfloat-3/
 tar -xf %{SOURCE4} --strip-components=1 "*/Drivers" "*/Features" "*/Platform" "*/Silicon"
 tar -xf %{SOURCE5} --strip-components=1 --directory RedfishPkg/Library/JsonLib/jansson
+# include paths pointing to unused submodules
+mkdir -p MdePkg/Library/MipiSysTLib/mipisyst/library/include
 
 # Done by %setup, but we do not use it for the auxiliary tarballs
 chmod -Rf a+rX,u+w,g-w,o-w .

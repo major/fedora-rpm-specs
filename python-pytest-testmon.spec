@@ -1,8 +1,8 @@
 %global pypi_name pytest-testmon
 
 Name:           python-%{pypi_name}
-Version:        2.0.6
-Release:        2%{?dist}
+Version:        2.0.9
+Release:        1%{?dist}
 Summary:        A py.test plug-in which executes only tests affected by recent changes
 License:        MIT
 URL:            http://testmon.org/
@@ -51,16 +51,19 @@ This a Python 3 version of the package.
 %{python3_sitelib}/pytest_testmon-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Jun 19 2023 Dan Radez <dradez@redhat.com> - 2.0.9-1
+- update to 2.0.9 rhbz#2192513
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.0.6-2
 - Rebuilt for Python 3.12
 
-* Tue Apr 11 2023 Dan Radez <dradez@redhat.com> - 2.0.6
+* Tue Apr 11 2023 Dan Radez <dradez@redhat.com> - 2.0.6-1
 - update to 2.0.6 rhbz#2185045
 
-* Thu Apr 06 2023 Dan Radez <dradez@redhat.com> - 2.0.5
+* Thu Apr 06 2023 Dan Radez <dradez@redhat.com> - 2.0.5-1
 - update to 2.0.5 (rhbz#2181746)
 
-* Fri Mar 24 2023 Dan Radez <dradez@redhat.com> - 2.0.0
+* Fri Mar 24 2023 Dan Radez <dradez@redhat.com> - 2.0.0-1
 - update to 2.0 (rhbz#2162765)
 
 * Wed Jan 18 2023 Dan Radez <dradez@redhat.com> - 1.4.4-1

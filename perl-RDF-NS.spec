@@ -1,8 +1,8 @@
 Name:           perl-RDF-NS
-Version:        20190227
-Release:        13%{?dist}
+Version:        20230619
+Release:        1%{?dist}
 Summary:        Popular RDF name space prefixes from prefix.cc
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/RDF-NS
 Source0:        https://cpan.metacpan.org/authors/id/V/VO/VOJ/RDF-NS-%{version}.tar.gz
 # Fix shell bang
@@ -11,10 +11,10 @@ BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(:VERSION) >= 5.12.0
-BuildRequires:  perl(Module::Build::Tiny) >= 0.039
+BuildRequires:  perl(:VERSION) >= 5.10.0
+BuildRequires:  perl(Config)
+BuildRequires:  perl(Module::Build::Tiny) >= 0.035
 BuildRequires:  perl(strict)
-BuildRequires:  perl(warnings)
 # Run-time:
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
@@ -23,9 +23,9 @@ BuildRequires:  perl(RDF::Trine::Node::Blank)
 BuildRequires:  perl(RDF::Trine::Node::Resource)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(URI)
+BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(Test::More)
-# Test::Pod 1.41 not used
 BuildRequires:  perl(version)
 # Optional tests:
 BuildRequires:  perl(RDF::Trine)
@@ -40,31 +40,76 @@ fun nor maintainable. In the end we all use more or less the same
 prefix definitions, as collected at <http://prefix.cc/>. This Perl module
 includes all these prefixes as defined at specific snapshots in time.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+Requires:       perl(RDF::NS::Trine)
+Requires:       perl(RDF::NS::URIS)
+Requires:       perl(RDF::Trine)
+Requires:       perl(URI)
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
-%setup -q -n RDF-NS-%{version}
-%patch0 -p1
+%autosetup -p1 -n RDF-NS-%{version}
 chmod -x lib/App/rdfns.pm
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Build.PL --installdirs=vendor
 ./Build
 
 %install
-./Build install --destdir=$RPM_BUILD_ROOT --create_packlist=0
-%{_fixperms} $RPM_BUILD_ROOT/*
+./Build install --destdir=%{buildroot} --create_packlist=0
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 ./Build test
 
 %files
 %license LICENSE
-%doc Changes README
+%doc Changes README.md
 %{_bindir}/rdfns
-%{perl_vendorlib}/*
-%{_mandir}/man1/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/App
+%{perl_vendorlib}/App/rdfns.pm
+%dir %{perl_vendorlib}/RDF
+%dir %{perl_vendorlib}/auto
+%dir %{perl_vendorlib}/auto/share
+%dir %{perl_vendorlib}/auto/share/dist
+%{perl_vendorlib}/auto/share/dist/RDF-NS
+%{perl_vendorlib}/RDF/NS
+%{perl_vendorlib}/RDF/NS.pm
+%{perl_vendorlib}/RDF/SN.pm
+%{_mandir}/man1/rdfns.*
+%{_mandir}/man3/App::rdfns.*
+%{_mandir}/man3/RDF::NS.*
+%{_mandir}/man3/RDF::NS::*
+%{_mandir}/man3/RDF::SN.*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Mon Jun 19 2023 Petr Pisar <ppisar@redhat.com> - 20230619-1
+- 20230619 bump
+- Package the tests
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20190227-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

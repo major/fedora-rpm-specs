@@ -32,9 +32,10 @@ Patch3:         https://github.com/ROCm-Developer-Tools/clr/commit/70bdb7a5970d0
 #https://github.com/ROCm-Developer-Tools/ROCclr/commit/041c00465b7adcee78085dc42253d42d1bb1f250
 Patch4:         0001-Revert-SWDEV-325538-Enable-code-object-v5-by-default.patch
 
-# HIPCC fixes for Fedora:
-# https://github.com/ROCm-Developer-Tools/HIPCC/pull/83
+# HIPCC fixes from upstream (rebased locally):
+# https://github.com/ROCm-Developer-Tools/HIPCC/commit/a11397e769f71227cfc44353842ea90707610236
 Patch100:       0001-Improve-HIP_CLANG_INCLUDE-detection.patch
+# https://github.com/ROCm-Developer-Tools/HIPCC/commit/560bee0df3b95d9cf18d5e52d7fa99ffe6b0f488
 Patch101:       0002-Improve-HIP_CLANG_PATH-detection.patch
 
 # Fix FHS compliance issue (currently working on an upstream-able patch):

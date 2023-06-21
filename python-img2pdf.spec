@@ -9,7 +9,7 @@ The img2pdf command complements the pdfimages command.
 
 Name:           python-%{srcname}
 Version:        0.4.4
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Lossless images to PDF conversion library and command
 
 License:        LGPLv3+
@@ -119,6 +119,9 @@ PYTHONPATH=src %{__python3} -m pytest src/img2pdf_test.py -v -k 'not jpg_cmyk an
 
 
 %changelog
+* Mon Jun 19 2023 Python Maint <python-maint@redhat.com> - 0.4.4-9
+- Rebuilt for Python 3.12
+
 * Sun May 07 2023 Georg Sauthoff <mail@gms.tf> - 0.4.4-8
 - Work-around tiff byte-order assumptions in test cases (fixes fedora#2162999)
 

@@ -1,36 +1,44 @@
 Summary: A DSSSL implementation
 Name: openjade
 Version: 1.3.2
-Release: 72%{?dist}
+Release: 73%{?dist}
 Requires: sgml-common
 URL: http://openjade.sourceforge.net/
 Source: http://download.sourceforge.net/openjade/openjade-%{version}.tar.gz
-#config.sub and config.guess from upstream sources (Mar 25th 2013).
-#http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.guess;hb=HEAD
-#http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub;hb=HEAD
-#I can't get them from autoreconf, because of the very strange openjade structure of config files
-Source2:config.guess
-Source3:config.sub
-#fix build on ppc64
+
+# I can't get them from autoreconf, because of the very strange openjade structure of config files
+# 'config.sub' and 'config.guess' from upstream sources (2023-01-21 and 2023-01-01 respectivelly).
+# https://git.savannah.gnu.org/cgit/config.git/plain/config.guess
+Source2: config.guess
+# https://git.savannah.gnu.org/cgit/config.git/plain/config.sub
+Source3: config.sub
+
+# Fix build on ppc64
 Patch0: openjade-ppc64.patch
-#do not link against -lnsl
+
+# Do not link against -lnsl
 Patch1: openjade-1.3.1-nsl.patch
-#Fix dependent libs for libogrove (bug #198232).
+
+# Fix dependent libs for libogrove (bug #198232).
 Patch2: openjade-deplibs.patch
-#do not require OpenSP libosp.la file for build(#485114)
+
+# Do not require OpenSP libosp.la file for build(#485114)
 Patch3: openjade-nola.patch
-#upstream bug tracker fix for build with gcc46
+
+# Upstream bug tracker fix for build with gcc46
 Patch4: openjade-1.3.2-gcc46.patch
-#use Getopt:Std to prevent build failure
+
+# Use Getopt:Std to prevent build failure
 Patch5: openjade-getoptperl.patch
+
 Patch6: openjade-configure-c99.patch
 License: DMIT
 
-#Last jade version is from Red Hat 6.2
+# Last jade version is from Red Hat 6.2
 Provides: jade = %{version}-%{release}
 
 BuildRequires: make
-BuildRequires:  gcc-c++
+BuildRequires: gcc-c++
 BuildRequires: opensp-devel
 
 BuildRequires: perl-interpreter
@@ -45,16 +53,8 @@ command-line application and a set of components. The DSSSL engine
 inputs an SGML or XML document and can output a variety of formats:
 XML, RTF, TeX, MIF (FrameMaker), SGML, or XML.
 
-
 %prep
-%setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1 -b .deplibs
-%patch3 -p1 -b .nola
-%patch4 -p1 -b .gcc46
-%patch5 -p1 -b .getopt
-%patch6 -p1 -b .configure-c99
+%autosetup -n %{name}-%{version} -p1
 
 
 %build
@@ -113,6 +113,10 @@ export QA_RPATHS=0x0001
 %{_datadir}/sgml/%{name}-%{version}
 
 %changelog
+* Thu Jun 08 2023 Ondrej Sloup <osloup@redhat.com> -  1.3.2-73
+- Use %autosetup instead of deprecated %patchN
+- Update config.sub and config.guess files
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-72
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

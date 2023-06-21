@@ -1,4 +1,4 @@
-%global pypi_version 23.5
+%global pypi_version 23.6
 
 Name:           python-virt-firmware
 Version:        %{pypi_version}
@@ -70,6 +70,8 @@ cp -ar tests %{buildroot}%{_datadir}/%{name}
 %{_bindir}/virt-fw-dump
 %{_bindir}/virt-fw-vars
 %{_bindir}/virt-fw-sigdb
+%{_bindir}/kernel-bootcfg
+%{_bindir}/uefi-boot-menu
 %{_bindir}/migrate-vars
 %{_mandir}/man1/virt-*.1*
 %{python3_sitelib}/virt/firmware

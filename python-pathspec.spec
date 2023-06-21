@@ -3,22 +3,23 @@ Version:        0.11.1
 Release:        2%{?dist}
 Summary:        Utility library for gitignore style pattern matching of file paths
 
-License:        MPLv2.0
+License:        MPL-2.0
 URL:            https://github.com/cpburnz/python-path-specification
-Source0:        https://files.pythonhosted.org/packages/source/p/pathspec/pathspec-%{version}.tar.gz
+Source:         %{pypi_source pathspec}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
+BuildRequires:  python3-pytest
+
 
 %description
 Path Specification (pathspec) is a utility library for pattern matching of file
 paths. So far this only includes Git's wildmatch pattern matching which itself
 is derived from Rsync's wildmatch. Git uses wildmatch for its gitignore files.
 
+
 %package -n     python3-pathspec
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-pathspec}
 
 %description -n python3-pathspec
 Path Specification (pathspec) is a utility library for pattern matching of file
@@ -29,21 +30,28 @@ is derived from Rsync's wildmatch. Git uses wildmatch for its gitignore files.
 %prep
 %autosetup -n pathspec-%{version}
 
+
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files pathspec
 
 
 %check
-%{__python3} setup.py test
+%pytest
 
-%files -n python3-pathspec
+
+%files -n python3-pathspec -f %{pyproject_files}
 %doc README.rst
 %license LICENSE
-%{python3_sitelib}/pathspec
-%{python3_sitelib}/pathspec-%{version}-py%{python3_version}.egg-info
+
 
 %changelog
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.11.1-2

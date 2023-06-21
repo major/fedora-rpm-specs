@@ -1,7 +1,7 @@
 %global apiver 12
 
 Name:           weston
-Version:        %{apiver}.0.0
+Version:        %{apiver}.0.1
 Release:        1%{?dist}
 Summary:        Reference compositor for Wayland
 
@@ -198,6 +198,9 @@ export LDFLAGS="%{?build_ldflags} -Wl,-z,undefs"
 %{_datadir}/libweston-%{apiver}/protocols/
 
 %changelog
+* Mon Jun 19 2023 Erico Nunes <ernunes@redhat.com> - 12.0.1-1
+- Update to 12.0.1
+
 * Wed May 31 2023 Erico Nunes <ernunes@redhat.com> - 12.0.0-1
 - Update to 12.0.0
 

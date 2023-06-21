@@ -2,7 +2,7 @@
 %bcond_without perl_Syntax_Keyword_Match_enables_optional_test
 
 Name:           perl-Syntax-Keyword-Match
-Version:        0.11
+Version:        0.12
 Release:        1%{?dist}
 Summary:        Match/case syntax for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -37,7 +37,7 @@ BuildRequires:  perl(XS::Parse::Keyword) >= %{xs_parse_keyword_minver}
 BuildRequires:  perl(XSLoader)
 # Tests:
 BuildRequires:  perl(overload)
-BuildRequires:  perl(Test2::V0)
+BuildRequires:  perl(Test2::V0) >= 0.000147
 BuildRequires:  perl(Time::HiRes)
 %if %{with perl_Syntax_Keyword_Match_enables_optional_test}
 # Optional tests:
@@ -133,6 +133,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jun 19 2023 Petr Pisar <ppisar@redhat.com> - 0.12-1
+- 0.12 bump
+
 * Tue Jun 13 2023 Petr Pisar <ppisar@redhat.com> - 0.11-1
 - 0.11 bump
 

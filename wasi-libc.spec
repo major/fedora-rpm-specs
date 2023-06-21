@@ -1,3 +1,6 @@
+# Extra dependencies are needed for testing
+%bcond      check 1
+
 Name:       wasi-libc
 Summary:    C library implementation for WebAssembly System Interface
 Version:    20
@@ -6,6 +9,7 @@ Release:    %autorelease
 License:    Apache-2.0 WITH LLVM-exception AND Apache-2.0 AND MIT AND BSD-2-Clause
 URL:        https://github.com/WebAssembly/wasi-libc/
 Source:     %{url}/archive/refs/tags/wasi-sdk-%{version}.tar.gz#/%{name}-wasi-sdk-%{version}.tar.gz
+Source1:    smoke-test.c
 
 # Allow using artifacts from %%build in %%install instead of recompiling
 Patch:      0001-make-don-t-rebuild-files-on-make-install.patch
@@ -24,6 +28,10 @@ BuildRequires:  clang >= 10
 BuildRequires:  git-core
 BuildRequires:  llvm >= 10
 BuildRequires:  make
+%if %{with check}
+# can be replaced with another CLI WASM execution method
+BuildRequires:  wasmedge
+%endif
 
 %global     toolchain clang
 # WASI is a specific architecture; host (build machine) arch flags should not apply by default
@@ -78,6 +86,13 @@ make %{?_smp_mflags} %{wasi_make_flags} check-symbols
 %check
 # Bundled version checks
 xargs test '%{musl_version}' = <libc-top-half/musl/VERSION
+# Basic smoke test
+%if %{with check}
+# -> Smoke test is compilable and linkable against the built version
+clang --target=wasm32-wasi --sysroot=%{buildroot}%{wasi_prefix} -nodefaultlibs -lc -Wl,--allow-undefined -o smoke-test.wasm %{SOURCE1}
+# -> Smoke test works as expected (exit code 0, outputs 'smoke-test-ok')
+wasmedge smoke-test.wasm | grep -q --fixed-strings smoke-test-ok
+%endif
 
 %files static
 %doc README.md

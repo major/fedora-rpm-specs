@@ -2,7 +2,7 @@
 
 Name:       onnx
 Version:    1.14.0
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Open standard for machine learning interoperability
 License:    Apache-2.0
 
@@ -114,6 +114,9 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %{python3_sitearch}/%{name}/
 
 %changelog
+* Mon Jun 19 2023 Python Maint <python-maint@redhat.com> - 1.14.0-3
+- Rebuilt for Python 3.12
+
 * Wed Jun 07 2023 Alejandro Alvarez Ayllon <a.alvarezayllon@gmail.com> - 1.14.0-2
 - Patch protobuf headers with ONNX_API
 - Ship .proto files

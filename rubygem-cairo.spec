@@ -12,7 +12,7 @@
 
 Summary:	Ruby bindings for cairo
 Name:		rubygem-%{gem_name}
-Version:	1.17.9
+Version:	1.17.12
 Release:	1%{?dist}
 # From gemspec
 # SPDX confirmed
@@ -178,6 +178,9 @@ ruby ./test/run-test.rb
 %{header_dir}/rb_cairo.h
 
 %changelog
+* Mon Jun 19 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.17.12-1
+- 1.17.12
+
 * Thu Jun 15 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.17.9-1
 - 1.17.9
 

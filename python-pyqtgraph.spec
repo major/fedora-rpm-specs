@@ -4,12 +4,14 @@
 
 Name:           python-%{srcname}
 Version:        0.13.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Scientific Graphics and GUI Library for Python
 License:        MIT
 URL:            https://www.pyqtgraph.org/
 Source0:        https://github.com/pyqtgraph/pyqtgraph/archive/refs/tags/pyqtgraph-%{version}.tar.gz
 Patch0:         no-sphinx-qt-doc.patch
+Patch1:         https://github.com/pyqtgraph/pyqtgraph/commit/dd593136bfa42d0e706826a386e76c9c89740082.patch
+Patch2:         https://github.com/pyqtgraph/pyqtgraph/commit/1cf3f2c6a8c1c3efd2b8b2bdba168132dafb3f62.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -71,6 +73,9 @@ rm -f doc/build/html/objects.inv
 %doc pyqtgraph/examples doc/build/html
 
 %changelog
+* Mon Jun 19 2023 Scott Talbert <swt@techie.net> - 0.13.3-2
+- Fix a couple of test issues/warnings with numpy 1.24+
+
 * Wed Apr 26 2023 Scott Talbert <swt@techie.net> - 0.13.3-1
 - Update to new upstream release 0.13.3 (#2175373)
 

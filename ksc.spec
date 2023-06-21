@@ -8,11 +8,11 @@
 
 Name:		ksc
 Version:	1.7
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Kernel source code checker
 Group:		Development/Tools
 AutoReqProv:	no
-License:	GPLv2+
+License:	GPL-2.0-or-later
 URL:		https://github.com/RedHatOfficial/ksc
 BuildArch:	noarch
 Requires:	kmod
@@ -49,6 +49,9 @@ install -D ksc.1 %{buildroot}%{_mandir}/man1/ksc.1
 %{python3_sitelib}/ksc-%{version}*.egg-info
 
 %changelog
+* Mon Jun 19 2023 Čestmír Kalina <ckalina@redhat.com> - 1.7-8
+- Migrate license to SPDX
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - Packaging variables read or set by %forgemeta
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

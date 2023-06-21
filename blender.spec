@@ -19,6 +19,7 @@
 %ifarch x86_64
 %bcond_without  oidn
 %bcond_without  opgl
+%bcond_without  rocm
 %endif
 %bcond_without  usd
 %else
@@ -180,6 +181,13 @@ BuildRequires:  pkgconfig(tinyxml)
 # Appstream stuff
 BuildRequires:  libappstream-glib
 
+# ROCm stuff
+%if %{with rocm}
+BuildRequires:  rocm-comgr-devel
+BuildRequires:  rocm-hip-devel
+BuildRequires:  rocm-runtime-devel
+%endif
+
 Requires:       google-droid-sans-fonts
 Requires:       hicolor-icon-theme
 Requires:       shared-mime-info
@@ -285,6 +293,10 @@ sed -i "s/date_time/date_time python%{python3_version_nodots}/" \
     -DWITH_USD=OFF \
 %endif
     -DXR_OPENXR_SDK_LOADER_LIBRARY=%{_libdir}/libopenxr_loader.so.1 \
+%if %{with rocm}
+    -DWITH_CYCLES_DEVICE_HIP=ON \
+    -DWITH_CYCLES_HIP_BINARIES=ON \
+%endif
     -DWITH_LIBS_PRECOMPILED=OFF
 
 %cmake_build

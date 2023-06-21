@@ -2,7 +2,7 @@
 
 Name:           gpaste
 Version:        44.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Clipboard management system
 
 License:        BSD-2-Clause
@@ -200,6 +200,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/org.gn
 
 
 %changelog
+* Mon Jun 19 2023 Kalev Lember <klember@redhat.com> - 44.0-2
+- Rebuilt for gcr soname bump
+
 * Sun Mar 26 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 44.0-1
 - Update to 44.0
 

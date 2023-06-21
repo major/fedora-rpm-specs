@@ -6,7 +6,7 @@
 
 Name:           python-%{srcname}
 Version:        %{ver}
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        OBD-II (SAE-J1979) compliant scan tool software
 # CC-BY-SA for icon, see README.Fedora for details
 License:        GPLv2+ and CC-BY-SA
@@ -102,6 +102,9 @@ desktop-file-install --add-category="Utility" \
 %{_bindir}/pyobd
 
 %changelog
+* Mon Jun 19 2023 Python Maint <python-maint@redhat.com> - 0.9.3-29
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

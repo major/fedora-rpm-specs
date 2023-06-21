@@ -2,7 +2,7 @@
 
 Name:           pungi
 Version:        4.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Distribution compose tool
 
 License:        GPL-2.0-only
@@ -138,6 +138,9 @@ rm %{buildroot}%{_bindir}/pungi
 %{_bindir}/%{name}-wait-for-signed-ostree-handler
 
 %changelog
+* Mon Jun 19 2023 Python Maint <python-maint@redhat.com> - 4.4.0-2
+- Rebuilt for Python 3.12
+
 * Wed Jun 07 2023 Lubomír Sedlář <lsedlar@redhat.com> - 4.4.0-1
 - gather-dnf: Run latest() later (lsedlar)
 - iso: Support joliet long names (lsedlar)

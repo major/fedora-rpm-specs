@@ -69,7 +69,7 @@
 %global patch_version 0
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 1
+%global baserelease 2
 
 # Set to RC version if building RC, else comment out.
 %global rcsuf rc2
@@ -114,6 +114,18 @@ Source5:        %{name}.req
 # http://public.kitware.com/Bug/view.php?id=12965
 # https://bugzilla.redhat.com/show_bug.cgi?id=822796
 Patch100:       %{name}-findruby.patch
+
+# Upstream
+Patch1001:      0001-Utilities-Sphinx-Fix-flake8-E124-diagnostic-in-cmake.patch
+Patch1002:      0002-Utilities-Sphinx-Restore-explicit-check-for-Sphinx-2.patch
+Patch1003:      0003-Tests-Find-GIT_EXECUTABLE-early-enough-to-use-in-all.patch
+Patch1004:      0004-Tests-Require-git-to-enable-RunCMake.CMP0150-test.patch
+Patch1005:      0005-Help-Add-3.27-release-note-for-TARGET_RUNTIME_DLL_DI.patch
+Patch1006:      0006-Utilities-Sphinx-Don-t-ignore-flake8-E402.patch
+Patch1007:      0007-Utilities-Sphinx-Fix-some-flake8-gripes.patch
+Patch1008:      0008-Tutorial-Extend-literal-include-to-contain-full-code.patch
+Patch1009:      0009-FindPostgreSQL-Add-support-for-version-15.patch
+Patch1010:      https://gitlab.kitware.com/cmake/cmake/-/merge_requests/8569.patch#/0010-list-restore-SUBLIST-behavior.patch
 
 # Patch for renaming on EPEL
 %if 0%{?name_suffix:1}
@@ -553,6 +565,9 @@ popd
 
 
 %changelog
+* Mon Jun 19 2023 Björn Esser <besser82@fedoraproject.org> - 3.27.0~rc2-2
+- Backport some upstream patches which will be included in rc3
+
 * Mon Jun 12 2023 Björn Esser <besser82@fedoraproject.org> - 3.27.0~rc2-1
 - cmake-3.27.0-rc2
 

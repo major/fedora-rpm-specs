@@ -5,7 +5,7 @@
 
 Name:           wxGTK
 Version:        3.2.2.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GTK port of the wxWidgets GUI library
 License:        wxWidgets
 URL:            https://www.wxwidgets.org/
@@ -31,7 +31,6 @@ BuildRequires:  SDL2-devel
 BuildRequires:  libGLU-devel
 BuildRequires:  libSM-devel
 BuildRequires:  gstreamer1-plugins-base-devel
-BuildRequires:  GConf2-devel
 BuildRequires:  gettext
 BuildRequires:  cppunit-devel
 BuildRequires:  libmspack-devel
@@ -315,6 +314,9 @@ fi
 %doc html
 
 %changelog
+* Mon Jun 19 2023 Scott Talbert <swt@techie.net> - 3.2.2.1-3
+- Remove unused BR on GConf2-devel (unused since before 3.0)
+
 * Fri Jun 16 2023 Scott Talbert <swt@techie.net> - 3.2.2.1-2
 - Fix WebView selection test with WebKit 2.40+
 

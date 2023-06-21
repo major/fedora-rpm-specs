@@ -1,7 +1,7 @@
 Name:           linkchecker
 
 Version:        10.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Check HTML documents for broken links
 License:        GPL-2.0-or-later
 URL:            https://linkcheck.github.io/linkchecker/
@@ -72,6 +72,9 @@ support
 %doc %{_datadir}/linkchecker/examples/
 
 %changelog
+* Mon Jun 19 2023 Python Maint <python-maint@redhat.com> - 10.2.1-2
+- Rebuilt for Python 3.12
+
 * Thu Mar 09 2023 Miro Hrončok <mhroncok@redhat.com> - 10.2.1-1
 - Update to 10.2.1
 - Update the license tag to SPDX, acknowledge GPL version >2 is allowed

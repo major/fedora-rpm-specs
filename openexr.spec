@@ -3,7 +3,7 @@
 
 Name:           openexr
 Version:        3.1.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Provides the specification and reference implementation of the EXR file format
 
 License:        BSD
@@ -95,6 +95,16 @@ Summary:        Development files for %{name}
 
 
 %build
+%set_build_flags
+%dnl Using F16C intrinsics results in wrong results according to a test.
+%dnl It is currently unclear whether the test is at fault, or the CPU
+%dnl instructions are not appropriate in this context because they
+%dnl canonicalize NaNs.  <https://bugzilla.redhat.com/show_bug.cgi?id=2212579>
+%dnl <https://github.com/AcademySoftwareFoundation/openexr/issues/1456>
+%ifarch x86_64
+CFLAGS="$CFLAGS -mno-f16c"
+CXXFLAGS="$CXXFLAGS -mno-f16c"
+%endif
 %cmake
 %cmake_build
 
@@ -144,6 +154,9 @@ Summary:        Development files for %{name}
 
 
 %changelog
+* Mon Jun 19 2023 Florian Weimer <fweimer@redhat.com> - 3.1.8-2
+- Disable F16C intrinsics on x86-64 (#2212579)
+
 * Wed Jun 07 2023 Richard Shaw <hobbes1069@gmail.com> - 3.1.8-1
 - Update to 3.1.8.
 

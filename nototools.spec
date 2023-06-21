@@ -14,7 +14,7 @@ including the google.com/get/noto website.
 
 Name:		nototools
 Version:	0.2.17
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Noto fonts support tools and scripts plus web site generation
 
 # In nototools source
@@ -175,6 +175,9 @@ popd
 
 
 %changelog
+* Mon Jun 19 2023 Python Maint <python-maint@redhat.com> - 0.2.17-4
+- Rebuilt for Python 3.12
+
 * Thu May 18 2023 Peng Wu <pwu@redhat.com> - 0.2.17-3
 - Migrate to SPDX license
 

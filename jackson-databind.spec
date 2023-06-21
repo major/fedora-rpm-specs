@@ -1,5 +1,5 @@
 Name:           jackson-databind
-Version:        2.14.2
+Version:        2.15.2
 Release:        1%{?dist}
 Summary:        General data-binding package for Jackson (2.x)
 License:        Apache-2.0 and LGPL-2.0-or-later
@@ -12,6 +12,7 @@ BuildRequires:  mvn(com.fasterxml.jackson.core:jackson-annotations) >= %{version
 BuildRequires:  mvn(com.fasterxml.jackson.core:jackson-core) >= %{version}
 BuildRequires:  mvn(com.fasterxml.jackson:jackson-base:pom:) >= %{version}
 BuildRequires:  mvn(com.google.code.maven-replacer-plugin:replacer)
+Buildrequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.mockito:mockito-core)
 
@@ -31,6 +32,8 @@ Jackson Annotations for configuration.
 %pom_remove_plugin "org.jacoco:jacoco-maven-plugin"
 %pom_remove_plugin "org.moditect:moditect-maven-plugin"
 %pom_remove_plugin "de.jjohannes:gradle-module-metadata-maven-plugin"
+
+%pom_change_dep org.junit:junit-bom junit:junit
 
 cp -p src/main/resources/META-INF/NOTICE .
 sed -i 's/\r//' LICENSE NOTICE
@@ -63,6 +66,9 @@ rm src/test/java/com/fasterxml/jackson/databind/TestJDKSerialization.java
 %license LICENSE NOTICE
 
 %changelog
+* Mon Jun 19 2023 Chris Kelley <ckelley@redhat.com> - 2.15.2-1
+- Update to version 2.15.2
+
 * Tue Jan 31 2023 Chris Kelley <ckelley@redhat.com> - 2.14.2-1
 - Update to version 2.14.2
 

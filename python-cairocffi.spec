@@ -2,7 +2,7 @@
 
 Name:           python-cairocffi
 Version:        1.5.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        cffi-based cairo bindings for Python
 License:        BSD-3-Clause
 URL:            https://pypi.python.org/pypi/cairocffi/
@@ -61,6 +61,9 @@ rmdir SPECPARTS
 %doc README.rst
 
 %changelog
+* Mon Jun 19 2023 Python Maint <python-maint@redhat.com> - 1.5.1-2
+- Rebuilt for Python 3.12
+
 * Sat Jun 03 2023 Orion Poplawski <orion@nwra.com> - 1.5.1-1
 - Update to 1.5.1 w/ pyproject
 - Use SPDX License

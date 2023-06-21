@@ -1,10 +1,10 @@
 Name:    libassuan
 Summary: GnuPG IPC library
-Version: 2.5.5
-Release: 6%{?dist}
+Version: 2.5.6
+Release: 1%{?dist}
 
 # The library is LGPLv2+, the documentation GPLv3+
-License: FSFULLR AND GPL-3.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later
+License: GPL-3.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later
 Source0: https://gnupg.org/ftp/gcrypt/libassuan/libassuan-%{version}.tar.bz2
 Source1: https://gnupg.org/ftp/gcrypt/libassuan/libassuan-%{version}.tar.bz2.sig
 URL:     https://www.gnupg.org/
@@ -37,8 +37,8 @@ This package contains files needed to develop applications using %{name}.
 %prep
 %setup -q
 
-%patch1 -p1 -b .multilib
-%patch2 -p1 -b .coverity
+%patch 1 -p1 -b .multilib
+%patch 2 -p1 -b .coverity
 
 
 %build
@@ -77,6 +77,9 @@ make check
 
 
 %changelog
+* Mon Jun 19 2023 Jakub Jelen <jjelen@redhat.com> - 2.5.6-1
+- New upstream release (#2215873)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

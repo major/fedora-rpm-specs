@@ -9,8 +9,8 @@
 %bcond_with bootstrap
 
 Name:           gap-pkg-autodoc
-Version:        2022.10.20
-Release:        3%{?dist}
+Version:        2023.06.19
+Release:        1%{?dist}
 Summary:        Generate documentation from GAP source code
 
 License:        GPL-2.0-or-later
@@ -27,6 +27,8 @@ BuildRequires:  gap-pkg-io
 %endif
 BuildRequires:  tex(a4wide.sty)
 
+# AUTODOC_CurrentDirectory invokes pwd
+Requires:       coreutils
 Requires:       gap-core
 Requires:       GAPDoc-latex
 
@@ -83,6 +85,9 @@ gap -l "%{buildroot}%{gap_libdir};" --bare -c 'LoadPackage("GAPDoc");' tst/testa
 %{gap_libdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Mon Jun 19 2023 Jerry James <loganjerry@gmail.com> - 2023.06.19-1
+- Version 2023.06.19
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.10.20-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -26,6 +26,11 @@ Source1:        nose2.1
 # modern Python versions).
 Patch:          nose2-0.11.0-tox-no-dev-extra.patch
 
+# Temporary patch to skip failing tests with Python 3.12.0b2.
+# This is a regression in CPython and it will be fixed in 3rd beta.
+# https://github.com/python/cpython/issues/105390
+Patch:          Skip-tests-failing-with-Python-3.12.0b2.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

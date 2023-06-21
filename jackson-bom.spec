@@ -1,5 +1,5 @@
 Name:           jackson-bom
-Version:        2.15.0
+Version:        2.15.2
 Release:        1%{?dist}
 Summary:        Bill of materials POM for Jackson projects
 License:        Apache-2.0
@@ -8,7 +8,8 @@ URL:            https://github.com/FasterXML/jackson-bom
 Source0:        %{url}/archive/%{name}-%{version}.tar.gz
 
 BuildRequires:  maven-local
-BuildRequires:  mvn(com.fasterxml.jackson:jackson-parent:pom:) >= 2.14
+BuildRequires:  mvn(com.fasterxml.jackson:jackson-parent:pom:) >= 2.15
+BuildRequires:  mvn(junit:junit)
 
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -37,6 +38,9 @@ A "bill of materials" POM for Jackson dependencies.
 %license LICENSE
 
 %changelog
+* Mon Jun 19 2023 Chris Kelley <ckelley@redhat.com> - 2.15.2-1
+- Update to version 2.15.2
+
 * Tue Apr 25 2023 Chris Kelley <ckelley@redhat.com> - 2.15.0-1
 - Update to version 2.15.0
 

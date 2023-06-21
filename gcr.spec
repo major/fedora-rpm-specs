@@ -3,13 +3,13 @@
 %endif
 
 Name:           gcr
-Version:        3.92.0
-Release:        2%{?dist}
+Version:        4.1.0
+Release:        1%{?dist}
 Summary:        A library for bits of crypto UI and parsing
 
 License:        LGPLv2+
 URL:            https://gitlab.gnome.org/GNOME/gcr
-Source0:        https://download.gnome.org/sources/%{name}/3.92/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/4.1/%{name}-%{version}.tar.xz
 
 BuildRequires:  gettext
 BuildRequires:  meson
@@ -101,10 +101,8 @@ developing applications that use %{name}.
 %dir %{_libdir}/girepository-1.0
 %{_libdir}/girepository-1.0/Gck-2.typelib
 %{_libdir}/girepository-1.0/Gcr-4.typelib
-%{_libdir}/libgck-2.so.0.0.0
-%{_libdir}/libgck-2.so.1.92.0
-%{_libdir}/libgcr-4.so.0.0.0
-%{_libdir}/libgcr-4.so.3.92.0
+%{_libdir}/libgck-2.so.2*
+%{_libdir}/libgcr-4.so.4*
 
 %files devel
 %{_includedir}/gck-2/
@@ -126,6 +124,9 @@ developing applications that use %{name}.
 %doc %{_datadir}/doc/gcr-4/
 
 %changelog
+* Mon Jun 19 2023 Kalev Lember <klember@redhat.com> - 4.1.0-1
+- Update to 4.1.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.92.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

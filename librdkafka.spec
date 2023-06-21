@@ -1,6 +1,6 @@
 Name:		librdkafka
-Version:	1.9.2
-Release:	3%{?dist}
+Version:	2.1.1
+Release:	1%{?dist}
 Summary:	The Apache Kafka C library
 
 License:	Apache-2.0
@@ -85,6 +85,10 @@ find %{buildroot} -name '*-static.pc' -delete -print
 
 
 %changelog
+* Thu Jun 15 2023 Attila Lakatos <alakatos@redhat.com> - 2.1.1-1
+- Rebase to latest upstream version
+  resolves: rhbz#1947184
+
 * Wed May 31 2023 Attila Lakatos <alakatos@redhat.com> - 1.9.2-3
 - Update License tag for SPDX
 - Upstream sources claim that the Apache 2.0 is used

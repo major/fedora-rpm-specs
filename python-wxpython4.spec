@@ -11,8 +11,8 @@ systems with a native look and feel and requiring very little (if any) platform\
 specific code.
 
 Name:           python-wxpython4
-Version:        4.2.0
-Release:        4%{?dist}
+Version:        4.2.1
+Release:        1%{?dist}
 Summary:        %{sum}
 # wxPython is licensed under the wxWidgets license.  The only exception is
 # the pubsub code in wx/lib/pubsub which is BSD licensed.  Note: wxPython
@@ -23,8 +23,6 @@ Summary:        %{sum}
 License:        wxWidgets and BSD
 URL:            https://www.wxpython.org/
 Source0:        https://files.pythonhosted.org/packages/source/w/%{srcname}/%{srcname}-%{version}.tar.gz
-Patch0:         no-attrdict.patch
-Patch1:         pypubsub-getargspec.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  doxygen
@@ -37,6 +35,7 @@ BuildRequires:  mesa-dri-drivers
 BuildRequires:  xorg-x11-server-Xvfb
 BuildRequires:  python3-numpy
 BuildRequires:  python3-pytest
+BuildRequires:  python3-pytest-forked
 BuildRequires:  python3-pytest-timeout
 BuildRequires:  python3-pytest-xdist
 BuildRequires:  vulkan-loader
@@ -118,7 +117,8 @@ for file in demo/TestTable.txt docs/sphinx/_downloads/i18nwxapp/locale/I18Nwxapp
 done
 
 %build
-DOXYGEN=%{_bindir}/doxygen WAF=%{_bindir}/waf %{__python3} -u build.py dox touch etg --nodoc sip build_py --use_syswx --gtk3
+#DOXYGEN=%{_bindir}/doxygen WAF=%{_bindir}/waf %{__python3} -u build.py dox touch etg --nodoc sip build_py --use_syswx --gtk3
+DOXYGEN=%{_bindir}/doxygen WAF=%{_bindir}/waf %{__python3} -u build.py build_py --use_syswx --gtk3
 
 
 %install
@@ -156,6 +156,11 @@ xvfb-run -a %{__python3} build.py test --pytest_timeout=60 --extra_pytest="-k $S
 
 
 %changelog
+* Mon Jun 19 2023 Scott Talbert <swt@techie.net> - 4.2.1-1
+- Update to new upstream release 4.2.1 (#2208211 #2213374)
+- Temporarily use upstream generated cpp files (broken by doxygen)
+- Add missing BR for python3-pytest-forked to fix tests
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 4.2.0-4
 - Rebuilt for Python 3.12
 

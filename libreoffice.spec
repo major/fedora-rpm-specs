@@ -55,7 +55,7 @@ Summary:        Free Software Productivity Suite
 Name:           libreoffice
 Epoch:          1
 Version:        %{libo_version}.2
-Release:        1%{?libo_prerelease}%{?dist}
+Release:        2%{?libo_prerelease}%{?dist}
 # default new files are: MPLv2
 # older files are typically: MPLv2 incorporating work under ASLv2
 # nlpsolver is: LGPLv3
@@ -268,6 +268,8 @@ Patch4: 0001-default-to-sifr-for-gnome-light-mode.patch
 # TODO investigate these
 Patch5: 0001-aarch64-failing-here.patch
 Patch6: 0001-include-filename-if-the-test-fails.patch
+# backported
+Patch7: 0001-fix-testSignDocument_PEM_PDF.patch
 # not upstreamed
 Patch500: 0001-disable-libe-book-support.patch
 
@@ -1493,10 +1495,10 @@ install -m 0755 -d %{buildroot}%{baseinstdir}/share/extensions
 rm -f %{buildroot}%{baseinstdir}/program/officebean.abignore
 %endif
 
-#%%check
-#make unitcheck slowcheck
-## we don't need this anymore
-#rm -f %%{buildroot}%%{baseinstdir}/program/classes/smoketest.jar
+%check
+make unitcheck slowcheck
+# we don't need this anymore
+rm -f %{buildroot}%{baseinstdir}/program/classes/smoketest.jar
 
 %files
 
@@ -2248,6 +2250,10 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor &>/dev/null || :
 %{_includedir}/LibreOfficeKit
 
 %changelog
+* Mon Jun 19 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:7.5.4.2-2
+- Backport upstream fix for testSignDocument_PEM_PDF test failure
+- Enable test again
+
 * Fri Jun 16 2023 Gwyn Ciesla <gwync@protonmail.com> - 1:7.5.4.2-1
 - 7.5.4.2
 - Drop 0001-tdf-155161-Always-embed-fonts-with-CFF2-table-as-PDF.patch, upstreamed.

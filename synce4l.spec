@@ -1,17 +1,14 @@
-%global gitver ca51d51d27fb0c2b1ac0febe8600ffb6fbad160a
-%global gitrel %(c=%{gitver}; echo ${c:0:6})
-%global gitdate 20221114
-
 Name:		synce4l
-Version:	0
-Release:	4.%{gitdate}git%{gitrel}%{?dist}
+Version:	0.9.0
+Release:	1%{?dist}
 Summary:	SyncE implementation for Linux
 
 License:	GPL-2.0-or-later
 URL:		https://github.com/intel/synce4l
-Source0:	https://github.com/intel/synce4l/archive/%{gitrel}/synce4l-%{gitrel}.tar.gz
+Source0:	https://github.com/intel/synce4l/archive/%{version}/synce4l-%{version}.tar.gz
 Source1:	synce4l.service
 Source2:	synce4l.conf
+Patch1:		synce4l-gcc-warn.patch
 
 BuildRequires:	gcc make systemd
 
@@ -25,7 +22,9 @@ supported hardware by processing Ethernet Synchronization Messaging Channel
 (NIC).
 
 %prep
-%setup -q -n synce4l-%{gitver}
+%autosetup
+# Fix building outside of git repository
+sed -i 's|\(^VERSION := \).*|\1%{version}|' Makefile
 
 %build
 %{make_build} \
@@ -64,6 +63,9 @@ echo '.so man8/synce4l.8' > $RPM_BUILD_ROOT%{_mandir}/man5/synce4l.conf.5
 %{_mandir}/man8/*.8*
 
 %changelog
+* Mon Jun 19 2023 Miroslav Lichvar <mlichvar@redhat.com> 0.9.0-1
+- update to 0.9.0
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-4.20221114gitca51d5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

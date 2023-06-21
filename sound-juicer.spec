@@ -1,12 +1,11 @@
 Name:           sound-juicer
-Version:        3.38.0
-Release:        7%{?dist}
+Version:        3.40.0
+Release:        1%{?dist}
 Summary:        Clean and lean CD ripper
 
 License:        GPLv2+
 URL:            https://wiki.gnome.org/Apps/SoundJuicer
-Source0:        https://download.gnome.org/sources/%{name}/3.38/%{name}-%{version}.tar.xz
-Patch1:         sound-juicer-meson-fix.patch
+Source0:        https://download.gnome.org/sources/%{name}/3.40/%{name}-%{version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  meson
@@ -45,10 +44,10 @@ GStreamer-based CD ripping tool. Saves audio CDs to Ogg/vorbis.
 %meson_install
 
 # These are installed to the correct location with the doc macro down below
-rm $RPM_BUILD_ROOT%{_prefix}/doc/sound-juicer/AUTHORS
-rm $RPM_BUILD_ROOT%{_prefix}/doc/sound-juicer/COPYING
-rm $RPM_BUILD_ROOT%{_prefix}/doc/sound-juicer/NEWS
-rm $RPM_BUILD_ROOT%{_prefix}/doc/sound-juicer/README.md
+rm $RPM_BUILD_ROOT%{_datadir}/doc/sound-juicer/AUTHORS
+rm $RPM_BUILD_ROOT%{_datadir}/doc/sound-juicer/COPYING
+rm $RPM_BUILD_ROOT%{_datadir}/doc/sound-juicer/NEWS
+rm $RPM_BUILD_ROOT%{_datadir}/doc/sound-juicer/README.md
 
 %find_lang sound-juicer --with-gnome
 
@@ -70,6 +69,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.SoundJui
 %{_mandir}/man1/*
 
 %changelog
+* Mon Jun 19 2023 Kalev Lember <klember@redhat.com> - 3.40.0-1
+- Update to 3.40.0
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.38.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

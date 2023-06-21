@@ -15,7 +15,7 @@
 
 Name:           python-dateparser
 Version:        1.1.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python parser for human readable dates
 
 License:        BSD-3-Clause
@@ -222,6 +222,9 @@ k="${k-}${k+ and }not (TestTranslateSearch and test_splitting_of_not_parsed_6_en
 
 
 %changelog
+* Mon Jun 19 2023 Python Maint <python-maint@redhat.com> - 1.1.7-2
+- Rebuilt for Python 3.12
+
 * Fri Mar 10 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.1.7-1
 - Update to 1.1.7 (close RHBZ#2115204)
 - Port to pyproject-rpm-macros

@@ -1,6 +1,6 @@
 # Shall we re-generate the code using jschema-to-python? The Fedora guidelines
 # suggest but do not require that we do so.
-%bcond_without regenerate
+%bcond regenerate 1
 
 Name:           python-sarif-om
 Summary:        Classes implementing the SARIF 2.1.0 object model

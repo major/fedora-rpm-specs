@@ -1,15 +1,17 @@
 Name:           jackson-core
-Version:        2.14.2
+Version:        2.15.2
 Release:        1%{?dist}
 Summary:        Core part of Jackson
 License:        Apache-2.0
 
 URL:            https://github.com/FasterXML/jackson-core
 Source0:        %{url}/archive/%{name}-%{version}.tar.gz
+Patch1:         0001-Remove-ch.randelshofer.fastdoubleparser.patch
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(com.fasterxml.jackson:jackson-base:pom:) >= %{version}
 BuildRequires:  mvn(com.google.code.maven-replacer-plugin:replacer)
+Buildrequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 
 BuildArch:      noarch
@@ -20,18 +22,23 @@ Core part of Jackson that defines Streaming API as well
 as basic shared abstractions.
 
 %prep
-%setup -q -n %{name}-%{name}-%{version}
+%autosetup -n %{name}-%{name}-%{version} -p 1
 
 # Remove plugins unnecessary for RPM builds
 %pom_remove_plugin ":maven-enforcer-plugin"
+%pom_remove_plugin "org.apache.maven.plugins:maven-shade-plugin"
 %pom_remove_plugin "org.jacoco:jacoco-maven-plugin"
 %pom_remove_plugin "org.moditect:moditect-maven-plugin"
 %pom_remove_plugin "de.jjohannes:gradle-module-metadata-maven-plugin"
+%pom_remove_plugin "io.github.floverfelt:find-and-replace-maven-plugin"
+%pom_remove_dep "ch.randelshofer:fastdoubleparser"
 
 %pom_add_plugin "org.apache.felix:maven-bundle-plugin" . "<extensions>true</extensions>"
 
-cp -p src/main/resources/META-INF/NOTICE .
-sed -i 's/\r//' LICENSE NOTICE
+%pom_change_dep org.junit:junit-bom junit:junit
+
+cp -p src/main/resources/META-INF/jackson-core-NOTICE .
+sed -i 's/\r//' LICENSE jackson-core-NOTICE
 
 %mvn_file : %{name}
 
@@ -43,9 +50,12 @@ sed -i 's/\r//' LICENSE NOTICE
 
 %files -f .mfiles
 %doc README.md release-notes/*
-%license LICENSE NOTICE
+%license LICENSE jackson-core-NOTICE
 
 %changelog
+* Mon Jun 19 2023 Chris Kelley <ckelley@redhat.com> - 2.15.2-1
+- Update to version 2.15.2
+
 * Tue Jan 31 2023 Chris Kelley <ckelley@redhat.com> - 2.14.2-1
 - Update to version 2.14.2
 

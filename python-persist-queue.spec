@@ -7,7 +7,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A single process, persistent multi-producer, multi-consumer queue
 
 License:        BSD
@@ -100,6 +100,9 @@ nose2 persistqueue.tests.test_queue
 %endif
 
 %changelog
+* Mon Jun 19 2023 Python Maint <python-maint@redhat.com> - 0.8.0-2
+- Rebuilt for Python 3.12
+
 * Thu Jan 26 2023 Eric Harney <eharney@redhat.com> - 0.8.0-1
 - Update to 0.8.0
 

@@ -1,6 +1,6 @@
 Name:		flashrom
 Version:	1.3.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Simple program for reading/writing flash chips content
 License:	GPL-2.0-only
 URL:		https://flashrom.org
@@ -15,13 +15,7 @@ BuildRequires:	pciutils-devel
 BuildRequires:	libjaylink-devel
 BuildRequires:	libftdi-devel
 %endif
-%if 0%{?fedora} >= 37 || 0%{?rhel} > 9
-BuildRequires:	libusb-compat-0.1-devel
-%else
-BuildRequires:	libusb-devel
-%endif
-# Used for new programmers (libusb0 will eventually be removed)
-BuildRequires:	libusbx-devel
+BuildRequires:	libusb1-devel
 BuildRequires:	systemd
 BuildRequires:	zlib-devel
 %ifarch %{ix86} x86_64 aarch64
@@ -76,6 +70,9 @@ rm %{buildroot}/%{_libdir}/libflashrom.a
 %{_libdir}/pkgconfig/flashrom.pc
 
 %changelog
+* Sun Jun 18 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.3.0-2
+- Drop unused libusb-0.1 dependency
+
 * Thu Feb 09 2023 Richard Hughes <richard@hughsie.com> - 1.3.0-1
 - Update to latest upstream release
 

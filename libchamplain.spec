@@ -1,6 +1,6 @@
 Name:		libchamplain
-Version:	0.12.20
-Release:	8%{?dist}
+Version:	0.12.21
+Release:	1%{?dist}
 Summary:	Map view for Clutter
 
 License:	LGPLv2+
@@ -11,7 +11,7 @@ BuildRequires:	clutter-devel
 BuildRequires:	clutter-gtk-devel
 BuildRequires:	gobject-introspection-devel
 BuildRequires:	gtk-doc
-BuildRequires:	libsoup-devel
+BuildRequires:	libsoup3-devel
 BuildRequires:	meson
 BuildRequires:	sqlite-devel
 BuildRequires:	gtk3-devel
@@ -83,6 +83,10 @@ into Gtk+ applications.
 %{_libdir}/libchamplain-gtk-0.12.so.0*
 
 %changelog
+* Mon Jun 19 2023 Kalev Lember <klember@redhat.com> - 0.12.21-1
+- Update to 0.12.21 (rhbz#2162014)
+- Switch to libsoup 3
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.20-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -125,12 +125,13 @@
 
 Name:        libblockdev
 Version:     2.28
-Release:     7%{?dist}
+Release:     8%{?dist}
 Summary:     A library for low-level manipulation with block devices
 License:     LGPL-2.1-or-later
 URL:         https://github.com/storaged-project/libblockdev
 Source0:     https://github.com/storaged-project/libblockdev/releases/download/%{version}-%{release}/%{name}-%{version}.tar.gz
 Patch0:      0001-Allow-resizing-of-inactive-LVs-with-latest-LVM.patch
+Patch1:      0002-s390-Do-not-try-to-close-an-unopened-stream.patch
 
 BuildRequires: make
 BuildRequires: glib2-devel
@@ -978,6 +979,9 @@ find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 %files plugins-all
 
 %changelog
+* Mon Jun 19 2023 Vojtech Trefny <vtrefny@redhat.com> - 2.28-8
+- s390: Do not try to close an unopened stream
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 2.28-7
 - Rebuilt for Python 3.12
 

@@ -1,6 +1,6 @@
 Name:           pysvn
 Version:        1.9.21
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Pythonic style bindings for Subversion
 License:        ASL 1.1
 URL:            https://pysvn.sourceforge.io/
@@ -72,6 +72,9 @@ popd
 
 
 %changelog
+* Mon Jun 19 2023 Python Maint <python-maint@redhat.com> - 1.9.21-2
+- Rebuilt for Python 3.12
+
 * Sun Jun 18 2023 Barry A. Scott <barry@barrys-emacs.org> - 1.9.21-1
 - Update to upstream 1.9.21 which includes support for python 3.12 beta 1
 

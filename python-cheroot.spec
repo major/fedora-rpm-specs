@@ -4,8 +4,8 @@
 %bcond_with docs
 
 Name:           python-%{pypi_name}
-Version:        9.0.0
-Release:        2%{?dist}
+Version:        10.0.0
+Release:        1%{?dist}
 Summary:        Highly-optimized, pure-python HTTP server
 
 License:        BSD
@@ -78,9 +78,6 @@ sed -i "/getfixturevalue('_garbage_bin')/d" cheroot/test/test_server.py
 # jaraco.context
 sed -i '/jaraco.context/d' cheroot/test/test_wsgi.py
 sed -i '39 i @pytest.mark.skip()' cheroot/test/test_wsgi.py
-# rerunfailures is incompatble with pytest 7
-# so skip builtin ssl adapter type
-sed -i '199 i @pytest.skip("Incompatible with pytest 7 because of rerunfailures", allow_module_level=True)' cheroot/test/test_ssl.py
 
 %build
 %py3_build
@@ -110,6 +107,9 @@ LANG=C.utf-8 %{__python3} -m pytest --ignore=build -W ignore::DeprecationWarning
 %endif
 
 %changelog
+* Mon Jun 19 2023 Dan Radez <dradez@redhat.com> - 10.0.0-1
+- update to 10.0.0 (rhbz#2208818)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

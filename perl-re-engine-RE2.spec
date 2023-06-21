@@ -1,44 +1,114 @@
 Name:           perl-re-engine-RE2
 Summary:        RE2 regex engine
-Version:        0.17
-Release:        2%{?dist}
+Version:        0.18
+Release:        1%{?dist}
 # lib/re/engine/RE2.pm: GPL-1.0-or-later OR Artistic-1.0-Perl
-# ppport.h:         GPL-1.0-or-later OR Artistic-1.0-Perl
-# README:           GPL-1.0-or-later OR Artistic-1.0-Perl
-## Pruned repackaged archive is missing these files:
-# re2/BUILD:        BSD-like, see LICENSE
-# re2/CMakeLists.txt:   BSD-like, see LICENSE
-# re2/doc/xkcd.png:     CC-BY-NC-2.5                !!!
+# ppport.h:             GPL-1.0-or-later OR Artistic-1.0-Perl
+# README:               GPL-1.0-or-later OR Artistic-1.0-Perl
+## Unbundled and never used:
+# re2/BUILD:                BSD-like, see LICENSE
+# re2/CMakeLists.txt:       BSD-like, see LICENSE
+# re2/doc/mksyntaxgo:       BSD-like, see LICENSE
 # re2/lib/git/commit-msg.hook:  Apache-2.0
-# re2/LICENSE:      BSD-3-Clause
-# re2/Makefile:     BSD-like, see LICENSE
-# re2/re2/bitmap256.h:  BSD-like, see LICENSE
-# re2/re2/fuzzing/compiler-rt/LICENSE:  Apache-2.0
+# re2/LICENSE:              BSD-3-Clause text
+# re2/Makefile:             BSD-like, see LICENSE
+# re2/re2/bitmap256.h:      BSD-like, see LICENSE
+# re2/re2/bitstate.cc:      BSD-like, see LICENSE
+# re2/re2/dfa.cc:           BSD-like, see LICENSE
+# re2/re2/filtered_re2.cc:  BSD-like, see LICENSE
+# re2/re2/filtered_re2.h:   BSD-like, see LICENSE
+# re2/re2/fuzzing/compiler-rt/include/fuzzer/FuzzedDataProvider.h:  Apache-2.0 WITH LLVM-exception
+# re2/re2/fuzzing/compiler-rt/LICENSE:  Apache-2.0 WITH LLVM-exception text
 # re2/re2/fuzzing/re2_fuzzer.cc:    BSD-like, see LICENSE
+# re2/re2/make_perl_groups.pl:      BSD-like, see LICENSE
+# re2/re2/make_unicode_casefold.py: BSD-like, see LICENSE
+# re2/re2/make_unicode_groups.py:   BSD-like, see LICENSE
+# re2/re2/mimics_pcre.cc:       BSD-like, see LICENSE
+# re2/re2/nfa.cc:               BSD-like, see LICENSE
+# re2/re2/onepass.cc:           BSD-like, see LICENSE
+# re2/re2/parse.cc:             BSD-like, see LICENSE
+# re2/re2/perl_groups.cc:       generated from make_perl_groups.pl
+# re2/re2/pod_array.h:          BSD-like, see LICENSE
+# re2/re2/prefilter.cc:         BSD-like, see LICENSE
+# re2/re2/prefilter.h:          BSD-like, see LICENSE
 # re2/re2/prefilter_tree.cc:    BSD-like, see LICENSE
-# re2/re2/sparse_array.h:   BSD-like, see LICENSE
-# re2/re2/sparse_set.h:     BSD-like, see LICENSE
-# re2/re2/testing/dfa_test.cc:  BSD-like, see LICENSE
-# re2/README:       BSD-like, see LICENSE
-# re2/testinstall.cc:       BSD-like, see LICENSE
-# re2/util/rune.cc: ISC-like
-# re2/util/strutil.cc:  BSD-like, see LICENSE
-# re2/util/utf.h:   ISC-like
-# re2/WORKSPACE:    BSD-like, see LICENSE
+# re2/re2/prefilter_tree.h:     BSD-like, see LICENSE
+# re2/re2/prog.cc:              BSD-like, see LICENSE
+# re2/re2/prog.h:               BSD-like, see LICENSE
+# re2/re2/re2.cc:               BSD-like, see LICENSE
+# re2/re2/re2.h:                BSD-like, see LICENSE
+# re2/re2/regexp.cc:            BSD-like, see LICENSE
+# re2/re2/regexp.h:             BSD-like, see LICENSE
+# re2/re2/set.cc:               BSD-like, see LICENSE
+# re2/re2/set.h:                BSD-like, see LICENSE
+# re2/re2/simplify.cc:          BSD-like, see LICENSE
+# re2/re2/sparse_array.h:       BSD-like, see LICENSE
+# re2/re2/sparse_set.h:         BSD-like, see LICENSE
+# re2/re2/stringpiece.cc:       BSD-like, see LICENSE
+# re2/re2/stringpiece.h:        BSD-like, see LICENSE
+# re2/re2/testing/backtrack.cc:         BSD-like, see LICENSE
+# re2/re2/testing/charclass_test.cc:    BSD-like, see LICENSE
+# re2/re2/testing/compile_test.cc:      BSD-like, see LICENSE
+# re2/re2/testing/dfa_test.cc:          BSD-like, see LICENSE
+# re2/re2/testing/dump.cc:              BSD-like, see LICENSE
+# re2/re2/testing/exhaustive_test.cc:   BSD-like, see LICENSE
+# re2/re2/testing/exhaustive_tester.cc  BSD-like, see LICENSE
+# re2/re2/testing/exhaustive_tester.h:  BSD-like, see LICENSE
+# re2/re2/testing/exhaustive1_test.cc:  BSD-like, see LICENSE
+# re2/re2/testing/exhaustive2_test.cc:  BSD-like, see LICENSE
+# re2/re2/testing/exhaustive3_test.cc:  BSD-like, see LICENSE
+# re2/re2/testing/filtered_re2_test.cc: BSD-like, see LICENSE
+# re2/re2/testing/mimics_pcre_test.cc:  BSD-like, see LICENSE
+# re2/re2/testing/null_walker.cc:       BSD-like, see LICENSE
+# re2/re2/testing/parse_test.cc:        BSD-like, see LICENSE
+# re2/re2/testing/possible_match_test.cc:   BSD-like, see LICENSE
+# re2/re2/testing/random_test.cc:       BSD-like, see LICENSE
+# re2/re2/testing/regexp_benchmark.cc:  BSD-like, see LICENSE
+# re2/re2/testing/regexp_generator.cc:  BSD-like, see LICENSE
+# re2/re2/testing/regexp_generator.h:   BSD-like, see LICENSE
+# re2/re2/testing/regexp_test.cc:       BSD-like, see LICENSE
+# re2/re2/testing/required_prefix_test.cc:  BSD-like, see LICENSE
+# re2/re2/testing/re2_arg_test.cc:      BSD-like, see LICENSE
+# re2/re2/testing/re2_test.cc:          BSD-like, see LICENSE
+# re2/re2/testing/search_test.cc:       BSD-like, see LICENSE
+# re2/re2/testing/set_test.cc:          BSD-like, see LICENSE
+# re2/re2/testing/simplify_test.cc:     BSD-like, see LICENSE
+# re2/re2/testing/string_generator.cc:  BSD-like, see LICENSE
+# re2/re2/testing/string_generator.h:   BSD-like, see LICENSE
+# re2/re2/testing/string_generator_test.cc: BSD-like, see LICENSE
+# re2/re2/testing/tester.cc:            BSD-like, see LICENSE
+# re2/re2/testing/tester.h:             BSD-like, see LICENSE
+# re2/re2/tostring.cc:          BSD-like, see LICENSE
+# re2/re2/unicode_casefold.cc:  generated from make_unicode_casefold.py
+# re2/re2/unicode_casefold.h:   BSD-like, see LICENSE
+# re2/re2/unicode_groups.cc:    generated from make_unicode_groups.py
+# re2/re2/unicode_groups.h:     BSD-like, see LICENSE
+# re2/re2/unicode.py:           BSD-like, see LICENSE
+# re2/re2/walker-inl.h:         BSD-like, see LICENSE
+# re2/testinstall.cc:           BSD-like, see LICENSE
+# re2/util/benchmark.cc:        BSD-like, see LICENSE
+# re2/util/benchmark.h:         BSD-like, see LICENSE
+# re2/util/flags.h:             BSD-like, see LICENSE
+# re2/util/fuzz.cc:             BSD-like, see LICENSE
+# re2/util/logging.h:           BSD-like, see LICENSE
+# re2/util/malloc_counter.h:    BSD-like, see LICENSE
+# re2/util/mix.h:               BSD-like, see LICENSE
+# re2/util/mutex.h:             BSD-like, see LICENSE
+# re2/util/pcre.cc:             BSD-like, see LICENSE
+# re2/util/pcre.h:              BSD-like, see LICENSE
+# re2/util/rune.cc:     ISC-like
+# re2/util/strutil.cc:          BSD-like, see LICENSE
+# re2/util/strutil.h:           BSD-like, see LICENSE
+# re2/util/test.h:              BSD-like, see LICENSE
+# re2/util/utf.h:       ISC-like
+# re2/util/util.h:              BSD-like, see LICENSE
+# re2/WORKSPACE:                BSD-like, see LICENSE
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/re-engine-RE2
-# Upstream tarball
-# <https://cpan.metacpan.org/authors/id/D/DG/DGL/re-engine-RE2-%%{version}.tar.gz>
-# contains re2/doc/xkcd.png file with a bad license (CC-BY-NC-2.5). Reported
-# to upstream <https://github.com/dgl/re-engine-RE2/issues/12>
-# The repackaged archive removed the whole bundled ./re2 directory.
-Source0:        repackaged_re-engine-RE2-0.17.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/D/DG/DGL/re-engine-RE2-%{version}.tar.gz
 # Discussion started with upstream at
 # <https://rt.cpan.org/Public/Bug/Display.html?id=83467>
-Patch0:         re-engine-RE2-0.17-Unbundle-re2.patch
-# Fix a sign mismatch on compare, proposed to the upstream,
-# <https://github.com/dgl/re-engine-RE2/pull/13>
-Patch1:         re-engine-RE2-0.17-Fix-re-nparens-signess.patch
+Patch0:         re-engine-RE2-0.18-Unbundle-re2.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -61,7 +131,7 @@ BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(utf8)
 
 %{?perl_default_filter}
-# Remove under-speciefied dependencies
+# Remove under-specified dependencies
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(Test::More\\)$
 
 %description
@@ -80,6 +150,8 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %autosetup -p1 -n re-engine-RE2-%{version}
+# Remove bundled code, MANIFEST is correct with a patch
+rm -r ./re2
 # Remove incorrect executable bits
 chmod -x lib/re/engine/RE2.pm
 # Help generators to recognize Perl scripts
@@ -123,6 +195,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jun 19 2023 Petr Pisar <ppisar@redhat.com> - 0.18-1
+- 0.18 bump
+
 * Thu Feb 02 2023 Petr Pisar <ppisar@redhat.com> - 0.17-2
 - Convert a License tag to an SPDX format
 

@@ -1090,7 +1090,7 @@ Requires: %{name}-common-libs = %{samba_depver}
 Provides: bundled(libreplace)
 
 %description winexe
-Winexe is a Remote Windows®-command executor
+Winexe is a Remote Windows-command executor
 %endif
 
 ### CTDB

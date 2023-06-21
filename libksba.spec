@@ -2,12 +2,12 @@
 
 Summary: CMS and X.509 library
 Name:    libksba
-Version: 1.6.3
-Release: 2%{?dist}
+Version: 1.6.4
+Release: 1%{?dist}
 
 # The library is licensed under LGPLv3+ or GPLv2+,
 # the rest of the package under GPLv3+
-License: FSFUL AND GPL-3.0-or-later AND LGPL-2.1-or-later AND (LGPL-3.0-or-later OR GPL-2.0-or-later)
+License: GPL-3.0-or-later AND LGPL-2.1-or-later AND (LGPL-3.0-or-later OR GPL-2.0-or-later)
 URL:     https://www.gnupg.org/
 Source0: https://www.gnupg.org/ftp/gcrypt/libksba/libksba-%{version}.tar.bz2
 Source1: https://www.gnupg.org/ftp/gcrypt/libksba/libksba-%{version}.tar.bz2.sig
@@ -45,7 +45,7 @@ Requires: pkgconfig
 %endif
 %setup -q
 
-%patch1 -p1 -b .multilib
+%patch 1 -p1 -b .multilib
 
 # Convert to utf-8
 for file in THANKS; do
@@ -90,6 +90,9 @@ make check
 
 
 %changelog
+* Mon Jun 19 2023 Jakub Jelen <jjelen@redhat.com> - 1.6.4-1
+- New upstream release (#2215873)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

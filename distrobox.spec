@@ -45,8 +45,8 @@ external usb devices and graphical apps (X11/Wayland) and audio.
 %install
 ./install -P %{buildroot}/%{_prefix}
 
-install -d -m0755 %{buildroot}%{_docdir}/%{name}
-install -m 0644 docs/*.md %{buildroot}%{_docdir}/%{name}
+#install -d -m0755 %{buildroot}%{_docdir}/%{name}
+#install -m 0644 docs/*.md %{buildroot}%{_docdir}/%{name}
 
 # Move the icon 
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/apps
@@ -68,7 +68,6 @@ done
 
 %files
 %license COPYING.md
-%doc %{_docdir}/%{name}
 %{_mandir}/man1/%{name}*
 %{_bindir}/%{name}
 %{_bindir}/%{name}-create

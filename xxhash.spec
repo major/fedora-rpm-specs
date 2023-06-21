@@ -1,6 +1,6 @@
 Name:		xxhash
 Version:	0.8.1
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Extremely fast hash algorithm
 
 #		The source for the library (xxhash.c and xxhash.h) is BSD
@@ -62,11 +62,15 @@ Documentation files for the xxhash library
 # Enable runtime detection of sse2/avx2/avx512 on intel architectures
 %ifarch %{ix86} x86_64
 %global dispatch 1
+%dnl Some distribution variants build with -march=x86-64-v3.
+%dnl See xxh_x86dispatch.c.
+%global moreflags_dispatch -DXXH_X86DISPATCH_ALLOW_AVX
 %else
 %global dispatch 0
+%global moreflags_dispatch %{nil}
 %endif
 
-%make_build MOREFLAGS="%{__global_cflags} %{?__global_ldflags}" \
+%make_build MOREFLAGS="%{__global_cflags} %{?__global_ldflags} %{moreflags_dispatch}" \
 	    DISPATCH=%{dispatch}
 doxygen
 
@@ -101,6 +105,9 @@ make test-xxhsum-c
 %doc doxygen/html
 
 %changelog
+* Mon Jun 19 2023 Florian Weimer <fweimer@redhat.com> - 0.8.1-5
+- Enable building with -march=x86-64-v3 (#2215831)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

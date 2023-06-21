@@ -5,7 +5,7 @@
 
 Name:           python-%{srcname}
 Version:        2.4.16
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python's Filesystem abstraction layer
 
 License:        MIT
@@ -66,6 +66,9 @@ Summary:        %{summary}
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Mon Jun 19 2023 Python Maint <python-maint@redhat.com> - 2.4.16-3
+- Rebuilt for Python 3.12
+
 * Thu May 25 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2.4.16-2
 - Disable tests in RHEL builds
 

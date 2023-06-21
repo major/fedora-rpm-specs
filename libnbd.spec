@@ -8,11 +8,11 @@
 %global patches_touch_autotools %{nil}
 
 # The source directory.
-%global source_directory 1.16-stable
+%global source_directory 1.17-development
 
 Name:           libnbd
-Version:        1.16.1
-Release:        3%{?dist}
+Version:        1.17.1
+Release:        1%{?dist}
 Summary:        NBD client library in userspace
 
 License:        LGPL-2.0-or-later AND BSD-3-Clause
@@ -356,6 +356,9 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Mon Jun 19 2023 Richard W.M. Jones <rjones@redhat.com> - 1.17.1-1
+- New upstream development version 1.17.1
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.16.1-3
 - Rebuilt for Python 3.12
 

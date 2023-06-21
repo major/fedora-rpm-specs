@@ -1,8 +1,8 @@
 %global	gem_name	native-package-installer
 
 Name:		rubygem-%{gem_name}
-Version:	1.1.5
-Release:	3%{?dist}
+Version:	1.1.6
+Release:	1%{?dist}
 Summary:	Native packages installation helper
 
 # SPDX confirmed
@@ -78,6 +78,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Mon Jun 19 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.1.6-1
+- 1.1.6
+
 * Wed May 24 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.1.5-3
 - SPDX migration
 

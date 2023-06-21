@@ -1,6 +1,6 @@
 Name: pycairo
-Version: 1.23.0
-Release: 3%{?dist}
+Version: 1.24.0
+Release: 1%{?dist}
 Summary: Python bindings for the cairo library
 
 License: LGPL-2.1-only OR MPL-1.1
@@ -56,6 +56,9 @@ libraries so that they interoperate with py3cairo.
 %{_libdir}/pkgconfig/py3cairo.pc
 
 %changelog
+* Mon Jun 19 2023 Kalev Lember <klember@redhat.com> - 1.24.0-1
+- Update to 1.24.0
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.23.0-3
 - Rebuilt for Python 3.12
 
