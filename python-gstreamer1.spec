@@ -1,8 +1,8 @@
 %global gstreamer1_version 1.8.0
 
 Name:           python-gstreamer1
-Version:        1.22.3
-Release:        2%{?dist}
+Version:        1.22.4
+Release:        1%{?dist}
 Summary:        Python bindings for GStreamer
 
 License:        LGPLv2+
@@ -60,6 +60,9 @@ find -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
 %{_libdir}/gstreamer-1.0/libgstpython.*so
 
 %changelog
+* Tue Jun 20 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.22.4-1
+- 1.22.4
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.22.3-2
 - Rebuilt for Python 3.12
 

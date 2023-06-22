@@ -3,13 +3,13 @@
 %global pkgname gtksourceviewmm3
 
 Name:          mingw-%{pkgname}
-Version:       3.18.0
-Release:       16%{?dist}
+Version:       3.21.3
+Release:       1%{?dist}
 Summary:       MinGW Windows GtkSourceViewmm library
-License:       LGPLv2+
+License:       LGPL-2.0-or-later
 BuildArch:     noarch
 URL:           https://wiki.gnome.org/Projects/GtkSourceView
-Source0:       http://download.gnome.org/sources/gtksourceviewmm/3.18/gtksourceviewmm-%{version}.tar.xz
+Source0:       http://download.gnome.org/sources/gtksourceviewmm/3.21/gtksourceviewmm-%{version}.tar.xz
 
 BuildRequires: make
 BuildRequires: mingw32-filesystem >= 95
@@ -78,6 +78,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Tue Jun 20 2023 Sandro Mani <manisandro@gmail.com> - 3.21.3-1
+- Update to 3.21.3
+
 * Thu May 18 2023 Orion Poplawski <orion@nwra.com> - 3.18.0-16
 - Change BR to mingw*-gcc-c++
 

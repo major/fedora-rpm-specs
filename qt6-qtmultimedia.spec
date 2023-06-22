@@ -1,8 +1,6 @@
 
 %global qt_module qtmultimedia
 
-%global openal 1
-
 %global gst 0.10
 %if 0%{?fedora} || 0%{?rhel} > 7
 %global gst 1.0
@@ -24,7 +22,7 @@
 Summary: Qt6 - Multimedia support
 Name:    qt6-%{qt_module}
 Version: 6.5.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -72,9 +70,6 @@ BuildRequires: libavformat-free-devel
 BuildRequires: libswscale-free-devel
 BuildRequires: libswresample-free-devel
 BuildRequires: pkgconfig(libva) pkgconfig(libva-drm)
-%endif
-%if 0%{?openal}
-BuildRequires: pkgconfig(openal)
 %endif
 BuildRequires: pkgconfig(xrandr)
 BuildRequires: pkgconfig(xv)
@@ -195,6 +190,9 @@ popd
 
 
 %changelog
+* Fri Jun 16 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 6.5.1-2
+- Drop unused openal-soft build dependency
+
 * Mon May 22 2023 Jan Grulich <jgrulich@redhat.com> - 6.5.1-1
 - 6.5.1
 

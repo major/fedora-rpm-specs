@@ -6,7 +6,7 @@
 %define baseversion %(echo %{version} | awk -F'.' '{print $1"."$2"."$3}')
 
 Name:          mingw-%{pkgname}
-Version:       1.3.243.0
+Version:       1.3.250.0
 Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
@@ -83,6 +83,9 @@ MinGW Windows %{pkgname} library.
 
 
 %changelog
+* Tue Jun 20 2023 Sandro Mani <manisandro@gmail.com> - 1.3.250.0-1
+- Update to 1.3.250.0
+
 * Mon Apr 17 2023 Sandro Mani <manisandro@gmail.com> - 1.3.243.0-1
 - Update to 1.3.243.0
 

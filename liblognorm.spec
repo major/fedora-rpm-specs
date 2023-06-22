@@ -2,7 +2,7 @@
 
 Name:		liblognorm
 Version:	2.0.6
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Fast samples-based log normalization library
 License:	LGPL-2.1-or-later AND Apache-2.0
 URL:		http://www.liblognorm.com
@@ -12,10 +12,14 @@ BuildRequires:	gcc
 BuildRequires:	chrpath
 BuildRequires:	libfastjson-devel
 BuildRequires:	libestr-devel
-BuildRequires:	pcre-devel
+BuildRequires:	pcre2-devel
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool
 
 Patch0: liblognorm-2.0.6-rhbz2105934-sphinx5.patch
 Patch1: liblognorm-configure-glitch.patch
+Patch2: liblognorm-2.0.6-rhbz2128320.patch
 
 %description
 Briefly described, liblognorm is a tool to normalize log data.
@@ -59,11 +63,12 @@ log files.
 
 %patch -P 0 -p1 -b .sphinx5
 %patch -P 1 -p1 -b .configure-glitch
+%patch -P 2 -p1 -b .pcre2
 
 %build
 # Prevent rebuild of the configure script.
 touch configure aclocal.m4 Makefile.in config.h.in
-
+autoreconf --verbose --force --install
 %configure --enable-regexp --enable-docs --docdir=%{htmldir} --includedir=%{_includedir}/%{name}/
 
 
@@ -97,6 +102,10 @@ rm %{buildroot}%{htmldir}/{objects.inv,.buildinfo}
 
 
 %changelog
+* Thu Jun 08 2023 Attila Lakatos <alakatos@redhat.com> - 2.0.6-9
+- Port pcre dependency to pcre2
+  resolves: rhbz#2128320
+
 * Wed May 31 2023 Attila Lakatos <alakatos@redhat.com> - 2.0.6-8
 - Update License tag for SPDX
 - Apache 2.0 was missing according to upstream sources

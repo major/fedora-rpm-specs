@@ -1,13 +1,13 @@
 %global _hardened_build 1
-%global dpver 20220627
+%global dpver 20230620
 
 %global dqmirror1 http://distcache.freebsd.org/ports-distfiles/quake-data/quakesw-1.0.6.tar.gz
 %global dqmirror2 https://www.libsdl.org/projects/quake/data/quakesw-1.0.6.tar.gz
 
 Summary: Multiplayer, deathmatch oriented first person shooter
 Name: xonotic
-Version: 0.8.5
-Release: 4%{?dist}
+Version: 0.8.6
+Release: 1%{?dist}
 License: GPL-2.0-or-later and LGPL-2.0-or-later
 URL: http://www.xonotic.org/
 # Custom tarball:
@@ -15,7 +15,7 @@ URL: http://www.xonotic.org/
 # unzip xonotic-%{version}.zip
 # cd Xonotic/source/
 # cp ../misc/logos/icons_png/xonotic_256.png darkplaces/
-# tar -czf darkplaces-%{version}.tar.xz darkplaces/
+# tar -cJf darkplaces-%{version}.tar.xz darkplaces/
 Source0: darkplaces-%{version}.tar.xz
 Source1: %{name}.desktop
 Source10: darkplaces-quake.sh
@@ -52,8 +52,6 @@ focused on providing basic, old style deathmatches.
 Summary: Dedicated server for the Xonotic first person shooter
 Requires: xonotic-data = %{version}
 Requires: darkplaces-server = %{dpver}-%{release}
-Obsoletes: nexuiz-server <= 2.5.2
-Provides: nexuiz-server = %{name}-%{version}
 
 
 %description server
@@ -116,7 +114,7 @@ sed -i 's/\r//' darkplaces.txt
 sed -i 's,/usr/X11R6/,/usr/,g' makefile makefile.inc
 sed -i 's/nexuiz/xonotic/g' makefile makefile.inc
 
-%patch0 -p2
+%patch -P 0 -p2
 
 %build
 export DP_FS_BASEDIR=%{_datadir}/xonotic
@@ -272,6 +270,9 @@ EOF
 
 
 %changelog
+* Tue Jun 20 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.8.6-1
+- 0.8.6
+
 * Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.8.5-4
 - migrated to SPDX license
 

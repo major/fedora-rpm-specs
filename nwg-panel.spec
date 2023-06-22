@@ -19,6 +19,7 @@ Requires:   gtk-layer-shell
 Requires:   gtk3
 Requires:   python3-gobject
 Requires:   python3-i3ipc
+Requires:   python3-dasbus
 Requires:   wlr-randr
 
 Recommends: /usr/bin/pactl

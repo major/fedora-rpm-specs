@@ -14,7 +14,7 @@ the configuration, management, collection, and preprocessing of data collected
 via POST requests. }
 
 Name:           python-%{pypi_name}
-Version:        0.2.2
+Version:        0.2.3
 Release:        1%{?dist}
 Summary:        Collect POST requests
 
@@ -67,6 +67,9 @@ toml-adapt -path pyproject.toml -a change -dep pandas -ver X
 %doc README.md CHANGELOG.md CODE_OF_CONDUCT.md
 
 %changelog
+* Tue Jun 20 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.2.3-1
+- Update to 0.2.3
+
 * Mon Jun 5 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.2.2-1
 - Update to 0.2.2
 

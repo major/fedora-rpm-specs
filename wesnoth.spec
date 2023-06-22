@@ -1,8 +1,8 @@
 %global _hardened_build 1
 
 Name:           wesnoth
-Version:        1.17.17
-Release:        3%{?dist}
+Version:        1.17.18
+Release:        1%{?dist}
 Summary:        Turn-based strategy game with a fantasy theme
 
 License:        GPL-2.0-or-later
@@ -181,6 +181,9 @@ done
 %{_mandir}/*/man6/wesnoth*.6*
 
 %changelog
+* Tue Jun 20 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.17.18-1
+- 1.17.18
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.17.17-3
 - Rebuilt for Python 3.12
 

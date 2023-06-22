@@ -2,7 +2,7 @@
 %define _vpath_srcdir toonz/sources
 
 Name:    opentoonz
-Version: 1.7.0
+Version: 1.7.1
 Release: 1%{?dist}
 Summary: 2D animation software
 
@@ -20,6 +20,7 @@ Patch4: opentoonz-1.7.0-install-path-fix.patch
 Patch5: opentoonz-1.7.0-kissfft-fix.patch       
 Patch6: opentoonz-1.7.0-toonzrle-rm.patch
 Patch7: opentoonz-1.7.0-tzp-tiffiop-fix.patch
+Patch8: opentoonz-1.7.1-appdata.patch
 
 BuildRequires: flexiblas-devel
 BuildRequires: boost-devel
@@ -63,6 +64,8 @@ OpenToonz is a 2D animation software published by DWANGO. It is based on
 Toonz Studio Ghibli Version, originally developed in Italy by 
 Digital Video, Inc., and customized by Studio Ghibli over many years of 
 production.
+This version was packaged for Fedora using the latest stable libraries
+available in the distribution, in exchange some features were disabled.
 
 
 %package data
@@ -135,6 +138,10 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Tue Jun 20 2023 Diego Herrera <dherrera@redhat.com> 1.7.1-1
+- Updated to 1.7.1
+- Update package description
+
 * Wed May 10 2023 Diego Herrera <dherrera@redhat.com> 1.7.0-1
 - Updated to 1.7.0
 

@@ -1,4 +1,4 @@
-%global sdkver 1.3.243.0
+%global sdkver 1.3.250.0
 
 Name:           glslang
 Version:        11.9.0

@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.12
+Version: 12.13
 Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
@@ -525,6 +525,10 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Jun 20 2023 Nick Clifton  <nickc@redhat.com> - 12.13-1
+- Annocheck: Ignore /dev/null filename in string notes.
+- Annocheck: More tweaks to glibc detection heuristics.  (#2215968)
+
 * Thu Jun 01 2023 Nick Clifton  <nickc@redhat.com> - 12.12-1
 - Annocheck: Check for string notes in separate debug info files.  (#2211694)
 

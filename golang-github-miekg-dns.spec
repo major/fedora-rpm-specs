@@ -4,7 +4,7 @@
 
 # https://github.com/miekg/dns
 %global goipath         github.com/miekg/dns
-Version:                1.1.54
+Version:                1.1.55
 
 %gometa
 

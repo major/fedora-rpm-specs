@@ -2,11 +2,11 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
 # We can generate PDF documentation as a substitute.
-%bcond_without doc_pdf
+%bcond doc_pdf 1
 
 # As of 2022-12-12, PySide6 (https://pypi.org/project/PySide6/) is not yet
 # packaged in Fedora. When it is, we should use it.
-%bcond_with qt6
+%bcond qt6 0
 
 Name:           python-ezdxf
 Version:        1.0.3

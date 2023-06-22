@@ -8,13 +8,13 @@
 %global qt_version 5.9
 %global cmake_version 3.14
 
-%global fullversion %{version}
-#global fullversion 5.5-beta1
+#global fullversion %{version}
+%global fullversion 5.6-beta1
 
 
 Name:           CGAL
-Version:        5.5.2
-Release:        2%{?dist}
+Version:        5.6
+Release:        0.1.beta1%{?dist}
 Summary:        Computational Geometry Algorithms Library
 
 License:        LGPLv3+ and GPLv3+ and Boost
@@ -159,6 +159,9 @@ ldd ./constrained_plus
 %exclude %{_datadir}/CGAL/*/*/skip_vcproj_auto_generation
 
 %changelog
+* Tue Jun 20 2023 Laurent Rineau <laurent.rineau@cgal.org> - 5.6-0.1.beta1
+- New upstream release
+
 * Tue Feb 28 2023 Laurent Rineau <laurent.rineau@cgal.org> - 5.5.2-2
 - Update to 5.5.2 (#2174148)
 - CGAL-demos-source is now noarch

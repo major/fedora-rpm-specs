@@ -1,9 +1,9 @@
-%global datadate 20220627
+%global datadate 20230620
 
 Summary: Game data for the Xonotic first person shooter
 Name: xonotic-data
-Version: 0.8.5
-Release: 3%{?dist}
+Version: 0.8.6
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL: http://www.xonotic.org/
 # Source is custom, obtained with :
@@ -12,7 +12,7 @@ URL: http://www.xonotic.org/
 # mkdir xonotic-data-%{version}/
 # mv Xonotic/data/ Xonotic/Docs/* \
 #    Xonotic/GPL* Xonotic/COPYING Xonotic/key_0.d0pk xonotic-data-%{version}/
-# tar -czf xonotic-data-%{version}.tar.xz xonotic-data-%{version}/
+# tar -cJf xonotic-data-%{version}.tar.xz xonotic-data-%{version}/
 Source0: %{name}-%{version}.tar.xz
 BuildArch: noarch
 
@@ -44,6 +44,9 @@ install -p key_0.d0pk %{buildroot}%{_datadir}/xonotic/
 %{_datadir}/xonotic/
 
 %changelog
+* Tue Jun 20 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.8.6-1
+- 0.8.6
+
 * Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.8.5-3
 - migrated to SPDX license
 

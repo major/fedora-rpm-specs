@@ -1,13 +1,10 @@
 Name:	gstreamer-plugins-espeak
-Version:	0.5.0
-Release:	15%{?dist}
+Version:	0.6.0
+Release:	1%{?dist}
 Summary:	A simple gstreamer plugin to use espeak
 License:	LGPLv2+
 URL:		http://wiki.sugarlabs.org/go/Activity_Team/gst-plugins-espeak
 Source0:	http://download.sugarlabs.org/sources/honey/gst-plugins-espeak/gst-plugins-espeak-%{version}.tar.gz
-
-Patch0:		fix-export-regex.patch
-Patch1:		build-against-espeak-ng.patch
 
 BuildRequires:	autoconf automake libtool
 BuildRequires:	gcc
@@ -24,8 +21,6 @@ The plugin uses given text to produce audio output.
 
 %prep
 %setup -q -n gst-plugins-espeak-%{version}
-%patch0 -p1
-%patch1 -p1
 
 sed -i 's#espeak/speak_lib.h#espeak-ng/speak_lib.h#' src/espeak.c
 
@@ -85,12 +80,15 @@ find %{buildroot} -name '*.la' -delete
 
 %files
 %license COPYING
-%doc AUTHORS README NEWS
+%doc AUTHORS README.md NEWS
 %{_datadir}/appdata/*.appdata.xml
 %{_libdir}/gstreamer-1.0/libgstespeak.so
 
 
 %changelog
+* Tue Jun 20 2023 Ibiam Chihurumnaya <ibiam@sugarlabs.org> - 0.6.0-1
+- Update to 0.6.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

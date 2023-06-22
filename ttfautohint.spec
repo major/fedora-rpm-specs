@@ -1,17 +1,23 @@
+# RHEL 10 is dropping Qt5
+%bcond gui %[%{undefined rhel} || 0%{?rhel} < 10]
+
 Name:           ttfautohint
 Version:        1.8.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Automated hinting utility for TrueType fonts
 License:        FTL or GPLv2
 URL:            http://www.freetype.org/ttfautohint
 Source0:        http://download.savannah.gnu.org/releases/freetype/%{name}-%{version}.tar.gz
 
+BuildRequires:  autoconf automake libtool
 BuildRequires:  make
 BuildRequires:  gcc gcc-c++
 BuildRequires:  freetype-devel
 BuildRequires:  harfbuzz-devel
 BuildRequires:  pkgconfig
+%if %{with gui}
 BuildRequires:  qt5-qtbase-devel
+%endif
 Provides:       bundled(gnulib)
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
@@ -22,6 +28,7 @@ are bytecode hinted using the information given by FreeType's autohinting
 module. The idea is to provide the excellent quality of the autohinter on 
 platforms which don't use FreeType.
 
+%if %{with gui}
 %package        gui
 Summary:        GUI for %{name} based on Qt
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
@@ -33,7 +40,8 @@ are bytecode hinted using the information given by FreeType's autohinting
 module. The idea is to provide the excellent quality of the autohinter on 
 platforms which don't use FreeType.
 
-This is a GUI of %{name} based on Qt. 
+This is a GUI of %{name} based on Qt.
+%endif
 
 %package        libs
 Summary:        Library for %{name}
@@ -58,10 +66,17 @@ platforms which don't use FreeType.
 
 
 %prep
-%setup -q
+%autosetup
+# drop this hack if --with-doc is enabled
+echo %{version} > VERSION
+sed -i -e '/dist_man_MANS/d' -e 's/manpages/dist_man_MANS/' frontend/local.mk
+autoreconf -fiv
 
 %build
-%configure --disable-silent-rules --disable-static
+# doc: requires help2man, ImageMagick, inkscape, pandoc, xelatex, xvfb-run
+%configure \
+  --disable-silent-rules --disable-static --without-doc \
+  %{!?with_gui:--without-qt}
 %make_build
 
 %install
@@ -78,11 +93,13 @@ find %{buildroot} -name '*.la' -delete
 %{_bindir}/ttfautohint
 %{_mandir}/man1/ttfautohint.1*
 
+%if %{with gui}
 %files gui
 %license COPYING
 %{_pkgdocdir}/
 %{_bindir}/ttfautohintGUI
 %{_mandir}/man1/ttfautohintGUI.1*
+%endif
 
 %files libs
 %license COPYING
@@ -95,6 +112,9 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/pkgconfig/ttfautohint.pc
 
 %changelog
+* Tue Jun 20 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.8.4-5
+- Disable Qt5 GUI in RHEL 10 builds
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

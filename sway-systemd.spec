@@ -1,5 +1,5 @@
 Name:           sway-systemd
-Version:        0.3.0
+Version:        0.4.0
 Release:        %autorelease
 Summary:        Systemd integration for Sway session
 
@@ -39,9 +39,7 @@ This includes several areas of integration:
 
 %build
 %meson \
-    -Dautostart=true \
-    -Dcgroups=enabled \
-    -Dlocale1=true
+    -Dautoload-configs='cgroups'
 %meson_build
 
 
@@ -54,12 +52,14 @@ This includes several areas of integration:
 %doc README.md
 %config(noreplace) %{_sysconfdir}/sway/config.d/10-systemd-session.conf
 %config(noreplace) %{_sysconfdir}/sway/config.d/10-systemd-cgroups.conf
+%{_datadir}/%{name}/*.conf
 %dir %{_libexecdir}/%{name}
 %{_libexecdir}/%{name}/assign-cgroups.py
 %{_libexecdir}/%{name}/locale1-xkb-config
 %{_libexecdir}/%{name}/session.sh
 %{_libexecdir}/%{name}/wait-sni-ready
 %{_userunitdir}/sway-session.target
+%{_userunitdir}/sway-session-shutdown.target
 %{_userunitdir}/sway-xdg-autostart.target
 
 

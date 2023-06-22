@@ -4,7 +4,7 @@
 # We could generate PDF documentation as a substitute, except that
 # python-sphinxcontrib-asyncio is incompatible with Sphinx 6.1.3 and later
 # (https://bugzilla.redhat.com/show_bug.cgi?id=2180497).
-%bcond_with doc_pdf
+%bcond doc_pdf 0
 
 Name:           python-asyncpg
 Summary:        A fast PostgreSQL Database Client Library for Python/asyncio
@@ -133,6 +133,9 @@ k="${k-}${k+ and }not TestFlake8"
 
 
 %files -n python3-asyncpg -f %{pyproject_files}
+%if %{without doc_pdf}
+%doc README.rst
+%endif
 
 
 %if %{with doc_pdf}

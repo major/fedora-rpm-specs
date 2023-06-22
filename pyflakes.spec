@@ -16,7 +16,12 @@ URL:            https://github.com/PyCQA/pyflakes
 Source0:        %{pypi_source}
 Source1:        http://cdn.debian.net/debian/pool/main/p/pyflakes/pyflakes_2.4.0-2.debian.tar.xz
 
-Patch0:         %{name}-1.1.0-python3-man.patch
+Patch:          %{name}-1.1.0-python3-man.patch
+# Patch 1 & 2 are needed for fixing various test failures with Python 3.12
+# https://github.com/PyCQA/pyflakes/commit/0727850.patch
+Patch:          fix-test-failures-in-python-3.12.patch
+# https://github.com/PyCQA/pyflakes/commit/836631f.patch
+Patch:          fix-error-reporter-and-testsuite-in-3.11.4.patch
 
 BuildArch:      noarch
 
@@ -34,8 +39,7 @@ Summary:        %{summary}
 %{desc}
 
 %prep
-%setup -q -a 1
-%patch0 -p1
+%autosetup -p1 -a1
 
 %generate_buildrequires
 %pyproject_buildrequires

@@ -2,13 +2,12 @@
 %bcond_without perl_CPAN_Meta_Requirements_enables_optional_test
 
 Name:           perl-CPAN-Meta-Requirements
-Version:        2.142
-Release:        2%{?dist}
+Version:        2.143
+Release:        1%{?dist}
 Summary:        Set of version requirements for a CPAN dist
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN-Meta-Requirements
 Source0:        https://cpan.metacpan.org/modules/by-module/CPAN/CPAN-Meta-Requirements-%{version}.tar.gz
-Patch0:         CPAN-Meta-Requirements-2.142-regression.patch
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
@@ -75,10 +74,6 @@ exceptions.
 %prep
 %setup -q -n CPAN-Meta-Requirements-%{version}
 
-# Fix regression with implicit minimum value and multiple requirements
-# https://github.com/Perl-Toolchain-Gang/CPAN-Meta-Requirements/pull/38
-%patch -P 0
-
 %build
 perl Makefile.PL INSTALLDIRS=vendor UNINST=0
 make %{?_smp_mflags}
@@ -96,12 +91,17 @@ LANG=en_US make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 
 %files
 %license LICENSE
-%doc Changes CONTRIBUTING.mkdn perlcritic.rc README
+%doc Changes CONTRIBUTING.mkdn README
 %{perl_vendorlib}/CPAN/
 %{_mandir}/man3/CPAN::Meta::Requirements.3*
 %{_mandir}/man3/CPAN::Meta::Requirements::Range.3*
 
 %changelog
+* Tue Jun 20 2023 Paul Howarth <paul@city-fan.org> - 2.143-1
+- Update to 2.143 (rhbz#2216187)
+  - Fix regression with implicit minimum value and multiple requirements (GH#38)
+- Don't package perlcritic.rc
+
 * Wed May 31 2023 Paul Howarth <paul@city-fan.org> - 2.142-2
 - Fix regression with multiple version numbers
   (rhbz#2208279, GH#38)

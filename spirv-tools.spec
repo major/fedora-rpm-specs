@@ -69,6 +69,7 @@ Development files for %{name}
 %{_bindir}/spirv-lesspipe.sh
 %{_bindir}/spirv-link
 %{_bindir}/spirv-lint
+%{_bindir}/spirv-objdump
 %{_bindir}/spirv-opt
 %{_bindir}/spirv-reduce
 %{_bindir}/spirv-val

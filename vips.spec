@@ -1,20 +1,17 @@
-%global vips_version_base 8.13
-%global vips_version %{vips_version_base}.3
+%global vips_version_base 8.14
+%global vips_version %{vips_version_base}.2
 %global vips_soname_major 42
 
 Name:		vips
 Version:	%{vips_version}
-Release:	8%{?dist}
+Release:	1%{?dist}
 Summary:	C/C++ library for processing large images
 
 License:	LGPLv2+
 URL:		https://libvips.github.io/libvips/
-Source0:	https://github.com/libvips/libvips/releases/download/v%{version}/%{name}-%{version}.tar.gz
-# https://github.com/libvips/libvips/commit/caed71af04cce001917ad68ee556a687af35baf8
-# https://github.com/libvips/ruby-vips/issues/351
-Patch0:	vips-8.13.xx-emit-finish-signal-targetcustom-write.patch
+Source0:	https://github.com/libvips/libvips/releases/download/v%{version}/%{name}-%{version}.tar.xz
 
-BuildRequires:	make
+BuildRequires:	meson
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(gobject-introspection-1.0)
 BuildRequires:	pkgconfig(expat)
@@ -29,10 +26,10 @@ BuildRequires:	pkgconfig(cfitsio)
 BuildRequires:	pkgconfig(pangoft2)
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	pkgconfig(cgif)
-BuildRequires:	pkgconfig(libpng)
 BuildRequires:	pkgconfig(spng)
 BuildRequires:	pkgconfig(libjpeg)
 BuildRequires:	pkgconfig(libjxl)
+BuildRequires:	pkgconfig(libheif)
 BuildRequires:	pkgconfig(libtiff-4)
 BuildRequires:	pkgconfig(libwebp)
 BuildRequires:	pkgconfig(libexif)
@@ -45,16 +42,20 @@ BuildRequires:	pkgconfig(MagickWand)
 BuildRequires:	nifticlib-devel
 
 BuildRequires:	gcc-c++
-BuildRequires:	pkgconfig gettext
-BuildRequires:	python3-devel
+BuildRequires:	pkgconfig
+BuildRequires:	gettext
 BuildRequires:	gtk-doc
 BuildRequires:	doxygen
 
-# Not available as system library and altered by vips upstream
+# bc command used in test suite
+BuildRequires:	bc
+
+# Not available as system library
 Provides:	bundled(libnsgif)
 
 # Optional plugins
 Recommends: %{name}-jxl
+Recommends: %{name}-heif
 Recommends: %{name}-magick
 Recommends: %{name}-openslide
 Recommends: %{name}-poppler
@@ -106,6 +107,15 @@ The %{name}-jxl package contains the jxl module for VIPS, providing JPEG-XL
 support.
 
 
+%package heif
+Summary:       HEIF support for %{name}
+Requires:      %{name}%{?_isa} = %{version}-%{release}
+
+%description heif
+The %{name}-heif package contains the heif module for VIPS, providing AVIF
+support.
+
+
 %package openslide
 Summary:       OpenSlide support for %{name}
 Requires:      %{name}%{?_isa} = %{version}-%{release}
@@ -133,13 +143,6 @@ ImageMagick6.
 
 %prep
 %setup -q
-%patch0 -p1 -b .emit
-
-# Avoid setting RPATH to /usr/lib64 on 64-bit builds
-# The DIE_RPATH_DIE trick breaks the build wrt gobject-introspection
-sed -i 's|sys_lib_dlsearch_path_spec="|sys_lib_dlsearch_path_spec="/%{_lib} %{_libdir} |' configure
-
-%py3_shebang_fix tools/vipsprofile
 
 
 %build
@@ -147,16 +150,21 @@ sed -i 's|sys_lib_dlsearch_path_spec="|sys_lib_dlsearch_path_spec="/%{_lib} %{_l
 # https://github.com/libvips/libvips/pull/212#issuecomment-68177930
 export CFLAGS="%{optflags} -ftree-vectorize"
 export CXXFLAGS="%{optflags} -ftree-vectorize"
-%configure --disable-static --enable-gtk-doc --without-heif --enable-doxygen
-make %{?_smp_mflags}
+# TODO remove `-Dnifti-prefix-dir=/usr`:
+# https://github.com/libvips/libvips/pull/2882#issuecomment-1165686117
+# https://bugzilla.redhat.com/2099283
+%meson \
+    -Dnifti-prefix-dir=/usr \
+    -Ddoxygen=true \
+    -Dgtk_doc=true \
+    -Dpdfium=disabled \
+    %{nil}
+
+%meson_build
 
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT \( -name '*.la' -o -name '*.a' \) -exec rm -f {} ';'
-
-# delete doc (we will get it later with %%doc)
-rm -rf ${RPM_BUILD_ROOT}%{_datadir}/doc/vips
+%meson_install
 
 # locale stuff
 %find_lang vips%{vips_version_base}
@@ -165,43 +173,44 @@ rm -rf ${RPM_BUILD_ROOT}%{_datadir}/doc/vips
 %check
 %ifarch s390x
 # FIXME s390x specific test failure in quantization test
-make check || :
-cat test/test-suite.log
+%meson_test || :
 %else
-make check
+%meson_test
 %endif
 
 
 %files -f vips%{vips_version_base}.lang
-%doc AUTHORS NEWS THANKS README.md ChangeLog
-%license COPYING
+%doc ChangeLog README.md
+%license LICENSE
 %{_libdir}/*.so.%{vips_soname_major}*
 %{_libdir}/girepository-1.0
 %dir %{_libdir}/vips-modules-%{vips_version_base}
 
 
 %files devel
-%doc cplusplus/html
 %{_includedir}/vips
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*
 %{_datadir}/gir-1.0
-%{_datadir}/gtk-doc
 
 
 %files tools
-%{_bindir}/vips-%{vips_version_base}
 %{_bindir}/*
 %{_mandir}/man1/*
 
 
 %files doc
-%doc doc/html
-%license COPYING
+%{_datadir}/gtk-doc
+%{_docdir}/vips-doc/html
+%license LICENSE
 
 
 %files jxl
 %{_libdir}/vips-modules-%{vips_version_base}/vips-jxl.so
+
+
+%files heif
+%{_libdir}/vips-modules-%{vips_version_base}/vips-heif.so
 
 
 %files openslide
@@ -217,6 +226,15 @@ make check
 
 
 %changelog
+* Tue Jun 20 2023 Kleis Auke Wolthuizen <fedora@kleisauke.nl> - 8.14.2-1
+- Update to 8.14.2 (#2098477)
+- Migrate build to Meson
+- Add vips-heif plugin
+- Add bc build dependency
+- Move gtk-doc docs from vips-devel to vips-doc
+- Drop libpng build dependency in favor of spng
+- Drop python3-devel build dependency
+
 * Sun Jun 18 2023 Sérgio Basto <sergio@serjux.com> - 8.13.3-8
 - Mass rebuild for jpegxl-0.8.1
 

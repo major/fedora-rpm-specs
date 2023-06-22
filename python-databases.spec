@@ -1,9 +1,9 @@
 # When bootstrapping, break circular dependency on starlette in the tests.
-%bcond_with bootstrap
+%bcond bootstrap 0
 
 # MySQL tests require interacting with a temporary MySQL database. We are able
 # to do this, but leave a build conditional in case it breaks.
-%bcond_without mysql_tests
+%bcond mysql_tests 1
 
 Name:           python-databases
 Summary:        Async database support for Python

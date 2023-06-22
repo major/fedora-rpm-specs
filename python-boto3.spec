@@ -1,8 +1,8 @@
 %global pypi_name boto3
 
 Name:           python-%{pypi_name}
-Version:        1.26.155
-Release:        2%{?dist}
+Version:        1.26.156
+Release:        1%{?dist}
 Summary:        The AWS SDK for Python
 
 License:        Apache-2.0
@@ -47,6 +47,9 @@ rm -rf tests/integration
 %{python3_sitelib}/%{pypi_name}-%{version}-*.egg-info/
 
 %changelog
+* Tue Jun 20 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.26.156-1
+- 1.26.156
+
 * Sun Jun 18 2023 Python Maint <python-maint@redhat.com> - 1.26.155-2
 - Rebuilt for Python 3.12
 

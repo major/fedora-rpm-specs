@@ -2,22 +2,24 @@
 %global namedversion %{version}%{?namedreltag}
 
 Name:             jboss-logging
-Version:          3.4.1
-Release:          14%{?dist}
+Version:          3.5.1
+Release:          1%{?dist}
 Summary:          The JBoss Logging Framework
 License:          Apache-2.0
 
 URL:              https://github.com/jboss-logging/jboss-logging
 Source0:          %{url}/archive/%{namedversion}/%{name}-%{namedversion}.tar.gz
 Patch1:           0001-Drop-log4j-dependency.patch
-Patch2:           0001-Drop-jboss-logmanager-dependency.patch
+Patch2:           0002-Drop-jboss-logmanager-dependency.patch
+Patch3:           0003-Drop-TestCase-that-depend-on-retired-package.patch
 
 BuildArch:        noarch
-ExclusiveArch:  %{java_arches} noarch
+ExclusiveArch:    %{java_arches} noarch
 
 BuildRequires:    maven-local
 BuildRequires:    mvn(org.apache.felix:maven-bundle-plugin)
-BuildRequires:    mvn(org.jboss:jboss-parent:pom:)
+BuildRequires:    mvn(org.junit:junit-bom:pom:)
+BuildRequires:    mvn(org.apache.logging:logging-parent:pom:)
 BuildRequires:    mvn(org.slf4j:slf4j-api)
 
 %description
@@ -26,11 +28,12 @@ This package contains the JBoss Logging Framework.
 %prep
 %autosetup -n %{name}-%{namedversion} -p 1
 
-# Unneeded task
+# Unneeded tasks
+%pom_remove_dep ch.qos.logback:logback-classic
 %pom_remove_plugin :maven-source-plugin
+%pom_remove_plugin io.github.dmlloyd.module-info:module-info
 
-cp -p src/main/resources/META-INF/LICENSE.txt .
-sed -i 's/\r//' LICENSE.txt
+%pom_set_parent org.apache.logging:logging-parent
 
 %build
 %mvn_build -j
@@ -42,6 +45,9 @@ sed -i 's/\r//' LICENSE.txt
 %license LICENSE.txt
 
 %changelog
+* Tue Jun 06 2023 Chris Kelley <ckelley@redhat.com> - 3.5.1-1
+- Rebase to version 3.5.1.Final
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

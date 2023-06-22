@@ -21,7 +21,7 @@ BuildRequires:  pkgconfig(json-c)
 BuildRequires:  pkgconfig(libcpuid) >= 0.6.2  %dnl # Upstream recommends 0.6.3
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(libpci)
-BuildRequires:  pkgconfig(libprocps)
+BuildRequires:  pkgconfig(libproc2)
 BuildRequires:  pkgconfig(libstatgrab)
 BuildRequires:  pkgconfig(ncursesw)
 BuildRequires:  pkgconfig(OpenCL)

@@ -1,8 +1,8 @@
 %bcond_with     jp_minimal
 
 Name:           jackson-modules-base
-Version:        2.14.2
-Release:        3%{?dist}
+Version:        2.15.2
+Release:        1%{?dist}
 Summary:        Jackson modules: Base
 License:        Apache-2.0
 
@@ -43,10 +43,7 @@ used to make it easier to reuse existing data beans that used with JAXB
 framework to read and write XML.
 
 %prep
-%setup -q -n %{name}-%{name}-%{version}
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+%autosetup -n %{name}-%{name}-%{version} -p 1
 
 %pom_remove_dep -r org.glassfish.jaxb:jaxb-runtime
 %pom_remove_plugin "de.jjohannes:gradle-module-metadata-maven-plugin"
@@ -56,7 +53,6 @@ framework to read and write XML.
 
 # Disable bundling of asm
 %pom_remove_plugin ":maven-shade-plugin" afterburner mrbean paranamer
-%pom_xpath_remove "pom:properties/pom:osgi.private" mrbean paranamer
 
 sed -i 's/\r//' mrbean/src/main/resources/META-INF/{LICENSE,NOTICE}
 cp -p mrbean/src/main/resources/META-INF/{LICENSE,NOTICE} .
@@ -104,6 +100,9 @@ rm osgi/src/test/java/com/fasterxml/jackson/module/osgi/InjectOsgiServiceTest.ja
 %license LICENSE NOTICE
 
 %changelog
+* Mon Jun 19 2023 Chris Kelley <ckelley@redhat.com> - 2.15.2-1
+- Update to version 2.15.2
+
 * Fri Feb 03 2023 Chris Kelley <ckelley@redhat.com> - 2.14.2-3
 - Remove dependency on jaxb-api2 compat package
 

@@ -7,16 +7,15 @@
 %endif
 
 Name:          marisa
-Version:       0.2.4
-Release:       61%{?dist}
+Version:       0.2.6
+Release:       2%{?dist}
 Summary:       Static and spece-efficient trie data structure library
 
-License:       BSD or LGPLv2+
-URL:  https://code.google.com/p/marisa-trie
-# Currently the working URL is
-# https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/marisa-trie/%%{name}-%%{version}.tar.gz
-Source0: https://marisa-trie.googlecode.com/files/%{name}-%{version}.tar.gz
+License:       BSD-2-Clause OR LGPL-2.1-or-later
+URL:  https://github.com/s-yata/marisa-trie
+Source0: https://github.com/s-yata/marisa-trie/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
+BuildRequires: autoconf, automake, libtool
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: gcc-c++
@@ -105,12 +104,13 @@ Ruby language binding for groonga
 
 
 %prep
-%autosetup
+%autosetup -n %{name}-trie-%{version}
 
 
 %build
 %set_build_flags
 
+autoreconf -i
 %configure --disable-static
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
@@ -118,7 +118,7 @@ sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 
 # build Perl bindings
 pushd bindings/perl
-%{__perl} Makefile.PL INC="-I%{_builddir}/%{name}-%{version}/lib" LIBS="-L%{_builddir}/%{name}-%{version}/lib/.libs -lmarisa" INSTALLDIRS=vendor
+%{__perl} Makefile.PL INC="-I%{_builddir}/%{name}-trie-%{version}/include" LIBS="-L%{_builddir}/%{name}-trie-%{version}/lib/%{name}/.libs -lmarisa" INSTALLDIRS=vendor
 %{make_build}
 popd
 
@@ -128,11 +128,11 @@ popd
 
 pushd bindings/python
 %if %{with python2}
-%{__python2} setup.py build_ext --include-dirs="%{_builddir}/%{name}-%{version}/lib" --library-dirs="%{_builddir}/%{name}-%{version}/lib/.libs"
+%{__python2} setup.py build_ext --include-dirs="%{_builddir}/%{name}-trie-%{version}/include" --library-dirs="%{_builddir}/%{name}-trie-%{version}/lib/%{name}/.libs"
 %py2_build
 %endif
 
-%{__python3} setup.py build_ext --include-dirs="%{_builddir}/%{name}-%{version}/lib" --library-dirs="%{_builddir}/%{name}-%{version}/lib/.libs"
+%{__python3} setup.py build_ext --include-dirs="%{_builddir}/%{name}-trie-%{version}/include" --library-dirs="%{_builddir}/%{name}-trie-%{version}/lib/%{name}/.libs"
 %py3_build
 popd
 
@@ -143,7 +143,7 @@ pushd bindings
 popd
 
 pushd bindings/ruby
-ruby extconf.rb --with-opt-include="%{_builddir}/%{name}-%{version}/lib" --with-opt-lib="%{_builddir}/%{name}-%{version}/lib/.libs" --vendor
+ruby extconf.rb --with-opt-include="%{_builddir}/%{name}-trie-%{version}/include" --with-opt-lib="%{_builddir}/%{name}-trie-%{version}/lib/%{name}/.libs" --vendor
 %{make_build}
 popd
 
@@ -185,9 +185,9 @@ rm -f $RPM_BUILD_ROOT%{perl_vendorarch}/sample.pl
 
 
 %files
-%doc docs/style.css AUTHORS README docs/readme.en.html
+%doc docs/style.css AUTHORS README.md docs/readme.en.html
 %lang(ja) %doc docs/readme.ja.html
-%license COPYING
+%license COPYING.md
 %{_libdir}/libmarisa.so.*
 
 %files devel
@@ -207,6 +207,7 @@ rm -f $RPM_BUILD_ROOT%{perl_vendorarch}/sample.pl
 %files perl
 %{perl_vendorarch}/marisa.pm
 %{perl_vendorarch}/auto/marisa
+%{perl_vendorarch}/benchmark.pl
 
 %if %{with python2}
 %files -n python2-%{name}
@@ -224,6 +225,13 @@ rm -f $RPM_BUILD_ROOT%{perl_vendorarch}/sample.pl
 %{ruby_vendorarchdir}/marisa.so
 
 %changelog
+* Tue Jun 20 2023 Peng Wu <pwu@redhat.com> - 0.2.6-2
+- Migrate to SPDX license
+
+* Mon Jun 19 2023 Peng Wu <pwu@redhat.com> - 0.2.6-1
+- Update to 0.2.6
+- Resolves: RHBZ#2215688
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.2.4-61
 - Rebuilt for Python 3.12
 

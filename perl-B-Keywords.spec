@@ -6,8 +6,8 @@
 %endif
 
 Name:           perl-B-Keywords
-Version:        1.24
-Release:        5%{?dist}
+Version:        1.26
+Release:        2%{?dist}
 Summary:        Lists of reserved barewords and symbol names
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/B-Keywords
@@ -15,12 +15,11 @@ Source0:        https://cpan.metacpan.org/modules/by-module/B/B-Keywords-%{versi
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(Config)
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Module Runtime
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(strict)
@@ -59,19 +58,47 @@ The @Symbols array includes the contents of each of @Scalars, @Arrays, @Hashes,
 Similarly, @Barewords adds a few non-function keywords and operators to the
 @Functions array.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+# Provided keywords.h required for 11keywords.t
+Requires:       perl-devel
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
+
 %prep
 %setup -q -n B-Keywords-%{version}
 
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
+
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+rm %{buildroot}%{_libexecdir}/%{name}/t/z_*
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
+
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 %if 0%{!?perl_bootstrap:1} && %{with perl_B_Keywords_enables_extra_test}
 make test IS_MAINTAINER=1 AUTHOR_TESTING=1
 %else
@@ -84,7 +111,19 @@ make test
 %{perl_vendorlib}/B/
 %{_mandir}/man3/B::Keywords.3*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Tue Jun 20 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.26-2
+- Add run-require perl-devel for tests
+
+* Tue Jun 20 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.26-1
+- Update to 1.26
+  - Add Corinna keywords, new with Perl 5.38.0 (PR #8)
+    ADJUST class field method
+- Package tests
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.24-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

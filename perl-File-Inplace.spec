@@ -1,16 +1,27 @@
 Name:           perl-File-Inplace
 Version:        0.20
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Perl module for in-place editing of files
-License:        (GPL+ or Artistic)
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-Inplace
 Source0:        https://cpan.metacpan.org/modules/by-module/File/File-Inplace-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires: make
+BuildRequires:  coreutils
+BuildRequires:  make
+BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+# Runtime:
+BuildRequires:  perl(Carp)
+BuildRequires:  perl(File::Basename)
+BuildRequires:  perl(File::Temp)
+BuildRequires:  perl(File::Copy)
+BuildRequires:  perl(IO::File)
+BuildRequires:  perl(IO::Handle)
+BuildRequires:  perl(strict)
+# Tests:
+BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 File::Inplace is a perl module intended to ease the common task of editing
@@ -26,28 +37,25 @@ aborting edits partially through without affecting the original file.
 %setup -q -n File-Inplace-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-rm -rf $RPM_BUILD_ROOT
-
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
-
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
-
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+%{_fixperms} %{buildroot}
 
 %check
 make test
 
 %files
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/File/Inplace.pm
+%{_mandir}/man3/File::Inplace.3pm.*
 
 %changelog
+* Tue Jun 20 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.20-32
+- Rebuilding the Fedora package
+
 * Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 

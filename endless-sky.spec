@@ -1,6 +1,6 @@
 Name:		endless-sky
-Version:	0.10.0
-Release:	1%{?dist}
+Version:	0.10.2
+Release:	2%{?dist}
 Summary:	Space exploration, trading, and combat game
 
 License:	GPLv3
@@ -12,7 +12,6 @@ Source1:	endless-sky-wrapper
 # Patch not submitted upstream. Upstream conforms to Debian packaging
 # standards where the use of /usr/games is acceptable.
 Patch0:		endless-sky-0.10.0-remove-games-path.patch
-Patch1:         cstdint.patch
 
 Requires:	%{name}-data = %{version}-%{release}
 BuildRequires:	cmake
@@ -64,7 +63,6 @@ desktop-file-validate %{name}.desktop
 
 %install
 %cmake_install
-install -m644 -D io.github.endless_sky.endless_sky.appdata.xml %{buildroot}%{_datadir}/appdata/io.github.endless_sky.endless_sky.appdata.xml
 mkdir -p %{buildroot}%{_bindir}
 install redhat-linux-build/%{name}  %{buildroot}%{_bindir}/%{name}.bin
 install -m755 %{SOURCE1} %{buildroot}%{_bindir}/%{name}
@@ -84,7 +82,6 @@ rm -f %{buildroot}%{_datadir}/doc/endless-sky/license.txt
 %{_datadir}/icons/hicolor/128x128/apps/%{name}.png
 %{_datadir}/icons/hicolor/512x512/apps/%{name}.png
 %{_datadir}/applications/%{name}.desktop
-%{_datadir}/appdata/io.github.endless_sky.endless_sky.appdata.xml
 %{_datadir}/metainfo/io.github.endless_sky.endless_sky.appdata.xml
 %{_mandir}/man6/%{name}.6.gz
 
@@ -95,6 +92,12 @@ rm -f %{buildroot}%{_datadir}/doc/endless-sky/license.txt
 
 
 %changelog
+* Tue Jun 20 2023 Kalev Lember <klember@redhat.com> - 0.10.2-2
+- Don't install duplicate appdata file
+
+* Tue Jun 20 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.10.2-1
+- 0.10.2
+
 * Tue Feb 21 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.10.0-1
 - 0.10.0
 

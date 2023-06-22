@@ -18,17 +18,17 @@
 # Unfortunately, we cannot disable the prerelease packages without breaking
 # almost all of the stable packages, because opentelemetry-sdk depends on the
 # prerelease package opentelementry-semantic-conventions.
-%bcond_without prerelease
+%bcond prerelease 1
 
 # Sphinx-generated HTML documentation is not suitable for packaging; see
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
 # We can generate PDF documentation as a substitute.
-%bcond_without doc_pdf
+%bcond doc_pdf 1
 
 # The python-opencensus package was retired, so we cannot supply the
 # python3-opentelemetry-opencensus-shim subpackage.
-%bcond_with opencensus
+%bcond opencensus 0
 
 Name:           python-opentelemetry
 Version:        %{stable_version}

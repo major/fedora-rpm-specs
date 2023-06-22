@@ -1,7 +1,7 @@
 %global	gem_name	native-package-installer
 
 Name:		rubygem-%{gem_name}
-Version:	1.1.6
+Version:	1.1.7
 Release:	1%{?dist}
 Summary:	Native packages installation helper
 
@@ -78,6 +78,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Tue Jun 20 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.1.7-1
+- 1.1.7
+
 * Mon Jun 19 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.1.6-1
 - 1.1.6
 

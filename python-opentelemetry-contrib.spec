@@ -16,38 +16,38 @@
 
 # A subpackage needs aio_pika >= 7.2.0, < 10.0.0; python-aio-pika is not
 # packaged
-%bcond_with aio_pika
+%bcond aio_pika 0
 
 # A subpackage needs confluent-kafka >= 1.8.2, < 2.0.0; F38 has 1.6.1
-%bcond_with confluent_kafka
+%bcond confluent_kafka 0
 
 # Some tests need elasticsearch-dsl; python-elasticsearch-dsl is not packaged
-%bcond_with elasticsearch_dsl
+%bcond elasticsearch_dsl 0
 
 # A subpackage needs falcon >= 1.4.1, < 4.0.0; F38 has 4.0.0
-%bcond_with falcon
+%bcond falcon 0
 
 # A subpackage needs httpx >= 0.18.0, <= 0.23.0; F39 has 0.24.0
-%bcond_with httpx
+%bcond httpx 0
 
 # Some tests need moto ~= 2.0; but python-moto is not packaged
-%bcond_with moto
+%bcond moto 0
 
 # A subpackage needs protobuf ~= 4.21; F38 has 3.19.6
-%bcond_with protobuf4
+%bcond protobuf4 0
 
 # A subpackage needs remoulade >= 0.50; python-remoulade is not packaged
-%bcond_with remoulade
+%bcond remoulade 0
 
 # A subpackage needs scikit-learn ~= 0.24.0; F38 has 1.1.2
-%bcond_with sklearn
+%bcond sklearn 0
 
 # A subpackage needs starlette ~= 0.13.0; F38 has 0.26.1
-%bcond_with starlette
+%bcond starlette 0
 
 # A subpackage needs tortoise-orm >= 0.17.0; python-tortoise-orm is not
 # packaged
-%bcond_with tortoise_orm
+%bcond tortoise_orm 0
 
 # Some tests need werkzeug == 0.16.1, or at least < 2.2.0; F38 has 2.2.3
 #
@@ -58,13 +58,13 @@
 # The class werkzeug.wrappers.BaseResponse was deprecated in 2.1.0
 # (https://github.com/pallets/werkzeug/issues/1963) and removed in 2.2.0
 # (https://github.com/pallets/werkzeug/pull/2276).
-%bcond_with werkzeug
+%bcond werkzeug 0
 
 # Sphinx-generated HTML documentation is not suitable for packaging; see
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
 # We can generate PDF documentation as a substitute.
-%bcond_without doc_pdf
+%bcond doc_pdf 1
 
 Name:           python-opentelemetry-contrib
 Version:        %{stable_version}

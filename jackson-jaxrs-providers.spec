@@ -1,7 +1,7 @@
 %bcond_without  jp_minimal
 
 Name:           jackson-jaxrs-providers
-Version:        2.14.2
+Version:        2.15.2
 Release:        1%{?dist}
 Summary:        Jackson JAX-RS providers
 License:        Apache-2.0
@@ -171,6 +171,9 @@ rm json/src/test/java/com/fasterxml/jackson/jaxrs/json/resteasy/RestEasyProvider
 %license LICENSE NOTICE
 
 %changelog
+* Mon Jun 19 2023 Chris Kelley <ckelley@redhat.com> - 2.15.2-1
+- Update to version 2.15.2
+
 * Tue Jan 31 2023 Chris Kelley <ckelley@redhat.com> - 2.14.2-1
 - Update to version 2.14.2
 

@@ -1,10 +1,11 @@
 Name: liburing
-Version: 2.3
+Version: 2.4
 Release: 2%{?dist}
 Summary: Linux-native io_uring I/O access library
 License: (GPLv2 with exceptions and LGPLv2+) or MIT
 Source0: https://brick.kernel.dk/snaps/%{name}-%{version}.tar.gz
 Source1: https://brick.kernel.dk/snaps/%{name}-%{version}.tar.gz.asc
+Patch1: 0001-enable-libc.patch
 URL: https://git.kernel.dk/cgit/liburing/
 BuildRequires: gcc
 BuildRequires: gcc-c++
@@ -37,19 +38,28 @@ for the Linux-native io_uring.
 
 %files
 %attr(0755,root,root) %{_libdir}/liburing.so.*
+%attr(0755,root,root) %{_libdir}/liburing-ffi.so.*
 %license COPYING
 
 %files devel
 %{_includedir}/liburing/
 %{_includedir}/liburing.h
 %{_libdir}/liburing.so
+%{_libdir}/liburing-ffi.so
 %exclude %{_libdir}/liburing.a
+%exclude %{_libdir}/liburing-ffi.a
 %{_libdir}/pkgconfig/*
 %{_mandir}/man2/*
 %{_mandir}/man3/*
 %{_mandir}/man7/*
 
 %changelog
+* Tue Jun 20 2023 Stefan Hajnoczi <stefanha@redhat.com> - 2.4-2
+- Fix i686 build failure due to nolibc conflict with stack protector.
+
+* Tue Jun 20 2023 Stefan Hajnoczi <stefanha@redhat.com> - 2.4-1
+- Update to liburing 2.4.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

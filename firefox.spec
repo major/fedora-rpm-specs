@@ -157,13 +157,13 @@ ExcludeArch: ppc64le
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        114.0
+Version:        114.0.2
 Release:        1%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20230605.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20230620.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source10:       firefox-mozconfig
@@ -1042,6 +1042,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Tue Jun 20 2023 Martin Stransky <stransky@redhat.com>- 114.0.2-1
+- Update to 114.0.2
+
 * Mon Jun 05 2023 Martin Stransky <stransky@redhat.com>- 114.0-1
 - Updated to 114.0
 - Disable webrtc on ppc64le

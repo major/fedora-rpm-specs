@@ -6,7 +6,7 @@
 %define baseversion %(echo %{version} | awk -F'.' '{print $1"."$2"."$3}')
 
 Name:          mingw-%{pkgname}
-Version:       1.3.243.0
+Version:       1.3.250.0
 Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
@@ -85,6 +85,9 @@ MINGW64_CMAKE_ARGS="-DGLSLANG_INSTALL_DIR=%{mingw64_prefix} -DSPIRV_HEADERS_INST
 
 
 %changelog
+* Tue Jun 20 2023 Sandro Mani <manisandro@gmail.com> - 1.3.250.0-1
+- Update to 1.3.250.0
+
 * Mon Apr 17 2023 Sandro Mani <manisandro@gmail.com> - 1.3.243.0-1
 - Update to 1.3.243.0
 

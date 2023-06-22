@@ -5,6 +5,10 @@ Summary:    A systemd service controller for multi-nodes environments
 License:    GPL-2.0-or-later
 URL:        https://github.com/containers/hirte
 Source0:    %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+# Patch source: https://github.com/containers/hirte/pull/355
+# merged in 0.3.0, will be in >0.3.0
+Patch:      355.patch
+# Required to apply the patch
 BuildRequires:  git
 
 BuildRequires:  gcc
@@ -169,6 +173,7 @@ This package contains the service controller command line tool.
 %changelog
 * Fri Jun 09 2023 Pierre-Yves Chibon <pingou@pingoured.fr> - 0.3.0-1
 - Update to 0.3.0
+- Backport patch from PR #355 which fixes building on i686
 
 * Tue May 02 2023 Pierre-Yves Chibon <pingou@pingoured.fr> - 0.2.0-1
 - Update to 0.2.0

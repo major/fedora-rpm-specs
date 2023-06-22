@@ -1,8 +1,8 @@
 %global srcname fedfind
 
 Name:           fedfind
-Version:        5.0.1
-Release:        3%{?dist}
+Version:        5.1.1
+Release:        2%{?dist}
 Summary:        Fedora compose and image finder
 
 License:        GPLv3+
@@ -60,8 +60,14 @@ sed -i -e 's., "setuptools-scm"..g' pyproject.toml
 %{python3_sitelib}/%{srcname}*
 
 %changelog
-* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 5.0.1-3
+* Tue Jun 20 2023 Adam Williamson <awilliam@redhat.com> - 5.1.1-2
 - Rebuilt for Python 3.12
+
+* Tue Jun 20 2023 Adam Williamson <awilliam@redhat.com> - 5.1.1-1
+- New release 5.1.1: don't find ELN by compose ID
+
+* Mon Jun 19 2023 Adam Williamson <awilliam@redhat.com> - 5.1.0-1
+- New release 5.1.0: support ELN composes
 
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild

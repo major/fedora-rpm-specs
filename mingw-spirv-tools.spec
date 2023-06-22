@@ -5,7 +5,7 @@
 
 Name:          mingw-%{pkgname}
 Epoch:         1
-Version:       1.3.243.0
+Version:       1.3.250.0
 Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
@@ -83,6 +83,7 @@ MINGW64_CMAKE_ARGS="-DSPIRV-Headers_SOURCE_DIR=%{mingw64_prefix}" \
 %{mingw32_bindir}/spirv-lesspipe.sh
 %{mingw32_bindir}/spirv-link.exe
 %{mingw32_bindir}/spirv-lint.exe
+%{mingw32_bindir}/spirv-objdump.exe
 %{mingw32_bindir}/spirv-opt.exe
 %{mingw32_bindir}/spirv-reduce.exe
 %{mingw32_bindir}/spirv-val.exe
@@ -112,6 +113,7 @@ MINGW64_CMAKE_ARGS="-DSPIRV-Headers_SOURCE_DIR=%{mingw64_prefix}" \
 %{mingw64_bindir}/spirv-lesspipe.sh
 %{mingw64_bindir}/spirv-link.exe
 %{mingw64_bindir}/spirv-lint.exe
+%{mingw64_bindir}/spirv-objdump.exe
 %{mingw64_bindir}/spirv-opt.exe
 %{mingw64_bindir}/spirv-reduce.exe
 %{mingw64_bindir}/spirv-val.exe
@@ -129,6 +131,9 @@ MINGW64_CMAKE_ARGS="-DSPIRV-Headers_SOURCE_DIR=%{mingw64_prefix}" \
 
 
 %changelog
+* Tue Jun 20 2023 Sandro Mani <manisandro@gmail.com> - 1:1.3.250.0-1
+- Update to 1.3.250.0
+
 * Mon Apr 17 2023 Sandro Mani <manisandro@gmail.com> - 1:1.3.243.0-1
 - Update to 1.3.243.0
 

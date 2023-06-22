@@ -9,7 +9,7 @@
 %global ms_version   0.4.2
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 3
+%global baserelease 4
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -37,8 +37,14 @@
 # Features disabled for RHEL
 %if 0%{?rhel}
 %bcond_with jackserver_plugin
+%bcond_with libmysofa
+%bcond_with lv2
+%bcond_with roc
 %else
 %bcond_without jackserver_plugin
+%bcond_without libmysofa
+%bcond_without lv2
+%bcond_without roc
 %endif
 
 # Disabled for RHEL < 10 and Fedora < 36
@@ -108,17 +114,23 @@ BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  avahi-devel
 BuildRequires:  pkgconfig(webrtc-audio-processing) >= 0.2
 BuildRequires:  libusb1-devel
-BuildRequires:  libunwind-devel
 BuildRequires:  readline-devel
+%if %{with lv2}
 BuildRequires:  lilv-devel
+%endif
 BuildRequires:  openssl-devel
 BuildRequires:  libcanberra-devel
+%if %{with roc}
 BuildRequires:  roc-toolkit-devel
+BuildRequires:  libunwind-devel
 BuildRequires:  openfec-devel
+BuildRequires:  sox-devel
+%endif
 BuildRequires:  libuv-devel
 BuildRequires:  speexdsp-devel
-BuildRequires:  sox-devel
+%if %{with libmysofa}
 BuildRequires:  libmysofa-devel
+%endif
 
 Requires(pre):  shadow-utils
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
@@ -349,6 +361,9 @@ cp %{SOURCE1} subprojects/packagefiles/
     %{?with_jack:-D jack-devel=true} 						\
     %{!?with_alsa:-D pipewire-alsa=disabled}					\
     %{?with_vulkan:-D vulkan=enabled}						\
+    %{!?with_libmysofa:-D libmysofa=disabled}					\
+    %{!?with_lv2:-D lv2=disabled}						\
+    %{!?with_roc:-D roc=disabled}						\
     %{nil}
 %meson_build
 
@@ -462,8 +477,10 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-pulse-tunnel.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-raop-discover.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-raop-sink.so
+%if %{with roc}
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-roc-sink.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-roc-source.so
+%endif
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-rtkit.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-rtp-sap.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-rtp-session.so
@@ -612,6 +629,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-x11-bell.so
 
 %changelog
+* Thu Jun 15 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.3.71-4
+- Disable libmysofa, lv2, roc in RHEL builds
+
 * Tue May 23 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.3.71-3
 - Move JACK modules to plugin-jack subpackage
 

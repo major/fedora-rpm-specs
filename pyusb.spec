@@ -1,11 +1,11 @@
 Name: pyusb
 Version: 1.2.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Python bindings for libusb
 License: BSD-3-Clause
 URL: https://github.com/pyusb/pyusb/
 Source0: %{pypi_source}
-BuildRequires: libusb-compat-0.1-devel
+BuildRequires: libusb1
 BuildArch: noarch
 
 %global _description\
@@ -20,6 +20,7 @@ Summary:       %summary
 BuildRequires: python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-setuptools_scm
+Requires:       libusb1
 
 %description -n python3-pyusb
 PyUSB provides easy USB access to python. The module contains classes and 
@@ -35,12 +36,19 @@ sed -i -e 's/\r//g' README.rst
 %install
 %py3_install
 
+%check
+cd tests
+%{py3_test_envvars} %{python3} ./testall.py
+
 %files -n python3-pyusb
 %license LICENSE
 %doc README.rst
 %{python3_sitelib}/*
 
 %changelog
+* Sun Jun 18 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.2.1-6
+- Update dependencies to libusb1
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.2.1-5
 - Rebuilt for Python 3.12
 

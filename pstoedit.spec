@@ -1,10 +1,6 @@
-%if 0%{?el7}
-%global dts devtoolset-9-
-%endif
-
 Name:           pstoedit
-Version:        3.78
-Release:        7%{?dist}
+Version:        4.00
+Release:        1%{?dist}
 Summary:        Translates PostScript and PDF graphics into other vector formats
 License:        GPLv2+
 URL:            http://www.pstoedit.net
@@ -26,9 +22,7 @@ BuildRequires:  libzip-devel
 %if ! (0%{?rhel} >= 8)
 BuildRequires:  ImageMagick-c++-devel
 %endif
-%if 0%{?fedora} || 0%{?rhel} > 7
 BuildRequires:  libEMF-devel
-%endif
 Requires:       ghostscript%{?_isa}
 
 %description
@@ -50,23 +44,16 @@ applications
 %prep
 %autosetup -N
 
-%patch0 -p1
-%if 0%{?fedora} > 35 || 0%{?rhel} > 9
-%patch1 -p1
+%patch -P 0 -p1
+%if 0%{?fedora} || 0%{?rhel} > 9
+%patch -P 1 -p1
 %endif
 
 dos2unix doc/*.htm doc/readme.txt
 
 %build
-%if 0%{?el7}
-%{?dts:source /opt/rh/devtoolset-9/enable}
-%endif
-
 %configure --disable-static --enable-docs=no --with-libzip-include=%{_includedir} \
-%if 0%{?rhel} == 7
- --without-emf
-%endif
-
+           --with-magick --with-libplot
 %make_build
 
 %install
@@ -75,29 +62,28 @@ mkdir -p $RPM_BUILD_ROOT%{_mandir}/man1
 install -pm 644 doc/pstoedit.1 $RPM_BUILD_ROOT%{_mandir}/man1/
 find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 
-%if 0%{?el7}
-rm -rf $RPM_BUILD_ROOT%{_datadir}/doc/pstoedit
-%endif
-
-
 %files
 %doc doc/readme.txt doc/pstoedit.htm doc/changelog.htm doc/pstoedit.pdf
 %license copying
 %{_datadir}/pstoedit/
 %{_mandir}/man1/*
 %{_bindir}/pstoedit
-%{_libdir}/*.so.*
+%{_libdir}/libpstoedit.so.0.0.0
+%{_libdir}/libpstoedit.so.0
 %{_libdir}/pstoedit/
 
 %files devel
 %doc doc/changelog.htm
 %{_includedir}/pstoedit/
-%{_libdir}/*.so
+%{_libdir}/libpstoedit.so
 %{_libdir}/pkgconfig/*.pc
 %{_datadir}/aclocal/*.m4
 
 
 %changelog
+* Tue Jun 20 2023 Antonio Trande <sagitter@fedoraproject.org> - 4.00-1
+- Release 4.00
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.78-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

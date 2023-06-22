@@ -1,7 +1,7 @@
 %global blender_api 3.5
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
-%bcond_with     clang
+%bcond_without  clang
 %bcond_without  draco
 # Needed to enable osl support for cycles rendering
 %bcond_without  llvm
@@ -183,6 +183,8 @@ BuildRequires:  libappstream-glib
 
 # ROCm stuff
 %if %{with rocm}
+BuildRequires:  clang-tools-extra
+BuildRequires:  lld-devel
 BuildRequires:  rocm-comgr-devel
 BuildRequires:  rocm-hip-devel
 BuildRequires:  rocm-runtime-devel
@@ -260,7 +262,8 @@ sed -i "s/date_time/date_time python%{python3_version_nodots}/" \
     -DCMAKE_CXX_STANDARD=17 \
     -DCMAKE_SKIP_RPATH=ON \
 %if %{with clang}
-    -D_CLANG_LIBRARIES=%{_libdir}/libclang-cpp.so \
+    -DCLANG_INCLUDE_DIR=%{_includedir}/clang \
+    -D_CLANG_LIBRARIES=%{_libdir} \
 %endif
     -DEMBREE_INCLUDE_DIR=%{_includedir}/embree3 \
     -DEMBREE_LIBRARY=%{_libdir}/libembree3.so.3 \
@@ -334,7 +337,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.%{name}.Bl
 %{_bindir}/%{name}
 %{_bindir}/%{name}-thumbnailer
 %{_datadir}/applications/%{name}.desktop
-%exclude %{_datadir}/%{name}/%{blender_api}/datafiles/locale/
+%{_datadir}/%{name}/%{blender_api}/datafiles/locale/
 %{_datadir}/%{name}/
 %{_datadir}/icons/hicolor/*/apps/%{name}*.*
 %{_mandir}/man1/%{name}.*

@@ -56,7 +56,7 @@
 Name:          tomcat
 Epoch:         1
 Version:       %{major_version}.%{minor_version}.%{micro_version}
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Apache Servlet/JSP Engine, RI for Servlet %{servletspec}/JSP %{jspspec} API
 
 License:       ASL 2.0
@@ -80,7 +80,6 @@ Patch1:        %{name}-%{major_version}.%{minor_version}-tomcat-users-webapp.pat
 Patch2:        %{name}-build.patch
 Patch3:        %{name}-%{major_version}.%{minor_version}-catalina-policy.patch
 Patch4:        rhbz-1857043.patch
-Patch5:        %{name}-%{major_version}.%{minor_version}-JDTCompiler.patch
 Patch6:        %{name}-%{major_version}.%{minor_version}-bnd-annotation.patch
 
 BuildArch:     noarch
@@ -190,7 +189,6 @@ find . -type f \( -name "*.bat" -o -name "*.class" -o -name Thumbs.db -o -name "
 %patch 2 -p0
 %patch 3 -p0
 %patch 4 -p0
-%patch 5 -p0
 %patch 6 -p0
 
 # Remove webservices naming resources as it's generally unused
@@ -345,7 +343,7 @@ popd
 # Install the maven metadata for the spec impl artifacts as other projects use them
 #%{__install} -d -m 0755 ${RPM_BUILD_ROOT}%{_mavenpomdir}
 pushd res/maven
-    for pom in tomcat-el-api.pom tomcat-jsp-api.pom tomcat-servlet-api.pom; do
+    for pom in *.pom; do
         # fix-up version in all pom files
         sed -i 's/@MAVEN.DEPLOY.VERSION@/%{version}/g' $pom
     done
@@ -355,6 +353,37 @@ popd
 %mvn_artifact res/maven/tomcat-el-api.pom output/build/lib/el-api.jar
 %mvn_artifact res/maven/tomcat-jsp-api.pom output/build/lib/jsp-api.jar
 %mvn_artifact res/maven/tomcat-servlet-api.pom output/build/lib/servlet-api.jar
+%mvn_artifact res/maven/tomcat-annotations-api.pom ${RPM_BUILD_ROOT}%{libdir}/annotations-api.jar
+%mvn_artifact res/maven/tomcat-api.pom ${RPM_BUILD_ROOT}%{libdir}/tomcat-api.jar
+%mvn_artifact res/maven/tomcat-catalina-ant.pom ${RPM_BUILD_ROOT}%{libdir}/catalina-ant.jar
+%mvn_artifact res/maven/tomcat-catalina-ha.pom ${RPM_BUILD_ROOT}%{libdir}/catalina-ha.jar
+%mvn_artifact res/maven/tomcat-ssi.pom ${RPM_BUILD_ROOT}%{libdir}/catalina-ssi.jar
+%mvn_artifact res/maven/tomcat-storeconfig.pom ${RPM_BUILD_ROOT}%{libdir}/catalina-storeconfig.jar
+%mvn_artifact res/maven/tomcat-tribes.pom ${RPM_BUILD_ROOT}%{libdir}/catalina-tribes.jar
+%mvn_artifact res/maven/tomcat-catalina.pom ${RPM_BUILD_ROOT}%{libdir}/catalina.jar
+%mvn_artifact res/maven/tomcat-jasper-el.pom ${RPM_BUILD_ROOT}%{libdir}/jasper-el.jar
+%mvn_artifact res/maven/tomcat-jasper.pom ${RPM_BUILD_ROOT}%{libdir}/jasper.jar
+%mvn_artifact res/maven/tomcat-jaspic-api.pom ${RPM_BUILD_ROOT}%{libdir}/jaspic-api.jar
+%mvn_artifact res/maven/tomcat-coyote.pom ${RPM_BUILD_ROOT}%{libdir}/tomcat-coyote.jar
+%mvn_artifact res/maven/tomcat-dbcp.pom ${RPM_BUILD_ROOT}%{libdir}/tomcat-dbcp.jar
+%mvn_artifact res/maven/tomcat-i18n-cs.pom ${RPM_BUILD_ROOT}%{libdir}/tomcat-i18n-cs.jar
+%mvn_artifact res/maven/tomcat-i18n-de.pom ${RPM_BUILD_ROOT}%{libdir}/tomcat-i18n-de.jar
+%mvn_artifact res/maven/tomcat-i18n-es.pom ${RPM_BUILD_ROOT}%{libdir}/tomcat-i18n-es.jar
+%mvn_artifact res/maven/tomcat-i18n-fr.pom ${RPM_BUILD_ROOT}%{libdir}/tomcat-i18n-fr.jar
+%mvn_artifact res/maven/tomcat-i18n-ja.pom ${RPM_BUILD_ROOT}%{libdir}/tomcat-i18n-ja.jar
+%mvn_artifact res/maven/tomcat-i18n-ko.pom ${RPM_BUILD_ROOT}%{libdir}/tomcat-i18n-ko.jar
+%mvn_artifact res/maven/tomcat-i18n-pt-BR.pom ${RPM_BUILD_ROOT}%{libdir}/tomcat-i18n-pt-BR.jar
+%mvn_artifact res/maven/tomcat-i18n-ru.pom ${RPM_BUILD_ROOT}%{libdir}/tomcat-i18n-ru.jar
+%mvn_artifact res/maven/tomcat-i18n-zh-CN.pom ${RPM_BUILD_ROOT}%{libdir}/tomcat-i18n-zh-CN.jar
+%mvn_artifact res/maven/tomcat-jdbc.pom ${RPM_BUILD_ROOT}%{libdir}/tomcat-jdbc.jar
+%mvn_artifact res/maven/tomcat-jni.pom ${RPM_BUILD_ROOT}%{libdir}/tomcat-jni.jar
+%mvn_artifact res/maven/tomcat-juli.pom ${RPM_BUILD_ROOT}%{libdir}/tomcat-juli.jar
+%mvn_artifact res/maven/tomcat-util-scan.pom ${RPM_BUILD_ROOT}%{libdir}/tomcat-util-scan.jar
+%mvn_artifact res/maven/tomcat-util.pom ${RPM_BUILD_ROOT}%{libdir}/tomcat-util.jar
+%mvn_artifact res/maven/tomcat-websocket-api.pom ${RPM_BUILD_ROOT}%{libdir}/websocket-api.jar
+%mvn_artifact res/maven/tomcat-websocket.pom ${RPM_BUILD_ROOT}%{libdir}/tomcat-websocket.jar
+%mvn_artifact res/maven/tomcat.pom
+
 %mvn_install
 
 %pre
@@ -471,7 +500,7 @@ fi
 %files docs-webapp
 %{appdir}/docs
 
-%files lib
+%files lib -f .mfiles
 %dir %{libdir}
 %{libdir}/*.jar
 %{_javadir}/*.jar
@@ -508,7 +537,9 @@ fi
 %{appdir}/ROOT
 
 %changelog
-* Wed Jun 14 2023 Hui Wang <huwang@redhat.com> - 1:9.0.76-1
+* Tue Jun 20 2023 Hui Wang <huwang@redhat.com> - 1:9.0.76-2
+- Resolves: rhbz#2189672 Missing Tomcat POM files in Fedora Rawhide
+- Remove JDTCompiler patch because ecj has been update
 - Update to 9.0.76
 - Resolves: rhbz#2188218 Link bin/tomcat-juli.jar to /usr/share/java
 - Move tomcat-jsp-2.3-api.jar,tomcat-servlet-4.0-api.jar and tomcat-el-api.jar to the subpackages

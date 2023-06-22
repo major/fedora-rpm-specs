@@ -1,6 +1,6 @@
 %global sover           3
 # git describe
-%global aom_version     v3.6.0
+%global aom_version     v3.6.1
 
 # Use commit with updated changelog for correct versioning
 %global commit          fc430c57c7b0307b4c5ffb686cd90b3c010d08d2
@@ -15,7 +15,7 @@
 %endif
 
 Name:       aom
-Version:    3.6.0
+Version:    3.6.1
 Release:    %autorelease
 Summary:    Royalty-free next-generation video format
 

@@ -1,11 +1,11 @@
 %global forgeurl https://github.com/jbruchon/jdupes
 
-Version:        1.20.2
+Version:        1.25.1
 
 %forgemeta
 
 Name:           jdupes
-Release:        6%{?dist}
+Release:        1%{?dist}
 Summary:        Duplicate file finder and an enhanced fork of 'fdupes'
 
 License:        MIT
@@ -14,6 +14,7 @@ Source0:        %{forgesource}
 
 BuildRequires:  gcc
 BuildRequires:  make
+BuildRequires:  libjodycode-devel
 
 %description
 jdupes is a program for identifying and taking actions upon duplicate
@@ -41,13 +42,16 @@ prompting the user."
 
 
 %files
-%license LICENSE
-%doc CHANGES INSTALL README.md README.stupid_dupes
+%license LICENSE.txt
+%doc CHANGES.txt INSTALL.txt README.md README.stupid_dupes
 %{_bindir}/jdupes
 %{_mandir}/man1/jdupes.1.gz
 
 
 %changelog
+* Tue Jun 20 2023 David Cantrell <dcantrell@redhat.com> - 1.25.1-1
+- Upgrade to jdupes-1.25.1
+
 * Thu Jan 26 2023 David Cantrell <dcantrell@redhat.com> - 1.20.2-6
 - Pass -DENABLE_DEDUPE and -DHARDEN to CFLAGS (#2156509)
 

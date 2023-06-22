@@ -1,6 +1,9 @@
+%bcond qt5 %[%{undefined rhel} || 0%{?rhel} < 10]
+%bcond qt6 %[%{undefined rhel} || 0%{?rhel} >= 10]
+
 Name:           adwaita-qt
 Version:        1.4.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        LGPL-2.0-or-later AND GPL-2.0-or-later
 Summary:        Adwaita theme for Qt-based applications
 
@@ -14,12 +17,17 @@ BuildRequires:  libxcb-devel
 Obsoletes:      adwaita-qt4 < 1.1.90
 Obsoletes:      adwaita-qt-common < 1.1.90
 
+%if %{with qt5}
 Requires:       (adwaita-qt5 if qt5-qtbase)
+%endif
+%if %{with qt6}
 Requires:       (adwaita-qt6 if qt6-qtbase)
+%endif
 
 %description
 Theme to let Qt applications fit nicely into Fedora Workstation
 
+%if %{with qt5}
 %package -n adwaita-qt5
 Summary:        Adwaita Qt5 theme
 BuildRequires:  qt5-qtbase-devel
@@ -43,7 +51,9 @@ Requires:       libadwaita-qt5%{?_isa} = %{version}-%{release}
 %description -n libadwaita-qt5-devel
 The libadwaita-qt5-devel package contains libraries and header files for
 developing applications that use libadwaita-qt5.
+%endif
 
+%if %{with qt6}
 %package -n adwaita-qt6
 Summary:        Adwaita Qt6 theme
 BuildRequires:  qt6-qtbase-devel
@@ -66,34 +76,45 @@ Requires:       libadwaita-qt6%{?_isa} = %{version}-%{release}
 %description -n libadwaita-qt6-devel
 The libadwaita-qt6-devel package contains libraries and header files for
 developing applications that use libadwaita-qt6.
+%endif
 
 %prep
 %autosetup -n %{name}-%{version} -p1
 
 %build
 %global _vpath_builddir %{_target_platform}-qt5
+%if %{with qt5}
 %if 0%{?flatpak} && 0%{?fedora} >= 36
 %cmake -DQT_PLUGINS_DIR=%{_libdir}/qt5/plugins
 %else
 %cmake
 %endif
 %cmake_build
+%endif
 
+%if %{with qt6}
 %global _vpath_builddir %{_target_platform}-qt6
 %cmake -DUSE_QT6=true
 %cmake_build
+%endif
 
 %install
+%if %{with qt5}
 %global _vpath_builddir %{_target_platform}-qt5
 %cmake_install
+%endif
 
+%if %{with qt6}
 %global _vpath_builddir %{_target_platform}-qt6
 %cmake_install
+%endif
 
 rm -rf %{buildroot}%{_libdir}/pkgconfig/adwaita-qt6.pc
 
+%if %{with qt5}
 %files -n adwaita-qt5
-%doc LICENSE.LGPL2 README.md
+%doc README.md
+%license LICENSE.LGPL2
 %{_qt5_plugindir}/styles/adwaita.so
 
 %files -n libadwaita-qt5
@@ -108,8 +129,12 @@ rm -rf %{buildroot}%{_libdir}/pkgconfig/adwaita-qt6.pc
 %{_libdir}/pkgconfig/adwaita-qt.pc
 %{_libdir}/libadwaitaqt.so
 %{_libdir}/libadwaitaqtpriv.so
+%endif
 
+%if %{with qt6}
 %files -n adwaita-qt6
+%doc README.md
+%license LICENSE.LGPL2
 %{_qt6_plugindir}/styles/adwaita.so
 
 %files -n libadwaita-qt6
@@ -119,12 +144,18 @@ rm -rf %{buildroot}%{_libdir}/pkgconfig/adwaita-qt6.pc
 %files -n libadwaita-qt6-devel
 %dir %{_includedir}/AdwaitaQt6
 %{_includedir}/AdwaitaQt6/*.h
-%dir %{_libdir}/cmake/AdwaitaQt
+%dir %{_libdir}/cmake/AdwaitaQt6
 %{_libdir}/cmake/AdwaitaQt6/*.cmake
 %{_libdir}/libadwaitaqt6.so
 %{_libdir}/libadwaitaqt6priv.so
+%endif
 
 %changelog
+* Mon Jun 19 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.4.2-4
+- Disable Qt5 on RHEL 10
+- Use %%license, install docs with both qt5 and qt6
+- Fix directory ownership of libadwaita-qt6-devel
+
 * Tue Jan 31 2023 Jan Grulich <jgrulich@redhat.com> - 1.4.2-3
 - migrated to SPDX license
 

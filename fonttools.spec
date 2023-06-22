@@ -7,14 +7,14 @@ from an XML text format, which is also called TTX. It supports TrueType, \
 OpenType, AFM and to an extent Type 1 and some Mac-specific formats.
 
 Name:           fonttools
-Version:        4.39.4
-Release:        2%{?dist}
+Version:        4.40.0
+Release:        1%{?dist}
 Summary:        Tools to manipulate font files
 
 # https://spdx.org/licenses/MIT.html
 License:        MIT
 URL:            https://github.com/fonttools/fonttools/
-Source0:        https://github.com/%{name}/%{name}/archive/%{version}.tar.gz#/%{pypi_name}-%{version}.tar.gz
+Source0:        https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz#/%{pypi_name}-%{version}.tar.gz
 
 Requires:       python3-fonttools
 Requires:       python3-setuptools
@@ -97,6 +97,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} %{python3} -m pytest --ignore Tests/o
 %{python3_sitearch}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sun Jun 18 2023 Benson Muite <benson_muite@emailplus.org> - 4.40.0-1
+- Update to 4.40.0 version
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 4.39.4-2
 - Bootstrap for Python 3.12
 

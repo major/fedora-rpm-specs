@@ -1,6 +1,6 @@
 Summary:	LaTeX editor
 Name:		texmaker
-Version:	5.1.3
+Version:	5.1.4
 Release:	%{autorelease}
 Epoch:		1
 License:	GPLv2+

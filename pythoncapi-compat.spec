@@ -5,7 +5,7 @@
 # complete (nothing like sphinx.ext.autodoc is used) and rather readable,
 # however, we package them directly to reduce the build-time dependencies and
 # produce a smaller package.
-%bcond_with doc_pdf
+%bcond doc_pdf 0
 
 %global commit e266312557d7bf2223d88c867bdb45f9985f0a05
 %global snapdate 20230601

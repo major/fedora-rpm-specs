@@ -16,8 +16,8 @@
 %endif
 
 Name:           gstreamer1
-Version:        1.22.3
-Release:        2%{?gitcommit:.git%{shortcommit}}%{?dist}
+Version:        1.22.4
+Release:        1%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPLv2+
@@ -87,7 +87,7 @@ GStreamer streaming media framework.
 
 %prep
 %setup -q -n gstreamer-%{version}
-%patch0 -p1 -b .rpm-provides
+%patch -P 0 -p1 -b .rpm-provides
 
 %build
 %meson	\
@@ -198,6 +198,9 @@ setcap cap_sys_nice,cap_net_bind_service,cap_net_admin+ep %{_libexecdir}/gstream
 
 
 %changelog
+* Tue Jun 20 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.22.4-1
+- 1.22.4
+
 * Thu Jun 8 2023 Wim Taymans <wtaymans@redhat.com> - 1.22.3-2
 - Do setcap on gst-ptp-helper to give the right permissions.
 

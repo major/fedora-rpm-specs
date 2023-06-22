@@ -3,22 +3,15 @@
 %{?mingw_package_header}
 
 Name:           wine-mono
-Version:        7.4.0
-Release:        2%{?dist}
+Version:        8.0.0
+Release:        1%{?dist}
 Summary:        Mono library required for Wine
 
 License:        GPLv2 and LGPLv2 and MIT and BSD and MS-PL and MPLv1.1
 URL:            http://wiki.winehq.org/Mono
 # https://github.com/madewokherd/wine-mono
 Source0:        https://dl.winehq.org/wine/wine-mono/%{version}/wine-mono-%{version}-src.tar.xz
-# to statically link in winpthreads
-Patch0:         wine-mono-build-static.patch
-
-# https://bugs.winehq.org/show_bug.cgi?id=48937
-# fixed in wine 5.7
-Patch1:         wine-mono-crlf.patch
-# Probably a GCC 12 thing
-Patch2:         wine-mono-7.3.0-iconv.patch
+Patch0:         wine-mono-7.3.0-iconv.patch
 
 # see git://github.com/madewokherd/wine-mono
 
@@ -74,19 +67,21 @@ Windows Mono library required for Wine.
 
 %prep
 %setup -q
-%patch0 -p1 -b.static
-%patch1 -p1 -b.crlf
-%patch2 -p1 -b.iconv
+%patch -P 0 -p1 -b.iconv
 
 # Fix all Python shebangs
 %py3_shebang_fix .
 sed -i 's/GENMDESC_PRG=python/GENMDESC_PRG=python3/' mono/mono/mini/Makefile.am.in
 
 # remove shipped compiler
-rm -rf llvm-mingw-20200325-ubuntu-18.04/*
+rm -rf llvm-mingw-20210423-ucrt-ubuntu-18.04-x86_64/*
 sed -i 's/$CPPFLAGS_FOR_BTLS $btls_cflags/$CPPFLAGS_FOR_BTLS -fPIC $btls_cflags/' mono/configure.ac
 sed -i 's/-gcodeview //' GNUmakefile
 sed -i 's/-Wl,-pdb=//' GNUmakefile
+
+# workaround coreutils 9.2 behavior change to "cp -n" option (RHBZ#2208129)
+# https://github.com/madewokherd/wine-mono/issues/164
+sed -i 's~cp -n $(IMAGEDIR)/lib/mono/4.8-api/\*.dll $(IMAGEDIR)/lib/mono/4.5/~cp -n $(IMAGEDIR)/lib/mono/4.8-api/\*.dll $(IMAGEDIR)/lib/mono/4.5/ || true~' mono.make
 
 %build
 export BTLS_CFLAGS="-fPIC"
@@ -125,6 +120,9 @@ cp mono-basic/LICENSE mono-basic-LICENSE
 %{_datadir}/wine/mono/wine-mono-%{version}/
 
 %changelog
+* Mon Jun 19 2023 Michael Cronenworth <mike@cchtml.com> - 8.0.0-1
+- version upgrade
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -13,15 +13,16 @@
 %global cmake_blas_flags -DBLAS_LIBRARIES=%{_libdir}/lib%{blaslib}%{blasvar}.so
 %endif
 
-%if 0%{?rhel}
-%bcond_with mingw
-%else
-%bcond_without mingw
-%endif
+%bcond mingw %{undefined rhel}
+%bcond sparsehash %{undefined rhel}
+%bcond suitesparse %{undefined rhel}
+%bcond SuperLU %{undefined rhel}
+%bcond scotch %{undefined rhel}
+%bcond metis %{undefined rhel}
 
 Name:           eigen3
 Version:        3.4.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A lightweight C++ template library for vector and matrix math
 
 License:        MPL-2.0 AND LGPL-2.0-or-later AND BSD-3-Clause AND Minpack
@@ -36,12 +37,22 @@ BuildRequires:  glew-devel
 BuildRequires:  gmp-devel
 BuildRequires:  gsl-devel
 BuildRequires:  mpfr-devel
-BuildRequires:  sparsehash-devel
-BuildRequires:  suitesparse-devel
 BuildRequires:  gcc-gfortran
+%if %{with sparsehash}
+BuildRequires:  sparsehash-devel
+%endif
+%if %{with suitesparse}
+BuildRequires:  suitesparse-devel
+%endif
+%if %{with SuperLU}
 BuildRequires:  SuperLU-devel
+%endif
+%if %{with scotch}
 BuildRequires:  scotch-devel
+%endif
+%if %{with metis}
 BuildRequires:  metis-devel
+%endif
 
 BuildRequires:  cmake
 BuildRequires:  make
@@ -118,9 +129,15 @@ BuildArch:      noarch
     -DINCLUDE_INSTALL_DIR=%{_includedir}/%{name} \
     -DCMAKEPACKAGE_INSTALL_DIR=%{_datadir}/cmake/%{name} \
     %{cmake_blas_flags} \
+%if %{with SuperLU}
     -DSUPERLU_INCLUDES=%{_includedir}/SuperLU \
+%endif
+%if %{with scotch}
     -DSCOTCH_INCLUDES=%{_includedir} -DSCOTCH_LIBRARIES="scotch" \
+%endif
+%if %{with metis}
     -DMETIS_INCLUDES=%{_includedir} -DMETIS_LIBRARIES="metis" \
+%endif
     -DEIGEN_TEST_CXX11=ON
 
 %cmake_build
@@ -175,6 +192,9 @@ MINGW64_CMAKE_ARGS="-DINCLUDE_INSTALL_DIR=%{mingw64_includedir}/%{name} -DCMAKEP
 
 
 %changelog
+* Thu Jun 15 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.4.0-10
+- Avoid extra test dependencies in RHEL builds
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

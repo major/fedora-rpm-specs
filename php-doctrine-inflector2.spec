@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-doctrine-inflector2
 #
-# Copyright (c) 2013-2022 Shawn Iwinski, Remi Collet
+# Copyright (c) 2013-2023 Shawn Iwinski, Remi Collet
 #
 # License: MIT
 # http://opensource.org/licenses/MIT
@@ -10,9 +10,9 @@
 
 %global github_owner     doctrine
 %global github_name      inflector
-%global github_version   2.0.6
+%global github_version   2.0.8
 %global major            2
-%global github_commit    d9d313a36c872fd6ee06d9a6cbcf713eaa40f024
+%global github_commit    f9301a5b2fb1216b2b08f02ba04dc45423db6bff
 
 %global composer_vendor  doctrine
 %global composer_project inflector
@@ -27,7 +27,7 @@
 
 Name:          php-%{composer_vendor}-%{composer_project}%{major}
 Version:       %{github_version}
-Release:       2%{?github_release}%{?dist}
+Release:       1%{?github_release}%{?dist}
 Summary:       Common string manipulations with regard to casing and singular/plural rules
 
 License:       MIT
@@ -96,7 +96,7 @@ BOOTSTRAP
 
 : Upstream tests
 RETURN_CODE=0
-for PHP_EXEC in "" php74 php80 php81 php82; do
+for PHP_EXEC in "" php80 php81 php82 php83; do
     if [ -z "$PHP_EXEC" ] || which $PHP_EXEC; then
         phpunit9 --verbose --bootstrap bootstrap.php \
             || RETURN_CODE=1
@@ -117,6 +117,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Tue Jun 20 2023 Remi Collet <remi@remirepo.net> - 2.0.8-1
+- update to 2.0.8
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
