@@ -8,37 +8,21 @@
 
 %define	radicale_major	3
 
-%if %{?radicale_major} >= 3
 %define	radicale_version	3.1.8
-%else
-%if %{?radicale_major} >= 2
-%define	radicale_version	2.1.12
-%endif
-%endif
+%define	radicale_release	52
 
 %define	radicale_name	radicale
 
-%if %{?radicale_major} >= 3
 %define	radicale_package_name	radicale3
-%else
-%define	radicale_package_name	radicale2
-%endif
 
 Name:             radicale
 Version:          %{radicale_version}
-Release:          39%{?dist}
+Release:          %{radicale_release}%{?dist}
 Summary:          A simple CalDAV (calendar) and CardDAV (contact) server
 License:          GPLv3+
 URL:              https://radicale.org
-%if %{?radicale_major} >= 3
 Source0:          https://github.com/Kozea/Radicale/archive/v%{version}/%{name}-%{version}.tar.gz
-%else
-%if %{?radicale_major} >= 2
-Source0:          https://github.com/Kozea/Radicale/archive/%{version}/%{name}-%{version}.tar.gz
-%endif
-%endif
 Source1:          %{name}.service
-Source2:          %{name}-logrotate
 Source3:          %{name}-httpd
 Source4:          %{name}.te
 Source5:          %{name}.fc
@@ -49,7 +33,8 @@ Source50:	  %{name}-test-example.ics
 Source51:	  %{name}-test-example.vcf
 
 Patch0:           %{name}-config-storage-hooks-SELinux-note.patch
-Patch1:           %{name}-3.1.8-20230322-6ae831a3.patch
+Patch1:           %{name}-3.1.8-20230422-d7ce2f0b.patch
+Patch2:           %{name}-3.1.8-fix-main-component-PR-1252.patch
 
 BuildArch:        noarch
 
@@ -70,21 +55,8 @@ BuildRequires:    python3-passlib
 BuildRequires:    python3-vobject >= 0.9.6
 BuildRequires:    python3-dateutil >= 2.7.3
 
-%if "%{?radicale_major}" == "3"
 Conflicts:        radicale < 3.0.0
 Conflicts:        radicale2
-%endif
-
-%if "%{?radicale_major}" == "2"
-Conflicts:        radicale < 2.0.0
-Conflicts:        radicale >= 3.0.0
-Conflicts:        radicale3
-%endif
-
-%if "%{?radicale_major}" == "1"
-Conflicts:        radicale >= 2.0.0
-Conflicts:        radicale3
-%endif
 
 Requires:         python3-%{radicale_package_name} = %{version}-%{release}
 Requires(pre):    shadow-utils
@@ -121,15 +93,9 @@ UPGRADE BETWEEN MAJOR VERSIONS IS NOT SUPPORTED
 	-> deinstall old major version
 	-> install new version
 	-> follow migration hints
-%if "%{?radicale_major}" == "3"
 Upgrade hints from major version 2 -> 3 can be found here:
  https://github.com/Kozea/Radicale/blob/v3.1.0/NEWS.md
   (section '3.0.0')
-%endif
-%if "%{?radicale_major}" == "2"
-Upgrade hints from major version 1 -> 2 can be found here:
- https://radicale.org/v2.html#migration-from-1xx-to-2xx
-%endif
 
 
 %package -n python3-%{radicale_package_name}
@@ -139,21 +105,9 @@ Recommends:       python3-passlib
 %{?python_provide:%python_provide python3-%{name}}
 Obsoletes:        python-%{radicale_package_name} < %{version}-%{release}
 
-%if "%{?radicale_major}" == "3"
 Conflicts:        python3-radicale < 3.0.0
 Conflicts:        python3-radicale2
-%endif
 
-%if "%{?radicale_major}" == "2"
-Conflicts:        python3-radicale < 2.0.0
-Conflicts:        python3-radicale3
-%endif
-
-%if "%{?radicale_major}" == "1"
-Conflicts:        python3-radicale >= 2.0.0
-Conflicts:        python3-radicale2
-Conflicts:        python3-radicale3
-%endif
 
 %description -n python3-%{radicale_package_name}
 Python module for Radicale
@@ -165,21 +119,9 @@ Requires:       %{radicale_package_name} = %{version}-%{release}
 Requires:       httpd
 Requires:       python3-mod_wsgi
 
-%if "%{?radicale_major}" == "3"
 Conflicts:        radicale-httpd < 3.0.0
 Conflicts:        radicale2-httpd
-%endif
 
-%if "%{?radicale_major}" == "2"
-Conflicts:        radicale-httpd < 2.0.0
-Conflicts:        radicale3-httpd
-%endif
-
-%if "%{?radicale_major}" == "1"
-Conflicts:        radicale-httpd >= 2.0.0
-Conflicts:        radicale2-httpd
-Conflicts:        radicale3-httpd
-%endif
 
 %description -n %{radicale_package_name}-httpd
 httpd example config for Radicale (Python3).
@@ -215,11 +157,6 @@ cp -p %{SOURCE4} %{SOURCE5} %{SOURCE6} SELinux
 # adjust _rundir according to definition
 sed -i 's|\(/var/run\)|%{_rundir}|' SELinux/%{name}.fc
 
-%if %{?radicale_major} >= 3
-# remove log directory (no longer supported since major version 3)
-sed -i 's|^/var/log/.*||' SELinux/%{name}.fc
-%endif
-
 
 %build
 %py3_build
@@ -228,7 +165,7 @@ cd SELinux
 for selinuxvariant in %{selinux_variants}
 do
     make NAME=${selinuxvariant} -f /usr/share/selinux/devel/Makefile
-    mv %{name}.pp %{name}.pp.${selinuxvariant}
+    %{__mv} %{name}.pp %{name}.pp.${selinuxvariant}
     make NAME=${selinuxvariant} -f /usr/share/selinux/devel/Makefile clean
 done
 cd -
@@ -237,46 +174,40 @@ cd -
 %install
 %py3_install
 
+# move scripts away from _bindir to avoid conflicts and create a wrapper scripts
+install -d -p %{buildroot}%{_libexecdir}/%{name}
+%{__mv} %{buildroot}%{_bindir}/* %{buildroot}%{_libexecdir}/%{name}/
+
+cat > %{buildroot}%{_bindir}/%{radicale_name} << EOF
+#!/bin/sh
+if [ "\$(whoami)" != "%{name}" ]; then
+    echo "This command must be run under the radicale user (%{name})."
+    exit 1
+fi
+%{_libexecdir}/%{name}/%{radicale_name} \$@
+EOF
+chmod a+x %{buildroot}%{_bindir}/%{radicale_name}
+
 # Install configuration files
 mkdir -p %{buildroot}%{_sysconfdir}/%{name}/
 install -p -m 640 config %{buildroot}%{_sysconfdir}/%{name}/
 sed -i 's|^#\(level = \).*|\1 info|' %{buildroot}%{_sysconfdir}/%{name}/config
-%if %{?radicale_major} < 3
-install -p -m 644 logging %{buildroot}%{_sysconfdir}/%{name}/
-%endif
 install -p -m 644 rights %{buildroot}%{_sysconfdir}/%{name}/
 
 # Install wsgi file
 mkdir -p %{buildroot}%{_datadir}/%{name}
 install -p -m 644 radicale.wsgi %{buildroot}%{_datadir}/%{name}/
 sed -i 's|^#!/usr/bin/env python3$|#!/usr/bin/python3|' %{buildroot}%{_datadir}/%{name}/radicale.wsgi
-%if %{?radicale_major} < 3
-install -p -m 644 radicale.fcgi %{buildroot}%{_datadir}/%{name}/
-sed -i 's|^#!/usr/bin/env python3$|#!/usr/bin/python3|' %{buildroot}%{_datadir}/%{name}/radicale.fcgi
-%endif
 
 # Install apache's configuration file
 mkdir -p %{buildroot}%{_sysconfdir}/httpd/conf.d/
 install -p -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/httpd/conf.d/%{name}.conf
 
-# Create folder where the calendar will be stored
-mkdir -p  %{buildroot}%{_sharedstatedir}/%{name}/
+# Create folder where the calendar will be stored (and radicale's home directory)
+install -d -p  %{buildroot}%{_sharedstatedir}/%{name}/
 
 install -D -p -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/%{name}.service
-%if %{?radicale_major} >= 3
-## 3.0.0: Remove daemonization (should be handled by service managers)
-# change start type
-sed -i 's|\(Type=\).*|\1exec|' %{buildroot}%{_unitdir}/%{name}.service
-# disable PIDfile
-sed -i 's|\(PIDFile=\)|#NoLongerUsed in major version >=3#\1|' %{buildroot}%{_unitdir}/%{name}.service
-# remove daemon options
-sed -i 's|\(ExecStart=/usr/bin/radicale\).*|\1|' %{buildroot}%{_unitdir}/%{name}.service
-%endif
 
-
-%if %{?radicale_major} < 3
-install -D -p -m 644 %{SOURCE2} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
-%endif
 install -D -p -m 644 %{SOURCE7} %{buildroot}%{_tmpfilesdir}/%{name}.conf
 mkdir -p %{buildroot}%{_rundir}/%{name}
 
@@ -285,10 +216,6 @@ sed -i 's|\(/var/run\)|%{_rundir}|' %{buildroot}%{_tmpfilesdir}/%{name}.conf
 sed -i 's|\(/var/run\)|%{_rundir}|' %{buildroot}%{_unitdir}/%{name}.service
 mkdir -p %{buildroot}%{_rundir}/%{name}
 
-%if %{?radicale_major} < 3
-mkdir -p %{buildroot}%{_localstatedir}/log/%{name}
-%endif
-
 for selinuxvariant in %{selinux_variants}
 do
     install -d %{buildroot}%{_datadir}/selinux/${selinuxvariant}
@@ -296,7 +223,7 @@ do
         %{buildroot}%{_datadir}/selinux/${selinuxvariant}/%{name}.pp
 done
 
-%if 0%{?rhel}
+%if 0%{?rhel} == 7 || 0%{?rhel} == 8
 /usr/sbin/hardlink -cv %{buildroot}%{_datadir}/selinux
 %else
 /usr/bin/hardlink -cv %{buildroot}%{_datadir}/selinux
@@ -304,9 +231,12 @@ done
 
 
 %check
+PYTHONPATH=%{buildroot}%{python3_sitelib}
+export PYTHONPATH
+
 # check whether radicale binary is at least displaying help
 echo "Check whether 'radicale' is at least able to display online help"
-PYTHONPATH=%{buildroot}%{python3_sitelib} %{buildroot}%{_bindir}/%{name} --help >/dev/null
+%{buildroot}%{_libexecdir}/%{name}/%{radicale_name} --help >/dev/null
 if [ $? -eq 0 ]; then
   echo "Check whether 'radicale' is at least able to display online help - SUCCESSFUL"
 else
@@ -321,7 +251,8 @@ cp %{SOURCE51} %{buildroot}%{_sharedstatedir}/%{name}/collection-root/test-vcf/
 echo '{"tag": "VADDRESSBOOK"}' >%{buildroot}%{_sharedstatedir}/%{name}/collection-root/test-vcf/.Radicale.props
 echo '{"tag": "VCALENDAR"}'    >%{buildroot}%{_sharedstatedir}/%{name}/collection-root/test-ics/.Radicale.props
 
-PYTHONPATH=%{buildroot}%{python3_sitelib} %{buildroot}%{_bindir}/%{name} -D --verify-storage --storage-filesystem-folder /%{buildroot}%{_sharedstatedir}/%{name}
+echo "Check whether 'radicale' is able to verify example storage"
+%{buildroot}%{_libexecdir}/%{name}/%{radicale_name} -D --verify-storage --storage-filesystem-folder /%{buildroot}%{_sharedstatedir}/%{name}
 if [ $? -eq 0 ]; then
   echo "Check whether 'radicale' is able to verify example storage - SUCCESSFUL"
 else
@@ -373,16 +304,16 @@ if [ -d %{_localstatedir}/log/%{name} ]; then
 fi
 
 
-%post -n %{radicale_package_name}-httpd
-# nothing related included so far in radicale.fc
-#echo "SELinux fixfiles for: %{radicale_package_name}-httpd"
-#/usr/sbin/fixfiles -R %{radicale_package_name}-httpd restore >/dev/null
-
-
 %post -n python3-%{radicale_package_name}
 # nothing related included so far in radicale.fc
 #echo "SELinux fixfiles for: python3-%{radicale_package_name}"
 #/usr/sbin/fixfiles -R python3-%{radicale_package_name} restore >/dev/null
+
+
+%post -n %{radicale_package_name}-httpd
+# nothing related included so far in radicale.fc
+#echo "SELinux fixfiles for: %{radicale_package_name}-httpd"
+#/usr/sbin/fixfiles -R %{radicale_package_name}-httpd restore >/dev/null
 
 
 %preun -n %{radicale_package_name}
@@ -421,21 +352,14 @@ fi
 %{_bindir}/%{name}
 %dir %{_sysconfdir}/%{name}/
 %config(noreplace) %attr(0640, root, %{name}) %{_sysconfdir}/%{name}/config
-%if %{?radicale_major} < 3
-%config(noreplace) %{_sysconfdir}/%{name}/logging
-%endif
 %config(noreplace) %{_sysconfdir}/%{name}/rights
-%if %{?radicale_major} < 3
-%config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
-%endif
 %{_unitdir}/%{name}.service
 %{_tmpfilesdir}/%{name}.conf
-%if %{?radicale_major} < 3
-%dir %attr(750, %{name}, %{name}) %{_localstatedir}/log/%{name}
-%endif
 %dir %attr(750, %{name}, %{name}) %{_sharedstatedir}/%{name}/
 %dir %{_datadir}/%{name}
 %dir %attr(755, %{name}, %{name}) %{_rundir}/%{name}
+
+%{_libexecdir}/%{name}
 
 
 %files -n %{radicale_package_name}-selinux
@@ -451,13 +375,18 @@ fi
 
 %files -n %{radicale_package_name}-httpd
 %{_datadir}/%{name}/%{name}.wsgi
-%if %{?radicale_major} < 3
-%{_datadir}/%{name}/%{name}.fcgi
-%endif
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/%{name}.conf
 
 
 %changelog
+* Wed Jun 21 2023 Peter Bieringer <pb@bieringer.de> - 3.1.8-53
+- Update patch release/upstream to d7ce2f0b (2023-04-22)
+- Add radicale-3.1.8-fix-main-component-PR-1252.patch
+- Remove cases for radicale major version 1 and 2
+- Partially align spec file with EPEL variant
+- Move binaries to libexec and create a wrapper script
+- Align systemd unit file and SELinux definition with EPEL variant
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 3.1.8-39
 - Rebuilt for Python 3.12
 

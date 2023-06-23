@@ -27,7 +27,7 @@
 %global nodejs_epoch 1
 %global nodejs_major 18
 %global nodejs_minor 16
-%global nodejs_patch 0
+%global nodejs_patch 1
 # nodejs_soversion - from NODE_MODULE_VERSION in src/node_version.h
 %global nodejs_soversion 108
 %global nodejs_abi %{nodejs_soversion}
@@ -65,10 +65,10 @@
 
 # c-ares - from deps/cares/include/ares_version.h
 # https://github.com/nodejs/node/pull/9332
-%global c_ares_version 1.19.0
+%global c_ares_version 1.19.1
 
 # llhttp - from deps/llhttp/include/llhttp.h
-%global llhttp_version 6.0.10
+%global llhttp_version 6.0.11
 
 # libuv - from deps/uv/include/uv/version.h
 %global libuv_version 1.44.2
@@ -427,7 +427,9 @@ Provides: npm(npm) = %{npm_version}
 Provides: npm = %{npm_envr}
 
 # Obsolete the old 'npm' package
-Obsoletes: npm < 1:9
+# Due to a mistake in the original F38 repository, this needs to explicitly
+# Obsoletes: the npm provided by nodejs20-npm
+Obsoletes: npm < 1:9.5.1-1.20
 %endif
 
 

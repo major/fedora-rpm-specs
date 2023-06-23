@@ -2,10 +2,15 @@
 %bcond_without aom
 # Build SVT-AV1
 %bcond_without svt
-%if 0%{?rhel} && 0%{?rhel} < 9
+%if (0%{?rhel} && 0%{?rhel} < 9) || 0%{?rhel} >= 10
 %bcond_with rav1e
 %else
 %bcond_without rav1e
+%endif
+%if 0%{?rhel} >= 10
+%bcond_with gtest
+%else
+%bcond_without gtest
 %endif
 %bcond_without check
 
@@ -17,10 +22,11 @@ Summary:        Library for encoding and decoding .avif files
 License:        BSD-2-Clause
 URL:            https://github.com/AOMediaCodec/libavif
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch0:         libavif-0.11.1-build_tests_fix.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-%{?with_check:BuildRequires:  gtest-devel}
+%{?with_check:%{?with_gtest:BuildRequires:  gtest-devel}}
 BuildRequires:  nasm
 %if %{with aom}
 BuildRequires:  pkgconfig(aom)
@@ -76,7 +82,7 @@ Avif-pixbuf-loader contains a plugin to load AVIF images in GTK+ applications.
     %{?with_svt:-DAVIF_CODEC_SVT=1} \
     -DAVIF_BUILD_APPS=1 \
     -DAVIF_BUILD_GDK_PIXBUF=1 \
-    %{?with_check:-DAVIF_BUILD_TESTS=1 -DAVIF_ENABLE_GTEST=1}
+    %{?with_check:-DAVIF_BUILD_TESTS=1 -DAVIF_ENABLE_GTEST=%{with gtest}}
 %cmake_build
 
 %install

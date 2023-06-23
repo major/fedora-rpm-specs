@@ -71,7 +71,7 @@
 Name:           jd
 Epoch:          1
 Version:        %{main_ver}%{?strtag:.%{strtag}}%{?pre_ver:~%{pre_ver}}
-Release:        %{rel}%{flagrel}
+Release:        %{rel}%{flagrel}.1
 Summary:        A 2ch browser
 
 License:        GPLv2

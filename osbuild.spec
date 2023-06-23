@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        87
+Version:        88
 
 %forgemeta
 
@@ -9,7 +9,7 @@ Version:        87
 %global         pkgdir %{_prefix}/lib/%{pypi_name}
 
 Name:           %{pypi_name}
-Release:        2%{?dist}
+Release:        1%{?dist}
 License:        Apache-2.0
 
 URL:            %{forgeurl}
@@ -252,6 +252,18 @@ fi
 
 
 %changelog
+* Wed Jun 21 2023 Packit <hello@packit.dev> - 88-1
+Changes with 88
+----------------
+  * COMPOSER-1959: Also test on RHEL 8.9 and 9.3 nightly (#1301)
+  * Restore LOOP_CONFIGURE fallback for kernel < 5.8 (#1327)
+  * stages: add new zstd stage (#1322)
+
+Contributions from: Alexander Todorov, Antonio Murdaca, Michael Hofmann
+
+— Somewhere on the Internet, 2023-06-21
+
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 87-2
 - Rebuilt for Python 3.12
 

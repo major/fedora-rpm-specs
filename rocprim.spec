@@ -5,7 +5,7 @@
 # Compiler is hipcc, which is clang based:
 %global toolchain clang
 # hipcc does not support some clang flags
-%global optflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/' | sed 's/-Xarch_host -Xarch_host/-Xarch_host/g')
+%global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/')
 # there is no debug package
 %global debug_package %{nil}
 
@@ -14,7 +14,7 @@
 
 Name:           rocprim
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        ROCm parallel primatives
 
 License:        MIT and BSD 3-Clause License
@@ -87,6 +87,9 @@ cp NOTICES.txt %{buildroot}%{_docdir}/rocprim/
 %{_datadir}/cmake/rocprim
 
 %changelog
+* Tue Jun 20 2023 Tom Rix <trix@redhat.com> - 5.5.1-4
+- For cxx flags change
+
 * Fri Jun 16 2023 Tom Rix <trix@redhat.com> - 5.5.1-3
 - Cleanup licenses
 - Cleanup docdir ownership

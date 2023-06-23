@@ -34,8 +34,8 @@
 
 Summary: Enhanced system logging and kernel message trapping daemon
 Name: rsyslog
-Version: 8.2210.0
-Release: 5%{?dist}
+Version: 8.2306.0
+Release: 1%{?dist}
 License: GPL-3.0-or-later AND Apache-2.0
 URL: http://www.rsyslog.com/
 Source0: http://www.rsyslog.com/files/download/rsyslog/%{name}-%{version}.tar.gz
@@ -49,7 +49,6 @@ Source5: rsyslog.service
 Source6: qpid-proton-0.34.0.tar.gz
 
 Patch0: openssl3-compatibility.patch
-Patch1: rsyslog-8.2210.0-rhbz2127403-drop-capabilities.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -386,8 +385,6 @@ pushd ..
 %patch -P 0 -p1 -b .openssl-compatibility
 popd
 %endif
-
-%patch -P 1 -p1 -b .libcap-ng
 
 %build
 %ifarch sparc64
@@ -757,6 +754,11 @@ done
 
 
 %changelog
+* Wed Jun 21 2023 Attila Lakatos <alakatos@redhat.com> - 8.2306.0-1
+- rebase to 8.2306.0
+  resolves: rhbz#2151339
+  resolves: rhbz#2151092
+
 * Wed May 10 2023 Todd Zullinger <tmz@pobox.com> - 8.2210.0-5
 - Use 'systemctl reload' in logrotate script
 

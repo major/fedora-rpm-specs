@@ -8,7 +8,7 @@ License:         GPL-2.0-or-later
 URL:             https://libburnia-project.org/
 Source0:         https://files.libburnia-project.org/releases/%{pkgname}-%{version}.tar.gz
 Source1:         https://files.libburnia-project.org/releases/%{pkgname}-%{version}.tar.gz.sig
-Source2:         gpgkey-44BC9FD0D688EB007C4DD029E9CBDFC0ABC0A854.gpg
+Source2:         https://keys.openpgp.org/vks/v1/by-fingerprint/44BC9FD0D688EB007C4DD029E9CBDFC0ABC0A854
 Patch0:          libburn-0.6.16-multilib.patch
 Patch1:          libburn-1.5.4-rpath.patch
 BuildRequires:   gnupg2

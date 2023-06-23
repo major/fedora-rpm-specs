@@ -4,7 +4,7 @@
 # NOTE(mhayden): The package is awscli, but the source is aws-cli.
 %global         source_name     aws-cli
 %global         forgeurl        https://github.com/aws/aws-cli/
-Version:        1.27.156
+Version:        1.27.158
 %global         tag             %{version}
 %forgemeta
 
@@ -98,6 +98,12 @@ install -Dpm0644 bin/aws_zsh_completer.sh \
 %{_datadir}/zsh/site-functions/_awscli
 
 %changelog
+* Wed Jun 21 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.27.158-1
+- 1.27.158
+
+* Wed Jun 21 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.27.157-1
+- 1.27.157
+
 * Tue Jun 20 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.27.156-1
 - 1.27.156
 

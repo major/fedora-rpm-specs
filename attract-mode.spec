@@ -4,21 +4,17 @@
 %global build_flags prefix="%{_prefix}" FE_HWACCEL_VAAPI=1 FE_HWACCEL_VDPAU=1
 
 Name:           attract-mode
-Version:        2.6.2
+Version:        2.7.0
 Release:        %autorelease
 Summary:        A graphical front-end for command line emulators
 
 # attract-mode itself is GPLv3
 # The other licenses cover the bundled libraries, see below for the breakdown
-License:        GPLv3 and Boost and Public Domain and MIT and zlib
-URL:            https://www.attractmode.org
-Source0:        %{forgeurl}/archive/v%{version}/%{srcname}-%{version}.tar.gz
-# Update src/media.cpp to use modern FFmpeg API
-Patch0:         %{forgeurl}/commit/1b933c39dbd9201b09140e922babe21939d64dad.patch
-# Fix build issue with recent ffmpeg
-Patch1:         %{forgeurl}/commit/c27312be47dfb7370456a878fc6284883650b7f2.patch
-# Fix string out of bounds access issue
-Patch2:         %{forgeurl}/commit/1cd6242fc453c4b1f53df14c6f0bc544cc90b56b.patch
+License:        GPL-3.0-or-later and BSL-1.0 and LicenseRef-Fedora-Public-Domain and MIT and zlib
+URL:            https://attractmode.org
+Source:         %{forgeurl}/archive/v%{version}/%{srcname}-%{version}.tar.gz
+# Fix missing include
+Patch:          %{forgeurl}/commit/659b66c6dc0e5598546ce987319adaf59cf01a0b.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
@@ -41,9 +37,13 @@ BuildRequires:  mesa-libGLU-devel
 BuildRequires:  miniz-devel
 BuildRequires:  rapidjson-devel
 BuildRequires:  SFML-devel
+BuildRequires:  stb_image-devel
 BuildRequires:  zlib-devel
 
 Requires:       %{name}-data = %{version}-%{release}
+
+# Recommend default font to ensure we can always start
+Recommends:     gnu-free-sans-fonts
 
 # Suggest supported emulators from config/emulators/script/db.nut
 Recommends:     mame
@@ -73,6 +73,7 @@ Suggests:       scummvm
 Provides:       bundled(boost-nowide) = 1.73.0.beta1
 # Imported in 1304e98e513501ce36029b5fed6b3f5394321884 and modified
 # License: Public Domain per code comments in extlibs/gameswf
+# Reviewed in https://gitlab.com/fedora/legal/fedora-license-data/-/issues/236
 Provides:       bundled(gameswf) = 20090808
 # Imported in f98100438410fd6dec2ceed47a94011f76a69227 and modified
 # License: MIT per extlibs/squirrel/COPYRIGHT
@@ -100,17 +101,20 @@ This package contains layouts, plugins and other data files for %{name}.
 
 %prep
 %autosetup -n %{srcname}-%{version} -p1
+
 # remove unneeded bundled libraries
-rm -r extlibs/{expat,nvapi}
+rm -r extlibs/{expat,nvapi} src/backward.{cpp,hpp}
 # use system rapidjson
 rm -r extlibs/rapidjson/include/rapidjson
 ln -s %{_includedir}/rapidjson extlibs/rapidjson/include/
 # use system miniz
 rm extlibs/miniz/*
 ln -s %{_includedir}/miniz.h extlibs/miniz/
+# use system stb_image
+ln -sf %{_includedir}/stb_image.h src/
 
 %build
-export EXTRA_CFLAGS="%{optflags}"
+export EXTRA_CXXFLAGS="%{optflags}"
 %make_build %{build_flags} STRIP=/bin/true
 
 %install

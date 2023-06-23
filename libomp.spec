@@ -18,7 +18,7 @@
 
 Name: libomp
 Version: %{libomp_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: OpenMP runtime for clang
 
 License: Apache-2.0 WITH LLVM-exception OR NCSA
@@ -26,8 +26,6 @@ URL: http://openmp.llvm.org
 Source0: https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libomp_version}%{?rc_ver:-rc%{rc_ver}}/%{libomp_srcdir}.tar.xz
 Source1: https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libomp_version}%{?rc_ver:-rc%{rc_ver}}/%{libomp_srcdir}.tar.xz.sig
 Source2: release-keys.asc
-Source3: run-lit-tests
-Source4: lit.fedora.cfg.py
 
 BuildRequires: clang
 # For clang-offload-packager
@@ -63,17 +61,6 @@ Requires: clang-resource-filesystem%{?isa} = %{version}
 %description devel
 OpenMP header files.
 
-%package test
-Summary: OpenMP regression tests
-Requires: %{name}%{?isa} = %{version}-%{release}
-Requires: %{name}-devel%{?isa} = %{version}-%{release}
-Requires: clang
-Requires: llvm
-Requires: python3-lit
-
-%description test
-OpenMP regression tests
-
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -n %{libomp_srcdir} -p2
@@ -98,30 +85,6 @@ OpenMP regression tests
 
 %install
 %cmake_install
-
-# Test package setup
-%global libomp_srcdir %{_datadir}/libomp/src/
-%global libomp_testdir %{libomp_srcdir}/runtime/test/
-%global lit_cfg %{libomp_testdir}/%{_arch}.site.cfg.py
-%global lit_fedora_cfg %{_datadir}/libomp/lit.fedora.cfg.py
-
-install -d %{buildroot}%{libomp_srcdir}/runtime
-cp -R runtime/test  %{buildroot}%{libomp_srcdir}/runtime
-cp -R runtime/src  %{buildroot}%{libomp_srcdir}/runtime
-
-# Generate lit config files.  Strip off the last line that initiates the
-# test run, so we can customize the configuration.
-head -n -1 %{_vpath_builddir}/runtime/test/lit.site.cfg >> %{buildroot}%{lit_cfg}
-
-# Install custom fedora config file
-cp %{SOURCE4} %{buildroot}%{lit_fedora_cfg}
-
-# Patch lit config files to load custom fedora config
-echo "lit_config.load_config(config, '%{lit_fedora_cfg}')" >> %{buildroot}%{lit_cfg}
-
-# Install test script
-install -d %{buildroot}%{_libexecdir}/tests/libomp
-install -m 0755 %{SOURCE3} %{buildroot}%{_libexecdir}/tests/libomp
 
 # Remove static libraries with equivalent shared libraries
 rm -rf %{buildroot}%{_libdir}/libarcher_static.a
@@ -169,11 +132,10 @@ rm -rf %{buildroot}%{_libdir}/libarcher_static.a
 %{_libdir}/libomptarget.so
 %endif
 
-%files test
-%{_datadir}/libomp
-%{_libexecdir}/tests/libomp/
-
 %changelog
+* Sat Jun 17 2023 Tom Stellard <tstellar@redhat.com> - 16.0.5-3
+- Remove libomp-test package
+
 * Thu Jun 15 2023 Nikita Popov <npopov@redhat.com> - 16.0.5-2
 - Use llvm-cmake-utils package
 

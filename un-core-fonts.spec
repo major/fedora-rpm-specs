@@ -7,7 +7,7 @@
 BuildArch: noarch
 
 Version: 1.0.2
-Release: 0.43.%{alphatag}%{?dist}
+Release: 0.44.%{alphatag}%{?dist}
 License: GPL-2.0-only
 URL:     http://kldp.net/projects/unfonts/
 
@@ -31,10 +31,6 @@ The Un Core set is composed of: \
 
 %global fontfamily1       Un Core Batang
 %global fontsummary1      Un Core fonts - UnBatang
-%global fontpkgheader1    %{expand:
-Obsoletes:       %{name}-common < 1.0.2-0.43.080608
-Provides:        %{name}-common = %{version}-%{release}
-}
 %global fonts1            UnBatang.ttf UnBatangBold.ttf
 %global fontconfs1        %{SOURCE11}
 %global fontdescription1  %{expand:
@@ -45,10 +41,6 @@ This package includes UnBatang, a serif font.
 
 %global fontfamily2       Un Core Dinaru
 %global fontsummary2      Un Core fonts - UnDinaru
-%global fontpkgheader2    %{expand:
-Obsoletes:       %{name}-common < 1.0.2-0.43.080608
-Provides:        %{name}-common = %{version}-%{release}
-}
 %global fonts2            UnDinaru.ttf UnDinaruLight.ttf UnDinaruBold.ttf
 %global fontconfs2        %{SOURCE12}
 %global fontdescription2  %{expand:
@@ -73,10 +65,6 @@ This package includes UnDotum, a sans-serif font.
 
 %global fontfamily4       Un Core Graphic
 %global fontsummary4      Un Core fonts - UnGraphic
-%global fontpkgheader4    %{expand:
-Obsoletes:       %{name}-common < 1.0.2-0.43.080608
-Provides:        %{name}-common = %{version}-%{release}
-}
 %global fonts4            UnGraphic.ttf UnGraphicBold.ttf
 %global fontconfs4        %{SOURCE14}
 %global fontdescription4  %{expand:
@@ -87,10 +75,6 @@ This package includes UnGraphic, a sans-serif font.
 
 %global fontfamily5       Un Core Gungseo
 %global fontsummary5      Un Core fonts - UnGungseo
-%global fontpkgheader5    %{expand:
-Obsoletes:       %{name}-common < 1.0.2-0.43.080608
-Provides:        %{name}-common = %{version}-%{release}
-}
 %global fonts5            UnGungseo.ttf
 %global fontconfs5        %{SOURCE15}
 %global fontdescription5  %{expand:
@@ -101,10 +85,6 @@ This package includes UnGungseo, a cursive font.
 
 %global fontfamily6       Un Core Pilgi
 %global fontsummary6      Un Core fonts - UnPilgi
-%global fontpkgheader6    %{expand:
-Obsoletes:       %{name}-common < 1.0.2-0.43.080608
-Provides:        %{name}-common = %{version}-%{release}
-}
 %global fonts6            UnPilgi.ttf UnPilgiBold.ttf
 %global fontconfs6        %{SOURCE16}
 %global fontdescription6  %{expand:
@@ -148,6 +128,9 @@ Summary:  Un Core family of Korean TrueType fonts
 
 
 %changelog
+* Mon Jun 19 2023 Peng Wu <pwu@redhat.com> - 1.0.2-0.44.080608
+- Fix dnf upgrade issue
+
 * Mon Apr 10 2023 Peng Wu <pwu@redhat.com> - 1.0.2-0.43.080608
 - Update to follow New Fonts Packaging Guidelines
 - Migrate to SPDX license

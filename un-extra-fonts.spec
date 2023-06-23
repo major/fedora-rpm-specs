@@ -8,7 +8,7 @@
 BuildArch: noarch
 
 Version: 1.0.2
-Release: 0.36.%{alphatag}%{?dist}
+Release: 0.37.%{alphatag}%{?dist}
 License: GPL-2.0-only
 URL:     http://kldp.net/projects/unfonts/
 
@@ -34,10 +34,6 @@ The Un Extra set is composed of: \
 
 %global fontfamily1       Un Extra Bom
 %global fontsummary1      Un Extra fonts - UnBom
-%global fontpkgheader1    %{expand:
-Obsoletes:       %{name}-common < 1.0.2-0.36.080608
-Provides:        %{name}-common = %{version}-%{release}
-}
 %global fonts1            UnBom.ttf
 %global fontconfs1        %{SOURCE11}
 %global fontdescription1  %{expand:
@@ -48,10 +44,6 @@ This package includes UnBom, a decorative font.
 
 %global fontfamily2       Un Extra JamoBatang
 %global fontsummary2      Un Extra fonts - UnJamoBatang
-%global fontpkgheader2    %{expand:
-Obsoletes:       %{name}-common < 1.0.2-0.36.080608
-Provides:        %{name}-common = %{version}-%{release}
-}
 %global fonts2            UnJamoBatang.ttf
 %global fontconfs2        %{SOURCE12}
 %global fontdescription2  %{expand:
@@ -62,10 +54,6 @@ This package includes the UnJamoBatang font.
 
 %global fontfamily3       Un Extra JamoDotum
 %global fontsummary3      Un Extra fonts - UnJamoDotum
-%global fontpkgheader3    %{expand:
-Obsoletes:       %{name}-common < 1.0.2-0.36.080608
-Provides:        %{name}-common = %{version}-%{release}
-}
 %global fonts3            UnJamoDotum.ttf
 %global fontconfs3        %{SOURCE13}
 %global fontdescription3  %{expand:
@@ -76,10 +64,6 @@ This package includes the UNJamoDotum font.
 
 %global fontfamily4       Un Extra JamoNovel
 %global fontsummary4      Un Extra fonts - UnJamoNovel
-%global fontpkgheader4    %{expand:
-Obsoletes:       %{name}-common < 1.0.2-0.36.080608
-Provides:        %{name}-common = %{version}-%{release}
-}
 %global fonts4            UnJamoNovel.ttf
 %global fontconfs4        %{SOURCE14}
 %global fontdescription4  %{expand:
@@ -90,10 +74,6 @@ This package includes the UNJamoNovel font.
 
 %global fontfamily5       Un Extra JamoSora
 %global fontsummary5      Un Extra fonts - UnJamoSora
-%global fontpkgheader5    %{expand:
-Obsoletes:       %{name}-common < 1.0.2-0.36.080608
-Provides:        %{name}-common = %{version}-%{release}
-}
 %global fonts5            UnJamoSora.ttf
 %global fontconfs5        %{SOURCE15}
 %global fontdescription5  %{expand:
@@ -104,10 +84,6 @@ This package includes the UNJamoSora font.
 
 %global fontfamily6       Un Extra Pen
 %global fontsummary6      Un Extra fonts - UnPen
-%global fontpkgheader6    %{expand:
-Obsoletes:       %{name}-common < 1.0.2-0.36.080608
-Provides:        %{name}-common = %{version}-%{release}
-}
 %global fonts6            UnPen.ttf
 %global fontconfs6        %{SOURCE16}
 %global fontdescription6  %{expand:
@@ -118,10 +94,6 @@ This package includes UnPen, a script font.
 
 %global fontfamily7       Un Extra Penheulim
 %global fontsummary7      Un Extra fonts - UnPenheulim
-%global fontpkgheader7    %{expand:
-Obsoletes:       %{name}-common < 1.0.2-0.36.080608
-Provides:        %{name}-common = %{version}-%{release}
-}
 %global fonts7            UnPenheulim.ttf
 %global fontconfs7        %{SOURCE17}
 %global fontdescription7  %{expand:
@@ -132,10 +104,6 @@ This package includes UnPenheulim, a script font.
 
 %global fontfamily8       Un Extra Pilgia
 %global fontsummary8      Un Extra fonts - UnPilgia
-%global fontpkgheader8    %{expand:
-Obsoletes:       %{name}-common < 1.0.2-0.36.080608
-Provides:        %{name}-common = %{version}-%{release}
-}
 %global fonts8            UnPilgia.ttf
 %global fontconfs8        %{SOURCE18}
 %global fontdescription8  %{expand:
@@ -146,10 +114,6 @@ This package includes UnPilgia, a script font.
 
 %global fontfamily9       Un Extra Shinmun
 %global fontsummary9      Un Extra fonts - UnShinmun
-%global fontpkgheader9    %{expand:
-Obsoletes:       %{name}-common < 1.0.2-0.36.080608
-Provides:        %{name}-common = %{version}-%{release}
-}
 %global fonts9            UnShinmun.ttf
 %global fontconfs9        %{SOURCE19}
 %global fontdescription9  %{expand:
@@ -174,10 +138,6 @@ This package includes UnTaza, a typewriter font.
 
 %global fontfamily11       Un Extra Vada
 %global fontsummary11      Un Extra fonts - UnVada
-%global fontpkgheader11    %{expand:
-Obsoletes:       %{name}-common < 1.0.2-0.36.080608
-Provides:        %{name}-common = %{version}-%{release}
-}
 %global fonts11            UnVada.ttf
 %global fontconfs11        %{SOURCE21}
 %global fontdescription11  %{expand:
@@ -188,10 +148,6 @@ This package includes the UnVada font.
 
 %global fontfamily12       Un Extra Yetgul
 %global fontsummary12      Un Extra fonts - UnYetgul
-%global fontpkgheader12    %{expand:
-Obsoletes:       %{name}-common < 1.0.2-0.36.080608
-Provides:        %{name}-common = %{version}-%{release}
-}
 %global fonts12            UnYetgul.ttf
 %global fontconfs12        %{SOURCE22}
 %global fontdescription12  %{expand:
@@ -240,6 +196,9 @@ Summary:  Un Extra family of Korean TrueType fonts
 %fontfiles -a
 
 %changelog
+* Mon Jun 19 2023 Peng Wu <pwu@redhat.com> - 1.0.2-0.37.080608
+- Fix dnf upgrade issue
+
 * Tue Apr 11 2023 Peng Wu <pwu@redhat.com> - 1.0.2-0.36.080608
 - Update to follow New Fonts Packaging Guidelines
 - Migrate to SPDX license

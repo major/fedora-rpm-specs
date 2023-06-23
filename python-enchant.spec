@@ -2,15 +2,15 @@
 
 Name:           python-enchant
 Version:        3.2.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Python bindings for Enchant spellchecking library
 
 License:        LGPLv2+
-URL:            http://packages.python.org/pyenchant/
+URL:            https://pyenchant.github.io/pyenchant/
 Source0:        https://files.pythonhosted.org/packages/source/p/py%{srcname}/py%{srcname}-%{version}.tar.gz
 
 BuildArch:      noarch
-BuildRequires:  enchant-devel
+BuildRequires:  enchant2
 
 %description
 PyEnchant is a spellchecking library for Python, based on the Enchant
@@ -50,7 +50,8 @@ rm -rf $RPM_BUILD_ROOT/%{python3_sitelib}/%{srcname}/share
 
 
 # Tests are not included in the upstream tarball
-#%%check
+%check
+%py3_check_import %{srcname} %{srcname}.checker %{srcname}.tokenize
 
 
 %files -n python3-%{srcname}
@@ -72,6 +73,10 @@ rm -rf $RPM_BUILD_ROOT/%{python3_sitelib}/%{srcname}/share
 
 
 %changelog
+* Thu Jun 15 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.2.2-8
+- Update BuildRequires to enchant2
+- Check imports as a minimal test
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.2.2-7
 - Rebuilt for Python 3.12
 

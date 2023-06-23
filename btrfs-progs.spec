@@ -2,8 +2,8 @@
 %{!?version_no_tilde: %define version_no_tilde %{shrink:%(echo '%{version}' | tr '~' '-')}}
 
 Name:           btrfs-progs
-Version:        6.3.1
-Release:        2%{?dist}
+Version:        6.3.2
+Release:        1%{?dist}
 Summary:        Userspace programs for btrfs
 
 License:        GPL-2.0-only
@@ -154,6 +154,9 @@ popd
 %{python3_sitearch}/btrfsutil-*.egg-info/
 
 %changelog
+* Wed Jun 21 2023 Neal Gompa <ngompa@fedoraproject.org> - 6.3.2-1
+- Update to 6.3.2
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 6.3.1-2
 - Rebuilt for Python 3.12
 

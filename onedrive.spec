@@ -2,8 +2,8 @@
 %global repo onedrive
 
 Name:           onedrive
-Version:        2.4.23
-Release:        3%{?dist}
+Version:        2.4.25
+Release:        1%{?dist}
 Summary:        OneDrive Free Client written in D
 License:        GPLv3
 URL:            https://github.com/%{project}/%{repo}
@@ -59,6 +59,9 @@ chmod a-x %{buildroot}/%{_mandir}/man1/%{name}*
 %config %{_sysconfdir}/logrotate.d/onedrive
 
 %changelog
+* Wed Jun 21 2023 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 2.4.25-1
+- Update to 2.4.25 (#2216391)
+
 * Wed Mar 15 2023 Kalev Lember <klember@redhat.com> - 2.4.23-3
 - Rebuilt for ldc 1.32
 

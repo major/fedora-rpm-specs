@@ -2,7 +2,7 @@
 Summary: A GNU collection of binary utilities
 Name: binutils%{?_with_debug:-debug}
 Version: 2.40
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/binutils
 
@@ -30,6 +30,12 @@ URL: https://sourceware.org/binutils
 # Create deterministic archives (ie ones without timestamps).
 # Default is off because of BZ 1195883.
 %define enable_deterministic_archives 0
+
+# Generate a warning when linking creates an executable stack
+%define warn_for_executable_stacks 0
+
+# Generate a warning when linking creates a segment with read, write and execute permissions
+%define warn_for_rwx_segments 0
 
 # Enable support for GCC LTO compilation.
 # Disable if it is necessary to work around bugs in LTO.
@@ -608,6 +614,19 @@ compute_global_configuration()
     CARGS="$CARGS --enable-deterministic-archives=no"
 %endif
 
+%if %{warn_for_executable_stacks}
+    CARGS="$CARGS --enable-warn-execstack=yes"
+    CARGS="$CARGS --enable-default-execstack=no"
+%else
+    CARGS="$CARGS --enable-warn-execstack=no"
+%endif
+
+%if %{warn_for_rwx_segments}
+    CARGS="$CARGS --enable-warn-rwx-segments=yes"
+%else
+    CARGS="$CARGS --enable-warn-rwx-segments=no"
+%endif
+
 %if %{enable_lto}
     CARGS="$CARGS --enable-lto"
 %endif
@@ -1085,16 +1104,19 @@ export QA_RPATHS=0x0003
 
 #----------------------------------------------------------------------------
 
+%if %{with gold}
+%post gold
+
+%{_sbindir}/alternatives --install %{_bindir}/ld ld \
+  %{_bindir}/ld.gold %{ld_gold_priority}
+exit 0
+%endif
+
 %post
 
 %__rm -f %{_bindir}/ld
 %{_sbindir}/alternatives --install %{_bindir}/ld ld \
   %{_bindir}/ld.bfd %{ld_bfd_priority}
-
-%if %{with gold}
-%{_sbindir}/alternatives --install %{_bindir}/ld ld \
-  %{_bindir}/ld.gold %{ld_gold_priority}
-%endif
 
 # Do not run "alternatives --auto ld" here.  Leave the setting to
 # however the user previously had it set.  See BZ 1592069 for more details.
@@ -1105,15 +1127,22 @@ exit 0
 
 #----------------------------------------------------------------------------
 
+# Note: $1 == 0 means that there is an uninstall in progress.
+# $1 == 1 means that there is an upgrade in progress.
+
+%if %{with gold}
+%preun gold
+
+if [ $1 = 0 ]; then
+  %{_sbindir}/alternatives --remove ld %{_bindir}/ld.gold
+fi
+exit 0
+%endif
+
 %preun
 if [ $1 = 0 ]; then
   %{_sbindir}/alternatives --remove ld %{_bindir}/ld.bfd
 fi
-%if %{with gold}
-if [ $1 = 0 ]; then
-  %{_sbindir}/alternatives --remove ld %{_bindir}/ld.gold
-fi
-%endif
 
 exit 0
 
@@ -1245,6 +1274,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Wed Jun 21 2023 Nick Clifton  <nickc@redhat.com> - 2.40-10
+- Spec File: Add defines to enable rwx and execstack warnings.
+
 * Wed May 31 2023 Nick Clifton  <nickc@redhat.com> - 2.40-9
 - Spec File: Remove debug files from default package.  (#2208360)
 

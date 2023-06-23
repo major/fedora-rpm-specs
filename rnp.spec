@@ -9,6 +9,7 @@
 
 %bcond_without      tests
 %bcond_with         licensecheck
+%bcond_with         libsexp
 
 %if 0%{?rhel} == 8
 # use openssl by default as botan2 is too old
@@ -21,12 +22,13 @@
 %global libname     librnp
 %global soname      0
 
+
 Name:          rnp
 Summary:       OpenPGP (RFC4880) tools
 Version:       0.17.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 # See rnp-files-by-license.txt and upstream LICENSE* files
-License:       BSD-2-Clause AND BSD-3-Clause AND Apache-2.0 AND MIT
+License:       BSD-2-Clause AND Apache-2.0 AND MIT
 
 URL:           https://github.com/rnpgp/rnp
 Source0:       %{url}/releases/download/v%{version}/rnp-v%{version}.tar.gz
@@ -40,13 +42,15 @@ Source3:       %{name}-files-by-license.txt
 Patch0:         %{name}-static.patch
 # Upstream libsexp patch
 Patch1:         %{name}-gcc13.patch
+# Use system libsexp
+Patch2:         %{name}-sexp.patch
 
 BuildRequires:  cmake >= 3.14
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  pkg-config
 BuildRequires:  pkgconfig(zlib)
-BuildRequires:  pkgconfig(bzip2) 
+BuildRequires:  pkgconfig(bzip2)
 %if %{with openssl}
 BuildRequires:  openssl-devel >= 1.1.1
 BuildRequires:  json-c-devel >= 0.11
@@ -62,6 +66,10 @@ BuildRequires:  rubygem-asciidoctor
 %if %{with licensecheck}
 BuildRequires:  licensecheck
 %endif
+%if %{with libsexp}
+%global libsexp_version 0.8.5
+BuildRequires:  pkgconfig(sexp) >= %{libsexp_version}
+%endif
 
 Requires:       %{libname}%{?_isa} = %{version}-%{release}
 
@@ -71,8 +79,10 @@ RNP is a set of OpenPGP (RFC4880) tools.
 
 %package -n %{libname}
 Summary:    Library for all OpenPGP functions
+%if %{without libsexp}
 %global libsexp_version 0.8.2
 Provides:   bundled(libsexp) = %{libsexp_version}
+%endif
 
 
 %description -n %{libname}
@@ -95,13 +105,28 @@ for %{libname}.
 
 %patch -P0 -p1
 
+%if %{with libsexp}
+rm -rf  src/libsexp
+%patch -P2 -p1 -b .sexp
+: check system version requirement
+if ! grep -q 'sexp>=%{libsexp_version}' CMakeLists.txt; then
+    echo fix %%libsexp_version macro, defined %{libsexp_version}, expected \
+        $(grep 'sexp>=' CMakeLists.txt | sed 's/.*sexp>=//;s/)//')
+    exit 1
+fi
+%else
 pushd src/libsexp
 %patch -P1 -p1
-# retrieve LICENSE
+: retrieve LICENSE
 cp LICENSE.md ../../LICENSE-libsexp.md
-# check bundled version
-grep -q %{libsexp_version} version.txt
+: check bundled version
+if ! grep -q %{libsexp_version} version.txt; then
+    echo fix %%libsexp_version macro, defined %{libsexp_version}, expected \
+        $(cat version.txt)
+    exit 1
+fi
 popd
+%endif
 
 %if %{with licensecheck}
 LST=$(mktemp)
@@ -123,6 +148,9 @@ rm $LST
    -DCRYPTO_BACKEND:STRING=openssl \
 %else
    -DCRYPTO_BACKEND:STRING=botan \
+%endif
+%if %{with libsexp}
+   -DSYSTEM_LIBSEXP:BOOL=ON \
 %endif
    -DDOWNLOAD_GTEST:BOOL=OFF \
    -DDOWNLOAD_RUBYRNP:BOOL=OFF
@@ -169,6 +197,10 @@ FILTER="$FILTER|cli_tests-Encryption|cli_tests-Misc"
 
 
 %changelog
+* Wed Jun 21 2023 Remi Collet <remi@remirepo.net> - 0.17.0-2
+- add build option to use system libsexp (disabled)
+  using patch from https://github.com/rnpgp/rnp/pull/2102
+
 * Tue May  2 2023 Remi Collet <remi@remirepo.net> - 0.17.0-1
 - update to 0.17.0
 - use bundled libsexp

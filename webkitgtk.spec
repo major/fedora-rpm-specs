@@ -5,6 +5,16 @@
         mkdir -p _license_files ; \
         cp -p %1 _license_files/$(echo '%1' | sed -e 's!/!.!g')
 
+# No libmanette in RHEL
+%if !0%{?rhel}
+%global with_gamepad 1
+%endif
+
+# Build documentation by default (use `rpmbuild --without docs` to override it).
+# This is used by Coverity. Coverity injects custom compiler warnings, but
+# any warning during WebKit docs build is fatal!
+%bcond_without docs
+
 Name:           webkitgtk
 Version:        2.41.5
 Release:        %autorelease
@@ -80,7 +90,9 @@ BuildRequires:  pkgconfig(libtasn1)
 BuildRequires:  pkgconfig(libwebp)
 BuildRequires:  pkgconfig(libwoff2dec)
 BuildRequires:  pkgconfig(libxslt)
+%if 0%{?with_gamepad}
 BuildRequires:  pkgconfig(manette-0.2)
+%endif
 BuildRequires:  pkgconfig(sqlite3)
 BuildRequires:  pkgconfig(upower-glib)
 BuildRequires:  pkgconfig(wayland-client)
@@ -189,6 +201,7 @@ Provides:       webkit2gtk3-devel = %{version}-%{release}
 The webkit2gtk4.0-devel package contains libraries, build data, and header
 files for developing applications that use webkit2gtk4.0.
 
+%if %{with docs}
 %package -n     webkitgtk6.0-doc
 Summary:        Documentation files for webkit2gtk5.0
 BuildArch:      noarch
@@ -220,6 +233,7 @@ Recommends:     gi-docgen-fonts
 
 %description -n webkit2gtk4.0-doc
 This package contains developer documentation for webkit2gtk4.0.
+%endif
 
 %package -n     javascriptcoregtk6.0
 Summary:        JavaScript engine from webkitgtk6.0
@@ -313,6 +327,17 @@ files for developing applications that use JavaScript engine from webkit2gtk-4.0
   -DPORT=GTK \
   -DCMAKE_BUILD_TYPE=Release \
   -DUSE_GTK4=ON \
+%if %{without docs}
+  -DENABLE_DOCUMENTATION=OFF \
+%endif
+%if !0%{?with_gamepad}
+  -DENABLE_GAMEPAD=OFF \
+%endif
+%if 0%{?rhel}
+%ifarch aarch64
+  -DUSE_64KB_PAGE_BLOCK=ON \
+%endif
+%endif
   %{nil}
 
 %define _vpath_builddir %{_vendor}-%{_target_os}-build/webkit2gtk-4.1
@@ -321,6 +346,17 @@ files for developing applications that use JavaScript engine from webkit2gtk-4.0
   -DPORT=GTK \
   -DCMAKE_BUILD_TYPE=Release \
   -DENABLE_WEBDRIVER=OFF \
+%if %{without docs}
+  -DENABLE_DOCUMENTATION=OFF \
+%endif
+%if !0%{?with_gamepad}
+  -DENABLE_GAMEPAD=OFF \
+%endif
+%if 0%{?rhel}
+%ifarch aarch64
+  -DUSE_64KB_PAGE_BLOCK=ON \
+%endif
+%endif
   %{nil}
 
 %define _vpath_builddir %{_vendor}-%{_target_os}-build/webkit2gtk-4.0
@@ -330,6 +366,17 @@ files for developing applications that use JavaScript engine from webkit2gtk-4.0
   -DCMAKE_BUILD_TYPE=Release \
   -DUSE_SOUP2=ON \
   -DENABLE_WEBDRIVER=OFF \
+%if %{without docs}
+  -DENABLE_DOCUMENTATION=OFF \
+%endif
+%if !0%{?with_gamepad}
+  -DENABLE_GAMEPAD=OFF \
+%endif
+%if 0%{?rhel}
+%ifarch aarch64
+  -DUSE_64KB_PAGE_BLOCK=ON \
+%endif
+%endif
   %{nil}
 
 %define _vpath_builddir %{_vendor}-%{_target_os}-build/webkitgtk-6.0
@@ -497,6 +544,7 @@ export NINJA_STATUS="[3/3][%f/%t %es] "
 %dir %{_datadir}/gir-1.0
 %{_datadir}/gir-1.0/JavaScriptCore-4.0.gir
 
+%if %{with docs}
 %files -n webkitgtk6.0-doc
 %dir %{_datadir}/gtk-doc
 %dir %{_datadir}/gtk-doc/html
@@ -517,6 +565,7 @@ export NINJA_STATUS="[3/3][%f/%t %es] "
 %{_datadir}/gtk-doc/html/javascriptcoregtk-4.0/
 %{_datadir}/gtk-doc/html/webkit2gtk-4.0/
 %{_datadir}/gtk-doc/html/webkit2gtk-web-extension-4.0/
+%endif
 
 %changelog
 %autochangelog

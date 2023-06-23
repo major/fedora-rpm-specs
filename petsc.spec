@@ -305,6 +305,7 @@ Patch4:  %{name}-3.18.0-fix_metis64.patch
 Patch5:  %{name}-3.15.0-fix_sundials_version.patch
 Patch6:  %{name}-3.14.1-fix_pkgconfig_file.patch
 Patch7:  %{name}-3.17.0-avoid_fake_MKL_detection.patch
+Patch8:  %{name}-3.18.5-fix_python312_compatibility.patch
 
 %if %{with superlu}
 BuildRequires: SuperLU-devel >= 5.2.0
@@ -406,7 +407,7 @@ BuildRequires: ptscotch-openmpi-devel
 %endif
 %if %{with scalapack}
 BuildRequires: scalapack-openmpi-devel
-%if 0%{?rhel} || 0%{?fedora} < 32
+%if 0%{?rhel}
 BuildRequires: blacs-openmpi-devel
 %endif
 %endif
@@ -561,17 +562,19 @@ Portable Extensible Toolkit for Scientific Computation (developer files).
 cp -a petsc4py-%{version}/* %{name}-%{version}/
 rm -rf %{name}-%{version}/*.egg-info
 rm -rf petsc4py-%{version}
+%if 0%{?fedora}
+for i in `find . -name 'setup.py' -o -name 'configure' -o -name '*.py'`; do
+%py3_shebang_fix $i
+done
+%endif
 %endif
 
 pushd %{name}-%{version}
-%patch 2 -p1 -b .backup
-%patch 7 -p1 -b .backup
+%patch -P 2 -p1 -b .backup
+%patch -P 7 -p1 -b .backup
 
-%if 0%{?fedora}
-find . -name 'setup.py' | xargs %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3}"
-find . -name 'configure' | xargs %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3}"
-find config -name '*.py' | xargs %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3}"
-find src/benchmarks/streams -name '*.py' | xargs %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3}"
+%if 0%{?python3_version_nodots} >= 312
+%patch -P 8 -p1 -b .backup
 %endif
 popd
 
@@ -583,17 +586,17 @@ popd
 %if %{with arch64}
 cp -a %{name}-%{version} build64
 pushd build64
-%patch 1 -p0
+%patch -P 1 -p0
 %if %{with metis64}
-%patch 4 -p1 -b .metis64
+%patch -P 4 -p1 -b .metis64
 %endif
 popd
 %endif
 
 pushd %{name}-%{version}
-%patch 0 -p0 -b .backup
-%patch 5 -p1 -b .backup
-%patch 6 -p1 -b .backup
+%patch -P 0 -p0 -b .backup
+%patch -P 5 -p1 -b .backup
+%patch -P 6 -p1 -b .backup
 popd
 
 %if %{with openmpi}
@@ -605,7 +608,7 @@ cp -a %{name}-%{version} buildmpich_dir
 
 # Do NOT move up this patch
 pushd %{name}-%{version}
-%patch 3 -p1 -b .backup
+%patch -P 3 -p1 -b .backup
 popd
 
 %build

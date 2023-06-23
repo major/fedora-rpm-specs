@@ -20,6 +20,8 @@ Source0:        http://perftools.pages.jsc.fz-juelich.de/cicd/otf2/tags/%{name}-
 BuildRequires: make
 BuildRequires:  gcc-c++
 BuildRequires:  chrpath dos2unix
+# Need a new py-compile for Python 3.12
+BuildRequires:  libtool automake
 # "cannot determine instruction set" with these
 ExcludeArch: i686 s390x
 
@@ -74,13 +76,14 @@ dos2unix doc/examples/otf2_high_level_writer_example.py
 tar fx %SOURCE1
 cd otf2-1.5.1
 %patch3 -p1
+%endif
+rm build-config/py-compile
 for d in . build-backend build-frontend
 do
   cd $d
   autoreconf -f -i -v
   cd -
 done
-%endif
 
 %build
 export PYTHON_FOR_GENERATOR=:
@@ -169,6 +172,9 @@ make check
 %endif
 
 %changelog
+* Tue Jun 20 2023 Orion Poplawski <orion@nwra.com> - 3.0.3-2
+- Regenerate py-compile for Python 3.12 support
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.0.3-2
 - Rebuilt for Python 3.12
 

@@ -1,6 +1,6 @@
 Name:    prboom-plus
-Version: 2.6.2
-Release: 6%{?dist}
+Version: 2.6.66
+Release: 1%{?dist}
 Summary: Free enhanced DOOM engine
 URL:     https://github.com/coelckers/prboom-plus/tags
 License: BSD-3-Clause AND MIT AND LGPL-2.0-or-later
@@ -66,6 +66,9 @@ install -Dpm 644 ICONS/%{name}.bash %{buildroot}%{_datadir}/bash-completion/comp
 %{_datadir}/bash-completion/completions/%{name}.bash
 
 %changelog
+* Wed Jun 21 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.6.66-1
+- 2.6.66
+
 * Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.6.2-6
 - migrated to SPDX license
 

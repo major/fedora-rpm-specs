@@ -7,7 +7,7 @@
 
 # https://github.com/aws/aws-sdk-go
 %global goipath         github.com/aws/aws-sdk-go
-Version:                1.44.69
+Version:                1.44.118
 
 %gometa
 

@@ -17,14 +17,13 @@ directory and control specifications.
 %endif
 
 Name: python-stem
-Version: 1.8.1
-Release: 2%{?dist}
+Version: 1.8.2
+Release: 1%{?dist}
 Summary: Python controller library for Tor
 # All source code is LGPLv3 except stem/util/ordereddict.py which is MIT
 License: LGPLv3 and MIT
 URL: https://stem.torproject.org/
-Source0: https://files.pythonhosted.org/packages/source/s/%{srcname}/%{srcname}-%{version}.tar.gz
-Patch0: stem-1.8.0-replace-all-usages-of-inspect.getargspec.patch
+Source0: %{pypi_source}
 BuildArch: noarch
 BuildRequires: make
 BuildRequires: python3-devel
@@ -87,6 +86,9 @@ install -D -m 0644 docs/_build/man/%{srcname}.1 %{buildroot}%{_mandir}/man1/%{sr
 %{_mandir}/man1/%{srcname}.1*
 
 %changelog
+* Wed Jun 21 2023 Juan Orti Alcaine <jortialc@redhat.com> - 1.8.2-1
+- Version 1.8.2 (RHBZ#2212681)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

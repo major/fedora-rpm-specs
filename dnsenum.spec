@@ -1,6 +1,6 @@
 Name:       dnsenum 
 Version:    1.2.4.2
-Release:    25%{?dist}
+Release:    26%{?dist}
 Summary:    A tool to enumerate DNS info about domains 
 
 License:    GPLv2+
@@ -9,7 +9,6 @@ Source0:    https://github.com/fwaeytens/dnsenum/archive/%{version}.tar.gz
 BuildArch:  noarch
 BuildRequires:  perl-generators
 
-Requires:   perl-Net-Whois-IP
 Requires:   perl-WWW-Mechanize
 Requires:   perl-Readonly
 
@@ -17,8 +16,8 @@ Requires:   perl-Readonly
 The purpose of this tool is to gather as much information as possible about a 
 domain. The program currently gathers A, NS, MX records, performs axfr queries,
 gets extra names and subdomains via google scraping, bruteforces subdomains from
-file, calculate C class domain network ranges and perform whois queries on them,
-perform reverse lookups on netranges, writes ip-blocks to domain_ips.txt.
+file, calculate C class domain network ranges, perform reverse lookups on
+netranges, writes ip-blocks to domain_ips.txt.
 
 %prep
 %setup -q
@@ -34,6 +33,9 @@ perform reverse lookups on netranges, writes ip-blocks to domain_ips.txt.
 %{_bindir}/%{name}
 
 %changelog
+* Wed Jun 21 2023 Adam Williamson <awilliam@redhat.com> - 1.2.4.2-26
+- Drop perl-Net-Whois-IP dep (it's been retired)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4.2-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -20,6 +20,8 @@
 %global with_docs 0
 %endif
 
+%{!?with_webkitgtk: %global with_webkitgtk (%{undefined rhel} || 0%{?rhel} < 10)}
+
 %define glib2_version 2.68
 %define gtk3_version 3.20
 %define gtk4_version 4.4
@@ -98,6 +100,7 @@ BuildRequires: pkgconfig(gio-unix-2.0) >= %{glib2_version}
 BuildRequires: pkgconfig(gmodule-2.0) >= %{glib2_version}
 BuildRequires: pkgconfig(icu-i18n)
 BuildRequires: pkgconfig(gtk+-3.0) >= %{gtk3_version}
+BuildRequires: pkgconfig(gtk4) >= %{gtk4_version}
 BuildRequires: pkgconfig(goa-1.0) >= %{goa_version}
 BuildRequires: pkgconfig(gweather4) >= %{libgweather_version}
 BuildRequires: pkgconfig(libical-glib) >= %{libical_version}
@@ -107,8 +110,10 @@ BuildRequires: pkgconfig(libxml-2.0)
 BuildRequires: pkgconfig(nspr)
 BuildRequires: pkgconfig(nss) >= %{nss_version}
 BuildRequires: pkgconfig(sqlite3) >= %{sqlite_version}
+%if %{with_webkitgtk}
 BuildRequires: pkgconfig(webkit2gtk-4.1) >= %{webkit2gtk_version}
 BuildRequires: pkgconfig(webkitgtk-6.0) >= %{webkit2gtk4_version}
+%endif
 BuildRequires: pkgconfig(json-glib-1.0) >= %{json_glib_version}
 BuildRequires: pkgconfig(libcanberra-gtk3)
 
@@ -150,8 +155,10 @@ Requires: pkgconfig(libical-glib) >= %{libical_version}
 Requires: pkgconfig(libsecret-unstable) >= %{libsecret_version}
 Requires: pkgconfig(libsoup-3.0) >= %{libsoup_version}
 Requires: pkgconfig(sqlite3) >= %{sqlite_version}
+%if %{with_webkitgtk}
 Requires: pkgconfig(webkit2gtk-4.1) >= %{webkit2gtk_version}
 Requires: pkgconfig(webkitgtk-6.0) >= %{webkit2gtk4_version}
+%endif
 Requires: pkgconfig(json-glib-1.0) >= %{json_glib_version}
 
 %description devel
@@ -250,6 +257,12 @@ fi
 %define gtkdoc_flags -DENABLE_GTK_DOC=OFF
 %endif
 
+%if %{with_webkitgtk}
+%define wekitgtk_flags -DENABLE_OAUTH2_WEBKITGTK=ON -DENABLE_OAUTH2_WEBKITGTK4=ON
+%else
+%define wekitgtk_flags -DENABLE_OAUTH2_WEBKITGTK=OFF -DENABLE_OAUTH2_WEBKITGTK4=OFF
+%endif
+
 if ! pkg-config --exists nss; then
   echo "Unable to find suitable version of nss to use!"
   exit 1
@@ -270,7 +283,7 @@ export CFLAGS="$RPM_OPT_FLAGS -DLDAP_DEPRECATED -fPIC -I%{_includedir}/et -Wno-d
 	%if "%{?_eds_dbus_services_prefix}" != ""
 	-DDBUS_SERVICES_PREFIX=%{?_eds_dbus_services_prefix} \
 	%endif
-	%ldap_flags %krb5_flags %ssl_flags \
+	%ldap_flags %krb5_flags %ssl_flags %wekitgtk_flags \
 	%largefile_flags %gtkdoc_flags %phonenum_flags \
 	%{nil}
 

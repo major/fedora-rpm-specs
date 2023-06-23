@@ -1,13 +1,13 @@
 Name:           maven-clean-plugin
-Version:        3.2.0
-Release:        4%{?dist}
+Version:        3.3.1
+Release:        1%{?dist}
 Summary:        Maven Clean Plugin
 License:        Apache-2.0
 URL:            http://maven.apache.org/plugins/maven-clean-plugin/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-Source0:        http://repo1.maven.org/maven2/org/apache/maven/plugins/%{name}/%{version}/%{name}-%{version}-source-release.zip
+Source0:        https://repo1.maven.org/maven2/org/apache/maven/plugins/%{name}/%{version}/%{name}-%{version}-source-release.zip
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(junit:junit)
@@ -35,6 +35,8 @@ This package provides %{summary}.
 # junit dependency was removed in Plexus 1.6
 %pom_add_dep junit:junit::test
 
+%pom_remove_dep org.codehaus.plexus:plexus-xml
+
 %build
 %mvn_build
 
@@ -48,6 +50,10 @@ This package provides %{summary}.
 %doc LICENSE NOTICE
 
 %changelog
+* Tue Jun 20 2023 Zuzana Miklankova <zmiklank@redhat.com> - 3.3.1-1
+- Update to upstream version 3.3.1
+- Remove not yet needed dependency plexus-xml
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

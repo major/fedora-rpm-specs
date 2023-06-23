@@ -14,7 +14,7 @@
 Summary: CUPS printing system
 Name: cups
 Epoch: 1
-Version: 2.4.4
+Version: 2.4.5
 Release: 1%{?dist}
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -749,6 +749,9 @@ rm -f %{cups_serverbin}/backend/smb
 %{_mandir}/man7/ippeveps.7.gz
 
 %changelog
+* Wed Jun 14 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.5-1
+- 2214860 - cups-2.4.5 is available
+
 * Wed Jun 07 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.4-1
 - fixes CVE-2023-32324
 - 2211834 - cups-2.4.4 is available

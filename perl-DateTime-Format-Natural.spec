@@ -1,6 +1,6 @@
 Name:           perl-DateTime-Format-Natural
-Version:        1.16
-Release:        2%{?dist}
+Version:        1.17
+Release:        1%{?dist}
 Summary:        Create machine readable date/time with natural parsing logic
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DateTime-Format-Natural
@@ -115,6 +115,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jun 21 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.17-1
+- 1.17 bump
+
 * Wed Mar 22 2023 Petr Pisar <ppisar@redhat.com> - 1.16-2
 - Run tests in parallel
 

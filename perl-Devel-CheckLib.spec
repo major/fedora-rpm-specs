@@ -7,7 +7,7 @@
 
 Name:           perl-Devel-CheckLib
 Version:        1.16
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Check that a library is available
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -16,6 +16,7 @@ Source0:        https://cpan.metacpan.org/modules/by-module/Devel/Devel-CheckLib
 
 BuildArch:      noarch
 
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
@@ -26,6 +27,8 @@ BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(File::Temp) >= 0.16
 BuildRequires:  perl(Text::ParseWords)
 # Tests:
+BuildRequires:  gcc
+BuildRequires:  perl(blib)
 BuildRequires:  perl(Cwd)
 BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(IO::File)
@@ -65,6 +68,9 @@ make test
 
 
 %changelog
+* Wed Jun 21 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.16-6
+- Add test BR gcc to not skip the tests
+
 * Wed Apr 12 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.16-5
 - Update license to SPDX format
 

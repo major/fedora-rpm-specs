@@ -8,8 +8,8 @@
 
 
 Name:           lttng-tools
-Version:        2.13.9
-Release:        4%{?dist}
+Version:        2.13.10
+Release:        5%{?dist}
 License:        GPL-2.0-only AND LGPL-2.1-only
 URL:            http://lttng.org
 Summary:        LTTng control and utility programs
@@ -18,9 +18,6 @@ Source1:        http://lttng.org/files/lttng-tools/%{name}-%{version}.tar.bz2.as
 # gpg2 --export --export-options export-minimal 7F49314A26E0DE78427680E05F1B2A0789F12B11 > gpgkey-7F49314A26E0DE78427680E05F1B2A0789F12B11.gpg
 Source2:        gpgkey-7F49314A26E0DE78427680E05F1B2A0789F12B11.gpg
 Source3:        lttng-sessiond.service
-
-# Fixes tests on s390x
-Patch0:         0001-Fix-truncated-len-in-lttng_event_rule_user_tracepoin.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -191,6 +188,9 @@ exit 0
 %endif
 
 %changelog
+* Wed Jun 21 2023 Kienan Stewart <kstewart@efficios.com> - 2.13.10-1
+- New upstream release
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.13.9-4
 - Rebuilt for Python 3.12
 

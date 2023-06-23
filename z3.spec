@@ -7,16 +7,13 @@
 # unless somebody is really, really persuasive and available to help fix it
 # if it breaks.
 
-# Do not embed bad package note paths in the OCaml files.
-%undefine _package_note_flags
-
 # Tests are off by default because some of the tests require more memory than
 # the koji builders have available.
 %bcond_with test
 
 Name:           z3
 Version:        4.12.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Satisfiability Modulo Theories (SMT) solver
 
 License:        MIT
@@ -293,6 +290,9 @@ cd -
 %{python3_sitelib}/z3/
 
 %changelog
+* Wed Jun 21 2023 Jerry James <loganjerry@gmail.com> - 4.12.2-3
+- Rebuild for OCaml 5.0
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 4.12.2-2
 - Rebuilt for Python 3.12
 

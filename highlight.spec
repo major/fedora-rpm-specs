@@ -1,12 +1,12 @@
 Name:           highlight
 Summary:        Universal source code to formatted text converter
 Version:        4.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPL-3.0-only
 URL:            http://www.andre-simon.de/
 Source0:        http://www.andre-simon.de/zip/%{name}-%{version}.tar.bz2
 
-%bcond qt 1
+%bcond qt %[%{undefined rhel} || 0%{?rhel} < 10]
 
 BuildRequires:  gcc-c++
 %if %{with qt}
@@ -107,6 +107,9 @@ desktop-file-install \
 
 
 %changelog
+* Tue Jun 20 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 4.6-2
+- Disable Qt5 GUI in RHEL 10 builds
+
 * Fri Jun 09 2023 Filipe Rosset <rosset.filipe@gmail.com> - 4.6-1
 - update to 4.6
 

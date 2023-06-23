@@ -376,6 +376,20 @@ Patch:          grpc-1.48.0-python-grpcio_tests-DynamicStubTest-hang.patch
 #
 # https://github.com/grpc/grpc/pull/31671
 Patch:          %{forgeurl}/pull/31671.patch
+# [Test] Use ssl.SSLContext.wrap_socket, not ssl.wrap_socket
+#
+# The latter emits a DeprecationWarning since Python 3.10 and is removed
+# in Python 3.12.
+#
+# https://github.com/grpc/grpc/pull/33492
+#
+# Backported to 1.48.4.
+Patch:          grpc-1.48.4-wrap_socket.patch
+# [Test] Do not use importlib find_module API, removed in Python 3.12
+# https://github.com/grpc/grpc/pull/33506
+#
+# Backported to 1.48.4.
+Patch:          grpc-1.48.4-find_module.patch
 
 Requires:       grpc-data = %{version}-%{release}
 

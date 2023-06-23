@@ -29,7 +29,7 @@
 %global autosetup %setup -q
 %endif
 
-%global gittag v1.0.50
+%global gittag v1.0.51
 
 %if %{undefined make_check}
 %global make_check 1
@@ -40,7 +40,7 @@
 #
 Summary: Fast User Level LOCK (FULLOCK) library for C/C++
 Name: libfullock
-Version: 1.0.50
+Version: 1.0.51
 Release: %{package_revision}%{?dist}
 License: MIT
 
@@ -126,6 +126,9 @@ This package has header files and symbols for it.
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Wed Jun 21 2023 Hirotaka Wakabayashi <hiwkby@yahoo.com> - 1.0.51-1
+- Updates to libfullock-1.0.51
+
 * Mon Mar 06 2023 Hirotaka Wakabayashi <hiwkby@yahoo.com> - 1.0.50-1
 - Updates to libfullock-1.0.50
 

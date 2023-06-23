@@ -2,8 +2,8 @@ Summary:        JIT assembler for AArch64 CPUs by C++
 Name:           xbyak_aarch64
 License:        Apache-2.0
 
-Version:        1.0.0
-Release:        7%{?dist}
+Version:        1.1.0
+Release:        1%{?dist}
 
 URL:            https://github.com/fujitsu/xbyak_aarch64
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -58,11 +58,11 @@ Xbyak developed for x86_64 CPUs by MITSUNARI Shigeo.
 cp Makefile MakefileOriginal
 cp Makefile MakefileStatic
 
-%patch01 -p1
+%patch 01 -p1
 # Add soname which is not encoded in the patch
 sed -i 's/so.0.soname/so.0.%{version}/g' Makefile
 
-%patch02 -p1
+%patch 02 -p1
 
 %build
 %{set_build_flags}
@@ -141,7 +141,6 @@ export EMULATOR="qemu-aarch64"
 export CXX=aarch64-linux-gnu-g++
 CXX=aarch64-redhat-linux-g++ make -f MakefileOriginal
 cd test
-source ../.github/automation/env/setenv
 ./test_all.sh -g
 cd ..
 %endif
@@ -165,6 +164,9 @@ cd ..
 %{_libdir}/libxbyak_aarch64.a
 
 %changelog
+* Wed Jun 21 2023 Benson Muite <benson_muite@emailplus.org> - 1.1.0-1
+- Update to latest release
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

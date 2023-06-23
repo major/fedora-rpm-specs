@@ -66,8 +66,11 @@ BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(libwebp)
 BuildRequires:  pkgconfig(OpenEXR)
+%if 0
+# viewers are not built
 BuildRequires:  pkgconfig(Qt5)
 BuildRequires:  pkgconfig(Qt5X11Extras)
+%endif
 BuildRequires:  pkgconfig(zlib)
 # epel 8 need this other already have it
 BuildRequires:  python3-devel

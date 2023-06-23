@@ -7,7 +7,7 @@
 
 Name: vagrant
 Version: 2.3.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Build and distribute virtualized development environments
 License: MIT
 URL: http://vagrantup.com
@@ -62,6 +62,8 @@ Requires: rubygem(net-sftp) >= 2.1
 Requires: rubygem(rest-client) >= 1.6.0
 Requires: rubygem(rubyzip) >= 1.1.7
 Requires: rubygem(net-ftp)
+Requires: rubygem(rexml)
+Requires: rubygem(mime-types)
 Requires: bsdtar
 Requires: curl
 Requires: %{_bindir}/ps
@@ -102,6 +104,8 @@ BuildRequires: rubygem(webrick)
 BuildRequires: rubygem(fake_ftp)
 BuildRequires: rubygem(rake)
 BuildRequires: rubygem(net-ftp)
+BuildRequires: rubygem(rexml)
+BuildRequires: rubygem(mime-types)
 BuildRequires: pkgconfig(bash-completion)
 %if %{with help2man}
 BuildRequires: help2man
@@ -486,6 +490,9 @@ end
 %{vagrant_plugin_instdir}/vagrant-spec.config.example.rb
 
 %changelog
+* Wed Jun 21 2023 Zdenek Zambersky <zzambers@redhat.com> - 2.3.4-2
+- Added missing dependency on rexml and mime-types
+
 * Tue May 09 2023 Jarek Prokop <jprokop@redhat.com> - 2.3.4-1
 - Upgrade to Vagrant 2.3.4.
 

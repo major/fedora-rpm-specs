@@ -4,7 +4,7 @@
 
 Name:           igt-gpu-tools
 Version:        1.27
-Release:        1%{?gitrev}%{?dist}
+Release:        2%{?gitrev}%{?dist}
 Summary:        Test suite and tools for DRM drivers
 
 License:        MIT
@@ -16,6 +16,8 @@ Source0:        igt-gpu-tools-%{gitdate}.tar.bz2
 Source0:        https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/archive/igt-gpu-tools-%{version}/igt-gpu-tools-igt-gpu-tools-%{version}.tar.bz2
 %endif
 Source1:        make-git-snapshot.sh
+
+Patch1: libproc-rebase.patch
 
 %global provobs_version 2.99.917-42.20180618
 Provides:       xorg-x11-drv-intel-devel = %{provobs_version}
@@ -29,7 +31,7 @@ BuildRequires:  flex bison
 BuildRequires:  pkgconfig(libdrm) >= 2.4.82
 BuildRequires:  pkgconfig(pciaccess) >= 0.10
 BuildRequires:  pkgconfig(libkmod)
-BuildRequires:  pkgconfig(libprocps)
+BuildRequires:  pkgconfig(libproc2)
 BuildRequires:  pkgconfig(libdw)
 BuildRequires:  pkgconfig(pixman-1)
 BuildRequires:  pkgconfig(valgrind)
@@ -196,6 +198,9 @@ rm %{buildroot}/%{_libdir}/libigt.so
 %{_datadir}/gtk-doc/html/igt-gpu-tools/*
 
 %changelog
+* Thu Jun 08 2023 Jan Rybar <jrybar@redhat.com> - 1.27-2
+- libproc2 transition patch by Craig Small
+
 * Wed Feb 15 2023 Lyude Paul <lyude@redhat.com> - 1.27-1.20230215git45da871
 - New git snapshot
 

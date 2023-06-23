@@ -1,5 +1,5 @@
 Name:           python-sentry-sdk
-Version:        1.24.0
+Version:        1.25.1
 Release:        1%{?dist}
 Summary:        The new Python SDK for Sentry.io
 
@@ -129,18 +129,9 @@ popd
   -e sentry_sdk.integrations.trytond
 }
 %pyproject_check_import %_check_import_options
-# Testing suite relies on the test to be executed on clean env (first line), other tests are broken on Python 3.11.
-# By some reason, skipping the tests breaks other tests, marking them as expected to fail.
-sed -i '/def test_auto_enabling_integrations_catches_import_error/i@pytest.mark.xfail' tests/test_basics.py
-sed -i '/def test_extract_stack_with_max_depth/i@pytest.mark.xfail' tests/test_profiler.py
-sed -i '/def test_active_thread_id/i@pytest.mark.xfail' tests/integrations/fastapi/test_fastapi.py
+
 # Remove old content_type argument from starlette test (not supported in current version of starlette).
 sed -i '/content_type=/D' tests/integrations/starlette/test_starlette.py
-# Fix aiohttp tests.
-sed -i 's/loop/event_loop/g' tests/integrations/aiohttp/test_aiohttp.py
-# Remove extra sys.argv.
-sed -i '/assert event\["_meta"\]/i\ \ \ \ event["_meta"]["extra"].pop("sys.argv")' tests/test_scrubber.py
-sed -i '/assert event\["_meta"\]/i\ \ \ \ if not event["_meta"]["extra"]: event["_meta"].pop("extra")' tests/test_scrubber.py
 
 # Deselect/ignore:
 # 1. Network-dependent tests
@@ -151,16 +142,14 @@ sed -i '/assert event\["_meta"\]/i\ \ \ \ if not event["_meta"]["extra"]: event[
 # 4. pymongo integration tests (mockupdb is unpackaged because it appears unmaintained)
 # 5. redis and rq integration tests (fakeredis is unpackaged yet)
 # 6. bottle, django, and flask integration tests (werkzeug in Fedora 38 is too new, see: https://github.com/getsentry/sentry-python/issues/1398)
-# 7. starlette test which uses old content_type argument (not supported in current version of starlette).
+# 7. celery & newrelic test (newrelic is unpackaged yet)
+# 8. test_auto_enabling_integrations_catches_import_error: testing suite relies on the test to be executed on clean env
 %pytest --asyncio-mode=auto --durations=5 \
+  --deselect tests/integrations/asyncio/test_asyncio_py3.py \
   --deselect tests/integrations/celery/test_celery.py::test_newrelic_interference \
-  --deselect tests/integrations/celery/test_celery.py::test_retry \
   --deselect tests/integrations/requests/test_requests.py::test_crumb_capture \
-  --deselect tests/integrations/starlette/test_starlette::test_starlettrequestextractor_form \
-  --deselect tests/integrations/stdlib/test_httplib.py::test_crumb_capture \
-  --deselect tests/integrations/stdlib/test_httplib.py::test_crumb_capture_hint \
-  --deselect tests/integrations/stdlib/test_httplib.py::test_httplib_misuse \
-  --deselect tests/integrations/threading/test_threading.py \
+  --deselect tests/integrations/threading/test_threading.py::test_circular_references \
+  --deselect tests/test_basics.py::test_auto_enabling_integrations_catches_import_error \
   --deselect tests/test_transport.py::test_transport_works \
   --deselect tests/utils/test_contextvars.py \
   --ignore tests/integrations/arq \
@@ -183,6 +172,10 @@ sed -i '/assert event\["_meta"\]/i\ \ \ \ if not event["_meta"]["extra"]: event[
 
 
 %changelog
+* Wed Jun 21 2023 Roman Inflianskas <rominf@aiven.io> - 1.25.1-1
+- Update to 1.25.1 (resolve rhbz#2211880)
+- Improve testing
+
 * Thu May 25 2023 Roman Inflianskas <rominf@aiven.io> - 1.24.0-1
 - Update to 1.24.0 (resolve rhbz#2196238)
 

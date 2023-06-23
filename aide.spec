@@ -1,7 +1,7 @@
 Summary:        Intrusion detection environment
 Name:           aide
-Version:        0.16
-Release:        23%{?dist}
+Version:        0.18.4
+Release:        2%{?dist}
 URL:            http://sourceforge.net/projects/aide
 License:        GPL-2.0-or-later
 
@@ -14,7 +14,7 @@ Source3:        aide.logrotate
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  bison flex
-BuildRequires:  pcre-devel
+BuildRequires:  pcre2-devel
 BuildRequires:  libgpg-error-devel libgcrypt-devel
 BuildRequires:  zlib-devel
 BuildRequires:  libcurl-devel
@@ -26,19 +26,19 @@ BuildRequires:  audit-libs-devel
 BuildRequires:  autoconf automake libtool
 
 # Customize the database file location in the man page.
-Patch1: aide-0.16rc1-man.patch
+#Patch1: aide-0.16rc1-man.patch
 # fix aide in FIPS mode
-Patch2: aide-0.16b1-fipsfix.patch
+#Patch2: aide-0.16b1-fipsfix.patch
 # Bug 1674637 - aide: FTBFS in Fedora rawhide/f30
-Patch3: aide-0.16-Use-LDADD-for-adding-curl-library-to-the-linker-comm.patch
+#Patch3: aide-0.16-Use-LDADD-for-adding-curl-library-to-the-linker-comm.patch
 
-Patch4: aide-0.15-syslog-format.patch
-Patch5: aide-0.16-crypto-disable-haval-and-others.patch
-Patch6: coverity.patch
-Patch7: aide-0.16-crash-elf.patch
-Patch8: aide-configure-c99-1.patch
-Patch9: aide-configure-c99-2.patch
-Patch10: aide-configure-c99-3.patch
+#Patch4: aide-0.15-syslog-format.patch
+#Patch5: aide-0.16-crypto-disable-haval-and-others.patch
+#Patch6: coverity.patch
+#Patch7: aide-0.16-crash-elf.patch
+#Patch8: aide-configure-c99-1.patch
+#Patch9: aide-configure-c99-2.patch
+#Patch10: aide-configure-c99-3.patch
 
 %description
 AIDE (Advanced Intrusion Detection Environment) is a file integrity
@@ -49,7 +49,7 @@ checker and intrusion detection program.
 cp -a %{S:2} .
 
 %build
-autoreconf -ivf
+#autoreconf -ivf
 %configure  \
   --disable-static \
   --with-config_file=%{_sysconfdir}/aide.conf \
@@ -72,7 +72,7 @@ mkdir -p -m0700 %{buildroot}%{_localstatedir}/lib/aide
 
 %files
 %license COPYING
-%doc AUTHORS ChangeLog NEWS README doc/manual.html contrib/
+%doc AUTHORS ChangeLog NEWS README contrib/
 %doc README.quickstart
 %{_sbindir}/aide
 %{_mandir}/man1/*.1*
@@ -83,6 +83,12 @@ mkdir -p -m0700 %{buildroot}%{_localstatedir}/lib/aide
 %dir %attr(0700,root,root) %{_localstatedir}/log/aide
 
 %changelog
+* Wed Jun 21 2023 Radovan Sroka <rsroka@redhat.com> - 0.18.4-1
+- aide-0.18.4 is available
+Resolves: rhbz#1910486
+- Please port your pcre dependency to pcre2. Pcre has been deprecated
+Resolves: rhbz#2128267
+
 * Tue Jun 13 2023 Radovan Sroka <rsroka@redhat.com> - 0.16-23
 - migrated to SPDX license
 

@@ -1,6 +1,6 @@
 %global _hardened_build 1
 %global clknetsim_ver 13b0a5
-%global prerelease -pre1
+%global prerelease -pre2
 %bcond_without debug
 %bcond_without nts
 
@@ -10,7 +10,7 @@
 
 Name:           chrony
 Version:        4.4
-Release:        0.2.pre1%{?dist}
+Release:        0.3.pre2%{?dist}
 Summary:        An NTP client/server
 
 License:        GPL-2.0-only
@@ -62,13 +62,13 @@ service to other computers in the network.
 
 # review changes in packaged configuration files and scripts
 md5sum -c <<-EOF | (! grep -v 'OK$')
-        b40117b4aac846d31e4ad196dc44cda3  examples/chrony-wait.service
+        5530d6e60f84b76c27495485d2510bac  examples/chrony-wait.service
         2d01b94bc1a7b7fb70cbee831488d121  examples/chrony.conf.example2
         6a3178c4670de7de393d9365e2793740  examples/chrony.logrotate
         c3992e2f985550739cd1cd95f98c9548  examples/chrony.nm-dispatcher.dhcp
         4e85d36595727318535af3387411070c  examples/chrony.nm-dispatcher.onoffline
-        677ad16d6439daa369da44a1b75d1772  examples/chronyd.service
-        f092f965dc61f691ca838958eeeb3377  examples/chronyd-restricted.service
+        c11159b78b89684eca773db6236a9855  examples/chronyd.service
+        46fa3e2d42c8eb9c42e71095686c90ed  examples/chronyd-restricted.service
 EOF
 
 # don't allow packaging without vendor zone
@@ -84,6 +84,10 @@ sed -e 's|^\(pool \)\(pool.ntp.org\)|\12.%{vendorzone}\2|' \
         < examples/chrony.conf.example2 > chrony.conf
 
 touch -r examples/chrony.conf.example2 chrony.conf
+
+# set selinux context in chronyd-restricted service
+sed -i '/^ExecStart/a SELinuxContext=system_u:system_r:chronyd_restricted_t:s0' \
+	examples/chronyd-restricted.service
 
 # regenerate the file from getdate.y
 rm -f getdate.c
@@ -151,7 +155,7 @@ echo 'chronyd.service' > \
 
 %check
 # set random seed to get deterministic results
-export CLKNETSIM_RANDOM_SEED=24505
+export CLKNETSIM_RANDOM_SEED=24508
 %make_build -C test/simulation/clknetsim
 make quickcheck
 
@@ -199,6 +203,10 @@ fi
 %dir %attr(750,chrony,chrony) %{_localstatedir}/log/chrony
 
 %changelog
+* Wed Jun 21 2023 Miroslav Lichvar <mlichvar@redhat.com> 4.4-0.3.pre2
+- update to 4.4-pre2
+- set selinux context in chronyd-restricted service (#2169949)
+
 * Tue Jun 06 2023 Miroslav Lichvar <mlichvar@redhat.com> 4.4-0.2.pre1
 - rebuild for AES-GCM-SIV in new nettle
 

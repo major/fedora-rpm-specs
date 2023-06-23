@@ -14,10 +14,10 @@ URL: https://www.python.org/
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
 %global general_version %{pybasever}.0
-%global prerel b2
+%global prerel b3
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 3%{?dist}
+Release: 2%{?dist}
 License: Python-2.0.1
 
 
@@ -362,11 +362,12 @@ Patch251: 00251-change-user-install-location.patch
 # https://github.com/GrahamDumpleton/mod_wsgi/issues/730
 Patch371: 00371-revert-bpo-1596321-fix-threading-_shutdown-for-the-main-thread-gh-28549-gh-28589.patch
 
-# 00401 # 48310af24b090719553bf0e9c965d80524e0b40e
-# Tests: Use setuptools+wheel from sysconfig.get_config_var('WHEEL_PKG_DIR') if set
+# 00402 # ecae89d5edb8d253925dce12c3c56d1a6da198f3
+# Add PyType_GetDict()
 #
-# Proposed upstream https://github.com/python/cpython/pull/105056
-Patch401: 00401-tests-use-setuptools-wheel-from-sysconfig-get_config_var-wheel_pkg_dir-if-set.patch
+# This patch should make pyqt6 build with Python 3.12.
+# For more info see: https://github.com/python/cpython/pull/105747
+Patch402: 00402-add-pytype_getdict.patch
 
 # (New patches go here ^^^)
 #
@@ -1657,6 +1658,12 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Wed Jun 21 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.12.0~b3-2
+- Backport upstream patch to add PyType_GetDict() function
+
+* Tue Jun 20 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.12.0~b3-1
+- Update to 3.12.0b3
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.12.0~b2-3
 - Rebuilt for Python 3.12
 

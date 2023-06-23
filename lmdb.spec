@@ -2,7 +2,7 @@ Name:           lmdb
 Version:        0.9.30
 Release:        %autorelease
 Summary:        Memory-mapped key-value database
-License:        OpenLDAP
+License:        OLDAP-2.8
 URL:            https://www.symas.com/lmdb
 
 # Main source is retrieved from OpenLDAP GitLab
