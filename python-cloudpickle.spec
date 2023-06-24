@@ -9,7 +9,7 @@ interactively in the __main__ module.
 
 Name:           python-%{pypi_name}
 Version:        2.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Extended pickling support for Python objects
 
 License:        BSD
@@ -64,6 +64,9 @@ PYTHONPATH=tests/cloudpickle_testpkg %{__python3} -m pytest -v -k "not file_hand
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Thu Jun 22 2023 Python Maint <python-maint@redhat.com> - 2.2.1-2
+- Rebuilt for Python 3.12
+
 * Thu Jan 19 2023 Jonathan Wright <jonathan@almalinux.org> - 2.2.1-1
 - Update to 2.2.1 rhbz#2160509
 

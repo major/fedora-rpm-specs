@@ -1,164 +1,66 @@
-%if 0%{?rhel}
-%if %{rhel} <= 7
-# disable python3 by default
-%bcond_with python3
-%else
-%bcond_without python3
-%endif
+Summary:       Python module for GNU parted
+Name:          pyparted
+Epoch:         1
+Version:       3.13.0
+Release:       2%{?dist}
+License:       GPL-2.0-or-later
+URL:           https://github.com/dcantrell/pyparted
 
-%if %{rhel} > 7
-# disable python2 by default
-%bcond_with python2
-%else
-%bcond_without python2
-%endif
-%endif
-
-%if 0%{?fedora}
-%if %{fedora} < 23
-# disable python3 by default
-%bcond_with python3
-%else
-%bcond_without python3
-%endif
-
-%if %{fedora} > 31
-# disable python2 by default
-%bcond_with python2
-%else
-%bcond_without python2
-%endif
-%endif
-
-Summary: Python module for GNU parted
-Name:    pyparted
-Epoch:   1
-Version: 3.12.0
-Release: 11%{?dist}
-License: GPL-2.0-or-later
-URL:     https://github.com/dcantrell/pyparted
-
-Source0: https://github.com/dcantrell/pyparted/releases/download/v%{version}/%{name}-%{version}.tar.gz
-Source1: https://github.com/dcantrell/pyparted/releases/download/v%{version}/%{name}-%{version}.tar.gz.asc
-Source2: keyring.gpg
-Source3: trustdb.gpg
-
-# Support new disk type features from parted 3.5:
-# https://bugzilla.redhat.com/show_bug.cgi?id=2098792
-# https://github.com/dcantrell/pyparted/issues/91
-Patch0:  pyparted-3.12.0-partition-types.patch
-
-Patch1:  pyparted-3.12.0-gpt-disktype-test.patch
+Source0:       https://github.com/dcantrell/pyparted/releases/download/v%{version}/%{name}-%{version}.tar.gz
+Source1:       https://github.com/dcantrell/pyparted/releases/download/v%{version}/%{name}-%{version}.tar.gz.asc
+Source2:       keyring.gpg
+Source3:       trustdb.gpg
 
 BuildRequires: make
 BuildRequires: gcc
-BuildRequires: parted-devel >= 3.3
+BuildRequires: parted-devel >= 3.4
 BuildRequires: pkgconfig
 BuildRequires: e2fsprogs
 BuildRequires: gnupg2
-
-%if %{with python3}
 BuildRequires: python3-devel
 BuildRequires: python3-six
 BuildRequires: python3-setuptools
-%endif
 
-%if %{with python2}
-BuildRequires: python2-devel
-BuildRequires: python2-six
-%endif
-
-%global _description\
-Python module for the parted library.  It is used for manipulating\
+%description
+Python module for the parted library.  It is used for manipulating
 partition tables.
 
-%description %_description
-
-%if %{with python2}
-%package -n python2-pyparted
-Summary: %summary
-%{?python_provide:%python_provide python2-pyparted}
-# Remove before F30
-Provides: pyparted = %{epoch}:%{version}-%{release}
-Provides: pyparted%{?_isa} = %{epoch}:%{version}-%{release}
-Obsoletes: pyparted < %{epoch}:%{version}-%{release}
-
-%description -n python2-pyparted %_description
-%endif
-
-%if %{with python3}
 %package -n python3-pyparted
 Summary: Python 3 module for GNU parted
 
 %description -n python3-pyparted
 Python module for the parted library.  It is used for manipulating
 partition tables. This package provides Python 3 bindings for parted.
-%endif
 
 %prep
 # Verify source archive signature
 gpg --no-default-keyring --keyring %{SOURCE2} --trustdb-name %{SOURCE3} --verify %{SOURCE1} %{SOURCE0} || exit 1
 
-%setup -q
-%patch -P 0 -p1
-%patch -P 1 -p1
-
-%if %{with python3}
-everything=$(ls)
-mkdir -p py3dir
-cp -a $everything py3dir
-%endif
+%autosetup
 
 %build
-%if %{with python2}
-PYTHON=python2 %make_build CFLAGS="%{optflags} -fcommon"
-%endif
-
-%if %{with python3}
-pushd py3dir
-PYTHON=python3 %make_build CFLAGS="%{optflags} -fcommon"
-popd
-%endif
+%make_build CFLAGS="%{optflags} -fcommon"
 
 %check
-%if %{with python2}
-PYTHON=python2 make test
-%endif
-
-%if %{with python3}
-pushd py3dir
-PYTHON=python3 make test
-popd
-%endif
+make test
 
 %install
-%if %{with python2}
-PYTHON=python2 %make_install
-%endif
+%make_install
 
-%if %{with python3}
-pushd py3dir
-PYTHON=python3 %make_install
-popd
-%endif
-
-%if %{with python2}
-%files -n python2-pyparted
-%doc AUTHORS COPYING NEWS README TODO
-%{python2_sitearch}/_ped.so
-%{python2_sitearch}/parted
-%{python2_sitearch}/%{name}-%{version}-*.egg-info
-%endif
-
-%if %{with python3}
 %files -n python3-pyparted
-%doc AUTHORS COPYING NEWS README TODO
+%doc AUTHORS HACKING NEWS README.md RELEASE TODO
+%license LICENSE
 %{python3_sitearch}/_ped.*.so
 %{python3_sitearch}/parted
 %{python3_sitearch}/%{name}-%{version}-*.egg-info
-%endif
 
 %changelog
+* Thu Jun 22 2023 Python Maint <python-maint@redhat.com> - 1:3.13.0-2
+- Rebuilt for Python 3.12
+
+* Wed Jun 21 2023 David Cantrell <dcantrell@redhat.com> - 1:3.13.0-1
+- Upgrade to pyparted-3.13.0
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1:3.12.0-11
 - Rebuilt for Python 3.12
 

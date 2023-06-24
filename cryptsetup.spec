@@ -1,15 +1,18 @@
 Summary: Utility for setting up encrypted disks
 Name: cryptsetup
 Version: 2.6.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later WITH cryptsetup-OpenSSL-exception AND LGPL-2.1-or-later WITH cryptsetup-OpenSSL-exception
 URL: https://gitlab.com/cryptsetup/cryptsetup
 BuildRequires: autoconf, automake, libtool, gettext-devel,
 BuildRequires: openssl-devel, popt-devel, device-mapper-devel
-BuildRequires: libuuid-devel, gcc, json-c-devel, libargon2-devel
+BuildRequires: libuuid-devel, gcc, json-c-devel
 BuildRequires: libpwquality-devel, libblkid-devel
 BuildRequires: make libssh-devel
 BuildRequires: asciidoctor
+%if %{undefined rhel}
+BuildRequires: libargon2-devel
+%endif
 Requires: cryptsetup-libs = %{version}-%{release}
 Requires: libpwquality >= 1.2.0
 Obsoletes: %{name}-reencrypt <= %{version}
@@ -68,7 +71,8 @@ disk integrity protection using dm-integrity kernel module.
 rm -f man/*.8
 
 ./autogen.sh
-%configure --enable-fips --enable-pwquality --enable-libargon2 --enable-asciidoc
+%configure --enable-fips --enable-pwquality --enable-asciidoc \
+  --enable-%{?rhel:internal-sse-}%{!?rhel:lib}argon2
 %make_build
 
 %install
@@ -117,6 +121,9 @@ rm -rf %{buildroot}%{_libdir}/%{name}/*.la
 %{_sbindir}/cryptsetup-ssh
 
 %changelog
+* Thu Jun 15 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2.6.1-2
+- Drop libargon2 dependency in RHEL builds
+
 * Fri Feb 10 2023 Ondrej Kozina <okozina@redhat.com> - 2.6.1-1
 - Update to cryptsetup 2.6.1.
 

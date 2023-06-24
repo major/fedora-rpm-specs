@@ -1,5 +1,5 @@
 Version:	1.1.7
-Release: 1%{?dist}
+Release: 2%{?dist}
 %global _hardened_build 1
 
 %if 0%{?fedora} || 0%{?rhel} >= 7
@@ -38,6 +38,8 @@ Source8:	ocserv-genkey
 Source9:	ocserv-script
 Source10:	gpgkey-56EE7FA9E8173B19FE86268D763712747F343FA7.gpg
 Source11:	ocserv.init
+# When removed remove the autoreconf step
+Patch0:		expired-certs.patch
 
 # Taken from upstream:
 # http://git.infradead.org/ocserv.git/commitdiff/7d70006a2dbddf783213f1856374bacc74217e09
@@ -139,6 +141,8 @@ gpgv2 --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0} || gpgv2 --keyring %{SOURCE10} 
 %endif
 
 %autosetup -p1
+# temporarily needed to apply patches
+autoreconf -fvi
 
 rm -f src/http-parser/http_parser.c src/http-parser/http_parser.h
 %if (0%{?use_local_protobuf} == 0)
@@ -272,6 +276,9 @@ install -D -m 0755 %{SOURCE11} %{buildroot}/%{_initrddir}/%{name}
 %endif
 
 %changelog
+* Thu Jun 22 2023 Nikos Mavrogiannopoulos <n.mavrogiannopoulos@gmail.com> - 1.1.7-2
+- Backported fixes for expired certificates
+
 * Sun May 07 2023 Nikos Mavrogiannopoulos <n.mavrogiannopoulos@gmail.com> - 1.1.7-1
 - Updated to 1.1.7
 

@@ -9,7 +9,11 @@
 %global packagekit_version 1.1.1
 
 # Disable WebApps for RHEL builds
-%{!?with_webapps: %global with_webapps !0%{?rhel}}
+%bcond webapps %[!0%{?rhel}]
+# Disable parental control for RHEL builds
+%bcond malcontent %[!0%{?rhel}]
+# Disable rpm-ostree support for RHEL builds
+%bcond rpmostree %[!0%{?rhel}]
 
 # this is not a library version
 %define gs_plugin_version 20
@@ -20,7 +24,7 @@
 
 Name:      gnome-software
 Version:   44.2
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   A software center for GNOME
 
 License:   GPL-2.0-or-later
@@ -50,18 +54,22 @@ BuildRequires: pkgconfig(json-glib-1.0) >= %{json_glib_version}
 BuildRequires: pkgconfig(libadwaita-1) >= %{libadwaita_version}
 BuildRequires: pkgconfig(libdnf)
 BuildRequires: pkgconfig(libsoup-3.0)
+%if %{with malcontent}
 BuildRequires: pkgconfig(malcontent-0)
+%endif
 BuildRequires: pkgconfig(ostree-1)
 BuildRequires: pkgconfig(packagekit-glib2) >= %{packagekit_version}
 BuildRequires: pkgconfig(polkit-gobject-1)
 BuildRequires: pkgconfig(rpm)
+%if %{with rpmostree}
 BuildRequires: pkgconfig(rpm-ostree-1)
+%endif
 BuildRequires: pkgconfig(sysprof-capture-4)
 BuildRequires: pkgconfig(xmlb) >= %{libxmlb_version}
 
 Requires: appstream-data
 Requires: appstream%{?_isa} >= %{appstream_version}
-%if %{with_webapps}
+%if %{with webapps}
 Requires: epiphany-runtime%{?_isa}
 %endif
 Requires: flatpak%{?_isa} >= %{flatpak_version}
@@ -94,6 +102,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 These development files are for building gnome-software plugins outside
 the source tree. Most users do not need this subpackage installed.
 
+%if %{with rpmostree}
 %package rpm-ostree
 Summary: rpm-ostree backend for gnome-software
 Requires: %{name}%{?_isa} = %{version}-%{release}
@@ -105,6 +114,7 @@ gnome-software is an application that makes it easy to add, remove
 and update software in the GNOME desktop.
 
 This package includes the rpm-ostree backend.
+%endif
 
 %prep
 %autosetup -p1 -S gendiff -n %{name}-%{tarball_version}
@@ -113,13 +123,21 @@ This package includes the rpm-ostree backend.
 %meson \
     -Dsoup2=false \
     -Dsnap=false \
+%if %{with malcontent}
     -Dmalcontent=true \
+%else
+    -Dmalcontent=false \
+%endif
     -Dgudev=true \
     -Dpackagekit=true \
     -Dpackagekit_autoremove=true \
     -Dexternal_appstream=false \
+%if %{with rpmostree}
     -Drpm_ostree=true \
-%if %{with_webapps}
+%else
+    -Drpm_ostree=false \
+%endif
+%if %{with webapps}
     -Dwebapps=true \
     -Dhardcoded_foss_webapps=true \
     -Dhardcoded_proprietary_webapps=false \
@@ -171,7 +189,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.Software-symbolic.svg
 %{_datadir}/icons/hicolor/scalable/actions/app-remove-symbolic.svg
 %{_datadir}/metainfo/org.gnome.Software.metainfo.xml
-%if %{with_webapps}
+%if %{with webapps}
 %{_datadir}/metainfo/org.gnome.Software.Plugin.Epiphany.metainfo.xml
 %endif
 %{_datadir}/metainfo/org.gnome.Software.Plugin.Flatpak.metainfo.xml
@@ -180,7 +198,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/gnome-software/libgnomesoftware.so.%{gs_plugin_version}
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_appstream.so
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_dummy.so
-%if %{with_webapps}
+%if %{with webapps}
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_epiphany.so
 %endif
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_fedora-langpacks.so
@@ -190,7 +208,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_generic-updates.so
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_hardcoded-blocklist.so
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_icons.so
+%if %{with malcontent}
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_malcontent.so
+%endif
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_modalias.so
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_os-release.so
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_packagekit.so
@@ -201,7 +221,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_sysconfdir}/xdg/autostart/org.gnome.Software.desktop
 %dir %{_datadir}/swcatalog
 %dir %{_datadir}/swcatalog/xml
-%if %{with_webapps}
+%if %{with webapps}
 %{_datadir}/swcatalog/xml/gnome-pwa-list-foss.xml
 %endif
 %{_datadir}/swcatalog/xml/org.gnome.Software.Curated.xml
@@ -214,8 +234,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libexecdir}/gnome-software-cmd
 %{_libexecdir}/gnome-software-restarter
 
+%if %{with rpmostree}
 %files rpm-ostree
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_rpm-ostree.so
+%endif
 
 %files devel
 %{_libdir}/pkgconfig/gnome-software.pc
@@ -227,6 +249,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/gnome-software/
 
 %changelog
+* Thu Jun 22 2023 Tomas Popela <tpopela@redhat.com> - 44.2-2
+- Disable parental control (through malcontent) and rpm-ostree support in RHEL
+
 * Fri May 26 2023 Milan Crha <mcrha@redhat.com> - 44.2-1
 - Update to 44.2
 

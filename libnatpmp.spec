@@ -1,6 +1,6 @@
 Name:           libnatpmp
 Version:        20230423
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library of The NAT Port Mapping Protocol (NAT-PMP)
 License:        LGPL-2.0-or-later
 URL:            http://miniupnp.free.fr/libnatpmp.html
@@ -34,6 +34,8 @@ make install INSTALL="install -p" PREFIX=%{buildroot} \
      INSTALLDIRINC="%{buildroot}%{_includedir}" \
      INSTALLDIRBIN="%{buildroot}%{_bindir}"
 
+install -m 0644 -p natpmp_declspec.h %{buildroot}%{_includedir}/
+
 find %{buildroot} -name '*.a' -delete -print
 find %{buildroot} -name '*.so' -exec chmod 755 {} ";" -print
 
@@ -52,8 +54,12 @@ make testgetgateway
 %doc Changelog.txt README
 %{_libdir}/*.so
 %{_includedir}/natpmp.h
+%{_includedir}/natpmp_declspec.h
 
 %changelog
+* Thu Jun 22 2023 Gwyn Ciesla <gwync@protonmail.com> - 20230423-2
+- Include natpmp_declspec.h
+
 * Mon Apr 24 2023 Gwyn Ciesla <gwync@protonmail.com> - 20230423-1
 - 20230423
 

@@ -1,6 +1,6 @@
 Name:       barman
-Version:    3.5.0
-Release:    4%{?dist}
+Version:    3.6.0
+Release:    1%{?dist}
 Summary:    Backup and Recovery Manager for PostgreSQL
 License:    GPLv3
 URL:        http://www.pgbarman.org/
@@ -120,6 +120,9 @@ getent passwd %{name} >/dev/null || \
 exit 0
 
 %changelog
+* Thu Jun 22 2023 Simone Caronni <negativo17@gmail.com> - 3.6.0-1
+- Update to 3.6.0.
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.5.0-4
 - Rebuilt for Python 3.12
 

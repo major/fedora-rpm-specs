@@ -1,0 +1,65 @@
+%global         srcname         pyembroidery
+%global         forgeurl        https://github.com/EmbroidePy/pyembroidery
+Version:        1.4.36
+%global         tag             %{version}
+%forgemeta
+
+Name:           python-%{srcname}
+Release:        1%{?dist}
+Summary:        Library for reading and writing a variety of embroidery formats
+
+License:        MIT
+URL:            %{forgeurl}
+# Use source from GitHub to get license files
+Source0:        %{forgesource}
+
+
+BuildRequires:  python3-devel
+
+BuildArch: noarch
+
+%global _description %{expand:
+pyembroidery was coded from the ground up with all projects in mind. It
+includes a lot of higher level and middle level pattern composition
+abilities, and should accounts for any knowable error. If you know an error
+it does not account for, raise an issue. It should be highly robust with
+a simple api so as to be reasonable for any python embroidery project.
+
+It should be complex enough to go very easily from points to stitches, fine
+grained enough to let you control everything, and good enough that you
+shouldn't want to.}
+
+%description %_description
+
+%package -n python3-%{srcname}
+Summary:        %{summary}
+
+%description -n python3-%{srcname} %_description
+
+
+%prep
+%forgeautosetup
+
+%generate_buildrequires
+%pyproject_buildrequires
+
+
+%build
+# Fix incorrect line endings
+sed -i 's/\r$//' README.md
+%pyproject_wheel
+
+%install
+%pyproject_install
+%pyproject_save_files %{srcname}
+
+%check
+%python3 -m unittest discover test
+
+%files -n python3-%{srcname} -f %{pyproject_files}
+%doc README.md
+%exclude %{python3_sitelib}/test
+ 
+%changelog
+* Fri Jun 16 2023 Benson Muite <benson_muite@emailplus.org> - 1.4.36-1
+- Initial packaging

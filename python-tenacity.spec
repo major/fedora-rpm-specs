@@ -5,7 +5,7 @@ retry behavior to just about anything.}
 
 Name:           python-%{pypi_name}
 Version:        8.2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Retry code until it succeeds
 License:        ASL 2.0
 URL:            https://github.com/jd/%{pypi_name}
@@ -44,6 +44,9 @@ sed -e '/typeguard/d' -i setup.cfg
 %doc README.rst
 
 %changelog
+* Thu Jun 22 2023 Python Maint <python-maint@redhat.com> - 8.2.2-2
+- Rebuilt for Python 3.12
+
 * Sat Mar 25 2023 Jonathan Wright <jonathan@almalinux.org - 8.2.2-1
 - Update to 8.2.2 rhbz#2129009
 

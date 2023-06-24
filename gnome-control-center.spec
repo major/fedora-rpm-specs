@@ -11,6 +11,9 @@
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
+# Disable parental control for RHEL builds
+%bcond malcontent %[!0%{?rhel}]
+
 Name:           gnome-control-center
 Version:        44.2
 Release:        %autorelease
@@ -51,7 +54,9 @@ BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(libpulse-mainloop-glib)
 BuildRequires:  pkgconfig(libsecret-1)
 BuildRequires:  pkgconfig(libxml-2.0)
+%if %{with malcontent}
 BuildRequires:  pkgconfig(malcontent-0)
+%endif
 BuildRequires:  pkgconfig(mm-glib)
 BuildRequires:  pkgconfig(polkit-gobject-1)
 BuildRequires:  pkgconfig(pwquality)
@@ -93,9 +98,11 @@ Requires: dbus
 Requires: glx-utils
 # For the user languages
 Requires: iso-codes
+%if %{with malcontent}
 # For parental controls support
 Requires: malcontent
 Recommends: malcontent-control
+%endif
 # For the network panel
 Recommends: NetworkManager-wifi
 Recommends: nm-connection-editor
@@ -150,11 +157,15 @@ utilities.
 %if 0%{?fedora}
   -Ddistributor_logo=%{_datadir}/pixmaps/fedora_logo_med.png \
   -Ddark_mode_distributor_logo=%{_datadir}/pixmaps/fedora_whitelogo_med.png \
-  -Dmalcontent=true \
 %endif
 %if 0%{?rhel}
   -Ddistributor_logo=%{_datadir}/pixmaps/fedora-logo.png \
   -Ddark_mode_distributor_logo=%{_datadir}/pixmaps/system-logo-white.png \
+%endif
+%if %{with malcontent}
+  -Dmalcontent=true \
+%else
+  -Dmalcontent=false \
 %endif
   %{nil}
 %meson_build

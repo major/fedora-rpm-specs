@@ -13,9 +13,7 @@
 
 # Python binding and its testing
 %bcond_without python
-%ifnarch %{power64} %{arm}
 %bcond_without pycheck
-%endif
 %global pymodule_name petsc4py
 %global pymodule_version %{version}
 #

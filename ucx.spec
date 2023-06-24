@@ -12,7 +12,7 @@
 
 Name: ucx
 Version: 1.14.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: UCX is a communication library implementing high-performance messaging
 
 License: BSD-3-Clause AND MIT AND CC-PDDC AND (BSD-3-Clause OR Apache-2.0)
@@ -96,6 +96,12 @@ Provides header files and examples for developing with UCX.
 %setup -q
 
 %build
+# Fix incorrect declaration
+# https://github.com/openucx/ucx/issues/9115
+# https://github.com/openucx/ucx/commit/8d6032ec864190c9f079d96e731c5004a975e153
+# can be removed for release 1.15
+sed -i 's/unsigned advice)/uct_mem_advice_t advice)/g' src/uct/base/uct_md.c
+
 %define _with_arg()   %{expand:%%{?with_%{1}:--with-%{2}}%%{!?with_%{1}:--without-%{2}}}
 %define _enable_arg() %{expand:%%{?with_%{1}:--enable-%{2}}%%{!?with_%{1}:--disable-%{2}}}
 %configure --disable-optimizations \
@@ -311,6 +317,9 @@ status, and more.
 %endif
 
 %changelog
+* Thu Jun 22 2023 Benson Muite <benson_muite@emailplus.org> - 1.14.1-3
+- Apply fix to enable building with GCC13
+
 * Fri Jun 02 2023 Benson Muite <benson_muite@emailplus.org> - 1.14.1-2
 - Remove changes in patches that have been applied
 

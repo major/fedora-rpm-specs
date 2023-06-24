@@ -1,7 +1,7 @@
 Name:           perl-Lingua-EN-Syllable
 Epoch:          1
 Version:        0.31
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Routine for estimating syllable count in words
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Lingua-EN-Syllable
@@ -23,6 +23,15 @@ BuildRequires:  perl(Test::More) >= 0.88
 Lingua::EN::Syllable::syllable() estimates the number of syllables in the
 word passed to it.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Lingua-EN-Syllable-%{version}
 
@@ -32,6 +41,14 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)" -r
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_fixperms} %{buildroot}
 
 %check
@@ -43,7 +60,13 @@ make test
 %{perl_vendorlib}/Lingua/EN/Syllable.pm
 %{_mandir}/man3/Lingua::EN::Syllable.3pm.*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Thu Jun 22 2023 Michal Josef Špaček <mspacek@redhat.com> - 1:0.31-2
+- Package tests
+
 * Mon May 22 2023 Michal Josef Špaček <mspacek@redhat.com> - 1:0.31-1
 - 0.31 bump
 

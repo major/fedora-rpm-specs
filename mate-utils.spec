@@ -15,7 +15,7 @@
 Name:           mate-utils
 Version:        %{branch}.1
 %if 0%{?rel_build}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %else
 Release:        0.17%{?git_rel}%{?dist}
 %endif
@@ -125,6 +125,11 @@ An application to help analyze disk usage.
 # needed for git snapshots
 NOCONFIGURE=1 ./autogen.sh
 %endif # 0%{?rel_build}
+
+# disable pt language for help in search tool
+sed -i s/"IGNORE_HELP_LINGUAS ="/"IGNORE_HELP_LINGUAS = pt"/g gsearchtool/help/Makefile.am
+# pt translation fix
+NOCONFIGURE=1 ./autogen.sh
 
 %build
 %configure \
@@ -252,6 +257,9 @@ desktop-file-install                          \
 
 
 %changelog
+* Thu Jun 22 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-2
+- disable pt language for help in search tool again
+
 * Tue May 09 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-1
 - update to 1.26.1
 

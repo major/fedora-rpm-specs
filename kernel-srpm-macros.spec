@@ -1,7 +1,7 @@
 Name:           kernel-srpm-macros
 Version:        1.0
 # when bumping version and resetting release, don't forget to bump version of kernel-rpm-macros as well
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        RPM macros that list arches the full kernel is built on
 # This package only exist in Fedora repositories
 # The license is the standard (MIT) specified in
@@ -134,6 +134,18 @@ install -p -m 644 -t "%{buildroot}%{_fileattrsdir}" modalias.attr
 %{rrcdir}/rpmsort
 
 %changelog
+* Tue May 09 2023 Eugene Syromiatnikov <esyr@redhat.com> - 1.0-19
+- Capture local __crc_* symbols for "Provides: kernel()".
+- Add support for XZ compression for the symvers file.
+- Fix "Provides: kernel()" generation when both __kcrctab and __kcrctab_gpl
+  are present.
+- Fix regression for "Provides:" generation in cases when modversions are stored
+  in a section that is over 64K in size.
+- Speedup and cleanup changes in find-provides.ksyms and find-requires.ksyms.
+- Fix regex usage in kmod.attr. (Denys Vlasenko)
+- Implement modalias "Provides:" grouping. (Denys Vlasenko)
+- Speedup and cleanup changes in modalias.prov and kmod.attr. (Denys Vlasenko)
+
 * Tue Mar 30 2023 Eugene Syromiatnikov <esyr@redhat.com> - 1.0-18
 - Avoid triggering debuginfod during elfutils tools usage.
 

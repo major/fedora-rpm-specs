@@ -1,5 +1,5 @@
 Name:           perl-SNMP_Session
-Version:        1.15
+Version:        1.16
 Release:        1%{?dist}
 Summary:        SNMP support for Perl 5
 
@@ -23,7 +23,7 @@ and "set", as well as trap generation and reception.
 
 
 %prep
-%setup -q -n snmp-session-%{version}
+%setup -q -n SNMP_Session-%{version}
 %patch -P 0 -p1
 %{__perl} -pi -e 's{^#!/usr/local/bin/perl\b}{#!%{__perl}}' test/*
 chmod -c 644 test/*
@@ -51,6 +51,9 @@ make test
 
 
 %changelog
+* Wed Jun 21 2023 Tom Callaway <spot@fedoraproject.org> - 1.16-1
+- update to 1.16
+
 * Mon Jun  5 2023 Tom Callaway <spot@fedoraproject.org> - 1.15-1
 - update to 1.15
 

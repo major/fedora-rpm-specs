@@ -70,8 +70,7 @@ ExcludeArch: ppc64le
 %global build_with_pgo    0
 %ifarch x86_64
 %if %{release_build}
-#Disabled PGO build due to rhbz#2136401
-%global build_with_pgo    0
+%global build_with_pgo    1
 %endif
 %endif
 %if 0%{?flatpak}
@@ -158,7 +157,7 @@ ExcludeArch: ppc64le
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        114.0.2
-Release:        1%{?pre_tag}%{?dist}
+Release:        2%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
@@ -235,7 +234,7 @@ Patch407:        mozilla-1667096.patch
 
 # PGO/LTO patches
 Patch600:        pgo.patch
-Patch602:        mozilla-1516803.patch
+Patch603:        firefox-gcc-always-inline.patch
 
 # tentative patch for RUSTFLAGS parsing issue:
 # https://bugzilla.redhat.com/show_bug.cgi?id=2184743
@@ -508,9 +507,9 @@ This package contains results of tests executed during build.
 %if %{build_with_pgo}
 %if !%{build_with_clang}
 %patch600 -p1 -b .pgo
-%patch602 -p1 -b .1516803
 %endif
 %endif
+%patch603 -p1 -b .inline
 
 %patch1200 -p1 -b .rustflags-commasplit
 
@@ -1042,6 +1041,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Thu Jun 22 2023 Martin Stransky <stransky@redhat.com>- 114.0.2-2
+- Enable PGO/LTO again.
+
 * Tue Jun 20 2023 Martin Stransky <stransky@redhat.com>- 114.0.2-1
 - Update to 114.0.2
 

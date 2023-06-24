@@ -1,10 +1,9 @@
 Name: esc 
 Version: 1.1.2
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: Enterprise Security Client Smart Card Client
-License: GPL+
+License: GPL-1.0-or-later
 URL: http://directory.fedora.redhat.com/wiki/CoolKey 
-
 
 #BuildRequires: doxygen fontconfig-devel
 BuildRequires: glib2-devel atk-devel
@@ -25,6 +24,7 @@ BuildRequires: gtk3-devel
 BuildRequires: gjs-devel
 BuildRequires: gcc-c++
 BuildRequires: make
+BuildRequires: chrpath
 
 
 Requires: pcsc-lite nss nspr
@@ -35,13 +35,7 @@ Requires: gobject-introspection
 Requires: gtk3
 Requires: glib2
 
-
-# 390 does not have  smartCards
-ExcludeArch: s390 s390x 
-#xulrunner doesn't seem to support these right now
-#Temporary anyway, since xulrunner is going away soon. 
-
-# We can't allow the internal xulrunner to leak out
+# multiple libraries in package-specific directory, linked against each other
 AutoReqProv: 0
 
 %define debug_build       0
@@ -49,18 +43,30 @@ AutoReqProv: 0
 %define escname %{name}-%{version}
 %define escdir %{_libdir}/%{escname}
 %define esc_chromepath   chrome/content/esc
-%define appdir applications
-%define icondir %{_datadir}/icons/hicolor/48x48/apps
 %define esc_vendor esc 
-%define autostartdir %{_sysconfdir}/xdg/autostart
+%define icondir %{_datadir}/icons/hicolor/48x48/apps
 %define pixmapdir  %{_datadir}/pixmaps
 %define docdir    %{_defaultdocdir}/%{escname}
 
-Source0: http://pki.fedoraproject.org/pki/sources/%name/%{escname}.tar.bz2 
-Source1: http://pki.fedoraproject.org/pki/sources/%name/esc
-Source2: http://pki.fedoraproject.org/pki/sources/%name/esc.desktop
-Source3: http://pki.fedoraproject.org/pki/sources/%name/esc.png
+Source0: https://www.dogtagpki.org/pki/sources/esc/%{escname}.tar.bz2 
+Source1: https://www.dogtagpki.org/pki/sources/esc/esc
+# originally https://www.dogtagpki.org/pki/sources/esc/esc.desktop, since modified
+Source2: esc.desktop
+Source3: https://www.dogtagpki.org/pki/sources/esc/esc.png
 Patch0: esc-gcc11.patch
+Patch1: esc-1.1.2-fix1.patch
+Patch2: esc-1.1.2-fix2.patch
+Patch3: esc-1.1.2-fix3.patch
+Patch4: esc-1.1.2-fix4.patch
+Patch5: esc-1.1.2-fix5.patch
+Patch6: esc-1.1.2-fix6.patch
+Patch7: esc-1.1.2-fix7.patch
+Patch8: esc-1.1.2-fix8.patch
+Patch9: esc-1.1.2-fix9.patch
+Patch10: esc-1.1.2-fix10.patch
+Patch11: esc-1.1.2-fix11.patch
+Patch12: esc-1.1.2-fix12.patch
+Patch13: esc-1.1.2-fix13.patch
 
 
 %description
@@ -68,15 +74,10 @@ Enterprise Security Client allows the user to enroll and manage their
 cryptographic smartcards.
 
 %prep
+%autosetup -c -p1 -n %{escname}
 
-%setup -q -c -n %{escname}
-%patch0 -p1
-
-#patch esc 
 
 %build
-export CXXFLAGS="-std=c++14 $RPM_OPT_FLAGS"
-
 echo $RPM_BUILD_DIR
 
 echo "build section" $PWD
@@ -86,45 +87,56 @@ autoreconf --force --install --verbose
 %configure --bindir %{escdir} --libdir %{escdir}/lib --datadir %{_datadir}
 %make_build -j1
 
+
 %install
 echo "install section" $PWD
 cd esc
 %make_install
 
-mkdir -p $RPM_BUILD_ROOT/%{_bindir}
-mkdir -p $RPM_BUILD_ROOT/%{icondir}
-mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{appdir}
-mkdir -p $RPM_BUILD_ROOT/%{pixmapdir}
-mkdir -p $RPM_BUILD_ROOT/%{docdir}
+mkdir -p %{buildroot}%{_bindir}
+mkdir -p %{buildroot}%{icondir}
+mkdir -p %{buildroot}%{_datadir}/applications
+mkdir -p %{buildroot}%{pixmapdir}
+mkdir -p %{buildroot}%{docdir}
 
-echo "dir: "  $RPM_BUILD_ROOT/%{_bindir}/%{name}
-sed -e 's;\$LIBDIR;'%{_libdir}';g'  %{SOURCE1} > $RPM_BUILD_ROOT/%{_bindir}/%{name}
-chmod 755 $RPM_BUILD_ROOT/%{_bindir}/%{name}
+echo "dir: "  %{buildroot}%{_bindir}/%{name}
+sed -e 's;\$LIBDIR;'%{_libdir}';g'  %{SOURCE1} > %{buildroot}%{_bindir}/%{name}
+chmod 755 %{buildroot}%{_bindir}/%{name}
+chmod -x %{buildroot}%{escdir}/*.{conf,js,properties}
 
-rm $RPM_BUILD_ROOT/%{escdir}/lib/*.a
-rm $RPM_BUILD_ROOT/%{escdir}/lib/*.la
-rm -r $RPM_BUILD_ROOT/%{_includedir}/coolkey-mgr/
-rm -r $RPM_BUILD_ROOT/%{_datadir}/gir-*/
+rm %{buildroot}%{escdir}/lib/*.a
+rm %{buildroot}%{escdir}/lib/*.la
+rm -r %{buildroot}%{_includedir}/coolkey-mgr/
+rm -r %{buildroot}%{_datadir}/gir-*/
 
-cp %{SOURCE3} $RPM_BUILD_ROOT/%{icondir}
-cp %{SOURCE3} $RPM_BUILD_ROOT/%{pixmapdir}/esc.png
+cp %{SOURCE3} %{buildroot}%{icondir}
+cp %{SOURCE3} %{buildroot}%{pixmapdir}/esc.png
 
-cp %{SOURCE2} $RPM_BUILD_ROOT/%{_datadir}/%{appdir}
+desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE2}
+
+#Get rid of rpath
+chrpath --delete %{buildroot}%{escdir}/lib/libcoolkeymgr-1.0.so
 
 
 %files
 %license esc/LICENSE
 
 %{_bindir}/esc
+%dir %{escdir}
 %{escdir}/lib
-%{escdir}/esc.js
+%{escdir}/*.js
+%{escdir}/esc.properties
 %{escdir}/opensc.esc.conf
-
+%{_datadir}/applications/esc.desktop
 %{icondir}/esc.png
 %{pixmapdir}/esc.png
-%{_datadir}/%{appdir}/esc.desktop
 
 %changelog
+* Thu Jun 22 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.1.2-16
+- Sync patches from c9s
+- Enable s390x build
+- Fix various packaging issues
+
 * Wed May 10 2023 Tomas Popela <tpopela@redhat.com> - 1.1.2-15
 - Drop BR on dbus-glib as the project is not using it at all. Explicitly add the
   dbus-devel to BR as that's what the project is using.

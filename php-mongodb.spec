@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-mongodb
 #
-# Copyright (c) 2015-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2015-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -9,31 +9,28 @@
 # disabled for https://fedoraproject.org/wiki/Changes/MongoDB_Removal
 %bcond_with          tests
 
-%global gh_commit    3a681a3b2f2c0ebac227a3b86bb9057d0e6eb8f8
+%global gh_commit    d4cdf057a67cb99a32db8984a16959bfa7ca7eb5
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     mongodb
-#global gh_date      20151102
 %global gh_project   mongo-php-library
 %global psr0         MongoDB
 
-%global upstream_version 1.15.0
+%global upstream_version 1.16.0
 #global upstream_prever  alpha1
 #global upstream_lower   alpha1
 
-%global ext_version      1.15.0
+%global ext_version      1.16.0
 
 Name:           php-%{gh_owner}
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
-%if 0%{?gh_date}
-Release:        2%{gh_date}git%{gh_short}%{?dist}
-%else
-Release:        2%{?dist}
-%endif
+Release:        1%{?dist}
 Summary:        MongoDB driver library
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/%{gh_owner}/%{gh_project}
-Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{upstream_version}%{?upstream_prever}-%{gh_short}.tar.gz
+# use git snapshot to retrieve full sources with tests
+Source0:        %{name}-%{upstream_version}%{?upstream_prever}-%{gh_short}.tgz
+Source1:        makesrc.sh
 
 # Get rid of jean85/pretty-package-versions
 Patch0:         %{name}-rpm.patch
@@ -47,7 +44,9 @@ BuildRequires:  php-dom
 BuildRequires:  php-hash
 BuildRequires:  php-json
 BuildRequires:  php-spl
-BuildRequires: (php-composer(symfony/polyfill-php80) >= 1.19 with php-composer(symfony/polyfill-php80) < 2)
+BuildRequires: (php-composer(symfony/polyfill-php73) >= 1.27 with php-composer(symfony/polyfill-php73) < 2)
+BuildRequires: (php-composer(symfony/polyfill-php80) >= 1.27 with php-composer(symfony/polyfill-php80) < 2)
+BuildRequires: (php-composer(symfony/polyfill-php81) >= 1.27 with php-composer(symfony/polyfill-php81) < 2)
 %if %{with tests}
 BuildRequires:  mongodb-server >= 2.4
 BuildRequires:  php-pecl(mongodb) >= %{ext_version}
@@ -56,11 +55,7 @@ BuildRequires:  php-pecl(mongodb) >= %{ext_version}
 #        "doctrine/coding-standard": "^9.0",
 #        "symfony/phpunit-bridge": "^5.2",
 #        "vimeo/psalm": "^4.28"
-%if 0%{?fedora} >= 32 || 0%{?rhel} >= 9
 %global phpunit %{_bindir}/phpunit9
-%else
-%global phpunit %{_bindir}/phpunit8
-%endif
 BuildRequires:  %{phpunit}
 %endif
 # For autoloader
@@ -70,14 +65,18 @@ BuildRequires:  php-composer(fedora/autoloader)
 #        "php": "^7.2 || ^8.0"
 #        "ext-hash": "*",
 #        "ext-json": "*",
-#        "ext-mongodb": "^1.15.0"
-#        "jean85/pretty-package-versions": "^1.2 || ^2.0.1"
-#        "symfony/polyfill-php80": "^1.19"
+#        "ext-mongodb": "^1.16.0",
+#        "jean85/pretty-package-versions": "^2.0.1",
+#        "symfony/polyfill-php73": "^1.27",
+#        "symfony/polyfill-php80": "^1.27",
+#        "symfony/polyfill-php81": "^1.27"
 Requires:       php(language) >= 7.2
 Requires:       php-hash
 Requires:       php-json
 Requires:       php-pecl(mongodb) >= %{ext_version}
-Requires:      (php-composer(symfony/polyfill-php80) >= 1.19 with php-composer(symfony/polyfill-php80) < 2)
+Requires:      (php-composer(symfony/polyfill-php73) >= 1.27 with php-composer(symfony/polyfill-php73) < 2)
+Requires:      (php-composer(symfony/polyfill-php80) >= 1.27 with php-composer(symfony/polyfill-php80) < 2)
+Requires:      (php-composer(symfony/polyfill-php81) >= 1.27 with php-composer(symfony/polyfill-php81) < 2)
 # From phpcompatinfo report for 1.8.0
 Requires:       php-reflection
 Requires:       php-date
@@ -118,7 +117,7 @@ require_once __DIR__. '/functions.php';
 EOF
 
 # Get rid of jean85/pretty-package-versions
-%patch0 -p1 -b .rpm
+%patch -P0 -p1 -b .rpm
 sed -e 's/@VERSION@/%{upstream_version}%{?upstream_prever:-%{upstream_lower}}/' -i src/Client.php
 find src -name \*.rpm -delete
 grep -F '%{upstream_version}' src/Client.php
@@ -168,7 +167,7 @@ EOF
 
 : Run the test suite
 ret=0
-for cmdarg in "php %{phpunit}" php73 php74 php80 php81; do
+for cmdarg in "php %{phpunit}" php80 php81 php82; do
   if which $cmdarg; then
     set $cmdarg
     $1 ${2:-%{_bindir}/phpunit9} --verbose || ret=1
@@ -193,6 +192,11 @@ exit $ret
 
 
 %changelog
+* Thu Jun 22 2023 Remi Collet <remi@remirepo.net> - 1.16.0-1
+- update to 1.16.0
+- raise dependency on mongodb extension version 1.16
+- raise dependency on symfony/polyfill 1.27
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

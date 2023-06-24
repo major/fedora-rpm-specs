@@ -19,16 +19,16 @@
 %global ini_name   50-%{pecl_name}.ini
 
 # Bundled versions
-%global bundled_libmongo  1.23.4
-%global bundled_libcrypt  1.5.2
+%global bundled_libmongo  1.24.1
+%global bundled_libcrypt  1.8.1
 
 # Build dependencies
-%global system_libmongo   1.23.3
-%global system_libcrypt   1.5.2
+%global system_libmongo   1.24.1
+%global system_libcrypt   1.8.1
 
 Summary:        MongoDB driver for PHP
 Name:           php-pecl-%{pecl_name}
-%global upstream_version 1.15.3
+%global upstream_version 1.16.0
 #global upstream_prever  RC1
 #global upstream_lower   ~rc1
 %global sources          %{pecl_name}-%{upstream_version}%{?upstream_prever}
@@ -191,6 +191,9 @@ cd ../ZTS
 
 
 %changelog
+* Thu Jun 22 2023 Remi Collet <remi@remirepo.net> - 1.16.0-1
+- update to 1.16.0
+
 * Tue May 16 2023 Remi Collet <remi@remirepo.net> - 1.15.3-1
 - update to 1.15.3
 

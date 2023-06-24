@@ -2,13 +2,15 @@
 %bcond_without perl_LWP_ConsoleLogger_enables_mojo
 
 Name:           perl-LWP-ConsoleLogger
-Version:        1.000000
-Release:        2%{?dist}
+%define cpan_version 1.000001
+Version:        1.0.1
+Release:        1%{?dist}
 Summary:        LWP tracing and debugging
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/LWP-ConsoleLogger
-Source0:        https://cpan.metacpan.org/authors/id/O/OA/OALDERS/LWP-ConsoleLogger-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/O/OA/OALDERS/LWP-ConsoleLogger-%{cpan_version}.tar.gz
 BuildArch:      noarch
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -111,7 +113,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n LWP-ConsoleLogger-%{version}
+%setup -q -n LWP-ConsoleLogger-%{cpan_version}
 # Correct shebangs
 perl -i -MConfig -pe 's|#!/usr/bin/env perl|$Config{startperl}|' examples/*
 # Help generators to recognize Perl scripts
@@ -126,30 +128,38 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} %{buildroot}/*
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/bash
+unset LWPCL_LOGFILE
 cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)" -r
 EOF
 chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+unset LWPCL_LOGFILE
 export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %license LICENSE
 %doc Changes CONTRIBUTORS examples README.md
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/LWP
+%{perl_vendorlib}/LWP/ConsoleLogger
+%{perl_vendorlib}/LWP/ConsoleLogger.pm
+%{_mandir}/man3/LWP::ConsoleLogger.*
+%{_mandir}/man3/LWP::ConsoleLogger::*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jun 22 2023 Petr Pisar <ppisar@redhat.com> - 1.0.1-1
+- 1.000001 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.000000-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

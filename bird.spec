@@ -1,7 +1,7 @@
 %global _hardened_build 1
 
 Name:             bird
-Version:          2.13
+Version:          2.13.1
 Release:          1%{?dist}
 Summary:          BIRD Internet Routing Daemon
 
@@ -108,6 +108,9 @@ make test
 %endif
 
 %changelog
+* Thu Jun 22 2023 Robert Scheck <robert@fedoraproject.org> - 2.13.1-1
+- Upgrade to 2.13.1 (#2190169)
+
 * Sun Apr 23 2023 Robert Scheck <robert@fedoraproject.org> - 2.13-1
 - Upgrade to 2.13 (#2188938)
 

@@ -32,6 +32,7 @@ Summary:        Link recognition library with full Unicode support
 
 %prep
 %autosetup -n linkify-it-py-%{version}
+rmdir SPECPARTS
 
 %generate_buildrequires
 %pyproject_buildrequires -x test
@@ -50,6 +51,9 @@ Summary:        Link recognition library with full Unicode support
 %doc CHANGELOG.md README.md
 
 %changelog
+* Wed Jun 21 2023 Orion Poplawski <orion@nwra.com> - 2.0.2-2
+- Remove empty SPECPARTS directory that breaks build
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.0.2-2
 - Rebuilt for Python 3.12
 

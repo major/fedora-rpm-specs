@@ -14,7 +14,7 @@
 %global sum_zh  FastAPI 框架
 
 Name:           python-fastapi
-Version:        0.96.0
+Version:        0.97.0
 Release:        %autorelease
 Summary:        %{sum_en}
 
@@ -38,7 +38,10 @@ Patch:          %{url}/pull/4409.patch
 Patch:          %{url}/pull/5799.patch
 # Allow httpx 0.24.x for testing
 # https://github.com/tiangolo/fastapi/pull/9578
-# Rebased on top of PR#5799
+#
+# Upstream refactored the dependency into a requirements file and wants to wait
+# for dependabot to suggest an upgrade, but we need to use httpx 0.24.x now, so
+# this becomes a downstream-only patch. It applies on top of PR#5799.
 Patch:          0001-Allow-httpx-0.24.x-for-testing.patch
 
 BuildRequires:  python3-devel
@@ -370,25 +373,26 @@ Summary(zh):    %{sum_zh}
 %autosetup -n fastapi-%{version} -p1
 
 # Comment out test dependencies that are only for linting/formatting/analysis,
-# and will not be used. Also comment out the “dev” dependency on pre-commit,
-# which we will not use here.
-sed -r -i \
-    -e 's/("(mypy|black|ruff|isort|coverage)\b.*",)/# \1/' \
-    -e 's/("(pre-commit)\b.*",)/# \1/' \
-    pyproject.toml
-
+# and will not be used.
+#
 # We won’t be running a type checker (mypy), so we don’t need any
-# auto-generated PEP 561 stub packages:
-sed -r -i 's/("types-(u|or)json\b.*",)/# \1/' pyproject.toml
+# auto-generated PEP 561 stub packages.
+#
+# Dependency generation does not support -e, and we will generate the
+# install-time dependencies without it.
+sed -r \
+    -e 's/^(mypy|black|ruff|coverage)\b/# &/' \
+    -e 's/^(types-(u|or)json)\b/# &/' \
+    -e 's/^(-e .)$/# &/' \
+    requirements-tests.txt | tee requirements-tests-filtered.txt
 
 # Remove bundled js-termynal 0.0.1; since we are not building documentation, we
 # do this very bluntly:
 rm -rvf docs/*/docs/js docs/*/docs/css
-sed -r -i 's/(multipart.*)<[^"]+/\1/' pyproject.toml
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x all,test,dev
+%pyproject_buildrequires -x all requirements-tests-filtered.txt
 
 
 %build

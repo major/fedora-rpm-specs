@@ -5,7 +5,7 @@
 %global crate pem
 
 Name:           rust-pem
-Version:        1.1.1
+Version:        2.0.1
 Release:        %autorelease
 Summary:        Parse and encode PEM-encoded data
 
@@ -16,7 +16,7 @@ Source:         %{crates_source}
 # * drop unused, benchmark-only criterion dev-dependency to speed up builds
 Patch:          pem-fix-metadata.diff
 
-BuildRequires:  rust-packaging >= 21
+BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
 Parse and encode PEM-encoded data.}
@@ -60,6 +60,18 @@ This package contains library source intended for building other packages which
 use the "serde" feature of the "%{crate}" crate.
 
 %files       -n %{name}+serde-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+std-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+std-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "std" feature of the "%{crate}" crate.
+
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

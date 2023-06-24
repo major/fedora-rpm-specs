@@ -1,18 +1,20 @@
 Name:           sdorfehs
-Version:        1.4
+Version:        1.5
 Release:        %autorelease
 Summary:        A tiling window manager
 
-License:        GPLv2
+License:        GPL-2.0-or-later
 URL:            https://github.com/jcs/sdorfehs
-Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  sed
+
 BuildRequires:  libX11-devel
 BuildRequires:  libXft-devel
 BuildRequires:  libXrandr-devel
+BuildRequires:  libXres-devel
 BuildRequires:  libXtst-devel
 
 %description

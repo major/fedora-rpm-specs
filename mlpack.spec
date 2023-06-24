@@ -1,5 +1,5 @@
 Name:           mlpack
-Version:        4.1.0
+Version:        4.2.0
 Release:        1%{?dist}
 Summary:        Fast, header-only C++ machine learning library
 
@@ -12,6 +12,8 @@ Summary:        Fast, header-only C++ machine learning library
 License:        BSD-3-Clause AND Apache-2.0 AND (MIT OR Unlicense)
 URL:            http://www.mlpack.org
 Source0:        http://www.mlpack.org/files/%{name}-%{version}.tar.gz
+Patch0:         pip_no_network_install.patch
+Patch1:		python_find_wheel.patch
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
@@ -50,7 +52,7 @@ BuildRequires:  txt2man
 
 # Required for building Python bindings.
 BuildRequires: 	python3-devel, python3-Cython, python3-setuptools, python3-numpy
-BuildRequires:	python3-pandas, python3-pytest-runner
+BuildRequires:	python3-pandas, python3-pytest-runner, python3-wheel
 
 # something doesn't like size_t being unsigned long on s390
 ExcludeArch:    s390
@@ -153,9 +155,9 @@ python3 -m ensurepip --upgrade
 # On RHEL6, the Boost CMake scripts fail for some reason.  I don't have the
 # time (or patience) to investigate, but if we force CMake to find Boost "the
 # hard way" by specifying Boost_NO_BOOST_CMAKE=1, it works.
-%{cmake28} -D CMAKE_INSTALL_LIBDIR=%{_libdir} -D DEBUG=OFF -D PROFILE=OFF -D BUILD_TESTS=OFF -D BUILD_PYTHON_BINDINGS=ON -D PYTHON_EXECUTABLE=$(which python3) -D BUILD_GO_BINDINGS=OFF -D BUILD_JULIA_BINDINGS=OFF -D STB_IMAGE_INCLUDE_DIR=%{_includedir}
+%{cmake28} -D CMAKE_INSTALL_LIBDIR=%{_libdir} -D DEBUG=OFF -D PROFILE=OFF -D BUILD_TESTS=OFF -D BUILD_PYTHON_BINDINGS=ON -D PYTHON_EXECUTABLE=/usr/bin/python3 -D BUILD_GO_BINDINGS=OFF -D BUILD_JULIA_BINDINGS=OFF -D STB_IMAGE_INCLUDE_DIR=%{_includedir}
 %else
-%{cmake} -D CMAKE_INSTALL_LIBDIR=%{_libdir} -D DEBUG=OFF -D PROFILE=OFF -D BUILD_TESTS=OFF -D BUILD_PYTHON_BINDINGS=ON -D PYTHON_EXECUTABLE=$(which python3) -D BUILD_GO_BINDINGS=OFF -D BUILD_JULIA_BINDINGS=OFF -D STB_IMAGE_INCLUDE_DIR=%{_includedir}
+%{cmake} -D CMAKE_INSTALL_LIBDIR=%{_libdir} -D DEBUG=OFF -D PROFILE=OFF -D BUILD_TESTS=OFF -D BUILD_PYTHON_BINDINGS=ON -D PYTHON_EXECUTABLE=/usr/bin/python3 -D BUILD_GO_BINDINGS=OFF -D BUILD_JULIA_BINDINGS=OFF -D STB_IMAGE_INCLUDE_DIR=%{_includedir}
 %endif
 
 # Try and reduce RAM usage.
@@ -294,9 +296,12 @@ cd ..;
 
 %files python3
 %{python3_sitearch}/mlpack/
-%{python3_sitearch}/mlpack-*.egg-info
+%{python3_sitearch}/mlpack-*.dist-info
 
 %changelog
+* Thu Jun 22 2023 Ryan Curtin <ryan@ratml.org> - 4.2.0-1
+- Update to latest stable version.
+
 * Thu Apr 27 2023 Benson Muite <benson_muite@emailplus.org> - 4.1.0-1
 - Update to new version
 

@@ -4,15 +4,15 @@
 %bcond_with static
 %bcond_without check
 
-%define realver 3410200
-%define docver 3410200
-%define rpmver 3.41.2
+%define realver 3420000
+%define docver 3420000
+%define rpmver 3.42.0
 %define year 2023
 
 Summary: Library that implements an embeddable SQL database engine
 Name: sqlite
 Version: %{rpmver}
-Release: 2%{?dist}
+Release: 1%{?dist}
 License: blessing
 URL: http://www.sqlite.org/
 
@@ -133,13 +133,13 @@ This package contains the analysis program for %{name}.
 
 %prep
 %setup -q -a1 -n %{name}-src-%{realver}
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+%patch -P 1 -p1
+%patch -P 2 -p1
+%patch -P 3 -p1
 %ifarch %{ix86}
-%patch4 -p1
+%patch -P 4 -p1
 %endif
-%patch5 -p1
+%patch -P 5 -p1
 
 # The atof test is failing on the i686 architecture, when binary configured with
 # --enable-rtree option. Failing part is text->real conversion and
@@ -271,6 +271,10 @@ make test
 %endif
 
 %changelog
+* Wed Jun 21 2023 Zuzana Miklankova <zmiklank@redhat.com> - 3.42.0-1
+- Updated to version 3.42.0 (https://sqlite.org/releaselog/3_42_0.html)
+- Use %patch -P N instead of deprecated %patchN
+
 * Thu May 25 2023 Siddhesh Poyarekar <siddhesh@redhat.com> - 3.41.2-2
 - Drop duplicate -mbranch-protection.
 

@@ -4,8 +4,8 @@
 
 %global crate serial_test_derive
 
-Name:           rust-serial_test_derive
-Version:        2.0.0
+Name:           rust-serial_test_derive1
+Version:        1.0.0
 Release:        %autorelease
 Summary:        Helper crate for serial_test
 

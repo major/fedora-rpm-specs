@@ -15,6 +15,12 @@
 # any warning during WebKit docs build is fatal!
 %bcond_without docs
 
+# https://fedoraproject.org/wiki/Changes/Remove_webkit2gtk-4.0_API_Version
+# ELN (RHEL 10) no longer needs 4.0
+%if %{undefined rhel} || 0%{?rhel} < 10
+%bcond_without api40
+%endif
+
 Name:           webkitgtk
 Version:        2.41.5
 Release:        %autorelease
@@ -145,6 +151,7 @@ Provides:       bundled(xdgmime)
 WebKitGTK is the port of the WebKit web rendering engine to the
 GTK platform. This package contains WebKitGTK for GTK 3 and libsoup 3.
 
+%if %{with api40}
 %package -n     webkit2gtk4.0
 Summary:        WebKitGTK for GTK 3 and libsoup 2
 Requires:       javascriptcoregtk4.0%{?_isa} = %{version}-%{release}
@@ -165,6 +172,7 @@ Provides:       webkit2gtk3 = %{version}-%{release}
 %description -n webkit2gtk4.0
 WebKitGTK is the port of the WebKit web rendering engine to the
 GTK platform. This package contains WebKitGTK for GTK 3 and libsoup 2.
+%endif
 
 %package -n     webkitgtk6.0-devel
 Summary:        Development files for webkitgtk6.0
@@ -187,6 +195,7 @@ Requires:       javascriptcoregtk4.1-devel%{?_isa} = %{version}-%{release}
 The webkit2gtk4.1-devel package contains libraries, build data, and header
 files for developing applications that use webkit2gtk4.1.
 
+%if %{with api40}
 %package -n     webkit2gtk4.0-devel
 Summary:        Development files for webkit2gtk4.0
 Requires:       webkit2gtk4.0%{?_isa} = %{version}-%{release}
@@ -200,6 +209,7 @@ Provides:       webkit2gtk3-devel = %{version}-%{release}
 %description -n webkit2gtk4.0-devel
 The webkit2gtk4.0-devel package contains libraries, build data, and header
 files for developing applications that use webkit2gtk4.0.
+%endif
 
 %if %{with docs}
 %package -n     webkitgtk6.0-doc
@@ -221,6 +231,7 @@ Recommends:     gi-docgen-fonts
 %description -n webkit2gtk4.1-doc
 This package contains developer documentation for webkit2gtk4.1.
 
+%if %{with api40}
 %package -n     webkit2gtk4.0-doc
 Summary:        Documentation files for webkit2gtk4.0
 BuildArch:      noarch
@@ -233,6 +244,7 @@ Recommends:     gi-docgen-fonts
 
 %description -n webkit2gtk4.0-doc
 This package contains developer documentation for webkit2gtk4.0.
+%endif
 %endif
 
 %package -n     javascriptcoregtk6.0
@@ -249,6 +261,7 @@ Obsoletes:      webkit2gtk4.1-jsc < %{version}-%{release}
 %description -n javascriptcoregtk4.1
 This package contains the JavaScript engine from webkit2gtk4.1.
 
+%if %{with api40}
 %package -n     javascriptcoregtk4.0
 Summary:        JavaScript engine from webkit2gtk4.0
 Obsoletes:      webkitgtk4-jsc < %{version}-%{release}
@@ -258,6 +271,7 @@ Provides:       webkit2gtk3-jsc = %{version}-%{release}
 
 %description -n javascriptcoregtk4.0
 This package contains the JavaScript engine from webkit2gtk4.0.
+%endif
 
 %package -n     javascriptcoregtk6.0-devel
 Summary:        Development files for JavaScript engine from webkitgtk6.0
@@ -277,6 +291,7 @@ Obsoletes:      webkit2gtk4.1-jsc-devel < %{version}-%{release}
 The javascriptcoregtk4.1-devel package contains libraries, build data, and header
 files for developing applications that use JavaScript engine from webkit2gtk-4.1.
 
+%if %{with api40}
 %package -n     javascriptcoregtk4.0-devel
 Summary:        Development files for JavaScript engine from webkit2gtk4.0
 Requires:       javascriptcoregtk4.0%{?_isa} = %{version}-%{release}
@@ -288,6 +303,7 @@ Provides:       webkit2gtk3-jsc-devel = %{version}-%{release}
 %description -n javascriptcoregtk4.0-devel
 The javascriptcoregtk4.0-devel package contains libraries, build data, and header
 files for developing applications that use JavaScript engine from webkit2gtk-4.0.
+%endif
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
@@ -359,6 +375,7 @@ files for developing applications that use JavaScript engine from webkit2gtk-4.0
 %endif
   %{nil}
 
+%if %{with api40}
 %define _vpath_builddir %{_vendor}-%{_target_os}-build/webkit2gtk-4.0
 %cmake \
   -GNinja \
@@ -378,6 +395,7 @@ files for developing applications that use JavaScript engine from webkit2gtk-4.0
 %endif
 %endif
   %{nil}
+%endif
 
 %define _vpath_builddir %{_vendor}-%{_target_os}-build/webkitgtk-6.0
 export NINJA_STATUS="[1/3][%f/%t %es] "
@@ -387,9 +405,11 @@ export NINJA_STATUS="[1/3][%f/%t %es] "
 export NINJA_STATUS="[2/3][%f/%t %es] "
 %cmake_build %limit_build -m 3072
 
+%if %{with api40}
 %define _vpath_builddir %{_vendor}-%{_target_os}-build/webkit2gtk-4.0
 export NINJA_STATUS="[3/3][%f/%t %es] "
 %cmake_build %limit_build -m 3072
+%endif
 
 %install
 %define _vpath_builddir %{_vendor}-%{_target_os}-build/webkitgtk-6.0
@@ -398,12 +418,16 @@ export NINJA_STATUS="[3/3][%f/%t %es] "
 %define _vpath_builddir %{_vendor}-%{_target_os}-build/webkit2gtk-4.1
 %cmake_install
 
+%if %{with api40}
 %define _vpath_builddir %{_vendor}-%{_target_os}-build/webkit2gtk-4.0
 %cmake_install
+%endif
 
 %find_lang WebKitGTK-6.0
 %find_lang WebKitGTK-4.1
+%if %{with api40}
 %find_lang WebKitGTK-4.0
+%endif
 
 # Finally, copy over and rename various files for %%license inclusion
 %add_to_license_files Source/JavaScriptCore/COPYING.LIB
@@ -448,6 +472,7 @@ export NINJA_STATUS="[3/3][%f/%t %es] "
 %exclude %{_libexecdir}/webkit2gtk-4.1/MiniBrowser
 %exclude %{_libexecdir}/webkit2gtk-4.1/jsc
 
+%if %{with api40}
 %files -n webkit2gtk4.0 -f WebKitGTK-4.0.lang
 %license _license_files/*ThirdParty*
 %license _license_files/*WebCore*
@@ -461,6 +486,7 @@ export NINJA_STATUS="[3/3][%f/%t %es] "
 %{_libexecdir}/webkit2gtk-4.0/
 %exclude %{_libexecdir}/webkit2gtk-4.0/MiniBrowser
 %exclude %{_libexecdir}/webkit2gtk-4.0/jsc
+%endif
 
 %files -n webkitgtk6.0-devel
 %{_libexecdir}/webkitgtk-6.0/MiniBrowser
@@ -485,6 +511,7 @@ export NINJA_STATUS="[3/3][%f/%t %es] "
 %{_datadir}/gir-1.0/WebKit2-4.1.gir
 %{_datadir}/gir-1.0/WebKit2WebExtension-4.1.gir
 
+%if %{with api40}
 %files -n webkit2gtk4.0-devel
 %{_libexecdir}/webkit2gtk-4.0/MiniBrowser
 %{_includedir}/webkitgtk-4.0/
@@ -496,6 +523,7 @@ export NINJA_STATUS="[3/3][%f/%t %es] "
 %dir %{_datadir}/gir-1.0
 %{_datadir}/gir-1.0/WebKit2-4.0.gir
 %{_datadir}/gir-1.0/WebKit2WebExtension-4.0.gir
+%endif
 
 %files -n javascriptcoregtk6.0
 %license _license_files/*JavaScriptCore*
@@ -509,11 +537,13 @@ export NINJA_STATUS="[3/3][%f/%t %es] "
 %dir %{_libdir}/girepository-1.0
 %{_libdir}/girepository-1.0/JavaScriptCore-4.1.typelib
 
+%if %{with api40}
 %files -n javascriptcoregtk4.0
 %license _license_files/*JavaScriptCore*
 %{_libdir}/libjavascriptcoregtk-4.0.so.18*
 %dir %{_libdir}/girepository-1.0
 %{_libdir}/girepository-1.0/JavaScriptCore-4.0.typelib
+%endif
 
 %files -n javascriptcoregtk6.0-devel
 %{_libexecdir}/webkitgtk-6.0/jsc
@@ -534,6 +564,7 @@ export NINJA_STATUS="[3/3][%f/%t %es] "
 %dir %{_datadir}/gir-1.0
 %{_datadir}/gir-1.0/JavaScriptCore-4.1.gir
 
+%if %{with api40}
 %files -n javascriptcoregtk4.0-devel
 %{_libexecdir}/webkit2gtk-4.0/jsc
 %dir %{_includedir}/webkitgtk-4.0
@@ -543,6 +574,7 @@ export NINJA_STATUS="[3/3][%f/%t %es] "
 %{_libdir}/pkgconfig/javascriptcoregtk-4.0.pc
 %dir %{_datadir}/gir-1.0
 %{_datadir}/gir-1.0/JavaScriptCore-4.0.gir
+%endif
 
 %if %{with docs}
 %files -n webkitgtk6.0-doc
@@ -559,12 +591,14 @@ export NINJA_STATUS="[3/3][%f/%t %es] "
 %{_datadir}/gtk-doc/html/webkit2gtk-4.1/
 %{_datadir}/gtk-doc/html/webkit2gtk-web-extension-4.1/
 
+%if %{with api40}
 %files -n webkit2gtk4.0-doc
 %dir %{_datadir}/gtk-doc
 %dir %{_datadir}/gtk-doc/html
 %{_datadir}/gtk-doc/html/javascriptcoregtk-4.0/
 %{_datadir}/gtk-doc/html/webkit2gtk-4.0/
 %{_datadir}/gtk-doc/html/webkit2gtk-web-extension-4.0/
+%endif
 %endif
 
 %changelog

@@ -11,7 +11,7 @@ ideal for real-time web services.}
 
 Name:           python-%{srcname}
 Version:        6.3.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Scalable, non-blocking web server and tools
 
 License:        Apache-2.0 
@@ -21,6 +21,9 @@ Source0:        https://github.com/tornadoweb/tornado/archive/v%{version}/%{srcn
 # Do not turn DeprecationWarning in tornado module into Exception
 # fixes FTBFS with Python 3.8
 Patch1:         Do-not-turn-DeprecationWarning-into-Exception.patch
+# Fixes for Python 3.12 - rebased
+# https://github.com/tornadoweb/tornado/pull/3288
+Patch2:         python-tornado-Python-3.12.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
@@ -66,6 +69,9 @@ export TRAVIS=true
 %doc demos
 
 %changelog
+* Thu Jun 22 2023 Orion Poplawski <orion@nwra.com> - 6.3.2-4
+- Add upstream patch for Python 3.12 support
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 6.3.2-3
 - Rebuilt for Python 3.12
 

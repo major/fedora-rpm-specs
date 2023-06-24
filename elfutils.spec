@@ -1,6 +1,6 @@
 Name: elfutils
 Version: 0.189
-%global baserelease 2
+%global baserelease 3
 Release: %{baserelease}%{?dist}
 URL: http://elfutils.org/
 %global source_url ftp://sourceware.org/pub/elfutils/%{version}/
@@ -78,6 +78,10 @@ Patch1: elfutils-0.186-fdo-swap.patch
 Patch2: elfutils-0.189-c99-compat.patch
 # elfcompress: Don't compress if section already compressed unless forced
 Patch3: elfutils-0.189-elfcompress.patch
+# libelf: Replace list of elf_getdata_rawchunk results with a tree
+Patch4: elfutils-0.189-elf_getdata_rawchunk.patch
+# PR29696: Removed secondary fd close in cache config causing race condition
+Patch5: elfutils-0.189-debuginfod_config_cache-double-close.patch
 
 %description
 Elfutils is a collection of utilities, including stack (to show
@@ -446,6 +450,10 @@ exit 0
 %systemd_postun_with_restart debuginfod.service
 
 %changelog
+* Thu Jun 22 2023 Mark Wielaard <mjw@fedoraproject.org> - 0.189-3
+- Add elfutils-0.189-elf_getdata_rawchunk.patch
+- Add elfutils-0.189-debuginfod_config_cache-double-close.patch
+
 * Sat Apr 22 2023 Mark Wielaard <mjw@fedoraproject.org> - 0.189-2
 - Add elfutils-0.189-c99-compat.patch
 - Add elfutils-0.189-elfcompress.patch

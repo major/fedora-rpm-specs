@@ -4,9 +4,12 @@
 %global libcurl_version 7.29.0
 %global ostree_version 2020.8
 
+# Disable parental control for RHEL builds
+%bcond malcontent %[!0%{?rhel}]
+
 Name:           flatpak
 Version:        1.15.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Application deployment framework for desktop apps
 
 License:        LGPL-2.1-or-later
@@ -35,7 +38,9 @@ BuildRequires:  pkgconfig(libcurl) >= %{libcurl_version}
 BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  pkgconfig(libxml-2.0) >= 2.4
 BuildRequires:  pkgconfig(libzstd) >= 0.8.1
+%if %{with malcontent}
 BuildRequires:  pkgconfig(malcontent-0)
+%endif
 BuildRequires:  pkgconfig(ostree-1) >= %{ostree_version}
 BuildRequires:  pkgconfig(polkit-gobject-1)
 BuildRequires:  pkgconfig(xau)
@@ -140,7 +145,13 @@ This package contains installed tests for %{name}.
 %meson \
     -Dinstalled_tests=true \
     -Dsystem_bubblewrap=/usr/bin/bwrap \
-    -Dsystem_dbus_proxy=/usr/bin/xdg-dbus-proxy
+    -Dsystem_dbus_proxy=/usr/bin/xdg-dbus-proxy \
+%if %{with malcontent}
+    -Dmalcontent=enabled \
+%else
+    -Dmalcontent=disabled \
+%endif
+    %{nil}
 %meson_build
 
 
@@ -264,6 +275,9 @@ fi
 
 
 %changelog
+* Thu Jun 22 2023 Tomas Popela <tpopela@redhat.com> - 1.15.4-2
+- Disable parental control support (through malcontent) on RHEL
+
 * Fri Mar 17 2023 David King <amigadave@amigadave.com> - 1.15.4-1
 - Update to 1.15.4
 

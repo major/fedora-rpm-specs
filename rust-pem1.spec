@@ -2,21 +2,24 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate serial_test_derive
+%global crate pem
 
-Name:           rust-serial_test_derive
-Version:        2.0.0
+Name:           rust-pem1
+Version:        1.1.1
 Release:        %autorelease
-Summary:        Helper crate for serial_test
+Summary:        Parse and encode PEM-encoded data
 
 License:        MIT
-URL:            https://crates.io/crates/serial_test_derive
+URL:            https://crates.io/crates/pem
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * drop unused, benchmark-only criterion dev-dependency to speed up builds
+Patch:          pem-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Helper crate for serial_test.}
+Parse and encode PEM-encoded data.}
 
 %description %{_description}
 
@@ -30,7 +33,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE.md
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -46,16 +50,16 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+async-devel
+%package     -n %{name}+serde-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+async-devel %{_description}
+%description -n %{name}+serde-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "async" feature of the "%{crate}" crate.
+use the "serde" feature of the "%{crate}" crate.
 
-%files       -n %{name}+async-devel
+%files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

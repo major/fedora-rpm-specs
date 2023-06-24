@@ -20,7 +20,7 @@ decoder).}
 
 Name:           jpegxl
 Epoch:          1
-Version:        0.8.1
+Version:        0.8.2
 Release:        %autorelease %{?new_soname:-p -e 0~sonamebump}
 Summary:        JPEG XL image format reference implementation
 
@@ -33,15 +33,7 @@ URL:            https://jpeg.org/jpegxl/
 VCS:            https://github.com/libjxl/libjxl
 Source0:        %vcs/archive/v%{version}/%{name}-%{version}.tar.gz
 
-# git clone https://github.com/libjxl/libjxl
-# cd libjxl/
-# git checkout v%%{version}
-# git submodule init ; git submodule update
-# rm -r third_party/brotli/ third_party/googletest/
-# rm -r third_party/HEVCSoftware/ third_party/highway/
-# rm -r third_party/lcms/ third_party/libpng/
-# rm -r third_party/skcms/profiles/ third_party/zlib
-# tar -zcvf ../third_party-%%{version}.tar.gz third_party/
+# set VERSION and run ./update_third_party.sh to get Source1
 Source1:        third_party-%{version}.tar.gz
 
 BuildRequires:  asciidoc

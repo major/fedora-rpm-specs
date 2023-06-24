@@ -7,8 +7,8 @@
 %bcond_without tests
 
 Name:           yt-dlp
-Version:        2023.03.04
-Release:        2%{?dist}
+Version:        2023.06.21
+Release:        1%{?dist}
 Summary:        A command-line program to download videos from online video platforms
 
 License:        Unlicense
@@ -30,10 +30,9 @@ BuildRequires:  %{py3_dist pytest}
 BuildRequires:  pandoc
 BuildRequires:  make
 
-%if 0%{?fedora} >= 36
 # ffmpeg-free is now available in Fedora.
-Recommends:     /usr/bin/ffmpeg /usr/bin/ffprobe
-%endif
+Recommends:     /usr/bin/ffmpeg
+Recommends:     /usr/bin/ffprobe
 
 Suggests:       python3dist(keyring)
 
@@ -112,6 +111,9 @@ make yt-dlp.1 completion-bash completion-zsh completion-fish
 %{fish_completions_dir}/%{name}.fish
 
 %changelog
+* Thu Jun 22 2023 Maxwell G <maxwell@gtmx.me> - 2023.06.21-1
+- Update to 2023.06.21. Fixes rhbz#2216612.
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 2023.03.04-2
 - Rebuilt for Python 3.12
 

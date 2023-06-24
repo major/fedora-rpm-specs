@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.17.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Terminals served to term.js using Tornado websockets
 
 License:        BSD-2-Clause
@@ -63,6 +63,9 @@ export INPUTRC=$PWD/.inputrc
 
 
 %changelog
+* Thu Jun 22 2023 Python Maint <python-maint@redhat.com> - 0.17.1-5
+- Rebuilt for Python 3.12
+
 * Wed Feb 01 2023 Jonathan Wright <jonathan@almalinux.org> - 0.17.1-4
 - Use older hatchling on el9
 

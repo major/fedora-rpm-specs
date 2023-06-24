@@ -1,6 +1,6 @@
 Name: tmt
 Version: 1.24.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 Summary: Test Management Tool
 License: MIT
@@ -14,6 +14,7 @@ ExcludeArch: %{power64}
 
 URL: https://github.com/teemtee/tmt
 Source0: https://github.com/teemtee/tmt/releases/download/%{version}/tmt-%{version}.tar.gz
+Patch0: dnf5-support.patch
 
 %define workdir_root /var/tmp/tmt
 
@@ -169,7 +170,7 @@ package to have all available plugins ready for testing.
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 
 %build

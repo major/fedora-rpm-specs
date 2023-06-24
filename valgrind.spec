@@ -3,7 +3,7 @@
 Summary: Dynamic analysis tools to detect memory or thread bugs and profile
 Name: %{?scl_prefix}valgrind
 Version: 3.21.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 Epoch: 1
 License: GPLv2+
 URL: https://www.valgrind.org/
@@ -102,6 +102,15 @@ Patch8: valgrind-3.21.0-callgrind_control-no-strict.patch
 # Multiple realloc zero errors crash in MC_(eq_Error)
 # https://bugs.kde.org/show_bug.cgi?id=470520
 Patch9: valgrind-3.21.0-realloc-again.patch
+
+# s390x: Assertion failure on VGM instruction
+# https://bugs.kde.org/show_bug.cgi?id=470132
+Patch10: valgrind-3.21.0-vgm.patch
+Patch11: valgrind-3.21.0-vgm-tests.patch
+
+# s390x: Valgrind cannot start qemu-kvm when "sysctl vm.allocate_pgste=0"
+# https://bugs.kde.org/show_bug.cgi?id=470978
+Patch12: valgrind-3.21.0-pgste.patch
 
 BuildRequires: make
 BuildRequires: glibc-devel
@@ -245,6 +254,9 @@ Valgrind User Manual for details.
 %patch7 -p1
 %patch8 -p1
 %patch9 -p1
+%patch10 -p1
+%patch11 -p1
+%patch12 -p1
 
 
 %build
@@ -478,6 +490,10 @@ fi
 %endif
 
 %changelog
+* Thu Jun 22 2023 Mark Wielaard <mjw@fedoraproject.org> - 3.21.0-7
+- Add valgrind-3.21.0-vgm.patch and valgrind-3.21.0-vgm-tests.patch
+- Add valgrind-3.21.0-pgste.patch
+
 * Thu Jun  1 2023 Mark Wielaard <mjw@fedoraproject.org> - 3.21.0-6
 - Add valgrind-3.21.0-callgrind_control-no-strict.patch
 - Add valgrind-3.21.0-realloc-again.patch

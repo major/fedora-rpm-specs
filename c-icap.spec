@@ -1,13 +1,10 @@
-%global commit0 1238524e71b06f46319c670db4fac05a77b4160b
-%global date 20230403
+%global commit0 7a7b9291d8962efefe1fbe42705e792f3fc14203
+%global date 20230621
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-
-# Adjust C++ compiler flags so tests compile fine on non-x86_64 architectures:
-%global build_cxxflags %{optflags} -fpermissive
 
 Name:       c-icap
 Version:    0.5.11
-Release:    12.%{date}git%{shortcommit0}%{?dist}
+Release:    13.%{date}git%{shortcommit0}%{?dist}
 Summary:    An implementation of an ICAP server
 License:    LGPL-2.1-or-later and GPL-2.0-or-later
 URL:        http://%{name}.sourceforge.net/
@@ -215,6 +212,9 @@ exit 0
 %{_libdir}/c_icap/perl_handler.so
 
 %changelog
+* Thu Jun 22 2023 Simone Caronni <negativo17@gmail.com> - 0.5.11-13.20230621git7a7b929
+- Update to latest snapshot, fixes build on non-x86_64 architectures and el7.
+
 * Mon Jun 12 2023 Simone Caronni <negativo17@gmail.com> - 0.5.11-12.20230403git1238524
 - Adjust C++ compiler flags on non-x86_64 architectures so tests build fine.
 - Remove unused sysconfig file.

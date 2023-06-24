@@ -4,7 +4,7 @@
 
 # https://github.com/golang/protobuf
 %global goipath         github.com/golang/protobuf
-Version:                1.5.2
+Version:                1.5.3
 
 %gometa
 

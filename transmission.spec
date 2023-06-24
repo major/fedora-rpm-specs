@@ -2,10 +2,10 @@
 
 Name:           transmission
 Version:        4.0.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A lightweight GTK+ BitTorrent client
 # See COPYING. This licensing situation is... special.
-License:        MIT MIT GPL-2.0-only
+License:        MIT and GPL-2.0-only
 URL:            http://www.transmissionbt.com
 
 Source0:        https://github.com/transmission/transmission/releases/download/%{version}/transmission-%{version}.tar.xz
@@ -105,7 +105,7 @@ mv AUTHORS.new AUTHORS
 CXXFLAGS="%{optflags} -fPIC"
 CFLAGS="%{optflags} -fPIC"
 
-%cmake -DENABLE_CLI=ON -DENABLE_QT=ON -DUSE_GTK_VERSION=3
+%cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_CLI=ON -DENABLE_QT=ON -DUSE_GTK_VERSION=3
 %cmake_build
 
 # Re-enable if DhtTest.usesBootstrapFile passes
@@ -180,6 +180,9 @@ desktop-file-install \
 %doc %{_mandir}/man1/transmission-qt.*
 
 %changelog
+* Thu Jun 22 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.0.3-2
+- Set build type
+
 * Mon Apr 17 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.0.3-1
 - 4.0.3
 

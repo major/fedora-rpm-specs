@@ -6,8 +6,8 @@
 ###
 
 Name: darktable
-Version: 4.2.1
-Release: 4%{?dist}
+Version: 4.4.0
+Release: 1%{?dist}
 
 Summary: Utility to organize and develop raw images
 License: GPLv3+
@@ -252,6 +252,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.darkt
 %{_libexecdir}/darktable/tools/subr.sh
 
 %changelog
+* Wed Jun 21 2023 Germano Massullo <germano.massullo@gmail.com> - 4.4.0-1
+- 4.4.0 release
+
 * Sun Jun 18 2023 Sérgio Basto <sergio@serjux.com> - 4.2.1-4
 - Mass rebuild for jpegxl-0.8.1
 

@@ -6,7 +6,9 @@
 %global forgeurl        https://github.com/alecthomas/kingpin
 Version:                2.2.6
 
-%gometa
+%gometa -f
+
+%global goaltipaths github.com/alecthomas/kingpin/v2
 
 # Remove in F33:
 %global godevelheader %{expand:

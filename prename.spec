@@ -1,5 +1,5 @@
 Name:           prename
-Version:        1.11
+Version:        1.14
 Release:        %autorelease
 Summary:        Perl script to rename multiple files
 License:        GPL+ or Artistic

@@ -4,7 +4,7 @@
 %bcond_with perl_libwww_perl_enables_internet_test
 
 Name:           perl-libwww-perl
-Version:        6.70
+Version:        6.71
 Release:        1%{?dist}
 Summary:        A Perl interface to the World-Wide Web
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -116,7 +116,6 @@ Requires:       perl(HTTP::Status) >= 6.18
 Requires:       perl(LWP::MediaTypes) >= 6
 Suggests:       perl(LWP::Protocol::https) >= 6.02
 Requires:       perl(MIME::Base64) >= 2.1
-Requires:       perl(Module::Load)
 Requires:       perl(Net::FTP) >= 2.58
 Requires:       perl(Net::HTTP) >= 6.18
 Requires:       perl(URI) >= 1.10
@@ -212,6 +211,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jun 22 2023 Michal Josef Špaček <mspacek@redhat.com> - 6.71-1
+- 6.71 bump
+
 * Tue May 16 2023 Michal Josef Špaček <mspacek@redhat.com> - 6.70-1
 - 6.70 bump
 - Fix %patch macro

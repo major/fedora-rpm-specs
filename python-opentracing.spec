@@ -14,7 +14,7 @@
 Summary:        OpenTracing interface for Python
 Name:           python-opentracing
 Version:        2.4.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 
 # The files are under the Apache License 2.0,
 # except for:
@@ -132,6 +132,9 @@ This package contains the documentation.
 %endif
 
 %changelog
+* Thu Jun 22 2023 Python Maint <python-maint@redhat.com> - 2.4.0-9
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

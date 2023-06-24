@@ -13,9 +13,12 @@
 # enable pzstd support by default
 %bcond_without pzstd
 
+# Disable gtest on RHEL
+%bcond gtest %[ !0%{?rhel} ]
+
 Name:           zstd
 Version:        1.5.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Zstd compression library
 
 License:        BSD-3-Clause AND GPL-2.0-only
@@ -25,7 +28,7 @@ Source0:        https://github.com/facebook/zstd/archive/v%{version}.tar.gz#/%{n
 Patch1:         pzstd.1.patch
 
 BuildRequires:  make
-BuildRequires:  gcc gtest-devel
+BuildRequires:  gcc %{?with_gtest:gtest-devel}
 %if %{with lz4}
 BuildRequires:  lz4-devel
 %endif
@@ -89,7 +92,7 @@ execstack lib/libzstd.so.1
 export CFLAGS="$RPM_OPT_FLAGS"
 export LDFLAGS="$RPM_LD_FLAGS"
 make -C tests test-zstd
-%if %{with pzstd}
+%if %{with pzstd} && %{with gtest}
 export CXXFLAGS="$RPM_OPT_FLAGS"
 make -C contrib/pzstd test
 %endif
@@ -137,6 +140,9 @@ install -D -m644 programs/%{name}.1 %{buildroot}%{_mandir}/man1/p%{name}.1
 %ldconfig_scriptlets -n lib%{name}
 
 %changelog
+* Thu Jun 22 2023 Jiří Kučera <jkucera@redhat.com> - 1.5.5-3
+- Drop gtest on RHEL (c9s backport)
+
 * Thu Apr 13 2023 Lukáš Zaoral <lzaoral@redhat.com> - 1.5.5-2
 - migrate to SPDX license format
 

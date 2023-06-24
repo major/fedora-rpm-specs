@@ -1,5 +1,5 @@
 Name:           perl-MCE
-Version:        1.887
+Version:        1.888
 Release:        1%{?dist}
 Summary:        Many-core Engine for Perl providing parallel processing capabilities
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -169,6 +169,10 @@ make test
 %{_bindir}/mce_zfgrep
 
 %changelog
+* Thu Jun 22 2023 Paul Howarth <paul@city-fan.org> - 1.888-1
+- Update to 1.888 (rhbz#2216582)
+  - Fix typos caught by lintian (GH#17)
+
 * Fri Jun  9 2023 Paul Howarth <paul@city-fan.org> - 1.887-1
 - Update to 1.887 (rhbz#2213846)
   - Fix typo in Queue dequeue_timed documentation

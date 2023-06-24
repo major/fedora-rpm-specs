@@ -1,33 +1,27 @@
-# Force out of source build
-%undefine __cmake_in_source_build
-
-# Release 2023.1
-%global commit          d0b02222f33e1e5e1f521e4e4e1cbfa7fe2cf540
-%global shortcommit     %(c=%{commit}; echo ${c:0:7})
-%global snapshotdate    20230116
-
 # Glslang revision from packaged version
 %global glslang_version ca8d07d0bc1c6390b83915700439fa7719de6a2a
 
 Name:           shaderc
-Version:        2023.1
+Version:        2023.3
 Release:        %autorelease
-Summary:        A collection of tools, libraries, and tests for Vulkan shader compilation
+Summary:        Collection of tools, libraries, and tests for Vulkan shader compilation
 
 License:        Apache-2.0
 URL:            https://github.com/google/shaderc
-Source0:        %url/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Patch to unbundle 3rd party code
-Patch1:         0001-Drop-third-party-code-in-CMakeLists.txt.patch
-Patch2:         glslang_linker_flags.patch
+Patch:          0001-Drop-third-party-code-in-CMakeLists.txt.patch
+Patch:          glslang_linker_flags.patch
 
-BuildRequires:  cmake3
+BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  ninja-build
-BuildRequires:  python3-devel
-BuildRequires:  glslang-devel
-BuildRequires:  spirv-headers-devel
+BuildRequires:  sed
 BuildRequires:  spirv-tools
+
+BuildRequires:  glslang-devel
+BuildRequires:  python3-devel
+BuildRequires:  spirv-headers-devel
 BuildRequires:  spirv-tools-devel
 
 %description
@@ -71,9 +65,9 @@ A library for compiling shader strings into SPIR-V.
 Static libraries for libshaderc.
 
 %prep
-%autosetup -p1 -n %{name}-%{commit}
+%autosetup -p1
 
-rm -rf third_party
+rm -r third_party
 
 # Stolen from Gentoo
 # Create build-version.inc since we want to use our packaged
@@ -91,18 +85,18 @@ sed -i 's|SPIRV/GlslangToSpv.h|glslang/SPIRV/GlslangToSpv.h|' libshaderc_util/sr
 %build
 # We disable the tests because they don't work with our unbundling of 3rd party.
 # See https://github.com/google/shaderc/issues/470
-%cmake3 -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-        -DCMAKE_SKIP_RPATH=True \
-        -DSHADERC_SKIP_TESTS=True \
-        -DPYTHON_EXE=%{__python3} \
-        -GNinja
-%cmake3_build
+%cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+       -DCMAKE_SKIP_RPATH=True \
+       -DSHADERC_SKIP_TESTS=True \
+       -DPYTHON_EXE=%{python3} \
+       -GNinja
+%cmake_build
 
 %install
-%cmake3_install
+%cmake_install
 
 %check
-%ctest3
+%ctest
 
 %files -n glslc
 %doc glslc/README.asciidoc

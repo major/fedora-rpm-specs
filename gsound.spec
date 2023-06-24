@@ -46,7 +46,7 @@ developing applications that use %{name}.
 
 
 %files
-%doc COPYING README
+%doc COPYING README README.md
 %{_bindir}/gsound-play
 %{_libdir}/*.so.*
 %dir %{_libdir}/girepository-1.0
