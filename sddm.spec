@@ -14,12 +14,12 @@
 %bcond_without sddm_wayland_default
 %endif
 
-%global commit e6524335a54ca469401ee9487adc4ae973860aad
-%global commitdate 20230404
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
+#global commit e6524335a54ca469401ee9487adc4ae973860aad
+#global commitdate 20230404
+#global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           sddm
-Version:        0.19.0%{?commitdate:^git%{commitdate}.%{shortcommit}}
+Version:        0.20.0%{?commitdate:^git%{commitdate}.%{shortcommit}}
 Release:        1%{?dist}
 License:        GPLv2+
 Summary:        QML based desktop and login manager
@@ -28,7 +28,7 @@ Url:            https://github.com/sddm/sddm
 %if 0%{?commitdate}
 Source0:        %{url}/archive/%{commit}/%{name}-%{commit}.tar.gz
 %else
-Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.xz
 %endif
 
 ## upstream patches
@@ -289,6 +289,9 @@ fi
 
 
 %changelog
+* Fri Jun 23 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.20.0-1
+- Update to 0.20.0 final
+
 * Wed Apr 05 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.19.0^git20230404.e652433-1
 - Update to new snapshot to include a fix for logout issues (#2179591)
 

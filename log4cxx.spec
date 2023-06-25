@@ -5,7 +5,7 @@ Version: 1.1.0
 Release: %autorelease
 Summary: A port to C++ of the Log4j project
 
-License: ASL 2.0
+License: Apache-2.0
 URL: http://logging.apache.org/log4cxx/index.html
 Source0: http://www.apache.org/dist/logging/log4cxx/%{version}/apache-%{name}-%{version}.tar.gz
 

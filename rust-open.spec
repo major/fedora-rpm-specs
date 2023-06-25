@@ -5,7 +5,7 @@
 %global crate open
 
 Name:           rust-open
-Version:        4.1.0
+Version:        4.2.0
 Release:        %autorelease
 Summary:        Open a path or URL using the program configured on the system
 

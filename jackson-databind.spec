@@ -17,7 +17,9 @@ BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.mockito:mockito-core)
 
 BuildArch:      noarch
+%if 0%{?fedora}
 ExclusiveArch:  %{java_arches} noarch
+%endif
 
 %description
 The general-purpose data-binding functionality and tree-model for Jackson Data

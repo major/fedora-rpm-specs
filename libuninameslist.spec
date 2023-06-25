@@ -1,10 +1,10 @@
 Name:           libuninameslist
 Version:        20230523
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        A library providing Unicode character names and annotations
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/fontforge/libuninameslist
 Source0:        https://github.com/fontforge/libuninameslist/archive/%{version}.tar.gz
 BuildRequires:  autoconf
@@ -50,6 +50,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 %{_libdir}/pkgconfig/libuninameslist.pc
 
 %changelog
+* Fri Jun 23 2023 Parag Nemade <pnemade AT redhat DOT com> - 20230523-2
+- Migrate to SPDX license expression
+
 * Tue May 30 2023 Parag Nemade <pnemade AT redhat DOT com> - 20230523-1
 - Update to 20230523 version (#2209761)
 

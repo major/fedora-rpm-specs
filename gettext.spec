@@ -3,8 +3,8 @@
 
 Summary: GNU tools and libraries for localized translated messages
 Name: gettext
-Version: 0.21.1
-Release: 3%{?dist}
+Version: 0.22
+Release: 1%{?dist}
 
 # The following are licensed under LGPLv2+:
 # - libintl and its headers
@@ -26,8 +26,7 @@ Source2: msghack.py
 Source3: msghack.1
 
 Patch1: %{name}-%{version}-disable-libtextstyle.patch
-Patch2: %{name}-%{version}-covscan.patch
-Patch3: %{name}-java17-2062407.patch
+Patch2: %{name}-0.21.1-covscan.patch
 
 # for bootstrapping
 # BuildRequires: autoconf >= 2.62
@@ -49,8 +48,6 @@ BuildRequires: zip, unzip
 %endif
 # for po-mode.el
 BuildRequires: emacs
-# for autosetup
-BuildRequires: git
 # ensure 'ARCHIVE_FORMAT=dirxz'
 BuildRequires: xz
 # for documentation
@@ -75,7 +72,6 @@ BuildRequires: glibc-langpack-tr
 BuildRequires: glibc-langpack-zh
 BuildRequires: make
 Provides: bundled(gnulib)
-Provides: bundled(libcroco) = 0.6.12
 Requires: %{name}-runtime = %{version}-%{release}
 
 %description
@@ -179,10 +175,9 @@ Substitutes the values of environment variables.
 
 
 %prep
-%autosetup -S git
-# Refresh autotools files to latest versions
-# Should be removed after 0.21:
-autoreconf --force --install
+%autosetup -p1
+# patch 1
+automake
 
 # Defeat libtextstyle attempt to bundle libxml2.  The comments
 # indicate this is done because the libtextstyle authors do not want
@@ -416,6 +411,10 @@ make check LIBUNISTRING=-lunistring
 %{_mandir}/man1/msghack.1*
 
 %changelog
+* Fri Jun 23 2023 Jens Petersen <petersen@redhat.com> - 0.22-1
+- update to 0.22 release
+- https://savannah.gnu.org/news/?id=10378
+
 * Wed Mar 29 2023 Sundeep Anand <suanand@redhat.com> - 0.21.1-3
 - update license tag to as per SPDX identifiers
 

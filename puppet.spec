@@ -3,7 +3,7 @@
 %global puppet_vendor_mod_dir %{_datadir}/%{name}/vendor_modules
 
 Name:           puppet
-Version:        7.24.0
+Version:        8.1.0
 Release:        1%{?dist}
 Summary:        Network tool for managing many disparate systems
 License:        Apache-2.0
@@ -208,6 +208,9 @@ useradd -r -u 52 -g puppet -s /sbin/nologin \
 %systemd_postun_with_restart %{name}.service
 
 %changelog
+* Thu Jun 8 2023 Breno Brand Fernandes <brandfbb@gmail.com> - 8.1.0-1
+- Build 8.1.0
+
 * Thu Jun 8 2023 Breno Brand Fernandes <brandfbb@gmail.com> - 7.24.0-1
 - Build 7.24.0
 

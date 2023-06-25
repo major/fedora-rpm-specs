@@ -3,8 +3,8 @@
 %global combined_license Apache-2.0 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR ISC OR MIT) AND (Apache-2.0 OR MIT) AND ((Apache-2.0 OR MIT) AND BSD-3-Clause) AND (Apache-2.0 ITH LLVM-exception OR Apache-2.0 OR MIT) AND BSD-2-Clause AND BSD-3-Clause AND (CC0-1.0 OR Apache-2.0) AND (CC0-1.0 OR MIT-0 OR Apache 2.0) AND ISC AND MIT AND ((MIT OR Apache-2.0) AND Unicode-DFS-2016) AND (Apache-2.0 OR MIT OR Zlib) AND MPL-2.0 AND (Unlicense OR MIT)
 
 Name:           fido-device-onboard
-Version:        0.4.9
-Release:        5%{?dist}
+Version:        0.4.10
+Release:        1%{?dist}
 Summary:        A rust implementation of the FIDO Device Onboard Specification
 License:        BSD-3-Clause
 
@@ -91,6 +91,7 @@ Requires: openssl-libs >= 3.0.1-12
 %{_libexecdir}/fdo/fdo-owner-onboarding-server
 %{_libexecdir}/fdo/fdo-serviceinfo-api-server
 %dir %{_docdir}/fdo
+%{_docdir}/fdo/device_specific_serviceinfo.yml
 %{_docdir}/fdo/serviceinfo-api-server.yml
 %{_docdir}/fdo/owner-onboarding-server.yml
 %{_unitdir}/fdo-serviceinfo-api-server.service
@@ -218,6 +219,9 @@ Requires: fdo-owner-cli = %{version}-%{release}
 %systemd_postun_with_restart fdo-aio.service
 
 %changelog
+* Fri Jun 23 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.4.10-1
+- Update to 0.4.10
+
 * Wed Jun 14 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.4.9-5
 - More spec updates
 

@@ -5,7 +5,7 @@
 %global crate mockito
 
 Name:           rust-mockito
-Version:        1.0.2
+Version:        1.1.0
 Release:        %autorelease
 Summary:        HTTP mocking for Rust
 

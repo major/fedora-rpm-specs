@@ -1,11 +1,11 @@
 %global         srcname         ufo2ft
 %global         forgeurl        https://github.com/googlefonts/ufo2ft
-Version:        2.28.0
+Version:        2.32.0
 %global         tag             v%{version}
 %forgemeta
 
 Name:           python-%{srcname}
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        A bridge from UFOs to FontTool objects
 
 # The entire source is (SPDX) MIT, except:
@@ -21,12 +21,6 @@ BuildRequires:  python3dist(ufolib2)
 BuildRequires:  python3dist(defcon)
 
 BuildArch: noarch
-
-# Use cu2qu in fonttools, relax test dependencies
-# disable failing tests
-# https://github.com/googlefonts/ufo2ft/issues/618
-# https://bugzilla.redhat.com/show_bug.cgi?id=2098875
-Patch01:  fonttoolscu2qu.patch
 
 %global _description %{expand:
 ufo2ft (“UFO to FontTools”) is a fork of ufo2fdk whose goal is to generate
@@ -45,7 +39,6 @@ Summary:        %{summary}
 
 %prep
 %forgeautosetup -N
-%patch01 -p1 
 
 %generate_buildrequires
 %pyproject_buildrequires -x cffsubr,compreffor
@@ -58,10 +51,6 @@ Summary:        %{summary}
 %install
 %pyproject_install
 %pyproject_save_files ufo2ft
-
-# tox seems to require exact dependencies
-# which are not the ones in Fedora packages,
-# so some tests are expected to fail
 
 %check
 # These require the “pathops” extra
@@ -77,6 +66,10 @@ k="${k-}${k+ and }not (TTFInterpolatablePreProcessorTest and test_custom_filters
 %doc README.rst
  
 %changelog
+* Fri Jun 23 2023 Benson Muite <benson_muite@emailplus.org> - 2.32.0-1
+- Upgrade to latest release
+- Remove fonttoolscu2qu.patch as no longer needed
+
 * Mon Jun 19 2023 Python Maint <python-maint@redhat.com> - 2.28.0-5
 - Rebuilt for Python 3.12
 

@@ -1,4 +1,4 @@
-%define _version_suffix -aeb8
+#define _version_suffix -aeb8
 
 # The mingw* RPMs are noarch, and the wxi data files are
 # arch independant, so it is a waste of CPU cycles to run
@@ -18,9 +18,6 @@ Summary:        Windows Installer tools
 License:        GPL-2.0-or-later
 URL:            http://ftp.gnome.org/pub/GNOME/sources/%{name}
 Source0:        http://ftp.gnome.org/pub/GNOME/sources/%{name}/%{version}/%{name}-%{version}%{?_version_suffix}.tar.xz
-Patch0:         0001-Update-data-wixl.patch
-Patch1:         18bc0b2ee79438b8e35c0769165a9a105e3792a0.patch
-Patch2:         0001-data-wixl-Fix-adwaita-icon-theme-on-Fedora-36.patch
 
 Requires:       libgsf >= 1.14.24-2
 
@@ -37,6 +34,29 @@ BuildRequires:  bison
 %if %{with_validate}
 BuildRequires:  perl-base
 BuildRequires:  perl-XML-XPath
+# these are available in the RHEL/ELN buildroot
+# pcre2 and srvany are also available but not used by the tests
+BuildRequires:  mingw32-gcc-c++
+BuildRequires:  mingw64-gcc-c++
+BuildRequires:  mingw32-gcc
+BuildRequires:  mingw64-gcc
+BuildRequires:  mingw32-gettext
+BuildRequires:  mingw64-gettext
+BuildRequires:  mingw32-glib2
+BuildRequires:  mingw64-glib2
+BuildRequires:  mingw32-libffi
+BuildRequires:  mingw64-libffi
+BuildRequires:  mingw32-pixman
+BuildRequires:  mingw64-pixman
+BuildRequires:  mingw32-termcap
+BuildRequires:  mingw64-termcap
+BuildRequires:  mingw32-win-iconv
+BuildRequires:  mingw64-win-iconv
+BuildRequires:  mingw32-winpthreads
+BuildRequires:  mingw64-winpthreads
+BuildRequires:  mingw32-zlib
+BuildRequires:  mingw64-zlib
+%if %{undefined rhel}
 BuildRequires:  mingw32-adwaita-icon-theme
 BuildRequires:  mingw64-adwaita-icon-theme
 BuildRequires:  mingw32-atk
@@ -57,16 +77,8 @@ BuildRequires:  mingw32-fontconfig
 BuildRequires:  mingw64-fontconfig
 BuildRequires:  mingw32-freetype
 BuildRequires:  mingw64-freetype
-BuildRequires:  mingw32-gcc-c++
-BuildRequires:  mingw64-gcc-c++
-BuildRequires:  mingw32-gcc
-BuildRequires:  mingw64-gcc
 BuildRequires:  mingw32-gdk-pixbuf
 BuildRequires:  mingw64-gdk-pixbuf
-BuildRequires:  mingw32-gettext
-BuildRequires:  mingw64-gettext
-BuildRequires:  mingw32-glib2
-BuildRequires:  mingw64-glib2
 BuildRequires:  mingw32-glib-networking
 BuildRequires:  mingw64-glib-networking
 BuildRequires:  mingw32-gmp
@@ -103,10 +115,12 @@ BuildRequires:  mingw32-jasper
 BuildRequires:  mingw64-jasper
 BuildRequires:  mingw32-json-glib
 BuildRequires:  mingw64-json-glib
+BuildRequires:  mingw32-lcms2
+BuildRequires:  mingw64-lcms2
+BuildRequires:  mingw32-libcroco
+BuildRequires:  mingw64-libcroco
 BuildRequires:  mingw32-libepoxy
 BuildRequires:  mingw64-libepoxy
-BuildRequires:  mingw32-libffi
-BuildRequires:  mingw64-libffi
 BuildRequires:  mingw32-libgcrypt
 BuildRequires:  mingw64-libgcrypt
 BuildRequires:  mingw32-libgovirt
@@ -119,10 +133,14 @@ BuildRequires:  mingw32-libjpeg-turbo
 BuildRequires:  mingw64-libjpeg-turbo
 BuildRequires:  mingw32-libogg
 BuildRequires:  mingw64-libogg
+BuildRequires:  mingw32-pcre
+BuildRequires:  mingw64-pcre
 BuildRequires:  mingw32-libpng
 BuildRequires:  mingw64-libpng
 BuildRequires:  mingw32-libpsl
 BuildRequires:  mingw64-libpsl
+BuildRequires:  mingw32-librsvg2
+BuildRequires:  mingw64-librsvg2
 BuildRequires:  mingw32-libsoup
 BuildRequires:  mingw64-libsoup
 BuildRequires:  mingw32-libssh2
@@ -143,12 +161,18 @@ BuildRequires:  mingw32-libvirt
 BuildRequires:  mingw64-libvirt
 BuildRequires:  mingw32-libvorbis
 BuildRequires:  mingw64-libvorbis
+BuildRequires:  mingw32-libwebp
+BuildRequires:  mingw64-libwebp
 BuildRequires:  mingw32-libxml2
 BuildRequires:  mingw64-libxml2
 BuildRequires:  mingw32-nettle
 BuildRequires:  mingw64-nettle
-BuildRequires:  mingw32-OpenEXR
-BuildRequires:  mingw64-OpenEXR
+BuildRequires:  mingw32-openal-soft
+BuildRequires:  mingw64-openal-soft
+BuildRequires:  mingw32-openexr
+BuildRequires:  mingw64-openexr
+BuildRequires:  mingw32-openjpeg2
+BuildRequires:  mingw64-openjpeg2
 BuildRequires:  mingw32-openssl
 BuildRequires:  mingw64-openssl
 BuildRequires:  mingw32-opus
@@ -159,10 +183,6 @@ BuildRequires:  mingw32-p11-kit
 BuildRequires:  mingw64-p11-kit
 BuildRequires:  mingw32-pango
 BuildRequires:  mingw64-pango
-BuildRequires:  mingw32-pcre
-BuildRequires:  mingw64-pcre
-BuildRequires:  mingw32-pixman
-BuildRequires:  mingw64-pixman
 BuildRequires:  mingw32-portablexdr
 BuildRequires:  mingw64-portablexdr
 BuildRequires:  mingw32-readline
@@ -177,32 +197,11 @@ BuildRequires:  mingw32-spice-gtk3
 BuildRequires:  mingw64-spice-gtk3
 BuildRequires:  mingw32-sqlite
 BuildRequires:  mingw64-sqlite
-BuildRequires:  mingw32-termcap
-BuildRequires:  mingw64-termcap
 BuildRequires:  mingw32-usbredir
 BuildRequires:  mingw64-usbredir
 BuildRequires:  mingw32-wavpack
 BuildRequires:  mingw64-wavpack
-BuildRequires:  mingw32-win-iconv
-BuildRequires:  mingw64-win-iconv
-BuildRequires:  mingw32-winpthreads
-BuildRequires:  mingw64-winpthreads
-BuildRequires:  mingw32-zlib
-BuildRequires:  mingw64-zlib
-BuildRequires:  mingw32-librsvg2
-BuildRequires:  mingw64-librsvg2
-BuildRequires:  mingw32-openjpeg2
-BuildRequires:  mingw64-openjpeg2
-BuildRequires:  mingw32-openexr
-BuildRequires:  mingw64-openexr
-BuildRequires:  mingw32-openal-soft
-BuildRequires:  mingw64-openal-soft
-BuildRequires:  mingw32-libwebp
-BuildRequires:  mingw64-libwebp
-BuildRequires:  mingw32-libcroco
-BuildRequires:  mingw64-libcroco
-BuildRequires:  mingw32-lcms2
-BuildRequires:  mingw64-lcms2
+%endif
 %endif
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1924216

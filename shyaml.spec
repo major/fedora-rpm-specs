@@ -3,7 +3,7 @@ Version:        0.6.2
 Release:        %autorelease
 Summary:        YAML for command line
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://github.com/0k/shyaml
 Source0:        https://github.com/0k/shyaml/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 # Avoids the need to run autogen.sh during setup (which requires the complete

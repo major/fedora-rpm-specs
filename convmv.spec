@@ -1,9 +1,9 @@
 Summary: Convert filename encodings
 Name: convmv
 Version: 2.05
-Release: 11%{?dist}
+Release: 12%{?dist}
 
-License: GPLv2 or GPLv3
+License: GPL-2.0-only or GPL-3.0-only
 URL: http://j3e.de/linux/convmv
 Source0: http://j3e.de/linux/convmv/convmv-%{version}.tar.gz
 Patch0: convmv-2.0-preserve-timestamps.patch
@@ -26,7 +26,7 @@ of filenames, e.g. from Latin1 to UTF-8.
 
 %prep
 %setup -q
-%patch0 -p1 -b .preserve-timestamps
+%patch 0 -p1 -b .preserve-timestamps
 tar -xf testsuite.tar
 
 %build
@@ -45,6 +45,9 @@ make PREFIX=%{_prefix} DESTDIR=%{buildroot} install
 %{_mandir}/man*/*
 
 %changelog
+* Fri Jun 23 2023 Parag Nemade <pnemade AT redhat DOT com> - 2.05-12
+- Migrate to SPDX license expression
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.05-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -74,7 +74,7 @@ Obsoletes:      python3-BeautifulSoup < 1:3.2.1-2
 
 %files -n python3-beautifulsoup4
 %license LICENSE
-%doc NEWS.txt
+%doc NEWS.txt CHANGELOG
 %{python3_sitelib}/beautifulsoup4-%{version}.dist-info/
 %{python3_sitelib}/bs4
 

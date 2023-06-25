@@ -1,7 +1,8 @@
 Summary: Library providing support for "XML Signature" and "XML Encryption" standards
 Name: xmlsec1
-Version: 1.3.0
-Release: 1%{?dist}%{?extra_release}
+Version: 1.2.37
+Release: 4%{?dist}%{?extra_release}
+Epoch: 1
 License: MIT
 Source0: https://www.aleksey.com/xmlsec/download/xmlsec1-%{version}.tar.gz
 URL: http://www.aleksey.com/xmlsec/
@@ -27,7 +28,7 @@ standards "XML Digital Signature" and "XML Encryption".
 
 %package devel
 Summary: Libraries, includes, etc. to develop applications with XML Digital Signatures and XML Encryption support.
-Requires: xmlsec1%{?_isa} = %{version}-%{release}
+Requires: xmlsec1%{?_isa} = 1:%{version}-%{release}
 Requires: openssl-devel%{?_isa} >= 1.0.0
 
 %description devel
@@ -36,7 +37,7 @@ Signatures and XML Encryption support.
 
 %package openssl
 Summary: OpenSSL crypto plugin for XML Security Library
-Requires: xmlsec1%{?_isa} = %{version}-%{release}
+Requires: xmlsec1%{?_isa} = 1:%{version}-%{release}
 
 %description openssl
 OpenSSL plugin for XML Security Library provides OpenSSL based crypto services
@@ -44,15 +45,15 @@ for the xmlsec library.
 
 %package openssl-devel
 Summary: OpenSSL crypto plugin for XML Security Library
-Requires: xmlsec1-devel%{?_isa} = %{version}-%{release}
-Requires: xmlsec1-openssl%{?_isa} = %{version}-%{release}
+Requires: xmlsec1-devel%{?_isa} = 1:%{version}-%{release}
+Requires: xmlsec1-openssl%{?_isa} = 1:%{version}-%{release}
 
 %description openssl-devel
 Libraries, includes, etc. for developing XML Security applications with OpenSSL
 
 %package gcrypt
 Summary: GCrypt crypto plugin for XML Security Library
-Requires: xmlsec1%{?_isa} = %{version}-%{release}
+Requires: xmlsec1%{?_isa} = 1:%{version}-%{release}
 
 %description gcrypt
 GCrypt plugin for XML Security Library provides GCrypt based crypto services
@@ -60,15 +61,15 @@ for the xmlsec library.
 
 %package gcrypt-devel
 Summary: GCrypt crypto plugin for XML Security Library
-Requires: xmlsec1-devel%{?_isa} = %{version}-%{release}
-Requires: xmlsec1-gnutls-devel%{?_isa} = %{version}-%{release}
+Requires: xmlsec1-devel%{?_isa} = 1:%{version}-%{release}
+Requires: xmlsec1-gnutls-devel%{?_isa} = 1:%{version}-%{release}
 
 %description gcrypt-devel
 Libraries, includes, etc. for developing XML Security applications with GCrypt.
 
 %package gnutls
 Summary: GNUTls crypto plugin for XML Security Library
-Requires: xmlsec1%{?_isa} = %{version}-%{release}
+Requires: xmlsec1%{?_isa} = 1:%{version}-%{release}
 
 %description gnutls
 GNUTls plugin for XML Security Library provides GNUTls based crypto services
@@ -76,8 +77,8 @@ for the xmlsec library.
 
 %package gnutls-devel
 Summary: GNUTls crypto plugin for XML Security Library
-Requires: xmlsec1-devel%{?_isa} = %{version}-%{release}
-Requires: xmlsec1-openssl-devel%{?_isa} = %{version}-%{release}
+Requires: xmlsec1-devel%{?_isa} = 1:%{version}-%{release}
+Requires: xmlsec1-openssl-devel%{?_isa} = 1:%{version}-%{release}
 Requires: gnutls-devel%{?_isa} >= 1.0.20
 
 %description gnutls-devel
@@ -85,7 +86,7 @@ Libraries, includes, etc. for developing XML Security applications with GNUTls.
 
 %package nss
 Summary: NSS crypto plugin for XML Security Library
-Requires: xmlsec1%{?_isa} = %{version}-%{release}
+Requires: xmlsec1%{?_isa} = 1:%{version}-%{release}
 
 %description nss
 NSS plugin for XML Security Library provides NSS based crypto services
@@ -93,8 +94,8 @@ for the xmlsec library
 
 %package nss-devel
 Summary: NSS crypto plugin for XML Security Library
-Requires: xmlsec1-devel%{?_isa} = %{version}-%{release}
-Requires: xmlsec1-nss%{?_isa} = %{version}-%{release}
+Requires: xmlsec1-devel%{?_isa} = 1:%{version}-%{release}
+Requires: xmlsec1-nss%{?_isa} = 1:%{version}-%{release}
 
 %description nss-devel
 Libraries, includes, etc. for developing XML Security applications with NSS.
@@ -175,6 +176,10 @@ mv %{buildroot}%{_docdir}/xmlsec1/* __tmp_doc
 %{_libdir}/pkgconfig/xmlsec1-nss.pc
 
 %changelog
+* Thu Jun 22 2023 Tomas Halman <thalman@redhat.com> - 1.2.37-4
+- Resolves: rhbz#2187631 - Cannot load modules/mod_auth_mellon.so
+  Revert to previous version
+
 * Fri Apr 14 2023 Tomas Halman <thalman@redhat.com> - 1.3.0-1
 - Resolves: rhbz#2186304 - rebase to version 1.3.0
 

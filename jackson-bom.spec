@@ -12,7 +12,9 @@ BuildRequires:  mvn(com.fasterxml.jackson:jackson-parent:pom:) >= 2.15
 BuildRequires:  mvn(junit:junit)
 
 BuildArch:      noarch
+%if 0%{?fedora}
 ExclusiveArch:  %{java_arches} noarch
+%endif
 
 %description
 A "bill of materials" POM for Jackson dependencies.

@@ -11,7 +11,7 @@
 Summary:	Small, fast daemon to serve DNSBLs
 Name:		rbldnsd
 Version:	0.998b
-Release:	10%{?dist}
+Release:	11%{?dist}
 License:	GPL-2.0-or-later
 URL:		https://rbldnsd.io/
 Source0:	https://rbldnsd.io/dwl/rbldnsd-%{version}.tgz
@@ -19,6 +19,7 @@ Source2:	rbldnsd.conf
 Source3:	rbldnsctl
 Source4:	README.systemd
 Patch0:		rbldnsd-configure-c99.patch
+Patch1:		rbldnsd-0.998b-version.patch
 BuildRequires:	coreutils
 BuildRequires:	gawk
 BuildRequires:	gcc
@@ -27,6 +28,7 @@ BuildRequires:	sed
 BuildRequires:	%{systemd_rpm_macros}
 BuildRequires:	zlib-devel
 Requires(pre):	shadow-utils
+Requires:	gawk
 %{?systemd_requires}
 
 %description
@@ -38,7 +40,10 @@ blocklists.
 %setup -q
 
 # Port non-autoconf configure script to C99
-%patch0 -p1
+%patch -P 0 -p1
+
+# Fix version number reported by rbldnsd
+%patch -P 1
 
 sed -i	-e 's@/var/lib/rbldns\([/ ]\)@%{_localstatedir}/lib/rbldnsd\1@g' \
 	-e 's@\(-r/[a-z/]*\) -b@\1 -q -b@g' contrib/debian/rbldnsd.default
@@ -96,6 +101,11 @@ fi
 %{_sbindir}/rbldnsctl
 
 %changelog
+* Fri Jun 23 2023 Paul Howarth <paul@city-fan.org> - 0.998b-11
+- Avoid use of systemd ".include" directive (rhbz#2216790)
+- Avoid use of deprecated patch syntax
+- Fix version number reported by rbldnsd
+
 * Mon Jan 30 2023 Paul Howarth <paul@city-fan.org> - 0.998b-10
 - Use SPDX-format license tag
 

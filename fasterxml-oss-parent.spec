@@ -14,7 +14,9 @@ BuildRequires: mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires: mvn(org.codehaus.mojo:build-helper-maven-plugin)
 
 BuildArch:     noarch
+%if 0%{?fedora}
 ExclusiveArch:  %{java_arches} noarch
+%endif
 
 %description
 FasterXML is the business behind the Woodstox streaming XML parser,

@@ -4,15 +4,15 @@
 %bcond_with static
 %bcond_without check
 
-%define realver 3420000
-%define docver 3420000
-%define rpmver 3.42.0
+%define realver 3410200
+%define docver 3410200
+%define rpmver 3.41.2
 %define year 2023
 
 Summary: Library that implements an embeddable SQL database engine
 Name: sqlite
 Version: %{rpmver}
-Release: 1%{?dist}
+Release: 3%{?dist}
 License: blessing
 URL: http://www.sqlite.org/
 
@@ -271,6 +271,9 @@ make test
 %endif
 
 %changelog
+* Fri Jun 23 2023 Zuzana Miklankova <zmiklank@redhat.com> - 3.41.2-3
+- revert to version 3.41.2 as the 3.42.0 does not correctly work with dnf
+
 * Wed Jun 21 2023 Zuzana Miklankova <zmiklank@redhat.com> - 3.42.0-1
 - Updated to version 3.42.0 (https://sqlite.org/releaselog/3_42_0.html)
 - Use %patch -P N instead of deprecated %patchN

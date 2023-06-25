@@ -4,7 +4,7 @@
 Summary: SELinux policy compiler
 Name: checkpolicy
 Version: 3.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
 Source0: https://github.com/SELinuxProject/selinux/releases/download/3.5/checkpolicy-3.5.tar.gz
 # $ git clone https://github.com/fedora-selinux/selinux.git
@@ -12,6 +12,7 @@ Source0: https://github.com/SELinuxProject/selinux/releases/download/3.5/checkpo
 # $ git format-patch -N 3.5 -- checkpolicy
 # $ i=1; for j in 00*patch; do printf "Patch%04d: %s\n" $i $j; i=$((i+1));done
 # Patch list start
+Patch0001: 0001-checkpolicy-Add-examples-to-man-pages.patch
 # Patch list end
 BuildRequires: gcc
 BuildRequires: make
@@ -61,6 +62,9 @@ install test/dispol ${RPM_BUILD_ROOT}%{_bindir}/sedispol
 %{_bindir}/sedispol
 
 %changelog
+* Thu Jun 22 2023 Vit Mojzis <vmojzis@redhat.com> - 3.5-2
+- Add examples to man pages
+
 * Fri Feb 24 2023 Petr Lautrbach <lautrbach@redhat.com> - 3.5-1
 - SELinux userspace 3.5 release
 

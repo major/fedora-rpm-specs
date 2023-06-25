@@ -10,7 +10,7 @@ Summary:        A graphical front-end for command line emulators
 
 # attract-mode itself is GPLv3
 # The other licenses cover the bundled libraries, see below for the breakdown
-License:        GPL-3.0-or-later and BSL-1.0 and LicenseRef-Fedora-Public-Domain and MIT and zlib
+License:        GPL-3.0-or-later AND BSL-1.0 AND LicenseRef-Fedora-Public-Domain AND MIT AND zlib
 URL:            https://attractmode.org
 Source:         %{forgeurl}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 # Fix missing include

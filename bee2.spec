@@ -3,19 +3,18 @@
 
 Summary:       Cryptographic library
 Name:          bee2
-Version:       2.1.0
-Release:       3%{?dist}
+Version:       2.1.2
+Release:       1%{?dist}
 License:       GPL-3.0-only and GPL-3.0-or-later
 Url:           http://apmi.bsu.by/resources/tools.html
-Source0:       https://github.com/agievich/bee2/archive/refs/tags/v%{version}.tar.gz
+Source0:       https://github.com/agievich/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+
 BuildRequires: cmake
 BuildRequires: clang
 BuildRequires: coreutils
 BuildRequires: doxygen
 BuildRequires: gzip
 BuildRequires: sed
-# Test failures on s390x
-ExcludeArch: s390x
 
 %global _descriptionlibs %{expand:
 Bee2 is a cryptographic library which implements cryptographic
@@ -57,26 +56,25 @@ Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 %description	devel
 %_descriptionlibs
 
-%package -n bsum
-Summary:  Calculation and verification of hash values
+%package -n bee2cmd
+Summary:  Command line interface to bee2 utilities
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 License:  GPL-3.0-only
 
-%description -n bsum
-Bsum implements calculation and verification of hash values using the
-Belarusian Cryptography standards (STB) algorithms STB 34.101.31
-(belt-hash) and STB 34.101.77 (bash32, bash64, ..., bash512). The
-command-line interface of the utility is as close as
-possible to the interfaces of similar sha1sum and sha256sum utilities.
-For more on these algorithms see
-<http://apmi.bsu.by/resources/std.html>.
+%description -n bee2cmd
+Command line interface to bee2 library offering utilities
+to print version and build information, has files,
+generate and manage passwords, generate and manage
+private keys, manage CV-certificates, manage certificate
+rings, sign files and verify signatures and provide
+entropy sources.
 
 %prep
 %autosetup -n bee2-%{version}
 # Generate MAN pages
 sed -i 's/GENERATE_MAN           = NO/GENERATE_MAN           = YES/g' doc/bee2.doxy
 # Link to shared library
-sed -i 's/bee2_static/bee2/g' apps/bsum/CMakeLists.txt
+sed -i 's/bee2_static/bee2/g' cmd/CMakeLists.txt
 sed -i 's/bee2_static/bee2/g' test/CMakeLists.txt
 
 %build
@@ -104,7 +102,7 @@ rm %{buildroot}%{_libdir}/libbee2_static.a
 %ctest
 
 %files libs
-%license LICENSE
+%license LICENSE.txt
 %doc AUTHORS.md README.md
 # Do not ship HTML documentation
 %exclude %{_datadir}/bee2
@@ -123,11 +121,15 @@ rm %{buildroot}%{_libdir}/libbee2_static.a
 %{_libdir}/libbee2.so
 %{_mandir}/man3/*.3.gz
 
-%files -n bsum
-%{_bindir}/bsum
+%files -n bee2cmd
+%{_bindir}/bee2cmd
 
 
 %changelog
+* Fri Jun 23 2023 Benson Muite <benson_muite@emailplus.org> - 2.1.2-1
+- Update to release 2.1.2 bz 2216952
+- bsum sub package replaced by bee2cmd
+
 * Mon Feb 13 2023 Benson Muite <benson_muite@emailplus.org> - 2.1.0-2
 - Update based on review bz 2165536
 - Use Bee2 as package name

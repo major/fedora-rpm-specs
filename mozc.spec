@@ -5,8 +5,8 @@
 %bcond_without	qt
 
 Name:		mozc
-Version:	2.28.4950.102
-Release:	5%{?dist}
+Version:	2.29.5111.102
+Release:	1%{?dist}
 Summary:	A Japanese Input Method Editor (IME) designed for multi-platform
 
 License:	BSD-3-Clause AND Apache-2.0 AND Unicode-DFS-2015 AND NAIST-2003
@@ -40,7 +40,7 @@ URL:		https://github.com/google/mozc
 #    tar -a --exclude-vcs --exclude third_party/gyp* -cf ../mozc-$version.tar.bz2 *
 #   )
 #
-Source0:	%{name}-%{version}.tar.bz2
+Source0:	%{name}-%{version}.tar.xz
 Source1:	mozc-init.el
 # Public Domain
 ## https://gitlab.com/fedora/legal/fedora-license-data/-/issues/181#note_1339185494
@@ -56,7 +56,7 @@ Patch2:		mozc-build-verbosely.patch
 Patch3:		mozc-build-id.patch
 Patch4:		mozc-build-gcc-common.patch
 Patch5:		mozc-use-system-abseil-cpp.patch
-Patch6:     mozc-fix-el-warnings.patch
+Patch6:		mozc-build-gyp.patch
 
 BuildRequires:	python gettext
 BuildRequires:	libstdc++-devel zlib-devel libxcb-devel protobuf-devel protobuf-c glib2-devel gtk2-devel
@@ -113,15 +113,11 @@ This package contains the Input Method Engine for IBus.
 
 %prep
 %setup -q -c -n %{name}-%{version} -a 2 -a 3
-%patch0 -p1 -b .0-ninja
-%patch1 -p1 -b .1-gcc
-%patch2 -p1 -b .2-verbose
-%patch3 -p1 -b .3-build-id
-%patch4 -p1 -b .4-gcc-common
-%patch5 -p1 -b .5-use-system-abseil-cpp
+%autopatch -p1
 (cd data/dictionary_oss;
 PYTHONPATH="${PYTHONPATH}:../.." python ../../dictionary/gen_zip_code_seed.py --zip_code=../../KEN_ALL.CSV --jigyosyo=../../JIGYOSYO.CSV >> dictionary09.txt;
 )
+rm -rf third_party/abseil-cpp
 
 
 %build
@@ -135,7 +131,7 @@ sed -ne "/'linux_cflags':/{p;n;p;:a;/[[:space:]]*\],/{\
 $opts
 p;b b};n;b a;};{p};:b" gyp/common.gypi > $t && mv $t gyp/common.gypi || exit 1
 GYP_DEFINES="use_libprotobuf=1 use_system_abseil_cpp=1 %{?with_zinnia:use_libzinnia=1 zinnia_model_file=/usr/share/zinnia/model/tomoe/handwriting-ja.model} %{!?with_zinnia:use_libzinnia=0} ibus_mozc_path=%{_libexecdir}/ibus-engine-mozc ibus_mozc_icon_path=%{_datadir}/ibus-mozc/product_icon.png" python build_mozc.py gyp --gypdir=%{_bindir} --server_dir=%{_libexecdir}/mozc --target_platform=Linux %{!?with_qt:--noqt}
-python build_mozc.py build --use_gyp_for_ibus_build -c Release unix/ibus/ibus.gyp:ibus_mozc unix/emacs/emacs.gyp:mozc_emacs_helper server/server.gyp:mozc_server gui/gui.gyp:mozc_tool renderer/renderer.gyp:mozc_renderer
+python build_mozc.py build -c Release unix/ibus/ibus.gyp:ibus_mozc unix/emacs/emacs.gyp:mozc_emacs_helper server/server.gyp:mozc_server gui/gui.gyp:mozc_tool renderer/renderer.gyp:mozc_renderer
 
 
 %install
@@ -252,6 +248,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Fri Jun 23 2023 Akira TAGOH <tagoh@redhat.com> - 2.29.5111.102-1
+- Update to 2.29.5111.102.
+  Resolves: rhbz#2213058
+- Update dictionaries.
+
 * Tue Apr  4 2023 Akira TAGOH <tagoh@redhat.com> - 2.28.4950.102-5
 - Migrated license tag to SPDX.
 

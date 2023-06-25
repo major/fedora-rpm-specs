@@ -138,7 +138,7 @@
 %define samba_requires_eq()  %(LC_ALL="C" echo '%*' | xargs -r rpm -q --qf 'Requires: %%{name} = %%{epoch}:%%{version}\\n' | sed -e 's/ (none):/ /' -e 's/ 0:/ /' | grep -v "is not")
 
 %global samba_version 4.18.3
-%global baserelease 2
+%global baserelease 3
 # This should be rc1 or %%nil
 %global pre_release %nil
 
@@ -829,6 +829,7 @@ suite.
 %package -n libwbclient
 Summary: The winbind client library
 Requires: %{name}-client-libs = %{samba_depver}
+Conflicts: sssd-libwbclient
 
 %description -n libwbclient
 The libwbclient package contains the winbind client library from the Samba
@@ -837,6 +838,7 @@ suite.
 %package -n libwbclient-devel
 Summary: Developer tools for the winbind library
 Requires: libwbclient = %{samba_depver}
+Conflicts: sssd-libwbclient-devel
 
 Provides: samba-winbind-devel = %{samba_depver}
 Obsoletes: samba-winbind-devel < %{samba_depver}
@@ -1359,17 +1361,6 @@ install -d -m 0755 %{buildroot}/%{_libdir}/samba
 install -d -m 0755 %{buildroot}/%{_libdir}/samba/ldb
 install -d -m 0755 %{buildroot}/%{_libdir}/pkgconfig
 
-# Move libwbclient.so* into private directory, it cannot be just libdir/samba
-# because samba uses rpath with this directory.
-install -d -m 0755 %{buildroot}/%{_libdir}/samba/wbclient
-mv %{buildroot}/%{_libdir}/libwbclient.so* %{buildroot}/%{_libdir}/samba/wbclient
-if [ ! -f %{buildroot}/%{_libdir}/samba/wbclient/libwbclient.so.%{libwbc_alternatives_version} ]
-then
-    echo "Expected libwbclient version not found, please check if version has changed."
-    exit -1
-fi
-
-
 touch %{buildroot}%{_libexecdir}/samba/cups_backend_smb
 
 # Install other stuff
@@ -1576,52 +1567,11 @@ fi
 %endif
 
 %if %{with libwbclient}
-%posttrans -n libwbclient
-# It has to be posttrans here to make sure all files of a previous version
-# without alternatives support are removed
-%{_sbindir}/update-alternatives \
-        --install \
-        %{_libdir}/libwbclient.so.%{libwbc_alternatives_version} \
-        libwbclient.so.%{libwbc_alternatives_version}%{libwbc_alternatives_suffix} \
-        %{_libdir}/samba/wbclient/libwbclient.so.%{libwbc_alternatives_version} \
-        10
+%pre -n libwbclient
+rm -rf %{_libdir}/samba/wbclient/
+rm -f /etc/alternatives/libwbclient.so*
+rm -f /var/lib/alternatives/libwbclient.so*
 %{?ldconfig}
-
-%preun -n libwbclient
-if [ $1 -eq 0 ]; then
-    %{_sbindir}/update-alternatives \
-            --remove \
-            libwbclient.so.%{libwbc_alternatives_version}%{libwbc_alternatives_suffix} \
-            %{_libdir}/samba/wbclient/libwbclient.so.%{libwbc_alternatives_version}
-fi
-/sbin/ldconfig
-
-%posttrans -n libwbclient-devel
-%{_sbindir}/update-alternatives \
-        --install %{_libdir}/libwbclient.so \
-        libwbclient.so%{libwbc_alternatives_suffix} \
-        %{_libdir}/samba/wbclient/libwbclient.so \
-        10
-
-%preun -n libwbclient-devel
-# alternatives checks if the file which should be removed is a link or not, but
-# not if it points to the /etc/alternatives directory or to some other place.
-# When downgrading to a version where alternatives is not used and
-# libwbclient.so is a link and not a file it will be removed. The following
-# check removes the alternatives files manually if that is the case.
-if [ $1 -eq 0 ]; then
-    if [ "`readlink %{_libdir}/libwbclient.so`" == "libwbclient.so.%{libwbc_alternatives_version}" ]; then
-        /bin/rm -f \
-            /etc/alternatives/libwbclient.so%{libwbc_alternatives_suffix} \
-            /var/lib/alternatives/libwbclient.so%{libwbc_alternatives_suffix} 2> /dev/null
-    else
-        %{_sbindir}/update-alternatives \
-            --remove \
-            libwbclient.so%{libwbc_alternatives_suffix} \
-            %{_libdir}/samba/wbclient/libwbclient.so
-    fi
-fi
-
 #endif {with libwbclient}
 %endif
 
@@ -2426,12 +2376,12 @@ fi
 ### LIBWBCLIENT
 %if %{with libwbclient}
 %files -n libwbclient
-%{_libdir}/samba/wbclient/libwbclient.so.%{libwbclient_so_version}*
+%{_libdir}/libwbclient.so.%{libwbclient_so_version}*
 
 ### LIBWBCLIENT-DEVEL
 %files -n libwbclient-devel
 %{_includedir}/samba-4.0/wbclient.h
-%{_libdir}/samba/wbclient/libwbclient.so
+%{_libdir}/libwbclient.so
 %{_libdir}/pkgconfig/wbclient.pc
 #endif {with libwbclient}
 %endif
@@ -4381,6 +4331,9 @@ fi
 %endif
 
 %changelog
+* Fri Jun 23 2023 Andreas Schneider <asn@redhat.com> - 4.18.3-3
+- resolves: rhbz#2211577 - Fix libwbclient package upgrades
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 2:4.18.3-2
 - Rebuilt for Python 3.12
 

@@ -3,8 +3,9 @@
 Name:    kronometer
 Summary: A stopwatch application by KDE
 Version: 2.3.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
+# code is GPLv2, appdata file is CC0
 License: GPL-2.0-or-later AND CC0-1.0
 URL:     https://userbase.kde.org/Kronometer
 
@@ -39,11 +40,11 @@ BuildRequires: cmake(KF5XmlGui)
 %if %{with tests}
 BuildRequires: cmake(Qt5Test)
 BuildRequires: dbus-x11
-BuildRequires: xorg-x11-server-Xvfb
 %endif
 
 Requires: kde-filesystem
 Requires: hicolor-icon-theme
+
 
 %description
 Kronometer is a stopwatch application.
@@ -57,23 +58,22 @@ Kronometer is a stopwatch application.
 %build
 %{cmake_kf5} \
   -DBUILD_TESTING:BOOL=%{?with_tests:ON}%{!?with_tests:OFF}
-
 %cmake_build
 
 
 %install
 %cmake_install
-
 %find_lang %{name} --all-name --with-html --with-man
+zcat %{buildroot}%{_kf5_datadir}/icons/hicolor/scalable/apps/kronometer.svgz > %{buildroot}%{_kf5_datadir}/icons/hicolor/scalable/apps/kronometer.svg
+rm %{buildroot}%{_kf5_datadir}/icons/hicolor/scalable/apps/kronometer.svgz
 
 
 %check
 desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
 %if %{with tests}
-# % ctest --extra-verbose
-%ctest --debug
-# % ctest --verbose --exclude-regex testtimedisplay
+export QT_QPA_PLATFORM=offscreen
+%ctest --extra-verbose
 %endif
 
 
@@ -86,6 +86,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 %{_kf5_datadir}/icons/hicolor/*/apps/kronometer.*
 %{_mandir}/man1/kronometer.1*
 
+
 %changelog
-* Mon Apr 17 2023 Andrea Perotti <aperotti@redhat.com> - 2.3.0-1
+* Fri Jun 23 2023 Andrea Perotti <andreamtp@fedoraproject.org> - 2.3.0-2
+- 100% tests enabled + rpmlint fixes
+
+* Mon Apr 17 2023 Andrea Perotti <andreamtp@fedoraproject.org> - 2.3.0-1
 - Initial build

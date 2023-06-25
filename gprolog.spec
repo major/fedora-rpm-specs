@@ -3,7 +3,7 @@ Version:	1.5.0
 Release:	%autorelease
 Summary:	GNU Prolog is a free Prolog compiler
 
-License:	LGPLv3+ or GPLv2+
+License:	LGPL-3.0-or-later OR GPL-2.0-or-later
 URL:		http://www.gprolog.org
 Source:		http://www.gprolog.org/gprolog-%{version}.tar.gz
 Patch0:		gprolog.make-print-submake-output.patch

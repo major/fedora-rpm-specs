@@ -5,7 +5,7 @@
 %global crate arrayvec
 
 Name:           rust-arrayvec
-Version:        0.7.2
+Version:        0.7.4
 Release:        %autorelease
 Summary:        Vector with fixed capacity, backed by an array
 
@@ -71,6 +71,18 @@ This package contains library source intended for building other packages which
 use the "std" feature of the "%{crate}" crate.
 
 %files       -n %{name}+std-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+zeroize-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+zeroize-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "zeroize" feature of the "%{crate}" crate.
+
+%files       -n %{name}+zeroize-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

@@ -1,10 +1,13 @@
+# Drop gtest on RHEL
+%bcond gtest %[ !0%{?rhel} ]
+
 %global __cmake_in_source_build 1
 Name:           snappy
 Version:        1.1.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast compression and decompression library
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/google/snappy
 Source0:        https://github.com/google/snappy/releases/download/%{version}/%{name}-%{version}.tar.gz
 
@@ -18,7 +21,7 @@ BuildRequires:  make
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  google-benchmark-devel
-BuildRequires:  gtest-devel
+%{?with_gtest:BuildRequires:  gtest-devel}
 
 %description
 Snappy is a compression/decompression library. It does not aim for maximum 
@@ -46,7 +49,7 @@ developing applications that use %{name}.
 
 %build
 # gtest 1.13.0 requires C++14 or later
-%cmake -DCMAKE_CXX_STANDARD=14 .
+%cmake -DCMAKE_CXX_STANDARD=14 %{!?with_gtest:-DSNAPPY_BUILD_TESTS=OFF} .
 %make_build
 
 # create pkgconfig file
@@ -93,6 +96,9 @@ ctest -V %{?_smp_mflags}
 
 
 %changelog
+* Thu Jun 22 2023 Jiri Kucera <jkucera@redhat.com> - 1.1.10-2
+- Drop gtest on RHEL, migrate to SPDX license identifier
+
 * Thu Mar 09 2023 Martin Gieseking <martin.gieseking@uos.de> - 1.1.10-1
 - Updated to version 1.1.10.
 - Removed snappy-inline.patch as it's no longer required.

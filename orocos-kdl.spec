@@ -1,10 +1,10 @@
 %global sover 1.5
 Name:       orocos-kdl
 Version:    1.5.1
-Release:    5%{?dist}
+Release:    %autorelease
 Summary:    A framework for modeling and computation of kinematic chains
 
-License:    LGPLv2+
+License:    LGPL-2.0-or-later
 URL:        http://www.orocos.org/kdl.html
 Source0:    https://github.com/orocos/orocos_kinematics_dynamics/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:     orocos-kdl.pybind11.patch
@@ -117,111 +117,4 @@ popd
 
 
 %changelog
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.5.1-5
-- Rebuilt for Python 3.12
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 1.5.1-2
-- Rebuilt for Python 3.11
-
-* Tue Apr 12 2022 Till Hofmann <thofmann@fedoraproject.org> - 1.5.1-1
-- Update to 1.5.1
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-14
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 1.4.0-12
-- Rebuilt for Python 3.10
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sat Sep 05 2020 Till Hofmann <thofmann@fedoraproject.org> - 1.4.0-10
-- Adapt to cmake out-of-source builds
-- Switch to pybind11 to fix FTBFS
-- Remove unneeded patch
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-9
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 1.4.0-7
-- Rebuilt for Python 3.9
-
-* Tue Mar 10 2020 Scott K Logan <logans@cottsay.net> - 1.4.0-6
-- Add python subpackage for PyKDL
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Sun Apr 08 2018 Till Hofmann <thofmann@fedoraproject.org> - 1.4.0-1
-- Update to 1.4.0
-- Remove upstreamed patch
-- Update patch to increase failure threshold, fixes tests on i686
-
-* Thu Feb 08 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Mon May 15 2017 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.3.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_27_Mass_Rebuild
-
-* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Thu Dec 29 2016 Rich Mattes <richmattes@gmail.com> - 1.3.1-2
-- Rebuild for eigen3-3.3.1
-
-* Tue May 03 2016 Till Hofmann <hofmann@kbsg.rwth-aachen.de> - 1.3.1-1
-- Update to 1.3.1
-* Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
-* Sat Jun 27 2015 Till Hofmann <hofmann@kbsg.rwth-aachen.de> - 1.3.0-6
-- Add upstream patch to fix tests on ix86, reenable ix86
-- Add build requirement for graphviz
-- Make doc a noarch package
-* Thu Jun 18 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.3.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
-* Tue May 26 2015 Till Hofmann <hofmann@kbsg.rwth-aachen.de> - 1.3.0-4
-- Move documentation into doc package
-* Thu May 21 2015 Till Hofmann <hofmann@kbsg.rwth-aachen.de> - 1.3.0-3
-- Exclude arch ix86, because the unit tests fail
-* Thu Apr 30 2015 Till Hofmann <hofmann@kbsg.rwth-aachen.de> - 1.3.0-2
-- Clean up documentation (remove kdl.tag, install html doc)
-- Split python bindings into separate SPEC file
-* Thu Mar 26 2015 Till Hofmann <hofmann@kbsg.rwth-aachen.de> - 1.3.0-1
-- Update to 1.3.0
-- Remove libsuffix and version patches (included upstream)
-- Enable tests
-- Include python subpackage using bootstrapping
-* Fri Apr 11 2014 Till Hofmann <hofmann@kbsg.rwth-aachen.de> - 1.2.2-1
-- Update to 1.2.2
-* Fri Mar 14 2014 Till Hofmann <hofmann@kbsg.rwth-aachen.de> - 1.1.102-2
-- Include libsuffix patch
-* Fri Feb 14 2014 Till Hofmann <hofmann@kbsg.rwth-aachen.de> - 1.1.102-1
-- Initial package
+%autochangelog

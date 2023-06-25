@@ -1,10 +1,11 @@
 %if 0%{?fedora} || 0%{?rhel} < 10
 %bcond_without gtk2
+%bcond_without qt5
 %endif
 
 Name:    pinentry
 Version: 1.2.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Collection of simple PIN or passphrase entry dialogs
 
 License: GPL-2.0-or-later
@@ -29,7 +30,9 @@ BuildRequires: ncurses-devel
 BuildRequires: libgpg-error-devel
 BuildRequires: libassuan-devel
 BuildRequires: libsecret-devel
+%if %{with qt5}
 BuildRequires: pkgconfig(Qt5Core) pkgconfig(Qt5Gui) pkgconfig(Qt5Widgets)
+%endif
 
 Requires(pre): %{_sbindir}/update-alternatives
 
@@ -64,6 +67,7 @@ http://www.gnupg.org/aegypten/ for details.
 This package contains the GTK GUI based version of the PIN entry dialog.
 %endif
 
+%if %{with qt5}
 %package qt
 Summary: Passphrase/PIN entry dialog based on Qt5
 Requires: %{name} = %{version}-%{release}
@@ -75,6 +79,7 @@ Pinentry is a collection of simple PIN or passphrase entry dialogs which
 utilize the Assuan protocol as described by the aegypten project; see
 http://www.gnupg.org/aegypten/ for details.
 This package contains the Qt4 GUI based version of the PIN entry dialog.
+%endif
 
 %package emacs
 Summary: Passphrase/PIN entry dialog based on emacs
@@ -111,7 +116,11 @@ This package contains the tty version of the PIN entry dialog.
 %else
   --disable-pinentry-gtk2 \
 %endif
+%if %{with qt5}
   --enable-pinentry-qt5 \
+%else
+  --disable-pinentry-qt5 \
+%endif
   --enable-pinentry-emacs \
   --enable-pinentry-tty \
   --enable-libsecret
@@ -126,7 +135,9 @@ This package contains the tty version of the PIN entry dialog.
 %if %{with gtk2}
 ln -s pinentry-gtk-2 $RPM_BUILD_ROOT%{_bindir}/pinentry-gtk
 %endif
+%if %{with qt5}
 ln -s pinentry-qt $RPM_BUILD_ROOT%{_bindir}/pinentry-qt4
+%endif
 
 install -p -m755 -D %{SOURCE10} $RPM_BUILD_ROOT%{_bindir}/pinentry
 
@@ -150,10 +161,12 @@ rm -fv $RPM_BUILD_ROOT%{_infodir}/dir
 %{_bindir}/pinentry-gtk
 %endif
 
+%if %{with qt5}
 %files qt
 %{_bindir}/pinentry-qt
 # symlink for backward compatibility
 %{_bindir}/pinentry-qt4
+%endif
 
 %files emacs
 %{_bindir}/pinentry-emacs
@@ -162,6 +175,9 @@ rm -fv $RPM_BUILD_ROOT%{_infodir}/dir
 %{_bindir}/pinentry-tty
 
 %changelog
+* Tue Jun 20 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.2.1-3
+- Disable qt in RHEL 10 builds
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

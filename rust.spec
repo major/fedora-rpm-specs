@@ -84,7 +84,7 @@
 
 Name:           rust
 Version:        1.70.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The Rust Programming Language
 License:        (ASL 2.0 or MIT) and (BSD and MIT)
 # ^ written as: (rust itself) and (bundled libraries)
@@ -105,6 +105,18 @@ Patch1:         0001-Use-lld-provided-by-system-for-wasm.patch
 
 # Set a substitute-path in rust-gdb for standard library sources.
 Patch2:         rustc-1.70.0-rust-gdb-substitute-path.patch
+
+# Override default target CPUs to match distro settings
+# TODO: upstream this ability into the actual build configuration
+Patch3:         0001-Let-environment-variables-override-some-default-CPUs.patch
+
+# Added default target cpu to `--print target-cpus` output
+# https://github.com/rust-lang/rust/pull/110876
+Patch4:         0001-Rollup-merge-of-110876-mj10021-issue-110647-fix-r-b-.patch
+
+# Improve `--print target-cpus` for non-bundled LLVM
+# https://github.com/rust-lang/rust/pull/111274
+Patch5:         0001-Expand-the-LLVM-coverage-of-print-target-cpus.patch
 
 ### RHEL-specific patches below ###
 
@@ -574,6 +586,9 @@ test -f '%{local_rust_root}/bin/rustc'
 
 %patch -P1 -p1
 %patch -P2 -p1
+%patch -P3 -p1
+%patch -P4 -p1
+%patch -P5 -p1
 
 %if %with disabled_libssh2
 %patch -P100 -p1
@@ -646,24 +661,20 @@ find -name '*.rs' -type f -perm /111 -exec chmod -v -x '{}' '+'
 %endif
 
 # These are similar to __cflags_arch_* in /usr/lib/rpm/redhat/macros
-%if 0%{?fedora} || 0%{?rhel} >= 9
-%ifarch x86_64
-%global rust_target_cpu %[0%{?rhel} >= 10 ? "x86-64-v3" : ""]
-%global rust_target_cpu %[0%{?rhel} == 9 ? "x86-64-v2" : "%{rust_target_cpu}"]
-%endif
-%ifarch s390x
-%global rust_target_cpu %[0%{?rhel} >= 9 ? "z14" : "zEC12"]
-%endif
-%ifarch ppc64le
-%global rust_target_cpu %[0%{?rhel} >= 9 ? "pwr9" : "pwr8"]
-%endif
-%endif
+%{lua: function rustc_target_cpus()
+  local fedora = tonumber(rpm.expand("0%{?fedora}"))
+  local rhel = tonumber(rpm.expand("0%{?rhel}"))
+  local env =
+    " RUSTC_TARGET_CPU_X86_64=x86-64" .. ((rhel >= 10) and "-v3" or (rhel == 9) and "-v2" or "")
+    .. " RUSTC_TARGET_CPU_PPC64LE=" .. ((rhel >= 9) and "pwr9" or "pwr8")
+    .. " RUSTC_TARGET_CPU_S390X=" ..
+        ((rhel >= 9) and "z14" or (rhel == 8 or fedora >= 38) and "z13" or
+         (fedora >= 26) and "zEC12" or (rhel == 7) and "z196" or "z10")
+  return env
+end}
 
 # Set up shared environment variables for build/install/check
-%global rust_env %{?rustflags:RUSTFLAGS="%{rustflags}"}
-%if "%{?rust_target_cpu}" != ""
-%global rust_env %{?rust_env} CARGO_TARGET_%{rust_triple_env}_RUSTFLAGS=-Ctarget-cpu=%{rust_target_cpu}
-%endif
+%global rust_env %{?rustflags:RUSTFLAGS="%{rustflags}"} %{lua: print(rustc_target_cpus())}
 %if %defined cmake_path
 %global rust_env %{?rust_env} PATH="%{cmake_path}:$PATH"
 %endif
@@ -1049,6 +1060,9 @@ end}
 
 
 %changelog
+* Fri Jun 23 2023 Josh Stone <jistone@redhat.com> - 1.70.0-2
+- Override default target CPUs to match distro settings
+
 * Thu Jun 01 2023 Josh Stone <jistone@redhat.com> - 1.70.0-1
 - Update to 1.70.0.
 

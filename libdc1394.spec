@@ -3,7 +3,7 @@ Name:       libdc1394
 Summary:    1394-based digital camera control library
 Version:    2.2.7
 Release:    %autorelease
-License:    LGPLv2+
+License:    LGPL-2.0-or-later
 URL:        http://sourceforge.net/projects/%{name}/
 
 ExcludeArch:    s390 s390x

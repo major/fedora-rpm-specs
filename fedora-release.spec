@@ -449,6 +449,17 @@ Suggests: lorax-templates-rhel
 # RHEL does.
 Suggests: nmap-ncat
 
+# Prefer over original standalone versions (without pipewire- prefix)
+Suggests: pipewire-jack-audio-connection-kit
+Suggests: pipewire-jack-audio-connection-kit-devel
+Suggests: pipewire-pulseaudio
+
+# Prefer over Lmod for Provides: environment(modules)
+Suggests: environment-modules
+
+# Prefer over elinks, w3m for Provides: text-www-browser
+Suggests: lynx
+
 RemovePathPostfixes: .eln
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity

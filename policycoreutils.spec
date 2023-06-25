@@ -11,7 +11,7 @@
 Summary: SELinux policy core utilities
 Name:    policycoreutils
 Version: 3.5
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPL-2.0-or-later
 # https://github.com/SELinuxProject/selinux/wiki/Releases
 Source0: https://github.com/SELinuxProject/selinux/releases/download/3.5/selinux-3.5.tar.gz
@@ -36,6 +36,15 @@ Patch0002: 0002-Don-t-be-verbose-if-you-are-not-on-a-tty.patch
 Patch0003: 0003-sepolicy-generate-Handle-more-reserved-port-types.patch
 Patch0004: 0004-sandbox-Use-matchbox-window-manager-instead-of-openb.patch
 Patch0005: 0005-Use-SHA-2-instead-of-SHA-1.patch
+Patch0006: 0006-python-chcat-Improve-man-pages.patch
+Patch0007: 0007-python-audit2allow-Add-missing-options-to-man-page.patch
+Patch0008: 0008-python-semanage-Improve-man-pages.patch
+Patch0009: 0009-python-audit2allow-Remove-unused-debug-option.patch
+Patch0010: 0010-policycoreutils-Add-examples-to-man-pages.patch
+Patch0011: 0011-python-sepolicy-Improve-man-pages.patch
+Patch0012: 0012-sandbox-Add-examples-to-man-pages.patch
+Patch0013: 0013-python-sepolicy-Fix-template-for-confined-user-polic.patch
+Patch0014: 0014-python-sepolicy-Fix-spec-file-dependencies.patch
 # Patch list end
 
 Obsoletes: policycoreutils < 2.0.61-2
@@ -443,6 +452,11 @@ The policycoreutils-restorecond package contains the restorecond service.
 %systemd_postun_with_restart restorecond.service
 
 %changelog
+* Wed Jun 21 2023 Vit Mojzis <vmojzis@redhat.com> - 3.5-5
+- python/sepolicy: Fix spec file dependencies
+- python/sepolicy: Fix template for confined user policy modules
+- Improve man pages and add examples
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.5-4
 - Rebuilt for Python 3.12
 

@@ -7,7 +7,7 @@
 %global crate want
 
 Name:           rust-want
-Version:        0.3.0
+Version:        0.3.1
 Release:        %autorelease
 Summary:        Detect when another Future wants a result
 

@@ -6,7 +6,7 @@ Version:        0
 Release:        %autorelease -s %{snapdate}.%{shortcommit}
 Summary:        Open Source C++ OPC-UA Server and Client Library
 
-License:        LGPLv3+
+License:        LGPL-3.0-or-later
 URL:            http://freeopcua.github.io/
 Source0:        https://github.com/FreeOpcUa/freeopcua/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 # Do not override build flags, we want to use the Fedora flags

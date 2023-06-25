@@ -18,7 +18,9 @@ BuildRequires: mvn(org.jboss:jboss-parent:pom:)
 BuildRequires: mvn(jakarta.xml.bind:jakarta.xml.bind-api)
 
 BuildArch:     noarch
+%if 0%{?fedora}
 ExclusiveArch:  %{java_arches} noarch
+%endif
 
 %description
 JSR 339: JAX-RS 2.0: The Java API for RESTful Web Services.

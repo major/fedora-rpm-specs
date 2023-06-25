@@ -5,7 +5,7 @@ Version:        1.12.4
 Release:        %autorelease -s %{shortcommit}
 Summary:        Cross-platform camera capture for Intel RealSense
 
-License:        ASL 2.0 and BSD
+License:        Apache-2.0
 URL:            https://github.com/IntelRealSense/librealsense
 Source0:        https://github.com/IntelRealSense/librealsense/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 # Remove custom CFLAGS that override ours.

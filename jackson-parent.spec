@@ -14,7 +14,9 @@ BuildRequires:  maven-local
 BuildRequires:  mvn(com.fasterxml:oss-parent:pom:)
 
 BuildArch:      noarch
+%if 0%{?fedora}
 ExclusiveArch:  %{java_arches} noarch
+%endif
 
 %description
 Project for parent pom for all Jackson components.

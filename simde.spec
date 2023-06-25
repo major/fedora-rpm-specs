@@ -27,7 +27,7 @@ Summary: SIMD Everywhere
 #   simde/hedley.h: CC0
 # Consider relicensing CC0 code to another license (MIT?)
 # https://github.com/simd-everywhere/simde/issues/999
-License: MIT and CC0-1.0
+License: MIT AND CC0-1.0
 URL: https://github.com/simd-everywhere/simde
 Source0: https://github.com/simd-everywhere/simde/archive/%{commit_simde}.tar.gz
 # Use the `.packit/ci.sh` separately until the file will be included in the

@@ -2,12 +2,12 @@ Name: mythes-mi
 Summary: Maori thesaurus
 %global upstreamid 20080630
 Version: 0.%{upstreamid}
-Release: 27%{?dist}
+Release: 28%{?dist}
 # Source is dead now
 # Source: http://packages.papakupu.maori.nz/mythes/mythes-mi-0.1.%%{upstreamid}-beta.tar.gz
 Source: mythes-mi-0.1.%{upstreamid}-beta.tar.gz
 URL: http://papakupu.maori.nz/
-License: Public Domain
+License: LicenseRef-Fedora-Public-Domain
 BuildArch: noarch
 Requires: mythes
 Supplements: (mythes and langpacks-mi)
@@ -31,6 +31,9 @@ cp -p mi.idx $RPM_BUILD_ROOT/%{_datadir}/mythes/th_mi_NZ_v2.idx
 %{_datadir}/mythes/*
 
 %changelog
+* Fri Jun 23 2023 Parag Nemade <pnemade AT redhat DOT com> - 0.20080630-28
+- Migrate to SPDX license expression
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20080630-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

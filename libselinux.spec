@@ -4,7 +4,7 @@
 Summary: SELinux library and simple utilities
 Name: libselinux
 Version: 3.5
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: LicenseRef-Fedora-Public-Domain
 # https://github.com/SELinuxProject/selinux/wiki/Releases
 Source0: https://github.com/SELinuxProject/selinux/releases/download/3.5/libselinux-3.5.tar.gz
@@ -17,6 +17,7 @@ Url: https://github.com/SELinuxProject/selinux/wiki
 # $ i=1; for j in 00*patch; do printf "Patch%04d: %s\n" $i $j; i=$((i+1));done
 # Patch list start
 Patch0001: 0001-Use-SHA-2-instead-of-SHA-1.patch
+Patch0002: 0002-libselinux-Add-examples-to-man-pages.patch
 # Patch list end
 BuildRequires: gcc make
 BuildRequires: ruby-devel ruby libsepol-static >= %{libsepolver} swig pcre2-devel xz-devel
@@ -214,6 +215,9 @@ rm -f %{buildroot}%{_mandir}/man8/togglesebool*
 %{ruby_vendorarchdir}/selinux.so
 
 %changelog
+* Thu Jun 22 2023 Vit Mojzis <vmojzis@redhat.com> - 3.5-4
+- Add examples to man pages
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.5-3
 - Rebuilt for Python 3.12
 

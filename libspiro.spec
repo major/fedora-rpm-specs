@@ -1,11 +1,11 @@
 Name:           libspiro
 Version:        20221101
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Library to simplify the drawing of beautiful curves
 
 # The files that are used to compile this library are all in GPLv3+
 # https://github.com/fontforge/libspiro/issues/8
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://github.com/fontforge/libspiro/
 # Let's use libspiro-dist tarball from upstream as it does not require autoreconf
 Source0:        https://github.com/fontforge/libspiro/releases/download/%{version}/libspiro-dist-%{version}.tar.gz
@@ -51,6 +51,9 @@ make check
 %{_mandir}/man3/libspiro.3.gz
 
 %changelog
+* Fri Jun 23 2023 Parag Nemade <pnemade AT redhat DOT com> - 20221101-3
+- Migrate to SPDX license expression
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20221101-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

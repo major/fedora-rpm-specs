@@ -3,7 +3,7 @@
 
 Name:           %{archive_name}
 Epoch:          1
-Version:        6.17.1
+Version:        6.17.2
 Release:        1%{?dist}
 Summary:        Best practices checker for Ansible
 
@@ -70,6 +70,9 @@ ln -sr %{buildroot}%{_bindir}/%{name}{,-3}
 %{_bindir}/%{name}-3
 
 %changelog
+* Fri Jun 23 2023 Parag Nemade <pnemade AT redhat DOT com> - 1:6.17.2-1
+- Update to 6.17.2 version (#2216901)
+
 * Fri Jun 16 2023 Maxwell G <maxwell@gtmx.me> - 1:6.17.1-1
 - Update to 6.17.1. Fixes rhbz#2211403.
 

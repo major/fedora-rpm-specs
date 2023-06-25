@@ -28,6 +28,9 @@ Summary:        Experimental and deprecated Go packages
 License:        BSD
 URL:            %{gourl}
 Source0:        %{gosource}
+# Fix TestNormalTerms tests
+# https://github.com/golang/exp/commit/145caa8ea1d065cbc846dfd1a5602c914b97f9d8
+Patch:          https://github.com/golang/exp/commit/145caa8ea1d065cbc846dfd1a5602c914b97f9d8.patch
 
 BuildRequires:  libglvnd-devel
 %description
@@ -37,6 +40,10 @@ BuildRequires:  libglvnd-devel
 
 %prep
 %goprep
+%autopatch -p1
+
+# Nohing depends on golang(golang.org/x/exp/*) and requires old opentelemetry libraries
+rm -rf event
 
 %generate_buildrequires
 %go_generate_buildrequires
@@ -56,7 +63,7 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 
 %if %{with check}
 %check
-%gocheck -d golang.org/x/exp/cmd/gorelease -d golang.org/x/exp/constraints -d golang.org/x/exp/sumdb/internal/tlog
+%gocheck -d golang.org/x/exp/cmd/gorelease -d golang.org/x/exp/constraints -d golang.org/x/exp/sumdb/internal/tlog -d golang.org/x/exp/jsonrpc2
 %endif
 
 %files

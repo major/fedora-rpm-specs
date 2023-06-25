@@ -234,6 +234,7 @@ Patch407:        mozilla-1667096.patch
 
 # PGO/LTO patches
 Patch600:        pgo.patch
+Patch602:        mozilla-1516803.patch
 Patch603:        firefox-gcc-always-inline.patch
 
 # tentative patch for RUSTFLAGS parsing issue:
@@ -507,6 +508,7 @@ This package contains results of tests executed during build.
 %if %{build_with_pgo}
 %if !%{build_with_clang}
 %patch600 -p1 -b .pgo
+%patch602 -p1 -b .1516803
 %endif
 %endif
 %patch603 -p1 -b .inline

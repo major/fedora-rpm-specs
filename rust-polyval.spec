@@ -5,7 +5,7 @@
 %global crate polyval
 
 Name:           rust-polyval
-Version:        0.6.0
+Version:        0.6.1
 Release:        %autorelease
 Summary:        GHASH-like universal hash over GF(2^128)
 

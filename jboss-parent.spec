@@ -5,7 +5,9 @@ Summary:        JBoss Parent POM
 License:        CC0-1.0
 URL:            http://www.jboss.org/
 BuildArch:      noarch
+%if 0%{?fedora}
 ExclusiveArch:  %{java_arches} noarch
+%endif
 
 Source0:        https://github.com/jboss/jboss-parent-pom/archive/%{name}-%{version}.tar.gz
 Source1:        http://repository.jboss.org/licenses/cc0-1.0.txt

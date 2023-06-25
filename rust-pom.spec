@@ -5,7 +5,7 @@
 %global crate pom
 
 Name:           rust-pom
-Version:        3.2.0
+Version:        3.3.0
 Release:        %autorelease
 Summary:        PEG parser combinators using operator overloading without macros
 
@@ -44,6 +44,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+utf8-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+utf8-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "utf8" feature of the "%{crate}" crate.
+
+%files       -n %{name}+utf8-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

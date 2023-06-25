@@ -10,7 +10,9 @@ URL:            https://github.com/FasterXML/jackson-jaxrs-providers
 Source0:        %{url}/archive/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
+%if 0%{?fedora}
 ExclusiveArch:  %{java_arches} noarch
+%endif
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(com.fasterxml.jackson.core:jackson-core) >= %{version}

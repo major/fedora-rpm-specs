@@ -1,8 +1,8 @@
-%global cinnamon_desktop_version 5.6.0
+%global cinnamon_desktop_version 5.8.0
 
 Summary: Cinnamon session manager
 Name:    cinnamon-session
-Version: 5.8.0
+Version: 5.8.1
 Release: 1%{?dist}
 License: GPLv2+ and LGPLv2+
 URL:     https://github.com/linuxmint/%{name}
@@ -79,6 +79,9 @@ the other core components and handles logout and saving the session.
 %{_datadir}/glib-2.0/schemas/org.cinnamon.SessionManager.gschema.xml
 
 %changelog
+* Fri Jun 23 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.1-1
+- Update to 5.8.1 release
+
 * Fri Jun 02 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.0-1
 - Update to 5.8.0 release
 

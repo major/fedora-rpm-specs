@@ -1,6 +1,6 @@
 Summary: Collection of performance monitoring tools for Linux
 Name: sysstat
-Version: 12.7.2
+Version: 12.7.4
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 
@@ -75,7 +75,7 @@ fi
 
 %files -f %{name}.lang
 %license COPYING
-%doc CHANGES CREDITS FAQ.md README.md %{name}-%{version}.lsm
+%doc CHANGES CREDITS FAQ.md README.md
 %config(noreplace) %{_sysconfdir}/sysconfig/sysstat
 %config(noreplace) %{_sysconfdir}/sysconfig/sysstat.ioconf
 %{_bindir}/cifsiostat
@@ -102,6 +102,9 @@ fi
 %{_localstatedir}/log/sa
 
 %changelog
+* Fri Jun 23 2023 Lukáš Zaoral <lzaoral@redhat.com> - 12.7.4-1
+- Update to v12.7.4 (rhbz#2216900)
+
 * Mon Jan 30 2023 Lukáš Zaoral <lzaoral@redhat.com> - 12.7.2-1
 - Update to v12.7.2 (rhbz#2165400)
 - Use SPDX license format

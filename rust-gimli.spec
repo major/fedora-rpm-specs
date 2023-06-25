@@ -6,16 +6,13 @@
 %global crate gimli
 
 Name:           rust-gimli
-Version:        0.27.2
+Version:        0.27.3
 Release:        %autorelease
 Summary:        Library for reading and writing the DWARF debugging format
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gimli
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * exclude test fixtures from installed files
-Patch:          gimli-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
@@ -37,7 +34,6 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/CHANGELOG.md
-%doc %{crate_instdir}/CONTRIBUTING.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -152,8 +148,6 @@ use the "write" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
 %cargo_prep
-# remove stray executable bit
-chmod -x tests/parse_self.rs
 
 %generate_buildrequires
 %cargo_generate_buildrequires

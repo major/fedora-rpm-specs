@@ -4,7 +4,7 @@ Release:        %autorelease
 Epoch:          1
 Summary:        A cross-platform multimedia library
 Summary(fr):    Une bibliothèque multimédia multi-plateforme
-License:        zlib
+License:        Zlib
 URL:            http://www.glfw.org/index.html
 Source0:        https://github.com/glfw/glfw/archive/%{version}/%{name}-%{version}.tar.gz
 
