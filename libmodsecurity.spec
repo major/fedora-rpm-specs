@@ -1,23 +1,17 @@
 Name: libmodsecurity
-Version: 3.0.8
-Release: 3%{?dist}
+Version: 3.0.9
+Release: 1%{?dist}
 Summary: A library that loads/interprets rules written in the ModSecurity SecRules
 
 License: Apache-2.0
 URL: https://github.com/SpiderLabs/ModSecurity
 
 Source0: https://github.com/SpiderLabs/ModSecurity/releases/download/v%{version}/modsecurity-v%{version}.tar.gz
-# https://github.com/SpiderLabs/ModSecurity/pull/2828
-# Remove CHANGES changes
-Patch0:  2828.patch
 
-BuildRequires: autoconf
-BuildRequires: automake
 BuildRequires: bison
 BuildRequires: flex
 BuildRequires: gcc-c++
 BuildRequires: git-core
-BuildRequires: libtool
 BuildRequires: make
 BuildRequires: pkgconfig(libcurl)
 BuildRequires: pkgconfig(libmaxminddb)
@@ -63,8 +57,7 @@ applications that use %{name}.
 
 
 %build
-autoreconf -ivf
-%configure --libdir=%{_libdir} --with-lmdb --with-pcre2 --with-pcre=no
+%configure --libdir=%{_libdir} --with-lmdb --with-pcre2 --without-pcre
 %make_build
 
 
@@ -95,6 +88,14 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Sat Apr 15 2023 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 3.0.9-1
+- 2828.patch: drop, included in 3.0.9
+- Remove deps required for autoreconf
+- Minor cosmetic change for configure
+- ModSecurity_cookie_parsing_fix_303.patch: remove as not required since 3.0.4
+- 0001-Fix-build-on-non-x86-arch.patch: remove as not required since 3.0.4
+- modsecurity.pc: drop as is being shipped since 3.0.3
+
 * Mon Mar 27 2023 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 3.0.8-3
 - Use PCRE2 rhbz#2128321
 - Use libmaxminddb instead of old GeoIP

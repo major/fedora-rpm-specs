@@ -5,7 +5,7 @@
 %global crate pep508_rs
 
 Name:           rust-pep508_rs
-Version:        0.1.5
+Version:        0.2.1
 Release:        %autorelease
 Summary:        Library for python dependency specifiers, better known as PEP 508
 
@@ -13,7 +13,7 @@ License:        Apache-2.0 OR BSD-2-Clause
 URL:            https://crates.io/crates/pep508_rs
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * prevent unused shared library with C-ABI from being built
+# * drop unused Python bindings
 Patch:          pep508_rs-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -74,30 +74,6 @@ use the "modern" feature of the "%{crate}" crate.
 %files       -n %{name}+modern-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+pyo3-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+pyo3-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "pyo3" feature of the "%{crate}" crate.
-
-%files       -n %{name}+pyo3-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+pyo3-log-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+pyo3-log-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "pyo3-log" feature of the "%{crate}" crate.
-
-%files       -n %{name}+pyo3-log-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+serde-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -149,8 +125,7 @@ use the "toml" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * ignore harmless test failure caused by cosmetic string differences
-%cargo_test -- -- --skip tests::basic_examples
+%cargo_test
 %endif
 
 %changelog

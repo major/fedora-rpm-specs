@@ -1,80 +1,64 @@
-%global fontname sil-padauk
-%global fontconf 65-%{fontname}
+Version:  3.003
+Release:  12%{?dist}
+URL:      https://software.sil.org/padauk/
 
-%global common_desc \
+%global         foundry         SIL
+%global         fontlicense     OFL-1.1
+%global         fontlicenses    LICENSE.md
+%global         fontdocs        *.txt documentation
+%global         fontdocsex      %{fontlicenses}
+
+%global common_description %{expand:
 Padauk is a pan Burma font designed to support all Myanmar script based \
 languages. It covers all of the Unicode Myanmar script blocks and works \
-on all OpenType and Graphite based systems.
+on all OpenType and Graphite based systems.}
 
-Name:    %{fontname}-fonts
-Version: 3.003
-Release: 11%{?dist}
-Summary: A font for Burmese and the Myanmar script
+%global fontfamily0       Padauk
+%global fontsummary0      A font for Burmese and the Myanmar script
+%global fonts0            Padauk-*.ttf
+%global fontconfs0        %{SOURCE10}
+%global fontdescription0  %{expand:
+%{common_description}
 
-License: OFL
-URL:     https://software.sil.org/padauk/
-Source0: https://github.com/silnrsi/font-padauk/releases/download/v%{version}/padauk-%{version}.zip
-Source1: %{name}-fontconfig.conf
-Source2: %{name}-book-fontconfig.conf
-Source3: %{fontname}.metainfo.xml
-Source4: %{fontname}-book.metainfo.xml
+This package provide the base fonts.}
 
-BuildArch: noarch
-BuildRequires: fontpackages-devel
-BuildRequires: fonttools
-Requires:      fontpackages-filesystem
 
-%description
-%common_desc
+%global fontfamily2       Padauk Book
+%global fontsummary2      Padauk Book fonts
+%global fonts2            PadaukBook*.ttf
+%global fontconfs2        %{SOURCE11}
+%global fontdescription2  %{expand:
+%global fontpkgname2      sil-padauk-book-fonts
+%{common_description}
 
-%_font_pkg -f %{fontconf}.conf Padauk-Regular.ttf Padauk-Bold.ttf
-%doc *.txt documentation
-%{_datadir}/appdata/%{fontname}.metainfo.xml
+This package provide Padauk Book family font.}
 
-%package -n %{fontname}-book-fonts
-Summary:  A font for Burmese and the Myanmar script
+Source0:  https://github.com/silnrsi/font-padauk/releases/download/v%{version}/padauk-%{version}.zip
+Source10: 65-%{fontpkgname0}.conf
+Source11: 65-%{fontpkgname2}.conf
 
-%description -n %{fontname}-book-fonts
-Padauk Book family font.
-
-%common_desc
-
-%_font_pkg -n book -f %{fontconf}-book.conf PadaukBook*.ttf
-%{_datadir}/appdata/%{fontname}-book.metainfo.xml
-%doc *.txt documentation
+%fontpkg -a
 
 %prep
-%autosetup -n padauk-%{version}
-sed -i 's/\r//' *.txt documentation/DOCUMENTATION.txt
+%autosetup -n padauk-3.003
+%linuxtext *.txt documentation/*.txt
 
 %build
-# nothing to do here
+%fontbuild -a
 
 %install
-install -m 0755 -d %{buildroot}%{_fontdir}
-install -m 0644 -p *.ttf %{buildroot}%{_fontdir}
+%fontinstall -a
 
-install -m 0755 -d %{buildroot}%{_fontconfig_templatedir} \
-                   %{buildroot}%{_fontconfig_confdir}
+%check
+%fontcheck -a
 
-install -m 0644 -p %{SOURCE1} \
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}.conf
-install -m 0644 -p %{SOURCE2} \
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}-book.conf
-
-ln -s %{_fontconfig_templatedir}/%{fontconf}.conf \
-      %{buildroot}%{_fontconfig_confdir}/%{fontconf}.conf
-
-ln -s %{_fontconfig_templatedir}/%{fontconf}-book.conf \
-      %{buildroot}%{_fontconfig_confdir}/%{fontconf}-book.conf
-
-# Add AppStream metadata
-install -Dm 0644 -p %{SOURCE3} \
-        %{buildroot}%{_datadir}/appdata/%{fontname}.metainfo.xml
-install -Dm 0644 -p %{SOURCE4} \
-        %{buildroot}%{_datadir}/appdata/%{fontname}-book.metainfo.xml
+%fontfiles -a
 
 %changelog
+* Fri Jun 23 2023 Parag Nemade <pnemade AT fedoraproject DOT org> - 3.003-12
+- Convert to new fonts packaging guidelines
+- Migrate to SPDX license expression
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.003-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

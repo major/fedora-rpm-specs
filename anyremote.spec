@@ -1,8 +1,8 @@
 Summary: Remote control through Wi-Fi or bluetooth connection
 Name: anyremote
 Version: 6.7.3
-Release: 9%{?dist}
-License: GPLv3+
+Release: 10%{?dist}
+License: GPL-3.0-or-later
 Source0: http://downloads.sourceforge.net/anyremote/%{name}-%{version}.tar.gz
 URL: http://anyremote.sourceforge.net/
 Requires: bc,wmctrl,ImageMagick,anyremote-data >= 6.7.3
@@ -51,6 +51,9 @@ Documentation for anyRemote
 
 
 %changelog
+* Sat Jun 24 2023 Sérgio Basto <sergio@serjux.com> - 6.7.3-10
+- Migrate to SPDX license format
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.7.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

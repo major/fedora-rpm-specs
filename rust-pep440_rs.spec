@@ -5,7 +5,7 @@
 %global crate pep440_rs
 
 Name:           rust-pep440_rs
-Version:        0.3.9
+Version:        0.3.11
 Release:        %autorelease
 Summary:        Library for python version numbers and specifiers, implementing PEP 440
 
@@ -13,7 +13,7 @@ License:        Apache-2.0 OR BSD-2-Clause
 URL:            https://crates.io/crates/pep440_rs
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * prevent unused shared library with C-ABI from being built
+# * drop unused Python bindings
 Patch:          pep440_rs-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
@@ -52,18 +52,6 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+pyo3-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+pyo3-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "pyo3" feature of the "%{crate}" crate.
-
-%files       -n %{name}+pyo3-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+serde-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -74,6 +62,18 @@ This package contains library source intended for building other packages which
 use the "serde" feature of the "%{crate}" crate.
 
 %files       -n %{name}+serde-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+tracing-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+tracing-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "tracing" feature of the "%{crate}" crate.
+
+%files       -n %{name}+tracing-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

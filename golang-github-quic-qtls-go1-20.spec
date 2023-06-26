@@ -4,9 +4,10 @@
 
 # https://github.com/quic-go/qtls-go1-20
 %global goipath         github.com/quic-go/qtls-go1-20
-Version:                0.2.0
+Version:                0.2.2
 
 %gometa -f
+
 
 %global common_description %{expand:
 Go standard library TLS 1.3 implementation, modified for QUIC. For Go 1.20.}
@@ -28,6 +29,7 @@ Source:         %{gosource}
 
 %prep
 %goprep
+%autopatch -p1
 
 %generate_buildrequires
 %go_generate_buildrequires

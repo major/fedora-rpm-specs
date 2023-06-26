@@ -2,7 +2,7 @@ Name:           perl-UNIVERSAL-require
 Version:        0.19
 Release:        7%{?dist}
 Summary:        Require() modules from a variable
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/UNIVERSAL-require
 Source0:        https://cpan.metacpan.org/modules/by-module/UNIVERSAL/UNIVERSAL-require-%{version}.tar.gz
 Patch0:         UNIVERSAL-require-0.18-provides.patch
@@ -24,7 +24,7 @@ BuildRequires:  perl(Config)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More) >= 0.47
-# Runtime
+# Dependencies
 Requires:       perl(UNIVERSAL)
 
 %description
@@ -34,7 +34,7 @@ Requires:       perl(UNIVERSAL)
 %setup -q -n UNIVERSAL-require-%{version}
 
 # Hide "package UNIVERSAL" from rpm to avoid bogus provide
-%patch0
+%patch -P 0
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor

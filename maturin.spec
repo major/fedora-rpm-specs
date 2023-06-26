@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           maturin
-Version:        1.0.1
+Version:        1.1.0
 Release:        %autorelease
 Summary:        Build and publish Rust crates as Python packages
 SourceLicense:  MIT OR Apache-2.0
@@ -44,6 +44,10 @@ Patch:          0002-drop-incompatible-cargo-flags-from-setuptools_rust.patch
 
 # * drop #!/usr/bin/env python3 shebang from maturin/__init__.py
 Patch:          0003-remove-shebang-from-non-executable-__init__.py-file.patch
+
+# * bump minijinja dependency from 0.34 to 1.0:
+#   https://github.com/PyO3/maturin/commit/7302439
+Patch:          0004-bump-minijinja-dependency-from-0.34-to-1.0.patch
 
 BuildRequires:  rust-packaging >= 23
 BuildRequires:  python3-devel

@@ -1,6 +1,6 @@
 Name:           python-exabgp
 Version:        4.2.21
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        The BGP swiss army knife of networking (Library)
 
 License:        BSD-3-Clause
@@ -59,19 +59,19 @@ install -p -m 0755 bin/healthcheck %{buildroot}%{_sbindir}/exabgp-healthcheck
 install -p -m 0755 bin/exabgpcli %{buildroot}%{_bindir}/
 
 # Configure required directories for the exabgp service
-mkdir -p %{buildroot}/%{_sysconfdir}/exabgp
-touch %{buildroot}/%{_sysconfdir}/exabgp/exabgp.env
+mkdir -p %{buildroot}%{_sysconfdir}/exabgp
+touch %{buildroot}%{_sysconfdir}/exabgp/exabgp.env
 
 # Install exabgp systemd unit files
-mkdir -p %{buildroot}/%{_unitdir}
-install -p -m 0644 %{SOURCE3} %{buildroot}/%{_unitdir}/exabgp.service
-install -p -m 0644 %{SOURCE4} %{buildroot}/%{_unitdir}/exabgp@.service
+mkdir -p %{buildroot}%{_unitdir}
+install -p -m 0644 %{SOURCE3} %{buildroot}%{_unitdir}/exabgp.service
+install -p -m 0644 %{SOURCE4} %{buildroot}%{_unitdir}/exabgp@.service
 
 # Install man pages
-mkdir -p %{buildroot}/%{_mandir}/man1
-install -p -m 0644 doc/man/exabgp.1 %{buildroot}/%{_mandir}/man1/
-mkdir -p %{buildroot}/%{_mandir}/man5
-install -p -m 0644 doc/man/exabgp.conf.5 %{buildroot}/%{_mandir}/man5/
+mkdir -p %{buildroot}%{_mandir}/man1
+install -p -m 0644 doc/man/exabgp.1 %{buildroot}%{_mandir}/man1/
+mkdir -p %{buildroot}%{_mandir}/man5
+install -p -m 0644 doc/man/exabgp.conf.5 %{buildroot}%{_mandir}/man5/
 
 # Install sysusers.d files
 mkdir -p %{buildroot}%{_sysusersdir}
@@ -122,6 +122,9 @@ rm -rf %{buildroot}%{_usr}/etc
 %{_tmpfilesdir}/exabgp.conf
 
 %changelog
+* Sat Jun 24 2023 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 4.2.21-5
+- Remove errant slashes from paths in spec file
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 4.2.21-4
 - Rebuilt for Python 3.12
 

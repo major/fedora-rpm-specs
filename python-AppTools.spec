@@ -2,10 +2,10 @@
 %global forgeurl https://github.com/enthought/%{srcname}
 
 Name:    python-AppTools
-Version: 5.2.0
+Version: 5.2.1
 %forgemeta
 
-Release: 3%{?dist}
+Release: 1%{?dist}
 Summary: Enthought Tool Suite Application Tools
 License: BSD and LGPLv2+
 
@@ -97,6 +97,9 @@ popd
 %doc docs/build/html examples README.fedora
 
 %changelog
+* Sat Jun 24 2023 Orion Poplawski <orion@nwra.com> - 5.2.1-1
+- Update to 5.2.1
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 5.2.0-3
 - Rebuilt for Python 3.12
 

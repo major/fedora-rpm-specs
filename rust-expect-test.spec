@@ -2,23 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate gix-chunk
+%global crate expect-test
 
-Name:           rust-gix-chunk
-Version:        0.4.3
+Name:           rust-expect-test
+Version:        1.4.1
 Release:        %autorelease
-Summary:        Interact with the git chunk file format
+Summary:        Minimalistic snapshot testing library
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/gix-chunk
+URL:            https://crates.io/crates/expect-test
 Source:         %{crates_source}
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Interact with the git chunk file format used in multi-pack index and
-commit-graph files.}
+Minimalistic snapshot testing library.}
 
 %description %{_description}
 
@@ -35,6 +33,7 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/CHANGELOG.md
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

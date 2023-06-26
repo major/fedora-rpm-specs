@@ -1,10 +1,10 @@
 Name:		adns
 Version:	1.6.0
-Release:	8%{?dist}
+Release:	9%{?dist}
 
 Summary:	Advanced, easy to use, asynchronous-capable DNS client library
 
-License:	GPL+
+License:	GPL-1.0-or-later
 URL:		http://www.chiark.greenend.org.uk/~ian/adns/
 Source0:	http://www.chiark.greenend.org.uk/~ian/adns/ftp/%{name}-%{version}.tar.gz
 
@@ -105,6 +105,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libadns.a
 %attr(755,root,root) %{_bindir}/*
 
 %changelog
+* Sat Jun 24 2023 Sérgio Basto <sergio@serjux.com> - 1.6.0-9
+- Migrate to SPDX license format
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

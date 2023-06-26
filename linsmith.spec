@@ -1,5 +1,5 @@
 Name:           linsmith
-Version:        0.99.32
+Version:        0.99.33
 Release:        1%{?dist}
 Summary:        A Smith charting program
 
@@ -69,6 +69,9 @@ mv %{buildroot}/%{_datadir}/%{name} examples/
 
 
 %changelog
+* Sat Jun 24 2023 Filipe Rosset <rosset.filipe@gmail.com> - 0.99.33-1
+- Update to 0.99.33 fixes rhbz#2216816
+
 * Fri Jun 16 2023 Filipe Rosset <rosset.filipe@gmail.com> - 0.99.32-1
 - Update to 0.99.32 fixes rhbz#2215587
 

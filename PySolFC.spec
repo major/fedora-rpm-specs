@@ -2,9 +2,9 @@
 
 Name:           PySolFC
 Version:        2.20.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A collection of solitaire card games
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://pysolfc.sourceforge.io
 Source0:        https://downloads.sourceforge.net/pysolfc/%{name}-%{version}.tar.xz
 Source1:        pysol-start-script
@@ -89,6 +89,9 @@ find "$RPM_BUILD_ROOT%{python3_sitelib}/pysollib" -name '*.py' | xargs -L1 perl 
 
 
 %changelog
+* Sat Jun 24 2023 Sérgio Basto <sergio@serjux.com> - 2.20.1-4
+- Migrate to SPDX license format
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.20.1-3
 - Rebuilt for Python 3.12
 

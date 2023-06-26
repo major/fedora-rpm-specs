@@ -34,7 +34,6 @@ URL: https://www.qcad.org/
 
 BuildRequires: qt5-qtbase-devel >= 5.9.0
 BuildRequires: qt5-rpm-macros >= 5.9.0
-BuildRequires: qt5-qtwebkit-devel >= 5.9.0
 BuildRequires: qt5-qttools-devel >= 5.9.0
 BuildRequires: qt5-qttools-static >= 5.9.0
 BuildRequires: qt5-qtscript-devel >= 5.9.0
@@ -86,9 +85,9 @@ You dont need any CAD experience to get started with QCAD immediately.
 %autosetup -n %{name}-%{version} -p0
 
 # Use Fedora Qt5 scripts
-cp -a src/3rdparty/qt-labs-qtscriptgenerator-5.15.3 src/3rdparty/qt-labs-qtscriptgenerator-5.15.9
-mv src/3rdparty/qt-labs-qtscriptgenerator-5.15.9/qt-labs-qtscriptgenerator-5.15.3.pro \
- src/3rdparty/qt-labs-qtscriptgenerator-5.15.9/qt-labs-qtscriptgenerator-5.15.9.pro
+cp -a src/3rdparty/qt-labs-qtscriptgenerator-5.15.3 src/3rdparty/qt-labs-qtscriptgenerator-5.15.10
+mv src/3rdparty/qt-labs-qtscriptgenerator-5.15.10/qt-labs-qtscriptgenerator-5.15.3.pro \
+ src/3rdparty/qt-labs-qtscriptgenerator-5.15.10/qt-labs-qtscriptgenerator-5.15.10.pro
 
 %build
 # QT is known not to work properly with LTO at this point.  Some of the issues

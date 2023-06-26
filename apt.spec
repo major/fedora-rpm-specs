@@ -14,10 +14,10 @@
 
 Name:           apt
 Version:        2.7.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Command-line package manager for Debian packages
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://tracker.debian.org/pkg/apt
 Source0:        https://salsa.debian.org/apt-team/%{name}/-/archive/%{version}/%{name}-%{version}.tar.gz
 Patch1:         apt_include_cstdint.patch
@@ -310,6 +310,9 @@ exit 0
 %doc %{_docdir}/%{name}-utils
 
 %changelog
+* Sat Jun 24 2023 Sérgio Basto <sergio@serjux.com> - 2.7.1-2
+- Migrate to SPDX license format
+
 * Mon Jun 12 2023 Mosaab Alzoubi <moceap[At]fedoraproject[Dot]org> - 2.7.1-1
 - Update to 2.7.1
 

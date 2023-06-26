@@ -8,12 +8,15 @@
 
 Name:       rocm-runtime
 Version:    %{rocm_version}
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    ROCm Runtime Library
 
 License:    NCSA
 URL:        https://github.com/RadeonOpenCompute/ROCR-Runtime
 Source0:    https://github.com/RadeonOpenCompute/ROCR-Runtime/archive/refs/tags/rocm-%{version}.tar.gz#/%{name}-%{version}.tar.gz
+
+#https://github.com/RadeonOpenCompute/ROCR-Runtime/issues/153
+Patch0:     assertion-fix.patch
 
 Patch1:     0002-fix-link-time-ordering-condition.patch
 
@@ -76,6 +79,9 @@ ROCm Runtime development files
 %{_libdir}/cmake/hsa-runtime64/
 
 %changelog
+* Sat Jun 24 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.5.0-2
+- Fix RHBZ#2216826
+
 * Mon May 01 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.5.0-1
 - Update to 5.5
 

@@ -5,7 +5,7 @@
 %global crate gix-validate
 
 Name:           rust-gix-validate
-Version:        0.7.5
+Version:        0.7.6
 Release:        %autorelease
 Summary:        Validation functions for various kinds of names in git
 

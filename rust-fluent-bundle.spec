@@ -15,6 +15,7 @@ URL:            https://crates.io/crates/fluent-bundle
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop unused, benchmark-only criterion dev-dependency to speed up builds
+# * bump self_cell dependency from 0.10 to 1.0
 Patch:          fluent-bundle-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21

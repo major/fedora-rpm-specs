@@ -4,7 +4,7 @@
 
 # https://github.com/otiai10/mint
 %global goipath         github.com/otiai10/mint
-Version:                1.5.1
+Version:                1.6.1
 
 %gometa
 

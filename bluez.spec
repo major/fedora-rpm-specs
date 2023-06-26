@@ -6,7 +6,7 @@
 
 Name:    bluez
 Version: 5.66
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Bluetooth utilities
 License: GPLv2+
 URL:     http://www.bluez.org/
@@ -20,6 +20,7 @@ Patch1: 0001-obex-Use-GLib-helper-function-to-manipulate-paths.patch
 Patch2: power-state-adapter-property.patch
 # Upstreamed patches
 Patch3: transient-hostname-fix.patch
+Patch4: 0001-adapter-Use-regular-discovery-for-filters-which-only.patch
 
 BuildRequires: dbus-devel >= 1.6
 BuildRequires: glib2-devel
@@ -321,6 +322,10 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_userunitdir}/obex.service
 
 %changelog
+* Sun Jun 25 2023 Bastien Nocera <bnocera@redhat.com> - 5.66-6
+- Add patch that fixes some devices not being discoverable in
+  GNOME's Bluetooth Settings
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.66-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

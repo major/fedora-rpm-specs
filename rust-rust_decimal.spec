@@ -5,7 +5,7 @@
 %global crate rust_decimal
 
 Name:           rust-rust_decimal
-Version:        1.29.1
+Version:        1.30.0
 Release:        %autorelease
 Summary:        Decimal number implementation written in pure Rust
 
@@ -125,6 +125,18 @@ This package contains library source intended for building other packages which
 use the "maths-nopanic" feature of the "%{crate}" crate.
 
 %files       -n %{name}+maths-nopanic-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+proptest-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+proptest-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "proptest" feature of the "%{crate}" crate.
+
+%files       -n %{name}+proptest-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+rand-devel
@@ -298,7 +310,7 @@ use the "std" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * doctests fail to compile due to undeclared rust_decimal_macros dependency
+# * doctests can only be compiled and run in-tree
 # * integration tests require files which are not included in published crates
 %cargo_test -- --lib
 %endif

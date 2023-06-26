@@ -5,7 +5,7 @@
 %global crate minijinja
 
 Name:           rust-minijinja
-Version:        0.33.0
+Version:        1.0.1
 Release:        %autorelease
 Summary:        Powerful template engine for Rust with minimal dependencies
 
@@ -49,18 +49,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+adjacent-loop-items-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+adjacent-loop-items-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "adjacent-loop-items" feature of the "%{crate}" crate.
-
-%files       -n %{name}+adjacent-loop-items-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+adjacent_loop_items-devel
@@ -195,18 +183,6 @@ use the "macros" feature of the "%{crate}" crate.
 %files       -n %{name}+macros-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+multi-template-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+multi-template-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "multi-template" feature of the "%{crate}" crate.
-
-%files       -n %{name}+multi-template-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+multi_template-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -255,16 +231,16 @@ use the "serde_json" feature of the "%{crate}" crate.
 %files       -n %{name}+serde_json-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+testutils-devel
+%package     -n %{name}+unicase-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+testutils-devel %{_description}
+%description -n %{name}+unicase-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "testutils" feature of the "%{crate}" crate.
+use the "unicase" feature of the "%{crate}" crate.
 
-%files       -n %{name}+testutils-devel
+%files       -n %{name}+unicase-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+unicode-devel
