@@ -10,7 +10,7 @@ interaction with swarm optimizations.}
 
 Name:           python-%{pypi_name}
 Version:        1.3.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A Python-based Particle Swarm Optimization (PSO) library
 
 License:        MIT
@@ -21,6 +21,8 @@ Source0:        %{pypi_source %{pypi_name}}
 # already resolved in https://github.com/ljvmiranda921/pyswarms/pull/468
 # remove patch when new version is released
 Patch0:         Patch1.patch
+# matplotlib 3.7 support
+Patch1:         https://patch-diff.githubusercontent.com/raw/ljvmiranda921/pyswarms/pull/509.patch
 
 BuildArch:      noarch
 
@@ -94,6 +96,9 @@ rm -rf %{buildroot}/%{python3_sitelib}/tests
 %license LICENSE
 
 %changelog
+* Sun Jun 25 2023 Orion Poplawski <orion@nwra.com> - 1.3.0-14
+- Add upstream patch for matplotlib 3.7 support
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

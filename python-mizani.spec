@@ -78,14 +78,13 @@ sed -i -e 's/--cov=mizani --cov-report=xml//' pyproject.toml
 %install
 %pyproject_install
 %if %{with doc}
-  mkdir -p ${RPM_BUILD_ROOT}%{_pkgdocdir}
-  cp -a doc/_build/html ${RPM_BUILD_ROOT}%{_pkgdocdir}
-  rm -rf ${RPM_BUILD_ROOT}%{_pkgdocdir}/html/.buildinfo
+  mkdir -p %{buildroot}/%{_pkgdocdir}
+  cp -a doc/_build/html %{buildroot}/%{_pkgdocdir}
+  rm -rf %{buildroot}/%{_pkgdocdir}/html/.buildinfo
 %endif
 %if %{with man}
-  mkdir -p ${RPM_BUILD_ROOT}%{_mandir}/man1
-  cp -a doc/_build/man/*.1 ${RPM_BUILD_ROOT}%{_mandir}/man1
-  gzip ${RPM_BUILD_ROOT}%{_mandir}/man1/*.1
+  mkdir -p %{buildroot}/%{_mandir}/man1
+  cp -a doc/_build/man/*.1 %{buildroot}/%{_mandir}/man1
 %endif
 %pyproject_save_files %{pypi_name}
 
@@ -97,7 +96,7 @@ sed -i -e 's/--cov=mizani --cov-report=xml//' pyproject.toml
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md
 %if %{with man}
-%doc %{_mandir}/man1/*.1.gz
+%{_mandir}/man1/%{pypi_name}.1*
 %endif
 %license LICENSE
 %license licences/*LICENSE

@@ -27,8 +27,8 @@
 
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
-Version: 5.27.5
-Release: 2%{?dist}
+Version: 5.27.6
+Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/plasma/%{name}
@@ -809,6 +809,9 @@ fi
 
 
 %changelog
+* Sun Jun 25 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.6-1
+- 5.27.6
+
 * Mon Jun 12 2023 Timothée Ravier <tim@siosm.fr> - 5.27.5-2
 - Recommend kde-inotify-survey & kf5-audiocd-kio
 

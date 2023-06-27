@@ -2,7 +2,7 @@
 
 Name:    plasma-%{base_name}
 Summary: KDE System Settings application
-Version: 5.27.5
+Version: 5.27.6
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -120,6 +120,9 @@ Obsoletes: plasma-systemsettings-devel < 5.20.90
 
 
 %changelog
+* Sun Jun 25 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.6-1
+- 5.27.6
+
 * Wed May 10 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.5-1
 - 5.27.5
 

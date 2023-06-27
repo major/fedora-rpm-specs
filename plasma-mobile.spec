@@ -1,5 +1,5 @@
 Name:           plasma-mobile
-Version:        5.27.5
+Version:        5.27.6
 Release:        1%{?dist}
 License:        CC0 and GPLv2 and GPLv2+ and GPLv3 and GPLv3+ and LGPLv2+ and LGPLv2.1 and LGPLv2.1+ and LGPLv3 and LGPLv3 and MIT
 Summary:        General UI components for Plasma Phone including shell, containment and applets
@@ -111,6 +111,9 @@ Requires: qt5-qtwayland
 %{_kf5_qtplugindir}/plasma/applets/*.so
 
 %changelog
+* Sun Jun 25 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.6-1
+- 5.27.6
+
 * Tue May 16 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.5-1
 - 5.27.5
 

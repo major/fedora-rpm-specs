@@ -25,17 +25,13 @@ optimizes (max or min) the cross-validation scores, it can be used
 for both regression and classification problems.}
 
 Name:           python-%{pypi_name}
-Version:        0.9.0
+Version:        0.10.1
 Release:        %autorelease
 Summary:        Hyperparameters tuning and feature selection
 
 License:        MIT
 URL:            https://github.com/rodrigo-arenas/Sklearn-genetic-opt
 Source0:        %{forgesource}
-
-# Remove one test --- mlflow dependency is missing
-# thus, build script fails during the test collection
-Patch0:         0001-Remove-mlflow-test.patch
 
 BuildArch:      noarch
 
@@ -103,9 +99,10 @@ sed -i 's/{progress_bar}.gif/{progress_bar-0}.png/g' docs/_build/latex/sklearnge
 %pyproject_save_files sklearn_genetic
 
 %check
-# 4/117 tests are failing
 %if %{with tests}
-%pytest -k 'not test_tensorboard_callback'
+# Exclude test_mlflow -- mlflow dependency is missing
+# test_tensorboard_callback fails - https://github.com/rodrigo-arenas/Sklearn-genetic-opt/issues/134
+%pytest --ignore sklearn_genetic/tests/test_mlflow.py -k 'not test_tensorboard_callback'
 %endif
 
 %files -n python3-sklearn-genetic-opt -f %{pyproject_files}

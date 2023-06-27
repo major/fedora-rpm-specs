@@ -1,8 +1,8 @@
 Name:    pcp
-Version: 6.0.4
+Version: 6.0.5
 Release: 1%{?dist}
 Summary: System-level performance monitoring and performance management
-License: GPLv2+ and LGPLv2+ and CC-BY
+License: GPL-2.0-or-later AND LGPL-2.1-or-later AND CC-BY-3.0
 URL:     https://pcp.io
 
 %global  artifactory https://performancecopilot.jfrog.io/artifactory
@@ -3362,6 +3362,10 @@ fi
 %files zeroconf -f pcp-zeroconf-files.rpm
 
 %changelog
+* Mon Jun 26 2023 Nathan Scott <nathans@redhat.com> - 6.0.5-1
+- Ensure rotated pmie log files are pcp:pcp owned (BZ 2217209)
+- Update to latest PCP sources.
+
 * Mon May 15 2023 Nathan Scott <nathans@redhat.com> - 6.0.4-1
 - Rework LOCALHOSTNAME handling in control files (BZ 2172892)
 

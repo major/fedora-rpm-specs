@@ -1,6 +1,6 @@
 Name:		perl-Mail-Message
-Version:	3.012
-Release:	5%{?dist}
+Version:	3.013
+Release:	1%{?dist}
 Summary:	MIME message handling
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Mail-Message
@@ -59,7 +59,7 @@ BuildRequires:	perl(Text::Autoformat)
 BuildRequires:	perl(Time::HiRes) >= 1.51
 BuildRequires:	perl(Time::Zone)
 BuildRequires:	perl(URI) >= 1.23
-BuildRequires:	perl(User::Identity) >= 1.01
+BuildRequires:	perl(User::Identity) >= 1.02
 BuildRequires:	perl(User::Identity::Collection::Emails)
 BuildRequires:	perl(utf8)
 BuildRequires:	perl(vars)
@@ -78,7 +78,7 @@ Requires:	perl(Mail::Transport::Send)
 Requires:	perl(Net::Domain)
 Requires:	perl(Time::HiRes) >= 1.51
 Requires:	perl(Time::Zone)
-Requires:	perl(User::Identity) >= 1.01
+Requires:	perl(User::Identity) >= 1.02
 
 # I'm not sure why these provides aren't getting picked up automatically.
 Provides:	perl(Mail::Message::Body::Construct) = %{version}
@@ -104,6 +104,8 @@ MIME message handling code, formerly part of the Mail::Box package.
 # https://rt.cpan.org/Public/Bug/Display.html?id=120149
 rm -rf t/203-mlfolder.mbox t/204-sgfolder.mbox
 rm -rf t/203head-listgroup.t t/204head-spamgroup.t
+perl -i -ne 'print $_ unless m{^t/20[34]-(ml|sg)folder\.mbox$}' MANIFEST
+perl -i -ne 'print $_ unless m{^t/20[34]head-(list|spam)group\.t$}' MANIFEST
 
 %build
 yes y |perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -122,6 +124,9 @@ make test
 %{_mandir}/man3/Mail::*.3*
 
 %changelog
+* Sun Jun 25 2023 Paul Howarth <paul@city-fan.org> - 3.013-1
+- Update to 3.013 (rhbz#2217164)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.012-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

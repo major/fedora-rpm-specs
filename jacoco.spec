@@ -1,6 +1,6 @@
 Name:           jacoco
-Version:        0.8.8
-Release:        6%{?dist}
+Version:        0.8.10
+Release:        1%{?dist}
 Summary:        Java Code Coverage for Eclipse
 License:        EPL-2.0
 URL:            http://www.eclemma.org/jacoco/
@@ -40,13 +40,9 @@ A Jacoco plugin for maven.
 
 %prep
 
-# -S: enable usage of git repo
 # -p1: strip one level dir in patch(es)
 %autosetup -p1
-
-# delete precompiled jar and class files
-find -type f '(' -iname '*.jar' -o -iname '*.class' ')' -print -delete
-
+%pom_remove_dep :asm-bom org.jacoco.build
 # disable unnecessary modules
 %pom_disable_module ../jacoco org.jacoco.build
 %pom_disable_module ../org.jacoco.doc org.jacoco.build
@@ -103,7 +99,7 @@ find -type f '(' -iname '*.jar' -o -iname '*.class' ')' -print -delete
 %mvn_package :org.jacoco.build __noinstall
 
 %build
-%mvn_build -f -- -Dmaven.compiler.release=8 -Dproject.build.sourceEncoding=UTF-8 -Dbuild.date=$(date +%Y/%m/%d)
+%mvn_build -f -- -Dproject.build.sourceEncoding=UTF-8 -Dbuild.date=$(date +%Y/%m/%d)
 
 %install
 %mvn_install
@@ -124,6 +120,9 @@ echo %{name} %{name}/org.jacoco.ant objectweb-asm/asm > %{buildroot}%{_sysconfdi
 %files maven-plugin -f .mfiles-maven-plugin
 
 %changelog
+* Sun Jun 25 2023 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 0.8.10-1
+- Update to version 0.8.10
+
 * Mon Feb 20 2023 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 0.8.8-6
 - Reduce dependency
 

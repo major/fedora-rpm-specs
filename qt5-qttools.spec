@@ -13,7 +13,7 @@
 Summary: Qt5 - QtTool components
 Name:    qt5-qttools
 Version: 5.15.10
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -245,7 +245,7 @@ sed -i -e 's| Qt5UiPlugin||g' %{buildroot}%{_qt5_libdir}/pkgconfig/Qt5Designer.p
 %if 0%{?fedora} || 0%{?rhel} > 6
 %check
 # verify validity of Qt5Designer.pc
-export PKG_CONFIG_PATH=%{buildroot}%{_libdir}/pkgconfig
+export PKG_CONFIG_PATH=%{buildroot}%{_libdir}/pkgconfig:$PKG_CONFIG_PATH
 pkg-config --print-requires --print-requires-private Qt5Designer
 export CMAKE_PREFIX_PATH=%{buildroot}%{_qt5_prefix}:%{buildroot}%{_prefix}
 export PATH=%{buildroot}%{_qt5_bindir}:%{_qt5_bindir}:$PATH
@@ -482,6 +482,9 @@ fi
 
 
 %changelog
+* Sun Jun 25 2023 Kalev Lember <klember@redhat.com> - 5.15.10-2
+- Fix self tests when building for flatpak
+
 * Mon Jun 12 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.10-1
 - 5.15.10
 

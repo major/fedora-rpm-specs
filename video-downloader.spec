@@ -1,7 +1,7 @@
 %global uuid    com.github.unrud.VideoDownloader
 
 Name:           video-downloader
-Version:        0.12.2
+Version:        0.12.5
 Release:        %autorelease
 Summary:        Download videos from websites like YouTube and many others
 

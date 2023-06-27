@@ -3,7 +3,7 @@
 
 Name:    pam-kwallet
 Summary: PAM module for KWallet
-Version: 5.27.5
+Version: 5.27.6
 Release: 1%{?dist}
 
 License: LGPLv2+
@@ -71,6 +71,9 @@ Requires: kf5-kwallet
 
 
 %changelog
+* Sun Jun 25 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.6-1
+- 5.27.6
+
 * Wed May 10 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.5-1
 - 5.27.5
 

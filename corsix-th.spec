@@ -1,8 +1,9 @@
 %global appname CorsixTH
 %global uuid    com.corsixth.%{appname}
+%global tarball_version %%(echo %{version} | tr '~' '-')
 
 Name:           corsix-th
-Version:        0.66
+Version:        0.67~beta1
 Release:        %autorelease
 Summary:        Open source clone of Theme Hospital
 
@@ -12,7 +13,7 @@ Summary:        Open source clone of Theme Hospital
 # GPLv3+:       SpriteEncoder
 License:        MIT and BSD and GPLv3+
 URL:            https://github.com/CorsixTH/CorsixTH
-Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/v%{tarball_version}/%{name}-%{tarball_version}.tar.gz
 
 BuildRequires:  cmake >= 3.10
 BuildRequires:  desktop-file-utils
@@ -71,7 +72,7 @@ Package contains data files for %{name}.
 
 
 %prep
-%autosetup -n %{appname}-%{version} -p1
+%autosetup -n %{appname}-%{tarball_version} -p1
 
 
 %build

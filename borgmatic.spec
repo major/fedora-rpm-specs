@@ -1,5 +1,5 @@
 Name:           borgmatic
-Version:        1.7.14
+Version:        1.7.15
 Release:        %autorelease
 Summary:        Simple Python wrapper script for borgbackup
 
@@ -35,7 +35,7 @@ according to a retention policy, and validates backups for consistency.
 %build
 %pyproject_wheel
 
-%{__python3} -c 'from borgmatic.commands.completion import bash_completion; print(bash_completion())' > %{name}-bash-completion
+%{__python3} -c 'from borgmatic.commands.completion.bash import bash_completion; print(bash_completion())' > %{name}-bash-completion
 
 
 %install
@@ -59,7 +59,6 @@ install -Dpm 0644 %{name}-bash-completion %{buildroot}%{_datadir}/bash-completio
 %attr(0750, root, root) %{_sysconfdir}/borgmatic.d
 %{_bindir}/borgmatic
 %{_bindir}/generate-borgmatic-config
-%{_bindir}/upgrade-borgmatic-config
 %{_bindir}/validate-borgmatic-config
 %{_datadir}/bash-completion/completions/%{name}
 %{_unitdir}/borgmatic.service

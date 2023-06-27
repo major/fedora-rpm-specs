@@ -1,8 +1,8 @@
 %global pypi_name PyMuPDF
 
 Name:           python-%{pypi_name}
-Version:        1.22.3
-Release:        2%{?dist}
+Version:        1.22.5
+Release:        1%{?dist}
 Summary:        Python binding for MuPDF - a lightweight PDF and XPS viewer
 
 License:        AGPL-3.0-or-later
@@ -85,6 +85,9 @@ rm -f %{buildroot}%{_prefix}/README.md
 %doc docs_built/* README.md
 
 %changelog
+* Thu Jun 22 2023 Michael J Gruber <mjg@fedoraproject.org> - 1.22.5-1
+- Update to new upstream release 1.22.5 (rhbz#2216869)
+
 * Thu May 11 2023 Michael J Gruber <mjg@fedoraproject.org> - 1.22.3-2
 - Reenable test suite where possible
 

@@ -2,7 +2,7 @@ Name:           autotrace
 Version:        0.31.9
 Release:        %autorelease
 Summary:        Utility for converting bitmaps to vector graphics
-License:        GPLv2+ and LGPLv2+
+License:        GPL-2.0-or-later and LGPL-2.1-or-later
 URL:            http://autotrace.sourceforge.net/
 Source0:        https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 # https://github.com/autotrace/autotrace/pull/105

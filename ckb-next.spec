@@ -1,6 +1,6 @@
 Name:           ckb-next
-Version:        0.5.0
-Release:        5%{?dist}
+Version:        0.6.0
+Release:        1%{?dist}
 Summary:        Unofficial driver for Corsair RGB keyboards
 
 # ckb-next is GPLv2.
@@ -17,14 +17,6 @@ Source0:        %{URL}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        ckb-next.appdata.xml
 Source2:        ckb-next.1
 Source3:        99-ckb-next.preset
-
-# Fix the program aborting at launch because of a detected buffer overflow.
-# Backport of upstream commit:
-#   https://github.com/ckb-next/ckb-next/commit/c29a9f5e314ddb987b75cb05793ae1bf2bb9ae0c
-# See bug reports at:
-#   - https://bugzilla.redhat.com/show_bug.cgi?id=2192159
-#   - https://github.com/ckb-next/ckb-next/issues/940
-Patch0: 0000-fix-buffer-overflow-abort-on-launch.patch
 
 # CMakeLists need to be adjusted to compile properly with un-bundled kissfft
 Patch1: 0001-unbundle-kissfft.patch
@@ -72,7 +64,6 @@ supports much of the same functionality, including full RGB animations.
 
 # Remove the bundled libraries
 rm -rf src/libs/kissfft
-rm -rf src/libs/quazip
 
 # Fedora uses /usr/libexec for daemons
 sed -e '/^ExecStart/cExecStart=%{_libexecdir}/ckb-next-daemon' -i linux/systemd/ckb-next-daemon.service.in
@@ -90,7 +81,6 @@ sed -e 's|"/lib/udev/rules.d"|"%{_udevrulesdir}"|g' -i CMakeLists.txt
   -DFORCE_INIT_SYSTEM=systemd \
   -DSAFE_INSTALL=OFF \
   -DSAFE_UNINSTALL=OFF \
-  -DWITH_SHIPPED_QUAZIP=OFF \
 
 %cmake_build
 
@@ -135,6 +125,7 @@ udevadm control --reload-rules 2>&1 > /dev/null || :
 %{_bindir}/ckb-next
 %{_bindir}/ckb-next-dev-detect
 %{_libexecdir}/ckb-next-daemon
+%{_libexecdir}/ckb-next-sinfo
 %{_libexecdir}/ckb-next-animations/
 %{_libdir}/cmake/ckb-next/
 %{_datadir}/applications/ckb-next.desktop
@@ -149,6 +140,10 @@ udevadm control --reload-rules 2>&1 > /dev/null || :
 
 
 %changelog
+* Sun Jun 25 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.6.0-1
+- Update to v0.6.0
+- Drop Patch0 (buffer overflow fix - backported from this release)
+
 * Fri May 05 2023 Nicolas Chauvet <kwizart@gmail.com> - 0.5.0-5
 - Rebuilt for quazip 1.4
 

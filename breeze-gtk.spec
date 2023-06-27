@@ -1,5 +1,5 @@
 Name:    breeze-gtk
-Version: 5.27.5
+Version: 5.27.6
 Release: 1%{?dist}
 Summary: Breeze widget theme for GTK
 
@@ -107,6 +107,9 @@ Supplements:    (plasma-breeze and gtk4)
 
 
 %changelog
+* Sun Jun 25 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.6-1
+- 5.27.6
+
 * Wed May 10 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.5-1
 - 5.27.5
 

@@ -67,6 +67,7 @@ Source0:        https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/%{git
 %else
 Source0:        https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/%{version}/pipewire-%{version}.tar.gz
 %endif
+Source1:        pipewire.sysusers
 
 ## upstream patches
 Patch0001:	0001-jack-update-bufsize-and-samplerate-when-skipping-not.patch
@@ -131,6 +132,8 @@ BuildRequires:  speexdsp-devel
 %if %{with libmysofa}
 BuildRequires:  libmysofa-devel
 %endif
+BuildRequires:  systemd-rpm-macros
+%{?sysusers_requires_compat}
 
 Requires(pre):  shadow-utils
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
@@ -368,6 +371,7 @@ cp %{SOURCE1} subprojects/packagefiles/
 %meson_build
 
 %install
+install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/pipewire.conf
 %meson_install
 
 %if %{with jack}
@@ -410,10 +414,7 @@ echo "test failed"
 fi
 
 %pre
-getent group pipewire >/dev/null || groupadd -r pipewire
-getent passwd pipewire >/dev/null || \
-    useradd -r -g pipewire -d %{_localstatedir}/run/pipewire -s /sbin/nologin -c "PipeWire System Daemon" pipewire
-exit 0
+%sysusers_create_compat %{SOURCE1}
 
 %post
 %systemd_user_post pipewire.service
@@ -451,6 +452,7 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_datadir}/pipewire/pipewire-aes67.conf
 %{_mandir}/man5/pipewire.conf.5*
 %config(noreplace) %{_sysconfdir}/security/limits.d/*.conf
+%{_sysusersdir}/pipewire.conf
 
 %files libs -f %{name}.lang
 %license LICENSE COPYING

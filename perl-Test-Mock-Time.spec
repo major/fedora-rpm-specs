@@ -1,6 +1,6 @@
 Name:           perl-Test-Mock-Time
-Version:        0.1.7
-Release:        17%{?dist}
+Version:        0.2.0
+Release:        1%{?dist}
 Summary:        Deterministic time & timers for event loop tests
 License:        MIT
 
@@ -8,29 +8,32 @@ URL:            https://metacpan.org/release/Test-Mock-Time
 Source0:        https://cpan.metacpan.org/authors/id/P/PO/POWERMAN/Test-Mock-Time-v%{version}.tar.gz
 
 BuildArch:      noarch
+# build reqauirements
+BuildRequires:  coreutils
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(AnyEvent)
-BuildRequires:  perl(Carp)
-BuildRequires:  perl(Export::Attrs)
-BuildRequires:  perl(EV)
-BuildRequires:  perl(List::Util)
 BuildRequires:  perl(Module::Build::Tiny) >= 0.034
+# runtime requirements
+BuildRequires:  perl(Carp)
+BuildRequires:  perl(EV)
+BuildRequires:  perl(Export::Attrs)
+BuildRequires:  perl(List::Util) >= 1.33
+BuildRequires:  perl(Mojo::Reactor::Poll)
 BuildRequires:  perl(Mojolicious) >= 6
-BuildRequires:  perl(Mojo::IOLoop)
 BuildRequires:  perl(Scalar::Util)
-BuildRequires:  perl(Test::Distribution)
-BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::MockModule)
-BuildRequires:  perl(Test::More)
-BuildRequires:  perl(Test::Perl::Critic)
-BuildRequires:  perl(Test::Pod) >= 1.41
 BuildRequires:  perl(Time::HiRes)
+BuildRequires:  perl(bigint)
 BuildRequires:  perl(bignum)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(warnings)
+# test requirements
+BuildRequires:  perl(AnyEvent)
+BuildRequires:  perl(Mojo::IOLoop)
+BuildRequires:  perl(Test::Exception)
+BuildRequires:  perl(Test::More) >= 0.96
 
 %{?perl_default_filter}
 
@@ -44,7 +47,7 @@ with timers.
 %setup -q -n Test-Mock-Time-v%{version}
 
 %build
-%{__perl} Build.PL --installdirs=vendor
+/usr/bin/perl Build.PL --installdirs=vendor
 ./Build
 
 %install
@@ -52,7 +55,7 @@ with timers.
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-AUTHOR_TESTING=1 RELEASE_TESTING=1 ./Build test
+./Build test
 
 %files
 %doc Changes README
@@ -61,6 +64,12 @@ AUTHOR_TESTING=1 RELEASE_TESTING=1 ./Build test
 %{_mandir}/man3/Test*
 
 %changelog
+* Sun Jun 25 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.2.0-1
+- Update to 0.2.0
+- Update dependencies
+- Replace %%{__perl} with /usr/bin/perl
+- Disable author and release tests
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.7-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

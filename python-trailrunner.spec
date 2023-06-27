@@ -11,7 +11,7 @@ developer tools that need to find and operate on all files in project in a
 predictable fashion with a minimal API.}
 
 Name:           python-%{srcname}
-Version:        1.3.0
+Version:        1.4.0
 Release:        %autorelease
 Summary:        Walk paths and run things
 

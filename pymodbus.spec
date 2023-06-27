@@ -21,16 +21,13 @@ Server Features \
     * A number of backing contexts (database, redis, a slave device)
 
 Name: pymodbus
-Version: 3.3.1
+Version: 3.3.2
 Release: 1%{?dist}
 Summary: %{sum}
 
 License: BSD
 URL: https://github.com/pymodbus-dev/pymodbus/
 Source0: https://github.com/pymodbus-dev/pymodbus/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
-# Upstream patch, solves a startup issue with pymodbus.server
-#  commit: 56591a483c66c803ba7a3c092a3ab270e504b1cf
-Patch0: 0001-Fix-regression-with-REPL-server-not-listening-1604.patch
 
 BuildArch: noarch
 BuildRequires: python3-devel
@@ -88,6 +85,10 @@ rm -rf %{buildroot}%{python3_sitelib}/test
 %{_bindir}/pymodbus.simulator
 
 %changelog
+* Sun Jun 25 2023 Christian Krause <chkr@fedoraproject.org> - 3.3.2-1
+- Update to 3.3.2 (#2212064)
+- Remove patch already applied upstream
+
 * Sat Jun 17 2023 Christian Krause <chkr@fedoraproject.org> - 3.3.1-1
 - Update to 3.3.1 (#2212064)
 - Add upstream patch for pymodbus.server

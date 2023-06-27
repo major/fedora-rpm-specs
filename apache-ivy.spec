@@ -7,7 +7,7 @@
 
 Name:           apache-%{jarname}
 Version:        2.5.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Java-based dependency manager
 License:        Apache-2.0
 URL:            https://ant.apache.org/ivy
@@ -17,7 +17,6 @@ ExclusiveArch:  %{java_arches} noarch
 Source0:        https://archive.apache.org/dist/ant/%{jarname}/%{version}/%{name}-%{version}-src.tar.gz
 Source1:        https://archive.apache.org/dist/ant/%{jarname}/%{version}/%{name}-%{version}-src.tar.gz.asc
 Source2:        https://archive.apache.org/dist/ant/KEYS
-Source3:        https://repo1.maven.org/maven2/org/apache/ivy/%{jarname}/%{version}/%{jarname}-%{version}.pom
 
 # Non-upstreamable.  Add /etc/ivy/ivysettings.xml at the end list of
 # settings files Ivy tries to load.  This file will be used only as
@@ -25,9 +24,10 @@ Source3:        https://repo1.maven.org/maven2/org/apache/ivy/%{jarname}/%{versi
 Patch0:         00-global-settings.patch
 
 BuildRequires:  gnupg2
+BuildRequires:  ant
+BuildRequires:  ivy-local
 BuildRequires:  maven-local-openjdk11
 BuildRequires:  mvn(org.apache.ant:ant)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
 BuildRequires:  mvn(org.bouncycastle:bcpg-jdk15on)
 BuildRequires:  mvn(org.bouncycastle:bcprov-jdk15on)
 
@@ -62,20 +62,21 @@ reporting and publication.
 %{?javadoc_package}
 
 %prep
-# verify keys
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-# -p1: strip one level directory in patch(es)
 %autosetup -p1
 # Don't hardcode sysconfdir path
 sed -i 's:/etc/ivy/:%{_sysconfdir}/ivy/:' src/java/org/apache/ivy/ant/IvyAntSettings.java
-# delete precompiled jar and class files
-find -type f '(' -iname '*.jar' -o -iname '*.class' ')' -print -delete
-# copy pom files to current directory
-cp %{SOURCE3} pom.xml
-# remove parent
-%pom_remove_parent
-# apparently this is not a dependency, reporting upstream
+# dep has no jar
 %pom_remove_dep :jsch.agentproxy
+# remove test deps
+%pom_remove_dep junit:junit
+%pom_remove_dep org.hamcrest:hamcrest-core
+%pom_remove_dep org.hamcrest:hamcrest-library
+%pom_remove_dep org.apache.ant:ant-testutil
+%pom_remove_dep org.apache.ant:ant-junit
+%pom_remove_dep org.apache.ant:ant-junit4
+%pom_remove_dep ant-contrib:ant-contrib
+%pom_remove_dep xmlunit:xmlunit
 # optional dep: httpclient
 %if %{without httpclient}
 # remove all httpclient related dep(s)
@@ -120,109 +121,21 @@ rm src/java/org/apache/ivy/plugins/resolver/AbstractSshBasedResolver.java
 rm src/java/org/apache/ivy/plugins/resolver/SFTPResolver.java
 rm src/java/org/apache/ivy/plugins/resolver/SshResolver.java
 %endif
-# inject:
-# - to define source dir
-# - to define resources
-%pom_xpath_inject pom:project '
-<build>
-  <sourceDirectory>src/java</sourceDirectory>
-  <resources>
-    <resource>
-      <directory>src/java</directory>
-      <includes>
-        <include>**/*.css</include>
-        <include>**/*.ent</include>
-        <include>**/*.png</include>
-        <include>**/*.properties</include>
-        <include>**/*.template</include>
-        <include>**/*.xml</include>
-        <include>**/*.xsd</include>
-        <include>**/*.xsl</include>
-      </includes>
-      <excludes>
-        <exclude>**/*.java</exclude>
-      </excludes>
-    </resource>
-  </resources>
-</build>'
-# add antrun plugin:
-# - to copy file
-# - to define certain manifest
-%pom_add_plugin :maven-antrun-plugin '
-<executions>
-  <execution>
-    <id>compile</id>
-    <phase>compile</phase>
-    <goals>
-      <goal>run</goal>
-    </goals>
-    <configuration>
-      <target>
-        <!-- copy licenses -->
-        <copy file="${project.basedir}/NOTICE" 
-          tofile="${project.build.outputDirectory}/META-INF/NOTICE"/> 
-        <copy file="${project.basedir}/LICENSE" 
-          tofile="${project.build.outputDirectory}/META-INF/LICENSE"/> 
-
-        <!-- copy settings files for backward compatibility with ivyconf naming -->
-        <copy file="${project.build.outputDirectory}/org/apache/ivy/core/settings/ivysettings-local.xml" 
-          tofile="${project.build.outputDirectory}/org/apache/ivy/core/settings/ivyconf-local.xml"/> 
-        <copy file="${project.build.outputDirectory}/org/apache/ivy/core/settings/ivysettings-default-chain.xml" 
-          tofile="${project.build.outputDirectory}/org/apache/ivy/core/settings/ivyconf-default-chain.xml"/> 
-        <copy file="${project.build.outputDirectory}/org/apache/ivy/core/settings/ivysettings-main-chain.xml" 
-          tofile="${project.build.outputDirectory}/org/apache/ivy/core/settings/ivyconf-main-chain.xml"/> 
-        <copy file="${project.build.outputDirectory}/org/apache/ivy/core/settings/ivysettings-public.xml" 
-          tofile="${project.build.outputDirectory}/org/apache/ivy/core/settings/ivyconf-public.xml"/> 
-        <copy file="${project.build.outputDirectory}/org/apache/ivy/core/settings/ivysettings-shared.xml" 
-          tofile="${project.build.outputDirectory}/org/apache/ivy/core/settings/ivyconf-shared.xml"/> 
-        <copy file="${project.build.outputDirectory}/org/apache/ivy/core/settings/ivysettings.xml" 
-          tofile="${project.build.outputDirectory}/org/apache/ivy/core/settings/ivyconf.xml"/> 
-
-        <!--
-          there is a default Bundle-Version attribute in the source MANIFEST, used to ease
-          development in eclipse.
-          We remove this line to make sure we get the Bundle-Version as set in the jar task
-        -->
-        <copy file="${project.basedir}/META-INF/MANIFEST.MF" tofile="${project.build.outputDirectory}/META-INF/MANIFEST.MF">
-          <filterchain>
-            <replaceregex pattern="Bundle-Version:.*" replace="Bundle-Version: ${project.version}" byline="true"/>
-            <replaceregex pattern="Bundle-RequiredExecutionEnvironment:.*" replace="Bundle-RequiredExecutionEnvironment: ${java.version} (${java.vendor})" byline="true"/>
-          </filterchain>
-        </copy>
-      </target>
-    </configuration>
-  </execution>
-</executions>'
-# add jar plugin:
-# - to define manifest entries
-%pom_add_plugin :maven-jar-plugin '
-<configuration>
-  <archive>
-    <manifestEntries>
-      <Specification-Title>Apache Ivy with Ant tasks</Specification-Title>
-      <Specification-Version>${project.version}</Specification-Version>
-      <Specification-Vendor>Apache Software Foundation</Specification-Vendor>
-      <Implementation-Title>${project.groupId}</Implementation-Title>
-      <Implementation-Version>${project.version}</Implementation-Version>
-      <Implementation-Vendor>Apache Software Foundation</Implementation-Vendor>
-      <Implementation-Vendor-Id>org.apache</Implementation-Vendor-Id>
-      <Extension-name>${project.groupId}</Extension-name>
-      <Build-Version>${project.version}</Build-Version>
-    </manifestEntries>
-    <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
-  </archive>
-</configuration>'
 # compatibility
 %mvn_file : %{name}/ivy ivy
 # remove prebuilt documentation
 rm -rf asciidoc
+# publish artifacts through xmvn
+sed -i /ivy:publish/s/local/xmvn/ build.xml
 
 %build
-export JAVA_HOME=%{_jvmdir}/java-11
-%mvn_build -f -- -Dmaven.compiler.release=8
+%{?jpb_env} JAVA_HOME=%{_jvmdir}/java-11 ant \
+    -Divy.mode=local \
+    -f build-release.xml \
+    release-version jar javadoc publish-local
 
 %install
-%mvn_install
+%mvn_install -J build/reports/api
 # create ant deps
 mkdir -p %{buildroot}%{_sysconfdir}/ant.d
 echo "apache-ivy/ivy" > %{buildroot}%{_sysconfdir}/ant.d/%{name}
@@ -233,6 +146,9 @@ echo "apache-ivy/ivy" > %{buildroot}%{_sysconfdir}/ant.d/%{name}
 %{_sysconfdir}/ant.d/%{name}
 
 %changelog
+* Sun Jun 25 2023 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 2.5.1-3
+- Build with ivy instead of maven
+
 * Sat Apr 29 2023 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 2.5.1-2
 - migrated to SPDX license
 

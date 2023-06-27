@@ -1,5 +1,5 @@
 Name:    kinfocenter
-Version: 5.27.5
+Version: 5.27.6
 Release: 1%{?dist}
 Summary: KDE Info Center
 
@@ -125,6 +125,9 @@ Conflicts:      kde-workspace < 4.11.15-3
 
 
 %changelog
+* Sun Jun 25 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.6-1
+- 5.27.6
+
 * Wed May 10 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.5-1
 - 5.27.5
 

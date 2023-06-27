@@ -2,14 +2,15 @@
 
 Summary:        Desktop full text search tool with Qt GUI
 Name:           recoll
-Version:        1.34.6
-Release:        2%{?dist}
+Version:        1.34.7
+Release:        1%{?dist}
 License:        GPLv2+
 URL:            https://www.lesbonscomptes.com/recoll/
 Source0:        https://www.lesbonscomptes.com/recoll/recoll-%{version}.tar.gz
 Source1:        https://www.lesbonscomptes.com/recoll/downloads/gssp-recoll-%{gsspver}.tar.gz
 Source10:       qmake-qt5.sh
 Patch01:        recoll-1.25.11-appdata.patch
+Patch02:        https://framagit.org/medoc92/recoll/-/commit/70acdfd8c25f3a5429fbc8988758e2fa00c3833f.patch
 BuildRequires:  aspell-devel
 BuildRequires:  bison
 BuildRequires:  chmlib-devel
@@ -186,6 +187,10 @@ echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/recoll-%{_arc
 %{_datadir}/applications/org.recoll.Recoll.SearchProvider.desktop
 
 %changelog
+* Sun Jun 25 2023 Terje Rosten <terje.rosten@ntnu.no> - 1.34.7-1
+- 1.34.7
+- Add patch from upstream to fix bz#2213017 and bz#2203626
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.34.6-2
 - Rebuilt for Python 3.12
 

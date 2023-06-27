@@ -1,9 +1,9 @@
-%global shortver 82
+%global shortver 83
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
 Name:		grass
-Version:	8.2.1
-Release:	2%{?dist}
+Version:	8.3.0
+Release:	1%{?dist}
 Summary:	GRASS GIS - Geographic Resources Analysis Support System
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
@@ -29,7 +29,7 @@ URL:		https://grass.osgeo.org
 Source0:	https://grass.osgeo.org/%{name}%{shortver}/source/%{name}-%{version}.tar.gz
 
 # fix pkgconfig file
-Patch0:		grass-pkgconfig.patch
+Patch 0:	grass-pkgconfig.patch
 
 BuildRequires:	bison
 %if %{with flexiblas}
@@ -180,7 +180,7 @@ GRASS GIS development headers
 
 %prep
 %setup -q
-%patch0 -p1 -b.libdir
+%patch 0 -p1 -b.libdir
 
 # Correct mysql_config query
 sed -i -e 's/--libmysqld-libs/--libs/g' configure
@@ -352,7 +352,6 @@ fi
 %license AUTHORS COPYING GPL.TXT CHANGES
 %{_sysconfdir}/ld.so.conf.d/%{name}-%{_arch}.conf
 %{_libdir}/%{name}%{shortver}/lib/*.so
-%{_libdir}/%{name}%{shortver}/lib/*.a
 %dir %{_libdir}/%{name}%{shortver}/driver
 %dir %{_libdir}/%{name}%{shortver}/driver/db
 %{_libdir}/%{name}%{shortver}/driver/db/*
@@ -368,6 +367,9 @@ fi
 %{_libdir}/%{name}%{shortver}/include
 
 %changelog
+* Sun Jun 25 2023 Markus Neteler <neteler@mundialis.de> 8.3.0-1
+- New upstream version GRASS GIS 8.3.0
+
 * Thu May 11 2023 Sandro Mani <manisandro@gmail.com> - 8.2.1-2
 - Rebuild (gdal)
 

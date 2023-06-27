@@ -4,7 +4,7 @@
 %global jbig2dec_version 0.19
 
 Name:           mupdf
-Version:        1.22.1
+Version:        1.22.2
 # upstream prerelease versions tags need to be translated to Fedorian
 %global upversion %{version}
 Release:        %autorelease

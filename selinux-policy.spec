@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit 8f7ccc6e2f7fdc36666ae195e6c8a06bb611b862
+%global commit babc97bc83af7be306fcfaac65485faa09edfe89
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 38.17
+Version: 38.18
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -814,6 +814,23 @@ exit 0
 %endif
 
 %changelog
+* Sun Jun 25 2023 Zdenek Pytela <zpytela@redhat.com> - 38.18-1
+- Add support for kafs-dns requested by keyutils
+- Allow insights-client execmem
+- Add support for chronyd-restricted
+- Add init_explicit_domain() interface
+- Allow fsadm_t to get attributes of cgroup filesystems
+- Add list_dir_perms to kerberos_read_keytab
+- Label /var/run/tmpfiles.d/static-nodes.conf with kmod_var_run_t
+- Allow sendmail manage its runtime files
+- Allow keyutils_dns_resolver_exec_t be an entrypoint
+- Allow collectd_t read network state symlinks
+- Revert "Allow collectd_t read proc_net link files"
+- Allow nfsd_t to list exports_t dirs
+- Allow cupsd dbus chat with xdm
+- Allow haproxy read hardware state information
+- Add the kafs module
+
 * Thu Jun 15 2023 Zdenek Pytela <zpytela@redhat.com> - 38.17-1
 - Label /dev/userfaultfd with userfaultfd_t
 - Allow blueman send general signals to unprivileged user domains

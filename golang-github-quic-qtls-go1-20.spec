@@ -4,7 +4,7 @@
 
 # https://github.com/quic-go/qtls-go1-20
 %global goipath         github.com/quic-go/qtls-go1-20
-Version:                0.2.2
+Version:                0.3.0
 
 %gometa -f
 

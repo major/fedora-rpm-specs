@@ -6,7 +6,7 @@
 
 Name:           gpgme
 Summary:        GnuPG Made Easy - high level crypto API
-Version:        1.17.1
+Version:        1.20.0
 Release:        %autorelease
 
 # MIT: src/cJSON.{c,h} (used by gpgme-json)
@@ -25,27 +25,16 @@ Patch1003:      0001-fix-stupid-ax_python_devel.patch
 # Allow extra options to be passed to setup.py during installation
 Patch1004:      0002-setup_py_extra_opts.patch
 
-## upstream patches dealing with date and time overflow on 32-bit machines
-# Before gpgme 1.18.0
-Patch2001:      0001-qt-Prevent-u32-overflow-when-calculating-expiration.patch
-Patch2002:      0002-qt-tests-Allow-1-day-offset-for-expiration-date.patch
-# After gpgme 1.18.0
-Patch2003:      0003-qt-Make-sure-expiration-time-is-interpreted-as-unsigned.patch
-Patch2004:      0004-qt-tests-Log-the-actual-error-code-if-the-assertion-fails.patch
-Patch2005:      0005-qt-tests-Make-sure-expiration-time-is-interpreted-as-unsigned.patch
-Patch2006:      0006-qt-tests-Make-test-pass-on-32-bit-systems.patch
-Patch2007:      0007-cpp-Fix-handling-of-no-key-or-invalid-time-situation.patch
-
 ## temporary downstream fixes
 # Skip lang/qt/tests/t-remarks on gnupg 2.4+
 Patch3001:      1001-qt-skip-test-remarks-for-gnupg2-2.4.patch
 
-#BuildRequires:  autoconf
-#BuildRequires:  automake
 BuildRequires:  make
+BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  gawk
+BuildRequires:  texinfo
 BuildRequires:  gnupg2 >= %{gnupg2_min_ver}
 BuildRequires:  gnupg2-smime
 BuildRequires:  libgpg-error-devel >= %{libgpg_error_min_ver}
@@ -96,32 +85,57 @@ Provides:       gpgme-pp-devel = %{?epoch:%{epoch}:}%{version}-%{release}
 Provides:       gpgme-pp-devel%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       %{name}pp%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       %{name}-devel%{?_isa}
-# For automatic provides
-BuildRequires:  cmake
 
 %description -n %{name}pp-devel
 %{summary}
 
 %if %{with qt}
-%package -n q%{name}
-Summary:        Qt API bindings/wrapper for GPGME
+%package -n q%{name}-qt5
+Summary:        Qt5 API bindings/wrapper for GPGME
 Requires:       %{name}pp%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Test)
+Obsoletes:      q%{name} < 1.20.0
+Provides:       q%{name}
 
-%description -n q%{name}
+%description -n q%{name}-qt5
 %{summary}.
 
-%package -n q%{name}-devel
-Summary:        Development libraries and header files for %{name}
+%package -n q%{name}-qt6
+Summary:        Qt6 API bindings/wrapper for GPGME
+Requires:       %{name}pp%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+BuildRequires:  pkgconfig(Qt6Core)
+BuildRequires:  pkgconfig(Qt6Test)
+
+%description -n q%{name}-qt6
+%{summary}.
+
+%package -n q%{name}-common-devel
+Summary:        Common development header files for %{name}-qt5 and %{name}-qt6
+Requires:       %{name}pp-devel%{?_isa}
+
+%description -n q%{name}-common-devel
+%{summary}.
+
+%package -n q%{name}-qt5-devel
+Summary:        Development libraries and header files for %{name}-qt5
 # before libqgpgme.so symlink was moved to avoid conflict
 Conflicts:      kdepimlibs-devel < 4.14.10-17
-Requires:       q%{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       %{name}pp-devel%{?_isa}
-# For automatic provides
-BuildRequires:  cmake
+Requires:       q%{name}-qt5%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       q%{name}-common-devel%{?_isa}
+Obsoletes:      q%{name}-devel < 1.20.0
+Provides:       q%{name}-devel = %{?epoch:%{epoch}:}%{version}-%{release}
+Provides:       q%{name}-devel%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 
-%description -n q%{name}-devel
+%description -n q%{name}-qt5-devel
+%{summary}.
+
+%package -n q%{name}-qt6-devel
+Summary:        Development libraries and header files for %{name}-qt6
+Requires:       q%{name}-qt6%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       q%{name}-common-devel%{?_isa}
+
+%description -n q%{name}-qt6-devel
 %{summary}.
 %endif
 
@@ -148,6 +162,10 @@ sed -i -e 's|^libdir=@libdir@$|libdir=@exec_prefix@/lib|g' src/gpgme-config.in
 # https://github.com/gpg/gpgme/pull/4
 sed -i 's/3.8/%{python3_version}/g' configure
 
+# copy to a qt6 build directory as both can't be build in the same directory
+cd ..
+cp -r gpgme-%{version} gpgme-%{version}-qt6
+
 %build
 # People neeed to learn that you can't run autogen.sh anymore
 #./autogen.sh
@@ -162,7 +180,13 @@ export CFLAGS="$(echo ${CFLAGS} | tr '\n\\' '  ')"
 export CXXFLAGS="$(echo ${CXXFLAGS} | tr '\n\\' '  ')"
 export SETUPTOOLS_USE_DISTUTILS=local
 
+# qt5
 %configure --disable-static --disable-silent-rules --enable-languages=cpp,%{?with_qt:qt,}python
+%make_build
+
+# qt6
+cd ../gpgme-%{version}-qt6
+%configure --disable-static --disable-silent-rules --enable-languages=cpp,%{?with_qt:qt6,}python
 %make_build
 
 %install
@@ -171,6 +195,10 @@ export SETUPTOOLS_USE_DISTUTILS=local
 # SETUP_PY_EXTRA_OPTS is introduced by the Patch1004 above.
 export SETUPTOOLS_USE_DISTUTILS=local
 export SETUP_PY_EXTRA_OPTS="--single-version-externally-managed --root=/"
+# qt5
+%make_install
+# qt6
+cd ../gpgme-%{version}-qt6
 %make_install
 
 # unpackaged files
@@ -193,7 +221,10 @@ chrpath -d %{buildroot}%{_bindir}/%{name}-tool
 chrpath -d %{buildroot}%{_bindir}/%{name}-json
 chrpath -d %{buildroot}%{_libdir}/lib%{name}pp.so*
 %if %{with qt}
+# qt5
 chrpath -d %{buildroot}%{_libdir}/libq%{name}.so*
+# qt6
+chrpath -d %{buildroot}%{_libdir}/libq%{name}qt6.so*
 %endif
 
 # autofoo installs useless stuff for uninstall
@@ -234,15 +265,24 @@ make check
 %{_libdir}/cmake/Gpgmepp/
 
 %if %{with qt}
-%files -n q%{name}
+%files -n q%{name}-qt5
 %doc lang/qt/README
 %{_libdir}/libq%{name}.so.15*
 
-%files -n q%{name}-devel
+%files -n q%{name}-qt6
+%{_libdir}/libq%{name}qt6.so.15*
+
+%files -n q%{name}-common-devel
 %{_includedir}/q%{name}/
 %{_includedir}/QGpgME/
+
+%files -n q%{name}-qt5-devel
 %{_libdir}/libq%{name}.so
 %{_libdir}/cmake/QGpgme/
+
+%files -n q%{name}-qt6-devel
+%{_libdir}/libq%{name}qt6.so
+%{_libdir}/cmake/QGpgmeQt6/
 %endif
 
 %files -n python3-gpg

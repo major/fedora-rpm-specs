@@ -1,9 +1,9 @@
 Name:       debmirror
 Version:    2.37
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Debian partial mirror script, with ftp and package pool support
 
-License:    GPLv2+
+License:    GPL-2.0-or-later
 URL:        https://tracker.debian.org/pkg/debmirror
 Source:     https://ftp.debian.org/debian/pool/main/d/%{name}/%{name}_%{version}.tar.xz
 
@@ -51,6 +51,9 @@ pod2man %{name} %{buildroot}%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Sun Jun 25 2023 Sérgio Basto <sergio@serjux.com> - 2.37-3
+- Migrate to SPDX license format
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.37-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

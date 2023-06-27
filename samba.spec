@@ -138,7 +138,7 @@
 %define samba_requires_eq()  %(LC_ALL="C" echo '%*' | xargs -r rpm -q --qf 'Requires: %%{name} = %%{epoch}:%%{version}\\n' | sed -e 's/ (none):/ /' -e 's/ 0:/ /' | grep -v "is not")
 
 %global samba_version 4.18.3
-%global baserelease 3
+%global baserelease 4
 # This should be rc1 or %%nil
 %global pre_release %nil
 
@@ -1568,9 +1568,11 @@ fi
 
 %if %{with libwbclient}
 %pre -n libwbclient
-rm -rf %{_libdir}/samba/wbclient/
-rm -f /etc/alternatives/libwbclient.so*
-rm -f /var/lib/alternatives/libwbclient.so*
+if [ $1 -gt 1 ] ; then
+    rm -rf %{_libdir}/samba/wbclient/
+    rm -f /etc/alternatives/libwbclient.so*
+    rm -f /var/lib/alternatives/libwbclient.so*
+fi
 %{?ldconfig}
 #endif {with libwbclient}
 %endif
@@ -4331,6 +4333,9 @@ fi
 %endif
 
 %changelog
+* Mon Jun 26 2023 Adam Williamson <awilliam@redhat.com> - 4.18.3-4
+- Only run libwbclient %pre on upgrade, not fresh install
+
 * Fri Jun 23 2023 Andreas Schneider <asn@redhat.com> - 4.18.3-3
 - resolves: rhbz#2211577 - Fix libwbclient package upgrades
 

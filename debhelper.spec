@@ -7,10 +7,10 @@
 
 Name:           debhelper
 Version:        13.11.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Helper programs for debian/rules
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://tracker.debian.org/pkg/debhelper
 Source0:        http://ftp.debian.org/debian/pool/main/d/%{name}/%{name}_%{version}.tar.xz
 Patch2:         no_layout_deb.patch
@@ -169,6 +169,9 @@ make test
 %{perl_vendorlib}/*
 
 %changelog
+* Sun Jun 25 2023 Sérgio Basto <sergio@serjux.com> - 13.11.4-2
+- Migrate to SPDX license format
+
 * Sun Jan 22 2023 Sérgio Basto <sergio@serjux.com> - 13.11.4-1
 - Update debhelper to 13.11.4 (#2133214)
 

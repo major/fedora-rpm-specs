@@ -1,8 +1,8 @@
 Name:           perl-Mojolicious
-Version:        9.32
+Version:        9.33
 Release:        1%{?dist}
 Summary:        A next generation web framework for Perl
-License:        Artistic 2.0
+License:        Artistic-2.0
 
 URL:            https://metacpan.org/release/Mojolicious
 Source0:        http://cpan.metacpan.org/authors/id/S/SR/SRI/Mojolicious-%{version}.tar.gz
@@ -141,6 +141,10 @@ mv README.md lib/Mojolicious/
 %{perl_vendorlib}/Test
 
 %changelog
+* Sun Jun 25 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 9.33-1
+- Update to 9.33
+- Migrate License tag to SPDX
+
 * Sun May 14 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 9.32-1
 - Update to 9.32
 

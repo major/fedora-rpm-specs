@@ -28,7 +28,9 @@ Url:            https://github.com/sddm/sddm
 %if 0%{?commitdate}
 Source0:        %{url}/archive/%{commit}/%{name}-%{commit}.tar.gz
 %else
-Source0:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.xz
+Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+# Broken: https://github.com/sddm/sddm/pull/1743
+#Source0:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.xz
 %endif
 
 ## upstream patches

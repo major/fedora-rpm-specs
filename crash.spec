@@ -4,8 +4,8 @@
 Summary: Kernel analysis utility for live systems, netdump, diskdump, kdump, LKCD or mcore dumpfiles
 Name: crash
 Version: 8.0.3
-Release: 1%{?dist}
-License: GPLv3
+Release: 2%{?dist}
+License: GPL-3.0-only
 Source0: https://github.com/crash-utility/crash/archive/crash-%{version}.tar.gz
 Source1: http://ftp.gnu.org/gnu/gdb/gdb-10.2.tar.gz
 URL: https://crash-utility.github.io
@@ -65,6 +65,9 @@ cp -p defs.h %{buildroot}%{_includedir}/crash
 %{_includedir}/*
 
 %changelog
+* Sun Jun 25 2023 Sérgio Basto <sergio@serjux.com> - 8.0.3-2
+- Migrate to SPDX license format
+
 * Fri Apr 28 2023 Lianbo Jiang <lijiang@redhat.com> - 8.0.3-1
 - Rebase to upstream crash 8.0.3
 

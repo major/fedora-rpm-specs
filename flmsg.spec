@@ -2,12 +2,12 @@
 %global alpha 0
 
 Name:           flmsg
-Version:        4.0.20
-Release:        3%{?dist}
+Version:        4.0.22
+Release:        1%{?dist}
 Summary:        Fast Light Message Amateur Radio Forms Manager
 
 # Embedded mongoose is GPLv2
-License:        GPLv3+ and GPLv2
+License:        GPL-3.0-or-later and GPL-2.0
 URL:            http://www.w1hkj.com/
 %if %{alpha}
 Source0:        http://www.w1hkj.com/alpha/%{name}/%{name}-%{version}.tar.gz
@@ -75,6 +75,10 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sun Jun 25 2023 Richard Shaw <hobbes1069@gmail.com> - 4.0.22-1
+- Update to 2.0.22.
+- Update license tag to SPDX format.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.20-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,11 +1,11 @@
-%global gittag v0.9.82
+%global gittag v0.9.84
 #%%global commit b0f6c7ba092f2526481ce8340a349685e51db9a3
 #%%global shortcommit %%(c=%%{commit}; echo ${c:0:7})
 #%%global date 20220410
 
 Name:           ccdciel
 %if "%{?gittag}"
-Version:        0.9.82
+Version:        0.9.84
 %else
 Version:        0.9.79^%{date}%{shortcommit}
 %endif
@@ -26,7 +26,7 @@ Source0:        https://github.com/pchev/%{name}/archive/%{commit}/%{name}-%{com
 Patch100:       ccdciel-0.9.77_fix_debuginfo.patch
 
 ExclusiveArch:  %{fpc_arches}
-ExcludeArch:    ppc64le
+ExcludeArch:    ppc64le %{ix86}
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  fpc
