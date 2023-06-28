@@ -1,15 +1,11 @@
 Name:           onednn
-Version:        3.1.1
+Version:        3.2
 Release:        1%{?dist}
 Summary:        oneAPI Deep Neural Network Library
 
 License:        Apache-2.0 and BSD-2-Clause and BSD-3-Clause and BSL-1.0 and MIT
 URL:            https://github.com/oneapi-src/oneDNN/
 Source0:        %{url}/archive/v%{version}/onednn-%{version}.tar.gz
-
-# https://github.com/oneapi-src/oneDNN/pull/1554
-# https://github.com/fujitsu/xbyak_aarch64/pull/81
-Patch0:			aarch64-gcc13.patch
 
 # This package only work in 64bit arches for now
 ExclusiveArch:  x86_64 aarch64 ppc64le s390x
@@ -93,6 +89,9 @@ rm -rf %{buildroot}%{_docdir}/dnnl
 
 
 %changelog
+* Mon Jun 26 2023 Nicolas Chauvet <kwizart@gmail.com> - 3.2-1
+- Update to 3.2
+
 * Mon Jun 12 2023 Nicolas Chauvet <kwizart@gmail.com> - 3.1.1-1
 - Update to 3.1.1
 

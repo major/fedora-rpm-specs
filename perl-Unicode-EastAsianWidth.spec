@@ -1,21 +1,25 @@
 Name:		perl-Unicode-EastAsianWidth
 Version:	12.0
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	East Asian Width properties
-License:	CC0
+License:	CC0-1.0
 URL:		https://metacpan.org/release/Unicode-EastAsianWidth
 Source0:	https://cpan.metacpan.org/authors/id/A/AU/AUDREYT/Unicode-EastAsianWidth-%{version}.tar.gz
-Patch0:		perl-Unicode-EastAsianWidth-no-inc.patch
 BuildArch:	noarch
-BuildRequires: make
+BuildRequires:	coreutils
+BuildRequires:	make
 BuildRequires:	perl-generators
+BuildRequires:	perl-interpreter
 BuildRequires:	perl(base)
 BuildRequires:	perl(Exporter)
-BuildRequires:	perl(ExtUtils::MakeMaker)
-BuildRequires:	perl(Test)
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:	perl(lib)
 BuildRequires:	perl(Module::Package)
-BuildRequires:	perl(Pod::Markdown)
 BuildRequires:	perl(Module::Package::Au)
+BuildRequires:	perl(strict)
+BuildRequires:	perl(Test)
+BuildRequires:	perl(vars)
+BuildRequires:	perl(warnings)
 
 # Don't "provide" private Perl libs
 %{?perl_default_filter}
@@ -27,17 +31,16 @@ status of East Asian characters, as specified in
 
 %prep
 %setup -q -n Unicode-EastAsianWidth-%{version}
-%patch0 -p1 -b .noinc
-rm -rf inc/*
+rm -rf inc
+perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -exec rm -f {} ';'
-find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
+%{make_install}
+find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_fixperms} %{buildroot}
 
 %check
@@ -49,6 +52,10 @@ make test
 %{_mandir}/man3/Unicode::EastAsianWidth.3pm*
 
 %changelog
+* Mon Jun 26 2023 Jitka Plesnikova <jplesnik@redhat.com> - 12.0-11
+- Modernize spec
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

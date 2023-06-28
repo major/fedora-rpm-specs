@@ -3,7 +3,7 @@
 Summary:        Desktop full text search tool with Qt GUI
 Name:           recoll
 Version:        1.34.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPLv2+
 URL:            https://www.lesbonscomptes.com/recoll/
 Source0:        https://www.lesbonscomptes.com/recoll/recoll-%{version}.tar.gz
@@ -187,6 +187,9 @@ echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/recoll-%{_arc
 %{_datadir}/applications/org.recoll.Recoll.SearchProvider.desktop
 
 %changelog
+* Mon Jun 26 2023 Python Maint <python-maint@redhat.com> - 1.34.7-2
+- Rebuilt for Python 3.12
+
 * Sun Jun 25 2023 Terje Rosten <terje.rosten@ntnu.no> - 1.34.7-1
 - 1.34.7
 - Add patch from upstream to fix bz#2213017 and bz#2203626

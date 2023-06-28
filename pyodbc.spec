@@ -1,6 +1,6 @@
 Name:           pyodbc
 Version:        4.0.39
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python DB API 2.0 Module for ODBC
 License:        MIT
 URL:            https://github.com/mkleehammer/pyodbc
@@ -59,7 +59,7 @@ echo 'Version: %{version}' > PKG-INFO
 %{python3_sitearch}/pyodbc.pyi
 
 %changelog
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 4.0.39-2
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 4.0.39-3
 - Rebuilt for Python 3.12
 
 * Mon Apr 17 2023 Ondřej Sloup <osloup@redhat.com> - 4.0.39-1

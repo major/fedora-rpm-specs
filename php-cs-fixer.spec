@@ -10,14 +10,14 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    b123395c9fa3a70801f816f13606c0f3a7ada8df
+%global gh_commit    210dd89560edb27a8e0d5086b734ac5b5fd4e0e4
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 #global gh_date      20150717
 %global gh_owner     FriendsOfPHP
 %global gh_project   PHP-CS-Fixer
 
 Name:           php-cs-fixer
-Version:        3.18.0
+Version:        3.19.2
 Release:        1%{?gh_date:.%{gh_date}git%{gh_short}}%{?dist}
 Summary:        PHP Coding Standards Fixer
 
@@ -67,7 +67,7 @@ Provides:       bundled(php-symfony-console) = v5.4.24
 Provides:       bundled(php-symfony-deprecation-contracts) = v2.5.2
 Provides:       bundled(php-symfony-event-dispatcher) = v5.4.22
 Provides:       bundled(php-symfony-event-dispatcher-contracts) = v2.5.2
-Provides:       bundled(php-symfony-filesystem) = v5.4.23
+Provides:       bundled(php-symfony-filesystem) = v5.4.25
 Provides:       bundled(php-symfony-finder) = v5.4.21
 Provides:       bundled(php-symfony-options-resolver) = v5.4.21
 Provides:       bundled(php-symfony-polyfill-ctype) = v1.27.0
@@ -153,6 +153,9 @@ PHP_CS_FIXER_IGNORE_ENV=1 ./%{name} --version | grep %{version}
 
 
 %changelog
+* Mon Jun 26 2023 Remi Collet <remi@remirepo.net> - 3.19.2-1
+- update to 3.19.2
+
 * Tue Jun 20 2023 Remi Collet <remi@remirepo.net> - 3.18.0-1
 - update to 3.18.0
 

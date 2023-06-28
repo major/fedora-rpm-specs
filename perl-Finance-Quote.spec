@@ -4,7 +4,7 @@
 
 Name:           perl-Finance-Quote
 Version:        %{RPM_version}
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        A Perl module that retrieves stock and mutual fund quotes
 License:        GPL-2.0-or-later
 URL:            https://metacpan.org/release/Finance-Quote
@@ -158,6 +158,12 @@ make test
 %{_mandir}/man3/Finance::Quote::ZA.3*
 
 %changelog
+* Mon Jun 26 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.56.00-4
+- Reverse prior change.
+
+* Mon Jun 26 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.5600-3
+- Require perl-JSON-Parse
+
 * Tue May 30 2023 Paul Howarth <paul@city-fan.org> - 1.5600-2
 - Rebuild
 

@@ -1,9 +1,9 @@
-%global commit0 c48532692f8c5a412da891b3d43bd46a24cd179e
+%global commit0 37c204c31a8457d364dfdc13c7e84e13d1671680
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 Name:       rbm
-Version:    0.4^20220725git%{shortcommit0}
-Release:    2%{?dist}
+Version:    0.4^20230626git%{shortcommit0}
+Release:    1%{?dist}
 Summary:    Reproducible Build Manager
 License:    CC0-1.0
 # A bug tracker is at <https://gitlab.torproject.org/tpo/applications/rbm/>.
@@ -15,13 +15,42 @@ Source0:    %{name}-%{shortcommit0}.tar.gz
 # Install container script, proposed to an upstream,
 # <https://github.com/boklm/rbm/pull/8>.
 Patch0:     rbm-c485326-Install-container-script-as-rmbcontainer.patch
+# Remove tests which require the Internet, no suitable for an upstream.
+Patch1:     rbm-37c204c-Remove-mozmill-automation-tests.patch
 BuildArch:  noarch
 BuildRequires:  asciidoc
 BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-# No tests are executed, run-time depdencies are not needed at build time.
+# Run-time:
+BuildRequires:  perl(Cwd)
+BuildRequires:  perl(Data::Dump)
+BuildRequires:  perl(Data::UUID)
+BuildRequires:  perl(DateTime)
+BuildRequires:  perl(Digest::SHA)
+BuildRequires:  perl(Encode)
+BuildRequires:  perl(Exporter)
+BuildRequires:  perl(feature)
+BuildRequires:  perl(File::Basename)
+BuildRequires:  perl(File::Copy)
+BuildRequires:  perl(File::Copy::Recursive)
+BuildRequires:  perl(File::Path)
+BuildRequires:  perl(File::Temp)
+BuildRequires:  perl(FindBin)
+BuildRequires:  perl(IO::CaptureOutput)
+BuildRequires:  perl(IO::Handle)
+BuildRequires:  perl(Path::Tiny)
+BuildRequires:  perl(Sort::Versions)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(String::ShellQuote)
+BuildRequires:  perl(Template)
+BuildRequires:  perl(warnings)
+BuildRequires:  perl(YAML::XS)
+# redhat-lsb-core and other tools are not used at tests
+# Tests:
+BuildRequires:  perl(lib)
+BuildRequires:  perl(Test::More)
 # bash for /bin/sh defined in default configuration
 Requires:       bash
 Requires:       bzip2
@@ -29,7 +58,7 @@ Requires:       bzip2
 Requires:       coreutils
 # debuild not yet packaged
 # dnf in default configuration,
-Requires:       dnf
+Requires:       dnf5
 Requires:       git-core
 # gnupg for gpg defined in default configuration
 Requires:       gnupg
@@ -63,8 +92,20 @@ packages for multiple Linux distributions, and automate the parts that can be
 automated. It includes options to run the build in a defined environment to
 allow reproducing the build.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       coreutils
+Requires:       perl(RBM)
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %autosetup -p1 -n %{name}-%{commit0}
+chmod +x test/projects/c/build
+rm test/.gitignore
 
 %build
 %{make_build} sysconfigdir=%{_sysconfdir} bindir=%{_bindir} mandir=%{_mandir} \
@@ -73,16 +114,45 @@ allow reproducing the build.
 %install
 %{make_install} sysconfigdir=%{_sysconfdir} bindir=%{_bindir} mandir=%{_mandir} \
     perldir=%{perl_vendorlib}
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}/upstream
+cp -a test test.pl %{buildroot}%{_libexecdir}/%{name}/upstream
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/bash
+set -e
+# Some tests write into ./test directory
+DIR=$(mktemp -d)
+cp -a %{_libexecdir}/%{name}/upstream/* "$DIR"
+pushd "$DIR"
+./test.pl
+popd
+rm -r "$DIR"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
+
+%check
+./test.pl
 
 %files
 %license COPYING
 %doc NEWS README.md TODO
-%{_bindir}/*
-%{perl_vendorlib}/*
-%{_mandir}/man1/*
-%{_mandir}/man7/*
+%{_bindir}/rbm
+%{_bindir}/rbmcontainer
+%{perl_vendorlib}/RBM
+%{perl_vendorlib}/RBM.pm
+%{_mandir}/man1/rbm.*
+%{_mandir}/man1/rbm-{build,fetch,showconf,tar,usage}.*
+%{_mandir}/man7/rbm_{cli,config,input_files,layout,modules,remote,steps,targets,templates,tutorial}.*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Mon Jun 26 2023 Petr Pisar <ppisar@redhat.com> - 0.4^20230626git37c204c-1
+- Rebase to a git snapshot taken on 2023-06-25
+- Use dnf5 instead of dnf (bug #2209405)
+- Package the tests
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4^20220725gitc485326-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

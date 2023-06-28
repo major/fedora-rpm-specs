@@ -161,7 +161,7 @@ cryptographic hardware such as IBM 4764 or 4765 that uses the
 "co-processor" or "secure-key" path.
 
 %package ep11tok
-Summary:		CCA cryptographic devices (secure-key) support for opencryptoki
+Summary:		EP11 cryptographic devices (secure-key) support for opencryptoki
 Requires(pre):		%{name}-libs%{?_isa} = %{version}-%{release}
 Requires:		%{name}-libs%{?_isa} = %{version}-%{release}
 Provides:		%{name}(token)

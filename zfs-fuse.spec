@@ -1,7 +1,7 @@
 %define _hardened_build 1
 Name:             zfs-fuse
 Version:          0.7.2.2
-Release:          27%{?dist}
+Release:          28%{?dist}
 Summary:          ZFS ported to Linux FUSE
 License:          CDDL-1.0
 URL:              https://github.com/gordan-bobic/zfs-fuse
@@ -115,9 +115,11 @@ fi
 
 %postun
 %systemd_postun_with_restart zfs-fuse.service 
+if [ $1 -lt 1 ] ; then
 echo "Removing files since we removed the last package"
 rm -rf /var/run/zfs
 rm -rf /var/lock/zfs
+fi
 
 %files
 %license LICENSE
@@ -144,6 +146,9 @@ rm -rf /var/lock/zfs
 %{_mandir}/man8/zstreamdump.8.gz
 
 %changelog
+* Mon Jun 26 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.7.2.2-28
+- Fix postun logic.
+
 * Mon Jun 12 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.7.2.2-27
 - Require initscripts
 

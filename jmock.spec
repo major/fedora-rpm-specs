@@ -1,6 +1,6 @@
 Name:           jmock
 Version:        2.12.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Java library for testing code with mock objects
 License:        BSD
 URL:            http://www.jmock.org/
@@ -8,6 +8,8 @@ BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 Source0:        https://github.com/jmock-developers/jmock-library/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0:         0001-Port-to-jakarta.xml.ws-4.0.0.patch
+
 BuildRequires:  maven-local
 BuildRequires:  mvn(cglib:cglib)
 BuildRequires:  mvn(com.google.auto.service:auto-service)
@@ -119,6 +121,9 @@ Source for JAR files used in jMock Core tests.
 %license LICENSE.txt
 
 %changelog
+* Mon Jun 26 2023 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 2.12.0-12
+- Resolve issues related to jakarta.xml.ws 4.0.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

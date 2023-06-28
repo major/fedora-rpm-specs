@@ -1,5 +1,7 @@
 %bcond check 1
-%bcond qt 1
+# No Qt5 on RHEL 10 and higher
+%bcond qt5 %[ 0%{?rhel} < 10 ]
+%bcond qt6 1
 
 %global gnupg2_min_ver 2.2.24
 %global libgpg_error_min_ver 1.36
@@ -89,7 +91,7 @@ Requires:       %{name}-devel%{?_isa}
 %description -n %{name}pp-devel
 %{summary}
 
-%if %{with qt}
+%if %{with qt5}
 %package -n q%{name}-qt5
 Summary:        Qt5 API bindings/wrapper for GPGME
 Requires:       %{name}pp%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
@@ -100,7 +102,9 @@ Provides:       q%{name}
 
 %description -n q%{name}-qt5
 %{summary}.
+%endif
 
+%if %{with qt6}
 %package -n q%{name}-qt6
 Summary:        Qt6 API bindings/wrapper for GPGME
 Requires:       %{name}pp%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
@@ -109,14 +113,18 @@ BuildRequires:  pkgconfig(Qt6Test)
 
 %description -n q%{name}-qt6
 %{summary}.
+%endif
 
+%if %{with qt5} || %{with qt6}
 %package -n q%{name}-common-devel
 Summary:        Common development header files for %{name}-qt5 and %{name}-qt6
 Requires:       %{name}pp-devel%{?_isa}
 
 %description -n q%{name}-common-devel
 %{summary}.
+%endif
 
+%if %{with qt5}
 %package -n q%{name}-qt5-devel
 Summary:        Development libraries and header files for %{name}-qt5
 # before libqgpgme.so symlink was moved to avoid conflict
@@ -129,7 +137,9 @@ Provides:       q%{name}-devel%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release
 
 %description -n q%{name}-qt5-devel
 %{summary}.
+%endif
 
+%if %{with qt6}
 %package -n q%{name}-qt6-devel
 Summary:        Development libraries and header files for %{name}-qt6
 Requires:       q%{name}-qt6%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
@@ -163,8 +173,10 @@ sed -i -e 's|^libdir=@libdir@$|libdir=@exec_prefix@/lib|g' src/gpgme-config.in
 sed -i 's/3.8/%{python3_version}/g' configure
 
 # copy to a qt6 build directory as both can't be build in the same directory
+%if %{with qt5} && %{with qt6}
 cd ..
 cp -r gpgme-%{version} gpgme-%{version}-qt6
+%endif
 
 %build
 # People neeed to learn that you can't run autogen.sh anymore
@@ -180,14 +192,16 @@ export CFLAGS="$(echo ${CFLAGS} | tr '\n\\' '  ')"
 export CXXFLAGS="$(echo ${CXXFLAGS} | tr '\n\\' '  ')"
 export SETUPTOOLS_USE_DISTUTILS=local
 
-# qt5
-%configure --disable-static --disable-silent-rules --enable-languages=cpp,%{?with_qt:qt,}python
+# Also build either qt5 or qt6
+%configure --disable-static --disable-silent-rules --enable-languages=cpp,%{?with_qt5:qt,}%{!?with_qt5:%{?with_qt6:qt6,}}python
 %make_build
 
-# qt6
+# Build qt6 in extra step if qt5 has been build
+%if %{with qt5} && %{with qt6}
 cd ../gpgme-%{version}-qt6
-%configure --disable-static --disable-silent-rules --enable-languages=cpp,%{?with_qt:qt6,}python
+%configure --disable-static --disable-silent-rules --enable-languages=cpp,qt6,python
 %make_build
+%endif
 
 %install
 # When using distutils from setuptools 60+, ./setup.py install use
@@ -195,11 +209,13 @@ cd ../gpgme-%{version}-qt6
 # SETUP_PY_EXTRA_OPTS is introduced by the Patch1004 above.
 export SETUPTOOLS_USE_DISTUTILS=local
 export SETUP_PY_EXTRA_OPTS="--single-version-externally-managed --root=/"
-# qt5
+# Also install either qt5 or qt6
 %make_install
-# qt6
+# Install qt6 in extra step if qt5 has been installed
+%if %{with qt5} && %{with qt6}
 cd ../gpgme-%{version}-qt6
 %make_install
+%endif
 
 # unpackaged files
 rm -fv %{buildroot}%{_infodir}/dir
@@ -220,10 +236,12 @@ install -m644 -p -D %{SOURCE2} %{buildroot}%{_includedir}/gpgme.h
 chrpath -d %{buildroot}%{_bindir}/%{name}-tool
 chrpath -d %{buildroot}%{_bindir}/%{name}-json
 chrpath -d %{buildroot}%{_libdir}/lib%{name}pp.so*
-%if %{with qt}
 # qt5
+%if %{with qt5}
 chrpath -d %{buildroot}%{_libdir}/libq%{name}.so*
+%endif
 # qt6
+%if %{with qt6}
 chrpath -d %{buildroot}%{_libdir}/libq%{name}qt6.so*
 %endif
 
@@ -264,22 +282,30 @@ make check
 %{_libdir}/lib%{name}pp.so
 %{_libdir}/cmake/Gpgmepp/
 
-%if %{with qt}
+%if %{with qt5}
 %files -n q%{name}-qt5
 %doc lang/qt/README
 %{_libdir}/libq%{name}.so.15*
+%endif
 
+%if %{with qt6}
 %files -n q%{name}-qt6
 %{_libdir}/libq%{name}qt6.so.15*
+%endif
 
+%if %{with qt5} || %{with qt6}
 %files -n q%{name}-common-devel
 %{_includedir}/q%{name}/
 %{_includedir}/QGpgME/
+%endif
 
+%if %{with qt5}
 %files -n q%{name}-qt5-devel
 %{_libdir}/libq%{name}.so
 %{_libdir}/cmake/QGpgme/
+%endif
 
+%if %{with qt6}
 %files -n q%{name}-qt6-devel
 %{_libdir}/libq%{name}qt6.so
 %{_libdir}/cmake/QGpgmeQt6/

@@ -2,7 +2,7 @@ Name:           targetd
 License:        GPLv3
 Summary:        Service to make storage remotely configurable
 Version:        0.10.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 URL:            https://github.com/open-iscsi/targetd
 Source:         https://github.com/open-iscsi/targetd/archive/v%{version}/targetd-%{version}.tar.gz
 Source1:        targetd.service
@@ -56,6 +56,9 @@ install -m 644 targetd.yaml.5 %{buildroot}%{_mandir}/man5/
 %config(noreplace) %{_sysconfdir}/target/targetd.yaml
 
 %changelog
+* Mon Jun 26 2023 Python Maint <python-maint@redhat.com> - 0.10.2-2
+- Rebuilt for Python 3.12
+
 * Sat Jun 24 2023 Tony Asleson <tasleson@redhat.com> - 0.10.2-1
 - New upstream release which adds libblockdev 3.0 support
 

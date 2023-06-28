@@ -1,5 +1,5 @@
 Name:           python-sentry-sdk
-Version:        1.25.1
+Version:        1.26.0
 Release:        1%{?dist}
 Summary:        The new Python SDK for Sentry.io
 
@@ -148,6 +148,7 @@ sed -i '/content_type=/D' tests/integrations/starlette/test_starlette.py
   --deselect tests/integrations/asyncio/test_asyncio_py3.py \
   --deselect tests/integrations/celery/test_celery.py::test_newrelic_interference \
   --deselect tests/integrations/requests/test_requests.py::test_crumb_capture \
+  --deselect tests/integrations/requests/test_requests.py::test_omit_url_data_if_parsing_fails \
   --deselect tests/integrations/threading/test_threading.py::test_circular_references \
   --deselect tests/test_basics.py::test_auto_enabling_integrations_catches_import_error \
   --deselect tests/test_transport.py::test_transport_works \
@@ -172,6 +173,9 @@ sed -i '/content_type=/D' tests/integrations/starlette/test_starlette.py
 
 
 %changelog
+* Mon Jun 26 2023 Roman Inflianskas <rominf@aiven.io> - 1.26.0-1
+- Update to 1.26.0 (resolve rhbz#2216744)
+
 * Wed Jun 21 2023 Roman Inflianskas <rominf@aiven.io> - 1.25.1-1
 - Update to 1.25.1 (resolve rhbz#2211880)
 - Improve testing

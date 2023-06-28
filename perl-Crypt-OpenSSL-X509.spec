@@ -1,5 +1,5 @@
 Name:           perl-Crypt-OpenSSL-X509
-Version:        1.914
+Version:        1.915
 Release:        1%{?dist}
 Summary:        Perl interface to OpenSSL for X509
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -67,6 +67,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Mon Jun 26 2023 Xavier Bachelot <xavier@bachelot.org> - 1.915-1
+- Update to 1.915 (RHBZ#2215981)
+
 * Mon Jun 05 2023 Xavier Bachelot <xavier@bachelot.org> - 1.914-1
 - Update to 1.914 (RHBZ#2058821)
 

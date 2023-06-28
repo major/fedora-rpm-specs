@@ -42,15 +42,15 @@
 %global samba_package_version %(rpm -q samba-devel --queryformat %{version}-%{release})
 
 Name: sssd
-Version: 2.9.0
+Version: 2.9.1
 Release: 2%{?dist}
 Summary: System Security Services Daemon
 License: GPL-3.0-or-later
 URL: https://github.com/SSSD/sssd/
-Source0: https://github.com/SSSD/sssd/releases/download/2.9.0/sssd-2.9.0.tar.gz
+Source0: https://github.com/SSSD/sssd/releases/download/2.9.1/sssd-2.9.1.tar.gz
 
 ### Patches ###
-Patch0001:  0001-FILE-WATCH-Callback-not-executed-on-link-or-relative.patch
+Patch0001: 0001-BUILD-Accept-krb5-1.21-for-building-the-PAC-plugin.patch
 
 ### Dependencies ###
 
@@ -1059,6 +1059,12 @@ fi
 %systemd_postun_with_restart sssd.service
 
 %changelog
+* Mon Jun 26 2023 Python Maint <python-maint@redhat.com> - 2.9.1-2
+- Rebuilt for Python 3.12
+
+* Mon Jun 26 2023 Pavel Březina <pbrezina@redhat.com> - 2.9.1-1
+- Rebase to SSSD 2.9.1
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.9.0-2
 - Rebuilt for Python 3.12
 

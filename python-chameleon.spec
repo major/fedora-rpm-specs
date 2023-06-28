@@ -2,7 +2,7 @@
 
 Name:           python-chameleon
 Version:        4.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        XML-based template compiler
 
 License:        BSD
@@ -62,6 +62,9 @@ find %{buildroot}%{python3_sitelib}/chameleon -name '*.txt' -exec rm \{\} \;
 %{python3_sitelib}/Chameleon-%{version}*
 
 %changelog
+* Mon Jun 26 2023 Python Maint <python-maint@redhat.com> - 4.0.1-2
+- Rebuilt for Python 3.12
+
 * Mon Jun 19 2023 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 4.0.1-1
 - Update to upstream.
 

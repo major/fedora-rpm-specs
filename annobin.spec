@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.14
+Version: 12.15
 Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
@@ -525,6 +525,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Jun 26 2023 Nick Clifton  <nickc@redhat.com> - 12.15-1
+- Annocheck: Add --suppress-version-warnings option.
+
 * Thu Jun 22 2023 Nick Clifton  <nickc@redhat.com> - 12.14-1
 - Annocheck: Do not ignore separate debuginfo files that do not contain any DWARF.  (#2144553)
 

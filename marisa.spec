@@ -8,7 +8,7 @@
 
 Name:          marisa
 Version:       0.2.6
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Static and spece-efficient trie data structure library
 
 License:       BSD-2-Clause OR LGPL-2.1-or-later
@@ -225,6 +225,9 @@ rm -f $RPM_BUILD_ROOT%{perl_vendorarch}/sample.pl
 %{ruby_vendorarchdir}/marisa.so
 
 %changelog
+* Mon Jun 26 2023 Python Maint <python-maint@redhat.com> - 0.2.6-3
+- Rebuilt for Python 3.12
+
 * Tue Jun 20 2023 Peng Wu <pwu@redhat.com> - 0.2.6-2
 - Migrate to SPDX license
 

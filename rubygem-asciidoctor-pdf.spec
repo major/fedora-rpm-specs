@@ -1,15 +1,15 @@
 %global gem_name asciidoctor-pdf
 
 Name:     rubygem-%{gem_name}
-Version:  2.3.4
-Release:  2%{?dist}
+Version:  2.3.8
+Release:  1%{?dist}
 Summary:  Converts AsciiDoc documents to PDF using Prawn
 License:  MIT
 URL:      https://github.com/asciidoctor/asciidoctor-pdf
 Source0:  https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/asciidoctor/asciidoctor-pdf.git && cd asciidoctor-pdf
-# git checkout v2.3.4
-# tar -czf rubygem-asciidoctor-pdf-2.3.4-specs-examples.tgz spec/ examples/ docs/
+# git checkout v2.3.8
+# tar -czf rubygem-asciidoctor-pdf-2.3.8-specs-examples.tgz spec/ examples/ docs/
 Source1:  %{name}-%{version}-specs-examples.tgz
 
 BuildRequires: ruby(release)
@@ -70,6 +70,7 @@ cp -pa .%{_bindir}/* \
         %{buildroot}%{_bindir}/
 
 find %{buildroot}%{gem_instdir}/bin -type f | xargs chmod a+x
+rm -rf %{buildroot}%{gem_instdir}/.yardopts
 
 %check
 rspec -t '~network'
@@ -91,10 +92,12 @@ rspec -t '~network'
 %doc %{gem_instdir}/NOTICE.adoc
 %doc %{gem_instdir}/CHANGELOG.adoc
 %doc %{gem_instdir}/docs
-%doc %{gem_instdir}/.yardopts
 %{gem_instdir}/%{gem_name}.gemspec
 
 %changelog
+* Mon Jun 26 2023 Sergi Jimenez <tripledes@fedoraproject.org> - 2.3.8-1
+- Bump to 2.3.8
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

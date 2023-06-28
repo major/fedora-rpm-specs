@@ -460,6 +460,12 @@ Suggests: environment-modules
 # Prefer over elinks, w3m for Provides: text-www-browser
 Suggests: lynx
 
+# Prefer over bind9-next and its subpackages
+Suggests: bind
+Suggests: bind-devel
+Suggests: bind-dnssec-utils
+Suggests: bind-utils
+
 RemovePathPostfixes: .eln
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity

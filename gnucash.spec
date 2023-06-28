@@ -1,12 +1,13 @@
 Name: gnucash
 Summary: Finance management application
-Version: 5.1
+Version: 5.2
 URL: https://gnucash.org/
-Release: 3%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 Source: https://downloads.sourceforge.net/sourceforge/gnucash/gnucash-%{version}.tar.bz2
 
 Patch0: rpath.patch
+Patch1: 1689.patch
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1563466
 ExcludeArch: ppc64 s390x
@@ -41,6 +42,8 @@ BuildRequires: python3-setuptools
 Requires: gnucash-docs >= %{version}
 Requires: dconf
 Requires: perl(Finance::Quote)
+Requires: perl(JSON::Parse)
+Requires: perl(Getopt::Std)
 Requires: gnome-icon-theme
 Recommends: libdbi-dbd-sqlite
 Suggests: libdbi-dbd-mysql
@@ -107,6 +110,13 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/gnucas
 %config(noreplace) %{_sysconfdir}/gnucash/*
 
 %changelog
+* Mon Jun 26 2023 Gwyn Ciesla <gwync@protonmail.com> - 5.2-2
+- Requires JSON::Parse and Getopt::Std
+- Upstream patch making this equivalent to 5.3
+
+* Mon Jun 26 2023 Gwyn Ciesla <gwync@protonmail.com> - 5.2-1
+- 5.2
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 5.1-3
 - Rebuilt for Python 3.12
 

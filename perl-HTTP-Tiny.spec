@@ -2,7 +2,7 @@
 %bcond_without perl_HTTP_Tiny_enables_optional_deps
 
 Name:           perl-HTTP-Tiny
-Version:        0.084
+Version:        0.086
 Release:        1%{?dist}
 Summary:        Small, simple, correct HTTP/1.1 client
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -125,6 +125,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jun 26 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.086-1
+- 0.086 bump
+
 * Wed Jun 14 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.084-1
 - 0.084 bump
 

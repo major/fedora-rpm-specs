@@ -13,6 +13,7 @@ Patch11: Xaw3d-1.6.1-hsbar.patch
 License: MIT
 URL: http://xorg.freedesktop.org/
 
+BuildRequires: gcc
 BuildRequires: make
 BuildRequires: libXmu-devel
 BuildRequires: libXt-devel

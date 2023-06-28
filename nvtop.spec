@@ -3,7 +3,7 @@
 %global appstream_id io.github.syllo.nvtop
 
 Name:           nvtop
-Version:        3.0.1
+Version:        3.0.2
 Release:        %autorelease
 Summary:        GPU process monitoring for AMD, Intel and NVIDIA
 

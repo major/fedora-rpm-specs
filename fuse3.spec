@@ -7,7 +7,7 @@
 
 Name:		fuse3
 Version:	3.14.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	File System in Userspace (FUSE) v3 utilities
 License:	GPL+
 URL:		http://fuse.sf.net
@@ -31,6 +31,12 @@ Requires:	%{_sysconfdir}/fuse.conf
 %endif
 # fuse-common 3.4.2-3 had the fuse & fuse3 man pages in it
 Conflicts:	fuse-common < 3.4.2-4
+
+# The dependency from fuse3 to fuse3-libs is already implicit through
+# the generated library dependency, but unless we force the exact
+# version then we risk mixing different fuse3 & fuse3-libs versions
+# which is not likely to be a well-tested situation upstream.
+Requires:	%{name}-libs = %{version}-%{release}
 
 %description
 With FUSE it is possible to implement a fully functional filesystem in a
@@ -172,6 +178,10 @@ rm -f %{buildroot}%{_udevrulesdir}/99-fuse3.rules
 %endif
 
 %changelog
+* Mon Jun 26 2023 Richard W.M. Jones <rjones@redhat.com> - 3.14.1-2
+- Force fuse3 and fuse3-libs versions to be identical
+  https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/LYQUYUAS7FG6FFGJBBWP7XEV563V4LBS/
+
 * Mon Apr  3 2023 Tom Callaway <spot@fedoraproject.org> - 3.14.1-1
 - update to 3.14.1
 

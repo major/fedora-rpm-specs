@@ -2,8 +2,8 @@
 %global sover 30
 
 Name:           openexr
-Version:        3.1.8
-Release:        2%{?dist}
+Version:        3.1.9
+Release:        1%{?dist}
 Summary:        Provides the specification and reference implementation of the EXR file format
 
 License:        BSD
@@ -154,6 +154,9 @@ CXXFLAGS="$CXXFLAGS -mno-f16c"
 
 
 %changelog
+* Mon Jun 26 2023 Richard Shaw <hobbes1069@gmail.com> - 3.1.9-1
+- Upgrade to 3.1.9.
+
 * Mon Jun 19 2023 Florian Weimer <fweimer@redhat.com> - 3.1.8-2
 - Disable F16C intrinsics on x86-64 (#2212579)
 

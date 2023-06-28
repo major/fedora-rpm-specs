@@ -1,6 +1,6 @@
 %global majorversion 0
 %global minorversion 3
-%global microversion 71
+%global microversion 72
 
 %global apiversion   0.3
 %global spaversion   0.2
@@ -9,7 +9,7 @@
 %global ms_version   0.4.2
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 4
+%global baserelease 1
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -47,6 +47,12 @@
 %bcond_without roc
 %endif
 
+%if 0%{?rhel} || ("%{_arch}" == "s390x")
+%bcond_with ffado
+%else
+%bcond_without ffado
+%endif
+
 # Disabled for RHEL < 10 and Fedora < 36
 %if (0%{?rhel} && 0%{?rhel} < 10) || (0%{?fedora} && 0%{?fedora} < 36) || ("%{_arch}" == "s390x") || ("%{_arch}" == "ppc64le")
 %bcond_with libcamera_plugin
@@ -70,7 +76,6 @@ Source0:        https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/%{ver
 Source1:        pipewire.sysusers
 
 ## upstream patches
-Patch0001:	0001-jack-update-bufsize-and-samplerate-when-skipping-not.patch
 
 ## upstreamable patches
 
@@ -126,6 +131,9 @@ BuildRequires:  roc-toolkit-devel
 BuildRequires:  libunwind-devel
 BuildRequires:  openfec-devel
 BuildRequires:  sox-devel
+%endif
+%if %{with ffado}
+BuildRequires:  libffado-devel
 %endif
 BuildRequires:  libuv-devel
 BuildRequires:  speexdsp-devel
@@ -212,12 +220,10 @@ This package contains an ALSA plugin for the PipeWire media server.
 %endif
 
 %if %{with jack}
-%package jack-audio-connection-kit
-Summary:        PipeWire JACK implementation
+%package jack-audio-connection-kit-libs
+Summary:        PipeWire JACK implementation libraries
 License:        MIT
 Recommends:     %{name}%{?_isa} = %{version}-%{release}
-Conflicts:      jack-audio-connection-kit
-Conflicts:      jack-audio-connection-kit-dbus
 # Fixed jack subpackages
 Conflicts:      %{name}-libjack < 0.3.13-6
 Conflicts:      %{name}-jack-audio-connection-kit < 0.3.13-6
@@ -225,6 +231,18 @@ Conflicts:      %{name}-jack-audio-connection-kit < 0.3.13-6
 Obsoletes:      %{name}-libjack < 0.3.19-2
 Provides:       %{name}-libjack = %{version}-%{release}
 Provides:       %{name}-libjack%{?_isa} = %{version}-%{release}
+
+%description jack-audio-connection-kit-libs
+This package provides a JACK implementation libraries based on PipeWire
+
+%package jack-audio-connection-kit
+Summary:        PipeWire JACK implementation
+License:        MIT
+Recommends:     %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-jack-audio-connection-kit-libs%{?_isa} = %{version}-%{release}
+Conflicts:      jack-audio-connection-kit
+Conflicts:      jack-audio-connection-kit-dbus
+# Replaces libjack subpackage
 %if ! (0%{?fedora} && 0%{?fedora} < 34)
 # Ensure this is provided by default to route all audio
 Supplements:    %{name} = %{version}-%{release}
@@ -241,9 +259,9 @@ This package provides a JACK implementation based on PipeWire
 %package jack-audio-connection-kit-devel
 Summary:        Development files for %{name}-jack-audio-connection-kit
 License:        MIT
-Requires:       %{name}-jack-audio-connection-kit%{?_isa} = %{version}-%{release}
+Requires:       %{name}-jack-audio-connection-kit-libs%{?_isa} = %{version}-%{release}
 Conflicts:      jack-audio-connection-kit-devel
-Enhances:       %{name}-jack-audio-connection-kit
+Enhances:       %{name}-jack-audio-connection-kit-libs
 
 %description jack-audio-connection-kit-devel
 This package provides development files for building JACK applications
@@ -367,6 +385,7 @@ cp %{SOURCE1} subprojects/packagefiles/
     %{!?with_libmysofa:-D libmysofa=disabled}					\
     %{!?with_lv2:-D lv2=disabled}						\
     %{!?with_roc:-D roc=disabled}						\
+    %{!?with_ffado:-D libffado=disabled}					\
     %{nil}
 %meson_build
 
@@ -466,10 +485,15 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-combine-stream.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-echo-cancel.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-fallback-sink.so
+%if %{with ffado}
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-ffado-driver.so
+%endif
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-filter-chain.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-link-factory.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-loopback.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-metadata.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-netjack2-driver.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-netjack2-manager.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-pipe-tunnel.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-portal.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-profiler.so
@@ -583,13 +607,15 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %endif
 
 %if %{with jack}
-%files jack-audio-connection-kit
+%files jack-audio-connection-kit-libs
 %{_bindir}/pw-jack
 %{_mandir}/man1/pw-jack.1*
 %{_libdir}/pipewire-%{apiversion}/jack/libjack.so.*
 %{_libdir}/pipewire-%{apiversion}/jack/libjacknet.so.*
 %{_libdir}/pipewire-%{apiversion}/jack/libjackserver.so.*
 %{_datadir}/pipewire/jack.conf
+
+%files jack-audio-connection-kit
 %{_sysconfdir}/ld.so.conf.d/pipewire-jack-%{_arch}.conf
 
 %files jack-audio-connection-kit-devel
@@ -631,6 +657,11 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-x11-bell.so
 
 %changelog
+* Mon Jun 26 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.72-1
+- Update version to 0.3.72
+- The jack libraries and ld.so override were split so that jack can
+  be installed together with the pipewire-jack libraries and pw-jack.
+
 * Thu Jun 15 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.3.71-4
 - Disable libmysofa, lv2, roc in RHEL builds
 

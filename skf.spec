@@ -19,7 +19,7 @@
 
 Name:		skf
 Version:	%{mainver}
-Release:	%{?betaver:0.}%{fedoraver}%{?betaver:.%betarel}%{?dist}
+Release:	%{?betaver:0.}%{fedoraver}%{?betaver:.%betarel}%{?dist}.1
 Summary:	Utility binary files in Simple Kanji Filter
 
 License:	BSD and MIT and UCD
@@ -348,6 +348,9 @@ sh %{SOURCE1}
 %{perl_vendorarch}/auto/skf/
 
 %changelog
+* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.10.16-1.1
+- Rebuilt for Python 3.12
+
 * Fri Jan 27 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.10.16-1
 - 2.10.16
 

@@ -20,6 +20,7 @@ Source0: https://xorg.freedesktop.org/archive/individual/lib/%{name}-%{version}.
 
 Patch2: dont-forward-keycode-0.patch
 
+BuildRequires: libtool
 BuildRequires: make
 BuildRequires: xorg-x11-util-macros >= 1.11
 BuildRequires: pkgconfig(xproto) >= 7.0.15

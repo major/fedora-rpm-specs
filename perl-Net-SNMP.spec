@@ -1,9 +1,9 @@
 Name:           perl-Net-SNMP
 Version:        6.0.1
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Object oriented interface to SNMP
 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-SNMP
 Source0:        https://cpan.metacpan.org/authors/id/D/DT/DTOWN/Net-SNMP-v%{version}.tar.gz
 Patch0:         perl-net-snmp-remove-deprecated.patch
@@ -15,7 +15,7 @@ BuildRequires:  make
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
 BuildRequires:  perl(Config)
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
@@ -30,6 +30,7 @@ BuildRequires:  perl(Errno)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(IO::Socket)
 BuildRequires:  perl(Math::BigInt)
+BuildRequires:  perl(Socket)
 # Optional run-time:
 # Crypt::Rijndael 1.02 not used at tests
 # Sys::Hostname not used at tests
@@ -59,19 +60,18 @@ Management Protocol and related network management concepts.
 %prep
 %setup -q -n Net-SNMP-v%{version}
 %patch -P0 -p1
-%{__perl} -pi -e 's|^#!\s+/usr/local/bin/perl|#!%{__perl}|' examples/*.pl
+perl -MConfig -pi -e 's|^#!.*perl|$Config{startperl}|' examples/*.pl
+
 chmod -c a-x examples/*.pl
 
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} ';'
+%{make_install}
 find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 chmod -R u+w $RPM_BUILD_ROOT/*
 
@@ -90,6 +90,10 @@ make test
 
 
 %changelog
+* Mon Jun 26 2023 Jitka Plesnikova <jplesnik@redhat.com> - 6.0.1-37
+- Modernize spec
+- Update license to SPDX format
+
 * Wed Jun 14 2023 Petr Salaba <psalaba@redhat.com> - 6.0.1-36
 - Switch from Socket6 to Socket
 

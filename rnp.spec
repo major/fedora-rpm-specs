@@ -9,7 +9,7 @@
 
 %bcond_without      tests
 %bcond_with         licensecheck
-%bcond_with         libsexp
+%bcond_with         libsexpp
 
 %if 0%{?rhel} == 8
 # use openssl by default as botan2 is too old
@@ -26,7 +26,7 @@
 Name:          rnp
 Summary:       OpenPGP (RFC4880) tools
 Version:       0.17.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 # See rnp-files-by-license.txt and upstream LICENSE* files
 License:       BSD-2-Clause AND Apache-2.0 AND MIT
 
@@ -42,8 +42,8 @@ Source3:       %{name}-files-by-license.txt
 Patch0:         %{name}-static.patch
 # Upstream libsexp patch
 Patch1:         %{name}-gcc13.patch
-# Use system libsexp
-Patch2:         %{name}-sexp.patch
+# Use system libsexpp
+Patch2:         %{name}-sexpp.patch
 
 BuildRequires:  cmake >= 3.14
 BuildRequires:  gcc
@@ -66,9 +66,9 @@ BuildRequires:  rubygem-asciidoctor
 %if %{with licensecheck}
 BuildRequires:  licensecheck
 %endif
-%if %{with libsexp}
-%global libsexp_version 0.8.5
-BuildRequires:  pkgconfig(sexp) >= %{libsexp_version}
+%if %{with libsexpp}
+%global libsexpp_version 0.8.7
+BuildRequires:  pkgconfig(sexpp) >= %{libsexpp_version}
 %endif
 
 Requires:       %{libname}%{?_isa} = %{version}-%{release}
@@ -79,9 +79,9 @@ RNP is a set of OpenPGP (RFC4880) tools.
 
 %package -n %{libname}
 Summary:    Library for all OpenPGP functions
-%if %{without libsexp}
-%global libsexp_version 0.8.2
-Provides:   bundled(libsexp) = %{libsexp_version}
+%if %{without libsexpp}
+%global libsexpp_version 0.8.2
+Provides:   bundled(libsexpp) = %{libsexpp_version}
 %endif
 
 
@@ -105,13 +105,13 @@ for %{libname}.
 
 %patch -P0 -p1
 
-%if %{with libsexp}
+%if %{with libsexpp}
 rm -rf  src/libsexp
-%patch -P2 -p1 -b .sexp
+%patch -P2 -p1 -b .sexpp
 : check system version requirement
-if ! grep -q 'sexp>=%{libsexp_version}' CMakeLists.txt; then
-    echo fix %%libsexp_version macro, defined %{libsexp_version}, expected \
-        $(grep 'sexp>=' CMakeLists.txt | sed 's/.*sexp>=//;s/)//')
+if ! grep -q 'sexpp>=%{libsexpp_version}' CMakeLists.txt; then
+    echo fix %%libsexpp_version macro, defined %{libsexpp_version}, expected \
+        $(grep 'sexpp>=' CMakeLists.txt | sed 's/.*sexp>=//;s/)//')
     exit 1
 fi
 %else
@@ -120,8 +120,8 @@ pushd src/libsexp
 : retrieve LICENSE
 cp LICENSE.md ../../LICENSE-libsexp.md
 : check bundled version
-if ! grep -q %{libsexp_version} version.txt; then
-    echo fix %%libsexp_version macro, defined %{libsexp_version}, expected \
+if ! grep -q %{libsexpp_version} version.txt; then
+    echo fix %%libsexpp_version macro, defined %{libsexpp_version}, expected \
         $(cat version.txt)
     exit 1
 fi
@@ -149,8 +149,8 @@ rm $LST
 %else
    -DCRYPTO_BACKEND:STRING=botan \
 %endif
-%if %{with libsexp}
-   -DSYSTEM_LIBSEXP:BOOL=ON \
+%if %{with libsexpp}
+   -DSYSTEM_LIBSEXPP:BOOL=ON \
 %endif
    -DDOWNLOAD_GTEST:BOOL=OFF \
    -DDOWNLOAD_RUBYRNP:BOOL=OFF
@@ -197,6 +197,9 @@ FILTER="$FILTER|cli_tests-Encryption|cli_tests-Misc"
 
 
 %changelog
+* Mon Jun 26 2023 Remi Collet <remi@remirepo.net> - 0.17.0-3
+- libsexp renamed to libsexpp
+
 * Wed Jun 21 2023 Remi Collet <remi@remirepo.net> - 0.17.0-2
 - add build option to use system libsexp (disabled)
   using patch from https://github.com/rnpgp/rnp/pull/2102

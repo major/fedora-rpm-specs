@@ -17,7 +17,7 @@
 %bcond_with    tests
 %endif
 
-%global gh_commit    11e2663a5bc9db5d714eedb4277ee300403b4a9e
+%global gh_commit    19526a33fb561ef417e822e85f08a00db4059c17
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     nikic
 %global gh_project   PHP-Parser
@@ -27,7 +27,7 @@
 %global major        4
 
 Name:           php-%{gh_owner}-%{pk_project}%{major}
-Version:        4.15.5
+Version:        4.16.0
 Release:        1%{?dist}
 Summary:        A PHP parser written in PHP - version %{major}
 
@@ -128,7 +128,7 @@ AUTOLOAD
 FILTER="--filter '^((?!(testLexNewFeatures)).)*$'"
 
 ret=0
-for cmdarg in "php %{phpunit}" php80 php81 php82; do
+for cmdarg in "php %{phpunit}" php80 php81 php82 php83; do
   if which $cmdarg; then
     set $cmdarg
     $1 -d include_path=%{php_home} \
@@ -151,6 +151,9 @@ exit $ret
 
 
 %changelog
+* Mon Jun 26 2023 Remi Collet <remi@remirepo.net> - 4.16.0-1
+- update to 4.16.0
+
 * Wed May 24 2023 Remi Collet <remi@remirepo.net> - 4.15.5-1
 - update to 4.15.5
 

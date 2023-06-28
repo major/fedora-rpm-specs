@@ -1,20 +1,20 @@
 %global shortname naxsi
 
 Name:           nginx-mod-naxsi
-Version:        1.3
-Release:        7%{?dist}
+Version:        1.4
+Release:        1%{?dist}
 Summary:        nginx web application firewall module
 License:        GPLv3
 
-URL:            https://github.com/nbs-system/naxsi
+URL:            https://github.com/wargio/naxsi
 Source0:        %{url}/archive/%{version}/%{shortname}-%{version}.tar.gz
 
-# Fix nginx >= 1.21 with PCRE2
-## From: https://github.com/nbs-system/naxsi/pull/587
-Patch0:         naxsi-PR587.diff
+# Fedora specific change
+Patch1001:      naxsi-ext-libinjection.diff
 
 BuildRequires:  gcc
 BuildRequires:  nginx-mod-devel
+BuildRequires:  pkgconfig(libinjection)
 
 %description
 naxsi is an nginx module that provides score based Web Application Firewall
@@ -40,18 +40,25 @@ echo 'load_module "%{nginx_moddir}/ngx_http_naxsi_module.so";' \
     > %{buildroot}%{nginx_modconfdir}/mod-naxsi-web-app-firewall.conf
 
 install -dm 0755 %{buildroot}%{_datadir}/nginx/naxsi
-install -m0755 naxsi_config/naxsi_core.rules %{buildroot}%{_datadir}/nginx/naxsi/
+install -m0755 naxsi_rules/naxsi_core.rules %{buildroot}%{_datadir}/nginx/naxsi/
 
 
 %files
 %license LICENSE
 %doc README.md
+%doc naxsi_rules/
 %{nginx_moddir}/ngx_http_naxsi_module.so
 %{nginx_modconfdir}/mod-naxsi-web-app-firewall.conf
 %{_datadir}/nginx/naxsi/
 
 
 %changelog
+* Mon Jun 26 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.4-1
+- Rebase to 1.4 from the maintained fork
+
+* Mon Apr 17 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.3-8
+- Rebuild for nginx 1.24.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

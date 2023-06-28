@@ -99,7 +99,6 @@ Patch0010: 0010-OvmfPkg-silence-EFI_D_VERBOSE-0x00400000-in-NvmExpre.patch
 Patch0011: 0011-CryptoPkg-OpensslLib-list-RHEL8-specific-OpenSSL-fil.patch
 Patch0012: 0012-OvmfPkg-QemuKernelLoaderFsDxe-suppress-error-on-no-k.patch
 Patch0013: 0013-SecurityPkg-Tcg2Dxe-suppress-error-on-no-swtpm-in-si.patch
-
 Patch0015: 0015-OvmfPkg-PlatformPei-drop-S3Verification.patch
 Patch0016: 0016-OvmfPkg-PciHotPlugInitDxe-Do-not-reserve-IO-ports-by.patch
 Patch0017: 0017-OvmfPkg-PlatformInitLib-check-PcdUse1GPageTable.patch
@@ -113,6 +112,7 @@ Patch0024: 0024-ArmVirt-PlatformBootManagerLib-factor-out-IsVirtio.patch
 Patch0025: 0025-ArmVirt-PlatformBootManagerLib-factor-out-IsVirtioPc.patch
 Patch0026: 0026-ArmVirt-PlatformBootManagerLib-set-up-virtio-serial-.patch
 Patch0027: 0027-UefiCpuPkg-MpInitLib-fix-apic-mode-for-cpu-hotplug.patch
+Patch0028: 0028-ArmPkg-Add-Pcd-to-disable-EFI_MEMORY_ATTRIBUTE_PROTO.patch
 
 
 # python3-devel and libuuid-devel are required for building tools.

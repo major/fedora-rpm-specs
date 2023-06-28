@@ -1,5 +1,5 @@
-# Enable Qt by default
-%bcond_without qt
+# Enable Qt5 by default
+%bcond qt %[%{undefined rhel} || 0%{?rhel} < 10]
 
 # Vala/Vapi support ( upstream disabled by default, probably explains why it the build breaks often )
 %global vala 1
@@ -7,7 +7,7 @@
 Summary: Utilities to generate, maintain and access the AppStream database
 Name:    appstream
 Version: 0.16.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # lib LGPLv2+, tools GPLv2+
 License: GPLv2+ and LGPLv2+
@@ -218,6 +218,9 @@ mv %{buildroot}%{_datadir}/metainfo/*.xml \
 
 
 %changelog
+* Mon Jun 19 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.16.1-2
+- Disable Qt5 in RHEL 10 builds
+
 * Sat Feb 11 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.16.1-1
 - Update to 0.16.1
 

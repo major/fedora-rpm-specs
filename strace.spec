@@ -1,6 +1,6 @@
 Summary: Tracks and displays system calls associated with a running process
 Name: strace
-Version: 6.3
+Version: 6.4
 Release: 1%{?dist}
 # The test suite is GPLv2+, all the rest is LGPLv2.1+.
 %if 0%{?fedora} >= 35 || 0%{?centos} >= 9 || 0%{?rhel} >= 9
@@ -69,7 +69,7 @@ received by a process.
 %setup -q
 echo -n %version-%release > .tarball-version
 echo -n 2023 > .year
-echo -n 2023-05-06 > doc/.strace.1.in.date
+echo -n 2023-06-11 > doc/.strace.1.in.date
 echo -n 2022-01-01 > doc/.strace-log-merge.1.in.date
 
 %build
@@ -122,6 +122,9 @@ fi
 %{_mandir}/man1/*
 
 %changelog
+* Mon Jun 26 2023 Dmitry V. Levin <ldv@strace.io> - 6.4-1
+- v6.3 -> v6.4.
+
 * Mon May 08 2023 Dmitry V. Levin <ldv@strace.io> - 6.3-1
 - v6.2 -> v6.3.
 

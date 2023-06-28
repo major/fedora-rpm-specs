@@ -1,10 +1,10 @@
 Name:           perl-HTML-Form
 Version:        6.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Class that represents an HTML form element
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/HTML-Form
-Source0:        https://cpan.metacpan.org/authors/id/O/OA/OALDERS/HTML-Form-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/S/SI/SIMBABQUE/HTML-Form-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -60,6 +60,9 @@ passed to the request() method of LWP::UserAgent.
 %{_mandir}/man3/*
 
 %changelog
+* Mon Jun 26 2023 Yaroslav Fedevych <yaroslav@fedevych.name> - 6.11-2
+- Update source URL, the upstream maintainer has changed
+
 * Sun Feb 12 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 6.11-1
 - Update to 6.11
 

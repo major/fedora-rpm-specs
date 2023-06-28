@@ -8,7 +8,7 @@
 %endif
 
 Name:           python-%{srcname}
-Version:        0.12.2
+Version:        0.12.3
 Release:        %autorelease
 Summary:        A helper tool to work with public-inbox and patch series
 License:        GPL-2.0-or-later

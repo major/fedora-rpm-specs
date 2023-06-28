@@ -17,7 +17,7 @@
 
 Name:             radicale
 Version:          %{radicale_version}
-Release:          %{radicale_release}%{?dist}
+Release:          %{radicale_release}%{?dist}.1
 Summary:          A simple CalDAV (calendar) and CardDAV (contact) server
 License:          GPLv3+
 URL:              https://radicale.org
@@ -379,6 +379,9 @@ fi
 
 
 %changelog
+* Mon Jun 26 2023 Python Maint <python-maint@redhat.com> - 3.1.8-52.1
+- Rebuilt for Python 3.12
+
 * Wed Jun 21 2023 Peter Bieringer <pb@bieringer.de> - 3.1.8-53
 - Update patch release/upstream to d7ce2f0b (2023-04-22)
 - Add radicale-3.1.8-fix-main-component-PR-1252.patch

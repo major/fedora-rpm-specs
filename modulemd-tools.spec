@@ -1,6 +1,6 @@
 Name: modulemd-tools
 Version: 0.16
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Collection of tools for modular (in terms of Fedora Modularity origin) content creators
 License: MIT
 BuildArch: noarch
@@ -104,6 +104,9 @@ cp man/*.1 %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Mon Jun 26 2023 Python Maint <python-maint@redhat.com> - 0.16-2
+- Rebuilt for Python 3.12
+
 * Tue Jun 20 2023 Jakub Kadlcik <frostyx@email.cz> 0.16-1
 - modulemd_tools: ensure backward compatibility for importing this namespace,
   pt.2 (frostyx@email.cz)

@@ -2,9 +2,14 @@
 %global toolchain clang
 %global llvmver 16.0.0
 
+# Opt out of https://fedoraproject.org/wiki/Changes/fno-omit-frame-pointer
+# https://bugzilla.redhat.com/show_bug.cgi?id=2215937
+# https://github.com/include-what-you-use/include-what-you-use/issues/1264
+%undefine _include_frame_pointers
+
 Name: iwyu
 Version: 0.20
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: NCSA
 Summary: C/C++ source files #include analyzer based on clang
@@ -69,6 +74,9 @@ sed -e s@lib/@lib\${LLVM_LIBDIR_SUFFIX}/@g -i CMakeLists.txt
 %{_mandir}/man1/%{appname}.1*
 
 %changelog
+* Mon Jun 26 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.20-2
+- Disabled frame pointers to fix crashes on F38+.
+
 * Mon Apr 03 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.20-1
 - Updated to version 0.20.
 

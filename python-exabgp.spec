@@ -1,6 +1,6 @@
 Name:           python-exabgp
 Version:        4.2.21
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        The BGP swiss army knife of networking (Library)
 
 License:        BSD-3-Clause
@@ -122,6 +122,9 @@ rm -rf %{buildroot}%{_usr}/etc
 %{_tmpfilesdir}/exabgp.conf
 
 %changelog
+* Mon Jun 26 2023 Python Maint <python-maint@redhat.com> - 4.2.21-6
+- Rebuilt for Python 3.12
+
 * Sat Jun 24 2023 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 4.2.21-5
 - Remove errant slashes from paths in spec file
 

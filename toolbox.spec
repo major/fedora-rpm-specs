@@ -17,20 +17,20 @@ Summary:       Tool for containerized command line environments on Linux
 License:       ASL 2.0
 URL:           https://containertoolbx.org/
 Source0:       https://github.com/containers/%{name}/releases/download/%{version}/%{name}-%{version}-vendored.tar.xz
-%if 0%{?rhel}
 Source1:       %{name}.conf
-%endif
 
 # Upstream
 Patch0:        toolbox-Don-t-use-podman-1-when-generating-the-comp.patch
-Patch1:        toolbox-Sprinkle-a-debug-log.patch 
+Patch1:        toolbox-Sprinkle-a-debug-log.patch
 
 # Fedora specific
 Patch100:      toolbox-Make-the-build-flags-match-Fedora-s-gobuild.patch
 Patch101:      toolbox-Make-the-build-flags-match-Fedora-s-gobuild-for-PPC64.patch
-%if 0%{?rhel}
-Patch102:      toolbox-Add-migration-paths-for-coreos-toolbox-users.patch
-%endif
+
+# RHEL specific
+Patch200:      toolbox-Make-the-build-flags-match-RHEL-s-gobuild.patch
+Patch201:      toolbox-Make-the-build-flags-match-RHEL-s-gobuild-for-PPC64.patch
+Patch202:      toolbox-Add-migration-paths-for-coreos-toolbox-users.patch
 
 BuildRequires: gcc
 BuildRequires: go-md2man
@@ -169,14 +169,22 @@ The %{name}-tests package contains system tests for %{name}.
 %patch0 -p1
 %patch1 -p1
 
+%if 0%{?fedora}
 %ifnarch ppc64
 %patch100 -p1
 %else
 %patch101 -p1
 %endif
+%endif
 
 %if 0%{?rhel}
-%patch102 -p1
+%ifnarch ppc64
+%patch200 -p1
+%else
+%patch201 -p1
+%endif
+
+%patch202 -p1
 %endif
 
 %gomkdir -s %{_builddir}/%{extractdir}/src %{?rhel:-k}

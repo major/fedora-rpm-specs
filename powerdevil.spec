@@ -2,7 +2,7 @@
 
 Name:    powerdevil
 Version: 5.27.6
-Release: 1%{?dist}
+Release: 3%{?dist}
 Summary: Manages the power consumption settings of a Plasma Shell
 
 License: GPLv2+
@@ -63,6 +63,13 @@ BuildRequires:  xcb-util-image-devel
 BuildRequires:  xcb-util-keysyms-devel
 BuildRequires:  xcb-util-wm-devel
 
+%ifnarch s390 s390x
+BuildRequires:  libddcutil-devel
+%global DDCUTIL ON
+%else
+%global DDCUTIL OFF
+%endif
+
 %{?_qt5:Requires: %{_qt5}%{?_isa} >= %{_qt5_version}}
 
 # available on rhel 9+
@@ -80,7 +87,7 @@ of a daemon (a KDED module) and a KCModule for its configuration.
 
 
 %build
-%cmake_kf5
+%cmake_kf5 -DHAVE_DDCUTIL=%DDCUTIL
 
 %cmake_build
 
@@ -127,6 +134,12 @@ rm -fv %{buildroot}/%{_libdir}/libpowerdevil{configcommonprivate,core,ui}.so
 %{_kf5_qtplugindir}/powerdevil/action/powerdevil_*.so
 
 %changelog
+* Mon Jun 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.6-3
+- Exclude enabling ddcutil on s390/s390x arches
+
+* Sun Jun 25 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.6-2
+- Enable ddcutil integration
+
 * Sun Jun 25 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.6-1
 - 5.27.6
 

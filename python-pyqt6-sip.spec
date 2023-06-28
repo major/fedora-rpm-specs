@@ -6,12 +6,17 @@
 
 Name:           python-%{pkg_name}
 Version:        13.4.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        The sip module support for PyQt6
 
 License:        GPLv2 or GPLv3
 URL:            https://www.riverbankcomputing.com/software/sip/
 Source0:        %{pypi_source}
+# Patches needed for compatibility with Python 3.12
+# https://www.riverbankcomputing.com/hg/sip/rev/312476401030
+Patch:          sipMalloc-and-sipFree-are-now-implemented-using-PyMe.patch
+# https://www.riverbankcomputing.com/hg/sip/rev/d36867e54192
+Patch:          For-Python-v3.12-implement-sipPyTypeDict-using-PyTyp.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
@@ -32,7 +37,7 @@ Provides: python3-pyqt6-sip-api(%{_sip_api_major})%{?_isa} = %{_sip_api}
 
 %description -n python3-%{pkg_name} %_description
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -p1 -n %{pypi_name}-%{version}
 
 
 %build
@@ -51,6 +56,9 @@ Provides: python3-pyqt6-sip-api(%{_sip_api_major})%{?_isa} = %{_sip_api}
 
 
 %changelog
+* Wed Jun 21 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 13.4.0-4
+- Backport patches needed for compatibility with Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 13.4.0-3
 - Rebuilt for Python 3.12
 

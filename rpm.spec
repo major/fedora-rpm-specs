@@ -32,7 +32,7 @@
 
 %global rpmver 4.18.91
 #global snapver rc1
-%global baserelease 2
+%global baserelease 4
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -57,6 +57,7 @@ License: GPLv2+
 Requires: coreutils
 Requires: popt%{_isa} >= 1.10.2.1
 Requires: curl
+Conflicts: systemd < 253.5-6.fc39
 Obsoletes: python2-rpm < %{version}-%{release}
 
 %if %{with check}
@@ -386,11 +387,6 @@ cmake \
 %install
 cd _build
 %make_install
-
-# temporarily remove useser handling fileattr
-# as it is currently in systemd-rpm-macros
-rm $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/sysusers.attr
-
 cd ..
 
 mkdir -p $RPM_BUILD_ROOT%{_unitdir}
@@ -624,6 +620,13 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Mon Jun 26 2023 Python Maint <python-maint@redhat.com> - 4.18.91-4
+- Rebuilt for Python 3.12
+
+* Wed Jun 21 2023 Panu Matilainen <pmatilai@redhat.com> - 4.18.91-3
+- Enable user/group provide generation
+- Add a conflict for systemd versions carrying their own
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 4.18.91-2
 - Rebuilt for Python 3.12
 

@@ -2,7 +2,7 @@ Name:           perl-TermReadKey
 Version:        2.38
 Release:        16%{?dist}
 Summary:        A perl module for simple terminal control
-License:        (Copyright only) and (Artistic or GPL+)
+License:        TermReadKey AND (GPL-1.0-or-later OR Artistic-1.0-Perl)
 URL:            https://metacpan.org/release/TermReadKey
 Source0:        https://cpan.metacpan.org/authors/id/J/JS/JSTOWE/TermReadKey-%{version}.tar.gz
 Patch0: perl-TermReadKey-configure-c99.patch

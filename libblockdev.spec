@@ -125,7 +125,7 @@
 
 Name:        libblockdev
 Version:     2.28
-Release:     8%{?dist}
+Release:     9%{?dist}
 Summary:     A library for low-level manipulation with block devices
 License:     LGPL-2.1-or-later
 URL:         https://github.com/storaged-project/libblockdev
@@ -979,6 +979,9 @@ find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 %files plugins-all
 
 %changelog
+* Mon Jun 26 2023 Python Maint <python-maint@redhat.com> - 2.28-9
+- Rebuilt for Python 3.12
+
 * Mon Jun 19 2023 Vojtech Trefny <vtrefny@redhat.com> - 2.28-8
 - s390: Do not try to close an unopened stream
 

@@ -3,10 +3,10 @@
 Summary:    Job spooling tools
 Name:       at
 Version:    3.2.5
-Release:    5%{?dist}
+Release:    6%{?dist}
 # http://packages.debian.org/changelogs/pool/main/a/at/current/copyright
 # + install-sh is MIT license with changes under Public Domain
-License:    GPLv3+ and GPLv2+ and ISC and MIT and Public Domain
+License:    GPL-3.0-or-later AND GPL-2.0-or-later AND ISC
 URL:        http://ftp.debian.org/debian/pool/main/a/at
 
 Source:     http://software.calhariz.com/at/at_%{version}.orig.tar.gz
@@ -164,6 +164,10 @@ chown root:root %{_localstatedir}/spool/at/.SEQ
 %attr(0644,root,root)       /%{_unitdir}/atd.service
 
 %changelog
+* Mon Jun 26 2023 Ondřej Pohořelský <opohorel@redhat.com> - 3.2.5-6
+- Convert licenses to SPDX format
+- Dropped MIT and Public Domain license as they are not present in upstream sources
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

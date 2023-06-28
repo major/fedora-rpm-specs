@@ -22,7 +22,7 @@ Server Features \
 
 Name: pymodbus
 Version: 3.3.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: %{sum}
 
 License: BSD
@@ -85,6 +85,9 @@ rm -rf %{buildroot}%{python3_sitelib}/test
 %{_bindir}/pymodbus.simulator
 
 %changelog
+* Mon Jun 26 2023 Python Maint <python-maint@redhat.com> - 3.3.2-2
+- Rebuilt for Python 3.12
+
 * Sun Jun 25 2023 Christian Krause <chkr@fedoraproject.org> - 3.3.2-1
 - Update to 3.3.2 (#2212064)
 - Remove patch already applied upstream

@@ -1,22 +1,26 @@
 Name:		perl-Module-Package-Au
 Version:	2
-Release:	25%{?dist}
+Release:	26%{?dist}
 Summary:	Reusable Module::Install bits
-License:	CC0
+License:	CC0-1.0
 URL:		https://metacpan.org/release/Module-Package-Au
 Source0:	https://cpan.metacpan.org/authors/id/A/AU/AUDREYT/Module-Package-Au-%{version}.tar.gz
-Patch0:		perl-Module-Package-Au-no-bundle.patch
 BuildArch:	noarch
-BuildRequires: make
+BuildRequires:	coreutils
+BuildRequires:	make
 BuildRequires:	perl-generators
-BuildRequires:	perl(ExtUtils::MakeMaker)
+BuildRequires:	perl-interpreter
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:	perl(lib)
 BuildRequires:	perl(Module::Install::AuthorTests)
-BuildRequires:	perl(Module::Install::GithubMeta)
-BuildRequires:	perl(Module::Install::ReadmeFromPod)
-BuildRequires:	perl(Module::Install::ReadmeMarkdownFromPod)
+BuildRequires:	perl(Module::Install::GithubMeta) >= 0.10
+BuildRequires:	perl(Module::Install::ReadmeFromPod) >= 0.12
+BuildRequires:	perl(Module::Install::ReadmeMarkdownFromPod) >= 0.03
 BuildRequires:	perl(Module::Install::Repository)
+BuildRequires:	perl(inc::Module::Package)
 BuildRequires:	perl(Module::Package) >= 0.24
-BuildRequires:	perl(Pod::Markdown)
+BuildRequires:	perl(Module::Package::Plugin)
+BuildRequires:	perl(Pod::Markdown) >= 1.301
 
 # Don't "provide" private Perl libs
 %{?perl_default_filter}
@@ -27,21 +31,20 @@ files based on Module::Package.
 
 %prep
 %setup -q -n Module-Package-Au-%{version}
-%patch0 -p1 -b .no-bundle
 rm -rf inc/*
+perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
 
 # Work around goofy perl versioning mistakes of the past
 sed -i 's|1.110730|1.301|g' lib/Module/Package/Au.pm
 sed -i 's|1.110730|1.301|g' META.yml
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -exec rm -f {} ';'
-find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
+%{make_install}
+find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_fixperms} %{buildroot}
 
 %check
@@ -53,6 +56,10 @@ make test
 %{_mandir}/man3/Module::Package::Au.3pm*
 
 %changelog
+* Mon Jun 26 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2-26
+- Modernize spec
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

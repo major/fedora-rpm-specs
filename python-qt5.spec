@@ -23,7 +23,7 @@
 Summary: PyQt5 is Python bindings for Qt5
 Name:    python-qt5
 Version: 5.15.9
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 License: GPLv3
 Url:     http://www.riverbankcomputing.com/software/pyqt/
@@ -309,6 +309,9 @@ sed -i \
 
 
 %changelog
+* Mon Jun 26 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 5.15.9-5
+- Rebuilt for Python 3.12 with patched python-pyqt5-sip
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 5.15.9-4
 - Rebuilt for Python 3.12
 

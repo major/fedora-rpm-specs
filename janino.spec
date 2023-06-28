@@ -1,13 +1,13 @@
 Name:           janino
-Version:        3.1.7
-Release:        4%{?dist}
+Version:        3.1.9
+Release:        1%{?dist}
 Summary:        Super-small, super-fast Java compiler
 License:        BSD
 URL:            http://janino-compiler.github.io/janino
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-Source0:        https://github.com/janino-compiler/janino/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/janino-compiler/janino/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
@@ -42,13 +42,8 @@ API documentation for %{name}.
 
 %prep
 %autosetup
-# delete precompiled jar and class files
-find -type f '(' -iname '*.jar' -o -iname '*.class' ')' -print -delete
-
 cd %{name}-parent
 # remove maven.compiler.* properties
-  %pom_xpath_remove pom:maven.compiler.source
-  %pom_xpath_remove pom:maven.compiler.target
   %pom_xpath_remove pom:maven.compiler.executable
   %pom_xpath_remove pom:maven.compiler.fork
 # remove staging maven plugin
@@ -56,10 +51,8 @@ cd %{name}-parent
 # remove jarsigner plugin
   %pom_remove_plugin :maven-jarsigner-plugin
 # remove javadoc plugin:
-# - don't build *-javadoc.jar
   %pom_remove_plugin :maven-javadoc-plugin
 # remove source plugin:
-# - don't build *-sources.jar
   %pom_remove_plugin :maven-source-plugin
 # disable tests module
   %pom_disable_module ../commons-compiler-tests
@@ -70,7 +63,8 @@ cd -
 %build
 
 cd %{name}-parent
-  %mvn_build -s -- -Dmaven.compiler.source=8 -Dmaven.compiler.target=8
+# de.unkrig.jdisasm:jdisasm is missing
+  %mvn_build -s -f
 cd -
 
 %install
@@ -93,6 +87,9 @@ cd -
 %license LICENSE
 
 %changelog
+* Mon Jun 26 2023 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 3.1.9-1
+- Update to version 3.1.9
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

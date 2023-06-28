@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-sabre-http5
 #
-# Copyright (c) 2013-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2013-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -10,7 +10,7 @@
 %bcond_without      tests
 
 # Github
-%global gh_commit    9976ac34ced206bd6579b7b37b401de9fac98dae
+%global gh_commit    b6fa04f42f49156eaab3fb890c79f4c43a9559b7
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sabre-io
 %global gh_project   http
@@ -24,11 +24,11 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Summary:        Library for dealing with http requests and responses
-Version:        5.1.6
-Release:        3%{?dist}
+Version:        5.1.7
+Release:        1%{?dist}
 
 URL:            https://github.com/%{gh_owner}/%{gh_project}
-License:        BSD
+License:        BSD-3-Clause
 Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{gh_short}.tar.gz
 
 BuildArch:      noarch
@@ -158,7 +158,7 @@ PHPPID=$!
 
 : Run upstream test suite against installed library
 ret=0
-for cmdarg in "php %{phpunit}" php74 php80 php81 php82; do
+for cmdarg in "php %{phpunit}" php80 php81 php82 php83; do
   if which $cmdarg; then
     set $cmdarg
     $1 ${2:-%{_bindir}/phpunit9} --verbose || ret=1
@@ -181,6 +181,9 @@ exit $ret
 
 
 %changelog
+* Mon Jun 26 2023 Remi Collet <remi@remirepo.net> - 5.1.7-1
+- update to 5.1.7
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

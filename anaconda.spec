@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
 Version: 39.20
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+ and MIT
 URL:     http://fedoraproject.org/wiki/Anaconda
 
@@ -470,6 +470,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jun 26 2023 Python Maint <python-maint@redhat.com> - 39.20-2
+- Rebuilt for Python 3.12
+
 * Tue Jun 20 2023 Packit <hello@packit.dev> - 39.20-1
 - webui: add PRETTY_NAME to use in title instead of anaconda generic title
   (acruzgon)

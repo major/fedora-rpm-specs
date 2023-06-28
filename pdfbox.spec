@@ -1,6 +1,6 @@
 Name:          pdfbox
-Version:       2.0.27
-Release:       8%{?dist}
+Version:       2.0.28
+Release:       1%{?dist}
 Summary:       Apache PDFBox library for working with PDF documents
 License:       ASL 2.0
 URL:           http://pdfbox.apache.org/
@@ -141,8 +141,8 @@ find -name 'sRGB.icc*' -print -delete
 find -name '*.icm' -print -delete
 find -name '*.ttf' -print -delete
 
-%patch0 -p1 -b .font
-%patch1 -b .openicc
+%patch 0 -p1 -b .font
+%patch 1 -b .openicc
 
 # Don't build apps (it's just a bundle of everything)
 %pom_disable_module preflight-app
@@ -253,6 +253,9 @@ rm pdfbox/src/test/java/org/apache/pdfbox/pdmodel/graphics/image/CCITTFactoryTes
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Mon Jun 26 2023 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 2.0.28-1
+- Update pdfbox to 2.0.28 (#2186517)
+
 * Fri Jan 20 2023 Marian Koncek <mkoncek@redhat.com> - 2.0.27-8
 - Depend on compat versions of activation and XML bind
 

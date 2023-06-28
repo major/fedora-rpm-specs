@@ -46,7 +46,7 @@
 Name:		root
 Version:	6.28.04
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -3727,6 +3727,9 @@ fi
 %endif
 
 %changelog
+* Mon Jun 26 2023 Orion Poplawski <orion@nwra.com> - 6.28.04-2
+- Rebuilt for Python 3.12
+
 * Mon May 08 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.28.04-1
 - Update to 6.28.04
 - Drop patch root-RF-Rewrite-RooProdPdf.TestGetPartIntList-unit-test.patch

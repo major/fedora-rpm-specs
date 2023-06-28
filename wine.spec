@@ -3,7 +3,7 @@
 
 %global no64bit   0
 %global winegecko 2.47.4
-%global winemono  7.4.0
+%global winemono  8.0.0
 #global _default_patch_fuzz 2
 %ifarch %{ix86}
 %global winepedir i386-windows
@@ -40,7 +40,7 @@
 %endif
 
 Name:           wine
-Version:        8.6
+Version:        8.11
 Release:        1%{?dist}
 Summary:        A compatibility layer for windows applications
 
@@ -93,7 +93,7 @@ Patch511:       wine-cjk.patch
 %if 0%{?wine_staging}
 # wine-staging patches
 # pulseaudio-patch is covered by that patch-set, too.
-Source900: https://github.com/wine-staging/wine-staging/archive/v%{version}.1.tar.gz#/wine-staging-%{version}.1.tar.gz
+Source900: https://github.com/wine-staging/wine-staging/archive/v%{version}.tar.gz#/wine-staging-%{version}.tar.gz
 %endif
 
 %if !%{?no64bit}
@@ -1357,6 +1357,7 @@ fi
 %{_libdir}/wine/%{winepedir}/hidparse.sys
 %{_libdir}/wine/%{winepedir}/hlink.dll
 %{_libdir}/wine/%{winepedir}/hnetcfg.dll
+%{_libdir}/wine/%{winepedir}/hrtfapo.dll
 %{_libdir}/wine/%{winepedir}/http.sys
 %{_libdir}/wine/%{winepedir}/httpapi.dll
 %{_libdir}/wine/%{winepedir}/ia2comproxy.dll
@@ -1640,6 +1641,7 @@ fi
 %{_libdir}/wine/%{winepedir}/tdi.sys
 %{_libdir}/wine/%{winepedir}/threadpoolwinrt.dll
 %{_libdir}/wine/%{winepedir}/traffic.dll
+%{_libdir}/wine/%{winepedir}/twinapi.appcore.dll
 %{_libdir}/wine/%{winepedir}/tzres.dll
 %{_libdir}/wine/%{winepedir}/ucrtbase.dll
 %{_libdir}/wine/%{winepedir}/uianimation.dll
@@ -1768,6 +1770,7 @@ fi
 %{_libdir}/wine/%{winepedir}/security.dll
 %{_libdir}/wine/%{winepedir}/sfc.dll
 %{_libdir}/wine/%{winepedir}/wineps.drv
+%{_libdir}/wine/%{winesodir}/wineps.so
 %{_libdir}/wine/%{winepedir}/d3d8.dll
 %{_libdir}/wine/%{winepedir}/d3d8thk.dll
 %ghost %{_libdir}/wine/%{winepedir}/d3d9.dll
@@ -2139,6 +2142,7 @@ fi
 %{_libdir}/wine/%{winesodir}/hidparse.sys.so
 %{_libdir}/wine/%{winesodir}/hlink.dll.so
 %{_libdir}/wine/%{winesodir}/hnetcfg.dll.so
+%{_libdir}/wine/%{winesodir}/hrtfapo.dll.so
 %{_libdir}/wine/%{winesodir}/http.sys.so
 %{_libdir}/wine/%{winesodir}/httpapi.dll.so
 %{_libdir}/wine/%{winesodir}/ia2comproxy.dll.so
@@ -2401,6 +2405,7 @@ fi
 %{_libdir}/wine/%{winesodir}/tdi.sys.so
 %{_libdir}/wine/%{winesodir}/threadpoolwinrt.dll.so
 %{_libdir}/wine/%{winesodir}/traffic.dll.so
+%{_libdir}/wine/%{winesodir}/twinapi.appcore.dll.so
 %{_libdir}/wine/%{winesodir}/ucrtbase.dll.so
 %if 0%{?wine_staging}
 %{_libdir}/wine/%{winesodir}/uianimation.dll.so
@@ -2752,7 +2757,9 @@ fi
 %ifarch %{ix86} x86_64 aarch64
 %{_libdir}/wine/%{winepedir}/*.a
 %endif
+%ifarch %{ix86} x86_64
 %{_libdir}/wine/%{winesodir}/*.a
+%endif
 
 
 %files pulseaudio
@@ -2779,6 +2786,9 @@ fi
 %endif
 
 %changelog
+* Sun Jun 25 2023 Michael Cronenworth <mike@cchtml.com> - 8.11-1
+- version update
+
 * Wed Apr 19 2023 Michael Cronenworth <mike@cchtml.com> - 8.6-1
 - version update
 

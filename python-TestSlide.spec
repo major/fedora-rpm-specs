@@ -11,21 +11,21 @@
 %global pypi_name TestSlide
 %global obs_verrel 2.6.4-99
 
+# Upstream forgot to tag the release on GitHub, but the commit message clearly
+# indicates which commit corresponds to the PyPI release, so we do not add a
+# snapshot info field to the Version.
+%global commit d8b0c580a1cca612a7d1e6e10abbf1fc423bb629
+
 Name:           python-%{pypi_name}
-Version:        2.7.0
+Version:        2.7.1
 Release:        %autorelease
 Summary:        A Python test framework
 
 License:        MIT
 URL:            https://github.com/facebook/TestSlide
 # The PyPI tarball doesn't include tests, so use the original source instead
-Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
-# testslide: drop deprecated asyncio.coroutines.CoroWrapper for Python 3.11
-Patch0:         %{url}/commit/6823054772318a47bbcdd2b35d8f0fd4573e98af.patch
-# testslide: fix DeprecationWarning issues with Python 3.11
-Patch1:         %{url}/commit/3be202fec12f1ab6fab8b530f7c42e2f29a4c76b.patch
-# Set language
-Patch2:         %{url}/commit/5d7dcccd071a5cfbd4b0b93b48e86991b9c17d75.patch
+%global srcversion %{expr:%{defined commit}?"%{commit}":"%{version}"}
+Source0:        %{url}/archive/%{srcversion}/%{pypi_name}-%{srcversion}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -34,6 +34,7 @@ BuildRequires:  python3-devel
 # Docs requirements
 BuildRequires:  make
 BuildRequires:  /usr/bin/tput
+BuildRequires:  python3-ipython-sphinx
 %endif
 
 %if %{with tests}
@@ -77,9 +78,12 @@ python3-%{modname}.
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version} -p1
+%autosetup -n %{pypi_name}-%{srcversion} -p1
 # remove unnecessary test BRs
-sed -i '/^mypy/d' requirements-dev.txt
+sed -r -i '/^(black|coverage|coveralls|flake8|isort|mypy|twine)/d' \
+    requirements-dev.txt
+sed -r -i 's/^([[:blank:]]*)("COVERAGE_PROCESS_START")/\1# \2/' \
+    tests/cli_unittest.py
 sed -i '/^sphinx-autobuild/d' requirements-dev.txt
 
 %generate_buildrequires

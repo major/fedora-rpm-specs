@@ -5,7 +5,7 @@ Version:        1.4.36
 %forgemeta
 
 Name:           python-%{srcname}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library for reading and writing a variety of embroidery formats
 
 License:        MIT
@@ -61,5 +61,8 @@ sed -i 's/\r$//' README.md
 %exclude %{python3_sitelib}/test
  
 %changelog
+* Mon Jun 26 2023 Python Maint <python-maint@redhat.com> - 1.4.36-2
+- Rebuilt for Python 3.12
+
 * Fri Jun 16 2023 Benson Muite <benson_muite@emailplus.org> - 1.4.36-1
 - Initial packaging

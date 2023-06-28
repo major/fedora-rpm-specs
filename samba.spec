@@ -138,7 +138,7 @@
 %define samba_requires_eq()  %(LC_ALL="C" echo '%*' | xargs -r rpm -q --qf 'Requires: %%{name} = %%{epoch}:%%{version}\\n' | sed -e 's/ (none):/ /' -e 's/ 0:/ /' | grep -v "is not")
 
 %global samba_version 4.18.3
-%global baserelease 4
+%global baserelease 5
 # This should be rc1 or %%nil
 %global pre_release %nil
 
@@ -4333,6 +4333,9 @@ fi
 %endif
 
 %changelog
+* Mon Jun 26 2023 Python Maint <python-maint@redhat.com> - 2:4.18.3-5
+- Rebuilt for Python 3.12
+
 * Mon Jun 26 2023 Adam Williamson <awilliam@redhat.com> - 4.18.3-4
 - Only run libwbclient %pre on upgrade, not fresh install
 

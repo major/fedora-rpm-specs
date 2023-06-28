@@ -1,6 +1,6 @@
 Name:           python-pdm-pep517
 Version:        1.1.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Yet another PEP 517 backend
 
 License:        MIT AND Apache-2.0 AND Public Domain AND BSD-3-Clause AND ISC
@@ -52,6 +52,9 @@ git config --global user.name "Your Name"
 %license LICENSE
 
 %changelog
+* Mon Jun 26 2023 Python Maint <python-maint@redhat.com> - 1.1.4-2
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Simon de Vlieger <cmdr@supakeen.com> - 1.1.4-1
 - bump to 1.1.4-1
 

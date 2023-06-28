@@ -3,7 +3,7 @@
 %undefine        _changelog_trimtime
 
 Name:		rubygem-%{gem_name}
-Version:	4.1.7
+Version:	4.1.8
 Release:	1%{?dist}
 Summary:	Ruby binding of Clutter-GTK
 
@@ -47,7 +47,7 @@ Documentation for %{name}.
 mv ../%{gem_name}-%{version}.gemspec .
 
 # Adjust rubygems-gnome2 requirement to be more flexible
-sed -i -e 's|= 4\.1\.7|>= 4.1.7|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.1\.8|>= 4.1.8|' %{gem_name}-%{version}.gemspec
 sed -i dependency-check/Rakefile \
 	-e '\@PKGConfig\.check_version@s|clutter-gtk-1.0|glib-2.0|'
 sed -i -e '\@s\.extensions@d'  %{gem_name}-%{version}.gemspec
@@ -135,6 +135,9 @@ popd
 %doc	%{gem_instdir}/sample/
 
 %changelog
+* Mon Jun 26 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.8-1
+- 4.1.8
+
 * Thu Jun  1 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.7-1
 - 4.1.7
 
