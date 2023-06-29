@@ -2,8 +2,8 @@
 %global tag %{version}
 
 Name:    clitest
-Version: 0.4.0
-Release: 8%{?dist}
+Version: 0.5.0
+Release: 1%{?dist}
 Summary: Command Line Tester
 
 License: MIT
@@ -11,10 +11,6 @@ URL:     %{forgeurl}
 
 %forgemeta
 Source:  %{forgesource}
-
-# Some tests fails, for more details:
-# https://github.com/aureliojargas/clitest/issues/53
-Patch0:  https://github.com/aureliojargas/clitest/pull/54.patch
 
 BuildArch:     noarch
 BuildRequires: /usr/bin/perl
@@ -36,7 +32,6 @@ format, and a specialized tool tests them.
 
 %prep
 %forgesetup
-%patch 0 -p1
 
 %build
 #no build, only shell script
@@ -54,6 +49,9 @@ install -D -m755 -p clitest %{buildroot}%{_bindir}/clitest
 
 
 %changelog
+* Tue Jun 27 2023 Jonny Heggheim <hegjon@gmail.com> - 0.5.0-1
+- Updated to version 0.5.0
+
 * Mon Jun 12 2023 Jonny Heggheim <hegjon@gmail.com> - 0.4.0-8
 - Fixed broken tests
 

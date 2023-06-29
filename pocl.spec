@@ -1,8 +1,11 @@
 %global toolchain clang
 
+# Opt out of https://fedoraproject.org/wiki/Changes/fno-omit-frame-pointer
+%undefine _include_frame_pointers
+
 Name: pocl
-Version: 3.1
-Release: 1%{?dist}
+Version: 4.0
+Release: 2%{?dist}
 
 # The entire code is under MIT
 # include/utlist.h which is under BSD-1-Clause (unbundled)
@@ -11,10 +14,6 @@ License: MIT AND BSD-1-Clause AND (GPL-3.0-or-later OR LGPL-3.0-or-later)
 Summary: Portable Computing Language - an OpenCL implementation
 URL: https://github.com/%{name}/%{name}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-
-# https://github.com/pocl/pocl/commit/20d1bfa9bfd301964f7b2fc6d7f4589dd04e1b5c
-# https://github.com/pocl/pocl/commit/bf50f0052e4248cd1acfaaa8da95c5e4ca52f815
-Patch100: %{name}-3.1-llvm16.patch
 
 BuildRequires: cmake
 BuildRequires: clang
@@ -115,6 +114,12 @@ find . -depth -name utlist* -print -delete
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Jun 27 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 4.0-2
+- Disabled frame pointers to prevent crashes.
+
+* Tue Jun 27 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 4.0-1
+- Updated to version 4.0.
+
 * Tue Apr 11 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 3.1-1
 - Updated to version 3.1.
 - Fixed FTBFS on Fedora 37+.

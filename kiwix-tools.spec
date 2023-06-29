@@ -1,6 +1,6 @@
 Name: kiwix-tools
-Version: 3.4.0
-Release: 3%{?dist}
+Version: 3.5.0
+Release: 1%{?dist}
 
 License: GPL-3.0-or-later
 Summary: Common code base for all Kiwix ports
@@ -39,6 +39,9 @@ tools.
 %{_mandir}/*/man1/kiwix*.1*
 
 %changelog
+* Sat Apr 29 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 3.5.0-1
+- Updated to version 3.5.0.
+
 * Sat Apr 01 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 3.4.0-3
 - Rebuilt due to libzim package rename.
 

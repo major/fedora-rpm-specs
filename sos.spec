@@ -1,7 +1,7 @@
 Summary: A set of tools to gather troubleshooting information from a system
 Name: sos
-Version: 4.5.4
-Release: 4%{?dist}
+Version: 4.5.5
+Release: 2%{?dist}
 Source0: https://github.com/sosreport/sos/archive/%{version}.tar.gz
 License: GPL-2.0-or-later
 BuildArch: noarch
@@ -86,6 +86,13 @@ rm -rf %{buildroot}/usr/config/
 %config(noreplace) %{_sysconfdir}/sos/sos.conf
 
 %changelog
+* Tue Jun 27 2023 Python Maint <python-maint@redhat.com> - 4.5.5-2
+- Rebuilt for Python 3.12
+
+* Tue Jun 27 2023 Sandro Bonazzola <sbonazzo@redhat.com> - 4.5.5-1
+- Update to 4.5.5
+- Resolves: rhbz#2217163
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 4.5.4-4
 - Rebuilt for Python 3.12
 

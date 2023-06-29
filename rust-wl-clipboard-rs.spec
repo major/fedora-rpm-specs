@@ -2,23 +2,23 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate gix-bitmap
+%global crate wl-clipboard-rs
 
-Name:           rust-gix-bitmap
-Version:        0.2.5
+Name:           rust-wl-clipboard-rs
+Version:        0.7.0
 Release:        %autorelease
-Summary:        Implementation of the standard git bitmap format
+Summary:        Access to the Wayland clipboard for terminal and other window-less applications
 
 # Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/gix-bitmap
+URL:            https://crates.io/crates/wl-clipboard-rs
 Source:         %{crates_source}
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-A WIP crate of the gitoxide project dedicated implementing the standard
-git bitmap format.}
+Access to the Wayland clipboard for terminal and other window-less
+applications.}
 
 %description %{_description}
 
@@ -35,6 +35,7 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/CHANGELOG.md
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -47,6 +48,30 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+dlopen-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+dlopen-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "dlopen" feature of the "%{crate}" crate.
+
+%files       -n %{name}+dlopen-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+native_lib-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+native_lib-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "native_lib" feature of the "%{crate}" crate.
+
+%files       -n %{name}+native_lib-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -64,7 +89,8 @@ use the "default" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test
+# * unit tests require a running wayland display server
+%cargo_test -- --doc
 %endif
 
 %changelog

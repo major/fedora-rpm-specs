@@ -1,19 +1,16 @@
-%bcond_without tests
-%bcond_with docs
-
-%global pypi_name earthpy
+%bcond tests 1
 
 %global _description %{expand:
 EarthPy makes it easier to plot and manipulate spatial data in Python.}
 
-Name:           python-%{pypi_name}
+Name:           python-earthpy
 Version:        0.9.4
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A package built to support working with spatial data
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/earthlab/earthpy
-Source0:        %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
+Source0:        %{url}/archive/v%{version}/earthpy-%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -22,55 +19,30 @@ ExcludeArch: %{ix86}
 
 %description %_description
 
-%package -n python3-%{pypi_name}
+%package -n python3-earthpy
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
+
+# See: https://github.com/earthlab/earthpy/blob/v0.9.4/dev-requirements.txt
 
 #For tests
-BuildRequires:  python3-pytest
+BuildRequires:  python3dist(pytest)
 
-#For documentation
-BuildRequires:  python3dist(sphinx)
-BuildRequires:  python3dist(sphinx-rtd-theme)
-BuildRequires:  python3dist(sphinx-gallery)
-
-#Main dependencies
-BuildRequires:  python3dist(geopandas)
-BuildRequires:  python3dist(matplotlib)
-BuildRequires:  python3dist(numpy)
-BuildRequires:  python3dist(rasterio)
-BuildRequires:  python3dist(scikit-image)
-BuildRequires:  python3dist(requests)
-
-%description -n python3-%{pypi_name} %_description
-
-%if %{with docs}
-%package doc
-Summary:        %{summary}
-
-%description doc
-Documentation for %{name}.
-%endif
+%description -n python3-earthpy %_description
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
-rm -rf %{pypi_name}.egg-info
+%autosetup -n earthpy-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
-
-#Some documents are downloaded from the internet during the build.
-%if %{with docs}
-# Generate html docs
-PYTHONPATH=${PWD} sphinx-build-3 docs/ html
-# Remove the sphinx-build leftovers
-rm -rf html/.{doctrees,buildinfo}
-%endif
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files earthpy
 
 %check
 %if %{with tests}
@@ -84,20 +56,17 @@ k="${k-}${k+ and }not test_warning_mutli_point_clip_function"
 %pytest --ignore=earthpy/tests/test_io.py -k "${k-}"
 %endif
 
-%files -n python3-%{pypi_name}
-%license LICENSE
+%files -n python3-earthpy -f %{pyproject_files}
 %doc README.md paper.md examples/ CHANGELOG.rst
 %doc CODE_OF_CONDUCT.rst CONTRIBUTING.rst CONTRIBUTORS.rst
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
-%{python3_sitelib}/%{pypi_name}
-
-%if %{with docs}
-%files -n python-%{pypi_name}-doc
-%license LICENSE
-%doc html/
-%endif
 
 %changelog
+* Tue Jun 27 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.9.4-8
+- Update License to SPDX
+- Port to pyproject-rpm-macros
+- Drop docs build conditional; it is unlikely we will ever fix the doc build
+- Use new (rpm 4.17.1+) bcond style
+
 * Sat Feb 04 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.9.4-7
 - Skip several tests that are currently failing (close RHBZ#2148632)
 - Remove spurious BR on pytest-cov

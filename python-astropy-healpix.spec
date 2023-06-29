@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        %{sum}
 
 License:        BSD
@@ -72,6 +72,9 @@ rm -rf %{buildroot}%{python3_sitearch}/.pytest_cache
 %{python3_sitearch}/%{modname}*egg-info
 
 %changelog
+* Tue Jun 27 2023 Python Maint <python-maint@redhat.com> - 0.7-3
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

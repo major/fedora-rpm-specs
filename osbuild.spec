@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        88
+Version:        89
 
 %forgemeta
 
@@ -9,7 +9,7 @@ Version:        88
 %global         pkgdir %{_prefix}/lib/%{pypi_name}
 
 Name:           %{pypi_name}
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        Apache-2.0
 
 URL:            %{forgeurl}
@@ -252,6 +252,20 @@ fi
 
 
 %changelog
+* Tue Jun 27 2023 Python Maint <python-maint@redhat.com> - 89-2
+- Rebuilt for Python 3.12
+
+* Tue Jun 27 2023 Packit <hello@packit.dev> - 89-1
+Changes with 89
+----------------
+  * CI variable name has changed, (#1330)
+  * inputs: Move arguments for InputService.map to a temporary file (#1331)
+
+Contributions from: Alexander Todorov, Ondřej Budai
+
+— Somewhere on the Internet, 2023-06-27
+
+
 * Wed Jun 21 2023 Packit <hello@packit.dev> - 88-1
 Changes with 88
 ----------------

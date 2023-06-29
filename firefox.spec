@@ -61,7 +61,9 @@ ExcludeArch: ppc64le
 %global system_libvpx     0
 %global system_jpeg       1
 %global system_pixman     1
-%global use_bundled_cbindgen  1
+# Bundled cbindgen makes build slow.
+# Enable only if system cbindgen is not available.
+%global use_bundled_cbindgen  0
 %if %{debug_build}
 %global release_build     0
 %endif
@@ -234,7 +236,6 @@ Patch407:        mozilla-1667096.patch
 
 # PGO/LTO patches
 Patch600:        pgo.patch
-Patch602:        mozilla-1516803.patch
 Patch603:        firefox-gcc-always-inline.patch
 
 # tentative patch for RUSTFLAGS parsing issue:
@@ -508,7 +509,6 @@ This package contains results of tests executed during build.
 %if %{build_with_pgo}
 %if !%{build_with_clang}
 %patch600 -p1 -b .pgo
-%patch602 -p1 -b .1516803
 %endif
 %endif
 %patch603 -p1 -b .inline
@@ -625,7 +625,8 @@ chmod a-x third_party/rust/ash/src/extensions/nv/*.rs
 
 %build
 # Disable LTO to work around rhbz#1883904
-%define _lto_cflags %{nil}
+# Is that already fixed?
+# %define _lto_cflags %{nil}
 
 %if 0%{?use_bundled_cbindgen}
 mkdir -p my_rust_vendor
@@ -643,6 +644,8 @@ EOL
 env CARGO_HOME=.cargo cargo install cbindgen
 export PATH=`pwd`/.cargo/bin:$PATH
 cd -
+%else
+export CBINDGEN=/usr/bin/cbindgen
 %endif
 
 mkdir %{_buildrootdir}/bin || :
@@ -707,9 +710,13 @@ echo "export NM=\"gcc-nm\"" >> .mozconfig
 echo "export RANLIB=\"gcc-ranlib\"" >> .mozconfig
 %endif
 %if 0%{?build_with_pgo}
-echo "ac_add_options MOZ_PGO=1" >> .mozconfig
 # PGO build doesn't work with ccache
 export CCACHE_DISABLE=1
+export GCOV_PREFIX=`pwd -P`/objdir
+export GCOV_PREFIX_STRIP=$(( $(echo `pwd -P`|tr -c -d '/' |wc -c )+2 ))
+env | grep GCOV
+echo "ac_add_options --enable-lto" >> .mozconfig
+echo "ac_add_options MOZ_PGO=1" >> .mozconfig
 %endif
 
 # Require 2 GB of RAM per CPU core

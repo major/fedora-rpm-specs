@@ -1,5 +1,7 @@
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
+# Please fix upstream this if you need it and no downstream Fedora patch
+ExcludeArch: s390x
 
 # Free/Freeworld/Non-Free version
 %bcond_with freeworld
@@ -28,7 +30,7 @@ ExcludeArch: %{ix86}
 
 Name:           %{appname}%{?p_suffix}
 Version:        1.15.0
-Release:        4%{?dist}
+Release:        %autorelease
 Summary:        Cross-platform, sophisticated frontend for the libretro API. %{?sum_suffix}
 
 # CC-BY:        Assets
@@ -126,8 +128,6 @@ Source11:       README.fedora.md
 
 # https://github.com/libretro/retroarch-assets/pull/334
 Patch0:         https://github.com/libretro/retroarch-assets/pull/334.patch#/add-executable-bit-to-script.patch
-# fix build on big-endian
-Patch1:         %{name}-1.15.0-big-endian.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++ >= 7
@@ -297,9 +297,8 @@ database of ROMs that are known to be good copies.
 %setup -n RetroArch-%{version} -q -D -T -a1
 
 pushd %{appname}-assets-%{commit1}
-%patch0 -p1
+%patch 0 -p1
 popd
-%patch1 -p1 -b .s390x
 
 %setup -n RetroArch-%{version} -q -D -T -a3
 %setup -n RetroArch-%{version} -q -D -T -a4
@@ -369,6 +368,8 @@ sed -e 's|retroarch.cfg|%{name}.cfg|g'  \
     --disable-builtinmbedtls    \
     --disable-builtinzlib       \
     --enable-dbus               \
+    --enable-libdecor           \
+    --enable-wayland            \
     %{nil}
 %set_build_flags
 %make_build
@@ -515,161 +516,4 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.xml
 
 
 %changelog
-* Sun Mar 12 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.15.0-4
-- Rebuild for ffmpeg 6.0
-- fix build on big-endian (Dominik Mierzejewski)
-
-* Sat Mar 11 2023 Artem Polishchuk <ego.cordatus@gmail.com> - 1.15.0-3
-- chore: Update to 1.15.0
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Tue Dec 13 2022 Artem Polishchuk <ego.cordatus@gmail.com> - 1.14.0-1
-- chore: Update to 1.14.0
-
-* Sun Nov 20 2022 Artem Polishchuk <ego.cordatus@gmail.com> - 1.13.0-1
-- chore: Update to 1.13.0
-
-* Mon Nov 14 2022 Artem Polishchuk <ego.cordatus@gmail.com> - 1.12.0-4
-- build: Use ffmpeg-free only for >= f37
-
-* Mon Nov 14 2022 Artem Polishchuk <ego.cordatus@gmail.com> - 1.12.0-3
-- build: Add new build deps
-
-* Mon Nov 14 2022 Artem Polishchuk <ego.cordatus@gmail.com> - 1.12.0-2
-- build: Add limited ffmpeg support for >= f36
-
-* Sat Oct 22 2022 Artem Polishchuk <ego.cordatus@gmail.com> - 1.12.0-1
-- chore(update): 1.12.0
-
-* Sat Oct 01 2022 Artem Polishchuk <ego.cordatus@gmail.com> - 1.11.0-2
-- build: Recommends: gamemode
-
-* Fri Sep 30 2022 Artem Polishchuk <ego.cordatus@gmail.com> - 1.11.0-1
-- chore(update): 1.11.0
-
-* Wed Sep 14 2022 Michel Alexandre Salim <salimma@fedoraproject.org> - 1.10.3-3
-- Rebuilt for flac 1.4.0
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue Apr 12 2022 Artem Polishchuk <ego.cordatus@gmail.com> - 1.10.3-1
-- chore(update): 1.10.3
-
-* Wed Mar 23 2022 Artem Polishchuk <ego.cordatus@gmail.com> - 1.10.2-1
-- chore(update): 1.10.2
-
-* Fri Mar 04 2022 Artem Polishchuk <ego.cordatus@gmail.com> - 1.10.1-1
-- chore(update): 1.10.1
-
-* Sat Jan 22 2022 Morten Stevens <mstevens@fedoraproject.org> 1.10.0-2
-- Rebuilt for mbedTLS 2.28.0
-
-* Thu Jan 20 2022 Artem Polishchuk <ego.cordatus@gmail.com> - 1.10.0-1
-- chore(update): 1.10.0
-
-* Mon Dec 06 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 1.9.14-1
-- chore(update): 1.9.14
-
-* Sun Nov 07 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 1.9.13-1
-- chore(update): 1.9.13
-
-* Sun Oct 24 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 1.9.12-1
-- chore(update): 1.9.12
-
-* Sat Oct 09 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 1.9.11-1
-- chore(update): 1.9.11
-
-* Mon Oct 04 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 1.9.10-1
-- build(update): 1.9.10
-
-* Fri Oct 01 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 1.9.9-3
-- docs: Add README.fedora.md | rh#1846170
-
-* Tue Sep 14 2021 Sahana Prasad <sahana@redhat.com> - 1.9.9-2
-- Rebuilt with OpenSSL 3.0.0
-
-* Tue Sep 07 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 1.9.9-1
-- build(update): 1.9.9
-
-* Thu Aug 26 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 1.9.8-1
-- build(update): 1.9.8
-
-* Sat Aug 14 2021 Artem Polishchuk <ego.cordatus@gmail.com>
-- build(update): 1.9.7
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Mon Jun 14 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 1.9.5-1
-- build(update): 1.9.5
-
-* Fri May 28 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 1.9.4-1
-- build(update): 1.9.4
-
-* Sat May 15 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 1.9.3-1
-- build(update): 1.9.3
-
-* Sat May 01 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 1.9.2-1
-- build(update): 1.9.2
-
-* Mon Mar 29 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 1.9.1-1
-- build(update): 1.9.1
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sat Aug 08 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 1.9.0-1
-- Update to 1.9.0
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.9-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Sat Jun 20 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 1.8.9-1
-- Update to 1.8.9
-
-* Wed May 27 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 1.8.8-1
-- Update to 1.8.8
-
-* Tue May 19 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 1.8.7-2
-- Add Database files (cheatcode, content data, cursors) | Fix: RH#1822743
-- Disable LTO
-
-* Mon May 18 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 1.8.7-1
-- Update to 1.8.7
-
-* Thu May 07 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 1.8.6-1
-- Update to 1.8.6
-
-* Thu Mar 26 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 1.8.5-2
-- Add Joypad Autoconfig Files
-
-* Mon Mar 23 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 1.8.5-1
-- Update to 1.8.5
-- Add new libretro core
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Wed Jan 29 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 1.8.4-3
-- Spec file improvements
-- Thanks to Nicolas Chauvet <kwizart@gmail.com> for help with packaging and review
-
-* Fri Jan 24 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 1.8.4-2
-- Add Libretro's core info. Thanks <jamesunderland@protonmail.com>
-
-* Sun Jan 19 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 1.8.4-1
-- Update to 1.8.4
-- Add missed Perl modules
-
-* Sun Dec 29 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 1.8.2-2
-- Make fully standlone Freeworld package as RPM Fusion recommended
-
-* Thu Dec 26 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 1.8.2-1
-- Update to 1.8.2
-
-* Fri Nov 29 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 1.8.1-14
-- Initial package
-- Thanks to Vitaly Zaitsev <vitaly@easycoding.org> for help with packaging and review
+%autochangelog

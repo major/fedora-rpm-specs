@@ -1,6 +1,6 @@
 Name:           python-bravado-core
 Version:        5.17.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library for adding Swagger support to clients and servers
 
 License:        BSD-3-Clause
@@ -59,6 +59,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Jun 27 2023 Python Maint <python-maint@redhat.com> - 5.17.1-2
+- Rebuilt for Python 3.12
+
 * Mon Feb 13 2023 Carl George <carl@george.computer> - 5.17.1-1
 - Update to version 5.17.1, resolves rhbz#2169589
 - Convert to pyproject macros

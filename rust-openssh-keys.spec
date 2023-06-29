@@ -5,7 +5,7 @@
 %global crate openssh-keys
 
 Name:           rust-openssh-keys
-Version:        0.6.1
+Version:        0.6.2
 Release:        %autorelease
 Summary:        Read and write OpenSSH public keys
 

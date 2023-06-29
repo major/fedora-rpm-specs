@@ -8,7 +8,7 @@
 Name:          gr-funcube
 URL:           https://github.com/dl1ksv/gr-funcube
 Version:       1.0.0
-Release:       20.%{git_suffix}%{?dist}
+Release:       21.%{git_suffix}%{?dist}
 License:       GPLv3+
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -103,6 +103,9 @@ exit 0
 %doc %{_docdir}/%{name}/xml
 
 %changelog
+* Tue Jun 27 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 1.0.0-21.20220130gitbf71b979
+- Rebuilt for new gnuradio
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 1.0.0-20.20220130gitbf71b979
 - Rebuilt for Boost 1.81
 

@@ -1,3 +1,6 @@
+# Break a circular dependency with sphinx-autodoc-typehints
+%bcond bootstrap 1
+
 # Sphinx-generated HTML documentation is not suitable for packaging; see
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
@@ -5,7 +8,7 @@
 %bcond doc_pdf 1
 
 Name:           python-typeguard
-Version:        2.13.3
+Version:        4.0.0
 Release:        %autorelease
 Summary:        Run-time type checker for Python
 
@@ -13,6 +16,17 @@ Summary:        Run-time type checker for Python
 License:        MIT
 URL:            https://github.com/agronholm/typeguard
 Source:         %{pypi_source typeguard}
+
+# Fixed deprecation warnings on Python 3.12
+# https://github.com/agronholm/typeguard/commit/f377be389765ed0db104b41d78fce3c45e72e149
+#
+# Fixes:
+#
+# DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14
+# https://github.com/agronholm/typeguard/issues/368
+#
+# Backported to 4.0.0.
+Patch:          0001-Fixed-deprecation-warnings-on-Python-3.12.patch
 
 BuildArch:      noarch
 
@@ -44,34 +58,24 @@ Summary:        Documentation for typeguard
 
 
 %prep
-%autosetup -n typeguard-%{version}
-
-# Normally, we should skip linters and typecheckers
-# (https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters).
-# In this case, it could make sense to allow the tests to depend on mypy for
-# this package since it is itself a typechecker, and some tests seem to want to
-# compare results against mypy. However, the tests are brittle in that they
-# depend on the exact messages produced by a particular version of mypy, which
-# makes them unsuitable for downstream testing.
-sed -r -i '/\b(mypy)\b/d' setup.cfg
-# In future versions, with project metadata migrated to pyproject.toml:
-# sed -r -i 's/^([[:blank:]]*)(.(mypy))\b/\1# \2/' \
-#     pyproject.toml
+%autosetup -n typeguard-%{version} -p1
 
 # Because we do not build Sphinx-generated HTML documentation, and conf.py does
 # not import the HTML theme package, we do not need to require it at build
 # time.
-sed -r -i '/\b(sphinx_rtd_theme)\b/d' setup.cfg
-# In future versions, with project metadata migrated to pyproject.toml:
-# sed -r -i 's/^([[:blank:]]*)(.(sphinx_rtd_theme))\b/\1# \2/' \
-#     pyproject.toml
+sed -r -i 's/^([[:blank:]]*)(.(sphinx_rtd_theme))\b/\1# \2/' pyproject.toml
 
-# In docs/conf.py, pkg_resources is used to access the version from the
-# typeguard package distribution. This works for upstream, but it doesn’t work
-# when we haven’t installed the package with proper dist-info metadata yet.
-sed -r -i \
-    's/get_distribution\(.*\)\.parsed_version/parse_version\("%{version}"\)/' \
+%if %{with bootstrap}
+sed -r -i 's/^([[:blank:]]*)(.(sphinx-autodoc-typehints))\b/\1# \2/' \
+    pyproject.toml
+sed -r -i 's/^([[:blank:]]*)(.(sphinx_autodoc_typehints))\b/\1# \2/' \
     docs/conf.py
+%endif
+
+# In docs/conf.py, packaging is used to access the version from the typeguard
+# package distribution. This works for upstream, but it doesn’t work when we
+# haven’t installed the package with proper dist-info metadata yet.
+sed -r -i 's/get_version\("typeguard"\)/"%{version}"/' docs/conf.py
 
 # Drop intersphinx mappings, since we can’t download remote inventories and
 # can’t easily produce working hyperlinks from inventories in local
@@ -80,41 +84,29 @@ echo 'intersphinx_mapping.clear()' >> docs/conf.py
 
 
 %generate_buildrequires
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 %pyproject_buildrequires -x test%{?with_doc_pdf:,doc}
 
 
 %build
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 %pyproject_wheel
 
 %if %{with doc_pdf}
-PYTHONPATH="${PWD}/src" %make_build -C docs latex \
-    SPHINXOPTS='-j%{?_smp_build_ncpus}'
-%make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
+PYTHONPATH="${PWD}/src" sphinx-build -b latex -j%{?_smp_build_ncpus} \
+    docs %{_vpath_builddir}/_latex
+%make_build -C %{_vpath_builddir}/_latex LATEXMKOPTS='-quiet'
 %endif
 
 
 %install
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 %pyproject_install
 %pyproject_save_files typeguard
 
 
 %check
-# The test_cached_module test fails to find a byte-compiled .pyc module where
-# it is expecting it. Manually byte-compiling the tests (%%py_byte_compile
-# %%{python3} tests) doesn’t help. This is almost certainly specific to the RPM
-# build environment and not a real bug.
-#
-# See also:
-#   2.13.3: pytest is failing in three units
-#   https://github.com/agronholm/typeguard/issues/248
-k="${k-}${k+ and }not test_cached_module"
-
-# Tests comparing against mypy output are too brittle—tightly coupled to
-# particular mypy versions—so we skip them downstream.
-k="${k-}${k+ and }not test_positive"
-k="${k-}${k+ and }not test_negative"
-
-%pytest -k "${k-}"
+%pytest
 
 
 %files -n python3-typeguard -f %{pyproject_files}
@@ -125,7 +117,7 @@ k="${k-}${k+ and }not test_negative"
 %license LICENSE
 %doc README.rst
 %if %{with doc_pdf}
-%doc docs/_build/latex/typeguard.pdf
+%doc %{_vpath_builddir}/_latex/typeguard.pdf
 %endif
 
 

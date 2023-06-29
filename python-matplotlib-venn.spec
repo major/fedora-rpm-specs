@@ -10,7 +10,7 @@ venn3_circles.}
 
 Name:           python-%{pypi_name}
 Version:        0.11.7
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Routines for plotting area-weighted two- and three-circle venn diagrams
 
 License:        MIT
@@ -56,6 +56,9 @@ BuildRequires:  python3dist(pytest)
 %doc README.rst DEVELOPER-README.rst CHANGELOG.txt
 
 %changelog
+* Tue Jun 27 2023 Python Maint <python-maint@redhat.com> - 0.11.7-5
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

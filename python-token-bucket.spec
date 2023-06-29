@@ -1,6 +1,6 @@
 Name:           python-token-bucket
 Version:        0.3.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A Token Bucket implementation
 
 License:        ASL 2.0
@@ -9,6 +9,10 @@ Source0:        %{url}/archive/refs/tags/%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+
+# Temporary, until https://github.com/falconry/token-bucket/pull/24 gets
+# merged upstream.
+Patch0:         0000-py312-imp.patch
 
 %global _description %{expand:
 The token-bucket package provides an implementation of the token bucket
@@ -45,6 +49,9 @@ Summary: %{summary}
 %license LICENSE
 
 %changelog
+* Tue Jun 27 2023 Simon de Vlieger <cmdr@supakeen.com> - 0.3.0-5
+- Apply patch for Python 3.12 compatibility.
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.3.0-4
 - Rebuilt for Python 3.12
 

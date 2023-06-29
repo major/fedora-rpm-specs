@@ -1,5 +1,5 @@
 Name: conan
-Version: 2.0.6
+Version: 2.0.7
 Release: 2%{?dist}
 
 License: MIT
@@ -62,6 +62,12 @@ find -name '*.py' \( \! -perm /u+x,g+x,o+x -exec sed -e '/^#!/Q 0' -e 'Q 1' {} \
 %{_bindir}/%{name}
 
 %changelog
+* Tue Jun 27 2023 Python Maint <python-maint@redhat.com> - 2.0.7-2
+- Rebuilt for Python 3.12
+
+* Wed Jun 21 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2.0.7-1
+- Updated to version 2.0.7.
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.0.6-2
 - Rebuilt for Python 3.12
 

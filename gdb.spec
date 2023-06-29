@@ -53,11 +53,11 @@ Name: %{?scl_prefix}gdb
 # See timestamp of source gnulib installed into gnulib/ .
 %global snapgnulib 20220501
 %global tarname gdb-%{version}
-Version: 13.1
+Version: 13.2
 
 # The release always contains a leading reserved number, start it at 1.
 # `upstream' is not a part of `name' to stay fully rpm dependencies compatible for the testing.
-Release: 7%{?dist}
+Release: 1%{?dist}
 
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ and GPLv2+ with exceptions and GPL+ and LGPLv2+ and LGPLv3+ and BSD and Public Domain and GFDL
 # Do not provide URL for snapshots as the file lasts there only for 2 days.
@@ -1252,6 +1252,11 @@ fi
 %endif
 
 %changelog
+* Sun Jun 25 2023 Alexandra Hájková <ahajkova@redhat.com> - 13.2
+- Rebase to FSF GDB 13.22.
+- Remove gdb-rhbz2177655-aarch64-pauth-valid-regcache.patch.
+- Remove gdb-rhbz2183595-rustc-inside_main.patch.
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com>
 - Rebuilt for Python 3.12
 

@@ -1,6 +1,6 @@
 Name: libmodsecurity
 Version: 3.0.9
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A library that loads/interprets rules written in the ModSecurity SecRules
 
 License: Apache-2.0
@@ -14,7 +14,11 @@ BuildRequires: gcc-c++
 BuildRequires: git-core
 BuildRequires: make
 BuildRequires: pkgconfig(libcurl)
+%if 0%{?fedora} || 0%{?rhel} >= 9
 BuildRequires: pkgconfig(libmaxminddb)
+%else
+BuildRequires: pkgconfig(geoip)
+%endif
 BuildRequires: pkgconfig(libpcre2-8)
 BuildRequires: pkgconfig(libxml-2.0)
 BuildRequires: pkgconfig(lmdb)
@@ -88,6 +92,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Tue Jun 27 2023 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 3.0.9-2
+- Use geoip instead of libmaxminddb for EPEL 7 and 8 builds
+
 * Sat Apr 15 2023 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 3.0.9-1
 - 2828.patch: drop, included in 3.0.9
 - Remove deps required for autoreconf

@@ -128,6 +128,8 @@ printers.
 
 %prep
 %autosetup -S git
+# workaround https://github.com/pypa/setuptools/issues/3143
+sed -i 's/setup.py install --prefix=$(DESTDIR)$(prefix)/setup.py install --root $(DESTDIR) --prefix=$(prefix)/' Makefile*
 
 %build
 %configure --with-udev-rules
@@ -235,7 +237,7 @@ rm -rf %{buildroot}%{_bindir}/%{name}-applet \
 %dir %{_sysconfdir}/cupshelpers
 %config(noreplace) %{_sysconfdir}/cupshelpers/preferreddrivers.xml
 %{python3_sitelib}/cupshelpers
-%{python3_sitelib}/*.egg-info
+%{python3_sitelib}/*.egg-info/
 
 %if 0%{?rhel} <= 8 || 0%{?fedora}
 %files applet

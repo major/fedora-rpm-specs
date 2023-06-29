@@ -4,7 +4,7 @@
 # rather than upgrade python-autoclasstoc.
  
 Name:           python-signature-dispatch
-Version:        1.0.0
+Version:        1.0.1
 Release:        %autorelease
 Summary:        Overload functions based on their call signature and type annotations
 
@@ -13,10 +13,15 @@ License:        MIT
 URL:            https://github.com/kalekundert/signature_dispatch
 Source:         %{pypi_source signature_dispatch}
 
+# Migrate to typeguard v4.0
+# https://github.com/kalekundert/signature_dispatch/pull/5
+# Rebased on the PyPI sdist, which has different whitespace in pyproject.toml,
+# and version specification loosened to allow rc3 or later.
+Patch:          typeguard-v4.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-
 
 %global common_description %{expand:
 This package provides a simple python library for overloading functions based

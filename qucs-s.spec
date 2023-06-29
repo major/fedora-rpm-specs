@@ -2,7 +2,7 @@
 
 Summary: Qucs circuit simulator which works with SPICE
 Name:    qucs-s
-Version: 1.0.2
+Version: 1.1.0
 Release: 1%{?dist}
 License: GPLv2+
 URL:     https://ra3xdh.github.io/
@@ -15,6 +15,8 @@ Patch0:  qucs-s-0.0.19-fix-desktop-file.patch
 BuildRequires: make
 BuildRequires: cmake
 BuildRequires: gcc-c++
+BuildRequires: flex
+BuildRequires: bison
 BuildRequires: desktop-file-utils
 BuildRequires: qt5-qtbase-devel
 BuildRequires: qt5-linguist
@@ -84,6 +86,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %exclude %{_datadir}/%{name}/library
 %exclude %{_datadir}/%{name}/xspice_cmlib
 %{_bindir}/qucs*
+%{_bindir}/vcd2qucsdat
 %{_datadir}/%{name}
 %{_datadir}/applications/*
 %{_mandir}/man1/*
@@ -102,6 +105,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Tue Jun 27 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 1.1.0-1
+- New version
+  Resolves: rhbz#2213381
+
 * Wed Apr 26 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 1.0.2-1
 - New version
   Resolves: rhbz#2189343

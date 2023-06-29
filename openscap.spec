@@ -1,6 +1,6 @@
 Name:           openscap
 Version:        1.3.8
-Release:        2%{?dist}
+Release:        4%{?dist}
 Epoch:          1
 Summary:        Set of open source libraries enabling integration of the SCAP line of standards
 License:        LGPL-2.1-or-later
@@ -205,6 +205,12 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_mandir}/man8/oscap-podman.8*
 
 %changelog
+* Tue Jun 27 2023 Python Maint <python-maint@redhat.com> - 1:1.3.8-4
+- Rebuilt for Python 3.12
+
+* Tue Jun 27 2023 Evgeny Kolesnikov <ekolesni@redhat.com> - 1:1.3.8-3
+- Rebuilt because of xmlsec1 downgrade
+
 * Mon Jun 26 2023 Python Maint <python-maint@redhat.com> - 1:1.3.8-2
 - Rebuilt for Python 3.12
 

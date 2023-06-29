@@ -47,8 +47,8 @@
 Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
-Version:       1.51.3
-Release:       4%{?dist}
+Version:       1.51.4
+Release:       2%{?dist}
 License:       LGPL-2.1-or-later
 
 # Build only for architectures that have a kernel
@@ -1086,6 +1086,12 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Tue Jun 27 2023 Python Maint <python-maint@redhat.com> - 1:1.51.4-2
+- Rebuilt for Python 3.12
+
+* Tue Jun 27 2023 Richard W.M. Jones <rjones@redhat.com> - 1:1.51.4-1
+- New upstream development version 1.51.4
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1:1.51.3-4
 - Rebuilt for Python 3.12
 

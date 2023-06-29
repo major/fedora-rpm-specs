@@ -3,7 +3,7 @@
 %bcond_with docs
 
 Name:           python-%{pypi_name}
-Version:        5.3.0
+Version:        5.5.0
 Release:        2%{?dist}
 Summary:        Objects and routines pertaining to date and time (tempora)
 
@@ -88,6 +88,12 @@ LANG=C.utf-8 %{__python3} -m pytest --ignore=build
 %endif
 
 %changelog
+* Tue Jun 27 2023 Python Maint <python-maint@redhat.com> - 5.5.0-2
+- Rebuilt for Python 3.12
+
+* Tue Jun 27 2023 Dan Radez <dradez@redhat.com> - 5.5.0-1
+- update to 5.5.0 rhbz#2217851
+
 * Mon Jun 26 2023 Python Maint <python-maint@redhat.com> - 5.3.0-2
 - Rebuilt for Python 3.12
 

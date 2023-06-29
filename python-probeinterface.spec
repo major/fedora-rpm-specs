@@ -5,7 +5,7 @@
 %bcond doc_pdf 1
 
 Name:           python-probeinterface
-Version:        0.2.16
+Version:        0.2.17
 Release:        %autorelease
 Summary:        Handles probe layout, geometry, and wiring to device
 
@@ -21,7 +21,7 @@ Source0:        %{url}/archive/%{version}/probeinterface-%{version}.tar.gz
 # https://github.com/SpikeInterface/probeinterface/issues/70.
 #
 # This URL comes from probeinterface/library.py, where it is called public_url.
-%global probe_url https://web.gin.g-node.org/spikeinterface/probeinterface_library/raw/master
+%global probe_url https://raw.githubusercontent.com/SpikeInterface/probeinterface_library/main
 Source1:        %{probe_url}/neuronexus/A1x32-Poly3-10mm-50-177/A1x32-Poly3-10mm-50-177.json
 Source2:        %{probe_url}/cambridgeneurotech/ASSY-156-P-1/ASSY-156-P-1.json
 
@@ -92,6 +92,11 @@ Summary:        Documentation for probeinterface
 # Do not require an exact matplotlib version to build documentation:
 sed -r -i 's/(matplotlib)==/\1>=/' pyproject.toml
 
+# Drop coverage tools from test dependencies.
+#
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+sed -r -i 's/^([[:blank:]])(.*pytest-cov.*,)$/\1# \2/' pyproject.toml
+
 # Pre-populate the probe definition cache
 PROBE_CACHE="${HOME}/.config/probeinterface/library"
 install -t "${PROBE_CACHE}/neuronexus" -p -m 0644 -D '%{SOURCE1}'
@@ -105,16 +110,19 @@ install -t "${PROBE_CACHE}/cambridgeneurotech" -p -m 0644 -D '%{SOURCE2}'
 %build
 %pyproject_wheel
 
-%if %{with doc_pdf}
-PYTHONPATH="${PWD}" %make_build -C doc latex \
-    SPHINXOPTS='-j%{?_smp_build_ncpus}'
-%make_build -C doc/_build/latex LATEXMKOPTS='-quiet'
-%endif
-
 
 %install
 %pyproject_install
 %pyproject_save_files probeinterface
+
+%if %{with doc_pdf}
+# Building this in %%install instead of %%build is a hack, but it is the
+# easiest workaround for the unusual fact that importing the package requires
+# proper distribution metadata.
+PYTHONPATH='%{buildroot}%{python3_sitelib}' %make_build -C doc latex \
+    SPHINXOPTS='-j%{?_smp_build_ncpus}'
+%make_build -C doc/_build/latex LATEXMKOPTS='-quiet'
+%endif
 
 
 %check

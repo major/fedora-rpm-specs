@@ -6,8 +6,9 @@ License:        MIT
 URL:            http://www.x.org
 
 Source0:        https://xkbcommon.org/download/%{name}-%{version}.tar.xz
+BuildRequires:  gcc
 BuildRequires:  git meson
-BuildRequires:  xorg-x11-util-macros byacc flex bison
+BuildRequires:  byacc flex bison
 BuildRequires:  xorg-x11-proto-devel libX11-devel
 BuildRequires:  xkeyboard-config-devel
 BuildRequires:  pkgconfig(xcb-xkb) >= 1.10

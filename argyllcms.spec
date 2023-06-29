@@ -1,6 +1,9 @@
+# Opt out of https://fedoraproject.org/wiki/Changes/fno-omit-frame-pointer
+%undefine _include_frame_pointers
+
 Name: argyllcms
 Version: 2.3.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # Main code - AGPL-3.0-or-later
 # spectro, xml - GPL-2.0-or-later
@@ -155,6 +158,9 @@ rm -f %{buildroot}/%{_bindir}/*.txt
 %{_datadir}/color/argyll/
 
 %changelog
+* Sat Apr 29 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2.3.1-4
+- Rebuilt without frame pointers to mitigate crashes in dependent packages.
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

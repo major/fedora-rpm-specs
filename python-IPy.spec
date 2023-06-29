@@ -7,6 +7,7 @@ URL:            https://github.com/haypo/python-ipy
 Source0:        https://files.pythonhosted.org/packages/source/I/IPy/IPy-%{version}.tar.gz
 License:        BSD
 BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 BuildArch:      noarch
 
 %description

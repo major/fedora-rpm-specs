@@ -1,5 +1,5 @@
 Name: libzim
-Version: 8.1.1
+Version: 8.2.0
 Release: 1%{?dist}
 
 License: GPL-2.0-only AND Apache-2.0 AND BSD-3-Clause
@@ -56,6 +56,9 @@ Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sat Apr 29 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 8.2.0-1
+- Updated to version 8.2.0.
+
 * Sat Apr 01 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 8.1.1-1
 - Renamed package to libzim.
 - Updated to version 8.1.1.

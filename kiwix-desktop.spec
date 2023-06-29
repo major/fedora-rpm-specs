@@ -1,6 +1,6 @@
 Name: kiwix-desktop
 Version: 2.3.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: GPL-3.0-or-later
 Summary: Kiwix desktop application
@@ -66,6 +66,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_metainfodir}/*.appdata.xml
 
 %changelog
+* Sat Apr 29 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2.3.1-4
+- Rebuilt due to libzim update.
+
 * Sat Apr 01 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2.3.1-3
 - Rebuilt due to libzim package rename.
 

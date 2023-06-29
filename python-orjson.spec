@@ -10,7 +10,7 @@
 
 Name:           python-orjson
 Version:        3.8.12
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast, correct Python JSON library
 
 License:        Apache-2.0 OR MIT
@@ -108,6 +108,9 @@ export RUSTFLAGS='%{build_rustflags}'
 
 
 %changelog
+* Tue Jun 27 2023 Python Maint <python-maint@redhat.com> - 3.8.12-2
+- Rebuilt for Python 3.12
+
 * Thu May 18 2023 Maxwell G <maxwell@gtmx.me> - 3.8.12-1
 - Update to 3.8.12.
 - Use maturin as a build system when available

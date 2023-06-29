@@ -4,7 +4,7 @@
 
 Name:           python-jupyter-core
 Version:        5.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        The base package for Jupyter projects
 
 License:        BSD
@@ -82,7 +82,7 @@ rm -rf html/.{doctrees,buildinfo}
 # Create directories for python-jupyter-filesystem package
 mkdir -p %{buildroot}%{_datadir}/jupyter
 mkdir %{buildroot}%{_datadir}/jupyter/kernels
-mkdir %{buildroot}%{_datadir}/jupyter/labextensions
+mkdir -p %{buildroot}%{_datadir}/jupyter/labextensions/@jupyter
 mkdir %{buildroot}%{_datadir}/jupyter/nbextensions
 mkdir -p %{buildroot}%{_sysconfdir}/jupyter
 mkdir %{buildroot}%{_sysconfdir}/jupyter/jupyter_notebook_config.d
@@ -130,6 +130,10 @@ mkdir %{buildroot}%{_sysconfdir}/jupyter/nbconfig/tree.d
 
 
 %changelog
+* Thu Jun 22 2023 Lumír Balhar <lbalhar@redhat.com> - 5.1.0-3
+- Add jupyter/labextensions/@jupyter to filesystem subpackage
+Related: rhbz#2213169
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

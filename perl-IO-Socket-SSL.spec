@@ -1,13 +1,14 @@
 %if 0%{?rhel} >= 9
 %bcond_with perl_IO_Socket_SSL_test_unused_idn
+%bcond_with perl_IO_Socket_SSL_test_IO_Socket_INET6
 %else
 %bcond_without perl_IO_Socket_SSL_test_unused_idn
-%endif
 %bcond_without perl_IO_Socket_SSL_test_IO_Socket_INET6
+%endif
 
 Name:		perl-IO-Socket-SSL
 Version:	2.083
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Perl library for transparent SSL
 License:	(GPL-1.0-or-later OR Artistic-1.0-Perl) AND MPL-2.0
 URL:		https://metacpan.org/release/IO-Socket-SSL
@@ -125,6 +126,9 @@ make test
 %{_mandir}/man3/IO::Socket::SSL::PublicSuffix.3*
 
 %changelog
+* Tue Jun 27 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.083-2
+- Disable optional IO::Socket::INET6 tests on ELN
+
 * Thu May 18 2023 Paul Howarth <paul@city-fan.org> - 2.083-1
 - Update to 2.083
   - Fix t/protocol_version.t for OpenSSL versions that don't support SECLEVEL

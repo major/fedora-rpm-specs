@@ -31,7 +31,7 @@ problems.
 
 
 %build
-%make_build CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS"
+%make_build CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS" SKIPDIRS="${RPM_SPECPARTS_DIR##*/}"
 
 
 %install

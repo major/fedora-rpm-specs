@@ -1,6 +1,6 @@
 Name:           python-pdir2
 Version:        0.3.6
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Pretty dir() printing with joy
 
 License:        MIT
@@ -8,7 +8,7 @@ URL:            https://github.com/laike9m/pdir2
 Source0:        %{pypi_source pdir2}
 
 Patch0:         pdir2-0003-add-py311-getstate.patch
-Patch1:         pdir2-0004-enable-python-311.patch
+Patch1:         pdir2-0004-no-upper-bound.patch
 
 BuildArch:      noarch
 
@@ -53,6 +53,9 @@ sed -r -i 's/=(=[[:digit:]\.]+)\.\*/>\1/' pyproject.toml
 %doc README.md
 
 %changelog
+* Tue Jun 27 2023 Simon de Vlieger <cmdr@supakeen.com> - 0.3.6-6
+- Patched for Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.3.6-5
 - Rebuilt for Python 3.12
 

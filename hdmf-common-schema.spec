@@ -2,7 +2,7 @@
 # compatibility.
 
 Name:           hdmf-common-schema
-Version:        1.6.0
+Version:        1.7.0
 Release:        %autorelease
 Summary:        Specifications for pre-defined data structures provided by HDMF
 

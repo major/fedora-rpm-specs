@@ -1,3 +1,5 @@
+%bcond qt5 %[%{undefined rhel} || 0%{?rhel} < 10]
+
 Name:           qgnomeplatform
 Version:        0.9.1
 Release:        4%{?dist}
@@ -24,6 +26,7 @@ QGnomePlatform is a Qt Platform Theme aimed to accommodate as much of
 GNOME settings as possibleand utilize them in Qt applications without
 modifying them - making them fit into the environment as well as possible.
 
+%if %{with qt5}
 %package qt5
 Summary:        Qt5 Platform Theme aimed to accommodate Gnome settings
 BuildRequires:  qt5-qtbase-devel >= 5.15.2
@@ -50,6 +53,7 @@ Supplements:   (qt5-qtbase and gnome-shell)
 QGnomePlatform is a Qt5 Platform Theme aimed to accommodate as much of
 GNOME settings as possibleand utilize them in Qt applications without
 modifying them - making them fit into the environment as well as possible.
+%endif
 
 %package qt6
 Summary:        Qt6 Platform Theme aimed to accommodate Gnome settings
@@ -76,21 +80,26 @@ modifying them - making them fit into the environment as well as possible.
 %autosetup -p1 -n  QGnomePlatform-%{version}
 
 %build
+%if %{with qt5}
 %global _vpath_builddir %{_target_platform}-qt5
 %cmake -DDECORATION_SHADOWS_SUPPORT=true
 %cmake_build
+%endif
 
 %global _vpath_builddir %{_target_platform}-qt6
 %cmake -DUSE_QT6=true
 %cmake_build
 
 %install
+%if %{with qt5}
 %global _vpath_builddir %{_target_platform}-qt5
 %cmake_install
+%endif
 
 %global _vpath_builddir %{_target_platform}-qt6
 %cmake_install
 
+%if %{with qt5}
 %files qt5
 %doc README.md
 %license LICENSE
@@ -98,6 +107,7 @@ modifying them - making them fit into the environment as well as possible.
 %{_qt5_libdir}/libqgnomeplatform.so
 %{_qt5_plugindir}/platformthemes/libqgnomeplatformtheme.so
 %{_qt5_plugindir}/wayland-decoration-client/libqgnomeplatformdecoration.so
+%endif
 
 %files qt6
 %doc README.md
@@ -105,6 +115,7 @@ modifying them - making them fit into the environment as well as possible.
 %{_qt6_libdir}/libqgnomeplatform6.so
 %{_qt6_plugindir}/platformthemes/libqgnomeplatformtheme.so
 %{_qt6_plugindir}/wayland-decoration-client/libqgnomeplatformdecoration.so
+%exclude %{_datadir}/color-schemes/*.colors
 
 %changelog
 * Wed Jun 14 2023 Jan Grulich <jgrulich@redhat.com> - 0.9.1-4

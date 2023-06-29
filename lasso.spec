@@ -11,6 +11,7 @@
 %global with_python3 0
 %global with_wsf 0
 %global obsolete_old_lang_subpackages 0
+%global default_sign_algo "rsa-sha256"
 
 %if %{with_php}
 %if "%{php_version}" < "5.6"
@@ -36,6 +37,10 @@
 
 %global configure_args %{nil}
 %global configure_args %{configure_args}
+
+%if %{default_sign_algo}
+  %global configure_args %{configure_args} --with-default-sign-algo=%{default_sign_algo}
+%endif
 
 %if !%{with_java}
   %global configure_args %{configure_args} --disable-java
@@ -67,7 +72,7 @@
 Summary: Liberty Alliance Single Sign On
 Name: lasso
 Version: 2.8.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2+
 URL: https://lasso.entrouvert.org/
 Source: https://dev.entrouvert.org/lasso/lasso-%{version}.tar.gz
@@ -322,6 +327,9 @@ rm -fr %{buildroot}%{_defaultdocdir}/%{name}
 %endif
 
 %changelog
+* Fri Jun 09 2023 Francois Andrieu <darknao@fedoraproject.org> - 2.8.2-3
+- Set default signing algorithm to RSA-SHA256
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.8.2-2
 - Rebuilt for Python 3.12
 

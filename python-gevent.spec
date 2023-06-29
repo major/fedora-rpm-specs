@@ -4,7 +4,7 @@
 
 Name:          python-%{modname}
 Version:       22.10.2
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       A coroutine-based Python networking library
 
 License:       MIT
@@ -13,6 +13,9 @@ Source0:       %{pypi_source %{modname} %{version} tar.gz}
 
 # Remove the usage of assertRaisesRegexp unit test alias removed in Python 3.12
 Patch:         https://github.com/gevent/gevent/pull/1944.patch
+# Remove the import of match_hostname deprecated in 3.7 and removed in Python 3.12
+# https://github.com/gevent/gevent/pull/1963
+Patch:         python-gevent-py312.patch
 
 BuildRequires: gcc
 BuildRequires: c-ares-devel
@@ -34,10 +37,9 @@ Features include:
 
 %package -n python3-%{modname}
 Summary:       %{summary}
-%{?python_provide:%python_provide python3-%{modname}}
 BuildRequires: python3-devel
 BuildRequires: python3-Cython
-BuildRequires: python3-greenlet-devel >= 1.1.0
+BuildRequires: python3-greenlet-devel >= 2.0.0
 BuildRequires: python3-setuptools
 # For tests
 BuildRequires: python3-dns
@@ -98,6 +100,9 @@ cd src/gevent/tests && GEVENT_FILE=thread %__python3 -mgevent.tests test__*subpr
 %{python3_sitearch}/%{modname}*
 
 %changelog
+* Tue Jun 27 2023 Orion Poplawski <orion@nwra.com> - 22.10.2-3
+- Add patch to remove match_hostname import
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 22.10.2-2
 - Rebuilt for Python 3.12
 

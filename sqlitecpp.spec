@@ -1,8 +1,8 @@
 %global richname SQLiteCpp
 
 Name: sqlitecpp
-Version: 3.2.1
-Release: %autorelease
+Version: 3.3.0
+Release: 1%{?dist}
 
 License: MIT
 Summary: Smart and easy to use C++ SQLite3 wrapper
@@ -65,4 +65,5 @@ rm -rf {sqlite3,googletest}
 %{_datadir}/%{richname}
 
 %changelog
-%autochangelog
+* Thu May 25 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 3.3.0-1
+- Updated to version 3.3.0.

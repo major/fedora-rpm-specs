@@ -1,10 +1,6 @@
-# Header-only lib.
-%global debug_package %{nil}
-
-
 Name:           uthash
 Version:        2.3.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A hash table for C structures
 
 License:        BSD
@@ -15,6 +11,8 @@ BuildRequires:  asciidoc
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
 
 %description
 Any C structure can be stored in a hash table using uthash.  Just
@@ -44,9 +42,26 @@ in your structure to act as the key.  Then use these macros to store,
 retrieve or delete items from the hash table.
 
 
+%package tools
+Summary:        Command-line utilities for %{name}
+Requires:       %{name}        = %{version}-%{release}
+
+%description tools
+This package provides the hashscan and keystats utility programs
+for %{name}.
+
+The hashscan program examines a running process and reports on the
+uthash tables that it finds in that program’s memory.  It can also
+save the keys from each table in a format that can be fed into keystats.
+
+The keystats program is able to analyze which hash function has the best
+characteristics on the set of keys reported by the hashscan program.
+
+
 %package doc
 Summary:        Documentation-files for %{name}
 BuildArch:      noarch
+Requires:       %{name}        = %{version}-%{release}
 
 %description doc
 This package contains the documentation-files for %{name}.
@@ -57,21 +72,20 @@ This package contains the documentation-files for %{name}.
 
 
 %build
+%set_build_flags
 %make_build -C doc
+%make_build -C tests
+%make_build -C tests/threads
 
 
 %install
-mkdir -p %{buildroot}{%{_includedir},%{_pkgdocdir}/html}
+mkdir -p %{buildroot}{%{_bindir},%{_includedir},%{_pkgdocdir}/html}
+install -pm 0755 tests/{hashscan,keystats} %{buildroot}%{_bindir}
 install -pm 0644 src/*.h %{buildroot}%{_includedir}
 # Install doc.
-install -pm 0644 doc/*.txt %{buildroot}%{_pkgdocdir}
+install -pm 0644 doc/*.txt tests/example.c %{buildroot}%{_pkgdocdir}
 install -pm 0644 doc/*.html doc/*.css doc/*.png %{buildroot}%{_pkgdocdir}/html
-
-
-%check
-%set_build_flags
-%make_build -C tests
-%make_build -C tests/threads
+rm -f %{buildroot}%{_pkgdocdir}/html/google*.html
 
 
 %files devel
@@ -80,12 +94,23 @@ install -pm 0644 doc/*.html doc/*.css doc/*.png %{buildroot}%{_pkgdocdir}/html
 %doc %{_pkgdocdir}/ChangeLog.txt
 %{_includedir}/*.h
 
+
+%files tools
+%{_bindir}/*
+
+
 %files doc
-%license %{_datadir}/licenses/%{name}*
 %doc %{_pkgdocdir}
 
 
 %changelog
+* Tue Jun 27 2023 Björn Esser <besser82@fedoraproject.org> - 2.3.0-5
+- Add tools package
+- Add explicit perl BRs
+- Add example program to doc package
+- Drop google site-verification file from doc package
+- Require main package in doc package to avoid file conflicts
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

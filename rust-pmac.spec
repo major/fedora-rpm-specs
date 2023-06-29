@@ -2,23 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate gix-bitmap
+%global crate pmac
 
-Name:           rust-gix-bitmap
-Version:        0.2.5
+Name:           rust-pmac
+Version:        0.7.1
 Release:        %autorelease
-Summary:        Implementation of the standard git bitmap format
+Summary:        Generic implementation of Parallelizable Message Authentication Code
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/gix-bitmap
+URL:            https://crates.io/crates/pmac
 Source:         %{crates_source}
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-A WIP crate of the gitoxide project dedicated implementing the standard
-git bitmap format.}
+Generic implementation of Parallelizable Message Authentication Code.}
 
 %description %{_description}
 
@@ -35,6 +33,7 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/CHANGELOG.md
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -47,6 +46,30 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+std-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+std-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "std" feature of the "%{crate}" crate.
+
+%files       -n %{name}+std-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+zeroize-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+zeroize-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "zeroize" feature of the "%{crate}" crate.
+
+%files       -n %{name}+zeroize-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

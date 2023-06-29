@@ -62,6 +62,13 @@ Patch0001:      0004-Use-old-stride_windows-implementation-on-32-bit-x86.patch
 # https://github.com/matplotlib/matplotlib/pull/25068
 Source2000:     pgf_pdflatex.pdf
 Source2001:     pgf_rcupdate2.pdf
+# https://github.com/matplotlib/matplotlib/pull/25918
+Patch0002:      0006-migrate-from-utcfromtimestamp-to-fromtimestamp-25918.patch
+# https://github.com/matplotlib/matplotlib/pull/26154
+Patch0003:      0007-MNT-py312-deprecates-pickling-objects-in-itertools.patch
+# https://github.com/matplotlib/matplotlib/pull/26165
+Patch0004:      0008-Avoid-Py_VerboseFlag-deprecation-from-Python-3.12.patch
+Patch0005:      0009-Skip-tests-failing-with-Python-3.12.0b3.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -299,17 +306,15 @@ Requires:       python3-matplotlib%{?_isa} = %{version}-%{release}
 %autosetup -n matplotlib-%{Version} -N
 
 # Fedora-specific patches follow:
-%patch1001 -p1
-%patch1002 -p1
+%autopatch -p1 -m 1000
 # Updated test images for new FreeType.
-%patch1003 -p1
 gzip -dc %SOURCE1000 | tar xf - --transform='s~^mpl-images-%{mpl_images_version}-with-freetype-%{ftver}/~~'
 
 # Copy mplsetup.cfg to the builddir
 cp -p %{SOURCE1} mplsetup.cfg
 
 # Backports or reported upstream
-%patch0001 -p1
+%autopatch -p1 -M 999
 # https://github.com/matplotlib/matplotlib/pull/25068
 cp -a %SOURCE2000 %SOURCE2001 lib/matplotlib/tests/baseline_images/test_backend_pgf/
 

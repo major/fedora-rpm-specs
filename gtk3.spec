@@ -1,5 +1,6 @@
 %if 0%{?fedora}
 %global with_broadway 1
+%global with_cloudproviders 1
 %endif
 
 %global glib2_version 2.57.2
@@ -19,7 +20,7 @@
 
 Name:    gtk3
 Version: 3.24.38
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: GTK+ graphical user interface library
 
 License: LGPL-2.0-or-later
@@ -31,7 +32,9 @@ BuildRequires: pkgconfig(atk-bridge-2.0)
 BuildRequires: pkgconfig(avahi-gobject)
 BuildRequires: pkgconfig(cairo) >= %{cairo_version}
 BuildRequires: pkgconfig(cairo-gobject) >= %{cairo_version}
+%if 0%{?with_cloudproviders}
 BuildRequires: pkgconfig(cloudproviders)
+%endif
 BuildRequires: pkgconfig(colord)
 BuildRequires: pkgconfig(egl)
 BuildRequires: pkgconfig(epoxy)
@@ -166,7 +169,9 @@ export CFLAGS='-fno-strict-aliasing %optflags'
 %endif
         -Dbuiltin_immodules=wayland,waylandgtk \
         -Dcolord=yes \
+%if 0%{?with_cloudproviders}
         -Dcloudproviders=true \
+%endif
         -Dgtk_doc=true \
         -Dinstalled_tests=true \
         -Dman=true \
@@ -297,6 +302,9 @@ gtk-query-immodules-3.0-%{__isa_bits} --update-cache &>/dev/null || :
 %{_datadir}/installed-tests/
 
 %changelog
+* Fri Jun 23 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.24.38-2
+- Disable cloudproviders in RHEL/ELN builds
+
 * Mon May 22 2023 David King <amigadave@amigadave.com> - 3.24.38-1
 - Update to 3.24.38
 

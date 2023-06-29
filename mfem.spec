@@ -21,6 +21,9 @@ Patch0:         https://github.com/mfem/mfem/pull/3630.patch
 # Replace deprecated gethostbyname by getaddrinfo
 Patch1:         https://github.com/mfem/mfem/pull/3685.patch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  ninja-build
@@ -174,12 +177,6 @@ OPTIONS=(
 %if %{with openmpi}
 %{_openmpi_load}
 %global _vpath_builddir %{_target_platform}-openmpi
-
-# https://koji.fedoraproject.org/koji/taskinfo?taskID=102286521
-# https://kojipkgs.fedoraproject.org//work/tasks/6747/102286747/build.log
-%ifarch i686 || 0{?fedora} == 38
-echo "skip tests of mfem-openmpi on Fedora 38 i686"
-%endif
 
 # https://koji.fedoraproject.org/koji/taskinfo?taskID=102204595
 # https://kojipkgs.fedoraproject.org//work/tasks/4688/102204688/build.log

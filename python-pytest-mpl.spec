@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.13
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Pytest plugin for testing figure output from Matplotlib
 
 License:        BSD
@@ -64,6 +64,9 @@ MPLBACKEND=Agg %{pytest} tests -k 'not test_succeeds_remote and not test_succeed
 
 
 %changelog
+* Tue Jun 27 2023 Python Maint <python-maint@redhat.com> - 0.13-7
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

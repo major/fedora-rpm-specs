@@ -11,11 +11,13 @@ In 2003, an improved version of the file protocol named EDF+ has
 been published and can be found at Kemp2003.}
 
 Name:           python-pyedflib
-Version:        0.1.32
+Version:        0.1.33
 Release:        1%{?dist}
 Summary:        Python library to read/write EDF+/BDF+ files, based on EDFlib
 
-License:        BSD
+# The entire source is BSD-3-Clause, except:
+#   BSD-2-Clause: pyedflib/_extensions/edf.pxi
+License:        BSD-3-Clause AND BSD-2-Clause
 URL:            https://github.com/holgern/pyedflib
 Source0:        %{url}/archive/v%{version}/pyedflib-%{version}.tar.gz
 
@@ -86,7 +88,7 @@ find demo -type f -exec \
 %pyproject_wheel
 
 %if %{with doc_pdf}
-PYTHONPATH="%{pyproject_build_lib}" \
+PYTHONPATH="${PWD}/build/lib.%{python3_platform}-cpython-%{python3_version_nodots}" \
     %make_build -C doc latex SPHINXOPTS='%{?_smp_mflags}'
 %make_build -C doc/build/latex LATEXMKOPTS='-quiet'
 %endif
@@ -114,6 +116,11 @@ grep -E "^#define[[:blank:]]+EDFLIB_VERSION[[:blank:]]+\($(
 %doc demo
 
 %changelog
+* Tue Jun 27 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.1.33-1
+- Update to 0.1.33 (close RHBZ#2217530)
+- Replace deprecated pyproject_build_lib macro
+- Update License to SPDX
+
 * Mon Apr 24 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.1.32-1
 - Update to 0.1.32 (close RHBZ#2187954)
 

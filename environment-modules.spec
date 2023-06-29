@@ -2,8 +2,8 @@
 %global vimdatadir %{_datadir}/vim/vimfiles
 
 Name:           environment-modules
-Version:        5.3.0
-Release:        2%{?dist}
+Version:        5.3.1
+Release:        1%{?dist}
 Summary:        Provides dynamic modification of a user's environment
 
 License:        GPL-2.0-or-later
@@ -145,8 +145,9 @@ fi
 
 %files
 %license COPYING.GPLv2
-%doc ChangeLog README NEWS.txt MIGRATING.txt INSTALL.txt CONTRIBUTING.txt changes.txt
+%doc ChangeLog.gz README NEWS.txt MIGRATING.txt INSTALL.txt CONTRIBUTING.txt changes.txt
 %{_sysconfdir}/modulefiles
+%dir %{_datadir}/fish/vendor_conf.d
 %ghost %{_sysconfdir}/profile.d/modules.csh
 %ghost %{_sysconfdir}/profile.d/modules.sh
 %ghost %{_datadir}/fish/vendor_conf.d/modules.fish
@@ -186,6 +187,10 @@ fi
 
 
 %changelog
+* Tue Jun 27 2023 Xavier Delaruelle <xavier.delaruelle@cea.fr> - 5.3.1-1
+- Update to 5.3.1 (#2217986)
+- Distribute ChangeLog as a zipped file to reduce installation size
+
 * Sat May 27 2023 Xavier Delaruelle <xavier.delaruelle@cea.fr> - 5.3.0-2
 - Install module initialization script for fish as configuration snippet for
   this shell via alternatives (#2196379)

@@ -10,6 +10,7 @@ URL:            https://visidata.org
 Source0:        %pypi_source %{srcname}
 # https://github.com/saulpw/visidata/pull/269
 Patch0001:      0001-Remove-extra-copy-of-man-page.patch
+Patch0002:      https://github.com/saulpw/visidata/commit/2b3a569772d734278ba1fbecc9da2db6f88abf24.patch
 
 BuildArch:      noarch
 

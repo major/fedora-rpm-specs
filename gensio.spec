@@ -120,6 +120,7 @@ sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
 
 %install
 %make_install
+find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %files

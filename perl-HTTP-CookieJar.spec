@@ -2,7 +2,7 @@ Name:           perl-HTTP-CookieJar
 Version:        0.014
 Release:        2%{?dist}
 Summary:        Minimalist HTTP user agent cookie jar
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://metacpan.org/release/HTTP-CookieJar
 Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/HTTP-CookieJar-%{version}.tar.gz
 

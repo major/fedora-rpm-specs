@@ -40,6 +40,14 @@ rm chai/python2.py
 # Remove py2-only file for the py3 tests.
 rm tests/comparator_py2.py
 
+# Replace unittest aliases removed in Python 3.12
+sed -i \
+    -e 's|assertEquals(|assertEqual(|' \
+    -e 's|assertNotEquals(|assertNotEqual(|' \
+    -e 's|assert_true(|assertTrue(|' \
+    -e 's|assert_equals(|assertEqual(|' \
+$(find tests -type f)
+
 %build
 %{py3_build}
 

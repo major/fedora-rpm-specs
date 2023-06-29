@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 39.20
+Version: 39.22
 Release: 2%{?dist}
 License: GPLv2+ and MIT
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -434,6 +434,7 @@ rm -rf \
 %{_datadir}/cockpit/anaconda-webui/manifest.json
 %{_datadir}/metainfo/org.cockpit-project.anaconda-webui.metainfo.xml
 %{_datadir}/cockpit/anaconda-webui/po.*.js.gz
+%{_libexecdir}/webui-desktop
 
 %files gui
 %{python3_sitearch}/pyanaconda/ui/gui/*
@@ -470,6 +471,43 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jun 27 2023 Python Maint <python-maint@redhat.com> - 39.22-2
+- Rebuilt for Python 3.12
+
+* Tue Jun 27 2023 Packit <hello@packit.dev> - 39.22-1
+- Update the bundled cockpit-desktop script (martin.kolman)
+- Revert "Revert "webui: start using custom webui-desktop script instead of
+  cockpit-desktop"" (martin.kolman)
+- docs: Document the distribution component (vponcova)
+- Update translations from Weblate
+
+* Tue Jun 27 2023 Packit <hello@packit.dev> - 39.21-1
+- webui: Fix handling of END2END env variable in WebUI tests (zveleba)
+- webui: tests: wait for the webui to update disk selection instead of
+  asserting the state (kkoukiou)
+- webui: use the store as single source of truth for disk selection (kkoukiou)
+- webui: split actions per data type (kkoukiou)
+- webui: split reducers acording to the data type (kkoukiou)
+- webui: use useReducer also for language state collection (kkoukiou)
+- webui: start using useReducer for managing complicated state objects
+  centrally (kkoukiou)
+- WebUI: Switch Quit/Reboot button in Progress spoke (ozobal)
+- WebUI: update pixel tests for new tasks container (jvanderwaa)
+- WebUI: Use Cockpit's os-release implementation (jvanderwaa)
+- webui: test: ensure that disk selection is updated before taking screenshot
+  (kkoukiou)
+- webui: tests: increase specificity for the disk toggle selector (kkoukiou)
+- webui: tests: wait for drawer status instead of asserting it directly
+  (kkoukiou)
+- webui: tests: don't create screenshots in step_logger decorator for non
+  end2end tests (kkoukiou)
+- WebUI: Convert InstallationProgress to function (ozobal)
+- webui: tests: rename IntegrationTest class and associated file to End2EndTest
+  (kkoukiou)
+- webui: tests: rename 'integration' directory to 'end2end' (kkoukiou)
+- webui: remove some trailing whitespace from test files (kkoukiou)
+- Update translations from Weblate
+
 * Mon Jun 26 2023 Python Maint <python-maint@redhat.com> - 39.20-2
 - Rebuilt for Python 3.12
 

@@ -1,8 +1,8 @@
 %global appname olm
 
 Name: libolm
-Version: 3.2.14
-Release: 2%{?dist}
+Version: 3.2.15
+Release: 1%{?dist}
 
 Summary: Double Ratchet cryptographic library
 License: Apache-2.0
@@ -18,6 +18,7 @@ BuildRequires: python3-devel
 BuildRequires: python3-setuptools
 BuildRequires: python3dist(cffi)
 BuildRequires: python3dist(future)
+BuildRequires: python3dist(wheel)
 
 %description
 An implementation of the Double Ratchet cryptographic ratchet in C++.
@@ -39,7 +40,7 @@ Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 
 %prep
 %autosetup -n %{appname}-%{version} -p1
-sed -e "s@/build@/%{_vpath_builddir}@g" -i python/olm_build.py
+sed -e "s@/build@/%{_vpath_builddir}@g" -e 's@"build"@"%{_vpath_builddir}"@g' -i python/olm_build.py
 
 %build
 %cmake -G Ninja \
@@ -80,6 +81,9 @@ popd
 %{python3_sitearch}/python_%{appname}-*.egg-info
 
 %changelog
+* Thu Jun 08 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 3.2.15-1
+- Updated to version 3.2.15.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 %global crate rpm-sequoia
 
 Name:           rust-rpm-sequoia
-Version:        1.4.0
+Version:        1.4.1
 Release:        %autorelease
 Summary:        Implementation of the RPM PGP interface using Sequoia
 
@@ -34,7 +34,7 @@ Summary:        %{summary}
 # MIT OR Apache-2.0 OR Zlib
 # Unlicense OR MIT
 # Zlib OR Apache-2.0 OR MIT
-License:        LGPL-2.0-or-later AND Apache-2.0 AND BSL-1.0 AND MIT AND Unicode-DFS-2016
+License:        LGPL-2.0-or-later AND Apache-2.0 AND BSL-1.0 AND MIT AND Unicode-DFS-2016 AND (Apache-2.0 OR MIT) AND (MIT OR Apache-2.0 OR Zlib) AND (Unlicense OR MIT)
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}

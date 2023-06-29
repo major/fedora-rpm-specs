@@ -45,7 +45,7 @@
 
 Name: brltty
 Version: %{pkg_version}
-Release: 12%{?dist}
+Release: 13%{?dist}
 License: LGPL-2.0-or-later
 URL: http://brltty.app/
 Source0: http://brltty.app/archive/%{name}-%{version}.tar.xz
@@ -55,6 +55,8 @@ Source3: brlapi-forbuild.h
 Patch1: brltty-6.3-loadLibrary.patch
 # libspeechd.h moved in latest speech-dispatch (NOT sent upstream)
 Patch2: brltty-6.3-libspeechd.patch
+# fix translations with gettext-0.22: https://github.com/brltty/brltty/pull/420
+Patch3: brltty-6.5-gettext.patch
 Summary: Braille display driver for Linux/Unix
 BuildRequires: byacc
 BuildRequires: glibc-kernheaders
@@ -272,6 +274,7 @@ mv %{name}-%{version} python2
 pushd python2
 %patch1 -p1 -b .loadLibrary
 %patch2 -p1 -b .libspeechd
+%patch3 -p1 -b .gettext
 
 # remove packaged binary file
 rm -f Programs/brltty-ktb
@@ -681,6 +684,9 @@ fi
 %config(noreplace) %verify(not size md5 mtime) %{_sysconfdir}/brltty/Initramfs/cmdline
 
 %changelog
+* Tue Jun 27 2023 Gwyn Ciesla <gwync@protonmail.com> - 6.5-13
+- Fix build with gettext-0.22 (yselkowitz)
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 6.5-12
 - Rebuilt for Python 3.12
 

@@ -1,12 +1,13 @@
 Name:           perl-WWW-Mechanize
 Version:        2.17
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Automates web page form & link interaction
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/WWW-Mechanize
-Source0:        https://cpan.metacpan.org/authors/id/O/OA/OALDERS/WWW-Mechanize-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/S/SI/SIMBABQUE/WWW-Mechanize-%{version}.tar.gz
 BuildArch:      noarch
 # build requirements
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -76,16 +77,25 @@ queried and revisited.
 %{_fixperms} %{buildroot}/*
 
 %check
-%{make_build} test TEST_VERBOSE=1
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
+make test TEST_VERBOSE=1
 
 %files
 %doc Changes etc/www-mechanize-logo.png
 %{_bindir}/mech-dump
-%{perl_vendorlib}/*
-%{_mandir}/man1/*.1*
-%{_mandir}/man3/*.3pm*
+%dir %{perl_vendorlib}/WWW
+%{perl_vendorlib}/WWW/Mechanize
+%{perl_vendorlib}/WWW/Mechanize.pm
+%{_mandir}/man1/mech-dump.1*
+%{_mandir}/man3/WWW::Mechanize.3pm*
+%{_mandir}/man3/WWW::Mechanize::*.3pm*
 
 %changelog
+* Tue Jun 27 2023 Yaroslav Fedevych <yaroslav@fedevych.name> - 2.17-2
+- Update Source0 URL to a working one (upstream maintainer change)
+- Convert a license tag to an SPDX format
+- Run tests in parallel
+
 * Sun May 07 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 2.17-1
 - Update to 2.17
 

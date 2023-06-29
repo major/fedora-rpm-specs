@@ -10,7 +10,7 @@ ExcludeArch: %{ix86}
 
 Name:           gdl
 Version:        1.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GNU Data Language
 
 License:        GPL-2.0-or-later
@@ -252,6 +252,9 @@ cat xorg.log
 
 
 %changelog
+* Tue Jun 27 2023 Python Maint <python-maint@redhat.com> - 1.0.2-2
+- Rebuilt for Python 3.12
+
 * Sun Jan 22 2023 Orion Poplawski <orion@nwra.com> - 1.0.2-1
 - Update to 1.0.2
 - Use SPDX License tag

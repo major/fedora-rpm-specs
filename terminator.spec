@@ -1,6 +1,6 @@
 Name:           terminator
 Version:        2.1.3
-Release:        2%{?dist}
+Release:        2%{?dist}.1
 Summary:        Store and run multiple GNOME terminals in one window
 
 License:        GPLv2
@@ -44,7 +44,7 @@ arrangements of terminals for different tasks.
 
 
 %build
-%pyproject_wheel -- --without-icon-cache
+%pyproject_wheel 
 
 
 %install
@@ -78,6 +78,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/terminator.desktop
 
 
 %changelog
+* Tue Jun 27 2023 Matt Rose <mattrose@folkwolf.net> - 2.1.3-2.1
+- fix pyproject_wheel command
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 2.1.3-2
 - Rebuilt for Python 3.12
 

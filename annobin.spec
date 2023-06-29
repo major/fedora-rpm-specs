@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.15
+Version: 12.16
 Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
@@ -525,6 +525,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Jun 27 2023 Nick Clifton  <nickc@redhat.com> - 12.16-1
+- Annocheck: Ignore weak/undef function symbols when checking to see if a binary contains code.  (#2217840)
+
 * Mon Jun 26 2023 Nick Clifton  <nickc@redhat.com> - 12.15-1
 - Annocheck: Add --suppress-version-warnings option.
 

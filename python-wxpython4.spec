@@ -12,7 +12,7 @@ specific code.
 
 Name:           python-wxpython4
 Version:        4.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 # wxPython is licensed under the wxWidgets license.  The only exception is
 # the pubsub code in wx/lib/pubsub which is BSD licensed.  Note: wxPython
@@ -23,6 +23,12 @@ Summary:        %{sum}
 License:        wxWidgets and BSD
 URL:            https://www.wxpython.org/
 Source0:        https://files.pythonhosted.org/packages/source/w/%{srcname}/%{srcname}-%{version}.tar.gz
+
+# Patches needed for compatibility with Python 3.12
+# https://www.riverbankcomputing.com/hg/sip/rev/312476401030 
+Patch:          sipMalloc-and-sipFree-are-now-implemented-using-PyMe.patch
+# https://www.riverbankcomputing.com/hg/sip/rev/d36867e54192
+Patch:          For-Python-v3.12-implement-sipPyTypeDict-using-PyTyp.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  doxygen
@@ -156,6 +162,9 @@ xvfb-run -a %{__python3} build.py test --pytest_timeout=60 --extra_pytest="-k $S
 
 
 %changelog
+* Tue Jun 27 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 4.2.1-2
+- Backport patches needed for compatibility with Python 3.12
+
 * Mon Jun 19 2023 Scott Talbert <swt@techie.net> - 4.2.1-1
 - Update to new upstream release 4.2.1 (#2208211 #2213374)
 - Temporarily use upstream generated cpp files (broken by doxygen)

@@ -3,7 +3,7 @@
 
 
 Name:		xed
-Version:	3.4.1
+Version:	3.4.2
 Release:	1%{?dist}
 Summary:	X-Apps [Text] Editor (Cross-DE, backward-compatible, GTK3, traditional UI)
 
@@ -128,6 +128,9 @@ This package contains the documentation files for %{name}.
 
 
 %changelog
+* Tue Jun 27 2023 Leigh Scott <leigh123linux@gmail.com> - 3.4.2-1
+- Update to 3.4.2 release
+
 * Thu Jun 08 2023 Leigh Scott <leigh123linux@gmail.com> - 3.4.1-1
 - Update to 3.4.1 release
 
