@@ -14,12 +14,16 @@ io operations appear blocking at the source code level.}
 
 Name:           python-%{srcname}
 Version:        0.33.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Highly concurrent networking library
 License:        MIT
 
 URL:            https://eventlet.net
 Source:         %pypi_source %{srcname}
+
+# Python 3.12 support
+# Upstream draft PR: https://github.com/eventlet/eventlet/pull/797
+Patch:          python3.12.patch
 
 BuildArch:      noarch
 
@@ -45,7 +49,7 @@ BuildRequires:  python3-zmq
 %{summary}.
 
 %prep
-%setup -n %{srcname}-%{version} -q
+%autosetup -p1 -n %{srcname}-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -75,6 +79,9 @@ nosetests-%{python3_version} -v -e greendns_test -e socket_test -e test_patcher_
 %doc doc/_build/html
 
 %changelog
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 0.33.3-2
+- Rebuilt for Python 3.12
+
 * Wed Jan 18 2023 Sandro Mani <manisandro@gmail.com> - 0.33.3-1
 - Update to 0.33.3
 

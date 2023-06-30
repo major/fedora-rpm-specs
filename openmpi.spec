@@ -32,12 +32,30 @@
 %bcond_with java
 %endif
 
+%if %{defined rhel}
+%bcond_with orangefs
+%else
+%bcond_without orangefs
+%endif
+
+%ifarch x86_64
+%if %{defined rhel}
+%bcond_with psm
+%else
+%bcond_without psm
+%endif
+%bcond_without psm2
+%else
+%bcond_with psm
+%bcond_with psm2
+%endif
+
 # Run autogen - needed for some patches
 %bcond_with autogen
 
 Name:           openmpi%{?_cc_name_suffix}
 Version:        4.1.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Open Message Passing Interface
 License:        BSD and MIT and Romio
 URL:            http://www.open-mpi.org/
@@ -83,14 +101,18 @@ BuildRequires:  libfabric-devel
 %ifnarch s390 s390x
 BuildRequires:  papi-devel
 %endif
+%if %{with orangefs}
 BuildRequires:  orangefs-devel
+%endif
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(Getopt::Long)
 BuildRequires:  pmix-devel
 BuildRequires:  python%{python3_pkgversion}-devel
-%ifarch x86_64
+%if %{with psm}
 BuildRequires:  infinipath-psm-devel
+%endif
+%if %{with psm2}
 BuildRequires:  libpsm2-devel
 %endif
 %if %{with ucx}
@@ -380,6 +402,9 @@ make check
 
 
 %changelog
+* Thu Jun 22 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 4.1.5-3
+- Disable PSM, OrangeFS in RHEL builds
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 4.1.5-2
 - Rebuilt for Python 3.12
 

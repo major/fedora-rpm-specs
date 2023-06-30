@@ -4,7 +4,7 @@
 # https://gitlab.com/gitlab-org/cli
 %global goipath         gitlab.com/gitlab-org/cli
 %global forgeurl        https://gitlab.com/gitlab-org/cli
-Version:                1.30.0
+Version:                1.31.0
 
 %global repo            cli
 %global archivename     %{repo}-%{version}
@@ -91,6 +91,7 @@ done
          -d gitlab.com/gitlab-org/cli/commands/api \
          -d gitlab.com/gitlab-org/cli/commands/alias/set \
          -d gitlab.com/gitlab-org/cli/commands/auth/login \
+         -d gitlab.com/gitlab-org/cli/commands/changelog/generate \
          -d gitlab.com/gitlab-org/cli/commands/ci/delete \
          -d gitlab.com/gitlab-org/cli/commands/ci/get \
          -d gitlab.com/gitlab-org/cli/commands/ci/lint \
@@ -112,6 +113,8 @@ done
          -d gitlab.com/gitlab-org/cli/commands/release/list \
          -d gitlab.com/gitlab-org/cli/commands/release/upload \
          -d gitlab.com/gitlab-org/cli/commands/release/view \
+         -d gitlab.com/gitlab-org/cli/commands/schedule/create \
+         -d gitlab.com/gitlab-org/cli/commands/schedule/delete \
          -d gitlab.com/gitlab-org/cli/commands/schedule/list \
          -d gitlab.com/gitlab-org/cli/commands/schedule/run
 %endif

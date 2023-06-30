@@ -21,7 +21,7 @@ sensor data with other researchers while mantaining people's privacy.}
 
 Name:           python-%{pypi_name}
 Version:        1.1.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A Python package for reading, timeshifting and writing sensor data
 
 License:        MIT
@@ -104,6 +104,9 @@ toml-adapt -path pyproject.toml -a change -dep ALL -ver X
 %endif
 
 %changelog
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 1.1.1-6
+- Rebuilt for Python 3.12
+
 * Sat Apr 8 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 1.1.1-5
 - Temporarily disable building docs
 

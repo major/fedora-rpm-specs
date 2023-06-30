@@ -7,6 +7,9 @@ License:        GPL-3.0-or-later
 URL:            https://github.com/rizsotto/%{name}
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
+# https://github.com/rizsotto/Bear/commit/46a032fa0fc8131779ece13f26735ec84be891e8
+Patch:          %{name}-fmt10-fixes.patch
+
 BuildRequires:  cmake
 BuildRequires:  cmake(fmt)
 BuildRequires:  cmake(gtest)
@@ -40,7 +43,7 @@ how single compilation unit should be processed and can be used by Clang
 tooling.
 
 %prep
-%autosetup -n Bear-%{version}
+%autosetup -n Bear-%{version} -p1
 
 
 %build

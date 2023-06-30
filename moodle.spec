@@ -7,7 +7,7 @@
 
 Name:           moodle
 Version:        4.2.1
-Release:       	1%{?dist}
+Release:       	2%{?dist}
 Summary:        A Course Management System
 
 License:        GPL-2.0-or-later
@@ -24,7 +24,7 @@ BuildArch:      noarch
 BuildRequires:  perl-generators
 BuildRequires:  unzip
 Requires:       php-gd dailyjobs mimetex perl(lib) php-mysqlnd
-Requires:       perl(Encode) aspell perl(HTML::Parser) php
+Requires:       perl(Encode) hunspell perl(HTML::Parser) php
 Requires:       perl(HTML::Entities) perl(CGI)
 Requires:	php-adodb
 Requires:	gnu-free-sans-fonts
@@ -32,11 +32,7 @@ Requires:	php-markdown
 Requires:       php-simplepie
 Requires:       php-soap
 Requires:	php-pear-OLE
-%if %{fedora} > 34
 Requires:       php-pecl-xmlrpc
-%else
-Requires:       php-xmlrpc
-%endif
 Requires:	crontabs
 
 BuildRequires:  systemd
@@ -178,6 +174,9 @@ end
 %{_datadir}/php/php-simplepie/moodle_simplepie.php
 
 %changelog
+* Wed Jun 28 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.2.1-2
+- aspell->hunspell.
+
 * Sat Jun 10 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.2.1-1
 - 4.2.1
 

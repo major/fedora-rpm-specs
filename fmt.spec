@@ -1,11 +1,14 @@
 Name:           fmt
-Version:        9.1.0
+Version:        10.0.0
 Release:        2%{?dist}
 
 License:        MIT
 Summary:        Small, safe and fast formatting library for C++
 URL:            https://github.com/fmtlib/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz
+
+# https://github.com/fmtlib/fmt/commit/d7592ad8bfa41eda239497f672ae8dc7bda00a4b
+Patch100:       %{name}-10.0.0-time_point-fix.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -51,7 +54,7 @@ This package contains the header file for using %{name}.
 %files
 %license LICENSE.rst
 %doc ChangeLog.rst README.rst
-%{_libdir}/lib%{name}.so.9*
+%{_libdir}/lib%{name}.so.10*
 
 %files devel
 %{_includedir}/%{name}
@@ -60,6 +63,12 @@ This package contains the header file for using %{name}.
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Jun 28 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 10.0.0-2
+- Added upstream patch with time_point fixes.
+
+* Wed May 10 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 10.0.0-1
+- Updated to version 10.0.0.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

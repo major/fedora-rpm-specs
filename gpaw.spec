@@ -20,7 +20,7 @@ ExcludeArch: %{ix86}
 
 Name:			gpaw
 Version:		23.6.0
-Release:		1%{?dist}
+Release:		2%{?dist}
 Summary:		A grid-based real-space PAW method DFT code
 
 License:		GPLv3+
@@ -278,6 +278,9 @@ popd
 
 
 %changelog
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 23.6.0-2
+- Rebuilt for Python 3.12
+
 * Fri Jun 09 2023 Marcin Dulak <marcindulak@fedoraproject.org> - 23.6.0-1
 - New upstream release
 - Remove references to blacs

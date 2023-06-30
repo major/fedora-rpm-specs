@@ -1,6 +1,6 @@
 Name:           easyeffects
-Version:        7.0.4
-Release:        1%{?dist}
+Version:        7.0.5
+Release:        2%{?dist}
 Summary:        Audio effects for PipeWire applications
 
 License:        GPL-3.0-or-later
@@ -39,6 +39,7 @@ BuildRequires:  pkgconfig(fmt)
 BuildRequires:  pkgconfig(gsl)
 BuildRequires:  cmake
 BuildRequires:  pkgconfig(speex)
+BuildRequires:  pkgconfig(soundtouch)
 
 Requires:       hicolor-icon-theme
 Requires:       dbus-common
@@ -99,6 +100,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/com.githu
 
 
 %changelog
+* Wed Jun 28 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 7.0.5-2
+- Rebuilt due to fmt 10 update.
+
+* Wed Jun 28 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 7.0.5-1
+- Update to 7.0.5
+
 * Tue May 23 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 7.0.4-1
 - Update to 7.0.4
 

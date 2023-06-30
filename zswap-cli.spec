@@ -1,6 +1,6 @@
 Name: zswap-cli
 Version: 0.9.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: MIT
 Summary: Command-line tool to control zswap options
@@ -64,6 +64,9 @@ a compressed cache is much faster than reading from a swap device.
 %config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf
 
 %changelog
+* Wed Jun 28 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.9.1-4
+- Rebuilt due to fmt 10 update.
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 0.9.1-3
 - Rebuilt for Boost 1.81
 

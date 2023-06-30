@@ -46,7 +46,7 @@ URL: https://easyrpg.org
 License: GPL-3.0-or-later AND CC-BY-SA-4.0 AND BSD-3-Clause AND (Unlicense OR MIT-0) AND Unlicense AND Baekmuk AND LicenseRef-Fedora-Public-Domain AND MIT AND GPL-2.0-or-later WITH Font-exception-2.0
 
 Version: 0.8
-Release: 2%{?dist}
+Release: 4%{?dist}
 
 %global repo_owner EasyRPG
 %global repo_name Player
@@ -56,6 +56,10 @@ Source0: https://github.com/%{repo_owner}/%{repo_name}/archive/%{version}/%{repo
 Patch1: 0001-unbundle-picojson.patch
 Patch2: 0002-unbundle-dr_wav.patch
 Patch3: 0003-unbundle-rang.patch
+
+# Fix compilation errors when building against fmt v10
+# Backport of upstream commit: https://github.com/EasyRPG/Player/commit/a4672d2e30db4e4918c8f3580236faed3c9d04c1.patch
+Patch4: 0004-update-for-fmt10.patch
 
 BuildRequires: cmake >= 3.13
 BuildRequires: desktop-file-utils
@@ -140,6 +144,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 
 
 %changelog
+* Wed Jun 28 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.8-4
+- Add a patch to fix compilation errors when building against fmt10
+
+* Wed Jun 28 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.8-3
+- Rebuilt due to fmt 10 update.
+
 * Sun Jun 04 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.8-2
 - Unbundle rang
 

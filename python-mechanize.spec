@@ -3,7 +3,7 @@
 
 Name:           python-mechanize
 Version:        0.4.8
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Stateful programmatic web browsing
 
 License:        BSD or ZPLv2.1
@@ -85,6 +85,9 @@ chmod -x examples/forms/{echo.cgi,example.py,simple.py}
 %{python3_sitelib}/mechanize*.egg-info/
 
 %changelog
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 0.4.8-7
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.8-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

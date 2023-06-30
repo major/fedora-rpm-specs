@@ -27,6 +27,8 @@ Patch4:         0004-11786-fix-misuse-of-mktime-in-tests.patch
 Patch5:         0005-fix-sendmail-tests-for-python-3.11.patch
 # downstream-only patch for skipping tests that fail during a mock build
 Patch6:         0006-Skip-failing-tests.patch
+# downstream-only patch for skipping tests that fail with Python 3.12
+Patch7:         0007-Skip-tests-failing-with-Python-3.12.patch
 
 BuildArch:      noarch
 
@@ -48,6 +50,10 @@ Recommends:  python3-%{srcname}+tls
 %autosetup -p1 -n %{srcname}-%{srcname}-%{version}
 # cython-test-exception-raiser isn't packaged yet
 sed -e '/cython-test-exception-raiser/d' -i setup.cfg
+# cowardly remove tests that hang with Python 3.12
+rm src/twisted/test/test_log.py
+# from https://github.com/twisted/twisted/commit/4ba766b86
+sed -i 's/from imp import reload/from importlib import reload/' src/twisted/python/rebuild.py src/twisted/conch/scripts/ckeygen.py
 
 %generate_buildrequires
 %pyproject_buildrequires -x test

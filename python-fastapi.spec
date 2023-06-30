@@ -380,10 +380,14 @@ Summary(zh):    %{sum_zh}
 #
 # Dependency generation does not support -e, and we will generate the
 # install-time dependencies without it.
+#
+# Allow email-validator 2.0.0; this will be required in FastAPI 0.100.0. See:
+# https://github.com/tiangolo/fastapi/pull/9500/commits/5531f843bce303481facefacc4d570fc74b306c9
 sed -r \
     -e 's/^(mypy|black|ruff|coverage)\b/# &/' \
     -e 's/^(types-(u|or)json)\b/# &/' \
     -e 's/^(-e .)$/# &/' \
+    -e 's/^(email_validator.*)<2/\1<3/' \
     requirements-tests.txt | tee requirements-tests-filtered.txt
 
 # Remove bundled js-termynal 0.0.1; since we are not building documentation, we

@@ -1,6 +1,6 @@
 Name:           python-pefile
 Version:        2023.2.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python module for working with Portable Executable files
 License:        MIT
 URL:            https://github.com/erocarrera/pefile
@@ -39,7 +39,6 @@ BuildRequires:  python%{python3_pkgversion}-setuptools
 %package -n python%{python3_pkgversion}-%{srcname}
 Summary:        %{summary}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
-Requires:   python%{python3_pkgversion}-future
 
 %description -n python%{python3_pkgversion}-%{srcname}
 %{common_desc}
@@ -55,7 +54,8 @@ sed -i -e '/^#!\//, 1d' pefile.py
 %install
 %py3_install
 
-# check
+%check
+%py3_check_import pefile peutils ordlookup
 # regression tests in this package are based on binary blob of exe files - commercial and malware
 # at this point (2019-09-20) not suitable to be in Fedora.
 # More info on:
@@ -69,6 +69,9 @@ sed -i -e '/^#!\//, 1d' pefile.py
 %{python3_sitelib}/*
 
 %changelog
+* Fri Jun 23 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2023.2.7-4
+- Drop obsolete python-future dependency
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2023.2.7-3
 - Rebuilt for Python 3.12
 

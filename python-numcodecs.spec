@@ -16,6 +16,8 @@ Patch:          0003-Unbundle-lz4.patch
 Patch:          0004-Re-add-Snappy-to-tests.patch
 # We don't need coverage reports.
 Patch:          0005-Remove-coverage-from-testing-requirements.patch
+# Fix compatibility with NumPy 1.24.
+Patch:          https://github.com/zarr-developers/numcodecs/pull/417.patch
 
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(blosc)
@@ -69,7 +71,7 @@ rm numcodecs/{blosc,compat_ext,lz4,_shuffle,vlen,zstd}.c
 %pyproject_wheel
 
 # generate html docs
-PYTHONPATH="%{pyproject_build_lib}" sphinx-build-3 docs html
+PYTHONPATH="$PWD/build/lib.%{python3_platform}-cpython-%{python3_version_nodots}" sphinx-build-3 docs html
 # remove the sphinx-build leftovers
 rm -rf html/.{doctrees,buildinfo} html/_static/donotdelete
 

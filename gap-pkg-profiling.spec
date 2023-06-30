@@ -1,8 +1,8 @@
 %global pkgname  profiling
 
 Name:           gap-pkg-%{pkgname}
-Version:        2.5.2
-Release:        2%{?dist}
+Version:        2.5.3
+Release:        1%{?dist}
 Summary:        Line by line profiling and code coverage for GAP
 
 # The project as a whole is MIT.
@@ -18,10 +18,10 @@ Patch0:         %{name}-rapidjson.patch
 BuildRequires:  elinks
 BuildRequires:  flamegraph
 BuildRequires:  flamegraph-stackcollapse
-BuildRequires:  gcc-c++
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
 BuildRequires:  gap-pkg-io
+BuildRequires:  gcc-c++
 BuildRequires:  libtool
 BuildRequires:  make
 BuildRequires:  pkgconfig(RapidJSON)
@@ -114,6 +114,9 @@ gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
 %{gap_archdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Wed Jun 28 2023 Jerry James <loganjerry@gmail.com> - 2.5.3-1
+- Version 2.5.3
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           pyp2rpm
 Version:        3.3.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Convert Python packages to RPM SPECFILES
 
 License:        MIT
@@ -61,6 +61,9 @@ PYTHONPATH="." py.test-3 -vv -m "not webtest" -k "not TestMetadataExtractor"
 
 
 %changelog
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 3.3.9-2
+- Rebuilt for Python 3.12
+
 * Thu Apr 06 2023 Gordon Messmer <gordon.messmer@gmail.com> - 3.3.9-1
 - Update to 3.3.9
 

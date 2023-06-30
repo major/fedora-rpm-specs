@@ -10,7 +10,7 @@ or docs/index.rst in this distribution for detailed documentation.
 
 Name:           python-pyramid-tm
 Version:        2.5
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        %{sum}
 
 License:        BSD
@@ -80,6 +80,9 @@ rm docs/.gitignore
 
 
 %changelog
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 2.5-6
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

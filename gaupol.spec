@@ -22,6 +22,10 @@ Source:         %{forgeurl}/archive/%{version}/gaupol-%{version}.tar.gz
 # https://github.com/otsaloma/gaupol/issues/209
 Patch:          %{forgeurl}/commit/a06b847201332725db5c6dc9505fedc23e7faebb.patch
 
+# Use importlib.reload instead of imp.reload (Python 3.12 compat)
+# https://github.com/otsaloma/gaupol/pull/211
+Patch:          %{forgeurl}/pull/211.patch
+
 # The package cannot be noarch because it has weak dependencies and BR’s
 # conditioned on architecture. There is still no compiled code, so there will
 # be no debug packages.

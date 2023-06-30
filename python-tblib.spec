@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.7.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Traceback serialization library
 
 License:        BSD-2-Clause
@@ -68,6 +68,9 @@ PYTHONPATH="%{buildroot}%{python3_sitelib}:tests" \
 
 
 %changelog
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 1.7.0-8
+- Rebuilt for Python 3.12
+
 * Sat Apr 08 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.7.0-7
 - Switch to SPDX license
 

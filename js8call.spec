@@ -7,7 +7,7 @@
 
 Name:           js8call
 Version:        2.2.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Amateur Radio message passing using FT8 modulation
 
 License:        GPLv3+
@@ -16,6 +16,7 @@ URL:            http://js8call.com/
 # Source archive from bitbucket includes project name and commit for directory.
 # Use repack.sh to repack the archive.
 Source0:        http://files.js8call.com/%{version}/js8call-%{version}.tgz
+Source1:        com.js8call.JS8Call.metainfo.xml
 
 # Unbundle boost libraries.
 Patch0:         js8call-sys_boost.patch
@@ -28,6 +29,7 @@ Patch2:         js8call-gcc11.patch
 BuildRequires:  cmake%{?rhel:3} gcc gcc-c++ gcc-gfortran tar
 BuildRequires:  asciidoc dos2unix rubygem-asciidoctor
 BuildRequires:  desktop-file-utils
+BuildRequires:  libappstream-glib
 # Libraries and devel packages
 BuildRequires:  boost-devel 
 BuildRequires:  fftw-devel
@@ -80,6 +82,13 @@ export PKG_CONFIG_ALLOW_SYSTEM_LIBS=1
 %install
 %cmake_install
 
+# Install AppStream metainfo file
+mkdir -p %{buildroot}%{_metainfodir}
+install -pm 644 %{SOURCE1} %{buildroot}%{_metainfodir}/
+
+appstream-util validate-relax \
+  --nonet %{buildroot}%{_metainfodir}/com.js8call.JS8Call.metainfo.xml
+
 # Buttons don't look right with system default style.
 desktop-file-edit --set-key=Exec --set-value="js8call --style=fusion" \
     %{buildroot}/%{_datadir}/applications/%{name}.desktop
@@ -96,11 +105,15 @@ rm -f %{buildroot}%{_datadir}/doc/JS8Call/INSTALL*
 %doc %{_datadir}/doc/JS8Call
 %{_bindir}/js8*
 %{_datadir}/applications/%{name}.desktop
+%{_metainfodir}/com.js8call.JS8Call.metainfo.xml
 %{_datadir}/pixmaps/%{name}_icon.png
 %{_datadir}/%{name}/
 
 
 %changelog
+* Wed Jun 28 2023 Daniel Rusek <mail@asciiwolf.com> - 2.2.0-17
+- Add an AppStream metainfo file
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           python-bravado
 Version:        11.0.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library for accessing Swagger-enabled API's
 
 License:        BSD-3-Clause
@@ -61,6 +61,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 11.0.3-2
+- Rebuilt for Python 3.12
+
 * Mon Feb 13 2023 Carl George <carl@george.computer> - 11.0.3-1
 - Update to version 11.0.3, resolves rhbz#2169596
 - Convert to pyproject macros

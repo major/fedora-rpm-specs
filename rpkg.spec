@@ -1,6 +1,6 @@
 Name:           rpkg
 Version:        1.66
-Release:        8%{?dist}
+Release:        9%{?dist}
 
 Summary:        Python library for interacting with rpm+git
 License:        GPLv2+ and LGPLv2
@@ -272,6 +272,9 @@ example_cli_dir=$RPM_BUILD_ROOT%{_datadir}/%{name}/examples/cli
 
 
 %changelog
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 1.66-9
+- Rebuilt for Python 3.12
+
 * Mon Jun 12 2023 Ondřej Nosek <onosek@redhat.com> - 1.66-8
 - Patch: `commit` command fails on 'containers' namespace
 

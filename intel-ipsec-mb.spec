@@ -25,7 +25,7 @@
 
 # Versions numbers
 %global major        1
-%global minor        3
+%global minor        4
 %global patch        0
 %global fullversion  %{major}.%{minor}.%{patch}
 
@@ -39,13 +39,12 @@
 
 Summary:            IPsec cryptography library optimized for Intel Architecture
 Name:               %{githubname}
-Release:            3%{?dist}
+Release:            1%{?dist}
 Version:            %{fullversion}
 License:            BSD
 Group:              Development/Tools
 ExclusiveArch:      x86_64
 Source0:            https://github.com/intel/%{githubname}/archive/v%{githubver}.tar.gz#/%{githubfull}.tar.gz
-Patch0:             Fix-for-perf-scaling-on-release-1.3.patch
 URL:                https://github.com/intel/%{githubname}
 BuildRequires:      make
 BuildRequires:      gcc >= 4.8.3
@@ -68,7 +67,7 @@ For additional information please refer to:
 https://github.com/intel/%{githubname}
 
 %prep
-%autosetup -n %{githubfull} -p2
+%autosetup -n %{githubfull}
 
 %if 0%{?rhel} && 0%{?rhel} < 8
 %ldconfig_post
@@ -97,7 +96,7 @@ ln -s libIPSec_MB.so.%{fullversion} libIPSec_MB.so
 %files
 
 %license LICENSE
-%doc README ReleaseNotes.txt
+%doc README.md ReleaseNotes.txt
 
 %{_libdir}/libIPSec_MB.so.%{fullversion}
 %{_libdir}/libIPSec_MB.so.%{major}
@@ -110,6 +109,9 @@ ln -s libIPSec_MB.so.%{fullversion} libIPSec_MB.so
 %{_libdir}/libIPSec_MB.so
 
 %changelog
+* Wed Jun 28 2023 Marcel Cornu <marcel.d.cornu@intel.com> 1.4.0-1
+- Update for release package v1.4
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,13 +2,13 @@
 
 #%%global snapdate 20210601
 #%%global commit b68a5e30ad98fca7e058b292f8f2abe6fa1e9e42
-#%%global shortcommit %(c=%{commit}; echo ${c:0:7})
+#%%global shortcommit %%(c=%%{commit}; echo ${c:0:7})
 
 # post-release format...
-#%%global snaprel %{?snapdate:.git%{snapdate}.%{shortcommit}}
+#%%global snaprel %%{?snapdate:.git%%{snapdate}.%%{shortcommit}}
 
 # for rpmdev-bumpspec
-%global baserelease 6
+%global baserelease 7
 
 Name:       ipsilon
 Version:    3.0.4
@@ -219,7 +219,6 @@ Summary:        SSSD based identity plugin
 License:        GPLv3+
 Requires:       %{name}-base = %{version}-%{release}
 Requires:       python3-sssdconfig
-Requires:       libsss_simpleifp
 Requires:       sssd >= 1.12.4
 BuildArch:      noarch
 
@@ -461,6 +460,10 @@ exit 0
 
 
 %changelog
+* Wed Jun 28 2023 Kevin Fenzi <kevin@scrye.com> - 3.0.4-7
+- Drop Requires on libsss_simpleifp as that no longer exists and isn't needed.
+- Fixes rhbz#2217912 rhbz#2207913 rhbz#2113451
+
 * Thu Mar 30 2023 Jerry James <loganjerry@gmail.com> - 3.0.4-6
 - Change fontawesome-fonts R to match fontawesome 4.x
 

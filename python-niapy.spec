@@ -13,7 +13,7 @@
 Name:           python-niapy
 Version:        2.0.5
 %forgemeta
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Microframework for building nature-inspired algorithms
 
 License:        MIT
@@ -136,6 +136,9 @@ PYTHONPATH="${PWD}" %make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
 %doc CONTRIBUTING.md CODE_OF_CONDUCT.md
 
 %changelog
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 2.0.5-2
+- Rebuilt for Python 3.12
+
 * Mon Mar 27 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 2.0.5-1
 - Upgrade to 2.0.5
 

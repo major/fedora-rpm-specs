@@ -1,45 +1,48 @@
 %global debug_package %{nil}
-%global srctag ippcp_2021.7
+%global srctag ippcp_2021.7.1
+%global mbx_int_major 11
+%global mbx_int_minor 6
 %global desc %{expand: \
 Crypto multi-buffer library provides optimized version of RSA, ECDSA, SM3 and
-x25519 multi-buffer algorithms based on Intel® Advanced Vector Extensions 512
-(Intel® AVX-512) integer fused multiply-add (IFMA) operations.}
+x25519 multi-buffer algorithms based on Intel Advanced Vector Extensions 512
+(Intel AVX-512) integer fused multiply-add (IFMA) operations.}
 
-Name:				intel-ipp-crypto-mb
-Version:			1.0.6
-Release:			1%{?dist}
-Summary:			Intel(R) IPP Cryptography multi-buffer library
+Name:		intel-ipp-crypto-mb
+Version:	1.0.8
+Release:	1%{?dist}
+Summary:	Intel IPP Cryptography multi-buffer library
 
-License:			Apache-2.0
-URL:				https://github.com/intel/ipp-crypto
-Source0:			%{url}/archive/%{srctag}/%{name}-%{srctag}.tar.gz
+License:	Apache-2.0
+URL:		https://github.com/intel/ipp-crypto
+Source0:	%{url}/archive/%{srctag}/%{name}-%{srctag}.tar.gz
 
 # Upstream exclusively uses x86_64-specific intrinsics
-ExclusiveArch:		x86_64
+ExclusiveArch:	x86_64
 
-BuildRequires:		cmake
-BuildRequires:		gcc
-BuildRequires:		gcc-c++
-BuildRequires:		openssl-devel >= 1.1.0
+BuildRequires:	cmake
+BuildRequires:	gcc
+BuildRequires:	gcc-c++
+BuildRequires:	openssl-devel >= 1.1.0
 
 %description
 %{desc}
 
 %package devel
-Summary: Intel(R) IPP Cryptography multi-buffer library (Development Files)
-Requires:			%{name}%{?_isa} = %{version}-%{release}
+Summary: Development files for %{name}
+Provides:	%{name}-static = %{version}-%{release}
+Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description devel %{desc}
 
 Development files.
 
 %package static
-Summary: Intel(R) IPP Cryptography multi-buffer library (Development Files)
-Requires:			%{name}%{?_isa} = %{version}-%{release}
+Summary: Static libraries for %{name} development
+Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description static %{desc}
 
-Static library package.
+Static library.
 
 %prep
 %autosetup -n ipp-crypto-%{srctag}
@@ -57,7 +60,6 @@ popd
 %install
 pushd sources/ippcp/crypto_mb
 %cmake_install
-install -spm755 %{_vpath_builddir}/bin/libcrypto_mb.so.11.5 %{buildroot}/%{_libdir}
 popd
 
 %ldconfig_scriptlets
@@ -65,7 +67,8 @@ popd
 %files
 %license LICENSE
 %doc sources/ippcp/crypto_mb/Readme.md
-%{_libdir}/libcrypto_mb.so.*
+%{_libdir}/libcrypto_mb.so.%{mbx_int_major}
+%{_libdir}/libcrypto_mb.so.%{mbx_int_major}.%{mbx_int_minor}
 
 %files devel
 %{_includedir}/crypto_mb
@@ -76,6 +79,9 @@ popd
 %{_libdir}/libcrypto_mb.a
 
 %changelog
+* Wed Jun 28 2023 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 1.0.8-1
+- Update to 1.0.8
+
 * Wed Feb 15 2023 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 1.0.6-1
 - Update to 1.0.6
 

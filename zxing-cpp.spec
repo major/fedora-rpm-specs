@@ -1,6 +1,6 @@
 Name: zxing-cpp
 Version: 2.0.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: C++ port of the ZXing ("Zebra Crossing") barcode scanning library
 
 # The entire source is ASL 2.0, except:
@@ -110,6 +110,9 @@ popd
 %{_libdir}/zxingcpp%{python3_ext_suffix}
 
 %changelog
+* Wed Jun 28 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2.0.0-3
+- Rebuilt due to fmt 10 update.
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.0.0-2
 - Rebuilt for Python 3.12
 

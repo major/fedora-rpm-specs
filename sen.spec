@@ -8,7 +8,7 @@
 
 Name:           %{srcname}
 Version:        0.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -75,6 +75,9 @@ py.test-%{python3_version} -vv tests || :
 
 
 %changelog
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 0.7.0-2
+- Rebuilt for Python 3.12
+
 * Wed Apr 12 2023 Packit <hello@packit.dev> - 0.7.0-1
 - 0.7.0 release (Tomas Tomecek)
 - RPM packaging: drop pytest-capturelog (Tomas Tomecek)

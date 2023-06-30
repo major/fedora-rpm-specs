@@ -5,16 +5,13 @@
 %global crate dav1d-sys
 
 Name:           rust-dav1d-sys
-Version:        0.5.0
+Version:        0.7.1
 Release:        %autorelease
 Summary:        FFI bindings to dav1d
 
 License:        MIT
 URL:            https://crates.io/crates/dav1d-sys
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * bump bindgen build-dependency from 0.59 to 0.63
-Patch:          dav1d-sys-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
@@ -47,6 +44,19 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v1_1-devel
+Summary:        %{summary}
+BuildArch:      noarch
+Requires:       pkgconfig(dav1d) >= 1.1.0
+
+%description -n %{name}+v1_1-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v1_1" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v1_1-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

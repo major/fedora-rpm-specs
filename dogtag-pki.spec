@@ -30,7 +30,7 @@ URL:              https://www.dogtagpki.org
 # The entire source code is GPLv2 except for 'pki-tps' which is LGPLv2
 License:          GPL-2.0-only and LGPL-2.0-only
 Version:          %{major_version}.%{minor_version}.%{update_version}
-Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}
+Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.1
 
 # To create a tarball from a version tag:
 # $ git archive \
@@ -1297,6 +1297,9 @@ fi
 
 ################################################################################
 %changelog
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 11.4.3-1.1
+- Rebuilt for Python 3.12
+
 * Mon Feb 27 2023 Jerry James <loganjerry@gmail.com> - 11.3.1-2
 - Unbundle the FontAwesome font
 

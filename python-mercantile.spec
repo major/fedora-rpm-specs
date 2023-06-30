@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.2.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Web Mercator XYZ tile utilities
 
 License:        BSD-3-Clause
@@ -63,6 +63,9 @@ rm -rf html/.{buildinfo,doctrees}
 %{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 1.2.1-9
+- Rebuilt for Python 3.12
+
 * Sat Apr 08 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.2.1-8
 - Switch to SPDX license
 

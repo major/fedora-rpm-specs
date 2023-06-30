@@ -82,7 +82,7 @@
 
 Name:           paraview
 Version:        5.11.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Parallel visualization application
 
 License:        BSD
@@ -766,6 +766,9 @@ update-mime-database %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 5.11.1-4
+- Rebuilt for Python 3.12
+
 * Thu May 11 2023 Orion Poplawski <orion@nwra.com> - 5.11.1-3
 - Add patch to fix build with Sphinx 6
 

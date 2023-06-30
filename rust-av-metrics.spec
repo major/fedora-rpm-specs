@@ -5,14 +5,15 @@
 %global crate av-metrics
 
 Name:           rust-av-metrics
-Version:        0.7.2
+Version:        0.9.1
 Release:        %autorelease
 Summary:        Collection of algorithms for measuring audio/video metrics
 
-# https://github.com/rust-av/av-metrics/issues/215
 License:        MIT
 URL:            https://crates.io/crates/av-metrics
-Source:         %{crates_source}
+Source0:        %{crates_source}
+# https://github.com/rust-av/av-metrics/pull/297
+Source1:        https://github.com/rust-av/av-metrics/raw/1d43898/av_metrics/LICENSE
 # Manually created patch for downstream crate metadata changes
 # * drop unused, benchmark-only criterion dev-dependency to speed up builds
 Patch:          av-metrics-fix-metadata.diff
@@ -34,6 +35,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
+%license %{crate_instdir}/LICENSE
 %license %{crate_instdir}/src/video/ciede/delta_e/LICENSE
 %license %{crate_instdir}/src/video/ciede/rgbtolab/LICENSE
 %{crate_instdir}/
@@ -65,6 +67,7 @@ use the "serde" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
 %cargo_prep
+cp -pav %{SOURCE1} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires

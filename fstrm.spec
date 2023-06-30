@@ -4,8 +4,8 @@
 Name: fstrm
 Summary: Frame Streams implementation in C
 Version: 0.6.1
-Release: 6%{?dist}
-License: MIT
+Release: 7%{?dist}
+License: MIT AND NTP
 URL: https://github.com/farsightsec/fstrm
 Source0: https://dl.farsightsecurity.com/dist/%{name}/%{name}-%{version}.tar.gz
 # Patches to libmy library
@@ -115,6 +115,9 @@ make check
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Wed Jun 28 2023 Petr Menšík <pemensik@redhat.com> - 0.6.1-7
+- Expand licenses to SPDX identifiers
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

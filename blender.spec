@@ -122,7 +122,6 @@ BuildRequires:  cmake(OpenImageDenoise)
 %if %{with opgl}
 BuildRequires:  openpgl-devel
 %endif
-BuildRequires:  openCOLLADA-devel >= svn825
 BuildRequires:  pkgconfig(fftw3)
 BuildRequires:  pkgconfig(ftgl)
 BuildRequires:  pkgconfig(glut)

@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.37.9000-511-g85e6d8b417
+%global glibcsrcdir glibc-2.37.9000-556-gd35fbd3e68
 %global glibcversion 2.37.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 14
+%global baserelease 15
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -2212,6 +2212,55 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Wed Jun 28 2023 Carlos O'Donell <carlos@redhat.com> - 2.37.9000-15
+- Auto-sync with upstream branch master,
+  commit d35fbd3e684e6bb5e5ec452ad8dac6ada8424bdd:
+- linux: Return unsupported if procfs can not be mount on tst-ttyname-namespace
+- linux: Split tst-ttyname
+- Use Linux 6.4 in build-many-glibcs.py
+- x86: Adjust Linux x32 dl-cache inclusion path
+- elf: Update list of RISC-V relocations
+- Fix tests-clean Makefile target (bug 30545)
+- check_native: Get rid of alloca
+- ifaddrs: Get rid of alloca
+- x86: Make dl-cache.h and readelflib.c not Linux-specific
+- elf: Port ldconfig away from stack-allocated paths
+- Call "CST" a time zone abbreviation, not a name
+- benchtests: fix warn unused result
+- sysdeps/powerpc/fpu/tst-setcontext-fpscr.c: Fix warn unused result
+- rt/tst-mqueue4.c: Fix wrong number of argument for mq_open
+- debug/readlink{, at}_chk.c: Harmonize declaration and definition
+- wcsmbs/bits/wchar2{, -decl}.h: Clearly separate declaration from definitions
+- stdio-common: tests: Incorrect maxlen parameter for swprintf
+- sysdeps/{i386, x86_64}/mempcpy_chk.S: fix linknamespace for __mempcpy_chk
+- hurd: readv: Get rid of alloca
+- hurd: writev: Add back cleanup handler
+- Fix misspellings -- BZ 25337
+- C2x scanf %b support
+- C2x printf %wN, %wfN support (bug 24466)
+- tests: replace system by xsystem
+- tests: replace read by xread
+- hurd: writev: Get rid of alloca
+- grantpt: Get rid of alloca
+- string: strerror must not return NULL (bug 30555)
+- hurd: Add strlcpy, strlcat, wcslcpy, wcslcat to libc.abilist
+- manual: Manual update for strlcat, strlcpy, wcslcat, wclscpy
+- Add the wcslcpy, wcslcat functions
+- Implement strlcpy and strlcat [BZ #178]
+- tests: replace fgets by xfgets
+- tests: replace fread by xfread
+- posix: Add test case for gai_strerror()
+- posix: Handle success in gai_strerror()
+- LoongArch: Add support for dl_runtime_profile
+- malloc: Decrease resource usage for malloc tests
+- stdlib: Tune down fork arc4random tests
+- tst-getdate: Improve testcase flexibility and add test.
+- x86: Make the divisor in setting `non_temporal_threshold` cpu specific
+- x86: Refactor Intel `init_cpu_features`
+- x86: Increase `non_temporal_threshold` to roughly `sizeof_L3 / 4`
+- Remove unused DATEMSK file for tst-getdate
+- resolv_conf: release lock on allocation failure (bug 30527)
+
 * Thu Jun 08 2023 Siddhesh Poyarekar <siddhesh@redhat.com> - 2.37.9000-14
 - Shadow stack userspace support, downstream only and disabled by default.
 

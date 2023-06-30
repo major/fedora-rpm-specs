@@ -7,7 +7,7 @@ library.
 
 Name:           python-%{srcname}
 Version:        1.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        AMQP 0-9-1 client library for Python
 
 License:        BSD
@@ -91,6 +91,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} nose2
 
 
 %changelog
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 1.3.1-2
+- Rebuilt for Python 3.12
+
 * Thu Mar 16 2023 Jonathan Wright <jonathan@almalinux.org> - 1.3.1-1
 - update to 1.3.1 rhbz#2102470
 - modernize spec

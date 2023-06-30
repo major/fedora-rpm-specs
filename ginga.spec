@@ -16,8 +16,8 @@ panning and zooming windows, star catalog access, cuts, star pick/fwhm,       \
 thumbnails, etc.
 
 Name:           ginga
-Version:        2.7.2
-Release:        15%{?dist}
+Version:        4.0.1
+Release:        1%{?dist}
 Summary:        %{sum}
 # License breakdown
 #
@@ -37,21 +37,6 @@ Source0:        https://files.pythonhosted.org/packages/source/g/%{name}/%{name}
 # General build reqs
 BuildRequires:  desktop-file-utils
 BuildRequires:  fontpackages-devel
-BuildRequires:  google-roboto-fonts
-# Python 3 build reqs
-BuildRequires:  python3-astropy
-BuildRequires:  python3-astropy-helpers
-BuildRequires:  python3-beautifulsoup4
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-matplotlib-qt5
-BuildRequires:  python3-piexif
-BuildRequires:  python3-pillow
-BuildRequires:  python3-opencv
-BuildRequires:  python3-QtPy
-BuildRequires:  python3-qt5
-BuildRequires:  python3-scipy
-
 Requires:       python3-%{name} = %{version}-%{release}
 
 BuildArch:      noarch
@@ -61,80 +46,81 @@ BuildArch:      noarch
 
 %package -n python3-%{name}
 Summary:        %{sum}
-%{?python_provide:%python_provide python3-%{name}}
 Requires:       google-roboto-fonts
-Requires:       python3-astropy
-Requires:       python3-beautifulsoup4
-Requires:       python3-matplotlib-qt5
-Requires:       python3-opencv
-Requires:       python3-piexif
-Requires:       python3-pillow
-Requires:       python3-QtPy
-Requires:       python3-qt5
-Requires:       python3-scipy
+Requires:       google-roboto-condensed-fonts
 
 %description -n python3-%{name}
 %{common_desc}
 
 %package -n python3-%{name}-examples
 Summary:        Examples for %{name}
-%{?python_provide:%python_provide python3-%{name}-examples}
 Requires:       python3-%{name} = %{version}-%{release}
 
 %description -n python3-%{name}-examples
 Examples for %{name}
 
+%pyproject_extras_subpkg -n python3-ginga recommended
+%pyproject_extras_subpkg -n python3-ginga qt5
 
 %prep
 %autosetup
-cp -r ginga/examples examples-py3
-# Fix wrong Python interpreters (upstream uses env)
-find examples-py3 -name '*.py' | xargs sed -i '1s|^#!.*|#!%{__python3}|'
+sed -i -e s/opencv-python/opencv/ -e s/python-magic.*/file-magic/ setup.cfg
+
+%generate_buildrequires
+%pyproject_buildrequires -x recommended -x qt5
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files ginga
+sed -i '/Roboto.*LICENSE/d' %{pyproject_files}
+
 desktop-file-install                                    \
      --dir=%{buildroot}%{_datadir}/applications         \
      %{name}.desktop
 
 # Replace bundled fonts with symlinks to system fonts
-rm -f %{buildroot}/%{python3_sitelib}/%{name}/fonts/Roboto/*
+rm %{buildroot}/%{python3_sitelib}/%{name}/fonts/Roboto*/*
 ln -sf %{_fontbasedir}/google-roboto/Roboto-Black.ttf %{buildroot}/%{python3_sitelib}/%{name}/fonts/Roboto/Roboto-Black.ttf
 ln -sf %{_fontbasedir}/google-roboto/Roboto-Bold.ttf %{buildroot}/%{python3_sitelib}/%{name}/fonts/Roboto/Roboto-Bold.ttf
 ln -sf %{_fontbasedir}/google-roboto/Roboto-Light.ttf %{buildroot}/%{python3_sitelib}/%{name}/fonts/Roboto/Roboto-Light.ttf
 ln -sf %{_fontbasedir}/google-roboto/Roboto-Medium.ttf %{buildroot}/%{python3_sitelib}/%{name}/fonts/Roboto/Roboto-Medium.ttf
 ln -sf %{_fontbasedir}/google-roboto/Roboto-Regular.ttf %{buildroot}/%{python3_sitelib}/%{name}/fonts/Roboto/Roboto-Regular.ttf
 ln -sf %{_fontbasedir}/google-roboto/Roboto-Thin.ttf %{buildroot}/%{python3_sitelib}/%{name}/fonts/Roboto/Roboto-Thin.ttf
+ln -sf %{_fontbasedir}/google-roboto/RobotoCondensed-Bold.ttf %{buildroot}/%{python3_sitelib}/%{name}/fonts/Roboto_Condensed/RobotoCondensed-Bold.ttf
+ln -sf %{_fontbasedir}/google-roboto/RobotoCondensed-BoldItalic.ttf %{buildroot}/%{python3_sitelib}/%{name}/fonts/Roboto_Condensed/RobotoCondensed-BoldItalic.ttf
+ln -sf %{_fontbasedir}/google-roboto/RobotoCondensed-Light.ttf %{buildroot}/%{python3_sitelib}/%{name}/fonts/Roboto_Condensed/RobotoCondensed-Light.ttf
+ln -sf %{_fontbasedir}/google-roboto/RobotoCondensed-LightItalic.ttf %{buildroot}/%{python3_sitelib}/%{name}/fonts/Roboto_Condensed/RobotoCondensed-LightItalic.ttf
+ln -sf %{_fontbasedir}/google-roboto/RobotoCondensed-Italic.ttf %{buildroot}/%{python3_sitelib}/%{name}/fonts/Roboto_Condensed/RobotoCondensed-Italic.ttf
+ln -sf %{_fontbasedir}/google-roboto/RobotoCondensed-Regular.ttf %{buildroot}/%{python3_sitelib}/%{name}/fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf
+# TODO - Bundled Ubuntu_Mono
 
 # ginga/web/pgw/ipg.py has wrong permissions
 chmod 755 %{buildroot}/%{python3_sitelib}/%{name}/web/pgw/ipg.py
 chmod 755 %{buildroot}/%{python3_sitelib}/%{name}/util/mosaic.py
 
 # Fix wrong interpreters in some scripts...
-find %{buildroot}/%{python3_sitelib}/%{name} -name '*.py' | xargs sed -i '1s|^#!.*|#!%{__python3}|'
-
+%py3_shebang_fix %{buildroot}/%{python3_sitelib}/ginga/web/pgw/ipg.py %{buildroot}/%{python3_sitelib}/ginga/examples
 
 %files
-%license LICENSE.txt
-%doc README.txt
+%doc README.md LONG_DESC.txt doc/WhatsNew.rst
 %{_bindir}/*
 %{_datadir}/applications/%{name}.desktop
 
-%files -n python3-%{name}
-%license LICENSE.txt
-%doc README.txt
-%{python3_sitelib}/*
+%files -n python3-%{name} -f %{pyproject_files}
+%doc README.md
 # Examples are shipped as documentation in examples subpackage
 %exclude %{python3_sitelib}/%{name}/examples
 
 %files -n python3-%{name}-examples
-%license LICENSE.txt
-%doc examples-py3/*
+%doc ginga/examples
 
 %changelog
+* Sun Jun 25 2023 Orion Poplawski <orion@nwra.com> - 4.0.1-1
+- Update to 4.0.1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,11 +1,11 @@
 %global _hardened_build 1
 
-%global upstream_version 2.0rc1
+%global upstream_version 2.0rc2
 
 
 Name: libcupsfilters
 Epoch: 1
-Version: 2.0~rc1
+Version: 2.0~rc2
 Release: 1%{?dist}
 Summary: Library for developing printing filters
 # the CUPS exception text is the same as LLVM exception, so using that name with
@@ -194,6 +194,9 @@ rm -f %{buildroot}%{_pkgdocdir}/{LICENSE,COPYING,NOTICE}
 
 
 %changelog
+* Wed Jun 28 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0~rc2-1
+- 2.0rc2
+
 * Wed Apr 19 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0~rc1-1
 - 2.0rc1
 

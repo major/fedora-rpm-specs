@@ -26,6 +26,10 @@ Source12:       pytest-bdd-migrate.1
 # Resolved upstream: https://github.com/pytest-dev/pytest-bdd/pull/580
 Patch:          remove-old-pytest-logic.patch
 
+# Fix python 3.12.0a3 syntax error
+# https://github.com/pytest-dev/pytest-bdd/commit/628790921e05e614a7064aab29b8c60fc01c943b
+Patch:          %{forgeurl}/commit/628790921e05e614a7064aab29b8c60fc01c943b.patch
+
 BuildArch:      noarch
  
 BuildRequires:  python3-devel
@@ -109,7 +113,9 @@ install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D \
 # https://github.com/pytest-dev/pytest-bdd/issues/453
 mkdir -p _empty && cp -rp tests *.ini _empty && cd _empty
 
+# Run tests in parallel (and verbosely)
 export PYTEST_ADDOPTS='-n auto -v'
+
 %tox
 
 

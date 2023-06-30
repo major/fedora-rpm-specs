@@ -2,7 +2,7 @@
 
 Name:           mingw-freetype
 # NOTE See comment for Patch2 below
-Version:        2.13.0
+Version:        2.13.1
 Release:        1%{?dist}
 Summary:        Free and portable font rendering engine
 
@@ -133,6 +133,9 @@ rm -rf %{buildroot}%{mingw32_mandir} %{buildroot}%{mingw64_mandir}
 
 
 %changelog
+* Wed Jun 28 2023 Sandro Mani <manisandro@gmail.com> - 2.13.1-1
+- Update to 2.13.1
+
 * Tue Feb 28 2023 Sandro Mani <manisandro@gmail.com> - 2.13.0-1
 - Update to 2.13.0
 

@@ -18,6 +18,14 @@ Patch1: aspell-0.60.7-pspell_conf.patch
 Patch2: aspell-0.60.7-mp.patch
 Patch3: aspell-0.60.8-CVE-2019-25051.patch
 
+# IMPORTANT
+# This package has been deprecated since Fedora 39
+# The reason behind this is that upstream has been inactive for more than 4 years
+# and there are other variants like hunspell or enchant which has active upstream
+# FESCo approval is located here: https://pagure.io/fesco/issue/3009
+# Change proposal is located here: https://fedoraproject.org/wiki/Changes/AspellDeprecation
+Provides:  deprecated()
+
 BuildRequires: gcc-c++
 BuildRequires: chrpath, gettext, ncurses-devel, pkgconfig, perl-interpreter
 BuildRequires: make
@@ -36,6 +44,9 @@ than one Aspell process is open at once.
 Summary: Libraries and header files for Aspell development
 Requires: %{name} = %{epoch}:%{version}-%{release}
 Requires: pkgconfig
+
+# For details, see above
+Provides:  deprecated()
 
 %description devel
 The aspell-devel package includes libraries

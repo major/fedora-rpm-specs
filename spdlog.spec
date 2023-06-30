@@ -1,6 +1,6 @@
 Name:           spdlog
 Version:        1.11.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 
 License:        MIT
 Summary:        Super fast C++ logging library
@@ -9,6 +9,10 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 # https://github.com/gabime/spdlog/pull/2661
 Patch100:       spdlog-catchv3-compatibility.patch
+# https://github.com/gabime/spdlog/pull/2694
+Patch101:       spdlog-fmt10-compatibility.patch
+# https://github.com/gabime/spdlog/pull/2736
+Patch102:       spdlog-fmt10-tests-fixes.patch
 
 BuildRequires:  catch-devel >= 3.0.0
 BuildRequires:  cmake
@@ -69,6 +73,9 @@ rm -f tests/catch.hpp
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon May 29 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 1.11.0-6
+- Rebuilt due to fmt library update.
+
 * Wed Mar 01 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 1.11.0-5
 - Ported to catch v3. Fixed FTBFS in ELN.
 

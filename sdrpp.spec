@@ -4,7 +4,7 @@
 
 Name:           sdrpp
 Version:        1.0.4
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        SDRPlusPlus bloat-free SDR receiver software
 
 License:        GPLv3 and MIT and WTFPL and Public Domain
@@ -156,6 +156,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Wed Jun 28 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 1.0.4-13
+- Rebuilt due to fmt 10 update.
+
 * Sun Feb 26 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.0.4-12
 - Update min. stb_image version for nullptr deref. bug
 

@@ -1,6 +1,8 @@
+%bcond oscilloscope %{undefined rhel}
+
 Name: tuna
 Version: 0.19
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2
 Summary: Application tuning GUI & command line utility
 Source: https://www.kernel.org/pub/software/utils/%{name}/%{name}-%{version}.tar.xz
@@ -8,9 +10,7 @@ URL: https://rt.wiki.kernel.org/index.php/Tuna
 BuildArch: noarch
 BuildRequires: python3-devel, gettext
 BuildRequires: python3-setuptools
-Requires: python3-ethtool
 Requires: python3-linux-procfs >= 0.6
-Requires: python3-schedutils >= 0.6
 # This really should be a Suggests...
 # Requires: python-inet_diag
 
@@ -25,6 +25,7 @@ Operations can be done on CPU sockets, understanding CPU topology.
 Can be used as a command line utility without requiring the GUI libraries to be
 installed.
 
+%if %{with oscilloscope}
 %package -n oscilloscope
 Summary: Generic graphical signal plotting tool
 Requires: python3-matplotlib-gtk3
@@ -40,6 +41,7 @@ statistics and a histogram.
 Allows to instantly see how a signal generator, such as cyclictest, signaltest
 or even ping, reacts when, for instance, its scheduling policy or real time
 priority is changed, be it using tuna or plain chrt & taskset.
+%endif
 
 %prep
 %setup -q
@@ -48,7 +50,9 @@ priority is changed, be it using tuna or plain chrt & taskset.
 %py3_build
 %py3_shebang_fix tuna/
 %py3_shebang_fix tuna-cmd.py
+%if %{with oscilloscope}
 %py3_shebang_fix oscilloscope-cmd.py
+%endif
 
 %install
 rm -rf %{buildroot}
@@ -58,7 +62,9 @@ mkdir -p %{buildroot}/{%{_bindir},%{_datadir}/tuna/help/kthreads,%{_mandir}/man8
 mkdir -p %{buildroot}/%{_datadir}/polkit-1/actions/
 install -p -m644 tuna/tuna_gui.glade %{buildroot}/%{_datadir}/tuna/
 install -p -m755 tuna-cmd.py %{buildroot}/%{_bindir}/tuna
+%if %{with oscilloscope}
 install -p -m755 oscilloscope-cmd.py %{buildroot}/%{_bindir}/oscilloscope
+%endif
 install -p -m644 help/kthreads/* %{buildroot}/%{_datadir}/tuna/help/kthreads/
 install -p -m644 docs/tuna.8 %{buildroot}/%{_mandir}/man8/
 install -p -m644 etc/tuna/example.conf %{buildroot}/%{_sysconfdir}/tuna/
@@ -85,12 +91,18 @@ done
 %{_sysconfdir}/tuna/*
 %{_datadir}/polkit-1/actions/org.tuna.policy
 
+%if %{with oscilloscope}
 %files -n oscilloscope
 %{_bindir}/oscilloscope
 %doc docs/oscilloscope+tuna.html
 %doc docs/oscilloscope+tuna.pdf
+%endif
 
 %changelog
+* Fri Jun 23 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.19-3
+- Disable oscilloscope in RHEL builds
+- Remove obsolete dependencies
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.19-2
 - Rebuilt for Python 3.12
 

@@ -4,24 +4,13 @@
 %global selinux_package_dir %{_datadir}/selinux/packages
 
 Name:           cepces
-Version:        0.3.5
-Release:        8%{?dist}
+Version:        0.3.7
+Release:        2%{?dist}
 Summary:        Certificate Enrollment through CEP/CES
 
 License:        GPL-3.0-or-later
 URL:            https://github.com/openSUSE/%{name}
 Source0:        https://github.com/openSUSE/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
-
-# cepces.conf.dist: server should be pointed to actual CEP host
-# https://github.com/openSUSE/cepces/issues/15
-# Merged to master after ver 0.3.5
-Patch0:         https://patch-diff.githubusercontent.com/raw/openSUSE/%{name}/pull/16.patch
-
-# Replace old requests_kerberos with requests_gssapi
-Patch1:         https://patch-diff.githubusercontent.com/raw/openSUSE/%{name}/pull/18.patch
-
-# Cleanup for installing the project
-Patch2:         https://patch-diff.githubusercontent.com/raw/openSUSE/%{name}/pull/19.patch
 
 BuildArch:      noarch
 
@@ -190,6 +179,13 @@ fi
 %files selinux -f selinux-files.txt
 
 %changelog
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 0.3.7-2
+- Rebuilt for Python 3.12
+
+* Wed Jun 28 2023 Andreas Schneider <asn@redhat.com> - 0.3.7-1
+- Update to version 0.3.7
+  * https://github.com/openSUSE/cepces/releases/tag/v0.3.7
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.3.5-8
 - Rebuilt for Python 3.12
 

@@ -226,6 +226,8 @@ rm %{buildroot}%{_datadir}/doc/%{name}/html/.buildinfo \
 
 %check
 %if %{with test}
+sed '/def test_ssh_shell_integration/a \
+\        self.skipTest("Skipping flaky test")' -i kitty_tests/ssh.py
 export %{gomodulesmode}
 export GOPATH=$(pwd):%{gopath}
 # Some tests ignores PATH env...

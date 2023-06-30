@@ -5,7 +5,7 @@
 %global crate y4m
 
 Name:           rust-y4m
-Version:        0.7.0
+Version:        0.8.0
 Release:        %autorelease
 Summary:        YUV4MPEG2 (.y4m) Encoder/Decoder
 

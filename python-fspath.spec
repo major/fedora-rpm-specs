@@ -24,6 +24,8 @@ BuildArch:      noarch
 Summary:        %{summary}
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
+# https://github.com/return42/fspath/issues/3
+BuildRequires:  python3-zombie-imp
 
 %description -n python3-fspath %_description
 

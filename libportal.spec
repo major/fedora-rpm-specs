@@ -1,6 +1,8 @@
+%bcond qt5 %[%{undefined rhel} || 0%{?rhel} < 10]
+
 Name:           libportal
 Version:        0.6
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Flatpak portal library
 License:        LGPLv3
 Url:            https://github.com/flatpak/libportal
@@ -17,10 +19,12 @@ BuildRequires:  pkgconfig(gio-unix-2.0)
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(gtk4)
+%if %{with qt5}
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Gui)
 BuildRequires:  pkgconfig(Qt5Widgets)
 BuildRequires:  pkgconfig(Qt5X11Extras)
+%endif
 
 # Backport from post-0.6 fixes
 Patch0: 0.6-backports.patch
@@ -46,6 +50,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 This package provides files for GTK 4 and %name.
 
+%if %{with qt5}
 %package qt5
 Summary: Qt5 libraries for %name
 Requires: %{name}%{?_isa} = %{version}-%{release}
@@ -54,6 +59,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %name provides GIO-style asynchronous APIs for most Flatpak portals.
 
 This package provides files for Qt 5 and %name.
+%endif
 
 %package devel
 Summary: Development files and libraries for %name
@@ -84,6 +90,7 @@ Requires: %{name}-gtk4%{?_isa} = %{version}-%{release}
 
 This package provides files for development with GTK 4 and %name.
 
+%if %{with qt5}
 %package qt5-devel
 Summary: Qt 5 development files and libraries for %name
 Requires: %{name}-devel%{?_isa} = %{version}-%{release}
@@ -93,6 +100,7 @@ Requires: %{name}-qt5%{?_isa} = %{version}-%{release}
 %name provides GIO-style asynchronous APIs for most Flatpak portals.
 
 This package provides files for development with Qt 5 and %name.
+%endif
 
 %package devel-doc
 Summary: Development documentation for libportal
@@ -111,7 +119,7 @@ This package provides development documentations for libportal.
 %autosetup -p1 -S git_am
 
 %build
-%meson
+%meson -Dbackends=gtk3,gtk4%{?with_qt5:,qt5}
 %meson_build
 
 %install
@@ -131,8 +139,10 @@ This package provides development documentations for libportal.
 %{_libdir}/girepository-1.0/XdpGtk4-1.0.typelib
 %{_libdir}/libportal-gtk4.so.1*
 
+%if %{with qt5}
 %files qt5
 %{_libdir}/libportal-qt5.so.1*
+%endif
 
 %files devel
 %{_datadir}/gir-1.0/Xdp-1.0.gir
@@ -158,15 +168,20 @@ This package provides development documentations for libportal.
 %{_libdir}/libportal-gtk4.so
 %{_libdir}/pkgconfig/libportal-gtk4.pc
 
+%if %{with qt5}
 %files qt5-devel
 %{_includedir}/libportal-qt5
 %{_libdir}/libportal-qt5.so
 %{_libdir}/pkgconfig/libportal-qt5.pc
+%endif
 
 %files devel-doc
 %{_datadir}/doc/libportal-1
 
 %changelog
+* Thu Jun 22 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.6-7
+- Disable qt5 in RHEL 10 builds
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

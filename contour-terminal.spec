@@ -7,6 +7,8 @@ Summary:        Modern C++ Terminal Emulator
 License:        Apache-2.0
 URL:            https://github.com/contour-terminal/contour
 Source0:        %{url}/archive/v%{version}/contour-%{version}.tar.gz
+# fix build with fmt 10
+Patch0:         https://github.com/contour-terminal/contour/commit/782fb7248d6fe643e7163bf57b0bcef50a81a8f7.patch
 
 ExcludeArch:    s390x i686 ppc64le
 
@@ -37,13 +39,20 @@ BuildRequires:  catch2-devel
 %endif
 
 %if %{with qt6}
-BuildRequires:  qt6-qtbase-devel
-BuildRequires:  qt6-qtdeclarative-devel
-BuildRequires:  qt6-qtmultimedia-devel
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6Network)
+BuildRequires:  cmake(Qt6OpenGL)
+BuildRequires:  cmake(Qt6OpenGLWidgets)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Multimedia)
 %else
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtdeclarative-devel
-BuildRequires:  qt5-qtmultimedia-devel
+BuildRequires:  cmake(Qt5Core)
+BuildRequires:  cmake(Qt5Gui)
+BuildRequires:  cmake(Qt5Network)
+BuildRequires:  cmake(Qt5Widgets)
+BuildRequires:  cmake(Qt5Multimedia)
+BuildRequires:  cmake(Qt5X11Extras)
 %endif
 
 Requires:       hicolor-icon-theme
@@ -56,16 +65,18 @@ Contour is a modern and actually fast, modal, virtual terminal emulator,
 for everyday use. It is aiming for power users with a modern feature mindset.
 
 %prep
-%autosetup -n contour-%{version}
+%autosetup -p1 -n contour-%{version}
 
 %build
 %cmake \
     -GNinja \
+    -DCMAKE_BUILD_TYPE=Release \
 %if %{with qt6}
     -DCONTOUR_QT_VERSION=6 \
 %else
     -DCONTOUR_QT_VERSION=5 \
 %endif
+
 %cmake_build
 
 %install

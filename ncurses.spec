@@ -2,7 +2,7 @@
 Summary: Ncurses support utilities
 Name: ncurses
 Version: 6.4
-Release: 4.%{revision}%{?dist}
+Release: 5.%{revision}%{?dist}
 License: MIT
 URL: https://invisible-island.net/ncurses/ncurses.html
 Source0: https://invisible-mirror.net/archives/ncurses/current/ncurses-%{version}-%{revision}.tgz
@@ -181,7 +181,7 @@ baseterms=
 
 # prepare -base and -term file lists
 for termname in \
-    alacritty ansi dumb linux vt100 vt100-nav vt102 vt220 vt52 \
+    alacritty ansi dumb foot\* linux vt100 vt100-nav vt102 vt220 vt52 \
     Eterm\* aterm bterm cons25 cygwin eterm\* gnome gnome-256color hurd jfbterm \
     kitty konsole konsole-256color mach\* mlterm mrxvt nsterm putty{,-256color} pcansi \
     rxvt{,-\*} screen{,-\*color,.[^mlp]\*,.linux,.mlterm\*,.putty{,-256color},.mrxvt} \
@@ -283,6 +283,9 @@ xz NEWS
 %{_libdir}/lib*.a
 
 %changelog
+* Tue Jun 27 2023 Debarshi Ray <rishi@fedoraproject.org> 6.4-5.20230520
+- move foot entries to -base (#2217982)
+
 * Mon May 22 2023 Miroslav Lichvar <mlichvar@redhat.com> 6.4-4.20230520
 - update to 6.4-20230520
 - build with options disabling root file access and environment

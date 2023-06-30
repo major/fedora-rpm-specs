@@ -17,7 +17,7 @@
 
 Name:          rpy
 Version:       3.5.10
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       %{sum}
 License:       GPLv2+
 Url:           https://pypi.python.org/pypi/rpy2
@@ -83,6 +83,9 @@ cd %{srcname}2
 %{python3_sitearch}/__pycache__/*
 
 %changelog
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 3.5.10-3
+- Rebuilt for Python 3.12
+
 * Fri Apr 21 2023 Iñaki Úcar <iucar@fedoraproject.org> - 3.5.10-2
 - R-maint-sig mass rebuild
 

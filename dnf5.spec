@@ -4,12 +4,14 @@
 
 Name:           dnf5
 Version:        %{project_version_major}.%{project_version_minor}.%{project_version_patch}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
 Source0:        %{url}/archive/%{version}/dnf5-%{version}.tar.gz
 Patch0001:      0001-Disable-tutorial-unit-tests.patch
+Patch0002:      0002-fmt10-build-fix.patch
+Patch0003:      0003-fmt10-time_point-fix.patch
 
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
@@ -663,6 +665,10 @@ ln -sr %{buildroot}%{_bindir}/dnf5 %{buildroot}%{_bindir}/microdnf
 
 
 %changelog
+* Wed Jun 28 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 5.0.14-2
+- Rebuilt due to fmt 10 update.
+- Added upstream patches with fmt 10 build fixes.
+
 * Wed Jun 14 2023 Packit <hello@packit.dev> - 5.0.14-1
 - Modify libdnf5-devel to generate pkgconf(libdnf5)
 - Handle unnamed environments in transaction table

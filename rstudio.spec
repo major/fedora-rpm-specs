@@ -46,7 +46,7 @@
 
 Name:           rstudio
 Version:        %{rstudio_version}+%{rstudio_version_suffix}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        RStudio base package
 ExclusiveArch:  %{java_arches}
 
@@ -348,6 +348,9 @@ chown -R %{name}-server:%{name}-server %{_sharedstatedir}/%{name}-server
 %config(noreplace) %{_sysconfdir}/pam.d/%{name}
 
 %changelog
+* Wed Jun 28 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2023.06.0+421-2
+- Rebuilt due to fmt 10 update.
+
 * Thu Jun 08 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2023.06.0+421-1
 - Update to 2023.06.0+421
 

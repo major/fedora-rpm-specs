@@ -27,18 +27,14 @@ Source0:        http://downloads.sourceforge.net/gimp-print/%{name}-%{version}.t
 Source1:        cups-genppdupdate.py.in
 # ported from old gimp-print package - fix for a menu in gimp gutenprint plugin
 Patch0:         gutenprint-menu.patch
-Patch3:         gutenprint-postscriptdriver.patch
-Patch4:         gutenprint-yyin.patch
-Patch5:         gutenprint-manpage.patch
-Patch6:         gutenprint-python36syntax.patch
-Patch7:         gutenprint-xmlfixes.patch
-Patch8:         gutenprint-libusb-crash.patch
+Patch1:         gutenprint-postscriptdriver.patch
+Patch2:         gutenprint-yyin.patch
+Patch3:         gutenprint-manpage.patch
+Patch4:         gutenprint-python36syntax.patch
+Patch5:         gutenprint-xmlfixes.patch
+Patch6:         gutenprint-libusb-crash.patch
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND MIT AND GPL-3.0-or-later WITH Bison-exception-2.2
 
-#### removed patches, because the seems useless
-# I'll leave them here, in case its removal will break something
-#Patch1:         gutenprint-O6.patch
-#Patch2: gutenprint-selinux.patch
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
@@ -163,17 +159,13 @@ Epson, HP and compatible printers.
 %prep
 %setup -q -n %{name}-%{version}
 # Fix menu placement of GIMP plugin.
-%patch0 -p1 -b .menu
-# Don't use -O6 compiler option.
-#%%patch1 -p1 -b .O6
-# Restore file contexts when updating PPDs.
-#%%patch2 -p1 -b .selinux
+%patch -P 0 -p1 -b .menu
 # Allow the CUPS dynamic driver to run inside a build root.
-%patch3 -p1 -b .postscriptdriver
+%patch -P 1 -p1 -b .postscriptdriver
 # Don't export yy* symbols (bug #882194).
-%patch4 -p1 -b .yyin
+%patch -P 2 -p1 -b .yyin
 # Added some escputil options to the manpage (bug #979064).
-%patch5 -p1 -b .manpage
+%patch -P 3 -p1 -b .manpage
 
 cp %{SOURCE1} src/cups/cups-genppdupdate.in
 
@@ -181,11 +173,11 @@ cp %{SOURCE1} src/cups/cups-genppdupdate.in
 sed -i -e 's,^#!/usr/bin/python3,#!%{__python3},' src/cups/cups-genppdupdate.in
 
 # Python 3.6 invalid escape sequence deprecation fixes, COPYING as license (bug #1448303)
-%patch6 -p1 -b .python36syntax
+%patch -P 4 -p1 -b .python36syntax
 # fix xml error reported by rpminspect, sent upstream via email
-%patch7 -p1 -b .xmlfixes
+%patch -P 5 -p1 -b .xmlfixes
 # 2055504 - Set gutenprint53+usb backend to use the default USB context
-%patch8 -p1 -b .crash
+%patch -P 6 -p1 -b .crash
 
 %build
 # Don't run the weave test as it takes a very long time.

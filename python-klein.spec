@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        20.6.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python microframework built on werkzeug + twisted.web
 
 License:        MIT
@@ -65,6 +65,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 20.6.0-9
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20.6.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

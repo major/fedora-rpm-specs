@@ -232,8 +232,8 @@
 
 Summary: Library providing a simple virtualization API
 Name: libvirt
-Version: 9.3.0
-Release: 2%{?dist}
+Version: 9.4.0
+Release: 1%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND OFL-1.1
 URL: https://libvirt.org/
 
@@ -314,7 +314,7 @@ BuildRequires: util-linux
 %if %{with_qemu}
 # For managing ACLs
 BuildRequires: libacl-devel
-# From QEMU RPMs
+# From QEMU RPMs, used by virstoragetest
 BuildRequires: /usr/bin/qemu-img
 %endif
 # For LVM drivers
@@ -1217,6 +1217,7 @@ export SOURCE_DATE_EPOCH=$(stat --printf='%Y' %{_specdir}/libvirt.spec)
 
 %meson \
            -Drunstatedir=%{_rundir} \
+           -Dinitconfdir=%{_sysconfdir}/sysconfig \
            %{?arg_qemu} \
            %{?arg_openvz} \
            %{?arg_lxc} \
@@ -2459,6 +2460,9 @@ exit 0
 
 
 %changelog
+* Wed Jun 28 2023 Cole Robinson <crobinso@redhat.com> - 9.4.0-1
+- Update to version 9.4.0
+
 * Tue May 23 2023 Cole Robinson <crobinso@redhat.com> - 9.3.0-2
 - Drop numad usage, it is removed from f39
 

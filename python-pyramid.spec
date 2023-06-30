@@ -6,7 +6,7 @@ fun, more predictable, and more productive.
 
 Name:           python-%{modname}
 Version:        2.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 
 License:        BSD-4-Clause
@@ -87,6 +87,9 @@ done;
 
 
 %changelog
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 2.0.1-2
+- Rebuilt for Python 3.12
+
 * Sat Feb 04 2023 Mattia Verga <mattia.verga@proton.me> - 2.0.1-1
 - Update to 2.0.1
 

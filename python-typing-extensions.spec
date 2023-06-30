@@ -1,6 +1,6 @@
 Name:      python-typing-extensions
-Version:   4.6.3
-Release:   2%{?dist}
+Version:   4.7.0
+Release:   1%{?dist}
 Summary:   Python Typing Extensions
 
 License:   PSF-2.0
@@ -18,26 +18,22 @@ The `typing_extensions` module serves two related purposes:
 
 - Enable use of new type system features on older Python versions. For example,
   `typing.TypeGuard` is new in Python 3.10, but `typing_extensions` allows
-  users on Python 3.6 through 3.9 to use it too.
+  users on previous Python versions to use it too.
 - Enable experimentation with new type system PEPs before they are accepted and
   added to the `typing` module.
 
-New features may be added to `typing_extensions` as soon as they are specified
-in a PEP that has been added to the [python/peps](https://github.com/python/peps)
-repository. If the PEP is accepted, the feature will then be added to `typing`
-for the next CPython release. No typing PEP has been rejected so far, so we
-haven't yet figured out how to deal with that possibility.
+`typing_extensions` is treated specially by static type checkers such as
+mypy and pyright. Objects defined in `typing_extensions` are treated the same
+way as equivalent forms in `typing`.
 
-Starting with version 4.0.0, `typing_extensions` uses
+`typing_extensions` uses
 [Semantic Versioning](https://semver.org/). The
-major version is incremented for all backwards-incompatible changes.
+major version will be incremented only for backwards-incompatible changes.
 Therefore, it's safe to depend
 on `typing_extensions` like this: `typing_extensions >=x.y, <(x+1)`,
 where `x.y` is the first version that includes all features you need.
 
-`typing_extensions` supports Python versions 3.7 and higher. In the future,
-support for older Python versions will be dropped some time after that version
-reaches end of life.}
+`typing_extensions` supports Python versions 3.7 and higher.}
 
 %description %_description
 
@@ -75,6 +71,9 @@ cd src
 %doc README.md
 
 %changelog
+* Wed Jun 28 2023 Jonny Heggheim <hegjon@gmail.com> - 4.7.0-1
+- Updated to version 4.7.0
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 4.6.3-2
 - Rebuilt for Python 3.12
 

@@ -2,7 +2,7 @@
 %global pkg_name scrapy
 Name:		python-scrapy
 Version:	2.8.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A high-level Python Screen Scraping framework
 
 License:	BSD
@@ -92,6 +92,9 @@ rm -f docs/build/html/.buildinfo
 %doc docs/build/html
 
 %changelog
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 2.8.0-2
+- Rebuilt for Python 3.12
+
 * Tue Feb 21 2023 Eduardo Echeverria <echevemaster@gmail.com> - 2.8.0-1
 - Update to 2.8.0
 

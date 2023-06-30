@@ -1,7 +1,7 @@
 Name:    tbb
 Summary: The Threading Building Blocks library abstracts low-level threading details
 Version: 2020.3
-Release: 17%{?dist}
+Release: 19%{?dist}
 License: ASL 2.0
 URL:     http://threadingbuildingblocks.org/
 
@@ -66,7 +66,10 @@ Blocks (TBB) C++ libraries.
 
 %package doc
 Summary: The Threading Building Blocks documentation
-Provides: bundled(jquery)
+%ifarch %{ix86}
+# https://bugzilla.redhat.com/show_bug.cgi?id=2174300
+Conflicts: %{name}-doc.x86_64
+%endif
 
 %description doc
 PDF documentation for the user of the Threading Building Block (TBB)
@@ -211,6 +214,13 @@ cmake \
 %{python3_sitearch}/__pycache__/TBB*
 
 %changelog
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 2020.3-19
+- Rebuilt for Python 3.12
+
+* Tue Jun 27 2023 Jonathan Wakely <jwakely@fedoraproject.org> - 2020.3-18
+- Add conflicts tag for tbb-doc (#2174300)
+- Remove outdated provides for bundled(jquery)
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2020.3-17
 - Rebuilt for Python 3.12
 

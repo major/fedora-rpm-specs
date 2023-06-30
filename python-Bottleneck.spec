@@ -2,7 +2,7 @@
 
 Name:		python-%{upname}
 Version:	1.3.7
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Collection of fast NumPy array functions written in Cython
 
 License:	BSD
@@ -102,6 +102,9 @@ rm -rf %{buildroot}%{python3_sitearch}/.pytest_cache
 
 
 %changelog
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 1.3.7-2
+- Rebuilt for Python 3.12
+
 * Tue Apr 04 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.3.7-1
 - Update to 1.3.7
 Fixes: rhbz#2056294

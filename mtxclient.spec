@@ -1,12 +1,13 @@
 Name: mtxclient
 Version: 0.9.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: MIT
 Summary: Client API library for Matrix, built on top of Boost.Asio
 URL: https://github.com/Nheko-Reborn/%{name}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+BuildRequires: cmake(fmt) >= 9.1.0
 BuildRequires: cmake(mpark_variant)
 BuildRequires: cmake(nlohmann_json) >= 3.2.0
 BuildRequires: cmake(Olm) >= 3.2.12
@@ -73,6 +74,9 @@ ln -s libmatrix_client.so.%{version} %{buildroot}%{_libdir}/libmatrix_client.so.
 %{_libdir}/*.so
 
 %changelog
+* Wed Jun 28 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.9.2-2
+- Rebuilt due to fmt 10 update.
+
 * Mon Feb 20 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.9.2-1
 - Updated to version 0.9.2.
 

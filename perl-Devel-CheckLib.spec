@@ -7,7 +7,7 @@
 
 Name:           perl-Devel-CheckLib
 Version:        1.16
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Check that a library is available
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -40,6 +40,8 @@ BuildRequires:  perl(Test::More) >= 0.88
 %if %{with perl_Devel_CheckLib_enables_optional_test}
 BuildRequires:  perl(Mock::Config)
 %endif
+# perl inherits the compiler flags it was built with, hence we need this on hardened systems
+Requires:       redhat-rpm-config
 
 # Filter modules bundled for tests
 %global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}^%{_libexecdir}
@@ -53,8 +55,6 @@ Summary:        Tests for %{name}
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
 Requires:       gcc
-# perl inherits the compiler flags it was built with, hence we need this on hardened systems
-Requires:       redhat-rpm-config
 # Optional tests
 %if %{with perl_Devel_CheckLib_enables_optional_test}
 Requires:       perl(Mock::Config)
@@ -114,6 +114,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jun 28 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.16-9
+- Move redhat-rpm-config from tests to main package
+
 * Thu Jun 22 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.16-8
 - Requires: redhat-rpm-config for tests
 

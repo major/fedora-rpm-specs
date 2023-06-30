@@ -3,11 +3,13 @@
 
 %bcond qt 1
 
-# Enable qt6 support (or not)
-# FIXME: qt6-qtdeclarative doesn't build on S390x
-# BUG: https://bugreports.qt.io/browse/QTBUG-93101
 %if %{with qt}
-%ifnarch s390x
+# Enable qt5 support (or not)
+# RHEL 10 drops support for Qt5, adds Qt6
+%if %{undefined rhel} || 0%{?rhel} < 10
+%global qt5 1
+%endif
+%if %{undefined rhel} || 0%{?rhel} >= 10
 %global qt6 1
 %endif
 %endif
@@ -15,7 +17,7 @@
 Summary: PDF rendering library
 Name:    poppler
 Version: 23.02.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: (GPLv2 or GPLv3) and GPLv2+ and LGPLv2+ and MIT
 URL:     http://poppler.freedesktop.org/
 Source0: http://poppler.freedesktop.org/poppler-%{version}.tar.xz
@@ -50,7 +52,7 @@ BuildRequires: pkgconfig(libpng)
 BuildRequires: pkgconfig(libtiff-4)
 BuildRequires: pkgconfig(nss)
 BuildRequires: pkgconfig(poppler-data)
-%if %{with qt}
+%if 0%{?qt5}
 BuildRequires: pkgconfig(Qt5Core)
 BuildRequires: pkgconfig(Qt5Gui)
 BuildRequires: pkgconfig(Qt5Test)
@@ -104,7 +106,7 @@ BuildArch: noarch
 %description glib-doc
 %{summary}.
 
-%if %{with qt}
+%if 0%{?qt5}
 %package qt5
 Summary: Qt5 wrapper for poppler
 Requires: %{name}%{?_isa} = %{version}-%{release}
@@ -171,7 +173,7 @@ chmod -x poppler/CairoFontEngine.cc
   -DENABLE_DCTDECODER=libjpeg \
   -DENABLE_GTK_DOC=ON \
   -DENABLE_LIBOPENJPEG=openjpeg2 \
-%if ! %{with qt}
+%if ! 0%{?qt5}
   -DENABLE_QT5=OFF \
 %endif
 %if ! 0%{?qt6}
@@ -193,7 +195,7 @@ export PKG_CONFIG_PATH=%{buildroot}%{_datadir}/pkgconfig:%{buildroot}%{_libdir}/
 test "$(pkg-config --modversion poppler)" = "%{version}"
 test "$(pkg-config --modversion poppler-cpp)" = "%{version}"
 test "$(pkg-config --modversion poppler-glib)" = "%{version}"
-%if %{with qt}
+%if 0%{?qt5}
 test "$(pkg-config --modversion poppler-qt5)" = "%{version}"
 %endif
 %if 0%{?qt6}
@@ -204,7 +206,7 @@ test "$(pkg-config --modversion poppler-qt6)" = "%{version}"
 
 %ldconfig_scriptlets glib
 
-%if %{with qt}
+%if 0%{?qt5}
 %ldconfig_scriptlets qt5
 %endif
 
@@ -243,7 +245,7 @@ test "$(pkg-config --modversion poppler-qt6)" = "%{version}"
 %license COPYING
 %{_datadir}/gtk-doc/
 
-%if %{with qt}
+%if 0%{?qt5}
 %files qt5
 %{_libdir}/libpoppler-qt5.so.1*
 
@@ -276,6 +278,10 @@ test "$(pkg-config --modversion poppler-qt6)" = "%{version}"
 %{_mandir}/man1/*
 
 %changelog
+* Mon Jun 19 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 23.02.0-2
+- Disable qt5 in RHEL 10 builds
+- Enable qt6 on s390x
+
 * Fri Feb  3 2023 Marek Kasik <mkasik@redhat.com> - 23.02.0-1
 - Update to 23.02.0
 - Resolves: #2123190

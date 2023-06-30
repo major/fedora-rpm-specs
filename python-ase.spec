@@ -12,7 +12,7 @@ ase-3.16 requires numpy 1.9 or newer
 
 Name:			python-ase
 Version:		3.22.1
-Release:		6%{?dist}
+Release:		7%{?dist}
 Summary:		Atomic Simulation Environment
 
 
@@ -77,6 +77,10 @@ rm -f ase/test/fio/test_openmx.py
 
 # https://gitlab.com/ase/ase/-/issues/1038
 rm -f ase/test/test_units.py
+
+# https://gitlab.com/ase/ase/-/issues/1256
+sed -i 's/importlib.find_loader/importlib.util.find_spec/' ase/test/testsuite.py
+sed -i 's/importlib.find_loader/importlib.util.find_spec/' ase/calculators/autodetect.py
 
 # copy required sources and remove doc directory
 cp -p doc/static/%{upstream_name}256.png %{upstream_name}.png
@@ -144,6 +148,9 @@ cd -
 
 
 %changelog
+* Wed Jun 28 2023 Marcin Dulak <marcindulak@fedoraproject.org> - 3.22.1-7
+- Workaround for Python 3.12 removed 'importlib.find_loader' https://gitlab.com/ase/ase/-/issues/1256
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 3.22.1-6
 - Rebuilt for Python 3.12
 

@@ -12,7 +12,7 @@ been published and can be found at Kemp2003.}
 
 Name:           python-pyedflib
 Version:        0.1.33
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python library to read/write EDF+/BDF+ files, based on EDFlib
 
 # The entire source is BSD-3-Clause, except:
@@ -116,6 +116,9 @@ grep -E "^#define[[:blank:]]+EDFLIB_VERSION[[:blank:]]+\($(
 %doc demo
 
 %changelog
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 0.1.33-2
+- Rebuilt for Python 3.12
+
 * Tue Jun 27 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.1.33-1
 - Update to 0.1.33 (close RHBZ#2217530)
 - Replace deprecated pyproject_build_lib macro

@@ -2,14 +2,15 @@
 
 Name:           python-%{srcname}
 Version:        0.12.25
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fast and simple WSGI-framework for small web-applications
 
 License:        MIT
 URL:            http://bottlepy.org
 Source0:        https://github.com/bottlepy/%{srcname}/archive/%{version}.tar.gz#/%{srcname}-%{version}.tar.gz
-# Fix deprecation for tests that breaks 3.12. Already upstream, only in master:
-# https://github.com/bottlepy/bottle/commit/f1d668b4c5a2657fa4786fe170d24829f511cad9
+# Fix module import for 3.12 already in master at:
+# https://github.com/bottlepy/bottle/commit/ca6762c559c5e71e0dff71dc97eb4c6b3ed9bbcd
+Patch0:         0001-Module_loader_fix_Python_3_12.patch
 
 BuildArch:      noarch
 
@@ -57,6 +58,9 @@ rm %{buildroot}%{_bindir}/bottle.py
 %{python3_sitelib}/*.py
 
 %changelog
+* Wed Jun 28 2023 Federico Pellegrin <fede@evolware.org> - 0.12.25-3
+- Fix module loading for Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.12.25-2
 - Rebuilt for Python 3.12
 

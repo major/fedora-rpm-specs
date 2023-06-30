@@ -11,7 +11,7 @@
 
 Name:    salt
 Version: 3006.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A parallel remote execution system
 Group:   System Environment/Daemons
 License: ASL 2.0
@@ -330,6 +330,9 @@ chown salt:salt %{_sysconfdir}/%{name}/gpgkeys -R
 
 
 %changelog
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 3006.1-3
+- Rebuilt for Python 3.12
+
 * Wed May 24 2023 Gwyn Ciesla <gwync@protonmail.com> - 3006.1-2
 - Add salt user for master per upstream.
 

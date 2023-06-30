@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit babc97bc83af7be306fcfaac65485faa09edfe89
+%global commit 53710b6d1b141a4c07e737f11ca6855252829a5b
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 38.18
+Version: 38.19
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -814,6 +814,20 @@ exit 0
 %endif
 
 %changelog
+* Tue Jun 27 2023 Zdenek Pytela <zpytela@redhat.com> - 38.19-1
+- Change init_audit_control default value to true
+- Allow nfsidmapd connect to systemd-userdbd with a unix socket
+- Add the qatlib  module
+- Add the fdo module
+- Add the bootupd module
+- Set default ports for keylime policy
+- Create policy for qatlib
+- Add policy for FIDO Device Onboard
+- Add policy for bootupd
+- Add the qatlib module
+- Add the fdo module
+- Add the bootupd module
+
 * Sun Jun 25 2023 Zdenek Pytela <zpytela@redhat.com> - 38.18-1
 - Add support for kafs-dns requested by keyutils
 - Allow insights-client execmem

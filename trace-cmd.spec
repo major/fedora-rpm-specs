@@ -6,7 +6,7 @@
 
 Name: trace-cmd
 Version: %{srcversion}
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: LGPL-2.1-only AND LGPL-2.1-or-later AND GPL-2.0-only AND GPL-2.0-or-later
 Summary: A user interface to Ftrace
 
@@ -28,13 +28,8 @@ BuildRequires: xmlto
 BuildRequires: asciidoc
 BuildRequires: mlocate
 BuildRequires: graphviz doxygen
-BuildRequires: libxml2-devel
 BuildRequires: gcc-c++
-BuildRequires: desktop-file-utils
 BuildRequires: cmake
-BuildRequires: qt5-qtbase-devel
-BuildRequires: freeglut-devel
-BuildRequires: json-c-devel
 BuildRequires: libtraceevent-devel >= 1.6.3
 BuildRequires: libtracefs-devel >= 1.5.0
 BuildRequires: audit-libs-devel
@@ -108,6 +103,9 @@ rm -rf %{buildroot}/%{_mandir}/man3/*
 %{_libdir}/%{name}/python/
 
 %changelog
+* Thu Jun 22 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.1.6-3
+- Remove lingering kernelshark dependencies
+
 * Mon Jun 05 2023 Zamir SUN <sztsian@gmail.com> - 3.1.6-2
 - SPDX migration
 

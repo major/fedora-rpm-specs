@@ -17,7 +17,7 @@
 
 Name: tito
 Version: 0.6.23
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A tool for managing rpm based git projects
 
 License: GPL-2.0-only
@@ -118,6 +118,9 @@ install -Dp -m 0644 share/tito_completion.sh %{buildroot}%{_datadir}/bash-comple
 
 
 %changelog
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 0.6.23-2
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Jakub Kadlcik <frostyx@email.cz> 0.6.23-1
 - Replace `submodule--helper list` with `git config --get-regexp`
 - do not overwrite packit.yaml and its variants (msuchy@redhat.com)

@@ -31,7 +31,7 @@ ExcludeArch: ppc64le
 %global system_nss        1
 %global system_libevent   1
 %global build_with_asan   0
-%global test_on_wayland   1
+%global test_on_wayland   0
 
 %if "%{toolchain}" == "clang"
 %global build_with_clang 1
@@ -236,6 +236,7 @@ Patch407:        mozilla-1667096.patch
 
 # PGO/LTO patches
 Patch600:        pgo.patch
+Patch602:        mozilla-1516803.patch
 Patch603:        firefox-gcc-always-inline.patch
 
 # tentative patch for RUSTFLAGS parsing issue:
@@ -509,6 +510,7 @@ This package contains results of tests executed during build.
 %if %{build_with_pgo}
 %if !%{build_with_clang}
 %patch600 -p1 -b .pgo
+%patch602 -p1 -b .1516803
 %endif
 %endif
 %patch603 -p1 -b .inline
@@ -626,7 +628,7 @@ chmod a-x third_party/rust/ash/src/extensions/nv/*.rs
 %build
 # Disable LTO to work around rhbz#1883904
 # Is that already fixed?
-# %define _lto_cflags %{nil}
+%define _lto_cflags %{nil}
 
 %if 0%{?use_bundled_cbindgen}
 mkdir -p my_rust_vendor
@@ -717,6 +719,7 @@ export GCOV_PREFIX_STRIP=$(( $(echo `pwd -P`|tr -c -d '/' |wc -c )+2 ))
 env | grep GCOV
 echo "ac_add_options --enable-lto" >> .mozconfig
 echo "ac_add_options MOZ_PGO=1" >> .mozconfig
+echo "ac_add_options --disable-elf-hack" >> .mozconfig
 %endif
 
 # Require 2 GB of RAM per CPU core
@@ -725,12 +728,20 @@ echo "mk_add_options MOZ_MAKE_FLAGS=\"-j%{_smp_build_ncpus}\"" >> .mozconfig
 
 echo "mk_add_options MOZ_SERVICES_SYNC=1" >> .mozconfig
 echo "export STRIP=/bin/true" >> .mozconfig
-#export MACH_USE_SYSTEM_PYTHON=1
 
 %if %{launch_wayland_compositor}
 cp %{SOURCE45} .
 . ./run-wayland-compositor
 %endif
+
+export MACH_NATIVE_PACKAGE_SOURCE=system
+mkdir -p objdir/_virtualenvs/init_py3
+cat > objdir/_virtualenvs/init_py3/pip.conf << EOF
+[global]
+find-links=`pwd`/mochitest-python
+no-index=true
+EOF
+tar xf %{SOURCE37}
 
 %if %{build_with_pgo}
 %if %{test_on_wayland}
@@ -746,20 +757,14 @@ xvfb-run ./mach build -v 2>&1 | cat - || exit 1
 #---------------------------------------------------------------------
 %install
 # run Firefox test suite
-export MACH_USE_SYSTEM_PYTHON=1
+# Do we need it?
+export MACH_NATIVE_PACKAGE_SOURCE=system
 %if %{launch_wayland_compositor}
 cp %{SOURCE45} .
 . ./run-wayland-compositor
 %endif
 
 %if 0%{?run_firefox_tests}
-mkdir -p objdir/_virtualenvs/init_py3
-cat > objdir/_virtualenvs/init_py3/pip.conf << EOF
-[global]
-find-links=`pwd`/mochitest-python
-no-index=true
-EOF
-tar xf %{SOURCE37}
 cp %{SOURCE40} %{SOURCE41} %{SOURCE42} %{SOURCE38} %{SOURCE39} %{SOURCE43} %{SOURCE44} .
 mkdir -p test_results
 %if %{test_on_wayland}

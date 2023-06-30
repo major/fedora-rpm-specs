@@ -4,21 +4,17 @@
 
 %global crate rustls
 
+# compile and run tests only on supported architectures
+%global supported_arches x86_64 %{ix86} aarch64 %{arm}
+
 Name:           rust-rustls
-Version:        0.20.8
+Version:        0.21.1
 Release:        %autorelease
 Summary:        Modern TLS library written in Rust
 
-# Upstream license specification: Apache-2.0/ISC/MIT
 License:        Apache-2.0 OR ISC OR MIT
 URL:            https://crates.io/crates/rustls
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * drop unused, benchmark-only criterion dev-dependency to speed up builds
-Patch:          rustls-fix-metadata.diff
-
-# ring is not available on ppc64le and s390x
-ExcludeArch:    ppc64le s390x
 
 BuildRequires:  rust-packaging >= 21
 
@@ -159,16 +155,20 @@ use the "tls12" feature of the "%{crate}" crate.
 %cargo_generate_buildrequires
 
 %build
+%ifarch %{supported_arches}
 %cargo_build
+%endif
 
 %install
 %cargo_install
 
 %if %{with check}
+%ifarch %{supported_arches}
 %check
 # * files needed for integration tests are not included in published crates
 %cargo_test -- --lib -- --skip msgs::message_test::test_read_fuzz_corpus
 %cargo_test -- --doc
+%endif
 %endif
 
 %changelog

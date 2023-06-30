@@ -9,13 +9,13 @@
 # we build CUPS also with relro
 %global _hardened_build 1
 
-%global upstream_version 2.0rc1
+%global upstream_version 2.0rc2
 
 Summary: OpenPrinting CUPS filters and backends for CUPS 2.X
 Name:    cups-filters
 Epoch:   1
-Version: 2.0~rc1
-Release: 2%{?dist}
+Version: 2.0~rc2
+Release: 1%{?dist}
 
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -27,7 +27,6 @@ Source0: %{URL}/releases/download/%{upstream_version}/%{name}-%{upstream_version
 
 
 # Patches
-Patch0001: 0001-Merge-pull-request-from-GHSA-gpxc-v2m8-fr3x.patch
 
 
 # autogen.sh
@@ -177,6 +176,9 @@ make check
 
 
 %changelog
+* Wed Jun 28 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0~rc2-1
+- 2.0rc2
+
 * Wed May 17 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0~rc1-2
 - 2207970 - CVE-2023-24805 cups-filters: remote code execution in cups-filters, beh CUPS backend
 

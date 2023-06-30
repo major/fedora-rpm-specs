@@ -4,8 +4,11 @@
 
 %global crate webpki-roots
 
+# compile and run tests only on supported architectures
+%global supported_arches x86_64 %{ix86} aarch64 %{arm}
+
 Name:           rust-webpki-roots
-Version:        0.22.6
+Version:        0.23.1
 Release:        %autorelease
 Summary:        Mozilla's CA root certificates for use with webpki
 
@@ -15,9 +18,6 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * prevent development-only executable from being built
 Patch:          webpki-roots-fix-metadata.diff
-
-# ring is not available on ppc64le and s390x
-ExcludeArch:    ppc64le s390x
 
 BuildRequires:  rust-packaging >= 21
 
@@ -60,14 +60,18 @@ use the "default" feature of the "%{crate}" crate.
 %cargo_generate_buildrequires
 
 %build
+%ifarch %{supported_arches}
 %cargo_build
+%endif
 
 %install
 %cargo_install
 
 %if %{with check}
+%ifarch %{supported_arches}
 %check
 %cargo_test
+%endif
 %endif
 
 %changelog

@@ -72,7 +72,7 @@
 Summary: Liberty Alliance Single Sign On
 Name: lasso
 Version: 2.8.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv2+
 URL: https://lasso.entrouvert.org/
 Source: https://dev.entrouvert.org/lasso/lasso-%{version}.tar.gz
@@ -327,6 +327,9 @@ rm -fr %{buildroot}%{_defaultdocdir}/%{name}
 %endif
 
 %changelog
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 2.8.2-4
+- Rebuilt for Python 3.12
+
 * Fri Jun 09 2023 Francois Andrieu <darknao@fedoraproject.org> - 2.8.2-3
 - Set default signing algorithm to RSA-SHA256
 

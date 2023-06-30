@@ -1,6 +1,6 @@
 Name: nheko
 Version: 0.11.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # Main source - GPL-3.0-or-later.
 # cpp-httplib - bundled - MIT.
@@ -12,6 +12,8 @@ Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 # https://github.com/Nheko-Reborn/nheko/commit/d7c10ae90417fcbb7f81edd4e40d89e91436244b
 Patch100: %{name}-0.11.3-gcc13-fix.patch
+# https://github.com/Nheko-Reborn/nheko/commit/e89e65dc17020772eb057414b4f0c5d6f4ad98d0
+Patch101: %{name}-0.11.3-fmt10-fix.patch
 
 BuildRequires: cmake(MatrixClient) >= 0.9.2
 BuildRequires: cmake(Olm) >= 3.2.12
@@ -28,6 +30,7 @@ BuildRequires: cmake(Qt5QuickControls2)
 BuildRequires: cmake(Qt5QuickWidgets)
 BuildRequires: cmake(Qt5Svg)
 BuildRequires: cmake(Qt5Widgets)
+BuildRequires: cmake(fmt) >= 9.1.0
 BuildRequires: cmake(httplib) >= 0.5.12
 BuildRequires: cmake(mpark_variant)
 BuildRequires: cmake(nlohmann_json) >= 3.2.0
@@ -126,6 +129,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Wed Jun 28 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.11.3-3
+- Rebuilt due to fmt 10 update.
+- Backported upstream patch with fmt 10 build fix.
+
 * Fri Mar 24 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.11.3-2
 - Backported upstream patch with GCC 13 build fix.
 

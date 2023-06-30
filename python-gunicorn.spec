@@ -7,7 +7,7 @@ speedy.}
 
 Name:           python-%{srcname}
 Version:        20.1.0
-Release:        9%{?dist}
+Release:        11%{?dist}
 Summary:        Python WSGI HTTP Server
 License:        MIT
 URL:            https://gunicorn.org/
@@ -55,6 +55,8 @@ Documentation for the %{name} package.
 %autosetup -n %{srcname}-%{version} -p 1
 # disable code coverage checks
 sed -e '/coverage/d' -e '/pytest-cov/d' -i requirements_test.txt
+# Unneeded - https://github.com/benoitc/gunicorn/issues/3014
+sed -e '/aiohttp/d' -i requirements_test.txt
 sed -e '/addopts/d' -i setup.cfg
 
 %generate_buildrequires
@@ -85,6 +87,12 @@ ln -s %{_bindir}/gunicorn %{buildroot}%{_bindir}/gunicorn-%{python3_version}
 %doc docs/build/html/*
 
 %changelog
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 20.1.0-11
+- Rebuilt for Python 3.12
+
+* Sat Jun 24 2023 Orion Poplawski <orion@nwra.com> - 20.1.0-10
+- Remove unneeded dependency on aiohttp - resolves circular dep
+
 * Fri Apr 07 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 20.1.0-9
 - Remove setuptools dependency. Fixes DeprecationWarning for pkg_resources;
   closes RHBZ#2183385

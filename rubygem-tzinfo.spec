@@ -2,20 +2,20 @@
 %global gem_name tzinfo
 
 Name: rubygem-%{gem_name}
-Version: 2.0.5
-Release: 3%{?dist}
-Summary: Daylight savings aware timezone library
+Version: 2.0.6
+Release: 1%{?dist}
+Summary: Time Zone Library
 License: MIT
 URL: https://tzinfo.github.io
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # Gem file does not contain a test suite, you can create it like so:
 # git clone https://github.com/tzinfo/tzinfo.git --no-checkout
-# cd tzinfo && git archive -v -o tzinfo-2.0.5-tests.txz v2.0.5 test/
+# cd tzinfo && git archive -v -o tzinfo-2.0.6-tests.txz v2.0.6 test/
 Source1: %{gem_name}-%{version}-tests.txz
-# https://github.com/tzinfo/tzinfo/commit/f76bc7fc824a831a159f080ea2fdeade47dc1e38
-# Ruby 3.2 changes how includes are handled
-Patch0:  %{name}-2.0.5-fix-include-issues-ruby32.patch
-
+# tzdata might not be available on the system, but users still might prefer
+# to use tzinfo-data gem (although it is not available in Fedora).
+# https://fedoraproject.org/wiki/Changes/AllowRemovalOfTzdata
+Recommends: tzdata
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -38,10 +38,6 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b1
-(
-cd %{_builddir}/test
-%patch0 -p2
-)
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -69,7 +65,8 @@ ruby test/ts_all_zoneinfo.rb
 # Test with system tzdata.
 sed -i '/zoneinfo_path/ s|= .*|= "%{_datadir}/zoneinfo"|' test/ts_all_zoneinfo.rb
 
-# There might be test failures. Ignore them until there is upstream feedback.
+# The test is designed to run with internal zoneinfo fixtures, therefore there
+# might be test failures.
 # https://github.com/tzinfo/tzinfo/issues/141
 ruby test/ts_all_zoneinfo.rb || :
 popd
@@ -88,6 +85,11 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Tue Jun 27 2023 Vít Ondruch <vondruch@redhat.com> - 2.0.6-1
+- Add soft dependency on tzdata, which might not be available on the system.
+- Update to TZInfo 2.0.6.
+  Resolves: rhbz#2165247
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

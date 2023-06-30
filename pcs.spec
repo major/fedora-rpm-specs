@@ -1,6 +1,6 @@
 Name: pcs
 Version: 0.11.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/LicensingGuidelines/
 # https://fedoraproject.org/wiki/Licensing:Main?rd=Licensing#Good_Licenses
 # GPL-2.0-only: pcs
@@ -409,6 +409,9 @@ run_all_tests
 %license pyagentx_LICENSE.txt
 
 %changelog
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 0.11.6-2
+- Rebuilt for Python 3.12
+
 * Wed Jun 21 2023 Michal Pospisil <mpospisi@redhat.com> - 0.11.6-1
 - Rebased to the latest upstream sources (see CHANGELOG.md)
 - Updated pcs-web-ui

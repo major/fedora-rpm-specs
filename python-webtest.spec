@@ -1,13 +1,17 @@
+%global commit 5bc6841351a71569889e11f443a7948cb3ca64f0
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+
 %global with_tests 1
 
 Name:           python-webtest
 Version:        3.0.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Helper to test WSGI applications
 
 License:        MIT
 URL:            https://github.com/Pylons/webtest
-Source0:        https://github.com/Pylons/webtest/archive/%{version}.tar.gz
+#Source0:        https://github.com/Pylons/webtest/archive/%%{version}.tar.gz
+Source0:        https://github.com/Pylons/webtest/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 
 BuildArch:      noarch
 
@@ -23,8 +27,8 @@ BuildRequires:  python3-pyquery
 BuildRequires:  python3-waitress
 BuildRequires:  python3-webob
 BuildRequires:  python3-WSGIProxy2
-# there is no sphinx-themes for rhel8, but it's not required to build
-%if 0%{?fedora} >= 33 || 0%{?rhel} > 8
+# there is no sphinx-themes for rhel9, but it's not required to build
+%if 0%{?fedora} >= 33 || 0%{?rhel} > 9
 BuildRequires:  python3-pylons-sphinx-themes
 %endif
 %endif
@@ -54,7 +58,8 @@ with any WSGI-compatible framework.
 
 
 %prep
-%setup -q -n webtest-%{version}
+#%%setup -q -n webtest-%%{version}
+%autosetup -n webtest-%{commit}
 
 # Remove bundled egg info if it exists.
 rm -rf *.egg-info
@@ -81,6 +86,9 @@ cp -a CHANGELOG.rst docs/
 %{python3_sitelib}/WebTest-*.egg-info
 
 %changelog
+* Wed Jun 28 2023 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 3.0.0-8
+- Update to latest git commit, which fixes python 3.12 unittests
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 3.0.0-7
 - Rebuilt for Python 3.12
 

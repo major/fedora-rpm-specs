@@ -13,7 +13,7 @@
 
 Name:           centpkg
 Version:        0.7.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        CentOS utility for working with dist-git
 License:        GPLv2+
 URL:            https://git.centos.org/centos/centpkg
@@ -94,6 +94,9 @@ install -D -p -m 0644 centpkg.1            %{buildroot}%{_mandir}/man1/centpkg.1
 
 
 %changelog
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 0.7.3-2
+- Rebuilt for Python 3.12
+
 * Wed May 03 2023 Troy Dawson <tdawson@redhat.com> - 0.7.1-3
 - Fix determine_active_y_version bug
 - Better user output when determine_active_y_version fails

@@ -2,7 +2,7 @@
 Summary:        Interactive CLI for MySQL Database with auto-completion and syntax highlighting
 Name:           mycli
 Version:        1.26.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        BSD
 URL:            https://mycli.net
 Source0:        %{pypi_source}
@@ -55,6 +55,9 @@ syntax highlighting.
 %exclude %{python3_sitelib}/test/
 
 %changelog
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 1.26.1-4
+- Rebuilt for Python 3.12
+
 * Sun Apr 16 2023 Terje Rosten <terje.rosten@ntnu.no> - 1.26.1-3
 - Switch from pyaes to pycryptodomex
 

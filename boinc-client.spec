@@ -18,7 +18,7 @@
 Summary:       The BOINC client
 Name:          boinc-client
 Version:       7.20.2
-Release:       5%{?dist}
+Release:       6%{?dist}
 License:       LGPLv2+
 URL:           http://boinc.berkeley.edu/
 
@@ -35,6 +35,7 @@ Source0:       https://github.com/BOINC/boinc/archive/%{gittag}/%{name}-%{versio
 SOURCE1:       boinc-client-logrotate-d
 SOURCE3:       36x11-common_xhost-boinc
 SOURCE4:       config.properties
+SOURCE5:       edu.berkeley.BOINC.metainfo.xml
 %if 0%{?fedora} > 35
 #Patch0:        openssl3.patch
 
@@ -228,6 +229,7 @@ make %{?_smp_mflags}
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/16x16/apps
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/32x32/apps
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/48x48/apps
+mkdir -p $RPM_BUILD_ROOT%{_metainfodir}
 mkdir -p $RPM_BUILD_ROOT%{_unitdir}
 mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/lib/boinc
 mkdir -p $RPM_BUILD_ROOT%{_mandir}/man1
@@ -256,6 +258,9 @@ install -p -m644 %{SOURCE4} $RPM_BUILD_ROOT%{_sysconfdir}/boinc-client/config.pr
 install -p -m644 packages/generic/sea/boincmgr.16x16.png $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/16x16/apps/boincmgr.png
 install -p -m644 packages/generic/sea/boincmgr.32x32.png $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/32x32/apps/boincmgr.png
 install -p -m644 packages/generic/sea/boincmgr.48x48.png $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/48x48/apps/boincmgr.png
+
+# Install AppStream metainfo file
+install -p -m644 %{SOURCE5} $RPM_BUILD_ROOT%{_metainfodir}/edu.berkeley.BOINC.metainfo.xml
 
 %find_lang BOINC-Manager
 %find_lang BOINC-Client
@@ -321,6 +326,7 @@ fi
 %{_bindir}/boincmgr
 %{_bindir}/boincscr
 %{_datadir}/applications/boinc.desktop
+%{_metainfodir}/edu.berkeley.BOINC.metainfo.xml
 %{_datadir}/boinc-manager/skins/*
 %{_datadir}/icons/hicolor/16x16/apps/boincmgr.png
 %{_datadir}/icons/hicolor/32x32/apps/boincmgr.png
@@ -346,6 +352,9 @@ fi
 %{_libdir}/pkgconfig/libboinc_opencl.pc
 
 %changelog
+* Wed Jun 28 2023 Daniel Rusek <mail@asciiwolf.com> - 7.20.2-6
+- Added an AppStream metainfo file
+
 * Wed Apr 05 2023 K. de Jong <keesdejong@fedoraproject.org> - 7.20.2-5
 - Removed custom boincmgr.desktop file
 

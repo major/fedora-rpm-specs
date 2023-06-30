@@ -3,6 +3,9 @@ Version:        1.4.0
 Release:        3%{?dist}
 Summary:        Sphinx extension to support docstrings in NumPy format
 
+# Replace ast.NameConstant deprecated in Python 3.12 with ast.Constant
+Patch:          https://github.com/hrnciar/numpydoc/pull/1.patch
+
 License:        BSD
 URL:            https://pypi.python.org/pypi/numpydoc
 Source0:        https://files.pythonhosted.org/packages/source/n/numpydoc/numpydoc-%{version}.tar.gz

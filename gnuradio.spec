@@ -26,7 +26,7 @@
 
 Name:		gnuradio
 Version:	3.10.6.0
-Release:	2%{?alphatag:.%{alphatag}}%{?dist}
+Release:	4%{?alphatag:.%{alphatag}}%{?dist}
 Summary:	Software defined radio framework
 
 License:	GPLv3
@@ -38,6 +38,9 @@ Source0:	https://github.com/gnuradio/%{name}/archive/v%{version}/%{name}-%{versi
 # cd gnuradio
 # git archive --format=tar --prefix=%%{name}-%%{version}/ %%{git_commit} | \
 # gzip > ../%%{name}-%%{version}.tar.gz
+# https://github.com/gnuradio/gnuradio/issues/6735
+# Tentative patch for fmt10 being not accepting enum by default
+Patch0:	gnuradio-3.10.6.0-fmt10.patch
 
 Requires(pre):	shadow-utils
 BuildRequires:	cmake
@@ -210,6 +213,12 @@ done
 %{_datadir}/gnuradio/examples
 
 %changelog
+* Wed Jun 28 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.10.6.0-4
+- Patch for fmt10 for not accepting enum by default
+
+* Wed Jun 28 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 3.10.6.0-3
+- Rebuilt due to fmt 10 update.
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 3.10.6.0-2
 - Rebuilt for Python 3.12
 

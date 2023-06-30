@@ -4,8 +4,11 @@
 
 %global crate tokio-rustls
 
+# compile and run tests only on supported architectures
+%global supported_arches x86_64 %{ix86} aarch64 %{arm}
+
 Name:           rust-tokio-rustls
-Version:        0.23.4
+Version:        0.24.1
 Release:        %autorelease
 Summary:        Asynchronous TLS/SSL streams for Tokio using Rustls
 
@@ -13,12 +16,6 @@ Summary:        Asynchronous TLS/SSL streams for Tokio using Rustls
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/tokio-rustls
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * bump rustls-pemfile dev-dependency from 0.2 to 1.0
-Patch:          tokio-rustls-fix-metadata.diff
-
-# ring is not available on ppc64le and s390x
-ExcludeArch:    ppc64le s390x
 
 BuildRequires:  rust-packaging >= 21
 
@@ -90,6 +87,18 @@ use the "logging" feature of the "%{crate}" crate.
 %files       -n %{name}+logging-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+secret_extraction-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+secret_extraction-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "secret_extraction" feature of the "%{crate}" crate.
+
+%files       -n %{name}+secret_extraction-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+tls12-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -110,16 +119,19 @@ use the "tls12" feature of the "%{crate}" crate.
 %cargo_generate_buildrequires
 
 %build
+%ifarch %{supported_arches}
 %cargo_build
+%endif
 
 %install
 %cargo_install
 
 %if %{with check}
+%ifarch %{supported_arches}
 %check
 # * skip tests that require an internet connection
-# * skip tests that fail due to expired certificates
-%cargo_test -- -- --skip common::test_stream::stream --skip test_modern --skip test_tls12 --skip pass --skip test_lazy_config_acceptor
+%cargo_test -- -- --skip test_modern --skip test_tls12
+%endif
 %endif
 
 %changelog

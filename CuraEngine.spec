@@ -1,7 +1,7 @@
 Name:           CuraEngine
 Epoch:          1
 Version:        5.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Engine for processing 3D models into G-code instructions for 3D printers
 License:        AGPLv3+
 URL:            https://github.com/Ultimaker/%{name}
@@ -89,6 +89,9 @@ rm -rf libs
 %{_bindir}/%{name}
 
 %changelog
+* Wed Jun 28 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 1:5.3.0-2
+- Rebuilt due to fmt 10 update.
+
 * Wed Mar  8 2023 Tom Callaway <spot@fedoraproject.org> - 1:5.3.0-1
 - update to 5.3.0
 

@@ -4,8 +4,11 @@
 
 %global crate hyper-rustls
 
+# compile and run tests only on supported architectures
+%global supported_arches x86_64 %{ix86} aarch64 %{arm}
+
 Name:           rust-hyper-rustls
-Version:        0.23.2
+Version:        0.24.0
 Release:        %autorelease
 Summary:        Rustls+hyper integration for pure rust HTTPS
 
@@ -14,11 +17,8 @@ License:        Apache-2.0 OR ISC OR MIT
 URL:            https://crates.io/crates/hyper-rustls
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * exclude CI files
+# * exclude files that are only useful for upstream development
 Patch:          hyper-rustls-fix-metadata.diff
-
-# ring is not available on ppc64le and s390x
-ExcludeArch:    ppc64le s390x
 
 BuildRequires:  rust-packaging >= 21
 
@@ -185,15 +185,19 @@ use the "webpki-tokio" feature of the "%{crate}" crate.
 %cargo_generate_buildrequires
 
 %build
+%ifarch %{supported_arches}
 %cargo_build
+%endif
 
 %install
 %cargo_install
 
 %if %{with check}
+%ifarch %{supported_arches}
 %check
 # * files needed for integration tests are not included in published crates
 %cargo_test -- -- --skip client --skip custom_ca_store --skip server
+%endif
 %endif
 
 %changelog

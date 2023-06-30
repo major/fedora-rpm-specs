@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        A Python perceptual image hashing module
 
 License:        BSD
@@ -61,6 +61,9 @@ Demo tool for %{pypi_name}.
 %{_bindir}/find_similar_images.py
 
 %changelog
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 4.0-15
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

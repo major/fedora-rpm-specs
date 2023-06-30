@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-machines
-Version:        292
+Version:        293
 Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
@@ -165,6 +165,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Jun 28 2023 Packit <hello@packit.dev> - 293-1
+- Confirm shutdown actions
+- Show virtual interface's TAP device
+
 * Thu Jun 15 2023 Packit <hello@packit.dev> - 292-1
 - Add manifest condition for the Python bridge
 

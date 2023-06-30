@@ -39,7 +39,6 @@ BuildRequires: cmake(KF5XmlGui)
 
 %if %{with tests}
 BuildRequires: cmake(Qt5Test)
-BuildRequires: dbus-x11
 %endif
 
 Requires: kde-filesystem

@@ -1,6 +1,6 @@
 Name:           gerbera
 Version:        1.12.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        UPnP Media Server
 License:        GPL-2.0-only AND MIT AND OFL-1.1
 Url:            https://gerbera.io
@@ -122,6 +122,9 @@ EOF
 %config(noreplace) %{_datadir}/%{name}/js/common.js
 
 %changelog
+* Wed Jun 28 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 1.12.1-4
+- Rebuilt due to fmt 10 update.
+
 * Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.12.1-3
 - migrated to SPDX license
 

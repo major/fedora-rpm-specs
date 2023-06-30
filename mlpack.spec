@@ -1,6 +1,6 @@
 Name:           mlpack
 Version:        4.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast, header-only C++ machine learning library
 
 # The source in src/mlpack/core/std_backport/ is available under 
@@ -299,6 +299,9 @@ cd ..;
 %{python3_sitearch}/mlpack-*.dist-info
 
 %changelog
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 4.2.0-2
+- Rebuilt for Python 3.12
+
 * Thu Jun 22 2023 Ryan Curtin <ryan@ratml.org> - 4.2.0-1
 - Update to latest stable version.
 

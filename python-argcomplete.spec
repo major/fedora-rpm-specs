@@ -17,6 +17,11 @@ Source0:       %pypi_source argcomplete
 # this patch removes it
 Patch1:        0001-Remove-commit-hash-from-Fish-version.patch
 
+# Some tests fail with Python 3.12
+# This has been reported upstream: https://github.com/kislyuk/argcomplete/issues/440
+# Upstream already skips those on MacOS, so we skip them as well
+Patch2:        0002-Skip-tests-that-fail-on-Python-3.12.patch
+
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
 

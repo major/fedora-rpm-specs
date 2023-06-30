@@ -1,8 +1,8 @@
 %global modname toot
 
 Name:           %{modname}
-Version:        0.36.0
-Release:        2%{?dist}
+Version:        0.37.0
+Release:        %autorelease
 Summary:        A CLI and TUI tool for interacting with Mastodon
 
 License:        GPLv3

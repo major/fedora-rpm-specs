@@ -1,6 +1,6 @@
 Name:           imhex
 Version:        1.30.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A hex editor for reverse engineers and programmers
 
 License:        GPL-2.0-only AND Zlib AND MIT AND Apache-2.0
@@ -124,6 +124,9 @@ cp -a lib/external/xdgpp/LICENSE                                  %{buildroot}%{
 
 
 %changelog
+* Wed Jun 28 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 1.30.1-2
+- Rebuilt due to fmt 10 update.
+
 * Mon Jun 26 2023 Jonathan Wright <jonathan@almalinux.org> - 1.30.1-1
 - update to 1.30.1 rhbz#2217232
 

@@ -7,8 +7,8 @@ patterns, message filtering (subscriptions), seamless access to
 multiple transport protocols and more.}
 
 Name:           python-zmq
-Version:        24.0.1
-Release:        3%{?dist}
+Version:        25.1.0
+Release:        1%{?dist}
 Summary:        Software library for fast, message-based applications
 
 License:        LGPLv3+ and ASL 2.0 and BSD
@@ -21,6 +21,7 @@ BuildRequires:  zeromq-devel
 
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-pytest
+BuildRequires:  python%{python3_pkgversion}-pytest-asyncio
 BuildRequires:  python%{python3_pkgversion}-tornado
 BuildRequires:  python%{python3_pkgversion}-gevent
 BuildRequires:  python%{python3_pkgversion}-numpy
@@ -52,6 +53,10 @@ This package contains the testsuite for the python bindings.
 %prep
 %setup -q -n pyzmq-%{version}
 
+# Upstream is testing with cython 3 on 3.12
+sed -i -e '/cython>=3/d' pyproject.toml test-requirements.txt
+sed -i -e '/min_cython_version/s/"3.*"/"0.29"/' setup.py
+
 # remove bundled libraries
 rm -rf bundled
 
@@ -77,8 +82,10 @@ find . -type f -executable | xargs chmod -x
 %check
 # to avoid partially initialized zmq module from cwd
 cd %{_topdir}
-# test_cython does not seem to work with --pyargs / not from cwd
-%pytest --pyargs zmq -k "not test_cython and not test_on_recv_basic"
+%pytest --pyargs zmq -v --asyncio-mode auto \
+%ifarch ppc64le
+-k "not (test_green_device or (Green and (test_raw or test_timeout or test_poll)))"  # this crashes on Python 3.12, TODO investigate
+%endif
 
 
 %files -n python%{python3_pkgversion}-zmq -f %{pyproject_files}
@@ -90,6 +97,9 @@ cd %{_topdir}
 
 
 %changelog
+* Sat Jun 24 2023 Orion Poplawski <orion@nwra.com> - 25.1.0-1
+- Update to 25.1.0
+
 * Thu Jun 22 2023 Python Maint <python-maint@redhat.com> - 24.0.1-3
 - Rebuilt for Python 3.12
 

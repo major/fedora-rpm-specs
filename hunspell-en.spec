@@ -3,7 +3,7 @@ Name: hunspell-en
 Summary: English hunspell dictionaries
 %global upstreamid 20201207
 Version: 0.%{upstreamid}
-Release: 4%{?dist}
+Release: 5%{?dist}
 Source0: https://github.com/en-wl/wordlist/archive/rel-2020.12.07.tar.gz
 Source1: http://download.services.openoffice.org/contrib/dictionaries/en_GB.zip
 #See http://mxr.mozilla.org/mozilla/source/extensions/spellcheck/locales/en-US/hunspell/mozilla_words.diff?raw=1
@@ -33,7 +33,7 @@ URL: http://wordlist.sourceforge.net/
 # scowl/speller/aspell/en_phonet.dat is LGPLv2
 License: LGPL-2.1-or-later AND LGPL-2.1-only AND BSD-3-Clause-Modification
 BuildArch: noarch
-BuildRequires: aspell, zip, dos2unix, perl-Getopt-Long, gcc-c++
+BuildRequires: hunspell, zip, dos2unix, perl-Getopt-Long, gcc-c++
 BuildRequires: make
 Requires: hunspell-en-US = %{version}-%{release}
 Requires: hunspell-en-GB = %{version}-%{release}
@@ -77,17 +77,17 @@ UK English hunspell dictionaries
 %prep
 %setup -q -n wordlist-rel-2020.12.07
 %setup -q -T -D -a 1 -n wordlist-rel-2020.12.07
-%patch0 -p0 -b .mozilla
-%patch1 -p1 -b .singleletters
-%patch2 -p1 -b .two_initial_cap
-%patch3 -p0 -b .strippedabbrevs
-%patch4 -p0 -b .allow-non-typographical
-%patch5 -p0 -b .SI_and_IEC
-%patch6 -p1 -b .calender
-%patch7 -p1 -b .en_IE
-%patch8 -p1 -b .nogit
-%patch9 -p1 -b .etc
-%patch10 -p1 -b .buildfix
+%patch -P 0 -p0 -b .mozilla
+%patch -P 1 -p1 -b .singleletters
+%patch -P 2 -p1 -b .two_initial_cap
+%patch -P 3 -p0 -b .strippedabbrevs
+%patch -P 4 -p0 -b .allow-non-typographical
+%patch -P 5 -p0 -b .SI_and_IEC
+%patch -P 6 -p1 -b .calender
+%patch -P 7 -p1 -b .en_IE
+%patch -P 8 -p1 -b .nogit
+%patch -P 9 -p1 -b .etc
+%patch -P 10 -p1 -b .buildfix
 
 %build
 export PERL5LIB=`pwd`/scowl/r/varcon${PERL5LIB:+:${PERL5LIB}}
@@ -140,6 +140,9 @@ popd
 %{_datadir}/%{dict_dirname}/en_GB.*
 
 %changelog
+* Wed Jun 28 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.20201207-5
+- Move BR from aspell to hunspell.
+
 * Wed Feb 22 2023 Caolán McNamara <caolanm@redhat.com> - 0.20201207-4
 - migrated to SPDX license
 

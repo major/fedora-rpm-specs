@@ -7,7 +7,7 @@
 
 Name:           %{name}
 Version:        0.6.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        %{sum}
 License:        Apache-2.0
 URL:            https://github.com/%{project}/%{name}
@@ -58,6 +58,9 @@ rm -fr %{buildroot}%{python3_sitelib}/tests
 %{_datadir}/bash-completion/completions/transtats.bash
 
 %changelog
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 0.6.0-5
+- Rebuilt for Python 3.12
+
 * Wed Mar 29 2023 Sundeep Anand <suanand@redhat.com> - 0.6.0-4
 - update license tag to as per SPDX identifiers
 

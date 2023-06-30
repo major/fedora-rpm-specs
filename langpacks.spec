@@ -4,7 +4,7 @@
 
 Name:      langpacks
 Version:   3.0
-Release:   34%{?dist}
+Release:   35%{?dist}
 Summary:   Langpacks meta-package
 
 License:   GPL-2.0-or-later
@@ -1211,19 +1211,19 @@ Summary: Thai langpacks meta-package
 Requires: %{name}-core-th
 %if 0%{?fedora}
 Recommends: google-noto-serif-thai-vf-fonts
-Recommends: thai-scalable-garuda-fonts
-Recommends: thai-scalable-kinnari-fonts
-Recommends: thai-scalable-laksaman-fonts
-Recommends: thai-scalable-loma-fonts
-Recommends: thai-scalable-norasi-fonts
-Recommends: thai-scalable-purisa-fonts
-Recommends: thai-scalable-sawasdee-fonts
-Recommends: thai-scalable-tlwgmono-fonts
-Recommends: thai-scalable-tlwgtypewriter-fonts
-Recommends: thai-scalable-tlwgtypist-fonts
-Recommends: thai-scalable-tlwgtypo-fonts
-Recommends: thai-scalable-umpush-fonts
-Recommends: thai-scalable-waree-fonts
+Recommends: tlwg-garuda-fonts
+Recommends: tlwg-kinnari-fonts
+Recommends: tlwg-laksaman-fonts
+Recommends: tlwg-loma-fonts
+Recommends: tlwg-mono-fonts
+Recommends: tlwg-norasi-fonts
+Recommends: tlwg-purisa-fonts
+Recommends: tlwg-sawasdee-fonts
+Recommends: tlwg-typewriter-fonts
+Recommends: tlwg-typist-fonts
+Recommends: tlwg-typo-fonts
+Recommends: tlwg-umpush-fonts
+Recommends: tlwg-waree-fonts
 %endif
 
 %description th
@@ -1435,6 +1435,9 @@ DESTDIR=%{buildroot} appstream-util split-appstream %{SOURCE1}
 DESTDIR=%{buildroot} appstream-util split-appstream %{SOURCE2}
 
 %changelog
+* Tue Jun 13 2023 Peng Wu <pwu@redhat.com> - 3.0-35
+- Rename thai-scalable-fonts to tlwg-fonts
+
 * Thu Jun  8 2023 Jens Petersen <petersen@redhat.com> - 3.0-34
 - revert Urdu default font to paktype-naskh-basic-fonts
 

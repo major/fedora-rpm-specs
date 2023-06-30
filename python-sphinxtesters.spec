@@ -1,6 +1,6 @@
 Name:           python-sphinxtesters
 Version:        0.2.3
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Utilities for testing Sphinx extensions
 
 # The code is BSD-2-Clause.  Other licenses are due to files copied in by
@@ -26,6 +26,8 @@ URL:            https://github.com/matthew-brett/sphinxtesters
 Source0:        https://github.com/matthew-brett/sphinxtesters/archive/%{version}/sphinxtesters-%{version}.tar.gz
 # Work around a changing sphinx interface
 Patch0:         %{name}-config-error.patch
+# Update versioneer to fix a FTBFS with python 3.12
+Patch1:         %{name}-versioneer.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -63,6 +65,12 @@ rm -f build/sphinx/html/.{buildinfo,nojekyll}
 %doc README.html build/sphinx/html
 
 %changelog
+* Wed Jun 28 2023 Jerry James <loganjerry@gmail.com> - 0.2.3-16
+- Add versioneer patch to fix FTBFS with python 3.12
+
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 0.2.3-16
+- Rebuilt for Python 3.12
+
 * Fri Feb 24 2023 Jerry James <loganjerry@gmail.com> - 0.2.3-15
 - Dynamically generate BuildRequires
 

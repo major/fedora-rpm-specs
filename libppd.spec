@@ -1,14 +1,14 @@
 %global _hardened_build 1
 
-%global upstream_version 2.0rc1
+%global upstream_version 2.0rc2
 
 # don't build libppd-tools until CUPS 3.x drops them
 %bcond_with tools
 
 Name:           libppd
 Epoch:          1
-Version:        2.0~rc1
-Release:        3%{?dist}
+Version:        2.0~rc2
+Release:        1%{?dist}
 Summary:        Library for retro-fitting legacy printer drivers
 
 # the CUPS exception text is the same as LLVM exception, so using that name with
@@ -24,10 +24,6 @@ Source0:        %{URL}/releases/download/%{upstream_version}/%{name}-%{upstream_
 Patch0001: libppd-disable-testppdfile.patch
 # https://github.com/OpenPrinting/libppd/pull/21
 Patch0002: 0001-ppd-ppd-ipp.c-Use-make-when-constructing-printer-mak.patch
-# https://github.com/OpenPrinting/libppd/commit/2afb353e27b3930
-Patch0003: 0001-ppdFilterPSToPS-Fixed-reverse-output-order.patch
-# https://github.com/OpenPrinting/libppd/commit/e2190988ff6c11c
-Patch0004: 0001-Fixed-resolution-handling-when-converting-PPDs-to-pr.patch
 
 
 # for autogen.sh
@@ -200,6 +196,9 @@ rm -rf %{buildroot}%{_datadir}/ppdc
 %endif
 
 %changelog
+* Wed Jun 28 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0~rc2-1
+- 2216565 - libppd-2.0b4 is available
+
 * Wed May 31 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0~rc1-3
 - fix printing for printers with reverse output order
 - fix printing resolutions

@@ -3,7 +3,7 @@
 
 Name: python-%{srcname}
 Version: 0.12.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Statistical data visualization in Python
 License: BSD
 
@@ -69,6 +69,9 @@ rm -rf seaborn/external/docscrape.py
 %doc README.md
 
 %changelog
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 0.12.2-2
+- Rebuilt for Python 3.12
+
 * Sun Apr 30 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 0.12.2-1
 - New upstream version 0.12.2
 

@@ -3,7 +3,7 @@
 
 Name: vcpkg
 Version: %(echo %{repo_tag} | sed 's/-/./g')
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: MIT
 Summary: C++ Library Manager
@@ -45,7 +45,7 @@ rm -rf include/catch2
 ln -svf %{_includedir}/catch2/ include/
 
 # Patching fmt namespace...
-%if 0%{?fedora} && 0%{?fedora} <= 39
+%if 0%{?fedora} && 0%{?fedora} < 39
 sed -e "s/namespace v10/namespace v9/g" -i include/vcpkg/base/fwd/format.h
 %endif
 
@@ -80,6 +80,9 @@ install -D -m 0644 -p "%{SOURCE1}" "%{buildroot}%{_sysconfdir}/profile.d/%{name}
 %config(noreplace) %{_sysconfdir}/profile.d/%{name}.sh
 
 %changelog
+* Wed Jun 28 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2023.06.22-2
+- Rebuilt due to fmt 10 update.
+
 * Fri Jun 23 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2023.06.22-1
 - Updated to version 2023.06.22.
 

@@ -1,6 +1,6 @@
 Name:           paps
 Version:        0.8.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 License:        LGPL-2.0-or-later
 URL:            https://github.com/dov/paps
@@ -146,6 +146,9 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="/usr/bin/install -p"
 
 
 %changelog
+* Wed Jun 28 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.8.0-3
+- Rebuilt due to fmt 10 update.
+
 * Thu Apr 13 2023 Florian Weimer <fweimer@redhat.com> - 0.8.0-2
 - C99 compatibility fixes for paps 0.6.8
 

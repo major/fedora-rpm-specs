@@ -7,7 +7,7 @@
 
 Name:           bumpversion
 Version:        1.0.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Version-bump your software with a single command
 
 License:        MIT
@@ -60,6 +60,9 @@ commits and tags:
 
 
 %changelog
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 1.0.1-5
+- Rebuilt for Python 3.12
+
 * Fri Feb 03 2023 Davide Cavalca <dcavalca@centosproject.org> - 1.0.1-4
 - Gate tests out for EPEL builds due to missing dependency
 

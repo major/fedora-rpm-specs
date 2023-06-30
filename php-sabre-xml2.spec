@@ -10,7 +10,7 @@
 %bcond_without      tests
 
 # Github
-%global gh_commit    a6af111850e7536d200d9637c34885cd3c77a86c
+%global gh_commit    9cde7cdab1e50893cc83b037b40cd47bfde42a2b
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sabre-io
 %global gh_project   xml
@@ -24,11 +24,11 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Summary:        XML library that you may not hate
-Version:        2.2.5
-Release:        4%{?dist}
+Version:        2.2.6
+Release:        1%{?dist}
 
 URL:            https://github.com/%{gh_owner}/%{gh_project}
-License:        BSD
+License:        BSD-3-Clause
 # Git snapshot with tests, because of .gitattributes
 Source0:        %{name}-%{version}-%{gh_short}.tgz
 Source1:        makesrc.sh
@@ -132,7 +132,7 @@ cd tests
 
 : Run upstream test suite against installed library
 ret=0
-for cmdarg in "php %{phpunit}" php73 php74 php80 php81; do
+for cmdarg in "php %{phpunit}" php80 php81 php82 php83; do
   if which $cmdarg; then
     set $cmdarg
     $1 ${2:-%{_bindir}/phpunit9} || ret=1
@@ -152,6 +152,9 @@ exit $ret
 
 
 %changelog
+* Wed Jun 28 2023 Remi Collet <remi@remirepo.net> - 2.2.6-1
+- update to 2.2.6
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

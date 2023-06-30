@@ -46,7 +46,7 @@ ExcludeArch: i686
 Summary:          389 Directory Server (base)
 Name:             389-ds-base
 Version:          2.4.1
-Release:          1%{?dist}
+Release:          2%{?dist}
 License:          GPLv3+ and (ASL 2.0 or MIT) and MIT and (Unlicense or MIT) and MPLv2.0 and BSD and (ASL 2.0 with exceptions or ASL 2.0 or MIT) and ASL 2.0 and (ASL 2.0 or Boost) and ((MIT or ASL 2.0) and Unicode-DFS-2016)
 URL:              https://www.port389.org
 Conflicts:        selinux-policy-base < 3.9.8
@@ -726,6 +726,9 @@ exit 0
 %endif
 
 %changelog
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 2.4.1-2
+- Rebuilt for Python 3.12
+
 * Thu May 18 2023 Mark Reynolds <mreynolds@redhat.com> - 2.4.1-1
 - Bump version to 2.4.1
 - Issue 5770 - RFE - Extend Password Adminstrators to allow skipping password info updates

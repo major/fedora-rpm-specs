@@ -3,7 +3,7 @@
 
 Name:       python-%{library}
 Version:    1.1.4
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    A modular RPC library
 License:    MIT
 URL:        https://github.com/mbr/%{library}
@@ -110,6 +110,9 @@ py.test-3 -rs
 %{python3_sitelib}/%{module}/tests
 
 %changelog
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 1.1.4-5
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

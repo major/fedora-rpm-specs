@@ -3,8 +3,8 @@ Summary:      The Original ATT Korn Shell
 URL:          http://www.kornshell.com/
 License:      EPL-2.0
 Epoch:        3
-Version:      1.0.4
-Release:      3%{?dist}
+Version:      1.0.6
+Release:      1%{?dist}
 Source0:      https://github.com/ksh93/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:      kshcomp.conf
 Source2:      kshrc.rhs
@@ -34,12 +34,9 @@ with "sh" (the Bourne Shell).
 # /dev/fd test does not work because of mock
 sed -i 's|ls /dev/fd|ls /proc/self/fd|' src/cmd/ksh93/features/options
 
-# disable register for debugging
-sed -i 1i"#define register" src/lib/libast/include/ast.h
-
 %build
 XTRAFLAGS=""
-for f in -Wno-unknown-pragmas -Wno-missing-braces -Wno-unused-result -Wno-return-type -Wno-int-to-pointer-cast -Wno-parentheses -Wno-unused -Wno-unused-but-set-variable -Wno-cpp -Wno-maybe-uninitialized -Wno-lto-type-mismatch -P
+for f in -Wno-unknown-pragmas -Wno-missing-braces -Wno-unused-result -Wno-return-type -Wno-int-to-pointer-cast -Wno-parentheses -Wno-unused -Wno-unused-but-set-variable -Wno-cpp -Wno-maybe-uninitialized -Wno-lto-type-mismatch
 do
   $CC $f -E - </dev/null >/dev/null 2>&1 && XTRAFLAGS="$XTRAFLAGS $f"
 done
@@ -48,9 +45,6 @@ export LDFLAGS="$RPM_LD_FLAGS"
 bin/package make
 
 %install
-# TODO
-# bin/package install
-
 mkdir -p %{buildroot}{%{_bindir},%{_mandir}/man1}
 install -p -m 755 arch/*/bin/ksh %{buildroot}%{_bindir}/ksh93
 install -p -m 755 arch/*/bin/shcomp %{buildroot}%{_bindir}/shcomp
@@ -130,13 +124,17 @@ fi
 %ghost %{_bindir}/rksh
 %{_bindir}/shcomp
 %{_mandir}/man1/ksh93.1*
-%ghost %{_mandir}/man1/ksh.1.gz
-%ghost %{_mandir}/man1/rksh.1.gz
+%ghost %{_mandir}/man1/ksh.1*
+%ghost %{_mandir}/man1/rksh.1*
 %config(noreplace) %{_sysconfdir}/skel/.kshrc
 %config(noreplace) %{_sysconfdir}/kshrc
 %config(noreplace) %{_sysconfdir}/binfmt.d/kshcomp.conf
 
 %changelog
+* Wed Jun 21 2023 Vincent Mihalkovic <vmihalko@redhat.com> - 3:1.0.6-2
+- new upstream release
+  Resolves: rhbz#2213483
+
 * Thu Apr 13 2023 Lukáš Zaoral <lzaoral@redhat.com> - 3:1.0.4-3
 - migrate to SPDX license format
 

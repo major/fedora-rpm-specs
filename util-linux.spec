@@ -1,8 +1,8 @@
 ### Header
 Summary: Collection of basic system utilities
 Name: util-linux
-Version: 2.39
-Release: 5%{?dist}
+Version: 2.39.1
+Release: 2%{?dist}
 License: GPLv2 and GPLv2+ and LGPLv2+ and BSD with advertising and Public Domain
 URL: https://en.wikipedia.org/wiki/Util-linux
 
@@ -98,9 +98,6 @@ Patch0: login-lastlog-create.patch
 # https://github.com/coreos/console-login-helper-messages/issues/60
 Patch1: login-default-motd-file.patch
 
-### Upstream patches
-Patch2: libmount-fix-options-prepend-insert-and-merging.patch
-Patch3: libmount-don-t-call-hooks-after-mount.-type-helper.patch
 
 %description
 The util-linux package contains a large variety of low-level system
@@ -929,6 +926,13 @@ fi
 
 
 %changelog
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 2.39.1-2
+- Rebuilt for Python 3.12
+
+* Wed Jun 28 2023 Karel Zak <kzak@redhat.com> - 2.39.1-1
+- upgrade to v2.39.1
+  https://kernel.org/pub/linux/utils/util-linux/v2.39/v2.39.1-ReleaseNotes
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.39-5
 - Rebuilt for Python 3.12
 

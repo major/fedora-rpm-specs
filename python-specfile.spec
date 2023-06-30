@@ -14,7 +14,7 @@ in a minimal diff.}
 
 Name:           python-specfile
 Version:        0.19.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        A library for parsing and manipulating RPM spec files
 License:        MIT
@@ -71,6 +71,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 0.19.0-2
+- Rebuilt for Python 3.12
+
 * Thu Jun 22 2023 Packit <hello@packit.dev> - 0.19.0-1
 - Parsing has been optimized so that even spec files with hundreds of thousands of lines can be processed in reasonable time. (#240)
 
