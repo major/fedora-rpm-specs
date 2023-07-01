@@ -15,7 +15,7 @@
 Name:           mate-panel
 Version:        %{branch}.3
 %if 0%{?rel_build}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %else
 Release:        0.17%{?git_rel}%{?dist}
 %endif
@@ -38,6 +38,9 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Recommends:     fortune-mod
 # rhbz (#1007219)
 Requires:       caja-schemas
+
+# https://github.com/mate-desktop/mate-panel/pull/1375 
+Patch1:         mate-panel_Fix-build-with-gettext-0.22.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: gobject-introspection-devel
@@ -85,7 +88,8 @@ Development files for mate-panel
 NOCONFIGURE=1 ./autogen.sh
 %endif # 0%{?rel_build}
 
-#NOCONFIGURE=1 ./autogen.sh
+# Patch8
+NOCONFIGURE=1 ./autogen.sh
 
 %build
 
@@ -157,6 +161,9 @@ install -D -m 0644 %{SOURCE2} %{buildroot}%{_datadir}/mate-panel/layouts/rhel.la
 
 
 %changelog
+* Thu Jun 29 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.3-2
+- fix Fix build with gettext-0.22
+
 * Tue May 2 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.3-1
 - update to 1.26.3
 

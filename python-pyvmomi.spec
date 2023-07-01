@@ -1,183 +1,63 @@
-%{?python_disable_dependency_generator}
-
-%if 0%{?rhel} >= 7
-%global with_python3 1
-%global skip_tests 1
-%else
-# generally disable python2, maybe as legacy for older rhel <= 6
-#%%global with_python2 1
-%endif
-%if 0%{?fedora}
-%global with_python3 1
-%endif
-
 %global srcname pyvmomi
 
-%global desc \
+%global desc %{expand:
 pyVmomi is the Python SDK for the vSphere API that allows you to manage\
-ESX, ESXi, and vCenter.
+ESX, ESXi, and vCenter.}
 
 Name:           python-%{srcname}
 Version:        7.0.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        vSphere Python SDK
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/vmware/%{srcname}
-Source0:        %{url}/archive/v%{version}.tar.gz#/%{srcname}-%{version}.tar.gz
+Source0:        %{pypi_source}
+
+# FIXME python validator does not like any explicit version
+# upstream issue#735, rhbz#1763484
+# drop useless doublication of dependency generation
+Patch0:         00-test-requirements.patch
 BuildArch:      noarch
 
-%description
-%desc
+%description %desc
 
-%if %{with python3}
-%package -n     python%{python3_pkgversion}-%{srcname}
-Summary:        vSphere SDK for Python%{python3_other_version}
-BuildRequires:  python%{python3_pkgversion}-setuptools
-BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-requests
-BuildRequires:  python%{python3_pkgversion}-six
 
-Requires:       python%{python3_pkgversion}-requests
-Requires:       python%{python3_pkgversion}-six
+%package -n     python3-%{srcname}
+Summary:        vSphere SDK for Python3
+BuildRequires:  python3-devel
 
-# test dependencies
-%if !0%{?skip_tests}
-BuildRequires:  python%{python3_pkgversion}-testtools >= 0.9.34
-BuildRequires:  python%{python3_pkgversion}-vcrpy
-BuildRequires:  python%{python3_pkgversion}-yarl
-BuildRequires:  python%{python3_pkgversion}-fixtures
-BuildRequires:  python%{python3_pkgversion}-tox
-%endif
-
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
-Provides:       python%{python3_pkgversion}-pyvim
-
-%description -n python%{python3_pkgversion}-%{srcname}
-%desc
-This package is for Python3 version %{python3_version} only.
-
-%if 0%{?python3_other_pkgversion}
-%package -n     python%{python3_other_pkgversion}-%{srcname}
-Summary:        vSphere SDK for Python%{python3_other_version}
-BuildRequires:  python%{python3_other_pkgversion}-setuptools
-BuildRequires:  python%{python3_other_pkgversion}-devel
-BuildRequires:  python%{python3_other_pkgversion}-requests
-BuildRequires:  python%{python3_other_pkgversion}-six
-
-Requires:       python%{python3_other_pkgversion}-requests
-Requires:       python%{python3_other_pkgversion}-six
-
-# test dependencies
-%if !0%{?skip_tests}
-BuildRequires:  python%{python3_other_pkgversion}-testtools >= 0.9.34
-BuildRequires:  python%{python3_other_pkgversion}-vcrpy
-BuildRequires:  python%{python3_other_pkgversion}-yarl
-BuildRequires:  python%{python3_other_pkgversion}-fixtures
-BuildRequires:  python%{python3_other_pkgversion}-tox
-%endif
-
-%{?python_provide:%python_provide python%{python3_other_pkgversion}-%{srcname}}
-Provides:       python%{python3_other_pkgversion}-pyvim
-
-%description -n python%{python3_other_pkgversion}-%{srcname}
-%desc
-This package is for Python3 version %{python3_other_version} only.
-%endif
-%endif
-
-##### begin legacy python2
-%if 0%{?with_python2}
-%package -n     python2-%{srcname}
-Summary:        vSphere Python SDK
-BuildRequires:  python2-devel
-# FIXME add proper version suffixes of python subpackages
-BuildRequires:  python%{?!rhel:2}-testtools
-BuildRequires:  python%{?!rhel:2}-vcrpy
-BuildRequires:  python2-setuptools
-BuildRequires:  python2-requests
-BuildRequires:  python2-six
-BuildRequires:  python%{?!rhel:2}-fixtures
-BuildRequires:  python%{?!rhel:2}-tox
-%{?python_provide:%python_provide python2-%{srcname}}
-Provides:       python2-pyvim
-
-%description -n python2-%{srcname}
-%desc
-This package is for Python version 2.
-%endif
-##### end legacy python2
+%description -n python3-%{srcname} %desc
 
 
 %prep
 %autosetup -n %{srcname}-%{version}
-# FIXME python validator does not like any explicit version
-# upstream issue#735, rhbz#1763484
-# drop useless doublication of dependency generation
-find -name \*requirements.txt -exec cp -v /dev/null '{}' \;
+
+%generate_buildrequires
+%pyproject_buildrequires -t
 
 
 %build
-%{?with_python3: %py3_build}
-%{?python3_other_pkgversion: %py3_other_build}
-
-##### begin legacy python2
-%{?with_python2: %py2_build}
-##### end legacy python2
+%pyproject_wheel
 
 
 %install
-%{?with_python3: %py3_install}
-%{?python3_other_pkgversion: %py3_other_install}
-
-##### begin legacy python2
-%{?with_python2: %py2_install}
-##### end legacy python2
-
-find %{buildroot} -name requires.txt -print -delete
+%pyproject_install
+%pyproject_save_files pyVmomi pyVim
 
 
 %check
-%if !0%{?skip_tests}
-%{?with_python3: %{__python3} setup.py test}
-%{?python3_other_pkgversion: %{__python3_other} setup.py test}
-%endif
-
-##### begin legacy python2
-%{?with_python2: %{__python2} setup.py test}
-##### end legacy python2
+%tox
 
 
-%if 0%{?with_python3}
-%files -n python%{python3_pkgversion}-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE.txt
 %doc README.rst
-%{python3_sitelib}/pyVmomi
-%{python3_sitelib}/pyVim
-%{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info
-%endif
-
-%if 0%{?python3_other_pkgversion}
-%files -n python%{python3_other_pkgversion}-%{srcname}
-%license LICENSE.txt
-%doc README.rst
-%{python3_other_sitelib}/pyVmomi
-%{python3_other_sitelib}/pyVim
-%{python3_other_sitelib}/%{srcname}-%{version}-py?.?.egg-info
-%endif
-
-##### begin legacy python2
-%if 0%{?with_python2}
-%files -n python2-%{srcname}
-%license LICENSE.txt
-%doc README.rst
-%{python2_sitelib}/pyVmomi
-%{python2_sitelib}/pyVim
-%{python2_sitelib}/%{srcname}-%{version}-py?.?.egg-info
-%endif
-##### end legacy python2
 
 
 %changelog
+* Tue Jun 20 2023 Robby Callicotte <rcallicotte@fedoraproject.org> - 7.0.3-6
+- Updated spec to new packaging standards
+- Updated license field to use SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

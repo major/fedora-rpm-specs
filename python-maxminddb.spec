@@ -5,10 +5,11 @@ a pure Python reader and an optional C extension. MaxMind DB is a binary file\
 format that stores data indexed by IP address subnets (IPv4 or IPv6).
 
 Name:           python-%{pypi_name}
-Version:        2.3.0
-Release:        2%{?dist}
+Version:        2.4.0
+Release:        %autorelease
 Summary:        Reader for the MaxMind DB format
 
+# SPDX
 License:        Apache-2.0
 URL:            https://www.maxmind.com/
 Source0:        %{pypi_source}
@@ -57,126 +58,4 @@ Summary:        %{summary}
 %license LICENSE
 
 %changelog
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.3.0-2
-- Rebuilt for Python 3.12
-
-* Mon May 15 2023 Lumír Balhar <lbalhar@redhat.com> - 2.3.0-1
-- Update to 2.3.0 (rhbz#2196686)
-- SPDX License
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 2.2.0-3
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Oct 05 2021 Lumír Balhar <lbalhar@redhat.com> - 2.2.0-1
-- Update to 2.2.0
-Resolves: rhbz#2007738
-
-* Mon Sep 20 2021 Lumír Balhar <lbalhar@redhat.com> - 2.1.0-1
-- Update to 2.1.0
-Resolves: rhbz#2005619
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 2.0.2-3
-- Rebuilt for Python 3.10
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jul 22 2020 Lumír Balhar <lbalhar@redhat.com> - 2.0.2-1
-- Update to 2.0.2 (#1859349)
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 1.5.4-2
-- Rebuilt for Python 3.9
-
-* Thu May 07 2020 Lumír Balhar <lbalhar@redhat.com> - 1.5.4-1
-- Update to 1.5.4 (#1831900)
-
-* Tue May 05 2020 Lumír Balhar <lbalhar@redhat.com> - 1.5.3-1
-- Update to 1.5.3 (#1831244)
-
-* Tue Jan 28 2020 Lumír Balhar <lbalhar@redhat.com> - 1.5.2-1
-- New upstream version 1.5.2 (#1785719)
-
-* Thu Oct 03 2019 Miro Hrončok <mhroncok@redhat.com> - 1.5.1-2
-- Rebuilt for Python 3.8.0rc1 (#1748018)
-
-* Wed Oct 02 2019 Lumír Balhar <lbalhar@redhat.com> - 1.5.1-1
-- New upstream version 1.5.1 (bz#1756523)
-
-* Wed Oct 02 2019 Lumír Balhar <lbalhar@redhat.com> - 1.5.0-1
-- New upstream version 1.5.0 (bz#1756523)
-
-* Mon Aug 19 2019 Miro Hrončok <mhroncok@redhat.com> - 1.4.1-6
-- Rebuilt for Python 3.8
-
-* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Sun Aug 12 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 1.4.1-3
-- Drop python2 subpackage
-
-* Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Fri Jun 22 2018 Carl George <carl@george.computer> - 1.4.1-1
-- Latest upstream
-
-* Tue Jun 19 2018 Miro Hrončok <mhroncok@redhat.com> - 1.4.0-3
-- Rebuilt for Python 3.7
-
-* Tue Jun 12 2018 Carl George <carl@george.computer> - 1.4.0-2
-- EPEL compatibility
-
-* Mon May 28 2018 Lumir Balhar <lbalhar@redhat.com> - 1.4.0-1
-- New upstream version
-
-* Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Mon Dec 11 2017 Iryna Shcherbina <ishcherb@redhat.com> - 1.3.0-4
-- Fix ambiguous Python 2 dependency declarations
-  (See https://fedoraproject.org/wiki/FinalizingFedoraSwitchtoPython3)
-
-* Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Tue Mar 14 2017 Fedora Release Monitoring  <release-monitoring@fedoraproject.org> - 1.3.0-1
-- Update to 1.3.0 (#1431895)
-
-* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Thu Jan 19 2017 Lumir Balhar <lbalhar@redhat.com> - 1.2.3-1
-- New upstream version.
-
-* Mon Dec 19 2016 Miro Hrončok <mhroncok@redhat.com> - 1.2.2-2
-- Rebuild for Python 3.6
-
-* Tue Nov 22 2016 Lumir Balhar <lbalhar@redhat.com> - 1.2.2-1
-- New upstream version.
-
-* Tue Jul 19 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.2.1-2
-- https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
-
-* Wed Jun 15 2016 Lumir Balhar <lbalhar@redhat.com> - 1.2.1-1
-- Initial package.
+%autochangelog

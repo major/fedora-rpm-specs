@@ -1,6 +1,6 @@
 Name:           python-pyjwkest
 Version:        1.4.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python implementation of JWT, JWE, JWS and JWK
 
 # pyjwkest: Apache-2.0
@@ -50,5 +50,8 @@ Summary:        %{summary}
 
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 1.4.2-2
+- Rebuilt for Python 3.12
+
 * Sun Jan 15 2023 lcrpkking <pkwarcraft@gmail.com> - 1.4.2-1
 - Initial package

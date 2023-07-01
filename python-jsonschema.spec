@@ -1,4 +1,3 @@
-%global _without_tests 1
 %global pypi_name jsonschema
 
 %global common_description %{expand:
@@ -13,7 +12,7 @@ jsonschema is an implementation of JSON Schema for Python (supporting
 Name:           python-%{pypi_name}
 Summary:        Implementation of JSON Schema validation for Python
 Version:        4.17.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        MIT
 URL:            https://github.com/Julian/jsonschema
 Source0:        %{pypi_source}
@@ -72,6 +71,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} trial-3 %{pypi_name}
 %{_bindir}/jsonschema
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 4.17.3-4
+- Rebuilt for Python 3.12
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 4.17.3-3
 - Bootstrap for Python 3.12
 

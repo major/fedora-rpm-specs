@@ -6,7 +6,7 @@
 
 Name:           python-%{srcname}
 Version:        5.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The Jupyter Notebook format
 
 License:        BSD
@@ -74,6 +74,9 @@ sed -i "s/{VERSION}/%{version}/" pyproject.toml
 %{_bindir}/jupyter-trust
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 5.8.0-2
+- Rebuilt for Python 3.12
+
 * Sun May 28 2023 Orion Poplawski <orion@nwra.com> - 5.8.0-1
 - Update to 5.8.0
 

@@ -1,6 +1,14 @@
 # trust-dns-{client,server} not available
 # using vendored deps
 
+# RHEL doesn't include the package rust-packaging which provides %%__cargo macro, but EPEL
+# does. So we set it separately here and skip rust-packaging dependency for RHEL.
+# Buildability without EPEL is essential for packit builds.
+# ELN doesn't need this.
+%if %{defined rhel} && 0%{?rhel} < 10
+%define __cargo %{_bindir}/env CARGO_HOME=.cargo RUSTC_BOOTSTRAP=1 RUSTFLAGS='-Copt-level=3 -Cdebuginfo=2 -Ccodegen-units=1 -Clink-arg=-Wl,-z,relro -Clink-arg=-Wl,-z,now --cap-lints=warn' %{_bindir}/cargo
+%endif
+
 %global with_debug 1
 
 %if 0%{?with_debug}
@@ -10,121 +18,63 @@
 %global debug_package %{nil}
 %endif
 
-%global built_tag v1.6.0
-%global built_tag_strip %(b=%{built_tag}; echo ${b:1})
-%global gen_version %(b=%{built_tag_strip}; echo ${b/-/"~"})
+# copr_username is only set on copr environments owned by rhcontainerbot,
+# not on other coprs or environments like koji.
+%if %{defined copr_username} && "%{?copr_username}" == "rhcontainerbot"
+%bcond_without copr
+%else
+%bcond_with copr
+%endif
+
+# rhel 8 does not support %%autochangelog
+%if %{defined rhel} && 0%{?rhel} <= 8
+%bcond_without manual_changelog
+%else
+%bcond_with manual_changelog
+%endif
+
+# rhel does not define %%{golang_arches_future}
+%if %{defined fedora}
+%bcond_without golang_arches_future
+%else
+%bcond_with golang_arches_future
+%endif
 
 Name: aardvark-dns
-Version: %{gen_version}
+%if %{with copr}
+Epoch: 102
+%endif
+# DO NOT TOUCH the Version string!
+# The TRUE source of this specfile is:
+# https://github.com/containers/podman/blob/main/rpm/podman.spec
+# If that's what you're reading, Version must be 0, and will be updated by Packit for
+# copr and koji builds.
+# If you're reading this on dist-git, the version is automatically filled in by Packit.
+Version: 1.7.0
 License: Apache-2.0 and MIT and Zlib
 Release: %autorelease
+%if %{with golang_arches_future}
 ExclusiveArch: %{golang_arches_future}
+%else
+ExclusiveArch: aarch64 ppc64le s390x x86_64
+%endif
 Summary: Authoritative DNS server for A/AAAA container records
 URL: https://github.com/containers/%{name}
 # Tarballs fetched from upstream's release page
-Source0: %{url}/archive/%{built_tag}.tar.gz
-Source1: %{url}/releases/download/%{built_tag}/%{name}-%{built_tag}-vendor.tar.gz
+Source0: %{url}/archive/v%{version}.tar.gz
+Source1: %{url}/releases/download/v%{version}/%{name}-v%{version}-vendor.tar.gz
 BuildRequires: cargo
 BuildRequires: git-core
 BuildRequires: make
+%if %{defined rhel}
+BuildRequires: rust-toolset
+%else
 BuildRequires: rust-packaging
 BuildRequires: rust-srpm-macros
-# cargo tree --prefix none | awk '{print "Provides: bundled(crate("$1")) = "$2}' | sort | uniq
-Provides: bundled(crate(anyhow)) = v1.0.70
-Provides: bundled(crate(async-broadcast)) = v0.5.1
-Provides: bundled(crate(async-trait)) = v0.1.56
-Provides: bundled(crate(atty)) = v0.2.14
-Provides: bundled(crate(autocfg)) = v1.1.0
-Provides: bundled(crate(bitflags)) = v1.3.2
-Provides: bundled(crate(bytes)) = v1.1.0
-Provides: bundled(crate(cfg-if)) = v1.0.0
-Provides: bundled(crate(chrono)) = v0.4.24
-Provides: bundled(crate(clap)) = v3.2.23
-Provides: bundled(crate(clap_derive)) = v3.2.18
-Provides: bundled(crate(clap_lex)) = v0.2.4
-Provides: bundled(crate(data-encoding)) = v2.3.2
-Provides: bundled(crate(endian-type)) = v0.1.2
-Provides: bundled(crate(enum-as-inner)) = v0.5.1
-Provides: bundled(crate(error-chain)) = v0.12.4
-Provides: bundled(crate(event-listener)) = v2.5.2
-Provides: bundled(crate(form_urlencoded)) = v1.0.1
-Provides: bundled(crate(futures-channel)) = v0.3.21
-Provides: bundled(crate(futures-core)) = v0.3.28
-Provides: bundled(crate(futures-executor)) = v0.3.21
-Provides: bundled(crate(futures-io)) = v0.3.21
-Provides: bundled(crate(futures-task)) = v0.3.28
-Provides: bundled(crate(futures-util)) = v0.3.28
-Provides: bundled(crate(getrandom)) = v0.2.7
-Provides: bundled(crate(hashbrown)) = v0.12.2
-Provides: bundled(crate(heck)) = v0.4.0
-Provides: bundled(crate(hostname)) = v0.3.1
-Provides: bundled(crate(iana-time-zone)) = v0.1.53
-Provides: bundled(crate(idna)) = v0.2.3
-Provides: bundled(crate(indexmap)) = v1.9.1
-Provides: bundled(crate(ipnet)) = v2.5.0
-Provides: bundled(crate(itoa)) = v1.0.2
-Provides: bundled(crate(lazy_static)) = v1.4.0
-Provides: bundled(crate(libc)) = v0.2.140
-Provides: bundled(crate(log)) = v0.4.17
-Provides: bundled(crate(match_cfg)) = v0.1.0
-Provides: bundled(crate(matches)) = v0.1.9
-Provides: bundled(crate(memoffset)) = v0.7.1
-Provides: bundled(crate(mio)) = v0.8.4
-Provides: bundled(crate(nibble_vec)) = v0.1.0
-Provides: bundled(crate(nix)) = v0.26.2
-Provides: bundled(crate(num-integer)) = v0.1.45
-Provides: bundled(crate(num-traits)) = v0.2.15
-Provides: bundled(crate(num_cpus)) = v1.13.1
-Provides: bundled(crate(num_threads)) = v0.1.6
-Provides: bundled(crate(once_cell)) = v1.13.0
-Provides: bundled(crate(os_str_bytes)) = v6.1.0
-Provides: bundled(crate(percent-encoding)) = v2.1.0
-Provides: bundled(crate(pin-project-lite)) = v0.2.9
-Provides: bundled(crate(pin-utils)) = v0.1.0
-Provides: bundled(crate(ppv-lite86)) = v0.2.16
-Provides: bundled(crate(proc-macro-error)) = v1.0.4
-Provides: bundled(crate(proc-macro-error-attr)) = v1.0.4
-Provides: bundled(crate(proc-macro2)) = v1.0.54
-Provides: bundled(crate(quick-error)) = v1.2.3
-Provides: bundled(crate(quote)) = v1.0.26
-Provides: bundled(crate(radix_trie)) = v0.2.1
-Provides: bundled(crate(rand)) = v0.8.5
-Provides: bundled(crate(rand_chacha)) = v0.3.1
-Provides: bundled(crate(rand_core)) = v0.6.3
-Provides: bundled(crate(resolv-conf)) = v0.7.0
-Provides: bundled(crate(serde)) = v1.0.139
-Provides: bundled(crate(serde_derive)) = v1.0.139
-Provides: bundled(crate(signal-hook)) = v0.3.15
-Provides: bundled(crate(signal-hook-registry)) = v1.4.0
-Provides: bundled(crate(slab)) = v0.4.6
-Provides: bundled(crate(smallvec)) = v1.9.0
-Provides: bundled(crate(socket2)) = v0.4.9
-Provides: bundled(crate(static_assertions)) = v1.1.0
-Provides: bundled(crate(strsim)) = v0.10.0
-Provides: bundled(crate(syn)) = v1.0.98
-Provides: bundled(crate(syn)) = v2.0.12
-Provides: bundled(crate(syslog)) = v6.0.1
-Provides: bundled(crate(termcolor)) = v1.1.3
-Provides: bundled(crate(textwrap)) = v0.16.0
-Provides: bundled(crate(thiserror)) = v1.0.31
-Provides: bundled(crate(thiserror-impl)) = v1.0.31
-Provides: bundled(crate(time)) = v0.3.11
-Provides: bundled(crate(tinyvec)) = v1.6.0
-Provides: bundled(crate(tinyvec_macros)) = v0.1.0
-Provides: bundled(crate(tokio)) = v1.27.0
-Provides: bundled(crate(tokio-macros)) = v2.0.0
-Provides: bundled(crate(toml)) = v0.5.9
-Provides: bundled(crate(tracing)) = v0.1.36
-Provides: bundled(crate(tracing-attributes)) = v0.1.22
-Provides: bundled(crate(tracing-core)) = v0.1.29
-Provides: bundled(crate(trust-dns-client)) = v0.22.0
-Provides: bundled(crate(trust-dns-proto)) = v0.22.0
-Provides: bundled(crate(trust-dns-server)) = v0.22.0
-Provides: bundled(crate(unicode-bidi)) = v0.3.8
-Provides: bundled(crate(unicode-ident)) = v1.0.1
-Provides: bundled(crate(unicode-normalization)) = v0.1.21
-Provides: bundled(crate(url)) = v2.2.2
-Provides: bundled(crate(version_check)) = v0.9.4
+%endif
+# DO NOT DELETE BELOW LINE - used for updating downstream imports
+# vendored libraries
+
 %description
 %{summary}
 
@@ -132,7 +82,11 @@ Forwards other request to configured resolvers.
 Read more about configuration in `src/backend/mod.rs`.
 
 %prep
-%autosetup -Sgit %{name}-%{built_tag_strip}
+%autosetup -Sgit %{name}-%{version}
+# Following steps are only required on environments like koji which have no
+# network access and thus depend on the vendored tarball. Copr pulls
+# dependencies directly from the network.
+%if %{without copr}
 tar fx %{SOURCE1}
 mkdir -p .cargo
 
@@ -143,11 +97,10 @@ replace-with = "vendored-sources"
 [source.vendored-sources]
 directory = "vendor"
 EOF
+%endif
 
 %build
-%{__cargo} build --release
-mkdir -p bin
-cp target/release/%{name} bin/
+%{__make} CARGO="%{__cargo}" build
 
 %install
 %{__make} DESTDIR=%{buildroot} PREFIX=%{_prefix} install

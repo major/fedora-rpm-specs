@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.18.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Fuzzy string matching in Python
 
 License:        MIT
@@ -19,7 +19,6 @@ Summary:        %{summary}
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
-BuildRequires:  python3-pycodestyle
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
@@ -31,6 +30,9 @@ differences between sequences in a simple-to-use package.
 # These scripts shouldn't be executable
 sed -i '1d' %{pypi_name}/{fuzz.py,process.py,StringMatcher.py}
 find . -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
+# Don't run code style check in tests
+sed -i -e '/import pycodestyle/d' -e 's/test_pep8_conformance/notest_pep8_conformance/' test_fuzzywuzzy.py
+
 
 %build
 %py3_build
@@ -49,6 +51,9 @@ find . -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 0.18.0-12
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

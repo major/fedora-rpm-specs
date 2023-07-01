@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit 53710b6d1b141a4c07e737f11ca6855252829a5b
+%global commit 10f97f8f911402735ec67cc4704c4061999bd949
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 38.19
+Version: 38.20
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -814,6 +814,17 @@ exit 0
 %endif
 
 %changelog
+* Thu Jun 29 2023 Zdenek Pytela <zpytela@redhat.com> - 38.20-1
+- Allow httpd tcp connect to redis port conditionally
+- Label only /usr/sbin/ripd and ripngd with zebra_exec_t
+- Dontaudit aide the execmem permission
+- Remove permissive from fdo
+- Allow sa-update manage spamc home files
+- Allow sa-update connect to systemlog services
+- Label /usr/lib/systemd/system/mimedefang.service with antivirus_unit_file_t
+- Allow nsd_crond_t write nsd_var_run_t & connectto nsd_t
+- Allow bootupd search EFI directory
+
 * Tue Jun 27 2023 Zdenek Pytela <zpytela@redhat.com> - 38.19-1
 - Change init_audit_control default value to true
 - Allow nfsidmapd connect to systemd-userdbd with a unix socket

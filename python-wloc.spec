@@ -9,8 +9,8 @@ locate user by using global Wi-Fi database (no GPS required).
 It supports different geolocation backends.}
 
 Name: python-%{pypi_name}
-Version: 1.0.1
-Release: 3%{?dist}
+Version: 1.1.0
+Release: 2%{?dist}
 
 # Main code - GPL-3.0-or-later.
 # pywifi - MIT.
@@ -28,6 +28,7 @@ BuildRequires: python3-devel
 %description %_description
 
 %package -n python3-%{pypi_name}
+Requires: NetworkManager-libnm
 Summary: %{summary}
 
 %description -n python3-%{pypi_name} %_description
@@ -65,6 +66,12 @@ install -D -p -m 0644 packaging/assets/%{pypi_name}.1 %{buildroot}%{_mandir}/man
 %doc docs/html/*
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 1.1.0-2
+- Rebuilt for Python 3.12
+
+* Thu Jun 29 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 1.1.0-1
+- Updated to version 1.1.0.
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.0.1-3
 - Rebuilt for Python 3.12
 

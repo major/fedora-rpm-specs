@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.16
+Version: 12.17
 Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
@@ -525,6 +525,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Jun 29 2023 Nick Clifton  <nickc@redhat.com> - 12.17-1
+- Annocheck: Add detection of known parts of libstdc++-nonshared.a that contain gaps.  (#2217864)
+
 * Tue Jun 27 2023 Nick Clifton  <nickc@redhat.com> - 12.16-1
 - Annocheck: Ignore weak/undef function symbols when checking to see if a binary contains code.  (#2217840)
 

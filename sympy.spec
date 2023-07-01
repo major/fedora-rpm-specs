@@ -6,8 +6,8 @@
 %global debug_package %{nil}
 
 Name:           sympy
-Version:        1.11.1
-Release:        4%{?dist}
+Version:        1.12
+Release:        1%{?dist}
 Summary:        A Python library for symbolic mathematics
 
 # The project as a whole is BSD-3-Clause.
@@ -17,6 +17,8 @@ URL:            https://sympy.org/
 Source0:        https://github.com/%{name}/%{name}/archive/%{name}-%{version}.tar.gz
 # Skip tests that require a display
 Patch0:         %{name}-circuitplot.patch
+# Adapt to python 3.12
+Patch1:         %{name}-python3.12.patch
 
 # This package used to be noarch, and should still be noarch.  However, because
 # there is no JDK available on i686 anymore, the antlr4 package is also not
@@ -36,6 +38,7 @@ BuildRequires:  %{py3_dist cython}
 BuildRequires:  %{py3_dist gmpy2}
 BuildRequires:  %{py3_dist llvmlite}
 BuildRequires:  %{py3_dist matplotlib}
+BuildRequires:  %{py3_dist matplotlib-inline}
 BuildRequires:  %{py3_dist myst-parser}
 BuildRequires:  %{py3_dist numexpr}
 BuildRequires:  python3-numpy-f2py
@@ -49,10 +52,14 @@ BuildRequires:  librsvg2-tools
 BuildRequires:  make
 BuildRequires:  %{py3_dist furo}
 BuildRequires:  %{py3_dist linkify-it-py}
+BuildRequires:  %{py3_dist mpmath}
 BuildRequires:  %{py3_dist numpydoc}
+BuildRequires:  %{py3_dist sphinx-autobuild}
 BuildRequires:  %{py3_dist sphinx-copybutton}
 BuildRequires:  %{py3_dist sphinx-math-dollar}
 BuildRequires:  %{py3_dist sphinx-reredirects}
+BuildRequires:  %{py3_dist sphinxcontrib-jquery}
+BuildRequires:  python-mpmath-doc
 BuildRequires:  tex(latex)
 BuildRequires:  tex-dvipng
 
@@ -156,6 +163,10 @@ for fil in sympy/physics/mechanics/models.py \
   fixtimestamp $fil
 done
 
+# Use local objects.inv for intersphinx
+sed -e "s|\('https://mpmath\.org/doc/current/', \)None|\1'%{_docdir}/python-mpmath-doc/html/objects.inv'|" \
+    -i doc/src/conf.py
+
 %generate_buildrequires
 %pyproject_buildrequires
 
@@ -230,6 +241,13 @@ fi
 %{_docdir}/%{name}-doc/html
 
 %changelog
+* Thu Jun 29 2023 Jerry James <loganjerry@gmail.com> - 1.12-1
+- Version 1.12
+- Add patch for python 3.12 compatibility
+
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 1.11.1-5
+- Rebuilt for Python 3.12
+
 * Tue Feb 21 2023 Jerry James <loganjerry@gmail.com> - 1.11.1-4
 - Fix the antlr4 Recommends (bz 2172030)
 - Dynamically generate BuildRequires (to the extent possible)

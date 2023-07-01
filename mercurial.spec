@@ -31,12 +31,17 @@ BuildRequires: pkgconfig
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
 BuildRequires: python3-docutils
+# File "/builddir/build/BUILD/mercurial-6.4.5/mercurial/utils/resourceutil.py", line 11, in <module>
+#   import imp
+# ModuleNotFoundError: No module named 'imp'
+BuildRequires: (python3-zombie-imp if python3 >= 3.12)
 %if %{with rust}
 BuildRequires: rust-packaging
 %endif
 
 Provides: hg = %{version}-%{release}
 Requires: python3
+Requires: (python3-zombie-imp if python3 >= 3.12)
 Requires: emacs-filesystem
 Recommends: python3-fb-re2
 

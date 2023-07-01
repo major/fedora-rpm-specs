@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        2.1.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Django middlewares to monitor your application with Prometheus.io
 
 License:        ASL 2.0
@@ -57,6 +57,9 @@ rm -vr *.egg-info
 %{python3_sitelib}/django_prometheus/
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 2.1.0-9
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

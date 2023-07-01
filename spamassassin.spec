@@ -60,7 +60,7 @@ Summary: Spam filter for email which can be invoked from mail delivery agents
 Name: spamassassin
 Version: 4.0.0
 #Release: 0.8.%%{prerev}%%{?dist}
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: ASL 2.0
 URL: https://spamassassin.apache.org/
 Source0: https://www.apache.org/dist/%{name}/source/%{real_name}-%{version}.tar.bz2
@@ -164,8 +164,8 @@ BuildRequires: perl-Razor-Agent
 Requires: perl(IO::Socket::SSL)
 BuildRequires: perl(IO::Socket::SSL)
 # Needed for IPv6
-Requires: perl(IO::Socket::INET6)
-BuildRequires: perl(IO::Socket::INET6)
+Requires: perl(IO::Socket::IP)
+BuildRequires: perl(IO::Socket::IP)
 %endif
 %if %{perl_devel}
 BuildRequires: perl-devel
@@ -397,6 +397,10 @@ exit 0
 %endif
 
 %changelog
+* Tue Jun 27 2023 Jitka Plesnikova <jplesnik@redhat.com> - 4.0.0-5
+- Replace IO::Socket::INET6 by recommended IO::Socket::IP. Fixes rhbz#2218100
+
+
 * Sun Apr 02 2023 Todd Zullinger <tmz@pobox.com> - 4.0.0-4
 - Verify upstream source signatures
 

@@ -1,5 +1,5 @@
 Name:           jrnl
-Version:        4.0
+Version:        4.0.1
 Release:        %autorelease
 Summary:        Collect your thoughts and notes without leaving the command line
 
@@ -7,21 +7,6 @@ License:        GPL-3.0-only
 URL:            https://jrnl.sh
 %global forgeurl https://github.com/jrnl-org/jrnl/
 Source:         %{forgeurl}/archive/v%{version}/jrnl-%{version}.tar.gz
-
-# Revert “Lock ruamel.yaml version until bug is fixed (#1738)”,
-# 0b55c477e17fa7ac4d7d91bbda5d712f3ef8b67b
-#
-# That commit corresponds to PR “Lock ruamel.yaml version to v0.17.21 until bug
-# is fixed”, https://github.com/jrnl-org/jrnl/pull/1738
-#
-# The bug in question was “Failing Mac test on develop branch”,
-# https://github.com/jrnl-org/jrnl/issues/1736; since it was Mac-specific, we
-# can safely remove the version bound downstream.
-#
-# It looks like the version bound is already removed upstream in 4.0.1~beta.
-#
-# The patch is hand-edited to remove irrelevant poetry.lock diffs.
-Patch:          0001-Revert-Lock-ruamel.yaml-version-until-bug-is-fixed-1.patch
 
 BuildArch:      noarch
 
@@ -47,7 +32,7 @@ encryption.
 
 
 %prep
-%autosetup -n jrnl-%{version} -p1
+%autosetup -n jrnl-%{version}
 
 dos2unix \
     SECURITY.md \

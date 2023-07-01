@@ -158,13 +158,13 @@ ExcludeArch: ppc64le
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        114.0.2
-Release:        2%{?pre_tag}%{?dist}
+Version:        115.0
+Release:        1%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20230620.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20230629.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source10:       firefox-mozconfig
@@ -233,6 +233,7 @@ Patch230:        firefox-enable-vaapi.patch
 # Upstream patches
 Patch402:        mozilla-1196777.patch
 Patch407:        mozilla-1667096.patch
+Patch408:        D182447.diff
 
 # PGO/LTO patches
 Patch600:        pgo.patch
@@ -505,12 +506,13 @@ This package contains results of tests executed during build.
 
 %patch402 -p1 -b .1196777
 %patch407 -p1 -b .1667096
+%patch408 -p1 -b .D182447
 
 # PGO patches
 %if %{build_with_pgo}
 %if !%{build_with_clang}
 %patch600 -p1 -b .pgo
-%patch602 -p1 -b .1516803
+#%patch602 -p1 -b .1516803
 %endif
 %endif
 %patch603 -p1 -b .inline
@@ -719,7 +721,6 @@ export GCOV_PREFIX_STRIP=$(( $(echo `pwd -P`|tr -c -d '/' |wc -c )+2 ))
 env | grep GCOV
 echo "ac_add_options --enable-lto" >> .mozconfig
 echo "ac_add_options MOZ_PGO=1" >> .mozconfig
-echo "ac_add_options --disable-elf-hack" >> .mozconfig
 %endif
 
 # Require 2 GB of RAM per CPU core
@@ -1055,6 +1056,12 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Thu Jun 29 2023 Martin Stransky <stransky@redhat.com>- 115.0-1
+- Update to 115.0
+
+* Thu Jun 29 2023 Martin Stransky <stransky@redhat.com>- 114.0.2-3
+- Enable Elf-hack for PGO builds.
+
 * Thu Jun 22 2023 Martin Stransky <stransky@redhat.com>- 114.0.2-2
 - Enable PGO/LTO again.
 

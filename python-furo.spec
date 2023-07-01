@@ -1,6 +1,6 @@
 Name:           python-furo
 Version:        2023.03.27
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Clean customizable Sphinx documentation theme
 
 License:        MIT
@@ -112,6 +112,9 @@ rm -rf html/{.buildinfo,.doctrees}
 %license LICENSE
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 2023.03.27-2
+- Rebuilt for Python 3.12
+
 * Tue Mar 28 2023 Jerry James <loganjerry@gmail.com> - 2023.03.27-1
 - Version 2023.03.27
 

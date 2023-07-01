@@ -1,6 +1,6 @@
 Name:           python-pytest-regressions
 Version:        2.4.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Pytest fixtures for writing regression tests
 
 License:        MIT
@@ -87,7 +87,7 @@ rm doc/_build/html/.buildinfo
 if [ $(uname -m) = s390x ]; then
   sed -i 's/int64/<i8/' tests/test_ndarrays_regression.py
 fi
-%tox
+%tox -- -- -Wdefault
 
 %files -n python3-pytest-regressions -f %{pyproject_files}
 %doc CHANGELOG.html README.html
@@ -96,6 +96,9 @@ fi
 %doc doc/_build/html
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 2.4.2-4
+- Rebuilt for Python 3.12
+
 * Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 2.4.2-3
 - Generate extras subpackages
 - Dynamically generate BuildRequires

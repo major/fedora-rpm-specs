@@ -12,7 +12,7 @@ and cloud systems like Xen, KVM, VMware, EC2 and more.
 
 Name:           kiwi
 Version:        9.24.59
-Release:        1%{?dist}
+Release:        2%{?dist}
 URL:            http://osinside.github.io/kiwi/
 Summary:        Flexible operating system image builder
 License:        GPLv3+
@@ -555,6 +555,9 @@ done
 # Empty metapackage
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 9.24.59-2
+- Rebuilt for Python 3.12
+
 * Sat May 06 2023 Igor Raits <igor.raits@gmail.com> - 9.24.59-1
 - Update to 9.24.59
 

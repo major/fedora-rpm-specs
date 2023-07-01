@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        7.1.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python implementation of SAML Version 2
 License:        ASL 2.0
 URL:            https://github.com/IdentityPython/%{srcname}
@@ -134,6 +134,9 @@ rm -rf html/.{doctrees,buildinfo}
 %doc html
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 7.1.2-3
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

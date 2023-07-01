@@ -9,6 +9,8 @@ License: MIT
 URL: http://www.x.org
 Source0: https://www.x.org/pub/individual/lib/%{name}-%{version}.tar.xz
 
+BuildRequires: gcc
+BuildRequires: libtool
 BuildRequires: pkgconfig make
 BuildRequires: xorg-x11-util-macros
 BuildRequires: xorg-x11-proto-devel

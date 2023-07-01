@@ -2,7 +2,7 @@
 
 Name:           python-xrst
 Version:        2023.1.22
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Extract Sphinx RST Files
 
 License:        GPL-3.0-or-later
@@ -86,6 +86,9 @@ mkdir -p %{buildroot}/%{_mandir}/man1
 %{_mandir}/man1/xrst.1*
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 2023.1.22-2
+- Rebuilt for Python 3.12
+
 * Sun Jan 22 2023 Brad Bell <bradbell at seanet dot com> - 2023.1.22-1
 - Update to new upstream source to help with building rpm for cppad-doc.
 - Need to remove pyspellchecker from more places.

@@ -27,6 +27,13 @@ BuildRequires: qt5-qtbase-devel
 This is a small suite of libcamera-based apps that aim to copy the functionality
 of the existing "raspicam" apps.
 
+%package devel
+Summary:        libcamera-apps library development files
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description devel
+Headers for developing against libcamera-apps.
+
 %prep
 %autosetup -p1
 
@@ -53,9 +60,13 @@ find %{buildroot} -name '*.so' -delete
 %{_libdir}/libpost_processing_stages.so.*
 %{_libdir}/libpreview.so.*
 
+%files devel
+%{_includedir}/libcamera-apps/
+
 %changelog
 * Wed Jun 28 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 1.2.0-1
 - Update to 1.2.0
+- Add devel subpackage
 
 * Mon May 29 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 1.1.2-2
 - Rebuild for libcamra bump

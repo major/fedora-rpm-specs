@@ -1,11 +1,15 @@
+%global commit 7a787da8e64d5e070581933a008a683ed7c3f4da
+%global snapdate 20230628
+
 Name:           python-aiofiles
-Version:        23.1.0
+Version:        23.2.0~^%{snapdate}git%(c='%{commit}'; echo "${c:0:7}")
 Release:        %autorelease
 Summary:        File support for asyncio
 
 License:        Apache-2.0
 URL:            https://github.com/Tinche/aiofiles
-Source0:        %{url}/archive/v%{version}/aiofiles-%{version}.tar.gz
+# Source:         %%{url}/archive/v%%{version}/aiofiles-%%{version}.tar.gz
+Source:         %{url}/archive/%{commit}/aiofiles-%{commit}.tar.gz
 
 BuildArch:      noarch
 
@@ -32,7 +36,8 @@ Summary:        %{summary}
 %description -n python3-aiofiles %{_description}
 
 %prep
-%autosetup -n aiofiles-%{version}
+# %%autosetup -n aiofiles-%%{version}
+%autosetup -n aiofiles-%{commit}
 
 %build
 %pyproject_wheel

@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.14.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Interact with GitLab API
 
 License:        LGPLv3
@@ -66,6 +66,9 @@ sed -i 's/pytest-github-actions-annotate-failures.*//' requirements-test.txt
 %doc README.rst
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 3.14.0-3
+- Rebuilt for Python 3.12
+
 * Mon May 15 2023 Steve Traylen <steve.traylen@cern.ch> - 3.14.0-2
 - Rebuild for new python-requests-toolbelt (rhbz#2203755)
 

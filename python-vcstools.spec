@@ -6,7 +6,7 @@
 
 Name:           python-%{srcname}
 Version:        0.1.42
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Version Control System tools for Python
 
 License:        BSD
@@ -197,6 +197,9 @@ export LANG=C.UTF-8
 
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 0.1.42-14
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.42-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

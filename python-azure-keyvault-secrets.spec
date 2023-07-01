@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        4.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Microsoft Azure Key Vault Secrets Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
@@ -50,6 +50,9 @@ Obsoletes:      python3-azure-sdk < 5.0.1
 
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 4.7.0-2
+- Rebuilt for Python 3.12
+
 * Tue May 23 2023 Major Hayden <major@redhat.com> - 4.7.0-1
 - new version
 

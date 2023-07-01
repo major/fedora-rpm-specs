@@ -1,6 +1,6 @@
 Name:           python-pyrate-limiter
 Version:        2.10.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The request rate limiter using Leaky-bucket algorithm 
 License:        MIT
 URL:            https://github.com/vutran1710/PyrateLimiter
@@ -84,6 +84,9 @@ k="${k-}${k+ and }not test_ratelimit__delay_synchronous"
 %license LICENSE
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 2.10.0-2
+- Rebuilt for Python 3.12
+
 * Tue May 2 2023 Steve Cossette <farchord@gmail.com> - 2.10.0-1
 - Update to 2.10.0
 

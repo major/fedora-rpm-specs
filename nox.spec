@@ -1,6 +1,6 @@
 Name:           nox
 Version:        2023.04.22
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Flexible test automation
 
 License:        Apache-2.0
@@ -55,6 +55,9 @@ sed -i "s/2\.7/%python3_version/;s/27/%python3_version_nodots/" tests/test_tox_t
 %{_bindir}/tox-to-nox
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 2023.04.22-2
+- Rebuilt for Python 3.12
+
 * Tue May 02 2023 Lumír Balhar <lbalhar@redhat.com> - 2023.04.22-1
 - Update to 2023.04.22 (rhbz#2188881)
 - Use SPDX license identifier

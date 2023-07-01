@@ -1,10 +1,12 @@
+%global _without_doc 1
+%global _without_tests 1
 # Unset -s on python shebang - ensure that extensions installed with pip
 # to user locations are seen and properly loaded
 %undefine _py3_shebang_s
 
 Name:           python-jupyter-client
 Version:        7.4.9
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Jupyter protocol implementation and client libraries
 
 License:        BSD
@@ -109,6 +111,9 @@ rm -r html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 7.4.9-3
+- Bootstrap for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.4.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

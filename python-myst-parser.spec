@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A commonmark compliant parser, with bridges to docutils & sphinx
 
 License:        MIT
@@ -70,6 +70,9 @@ Summary:        %{summary}
 %{_bindir}/myst-inv
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 1.0.0-2
+- Rebuilt for Python 3.12
+
 * Tue Mar 21 2023 Karolina Surma <ksurma@redhat.com> - 1.0.0-1
 - Update to 1.0.0
 Resolves: rhbz#2174349

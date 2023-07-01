@@ -9,9 +9,9 @@
 
 Name:       whois       
 Version:    5.5.17
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Improved WHOIS client
-License:    GPLv2+
+License:    GPL-2.0-or-later
 URL:        https://www.linux.it/~md/software/
 VCS:        git:%{forgeurl}
 Source0:    https://ftp.debian.org/debian/pool/main/w/%{name}/%{name}_%{version}.tar.xz
@@ -149,6 +149,9 @@ fi
 %endif
 
 %changelog
+* Thu Jun 29 2023 Petr Menšík <pemensik@redhat.com> - 5.5.17-2
+- Change License tag to SPDX format
+
 * Wed May 03 2023 Petr Menšík <pemensik@redhat.com> - 5.5.17-1
 - Update to 5.5.17 (#2192932)
 

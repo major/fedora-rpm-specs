@@ -1,6 +1,6 @@
 Name:           python-hgapi
 Version:        1.7.4
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Python API to Mercurial using the command-line interface
 
 License:        MIT
@@ -67,6 +67,9 @@ cp -a . %{py3dir}
 %{python3_sitelib}/hgapi/
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 1.7.4-21
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.4-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.2.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Python port of markdown-it
 
 License:        MIT
@@ -64,6 +64,12 @@ sed -i '/"pytest-cov",/d' pyproject.toml
 
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 2.2.0-3
+- Rebuilt for Python 3.12
+
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 2.2.0-2
+- Bootstrap for Python 3.12
+
 * Wed Mar 15 2023 Karolina Surma <ksurma@redhat.com> - 2.2.0-1
 - Update to 2.2.0, includes the fix for CVE-2023-26302
 Resolves: rhbz#2172373 rhbz#2177154

@@ -1,69 +1,61 @@
-%global pypi_name diskcache
+%global         srcname         diskcache
+%global         forgeurl        https://github.com/grantjenks/python-diskcache
+Version:        5.6.1
+%global         tag             v%{version}
+%forgemeta
 
-Name:           python-%{pypi_name}
-Version:        5.2.1
-Release:        4%{?dist}
-Summary:        Disk and file backed persistent cache
+Name:           python-%{srcname}
+Release:        1%{?dist}
+Summary:        Python disk-backed cache
 
-License:        ASL 2.0
-URL:            http://www.grantjenks.com/docs/diskcache/
-Source0:        https://github.com/grantjenks/python-diskcache/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
-BuildArch:      noarch
+License:        Apache-2.0
+URL:            https://grantjenks.com/docs/diskcache/
+# Pypi version does not have tests
+Source0:        %{forgesource}
 
-%description
-DiskCache is an Apache 2 licensed disk and file backed cache library,
-written in pure-Python, and compatible with Django. The cloud-based
-computing of 2019 puts a premium on memory. Gigabytes of empty space 
-is left on disks asprocesses vie for memory. Among these processes is
-Memcached (and sometimes Redis) which is used as a cache. Wouldn't it 
-be nice to leverage.
-
-%package -n     python3-%{pypi_name}
-Summary:        %{summary}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(pytest-cov)
-BuildRequires:  python3dist(pytest-django)
-BuildRequires:  python3dist(django)
-BuildRequires:  python3dist(pytest-xdist)
-%{?python_provide:%python_provide python3-%{pypi_name}}
+BuildRequires:  python3-tox
 
-%description -n python3-%{pypi_name}
-DiskCache is an Apache 2 licensed disk and file backed cache library,
-written in pure-Python, and compatible with Django. The cloud-based
-computing of 2019 puts a premium on memory. Gigabytes of empty space 
-is left on disks asprocesses vie for memory. Among these processes is
-Memcached (and sometimes Redis) which is used as a cache. Wouldn't it 
-be nice to leverage.
+BuildArch: noarch
+
+%global _description %{expand:
+DiskCache is an Apache2 licensed disk and file backed cache library,
+written in pure-Python, and compatible with Django.}
+
+%description %_description
+
+%package -n python3-%{srcname}
+Summary:        %{summary}
+
+%description -n python3-%{srcname} %_description
+
 
 %prep
-%autosetup -n python-%{pypi_name}-%{version}
-rm -rf %{pypi_name}.egg-info
+%forgesetup
+# Relax test version requirement
+sed -i 's/==4.2.*//g' requirements-dev.txt
+sed -i 's/==4.2.*//g' tox.ini
+
+%generate_buildrequires
+%pyproject_buildrequires -e %{toxenv}
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{srcname}
 
 %check
-%pytest -v tests
+%tox -e py
 
-%files -n python3-%{pypi_name}
-%license LICENSE
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info/
-
+ 
 %changelog
-* Tue Jul 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.1-4
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 5.2.1-3
-- Rebuilt for Python 3.10
+* Thu Jun 29 2023 Benson Muite <benson_muite@emailplus.org> - 5.6.1-1
+- Unretire package
 
 * Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
@@ -77,7 +69,7 @@ rm -rf %{pypi_name}.egg-info
 * Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
 
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 4.1.0-3
+* Tue May 26 2020 Miro HronÄ¨ok <mhroncok@redhat.com> - 4.1.0-3
 - Rebuilt for Python 3.9
 
 * Sun Jan 26 2020 Fabian Affolter <mail@fabian-affolter.ch> - 4.1.0-2

@@ -1,6 +1,6 @@
 Name:           python-sphinx-design
 Version:        0.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Sphinx extension for responsive web components
 
 # This project is MIT, but bundles JSON glyphs
@@ -89,6 +89,9 @@ rm -rf html/{.buildinfo,.doctrees}
 %license LICENSE
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 0.4.1-2
+- Rebuilt for Python 3.12
+
 * Fri Apr 14 2023 Jerry James <loganjerry@gmail.com> - 0.4.1-1
 - Version 0.4.1
 - Drop upstreamed Sphinx 6.x patch

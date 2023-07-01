@@ -2,7 +2,7 @@ Summary: A mouse server for the Linux console
 Name: gpm
 Version: 1.20.7
 Release: %autorelease
-License: GPLv2 and OFSFDL
+License: GPL-2.0-or-later AND LicenseRef-OFSFDL
 URL: http://www.nico.schottelius.org/software/gpm/
 #URL2 : http://freecode.com/projects/gpm
 

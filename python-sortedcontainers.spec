@@ -1,10 +1,8 @@
-%global _without_docs 1
-%global _without_tests 1
 %global srcname sortedcontainers
 
 Name:           python-%{srcname}
 Version:        2.4.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Pure Python sorted container types
 
 License:        Apache-2.0
@@ -97,6 +95,9 @@ popd
 
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 2.4.0-12
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.4.0-11
 - Bootstrap for Python 3.12
 

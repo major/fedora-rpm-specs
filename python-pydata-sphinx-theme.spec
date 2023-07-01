@@ -5,7 +5,7 @@
 
 Name:           python-pydata-sphinx-theme
 Version:        0.13.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Bootstrap-based Sphinx theme from the PyData community
 
 # This project is BSD-3-Clause.
@@ -136,6 +136,9 @@ cd -
 %endif
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 0.13.3-2
+- Rebuilt for Python 3.12
+
 * Thu Mar 30 2023 Jerry James <loganjerry@gmail.com> - 0.13.3-1
 - Version 0.13.3
 - Stop building documentation due to missing dependencies

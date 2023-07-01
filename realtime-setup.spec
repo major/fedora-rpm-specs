@@ -3,14 +3,14 @@ Version: 2.2.3
 Release: 3%{?dist}
 License: GPLv2
 Summary: Setup RT/low-latency environment details
-Source0: https://gitlab.com/rt-linux-tools/${name}/-/archive/v%{version}/%{name}-v%{version}.tar.bz2
+Source0: https://gitlab.com/rt-linux-tools/%{name}/-/archive/v%{version}/%{name}-v%{version}.tar.bz2
 URL:  https://gitlab.com/rt-linux-tools/realtime-setup.git
 
 BuildRequires: gcc
 BuildRequires: make
 BuildRequires: systemd
 BuildRequires: systemd-rpm-macros
-BuildRequires: annobin
+BuildRequires: annobin-plugin-gcc
 Requires: pam
 Requires: kexec-tools
 Requires: tuna

@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.5.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Full featured redis cache backend for Django
 
 License:        BSD
@@ -49,6 +49,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/django_redis-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 4.5.0-20
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

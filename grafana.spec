@@ -2,7 +2,7 @@
 # is attached as a webpack tarball (in case of an unsuitable nodejs version on the build system)
 %define compile_frontend 0
 
-%if 0%{?rhel} && ! 0%{?eln}
+%if 0%{?rhel}
 %define enable_fips_mode 1
 %else
 %define enable_fips_mode 0
@@ -744,6 +744,9 @@ rm -r plugins-bundled
 
 # see grafana-X.Y.Z/pkg/build/cmd.go
 export LDFLAGS="-X main.version=%{version} -X main.buildstamp=${SOURCE_DATE_EPOCH}"
+%if %{enable_fips_mode}
+export GOEXPERIMENT=boringcrypto
+%endif
 for cmd in grafana-cli grafana-server; do
     %gobuild -o %{_builddir}/bin/${cmd} ./pkg/cmd/${cmd}
 done
@@ -852,6 +855,9 @@ yarn run jest
 # which is usually true except if the daylight saving time change falls into the last 10 days, then it's either 239 or 241 hours...
 # let's set the time zone to a time zone without daylight saving time
 export TZ=GMT
+%if %{enable_fips_mode}
+export GOEXPERIMENT=boringcrypto
+%endif
 
 # comment out temporarily while intermittent ngalert tests are investigated
 # %gotest ./pkg/...

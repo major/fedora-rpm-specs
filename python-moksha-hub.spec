@@ -8,7 +8,7 @@
 
 Name:           python-moksha-hub
 Version:        1.5.17
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Hub components for Moksha
 
 License:        ASL 2.0
@@ -207,6 +207,9 @@ ln -s ./moksha-hub %{buildroot}%{_bindir}/moksha-hub-%{python3_version}
 %endif
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 1.5.17-18
+- Rebuilt for Python 3.12
+
 * Tue Jan 24 2023 Diego Herrera <dherrera@redhat.com> - 1.5.17-17
 - Fix python version filters for RHEL/EPEL
 

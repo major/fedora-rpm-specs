@@ -2,7 +2,7 @@
 
 Name:           python-sphinx-theme-builder
 Version:        0.2.0
-Release:        0.9.%{prerel}%{?dist}
+Release:        0.10.%{prerel}%{?dist}
 Summary:        Streamline the Sphinx theme development workflow
 
 # Most of the code is MIT.  However,
@@ -63,6 +63,9 @@ mkdir -p %{buildroot}%{_mandir}/man1
 %license LICENSE
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 0.2.0-0.10.b2
+- Rebuilt for Python 3.12
+
 * Mon Apr 24 2023 Jerry James <loganjerry@gmail.com> - 0.2.0-0.9.b2
 - Use %%py3_test_envvars to simplify man page installation
 

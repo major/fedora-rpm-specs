@@ -4,7 +4,7 @@
 
 Name:           python-flit
 Version:        3.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simplified packaging of Python modules
 
 # ./flit/log.py: Apache-2.0
@@ -94,6 +94,9 @@ export XDG_CACHE_HOME=$PWD/fake_cache
 
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 3.9.0-2
+- Rebuilt for Python 3.12
+
 * Thu Jun 08 2023 Miro Hrončok <mhroncok@redhat.com> - 3.9.0-1
 - Update to 3.9.0, fixes rhbz#2203614
 - Drop unhelpful Recommends of python3-pygments

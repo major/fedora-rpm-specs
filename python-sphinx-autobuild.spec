@@ -2,7 +2,7 @@
 
 Name:           python-sphinx-autobuild
 Version:        2021.3.14
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Autobuild a Sphinx directory when a change is detected
 
 License:        MIT
@@ -87,6 +87,9 @@ help2man -N %{buildroot}%{_bindir}/sphinx-autobuild > \
 %doc html
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 2021.3.14-5
+- Rebuilt for Python 3.12
+
 * Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 2021.3.14-4
 - Dynamically generate BuildRequires
 

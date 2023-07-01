@@ -1,4 +1,4 @@
-%global blender_api 3.5
+%global blender_api 3.6
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
 %bcond_without  clang
@@ -35,7 +35,7 @@
 
 Name:           blender
 Epoch:          1
-Version:        3.5.1
+Version:        3.6.0
 Release:        %autorelease
 
 
@@ -47,7 +47,7 @@ Source0:        https://download.%{name}.org/source/%{name}-%{version}.tar.xz
 # Upstream separated addons from the main source
 Source1:        https://projects.%{name}.org/%{name}/%{name}-addons/archive/v%{version}.tar.gz#/%{name}-addons-%{version}.tar.gz
 # Rename macros extension to avoid clashing with upstream version
-Source3:        macros.%{name}-rpm
+Source2:        macros.%{name}-rpm
 
 # Development stuff
 BuildRequires:  boost-devel
@@ -106,9 +106,8 @@ BuildRequires:  pkgconfig(libzstd)
 
 # 3D modeling stuff
 BuildRequires:  cmake(ceres)
-# Switch to embree3 for compatibility reason
 %if %{with embree}
-BuildRequires:  embree3-devel
+BuildRequires:  embree-devel
 %endif
 BuildRequires:  opensubdiv-devel >= 3.4.4
 %if %{with openshading}
@@ -264,8 +263,7 @@ sed -i "s/date_time/date_time python%{python3_version_nodots}/" \
     -DCLANG_INCLUDE_DIR=%{_includedir}/clang \
     -D_CLANG_LIBRARIES=%{_libdir} \
 %endif
-    -DEMBREE_INCLUDE_DIR=%{_includedir}/embree3 \
-    -DEMBREE_LIBRARY=%{_libdir}/libembree3.so.3 \
+    -DEMBREE_INCLUDE_DIR=%{_includedir} \
     -DPYTHON_VERSION=%{python3_version} \
     -DWITH_COMPILER_CCACHE=ON \
     -DWITH_CYCLES=%{cyclesflag} \
@@ -311,7 +309,7 @@ rm -rf %{buildroot}%{_docdir}/%{name}/*
 
 # rpm macros
 mkdir -p %{buildroot}%{macrosdir}
-sed -e 's/@VERSION@/%{blender_api}/g' %{SOURCE3} > %{buildroot}%{macrosdir}/macros.%{name}-rpm
+sed -e 's/@VERSION@/%{blender_api}/g' %{SOURCE2} > %{buildroot}%{macrosdir}/macros.%{name}-rpm
 
 # AppData
 install -p -m 644 -D release/freedesktop/org.%{name}.Blender.appdata.xml \

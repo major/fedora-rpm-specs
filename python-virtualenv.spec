@@ -1,7 +1,6 @@
-%global _without_tests 1
 Name:           python-virtualenv
 Version:        20.21.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tool to create isolated Python environments
 
 License:        MIT
@@ -152,6 +151,9 @@ PIP_CERT=/etc/pki/tls/certs/ca-bundle.crt \
 %{_bindir}/virtualenv
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 20.21.1-3
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 20.21.1-2
 - Bootstrap for Python 3.12
 

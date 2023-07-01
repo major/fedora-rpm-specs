@@ -1,6 +1,6 @@
 Name:           binwalk
 Version:        2.3.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Firmware analysis tool
 License:        MIT
 URL:            https://github.com/ReFirmLabs/binwalk
@@ -8,9 +8,13 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:         binwalk-2.3.3-tests.patch
 Patch1:         %{url}/pull/559/commits/6e7736869d998edb6384728c03a348cd9ab1f9ca.patch
 Patch2:         version-oops.patch
+# https://github.com/ReFirmLabs/binwalk/issues/507
+Patch3:         requires-zombie-imp.patch
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
+# https://github.com/ReFirmLabs/binwalk/issues/507
+BuildRequires:  (python3-zombie-imp if python3-devel >= 3.12)
 # For tests
 BuildRequires:  python3-nose python3-coverage
 # Optional, for graphs and visualizations
@@ -47,6 +51,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} setup.py test
 %{python3_sitelib}/%{name}-%{version}*.egg-info
 
 %changelog
+* Wed Jun 28 2023 Scott Talbert <swt@techie.net> - 2.3.4-3
+- BR python3-zombie-imp to fix FTBFS with Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.3.4-2
 - Rebuilt for Python 3.12
 

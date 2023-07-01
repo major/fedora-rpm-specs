@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.4.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Accurately separate the TLD from the registered domain and subdomains of a URL
 
 License:        BSD-3-Clause
@@ -67,6 +67,9 @@ TEST_SELECTOR="not test_log_snapshot_diff"
 %{_bindir}/tldextract
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 3.4.4-2
+- Rebuilt for Python 3.12
+
 * Wed Jun 14 2023 Nick Bebout <nb@fedoraproject.org> - 3.4.4-1
 - update to 3.4.4
 

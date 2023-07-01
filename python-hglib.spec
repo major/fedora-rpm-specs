@@ -5,7 +5,7 @@
 Summary:        Mercurial Python library
 Name:           python-hglib
 Version:        2.6.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 License:        MIT
 URL:            http://selenic.com/repo/python-hglib
 Source0:        https://files.pythonhosted.org/packages/source/p/%{name}/%{name}-%{version}.tar.gz
@@ -75,6 +75,9 @@ hg.
 %{python3_sitelib}/python_hglib-*-py*egg-info
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 2.6.2-10
+- Rebuilt for Python 3.12
+
 * Wed May 03 2023 Terje Rosten <terje.rosten@ntnu.no> - 2.6.2-9
 - Add patch to pass tests with Python 3.12
 

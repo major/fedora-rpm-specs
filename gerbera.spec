@@ -1,12 +1,15 @@
 Name:           gerbera
 Version:        1.12.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        UPnP Media Server
 License:        GPL-2.0-only AND MIT AND OFL-1.1
 Url:            https://gerbera.io
 Source0:        https://github.com/gerbera/gerbera/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        config.xml
 Source2:        gerbera-sysusers.conf
+# Patch for fmt10 change
+# https://github.com/gerbera/gerbera/pull/2840
+Patch0:         gerbera-1.12.1-fmt10.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -122,6 +125,9 @@ EOF
 %config(noreplace) %{_datadir}/%{name}/js/common.js
 
 %changelog
+* Thu Jun 29 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.12.1-5
+- Patch for fmtlib 10
+
 * Wed Jun 28 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 1.12.1-4
 - Rebuilt due to fmt 10 update.
 

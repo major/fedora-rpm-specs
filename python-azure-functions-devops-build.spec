@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.0.22
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Python package for integrating Azure Functions with Azure DevOps
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
@@ -53,6 +53,9 @@ sed -i 's/\r$//' README.md
 
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 0.0.22-8
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.22-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

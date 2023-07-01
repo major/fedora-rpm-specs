@@ -1,9 +1,8 @@
-%global _without_check 1
 %bcond_without check
 
 Name:           python-tomli-w
 Version:        1.0.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A Python library for writing TOML
 
 # SPDX
@@ -73,6 +72,9 @@ sed -i '/pytest-randomly/d' tests/requirements.txt
 
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 1.0.0-8
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.0.0-7
 - Bootstrap for Python 3.12
 

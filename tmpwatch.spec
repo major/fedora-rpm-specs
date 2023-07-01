@@ -4,7 +4,7 @@ Version: 2.11
 Release: 24%{?dist}
 URL: https://pagure.io/%{name}
 Source0: https://releases.pagure.org/%{name}/%{name}-%{version}.tar.bz2
-License: GPLv2
+License: GPL-2.0-only
 Requires: psmisc
 Provides: bundled(gnulib)
 # configure is looking for /sbin/fuser

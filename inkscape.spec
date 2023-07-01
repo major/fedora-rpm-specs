@@ -10,7 +10,7 @@
 
 Name:           inkscape
 Version:        1.2.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Vector-based drawing program using SVG
 
 # Inkscape tags their releases with underscores and in ALLCAPS
@@ -33,7 +33,7 @@ Provides: bundled(adaptagrams)
 Provides: bundled(lib2geom)
 
 BuildRequires:  gcc-c++
-BuildRequires:  aspell-devel aspell-en
+BuildRequires:  hunspell-devel hunspell-en
 BuildRequires:  atk-devel
 BuildRequires:  boost-devel
 BuildRequires:  cairo-devel
@@ -227,6 +227,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.inkscape.Inksc
 
 
 %changelog
+* Wed Jun 28 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.2.2-10
+- aspell->hunspell
+
 * Wed May 10 2023 Tomas Popela <tpopela@redhat.com> - 1.2.2-9
 - Drop BR on dbus-glib as the project is not using it
 

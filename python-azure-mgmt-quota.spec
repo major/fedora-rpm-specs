@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.0~b2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Microsoft Azure Quota Management Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
@@ -48,6 +48,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 1.0.0~b2-4
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0~b2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

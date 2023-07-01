@@ -1,17 +1,15 @@
 %global project_version_major 5
 %global project_version_minor 0
-%global project_version_patch 14
+%global project_version_patch 15
 
 Name:           dnf5
 Version:        %{project_version_major}.%{project_version_minor}.%{project_version_patch}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
 Source0:        %{url}/archive/%{version}/dnf5-%{version}.tar.gz
-Patch0001:      0001-Disable-tutorial-unit-tests.patch
-Patch0002:      0002-fmt10-build-fix.patch
-Patch0003:      0003-fmt10-time_point-fix.patch
+Patch1:         0001-changelogs-Fix-count-variable-type.patch
 
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
@@ -275,7 +273,7 @@ Package management library.
 %dir %{_libdir}/libdnf5
 %{_libdir}/libdnf5.so.1*
 %license lgpl-2.1.txt
-%{_var}/cache/libdnf/
+%{_var}/cache/libdnf5/
 
 # ========== libdnf5-cli ==========
 
@@ -289,7 +287,7 @@ Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Library for working with a terminal in a command-line package manager.
 
 %files -n libdnf5-cli
-%{_libdir}/libdnf-cli.so.1*
+%{_libdir}/libdnf5-cli.so.1*
 %license COPYING.md
 %license lgpl-2.1.txt
 %endif
@@ -324,7 +322,7 @@ Requires:       libsolv-devel%{?_isa} >= %{libsolv_version}
 Development files for libdnf.
 
 %files -n libdnf5-devel
-%{_includedir}/libdnf/
+%{_includedir}/libdnf5/
 %dir %{_libdir}/libdnf5
 %{_libdir}/libdnf5.so
 %{_libdir}/pkgconfig/libdnf5.pc
@@ -343,9 +341,9 @@ Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
 Development files for libdnf5-cli.
 
 %files -n libdnf5-cli-devel
-%{_includedir}/libdnf-cli/
-%{_libdir}/libdnf-cli.so
-%{_libdir}/pkgconfig/libdnf-cli.pc
+%{_includedir}/libdnf5-cli/
+%{_libdir}/libdnf5-cli.so
+%{_libdir}/pkgconfig/libdnf5-cli.pc
 %license COPYING.md
 %license lgpl-2.1.txt
 
@@ -474,12 +472,12 @@ Ruby bindings for the libdnf5-cli library.
 
 %if %{with plugin_actions}
 %package -n libdnf5-plugin-actions
-Summary:        Libdnf plugin that allows to run actions (external executables) on hooks
+Summary:        Libdnf5 plugin that allows to run actions (external executables) on hooks
 License:        LGPL-2.1-or-later
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 
 %description -n libdnf5-plugin-actions
-Libdnf plugin that allows to run actions (external executables) on hooks.
+Libdnf5 plugin that allows to run actions (external executables) on hooks.
 
 %files -n libdnf5-plugin-actions
 %{_libdir}/libdnf5/plugins/actions.*
@@ -490,13 +488,13 @@ Libdnf plugin that allows to run actions (external executables) on hooks.
 
 %if %{with python_plugins_loader}
 %package -n python3-libdnf5-python-plugins-loader
-Summary:        Libdnf plugin that allows loading Python plugins
+Summary:        Libdnf5 plugin that allows loading Python plugins
 License:        LGPL-2.1-or-later
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       python3-libdnf5%{?_isa} = %{version}-%{release}
 
 %description -n python3-libdnf5-python-plugins-loader
-Libdnf plugin that allows loading Python plugins.
+Libdnf5 plugin that allows loading Python plugins.
 
 %files -n python3-libdnf5-python-plugins-loader
 %{_libdir}/libdnf5/plugins/python_plugins_loader.*
@@ -665,6 +663,28 @@ ln -sr %{buildroot}%{_bindir}/dnf5 %{buildroot}%{_bindir}/microdnf
 
 
 %changelog
+* Thu Jun 29 2023 Packit <hello@packit.dev> - 5.0.15-1
+- Add `module enable` subcommand
+- Add `--repofrompath` option
+- Add `--forcearch` option to multiple commands
+- Add `reinstall --allowerasing` option
+- Add `repoquery --sourcerpm` option
+- Add `repoquery --srpm` option
+- Add `chacheonly` configuration option
+- Add `--cacheonly` option
+- Add `--refresh` option
+- Change default value for `best` configuration to true
+- Change default value for `allow_vendor_change` configuration to false
+- changelog: Fix behavior of `--since` option
+- builddep: Fix handling BuildRequires in spec files
+- swig: Return None for unset options in Python
+- Verify transaction PGP signatures automatically
+- Fix checking whether updateinfo metadata are required
+- Fix handling empty epoch when comparing nevra
+- Fix building with upcoming fmt-10 library
+- Rename namespace, includes and directories from libdnf to libdnf5
+- Provide /var/cache/libdnf5 instead of /var/cache/libdnf (RhBug:2216849)
+
 * Wed Jun 28 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 5.0.14-2
 - Rebuilt due to fmt 10 update.
 - Added upstream patches with fmt 10 build fixes.

@@ -2,8 +2,8 @@
 %global owner aio-libs
 
 Name:       python-%{sname}
-Version:    0.8.0
-Release:    2%{?dist}
+Version:    0.8.1
+Release:    1%{?dist}
 Summary:    Asyncio client for Kafka
 License:    ASL 2.0
 Source0:    https://github.com/%{owner}/%{sname}/archive/v%{version}/%{sname}-%{version}.tar.gz
@@ -47,6 +47,9 @@ AIOKAFKA_NO_EXTENSIONS=1 py.test -s -p no:warnings\
 %doc README.rst
 
 %changelog
+* Thu Jun 29 2023 Roman Inflianskas <rominf@aiven.io> - 0.8.1-1
+- Update to 0.8.1 (resolve rhbz#2211696)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           python-ZODB
 Version:        5.8.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Zope Object Database and persistence
 
 License:        ZPL-2.1
@@ -96,6 +96,9 @@ export PYTHONPATH=$PWD/src
 %doc docs/build/html
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 5.8.0-3
+- Rebuilt for Python 3.12
+
 * Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 5.8.0-2
 - Dynamically generate BuildRequires
 

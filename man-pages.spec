@@ -40,7 +40,7 @@ A large collection of manual pages from the Linux Documentation Project (LDP).
 %prep
 %setup -q -a 1
 
-%patch21 -p1
+%patch -P 21 -p1
 
 ## Remove man pages we are not going to use ##
 
@@ -55,6 +55,10 @@ rm man7/boot.7
 
 # remove man pages deprecated by libxcrypt (#1610307)
 rm man3/crypt{,_r}.3
+
+# license not allowed in Fedora
+# https://gitlab.com/fedora/legal/fedora-license-data/-/issues/211
+rm man5/dir_colors.5
 
 %build
 # nothing to build

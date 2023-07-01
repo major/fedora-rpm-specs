@@ -2,7 +2,7 @@
 
 Name: libolm
 Version: 3.2.15
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 Summary: Double Ratchet cryptographic library
 License: Apache-2.0
@@ -81,6 +81,9 @@ popd
 %{python3_sitearch}/python_%{appname}-*.egg-info
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 3.2.15-2
+- Rebuilt for Python 3.12
+
 * Thu Jun 08 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 3.2.15-1
 - Updated to version 3.2.15.
 

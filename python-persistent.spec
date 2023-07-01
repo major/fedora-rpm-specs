@@ -1,11 +1,14 @@
 Name:           python-persistent
 Version:        5.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Translucent persistent python objects
 
 License:        ZPL-2.1
 URL:            http://www.zodb.org/
 Source0:        https://github.com/zopefoundation/persistent/archive/%{version}/persistent-%{version}.tar.gz
+
+# Upstream patch to provide python 3.12 support
+Patch0:         https://github.com/zopefoundation/persistent/commit/2195d2e.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -62,7 +65,10 @@ Provides:       bundled(js-underscore)
 Documentation for python3-persistent.
 
 %prep
-%autosetup -n persistent-%{version}
+%autosetup -N -n persistent-%{version}
+%if 0%{?python3_version_nodots} > 311
+%autopatch -p1
+%endif
 
 # Update the sphinx theme name
 sed -i "s/'default'/'classic'/" docs/conf.py
@@ -77,7 +83,8 @@ sed -i "s|\('https://docs\.python\.org/3/': \)None|\1'%{_docdir}/python3-docs/ht
 %pyproject_wheel
 
 # Build the documentation
-PYTHONPATH=%{pyproject_build_lib} make -C docs html
+export PYTHONPATH=$PWD/build/lib.%{python3_platform}-cpython-%{python3_version_nodots}
+make -C docs html
 rst2html --no-datestamp CHANGES.rst CHANGES.html
 rst2html --no-datestamp README.rst README.html
 
@@ -112,6 +119,12 @@ zope-testrunner --test-path=src -vc
 %doc docs/_build/html/*
 
 %changelog
+* Thu Jun 29 2023 Jerry James <loganjerry@gmail.com> - 5.0-3
+- Add upstream patch for python 3.12 compatibility
+
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 5.0-3
+- Rebuilt for Python 3.12
+
 * Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 5.0-2
 - Dynamically generate BuildRequires
 

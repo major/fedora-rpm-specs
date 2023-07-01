@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.1.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Asyncio testing server
 
 License:        MIT
@@ -50,6 +50,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 2.1.6-4
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

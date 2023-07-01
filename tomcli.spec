@@ -6,7 +6,7 @@
 
 Name:           tomcli
 Version:        0.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        CLI for working with TOML files. Pronounced "tom clee."
 
 License:        MIT
@@ -86,6 +86,9 @@ done
 
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 0.1.2-2
+- Rebuilt for Python 3.12
+
 * Sat May 20 2023 Maxwell G <maxwell@gtmx.me> - 0.1.2-1
 - Update to 0.1.2.
 

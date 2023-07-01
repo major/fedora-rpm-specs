@@ -5,8 +5,8 @@
 
 Name: libtraceevent
 Version: 1.7.2
-Release: 1%{?dist}
-License: LGPLv2+ and GPLv2+
+Release: 2%{?dist}
+License: LGPL-2.1-only AND LGPL-2.1-or-later AND GPL-2.0-only AND GPL-2.0-or-later
 Summary: Library to parse raw trace event formats
 
 URL: https://git.kernel.org/pub/scm/libs/libtrace/libtraceevent.git/
@@ -64,6 +64,9 @@ rm -rf %{buildroot}/%{_libdir}/libtraceevent.a
 %{_libdir}/pkgconfig/libtraceevent.pc
 
 %changelog
+* Mon Jun 05 2023 Zamir SUN <sztsian@gmail.com> - 1.7.2-2
+- SPDX migration
+
 * Wed Apr 05 2023 Zamir SUN <sztsian@gmail.com> - 1.7.2-1
 - Update to 1.7.2
 

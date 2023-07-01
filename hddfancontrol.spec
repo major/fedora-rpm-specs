@@ -1,8 +1,8 @@
 %global pypi_name hddfancontrol
 
 Name:           %{pypi_name}
-Version:        1.5.0
-Release:        6%{?dist}
+Version:        1.5.1
+Release:        2%{?dist}
 Summary:        Control system fan speed by monitoring hard drive temperature
 
 License:        LGPLv3
@@ -72,6 +72,12 @@ cp -a systemd/hddfancontrol.conf %{buildroot}%{_sysconfdir}/
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 1.5.1-2
+- Rebuilt for Python 3.12
+
+* Thu Jun 29 2023 Filipe Rosset <rosset.filipe@gmail.com> - 1.5.1-1
+- Update to 1.5.1 fixes rhbz#2217647
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.5.0-6
 - Rebuilt for Python 3.12
 

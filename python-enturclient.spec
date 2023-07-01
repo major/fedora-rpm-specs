@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Python API client for data from Entur.org
 
 License:        MIT
@@ -49,6 +49,9 @@ rm -rf %{pypi_name}.egg-info
 %license LICENSE
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 0.2.1-10
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

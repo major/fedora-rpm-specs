@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.23.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python library to mock out calls with Python requests
 License:        ASL 2.0
 URL:            https://github.com/getsentry/responses
@@ -58,6 +58,9 @@ sed -i -e '/\/tests\//d' %{pyproject_files}
 %exclude %{python3_sitelib}/responses/tests
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 0.23.1-2
+- Rebuilt for Python 3.12
+
 * Sat Mar 11 2023 Felix Schwarz <fschwarz@fedoraproject.org> - 0.23.1-1
 - update to 0.23.1
 

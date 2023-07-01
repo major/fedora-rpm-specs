@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.3.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Collection of plugins for markdown-it-py
 
 # Both the package and its plugins are licensed under MIT
@@ -47,6 +47,9 @@ Summary:        %{summary}
 %doc README.md
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 0.3.5-2
+- Rebuilt for Python 3.12
+
 * Wed Mar 08 2023 Karolina Surma <ksurma@redhat.com> - 0.3.5-1
 - Update to 0.3.5
 Resolves: rhbz#2150911

@@ -2,7 +2,7 @@
 
 Name:           pre-commit
 Version:        3.2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Framework for managing and maintaining multi-language pre-commit hooks
 
 # SPDX
@@ -172,6 +172,9 @@ k="${k-}${k+ and }not test_run_a_ruby_hook"
 
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 3.2.2-2
+- Rebuilt for Python 3.12
+
 * Tue Apr 04 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 3.2.2-1
 - Update to 3.2.2 (close RHBZ#2173816)
 

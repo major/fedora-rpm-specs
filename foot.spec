@@ -1,6 +1,14 @@
+%global foot_terminfo foot-extra
+
+%if 0%{?fedora} >= 39
+%global default_terminfo foot
+%else
+%global default_terminfo %{foot_terminfo}
+%endif
+
 Name:           foot
 Version:        1.14.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fast, lightweight and minimalistic Wayland terminal emulator
 
 License:        MIT
@@ -9,7 +17,9 @@ Source0:        %{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 # https://codeberg.org/dnkl/foot/pulls/1318
 # https://codeberg.org/dnkl/foot/pulls/1334
-Patch0:         foot-1.14.0-.desktop-add-StartupWMClass-foot.patch
+Patch:          foot-1.14.0-.desktop-add-StartupWMClass-foot.patch
+# Fedora specific: rhbz#2217996
+Patch:          foot-1.14.0-terminfo-set-default-TERM-and-foot-s-terminfo-name-i.patch
 
 BuildRequires:  gcc
 BuildRequires:  meson >= 0.58.0
@@ -34,8 +44,17 @@ BuildRequires:  pkgconfig(xkbcommon)
 # require *-static for header-only library
 BuildRequires:  tllist-static
 
+# select provider of 'foot' terminfo entry
+%if "%{default_terminfo}" == "%{foot_terminfo}"
 Recommends:     %{name}-terminfo
+%else
+Recommends:     ncurses-base
+Requires:       (ncurses-base >= 6.4-5.20230520 if ncurses-base)
+%endif
+
+# require matching version of foot-terminfo if installed
 Requires:       (%{name}-terminfo = %{version}-%{release} if %{name}-terminfo)
+
 # Optional dependency for bell = notify option
 Recommends:     /usr/bin/notify-send
 # Optional dependency for opening URLs
@@ -75,7 +94,9 @@ Requires:       ncurses-base
 
 
 %build
-%meson
+%meson \
+    -Dcustom-terminfo=%{foot_terminfo}  \
+    -Ddefault-terminfo=%{default_terminfo}
 %meson_build
 
 
@@ -127,11 +148,15 @@ desktop-file-validate \
 %files terminfo
 %license LICENSE
 %dir %{_datadir}/terminfo/f
-%{_datadir}/terminfo/f/%{name}
-%{_datadir}/terminfo/f/%{name}-direct
+%{_datadir}/terminfo/f/%{foot_terminfo}
+%{_datadir}/terminfo/f/%{foot_terminfo}-direct
 
 
 %changelog
+* Thu Jun 29 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.14.0-3
+- Rename terminfo entries to 'foot-extra'/'foot-extra-direct' (rhbz#2217996)
+- Use 'foot' terminfo entry from ncurses-base by default on f39+
+
 * Sat Apr 29 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.14.0-2
 - Use correct dock and window switcher icons in GNOME
 

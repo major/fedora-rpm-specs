@@ -6,7 +6,7 @@
 
 %global _lto_cflags %{nil}
 
-%global subversion .37
+%global subversion .57
 
 Name:          giac
 Summary:       Computer Algebra System, Symbolic calculus, Geometry
@@ -162,13 +162,13 @@ with Giac computations.
 %prep
 %autosetup -p0 -n %{name}-%{majver} -N
 
-%patch0 -p1 -b .backup
-%patch1 -p1 -b .backup
-%patch2 -p0 -b .backup
-%patch3 -p0 -b .backup
-%patch4 -p1 -b .backup
-%patch5 -p1 -b .backup
-%patch6 -p1 -b .backup
+%patch -P 0 -p1 -b .backup
+%patch -P 1 -p1 -b .backup
+%patch -P 2 -p0 -b .backup
+%patch -P 3 -p0 -b .backup
+%patch -P 4 -p1 -b .backup
+%patch -P 5 -p1 -b .backup
+%patch -P 6 -p1 -b .backup
 
 # Remove local intl (already bundled in fedora)
 rm -rf intl/*.h
@@ -457,6 +457,9 @@ make -C check check
 %{_datadir}/giac/examples/
 
 %changelog
+* Thu Jun 29 2023 Antonio Trande <sagitter@fedoraproject.org> 1.9.0.57-1
+- Update to 1.9.0 sub-57
+
 * Wed Feb 01 2023 Antonio Trande <sagitter@fedoraproject.org> 1.9.0.37-1
 - Update to 1.9.0 sub-37
 

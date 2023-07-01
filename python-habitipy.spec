@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.3.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python library for Habitica RESTful API
 
 License:        MIT
@@ -49,6 +49,9 @@ rm -rf %{buildroot}%{python3_sitelib}/%{pypi_name}/i18n
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 0.3.0-9
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

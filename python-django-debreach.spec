@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.1.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Basic/extra mitigation against the BREACH attack for Django projects
 
 License:        BSD
@@ -56,6 +56,9 @@ PYTHONPATH=. %{__python3} runtests.py
 %doc README.rst
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 2.1.0-4
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

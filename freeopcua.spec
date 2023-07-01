@@ -19,6 +19,8 @@ Patch1:         freeopcua.catch-exception-in-destructor.patch
 Patch2:         freeopcua.set-soversion.patch
 # FMT-9 formatter change
 Patch3:         freeopcua-fmt9-formatter.patch
+# FMT-10 fmt::format change
+Patch4:         freeopcua-fmt10-fmt-format.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python low-level client for OpenSearch
 
 License:        Apache-2.0
@@ -52,6 +52,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 2.2.0-2
+- Rebuilt for Python 3.12
+
 * Fri May 12 2023 Steve Traylen <steve.traylen@cern.ch> - 2.2.0-1
 - Update to 2.2.0
 - Enable python extra packages

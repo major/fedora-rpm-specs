@@ -1,4 +1,4 @@
-%define byaccdate 20230219
+%define byaccdate 20230521
 
 Summary: Berkeley Yacc, a parser generator
 Name: byacc
@@ -51,6 +51,9 @@ echo ====================TESTING END=====================
 %{_mandir}/man1/byacc.1*
 
 %changelog
+* Thu Jun 29 2023 Arjun Shankar <arjun@redhat.com> - 2.0.20230521-1
+- Rebase to byacc-2.0.20230521 (#2208910)
+
 * Thu Feb 23 2023 Arjun Shankar <arjun@redhat.com> - 2.0.20230219-1
 - Rebase to byacc-2.0.20230219 (#2156901)
 

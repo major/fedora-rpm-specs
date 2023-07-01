@@ -9,7 +9,7 @@ Name:           perl-Test-MockModule
 Version:        0.177.0
 Release:        5%{?dist}
 Summary:        Override subroutines in a module for unit testing
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-MockModule
 Source0:        https://cpan.metacpan.org/modules/by-module/Test/Test-MockModule-v%{version}.tar.gz
 BuildArch:      noarch
@@ -36,6 +36,7 @@ BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.00
 %endif
 # Dependencies
+# (none)
 
 %description
 Test::MockModule lets you temporarily redefine subroutines in other packages

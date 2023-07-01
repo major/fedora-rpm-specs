@@ -19,7 +19,7 @@ clean Py3-style codebase, module by module.
 Name: future
 Summary: Easy, clean, reliable Python 2/3 compatibility
 Version: 0.18.3
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: MIT
 URL: http://python-future.org/
 Source0: https://github.com/PythonCharmers/python-future/archive/refs/tags/v%{version}/python-%{name}-%{version}.tar.gz
@@ -36,6 +36,11 @@ Patch2: %{name}-python311.patch
 # https://github.com/PythonCharmers/python-future/pull/619
 Patch3: %{name}-python312.patch
 
+# This is a hotfix patch for import machinery which has been
+# changed heavily in Python 3.12. It's not good enough
+# to be merged as is but it makes the package work again.
+Patch4: %{name}-python312-import-hotfix.patch
+
 %description
 %{_description}
 
@@ -46,6 +51,10 @@ BuildRequires: python%{python3_pkgversion}-setuptools
 BuildRequires: python%{python3_pkgversion}-numpy
 BuildRequires: python%{python3_pkgversion}-requests
 BuildRequires: python%{python3_pkgversion}-pytest
+BuildRequires: (python%{python3_pkgversion}-zombie-imp if python%{python3_pkgversion} >= 3.12)
+%if 0%{?python3_version_nodots} >= 312
+Requires:      python%{python3_pkgversion}-zombie-imp
+%endif
 Provides:      future-python3 = 0:%{version}-%{release}
 Provides:      future = 0:%{version}-%{release}
 %py_provides   python3-%{name}
@@ -60,15 +69,20 @@ Obsoletes: python34-%{name} < 0:%{version}-%{release}
 %prep
 %setup -q -n python-future-%{version}
 
-%patch 0 -p1 -b .backup
-%patch 1 -p1 -b .backup
+%patch -P 0 -p1 -b .backup
+%patch -P 1 -p1 -b .backup
 %if 0%{?python3_version_nodots} >= 311
-%patch 2 -p1 -b .backup
-%patch 3 -p1 -b .backup
+%patch -P 2 -p1 -b .backup
+%patch -P 3 -p1 -b .backup
+%endif
+%if 0%{?python3_version_nodots} >= 312
+%patch -P 4 -p1 -b .backup
 %endif
 
 %if 0%{?fedora}
-find . -name '*.py' | xargs %{_pathfix} -pn -i "%{__python3}"
+for i in `find ./ -name '*.py'`; do
+%py3_shebang_fix $i
+done
 %endif
 
 %build
@@ -114,6 +128,13 @@ PYTHONPATH=$PWD/build/lib py.test-%{python3_version}
 %{python3_sitelib}/*.egg-info
 
 %changelog
+* Thu Jun 29 2023 Antonio Trande <sagitter@fedoraproject.org> - 0.18.3-8
+- Fix new BR packages
+- Use %%py3_shebang_fix macro
+
+* Thu Jun 29 2023 Lumír Balhar <lbalhar@redhat.com> - 0.18.3-7
+- Hotfix import machinery for Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.18.3-6
 - Rebuilt for Python 3.12
 

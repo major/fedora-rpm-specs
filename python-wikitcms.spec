@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2.6.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fedora QA wiki test management Python library
 
 License:        GPLv3+
@@ -65,6 +65,9 @@ sed -i -e 's., "setuptools-git"..g' pyproject.toml
 %{python3_sitelib}/%{srcname}*
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 2.6.7-3
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:       ibus-typing-booster
-Version:    2.22.5
+Version:    2.23.0
 Release:    1%{?dist}
 Summary:    A completion input method
 License:    GPL-3.0-or-later AND Apache-2.0
@@ -123,7 +123,7 @@ Unicode symbols.
 
 %build
 export PYTHON=%{__python3}
-%configure --disable-static --disable-additional --enable-installed-tests
+%configure --disable-static --enable-installed-tests
 %make_build
 
 %install 
@@ -250,6 +250,16 @@ fi
 %{_datadir}/applications/emoji-picker.desktop
 
 %changelog
+* Wed Jun 28 2023 Mike FABIAN <mfabian@redhat.com> - 2.23.0-1
+- Update to 2.23.0
+- Translation update from Weblate (de 100%, ka 100%, nl 100%, sv 100%, uk 100%)
+- configure.ac: add a warning about not using /usr/local as the prefix
+  (Resolves: https://github.com/mike-fabian/ibus-typing-booster/issues/444)
+- Add an option to convert language specific digits to ASCII
+  (Resolves: https://github.com/mike-fabian/ibus-typing-booster/issues/445)
+- Strip entered autosettings value for boolean values
+- Update emoji annotations from CLDR
+
 * Tue May 09 2023 Mike FABIAN <mfabian@redhat.com> - 2.22.5-1
 - Update to 2.22.5
 - Remove `xml:lang="en"` from the screenshots in appdata.xml

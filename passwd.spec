@@ -8,7 +8,7 @@ Summary: An utility for setting or changing passwords using PAM
 Name: passwd
 Version: 0.80
 Release: 14%{?dist}
-License: BSD-3-Clause OR GPL-2.0-or-later
+License: BSD-3-Clause OR GPL-2.0-only
 URL: https://pagure.io/passwd
 Source: https://releases.pagure.org/passwd/passwd-%{version}.autotoolized.tar.bz2
 Patch0: passwd-0.80-manpage.patch

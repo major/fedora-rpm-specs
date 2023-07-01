@@ -1,7 +1,7 @@
 %define curses 1
 Name:           hgview
 Version:        1.14.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Mercurial interactive Qt based history viewer
 
 License:        GPLv2+
@@ -188,6 +188,9 @@ rm $RPM_BUILD_ROOT%{_datadir}/doc/%{name}/examples/description.css
 
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 1.14.0-11
+- Rebuilt for Python 3.12
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

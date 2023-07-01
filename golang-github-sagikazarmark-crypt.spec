@@ -4,7 +4,7 @@
 
 # https://github.com/sagikazarmark/crypt
 %global goipath         github.com/sagikazarmark/crypt
-Version:                0.10.0
+Version:                0.11.0
 
 %gometa
 

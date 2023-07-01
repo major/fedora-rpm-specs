@@ -39,6 +39,8 @@ Patch10:        luxcorerender-system2.patch
 # https://github.com/LuxCoreRender/LuxCore/pull/611 (Currently under review)
 # Replace boost::filesystem::ofstream with boost::nowide
 Patch11:        luxcorerender-pr611-boost_181.patch
+# Patch for fmtlib 10
+Patch12:        luxcorerender-fmt10.patch
 
 # Upstream only uses 64 bit archtecture
 ExclusiveArch:  x86_64

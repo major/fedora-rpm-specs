@@ -1,8 +1,8 @@
-%global rc -rc.2
+%global rc %{nil}
 
 Name:           srt
 Version:        1.5.2
-Release:        0.rc2%{?dist}
+Release:        1%{?dist}
 Summary:        Secure Reliable Transport protocol tools
 
 License:        MPLv2.0
@@ -47,6 +47,7 @@ Secure Reliable Transport protocol development libraries and header files
   -DENABLE_UNITTESTS=ON \
   -DENABLE_GETNAMEINFO=ON \
   -DENABLE_BONDING=ON \
+  -DENABLE_PKTINFO=ON \
   -DUSE_ENCLIB=gnutls
 
 %cmake_build
@@ -87,6 +88,9 @@ rm -f %{buildroot}/%{_libdir}/pkgconfig/haisrt.pc
 
 
 %changelog
+* Thu Jun 29 2023 Yanko Kaneti <yaneti@declera.com> - 1.5.2-1
+- Update to 1.5.2
+
 * Wed May  3 2023 Yanko Kaneti <yaneti@declera.com> - 1.5.2-0.rc2
 - Update to 1.5.2-rc2. Reenable running tests on s390x
 

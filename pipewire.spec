@@ -9,7 +9,7 @@
 %global ms_version   0.4.2
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 1
+%global baserelease 2
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -356,6 +356,17 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 %description module-x11
 This package contains X11 bell support for PipeWire.
 
+%if %{with ffado}
+%package module-ffado
+Summary:        PipeWire media server ffado support
+License:        MIT
+Recommends:     %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+
+%description module-ffado
+This package contains the FFADO support for PipeWire.
+%endif
+
 %prep
 %autosetup -p1 %{?snapdate:-n %{name}-%{gitcommit}}
 
@@ -485,9 +496,6 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-combine-stream.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-echo-cancel.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-fallback-sink.so
-%if %{with ffado}
-%{_libdir}/pipewire-%{apiversion}/libpipewire-module-ffado-driver.so
-%endif
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-filter-chain.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-link-factory.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-loopback.so
@@ -656,7 +664,16 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %files module-x11
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-x11-bell.so
 
+%if %{with ffado}
+%files module-ffado
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-ffado-driver.so
+%endif
+
 %changelog
+* Thu Jun 29 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.72-2
+- Move the ffado driver to module-ffado
+  Fixes rhbz#2218481
+
 * Mon Jun 26 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.72-1
 - Update version to 0.3.72
 - The jack libraries and ld.so override were split so that jack can

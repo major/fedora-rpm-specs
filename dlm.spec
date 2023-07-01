@@ -16,6 +16,8 @@ BuildRequires: make
 Source0:	https://releases.pagure.org/dlm/%{name}-%{version}.tar.gz
 
 Patch0: 0001-Revert-treewide-add-fcf-protection-full-to-CFLAGS.patch
+# Fix FTBFS with 6.4 kernel
+Patch30: 0030-dlm_controld-remove-unnecessary-header-include.patch
 
 %if 0%{?rhel} && 0%{?rhel} <= 7
 ExclusiveArch: i686 x86_64
@@ -35,6 +37,7 @@ The kernel dlm requires a user daemon to control membership.
 %prep
 %setup -q
 %patch0 -p1 -b .backup0
+%patch30 -p1 -b .backup30
 
 %build
 # upstream does not require configure

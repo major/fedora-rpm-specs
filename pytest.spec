@@ -1,11 +1,8 @@
-%global _without_docs 1
-%global _without_tests 1
-%global _without_timeout 1
 Name:           pytest
 %global base_version 7.3.2
 #global prerelease ...
 Version:        %{base_version}%{?prerelease:~%{prerelease}}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Simple powerful testing with Python
 License:        MIT
 URL:            https://pytest.org
@@ -183,6 +180,9 @@ find %{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 7.3.2-3
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 7.3.2-2
 - Bootstrap for Python 3.12
 

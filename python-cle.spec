@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        9.2.39
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python interface for analyzing binary formats
 
 License:        BSD
@@ -46,6 +46,9 @@ loader by the OS's loader.
 %license LICENSE
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 9.2.39-2
+- Rebuilt for Python 3.12
+
 * Tue Feb 21 2023 Fabian Affolter <mail@fabian-affolter.ch> - 9.2.39-1
 - Update to latest upstream release 9.2.39
 

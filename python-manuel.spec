@@ -1,6 +1,6 @@
 Name:           python-manuel
 Version:        1.12.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Build tested documentation
 
 # The content is Apache-2.0.  Other licenses are due to files copied in by
@@ -81,6 +81,9 @@ cp -p src/manuel/myst-markdown.md build/lib/manuel
 %license COPYRIGHT.rst
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 1.12.4-4
+- Rebuilt for Python 3.12
+
 * Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 1.12.4-3
 - Dynamically generate BuildRequires
 

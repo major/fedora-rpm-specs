@@ -10,7 +10,7 @@
 
 Name:           python-%{srcname}
 Version:        0.14.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Python Slack API client
 
 License:        ASL 2.0
@@ -68,6 +68,9 @@ Documentation files for %{name}.
 %exclude /tests/
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 0.14.0-11
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

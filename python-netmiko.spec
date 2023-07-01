@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        4.1.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        %{sum}
 
 License:        MIT and ASL 2.0
@@ -69,6 +69,9 @@ sed -i '/ntc-templates/d' setup.py
 
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 4.1.1-4
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

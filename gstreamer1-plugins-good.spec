@@ -9,7 +9,18 @@
 %bcond_with nasm
 %endif
 
-%bcond_without qt
+# RHEL 10 will provide Qt 6 and drop Qt 5
+%if 0%{?rhel} >= 10
+%bcond_with qt5
+%else
+%bcond_without qt5
+%endif
+
+%if 0%{?rhel} && 0%{?rhel} < 10
+%bcond_with qt6
+%else
+%bcond_without qt6
+%endif
 
 #global gitrel     140
 #global gitcommit  9865730cfa5b3a8b2560d082e7e56b350042d3d2
@@ -17,7 +28,7 @@
 
 Name:           gstreamer1-plugins-good
 Version:        1.22.3
-Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
+Release:        2%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer plugins with good code and licensing
 
 License:        LGPLv2+
@@ -119,7 +130,7 @@ good quality and under the LGPL license.
 
 This package (%{name}-gtk) contains the gtksink output plugin.
 
-%if %{with qt}
+%if %{with qt5}
 %package qt
 Summary:         GStreamer "good" plugins qt qml plugin
 Requires:        %{name}%{?_isa} = %{version}-%{release}
@@ -140,6 +151,29 @@ GStreamer Good Plugins is a collection of well-supported plugins of
 good quality and under the LGPL license.
 
 This package (%{name}-qt) contains the qtsink output plugin.
+%endif
+
+%if %{with qt6}
+%package qt6
+Summary:         GStreamer "good" plugins qt6 qml plugin
+Requires:        %{name}%{?_isa} = %{version}-%{release}
+
+BuildRequires: pkgconfig(Qt6Gui)
+BuildRequires: pkgconfig(Qt6Qml)
+BuildRequires: pkgconfig(Qt6Quick)
+BuildRequires: pkgconfig(Qt6WaylandClient)
+BuildRequires: pkgconfig(Qt6Linguist)
+
+Supplements: (gstreamer1-plugins-good and qt6-qtdeclarative)
+
+%description qt6
+GStreamer is a streaming media framework, based on graphs of elements which
+operate on media data.
+
+GStreamer Good Plugins is a collection of well-supported plugins of
+good quality and under the LGPL license.
+
+This package (%{name}-qt6) contains the qml6sink output plugin.
 %endif
 
 %if %{with extras}
@@ -186,7 +220,8 @@ to be installed.
 %if 0%{?_module_build} && "%{_module_name}" == "flatpak-runtime"
   -D v4l2-gudev=disabled \
 %endif
-  -D qt6=disabled
+  -D qt5=%{?with_qt5:enabled}%{!?with_qt5:disabled} \
+  -D qt6=%{?with_qt6:enabled}%{!?with_qt6:disabled}
 
 %meson_build
 
@@ -289,8 +324,15 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -fv {} ';'
 # Plugins with external dependencies
 %{_libdir}/gstreamer-%{majorminor}/libgstgtk.so
 
+%if %{with qt5}
 %files qt
 %{_libdir}/gstreamer-%{majorminor}/libgstqmlgl.so
+%endif
+
+%if %{with qt6}
+%files qt6
+%{_libdir}/gstreamer-%{majorminor}/libgstqml6.so
+%endif
 
 %if %{with extras}
 %files extras
@@ -304,6 +346,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -fv {} ';'
 
 
 %changelog
+* Sun Jun 18 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.22.3-2
+- Enable Qt6 plugin, disable Qt5 plugin for RHEL 10
+
 * Thu May 25 2023 Wim Taymans <wtaymans@redhat.com> - 1.22.3-1
 - Update to 1.22.3
 

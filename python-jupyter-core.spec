@@ -4,7 +4,7 @@
 
 Name:           python-jupyter-core
 Version:        5.1.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        The base package for Jupyter projects
 
 License:        BSD
@@ -101,7 +101,7 @@ mkdir %{buildroot}%{_sysconfdir}/jupyter/nbconfig/tree.d
 # test_jupyter_path_(no)_user_site are deselected because we change
 # user install location path in Fedora, for reference see:
 # https://src.fedoraproject.org/rpms/python3.10/blob/rawhide/f/00251-change-user-install-location.patch
-%pytest -v \
+%pytest -Wdefault -v \
     --deselect "jupyter_core/tests/test_command.py::test_not_on_path" \
     --deselect "jupyter_core/tests/test_command.py::test_path_priority" \
     --deselect "jupyter_core/tests/test_command.py::test_argv0" \
@@ -130,6 +130,9 @@ mkdir %{buildroot}%{_sysconfdir}/jupyter/nbconfig/tree.d
 
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 5.1.0-4
+- Rebuilt for Python 3.12
+
 * Thu Jun 22 2023 Lumír Balhar <lbalhar@redhat.com> - 5.1.0-3
 - Add jupyter/labextensions/@jupyter to filesystem subpackage
 Related: rhbz#2213169

@@ -19,11 +19,14 @@
 Name:      %{libname}
 Summary:   Client library for AMQP
 Version:   0.13.0
-Release:   1%{?dist}
+Release:   2%{?dist}
 License:   MIT
 URL:       https://github.com/alanxz/rabbitmq-c
 
 Source0:   https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{gh_project}-%{version}-%{gh_short}.tar.gz
+
+# CVE-2023-35789, https://github.com/alanxz/rabbitmq-c/pull/781
+Patch0:    rabbitmq-c-CVE-2023-35789.patch
 
 BuildRequires: gcc
 BuildRequires: cmake > 3.12
@@ -66,6 +69,7 @@ amqp-publish        Publish a message on an AMQP server
 
 %prep
 %setup -q -n %{gh_project}-%{gh_commit}
+%patch -P0 -p1
 
 # Copy sources to be included in -devel docs.
 cp -pr examples Examples
@@ -144,6 +148,9 @@ make test
 
 
 %changelog
+* Thu Jun 29 2023 Than Ngo <than@redhat.com> - 0.13.0-2
+- fix security issue, CVE-2023-35789
+
 * Mon Feb  6 2023 Remi Collet <remi@remirepo.net> - 0.13.0-1
 - update to 0.13.0
 - drop patches merged upstream

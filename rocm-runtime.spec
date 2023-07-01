@@ -2,22 +2,20 @@
 %ifarch x86_64
 %global enableimage 1
 %endif
-%global rocm_release 5.5
+%global rocm_release 5.6
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 Name:       rocm-runtime
 Version:    %{rocm_version}
-Release:    2%{?dist}
+Release:    1%{?dist}
 Summary:    ROCm Runtime Library
 
 License:    NCSA
 URL:        https://github.com/RadeonOpenCompute/ROCR-Runtime
 Source0:    https://github.com/RadeonOpenCompute/ROCR-Runtime/archive/refs/tags/rocm-%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
-#https://github.com/RadeonOpenCompute/ROCR-Runtime/issues/153
-Patch0:     assertion-fix.patch
-
+Patch0:     0001-Only-install-asan-license-when-enabled.patch
 Patch1:     0002-fix-link-time-ordering-condition.patch
 
 ExclusiveArch:  x86_64 aarch64 ppc64le
@@ -52,6 +50,9 @@ ROCm Runtime development files
 
 %prep
 %autosetup -n ROCR-Runtime-rocm-%{version} -p1
+%ifarch aarch64 ppc64le
+sed -i "s/-mmwaitx//" src/CMakeLists.txt
+%endif
 
 %build
 %cmake -S src -DCMAKE_BUILD_TYPE=RelWithDebInfo \
@@ -69,8 +70,7 @@ ROCm Runtime development files
 %files
 %doc README.md
 %license LICENSE.txt
-%{_libdir}/libhsa-runtime64.so.1
-%{_libdir}/libhsa-runtime64.so.1.8.0
+%{_libdir}/libhsa-runtime64.so.1{,.*}
 %exclude %{_docdir}/hsa-runtime64/LICENSE.md
 
 %files devel
@@ -79,6 +79,9 @@ ROCm Runtime development files
 %{_libdir}/cmake/hsa-runtime64/
 
 %changelog
+* Thu Jun 29 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.6.0-1
+- Update to 5.6
+
 * Sat Jun 24 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.5.0-2
 - Fix RHBZ#2216826
 

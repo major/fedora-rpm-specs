@@ -30,7 +30,7 @@
 
 Name:           python-mwclient
 Version:        0.10.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Mwclient is a client to the MediaWiki API
 
 License:        MIT
@@ -154,6 +154,9 @@ provides access to most API functionality. This is the Python 3 build of
 
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 0.10.1-10
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

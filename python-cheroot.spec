@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        10.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Highly-optimized, pure-python HTTP server
 
 License:        BSD
@@ -107,6 +107,9 @@ LANG=C.utf-8 %{__python3} -m pytest --ignore=build -W ignore::DeprecationWarning
 %endif
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 10.0.0-2
+- Rebuilt for Python 3.12
+
 * Mon Jun 19 2023 Dan Radez <dradez@redhat.com> - 10.0.0-1
 - update to 10.0.0 (rhbz#2208818)
 

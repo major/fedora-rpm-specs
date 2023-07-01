@@ -1,4 +1,3 @@
-%global _without_tests 1
 %if 0%{?rhel}
 %bcond_with tests
 %else

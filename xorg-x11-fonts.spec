@@ -83,6 +83,7 @@ Source31:   https://www.x.org/pub/individual/font/font-xfree86-type1-1.0.4.tar.b
 # to request for relicensing
 # http://www.x.org/pub/individual/font/font-misc-meltho-1.0.0.tar.bz2
 
+BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  bdftopcf mkfontscale
 BuildRequires:  font-util >= 1.1.0
@@ -247,7 +248,7 @@ Contains a set of Cyrillic fonts.
 %build
 # Build all apps
 {
-    for app in * ; do
+    for app in encodings-* font-* ; do
         pushd $app
             autoreconf -vif
             case $app in
@@ -280,7 +281,7 @@ Contains a set of Cyrillic fonts.
 %install
 # Install all apps
 {
-    for app in * ; do
+    for app in encodings-* font-* ; do
         pushd $app
             %make_install
         popd

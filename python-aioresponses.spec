@@ -5,7 +5,7 @@ easy way  to test asynchronous HTTP requests.
 
 Name:           python-%{srcname}
 Version:        0.7.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Mock out requests made by ClientSession from aiohttp package
 
 License:        MIT
@@ -71,6 +71,9 @@ sed -i 's/def \(test_pass_through_with_origin_params\)(/def skip_\1(/' tests/tes
 
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 0.7.4-2
+- Rebuilt for Python 3.12
+
 * Sun Jan 29 2023 Georg Sauthoff <mail@gms.tf> - 0.7.4-1
 - bump version (fixes fedora#2153091)
 

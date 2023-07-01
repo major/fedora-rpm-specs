@@ -6,7 +6,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MaxMind GeoIP2 API
 
 License:        Apache-2.0
@@ -64,6 +64,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} -m unittest tests/databas
 %license LICENSE
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 4.7.0-2
+- Rebuilt for Python 3.12
+
 * Mon May 15 2023 Lumír Balhar <lbalhar@redhat.com> - 4.7.0-1
 - Update to 4.7.0 (rhbz#2198523)
 - SPDX License

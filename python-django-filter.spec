@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        23.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Django application for allowing users to filter queryset dynamically
 
 License:        BSD
@@ -68,6 +68,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 23.2-2
+- Rebuilt for Python 3.12
+
 * Mon Jun 05 2023 Luis Bazan <lbazan@fedoraproject.org> - 23.2-1
 - New upstream version
 
