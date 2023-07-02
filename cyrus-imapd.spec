@@ -1,12 +1,14 @@
 %global testdata_commit ca669d4b76c71cbeb4fa840e263e2c031e19ea88
 %global testdata_short %(echo %{testdata_commit} | cut -c -8)
 
-# Cassandane was split into separate CI test, run '--with cassandane' to enable it.
+# Cassandane was split into separate CI test:
+# https://src.fedoraproject.org/tests/cyrus-imapd/blob/main/f/Sanity/cassandane
+# Run rpmbuild '--with cassandane' to enable it.
 %bcond_with cassandane
 
 Name: cyrus-imapd
 Version: 3.6.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 %define ssl_pem_file_prefix /etc/pki/%name/%name
 
@@ -137,6 +139,7 @@ BuildRequires: clamav-data perl(Unix::Syslog)
 BuildRequires: perl(HTTP::Daemon) perl(DBI) perl(Net::LDAP::Constant)
 BuildRequires: perl(Net::LDAP::Server)
 BuildRequires: perl(Module::Load::Conditional)
+BuildRequires: cpan cld2-devel
 
 # These were only for JMAP-Tester
 # perl(Moo), perl(Moose), perl(MooseX::Role::Parameterized) perl(Throwable), perl(Safe::Isa)
@@ -297,15 +300,25 @@ sed -i \
 
 
 %build
+%if %{with cassandane}
+# This module is not available in Fedora:
+yes | cpan IO::File::fcntl
+
 # This is the test suite, which doesn't build much but does verify its dependencies.
 # If this is done after the configure call, the one thing it does build fails
 # because the configure macro puts some hardening flags into the environment.
-%if %{with cassandane}
 pushd cassandane
 export NOCYRUS=1
 make
 popd
+
+# Needed for Cyrus::FastMail tests to pass
+export CLD2_CFLAGS="-I/usr/include/cld2"
+export CLD2_LIBS="-lcld2"
 %endif
+
+# Needed because of Patch4.
+autoreconf -vi
 
 # Notes about configure options:
 # --enable-objectstore
@@ -314,14 +327,15 @@ popd
 # --with-cyrus-prefix and --with-service-path went away; use --with-libexecdir=
 # instead.
 
-# Needed because of Patch4.
-autoreconf -vi
-
 %configure \
     --disable-silent-rules \
     \
     --libexecdir=%cyrexecdir \
     --with-clamav \
+%if %{with cassandane}
+`# Needed for Cyrus::FastMail tests to pass` \
+    --with-cld2 \
+%endif
     --with-extraident="%release Fedora" \
     --with-krbimpl=mit \
     --with-ldap=/usr \
@@ -491,20 +505,28 @@ chmod -x %buildroot/%perl_vendorlib/Cyrus/Annotator/Daemon.pm
 
 %check
 export LD_LIBRARY_PATH=%buildroot/%_libdir
-export CYRUS_USER=$USER
 
-# TODO: The mime_boundary_extended cunit test fails due to LTO on ppc64le, skip it for now:
-%ifnarch ppc64le
-make %{?_smp_mflags} check || exit 1
+%if %{without cassandane}
+exit 0
 %endif
 
 %ifarch %{ix86} armv7hl
 exit 0
 %endif
 
-%if %{without cassandane}
-exit 0
+# TODO: The mime_boundary_extended cunit test fails due to LTO on ppc64le, skip it for now:
+%ifnarch ppc64le
+make %{?_smp_mflags} check || exit 1
 %endif
+
+# Cassandane cannot run solely as root because imap services would otherwise quit:
+#$ grep -R "must run as the Cyrus user" | egrep "imapd|httpd|pop3d"
+#imap/imapd.c:    if (geteuid() == 0) fatal("must run as the Cyrus user", EX_USAGE);
+#imap/httpd.c:    if (geteuid() == 0) fatal("must run as the Cyrus user", EX_USAGE);
+#imap/pop3d.c:    if (geteuid() == 0) fatal("must run as the Cyrus user", EX_USAGE);
+getent group saslauth >/dev/null || /usr/sbin/groupadd -g %gid -r saslauth
+getent passwd cyrus >/dev/null || /usr/sbin/useradd -c "Cyrus IMAP Server" -d /var/lib/imap -g %cyrusgroup \
+  -G saslauth -s /sbin/nologin -u %uid -r %cyrususer
 
 # Run the Cassandane test suite.  This will exhaustively test the various
 # server components, but running it in a mock chroot is rather an exercise.
@@ -514,11 +536,13 @@ mkdir -p imaptest/src
 ln -s /usr/bin/imaptest imaptest/src
 ln -s /usr/share/imaptest/tests imaptest/src
 
+chown -R cyrus:mail .
+
 # Construct the set of excluded tests to pass to Cassandane
 # ---------------------------------------------------------
 exclude=()
 tests=(
-    # This exclusion list was verified on 2021-08-11.
+    # This exclusion list was verified on 2023-06-28.
 
     # This tests coredumping and won't work on a machine where systemd
     # intercepts coredumps, which includes our builders.
@@ -528,21 +552,28 @@ tests=(
     # https://github.com/cyrusimap/cyrus-imapd/issues/2386
     Admin.imap_admins
 
-    Rename.intermediate_cleanup
+   # Failing with '405 Method Not Allowed':
+   Cyrus::FastMail.search_deleted_folder
+   Cyrus::JMAPCalendars.calendarevent_query_no_sched_inbox
 
-    # TODO check this one
-    Cyrus::List.no_tombstones
-    # TODO run tests outside the build process:
-    # https://bugzilla.redhat.com/show_bug.cgi?id=1887674
-    # The below tests try to search in syslog file which we don't allow due to mock,
-    # happenes for:
-    # $ grep -R "assert.*@lines" cyrus-imapd-*/cassandane/
-    Reconstruct.reconstruct_snoozed
-    SearchSquat.simple
-    SearchSquat.skip_unmodified
+   # Failing with Perl exception: Cannot connect to server: hostname verification failed:
+   Cyrus::MboxEvent.tls_login_event
 )
 for i in ${tests[@]}; do exclude+=("!$i"); done
 
+# If cyrus-imapd is built without cld2 support, the below tests are expected to fail:
+if [ -z "$CLD2_CFLAGS" ]; then
+exclude+=(
+   "!Cyrus::FastMail.cyr_expire_delete_findpaths_legacy"
+   "!Cyrus::FastMail.cyr_expire_delete_findpaths_nolegacy"
+   "!Cyrus::FastMail.relocate_legacy_domain"
+   "!Cyrus::FastMail.relocate_legacy_nodomain"
+   "!Cyrus::FastMail.relocate_legacy_nosearchdb"
+   "!Cyrus::FastMail.relocate_messages_still_exist"
+   "!Cyrus::FastMail.sync_reset_legacy"
+   "!Cyrus::FastMail.sync_reset_nolegacy"
+)
+fi
 
 %ifarch s390x
 # This one test fails occasionally on s390x because the hosts are just too slow
@@ -673,6 +704,12 @@ getent passwd cyrus >/dev/null || /usr/sbin/useradd -c "Cyrus IMAP Server" -d /v
 
 
 %changelog
+* Thu Jun 29 2023 Martin Osvald <mosvald@redhat.com> - 3.6.0-4
+- Cassandane: Sync split CI test and spec file
+- Cassandane: Fully turn off sending messages through syslog()
+  and allow syslog dependent tests to pass
+- Cassandane: Enable building with cld2 support to fix failing tests
+
 * Sun Jan 22 2023 Orion Poplawski <orion@nwra.com> - 3.6.0-3
 - Rebuild for clamav 1.0.0
 

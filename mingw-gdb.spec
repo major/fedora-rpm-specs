@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 Name:           mingw-gdb
-Version:        13.1
+Version:        13.2
 Release:        1%{?dist}
 Summary:        MinGW Windows port of the GDB debugger
 
@@ -110,6 +110,9 @@ rm %{buildroot}%{mingw32_bindir}/gdb-add-index
 
 
 %changelog
+* Fri Jun 30 2023 Sandro Mani <manisandro@gmail.com> - 13.2-1
+- Update to 13.2
+
 * Sun Mar 12 2023 Sandro Mani <manisandro@gmail.com> - 13.1-1
 - Update to 13.1
 

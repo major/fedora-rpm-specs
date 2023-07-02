@@ -1,6 +1,6 @@
 Name:           perl-Alien-libmaxminddb
 Version:        1.012
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Find or download and install libmaxminddb
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Alien-libmaxminddb
@@ -55,10 +55,25 @@ make test
 %files
 %license LICENSE
 %doc Changes CONTRIBUTING.md README.md
-%{perl_vendorarch}/*
-%exclude %dir %{perl_vendorarch}/auto/
-%{_mandir}/man3/*
+%dir %{perl_vendorarch}/Alien
+%{perl_vendorarch}/Alien/libmaxminddb.pm
+%dir %{perl_vendorarch}/Alien/libmaxminddb
+%dir %{perl_vendorarch}/Alien/libmaxminddb/Install
+%{perl_vendorarch}/Alien/libmaxminddb/Install/Files.pm
+%dir %{perl_vendorarch}/auto/Alien
+%dir %{perl_vendorarch}/auto/Alien/libmaxminddb
+%{perl_vendorarch}/auto/Alien/libmaxminddb/libmaxminddb.txt
+%dir %{perl_vendorarch}/auto/share
+%dir %{perl_vendorarch}/auto/share/dist
+%dir %{perl_vendorarch}/auto/share/dist/Alien-libmaxminddb
+%dir %{perl_vendorarch}/auto/share/dist/Alien-libmaxminddb/_alien
+%{perl_vendorarch}/auto/share/dist/Alien-libmaxminddb/_alien/alien.json
+%{perl_vendorarch}/auto/share/dist/Alien-libmaxminddb/_alien/alienfile
+%{_mandir}/man3/Alien::libmaxminddb.3*
 
 %changelog
+* Fri Jun 30 2023 Andreas Vögele <andreas@andreasvoegele.com> - 1.012-2
+- List files explicitly
+
 * Mon May 22 2023 Andreas Vögele <andreas@andreasvoegele.com> - 1.012-1
 - Initial package

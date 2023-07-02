@@ -18,7 +18,7 @@
 
 Name: libomp
 Version: %{libomp_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: OpenMP runtime for clang
 
 License: Apache-2.0 WITH LLVM-exception OR NCSA
@@ -27,7 +27,7 @@ Source0: https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libomp
 Source1: https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libomp_version}%{?rc_ver:-rc%{rc_ver}}/%{libomp_srcdir}.tar.xz.sig
 Source2: release-keys.asc
 
-BuildRequires: clang
+BuildRequires: clang >= %{maj_ver}
 # For clang-offload-packager
 BuildRequires: clang-tools-extra
 BuildRequires: cmake
@@ -133,6 +133,9 @@ rm -rf %{buildroot}%{_libdir}/libarcher_static.a
 %endif
 
 %changelog
+* Wed Jun 28 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.5-4
+- Specify the required clang version at build time
+
 * Sat Jun 17 2023 Tom Stellard <tstellar@redhat.com> - 16.0.5-3
 - Remove libomp-test package
 

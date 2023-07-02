@@ -13,7 +13,7 @@
 
 Name:           antlr4-project
 Version:        4.10.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Parser generator (ANother Tool for Language Recognition)
 
 License:        BSD-3-Clause
@@ -382,6 +382,9 @@ rm -fr %{buildroot}%{_docdir}/libantlr4
 %endif
 
 %changelog
+* Fri Jun 30 2023 Python Maint <python-maint@redhat.com> - 4.10.1-8
+- Rebuilt for Python 3.12
+
 * Mon Feb 27 2023 Jerry James <loganjerry@gmail.com> - 4.10.1-7
 - Dynamically generate python BuildRequires
 

@@ -59,12 +59,12 @@
 ### Abstract ###
 
 Name: evolution-data-server
-Version: 3.48.3
+Version: 3.49.1
 Release: 1%{?dist}
 Summary: Backend data server for Evolution
 License: LGPL-2.0-or-later
 URL: https://wiki.gnome.org/Apps/Evolution
-Source: http://download.gnome.org/sources/%{name}/3.48/%{name}-%{version}.tar.xz
+Source: http://download.gnome.org/sources/%{name}/3.49/%{name}-%{version}.tar.xz
 
 Provides: evolution-webcal = %{version}
 Obsoletes: evolution-webcal < 2.24.0
@@ -501,6 +501,9 @@ find $RPM_BUILD_ROOT -name '*.so.*' -exec chmod +x {} \;
 %{_datadir}/installed-tests
 
 %changelog
+* Fri Jun 30 2023 Milan Crha <mcrha@redhat.com> - 3.49.1-1
+- Update to 3.49.1
+
 * Fri Jun 02 2023 Milan Crha <mcrha@redhat.com> - 3.48.3-1
 - Update to 3.48.3
 

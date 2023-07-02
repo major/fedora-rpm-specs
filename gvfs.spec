@@ -21,13 +21,13 @@
 %global udisks2_version 1.97
 
 Name:    gvfs
-Version: 1.50.4
-Release: 3%{?dist}
+Version: 1.51.1
+Release: 1%{?dist}
 Summary: Backends for the gio framework in GLib
 
 License: GPLv3 and LGPLv2+ and BSD and MPLv2.0
 URL:     https://wiki.gnome.org/Projects/gvfs
-Source0: https://download.gnome.org/sources/gvfs/1.50/gvfs-%{version}.tar.xz
+Source0: https://download.gnome.org/sources/gvfs/1.51/gvfs-%{version}.tar.xz
 
 BuildRequires: meson
 BuildRequires: gcc
@@ -428,6 +428,9 @@ killall -USR1 gvfsd >&/dev/null || :
 %{_datadir}/installed-tests
 
 %changelog
+* Fri Jun 30 2023 Kalev Lember <klember@redhat.com> - 1.51.1-1
+- Update to 1.51.1
+
 * Thu Jun 15 2023 Ondrej Holy <oholy@redhat.com> - 1.50.4-3
 - Disable Google backend in RHEL
 

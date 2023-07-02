@@ -4,7 +4,7 @@
 
 Name:           dnf5
 Version:        %{project_version_major}.%{project_version_minor}.%{project_version_patch}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
@@ -663,6 +663,9 @@ ln -sr %{buildroot}%{_bindir}/dnf5 %{buildroot}%{_bindir}/microdnf
 
 
 %changelog
+* Fri Jun 30 2023 Adam Williamson <awilliam@redhat.com> - 5.0.15-2
+- Rebuild for fmt 10 again
+
 * Thu Jun 29 2023 Packit <hello@packit.dev> - 5.0.15-1
 - Add `module enable` subcommand
 - Add `--repofrompath` option

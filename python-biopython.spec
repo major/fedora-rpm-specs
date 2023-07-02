@@ -4,9 +4,11 @@
 
 Name:             python-%{pypi_name}
 Version:          1.81
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Python tools for computational molecular biology
 Source0:          %{pypi_source}
+Patch0:           %{name}-fix_for_python312.patch
+Patch1:           %{name}-fix_compatibility_with_reportlab4.patch
 
 # Starting from biopython-1.69, BioPython is released under the
 # "Biopython License Agreement"; it looks like a MIT variant
@@ -56,6 +58,10 @@ PDF/HTML documentation of %{module}.
 %setup -qc
 
 pushd %{module}-%{version}
+
+%patch -P 0 -p1 -b .backup
+%patch -P 1 -p1 -b .backup
+
 # remove all execute bits from documentation and fix line endings
 find Scripts -type f -exec chmod -x {} 2>/dev/null ';'
 find Doc -type f -exec chmod -x {} 2>/dev/null ';'
@@ -116,6 +122,9 @@ popd
 %license %{module}-%{version}/LICENSE.rst
 
 %changelog
+* Fri Jun 30 2023 Antonio Trande <sagitter@fedoraproject.org> - 1.81-3
+- Patched for Python-3.12
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 1.81-2
 - Rebuilt for Python 3.12
 

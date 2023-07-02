@@ -1,0 +1,54 @@
+%ifnarch %{ocaml_native_compiler}
+%global debug_package %{nil}
+%endif
+
+Name:           ocaml-ppx-stable-witness
+Version:        0.16.0
+Release:        1%{?dist}
+Summary:        Derive a witness that a type is intended to be stable
+
+License:        MIT
+URL:            https://github.com/janestreet/ppx_stable_witness
+Source0:        %{url}/archive/v%{version}/ppx_stable_witness-%{version}.tar.gz
+
+BuildRequires:  ocaml >= 4.14.0
+BuildRequires:  ocaml-dune >= 2.0.0
+BuildRequires:  ocaml-base-devel
+BuildRequires:  ocaml-ppxlib-devel >= 0.28.0
+
+%description
+Ppx_stable_witnesss is a ppx extension for deriving a witness that a
+type is intended to be stable.  In this context, stable means that the
+serialization format will never change.  This allows programs running at
+different versions of the code to communicate safely.
+
+%package        devel
+Summary:        Development files for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       ocaml-base-devel%{?_isa}
+Requires:       ocaml-ppxlib-devel%{?_isa}
+
+%description    devel
+The %{name}-devel package contains libraries and signature
+files for developing applications that use %{name}.
+
+%prep
+%autosetup -n ppx_stable_witness-%{version}
+
+%build
+%dune_build
+
+%install
+%dune_install
+
+%check
+%dune_check
+
+%files -f .ofiles
+%license LICENSE.md
+
+%files devel -f .ofiles-devel
+
+%changelog
+* Sat Jun 24 2023 Jerry James <loganjerry@gmail.com> - 0.16.0-1
+- Initial RPM

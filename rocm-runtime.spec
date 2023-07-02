@@ -17,6 +17,7 @@ Source0:    https://github.com/RadeonOpenCompute/ROCR-Runtime/archive/refs/tags/
 
 Patch0:     0001-Only-install-asan-license-when-enabled.patch
 Patch1:     0002-fix-link-time-ordering-condition.patch
+Patch2:     0001-Fix-non-x86-builds.patch
 
 ExclusiveArch:  x86_64 aarch64 ppc64le
 
@@ -50,9 +51,6 @@ ROCm Runtime development files
 
 %prep
 %autosetup -n ROCR-Runtime-rocm-%{version} -p1
-%ifarch aarch64 ppc64le
-sed -i "s/-mmwaitx//" src/CMakeLists.txt
-%endif
 
 %build
 %cmake -S src -DCMAKE_BUILD_TYPE=RelWithDebInfo \

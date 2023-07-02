@@ -1,6 +1,6 @@
 Name: goldendict
 Version: 1.5.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPL-3.0-or-later
 Summary: A feature-rich dictionary lookup program
@@ -20,13 +20,8 @@ BuildRequires: cmake(Qt5X11Extras)
 BuildRequires: cmake(Qt5Xml)
 BuildRequires: cmake(Qt5XmlPatterns)
 
-BuildRequires: pkgconfig(ao)
 BuildRequires: pkgconfig(bzip2)
 BuildRequires: pkgconfig(hunspell)
-BuildRequires: pkgconfig(libavcodec)
-BuildRequires: pkgconfig(libavformat)
-BuildRequires: pkgconfig(libavutil)
-BuildRequires: pkgconfig(libswresample)
 BuildRequires: pkgconfig(libtiff-4)
 BuildRequires: pkgconfig(libzstd)
 BuildRequires: pkgconfig(lzo2)
@@ -69,7 +64,7 @@ rm -rf {qtsingleapplication,maclibs,winlibs}
 sed -e '/qtsingleapplication.pri/d' -i %{name}.pro
 
 %build
-%qmake_qt5 PREFIX=%{_prefix} CONFIG+=qtsingleapplication %{name}.pro
+%qmake_qt5 PREFIX=%{_prefix} CONFIG+=qtsingleapplication CONFIG+=no_ffmpeg_player %{name}.pro
 echo "%{version}" > version.txt
 %make_build
 
@@ -95,6 +90,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/%{name}/help
 
 %changelog
+* Fri Jun 30 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 1.5.0-2
+- Disabled ffmpeg player to reduce the set of dependencies.
+
 * Wed May 31 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 1.5.0-1
 - Updated to version 1.5.0.
 - Enabled ffmpeg player.

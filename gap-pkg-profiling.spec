@@ -1,7 +1,7 @@
 %global pkgname  profiling
 
 Name:           gap-pkg-%{pkgname}
-Version:        2.5.3
+Version:        2.5.4
 Release:        1%{?dist}
 Summary:        Line by line profiling and code coverage for GAP
 
@@ -114,6 +114,9 @@ gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
 %{gap_archdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Fri Jun 30 2023 Jerry James <loganjerry@gmail.com> - 2.5.4-1
+- Version 2.5.4
+
 * Wed Jun 28 2023 Jerry James <loganjerry@gmail.com> - 2.5.3-1
 - Version 2.5.3
 

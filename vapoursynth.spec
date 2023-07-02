@@ -1,6 +1,6 @@
 Name:       vapoursynth
-Version:    58
-Release:    5%{?dist}
+Version:    63
+Release:    1%{?dist}
 Summary:    Video processing framework with simplicity in mind
 License:    LGPLv2
 URL:        http://www.vapoursynth.com
@@ -116,6 +116,9 @@ rm -fr %{buildroot}%{_docdir}/%{name}
 %{_bindir}/vspipe
 
 %changelog
+* Fri Jun 30 2023 Simone Caronni <negativo17@gmail.com> - 63-1
+- Update to R63.
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 58-5
 - Rebuilt for Python 3.12
 

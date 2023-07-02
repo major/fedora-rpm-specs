@@ -9,8 +9,8 @@ projects, ensuring you have the right stack everywhere.}
 
 Name:           poetry
 Summary:        Python dependency management and packaging made easy
-Version:        1.3.2
-Release:        6%{?dist}
+Version:        1.5.0
+Release:        2%{?dist}
 
 License:        MIT
 
@@ -39,8 +39,8 @@ BuildRequires:  %py3_dist pytest
 BuildRequires:  %py3_dist pytest-mock
 BuildRequires:  %py3_dist pytest-xdist
 BuildRequires:  %py3_dist httpretty
-BuildRequires:  %py3_dist virtualenv
 BuildRequires:  %py3_dist cachy
+BuildRequires:  %py3_dist deepdiff
 
 Requires:       python3-poetry = %{version}-%{release}
 
@@ -56,16 +56,9 @@ Conflicts:      python3-virtualenv < 20.19.0-2
 
 %prep
 %autosetup -p1
-
-# remove vendored dependencies
-rm -r src/poetry/_vendor
-
-# Allow newer requests-toolbelt version
-# https://bugzilla.redhat.com/show_bug.cgi?id=2196879
-sed -i 's/requests-toolbelt = ">=0.9.1,<0.11.0"/requests-toolbelt = ">=0.9.1,<=1.0.0"/' pyproject.toml
-# Allow newer dulwich
-# Upstream bumped it via https://github.com/python-poetry/poetry/pull/7390
-sed -i 's/dulwich = "^0.20.46"/dulwich = ">=0.20.46,<0.22"/' pyproject.toml
+# Relax version constraint to allow older virtualenv we have in Fedora
+# Downstream report: https://bugzilla.redhat.com/show_bug.cgi?id=2188155#c8 
+sed -i 's/virtualenv = "^20.22.0"/virtualenv = ">=20.21.1"/' pyproject.toml
 
 
 %generate_buildrequires
@@ -91,21 +84,10 @@ done
 %if %{without bootstrap}
 %check
 # don't use %%tox here because tox.ini runs "poetry install"
-# test_lock_no_update, test_uninstall_git_package_nspkg_pth_cleanup: attempts a network connection to pypi
-# test_export_exports_requirements_txt_file_locks_if_no_lock_file:
-#    virtualenv: error: argument dest: the destination . is not write-able at /
-# test_executor and test_editable_builder doesn't work with pytest7
-#    upstream report: https://github.com/python-poetry/poetry/issues/4901
-# the --ignore'd files need not yet packaged flatdict and deepdiff
-%pytest -k "not lock_no_update and not test_uninstall_git_package_nspkg_pth_cleanup and \
-not export_exports_requirements_txt_file_locks_if_no_lock_file and \
-not executor and \
-not editable_builder" \
---ignore tests/config/test_config.py \
---ignore tests/console/commands/test_config.py \
---ignore tests/masonry/builders/test_editable_builder.py \
---ignore tests/test_factory.py \
---ignore tests/utils/test_dependency_specification.py
+# test_executor, test_chef: attempts a network connection to pypi
+%pytest -k "not executor and \
+not test_chef and \
+not test_installer_with_pypi_repository"
 %endif
 
 
@@ -129,6 +111,12 @@ not editable_builder" \
 
 
 %changelog
+* Fri Jun 30 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.5.0-2
+- Update to 1.5.0 - without bootstrap
+
+* Fri Jun 30 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.5.0-1
+- Update to 1.5.0
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.3.2-6
 - Bootstrap for Python 3.12
 

@@ -1,7 +1,7 @@
-%bcond_without tests
+%bcond tests 1
 # Sphinx-generated HTML documentation is not suitable for packaging; see
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
-%bcond_without doc_pdf
+%bcond doc_pdf 1
 
 %global _description %{expand:
 The Snakemake workflow management system is a tool to create reproducible and
@@ -12,7 +12,7 @@ Finally, Snakemake workflows can entail a description of required software,
 which will be automatically deployed to any execution environment.}
 
 Name:           snakemake
-Version:        7.26.0
+Version:        7.30.1
 Release:        %autorelease 
 Summary:        Workflow management system to create reproducible and scalable data analyses
 
@@ -77,7 +77,7 @@ BuildRequires:  /usr/bin/rsvg-convert
 # No metapackage for “pep” extra because the following are not packaged:
 #   - python3-eido
 #   - python3-peppy
-%pyproject_extras_subpkg -n snakemake reports messaging google-cloud
+%pyproject_extras_subpkg -n snakemake reports messaging google-cloud azure
 
 %prep
 %autosetup -n snakemake-%{version} -p1
@@ -102,7 +102,7 @@ done
 
 %generate_buildrequires
 # Generate BR’s for all supported extras to ensure they do not FTI
-%pyproject_buildrequires -x reports,messaging,google-cloud %{?with_doc_pdf:docs/requirements.txt}
+%pyproject_buildrequires -x reports,messaging,google-cloud,azure %{?with_doc_pdf:docs/requirements.txt}
 
 %build
 %pyproject_wheel
@@ -137,6 +137,9 @@ PATH="${PATH-}:%{buildroot}%{_bindir}" \
 
 # Generate and install shell completions.
 install -d %{buildroot}%{bash_completions_dir}
+# Since 7.29.0, snakemake --bash-completion no longer works without a Snakefile
+# https://github.com/snakemake/snakemake/issues/2336
+touch Snakefile
 PATH="${PATH-}:%{buildroot}%{_bindir}" \
     PYTHONPATH='%{buildroot}%{python3_sitelib}' \
     snakemake --bash-completion \

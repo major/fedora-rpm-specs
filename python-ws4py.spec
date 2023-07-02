@@ -4,7 +4,7 @@ WebSocket client and server library.}
 
 Name:           python-ws4py
 Version:        0.5.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        WebSocket client and server library
 
 # Bundled utf8validator is ASL 2.0 
@@ -53,6 +53,9 @@ sed -i 's/^from mock import /from unittest.mock import /' test/test_*.py
 %{python3} -m pytest
 
 %changelog
+* Fri Jun 30 2023 Python Maint <python-maint@redhat.com> - 0.5.1-13
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

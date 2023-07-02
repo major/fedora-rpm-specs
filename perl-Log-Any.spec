@@ -1,5 +1,5 @@
 Name:           perl-Log-Any
-Version:        1.715
+Version:        1.716
 Release:        1%{?dist}
 Summary:        Bringing loggers and listeners together
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -30,6 +30,7 @@ BuildRequires:  perl(Sys::Syslog)
 BuildRequires:  perl(base)
 BuildRequires:  perl(blib)
 BuildRequires:  perl(Devel::StackTrace)
+BuildRequires:  perl(Devel::StackTrace::Extract)
 BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(File::Temp)
@@ -75,6 +76,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jun 30 2023 Xavier Bachelot <xavier@bachelot.org> - 1.716-1
+- Update to 1.716 (RHBZ#2217660)
+
 * Mon Jun 26 2023 Xavier Bachelot <xavier@bachelot.org> - 1.715-1
 - Update to 1.715 (RHBZ#2203876)
 

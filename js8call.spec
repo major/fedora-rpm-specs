@@ -7,7 +7,7 @@
 
 Name:           js8call
 Version:        2.2.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Amateur Radio message passing using FT8 modulation
 
 License:        GPLv3+
@@ -40,6 +40,8 @@ BuildRequires:  qt5-qtbase-devel
 BuildRequires:  qt5-qtserialport-devel
 BuildRequires:  qt5-qtmultimedia-devel
 BuildRequires:  systemd-devel
+
+Requires:       hicolor-icon-theme
 
 
 %description
@@ -82,6 +84,12 @@ export PKG_CONFIG_ALLOW_SYSTEM_LIBS=1
 %install
 %cmake_install
 
+# Install icon to proper place and use it in desktop file
+install -D -p -m644 icons/Unix/js8call_icon.png \
+    %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/%{name}.png
+desktop-file-edit --set-key=Icon --set-value="%{name}" \
+    %{buildroot}/%{_datadir}/applications/%{name}.desktop
+
 # Install AppStream metainfo file
 mkdir -p %{buildroot}%{_metainfodir}
 install -pm 644 %{SOURCE1} %{buildroot}%{_metainfodir}/
@@ -106,11 +114,15 @@ rm -f %{buildroot}%{_datadir}/doc/JS8Call/INSTALL*
 %{_bindir}/js8*
 %{_datadir}/applications/%{name}.desktop
 %{_metainfodir}/com.js8call.JS8Call.metainfo.xml
+%{_datadir}/icons/hicolor/128x128/apps/%{name}.png
 %{_datadir}/pixmaps/%{name}_icon.png
 %{_datadir}/%{name}/
 
 
 %changelog
+* Thu Jun 29 2023 Daniel Rusek <mail@asciiwolf.com> - 2.2.0-18
+- Install desktop icon into a proper location
+
 * Wed Jun 28 2023 Daniel Rusek <mail@asciiwolf.com> - 2.2.0-17
 - Add an AppStream metainfo file
 

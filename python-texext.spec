@@ -1,11 +1,13 @@
 Name:           python-texext
 Version:        0.6.7
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Sphinx extensions for working with LaTeX math
 
 License:        BSD-2-Clause
 URL:            https://github.com/matthew-brett/texext
 Source0:        %pypi_source texext
+# Update versioneer to fix FTBFS with python 3.12
+Patch0:         %{name}-versioneer.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -20,7 +22,7 @@ Summary:        Sphinx extensions for working with LaTeX math
 This package contains Sphinx extensions for working with LaTeX math.
 
 %prep
-%autosetup -n texext-%{version}
+%autosetup -n texext-%{version} -p1
 
 %generate_buildrequires
 %pyproject_buildrequires -x test
@@ -40,6 +42,12 @@ rst2html --no-datestamp README.rst README.html
 %doc README.html
 
 %changelog
+* Fri Jun 30 2023 Jerry James <loganjerry@gmail.com> - 0.6.7-5
+- Add versioneer patch to fix FTBFS with python 3.12
+
+* Fri Jun 30 2023 Python Maint <python-maint@redhat.com> - 0.6.7-5
+- Rebuilt for Python 3.12
+
 * Fri Feb 24 2023 Jerry James <loganjerry@gmail.com> - 0.6.7-4
 - Dynamically generate BuildRequires
 

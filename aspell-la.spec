@@ -4,13 +4,20 @@
 Summary: Latin dictionaries for Aspell
 Name: aspell-%{lang}
 Version: 20020503
-Release: 19%{?dist}
+Release: 20%{?dist}
 License: GPLv2
 URL: http://aspell.net
 Source: http://ftp.gnu.org/gnu/aspell/dict/%{lang}/aspell6-%{lang}-%{version}-%{langrelease}.tar.bz2
 Buildrequires: aspell >= 12:0.60
 BuildRequires: make
 Requires: aspell >= 12:0.60
+# IMPORTANT
+# This package has been deprecated since Fedora 39
+# The reason behind this is that upstream has been inactive for more than 4 years
+# and there are other variants like hunspell or enchant which has active upstream
+# FESCo approval is located here: https://pagure.io/fesco/issue/3009
+# Change proposal is located here: https://fedoraproject.org/wiki/Changes/AspellDeprecation
+Provides:  deprecated()
 
 %define debug_package %{nil}
 
@@ -32,6 +39,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_libdir}/aspell-0.60/*
 
 %changelog
+* Fri Jun 30 2023 Johan Swensson <kupo@kupo.se> - 20020503-20
+- Deprecate package BZ#2218561
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20020503-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

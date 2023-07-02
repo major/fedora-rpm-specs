@@ -1,66 +1,72 @@
-# https://github.com/hedayaty/NetSpeed/commit/5a96082c89b1955e6c8eeebd5cd3f8f8b77ed34b 
+## START: Set by rpmautospec
+## (rpmautospec version 0.3.5)
+## RPMAUTOSPEC: autorelease, autochangelog
+%define autorelease(e:s:pb:n) %{?-p:0.}%{lua:
+    release_number = 1;
+    base_release_number = tonumber(rpm.expand("%{?-b*}%{!?-b:1}"));
+    print(release_number + base_release_number - 1);
+}%{?-e:.%{-e*}}%{?-s:.%{-s*}}%{!?-n:%{?dist}}
+## END: Set by rpmautospec
+
 %global uuid netspeed@hedayaty.gmail.com
-%global commit  5a96082c89b1955e6c8eeebd5cd3f8f8b77ed34b
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global gitdate 20220421
-# Minimum GNOME Shell version supported
-%global min_gs_version 3.20
 
 Name:           gnome-shell-extension-netspeed
-Version:        3.32
-Release:        0.7.%{gitdate}git%{shortcommit}%{?dist}
+Version:        44
+Release:        %autorelease
 Summary:        A gnome-shell extension to show speed of the internet
-License:        GPLv3+
-URL:            https://github.com/hedayaty/NetSpeed
-Source0:        https://github.com/hedayaty/NetSpeed/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
-
 BuildArch:      noarch
-BuildRequires:  gettext
-BuildRequires:  gnome-common
-BuildRequires:  glib2
-BuildRequires:  make
-Requires:       gnome-shell-extension-common >= %{min_gs_version}
+License:        GPLv3+
+URL:            https://github.com/martinkg/NetSpeed
+Source0:        %{name}-%{version}.tar.gz
+
+
+BuildRequires: gettext
+BuildRequires: glib2
+BuildRequires: jq
+BuildRequires: meson
+
+Requires: gnome-shell >= 3.14.0
+Requires: libappindicator-gtk3
 
 %description
 Add an Internet speed indicator to status area.
 
+You can use gnome-tweaks (additional package) or run in terminal:
+
+  $ gnome-extensions enable %uuid
+
+
 %prep
-%setup -q -n NetSpeed-%{commit}
-sed -i -e 's|LANGUAGES=ca de en_CA fa fr it pt_BR ru zh_CN zh_TW es_ES nl_NL ru tr zh_CN|LANGUAGES=ca de en_CA es_ES fa fr hu it nl pt_BR ru tr zh_CN zh_TW|' Makefile
-sed -i -e 's|"42"|"42", "43"|' metadata.json
+%autosetup -p1 -n %{name}-44
+
 
 %build
-%make_build
+%meson \
+    -Dlocal_install=disabled
+%meson_build
+
 
 %install
-mkdir -p %{buildroot}%{_datadir}/gnome-shell/extensions/%{uuid}
-mkdir -p %{buildroot}%{_datadir}/glib-2.0/schemas
-install -Dp -m 0644 {extension.js,lib.js,net_speed*.js,metadata.json,stylesheet.css,prefs.js} \
-    %{buildroot}%{_datadir}/gnome-shell/extensions/%{uuid}/
-install -Dp -m 0644 schemas/org.gnome.shell.extensions.netspeed.gschema.xml \
-    %{buildroot}%{_datadir}/glib-2.0/schemas/
+%meson_install
+%find_lang %{name} --all-name
+rm %{buildroot}%{_datadir}/glib-2.0/schemas/gschemas.compiled
 
-# install language files
-mkdir -p %{buildroot}%{_datadir}/locale/{ca,de,en_CA,es_ES,fa,fr,hu,it,nl,pt_BR,ru,tr,zh_CN,zh_TW}/LC_MESSAGES
-for l in ca de en_CA es_ES fa fr hu it nl pt_BR ru tr zh_CN zh_TW; do
-  install -Dp -m 0644 locale/"$l"/LC_MESSAGES/netspeed.mo \
-  %{buildroot}%{_datadir}/locale/"$l"/LC_MESSAGES/
-done
 
-%make_install
-
-# remove precompiled gschemas
-rm -rf %{builddir}/%{_datadir}/gnome-shell/extensions/%{uuid}/schemas/
-
-%find_lang netspeed
-
-%files -f netspeed.lang
+%files -f %{name}.lang
 %license gpl-2.0.md
 %doc CHANGELOG README.md
 %{_datadir}/gnome-shell/extensions/%{uuid}/
-%{_datadir}/glib-2.0/schemas/org.gnome.shell.extensions.netspeed.gschema.xml
+%{_datadir}/glib-2.0/schemas/*.gschema.xml
+
 
 %changelog
+* Fri Jun 30 2023 Martin Gansser <martinkg@fedoraproject.org> - 44-1
+- Port to meson build system
+- Add gnome 44 Support
+
+* Fri Mar 24 2023 Martin Gansser <martinkg@fedoraproject.org> - 3.32-0.8.20220421git5a96082
+- Add gnome 44 Support
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.32-0.7.20220421git5a96082
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

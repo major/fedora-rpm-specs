@@ -8,8 +8,8 @@
 %bcond selinux 1
 
 Name:           frr
-Version:        8.5.1
-Release:        3%{?dist}
+Version:        8.5.2
+Release:        1%{?dist}
 Summary:        Routing daemon
 License:        GPL-2.0-or-later AND ISC AND LGPL-2.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND (GPL-2.0-or-later  OR ISC) AND MIT
 URL:            http://www.frrouting.org
@@ -80,17 +80,18 @@ FRRouting is free software that manages TCP/IP based routing protocols. It takes
 a multi-server and multi-threaded approach to resolve the current complexity
 of the Internet.
 
-FRRouting supports BGP4, OSPFv2, OSPFv3, ISIS, RIP, RIPng, PIM, NHRP, PBR, EIGRP and BFD.
+FRRouting supports BGP4, OSPFv2, OSPFv3, ISIS, RIP, RIPng, PIM, NHRP, PBR,
+EIGRP and BFD.
 
 FRRouting is a fork of Quagga.
 
 %if 0%{?with_selinux}
 %package selinux
-Summary:	Selinux policy for FRR
-BuildArch:	noarch
-Requires:	selinux-policy-%{selinuxtype}
-Requires(post):	selinux-policy-%{selinuxtype}
-BuildRequires:	selinux-policy-devel
+Summary:  Selinux policy for FRR
+BuildArch:  noarch
+Requires:  selinux-policy-%{selinuxtype}
+Requires(post):  selinux-policy-%{selinuxtype}
+BuildRequires:  selinux-policy-devel
 %{?selinux_requires}
 
 %description selinux
@@ -173,7 +174,7 @@ install -d -m 775 %{buildroot}/run/frr
 
 %if 0%{?with_selinux}
 install -D -m 644 selinux/%{name}.pp.bz2 \
-	%{buildroot}%{_datadir}/selinux/packages/%{selinuxtype}/%{name}.pp.bz2
+  %{buildroot}%{_datadir}/selinux/packages/%{selinuxtype}/%{name}.pp.bz2
 install -D -m 644 selinux/%{name}.if %{buildroot}%{_datadir}/selinux/devel/include/distributed/%{name}.if
 %endif
 
@@ -273,6 +274,13 @@ rm tests/lib/*grpc*
 %endif
 
 %changelog
+* Fri Jun 30 2023 Michal Ruprich <mruprich@redhat.com> - 8.5.2-1
+- New version 8.5.2
+- Fixing some rpmlint warnings
+
+* Mon Jun 26 2023 Michal Ruprich <mruprich@redhat.com> - 8.5.1-4
+- Resolves: #2216073 - SELinux is preventing FRR-Zebra to access to network namespaces.
+
 * Mon Jun 05 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 8.5.1-3
 - Disable grpc in RHEL builds
 

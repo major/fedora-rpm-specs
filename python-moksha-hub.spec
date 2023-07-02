@@ -8,12 +8,14 @@
 
 Name:           python-moksha-hub
 Version:        1.5.17
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Hub components for Moksha
 
 License:        ASL 2.0
 URL:            https://pypi.io/project/moksha.hub
 Source0:        https://pypi.io/packages/source/m/%{modname}/%{modname}-%{version}.tar.gz
+# https://github.com/mokshaproject/moksha/pull/76
+Patch0:         0002-decode-topics.patch
 
 BuildArch:      noarch
 
@@ -136,6 +138,7 @@ Hub components for Moksha.
 
 %prep
 %setup -q -n %{modname}-%{version}
+%patch 0 -p1
 
 # Removed twisted from the list of deps in setup.py.
 %{__sed} -i 's/"Twisted",//' setup.py
@@ -207,6 +210,9 @@ ln -s ./moksha-hub %{buildroot}%{_bindir}/moksha-hub-%{python3_version}
 %endif
 
 %changelog
+* Fri Jun 30 2023 Michal Konecny <mkonecny@redhat.com> - 1.5.17-19
+- Add patch for https://github.com/mokshaproject/moksha/pull/76
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 1.5.17-18
 - Rebuilt for Python 3.12
 

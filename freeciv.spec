@@ -1,7 +1,7 @@
 %define _hardened_build 1
 
 Name:           freeciv
-Version:        3.0.7
+Version:        3.0.8
 Release:        1%{?dist}
 Summary:        A multi-player strategy game
 
@@ -55,7 +55,7 @@ Freeciv qt client
 %setup -q -n %{name}-%{version}
 
 %build
-%configure --enable-client=gtk3.22,qt --disable-static --enable-ruledit
+%configure --enable-client=gtk3.22,qt --disable-static --enable-ruledit --with-qt5-includes=%{_qt5_includedir} --with-qt5-libs=%{_qt5_libdir}
 make %{?_smp_mflags}
 
 %install
@@ -110,6 +110,9 @@ find $RPM_BUILD_ROOT -name '*.a' -delete
 %{_bindir}/freeciv-qt
 
 %changelog
+* Fri Jun 30 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.0.8-1
+- 3.0.8
+
 * Tue Apr 11 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.0.7-1
 - 3.0.7
 

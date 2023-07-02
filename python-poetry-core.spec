@@ -2,8 +2,8 @@
 %bcond tests %{undefined rhel}
 
 Name:           python-poetry-core
-Version:        1.4.0
-Release:        4%{?dist}
+Version:        1.6.0
+Release:        1%{?dist}
 Summary:        Poetry PEP 517 Build Backend
 
 # We bundle a lot of libraries with poetry, which itself is under MIT license.
@@ -41,6 +41,7 @@ BuildRequires:  python3-build
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-mock
 BuildRequires:  python3-setuptools
+BuildRequires:  python3-tomli-w
 BuildRequires:  python3-virtualenv
 BuildRequires:  gcc
 BuildRequires:  git-core
@@ -62,15 +63,12 @@ Summary:        %{summary}
 # Previous versions of poetry included poetry-core in it
 Conflicts:      python%{python3_version}dist(poetry) < 1.1
 # The bundled versions are taken from src/poetry/core/_vendor/vendor.txt
-Provides:       bundled(python3dist(attrs)) = 22.1
-Provides:       bundled(python3dist(jsonschema)) = 4.10
-Provides:       bundled(python3dist(lark)) = 1.1.2
-Provides:       bundled(python3dist(packaging)) = 21.3
-Provides:       bundled(python3dist(pkgutil-resolve-name)) = 1.3.10
-Provides:       bundled(python3dist(pyparsing)) = 3.0.9
-Provides:       bundled(python3dist(pyrsistent)) = 0.18.1
-Provides:       bundled(python3dist(tomlkit)) = 0.11.4
-Provides:       bundled(python3dist(typing-extensions)) = 4.3.0
+Provides:       bundled(python3dist(attrs)) = 23.1.0
+Provides:       bundled(python3dist(jsonschema)) = 4.17.3
+Provides:       bundled(python3dist(lark)) = 1.1.5
+Provides:       bundled(python3dist(packaging)) = 23.1
+Provides:       bundled(python3dist(pyrsistent)) = 0.19.3
+Provides:       bundled(python3dist(tomli)) = 2.0.1
 
 %description -n python3-poetry-core %_description
 
@@ -111,6 +109,9 @@ Provides:       bundled(python3dist(typing-extensions)) = 4.3.0
 
 
 %changelog
+* Fri Jun 30 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.6.0-1
+- Update to 1.6.0
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.4.0-4
 - Rebuilt for Python 3.12
 

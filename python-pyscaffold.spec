@@ -1,13 +1,13 @@
-%bcond_without tests
+%bcond tests 1
 
 # Sphinx-generated HTML documentation is not suitable for packaging; see
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
 # We can generate PDF documentation as a substitute.
-%bcond_without doc_pdf
+%bcond doc_pdf 1
 
 Name:           python-pyscaffold
-Version:        4.4.1
+Version:        4.5
 Release:        %autorelease
 Summary:        Template tool for putting up the scaffold of a Python project
 
@@ -25,7 +25,7 @@ Source1:        putup.1
 
 # Downstream-only: do not run coverage analysis
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-Patch:          PyScaffold-4.2.1-no-coverage.patch
+Patch:          PyScaffold-4.5-no-coverage.patch
 # Downstream-only: remove animated demo from docs since this cannot be included
 # in a PDF
 Patch:          PyScaffold-4.1-no-animated-doc-demo.patch
@@ -114,16 +114,15 @@ echo "latex_engine = 'xelatex'" >> docs/conf.py
 find docs -type f -exec \
     gawk '/\.svg/ { print FILENAME; nextfile }' '{}' '+' |
   xargs -r -t sed -r -i 's/\.svg/\.pdf/g'
-# Drop “furo” HTML theme dependency, since we build PDF, and furo is not
-# packaged anyway (RHBZ#1910798)
+# Drop “furo” HTML theme dependency, since we do not need it to build a PDF.
 sed -r -i '/\bfuro\b/d' docs/requirements.txt
+# Drop sphinx-github-role dependency; it is not packaged and the degradation
+# without it is trivial.
+sed -r -i '/\bsphinx-github-role\b/d' docs/requirements.txt
+sed -r -i 's/^([[:blank:]]*)("sphinx_github_role",?)$/\1# \2/' docs/conf.py
 
 # Cannot install “all” extra for testing
 sed -r -i 's/^([[:blank:]]*)(all)\b/\1# \2/' tox.ini
-
-# Relax version constraint to allow newer platformdirs
-# https://github.com/pyscaffold/pyscaffold/pull/721
-sed -i -e 's/platformdirs>=2,<3/\platformdirs>=2,<4/' setup.cfg
 
 
 %generate_buildrequires
@@ -180,7 +179,7 @@ k="${k-}${k+ and }not test_pipenv_works_with_pyscaffold"
 # We should be able to write:
 #   %%tox -- -- -k "${k-}" …
 # but for some reason this does not successfully collect any tests.
-%pytest -k "${k-}" \
+%pytest -k "${k-}" -n auto \
     --ignore=tests/test_install.py \
     --ignore=tests/system/test_common.py
 %endif

@@ -1,6 +1,6 @@
 Name: debugedit
 Version: 5.0
-Release: 7%{?dist}
+Release: 9%{?dist}
 Summary: Tools for debuginfo creation
 License: GPLv3+ and GPLv2+ and LGPLv2+
 URL: https://sourceware.org/debugedit/
@@ -47,6 +47,8 @@ Patch3: 0001-find-debuginfo-Pass-j-down-to-dwz.patch
 Patch4: 0002-configure.ac-Use-AC_LINK_IFELSE-for-gz-none-check.patch
 Patch5: 0003-configure.ac-Use-AC_LANG_PROGRAM-for-AC_LINK_IFELSE-.patch
 Patch6: 0004-scripts-find-debuginfo.in-Add-q-quiet.patch
+Patch7: 0001-find-debuginfo-Prefix-install_dir-to-PATH.patch
+Patch8: 0001-find-debuginfo-Add-v-verbose-for-per-file-messages.patch
 
 %description
 The debugedit project provides programs and scripts for creating
@@ -88,6 +90,12 @@ make check %{?_smp_mflags}
 %{_mandir}/man1/find-debuginfo.1*
 
 %changelog
+* Fri Jun 30 2023 Mark Wielaard <mjw@fedoraproject.org> - 5.0-9
+- Add 0001-find-debuginfo-Add-v-verbose-for-per-file-messages.patch
+
+* Fri Jun 30 2023 Mark Wielaard <mjw@fedoraproject.org> - 5.0-8
+- Add 0001-find-debuginfo-Prefix-install_dir-to-PATH.patch
+
 * Fri Jan 27 2023 Mark Wielaard <mjw@fedoraproject.org> - 5.0-2
 - Refresh 0001-tests-Handle-zero-directory-entry-in-.debug_line-DWA.patch
 - Add new upstream patches:

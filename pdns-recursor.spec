@@ -3,7 +3,7 @@
 %endif
 
 Name: pdns-recursor
-Version: 4.8.4
+Version: 4.9.0
 Release: 1%{?dist}
 Summary: Modern, advanced and high performance recursing/non authoritative name server
 License: GPLv2
@@ -120,6 +120,9 @@ exit 0
 
 
 %changelog
+* Fri Jun 30 2023 Sander Hoentjen <sander@hoentjen.eu> - 4.9.0-1
+- Update to 4.9.0
+
 * Tue Apr 04 2023 Morten Stevens <mstevens@fedoraproject.org> - 4.8.4-1
 - Update to 4.8.4
 

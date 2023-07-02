@@ -12,6 +12,14 @@ License:        GPLv2 or LGPLv2 or MPLv1.1
 URL:            http://sk-spell.sk.cx/aspell-sk
 Source0:        http://www.sk-spell.sk.cx/files/%{aspellname}-%{version}-%{langrelease}.tar.bz2
 
+# IMPORTANT
+# This package has been deprecated since Fedora 39
+# The reason behind this is that upstream has been inactive for more than 4 years
+# and there are other variants like hunspell or enchant which has active upstream
+# FESCo approval is located here: https://pagure.io/fesco/issue/3009
+# Change proposal is located here: https://fedoraproject.org/wiki/Changes/AspellDeprecation
+Provides:  deprecated()
+
 BuildRequires:  aspell >= 12:0.60
 BuildRequires: make
 Requires:       aspell >= 12:0.60

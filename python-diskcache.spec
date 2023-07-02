@@ -5,7 +5,7 @@ Version:        5.6.1
 %forgemeta
 
 Name:           python-%{srcname}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python disk-backed cache
 
 License:        Apache-2.0
@@ -54,6 +54,9 @@ sed -i 's/==4.2.*//g' tox.ini
 %doc README.rst
  
 %changelog
+* Fri Jun 30 2023 Python Maint <python-maint@redhat.com> - 5.6.1-2
+- Rebuilt for Python 3.12
+
 * Thu Jun 29 2023 Benson Muite <benson_muite@emailplus.org> - 5.6.1-1
 - Unretire package
 

@@ -6,18 +6,23 @@
 %endif
 
 Name:           vdr-skinelchihd
-Version:        1.1.2
+Version:        1.2.0
 Release:        1%{?dist}
 Summary:        A Elchi based skin with True Color support for the Video Disc Recorder
 
 License:        GPLv2+
-URL:            http://firefly.vdr-developer.org/skinelchihd/
-Source0:        https://github.com/FireFlyVDR/vdr-plugin-skinelchihd/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+URL:            https://github.com/FireFlyVDR/vdr-plugin-skinelchihd
+Source0:        %url/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 # Configuration files for plugin parameters. These are Fedora specific and not in upstream.
 Source1:        %{name}.conf
 BuildRequires:  make
 BuildRequires:  gcc-c++
+%if 0%{?fedora} >= 38
+#BuildRequires:  pkgconfig(ImageMagick)
+BuildRequires:  ImageMagick-c++-devel
+%else
 BuildRequires:  pkgconfig(GraphicsMagick++)
+%endif
 BuildRequires:  vdr-devel >= %{vdr_version}
 Requires:       vdr(abi)%{?_isa} = %{vdr_apiversion}
 
@@ -31,7 +36,11 @@ VDR features like True Color support.
 
 %build
 %{set_build_flags}
+%if 0%{?fedora} >= 38
+%make_build IMAGELIB=imagemagick
+%else
 %make_build IMAGELIB=graphicsmagick
+%endif
 
 %install
 # make install would install the themes under /etc, let's not use that
@@ -54,6 +63,9 @@ install -Dpm 644 %{SOURCE1} \
 %{vdr_vardir}/themes/ElchiHD-*.theme
 
 %changelog
+* Fri Jun 30 2023 Martin Gansser <martinkg@fedoraproject.org> - 1.2.0-1
+- Update to 1.2.0
+
 * Thu Jun 08 2023 Martin Gansser <martinkg@fedoraproject.org> - 1.1.2-1
 - Update to 1.1.2
 

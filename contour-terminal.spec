@@ -4,6 +4,7 @@ Name:           contour-terminal
 Version:        0.3.12.262
 Release:        %autorelease
 Summary:        Modern C++ Terminal Emulator
+
 License:        Apache-2.0
 URL:            https://github.com/contour-terminal/contour
 Source0:        %{url}/archive/v%{version}/contour-%{version}.tar.gz

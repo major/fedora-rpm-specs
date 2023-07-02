@@ -10,7 +10,7 @@
 #
 # baserelease is what we have standardized across Fedora and what
 # rpmdev-bumpspec knows how to handle.
-%global baserelease 1
+%global baserelease 2
 
 # This should be e.g. beta1 or %%nil
 %global pre_release %nil
@@ -154,8 +154,8 @@ Requires(preun): systemd-units
 Requires(postun): systemd-units
 # we drop files in its directory, but we don't want to own that directory
 Requires: logrotate
-# we specify /usr/share/dict/words as the default dict_file in kdc.conf
-Requires: /usr/share/dict/words
+# we specify /usr/share/dict/words (provided by words) as the default dict_file in kdc.conf
+Requires: words
 # for run-time, and for parts of the test suite
 BuildRequires: libverto-module-base
 Requires: libverto-module-base
@@ -252,7 +252,7 @@ Requires: python3-kdcproxy
 Requires: python3-pyrad
 Requires: resolv_wrapper
 Requires: /etc/crypto-policies/back-ends/krb5.config
-Requires: /usr/share/dict/words
+Requires: words
 #Requires: openldap-servers, openldap-clients
 
 %description tests
@@ -708,6 +708,10 @@ exit 0
 %{_datarootdir}/%{name}-tests/
 
 %changelog
+* Thu Jun 29 2023 Marek Blaha <mblaha@redhat.com> - 1.21-2
+- Replace file dependency with package name
+  Resolves: rhbz#2216903
+
 * Mon Jun 12 2023 Julien Rische <jrische@redhat.com> - 1.21-1
 - New upstream version (1.21)
 - Do not disable PKINIT if some of the well-known DH groups are unavailable

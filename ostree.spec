@@ -7,13 +7,11 @@
 
 Summary: Tool for managing bootable, immutable filesystem trees
 Name: ostree
-Version: 2023.4
+Version: 2023.5
 Release: 2%{?dist}
 Source0: https://github.com/ostreedev/%{name}/releases/download/v%{version}/libostree-%{version}.tar.xz
 License: LGPL-2.0-or-later
 URL: https://ostree.readthedocs.io/en/latest/
-
-Patch0: 0001-Revert-fetcher-Always-open-tmpfiles-in-repo-location.patch
 
 BuildRequires: make
 BuildRequires: git
@@ -171,6 +169,9 @@ find %{buildroot} -name '*.la' -delete
 %endif
 
 %changelog
+* Fri Jun 30 2023 Colin Walters <walters@verbum.org> - 2023.5-2
+- https://github.com/ostreedev/ostree/releases/tag/v2023.5
+
 * Mon Jun 26 2023 Colin Walters <walters@verbum.org> - 2023.4-2
 - Cherry pick patch to fix flatpak
 

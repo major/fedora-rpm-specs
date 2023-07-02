@@ -1,12 +1,12 @@
 # Version of scala-altered objectweb-asm
-%global asmver 9.3.0
+%global asmver 9.5.0
 %global asmrel 1
 
 # Version of jquery bundled in scaladoc
-%global jqueryver 3.6.0
+%global jqueryver 3.6.4
 
 # Version of jline to use
-%global jlinever 3.21.0
+%global jlinever 3.22.0
 
 %global scaladir %{_datadir}/scala
 
@@ -15,16 +15,16 @@
 %bcond_with bootstrap
 
 Name:           scala
-Version:        2.13.10
-Release:        2%{?dist}
+Version:        2.13.11
+Release:        1%{?dist}
 Summary:        Hybrid functional/object-oriented language for the JVM
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 # Used to generate OSGi data
-%global date    20221008
-%global seqnum  124105
-%global commit  4905801fc161300ba20bae4f7adf045b1698e831
+%global date    20230531
+%global seqnum  233414
+%global commit  f113b1ab477ae2052725fe0b7ba5ae2796903807
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %global osgiver %{version}.v%{date}-%{seqnum}-VFINAL-%{shortcommit}
 %global majver  %(cut -d. -f1-2 <<< %{version})
@@ -200,7 +200,7 @@ JLINE_JARS=$(build-classpath jna jline/jline-terminal jline/jline-terminal-jna \
     jline/jline-reader jline/jline-style jline/jline-builtins)
 JAVAC_FLAGS="-g -parameters -source 11 -target 11"
 SCALAC_FLAGS="-g:vars -release $JAVA_VER -J-Xmx512M -J-Xms32M"
-SCALADOC_FLAGS='-J-Xmx512M -J-Xms32M -doc-footer epfl -diagrams -implicits -groups -doc-version %{version} -doc-source-url https://github.com/scala/scala/tree/${versionProperties.value.githubTree}€{FILE_PATH_EXT}#L€{FILE_LINE}'
+SCALADOC_FLAGS='-J-Xmx512M -J-Xms32M -doc-footer epfl -diagrams -implicits -groups -doc-version %{version} -doc-source-url https://github.com/scala/scala/blob/v%{version}/src/€{FILE_PATH_EXT}#L€{FILE_LINE}'
 DIFFUTILS_JAR=$(build-classpath java-diff-utils)
 
 mkdir -p target/{compiler,library,manual,reflect,scalap,tastytest,testkit}
@@ -447,6 +447,10 @@ install -p -m 644 man/man1/* %{buildroot}%{_mandir}/man1
 %license LICENSE NOTICE doc/LICENSE.md doc/License.rtf
 
 %changelog
+* Fri Jun 30 2023 Jerry James <loganjerry@gmail.com> - 2.13.11-1
+- Version 2.13.11
+- Fix bad scaladoc output (rhbz#2215780)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

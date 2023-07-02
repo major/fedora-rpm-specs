@@ -24,10 +24,6 @@ BuildArch: noarch
 BuildRequires: git-core
 BuildRequires: python%{python3_pkgversion}-devel
 BuildRequires: pyproject-rpm-macros
-BuildRequires: python%{python3_pkgversion}-requests
-BuildRequires: python%{python3_pkgversion}-toml
-Requires: python%{python3_pkgversion}-requests
-Requires: python%{python3_pkgversion}-toml
 Provides: %{pypi_name}-py = %{version}-%{release}
 Provides: python%{python3_pkgversion}dist(%{pypi_name}) = %{pypi_dist}
 Provides: python%{python3_version}dist(%{pypi_name}) = %{pypi_dist}

@@ -1,6 +1,6 @@
 Name:           libpoly
 Version:        0.1.11
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        C library for manipulating polynomials
 
 License:        LGPL-3.0-or-later
@@ -91,6 +91,9 @@ export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/src
 %files -n python3-%{name} -f %{pyproject_files}
 
 %changelog
+* Fri Jun 30 2023 Python Maint <python-maint@redhat.com> - 0.1.11-6
+- Rebuilt for Python 3.12
+
 * Mon Feb 27 2023 Jerry James <loganjerry@gmail.com> - 0.1.11-5
 - Dynamically generate python BuildRequires
 - Install python dist-info

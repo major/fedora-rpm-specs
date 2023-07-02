@@ -1,8 +1,8 @@
 %global forgeurl https://git.sr.ht/~emersion/kanshi
 
 Name:           kanshi
-Version:        1.3.1
-Release:        2%{?dist}
+Version:        1.4.0
+Release:        1%{?dist}
 Summary:        Dynamic display configuration for Wayland
 
 # Overall project license: MIT
@@ -73,6 +73,9 @@ install -D -m 0644 -pv %{SOURCE3} %{buildroot}%{_userunitdir}/%{name}.service
 
 
 %changelog
+* Fri Jun 30 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.4.0-1
+- Update to 1.4.0 (#2218855)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

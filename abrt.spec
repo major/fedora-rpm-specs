@@ -49,8 +49,8 @@
 
 Summary: Automatic bug detection and reporting tool
 Name: abrt
-Version: 2.17.0
-Release: 2%{?dist}
+Version: 2.17.1
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL: https://abrt.readthedocs.org/
 Source: https://github.com/abrt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -966,6 +966,9 @@ killall abrt-dbus >/dev/null 2>&1 || :
 %config(noreplace) %{_sysconfdir}/profile.d/abrt-console-notification.sh
 
 %changelog
+* Fri Jun 30 2023 Michal Srb <michal@redhat.com> - 2.17.1-1
+- Update to upstream release 2.17.1
+
 * Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 2.17.0-2
 - Rebuilt for Python 3.12
 

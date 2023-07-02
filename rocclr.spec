@@ -4,50 +4,37 @@
 # See the file "rocclr/device/comgrctx.cpp" for reference:
 # https://github.com/ROCm-Developer-Tools/ROCclr/blob/develop/device/comgrctx.cpp#L62
 
-%global rocm_release 5.5
-%global rocm_patch 1
+%global rocm_release 5.6
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 Name:           rocclr
 Version:        %{rocm_version}
-Release:        9%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm Compute Language Runtime
 Url:            https://github.com/ROCm-Developer-Tools/clr
 License:        MIT
-Source0:        https://github.com/ROCm-Developer-Tools/ROCclr/archive/refs/tags/rocm-%{version}.tar.gz#/ROCclr-%{version}.tar.gz
+Source0:        https://github.com/ROCm-Developer-Tools/clr/archive/refs/tags/rocm-%{version}.tar.gz#/%{name}-%{version}.tar.gz
 # TODO: it would be nice to separate this into its own package:
 Source1:        https://github.com/ROCm-Developer-Tools/HIP/archive/refs/tags/rocm-%{version}.tar.gz#/HIP-%{version}.tar.gz
-# ROCm 5.7 will merge these sources with rocclr, for now they are separate:
-Source2:        https://github.com/RadeonOpenCompute/ROCm-OpenCL-Runtime/archive/refs/tags/rocm-%{version}.tar.gz#/ROCm-OpenCL-Runtime-%{version}.tar.gz
-Source3:        https://github.com/ROCm-Developer-Tools/hipamd/archive/refs/tags/rocm-%{version}.tar.gz#/hipamd-%{version}.tar.gz
+# TODO introduce HIPCC package so I can delete this:
+Source2:        https://github.com/ROCm-Developer-Tools/HIPCC/archive/refs/tags/rocm-%{version}.tar.gz#/HIPCC-%{version}.tar.gz
 
-# Patches to allow building ocl and hip at once:
-Patch0:         https://github.com/ROCm-Developer-Tools/clr/commit/1bc186323fb83c6d2124a273d2d5a5c05de52bbe.patch
-Patch1:         https://github.com/ROCm-Developer-Tools/clr/commit/d9ceb6a3a38581f72b0eb443b736a23a30bc82ec.patch
-# Newer GCC fixes:
-Patch2:         https://github.com/ROCm-Developer-Tools/clr/commit/158e79358c811c31adebd6e421e884c7f98b968c.patch
-Patch3:         https://github.com/ROCm-Developer-Tools/clr/commit/70bdb7a5970d0c518c4ed494ea8cbb129ed3c598.patch
+Patch0:         https://github.com/ROCm-Developer-Tools/clr/commit/2cda949920a2ae5e88702ceaa806f5262070824c.patch
+# Rebased upstream patch:
+#https://github.com/ROCm-Developer-Tools/clr/commit/03bfa6168453cca9ddbc6aa1bf46324db186cbb3
+Patch1:         0001-Install-.hipVersion-into-datadir-for-linux.patch
 
 # Revert patch: this causes some issues with upstream LLVM 16 (RHBZ#2207599)
 #https://github.com/ROCm-Developer-Tools/ROCclr/commit/041c00465b7adcee78085dc42253d42d1bb1f250
 Patch4:         0001-Revert-SWDEV-325538-Enable-code-object-v5-by-default.patch
 
-# HIPCC fixes from upstream (rebased locally):
-# https://github.com/ROCm-Developer-Tools/HIPCC/commit/a11397e769f71227cfc44353842ea90707610236
-Patch100:       0001-Improve-HIP_CLANG_INCLUDE-detection.patch
-# https://github.com/ROCm-Developer-Tools/HIPCC/commit/560bee0df3b95d9cf18d5e52d7fa99ffe6b0f488
-Patch101:       0002-Improve-HIP_CLANG_PATH-detection.patch
-
-# Fix FHS compliance issue (currently working on an upstream-able patch):
-Patch5:         0001-Install-.hipVersion-into-datadir.patch
+# HIPCC fixes:
+Patch100:       https://github.com/ROCm-Developer-Tools/HIPCC/commit/a11397e769f71227cfc44353842ea90707610236.patch
+Patch101:       https://github.com/ROCm-Developer-Tools/HIPCC/commit/560bee0df3b95d9cf18d5e52d7fa99ffe6b0f488.patch
 
 # Moves FindHIP cmake to datadir, to fit better with hip-devel being noarch:
-Patch6:         0002-Move-FindHIP-to-datadir.patch
-
-# Upstream patches to let clang use the default hip device lib path:
-Patch7:         https://github.com/ROCm-Developer-Tools/clr/commit/cbb393719633f5ade47efbe8d2946e5f649c1f22.patch
-Patch102:       https://github.com/ROCm-Developer-Tools/HIP/commit/e18cbe64c173f6f9abf1b56f78cdd9bc7d4716d2.patch
-Patch103:       https://github.com/ROCm-Developer-Tools/HIP/commit/802e3f439726b0c119f58de5dde8770cda75b2b0.patch
+Patch6:         0001-Move-FindHIP-to-datadir.patch
 
 # a fix for building blender
 Patch8:         0001-add-uint64_t-variant-for-__ffsll.patch
@@ -110,7 +97,7 @@ device information.
 %package -n rocm-hip
 Summary:        ROCm HIP platform and device tool
 Requires:       comgr(major) = %{comgr_maj_api_ver}
-Requires:       hip = %{version}-%{release}
+Requires:       hipcc = %{version}-%{release}
 
 %description -n rocm-hip
 ROCm HIP implementation specifically for AMD platforms.
@@ -123,26 +110,30 @@ Requires:       hip-devel = %{version}-%{release}
 %description -n rocm-hip-devel
 ROCm HIP development package.
 
-%package -n hip
-Summary:        C++ Runtime API and Kernel Language
+%package -n hipcc
+Summary:        HIP compiler driver
 BuildArch:      noarch
 # hipcc requirements:
 Requires:       rocminfo >= %{rocm_release}
 # 16.2 has an important fix for hipcc to work out of the box:
 Requires:       rocm-device-libs >= 16.2
 Requires:       clang
+# Renamed hip to hipcc to prepare for hipcc package split
+Provides:       hip = %{version}-%{release}
+Obsoletes:      hip < 5.6.0
 
-%description -n hip
-HIP is a C++ Runtime API and Kernel Language that allows developers to create
-portable applications for AMD and NVIDIA GPUs from the same source code.
+%description -n hipcc
+hipcc is a compiler driver utility that will call clang or nvcc, depending on
+target, and pass the appropriate include and library options for the target
+compiler and HIP infrastructure.
 
 %package -n hip-devel
 Summary:        HIP API development package
 BuildArch:      noarch
-Requires:       hip = %{version}-%{release}
 
 %description -n hip-devel
-HIP API development package.
+HIP is a C++ Runtime API and Kernel Language that allows developers to create
+portable applications for AMD and NVIDIA GPUs from the same source code.
 
 %package -n hip-doc
 Summary:        HIP API documentation package
@@ -152,16 +143,10 @@ BuildArch:      noarch
 This package contains documentation for the hip package
 
 %prep
-%autosetup -N -c -T -a 1 -n clr-rocm-%{version}
-# TODO: use this for ROCm 5.7 or newer:
-#autosetup -p1 -m 0 -M 99 -a 1 -n clr-rocm-{version}
+%autosetup -N -a 1 -n clr-rocm-%{version}
 
-# Extract/patch sources manually (this won't be required in ROCm 5.7 or later):
-mkdir -p rocclr opencl hipamd
-gzip -dc %{SOURCE0} | tar -C rocclr --strip-components=1 -xof -
-gzip -dc %{SOURCE2} | tar -C opencl --strip-components=1 -xof -
-gzip -dc %{SOURCE3} | tar -C hipamd --strip-components=1 -xof -
-%autopatch -p1 -m 0 -M 99
+# ROCclr patches
+%autopatch -p1 -M 99
 
 # Enable experimental pre vega platforms
 sed -i 's/\(ROC_ENABLE_PRE_VEGA.*\)false/\1true/' rocclr/utils/flags.hpp
@@ -190,20 +175,17 @@ rm -r opencl/khronos/headers/opencl2.2/tests/
 # Don't change default C FLAGS and CXX FLAGS:
 sed -i '/CMAKE_C.*_FLAGS/d' hipamd/src/CMakeLists.txt
 
-# Fix libhip permissions:
-# upstream has a fix but it's not published yet and history has diverged anyway
-sed -i 's/FILES\(.*lib.*\.so\)/PROGRAMS\1/' hipamd/packaging/CMakeLists.txt
+pushd HIP-rocm-%{version}
+
+#TODO introduce hipcc package to remove this:
+gzip -dc %{SOURCE2} | tar --strip-components=1 -xof -
 
 # HIP patches
-pushd HIP-rocm-%{version}
 %autopatch -p1 -m 100
 
-# Fix script permissions:
-chmod 755 bin/hipcc.pl
 # Fix script shebang (Fedora doesn't allow using "env"):
 sed -i 's|\(/usr/bin/\)env perl|\1perl|' bin/hipcc.pl
-# Fix incorrect lib location in hipcc.pl (Fedora uses lib64):
-# TODO: propose upstream fix
+# Drop some unnecessary includes:
 sed -i '/^# Add paths to common HIP includes:/,/^$HIPCFLAGS/d' bin/hipcc.pl
 
 # Disable doxygen timestamps:
@@ -220,6 +202,7 @@ popd
     -DCMAKE_SHARED_LINKER_FLAGS=-Wl,-z,noexecstack \
     -DHIP_COMMON_DIR=$(realpath HIP-rocm-%{version}) \
     -DCMAKE_INSTALL_LIBDIR=%{_lib} \
+    -DHIPCC_BIN_DIR=$(realpath HIP-rocm-%{version})/bin \
     -DHIP_PLATFORM=amd \
     -DROCM_PATH=%{_prefix} \
     -DBUILD_ICD=OFF \
@@ -263,6 +246,9 @@ if cmp -s %{buildroot}/%{_includedir}/hip/amd_detail/hip_prof_str.h \
     ln -fs hip/amd_detail/hip_prof_str.h %{buildroot}/%{_includedir}
 fi
 
+# I have no idea why this is happening, patch0 should fix this
+chmod 755 %{buildroot}%{_libdir}/lib*.so*
+
 %files -n rocm-opencl
 %license opencl/LICENSE.txt
 %config(noreplace) %{_sysconfdir}/OpenCL/vendors/amdocl64.icd
@@ -286,6 +272,7 @@ fi
 %{_libdir}/libamdhip64.so.5{,.*}
 %{_libdir}/libhiprtc.so.5{,.*}
 %{_libdir}/libhiprtc-builtins.so.5{,.*}
+%{_datadir}/hip
 
 %files -n rocm-hip-devel
 %{_bindir}/roc-*
@@ -296,17 +283,16 @@ fi
 # Unnecessary file and is not FHS compliant:
 %exclude %{_libdir}/.hipInfo
 
-%files -n hip
-%doc HIP-rocm-%{version}/README.md
-%license HIP-rocm-%{version}/LICENSE.txt
+%files -n hipcc
 %{_bindir}/hipcc{,.pl}
 %{_bindir}/hipconfig{,.pl}
 %{perl_vendorlib}/hip*.pm
-%{_datadir}/hip
-# Upstream is moving code samples to another git tree in 5.7, so exclude this:
-%exclude %{_datadir}/hip/samples
+# Don't include windows files
+%exclude %{_bindir}/*.bat
 
 %files -n hip-devel
+%doc HIP-rocm-%{version}/README.md
+%license HIP-rocm-%{version}/LICENSE.txt
 %{_bindir}/hipdemangleatp
 %{_bindir}/hipcc_cmake_linker_helper
 %{_includedir}/hip
@@ -318,6 +304,9 @@ fi
 %{_docdir}/hip
 
 %changelog
+* Thu Jun 29 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.6.0-1
+- Update to 5.6
+
 * Sun Jun 18 2023 Tom Rix <trix@redhat.com> - 5.5.1-9
 - Fix building upstream blender 3.5.x
 

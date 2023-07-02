@@ -1,8 +1,8 @@
 %global srcname wikitcms
 
 Name:           python-%{srcname}
-Version:        2.6.7
-Release:        3%{?dist}
+Version:        2.6.9
+Release:        1%{?dist}
 Summary:        Fedora QA wiki test management Python library
 
 License:        GPLv3+
@@ -65,6 +65,12 @@ sed -i -e 's., "setuptools-git"..g' pyproject.toml
 %{python3_sitelib}/%{srcname}*
 
 %changelog
+* Fri Jun 30 2023 Adam Williamson <awilliam@redhat.com> - 2.6.9-1
+- New release 2.6.9: expand gp3 not standard in AMI tables
+
+* Fri Jun 30 2023 Adam Williamson <awilliam@redhat.com> - 2.6.8-1
+- New release 2.6.8: handle "gp3" voltype for AMI tables
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 2.6.7-3
 - Rebuilt for Python 3.12
 

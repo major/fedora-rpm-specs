@@ -14,7 +14,7 @@ Source:         %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 # Do not require quite such a recent version of requests
 #
 # Until python-requests is updated to 2.31.0[1], loosen the minimum version to
-# 2.28.2. It is an optional dependency that was added with “deptry”
+# 2.28.1. It is an optional dependency that was added with “deptry”
 # analysis[2], which is only really useful for upstream CI, but it is also
 # imported from jsonschema_spec/handlers/requests.py. There is no obvious
 # reason why the most recent version (ahead of Rawhide as of this writing)

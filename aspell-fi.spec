@@ -3,13 +3,21 @@
 Summary: Finnish dictionaries for Aspell
 Name: aspell-%{lang}
 Version: 0.7
-Release: 20%{?dist}
+Release: 21%{?dist}
 License: GPLv2
 URL: http://aspell.net
 Source: http://ftp.gnu.org/gnu/aspell/dict/%{lang}/aspell6-%{lang}-%{version}-%{langrelease}.tar.bz2
 Buildrequires: aspell >= 12:0.60
 BuildRequires: make
 Requires: aspell >= 12:0.60
+
+# IMPORTANT
+# This package has been deprecated since Fedora 39
+# The reason behind this is that upstream has been inactive for more than 4 years
+# and there are other variants like hunspell or enchant which has active upstream
+# FESCo approval is located here: https://pagure.io/fesco/issue/3009
+# Change proposal is located here: https://fedoraproject.org/wiki/Changes/AspellDeprecation
+Provides:  deprecated()
 
 %define debug_package %{nil}
 
@@ -32,6 +40,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_libdir}/aspell-0.60/*
 
 %changelog
+* Fri Jun 30 2023 Johan Swensson <kupo@kupo.se> - 0.7-21
+- Deprecate package BZ#2218548
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,76 +1,93 @@
-%global pypi_name stdlib-list
+# Sphinx-generated HTML documentation is not suitable for packaging; see
+# https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
+#
+# We can generate PDF documentation as a substitute.
+%bcond doc_pdf 1
 
-%global desc %{expand: \
-Python Standard Library List -This package includes lists of all of the
-standard libraries for Python, along with the code for scraping the official
-Python docs to get said lists.Listing the modules in the standard library?
-Wait, why on Earth would you care about that?! Because knowing whether or
-not a module is part of the standard library will come in}
-
-Name:       python-%{pypi_name}
-Version:    0.8.0
-Release:    8%{?dist}
+Name:       python-stdlib-list
+Version:    0.9.0
+Release:    1%{?dist}
 Summary:    A list of Python Standard Libraries
 
+# SPDX
 License:    MIT
-URL:        https://github.com/jackmaney/python-stdlib-list
+URL:        https://github.com/pypi/stdlib-list
 # pypi is missing docs, so use the github tarball instead
-Source0:    %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source:     %{url}/archive/v%{version}/stdlib-list-%{version}.tar.gz
+
 BuildArch:  noarch
 
-%{?python_enable_dependency_generator}
-
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
-BuildRequires:  python3dist(sphinx)
-BuildRequires:  python3dist(sphinx-rtd-theme)
+# We BR this manually since the other dependencies in the “test” extra are for
+# coverage analysis and are unwanted
+# (https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters).
+BuildRequires:  %{py3_dist pytest}
 
-%description
-%{desc}
+%global desc %{expand:
+This package includes lists of all of the standard libraries for Python.}
 
-%package -n python3-%{pypi_name}
+%description %{desc}
+
+%package -n python3-stdlib-list
 Summary:    %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
-# The require not picked up by the dep generator
-Requires:   python3dist(sphinx)
-Requires:   python3dist(sphinx-rtd-theme)
-
-%description -n python3-%{pypi_name}
-%{desc}
+%description -n python3-stdlib-list %{desc}
 
 %package doc
-Summary:   %{name} documentation
+Summary:   Documentation for python-stdlib-list
+
+%if %{with doc_pdf}
+BuildRequires:  make
+BuildRequires:  python3-sphinx-latex
+BuildRequires:  latexmk
+%endif
 
 %description doc
-Documentation for %{name}
+%{summary}.
 
 %prep
-%autosetup
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+%autosetup -n stdlib-list-%{version}
+# We don’t need the HTML theme to build PDF documentation:
+sed -r -i 's/, "furo"//' pyproject.toml
+
+%generate_buildrequires
+%pyproject_buildrequires %{?with_doc_pdf:-x doc}
 
 %build
-%py3_build
-# generate html docs
-PYTHONPATH=${PWD} sphinx-build-3 docs html
-# remove the sphinx-build leftovers
-rm -rf html/.{doctrees,buildinfo}
+%pyproject_wheel
+%if %{with doc_pdf}
+PYTHONPATH="${PWD}" %make_build -C docs latex \
+    SPHINXOPTS='-j%{?_smp_build_ncpus}'
+%make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
+%endif
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files stdlib_list
 
-%files -n python3-%{pypi_name}
+%check
+%pytest
+
+%files -n python3-stdlib-list -f %{pyproject_files}
 %license LICENSE
 %doc README.md
-%{python3_sitelib}/stdlib_list
-%{python3_sitelib}/stdlib_list-%{version}-py%{python3_version}.egg-info
 
 %files doc
 %license LICENSE
-%doc html
+%if %{with doc_pdf}
+%doc docs/_build/latex/PythonStandardLibraryList.pdf
+%endif
 
 %changelog
+* Thu Jun 29 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.9.0-1
+- Update to 0.9.0 (fix RHBZ#2216610, fix RHBZ#2155214)
+- Confirm License is SPDX MIT
+
+* Thu Jun 29 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.8.0-9
+- Port to pyproject-rpm-macros
+- Build docs as PDF instead of HTML
+- Use a simplified description from upstream
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.8.0-8
 - Rebuilt for Python 3.12
 

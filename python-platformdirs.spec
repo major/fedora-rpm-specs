@@ -6,8 +6,8 @@ A small Python module for determining appropriate platform-specific dirs, e.g.
 a "user data dir".}
 
 Name:           python-%{srcname}
-Version:        2.6.0
-Release:        3%{?dist}
+Version:        3.5.1
+Release:        1%{?dist}
 Summary:        Python module for determining appropriate platform-specific dirs
 License:        MIT
 URL:            https://github.com/platformdirs/platformdirs
@@ -33,6 +33,7 @@ BuildRequires:  pyproject-rpm-macros >= 1.2.0
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 sed -r -i '/^[[:blank:]]*"pytest-cov\b/d' pyproject.toml
+sed -r -i '/^[[:blank:]]*"covdefaults\b/d' pyproject.toml
 
 
 %generate_buildrequires
@@ -60,10 +61,14 @@ sed -r -i '/^[[:blank:]]*"pytest-cov\b/d' pyproject.toml
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
-%doc README.rst CHANGES.rst
+%doc README.rst
 
 
 %changelog
+* Fri Jun 30 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.5.1-1
+- Update to 3.5.1
+- Fixes: rhbz#2156775
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.6.0-3
 - Rebuilt for Python 3.12
 

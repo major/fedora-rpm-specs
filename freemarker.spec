@@ -1,6 +1,6 @@
 Name:           freemarker
 Version:        2.3.31
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        The Apache FreeMarker Template Engine
 License:        ASL 2.0
 URL:            https://freemarker.apache.org
@@ -13,8 +13,8 @@ Source2:        http://archive.apache.org/dist/freemarker/KEYS
 
 # enable jdom extension
 Patch0:         enable-jdom.patch
-# Fix compatibility with javacc 7
-Patch1:         javacc-7.patch
+# Fix compatibility with javacc 7.0.12
+Patch2:         90.patch
 
 BuildRequires:  ant
 BuildRequires:  gnupg2
@@ -94,8 +94,10 @@ rm src/main/java/freemarker/ext/jython/_Jython25VersionAdapter.java
 %mvn_file : %{name}
 
 %build
-export JAVA_HOME=%{_jvmdir}/java-11
-ant -Divy.mode=local -Dsun.boot.class.path=%{_jvmdir}/jre-1.8.0/lib/rt.jar jar maven-pom
+JAVA_HOME=%{_jvmdir}/java-11 ant \
+  -Divy.mode=local \
+  -Dsun.boot.class.path=%{_jvmdir}/jre-1.8.0/lib/rt.jar \
+  jar maven-pom
 
 %install
 %mvn_artifact build/pom.xml build/freemarker.jar
@@ -106,6 +108,9 @@ ant -Divy.mode=local -Dsun.boot.class.path=%{_jvmdir}/jre-1.8.0/lib/rt.jar jar m
 %license LICENSE NOTICE
 
 %changelog
+* Mon Apr  3 2023 Jerry James <loganjerry@gmail.com> - 2.3.31-8
+- Add patch for javacc 7.0.12 compatibility
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.31-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

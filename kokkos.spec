@@ -2,8 +2,8 @@
 %undefine __cmake_in_source_build
 
 Name:           kokkos
-Version:        4.0.01
-%global         sover 4.0
+Version:        4.1.00
+%global         sover 4.1
 Release:        1%{?dist}
 Summary:        Kokkos C++ Performance Portability Programming
 # no support for 32-bit archs https://github.com/kokkos/kokkos/issues/2312
@@ -79,6 +79,9 @@ This package contains the development files of %{name}.
 %{_bindir}/kokkos_launch_compiler
 
 %changelog
+* Fri Jun 30 2023 Cezary Skrzyński <cezary.skrzynski@ng-analytics.com> - 4.1.00-1
+- Version bump to v4.1.00 (bug #2175429)
+
 * Wed May 10 2023 Cezary Skrzyński <cezary.skrzynski@ng-analytics.com> - 4.0.01-1
 - Version bump to v4.0.01 (bug #2175429)
 

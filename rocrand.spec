@@ -1,7 +1,7 @@
 %global upstreamname rocRAND
 
-%global rocm_release 5.5
-%global rocm_patch 1
+%global rocm_release 5.6
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 # Compiler is hipcc, which is clang based:
@@ -14,13 +14,14 @@
 
 Name:           rocrand
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm random number generator
 
 Url:            https://github.com/ROCmSoftwarePlatform
 License:        MIT and BSD
 Source0:        %{url}/%{upstreamname}/archive/refs/tags/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-Source1:        %{url}/hipRAND/archive/refs/tags/rocm-%{version}.tar.gz#/hipRAND-%{version}.tar.gz
+# Someone forgot to tag 5.6.0
+Source1:        %{url}/hipRAND/archive/c7b8bcfa7d3907b9e00911f17761d6f51b1636c7.tar.gz#/hipRAND-%{version}.tar.gz
 
 BuildRequires:  git
 BuildRequires:  cmake
@@ -78,7 +79,7 @@ The hipRAND development package.
 %autosetup -p1 -a 1 -n %{upstreamname}-rocm-%{version}
 
 #hipRAND is a git submodule of rocRAND, so it expects a specific DIR name:
-mv hipRAND-rocm-%{version}/* hipRAND/
+mv hipRAND-*/* hipRAND/
 
 #Remove RPATH:
 sed -i '/INSTALL_RPATH/d' hipRAND/library/CMakeLists.txt
@@ -132,6 +133,9 @@ sed -i '/INSTALL_RPATH/d' hipRAND/library/CMakeLists.txt
 %{_libdir}/cmake/hiprand
 
 %changelog
+* Fri Jun 30 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.6.0-1
+- Update to 5.6
+
 * Fri Jun 16 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.5.1-3
 - Fix hardening flags
 - Fix license field

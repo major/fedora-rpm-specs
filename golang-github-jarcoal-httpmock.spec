@@ -6,7 +6,7 @@
 %global goipath         github.com/jarcoal/httpmock
 Version:                1.3.0
 
-%gometa
+%gometa -f
 
 %global common_description %{expand:
 HTTP mocking for Golang.}

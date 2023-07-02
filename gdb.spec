@@ -57,7 +57,7 @@ Version: 13.2
 
 # The release always contains a leading reserved number, start it at 1.
 # `upstream' is not a part of `name' to stay fully rpm dependencies compatible for the testing.
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ and GPLv2+ with exceptions and GPL+ and LGPLv2+ and LGPLv3+ and BSD and Public Domain and GFDL
 # Do not provide URL for snapshots as the file lasts there only for 2 days.
@@ -1252,10 +1252,14 @@ fi
 %endif
 
 %changelog
-* Wed Jun 28 2023 Python Maint <python-maint@redhat.com>
+* Fri Jun 30 2023 Kevin Buettner <kevinb@redhat.com> - 13.2-3
+- Backport upstream changes which prevent repeated warnings from being
+  printed when loading a core file  (RHBZ 2160211, Lancelot SIX).
+
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 13.2-2
 - Rebuilt for Python 3.12
 
-* Sun Jun 25 2023 Alexandra Hájková <ahajkova@redhat.com> - 13.2
+* Sun Jun 25 2023 Alexandra Hájková <ahajkova@redhat.com> - 13.2-1
 - Rebase to FSF GDB 13.22.
 - Remove gdb-rhbz2177655-aarch64-pauth-valid-regcache.patch.
 - Remove gdb-rhbz2183595-rustc-inside_main.patch.

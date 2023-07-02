@@ -72,7 +72,7 @@
 %global baserelease 1
 
 # Set to RC version if building RC, else comment out.
-%global rcsuf rc3
+%global rcsuf rc4
 
 %if 0%{?rcsuf:1}
 %global pkg_version %{major_version}.%{minor_version}.%{patch_version}~%{rcsuf}
@@ -553,6 +553,10 @@ popd
 
 
 %changelog
+* Fri Jun 30 2023 Björn Esser <besser82@fedoraproject.org> - 3.27.0~rc4-1
+- cmake-3.27.0-rc4
+  Fixes rhbz#2218941
+
 * Tue Jun 20 2023 Björn Esser <besser82@fedoraproject.org> - 3.27.0~rc3-1
 - cmake-3.27.0-rc3
   Fixes rhbz#2214407

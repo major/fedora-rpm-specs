@@ -4,12 +4,16 @@
 
 Name:           aspell-gu
 Version:        0.03
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        GNU Aspell Gujarati Dictionary Package
 
-License:        GPLv2
+License:        GPL-2.0-only
 URL:            http://aspell.net/
 Source0:        ftp://ftp.gnu.org/gnu/aspell/dict/%{lang}/aspell6-%{lang}-%{version}-%{langrelease}.tar.bz2
+
+# This package has been deprecated since Fedora 39 due to aspell package deprecation
+# Change proposal is located here: https://fedoraproject.org/wiki/Changes/AspellDeprecation
+Provides:  deprecated()
 
 BuildRequires:  aspell >= 12:0.60
 BuildRequires: make
@@ -47,6 +51,10 @@ make install DESTDIR=%{buildroot}
 %{_libdir}/aspell-0.60/*
 
 %changelog
+* Fri Jun 30 2023 Parag Nemade <pnemade AT fedoraproject DOT org> - 0.03-29
+- Resolves:rhbz#2218554 - Add deprecated() as aspell package is deprecated from F39
+- Migrate to SPDX license expression
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

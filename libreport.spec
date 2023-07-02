@@ -14,8 +14,8 @@
 
 Summary: Generic library for reporting various problems
 Name: libreport
-Version: 2.17.10
-Release: 2%{?dist}
+Version: 2.17.11
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL: https://abrt.readthedocs.org/
 Source: https://github.com/abrt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -110,6 +110,8 @@ Requires: libreport >= %{version}-%{distfreerelease}
 Requires: libreport = %{version}-%{release}
 %endif
 Requires: python3-dnf
+Requires: python3-requests
+Requires: python3-urllib3
 %{?python_provide:%python_provide python3-libreport}
 
 %description -n python3-libreport
@@ -667,6 +669,16 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %endif
 
 %changelog
+* Fri Jun 30 2023 Packit <hello@packit.dev> - 2.17.11-1
+- Release version 2.17.11 (Michal Srb)
+- spec: Add missing requires for python3-libreport (Michal Srb)
+- Build URL with urllib.parse.urljoin() (Michal Srb)
+- Add XDG_ACTIVATION_TOKEN to the list of ignored words (Michal Srb)
+- Attachments are minor updates in Bugzilla (Michal Srb)
+- Retry Bugzilla search queries with delays (Michal Srb)
+- Fix "NameError: name 'ticket' is not defined" exception (Michal Srb)
+- Update translations (mgrabovsky)
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 2.17.10-2
 - Rebuilt for Python 3.12
 

@@ -15,16 +15,18 @@ Memtest86+.
 %global mt_isa ia32
 %endif
 
-Name:                memtest86+
-Version:             6.20
-Release:             %autorelease
-Summary:             Stand-alone memory tester for x86-64 computers
-License:             GPL-2.0-only
-URL:                 https://www.memtest.org/
-Source0:             https://github.com/memtest86plus/memtest86plus/archive/v%{version}/memtest86-plus-%{version}.tar.gz
+Name:          memtest86+
+Version:       6.20
+Release:       %autorelease
+Summary:       Stand-alone memory tester for x86-64 computers
+License:       GPL-2.0-only
+URL:           https://www.memtest.org/
+Source0:       https://github.com/memtest86plus/memtest86plus/archive/v%{version}/memtest86-plus-%{version}.tar.gz
+Source1:       memtest86+.kernel-install-plugin
 
-BuildRequires:       gcc, make, xorriso, dosfstools, mtools
-ExclusiveArch:       x86_64 %{ix86}
+BuildRequires: gcc, make, xorriso, dosfstools, mtools
+Requires(pre): systemd-udev >= 252
+ExclusiveArch: x86_64 %{ix86}
 
 %description
 %wordwrap -v common_description
@@ -49,6 +51,7 @@ pushd build%{__isa_bits}
 install -m 0644 memtest.efi %{buildroot}%{_libdir}/%{name}/memtest86+%{mt_isa}.efi
 install -m 0644 memtest.bin %{buildroot}%{_libdir}/%{name}/memtest86+%{mt_isa}.bin
 install -m 0644 memtest.iso %{buildroot}%{_datarootdir}/%{name}/memtest86+%{mt_isa}.iso
+install -m 0755 %{SOURCE1} %{buildroot}%{_libdir}/%{name}/memtest86+.kernel-install-plugin
 popd
 
 
@@ -56,27 +59,23 @@ popd
 %license LICENSE
 %doc README.md
 %{_libdir}/%{name}/memtest86+%{mt_isa}.*
+%{_libdir}/%{name}/memtest86+.kernel-install-plugin
 %{_datarootdir}/%{name}/memtest86+%{mt_isa}.iso
 
 %posttrans
-install -m 0644 %{_libdir}/%{name}/memtest86+%{mt_isa}.* /boot/
+MEMTEST_IMAGE="memtest86+%{mt_isa}.bin"
 if [ -d /sys/firmware/efi/ ]; then
-cat << EOBLSEFI > /boot/loader/entries/`cat /etc/machine-id`-0-memtest86+-%{version}-uefi.%{mt_isa}.conf
-title Memtest86+ v%{version} %{mt_isa} UEFI
-linux /memtest86+%{mt_isa}.efi
-EOBLSEFI
-else
-cat << EOBLSBIN > /boot/loader/entries/`cat /etc/machine-id`-0-memtest86+-%{version}-bios.%{mt_isa}.conf
-title Memtest86+ v%{version} %{mt_isa} BIOS
-linux /memtest86+%{mt_isa}.bin
-EOBLSBIN
+MEMTEST_IMAGE="memtest86+%{mt_isa}.efi"
 fi
+KERNEL_INSTALL_PLUGINS=%{_libdir}/%{name}/memtest86+.kernel-install-plugin \
+kernel-install add %{version} %{_libdir}/%{name}/${MEMTEST_IMAGE}
 exit 0
 
-%postun
+
+%preun
 if [ $1 -eq 0 ]; then
-rm -f /boot/memtest86+%{mt_isa}.*
-rm -f /boot/loader/entries/`cat /etc/machine-id`-0-memtest86+-%{version}-*.%{mt_isa}.conf
+KERNEL_INSTALL_PLUGINS=%{_libdir}/%{name}/memtest86+.kernel-install-plugin \
+kernel-install remove %{version}
 fi
 exit 0
 

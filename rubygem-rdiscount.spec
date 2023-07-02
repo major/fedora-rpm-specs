@@ -1,119 +1,107 @@
 %global gem_name rdiscount
 
-Summary: Converts documents in Markdown syntax to HTML
 Name: rubygem-%{gem_name}
-Version: 2.2.0.2
-Release: 10%{?dist}
-License: ASL 1.1
-URL: http://github.com/rtomayko/rdiscount
-Source0: http://rubygems.org/gems/%{gem_name}-%{version}.gem
-# Patch the file test/rdiscount_test.rb
-#  The following tests fail and are commented out:
-#    test_that_generate_toc_sets_toc_ids, test_should_get_the_generated_toc,
-#    test_toc_should_escape_apostropes, test_toc_should_escape_question_marks
-Patch0: rdiscount_test.rb.patch
+Version: 2.2.7.1
+Release: 1%{?dist}
+Summary: Fast Implementation of Gruber's Markdown in C
+License: BSD-3-Clause
+URL: http://dafoster.net/projects/rdiscount/
+Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
+BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby-devel
 BuildRequires: libmarkdown-devel
 BuildRequires: rubygem(test-unit)
 BuildRequires: gcc
 
-
-%package doc
-Summary: Documentation for %{name}
-BuildArch: noarch
-Requires: %{name} = %{version}-%{release}
-
-
 %description
-Description: RDiscount converts documents in Markdown syntax to HTML.
+RDiscount converts documents in Markdown syntax to HTML.
 
 It uses the excellent Discount processor by David Loren Parsons for this
 purpose, and thereby inherits Discount's numerous useful extensions to the
 Markdown language.
 
-#--
+%package doc
+Summary: Documentation for %{name}
+Requires: %{name} = %{version}-%{release}
+BuildArch: noarch
 
 %description doc
-This package contains Rakefile, test directory and documentation for
-%{name}.
-
+Documentation for %{name}.
 
 %prep
-gem unpack %{SOURCE0}
-%setup -q -D -T -n  %{gem_name}-%{version}
-%patch0 -p0
-gem spec %{SOURCE0} -l --ruby | sed -e 's|,|,\n|g' > %{gem_name}.gemspec
+%setup -q -n %{gem_name}-%{version}
 
-# Remove c and header file to not bundle discount-sources
-(cd ext; ls -1 *.c *.h | grep -v rdiscount.c ) > discount_files
+# Remove C and header files to unbundle discount-sources
+find ext -type f \( -name "*.c" ! -name "rdiscount.c" -o -name "*.h" \) \
+  -print -delete > discount_files
 
-cat discount_files | while read f ; do
-	rm -f ext/$f
-	sed -i %{gem_name}.gemspec -e "\@ext/$f@d"
-done
+%gemspec_remove_file File.read("discount_files").lines(:chomp => true)
 
-sed -i ext/extconf.rb \
-	-e '\@create_makefile@i \$libs = "-lmarkdown"' \
-	%{nil}
+sed -i '/create_makefile/i $libs = "-lmarkdown"' ext/extconf.rb
 
 %build
-rm -rf ./%{gem_extdir_mri}
-rm -rf ./%{gem_instdir}
-gem build %{gem_name}.gemspec
+gem build ../%{gem_name}-%{version}.gemspec
 
 %gem_install
 
 %install
-rm -rf %{buildroot}
 mkdir -p %{buildroot}%{gem_dir}
+cp -a .%{gem_dir}/* \
+        %{buildroot}%{gem_dir}/
+
 mkdir -p %{buildroot}%{_mandir}/man1
 mkdir -p %{buildroot}%{_mandir}/man7
-mv .%{gem_instdir}/man/rdiscount.1 %{buildroot}%{_mandir}/man1
-mv .%{gem_instdir}/man/markdown.7 %{buildroot}%{_mandir}/man7
-cp -a .%{gem_dir}/*  %{buildroot}%{gem_dir}
+mv %{buildroot}%{gem_instdir}/man/rdiscount.1 %{buildroot}%{_mandir}/man1
+mv %{buildroot}%{gem_instdir}/man/markdown.7 %{buildroot}%{_mandir}/man7
 
 # Copy C extensions to the extdir
-rm -rf %{buildroot}%{gem_instdir}/ext
 mkdir -p %{buildroot}%{gem_extdir_mri}
 cp -a .%{gem_extdir_mri}/{gem.build_complete,*.so} %{buildroot}%{gem_extdir_mri}/
 
-mkdir -p %{buildroot}/%{_bindir}
-mv .%{_bindir}/* %{buildroot}/%{_bindir}
+# Prevent dangling symlink in -debuginfo (rhbz#878863).
+rm -rf %{buildroot}%{gem_instdir}/ext/
+
+mkdir -p %{buildroot}%{_bindir}
+cp -a .%{_bindir}/* \
+        %{buildroot}%{_bindir}/
+
+find %{buildroot}%{gem_instdir}/bin -type f | xargs chmod a+x
 
 %check
 pushd .%{gem_instdir}
-# Once 
-ruby -Ilib:%{buildroot}%{gem_extdir_mri}:. \
-	-e 'gem "test-unit" ; Dir.glob("test/*_test.rb").sort.each {|f| require f}'
-
+ruby -I$(dirs +1)%{gem_extdir_mri} -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
 popd
 
 %files
-%{_bindir}/rdiscount
 %dir %{gem_instdir}
-%{gem_instdir}/bin/
-%{gem_libdir}/
-%doc %{gem_instdir}/BUILDING
-%doc %{gem_instdir}/COPYING
-%doc %{gem_instdir}/README.markdown
+%{_bindir}/rdiscount
+%{gem_extdir_mri}
+%license %{gem_instdir}/COPYING
+%{gem_instdir}/bin
+%{gem_libdir}
 %exclude %{gem_cache}
 %{gem_spec}
-%{gem_extdir_mri}/
-%{_mandir}/man1/rdiscount.1.gz
+%{_mandir}/man1/*
+# These used to be duplicated by discount package, but they are not anymore.
+# Keeping these exluded while trying to figure out what is going on.
+# https://bugzilla.redhat.com/show_bug.cgi?id=2140278
 %exclude %{_mandir}/man7/markdown.7.gz
 
-#--
-
 %files doc
-%doc %{gem_instdir}/Rakefile
-%{gem_docdir}
+%doc %{gem_docdir}
+%doc %{gem_instdir}/BUILDING
+%doc %{gem_instdir}/README.markdown
+%{gem_instdir}/Rakefile
 %{gem_instdir}/man
-%{gem_instdir}/test
 %{gem_instdir}/rdiscount.gemspec
-
+%{gem_instdir}/test
 
 %changelog
+* Thu Jun 29 2023 Vít Ondruch <vondruch@redhat.com> - 2.2.7.1-1
+- Update to RDiscount 2.2.7.1
+  Resolves: rhbz#2137386
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

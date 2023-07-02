@@ -7,14 +7,14 @@
 %global toolchain clang
 
 Name:           cryptopp
-Version:        8.7.0
-Release:        2%{?dist}
+Version:        8.8.0
+Release:        1%{?dist}
 Summary:        C++ class library of cryptographic schemes
 License:        Boost
 URL:            http://www.cryptopp.com/
-Source0:        http://www.cryptopp.com/cryptopp870.zip
+Source0:        http://www.cryptopp.com/cryptopp880.zip
 Source1:        cryptopp.pc
-Patch0:         https://github.com/weidai11/cryptopp/commit/94aba0105efa.patch
+#Patch0:         https://github.com/weidai11/cryptopp/commit/94aba0105efa.patch
 
 BuildRequires:  doxygen
 BuildRequires:  clang
@@ -120,6 +120,9 @@ rm  %{buildroot}%{_libdir}/libcryptopp.a
 %{_datadir}/%{name}
 
 %changelog
+* Fri Jun 30 2023 Vasiliy N. Glazov <vascom2@gmail.com> 8.8.0-1
+- Update to 8.8.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

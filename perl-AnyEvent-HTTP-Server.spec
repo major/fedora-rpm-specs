@@ -1,12 +1,12 @@
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(AnyEvent|Digest::SHA1|JSON::XS\\)$
 
 Name:           perl-AnyEvent-HTTP-Server
-Version:        1.99996
-Release:        2%{?dist}
+Version:        1.99998
+Release:        1%{?dist}
 Summary:        AnyEvent HTTP/1.1 Server
 License:        GPL+ or Artistic
 URL:            https://github.com/Mons/AnyEvent-HTTP-Server-II
-Source0:        https://github.com/Mons/AnyEvent-HTTP-Server-II/archive/refs/tags/%{version}.tar.gz
+Source0:        https://github.com/Mons/AnyEvent-HTTP-Server-II/archive/refs/tags/%{version}/AnyEvent-HTTP-Server-II-%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -40,7 +40,7 @@ BuildRequires:  perl(EV)
 BuildRequires:  perl(Class::XSAccessor)
 BuildRequires:  perl(Compress::Zlib)
 BuildRequires:  perl(FindBin)
-BuildRequires:  perl(HTTP::Easy)
+BuildRequires:  perl(HTTP::Easy) >= 0.04
 BuildRequires:  perl(Test::Pod)
 
 Requires:       perl(AnyEvent) >= 5
@@ -78,6 +78,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jun 30 2023 Yanko Kaneti <yaneti@declera.com> - 1.99998-1
+- Update to 1.99998
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.99996-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
