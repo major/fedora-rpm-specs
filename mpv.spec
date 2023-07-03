@@ -1,6 +1,6 @@
 Name:           mpv
 Version:        0.35.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 Summary:        Movie player playing most video formats and DVDs
@@ -181,6 +181,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sat Jul  1 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.35.1-5
+- Rebuild against new vapoursynth
+
 * Wed Mar 22 2023 Nicolas Chauvet <kwizart@gmail.com> - 0.35.1-4
 - rebuilt
 

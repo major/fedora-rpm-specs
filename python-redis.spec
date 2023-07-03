@@ -56,7 +56,8 @@ redis-server --enable-debug-command yes &
 %else
 redis-server &
 %endif
-%pytest -m 'not onlycluster and not redismod and not ssl'
+# xinfo_consumers fails with redis 7.2rc2, https://bugzilla.redhat.com/2196782
+%pytest -m 'not onlycluster and not redismod and not ssl' -k 'not xinfo_consumers'
 kill %1
 %endif
 

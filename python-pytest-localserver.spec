@@ -1,19 +1,15 @@
 Name:           python-pytest-localserver
-Version:        0.7.0
-Release:        3%{?dist}
-Summary:        py.test plugin to test server connections locally
+Version:        0.7.1
+Release:        2%{?dist}
+Summary:        pytest plugin to test server connections locally
 
 License:        MIT
 URL:            https://github.com/pytest-dev/pytest-localserver
 # The package uses setuptools_scm, GitHub tarball will not work
 Source0:        %{pypi_source pytest-localserver}
-# aiosmtpd.Controller._stop is replaced with aiosmtpd.Controller.cancel_tasks in
-# Fedora python-aiosmtpd::0001-Implement-Unthreaded-Controller-256.patch
-Patch1:         0002-pytest-localserver-0.6.0-replace-aiosmtpd.Controller._stop.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-werkzeug
 
 %global _description %{expand:
 pytest-localserver is a plugin for the pytest testing framework which enables
@@ -25,6 +21,8 @@ you to test server connections locally.}
 Summary:        %{summary}
 
 %description -n python3-pytest-localserver %_description
+
+%pyproject_extras_subpkg -n python3-pytest-localserver smtp
 
 
 %prep
@@ -53,6 +51,13 @@ Summary:        %{summary}
 %license LICENSE
 
 %changelog
+* Sat Jul 01 2023 Python Maint <python-maint@redhat.com> - 0.7.1-2
+- Rebuilt for Python 3.12
+
+* Sat Jul 01 2023 Roman Inflianskas <rominf@aiven.io> - 0.7.1-1
+- Update to 0.7.1 (resolve rhbz#2162933)
+- Add smtp extra
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 0.7.0-3
 - Rebuilt for Python 3.12
 

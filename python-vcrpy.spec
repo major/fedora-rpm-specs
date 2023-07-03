@@ -5,7 +5,7 @@
 
 Name:               python-%{modname}
 Version:            4.2.1
-Release:            2%{?dist}
+Release:            3%{?dist}
 Summary:            Automatically mock your HTTP interactions to simplify and speed up testing
 
 License:            MIT
@@ -22,10 +22,10 @@ BuildRequires:      python3dist(pytest)
 # For checking imports.
 # https://vcrpy.readthedocs.io/en/latest/installation.html
 BuildRequires:      python3dist(aiohttp)
-BuildRequires:      python3dist(boto)
-BuildRequires:      python3dist(boto3)
+#BuildRequires:     python3dist(boto) -- not ready yet for Python 3.12
+#BuildRequires:     python3dist(boto3) -- not ready yet for Python 3.12
 BuildRequires:      python3dist(httplib2)
-BuildRequires:      python3dist(httpx)
+#BuildRequires:     python3dist(httpx) -- not ready yet for Python 3.12
 BuildRequires:      python3dist(requests)
 BuildRequires:      python3dist(tornado)
 %endif
@@ -67,7 +67,7 @@ Summary:            %{summary}
 
 
 %check
-%pyproject_check_import
+%pyproject_check_import -e vcr.stubs.boto_stubs -e vcr.stubs.httpx_stubs
 
 %if %{with tests}
 # These tests make lots of outgoing connections, so we can't run them in
@@ -84,6 +84,9 @@ rm -rf tests/unit/test_stubs.py
 
 
 %changelog
+* Sat Jul 01 2023 Python Maint <python-maint@redhat.com> - 4.2.1-3
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

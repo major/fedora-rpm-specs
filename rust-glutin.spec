@@ -5,7 +5,7 @@
 %global crate glutin
 
 Name:           rust-glutin
-Version:        0.30.8
+Version:        0.30.9
 Release:        %autorelease
 Summary:        Cross-platform OpenGL context provider
 

@@ -33,6 +33,8 @@ BuildRequires:  spdlog-devel
 BuildRequires:  stb_image-static >= 2.28^20230129git5736b15-0.2
 
 Patch0:         %{name}-static-libstdcpp.patch
+# Patch for fmtlib 10
+Patch1:         CuraEngine-5.3.0-fmt10.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 %if 0%{?fedora} >= 37 || 0%{?rhel} >= 10
@@ -57,7 +59,8 @@ cp -a %{SOURCE2} %{SOURCE3} %{SOURCE4} cmake
 rm -rf CMakeLists.txt
 cp -a %{SOURCE5} %{SOURCE6} .
 
-%patch0 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 
 # bundled libraries
 rm -rf libs
@@ -89,6 +92,9 @@ rm -rf libs
 %{_bindir}/%{name}
 
 %changelog
+* Sat Jul  1 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:5.3.0-3
+- Patch for fmtlib 10
+
 * Wed Jun 28 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 1:5.3.0-2
 - Rebuilt due to fmt 10 update.
 

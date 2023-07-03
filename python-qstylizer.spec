@@ -7,7 +7,7 @@ PyQt/PySide stylesheets.
 
 Name:           python-%{pypi_name}
 Version:        0.2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Qt stylesheet generation utility for PyQt/PySide
 
 License:        MIT
@@ -62,6 +62,9 @@ export PBR_VERSION=%{version}
 %doc README.rst
 
 %changelog
+* Sat Jul 01 2023 Python Maint <python-maint@redhat.com> - 0.2.2-2
+- Rebuilt for Python 3.12
+
 * Thu Apr 13 2023 Jonathan Wright <jonathan@almalinux.org> - 0.2.2-1
 - Update to 0.2.2
 

@@ -18,7 +18,7 @@
 
 Name:           librsvg2
 Summary:        An SVG library based on cairo
-Version:        2.56.1
+Version:        2.56.2
 Release:        1%{?dist}
 
 License:        LGPLv2+
@@ -145,6 +145,9 @@ rm -f %{buildroot}%{_pkgdocdir}/COMPILING.md
 %{_mandir}/man1/rsvg-convert.1*
 
 %changelog
+* Sat Jul 01 2023 Kalev Lember <klember@redhat.com> - 2.56.2-1
+- Update to 2.56.2
+
 * Wed May 31 2023 Kalev Lember <klember@redhat.com> - 2.56.1-1
 - Update to 2.56.1
 

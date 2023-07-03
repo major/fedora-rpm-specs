@@ -4,20 +4,9 @@ Version:        1.6.0
 Release:        %autorelease
 Summary:        An implementation of Primary Rate ISDN
 
-# From README:
-#   As a special exception, libpri may also be linked to the OpenH323 library,
-#   so long as the entirity of the derivative work (as defined within the GPL)
-#   is licensed either under the MPL of the OpenH323 license or the GPL of
-#   libpri.
-# From source file headers:
-#   In addition, when this program is distributed with Asterisk in any form
-#   that would qualify as a 'combined work' or as a 'derivative work' (but not
-#   mere aggregation), you can redistribute and/or modify the combination under
-#   the terms of the license provided with that copy of Asterisk, instead of
-#   the license terms granted here.
-# The Makefile (only) is GPLv2+, but this does not affect the license of the
-# binary RPMs.
-License:        GPLv2 with exceptions
+# The Makefile is GPL-2.0-or-later, but does not contribute to the licenses of
+# the binary RPMs.
+License:        GPL-2.0-only WITH libpri-OpenH323-exception AND GPL-2.0-only WITH Asterisk-exception
 URL:            https://www.asterisk.org/
 %global src_base https://downloads.asterisk.org/pub/telephony/libpri/releases
 Source0:        %{src_base}/libpri-%{version}.tar.gz

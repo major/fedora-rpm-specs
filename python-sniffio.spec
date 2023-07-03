@@ -11,7 +11,7 @@ detect which async library your code is running under.}
 
 Name:           python-%{srcname}
 Version:        1.2.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Sniff out which async library your code is running under
 License:        MIT or ASL 2.0
 URL:            https://github.com/python-trio/sniffio
@@ -26,7 +26,7 @@ BuildArch:      noarch
 Summary:        %{summary}
 BuildRequires:  python3-devel
 %if %{with tests}
-BuildRequires:  %{py3_dist pytest curio}
+BuildRequires:  %{py3_dist pytest}
 %endif
 
 
@@ -52,7 +52,8 @@ BuildRequires:  %{py3_dist pytest curio}
 
 %if %{with tests}
 %check
-%pytest --verbose
+# curio is upstream discontinued and is not yet available for Python 3.12
+%pytest --verbose -k "not test_curio"
 %endif
 
 
@@ -61,6 +62,9 @@ BuildRequires:  %{py3_dist pytest curio}
 
 
 %changelog
+* Sat Jul 01 2023 Python Maint <python-maint@redhat.com> - 1.2.0-10
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

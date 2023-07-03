@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.8.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Pytest plugin for trio
 
 License:        MIT or ASL 2.0
@@ -18,7 +18,6 @@ library for concurrency and async I/O in Python.
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-async-generator
 BuildRequires:  python3-pytest
 BuildRequires:  python3-hypothesis
 BuildRequires:  python3-setuptools
@@ -32,9 +31,9 @@ library for concurrency and async I/O in Python.
 %package -n python-%{pypi_name}-doc
 Summary:        pytest-trio documentation
 
-BuildRequires:  python3-sphinx
-BuildRequires:  python3-sphinxcontrib-trio
-BuildRequires:  python3-sphinx_rtd_theme
+#BuildRequires:  python3-sphinx
+#BuildRequires:  python3-sphinxcontrib-trio
+#BuildRequires:  python3-sphinx_rtd_theme
 
 %description -n python-%{pypi_name}-doc
 Documentation for %{name}.
@@ -43,18 +42,21 @@ Documentation for %{name}.
 %autosetup -n %{pypi_name}-%{version}
 rm -rf %{pypi_name}.egg-info
 sed -i /RemovedInPytest4Warning/d pytest_trio/_tests/conftest.py
+sed -i s/--cov// pytest.ini
 
 %build
 %py3_build
-PYTHONPATH=${PWD} sphinx-build-3 docs/source html
-rm -rf html/.{doctrees,buildinfo}
+#   An error happened in rendering the page history.
+#   Reason: UndefinedError("'logo' is undefined")
+# PYTHONPATH=${PWD} sphinx-build-3 docs/source html
+# rm -rf html/.{doctrees,buildinfo}
 
 %install
 %py3_install
 
 # https://github.com/python-trio/pytest-trio/issues/84
-#%check
-#PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v pytest_trio
+%check
+%pytest -v
 
 %files -n python3-%{pypi_name}
 %license LICENSE.MIT LICENSE LICENSE.APACHE2
@@ -62,11 +64,14 @@ rm -rf html/.{doctrees,buildinfo}
 %{python3_sitelib}/pytest_trio/
 %{python3_sitelib}/pytest_trio-%{version}-py%{python3_version}.egg-info
 
-%files -n python-%{pypi_name}-doc
-%doc html
-%license LICENSE.MIT LICENSE LICENSE.APACHE2
+#%%files -n python-%%{pypi_name}-doc
+#%%doc html
+#%%license LICENSE.MIT LICENSE LICENSE.APACHE2
 
 %changelog
+* Sat Jul 01 2023 Python Maint <python-maint@redhat.com> - 0.8.0-3
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

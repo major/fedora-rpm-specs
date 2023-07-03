@@ -1,16 +1,16 @@
 %global apiver  1
-%global gtk_version 4.9.5
+%global gtk_version 4.11.3
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           libadwaita
-Version:        1.3.3
+Version:        1.4~alpha
 Release:        %autorelease
 Summary:        Building blocks for modern GNOME applications
 
 License:        LGPLv2+
 URL:            https://gitlab.gnome.org/GNOME/libadwaita
-Source0:        https://download.gnome.org/sources/%{name}/1.3/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/1.4/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -21,6 +21,9 @@ BuildRequires:  meson >= 0.59.0
 BuildRequires:  sassc
 BuildRequires:  vala
 
+BuildRequires:  pkgconfig(appstream)
+BuildRequires:  pkgconfig(fribidi)
+BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(gtk4) >= %{gtk_version}
 Requires:       gtk4%{?_isa} >= %{gtk_version}

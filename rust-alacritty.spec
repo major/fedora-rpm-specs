@@ -4,14 +4,13 @@
 %global crate alacritty
 
 Name:           rust-alacritty
-Version:        0.12.1
+Version:        0.12.2
 Release:        %autorelease
 Summary:        Fast, cross-platform, OpenGL terminal emulator
 
 License:        Apache-2.0
 URL:            https://crates.io/crates/alacritty
 Source:         %{crates_source}
-
 # Automatically generated patch to strip foreign dependencies
 Patch:          alacritty-fix-metadata-auto.diff
 
@@ -53,6 +52,7 @@ Requires:       libwayland-egl
 %files       -n %{crate}
 %license LICENSE-APACHE
 %license LICENSE.dependencies
+%doc CHANGELOG.md
 %doc README.md
 %{_bindir}/alacritty
 %dir %{_datadir}/%{crate}

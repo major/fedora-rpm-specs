@@ -4,7 +4,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-glib-networking
-Version:        2.76.0
+Version:        2.76.1
 Release:        1%{?dist}
 Summary:        MinGW Windows glib-networking library
 
@@ -89,6 +89,9 @@ rm -f %{buildroot}%{mingw64_libdir}/gio/modules/*.la
 
 
 %changelog
+* Sat Jul 01 2023 Sandro Mani <manisandro@gmail.com> - 2.76.1-1
+- Update to 2.76.1
+
 * Sun Mar 19 2023 Sandro Mani <manisandro@gmail.com> - 2.76.0-1
 - Update to 2.76.0
 

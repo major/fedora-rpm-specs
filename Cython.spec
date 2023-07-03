@@ -9,7 +9,7 @@
 
 Name:           Cython
 Version:        0.29.35
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Language for writing Python extension modules
 
 License:        Apache-2.0
@@ -20,6 +20,11 @@ Source:         https://github.com/cython/cython/archive/%{version}/Cython-%{ver
 # Upstream PR: https://github.com/cython/emacs-cython-mode/pull/1
 # Fixes https://bugzilla.redhat.com/2155090
 Patch:          emacs-docstring-wrap.patch
+
+# Compile-time Python 3.12 compatibility for CYTHON_TRACE support
+# Taken from the 3.x branch upstream.
+# See: https://github.com/cython/cython/issues/5450
+Patch:          https://github.com/cython/cython/commit/03c498d3142ccee2da258c540e96f12c863159fc.patch?/py3.12-tracing.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -151,6 +156,9 @@ cp -p cython-mode-init.el cython-mode-init.elc %{buildroot}%{_emacs_sitestartdir
 
 
 %changelog
+* Fri Jun 30 2023 Petr Viktorin <pviktori@redhat.com> - 0.29.35-2
+- Compile-time Python 3.12 compatibility for CYTHON_TRACE support
+
 * Sun Jun 18 2023 Miro Hrončok <mhroncok@redhat.com> - 0.29.35-1
 - Update to 0.29.35
 - Fixes: rhbz#2210064

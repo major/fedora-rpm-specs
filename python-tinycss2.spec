@@ -7,7 +7,7 @@
 
 Name:           python-%{srcname}
 Version:        1.2.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Low-level CSS parser for Python
 
 License:        BSD
@@ -17,6 +17,9 @@ Source0:        %pypi_source
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
+
+# The test extra contains linters, we cherry-pick only what we need:
+BuildRequires:  python3-pytest
 
 
 %description
@@ -39,8 +42,9 @@ specification.
 %prep
 %autosetup -n %{srcname}-%{version}
 
+
 %generate_buildrequires
-%pyproject_buildrequires -r -x test
+%pyproject_buildrequires -r
 
 
 %build
@@ -67,6 +71,9 @@ rm -rf %{buildroot}%{python3_sitelib}/%{srcname}/__pycache__/test.*.py?
 
 
 %changelog
+* Sat Jul 01 2023 Python Maint <python-maint@redhat.com> - 1.2.1-4
+- Rebuilt for Python 3.12
+
 * Mon May 15 2023 Miro Hrončok <mhroncok@redhat.com> - 1.2.1-3
 - Drop redundant build dependency on flit, this package uses flit-core
 

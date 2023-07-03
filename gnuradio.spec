@@ -26,7 +26,7 @@
 
 Name:		gnuradio
 Version:	3.10.6.0
-Release:	4%{?alphatag:.%{alphatag}}%{?dist}
+Release:	5%{?alphatag:.%{alphatag}}%{?dist}
 Summary:	Software defined radio framework
 
 License:	GPLv3
@@ -213,6 +213,9 @@ done
 %{_datadir}/gnuradio/examples
 
 %changelog
+* Sat Jul 01 2023 Python Maint <python-maint@redhat.com> - 3.10.6.0-5
+- Rebuilt for Python 3.12
+
 * Wed Jun 28 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.10.6.0-4
 - Patch for fmt10 for not accepting enum by default
 

@@ -1,6 +1,6 @@
 %global upstreamname rocPRIM
-%global rocm_release 5.5
-%global rocm_patch 1
+%global rocm_release 5.6
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 # Compiler is hipcc, which is clang based:
 %global toolchain clang
@@ -14,10 +14,10 @@
 
 Name:           rocprim
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm parallel primatives
 
-License:        MIT and BSD 3-Clause License
+License:        MIT and BSD
 
 URL:            https://github.com/rocmsoftwareplatform/%{name}
 Source0:        %{url}/archive/refs/tags/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
@@ -87,6 +87,9 @@ cp NOTICES.txt %{buildroot}%{_docdir}/rocprim/
 %{_datadir}/cmake/rocprim
 
 %changelog
+* Fri Jun 30 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.6.0-1
+- Update to 5.6
+
 * Tue Jun 20 2023 Tom Rix <trix@redhat.com> - 5.5.1-4
 - For cxx flags change
 

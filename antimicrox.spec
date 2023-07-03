@@ -4,7 +4,7 @@
 %global appname io.github.antimicrox.antimicrox
 
 Name:         antimicrox
-Version:      3.3.3
+Version:      3.3.4
 Release:      1%{?dist}
 Summary:      Graphical program used to map keyboard buttons and mouse controls to a gamepad
 
@@ -79,6 +79,9 @@ AntiMicro which was inspired by QJoyPad but has additional features.
 %{_bindir}/appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{appname}.appdata.xml
 
 %changelog
+* Sat Jul 01 2023 Gergely Gombos <gombosg@disroot.org> - 3.3.4-1
+- 3.3.4
+
 * Mon Feb 13 2023 Gergely Gombos <gombosg@disroot.org> - 3.3.3-1
 - 3.3.3
 

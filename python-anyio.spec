@@ -14,7 +14,7 @@ on top of asyncio, and works in harmony with the native SC of trio itself.}
 
 Name:           python-%{srcname}
 Version:        3.5.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Compatibility layer for multiple asynchronous event loop implementations
 License:        MIT
 URL:            https://github.com/agronholm/anyio
@@ -112,6 +112,9 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %changelog
+* Sat Jul 01 2023 Python Maint <python-maint@redhat.com> - 3.5.0-6
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

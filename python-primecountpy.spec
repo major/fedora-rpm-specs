@@ -2,7 +2,7 @@
 
 Name:           python-primecountpy
 Version:        0.1.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Python Primecount wrapper
 
 # GPL-3.0-only: setup.py
@@ -96,6 +96,9 @@ ln -s ../$(find build -name \*.so) primecountpy
 %license LICENSE
 
 %changelog
+* Sat Jul 01 2023 Python Maint <python-maint@redhat.com> - 0.1.0-10
+- Rebuilt for Python 3.12
+
 * Wed Jun 14 2023 Miro Hrončok <mhroncok@redhat.com> - 0.1.0-9
 - Don't needlessly BuildRequire self
 

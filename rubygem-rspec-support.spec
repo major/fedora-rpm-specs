@@ -1,9 +1,9 @@
 %global	gem_name	rspec-support
 
-%global	mainver	3.12.0
+%global	mainver	3.12.1
 %undefine	prever
 
-%global	baserelease	3
+%global	baserelease	1
 %global	prerpmver	%(echo "%{?prever}" | sed -e 's|\\.||g')
 
 %bcond_with bootstrap
@@ -22,10 +22,6 @@ Source0:	https://rubygems.org/gems/%{gem_name}-%{mainver}%{?prever}.gem
 # %%{SOURCE2} %%{name} %%{version}
 Source1:	rubygem-%{gem_name}-%{version}-full.tar.gz
 Source2:	rspec-related-create-full-tarball.sh
-# https://github.com/rspec/rspec-support/pull/556
-# ruby 3.2.0 / 3.1.3 changes fiber deadlock treatment
-# Tweaked to make test suite flexible
-Patch0:	rubygem-rspec-support-3.12.0-pend-lock-fiber-test.patch
 # tweak regex for search path
 Patch100:	rubygem-rspec-support-3.2.1-callerfilter-searchpath-regex.patch
 
@@ -63,8 +59,7 @@ Documentation for %{name}
 %setup -q -T -n %{gem_name}-%{version} -b 1
 gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
 
-%patch0 -p1
-%patch100 -p1
+%patch -P100 -p1
 
 %build
 gem build %{gem_name}.gemspec
@@ -112,6 +107,9 @@ rspec spec/ || rspec --tag ~broken
 %doc	%{gem_docdir}
 
 %changelog
+* Sat Jul  1 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.12.1-1
+- 3.12.1
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.0-3.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

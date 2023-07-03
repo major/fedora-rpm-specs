@@ -5,14 +5,21 @@ BuildRequires:	%1 \
 %{nil}
 
 Name:		rubygem-%{gem_name}
-Version:	3.0.1
-Release:	4%{?dist}
+Version:	3.0.3
+Release:	1%{?dist}
 
 Summary:	RD-document-based presentation application
-# CC-BY: rubykaigi2011-background-white.jpg and
-# rubykaigi2011-background-black.jpg
-# (see doc/en/index.rd)
-License:	GPLv2+ and CC-BY
+# GPL-2.0-or-later:	overall
+# The following is obtained from:
+# https://www.w3.org/TR/MathML2/chapter6.html#chars.entity.tables , so from
+# https://www.w3.org/TR/MathML2/overview.html , so:
+# W3C:		entities/
+# HPND:		lib/rabbit/trackball.rb
+# From doc/en/index.rd:
+# CC-BY-3.0:	data/rabbit/image/rubykaigi2011-images/rubykaigi2011-background-white.jpg
+# CC-BY-3.0:	data/rabbit/image/rubykaigi2011-images/rubykaigi2011-background-black.jpg
+# SPDX confirmed
+License:	GPL-2.0-or-later AND W3C AND HPND AND CC-BY-3.0
 URL:		http://rabbit-shocker.org/
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
 Source1:	%{name}-%{version}-test-missing-files.tar.gz
@@ -26,7 +33,8 @@ BuildRequires:	rubygems-devel
 Requires:	ruby(rubygems)
 
 %BothRequires	rubygem(coderay)
-%BothRequires	rubygem(faraday)
+# Dependency removed on 3.0.2
+#%%BothRequires	rubygem(faraday)
 %BothRequires	rubygem(gettext)
 %BothRequires	rubygem(gdk_pixbuf2)
 %BothRequires	rubygem(gtk3)
@@ -40,9 +48,7 @@ Requires:	rubygem-kramdown >= 2.0
 %BothRequires	rubygem(rsvg2)
 %BothRequires	rubygem(rdtool)
 %BothRequires	rubygem(rttool)
-%if 0%{?fedora} >= 34
 %BothRequires	rubygem(rexml)
-%endif
 # test_codeblock_fence test needs below
 BuildRequires:	%{_bindir}/blockdiag
 BuildRequires:	desktop-file-utils
@@ -163,6 +169,15 @@ popd
 %doc	%{gem_instdir}/sample/	
 
 %changelog
+* Sun Jul  2 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.0.3-1
+- 3.0.3
+
+* Sat Jul  1 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.0.2-2
+- SPDX migration
+
+* Sat Jul  1 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.0.2-1
+- 3.0.2
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

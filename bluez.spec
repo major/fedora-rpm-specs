@@ -5,8 +5,8 @@
 %endif
 
 Name:    bluez
-Version: 5.66
-Release: 6%{?dist}
+Version: 5.68
+Release: 1%{?dist}
 Summary: Bluetooth utilities
 License: GPLv2+
 URL:     http://www.bluez.org/
@@ -15,12 +15,10 @@ Source0: http://www.kernel.org/pub/linux/bluetooth/%{name}-%{version}.tar.xz
 Source1: bluez.gitignore
 
 # https://github.com/hadess/bluez/commits/obex-5.46
-Patch1: 0001-obex-Use-GLib-helper-function-to-manipulate-paths.patch
+# Upstream's logic has changed so needs a rebase
+#Patch1: 0001-obex-Use-GLib-helper-function-to-manipulate-paths.patch
 # https://lore.kernel.org/linux-bluetooth/20220901110719.176944-1-hadess@hadess.net/T/#m9c08d004cd5422783ee1d93154f42303bba9169f
 Patch2: power-state-adapter-property.patch
-# Upstreamed patches
-Patch3: transient-hostname-fix.patch
-Patch4: 0001-adapter-Use-regular-discovery-for-filters-which-only.patch
 
 BuildRequires: dbus-devel >= 1.6
 BuildRequires: glib2-devel
@@ -235,7 +233,7 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %license COPYING
 %doc AUTHORS ChangeLog
 %dir %{_sysconfdir}/bluetooth
-%config %{_sysconfdir}/bluetooth/main.conf
+%config(noreplace) %{_sysconfdir}/bluetooth/main.conf
 %config %{_sysconfdir}/dbus-1/system.d/bluetooth.conf
 %{_bindir}/avinfo
 %{_bindir}/bluemoon
@@ -306,7 +304,7 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 
 %files mesh
 #%doc tools/mesh-gatt/*.json
-%config %{_sysconfdir}/bluetooth/mesh-main.conf
+%config(noreplace) %{_sysconfdir}/bluetooth/mesh-main.conf
 %config %{_sysconfdir}/dbus-1/system.d/bluetooth-mesh.conf
 %{_bindir}/mesh-cfgclient
 %{_bindir}/mesh-cfgtest
@@ -322,6 +320,10 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_userunitdir}/obex.service
 
 %changelog
+* Sat Jul 01 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 5.68-1
+- Update to 5.68
+- Don't replace modified configs on upgrade (rhbz#2173029)
+
 * Sun Jun 25 2023 Bastien Nocera <bnocera@redhat.com> - 5.66-6
 - Add patch that fixes some devices not being discoverable in
   GNOME's Bluetooth Settings

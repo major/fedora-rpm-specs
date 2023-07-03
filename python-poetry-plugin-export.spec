@@ -3,7 +3,7 @@
 %bcond bootstrap 0
 
 Name:           python-poetry-plugin-export
-Version:        1.3.0
+Version:        1.3.1
 Release:        2%{?dist}
 Summary:        Poetry plugin to export the dependencies to various formats
 
@@ -66,6 +66,12 @@ Summary:        %{summary}
 
 
 %changelog
+* Mon May 22 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.3.1-2
+- Update to 1.3.1 - without bootstrap
+
+* Thu May 11 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.3.1-1
+- Update to 1.3.1
+
 * Mon Feb 20 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.3.0-2
 - Update to 1.3.0 - without bootstrap
 

@@ -9,7 +9,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Microsoft Azure Managed Services Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
@@ -73,6 +73,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Sat Jul 01 2023 Python Maint <python-maint@redhat.com> - 1:1.0.0-9
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.0.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

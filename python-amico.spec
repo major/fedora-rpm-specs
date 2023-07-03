@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.1
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Relationships (e.g. friendships) backed by Redis
 
 License:        MIT
@@ -45,6 +45,9 @@ Python 3 version.
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Sat Jul 01 2023 Python Maint <python-maint@redhat.com> - 1.0.1-26
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

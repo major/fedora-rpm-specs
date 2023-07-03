@@ -3,8 +3,8 @@
 %global gssdp_version 1.6.2
 
 Name:          gupnp
-Version:       1.6.3
-Release:       2%{?dist}
+Version:       1.6.4
+Release:       1%{?dist}
 Summary:       A framework for creating UPnP devices & control points
 
 License:       LGPLv2+
@@ -85,6 +85,9 @@ This package contains developer documentation for %{name}.
 %{_docdir}/gupnp-%{apiver}/
 
 %changelog
+* Sat Jul 01 2023 Kalev Lember <klember@redhat.com> - 1.6.4-1
+- Update to 1.6.4
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

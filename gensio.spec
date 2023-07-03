@@ -13,16 +13,19 @@ Summary:        General Stream I/O
 License:        GPL-2.0-only AND LGPL-2.1-only AND Apache-2.0
 URL:            %{forgeurl}
 Source0:        %{forgesource}
+Patch0:         https://github.com/cminyard/gensio/commit/274b20577b8830e61fd02258f83630ef7e2b111f.patch
+Patch1:         https://github.com/cminyard/gensio/commit/59cf97c50cfddb76d0023e40eda690153ae55172.patch
+Patch2:         https://github.com/cminyard/gensio/commit/2a8546b09a5ffba193f9381bd813b75725898935.patch
 
 BuildRequires:  alsa-lib-devel
 BuildRequires:  avahi-devel
 BuildRequires:  gcc-c++
-BuildRequires:  libnsl2-devel
 BuildRequires:  libtool
 BuildRequires:  OpenIPMI-devel
 BuildRequires:  openssl-devel
 BuildRequires:  pam-devel
 BuildRequires:  pkgconfig(gthread-2.0)
+BuildRequires:  pkgconfig(libsctp)
 BuildRequires:  python3-devel
 BuildRequires:  swig
 BuildRequires:  systemd-devel
@@ -72,7 +75,7 @@ developing applications that use %{name}.
 Summary:        OpenIPMI support for %{name}
 
 %description -n libgensio-ipmisol
-The %{name}-ipmisol package contains additional libraries for for OpenIPMI
+The %{name}-ipmisol package contains additional libraries for OpenIPMI
 support in %{name}.
 
 
@@ -80,7 +83,7 @@ support in %{name}.
 Summary:        Avahi (mDNS) support for %{name}
 
 %description -n libgensio-mdns
-The %{name}-mdns package contains additional libraries for for Avahi (mDNS)
+The %{name}-mdns package contains additional libraries for Avahi (mDNS)
 support in %{name}.
 
 
@@ -88,14 +91,16 @@ support in %{name}.
 Summary:        ALSA support for %{name}
 
 %description -n libgensio-sound
-The %{name}-sound package contains additional libraries for for ALSA sound
+The %{name}-sound package contains additional libraries for ALSA sound
 support in %{name}.
+
 
 %package     -n libgensio-tcl
 Summary:        TCL bindings for %{name}
 
 %description -n libgensio-tcl
 The %{name}-tcl package contains TCL bindings for %{name}.
+
 
 %package     -n python3-%{name}
 Summary:        Python library for %{name}
@@ -175,6 +180,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libexecdir}/%{name}/%{version}/lib%{name}_ratelimit.so
 %{_libexecdir}/%{name}/%{version}/lib%{name}_relpkt.so
 %{_libexecdir}/%{name}/%{version}/lib%{name}_script.so
+%{_libexecdir}/%{name}/%{version}/lib%{name}_sctp.so
 %{_libexecdir}/%{name}/%{version}/lib%{name}_serialdev.so
 %{_libexecdir}/%{name}/%{version}/lib%{name}_ssl.so
 %{_libexecdir}/%{name}/%{version}/lib%{name}_stdio.so
@@ -214,9 +220,11 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %license COPYING COPYING.LIB
 %{_libexecdir}/%{name}/%{version}/lib%{name}_sound.so
 
+
 %files -n libgensio-tcl
 %license COPYING COPYING.LIB
 %{_libdir}/lib%{name}tcl.so.*
+
 
 %files -n python3-%{name}
 %license COPYING COPYING.LIB

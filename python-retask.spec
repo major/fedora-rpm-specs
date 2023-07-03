@@ -1,6 +1,6 @@
 Name:           python-retask
 Version:        1.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python module to create and manage distributed task queues
 
 License:        MIT
@@ -49,6 +49,9 @@ Requires:       python3-redis
 
 
 %changelog
+* Sat Jul 01 2023 Python Maint <python-maint@redhat.com> - 1.1.0-2
+- Rebuilt for Python 3.12
+
 * Thu Apr 27 2023 Kushal Das <kushal@fedoraproject.org> - 1.1.0-1
 - Updating to latest release, only python3 code, no API change.
 

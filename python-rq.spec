@@ -1,9 +1,10 @@
+%global _without_tests 1
 %global srcname rq
 %bcond_without tests
 
 Name:           python-%{srcname}
 Version:        1.12.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple, lightweight, library for creating background jobs, and processing them
 
 License:        BSD-2-Clause
@@ -62,6 +63,9 @@ Python 3 version.
 %{_bindir}/rqworker
 
 %changelog
+* Sat Jul 01 2023 Python Maint <python-maint@redhat.com> - 1.12.0-2
+- Bootstrap for Python 3.12
+
 * Mon Jan 23 2023 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 1.12.0-1
 - Update to 1.12.0
 

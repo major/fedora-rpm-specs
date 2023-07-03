@@ -1,7 +1,7 @@
 %global srcname relval
 
 Name:           relval
-Version:        2.5.9
+Version:        2.6.0
 Release:        %{autorelease}
 Summary:        Tool for interacting with Fedora QA wiki pages
 
@@ -11,14 +11,6 @@ Source0:        https://releases.pagure.org/fedora-qa/relval/%{srcname}-%{versio
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-Requires:       python3-fedfind >= 2.8.0
-Requires:       python3-markupsafe
-Requires:       python3-mwclient
-Requires:       python3-setuptools
-Requires:       python3-six
-Requires:       python3-wikitcms >= 2.6.0
-Requires:       python3-bugzilla
 
 %description
 Relval can perform various tasks related to Fedora QA by interacting with the
@@ -33,13 +25,21 @@ more information on the process relval helps with.
 
 %prep
 %autosetup -n %{srcname}-%{version}
+# setuptools-scm is needed to build the source distribution, but not
+# for packaging, which *starts* from the source distribution
+sed -i -e 's., "setuptools-scm"..g' pyproject.toml
+
+%generate_buildrequires
+%pyproject_buildrequires -t
 
 %build
-%{py3_build}
+%pyproject_wheel
 
 %install
-rm -rf %{buildroot}
-%{py3_install}
+%pyproject_install
+
+%check
+%tox
 
 %files
 %doc README.md

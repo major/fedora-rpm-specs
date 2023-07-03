@@ -15,6 +15,7 @@ Patch:  https://github.com/boutproject/BOUT-dev/pull/2664.patch
 Patch:  https://github.com/boutproject/BOUT-dev/pull/2678.patch
 Patch:  https://github.com/boutproject/BOUT-dev/commit/489270184ba9e03cb9996c614050cb92513424e6.patch#./petsc_318_compat.patch
 Patch:  https://github.com/boutproject/BOUT-dev/pull/2693.patch
+Patch:  https://github.com/boutproject/BOUT-dev/pull/2730.patch#./fmt10.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}

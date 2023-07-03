@@ -1,5 +1,5 @@
 %global git 0
-%global commit 83ba1c9d20a7370b629bbebe88238a2c3c8194b3
+%global commit 59e8b9370f33a16363f4d24487aade1e30427652
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
@@ -13,9 +13,9 @@
 
 Name:           lammps
 %if %{git}
-Version:        20220623.3^%{shortcommit}
+Version:        20220623.4^%{shortcommit}
 %else
-Version:        20220623.3
+Version:        20220623.4
 %endif
 %global         uversion %(v=%{version}; \
                   patch=${v##*.}; [[ $v = $patch ]] && patch= \
@@ -25,7 +25,7 @@ Version:        20220623.3
                   m=${v:4:2};
                   y=${v:0:4};
                   echo $([[ -z $patch ]] && echo patch || echo stable)_${d#0}${months[${m#0}]}${y}$([[ -n $patch ]] && echo _update${patch}))
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Molecular Dynamics Simulator
 License:        GPLv2
 Url:            https://www.lammps.org/
@@ -206,7 +206,7 @@ cd python
 %else
 %setup -q -n %{name}-%{uversion}
 %endif
-%patch0 -p1
+%patch 0 -p1
 
 %build
 %global _vpath_srcdir cmake
@@ -264,9 +264,10 @@ cd python
 
 %check
 
-%global testargs --label-exclude unstable --exclude-regex '\(Variables\|ComputeGlobal\|MolPairStyle:tip4p_long\|MolPairStyle:tip4p_table\|MolPairStyle:lj_cut_tip4p_table\|FixTimestep:rigid_nvt\|MolPairStyle:coul_slater_long\|AtomicPairStyle:meam_spline\|FixTimestep:addtorque_const\|FixTimestep:spring_rg\|FixTimestep:wall_harmonic_const\|MolPairStyle:lj_table_tip4p_long\|MolPairStyle:lj_cut_tip4p_long\|MolPairStyle:lj_cut_tip4p_cut\)'
-%ifarch ppc64le
-%global testargs --label-exclude unstable --exclude-regex '\(Variables\|ComputeGlobal\|MolPairStyle:tip4p_long\|MolPairStyle:tip4p_table\|MolPairStyle:lj_cut_tip4p_table\|MolPairStyle:tip4p_cut\|MolPairStyle:lj_cut_tip4p_cut\|MolPairStyle:lj_cut_tip4p_long_soft\|FixTimestep:rigid_nvt\|MolPairStyle:coul_slater_long\|AtomicPairStyle:meam_spline\|FixTimestep:addtorque_const\|FixTimestep:spring_rg\|FixTimestep:wall_harmonic_const\)'
+%global testargs --label-exclude unstable --exclude-regex '\(SimpleCommands\|Variables\|ComputeGlobal\|MolPairStyle:coul_slater_long\|AtomicPairStyle:meam_spline\|FixTimestep:.*\|.*tip4p.*\)'
+
+%ifarch s390x
+%global testargs --label-exclude unstable --exclude-regex '\(SimpleCommands\|Variables\|ComputeGlobal\|MolPairStyle:coul_slater_long\|AtomicPairStyle:meam_spline\|FixTimestep:.*\|.*tip4p.*\|LibraryMPI\|MPILoadBalancing\)'
 %endif
 
 . /etc/profile.d/modules.sh
@@ -350,6 +351,9 @@ done
 %config %{_sysconfdir}/profile.d/lammps.*
 
 %changelog
+* Wed Jun 28 2023 Richard Berger <richard.berger@outlook.com> - 20220623.4-1`
+- Version bump to 20220623.4, disable more tests, and update %patch
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 20220623.3-3
 - Rebuilt for Python 3.12
 

@@ -14,7 +14,7 @@
 %global sum_zh  FastAPI 框架
 
 Name:           python-fastapi
-Version:        0.98.0
+Version:        0.99.0
 Release:        %autorelease
 Summary:        %{sum_en}
 
@@ -36,13 +36,6 @@ Patch:          %{url}/pull/4409.patch
 # Upgrade databases and SQLAlchemy
 # https://github.com/tiangolo/fastapi/pull/5799
 Patch:          %{url}/pull/5799.patch
-# Allow httpx 0.24.x for testing
-# https://github.com/tiangolo/fastapi/pull/9578
-#
-# Upstream refactored the dependency into a requirements file and wants to wait
-# for dependabot to suggest an upgrade, but we need to use httpx 0.24.x now, so
-# this becomes a downstream-only patch. It applies on top of PR#5799.
-Patch:          0001-Allow-httpx-0.24.x-for-testing.patch
 
 BuildRequires:  python3-devel
 

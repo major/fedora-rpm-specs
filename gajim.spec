@@ -2,7 +2,7 @@
 
 Name:     gajim
 Version:  1.7.3
-Release:  2%{?dist}
+Release:  3%{?dist}
 Summary:  Jabber client written in PyGTK
 License:  GPLv3
 URL:      https://gajim.org/
@@ -94,6 +94,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{appid}.
 %{_datadir}/icons/hicolor/scalable/apps/%{appid}-symbolic.svg
 
 %changelog
+* Sat Jul 01 2023 Python Maint <python-maint@redhat.com> - 1.7.3-3
+- Rebuilt for Python 3.12
+
 * Tue Apr 04 2023 Michael Kuhn <suraia@fedoraproject.org> - 1.7.3-2
 - Recommend python3-qrcode for OMEMO (#2181758)
 

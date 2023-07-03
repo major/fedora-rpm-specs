@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        2.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Adds caching support to your Flask application
 
 License:        BSD
@@ -76,6 +76,9 @@ kill %1
 %license LICENSE docs/license.rst
 
 %changelog
+* Sat Jul 01 2023 Python Maint <python-maint@redhat.com> - 2.0.1-3
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

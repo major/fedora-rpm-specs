@@ -4,7 +4,7 @@
 
 Name:               python-Mastodon
 Version:            1.8.1
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Python wrapper for the Mastodon API
 
 
@@ -60,6 +60,9 @@ Python %{python3_version} version.
 %{python3_sitelib}/%{modname}.py-*.egg-info/
 
 %changelog
+* Sat Jul 01 2023 Python Maint <python-maint@redhat.com> - 1.8.1-2
+- Rebuilt for Python 3.12
+
 * Mon Apr 24 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.8.1-1
 - 1.8.1
 

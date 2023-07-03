@@ -1,4 +1,3 @@
-%global _without_tests 1
 # When bootstrapping Python, we cannot test this yet
 # RHEL does not include the test dependencies
 %if 0%{?rhel}
@@ -9,7 +8,7 @@
 
 Name:           python-urllib3
 Version:        1.26.15
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        HTTP library with thread-safe connection pooling, file post, and more
 
 # SPDX
@@ -171,6 +170,9 @@ ignore="${ignore-} --ignore=test/test_no_ssl.py"
 
 
 %changelog
+* Sat Jul 01 2023 Python Maint <python-maint@redhat.com> - 1.26.15-3
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.26.15-2
 - Bootstrap for Python 3.12
 

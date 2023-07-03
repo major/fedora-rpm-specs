@@ -4,7 +4,7 @@
 # 2) When making changes, increment the version (in baserelease) by 1.
 #    rpmdev-bumpspec and other tools update the macro below, which is used
 #    in Version: to get the desired effect.
-%global baserelease 255
+%global baserelease 256
 
 Summary: Red Hat specific rpm configuration files
 Name: redhat-rpm-config
@@ -254,6 +254,9 @@ install -p -m 644 -t %{buildroot}%{_rpmluadir}/fedora/srpm forge.lua
 %doc buildflags.md
 
 %changelog
+* Sat Jun 17 2023 Tom Stellard <tstellar@redhat.com> - 256-1
+- Remove -fno-openmp-implicit-rpath from clang ldflags
+
 * Fri Jun 16 2023 Lumír Balhar <lbalhar@redhat.com> - 255-1
 - Add qt6-srpm-macros
 
