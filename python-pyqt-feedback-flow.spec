@@ -9,8 +9,8 @@ can be customized according to users' wishes, which offers a wide
 variety of possibilities for providing flowing feedback.}
 
 Name:           python-%{pypi_name}
-Version:        0.2.0
-Release:        2%{?dist}
+Version:        0.3.0
+Release:        1%{?dist}
 Summary:        Show feedback in toast-like notifications
 
 License:        MIT
@@ -26,7 +26,8 @@ BuildRequires:  python3-devel
 # packaged along with other “non-core” modules in python3-qt5. Since this is
 # not represented (and currently cannot be represented) in the Python metadata,
 # we need explicit BuildRequires *and* Requires on the full python3-qt5.
-BuildRequires:  python3-qt5
+# EDIT | July 2023: switch to qt6 in the same way
+BuildRequires:  python3-pyqt6
 
 BuildRequires:  %{py3_dist toml-adapt}
 BuildRequires:  %{py3_dist pytest}
@@ -37,7 +38,7 @@ BuildRequires:  %{py3_dist pytest}
 Summary:        %{summary}
 
 # See the comment on the corresponding BuildRequires.
-Requires:       python3-qt5
+Requires:       python3-pyqt6
 
 %description -n python3-%{pypi_name} %_description
 
@@ -71,6 +72,9 @@ toml-adapt -path pyproject.toml -a change -dep PyQt5 -ver X
 %doc README.md CHANGELOG.md CODE_OF_CONDUCT.md
 
 %changelog
+* Sun Jul 2 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.3.0-1
+- Update to the latest release
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 0.2.0-2
 - Rebuilt for Python 3.12
 

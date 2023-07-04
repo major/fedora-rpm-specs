@@ -1,6 +1,6 @@
 Name:           python-stack-data
 Version:        0.6.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Extract data from python stack frames and tracebacks for informative displays
 
 License:        MIT
@@ -12,6 +12,7 @@ Patch:          no-typeguard.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildRequires:  python3-zombie-imp
 # Extra test dependency
 # Tests use Cython and try to compile some extensions
 BuildRequires:  gcc
@@ -59,6 +60,9 @@ Summary:        %{summary}
 %doc README.md
 
 %changelog
+* Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 0.6.2-4
+- Rebuilt for Python 3.12
+
 * Mon May 29 2023 Michel Alexandre Salim <salimma@fedoraproject.org> - 0.6.2-3
 - Skip running type checks via typeguard, per packaging guidelines
 

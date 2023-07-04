@@ -3,7 +3,7 @@
 
 # https://github.com/fatih/color
 %global goipath         github.com/fatih/color
-Version:                1.13.0
+Version:                1.15.0
 
 %gometa
 

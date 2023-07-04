@@ -1,12 +1,10 @@
-%global _without_doc 1
-%global _without_tests 1
 # Unset -s on python shebang - ensure that extensions installed with pip
 # to user locations are seen and properly loaded
 %undefine _py3_shebang_s
 
 Name:           python-jupyter-client
 Version:        7.4.9
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Jupyter protocol implementation and client libraries
 
 License:        BSD
@@ -111,6 +109,9 @@ rm -r html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 7.4.9-4
+- Rebuilt for Python 3.12
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 7.4.9-3
 - Bootstrap for Python 3.12
 

@@ -2,8 +2,8 @@
 %bcond_without check
 
 # https://github.com/OJ/gobuster
-%global goipath         github.com/OJ/gobuster
-Version:                3.1.0
+%global goipath         github.com/OJ/gobuster/v3
+Version:                3.5.0
 
 %gometa
 
@@ -11,7 +11,7 @@ Version:                3.1.0
 Directory/File, DNS and VHost busting tool written in Go.}
 
 %global golicenses      LICENSE
-%global godocs          README.md TODO.md
+%global godocs          README.md
 
 Name:           gobuster
 Release:        %autorelease
@@ -21,10 +21,6 @@ License:        ASL 2.0
 URL:            %{gourl}
 Source0:        %{gosource}
 
-BuildRequires:  golang(github.com/google/uuid)
-BuildRequires:  golang(github.com/spf13/cobra)
-BuildRequires:  golang(golang.org/x/crypto/ssh/terminal)
-
 %description
 %{common_description}
 
@@ -32,6 +28,10 @@ BuildRequires:  golang(golang.org/x/crypto/ssh/terminal)
 
 %prep
 %goprep
+%autopatch -p1
+
+%generate_buildrequires
+%go_generate_buildrequires
 
 %build
 %gobuild -o %{gobuilddir}/bin/gobuster %{goipath}
@@ -48,7 +48,7 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 
 %files
 %license LICENSE
-%doc README.md TODO.md
+%doc README.md
 %{_bindir}/*
 
 %gopkgfiles

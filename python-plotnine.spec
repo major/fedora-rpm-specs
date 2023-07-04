@@ -14,7 +14,12 @@
 %global _skip_tests %{expand:\\
 not logticks and not backtransforms and not se_false and not facet \\
 and not label and not ribbon and not arrow and not adjust_text \\
-and not caption_simple and not theme and not scale}
+and not caption_simple and not theme and not scale and not coords \\
+and not geom_bar_col_histogram and not geom_bin_2d and not geom_boxplot \\
+and not geom_density and not geom_dotplot and not geom_map \\
+and not geom_point and not geom_raster and not geom_violin \\
+and not lint_and_format and not position and not qplot and not stat_ecdf \\
+and not stat_summary}
 
 %global _description %{expand:
 Implementation of a grammar of graphics in Python, based on ggplot2.
@@ -29,7 +34,7 @@ simple.
 Welcome to Plot 9 from Outerspace 🪐 🦇}
 
 Name:           python-%{pypi_name}
-Version:        0.10.1
+Version:        0.12.1
 Release:        %{autorelease}
 Summary:        Implementation of a grammar of graphics in Python, based on ggplot2
 BuildArch:      noarch

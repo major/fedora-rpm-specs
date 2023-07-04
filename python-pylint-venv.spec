@@ -1,6 +1,6 @@
 Name:           python-pylint-venv
 Version:        3.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Make pylint respect virtualenvs
 
 License:        MIT
@@ -48,5 +48,8 @@ Summary:        %{summary}
 
 
 %changelog
+* Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 3.0.1-2
+- Rebuilt for Python 3.12
+
 * Tue Apr 11 2023 Jonathan Wright <jonathan@knownhost.com> - 3.0.1
 - initial package build

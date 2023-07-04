@@ -8,7 +8,7 @@
 
 Name:    breeze-icon-theme
 Summary: Breeze icon theme
-Version: 5.107.0
+Version: 5.108.0
 Release: 1%{?dist}
 
 # http://techbase.kde.org/Policies/Licensing_Policy
@@ -62,6 +62,12 @@ Requires: %{name} = %{version}-%{release}
 %description rcc
 %{summary}.
 
+%package     devel
+Summary:     Breeze icon theme development files
+Requires:    %{name}%{?_isa} = %{version}-%{release}
+%description devel
+The %{name}-devel package contains libraries and header files for
+developing applications that use %{name}.
 
 
 %prep
@@ -148,12 +154,18 @@ fi
 %exclude %{_datadir}/icons/breeze/breeze-icons.rcc
 %exclude %{_datadir}/icons/breeze-dark/breeze-icons-dark.rcc
 
+%files devel
+%{_kf5_libdir}/cmake/KF5BreezeIcons/
+
 %files rcc
 %{_datadir}/icons/breeze/breeze-icons.rcc
 %{_datadir}/icons/breeze-dark/breeze-icons-dark.rcc
 
 
 %changelog
+* Sun Jul 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.108.0-1
+- 5.108.0
+
 * Sat Jun 03 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.107.0-1
 - 5.107.0
 

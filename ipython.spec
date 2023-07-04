@@ -14,7 +14,7 @@
 
 Name:           ipython
 Version:        8.14.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        An enhanced interactive Python shell
 
 # See bug #603178 for a quick overview for the choice of licenses
@@ -256,6 +256,12 @@ rm -r %{buildroot}%{python3_sitelib}/IPython/*/tests
 
 
 %changelog
+* Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 8.14.0-3
+- Rebuilt for Python 3.12
+
+* Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 8.14.0-2
+- Bootstrap for Python 3.12
+
 * Mon Jun 05 2023 Lumír Balhar <lbalhar@redhat.com> - 8.14.0-1
 - Update to 8.14.0 (rhbz#2212013)
 

@@ -14,7 +14,7 @@
 
 Name:		python-hwdata
 Version:	2.3.8
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Python bindings to hwdata package
 BuildArch:  noarch
 License:	GPL-2.0-only
@@ -116,6 +116,9 @@ pylint-3 hwdata.py example.py || :
 %endif # with python3
 
 %changelog
+* Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 2.3.8-3
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,4 +1,3 @@
-%global _with_bootstrap 1
 # To break circular dependency on poetry-plugin-export, when bootstrapping
 # we don't BuildRequire runtime deps and we don't run tests.
 %bcond bootstrap 0
@@ -10,7 +9,7 @@ projects, ensuring you have the right stack everywhere.}
 Name:           poetry
 Summary:        Python dependency management and packaging made easy
 Version:        1.5.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 License:        MIT
 
@@ -111,6 +110,9 @@ not test_installer_with_pypi_repository"
 
 
 %changelog
+* Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 1.5.0-3
+- Rebuilt for Python 3.12
+
 * Fri Jun 30 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.5.0-2
 - Update to 1.5.0 - without bootstrap
 

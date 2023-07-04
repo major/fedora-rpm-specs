@@ -1,6 +1,6 @@
 Name:           python-bash-kernel
 Version:        0.9.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Bash kernel for Jupyter
 License:        BSD-3-Clause
 URL:            https://github.com/takluyver/bash_kernel
@@ -48,6 +48,9 @@ cd -
 %{_datadir}/jupyter/kernels/bash/
 
 %changelog
+* Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 0.9.1-2
+- Rebuilt for Python 3.12
+
 * Fri Jun 30 2023 Jerry James <loganjerry@gmail.com> - 0.9.1-1
 - Version 0.9.1
 

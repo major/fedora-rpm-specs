@@ -2,7 +2,7 @@
 %global priority 90
 
 Name:           vala
-Version:        0.56.8
+Version:        0.56.9
 Release:        1%{?dist}
 Summary:        A modern programming language for GNOME
 
@@ -192,6 +192,9 @@ export -n VALAFLAGS
 
 
 %changelog
+* Sun Jul 02 2023 Kalev Lember <klember@redhat.com> - 0.56.9-1
+- Update to 0.56.9
+
 * Tue May 30 2023 Kalev Lember <klember@redhat.com> - 0.56.8-1
 - Update to 0.56.8
 

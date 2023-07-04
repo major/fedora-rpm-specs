@@ -1,6 +1,6 @@
 Name:           thonny
 Version:        4.0.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python IDE for beginners
 
 # Code is MIT, toolbar icons are EPL-1.0
@@ -111,6 +111,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.thonn
 
 
 %changelog
+* Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 4.0.2-4
+- Rebuilt for Python 3.12
+
 * Tue May 16 2023 Karolina Surma <ksurma@redhat.com> - 4.0.2-3
 - Enable openning and saving files with zenity 3.91+
 Resolves: rhbz#2186809

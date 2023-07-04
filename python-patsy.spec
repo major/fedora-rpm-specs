@@ -9,7 +9,7 @@ the 'formula' mini-language used in R and S.}
 
 Name: python-%{srcname}
 Version: 0.5.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Describing statistical models in Python using symbolic formulas
 # All code is under BSD except patsy.compat that is under Python
 # See LICENSE.txt for details
@@ -100,6 +100,9 @@ popd
 %license LICENSE.txt
 
 %changelog
+* Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 0.5.3-3
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

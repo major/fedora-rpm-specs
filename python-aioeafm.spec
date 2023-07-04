@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.0.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python wrapper for the UK Environment Agency Flood Monitoring API
 
 License:        ASL 2.0
@@ -47,6 +47,9 @@ monitoring API.
 %license LICENSE
 
 %changelog
+* Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 1.0.0-9
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

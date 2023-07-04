@@ -1,17 +1,15 @@
 
-%global commit 54318313923c34dee4d9e3aee2d65314148b05eb
+%global commit 8703d43bd14d000fc630c2d3918d918819d23741
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           spirv-llvm-translator
 Version:        16.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        LLVM to SPIRV Translator
 
 License:        NCSA
 URL:            https://github.com/KhronosGroup/SPIRV-LLVM-Translator
 Source0:        %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
-
-Patch0: 0001-Fix-standalone-builds-with-LLVM_LINK_LLVM_DYLIB-ON.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -80,6 +78,9 @@ This package contains the standalone llvm to spirv tool.
 %{_libdir}/pkgconfig/LLVMSPIRVLib.pc
 
 %changelog
+* Mon Jul 03 2023 Dave Airlie <airlied@redhat.com> - 16.0.0-3
+- Bump to newer release branch
+
 * Wed Apr 19 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 16.0.0-2
 - Rebase downstream patch Fix-standalone-builds-with-LLVM_LINK_LLVM_DYLIB-ON to the version that got merged upstream
 - Rebase to a later commit while at it

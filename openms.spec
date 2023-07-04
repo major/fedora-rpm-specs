@@ -1,17 +1,13 @@
-%bcond_with check
+%bcond_without check
 %bcond_with debug
 
-# Python binding is not compiled
-# Too much memory needed
-%ifarch %{arm} s390x
-%global with_pyOpenMS 0
-%else
-%global with_pyOpenMS 0
-%endif
-Obsoletes: python3-openms < 0:2.7.0-2
+ExclusiveArch: %{qt5_qtwebengine_arches}
 
-# Python2 binding is no longer available starting from 2.4.0 release
+# Python binding
+%global with_pyOpenMS 1
+Obsoletes: python3-openms < 0:2.7.0-2
 Obsoletes: python2-openms < 0:2.4.0-1
+#
 
 # Filter private libraries
 %global __provides_exclude ^(%%(find %{buildroot}%{_libdir}/OpenMS -name '*.so' | xargs -n1 basename | sort -u | paste -s -d '|' -))
@@ -19,11 +15,11 @@ Obsoletes: python2-openms < 0:2.4.0-1
 
 Name:      openms
 Summary:   LC/MS data management and analyses
-Version:   2.8.0
-Release:   0.5%{?dist}
+Version:   3.0.0
+Release:   0.1%{?dist}
 License:   BSD
 URL:       http://www.openms.de/
-Source0:   https://abibuilder.informatik.uni-tuebingen.de/archive/openms/OpenMSInstaller/release/%{version}/OpenMS-%{version}-src.tar.gz
+Source0:   https://github.com/OpenMS/OpenMS/archive/Release%{version}/OpenMS-Release%{version}.tar.gz
 
 ##TOPPView, TOPPAS, INIFileEditor .desktop and icon files
 Source1:   https://raw.githubusercontent.com/OpenMS/OpenMS/develop/src/openms_gui/source/VISUAL/ICONS/TOPPView.png
@@ -49,7 +45,6 @@ BuildRequires: qt5-qtx11extras-devel
 BuildRequires: qt5-qtwebkit-devel
 BuildRequires: qt5-qtsvg-devel
 BuildRequires: qt5-qtwebengine-devel
-ExclusiveArch: %{qt5_qtwebengine_arches}
 BuildRequires: xerces-c-devel
 BuildRequires: boost-devel
 BuildRequires: sqlite-devel
@@ -76,9 +71,6 @@ Requires: R-core%{?_isa}
 
 # Remove -O0 flag for tests compiling
 Patch0: %{name}-remove_testflag.patch
-
-Patch1: %{name}-bug5864.patch
-Patch2: %{name}-fix_gcc13.patch
 
 %description
 OpenMS is a C++ library for LC-MS data management and analyses.
@@ -143,17 +135,20 @@ The UTILS tools are divided into several subgroups:
 %if 0%{?with_pyOpenMS}
 %package -n python3-openms
 Summary: Python wrapper for OpenMS
-%{?python_provide:%python_provide python3-%{name}}
+%py_provides python3-%{name}
 
 BuildRequires: python3-setuptools
 BuildRequires: python3-devel
 BuildRequires: python3-numpy
 BuildRequires: python3-nose
 BuildRequires: python3-autowrap >= 0.8.1
+BuildRequires: python3-pip
 BuildRequires: %{_bindir}/cython
 BuildRequires: python3-wheel
 BuildRequires: python3-biopython
 BuildRequires: python3-virtualenv
+BuildRequires: python3-pandas
+BuildRequires: python3-pytest
 Requires: python3-biopython%{?_isa}
 Requires: %{name}%{?_isa} = %{version}-%{release}
 
@@ -186,26 +181,13 @@ Summary: OpenMS documentation
 HTML documentation of OpenMS.
 
 %prep
-%autosetup -N -n OpenMS-%{version}
-rm -rf cmake/MacOSX
+%autosetup -N -n OpenMS-Release%{version}
 
 dos2unix share/OpenMS/SIMULATION/FASTAProteinAbundanceSampling.py
-%patch0 -p1 -b .backup
-
-%if 0%{?fedora} > 35
-%patch1 -p1 -b .backup
-%endif
-
-%if 0%{?fedora} > 37
-%patch2 -p1 -b .backup
-%endif
+%patch -P 0 -p1 -b .backup
 
 # Remove invalid tags
 sed -e 's| <project_group></project_group>||g' -i share/OpenMS/DESKTOP/*.appdata.xml
-
-# Remove spurious exe permissions
-find . -type f -name "*.h" -exec chmod 0644 '{}' \;
-find . -type f -name "*.cpp" -exec chmod 0644 '{}' \;
 
 
 %build
@@ -232,6 +214,7 @@ cmake -Wno-dev -B build -S ./ -DCMAKE_CXX_COMPILER_VERSION:STRING=$(gcc -dumpver
 %define _lto_cflags %{nil}
 %endif
 %cmake -Wno-dev -B build -S ./ -DCMAKE_CXX_COMPILER_VERSION:STRING=$(gcc -dumpversion) \
+ -DGIT_TRACKING:BOOL=OFF \
  -DENABLE_UPDATE_CHECK:BOOL=OFF \
  -DCMAKE_COLOR_MAKEFILE:BOOL=ON \
  -DCMAKE_CXX_FLAGS_RELEASE:STRING="-Wno-cpp %{build_cxxflags}" -DCMAKE_C_FLAGS_RELEASE:STRING="-Wno-cpp %{build_cflags}" \
@@ -328,9 +311,6 @@ sed -i 's/\r$//' %{buildroot}%{python3_sitearch}/pyopenms/share/OpenMS/TOOLS/EXT
 chmod 0644 %{buildroot}%{python3_sitearch}/pyopenms/share/OpenMS/CV/*.obo
 chmod 0644 %{buildroot}%{python3_sitearch}/pyopenms/share/OpenMS/TOOLS/EXTERNAL/*.ttd
 chmod 0644 %{buildroot}%{python3_sitearch}/pyopenms/share/OpenMS/CHEMISTRY/Enzymes.xml
-
-## Fix standard permissions
-chmod 0755 %{buildroot}%{python3_sitearch}/pyopenms/pyopenms_*.so
 popd
 %endif
 # with_pyOpenMS
@@ -369,9 +349,7 @@ install -pm 644 share/OpenMS/DESKTOP/*.appdata.xml %{buildroot}%{_metainfodir}/
 ##HTML files copied
 ##I want to pack them by using %%doc macro
 cp -a %{buildroot}%{_datadir}/doc/openms-doc/html html
-cp -p %{buildroot}%{_datadir}/doc/openms-doc/index.html ./
 rm -rf %{buildroot}%{_datadir}/doc/openms-doc/html
-rm -f %{buildroot}%{_datadir}/doc/openms-doc/index.html
 
 ## Fix R script
 sed -i "1 s|^#!/usr/bin/env Rscript\b|#!/usr/bin/Rscript|" %{buildroot}%{_datadir}/OpenMS/SCRIPTS/plot_trafo.R
@@ -380,6 +358,11 @@ chmod 0755 %{buildroot}%{_datadir}/OpenMS/SCRIPTS/plot_trafo.R
 
 # Remove unused files
 rm -rf %{buildroot}%{_includedir}/thirdparty
+
+%if %{with check}
+cp -a %{buildroot}%{_datadir}/OpenMS/examples/examples/* %{buildroot}%{_datadir}/OpenMS/examples/
+rm -rf %{buildroot}%{_datadir}/OpenMS/examples/examples
+%endif
 
 %check
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
@@ -390,23 +373,13 @@ pushd build
 export LD_LIBRARY_PATH=%{buildroot}%{_libdir}/OpenMS
 export PATH=%{buildroot}%{_bindir}:%{_bindir}
 export OPENMS_DATA_PATH=%{buildroot}%{_datadir}/OpenMS
-export PYTHONPATH=%{buildroot}%{python3_sitearch}
-ctest --jobs 1 -VV --force-new-ctest-process --output-on-failure && exit 1
-popd
-
-%if 0%{?with_pyOpenMS}
-pushd build/pyOpenMS
-export LD_LIBRARY_PATH=%{buildroot}%{_libdir}/OpenMS
-export PATH=%{buildroot}%{_bindir}:%{_bindir}
-export OPENMS_DATA_PATH=%{buildroot}%{_datadir}/OpenMS
-export PYTHONPATH=%{buildroot}%{python3_sitearch}:./
+export PYTHONPATH=%{buildroot}%{python3_sitearch}:../src/OpenMS
 LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libOpenMS_GUI.so
 LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libOpenMS.so
 LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libOpenSwathAlgo.so
 LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libSuperHirn.so
-%{__python3} ./run_nose.py && exit 1
+ctest -j 1 -VV --force-new-ctest-process --output-on-failure -E 'MRMAssay_test|SVMWrapper_test|File_test' && exit 1
 popd
-%endif
 %endif
 
 %files
@@ -471,8 +444,6 @@ popd
 %{_bindir}/CompNovoCID
 %{_bindir}/MascotAdapter
 %{_bindir}/MascotAdapterOnline
-%{_bindir}/MyriMatchAdapter
-%{_bindir}/OMSSAAdapter
 %{_bindir}/PepNovoAdapter
 %{_bindir}/XTandemAdapter
 %{_bindir}/SpecLibSearcher
@@ -528,7 +499,6 @@ popd
 %{_bindir}/AssayGeneratorMetabo
 %{_bindir}/ClusterMassTraces
 %{_bindir}/ClusterMassTracesByPrecursor
-%{_bindir}/CruxAdapter
 %{_bindir}/Epifany
 %{_bindir}/FeatureFinderMetaboIdent
 %{_bindir}/GNPSExport
@@ -599,6 +569,8 @@ popd
 %{_bindir}/QCMerger
 %{_bindir}/QCShrinker
 %{_bindir}/TriqlerConverter
+%{_bindir}/FLASHDeconv
+%{_bindir}/FLASHDeconvWizard
 
 %files data
 %doc CHANGELOG AUTHORS README* CODE_OF_CONDUCT.md
@@ -608,7 +580,7 @@ popd
 %files doc
 %doc CHANGELOG AUTHORS README* CODE_OF_CONDUCT.md
 %license LICENSE
-%doc html index.html
+%doc html
 
 %files devel
 %license LICENSE
@@ -628,6 +600,9 @@ popd
 %endif
 
 %changelog
+* Fri Jun 30 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.0.0-0.1
+- Pre-release 3.0.0
+
 * Wed Feb 01 2023 Antonio Trande <sagitter@fedoraproject.org> - 2.8.0-0.5
 - Fixed for GCC-13
 

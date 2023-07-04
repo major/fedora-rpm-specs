@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.6.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        %{sum}
 License:        MIT
 URL:            https://pypi.python.org/pypi/%{srcname}
@@ -53,6 +53,9 @@ Python3 package which creates __repr__ automatically or declaratively.
 
 
 %changelog
+* Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 1.6.0-15
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,10 +1,10 @@
 # RPM version needs 4 digits after the decimal to preserve upgrade path
-%global module_version 1.56
+%global module_version 1.57
 %global RPM_version %(printf "%.4f" %{module_version})
 
 Name:           perl-Finance-Quote
 Version:        %{RPM_version}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        A Perl module that retrieves stock and mutual fund quotes
 License:        GPL-2.0-or-later
 URL:            https://metacpan.org/release/Finance-Quote
@@ -22,7 +22,7 @@ BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(constant)
-BuildRequires:  perl(Data::Dumper)
+BuildRequires:  perl(Date::Manip)
 BuildRequires:  perl(DateTime)
 BuildRequires:  perl(DateTime::Format::Strptime)
 BuildRequires:  perl(Encode)
@@ -39,6 +39,7 @@ BuildRequires:  perl(HTTP::Request)
 BuildRequires:  perl(HTTP::Request::Common)
 BuildRequires:  perl(HTTP::Status)
 BuildRequires:  perl(if)
+BuildRequires:  perl(IO::String)
 BuildRequires:  perl(IO::Uncompress::Unzip)
 BuildRequires:  perl(JSON)
 BuildRequires:  perl(LWP::Protocol::https)
@@ -61,7 +62,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(Web::Scraper)
 BuildRequires:  perl(XML::LibXML)
 # Test Suite
-BuildRequires:  perl(Date::Manip)
 BuildRequires:  perl(Date::Range)
 BuildRequires:  perl(Date::Simple)
 BuildRequires:  perl(DateTime::Duration)
@@ -130,9 +130,11 @@ make test
 %{_mandir}/man3/Finance::Quote::Fool.3*
 %{_mandir}/man3/Finance::Quote::Fundata.3*
 %{_mandir}/man3/Finance::Quote::GoldMoney.3*
+%{_mandir}/man3/Finance::Quote::GoogleWeb.3*
 %{_mandir}/man3/Finance::Quote::HU.3*
 %{_mandir}/man3/Finance::Quote::IEXCloud.3*
 %{_mandir}/man3/Finance::Quote::IndiaMutual.3*
+%{_mandir}/man3/Finance::Quote::MarketWatch.3*
 %{_mandir}/man3/Finance::Quote::MorningstarAU.3*
 %{_mandir}/man3/Finance::Quote::MorningstarCH.3*
 %{_mandir}/man3/Finance::Quote::MorningstarJP.3*
@@ -155,11 +157,33 @@ make test
 %{_mandir}/man3/Finance::Quote::Union.3*
 %{_mandir}/man3/Finance::Quote::XETRA.3*
 %{_mandir}/man3/Finance::Quote::YahooJSON.3*
+%{_mandir}/man3/Finance::Quote::YahooWeb.3*
 %{_mandir}/man3/Finance::Quote::ZA.3*
 
 %changelog
-* Mon Jun 26 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.56.00-4
-- Reverse prior change.
+* Sun Jul  2 2023 Paul Howarth <paul@city-fan.org> - 1.5700-1
+- Update to 1.57
+  - Correct set exchange in YahooJSON.pm (GH#306)
+  - Added close, change and p_change to Tradegate, XETRA and Sinvestor; added
+    optional parameter INST_ID to specify the institute id; fixed bug in
+    Tradegate, XETRA and Sinvestor for numbers equal or higher than 1.000
+    (GH#304)
+  - Added GoogleWeb module
+  - YahooWeb module added (GH#296)
+  - Added MarketWatch module
+  - Replaced cached file with IO::String object in IndiaMutual.pm
+  - Fixed missing date in AEX.pm (GH#298)
+  - Fixed Examples in POD Documentation in a few modules (GH#295)
+  - Move 'use strict' to be the first statement in TreasuryDirect.pm and
+    TwelveData.pm (GH#290)
+  - Remove old perl version requirement statements from TreasuryDirect.pm and
+    TwelveData.pm (GH#290)
+  - Removed Data::Dumper, which caused another test to fail from
+    TreasuryDirect.pm (GH#290)
+  - Fixed Fool.pm and fool.t (GH#289)
+
+* Mon Jun 26 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.5600-4
+- Reverse prior change
 
 * Mon Jun 26 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.5600-3
 - Require perl-JSON-Parse

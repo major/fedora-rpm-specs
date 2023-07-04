@@ -1,6 +1,6 @@
 Name:           python-pytest-jupyter
 Version:        0.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A pytest plugin for testing Jupyter libraries and extensions
 # BSD for pytest-jupyter itself and
 # MIT is for bundled parts of tornasync package
@@ -53,6 +53,9 @@ Summary:        %{summary}
 %pyproject_extras_subpkg -n python3-pytest-jupyter client
 
 %changelog
+* Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 0.7.0-2
+- Rebuilt for Python 3.12
+
 * Wed Apr 12 2023 Lumír Balhar <lbalhar@redhat.com> - 0.7.0-1
 - Update to 0.7.0 (rhbz#2183292)
 

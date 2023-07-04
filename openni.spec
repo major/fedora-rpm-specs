@@ -13,7 +13,7 @@
 
 Name:           openni
 Version:        1.5.7.10
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Library for human-machine Natural Interaction
 
 License:        ASL 2.0 and BSD
@@ -42,7 +42,7 @@ Patch9:         openni-ansi.patch
 
 Patch10:        python3.patch
 
-ExclusiveArch:  %{ix86} x86_64 %{arm}
+ExclusiveArch:  x86_64 %{arm}
 
 BuildRequires:  gcc-c++, make
 BuildRequires:  freeglut-devel, tinyxml-devel, libjpeg-devel, dos2unix, libusb1-devel
@@ -228,6 +228,9 @@ fi
 
 
 %changelog
+* Sun Jul 02 2023 Till Hofmann <thofmann@fedoraproject.org> - 1.5.7.10-29
+- Do not build on i686
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.7.10-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

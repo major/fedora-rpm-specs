@@ -1,12 +1,14 @@
 
 Name: rst2pdf
 Version: 0.97
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: Tool for transforming reStructuredText to PDF
 License: MIT
 
 URL: https://rst2pdf.org/
 Source0: %{pypi_source}
+# merged in https://github.com/rst2pdf/rst2pdf/commit/af7259a57ca7c167160438fd989e3356cea11359
+Patch0:  0001-Adjust-to-py-3.12.patch
 
 BuildRequires: python3-setuptools python3-devel
 BuildArch: noarch
@@ -15,7 +17,7 @@ BuildArch: noarch
 Tool for transforming reStructuredText to PDF using ReportLab
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -n %{name}-%{version} -p 1
 
 %build
 %py3_build
@@ -32,6 +34,9 @@ Tool for transforming reStructuredText to PDF using ReportLab
 %{python3_sitelib}/%{name}*
 
 %changelog
+* Fri Jun 30 2023 Michael J Gruber <mjg@fedoraproject.org> - 0.97-13
+- Adjust to py 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.97-12
 - Rebuilt for Python 3.12
 

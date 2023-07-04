@@ -5,7 +5,7 @@ The Olson timezone database for Python.}
 
 Name: python-%{pypi_name}
 Version: 2020.1
-Release: 11%{?dist}
+Release: 12%{?dist}
 
 License: MIT
 Summary: Timezone database for Python
@@ -51,6 +51,9 @@ Summary: %{summary}
 %doc README.rst
 
 %changelog
+* Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 2020.1-12
+- Rebuilt for Python 3.12
+
 * Tue Feb 21 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 2020.1-11
 - Backport upstream patch to add support for cleo 2.0.0+
 

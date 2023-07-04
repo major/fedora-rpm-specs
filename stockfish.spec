@@ -1,8 +1,8 @@
 %global srcname  Stockfish
-%global nnuehash ad9b42354671
+%global nnuehash 5af11540bbfe
 
 Name:            stockfish
-Version:         15.1
+Version:         16
 Release:         %autorelease
 #Source0:        %%{url}/files/%%{name}-%%{version}-linux.zip
 Source0:         https://github.com/official-%{name}/%{srcname}/archive/sf_%{version}.zip

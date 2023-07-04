@@ -222,7 +222,12 @@ mkdir -p test && pushd test
 popd
 
 pushd percolator
+# https://github.com/percolator/percolator/issues/354
+%ifarch %{ix86}
+#%%ctest
+%else
 %ctest
+%endif
 popd
 
 %files

@@ -2,18 +2,10 @@
 # 32 bit builds currently run out of memory https://github.com/ziglang/zig/issues/6485
 %global         zig_arches x86_64 aarch64 riscv64 %{mips64}
 
-# note here at which Fedora release we need to deal with LLVM and glibc differences
-%global         fedora_llvm 36
-# TODO check if this is still relevant
-%global         fedora_glibc 38
-
 %global         llvm_version 13.0.0
-
-%if %{fedora} >= %{fedora_llvm}
 %define         llvm_compat 13
-%endif
 
-%if %{fedora} >= %{fedora_glibc}
+%if 0%{?fedora} >= 38
 # documentation and tests do not build due to an unsupported glibc version
 %bcond_with     test
 %bcond_with     docs
@@ -108,7 +100,7 @@ Summary:        Common RPM macros for %{name}
 Requires:       rpm
 BuildArch:      noarch
 
-%description    rpm-macros  
+%description    rpm-macros
 This package contains common RPM macros for %{name}.
 %endif
 
@@ -245,4 +237,3 @@ sed -i -e "s|@@ZIG_VERSION@@|%{version}|"  %{buildroot}%{_rpmconfigdir}/macros.d
 
 * Tue Aug 18 2020 Jan Drögehoff <sentrycraft123@gmail.com> - 0.6.0-1
 - Initial zig spec
-

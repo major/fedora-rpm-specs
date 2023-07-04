@@ -10,7 +10,7 @@
 
 Name:       copr-cli
 Version:    1.109
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Command line interface for COPR
 
 License:    GPL-2.0-or-later
@@ -132,6 +132,9 @@ install -m 755 copr_cli/package_build_order.py %{buildroot}/%{_bindir}/package-b
 
 
 %changelog
+* Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 1.109-2
+- Rebuilt for Python 3.12
+
 * Tue May 23 2023 Jakub Kadlcik <frostyx@email.cz> 1.109-1
 - Show CHROOT in help output instead of CHROOTS
 - More readable errors related to implicit ownername

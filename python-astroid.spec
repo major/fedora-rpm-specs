@@ -1,11 +1,8 @@
-# Remove when globs in setup.py work.
-%{?python_disable_dependency_generator}
-
 %global srcname     astroid
+%global commit      8d57ce2f3e226c2ac3cdd7f6a57dac2dd5ec5a4b
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
 
-%global forgeurl https://github.com/PyCQA/astroid
-Version:        2.15.4
-%forgemeta
+Version:        3.0.0~a6~20230628%{shortcommit}
 
 Name:           python-astroid
 # Note: please check that this doesn't break pylint before committing and building! -GC
@@ -13,27 +10,12 @@ Release:        %autorelease
 Summary:        Common base representation of python source code for pylint and other projects
 License:        LGPL-2.1-or-later
 URL:            https://pypi.org/project/astroid/
-Source0:        %{forgesource}
-
-# Python3.12 compatibility: Temporarily disable failing test
-# Upstream issue: https://github.com/pylint-dev/astroid/issues/2116
-Patch:          Skip-test_ctypes_redefined_types_members-test-on-Pyt.patch
+Source0:        https://github.com/pylint-dev/%{srcname}/archive/%{commit}/%{srcname}-%{commit}.tar.gz
 
 BuildArch:      noarch
 
-BuildRequires:  pyproject-rpm-macros
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-setuptools_scm
-BuildRequires:  python3-wheel
-BuildRequires:  python3-pip
-BuildRequires:  python3-lazy-object-proxy
 BuildRequires:  python3-pytest
-BuildRequires:  python3-pytest-runner
-BuildRequires:  python3-six
-BuildRequires:  python3-typed_ast >= 1.3.0
-BuildRequires:  python3-wrapt
-BuildRequires:  git-core
 
 %global _description %{expand:
 The aim of this module is to provide a common base representation of python
@@ -50,23 +32,24 @@ trees by inspecting living objects.}
 %package -n python3-%{srcname}
 Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{srcname}}
-Requires:  python3-lazy-object-proxy
-Requires:  python3-wrapt
-Requires:  python3-typed_ast
-Requires:  python3-six
 
 %description -n python3-%{srcname} %_description
 
 %prep
-%autosetup -n %{srcname}-%{version} -p1
-sed -i /six/d astroid/__pkginfo__.py
+%autosetup -n %{srcname}-%{commit} -p1
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
 
 %install
 %pyproject_install
+# https://github.com/pylint-dev/astroid/pull/2156#issuecomment-1612640531
 rm -rf %{buildroot}%{python3_sitelib}/tests
+rm %{buildroot}%{python3_sitelib}/requirements*
+rm %{buildroot}%{python3_sitelib}/tox.ini
 
 
 %check

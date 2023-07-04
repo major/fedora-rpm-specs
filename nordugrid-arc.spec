@@ -46,7 +46,7 @@
 
 Name:		nordugrid-arc
 Version:	6.17.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Advanced Resource Connector Middleware
 License:	ASL 2.0
 URL:		http://www.nordugrid.org/
@@ -1759,6 +1759,9 @@ fi
 %attr(4755,root,root) %{_bindir}/arc-job-cgroup
 
 %changelog
+* Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 6.17.0-4
+- Rebuilt for Python 3.12
+
 * Thu May  4 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.17.0-3
 - Adapt to xmlsec1 1.3.0
 

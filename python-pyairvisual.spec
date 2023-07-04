@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        5.0.5
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python API client for AirVisual air quality data
 
 License:        MIT
@@ -42,6 +42,9 @@ air quality information.
 %doc README.md
 
 %changelog
+* Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 5.0.5-9
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.5-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           fedmod
 Version:        0.6.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Utilities for generating & maintaining modulemd files
 
 License:        GPLv2+ and GPLv3+ and MIT
@@ -76,6 +76,9 @@ fi
 %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 0.6.6-2
+- Rebuilt for Python 3.12
+
 * Mon Apr 24 2023 Kalev Lember <klember@redhat.com> - 0.6.6-1
 - Update version metadata for release 0.6.6 (klember@redhat.com)
 - fedora.yaml: Fix source URLs (klember@redhat.com)

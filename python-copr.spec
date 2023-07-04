@@ -10,7 +10,7 @@
 
 Name:       python-copr
 Version:    1.129
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Python interface for Copr
 
 License:    GPL-2.0-or-later
@@ -238,6 +238,9 @@ cp -a docs/_build/html %{buildroot}%{_pkgdocdir}/
 %doc %{_pkgdocdir}
 
 %changelog
+* Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 1.129-2
+- Rebuilt for Python 3.12
+
 * Tue May 23 2023 Jakub Kadlcik <frostyx@email.cz> 1.129-1
 - General check if it makes sense to upload SRPM
 

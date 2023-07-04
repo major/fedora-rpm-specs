@@ -1,13 +1,15 @@
+%global gittag  1.10.0
+
 Name:           arp-scan
-Version:        1.9.7
-Release:        8%{?dist}
+Version:        %{gittag}
+Release:        1%{?dist}
 Summary:        Scanning and fingerprinting tool
 
 # Includes getopt, which is LGPLv2+, but the whole is GPLv2+.
 License:        GPLv2+
-URL:            http://www.nta-monitor.com/tools/arp-scan/
-Source0:        http://www.nta-monitor.com/tools/arp-scan/download/%{name}-%{version}.tar.gz
-# source code moved to github at https://github.com/royhills/arp-scan
+URL:            https://github.com/royhills/arp-scan
+Source0:        https://github.com/royhills/arp-scan/archive/%{gittag}/%{name}-%{version}.tar.gz
+
 BuildRequires:  libpcap-devel
 BuildRequires:  gcc
 BuildRequires:  perl-generators
@@ -46,9 +48,14 @@ chmod 0755 $RPM_BUILD_ROOT%{_sbindir}/*
 %{_sbindir}/*
 %{_datadir}/arp-scan
 %{_mandir}/man?/*
+%{_sysconfdir}/arp-scan/mac-vendor.txt
 
 
 %changelog
+* Sun Jul 2 2023 Mosaab Alzoubi <moceap[AT]fedoraproject[DOT]org> - 1.10.0-1
+- Update to 1.10.0
+- New upstream URL
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.7-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

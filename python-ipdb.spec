@@ -6,7 +6,7 @@ better introspection) right in pdb.
 
 Name:           python-ipdb
 Version:        0.13.13
-Release:        2%{?dist}
+Release:        3%{?dist}
 BuildArch:      noarch
 
 License:        BSD-3-Clause
@@ -60,6 +60,9 @@ find -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
 
 
 %changelog
+* Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 0.13.13-3
+- Rebuilt for Python 3.12
+
 * Mon May 01 2023 Troy Curtis, Jr <troy@troycurtisjr.com> - 0.13.13-2
 - Update to the newer Python macros to allow for easy EPEL9 support (#2185811)
 

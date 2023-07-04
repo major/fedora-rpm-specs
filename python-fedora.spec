@@ -15,13 +15,16 @@ and FAS2.\
 
 Name:           python-fedora
 Version:        1.1.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 BuildArch:      noarch
 
 License:        LGPLv2+
 Summary:        Python modules for talking to Fedora Infrastructure Services
 URL:            https://github.com/fedora-infra/python-fedora
 Source0:        https://github.com/fedora-infra/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+
+# Compatibility with Python 3.12: use ConfigParser instead of SafeConfigParser
+Patch:          https://github.com/fedora-infra/python-fedora/pull/232.patch
 
 %if 0%{?with_python2}
 BuildRequires:  python-lockfile
@@ -187,7 +190,7 @@ Account System.
 %prep
 %setup -c -n %{name}-%{version}
 pushd %{name}-%{version}
-%autopatch -p1
+%autopatch
 popd
 mv %{name}-%{version} python2
 
@@ -321,6 +324,9 @@ popd
 %endif
 
 %changelog
+* Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 1.1.1-9
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

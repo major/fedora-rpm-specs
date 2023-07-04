@@ -1,25 +1,26 @@
-# EL9 is missing some deps to conduct unit tests
-%if 0%{?rhel} && 0%{?rhel} < 10
-%bcond_with unittests
-%else
 %bcond_without unittests
-%endif
-
 %global modname munch
 
 Name:               python-munch
 Version:            2.5.0
-Release:            11%{?dist}
+Release:            12%{?dist}
 Summary:            A dot-accessible dictionary (a la JavaScript objects)
 
 License:            MIT
 URL:                https://pypi.io/project/munch
 Source0:            %pypi_source %{modname}
-Patch0:             python-munch-2.5.0-pylint-version.patch
 
 BuildArch:          noarch
 
 BuildRequires:      python3-devel
+
+%if %{with unittests}
+# the testing extra combines coverage, pylint, etc.
+# tox uses the testing extra and runs coverage command
+# we'll use pytest directly instead to avoid all those dependencies
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+BuildRequires:      python3-pytest
+%endif
 
 %global _description %{expand:
 munch is a fork of David Schoonover's **Bunch** package, providing similar
@@ -43,7 +44,7 @@ Requires:           %{py3_dist setuptools}
 %autosetup -n %{modname}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires %{?with_unittests:-t}
+%pyproject_buildrequires %{?with_unittests:-x yaml}
 
 # Remove shebang to make rpmlint happy.
 sed -i '/\/usr\/bin\/python/d' munch/__init__.py
@@ -63,7 +64,7 @@ rm -rf %{modname}.egg-info
 %check
 %pyproject_check_import
 %if %{with unittests}
-%tox
+%pytest
 %endif
 
 
@@ -73,6 +74,9 @@ rm -rf %{modname}.egg-info
 
 
 %changelog
+* Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 2.5.0-12
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

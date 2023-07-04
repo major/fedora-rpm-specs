@@ -1,10 +1,10 @@
 Name:           subnetcalc
-Version:        2.4.21
+Version:        2.4.22
 Release:        1%{?dist}
 Summary:        IPv4/IPv6 Subnet Calculator
 License:        GPLv3+
 URL:            https://www.nntb.no/~dreibh/subnetcalc/
-Source:         https://github.com/dreibh/subnetcalc/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
+Source0:        https://www.nntb.no/~dreibh/subnetcalc/download/%{name}-%{version}.tar.xz
 
 
 BuildRequires:  gcc gcc-c++
@@ -20,7 +20,7 @@ prints useful information on specific address types (e.g. type, scope,
 interface ID, etc.).
 
 %prep
-%autosetup -n %{name}-%{name}-%{version}
+%autosetup
 
 %build
 %cmake
@@ -36,6 +36,9 @@ interface ID, etc.).
 %{_mandir}/man1/subnetcalc.1*
 
 %changelog
+* Sun Jul  2 2023 Yanko Kaneti <yaneti@declera.com> - 2.4.22-1
+- Update to 2.4.22
+
 * Tue Jan 24 2023 Yanko Kaneti <yaneti@declera.com> - 2.4.21-1
 - Update to 2.4.21. New project URL
 
