@@ -17,7 +17,7 @@
 
 Name:           python-%{srcname}
 Version:        0.5.1
-Release:        4%{?dist}
+Release:        6%{?dist}
 Summary:        A Python library to provide automatic paging for console output
 License:        ASL 2.0
 URL:            https://pypi.python.org/pypi/autopage
@@ -37,9 +37,15 @@ Summary:        %{summary}
 BuildRequires:  python3-devel
 %if %{with pyproject}
 BuildRequires:  pyproject-rpm-macros
+# autopage should ideally require fixtures[streams], but we don't have that
+# packaged in Fedora yet. Once it's available, we should backport the
+# upstream change in tox.ini: https://github.com/zaneb/autopage/commit/08aec4a975d8
+# and remove the BuildRequire below
+BuildRequires:  %{py3_dist testtools}
 %else
 %if %{with enable_tests}
 BuildRequires:  %{py3_dist fixtures}
+BuildRequires:  %{py3_dist testtools}
 %endif
 %endif
 
@@ -48,9 +54,14 @@ BuildRequires:  %{py3_dist fixtures}
 %prep
 %autosetup -n %{srcname}-%{version}
 
+# end to end tests currently don't work in RPM, one reported example:
+# https://github.com/zaneb/autopage/issues/5
+# skip them to enable Python 3.12 rebuild
+rm autopage/tests/test_end_to_end.py
+
 %if %{with pyproject}
 %generate_buildrequires
-%pyproject_buildrequires -e pep8,%{toxenv}
+%pyproject_buildrequires -t
 %else
 cp %{SOURCE1} ./
 %endif
@@ -90,6 +101,12 @@ cp %{SOURCE1} ./
 %doc README.md
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 0.5.1-6
+- Rebuilt for Python 3.12
+
+* Mon Jul 03 2023 Karolina Surma <ksurma@redhat.com> - 0.5.1-5
+- Add the missing test dependency on python-testtools
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

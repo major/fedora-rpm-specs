@@ -16,7 +16,7 @@ Release:        %autorelease
 Summary:        Data, models and textures for Celestia
 # An accurate description of content licensing is available in the README file
 License:        GPL-2.0-or-later AND CC-BY-SA-4.0 AND JPL-image
-URL:            https://celestia.space/
+URL:            https://celestiaproject.space/
 %if "%{?gittag}"
 Source0:        https://github.com/CelestiaProject/CelestiaContent/archive/%{gittag}/CelestiaContent-%{version}.tar.gz
 %else

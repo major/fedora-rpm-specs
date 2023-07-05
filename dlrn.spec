@@ -4,7 +4,7 @@
 
 Name:           %{pkg_name}
 Version:        0.14.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Build and maintain yum repositories following upstream commits
 
 License:        ASL 2.0
@@ -171,6 +171,9 @@ exit 0
 
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 0.14.0-14
+- Rebuilt for Python 3.12
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

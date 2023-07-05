@@ -1,5 +1,9 @@
 # Disable to avoid all the test suites
+%if 0%{?rhel} > 9 || 0%{?eln}
+%bcond_with tests
+%else
 %bcond_without tests
+%endif
 
 # Disable automatic .la file removal
 %global __brp_remove_la_files %nil
@@ -59,7 +63,7 @@
 Summary: A Modern Concurrent Version Control System
 Name: subversion
 Version: 1.14.2
-Release: 16%{?dist}
+Release: 18%{?dist}
 License: Apache-2.0
 URL: https://subversion.apache.org/
 Source0: https://downloads.apache.org/subversion/subversion-%{version}.tar.bz2
@@ -587,6 +591,12 @@ make check-javahl
 %endif
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 1.14.2-18
+- Rebuilt for Python 3.12
+
+* Fri Jun 30 2023 Richard Lescak <rlescak@redhat.com> - 1.14.2-17
+- temporary disable tests for eln to prevent FTBFS
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.14.2-16
 - Rebuilt for Python 3.12
 

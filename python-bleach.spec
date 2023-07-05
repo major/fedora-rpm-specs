@@ -2,12 +2,20 @@
 
 Name:           python-%{modname}
 Version:        6.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An easy whitelist-based HTML-sanitizing tool
 
 License:        ASL 2.0
 URL:            https://github.com/mozilla/bleach
 Source0:        https://files.pythonhosted.org/packages/source/b/%{modname}/%{modname}-%{version}.tar.gz
+
+# As a result of fixed CVE-2023-24329, urllib.parse.urlsplit() now strips
+# the leading C0 control and space characters.
+# This breaks tests which expect those leading whitespace characters.
+# Upstream vendors an ancient parse.py from Python 3.6.14 and doesn't
+# experience this issue.
+# Discussed upstream: https://github.com/mozilla/bleach/issues/707
+Patch:          Strip-leading-whitespaces-from-expected-values.patch
 
 BuildArch:      noarch
 
@@ -74,6 +82,9 @@ fi;
 
 
 %changelog
+* Mon Jul 03 2023 Karolina Surma <ksurma@redhat.com> - 6.0.0-3
+- Adjust the tests to work with the new urllib.parse.urlsplit() behavior
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 6.0.0-2
 - Rebuilt for Python 3.12
 

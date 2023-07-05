@@ -15,7 +15,7 @@ http://readthedocs.org/docs/cliff/en/latest/
 
 Name:             python-%{modname}
 Version:          4.2.0
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Command Line Interface Formulation Framework
 
 Group:            Development/Libraries
@@ -101,6 +101,9 @@ PYTHON=python3 python3 setup.py test
 %{python3_sitelib}/%{modname}/tests
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 4.2.0-3
+- Rebuilt for Python 3.12
+
 * Tue Jun 06 2023 Joel Capitao <jcapitao@redhat.com> 4.2.0-2
 - Remove mock and testrepository BR
 

@@ -14,7 +14,7 @@ new clients.
 
 Name:       python-%{pypi_name}
 Version:    5.1.2
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Authentication Library for OpenStack Clients
 License:    ASL 2.0
 URL:        https://pypi.io/pypi/%{pypi_name}
@@ -136,6 +136,9 @@ PYTHON=%{__python3} stestr-3 run
 %endif
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 5.1.2-2
+- Rebuilt for Python 3.12
+
 * Fri Apr 14 2023 Karolina Kula <kkula@redhat.com> 5.1.2-1
 - Update to upstream version 5.1.2
 

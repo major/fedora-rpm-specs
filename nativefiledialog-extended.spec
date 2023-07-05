@@ -1,5 +1,5 @@
 Name:           nativefiledialog-extended
-Version:        1.0.3
+Version:        1.1.0
 Release:        1%{?dist}
 Summary:        Native file dialog library with C and C++ bindings
 
@@ -63,9 +63,12 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %license LICENSE
 %{_includedir}/nfd.h*
 %{_libdir}/libnfd.so
-
+%{_exec_prefix}/lib/cmake/nfd/
 
 %changelog
+* Mon Jul 03 2023 Jonathan Wright <jonathan@almalinux.org> - 1.1.0-1
+- Update to 1.1.1 rhbz#2219052
+
 * Tue May 02 2023 Jonathan Wright <jonathan@almalinux.org> - 1.0.3-1
 - Update to 1.0.3 rhbz#2192332
 

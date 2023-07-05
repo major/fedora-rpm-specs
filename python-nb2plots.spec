@@ -1,6 +1,6 @@
 Name:           python-nb2plots
 Version:        0.6.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Convert between Jupyter notebooks and sphinx docs
 
 License:        BSD-2-Clause
@@ -122,6 +122,9 @@ cp -a man1 %{buildroot}%{_mandir}
 %doc doc/_build/html/*
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 0.6.1-6
+- Rebuilt for Python 3.12
+
 * Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 0.6.1-5
 - Dynamically generate BuildRequires
 

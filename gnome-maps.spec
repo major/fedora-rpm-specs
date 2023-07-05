@@ -6,13 +6,13 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*\\.so.*$
 
 Name:           gnome-maps
-Version:        44.3
+Version:        45~alpha
 Release:        1%{?dist}
 Summary:        Map application for GNOME
 
 License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Apps/Maps
-Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -90,6 +90,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Maps.deskto
 
 
 %changelog
+* Mon Jul 03 2023 Kalev Lember <klember@redhat.com> - 45~alpha-1
+- Update to 45.alpha
+
 * Sat Jul 01 2023 Kalev Lember <klember@redhat.com> - 44.3-1
 - Update to 44.3
 

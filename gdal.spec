@@ -51,7 +51,7 @@
 
 Name:          gdal
 Version:       3.7.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -570,6 +570,9 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 3.7.0-2
+- Rebuilt for Python 3.12
+
 * Thu May 11 2023 Sandro Mani <manisandro@gmail.com> - 3.7.0-1
 - Update to 3.7.0
 

@@ -4,14 +4,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-system-monitor
-Version:        44.0
+Version:        45~alpha
 Release:        1%{?dist}
 Summary:        Process and resource monitor
 
 License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Apps/SystemMonitor
-Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
-Patch0: gnome-system-monitor-c99.patch
+Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -69,6 +68,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/gnome-system-monit
 %{_libexecdir}/gnome-system-monitor/
 
 %changelog
+* Mon Jul 03 2023 Kalev Lember <klember@redhat.com> - 45~alpha-1
+- Update to 45.alpha
+
 * Sat Mar 18 2023 David King <amigadave@amigadave.com> - 44.0-1
 - Update to 44.0
 

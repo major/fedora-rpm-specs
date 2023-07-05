@@ -1,22 +1,19 @@
-%global _without_curio 1
-%global _without_doh 1
-%global _without_trio 1
 %global pypi_name dnspython
 %global rctag %{nil}
 
+# curio is discontinued upstream and not ready for Python 3.12
+%bcond_with curio
 %if 0%{?rhel}
 %bcond_with trio
-%bcond_with curio
 %bcond_with doh
 %else
 %bcond_without trio
-%bcond_without curio
 %bcond_without doh
 %endif
 
 Name:           python-dns
 Version:        2.3.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        DNS toolkit for Python
 
 # The entire package is licensed with both licenses, see LICENSE file
@@ -44,6 +41,9 @@ manipulation of DNS zones, messages, names, and records.
 %description %_description
 %package -n python3-dns
 Summary:        %{summary}
+%if %{without curio} && ! 0%{?rhel}
+Obsoletes:      python3-dns+curio < 2.3.0-6
+%endif
 
 %description -n python3-dns %_description
 
@@ -93,6 +93,9 @@ export OPENSSL_ENABLE_SHA1_SIGNATURES=yes
 %endif
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 2.3.0-6
+- Rebuilt for Python 3.12
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 2.3.0-5
 - Bootstrap for Python 3.12
 

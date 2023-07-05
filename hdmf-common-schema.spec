@@ -1,5 +1,6 @@
 # This package should be updated together with python-hdmf to ensure
-# compatibility.
+# compatibility. Note that it currently depends on an exact version of this
+# package.
 
 Name:           hdmf-common-schema
 Version:        1.7.0

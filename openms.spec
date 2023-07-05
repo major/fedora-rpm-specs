@@ -494,6 +494,9 @@ popd
 %{_datadir}/applications/inifileeditor.desktop
 %{_datadir}/icons/TOPP/
 %{_libdir}/OpenMS/
+%dir %{_libdir}/cmake/OpenMS
+%{_libdir}/cmake/OpenMS/OpenMSConfig.cmake
+%{_libdir}/cmake/OpenMS/OpenMSConfigVersion.cmake
 
 %files tools
 %{_bindir}/AssayGeneratorMetabo
@@ -571,6 +574,7 @@ popd
 %{_bindir}/TriqlerConverter
 %{_bindir}/FLASHDeconv
 %{_bindir}/FLASHDeconvWizard
+%{_bindir}/JSONExporter
 
 %files data
 %doc CHANGELOG AUTHORS README* CODE_OF_CONDUCT.md
@@ -600,7 +604,7 @@ popd
 %endif
 
 %changelog
-* Fri Jun 30 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.0.0-0.1
+* Mon Jul 03 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.0.0-0.1
 - Pre-release 3.0.0
 
 * Wed Feb 01 2023 Antonio Trande <sagitter@fedoraproject.org> - 2.8.0-0.5

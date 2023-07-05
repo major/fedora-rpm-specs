@@ -18,7 +18,7 @@ training sessions. AST-Monitor is a part of Artificial Sport Trainer (AST)
 system.}
 
 Name:           python-%{pypi_name}
-Version:        0.3.2
+Version:        0.4.0
 Release:        1%{?dist}
 Summary:        AST-Monitor is a wearable Raspberry Pi computer for cyclists
 
@@ -32,15 +32,15 @@ BuildArch:      noarch
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_noarch_with_unported_dependencies
 #
 # This package requires python3dist(pyqtwebengine).
-ExclusiveArch: %{qt5_qtwebengine_arches} noarch
+ExclusiveArch: %{qt6_qtwebengine_arches} noarch
 
 %description %_description
 
 %package -n python3-%{pypi_name}
 Summary:        %{summary}
 
-# For qt5_qtwebengine_arches macro:
-BuildRequires:  qt5-srpm-macros
+# For qt6_qtwebengine_arches macro:
+BuildRequires:  qt6-srpm-macros
 
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist toml-adapt}
@@ -97,7 +97,7 @@ toml-adapt -path pyproject.toml -a change -dep ALL -ver X
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
-%doc README.md CHANGELOG.md CITATION.cff
+%doc README.md CHANGELOG.md CITATION.cff HARDWARE_CONFIGURATION.md
 
 %files doc
 %license LICENSE
@@ -107,6 +107,9 @@ toml-adapt -path pyproject.toml -a change -dep ALL -ver X
 %doc examples/
 
 %changelog
+* Mon Jul 3 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.4.0-1
+- Update to the latest release
+
 * Wed Feb 1 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.3.2-1
 - Update to the latest release
 

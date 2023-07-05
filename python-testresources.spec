@@ -26,6 +26,9 @@ BuildRequires:  python3-devel
 
 %prep
 %setup -q -n %{pypi_name}-%{version}
+# replace removed unittest aliases
+sed -i 's/failIf/assertFalse/' testresources/tests/test_resourced_test_case.py
+
 
 %generate_buildrequires
 %pyproject_buildrequires -x test

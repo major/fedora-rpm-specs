@@ -11,6 +11,14 @@ URL:            https://github.com/RensAlthuis/vertical-overview
 
 Source:         %{url}/archive/v%{version}/%{extension}-%{version}.tar.gz
 
+# https://github.com/RensAlthuis/vertical-overview/issues/117
+# https://github.com/RensAlthuis/vertical-overview/pull/116
+Patch:          0001-Fix-logic-when-calling-connectObject-disconnectObjec.patch
+# https://github.com/RensAlthuis/vertical-overview/issues/122
+# https://github.com/RensAlthuis/vertical-overview/pull/124
+Patch:          0002-Fix-GS44-Meta.later_add-is-not-a-function.patch
+Patch:          0003-update-metadata.patch
+
 Requires:       gnome-shell-extension-common >= 42
 Recommends:     gnome-extensions-app
 Provides:       %{extension} = %{version}-%{release}

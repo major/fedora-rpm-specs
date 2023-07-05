@@ -11,7 +11,7 @@
 
 # support for apache / nginx / php-fpm
 %global with_phpfpm 1
-%global upstream_version     1.6.1
+%global upstream_version     1.6.2
 #global upstream_prever      rc
 
 %global roundcubedir %{_datadir}/roundcubemail
@@ -135,34 +135,34 @@ Provides: bundled(js-tinymce-langs) = 5.8.2
 Provides: bundled(php-pear-auth-sasl) = v1.1.0
 # License BSD-2-Clause
 Provides: bundled(php-bacon-bacon-qr-code) = 2.0.8
-Provides: bundled(php-dasprid-enum) = 1.0.3
+Provides: bundled(php-dasprid-enum) = 1.0.4
 Provides: bundled(php-pear-console-getopt) = v1.4.3
 Provides: bundled(php-pear-net-sieve) = 1.4.6
 Provides: bundled(php-pear-net-smtp) = 1.10.1
 Provides: bundled(php-pear-pear-exception) = v1.0.2
 # License BSD-3-Clause
 Provides: bundled(php-pear-mail-mime) = 1.10.11
-Provides: bundled(php-pear-pear-core-minimal) = v1.10.11
+Provides: bundled(php-pear-pear-core-minimal) = v1.10.13
 # License GPL-2.0
 Provides: bundled(php-roundcube-rtf-html-php) = v2.1
 # License GPL-3.0+
-Provides: bundled(php-kolab-net-ldap3) = v1.1.4
+Provides: bundled(php-kolab-net-ldap3) = v1.1.5
 Provides: bundled(php-roundcube-plugin-installer) = 0.3.2
 # License LGPL-2.1
 Provides: bundled(php-pear-crypt-gpg) = v1.6.7
 # License LGPL-3.0
-Provides: bundled(php-pear-net-ldap2) = v2.2.0
+Provides: bundled(php-pear-net-ldap2) = v2.2.1
 # License MIT
-Provides: bundled(php-guzzlehttp-guzzle) = 7.5.0
-Provides: bundled(php-guzzlehttp-promises) = 1.5.2
-Provides: bundled(php-guzzlehttp-psr7) = 2.4.3
+Provides: bundled(php-guzzlehttp-guzzle) = 7.7.0
+Provides: bundled(php-guzzlehttp-promises) = 2.0.0
+Provides: bundled(php-guzzlehttp-psr7) = 2.5.0
 Provides: bundled(php-masterminds-html5) = 2.7.6
-Provides: bundled(php-pear-console-commandline) = v1.2.4
-Provides: bundled(php-psr-http-client) = 1.0.1
-Provides: bundled(php-psr-http-factory) = 1.0.1
-Provides: bundled(php-psr-http-message) = 1.0.1
+Provides: bundled(php-pear-console-commandline) = v1.2.6
+Provides: bundled(php-psr-http-client) = 1.0.2
+Provides: bundled(php-psr-http-factory) = 1.0.2
+Provides: bundled(php-psr-http-message) = 2.0
 Provides: bundled(php-ralouphie-getallheaders) = 3.0.3
-Provides: bundled(php-symfony-deprecation-contracts) = v3.2.0
+Provides: bundled(php-symfony-deprecation-contracts) = v2.5.2
 # License PHP License
 Provides: bundled(php-pear-net-socket) = v1.2.2
 
@@ -180,7 +180,7 @@ CSS 2.
 
 %prep
 %setup -q -n roundcubemail-%{upstream_version}%{?upstream_prever:-%{upstream_prever}}
-%patch1 -p1 -b .rpm
+%patch -P1 -p1 -b .rpm
 
 : PHP bundled libraries
 php %{SOURCE5} vendor/composer/installed.json
@@ -314,6 +314,9 @@ fi
 
 
 %changelog
+* Sun Jul  2 2023 Remi Collet <remi@remirepo.net> - 1.6.2-1
+- update to 1.6.2
+
 * Tue Jan 24 2023 Remi Collet <remi@remirepo.net> - 1.6.1-1
 - update to 1.6.1
 - use SPDX license id

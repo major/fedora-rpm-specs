@@ -4,7 +4,7 @@
 %global kbd_datadir %{_exec_prefix}/lib/kbd
 
 Name:           kbd
-Version:        2.6.0
+Version:        2.6.1
 Release:        1%{?dist}
 Summary:        Tools for configuring the console (keyboard, virtual terminals, etc.)
 License:        GPL-2.0-or-later
@@ -183,6 +183,10 @@ make check
 %{kbd_datadir}/keymaps/legacy
 
 %changelog
+* Mon Jul 03 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.6.1-1
+- Update to kbd-2.6.1
+  Resolves: #2218174
+
 * Tue Jun 13 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.6.0-1
 - Update to kbd-2.6.0
   Resolves: #2214279

@@ -1,5 +1,5 @@
 Name:           python-bids-validator
-Version:        1.11.0
+Version:        1.12.0
 Release:        %autorelease
 Summary:        Validator for the Brain Imaging Data Structure
 
@@ -30,7 +30,7 @@ Summary:        %{summary}
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 
 %build

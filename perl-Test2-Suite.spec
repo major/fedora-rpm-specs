@@ -1,9 +1,16 @@
+# Run extra test
 # Break lines according to Unicode rules
+%if ! (0%{?rhel})
+%bcond_without perl_Test2_Suite_enables_extra_test
 %bcond_without perl_Test2_Suite_enables_unicode
+%else
+%bcond_with perl_Test2_Suite_enables_extra_test
+%bcond_with perl_Test2_Suite_enables_unicode
+%endif
 
 Name:           perl-Test2-Suite
 Version:        0.000155
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Set of tools built upon the Test2 framework
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test2-Suite
@@ -62,7 +69,9 @@ BuildRequires:  perl(Unicode::GCString)
 %endif
 # Tests:
 BuildRequires:  perl(IO::Handle)
+%if %{with perl_Test2_Suite_enables_extra_test}
 BuildRequires:  perl(JSON::MaybeXS)
+%endif
 BuildRequires:  perl(PerlIO)
 BuildRequires:  perl(Test2::EventFacet::Assert)
 BuildRequires:  perl(Test2::Formatter::TAP)
@@ -158,6 +167,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 03 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.000155-2
+- Add conditional which could disable integration tests
+
 * Tue May 02 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.000155-1
 - Add information about inlined modules
 - 0.000155 bump

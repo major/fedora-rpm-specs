@@ -1,6 +1,6 @@
 Name: did
 Version: 0.20
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 Summary: What did you do last week, month, year?
 License: GPLv2+
@@ -54,6 +54,9 @@ export LANG=en_US.utf-8
 %license LICENSE
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 0.20-2
+- Rebuilt for Python 3.12
+
 * Thu Mar 09 2023 Petr Šplíchal <psplicha@redhat.com> - 0.20-1
 - Produce fixed `phabricator` statistics
 - Address packit warning on the `metadata` key

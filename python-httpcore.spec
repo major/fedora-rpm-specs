@@ -53,7 +53,7 @@ rm -rf %{pypi_name}.egg-info
 
 %check
 %if %{with tests}
-%pytest
+%pytest -Wdefault
 %endif
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}

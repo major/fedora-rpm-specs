@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.0.6
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A schema package for messages sent by pagure
 
 License:        GPLv2+
@@ -47,6 +47,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/pagure_messages-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 0.0.6-8
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.6-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

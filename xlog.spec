@@ -1,11 +1,12 @@
 Name:          xlog
 Version:       2.0.22
-Release:       10%{?dist}
+Release:       11%{?dist}
 Summary:       Logging program for Hamradio Operators
 
 License:       GPLv3
 URL:           http://www.nongnu.org/xlog/
 Source0:       http://download.savannah.gnu.org/releases/%{name}/%{name}-%{version}.tar.gz
+Source1:       org.nongnu.Xlog.metainfo.xml
 
 Patch0:        %{name}-2.0.19-no-error.patch
 Patch1:        xlog-hamlib42.patch
@@ -19,6 +20,8 @@ BuildRequires: hamlib-devel
 BuildRequires: shared-mime-info
 BuildRequires: gettext-devel
 BuildRequires: desktop-file-utils
+
+Requires: hicolor-icon-theme
 
 %description
 xlog is a logging program for amateur radio operators. The log is stored
@@ -45,9 +48,17 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/applications/mimeinfo.cache
 
 %find_lang %{name}
 
+# Install desktop file
 desktop-file-install \
         --dir $RPM_BUILD_ROOT%{_datadir}/applications \
         $RPM_BUILD_ROOT%{_datadir}/applications/xlog.desktop
+desktop-file-edit --set-key=Icon --set-value=%{name} $RPM_BUILD_ROOT%{_datadir}/applications/xlog.desktop
+
+# Install svg icon
+install -D -p -m644 data/pixmaps/xlog.svg $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
+
+# Install AppStream metainfo file
+install -D -p -m644 %{SOURCE1} $RPM_BUILD_ROOT%{_metainfodir}/org.nongnu.Xlog.metainfo.xml
 
 %files -f %{name}.lang
 %doc AUTHORS data/doc/BUGS ChangeLog COPYING NEWS README data/doc/TODO data/doc/manual data/doc/KEYS data/glabels
@@ -58,12 +69,18 @@ desktop-file-install \
 %{_datadir}/pixmaps/*
 %{_datadir}/icons/gnome-mime-text-x-%{name}.png
 %{_datadir}/icons/%{name}-icon.png
+%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 %{_datadir}/applications/*.desktop
+%{_metainfodir}/org.nongnu.Xlog.metainfo.xml
 %{_datadir}/mime/packages/*.xml
 %{_mandir}/man?/*
 
 
 %changelog
+* Thu Jun 29 2023 Daniel Rusek <mail@asciiwolf.com> - 2.0.22-11
+- Add AppStream metadata, svg icon
+  Resolves: rhbz#1792728
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.22-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

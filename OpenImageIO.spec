@@ -3,7 +3,7 @@
 
 Name:           OpenImageIO
 Version:        2.4.12.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Library for reading and writing images
 
 License:        BSD and MIT
@@ -206,6 +206,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 2.4.12.0-3
+- Rebuilt for Python 3.12
+
 * Wed Jun 28 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2.4.12.0-2
 - Rebuilt due to fmt 10 update.
 

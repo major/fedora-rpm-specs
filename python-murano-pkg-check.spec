@@ -14,7 +14,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.3.0
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Murano package validator tool
 
 License:        ASL 2.0
@@ -206,6 +206,9 @@ PYTHON=python3 %{__python3} setup.py test
 %endif
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 0.3.0-28
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

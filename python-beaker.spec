@@ -1,6 +1,6 @@
 Name: python-beaker
 Version: 1.12.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: WSGI middleware layer to provide sessions
 License: BSD and MIT
 URL: http://beaker.readthedocs.io
@@ -74,6 +74,9 @@ redis-server &
 
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 1.12.1-2
+- Rebuilt for Python 3.12
+
 * Tue May 02 2023 Jonathan Wright <jonathan@almalinux.org> - 1.12.1-1
 - Update to 1.12.1 rhbz#1679788
 

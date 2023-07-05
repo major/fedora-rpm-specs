@@ -12,7 +12,7 @@ Object Storage API.
 
 Name:       python-swiftclient
 Version:    4.2.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Client Library for OpenStack Object Storage API
 License:    ASL 2.0
 URL:        http://launchpad.net/python-swiftclient/
@@ -109,6 +109,9 @@ install -p -D -m 644 doc/build/man/*.1 %{buildroot}%{_mandir}/man1/
 %license LICENSE
 %endif
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 4.2.0-2
+- Rebuilt for Python 3.12
+
 * Fri Apr 14 2023 Karolina Kula <kkula@redhat.com> 4.2.0-1
 - Update to upstream version 4.2.0
 

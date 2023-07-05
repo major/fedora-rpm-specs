@@ -1,6 +1,6 @@
 Name:           python-perky
-Version:        0.8.1
-Release:        1%{?dist}
+Version:        0.8.2
+Release:        2%{?dist}
 Summary:        A simple, Pythonic file format
 
 License:        MIT
@@ -57,5 +57,11 @@ cd tests
 
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 0.8.2-2
+- Rebuilt for Python 3.12
+
+* Mon Jul 3 2023 Maxwell G <maxwell@gtmx.me> - 0.8.2-1
+- Update to 0.8.2. Fixes rhbz#2219210.
+
 * Thu Jun 29 2023 Maxwell G <maxwell@gtmx.me> - 0.8.1-1
 - Initial package (rhbz#2218703).

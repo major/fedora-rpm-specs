@@ -2,7 +2,7 @@
 
 Name: python-migrate
 Version: 0.13.0
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: Schema migration tools for SQLAlchemy
 
 License: MIT
@@ -91,6 +91,9 @@ echo 'sqlite:///__tmp__' > test_db.cfg
 %{python3_sitelib}/*
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 0.13.0-13
+- Rebuilt for Python 3.12
+
 * Thu Apr 06 2023 Charalampos Stratakis <cstratak@redhat.com> - 0.13.0-12
 - Utilize a valid version scheme for test requirements to fix FTBFS with
   setuptools >= 66.0.0

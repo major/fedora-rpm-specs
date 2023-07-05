@@ -1,110 +1,70 @@
-%global pypi_name geopy
+Name:           python-geopy
+Version:        2.3.0
+Release:        %autorelease
+Summary:        Geocoding library for Python
 
-Name:           python-%{pypi_name}
-Version:        2.1.0
-Release:        9%{?dist}
-Summary:        Python client for several popular geocoding web services
-
+# SPDX
 License:        MIT
 URL:            https://geopy.readthedocs.io
-Source0:        https://github.com/geopy/geopy/archive/%{version}/%{pypi_name}-%{version}.tar.gz
+%global forgeurl https://github.com/geopy/geopy
+Source:         %{forgeurl}/archive/%{version}/geopy-%{version}.tar.gz
+
+# Downstream-only: drop coverage from test extra
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+Patch:          0001-Downstream-only-drop-coverage-from-test-extra.patch
+
+# Downstream-only: allow newer Sphinx for testing
+# (We have no choice; we must use what we have!)
+#
+# Applies on top of the coverage patch.
+Patch:          0002-Downstream-only-allow-newer-Sphinx-for-testing.patch
+
 BuildArch:      noarch
 
-%description
+BuildRequires:  python3-devel
+
+%global common_description %{expand:
+geopy is a Python client for several popular geocoding web services.
+
 geopy makes it easy for Python developers to locate the coordinates of
-addresses, cities, countries, and landmarks across the globe using third-
-party geocoders and other data sources.
+addresses, cities, countries, and landmarks across the globe using third-party
+geocoders and other data sources.
 
 geopy includes geocoder classes for the OpenStreetMap Nominatim, Google
-Geocoding API (V3), and many other geocoding services.
+Geocoding API (V3), and many other geocoding services.}
 
-%package -n python3-%{pypi_name}
+%description %{common_description}
+
+%package -n python3-geopy
 Summary:        %{summary}
 
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-Cython
-BuildRequires:  python3-pytest
-BuildRequires:  python3-GeographicLib
-BuildRequires:  python3-pytz
-BuildRequires:  python3-mock
-BuildRequires:  python3-pytest-asyncio
-BuildRequires:  python3-async-generator
-%{?python_provide:%python_provide python3-%{pypi_name}}
+%description -n python3-geopy %{common_description}
 
-%description -n python3-%{pypi_name}
-geopy makes it easy for Python developers to locate the coordinates of
-addresses, cities, countries, and landmarks across the globe using third-
-party geocoders and other data sources.
-
-geopy includes geocoder classes for the OpenStreetMap Nominatim, Google
-Geocoding API (V3), and many other geocoding services.
+%pyproject_extras_subpkg -n python3-geopy aiohttp,requests,timezone
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n geopy-%{version} -p1
 
-# Drop upper limit on geographiclib
-# https://github.com/geopy/geopy/pull/520
-sed -i 's/geographiclib<2,/geographiclib/' setup.py
+%generate_buildrequires
+%pyproject_buildrequires -x dev-test,aiohttp,requests,timezone
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files geopy
 
 %check
-# Exclude tests which make API calls
-%pytest -v test --ignore test/geocoders/
+# Exclude tests which make API calls (require network access)
+k="${k-}${k+ and }not test_geocoder_constructor_uses_https_proxy"
+k="${k-}${k+ and }not test_geocoder_https_proxy_auth_is_respected"
+k="${k-}${k+ and }not test_ssl_context_with_proxy_is_respected"
+k="${k-}${k+ and }not test_ssl_context_without_proxy_is_respected"
+%pytest -v test --ignore test/geocoders/ -k "${k-}"
 
-%files -n python3-%{pypi_name}
+%files -n python3-geopy -f %{pyproject_files}
 %doc AUTHORS CONTRIBUTING.md README.rst
-%license LICENSE
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}*.egg-info
 
 %changelog
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Mon Jul 25 2022 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 2.1.0-8
-- fix FTI
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 2.1.0-6
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 2.1.0-3
-- Rebuilt for Python 3.10
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Thu Jan 07 2021 Fabian Affolter <mail@fabian-affolter.ch> - 2.1.0-1
-- Update to latest upstream release 2.1.0
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.21.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 1.21.0-2
-- Rebuilt for Python 3.9
-
-* Mon Mar 23 2020 Fabian Affolter <mail@fabian-affolter.ch> - 1.21.0-1
-- Update to latest upstream release 1.21.0
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Tue Oct 22 2019 Fabian Affolter <mail@fabian-affolter.ch> - 1.20.0-2
-- Address issues (rhbz#1723052)
-
-* Thu Jun 20 2019 Fabian Affolter <mail@fabian-affolter.ch> - 1.20.0-1
-- Initial package for Fedora
+%autochangelog

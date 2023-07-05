@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.0.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Context manager for mocking/wrapping stdin/stdout/stderr
 
 License:        MIT
@@ -53,6 +53,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v tests
 %{python3_sitelib}/stdio_mgr-%{version}-py*.egg-info/
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 1.0.1-11
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

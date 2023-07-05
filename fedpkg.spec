@@ -5,7 +5,7 @@
 
 Name:           fedpkg
 Version:        1.44
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Fedora utility for working with dist-git
 
 License:        GPLv2+
@@ -149,6 +149,9 @@ mv %{buildroot}%{compdir}/fedpkg.bash %{buildroot}%{compdir}/fedpkg
 
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 1.44-5
+- Rebuilt for Python 3.12
+
 * Fri Apr 28 2023 Ondřej Nosek <onosek@redhat.com> - 1.44-4
 - Patch: Improve invalid branch name error message
 

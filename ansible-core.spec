@@ -3,18 +3,16 @@
 
 # controls whether to generate shell completions
 # may be useful for bootstrapping purposes
-#
-# python3-argcomplete currently FTBFS with python3.12
-%bcond argcomplete %[ %{defined python3_version} && v"%{python3_version}" < v"3.12" ]
+%bcond argcomplete 1
 
 # disable the python -s shbang flag as we want to be able to find non system modules
 %undefine _py3_shebang_s
 
 Name: ansible-core
 Summary: A radically simple IT automation system
-Version: 2.15.0
+Version: 2.15.1
 %global uversion %{version_no_tilde %{quote:%nil}}
-Release: 5%{?dist}
+Release: 2%{?dist}
 # The main license is GPLv3+. Many of the files in lib/ansible/module_utils
 # are BSD licensed. There are various files scattered throughout the codebase
 # containing code under different licenses.
@@ -24,6 +22,9 @@ Source0: https://github.com/ansible/ansible/archive/v%{uversion}/%{name}-%{uvers
 Source1: build_manpages.py
 
 Patch: https://github.com/ansible/ansible/commit/734f38b2594692707d1fd3cbcfc8dc8a677f4ee3.patch#/GALAXY_COLLECTIONS_PATH_WARNINGS.patch
+# Fix compat with latest python3-libdnf5
+# dnf5: enable now implemented cacheonly functionality (#81141)
+Patch: https://github.com/ansible/ansible/commit/0cc50e067346c357c5177677fba41993950ff044.patch#/dnf5-enable-cacheonly-functionality.patch
 # These patches are only applied on Rawhide to enable support for Python 3.12
 # See https://bugzilla.redhat.com/2196539
 #
@@ -38,14 +39,12 @@ Patch5003: Disable-test-that-calls-compat-code-removed-in-3.12.patch
 # Deprecations #
 # ansible-test - Replace pytest-forked (#80525)
 Patch6000: https://github.com/ansible/ansible/commit/676b731e6f7d60ce6fd48c0d1c883fc85f5c6537.patch#/ansible-test-replace-pytest-forked.patch
-# ansible-test - Avoid use of deprecated utcnow (#80750)
-Patch6001: https://github.com/ansible/ansible/commit/fd341265d001d4e6545ffb2b7d154340cb1f1931.patch#/avoid-use-of-deprecated-utcnow.patch
 # urls - remove deprecated client key calls (#80751)
 Patch6002: https://github.com/ansible/ansible/commit/0df794e5a4fe4597ee65b0d492fbf0d0989d5ca0.patch#/urls-remove-deprecated-client-key-calls.patch
 # replace deprecated ast.value.s with ast.value.value (#80968)
 Patch6003: https://github.com/ansible/ansible/commit/742d47fa15a5418f98abf9aaf07edf466e871c81.patch#/replace-deprecated-ast.value.s.patch
 # Avoid deprecated importlib.abc.TraversableResources (#81082)
-Patch6004: https://github.com/ansible/ansible/pull/81082.patch#/avoid-importlib-resources-abc-deprecation.patch
+Patch6004: https://github.com/ansible/ansible/commit/bd5b0b4293f454819766437cb6f8a7037affd49e.patch#/avoid-importlib-resources-abc-deprecation.patch
 
 Url: https://ansible.com
 BuildArch: noarch
@@ -97,6 +96,10 @@ BuildRequires: /usr/bin/python
 
 %if %{with argcomplete}
 Requires: python%{python3_pkgversion}-argcomplete
+%endif
+%if 0%{?fedora} >= 39
+BuildRequires: python3-libdnf5
+Recommends: python3-libdnf5
 %endif
 
 
@@ -287,6 +290,13 @@ install -Dpm 0644 licenses/* -t %{buildroot}%{_pkglicensedir}
 
 
 %changelog
+* Mon Jul 03 2023 Maxwell G <maxwell@gtmx.me> - 2.15.1-2
+- Rebuilt for Python 3.12
+
+* Thu Jun 22 2023 Maxwell G <maxwell@gtmx.me> - 2.15.1-1
+- Update to 2.15.1. Fixes rhbz#2204492.
+- Add Recommends on python3-libdnf5 for Fedora 39
+
 * Sat Jun 17 2023 Maxwell G <maxwell@gtmx.me> - 2.15.0-5
 - Add patch to avoid importlib.abc.TraversableResources DeprecationWarning
 

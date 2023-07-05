@@ -22,7 +22,11 @@
 
 # Default: Use jemalloc, as adviced by upstream project
 # Change to 1 to use system allocator (ie. glibc)
+%if 0%{?rhel}
+%bcond_without system_allocator
+%else
 %bcond_with system_allocator
+%endif
 
 %if %{with system_allocator}
 # use _lto_cflags if present
@@ -33,7 +37,7 @@
 Summary: High-performance HTTP accelerator
 Name: varnish
 Version: 7.3.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: BSD
 URL: https://www.varnish-cache.org/
 Source0: http://varnish-cache.org/_downloads/%{name}-%{version}.tgz
@@ -299,6 +303,9 @@ test -f /etc/varnish/secret || (uuidgen > /etc/varnish/secret && chmod 0600 /etc
 
 
 %changelog
+* Fri Jun 23 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 7.3.0-3
+- Enable system_allocator in RHEL/ELN builds
+
 * Mon Mar 20 2023 Ingvar Hagelund <ingvar@redpill-linpro.com> - 7.3.0-2
 - Switched from bcond to bcond_with for compatibility with el8 and el9
 - haproxy builddep on systems with haproxy2

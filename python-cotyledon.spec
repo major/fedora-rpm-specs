@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.7.3
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Cotyledon provides a framework for defining long-running services
 
 License:        ASL 2.0
@@ -58,6 +58,9 @@ rm -rf html/.doctrees html/.buildinfo
 %doc html
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 1.7.3-17
+- Rebuilt for Python 3.12
+
 * Tue May 30 2023 Joel Capitao <jcapitao@redhat.com> - 1.7.3-16
 - Convert to pyproject macros
 - Remove py2 bits

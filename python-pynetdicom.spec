@@ -13,7 +13,7 @@ Version:        2.0.2
 
 %forgemeta
 
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A Python implementation of the DICOM networking protocol
 
 License:        MIT and (BSD or ASL 2.0)
@@ -135,6 +135,9 @@ PYTHONPATH=%{buildroot}/%{python3_sitelib} %{__python3} -m pytest --deselect=pyn
 %endif
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 2.0.2-5
+- Rebuilt for Python 3.12
+
 * Sat Jan 28 2023 Alessio <alciregi AT fedoraproject DOT org> - 2.0.2-4
 - Fix spec file for EPEL9
 

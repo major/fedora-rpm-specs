@@ -1,15 +1,16 @@
 %global url_ver %%(echo %{version}|cut -d. -f1,2)
+%global tarball_version %%(echo %{version} | tr '~' '.')
 
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*\\.so.*$
 
 Name:           sushi
-Version:        44.2
+Version:        45~alpha.2
 Release:        1%{?dist}
 Summary:        A quick previewer for Nautilus
 
 License:        GPLv2+ with exceptions
 URL:            https://gitlab.gnome.org/GNOME/sushi
-Source0:        https://download.gnome.org/sources/%{name}/%{url_ver}/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{url_ver}/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  gettext
 BuildRequires:  gjs-devel
@@ -32,7 +33,8 @@ file manager.
 
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{tarball_version}
+
 
 %build
 %meson
@@ -56,6 +58,9 @@ file manager.
 
 
 %changelog
+* Mon Jul 03 2023 Kalev Lember <klember@redhat.com> - 45~alpha.2-1
+- Update to 45.alpha.2
+
 * Wed May 31 2023 Kalev Lember <klember@redhat.com> - 44.2-1
 - Update to 44.2
 

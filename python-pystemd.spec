@@ -6,7 +6,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.13.2
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        A thin Cython-based wrapper on top of libsystemd
 
 License:        LGPL-2.1-or-later
@@ -48,6 +48,8 @@ and then parsing the output to know the result.
 
 %install
 %py3_install
+# remove installed source files
+rm %{buildroot}%{python3_sitearch}/%{pypi_name}/*.c
 
 %check
 # This test fails in mock because systemd isn't running
@@ -69,6 +71,12 @@ popd
 %{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 0.13.2-4
+- Rebuilt for Python 3.12
+
+* Mon Jul 03 2023 Michel Alexandre Salim <salimma@fedoraproject.org> - 0.13.2-3
+- Fix rpmlint warnings: remove shipped *.c sources
+
 * Sat Jul 01 2023 Python Maint <python-maint@redhat.com> - 0.13.2-2
 - Rebuilt for Python 3.12
 

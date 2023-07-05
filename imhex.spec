@@ -1,6 +1,6 @@
 Name:           imhex
 Version:        1.30.1
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        A hex editor for reverse engineers and programmers
 
 License:        GPL-2.0-only AND Zlib AND MIT AND Apache-2.0
@@ -9,6 +9,8 @@ License:        GPL-2.0-only AND Zlib AND MIT AND Apache-2.0
 URL:            https://imhex.werwolv.net/
 # We need the archive with deps bundled
 Source0:        https://github.com/WerWolv/%{name}/releases/download/v%{version}/Full.Sources.tar.gz#/%{name}-%{version}.tar.gz
+# default to including the same-version patterns as a suggested package
+Source1:        https://github.com/WerWolv/ImHex-Patterns/archive/refs/tags/ImHex-v%{version}.tar.gz#/%{name}-patterns-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
@@ -30,6 +32,8 @@ BuildRequires:  nativefiledialog-extended-devel
 BuildRequires:  gcc-toolset-12
 %endif
 
+Recommends:     imhex-patterns = %{version}-%{release}
+
 Provides:       bundled(gnulib)
 Provides:       bundled(capstone) = 5.0-rc2
 Provides:       bundled(imgui)
@@ -46,7 +50,6 @@ Provides:       bundled(miniaudio) = 0.11.11
 # [11:38 AM] WerWolv: Officially supported are x86_64 and aarch64
 ExclusiveArch:  x86_64 %{arm64}
 
-
 %description
 ImHex is a Hex Editor, a tool to display, decode and analyze binary data to
 reverse engineer their format, extract informations or patch values in them.
@@ -57,6 +60,15 @@ template and pattern language to decode and highlight structures in the data, a
 graphical node-based data processor to pre-process values before they're
 displayed, a disassembler, diffing support, bookmarks and much much more. At the
 same time ImHex is completely free and open source under the GPLv2 language.
+
+
+%package patterns
+Summary:        Hex patterns, include patterns and magic files for the use with the ImHex Hex Editor
+License:        GPL-2.0-only
+Requires:       imhex >= %{version}-%{release}
+%description patterns
+Hex patterns, include patterns and magic files for the use with
+the ImHex Hex Editor
 
 
 %prep
@@ -111,6 +123,13 @@ cp -a lib/external/capstone/suite/regress/LICENSE                 %{buildroot}%{
 cp -a lib/external/microtar/LICENSE                               %{buildroot}%{_datadir}/licenses/%{name}/microtar-LICENSE
 cp -a lib/external/xdgpp/LICENSE                                  %{buildroot}%{_datadir}/licenses/%{name}/xdgpp-LICENSE
 
+# install patterns
+/usr/bin/tar -xf %{SOURCE1}
+mkdir %{buildroot}%{_datadir}/imhex
+for i in constants encodings includes magic nodes patterns plugins scripts tests themes tips yara;
+do
+    cp -ra ImHex-Patterns-ImHex-v%{version}/$i %{buildroot}%{_datadir}/imhex/$i
+done
 
 %files
 %license %{_datadir}/licenses/%{name}/
@@ -123,7 +142,18 @@ cp -a lib/external/xdgpp/LICENSE                                  %{buildroot}%{
 %{_metainfodir}/net.werwolv.%{name}.metainfo.xml
 
 
+%files patterns
+%license ImHex-Patterns-ImHex-v%{version}/LICENSE
+%{_datadir}/imhex/*
+
+
 %changelog
+* Mon Jul 03 2023 Jonathan Wright <jonathan@almalinux.org> - 1.30.1-4
+- Use tar to uncompress source1 - rhel9 does not have rpmuncompress
+
+* Mon Jul 03 2023 Jonathan Wright <jonathan@almalinux.org> - 1.30.1-3
+- Create imhex-patterns subpackage rhbz#2219447
+
 * Wed Jun 28 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 1.30.1-2
 - Rebuilt due to fmt 10 update.
 

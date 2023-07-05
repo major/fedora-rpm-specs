@@ -1,6 +1,6 @@
 Name:           translate-toolkit
-Version:        3.8.4
-Release:        2%{?dist}
+Version:        3.9.2
+Release:        1%{?dist}
 Summary:        Tools to assist with translation and software localization
 License:        GPL-2.0-or-later
 URL:            http://toolkit.translatehouse.org/
@@ -120,6 +120,9 @@ done
 %doc docs/_build/html
 
 %changelog
+* Mon Jul  3 2023 Jens Petersen <petersen@redhat.com> - 3.9.2-1
+- http://docs.translatehouse.org/projects/translate-toolkit/en/latest/releases/3.9.2.html
+
 * Wed Mar 29 2023 Sundeep Anand <suanand@redhat.com> - 3.8.4-2
 - update license tag to as per SPDX identifiers
 

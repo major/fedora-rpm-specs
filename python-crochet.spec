@@ -19,6 +19,11 @@ Patch1:         0001-disable-failing-test.patch
 # Don't use inspec.getargspec, it has been deprecated and removed from Python.
 Patch2:         0002-getargspec-test.patch
 
+# Patches needed for compatibility with Python 3.12
+# https://github.com/itamarst/crochet/commit/006705d.patch
+Patch3:         Replace-the-usage-of-assertEquals-unit-test-alias-re.patch
+Patch4:         https://github.com/itamarst/crochet/pull/150.patch
+
 License:        MIT
 URL:            https://github.com/itamarst/crochet
 Source0:        %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
@@ -47,6 +52,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-twisted
 BuildRequires:  python3-wrapt
+BuildRequires:  python3-zombie-imp
 
 
 %description -n python3-%{srcname}

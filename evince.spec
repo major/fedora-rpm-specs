@@ -3,18 +3,18 @@
 %global __requires_exclude ^(%%(find %{buildroot}%{_libdir}/evince/ -name '*.so' | xargs -n1 basename | sort -u | paste -s -d '|' -))
 
 %global libarchive_version 3.6.0
-%global poppler_version 22.02.0
+%global poppler_version 22.05.0
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           evince
-Version:        44.3
+Version:        45~alpha
 Release:        1%{?dist}
 Summary:        Document viewer
 
 License:        GPLv2+ and GPLv3+ and LGPLv2+ and MIT and Afmparse
 URL:            https://wiki.gnome.org/Apps/Evince
-Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gettext-devel
@@ -184,7 +184,7 @@ rm -f %{buildroot}%{_metainfodir}/evince-comicsdocument.metainfo.xml
 rm -f %{buildroot}%{_metainfodir}/evince-xpsdocument.metainfo.xml
 
 %check
-appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/org.gnome.Evince.appdata.xml
+appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/org.gnome.Evince.metainfo.xml
 desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Evince.desktop
 desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Evince-previewer.desktop
 
@@ -201,8 +201,7 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Evince-p
 %{_libexecdir}/evinced
 %{_datadir}/dbus-1/services/org.gnome.evince.Daemon.service
 %{_datadir}/glib-2.0/schemas/org.gnome.Evince.gschema.xml
-%{_datadir}/GConf/gsettings/evince.convert
-%{_metainfodir}/org.gnome.Evince.appdata.xml
+%{_metainfodir}/org.gnome.Evince.metainfo.xml
 %if ! 0%{?flatpak}
 %{_userunitdir}/org.gnome.Evince.service
 %endif
@@ -279,6 +278,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Evince-p
 %{_mandir}/man1/evince-previewer.1*
 
 %changelog
+* Mon Jul 03 2023 Kalev Lember <klember@redhat.com> - 45~alpha-1
+- Update to 45.alpha
+
 * Sat Jul 01 2023 Kalev Lember <klember@redhat.com> - 44.3-1
 - Update to 44.3
 

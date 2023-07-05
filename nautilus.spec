@@ -1,22 +1,20 @@
 %bcond cloudproviders %{undefined rhel}
 
-%global glib2_version 2.72.1
-%global gnome_autoar_version 0.4.0
-%global gtk4_version 4.10.3
-%global libadwaita_version 1.3~alpha
+%global glib2_version 2.74.0
+%global gnome_autoar_version 0.4.4
+%global gtk4_version 4.11.2
+%global libadwaita_version 1.4~alpha
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           nautilus
-Version:        44.2.1
-Release:        2%{?dist}
+Version:        45~alpha
+Release:        1%{?dist}
 Summary:        File manager for GNOME
 
 License:        GPL-3.0-or-later
 URL:            https://wiki.gnome.org/Apps/Nautilus
-Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
-
-Patch0:         sidebar-Make-cloudproviders-dependency-optional-agai.patch
+Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -146,6 +144,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %doc %{_datadir}/doc/nautilus/
 
 %changelog
+* Mon Jul 03 2023 Kalev Lember <klember@redhat.com> - 45~alpha-1
+- Update to 45.alpha
+
 * Mon Jun 26 2023 Ondrej Holy <oholy@redhat.com> - 44.2.1-2
 - Disable cloudproviders in RHEL
 

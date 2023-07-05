@@ -3,16 +3,13 @@
 %global         soversion 1.13.0
 
 Name:           partio
-Version:        1.14.6
-Release:        7%{?dist}
+Version:        1.17.0
+Release:        %autorelease
 Summary:        Library for manipulating common animation particle
 
 License:        BSD-3-Clause-Modification
 URL:            https://github.com/wdas/%{name}
 Source:         https://github.com/wdas/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
-# Versioning libraries
-# https://github.com/wdas/partio/issues/82
-#Patch:          %%{name}-version-libraries.patch
 
 BuildRequires:  cmake
 BuildRequires:  doxygen
@@ -57,12 +54,6 @@ BuildRequires:  pkgconfig(python3)
 %description -n python3-%{name} 
 The python3-%{name} contains Python 3 binning for the library.
 
-#%%package test
-#Summary: Run-time component of %%{name} test library
-#%%description test
-#Run-time support for simple program testing, full unit testing, and for
-#program execution monitoring.
-
 %prep
 %autosetup -p1
 
@@ -88,83 +79,24 @@ rm -rf %{buildroot}%{_datadir}/%{name}/test
 %files
 %license LICENSE
 %doc README.md
-%{_bindir}/part*
+%{_bindir}/part{attr,convert,edit,info,inspect,json,view}
 %{_datadir}/swig/%{name}.i
 %dir %{_datadir}/%{name}
 
 %files devel
-%{_includedir}/*
-%{_libdir}/*.so
+%{_includedir}/Partio{,Attribute,Iterator,Vec3}.h
+%{_libdir}/lib%{name}.so
 
 %files doc
 %doc %{_defaultdocdir}/%{name}/html
 
 %files libs
 %license LICENSE
-%{_libdir}/*.so.{1,%{soversion}}
+%{_libdir}/lib%{name}.so.{1,%{soversion}}
 
 %files -n python3-%{name}
 %{python3_sitearch}/_%{name}.so
 %pycached %{python3_sitearch}/*.py
 
-#%%files test
-#%%dir %%{_datadir}/%%{name}/test
-#%%{_datadir}/%%{name}/test/*
-
 %changelog
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.14.6-7
-- Rebuilt for Python 3.12
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.6-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Tue Dec 20 2022 Luya Tshimbalanga <luya@fedoraproject.org> - 1.14.6-5
-- Migrate to SPDX license
-- Use py3_shebang_fix macro (#2155193)
-- Shorten summary
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.6-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 1.14.6-3
-- Rebuilt for Python 3.11
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.6-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Mon Dec 07 2020 Luya Tshimbalanga <luya@fedoraproject.org> - 1.14.6-1
-- Update to 1.14.6 (#2003318)
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 1.14.0-3
-- Rebuilt for Python 3.10
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Dec 07 2020 Luya Tshimbalanga <luya@fedoraproject.org> - 1.14.0-1
-- Update to 1.14.0 (#1905289)
-- Drop support of EOL Fedora 31
-
-* Thu Dec 03 2020 Luya Tshimbalanga <luya@fedoraproject.org> - 1.13.2-1
-- Update to 1.13.2 (#1903815)
-- Fix changelog date and incorrect versioning
-
-* Sat Sep 12 2020 Luya Tshimbalanga <luya@fedoraproject.org> - 1.13.0-1
-- Update to 1.13.0
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Sat Jul 18 2020 Luya Tshimbalanga <luya@fedoraproject.org> - 1.10.1-3
-- Set conditional buildrequire of glut for Fedora 31 and less
-- Set versioning libraries
-
-* Sat Jul 18 2020 Luya Tshimbalanga <luya@fedoraproject.org> - 1.10.1-2
-- Fix spec according to the review (#1858531)
-- Remove arch-dependeants libraries from /usr/share
-
-* Sat May 30 2020 Luya Tshimbalanga <luya@fedoraproject.org> - 1.10.1-1
-- Initial build
+%autochangelog

@@ -1,6 +1,6 @@
 Name:           home-assistant-cli
 Version:        0.9.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Command-line tool for Home Assistant
 
 License:        ASL 2.0
@@ -56,6 +56,9 @@ PYTHONPATH=%{buildroot}/%{python3_sitelib}/ pytest-%{python3_version} -v tests \
 %{python3_sitelib}/homeassistant_cli*.egg-info/
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 0.9.6-4
+- Rebuilt for Python 3.12
+
 * Sat Mar 11 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.9.6-3
 - Allow later dateparser
 

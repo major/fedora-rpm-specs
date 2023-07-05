@@ -2,7 +2,7 @@
 %global with_broadway 1
 %endif
 
-%global glib2_version 2.72.0
+%global glib2_version 2.76.0
 %global pango_version 1.50.0
 %global cairo_version 1.14.0
 %global gdk_pixbuf_version 2.30.0
@@ -16,7 +16,7 @@
 %global __provides_exclude_from ^%{_libdir}/gtk-4.0
 
 Name:           gtk4
-Version:        4.11.3
+Version:        4.11.4
 Release:        %autorelease
 Summary:        GTK graphical user interface library
 

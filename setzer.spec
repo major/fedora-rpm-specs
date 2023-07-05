@@ -23,8 +23,10 @@ BuildRequires:  python3-devel
 BuildRequires:  gtk3-devel
 BuildRequires:  gtksourceview4-devel
 BuildRequires:  libhandy-devel
+BuildRequires:  libportal-devel
 BuildRequires:  gspell-devel
 BuildRequires:  poppler-glib-devel
+BuildRequires:  python3-bibtexparser
 BuildRequires:  python3-cairo
 BuildRequires:  python3-gobject-devel
 BuildRequires:  python3-pexpect
@@ -32,9 +34,11 @@ BuildRequires:  webkit2gtk4.1
 Requires:       gtk3
 Requires:       gtksourceview4
 Requires:       libhandy
+Requires:       libportal
 Requires:       gspell
 Requires:       hicolor-icon-theme
 Requires:       poppler-glib
+Requires:       python3-bibtexparser
 Requires:       python3-cairo
 Requires:       python3-gobject
 Requires:       python3-pexpect

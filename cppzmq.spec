@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 Name:           cppzmq
-Version:        4.9.0
+Version:        4.10.0
 Release:        %autorelease
 Summary:        Header-only C++ binding for libzmq
 
@@ -13,7 +13,7 @@ Source0:        https://github.com/zeromq/%{name}/archive/v%{version}/%{name}-%{
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(libzmq)
-BuildRequires:  cmake(Catch2)
+BuildRequires:  (cmake(Catch2) >= 2.13.9 with cmake(Catch2) < 3)
 
 %global _description \
 cppzmq is a C++ binding for libzmq. \

@@ -10,7 +10,7 @@
 
 Name:           krita
 Version:        5.1.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 Summary:        Krita is a sketching and painting program
 License:        GPL-2.0-or-later
@@ -173,6 +173,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.krita.des
 
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 5.1.5-4
+- Rebuilt for Python 3.12
+
 * Sun Jun 18 2023 Sérgio Basto <sergio@serjux.com> - 5.1.5-3
 - Mass rebuild for jpegxl-0.8.1
 

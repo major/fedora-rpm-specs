@@ -13,7 +13,7 @@ Release:        %autorelease
 Summary:        OpenGL real-time visual space simulation
 # Bundled R128 is under Unlicense
 License:        GPL-2.0-or-later AND MIT AND Unlicense
-URL:            https://celestia.space/
+URL:            https://celestiaproject.space/
 %if "%{?gittag}"
 Source0:        https://github.com/CelestiaProject/Celestia/archive/%{gittag}/Celestia-%{version}.tar.gz
 %else

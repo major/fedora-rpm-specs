@@ -4,7 +4,7 @@ Name:           python-django
 #global         pre ...
 %global         real_version %{ver}%{?pre:%{pre}}
 Version:        %{ver}%{?pre:~%{pre}}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A high-level Python Web framework
 
 License:        BSD
@@ -95,13 +95,8 @@ sed -i '/^tzdata$/d' tests/requirements/py3.txt
 sed -i '/^black\b/d' tests/requirements/py3.txt
 sed -i '/^blacken-docs\b/d' docs/requirements.txt
 
-# Temporarily skip redis tests, as python3-redis is not yet available for Python 3.12
-# https://bugzilla.redhat.com/2196782
-sed -i '/^redis\b/d' tests/requirements/py3.txt
-
 %generate_buildrequires
-# The postgres tests are temporarily skipped, as psycopg is not yet available for Python 3.12
-%pyproject_buildrequires -r tests/requirements/{py3,mysql,oracle}.txt docs/requirements.txt
+%pyproject_buildrequires -r tests/requirements/{py3,postgres,mysql,oracle}.txt docs/requirements.txt
 
 %build
 %pyproject_wheel
@@ -164,7 +159,7 @@ cd tests
 
 
 %changelog
-* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 4.2.1-2
+* Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 4.2.1-3
 - Rebuilt for Python 3.12
 
 * Fri May 5 2023 Steve Traylen <steve.traylen@cern.ch> - 4.2.1-1

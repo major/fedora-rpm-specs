@@ -1,15 +1,17 @@
 Name:		tucnak
 Version:	4.44
-Release:	1%{?dist}
-Summary:	VHF contest logging program
+Release:	2%{?dist}
+Summary:	HF/VHF contest logging program
 License:	GPLv2
 URL:		http://tucnak.nagano.cz/
 Source0:	http://tucnak.nagano.cz/%{name}-%{version}.tar.gz
+Source1:	cz.nagano.Tucnak.metainfo.xml
 BuildRequires:	gcc
 BuildRequires:	make
 BuildRequires:	automake
 BuildRequires:	libzia-devel = %{version}
 BuildRequires:	desktop-file-utils
+BuildRequires:	libappstream-glib
 BuildRequires:	fftw-devel
 BuildRequires:	hamlib-devel
 BuildRequires:	rtl-sdr-devel
@@ -19,6 +21,7 @@ BuildRequires:	binutils-devel
 BuildRequires:	gnutls-devel
 # For fixing files encoding
 BuildRequires:	recode
+Requires:	hicolor-icon-theme
 Provides:	tucnak2 = %{version}-%{release}
 Obsoletes:	tucnak2 < 2.31-21
 # This is to rename soundwrapper from the generic name to the
@@ -27,7 +30,7 @@ Obsoletes:	tucnak2 < 2.31-21
 Patch0:		tucnak-4.18-soundwrapper.patch
 
 %description
-Tucnak is VHF/UHF/SHF log for hamradio contests. It supports multi
+Tucnak is HF/VHF/UHF/SHF log for hamradio contests. It supports multi
 bands, free input, networking, voice and CW keyer, WWL database and
 much more.
 
@@ -52,7 +55,15 @@ autoreconf -fi
 %install
 %make_install
 
+# Install icon
+install -D -p -m644 data/tucnak64.png %{buildroot}%{_datadir}/icons/hicolor/64x64/apps/%{name}.png
+
+# Install AppStream metainfo file
+install -D -p -m644 %{SOURCE1} %{buildroot}%{_metainfodir}/cz.nagano.Tucnak.metainfo.xml
+
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
+appstream-util validate-relax \
+  --nonet %{buildroot}%{_metainfodir}/cz.nagano.Tucnak.metainfo.xml
 
 # rename soundwrapper to tucnak-soundwrapper
 mv %{buildroot}%{_bindir}/soundwrapper %{buildroot}%{_bindir}/tucnak-soundwrapper 
@@ -73,10 +84,16 @@ rmdir %{buildroot}%{_prefix}/lib/tucnak
 %{_bindir}/tucnak
 %{_bindir}/tucnak-soundwrapper
 %{_datadir}/applications/*
+%{_datadir}/icons/hicolor/64x64/apps/%{name}.png
 %{_datadir}/pixmaps/*
+%{_metainfodir}/cz.nagano.Tucnak.metainfo.xml
 %{_datadir}/%{name}
 
 %changelog
+* Thu Jun 29 2023 Daniel Rusek <mail@asciiwolf.com> - 4.44-2
+- Added AppStream metadata, small fixes
+  Resolves: rhbz#1476482
+
 * Mon Jun  5 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 4.44-1
 - New version
   Resolves: rhbz#2212154

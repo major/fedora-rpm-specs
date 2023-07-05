@@ -6,7 +6,7 @@
 
 Name:           libgpuarray
 Version:        0.7.6
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Library to manipulate tensors on a GPU
 
 # All files are ISC except src/util/xxhash.{c,h}, which are BSD-2-Clause
@@ -173,6 +173,9 @@ make test
 %{python3_sitearch}/pygpu/*.h
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 0.7.6-20
+- Rebuilt for Python 3.12
+
 * Fri Feb 24 2023 Jerry James <loganjerry@gmail.com> - 0.7.6-19
 - Dynamically generate python BuildRequires
 

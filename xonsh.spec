@@ -1,6 +1,6 @@
 Name:           xonsh
 Version:        0.13.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A general purpose, Python-ish shell
 
 # xonsh is BSD-2-Clause.
@@ -124,6 +124,9 @@ fi
 %{python3_sitelib}/xonsh-%{version}*-py%{python3_version}.egg-info/
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 0.13.3-4
+- Rebuilt for Python 3.12
+
 * Thu Feb 02 2023 Karolina Surma <ksurma@redhat.com> - 0.13.3-3
 - Fix test failures with Pygments 2.14
 

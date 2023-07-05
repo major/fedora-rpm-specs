@@ -5,7 +5,7 @@
 
 Name:		python-logbook
 Version:	1.5.3
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	A logging replacement for Python
 
 License:	BSD-3-Clause
@@ -59,6 +59,9 @@ Logbook can do that.
 %{python3_sitearch}/logbook/
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 1.5.3-14
+- Rebuilt for Python 3.12
+
 * Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.5.3-13
 - migrated to SPDX license
 

@@ -3,7 +3,7 @@
 %global _description %{expand:
 The python-socks package provides a core proxy client functionality for Python.
 Supports SOCKS4(a), SOCKS5, HTTP (tunneling) proxy and provides sync and async
-(asyncio, trio, curio) APIs. It is used internally by aiohttp-socks and
+(asyncio, trio) APIs. It is used internally by aiohttp-socks and
 httpx-socks packages.
 }
 
@@ -24,11 +24,13 @@ BuildArch:      noarch
 Summary:        %{summary}
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
+# curio is discontinued upstream and not ready for Python 3.12
+Obsoletes:      python3-socks+curio < 2.0.3-7
 
 %description -n python3-socks %_description
 
-# extras: asyncio, curio, trio
-%pyproject_extras_subpkg -n python3-socks asyncio curio trio
+# extras: asyncio, trio
+%pyproject_extras_subpkg -n python3-socks asyncio trio
 
 %prep
 %autosetup
@@ -36,6 +38,12 @@ BuildRequires:  python3-setuptools
 # remove version lock
 # https://github.com/romis2012/python-socks/blob/master/requirements-dev.txt
 sed -i 's/pytest-asyncio>.*/pytest-asyncio/' requirements-dev.txt
+
+# remove curio
+sed -i '/curio/d' requirements-dev.txt
+
+# remove linters and coverage
+sed -i -e '/flake8/d' -e '/cov/d' requirements-dev.txt
 
 %generate_buildrequires
 %pyproject_buildrequires -r requirements-dev.txt

@@ -11,7 +11,7 @@ stestr hard codes python-subunit-isms into how it works.
 
 Name:       python-%{pypi_name}
 Version:    4.0.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    A test runner runner similar to testrepository
 
 License:    ASL 2.0
@@ -71,6 +71,9 @@ It contains the documentation for stestr.
 %autosetup -n %{pypi_name}-%{version} -S git
 sed -i '/doc8.*/d' test-requirements.txt
 sed -i '/hacking.*/d' test-requirements.txt
+# Replace removed SafeConfigParser with ConfigParser
+# Upstream: https://github.com/mtreinish/stestr/pull/344
+sed -i 's/SafeConfigParser/ConfigParser/' stestr/commands/run.py
 
 %build
 %pyproject_wheel
@@ -109,6 +112,9 @@ ln -s stestr-3 %{buildroot}/%{_bindir}/stestr-%{python3_version}
 %endif
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 4.0.1-2
+- Rebuilt for Python 3.12
+
 * Wed Feb 08 2023 Joel Capitao <jcapitao@redhat.com> - 4.0.1-1
 - Update to latest upstream (#1482280)
 

@@ -1,11 +1,13 @@
 Name:		putty
 Version:	0.78
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	SSH, Telnet and Rlogin client
 License:	MIT
 URL:		http://www.chiark.greenend.org.uk/~sgtatham/putty/
 Source0:	http://the.earth.li/~sgtatham/putty/latest/%{name}-%{version}.tar.gz
 Source1:	%{name}.desktop
+Source2:	%{name}.svg
+Source3:	uk.org.greenend.chiark.sgtatham.putty.metainfo.xml
 BuildRequires:	gtk3-devel
 BuildRequires:	krb5-devel
 BuildRequires:	halibut
@@ -19,6 +21,7 @@ BuildRequires:	findutils
 BuildRequires:	gcc
 BuildRequires:	make
 BuildRequires:	cmake
+Requires:	hicolor-icon-theme
 
 %description
 Putty is a SSH, Telnet & Rlogin client - this time for Linux.
@@ -48,6 +51,9 @@ desktop-file-install \
   %{SOURCE1}
 
 install -m644 -D -p icons/putty-48.png %{buildroot}%{_datadir}/pixmaps/putty.png
+install -m644 -D -p %{SOURCE2} %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/putty.svg
+
+install -m644 -D -p %{SOURCE3} %{buildroot}%{_metainfodir}/uk.org.greenend.chiark.sgtatham.putty.metainfo.xml
 
 %files
 %doc LICENCE html
@@ -55,8 +61,14 @@ install -m644 -D -p icons/putty-48.png %{buildroot}%{_datadir}/pixmaps/putty.png
 %{_mandir}/man1/*.1*
 %{_datadir}/applications/*
 %{_datadir}/pixmaps/%{name}.png
+%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
+%{_metainfodir}/uk.org.greenend.chiark.sgtatham.putty.metainfo.xml
 
 %changelog
+* Thu Jun 29 2023 Daniel Rusek <mail@asciiwolf.com> - 0.78-3
+- Add AppStream metadata, svg icon
+  Resolves: rhbz#1792733
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.78-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

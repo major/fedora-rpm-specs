@@ -1,11 +1,11 @@
 # Force out of source build
 %undefine __cmake_in_source_build
 
-#global	        prerelease	0
+%global	        prerelease	beta1
 
 Name:		luxcorerender
-Version:	2.6
-Release:	%autorelease
+Version:	2.7
+Release:	%autorelease %{?prerelease: -p -e %{prerelease}}
 Summary:	LuxCore Renderer, an unbiased rendering system
 
 License:	Apache-2.0
@@ -144,8 +144,7 @@ Requires:       blender-%{name}%{?_isa} = %{version}-%{release}
 The python3-%{name} contains Python 3 API for the library.
 
 %prep
-%autosetup -p1 -n LuxCore-%{name}_v%{version}%{?prerelease}
-%setup -q -T -D -a 1 -n LuxCore-%{name}_v%{version}%{?prerelease}
+%autosetup -p1 -a1 -n LuxCore-%{name}_v%{version}%{?prerelease}
 
 # Fix bundled deps
 rm -rf pywheel pyunittests
@@ -206,13 +205,6 @@ cp -pr include/{luxcore,luxrays} %{buildroot}%{_includedir}/
 mkdir -p %{buildroot}%{python3_sitearch}
 mv %{buildroot}%{_libdir}/pyluxcore.so %{buildroot}%{python3_sitearch}
 
-# Install include files
-cp -pr include/{luxcore,luxrays} %{buildroot}%{_includedir}/
-
-# Relocate pyluxcore
-mkdir -p %{buildroot}%{python3_sitearch}
-#mv %%{buildroot}%%{_libdir}/pyluxcore.so %%{buildroot}%%{python3_sitearch}
-
 # Import add-ons and preset
 mkdir -p %{buildroot}%{blender_addons}/%{name}
 cp -a BlendLuxCore-blendluxcore_v%{version}%{?prerelease}/* \
@@ -240,7 +232,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.%{name}.bl
 %doc AUTHORS.txt
 
 %files core
-%{_bindir}/*
+%{_bindir}/{luxcoreconsole,luxcoredemo,luxcoreimplserializationdemo,luxcorescenedemo,luxcoreui}
 
 # GPLv3
 %files -n blender-%{name}

@@ -1,7 +1,7 @@
 Summary: A panoramic photo stitcher and more
 Name: hugin
 Version: 2022.0.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv2+
 Source: https://downloads.sourceforge.net/hugin/%{name}-%{version}.tar.bz2
 URL: http://hugin.sourceforge.net/
@@ -171,6 +171,9 @@ EOF
 %{_mandir}/man1/hugin_lensdb.*
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 2022.0.0-4
+- Rebuilt for Python 3.12
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 2022.0.0-3
 - Rebuilt for Boost 1.81
 

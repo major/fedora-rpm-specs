@@ -10,7 +10,7 @@ interaction with swarm optimizations.}
 
 Name:           python-%{pypi_name}
 Version:        1.3.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        A Python-based Particle Swarm Optimization (PSO) library
 
 License:        MIT
@@ -96,6 +96,9 @@ rm -rf %{buildroot}/%{python3_sitelib}/tests
 %license LICENSE
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 1.3.0-15
+- Rebuilt for Python 3.12
+
 * Sun Jun 25 2023 Orion Poplawski <orion@nwra.com> - 1.3.0-14
 - Add upstream patch for matplotlib 3.7 support
 

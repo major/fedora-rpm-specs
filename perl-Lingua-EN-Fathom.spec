@@ -1,5 +1,5 @@
 Name:           perl-Lingua-EN-Fathom
-Version:        1.23
+Version:        1.24
 Release:        1%{?dist}
 Summary:        Measure readability of English text
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -30,8 +30,22 @@ This module analyses English text in either a string or file. Totals are
 then calculated for the number of characters, words, sentences, blank and
 non blank (text) lines and paragraphs.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Lingua-EN-Fathom-%{version}
+# Help generators to recognize Perl scripts
+for F in $(find t/ -name '*.t'); do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -39,6 +53,14 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)" -r
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_fixperms} %{buildroot}
 
 %check
@@ -49,7 +71,14 @@ make test
 %{perl_vendorlib}/Lingua/EN/Fathom.pm
 %{_mandir}/man3/Lingua::EN::Fathom.3pm*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Mon Jul 03 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.24-1
+- 1.24 bump
+- Package tests
+
 * Tue Jun 20 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.23-1
 - 1.23 bump
 - Add examples/ to doc

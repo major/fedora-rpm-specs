@@ -4,7 +4,7 @@
 
 Name:           imath
 Version:        3.1.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library of 2D and 3D vector, matrix, and math operations for computer graphics
 
 License:        BSD-3-Clause
@@ -97,6 +97,9 @@ Requires:       python3-devel
 
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 3.1.9-2
+- Rebuilt for Python 3.12
+
 * Thu Jun 01 2023 Richard Shaw <hobbes1069@gmail.com> - 3.1.9-1
 - Update to 3.1.9.
 

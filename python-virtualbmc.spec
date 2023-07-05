@@ -2,7 +2,7 @@
 
 Name: python-%{srcname}
 Version: 3.0.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A virtual BMC for controlling virtual machines using IPMI commands
 License: ASL 2.0
 URL: https://opendev.org/openstack/virtualbmc
@@ -107,6 +107,9 @@ PYTHON=%{__python3} stestr run
 %doc doc/build/html
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 3.0.1-2
+- Rebuilt for Python 3.12
+
 * Thu Mar 16 2023 Juan Orti Alcaine <jortialc@redhat.com> - 3.0.1-1
 - Version 3.0.1 (RHBZ#2176951)
 

@@ -5,7 +5,7 @@ provides an easy to use programmatic interface to a SOAP server.
 
 Name:           python-%{srcname}
 Version:        4.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A fast and modern Python SOAP client
 
 License:        MIT and BSD
@@ -68,6 +68,9 @@ PYTHONPATH=src %{__python3} -m pytest tests
 
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 4.2.1-2
+- Rebuilt for Python 3.12
+
 * Sun Mar 26 2023 Georg Sauthoff <mail@gms.tf> - 4.2.1-1
 - bump version (fixes fedora#2144333)
 - migrate to build-time dependency generator as proposed in #2079681#c4

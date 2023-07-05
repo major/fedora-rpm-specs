@@ -1,6 +1,6 @@
 Name:           pythran
 Version:        0.12.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Ahead of Time Python compiler for numeric kernels
 
 # pythran is BSD
@@ -154,6 +154,9 @@ k="$k and not test_loadext_and_run"
 
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 0.12.1-4
+- Rebuilt for Python 3.12
+
 * Wed Jan 25 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.12.1-3
 - Avoid ipython test dependency in RHEL builds
 

@@ -1,8 +1,8 @@
 %global cli_tool cplc
 
 Name:           classpathless-compiler
-Version:        2.1.1
-Release:        6%{?dist}
+Version:        2.2
+Release:        1%{?dist}
 Summary:        Tool for recompiling java sources with customizable class providers
 License:        ASL 2.0
 URL:            https://github.com/mkoncek/classpathless-compiler
@@ -65,6 +65,9 @@ Javadoc for %{name}.
 %license LICENSE
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2
+- bumped to 2.2 
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

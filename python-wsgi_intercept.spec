@@ -1,84 +1,87 @@
 %global pypi_name wsgi_intercept
 
+%global common_desc \
+It installs a WSGI application in place of a real URI for testing. \
+Testing a WSGI application normally involves starting a server at \
+a local host and port, then pointing your test code to that address. \
+Instead,this library lets you intercept calls to any specific host/port \
+combination and redirect them into a `WSGI application`_ importable by \
+your test program.
+
 
 Name:           python-%{pypi_name}
-Version:        1.11.0
+Version:        1.12.0
 Release:        2%{?dist}
 Summary:        wsgi_intercept installs a WSGI application in place of a real URI for testing
 
 License:        MIT
 URL:            https://github.com/cdent/wsgi-intercept
-Source0:        https://pypi.python.org/packages/source/w/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
+Source0:        %pypi_source
 BuildArch:      noarch
 
+BuildRequires:  python3-devel
+BuildRequires:  pyproject-rpm-macros
+
 %description
-It installs a WSGI application in place of a real URI for testing.
-Testing a WSGI application normally involves starting a server at
-a local host and port, then pointing your test code to that address.
-Instead,this library lets you intercept calls to any specific host/port
-combination and redirect them into a `WSGI application`_ importable by
-your test program.
-
-%package -n python-%{pypi_name}-doc
-Summary:        Documentation for the wsgi-intercept module
-BuildRequires:  python3-sphinx
-BuildRequires:  python3-sphinx_rtd_theme
-
-%description -n python-%{pypi_name}-doc
-Documentation for the wsgi-intercept module
+%{common_desc}
 
 %package -n python3-%{pypi_name}
 Summary:        wsgi_intercept installs a WSGI application in place of a real URI for testing
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-# test dependencies
-BuildRequires:  python3-pytest
-BuildRequires:  python3-httplib2
-BuildRequires:  python3-requests
-
-Requires:       python3-setuptools
-
 %description -n python3-%{pypi_name}
-It installs a WSGI application in place of a real URI for testing.
-Testing a WSGI application normally involves starting a server at
-a local host and port, then pointing your test code to that address.
-Instead,this library lets you intercept calls to any specific host/port
-combination and redirect them into a `WSGI application`_ importable by
-your test program.
+%{common_desc}
+
+%package -n python-%{pypi_name}-doc
+Summary:        Documentation for the wsgi-intercept module
+
+%description -n python-%{pypi_name}-doc
+Documentation for the wsgi-intercept module
+
 
 %prep
 %setup -q -n %{pypi_name}-%{version}
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires -x testing -x docs
 
 %build
-%py3_build
+%pyproject_wheel
 
 # generate html docs
+# Use tox macro -e docs once https://github.com/cdent/wsgi-intercept/pull/71 is merged
+# and contained in a release.
 export PYTHONPATH="$( pwd ):$PYTHONPATH"
-sphinx-build docs html
+sphinx-build docs build/sphinx
 # remove the sphinx-build leftovers
-rm -rf html/.{doctrees,buildinfo}
+rm -rf build/sphinx/.{doctrees,buildinfo}
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files wsgi_intercept
 
 %check
+# Use tox macro once https://github.com/cdent/wsgi-intercept/pull/71 is merged
+# and contained in a release.
 %{__python3} setup.py test
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README
 %license LICENSE
-%{python3_sitelib}/%{pypi_name}*
-%exclude %{python3_sitelib}/test
+%exclude %{python3_sitelib}/%{pypi_name}/tests
 
 %files -n python-%{pypi_name}-doc
 %license LICENSE
-%doc html
+%doc build/sphinx
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 1.12.0-2
+- Rebuilt for Python 3.12
+
+* Mon Jul 03 2023 Joel Capitao <jcapitao@redhat.com> - 1.12.0-1
+- Update to 1.12.0 (#2218071)
+- Switch to pyproject-rpm-macros
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.11.0-2
 - Rebuilt for Python 3.12
 

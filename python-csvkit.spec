@@ -8,7 +8,7 @@ of tabular file formats.
 
 Name:           python-%{pypi_name}
 Version:        1.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Suite of utilities for converting to and working with CSV
 
 License:        MIT
@@ -97,6 +97,9 @@ pytest-%{python3_version} tests -v -k "not test_convert_dbf and not test_decimal
 
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 1.1.1-2
+- Rebuilt for Python 3.12
+
 * Tue Apr 25 2023 Julien Enselme <jujens@jujens.eu> - 1.1.1-1
 - Update to 1.1.1
 

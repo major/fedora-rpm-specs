@@ -5,7 +5,7 @@
 
 Name:		python-ipyparallel
 Version:	8.6.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Interactive Parallel Computing with IPython
 
 License:	BSD-3-Clause
@@ -15,6 +15,7 @@ Source0:	%pypi_source ipyparallel
 Patch0:		%{name}-doc-fixes.patch
 #		https://github.com/ipython/ipyparallel/pull/796
 Patch1:		%{name}-teardown.patch
+Patch2:		https://github.com/ipython/ipyparallel/pull/818.patch#/%{name}-assert_called_once_with.patch
 
 BuildArch:	noarch
 BuildRequires:	make
@@ -81,11 +82,15 @@ This package contains the documentation of python-ipyparallel.
 %setup -q -n ipyparallel-%{version}
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 rm ipyparallel/labextension/schemas/ipyparallel-labextension/package.json.orig
 
 sed /autodoc_traits/d -i docs/source/conf.py
 sed s/autoconfigurable/autoclass/ -i docs/source/api/ipyparallel.rst
+
+# Adjust test expectations for our build environment
+sed -i 's/\[Errno -2\] Name or service not known/[Errno -3] Temporary failure in name resolution/' ipyparallel/tests/test_util.py
 
 %build
 %pyproject_wheel
@@ -107,7 +112,7 @@ done
 mv %{buildroot}%{_prefix}%{_sysconfdir} %{buildroot}%{_sysconfdir}
 
 %check
-%pytest -v --color=no
+%pytest -Wdefault -v --color=no
 
 %files -n python3-ipyparallel
 %license COPYING.md
@@ -142,6 +147,9 @@ mv %{buildroot}%{_prefix}%{_sysconfdir} %{buildroot}%{_sysconfdir}
 %doc docs/build/html
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 8.6.1-3
+- Rebuilt for Python 3.12
+
 * Sat Apr 15 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 8.6.1-2
 - Fix AttributeError in tests
 

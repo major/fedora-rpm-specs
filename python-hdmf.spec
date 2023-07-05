@@ -17,7 +17,7 @@ https://hdmf.readthedocs.io}
 # number can be read from
 # src/hdmf/common/hdmf-common-schema/common/namespace.yaml, in
 # ['namespaces'][0]['version'].
-%global schema_version 1.6.0
+%global schema_version 1.7.0
 
 Name:           python-hdmf
 Version:        3.6.1

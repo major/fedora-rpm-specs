@@ -1,6 +1,6 @@
 Name:           python-testing.postgresql
 Version:        1.3.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Automatically sets up a PostgreSQL testing instance
 
 License:        Apache-2.0
@@ -73,6 +73,9 @@ sed -r -i "s/'nose'/'pytest'/" setup.py
 
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 1.3.0-8
+- Rebuilt for Python 3.12
+
 * Sat Feb 11 2023 msuchy <msuchy@redhat.com> - 1.3.0-7
 - migrate license to SPDX
 

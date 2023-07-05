@@ -16,12 +16,16 @@ The OpenStack Oslo Utility library. \
 
 Name:           python-oslo-utils
 Version:        6.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OpenStack Oslo Utility library
 
 License:        ASL 2.0
 URL:            http://launchpad.net/oslo
 Source0:        https://tarballs.openstack.org/%{pypi_name}/%{pypi_name}-%{upstream_version}.tar.gz
+
+# Replace deprecated assertAlmostEquals method
+Patch:          https://opendev.org/openstack/oslo.utils/commit/77c90bd6bdae52d6a4bd433d30ff98d3b7029664.patch
+
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
 Source101:        https://tarballs.openstack.org/%{pypi_name}/%{pypi_name}-%{upstream_version}.tar.gz.asc
@@ -49,7 +53,6 @@ BuildRequires:  python3-iso8601
 BuildRequires:  python3-debtcollector
 # test requirements
 BuildRequires:  python3-eventlet
-BuildRequires:  python3-hacking
 BuildRequires:  python3-fixtures
 BuildRequires:  python3-oslotest
 BuildRequires:  python3-testtools
@@ -170,6 +173,9 @@ python3 setup.py test
 %license LICENSE
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 6.1.0-2
+- Rebuilt for Python 3.12
+
 * Fri Apr 14 2023 Karolina Kula <kkula@redhat.com> 6.1.0-1
 - Update to upstream version 6.1.0
 

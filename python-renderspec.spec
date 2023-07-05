@@ -6,7 +6,7 @@ processes.
 
 Name:           python-%{pypi_name}
 Version:        2.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Jinja2 template renderer for generating .spec files
 
 License:        ASL 2.0
@@ -90,6 +90,9 @@ stestr run
 %doc html
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 2.2.0-2
+- Rebuilt for Python 3.12
+
 * Tue May 02 2023 Joel Capitao <jcapitao@redhat.com> - 2.2.0-1
 - Update to 2.2.0
 - Remove py2 bits

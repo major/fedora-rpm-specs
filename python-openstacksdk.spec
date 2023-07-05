@@ -16,7 +16,7 @@ clouds - test files
 
 Name:           python-%{pypi_name}
 Version:        1.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An SDK for building applications to work with OpenStack
 
 License:        ASL 2.0
@@ -149,6 +149,9 @@ PYTHON=python3 stestr-3 --test-path ./openstack/tests/unit run --exclude-regex '
 %endif
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 1.0.1-2
+- Rebuilt for Python 3.12
+
 * Fri Apr 21 2023 Karolina Kula <kkula@redhat.com> 1.0.1-1
 - Update to upstream version 1.0.1
 

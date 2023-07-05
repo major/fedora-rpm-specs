@@ -1,18 +1,18 @@
-%global glib2_version 2.70.0
-%global gtk4_version 4.9.2
-%global webkitgtk_version 2.39.3
+%global glib2_version 2.74.0
+%global gtk4_version 4.10.0
+%global webkitgtk_version 2.41.1
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:    epiphany
 Epoch:   1
-Version: 44.5
+Version: 45~alpha
 Release: %autorelease
 Summary: Web browser for GNOME
 
 License: GPL-3.0-or-later AND CC-BY-SA-3.0
 URL:     https://wiki.gnome.org/Apps/Web
-Source0: https://download.gnome.org/sources/epiphany/44/%{name}-%{tarball_version}.tar.xz
+Source0: https://download.gnome.org/sources/epiphany/45/%{name}-%{tarball_version}.tar.xz
 
 # Fedora bookmarks
 Patch0: epiphany-default-bookmarks.patch

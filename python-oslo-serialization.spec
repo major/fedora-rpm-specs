@@ -12,7 +12,7 @@ storable formats.
 
 Name:           python-%{pkg_name}
 Version:        5.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OpenStack oslo.serialization library
 
 License:        ASL 2.0
@@ -130,6 +130,9 @@ PYTHON=python3 stestr-3 --test-path $OS_TEST_PATH run
 %{python3_sitelib}/oslo_serialization/tests
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 5.1.1-2
+- Rebuilt for Python 3.12
+
 * Fri Apr 14 2023 Karolina Kula <kkula@redhat.com> 5.1.1-1
 - Update to upstream version 5.1.1
 

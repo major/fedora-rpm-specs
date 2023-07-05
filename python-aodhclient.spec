@@ -11,7 +11,7 @@ provides a Python API (the aodhclient module) and a command-line tool.
 
 Name:             python-aodhclient
 Version:          3.2.0
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Python API and CLI for OpenStack Aodh
 
 License:          ASL 2.0
@@ -128,6 +128,9 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 3.2.0-3
+- Rebuilt for Python 3.12
+
 * Mon Apr 17 2023 Karolina Kula <kkula@redhat.com> 3.2.0-2
 - Reapply osprofiler support removal
 

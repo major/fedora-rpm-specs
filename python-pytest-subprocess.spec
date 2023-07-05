@@ -1,6 +1,6 @@
 Name:           python-pytest-subprocess
 Version:        1.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A plugin to fake subprocess for pytest
 
 License:        MIT
@@ -53,6 +53,9 @@ sed -Ei '/\bcoverage\b/d' setup.py
 
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 1.5.0-2
+- Rebuilt for Python 3.12
+
 * Wed Feb 15 2023 Miro Hrončok <mhroncok@redhat.com> - 1.5.0-1
 - Update to 1.5.0
 - Fixes: rhbz#2165202

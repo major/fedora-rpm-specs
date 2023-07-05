@@ -10,7 +10,7 @@
 Name:       python-oslo-config
 Epoch:      2
 Version:    9.1.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    OpenStack common configuration library
 
 Group:      Development/Languages
@@ -162,6 +162,9 @@ PYTHON=python3 stestr-3 run
 %endif
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 2:9.1.1-2
+- Rebuilt for Python 3.12
+
 * Fri Apr 14 2023 Karolina Kula <kkula@redhat.com> 2:9.1.1-1
 - Update to upstream version 9.1.1
 

@@ -4,7 +4,7 @@
 
 Name:           %{pypi_name}
 Version:        %{pypi_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Bodhi client
 
 License:        GPL-2.0-or-later
@@ -63,6 +63,9 @@ install -pm0644 bodhi-client.bash %{buildroot}%{_sysconfdir}/bash_completion.d/b
 %config(noreplace) %{_sysconfdir}/bash_completion.d/bodhi-client.bash
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 7.2.0-2
+- Rebuilt for Python 3.12
+
 * Sun Apr 30 2023 Mattia Verga <mattia.verga@proton.me> - 7.2.0-1
 - Update to 7.2.0
 

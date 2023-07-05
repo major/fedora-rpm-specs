@@ -8,7 +8,7 @@ copr messages.
 
 Name:       copr-messaging
 Version:    0.10
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Abstraction for Copr messaging listeners/publishers
 
 License:    GPL-2.0-or-later
@@ -86,6 +86,9 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 0.10-2
+- Rebuilt for Python 3.12
+
 * Mon May 22 2023 Jakub Kadlcik <frostyx@email.cz> 0.10-1
 - Derive all message classes from _CoprMessage
 

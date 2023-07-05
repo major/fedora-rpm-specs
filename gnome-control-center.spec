@@ -4,10 +4,10 @@
 %define gsd_version 41.0
 %define gsettings_desktop_schemas_version 42~alpha
 %define upower_version 0.99.8
-%define gtk4_version 4.9.3
+%define gtk4_version 4.11.2
 %define gnome_bluetooth_version 42~alpha
-%define libadwaita_version 1.2~alpha
-%define nm_version 1.24
+%define libadwaita_version 1.4~alpha
+%define nm_version 1.24.0
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
@@ -15,13 +15,13 @@
 %bcond malcontent %[!0%{?rhel}]
 
 Name:           gnome-control-center
-Version:        44.3
+Version:        45~alpha
 Release:        %autorelease
 Summary:        Utilities to configure the GNOME desktop
 
 License:        GPL-2.0-or-later AND CC0-1.0
 URL:            https://gitlab.gnome.org/GNOME/gnome-control-center/
-Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  docbook-style-xsl libxslt

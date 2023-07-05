@@ -2,7 +2,7 @@
 
 Name:           python-flask-sqlalchemy
 Version:        3.0.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Adds SQLAlchemy support to Flask application
 
 License:        BSD
@@ -51,7 +51,7 @@ Python 3 version.
 
 
 %check
-%pytest
+%pytest -Wdefault
 
 
 %files -n python3-flask-sqlalchemy -f %{pyproject_files}
@@ -60,6 +60,9 @@ Python 3 version.
 
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 3.0.3-2
+- Rebuilt for Python 3.12
+
 * Tue Feb 07 2023 Sandro Mani <manisandro@gmail.com> - 3.0.3-1
 - Update to 3.0.3
 

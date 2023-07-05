@@ -1,6 +1,6 @@
 Name:           primecount
-Version:        7.8
-Release:        2%{?dist}
+Version:        7.9
+Release:        1%{?dist}
 Summary:        Fast prime counting function implementation
 
 # BSD-2-Clause: the project as a whole
@@ -105,6 +105,9 @@ export CXXFLAGS='%{build_cxxflags} -DLIBDIVIDE_SSE2'
 %{_libdir}/pkgconfig/primecount.pc
 
 %changelog
+* Mon Jul 03 2023 Kim Walisch <walki@fedoraproject.org> - 7.9-1
+- Add more unit tests
+
 * Tue Mar 28 2023 Kim Walisch <walki@fedoraproject.org> - 7.8-2
 - Updated test/pi_gourdon.cpp and test/pi_deleglise_rivat.cpp
 

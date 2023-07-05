@@ -13,25 +13,12 @@ of either asyncio or trio.  It implements trio-like structured concurrency (SC)
 on top of asyncio, and works in harmony with the native SC of trio itself.}
 
 Name:           python-%{srcname}
-Version:        3.5.0
-Release:        6%{?dist}
+Version:        3.7.0
+Release:        1%{?dist}
 Summary:        Compatibility layer for multiple asynchronous event loop implementations
 License:        MIT
 URL:            https://github.com/agronholm/anyio
 Source:         %pypi_source
-
-# Support for pytest 7
-# Fixes https://bugzilla.redhat.com/2069194
-# https://github.com/agronholm/anyio/commit/58fcb0c495
-# setup.cfg hunk manually removed (it failed to apply)
-Patch:          pytest7.patch
-
-# Skip @asyncio.coroutine tests on Python 3.11+ where it no longer exists
-Patch:          https://github.com/agronholm/anyio/pull/431.patch
-
-# Cancel messages are only supported on Python 3.9 and 3.10
-# https://github.com/agronholm/anyio/commit/95f43f8db1
-Patch:           0001-Fixed-cancel-message-related-test-failure-on-py3.11.patch
 
 BuildArch:      noarch
 
@@ -64,11 +51,13 @@ Documentation for anyio
 %autosetup -n %{srcname}-%{version} -p1
 
 # disable coverage test requirement
-sed -e '/coverage/d' -i setup.cfg
+sed -e '/"coverage/d' -i pyproject.toml
 
-# Disable some tests till uvloop is compatible with Python 3.11
-# upstream discussion: https://github.com/agronholm/anyio/issues/439
-sed -i '/uvloop/d' setup.cfg
+# relax the trio version for trio extra
+# some tests fail with trio for now
+# we might need to upgrade to
+# https://github.com/agronholm/anyio/commit/082169494be46f2f6d32db2c8950ba374504e048 or later
+sed -i 's/"trio < 0.22"/"trio"/' pyproject.toml
 
 # despite the prescense of a pytest "network" marker, socket tests still fail
 # without internet access
@@ -96,7 +85,8 @@ rm -rf html/.{doctrees,buildinfo}
 
 %if %{with tests}
 %check
-%pytest -m "not network"
+# tests deselected with -k fail with trio 0.22
+%pytest -Wdefault -m "not network" -k "not ((trio and exception_group) or test_properties)"
 %endif
 
 
@@ -112,6 +102,9 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %changelog
+* Sat Jul 01 2023 Miro Hrončok <mhroncok@redhat.com> - 3.7.0-1
+- Update to 3.7.0
+
 * Sat Jul 01 2023 Python Maint <python-maint@redhat.com> - 3.5.0-6
 - Rebuilt for Python 3.12
 

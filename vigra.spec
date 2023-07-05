@@ -1,7 +1,7 @@
 Summary:        Generic Programming for Computer Vision
 Name:           vigra
 Version:        1.11.1
-Release:        45%{?dist}
+Release:        46%{?dist}
 License:        MIT
 # The "Lenna" files are non-free, we need to remove them from the source tarball.
 # wget https://github.com/ukoethe/vigra/releases/download/Version-1-11-1/vigra-1.11.1-src.tar.gz
@@ -162,6 +162,9 @@ install -p -m755 -D %{SOURCE1} $RPM_BUILD_ROOT%{_bindir}/vigra-config
 %endif
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 1.11.1-46
+- Rebuilt for Python 3.12
+
 * Sat Apr 29 2023 Bruno Postle <bruno@postle.net> - 1.11.1-45
 - Python bindings need setuptools (Tomas Hrnciar)
 

@@ -1,12 +1,12 @@
-%bcond_without tests
+%bcond tests 1
 # Sphinx-generated HTML documentation is not suitable for packaging; see
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
 # We can generate PDF documentation as a substitute.
-%bcond_without doc_pdf
+%bcond doc_pdf 1
 
 Name:           python-llvmlite
-Version:        0.40.0
+Version:        0.40.1
 Release:        %{autorelease}
 Summary:        Lightweight LLVM Python binding for writing JIT compilers
 
@@ -80,17 +80,6 @@ sed -i 's/\(def run_tests.*verbosity=\)1/\12/' llvmlite/tests/__init__.py
 
 # No network access
 echo 'intersphinx_mapping.clear()' >> docs/source/conf.py
-
-%ifarch ppc64le
-# Test failure in 0.40.0 on 64-bit PowerPC: test_get_process_triple
-# https://github.com/numba/llvmlite/issues/941
-#
-# We can skip this failure because upstream considers the discrepancy harmless.
-# https://github.com/numba/llvmlite/issues/941#issuecomment-1542381275
-sed -r -i \
-    's/^([[:blank:]]*)(def test_get_process_triple\()/\1@unittest.skip("Issue #941")\n&/' \
-    llvmlite/tests/test_binding.py
-%endif
 
 %generate_buildrequires
 %pyproject_buildrequires

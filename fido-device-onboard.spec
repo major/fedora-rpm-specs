@@ -4,17 +4,22 @@
 
 Name:           fido-device-onboard
 Version:        0.4.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A rust implementation of the FIDO Device Onboard Specification
 License:        BSD-3-Clause
 
-
 URL:            https://github.com/fedora-iot/fido-device-onboard-rs
 Source0:        %{url}/archive/v%{version}/%{name}-rs-%{version}.tar.gz
+# See make-vendored-tarfile.sh in upstream repo
+Source1:        %{name}-rs-%{version}-vendor-patched.tar.xz
 # From upstream
 Patch0:         0001-chore-update-libcryptsetup-rs-to-0.8.patch
+Patch1:         fdo-fix-tss-esapi-features.patch
 
-%if 0%{?rhel} && !0%{?eln}
+# Because nobody cares
+ExcludeArch: %{ix86}
+
+%if 0%{?rhel}
 BuildRequires:  rust-toolset
 %else
 BuildRequires:  rust-packaging
@@ -33,17 +38,20 @@ BuildRequires:  tpm2-tss-devel
 %prep
 %autosetup -p1 -n %{name}-rs-%{version}
 
+%if 0%{?rhel}
+%cargo_prep -V 1
+%else
 %cargo_prep
-
 %generate_buildrequires
 %cargo_generate_buildrequires -a
+%endif
 
 %build
 %cargo_build \
 -F openssl-kdf/deny_custom
 
-%cargo_license_summary
-%{cargo_license} > LICENSE.dependencies
+%{?cargo_license_summary}
+%{?cargo_license} > LICENSE.dependencies
 
 %install
 install -D -m 0755 -t %{buildroot}%{_libexecdir}/fdo target/release/fdo-client-linuxapp
@@ -219,6 +227,9 @@ Requires: fdo-owner-cli = %{version}-%{release}
 %systemd_postun_with_restart fdo-aio.service
 
 %changelog
+* Mon Jul 03 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.4.10-2
+- Updates for eln/c9s building
+
 * Fri Jun 23 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.4.10-1
 - Update to 0.4.10
 

@@ -3,7 +3,7 @@
 Name:           python-%{srcname}
 
 Version:        3.0.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Url:            https://github.com/openstack/ldappool
 Summary:        A connection pool for python-ldap
 License:        MPLv1.1 and GPLv2+ and LGPLv2+
@@ -61,6 +61,9 @@ PYTHON=python3 stestr-3 run
 %{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 3.0.0-6
+- Rebuilt for Python 3.12
+
 * Tue May 23 2023 Joel Capitao <jcapitao@redhat.com> - 3.0.0-5
 - Remove usage of six library
 

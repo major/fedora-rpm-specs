@@ -6,7 +6,7 @@ Name:		python-metakernel
 #		Running rpmdev-bumpspec on this specfile will update all the
 #		release tags automatically
 Version:	0.29.4
-Release:	2%{?dist}
+Release:	3%{?dist}
 %global pkgversion %{version}
 %global pkgrelease %{release}
 Summary:	Metakernel for Jupyter
@@ -71,7 +71,7 @@ This package contains the documentation of python-metakernel.
 
 %package -n python3-metakernel-python
 Version:	0.19.1
-Release:	58%{?dist}
+Release:	59%{?dist}
 Summary:	A Python kernel for Jupyter/IPython
 %py_provides	python3-metakernel-python
 Requires:	python3-metakernel = %{pkgversion}-%{pkgrelease}
@@ -82,7 +82,7 @@ A Python kernel for Jupyter/IPython, based on MetaKernel.
 
 %package -n python3-metakernel-echo
 Version:	0.19.1
-Release:	58%{?dist}
+Release:	59%{?dist}
 Summary:	A simple echo kernel for Jupyter/IPython
 %py_provides	python3-metakernel-echo
 Requires:	python3-metakernel = %{pkgversion}-%{pkgrelease}
@@ -167,6 +167,9 @@ wait $pid
 %{_datadir}/jupyter/kernels/python3-metakernel-echo
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 0.29.4-3
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.29.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

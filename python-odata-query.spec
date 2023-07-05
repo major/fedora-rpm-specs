@@ -1,6 +1,6 @@
 Name:           python-odata-query
 Version:        0.8.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An OData v4 query parser and transpiler for Python
 
 License:        MIT
@@ -51,6 +51,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 0.8.1-2
+- Rebuilt for Python 3.12
+
 * Mon May 08 2023 Roman Inflianskas <rominf@aiven.io> - 0.8.1-1
 - Update to 0.8.1 (resolve rhbz#2170800)
 
