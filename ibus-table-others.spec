@@ -1,5 +1,5 @@
 Name:       ibus-table-others
-Version:    1.3.15
+Version:    1.3.16
 Release:    1%{?dist}
 Summary:    Various tables for IBus-Table
 License:    LGPL-2.1-or-later AND GPL-3.0-or-later AND WTFPL
@@ -279,6 +279,18 @@ EOF
 %{_datadir}/ibus-table/icons/mongol_bichig.svg
 
 %changelog
+* Tue Jul 04 2023 Mike FABIAN <mfabian@redhat.com> - 1.3.16-1
+- Update to latest upstream 1.3.16
+- hu-old-hungarian-rovas: several improvements,
+  most of them suggested by Viktor Kovács <kov.h.vik@gmail.com>
+  Resolves: https://github.com/moebiuscurve/ibus-table-others/issues/33
+  Resolves: https://github.com/moebiuscurve/ibus-table-others/issues/34
+  Resolves: https://github.com/moebiuscurve/ibus-table-others/issues/30
+  Resolves: https://github.com/moebiuscurve/ibus-table-others/issues/31
+  Resolves: https://github.com/moebiuscurve/ibus-table-others/issues/35
+  Resolves: https://github.com/moebiuscurve/ibus-table-others/issues/32
+  Resolves: https://github.com/moebiuscurve/ibus-table-others/issues/29
+
 * Wed Feb 22 2023 Mike FABIAN <mfabian@redhat.com> - 1.3.15-1
 - Update to latest upstream 1.3.15
 - Remove { and } from VALID_INPUT_CHARS in latex.txt

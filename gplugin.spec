@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           gplugin
-Version:        0.40.0
+Version:        0.41.0
 Release:        %autorelease
 Summary:        GObject based library that implements a reusable plugin system
 
@@ -155,11 +155,14 @@ sed -i -e '/install_data/,+1 d' gplugin/share/valgrind/meson.build
 %doc gplugin/share/valgrind/gplugin.supp
 %doc %{_docdir}/gplugin
 %{_libdir}/libgplugin.so
+%{_libdir}/libgplugin-introspection.a
 %dir %{_includedir}/gplugin-1.0/
 %{_includedir}/gplugin-1.0/gplugin/
 %{_includedir}/gplugin-1.0/gplugin.h
+%{_includedir}/gplugin-1.0/gplugin-introspection.h
 %{_includedir}/gplugin-1.0/gplugin-native.h
 %{_libdir}/pkgconfig/gplugin.pc
+%{_libdir}/pkgconfig/gplugin-introspection.pc
 %dir %{_datadir}/gir-1.0
 %{_datadir}/gir-1.0/GPlugin-1.0.gir
 

@@ -54,6 +54,7 @@ BuildRequires:  python3-httpretty
 BuildRequires:  python3-mock
 BuildRequires:  python3-nose
 BuildRequires:  python3-requests
+BuildRequires:  python3-zombie-imp
 
 BuildArch:      noarch
 

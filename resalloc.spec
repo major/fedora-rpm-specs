@@ -28,7 +28,7 @@ the purposes of CI/CD tasks.
 Name:       %srcname
 Summary:    %sum - client tooling
 Version:    4.9
-Release:    2%{?dist}
+Release:    3%{?dist}
 License:    GPL-2.0-or-later
 URL:        https://github.com/praiskup/resalloc
 BuildArch:  noarch
@@ -294,6 +294,9 @@ useradd -r -g "$group" -G "$group" -s /bin/bash \
 
 
 %changelog
+* Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 4.9-3
+- Rebuilt for Python 3.12
+
 * Mon Jan 30 2023 Miro Hrončok <mhroncok@redhat.com> - 4.9-2
 - Rebuilt to change Python shebangs to /usr/bin/python3.6 on EPEL 8
 

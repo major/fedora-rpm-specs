@@ -10,7 +10,7 @@
 Summary: Builds packages inside chroots
 Name: mock
 Version: 4.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-or-later
 # Source is created by
 # git clone https://github.com/rpm-software-management/mock.git
@@ -59,6 +59,10 @@ Requires: python%{python3_pkgversion}-requests
 Requires: python%{python3_pkgversion}-rpm
 Requires: python%{python3_pkgversion}-pyroute2
 Requires: python%{python3_pkgversion}-templated-dictionary
+# py/mockbuild/plugin.py imports imp, which was removed from Python 3.12
+%if v"0%{?python3_version}" >= v"3.12"
+Requires: python%{python3_pkgversion}-zombie-imp
+%endif
 BuildRequires: python%{python3_pkgversion}-devel
 %if %{with lint}
 BuildRequires: python%{python3_pkgversion}-pylint
@@ -270,6 +274,9 @@ pylint-3 py/mockbuild/ py/*.py py/mockbuild/plugins/* || :
 %dir  %{_datadir}/cheat
 
 %changelog
+* Tue Jul 04 2023 Miro Hrončok <mhroncok@redhat.com> - 4.1-3
+- Require python3-zombie-imp on runtime
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 4.1-2
 - Rebuilt for Python 3.12
 

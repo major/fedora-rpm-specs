@@ -1,5 +1,5 @@
 Name:           gnome-pkg-tools
-Version:        0.22.8
+Version:        0.22.9
 Release:        1%{?dist}
 Summary:        Tools for the Debian GNOME Packaging Team
 
@@ -55,6 +55,9 @@ install -Dpm 0644 debian/desktop-check-mime-types.1 %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Tue Jul 04 2023 Sandro Mani <manisandro@gmail.com> - 0.22.9-1
+- Update to 0.22.9
+
 * Sun Mar 19 2023 Sandro Mani <manisandro@gmail.com> - 0.22.8-1
 - Update to 0.22.8
 

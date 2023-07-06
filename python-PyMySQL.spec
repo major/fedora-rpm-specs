@@ -1,8 +1,8 @@
 %global pypi_name PyMySQL
 
 Name:           python-%{pypi_name}
-Version:        1.0.3
-Release:        3%{?dist}
+Version:        1.1.0
+Release:        2%{?dist}
 Summary:        Pure-Python MySQL client library
 
 License:        MIT
@@ -67,6 +67,12 @@ cp %{SOURCE1} .
 %{python3_sitelib}/pymysql/
 
 %changelog
+* Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 1.1.0-2
+- Rebuilt for Python 3.12
+
+* Tue Jul 04 2023 Julien Enselme <jujens@jujens.eu> - 1.1.0-1
+- Update to 1.1.0
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.0.3-3
 - Rebuilt for Python 3.12
 

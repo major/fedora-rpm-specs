@@ -5,12 +5,16 @@
 
 Name:               python-%{modname}
 Version:            4.2.1
-Release:            3%{?dist}
+Release:            4%{?dist}
 Summary:            Automatically mock your HTTP interactions to simplify and speed up testing
 
 License:            MIT
 URL:                https://pypi.io/project/%{modname}
 Source0:            %pypi_source %{modname}
+
+# Needed for compatibility with Python 3.12
+# Upstream issue: https://github.com/kevin1024/vcrpy/issues/707
+Patch:              backport-patch-to-fix-AttributeError-type-object-VCR.patch
 
 BuildArch:          noarch
 
@@ -50,7 +54,7 @@ Summary:            %{summary}
 
 
 %prep
-%autosetup -n %{modname}-%{version}
+%autosetup -n %{modname}-%{version} -p1
 
 
 %generate_buildrequires
@@ -84,6 +88,10 @@ rm -rf tests/unit/test_stubs.py
 
 
 %changelog
+* Tue Jul 04 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 4.2.1-4
+- backport patch to fix test failures with Python 3.12: AttributeError: type
+  object 'VCRHTTPConnection[…]' has no attribute 'debuglevel'
+
 * Sat Jul 01 2023 Python Maint <python-maint@redhat.com> - 4.2.1-3
 - Rebuilt for Python 3.12
 

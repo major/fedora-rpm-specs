@@ -4,13 +4,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           baobab
-Version:        44.0
+Version:        45~alpha
 Release:        1%{?dist}
 Summary:        A graphical directory tree analyzer
 
 License:        GPL-2.0-or-later AND GFDL-1.1
 URL:            https://wiki.gnome.org/Apps/Baobab
-Source0:        https://download.gnome.org/sources/baobab/44/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/baobab/45/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  pkgconfig(gtk4) >= %{gtk4_version}
 BuildRequires:  pkgconfig(libadwaita-1) >= %{libadwaita_version}
@@ -64,6 +64,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.baobab.des
 
 
 %changelog
+* Tue Jul 04 2023 Kalev Lember <klember@redhat.com> - 45~alpha-1
+- Update to 45.alpha
+
 * Sun Mar 19 2023 David King <amigadave@amigadave.com> - 44.0-1
 - Update to 44.0
 

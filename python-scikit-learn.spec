@@ -12,7 +12,7 @@ in various contexts.}
 
 Name: python-scikit-learn
 Version: 1.2.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Machine learning in Python
 # sklearn/externals/_arff.py is MIT
 # sklearn/src/liblinear is BSD
@@ -85,6 +85,9 @@ popd
 %{python3_sitearch}/scikit_learn-*.egg-info
 
 %changelog
+* Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 1.2.2-2
+- Rebuilt for Python 3.12
+
 * Tue May 02 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 1.2.2-1
 - New upstream source (1.2.2)
 

@@ -106,7 +106,7 @@ ExcludeArch: s390x
 
 Name:    icecat
 Epoch:   1
-Version: 102.12.0
+Version: 102.13.0
 Release: %autorelease -e %{redhat_ver}
 Summary: GNU version of Firefox browser
 
@@ -367,13 +367,6 @@ tar -xf %{SOURCE5}
 %patch -P 5 -p 1 -b .rhbz-1219542-s390
 %endif
 %patch -P 6 -p 1 -b .1773336
-
-  
-%if 0%{?fedora} >= 38
-# MUST ONLY be applied for building against clang LLVM 16.
-%patch -P 7 -p1 -b .rust-bindgen-2319-2339
-%patch -P 8 -p1 -b .mp4parse-rust
-%endif
 
 %if 0%{?disable_elfhack}
 %patch -P 41 -p 1 -b .disable-elfhack

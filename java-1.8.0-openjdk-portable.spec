@@ -331,7 +331,7 @@
 %global updatever       %(VERSION=%{whole_update}; echo ${VERSION##*u})
 # eg jdk8u60-b27 -> b27
 %global buildver        %(VERSION=%{version_tag}; echo ${VERSION##*-})
-%global rpmrelease      7
+%global rpmrelease      8
 # Define milestone (EA for pre-releases, GA ("fcs") for releases)
 # Release will be (where N is usually a number starting at 1):
 # - 0.N%%{?extraver}%%{?dist} for EA releases,
@@ -722,7 +722,7 @@ BuildRequires: libXtst-devel
 # Requirement for setting up nss.cfg and nss.fips.cfg
 BuildRequires: nss-devel
 # Requirement for system security property test
-#BuildRequires: crypto-policies
+BuildRequires: crypto-policies
 BuildRequires: pkgconfig
 BuildRequires: xorg-x11-proto-devel
 BuildRequires: zip
@@ -885,10 +885,11 @@ pushd %{top_level_dir_name}
 %patch1000 -p1
 # 8u382 fix
 %patch2001 -p1
+# system cacerts support
+%patch539 -p1
 popd
 
 # RPM-only fixes
-%patch539
 %patch600
 %patch1003
 
@@ -1427,8 +1428,16 @@ done
 %license %{unpacked_licenses}/%{jdkportablesourcesarchiveForFiles}
 
 %changelog
+* Mon Jul 03 2023 Jiri Andrlik <jandrlik@redhat.com> - 1:1.8.0.372.b07-8
+- align patch539(cacerts) with ojdk8 portables on rhel
+- fixing changelog warning
+
 * Tue Jun 27 2023 Kalev Lember <klember@redhat.com> - 1:1.8.0.372.b07-7
 - Simplify portable archive name macros
+
+* Tue Jun 27 2023 Jiri Andrlik <jandrlik@redhat.com> - 1:1.8.0.372.b07-7
+- additional changes for the sake of single build repack:
+- Uncommented Buildrequires crypto policies so we are aligned with ojdk11 portables
 
 * Mon Jun 26 2023 Jiri Andrlik <jandrlik@redhat.com> - 1:1.8.0.372.b07-6
 - adding javadocs.zip to the devel/jdk subpackage 
@@ -1439,11 +1448,11 @@ done
 * Sun Jun 18 2023 Jiri Andrlik <jandrlik@redhat.com> - 1:1.8.0.372.b07-4
 - adding the sources subpkg for purposes of repack
 
-* Thu Jun 17 2023 Jayashree Huttanagoudar <jhuttana@redhat.com> - 1:1.8.0.372.b07-3
+* Thu Jun 15 2023 Jayashree Huttanagoudar <jhuttana@redhat.com> - 1:1.8.0.372.b07-3
 - no longer using system cacerts during build
 - they are already mv-ed as .upstream in rpms
  
-* Sat Jun 17 2023 Jiri Andrlik <jandrlik@redhat.com> - 1:1.8.0.372.b07-2
+* Thu Jun 15 2023 Jiri Andrlik <jandrlik@redhat.com> - 1:1.8.0.372.b07-2
 - Redeclared ForFiles release sections as %%nil no longer works with %%1
 - RPM 4.19 no longer accept our double percentaged %%{nil} passed to %%{1}
 - so we have to pass in "" but evaluate it, otherwise files record will include it

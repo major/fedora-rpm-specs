@@ -1,3 +1,4 @@
+%global _with_bootstrap 1
 %global srcname conda-package-streaming
 %global pkgname conda_package_streaming
 
@@ -6,7 +7,7 @@
 
 Name:           python-%{srcname}
 Version:        0.7.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Extract metadata from remote conda packages without downloading whole file
 
 License:        BSD-3-Clause
@@ -77,6 +78,9 @@ export CONDA_EXE
 
 
 %changelog
+* Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 0.7.0-5
+- Bootstrap for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

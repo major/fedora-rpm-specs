@@ -1,5 +1,5 @@
 Name:           perl-GD
-Version:        2.77
+Version:        2.78
 Release:        1%{?dist}
 Summary:        Perl interface to the GD graphics library
 License:        GPL-1.0-or-later OR Artistic-2.0
@@ -16,7 +16,7 @@ BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(Config)
-BuildRequires:  perl(ExtUtils::Constant)
+BuildRequires:  perl(ExtUtils::Constant) >= 0.23
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(ExtUtils::PkgConfig)
 BuildRequires:  perl(Getopt::Long)
@@ -37,7 +37,8 @@ BuildRequires:  perl(FindBin)
 BuildRequires:  perl(IO::Dir)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test)
-BuildRequires:  perl(Test::More)
+BuildRequires:  perl(Test::More) >= 0.88
+BuildRequires:  perl(Test::NoWarnings) >= 1.00
 BuildRequires:  perl(warnings)
 # Dependencies
 Requires:       gd >= 2.0.28
@@ -89,8 +90,14 @@ make test TEST_VERBOSE=1
 %{_mandir}/man3/GD::Simple.3*
 
 %changelog
+* Tue Jul  4 2023 Paul Howarth <paul@city-fan.org> - 2.78-1
+- Update to 2.78
+  - Fix Use of uninitialized value $pkg in concatenation warning
+    (CPAN RT#148899, GH#47)
+  - Add a new hard Test::NoWarnings test requirement
+
 * Mon May 29 2023 Paul Howarth <paul@city-fan.org> - 2.77-1
-- Update to 2.76
+- Update to 2.77
   - Add BMP support with libgd 2.1.0 (GH#49J
   - Don't link to -lXPM without XPM nor X11 (GH#45)
   - Rename ANIMGIF feature to GIFANIM

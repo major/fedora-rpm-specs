@@ -1,4 +1,3 @@
-%global _without_tests 1
 %global modname attrs
 
 %if 0%{?rhel}
@@ -11,7 +10,7 @@
 
 Name:           python-attrs
 Version:        23.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python attributes without boilerplate
 
 License:        MIT
@@ -59,6 +58,9 @@ object protocols.
 %doc README.md
 
 %changelog
+* Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 23.1.0-3
+- Rebuilt for Python 3.12
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 23.1.0-2
 - Bootstrap for Python 3.12
 

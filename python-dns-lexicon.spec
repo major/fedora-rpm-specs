@@ -16,7 +16,7 @@ Version:            3.12.0
 %endif
 
 Name:           python-%{pypi_name}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Manipulate DNS records on various DNS providers in a standardized/agnostic way
 
 License:        MIT
@@ -240,6 +240,9 @@ rm -rf %{buildroot}%{python3_sitelib}/lexicon/tests
 # }}}
 
 %changelog
+* Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 3.12.0-2
+- Rebuilt for Python 3.12
+
 * Sun Jun 11 2023 Christian Schuermann <spike@fedoraproject.org> 3.12.0-1
 - Update to 3.12.0
 - Add new duckdns extra package

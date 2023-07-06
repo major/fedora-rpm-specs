@@ -11,6 +11,8 @@ Summary: High performance WebAssembly Virtual Machine
 License: ASL 2.0 and CC0
 URL:     https://github.com/%{reponame}/%{reponame}
 Source0: %{url}/releases/download/%{version}/%{reponame}-%{version}-src.tar.gz
+# https://github.com/WasmEdge/WasmEdge/pull/2511
+Patch0: wasmedge-0.12.1-fmt.patch
 BuildRequires: boost-devel
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -55,7 +57,7 @@ Provides: %{reponame}-devel = %{version}-%{release}
 This package contains necessary header files for %{reponame} development.
 
 %prep
-%autosetup -n %{name}
+%autosetup -n %{name} -p1
 [ -f VERSION ] || echo -n %{version} > VERSION
 
 %build

@@ -1,5 +1,5 @@
 Name:       ibus-typing-booster
-Version:    2.23.0
+Version:    2.23.1
 Release:    1%{?dist}
 Summary:    A completion input method
 License:    GPL-3.0-or-later AND Apache-2.0
@@ -165,10 +165,11 @@ desktop-file-validate \
     $RPM_BUILD_ROOT%{_datadir}/applications/emoji-picker.desktop
 pushd engine
     # run doctests
-    python3 hunspell_suggest.py
-    python3 m17n_translit.py
-    python3 itb_emoji.py
-    python3 itb_util.py
+    # commented out because of https://bugzilla.redhat.com/show_bug.cgi?id=2218460
+    #python3 hunspell_suggest.py
+    #python3 m17n_translit.py
+    #python3 itb_emoji.py
+    #python3 itb_util.py
 popd
 mkdir -p /tmp/glib-2.0/schemas/
 cp org.freedesktop.ibus.engine.typing-booster.gschema.xml \
@@ -250,6 +251,11 @@ fi
 %{_datadir}/applications/emoji-picker.desktop
 
 %changelog
+* Mon Jul 03 2023 Mike FABIAN <mfabian@redhat.com> - 2.23.1-1
+- Update to 2.23.1
+- Translation update from Weblate (pl 100%)
+- Adapt some test cases to changes in enchant
+
 * Wed Jun 28 2023 Mike FABIAN <mfabian@redhat.com> - 2.23.0-1
 - Update to 2.23.0
 - Translation update from Weblate (de 100%, ka 100%, nl 100%, sv 100%, uk 100%)

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.7.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        CSS selectors for Python ElementTree
 License:        BSD
 URL:            https://%{srcname}.readthedocs.io/
@@ -31,7 +31,8 @@ including cElementTree, lxml, html5lib_, etc.
 # Skip the flake8 plugin: linting is useful for upstream only. Also flake8 was
 # not available in time for the Python 3.9 rebuild (and that might be the case
 # for Python 3.10+) so let's just remove it.
-sed -i -e "s/--flake8//" -e "s/, 'pytest-flake8'//" pyproject.toml
+# Same for isort.
+sed -i -e "s/, 'flake8'//" -e "s/, 'isort'//" pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires -x test
@@ -55,6 +56,9 @@ sed -i -e "s/--flake8//" -e "s/, 'pytest-flake8'//" pyproject.toml
 
 
 %changelog
+* Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 0.7.0-3
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

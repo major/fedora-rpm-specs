@@ -1088,7 +1088,7 @@ update-crypto-policies &> /dev/null || :
 %{_includedir}/nspr4
 %{_libdir}/pkgconfig/nspr.pc
 %{_bindir}/nspr-config
-%{_mandir}/man*/*
+%doc %{_mandir}/man1/nspr-config.*
 
 
 %changelog

@@ -25,7 +25,7 @@
 
 Name:           pipenv
 Version:        %{base_version}%{?prerelease_version:~%{prerelease_version}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The higher level Python packaging tool
 
 # Pipenv source code is MIT, there are bundled packages having different licenses
@@ -323,6 +323,9 @@ rm -rf check_path
 %license LICENSE
 
 %changelog
+* Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 2023.2.18-2
+- Rebuilt for Python 3.12
+
 * Wed Mar 15 2023 Tomas Orsava <torsava@redhat.com> - 2023.2.18-1
 - Rebase to version 2023.2.18
 Resolves: rhbz#2140230

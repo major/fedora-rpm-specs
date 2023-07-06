@@ -15,7 +15,7 @@ WSGI pipeline and used by various modules such as logging.
 
 Name:           python-%{pkg_name}
 Version:        5.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OpenStack Oslo Context library
 
 License:        ASL 2.0
@@ -45,7 +45,6 @@ BuildRequires:  python3-pbr
 # test dependencies
 BuildRequires:  python3-debtcollector
 BuildRequires:  python3-fixtures
-BuildRequires:  python3-hacking
 BuildRequires:  python3-oslotest
 
 Requires:       python3-debtcollector >= 1.2.0
@@ -118,6 +117,9 @@ python3 setup.py test
 %{python3_sitelib}/oslo_context/tests
 
 %changelog
+* Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 5.1.1-2
+- Rebuilt for Python 3.12
+
 * Fri Apr 14 2023 Karolina Kula <kkula@redhat.com> 5.1.1-1
 - Update to upstream version 5.1.1
 

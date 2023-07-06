@@ -4,7 +4,7 @@
 
 Name:           lorax
 Version:        39.1
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Tool for creating the anaconda install images
 
 License:        GPL-2.0-or-later
@@ -14,6 +14,10 @@ URL:            https://github.com/weldr/lorax
 # git checkout -b archive-branch lorax-%%{version}-%%{release}
 # tito build --tgz
 Source0:        %{name}-%{version}.tar.gz
+# https://github.com/weldr/lorax/pull/1332
+# https://pagure.io/releng/issue/11511
+# adapt to renamed iwl firmware packages
+Patch0:         0001-runtime-install-exclude-renamed-iwl-firmware-package.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -168,6 +172,12 @@ make DESTDIR=$RPM_BUILD_ROOT mandir=%{_mandir} install
 %{_datadir}/lorax/templates.d/*
 
 %changelog
+* Tue Jul 04 2023 Adam Williamson <awilliam@redhat.com> - 39.1-4
+- Rebuilt for Python 3.12 again
+
+* Tue Jul 04 2023 Adam Williamson <awilliam@redhat.com> - 39.1-3
+- Backport PR #1332 to handle renamed iwl firmware packages
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 39.1-2
 - Rebuilt for Python 3.12
 

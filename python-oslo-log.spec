@@ -17,7 +17,7 @@ Tests for the Oslo Log handling library.
 
 Name:           python-oslo-log
 Version:        5.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        OpenStack Oslo Log library
 
 License:        ASL 2.0
@@ -175,6 +175,9 @@ python3 setup.py test
 %license LICENSE
 
 %changelog
+* Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 5.0.0-3
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

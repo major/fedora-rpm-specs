@@ -2,17 +2,13 @@
 %{!?version_no_tilde: %define version_no_tilde %{shrink:%(echo '%{version}' | tr '~' '-')}}
 
 Name:           nvme-cli
-Version:        2.4
-Release:        2%{?dist}
+Version:        2.5
+Release:        1%{?dist}
 Summary:        NVMe management command line interface
 
 License:        GPLv2
 URL:            https://github.com/linux-nvme/nvme-cli
 Source0:        %{url}/archive/v%{version_no_tilde}/%{name}-%{version_no_tilde}.tar.gz
-
-Patch100:       nvme-cli-2.5-nbft-make-lookup_ctrl-function-public.patch
-Patch101:       nvme-cli-2.5-nbft.patch
-Patch102:       nvme-cli-2.5-nbft_plugin.patch
 
 BuildRequires:  meson >= 0.50.0
 BuildRequires:  gcc gcc-c++
@@ -21,7 +17,7 @@ BuildRequires:  systemd-rpm-macros
 BuildRequires:  zlib-devel
 BuildRequires:  openssl-devel
 
-BuildRequires:  libnvme-devel >= 1.4-2
+BuildRequires:  libnvme-devel >= 1.5
 BuildRequires:  json-c-devel >= 0.13
 
 %if (0%{?rhel} == 0)
@@ -44,7 +40,7 @@ nvme-cli provides NVM-Express user space tooling for Linux.
 
 
 %build
-%meson -Dudevrulesdir=%{_udevrulesdir} -Dsystemddir=%{_unitdir} -Ddocs=all -Ddocs-build=true -Dhtmldir=%{_pkgdocdir}
+%meson -Dudevrulesdir=%{_udevrulesdir} -Dsystemddir=%{_unitdir} -Dpdc-enabled=true -Ddocs=all -Ddocs-build=true -Dhtmldir=%{_pkgdocdir}
 %meson_build
 
 
@@ -87,6 +83,9 @@ rm -rf %{buildroot}%{_pkgdocdir}/nvme
 
 
 %changelog
+* Tue Jul 04 2023 Tomas Bzatek <tbzatek@redhat.com> - 2.5-1
+- Update to 2.5
+
 * Thu Apr 20 2023 Tomas Bzatek <tbzatek@redhat.com> - 2.4-2
 - Backport the NBFT support from git master
 

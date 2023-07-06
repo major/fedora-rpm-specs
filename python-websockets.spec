@@ -1,19 +1,23 @@
 %global pypi_name websockets
 
-%ifarch %{ix86} x86_64
+%ifarch x86_64
 %bcond_without tests
 %endif
 
 Name:           python-%{pypi_name}
-Version:        11.0.2
-Release:        2%{?dist}
+Version:        11.0.3
+Release:        3%{?dist}
 Summary:        Implementation of the WebSocket Protocol for Python
 
 License:        BSD
 URL:            https://github.com/aaugustin/websockets
-Source0:        %pypi_source
+Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
 
 BuildRequires:  gcc
+
+%if %{with tests}
+BuildRequires:  python3dist(pytest)
+%endif
 
 %global _description %{expand:
 websockets is a library for developing WebSocket servers and clients in
@@ -36,7 +40,7 @@ BuildRequires:  python3-devel
 %autosetup -n %{pypi_name}-%{version} -p1
 
 %generate_buildrequires
-%pyproject_buildrequires %{?with_tests:-t}
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -46,8 +50,12 @@ BuildRequires:  python3-devel
 %pyproject_save_files websockets
 
 %check
+%pyproject_check_import
+
 %if %{with tests}
-%tox
+# Skip some tests that require network connectivity and/or a running daemon.
+# Investigate: test_server_shuts_down_* tests hang or fail on Python 3.12
+%pytest -v --ignore compliance --ignore tests/sync -k "not test_explicit_host_port and not test_server_shuts_down"
 %endif
 
 
@@ -55,6 +63,17 @@ BuildRequires:  python3-devel
 %doc README.rst
 
 %changelog
+* Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 11.0.3-3
+- Rebuilt for Python 3.12
+
+* Wed Jun 28 2023 Major Hayden <major@redhat.com> - 11.0.3-2
+- Switch to GitHub source to get tests
+- Replace tox with pytest
+- Add pyproject_check_import
+
+* Wed Jun 28 2023 Major Hayden <major@redhat.com> - 11.0.3-1
+- Update to 11.0.3
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 11.0.2-2
 - Rebuilt for Python 3.12
 

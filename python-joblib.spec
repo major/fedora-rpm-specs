@@ -4,7 +4,7 @@
 
 Name:  python-%{srcname}
 Version: 1.2.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Lightweight pipelining: using Python functions as pipeline jobs
 
 License: BSD
@@ -12,6 +12,14 @@ URL: https://joblib.readthedocs.io
 Source0: %{pypi_source}
 
 Patch: joblib-unbundle-cloudpickle.patch
+
+# Adjust test regex for Python 3.12 improved error message
+Patch: https://github.com/joblib/joblib/pull/1476.patch#/joblib-test_memory-regext-python3.12.patch
+# Avoid using deprecated ast.Num and node.n
+Patch: https://github.com/joblib/joblib/pull/1477.patch#/joblib-no-ast.Num.patch
+# Downstream only: Don't count DeprecationWarnings in test_main_thread_renamed_no_warning
+# Upstream issue: https://github.com/joblib/joblib/issues/1478
+Patch: joblib-dont-count-DeprecationWarnings.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -38,6 +46,8 @@ BuildRequires:  %{py3_dist numpy}
 BuildRequires:  %{py3_dist lz4}
 BuildRequires:  %{py3_dist psutil} 
 BuildRequires:  %{py3_dist threadpoolctl}
+# joblib/test/test_format_stack.py uses imp, the file is gone in future releases
+BuildRequires:  (%{py3_dist zombie-imp} if python3 >= 3.12)
 %endif
 
 Recommends: %{py3_dist numpy}
@@ -76,6 +86,9 @@ rm joblib/externals/cloudpickle/ -rf
 %doc README.rst
 
 %changelog
+* Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 1.2.0-3
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

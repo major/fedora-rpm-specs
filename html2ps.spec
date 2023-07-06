@@ -12,7 +12,7 @@
 %define my_subversion b7
 Name:           html2ps
 Version:        1.0
-Release:        0.47.%{my_subversion}%{?dist}
+Release:        0.48.%{my_subversion}%{?dist}
 Summary:        HTML to PostScript converter
 # contrib/xhtml2ps/LICENSE:     GPL-2.0 text
 # contrib/xhtml2ps/README:      "X-html2ps is GPL"
@@ -84,10 +84,10 @@ converter.
 
 %prep
 %setup -q -n %{name}-1.0%{my_subversion}
-%patch0 -p1
-%patch1 -p1 -b .xdg-open
-%patch2 -p1 -b .config
-%patch3 -p1 -b .deprecated
+%patch -P 0 -p1
+%patch -P 1 -p1
+%patch -P 2 -p1
+%patch -P 3 -p1
 
 # Convert README to UTF-8
 iconv -f latin1 -t utf8 < README > README.utf8
@@ -97,13 +97,13 @@ mv README.utf8 README
 patch -p1 < debian/patches/01_manpages.dpatch
 
 # Change paperconf to paper in 03_html2ps.dpatch
-sed -i 's|paperconf|paper|g' debian/patches/03_html2ps.dpatch
+sed -i 's|paperconf|paper --no-size|g' debian/patches/03_html2ps.dpatch
 
 # 03_html2ps.dpatch is against 1.0b5, adjust it to 1.0b6
 < debian/patches/03_html2ps.dpatch sed -e 's|/opt/misc/|/it/sw/share/www/|' | \
     patch -p1
 
-%patch4 -p1
+%patch -P 4 -p1
 
 %build
 # Change default configuration
@@ -153,6 +153,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_datadir}/applications/*xhtml2ps.desktop
 
 %changelog
+* Tue Jul 04 2023 Petr Pisar <ppisar@redhat.com> - 1.0-0.48.b7
+- Correct invoking paper tool (bug #2219360)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.47.b7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

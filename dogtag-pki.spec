@@ -14,7 +14,7 @@ Name:             dogtag-pki
 # Downstream release number:
 # - development/stabilization (unsupported): 0.<n> where n >= 1
 # - GA/update (supported): <n> where n >= 1
-%global           release_number 1
+%global           release_number 2
 
 # Development phase:
 # - development (unsupported): alpha<n> where n >= 1
@@ -30,7 +30,7 @@ URL:              https://www.dogtagpki.org
 # The entire source code is GPLv2 except for 'pki-tps' which is LGPLv2
 License:          GPL-2.0-only and LGPL-2.0-only
 Version:          %{major_version}.%{minor_version}.%{update_version}
-Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.1
+Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}
 
 # To create a tarball from a version tag:
 # $ git archive \
@@ -46,6 +46,10 @@ Source: https://github.com/dogtagpki/pki/archive/v%{version}%{?phase:-}%{?phase}
 #     <version tag> \
 #     > pki-VERSION-RELEASE.patch
 # Patch: pki-VERSION-RELEASE.patch
+
+# https://github.com/dogtagpki/pki/pull/4494
+# Fix pkiparser.py to work with Python 3.12
+Patch0: 0001-Handle-removal-of-ConfigParser.readfp-in-Python-3.12.patch
 
 %if 0%{?fedora} && 0%{?fedora} > 35
 ExclusiveArch: %{java_arches}
@@ -1297,7 +1301,10 @@ fi
 
 ################################################################################
 %changelog
-* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 11.4.3-1.1
+* Tue Jul 04 2023 Adam Williamson <awilliam@redhat.com> - 11.4.3-2.fc39
+- Backport PR #4494 to fix pkiparser.py with Python 3.12
+
+* Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 11.4.3-1.fc39.1
 - Rebuilt for Python 3.12
 
 * Mon Feb 27 2023 Jerry James <loganjerry@gmail.com> - 11.3.1-2

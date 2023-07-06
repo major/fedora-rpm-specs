@@ -10,7 +10,7 @@
 
 Name:       copr-backend
 Version:    1.171
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Backend for Copr
 
 License:    GPL-2.0-or-later
@@ -241,6 +241,9 @@ useradd -r -g copr -G lighttpd -s /bin/bash -c "COPR user" copr
 %exclude %{_pkgdocdir}/playbooks
 
 %changelog
+* Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 1.171-2
+- Rebuilt for Python 3.12
+
 * Tue Jun 06 2023 Pavel Raiskup <praiskup@redhat.com> 1.171-1
 - copr_prune_results.py: work-around the arg_max problem
 

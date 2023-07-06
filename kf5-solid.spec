@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.108.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 5 Tier 1 integration module that provides hardware information
 
 License: LGPLv2+
@@ -67,10 +67,7 @@ developing applications that use %{name}.
 
 
 %build
-%cmake_kf5 \
-  -DWITH_NEW_POWER_ASYNC_API:BOOL=ON \
-  -DWITH_NEW_POWER_ASYNC_FREEDESKTOP:BOOL=ON \
-  -DWITH_NEW_SOLID_JOB:BOOL=ON
+%cmake_kf5
 
 %cmake_build
 
@@ -102,6 +99,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Tue Jul 04 2023 Justin Zobel <justin.zobel@gmail.com> - 5.108.0-2
+- Remove experimental build options as per https://invent.kde.org/frameworks/solid/-/issues/4#note_701619
+
 * Sun Jul 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.108.0-1
 - 5.108.0
 

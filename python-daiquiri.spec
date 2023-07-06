@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library to configure Python logging easily
 
 License:        ASL 2.0
@@ -67,6 +67,9 @@ rm -rf html/.{doctrees,buildinfo}
 %doc html 
 
 %changelog
+* Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 3.2.1-2
+- Rebuilt for Python 3.12
+
 * Mon Feb 13 2023 Joel Capitao <jcapitao@redhat.com> - 3.2.1-1
 - Update to latest upstream
 

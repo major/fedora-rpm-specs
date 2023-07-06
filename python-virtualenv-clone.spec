@@ -2,7 +2,7 @@
 
 Name:             python-virtualenv-clone
 Version:          0.5.7
-Release:          6%{?dist}
+Release:          7%{?dist}
 Summary:          Script to clone Python virtual environments
 
 License:          MIT
@@ -11,8 +11,8 @@ URL:              https://github.com/edwardgeorge/virtualenv-clone
 # the tests/ directory and tox.ini file.
 Source0:          %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
-# Allow Python 3.11
-Patch:            allow-python3.11.patch
+# Allow Python 3.11 and Python 3.12
+Patch:            allow-python3.11-and-3.12.patch
 
 BuildArch:        noarch
 BuildRequires:    python3-devel
@@ -67,6 +67,9 @@ Requires:         python3-virtualenv
 
 
 %changelog
+* Tue Jul 04 2023 Karolina Surma <ksurma@redhat.com> - 0.5.7-7
+- Allow Python 3.12 in tests
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.5.7-6
 - Rebuilt for Python 3.12
 

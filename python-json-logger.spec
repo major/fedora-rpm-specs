@@ -9,6 +9,9 @@ Summary:        A python library adding a json log formatter
 License:        BSD
 URL:            http://github.com/madzak/python-json-logger
 Source0:        %{pypi_source}
+# Patch for compatibility with Python 3.12, doesn't work with older Pythons
+# https://github.com/madzak/python-json-logger/pull/178
+Patch:          Adjust-tests-for-taskName-attribute-added-in-Python-.patch
 BuildArch:      noarch
  
 %description
@@ -25,7 +28,7 @@ A python library adding a json log formatter
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version} -p1
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
 

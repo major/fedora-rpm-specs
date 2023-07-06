@@ -24,7 +24,7 @@ classification pipeline, and optimize their hyperparameters.}
 
 Name:           python-%{pypi_name}
 Version:        1.1.12
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python automated machine learning framework
 
 License:        MIT
@@ -115,6 +115,9 @@ find examples -type f -name '*.py' |
 %doc CODE_OF_CONDUCT.md CONTRIBUTING.md CITATION.md
 
 %changelog
+* Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 1.1.12-2
+- Rebuilt for Python 3.12
+
 * Sun Apr 30 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 1.1.12-1
 - Update to 1.1.12
 

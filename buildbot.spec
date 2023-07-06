@@ -21,7 +21,7 @@
 
 Name:           buildbot
 Version:        3.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        Build/test automation system
 License:        GPL-2.0-only
@@ -399,6 +399,9 @@ trial buildbot.test
 %endif
 
 %changelog
+* Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 3.8.0-2
+- Rebuilt for Python 3.12
+
 * Mon Apr 17 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.8.0-1
 - 3.8.0
 

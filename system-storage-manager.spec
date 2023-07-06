@@ -14,6 +14,7 @@ Patch1:         python3-sphinx.patch
 BuildArch:      noarch
 BuildRequires: make
 BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-pwquality
 Requires:       util-linux
@@ -49,6 +50,8 @@ technologies via a single unified interface.
 # fedora-specific issue with the name of python3-sphinx binaries
 %patch1 -p1
 
+# there is no assert_ method in Python 3.12+
+sed -i 's/assert_/assertTrue/' tests/unittests/test_ssm.py
 
 %build
 make docs

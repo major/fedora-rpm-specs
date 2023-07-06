@@ -2,7 +2,7 @@
 
 Name:           python-%{modname}
 Version:        2.8.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Epoch:          1
 Summary:        Powerful extensions to the standard datetime module
 
@@ -21,6 +21,10 @@ Source:         %{pypi_source}
 # python-dateutil fails to build with pytest 7
 # https://bugzilla.redhat.com/show_bug.cgi?id=2059950
 Patch1:         %{url}/commit/2bdd63158b7f981fc6d70a869680451bdfd8d848.patch
+
+# Backport the replacement for the deprecated in Python 3.12
+# datetime.datetime.utcfromtimestamp()
+Patch2:         %{url}/commit/f2293200747fb03d56c6c5997bfebeabe703576f.patch
 
 # when bootstrapping dateutil-freezegun, we cannot run tests
 # on RHEL, we do not have or want all test dependencies
@@ -66,6 +70,7 @@ This package contains %{summary}.
 pushd %{modname}/test
 %patch1 -p2
 popd
+%patch2 -p2
 iconv --from=ISO-8859-1 --to=UTF-8 NEWS > NEWS.new
 mv NEWS.new NEWS
 
@@ -94,6 +99,9 @@ make -C docs html
 %doc docs/_build/html
 
 %changelog
+* Tue Jul 04 2023 Karolina Surma <ksurma@redhat.com> - 1:2.8.2-9
+- Backport replacement for deprecated datetime.datetime.utcfromtimestamp()
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 1:2.8.2-8
 - Rebuilt for Python 3.12
 

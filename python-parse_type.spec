@@ -1,13 +1,13 @@
 %global srcname parse_type
 
 Name:           python-%{srcname}
-Version:        0.6.0
+Version:        0.6.2
 Release:        %autorelease
 Summary:        Simplifies to build parse types based on the parse module
 
-License:        BSD
-URL:            http://pypi.python.org/pypi/parse_type
-Source0:        %pypi_source
+License:        MIT
+URL:            http://github.com/jenisys/parse_type
+Source0:        %{url}/archive/%{srcname}-%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -40,8 +40,9 @@ Python 3 version.
 %autosetup -n %{srcname}-%{version}
 
 # remove deps on pytest-html
-sed -i -e '/^\s*pytest-html >= /d' tox.ini
-sed -i -e '/^\s*pytest-html >= /d' setup.py
+sed -i -e '/^\s*"pytest-html >= /d' setup.py
+sed -i -e '/^\s*"pytest-html >= /d' pyproject.toml
+sed -i -e '/^pytest-html >= /d' py.requirements/testing.txt
 
 %generate_buildrequires
 %pyproject_buildrequires -t

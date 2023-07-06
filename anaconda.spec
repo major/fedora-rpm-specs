@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
 Version: 39.23
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+ and MIT
 URL:     http://fedoraproject.org/wiki/Anaconda
 
@@ -11,6 +11,9 @@ URL:     http://fedoraproject.org/wiki/Anaconda
 # ./autogen.sh
 # make dist
 Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{version}-1/%{name}-%{version}.tar.bz2
+# https://github.com/rhinstaller/anaconda/pull/4879
+# Fix shutdown with Python 3.12 (don't use preexec_fn during shutdown)
+Patch0: 0001-Handle-subprocess-disallowing-preexec-during-shutdow.patch
 
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
@@ -471,6 +474,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jul 04 2023 Adam Williamson <awilliam@redhat.com> - 39.23-2
+- Backport PR #4879 to fix shutdown with Python 3.12
+
 * Mon Jul 03 2023 Packit <hello@packit.dev> - 39.23-1
 - webui: store system language information in the global store (kkoukiou)
 - webui: Start Web UI when the anaconda-webui package is installed (mkolman)

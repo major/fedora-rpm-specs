@@ -77,13 +77,12 @@
 %define configure_opts %{?python3_copts} %{?lvm_dbus_copts} %{?btrfs_copts} %{?crypto_copts} %{?dm_copts} %{?loop_copts} %{?lvm_copts} %{?lvm_dbus_copts} %{?mdraid_copts} %{?mpath_copts} %{?swap_copts} %{?part_copts} %{?fs_copts} %{?nvdimm_copts} %{?tools_copts} %{?gi_copts} %{?nvme_copts}
 
 Name:        libblockdev
-Version:     3.0
+Version:     3.0.1
 Release:     2%{?dist}
 Summary:     A library for low-level manipulation with block devices
 License:     LGPL-2.1-or-later
 URL:         https://github.com/storaged-project/libblockdev
 Source0:     https://github.com/storaged-project/libblockdev/releases/download/%{version}-%{release}/%{name}-%{version}.tar.gz
-Patch0:      0001-vdo_stats-Remove-unused-libparted-include.patch
 
 BuildRequires: make
 BuildRequires: glib2-devel
@@ -483,6 +482,7 @@ Various nice storage-related tools based on libblockdev.
 %ifarch s390 s390x
 %package s390
 Summary:    The s390 plugin for the libblockdev library
+Requires: %{name}-utils%{?_isa} = %{version}-%{release}
 Requires: s390utils
 
 %description s390
@@ -641,8 +641,8 @@ find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 %{_libdir}/girepository*/BlockDev*.typelib
 %endif
 %dir %{_sysconfdir}/libblockdev
-%dir %{_sysconfdir}/libblockdev/conf.d
-%config %{_sysconfdir}/libblockdev/conf.d/00-default.cfg
+%dir %{_sysconfdir}/libblockdev/3/conf.d
+%config %{_sysconfdir}/libblockdev/3/conf.d/00-default.cfg
 
 %files devel
 %{_libdir}/libblockdev.so
@@ -751,7 +751,7 @@ find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 %if %{with_lvm_dbus}
 %files lvm-dbus
 %{_libdir}/libbd_lvm-dbus.so.*
-%config %{_sysconfdir}/libblockdev/conf.d/10-lvm-dbus.cfg
+%config %{_sysconfdir}/libblockdev/3/conf.d/10-lvm-dbus.cfg
 
 %files lvm-dbus-devel
 %{_libdir}/libbd_lvm-dbus.so
@@ -845,6 +845,29 @@ find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 %files plugins-all
 
 %changelog
+* Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 3.0.1-2
+- Rebuilt for Python 3.12
+
+* Tue Jul 04 2023 Vojtech Trefny <vtrefny@redhat.com> - 3.0.1-1
+- fs: Simplify struct BDFSInfo (tbzatek)
+- boilerplate_generator: Annotate stub func args as G_GNUC_UNUSED (tbzatek)
+- crypto: Remove stray struct redefinition (tbzatek)
+- loop: Remove unused variable (tbzatek)
+- build: Exit before AC_OUTPUT on error (tbzatek)
+- loop: define LOOP_SET_BLOCK_SIZE is not defined (giulio.benetti)
+- Make the conf.d directory versioned (vtrefny)
+- configure: Fix MAJOR_VER macro (vtrefny)
+- spec: Add dependency on libblockdev-utils to the s390 plugin (vtrefny)
+- nvme: Mark private symbols as hidden (tbzatek)
+- dist: Sync spec with downstream (vtrefny)
+- misc: Update steps and Dockerfile for Python documentation (vtrefny)
+- fs: Add missing copy and free functions to the header file (vtrefny)
+- lvm: Add bd_lvm_segdata_copy/free to the header file (vtrefny)
+- loop: Remove bd_loop_get_autoclear definition (vtrefny)
+- lvm: Fix declaration for bd_lvm_vdolvpoolname (vtrefny)
+- lvm: Make _vglock_start_stop static (vtrefny)
+- vdo_stats: Remove unused libparted include (vtrefny)
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 3.0-2
 - Rebuilt for Python 3.12
 

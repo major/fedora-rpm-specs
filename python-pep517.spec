@@ -1,9 +1,8 @@
-%global _without_tests 1
 %global pypi_name pep517
 
 Name:           python-%{pypi_name}
 Version:        0.13.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Wrappers to build Python packages using PEP 517 hooks
 
 %bcond_without tests
@@ -41,7 +40,7 @@ for systems which build Python packages, specified in PEP 517.
 
 # Don't run the linter as part of tests
 sed -i '/--flake8$/d' pytest.ini
-sed -i '/pytest-flake8/d' dev-requirements.txt
+sed -i '/flake8/d' dev-requirements.txt
 
 %generate_buildrequires
 %pyproject_buildrequires %{?with_tests:-t}
@@ -70,6 +69,9 @@ sed -i '/pytest-flake8/d' dev-requirements.txt
 
 
 %changelog
+* Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 0.13.0-4
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.13.0-3
 - Bootstrap for Python 3.12
 

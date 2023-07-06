@@ -1,12 +1,14 @@
 Name:           perl-String-License
-Version:        0.0.6
+Version:        0.0.9
 Release:        1%{?dist}
 Summary:        Detect source code license statements in a text string
 License:        AGPL-3.0-or-later
 
+BuildArch:      noarch
 URL:            https://metacpan.org/pod/String::License
 Source0:        https://cpan.metacpan.org/authors/id/J/JO/JONASS/String-License-v%{version}.tar.gz
-BuildArch:      noarch
+# Fix failing test
+Patch0:         test.patch
 
 BuildRequires:  make
 BuildRequires:  perl-interpreter
@@ -72,6 +74,12 @@ make test
 
 
 %changelog
+* Tue Jul 04 2023 Sandro Mani <manisandro@gmail.com> - 0.0.9-1
+- Update to 0.0.9
+
+* Tue Jul 04 2023 Sandro Mani <manisandro@gmail.com> - 0.0.7-1
+- Update to 0.0.7
+
 * Sun Jun 04 2023 Sandro Mani <manisandro@gmail.com> - 0.0.6-1
 - Update to 0.0.6
 

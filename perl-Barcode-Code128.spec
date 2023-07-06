@@ -1,19 +1,29 @@
 name:           perl-Barcode-Code128
 Version:        2.21
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Generate CODE 128 bar codes
-# Waiting for an SPDX identifier
-# <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/227>.
-License:        Public Domain
+# README:       LicenseRef-Fedora-Public-Domain
+License:        LicenseRef-Fedora-Public-Domain
 URL:            https://metacpan.org/release/Barcode-Code128
 Source0:        https://cpan.metacpan.org/authors/id/W/WR/WRW/Barcode-Code128-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires: make
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(Config)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+# Run-time:
+BuildRequires:  perl(Carp)
+BuildRequires:  perl(constant)
+BuildRequires:  perl(Exporter)
+BuildRequires:  perl(GD) >= 2.18
+BuildRequires:  perl(strict)
+BuildRequires:  perl(vars)
+# Tests:
+BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More)
-BuildRequires:  perl(GD)
-Requires:       perl(GD)
+Requires:       perl(GD) >= 2.18
 
 %description
 Barcode::Code128 generates bar codes using the CODE 128 symbology. It can
@@ -21,30 +31,61 @@ generate images in PNG or GIF format using the GD package, or it can
 generate a text string representing the barcode that you can render using
 some other technology if desired.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Barcode-Code128-%{version}
+# Extract a license text
+perl -pe '$license=1 if /\ATERMS:/; $license=0 if /\A$/; undef $_ unless $license;' \
+    <README >LICENSE
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
-
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
-
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
+%license LICENSE
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Barcode
+%{perl_vendorlib}/Barcode/Code128.pm
+%{_mandir}/man3/Barcode::Code128.*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 04 2023 Petr Pisar <ppisar@redhat.com> - 2.21-23
+- Convert a license tag to SPDX
+- Package the tests
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.21-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

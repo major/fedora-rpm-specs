@@ -4,7 +4,7 @@
 
 Name:               python-cairosvg
 Version:            2.7.0
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            A Simple SVG Converter for Cairo
 
 License:            LGPLv3+
@@ -76,6 +76,9 @@ rm -f %{buildroot}%{python3_sitelib}/%{modname}/test_api.py
 %{_bindir}/cairosvg
 
 %changelog
+* Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 2.7.0-2
+- Rebuilt for Python 3.12
+
 * Tue Mar 21 2023 Onuralp SEZER <thunderbirdtr@fedoraproject.org> - 2.7.0-1
 - Update python-cairosvg version 2.7.0
 - Disable isort flake8 patch updated

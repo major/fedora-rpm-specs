@@ -1,6 +1,6 @@
 Name:          lnav
-Version:       0.11.1
-Release:       3%{?dist}
+Version:       0.11.2
+Release:       1%{?dist}
 Summary:       Curses-based tool for viewing and analyzing log files
 License:       BSD
 
@@ -20,9 +20,6 @@ BuildRequires: readline-devel
 BuildRequires: sqlite-devel
 BuildRequires: zlib-devel
 
-# https://bugzilla.redhat.com/show_bug.cgi?id=2171598
-Patch1: bz-2171598-ftbfs-gcc-13.patch
-
 %description
 %{name} is an enhanced log file viewer that takes advantage of any semantic
 information that can be gleaned from the files being viewed, such as
@@ -35,7 +32,6 @@ quickly and efficiently zero in on problems.
 
 %prep
 %setup -q
-%patch1 -p1
 
 %build
 %configure --disable-static --disable-silent-rules
@@ -53,6 +49,10 @@ quickly and efficiently zero in on problems.
 
 
 %changelog
+* Tue Jul 04 2023 Peter Schiffer <peter+fedora@pschiffer.eu> - 0.11.2-1
+- resolves: #2215471
+  updated to 0.11.2
+
 * Mon Feb 20 2023 Peter Schiffer <peter+fedora@pschiffer.eu> - 0.11.1-3
 - resolves: #2171598
   fix FTBFS on F38+

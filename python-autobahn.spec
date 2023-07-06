@@ -1,8 +1,8 @@
 %global pypi_name autobahn
 
 Name:           python-%{pypi_name}
-Version:        23.1.2
-Release:        3%{?dist}
+Version:        23.6.2
+Release:        2%{?dist}
 Summary:        Python networking library for WebSocket and WAMP
 
 License:        MIT
@@ -107,6 +107,12 @@ USE_ASYNCIO=1 %pytest --ignore=xbr/test --pyargs autobahn -k 'not test_no_memory
 %license LICENSE
 
 %changelog
+* Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 23.6.2-2
+- Rebuilt for Python 3.12
+
+* Tue Jul 04 2023 Julien Enselme <jujens@jujens.eu> - 23.6.2
+- Update to 23.6.2
+
 * Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 23.1.2-3
 - Rebuilt for Python 3.12
 

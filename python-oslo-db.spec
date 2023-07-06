@@ -15,7 +15,7 @@ to the different backends and helper utils.
 
 Name:           python-%{pkg_name}
 Version:        12.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OpenStack oslo.db library
 
 License:        ASL 2.0
@@ -183,6 +183,9 @@ python3 setup.py test
 %license LICENSE
 
 %changelog
+* Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 12.3.1-2
+- Rebuilt for Python 3.12
+
 * Fri Apr 14 2023 Karolina Kula <kkula@redhat.com> 12.3.1-1
 - Update to upstream version 12.3.1
 

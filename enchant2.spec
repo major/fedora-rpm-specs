@@ -6,23 +6,18 @@
 
 Name:          enchant2
 Version:       2.5.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       An Enchanting Spell Checking Library
 
 License:       LGPLv2+
 URL:           https://github.com/AbiWord/enchant
 Source0:       https://github.com/AbiWord/enchant/releases/download/v%{version}/enchant-%{version}.tar.gz
 
-# Look for aspell using pkg-config, instead of AC_CHECK_LIB which adds -laspell
-# to the global LIBS and over-links libenchant (#1574893)
-Patch0:        enchant_aspell.patch
-
 BuildRequires: automake autoconf libtool
 
 BuildRequires: gcc-c++
 BuildRequires: make
 BuildRequires: glib2-devel
-BuildRequires: aspell-devel
 BuildRequires: hunspell-devel
 BuildRequires: libvoikko-devel
 %if !0%{?rhel}
@@ -49,19 +44,12 @@ BuildRequires: mingw64-nuspell
 %endif
 
 Provides:      bundled(gnulib)
+Obsoletes:     enchant2-aspell < 2.5.0-2
 
 
 %description
 A library that wraps other spell checking backends.
 
-
-%package aspell
-Summary:       Integration with aspell for libenchant
-Requires:      enchant2%{?_isa} = %{version}-%{release}
-Supplements:   (enchant2 and aspell)
-
-%description aspell
-Libraries necessary to integrate applications using libenchant with aspell.
 
 %if !0%{?rhel}
 %package nuspell
@@ -126,7 +114,6 @@ mkdir build_native
 pushd build_native
 %define _configure ../configure
 %configure \
-    --with-aspell \
     --with-hunspell-dir=%{_datadir}/hunspell \
 %if !0%{?rhel}
     --with-nuspell \
@@ -180,9 +167,6 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/enchant-2/enchant_hunspell.so
 %{_mandir}/man1/*
 %{_datadir}/enchant-2
-
-%files aspell
-%{_libdir}/enchant-2/enchant_aspell.so*
 
 %if !0%{?rhel}
 %files nuspell
@@ -240,6 +224,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Tue Jul 04 2023 Sandro Mani <manisandro@gmail.com> - 2.5.0-2
+- Drop aspell subpackage (#2218153)
+
 * Wed May 24 2023 Sandro Mani <manisandro@gmail.com> - 2.5.0-1
 - Update to 2.5.0
 

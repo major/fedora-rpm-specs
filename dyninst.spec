@@ -1,20 +1,20 @@
 Summary: An API for Run-time Code Generation
-License: LGPLv2+
+License: LGPL-2.1-or-later AND GPL-3.0-or-later WITH Bison-exception-2.2 AND LicenseRef-Fedora-Public-Domain AND BSD-3-Clause
 Name: dyninst
 Group: Development/Libraries
-Release: 5%{?dist}
+Release: 1%{?dist}
 URL: http://www.dyninst.org
-Version: 12.2.0
+Version: 12.3.0
 ExclusiveArch: %{ix86} x86_64 ppc64le aarch64
 
-%define __testsuite_version 12.2.0
+%define __testsuite_version 12.3.0
 Source0: https://github.com/dyninst/dyninst/archive/v%{version}/dyninst-%{version}.tar.gz
-Source1: https://github.com/dyninst/testsuite/archive/%{__testsuite_version}/testsuite-%{__testsuite_version}.tar.gz
+Source1: https://github.com/dyninst/testsuite/archive/v%{__testsuite_version}/testsuite-%{__testsuite_version}.tar.gz
 
 Patch1: dwarf-error.patch
-Patch2: cmdline.patch
-Patch3: rhbz2173030.patch
-Patch4: onetbb.patch
+Patch2: onetbb.patch
+# Support cmake 3.27 - https://github.com/dyninst/dyninst/pull/1438
+Patch3: dyninst-cmake3.27.patch
 
 %global dyninst_base dyninst-%{version}
 %global testsuite_base testsuite-%{__testsuite_version}
@@ -56,6 +56,7 @@ Summary: Documentation for using the Dyninst API
 Group: Documentation
 %description doc
 dyninst-doc contains API documentation for the Dyninst libraries.
+License: LGPL-2.1-or-later
 
 %package devel
 Summary: Header files for compiling programs with Dyninst
@@ -63,6 +64,8 @@ Group: Development/System
 Requires: dyninst = %{version}-%{release}
 Requires: boost-devel
 Requires: tbb-devel
+License: LGPL-2.1-or-later AND BSD-3-Clause AND MIT
+# FindTBB.cmake: presumed MIT, removed in next version of dyninst
 
 %description devel
 dyninst-devel includes the C header files that specify the Dyninst user-space
@@ -74,6 +77,9 @@ Summary: Programs for testing Dyninst
 Group: Development/System
 Requires: dyninst = %{version}-%{release}
 Requires: dyninst-devel = %{version}-%{release}
+License: BSD-3-Clause AND LGPL-2.1-or-later
+
+
 %description testsuite
 dyninst-testsuite includes the test harness and target programs for
 making sure that dyninst works properly.
@@ -83,16 +89,9 @@ making sure that dyninst works properly.
 %setup -q -T -D -a 1
 
 pushd %{dyninst_base}
-%patch1 -p1 -b .dwerr
-popd
-
-pushd %{testsuite_base}
-%patch2 -p1 -b .cmdline
-popd
-
-pushd %{dyninst_base}
-%patch3 -p1
-%patch4 -p1
+%patch -P1 -p1 -b .dwerr
+%patch -P2 -p1 -b .onetbb
+%patch -P3 -p1 -b .cmake3.27
 popd
 
 # cotire seems to cause non-deterministic gcc errors
@@ -195,6 +194,14 @@ find %{buildroot}%{_libdir}/dyninst/testsuite/ \
 %attr(644,root,root) %{_libdir}/dyninst/testsuite/*.a
 
 %changelog
+
+* Tue Jul 04 2023 Frank Ch. Eigler <fche@redhat.com> - 12.3.0-1
+- migrated to SPDX license
+
+* Tue Jul 04 2023 Orion Poplawski <orion@nwra.com> - 12.3.0-1
+- Update to 12.3.0
+- Add patch for cmake 3.27 support
+
 * Tue Jun 27 2023 Jonathan Wakely <jwakely@fedoraproject.org> - 12.2.0-5
 - Patch for oneTBB (#2036372)
 

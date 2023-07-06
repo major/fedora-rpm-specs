@@ -466,6 +466,12 @@ Suggests: bind-devel
 Suggests: bind-dnssec-utils
 Suggests: bind-utils
 
+# Default OpenJDK version, prefer over other versions for
+# Provides: java, java-devel, java-headless, etc.
+Suggests: java-17-openjdk
+Suggests: java-17-openjdk-devel
+Suggests: java-17-openjdk-headless
+
 RemovePathPostfixes: .eln
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity

@@ -23,14 +23,14 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           tracker-miners
-Version:        3.5.2
+Version:        3.6~alpha
 Release:        1%{?dist}
 Summary:        Tracker miners and metadata extractors
 
 # libtracker-extract and libtracker-miner libraries are LGPLv2+; the miners are a mix of GPLv2+ and LGPLv2+ code
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://gnome.pages.gitlab.gnome.org/tracker/
-Source0:        https://download.gnome.org/sources/%{name}/3.5/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/3.6/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  asciidoc
 BuildRequires:  gcc
@@ -160,6 +160,9 @@ This package contains various miners and metadata extractors for tracker.
 
 
 %changelog
+* Tue Jul 04 2023 Kalev Lember <klember@redhat.com> - 3.6~alpha-1
+- Update to 3.6.alpha
+
 * Sun May 14 2023 David King <amigadave@amigadave.com> - 3.5.2-1
 - Update to 3.5.2
 

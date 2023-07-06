@@ -10,7 +10,7 @@ implementation of nature-inspired algorithms.}
 
 Name:           python-%{pypi_name}
 Version:        0.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Python Toolkit for Data Preprocessing
 License:        GPLv3
 URL:            https://github.com/karakatic/%{pypi_name}
@@ -50,6 +50,9 @@ Summary:        %{summary}
 %doc README.md
 
 %changelog
+* Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 0.5.0-2
+- Rebuilt for Python 3.12
+
 * Thu Mar 2 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.5.0-1
 - Update to 0.5.0
 

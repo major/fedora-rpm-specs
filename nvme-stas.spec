@@ -1,7 +1,7 @@
 Name:    nvme-stas
 Summary: NVMe STorage Appliance Services
-Version: 2.2.1
-Release: 2%{?dist}
+Version: 2.3~rc1
+Release: 1%{?dist}
 License: ASL 2.0
 URL:     https://github.com/linux-nvme/nvme-stas
 Source0: %{url}/archive/v%{version_no_tilde}/%{name}-%{version_no_tilde}.tar.gz
@@ -10,7 +10,7 @@ BuildArch:     noarch
 
 BuildRequires: meson >= 0.57.0
 BuildRequires: glib2-devel
-BuildRequires: libnvme-devel >= 1.4
+BuildRequires: libnvme-devel >= 1.5
 BuildRequires: libxslt
 BuildRequires: docbook-style-xsl
 BuildRequires: systemd-devel
@@ -31,7 +31,7 @@ BuildRequires: python3-gobject-devel
 BuildRequires: python3-lxml
 
 Requires:      avahi
-Requires:      python3-libnvme >= 1.4
+Requires:      python3-libnvme >= 1.5
 Requires:      python3-dasbus
 Requires:      python3-pyudev
 Requires:      python3-systemd
@@ -95,6 +95,9 @@ mv %{buildroot}/%{_sysconfdir}/stas/sys.conf.doc %{buildroot}/%{_sysconfdir}/sta
 
 
 %changelog
+* Tue Jul 04 2023 Tomas Bzatek <tbzatek@redhat.com> - 2.3~rc1-1
+- Upstream v2.3 Release Candidate 1
+
 * Sun Jul 02 2023 Python Maint <python-maint@redhat.com> - 2.2.1-2
 - Rebuilt for Python 3.12
 

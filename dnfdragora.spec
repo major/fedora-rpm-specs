@@ -3,12 +3,13 @@
 
 Name:		dnfdragora
 Version:	2.1.2
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	DNF package-manager based on libYui abstraction
 
 License:	GPLv3+
 URL:		https://github.com/manatools/%{name}
 Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0:     distutils_is_dead.patch
 
 BuildArch:	noarch
 
@@ -129,6 +130,9 @@ appstream-util validate-relax --nonet		\
 
 
 %changelog
+* Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 2.1.2-5
+- Rebuilt for Python 3.12
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

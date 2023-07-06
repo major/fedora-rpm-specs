@@ -53,7 +53,7 @@ ExclusiveArch:  x86_64
 
 Name:           nbdkit
 Version:        1.35.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -1218,6 +1218,9 @@ export LIBGUESTFS_TRACE=1
 
 
 %changelog
+* Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 1.35.5-2
+- Rebuilt for Python 3.12
+
 * Mon Jun 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.35.5-1
 - New upstream development version 1.35.5
 

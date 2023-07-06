@@ -1,6 +1,6 @@
 Name:           python-jupyterlab-server
 Version:        2.22.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A set of server components for JupyterLab and JupyterLab like applications
 License:        BSD-3-Clause
 URL:            https://jupyterlab-server.readthedocs.io
@@ -58,7 +58,8 @@ sed -i '/"codecov/d' pyproject.toml
 # We need to skip some tests to run them without openapi_core
 # test_which uses unversioned python command
 # test_process_app timeouts in COPR
-%pytest --ignore=tests/test_{labapp,listings_api,settings_api,themes_api,translation_api,workspaces_api}.py \
+%pytest -Wdefault \
+        --ignore=tests/test_{labapp,listings_api,settings_api,themes_api,translation_api,workspaces_api}.py \
         -k "not test_which and not test_process_app"
 
 %files -n python3-jupyterlab-server -f %{pyproject_files}
@@ -67,6 +68,9 @@ sed -i '/"codecov/d' pyproject.toml
 %pyproject_extras_subpkg -n python3-jupyterlab-server test
 
 %changelog
+* Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 2.22.1-2
+- Rebuilt for Python 3.12
+
 * Mon Apr 17 2023 Lumír Balhar <lbalhar@redhat.com> - 2.22.1-1
 - Update to 2.22.1 (rhbz#2186615)
 

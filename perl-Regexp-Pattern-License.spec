@@ -1,5 +1,5 @@
 Name:           perl-Regexp-Pattern-License
-Version:        3.10.1
+Version:        3.11.0
 Release:        1%{?dist}
 Summary:        Regular expressions for legal licenses
 License:        GPL-3.0-or-later
@@ -58,6 +58,9 @@ make test
 
 
 %changelog
+* Tue Jul 04 2023 Sandro Mani <manisandro@gmail.com> - 3.11.0-1
+- Update to 3.11.0
+
 * Mon Apr 03 2023 Sandro Mani <manisandro@gmail.com> - 3.10.1-1
 - Update to 3.10.1
 

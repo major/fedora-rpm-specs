@@ -8,7 +8,7 @@ one project at a time without introducing conflicts in their dependencies.
 
 Name:             python-%{modname}
 Version:          4.8.4
-Release:          4%{?dist}
+Release:          5%{?dist}
 Summary:          %{sum}
 
 License:          MIT
@@ -86,6 +86,9 @@ ln -s %{_bindir}/virtualenvwrapper.sh %{buildroot}/%{_bindir}/virtualenvwrapper-
 %config(noreplace) %{_sysconfdir}/profile.d/virtualenvwrapper.sh
 
 %changelog
+* Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 4.8.4-5
+- Rebuilt for Python 3.12
+
 * Fri Mar 24 2023 Nils Philippsen <nils@redhat.com> - 4.8.4-4
 - Use `grep -E` instead of deprecated `egrep`
 

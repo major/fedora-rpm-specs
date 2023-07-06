@@ -36,7 +36,6 @@ BuildRequires: python3-libreport
 BuildRequires: abrt-gui-devel > 2.14.0
 BuildRequires: gtk3-devel
 %if 0%{?fedora}
-BuildRequires: python3-pylint
 BuildRequires: python3-six
 BuildRequires: python3-gobject
 BuildRequires: python3-dbus
@@ -62,9 +61,7 @@ provides them with convenient way for managing these problems.
 
 %build
 %meson \
-%if ! 0%{?fedora}
     -Dlint=false \
-%endif
     %{nil}
 %meson_build
 

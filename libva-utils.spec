@@ -1,7 +1,7 @@
 #global pre_release .pre1
 
 Name:		libva-utils
-Version:	2.18.2
+Version:	2.19.0
 Release:	1%{?dist}
 Summary:	Tools for VAAPI (including vainfo)
 License:	MIT and BSD
@@ -75,6 +75,9 @@ libva support is available on a system.
 
 
 %changelog
+* Tue Jul 04 2023 Nicolas Chauvet <kwizart@gmail.com> - 2.19.0-1
+- Update to 2.19.0
+
 * Tue Apr 18 2023 Nicolas Chauvet <kwizart@gmail.com> - 2.18.2-1
 - Update to 2.18.2
 

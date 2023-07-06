@@ -10,7 +10,7 @@
 
 Name:           rocclr
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm Compute Language Runtime
 Url:            https://github.com/ROCm-Developer-Tools/clr
 License:        MIT
@@ -106,6 +106,8 @@ ROCm HIP implementation specifically for AMD platforms.
 Summary:        ROCm HIP development package
 Requires:       rocm-hip%{?_isa} = %{version}-%{release}
 Requires:       hip-devel = %{version}-%{release}
+Requires:       rocm-comgr-devel
+Requires:       rocm-runtime-devel >= %{rocm_release}
 
 %description -n rocm-hip-devel
 ROCm HIP development package.
@@ -304,6 +306,9 @@ chmod 755 %{buildroot}%{_libdir}/lib*.so*
 %{_docdir}/hip
 
 %changelog
+* Tue Jul 04 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.6.0-2
+- Fix missing requires on rocm-hip-devel package
+
 * Thu Jun 29 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.6.0-1
 - Update to 5.6
 

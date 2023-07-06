@@ -1,6 +1,6 @@
 Name:       python-jupyter-collaboration
 Version:    1.0.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    JupyterLab Extension enabling Real-Time Collaboration
 
 # SPDX
@@ -75,6 +75,9 @@ mv -v %{buildroot}{%{_prefix},}%{_sysconfdir}/jupyter/jupyter_server_config.d/ju
 %{_datadir}/jupyter/labextensions/@jupyter/collaboration-extension
 
 %changelog
+* Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 1.0.0-2
+- Rebuilt for Python 3.12
+
 * Thu Jun 01 2023 Lumír Balhar <lbalhar@redhat.com> - 1.0.0-1
 - Run tests during build
 

@@ -22,7 +22,7 @@ framework called NiaPy.}
 
 Name:           python-%{pypi_name}
 Version:        0.3.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A minimalistic framework for numerical association rule mining
 
 License:        MIT
@@ -100,6 +100,9 @@ toml-adapt -path pyproject.toml -a change -dep ALL -ver X
 %doc CODE_OF_CONDUCT.md CONTRIBUTING.md
 
 %changelog
+* Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 0.3.2-2
+- Rebuilt for Python 3.12
+
 * Tue May 30 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.3.2-1
 - Update to 0.3.2
 

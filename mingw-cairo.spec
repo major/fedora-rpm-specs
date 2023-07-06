@@ -1,19 +1,21 @@
 %{?mingw_package_header}
 
 Name:           mingw-cairo
-Version:        1.16.0
-Release:        11%{?dist}
+Version:        1.17.8
+Release:        1%{?dist}
 Summary:        MinGW Windows Cairo library
 
-License:        LGPLv2 or MPLv1.1
+License:        LGPL-2.1-only OR MPL-1.1
 URL:            http://cairographics.org
-Source0:        http://cairographics.org/releases/cairo-%{version}.tar.xz
+Source0:        http://cairographics.org/snapshots/cairo-%{version}.tar.xz
 
 BuildArch:      noarch
 
-BuildRequires: make
-BuildRequires:  mingw32-filesystem >= 95
-BuildRequires:  mingw32-gcc
+BuildRequires:  meson
+BuildRequires:  ninja-build
+
+BuildRequires:  mingw32-filesystem
+BuildRequires:  mingw32-gcc-c++
 BuildRequires:  mingw32-binutils
 BuildRequires:  mingw32-fontconfig
 BuildRequires:  mingw32-freetype
@@ -24,8 +26,8 @@ BuildRequires:  mingw32-win-iconv
 BuildRequires:  mingw32-zlib
 BuildRequires:  mingw32-glib2
 
-BuildRequires:  mingw64-filesystem >= 95
-BuildRequires:  mingw64-gcc
+BuildRequires:  mingw64-filesystem
+BuildRequires:  mingw64-gcc-c++
 BuildRequires:  mingw64-binutils
 BuildRequires:  mingw64-fontconfig
 BuildRequires:  mingw64-freetype
@@ -35,9 +37,6 @@ BuildRequires:  mingw64-libpng
 BuildRequires:  mingw64-win-iconv
 BuildRequires:  mingw64-zlib
 BuildRequires:  mingw64-glib2
-
-BuildRequires:  mingw-w64-tools
-BuildRequires:  pkgconfig
 
 
 %description
@@ -87,67 +86,12 @@ Static version of the MinGW Windows Cairo library.
 
 
 %build
-# Function to generate an import library for delay-loading
-gen_delay_lib()
-{
-    local DLL="$1"
-    local OUT_IMPLIB="$2"
-
-    gendef - "%{mingw32_bindir}/$DLL" > build_win32/delay_load.def
-    %{mingw32_dlltool} --def build_win32/delay_load.def --kill-at --output-delaylib "build_win32/$OUT_IMPLIB"
-
-    gendef - "%{mingw64_bindir}/$DLL" > build_win64/delay_load.def
-    %{mingw64_dlltool} --def build_win64/delay_load.def --kill-at --output-delaylib "build_win64/$OUT_IMPLIB"
-}
-
-mkdir build_win32
-mkdir build_win64
-
-# Generate import libs for delay-loading fontconfig and freetype
-gen_delay_lib libfontconfig-1.dll libfontconfig-delayed.dll.a
-gen_delay_lib libfreetype-6.dll libfreetype-delayed.dll.a
-
-MINGW_CONFIGURE_ARGS=" \
-  ax_cv_c_float_words_bigendian=no \
-  --disable-pthread \
-  --disable-xlib \
-  --disable-xcb \
-  --enable-win32 \
-  --enable-fc \
-  --enable-ft \
-  --enable-png \
-  --enable-static \
-  --enable-gobject \
-  --enable-tee"
-
-# The regular %%mingw_configure macro can't be used here as we need to inject custom
-# environment variables which are different between the win32 and win64 build
-pushd build_win32
-    %mingw32_configure \
-        FONTCONFIG_LIBS="-L`pwd` -lfontconfig-delayed" \
-        FREETYPE_LIBS="-L`pwd` -lfreetype-delayed"
-popd
-
-pushd build_win64
-    %mingw64_configure \
-        FONTCONFIG_LIBS="-L`pwd` -lfontconfig-delayed" \
-        FREETYPE_LIBS="-L`pwd` -lfreetype-delayed"
-popd
-
-%mingw_make_build
+%mingw_meson --default-library both
+%mingw_ninja
 
 
 %install
-%mingw_make_install
-
-rm -f %{buildroot}%{mingw32_libdir}/charset.alias
-rm -f %{buildroot}%{mingw64_libdir}/charset.alias
-
-rm -r %{buildroot}%{mingw32_datadir}/gtk-doc
-rm -r %{buildroot}%{mingw64_datadir}/gtk-doc
-
-# Drop all .la files
-find %{buildroot} -name "*.la" -delete
+%mingw_ninja_install
 
 
 # Win32
@@ -160,18 +104,20 @@ find %{buildroot} -name "*.la" -delete
 %{mingw32_libdir}/libcairo.dll.a
 %{mingw32_libdir}/libcairo-gobject.dll.a
 %{mingw32_libdir}/libcairo-script-interpreter.dll.a
-%{mingw32_libdir}/pkgconfig/cairo-fc.pc
-%{mingw32_libdir}/pkgconfig/cairo-ft.pc
 %{mingw32_libdir}/pkgconfig/cairo-gobject.pc
-%{mingw32_libdir}/pkgconfig/cairo-pdf.pc
-%{mingw32_libdir}/pkgconfig/cairo-png.pc
-%{mingw32_libdir}/pkgconfig/cairo-ps.pc
-%{mingw32_libdir}/pkgconfig/cairo-script.pc
-%{mingw32_libdir}/pkgconfig/cairo-svg.pc
-%{mingw32_libdir}/pkgconfig/cairo-tee.pc
-%{mingw32_libdir}/pkgconfig/cairo-win32-font.pc
-%{mingw32_libdir}/pkgconfig/cairo-win32.pc
+%{mingw32_libdir}/pkgconfig/cairo-fc.pc
 %{mingw32_libdir}/pkgconfig/cairo.pc
+%{mingw32_libdir}/pkgconfig/cairo-pdf.pc
+%{mingw32_libdir}/pkgconfig/cairo-dwrite-font.pc
+%{mingw32_libdir}/pkgconfig/cairo-svg.pc
+%{mingw32_libdir}/pkgconfig/cairo-ps.pc
+%{mingw32_libdir}/pkgconfig/cairo-win32-font.pc
+%{mingw32_libdir}/pkgconfig/cairo-ft.pc
+%{mingw32_libdir}/pkgconfig/cairo-png.pc
+%{mingw32_libdir}/pkgconfig/cairo-script.pc
+%{mingw32_libdir}/pkgconfig/cairo-script-interpreter.pc
+%{mingw32_libdir}/pkgconfig/cairo-win32.pc
+
 
 %files -n mingw32-cairo-static
 %{mingw32_libdir}/libcairo.a
@@ -188,18 +134,19 @@ find %{buildroot} -name "*.la" -delete
 %{mingw64_libdir}/libcairo.dll.a
 %{mingw64_libdir}/libcairo-gobject.dll.a
 %{mingw64_libdir}/libcairo-script-interpreter.dll.a
-%{mingw64_libdir}/pkgconfig/cairo-fc.pc
-%{mingw64_libdir}/pkgconfig/cairo-ft.pc
 %{mingw64_libdir}/pkgconfig/cairo-gobject.pc
-%{mingw64_libdir}/pkgconfig/cairo-pdf.pc
-%{mingw64_libdir}/pkgconfig/cairo-png.pc
-%{mingw64_libdir}/pkgconfig/cairo-ps.pc
-%{mingw64_libdir}/pkgconfig/cairo-script.pc
-%{mingw64_libdir}/pkgconfig/cairo-svg.pc
-%{mingw64_libdir}/pkgconfig/cairo-tee.pc
-%{mingw64_libdir}/pkgconfig/cairo-win32-font.pc
-%{mingw64_libdir}/pkgconfig/cairo-win32.pc
+%{mingw64_libdir}/pkgconfig/cairo-fc.pc
 %{mingw64_libdir}/pkgconfig/cairo.pc
+%{mingw64_libdir}/pkgconfig/cairo-pdf.pc
+%{mingw64_libdir}/pkgconfig/cairo-dwrite-font.pc
+%{mingw64_libdir}/pkgconfig/cairo-svg.pc
+%{mingw64_libdir}/pkgconfig/cairo-ps.pc
+%{mingw64_libdir}/pkgconfig/cairo-win32-font.pc
+%{mingw64_libdir}/pkgconfig/cairo-ft.pc
+%{mingw64_libdir}/pkgconfig/cairo-png.pc
+%{mingw64_libdir}/pkgconfig/cairo-script.pc
+%{mingw64_libdir}/pkgconfig/cairo-script-interpreter.pc
+%{mingw64_libdir}/pkgconfig/cairo-win32.pc
 
 %files -n mingw64-cairo-static
 %{mingw64_libdir}/libcairo.a
@@ -208,6 +155,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Tue Jul 04 2023 Sandro Mani <manisandro@gmail.com> - 1.17.8-1
+- Update to 1.17.8
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name: pew
 Version: 1.2.0
-Release: 17%{?dist}
+Release: 18%{?dist}
 Summary: Tool to manage multiple virtualenvs written in pure Python
 
 License: MIT
@@ -99,6 +99,9 @@ py.test-3 -v tests
 
 
 %changelog
+* Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 1.2.0-18
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

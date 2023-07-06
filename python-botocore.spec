@@ -4,12 +4,16 @@
 Name:           python-%{pypi_name}
 # NOTICE - Updating this package requires updating python-boto3
 Version:        1.29.164
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Low-level, data-driven core of boto 3
 
 License:        Apache-2.0
 URL:            https://github.com/boto/botocore
 Source0:        %{pypi_source}
+
+# Reported upstream: https://github.com/boto/botocore/issues/2979
+Patch:          Fix-test-failures-with-Python-3.12.patch
+
 BuildArch:      noarch
 
 %global _description %{expand:
@@ -62,6 +66,9 @@ rm -vr tests/functional/leak
 %license LICENSE.txt
 
 %changelog
+* Tue Jul 04 2023 Karolina Surma <ksurma@redhat.com> - 1.29.164-2
+- Fix test failures with Python 3.12
+
 * Fri Jun 30 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.29.164-1
 - 1.29.164
 

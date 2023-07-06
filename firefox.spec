@@ -719,7 +719,8 @@ export CCACHE_DISABLE=1
 export GCOV_PREFIX=`pwd -P`/objdir
 export GCOV_PREFIX_STRIP=$(( $(echo `pwd -P`|tr -c -d '/' |wc -c )+2 ))
 env | grep GCOV
-echo "ac_add_options --enable-lto" >> .mozconfig
+# Disabled due to rhbz#2218885
+#echo "ac_add_options --enable-lto" >> .mozconfig
 echo "ac_add_options MOZ_PGO=1" >> .mozconfig
 %endif
 
@@ -735,7 +736,6 @@ cp %{SOURCE45} .
 . ./run-wayland-compositor
 %endif
 
-export MACH_NATIVE_PACKAGE_SOURCE=system
 mkdir -p objdir/_virtualenvs/init_py3
 cat > objdir/_virtualenvs/init_py3/pip.conf << EOF
 [global]
@@ -759,7 +759,7 @@ xvfb-run ./mach build -v 2>&1 | cat - || exit 1
 %install
 # run Firefox test suite
 # Do we need it?
-export MACH_NATIVE_PACKAGE_SOURCE=system
+# export MACH_NATIVE_PACKAGE_SOURCE=system
 %if %{launch_wayland_compositor}
 cp %{SOURCE45} .
 . ./run-wayland-compositor
@@ -1058,6 +1058,7 @@ fi
 %changelog
 * Thu Jun 29 2023 Martin Stransky <stransky@redhat.com>- 115.0-2
 - Update to 115.0
+- Disabled LTO due to rhbz#2218885
 
 * Thu Jun 29 2023 Martin Stransky <stransky@redhat.com>- 114.0.2-3
 - Enable Elf-hack for PGO builds.

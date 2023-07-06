@@ -3,7 +3,7 @@
 
 Name:               python-robosignatory
 Version:            0.8.1
-Release:            1%{?prerelease}%{?dist}
+Release:            2%{?prerelease}%{?dist}
 Summary:            A Fedora Messaging consumer that automatically signs artifacts
 
 License:            GPLv2+
@@ -74,6 +74,9 @@ rm -rf %{modname}.egg-info
 
 
 %changelog
+* Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 0.8.1-2
+- Rebuilt for Python 3.12
+
 * Thu Apr 27 2023 Aurelien Bompard <abompard@fedoraproject.org> - 0.8.1-1
 - Version 0.8.1
 

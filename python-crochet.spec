@@ -10,7 +10,7 @@ from their threaded parts
 
 Name:           python-%{srcname}
 Version:        1.12.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A library that makes it easier to use Twisted from blocking code
 
 # With Python 3.10 test_shutdown leads to timeout. This is just temporary and
@@ -52,7 +52,9 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-twisted
 BuildRequires:  python3-wrapt
-BuildRequires:  python3-zombie-imp
+# crochet/_eventloop.py and crochet/tests/test_api.py imports imp
+BuildRequires:  (python3-zombie-imp if python3 >= 3.12)
+Requires:       (python3-zombie-imp if python3 >= 3.12)
 
 
 %description -n python3-%{srcname}
@@ -90,6 +92,9 @@ rm docs/_build/html/.buildinfo
 
 
 %changelog
+* Tue Jul 04 2023 Miro Hrončok <mhroncok@redhat.com> - 1.12.0-3
+- Also require zombie-imp on runtime
+
 * Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 1.12.0-2
 - Rebuilt for Python 3.12
 

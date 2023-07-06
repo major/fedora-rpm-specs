@@ -17,7 +17,7 @@ https://hdmf.readthedocs.io}
 # number can be read from
 # src/hdmf/common/hdmf-common-schema/common/namespace.yaml, in
 # ['namespaces'][0]['version'].
-%global schema_version 1.7.0
+%global schema_version 1.6.0
 
 Name:           python-hdmf
 Version:        3.6.1
@@ -49,8 +49,9 @@ BuildRequires:  python3dist(tqdm)
 Summary:        %{summary}
 
 # Unbundled
-BuildRequires:  hdmf-common-schema = %{schema_version}
-Requires:       hdmf-common-schema = %{schema_version}
+%global schema_epoch 1
+BuildRequires:  hdmf-common-schema = %{schema_epoch}:%{schema_version}
+Requires:       hdmf-common-schema = %{schema_epoch}:%{schema_version}
 
 %description -n python3-hdmf %{desc}
 

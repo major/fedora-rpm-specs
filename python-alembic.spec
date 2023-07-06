@@ -55,6 +55,8 @@ Summary:          %summary
 rm -rvf docs/_static
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 sed -r -i 's/^([[:blank:]]*(black|zimports))\b/# &/' tox.ini
+# Don't treat DeprecationWarnings as errros in tests
+sed -i '/"error", category=DeprecationWarning/d' alembic/testing/warnings.py
 
 
 %generate_buildrequires

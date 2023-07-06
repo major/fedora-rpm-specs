@@ -4,12 +4,12 @@ Name:           classpathless-compiler
 Version:        2.2
 Release:        1%{?dist}
 Summary:        Tool for recompiling java sources with customizable class providers
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/mkoncek/classpathless-compiler
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-Source0:        https://github.com/mkoncek/classpathless-compiler/archive/refs/tags/%{version}.tar.gz
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  javapackages-extra
 BuildRequires:  maven-local
@@ -36,7 +36,7 @@ Javadoc for %{name}.
 %prep
 %setup -q -n classpathless-compiler-%{version}
 
-%java_remove_annotations -n SuppressFBWarnings
+%java_remove_annotations . -n SuppressFBWarnings
 
 %pom_remove_dep :spotbugs-annotations
 
@@ -65,8 +65,8 @@ Javadoc for %{name}.
 %license LICENSE
 
 %changelog
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2
-- bumped to 2.2 
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-1
+- bumped to 2.2
 
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild

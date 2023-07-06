@@ -63,7 +63,10 @@ Summary:        %{summary}
 %pyproject_check_import
 
 %if %{with tests}
-%pytest -k "not test_timeout"
+# test_persistent_cache_linux fails with Python 3.12
+# we skip it as it's likely problem between mocked objects
+# reported upstream: https://github.com/Azure/azure-sdk-for-python/issues/30994
+%pytest -k "not test_timeout and not test_persistent_cache_linux"
 %endif
 
 

@@ -49,10 +49,11 @@ Release: 3%{?dist}
 License: GPLv2
 URL: https://sourceware.org/lvm2/
 Source0: https://sourceware.org/pub/lvm2/releases/LVM2.%{version}.tgz
-# https://bugzilla.redhat.com/show_bug.cgi?id=2180557
-# https://github.com/lvmteam/lvm2/pull/114
-# Fix an invalid import which breaks lvm2-lvmdbusd.service and thus anaconda
-#Patch1: 0001-
+# update py-compile script to a modern version that works with Python
+# 3.12. byte compiling during install isn't even necessary on Fedora,
+# but fixing it is easier than dropping it
+# https://github.com/lvmteam/lvm2/pull/121
+Patch0: 0001-Update-the-py-compile-script-works-with-Python-3.12.patch
 
 BuildRequires: make
 BuildRequires: gcc
