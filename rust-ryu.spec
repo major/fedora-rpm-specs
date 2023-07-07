@@ -5,7 +5,7 @@
 %global crate ryu
 
 Name:           rust-ryu
-Version:        1.0.13
+Version:        1.0.14
 Release:        %autorelease
 Summary:        Fast floating point to string conversion
 

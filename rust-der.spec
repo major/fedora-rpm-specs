@@ -5,7 +5,7 @@
 %global crate der
 
 Name:           rust-der
-Version:        0.7.6
+Version:        0.7.7
 Release:        %autorelease
 Summary:        Pure Rust embedded-friendly implementation of DER for ASN.1
 

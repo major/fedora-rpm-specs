@@ -26,6 +26,8 @@ License:        MIT
 URL:            %{gourl}
 Source0:        %{gosource}
 
+# RHEL builds with vendored dependencies
+%if %{undefined rhel}
 # This dependencies are only in use in x86_64
 %ifarch x86_64
 BuildRequires:  golang(github.com/cilium/ebpf)
@@ -51,6 +53,7 @@ BuildRequires:  golang(gopkg.in/yaml.v2)
 BuildRequires:  golang(go.starlark.net/resolve)
 BuildRequires:  golang(go.starlark.net/starlark)
 BuildRequires:  golang(go.starlark.net/syntax)
+%endif
 BuildRequires:  lsof
 BuildRequires:  git
 
@@ -59,10 +62,16 @@ BuildRequires:  git
 
 %prep
 echo "=== Start prep ==="
+%if %{defined rhel}
+%goprep -k
+# unpack vendored dependencies to GOPATH
+tar c -C vendor/ . | tar x -C %{gobuilddir}/src
+%else
 %goprep
 
 %generate_buildrequires
 %go_generate_buildrequires
+%endif
 
 %build
 echo "=== Start build ==="
@@ -77,7 +86,7 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %if %{with check}
 %check
 export GO111MODULE=off
-export GOPATH=%{buildroot}/%{gopath}:%{gopath}
+export GOPATH=%{buildroot}/%{gopath}:%{gobuilddir}:%{gopath}
 delvepath=%{buildroot}/%{gopath}/src/%{goipath}
 cp -r _fixtures $delvepath
 cp -r pkg/dwarf/line/_testdata $delvepath/pkg/dwarf/line
@@ -92,7 +101,7 @@ popd
 %endif
 
 %files
-%license LICENSE
+%license LICENSE %{?rhel:vendor/modules.txt}
 %doc CONTRIBUTING.md CHANGELOG.md
 %doc Documentation/*
 %{_bindir}/dlv

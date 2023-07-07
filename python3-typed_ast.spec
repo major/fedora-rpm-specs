@@ -1,8 +1,8 @@
 %global modname typed_ast
 
 Name:               python3-%{modname}
-Version:            1.5.4
-Release:            6%{?dist}
+Version:            1.5.5
+Release:            1%{?dist}
 Summary:            A fork of the ast module with type annotations
 
 License:            Apache-2.0 
@@ -41,6 +41,9 @@ as supported in Python 3.6.
 %{python3_sitearch}/%{modname}-*.egg-info
 
 %changelog
+* Wed Jul 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.5.5-1
+- 1.5.5
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.5.4-6
 - Rebuilt for Python 3.12
 

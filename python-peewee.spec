@@ -7,7 +7,7 @@
 
 Name:           python-peewee
 Version:        3.16.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A simple and small ORM
 
 License:        MIT
@@ -107,6 +107,9 @@ psql -c "CREATE EXTENSION hstore" peewee_test
 
 
 %changelog
+* Thu Jul 06 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 3.16.2-2
+- Rebuilt for Python 3.12 (fix RHBZ#2220402)
+
 * Tue Jun 27 2023 Viliam Krizan <vkrizan@redhat.com> - 3.16.2-1
 - Update to 3.16.2 (#2187944)
 

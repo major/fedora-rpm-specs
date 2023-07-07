@@ -65,12 +65,12 @@
 %bcond_without   lmdb
 
 %global upver        8.2.8
-%global rcver        RC1
+#global rcver        RC1
 
 Summary: PHP scripting language for creating dynamic web sites
 Name: php
 Version: %{upver}%{?rcver:~%{rcver}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
 # TSRM is licensed under BSD
@@ -1225,8 +1225,8 @@ mv $RPM_BUILD_ROOT%{_sysconfdir}/php-fpm.d/www.conf.default .
 # install systemd unit files and scripts for handling server startup
 install -m 755 -d $RPM_BUILD_ROOT%{_sysconfdir}/systemd/system/php-fpm.service.d
 install -Dm 644 %{SOURCE6}  $RPM_BUILD_ROOT%{_unitdir}/php-fpm.service
-install -Dm 644 %{SOURCE12} $RPM_BUILD_ROOT%{_unitdir}/httpd.service.d/php-fpm.conf
-install -Dm 644 %{SOURCE12} $RPM_BUILD_ROOT%{_unitdir}/nginx.service.d/php-fpm.conf
+install -Dm 644 %{SOURCE12} $RPM_BUILD_ROOT%{_sysconfdir}/systemd/system/httpd.service.d/php-fpm.conf
+install -Dm 644 %{SOURCE12} $RPM_BUILD_ROOT%{_sysconfdir}/systemd/system/nginx.service.d/php-fpm.conf
 # LogRotate
 install -m 755 -d $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d
 install -m 644 %{SOURCE7} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/php-fpm
@@ -1463,8 +1463,8 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 %config(noreplace) %{_sysconfdir}/nginx/conf.d/php-fpm.conf
 %config(noreplace) %{_sysconfdir}/nginx/default.d/php.conf
 %{_unitdir}/php-fpm.service
-%{_unitdir}/httpd.service.d/php-fpm.conf
-%{_unitdir}/nginx.service.d/php-fpm.conf
+%config(noreplace) %{_sysconfdir}/systemd/system/httpd.service.d/php-fpm.conf
+%config(noreplace) %{_sysconfdir}/systemd/system/nginx.service.d/php-fpm.conf
 %{_sbindir}/php-fpm
 %dir %{_sysconfdir}/systemd/system/php-fpm.service.d
 %dir %{_sysconfdir}/php-fpm.d
@@ -1540,6 +1540,12 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Wed Jul  5 2023 Remi Collet <remi@remirepo.net> - 8.2.8-2
+- move httpd/nginx wants directive to config files in /etc
+
+* Wed Jul  5 2023 Remi Collet <remi@remirepo.net> - 8.2.8-1
+- Update to 8.2.8 - http://www.php.net/releases/8_2_8.php
+
 * Tue Jun 20 2023 Remi Collet <remi@remirepo.net> - 8.2.8~RC1-1
 - update to 8.2.8RC1
 

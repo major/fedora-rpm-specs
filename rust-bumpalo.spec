@@ -16,7 +16,6 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop tests and benchmarks that are not included in published crates
 # * drop unused, benchmark-only criterion dev-dependency to speed up builds
-# * drop nightly-only features for allocator_api support
 Patch:          bumpalo-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
@@ -52,6 +51,30 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+allocator-api2-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+allocator-api2-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "allocator-api2" feature of the "%{crate}" crate.
+
+%files       -n %{name}+allocator-api2-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+allocator_api-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+allocator_api-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "allocator_api" feature of the "%{crate}" crate.
+
+%files       -n %{name}+allocator_api-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+boxed-devel

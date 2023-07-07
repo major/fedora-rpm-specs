@@ -5,7 +5,7 @@
 %global crate rustls-pemfile
 
 Name:           rust-rustls-pemfile
-Version:        1.0.2
+Version:        1.0.3
 Release:        %autorelease
 Summary:        Basic .pem file parser for keys and certificates
 

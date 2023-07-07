@@ -53,6 +53,7 @@ BuildRequires: protobuf-devel protobuf-c-devel %{py_prefix}-devel libnl3-devel l
 %if 0%{?fedora} || 0%{?rhel} > 7
 BuildRequires: %{py_prefix}-pip
 BuildRequires: %{py_prefix}-setuptools
+BuildRequires: %{py_prefix}-wheel
 BuildRequires: asciidoctor
 BuildRequires: perl-interpreter
 BuildRequires: libselinux-devel
@@ -209,7 +210,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libcriu.a
 
 %files -n crit
 %{_bindir}/crit
-%{python3_sitelib}/crit-%{version}*egg-info
+%{python3_sitelib}/crit-%{version}.dist-info/
 %doc %{_mandir}/man1/crit.1*
 
 %files -n criu-ns

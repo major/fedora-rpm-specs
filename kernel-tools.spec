@@ -4,14 +4,14 @@
 # For a stable, released kernel, released_kernel should be 1. For rawhide
 # and/or a kernel built from an rc or git snapshot, released_kernel should
 # be 0.
-%global released_kernel 0
+%global released_kernel 1
 %global baserelease 1
 %global fedora_build %{baserelease}
 
 # base_sublevel is the kernel version we're starting with and patching
 # on top of -- for example, 3.1-rc7-git1 starts with a 3.0 base,
 # which yields a base_sublevel of 0.
-%global base_sublevel 3
+%global base_sublevel 4
 
 %global base_major 6
 
@@ -34,7 +34,7 @@
 %global upstream_major 6
 
 # The rc snapshot level
-%global rcrev 7
+%global rcrev 0
 # Set rpm version accordingly
 %global rpmversion %{upstream_major}.%{upstream_sublevel}.0
 %endif
@@ -76,8 +76,6 @@ BuildRequires: openssl-devel libbabeltrace-devel
 BuildRequires: libtracefs-devel libtraceevent-devel
 BuildRequires: libbpf-devel
 BuildRequires: clang llvm
-# Used to mangle unversioned shebangs to be Python 3
-BuildRequires: /usr/bin/pathfix.py
 %ifnarch s390x %{arm}
 BuildRequires: numactl-devel
 %endif
@@ -230,15 +228,11 @@ cd linux-%{kversion}
     xzcat %{SOURCE5000} | patch -p1 -F1 -s
 %endif
 
-%patch1 -p1
+%patch 1 -p1
 
 # END OF PATCH APPLICATIONS
 
-# Mangle /usr/bin/python shebangs to /usr/bin/python3
-# -p preserves timestamps
-# -n prevents creating ~backup files
-# -i specifies the interpreter for the shebang
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" tools/ tools/perf/scripts/python/*.py scripts/clang-tools
+%py3_shebang_fix tools/ tools/perf/scripts/python/*.py scripts/clang-tools
 
 ###
 ### build
@@ -596,6 +590,9 @@ popd
 %{_mandir}/man1/rv.1.gz
 
 %changelog
+* Mon Jun 26 2023 Justin M. Forbes <jforbes@fedoraproject.org> - 6.4.0-1
+- Linux v6.4
+
 * Tue Jun 20 2023 Justin M. Forbes <jforbes@fedoraproject.org> - 6.4.0-0.rc7.git0.1
 - Linux v6.4-rc7
 

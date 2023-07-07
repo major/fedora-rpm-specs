@@ -1252,6 +1252,10 @@ fi
 %endif
 
 %changelog
+* Tue Jul  4 2023 Andrew Burgess <aburgess@redhat.com>
+- Remove gdb-test-pid0-core.patch.  This work has been upstreamed in
+  commit 8bcead69665.
+
 * Sat Jul  1 2023 Mark Wielaard <mjw@fedoraproject.org> - 13.2-4
 - Adjust gdb-add-index.patch to be silent about which gdb.
 

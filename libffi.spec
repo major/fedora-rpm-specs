@@ -4,7 +4,7 @@
 
 Name:		libffi
 Version:	3.4.4
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A portable foreign function interface library
 License:	MIT
 URL:		http://sourceware.org/libffi
@@ -65,7 +65,7 @@ developing applications that use %{name}.
 # https://gitlab.haskell.org/ghc/ghc/-/issues/20051
 # https://gitlab.gnome.org/GNOME/gobject-introspection/-/merge_requests/283
 # We need to get these fixes into Fedora before we can reeanble them.
-%configure --disable-static --disable-exec-static-tramp
+%configure --disable-static
 %make_build
 
 %check
@@ -113,6 +113,9 @@ install -m644 %{SOURCE2} $RPM_BUILD_ROOT%{_includedir}/ffitarget.h
 %{_infodir}/libffi.info.*
 
 %changelog
+* Tue May 02 2023 DJ Delorie <dj@redhat.com> - 3.4.4-3
+- Enable static trampolines
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

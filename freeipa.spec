@@ -213,7 +213,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        1%{?rc_version:.%rc_version}%{?dist}.1
+Release:        1%{?rc_version:.%rc_version}%{?dist}.2
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -225,6 +225,9 @@ Source1:        https://releases.pagure.org/freeipa/freeipa-%{version}%{?rc_vers
 %endif
 
 Patch0:         0001-Revert-cert_find-fix-call-with-all.patch
+
+# Downstream hotfix, reported in https://pagure.io/freeipa/issue/9409
+Patch1:         0001-Use-ssl.match_hostname-from-urllib3-as-it-was-remove.patch
 
 # RHEL spec file only: START: Change branding to IPA and Identity Management
 # Moved branding logos and background to redhat-logos-ipa-80.4:
@@ -864,6 +867,7 @@ Requires: python3-qrcode-core >= 5.0.0
 Requires: python3-requests
 Requires: python3-six
 Requires: python3-sss-murmur
+Requires: python3-urllib3
 Requires: python3-yubico >= 1.3.2-7
 %if 0%{?rhel} && 0%{?rhel} == 8
 Requires: platform-python-setuptools
@@ -1742,6 +1746,9 @@ fi
 %endif
 
 %changelog
+* Wed Jul 05 2023 Miro Hrončok <mhroncok@redhat.com> - 4.10.2-1.2
+- Use ssl.match_hostname from urllib3 as it was removed from Python 3.12
+
 * Tue Jun 27 2023 Python Maint <python-maint@redhat.com> - 4.10.2-1.1
 - Rebuilt for Python 3.12
 

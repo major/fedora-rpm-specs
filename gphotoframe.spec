@@ -14,7 +14,7 @@
 %global	mainver	2.0.2
 #%%define	minorver	-b1
 
-%global	baserelease	18
+%global	baserelease	19
 
 %global	rpmminorver	%(echo "%minorver" | sed -e 's|^-||' | sed -e 's|\\\.||')
 %global	fedorarel	%{?minorver:0.}%{baserelease}%{?minorver:.%rpmminorver}%{?hghash:.hg%hghash}
@@ -77,6 +77,8 @@ Patch106:	gphotoframe-2.0.2-plugin-bunch-fix-py3x-02.patch
 Patch107:	gphotoframe-2.0.2-fix-double-click-at-startup.patch
 # Borrow python-twisted 21.7 HTTPDownloader for now
 Patch108:	gphotoframe-twisted-2107-HTTPDownloader.patch
+# Port to setuptools: PEP632
+Patch109:	gphotoframe-2.0.2-pep632-distutils-port.patch
 Provides:	bundle(python3-twisted) = 21.7
 
 BuildRequires:	GConf2
@@ -89,6 +91,7 @@ BuildRequires:	python3-distutils-extra
 #BuildRequires:	python3-exif
 # From 1.2-b6: setup.py needs this
 BuildRequires:	python3-pyxdg
+BuildRequires:	python3-setuptools
 # Documents
 BuildRequires:	%{_bindir}/xsltproc
 BuildRequires:	%{_bindir}/xml2po
@@ -191,6 +194,7 @@ grep -rlZ "/usr/bin/python$" . | xargs --null sed -i -e 's|/usr/bin/python$|/usr
 %patch -P106 -p1 -b .py3_config -Z
 %patch -P107 -p1 -b .open_startup -Z
 %patch -P108 -p1
+%patch -P109 -p1
 
 %build
 # Do nothing
@@ -317,6 +321,10 @@ find %{buildroot}%{_prefix} -name \*.py3 -delete
 %endif
 
 %changelog
+* Wed Jul 05 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.0.2-19.hg2084299dffb6
+- Rebuild for python 3.12
+- Port to setuptools: PEP632
+
 * Sun May 07 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.0.2-18.hg2084299dffb6
 - Use webkit2gtk-4.1 for F-39+
   https://fedoraproject.org/wiki/Changes/Remove_webkit2gtk-4.0_API_Version

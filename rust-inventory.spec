@@ -5,7 +5,7 @@
 %global crate inventory
 
 Name:           rust-inventory
-Version:        0.3.6
+Version:        0.3.8
 Release:        %autorelease
 Summary:        Typed distributed plugin registration
 

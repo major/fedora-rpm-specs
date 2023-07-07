@@ -42,7 +42,7 @@ mv THANKS.aux THANKS
 
 %build
 # disable FMA
-%ifarch aarch64 ppc64 ppc64le s390 s390x
+%ifarch aarch64 ppc64 ppc64le s390 s390x x86_64
 export CFLAGS="%{optflags} -ffp-contract=off"
 %endif
 %configure

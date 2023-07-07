@@ -6,7 +6,7 @@
 %global crate fastrand
 
 Name:           rust-fastrand
-Version:        1.9.0
+Version:        2.0.0
 Release:        %autorelease
 Summary:        Simple and fast random number generator
 
@@ -15,6 +15,9 @@ URL:            https://crates.io/crates/fastrand
 Source:         %{crates_source}
 # Automatically generated patch to strip foreign dependencies
 Patch:          fastrand-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+# * remove WASM-specific "js" feature
+Patch:          fastrand-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
@@ -49,6 +52,30 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+alloc-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+alloc-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "alloc" feature of the "%{crate}" crate.
+
+%files       -n %{name}+alloc-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+std-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+std-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "std" feature of the "%{crate}" crate.
+
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

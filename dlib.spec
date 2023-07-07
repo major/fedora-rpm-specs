@@ -1,21 +1,19 @@
-%global	majorver 24
-
-%global commit 65bce59a1512cf222dec01d3e0f29b612dd181f5
-%global commitdate 20220905
-%global shortcommit  %(c=%{commit}; echo ${c:0:9})
+#   %%global commit 65bce59a1512cf222dec01d3e0f29b612dd181f5
+#   %%global commitdate 20220905
+#   %%global shortcommit  %%(c=%%{commit}; echo ${c:0:9})
 
 Name:		dlib
-Version:	19.%{majorver}
-Release:	%autorelease -s %{commitdate}git%{shortcommit}
+Version:	19.24.2
+Release:	%autorelease %{?shortcommit:-s %{commitdate}git%{shortcommit}}
 Summary:	A modern C++ toolkit containing machine learning algorithms
 
 License:	Boost
 URL:		http://dlib.net
 %{!?shortcommit:
-Source:	http://dlib.net/files/%{name}-%{version}.tar.bz2
+Source:	https://github.com/davisking/%{name}/archive/v%{version}/%{name}-v%{version}.tar.gz
 }
 %{?shortcommit:
-Source:		http://github.com/davisking/%{name}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+Source:		https://github.com/davisking/%{name}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 }
 
 BuildRequires:	boost-devel

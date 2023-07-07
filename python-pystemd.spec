@@ -6,12 +6,13 @@
 
 Name:           python-%{pypi_name}
 Version:        0.13.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A thin Cython-based wrapper on top of libsystemd
 
 License:        LGPL-2.1-or-later
 URL:            https://github.com/systemd/pystemd
 Source0:        %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
+Patch0:         %{url}/pull/87.patch#/pystemd-fix_deprecation_warning.diff
 
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(libsystemd)
@@ -48,8 +49,9 @@ and then parsing the output to know the result.
 
 %install
 %py3_install
-# remove installed source files
-rm %{buildroot}%{python3_sitearch}/%{pypi_name}/*.c
+# remove installed source files if present
+# seems to vary based on dependency versions (EPEL 9 does not install these)
+rm -f %{buildroot}%{python3_sitearch}/%{pypi_name}/*.c
 
 %check
 # This test fails in mock because systemd isn't running
@@ -71,6 +73,9 @@ popd
 %{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Jul 05 2023 Michel Alexandre Salim <salimma@fedoraproject.org> - 0.13.2-5
+- Fix deprecation warning and EL builds
+
 * Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 0.13.2-4
 - Rebuilt for Python 3.12
 

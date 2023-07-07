@@ -1,8 +1,8 @@
 %{!?python3_includedir: %global python3_includedir %(%{__python3} -c "from distutils.sysconfig import get_python_inc; print(get_python_inc())")}
 Name:       python-igraph
-Version:    0.10.4
+Version:    0.10.5
 %global igraph_version 0.9
-Release:    3%{?dist}
+Release:    1%{?dist}
 Summary:    Python bindings for igraph
 
 License:    GPL-2.0-or-later
@@ -68,6 +68,9 @@ documentation needed to develop application with %{name}.
 %{python3_includedir}/igraph
 
 %changelog
+* Wed Jul 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.10.5-1
+- 0.10.5
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.10.4-3
 - Rebuilt for Python 3.12
 

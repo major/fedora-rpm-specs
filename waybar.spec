@@ -1,6 +1,6 @@
 Name:           waybar
-Version:        0.9.18
-Release:        2%{?dist}
+Version:        0.9.19
+Release:        1%{?dist}
 Summary:        Highly customizable Wayland bar for Sway and Wlroots based compositors
 # Source files/overall project licensed as MIT, but
 # - BSL-1.0
@@ -43,6 +43,7 @@ BuildRequires:  pkgconfig(libudev)
 BuildRequires:  pkgconfig(playerctl)
 BuildRequires:  pkgconfig(sigc++-2.0)
 BuildRequires:  pkgconfig(spdlog) >= 1.10.0
+BuildRequires:  pkgconfig(systemd)
 BuildRequires:  pkgconfig(upower-glib)
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-cursor)
@@ -89,6 +90,9 @@ Recommends:     (font(fontawesome6free) or font(fontawesome5free))
 %{_userunitdir}/%{name}.service
 
 %changelog
+* Tue Jul 04 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.9.19-1
+- Update to 0.9.19
+
 * Wed Jun 28 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.9.18-2
 - Rebuilt due to fmt 10 update.
 

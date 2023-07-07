@@ -1,7 +1,7 @@
-%bcond_without cpp_tests
+%bcond cpp_tests 1
 # Disabled for now because protobuf-devel does not provide CMake files
-%bcond_with cpp_grpc_test
-%bcond_without py_tests
+%bcond cpp_grpc_test 0
+%bcond py_tests 1
 
 # Doxygen HTML help is not suitable for packaging due to a minified JavaScript
 # bundle inserted by Doxygen itself. See discussion at
@@ -12,12 +12,12 @@
 %bcond_with doc_pdf
 
 Name:           flatbuffers
-Version:        23.3.3
+Version:        23.5.26
 # The .so version is equal to the project version since upstream offers no ABI
 # stability guarantees. We manually repeat it here and and use the macro in the
 # file lists as a reminder to avoid undetected .so version bumps. See
 # https://github.com/google/flatbuffers/issues/7759.
-%global so_version 23.3.3
+%global so_version 23.5.26
 Release:        %autorelease
 Summary:        FlatBuffers: Memory Efficient Serialization Library
 
@@ -31,10 +31,6 @@ URL:            https://google.github.io/flatbuffers
 Source0:        %{forgeurl}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Hand-written for Fedora in groff_man(7) format based on --help output
 Source1:        flatc.1
-
-# Fix help output for --java-checkerframework
-# https://github.com/google/flatbuffers/pull/7854
-Patch:          https://github.com/google/flatbuffers/pull/7854.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -252,7 +248,7 @@ cp -p %SOURCE1 %{buildroot}%{_mandir}/man1/flatc.1
 %license LICENSE
 %doc CHANGELOG.md
 %doc SECURITY.md
-%doc readme.md
+%doc README.md
 
 %if %{with doc_pdf}
 %doc docs/latex/refman.pdf

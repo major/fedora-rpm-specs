@@ -3,8 +3,8 @@
 
 Name:           python-%{pypi_name}
 # NOTICE - Updating this package requires updating python-boto3
-Version:        1.29.164
-Release:        2%{?dist}
+Version:        1.30.1
+Release:        1%{?dist}
 Summary:        Low-level, data-driven core of boto 3
 
 License:        Apache-2.0
@@ -29,6 +29,7 @@ BuildRequires:  python3-devel
 # For tests:
 BuildRequires:  python3-jsonschema
 BuildRequires:  python3-pytest
+BuildRequires:  python3-pytest-xdist
 %endif
 Provides:       bundled(python3-six) = 1.16.0
 Provides:       bundled(python3-requests) = 2.7.0
@@ -66,6 +67,9 @@ rm -vr tests/functional/leak
 %license LICENSE.txt
 
 %changelog
+* Wed Jul 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.30.1-1
+- 1.30.1
+
 * Tue Jul 04 2023 Karolina Surma <ksurma@redhat.com> - 1.29.164-2
 - Fix test failures with Python 3.12
 

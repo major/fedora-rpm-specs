@@ -1,8 +1,8 @@
-%global pypi_name git-up
+%global pypi_name git_up
 
-Name:           %{pypi_name}
-Version:        2.1.0
-Release:        3%{?dist}
+Name:           git-up
+Version:        2.2.0
+Release:        1%{?dist}
 Summary:        A more friendly "git pull" in Python
 
 License:        MIT
@@ -49,6 +49,9 @@ fi
 %exclude %{python3_sitelib}/PyGitUp/tests
 
 %changelog
+* Wed Jul 05 2023 Ewoud Kohl van Wijngaarden <ewoud@kohlvanwijngaarden.nl> - 2.2.0-1
+- Update to 2.2.0 which fixes rhbz#2211331
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

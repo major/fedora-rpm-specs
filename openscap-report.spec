@@ -1,7 +1,7 @@
 %global pymodule_name openscap_report
 
 Name:           openscap-report
-Version:        0.2.3
+Version:        0.2.4
 Release:        2%{?dist}
 Summary:        A tool for generating human-readable reports from (SCAP) XCCDF and ARF results
 
@@ -19,8 +19,8 @@ BuildRequires:  python3-sphinx_rtd_theme
 Provides:       bundled(patternfly) = 4
 
 Requires:       python3-lxml
-Requires:       redhat-display-fonts
-Requires:       redhat-text-fonts
+Recommends:     redhat-display-fonts
+Recommends:     redhat-text-fonts
 
 %global _description %{expand:
 This package provides a command-line tool for generating
@@ -60,6 +60,42 @@ install -m 0644 -Dt %{buildroot}%{_mandir}/man1 _build_docs/oscap-report.1
 
 
 %changelog
+* Wed Jul 05 2023 Python Maint <python-maint@redhat.com> - 0.2.4-2
+- Rebuilt for Python 3.12
+
+* Wed Jul 05 2023 Packit <hello@packit.dev> - 0.2.4-1
+- 0.2.4 (Jan Rodak)
+- Rename field Result explained to Class explained (Jan Rodak)
+- Add button back to top (Jan Rodak)
+- Generate tooltip when hover the mouse over the OVAL operator (Jan Rodak)
+- Fix persistance of checkboxes after refresh browser (Jan Rodak)
+- Add functionality to buttons (Jan Rodak)
+- Add buttons (Jan Rodak)
+- Set logging severity from warning to info for missing fonts problem (Jan Rodak)
+- Change fonts to week dependency (Jan Rodak)
+- Disable scrollbar (Jan Rodak)
+- Show tooltip for NOT (Jan Rodak)
+- Add explanations (Jan Rodak)
+- Generate tooltip (Jan Rodak)
+- Set tooltip position for OVAL and CPE AL operators (Jan Rodak)
+- Add new tooltip when user click on copy to clipboard (Jan Rodak)
+- Rename tooltip class (Jan Rodak)
+- Add new lines on end of file (Jan Rodak)
+- Update eslint config (Jan Rodak)
+- Implement clear button for search bar (Jan Rodak)
+- Change title (Jan Rodak)
+- Use the same title for the page title and report title (Jan Rodak)
+- Using span element instead of link element when href is not available (Jan Rodak)
+- Add non-breaking space (Jan Rodak)
+- Add missing package (Jan Rodak)
+- Update modules docs (Jan Rodak)
+- Add documentation on how to run the test suite (Jan Rodak)
+- Add usage from source (Jan Rodak)
+- Add installation from source and PyPi (Jan Rodak)
+- Update README (Jan Rodak)
+- Sync generate_arf.sh (Jan Rodak)
+- Remove execution of integration test on push to main (Jan Rodak)
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.2.3-2
 - Rebuilt for Python 3.12
 

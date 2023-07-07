@@ -4,12 +4,12 @@
 # NOTE(mhayden): The package is awscli, but the source is aws-cli.
 %global         source_name     aws-cli
 %global         forgeurl        https://github.com/aws/aws-cli/
-Version:        1.27.164
+Version:        1.28.1
 %global         tag             %{version}
 %forgemeta
 
 Name:           awscli
-Release:        2%{?dist}
+Release:        1%{?dist}
 
 Summary:        Universal Command Line Environment for AWS
 
@@ -98,6 +98,9 @@ install -Dpm0644 bin/aws_zsh_completer.sh \
 %{_datadir}/zsh/site-functions/_awscli
 
 %changelog
+* Wed Jul 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.28.1-1
+- 1.28.1
+
 * Tue Jul 04 2023 Python Maint <python-maint@redhat.com> - 1.27.164-2
 - Rebuilt for Python 3.12
 

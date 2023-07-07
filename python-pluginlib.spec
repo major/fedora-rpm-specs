@@ -5,35 +5,15 @@ Pluginlib makes creating plugins for your project simple.
 
 %bcond_without python3
 
-# Drop Python 2 with Fedora 30 and EL8
-%if (0%{?fedora} && 0%{?fedora} < 30) || (0%{?rhel} && 0%{?rhel} < 8)
-  %bcond_without python2
-%else
-  %bcond_with python2
-%endif
-
-
 Name:           python-%{pypi_name}
-Version:        0.9.0
-Release:        5%{?dist}
+Version:        0.9.1
+Release:        1%{?dist}
 Summary:        %{sum}
 
 License:        MPLv2.0
 URL:            https://github.com/Rockhopper-Technologies/pluginlib
 Source0:        https://files.pythonhosted.org/packages/source/p/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
-
-%if %{with python2}
-BuildRequires:  python2-devel
-BuildRequires:  python2-setuptools
-BuildRequires:  python2-mock
-
-# Additional build requirements for Python 2.6
-%if 0%{?el6}
-BuildRequires:  python-unittest2
-BuildRequires:  python-importlib
-%endif
-%endif
 
 %if %{with python3}
 BuildRequires:  python%{python3_pkgversion}-devel
@@ -47,23 +27,6 @@ BuildRequires:  python%{python3_other_pkgversion}-setuptools
 
 %description
 %{desc}
-
-
-# Python 2 package
-%if %{with python2}
-%package -n     python2-%{pypi_name}
-
-Summary:        %{sum}
-%{?python_provide:%python_provide python2-%{pypi_name}}
-Requires:       python2-setuptools
-
-%if 0%{?el6}
-Requires:  python-importlib
-%endif
-
-%description -n python2-%{pypi_name}
-%{desc}
-%endif
 
 # Python 3 package
 %if %{with python3}
@@ -96,10 +59,6 @@ rm -rf %{pypi_name}.egg-info
 
 
 %build
-%if %{with python2}
-%py2_build
-%endif
-
 %if %{with python3}
 %py3_build
 %endif
@@ -118,30 +77,13 @@ rm -rf %{pypi_name}.egg-info
 %py3_install
 %endif
 
-%if %{with python2}
-%py2_install
-%endif
-
-
 %check
-%if %{with python2}
-%{__python2} setup.py test
-%endif
-
 %if %{with python3}
-%{__python3} setup.py test
+%{__python3} -m unittest
 %endif
 
 %if 0%{?with_python3_other}
-%{__python3_other} setup.py test
-%endif
-
-
-%if %{with python2}
-%files -n python2-%{pypi_name}
-%doc README*
-%license LICENSE
-%{python2_sitelib}/pluginlib*
+%{__python3_other} -m unittest
 %endif
 
 %if %{with python3}
@@ -159,6 +101,10 @@ rm -rf %{pypi_name}.egg-info
 %endif
 
 %changelog
+* Wed Jul 05 2023 Avram Lubkin <aviso@rockhopper.net> - 0.9.1-1
+- Update to 0.9.1 (#2214432)
+- Drop Python 2 from spec
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.9.0-5
 - Rebuilt for Python 3.12
 

@@ -24,7 +24,7 @@
 Summary: Apache HTTP Server
 Name: httpd
 Version: 2.4.57
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://httpd.apache.org/
 Source0: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2
 Source1: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2.asc
@@ -243,31 +243,31 @@ written in the Lua programming language.
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q
-%patch2 -p1 -b .apxs
-%patch3 -p1 -b .deplibs
+%patch -P2 -p1 -b .apxs
+%patch -P3 -p1 -b .deplibs
 
-%patch19 -p1 -b .detectsystemd
+%patch -P19 -p1 -b .detectsystemd
 
-%patch21 -p1 -b .r1842929+
-%patch22 -p1 -b .mod_systemd
-%patch23 -p1 -b .export
-%patch24 -p1 -b .corelimit
-%patch26 -p1 -b .gettid
-%patch27 -p1 -b .icons
-%patch30 -p1 -b .cachehardmax
-%patch34 -p1 -b .socketactivation
-%patch38 -p1 -b .sslciphdefault
-%patch39 -p1 -b .sslprotdefault
-%patch41 -p1 -b .r1861793+
-%patch42 -p1 -b .r1828172+
-%patch45 -p1 -b .logjournal
-%patch46 -p1 -b .separatesystemd
-%patch25 -p1 -b .selinux
+%patch -P21 -p1 -b .r1842929+
+%patch -P22 -p1 -b .mod_systemd
+%patch -P23 -p1 -b .export
+%patch -P24 -p1 -b .corelimit
+%patch -P26 -p1 -b .gettid
+%patch -P27 -p1 -b .icons
+%patch -P30 -p1 -b .cachehardmax
+%patch -P34 -p1 -b .socketactivation
+%patch -P38 -p1 -b .sslciphdefault
+%patch -P39 -p1 -b .sslprotdefault
+%patch -P41 -p1 -b .r1861793+
+%patch -P42 -p1 -b .r1828172+
+%patch -P45 -p1 -b .logjournal
+%patch -P46 -p1 -b .separatesystemd
+%patch -P25 -p1 -b .selinux
 
-%patch60 -p1 -b .enable-sslv3
-%patch61 -p1 -b .r1878890
-%patch63 -p1 -b .htcacheclean-dont-break
-%patch65 -p1 -b .r1894152
+%patch -P60 -p1 -b .enable-sslv3
+%patch -P61 -p1 -b .r1878890
+%patch -P63 -p1 -b .htcacheclean-dont-break
+%patch -P65 -p1 -b .r1894152
 
 # Patch in the vendor string
 sed -i '/^#define PLATFORM/s/Unix/%{vstring}/' os/unix/os.h
@@ -432,8 +432,9 @@ touch -r $RPM_SOURCE_DIR/00-mpm.conf \
 # install systemd override drop directory
 # Web application packages can drop snippets into this location if
 # they need ExecStart[pre|post].
-mkdir $RPM_BUILD_ROOT%{_unitdir}/httpd.service.d
-mkdir $RPM_BUILD_ROOT%{_unitdir}/httpd.socket.d
+mkdir $RPM_BUILD_ROOT%{_unitdir}/httpd.service.d \
+      $RPM_BUILD_ROOT%{_unitdir}/httpd.socket.d
+mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/systemd/system/httpd.service.d
 
 install -m 644 -p $RPM_SOURCE_DIR/10-listen443.conf \
       $RPM_BUILD_ROOT%{_unitdir}/httpd.socket.d/10-listen443.conf
@@ -602,7 +603,7 @@ cp -p $RPM_BUILD_ROOT%{_libdir}/httpd/build/config_vars.mk \
       $RPM_BUILD_ROOT%{_libdir}/httpd/build/vendor_config_vars.mk
 
 # Sanitize CFLAGS & LIBTOOL in standard config_vars.mk
-sed -e '/^CFLAGS/s,=.*$,= -O2 -g -Wall,' \
+sed -e '/^[A-Z]*FLAGS = /s,-specs[^ ]*,,g' \
     -e '/^LIBTOOL/s,/.*/libtool,%{_bindir}/libtool,' \
     -i $RPM_BUILD_ROOT%{_libdir}/httpd/build/config_vars.mk
 diff -u $RPM_BUILD_ROOT%{_libdir}/httpd/build/vendor_config_vars.mk \
@@ -797,6 +798,7 @@ exit $rv
 %dir %{contentdir}/icons
 %attr(755,root,root) %dir %{_unitdir}/httpd.service.d
 %attr(755,root,root) %dir %{_unitdir}/httpd.socket.d
+%attr(755,root,root) %dir %{_sysconfdir}/systemd/system/httpd.service.d
 %{_sysusersdir}/httpd.conf
 
 %files tools
@@ -850,6 +852,10 @@ exit $rv
 %{_rpmconfigdir}/macros.d/macros.httpd
 
 %changelog
+* Wed Jul  5 2023 Joe Orton <jorton@redhat.com> - 2.4.57-2
+- package /etc/systemd/httpd/httpd.service.d
+- also sanitize LDFLAGS/CXXFLAGS in non-vendor config_vars.mk
+
 * Tue Apr 11 2023 Luboš Uhliarik <luhliari@redhat.com> - 2.4.57-1
 - new version 2.4.57
 

@@ -16,7 +16,7 @@
 %define configure_opts %{?python3_opts} %{?tools_opts}
 
 Name:        libbytesize
-Version:     2.8
+Version:     2.9
 Release:     22%{?dist}
 Summary:     A library for working with sizes in bytes
 License:     LGPL-2.1-or-later
@@ -115,6 +115,17 @@ find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 %endif
 
 %changelog
+* Wed Jul 05 2023 Python Maint <python-maint@redhat.com> - 2.9-22
+- Rebuilt for Python 3.12
+
+* Wed Jul 05 2023 Packit <hello@packit.dev> - 2.9-21
+- New version - 2.9 (Vojtech Trefny)
+- build: Exit before AC_OUTPUT on error (Tomas Bzatek)
+- tests: fix locale tests on musl (triallax)
+- Update translation files (Weblate)
+- Translated using Weblate (Korean) (김인수)
+- ci: Manually prepare spec file for Packit (Vojtech Trefny)
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 2.8-22
 - Rebuilt for Python 3.12
 

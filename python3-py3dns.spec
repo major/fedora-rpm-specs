@@ -2,26 +2,20 @@
 %global distname py3dns
 
 Name:               python3-py3dns
-Version:            3.2.1
-Release:            10%{?dist}
+Version:            4.0.0
+Release:            1%{?dist}
 Summary:            Python3 DNS library
 
 License:            Python
 URL:                https://launchpad.net/py3dns/
 Source0:            https://pypi.io/packages/source/p/%{distname}/%{distname}-%{version}.tar.gz
-#Source0:            https://pypi.io/packages/source/p/%{distname}/%{distname}-%{version}.tar.gz
-
-# At buildtime, py3dns tries to read in /etc/resolv.conf and crashes if it
-# doesn't exist.  Our koji builders don't have that file.  This patch just
-# avoids the crash if that file is absent.
-Patch0:             python3-py3dns-handle-absent-resolv.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=1561187
-Patch1:             python3-py3dns-py3_friendly_warning.patch
 
 BuildArch:          noarch
 
 BuildRequires:      python3-devel
-BuildRequires:      python3-setuptools
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %description
 This Python 3 module provides a DNS API for looking up DNS entries from
@@ -31,8 +25,6 @@ lightweight implementation.
 
 %prep
 %setup -q -n %{distname}-%{version}
-%patch0 -p1
-%patch1 -p1
 
 # Remove bundled egg-info in case it exists
 rm -rf %{distname}.egg-info
@@ -49,10 +41,10 @@ for file in DNS/Lib.py DNS/Type.py ; do
 done
 
 %build
-%{__python3} setup.py build
+%pyproject_wheel
 
 %install
-%{__python3} setup.py install -O1 --skip-build --root=%{buildroot}
+%pyproject_install
 
 # We cannot actually run the tests in koji because they require network access.
 #%%check
@@ -69,6 +61,9 @@ done
 %{python3_sitelib}/%{distname}-%{version}*
 
 %changelog
+* Thu Jul  6 2023 Bojan Smojver <bojan@rexursive.com> - 4.0.0-1
+- Update to 4.0.0
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.2.1-10
 - Rebuilt for Python 3.12
 

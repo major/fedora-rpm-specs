@@ -16,6 +16,10 @@ URL: https://github.com/python-metar/python-metar
 # https://github.com/python-metar/python-metar/issues/58
 Source: https://files.pythonhosted.org/packages/source/m/%{srcname}/%{srcname}-%{version}.tar.gz
 
+# Patch needed for compatibility with Python 3.12
+# https://github.com/python-metar/python-metar/pull/176/commits/7dfbe0770ff7d273e0cabc80bc10c6b41f136f17.patch
+Patch:  drop-python3.12-deprecated-utcnow.patch
+
 BuildArch: noarch
 
 BuildRequires: python3-setuptools

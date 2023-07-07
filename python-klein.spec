@@ -1,14 +1,15 @@
 %global pypi_name klein
 
 Name:           python-%{pypi_name}
-Version:        20.6.0
-Release:        9%{?dist}
+Version:        23.5.0
+Release:        1%{?dist}
 Summary:        Python microframework built on werkzeug + twisted.web
 
 License:        MIT
 URL:            https://github.com/twisted/klein
 Source0:        %{pypi_source}
 BuildArch:      noarch
+Patch0:         imp-removal.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(attrs)
@@ -40,7 +41,7 @@ Summary:        klein documentation
 Documentation for klein
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version} -p0
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
 
@@ -65,6 +66,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Wed Jul 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 23.5.0-1
+- 23.5.0
+
 * Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 20.6.0-9
 - Rebuilt for Python 3.12
 

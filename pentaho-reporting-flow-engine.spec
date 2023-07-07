@@ -1,6 +1,6 @@
 Name: pentaho-reporting-flow-engine
 Version: 0.9.4
-Release: 30%{?dist}
+Release: 31%{?dist}
 Summary: Pentaho Flow Reporting Engine
 License: LGPL-2.1-or-later
 Epoch: 1
@@ -57,6 +57,9 @@ cp -rp build/api $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 %{_javadocdir}/%{name}
 
 %changelog
+* Wed Jul 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 1:0.9.4-31
+- Build for f39
+
 * Fri Feb 24 2023 Caolán McNamara <caolanm@redhat.com> - 1:0.9.4-30
 - migrated to SPDX license
 

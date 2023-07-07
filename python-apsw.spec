@@ -29,11 +29,13 @@
 
 Name:               python-apsw
 Version:            %{real_version}
-Release:            2%{?dist}
+Release:            3%{?dist}
 Summary:            Another Python SQLite Wrapper
 License:            zlib
 URL:                https://github.com/rogerbinns/apsw
 Source:             https://github.com/rogerbinns/apsw/releases/download/%{pkg_version}/apsw-%{pkg_version}.zip
+
+Patch:              https://github.com/rogerbinns/apsw/commit/19486dcd837cc736d043b2a41916ad988b414e62.patch
 
 BuildRequires:      gcc
 BuildRequires:      python%{python3_pkgversion}-devel
@@ -79,6 +81,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} %{__python3} setup.py test
 
 
 %changelog
+* Wed Jul 05 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 3.40.1.0-3
+- Backport commit 19486dc (fix RHBZ#2220114)
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.40.0.0-2
 - Rebuilt for Python 3.12
 

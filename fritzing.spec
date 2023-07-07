@@ -2,25 +2,25 @@ Name:           fritzing
 %global rtld_name org.fritzing.Fritzing
 
 Summary:        Electronic Design Automation software; from prototype to product
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            http://fritzing.org/
 
-Version:        0.9.10
-%global baserelease 4
+Version:        1.0.0
+%global baserelease 1
 
-# The fritzing-app repo does not contain a tag for v0.9.10.
-%global app_date 20220514
-%global app_commit 29c2cede3a0475ed770db1ee502fdebf6bf3a23d
+# The fritzing-app repo does not contain a tag for v1.0.0.
+%global app_date 20230425
+%global app_commit 7b75a63c264b31b9ed69481f1f2c84c53f940e03
 
 # The fritzing-parts repository no longer uses git tags for marking releases.
 # Upstream build scripts seem to just take the latest commit
 # from fritzing-parts's "develop" branch.
 #
-# The app commit we're using is dated 2022-05-14.
-# In the parts repo, the last commit made before that date is from 2022-05-10.
+# The app commit we're using is dated 2023-04-25.
+# In the parts repo, the last commit made before that date is from 2023-04-24.
 # Use the fritzing-parts repo as of said commit.
-%global parts_date 20220510
-%global parts_commit 4713511c894cb2894eae505b9307c6555afcc32c
+%global parts_date 20230424
+%global parts_commit e270ebfd8ee7dd40a6ef29ad0d3dba006e9eee61
 
 # Include the commit date in the release numbers
 %global app_release %{baserelease}.%{app_date}%{?dist}
@@ -32,6 +32,7 @@ Source0:        https://github.com/%{name}/%{name}-app/archive/%{app_commit}/%{n
 Source1:        https://github.com/%{name}/%{name}-parts/archive/%{parts_commit}/%{name}-parts-%{parts_commit}.tar.gz
 
 # Fedora-specific patch to disable internal auto-updating feature.
+# Also removes dependency of libgit2 (used only during the auto-update process).
 Patch0:         0000-disable-autoupdate.patch
 # Use the system quazip library instead of the bundled one.
 Patch1:         0001-unbundle-quazip.patch
@@ -79,7 +80,7 @@ BuildArch: noarch
 # many individual SVG parts in the svg/ directory are licensed as GPL+;
 # please see the fz:attr elements named "dist-license", "use-license", and
 # "license-url" under the rdf:RDF section of each SVG document for details.
-License:       CC-BY-SA and GPL+
+License:       CC-BY-SA-3.0 AND GPL-1.0-or-later
 
 %description parts
 A library of part definitions for the Fritzing electronic design application,
@@ -158,6 +159,10 @@ fi
 
 
 %changelog
+* Thu Jun 29 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0.0-1.20230425
+- Update to v1.0.0
+- Convert License tag to SPDX
+
 * Fri May 05 2023 Nicolas Chauvet <kwizart@gmail.com> - 0.9.10-4.20220514
 - Rebuilt for quazip 1.4
 

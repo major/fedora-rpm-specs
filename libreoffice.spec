@@ -55,7 +55,7 @@ Summary:        Free Software Productivity Suite
 Name:           libreoffice
 Epoch:          1
 Version:        %{libo_version}.2
-Release:        2%{?libo_prerelease}%{?dist}
+Release:        3%{?libo_prerelease}%{?dist}
 # default new files are: MPLv2
 # older files are typically: MPLv2 incorporating work under ASLv2
 # nlpsolver is: LGPLv3
@@ -324,7 +324,7 @@ Requires: google-crosextra-caladea-fonts, google-crosextra-carlito-fonts
 Requires: %{name}-langpack-en = %{epoch}:%{version}-%{release}
 %ifarch %{java_arches}
 # rhbz#949106 libreoffice-core drags in both openjdk 1.7.0 and 1.8.0
-Requires: java-headless >= 1:1.6
+Recommends: java-headless >= 1:1.6
 %else
 Obsoletes: libreoffice-nlpsolver < 1:7.4.0.0
 Obsoletes: libreoffice-officebean < 1:7.4.0.0
@@ -356,6 +356,9 @@ to be written in python.
 Summary: Database front-end for LibreOffice
 %if 0%{?fedora}
 Requires: firebird
+%endif
+%ifarch %{java_arches}
+Requires: java-headless >= 1:1.6
 %endif
 Requires: pentaho-reporting-flow-engine
 Requires: postgresql-jdbc
@@ -2250,6 +2253,9 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor &>/dev/null || :
 %{_includedir}/LibreOfficeKit
 
 %changelog
+* Fri Jun 30 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 1:7.5.4.2-3
+- Make Java optional. Fixes rhbz#2084071.
+
 * Mon Jun 19 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:7.5.4.2-2
 - Backport upstream fix for testSignDocument_PEM_PDF test failure
 - Enable test again

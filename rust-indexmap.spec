@@ -5,7 +5,7 @@
 %global crate indexmap
 
 Name:           rust-indexmap
-Version:        1.9.3
+Version:        2.0.0
 Release:        %autorelease
 Summary:        Hash table with consistent order and fast iteration
 
@@ -96,18 +96,6 @@ use the "serde" feature of the "%{crate}" crate.
 %files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+serde-1-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+serde-1-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "serde-1" feature of the "%{crate}" crate.
-
-%files       -n %{name}+serde-1-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+std-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -130,18 +118,6 @@ This package contains library source intended for building other packages which
 use the "test_debug" feature of the "%{crate}" crate.
 
 %files       -n %{name}+test_debug-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+test_low_transition_point-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+test_low_transition_point-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "test_low_transition_point" feature of the "%{crate}" crate.
-
-%files       -n %{name}+test_low_transition_point-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

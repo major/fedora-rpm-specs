@@ -5,7 +5,7 @@
 %global crate orion
 
 Name:           rust-orion
-Version:        0.17.4
+Version:        0.17.5
 Release:        %autorelease
 Summary:        Usable, easy and safe pure-Rust crypto
 
@@ -74,6 +74,18 @@ This package contains library source intended for building other packages which
 use the "ct-codecs" feature of the "%{crate}" crate.
 
 %files       -n %{name}+ct-codecs-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+experimental-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+experimental-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "experimental" feature of the "%{crate}" crate.
+
+%files       -n %{name}+experimental-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+getrandom-devel

@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
 Version: 39.23
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2+ and MIT
 URL:     http://fedoraproject.org/wiki/Anaconda
 
@@ -474,6 +474,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jul 04 2023 Adam Williamson <awilliam@redhat.com> - 39.23-3
+- Fix the patch to default to doing preexec_fn (duh)
+
 * Tue Jul 04 2023 Adam Williamson <awilliam@redhat.com> - 39.23-2
 - Backport PR #4879 to fix shutdown with Python 3.12
 

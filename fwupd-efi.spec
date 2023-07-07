@@ -23,10 +23,23 @@ the EFI binary that is used for updating using UpdateCapsule.
 
 %prep
 %autosetup -p1
+# gnu-efi linker scripts (lds) are missing SBAT, included scripts are used
+# instead but the build system expects the name to match
+%ifarch x86_64
+%global efiarch x64
+%endif
+%ifarch aarch64
+%global efiarch aa64
+%endif
+ln -s elf_%{_arch}_efi.lds efi/lds/efi.lds
+%ifarch aarch64
+ln -s crt0-efi-%{_arch}.S efi/crt0/crt0-efi-%{efiarch}.S
+%endif
 
 %build
 
 %meson \
+    -Defi-libdir=%{_prefix}/lib \
     -Defi_sbat_distro_id="fedora" \
     -Defi_sbat_distro_summary="The Fedora Project" \
     -Defi_sbat_distro_pkgname="%{name}" \
@@ -39,12 +52,6 @@ the EFI binary that is used for updating using UpdateCapsule.
 %meson_install
 
 # sign fwupd.efi loader
-%ifarch x86_64
-%global efiarch x64
-%endif
-%ifarch aarch64
-%global efiarch aa64
-%endif
 %global fwup_efi_fn $RPM_BUILD_ROOT%{_libexecdir}/fwupd/efi/fwupd%{efiarch}.efi
 %pesign -s -i %{fwup_efi_fn} -o %{fwup_efi_fn}.tmp
 %define __pesign_client_cert fwupd-signer

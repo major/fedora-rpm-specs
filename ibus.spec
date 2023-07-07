@@ -50,7 +50,7 @@
 
 Name:           ibus
 Version:        1.5.28
-Release:        8%{?dist}
+Release:        10%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.0-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -65,8 +65,6 @@ Patch1:         %{name}-1385349-segv-bus-proxy.patch
 # Use mutter window manager in RHEL CI
 Patch2:         %{name}-xx-desktop-testing-mutter.patch
 %endif
-# https://github.com/ibus/ibus/issues/2479
-Patch3:         %{name}-xx-cross-compile.patch
 
 # autoreconf requires autopoint but not po.m4
 BuildRequires:  gettext-devel
@@ -559,6 +557,15 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Wed Jul 05 2023 Python Maint <python-maint@redhat.com> - 1.5.28-10
+- Rebuilt for Python 3.12
+
+* Wed Jul 05 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.28-9
+- Delete upstreamed ibus-xx-cross-compile.patch
+- Fix alive ibus-x11 with `Xephyr -query`
+- Fix missing ibusenumtypes.h with parallel build
+- Fix to build libibus-1.0.la twice
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.5.28-8
 - Rebuilt for Python 3.12
 

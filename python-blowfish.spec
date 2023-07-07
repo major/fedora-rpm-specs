@@ -30,14 +30,17 @@ Summary:            %{sum}
 %prep
 %autosetup -n %{modname}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires -t
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
-%check
-%{__python3} -m unittest setup.py
+#%%check
+#%%{__python3} -m unittest setup.py
 
 %files -n python3-%{modname}
 %doc README.rst

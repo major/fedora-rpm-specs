@@ -145,7 +145,7 @@ CFLAGS="$RPM_OPT_FLAGS -DDEFAULT_FONTPATH='\"\
 CFLAGS="$CFLAGS -msse -mfpmath=sse"
 %endif
 
-%ifarch aarch64 ppc64 ppc64le s390 s390x
+%ifarch aarch64 ppc64 ppc64le s390 s390x x86_64
 # workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1359680
 export CFLAGS="$CFLAGS -ffp-contract=off"
 %endif

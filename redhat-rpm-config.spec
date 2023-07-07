@@ -4,7 +4,7 @@
 # 2) When making changes, increment the version (in baserelease) by 1.
 #    rpmdev-bumpspec and other tools update the macro below, which is used
 #    in Version: to get the desired effect.
-%global baserelease 256
+%global baserelease 260
 
 Summary: Red Hat specific rpm configuration files
 Name: redhat-rpm-config
@@ -254,6 +254,18 @@ install -p -m 644 -t %{buildroot}%{_rpmluadir}/fedora/srpm forge.lua
 %doc buildflags.md
 
 %changelog
+* Wed Jul  5 2023 Florian Weimer <fweimer@redhat.com> - 260-1
+- Implement the %%build_type_safety_c macro (#2218019)
+
+* Wed Jul  5 2023 Florian Weimer <fweimer@redhat.com> - 259-1
+- Filter out C, C++ build flags from Fortran build flags (#2177253)
+
+* Wed Jul  5 2023 Florian Weimer <fweimer@redhat.com> - 258-1
+- Enable PIC mode for assembler files (#2167430)
+
+* Wed Jul 05 2023 Frederic Berat <fberat@redhat.com> - 257-1
+- update config.{guess,sub} to gnuconfig git HEAD
+
 * Sat Jun 17 2023 Tom Stellard <tstellar@redhat.com> - 256-1
 - Remove -fno-openmp-implicit-rpath from clang ldflags
 

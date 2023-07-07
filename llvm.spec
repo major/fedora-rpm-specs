@@ -77,7 +77,7 @@
 
 Name:		%{pkg_name}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -90,6 +90,8 @@ Source4:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ve
 Source5:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{third_party_srcdir}.tar.xz.sig
 Source6:	release-keys.asc
 
+# Backported from LLVM 17
+Patch1:		0001-SystemZ-Improve-error-messages-for-unsupported-reloc.patch
 # See https://reviews.llvm.org/D137890 for the next two patches
 Patch2:		0001-llvm-Add-install-targets-for-gtest.patch
 # RHEL-specific patch to avoid unwanted recommonmark dep
@@ -311,6 +313,7 @@ export ASMFLAGS=$CFLAGS
 %if %{without compat_build}
 	-DLLVM_VERSION_SUFFIX='' \
 %endif
+	-DLLVM_UNREACHABLE_OPTIMIZE:BOOL=OFF \
 	-DLLVM_BUILD_LLVM_DYLIB:BOOL=ON \
 	-DLLVM_LINK_LLVM_DYLIB:BOOL=ON \
 	-DLLVM_BUILD_EXTERNAL_COMPILER_RT:BOOL=ON \
@@ -577,6 +580,10 @@ fi
 %endif
 
 %changelog
+* Mon Jul 03 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.6-3
+- Improve error messages for unsupported relocs on s390x (rhbz#2216906)
+- Disable LLVM_UNREACHABLE_OPTIMIZE
+
 * Wed Jun 14 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.6-1
 - Update to LLVM 16.0.6
 

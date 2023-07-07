@@ -1,7 +1,7 @@
 Summary:        A simple, lightweight interface to Amazon Web Services
 Name:           python-boto
 Version:        2.49.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 License:        MIT
 URL:            https://github.com/boto/boto
 Source0:        https://pypi.io/packages/source/b/boto/boto-%{version}.tar.gz
@@ -54,7 +54,8 @@ BuildRequires:  python3-httpretty
 BuildRequires:  python3-mock
 BuildRequires:  python3-nose
 BuildRequires:  python3-requests
-BuildRequires:  python3-zombie-imp
+# boto/plugin.py and boto/pyami/launch_ami.py uses imp
+BuildRequires:  (python3-zombie-imp if python3 >= 3.12)
 
 BuildArch:      noarch
 
@@ -75,6 +76,7 @@ Summary:        A simple, lightweight interface to Amazon Web Services
 Requires:       python3-requests
 Requires:       python3-six
 Requires:       python3-rsa
+Requires:       (python3-zombie-imp if python3 >= 3.12)
 
 
 %description -n python3-boto
@@ -114,6 +116,9 @@ rm -f $RPM_BUILD_ROOT/%{_bindir}/*
 
 
 %changelog
+* Wed Jul 05 2023 Miro Hrončok <mhroncok@redhat.com> - 2.49.0-17
+- Require python3-zombie-imp on runtime
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.49.0-16
 - Rebuilt for Python 3.12
 

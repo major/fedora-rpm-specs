@@ -46,7 +46,7 @@
 
 Name:           rstudio
 Version:        %{rstudio_version}+%{rstudio_version_suffix}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        RStudio base package
 ExclusiveArch:  %{java_arches}
 
@@ -56,7 +56,6 @@ URL:            https://github.com/%{name}/%{name}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source4:        https://github.com/quarto-dev/quarto/archive/refs/heads/release/%{name}-%{rstudio_codename}.tar.gz
 Source5:        panmirror-cleanup.sh
-Source6:        panmirror-cleanup.patch
 # Node dependencies to build visual editor (use nodejs-bundler.sh)
 Source1:        %{rstudio_visual_editor}-nm.tgz
 Source2:        %{rstudio_visual_editor}-bundled-licenses.txt
@@ -78,7 +77,7 @@ Patch6:         0006-do-not-disable-seccomp-filter-sandbox.patch
 
 BuildRequires:  make, cmake, ant
 BuildRequires:  gcc-c++, java-11-openjdk-devel, R-core-devel
-BuildRequires:  yarnpkg, golang-github-evanw-esbuild
+BuildRequires:  yarnpkg, jq
 BuildRequires:  pandoc
 BuildRequires:  mathjax
 BuildRequires:  lato-fonts, glyphography-newscycle-fonts
@@ -173,14 +172,10 @@ This package provides the Server version, a browser-based interface to the RStud
 tar -xf %{SOURCE4}
 mv quarto-release-%{name}-%{rstudio_codename} src/gwt/lib/quarto
 pushd src/gwt/lib/quarto
-    %{SOURCE5} . %{SOURCE6}
+    %{SOURCE5} .
     tar -xf %{SOURCE1}
     mv node_modules_dev node_modules
     (cd apps/panmirror && ln -s ../../node_modules .)
-    for arch in x64 arm64 ppc64 s390x; do
-        mkdir -p node_modules/@esbuild/linux-$arch/bin
-        ln -s %{_bindir}/esbuild node_modules/@esbuild/linux-$arch/bin
-    done
 popd
 cp %{SOURCE2} .
 
@@ -348,6 +343,11 @@ chown -R %{name}-server:%{name}-server %{_sharedstatedir}/%{name}-server
 %config(noreplace) %{_sysconfdir}/pam.d/%{name}
 
 %changelog
+* Wed Jul 05 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2023.06.0+421-3
+- Add RSTUDIO_DISABLE_CHECK_FOR_UPDATES=1 to the desktop file
+- Drop QT_QPA_PLATFORM=xcb from the desktop file
+- Drop dependency on orphaned esbuild
+
 * Wed Jun 28 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2023.06.0+421-2
 - Rebuilt due to fmt 10 update.
 

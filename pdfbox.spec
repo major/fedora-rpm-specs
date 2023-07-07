@@ -1,5 +1,5 @@
 Name:          pdfbox
-Version:       2.0.28
+Version:       2.0.29
 Release:       1%{?dist}
 Summary:       Apache PDFBox library for working with PDF documents
 License:       ASL 2.0
@@ -207,6 +207,9 @@ rm pdfbox/src/test/java/org/apache/pdfbox/pdmodel/graphics/image/CCITTFactoryTes
 %pom_change_dep -r javax.activation:activation jakarta.activation:jakarta.activation-api:1.2.2
 %pom_change_dep -r javax.xml.bind:jaxb-api jakarta.xml.bind:jakarta.xml.bind-api:2
 %pom_xpath_remove 'pom:dependency/pom:scope[text()="provided"]' preflight
+# might be removed once bouncycastle got updated
+%pom_change_dep -r :bcmail-jdk15to18 :bcmail-jdk15on
+%pom_change_dep -r :bcprov-jdk15to18 :bcmail-jdk15on
 
 %build
 # Integration tests all require internet access to download test resources, so skip
@@ -253,6 +256,9 @@ rm pdfbox/src/test/java/org/apache/pdfbox/pdmodel/graphics/image/CCITTFactoryTes
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Wed Jul 05 2023 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 2.0.29-1
+- Update pdfbox to 2.0.29 (#2219069)
+
 * Mon Jun 26 2023 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 2.0.28-1
 - Update pdfbox to 2.0.28 (#2186517)
 

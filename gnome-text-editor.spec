@@ -7,12 +7,16 @@
 
 Name:		gnome-text-editor
 Version:	45~alpha
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A simple text editor for the GNOME desktop
 
 License:	GPL-3.0-or-later
 URL:		https://gitlab.gnome.org/GNOME/gnome-text-editor
 Source0:	https://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
+# https://gitlab.gnome.org/GNOME/gnome-text-editor/-/commit/6d74d46
+# https://gitlab.gnome.org/GNOME/gnome-text-editor/-/issues/588
+# Focus the search box in the Document Type dialog on open
+Patch0:		0001-language-dialog-focus-search-entry-on-display.patch
 
 BuildRequires:	pkgconfig(editorconfig)
 BuildRequires:	pkgconfig(enchant-2) >= %{enchant_version}
@@ -73,6 +77,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.TextEditor.
 
 
 %changelog
+* Wed Jul 05 2023 Adam Williamson <awilliam@redhat.com> - 45~alpha-2
+- Backport an upstream commit to focus Document Type search box on open
+
 * Mon Jul 03 2023 Kalev Lember <klember@redhat.com> - 45~alpha-1
 - Update to 45.alpha
 

@@ -8,7 +8,7 @@
 
 Name:          dtc
 Version:       1.7.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Device Tree Compiler
 License:       GPL-2.0-or-later
 URL:           https://devicetree.org/
@@ -17,7 +17,11 @@ Source0:       https://www.kernel.org/pub/software/utils/%{name}/%{name}-%{versi
 
 BuildRequires: gcc make
 BuildRequires: flex bison swig
-BuildRequires: python3-devel python3-setuptools
+BuildRequires: python3-devel
+BuildRequires: python3-pip
+BuildRequires: python3-setuptools
+BuildRequires: python3-setuptools_scm
+BuildRequires: python3-wheel
 
 %if %{with_mingw}
 BuildRequires: mingw32-filesystem >= 95
@@ -75,6 +79,14 @@ BuildArch: noarch
 libfdt is a library to process Open Firmware style device trees on various
 architectures.
 
+%package -n mingw32-libfdt-static
+Summary: Static version of MinGW Device tree library
+Requires: mingw32-libfdt = %{version}-%{release}
+BuildArch: noarch
+
+%description -n mingw32-libfdt-static
+This package provides the static library of mingw32-libfdt
+
 %package -n mingw64-libfdt
 Summary: MinGW Device tree library
 BuildArch: noarch
@@ -83,6 +95,14 @@ BuildArch: noarch
 libfdt is a library to process Open Firmware style device trees on various
 architectures.
 
+%package -n mingw64-libfdt-static
+Summary: Static version of MinGW Device tree library
+Requires: mingw64-libfdt = %{version}-%{release}
+BuildArch: noarch
+
+%description -n mingw64-libfdt-static
+This package provides the static library of mingw64-libfdt
+
 %{?mingw_debug_package}
 %endif
 
@@ -90,6 +110,7 @@ architectures.
 %autosetup -p1
 
 %build
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %{make_build} EXTRA_CFLAGS="%{build_cflags}" LDFLAGS="%{build_ldflags}"
 
 %if %{with_mingw}
@@ -98,6 +119,7 @@ architectures.
 %endif
 
 %install
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %{make_install} DESTDIR=%{buildroot} PREFIX=%{buildroot}/%{_prefix} \
                 LIBDIR=%{_libdir} BINDIR=%{_bindir} INCLUDEDIR=%{_includedir}
 
@@ -139,15 +161,24 @@ rm -f $RPM_BUILD_ROOT/%{_bindir}/ftdump
 %{mingw32_libdir}/libfdt.dll.a
 %{mingw32_libdir}/pkgconfig/libfdt.pc
 
+%files -n mingw32-libfdt-static
+%{mingw32_libdir}/libfdt.a
+
 %files -n mingw64-libfdt
 %license GPL
 %{mingw64_bindir}/libfdt-1.dll
 %{mingw64_includedir}/*fdt*.h
 %{mingw64_libdir}/libfdt.dll.a
 %{mingw64_libdir}/pkgconfig/libfdt.pc
+
+%files -n mingw64-libfdt-static
+%{mingw64_libdir}/libfdt.a
 %endif
 
 %changelog
+* Wed Jul 05 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.7.0-3
+- Rebuilt for Python 3.12
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.7.0-2
 - Rebuilt for Python 3.12
 

@@ -119,6 +119,7 @@
 %global have_libblkio 1
 %endif
 
+%global have_gvnc_devel %{defined fedora}
 %global have_sdl_image %{defined fedora}
 %global have_fdt 1
 %global have_opengl 1
@@ -509,8 +510,10 @@ BuildRequires: fuse3-devel
 %if %{have_sdl_image}
 BuildRequires: SDL2_image-devel
 %endif
-# gvnc used by vnc-display-test
+%if %{have_gvnc_devel}
+# Used by vnc-display-test
 BuildRequires: pkgconfig(gvnc-1.0)
+%endif
 
 %if %{user_static}
 BuildRequires: glibc-static glib2-static zlib-static

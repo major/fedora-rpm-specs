@@ -6,6 +6,11 @@
 # (https://bugzilla.redhat.com/show_bug.cgi?id=2180497).
 %bcond doc_pdf 0
 
+# Run tests with uvloop?
+# F39FailsToInstall: python3-uvloop
+# https://bugzilla.redhat.com/show_bug.cgi?id=2220551
+%bcond uvloop 0
+
 Name:           python-asyncpg
 Summary:        A fast PostgreSQL Database Client Library for Python/asyncio
 Version:        0.27.0
@@ -95,6 +100,10 @@ sed -r -i 's/([Ss]phinx.*)~=/\1>=/g' setup.py
 # well drop the corresponding dependencies.
 sed -r -i '/(pycodestyle|flake8)/d' setup.py
 
+%if %{without uvloop}
+sed -r -i 's/^([[:blank:]])(.*uvloop)/\1# \2/' setup.py
+%endif
+
 
 %generate_buildrequires
 # Note dev extra includes doc and test extras
@@ -129,7 +138,12 @@ ln -s %{buildroot}%{python3_sitearch}/asyncpg/
 # flake8 and pycodestyle out of the test dependencies
 k="${k-}${k+ and }not TestFlake8"
 
+# See the “test” target in the Makefile:
+PYTHONASYNCIODEBUG=1 %pytest -k "${k}"
 %pytest -k "${k}"
+%if %{with uvloop}
+USE_UVLOOP=1 %pytest -k "${k}"
+%endif
 
 
 %files -n python3-asyncpg -f %{pyproject_files}

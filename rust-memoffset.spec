@@ -5,7 +5,7 @@
 %global crate memoffset
 
 Name:           rust-memoffset
-Version:        0.8.0
+Version:        0.9.0
 Release:        %autorelease
 Summary:        Offset_of functionality for Rust structs
 
@@ -56,6 +56,18 @@ This package contains library source intended for building other packages which
 use the "unstable_const" feature of the "%{crate}" crate.
 
 %files       -n %{name}+unstable_const-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+unstable_offset_of-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+unstable_offset_of-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "unstable_offset_of" feature of the "%{crate}" crate.
+
+%files       -n %{name}+unstable_offset_of-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

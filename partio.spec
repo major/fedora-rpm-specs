@@ -3,7 +3,7 @@
 %global         soversion 1.13.0
 
 Name:           partio
-Version:        1.17.0
+Version:        1.17.1
 Release:        %autorelease
 Summary:        Library for manipulating common animation particle
 
@@ -81,7 +81,6 @@ rm -rf %{buildroot}%{_datadir}/%{name}/test
 %doc README.md
 %{_bindir}/part{attr,convert,edit,info,inspect,json,view}
 %{_datadir}/swig/%{name}.i
-%dir %{_datadir}/%{name}
 
 %files devel
 %{_includedir}/Partio{,Attribute,Iterator,Vec3}.h

@@ -1,12 +1,10 @@
 %global abi 4
 
 Name: libxmp
-Version: 4.5.0
-Release: 5%{?dist}
+Version: 4.6.0
+Release: 1%{?dist}
 Summary: A multi-format module playback library
 Source0: https://downloads.sourceforge.net/project/xmp/libxmp/%{version}/libxmp-%{version}.tar.gz
-# https://github.com/libxmp/libxmp/issues/385
-Patch0: %{name}-fix-lto.patch
 BuildRequires: gcc
 BuildRequires: make
 Provides: bundled(md5-plumb)
@@ -24,6 +22,7 @@ and Amiga file packers including gzip, bzip2, SQSH, Powerpack, etc.
 %package devel
 Summary: A multi-format module playback library development files
 Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: cmake-filesystem
 
 %description devel
 Libxmp is a library that renders module files to PCM data. It supports
@@ -37,7 +36,6 @@ This package contains the header and development library.
 
 %prep
 %setup -q
-%patch0 -p1 -b .lto
 for file in docs/Changelog ; do
         iconv -f iso8859-1 -t utf8 -o $file.utf $file && touch -r $file $file.utf && mv $file.utf $file
 done
@@ -57,16 +55,24 @@ chmod 755 %{buildroot}%{_libdir}/libxmp.so.*
 %files
 %license docs/COPYING.LIB
 %doc README docs/Changelog docs/CREDITS
-%{_libdir}/libxmp.so.%{abi}*
+%{_libdir}/libxmp.so.%{abi}{,.*}
 
 %files devel
-%doc docs/libxmp.html docs/libxmp.pdf docs/*.txt
+%doc docs/libxmp.html docs/libxmp.pdf docs/{fixloop,formats}.txt
 %{_includedir}/xmp.h
 %{_mandir}/man3/libxmp.3*
+%{_libdir}/cmake/libxmp/libxmp-config-version.cmake
+%{_libdir}/cmake/libxmp/libxmp-config.cmake
 %{_libdir}/pkgconfig/libxmp.pc
 %{_libdir}/libxmp.so
 
 %changelog
+* Wed Jul 05 2023 Dominik Mierzejewski <dominik@greysector.net> - 4.6.0-1
+- update to 4.6.0 (#2216871)
+- drop obsolete patch
+- fix SONAME glob in file list
+- include cmake files
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,21 +2,16 @@
 %global srcname animatplot
 
 Name:           python-%{srcname}
-Version:        0.4.1
-Release:        17%{?dist}
+Version:        0.4.3
+Release:        0%{?dist}
 Summary:        Making animating in Matplotlib easy
 
 License:        MIT
-URL:            https://github.com/t-makaro/animatplot
-# PyPI tarball does not contain docs and tests.
-Source0:        https://github.com/t-makaro/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
-# https://github.com/t-makaro/animatplot/pull/53
-Patch0001:      0001-matplotlib3.3-shading-nearest-compatibility-53.patch
-# https://github.com/boutproject/animatplot-ng/commit/aeb1ee71d18a4aa5cd486f3c15ad11ce93981587
-Patch0002:      0002-Fix-missing-_frame_sink.patch
-# https://github.com/boutproject/animatplot-ng/commit/d686acebacbe833f4bb80bb36b3fc862f9946b2e
-Patch0003:      0003-Some-images-changed-by-a-pixel.patch
-Patch0004:      https://github.com/boutproject/animatplot-ng/pull/2.patch#./0004-matplotlib-3.5.patch
+URL:            https://github.com/boutproject/animatplot-ng
+Source0:        https://github.com/boutproject/animatplot-ng/archive/v%{version}/animatplot-ng-v%{version}.tar.gz
+Patch0005:      https://github.com/boutproject/animatplot-ng/pull/10.patch#./0005-Updates.patch
+# Based on PR 11 but without black commit
+Patch0006:      0006-docs-fix.patch
 
 BuildArch:      noarch
 
@@ -28,7 +23,6 @@ A Python package for making interactive animated plots build on Matplotlib.
 
 %package -n     python3-%{srcname}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{srcname}}
 
 BuildRequires:  pandoc
 BuildRequires:  python3-devel
@@ -41,6 +35,9 @@ BuildRequires:  python3dist(matplotlib) >= 2.2
 BuildRequires:  python3dist(numpy)
 BuildRequires:  python3dist(pillow)
 BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pip)
+BuildRequires:  python3dist(wheel)
+BuildRequires:  python3dist(setuptools-scm-git-archive)
 
 %description -n python3-%{srcname}
 A Python package for making interactive animated plots build on Matplotlib.
@@ -54,14 +51,16 @@ Documentation for python3-%{srcname}.
 
 
 %prep
-%autosetup -n %{srcname}-%{version} -p1 -S git
+%autosetup -n %{srcname}-ng-%{version} -p1 -S git
 
 # Remove bundled egg-info
 rm -rf %{srcname}.egg-info
 
 
 %build
-%py3_build
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
+%pyproject_wheel
+# %py3_build
 
 pushd docs
 %{__python3} -m sphinx source html
@@ -71,10 +70,12 @@ popd
 
 
 %install
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %py3_install
 
 
 %check
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %{pytest}
 
 
@@ -82,7 +83,7 @@ popd
 %doc README.md
 %license LICENSE
 %{python3_sitelib}/%{srcname}
-%{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info
+%{python3_sitelib}/%{srcname}_ng-%{version}-py%{python3_version}.egg-info
 
 %files -n python3-%{srcname}-doc
 %doc docs/html

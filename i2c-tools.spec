@@ -20,6 +20,7 @@ BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 ExcludeArch:    s390 s390x
 Obsoletes:      i2c-tools-eepromer < 4.2-2
 

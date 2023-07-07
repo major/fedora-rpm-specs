@@ -1,5 +1,5 @@
 Name:           python-sentry-sdk
-Version:        1.26.0
+Version:        1.27.0
 Release:        1%{?dist}
 Summary:        The new Python SDK for Sentry.io
 
@@ -173,6 +173,9 @@ sed -i '/content_type=/D' tests/integrations/starlette/test_starlette.py
 
 
 %changelog
+* Wed Jul 05 2023 Roman Inflianskas <rominf@aiven.io> - 1.27.0-1
+- Update to 1.27.0 (resolve rhbz#2219588)
+
 * Mon Jun 26 2023 Roman Inflianskas <rominf@aiven.io> - 1.26.0-1
 - Update to 1.26.0 (resolve rhbz#2216744)
 

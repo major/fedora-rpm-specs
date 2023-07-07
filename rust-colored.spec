@@ -6,7 +6,7 @@
 %global crate colored
 
 Name:           rust-colored
-Version:        2.0.0
+Version:        2.0.4
 Release:        %autorelease
 Summary:        Most simple way to add colors in your terminal
 
@@ -64,8 +64,6 @@ use the "no-color" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
-# remove executable bit from source files
-find -type f -executable -exec chmod -v -x '{}' +
 %cargo_prep
 
 %generate_buildrequires

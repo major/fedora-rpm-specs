@@ -3,7 +3,7 @@
 Name:		draco
 Version:	1.5.6
 Release:	%autorelease
-Summary:	A library for compressing and decompressing 3D geometric meshes and point clouds 
+Summary:	A library for compressing and decompressing 3D geometric meshes and point clouds
 License:	Apache-2.0
 URL:		https://github.com/google/%{name}
 Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -11,10 +11,12 @@ Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # Downstream-only patch that unconditionally links a system copy of gtest,
 # rather than expecting a git submodule as upstream prefers (and gtest upstream
 # would recommend).
-Patch:		0001-Use-system-gtest.patch
+Patch0:		0001-Use-system-gtest.patch
+# https://github.com/google/draco/pull/1001
+Patch1:		0002-build-shared-lib.patch
 
 BuildRequires:	cmake
-%if %{?gtestflag} 
+%if %{?gtestflag}
 BuildRequires:	cmake(gtest)
 %endif
 BuildRequires:	gcc
@@ -32,14 +34,6 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %description	devel
 %{summary}.
-
-%package	static
-Summary:	Static library for %{name}
-Requires:	%{name}-devel%{?_isa} = %{version}-%{release}
-
-%description    static
-This package contains the static library for statically
-linking applications to use %{name}.
 
 %prep
 %autosetup -p1 -n %{name}-%{version}
@@ -91,9 +85,6 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} help2man -N --version-string=%{version} \
 %{_datadir}/cmake/%{name}/
 %{_libdir}/lib%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc
-
-%files static
-%{_libdir}/lib%{name}.a
 
 %changelog
 %autochangelog

@@ -137,8 +137,8 @@
 
 %define samba_requires_eq()  %(LC_ALL="C" echo '%*' | xargs -r rpm -q --qf 'Requires: %%{name} = %%{epoch}:%%{version}\\n' | sed -e 's/ (none):/ /' -e 's/ 0:/ /' | grep -v "is not")
 
-%global samba_version 4.18.3
-%global baserelease 5
+%global samba_version 4.18.4
+%global baserelease 1
 # This should be rc1 or %%nil
 %global pre_release %nil
 
@@ -4333,6 +4333,12 @@ fi
 %endif
 
 %changelog
+* Wed Jul 05 2023 Python Maint <python-maint@redhat.com> - 2:4.18.4-1
+- Rebuilt for Python 3.12
+
+* Wed Jul 05 2023 Guenther Deschner <gdeschner@redhat.com> - 4.18.4-0
+- resolves: #2219799 - Update to version 4.18.4
+
 * Mon Jun 26 2023 Python Maint <python-maint@redhat.com> - 2:4.18.3-5
 - Rebuilt for Python 3.12
 

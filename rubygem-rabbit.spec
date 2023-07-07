@@ -6,7 +6,7 @@ BuildRequires:	%1 \
 
 Name:		rubygem-%{gem_name}
 Version:	3.0.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 Summary:	RD-document-based presentation application
 # GPL-2.0-or-later:	overall
@@ -50,7 +50,13 @@ Requires:	rubygem-kramdown >= 2.0
 %BothRequires	rubygem(rttool)
 %BothRequires	rubygem(rexml)
 # test_codeblock_fence test needs below
+# FIXME
+# On F-39, python3-blockdiag is FTI because of looooong dependency chain breakage
+# after python3.12 transition,
+# chain beginning with python3-pycodestyle, skip this test
+%if 0%{?fedora} < 39
 BuildRequires:	%{_bindir}/blockdiag
+%endif
 BuildRequires:	desktop-file-utils
 # For rabbirc
 Requires:	rubygem(net-irc)
@@ -131,6 +137,13 @@ done
 %check
 LANG=C.utf8
 pushd .%{gem_instdir}
+
+# F-39: skip blockdiag related test
+%if 0%{?fedora} >= 39
+sed -i.skip test/parser/test-markdown.rb \
+	-e 's|\(def test_codeblock_fence\)|\1 ; omit|'
+%endif
+
 xvfb-run \
 	ruby test/run-test.rb
 popd
@@ -169,6 +182,10 @@ popd
 %doc	%{gem_instdir}/sample/	
 
 %changelog
+* Wed Jul  5 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.0.3-2
+- Skip blockdiag integration test, python3-blockdiag now FTI
+  because of loooong dependency chain breakage with python3.12
+
 * Sun Jul  2 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.0.3-1
 - 3.0.3
 

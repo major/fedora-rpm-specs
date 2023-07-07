@@ -1,13 +1,13 @@
 Name:             xdp-tools
-Version:          1.3.1
+Version:          1.4.0
 Release:          1%{?dist}
 Summary:          Utilities and example programs for use with XDP
-%global _soversion 1.3.0
+%global _soversion 1.4.0
 
 License:          GPLv2
 URL:              https://github.com/xdp-project/%{name}
 Source0:          https://github.com/xdp-project/%{name}/releases/download/v%{version}/xdp-tools-%{version}.tar.gz
-Patch0:           xdp-tools-configure-Don-t-fail-on-missing-bpftool.patch
+Patch0:           xdp-tools-1.4.0-configure-Don-t-fail-on-missing-bpftool.patch
 
 BuildRequires:    libbpf-devel
 BuildRequires:    elfutils-libelf-devel
@@ -122,6 +122,9 @@ make install V=1
 %{_libdir}/pkgconfig/libxdp.pc
 
 %changelog
+* Thu Jul 6 2023 Toke Høiland-Jørgensen <toke@redhat.com> 1.4.0-1
+- Upstream version bump
+
 * Thu Feb 23 2023 Toke Høiland-Jørgensen <toke@redhat.com> 1.3.1-1
 - Upstream version bump
 

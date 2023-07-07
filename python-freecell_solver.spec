@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.6
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Freecell Solver Python bindings
 
 License:        MIT
@@ -12,9 +12,6 @@ Source0:        https://files.pythonhosted.org/packages/source/f/%{pypi_name}/%{
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildConflicts: python3dist(coverage) = 4.4
-BuildRequires:  python3dist(coverage) >= 4.0
-BuildRequires:  python3dist(hacking) >= 0.12.0
 BuildRequires:  python3dist(openstackdocstheme)
 BuildRequires:  python3dist(oslotest) >= 1.10.0
 BuildRequires:  python3dist(pbr)
@@ -66,6 +63,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Wed Jul 05 2023 Python Maint <python-maint@redhat.com> - 0.2.6-10
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.6-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

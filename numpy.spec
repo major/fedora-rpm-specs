@@ -20,7 +20,7 @@
 
 Name:           numpy
 Version:        1.24.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Epoch:          1
 Summary:        A fast multidimensional array facility for Python
 
@@ -29,6 +29,7 @@ License:        BSD-3-Clause AND Apache-2.0
 URL:            http://www.numpy.org/
 Source0:        https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:        https://numpy.org/doc/%(echo %{version} | cut -d. -f1-2)/numpy-html.zip
+Patch0:         https://github.com/numpy/numpy/commit/b0872b858e2e6ebc394e95c81a024dcf1573c690.patch
 
 %description
 NumPy is a general-purpose array-processing package designed to
@@ -210,6 +211,9 @@ python3 runtests.py --no-build -- -ra -k 'not test_ppc64_ibm_double_double128 %{
 
 
 %changelog
+* Wed Jul 05 2023 Scott Talbert <swt@techie.net> - 1:1.24.3-4
+- Fix FTBFS with Python 3.12
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 1:1.24.3-3
 - Rebuilt for Python 3.12
 

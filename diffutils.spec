@@ -1,10 +1,11 @@
 Summary: GNU collection of diff utilities
 Name: diffutils
 Version: 3.10
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://www.gnu.org/software/diffutils/diffutils.html
 Source: https://ftp.gnu.org/gnu/diffutils/diffutils-%{version}.tar.xz
 Patch0: diffutils-i18n.patch
+Patch1: 0001-diff-Fix-output-of-diff-l-y-for-non-ASCII-input-file.patch
 License: GPL-3.0-or-later
 Provides: bundled(gnulib)
 BuildRequires: gcc
@@ -29,6 +30,7 @@ Install diffutils if you need to compare text files.
 %setup -q
 # Multibyte
 %patch -P0 -p1 -b .i18n
+%patch -P1 -p1 -b .fix-output-of-diff-l-y-for-non-ASCII-input-file
 
 # Run autoreconf for aarch64 support (bug #925256).
 autoreconf
@@ -56,6 +58,9 @@ make check
 %{_infodir}/diffutils.info*
 
 %changelog
+* Wed Jul 05 2023 Than Ngo <than@redhat.com> - 3.10-2
+- Fix output of "diff -l -y" for non-ASCII input files
+
 * Thu Jun 29 2023 Than Ngo <than@redhat.com> - 3.10-1
 - Fix bz#2208831, update to 3.10
 - Fix bz#2196671, diff -D no longer fails to output #ifndef lines introduced in 3.9

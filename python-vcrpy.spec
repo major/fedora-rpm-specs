@@ -5,7 +5,7 @@
 
 Name:               python-%{modname}
 Version:            4.2.1
-Release:            4%{?dist}
+Release:            5%{?dist}
 Summary:            Automatically mock your HTTP interactions to simplify and speed up testing
 
 License:            MIT
@@ -26,10 +26,10 @@ BuildRequires:      python3dist(pytest)
 # For checking imports.
 # https://vcrpy.readthedocs.io/en/latest/installation.html
 BuildRequires:      python3dist(aiohttp)
-#BuildRequires:     python3dist(boto) -- not ready yet for Python 3.12
-#BuildRequires:     python3dist(boto3) -- not ready yet for Python 3.12
+BuildRequires:      python3dist(boto)
+BuildRequires:      python3dist(boto3)
 BuildRequires:      python3dist(httplib2)
-#BuildRequires:     python3dist(httpx) -- not ready yet for Python 3.12
+BuildRequires:      python3dist(httpx)
 BuildRequires:      python3dist(requests)
 BuildRequires:      python3dist(tornado)
 %endif
@@ -71,7 +71,7 @@ Summary:            %{summary}
 
 
 %check
-%pyproject_check_import -e vcr.stubs.boto_stubs -e vcr.stubs.httpx_stubs
+%pyproject_check_import
 
 %if %{with tests}
 # These tests make lots of outgoing connections, so we can't run them in
@@ -88,6 +88,9 @@ rm -rf tests/unit/test_stubs.py
 
 
 %changelog
+* Wed Jul 05 2023 Python Maint <python-maint@redhat.com> - 4.2.1-5
+- Rebuilt for Python 3.12
+
 * Tue Jul 04 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 4.2.1-4
 - backport patch to fix test failures with Python 3.12: AttributeError: type
   object 'VCRHTTPConnection[…]' has no attribute 'debuglevel'

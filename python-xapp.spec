@@ -1,6 +1,6 @@
 Name:           python-xapp
 Version:        2.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python bindings for xapps
 
 License:        LGPLv2
@@ -48,6 +48,9 @@ Requires:      xapps
 
 
 %changelog
+* Wed Jul 05 2023 Leigh Scott <leigh123linux@gmail.com> - 2.4.1-2
+- Rebuilt for Python 3.12
+
 * Fri Jun 02 2023 Leigh Scott <leigh123linux@gmail.com> - 2.4.1-1
 - Update to 2.4.1 release
 

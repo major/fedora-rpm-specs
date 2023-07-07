@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.18
+Version: 12.19
 Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
@@ -524,6 +524,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Jul 05 2023 Nick Clifton  <nickc@redhat.com> - 12.19-1
+- GCC Plugin: Suppress active checks for fortran sources.  Improve scanning of COLLECT_GCC_OPTIONS.
+
 * Thu Jun 29 2023 Nick Clifton  <nickc@redhat.com> - 12.18-1
 - Annocheck: Remove dependency upon binutils-devel.
 

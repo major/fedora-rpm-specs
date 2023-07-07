@@ -1,6 +1,6 @@
 Name: gnome-doc-utils
 Version: 0.20.10
-Release: 33%{?dist}
+Release: 34%{?dist}
 Summary: Documentation utilities for GNOME
 
 License: LGPL-2.1-or-later AND GPL-2.0-or-later AND GFDL-1.1-or-later
@@ -10,6 +10,7 @@ Source:  https://download.gnome.org/sources/%{name}/0.20/%{name}-%{version}.tar.
 # RH bug #438638 / GNOME bug #524207
 Patch1:  gnome-doc-utils-0.14.0-package.patch
 Patch2:  gnome-doc-utils-0.20.10-python3.patch
+Patch3:  gnome-doc-utils-0.20.10-configure-py312.patch
 
 BuildArch: noarch
 
@@ -59,6 +60,7 @@ are used by the tools in gnome-doc-utils and by yelp.
 %setup -q
 %patch1 -p1 -b .package
 %patch2 -p1 -b .python3
+%patch3 -p1 -b .python312
 
 %build
 %configure --disable-scrollkeeper --enable-build-utils
@@ -90,6 +92,9 @@ sed -i -e '/^Requires:/d' %{buildroot}%{_datadir}/pkgconfig/xml2po.pc
 %{_datadir}/xml/mallard
 
 %changelog
+* Wed Jul  5 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.20.10-34
+- Workaround for python 3.12 distutils deprecation for configure script
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.20.10-33
 - Rebuilt for Python 3.12
 
