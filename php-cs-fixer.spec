@@ -10,14 +10,14 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    0e8249e0b15e2bc022fbbd1090ce29d071481e69
+%global gh_commit    229b55b3eae4729a8e2a321441ba40fcb3720b86
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 #global gh_date      20150717
 %global gh_owner     FriendsOfPHP
 %global gh_project   PHP-CS-Fixer
 
 Name:           php-cs-fixer
-Version:        3.20.0
+Version:        3.21.1
 Release:        1%{?gh_date:.%{gh_date}git%{gh_short}}%{?dist}
 Summary:        PHP Coding Standards Fixer
 
@@ -32,12 +32,12 @@ Source2:        makesrc.sh
 Patch0:         %{name}-autoload.patch
 
 BuildArch:      noarch
-BuildRequires:  php(language) >= 7.4
+BuildRequires:  php(language) >= 8.0.1
 BuildRequires:  php-cli
 BuildRequires:  php-json
 
 # see composer.json and makesrc.sh
-Requires:       php(language) >= 7.4
+Requires:       php(language) >= 8.0.1
 Requires:       php-json
 Requires:       php-tokenizer
 # From phpcompatinfo report for version 3.5.0
@@ -59,28 +59,27 @@ Provides:       bundled(php-composer-xdebug-handler) = 3.0.3
 Provides:       bundled(php-doctrine-annotations) = 2.0.1
 Provides:       bundled(php-doctrine-deprecations) = v1.1.1
 Provides:       bundled(php-doctrine-lexer) = 2.1.0
-Provides:       bundled(php-psr-cache) = 1.0.1
-Provides:       bundled(php-psr-container) = 1.1.2
+Provides:       bundled(php-psr-cache) = 3.0.0
+Provides:       bundled(php-psr-container) = 2.0.2
 Provides:       bundled(php-psr-event-dispatcher) = 1.0.0
-Provides:       bundled(php-psr-log) = 1.1.4
-Provides:       bundled(php-symfony-console) = v5.4.24
-Provides:       bundled(php-symfony-deprecation-contracts) = v2.5.2
-Provides:       bundled(php-symfony-event-dispatcher) = v5.4.22
-Provides:       bundled(php-symfony-event-dispatcher-contracts) = v2.5.2
-Provides:       bundled(php-symfony-filesystem) = v5.4.25
-Provides:       bundled(php-symfony-finder) = v5.4.21
-Provides:       bundled(php-symfony-options-resolver) = v5.4.21
+Provides:       bundled(php-psr-log) = 2.0.0
+Provides:       bundled(php-symfony-console) = v6.0.19
+Provides:       bundled(php-symfony-deprecation-contracts) = v3.0.2
+Provides:       bundled(php-symfony-event-dispatcher) = v6.0.19
+Provides:       bundled(php-symfony-event-dispatcher-contracts) = v3.0.2
+Provides:       bundled(php-symfony-filesystem) = v6.0.19
+Provides:       bundled(php-symfony-finder) = v6.0.19
+Provides:       bundled(php-symfony-options-resolver) = v6.0.19
 Provides:       bundled(php-symfony-polyfill-ctype) = v1.27.0
 Provides:       bundled(php-symfony-polyfill-intl-grapheme) = v1.27.0
 Provides:       bundled(php-symfony-polyfill-intl-normalizer) = v1.27.0
 Provides:       bundled(php-symfony-polyfill-mbstring) = v1.27.0
-Provides:       bundled(php-symfony-polyfill-php73) = v1.27.0
 Provides:       bundled(php-symfony-polyfill-php80) = v1.27.0
 Provides:       bundled(php-symfony-polyfill-php81) = v1.27.0
-Provides:       bundled(php-symfony-process) = v5.4.24
-Provides:       bundled(php-symfony-service-contracts) = v2.5.2
-Provides:       bundled(php-symfony-stopwatch) = v5.4.21
-Provides:       bundled(php-symfony-string) = v5.4.22
+Provides:       bundled(php-symfony-process) = v6.0.19
+Provides:       bundled(php-symfony-service-contracts) = v3.0.2
+Provides:       bundled(php-symfony-stopwatch) = v6.0.19
+Provides:       bundled(php-symfony-string) = v6.0.19
 
 Provides:       php-composer(friendsofphp/php-cs-fixer) = %{version}
 
@@ -153,6 +152,10 @@ PHP_CS_FIXER_IGNORE_ENV=1 ./%{name} --version | grep %{version}
 
 
 %changelog
+* Thu Jul  6 2023 Remi Collet <remi@remirepo.net> - 3.21.1-1
+- update to 3.21.1
+- bump dependency on PHP 8.0
+
 * Wed Jun 28 2023 Remi Collet <remi@remirepo.net> - 3.20.0-1
 - update to 3.20.0
 

@@ -1,4 +1,3 @@
-%global _with_bootstrap 1
 %global srcname pcodedmp
 
 # Bootstrap may be needed to break circular dependencies between
@@ -15,7 +14,7 @@
 Summary:        VBA p-code disassembler
 Name:           python-%{srcname}
 Version:        1.2.6
-Release:        15%{?dist}
+Release:        16%{?dist}
 License:        GPLv3+
 URL:            https://github.com/bontchev/pcodedmp
 Source0:        %{pypi_source}
@@ -140,6 +139,9 @@ Requires:       python%{python3_other_pkgversion}-oletools >= 0.54
 %endif
 
 %changelog
+* Thu Jul 06 2023 Python Maint <python-maint@redhat.com> - 1.2.6-16
+- Rebuilt for Python 3.12
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.2.6-15
 - Bootstrap for Python 3.12
 

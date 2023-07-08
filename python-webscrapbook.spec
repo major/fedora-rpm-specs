@@ -2,25 +2,21 @@
 %global pypi_name webscrapbook
 
 Name:           python-%{pypi_name}
-Version:        1.15.0
-Release:        2%{?dist}
+Version:        1.16.0
+Release:        1%{?dist}
 Summary:        A backend toolkit for management of WebScrapBook collection
 
 License:        MIT
 URL:            https://github.com/danny0838/PyWebScrapBook
 Source0:        https://github.com/danny0838/PyWebScrapBook/archive/%{version}.tar.gz#/PyWebScrapBook-%{version}.tar.gz
 
-# Failing tests; reported upstream:
-#  https://github.com/danny0838/PyWebScrapBook/issues/67
-#  https://github.com/danny0838/PyWebScrapBook/pull/68
-#  https://github.com/danny0838/PyWebScrapBook/issues/69
-Patch0:         python-webscrapbook-1.15-fix-tests.patch
-
 # Downstream Fedora patch to comply with packaging guidelines
 Patch100:       python-webscrapbook-1.15-disable-linters.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+# For mime.types
+BuildRequires:  mailcap
 
 
 %global _description %{expand:
@@ -67,6 +63,10 @@ Recommends:     python3-%{pypi_name}+adhoc_ssl
 %{_bindir}/wsbview
 
 %changelog
+* Thu Jul 06 2023 FeRD (Frank Dana) <ferdnyc@gmail.com> - 1.16.0-1
+- New upstream release
+- Add mailcap as build requirement (for mime.types, needed by tests)
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.15.0-2
 - Rebuilt for Python 3.12
 

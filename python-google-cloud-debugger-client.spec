@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-debugger-client
 %global         forgeurl    https://github.com/googleapis/python-debugger-client
-Version:        1.6.1
+Version:        1.7.0
 %global         tag         v%{version}
 %forgemeta
 

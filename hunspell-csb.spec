@@ -6,14 +6,14 @@
 
 Name: hunspell-csb
 Summary: Kashubian hunspell dictionaries
-%global upstreamid 20050311
+# We are using here upstreamid date as upstream published source archive date
+%global upstreamid 20190319
 Version: 0.%{upstreamid}
-Release: 29%{?dist}
-Source: http://ftp.gnu.org/gnu/aspell/dict/csb/aspell6-csb-0.02-0.tar.bz2
-URL: http://borel.slu.edu/crubadan/apps.html
-License: GPL-2.0-or-later
+Release: 1%{?dist}
+Source: https://addons.thunderbird.net/firefox/downloads/latest/kashubian-spell-checker-poland/addon-222511-latest.xpi
+URL: https://addons.thunderbird.net/en-us/firefox/addon/kashubian-spell-checker-poland/
+License: GPL-2.0-only
 BuildArch: noarch
-BuildRequires: aspell, hunspell-devel
 
 Requires: hunspell-filesystem
 Supplements: (hunspell and langpacks-csb)
@@ -22,33 +22,27 @@ Supplements: (hunspell and langpacks-csb)
 Kashubian hunspell dictionaries.
 
 %prep
-%setup -q -n aspell6-csb-0.02-0
+%autosetup -c %{name}-%{version}
 
 %build
-export LANG=csb_PL.utf8
-preunzip csb.cwl
-wordlist2hunspell csb.wl csb_PL
-for i in Copyright doc/Crawler.txt; do
-  if ! iconv -f utf-8 -t utf-8 -o /dev/null $i > /dev/null 2>&1; then
-    iconv -f ISO-8859-1 -t UTF-8 $i > $i.new
-    touch -r $i $i.new
-    mv -f $i.new $i
-  fi
-  tr -d '\r' < $i > $i.new
-  touch -r $i $i.new
-  mv -f $i.new $i
-done
+# nothing here to build
 
 %install
 mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
-cp -p *.dic *.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
+cp -p dictionaries/Kaszebsczi.dic $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/csb_PL.dic
+cp -p dictionaries/Kaszebsczi.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/csb_PL.aff
 
 
 %files
-%doc COPYING Copyright README doc/Crawler.txt
+%doc dictionaries/Copyright
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Wed Jul 05 2023 Parag Nemade <pnemade AT redhat DOT com> - 0.20190319-1
+- Use new upstream which provide more wordlist
+- Update to new SPDX license
+- Resolves:rhbz#2218155 - Drop dependency on aspell
+
 * Wed Feb 22 2023 Caolan McNamara <caolanm@redhat.com> - 0.20050311-29
 - migrated to SPDX license
 

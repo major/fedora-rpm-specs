@@ -1,6 +1,6 @@
 Summary:        Power Management Service
 Name:           upower
-Version:        1.90.1
+Version:        1.90.2
 Release:        %autorelease
 License:        GPL-2.0-or-later
 URL:            http://upower.freedesktop.org/
@@ -99,6 +99,7 @@ Developer documentation for for libupower-glib.
 %{_mandir}/man8/*
 %{_datadir}/dbus-1/system-services/*.service
 %{_unitdir}/*.service
+%{_datadir}/installed-tests/upower/upower-integration.test
 
 %files libs
 %license COPYING

@@ -55,14 +55,14 @@
 %endif
 
 Name:           folly
-Version:        2023.04.24.00
+Version:        2023.07.03.00
 Release:        %{autorelease}
 Summary:        An open-source C++ library developed and used at Facebook
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/facebook/folly
 Source:         %{url}/archive/v%{version}/folly-%{version}.tar.gz
-Patch:          folly-fix_splitstring_aarch64.diff
+Patch:          folly-fix-test-for-fmt10.diff
 
 ExclusiveArch:  x86_64 aarch64 ppc64le
 
@@ -264,6 +264,7 @@ EXCLUDED_TESTS+='|fbstring_test\.FBString\.testAllClauses'
 # from https://koji.fedoraproject.org/koji/buildinfo?buildID=2192717
 EXCLUDED_TESTS+='|AsyncUDPSocketTest\.AsyncSocketIntegrationTest\.PingPongNotifyMmsg'
 EXCLUDED_TESTS+='|HHWheelTimerTest\.HHWheelTimerTest\.CancelTimeout'
+EXCLUDED_TESTS+='|HHWheelTimerTest\.HHWheelTimerTest\.ReschedTest'
 %endif
 
 %ifarch aarch64

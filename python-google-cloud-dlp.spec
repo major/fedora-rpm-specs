@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-dlp
 %global         forgeurl    https://github.com/googleapis/python-dlp
-Version:        3.12.1
+Version:        3.12.2
 %global         tag         v%{version}
 %forgemeta
 

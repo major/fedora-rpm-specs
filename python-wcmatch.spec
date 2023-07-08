@@ -9,6 +9,8 @@ Summary:        Wildcard/glob file name matcher
 License:        MIT
 URL:            https://github.com/facelessuser/wcmatch
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+# Based on https://github.com/facelessuser/wcmatch/commit/223f9caba2a4d9ce6b796d890693773e9c5d4080
+Patch:          Update-to-support-Python-3.12-alpha-203.patch
 
 BuildArch:      noarch
 
@@ -64,6 +66,7 @@ globmatch which functions like fnmatch, but for paths.
 %changelog
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 8.4.1-3
 - Rebuilt for Python 3.12
+- Fixes: rhbz#2189489
 
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild

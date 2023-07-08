@@ -1,6 +1,6 @@
 Name:           python-exoscale
 Version:        0.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python bindings for Exoscale API
 
 License:        ISC
@@ -56,6 +56,9 @@ BuildRequires:  python3dist(setuptools)
 
 
 %changelog
+* Thu Jul 06 2023 Python Maint <python-maint@redhat.com> - 0.8.0-2
+- Rebuilt for Python 3.12
+
 * Thu May 25 2023 Roman Inflianskas <rominf@aiven.io> - 0.8.0-1
 - Update to 0.8.0 (resolve rhbz#2203225)
 

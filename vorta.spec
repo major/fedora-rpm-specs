@@ -1,6 +1,6 @@
 Name:           vorta
 Version:        0.8.12
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A GUI for Borg Backup
 License:        GPL-3.0-only AND BSD-2-Clause AND OFL-1.1
 # src/vorta/qt_single_application.py if BSD-2-Clause
@@ -63,6 +63,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Thu Jul 06 2023 Python Maint <python-maint@redhat.com> - 0.8.12-3
+- Rebuilt for Python 3.12
+
 * Mon Apr 10 2023 Jonathan Wright <jonathan@almalinux.org> - 0.8.12-2
 - Override minimum platformdirs version
 

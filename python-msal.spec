@@ -3,7 +3,7 @@
 
 %global         srcname         msal
 %global         forgeurl        https://github.com/AzureAD/microsoft-authentication-library-for-python/
-Version:        1.20.0
+Version:        1.22.0
 %global         tag             %{version}
 %forgemeta
 

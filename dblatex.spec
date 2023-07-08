@@ -1,6 +1,6 @@
 Name:       dblatex
 Version:    0.3.12
-Release:    13%{?dist}
+Release:    14%{?dist}
 Summary:    DocBook to LaTeX/ConTeXt Publishing
 BuildArch:  noarch
 # Most of package is GPLv2+, except:
@@ -19,6 +19,8 @@ Patch1:     dblatex-0.3.11-which-shutil.patch
 Patch2:     dblatex-0.3.11-replace-inkscape-by-rsvg.patch
 # Patch3 sent upstream: https://sourceforge.net/p/dblatex/patches/12/
 Patch3:     dblatex-0.3.12-replace-imp-by-importlib.patch
+# Patch4 sent upstream: https://sourceforge.net/p/dblatex/patches/13/
+Patch4:     dblatex-0.3.12-adjust-submodule-imports.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -132,6 +134,9 @@ cp -p %{SOURCE1} COPYING-docbook-xsl
 %postun -p /usr/bin/texhash
 
 %changelog
+* Thu Jul 06 2023 Michael J Gruber <mjg@fedoraproject.org> - 0.3.12-14
+- Fix Py 3.12 imports (rhbz#2220636)
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.3.12-13
 - Rebuilt for Python 3.12
 

@@ -10,7 +10,7 @@
 
 %global         srcname     azure-cli
 %global         forgeurl    https://github.com/Azure/azure-cli
-Version:        2.49.0
+Version:        2.50.0
 %global         tag         %{srcname}-%{version}
 %global         distprefix  %{nil}
 %forgemeta
@@ -108,9 +108,6 @@ sed -i '/nspkg/d' src/azure-cli/requirements.py3.Linux.txt
 # but we can't install those until we actually build this package.
 sed -i '/azure-cli.*/d' src/azure-cli/requirements.py3.Linux.txt
 
-# Allow a newer version of semver.
-sed -i 's/semver==2.13.0/semver>=2.13.0/' src/azure-cli/setup.py
-
 # certifi's version is irrelevant since the package is empty in Fedora.
 sed -i 's/certifi.=.*$/certifi/' \
     src/azure-cli/requirements.py3.Linux.txt
@@ -120,9 +117,6 @@ sed -i 's/urllib3\[secure\]/urllib3/' src/azure-cli/setup.py
 
 # Temporarily allow newer -common versions in rawhide.
 sed -i 's/^azure-common==.*$/azure-common==1.1.28/' src/azure-cli/requirements.py3.Linux.txt
-
-# Temporarily allow newer -core versions in rawhide.
-sed -i 's/^azure-core==.*$/azure-core==1.25.1/' src/azure-cli/requirements.py3.Linux.txt
 
 # Allow slightly older versions.
 sed -i 's/^cryptography>=.*$/oauthlib>=37.0.2/' src/azure-cli/requirements.py3.Linux.txt

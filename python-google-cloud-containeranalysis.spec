@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-containeranalysis
 %global         forgeurl    https://github.com/googleapis/python-containeranalysis
-Version:        2.12.1
+Version:        2.12.2
 %global         tag         v%{version}
 %forgemeta
 

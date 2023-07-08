@@ -1,18 +1,16 @@
 %bcond_without tests
 
 %global         srcname     google-cloud-redis
-%global         forgeurl    https://github.com/googleapis/python-redis
-Version:        2.13.0
-%global         tag         v%{version}
-%forgemeta
+%global         reponame    google-cloud-python
 
 Name:           python-%{srcname}
+Version:        2.13.1
 Release:        %autorelease
 Summary:        Python Client for Google Cloud Memorystore for Redis API
 
 License:        Apache-2.0
-URL:            %forgeurl
-Source0:        %forgesource
+URL:            https://github.com/googleapis/google-cloud-python
+Source0:        %{url}/archive/refs/tags/%{srcname}-v%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -36,7 +34,10 @@ Summary:        %{summary}
 
 
 %prep
-%forgeautosetup
+# Upstream buries the package into a subdirectory. 😭
+%setup -c -T
+tar xzf %{SOURCE0} --strip-components=3 \
+    %{reponame}-%{srcname}-v%{version}/packages/%{srcname}
 
 # Allow a slightly older protobuf.
 sed -i 's/"protobuf.*",/"protobuf>=3.19.4",/' setup.py

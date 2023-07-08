@@ -3,7 +3,7 @@
 
 %global         srcname     proto-plus
 %global         forgeurl    https://github.com/googleapis/proto-plus-python
-Version:        1.22.2
+Version:        1.22.3
 %forgemeta
 
 Name:           python-%{srcname}

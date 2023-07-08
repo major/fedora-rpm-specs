@@ -1,14 +1,11 @@
 # Sphinx-generated HTML documentation is not suitable for packaging; see
-# RHBZ#2006555 for discussion. Additionally, upstream uses the furo theme,
-# which we would have to patch; see RHBZ#1910798.
+# https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
-# We could, in theory, generate PDF documentation as a substitute, but this
-# would still require it requires python3dist(myst-parser), which is not
-# currently packaged–and we are not willing to package it solely for this
-# purpose.
+# We can generate PDF documentation as a substitute.
+%bcond doc_pdf 1
 
 Name:           python-editables
-Version:        0.3
+Version:        0.4
 Release:        %autorelease
 Summary:        Editable installations
 
@@ -28,6 +25,14 @@ BuildRequires:  python3-devel
 # generation or testing.
 BuildRequires:  python3dist(pytest)
 
+%if %{with doc_pdf}
+BuildRequires:  make
+BuildRequires:  python3dist(sphinx)
+BuildRequires:  python3-sphinx-latex
+BuildRequires:  latexmk
+BuildRequires:  tex(pict2e.sty)
+%endif
+
 %global common_description %{expand:
 A Python library for creating “editable wheels”
 
@@ -45,16 +50,28 @@ Summary:        %{summary}
 %description -n python3-editables %{common_description}
 
 
+%package        doc
+Summary:        Documentation for python-editables
+
+%description    doc %{common_description}
+
+
 %prep
 %autosetup -n editables-%{version}
 
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires %{?with_doc_pdf:docs/requirements.txt}
 
 
 %build
 %pyproject_wheel
+
+%if %{with doc_pdf}
+PYTHONPATH="${PWD}" %make_build -C docs latex \
+    SPHINXOPTS='-j%{?_smp_build_ncpus}'
+%make_build -C docs/build/latex LATEXMKOPTS='-quiet'
+%endif
 
 
 %install
@@ -67,9 +84,16 @@ Summary:        %{summary}
 
 
 %files -n python3-editables -f %{pyproject_files}
-# pyproject-rpm-macros handles LICENSE.txt; verify with “rpm -qL -p …”
+%license LICENSE.txt
+
+
+%files doc
+%license LICENSE.txt
 %doc CHANGELOG.md
 %doc README.md
+%if %{with doc_pdf}
+%doc docs/build/latex/editables.pdf
+%endif
 
 
 %changelog

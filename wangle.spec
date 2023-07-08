@@ -10,11 +10,11 @@
 %bcond_without check
 
 Name:           wangle
-Version:        2023.04.24.00
+Version:        2023.07.03.00
 Release:        %autorelease
 Summary:        Framework for building services in a consistent/modular/composable way
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/facebook/wangle
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # disable failing tests, see patch for context

@@ -50,7 +50,7 @@
 
 Name:           ibus
 Version:        1.5.28
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.0-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -557,6 +557,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Fri Jul 07 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.28-11
+- Fix sync ibus_input_context_process_key_event()
+
 * Wed Jul 05 2023 Python Maint <python-maint@redhat.com> - 1.5.28-10
 - Rebuilt for Python 3.12
 

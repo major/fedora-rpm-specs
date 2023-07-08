@@ -335,7 +335,7 @@ Obsoletes: sgabios-bin <= 1:0.20180715git-10.fc38
 
 Summary: QEMU is a FAST! processor emulator
 Name: qemu
-Version: 8.0.0
+Version: 8.0.2
 Release: %{baserelease}%{?rcrel}%{?dist}
 Epoch: 2
 License: Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND FSFAP AND GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-2.0-or-later with GCC-exception-2.0 exception AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only and LGPL-2.1-or-later AND MIT and public-domain and CC-BY-3.0
@@ -356,9 +356,8 @@ Source36: README.tests
 
 # Fix SGX assert
 Patch: 0001-target-i386-the-sgx_epc_get_section-stub-is-reachabl.patch
-# Fix wrong type and rework inheritance.
-Patch: 0001-hw-pci-bridge-pci_expander_bridge-fix-type-in-pxb_cx.patch
 Patch: 0002-hw-pci-bridge-Make-PCIe-and-CXL-PXB-Devices-inherit-.patch
+Patch: 0001-pc-bios-keymaps-Use-the-official-xkb-name-for-Arabic.patch
 
 BuildRequires: meson >= %{meson_version}
 BuildRequires: bison
@@ -2785,6 +2784,10 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 
 
 %changelog
+* Mon Jul 03 2023 Camilla Conte <cconte@redhat.com> - 2:8.0.2-1
+- New upstream release 8.0.2
+- Fix arabic keyboard layout name
+
 * Thu Jun 01 2023 Richard W.M. Jones <rjones@redhat.com> - 2:8.0.0-4
 - Rebuild for libnfs soname bump
 

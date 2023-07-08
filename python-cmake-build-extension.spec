@@ -1,4 +1,4 @@
-%bcond_without test_example
+%bcond test_example 1
 
 Name:           python-cmake-build-extension
 Version:        0.5.1

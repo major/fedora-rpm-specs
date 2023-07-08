@@ -2,7 +2,7 @@ Name:           perl-Set-Scalar
 Version:        1.29
 Release:        25%{?dist}
 Summary:        Basic set operations
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Set-Scalar
 Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAVIDO/Set-Scalar-%{version}.tar.gz
 BuildArch:      noarch
@@ -22,6 +22,7 @@ BuildRequires:  perl(vars)
 # Test Suite
 BuildRequires:  perl(Carp)
 # Dependencies
+# (none)
 
 %description
 %{summary}.

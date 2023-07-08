@@ -129,7 +129,7 @@ Patch3:         0003-t-lib-git-svn-try-harder-to-find-a-port.patch
 
 %if %{with docs}
 # pod2man is needed to build Git.3pm
-BuildRequires:  %{_bindir}/pod2man
+BuildRequires:  /usr/bin/pod2man
 %if %{with asciidoctor}
 BuildRequires:  docbook5-style-xsl
 BuildRequires:  rubygem-asciidoctor

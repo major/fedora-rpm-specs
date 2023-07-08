@@ -4,29 +4,29 @@
 # It should be 0.MAJOR.MINOR without leading zeros, e.g. 22.03 → 0.22.3.
 %global downstream_so_version 0.23.05
 
-%bcond_without  alembic
-%bcond_with     documentation
-%bcond_without  draco
-%bcond_without  embree
-%bcond_with     jemalloc
+%bcond alembic       1
+%bcond documentation 0
+%bcond draco         1
+%bcond embree        1
+%bcond jemalloc      0
 # Not yet packaged: https://github.com/AcademySoftwareFoundation/MaterialX
-%bcond_with     materialx
+%bcond materialx     0
 # Default "UNIX Makefiles" backend for CMake would also work fine; ninja is a
 # bit faster. We conditionalize it just in case there are backend-specific
 # issues in the future.
-%bcond_without  ninja
-%bcond_without  openshading
-%bcond_without  openvdb
-%bcond_without  ocio
-%bcond_without  oiio
-%bcond_without  ptex
+%bcond ninja         1
+%bcond openshading   1
+%bcond openvdb       1
+%bcond ocio          1
+%bcond oiio          1
+%bcond ptex          1
 # Not yet packaged
-%bcond_with     pyside6
-%bcond_without  usdview
+%bcond pyside6       0
+%bcond usdview       1
 # TODO: Figure out how to re-enable the tests. Currently these want to install
 # into /usr/tests and, and there are issues with the launchers finding the
 # command-line tools in the buildroot.
-%bcond_with  test
+%bcond test          0
 
 Name:           usd
 Version:        23.05

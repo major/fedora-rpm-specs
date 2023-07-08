@@ -1,23 +1,26 @@
 %global srcname spf-engine
 
 Name:           pypolicyd-spf
-Version:        2.9.3
-Release:        6%{?dist}
+Version:        3.0.4
+Release:        1%{?dist}
 Summary:        SPF Policy Server for Postfix (Python implementation)
 
 License:        ASL 2.0
 URL:            https://launchpad.net/%{srcname}
 Source0:        https://launchpad.net/%{srcname}/2.9/%{version}/+download/%{srcname}-%{version}.tar.gz
 Source1:        %{name}-tmpfiles.conf
-Patch0:         pypolicyd-spf-2.9.3-service.patch
+Patch0:         pypolicyd-spf-3.0.4-service.patch
 
 BuildArch:      noarch
 Requires:       postfix
 Requires:       python3-pyspf
 Requires:       python3-authres
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
+
 BuildRequires:  systemd
+BuildRequires:  python3-devel
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %package milter
 Summary:        Milter for pypolicyd-spf (spf-engine).
@@ -39,28 +42,32 @@ Milter for pypolicyd-spf.
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
 
+# Move doc files
+%{__mv} data/share/doc/python-policyd-spf/README.per_user_whitelisting .
+%{__mv} data/etc/python-policyd-spf/policyd-spf.conf.commented .
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%{__rm} -rf %{buildroot}
-%py3_install
+%pyproject_install
 
 # We want the binary in Postfix libexec directory
 %{__mkdir_p} %{buildroot}%{_libexecdir}/postfix
 %{__mv} %{buildroot}%{_bindir}/policyd-spf %{buildroot}%{_libexecdir}/postfix
+
 # Move etc
 %{__mv} %{buildroot}%{_prefix}/etc %{buildroot}%{_sysconfdir}
 %{__sed} -i -e 's/^HELO_reject = SPF_Not_Pass$/HELO_reject = Fail/' \
                %{buildroot}%{_sysconfdir}/python-policyd-spf/policyd-spf.conf
+
 # Remove SysV init
 %{__rm} -rf %{buildroot}%{_sysconfdir}/init.d
+
 # Temporary files for milter
 %{__mkdir_p} %{buildroot}%{_tmpfilesdir}
 %{__install} -m 0644 %{SOURCE1} %{buildroot}%{_tmpfilesdir}/%{name}.conf
-
 
 %pre
 /usr/sbin/useradd -r -M -s /sbin/nologin -d /run/pyspf-milter \
@@ -68,7 +75,7 @@ Milter for pypolicyd-spf.
 
  
 %files
-%doc README README.per_user_whitelisting CHANGES COPYING
+%doc README.txt README.per_user_whitelisting CHANGES COPYING
 %doc policyd-spf.conf.commented
 %dir %{_sysconfdir}/python-policyd-spf
 %config(noreplace) %{_sysconfdir}/python-policyd-spf/policyd-spf.conf
@@ -77,19 +84,26 @@ Milter for pypolicyd-spf.
 %{_mandir}/man1/*
 %{_mandir}/man5/*
 %dir %{python3_sitelib}/spf_engine
-%{python3_sitelib}/spf_engine-%{version}*.egg-info/
+%{python3_sitelib}/spf_engine-%{version}.dist-info/
 %pycached %{python3_sitelib}/spf_engine/__init__.py
 %pycached %{python3_sitelib}/spf_engine/policy*.py
+%pycached %{python3_sitelib}/spf_engine/config.py
 
 
 %files milter
+%dir %{_sysconfdir}/pyspf-milter
+%config(noreplace) %{_sysconfdir}/pyspf-milter/pyspf-milter.conf
 %{_bindir}/pyspf-milter
 %{_unitdir}/pyspf-milter.service
+%{_mandir}/man8/*
 %pycached %{python3_sitelib}/spf_engine/milter*.py
 %pycached %{python3_sitelib}/spf_engine/util.py
 
 
 %changelog
+* Thu Jul  6 2023 Bojan Smojver <bojan@rexursive.com> 3.0.4-1
+- Update to 3.0.4
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.9.3-6
 - Rebuilt for Python 3.12
 

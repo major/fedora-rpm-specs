@@ -4,8 +4,8 @@
 %global modname vcrpy
 
 Name:               python-%{modname}
-Version:            4.2.1
-Release:            5%{?dist}
+Version:            5.0.0
+Release:            1%{?dist}
 Summary:            Automatically mock your HTTP interactions to simplify and speed up testing
 
 License:            MIT
@@ -79,7 +79,8 @@ Summary:            %{summary}
 rm -rf tests/integration
 # This test tries to contact google.com and fails in the fedora build system
 rm -rf tests/unit/test_stubs.py
-%pytest
+# Skip two tests that require DNS resolution
+%pytest -k 'not test_get_vcr_with_matcher and not test_testcase_playback'
 %endif
 
 
@@ -88,6 +89,9 @@ rm -rf tests/unit/test_stubs.py
 
 
 %changelog
+* Thu Jul 06 2023 Major Hayden <major@redhat.com> - 5.0.0-1
+- Update to 5.0.0
+
 * Wed Jul 05 2023 Python Maint <python-maint@redhat.com> - 4.2.1-5
 - Rebuilt for Python 3.12
 

@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-bigquery-reservation
 %global         forgeurl    https://github.com/googleapis/python-bigquery-reservation
-Version:        1.11.1
+Version:        1.11.2
 %global         tag         v%{version}
 %forgemeta
 

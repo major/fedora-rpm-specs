@@ -5,8 +5,8 @@
 %global bootstrap 1
 
 Name:     erlang-%{realname}
-Version:  3.18.0
-Release:  7%{?dist}
+Version:  3.22.0
+Release:  1%{?dist}
 Summary:  Tool for working with Erlang projects
 License:  ASL 2.0 and MIT
 URL:      https://github.com/erlang/%{realname}
@@ -15,6 +15,7 @@ Source1:  rebar3.escript
 Patch1:   erlang-rebar3-0001-Skip-deps.patch
 Patch2:   erlang-rebar3-0002-Unbundle-hex_core-ver.-0.7.1.patch
 Patch3:   erlang-rebar3-0003-WIP-ignore-deps-on-demand.patch
+Patch4:   erlang-rebar3-0004-WIP-prefer-locally-installed-plugins.patch
 %if 0%{?bootstrap}
 # noop
 %else
@@ -85,7 +86,7 @@ install -p -m644 _build/bootstrap/lib/rebar/ebin/*.beam %{buildroot}%{_datadir}/
 install -p -m644 _build/bootstrap/lib/rebar/ebin/%{otp_app_name}.app %{buildroot}%{_datadir}/erlang/lib/%{realname}-%{version}/ebin/
 
 # Copy the contents of priv folder
-cp -a priv %{buildroot}%{_erllibdir}/%{realname}-%{version}/
+cp -a apps/rebar/priv %{buildroot}%{_erllibdir}/%{realname}-%{version}/
 
 mkdir -p %{buildroot}%{_mandir}/man1/
 install -p -m644 manpages/%{realname}.1 %{buildroot}%{_mandir}/man1/
@@ -98,6 +99,9 @@ install -p -m644 manpages/%{realname}.1 %{buildroot}%{_mandir}/man1/
 %{_mandir}/man1/%{realname}.1*
 
 %changelog
+* Thu Jul  6 2023 Peter Lemenkov <lemenkov@gmail.com> - 3.22.0-1
+- New upstream release
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.18.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

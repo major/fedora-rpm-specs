@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-container
 %global         forgeurl    https://github.com/googleapis/python-container
-Version:        2.25.0
+Version:        2.26.0
 %global         tag         v%{version}
 %forgemeta
 

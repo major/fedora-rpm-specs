@@ -1,6 +1,6 @@
 %global majorversion 0
 %global minorversion 3
-%global microversion 72
+%global microversion 73
 
 %global apiversion   0.3
 %global spaversion   0.2
@@ -9,7 +9,7 @@
 %global ms_version   0.4.2
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 2
+%global baserelease 1
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -102,9 +102,6 @@ BuildRequires:  pkgconfig(ldacBT-enc)
 BuildRequires:  pkgconfig(ldacBT-abr)
 %endif
 BuildRequires:  pkgconfig(fdk-aac)
-%if %{with vulkan}
-BuildRequires:  pkgconfig(vulkan)
-%endif
 BuildRequires:  pkgconfig(bluez)
 BuildRequires:  systemd
 BuildRequires:  systemd-devel
@@ -121,25 +118,10 @@ BuildRequires:  avahi-devel
 BuildRequires:  pkgconfig(webrtc-audio-processing) >= 0.2
 BuildRequires:  libusb1-devel
 BuildRequires:  readline-devel
-%if %{with lv2}
-BuildRequires:  lilv-devel
-%endif
 BuildRequires:  openssl-devel
 BuildRequires:  libcanberra-devel
-%if %{with roc}
-BuildRequires:  roc-toolkit-devel
-BuildRequires:  libunwind-devel
-BuildRequires:  openfec-devel
-BuildRequires:  sox-devel
-%endif
-%if %{with ffado}
-BuildRequires:  libffado-devel
-%endif
 BuildRequires:  libuv-devel
 BuildRequires:  speexdsp-devel
-%if %{with libmysofa}
-BuildRequires:  libmysofa-devel
-%endif
 BuildRequires:  systemd-rpm-macros
 %{?sysusers_requires_compat}
 
@@ -296,14 +278,24 @@ Requires:       libdrm
 This package contains the PipeWire spa plugin to access cameras through libcamera.
 %endif
 
+%if %{with vulkan}
+%package plugin-vulkan
+Summary:        PipeWire media server vulkan support
+License:        MIT
+BuildRequires:  pkgconfig(vulkan)
+Recommends:     %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+
+%description plugin-vulkan
+This package contains the PipeWire spa plugin for vulkan.
+%endif
+
 %if %{with pulse}
 %package pulseaudio
 Summary:        PipeWire PulseAudio implementation
 License:        MIT
 Recommends:     %{name}%{?_isa} = %{version}-%{release}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
-Requires:       pulseaudio-utils
-BuildRequires:  pulseaudio-libs
 Conflicts:      pulseaudio
 # Fixed pulseaudio subpackages
 Conflicts:      %{name}-libpulse < 0.3.13-6
@@ -360,12 +352,53 @@ This package contains X11 bell support for PipeWire.
 %package module-ffado
 Summary:        PipeWire media server ffado support
 License:        MIT
+BuildRequires:  libffado-devel
 Recommends:     %{name}%{?_isa} = %{version}-%{release}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description module-ffado
 This package contains the FFADO support for PipeWire.
 %endif
+
+%if %{with roc}
+%package module-roc
+Summary:        PipeWire media server ROC support
+License:        MIT
+BuildRequires:  roc-toolkit-devel
+BuildRequires:  libunwind-devel
+BuildRequires:  openfec-devel
+BuildRequires:  sox-devel
+Recommends:     %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+
+%description module-roc
+This package contains the ROC support for PipeWire.
+%endif
+
+%if %{with libmysofa}
+%package module-filter-chain-sofa
+Summary:        PipeWire media server sofa filter-chain support
+License:        MIT
+BuildRequires:  libmysofa-devel
+Recommends:     %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+
+%description module-filter-chain-sofa
+This package contains the mysofa support for PipeWire filter-chain.
+%endif
+
+%if %{with lv2}
+%package module-filter-chain-lv2
+Summary:        PipeWire media server lv2 filter-chain support
+License:        MIT
+BuildRequires:  lilv-devel
+Recommends:     %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+
+%description module-filter-chain-lv2
+This package contains the mysofa support for PipeWire filter-chain.
+%endif
+
 
 %prep
 %autosetup -p1 %{?snapdate:-n %{name}-%{gitcommit}}
@@ -506,15 +539,10 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-portal.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-profiler.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-protocol-native.so
-%{_libdir}/pipewire-%{apiversion}/libpipewire-module-protocol-pulse.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-protocol-simple.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-pulse-tunnel.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-raop-discover.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-raop-sink.so
-%if %{with roc}
-%{_libdir}/pipewire-%{apiversion}/libpipewire-module-roc-sink.so
-%{_libdir}/pipewire-%{apiversion}/libpipewire-module-roc-source.so
-%endif
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-rtkit.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-rtp-sap.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-rtp-session.so
@@ -545,9 +573,6 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_libdir}/spa-%{spaversion}/support/
 %{_libdir}/spa-%{spaversion}/v4l2/
 %{_libdir}/spa-%{spaversion}/videoconvert/
-%if %{with vulkan}
-%{_libdir}/spa-%{spaversion}/vulkan/
-%endif
 %{_datadir}/pipewire/client.conf
 %{_datadir}/pipewire/client.conf.avail/20-upmix.conf
 %{_datadir}/pipewire/client-rt.conf
@@ -646,6 +671,11 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_libdir}/spa-%{spaversion}/libcamera/
 %endif
 
+%if %{with vulkan}
+%files plugin-vulkan
+%{_libdir}/spa-%{spaversion}/vulkan/
+%endif
+
 %if %{with pulse}
 %files pulseaudio
 %{_bindir}/pipewire-pulse
@@ -653,6 +683,7 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_userunitdir}/pipewire-pulse.*
 %{_datadir}/pipewire/pipewire-pulse.conf
 %{_datadir}/pipewire/pipewire-pulse.conf.avail/20-upmix.conf
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-protocol-pulse.so
 %endif
 
 %if %{with v4l2}
@@ -669,7 +700,28 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-ffado-driver.so
 %endif
 
+%if %{with roc}
+%files module-roc
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-roc-sink.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-roc-source.so
+%endif
+
+%if %{with libmysofa}
+%files module-filter-chain-sofa
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-filter-chain-sofa.so
+%endif
+
+%if %{with lv2}
+%files module-filter-chain-lv2
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-filter-chain-lv2.so
+%endif
+
 %changelog
+* Thu Jul 06 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.73-1
+- Update version to 0.3.73
+- Fixes rhbz#2156003 Split out lv2 and sofa filter-chain packages.
+- Split out vulkan plugin and roc module
+
 * Thu Jun 29 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.72-2
 - Move the ffado driver to module-ffado
   Fixes rhbz#2218481

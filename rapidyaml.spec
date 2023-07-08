@@ -1,5 +1,5 @@
-%bcond_without tests
-%bcond_without python
+%bcond tests 1
+%bcond python 1
 
 # Upstream defaults to C++11, but gtest 1.13.0 requires C++14 or later.
 %global cxx_std 14

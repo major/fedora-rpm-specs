@@ -3,7 +3,7 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name: vkBasalt
-Version: 0.3.2.9
+Version: 0.3.2.10
 Release: %autorelease
 Summary: Vulkan post processing layer
 
@@ -12,10 +12,6 @@ Summary: Vulkan post processing layer
 License: zlib and ASL 2.0
 URL: https://github.com/DadSchoorse/vkBasalt
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-
-# FTBFS with new GCC 13
-# https://github.com/DadSchoorse/vkBasalt/issues/209
-Patch0: FTBFS-with-new-GCC-13.patch
 
 BuildRequires: gcc-c++ >= 9
 BuildRequires: glibc-devel

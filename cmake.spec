@@ -53,7 +53,10 @@
 %bcond_without X11_test
 
 # Do not build non-lto objects to reduce build time significantly.
-%global optflags %(echo '%{optflags}' | sed -e 's!-ffat-lto-objects!-fno-fat-lto-objects!g')
+%global build_cflags   %(echo '%{build_cflags}'   | sed -e 's!-ffat-lto-objects!-fno-fat-lto-objects!g')
+%global build_cxxflags %(echo '%{build_cxxflags}' | sed -e 's!-ffat-lto-objects!-fno-fat-lto-objects!g')
+%global build_fflags   %(echo '%{build_fflags}' | sed -e 's!-ffat-lto-objects!-fno-fat-lto-objects!g')
+%global build_fcflags  %(echo '%{build_fflags}' | sed -e 's!-ffat-lto-objects!-fno-fat-lto-objects!g')
 
 # Place rpm-macros into proper location
 %global rpm_macros_dir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
@@ -69,7 +72,7 @@
 %global patch_version 0
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 1
+%global baserelease 2
 
 # Set to RC version if building RC, else comment out.
 %global rcsuf rc4
@@ -462,13 +465,6 @@ NO_TEST="$NO_TEST|CustomCommand|RunCMake.PositionIndependentCode"
 NO_TEST="$NO_TEST|CPackComponentsForAll-RPM-default"
 NO_TEST="$NO_TEST|CPackComponentsForAll-RPM-OnePackPerGroup"
 NO_TEST="$NO_TEST|CPackComponentsForAll-RPM-AllInOne"
-# Failing in 3.27.0-rc1 for some regex mismatch,
-# but command actually succeeds.
-NO_TEST="$NO_TEST|RunCMake.Make"
-NO_TEST="$NO_TEST|RunCMake.BuildDepends"
-# Failing in 3.27.0-rc1 for some timestamp quirks.
-NO_TEST="$NO_TEST|Qt6Autogen.RerunMocBasic"
-NO_TEST="$NO_TEST|Qt6Autogen.RerunRccDepends"
 # curl test may fail during bootstrap
 %if %{with bootstrap}
 NO_TEST="$NO_TEST|curl"
@@ -553,6 +549,10 @@ popd
 
 
 %changelog
+* Thu Jul 06 2023 Björn Esser <besser82@fedoraproject.org> - 3.27.0~rc4-2
+- Fix FTBFS for redhat-rpm-config v260 and later
+- Re-include tests that were failing with rc1
+
 * Fri Jun 30 2023 Björn Esser <besser82@fedoraproject.org> - 3.27.0~rc4-1
 - cmake-3.27.0-rc4
   Fixes rhbz#2218941

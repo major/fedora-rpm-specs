@@ -1,14 +1,10 @@
-# EPEL9 does not have python-aiohttp packaged yet.
-%if 0%{?fedora}
-%bcond_without  tests
-%else
+# Upstream removed tests from the pypi package.
 %bcond_with     tests
-%endif
 
 %global         srcname     azure-mgmt-apimanagement
 
 Name:           python-%{srcname}
-Version:        3.0.0
+Version:        4.0.0
 Release:        %autorelease
 Summary:        Microsoft Azure API Management Client Library for Python
 License:        MIT

@@ -1,7 +1,11 @@
-%global commit 9f48fb992a3d7e96610c4ce8be969cff2d61a01b
+# Till Fix https://bugzilla.redhat.com/show_bug.cgi?id=2220874
+ExcludeArch: aarch64
+
+
+%global commit e7eb4c68af1c567a690fd985567a2acb0d07e5af
 # %%global tag 11 #disabled due to unarragment release line after mass rebuild.
 %global githead %(printf %%.7s %commit)
-%global gitdate 20220212
+%global gitdate 20230706
 
 # epel7 compatibility mode
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
@@ -48,7 +52,7 @@ It can be used to improve portability and other functionality in your programs.
 
 Name:     gnulib
 Version:  0
-Release:  45.%{gitdate}git%{?dist}
+Release:  46.%{gitdate}git%{?dist}
 Summary:  GNU Portability Library
 License:  Public Domain and BSD and GPLv2+ and GPLv3 and GPLv3+ and LGPLv2 and LGPLv2+ and LGPLv3+
 URL:      https://www.gnu.org/software/gnulib
@@ -60,7 +64,13 @@ Patch0:   test-u8-strstr-alarm.diff
 
 BuildRequires:		perl-generators
 BuildRequires:		texinfo
+
+# Java JDK dropped in i686
+# https://fedoraproject.org/wiki/Changes/Drop_i686_JDKs
+%ifnarch %{ix86}
 BuildRequires:		java-devel
+Requires:           %{name}-javaversion
+%endif
 
 # For building Modules, all gnulib requires must be found, Modules BRs:
 BuildRequires:		gettext-devel
@@ -69,8 +79,8 @@ BuildRequires:		gperf
 BuildRequires:		libtool
 BuildRequires:		help2man
 BuildRequires:		git
-BuildRequires: make
-BuildRequires: ncurses-devel
+BuildRequires:      make
+BuildRequires:      ncurses-devel
 
 %description
 %common_desc
@@ -105,8 +115,14 @@ pushd build-tests
 %configure --prefix=%_prefix
 make %{?_smp_mflags}
 popd
+
+# Java JDK dropped in i686
+# https://fedoraproject.org/wiki/Changes/Drop_i686_JDKs
+%ifnarch %{ix86}
 # Rebuild removed java class
 javac -d lib -source 11 -target 11 lib/javaversion.java
+%endif
+
 # This part is done with the original path
 make %{?_smp_mflags} MODULES.html
 sed -i -r 's#HREF="(lib|m4|modules)#HREF="%{_datadir}/%{name}/\1#g' MODULES.html
@@ -167,6 +183,22 @@ This package contains documentation for %{name}.
 
 #-------------------------------------------------------------------------
 
+# Java JDK dropped in i686
+# https://fedoraproject.org/wiki/Changes/Drop_i686_JDKs
+%ifnarch %{ix86}
+%package javaversion
+Summary: javaversion built unit
+License: GPLv3+
+Requires:			%{name}-devel = %{version}-%{release}
+%description javaversion
+This package contains javaversion built unit of %{name}.
+
+%files javaversion
+%{_datadir}/%{name}/lib/javaversion.class
+%endif
+
+#-------------------------------------------------------------------------
+
 %package devel
 Summary: Devel files of %{name}
 BuildArch: noarch
@@ -195,6 +227,12 @@ This package contains devel files of %{name}.
 %{_pkgdocdir}/
 %exclude %{_pkgdocdir}/MODULES.html
 %exclude %{_pkgdocdir}/gnulib.html
+# Java JDK dropped in i686
+# https://fedoraproject.org/wiki/Changes/Drop_i686_JDKs
+%ifnarch %{ix86}
+# Remove built java class, goes to javaversion sub-package
+%exclude %{_datadir}/%{name}/lib/javaversion.class
+%endif
 
 #-------------------------------------------------------------------------
 
@@ -215,6 +253,12 @@ It can be enabled for specific files by setting appropriate git attributes.
 
 #-------------------------------------------------------------------------
 %changelog
+* Thu Jul 06 2023 Mosaab Alzoubi <moceap[AT]fedoraproject[DOT]com> - 0-46.20230706git
+- Update on 2023-07-06
+- General clean-ups
+- Move built javaversion to new sub-package
+- Drop built javaversion from i686
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-45.20220212git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,7 @@
+# SPDX-License-Identifier: GPL-2.0-or-later
 Name: realtime-setup
-Version: 2.2.3
-Release: 3%{?dist}
+Version: 2.3.1
+Release: 1%{?dist}
 License: GPLv2
 Summary: Setup RT/low-latency environment details
 Source0: https://gitlab.com/rt-linux-tools/%{name}/-/archive/v%{version}/%{name}-v%{version}.tar.bz2
@@ -71,14 +72,14 @@ Neither the slub script or realtime-entsk are active by default.
 %{_unitdir}/realtime-setup.service
 %{_bindir}/realtime-setup
 %{_unitdir}/realtime-entsk.service
-%license gpl-2.0.txt
+%{_bindir}/realtime-setup-kdump
 
 %changelog
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+* Wed Jul 05 2023 Clark Williams <williams@redhatcom> - 2.3.1-1
+- Fix build require of annobin package
+- Update all files with SPDX identifier
+- add srpm target in Makefile
+- fix versioning in Makefile targets and specfile
 
 * Thu Jul 14 2022 Jiri Kastner<jkastner@fedoraproject.org> - 2.2.3-1
 - polish source url

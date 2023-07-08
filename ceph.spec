@@ -278,7 +278,7 @@ BuildRequires:	libcurl-devel
 BuildRequires:	libcap-devel
 BuildRequires:	libcap-ng-devel
 #BuildRequires:	fmt-devel >= 6.2.1
-%if 0%{?fedora} || 0%{?rhel} >= 10
+%if ! (0%{?fedora} || 0%{?rhel} >= 10)
 BuildRequires:	rocksdb-devel
 Requires:	rocksdb
 %endif
@@ -503,9 +503,6 @@ BuildRequires:	numactl-devel
 BuildRequires:	libcryptopp-devel
 BuildRequires:	libnuma-devel
 %endif
-%endif
-%if 0%{?rhel} >= 8
-BuildRequires:	/usr/bin/pathfix.py
 %endif
 
 %description
@@ -1538,8 +1535,7 @@ install -m 0644 -D udev/50-rbd.rules %{buildroot}%{_udevrulesdir}/50-rbd.rules
 install -m 0440 -D sudoers.d/ceph-smartctl %{buildroot}%{_sysconfdir}/sudoers.d/ceph-smartctl
 
 %if 0%{?rhel} >= 8
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" %{buildroot}%{_bindir}/*
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" %{buildroot}%{_sbindir}/*
+%py3_shebang_fix %{buildroot}%{_bindir}/* %{buildroot}%{_sbindir}/*
 %endif
 
 #set up placeholder directories

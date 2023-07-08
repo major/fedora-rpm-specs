@@ -13,6 +13,13 @@
 %global sum_tr  FastAPI framework
 %global sum_zh  FastAPI 框架
 
+# F39FailsToInstall: python3-orjson
+# https://bugzilla.redhat.com/show_bug.cgi?id=2220383
+%bcond orjson 0
+# F39FailsToInstall: python3-uvicorn+standard, python3-uvicorn
+# https://bugzilla.redhat.com/show_bug.cgi?id=2220550
+%bcond uvicorn 0
+
 Name:           python-fastapi
 Version:        0.99.0
 Release:        %autorelease
@@ -365,6 +372,17 @@ Summary(zh):    %{sum_zh}
 %prep
 %autosetup -n fastapi-%{version} -p1
 
+%if %{without orjson}
+# Comment out all dependencies on orjson (for ORJSONResponse). Note that this
+# removes it from the “all” extra metapackage.
+sed -r -i 's/("orjson\b.*",)/# \1/' pyproject.toml
+%endif
+%if %{without uvicorn}
+# Comment out all dependencies on uvicorn. Note that this removes it from the
+# “all” extra metapackage.
+sed -r -i 's/("uvicorn\b.*",)/# \1/' pyproject.toml
+%endif
+
 # Comment out test dependencies that are only for linting/formatting/analysis,
 # and will not be used.
 #
@@ -381,6 +399,9 @@ sed -r \
     -e 's/^(types-(u|or)json)\b/# &/' \
     -e 's/^(-e .)$/# &/' \
     -e 's/^(email_validator.*)<2/\1<3/' \
+%if %{without orjson}
+    -e 's/^(orjson)\b/# &/' \
+%endif
     requirements-tests.txt | tee requirements-tests-filtered.txt
 
 # Remove bundled js-termynal 0.0.1; since we are not building documentation, we
@@ -402,10 +423,17 @@ rm -rvf docs/*/docs/js docs/*/docs/css
 
 
 %check
+%if %{without orjson}
+k="${k-}${k+ and }not test_orjson_non_str_keys"
+ignore="${ignore-} --ignore=tests/test_default_response_class.py"
+ignore="${ignore-} --ignore=tests/test_tutorial/test_custom_response/test_tutorial001b.py"
+ignore="${ignore-} --ignore=tests/test_tutorial/test_custom_response/test_tutorial009c.py"
+%endif
+
 # Ignore all DeprecationWarning messages, as they pop up from various
 # dependencies in practice. Upstream deals with this by tightly controlling
 # dependency versions in CI.
-%pytest -W 'ignore::DeprecationWarning' -k "${k-}"
+%pytest -W 'ignore::DeprecationWarning' -k "${k-}" ${ignore-}
 
 
 %files -n python3-fastapi -f %{pyproject_files}

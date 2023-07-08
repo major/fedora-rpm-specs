@@ -22,11 +22,11 @@
 %endif
 
 Name:           fizz
-Version:        2023.04.24.00
+Version:        2023.07.03.00
 Release:        %autorelease
 Summary:        A C++14 implementation of the TLS-1.3 standard
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/facebookincubator/fizz
 Source0:        %{url}/archive/v%{version}/fizz-%{version}.tar.gz
 # Disable failing tests
@@ -75,7 +75,7 @@ developing applications that use %{name}.
 %prep
 %setup -q
 %if %{without all_tests}
-%patch0 -p1 -b .no_failed_tests
+%patch 0 -p1 -b .no_failed_tests
 %endif
 
 

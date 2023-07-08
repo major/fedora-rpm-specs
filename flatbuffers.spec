@@ -9,7 +9,7 @@
 #
 # We could potentially enable the Doxygen PDF documentation as a substitute,
 # but currently Doxygen generates invalid LaTeX.
-%bcond_with doc_pdf
+%bcond doc_pdf 0
 
 Name:           flatbuffers
 Version:        23.5.26

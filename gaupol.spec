@@ -1,4 +1,4 @@
-%bcond_without tests
+%bcond tests 1
 
 Name:           gaupol
 Version:        1.12

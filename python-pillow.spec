@@ -12,8 +12,8 @@
 %endif
 
 Name:           python-%{srcname}
-Version:        9.5.0
-Release:        2%{?dist}
+Version:        10.0.0
+Release:        1%{?dist}
 Summary:        Python image processing library
 
 # License: see http://www.pythonware.com/products/pil/license.htm
@@ -295,6 +295,9 @@ popd
 
 
 %changelog
+* Wed Jul 05 2023 Sandro Mani <manisandro@gmail.com> - 10.0.0-1
+- Update to 10.0.0
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 9.5.0-2
 - Rebuilt for Python 3.12
 

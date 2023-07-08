@@ -45,6 +45,8 @@ Summary:    Documentation for Python Elasticsearch
 
 # remove very old missing dep
 sed -i '/unasync/d' dev-requirements.txt
+# formatter used upstream to generate examples; we don’t need it
+sed -i '/black/d' dev-requirements.txt
 
 %generate_buildrequires
 %pyproject_buildrequires -x extras dev-requirements.txt

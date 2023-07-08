@@ -6,13 +6,15 @@
 
 Name:           python-%{pkg_name}
 Version:        12.12.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        The sip module support for PyQt5
 
 License:        GPLv2 or GPLv3
 URL:            https://www.riverbankcomputing.com/software/sip/
 Source0:        %{pypi_source}
 Patch0:         fix-py3.12-segfault-at-exit.patch
+# https://www.riverbankcomputing.com/hg/sip/rev/d36867e54192
+Patch1:         fix-py3.12-subclass-crash.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
@@ -52,6 +54,9 @@ Provides: python3-pyqt5-sip-api(%{_sip_api_major})%{?_isa} = %{_sip_api}
 %{python3_sitearch}/PyQt5/
 
 %changelog
+* Thu Jul 06 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 12.12.1-4
+- Fix segfault with subclasses
+
 * Fri Jun 16 2023 Scott Talbert <swt@techie.net> - 12.12.1-3
 - Fix segfault at exit with Python 3.12
 

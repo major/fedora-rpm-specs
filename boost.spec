@@ -42,8 +42,8 @@ Name: boost
 %global real_name boost
 Summary: The free peer-reviewed portable C++ source libraries
 Version: 1.81.0
-Release: 3%{?dist}
-License: Boost and MIT and Python
+Release: 4%{?dist}
+License: BSL-1.0 AND MIT AND Python-2.0.1
 
 # Replace each . with _ in %%{version}
 %global version_enc %{lua:
@@ -1275,6 +1275,9 @@ fi
 %{_mandir}/man1/b2.1*
 
 %changelog
+* Thu Jul 06 2023 Jonathan Wakely <jwakely@fedoraproject.org> - 1.81.0-4
+- Update License for SPDX migration
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.81.0-3
 - Rebuilt for Python 3.12
 

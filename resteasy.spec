@@ -3,7 +3,7 @@
 
 Name:           resteasy
 Version:        3.0.26
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Framework for RESTful Web services and Java applications
 License:        Apache-2.0
 URL:            http://resteasy.jboss.org/
@@ -14,7 +14,9 @@ Patch3:         0001-Replace-javax.activation-imports-with-jakarta.activa.patch
 Patch4:         0001-Update-to-new-jakarta-xml-bind-namespace.patch
 
 BuildArch:      noarch
+%if 0%{?fedora}
 ExclusiveArch:  %{java_arches} noarch
+%endif
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(commons-io:commons-io)
@@ -237,6 +239,9 @@ find -name '*.jar' -print -delete
 %license License.html
 
 %changelog
+* Thu Jul 06 2023 Dogtag PKI Team <devel@lists.dogtagpki.org> - 3.0.26-26
+- Conditionalize use of ExclusiveArch
+
 * Mon May 01 2023 Dogtag PKI Team <pki-devel@redhat.com> - 3.0.26-25
 - Update top-level package to depend on servlet-initializer
 

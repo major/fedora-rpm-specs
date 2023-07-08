@@ -1,6 +1,6 @@
 %global         srcname     yfinance
 %global         forgeurl    https://github.com/ranaroussi/%{srcname}
-Version:        0.2.20
+Version:        0.2.22
 %global         tag         %{version}
 %forgemeta
 

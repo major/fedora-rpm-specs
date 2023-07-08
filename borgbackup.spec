@@ -2,7 +2,7 @@
 
 Name:           %{srcname}
 Version:        1.2.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A deduplicating backup program with compression and authenticated encryption
 # zlib:         src/borg/algorithms/{crc32_clmul.c, crc32_slice_by_8.c}
 # Apache-2.0:   src/borg/cache_sync/{sysdep.h, unpack.h, unpack_template.h, unpack_define.h}
@@ -19,6 +19,9 @@ Source2:        gpgkey-6D5B_EF9A_DD20_7580_5747_B70F_9F88_FB52_FAF7_B393.gpg
 
 # we don't need the guzzley_sphinx theme for only man page generation
 Patch1:         0002-disable-sphinx-man-page-build.patch
+# avoid deprecation warning for datetime.utcnow()
+# https://github.com/borgbackup/borg/pull/7717
+Patch2:         %{name}-replace-utcnow.patch
 
 BuildRequires:  gnupg2
 # build
@@ -135,11 +138,13 @@ TEST_SELECTOR="not test_fuse and not test_readonly_mount and not benchmark"
 %{_prefix}/share/fish/completions/*
 # left-overs from testing
 %exclude %{python3_sitearch}/conftest.py
-%exclude %{python3_sitearch}/__pycache__
 %exclude %{python3_sitearch}/.pytest_cache
 
 
 %changelog
+* Thu Jul 06 2023 Felix Schwarz <fschwarz@fedoraproject.org> - 1.2.4-4
+- add patch for Python 3.12 compatibility
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.2.4-3
 - Rebuilt for Python 3.12
 

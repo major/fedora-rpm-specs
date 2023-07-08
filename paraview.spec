@@ -82,7 +82,7 @@
 
 Name:           paraview
 Version:        5.11.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Parallel visualization application
 
 License:        BSD
@@ -766,6 +766,9 @@ update-mime-database %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Thu Jul 06 2023 Sandro Mani <manisandro@gmail.com> - 5.11.1-5
+- Rebuild (cgnslib)
+
 * Wed Jun 28 2023 Python Maint <python-maint@redhat.com> - 5.11.1-4
 - Rebuilt for Python 3.12
 

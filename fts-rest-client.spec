@@ -1,6 +1,6 @@
 Name:           fts-rest-client
 Version:        3.12.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        File Transfer Service (FTS) -- Python3 Client and CLI
 
 License:        ASL 2.0
@@ -33,8 +33,6 @@ File Transfer Service (FTS) -- Python3 Client and CLI
 %py3_build
 
 %install
-mkdir -p %{buildroot}%{_sysconfdir}/fts3
-cp src/cli/fts3client.cfg %{buildroot}%{_sysconfdir}/fts3
 %py3_install
 
 %files
@@ -42,10 +40,11 @@ cp src/cli/fts3client.cfg %{buildroot}%{_sysconfdir}/fts3
 %{python3_sitelib}/fts3/
 %{python3_sitelib}/fts*-*.egg-info/
 %{_bindir}/fts-rest-*
-%dir %{_sysconfdir}/fts3/
-%config(noreplace) %{_sysconfdir}/fts3/fts3client.cfg
 
 %changelog
+* Thu Jul 06 2023 Mihai Patrascoiu <mihai.patrascoiu@cern.ch> - 3.12.2-3
+- Remove "/etc/fts3/fts3client.cfg" from the installation files (FTS-1842)
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.12.2-2
 - Rebuilt for Python 3.12
 

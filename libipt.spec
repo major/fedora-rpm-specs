@@ -4,8 +4,8 @@
 %global __cmake_in_source_build 1
 
 Name: libipt
-Version: 2.0.5
-Release: 3%{?dist}
+Version: 2.0.6
+Release: 1%{?dist}
 Summary: Intel Processor Trace Decoder Library
 License: BSD-3-Clause
 URL: https://github.com/intel/libipt
@@ -39,7 +39,7 @@ develop programs that use the Intel Processor Trace (Intel PT) Decoder Library.
 
 %prep
 %setup -q -n libipt-%{version}
-%patch0 -p1
+%patch -p1 -P 0
 
 %build
 %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo \
@@ -81,6 +81,9 @@ ctest -V %{?_smp_mflags}
 %{_mandir}/*/*.gz
 
 %changelog
+* Thu Jul 06 2023 Keith Seitz <keiths@redhat.com> - 2.0.6-1
+- Import v2.0.6 and regenerate documentation.
+
 * Tue Mar 07 2023 Keith Seitz <keiths@redhat.com>
 - migrated to SPDX license
 

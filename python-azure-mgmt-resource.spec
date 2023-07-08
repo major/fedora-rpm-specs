@@ -4,12 +4,13 @@
 %global         srcname     azure-mgmt-resource
 
 Name:           python-%{srcname}
-Version:        22.0.0
+Version:        23.1.0~b2
+%global         pypi_version    23.1.0b2
 Release:        %autorelease
 Summary:        Microsoft Azure Resource Management Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{srcname} %{version} zip}
+Source0:        %{pypi_source %{srcname} %{pypi_version} zip}
 
 BuildArch:      noarch
 
@@ -40,7 +41,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{srcname}-%{pypi_version}
 
 
 %generate_buildrequires

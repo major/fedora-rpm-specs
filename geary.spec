@@ -1,8 +1,8 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:		geary
-Version:	43.0
-Release:	3%{?dist}
+Version:	44.0
+Release:	1%{?dist}
 Summary:	A lightweight email program designed around conversations
 # Geary is under LGPLv2+.
 # SQLite3-unicodesn code is in the Public Domain.
@@ -15,7 +15,7 @@ Summary:	A lightweight email program designed around conversations
 # the whole binary, so we don't need to specify BSD and MIT separately.
 License:	LGPLv2+ and CC-BY and CC-BY-SA and Public Domain
 URL:		https://wiki.gnome.org/Apps/Geary
-Source0:	https://download.gnome.org/sources/geary/43/%{name}-%{tarball_version}.tar.xz
+Source0:	https://download.gnome.org/sources/geary/44/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:	meson >= 0.49
 BuildRequires:	vala >= 0.26.0
@@ -112,6 +112,9 @@ popd
 
 
 %changelog
+* Thu Jul 06 2023 Kalev Lember <klember@redhat.com> - 44.0-1
+- Update to 44.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -13,6 +13,7 @@ URL:            https://github.com/FreeCAD/pivy
 Source0:        https://github.com/coin3d/%{realname}/archive/%{version}/%{realname}-%{version}.tar.gz
 
 Patch0:         pivy-cmake_config.patch
+Patch1:         pivy-py3.12.patch
 
 BuildRequires:  gcc gcc-c++ cmake swig
 BuildRequires:  qt5-qtbase-devel

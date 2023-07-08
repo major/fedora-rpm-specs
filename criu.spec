@@ -1,10 +1,5 @@
-%if 0%{?fedora} >= 27 || 0%{?rhel} > 7
 %global py_prefix python3
 %global py_binary %{py_prefix}
-%else
-%global py_prefix python
-%global py_binary python2
-%endif
 
 # With annobin enabled, CRIU does not work anymore. It seems CRIU's
 # parasite code breaks if annobin is enabled.
@@ -17,9 +12,9 @@
 
 Name: criu
 Version: 3.18
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Tool for Checkpoint/Restore in User-space
-License: GPLv2
+License: GPL-2.0-only AND LGPL-2.1-only AND MIT
 URL: http://criu.org/
 Source0: https://github.com/checkpoint-restore/criu/archive/v%{version}/criu-%{version}.tar.gz
 
@@ -31,26 +26,12 @@ Patch0: https://github.com/checkpoint-restore/criu/commit/d739260c57576c636759af
 # in RPM and DEB is different.
 Patch99: criu.pc.patch
 
-%if 0%{?rhel} && 0%{?rhel} <= 7
-BuildRequires: perl
-# RHEL has no asciidoc; take man-page from Fedora 26
-# zcat /usr/share/man/man8/criu.8.gz > criu.8
-Source1: criu.8
-Source2: crit.1
-Source3: criu-ns.1
-
-# The patch aio-fix.patch is needed as RHEL7
-# doesn't do "nr_events *= 2" in ioctx_alloc().
-Patch100: aio-fix.patch
-%endif
-
 Source5: criu-tmpfiles.conf
 
 BuildRequires: gcc
 BuildRequires: systemd
 BuildRequires: libnet-devel
 BuildRequires: protobuf-devel protobuf-c-devel %{py_prefix}-devel libnl3-devel libcap-devel
-%if 0%{?fedora} || 0%{?rhel} > 7
 BuildRequires: %{py_prefix}-pip
 BuildRequires: %{py_prefix}-setuptools
 BuildRequires: %{py_prefix}-wheel
@@ -64,7 +45,6 @@ Recommends: tar
 BuildRequires: libbsd-devel
 BuildRequires: nftables-devel
 %endif
-%endif
 BuildRequires: make
 
 # user-space and kernel changes are only available for x86_64, arm,
@@ -77,7 +57,6 @@ criu is the user-space part of Checkpoint/Restore in User-space
 (CRIU), a project to implement checkpoint/restore functionality for
 Linux in user-space.
 
-%if 0%{?fedora} || 0%{?rhel} > 7
 %package devel
 Summary: Header files and libraries for %{name}
 Requires: %{name} = %{version}-%{release}
@@ -92,18 +71,11 @@ Requires: %{name} = %{version}-%{release}
 
 %description libs
 This package contains the libraries for %{name}
-%endif
 
 %package -n %{py_prefix}-%{name}
 %{?python_provide:%python_provide %{py_prefix}-%{name}}
 Summary: Python bindings for %{name}
-%if 0%{?rhel} && 0%{?rhel} <= 7
-Requires: protobuf-python
-Requires: %{name} = %{version}-%{release} %{py_prefix}-ipaddr
-%else
 Requires: %{py_prefix}-protobuf
-Obsoletes: python2-criu < 3.10-1
-%endif
 
 %description -n %{py_prefix}-%{name}
 %{py_prefix}-%{name} contains Python bindings for %{name}.
@@ -130,10 +102,6 @@ This script can help to workaround the so called "PID mismatch" problem.
 %patch -P 0 -p1
 %patch -P 99 -p1
 
-%if 0%{?rhel} && 0%{?rhel} <= 7
-%patch -P 100 -p1
-%endif
-
 %build
 # This package calls LD directly without specifying the LTO plugins.  Until
 # that is fixed, disable LTO.
@@ -142,9 +110,7 @@ This script can help to workaround the so called "PID mismatch" problem.
 # %{?_smp_mflags} does not work
 # -fstack-protector breaks build
 CFLAGS+=`echo %{optflags} | sed -e 's,-fstack-protector\S*,,g'` make V=1 WERROR=0 PREFIX=%{_prefix} RUNDIR=/run/criu PYTHON=%{py_binary}
-%if 0%{?fedora} || 0%{?rhel} > 7
 make docs V=1
-%endif
 
 
 %install
@@ -152,30 +118,13 @@ sed -e "s,--upgrade --force-reinstall,--disable-pip-version-check --progress-bar
 rm -f crit/pyproject.toml
 make install-criu DESTDIR=$RPM_BUILD_ROOT PREFIX=%{_prefix} LIBDIR=%{_libdir}
 make install-lib DESTDIR=$RPM_BUILD_ROOT PREFIX=%{_prefix} LIBDIR=%{_libdir} PYTHON=%{py_binary}
-%if 0%{?fedora} || 0%{?rhel} > 7
-# only install documentation on Fedora as it requires asciidoc,
-# which is not available on RHEL7
 make install-man DESTDIR=$RPM_BUILD_ROOT PREFIX=%{_prefix} LIBDIR=%{_libdir}
 rm -f $RPM_BUILD_ROOT%{_mandir}/man1/compel.1
 rm -f $RPM_BUILD_ROOT%{_mandir}/man1/amdgpu_plugin.1
-%else
-install -p -m 644  -D %{SOURCE1} $RPM_BUILD_ROOT%{_mandir}/man8/%{name}.8
-install -p -m 644  -D %{SOURCE2} $RPM_BUILD_ROOT%{_mandir}/man1/crit.1
-install -p -m 644  -D %{SOURCE3} $RPM_BUILD_ROOT%{_mandir}/man1/criu-ns.1
-rm -f compel.1 amdgpu_plugin.1
-%endif
 
 mkdir -p %{buildroot}%{_tmpfilesdir}
 install -m 0644 %{SOURCE5} %{buildroot}%{_tmpfilesdir}/%{name}.conf
 install -d -m 0755 %{buildroot}/run/%{name}/
-
-%if 0%{?rhel} && 0%{?rhel} <= 7
-# remove devel and libs packages
-rm -rf $RPM_BUILD_ROOT%{_includedir}/criu
-rm $RPM_BUILD_ROOT%{_libdir}/*.so*
-rm -rf $RPM_BUILD_ROOT%{_libdir}/pkgconfig
-rm -rf $RPM_BUILD_ROOT%{_libexecdir}/%{name}
-%endif
 
 # remove static lib
 rm -f $RPM_BUILD_ROOT%{_libdir}/libcriu.a
@@ -183,14 +132,11 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libcriu.a
 %files
 %{_sbindir}/%{name}
 %doc %{_mandir}/man8/criu.8*
-%if 0%{?fedora} || 0%{?rhel} > 7
 %{_libexecdir}/%{name}
-%endif
 %dir /run/%{name}
 %{_tmpfilesdir}/%{name}.conf
 %doc README.md COPYING
 
-%if 0%{?fedora} || 0%{?rhel} > 7
 %files devel
 %{_includedir}/criu
 %{_libdir}/*.so
@@ -198,15 +144,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libcriu.a
 
 %files libs
 %{_libdir}/*.so.*
-%endif
 
 %files -n %{py_prefix}-%{name}
-%if 0%{?rhel} && 0%{?rhel} <= 7
-%{python2_sitelib}/pycriu/*
-%{python2_sitelib}/*egg-info
-%else
 %{python3_sitelib}/pycriu/*
-%endif
 
 %files -n crit
 %{_bindir}/crit
@@ -218,10 +158,14 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libcriu.a
 %doc %{_mandir}/man1/criu-ns.1*
 
 %changelog
+* Thu Jul 06 2023 Adrian Reber <adrian@lisas.de> - 3.18-3
+- migrated to SPDX license
+- remove RHEL 7 conditionals
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.18-2
 - Rebuilt for Python 3.12
 
-* Tue Apr 25 2034 Adrian Reber <adrian@lisas.de> - 3.18-1
+* Tue Apr 25 2023 Adrian Reber <adrian@lisas.de> - 3.18-1
 - Update to 3.18
 - Apply patch from upstream to support newer CPUs
 

@@ -7,14 +7,14 @@ continuous and includes more and more handy stuff for the daily python
 scripting.}
 
 Name:           python-fspath
-Version:        20230218
+Version:        20230629
 Release:        %{autorelease}
 Summary:        Handling path names and executables more comfortable
 
 
 License:        AGPL-3.0-or-later
 URL:            http://return42.github.io/fspath
-Source0:         %{pypi_source fspath}
+Source:         %{pypi_source fspath}
 
 BuildArch:      noarch
 
@@ -24,8 +24,6 @@ BuildArch:      noarch
 Summary:        %{summary}
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
-# https://github.com/return42/fspath/issues/3
-BuildRequires:  python3-zombie-imp
 
 %description -n python3-fspath %_description
 

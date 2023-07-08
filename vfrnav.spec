@@ -1,6 +1,6 @@
 Name:           vfrnav
 Version:        20230429
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        VFR/IFR Navigation
 
 License:        GPLv2+
@@ -473,6 +473,9 @@ fi
 %endif
 
 %changelog
+* Thu Jul 06 2023 Sandro Mani <manisandro@gmail.com> - 20230429-2
+- Rebuild (geos)
+
 * Wed May 17 2023 Thomas Sailer <fedora@tsailer.ch> - 20230429-1
 - update to 20230429
 

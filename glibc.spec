@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.37.9000-556-gd35fbd3e68
+%global glibcsrcdir glibc-2.37.9000-594-g5324d25842
 %global glibcversion 2.37.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 15
+%global baserelease 16
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -1207,7 +1207,8 @@ build()
 %endif
 		--disable-crypt \
 	        --disable-build-nscd \
-	        --disable-nscd ||
+	        --disable-nscd \
+		--enable-fortify-source ||
 		{ cat config.log; false; }
 
 	# We enable DT_GNU_HASH and DT_HASH for ld.so and DSOs to improve
@@ -2212,6 +2213,49 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Thu Jul 06 2023 Frédéric Bérat <fberat@redhat.com> - 2.37.9000-16
+- Add "--enable-fortify-source" option to configure
+- Auto-sync with upstream branch master,
+  commit 5324d258427fd11ca0f4f595c94016e568b26d6b.
+- fileops: Don't process ,ccs= as individual mode flags (BZ#18906)
+- sysdeps/ieee754/ldbl-128ibm-compat: Fix warn unused result
+- libio/bits/stdio2-decl.h: Avoid PLT entries with _FORTIFY_SOURCE
+- libio/bits/stdio2.h: Clearly separate declaration from definitions
+- misc/bits/syslog.h: Clearly separate declaration from definition
+- misc/bits/select2.h: Clearly separate declaration from definitions
+- unistd: Avoid PLT entries with _FORTIFY_SOURCE
+- posix/bits/unistd.h: Clearly separate declaration from definitions
+- wchar: Avoid PLT entries with _FORTIFY_SOURCE
+- misc/sys/cdefs.h: Create FORTIFY redirects for internal calls
+- stdio: Ensure *_chk routines have their hidden builtin definition available
+- string: Ensure *_chk routines have their hidden builtin definition available
+- sysdeps: Ensure ieee128*_chk routines to be properly named
+- Exclude routines from fortification
+- Allow glibc to be built with _FORTIFY_SOURCE
+- manual: Update documentation of strerror and related functions
+- manual: Enhance documentation of the <ctype.h> functions
+- Always do locking when accessing streams (bug 15142, bug 14697)
+- hurd: Implement MAP_EXCL
+- hurd: Fix mapping at address 0 with MAP_FIXED
+- hurd: Fix calling vm_deallocate (NULL)
+- hurd: Map brk non-executable
+- htl: Let Mach place thread stacks
+- mach: strerror must not return NULL (bug 30555)
+- hppa: xfail debug/tst-ssp-1 when have-ssp is yes (gcc-12 and later)
+- support: Build with exceptions and asynchronous unwind tables [BZ #30587]
+- hurd: Make getrandom return ENOSYS when /dev/random is not set up
+- Stop applying a GCC-specific workaround on clang [BZ #30550]
+- ld.so: Always use MAP_COPY to map the first segment [BZ #30452]
+- setenv.c: Get rid of alloca.
+- Add checks for wday, yday and new date formats
+- aarch64: Add vector implementations of exp routines
+- aarch64: Add vector implementations of log routines
+- aarch64: Add vector implementations of sin routines
+- aarch64: Add vector implementations of cos routines
+- Switch to UTF-8 for INSTALL
+- Make sure INSTALL is ASCII plaintext
+- Update syscall lists for Linux 6.4
+
 * Wed Jun 28 2023 Carlos O'Donell <carlos@redhat.com> - 2.37.9000-15
 - Auto-sync with upstream branch master,
   commit d35fbd3e684e6bb5e5ec452ad8dac6ada8424bdd:

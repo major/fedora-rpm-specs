@@ -1,6 +1,6 @@
 Name:           rcssserver
-Version:        17.0.1
-Release:        5%{?dist}
+Version:        18.1.3
+Release:        1%{?dist}
 Summary:        Robocup 2D Soccer Simulation Server
 
 License:        LGPLv2+
@@ -69,6 +69,9 @@ desktop-file-install \
 %{_datadir}/applications/*
 
 %changelog
+* Thu Jul 06 2023 Hedayat Vatankhah <hedayat.fwd+rpmchlog@gmail.com> - 18.1.3-1
+- Update to latest upstream version
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 17.0.1-5
 - Rebuilt for Boost 1.81
 

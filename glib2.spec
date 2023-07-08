@@ -1,5 +1,5 @@
 Name:    glib2
-Version: 2.76.3
+Version: 2.76.4
 Release: %autorelease
 Summary: A library of handy utility functions
 

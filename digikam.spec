@@ -5,8 +5,8 @@
 
 Name:    digikam
 Summary: A digital camera accessing & photo management application
-Version: 8.0.0
-Release: 4%{?beta}%{?dist}
+Version: 8.1.0
+Release: 1%{?beta}%{?dist}
 
 License: GPL-2.0-or-later
 URL:     http://www.digikam.org/
@@ -24,10 +24,6 @@ Source0: http://download.kde.org/stable/digikam/%{version}/digiKam-%{version}.ta
 Source10: digikam-import.desktop
 
 ## upstream patches
-# fix ffmpeg5-related mediaplayer crash https://bugs.kde.org/show_bug.cgi?id=468480
-Patch0: digikam-8.0.0-ffmpeg5.patch
-# fix thumbbar scrolls to 100th image https://bugs.kde.org/show_bug.cgi?id=468593
-Patch1: digikam-8.0.0-disable-QListView-Batched-optimization-for-the-thumb.patch
 
 ## upstreamable patches
 
@@ -73,6 +69,7 @@ BuildRequires: pkgconfig(Qt5WebKit)
 %endif
 %endif
 BuildRequires: kf5-libksane-devel >= 16.03
+BuildRequires: kf5-kcalendarcore-devel
 BuildRequires: kf5-kconfig-devel
 BuildRequires: kf5-kdoctools-devel
 BuildRequires: kf5-kfilemetadata-devel
@@ -261,6 +258,10 @@ update-desktop-database -q &> /dev/null
 
 
 %changelog
+* Thu Jul 06 2023 Alexey Kurov <nucleo@fedoraproject.org> - 8.1.0-1
+- digiKam-8.1.0
+- BR: kf5-kcalendarcore-devel
+
 * Fri May 19 2023 Alexey Kurov <nucleo@fedoraproject.org> - 8.0.0-4
 - updated rhel conditionals
 - Recommends: perl-Image-ExifTool

@@ -711,6 +711,9 @@ do
     k="${k-}${k+ and }not (TestLoggingInit and test_initialize_components_resource)"
     k="${k-}${k+ and }not (TestLoggingInit and test_logging_init_disable_default)"
     k="${k-}${k+ and }not (TestLoggingInit and test_logging_init_enable_env)"
+    # Test failure in opentelemetry-sdk on Python 3.12
+    # https://github.com/open-telemetry/opentelemetry-python/issues/3370
+    k="${k-}${k+ and }not (TestLoggingHandler and test_log_record_user_attributes)"
     ;;
   esac
 

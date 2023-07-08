@@ -1,5 +1,5 @@
 Name:           sensible-utils
-Version:        0.0.20
+Version:        0.0.21
 Release:        1%{?dist}
 Summary:        Utilities for sensible alternative selection
 
@@ -12,11 +12,12 @@ BuildRequires:  automake autoconf
 BuildRequires:  make
 BuildRequires:  po4a
 
-# Needed by select-editor
-Requires:       gettext-runtime
+# See Patch0
+Requires:       /usr/bin/gettext
+Requires:       /usr/bin/realpath
 
-# Just require gettext instead of installing a wrapper
-Patch0:         sensible-utils_gettext.patch
+# Just require gettext, realpath instead of installing wrappers
+Patch0:         sensible-utils_nowrappers.patch
 
 %description
 This package provides a number of small utilities which are used by programs to
@@ -24,7 +25,7 @@ sensibly select and spawn an appropriate browser, editor, or pager.
 
 
 %prep
-%autosetup -p1 -n %{name}-%{version}
+%autosetup -p1 -n %{name}
 
 
 %build
@@ -49,6 +50,9 @@ autoreconf -ifv
 
 
 %changelog
+* Thu Jul 06 2023 Sandro Mani <manisandro@gmail.com> - 0.0.21-1
+- Update to 0.0.21
+
 * Sun Jun 18 2023 Sandro Mani <manisandro@gmail.com> - 0.0.20-1
 - Update to 0.0.20
 

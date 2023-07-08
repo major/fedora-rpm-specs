@@ -1,7 +1,7 @@
 # Tests require interacting with a temporary MySQL database. We are able to do
 # this, but leave a build conditional to fall back to a “smoke test” in case it
 # breaks.
-%bcond_without tests
+%bcond tests 1
 
 Name:           python-asyncmy
 Summary:        A fast asyncio MySQL/MariaDB driver

@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-asset
 %global         forgeurl    https://github.com/googleapis/python-asset
-Version:        3.19.0
+Version:        3.19.1
 %global         tag         v%{version}
 %forgemeta
 

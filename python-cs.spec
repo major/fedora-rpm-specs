@@ -1,13 +1,11 @@
 Name:           python-cs
 Version:        3.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A simple, yet powerful CloudStack API client for python and the command-line
 
 License:        BSD
 URL:            https://github.com/exoscale/cs
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-# Checking manifest in tox is not possible, since check-manifest relies on VCS
-Patch0:         python-cs-3.0.0-tox-skip-check-manifest.patch
 
 BuildArch:      noarch
 
@@ -26,8 +24,6 @@ Summary:        %{summary}
 BuildRequires:  python3-devel
 # Test dependencies:
 BuildRequires:  python3dist(aiohttp)
-BuildRequires:  python3dist(pytest-cache)
-BuildRequires:  python3dist(pytest-cov)
 BuildRequires:  python3dist(pytest)
 # clearsilver also wants to install the cs executable, the upstream is dead,
 # Fedora package is probably used by someone, python3-cs is modern, and conflicts are unlikely.
@@ -38,14 +34,14 @@ Conflicts: clearsilver
 %pyproject_extras_subpkg -n python3-cs async highlight
 
 %prep
-%autosetup -p1 -n cs-%{version}
+%autosetup -n cs-%{version}
 
 # Remove unnecessary shebang
 sed -i '/#! \/usr\/bin\/env python/d' cs/client.py
 
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires -r
 
 
 %build
@@ -59,7 +55,7 @@ sed -i '/#! \/usr\/bin\/env python/d' cs/client.py
 
 
 %check
-%tox
+%pytest -c /dev/null tests.py
 
 
 %files -n python3-cs -f %{pyproject_files}
@@ -69,6 +65,10 @@ sed -i '/#! \/usr\/bin\/env python/d' cs/client.py
 
 
 %changelog
+* Thu Jul 06 2023 Roman Inflianskas <rominf@aiven.io> - 3.2.0-2
+- Rebuilt for Python 3.12 (resolve rhbz#2220176)
+- Simplify testing
+
 * Thu Jun 22 2023 Roman Inflianskas <rominf@aiven.io> - 3.2.0-1
 - Update to 3.2.0 (resolve rhbz#2212846)
 

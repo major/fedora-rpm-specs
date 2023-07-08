@@ -1,10 +1,10 @@
 %global uuid          ibus-font-setting@ibus.github.com
 %global shortname     ibus-font
-%global snapshot_date 20210510
+%global snapshot_date 20230705
 
 Name:       gnome-shell-extension-%{shortname}
 Version:    0.%{snapshot_date}
-Release:    6%{?dist}
+Release:    1%{?dist}
 Summary:    A GNOME Shell extension for ibus-setup custom font settings
 
 License:    GPL-3.0-or-later
@@ -35,6 +35,9 @@ install -Dp -m 0644 {extension.js,metadata.json,prefs.js,stylesheet.css} \
 
 
 %changelog
+* Thu Jul  6 2023 Peng Wu <pwu@redhat.com> - 0.20230705-1
+- Update the package
+
 * Mon Apr 24 2023 Peng Wu <pwu@redhat.com> - 0.20210510-6
 - Migrate to SPDX license
 

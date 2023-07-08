@@ -12,6 +12,8 @@ Source0:        https://github.com/boutproject/animatplot-ng/archive/v%{version}
 Patch0005:      https://github.com/boutproject/animatplot-ng/pull/10.patch#./0005-Updates.patch
 # Based on PR 11 but without black commit
 Patch0006:      0006-docs-fix.patch
+# Based on PR 12 but without black commit
+Patch0007:      0007-debug.patch
 
 BuildArch:      noarch
 

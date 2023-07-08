@@ -43,8 +43,8 @@ Apprise is a Python package for simplifying access to all of the different
 notification services that are out there. Apprise opens the door and makes
 it easy to access:
 
-Apprise API, AWS SES, AWS SNS, Bark, BulkSMS, Boxcar, ClickSend, DAPNET,
-DingTalk, Discord, E-Mail, Emby, Faast, FCM, Flock, Gitter, Google Chat,
+Apprise API, AWS SES, AWS SNS, Bark, Boxcar, Burst SMS, BulkSMS, ClickSend,
+DAPNET, DingTalk, Discord, E-Mail, Emby, Faast, FCM, Flock, Gitter, Google Chat,
 Gotify, Growl, Guilded, Home Assistant, IFTTT, Join, Kavenegar, KODI, Kumulos,
 LaMetric, Line, MacOSX, Mailgun, Mastodon, Mattermost, Matrix, MessageBird,
 Microsoft Windows, Microsoft Teams, Misskey, MQTT, MSG91, MyAndroid, Nexmo,
@@ -53,11 +53,11 @@ Opsgenie, PagerDuty, PagerTree, ParsePlatform, PopcornNotify, Prowl, Pushalot,
 PushBullet, Pushjet, Pushover, PushSafer, Reddit, Rocket.Chat, SendGrid,
 ServerChan, Signal, SimplePush, Sinch, Slack, SMSEagle, SMTP2Go, Spontit,
 SparkPost, Super Toasty, Streamlabs, Stride, Syslog, Techulus Push, Telegram,
-Twilio, Twitter, Twist, XBMC, Voipms, Vonage, Webex Teams}
+Twilio, Twitter, Twist, XBMC, Voipms, Vonage, WhatsApp, Webex Teams}
 
 Name:           python-%{pypi_name}
-Version:        1.4.0
-Release:        2%{?dist}
+Version:        1.4.5
+Release:        1%{?dist}
 Summary:        A simple wrapper to many popular notification services used today
 License:        BSD
 URL:            https://github.com/caronc/%{pypi_name}
@@ -186,6 +186,9 @@ LANG=C.UTF-8 PYTHONPATH=%{buildroot}%{python3_sitelib} py.test-%{python3_version
 %{python3_sitelib}/%{pypi_name}/cli.*
 
 %changelog
+* Thu Jul  6 2023 Chris Caron <lead2gold@gmail.com> - 1.4.5
+- Updated to v1.4.5
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.4.0-2
 - Rebuilt for Python 3.12
 

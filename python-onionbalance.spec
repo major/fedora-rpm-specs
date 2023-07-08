@@ -6,7 +6,7 @@
 
 Name:           python-%{pkgname}
 Version:        0.2.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        %{sum}
 
 License:        GPLv3
@@ -126,6 +126,9 @@ exit 0
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{pkgname}.conf
 
 %changelog
+* Thu Jul 06 2023 Python Maint <python-maint@redhat.com> - 0.2.1-7
+- Rebuilt for Python 3.12
+
 * Thu Mar 16 2023 Marcel Haerry <mh+fedora@scrit.ch> - 0.2.1-6
 - Fix dependency for binary package bz#2061839
 

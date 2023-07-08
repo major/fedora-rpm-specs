@@ -1,6 +1,6 @@
 Name:		perl-Apache-Session-Browseable
-Version:	1.3.11
-Release:	2%{?dist}
+Version:	1.3.13
+Release:	1%{?dist}
 Summary:	Add index and search methods to Apache::Session
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Apache-Session-Browseable
@@ -33,7 +33,7 @@ BuildRequires:	perl(DBI)
 BuildRequires:	perl(Digest::SHA)
 BuildRequires:	perl(JSON)
 BuildRequires:	perl(MIME::Base64)
-BuildRequires:	perl(Net::LDAP)
+BuildRequires:	perl(Net::LDAP) >= 0.38
 BuildRequires:	perl(Net::LDAP::Util)
 BuildRequires:	perl(Redis)
 BuildRequires:	perl(Storable)
@@ -49,7 +49,7 @@ BuildRequires:	perl(warnings)
 # Optional Tests
 BuildRequires:	perl(DBD::mysql)
 BuildRequires:	perl(DBD::SQLite) > 1.19
-# Runtime
+# Dependencies
 Requires:	perl(MIME::Base64)
 Requires:	perl(Redis)
 Requires:	perl(Storable)
@@ -63,7 +63,7 @@ faster.
 %setup -q -n Apache-Session-Browseable-%{version}
 
 # Fix certificate bundle location in SYNOPSIS
-%patch0
+%patch -P 0
 
 %build
 perl Build.PL --installdirs=vendor
@@ -82,6 +82,7 @@ perl Build.PL --installdirs=vendor
 %{perl_vendorlib}/Apache/
 %{perl_vendorlib}/auto/Apache/
 %{_mandir}/man3/Apache::Session::Browseable.3*
+%{_mandir}/man3/Apache::Session::Browseable::Cassandra.3*
 %{_mandir}/man3/Apache::Session::Browseable::LDAP.3*
 %{_mandir}/man3/Apache::Session::Browseable::MySQL.3*
 %{_mandir}/man3/Apache::Session::Browseable::MySQLJSON.3*
@@ -89,6 +90,7 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Apache::Session::Browseable::PgJSON.3*
 %{_mandir}/man3/Apache::Session::Browseable::Postgres.3*
 %{_mandir}/man3/Apache::Session::Browseable::SQLite.3*
+%{_mandir}/man3/Apache::Session::Browseable::Store::Cassandra.3*
 %{_mandir}/man3/Apache::Session::Browseable::Store::LDAP.3*
 %{_mandir}/man3/Apache::Session::Browseable::Store::SQLite.3*
 %{_mandir}/man3/Apache::Session::Browseable::Redis.3*
@@ -97,6 +99,11 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Apache::Session::Serialize::JSON.3*
 
 %changelog
+* Thu Jul  6 2023 Paul Howarth <paul@city-fan.org> - 1.3.13-1
+- Update to 1.3.13
+  - Add Cassandra support via DBD::Cassandra
+- Avoid use of deprecated patch syntax
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

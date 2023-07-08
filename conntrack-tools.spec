@@ -1,23 +1,23 @@
 Name:           conntrack-tools
-Version:        1.4.6
-Release:        6%{?dist}
+Version:        1.4.7
+Release:        1%{?dist}
 Summary:        Manipulate netfilter connection tracking table and run High Availability
 License:        GPLv2
 URL:            http://conntrack-tools.netfilter.org/
 Source0:        http://netfilter.org/projects/%{name}/files/%{name}-%{version}.tar.bz2
-Source1:        conntrackd.service
-Source2:        conntrackd.conf
-
-Patch01:        0001-build-remove-commented-out-macros-from-configure.ac.patch
-Patch02:        0002-nfct-remove-lazy-binding.patch
-Patch3:         conntrack-tools-c99.patch
+Source1:        http://netfilter.org/projects/%{name}/files/%{name}-%{version}.tar.bz2.sig
+Source2:        NetfilterCoreTeam-OpenGPG-KEY.txt
+Source3:        conntrackd.service
+Source4:        conntrackd.conf
+Patch1:         conntrack-tools-c99.patch
 
 BuildRequires:  autogen
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  libtool
 BuildRequires:  gcc
-BuildRequires:  libnfnetlink-devel >= 1.0.1, libnetfilter_conntrack-devel >= 1.0.7
+BuildRequires: gnupg2
+BuildRequires:  libnfnetlink-devel >= 1.0.1, libnetfilter_conntrack-devel >= 1.0.9
 BuildRequires:  libnetfilter_cttimeout-devel >= 1.0.0, libnetfilter_cthelper-devel >= 1.0.0
 BuildRequires:  libmnl-devel >= 1.0.3, libnetfilter_queue-devel >= 1.0.2
 BuildRequires:  libtirpc-devel systemd-devel
@@ -44,12 +44,13 @@ The conntrack-tools package contains two programs:
 conntrack is used to search, list, inspect and maintain the netfilter
 connection tracking subsystem of the Linux kernel.
 Using conntrack, you can dump a list of all (or a filtered selection  of)
-currently tracked connections, delete connections from the state table, 
+currently tracked connections, delete connections from the state table,
 and even add new ones.
-In addition, you can also monitor connection tracking events, e.g. 
+In addition, you can also monitor connection tracking events, e.g.
 show an event message (one line) per newly established connection.
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build
@@ -64,8 +65,8 @@ rm -f doc/sync/notrack/conntrackd.conf.orig doc/sync/alarm/conntrackd.conf.orig 
 find %{buildroot} -type f -name "*.la" -exec rm -f {} ';'
 mkdir -p %{buildroot}%{_sysconfdir}/conntrackd
 install -d -m 0755 %{buildroot}%{_unitdir}
-install -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/
-install -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/conntrackd/
+install -m 0644 %{SOURCE3} %{buildroot}%{_unitdir}/
+install -m 0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/conntrackd/
 
 %files
 %license COPYING
@@ -88,9 +89,14 @@ install -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/conntrackd/
 %systemd_preun conntrackd.service
 
 %postun
-%systemd_postun conntrackd.service 
+%systemd_postun conntrackd.service
 
 %changelog
+* Wed Jul 05 2023 Paul Wouters <paul.wouters@aiven.io - 1.4.7-1
+- Resolves: rhbz#2132747 conntrack-tools-1.4.7 is available
+- Add gpg source code verification
+- Removed patches that were merged upstream
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.6-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -224,7 +230,7 @@ install -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/conntrackd/
 - Updated to 1.0.1
 - Added daemon using systemd and configuration file
 - Removed legacy spec requirements
-- Patch for: parse.c:240:34: error: 'NULL' undeclared 
+- Patch for: parse.c:240:34: error: 'NULL' undeclared
 
 * Thu Jan 12 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild

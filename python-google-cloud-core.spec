@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-core
 %global         forgeurl    https://github.com/googleapis/python-cloud-core
-Version:        2.3.2
+Version:        2.3.3
 %global         tag         v%{version}
 %forgemeta
 

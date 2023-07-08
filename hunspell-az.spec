@@ -6,14 +6,14 @@
 
 Name: hunspell-az
 Summary: Azerbaijani hunspell dictionaries
-%global upstreamid 20040827
+# date is derived from upstream az.dic file timestamp
+%global upstreamid 20180807
 Version: 0.%{upstreamid}
-Release: 30%{?dist}
-Source: ftp://ftp.gnu.org/gnu/aspell/dict/az/aspell6-az-0.02-0.tar.bz2
-URL: http://borel.slu.edu/crubadan/apps.html
-License: GPL-2.0-or-later
+Release: 1%{?dist}
+Source: https://github.com/mozillaz/spellchecker/archive/refs/heads/master.zip#/azerbaijani_spellchecker-0.2.zip
+URL: https://github.com/mozillaz/spellchecker/
+License: MPL-2.0
 BuildArch: noarch
-BuildRequires: aspell, hunspell-devel
 
 Requires: hunspell-filesystem
 Supplements: (hunspell and langpacks-az)
@@ -22,33 +22,26 @@ Supplements: (hunspell and langpacks-az)
 Azerbaijani hunspell dictionaries.
 
 %prep
-%setup -q -n aspell6-az-0.02-0
+%autosetup -n spellchecker-master
 
 %build
-export LANG=C.UTF-8
-preunzip az.cwl
-wordlist2hunspell az.wl az_AZ
-for i in Copyright doc/Crawler.txt; do
-  if ! iconv -f utf-8 -t utf-8 -o /dev/null $i > /dev/null 2>&1; then
-    iconv -f ISO-8859-1 -t UTF-8 $i > $i.new
-    touch -r $i $i.new
-    mv -f $i.new $i
-  fi
-  tr -d '\r' < $i > $i.new
-  touch -r $i $i.new
-  mv -f $i.new $i
-done
+# nothing here to build
 
 %install
 mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
-cp -p *.dic *.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
-
+cp -p dictionaries/*.dic $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/az_AZ.dic
+cp -p dictionaries/*.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/az_AZ.aff
 
 %files
-%doc COPYING Copyright README doc/Crawler.txt
+%doc LICENSE README.md
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Wed Jul 05 2023 Parag Nemade <pnemade AT redhat DOT com> - 0.20180807-1
+- Use new upstream which provide more wordlist
+- Update to new SPDX license
+- Resolves:rhbz#2218154 - Drop dependency on aspell
+
 * Wed Feb 22 2023 Caolán McNamara <caolanm@redhat.com> - 0.20040827-30
 - migrated to SPDX license
 

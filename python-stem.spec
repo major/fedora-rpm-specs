@@ -18,7 +18,7 @@ directory and control specifications.
 
 Name: python-stem
 Version: 1.8.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Python controller library for Tor
 # All source code is LGPLv3 except stem/util/ordereddict.py which is MIT
 License: LGPLv3 and MIT
@@ -27,6 +27,7 @@ Source0: %{pypi_source}
 BuildArch: noarch
 BuildRequires: make
 BuildRequires: python3-devel
+BuildRequires: python3-setuptools
 # Doc building
 BuildRequires: python3-sphinx
 BuildRequires: python3-sphinx-autodoc-typehints
@@ -86,6 +87,9 @@ install -D -m 0644 docs/_build/man/%{srcname}.1 %{buildroot}%{_mandir}/man1/%{sr
 %{_mandir}/man1/%{srcname}.1*
 
 %changelog
+* Thu Jul 06 2023 Juan Orti Alcaine <jortialc@redhat.com> - 1.8.2-3
+- Add BR: python3-setuptools
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 1.8.2-2
 - Rebuilt for Python 3.12
 

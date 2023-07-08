@@ -1,13 +1,12 @@
 Name:           simspark
-Version:        0.3.3
-Release:        7%{?dist}
+Version:        0.3.5
+Release:        1%{?dist}
 Summary:        Spark physical simulation system
 
 License:        GPLv2
 URL:            http://simspark.sourceforge.net
 Source0:        http://downloads.sourceforge.net/simspark/%{name}-%{version}.tar.xz
 Patch0:         %{name}-confscript-mlibfix.patch
-Patch1:         ruby-crash-fix.patch
 
 BuildRequires: make
 BuildRequires:  gcc gcc-c++ cmake boost-devel ruby ruby-devel SDL-devel tex(latex)
@@ -77,6 +76,9 @@ rm -rf %{buildroot}/%{_datadir}/doc
 %doc doc/devel/manual.pdf
 
 %changelog
+* Thu Jul 06 2023 Hedayat Vatankhah <hedayat.fwd+rpmchlog@gmail.com> - 0.3.5-1
+- Update to latest upstream version with small fixes
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 0.3.3-7
 - Rebuilt for Boost 1.81
 

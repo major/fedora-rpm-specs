@@ -1,11 +1,6 @@
-%if 0%{?rhel}
-%bcond_with tests
-%else
-%bcond_without tests
-%endif
-
+%bcond tests 0%{?!rhel:1}
 # The python-diskcache package, used in some of the tests, has been retired.
-%bcond_with diskcache
+%bcond diskcache 0
 
 Name:           python-fasteners
 Version:        0.18

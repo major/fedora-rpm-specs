@@ -30,14 +30,14 @@
 %global _docdir_fmt %{name}
 
 # Updated test images for new FreeType.
-%global mpl_images_version 3.7.1
+%global mpl_images_version 3.7.2
 
 # The version of FreeType in this Fedora branch.
-%global ftver 2.12.1
+%global ftver 2.13.1
 
 Name:           python-matplotlib
-Version:        3.7.1
-%global Version 3.7.1
+Version:        3.7.2
+%global Version 3.7.2
 Release:        %autorelease
 Summary:        Python 2D plotting library
 # qt_editor backend is MIT
@@ -59,16 +59,6 @@ Patch1003:      0003-Set-FreeType-version-to-%{ftver}-and-update-tolerances.patc
 
 # https://github.com/matplotlib/matplotlib/pull/21190#issuecomment-1223271888
 Patch0001:      0004-Use-old-stride_windows-implementation-on-32-bit-x86.patch
-# https://github.com/matplotlib/matplotlib/pull/25068
-Source2000:     pgf_pdflatex.pdf
-Source2001:     pgf_rcupdate2.pdf
-# https://github.com/matplotlib/matplotlib/pull/25918
-Patch0002:      0006-migrate-from-utcfromtimestamp-to-fromtimestamp-25918.patch
-# https://github.com/matplotlib/matplotlib/pull/26154
-Patch0003:      0007-MNT-py312-deprecates-pickling-objects-in-itertools.patch
-# https://github.com/matplotlib/matplotlib/pull/26165
-Patch0004:      0008-Avoid-Py_VerboseFlag-deprecation-from-Python-3.12.patch
-Patch0005:      0009-Skip-tests-failing-with-Python-3.12.0b3.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -315,8 +305,6 @@ cp -p %{SOURCE1} mplsetup.cfg
 
 # Backports or reported upstream
 %autopatch -p1 -M 999
-# https://github.com/matplotlib/matplotlib/pull/25068
-cp -a %SOURCE2000 %SOURCE2001 lib/matplotlib/tests/baseline_images/test_backend_pgf/
 
 
 %generate_buildrequires

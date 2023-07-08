@@ -15,8 +15,8 @@
 %global __python %{__python3}
 
 Name:           cinnamon
-Version:        5.8.2
-Release:        2%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
+Version:        5.8.3
+Release:        1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 Summary:        Window management and application launching for GNOME
 License:        GPLv2+ and LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
@@ -335,6 +335,10 @@ EOF
 %endif
 
 %changelog
+* Thu Jul 06 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.3-1
+- Update to 5.8.3 release
+- Revert 'Default disable desktop effects
+
 * Wed Jul 05 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.2-2
 - Rebuilt for Python 3.12
 

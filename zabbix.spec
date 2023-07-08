@@ -16,7 +16,7 @@
 
 Name:           zabbix
 Epoch:          1
-Version:        6.0.18
+Version:        6.0.19
 Release:        1%{?dist}
 Summary:        Open-source monitoring solution for your IT infrastructure
 
@@ -798,6 +798,9 @@ fi
 %files web-pgsql
 
 %changelog
+* Thu Jul 06 2023 Morten Stevens <mstevens@fedoraproject.org> - 1:6.0.19-1
+- Update to 6.0.19
+
 * Thu Jun 15 2023 Morten Stevens <mstevens@fedoraproject.org> - 1:6.0.18-1
 - Update to 6.0.18
 

@@ -297,7 +297,7 @@ ctest || :
 %{_bindir}/unitconv
 
 %files libs
-%{_libdir}/libcgns.so.4.3
+%{_libdir}/libcgns.so.4.4
 
 %files devel
 %{_includedir}/cgnsBuild.defs
@@ -342,7 +342,7 @@ ctest || :
 %{_libdir}/openmpi/bin/unitconv
 
 %files openmpi-libs
-%{_libdir}/openmpi/lib/libcgns.so.4.3
+%{_libdir}/openmpi/lib/libcgns.so.4.4
 
 %files openmpi-devel
 %{_includedir}/openmpi*/cgnsBuild.defs
@@ -379,7 +379,7 @@ ctest || :
 %{_libdir}/mpich/bin/unitconv
 
 %files mpich-libs
-%{_libdir}/mpich/lib/libcgns.so.4.3
+%{_libdir}/mpich/lib/libcgns.so.4.4
 
 %files mpich-devel
 %{_includedir}/mpich*/cgnsBuild.defs

@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-iam
 %global         forgeurl    https://github.com/googleapis/python-iam
-Version:        2.12.0
+Version:        2.12.1
 %global         tag         v%{version}
 %forgemeta
 
