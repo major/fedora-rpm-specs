@@ -9,6 +9,7 @@ Summary:        Interactive data selection cursors for Matplotlib
 License:        MIT
 URL:            https://github.com/anntzer/mplcursors
 Source0:        %pypi_source
+Patch:          https://github.com/anntzer/mplcursors/pull/63.patch
 
 BuildArch:      noarch
 
@@ -49,7 +50,7 @@ Documentation for mplcursors
 
 %if %{with doc}
 # generate html docs
-PYTHONPATH="%{pyproject_build_lib}" sphinx-build-3 doc/source html
+PYTHONPATH="$PWD/build/lib" sphinx-build-3 doc/source html
 # remove the sphinx-build leftovers
 rm -rf html/.{doctrees,buildinfo}
 %endif

@@ -1,5 +1,5 @@
 # Run slow tests? In this case, “slow” is just a few minutes.
-%bcond_without slow_tests
+%bcond slow_tests 1
 
 Name:           python-py27hash
 Version:        1.1.0

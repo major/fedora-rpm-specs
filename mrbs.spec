@@ -1,16 +1,16 @@
 Name:           mrbs
-Version:        1.9.4
-Release:        5%{?dist}
+Version:        1.11.1
+Release:        1%{?dist}
 Summary:        Meeting Room Booking System
 
-License:        GPLv2
+License:        GPL-2.0-only
 URL:            https://mrbs.sourceforge.net
 Source0:        https://download.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Source1:        mrbs-httpd.conf
 
 BuildArch:      noarch
 
-Requires:       php >= 5.5.0
+Requires:       php >= 7.2.0
 # php-imap has been dropped from F34+
 %if ! 0%{?fedora} > 33
 Requires:       php-imap
@@ -22,11 +22,13 @@ Requires:       php-pear-File-Passwd
 Requires:       php-pear-Mail
 Requires:       php-phpmailer6
 
-Provides:       bundled(js-jquery) = 3.6.0
+Provides:       bundled(js-flatpickr) = 4.6.13
+Provides:       bundled(js-html5shiv) = 3.7.3
+Provides:       bundled(js-jquery) = 3.7.1
 Provides:       bundled(js-jquery-datatables) = 1.10.25
-Provides:       bundled(js-jquery-migrate) = 3.3.0
+Provides:       bundled(js-jquery-migrate) = 3.4.0
 Provides:       bundled(js-jquery-select2) = 4.0.13
-Provides:       bundled(js-jquery-ui) = 1.12.1
+Provides:       bundled(js-jquery-ui) = 1.13.2
 
 
 %description
@@ -42,13 +44,6 @@ pushd web
 rm -rf File* Mail* PEAR.php
 rm -rf lib/PHPMailer/
 popd
-
-# Fix encoding
-for i in INSTALL NEWS AUTHENTICATION ; do {
-    iconv -f iso8859-1 -t utf-8 $i > $i.utf8 && \
-    touch -r $i $i.utf8 && \
-    mv -f $i.utf8 $i; };
-done;
 
 # remove exec perms on the perl scripts
 chmod a-x *.pl
@@ -88,6 +83,11 @@ install -m 0644 %{SOURCE1} \
 
 
 %changelog
+* Mon Jul 03 2023 Xavier Bachelot <xavier@bachelot.org> 1.11.1-1
+- Update to 1.11.1 (RHBZ#1984153)
+- Adapt License: to SPDX
+- Drop now useless files encoding fix
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

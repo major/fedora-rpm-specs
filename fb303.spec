@@ -13,11 +13,11 @@
 %bcond_without check
 
 Name:           fb303
-Version:        2023.04.24.00
+Version:        2023.07.03.00
 Release:        %autorelease
 Summary:        Base Thrift service and a common set of functionality
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %{forgeurl}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 

@@ -94,6 +94,9 @@ Source6:	release-keys.asc
 Patch1:		0001-SystemZ-Improve-error-messages-for-unsupported-reloc.patch
 # See https://reviews.llvm.org/D137890 for the next two patches
 Patch2:		0001-llvm-Add-install-targets-for-gtest.patch
+# Backport of https://reviews.llvm.org/D154212 from LLVM 17.
+Patch3: 0001-cmake-Add-LLVM_UNITTEST_LINK_FLAGS-option.patch
+
 # RHEL-specific patch to avoid unwanted recommonmark dep
 Patch101:	0101-Deactivate-markdown-doc.patch
 # Patching third-party dir with a 200 offset in patch number
@@ -323,7 +326,8 @@ export ASMFLAGS=$CFLAGS
 	-DCMAKE_INSTALL_PREFIX=%{install_prefix} \
 	-DLLVM_INSTALL_SPHINX_HTML_DIR=%{_pkgdocdir}/html \
 	-DSPHINX_EXECUTABLE=%{_bindir}/sphinx-build-3 \
-	-DLLVM_INCLUDE_BENCHMARKS=OFF
+	-DLLVM_INCLUDE_BENCHMARKS=OFF \
+	-DLLVM_UNITTEST_LINK_FLAGS="-Wl,-plugin-opt=O0"
 
 # Build libLLVM.so first.  This ensures that when libLLVM.so is linking, there
 # are no other compile jobs running.  This will help reduce OOM errors on the

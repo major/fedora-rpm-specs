@@ -11,6 +11,7 @@ Patch1:         cpioarchive_bytes_str_compatibility.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 
 %global _description\
 This is a Python module for accessing cpio archives.

@@ -1,6 +1,6 @@
 Name:       ibus-typing-booster
 Version:    2.23.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    A completion input method
 License:    GPL-3.0-or-later AND Apache-2.0
 URL:        https://mike-fabian.github.io/ibus-typing-booster/
@@ -48,8 +48,7 @@ BuildRequires:  m17n-lib
 BuildRequires:  m17n-db-extras
 BuildRequires:  python3-enchant
 BuildRequires:  enchant2
-BuildRequires:  enchant2-aspell
-BuildRequires:  aspell-en
+BuildRequires:  hunspell-en
 # because of “from packing import version”:
 BuildRequires:   python3-packaging
 %if 0%{?fedora} >= 35
@@ -251,6 +250,9 @@ fi
 %{_datadir}/applications/emoji-picker.desktop
 
 %changelog
+* Fri Jul 07 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2.23.1-2
+- Rebuilt for Python 3.12
+
 * Mon Jul 03 2023 Mike FABIAN <mfabian@redhat.com> - 2.23.1-1
 - Update to 2.23.1
 - Translation update from Weblate (pl 100%)

@@ -1,6 +1,6 @@
 Name:           python-sphinx-design
 Version:        0.4.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Sphinx extension for responsive web components
 
 # This project is MIT, but bundles JSON glyphs
@@ -61,6 +61,12 @@ Documentation for %{name}.
 %prep
 %autosetup -n sphinx-design-%{version} -p1
 
+# We have version 2.0.0 in F39 and it doesn't bring any breaking changes
+sed -i 's/"myst-parser>=0.18.0,<2"/"myst-parser>=0.18.0"/g' pyproject.toml
+# This is the only change required to enable Sphinx 7+ as per:
+# https://github.com/executablebooks/sphinx-design/pull/131
+sed -i 's/"sphinx>=4,<7"/"sphinx>=4"/' pyproject.toml
+
 %generate_buildrequires
 %pyproject_buildrequires -t -x testing
 
@@ -89,6 +95,9 @@ rm -rf html/{.buildinfo,.doctrees}
 %license LICENSE
 
 %changelog
+* Fri Jul 07 2023 Karolina Surma <ksurma@redhat.com> - 0.4.1-3
+- Relax the python-myst-parser's and python-sphinx' version constraint
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 0.4.1-2
 - Rebuilt for Python 3.12
 

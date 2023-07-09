@@ -3,14 +3,14 @@ Summary: Documentation tool for Pascal and Object Pascal source code
 
 # The readme says simply "GNU GPL 2", but license headers in code files
 # say "version 2 of the License, or (at your option) any later version".
-License: GPLv2+
+License: GPL-2.0-or-later
 
 %global with_gui 1
 %global with_tools 1
 %global with_tests 1
 
 Version: 0.16.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 
 URL: https://github.com/pasdoc/pasdoc
 Source0: %{URL}/archive/v%{version}/pasdoc-%{version}.tar.gz
@@ -35,12 +35,15 @@ ExclusiveArch: %{fpc_arches}
 BuildRequires: fpc
 
 %if 0%{?with_gui}
+%global widgetset gtk2
 BuildRequires: desktop-file-utils
-BuildRequires: lazarus
+BuildRequires: lazarus-lcl-%{widgetset}
+BuildRequires: lazarus-tools
 BuildRequires: libappstream-glib
 %endif
 
 %if 0%{?with_tests}
+BuildRequires: make
 BuildRequires: %{_bindir}/diff
 BuildRequires: %{_bindir}/xmllint
 %endif
@@ -113,7 +116,7 @@ fpc %{fpc_flags} \
 # Build the gui
 %if 0%{?with_gui}
 	lazbuild --add-package-link ./source/packages/lazarus/pasdoc_package.lpk
-	lazbuild --recursive ./source/gui/pasdoc_gui.lpi
+	lazbuild --widgetset=%{widgetset} --recursive ./source/gui/pasdoc_gui.lpi
 %endif
 
 
@@ -202,6 +205,11 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}-gui.desktop
 
 
 %changelog
+* Fri Jul 07 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.16.0-8
+- BuildRequire only chosen Lazarus sub-packages
+- Add missing BuildRequires on "make"
+- Convert License tag to SPDX
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

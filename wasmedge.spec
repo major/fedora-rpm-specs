@@ -1,7 +1,7 @@
-%global version 0.12.1
+%global version 0.13.1
 %global reponame WasmEdge
 %global capi_soname 0
-%global capi_version 0.0.2
+%global capi_version 0.0.3
 
 Name:    wasmedge
 Version: %{version}
@@ -11,8 +11,6 @@ Summary: High performance WebAssembly Virtual Machine
 License: ASL 2.0 and CC0
 URL:     https://github.com/%{reponame}/%{reponame}
 Source0: %{url}/releases/download/%{version}/%{reponame}-%{version}-src.tar.gz
-# https://github.com/WasmEdge/WasmEdge/pull/2511
-Patch0: wasmedge-0.12.1-fmt.patch
 BuildRequires: boost-devel
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -39,7 +37,7 @@ High performance WebAssembly Virtual Machine
 Summary: %{reponame} Runtime
 Requires: spdlog
 Provides: %{reponame}-rt = %{version}-%{release}
-Provides: bundled(blake3) = 1.2.0
+Provides: bundled(blake3) = 1.3.3
 Provides: bundled(wasi-cpp-header) = 0.0.1
 Provides: wasm-library
 Conflicts: %{name}
@@ -57,7 +55,7 @@ Provides: %{reponame}-devel = %{version}-%{release}
 This package contains necessary header files for %{reponame} development.
 
 %prep
-%autosetup -n %{name} -p1
+%autosetup -n %{name}
 [ -f VERSION ] || echo -n %{version} > VERSION
 
 %build

@@ -1,8 +1,8 @@
 Summary: A Hebrew spell checker
 Name: hspell
 Version: 1.4
-Release: 17%{?dist}
-License: AGPLv3
+Release: 18%{?dist}
+License: AGPL-3.0-only
 URL: http://hspell.ivrix.org.il/
 Source: http://hspell.ivrix.org.il/%{name}-%{version}.tar.gz
 Patch0: 0001-require-local-module-explicitly.patch
@@ -45,7 +45,7 @@ Hebrew hunspell dictionaries.
 
 %prep
 %setup -q
-%patch0 -p1 -b .localreq
+%patch -P 0 -p1 -b .localreq
 /usr/bin/iconv -f hebrew -t utf8 -o WHATSNEW WHATSNEW
 
 %build
@@ -86,6 +86,9 @@ cp -p he.aff $RPM_BUILD_ROOT/%{_datadir}/hunspell/he_IL.aff
 %ldconfig_scriptlets
 
 %changelog
+* Fri Jul 07 2023 Parag Nemade <pnemade AT redhat DOT com> - 1.4-18
+- Migrate to SPDX license expression
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:    pcp
 Version: 6.0.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: System-level performance monitoring and performance management
 License: GPL-2.0-or-later AND LGPL-2.1-or-later AND CC-BY-3.0
 URL:     https://pcp.io
@@ -3362,6 +3362,9 @@ fi
 %files zeroconf -f pcp-zeroconf-files.rpm
 
 %changelog
+* Fri Jul 07 2023 Python Maint <python-maint@redhat.com> - 6.0.5-2
+- Rebuilt for Python 3.12
+
 * Mon Jun 26 2023 Nathan Scott <nathans@redhat.com> - 6.0.5-1
 - Ensure rotated pmie log files are pcp:pcp owned (BZ 2217209)
 - Update to latest PCP sources.

@@ -6,14 +6,17 @@ Name:		python-metakernel
 #		Running rpmdev-bumpspec on this specfile will update all the
 #		release tags automatically
 Version:	0.29.4
-Release:	3%{?dist}
+Release:	4%{?dist}
 %global pkgversion %{version}
 %global pkgrelease %{release}
 Summary:	Metakernel for Jupyter
 
-License:	BSD
+License:	BSD-3-Clause
 URL:		https://github.com/Calysto/metakernel
 Source0:	https://github.com/Calysto/metakernel/archive/v%{version}/%{name}-%{version}.tar.gz
+#		Ignore DeprecationWarnings for datetime.utcnow()
+#		https://github.com/Calysto/metakernel/pull/265
+Patch0:		0001-Ignore-DeprecationWarnings-for-datetime.utcnow.patch
 
 BuildArch:	noarch
 BuildRequires:	make
@@ -71,7 +74,7 @@ This package contains the documentation of python-metakernel.
 
 %package -n python3-metakernel-python
 Version:	0.19.1
-Release:	59%{?dist}
+Release:	60%{?dist}
 Summary:	A Python kernel for Jupyter/IPython
 %py_provides	python3-metakernel-python
 Requires:	python3-metakernel = %{pkgversion}-%{pkgrelease}
@@ -82,7 +85,7 @@ A Python kernel for Jupyter/IPython, based on MetaKernel.
 
 %package -n python3-metakernel-echo
 Version:	0.19.1
-Release:	59%{?dist}
+Release:	60%{?dist}
 Summary:	A simple echo kernel for Jupyter/IPython
 %py_provides	python3-metakernel-echo
 Requires:	python3-metakernel = %{pkgversion}-%{pkgrelease}
@@ -93,6 +96,7 @@ A simple echo kernel for Jupyter/IPython, based on MetaKernel.
 
 %prep
 %setup -q -n metakernel-%{pkgversion}
+%patch -P 0 -p1
 
 %build
 %pyproject_wheel
@@ -167,6 +171,9 @@ wait $pid
 %{_datadir}/jupyter/kernels/python3-metakernel-echo
 
 %changelog
+* Fri Jul 07 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.29.4-4
+- Ignore DeprecationWarnings for datetime.utcnow()
+
 * Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 0.29.4-3
 - Rebuilt for Python 3.12
 

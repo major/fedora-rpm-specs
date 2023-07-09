@@ -11,12 +11,14 @@ implementation are in the accepted Astropy Proposal for Enhancement (APE) 4.
 
 Name:           python-%{srcname}
 Version:        4.0.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        %{sum}
 
 License:        BSD
 URL:            https://pypi.python.org/pypi/%{srcname}
 Source0:        https://files.pythonhosted.org/packages/source/a/%{srcname}/%{srcname}-%{version}.tar.gz
+# Workaround for python 3.12 change of imp module removal
+Patch0:         astropy_helpers-py312-imp-deprecation.patch
 
 BuildArch:      noarch
 BuildRequires:  gcc gcc-c++
@@ -41,7 +43,7 @@ Requires:       python3-sphinx
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{srcname}-%{version} -p1
 
 %build
 %py3_build
@@ -61,6 +63,9 @@ Requires:       python3-sphinx
 %{python3_sitelib}/*
 
 %changelog
+* Fri Jul  7 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.1-11
+- Workaround for python 3.12 change of imp module removal
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 4.0.1-10
 - Rebuilt for Python 3.12
 

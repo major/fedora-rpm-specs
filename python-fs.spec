@@ -5,9 +5,10 @@
 
 Name:           python-%{srcname}
 Version:        2.4.16
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python's Filesystem abstraction layer
 
+# https://spdx.org/licenses/MIT.html
 License:        MIT
 URL:            https://pypi.org/project/fs/
 Source0:        https://github.com/PyFilesystem/pyfilesystem2/archive/v%{version}/%{srcname}-%{version}.tar.gz
@@ -66,6 +67,9 @@ Summary:        %{summary}
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Fri Jul 07 2023 Parag Nemade <pnemade AT redhat DOT com> - 2.4.16-4
+- Help msuchy to count this package as already using SPDX license expression
+
 * Mon Jun 19 2023 Python Maint <python-maint@redhat.com> - 2.4.16-3
 - Rebuilt for Python 3.12
 

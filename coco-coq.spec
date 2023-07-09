@@ -1,9 +1,9 @@
 Name:		coco-coq
 Version:	0.1
-Release:	27%{?dist}
+Release:	28%{?dist}
 Summary:	Coco Coq in Grostesteing's base, an AGI adventure game
 
-License:	Redistributable, no modification permitted
+License:	CC-BY-ND-4.0
 URL:		http://membres.lycos.fr/agisite/coco-c.htm
 Source0:	cococe.zip
 #Original from http://membres.lycos.fr/agisite/cococe.zip includes
@@ -44,7 +44,7 @@ rm -rf $RPM_BUILD_ROOT
 
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/%{name}
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
-install -D -m0644 -p * $RPM_BUILD_ROOT%{_datadir}/%{name}
+install -D -m0644 -p coco-coq-LICENSE.fedora logdir object picdir snddir viewdir vol.0 words.tok $RPM_BUILD_ROOT%{_datadir}/%{name}
 install -D -m0755 -p %{SOURCE2} $RPM_BUILD_ROOT/%{_bindir}
 
 # desktop file
@@ -64,6 +64,9 @@ install -p -m 0644 %{SOURCE3} %{buildroot}%{_datadir}/icons/hicolor/32x32/apps/%
 %{_bindir}/coco-coq-wrapper.sh
 
 %changelog
+* Fri Jul 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.1-28
+- COnvert to SPDX license.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

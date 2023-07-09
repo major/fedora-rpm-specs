@@ -5,7 +5,7 @@
 %global crate rust-embed-impl
 
 Name:           rust-rust-embed-impl
-Version:        6.5.0
+Version:        6.8.1
 Release:        %autorelease
 Summary:        Custom Derive Macro which loads files into the rust binary
 

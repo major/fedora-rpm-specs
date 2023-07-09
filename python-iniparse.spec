@@ -14,6 +14,8 @@ Summary:        Accessing and Modifying INI files
 License:        MIT and Python
 URL:            https://github.com/candlepin/python-iniparse
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+# https://github.com/candlepin/python-iniparse/pull/24
+Patch6:         0006-Fix-compatibility-issues-with-Python-3.11.patch
 
 BuildArch: noarch
 
@@ -36,7 +38,7 @@ Summary:        %{summary}
 %{_description}
 
 %prep
-%autosetup
+%autosetup -p1
 chmod -c -x html/index.html
 
 %generate_buildrequires
@@ -60,6 +62,7 @@ rm -vfr %{buildroot}%{_docdir}/*
 %changelog
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.5-5
 - Rebuilt for Python 3.12
+- Fixes: rhbz#2176142
 
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild

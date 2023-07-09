@@ -2,13 +2,14 @@
 
 Name:		libsrtp
 Version:	2.3.0
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	An implementation of the Secure Real-time Transport Protocol (SRTP)
 License:	BSD
 URL:		https://github.com/cisco/libsrtp
 Source0:	https://github.com/cisco/libsrtp/archive/v%{version}.tar.gz
 BuildRequires:	gcc, nss-devel, libpcap-devel
 BuildRequires: make
+BuildRequires: procps-ng
 # Fix shared lib so ldconfig doesn't complain
 Patch0:		libsrtp-2.3.0-shared-fix.patch
 # Fix namespace issue in test/util.c
@@ -42,10 +43,10 @@ Tools for testing and decoding SRTP
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch0 -p1 -b .sharedfix
-%patch1 -p1 -b .utilfix
-%patch2 -p1 -b .test-shared-fix
-%patch3 -p1 -b .nssfix
+%patch 0 -p1 -b .sharedfix
+%patch 1 -p1 -b .utilfix
+%patch 2 -p1 -b .test-shared-fix
+%patch 3 -p1 -b .nssfix
 
 %if 0%{?rhel} > 0
 %ifarch ppc64
@@ -74,6 +75,13 @@ install -D -p -m 0755 test/test_srtp %{buildroot}%{_bindir}/test_srtp
 
 %ldconfig_scriptlets
 
+%check
+# the test code does by default not use the libsrtp we built here, but the one installed on the system
+# force LD_LIBRARY_PATH to use the one built in this spec
+export LD_LIBRARY_PATH="%{_builddir}/%{name}-%{version}"
+sed -i -e 's#LD_LIBRARY_PATH=.*#LD_LIBRARY_PATH=\"%{_builddir}/%{name}-%{version}\"#' test/rtpw_test.sh test/rtpw_test_gcm.sh
+make runtest
+
 %files
 %license LICENSE
 %doc CHANGES README.md
@@ -88,6 +96,9 @@ install -D -p -m 0755 test/test_srtp %{buildroot}%{_bindir}/test_srtp
 %{_bindir}/*
 
 %changelog
+* Fri Jul 07 2023 Wim Taymans <wtaymans@redhat.com> - 2.3.0-11
+- add %check (thanks to Gerd v. Egidy) Related: rhbz#2163492
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

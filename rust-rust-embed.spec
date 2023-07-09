@@ -5,7 +5,7 @@
 %global crate rust-embed
 
 Name:           rust-rust-embed
-Version:        6.6.1
+Version:        6.8.1
 Release:        %autorelease
 Summary:        Custom Derive Macro which loads files into the rust binary
 
@@ -144,9 +144,9 @@ use the "warp" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
+%cargo_prep
 # remove examples; many don't compile
 rm -rf examples
-%cargo_prep
 
 %generate_buildrequires
 %cargo_generate_buildrequires

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        7.1.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python library that sorts lists using the "natural order" sort
 
 License:        MIT
@@ -60,6 +60,9 @@ Summary:	%{summary}
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Fri Jul 07 2023 Python Maint <python-maint@redhat.com> - 7.1.1-9
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

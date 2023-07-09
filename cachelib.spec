@@ -9,7 +9,7 @@
 %bcond_with check
 
 %global forgeurl https://github.com/facebook/CacheLib
-%global tag 2023.04.24.00
+%global tag 2023.07.03.00
 %global date %(echo %{tag} | sed -e 's|.00$||' | sed -e 's|\\.||g')
 # disable forge macro snapinfo generation
 # https://pagure.io/fedora-infra/rpmautospec/issue/240
@@ -17,17 +17,19 @@
 %forgemeta
 
 # see cachelib/allocator/CacheVersion.h's kCachelibVersion
-%global major_ver 16
+%global major_ver 17
 
 Name:           cachelib
 Version:        %{major_ver}^%{date}
 Release:        %autorelease
 Summary:        Pluggable caching engine for scale high performance cache services
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %forgeurl
 Source0:        %{url}/archive/v%{tag}/%{name}-%{tag}.tar.gz
-Patch0:         %{name}-add_missing_includes.diff
+# needed for compiling with fmt 10
+Patch0:         %{url}/commit/39f1f92f6f039e7b1a161b5302fd9b8952fc97f8.patch#/%{name}-fix_for_atomic_formatting.patch
+Patch1:         %{name}-fix_for_atomic_formatting_part2.patch
 # needed on EL8; its gtest does not come with cmake files
 Patch100:       %{name}-find-gtest.patch
 # Workaround for gcc issue (still needed on epel9 x86_64)

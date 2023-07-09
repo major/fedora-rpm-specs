@@ -1,9 +1,9 @@
 Name:           harfbuzz
 Version:        7.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Text shaping library
 
-License:        MIT
+License:        MIT-Modern-Variant
 URL:            https://github.com/harfbuzz/harfbuzz/
 Source0:        https://github.com/harfbuzz/harfbuzz/releases/download/%{version}/harfbuzz-%{version}.tar.xz
 
@@ -92,6 +92,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/libharfbuzz-icu.so.*
 
 %changelog
+* Fri Jul 07 2023 Parag Nemade <pnemade AT redhat DOT com> - 7.3.0-2
+- Migrate to SPDX license expression
+
 * Thu May 11 2023 Parag Nemade <pnemade AT redhat DOT com> - 7.3.0-1
 - Update to 7.3.0 version (#2201459)
 

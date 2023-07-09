@@ -1,9 +1,9 @@
 Name:		naturette
 Version:	1.3
-Release:	26%{?dist}
+Release:	27%{?dist}
 Summary:	An AGI adventure game
 
-License:	Redistributable, no modification permitted
+License:	CC-BY-ND-4.0
 URL:		http://membres.lycos.fr/agisite/rette.htm
 Source0:	rette13e.zip
 #Original from http://membres.lycos.fr/agisite/rette13e.zip includes
@@ -46,7 +46,7 @@ rm -rf $RPM_BUILD_ROOT
 
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/%{name}
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
-install -D -m0644 -p * $RPM_BUILD_ROOT%{_datadir}/%{name}
+install -D -m0644 -p logdir naturette-LICENSE.fedora object picdir snddir viewdir vol.0 words.tok $RPM_BUILD_ROOT%{_datadir}/%{name}
 install -D -m0755 -p %{SOURCE2} $RPM_BUILD_ROOT/%{_bindir}
 
 # desktop file
@@ -66,6 +66,9 @@ install -p -m 0644 %{SOURCE3} %{buildroot}%{_datadir}/icons/hicolor/32x32/apps/%
 %{_bindir}/naturette-wrapper.sh
 
 %changelog
+* Fri Jul 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.3-27
+- Convert to SPDX license.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

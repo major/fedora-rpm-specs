@@ -1,9 +1,9 @@
 Name:     inih
-Version:  56
-Release:  3%{?dist}
+Version:  57
+Release:  1%{?dist}
 Summary:  Simple INI file parser library
 
-License:  BSD
+License:  BSD-3-Clause
 URL:      https://github.com/benhoyt/inih
 Source0:  %{url}/archive/r%{version}/%{name}-r%{version}.tar.gz
 
@@ -64,6 +64,9 @@ embedded systems.
 
 
 %changelog
+* Fri Jul 07 2023 Robert Scheck <robert@fedoraproejct.org> - 57-1
+- New upstream release 57 (#2221191)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 56-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

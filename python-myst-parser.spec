@@ -1,10 +1,11 @@
 %global pypi_name myst-parser
 
 Name:           python-%{pypi_name}
-Version:        1.0.0
-Release:        2%{?dist}
+Version:        2.0.0
+Release:        1%{?dist}
 Summary:        A commonmark compliant parser, with bridges to docutils & sphinx
 
+# SPDX
 License:        MIT
 URL:            https://github.com/executablebooks/MyST-Parser
 Source0:        %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
@@ -70,6 +71,10 @@ Summary:        %{summary}
 %{_bindir}/myst-inv
 
 %changelog
+* Fri Jul 07 2023 Karolina Surma <ksurma@redhat.com> - 2.0.0-1
+- Update to 2.0.0
+Resolves: rhbz#2214625
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 1.0.0-2
 - Rebuilt for Python 3.12
 

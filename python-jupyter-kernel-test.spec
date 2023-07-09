@@ -32,6 +32,7 @@ successful code execution and conformance with the Jupyter Messaging Protocol
 
 %prep
 %autosetup -n %{srcname_}-%{version} -p1
+sed -i -e '/"pre-commit"/d' pyproject.toml
 
 %build
 %pyproject_wheel

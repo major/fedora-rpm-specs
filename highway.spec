@@ -4,6 +4,14 @@ applying the same operation to 'lanes'.}
 
 %global toolchain clang
 
+%if 0%{?rhel}
+%bcond gtest 0
+%bcond contrib 0
+%else
+%bcond gtest 1
+%bcond contrib 1
+%endif
+
 Name:           highway
 Version:        1.0.4
 Release:        %autorelease
@@ -15,7 +23,9 @@ Source0:        %url/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  clang
+%if %{with gtest}
 BuildRequires:  gtest-devel
+%endif
 BuildRequires:  libatomic
 
 %description
@@ -43,11 +53,27 @@ Documentation for Highway.
 %autosetup -p1 -n %{name}-%{version}
 
 %build
-%cmake -DHWY_SYSTEM_GTEST:BOOL=ON
+%cmake %{!?with_gtest:-DHWY_ENABLE_TESTS:BOOL=OFF} \
+       %{?with_gtest:-DHWY_SYSTEM_GTEST:BOOL=ON} \
+       %{!?with_contrib:-DHWY_ENABLE_CONTRIB:BOOL=OFF}
 %cmake_build
 
 %install
 %cmake_install
+
+%if %{without gtest}
+rm -vf %{buildroot}%{_libdir}/libhwy_test.so.*
+rm -vrf %{buildroot}%{_includedir}/hwy/tests
+rm -vf %{buildroot}%{_libdir}/libhwy_test.so
+rm -vf %{buildroot}%{_libdir}/pkgconfig/libhwy-test.pc
+%endif
+
+%if %{without contrib}
+rm -vf %{buildroot}%{_libdir}/libhwy_contrib.so.*
+rm -vrf %{buildroot}%{_includedir}/hwy/contrib
+rm -vf %{buildroot}%{_libdir}/libhwy_contrib.so
+rm -vf %{buildroot}%{_libdir}/pkgconfig/libhwy-contrib.pc
+%endif
 
 %check
 %ctest --exclude-regex "wyBlockwiseTestGroup/HwyBlockwiseTest.TestAllBroadcast"
@@ -56,21 +82,29 @@ Documentation for Highway.
 %license LICENSE
 %{_libdir}/libhwy.so.1
 %{_libdir}/libhwy.so.%{version}
+%if %{with contrib}
 %{_libdir}/libhwy_contrib.so.1
 %{_libdir}/libhwy_contrib.so.%{version}
+%endif
+%if %{with gtest}
 %{_libdir}/libhwy_test.so.1
 %{_libdir}/libhwy_test.so.%{version}
+%endif
 
 %files devel
 %license LICENSE
 %{_includedir}/hwy/
 %{_libdir}/cmake/hwy/
 %{_libdir}/libhwy.so
+%if %{with contrib}
 %{_libdir}/libhwy_contrib.so
-%{_libdir}/libhwy_test.so
-%{_libdir}/pkgconfig/libhwy.pc
 %{_libdir}/pkgconfig/libhwy-contrib.pc
+%endif
+%if %{with gtest}
+%{_libdir}/libhwy_test.so
 %{_libdir}/pkgconfig/libhwy-test.pc
+%endif
+%{_libdir}/pkgconfig/libhwy.pc
 
 %files doc
 %license LICENSE

@@ -2,12 +2,14 @@
 
 Name:           fontforge
 Version:        20230101
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Outline and bitmap font editor
 
 License:        GPL-3.0-or-later
 URL:            http://fontforge.github.io/
 Source0:        https://github.com/fontforge/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+# Fix translations with gettext-0.22, https://github.com/fontforge/fontforge/pull/5257
+Patch0:         0001-Fix-errors-in-French-and-Italian-translations.patch
 
 Requires:       xdg-utils
 Requires:       autotrace
@@ -68,6 +70,7 @@ This package contains documentation files for %{name}.
 
 %prep
 %setup -q
+%patch -P 0 -p1
 
 # Remove tests that requires Internet access
 sed -i '45d;82d;101d;127d' tests/CMakeLists.txt
@@ -123,6 +126,9 @@ popd
 %doc %{_pkgdocdir}
 
 %changelog
+* Fri Jul 07 2023 Parag Nemade <pnemade AT redhat DOT com> - 20230101-5
+- Fix fr.po and it.po translations issue
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 20230101-4
 - Rebuilt for Python 3.12
 

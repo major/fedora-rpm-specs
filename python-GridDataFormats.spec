@@ -16,7 +16,7 @@ OpenDX).
 
 Name: python-%{pname}
 Version: 1.0.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Read and write data on regular grids in Python
 License: LGPLv3+
 URL: https://github.com/orbeckst/GridDataFormats
@@ -33,6 +33,7 @@ Recommends: python3-scipy
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
 BuildRequires: python3-numpy
+BuildRequires: python3-versioneer
 %if %{with check}
 BuildRequires: python3-mrcfile
 BuildRequires: python3-pytest
@@ -48,6 +49,7 @@ BuildRequires: python3-tempdir
 
 %prep
 %setup -q -n %{pname}-%{version}
+rm versioneer.py
 
 %build
 %py3_build
@@ -67,6 +69,9 @@ pytest-3 -v --numprocesses=auto ./gridData/tests
 %{python3_sitelib}/gridData
 
 %changelog
+* Fri Jul 07 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.0.1-6
+- fix build with Python 3.12 by removing bundled old versioneer module
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.0.1-5
 - Rebuilt for Python 3.12
 

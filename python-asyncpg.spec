@@ -13,7 +13,7 @@
 
 Name:           python-asyncpg
 Summary:        A fast PostgreSQL Database Client Library for Python/asyncio
-Version:        0.27.0
+Version:        0.28.0
 Release:        %autorelease
 
 # The entire source is Apache-2.0, except:
@@ -32,7 +32,7 @@ BuildRequires:  latexmk
 %endif
 
 # For tests:
-#
+BuildRequires:  %{py3_dist pytest}
 # For pg_config binary
 BuildRequires:  libpq-devel
 # For pg_ctl binary
@@ -94,29 +94,33 @@ sed -r -i 's|(sys\.path\.)insert\(0,[[:blank:]]*|\1append\(|' \
 echo 'intersphinx_mapping.clear()' >> docs/conf.py
 
 # Loosen SemVer pins to allow newer versions of Sphinx-related dependencies.
-sed -r -i 's/([Ss]phinx.*)~=/\1>=/g' setup.py
+sed -r -i 's/([Ss]phinx.*)~=/\1>=/g' pyproject.toml
+# We are not building the documentation as HTML anyway: the theme version is
+# not important.
+sed -r -i 's/(sphinx_rtd_theme).=[[:digit:].]+/\1/' pyproject.toml
 
 # We will not run style linting tests since they are brittle, so we might as
 # well drop the corresponding dependencies.
-sed -r -i '/(pycodestyle|flake8)/d' setup.py
+sed -r -i '/(flake8)/d' pyproject.toml
 
 %if %{without uvloop}
-sed -r -i 's/^([[:blank:]])(.*uvloop)/\1# \2/' setup.py
+sed -r -i 's/^([[:blank:]])(.*uvloop)/\1# \2/' pyproject.toml
 %endif
 
 
 %generate_buildrequires
-# Note dev extra includes doc and test extras
-%pyproject_buildrequires -x dev
+export ASYNCPG_BUILD_CYTHON_ALWAYS=1
+%pyproject_buildrequires -x test%{?with_doc_pdf:,docs}
 
 
 %build
+export ASYNCPG_BUILD_CYTHON_ALWAYS=1
 %pyproject_wheel
 
 %if %{with doc_pdf}
 BLIB="${PWD}/build/lib.%{python3_platform}-cpython-%{python3_version_nodots}"
 PYTHONPATH="${BLIB}" %make_build -C docs latex \
-        SPHINXBUILD='sphinx-build' SPHINXOPTS='-j%{?_smp_build_ncpus}'
+    SPHINXBUILD='sphinx-build' SPHINXOPTS='-j%{?_smp_build_ncpus}'
 %make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
 %endif
 
@@ -135,7 +139,7 @@ rm -rf asyncpg
 ln -s %{buildroot}%{python3_sitearch}/asyncpg/
 
 # Do not run flake8 code style tests, which may fail; besides, we have patched
-# flake8 and pycodestyle out of the test dependencies
+# flake8 out of the test dependencies.
 k="${k-}${k+ and }not TestFlake8"
 
 # See the “test” target in the Makefile:

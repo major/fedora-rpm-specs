@@ -1,13 +1,13 @@
 Name:           mirmon
 Version:        2.11
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Monitor the status of mirrors
-License:        BSD
+License:        MIT
 URL:            http://www.staff.science.uu.nl/~penni101/mirmon/
 Source0:        http://www.staff.science.uu.nl/~penni101/%{name}/%{name}-%{version}.tar.gz
 Source1:        %{name}-httpd.conf
 BuildArch:      noarch
-BuildRequires:      perl-generators
+BuildRequires:  perl-generators
 
 %description
 Many software projects are mirrored worldwide. The mirror sites are required 
@@ -27,7 +27,10 @@ This package provides the Apache configuration for
 applications using an Alias to %{name}.
 
 %prep
-%setup -q
+%autosetup
+
+%build
+# Nothing to build.
 
 %install
 mkdir -p %{buildroot}%{_datadir}/%{name}
@@ -40,8 +43,10 @@ install -pDm0644 %{S:1} %{buildroot}%{_sysconfdir}/httpd/conf.d/%{name}.conf
 cp -pa countries.list icons %{buildroot}%{_datadir}/%{name}/
 
 %files
-%doc RELEASE-NOTES *.{txt,html} LICENSE
-%{_bindir}/*
+%license LICENSE
+%doc RELEASE-NOTES *.{txt,html}
+%{_bindir}/%{name}
+%{_bindir}/probe
 %{_datadir}/%{name}
 %{_mandir}/man1/%{name}*.1*
 
@@ -49,6 +54,9 @@ cp -pa countries.list icons %{buildroot}%{_datadir}/%{name}/
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/%{name}.conf
 
 %changelog
+* Fri Jul 07 2023 Robby Callicotte <rcallicotte@fedoraproject.org> - 2.11-15
+- Updated license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.11-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

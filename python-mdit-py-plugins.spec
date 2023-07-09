@@ -1,10 +1,11 @@
 %global pypi_name mdit-py-plugins
 
 Name:           python-%{pypi_name}
-Version:        0.3.5
-Release:        2%{?dist}
+Version:        0.4.0
+Release:        1%{?dist}
 Summary:        Collection of plugins for markdown-it-py
 
+# SPDX
 # Both the package and its plugins are licensed under MIT
 License:        MIT
 URL:            https://github.com/executablebooks/mdit-py-plugins
@@ -47,6 +48,10 @@ Summary:        %{summary}
 %doc README.md
 
 %changelog
+* Fri Jul 07 2023 Karolina Surma <ksurma@redhat.com> - 0.4.0-1
+- Update to 0.4.0
+Resolves: rhbz#2212522
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 0.3.5-2
 - Rebuilt for Python 3.12
 

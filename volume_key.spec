@@ -44,6 +44,7 @@ Patch0: volume_key-0.3.12-support_LUKS2_and_more.patch
 # Fix resource leaks
 # - backport of bf6618ec0b09b4e51fc97fa021e687fbd87599ba
 Patch1: volume_key-0.3.12-fix_resource_leaks.patch
+BuildRequires: autoconf, automake, libtool
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: cryptsetup-devel, gettext-devel, glib2-devel, /usr/bin/gpg2
@@ -120,6 +121,7 @@ Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 %setup -q
 %patch0 -p1
 %patch1 -p1
+autoreconf -fiv
 
 %build
 %configure %{?with_pythons}

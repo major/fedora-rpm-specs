@@ -1,4 +1,4 @@
-%bcond_without tests
+%bcond tests 1
 
 Name:           python-openapi-schema-validator
 Version:        0.4.3

@@ -7,6 +7,7 @@ URL: https://rt.wiki.kernel.org/index.php/Tuna
 Source: https://cdn.kernel.org/pub/software/libs/python/%{name}/%{name}-%{version}.tar.xz
 
 BuildRequires: python3-devel
+BuildRequires: python3-setuptools
 BuildRequires: gcc
 
 

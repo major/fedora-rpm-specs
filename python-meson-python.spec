@@ -1,4 +1,4 @@
-%bcond_without tests
+%bcond tests 1
 
 Name:           python-meson-python
 Summary:        Meson Python build backend (PEP 517)

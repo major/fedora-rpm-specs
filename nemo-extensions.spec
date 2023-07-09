@@ -4,12 +4,13 @@
 
 Name:           nemo-extensions
 Version:        5.8.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Extensions for Nemo
 
 License:        GPLv2+ and LGPLv2
 URL:            https://github.com/linuxmint/%{name}
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0:         %{url}/commit/d25b09fcd00c4970c70485fb50d3595d8e6c8ef8.patch
 
 ExcludeArch:    %{ix86}
 
@@ -333,6 +334,9 @@ desktop-file-install                                    \
 %{_mandir}/man1/nemo-seahorse-tool.1.* 
 
 %changelog
+* Fri Jul 07 2023 Leigh Scott <leigh123linux@gmail.com> - 5.8.0-3
+- Fix nemo-compare missing icons
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 5.8.0-2
 - Rebuilt for Python 3.12
 

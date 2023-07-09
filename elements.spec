@@ -1,7 +1,7 @@
 Summary:        A C++/Python build framework
 Name:           elements
-Version:        6.1.2
-Release:        2%{?dist}
+Version:        6.1.4
+Release:        1%{?dist}
 License:        LGPLv3+
 Source0:        https://github.com/astrorama/Elements/archive/%{version}/%{name}-%{version}.tar.gz
 # Elements use this file to link the documentation to cppreference.com
@@ -13,8 +13,8 @@ URL:            https://github.com/degauden/Elements.git
 Patch0:         elements_remove_examples.patch
 # Disable the compilation of PDF documentation
 Patch3:         elements_disable_latex.patch
-# Move from Py.Test to PyTest
-Patch6:         elements-pytest.patch
+# distutils have been removed
+Patch4:         elements_no_distutils.patch
 # Add missing #include directive for GCC 13
 # Patch is downstream-only because upstream archived the project 2022-11-16.
 Patch7:         0001-Add-missing-include-directive-for-GCC-13.patch
@@ -76,7 +76,8 @@ Documentation for package %{name}
 export VERBOSE=1
 # Build
 %cmake -DELEMENTS_BUILD_TESTS=ON -DINSTALL_TESTS=OFF -DSQUEEZED_INSTALL:BOOL=ON -DINSTALL_DOC:BOOL=ON \
-    -DUSE_SPHINX=OFF -DPYTHON_EXPLICIT_VERSION=3 --no-warn-unused-cli \
+    -DUSE_SPHINX=OFF --no-warn-unused-cli \
+    -DPYTHON_EXPLICIT_VERSION=3 -DCMAKE_POLICY_DEFAULT_CMP0148=OLD \
     -DCMAKE_LIB_INSTALL_SUFFIX=%{_lib} -DUSE_VERSIONED_LIBRARIES=ON \
     -DUSE_ENV_FLAGS=ON
 # Copy cppreference-doxygen-web.tag.xml into the build directory
@@ -173,6 +174,9 @@ export ELEMENTS_CONF_PATH="%{_builddir}/ElementsKernel/auxdir/"
 %{docdir}
 
 %changelog
+* Fri Jul 07 2023 Alejandro Alvarez Ayllon <a.alvarezayllon@gmail.com> - 6.1.4-1
+- Release 6.1.4
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 6.1.2-2
 - Rebuilt for Python 3.12
 

@@ -3,12 +3,14 @@
 
 Name:           python-%{srcname}
 Version:        0.4.5
-Release:        5%{?dist}
+Release:        7%{?dist}
 Summary:        %{sum}
 
 License:        BSD
 URL:            http://pypi.python.org/pypi/%{srcname}
 Source0:        https://files.pythonhosted.org/packages/source/a/%{srcname}/%{srcname}-%{version}.tar.gz
+# Workaround for python 3.12 change of imp module removal
+Patch0:         astropy_helpers-py312-imp-deprecation.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-astropy
@@ -57,6 +59,12 @@ to access online Astronomical data.
 %exclude %{python3_sitelib}/%{srcname}/cosmosim/tests/test_cosmosim.py
 
 %changelog
+* Fri Jul  7 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.4.5-7
+- Workaround for python 3.12 change of imp module removal
+
+* Fri Jul 07 2023 Python Maint <python-maint@redhat.com> - 0.4.5-6
+- Rebuilt for Python 3.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -15,15 +15,20 @@
 %bcond_without check
 
 Name:           fbthrift
-Version:        2023.04.24.00
+Version:        2023.07.03.00
 Release:        %autorelease
 Summary:        Facebook's branch of Apache Thrift, including a new C++ server
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/facebook/fbthrift
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # when compiling with clang but with gcc's libstdc++, this is needed
 Source1:        %{name}-fix_contextstack.patch
+# revert the fix for https://github.com/facebook/fbthrift/issues/276
+# we don't want a mix of dynamic and static libraries
+Patch0:         %{name}-fix-static-compiler_base.diff
+# also compile the new IOUringUtil.cpp
+Patch1:         %{name}-add-io_uring_util.diff
 
 ExclusiveArch:  x86_64 aarch64 ppc64le
 
@@ -131,8 +136,6 @@ cat %{SOURCE1} | patch -p1
 
 %install
 %cmake_install
-
-# find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 %if %{with python}
 # Delete RPATHs

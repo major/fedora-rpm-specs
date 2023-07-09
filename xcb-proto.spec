@@ -9,6 +9,7 @@ Source0:        https://xorg.freedesktop.org/archive/individual/proto/%{name}-%{
 
 BuildArch:      noarch
 
+BuildRequires:  autoconf automake
 BuildRequires:  libxml2
 BuildRequires:  make
 BuildRequires:  python3-devel
@@ -22,6 +23,7 @@ the protocol.
 
 %prep
 %autosetup -p1
+autoreconf -fiv
 
 
 %build

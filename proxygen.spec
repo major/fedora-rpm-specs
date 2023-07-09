@@ -15,11 +15,11 @@
 %global _static_builddir static_build
 
 Name:           proxygen
-Version:        2023.04.24.00
+Version:        2023.07.03.00
 Release:        %autorelease
 Summary:        A collection of C++ HTTP libraries including an easy to use HTTP server.
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/facebook/proxygen
 Source:         %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.gz
 

@@ -1,9 +1,9 @@
 Name:		dgae
 Version:	1.1
-Release:	28%{?dist}
+Release:	29%{?dist}
 Summary:	DG, a short AGI adventure game
 
-License:	Public Domain
+License:	LicenseRef-Fedora-Public-Domain
 URL:		http://membres.lycos.fr/agisite/agisite.htm
 Source0:	dgae.zip
 #Original from http://membres.lycos.fr/agisite/dgae.zip includes
@@ -35,7 +35,7 @@ rm -rf $RPM_BUILD_ROOT
 
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/%{name}
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
-install -D -m0644 -p * $RPM_BUILD_ROOT%{_datadir}/%{name}
+install -D -m0644 -p logdir object picdir readme.txt snddir viewdir vol.0 words.tok $RPM_BUILD_ROOT%{_datadir}/%{name}
 install -D -m0755 -p %{SOURCE2} $RPM_BUILD_ROOT/%{_bindir}
 
 # desktop file
@@ -55,6 +55,9 @@ install -p -m 0644 %{SOURCE3} %{buildroot}%{_datadir}/icons/hicolor/32x32/apps/%
 %{_bindir}/dgae-wrapper.sh
 
 %changelog
+* Fri Jul 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.1-29
+- Convert to SPDX license.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

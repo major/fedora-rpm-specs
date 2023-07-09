@@ -2,8 +2,8 @@
 %bcond_without perl_IO_Interactive_enables_optional_test
 
 Name:           perl-IO-Interactive
-Version:        1.023
-Release:        8%{?dist}
+Version:        1.025
+Release:        1%{?dist}
 Summary:        Utilities for interactive I/O
 # lib/IO/Interactive.pm:    GPL-1.0-or-later OR Artistic-1.0-Perl
 # LICENSE:                  (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Artistic-2.0
@@ -101,6 +101,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 07 2023 Petr Pisar <ppisar@redhat.com> - 1.025-1
+- 1.025 bump
+
 * Mon Apr 17 2023 Petr Pisar <ppisar@redhat.com> - 1.023-8
 - Convert a licene tag to an SPDX format
 - Package the tests

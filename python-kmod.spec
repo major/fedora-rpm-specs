@@ -8,6 +8,7 @@ Source0:        https://github.com/downloads/agrover/%{name}/%{name}-%{version}.
 BuildRequires:  gcc
 BuildRequires:  python3-devel
 BuildRequires:  python3-Cython
+BuildRequires:  python3-setuptools
 BuildRequires:  python3
 BuildRequires:  kmod-devel
 

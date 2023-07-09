@@ -1,9 +1,9 @@
 Name:           wordnet
 Version:        3.0
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        A lexical database for the English language
 
-License:        MIT and GPLv2+
+License:        MIT and GPL-2.0-or-later
 URL:            http://wordnet.princeton.edu/
 Source0:        http://wordnetcode.princeton.edu/%{version}/WordNet-%{version}.tar.bz2
 # Updated database
@@ -13,7 +13,7 @@ Patch1:         wordnet-3.0-CVE-2008-3908.patch
 Patch2:         wordnet-3.0-fix_man.patch
 Patch3:         wordnet-3.0-fix_resourcedir_path.patch
 Patch4:         wordnet-3.0-src_stubs_c.patch
-# wordnet-3.0-wishwn_manpage.patch is GPLv2+
+# wordnet-3.0-wishwn_manpage.patch is GPL-2.0-or-later
 Patch5:         wordnet-3.0-wishwn_manpage.patch
 Patch6:         wordnet-3.0-use_system_tk_headers.patch
 Patch7:         wordnet-3.0-libtool.patch
@@ -71,17 +71,17 @@ and PostScript format.
 
 %prep
 %setup -q -n WordNet-%{version}
-%patch0 -p1 -b .cve-2008-2149
-%patch1 -p1 -b .cve-2008-3908
-%patch2 -p1 -b .fix_man
-%patch3 -p1 -b .fix_resourcedir_path
-%patch4 -p1 -b .src_stubs_c
-%patch5 -p1 -b .wishwn_manpage
+%patch -P 0 -p1 -b .cve-2008-2149
+%patch -P 1 -p1 -b .cve-2008-3908
+%patch -P 2 -p1 -b .fix_man
+%patch -P 3 -p1 -b .fix_resourcedir_path
+%patch -P 4 -p1 -b .src_stubs_c
+%patch -P 5 -p1 -b .wishwn_manpage
 sed -e '/man_MANS/ s/$/ wishwn.1/' -i doc/man/Makefile.am
-%patch6 -p1 -b .use_system_tk_headers
-%patch7 -p1 -b .libtool
-%patch8 -p1 -b .error_message
-%patch9 -p1 -b .format
+%patch -P 6 -p1 -b .use_system_tk_headers
+%patch -P 7 -p1 -b .libtool
+%patch -P 8 -p1 -b .error_message
+%patch -P 9 -p1 -b .format
 # delete the include/tk dir, since we do not use the included tk headers
 rm -rf include/tk
 # Update a database
@@ -143,6 +143,9 @@ rm -rf doc/{html,ps,pdf}/Makefile*
 
 
 %changelog
+* Fri Jul 07 2023 Parag Nemade <pnemade AT redhat DOT com> - 3.0-44
+- Migrate to SPDX license expression
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

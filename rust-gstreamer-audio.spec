@@ -5,7 +5,7 @@
 %global crate gstreamer-audio
 
 Name:           rust-gstreamer-audio
-Version:        0.20.4
+Version:        0.20.7
 Release:        %autorelease
 Summary:        Rust bindings for GStreamer Audio library
 

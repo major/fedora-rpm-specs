@@ -18,7 +18,7 @@
 
 Name:           certbot
 Version:        2.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A free, automated certificate authority client
 
 License:        Apache-2.0
@@ -374,6 +374,9 @@ fi
 
 
 %changelog
+* Fri Jul 07 2023 Python Maint <python-maint@redhat.com> - 2.6.0-2
+- Rebuilt for Python 3.12
+
 * Mon May 22 2023 Jonathan Wright <jonathan@almalinux.org> - 2.6.0-1
 - Update to 2.6.0 rhbz#2196870
 - Build python-certbot-dns-digitalocean on EPEL9

@@ -1,8 +1,9 @@
 Name:          python-appdirs
 Version:       1.4.4
-Release:       9%{?dist}
+Release:       10%{?dist}
 Summary:       Python module for determining platform-specific directories
 
+# https://spdx.org/licenses/MIT.html
 License:       MIT
 URL:           https://github.com/ActiveState/appdirs
 Source:        %{pypi_source appdirs}
@@ -53,6 +54,9 @@ sed -i -e '1{\@^#!/usr/bin/env python@d}' appdirs.py
 
 
 %changelog
+* Fri Jul 07 2023 Parag Nemade <pnemade AT redhat DOT com> - 1.4.4-10
+- Help msuchy to count this package as already using SPDX license expression
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 1.4.4-9
 - Rebuilt for Python 3.12
 

@@ -66,6 +66,8 @@ Andy Lester (WWW::Mechanize).  urllib2 was written by Jeremy Hylton.
 %prep
 %autosetup -n %{srcname}-%{version} -p 1
 chmod -x examples/forms/{echo.cgi,example.py,simple.py}
+# Workaround for https://github.com/rpm-software-management/rpm/issues/2532:
+rm -rf SPECPARTS
 
 %build
 %py3_build

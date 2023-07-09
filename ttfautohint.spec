@@ -3,9 +3,9 @@
 
 Name:           ttfautohint
 Version:        1.8.4
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Automated hinting utility for TrueType fonts
-License:        FTL or GPLv2
+License:        FTL or GPL-2.0-only
 URL:            http://www.freetype.org/ttfautohint
 Source0:        http://download.savannah.gnu.org/releases/freetype/%{name}-%{version}.tar.gz
 
@@ -112,6 +112,9 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/pkgconfig/ttfautohint.pc
 
 %changelog
+* Fri Jul 07 2023 Parag Nemade <pnemade AT redhat DOT com> - 1.8.4-6
+- Migrate to SPDX license expression
+
 * Tue Jun 20 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.8.4-5
 - Disable Qt5 GUI in RHEL 10 builds
 

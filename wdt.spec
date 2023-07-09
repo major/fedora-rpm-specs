@@ -12,7 +12,7 @@ Version:        1.32.1910230^%{?date}git%{?shortcommit}
 Release:        %autorelease
 Summary:        Warp speed Data Transfer
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://www.facebook.com/WdtOpenSource
 Source0:        https://github.com/facebook/wdt/archive/%{commit}/%{name}-%{commit}.tar.gz
 

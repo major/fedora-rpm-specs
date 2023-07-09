@@ -1,11 +1,7 @@
 # Let’s try to build this as early as we can, since it’s a dependency for
 # some important libraries, such as python-platformdirs.
-%bcond_with bootstrap
-%if %{without bootstrap}
-%bcond_without tests
-%else
-%bcond_with tests
-%endif
+%bcond bootstrap 0
+%bcond tests %{without bootstrap}
 
 Name:           python-hatch-vcs
 Version:        0.3.0

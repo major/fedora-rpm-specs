@@ -16,7 +16,7 @@
 %if 0%{?rhel} >= 8
 %bcond_with     openni
 %else
-%ifarch %{ix86} x86_64 %{arm}
+%ifarch x86_64 %{arm}
 %bcond_without  openni
 %else
 # we dont have openni in other archs
@@ -74,7 +74,7 @@ Version:        4.7.0
 %global minorver %(foo=%{version}; a=(${foo//./ }); echo ${a[1]} )
 %global padding  %(digits=00; num=%{minorver}; echo ${digits:${#num}:${#digits}} )
 %global abiver   %(echo %{majorver}%{padding}%{minorver} )
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Collection of algorithms for computer vision
 # This is normal three clause BSD.
 License:        BSD
@@ -521,6 +521,9 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 %{_libdir}/libopencv_xphoto.so.{%{abiver},%{version}}
 
 %changelog
+* Fri Jul 07 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.7.0-12
+- Drop openni support on i686 as it is no longer available
+
 * Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 4.7.0-11
 - Rebuilt for Python 3.12
 

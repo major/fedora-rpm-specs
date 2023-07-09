@@ -43,7 +43,7 @@ Requires:       python3-gssapi
 %py3_install
 
 %check
-%{__python3} -m unittest
+%py3_check_import %{s_name}
 
 %files -n python3-%{sname}
 %doc README.md

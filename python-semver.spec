@@ -1,60 +1,65 @@
 %global modname semver
 
 Name:           python-%{modname}
-Version:        2.13.0
-Release:        10%{?dist}
+Version:        3.0.1
+Release:        1%{?dist}
 Summary:        Python helper for Semantic Versioning
 
-License:        BSD
-URL:            https://github.com/k-bx/python-semver
-Source0:        %{url}/archive/%{version}/%{modname}-%{version}.tar.gz
+License:        BSD-3-Clause
+URL:            https://github.com/python-semver/python-semver
+Source0:        %{pypi_source semver}
+
+Patch:          https://github.com/python-semver/python-semver/pull/418.patch#./dicts.patch
 
 BuildArch:      noarch
 
-%global _description \
-Python module for semantic versioning. Simplifies comparing versions.
+BuildRequires:  python3-devel
+# test requirements
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-cov)
+
+%global _description %{expand:
+A Python module for semantic versioning. Simplifies comparing versions.}
 
 %description %{_description}
 
-%package     -n python3-%{modname}
+%package -n     python3-%{modname}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{modname}}
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-pytest
 
-%description -n python3-%{modname} %{_description}
-
-Python 3 version.
+%description -n python3-%{modname}
+%{_description}
 
 %prep
-%autosetup
-# Remove settings for coverage from setup.cfg
-sed -i '/-cov[=-]/d' setup.cfg
-# Fix tests for Python 3.10
-# Proposed upstream: https://github.com/python-semver/python-semver/pull/336
-sed -i 's/TypeError: __init__() got an unexpected/TypeError: ...__init__() got an unexpected/' docs/usage.rst
+%autosetup -n python-%{modname}-%{version} -p 1
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files 'semver'
 
 %check
-py.test-%{python3_version} -v
+%pytest
 
-%files -n python3-%{modname}
+%files -n python3-%{modname} -f %{pyproject_files}
 %license LICENSE.txt
 %doc README.rst CHANGELOG.rst
-%{_bindir}/py%{modname}
-%{python3_sitelib}/%{modname}-*.egg-info/
-%{python3_sitelib}/%{modname}.py
-%{python3_sitelib}/__pycache__/%{modname}.*
+%{_bindir}/pysemver
 
 %changelog
+* Thu Jul 06 2023 David Bold <davidsch@fedoraproeject.org> - 3.0.1-1
+- Update to 3.0.1
+- Fix FTBFS
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 2.13.0-10
 - Rebuilt for Python 3.12
+
+* Thu Apr 06 2023 Felix Wang <topazus@outlook.com> - 3.0.0-1
+- Update to 3.0.0
 
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild

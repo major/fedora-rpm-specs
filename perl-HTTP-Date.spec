@@ -1,6 +1,6 @@
 Name:           perl-HTTP-Date
-Version:        6.05
-Release:        12%{?dist}
+Version:        6.06
+Release:        1%{?dist}
 Summary:        Date conversion routines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/HTTP-Date
@@ -22,7 +22,6 @@ BuildRequires:  perl(blib)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(IPC::Open3)
-BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
 # Optional tests:
 # CPAN::Meta not helpful
@@ -31,6 +30,7 @@ Requires:       perl(Time::Local) >= 1.28
 # Strongly recommended:
 Requires:       perl(Time::Zone)
 Conflicts:      perl-libwww-perl < 6
+Suggests:       perl(JSON::PP) >= 2.27300
 
 # Remove under-specified version
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(Time::Local\\)$
@@ -89,6 +89,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 07 2023 Michal Josef Špaček <mspacek@redhat.com> - 6.06-1
+- 6.06 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.05-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -24,11 +24,11 @@
 %global upstream_name Sphinx
 
 Name:       python-sphinx
-%global     general_version 6.1.3
+%global     general_version 6.2.1
 #global     prerel ...
 %global     upstream_version %{general_version}%{?prerel}
 Version:    %{general_version}%{?prerel:~%{prerel}}
-Release:    4%{?dist}
+Release:    1%{?dist}
 Epoch:      1
 Summary:    Python documentation generator
 
@@ -43,10 +43,6 @@ Source:     %{pypi_source %{upstream_name} %{upstream_version}}
 # which causes that test to fail.
 Patch:      sphinx-test_theming.diff
 
-
-# Backported upstream commit ensures compatibility with Babel 2.12
-# https://github.com/sphinx-doc/sphinx/commit/c5641702b
-Patch:      fix-tests-with-babel-2.12.patch
 
 BuildArch:     noarch
 
@@ -221,7 +217,7 @@ builder.
 
 %package doc
 Summary:       Documentation for %{name}
-License:       BSD
+License:       BSD-2-Clause
 Recommends:    python%{python3_pkgversion}-sphinx = %{epoch}:%{version}-%{release}
 
 %description doc
@@ -241,12 +237,6 @@ This package contains documentation in the HTML format.
 %if %{without imagemagick_tests}
 rm tests/test_ext_imgconverter.py
 %endif
-
-# Remove the tests that rely on setuptools
-# https://github.com/sphinx-doc/sphinx/commit/44326fe2476db44e8c2a60d9326c9c3ac2865c03
-rm -r tests/roots/test-setup/
-rm tests/roots/test-theming/{MANIFEST.in,setup.py}
-rm tests/test_setup_command.py
 
 %if %{defined rhel}
 # unwanted dependency in RHEL, https://bugzilla.redhat.com/show_bug.cgi?id=1945182
@@ -370,6 +360,10 @@ mkdir %{buildroot}%{python3_sitelib}/sphinxcontrib
 
 
 %changelog
+* Mon Jun 26 2023 Karolina Surma <ksurma@redhat.com> - 1:6.2.1-1
+- Update to 6.2.1
+- Fixes rhbz#2188968
+
 * Fri Jun 16 2023 Python Maint <python-maint@redhat.com> - 1:6.1.3-4
 - Rebuilt for Python 3.12
 

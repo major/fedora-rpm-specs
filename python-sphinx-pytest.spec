@@ -1,8 +1,9 @@
 Name:           python-sphinx-pytest
-Version:        0.0.3
-Release:        4%{?dist}
+Version:        0.1.1
+Release:        1%{?dist}
 Summary:        Helpful pytest fixtures for sphinx extensions
 
+# SPDX
 License:        MIT
 URL:            https://github.com/chrisjsewell/sphinx-pytest
 Source:         %{pypi_source sphinx_pytest}
@@ -53,6 +54,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Mon Jun 19 2023 Karolina Surma <ksurma@redhat.com> - 0.1.1-1
+- Update to 0.1.1
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.0.3-4
 - Rebuilt for Python 3.12
 

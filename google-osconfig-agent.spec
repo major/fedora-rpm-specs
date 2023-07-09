@@ -3,7 +3,7 @@
 
 # https://github.com/GoogleCloudPlatform/osconfig
 %global goipath         github.com/GoogleCloudPlatform/osconfig
-Version:                20230605.00
+Version:                20230706.02
 %global tag             %{version}
 
 %gometa -f
@@ -35,7 +35,7 @@ ExcludeArch:    ppc64le s390x
 
 %prep
 %goprep
-%patch0 -p1
+%patch -P0 -p1
 
 # Examples directory isn't needed.
 rm -rf examples

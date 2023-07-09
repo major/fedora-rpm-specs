@@ -4,30 +4,21 @@
 
 Summary: A password-checking library
 Name: cracklib
-Version: 2.9.7
-Release: 31%{?dist}
+Version: 2.9.11
+Release: 1%{?dist}
 URL: https://github.com/cracklib/cracklib
 License: LGPLv2+
+
 Source0: https://github.com/cracklib/cracklib/releases/download/v%{version}/cracklib-%{version}.tar.gz
 Source1: https://github.com/cracklib/cracklib/releases/download/v%{version}/cracklib-words-%{version}.gz
-
-# For man pages.
-Source2: http://archive.debian.org/debian/pool/main/c/cracklib2/cracklib2_2.9.2-1.debian.tar.xz
-Source40: http://archive.debian.org/debian/pool/main/c/cracklib2/cracklib2_2.9.2-1.dsc
-
 # From attachment to https://bugzilla.redhat.com/show_bug.cgi?id=627449
-Source3: cracklib.default.zh_CN.po
-
+Source2: cracklib.default.zh_CN.po
 # No upstream source for this, just words missing from the current cracklib-words
-Source10: missing-words.gz
+Source3: missing-words.gz
 
-Patch1: cracklib-2.9.1-inttypes.patch
-Patch2: cracklib-2.9.0-python-gzdicts.patch
-Patch4: cracklib-2.9.7-packlib-reentrant.patch
-Patch6: cracklib-2.9.7-simplistic.patch
-Patch7: cracklib-2.9.7-translation-updates.patch
-Patch9: cracklib-2.9.6-coverity.patch
-Patch10: cracklib-2.9.6-lookup.patch
+Patch: cracklib-2.9.11-packlib-reentrant.patch
+Patch: cracklib-2.9.11-simplistic.patch
+
 BuildRequires: gcc
 BuildRequires: words, gettext
 BuildRequires: gettext-autopoint
@@ -77,21 +68,13 @@ contains the utilities necessary for the creation of new dictionaries.
 If you are installing CrackLib, you should also install cracklib-dicts.
 
 %prep
-%setup -q -a 2
+%autosetup -p 1 
 
 # Replace zn_CN.po with one that wasn't mis-transcoded at some point.
-install -p -m 644 %{SOURCE3} po/zh_CN.po
-
-%patch1 -p1 -b .inttypes
-%patch2 -p1 -b .gzdicts
-%patch4 -p1 -b .reentrant
-%patch6 -p1 -b .simplistic
-%patch7 -p1 -b .translations
-%patch9 -p1 -b .coverity
-%patch10 -p1 -b .lookup
+install -p -m 644 %{SOURCE2} po/zh_CN.po
 
 mkdir cracklib-dicts
-for dict in %{SOURCE10} %{SOURCE1}
+for dict in %{SOURCE3} %{SOURCE1}
 do
         cp -fv ${dict} cracklib-dicts/
 done
@@ -109,44 +92,44 @@ make
 %install
 %make_install 'pythondir=${pyexecdir}'
 ./util/cracklib-format cracklib-dicts/* | \
-./util/cracklib-packer $RPM_BUILD_ROOT%{dictpath}
-./util/cracklib-format $RPM_BUILD_ROOT%{dictdir}/cracklib-small | \
-./util/cracklib-packer $RPM_BUILD_ROOT%{dictdir}/cracklib-small
-rm -f $RPM_BUILD_ROOT%{dictdir}/cracklib-small
-sed s,/usr/lib/cracklib_dict,%{dictpath},g lib/crack.h > $RPM_BUILD_ROOT%{_includedir}/crack.h
-ln -s cracklib-format $RPM_BUILD_ROOT%{_sbindir}/mkdict
+./util/cracklib-packer %{buildroot}%{dictpath}
+./util/cracklib-format %{buildroot}%{dictdir}/cracklib-small | \
+./util/cracklib-packer %{buildroot}%{dictdir}/cracklib-small
+rm -f %{buildroot}%{dictdir}/cracklib-small
+sed s,/usr/lib/cracklib_dict,%{dictpath},g lib/crack.h > %{buildroot}%{_includedir}/crack.h
+ln -s cracklib-format %{buildroot}%{_sbindir}/mkdict
 # packer link removed as it clashes with hashicorp's packer binary.
-#ln -s cracklib-packer $RPM_BUILD_ROOT/%{_sbindir}/packer
-touch $RPM_BUILD_ROOT/top
+#ln -s cracklib-packer %{buildroot}/%{_sbindir}/packer
+touch %{buildroot}/top
 
 toprelpath=..
-touch $RPM_BUILD_ROOT/top
-while ! test -f $RPM_BUILD_ROOT%{_libdir}/$toprelpath/top ; do
+touch %{buildroot}/top
+while ! test -f %{buildroot}%{_libdir}/$toprelpath/top ; do
 	toprelpath=../$toprelpath
 done
-rm -f $RPM_BUILD_ROOT/top
+rm -f %{buildroot}/top
 if test %{dictpath} != %{_libdir}/cracklib_dict ; then
-ln -s $toprelpath%{dictpath}.hwm $RPM_BUILD_ROOT%{_libdir}/cracklib_dict.hwm
-ln -s $toprelpath%{dictpath}.pwd $RPM_BUILD_ROOT%{_libdir}/cracklib_dict.pwd
-ln -s $toprelpath%{dictpath}.pwi $RPM_BUILD_ROOT%{_libdir}/cracklib_dict.pwi
+ln -s $toprelpath%{dictpath}.hwm %{buildroot}%{_libdir}/cracklib_dict.hwm
+ln -s $toprelpath%{dictpath}.pwd %{buildroot}%{_libdir}/cracklib_dict.pwd
+ln -s $toprelpath%{dictpath}.pwi %{buildroot}%{_libdir}/cracklib_dict.pwi
 fi
-rm -f $RPM_BUILD_ROOT%{_libdir}/python*/site-packages/_cracklib*.*a
-rm -f $RPM_BUILD_ROOT%{_libdir}/libcrack.la
+rm -f %{buildroot}%{_libdir}/python*/site-packages/_cracklib*.*a
+rm -f %{buildroot}%{_libdir}/libcrack.la
 
-mkdir -p $RPM_BUILD_ROOT%{_mandir}/man{3,8}
-install -p -m644 debian/*.3 $RPM_BUILD_ROOT%{_mandir}/man3/
-install -p -m644 debian/*.8 $RPM_BUILD_ROOT%{_mandir}/man8/
-if ! test -s $RPM_BUILD_ROOT%{_mandir}/man8/cracklib-packer.8 ; then
-    echo .so man8/cracklib-format.8 > $RPM_BUILD_ROOT%{_mandir}/man8/cracklib-packer.8
+mkdir -p %{buildroot}%{_mandir}/man{3,8}
+install -p -m644 doc/*.3 %{buildroot}%{_mandir}/man3/
+install -p -m644 doc/*.8 %{buildroot}%{_mandir}/man8/
+if ! test -s %{buildroot}%{_mandir}/man8/cracklib-packer.8 ; then
+    echo .so man8/cracklib-format.8 > %{buildroot}%{_mandir}/man8/cracklib-packer.8
 fi
-if ! test -s $RPM_BUILD_ROOT%{_mandir}/man8/cracklib-unpacker.8 ; then
-    echo .so man8/cracklib-format.8 > $RPM_BUILD_ROOT%{_mandir}/man8/cracklib-unpacker.8
+if ! test -s %{buildroot}%{_mandir}/man8/cracklib-unpacker.8 ; then
+    echo .so man8/cracklib-format.8 > %{buildroot}%{_mandir}/man8/cracklib-unpacker.8
 fi
 
 %find_lang %{name}
 
 %check
-make test DESTDIR=$RPM_BUILD_ROOT
+make test DESTDIR=%{buildroot}
 
 %ldconfig_scriptlets
 
@@ -171,6 +154,11 @@ make test DESTDIR=$RPM_BUILD_ROOT
 %{_sbindir}/mkdict
 
 %changelog
+* Fri Jul 07 2023 Paul Wouters <paul.wouters@aiven.io - 2.9.11-1
+- Resolves: rhbz#2123955 cracklib-2.9.11 is available
+- Remove old patches, port remaining patches to 2.9.11
+- Use man pages from doc/ instead of pulling them from debian
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.7-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

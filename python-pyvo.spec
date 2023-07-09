@@ -25,7 +25,7 @@ The pyvo module currently provides these main capabilities:              \
 
 Name:           python-%{srcname}
 Version:        1.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 
 License:        BSD
@@ -39,7 +39,6 @@ Source0:        %{url}/archive/%{commit}.tar.gz#/%{srcname}-%{version}%{?git_ver
 BuildArch:      noarch
 
 BuildRequires:  python3-astropy
-BuildRequires:  python3-astropy-helpers
 BuildRequires:  python3-dateutil
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -92,6 +91,9 @@ sed -i -e 's|mimeparse|python-mimeparse|' setup.cfg
 
 
 %changelog
+* Fri Jul  7 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.1-2
+- Drop BR: python3-astropy-helpers, no longer used
+
 * Mon Mar 27 2023 Christian Dersch <lupinix@fedoraproject.org> - 1.4.1-1
 - new version
 

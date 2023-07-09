@@ -66,6 +66,7 @@ This package contains libnl3 API documentation
 Summary: libnl3 binding for Python 3
 %{?python_provide:%python_provide python3-libnl3}
 BuildRequires: python3-devel
+BuildRequires: python3-setuptools
 BuildRequires: make
 Requires: %{name} = %{version}-%{release}
 

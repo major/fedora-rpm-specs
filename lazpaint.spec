@@ -7,10 +7,10 @@ URL: https://lazpaint.github.io
 # LazPaint itself is GPLv3
 # BGRABitmap and BGRAControls libraries are modified LGPLv2 (allow static linking in closed-source programs)
 # BGRAControls also borrows some Boost-licensed code
-License: GPLv3 and LGPLv2 and Boost
+License: GPL-3.0-only AND LGPL-3.0-only
 
 Version: 7.2.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # Versions taken from lazpaint/lazpaint.lpi
 %global bitmap_version   11.5.2
@@ -23,12 +23,14 @@ Source20: %{github}/bgracontrols/archive/v%{controls_version}/bgracontrols-%{con
 
 Source100: %{name}.appdata.xml
 
+%global widgetset gtk2
+
 BuildRequires: desktop-file-utils
 BuildRequires: file
 BuildRequires: fpc
 BuildRequires: fpc-srpm-macros
-BuildRequires: gtk2-devel
-BuildRequires: lazarus
+BuildRequires: lazarus-lcl-%{widgetset}
+BuildRequires: lazarus-tools
 BuildRequires: libappstream-glib
 
 BuildRequires: %{_bindir}/dos2unix
@@ -86,10 +88,10 @@ dos2unix lazpaint/release/bin/i18n/*.po
 # Patch the project configuration files to enable debuginfo generation
 LAZ_PROJECTS=(%{laz_projects})
 for PROJECT in ${LAZ_PROJECTS[@]}; do
-        sed  \
-                -e 's|<GenerateDebugInfo Value="False"[ ]*/>|<GenerateDebugInfo Value="True"/>\n\t\t\t<DebugInfoType Value="dsDwarf2"/>|g'  \
+	sed  \
+		-e 's|<GenerateDebugInfo Value="False"[ ]*/>|<GenerateDebugInfo Value="True"/>\n\t\t\t<DebugInfoType Value="dsDwarf2"/>|g'  \
 		-e 's|<StripSymbols Value="True"[ ]*/>|<StripSymbols Value="False"/>|g'  \
-                -i "${PROJECT}"
+		-i "${PROJECT}"
 done
 
 
@@ -109,7 +111,7 @@ done
 #
 # As a workaround, we build everything manually in order.
 for PROJECT in ${LAZ_PROJECTS[@]}; do
-	lazbuild --build-mode=Release --widgetset=gtk2 --skip-dependencies "${PROJECT}"
+	lazbuild --build-mode=Release --widgetset=%{widgetset} --skip-dependencies "${PROJECT}"
 done
 
 # Upstream provides a desktop file, but it's a bit of a mess
@@ -171,7 +173,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %license COPYING.txt
 %license bgracontrols/docs/COPYING.LGPL.txt
 %license bgracontrols/docs/COPYING.modifiedLGPL.txt
-%license "bgracontrols/docs/Boost Software License.txt"
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
 %{_datadir}/applications/%{name}.desktop
@@ -180,6 +181,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Fri Jul 07 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 7.2.2-3
+- BuildRequire only selected Lazarus sub-packages
+- Convert License tag to SPDX
+- Remove Boost from License tag (used only in some test files)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

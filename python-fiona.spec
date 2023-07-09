@@ -2,8 +2,8 @@
 %global Srcname Fiona
 
 Name:           python-%{srcname}
-Version:        1.9.3
-#global         pre rc1
+Version:        1.9.4
+%global         pre .post1
 %global         uversion %{version}%{?pre}
 Release:        %autorelease
 Summary:        Fiona reads and writes spatial data files
@@ -12,7 +12,6 @@ License:        BSD-3-Clause
 URL:            https://fiona.readthedocs.io
 Source0:        https://github.com/Toblerity/%{Srcname}/archive/%{uversion}/%{Srcname}-%{uversion}.tar.gz
 Patch:          0001-Expand-build-requirement-limits.patch
-Patch:          0002-Remove-self-referencing-dependencies.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  gdal >= 3.1

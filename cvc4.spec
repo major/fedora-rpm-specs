@@ -3,7 +3,7 @@
 
 Name:           cvc4
 Version:        1.8
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Automatic theorem prover for SMT problems
 
 %global jar_version %{version}.0
@@ -261,6 +261,9 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %{python3_sitearch}/pycvc4*
 
 %changelog
+* Fri Jul 07 2023 Python Maint <python-maint@redhat.com> - 1.8-18
+- Rebuilt for Python 3.12
+
 * Mon Jun 12 2023 Björn Esser <besser82@fedoraproject.org> - 1.8-17
 - Add patch to fix build with CMake v3.27.0
 

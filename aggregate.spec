@@ -1,6 +1,6 @@
 Name:           aggregate
 Version:        1.6
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        IPv4 CIDR prefix aggregator
 
 License:        ISC
@@ -29,25 +29,24 @@ aggregate-ios takes Cisco IOS configuration on stdin, and optimizes
 any prefix filters found using aggregate.
 
 %prep
-%setup -q
+%autosetup
 chmod -x LICENSE
-%patch0 -p1 -b .fedora
-%patch1 -p1
 
 
 %build
 %configure
-make %{?_smp_mflags}
+%make_build
 
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
+%make_install
 
 
 %files
+%doc HISTORY
+%license LICENSE
 %{_bindir}/aggregate
 %{_mandir}/man1/aggregate.1.*
-%doc HISTORY LICENSE
 
 %files ios
 %{_bindir}/aggregate-ios
@@ -55,6 +54,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jul  7 2023 Yanko Kaneti <yaneti@declera.com> - 1.6-27
+- SPDX migration - ISC is ISC. Modernize a bit
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

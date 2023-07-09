@@ -1,19 +1,15 @@
-# This stopped working after removing python, and I'm stumped.
-%global debug_package %{nil}
-
 Name:           tennix
-Version:        1.2.1
-Release:        9.20190802gitfb013a1%{?dist}
+Version:        1.3.4
+Release:        1%{?dist}
 Summary:        A simple tennis game
 
 License:        GPL-2.0-or-later
 URL:            http://icculus.org/tennix/
-#Source0:        http://icculus.org/tennix/releases/%{name}-%{version}.tar.gz
-Source0:        tennix-fb013a1.tar.gz
+Source0:        https://repo.or.cz/tennix.git/snapshot/tennix-%{version}.tar.gz
 Patch1:		tennix-1.0-tnxpath.patch
 
-BuildRequires:  SDL-devel, SDL_mixer-devel SDL_image-devel SDL_ttf-devel
-BuildRequires:  desktop-file-utils gcc-c++
+BuildRequires:  SDL2-devel SDL2_mixer-devel SDL2_image-devel SDL2_ttf-devel SDL2_gfx-devel SDL2_net-devel
+BuildRequires:  desktop-file-utils gcc-c++ make
 
 
 %description
@@ -23,15 +19,14 @@ against the computer.
 
 
 %prep
-%setup -qn tennix-fb013a1
-sed -i -e 's/install -s/install/' makefile
-sed -i -e 's/install -m/install -p -m/' makefile
+%setup -qn tennix-tennix-1.3.4-9c8f18e
 
-%patch1 -p0
+%patch -P 1 -p0
 
 %build
 ./configure --prefix %{_prefix} --disable-python
-CFLAGS="%{optflags}" make LIBS="-lm -lSDL -lSDL_mixer -lSDL_ttf -lSDL_image -lpython2.7"
+CFLAGS="%{optflags}" make LIBS="-lm -lSDL2 -lSDL2_mixer -lSDL2_ttf -lSDL2_image -lSDL2_net"
+make %{?_smp_mflags}
 
 %install
 PREFIX=%{_prefix} make install DESTDIR=$RPM_BUILD_ROOT
@@ -88,6 +83,9 @@ EOF
 %attr(0664,root,games) /usr/share/tennix/tennix.tnx
 
 %changelog
+* Fri Jul 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.3.4-1
+- 1.3.4
+
 * Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.2.1-9.20190802gitfb013a1
 - migrated to SPDX license
 

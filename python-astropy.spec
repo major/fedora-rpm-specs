@@ -4,10 +4,10 @@
 %global srcname astropy
 
 Name: python-%{srcname}
-Version: 5.2.2
-Release: 2%{?dist}
+Version: 5.3.1
+Release: 1%{?dist}
 Summary: A Community Python Library for Astronomy
-License: BSD
+License: BSD and MIT
 
 URL: http://astropy.org
 Source0: %{pypi_source}
@@ -16,8 +16,11 @@ Patch0: python-astropy-system-configobj.patch
 Patch1: python-astropy-system-ply.patch
 # bundled versions
 # expat 2.2.9
-# cfitsio 3.49
-# wcslib 7.6
+# wcslib 7.12
+
+# As per https://github.com/astropy/astropy/pull/14311
+# cfitsio is not bundled anymore, just a few files
+# needed for decompresion. It cannot be unbundled anymore
 
 %global _description %{expand:
 The Astropy project is a common effort to develop a single core package
@@ -34,8 +37,7 @@ Summary: %{summary}
 BuildRequires: gcc
 BuildRequires: python3-devel
 BuildRequires: expat-devel >= 2.2.9
-BuildRequires: cfitsio-devel >= 3.490
-BuildRequires: wcslib-devel >= 7.6
+BuildRequires: wcslib-devel >= 7.12
 BuildRequires: %{py3_dist setuptools}
 BuildRequires: %{py3_dist setuptools_scm}
 BuildRequires: %{py3_dist Cython}
@@ -88,20 +90,19 @@ Utilities provided by Astropy.
 # To be sure
 rm -rf astropy/extern/configobj
 rm -rf astropy/extern/ply
-rm -rf cextern/cfitsio
 rm -rf cextern/expat
 rm -rf cextern/wcslib
 
 %build
 export ASTROPY_USE_SYSTEM_ALL=1
 # Search for headers in subdirs
-export CPATH="/usr/include/cfitsio:/usr/include/wcslib"
+export CPATH="/usr/include/wcslib"
 %{py3_build}
 
 %install
 export ASTROPY_USE_SYSTEM_ALL=1
 # Search for headers in subdirs
-export CPATH="/usr/include/cfitsio:/usr/include/wcslib"
+export CPATH="/usr/include/wcslib"
 %{py3_install}
 
 %if %{with check}
@@ -138,9 +139,13 @@ popd
 
 %files -n python3-%{srcname}-doc
 %doc README.rst 
-%license LICENSE.rst
+%license LICENSE.rst cextern/cfitsio/License.txt
 
 %changelog
+* Fri Jul 07 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 5.3.1-1
+- New upstream source 5.3.1
+- cfitsio is not bundled, only some files need for FITS decompression
+
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 5.2.2-2
 - Bootstrap for Python 3.12
 

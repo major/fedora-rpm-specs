@@ -1,6 +1,6 @@
 Name:           python-pari-jupyter
 Version:        1.4.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Jupyter kernel for PARI/GP
 
 License:        GPL-3.0-or-later
@@ -69,6 +69,9 @@ rm -fr .ipython
 %{python3_sitearch}/pari_jupyter*
 
 %changelog
+* Fri Jul 07 2023 Python Maint <python-maint@redhat.com> - 1.4.2-2
+- Rebuilt for Python 3.12
+
 * Fri Jun  9 2023 Jerry James <loganjerry@gmail.com> - 1.4.2-1
 - Version 1.4.2
 

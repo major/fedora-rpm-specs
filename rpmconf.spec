@@ -6,8 +6,8 @@
 Name:           rpmconf
 Summary:        Tool to handle rpmnew and rpmsave files
 License:        GPL-3.0-only
-Version:        1.1.9
-Release:        2%{?dist}
+Version:        1.1.10
+Release:        1%{?dist}
 URL:            https://github.com/xsuchy/rpmconf
 # source is created by:
 # git clone https://github.com/xsuchy/rpmconf.git
@@ -122,8 +122,9 @@ pylint-3 rpmconf bin/rpmconf || :
 %dir %{_datadir}/rpmconf
 
 %changelog
-* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 1.1.9-2
-- Rebuilt for Python 3.12
+* Fri Jul 07 2023 Miroslav Suchý <msuchy@redhat.com> 1.1.10-1
+- Use rpm.files instead of rpm.fi
+- Add upper version bound for setInterruptSafety()
 
 * Thu May 04 2023 Miroslav Suchý <msuchy@redhat.com> 1.1.9-1
 - Add BuildRequire on setuptools to fix distutils error on Python 3.12

@@ -57,8 +57,7 @@ Requires:       javapackages-filesystem
 This package contains the API documentation for %{name}.
 
 %prep
-%forgesetup
-%autopatch -p1
+%forgeautosetup -p1
 
 %build
 ant build javadoc

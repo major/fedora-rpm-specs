@@ -1,19 +1,19 @@
-#define prerelease beta2
+%define prerelease rc1
 
 # We need avoid oython byte compiler to not crash over template .py file which
 # is not a valid python file, only for the IDE
 %global _python_bytecompile_errors_terminate_build 0
 
-%global clangver 16.0.2
+%global clangver 16.0.5
 
 Name:           qt-creator
-Version:        10.0.1
-Release:        4%{?dist}
+Version:        11.0.0
+Release:        0.3%{?prerelease:.%prerelease}%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPLv3 with exceptions
 URL:            https://www.qt.io/ide/
-Source0:        https://download.qt.io/%{?prerelease:development}%{?!prerelease:official}_releases/qtcreator/10.0/%{version}%{?prerelease:-%prerelease}/qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.xz
+Source0:        https://download.qt.io/%{?prerelease:development}%{?!prerelease:official}_releases/qtcreator/11.0/%{version}%{?prerelease:-%prerelease}/qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.xz
 Source1:        qt-creator-Fedora-privlibs
 
 # Bundled clang for patched libClangFormat
@@ -34,8 +34,6 @@ Patch4:         qt-creator-clangformat.patch
 Patch5:         clangFormat.patch
 # Fix build against litehtml-0.8
 Patch6:         qt-creator-litehtml.patch
-# Fix build against qt-6.5.1
-Patch7:         https://github.com/qt-creator/qt-creator/commit/9817df63fb9eae342d5bf6f28f526aa09b17e8de.patch
 
 BuildRequires:  chrpath
 BuildRequires:  cmake
@@ -62,6 +60,11 @@ BuildRequires:  cmake(Qt6Svg)
 BuildRequires:  cmake(Qt6UiPlugin)
 BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  cmake(Qt6Xml)
+# FIXME: qt6-qtdeclarative packaging bug?
+# The imported target "Qt6::QmlDomPrivate" references the file
+#    "/usr/lib64/libQt6QmlDom.a"
+# but this file does not exist.
+BuildRequires:  qt6-qtdeclarative-static
 BuildRequires:  desktop-file-utils
 BuildRequires:  diffutils
 BuildRequires:  elfutils-devel
@@ -220,6 +223,15 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
+* Thu Jul 06 2023 Sandro Mani <manisandro@gmail.com> - 11.0.0.0.3-rc1
+- Update to 11.0.0-rc1
+
+* Thu Jun 22 2023 Sandro Mani <manisandro@gmail.com> - 11.0.0-0.2.beta2
+- Update to 11.0.0-beta2
+
+* Thu Jun 15 2023 Sandro Mani <manisandro@gmail.com> - 11.0.0-0.1.beta1
+- Update to 11.0.0-beta1
+
 * Tue May 30 2023 Sandro Mani <manisandro@gmail.com> - 10.0.1-4
 - Rebuild (litehtml)
 

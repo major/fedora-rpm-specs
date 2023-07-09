@@ -6,7 +6,7 @@
 
 Name:		zbar
 Version:	0.23.90
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Bar code reader
 
 License:	LGPL-2.1-or-later
@@ -14,6 +14,7 @@ URL:		http://zbar.sourceforge.net/
 Source0:	https://linuxtv.org/downloads/%{name}/%{name}-%{version}.tar.bz2
 Patch0:		use_python3_on_python_script.patch
 Patch1:         py311.patch
+Patch2:         py312.patch
 
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -118,8 +119,9 @@ on Java Native Interface (JNI) applications using ZBar.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p0
+%patch 0 -p1
+%patch 1 -p0
+%patch 2 -p0
 
 %build
 %configure --with-python=python3 --with-gtk=auto --with-dbusconfdir=%{_sysconfdir} --docdir=%{_docdir}/%{name}-%{version} --with-graphicsmagick --without-xshm --without-xv --enable-codes=ean,databar,code128,code93,code39,codabar,i25,qrcode,sqcode,pdf417
@@ -215,6 +217,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}/
 %{_docdir}/test_python.py
 
 %changelog
+* Fri Jul 07 2023 Michael J Gruber <mjg@fedoraproject.org> - 0.23.90-10
+- Fix FTBFS with python 3.12 (rhbz#2220630)
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.23.90-9
 - Rebuilt for Python 3.12
 

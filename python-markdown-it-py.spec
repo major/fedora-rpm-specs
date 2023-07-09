@@ -1,10 +1,11 @@
 %global pypi_name markdown-it-py
 
 Name:           python-%{pypi_name}
-Version:        2.2.0
-Release:        3%{?dist}
+Version:        3.0.0
+Release:        1%{?dist}
 Summary:        Python port of markdown-it
 
+# SPDX
 License:        MIT
 URL:            https://github.com/executablebooks/markdown-it-py
 Source0:        %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
@@ -64,6 +65,10 @@ sed -i '/"pytest-cov",/d' pyproject.toml
 
 
 %changelog
+* Fri Jul 07 2023 Karolina Surma <ksurma@redhat.com> - 3.0.0-1
+- Update to 3.0.0
+Resolves: rhbz#2212028
+
 * Thu Jun 29 2023 Python Maint <python-maint@redhat.com> - 2.2.0-3
 - Rebuilt for Python 3.12
 

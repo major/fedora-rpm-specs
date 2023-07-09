@@ -17,7 +17,7 @@ thumbnails, etc.
 
 Name:           ginga
 Version:        4.0.1
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        %{sum}
 # License breakdown
 #
@@ -118,6 +118,12 @@ chmod 755 %{buildroot}/%{python3_sitelib}/%{name}/util/mosaic.py
 %doc ginga/examples
 
 %changelog
+* Fri Jul 07 2023 Python Maint <python-maint@redhat.com> - 4.0.1-3
+- Rebuilt for Python 3.12
+
+* Fri Jul 07 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.1-2
+- Rebuild for Python 3.12
+
 * Sun Jun 25 2023 Orion Poplawski <orion@nwra.com> - 4.0.1-1
 - Update to 4.0.1
 

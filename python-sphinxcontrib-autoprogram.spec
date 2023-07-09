@@ -1,8 +1,8 @@
 %global pypi_name sphinxcontrib-autoprogram
 
 Name:           python-%{pypi_name}
-Version:        0.1.7
-Release:        8%{?dist}
+Version:        0.1.8
+Release:        1%{?dist}
 Summary:        Sphinx extension for documenting CLI programs
 
 License:        BSD
@@ -10,10 +10,6 @@ URL:            https://bitbucket.org/birkenfeld/sphinx-contrib
 Source0:        https://files.pythonhosted.org/packages/source/s/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 Source1:        https://bitbucket.org/birkenfeld/sphinx-contrib/raw/1621e337bb236e17d9e3fe4e98976365c06cc5fb/LICENSE
 Patch0:         python-sphinxcontrib-autoprogram-test.patch
-
-# Fix argparse output for Python 3.10 compatibility
-# https://github.com/sphinx-contrib/autoprogram/pull/25
-Patch1:         python-sphinxcontrib-autoprogram-argparse-output.patch
 
 BuildArch:      noarch
 
@@ -36,6 +32,8 @@ Summary:        %{summary}
 
 Requires:       python3-sphinx >= 1.2
 Requires:       python3-six
+# https://bugzilla.redhat.com/show_bug.cgi?id=2220964
+Requires:       python3-zombie-imp
 %description -n python3-%{pypi_name}
 This extension provides an automated way to document CLI programs.
 It scans ArgumentParser objects and then expands it into a set of
@@ -67,6 +65,11 @@ cp %SOURCE1 .
 %{python3_sitelib}/sphinxcontrib_autoprogram-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 07 2023 mh <mh+fedora@scrit.ch> - 0.1.8-1
+- Update to 0.1.8 (#2169100)
+- remove the upstreamed patch for argparse
+- Require python3-zombie-imp as a stopgap to workaround #2220964
+
 * Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.1.7-8
 - Rebuilt for Python 3.12
 

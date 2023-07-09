@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        7.16.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Twilio API client and TwiML generator
 
 License:        MIT
@@ -12,6 +12,12 @@ Source0:        %{url}/archive/%{version}/%{github_name}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+# Tests requirements:
+BuildRequires:  python3dist(cryptography)
+BuildRequires:  python3dist(django)
+BuildRequires:  python3dist(mock)
+BuildRequires:  python3dist(multidict)
+BuildRequires:  python3dist(pytest)
 
 %global desc \
 The Twilio REST SDK simplifies the process of making calls using the Twilio \
@@ -32,7 +38,7 @@ Summary:        %{summary}
 %autosetup -p1 -n %{github_name}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires -r
 
 %build
 %pyproject_wheel
@@ -51,6 +57,10 @@ Summary:        %{summary}
 %doc README.md
 
 %changelog
+* Fri Jul 07 2023 Roman Inflianskas <rominf@aiven.io> - 7.16.5-2
+- Resolves: rhbz#2220542 F39FailsToInstall: python3-twilio
+- Simplify testing (don't install linters)
+
 * Wed Mar 15 2023 Paul Wouters <paul.wouters@aiven.io - 7.16.5-1
 - Resolves: rhbz#2177268 python-twilio-7.16.5 is available
 

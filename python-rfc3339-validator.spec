@@ -1,4 +1,4 @@
-%bcond_without tests
+%bcond tests 1
 
 Name:           python-rfc3339-validator
 Version:        0.1.4

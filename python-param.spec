@@ -5,10 +5,10 @@
 #
 # However, currently we do not have all the necessary dependencies:
 #   No matching package to install: 'python3dist(myst-nb) = 0.12.2'
-#   No matching package to install: 'python3dist(nbconvert) < 6'
-#   No matching package to install: 'python3dist(nbsite) >= 0.6.1'
+#   No matching package to install: 'python3dist(nbsite) = 0.8~rc2'
 #   No matching package to install: 'python3dist(panel)'
-%bcond_with doc_pdf
+#   No matching package to install: 'python3dist(pydata-sphinx-theme) < 0.9~~'
+%bcond doc_pdf 0
 
 Name:           python-param
 # Update this on every new upstream release.  Consult the file param/.version

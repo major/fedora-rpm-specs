@@ -9,8 +9,8 @@ from the King Abdulaziz City for Science & Technology(kacst).
 
 Name: %{fontname}-fonts
 Version: 2.0
-Release: 29%{?dist}
-License: GPLv2
+Release: 30%{?dist}
+License: GPL-2.0-only
 Source: http://downloads.sourceforge.net/sourceforge/arabeyes/%{fontname}_fonts_%{version}.tar.bz2
 Source1: %{fontconf}-art.conf
 Source2: %{fontconf}-book.conf
@@ -63,7 +63,6 @@ Requires: fontpackages-filesystem
 %package -n %{fontname}-book-fonts
 Summary: Fonts for arabic from arabeyes project 
 Requires: %{name}-common = %{version}-%{release}
-License: GPLv2
 Provides: %{name} = %{version}-%{release}
 Obsoletes: %{name} < 2.0-3
 %description -n %{fontname}-book-fonts
@@ -76,7 +75,6 @@ This package contains book type fonts for the display of Arabic
 %package -n %{fontname}-digital-fonts
 Summary: Fonts for arabic from arabeyes project 
 Requires: %{name}-common = %{version}-%{release}
-License: GPLv2
 Provides: %{name} = %{version}-%{release}
 Obsoletes: %{name} < 2.0-3
 %description -n %{fontname}-digital-fonts
@@ -89,7 +87,6 @@ This package contains digital type fonts for the display of Arabic
 %package -n %{fontname}-letter-fonts
 Summary: Fonts for arabic from arabeyes project 
 Requires: %{name}-common = %{version}-%{release}
-License: GPLv2
 Provides: %{name} = %{version}-%{release}
 Obsoletes: %{name} < 2.0-3
 %description -n %{fontname}-letter-fonts
@@ -101,7 +98,6 @@ This package contains book kacst fonts for the display of Arabic
 %package -n %{fontname}-office-fonts
 Summary: Fonts for arabic from arabeyes project 
 Requires: %{name}-common = %{version}-%{release}
-License: GPLv2
 Provides: %{name} = %{version}-%{release}
 Obsoletes: %{name} < 2.0-3
 %description -n %{fontname}-office-fonts
@@ -114,7 +110,6 @@ This package contains office type fonts for the display of Arabic
 %package -n %{fontname}-pen-fonts
 Summary: Fonts for arabic from arabeyes project 
 Requires: %{name}-common = %{version}-%{release}
-License: GPLv2
 Provides: %{name} = %{version}-%{release}
 Obsoletes: %{name} < 2.0-3
 %description -n %{fontname}-pen-fonts
@@ -127,7 +122,6 @@ This package contains pen type fonts for the display of Arabic
 %package -n %{fontname}-qurn-fonts
 Summary: Fonts for arabic from arabeyes project 
 Requires: %{name}-common = %{version}-%{release}
-License: GPLv2
 Provides: %{name} = %{version}-%{release}
 Obsoletes: %{name} < 2.0-3
 %description -n %{fontname}-qurn-fonts
@@ -139,7 +133,6 @@ This package contains qurn type fonts for the display of Arabic
 %package -n %{fontname}-titlel-fonts
 Summary: Fonts for arabic from arabeyes project 
 Requires: %{name}-common = %{version}-%{release}
-License: GPLv2
 Provides: %{name} = %{version}-%{release}
 Obsoletes: %{name} < 2.0-3
 %description -n %{fontname}-titlel-fonts
@@ -151,7 +144,6 @@ This package contains title large type fonts for the display of Arabic
 %package -n %{fontname}-art-fonts
 Summary: Fonts for arabic from arabeyes project 
 Requires: %{name}-common = %{version}-%{release}
-License: GPLv2
 Provides: %{name} = %{version}-%{release}
 Obsoletes: %{name} < 2.0-3
 %description -n %{fontname}-art-fonts
@@ -163,7 +155,6 @@ This package contains art type fonts for the display of Arabic
 %package -n %{fontname}-decorative-fonts
 Summary: Fonts for arabic from arabeyes project 
 Requires: %{name}-common = %{version}-%{release}
-License: GPLv2
 Provides: %{name} = %{version}-%{release}
 Obsoletes: %{name} < 2.0-3
 %description -n %{fontname}-decorative-fonts
@@ -175,7 +166,6 @@ This package contains decorative type fonts for the display of Arabic
 %package -n %{fontname}-farsi-fonts
 Summary: Fonts for arabic from arabeyes project 
 Requires: %{name}-common = %{version}-%{release}
-License: GPLv2
 Provides: %{name} = %{version}-%{release}
 Obsoletes: %{name} < 2.0-3
 %description -n %{fontname}-farsi-fonts
@@ -187,7 +177,6 @@ This package contains farsi type fonts for the display of Arabic
 %package -n %{fontname}-naskh-fonts
 Summary: Fonts for arabic from arabeyes project 
 Requires: %{name}-common = %{version}-%{release}
-License: GPLv2
 Provides: %{name} = %{version}-%{release}
 Obsoletes: %{name} < 2.0-3
 %description -n %{fontname}-naskh-fonts
@@ -199,7 +188,6 @@ This package contains naskh type fonts for the display of Arabic
 %package -n %{fontname}-one-fonts
 Summary: Fonts for arabic from arabeyes project 
 Requires: %{name}-common = %{version}-%{release}
-License: GPLv2
 Provides: %{name} = %{version}-%{release}
 Obsoletes: %{name} < 2.0-3
 %description -n %{fontname}-one-fonts
@@ -211,7 +199,6 @@ This package contains one type fonts for the display of Arabic
 %package -n %{fontname}-poster-fonts
 Summary: Fonts for arabic from arabeyes project 
 Requires: %{name}-common = %{version}-%{release}
-License: GPLv2
 Provides: %{name} = %{version}-%{release}
 Obsoletes: %{name} < 2.0-3
 %description -n %{fontname}-poster-fonts
@@ -223,7 +210,6 @@ This package contains poster type fonts for the display of Arabic
 %package -n %{fontname}-screen-fonts
 Summary: Fonts for arabic from arabeyes project 
 Requires: %{name}-common = %{version}-%{release}
-License: GPLv2
 Provides: %{name} = %{version}-%{release}
 Obsoletes: %{name} < 2.0-3
 %description -n %{fontname}-screen-fonts
@@ -235,7 +221,6 @@ This package contains screen type fonts for the display of Arabic
 %package -n %{fontname}-title-fonts
 Summary: Fonts for arabic from arabeyes project 
 Requires: %{name}-common = %{version}-%{release}
-License: GPLv2
 Provides: %{name} = %{version}-%{release}
 Obsoletes: %{name} < 2.0-3
 %description -n %{fontname}-title-fonts
@@ -349,6 +334,9 @@ install -Dm 0644 -p %{SOURCE30} \
 %dir %{fontdir}
 
 %changelog
+* Fri Jul 07 2023 Parag Nemade <pnemade AT redhat DOT com> - 2.0-30
+- Migrate to SPDX license expression
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

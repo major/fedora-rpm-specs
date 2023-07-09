@@ -3,22 +3,34 @@ Version:        4.4
 Release:        30%{?dist}
 Summary:        A JUnit-like testing framework for C++
 
-License:        LGPLv3
+License:        LGPL-3.0-only
 URL:            https://cxxtest.com
 Source0:        https://github.com/CxxTest/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz
 Patch0:         %{name}-shebang.patch
 # adapt helper script doc/include_anchors.py to work with Python 3
 Patch1:         %{name}-include-anchors.patch
+# Fix a code typo
+# https://github.com/CxxTest/cxxtest/pull/145
+Patch2:         %{name}-tracker-typo.patch
+# Fix incorrect usage of 'is'
+# https://github.com/CxxTest/cxxtest/pull/149
+Patch3:         %{name}-is-equals.patch
+# Fix malformed regular expression escapes
+Patch4:         %{name}-escapes.patch
+# Fixes: "Warning: 'classifiers' should be a list, got type 'filter'"
+Patch5:         %{name}-classifiers.patch
 
 BuildArch:      noarch
 
 BuildRequires:  asciidoc >= 8.5.0
 BuildRequires:  dblatex
+BuildRequires:  make
 BuildRequires:  python3-devel
+BuildRequires:  python3-pip
 BuildRequires:  python3-setuptools
+BuildRequires:  python3-wheel
 BuildRequires:  texlive-multirow
 BuildRequires:  texlive-upquote
-BuildRequires: make
 
 # the --fog-parser option requires 'ply'
 Requires:       python3-ply
@@ -50,12 +62,12 @@ rm -f sample/Makefile.bcc32
 rm -rf python/cxxtest/
 
 find . -name ".cvsignore" -delete
-sed -i "s|^PY = python$|PY = %{__python3}|" doc/Makefile
+sed -i "s|^PY = python$|PY = %{python3}|" doc/Makefile
 
 
 %build
 cd python
-CFLAGS="%{optflags}" %{__python3} setup.py build
+%pyproject_wheel
 
 # create pkgconfig file
 cd ..
@@ -81,7 +93,7 @@ cxxtest.create_manpage()
 EOF
 
 # create manpage
-%{__python3} create_manpage.py
+%{python3} create_manpage.py
 a2x -f manpage cxxtestgen.1.txt
 
 # build documentation in PDF and HTML format (requires asciidoc >= 8.5.0)
@@ -93,7 +105,8 @@ mkdir -p %{buildroot}%{_includedir}/cxxtest
 install -D -p -m 644 cxxtest/* %{buildroot}%{_includedir}/cxxtest
 install -D -p -m 644 %{name}.pc %{buildroot}%{_datadir}/pkgconfig/%{name}.pc
 cd python
-%{__python3} setup.py install --skip-build --root %{buildroot}
+%pyproject_install
+%pyproject_save_files cxxtest
 
 %if 0%{?rhel} == 6
 # add symlink present in previous release of cxxtest
@@ -104,14 +117,13 @@ cd ..
 install -D -p -m 644 doc/cxxtestgen.1 %{buildroot}%{_mandir}/man1/cxxtestgen.1
 
 
-%files
-%doc COPYING README Versions
+%files -f %{pyproject_files}
+%doc README Versions
+%license COPYING
 %{_bindir}/cxxtestgen*
 %{_includedir}/%{name}/
 %{_datadir}/pkgconfig/%{name}.pc
 %{_mandir}/man1/cxxtestgen.1*
-%{python3_sitelib}/%{name}/
-%{python3_sitelib}/%{name}-*.egg-info
 
 
 %files doc
@@ -120,6 +132,15 @@ install -D -p -m 644 doc/cxxtestgen.1 %{buildroot}%{_mandir}/man1/cxxtestgen.1
 
 
 %changelog
+* Thu Jul  6 2023 Jerry James <loganjerry@gmail.com> - 4.4-30
+- Convert License field to SPDX
+- Add patch to fix a code typo
+- Add patch to fix misuse of python "is" keyword
+- Add patch to fix malformed regular expression escapes
+- Add patch to fix classifiers entry in setup.py
+- Use the latest python build macros
+- Use the %%license macro
+
 * Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 4.4-30
 - Rebuilt for Python 3.12
 

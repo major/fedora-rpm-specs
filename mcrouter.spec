@@ -13,7 +13,7 @@
 %global _lto_cflags %nil
 
 %global forgeurl https://github.com/facebook/mcrouter
-%global tag 2023.04.24.00
+%global tag 2023.07.03.00
 %global date %(echo %{tag} | sed -e 's|.00$||' | sed -e 's|\\.||g')
 
 Name:           mcrouter

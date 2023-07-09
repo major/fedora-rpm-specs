@@ -1,18 +1,17 @@
 %global revision 70
-%global releasedate 2012.02.01
 
 Name:             fontaine
 Version:          0
-Release:          31.svn%{revision}%{?dist}
+Release:          32.svn%{revision}%{?dist}
 Summary:          Font file meta information utility
-License:          GPLv2+
+License:          GPL-2.0-or-later
 URL:              http://unifont.org/fontaine/
 
 Source0:          https://sourceforge.net/code-snapshots/svn/f/fo/fontaine/code/fontaine-code-r%{revision}-trunk.zip
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:    cmake gettext doxygen
+BuildRequires:    cmake gettext
 BuildRequires:    freetype-devel
 
 %description
@@ -35,10 +34,14 @@ find -type d -name .svn | xargs -r rm -rf
 %find_lang %{name}
 
 %files -f %{name}.lang
-%doc documentation doxygen/html
+%doc documentation/html
+%license documentation/GPL-2.0-LICENSE
 %{_bindir}/%{name}
 
 %changelog
+* Fri Jul  7 2023 Yanko Kaneti <yaneti@declera.com> - 0-32.svn70
+- SPDX migration. Drop doxygen BR for no usefull docs are generated with it
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-31.svn70
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

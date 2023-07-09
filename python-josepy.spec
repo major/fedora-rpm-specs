@@ -94,7 +94,7 @@ install -Dpm0644 -t %{buildroot}%{_mandir}/man1 docs/_build/man/*.1*
 %endif
 
 %check
-%pytest
+%pytest -Wdefault
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE.txt

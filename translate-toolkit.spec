@@ -1,6 +1,6 @@
 Name:           translate-toolkit
 Version:        3.9.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools to assist with translation and software localization
 License:        GPL-2.0-or-later
 URL:            http://toolkit.translatehouse.org/
@@ -120,6 +120,9 @@ done
 %doc docs/_build/html
 
 %changelog
+* Fri Jul 07 2023 Python Maint <python-maint@redhat.com> - 3.9.2-2
+- Rebuilt for Python 3.12
+
 * Mon Jul  3 2023 Jens Petersen <petersen@redhat.com> - 3.9.2-1
 - http://docs.translatehouse.org/projects/translate-toolkit/en/latest/releases/3.9.2.html
 

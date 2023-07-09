@@ -1,9 +1,9 @@
 Name:           xscope
 Version:        1.4.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        X Window Protocol Viewer
 
-License:        MIT
+License:        MIT AND HPND-sell-variant
 URL:            https://gitlab.freedesktop.org/xorg/app/xscope
 Source0:        https://www.x.org/releases/individual/app//%{name}-%{version}.tar.xz
 
@@ -40,6 +40,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jul  7 2023 Yanko Kaneti <yaneti@declera.com> 1.4.4-2
+- SPDX migration
+
 * Sat Jun  3 2023 Yanko Kaneti <yaneti@declera.com> 1.4.4-1
 - Update to 1.4.4
 

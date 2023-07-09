@@ -4,7 +4,7 @@
 # 2) When making changes, increment the version (in baserelease) by 1.
 #    rpmdev-bumpspec and other tools update the macro below, which is used
 #    in Version: to get the desired effect.
-%global baserelease 260
+%global baserelease 261
 
 Summary: Red Hat specific rpm configuration files
 Name: redhat-rpm-config
@@ -254,6 +254,9 @@ install -p -m 644 -t %{buildroot}%{_rpmluadir}/fedora/srpm forge.lua
 %doc buildflags.md
 
 %changelog
+* Fri Jul  7 2023 Florian Weimer <fweimer@redhat.com> - 261-1
+- Fix warnings that appear during the build of the llvm package
+
 * Wed Jul  5 2023 Florian Weimer <fweimer@redhat.com> - 260-1
 - Implement the %%build_type_safety_c macro (#2218019)
 

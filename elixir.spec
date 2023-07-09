@@ -11,6 +11,8 @@ URL:      https://elixir-lang.org/
 VCS:      scm:git:https://github.com/%{upstream}/%{realname}.git
 Source0:  https://github.com/%{upstream}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:  https://github.com/%{upstream}/%{name}/releases/download/v%{version}/Docs.zip#/%{name}-%{version}-doc.zip
+Patch1:   elixir-0001-Use-PID-valid-for-32-bit-systems-closes-12741.patch
+Patch2:   elixir-0002-Use-PID-valid-for-32-bit-systems-followup-to-12741.patch
 # See https://bugzilla.redhat.com/1470583
 #BuildArch:      noarch
 BuildRequires: erlang-compiler
@@ -43,7 +45,7 @@ fault-tolerant, non-stop applications with hot code swapping.
 find -name ".build" -exec rm \{\} \;
 
 # Unpack elixir itself (Source0)
-%setup -q -D
+%autosetup -p1 -D
 
 # Remove windows-specific scripts
 find -name '*.bat' -exec rm \{\} \;

@@ -26,8 +26,8 @@
 %global libsomajor 4
 
 Name:           pkgconf
-Version:        1.9.4
-Release:        2%{?dist}
+Version:        1.9.5
+Release:        1%{?dist}
 Summary:        Package compiler and linker metadata toolkit
 
 License:        ISC
@@ -226,6 +226,9 @@ rm -rf %{buildroot}%{_datadir}/aclocal
 
 
 %changelog
+* Tue May 16 2023 Sérgio Basto <sergio@serjux.com> - 1.9.5-1
+- Update pkgconf to 1.9.5 (#2192963)
+
 * Mon May 15 2023 Sérgio Basto <sergio@serjux.com> - 1.9.4-2
 - Rebuild for ATF soname bump
 

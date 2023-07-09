@@ -1,6 +1,6 @@
 Name:		fio
 Version:	3.35
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Multithreaded IO generation tool
 
 License:	GPLv2
@@ -14,15 +14,19 @@ Source2:	https://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git/plain/keys/F7D35
 %ifarch x86_64 ppc64le
 %bcond_without pmem
 %endif
+%ifnarch %{arm} %{ix86}
 %bcond_without rbd
 %bcond_without rados
+%endif
 %else
 %bcond nbd 1
 %ifarch x86_64 ppc64le
 %bcond pmem %{undefined rhel}
 %endif
+%ifnarch %{arm} %{ix86}
 %bcond rbd 1
 %bcond rados 1
+%endif
 %endif
 
 BuildRequires:	gcc
@@ -39,10 +43,8 @@ BuildRequires:	openssl-devel
 BuildRequires:	libpmem-devel
 %endif
 
-%ifnarch %{arm} %{ix86} ppc64le
 %if %{with rbd}
 BuildRequires:	librbd1-devel
-%endif
 %endif
 
 %ifnarch %{arm}
@@ -67,13 +69,11 @@ Recommends:     %{name}-engine-nbd
 Recommends:     %{name}-engine-dev-dax
 Recommends:     %{name}-engine-libpmem
 %endif
-%ifnarch %{arm} %{ix86} ppc64le
 %if %{with rados}
 Recommends:     %{name}-engine-rados
 %endif
 %if %{with rbd}
 Recommends:     %{name}-engine-rbd
-%endif
 %endif
 %ifnarch %{arm}
 Recommends:     %{name}-engine-rdma
@@ -132,7 +132,6 @@ Read and write using mmap I/O to a file on a filesystem mounted with DAX
 on a persistent memory device through the PMDK libpmem library.
 %endif
 
-%ifnarch %{arm} %{ix86} ppc64le
 %if %{with rados}
 %package engine-rados
 Summary:        Rados engine for %{name}.
@@ -149,7 +148,6 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description engine-rbd
 Rados Block Device (RBD) engine for %{name}.
-%endif
 %endif
 
 %ifnarch %{arm}
@@ -217,7 +215,6 @@ make install prefix=%{_prefix} mandir=%{_mandir} libdir=%{_libdir}/fio DESTDIR=$
 %{_libdir}/fio/fio-nbd.so
 %endif
 
-%ifnarch %{arm} %{ix86} ppc64le
 %if %{with rados}
 %files engine-rados
 %{_libdir}/fio/fio-rados.so
@@ -227,7 +224,6 @@ make install prefix=%{_prefix} mandir=%{_mandir} libdir=%{_libdir}/fio DESTDIR=$
 %files engine-rbd
 %{_libdir}/fio/fio-rbd.so
 %endif
-%endif
 
 %ifnarch %{arm}
 %files engine-rdma
@@ -235,6 +231,9 @@ make install prefix=%{_prefix} mandir=%{_mandir} libdir=%{_libdir}/fio DESTDIR=$
 %endif
 
 %changelog
+* Thu Jul 06 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.35-3
+- Re-enable rados, rbd on ppc64le
+
 * Mon Jun 12 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.35-2
 - Drop libpmem support from RHEL 10+ builds
 

@@ -7,8 +7,8 @@ locations such as terminals.
 
 Name: %{fontname}-fonts
 Version: 0.3
-Release: 30%{?dist}
-License: Public Domain
+Release: 31%{?dist}
+License: LicenseRef-Fedora-Public-Domain
 URL: http://www.cl.cam.ac.uk/~mgk25/ucs-fonts.html
 Source0: http://www.cl.cam.ac.uk/~mgk25/download/ucs-fonts.tar.gz
 Source1: 66-ucs-miscfixed.conf
@@ -68,6 +68,9 @@ ln -s %{_fontconfig_templatedir}/%{fontconf} \
 %doc README
 
 %changelog
+* Fri Jul 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.3-31
+- Convert to SPDX license.
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

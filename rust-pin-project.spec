@@ -6,7 +6,7 @@
 %global crate pin-project
 
 Name:           rust-pin-project
-Version:        1.1.0
+Version:        1.1.2
 Release:        %autorelease
 Summary:        Crate for safe and ergonomic pin-projection
 
@@ -34,7 +34,6 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/CHANGELOG.md
-%doc %{crate_instdir}/DEVELOPMENT.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

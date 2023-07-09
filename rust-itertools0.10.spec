@@ -2,21 +2,25 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate enum-map
+%global crate itertools
 
-Name:           rust-enum-map
-Version:        2.6.0
+Name:           rust-itertools0.10
+Version:        0.10.5
 Release:        %autorelease
-Summary:        Map with C-like enum keys represented internally as an array
+Summary:        Extra iterator adaptors, iterator methods, free functions, and macros
 
+# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/enum-map
+URL:            https://crates.io/crates/itertools
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * drop unused, benchmark-only criterion dev-dependency to speed up builds
+Patch:          itertools-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-A map with C-like enum keys represented internally as an array.}
+Extra iterator adaptors, iterator methods, free functions, and macros.}
 
 %description %{_description}
 
@@ -48,28 +52,28 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+arbitrary-devel
+%package     -n %{name}+use_alloc-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+arbitrary-devel %{_description}
+%description -n %{name}+use_alloc-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "arbitrary" feature of the "%{crate}" crate.
+use the "use_alloc" feature of the "%{crate}" crate.
 
-%files       -n %{name}+arbitrary-devel
+%files       -n %{name}+use_alloc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+serde-devel
+%package     -n %{name}+use_std-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+serde-devel %{_description}
+%description -n %{name}+use_std-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "serde" feature of the "%{crate}" crate.
+use the "use_std" feature of the "%{crate}" crate.
 
-%files       -n %{name}+serde-devel
+%files       -n %{name}+use_std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

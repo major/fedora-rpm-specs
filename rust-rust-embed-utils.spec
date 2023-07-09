@@ -5,7 +5,7 @@
 %global crate rust-embed-utils
 
 Name:           rust-rust-embed-utils
-Version:        7.5.0
+Version:        7.8.1
 Release:        %autorelease
 Summary:        Utilities for rust-embed
 

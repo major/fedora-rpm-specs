@@ -1,6 +1,6 @@
 # Tests are disabled by default because they require network access.
 # Try: fedpkg mockbuild --with tests --enable-network
-%bcond_with tests
+%bcond tests 0
 
 Name:           python-virtualenv-api
 Version:        2.1.18

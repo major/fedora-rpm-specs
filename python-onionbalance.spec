@@ -6,7 +6,7 @@
 
 Name:           python-%{pkgname}
 Version:        0.2.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        %{sum}
 
 License:        GPLv3
@@ -17,6 +17,8 @@ Source2:        onionbalance.tmpfiles
 Source3:        onionbalance.logrotate
 Source5:        onionbalance.torrc.example
 Source6:        README.fedora
+
+Patch0:         python-onionbalance-fix-versioneer.patch
 
 BuildArch: noarch
 
@@ -126,6 +128,9 @@ exit 0
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{pkgname}.conf
 
 %changelog
+* Fri Jul 07 2023 Python Maint <python-maint@redhat.com> - 0.2.1-8
+- Fix configparsers
+
 * Thu Jul 06 2023 Python Maint <python-maint@redhat.com> - 0.2.1-7
 - Rebuilt for Python 3.12
 
